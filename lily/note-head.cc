@@ -184,7 +184,7 @@ Note_head::brew_molecule (SCM smob)
 Interval
 Note_head::head_extent (Grob *me, Axis a)
 {
-  return  internal_brew_molecule (me, false).extent (a);
+  return internal_brew_molecule (me, false).extent (a);
 }
 
 bool

@@ -150,7 +150,8 @@ Real
 Note_spacing::stem_dir_correction (Grob*me) 
 {
   Drul_array<Direction> stem_dirs(CENTER,CENTER);
-  Drul_array<Interval> posns;
+  Drul_array<Interval> stem_posns;
+  Drul_array<Interval> head_posns;  
   Drul_array<SCM> props(me->get_grob_property ("left-items"),
 			me->get_grob_property ("right-items"));
 
@@ -158,12 +159,17 @@ Note_spacing::stem_dir_correction (Grob*me)
   Interval intersect;
   bool correct = true;
   Direction d = LEFT;
+  bool acc_right = false;
+  
   do
     {
       for (SCM  s = props[d]; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car(s)));
 
+	  if (d == RIGHT)
+	    acc_right = acc_right || Note_column::accidentals (it);
+	  
 	  Grob *stem = Note_column::stem_l (it);
 
 	  if (!stem || Stem::invisible_b (stem))
@@ -180,31 +186,81 @@ Note_spacing::stem_dir_correction (Grob*me)
 	    }
 	  stem_dirs[d] = sd;
 
-	  Real chord_start = Stem::head_positions (stem)[sd];
+	  Interval hp  = Stem::head_positions (stem);
+	  Real chord_start = hp[sd];	  
 	  Real stem_end = Stem::stem_end_position (stem);
 	  
-	  posns[d] = Interval(chord_start<?stem_end, chord_start>? stem_end);
+	  stem_posns[d] = Interval(chord_start<?stem_end, chord_start>? stem_end);
+	  head_posns[d].unite (hp);
 	}
     }
   while (flip (&d) != LEFT);
   
-  intersect = posns[LEFT];  
-  intersect.intersect(posns[RIGHT]);
-  correct = correct && !intersect.empty_b ();
-  correct = correct && (stem_dirs[LEFT] *stem_dirs[RIGHT] == -1);
-  
- exit_loop:
-  if(!correct)
-    return 0.0;
 
   /*
-    Ugh. 7 is hardcoded.
-   */
-  Real correction = abs (intersect.length ());
-  correction = (correction/7) <? 1.0;
-  correction *= stem_dirs[LEFT] ;
-  correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+    don't correct if accidentals are sticking out of the right side.
 
-  return correction;
+  */
+  if (acc_right)
+    return 0.0;
+
+  
+  if (correct && stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
+    {
+      intersect = stem_posns[LEFT];  
+      intersect.intersect(stem_posns[RIGHT]);
+      correct = correct && !intersect.empty_b ();
+
+      if (!correct)
+	return 0.0;
+      /*
+      Ugh. 7 is hardcoded.
+    */
+      Real correction = abs (intersect.length ());
+      correction = (correction/7) <? 1.0;
+      correction *= stem_dirs[LEFT] ;
+      correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+      return correction;
+    }
+  else if (correct)
+    {
+      /*
+	Correct for the following situation:
+
+	 X      X
+	|      | 
+	|      |
+ 	|   X  |
+	|  |   |
+	========
+
+           ^ move the center one to the left.
+	
+
+	this effect seems to be much more subtle than the
+	stem-direction stuff (why?), and also does not scale with the
+	difference in stem length.
+	
+       */
+
+      
+      Interval hp = head_posns[LEFT];
+      hp.intersect  (head_posns[RIGHT]);
+      if (!hp.empty_b())
+	return 0.0;
+
+      Direction lowest =
+	(head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
+
+      Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP] ;
+      Real corr = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+      corr =  (delta <= 1) ? 0.0 : 0.25;
+      
+      return -lowest * corr ;
+    }
+
+  
+ exit_loop:
+  return 0.0;
 }
  

@@ -13,70 +13,7 @@
 #include "music-list.hh"
 #include "musical-request.hh"
 
-/* some SCM abbrevs
 
-   zijn deze nou handig?
-   zijn ze er al in scheme, maar heten ze anders? */
-
-
-/* Remove doubles from (sorted) list */
-SCM
-ly_unique (SCM list)
-{
-  SCM unique = SCM_EOL;
-  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
-    {
-      if (!gh_pair_p (ly_cdr (i))
-	  || !gh_equal_p (ly_car (i), ly_cadr (i)))
-	unique = gh_cons (ly_car (i), unique);
-    }
-  return gh_reverse (unique);
-}
-
-/* Hmm, rewrite this using ly_split_list? */
-SCM
-ly_remove_member (SCM s, SCM list)
-{
-  SCM removed = SCM_EOL;
-  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
-    {
-      if (!gh_equal_p (ly_car (i), s))
-	removed = gh_cons (ly_car (i), removed);
-    }
-  return gh_reverse (removed);
-}
-
-/* tail add */
-SCM
-ly_snoc (SCM s, SCM list)
-{
-  return gh_append2 (list, scm_list_n (s, SCM_UNDEFINED));
-}
-
-
-/* Split list at member s, removing s.
-   Return (BEFORE . AFTER) */
-SCM
-ly_split_list (SCM s, SCM list)
-{
-  SCM before = SCM_EOL;
-  SCM after = list;
-  for (; gh_pair_p (after);)
-    {
-      SCM i = ly_car (after);
-      after = ly_cdr (after);
-      if (gh_equal_p (i, s))
-	break;
-      before = gh_cons (i, before);
-    }
-  return gh_cons (gh_reverse (before), after);
-}
-
-/*
-  JUNKME. 
-  do something smarter.
-  zoals?
- */
 SCM
 Chord::base_pitches (SCM tonic)
 {
@@ -86,10 +23,10 @@ Chord::base_pitches (SCM tonic)
   SCM minor = Pitch (0, 2, -1).smobbed_copy ();
 
   base = gh_cons (tonic, base);
-  base = gh_cons (Pitch::transpose (ly_car (base), major), base);
-  base = gh_cons (Pitch::transpose (ly_car (base), minor), base);
+  base = gh_cons (pitch_transpose (ly_car (base), major), base);
+  base = gh_cons (pitch_transpose (ly_car (base), minor), base);
 
-  return gh_reverse (base);
+  return scm_reverse_x (base, SCM_EOL);
 }
 
 SCM
@@ -101,10 +38,10 @@ Chord::transpose_pitches (SCM tonic, SCM pitches)
   SCM transposed = SCM_EOL;
   for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
-      transposed = gh_cons (Pitch::transpose (tonic, ly_car (i)),
+      transposed = gh_cons (pitch_transpose (tonic, ly_car (i)),
 			    transposed);
     }
-  return gh_reverse (transposed);
+  return scm_reverse_x (transposed, SCM_EOL);
 }
 
 /*
@@ -123,11 +60,11 @@ Chord::lower_step (SCM tonic, SCM pitches, SCM step)
       if (gh_equal_p (step_scm (tonic, ly_car (i)), step)
 	  || gh_scm2int (step) == 0)
 	{
-	  p = Pitch::transpose (p, Pitch (0, 0, -1).smobbed_copy ());
+	  p = pitch_transpose (p, Pitch (0, 0, -1).smobbed_copy ());
 	}
       lowered = gh_cons (p, lowered);
     }
-  return gh_reverse (lowered);
+  return scm_reverse_x (lowered, SCM_EOL);
 }
 
 /* Return member that has same notename, disregarding octave or alterations */
@@ -217,7 +154,7 @@ Chord::missing_thirds (SCM pitches)
   for (int i=0; i < 7; i++)
     thirds = gh_cons (Pitch (0, 2, minormajor_a[i]).smobbed_copy (),
 		      thirds);
-  thirds = scm_vector (gh_reverse (thirds));
+  thirds = scm_vector (scm_reverse_x (thirds, SCM_EOL));
   
   SCM tonic = ly_car (pitches);
   SCM last = tonic;
@@ -232,7 +169,7 @@ Chord::missing_thirds (SCM pitches)
 	{
 	  int third = (unsmob_pitch (last)->notename_i_
 		       - unsmob_pitch (tonic)-> notename_i_ + 7) % 7;
-	  last = Pitch::transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
+	  last = pitch_transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
 	}
       
       if (step > gh_scm2int (step_scm (tonic, last)))
@@ -242,7 +179,7 @@ Chord::missing_thirds (SCM pitches)
 	      missing = gh_cons (last, missing);
 	      int third = (unsmob_pitch (last)->notename_i_
 			   - unsmob_pitch (tonic)->notename_i_ + 7) % 7;
-	      last = Pitch::transpose (last, scm_vector_ref (thirds,
+	      last = pitch_transpose (last, scm_vector_ref (thirds,
 						      gh_int2scm (third)));
 	    }
 	}
@@ -262,7 +199,7 @@ Chord::add_above_tonic (SCM pitch, SCM pitches)
   /* Should we maybe first make sure that PITCH is below tonic? */
   if (pitches != SCM_EOL)
     while (Pitch::less_p (pitch, ly_car (pitches)) == SCM_BOOL_T)
-      pitch = Pitch::transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
+      pitch = pitch_transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
    
   pitches = gh_cons (pitch, pitches);
   return scm_sort_list (pitches, Pitch::less_p_proc);

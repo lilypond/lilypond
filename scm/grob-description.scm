@@ -77,6 +77,9 @@
 		       (direction . 0)
 		       (font-family . number)
 		       (font-relative-size . -1)
+		       (padding . 0.1)
+		       (kern . 0.2)
+		       (thickness . 1.0)
 		       (meta . ,(grob-description text-interface font-interface ))
 	))
 	(Beam . (
@@ -579,7 +582,7 @@
 	(NoteSpacing . (
 		(X-extent-callback . #f)
 		(Y-extent-callback . #f)
-		(stem-spacing-correction . 0.)
+		(stem-spacing-correction . 0.5)
 		(space-factor . 1.0)
 		(meta . ,(grob-description note-spacing-interface))
 	))

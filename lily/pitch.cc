@@ -220,20 +220,28 @@ Pitch::down_to (int notename)
   notename_i_ = notename;
 }
 
-///MAKE_SCHEME_CALLBACK (Pitch, transpose, 2);
-///transpose_proc?
-SCM
-Pitch::transpose (SCM p, SCM delta)
-{
-  Pitch t = *unsmob_pitch (p);
-  t.transpose (*unsmob_pitch (delta));
-  return t.smobbed_copy ();
-}
+/*
+  can't use macro MAKE_SCHEME_CALLBACK().
+   messy stuff since Pitch::transpose is overloaded.
+ */
 
-static SCM
+SCM
 pitch_transpose (SCM p, SCM delta)
 {
-  return Pitch::transpose (p, delta);
+  Pitch* t = unsmob_pitch (p);
+  Pitch *d = unsmob_pitch (delta);
+  SCM_ASSERT_TYPE(t, p, SCM_ARG1, __FUNCTION__, "pitch")  ;
+  SCM_ASSERT_TYPE(d, delta, SCM_ARG1, __FUNCTION__, "pitch")  ;
+
+  Pitch tp =*t;
+  tp.transpose (*d);
+  return tp.smobbed_copy ();
+}
+
+SCM
+Pitch::transpose (SCM p, SCM d)
+{
+  return pitch_transpose (p,d);
 }
 
 /****************************************************************/
@@ -248,8 +256,6 @@ Pitch::mark_smob (SCM)
 }
 
 IMPLEMENT_SIMPLE_SMOBS (Pitch);
-
-
 int
 Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {
@@ -291,10 +297,13 @@ Pitch::less_p (SCM p1, SCM p2)
 /*
   should add optional args
  */
-
 static SCM
 make_pitch (SCM o, SCM n, SCM a)
 {
+  SCM_ASSERT_TYPE(gh_number_p(o), o, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p(n), n, SCM_ARG2, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p(a), a, SCM_ARG3, __FUNCTION__, "number");
+
   Pitch p (gh_scm2int (o), gh_scm2int (n), gh_scm2int (a));
   return p.smobbed_copy ();
 }
@@ -303,11 +312,8 @@ static SCM
 pitch_octave (SCM pp)
 {
   Pitch *p = unsmob_pitch (pp);
-  int q = 0;
-  if (!p)
-    warning ("Not a pitch");
-  else
-    q = p->octave_i ();
+   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+  int q = p->octave_i ();
 
   return gh_int2scm (q);
 }
@@ -316,11 +322,8 @@ static SCM
 pitch_alteration (SCM pp)
 {
   Pitch *p = unsmob_pitch (pp);
-  int q = 0;
-  if (!p)
-    warning ("Not a pitch");
-  else
-    q = p->alteration_i ();
+  SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+  int     q = p->alteration_i ();
 
   return gh_int2scm (q);
 }
@@ -329,11 +332,8 @@ static SCM
 pitch_notename (SCM pp)
 {
   Pitch *p = unsmob_pitch (pp);
-  int q = 0;
-  if (!p)
-    warning ("Not a pitch");
-  else
-    q = p->notename_i ();
+  SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+  int q  = p->notename_i ();
 
   return gh_int2scm (q);
 }
@@ -342,11 +342,9 @@ static SCM
 pitch_semitones (SCM pp)
 {
   Pitch *p = unsmob_pitch (pp);
-  int q = 0;
-  if (!p)
-    warning ("Not a pitch");
-  else
-    q = p->steps ();
+   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+ 
+  int q = p->steps ();
 
   return gh_int2scm (q);
 }
@@ -356,7 +354,6 @@ add_funcs ()
 {
   // should take list?: (make-pitch ' (octave name accidental))
   scm_c_define_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
-
   scm_c_define_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
   scm_c_define_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
   scm_c_define_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);

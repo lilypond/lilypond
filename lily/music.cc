@@ -167,8 +167,6 @@ Music::internal_get_mus_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
-
-
 void
 Music::internal_set_mus_property (SCM s, SCM v)
 {
@@ -177,7 +175,6 @@ Music::internal_set_mus_property (SCM s, SCM v)
     assert (type_check_assignment (s, v, ly_symbol2scm ("music-type?")));
 #endif
   
-
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
@@ -189,17 +186,12 @@ Music::set_spot (Input ip)
   set_mus_property ("origin", make_input (ip));
 }
 
-
-
 Input*
 Music::origin () const
 {
   Input *ip = unsmob_input (get_mus_property ("origin"));
   return ip ? ip : & dummy_input_global; 
 }
-
-
-
 
 
 Music::~Music ()
@@ -211,17 +203,11 @@ SCM
 ly_get_mus_property (SCM mus, SCM sym)
 {
   Music * sc = unsmob_music (mus);
-  
-  if (sc)
-    {
+  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+
       return sc->internal_get_mus_property (sym);
-    }
-  else
-    {
-      warning (_ ("ly_get_mus_property (): Not a Music"));
-      scm_write (mus, scm_current_error_port ());
-    }
-  return SCM_EOL;
+
 }
 
 
@@ -229,22 +215,8 @@ SCM
 ly_set_mus_property (SCM mus, SCM sym, SCM val)
 {
   Music * sc = unsmob_music (mus);
-
-  if (!gh_symbol_p (sym))
-    {
-      warning (_ ("ly_set_mus_property (): Not a symbol"));
-      scm_write (mus, scm_current_error_port ());      
-
-      return SCM_UNSPECIFIED;
-    }
-
-  if (!sc)
-    {
-      warning (_ ("ly_set_mus_property ():  not of type Music: "));
-      scm_write (mus, scm_current_error_port ());
-      return SCM_UNSPECIFIED;
-    }
-
+  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
@@ -260,35 +232,23 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
 SCM
 ly_make_music (SCM type)
 {
-  if (!gh_string_p (type))
-    {
-      warning (_ ("ly_make_music (): Not a string"));
-      scm_write (type, scm_current_error_port ());      
+  SCM_ASSERT_TYPE(gh_string_p(type), type, SCM_ARG1, __FUNCTION__, "string");
+  
+  
+  SCM s = get_music (ly_scm2string (type))->self_scm ();
+  scm_gc_unprotect_object (s);
 
-      return SCM_UNSPECIFIED;
-    }
-  else
-    {
-      SCM s = get_music (ly_scm2string (type))->self_scm ();
-      scm_gc_unprotect_object (s);
-
-      return s;
-    }
+  return s;
 }
 
 SCM
 ly_music_name (SCM mus)
 {
   Music * m = unsmob_music (mus);
-  const char *nm ="";
-  if (!m)
-    {
-      warning (_ ("ly_music_name (): Not a music expression"));
-      scm_write (mus, scm_current_error_port ());      
-    }
-   else
-     nm = classname (m);
-   return ly_str02scm (nm);
+  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__ ,"music");
+  
+  const char * nm = classname (m);
+  return ly_str02scm (nm);
 }
 
 SCM
