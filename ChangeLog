@@ -25,7 +25,7 @@
 	* scm/translation-functions.scm (format-metronome-markup): make
 	note smaller, align to bottom.
 
-	* scm/define-grobs.scm (all-grob-descriptions): noone
+	* scm/define-grobs.scm (all-grob-descriptions): metronome fixes.
 
 	* lily/metronome-engraver.cc (stop_translation_timestep): attach
 	metronome to musical column. Don't ack time sigs or bar lines.
@@ -75,7 +75,7 @@
 
 	* lily/main.cc (dir_info): Print variables in sh format.
 
-2	* lily/includable-lexer.cc: Use #if iso #ifdef for HAVE_ tests.
+	* lily/includable-lexer.cc: Use #if iso #ifdef for HAVE_ tests.
 
 	* mf/SConscript: Update multiple target rules.
 
