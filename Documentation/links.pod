@@ -24,6 +24,10 @@ The documentation system for C++ sources, which the LilyPond sources use.
 
 An enormous collection of music related URLs
 
+=item http://art.ucsc.edu/faculty/cope/home
+
+See New Scientist, aug 9 1997.
+
 =back
 
 =head2 Ftp 

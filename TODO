@@ -6,6 +6,8 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+0.2:
+
 	* LILYSOURCEDIR
 	
 	* documentation
@@ -14,15 +16,17 @@ grep for TODO and ugh/ugr
 
 	* standchen: warning: Excentric column (Meter dims?)
 
-	* optimal pagebreaking.
-
-	* put errorlevel in Input class
-
-	* AFM for font input?
-
 	* naming Mozarella, Madeira, Muella?
 
+	* versioning for Feta
+
 	* bf: abbrevs over whole note
+
+	* Score_bar/Piano_braces, are *not* ordinary bars 
+
+STUFF
+
+	* give Items/Spanners access to unbroken originals	
 
 	* scoping for properties
 
@@ -47,9 +51,13 @@ grep for TODO and ugh/ugr
 	- MIDI instrument
 	- staff title
 
-	* give Items/Spanners access to unbroken originals	
+	* optimal pagebreaking.
 
-	* Score_bar/Piano_braces, are *not* ordinary bars 
+	* put errorlevel in Input class
+
+	* AFM for font input?
+
+
 
 3RD PARTY BUGS:
 	* Rational infty(HUGE_VAL) on glibc / w32
@@ -112,19 +120,6 @@ languages:
 	- NIFF?
 	- ABC? 
 	- SMDL?
-
-	* placement of bar-numbers
-
-******************
-
-	\score { < 
-		\melodic \type Staff { c'4 g'4 }
-		\lyric { \id "Lyric" ""; hello4 bye4 < a chord > }
-		\lyric { \id "Lyric" ""; bye4 hello4 }
-		\melodic { \id "Staff" ""; c'4 g'4 }
-	> }
-
-******************
 
 	* add to MIDI output:
 	- tempo change
@@ -275,6 +270,7 @@ SMALLISH PROJECTS
 	* write Dynamic_line (to group dynamics horizontally)
 
 	* use Real for all y positions.
+	- use translate_axis( .. ,Y_AXIS) 
 
 	* half-sharps, half-flats
 
@@ -353,7 +349,7 @@ Mudela.
 
 	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
 
-	* use an embedded language: Python
+	* use an embedded language: Python, Scheme
 	for: 
 		- Score_elems
 		- Engraver

@@ -53,7 +53,7 @@ table_sixteen=
 
      "clefs" = \table {
 	"violin"	"\violinclef"		0.0\pt	12.8\pt	-10.0\pt	18.0\pt
-	"bass"	"\bassclef" 		0.0\pt	12.8\pt	0.0\pt	16.0\pt
+	"bass"	"\bassclef" 		-1.0\pt	12.8\pt	0.0\pt	16.0\pt
 	"alto"	"\altoclef"		0.0\pt	12.8\pt	0.0\pt	16.0\pt
 	"tenor"	"\altoclef"		0.0\pt	12.8\pt	0.0\pt	16.0\pt
 	"violin_change"	"\cviolinclef" 	0.0\pt	11.2\pt	-12.0\pt	12.0\pt

@@ -4,7 +4,7 @@ mudela-book - integrate LaTeX and mudela
 
 =head1 SYNOPSIS
 
-	convert-mudela [options] [file]
+	mudela-book [options] [file]
 
 =head1 DESCRIPTION
 

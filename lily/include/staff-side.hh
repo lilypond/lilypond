@@ -18,35 +18,36 @@
 
   */
 class Staff_side : virtual Score_elem {
-    Link_array<Score_elem> support_l_arr_;
-    int staff_size_i_;
-    Interval support_height() const;
-    Staff_symbol* staff_sym_l_;
-    int get_position_i() const;
+  Link_array<Score_elem> support_l_arr_;
+  int staff_size_i_;
+  Interval support_height() const;
+  Staff_symbol* staff_sym_l_;
+  Real get_position_f() const;
 
-    void read_staff_sym();
+  void read_staff_sym();
 public:
 
-    /**
-      Vertical dir of symbol relative to staff. -1 = below staff?
-      */
-    Direction dir_;
-    Interval sym_int_;
+  /**
+    Vertical dir of symbol relative to staff. -1 = below staff?
+    */
+  Direction dir_;
+  Interval sym_int_;
     
-    /// follow the support inside the staff?
-    bool inside_staff_b_;
+  /// follow the support inside the staff?
+  bool inside_staff_b_;
 
-    int pos_i_;
+  Real y_;
 
-    void set_staffsym (Staff_symbol * );
+
+  void set_staffsym (Staff_symbol * );
   
-    Staff_side();
-    void add_support (Score_elem*);
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  Staff_side();
+  void add_support (Score_elem*);
+  DECLARE_MY_RUNTIME_TYPEINFO;
     
 protected:
-    virtual Interval symbol_height() const;
-    virtual void do_substitute_dependency (Score_elem *, Score_elem*);
-    virtual void do_post_processing();
+  virtual Interval symbol_height() const;
+  virtual void do_substitute_dependency (Score_elem *, Score_elem*);
+  virtual void do_post_processing();
 };
 #endif // STAFF_SIDE_HH

@@ -19,6 +19,7 @@ class Staff_symbol : public Spanner
 {
   /// this many lines.
   int no_lines_i_;
+  Real interline_f_;
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   Staff_symbol (int lines);
@@ -26,6 +27,7 @@ public:
   int steps_i() const;
 protected:
   SCORE_ELEM_CLONE(Staff_symbol);
+  virtual Interval do_height () const;
   virtual Molecule* brew_molecule_p() const;
   virtual void do_print() const;
 };

@@ -13,9 +13,9 @@ Keywords: music notation typesetting midi
 Author: hanwen@stack.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
-Primary-site: sunsite.unc.edu /pub/Linux/apps
+Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
 	440k lilypond-@TOPLEVEL_VERSION@.tar.gz 
-Original-site: pcnov095.win.tue.nl /pub/lilypond/
+Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
 	440k lilypond-@TOPLEVEL_VERSION@.tar.gz 
 Copying-policy: GPL
 End

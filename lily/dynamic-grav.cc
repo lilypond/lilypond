@@ -105,7 +105,8 @@ Dynamic_engraver::do_pre_move_processing()
   Staff_symbol* s_l = get_staff_info().staff_sym_l_;
   if (dynamic_p_)
     {
-      dynamic_p_->set_staffsym (s_l);
+      
+      dynamic_p_->add_support (s_l);
       typeset_element (dynamic_p_);
       dynamic_p_ = 0;
     }
@@ -115,7 +116,7 @@ Dynamic_engraver::do_pre_move_processing()
 	to_end_cresc_p_->dyn_b_drul_[RIGHT]=true;
 
       to_end_cresc_p_->set_bounds(RIGHT,get_staff_info().musical_l ());
-      to_end_cresc_p_->set_staffsym (s_l);
+      to_end_cresc_p_->add_support (s_l);
       typeset_element (to_end_cresc_p_);
       to_end_cresc_p_ = 0;
     }

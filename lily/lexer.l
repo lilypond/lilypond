@@ -66,7 +66,7 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
-PUNCT		[?!,.:']
+PUNCT		[?!:']
 ACCENT		\\[`'"^]
 NATIONAL  [\001-\006\021-\027\031\036\200-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
