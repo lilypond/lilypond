@@ -12,10 +12,10 @@
 	    no such encoding: "FontSpecific"
 
 	  The font selection mechanism wants to get the encoding from the
-	  font itself, but the whole idea of lmodern is that it is usable
-	  with different encodings, ie, Lily should get the encoding from
-	  the font tree, rather than the font itself.  This would require
-	  some major brain surgery.
+	  font itself, but the idea of lmodern is that it is usable with
+	  different encodings, ie, Lily should get the encoding from the
+	  font tree, rather than the font itself.  This would require some
+	  more work.
 	
 	* configure.in: Test for and accept lmodern if EC fonts not found.
 
