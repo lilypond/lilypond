@@ -1,3 +1,7 @@
+2004-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/tutorial.itely (Tutorial): Typo.
+
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/part-combiner.scm (analyse-spanner-states): use split-index,
