@@ -36,6 +36,8 @@
 ;
 ; -> Does not handle repeats.
 ;
+; -> Ignores \bar commands (and does not get confused by a | inside a \bar)
+;
 
 ; Recognizes pitch & octave
 (setq pitch-regex "\\([a-z]+[,']*\\|<[^>]*>\\)\\(=[,']*\\)?")
@@ -175,17 +177,26 @@ If next note has no duration, returns t"
 	(goto-char (match-end 0))
 	(if (member (match-string 1) Parm-Keywords)
 	    (progn
-	      (if (looking-at "[ \t\n]*\\([a-z0-9_]+\\|{[^}]*}\\)")
+	      (if (looking-at "[ \t\n]*?\\([a-z0-9_]+\\|{[^}]*}\\|\"[^\"]*\"\\)")
 		  (goto-char (match-end 0))
 		(error "Improper regex match:")
 		(error "Unknown text: %s")
 ))))))
 
+(defun find-measure-start ()
+  (let ((start (re-search-backward "\|" 0 t)))
+    (if (null start)
+	-1
+      (if (looking-at "[^ \n\t]*\"")
+	  (find-measure-start)
+	(point)
+))))
+
 (defun get-beat ()
   (save-excursion
     (save-restriction
       (let* ((end (point))
-	     (measure-start (or (re-search-backward "\|" 0 t) -1))
+	     (measure-start (find-measure-start))
 	     (last-dur (or (re-search-backward duration-regex 0 t) -1))
 	     (duration (if (= -1 last-dur) 0 (parse-duration (match-string 0))))
 	     (result '(0 1)))		; 0 in fraction form
