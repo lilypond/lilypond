@@ -1,3 +1,10 @@
+2002-07-02  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/ambitus-engraver.cc, lily/ambitus.cc: Various bugfixes:
+	avoid segfault on undefined ambitus pitch; avoid wasteful creation
+	of pitch smobs; defer computation of centralCPosition beyond first
+	timestep to catch also clefs outside of the current voice context.
+
 2002-07-02  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/template/satb.ly: new file

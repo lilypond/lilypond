@@ -64,10 +64,9 @@ class Ambitus_engraver : public Engraver
 {
 public:
 TRANSLATOR_DECLARATIONS(Ambitus_engraver);
-  virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
   virtual void stop_translation_timestep ();
+  virtual void finalize ();
 
 private:
   void create_ambitus ();
@@ -90,6 +89,14 @@ void
 Ambitus_engraver::stop_translation_timestep ()
 {
   if (!ambitus_p_) {
+    // Create ambitus not before stopping timestep.  centralCPosition
+    // will then be the same as that for the first timestep.
+    //
+    // TODO: is this really a good idea?  At least, creating the
+    // ambitus in start_translation_timestep is a *bad* idea, since we
+    // may then oversee a clef that is defined in a staff context if
+    // we are in a voice context; centralCPosition would then be
+    // assumed to be 0.
     create_ambitus ();
   }
   if (ambitus_p_ && isActive)
@@ -97,25 +104,8 @@ Ambitus_engraver::stop_translation_timestep ()
       SCM key_signature = get_property ("keySignature");
       ambitus_p_->set_grob_property ("keySignature", key_signature);
       typeset_grob (ambitus_p_);
-      //ambitus_p_ = 0;
       isActive = 0;
     }
-}
-
-void
-Ambitus_engraver::start_translation_timestep ()
-{
-  if (!ambitus_p_) {
-    create_ambitus ();
-  }
-}
-
-void
-Ambitus_engraver::create_grobs ()
-{
-  if (!ambitus_p_) {
-    create_ambitus ();
-  }
 }
 
 void
@@ -140,22 +130,14 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
 		  // not yet init'd; use current pitch to init min/max
 		  pitch_min = pitch;
 		  pitch_max = pitch;
-		  ambitus_p_->set_grob_property ("pitch-min",
-						 pitch_min.smobbed_copy ());
-		  ambitus_p_->set_grob_property ("pitch-max",
-						 pitch_max.smobbed_copy ());
 		}
 	      else if (Pitch::compare (pitch, pitch_max) > 0) // new max?
 		{
 		  pitch_max = pitch;
-		  ambitus_p_->set_grob_property ("pitch-max",
-						 pitch_max.smobbed_copy ());
 		}
 	      else if (Pitch::compare (pitch, pitch_min) < 0) // new min?
 		{
 		  pitch_min = pitch;
-		  ambitus_p_->set_grob_property ("pitch-min",
-						 pitch_min.smobbed_copy ());
 		}
 	    }
 	}
@@ -170,6 +152,31 @@ Ambitus_engraver::create_ambitus ()
   ambitus_p_ = new Item (basicProperties); isActive = 1;
   ambitus_p_->set_grob_property ("centralCPosition", c0);
   announce_grob (ambitus_p_, SCM_EOL);
+}
+
+void
+Ambitus_engraver::finalize ()
+{
+  if (ambitus_p_)
+    {
+      if (Pitch::compare (pitch_min, pitch_max) <= 0)
+	{
+	  ambitus_p_->set_grob_property ("pitch-min",
+					 pitch_min.smobbed_copy ());
+	  ambitus_p_->set_grob_property ("pitch-max",
+					 pitch_max.smobbed_copy ());
+	}
+      else // have not seen any pitch, so forget about the ambitus
+	{
+	  // Do not print a warning on empty ambitus range, since this
+	  // most probably arises from an empty voice, such as shared
+	  // global timesig/clef definitions.
+#if 0
+	  ambitus_p_->warning("empty ambitus range [ignored]");
+#endif
+	  ambitus_p_->suicide();
+	}
+    }
 }
 
 ENTER_DESCRIPTION(Ambitus_engraver,
