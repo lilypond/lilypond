@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 \header {
 
     texidoc = "Lyrics in MIDI are aligned to ties and beams:
@@ -9,7 +9,7 @@ this examples causes no bar checks in MIDI.
     }
 \score {
 
-    <<\notes\relative c'' \context Voice = A {
+    <<\relative c'' \context Voice = A {
 	\autoBeamOff
 	c8[ c] c2.
 	c1~c4 c2.
@@ -17,7 +17,7 @@ this examples causes no bar checks in MIDI.
 	c1
 
     }
-    \lyricsto "A" \lyrics\new Lyrics { bla bla | bla bla | bla bla | bla }
+    \lyricsto "A" \lyricmode\new Lyrics { bla bla | bla bla | bla bla | bla }
     >>
     \paper {}
       \midi {}

@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 %
 % Running LilyPond on this file generates the documentation

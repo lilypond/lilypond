@@ -3,7 +3,7 @@ texidoc="Beams are place automatically; the last measure should have a single
 beam."
 }
 
-\version "2.3.4"
+\version "2.3.16"
 
 \paper  { raggedright = ##t } 
 

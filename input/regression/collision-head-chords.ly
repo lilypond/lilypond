@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 \header {
 texidoc = "Note heads in collisions should be merged if
 they have the same positions in the extreme note heads.  

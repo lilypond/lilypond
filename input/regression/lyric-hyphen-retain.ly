@@ -1,5 +1,5 @@
 
-\version "2.3.8"
+\version "2.3.16"
 
 \header {
 
@@ -28,7 +28,7 @@ c16[ c c c]
 	% Otherwise lyrics are so far apart that hyphens don't disappear
 	  \override SeparationItem #'padding = #0.0
       }
-      \lyrics {
+      \lyricmode {
 	  bla -- bla -- bla -- bla --
 	  bla -- bla -- bla -- bla --
 

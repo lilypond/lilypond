@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header{
     
@@ -10,5 +10,5 @@
 #(write "hallo" (open-file "/tmp/safe-guile.scm" "w"))
 
 \score{
-    \notes c''
+     c''
 }

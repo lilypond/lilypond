@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 
 \header{
 texidoc="Property chordChanges: display chord names only when
@@ -7,7 +7,7 @@ chord name after a line break.
 "
 }
 
-scheme = \chords {
+scheme = \chordmode {
   c1:m \break c:m c:m c:m d
   c1:m \break c:m c:m c:m d
 }

@@ -1,4 +1,4 @@
-\version "2.3.8" 
+\version "2.3.16" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 Staffs can be nested in various combinations. Here, @code{StaffGroup}

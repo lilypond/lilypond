@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 \header { texidoc = "@cindex Bar line lyric only
 You can move @code{Bar_engraver} and @code{Span_bar_engraver} to 
 a different engraving context, if you want, for example, bar lines 
@@ -8,7 +8,7 @@ on lyrics. "
 \score {
     \relative c' \context ChoirStaff <<
 	\new Staff { c1 c1 c1}
-	\lyrics <<
+	\lyricmode <<
 	    \new Lyrics  { bla1 die bla }
 	>>
 	\new Staff { c1 c1 c1} 

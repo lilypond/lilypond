@@ -2,7 +2,7 @@
     texidoc = "Lyrics are not lowered despite the presence of an octavation 8."
 }
 
-\version "2.3.10"
+\version "2.3.16"
 \paper {
     \context {
 	\Staff

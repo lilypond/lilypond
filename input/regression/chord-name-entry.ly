@@ -1,10 +1,10 @@
-\version "2.3.4"
+\version "2.3.16"
 
 
 \header {
 
 texidoc = "Chords can be produced with the new chordname entry 
-code (@code{\chords} mode), using a pitch and a suffix. Here,
+code (@code{\chordmode} mode), using a pitch and a suffix. Here,
 the suffixes are printed below pitches.
 "
 
@@ -12,7 +12,7 @@ the suffixes are printed below pitches.
 
 \score
 {
-  { \context Voice \chords {
+  { \context Voice \chordmode {
 c1_"(nothing)"
 c:7_":7"
 c:m_":m"

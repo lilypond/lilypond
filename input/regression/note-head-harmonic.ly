@@ -6,7 +6,7 @@
   Harmonic heads do not get  dots. If @code{harmonicAccidentals} is unset, they also don't get accidentals."
 }
 
-\version "2.3.4"
+\version "2.3.16"
 
 \score {
   {

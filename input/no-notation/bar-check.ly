@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header {
 
@@ -6,7 +6,7 @@ texidoc = "skipTypesetting doesn't affect bar checks."
 
 }
 
-\score { \notes {
+\score {  {
 	\set Score.skipTypesetting = ##t
 	c4 c4
 	|

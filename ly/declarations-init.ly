@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 %% < 1.8 compatibility switch
 #(ly:set-option 'old-relative)
@@ -34,7 +34,7 @@ center = 0
 %%
 %% try \once \set Score.allowBeamBreak = ##t
 
-%% rather name \newline, \newpage ?
+%% rather name \newline, \pageBreak ?
 break = #(make-event-chord (list (make-penalty-music -10001 0)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
 pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))

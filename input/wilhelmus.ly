@@ -1,4 +1,4 @@
-\version "2.3.9"
+\version "2.3.16"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -113,7 +113,7 @@ stich =  \relative c'' {
   s8 e8[ fis]
 }
 
-modernText = \lyrics {
+modernText = \lyricmode {
   Wil -- hel -- mus van Nas -- sou -- we
   ben ik van duit -- sen bloed,
 
@@ -127,7 +127,7 @@ modernText = \lyrics {
   heb ik al -- tijd ge -- eerd.
 }
 
-text = \lyrics {
+text = \lyricmode {
   Wil -- hel -- mus van Nas -- sou -- we
   Ben ick van duyt -- schen bloet,
   Den Va -- der -- landt ghe -- trou -- we,

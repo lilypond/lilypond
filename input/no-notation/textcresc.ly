@@ -1,9 +1,9 @@
-\version "2.2.0"
+\version "2.3.16"
 \header{
 texidoc="crashes lily"
 }
 
-\score { \notes {
+\score {  {
   \context Voice {
     \set crescendoText = "cresc."
     \set crescendoSpanner = #'dashed-line

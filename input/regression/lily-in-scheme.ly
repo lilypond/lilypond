@@ -12,7 +12,7 @@ the @code{TextScript} grob.
           
       }
 
-\version "2.3.4"
+\version "2.3.16"
 \paper { raggedright = ##t }
 
 withPaddingA = #(def-music-function (location padding music) (number? ly:music?)
@@ -31,7 +31,7 @@ withPaddingC = #(def-music-function (location padding music) (number? ly:music?)
                         \revert TextScript #'padding #})
 
 \score {
-    \notes {
+    \notemode {
         c'^"1"
         \withPaddingA #2
         { c'^"2" c'^"3"}

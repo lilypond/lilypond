@@ -1,4 +1,4 @@
-\version "2.3.2"
+\version "2.3.16"
 \header {
 
 texidoc = "The @code{Recording_group_engraver} will record events
@@ -8,7 +8,7 @@ how to skip the rendering and outputting step of the process, using
 
 }
 
-theMusic = \context Staff \notes { c4 d8-. }
+theMusic = \context Staff  { c4 d8-. }
 
 #(define (notice-the-events context lst)
   (map (lambda (x) (display x) (newline))  lst))

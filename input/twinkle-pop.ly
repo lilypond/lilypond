@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.4"
+\version "2.3.16"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -22,7 +22,7 @@ melodie = \relative c'' {
         f4 f  | e e  | d d | c2 \bar "|."
 }
 
-acc = \chords {
+acc = \chordmode {
 	% why don't \skip, s4 work?
         c2 c f c
         f c g:7 c
@@ -33,7 +33,7 @@ acc = \chords {
         f c g:7 c
 }
 
-text = \lyrics{ 
+text = \lyricmode{ 
         \override LyricText  #'font-shape = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2

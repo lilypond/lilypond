@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 
 applymusic = #(def-music-function (location func music) (procedure? ly:music?)

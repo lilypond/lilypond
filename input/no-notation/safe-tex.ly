@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.16"
 
 \header{
     
@@ -12,5 +12,5 @@
 }
 
 \score{
-    \notes c''-"\\newwrite\\barf\\immediate\\openout\\barf=/tmp/safe-tex.tex\\immediate\\write\\barf{hallo}"
+     c''-"\\newwrite\\barf\\immediate\\openout\\barf=/tmp/safe-tex.tex\\immediate\\write\\barf{hallo}"
 }

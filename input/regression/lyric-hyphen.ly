@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 \header {
     texidoc = "In lyrics, hyphens may be used."
 }
@@ -9,7 +9,7 @@
 
 <<
     \context Staff  { c' (c') c'( c') }
-    \context Lyrics \lyrics { bla -- alb xxx -- yyy }
+    \context Lyrics \lyricmode { bla -- alb xxx -- yyy }
 >>
 
 

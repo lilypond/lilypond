@@ -1,3 +1,4 @@
+\version "2.3.16"
 @c Note: -*-texinfo-*-
 @c This file is part of lilypond.tely
 
@@ -80,7 +81,7 @@ A note is printed by specifying its pitch and then its duration,
 @cindex entering notes
 
 The most common syntax for pitch entry is used for standard notes and
-@code{\chords} modes.  In these modes, pitches may be designated by
+@code{\chordmode} modes.  In these modes, pitches may be designated by
 names.  The notes are specified by the letters @code{a} through
 @code{g}.  The octave is formed with notes ranging from @code{c}
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
@@ -273,7 +274,7 @@ the @code{\skip} command
 @lilypond[quote,raggedright,verbatim]
 <<
   \relative { a'2 a1 }
-  \new Lyrics \lyrics { \skip 2 bla1 }
+  \new Lyrics \lyricmode { \skip 2 bla1 }
 >>
 @end lilypond
 
@@ -660,7 +661,7 @@ The pitch after the @code{\relative} contains a note name.
 @c @refwarning
 
 The relative conversion will not affect @code{\transpose},
-@code{\chords} or @code{\relative} sections in its argument.  To use
+@code{\chordmode} or @code{\relative} sections in its argument.  To use
 relative within transposed music, an additional @code{\relative} must
 be placed inside @code{\transpose}.
 
@@ -744,7 +745,7 @@ check will signal an error
 Bar checks can also be used in lyrics, for example 
 
 @example
-\lyrics @{
+\lyricmode @{
   \time 2/4
   Twin -- kle | Twin -- kle
 @} 
@@ -2484,7 +2485,7 @@ example is shown here with timing tuples
     c4 \grace c16  c4  \grace {
     c16[  d16] } c2 c4
   }
-  \new Lyrics \lyrics {
+  \new Lyrics \lyricmode {
     \override LyricText #'font-family = #'typewriter
     
     \markup { (0,0) } 4
@@ -3084,13 +3085,13 @@ Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 @cindex drums
 
 
-Percussion notes may be entered in @code{\drums} mode, which is
+Percussion notes may be entered in @code{\drummode} mode, which is
 similar to the standard mode for entering notes.  Each piece of
 percussion has a full name and an abbreviated name, and both can be used
 in input files
 
 @lilypond[quote,raggedright,verbatim]
-\new DrumStaff \drums {
+\drums {
   hihat hh bassdrum bd
 }
 @end lilypond
@@ -3118,8 +3119,8 @@ To typeset the music, the notes must be interpreted in a
 
 @c
 @lilypond[quote,raggedright,verbatim]
-up = \drums { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
-down = \drums { bassdrum4 snare8 bd r bd sn4 }
+up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \drummode { bassdrum4 snare8 bd r bd sn4 }
   \new DrumStaff <<
     \new DrumVoice { \voiceOne \up } 
     \new DrumVoice { \voiceTwo \down } 
@@ -3134,7 +3135,7 @@ the @internalsref{DrumVoices} are instantiated by hand first.  For example,
 \new DrumStaff <<
   \context DrumVoice = "1" {  s1 *2 }
   \context DrumVoice = "2" {  s1 *2 }
-  \drums {
+  \drummode {
     bd4 sn4 bd4 sn4
     <<
       { \repeat unfold 16 hh16 }
@@ -3155,9 +3156,9 @@ The following variables have been predefined
 This is the default.  It typesets a typical drum kit on a five-line staff
 
 @lilypond[quote,noindent]
-nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
+nam = \lyricmode { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl }
-mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
+mus = \drummode  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
     << \new DrumStaff\with {
@@ -3187,8 +3188,8 @@ the three middle lines you use @code{tommh}, @code{tomml} and
 This typesets timbales on a two line staff
 
 @lilypond[quote,raggedright]
-nam = \lyrics { timh ssh timl ssl cb }
-mus = \drums  { timh ssh timl ssl cb s16 }
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode  { timh ssh timl ssl cb s16 }
 
 <<
         \context DrumStaff \with {
@@ -3211,8 +3212,8 @@ mus = \drums  { timh ssh timl ssl cb s16 }
 This typesets congas on a two line staff
 
 @lilypond[quote,raggedright]
-nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
-mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 <<
         \context DrumStaff\with {
             \remove Bar_engraver
@@ -3234,8 +3235,8 @@ mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 This typesets bongos on a two line staff
 
 @lilypond[quote,raggedright]
-nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
-mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode  { boh boho bohm ssh bol bolo bolm ssl s16 }
 <<
         \context DrumStaff\with {
             \remove Bar_engraver
@@ -3257,8 +3258,8 @@ mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
 @item percussion-style
 to typeset all kinds of simple percussion on one line staves
 @lilypond[quote,raggedright]
-nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 <<
         \context DrumStaff\with{
             \remove Bar_engraver
@@ -3286,8 +3287,8 @@ list at the top of your file
         (hihat        cross     #f        1)
         (pedalhihat   xcircle   "stopped" 2)
         (lowtom	      diamond   #f       3)))
-up = \drums { hh8 hh hh hh hhp4 hhp }
-down = \drums { bd4 sn bd toml8 toml }
+up = \drummode { hh8 hh hh hh hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
 
 \new DrumStaff <<
     \set DrumStaff.drumStyleTable
@@ -3716,16 +3717,16 @@ More stanzas can be added by adding more
 
 
 @cindex lyrics
-@cindex @code{\lyrics}
+@cindex @code{\lyricmode}
 @cindex punctuation
 
 Lyrics are entered in a special input mode.  This mode is is introduced
-by the keyword @code{\lyrics}.  In this mode you can enter lyrics,
+by the keyword @code{\lyricmode}.  In this mode you can enter lyrics,
 with punctuation and accents, and the input @code{a} is not parsed as
 a pitch, but rather as a one letter syllable.  Syllables are entered
 like notes, but with pitches replaced by text.  For example,
 @example
-  \lyrics @{ Twin-4 kle4 twin- kle litt- le star2 @}
+  \lyricmode @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
 
 
@@ -3736,10 +3737,10 @@ is that a word can end with @code{@}}.  The following example is
 usually a bug.  The syllable includes a @code{@}}, so the
 opening brace is not balanced
 @example
-  \lyrics @{ twinkle@}
+  \lyricmode @{ twinkle@}
 @end example
 
-@cindex @code{\property}, in @code{\lyrics}
+@cindex @code{\property}, in @code{\lyricmode}
 @noindent
 Similarly, a period following an alphabetic sequence, is included in
 the resulting string.  As a consequence, spaces must be inserted around
@@ -3759,13 +3760,13 @@ specify words that cannot be written with the above rules.  The
 following example incorporates double quotes
 
 @example
-  \lyrics @{ He said: "\"Let" my peo ple "go\"" @}
+  \lyricmode @{ He said: "\"Let" my peo ple "go\"" @}
 @end example
 
 This example is slightly academic, since it gives better looking
 results to use single quotes, @code{``} and @code{''}
 @example
-  \lyrics @{ He said: ``Let my peo ple go'' @}
+  \lyricmode @{ He said: ``Let my peo ple go'' @}
 @end example
 
 
@@ -3824,7 +3825,7 @@ Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
 
 Lyrics are printed by interpreting them in a @internalsref{Lyrics} context
 @example
- \context Lyrics \lyrics @dots{}
+ \context Lyrics \lyricmode @dots{}
 @end example
 
 @cindex automatic syllable durations
@@ -3845,8 +3846,8 @@ This aligns the lyrics to the
 notes of the @internalsref{Voice} context called @var{name}, which has
 to exist.  Therefore, normally the @code{Voice} is specified first, and
 then the lyrics are specified with @code{\lyricsto}.  The command
-@code{\lyricsto} switches to @code{\lyrics} mode automatically, so the
-@code{\lyrics} keyword may be omitted.
+@code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
+@code{\lyricmode} keyword may be omitted.
 
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
@@ -3940,7 +3941,7 @@ Here is an example demonstrating manual lyric durations,
      \time 3/4
      c2 e4 g2.
   } 
-  \new Lyrics \lyrics {
+  \new Lyrics \lyricmode {
     \set associatedVoice = #"melody"
     play2 the4 game2.
   }  >>
@@ -4412,7 +4413,7 @@ set of pitches, so they can be transposed
 
 @lilypond[quote,verbatim,raggedright]
 twoWays = \transpose c c' {
-  \chords {
+  \chordmode {
     c1 f:sus4 bes/f
   }
   <c e g>
@@ -4443,11 +4444,11 @@ In chord mode sets of pitches (chords) are entered with common names.
 A chord is entered by the root, which is entered like a common pitch
 
 @lilypond[quote,fragment,verbatim,relative=2]
-\chords { es4. d8 c2 }
+\chordmode { es4. d8 c2 }
 @end lilypond
 
 @noindent
-The mode is introduced by the keyword @code{\chords}.
+The mode is introduced by the keyword @code{\chordmode}.
 
 @cindex chord entry
 @cindex chord mode
@@ -4456,13 +4457,13 @@ Other chords may be entered by suffixing a colon, and introducing a
 modifier, and optionally, a number
 @c
 @lilypond[quote,fragment,verbatim]
-\chords { e1:m e1:7 e1:m7  }
+\chordmode { e1:m e1:7 e1:m7  }
 @end lilypond
 The first number following the root is taken to be the `type' of the
 chord, thirds are added to the root until it reaches the specified
 number
 @lilypond[quote,fragment,verbatim]
-\chords { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
 @end lilypond
 
 @cindex root of chord
@@ -4474,17 +4475,17 @@ to a chord.  Additions are added after the number following
 the colon, and are separated by dots
 @c
 @lilypond[quote,verbatim,fragment]
-\chords { c:5.6 c:3.7.8 c:3.6.13 }
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 Chord steps can be altered by suffixing a @code{-} or @code{+} sign
 to the number
 @lilypond[quote,verbatim,fragment]
-\chords { c:7+ c:5+.3-  c:3-.5-.7- }
+\chordmode { c:7+ c:5+.3-  c:3-.5-.7- }
 @end lilypond
 Removals are specified similarly, and are introduced by a caret.  They
 must come after the additions
 @lilypond[quote,verbatim,fragment]
-\chords { c^3 c:7^5 c:9^3.5 }
+\chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond
 
 Modifiers can be used to change pitches.  The following modifiers are
@@ -4506,7 +4507,7 @@ the chord.
 @end table
 Modifiers can be mixed with additions
 @lilypond[quote,verbatim,fragment]
-\chords { c:sus4 c:7sus4 c:dim7 c:m6 } 
+\chordmode { c:sus4 c:7sus4 c:dim7 c:m6 } 
 @end lilypond
 
 @cindex modifiers, in chords. 
@@ -4521,7 +4522,7 @@ unaltered 3, the 11 is removed in this case (unless it is added
 explicitly)
 @c
 @lilypond[quote,fragment,verbatim]
-\chords { c:13 c:13.11 c:m13 }
+\chordmode { c:13 c:13.11 c:m13 }
 @end lilypond
 
 @cindex @code{/}
@@ -4530,7 +4531,7 @@ An inversion (putting one pitch of the chord on the bottom), as well
 as bass notes, can be specified by appending
 @code{/}@var{pitch} to the chord
 @lilypond[quote,fragment,verbatim]
-\chords { c1 c/g c/f }
+\chordmode { c1 c/g c/f }
 @end lilypond
 @cindex @code{/+}
 
@@ -4538,10 +4539,10 @@ A bass note can be added instead of transposed out of the chord,
 by using  @code{/+}@var{pitch}.
 
 @lilypond[quote,fragment,verbatim]
-\chords { c1 c/+g c/+f }
+\chordmode { c1 c/+g c/+f }
 @end lilypond
 
-Chords is a mode similar to @code{\lyrics} etc.  Most
+Chords is a mode similar to @code{\lyricmode} etc.  Most
 of the commands continue to work, for example, @code{r} and
 @code{\skip} can be used to insert rests and spaces, and property
 commands may be used to change various settings.
@@ -4555,7 +4556,7 @@ simply produces the augmented chord, since @code{5+} is interpreted
 last
 @cindex clusters
 @lilypond[quote,verbatim,fragment]
-\chords { c:5.5-.5+ }
+\chordmode { c:5.5-.5+ }
 @end lilypond
 
 
@@ -4572,7 +4573,7 @@ described above, or directly using @code{<} and @code{>}
 
 @lilypond[quote,verbatim,raggedright]
 scheme =  {
-  \chords {a1 b c} <d' f' a'>  <e' g' b'>
+  \chordmode {a1 b c} <d' f' a'>  <e' g' b'>
 }
 
  <<
@@ -4587,7 +4588,7 @@ display chord names when there is a change in the chords scheme and at
 the start of a new line
 
 @lilypond[quote,verbatim,linewidth=9\cm]
-scheme = \chords {
+scheme = \chordmode {
   c1:m c:m \break c:m c:m d
 }
  <<
@@ -4610,7 +4611,7 @@ for showing repeats.
   	\consists Bar_engraver
 	\consists "Volta_engraver"
 } 
-\repeat volta 2 \chords {
+\repeat volta 2 \chordmode {
 	f1:maj f:7 bes:7
 	c:maj  
 } \alternative {
@@ -4645,7 +4646,7 @@ Different parts of a chord name are normally separated by a
 slash.  By setting @code{chordNameSeparator}, you can specify other
 separators, e.g.
 @lilypond[quote,fragment,verbatim]
-\context ChordNames \chords {
+\context ChordNames \chordmode {
   c:7sus4
   \set chordNameSeparator
     = \markup { \typewriter "|" }
@@ -6166,7 +6167,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 
 @lilypond[quote]
 \score {
-       \new Lyrics    \lyrics {
+       \new Lyrics    \lyricmode {
         \markup {
             \column <
                 \typewriter                "vaticana" 
@@ -7237,7 +7238,7 @@ LilyPond has limited support for figured bass
 @lilypond[quote,verbatim,fragment]
 <<
   \context Voice  { \clef bass dis4  c d ais }
-  \context FiguredBass \figures {
+  \context FiguredBass \figuremode {
     < 6 >4 < 7 >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
   }
@@ -7245,7 +7246,7 @@ LilyPond has limited support for figured bass
 @end lilypond
 
 The support for figured bass consists of two parts: there is an input
-mode, introduced by @code{\figures}, where you can enter bass figures
+mode, introduced by @code{\figuremode}, where you can enter bass figures
 as numbers, and there is a context called @internalsref{FiguredBass} that
 takes care of making @internalsref{BassFigure} objects.
 
@@ -7256,7 +7257,7 @@ In figures input mode, a group of bass figures is delimited by
 @end example
 @lilypond[quote,fragment]
 \context FiguredBass
-\figures { <4 6> }
+\figuremode { <4 6> }
 @end lilypond
 
 Accidentals are added when you append @code{-}, @code{!}  and @code{+}
@@ -7267,7 +7268,7 @@ to the numbers
 @end example
 @lilypond[quote,fragment]
 \context FiguredBass
-\figures { <4- 6+ 7!> }
+\figuremode { <4- 6+ 7!> }
 @end lilypond
 
 Spaces or dashes may be inserted by using @code{_}.  Brackets are
@@ -7278,11 +7279,11 @@ introduced with @code{[} and @code{]}
 @end example
 @lilypond[quote,fragment]
 \context FiguredBass
-\figures { < [4 6] 8 [_! 12]> }
+\figuremode { < [4 6] 8 [_! 12]> }
 @end lilypond
 
 Although the support for figured bass may superficially resemble chord
-support, it works much simpler.  The @code{\figures} mode simply
+support, it works much simpler.  The @code{\figuremode} mode simply
 stores the numbers , and @internalsref{FiguredBass} context prints
 them as entered.  There is no conversion to pitches, and no
 realizations of the bass are played in the MIDI file.
@@ -7534,7 +7535,7 @@ of differing lengths.  The following fermatas are supported
       _\verylongfermata
     r
     }
-    \context Lyrics \lyrics {
+    \context Lyrics \lyricmode {
       \override LyricText #'font-family = #'typewriter
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
     }

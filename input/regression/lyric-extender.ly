@@ -1,4 +1,4 @@
-\version "2.3.8"
+\version "2.3.16"
 
 \header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
 
@@ -8,7 +8,7 @@
 	\context Voice = melody {
 	    c8[ ( d] )
 	    r4 f4 }
-	\lyricsto melody \context Lyrics \lyrics { ah __ ha  }
+	\lyricsto melody \context Lyrics \lyricmode { ah __ ha  }
 	>>
 }
 

@@ -948,7 +948,7 @@ statement marks for which version of LilyPond the file was written.
 To mark a file for version 2.1.17, use
 
 @example
-\version "2.1.17"
+\version "2.3.16"
 @end example
 
 @noindent
@@ -1047,19 +1047,19 @@ In popular music, it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
 @lilypond[quote,verbatim,raggedright]
-\chords { c2 f4. g8 }
+\chordmode { c2 f4. g8 }
 @end lilypond
 
 @noindent
 Now each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chords}
+This mode is switched on with @code{\chordmode}
 
 
 Other chords can be created by adding modifiers after a colon.  The
 following example shows a few common modifiers
 
 @lilypond[quote,verbatim]
-\chords { c2 f4:m g4:maj7 gis1:dim7 }
+\chordmode { c2 f4:m g4:maj7 gis1:dim7 }
 @end lilypond
 
 For lead sheets, chords are not printed on staves, but as names on a
@@ -1068,7 +1068,7 @@ line of themselves.  Hence, we have to override the context with
 context
 
 @lilypond[quote,verbatim]
-\new ChordNames \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+\chordmode { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
 @cindex lead sheet
@@ -1077,7 +1077,7 @@ a lead sheet, for example,
 
 @example
 <<
-  \new ChordNames \chords @{ @emph{chords} @}
+  \chordmode @{ @emph{chords} @}
   @emph{the melody}
   \addlyrics @{ @emph{the text} @}
 >>
@@ -1086,7 +1086,7 @@ a lead sheet, for example,
 
 @lilypond[quote,raggedright]
 <<
-  \new ChordNames \chords { r2 c:sus4 f } 
+  \chordmode { r2 c:sus4 f } 
   \relative {
     r4 c' \times 2/3 { f g g }
     \times 2/3 { g4( a2) }

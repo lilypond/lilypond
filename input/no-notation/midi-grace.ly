@@ -1,9 +1,9 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.16"
 \header{ texidoc = "Tests MIDI output with grace notes. " }
 
 \score { 
-  \context Voice \notes\relative c {
+  \context Voice \relative c {
     \context Voice=VoiceOne
 	\grace {
   \override Stem  #'stroke-style = #"grace"

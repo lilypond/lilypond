@@ -4,7 +4,7 @@
     
 }
 
-\version "2.3.6"
+\version "2.3.16"
 
 %
 % todo: make the check-quant function throw an error for incorrect quants

@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.16"
 \header {
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.
@@ -18,7 +18,7 @@ between systems.
       \override Score.SpanBar #'transparent = ##t
       a1 a1
     }
-    \lyrics <<
+    \lyricmode <<
       \new Lyrics { bla1 die bla }
       \new Lyrics { foo bar foo }
     >>
