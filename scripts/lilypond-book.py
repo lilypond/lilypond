@@ -271,11 +271,13 @@ FRAGMENT_LY = r'''\score{
 }'''
 FULL_LY = '%(code)s'
 
-texi_linewidths = { 'afourpaper': '160 \\mm',
-		    'afourwide': '6.5\\in',
-		    'afourlatex': '150 \\mm',
-		    'smallbook': '5 \\in' ,
-		    'letterpaper': '6\\in'}
+texinfo_linewidths = {
+	'@afourpaper': '160 \\mm',
+	'@afourwide': '6.5 \\in',
+	'@afourlatex': '150 \\mm',
+	'@smallbook': '5 \\in' ,
+	'@letterpaper': '6\\in',
+	}
 
 def classic_lilypond_book_compatibility (o):
 	if o == 'singleline':
@@ -484,8 +486,12 @@ class Lilypond_snippet (Snippet):
 
 	def is_outdated (self):
 		base = self.basename ()
+		## FIXME: adding PNG to is_outdated test fixes
+		##        interrupted (web) builds.
+		##        should only do this if PNG is actually target
 		if os.path.exists (base + '.ly') \
 		   and os.path.exists (base + '.tex') \
+		   and os.path.exists (base + '.png') \
 		   and (use_hash_p \
 			or self.ly () == open (base + '.ly').read ()):
 			# TODO: something smart with target formats
@@ -828,9 +834,12 @@ def do_file (input_filename):
 			default_ly_options[LINEWIDTH] = '''%.0f\\pt''' \
 							% textwidth
 		elif format == TEXINFO:
-			for (k, v) in texi_linewidths.items ():
-				s = chunks[0].replacement_text ()
-				if re.search (k, s):
+			for (k, v) in texinfo_linewidths.items ():
+				# FIXME: @paper is usually not in chunk #0:
+				#        \input texinfo @c -*-texinfo-*-
+				# bluntly search first K of source
+				# s = chunks[0].replacement_text ()
+				if re.search (k, source[:1024]):
 					default_ly_options[LINEWIDTH] = v
 					break
 
