@@ -121,16 +121,16 @@
   (ly:outputter-dump-string
    putter
    (string-append "\\leavevmode\n\\lybox{0}{0}{0}{"
-		  (ly:number->string (ly:paper-line-height line))
+		  (ly:number->string (ly:paper-line-extent line Y))
 		  "}{"))
 
    (ly:outputter-dump-stencil putter (ly:paper-line-stencil line))
    (ly:outputter-dump-string
     putter
     (if last?  
+	"}%\n"
 	"}\\interscoreline\n"
-	"}%\n"))
-   )
+	)) )
 
 (define-public (output-framework-tex outputter book scopes fields basename)
   (let*
@@ -172,10 +172,10 @@
 	     bookpaper
 	     (length lines)
 	     #f)
-   
-   (output-scopes scopes fields basename)
-   (define-fonts bookpaper)
-   (header-end)))
+    "\\def\\lilypondclassic{1}%\n"
+    (output-scopes scopes fields basename)
+    (define-fonts bookpaper)
+    (header-end)))
 
   (for-each
    (lambda (line)

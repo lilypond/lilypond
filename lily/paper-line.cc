@@ -91,14 +91,17 @@ Paper_line::to_stencil () const
   return stencil_;
 }
 
-LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",
-	   1, 0, 0, (SCM line),
-	   "Return the height of @var{line}.")
+LY_DEFINE (ly_paper_line_height, "ly:paper-line-extent",
+	   2, 0, 0, (SCM line, SCM axis),
+	   "Return the extent of @var{line}.")
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return scm_make_real (pl->dim ()[Y_AXIS]);
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  Axis ax = (Axis)ly_scm2int (axis);
+  return scm_make_real (pl->dim ()[ax]);
 }
+
 
 LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
 	   1, 0, 0, (SCM line),

@@ -1,5 +1,22 @@
 2004-05-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* python/lilylib.py (make_ps_images): only compute bbox when needed.
+
+	* scripts/lilypond-book.py (process_snippets): use lily -f ps
+	files for generating pngs.
+
+	* scm/framework-ps.scm (output-classic-framework-ps): dump EPS
+	file with PFA fonts included.
+
+	* lily/score.cc (default_rendering): put header in too.
+
+	* lily/paper-line.cc (LY_DEFINE): change function to
+	ly:paper-line-extent
+
+	* scm/page-layout.scm (default-book-title): only add lines for
+	non-nil fields.
+	(default-score-title): idem.
+
 	* lily/my-lily-parser.cc (parse_string): delete lexer after use.
 
 	* lily/my-lily-lexer.cc (My_lily_lexer): copy keytable.

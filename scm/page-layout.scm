@@ -78,7 +78,7 @@
   
 (define (robust-line-height line)
   (if (null? line) 0
-      (ly:paper-line-height line)))
+      (ly:paper-line-extent line Y)))
   
 (define (robust-line-number node)
   (if (null? node) 0
@@ -225,38 +225,75 @@
   (define (get sym)
     (let ((x (ly:modules-lookup scopes sym)))
       (if (markup? x) x "")))
-
+  (define (has sym)
+    (markup?  (ly:modules-lookup scopes sym)))
+  
   (let ((props (page-properties paper)))
     
     (interpret-markup
      paper props
-     (markup
-      #:column
-      (#:override '(baseline-skip . 4)
-		  #:column
-		  (#:fill-line
-		   (#:normalsize (get 'dedication))
-		   #:fill-line
-		   (#:huge #:bigger #:bigger #:bigger #:bigger #:bold (get 'title))
-		   #:override '(baseline-skip . 3)
-		   #:column
-		   (#:fill-line
-		    (#:large #:bigger #:bigger #:bold (get 'subtitle))
-		    #:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
-		   #:override '(baseline-skip . 5)
-		   #:column ("")
-		   #:override '(baseline-skip . 2.5)
-		   #:column
-		   (#:fill-line
-		    (#:bigger (get 'poet) #:large #:bigger #:caps (get 'composer))
-		    #:fill-line (#:bigger (get 'texttranslator) #:bigger (get 'opus))
-		    #:fill-line
-		    (#:bigger (get 'meter) #:bigger (get 'arranger))
-		    ""
-		    #:fill-line (#:large #:bigger (get 'instrument))
-		    " "
-		    #:fill-line (#:large #:bigger #:caps (get 'piece) ""))))))))
+     (make-override-markup
+       '(baseline-skip . 4)
+       (make-column-markup
+	(append
+	 (if (has 'dedication)
+	     (list (markup #:fill-line
+		     (#:normalsize (get 'dedication))))
+	     '())
+	 
+	 (if (has 'title)
+	    (list (markup (#:fill-line
+			   (#:huge #:bigger #:bigger #:bigger #:bigger #:bold (get 'title)))))
+	    '())
 
+	 (if (or (has 'subtitle) (has 'subsubtitle))
+	     (list
+	      (make-override-markup
+	       '(baseline-skip . 3)
+	      (make-column-markup
+	       (list
+	       (markup #:fill-line
+		       (#:large #:bigger #:bigger #:bold (get 'subtitle))
+		       #:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
+	       (markup #:override '(baseline-skip . 5)
+		       #:column ("")))
+
+	       ))
+	     )
+	     '())
+	 
+	 (list
+	  (make-override-markup
+	  '(baseline-skip . 2.5)
+	  (make-column-markup
+	    (append
+	     (if (or (has 'poet) (has 'composer))
+		(list (markup #:fill-line
+			      (#:bigger (get 'poet) #:large #:bigger #:caps (get 'composer))))
+		'())
+	     (if (or (has 'texttranslator) (has 'opus))
+		 (list
+		  (markup 
+		   #:fill-line (#:bigger (get 'texttranslator) #:bigger (get 'opus))))
+		 '())
+	     (if (or (has 'meter) (has 'arranger))
+		 (list
+		  (markup #:fill-line
+			  (#:bigger (get 'meter) #:bigger (get 'arranger))))
+		 '())
+
+	     (if (has 'instrument)
+		 (list ""
+		       (markup #:fill-line (#:large #:bigger (get 'instrument))))
+		 '())
+	     (if (has 'piece)
+		 (list ""
+		       (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
+		 '())
+	     )))))))
+     )))
+	     
+  
 (define-public (default-user-title paper markup)
   "Generate book title from header markup."
   (if (markup? markup)
@@ -270,16 +307,24 @@
   
   (define (get sym)
     (let ((x (ly:modules-lookup scopes sym)))
-      (if (and x (not (unspecified? x))) x "")))
+      (if (markup? x) x "")))
+  
+  (define (has sym)
+    (markup? (ly:modules-lookup scopes sym)))
   
   (let ((props (page-properties paper)))
     
     (interpret-markup
      paper props
-     (markup
-      #:column
-      (#:override '(baseline-skip . 4)
-		  #:column
-		  (#:fill-line
-		   ("" (get 'opus))
-		   #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
+      (make-override-markup
+       '(baseline-skip . 4)
+       (make-column-markup
+	(append
+	 (if (has 'opus)
+	     (list (markup #:fill-line ("" (get 'opus))))
+	     '())
+	 (if (has 'piece)
+	     (list (markup #:fill-line (#:large #:bigger #:caps (get 'piece) "")))
+	     '()))
+	
+	)))))
