@@ -469,14 +469,8 @@ HYPHEN		--
 		} else
 			return scan_escaped_word (str);
 	}
-	{WORD} {
-		/* ugr. This sux. */
+	{LYRICS} {
 		String s (YYText ()); 
-		if (s == "__")
-			return yylval.i = EXTENDER;
-		if (s == "--")
-			return yylval.i = HYPHEN;
-		s = lyric_fudge (s);
 
 		char c = s[s.length () - 1];
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
@@ -744,6 +738,9 @@ valid_version_b (String s)
 }
 	
 
+/*
+  substittute _ adn \,
+*/
 String
 lyric_fudge (String s)
 {
