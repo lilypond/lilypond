@@ -10,6 +10,7 @@
 #include "config.hh"
 
 #ifdef HAVE_PANGO_FT2
+
 #include <fontconfig/fontconfig.h>
 
 #include "main.hh"

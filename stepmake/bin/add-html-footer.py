@@ -200,14 +200,6 @@ def do_file (f):
 	s = gulp_file (f)
 	s = re.sub ('%', '%%', s)
 
-	if changelog_file:
-		changes = gulp_file (changelog_file)
-		# urg?
-		#m = re.search ('^\\\\*\\\\*', changes)
-		m = re.search (r'\*\*\*', changes)
-		if m:
-			changes = changes[:m.start (0)]
-		s = re.sub ('top_of_ChangeLog', '<pre>\n'+ changes  + '\n</pre>\n', s)
 
 	if re.search (header_tag, s) == None:
 		body = '<BODY BGCOLOR=WHITE TEXT=BLACK>'
@@ -235,7 +227,7 @@ def do_file (f):
 		else:
 			s = s + footer
 
-	s = i18n (f, s)
+		s = i18n (f, s)
 
 	#URUGRGOUSNGUOUNRIU
 	index = index_url
