@@ -13,13 +13,13 @@
 
 Lilypond_grob_key::Lilypond_grob_key (Object_key const *context,
 				      Moment start,
-				      String name)
-  // int ambiguity_count,
+				      String name,
+				      int disambiguation_count)
 {
   context_ = context;
   creation_moment_ = start;
   grob_name_ = name;
-  //  ambiguity_count_ = ambiguity_count;
+  disambiguation_count_ = disambiguation_count;
 }
 
 void
@@ -45,11 +45,10 @@ Lilypond_grob_key::do_compare (Object_key const* key) const
   c = String::compare (grob_name_, other->grob_name_);
   if (c)
     return c;
-#if 0
-  c = sign (ambiguity_count_ - other->ambiguity_count_); 
+
+  c = sign (disambiguation_count_ - other->disambiguation_count_); 
   if (c)
     return c;
-#endif
   
   return 0;
 }
@@ -74,10 +73,10 @@ Lilypond_context_key::derived_mark () const
 Lilypond_context_key::Lilypond_context_key (Object_key const *parent,
 					    Moment start,
 					    String type,
-					    String id
-					    // int count
-					    )
+					    String id,
+					    int count)
 {
+  disambiguation_count_ = count;
   parent_context_ = parent;
   start_moment_ = start;
   context_name_ = type;
@@ -111,11 +110,9 @@ Lilypond_context_key::do_compare (Object_key const *key) const
   if (c)
     return c;
 
-#if 0
-  c = sign (ambiguity_count_ - other->ambiguity_count_);
+  c = sign (disambiguation_count_ - other->disambiguation_count_);
   if (c)
     return c;
-#endif
   
   return 0;
 }

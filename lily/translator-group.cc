@@ -102,6 +102,7 @@ Translator_group::get_simple_trans_list ()
   return simple_trans_list_;
 }
 
+
 void
 recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
 {

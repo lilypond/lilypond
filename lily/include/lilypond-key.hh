@@ -20,16 +20,13 @@ class Lilypond_grob_key : public Object_key
   Object_key const *context_;
   Moment creation_moment_;
   String grob_name_;
+  int disambiguation_count_;
 
-  // FIXME: need to figure out smart solution for
-  // the problem of creating
-  // many equally named grobs at the same time.
-  
-  //  int ambiguity_count_;
 public:
-  Lilypond_grob_key(Object_key const*context,
+  Lilypond_grob_key(Object_key const *context,
 		    Moment start,
-		    String name);
+		    String name, int);
+
 protected:
   virtual int get_type () const;
   virtual void derived_mark () const; 
@@ -42,15 +39,15 @@ class Lilypond_context_key : public Object_key
   Moment start_moment_;
   String context_name_;
   String id_;
+  int disambiguation_count_;
 
-  // see above. 
-  // int ambiguity_count_;
 public:
   Lilypond_context_key (Object_key const * parent,
 			Moment start,
 			String type,
-			String id);
-    //			int count);
+			String id,
+  			int count);
+
 protected:
   virtual int get_type () const;
   virtual int do_compare (Object_key const* a) const;

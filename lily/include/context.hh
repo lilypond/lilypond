@@ -9,6 +9,8 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
+#include <map>
+
 #include "moment.hh"
 #include "lily-proto.hh"
 
@@ -26,7 +28,10 @@ private:
   friend class Interpretation_context_handle;
   int iterator_count_;
   bool init_;
-  
+
+  std::map<String, int> grob_counts_;
+  std::map<String, int> context_counts_;
+
 protected:
   Object_key const * key_;
   Context * daddy_context_;
@@ -39,9 +44,13 @@ protected:
   String id_string_;
 
   friend class Context_def;
+  void clear_key_disambiguations ();
 
 public:
   Object_key const *get_key () const;
+  Object_key const *get_grob_key (String);
+  Object_key const *get_context_key (String, String);
+
   String id_string () const { return id_string_; } 
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;

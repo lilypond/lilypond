@@ -282,7 +282,7 @@ Auto_beam_engraver::create_beam ()
   if (to_boolean (get_property ("skipTypesetting")))
     return 0;
   
-  Spanner *beam = new Spanner (beam_settings_, get_grob_key ("Beam"));
+  Spanner *beam = new Spanner (beam_settings_, context ()->get_grob_key ("Beam"));
   for (int i = 0; i < stems_->size (); i++)
     {
       /*

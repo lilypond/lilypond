@@ -43,8 +43,6 @@ protected:
   Engraver_group_engraver*get_daddy_engraver () const;
   
 public:
-  Object_key const * get_grob_key (String name) const;
-  
   /**
     Announce element. Default: pass on to daddy. Utility
     */
