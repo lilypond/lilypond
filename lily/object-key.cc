@@ -101,10 +101,12 @@ Object_key::from_scheme (SCM)
   return new Object_key();
 }
 
-struct {
+struct Object_dumper_table_entry {
   Object_key_type type_;
   Object_key* (*ctor_)(SCM);
-} undumpers[] = {
+};
+
+static Object_dumper_table_entry undumpers[] = {
   {BASE_KEY, Object_key::from_scheme},
   {COPIED_KEY, Copied_key::from_scheme},
   {GENERAL_KEY, Lilypond_general_key::from_scheme},
