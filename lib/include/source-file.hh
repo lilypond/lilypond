@@ -5,9 +5,13 @@
 
 #ifndef SOURCE_FILE_HH
 #define SOURCE_FILE_HH
-#include "fproto.hh"
+
+#include "proto.hh"
 #include "string.hh"
+
 class istream;
+
+
 /// class for reading and mapping a file. 
 class Source_file
 {
@@ -17,26 +21,19 @@ public:
     Source_file( String filename_str_r );
     virtual ~Source_file();
 
-    char const* ch_C();
-    virtual String error_str( char const* pos_ch_c_l );
+    char const* ch_C()const;
+    virtual String error_str( char const* pos_ch_c_l )const;
     istream * istream_l();
-    bool in_b( char const* pos_ch_c_l );
-    off_t length_off();
-    virtual int line_i( char const* pos_ch_c_l );
-    String name_str();
-    String file_line_no_str( char const* ch_c_l );
+    bool in_b( char const* pos_ch_c_l )const;
+    int length_i()const;
+    virtual int line_i( char const* pos_ch_c_l )const;
+    String name_str()const;
+    String file_line_no_str( char const* ch_c_l )const;
 
 private:
-    void close();
-    void map();
-    void open();
-    void unmap();
-
-    istream* istream_p_;
-    int fildes_i_;
     String name_str_;
-    off_t size_off_;
-    caddr_t data_caddr_;
+    istream* istream_p_;
+    File_storage * storage_p_;
 };
 
 #endif // SOURCE_FILE_HH //
