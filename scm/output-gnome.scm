@@ -280,6 +280,34 @@ lilypond -fgnome input/simple-song.ly
     props))
     
 
+(define (list->offsets accum coords)
+  (if (null? coords)
+      accum
+      (cons (cons (car coords) (cadr coords))
+	    (list->offsets accum (cddr coords))
+      )))
+
+(define (polygon coords blotdiameter)
+  (let*
+      ((def (make <gnome-canvas-path-def>))
+       (props (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units blotdiameter))
+       (points (list->offsets '() coords))
+       (last-point (car (last-pair points))))
+
+    (reset def)
+    (moveto def (car last-point) (cdr last-point))
+    (for-each (lambda (x)
+		(lineto def (car x) (cdr x))
+		) points)
+    (closepath def)
+    (set-path-def props def)
+    props))
+    
+
 (define (round-filled-box breapth width depth height blot-diameter)
   ;; FIXME: no rounded corners on rectangle...
   ;; FIXME: blot?
