@@ -175,4 +175,4 @@ handLyrics = \notes \context GrandStaff <
 }
 
 
-\version "1.2.14";
+\version "1.3.4";

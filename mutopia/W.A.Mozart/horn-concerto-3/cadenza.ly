@@ -26,14 +26,14 @@ Herman Jeurissen.
 
 %}
 
-\version "1.2.13";
+\version "1.3.4";
 
 
 cad = \notes  \relative c' {
 	\property Score.midiInstrument = "french horn"
 	\context Staff {
 	\emptyText
-	\cadenza 1;
+	\cadenzaOn
 	
 
 	\clef "violin";

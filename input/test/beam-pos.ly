@@ -1,8 +1,8 @@
-\version "1.2.0";
+\version "1.3.4";
 
 \score{
 	\notes\transpose c''{
-		\property Score.beamquantisation = 3 % TEST
+		\property Score.beamQuantisation = 'test
 
 		[c8 c] [c c] [c c] [c c]
 		[a' a'] [a' a'] [a' a'] [a' a']

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 clarinetto1 = \notes \relative c {
 	R1 *2 | d''4-.\ff r r2 | R1 *3 | e4-. r r2 | R1 *3 |

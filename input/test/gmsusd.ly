@@ -3,7 +3,7 @@
 
 % perhaps the current modifier approach is too simplistic
 
-\version "1.2.0";
+\version "1.3.4";
 
 gmsus=\notes\relative c \chords{ 
 	g1

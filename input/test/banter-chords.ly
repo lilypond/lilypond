@@ -1,4 +1,4 @@
-\version "1.3.2";
+\version "1.3.4";
 
 \header{
 enteredby =	 "jcn";
@@ -8,6 +8,12 @@ TestedFeatures =	 "Banter named chords";
 
 % test German (Banter) naming
 % for more conventional naming, comment scm stuff out
+
+% urg, 
+% this shows a serious shortcoming with our guile approach:
+% we can't (easily) display banter/non banter chords alongside
+% eachother.  These guile lists are fixed in the guile environment
+% when this file has been parsed...
 
 % {
 #(set! pitch-names-alist

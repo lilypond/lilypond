@@ -6,11 +6,11 @@ copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "1.2.0";
+\version "1.3.4";
 
 \score{
 	<
-%		\property Score.beamquantisation = \none
+%		\property Score.beamQuantisation = #'none
 		\context GrandStaff < 
 		\notes\transpose c' { 
 

@@ -7,7 +7,7 @@ description = "This file tests the Feta music font";
 % "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.2.0";
+\version "1.3.4";
 
 \include "font-body.ly"
 \score{

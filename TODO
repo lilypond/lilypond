@@ -11,9 +11,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO
 . * make this file understandable for 3rd parties.
 . * break align order from SCM list. 
-. * time description should be put into SCM
-. *  context in embedded SCM errors.
-
+. * \accepts -> \acceptedby 
+. * context in embedded SCM errors.
 . * eradicate all VIRTUAL_COPY_CONS () macros ; use indexed creation,
     eg.
 
@@ -44,9 +43,6 @@ John
 . * bracket pdf hack
 
 . * Mondrup:
-- I would like the possibility of forcing clef- and key- changes to be
-printed _after_ the new bar line
-
 - I would like an option to define the number of systems on which the
 score must be distributed. As it is now it seems that I may only
 influence that indirectly through the gourlay_maxmeasures property.

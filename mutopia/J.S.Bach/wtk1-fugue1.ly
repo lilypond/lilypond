@@ -19,7 +19,7 @@ enteredby =	 "Shay Rojansky";
 %{
 TODO: use autobeaming.	
 %}
-\version "1.2.13";
+\version "1.3.4";
 
 
 tenor =

@@ -42,4 +42,4 @@ extra-staff.ly:
 }
 
 
-\version "1.2.0"; 
+\version "1.3.4"; 
