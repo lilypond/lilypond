@@ -1,7 +1,12 @@
 (define-module (scm output-ascii-script)
   )
 
+(use-modules (guile)
+	     (lily))
+
 (define this-module (current-module))
+
+(define font-name-alist  '())
 
 (define-public (as-output-expression expr port)
   (display (eval expr this-module) port)
@@ -161,6 +166,9 @@
 (define (roundfilledbox breapth width depth height blot)
   (filledbox breapth width depth height))
 
+(define (draw-line thick x1 y1 x2 y2)
+  (filledbox 0 (- x2 x1) 0 (- y2 y1)))
+	     
 (define (font-load-command name-mag command)
   ;; (display "name-mag: ")
   ;; (write name-mag)

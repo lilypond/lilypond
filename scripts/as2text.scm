@@ -9,10 +9,11 @@
 
 ;;;; library funtions
 (use-modules
-   (ice-9 debug)
-  (ice-9 getopt-long)
-  (ice-9 string-fun)
-  (ice-9 regex))
+ (ice-9 debug)
+ (ice-9 getopt-long)
+ (ice-9 string-fun)
+ (ice-9 rdelim)
+ (ice-9 regex))
 
 ;;; Script stuff
 (define program-name "as2text")
@@ -167,7 +168,7 @@ Options:
   (let ((old-load-path %load-path))
        (set! %load-path 
 	     (cons (string-append 
-		    (or (getenv 'LILYPONDPREFIX) ".") "/mf")
+		    (or (getenv "LILYPONDPREFIX") ".") "/mf")
 		   (cons (string-append lily-home "/mf") %load-path)))
        (let* ((path (%search-load-path name)) 
 	      (text (if path
@@ -390,7 +391,7 @@ Options:
 (define (set-line-char c)
   (set! line-char c))
 
-(define (start-line height)
+(define (start-system width height)
   (if first-line 
       (begin
        (set! fonts (cons (cons "default" (generate-default-font)) fonts))
@@ -410,7 +411,7 @@ Options:
   (set! canvas-height (inexact->exact (* scaling height)))
   (set! canvas (make-array " " canvas-height canvas-width)))
 
-(define (stop-line)
+(define (stop-system)
   (if first-line
       (let ((output-file (if (equal? cur-output-name "-")
 			      (current-output-port)

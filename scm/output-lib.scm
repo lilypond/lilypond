@@ -94,11 +94,25 @@
  molecule-boxer
  )
 
+(define-public (arg->string arg)
+  (cond ((number? arg) (inexact->string arg 10))
+	((string? arg) (string-append "\"" arg "\""))
+	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
+
+(define-public (func name . args)
+  (string-append
+   "(" name
+   (if (null? args)
+       ""
+       (apply string-append
+	      (map (lambda (x) (string-append " " (arg->string x))) args)))
+   ")\n"))
+
 ;;(define (mm-to-pt x)
 ;;  (* (/ 72.27 25.40) x))
 
 ;; do nothing in .scm output
-(define (comment s) "")
+(define-public (comment s) "")
 
 (define-public (numbers->string l)
   (apply string-append (map ly:number->string l)))
