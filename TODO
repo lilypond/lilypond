@@ -16,15 +16,13 @@ nearby future
 
 ** staff-padding / padding.
 
-
 * Code
 
 ** \set / \override syntax
 
-** lyricsvoice -> lyrics.
-
-
 * Documentation
+
+** split refman
 
 ** Prune internals documentation.
 

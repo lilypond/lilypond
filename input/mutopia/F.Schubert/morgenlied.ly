@@ -26,7 +26,7 @@
 
 }
 
-\version "2.1.19"
+\version "2.1.21"
 manuscriptBreak = { \break }
 
 
@@ -73,12 +73,12 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
 }
 
 
-ignoreMelisma =	\property LyricsVoice . ignoreMelismata = ##t
-ignoreMelismaOff = \property LyricsVoice . ignoreMelismata \unset
+ignoreMelisma =	\property Lyrics . ignoreMelismata = ##t
+ignoreMelismaOff = \property Lyrics . ignoreMelismata \unset
 
 
 firstVerse = \lyrics {
-    \property LyricsVoice . stanza = "1."
+    \property Lyrics . stanza = "1."
     
     Sü -- ßes Licht! Aus
     \ignoreMelisma
@@ -93,7 +93,7 @@ firstVerse = \lyrics {
     }
 
 secondVerse = \lyrics {
-    \property LyricsVoice . stanza = "2."
+    \property Lyrics . stanza = "2."
     Ach, der Lie -- be sanf
     -- tes We -- hen schwellt mir |
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 
@@ -152,8 +152,8 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
      \new Staff <<
 	 \context Staff \modernAccidentals
 	 \melody >>
-	 \lyricsto "singer" \new LyricsVoice \firstVerse
-	 \lyricsto "singer" \new LyricsVoice \secondVerse
+	 \lyricsto "singer" \new Lyrics \firstVerse
+	 \lyricsto "singer" \new Lyrics \secondVerse
      \new PianoStaff << 
 	 \property PianoStaff.instrument = \markup {
 	     \bold
@@ -165,7 +165,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 
     \paper {
 	\translator {
-	    \LyricsVoiceContext
+	    \LyricsContext
 	    minimumVerticalExtent = #'(-1.0 . 0)
 	}
 	\translator {

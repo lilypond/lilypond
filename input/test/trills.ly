@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 \header {
   texidoc="@cindex Trills
@@ -59,7 +59,7 @@ visible = \property Voice.NoteHead \revert #'transparent
 	\time 3/4
 	d2^\prallup e4
       }
-      \new LyricsVoice \lyrics {
+      \new Lyrics \lyrics {
 	"Tremblement"4
 	"Tremblement"4.
 	"Cadence"
@@ -80,7 +80,7 @@ visible = \property Voice.NoteHead \revert #'transparent
 %}
 
     }
-      \new LyricsVoice \lyrics {
+      \new Lyrics \lyrics {
 	"simple"4
 	"appuy\\'e"4.
 %{	\skip 1*3

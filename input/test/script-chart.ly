@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 % this chart is used in the manual too.
 
@@ -32,7 +32,7 @@ A chart showing all feta scripts.
         c''\longfermata        c''\verylongfermata    c''\segno
         c''\coda               c''\varcoda
       }
-      \context LyricsVoice \lyrics {
+      \context Lyrics \lyrics {
         accent__                marcato__               staccatissimo__
         staccato__              tenuto__                portato__
         upbow__                 downbow__               flageolet__

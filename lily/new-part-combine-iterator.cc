@@ -359,7 +359,7 @@ New_pc_iterator::process (Moment m)
 	solo1 ();
       else if (tag == ly_symbol2scm ("solo2"))
 	solo2 ();
-      else
+      else if (gh_symbol_p (tag))
 	{
 	  String s =  "Unknown split directive: "
 	    + (gh_symbol_p (tag) ? ly_symbol2string (tag) : String ("not a symbol")); 

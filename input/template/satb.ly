@@ -1,4 +1,4 @@
-\version "2.1.10"
+\version "2.1.21"
 \header {
 
     texidoc = "
@@ -20,25 +20,25 @@ bassWords = \lyrics { ho4 ho ho ho }
 
 \score { \notes
 	  \context StaffGroup <<
-	      \context LyricsVoice = sopranos { s1 }
+	      \context Lyrics = sopranos { s1 }
 	      \context Staff = women <<
 		  \context Voice = sopranos { \voiceOne \sopMusic }
 		  \context Voice = altos { \voiceTwo \altoMusic }
 	      >>
-	      \context LyricsVoice = altos { s1 }
-	      \context LyricsVoice = tenors { s1 }
+	      \context Lyrics = altos { s1 }
+	      \context Lyrics = tenors { s1 }
 	      \context Staff = men <<
 		  \clef bass
 		  \context Voice = tenors { \voiceOne \tenorMusic }
 		  \context Voice = basses { \voiceTwo \bassMusic }
 	      >>
-	      \context LyricsVoice = basses { s1 }
+	      \context Lyrics = basses { s1 }
 
 	      
-	      \context LyricsVoice = sopranos \lyricsto sopranos \sopWords
-	      \context LyricsVoice = altos \lyricsto altos \altoWords
-	      \context LyricsVoice = tenors \lyricsto tenors \tenorWords
-	      \context LyricsVoice = basses \lyricsto basses \bassWords
+	      \context Lyrics = sopranos \lyricsto sopranos \sopWords
+	      \context Lyrics = altos \lyricsto altos \altoWords
+	      \context Lyrics = tenors \lyricsto tenors \tenorWords
+	      \context Lyrics = basses \lyricsto basses \bassWords
 	  
 	  >>
   \paper {

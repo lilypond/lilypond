@@ -1696,18 +1696,31 @@ used.  Each rule consists of
 @var{context} is @internalsref{Score} then all staves share
 accidentals, and if @var{context} is @internalsref{Staff} then all
 voices in the same staff share accidentals, but staves do not.
+
 @item octavation:
       Whether the accidental changes all octaves or only the current
-      octave.
-@item lazyness:
-      Over how many barlines the accidental lasts.
-      If @var{lazyness} is @code{-1} then the accidental is forget
-      immediately, and if @var{lazyness} is @code{#t} then the accidental
-      lasts forever.
+      octave. Valid choices are 
 
-@c [TODO: should use  +infinity for this case?]
+     @table @samp
+      @item same-octave:
+      This is the default algorithm. Accidentals are typeset if the note changes
+      the accidental of that note in that octave. Accidentals lasts to the end of the measure 
+      and then as many measures as specified in the value. I.e. 1 means to the end
+      of next measure, -1 means to the end of previous measure (that is: no duration at all), etc. #t means forever.
+      @item any-octave:
+      Accidentals are typeset if the note is different from 
+      the previous note on the same pitch in any octave. The value has same meaning as in
+      same-octave.
+      @end table
 
+@item lazyness
+
+                        Over how many barlines the accidental lasts.
+                              If @var{lazyness} is @code{-1} then the accidental is forget
+                        immediately, and if @var{lazyness} is @code{#t} then the accidental
+                              lasts forever.
 @end table
+
 
 @refcommands
 
@@ -2841,7 +2854,7 @@ mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
             Stem \set #'Y-extent-callback =  ##f
             minimumVerticalExtent = #'(-4.0 . 5.0)
     } \mus
-        \context LyricsVoice \nam 
+        \context Lyrics \nam 
     >>
     \paper {
     %% need to do this, because of indented @itemize
@@ -2874,7 +2887,7 @@ mus = \drums  { timh ssh timl ssl cb s16 }
             minimumVerticalExtent = #'(-3.0 . 4.0)
             drumStyleTable = #timbales-style
         } \mus
-        \context LyricsVoice \nam 
+        \context Lyrics \nam 
     >>
 }
 @end lilypond
@@ -2897,7 +2910,7 @@ mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
             Stem \set #'transparent =  ##t
             Stem \set #'Y-extent-callback =  ##f
         } \mus
-        \context LyricsVoice \nam 
+        \context Lyrics \nam 
     >>
 }
 @end lilypond
@@ -2920,7 +2933,7 @@ mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
             Stem \set #'transparent =  ##t
             Stem \set #'Y-extent-callback =  ##f
         } \mus
-        \context LyricsVoice \nam 
+        \context Lyrics \nam 
     >>
 }
 @end lilypond
@@ -2940,7 +2953,7 @@ mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
             Stem \set #'transparent =  ##t
             Stem \set #'Y-extent-callback =  ##f
         } \mus
-        \context LyricsVoice \nam 
+        \context Lyrics \nam 
     >>
 }
 @end lilypond
@@ -3362,9 +3375,9 @@ The definition of lyrics mode is too complex.
 @node The Lyrics context
 @subsection  The Lyrics context
 
-Lyrics are printed by interpreting them in a @internalsref{LyricsVoice} context:
+Lyrics are printed by interpreting them in a @internalsref{Lyrics} context:
 @example
- \context LyricsVoice \lyrics @dots{}
+ \context Lyrics \lyrics @dots{}
 @end example
 
 @cindex automatic syllable durations
@@ -3377,7 +3390,7 @@ automatically.  In this case, it is no longer necessary to enter the
 correct duration for each syllable.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression:
 @example
-\lyricsto @var{name} \new LyricsVoice @dots{} 
+\lyricsto @var{name} \new Lyrics @dots{} 
 @end example
 
 This aligns the lyrics to the
@@ -3390,15 +3403,15 @@ For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
 @example
 \context ChoirStaff \notes <<
-  \context LyricsVoice = sopranoLyrics @{ s1 @}
+  \context Lyrics = sopranoLyrics @{ s1 @}
   \context Voice = soprano @{ @emph{music} @}
-  \context LyricsVoice = tenor @{ s1 @}
+  \context Lyrics = tenor @{ s1 @}
   \context Voice = tenorLyrics @{ @emph{music} @}
 >>
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
-  \lyricsto "soprano" \new LyricsVoice @emph{the lyrics}
+  \lyricsto "soprano" \new Lyrics @emph{the lyrics}
 @end example
 
 @noindent
@@ -3426,7 +3439,7 @@ an unslurred group of notes to be a melisma, then insert
     f e f
     \melismaEnd
      e2 }
-  \lyricsto "lala" \new LyricsVoice \lyrics {
+  \lyricsto "lala" \new Lyrics \lyrics {
     la di __ daah 
   } >>
 @end lilypond
@@ -3440,7 +3453,7 @@ can be tuned with the property @code{melismaBusyProperties}. See
 When multiple stanzas are put on the same melody, it can happen that
 two stanzas have melismata in different locations. This can be
 remedied by switching off melismata for one
-@internalsref{LyricsVoice}. This is achieved by setting
+@internalsref{Lyrics}. This is achieved by setting
 the @code{ignoreMelismata} property to @code{#t}. An example is shown
 in @inputfileref{input/regression,lyric-combine-new.ly}.
 
@@ -3460,7 +3473,7 @@ A complete example of a SATB score setup is in the file
 @seealso
 
 Internals: Music expressions: @internalsref{LyricCombineMusic},
-Contexts: @internalsref{LyricsVoice}, @internalsref{Melisma_engraver}.
+Contexts: @internalsref{Lyrics}, @internalsref{Melisma_engraver}.
 
 Examples: @inputfileref{input/template,satb.ly},
 @inputfileref{input/regression,lyric-combine-new.ly}.
@@ -3472,7 +3485,7 @@ inserted by hand.
 
 
 For proper processing of extender lines, the
-@internalsref{LyricsVoice} and @internalsref{Voice} should be
+@internalsref{Lyrics} and @internalsref{Voice} should be
 linked. This can be achieved either by using @code{\lyricsto} or by
 setting corresponding names for both contexts. The latter is explained
 in @ref{More stanzas}.
@@ -3495,14 +3508,14 @@ To this end, give the @internalsref{Voice} context an identity:
      g2 e4 a2 f4 g2.  @}
 @end example
 
-Then set the @internalsref{LyricsVoice} contexts to names starting with
+Then set the @internalsref{Lyrics} contexts to names starting with
 that identity followed by a dash.  In the preceding example, the
 @internalsref{Voice} identity is @code{duet}, so the identities of the
-@internalsref{LyricsVoice}s are marked @code{duet-1} and @code{duet-2}:
+@internalsref{Lyrics}s are marked @code{duet-1} and @code{duet-2}:
 @example
-  \context LyricsVoice = "duet-1" @{
+  \context Lyrics = "duet-1" @{
     Hi, my name is bert. @}
-  \context LyricsVoice = "duet-2" @{
+  \context Lyrics = "duet-2" @{
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
 
@@ -3511,11 +3524,11 @@ The complete example is shown here:
 \score {
   << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
-  \lyrics << \lyricsto "duet" \new LyricsVoice {
-    \property LyricsVoice . stanza = "1"
+  \lyrics << \lyricsto "duet" \new Lyrics {
+    \property Lyrics . stanza = "1"
     Hi, my name is bert. }
-  \lyricsto "duet" \new LyricsVoice {
-    \property LyricsVoice . stanza = "2" 
+  \lyricsto "duet" \new Lyrics {
+    \property Lyrics . stanza = "2" 
     Ooooo, ch\'e -- ri, je t'aime. }
   >> >>
 }
@@ -3525,20 +3538,20 @@ The complete example is shown here:
 @cindex singer's names
 @cindex name of singer 
 
-Stanza numbers can be added by setting @code{LyricsVoice.stanza}, e.g.
+Stanza numbers can be added by setting @code{Lyrics.stanza}, e.g.
 
 @example
-    \property LyricsVoice . stanza = "Bert"
+    \property Lyrics . stanza = "Bert"
     @dots{}
-    \property LyricsVoice . stanza = "Ernie" 
+    \property Lyrics . stanza = "Ernie" 
 @end example
 
 Notice how dots are surrounded with spaces in @code{\lyrics} mode, to
-prevent @code{LyricsVoice.stanza} being interpreted as a single
+prevent @code{Lyrics.stanza} being interpreted as a single
 string.
 
-Names of the singers should be added using @code{LyricsVoice
-. vocalName} and @code{LyricsVoice . vocNam}, analogous to instrument
+Names of the singers should be added using @code{Lyrics
+. vocalName} and @code{Lyrics . vocNam}, analogous to instrument
 annotations for staves.
  
 To make empty spaces in lyrics, use @code{\skip}.
@@ -4514,7 +4527,7 @@ measure.
 
 In orchestral scores, staff lines that only have rests are usually
 removed.  This saves some space. This style is called `French Score'.
-For @internalsref{Lyrics}, @internalsref{LyricsVoice},
+For @internalsref{Lyrics}, @internalsref{Lyrics},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default.  When these line of these contexts turn out
 empty after the line-breaking process, they are removed.
@@ -7302,7 +7315,7 @@ entering the chant, as the following short excerpt demonstrates:
       \[ c'\melisma c' \flexa a \] \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
     }
   }
-  \lyricsto "cantus" \new LyricsVoice \lyrics {
+  \lyricsto "cantus" \new Lyrics \lyrics {
     San- ctus, San- ctus, San- ctus
   } >>
   
@@ -7428,7 +7441,7 @@ The following are supported
         _\verylongfermata
         r
     }
-    \context LyricsVoice \lyrics {
+    \context Lyrics \lyrics {
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
     } >>
 }

@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 %% +.ly: Be the first .ly file for lys-to-tely.py.
 %% Better to make lys-to-tely.py include "introduction.texi" or
 %% other .texi documents too?
@@ -16,4 +16,4 @@ This document is for LilyPond version
 }
 
 
-\score { \context LyricsVoice \lyrics {  " " } }
+\score { \context Lyrics \lyrics {  " " } }

@@ -1825,10 +1825,17 @@ def conv (str):
 	str = re.sub (r'molecule-callback', 'print-function', str)
 	str = re.sub (r'brew_molecule', 'print', str)
 	str = re.sub (r'brew-new-markup-molecule', 'Text_item::print', str)
+	str = re.sub (r'LyricsVoice', 'Lyrics', str)
+	str = re.sub (r'tupletInvisible',
+		      r"TupletBracket \\set #'transparent", str)
+	
 	return str
 
 conversions.append (((2,1,21), conv, """molecule-callback -> print-function,
 brew_molecule -> print
+brew-new-markup-molecule -> Text_item::print
+LyricsVoice -> Lyrics
+tupletInvisible -> TupletBracket \set #'transparent
 """ ))
 
 

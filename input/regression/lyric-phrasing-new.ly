@@ -1,4 +1,4 @@
-\version "2.1.10"
+\version "2.1.21"
 \header {
 
 texidoc = "Lyric phrasing:
@@ -17,7 +17,7 @@ texidoc = "Lyric phrasing:
 	    d16[ e f g]
 	    
 	}
-	\lyrics  \lyricsto  "bla" \context LyricsVoice {
+	\lyrics  \lyricsto  "bla" \context Lyrics {
 	    al tijd
 	    izzz
 	} >>

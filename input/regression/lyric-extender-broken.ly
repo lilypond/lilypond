@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 \header
 {
 
@@ -15,7 +15,7 @@ of the melisma."
 	    a) a2( b) \break
 	    a2 
 	}
-	\lyricsto A \context LyricsVoice \lyrics { a __ a __ ha }
+	\lyricsto A \context Lyrics \lyrics { a __ a __ ha }
     >>
     \paper {
 	raggedright = ##t

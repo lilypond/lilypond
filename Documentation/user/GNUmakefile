@@ -64,6 +64,7 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --html $<
 	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
+	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly 
 	-ln -f $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
@@ -133,6 +134,7 @@ ifneq ($(CROSS),yes)
 
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond-bin
 	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond-bin --verbose $(abs-srcdir)/ly/generate-documentation
+	rm -f $(outdir)/lilypond-internals.nexi
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 

@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 \header { texidoc= "Tests lyric extenders. "}
 
@@ -8,7 +8,7 @@
 	\context Staff {
 	    c8[ ( d] )
 	    r4 f4 }
-	\context LyricsVoice \lyrics { xxx __ \skip 4 x  }
+	\context Lyrics \lyrics { xxx __ \skip 4 x  }
 	>>
 }
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.19"
+\version "2.1.21"
 % ASCII Art output
 %
 % Process as:
@@ -65,11 +65,11 @@ text =  \lyrics{
 	\context GrandStaff <<
 		\addlyrics
 			\context Staff=upper \melody
-		\context LyricsVoice=between \text
+		\context Lyrics=between \text
 		\context Staff=lower \accompany 
 	>>
 	\paper{
-		\translator { \GrandStaffContext \accepts "LyricsVoice" }
+		\translator { \GrandStaffContext \accepts "Lyrics" }
 		indent=4.0\char
 		linewidth=78.0\char
 	}

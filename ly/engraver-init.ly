@@ -103,7 +103,7 @@
     \accepts "RhythmicStaff"
     \accepts "GrandStaff"
     \accepts "PianoStaff"
-    \accepts "LyricsVoice"
+    \accepts "Lyrics"
     \accepts "ChordNames"
 }
 
@@ -302,7 +302,7 @@
     \accepts "GrandStaff"
     \accepts "PianoStaff"
     \accepts "TabStaff"	
-    \accepts "LyricsVoice"
+    \accepts "Lyrics"
     \accepts "ChordNames"
 }
 
@@ -333,7 +333,7 @@ connected vertically.  "
     \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
     
-    \name LyricsVoice 
+    \name Lyrics 
     \consists "Separating_line_group_engraver"
     \consists "Lyric_engraver"
     \consists "Extender_engraver"
@@ -440,7 +440,7 @@ AncientRemoveEmptyStaffContext = \translator {
     \accepts "StaffGroup"
     \accepts "RhythmicStaff"
     \accepts "DrumStaff"
-    \accepts "LyricsVoice"
+    \accepts "Lyrics"
     \accepts "ChordNames"
     \accepts "GrandStaff"
     \accepts "ChoirStaff"

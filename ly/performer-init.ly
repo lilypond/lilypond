@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.21"
 
 				%
 				% setup for Request->Element conversion. Guru-only
@@ -41,6 +41,7 @@
     \name Voice
     \consists "Note_performer"
     \consists "Beam_performer"
+    \consists "Slur_performer"
     \consists "Melisma_performer"
 }
 
@@ -100,7 +101,7 @@
     \accepts RhythmicStaff
     \accepts ChordNames
     \accepts FiguredBass
-    \accepts LyricsVoice
+    \accepts Lyrics
     \alias "Timing"
     \consists "Timing_translator"
     \consists "Swallow_performer"
@@ -114,7 +115,7 @@
 \translator {
     \type "Staff_performer" % Performer_group_performer ?
     \consists "Lyric_performer"
-    \name LyricsVoice
+    \name Lyrics
     \consists "Time_signature_performer"
     \consists "Tempo_performer"
 }

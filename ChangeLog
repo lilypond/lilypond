@@ -1,3 +1,16 @@
+2004-02-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/tuplet-engraver.cc: remove tupletInvisible
+
+	* scm/define-translator-properties.scm: cleanup, separate in
+	internal and user props. 
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): change
+	LyricsVoice -> Lyrics
+
+	* lily/new-part-combine-iterator.cc (process): only print warning
+	for symbols.
+
 2004-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/part-combiner.scm: Add proper header.

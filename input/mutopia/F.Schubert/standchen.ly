@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.1.19"
+\version "2.1.21"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -382,7 +382,7 @@ global =  \notes{
 
 allLyrics =  {
 	% maybe should be bigger by default, in grob-description.scm ?
-	\lyricsto "leise" \new LyricsVoice {
+	\lyricsto "leise" \new Lyrics {
 	    \lyricVerseOne
 	    \lyricVerseTwo
 	    \lyricThrough 

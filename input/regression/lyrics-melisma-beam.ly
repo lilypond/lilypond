@@ -1,4 +1,4 @@
-\version "2.1.10"
+\version "2.1.21"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 
@@ -12,7 +12,7 @@
 		\property Staff.autoBeaming = ##f
 		c8 c8[ c8 c8]  c8    }
 	
-	\lyricsto "" \new LyricsVoice \lyrics { bla bla bla }
+	\lyricsto "" \new Lyrics \lyrics { bla bla bla }
     >>
     \paper { raggedright = ##t }
 }

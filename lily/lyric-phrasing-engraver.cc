@@ -122,7 +122,7 @@ void
 Lyric_phrasing_engraver::add_lyric_extender (Grob_info inf)
 {
   Translator_group * tr = inf.origin_trans_->daddy_trans_;
-  while (tr && !tr->is_alias (ly_symbol2scm ("LyricsVoice")))
+  while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
     tr = tr->daddy_trans_;
 
   if (!tr)
@@ -137,7 +137,7 @@ void
 Lyric_phrasing_engraver::add_stanza_number  (Grob_info inf)
 {
   Translator_group * tr = inf.origin_trans_->daddy_trans_;
-  while (tr && !tr->is_alias (ly_symbol2scm ("LyricsVoice")))
+  while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
     tr = tr->daddy_trans_;
 
   if (!tr)
@@ -166,7 +166,7 @@ void
 Lyric_phrasing_engraver::add_lyric_phrasing (Grob_info inf)
 {
   Translator_group * tr = inf.origin_trans_->daddy_trans_;
-  while (tr && !tr->is_alias (ly_symbol2scm ("LyricsVoice")))
+  while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
     tr = tr->daddy_trans_;
 
   if (!tr)

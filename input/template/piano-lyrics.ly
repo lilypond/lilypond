@@ -1,7 +1,7 @@
-\version "2.1.19"
+\version "2.1.21"
 
 \header {
-  texidoc ="LyricsVoice between two staffs."
+  texidoc ="Lyrics between two staffs."
 }
 
 upper = \notes\relative c'' {
@@ -21,7 +21,7 @@ text = \lyrics {
     \context Staff = upper {
 	\context Voice = singer \upper
     }
-    \lyricsto "singer" \new LyricsVoice \text
+    \lyricsto "singer" \new Lyrics \text
     \context Staff = lower <<
       \clef bass
       \lower
@@ -30,11 +30,11 @@ text = \lyrics {
   \paper {
     \translator {
       \GrandStaffContext
-      \accepts "LyricsVoice"
+      \accepts "Lyrics"
     }
     \translator {
-      %\LyricsVoiceContext
-      \LyricsVoiceContext
+      %\LyricsContext
+      \LyricsContext
       \consists "Bar_engraver"
     }
   }  
