@@ -39,8 +39,8 @@ pfa-fonts:
 		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
 web-install: 
-	$(INSTALL) -m 755 -d $(local_package_docdir) 
-	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
+	$(INSTALL) -m 755 -d $(webdir) 
+	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
 
 local-install:
 	$(INSTALL) -d $(local_lilypond_datadir)

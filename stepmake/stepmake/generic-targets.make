@@ -180,9 +180,12 @@ web:
 
 local-help: www-targets-help
 
+# hmm, append these to generic help?
+# (local help targets are prepended)
+webdir = $(local_package_docdir)
 www-targets-help:
 	@echo -e "\
   web         update website in out-www\n\
-  web-install install website documentation in (docdir=$(local_package_docdir))\n\
+  web-install install website documentation in (webdir=$(webdir))\n\
   web-clean   clean out-www\n\
 "

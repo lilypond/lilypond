@@ -15,7 +15,7 @@ You mean like this. (Sorry 'bout the nuked indentation.)
 
 Modified to use the standard transpose mechanism. The question is
 how useful these enharmonic modifications are. Mats B.
-@end example.
+@end example
 "
 }
 
