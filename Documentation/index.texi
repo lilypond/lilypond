@@ -46,7 +46,6 @@ It is released under the @uref{http://www.gnu.org/copyleft/gpl.html, GNU GPL}.
 @item   How to @uref{../topdocs/out-www/INSTALL.html, install on Unix}
 @item How to install @uref{../windows/out-www/installing.html, on
 Windows}.  (Or just @uref{http://cygwin.com/setup.exe, Install Lily Now}).
-install Lily now.)
 @end itemize
 
 @c also for users...
