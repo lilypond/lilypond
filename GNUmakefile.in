@@ -72,6 +72,13 @@ footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --
 footifymail = MAILADDRESS=bug-lilypond@gnu.org
 
 local-WWW-post:
+# need UTF8 setting in case this is hosted on a website. 
+	echo 'AddDefaultCharset utf-8\
+AddCharset utf-8 .html\
+AddCharset utf-8 .en\
+AddCharset utf-8 .nl\
+AddCharset utf-8 .txt' > .htaccess 
+
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
 	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
 	cd $(builddir) && find . -name \*.html~ -print | xargs rm -f
