@@ -167,7 +167,7 @@ lilypond -fgnome input/simple-song.ly
    (else FIXME)))
   
 (define (custom-utf8 i)
-  (if (< i 80)
+  (if (< i #x80)
       (utf8 i)
       (utf8 (+ #xee00 i))))
 
@@ -272,7 +272,7 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (char font i)
-  (text font (utf8 i)))
+  (text font (integer->char i)))
 
 ;; FIXME: naming
 (define (filledbox breapth width depth height)
@@ -418,5 +418,5 @@ lilypond -fgnome input/simple-song.ly
     #:fill-color "black"
     #:text (if (string? string)
 	       (string->utf8-string string)
-	       (char->utf8-string (car string)))))
+	       (char->utf8-string string))))
 
