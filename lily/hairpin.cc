@@ -35,9 +35,8 @@ Hairpin::print (SCM smob)
     }
   
   Direction grow_dir = to_dir (s);
+  Real padding = robust_scm2double (me->get_property ("bound-padding"), 0.5);
 
-  Real padding = scm_to_double (me->get_property ("bound-padding"));
- 
   Drul_array<bool> broken;
   Drul_array<Item*> bounds ;
   Direction d = LEFT;
@@ -82,8 +81,8 @@ Hairpin::print (SCM smob)
 		  
 		  Spanner *pin = unsmob_spanner (scm_car (adj));
 		  if (pin
-		      && (pin->get_bound (LEFT)->get_column() == b
-			  || pin->get_bound (RIGHT)->get_column() == b))
+		      && (pin->get_bound (LEFT)->get_column() == b->get_column ()
+			  || pin->get_bound (RIGHT)->get_column() == b->get_column() ))
 		    neighbor_found = true; 
 		}
 	      
@@ -96,18 +95,16 @@ Hairpin::print (SCM smob)
 	      x_points[d] =
 		neighbor_found ? e.center() - d * padding / 3 : e[d];
 	    }
-	  
 	}
     }
   while (flip (&d) != LEFT);
 
 
   Real width = x_points[RIGHT] - x_points[LEFT];
-
   if (width < 0)
     {
       me->warning (_ ((grow_dir < 0) ? "decrescendo too small"
-		  : "crescendo too small"));
+		      : "crescendo too small"));
       width = 0;
     }
 

@@ -34,7 +34,7 @@
     %
     % ugh. hard coded?
     %
-    
+
     #(paper-set-staff-size (* 20.0 pt))
 
     %

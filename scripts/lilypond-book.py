@@ -1028,7 +1028,7 @@ def do_file (input_filename):
 
 
 		elif process_cmd:
-			do_process_cmd (chunksg)
+			do_process_cmd (chunks)
 			ly.progress (_ ("Compiling %s...") % output_filename)
 			output_file.writelines ([s.replacement_text () \
 						 for s in chunks])
