@@ -9,11 +9,11 @@
 @unnumberedsubsec General information
 
 @itemize @bullet 
-@item @uref{DEDICATION.txt,Dedication}
+@item @uref{DEDICATION.html,Dedication}
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors}
 @item @uref{../topdocs/out-www/README.html, Readme file}
 @item @uref{../topdocs/out-www/INSTALL.html, Installation instructions}
-@item @uref{CHANGES.txt, Things recently done}
+@item @uref{CHANGES.html, Things recently done}
 @item @uref{faq.html,FAQ: Frequently asked questions}, with answers
 @end itemize
 
@@ -66,18 +66,18 @@ by computer}.
 @itemize @bullet
 @item @uref{hacking.html,Internals} details of the implementation
 @item @uref{README-W32.html,Compiling and running on Windows32}
-@item @uref{../misc/out-www/CHANGES-0.0.txt, Change logs from 0.0 till 0.1 }
-@item @uref{../misc/out-www/CHANGES-0.1.txt, Change logs from 0.1 till 1.0 }
-@item @uref{../misc/out-www/CHANGES-1.0.txt, Change logs from 1.0 till 1.1 }
-@item @uref{../misc/out-www/CHANGES-1.1.txt, Change logs from 1.1 till 1.2 }
-@item @uref{../misc/out-www/NEWS-1.2.txt, summary of changes from 1.1 till 1.2 }
-@item @uref{../misc/out-www/ANNOUNCE-0.1.txt, Announcement of 0.1 (includes summary of
+@item @uref{../misc/out-www/CHANGES-0.0.html, Change logs from 0.0 till 0.1 }
+@item @uref{../misc/out-www/CHANGES-0.1.html, Change logs from 0.1 till 1.0 }
+@item @uref{../misc/out-www/CHANGES-1.0.html, Change logs from 1.0 till 1.1 }
+@item @uref{../misc/out-www/CHANGES-1.1.html, Change logs from 1.1 till 1.2 }
+@item @uref{../misc/out-www/NEWS-1.2.html, summary of changes from 1.1 till 1.2 }
+@item @uref{../misc/out-www/ANNOUNCE-0.1.html, Announcement of 0.1 (includes summary of
 changes)}
-@item @uref{../misc/out-www/ANNOUNCE-1.0.txt, Announcement of 1.0 (includes summary of
+@item @uref{../misc/out-www/ANNOUNCE-1.0.html, Announcement of 1.0 (includes summary of
 changes)}
-@item @uref{../misc/out-www/ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
-@item @uref{../misc/out-www/AIMS.txt, Why LilyPond?}
-@item @uref{../misc/out-www/interview.txt, Answers} to the Brave GNU world standard questions.
+@item @uref{../misc/out-www/ANNOUNCE-1.2.html, Announcement of 1.2 (includes summary of changes)}
+@item @uref{../misc/out-www/AIMS.html, Why LilyPond?}
+@item @uref{../misc/out-www/interview.html, Answers} to the Brave GNU world standard questions.
 @end itemize
 
 

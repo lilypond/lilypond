@@ -6,9 +6,10 @@
 @top
 
 @html
+<!----
 <p align=center>
 [
-    <a href="#download">Download</a>
+    <a href="#download-source">Download</a>
     |
     <a href="Documentation/out-www/faq.html">FAQ</a>
     |
@@ -18,15 +19,17 @@
     |
     <a href="#mailing-lists">Mailing lists</a>
     |
-    <a href="Documentation/out-www/CHANGES.txt">News</a>
+    <a href="Documentation/out-www/CHANGES.html">News</a>
 ]
+!---->
 @end html
 
 @html
 <p align=center>
 <img src="Documentation/pictures/out-www/lelie-logo.png" alt="[logo]">
 @end html
-@unnumberedsec LilyPond -- The GNU Project Music Typesetter
+
+@c @unnumberedsec LilyPond -- The GNU Project Music Typesetter
 
 @c something breaks on 3.12 f
 
@@ -44,9 +47,10 @@ The input to LilyPond is plain text. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
 this:
 
+@c \relative c''{ \key es \major; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 @quotation
 @mudela[fragment,verbatim]
-	\relative c'' { \key es \major; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
+\relative c''{ \key es \major; r8 c16 b c8 g as c16 b c8 d | g,4 }
 @end mudela 
 @end quotation
 
@@ -78,7 +82,7 @@ If want more information, you can browse the
 @unnumberedsec News
 
 For the latest and greatest features, check out the
-@uref{Documentation/out-www/CHANGES.txt, Change Log}.
+@uref{Documentation/out-www/CHANGES.html, Change Log}.
 
 
 @html
@@ -105,38 +109,49 @@ Lattermann also put some works
 @uref{http://www.alqualonde.de/lilypond.html,on the web}.
 
 @html
-<a name="download">
+<a name="download-source">
 @end html
 @unnumberedsec Download
 
 If you want to compile LilyPond from source, download here:
 @itemize @bullet
 @item Download stable releases at
-@uref{ftp://ftp.gnu.org/gnu/lilypond/}
-@item Download development releases at
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
-@item Canadian mirror   @uref{http://sca.uwaterloo.ca/lilypond/} and @uref{ftp://sca.uwaterloo.ca/pub/} 
-@item Another site in Europe
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+@uref{ftp://ftp.gnu.org/gnu/lilypond/, GNU}
+@item Download development releases from
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/, the source}
+@item @uref{http://sca.uwaterloo.ca/lilypond/, by http (Canadian
+mirror)} or @uref{ftp://sca.uwaterloo.ca/pub/, ftp (Canadian mirror)} 
+@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/, mirror (Europe)}
 @end itemize
 
 Installing and compiling requires many additional packages, which are
 listed in the @uref{Documentation/topdocs/out-www/INSTALL.html,
 installation instructions}.
 
+@html
+<a name="download-binary">
+@end html
+
 Binaries are available, but are not updated for every version released.
 @itemize @bullet
-@item RedHat-i386 and Linuxppc RPMs:
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}
-@item Debian binary @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} 
-@item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/, RedHat i386}
+@item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/, LinuxPPC}
+@item
+@uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-i386/tex,
+Debian GNU/Linux i386} 
+@item
+@uref{ftp://ftp.debian.org/debian/dists/unstable/main/binary-powerpc/tex,
+Debian GNU/Linux PowerPC} 
+@item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
+@item @uref{http://appel.dyndns.org/lilypond/gnu-windows, Windows
+Testing}
 @end itemize
 
 
 @html
 <a name="mailing-lists">
 @end html
-@unnumberedsec Mailing list
+@unnumberedsec Mailing lists
 
 If you have questions, do write to the mailing lists!
  (But don't forget to read the @uref{Documentation/out-www/faq.html,
@@ -193,9 +208,10 @@ of the LilyPond package.  The version of this webpage is printed at the
 bottom.
 
 @html
+<!----
 <p align=center>
 [
-    <a href="#download">Download</a>
+    <a href="#download-source">Download</a>
     |
     <a href="Documentation/out-www/faq.html">FAQ</a>
     |
@@ -205,8 +221,9 @@ bottom.
     |
     <a href="#mailing-lists">Mailing lists</a>
     |
-    <a href="Documentation/out-www/CHANGES.txt">News</a>
+    <a href="Documentation/out-www/CHANGES.html">News</a>
 ]
+!---->
 @end html
 
 @bye

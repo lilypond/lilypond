@@ -1,27 +1,20 @@
+<!--
 
-<! shamefully inspired by Franc,ois Pinard's TP pages >
+If this file ./Documentation/footer.html.in is present,
+it is included automatically by add-html-footer.py,
+which substitutes some @AT_VARIABLES@ as well.
+
+!-->
+
+<! Layout shamelessly inspired by Franc,ois Pinard's TP pages >
 
     </td>
   </tr>
-</table>
 
-<!--
+  <tr align=left valign=bottom>
+   <td align=left valign=middle colspan=3 width="100%" bgcolor="#e8e8ff">
 
-if this file ./Documentation/footer.html.in is present, it is included
-
-automatically by add-html-footer, and replaces the simple standard
-footer substitutions:
-
- * index,
- * package name
- * package name
- * ENV:WEBMASTER,
- * ENV:WEBMASTER
-
--->
-
-<hr>
-Go <a href=%s>back</a> to index of LilyPond.
+Go <a href="@INDEX@">back</a> to index of LilyPond.
 
 <p>
 Please send GNU LilyPond questions and comments to 
@@ -30,12 +23,8 @@ Please send GNU LilyPond questions and comments to
 <em>gnu-music-discuss@gnu.org</em></a>.
 <p>
 
-<!-- package %s %s -->
-
 Please send comments on these web pages to 
-<a href="mailto:%s"><em>%s</em></a>
-
-
+<a href="mailto:@MAIL_ADDRESS@"><em>@MAIL_ADDRESS@</em></a>
 
 <p>
 
@@ -46,3 +35,6 @@ Copyright (c) 1997, 1998, 1999, 2000 Han-Wen Nienhuys and Jan Nieuwenhuizen.
 Verbatim copying and distribution of this entire article is 
 permitted in any medium, provided this notice is preserved.<p>
 
+   </td>
+  </tr>
+</table>
