@@ -13,6 +13,7 @@
 #include "score-element.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
+#include "staff-symbol-referencer.hh"
 
 /*
   TODO: move text lookup out of Chord_name
@@ -169,5 +170,16 @@ Chord_name::brew_molecule (SCM smob)
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
   SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
 
-  return ly_text2molecule (me, text).create_scheme ();
+  Molecule mol = ly_text2molecule (me, text);
+
+  SCM space =  me->get_elt_property ("word-space");
+  if (gh_number_p (space))
+    {
+      Molecule m;
+      m.set_empty (false);
+      mol.add_at_edge (X_AXIS, RIGHT, m, gh_scm2double (space)*
+		       Staff_symbol_referencer::staff_space (me));
+    }
+
+  return mol.create_scheme ();
 }

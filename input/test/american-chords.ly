@@ -13,7 +13,7 @@
       chord::names-alist-american))
 
 chord = \notes\transpose c''\chords{
-\property ChordNames.chordNameStyle = "american"
+	\property ChordNames.ChordName \push #'style = #"american"
 c
 cs:m
 df:m5-
@@ -46,8 +46,10 @@ c:m7.9
 >
     \paper
     {
-        \translator { \ChordNameContext chordNameWordSpace = #1 }
-        \translator { \LyricsContext textScriptWordSpace = #0.3 }
+        	\translator { 
+			\ChordNameContext
+			ChordName \push #'word-space = #1 
+		}
     }
 }
 

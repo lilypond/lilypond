@@ -20,8 +20,10 @@ chord = \notes\transpose c''\chords{
     >
     \paper{
     	linewidth = -1.0;
-        \translator { \ChordNameContext chordNameWordSpace = #1 }
-        \translator { \LyricsContext textScriptWordSpace = #0.3 }
+        	\translator { 
+			\ChordNameContext
+			ChordName \push #'word-space = #1 
+		}
     }
 }
 

@@ -1,11 +1,11 @@
-%
-% Make sure the correct msamxx.tfm is where lily can find it
-% (ie cwd or lily's tfm dir).
-%
-% For normal (20pt) paper, do
-%
-%   cp locate `msam9.tfm` $LILYPONDPREFIX/tfm
-%
+%% This should only be necessary if your kpathsea setup is broken
+%%
+%% Make sure the correct msamxx.tfm is where lily can find it
+%% (ie cwd or lily's tfm dir).
+%%
+%% For normal (20pt) paper, do
+%%
+%%   cp locate `msam9.tfm` $LILYPONDPREFIX/tfm
 
 #(set! chord::names-alist-american
       (append 
@@ -25,20 +25,22 @@
       chord::names-alist-american))
 
 chord = \notes\transpose c''\chords{
-\property ChordNames.chordNameStyle = "american"
-c:m5-.7-
-c:m5-.7
+	\property ChordNames.ChordName \push #'style = #"american"
+	c:m5-.7-
+	c:m5-.7
 }
 
 \score{
-<
-\context ChordNames \chord
-\context Staff \chord
->
+    <
+	\context ChordNames \chord
+	\context Staff \chord
+    >
     \paper
     {
-        \translator { \ChordNameContext chordNameWordSpace = #1 }
-        \translator { \LyricsContext textScriptWordSpace = #0.3 }
+	  \translator { 
+		\ChordNameContext
+		ChordName \push #'word-space = #1 
+	  }
     }
 }
 

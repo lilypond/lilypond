@@ -59,4 +59,10 @@ keys = \notes{
 		\context ChordNames \scales
 		\context Staff < \scales \keys >
 	>
+	\paper{
+        	\translator { 
+			\ChordNameContext
+			ChordName \push #'word-space = #1 
+		}
+	}
 }
