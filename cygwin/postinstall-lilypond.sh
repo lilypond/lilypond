@@ -1,5 +1,5 @@
 #!@SHELL@
-# /etc/profile.d/post-lily.sh  -- Setup LilyPond
+# /etc/postinstall/lilypond.sh  -- Setup LilyPond
 
 # register .ly
 ROOT=$(cygpath -w /)
@@ -15,11 +15,18 @@ regtool set '/root/LilyPond/' 'LilyPond source'
 regtool add '/root/LilyPond/shell'
 regtool add '/root/LilyPond/shell/open'
 regtool add '/root/LilyPond/shell/open/command'
-# invoking python directly does not work
+
+# old ideas - discarded for now
 # regtool set '/root/LilyPond/shell/open/command/' $ROOT'\bin\python /usr/bin/lily-wins %1'
+# invoking python directly does not work
 # regtool set '/root/LilyPond/shell/open/command/' $ROOT'\bin\run-lily-wins.bat %1'
 # we now use generated run-lily-wins.bat in /
-regtool set '/root/LilyPond/shell/open/command/' $ROOT'\run-lily-wins.bat %1'
+# regtool set '/root/LilyPond/shell/open/command/' $ROOT'\run-lily-wins.bat %1'
+# the direct bash route:
+
+# TODO: should 'open' run LilyPond?
+#       should 'open' also start PDF viewer?
+regtool set '/root/LilyPond/shell/open/command/' $ROOT'\bin\bash.exe --login -c '"'"'/usr/bin/lily-wins "%1"'"'"
 regtool add '/root/LilyPond/shell/edit'
 regtool set '/root/LilyPond/shell/edit/' '&Edit source in Notepad ...'
 regtool add '/root/LilyPond/shell/edit/command'
@@ -27,24 +34,24 @@ regtool set '/root/LilyPond/shell/edit/command/' '%SystemRoot%\system32\notepad.
 regtool add '/root/LilyPond/shell/generate'
 regtool set '/root/LilyPond/shell/generate/' '&Generate PDF ...'
 regtool add '/root/LilyPond/shell/generate/command'
-regtool set '/root/LilyPond/shell/generate/command/' $ROOT'\bin\python /usr/bin/lily-wins %1'
-
+# regtool set '/root/LilyPond/shell/generate/command/' $ROOT'\bin\python /usr/bin/lily-wins %1'
+regtool set '/root/LilyPond/shell/generate/command/' $ROOT'\bin\bash.exe --login -c '"'"'/usr/bin/lily-wins "%1"'"'"
 
 # static run-lily-wins.bat, does not work.
 # @echo off
 # rem run-lily-wins.bat - Invoke /usr/bin/lily-wins from explorer
 # rem cd %~dp0%
 # rem bash.exe --login -c "/usr/bin/lily-wins '%1%'"
-# rem only nt4:
+# rem only works in Windows NT
 # rem %~dp0~bin\bash.exe --login -c "/usr/bin/lily-wins '%1%'"
 
-# generate run-lily-wins.bat
+# generate run-lily-wins.bat - not necessary: direct bash route
 # how to handle \r\n endings? text/bin mode?
-cat > /run-lily-wins.bat <<EOF
-@echo off
-rem run-lily-wins.bat - Invoke /usr/bin/lily-wins from explorer
-$ROOT\\bin\\bash.exe --login -c "/usr/bin/lily-wins '%1%'"
-EOF
+#cat > /run-lily-wins.bat <<EOF
+#@echo off
+#rem run-lily-wins.bat - Invoke /usr/bin/lily-wins from explorer
+#$ROOT\\bin\\bash.exe --login -c "/usr/bin/lily-wins '%1%'"
+#EOF
 
 # cleanup old fonts
 touch /tmp/.lilypond-install
