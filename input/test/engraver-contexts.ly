@@ -1,5 +1,3 @@
-#(ly:set-option 'old-relative)
-
 \version "1.9.6"
 \header {
     
@@ -15,7 +13,7 @@ context. "
 
 }
 
-\include "engraver-example.ly"
+\include "engraver-example.lyinc"
 
 \score {
 \context Staff << \topVoice \\ \botVoice >>
