@@ -4,7 +4,7 @@
 #
 #   by Anthony Fok <foka@debian.org>
 #   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
-#     Last modified:  Wed, 22 Apr 1998 03:14:10 -0600
+#     Last modified:  Wed, 11 Nov 1998 22:59:49 -0700
 
 set -e
 
@@ -20,6 +20,13 @@ echo " Running /usr/bin/mktexlsr ..."
 /usr/bin/mktexlsr
 
 #DEBHELPER#
+
+# If we are the last package to use the old /usr/lib/texmf/doc,
+# we will create the symlink to /usr/doc/texmf.  :-)
+if rmdir /usr/lib/texmf/doc >/dev/null 2>&1
+then
+    ln -s /usr/doc/texmf /usr/lib/texmf/doc
+fi
 
 echo
 echo " $pkg_name configuration completed."

@@ -1,6 +1,73 @@
-lilypond (1.0.16-1) unstable; urgency=low
+lilypond (1.0.19.uu1-2) frozen unstable; urgency=low
 
-  * New upstream release.
+  * [debian/rules]: Now builds the LilyPond documentation in dvi format.
+      Thanks to Roland Rosenfeld <roland@spinnaker.rhein.de>
+      for the bug report. (closes: Bug#30123).
+  * [debian/control]: Now also Recommends: tetex-extra (>= 0.9.981030-1)
+      because the .dvi documentation uses the EC fonts in that package.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 10 Dec 1998 17:43:57 -0700
+
+lilypond (1.0.19.uu1-1) frozen unstable; urgency=low
+
+  * New upstream bugfix release.
+
+ -- Anthony Fok <foka@debian.org>  Mon,  7 Dec 1998 13:12:02 -0700
+
+lilypond (1.0.18-2) frozen unstable; urgency=low
+
+  * [debian/rules]: Added symlink /usr/lib/texmf/fonts/afm/public/lilypond.
+      Thanks to Julian Gilbey <jdg@maths.qmw.ac.uk> for the bug report
+      (closes: Bug#29407).
+  * [scripts/ly2dvi.py]: Re-added a patch similar to the one in 1.0.17-1,
+      but teTeX's default search path is now placed *before* the ones that
+      ly2dvi adds.  Thanks to Roland Rosenfeld <roland@spinnaker.rhein.de>
+      for the bug report. (closes: Bug#29459).
+
+ -- Anthony Fok <foka@debian.org>  Mon, 23 Nov 1998 21:29:25 -0700
+
+lilypond (1.0.18-1) frozen unstable; urgency=low
+
+  * New upstream bugfix release.
+  * [debian/control]:
+      - Upgraded to standards version 2.5.0.0 (no changes).
+      - Recommends: python-misc (>= 1.5.1) because ly2dvi needs the glob
+        module in the python-misc package (closes: Bug#29283).
+      - Updated dependencies on tetex* to the latest versions:
+          Depends: tetex-bin (>= 0.9.981031-2)
+          Recommends: tetex-base (>= 0.9.981030-1)
+        due to changes in tetex's directory structure.
+  * [debian/rules]:
+      - The symlink ../../../../../share/lilypond/mf is now named
+        /usr/lib/texmf/fonts/source/public/lilypond instead of
+        /usr/lib/texmf/fonts/source/public/mf (Bug#29284).
+      - In the latest tetex-base package, /usr/lib/texmf/doc is now a
+        symlink to /usr/doc/texmf.  Therefore, we now install lilypond's
+        documentation into /usr/doc/texmf/musixtex/lilypond.
+        (closes: Bug#28999, Bug#29326)
+  * [debian/preinst]:
+      - The script now removes the directories
+        /var/spool/texmf/pk/*/public/mf and /var/spool/texmf/tfm/public/mf
+        created inadvertently by Debian's buggy lilypond 1.0.17-1.  :-)
+        (Bug#29284)
+      - Since 1.0.17-1, /usr/lib/texmf/tex/lilypond has been changed to a
+        symbolic directory.  The script now removes the old real directory
+        to prevent problems during upgrade (closes: Bug#29284).
+  * [debian/postinst]: I copied a few lines from tetex-nonfree's postinst
+      to remove the old directory /usr/lib/texmf/doc if lilypond is the
+      last package to use that directory, and create a symlink to
+      /usr/doc/texmf.  :-)
+  * Rebuilt with yodl (1.31.7-1) installed to ensure the documentations
+    are compiled properly (closes: Bug#29285).
+  * Thanks to Fabien Ninoles <fab@tzone.org>, Roland Rosenfeld
+    <roland@spinnaker.rhein.de> and Julian Gilbey <jdg@maths.qmw.ac.uk>
+    for reporting the bugs listed above. :-)
+
+ -- Anthony Fok <foka@debian.org>  Thu, 12 Nov 1998 03:14:25 -0700
+
+lilypond (1.0.17-1) frozen unstable; urgency=low
+
+  * New upstream "stable" release.
   * [debian/{copyright,control}]: pcnov095.win.tue.nl -> ftp.cs.uu.nl
       (New upstream master FTP site).  Also updated JCN's web site URL.
   * [debian/rules]: 
@@ -11,9 +78,17 @@ lilypond (1.0.16-1) unstable; urgency=low
         run.  Thanks to Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
         for reporting the problem!  (closes: Bug#27044)
       - Updated debian/rules according to the new debhelper rules example.
-  * [Documentation/topdocs/AUTHORS.yo]: Added a trailing "/" on URLs.
+      - Now configures with --disable-optimise instead of --enable-optimise,
+        otherwise it would not compile.
+      - Added symlinks to directories under /usr/lib/texmf because lilypond
+        now puts everything under /usr/share/lilypond.
+  * [Documentation/topdocs/AUTHORS.yo]: Added a trailing "/" on URLs. 
+  * [scripts/ly2dvi.py]: Added a hack to add an extra os.pathsep (":" on
+      Linux) to TEXINPUTS and MFINPUTS, otherwise ly2dvi and TeX would fail
+      to find the necessary files.
+  * Compiled with libstdc++2.9.  :-)
 
- -- Anthony Fok <foka@debian.org>  Thu, 15 Oct 1998 04:49:40 -0600
+ -- Anthony Fok <foka@debian.org>  Tue,  3 Nov 1998 14:31:18 -0700
 
 lilypond (1.0.2-1) unstable; urgency=low
 
@@ -73,8 +148,9 @@ lilypond (0.1.60-1) frozen unstable; urgency=medium
 
   * New upstream release with lots of bug fixes, including the MIDI
     generation bug in 0.1.48.  Please put this in Hamm.
-  * debian/rules:
+  * debian/control:
      - Upgraded to standards version 2.4.1.0 (no changes).
+  * debian/rules:
      - lilypond now also depends on tetex-base (>= 0.9-5)
        and conflicts with tetex-base (<< 0.9).
   * Modified postinst and postrm to work with teTeX 0.9 / Web2C 7.2:

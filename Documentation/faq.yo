@@ -99,7 +99,7 @@ should be documented, please do so and send in a patch.
 
 sect(Language: mudela)
 
-question(Why can't you type code(#c) in stead of code(cis) ?)
+question(Why can't you type code(#c) instead of code(cis) ?)
 
 We think that code(#c) looks as if you are entering the symbols to
 print (which you are not; remember, you're entering the musical

@@ -186,7 +186,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token NOTENAMES
 %token NOTES
 %token OCTAVE
-%token OUTPUT
 %token PAPER
 %token PARTIAL
 %token PENALTY

@@ -14,7 +14,7 @@ font_typeface=lilypond
 std_TEXMFMAIN=/usr/lib/texmf
 std_VARTEXFONTS=/var/spool/texmf
 
-#DEBHELPER#
+
 
 TEXMFMAIN=`/usr/bin/kpsewhich -expand-var '$TEXMFMAIN'`
 : ${TEXMFMAIN:=$std_TEXMFMAIN}

@@ -9,9 +9,21 @@
 # for Debian GNU/Linux.
 
 package = lilypond
+
 SHELL = /bin/sh
 r = debian/tmp
 d = usr/doc/$(package)
+
+strayfiles := stepmake/bin/*.pyc \
+	stepmake/stepmake/stepmake \
+	stepmake/stepmake/bin \
+	GNUmakefile stepmake/GNUmakefile \
+	config.h \
+	wwwlist \
+	Documentation/tex/fonts.aux \
+	Documentation/tex/fonts.log \
+	Documentation/tex/feta*.tfm \
+	Documentation/tex/feta*.*pk
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -21,10 +33,10 @@ build-stamp:
 	dh_testdir
 
 	CC=egcc ./configure --disable-checking --disable-debugging \
-		--enable-printing --prefix=/usr --enable-optimise \
+		--enable-printing --prefix=/usr --disable-optimise \
 		--enable-shared
 	$(MAKE) all
-	# $(MAKE) htmldoc
+	$(MAKE) -C Documentation/tex dvi
 
 	touch build-stamp
 
@@ -33,35 +45,34 @@ clean:
 	dh_testroot
 	rm -f build-stamp install-stamp
 	-$(MAKE) distclean
+	dh_clean
+
+	# Remove the following line once the *.make files are fixed
+	rm -f $(strayfiles)
 
 	# Correct the owner of the out/dummy.dep files when built with sudo.
 	if [ -n "$$SUDO_USER" -a -n "$$SUDO_GID" ]; then \
 		find . -user root | xargs -r chown $$SUDO_USER.$$SUDO_GID; \
-	else \
-		find . -user root | xargs -r chown $$LOGNAME; \
 	fi
-
-	# Remove the following line once the *.make files are fixed
-	rm -f stepmake/bin/*.pyc
-	rm -f stepmake/stepmake/stepmake
-	rm -f stepmake/stepmake/bin
-	rm -f GNUmakefile stepmake/GNUmakefile
-	rm -f config.h
-	rm -f wwwlist
-
-	dh_clean
 
 install: install-stamp
 install-stamp: build-stamp
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-	dh_installdirs usr/lib/texmf/doc \
+	dh_installdirs usr/doc/texmf \
 		usr/lib/emacs/site-lisp \
-		usr/doc/$(package)/examples
-	ln -fs ../../../doc/lilypond $(r)/usr/lib/texmf/doc/lilypond
+		usr/doc/$(package)/examples \
+		usr/lib/texmf/tex \
+		usr/lib/texmf/fonts/source/public \
+		usr/lib/texmf/fonts/afm/public
+	ln -fs ../lilypond $(r)/usr/doc/texmf/lilypond
 
 	$(MAKE) prefix=`pwd`/$(r)/usr install
+
+	ln -s ../../../share/lilypond/tex $(r)/usr/lib/texmf/tex/lilypond
+	ln -s ../../../../../share/lilypond/mf $(r)/usr/lib/texmf/fonts/source/public/lilypond
+	ln -s ../../../../../share/lilypond/afm $(r)/usr/lib/texmf/fonts/afm/public/lilypond
 
 	touch install-stamp
 
@@ -77,8 +88,8 @@ binary-arch: build install
 		BUGS TODO *.txt \
 		Documentation/pictures/*.xpm \
 		Documentation/out/*.txt \
-		Documentation/tex/*.doc \
-		Documentation/tex/*.bib
+		Documentation/tex/*.bib \
+		Documentation/tex/out/*.dvi
 #	dh_installexamples input
 	cp -aP `find input mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
 		$(r)/$(d)/examples

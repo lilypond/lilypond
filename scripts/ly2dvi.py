@@ -441,17 +441,17 @@ class Properties:
             this.__set('include', tmp, 'environment')    
 
 
-        t=''
+        t = os.pathsep
 	if os.environ.has_key ('TEXINPUTS'):
-		t = os.pathsep + os.environ['TEXINPUTS']
-        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'share',
-					       'lilypond', 'tex' ) + t
+		t = os.environ['TEXINPUTS'] + t
+        os.environ['TEXINPUTS'] = t + os.path.join(this.get('root'), 'share',
+					           'lilypond', 'tex' )
 
-        t=''
+        t = os.pathsep
 	if os.environ.has_key ('MFINPUTS'):
-		t = os.pathsep + os.environ['MFINPUTS']
-        os.environ['MFINPUTS'] = os.path.join(this.get('root'), 'share',
-					       'lilypond', 'mf' ) + t
+		t = os.environ['MFINPUTS'] + t
+        os.environ['MFINPUTS'] = t + os.path.join(this.get('root'), 'share',
+					          'lilypond', 'mf' )
 
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')
