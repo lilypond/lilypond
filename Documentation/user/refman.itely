@@ -29,9 +29,10 @@ somewhat familiar with using LilyPond.
 * Tablatures::                  
 * Chord names::                 
 * Orchestral music::            
-* Ancient notation ::           
+* Ancient notation::            
 * Contemporary notation::       
 * Tuning output::               
+* Tuning spanning contexts::    
 * Global layout::               
 * Sound::                       
 @end menu
@@ -57,7 +58,7 @@ such as stems, tuplets and ties.
 * Stems::                       
 * Ties::                        
 * Tuplets::                     
-* Easy Notation note heads ::   
+* Easy Notation note heads::    
 @end menu
 
 
@@ -565,7 +566,7 @@ shown on screen. See @ref{Point and click} for more information.
 * Octave check::                
 * Bar check::                   
 * Skipping corrected music::    
-* Automatic note splitting ::   
+* Automatic note splitting::    
 @end menu
 
 
@@ -807,12 +808,14 @@ staff symbol.
 @cindex number of staff lines, setting 
 
 This object is created whenever a @internalsref{Staff} context is
-created.  The appearance of the staff symbol cannot be changed by
-using @code{\override} or @code{\set}.  At the moment that
-@code{\property Staff} is interpreted, a @internalsref{Staff} context
-is made, and the @internalsref{StaffSymbol} is created before any
-@code{\override} is effective. Properties can be changed in a
-@code{\translator} definition, or by using @code{\applyoutput}.
+created.  To change its appearance, use the @code{\with} command,
+described in @ref{Tuning spanning contexts}.
+
+@seealso
+
+
+@internalsref{StaffSymbol}, @inputfileref{input/test,staff-lines.ly},
+@inputfileref{input/test,staff-size.ly}, @ref{Tuning spanning contexts}. 
 
 @refbugs
 
@@ -1393,7 +1396,7 @@ Automatically kneed beams cannot be used together with hidden staves.
 
 
 @menu
-* Setting automatic beam behavior ::  
+* Setting automatic beam behavior::  
 @end menu
 
 @ignore
@@ -1777,7 +1780,7 @@ for the problematic notes.
 @c fingering?
  
 @menu
-* Slurs ::                      
+* Slurs::                       
 * Phrasing slurs::              
 * Breath marks::                
 * Metronome marks::             
@@ -1787,7 +1790,7 @@ for the problematic notes.
 * Fingering instructions::      
 * Text scripts::                
 * Grace notes::                 
-* Glissando ::                  
+* Glissando::                   
 * Dynamics::                    
 @end menu
 
@@ -7409,11 +7412,7 @@ layout property name:
 @end example
 
 @menu
-* Tuning objects ::             
-* Constructing a tweak::        
-* Applyoutput::                 
-* Font selection::              
-* Text markup::                 
+* Tuning objects::              
 @end menu
 
 
@@ -7588,6 +7587,48 @@ third note, a new Voice is created, which inherits the new definition,
 including the changed thickness, but excluding the new neutral
 direction.
 
+
+@node Tuning spanning contexts
+@section Tuning spanning contexts
+
+Certain objects, for example, the staff symbol, are constructed before
+any @code{\property} statements are executed.  Therefore, they must be
+tuned with a different mechanism. This mechanism is @code{\with}. The
+syntax is as follows
+
+@example
+  \with @{
+     @var{property-settings}
+  @}
+@end example
+
+These statements comes between @code{\new} or @code{\context} and the
+music to be interpreted. @var{property-settings} may be any type of
+@code{\property} command.  The following example shows how a staff is
+created with bigger spaces:
+
+@lilypond[relative=1,fragment]
+  \new Staff { c4 es4 g2 }
+  \new Staff \with {
+        StaffSymbol \set #'staff-space = #(magstep 1.5)
+        fontSize = 1.5
+  } {
+        c4 es4 g2
+  }
+@end lilypond
+
+@refbugs
+
+@code{\with} has no effect for already existing contexts. @code{\with}
+can not be used for @internalsref{Score} contexts.
+
+
+@menu
+* Constructing a tweak::        
+* Applyoutput::                 
+* Font selection::              
+* Text markup::                 
+@end menu
 
 @node Constructing a tweak
 @subsection Constructing a tweak
@@ -7799,14 +7840,11 @@ example is given below:
 This command will set @code{font-size} (see below), and does
 not change the size of variable symbols, such as beams or slurs.
 
-One of the uses of @code{fontSize} is to get smaller symbol for cue
+One of the uses of @code{fontSize} is to get smaller symbols for cue
 notes. An elaborate example of those is in
 @inputfileref{input/test,cue-notes.ly}.
 
 @cindex magnification
-
-
-
 @cindex cue notes
 
 The font used for printing a object can be selected by setting
@@ -7867,7 +7905,8 @@ to override default setting, which are always present. For example:
 The font size is set by modifying the @code{font-size} property.  Its
 value is a number indicating the size relative to the standard size.
 Each step up is an increase of approximately 12% of the font size. Six
-steps is exactly a factor two.
+steps is exactly a factor two. The Scheme function @code{magstep}
+converts a @code{font-size} number to a scaling factor.
 
 LilyPond has fonts in different design sizes: the music fonts for
 smaller sizes are chubbier, while the text fonts are relatively wider.
@@ -7889,12 +7928,15 @@ The following commands set @code{fontSize} for the current voice.
 @cindex @code{\normalsize}
 @code{\normalsize}, 
 
+@seealso
+
+@file{ly/paper20.ly} contains hints how new fonts may be added to
+LilyPond.
+
 @refbugs
 
-Relative size is not linked to any real size.
-
 There is no style sheet provided for other fonts besides the @TeX{}
-family, and the style sheet cannot be modified easily.
+family.
 
 @cindex font selection
 @cindex font magnification
