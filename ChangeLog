@@ -1,3 +1,7 @@
+2003-01-13  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: fontify all durations in chords.
+
 2003-01-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/gregorian-ligature.cc: new file

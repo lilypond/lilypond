@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 1992,1993,1994  Tim Peters
 
-;; Author: 2001-2002: Heikki Junes
+;; Author: 2001-2003: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
 ;;  * File lilypond.words gives keywords, identifiers and reserved words
@@ -10,8 +10,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.9
-;; Last Modified: 12DEC2002
+;; Version:       1.7.11
+;; Last Modified: 13DEC2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -88,7 +88,7 @@
 ;; "on top", ... vertical grouping:
 ;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
 ;;               - '<< a b >>8' -chords
-      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
+      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
 
 ;; "on top", ... expressional grouping:
 ;;               - slurs \( () \)
