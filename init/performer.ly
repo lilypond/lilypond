@@ -4,7 +4,7 @@
 \translator {
 	\type "Staff_performer";
 	\accepts Voice;
-	Staff;
+	\name Staff;
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
 }
@@ -12,51 +12,51 @@
 \translator
 {
 	\type "Performer_group_performer";
-	Thread ;
+	\name Thread ;
 	\consists "Note_performer";
 }
 \translator
 {
 	\type "Performer_group_performer";
 	\accepts Thread;
-Voice;
+\name Voice;
 }
 \translator
 {
 	\type "Performer_group_performer";
 	\accepts Staff;
 
-GrandStaff;}
+\name GrandStaff;}
 
 \translator {
 	\type "Performer_group_performer";
 	\consists "Lyric_performer";
-LyricVoice;
+\name LyricVoice;
 }
 
 \translator{
 	\type "Performer_group_performer";
-	ChoirStaff;
+	\name ChoirStaff;
 	\accepts Staff;
 }
 \translator { 
 	\type "Staff_performer";
 	\accepts LyricVoice;
-	Lyrics;
+	\name Lyrics;
 	\consists "Time_signature_performer";
 }
 \translator
 {
 	\type Performer_group_performer;
 
-	StaffGroup;
+	\name StaffGroup;
 	\accepts Staff;
 }
 \translator {
 	\type "Score_performer";
 
 
-	Score;
+	\name Score;
 	instrument = piano;
 	\accepts Staff;
 	\accepts GrandStaff;

@@ -4,7 +4,7 @@
 
 StaffContext=\translator {
 	\type "Line_group_engraver_group";
-	Staff ;
+	\name Staff ;
 
 %{
 	The Hara_kiri_line_group_engraver is a Line_group_engraver 
@@ -58,7 +58,7 @@ StaffContext=\translator {
 \translator{\StaffContext }
 \translator {
 	\type "Line_group_engraver_group";
-	ChoirStaff;
+	\name ChoirStaff;
 	\consists "Vertical_align_engraver";
 	\consists "Staff_group_bar_engraver";
 	\accepts "Staff";
@@ -73,7 +73,7 @@ RhythmicStaffContext=\translator{
 	nolines  = "1";
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
-	RhythmicStaff;
+	\name RhythmicStaff;
 	\consists "Bar_engraver";
 	\consists "Time_signature_engraver";
 	\consists "Staff_sym_engraver";
@@ -83,7 +83,7 @@ RhythmicStaffContext=\translator{
 VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";
-	Voice ;
+	\name Voice ;
 	
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
@@ -104,7 +104,7 @@ VoiceContext = \translator {
 \translator {\VoiceContext}
 \translator {
 	\type "Line_group_engraver_group";
-	GrandStaff;
+	\name GrandStaff;
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
@@ -119,7 +119,7 @@ VoiceContext = \translator {
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Staff_group_bar_engraver";
-	StaffGroup;
+	\name StaffGroup;
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
@@ -129,7 +129,7 @@ VoiceContext = \translator {
 \translator{
 	\type "Line_group_engraver_group";
 
-	LyricVoice ;
+	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Beam_req_swallow_translator";
@@ -138,14 +138,14 @@ VoiceContext = \translator {
 
 \translator {
 	\type "Line_group_engraver_group";
-	Lyrics;
+	\name Lyrics;
 	\consists "Vertical_align_engraver";
 	\accepts "LyricVoice";
 }
 
 ScoreContext = \translator {
 	\type Score_engraver;
-	Score;
+	\name Score;
 	defaultClef = violin;
 
 	\consists "Timing_engraver";
@@ -177,7 +177,7 @@ ScoreWithNumbers = \translator {
 
 \translator {
  	\type "Score_engraver";
-	StupidScore;
+	\name StupidScore;
 
 	\consists "Staff_sym_engraver";
 }
@@ -197,7 +197,7 @@ BarNumberingStaffContext = \translator {
 
 HaraKiriStaffContext = \translator {
 	\type "Hara_kiri_line_group_engraver";
-	Staff;
+	\name Staff;
 	barColumnPriority = "0";
 	marginBreakPriority = "-4";
 
@@ -226,7 +226,7 @@ OrchestralPartStaffContext = \translator {
 
 OrchestralScoreContext= \translator {
 	\type Score_engraver;
-	Score;
+	\name Score;
 	barScriptPadding = "2.0";	% dimension \pt
 	markScriptPadding = "4.0";
 	barColumnPriority = "-4";
