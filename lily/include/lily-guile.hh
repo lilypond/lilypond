@@ -26,6 +26,7 @@
 #define scm_hash_table_p scm_vector_p
 #define scm_i_string_chars(x) SCM_STRING_CHARS(x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH(x)
+#define scm_is_number(x) (scm_number_p(x)==SCM_BOOL_T)
 #endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL
