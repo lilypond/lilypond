@@ -89,7 +89,6 @@
     \name InnerChoirStaff
     \consists "System_start_delimiter_engraver"
     systemStartDelimiter = #'SystemStartBracket
-    localKeySignature = #'()
 
     \accepts "Staff"
     \accepts "DrumStaff"
@@ -279,7 +278,6 @@
 \context {
     \type "Engraver_group_engraver"
     \name InnerStaffGroup
-    localKeySignature = #'()
 
     \consists "Span_bar_engraver"
     \consists "Span_arpeggio_engraver"
@@ -390,7 +388,6 @@ AncientRemoveEmptyStaffContext = \context {
 \context {
     \type Score_engraver
     \name Score
-    localKeySignature = #'()
 
     \description "This is the top level notation context.  No
     other context can contain a @code{Score} context.  This context

@@ -46,9 +46,6 @@ const int NATURAL_TOP_PITCH = 4;
   the thinking to other parties.
 
   - TODO: put this in Scheme
-  
-  - lots of values trivially shared (key doesn't change very
-  often). Compute those once, and use that as cache for the rest.
 
   TODO: can  we do without c0pos? it's partly musical. 
 
@@ -74,6 +71,7 @@ alteration_pos  (SCM what, int alter, int c0p)
     {
       p -= 7; /* Typeset below c_position */
     }
+  
   /* Provide for the four cases in which there's a glitch 
        it's a hack, but probably not worth  
        the effort of finding a nicer solution.

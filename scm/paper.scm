@@ -73,8 +73,6 @@
     (module-define! m 'head-sep (* 4 mm))
     (module-define! m 'foot-sep (* 4 mm))))
 
-
-
 (define (internal-set-paper-size module name)
   (let* ((entry (assoc name paper-alist))
 	 (is-paper? (module-defined? module '$is-paper))

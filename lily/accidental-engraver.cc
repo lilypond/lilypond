@@ -41,6 +41,11 @@ Accidental_entry::Accidental_entry ()
 }
 
 struct Accidental_engraver : Engraver {
+
+
+  int get_bar_number ();
+  void update_local_key_signature ();
+
 protected:
   TRANSLATOR_DECLARATIONS (Accidental_engraver);
   virtual void process_music ();
@@ -51,8 +56,8 @@ protected:
   virtual void finalize ();
 public:
 
-  Protected_scm last_keysig_;
-
+  Protected_scm last_keysig_;	// ugh.
+  
   /*
     Urgh. Since the accidentals depend on lots of variables, we have to
     store all information before we can really create the accidentals.
@@ -64,15 +69,22 @@ public:
 
   Array<Accidental_entry> accidentals_;
   Link_array<Spanner> ties_;
-
-  SCM get_bar_num ();
 };
 
+
+/*
+  TODO:
+
+  ugh, it is not clear what properties are mutable and which
+  aren't. eg. localKeySignature is changed at runtime, which means
+  that references in grobs should always store ly_deep_copy ()s of
+  those.
+ */
 
 static void
 set_property_on_children (Context * trans, const char * sym, SCM val)
 {
-  trans->set_property (sym, val);
+  trans->set_property (sym, ly_deep_copy (val));
   for (SCM p = trans->children_contexts (); ly_c_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
@@ -86,19 +98,30 @@ Accidental_engraver::Accidental_engraver ()
   last_keysig_ = SCM_EOL;
 }
 
+
+void
+Accidental_engraver::update_local_key_signature ()
+{
+  last_keysig_ = get_property ("keySignature");
+  set_property_on_children (context (), "localKeySignature", last_keysig_);
+
+  Context * trans = context ()->get_parent_context ();
+
+  /*
+    Huh. Don't understand what this is good for. --hwn.
+   */
+  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature")))
+    {
+      trans->set_property ("localKeySignature",
+			    ly_deep_copy (last_keysig_));
+      trans = trans->get_parent_context ();
+    }
+}
+
 void
 Accidental_engraver::initialize ()
 {
-  last_keysig_ = get_property ("keySignature");
-
-  Context * trans_ = context ();
-  while (trans_)
-    {
-      trans_ -> set_property ("localKeySignature",
-			      ly_deep_copy (last_keysig_));
-      trans_ = trans_->get_parent_context ();
-    }
-  set_property_on_children (context (),"localKeySignature", last_keysig_);
+  update_local_key_signature (); 
 }
 
 /*
@@ -111,40 +134,55 @@ Accidental_engraver::initialize ()
 */
 static int
 number_accidentals_from_sig (bool *different,
-			     SCM sig, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+			     SCM sig, Pitch *pitch, int curbarnum, SCM lazyness, 
 			     bool ignore_octave)
 {
   int n = pitch->get_notename ();
   int o = pitch->get_octave ();
   int a = pitch->get_alteration ();
-  int curbarnum_i = ly_scm2int (curbarnum);
-  int accbarnum_i = 0;
+  int accbarnum = -1;
 
-  SCM prev;
-  if (ignore_octave)
-    prev = ly_assoc_cdr (scm_int2num (n), sig);
-  else
-    prev = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
-
-  /* should really be true unless prev == SCM_BOOL_F */
-  if (ly_c_pair_p (prev) && ly_c_pair_p (ly_cdr (prev)))
+  SCM prevs[3];
+  int bar_nums[3] = {-1,-1,-1};
+  int prev_idx = 0;
+  
+  if (!ignore_octave)
     {
-      accbarnum_i = ly_scm2int (ly_cddr (prev));
-      prev = scm_cons (ly_car (prev), ly_cadr (prev));
+      prevs[prev_idx] = scm_assoc (scm_cons (scm_int2num (o), scm_int2num (n)), sig);
+
+      if (ly_c_pair_p (prevs[prev_idx]))
+	prev_idx++;
     }
   
-  /* If an accidental was not found or the accidental was too old */
-  if (prev == SCM_BOOL_F ||
-      (ly_c_number_p (lazyness) && curbarnum_i > accbarnum_i + ly_scm2int (lazyness)))
-    prev = scm_assoc (scm_int2num (n), sig);
+  prevs[prev_idx] = scm_assoc (scm_int2num (n), sig);
+  if (ly_c_pair_p (prevs[prev_idx]))
+    prev_idx++;
 
+  for (int i= 0; i < prev_idx; i++)
+    {
+      if (ly_c_pair_p (prevs[i])
+	  && ly_c_pair_p (ly_cdr (prevs[i])))
+	{
+	  bar_nums[i]  = ly_scm2int (ly_cddr (prevs[i]));
+	  prevs[i] = scm_cons (ly_car (prevs[i]), ly_cadr (prevs[i]));
+	}
+    }
+  
 
-  SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
-
-  int p = ly_c_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
+  int p = 0; 
+  for (int i= 0; i < prev_idx; i++)
+    {
+      if (accbarnum < 0
+	  || (ly_c_number_p (lazyness)
+	      && curbarnum > accbarnum + ly_scm2int (lazyness)))
+	{
+	  p = ly_scm2int (ly_cdr (prevs[i]));
+	  break;
+	}
+    }
 
   int num;
-  if (a == p && ly_c_number_p (prev_acc))
+  if (a == p)
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
@@ -158,7 +196,7 @@ number_accidentals_from_sig (bool *different,
 static int
 number_accidentals (bool *different,
 		    Pitch *pitch, Context * origin, 
-		    SCM accidentals, SCM curbarnum)
+		    SCM accidentals, int curbarnum)
 {
   int number = 0;
 
@@ -215,18 +253,19 @@ number_accidentals (bool *different,
   return number;
 }
 
-SCM
-Accidental_engraver::get_bar_num ()
+int
+Accidental_engraver::get_bar_number ()
 {
   SCM barnum = get_property ("currentBarNumber");
   SCM smp = get_property ("measurePosition");
-      
+
+  int bn = robust_scm2int (barnum, 0);
+  
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-  if (mp.main_part_ < Rational (0)
-      && ly_c_number_p (barnum))
-    barnum = scm_int2num (ly_scm2int (barnum) - 1);
-      
-  return barnum ;
+  if (mp.main_part_ < Rational (0))
+    bn --;
+  
+  return bn;
 }
 
 void
@@ -236,7 +275,7 @@ Accidental_engraver::process_acknowledged_grobs ()
     {
       SCM accidentals =  get_property ("autoAccidentals");
       SCM cautionaries =  get_property ("autoCautionaries");
-      SCM barnum = get_bar_num ();
+      int barnum = get_bar_number ();
       
       bool extra_natural_b = get_property ("extraNatural") == SCM_BOOL_T;
       for (int i = 0; i  < accidentals_.size (); i++) 
@@ -365,7 +404,7 @@ Accidental_engraver::stop_translation_timestep ()
 
   for (int i = accidentals_.size (); i--;) 
     {
-      SCM barnum = get_bar_num ();
+      int barnum = get_bar_number ();
 
       Music * note = accidentals_[i].melodic_;
       Context * origin = accidentals_[i].origin_;
@@ -379,7 +418,7 @@ Accidental_engraver::stop_translation_timestep ()
       int a = pitch->get_alteration ();
       SCM on_s = scm_cons (scm_int2num (o), scm_int2num (n));
 
-      while (origin)
+      while (origin && origin->where_defined (ly_symbol2scm ("localKeySignature")))
 	{
 	  /*
 	    huh? we set props all the way to the top? 
@@ -393,7 +432,7 @@ Accidental_engraver::stop_translation_timestep ()
 		that of the tied note and of the key signature.
 	      */
 	      localsig = ly_assoc_front_x
-		(localsig, on_s, scm_cons (SCM_BOOL_T, barnum));
+		(localsig, on_s, scm_cons (SCM_BOOL_T, scm_int2num (barnum)));
 
 	      change = true;
 	    }
@@ -404,13 +443,14 @@ Accidental_engraver::stop_translation_timestep ()
 		noteheads with the same notename.
 	      */
 	      localsig = ly_assoc_front_x
-		(localsig, on_s, scm_cons (scm_int2num (a), barnum));
+		(localsig, on_s, scm_cons (scm_int2num (a), scm_int2num (barnum)));
 
 	      change = true;
 	    }
 
 	  if (change)
 	    origin->set_property ("localKeySignature",  localsig);
+	  
 	  origin = origin->get_parent_context ();
 	}
     }
@@ -469,15 +509,7 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Context * trans_ = context ();
-      while (trans_)
-	{
-	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
-	  trans_ = trans_->get_parent_context ();
-	}
-      set_property_on_children (context (),"localKeySignature", sig);
-
-      last_keysig_ = sig;
+      update_local_key_signature ();
     }
 }
 

@@ -214,3 +214,13 @@ Book_paper_def::c_variable (String s) const
 {
   return lookup_variable (ly_symbol2scm (s.to_str0 ()));
 }
+
+
+LY_DEFINE (ly_book_paper_def_scope, "ly:bookpaper-def-scope",
+	   1, 0,0, (SCM def),
+	   "Get the variable scope inside @var{def}.")
+{
+  Book_paper_def *op = unsmob_book_paper_def (def);
+  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
+  return op->scope_;
+}
