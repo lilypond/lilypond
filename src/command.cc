@@ -29,6 +29,8 @@ Command::print() const
 {
 #ifndef NPRINT
     mtor << "command at " << when << ", code " << code << " prio " << priority;
+    if ( isbreak())
+	mtor << "(break separator)";
     if (args.sz()) {
 	mtor<< " args: ";
 	for (int i = 0; i<args.sz(); i++)
