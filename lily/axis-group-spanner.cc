@@ -78,9 +78,9 @@ Axis_group_spanner::do_break_processing()
 	  Item *it = dynamic_cast <Item *> (elt) ;	  
 	  if (Spanner * sp =dynamic_cast <Spanner *> (elt))
 	    {
-	      for (int j =0; j < sp->broken_info_.size(); j++) 
+	      for (int j =0; j < sp->broken_into_l_arr_.size(); j++) 
 		{
-		  Line_of_score *l = sp->broken_info_[j].line_l_;
+		  Line_of_score *l = sp->broken_into_l_arr_[j]->line_l ();
 
 		  Axis_group_spanner * my_broken_l
 		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (l));

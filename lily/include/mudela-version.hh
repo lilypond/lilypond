@@ -25,4 +25,6 @@ struct Mudela_version
   int patch_i_;
 };
 
+extern Mudela_version oldest_version;
+
 #endif // MUDELA_VERSION_HH

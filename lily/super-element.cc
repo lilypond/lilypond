@@ -60,12 +60,13 @@ void
 Super_element::break_processing ()
 {
   calculate_dependencies (BROKEN, BROKEN, &Score_element::do_break_processing);
-  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
-			  &Score_element::handle_broken_dependents);
 }
+
 void
 Super_element::post_processing ()
 {
+  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
+			  &Score_element::handle_broken_dependents);
   calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::do_post_processing);
 }
 

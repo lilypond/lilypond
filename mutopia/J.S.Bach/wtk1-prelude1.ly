@@ -10,21 +10,16 @@ copyright =	 "Public Domain";
 
 \version "1.1.52";
 
-global = 
-    \notes {
-	 \time 4/4;                % should be \time C
-    }
-  
-
 % should do programmable input.
-
 soprane =
     \notes \transpose c'' {
-        \clef "violin";
-
 	\context Staff <
 	% Real soprane
-	{\stemup
+	\context Voice = uVoice {
+	\time 4/4;
+        \clef "violin";
+
+	\stemup
 	r8 [g16 c'] [e' g c' e'] r8 [g16 c'] [e' g c' e'] |
 	r8 [a16 d'] [f' a d' f'] r8 [a16 d'] [f' a d' f'] |
 	r8 [g16 d'] [f' g d' f'] r8 [g16 d'] [f' g d' f'] |
@@ -33,9 +28,9 @@ soprane =
 	r8 [fis16 a] [d' fis a d'] r8 [fis16 a] [d' fis a d'] |
 	r8 [g16 d'] [g' g d' g'] r8 [g16 d'] [g' g d' g'] |
 	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] |
-	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] |}
+	r8 [e16 g] [c' e g c'] r8 [e16 g] [c' e g c'] }
 	% Tenor
-	{\stemdown
+	\context Voice = dVoice {\stemdown
 	r16 e8. ~ e4 r16 e8. ~ e4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
 	r16 d8. ~ d4 r16 d8. ~ d4 |
@@ -74,7 +69,7 @@ soprane =
 
 	r8 [f,16 a,] [c f c a,] [c a, f, a,] [f, d, f, d,] |
 	r8 [g16 b] [d' f' d' b] [d' b g b] [d f e d] |
-	<e1 g c'> ||
+	<e1 g c'> \bar "|.";
     }
 
 bass =
@@ -94,7 +89,7 @@ bass =
 	a a |	
 %% 10
 	\context Staff <
-	% Alt
+	\context Voice =  Alt
 	{\stemup
 	r16 a8. ~ a4 r16 a8. ~ a4 |
 	r16 b8. ~ b4 r16 b8. ~ b4 |
@@ -126,7 +121,7 @@ bass =
 	r16 b,8. ~ b,4 ~ b,2 |
 	c1 ||}
 
-	% Bass
+	\context Voice = Bass
 	{\stemdown
 	d2 d |
 	g g |
@@ -156,22 +151,15 @@ bass =
 	
 	c, c, |
 	c, c, |
-	c,1 }>
+	c,1 \bar "|."; }>
     }
 
         
 \score {
-    \notes \context GrandStaff < 
-                  <
-                       \global 
-                       \soprane
-                 >
-                  <
-                       \global
-		       \bass
-                 >
-             >
-
+    \notes \context PianoStaff < 
+    	\soprane
+        \bass
+    >
     \paper{
 	gourlay_maxmeasures =5.;	
     }
@@ -181,3 +169,4 @@ bass =
 }
 
 % EOF
+	

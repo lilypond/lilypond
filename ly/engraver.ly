@@ -98,6 +98,7 @@ VoiceContext = \translator {
 %	\consists "Multi_measure_rest_engraver";
 
 	% ugh.  Order matters here.
+	\consists "Melisma_engraver";
 	\consists "Text_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -125,6 +126,7 @@ GraceContext=\translator {
 	\consists "Align_note_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Rhythmic_column_engraver";
+	\consists "Dynamic_engraver";
 
 	stemStyle = "grace";
 	weAreGraceContext = "1";

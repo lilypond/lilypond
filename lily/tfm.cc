@@ -67,7 +67,7 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
   return dummy_static_char_metric;  
 }
 
-Character_metric*
+Character_metric const*
 Tex_font_metric::get_char (int a, bool w) const
 {
   return &find_ascii (a, w);

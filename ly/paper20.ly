@@ -27,14 +27,11 @@ paper_twenty = \paper {
 	quartwidth =  6.61\pt;
 	wholewidth = 9.90\pt;
 
-
-	arithmetic_basicspace = 2.;
-        arithmetic_multiplier = 6.\pt;
-
-		-2 = \font "feta13"
+	-2 = \font "feta13"
 	-1 = \font "feta16"
 	0 = \font "feta20"
 
 	\include "params.ly";
 }
 
+\paper { \paper_twenty }

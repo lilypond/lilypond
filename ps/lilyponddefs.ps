@@ -60,26 +60,7 @@
 	yoffset mudelapaperstaffheight 8 mul sub /yoffset exch def
 } bind def
 
-/unknown { (U) setbold } bind def
-/empty { (E) setbold } bind def
-
 /turnOnExperimentalFeatures { } bind def
-
-/rulesym % thick length
-{
-	gsave
-	exch setlinewidth
-	0 lineto stroke
-	grestore
-} bind def
-
-(lily.ps) findlibfile 
-{
-	exch pop //systemdict /run get exec
-} 
-{ 
-	/undefinedfilename signalerror 
-} ifelse
 
 stafflinethickness setlinewidth
 

@@ -25,16 +25,16 @@ global = \notes {
   
 hoyreOpp = \notes\relative c''  {
 	\stemup
-	es4^"Grave adagio" r16 [es d. es32] f4 r16 [f16 f. g32] |
-	[as8. as16] [as16 g32 f g16. d32] es4 r16 [g g. as32] |
+	es4^"Grave adagio" r16 [es d16. es32] f4 r16 [f16 f16. g32] |
+	[as8. as16] [as16 g32 f g16. d32] es4 r16 [g g16. as32] |
 %3
-	bes4 r16 [bes,16 bes. c32] [des8. des16] 
+	bes4 r16 [bes,16 bes16. c32] [des8. des16] 
 	\context Staff < 
 		{ \stemup e4 }
 		{ \stemup \property Voice.horizontalNoteShift = 1 [des16 c32 bes c16. g32] }
 	>
 %4
-	f4 \stemboth r16 [f g. as32] \stemup d,4 r16 [d g. es32] |
+	f4 \stemboth r16 [f g16. as32] \stemup d,4 r16 [d g16. es32] |
 	c4 ~ [c32 es des c des16. f32] [b,16. c32 b16. c32] d4 ~ |
 	d2 ~ [d16. g,32 a16. b32] [c16. <b32 g> <c16. a> <d32 b>] |
 	<[es8. c> <es16 c>]
@@ -47,12 +47,12 @@ hoyreOpp = \notes\relative c''  {
 hoyreNed = \notes\relative c'' {
 	\clef violin;
 	\stemdown
-	<c4 g> r16 [c b. c32] d4 r16 [d d. es32] |
-	[f8. f16] f8 r <c4 g> r16 [es16 es. f32] |
+	<c4 g> r16 [c b16. c32] d4 r16 [d d16. es32] |
+	[f8. f16] f8 r <c4 g> r16 [es16 es16. f32] |
 	<c4 g' > r16 [g16 g16. as32] [bes8. bes16] bes8 r |
-	<c4 as> r16 s16*3 r16 [f, f. g32] g4 |
+	<c4 as> r16 s16*3 r16 [f, f16. g32] g4 |
 %5
-	r16 [es es. f32] f4 [g16. a32 g16. a32] b4 ~ |
+	r16 [es es16. f32] f4 [g16. a32 g16. a32] b4 ~ |
 	[b8. d,16] [f8. as16] [g16. f32 es16. d32] [es16. d32 es16. f32] |
 	g4 <c8 a> r <d2 b>
 }
@@ -63,13 +63,13 @@ venstreOpp = \notes\relative c' {
 	<c4 g es> r <b as f d> r |
 	r <b f d> <c g es> r |
 	<c g e> r r <c g> |
-	<c as f> r r16 <[as d,><as. d,><g32 d>] <g4 d> |
+	<c as f> r r16 <[as d,><as16. d,><g32 d>] <g4 d> |
 %5
-	r16 <[g c,><g. c,><f32 c>] 
+	r16 <[g c,><g16. c,><f32 c>] 
 	\context Staff <
 		{\stemup f4~ f}
 		{\stemup c4 d}
-	> r16 [f f. g32] |
+	> r16 [f f16. g32] |
 %6
 	[as8. as16]~ [as g32 f g16 d] <es4 c> r |
 	r <a es c> <g2 d>
@@ -77,8 +77,8 @@ venstreOpp = \notes\relative c' {
 
 venstreNed = \notes\relative c{
 	\stemdown
-	c4 r c r | r c c r | c r r c | c r r16 [c c. bes32] bes4 |
-	r16 [bes bes. as32] as4_"tr" g r16 [d' d. es32] |
+	c4 r c r | r c c r | c r r c | c r r16 [c c16. bes32] bes4 |
+	r16 [bes bes16. as32] as4_"tr" g r16 [d' d16. es32] |
 	\context Staff <
 		{ \stemdown \property Voice.horizontalNoteShift = 1 [f8. f16] [b,8. b16] g4 r | }
 		{ \stemdown s4 g}

@@ -135,7 +135,7 @@ Adobe_font_metric::find_char (String nm, bool warn) const
 }
 
 
-Character_metric *
+Character_metric const *
 Adobe_font_metric::get_char (int code, bool warn) const
 {
   return &find_ascii (code,warn);

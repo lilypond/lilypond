@@ -12,16 +12,6 @@ COMMENT(
 
   BUGS:
 
-    Causes segfault:
-
-    \score{
-      \notes{  \context Voice {
-         \repeat fold 2 { a b c d } {}
-     }
-     }
-    }
-    
-
    restStyle=mensural doesn't seem to work (lots of characters not found
      for rests.fly)
 
@@ -33,8 +23,6 @@ TODO:
       Is there a simple way to explain this, or is the behavior
       too complicated for a reasonable explanation?
    accordion symbols
-   interstaff beams (beam-interstaff.ly)
-   interstaff slurs (see preludes-1.ly)
 )
 
 
@@ -991,7 +979,6 @@ verb(
 
 END OF COMMENT  )
 
-
 sect(Repeats)
 
 In order to specify repeats, use the code(\repeat) keyword.  By
@@ -1034,6 +1021,48 @@ mudela(fragment,verbatim)(
                  {\partial 1; a a a a | b1 } }
 }})
 
+
+
+sect(Ambiguities)
+
+The grammar contains a number of ambiguities.  We hope to resolve most
+of them at a later time. 
+
+itemize(
+it()
+The assignment
+verb(
+foo = bar)
+COMMENT(
+
+)Can be interpreted as making a string identifier code(\foo) containing
+code("foo"), or a music identifier containing the lyric lyric `foo'.
+
+Since this assignment is possible at top-level and within paper, these
+are two conflicts.
+it()The assignment
+verb( foo = -6
+)Can be interpreted as making a int identifier containing -6, or a
+request identifier containing the fingering `6' (with neutral direction).
+
+Since this assignment is possible at top-level and within paper, these
+are two conflicts.
+it() A chord followed by
+code(-3)
+can be interpreted as a chord substraction, or as the fingering  `2' (with
+neutral direction)
+it() Similarly code(^2) is a conflict.
+ chord_addition '^' ->? 
+it()
+If you do a nested repeat,
+verb (
+\repeat ...
+  \repeat ..
+  \alternative
+  ) then it ambiguous to which code(\repeat) the code(\alternative)
+  belongs. This is the classic if-then-else dillema.  It may be solved
+  by using braces. 
+)
 
 sect(Keywords)
 

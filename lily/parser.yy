@@ -9,16 +9,6 @@
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-/*
-	Ambiguities:
-
-	* \alternative
-
-	* use of '-' in various places
-
-*/
-
-
 #include <iostream.h>
 #include "lily-guile.hh"
 #include "notename-table.hh"
@@ -33,7 +23,6 @@
 #include "file-path.hh"
 #include "keyword.hh"
 #include "debug.hh"
-#include "parseconstruct.hh"
 #include "dimensions.hh"
 #include "identifier.hh"
 #include "command-request.hh"
@@ -46,19 +35,18 @@
 #include "duration-convert.hh"
 #include "change-translator.hh"
 #include "file-results.hh"
-#include "mudela-version.hh"
 #include "scope.hh"
 #include "relative-music.hh"
-#include "re-rhythmed-music.hh"
+#include "lyric-combine-music.hh"
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "new-repeated-music.hh"
-#include "version.hh"
+#include "mudela-version.hh"
 #include "grace-music.hh"
 
 // mmm
 Mudela_version oldest_version ("1.1.52");
-Mudela_version version ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
+
 
 
 void
@@ -86,7 +74,7 @@ print_mudela_versions (ostream &os)
 
 
 %union {
-    Array<Interval>* intarr;
+    Array<Real>* realarr;
     Array<Musical_pitch> *pitch_arr;
     Link_array<Request> *reqvec;
     Array<String> * strvec;
@@ -155,6 +143,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token GRACE
 %token HEADER
 %token IN_T
+%token INVALID
 %token KEY
 %token KEYSIGNATURE
 %token LYRICS
@@ -175,7 +164,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REMOVE
 %token REPEAT
 %token REPETITIONS
-%token RHYTHM
+%token ADDLYRICS
 %token SCM_T
 %token SCMFILE
 %token SCORE
@@ -251,7 +240,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <music>	property_def translator_change
 %type <music_list> Music_list
 %type <paper>	paper_block paper_def_body
-%type <real>	real_expression real real_with_dimension
+%type <real>	real real_with_dimension
 %type <request> abbrev_command_req
 %type <request>	post_request 
 %type <request> command_req verbose_command_req
@@ -259,7 +248,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request> hyphen_req
 %type <string>	string
 %type <score>	score_block score_body
-%type <intarr>	shape_array
+%type <realarr>	real_array
 
 %type <string>	script_abbreviation
 %type <trans>	translator_spec_block translator_spec_body
@@ -278,7 +267,9 @@ mudela:	/* empty */
 	| mudela toplevel_expression {}
 	| mudela assignment { }
 	| mudela error
-	| mudela check_version { }
+	| mudela INVALID	{
+		THIS->error_level_i_  =1;
+	}
 	;
 
 toplevel_expression:
@@ -315,23 +306,11 @@ embedded_scm:
 		delete $2;
 	}
 	| SCM_T STRING semicolon {
+		if (THIS->lexer_p_->main_input_b_ && safe_global_b)
+			error (_("Cannot evaluate Scheme in safe mode"));
 		gh_eval_str ($2->ch_l ());
 		delete $2;
 	};
-
-check_version:
-	VERSION STRING semicolon		{
-	 	Mudela_version ver (*$2);
-		if (!((ver >= oldest_version) && (ver <= version))) {
-			if (THIS->ignore_version_b_) {
-				THIS->here_input ().error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), version.str ()));
-			} else {
-				THIS->fatal_error_i_ = 1;
-				THIS->parser_error (_f ("incorrect mudela version: %s (%s, %s)", ver.str (), oldest_version.str (), version.str ()));
-			}
-		}
-	}
-	;
 
 
 chordmodifiers_block:
@@ -504,19 +483,18 @@ translator_spec_body:
 	SCORE
 */
 score_block:
-	SCORE { THIS->remember_spot ();
+	SCORE { 
 	}
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
-		$$->set_spot (THIS->pop_spot ());
 		if (!$$->def_p_arr_.size ())
 			$$->add_output (THIS->default_paper_p ());
-
 	}
 	;
 
 score_body:		{
 		$$ = new Score;
+		$$->set_spot (THIS->here_input ());
 	}
 	| SCORE_IDENTIFIER {
 		$$ = $1->access_content_Score (true);
@@ -581,19 +559,26 @@ paper_def_body:
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
 	}
-	| paper_def_body SHAPE '=' shape_array semicolon {
-		$$->shape_int_a_ = *$4;
-		delete $4;
+	| paper_def_body SHAPE real_array  semicolon {
+		/*
+			URG URG.
+		*/
+		if ($3->size () % 2)
+			warning ("Need even number of args for shape array");
+
+		for (int i=0; i < $3->size ();  i+=2)
+		{
+			Real l = $3->elem (i);
+			$$->shape_int_a_.push (Interval (l,
+							 l + $3->elem (i+1)));
+		}
+		delete $3;
 	}
 	| paper_def_body error {
 
 	}
 	;
 
-
-real:
-	real_expression  	{ $$ = $1; }
-	;
 
 
 real_with_dimension:
@@ -611,7 +596,7 @@ real_with_dimension:
 	}
 	;
 
-real_expression:
+real:
 	REAL		{
 		$$ = $1;
 	}
@@ -619,34 +604,39 @@ real_expression:
 	| REAL_IDENTIFIER		{
 		$$= *$1->access_content_Real (false);
 	}
-	| '-'  real_expression %prec UNARY_MINUS {
+	| '-'  real %prec UNARY_MINUS {
 		$$ = -$2;
 	}
-	| real_expression '*' real_expression {
+	| real '*' real {
 		$$ = $1 * $3;
 	}
-	| real_expression '/' real_expression {
+	| real '/' real {
 		$$ = $1 / $3;
 	}
-	| real_expression '+' real_expression {
+	| real '+' real {
 		$$ = $1  + $3;
 	}
-	| real_expression '-' real_expression {
+	| real '-' real {
 		$$ = $1 - $3;
 	}
-	| '(' real_expression ')'	{
+	| '(' real ')'	{
 		$$ = $2;
 	}
 	;
 		
 
-shape_array:
-	/* empty */ {
-		$$ = new Array<Interval>;
+real_array:
+	real {
+		$$ = new Array<Real>;
+		$$->push ($1);
 	}
-	| shape_array real real {
-		$$->push(Interval($2, $2 + $3));
-	};
+	|  /* empty */ {
+		$$ = new Array<Real>;
+	}
+	| real_array ',' real {
+		$$->push($3);
+	}
+	;
 
 /*
 	MIDI
@@ -689,6 +679,7 @@ tempo_request:
 
 Music_list: /* empty */ {
 		$$ = new Music_list;
+		$$->set_spot (THIS->here_input ());
 	}
 	| Music_list Music {
 		$$->add_music ($2);
@@ -728,23 +719,25 @@ Repeated_music:
 		r->fold_b_ = (*$2 == "fold");
 		r->semi_fold_b_ =  (*$2 == "semi");
 		delete $2;
-		r->set_spot (THIS->here_input ());
-
+		r->set_spot ($4->spot  ());
 	}
 	;
 
 Music_sequence: '{' Music_list '}'	{
 		$$ = new Music_sequence ($2);
+		$$->set_spot ($2->spot ());
 	}
 	;
 
 Sequential_music: '{' Music_list '}'		{
 		$$ = new Sequential_music ($2);
+		$$->set_spot ($2->spot ());
 	}
 	;
 
 Simultaneous_music: '<' Music_list '>'	{
 		$$ = new Simultaneous_music ($2);
+		$$->set_spot ($2->spot ());
 	}
 	;
 
@@ -828,7 +821,7 @@ Composite_music:
 		  THIS->lexer_p_->pop_state ();
 	}
 	| relative_music	{ $$ = $1; }
-	| re_rhythmed_music	{ $$ = $1; }
+	| re_rhythmed_music	{ $$ = $1; } 
 	;
 
 relative_music:
@@ -839,8 +832,9 @@ relative_music:
 	;
 
 re_rhythmed_music:
-	RHYTHM Music Music {
-		$$ = new Re_rhythmed_music ($3, $2);
+	ADDLYRICS Music Music {
+		Lyric_combine_music * l = new Lyric_combine_music ($2, $3);
+		$$ = l;
 	}
 	;
 
@@ -1371,37 +1365,6 @@ simple_element:
 
 		$$ = v;
 	}
-	/*
-	This rhythm option introduces a lot of shift/reduce conflicts;
-	ie, for every optional_notemode_duration.
-	However, we always want the default behaviour, which is to shift:
-	if an optional_notemode_duration is allowed, a following duration
-	is to be taken as this default duration.  Thus
-
-	   c4 c 8 4
-
-	are three notes, ie: c4 c8 c4.
-	Parsing whitespace is a snaky thing to do.
-	* /
-	| entered_notemode_duration {
-		if (!THIS->lexer_p_->note_state_b ())
-			THIS->parser_error (_ ("have to be in Note mode for notes"));
-
-		Note_req *n = new Note_req;
-		
-		n->pitch_ = THIS->default_pitch_;
-		n->duration_ = *$1;
-		delete $1;
-
-		Simultaneous_music*v = new Request_chord;
-		v->set_spot (THIS->here_input ());
-		n->set_spot (THIS->here_input ());
-
-		v->add_music (n);
-
-		$$ = v;
-	}
-*/
 	| RESTNAME optional_notemode_duration		{
 		$$ = THIS->get_rest_element (*$1, $2);
 		delete $1;  // delete notename
@@ -1542,9 +1505,10 @@ unsigned:
 	UNSIGNED	{
 		$$ = $1;
 	}
-	| DIGIT {
+	| DIGIT		{
 		$$ = $1;
-	};
+	}
+	;
 
 int:
 	unsigned {
@@ -1601,6 +1565,5 @@ My_lily_parser::do_yyparse ()
 {
 	yyparse ((void*)this);
 }
-
 
 

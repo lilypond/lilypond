@@ -151,4 +151,28 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
+/** is anyone  playing a note?
+    Used for communication between Music & Lyrics
+ */
+class Busy_playing_req : public Request
+{
+public:
+  VIRTUAL_COPY_CONS (Music);
+};
+/**
+   instruct lyric context to alter typesetting (unimplemented).  */
+class Melisma_req : public Span_req
+{
+public:
+  VIRTUAL_COPY_CONS(Music);
+};
+
+/**
+   Helping req to signal start of a melisma from within a context, and
+   to   */
+class Melisma_playing_req : public Request
+{
+public:
+  VIRTUAL_COPY_CONS (Music);
+};
 #endif // MUSICALREQUESTS_HH

@@ -55,7 +55,7 @@ struct Adobe_font_metric : Font_metric {
   Adobe_font_metric ();
   void read_char_metrics (Data_file &input, int size);
 
-  Character_metric *get_char (int, bool) const;
+  Character_metric const *get_char (int, bool) const;
 };
 
 Adobe_font_metric read_afm_file (String fn);

@@ -8,6 +8,7 @@
 #ifndef HEADSGRAV_HH
 #define HEADSGRAV_HH
 #include "engraver.hh"
+#include "pqueue.hh"
 
 /**
   make balls and rests
@@ -16,6 +17,7 @@ class Note_heads_engraver : public Engraver {
   Link_array<Note_head> note_p_arr_;
   Link_array<Dots> dot_p_arr_;
   Link_array<Note_req> note_req_l_arr_;
+  PQueue<Moment> notes_end_pq_;
 
 public:
   VIRTUAL_COPY_CONS(Translator);

@@ -51,8 +51,3 @@ Grace_iterator::next_moment () const
   return 0;
 }
 
-Music*
-Grace_iterator::next_music_l ()
-{
-  return 0;
-}

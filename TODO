@@ -9,133 +9,35 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* TODO before 1.2
-. * rename 'staff_line_leading' (who is being lead where?) to
-staff_space, interline; (or other meaningful name) and use throughout
-lily
-
-[-> leading are the lead strips between the sticks (lines) of
-typeface. ie. leading is vertical space  --hwn]
-. * Rewrite \rhythm to be during interpreting.
-. * move \version check to lexer.ll
-. * junk delayed spanner breaking.
-. * core dump on broken (de)crescendo
 . * align left edge of broken (de)cresc/slur/tie/tuplet/volta
-. * check dangling_scm_sym working.
+. * auto-staff-switching.
+. * broken examples:
+mutopia/J.S.Bach/Petites-Preludes/preludes-paper.ly
+mutopia/J.S.Bach/Petites-Preludes/preludes-4.ly
+mutopia/J.S.Bach/Solo-Cello-Suites/*
+mutopia/Coriolan/*
+
 . * spacing of accidentals
 . * key restorations & repeats
-. * 
-So how do I do what I want to do?
-
-In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
-ends on a pair of grace notes.  Standard practice is to mark this with
-a slur starting on the main note and ending on the grace note, so a
-singer knows where to break the words.
-
-In bar 26, there's a \p marker that should appear below the grace
-note.
-
-In bar 27, there's a crescendo that's supposed to start at the start
-of the grace notes and extend to the note after the grace notes.
-
-How do I specify these?
 . * spanners from grace to  normal ctxt
-. * Glen:
-
-5. Sometimes lyrics extend past the right end of the staff. I guess that
-this is a similar problem (if not another symptom of the same problem) as
-one of the spacing bugs mentioned in the TODO.
-. * 4.  Lyrics and grace sections don't go too well together.
-        The words are aligned with the main note, not the start of the
-        grace note.  This is usually wrong, but is sometimes right.
-. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
-.  * Rename illegal to invalid
-.  * Mats:
-
-- The Postscript output is still very experimental
-
-- It is impossible to typeset two textual scripts that are stacked
-  on top of eachother and avoids note collisions and at the same
-  time are typeset with different textStyle. I tried to move around
-  the text_engraver and other engravers between Voice and Thread 
-  but the granularity is not fine enough, the scripts have to 
-  share the same engraver in order to be get correct vertical 
-  position but than they cannot have different style.
-  In my opinion, all scripts that share the same staff, should
-  be stacked vertically, avoiding collisions with the notes
-  in all voices.
-
-- I'd like to change the \repetitions command to Jan's suggested
-  syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
-  I understand the implementation of repeats well enough.
-
-- The paper11/13/26 files have to be updated.
 . * Grace_slur_engraver.
-. * (gulp-file-to-str) for LilyPond
+. * paperXX.ly \quartwidth, font setting not up to date. (Should read from AFM?)
 . * input/star-spangled-banner.ly: fold for lyrics?
-. * don't create $srcdir/share/
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
-. * hangOnClef with non-breakable clefs.
 . * account for accidentals in spacing.
-. * collision of lyrics with span_bars. See star-spangled.
-. * fix partial measures in meaningful way.
-. * relative mode for midi2ly
-. * 
-Crescendi/diminuendi that cross a line break lose their vertical
-position and all end up above the top staff line, see the 
-following example.
-
-----------------
-\score{
-  \context StaffGroup <
-    \context Staff=s1 \notes\relative c'{
-      c d e f | 
-      g f e d | \break %% If this break is removed, it works fine
-      c d e f |}
-    \context Staff=s2 \notes\relative c'{
-      c \< d e f | 
-      g f e d | 
-      c d e \! f |}
-  >
-}
-. * uniformise recent feta contributions.
-.  * bigger and fatter 4/4 C
-. * sort out directory stuff.
-.  * --prefix option?
-.  * -I option per filetype?
-.  * kpathsea?
-. * ly2dvi/lilypond logfile.
-. * fractional chord durs.
-. * hang Item on Spanner
-. * do --safe for PS output?
-. * convert-mudela --output
-. * Staff_margin (with a partial measure.)
-. * fix convert-mudela manpage
-. * decimal point in \paper {}
-. * msgfmt -o check?
-. * add new glyphs to font.ly
-. * formatting of input stuff. 
-.  * deps for ly2dvi
 . * indent = 0.0 with linewidth=-1.0
-. * collisions & accidentals.
-. * music ending in grace notes.
+. * \shape 1st dim skipped? 
 . * PostScript
 .  * half notes in pfa
-. * didot / big point.
-. * \shape 1st dim skipped? 
-. * turn slope-damping on/off
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
-. * behavior of  "that the obvious solution
-\lyrics { foo1*4 __ _ }" is unintuitive.
-. * Lyrics and scripts collide.
-. * filenames : junk lily.x 
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
 . * Junk ghost positioning objects eg, Script leans on  Staffside
     leans on Staff.
-
 . * bracket ps code.
+. * mudela-book.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * Y dimension units: staffspace vs. Point
@@ -145,6 +47,8 @@ following example.
 . * Duration
 . * clef engraver 
 . * parser
+. * Lookup::text -> needs  to be TeX independent.
+. * junk Music_iterator::first_b_
 . * Bezier
 
 .* BUGS
@@ -156,6 +60,38 @@ following example.
 > >
 
 .* STUFF
+. *In Caro Mio Ben, bar 8, there's a syllable that starts on a note, and
+ends on a pair of grace notes.  Standard practice is to mark this with
+a slur starting on the main note and ending on the grace note, so a
+singer knows where to break the words.
+
+In bar 27, there's a crescendo that's supposed to start at the start
+of the grace notes and extend to the note after the grace notes.
+. * 5. Sometimes lyrics extend past the right end of the staff. I guess that
+this is a similar problem (if not another symptom of the same problem) as
+one of the spacing bugs mentioned in the TODO.
+. * 4.  Lyrics and grace sections don't go too well together.
+        The words are aligned with the main note, not the start of the
+        grace note.  This is usually wrong, but is sometimes right.
+. * decimal point in \paper {}
+. * use melismaBusy in Lyric context to typeset melismata correctly.  
+. * ly2dvi/lilypond logfile.
+. * hang Item on Spanner
+. * do --safe for PS output?
+. * msgfmt -o check?
+. * collision of lyrics with span_bars. See star-spangled.
+. * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
+. * It is impossible to typeset two textual scripts that are stacked
+  on top of eachother and avoids note collisions and at the same
+  time are typeset with different textStyle. I tried to move around
+  the text_engraver and other engravers between Voice and Thread 
+  but the granularity is not fine enough, the scripts have to 
+  share the same engraver in order to be get correct vertical 
+  position but than they cannot have different style.
+  In my opinion, all scripts that share the same staff, should
+  be stacked vertically, avoiding collisions with the notes
+  in all voices.
+
 . * break priority setting from SCM.
 . * Matanya's tips: 
 .  * don't  shorten stems/staffs closer to each other.
@@ -175,13 +111,13 @@ following example.
    possible with lily?
 . * scm-ify \property values.
 . * make dependencies () a virtual function.
+. * deprecate hangOnClef.
 . * Abstraction for engravers:
-.  * make "in-between" engraver (Tie, Extender)
+.  * make "in-between" engraver (Tie)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
 . * store req -> element, element -> element causes for warnings
 . * compulsory hshift
-. * 
-My wish list for lyrics. I dream of a time when I will have enough time to
+. *  My wish list for lyrics. I dream of a time when I will have enough time to
 become familiar enough with the source code to be able to implement some of
 these myself, but I don't know when that will be, so I thought I'd "publish"
 my suggestions in case someone else is in a position to give them some
@@ -212,7 +148,10 @@ repeated section with different words for each repeat.
 . * Give # lines in linebreaking.  
 . * arrows on slurs.
 . * rewrite context defs using Scheme
+. * junk TeX specifics from internal code.
 . * \selectmusic to cut pieces from music. 
+. * formatting of input stuff. 
+.  * deps for ly2dvi
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * Align_element::padding  ?
 . * typo checks on property names?
@@ -221,11 +160,20 @@ repeated section with different words for each repeat.
 . * seriously buffer TeX output (do profile of writing .5 mb TeX file.)
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
+. * fix partial measures in meaningful way.
+. * uniformise recent feta contributions.
+.  * bigger and fatter 4/4 C
+. * relative mode for midi2ly
 . * junking \skip req in lyrics
 . * midi2ly empty staffs.
 . * use Fourier transformation for rhythmic quantisation.
 . * horizontal centering of dynamics 
 . * $DEPENDENCIES_OUTPUT support
+. * turn slope-damping on/off
+. * sort out directory stuff.
+.  * --prefix option?
+.  * -I option per filetype?
+.  * kpathsea?
 . * fix vertical alignment and stafflines
 . * declaring Performers
 . * *.yo: fix pod manpage layout legacy
@@ -252,7 +200,16 @@ repeated section with different words for each repeat.
 . * fix variable define/lookup parser global<->paper
 . * fix title/instrument placements; see input/test/title.ly
 . * <\voiceone c4. \voicetwo c4>
+. *  I'd like to change the \repetitions command to Jan's suggested
+  syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
+  I understand the implementation of repeats well enough.
 . * add full cello suites to web site (kom op, Maarten!)
+. * rename 'staff_line_leading' (who is being lead where?) to
+staff_space, interline; (or other meaningful name) and use throughout
+lily
+
+[-> leading are the lead strips between the sticks (lines) of
+typeface. ie. leading is vertical space  --hwn]
 . * add mudela-book-doc source to webstie.
 . * Rethink Time_description
 \cadenza , \meter,  should all be \properties
@@ -261,12 +218,14 @@ repeated section with different words for each repeat.
 .  * abbreviation-beam -> (measured/unmeasured) tremolo
 .  * partial -> anacrouse
 . * move paper vars into engraver properties
+. * add new glyphs to font.ly
 . * check for groff / troff/ nroff et
 . * more intelligent file searching
 . * disable spaces in TeX stuff
 . * handle ^C for tmp/file creation.
 . * make LilyPond RPM fully relocatable
 . * better hshift (dots, distance, head dependent)
+. * didot / big point.
 . * clefs (AG): The "8" should appear closer to the actual clef,
 touching it.
 . * put errorlevel in Input class

@@ -22,7 +22,6 @@ public:
   
   VIRTUAL_COPY_CONS(Music);
   virtual Musical_pitch to_relative_octave (Musical_pitch);
-  virtual Music_iterator* to_rhythm (Music_iterator*);
 };
 
 

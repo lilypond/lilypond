@@ -26,7 +26,7 @@ Line_of_score::contains_b (Paper_column const* c) const
 
 // const?
 Line_of_score*
-Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) const
+Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) 
 {
   const Link_array<Paper_column> &curline (breaking[j].cols_);
   const Array<Real> &config (breaking[j].config_);
@@ -49,7 +49,7 @@ Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) c
   b.broken_spanner_l_ = line_l;
   b.line_l_ = line_l;
   
-  broken_info_.push (b);
+  broken_into_l_arr_.push (line_l);
 
   return line_l;
 }

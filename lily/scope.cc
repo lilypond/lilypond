@@ -28,7 +28,7 @@ Scope::print () const
 
 Scope::~Scope ()
 {
-  for (Scope_iter	 ai (*this); ai.ok(); ai++)
+  for (Scope_iter ai (*this); ai.ok(); ai++)
     {
       DOUT << "deleting: " << ai.key() << '\n';
       delete ai.val ();

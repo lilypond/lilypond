@@ -63,11 +63,6 @@ Music_sequence::to_relative_octave (Musical_pitch p)
   return do_relative_octave (p, false);
 }
 
-Music_iterator*
-Music_sequence::to_rhythm (Music_iterator* r)
-{
-  return do_rhythm (r);
-}
 
 Moment
 Music_sequence::maximum_length () const

@@ -19,9 +19,6 @@
 #include "file-path.hh"
 #include "debug.hh"
 
-
-
-
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
 
@@ -59,11 +56,10 @@ ly_set_scm (String name, SCM val)
   return scm_sysintern (name.ch_C(), val);
   
 }
-/**
 
+/**
    Read a file, and shove it down GUILE.  GUILE also has file read
    functions, but you can't fiddle with the path of those.
-   
  */
 void
 read_lily_scm_file (String fn)
@@ -86,6 +82,26 @@ read_lily_scm_file (String fn)
   *mlog << ']' << flush;  
 }
 
+
+SCM
+ly_gulp_file (SCM name)
+{
+  String fn (ly_scm2string (name));
+ String s = global_path.find (fn);
+  if (s == "")
+    {
+      String e = _f ("Can not find file `%s\'", fn);
+      e += " ";
+      e += _f ("(Load path is `%s\'", global_path.str ());
+      error (e);
+    }
+  else
+    *mlog << '[' << s;
+
+
+  Simple_file_storage f(s);
+  return gh_str02scm (f.ch_C());
+}
 
 void
 ly_display_scm (SCM s)
@@ -137,8 +153,8 @@ void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, ly_warning);
+  scm_make_gsubr ("ly-gulp-file", 1,0, 0, ly_gulp_file);
 }
-
 
 extern void init_symbols ();
 

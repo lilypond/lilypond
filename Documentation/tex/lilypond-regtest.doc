@@ -6,9 +6,10 @@
 \begin{document}
 \maketitle
 
-This document tries give an brief overview of LilyPond features. When
+This document tries give an brief overview of LilyPond features.  When
 the text correspond with the shown notation, we consider LilyPond
-Officially BugFree (tm).
+Officially BugFree (tm).  This document is intended for finding bugs,
+and documenting bugfixes.
 
 \section{Notes and rests} 
 
@@ -148,6 +149,18 @@ Folded.  This doesn't make sense without alternatives, but it works.
 
 \mudelafile{repeat-fold.ly}
 
+\section{Lyrics}
+
+Lyrics can be set to a melody automatically.  Excess lyrics will be
+dumped.  Lyrics will not be set over rests.  You can have melismata by
+setting a property melismaBusy.  If you want a different order than
+first Music, then Lyrics, you must precook a chord of staffs/lyrics
+and label those.  Of course \verb+\rhythm+ ignores any other rhythms
+in the piece.  Hyphens and extenders do not assume anything about
+lyric lengths, so they continue to work.
+
+\mudelafile{lyric-combine.ly}
+
 \section{Multiple notes}
 
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -177,6 +190,13 @@ effects.  In this example, space for opposite pointed stems is adjusted
 
 \mudelafile{stem-spacing.sly}
 
+Even if a line is very tightly spaced,  there will still be room
+between prefatory matter and the following notes.  The same holds at
+the end of line.
+
+\mudelafile{spacing-tight.ly}
+
+
 \section{Global stuff}
 
 Markings that are attached to (invisible) barlines are 
@@ -200,24 +220,41 @@ two measures all have the same distance from each other:
 
 \mudelafile{breathing-sign.ly}
 
+Fonts are  available in a default set of sizes: 11, 13, 16, 20, 23 and
+26pt staffheight.  Sizes of the text fonts and symbol fonts are made
+to match the staff dimensions. 
+
+\mudelafile{size11.ly}
+
+\mudelafile{size13.ly}
+
+\mudelafile{size16.ly}
+
+\mudelafile{size20.ly}
+
+\mudelafile{size23.ly}
+
+\mudelafile{size26.ly}
+
 
 \section{Clefs and Time Signatures}
 
 The transparent clef should not occupy any space and with style
 \texttt{fullSizeChanges}, the changing clef should be typeset in full
 size. For octaviated clefs, the ``8'' should appear closely above or
-below the clef respectively.  The ``8'' is processed in a rather
-convoluted way, so this is fragile as well.
+below the clef respectively.  The ``8'' is processed in a convoluted
+way, so this is fragile as well.
 
 \mudelafile{clefs.ly}
 
+\def\bla#1{%the input file is too long and does not test for specific bugs
 By default, time signatures are written with two numbers. With style
 ``C'', 4/4 and 2/2 are written with their corresponding symbols and
 with style ``old'', 2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and
 9/8 are typeset with symbols, all other signatures retain the default
 layout. The style ``1'', gives single number signatures for all
 signatures. 
-
-\mudelafile{time.fly}
-
+%
+\mu delafile{time.fly}
+}
 \end{document}

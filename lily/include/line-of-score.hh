@@ -22,7 +22,7 @@ public:
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
     
-  Line_of_score * set_breaking (Array<Column_x_positions> const&, int j) const;
+  Line_of_score * set_breaking (Array<Column_x_positions> const&, int j);
 
 
   void output_all (bool last_line);

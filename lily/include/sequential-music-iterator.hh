@@ -9,13 +9,13 @@
 #ifndef SEQUENTIAL_MUSIC_ITERATOR_HH
 #define SEQUENTIAL_MUSIC_ITERATOR_HH
 
-#include "music-list-iterator.hh"
+#include "music-iterator.hh"
 
 /** Sequential_music iteration: walk each element in turn, and
   construct an iterator for every element.
   
  */
-class Sequential_music_iterator :  public Music_list_iterator
+class Sequential_music_iterator :  public Music_iterator
 {
 public:
   Sequential_music_iterator ();
@@ -23,18 +23,17 @@ public:
 
   virtual void construct_children ();
   virtual Moment next_moment () const;
-  virtual Music* next_music_l ();
   virtual bool ok () const;
 
 protected:
   virtual void do_print() const;
   virtual void do_process_and_next (Moment);
+  virtual Music_iterator *try_music_in_children (Music const*) const;
+
 
 private:
   Moment here_mom_;
 
-  /// don't go into next element when you finish.
-  bool per_elt_b_;
   Cons<Music> *cursor_;
   Music_iterator * iter_p_;
 

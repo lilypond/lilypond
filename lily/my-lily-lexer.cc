@@ -16,7 +16,6 @@
 #include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "source-file.hh"
-#include "parseconstruct.hh"
 #include "main.hh"
 #include "scope.hh"
 
@@ -60,7 +59,7 @@ static Keyword_ent the_key_tab[]={
   {"remove", REMOVE},
   {"repeat", REPEAT},
   {"repetitions", REPETITIONS},
-  {"rhythm", RHYTHM},
+  {"addlyrics", ADDLYRICS},
   {"scm", SCM_T},
   {"scmfile", SCMFILE},
   {"score", SCORE},

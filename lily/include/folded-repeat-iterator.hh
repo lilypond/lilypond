@@ -36,6 +36,7 @@ protected:
   
   virtual void do_print () const;
   virtual void do_process_and_next (Moment);
+  virtual Music_iterator *try_music_in_children (Music const *) const;
 };
 #endif /* FOLDED_REPEAT_ITERATOR_HH */
 

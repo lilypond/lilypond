@@ -36,9 +36,9 @@ Volta_spanner::do_brew_molecule_p () const
   bool no_vertical_start = false;
   bool no_vertical_end = last_b_;
   Spanner *orig_span =  dynamic_cast<Spanner*> (original_l_);
-  if (orig_span && orig_span->broken_info_[0].broken_spanner_l_ != this)
+  if (orig_span && orig_span->broken_into_l_arr_[0] != this)
     no_vertical_start = true;
-  if (orig_span && orig_span->broken_info_.top ().broken_spanner_l_ != this)
+  if (orig_span && orig_span->broken_into_l_arr_.top () != this)
     no_vertical_end = true;
   if (bar_arr_.top ()->type_str_.length_i () > 1)
     no_vertical_end = false;

@@ -32,9 +32,6 @@ Tremolo_req::do_print () const
 #endif
 }
 
-
-
-
 void
 Melodic_req::transpose (Musical_pitch delta)
 {

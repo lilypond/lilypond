@@ -49,7 +49,7 @@ class Axis_group_spanner;
 class Spanner : public virtual Score_element {
 public:
   Drul_array<Item*> spanned_drul_;
-  Array<Breaking_information> broken_info_;
+  Link_array<Spanner> broken_into_l_arr_;
   void set_bounds (Direction d, Item*);
 
   

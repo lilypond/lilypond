@@ -21,14 +21,11 @@ paper_sixteen = \paper {
 	font_dynamic = 10.;
 	font_mark = 10.;
 
-     	arithmetic_basicspace = 2.;
-        arithmetic_multiplier = 4.8\pt;
-
-%	scmsetting = "\"\\\\input lilyponddefs \";\n";
-
 	0 = \font "feta16" 
 	-1 = \font "feta13"
 	-2 = \font "feta11"
 	
 	\include "params.ly";
 }
+
+\paper {\paper_sixteen }

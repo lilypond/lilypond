@@ -426,13 +426,12 @@ verb(
     lilypond -fps foo.ly
 )
 it() To view the file(.ps) output with GhostView, set GS_FONTPATH to the 
-directory containing the file(pfa)s, and set GS_LIB to the directory containing the file(.ps) library files of LilyPond.  In the source tree, these are file(mf/out/) and file(ps/).
+directory containing the file(pfa)s.  In the source tree, this is file(mf/out/).
 
 
 i.e. do something like:
 verb(
    export GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
-   export GS_LIB=$HOME/usr/src/lilypond/ps
    gv foo.ps &
 )
 )

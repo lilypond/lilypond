@@ -31,7 +31,6 @@ public:
 protected:
   virtual void do_process_and_next (Moment);
   virtual Moment next_moment() const;
-  virtual Music* next_music_l ();
   virtual void construct_children();
   virtual bool ok() const;
   virtual void do_print() const;

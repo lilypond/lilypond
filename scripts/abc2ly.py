@@ -80,9 +80,10 @@ def dump_voices ():
 		print ("}")
 	
 def dump_score ():
-	print ("\\score{")
-	print ("        \\notes<")
-	print ("                \\global")
+	print r"""\score{
+        \notes<
+           \global"""
+
 	for i in range (len (voices)):
 		print ("        \\context Staff=%s \\voice%s" %
 			(names [i], names [i]))
@@ -90,7 +91,7 @@ def dump_score ():
 		j = i
 		if j >= len (voices):
 			j = len (voices) - 1
-		print ("        \\context Lyrics=%s \\rhythm \\voice%s \\verse%s" % 
+		print ("        \\context Lyrics=%s \\addlyrics \\voice%s \\verse%s" % 
 			(names [i], names [j], names [i]))
 	print ("    >")
 	dump_header (header)
@@ -525,7 +526,6 @@ def try_parse_chord_delims (str):
 
 	return str
 
-# urg, hairy to compute grace note hack using \times{}
 def try_parse_grace_delims (str):
 	if str and str[0] == '{':
 		str = str[1:]

@@ -105,7 +105,7 @@
    (("Clef_item"  "Span_bar") . (minimum_space 3.7))
    (("Time_signature" "Span_bar") . (minimum_space 2.0))
    (("Key_item"  "Span_bar") . (minimum_space 2.5))
-   (("Staff_bar" "Time_signature") . (minimum_space 2.0)) ;double check this.
+   (("Staff_bar" "Time_signature") . (minimum_space 1.5)) ;double check this.
    (("Time_signature" "begin-of-note") . (extra_space 2.0)) ;double check this.
    (("Key_item" "begin-of-note") . (extra_space 2.5))
    (("Staff_bar" "begin-of-note") . (extra_space 1.0))
@@ -236,7 +236,7 @@
 
   ;; UGH
    
-  (define (header-end) "\\turnOnPostScript")
+  (define (header-end) "\\input lilyponddefs \\turnOnPostScript")
 
   (define (header creator generate) 
     (string-append
@@ -473,7 +473,14 @@
   (define (font-switch i)
     (string-append (font i) " "))
 
-  (define (header-end) "")
+  (define (header-end)
+    (string-append
+     (ly-gulp-file "lilyponddefs.ps")
+     " {exch pop //systemdict /run get exec} "
+     (ly-gulp-file "lily.ps")
+     "{ exch pop //systemdict /run get exec } "
+    ))
+  
   (define (lily-def key val)
 
      (if (string=? (substring key 0 (min (string-length "mudelapaper") (string-length key))) "mudelapaper")

@@ -96,7 +96,7 @@ venstreEn = \notes\relative c{
 	>
 	\stemboth [es, f g16 c,32 d es16][g,8. bes32 as][g as bes16 es,32 f g16] |
 %8
-	[a,8 c][f a][bes. f''32 es][d es f16 bes,32 c d16] |
+	[a,8 c][f a][bes8. f''32 es][d es f16 bes,32 c d16] |
 	[es, g a bes][c d es c][fis, a bes c][d e fis d] |
 	[g, bes c d][e fis g es][a, c d es][d c bes a] |
 	[bes c d a][bes es d c][d a bes fis][g c bes a] |

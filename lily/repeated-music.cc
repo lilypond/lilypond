@@ -66,16 +66,6 @@ Repeated_music::to_relative_octave (Musical_pitch p)
   return p;
 }
 
-Music_iterator*
-Repeated_music::to_rhythm (Music_iterator* r)
-{
-  if (repeat_body_p_)
-    r = repeat_body_p_->to_rhythm (r);
-
-  if (alternatives_p_)
-    r = alternatives_p_->do_rhythm (r);
-  return r;
-}
 
 
 void
