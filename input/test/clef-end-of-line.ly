@@ -6,7 +6,7 @@
 }
 
 \score {
-    \notes \transpose c'' {
+    \notes \transpose c c' {
 	\property Staff.Clef \set #'break-visibility = #end-of-line-visible
 	\property Staff.KeySignature \set #'break-visibility = #end-of-line-visible
 	\property Staff.explicitClefVisibility = #end-of-line-visible

@@ -96,15 +96,15 @@ violinoIStaff =  \context Staff = oneViolini <
   \End
 >
 
-violinoIIStaff =  \context Staff = twoViolini <<
+violinoIIStaff =  \context Staff = twoViolini <
   % MIDI hoort geeneens verschil tussen een
   % eerste en tweede viool -)
-  \property StaffmidiInstrument = #"violin"
-  \property Staffinstrument = #"Violino II"
-  \property Staffinstr = #"Vl II"
+  \property Staff.midiInstrument = #"violin"
+  \property Staff.instrument = #"Violino II"
+  \property Staff.instr = #"Vl II"
   \violinoII
   \End
->>.
+>
 
 violaI = \notes\transpose c' c, \violinoI
 

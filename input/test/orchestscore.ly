@@ -83,12 +83,12 @@ c1 | c2 c | c c | R1*5
       \property Staff.instr = "Vla."
       \m
     >
-    \context Staff = vlc <<
-      %% \property Staffinstrument = "Violoncello"
-      \property Staffinstrument = #'(lines "Violoncello" "e" "Contrabasso")
-      \property Staffinstr = "Vlc"
+    \context Staff = vlc <
+      %% \property Staff.instrument = "Violoncello"
+      \property Staff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
+      \property Staff.instr = "Vlc"
       \m
-    >>.
+    >
     \context Staff = cb <
       \property Staff.instrument = "Contrabasso"
       \property Staff.instr = "C.B."

@@ -15,7 +15,7 @@ mode, which allows you to type numbers, like @code{<<4 6+>>}.
    <<f ais >>8
    \figures {
      r8
-     <<1 3 5>>4 <<3- 5+ 6!>> <<5>>
+     <1 3 5>4 <3- 5+ 6!> <5>
    } 
  }
  \context Voice {

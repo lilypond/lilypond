@@ -455,7 +455,7 @@ c8-[ c c-] c8")
     (TempoEvent
      . (
 	(description .  "")
-
+	(length . #f)
 	(internal-class-name . "Event")
 	(types . (general-music tempo-event event))
 	)) 
