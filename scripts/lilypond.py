@@ -87,6 +87,7 @@ program_version = '@TOPLEVEL_VERSION@'
 # input without \book, use classic latex definitions
 classic_p = 0
 verbose_p = 0
+latex_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
@@ -106,22 +107,24 @@ copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
 
 option_definitions = [
 	('', 'h', 'help', _ ("print this help")),
+	('', 'l', 'latex', _('use LaTeX for formatting')), 
 	('', '', 'debug', _ ("print even more output")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
-	('','', 'html', _("make HTML file with links to all output")),
+
 	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
 	('', 'k', 'keep',
 	 _ ("keep all output, output to directory %s.dir") % program_name),
+
+	#junkme?
 	('', '', 'no-lily', _ ("don't run LilyPond")),
+	#junkme? 
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
+	
 	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
-	('', '', 'no-pdf', _ ("do not generate PDF output")),
-	('', '', 'no-ps', _ ("do not generate PostScript output")),
 	('', 'p', 'pdf', _ ("generate PDF output")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
-	('', '', 'pdftex', _ ("use pdflatex to generate PDF output")),
 	('', '', 'png', _("generate PNG page images")),
 	('', '', 'preview', _ ("make a picture of the first system")),
 	('', '', 'psgz', _ ("generate PS.GZ")),
@@ -140,10 +143,7 @@ page_images_p = 0
 # need global variable. sys.exit() raises an exception, which is handled
 # to do cleanups.
 lilypond_error_p = 0
-html_p = 0
 
-# Pdftex support
-pdftex_p = 0
 latex_cmd = 'latex'
 
 
@@ -173,14 +173,12 @@ extra_init = {
 header_fields = extra_init.keys ()
 
 include_path = ['.']
-lily_p = 1
 paper_p = 1
 
 output_name = ''
 
 # Output formats that lilypond should create
-targets = ['DVI', 'LATEX', 'MIDI', 'TEX', 'PDF', 'PS']
-
+targets = ['MIDI', 'PDF', 'PS']
 dependency_files = []
 
 #what a name.
@@ -223,13 +221,13 @@ def run_lilypond (files, dep_prefix):
 						header_fields))
 	else:
 		opts = opts + ' --no-paper'
-	if pdftex_p:
-		opts = opts + ' -f pdftex'		
 	if safe_mode_p:
 		opts = opts + ' --safe-mode'
 
 	fs = string.join (map (escape_shell, files))
-
+	if not latex_p:
+		opts = opts + " --format=ps"
+		
 	global verbose_p
 	if verbose_p:
 		opts = opts + ' --verbose'
@@ -524,10 +522,6 @@ Using bitmap fonts instead. This will look bad.'''))
 			      % (preview_base + '.preview.ps',
 				 preview_base + '.preview.dvi')
 			ly.system (cmd)
-
-	if 'PDF' in targets:
-		cmd = 'ps2pdf %s.ps %s.pdf' % (outbase , outbase)
-		ly.system (cmd)
 		
 def generate_dependency_file (depfile, outname):
 	df = open (depfile, 'w')
@@ -569,44 +563,6 @@ def find_pfa_fonts (name):
 		m = re.match ('.*?/([-a-zA-Z]*(feta|parmesan)[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	return pfa
 
-
-def make_html_menu_file (html_file, files_found):
-	exts = {
-		'pdf' : "Print (PDF, %s)",
-		'ps.gz' : "Print (gzipped PostScript, %s)",
-		'png' : "View (PNG, %s)",
-		'midi' : "Listen (MIDI, %s)",
-		'ly' : "View source code (%s)", 
-		}
-	html_str = ''
-
-	pages = filter (lambda x : re.search ('page[0-9]+.png',  x),
-			files_found)
-	rest =  filter (lambda x : not re.search ('page[0-9]+.png',  x),
-			files_found)
-
-	preview = filter (lambda x: re.search ('.png$', x), rest)
-	if preview:
-		html_str = '<img src="%s">' % preview[0]
-
-	for p in pages:
-		page = re.sub ('.*page([0-9])+.*', 'View page \\1 (PNG picture, %s)\n', p)
-		page = page % 'unknown size'
-		
-		html_str += '<li><a href="%s">%s</a>' % (p, page)
-		
-		
-	for e in ['pdf', 'ps.gz', 'midi', 'ly']:
-		fs = filter (lambda x: re.search ('.%s$' % e, x), rest)
-		for f in fs:
-			entry = exts[e] % 'unknown size' # todo
-			html_str += '<li><a href="%s">%s</a>\n\n' % (f, entry)
-
-	html_str += "\n\n</li>"
-	ly.progress (_("Writing HTML menu `%s'") % html_file)
- 	ly.progress ('\n')
-	open (html_file, 'w').write (html_str)
-	
 ################################################################
 ## MAIN
 ################################################################
@@ -639,6 +595,9 @@ for opt in options:
 		sys.exit (0)
 	elif o == '--include' or o == '-I':
 		include_path.append (a)
+	elif o == '--latex' or o == '-l':
+		latex_p = 1
+		targets += ['DVI', 'LATEX', 'TEX']
 	elif o == '--postscript' or o == '-P':
 		if 'PDF' in targets:
 			targets.remove ('PDF')
@@ -647,21 +606,11 @@ for opt in options:
 	elif o == '--pdf' or o == '-p':
 		if 'PDF' not in targets:
 			targets.append ('PDF')
-	elif o == '--no-pdf':
-		if 'PDF' in targets:
-			targets.remove ('PDF')
-	elif o == '--no-ps':
-		if 'PS' in targets:
-			targets.remove ('PS')
-		if 'PDF' in targets:
-			targets.remove ('PDF')
 	elif o == '--keep' or o == '-k':
 		keep_temp_dir_p = 1
 	elif o == '--debug':
 		verbose_p = 1
 		debug_p = 1 
-	elif o == '--no-lily':
-		lily_p = 0
 	elif o == '--preview':
 		preview_p = 1
 		if 'PNG' not in targets:
@@ -683,19 +632,11 @@ for opt in options:
 	elif o == '--version' or o == '-v':
 		ly.identify (sys.stdout)
 		sys.exit (0)
-	elif o == '--pdftex':
-		latex_cmd = 'pdflatex'
-		targets.remove ('DVI')
-		targets.append ('PDFTEX')
-		pdftex_p = 1
-		tex_extension = '.pdftex'
 	elif o == '--warranty' or o == '-w':
 		status = os.system ('%s -w' % lilypond_binary)
 		if status:
 			ly.warranty ()
 		sys.exit (0)
-	elif o == '--html':
-		html_p = 1
 	elif o == '--png':
 		page_images_p = 1
 		if 'PNG' not in targets:
@@ -754,7 +695,7 @@ if 1:
 	else:
 		(outdir, outbase) = os.path.split (ly.abspath (output_name))
 
-	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex', '.pdftex'):
+	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output_name = ly.strip_extension (output_name, i)
 		outbase = ly.strip_extension (outbase, i)
 
@@ -786,22 +727,21 @@ if 1:
 	#   * copy any successfully generated stuff from tempdir and
 	#     notify user of that
 	#   * cleanout tempdir
-	if lily_p:
-		try:
-			run_lilypond (files, dep_prefix)
-		except:
-			### ARGH. This also catches python programming errors.
-			### this should only catch lilypond nonzero exit  status
-			### --hwn
+	try:
+		run_lilypond (files, dep_prefix)
+	except:
+		### ARGH. This also catches python programming errors.
+		### this should only catch lilypond nonzero exit  status
+		### --hwn
 
- 			# TODO: friendly message about LilyPond setup/failing?
- 			#
-			targets = []
-			if verbose_p:
-				traceback.print_exc ()
-			else:
-				ly.warning (_("Running LilyPond failed. Rerun with --verbose for a trace."))
-				
+		# TODO: friendly message about LilyPond setup/failing?
+		#
+		targets = []
+		if verbose_p:
+			traceback.print_exc ()
+		else:
+			ly.warning (_("Running LilyPond failed. Rerun with --verbose for a trace."))
+
 	# Our LilyPond pseudo filter always outputs to 'lelie'
 	# have subsequent stages and use 'lelie' output.
 	if pseudo_filter_p:
@@ -812,9 +752,10 @@ if 1:
 		
 	if 'PNG' in targets and 'PS' not in targets:
 		targets.append ('PS')
-	if 'PS' in targets and 'DVI' not in targets:
+	if latex_p and 'PS' in targets and 'DVI' not in targets:
 		targets.append('DVI')
 
+	
 	if 'DVI' in targets:
 		try:
 			run_latex (files, outbase, extra_init)
@@ -831,7 +772,7 @@ if 1:
 			if verbose_p:
 				traceback.print_exc ()
 
-	if 'PS' in targets:
+	if 'PS' in targets and "DVI" in targets:
 		try:
 			run_dvips (outbase, extra_init)
 			
@@ -843,6 +784,13 @@ if 1:
 			else:
 				ly.warning (_("Failed to make PS file. Rerun with --verbose for a trace."))
 
+	
+	if 'PDF' in targets:
+		papersize = 'a4' # fixme.
+		cmd = 'ps2pdf -sPAPERSIZE=%s %s.ps %s.pdf' % (papersize, outbase , outbase)
+		ly.system (cmd)
+
+
 	if preview_p:
 		for score in find_tex_files (files, extra_init):
 			preview_base = ly.strip_extension (score[0], '.tex')
@@ -850,29 +798,7 @@ if 1:
 					   resolution=preview_resolution
 					   )
 
-	if 'PDFTEX' in targets:
-		try:
-			run_latex (files, outbase, extra_init)
-			# unless: add --tex, or --latex?
-			targets.remove ('TEX')
-			targets.remove ('LATEX')
-			targets.remove ('PDFTEX')
-			if 'PDF' not in targets:
-				targets.append('PDF')
-		except:
-			# TODO: friendly message about TeX/LaTeX setup,
-			# trying to run tex/latex by hand
-			if 'PDFTEX' in targets:
-				targets.remove ('PDFTEX')
-			if 'PDF' in targets:
-				targets.remove ('PDF')
-			if 'PS' in targets:
-				targets.remove ('PS')
-			if verbose_p:
-				traceback.print_exc ()
-			else:
-				ly.warning (_("Running LaTeX failed. Rerun with --verbose for a trace."))
-				
+			
 	if page_images_p:
 		ly.make_ps_images (outbase + '.ps' ,
 				   resolution = preview_resolution
@@ -918,9 +844,6 @@ if 1:
 		elif verbose_p:
 			ly.warning (_ ("can't find file: `%s.%s'") % (outbase, ext))
 
-	if html_p:
-		make_html_menu_file (os.path.join (outdir, outbase + ".html"),
-				     files_found)
 
 	os.chdir (original_dir)
 	ly.cleanup_temp ()
