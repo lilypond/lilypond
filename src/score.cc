@@ -4,7 +4,7 @@
 #include "pscore.hh"
 #include "staff.hh"
 #include "debug.hh"
-#include "paper.hh"
+#include "paperdef.hh"
 #include "main.hh"
 #include "source.hh"
 #include "sourcefile.hh"
@@ -39,13 +39,15 @@ Score::process()
     pscore_p_->process();    
 }
 
-// remove empty cols.
+/**
+  Remove empty cols, preprocess other columns.
+  */
 void
 Score::clean_cols()
-{    
+{
     for (iter_top(staffs_,i); i.ok(); i++)
 	i->clean_cols();
-    
+
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used()) {
 	    delete c.get();
@@ -55,7 +57,8 @@ Score::clean_cols()
 	}
     }
 }
-/*
+
+/**
   this sux.  We should have Score_column create the appropriate PCol.
   Unfortunately, PCols don't know about their position.    
   */
