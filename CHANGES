@@ -1,6 +1,18 @@
+1.3.50
+======
 
-1.3.49.hwn2
-===========
+* Item cleanups.  Copying items and rearranging pointers are done in
+separate passes, which makes the code cleaner. This fixes a problem
+with some items not disappearing from hara-kiri staffs.
+
+* Use Scheme for Key_item data members. 
+
+* Don't use regex in chord-names.scm under windows; hybrid chordnames
+  user+calculated will be partly broken.
+
+
+1.3.50
+======
 
 * Junked Shift_tuple from collision; Now it uses SCM.
 
