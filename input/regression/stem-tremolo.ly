@@ -3,7 +3,7 @@
 texidoc="
 Stem tremolos or rolls are tremolo signs that look like beam segments
 crossing stems.  If the stem is in a beam, the tremolo must be parallel
-to the beam.  If the stem is invisible (eg. on a whole note), the
+to the beam.  If the stem is invisible (e.g. on a whole note), the
 tremolo must be centered on the note.
 "
 }
