@@ -5,7 +5,7 @@
 #include "notehead.hh"
 #include "lookup.hh"
 #include "molecule.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "misc.hh"
 
 const int STEMLEN=7;

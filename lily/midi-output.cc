@@ -23,7 +23,7 @@
 #include "midi-walker.hh"
 #include "midi-item.hh"
 #include "staff-column.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 
 
 Midi_output::Midi_output(Score* score_l, Midi_def* midi_l )
@@ -74,6 +74,9 @@ Midi_output::do_staff(Staff*st_l,int track_i)
     Midi_tempo midi_tempo( midi_l_->get_tempo_i( Moment( 1, 4 ) ) );
     midi_track.add( Moment( 0.0 ), &midi_tempo );
 
+    Midi_time midi_time( Midi_def::num_i_s, Midi_def::den_i_s, 18 );
+    midi_track.add( Moment( 0.0 ), &midi_time );
+
     for (Midi_walker w (st_l, &midi_track); w.ok(); w++)
 	w.process_requests();
 
@@ -89,24 +92,38 @@ Midi_output::header()
 
     // perhaps multiple text events?
     String str = String( "Creator: " ) + get_version() + "\n";
-    str += "Generated, at ";
-    str += ctime( &t );
-    str += ", from musical definition: " + infile_str_g;
-    str += "\n";    
 
     Midi_text creator( Midi_text::TEXT, str );
     midi_track.add( Moment( 0.0 ), &creator );
+
+    str = "Generated, at ";
+    str += ctime( &t );
+    str = str.left_str( str.length_i() - 1 );
+    str += ",\n";
+    Midi_text generate( Midi_text::TEXT, str );
+    midi_track.add( Moment( 0.0 ), &generate );
+
+    str = "from musical definition: " + infile_str_g + "\n";
+    Midi_text from( Midi_text::TEXT, str );
+    midi_track.add( Moment( 0.0 ), &from );
+
+    // set track name
+    Midi_text track_name( Midi_text::TRACK_NAME, "Track " + String_convert::i2dec_str( 0, 0, '0' ) );
+    midi_track.add( Moment( 0.0 ), &track_name );
 
     struct tm* tm_l = gmtime( &t );
     String year_str = String_convert::i2dec_str( 1900 + tm_l->tm_year, 4, '0' );
 	    
     // your copyleft here
-    str = " Copyleft (o) " + year_str;
-    str += " Han-Wen Nienhuys <hanwen@stack.nl>, "
-	" Jan Nieuwenhuizen <jan@digicash.com>\n";
-	
+    str = " Copyleft (o) " + year_str + "by\n";
     Midi_text copyleft( Midi_text::COPYRIGHT, str );
     midi_track.add( Moment( 0.0 ), &copyleft );
+
+    str = " Han-Wen Nienhuys <hanwen@stack.nl>,"
+	  " Jan Nieuwenhuizen <jan@digicash.com>\n";
+	
+    Midi_text authors( Midi_text::COPYRIGHT, str );
+    midi_track.add( Moment( 0.0 ), &authors );
     *midi_stream_l_  << midi_track;
 }
 

@@ -1,7 +1,7 @@
 #include "idealspacing.hh"
-#include "pcol.hh"
-#include "pscore.hh"
-#include "pstaff.hh"
+#include "p-col.hh"
+#include "p-score.hh"
+#include "p-staff.hh"
 #include "debug.hh"
 
 void

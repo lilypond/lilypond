@@ -4,8 +4,8 @@
 #include "spanner.hh"
 #include "symbol.hh"
 #include "paper-def.hh"
-#include "pcol.hh"
-#include "pscore.hh"
+#include "p-col.hh"
+#include "p-score.hh"
 
 
 String

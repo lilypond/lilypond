@@ -1,6 +1,6 @@
 #include "idealspacing.hh"
 #include "score.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "paper-def.hh"
 #include "score-column.hh"
 #include "dimen.hh"

@@ -7,7 +7,7 @@
 */
 
 #include "debug.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "score-column.hh"
 
 int

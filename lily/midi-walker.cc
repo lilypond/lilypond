@@ -6,8 +6,8 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>, Jan Nieuwenhuizen <jan@digicash.com>
 */
 
-#include "musicalrequest.hh"
-#include "pscore.hh"
+#include "musical-request.hh"
+#include "p-score.hh"
 #include "staff.hh"
 #include "midi-walker.hh"
 #include "midi-item.hh"

@@ -1,7 +1,7 @@
 #include "complex-staff.hh"
 #include "complex-walker.hh"
 #include "score.hh"
-#include "pscore.hh"
+#include "p-score.hh"
 #include "staffsym.hh"
 #include "score-column.hh"
 

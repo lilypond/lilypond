@@ -8,13 +8,13 @@
 #include <limits.h>
 #include "proto.hh"
 #include "plist.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "debug.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "string-convert.hh"
 #include "request.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "voice.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
@@ -161,6 +161,24 @@ Midi_tempo::str() const
     return String_convert::hex2bin_str( str );
 }
 
+Midi_time::Midi_time( int num_i, int den_i, int clocks_per_1_i )
+{
+	num_i_ = num_i;
+	den_i_ = den_i;
+	clocks_per_1_i_ = clocks_per_1_i;
+}
+
+String
+Midi_time::str() const
+{
+	String str = "ff5804";
+	str += String_convert::i2hex_str( num_i_, 2, '0' );
+	str += String_convert::i2hex_str( intlog2( den_i_ ) , 2, '0' );
+	str += String_convert::i2hex_str( clocks_per_1_i_, 2, '0' );
+	str += String_convert::i2hex_str( 8, 2, '0' );
+	return String_convert::hex2bin_str( str );
+}
+
 Midi_text::Midi_text( Midi_text::Type type, String text_str )
 {
 	type_ = type;
@@ -195,7 +213,8 @@ Midi_track::Midi_track( int number_i )
 
     number_i_ = number_i;
 	
-    char const* data_ch_c_l = "00" "ff58" "0404" "0218" "08"
+    char const* data_ch_c_l = ""
+//        "00" "ff58" "0404" "0218" "08"
 //	"00" "ff51" "0307" "a120"
 // why a key at all, in midi?
 // key: C
