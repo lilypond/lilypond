@@ -84,11 +84,21 @@ Tie::get_default_dir (Score_element*me)
   Item * sl =  head(me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
   Item * sr =  head(me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
 
-  if (sl && Directional_element_interface (sl).get () == UP
-      && sr && Directional_element_interface (sr).get () == UP)
-    return DOWN;
-  else
-    return UP;
+
+  if (sl && sr)
+    {
+      if (Directional_element_interface (sl).get () == UP
+	  && Directional_element_interface (sr).get () == UP)
+	return DOWN;
+    }
+  else if (sl || sr)
+    {
+      Item *s = sl ? sl : sr;
+      return - Directional_element_interface (s). get ();
+    }
+
+  
+  return UP;
 }
 
 
