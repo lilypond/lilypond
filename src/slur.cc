@@ -90,7 +90,7 @@ Slur::do_post_processing()
 }
 
 Molecule*
-Slur::brew_molecule() const
+Slur::brew_molecule_p() const
 {
     Molecule*output = new Molecule;
 
@@ -112,7 +112,7 @@ Slur::brew_molecule() const
     if (!rnote_p->extremal)
 	right_off+= Offset(-0.5, -dir);
     
-    int dy = right_off.y - left_off.y;
+    int dy = int(right_off.y - left_off.y);
     
     Real nw_f = paper()->note_width();
     Real nh_f = paper()->internote();

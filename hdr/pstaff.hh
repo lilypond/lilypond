@@ -15,7 +15,7 @@ struct PStaff {
     PointerList<Item*> its;
 
     /****************/
-    virtual void brew_molecule(Real width)=0; // maybe overkill
+    virtual void brew_molecule_p(Real width)=0; // maybe overkill
     void add(Item*i);
     PStaff(PScore*);
     virtual ~PStaff();

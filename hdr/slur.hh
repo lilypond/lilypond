@@ -30,7 +30,7 @@ struct Slur : Directional_spanner {
     Spanner* do_break_at( PCol*, PCol*) const;
     void process();
 private:
-Molecule*brew_molecule()const;
+Molecule*brew_molecule_p()const;
 };
 
 #endif // SLUR_HH

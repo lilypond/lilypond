@@ -6,6 +6,6 @@ struct Linestaff : PStaff {
 
 /****************/
     
-    void brew_molecule(Real width);
+    void brew_molecule_p(Real width);
     Linestaff(int, PScore*);   
 };

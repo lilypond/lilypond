@@ -11,7 +11,6 @@
 #include "fproto.hh"
 #include "real.hh"
 
-
 struct Absdynamic_req;
 struct Accidental;
 struct Atom;
@@ -69,6 +68,7 @@ struct Slur_req;
 struct Span_req;
 struct Spanner;
 struct Staff;
+struct Staff_command_req;
 struct Col_configuration;
 struct Staff_column;
 struct Stem;
@@ -103,5 +103,6 @@ struct Time_description;
 struct Script_def;
 struct Text_def;
 struct Text_req;
+struct Lyric_req;
 struct Melodic_req;
 #endif // PROTO_HH

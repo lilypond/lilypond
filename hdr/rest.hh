@@ -20,7 +20,7 @@ struct Rest : public Item
     Rest(int dur,int dots);
     void print()const;
 
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
 };
 /**
   takes care of:

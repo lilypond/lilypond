@@ -26,7 +26,7 @@ Clef_item::read(Clef k)
 }
 
 Molecule*
-Clef_item::brew_molecule()const
+Clef_item::brew_molecule_p()const
 {
     String t = type;
     if  (change)

@@ -27,7 +27,7 @@ Local_key_item::do_pre_processing()
     accs.sort(Local_acc::compare);
 }
 Molecule*
-Local_key_item::brew_molecule()const
+Local_key_item::brew_molecule_p()const
 {
 
     Molecule*    output = new Molecule;

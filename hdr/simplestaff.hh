@@ -10,7 +10,7 @@
 #include "key.hh"
 #include "stcol.hh"
 #include "staff.hh"
-#include "swalker.hh"
+#include "staffwalker.hh"
 
 /*
    mega-stupido staffs and cols: they do notes one at each moment.   
@@ -34,6 +34,7 @@ struct Simple_column : Staff_column {
     Beam_req *beam_;
     Simple_staff* staff_l_;
     Text_req *text_;
+    Lyric_req* lreq_p_;
     
     /****************/
     Slur_req  * find_slur(Voice *);
@@ -52,7 +53,7 @@ struct Simple_column : Staff_column {
 /// Simple  staff: one voicegroup  at a time
 struct Simple_staff : Staff {
     /// indirection to the PStaff.
-    PStaff *theline;
+    PStaff *theline_l_;
 
     /****************/
     Staff_column*create_col(Score_column*);

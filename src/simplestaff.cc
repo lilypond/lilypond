@@ -1,6 +1,6 @@
 #include "request.hh"
 #include "voice.hh"
-#include "swalker.hh"
+#include "staffwalker.hh"
 #include "debug.hh"
 #include "clef.hh"
 #include "staff.hh"
@@ -19,11 +19,12 @@ Simple_column::Simple_column(Score_column*s, Simple_staff *rs)
     staff_l_ = rs;
     beam_ = 0;
     text_=0;
+    lreq_p_ = 0;
 }
 
 Simple_staff::Simple_staff()
 {
-    theline = 0;
+    theline_l_ = 0;
 }
 
 /**
@@ -60,6 +61,11 @@ Simple_column::process_requests()
 	    if (rq->text()) {
 		text_ = rq->text();
 	    }
+#if 0
+	    if (rq->lreq_l()) {
+		lreq_p_ = rq->lreq_l();
+	    }
+#endif
 	    if (rq->beam()) {
 		beam_ = rq->beam();
 	    }

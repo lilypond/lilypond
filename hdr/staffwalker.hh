@@ -1,12 +1,12 @@
 
 /*
-  swalker.hh -- part of LilyPond
+  staffwalker.hh -- part of LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
 
-#ifndef SWALKER_HH
-#define SWALKER_HH
+#ifndef STAFFWALKER_HH
+#define STAFFWALKER_HH
 
 #include "staff.hh"
 
@@ -25,8 +25,13 @@ struct Staff_walker : public PCursor<Staff_column*> {
     void process() ;
     void process_command(Command *);
     void operator++(int);
+
+    /****************
+      VIRTUAL
+     ****************/
+
     /// every time ++ is called
-    virtual void reset()=0;
+    virtual void reset(){}
     virtual void process_requests()=0;
     virtual void do_TYPESET_command(Command*)=0;
     virtual void do_INTERPRET_command(Command*)=0 ;
@@ -38,5 +43,5 @@ private:
   meter, pending beams & slurs
   */
 
-#endif // SWALKER_HH
+#endif // STAFFWALKER_HH
 

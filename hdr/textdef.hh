@@ -8,17 +8,20 @@
 #define TEXTDEF_HH
 
 #include "string.hh"
+#include "proto.hh"
 
-struct Text_def {
-    int align;
-    String text;
-    String style;
+struct Text_def  {
+    int align_i_;
+    String text_str_;
+    String style_str_;
+
 
     /*****************/
     
     Text_def();
-    void print()const;
-    Atom create(Paperdef*)const;
+    virtual void print() const;
+    virtual Atom create_atom(Paperdef*) const;
 };
+
 #endif // TEXTDEF_HH
 

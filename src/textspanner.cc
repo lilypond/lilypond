@@ -13,7 +13,7 @@ Text_spanner::Text_spanner(Directional_spanner*d)
 void
 Text_spanner::do_post_processing()
 {
-    switch(spec.align) {
+    switch(spec.align_i_) {
     case 0:
 	tpos = support->center();
 	break;
@@ -25,9 +25,9 @@ Text_spanner::do_post_processing()
     
 }
 Molecule*
-Text_spanner::brew_molecule() const
+Text_spanner::brew_molecule_p() const
 {
-    Atom tsym (spec.create(paper()));
+    Atom tsym (spec.create_atom(paper()));
     tsym.translate(tpos);
 
     Molecule*output = new Molecule;
@@ -54,7 +54,7 @@ Text_spanner::do_pre_processing()
 Interval
 Text_spanner::height()const
 {
-    return brew_molecule()->extent().y;
+    return brew_molecule_p()->extent().y;
 }
 
 Spanner*

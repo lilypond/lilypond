@@ -154,7 +154,7 @@ Stem::width()const
 }
 
 Molecule*
-Stem::brew_molecule()const return out;
+Stem::brew_molecule_p()const return out;
 {
     assert(bot!=top);
  

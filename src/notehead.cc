@@ -35,7 +35,7 @@ Notehead::compare(Notehead*&a, Notehead*&b)
 }
 
 Molecule*
-Notehead::brew_molecule() const return out;
+Notehead::brew_molecule_p() const return out;
 {
     Paperdef *p = paper();
 

@@ -25,7 +25,7 @@ struct Keyitem : Item {
 
     void preprocess();
 
-    Molecule* brew_molecule()const;
+    Molecule* brew_molecule_p()const;
 };
 /**
   An item which places accidentals at the start of the line

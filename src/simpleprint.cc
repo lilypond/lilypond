@@ -50,12 +50,12 @@ Simple_column::typeset_item(Item *i, int breakst)
     assert(i);
     
     staff_l_->pscore_l_->typeset_item(i, score_column_l_->pcol_l_,
-				  staff_l_->theline,breakst);
+				  staff_l_->theline_l_,breakst);
     
     if (breakst == BREAK_PRE - BREAK_PRE) {
 	
         Array<Item*> to_move(
-	    staff_l_->pscore_l_->select_items(staff_l_->theline,
+	    staff_l_->pscore_l_->select_items(staff_l_->theline_l_,
 					  score_column_l_->pcol_l_->prebreak_p_));
 	Interval column_wid = itemlist_width(to_move);
 	assert(!column_wid.empty());
@@ -76,7 +76,7 @@ Simple_column::typeset_item_directional(Item *i, int dir, int breakst) // UGH!
     else if (breakst == 2)
 	c = c->postbreak_p_;
     
-    Array<Item*> to_move(staff_l_->pscore_l_->select_items(staff_l_->theline,
+    Array<Item*> to_move(staff_l_->pscore_l_->select_items(staff_l_->theline_l_,
 						      c));    
     typeset_item(i, breakst);
 
@@ -90,7 +90,7 @@ void
 Simple_staff::set_output(PScore* ps )
 {
     pscore_l_ = ps;
-    pscore_l_->add(theline);
+    pscore_l_->add(theline_l_);
 }
 
 

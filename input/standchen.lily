@@ -30,9 +30,9 @@
 %%1
 melodie = music { $ 
 	\duration{ 8 }
-	r_"pp" { [ d `a-^ } f-^ { d `a-^ } f-^ { d `a-^ ] }
+	r_"pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] }
 %%2
-	r { [ d `bes-^ } f-^ { d `bes-^ } f-^ { d `bes-^ ] }
+	r { [ d `bes-| } f-| { d `bes-| } f-| { d `bes-| ] }
 %%3
 	r_"simile" { [ d `bes } e { d `bes } e { d `bes ] }
 %%4
@@ -365,7 +365,7 @@ score {
 		}
 	}
 	commands { 
-		meter 3 4 
+		meter 3*4 
 		skip 4:0
 		bar ":|"
 		skip 32:0

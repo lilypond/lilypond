@@ -7,6 +7,7 @@
 #include "staffcommands.hh"
 #include "melodicstaff.hh"
 #include "rhythmstaff.hh"
+#include "lyricstaff.hh"
 #include "staff.hh"
 
 void
@@ -38,6 +39,8 @@ Input_staff::parse(Score*score_l)
 	p = new Melodic_staff;
     else if (type == "rhythmic")
 	p = new Rhythmic_staff;
+    else if (type == "lyric")
+    	p = new Lyric_staff;
     p->score_l_ = score_l;
     p->define_spot_str_ = define_spot_str_;
     

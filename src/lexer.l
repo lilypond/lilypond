@@ -20,6 +20,7 @@
 %x notes
 %x incl
 %x quote
+%x lyrics
 
 
 
@@ -27,6 +28,9 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
+PUNCT		[?!,.:;]
+ACCENT		[\\'"^]
+TEX		{AA}|-|{PUNCT}|{ACCENT}
 
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
@@ -39,11 +43,17 @@ RESTNAME	r|s|p
 NOTECOMMAND	\\{WORD}
 NOTENAME	{ALPHAWORD}
 DOTS		\.+
+LYRICS		{TEX}+
+COMMENT		[%#].*\n
 
 %%
 
 \$		{
 	BEGIN(notes); 
+}
+
+\@		{
+	BEGIN(lyrics); 
 }
 
 <notes>{RESTNAME} 	{
@@ -95,8 +105,7 @@ DOTS		\.+
 	yylval.i = String(YYText()).value();
 	return INT;
 }
-<notes>[%#].*\n		{ 
-
+<notes>{COMMENT}	{
 }
 <notes>[ \t\n]+		{
 
@@ -114,13 +123,8 @@ DOTS		\.+
 	yylval.string = new String(s);
 	return STRING;
 }
-<notes>[()\[\]|/.^>_-] {
-	return yylval.c = YYText()[0];
-
-}
 <notes>.	{
-	String s("lexer error: illegal character found: " + String(YYText()));
-	yyerror(s);
+	return yylval.c = YYText()[0];
 }
 
 \"		{
@@ -133,6 +137,61 @@ DOTS		\.+
 	mtor << "quoted string\n";
 	BEGIN(INITIAL);
 	return STRING;
+}
+
+<lyrics>{DOTS}		{
+	yylval.i = strlen(YYText());
+	return DOTS;
+}
+<lyrics>{INT}		{
+	yylval.i = String(YYText()).value();
+	return INT;
+}
+<lyrics>{NOTECOMMAND}	{
+	String c = YYText() +1;
+	mtor << "\\word: " << YYText()+1<<eol;
+	int l = lookup_keyword(c);
+	if (l != -1)
+		return l;
+	Identifier * id = lookup_identifier(c);
+	if (id) {		
+		yylval.id = id;
+		return IDENTIFIER;
+	}
+	String *sp = new String( c);
+
+	yylval.string=sp;
+	return NEWIDENTIFIER;
+}
+<lyrics>\"[^\"]*\" {
+	String s (YYText()+1);
+	s = s.left(s.len()-1);
+	yylval.string = new String(s);
+	return STRING;
+}
+<lyrics>{LYRICS} {
+	String s (YYText()); 
+	int i = 0;
+	while ((i=s.pos("_")) != 0)// ugh. Whats this.
+		*((char*)s.cptr() + i - 1) = ' ';
+	if ((i=s.pos("\\,")) !=0)
+		{
+		*((char*)s.cptr() + i) = 'c';
+		s = s.left(i+1) + " " + s.right(s.len()-i-1);
+		}
+	yylval.string = new String(s);
+	return STRING;
+}
+<lyrics>\|	{
+	return YYText()[0];
+}
+<lyrics>{COMMENT}		{ 
+
+}
+<lyrics>[ \t\n]+		{
+}
+<lyrics>@	{
+	BEGIN(INITIAL); 
 }
 
 <<EOF>> {
@@ -193,7 +252,7 @@ include           { BEGIN(incl); }
 	
 }
 
-%.*		{
+{COMMENT}		{
 	//ignore
 }
 .		{

@@ -10,16 +10,16 @@
 #include "textdef.hh"
 #include "item.hh"
   
-struct Text_item : Item{
-    int pos;
-    int staffsize;
-    int dir;
-    Text_def*specs;
+struct Text_item : Item {
+    int pos_i_;
+    int staffsize_i_;
+    int dir_i_;
+    Text_def* tdef_l_;
     
     /****************/
     
-    void	set_default_pos();
-    Molecule*	brew_molecule()const;
+    virtual void set_default_pos();
+    Molecule* brew_molecule_p() const;
     void do_pre_processing();
     
     Text_item(Text_req*,int);

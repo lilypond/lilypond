@@ -1,5 +1,5 @@
 #include "request.hh"
-#include "swalker.hh"
+#include "staffwalker.hh"
 #include "stcol.hh"
 #include "sccol.hh"
 

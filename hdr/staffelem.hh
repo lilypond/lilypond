@@ -43,7 +43,7 @@ struct Staff_elem {
     
 protected:
     /// generate the molecule    
-    virtual Molecule* brew_molecule()const=0;
+    virtual Molecule* brew_molecule_p()const=0;
     ///executed directly after the item is added to the PScore
     virtual void do_add_processing();
     /// do calculations before determining horizontal spacing

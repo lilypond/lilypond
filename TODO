@@ -1,3 +1,4 @@
+
 BUGS
 	* first clef
 
@@ -9,6 +10,10 @@ SEVERELY LACKING:
 
 INPUTLANGUAGE
 
+	* lexer condition stack
+
+	* lose the $ and @?
+
 	* figured bass?
 
 	* transposition
@@ -19,6 +24,10 @@ INPUTLANGUAGE
 
 SMALLISH PROJECTS
 
+	* make spanner for staffsym
+	
+	* Lyric_req : Text_req, Rhythmic_req
+	
 	* Lookup::tex_glissando, Lookup::tex_bracket,
 	Lookup::tex_cresc, Lookup::tex_decresc (use texbeam.cc as an
 	example.)
@@ -45,7 +54,7 @@ SMALLISH PROJECTS
 
 	* fix symbols in parser.o: `Warning: size of symbol'
 
-	* Viola clef (->jan?!)
+	* Viola clef
 
 DOC
 
@@ -54,6 +63,9 @@ DOC
 	* all errors
 
 FUTURE
+	* Command_req
+	
+	* scrap stem_request?
 
 	* Text_pstaff/Lyric_staff
 
@@ -70,6 +82,8 @@ FUTURE
 	* check out linux -> go32 crosscompiler: dos port
 
 	* Implement all requests
+
+	* merge key{item} & localkey{item}
 
 	* QLP for beams?
 

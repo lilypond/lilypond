@@ -1,5 +1,27 @@
 #!/bin/sh
 
+
+NEEDFLOWERVER=1.0.21
+flowertar=flower-$NEEDFLOWERVER
+here=`pwd`
+if [ -x ../flower ]
+then
+    echo Found flowerdir
+else
+    cd ../
+    if [ ! -f $flowertar ]
+    then
+	echo can't find $flowertar
+	exit 1;
+    fi
+    rm flower
+    ln -s $flowertar flower
+
+fi
+echo Compiling Library
+cd flower; make
+cd $here
+
 PREFIX="."
 echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
 

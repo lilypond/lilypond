@@ -1,6 +1,7 @@
-% "Ah, je vous dirai, maman" (Mozart)
+% "Ah,  vous dirais-je, maman" (Mozart, KV 265)
 % 
 % bare bones version. (written down from memory :-)
+% for lyrics, see twinkle.ly
 
 % the % is a comment.
 

@@ -10,7 +10,7 @@ Bar::Bar( String t)
     type = t;
 }
 Molecule*
-Bar::brew_molecule()const
+Bar::brew_molecule_p()const
 {    
     Symbol s = paper()->lookup_p_->bar(type);
 Molecule*    output = new Molecule(Atom(s));
