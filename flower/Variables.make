@@ -1,12 +1,12 @@
 MAJVER=1
-MINVER=0
-PATCHLEVEL=27
+MINVER=1
+PATCHLEVEL=0
 
 PACKAGENAME=flower
 
 #PROFILEFLAG=-pg
-DEBUGFLAG= -O2 -DNDEBUG # -g
-OPTIFLAG=-DNDEBUG -DNPRINT -O2
+DEBUGFLAG= -g
+OPTIFLAG= -DNPRINT -O2 -DSTRING_UTILS_INLINED -DNDEBUG 
 
 #########################################
 
@@ -32,7 +32,7 @@ include Sources.make
 
 obs=$(cc:.cc=.o)
 staticlib=libflower.a
-ALLSOURCES=$(hh) $(cc) $(inl) $(templatecc) 
+ALLSOURCES=$(hh) $(cc) $(inl) $(templatecc) $(extra)
 DFILES=$(ALLSOURCES) Makefile Variables.make make_version\
 	Sources.make TODO README NEWS
 DDIR=$(DNAME)
