@@ -81,7 +81,8 @@ Auto_beam_engraver::process_music ()
       junk_beam ();
     }
 
-  if (forbid_)
+  if (forbid_
+      || !to_boolean (get_property ("autoBeaming")))
     {
       consider_end (shortest_mom_);
       junk_beam ();

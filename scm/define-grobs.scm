@@ -115,6 +115,7 @@
 			(custos . (minimum-space . 2.0))
 			(clef .   (minimum-space . 1.0))
 			(key-signature . (extra-space . 1.0))
+			(key-cancellation . (extra-space . 1.0))
 			(first-note . (fixed-space . 1.3))
 			(next-note . (semi-fixed-space . 1.3))
 			(right-edge . (extra-space . 0.0))
