@@ -76,8 +76,8 @@ cantus = \context VaticanaVoice = "cantus"  {
 }
 
 verba = \context Lyrics = "verba" \lyrics {
-  Pu- er na- tus est no- bis,
-  et fi- li- us da- tus est no- bis:
+  Pu -- er na -- tus est no -- bis,
+  et fi -- li -- us da -- tus est no -- bis:
 }
 
 \score {

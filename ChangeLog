@@ -10,6 +10,8 @@
 	* lily/vaticana-ligature-engraver.cc: caught some more "_"
 	inconsistencies
 
+	* input/puer-fragment.ly: bugfix: lyrics hyphen: syntax update
+
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Paper size): doc
