@@ -208,7 +208,8 @@ is the  first to satisfy CRIT
 (if (not standalone)
     (map ly-load
 					; load-from-path
-	 '("output-lib.scm"
+	 '("music-types.scm"
+	   "output-lib.scm"
       	   "c++.scm"
 	   "molecule.scm"
 	   "bass-figure.scm"

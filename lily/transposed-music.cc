@@ -10,13 +10,6 @@
 #include "transposed-music.hh"
 #include "warn.hh"
 
-Transposed_music::Transposed_music (SCM l)
-  : Music_wrapper (l)
-{
-  set_mus_property ("type", ly_symbol2scm ("transposed-music"));
-}
-
-
 Pitch
 Transposed_music::to_relative_octave (Pitch p)
 {

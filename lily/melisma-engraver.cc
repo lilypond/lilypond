@@ -52,6 +52,7 @@ Melisma_engraver::Melisma_engraver()
 ENTER_DESCRIPTION(Melisma_engraver,
 /* descr */       "",
 /* creats*/       "",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 /* write */       "");

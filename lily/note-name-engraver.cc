@@ -74,6 +74,7 @@ Note_name_engraver::Note_name_engraver()
 ENTER_DESCRIPTION(Note_name_engraver,
 /* descr */       "",
 /* creats*/       "NoteName",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

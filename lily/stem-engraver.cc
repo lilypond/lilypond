@@ -172,6 +172,7 @@ ENTER_DESCRIPTION(Stem_engraver,
 /* descr */       "Create stems and single-stem tremolos.  It also works together with
 the beam engraver for overriding beaming.",
 /* creats*/       "Stem StemTremolo",
-/* acks  */       "rhythmic-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface",
 /* reads */       "tremoloFlags stemLeftBeamCount stemRightBeamCount",
 /* write */       "");

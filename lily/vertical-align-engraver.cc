@@ -69,6 +69,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 ENTER_DESCRIPTION(Vertical_align_engraver,
 /* descr */       "Catch Vertical axis groups and stack them.",
 /* creats*/       "VerticalAlignment",
-/* acks  */       "axis-group-interface",
+/* accepts */     "general-music",
+/* acks  */      "axis-group-interface",
 /* reads */       "",
 /* write */       "");

@@ -123,6 +123,7 @@ Voice_devnull_engraver::Voice_devnull_engraver(){}
 ENTER_DESCRIPTION(Voice_devnull_engraver,
 /* descr */       "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set.",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* accepts */     "general-music",
+/* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

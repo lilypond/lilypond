@@ -35,6 +35,7 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 ENTER_DESCRIPTION(Ligature_bracket_engraver,
 /* descr */       "Handles Ligature_requests by engraving Ligature brackets.",
 /* creats*/       "LigatureBracket",
-/* acks  */       "ligature-head-interface rest-interface",
+/* accepts */     "general-music",
+/* acks  */      "ligature-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");

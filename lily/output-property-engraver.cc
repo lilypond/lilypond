@@ -84,6 +84,7 @@ ENTER_DESCRIPTION(Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function
 to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* accepts */     "general-music",
+/* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

@@ -107,6 +107,7 @@ Arpeggio_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",
 /* creats*/       "Arpeggio",
-/* acks  */       "stem-interface rhythmic-head-interface note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface rhythmic-head-interface note-column-interface",
 /* reads */       "",
 /* write */       "");

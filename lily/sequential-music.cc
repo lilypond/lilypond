@@ -2,17 +2,9 @@
 #include "music-list.hh"
 #include "sequential-music-iterator.hh"
 
-Sequential_music::Sequential_music (SCM head)
-  : Music_sequence (head)
-{
-  set_mus_property ("iterator-ctor",
-		    Sequential_music_iterator::constructor_proc);
-}
 Sequential_music::Sequential_music ()
   : Music_sequence ()
 {
-  set_mus_property ("iterator-ctor",
-		    Sequential_music_iterator::constructor_proc);
 }
 
 

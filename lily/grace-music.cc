@@ -39,11 +39,5 @@ Grace_music::Grace_music ()
 		    Grace_iterator::constructor_proc);
 }
 
-Grace_music::Grace_music (SCM p)
-  : Music_wrapper (p)
-{
-  set_mus_property ("iterator-ctor",
-		    Grace_iterator::constructor_proc);
-}
 
 ADD_MUSIC (Grace_music);

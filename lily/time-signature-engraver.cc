@@ -65,6 +65,7 @@ Time_signature_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Time_signature_engraver,
 /* descr */       "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
 /* creats*/       "TimeSignature",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

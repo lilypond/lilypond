@@ -27,7 +27,9 @@ private:
   Audio_tempo* audio_;
 };
 
-ENTER_DESCRIPTION (Tempo_performer, "","","","","" );
+ENTER_DESCRIPTION (Tempo_performer, "","",
+		   "general-music",
+		   "","","" );
 
 
 Tempo_performer::Tempo_performer ()

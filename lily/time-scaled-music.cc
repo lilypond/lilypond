@@ -10,19 +10,8 @@
 #include "time-scaled-music.hh"
 #include "time-scaled-music-iterator.hh"
 
-Time_scaled_music::Time_scaled_music (SCM l)
-  : Music_wrapper (l)
-{
-  set_mus_property ("iterator-ctor",
-		    Time_scaled_music_iterator::constructor_proc);
-  
-}
-
 Time_scaled_music::Time_scaled_music ()
 {
   
 }
-
-
-
 ADD_MUSIC (Time_scaled_music);

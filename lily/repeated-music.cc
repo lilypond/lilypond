@@ -26,11 +26,6 @@ Repeated_music::alternatives ()const
 }
 
 
-Repeated_music::Repeated_music (SCM l)
-  : Music (l)
-{
-  set_mus_property ("type", ly_symbol2scm ("repeated-music"));
-}
 
 
 Pitch
@@ -164,9 +159,8 @@ Repeated_music::volta_music_length (SCM m)
 ADD_MUSIC (Repeated_music);
 
 Repeated_music::Repeated_music ()
-  : Music (SCM_EOL)
+  : Music ()
 {
- set_mus_property ("type", ly_symbol2scm ("repeated-music"));
 }
 
 

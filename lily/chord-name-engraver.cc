@@ -107,6 +107,7 @@ ENTER_DESCRIPTION(Chord_name_engraver,
 /* descr */       "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
 and generate the appropriate chordname.",
 /* creats*/       "ChordName",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "chordChanges",
 /* write */       "");

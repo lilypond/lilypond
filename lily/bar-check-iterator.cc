@@ -26,14 +26,6 @@ public:
 };
 
 IMPLEMENT_CTOR_CALLBACK(Bar_check_iterator);
-
-Music * get_barcheck ()
-{
-  Music *bc = new Music;
-  bc->set_mus_property ("iterator-ctor", Bar_check_iterator::constructor_proc);
-  return bc;
-}
-
 Bar_check_iterator::Bar_check_iterator()
 {
 }

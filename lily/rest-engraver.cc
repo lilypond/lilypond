@@ -122,6 +122,7 @@ Rest_engraver::try_music (Music *m)
 ENTER_DESCRIPTION(Rest_engraver,
 /* descr */       "",
 /* creats*/       "Rest Dots",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "centralCPosition",
 /* write */       "");

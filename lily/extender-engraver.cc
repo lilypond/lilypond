@@ -144,6 +144,7 @@ Extender_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Extender_engraver,
 /* descr */       "Create lyric extenders",
 /* creats*/       "LyricExtender",
-/* acks  */       "lyric-syllable-interface",
+/* accepts */     "general-music",
+/* acks  */      "lyric-syllable-interface",
 /* reads */       "",
 /* write */       "");

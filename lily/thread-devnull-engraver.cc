@@ -58,6 +58,7 @@ identical, it tells the @code{Thread_devnull_engraver} to discard
 everything in the second thread.
 ",
 /* creats*/       "",
-/* acks  */       "grob-interface",
+/* accepts */     "general-music",
+/* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

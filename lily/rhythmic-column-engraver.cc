@@ -182,6 +182,7 @@ Rhythmic_column_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Rhythmic_column_engraver,
 /* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 /* creats*/       "NoteColumn NoteSpacing",
-/* acks  */       "stem-interface rhythmic-head-interface dot-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "stem-interface rhythmic-head-interface dot-column-interface",
 /* reads */       "",
 /* write */       "");

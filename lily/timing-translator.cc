@@ -152,4 +152,4 @@ Timing_translator::start_translation_timestep ()
   daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
-ENTER_DESCRIPTION (Timing_translator, "","","","","" );
+ENTER_DESCRIPTION(Timing_translator,"","","general-music","","","");

@@ -58,6 +58,7 @@ TODO: consider making type into symbol ")
 
 (music-property-description 'predicate procedure? "the predicate of a \outputproperty")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
+(music-property-description 'types list? "The types of this music object. Determines iteration in some cases.")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction dir? "Does this start or stop a spanner?")
 

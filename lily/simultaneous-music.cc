@@ -16,19 +16,8 @@ Simultaneous_music::start_mom () const
   return Music_sequence::minimum_start (get_mus_property ("elements"));
 }
 
-Simultaneous_music::Simultaneous_music (SCM head)
-  : Music_sequence (head)
+Simultaneous_music::Simultaneous_music()
 {
-  set_mus_property ("iterator-ctor",
-		    Simultaneous_music_iterator::constructor_proc);
-}
-
-Simultaneous_music::Simultaneous_music ()
-  : Music_sequence ()
-{
-  set_mus_property ("iterator-ctor",
-		    Simultaneous_music_iterator::constructor_proc);
-  
 }
 
 Pitch

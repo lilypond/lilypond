@@ -105,6 +105,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Span_arpeggio_engraver,
 /* descr */       "",
 /* creats*/       "Arpeggio",
-/* acks  */       "arpeggio-interface",
+/* accepts */     "general-music",
+/* acks  */      "arpeggio-interface",
 /* reads */       "connectArpeggios",
 /* write */       "");

@@ -22,9 +22,8 @@ Request::do_equal_b (Request const*) const
 }
   
 Request::Request ()
-  : Music (SCM_EOL)
+  : Music ()
 {
-  set_mus_property ("type", ly_symbol2scm ("request"));
 }
 
 Script_req::Script_req ()
@@ -60,7 +59,4 @@ Span_req::set_span_dir (Direction d)
   set_mus_property ("span-direction", gh_int2scm (d));
 }
 
-
-
-
-
+ADD_MUSIC(Request);

@@ -98,6 +98,7 @@ Lyric_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Lyric_engraver,
 /* descr */       "",
 /* creats*/       "",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

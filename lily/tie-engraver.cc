@@ -281,6 +281,7 @@ Tie_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",
-/* acks  */       "rhythmic-head-interface",
+/* accepts */     "general-music",
+/* acks  */      "rhythmic-head-interface",
 /* reads */       "sparseTies tieMelismaBusy",
 /* write */       "");

@@ -12,7 +12,6 @@
 
 Un_relativable_music::Un_relativable_music ( )
 {
-  set_mus_property ("type", ly_symbol2scm ("un-relativable-music"));
 }
 
 Pitch

@@ -87,6 +87,7 @@ Script_column_engraver::process_acknowledged_grobs ()
 ENTER_DESCRIPTION(Script_column_engraver,
 /* descr */       "",
 /* creats*/       "ScriptColumn",
-/* acks  */       "side-position-interface",
+/* accepts */     "general-music",
+/* acks  */      "side-position-interface",
 /* reads */       "",
 /* write */       "");

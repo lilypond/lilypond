@@ -118,6 +118,7 @@ ENTER_DESCRIPTION(Bar_number_engraver,
 /* descr */       "A bar number is created whenever measurePosition is zero. It is
 put on top of all staves, and appears only at  left side of the staff.",
 /* creats*/       "BarNumber",
-/* acks  */       "break-aligned-interface",
+/* accepts */     "general-music",
+/* acks  */      "break-aligned-interface",
 /* reads */       "currentBarNumber stavesFound" ,
 /* write */       "");

@@ -32,12 +32,24 @@ ly_deep_mus_copy (SCM m)
 }
 
 
-Music::Music ()
+
+
+void
+Music::add_music_type (SCM sym)
 {
-  self_scm_ = SCM_EOL; 
-  immutable_property_alist_ = SCM_EOL;
-  mutable_property_alist_ = SCM_EOL;
-  smobify_self ();
+  assert (gh_symbol_p (sym));
+
+  SCM types= get_mus_property ("types");
+  types = scm_cons (sym, types);
+  set_mus_property ("types", types);
+}
+
+bool
+Music::is_music_type (SCM k)const
+{
+  SCM ifs = get_mus_property ("types");
+
+  return scm_memq (k, ifs) != SCM_BOOL_F;
 }
 
 Music::Music (Music const &m)
@@ -54,13 +66,16 @@ Music::Music (Music const &m)
   smobify_self ();
   mutable_property_alist_ = ly_deep_mus_copy (m.mutable_property_alist_);
   set_spot (*m.origin ());
+
+  add_music_type (ly_symbol2scm ("general-music"));
 }
 
 
-Music::Music (SCM l)
+
+Music::Music ()
 {
   self_scm_ = SCM_EOL;
-  immutable_property_alist_ = l;
+  immutable_property_alist_ = SCM_EOL;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
 }
@@ -117,7 +132,7 @@ print_alist (SCM a, SCM port)
   /*
     SCM_EOL  -> catch malformed lists.
   */
-  for (SCM s = a; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s = a; gh_pair_p (s); s = ly_cdr (s))
     {
       scm_display (ly_caar (s), port);
       scm_puts (" = ", port); 
@@ -277,6 +292,27 @@ LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0,
   
   const char * nm = classname (m);
   return scm_makfrom0str (nm);
+}
+
+
+// to do  property args 
+LY_DEFINE(ly_extended_make_music,
+	  "ly-extended-make-music", 2, 0, 0,  (SCM type, SCM props),
+	  "
+Make a music object/expression of type @var{type}, init with
+@var{props}. Warning: this interface will likely change in the near
+future.
+
+Music is the data type that music expressions are stored in. The data
+type does not yet offer many manipulations.
+")
+{
+  SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
+
+  SCM s = make_music (ly_scm2string (type))->self_scm ();
+  unsmob_music (s)->immutable_property_alist_ = props;
+  scm_gc_unprotect_object (s);
+  return s;
 }
 
 LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0, 

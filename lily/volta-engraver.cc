@@ -211,6 +211,7 @@ Volta_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Volta_engraver,
 /* descr */       "Make volta brackets",
 /* creats*/       "VoltaBracket",
-/* acks  */       "bar-line-interface staff-symbol-interface note-column-interface",
+/* accepts */     "general-music",
+/* acks  */      "bar-line-interface staff-symbol-interface note-column-interface",
 /* reads */       "repeatCommands voltaSpannerDuration stavesFound",
 /* write */       "");

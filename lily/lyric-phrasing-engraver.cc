@@ -361,6 +361,7 @@ This engraver is switched on by default. Turn it off for faster
 processing of orchestral scores.
 ",
 		  /* creats*/       "",
-		  /* acks  */       "lyric-syllable-interface note-head-interface lyric-extender-interface",
+		  /* accepts */     "general-music",
+/* acks  */      "lyric-syllable-interface note-head-interface lyric-extender-interface",
 		  /* reads */       "automaticPhrasing melismaEngraverBusy associatedVoice phrasingPunctuation",
 		  /* write */       "");

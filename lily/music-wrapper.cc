@@ -21,8 +21,8 @@ Music_wrapper::transpose (Pitch p)
 }
 
 
-Music_wrapper::Music_wrapper (SCM l)
-  : Music (l)
+Music_wrapper::Music_wrapper ()
+  : Music ()
 {
 }
 
@@ -53,11 +53,6 @@ Music_wrapper::compress (Moment m)
 
 ADD_MUSIC (Music_wrapper);
 
-Music_wrapper::Music_wrapper ()
-  : Music (SCM_EOL)
-{
-  
-}
 
 Moment
 Music_wrapper::start_mom () const

@@ -102,4 +102,7 @@ Key_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Key_performer,"","","","","");
+ENTER_DESCRIPTION(Key_performer,
+		  "","",
+		  "general-music",
+		  "","","");

@@ -80,6 +80,7 @@ Figured_bass_engraver::process_music ()
 ENTER_DESCRIPTION(Figured_bass_engraver,
 /* descr */       "Make figured bass numbers.",
 /* creats*/       "BassFigure",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

@@ -88,6 +88,7 @@ Breathing_sign_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Breathing_sign_engraver,
 /* descr */       "",
 /* creats*/       "BreathingSign",
-/* acks  */       "",
+/* accepts */     "general-music",
+/* acks  */      "",
 /* reads */       "",
 /* write */       "");

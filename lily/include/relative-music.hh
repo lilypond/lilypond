@@ -15,7 +15,6 @@
 class Relative_octave_music : public Music_wrapper
 {
 public:
-  Relative_octave_music (SCM l);
   Relative_octave_music ();
   
   VIRTUAL_COPY_CONS (Music);

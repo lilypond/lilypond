@@ -191,6 +191,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 ENTER_DESCRIPTION (Ligature_engraver,
 /* descr */       "Abstract class; a concrete subclass handles Ligature_requests by engraving Ligatures in a concrete style.",
 /* creats*/       "Ligature",
-/* acks  */       "ligature-head-interface rest-interface",
+/* accepts */     "general-music",
+/* acks  */      "ligature-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");
