@@ -1,5 +1,7 @@
 2004-12-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/lily-library.scm: Bugfix.
+
 	* Documentation/user/invoking.itely (Invoking lilypond): Bugfix.
 
 	* mf/GNUmakefile (ALL_GEN_FILES): Remove unbuildable Fontmap.lily.
