@@ -76,8 +76,8 @@ void *
 memmem (void const *haystack, int haystack_len,
 	void const *needle,int needle_len)
 {
-  Byte const* haystack_byte_c_l = haystack;
-  Byte const* needle_byte_c_l = needle;
+  Byte const* haystack_byte_c_l = (Byte const*)haystack;
+  Byte const* needle_byte_c_l = (Byte const*)needle;
   return _memmem (haystack_byte_c_l, haystack_len, needle_byte_c_l, needle_len);
 }
 

@@ -7,6 +7,8 @@
 all:	 default
 	$(LOOP)
 
+man:
+	$(LOOP)
 
 # be careful about deletion.
 clean: localclean

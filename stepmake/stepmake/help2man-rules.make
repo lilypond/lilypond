@@ -11,4 +11,5 @@ $(outdir)/%.1: $(outdir)/%
 	echo "no problem, since they don't contain any information anyway.";\
 	echo "Please run make again, and be prepared for NO manual pages.")
 
-	
+$(outdir)/%.1: out/%.1
+	cp $< $@
