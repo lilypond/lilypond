@@ -1,5 +1,32 @@
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/grob.cc (warning): better robustness fix.
+
+2002-11-19 Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/cluster-engraver.cc: bugfix: use protected scm upon columns
+
+	* lily/cluster-engraver.cc: stick better to variable naming
+	conventions
+
+	* lily/cluster-engraver.cc: bugfix: delay typesetting of cluster
+	until stop_translation_timestep()
+
+	* lily/cluster-engraver.cc, lily/cluster.cc: design fix: pass
+	min/max coordinates to backend, but no musical info such as
+	pitches
+
+	* lily/cluster.cc: robustness fix: do not crash upon empty cluster
+
+	* lily/grob.cc: robustness fix: warning(): do not crash if
+	cause is not set
+
+	* lily/ligature-bracket-engraver.cc, scm/grob-description.scm: use
+	the much more elaborated tuplet brackets than the very naive and
+	simple ligature bracket grob
+
+2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
 	* Documentation/user/refman.itely (Analysis brackets): add
 	horizontal bracket doco.
 
@@ -63,6 +90,8 @@
 	
 	* input/*.ly: update syntax to 1.7 + new-chords.
 
+	* VERSION: 1.7.7 released.
+	
 	* Documentation/user/*.tely: new chord syntax.
 
 	* input/regression/[bc]*.ly (texidoc): syntax updates.
