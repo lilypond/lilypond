@@ -42,7 +42,7 @@ public:
   static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment);
   static Real note_spacing (Grob*,Grob*,Grob*,Moment, bool*);
   static Real get_duration_space (Grob*,Moment dur, Rational shortest, bool*);
-  static Rational find_shortest (Link_array<Grob> const &);  
+  static Rational find_shortest (Grob *, Link_array<Grob> const &);  
   static void breakable_column_spacing (Grob*, Item* l, Item *r, Moment);
   static void find_loose_columns () {}
   static void prune_loose_colunms (Grob*,Link_array<Grob> *cols, Rational);
@@ -343,7 +343,7 @@ Spacing_spanner::set_springs (SCM smob)
 
   set_explicit_neighbor_columns (all);
 
-  Rational global_shortest = find_shortest (all);
+  Rational global_shortest = find_shortest (me, all);
   prune_loose_colunms (me, &all, global_shortest);
   set_implicit_neighbor_columns (all);
 
@@ -375,7 +375,7 @@ Spacing_spanner::set_springs (SCM smob)
 
 */
 Rational
-Spacing_spanner::find_shortest (Link_array<Grob> const &cols)
+Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 {
   /*
     ascending in duration
@@ -445,10 +445,11 @@ Spacing_spanner::find_shortest (Link_array<Grob> const &cols)
       //      printf ("duration %d/%d, count %d\n", durations[i].num (), durations[i].den (), counts[i]);
     }
 
-  /*
-    TODO: 1/8 should be adjustable?
-   */
+  SCM  bsd = me->get_grob_property ("base-shortest-duration");
   Rational d = Rational (1,8);
+  if (Moment *m = unsmob_moment (bsd))
+    d = m->main_part_;
+  
   if (max_idx >= 0)
     d = d <? durations[max_idx] ;
 

@@ -658,7 +658,9 @@ music_output_def_body:
 		*/
 		int m = gh_scm2int ( $2->get_mus_property ("metronome-count"));
 		Duration *d = unsmob_duration ($2->get_mus_property ("duration"));
-		dynamic_cast<Midi_def*> ($$)->set_tempo (d->length_mom (), m);
+		Midi_def * md = dynamic_cast<Midi_def*> ($$);
+		if (md)
+			md->set_tempo (d->length_mom (), m);
 	}
 	| music_output_def_body error {
 

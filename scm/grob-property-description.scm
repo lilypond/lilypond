@@ -62,6 +62,8 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
 (grob-property-description 'bars list? "list of barline pointers.")
 (grob-property-description 'bar-size-procedure procedure? "Procedure that computes the size of a bar line.")
+(grob-property-description 'base-shortest-duration moment?
+			   "Spacing is based on the shortest notes in a piece. Normally, pieces are spaced as if notes at least as short as this are present.")
 (grob-property-description 'baseline-skip number? "Baseline skip to use for multiple lines of text.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
