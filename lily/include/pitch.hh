@@ -46,6 +46,7 @@ public:
   int notename_i () const;
   int alteration_i () const;
 
+  void normalise ();
   /*
     Pitch is lexicographically ordered by (octave, notename,
     alteration).    
