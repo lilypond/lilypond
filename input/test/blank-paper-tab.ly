@@ -1,10 +1,10 @@
 \version "1.7.18"
+% rename from empty-staffs.ly to blank-paper-tab.ly
 \header {
     
-texidoc = "Blank music paper, another example: empty staffs and a
-tablature staff."
-
-}
+texidoc = "@cindex Blank Paper Tab
+Blank music paper, another example: empty staffs and a
+tablature staff. " }
 
 emptymusic = \notes { \repeat unfold 4  { s1\break }  \bar "|." }
 

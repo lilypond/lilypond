@@ -1,4 +1,5 @@
 \version "1.7.18"
+% candidate for remove or regression.
 \header {
 
     texidoc = "Check whether all @code{duration} properties can 
