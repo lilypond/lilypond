@@ -12,12 +12,7 @@
 
 #include <map>
 
-
 #include "string.hh"
-#include "array.hh"
-
-
-unsigned int string_hash (String);
 
 template <class V>
 struct Dict_initialiser
@@ -40,10 +35,8 @@ public:
     }
   Dictionary (Dict_initialiser<V> *p)
     {
-      hash_func_ = string_hash;
       for (Dict_initialiser<V> *q = p; q->key_; q++)
- (*this) [q->key_] = q->value_;
-	  
+	(*this) [q->key_] = q->value_;
     }
   bool elem_b (String s)
   {

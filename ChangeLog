@@ -1,5 +1,13 @@
 2003-08-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/hash.cc: Remove.
+
+	* flower/include/dictionary.hh (V>): Compile fix: Remove assignment
+	to (nonexistent?) hash_func_ identifier.
+
+	* python/midi.c (midi_error, midi_warning): Use char const* for
+	__FUNCTION__ argument.
+
 	* python/gettext.py: Remove.  We already require python 2.1, which
 	includes gettext.py.
 
