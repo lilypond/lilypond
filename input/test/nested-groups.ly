@@ -1,15 +1,10 @@
+\version "1.7.18" 
+
 \header{
 texidoc="
 In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
 "
-filename = 	 "nested-groups.ly"
-description = 	 "Test of nested staff groups and choirstaves"
-enteredby = 	 "RZ"
-copyright = 	 "public domain"
-Tested = 	 "Nested StaffGroups"
 }
-
-\version "1.7.18" % rz1
 
 \score { \notes
 <

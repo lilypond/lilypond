@@ -21,11 +21,9 @@ Eric
   /Mats B, March 21, 2001
 %}
 
+
 \header{
-title = 	 "Test it"
-description = 	 "Transposition Test file"
-enteredby = 	 "Eric Bullinger"
-copyright = 	 "public domain"
+texidoc = 	 "Transposition Test file"
 }
 
 

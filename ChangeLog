@@ -1,5 +1,9 @@
 2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/(various): cleanup header info. 
+
+	* input/test/tchaikovsky.ly: remove file.
+
 	* scm/chord-generic-names.scm: move from
 	double-plus-new-chord-name.scm
 

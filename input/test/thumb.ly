@@ -1,12 +1,13 @@
 \version "1.7.18"
+
 \header{
-	title="CELLO-THUMBS"
-	enteredby="Maarten Storm"
+texidoc ="the thumb-script is used in cello music to indicate a note that should
+ be played with your thumb."
+
+%% TODO: merge with fingering ?
+
 }
 
-
-% the thumb-script is used in cello music to indicate a note that should
-% be played with your thumb. 
 
 
 

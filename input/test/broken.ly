@@ -1,12 +1,11 @@
 \version "1.7.18"
 % TODO: move to regression or remove?
+
 \header{
-enteredby = 	 "jcn"
-copyright = 	 "PD"
-TestedFeatures = 	 "This file tests Feta embedded slurs" +
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)"
+texidoc = 	 "This file tests  slurs"
 }
 
+%% todo: this is very old, still talks about "feta embedded" slurs? 
 
 
 shortlong =  \notes{

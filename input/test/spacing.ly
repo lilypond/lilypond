@@ -1,10 +1,7 @@
 \version "1.7.18"
 \header{
-title= "Spacing"
-subtitle =  "proofsheet" 
-enteredby = 	 "jcn"
-copyright = 	 "public domain"
-TestedFeatures = 	 "This file tests various spacings"
+texidoc =  "Concurrent tuplets should be spaced equidistantly on
+all staffs" 
 }
 
 

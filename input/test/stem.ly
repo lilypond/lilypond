@@ -1,10 +1,6 @@
 \version "1.7.18"
 \header{
-  title= "Stems and Beams"
-  subtitle =  "proofsheet" 
-  enteredby = 	 "jcn"
-  copyright = 	 "public domain"
-  TestedFeatures = 	 "This file tests the length of stems and placement 
+texidoc = 	 "This file tests the length of stems and placement 
 of beams"
   
 }

@@ -1,9 +1,13 @@
 \version "1.7.18"
+
+
 \header{
-enteredby = 	 "jcn"
-copyright = 	 "public domain"
-TestedFeatures = 	 "This file tests Feta embedded slurs" +
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)"
+
+    texidoc = "This file tests slurs"
+
+    % Feta embedded slurs
+    
+%this is too old. Junkme?  --hwn 
 }
 
 
