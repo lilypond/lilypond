@@ -498,7 +498,8 @@
 	(StaffSymbol . (
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)
-		(line-count . 5 )
+		(line-count . 5)
+		(layer . 0)
 		(meta . ,(grob-description "StaffSymbol" staff-symbol-interface ))
 	))
 	(SostenutoPedal . (

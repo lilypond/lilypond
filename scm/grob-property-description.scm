@@ -179,6 +179,7 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 For text,  this is `relative'(?) to the current alignment.
 
 For barline, space after a thick line.")
+(grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 (grob-property-description 'left-padding number? "space left of accs.")
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
 (grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
