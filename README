@@ -22,9 +22,7 @@ version, then this is version is *not* meant for producing nice output
 2. REQUIREMENTS
 
 For the compilation and running of LilyPond you need some additional
-packages. The most unusual one of this are the metafont sources to
-MusixTeX-fonts. Please refer to the installation instructions on how
-to obtain and install them.
+packages. Please refer to the installation instructions.
 
 
 3. INSTALLATION
@@ -68,6 +66,7 @@ The website also contains the complete documentation
 
 If you decide to build LilyPond from source, please read the INSTALL
 document first, especially the Windows NT/95 section.
+
 
 7. CAVEATS
 
