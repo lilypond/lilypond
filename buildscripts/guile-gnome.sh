@@ -1,7 +1,5 @@
 #!@BASH@
 
-# WIP - this (the guile-gnome canvas) is broken ATM.
-
 # guile-gnome.sh -- download, compile, install g-wrap, guile-gnome,
 # pango
 
@@ -13,7 +11,7 @@ set -ex
 
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
-## when using GUILE CVS, make a slib/require like so:
+# When using GUILE CVS, make a slib/require like so
 cat > /dev/null <<EOF
 cd ~/usr/pkg/guile/share/guile/1.7 && ln -s /usr/share/guile/1.6/slib .
 cd && guile -c "(use-modules (ice-9 slib)) (require 'new-catalog)"
@@ -24,7 +22,13 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
 GGVERSION=2.5.995
+#GGVERSION=2.5.991
 GWRAPVERSION=1.9.3rc1
+#GWRAPVERSION=1.9.1
+
+download=$HOME/usr/src/releases
+[ -d $download ] || mkdir -p $download
+WGET="wget -N -P $download"
 
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
@@ -65,7 +69,7 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 	echo "." > CVS/Repository
 	cvs -z3 checkout -P pango
     else
-        wget -N ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
+        $WGET ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
 	tar -xzf pango-1.5.2.tar.gz
 	ln -s pango-1.5.2 pango
     fi
@@ -107,9 +111,9 @@ if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
         ## ughr:
 	mkdir -p g-wrap/libffi
     else
-	#wget -N http://savannah.nongnu.org/download/g-wrap/g-wrap-$GWRAPVERSION.tar.gz
-	wget -N http://stud3.tuwien.ac.at/~e9926584/tmp/g-wrap-$GWRAPVERSION.tar.gz
-	tar xzf g-wrap-$GWRAPVERSION.tar.gz
+	#$WGET http://savannah.nongnu.org/download/g-wrap/g-wrap-$GWRAPVERSION.tar.gz
+	$WGET http://stud3.tuwien.ac.at/~e9926584/tmp/g-wrap-$GWRAPVERSION.tar.gz
+	tar xzf $download/g-wrap-$GWRAPVERSION.tar.gz
 	ln -s g-wrap-$GWRAPVERSION g-wrap
     fi
     cd g-wrap
@@ -176,8 +180,8 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	fi
 	cd ..
     else
-	wget -N http://ambient.2y.net/wingo/tmp/guile-gnome-platform-$GGVERSION.tar.gz
-	tar xzf guile-gnome-platform-$GGVERSION.tar.gz
+	$WGET http://ambient.2y.net/wingo/tmp/guile-gnome-platform-$GGVERSION.tar.gz
+	tar xzf $download/guile-gnome-platform-$GGVERSION.tar.gz
 	ln -s guile-gnome-platform-$GGVERSION guile-gnome
 	cd guile-gnome
 	ln -s . src
