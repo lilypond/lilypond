@@ -75,7 +75,7 @@
    height
    flag-width-function 
    damping 
-   default-neutral-direction 
+   neutral-direction 
    thickness 
    space-function 
    beamed-stem-shorten 
@@ -129,7 +129,7 @@
    stem-shorten 
    duration-log 
    beaming 
-   default-neutral-direction 
+   neutral-direction 
    stem-end-position 
    support-head 
    heads 
