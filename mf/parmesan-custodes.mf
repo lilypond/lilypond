@@ -36,46 +36,45 @@ def custos_hufnagel(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
-
-		save b_h, a_w;
-		a_b := 1.54; % b_h * a_b / a_w = wd / ht
-		b_h := 0.85;
-		a_w := 1.09;
-
-		save a, beta, ht, wd;
+		save alpha, dalpha, ht, wd, stem_ht, pen_size;
 		ht# = noteheight#;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2a# / a_w;
-		black_notehead_width# := wd#;
+		wd#/ht# = 0.6;
+		alpha# = 35;
+		dalpha# = direction*alpha#;
 
-		save rh_width, rh_height, rh_edge; % rhombus dimensions
-		rh_width# / ht# = tand(35);
-		rh_height# = 1.0ht#;
-		rh_edge# * cosd(35) = ht# / 2;
-
-		save stem_size;
 		if staffline_adjustment = between_staff_lines:
-			stem_size = 0.25;
+			stem_ht# = 1.00 staff_space#;
 		elseif staffline_adjustment = on_staff_line:
-			stem_size = 0.75;
+			stem_ht# = 1.50 staff_space#;
 		else: % staffline_adjustment = anywhere
-			stem_size = 0.50;
+			stem_ht# = 1.25 staff_space#;
 		fi;
+		pen_size# = 0.5*sqrt(wd#*wd#+ht#*ht#);
 
-		define_pixels(rh_width, rh_height, rh_edge);
+		define_pixels(ht, wd, pen_size, stem_ht);
 		pickup pencircle
 		  xscaled stafflinethickness
-		  yscaled rh_edge
-		  rotated (-35*direction);
-		z1=(0.0rh_width,+0.25direction*rh_height);
-		z2=(0.5rh_width,-0.25direction*rh_height);
-		z3-z2=(stem_size*rh_width,+0.75*stem_size*direction*rh_height);
+		  yscaled pen_size
+		  rotated -dalpha#;
+
+		if direction = dir_up:
+			top y1 = ht/2;
+			bot y2 = -ht/2;
+		else:
+			bot y1 = -ht/2;
+			top y2 = ht/2;
+		fi;
+		lft x1 = 0;
+		rt  x2 = wd;
+		y3 - y2 = direction*stem_ht;
+		(y3 - y2) = (x3 - x2) * tand(90-dalpha#);
 		draw z1 -- z2 -- z3;
 
-		set_char_box(stafflinethickness#, wd# / 2,
-			     ht# / 2, ht# / 2);
-
+		if direction > 0:
+			set_char_box(0, wd#, ht#/2, stem_ht#);
+		else:
+			set_char_box(0, wd#, stem_ht#, ht#/2);
+		fi;
 	fet_endchar;
 enddef;
 
@@ -115,41 +114,39 @@ def custos_medicaea(expr verbose_name, internal_name, ly_name,
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 
-		save b_h, a_w;
-		a_b := 1.54; % b_h * a_b / a_w = wd / ht
-		b_h := 0.85;
-		a_w := 1.09;
+		save ht, wd, stem_ht;
+		ht# = noteheight#;
+		wd#/ht# = 0.25;
 
-		save a, beta, ht, wd;
-		ht# = noteheight#; %%  * mag;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 0.4a# / a_w;	% width intentionally too small
-		black_notehead_width# := wd#;
-
-		define_pixels(ht, wd);
-
-		save stem_size;
 		if staffline_adjustment = between_staff_lines:
-			stem_size = 0.90;
+			stem_ht# = 1.00 staff_space#;
 		elseif staffline_adjustment = on_staff_line:
-			stem_size = 1.40;
+			stem_ht# = 1.50 staff_space#;
 		else: % staffline_adjustment = anywhere
-			stem_size = 1.15;
+			stem_ht# = 1.25 staff_space#;
 		fi;
 
-		pickup pencircle xscaled blot_diameter yscaled 1.0ht;
-		z1 = (0.0wd, 0.0ht);
-		z2 = z1 + (1.0wd - blot_diameter/2, 0);
-		draw z1 .. z2;
+		define_pixels(ht, wd, stem_ht);
 
-		pickup pencircle scaled stafflinethickness;
-		z3 = (1.0wd - stafflinethickness/2, 0.0ht);
-		z4 = z3 + (0, +direction*stem_size*ht);
-		draw z3 .. z4;
+		pickup pencircle xscaled 0.6stafflinethickness yscaled ht;
+		lft x1 = 0;
+		y1 = 0;
+		rt x2 = wd;
+		y2 = y1;
+		draw z1 -- z2;
 
-		set_char_box(0, wd#, ht# / 2, ht# / 2);
+		pickup pencircle scaled 0.6stafflinethickness;
+		rt x3 = wd;
+		y3 = 0;
+		x4 = x3;
+		y4 = direction*stem_ht;
+		draw z3 -- z4;
 
+		if direction > 0:
+			set_char_box(0, wd#, ht#/2, stem_ht#);
+		else:
+			set_char_box(0, wd#, stem_ht#, ht#/2);
+		fi;
 	fet_endchar;
 enddef;
 
@@ -188,39 +185,35 @@ def custos_vaticana(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
+		save ht, wd, u_offs, l_offs, stem_size, stem_end;
+		save pen_ht, l_shift, curve_ht, bend_ht;
+		ht# = noteheight#;
+		wd# = 0.24ht#;
 
-		save b_h, a_w;
-		a_b := 1.54; % b_h * a_b / a_w = wd / ht
-		b_h := 0.85;
-		a_w := 1.09;
-
-		save a, beta, ht, wd;
-		ht# = noteheight# ; %%  * mag;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 0.4a# / a_w;
-		black_notehead_width# := wd#;
-
-		save offs, stem_size, stem_end, penwidth;
 		if staffline_adjustment = between_staff_lines:
 			stem_size# = 1.00;
 		elseif staffline_adjustment = on_staff_line:
 			stem_size# = 1.50;
 		else: % staffline_adjustment = anywhere
-			stem_size# = 0.85;
+			stem_size# = 1.25;
 		fi;
-		offs# = direction*0.05ht#;
+		curve_ht# = 0.6ht#;
+		bend_ht# = 0.10ht#;
+		l_shift# = 0.04ht#;
+		u_offs# = +direction*0.5*(bend_ht#+l_shift#);
+		l_offs# = -direction*0.5*(bend_ht#-l_shift#);
 		stem_end# = direction*stem_size#*staff_space#;
+		pen_ht# = curve_ht#-l_shift#;
 
-		define_pixels(offs, stem_end, ht, wd);
+		define_pixels(u_offs, l_offs, stem_end, ht, wd, pen_ht);
 
 		pickup pencircle scaled 0.6stafflinethickness;
-		z1 = (0, offs);
-		z2 = (0.7wd, -offs);
-		z3 = (wd, -offs);
-		penpos1(0.6ht, 90);
-		penpos2(0.6ht, 90);
-		penpos3(0.6ht, 90);
+		z1 = (0, u_offs);
+		z2 = (0.7wd, l_offs);
+		z3 = (wd, l_offs);
+		penpos1(pen_ht, 90);
+		penpos2(pen_ht, 90);
+		penpos3(pen_ht, 90);
 		penstroke z1e{z2 - z1} .. {right}z2e .. z3e;
 
 		rt x4 = wd;
@@ -230,9 +223,9 @@ def custos_vaticana(expr verbose_name, internal_name, ly_name,
 		draw z4 -- z5;
 
 		if direction > 0:
-			set_char_box(0, wd#, offs#+0.3ht#, stem_end#);
+			set_char_box(0, wd#, -l_offs#+0.5pen_ht#, stem_end#);
 		else:
-			set_char_box(0, wd#, -stem_end#, offs#+0.3ht#);
+			set_char_box(0, wd#, -stem_end#, +l_offs#+0.5pen_ht#);
 		fi;
 
 	fet_endchar;
@@ -273,42 +266,45 @@ def custos_mensural(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
-
-		save b_h,a_w;
-		a_b:=1.54; % b_h * a_b / a_w = wd / ht
-		b_h:=0.85;
-		a_w:=1.09;
-
-		save a, beta, ht, wd;
+		save alpha, dalpha, ht, wd, stem_ht;
 		ht# = noteheight#;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2a# / a_w;	% width intentionally too small
-		set_char_box(0, wd#, ht# / 2, ht# / 2);
-		black_notehead_width# := wd#;
+		wd#/ht# = 1.2;
+		alpha# = 35;
+		dalpha# = direction*alpha#;
 
-		save stem_size;
 		if staffline_adjustment = between_staff_lines:
-			stem_size = 0.85;
+			stem_ht# = 1.00 staff_space#;
 		elseif staffline_adjustment = on_staff_line:
-			stem_size = 1.35;
+			stem_ht# = 1.50 staff_space#;
 		else: % staffline_adjustment = anywhere
-			stem_size = 1.10;
+			stem_ht# = 1.25 staff_space#;
 		fi;
 
-		define_pixels(ht, wd);
+		define_pixels(ht, wd, stem_ht);
 		pickup pencircle
 		  xscaled stafflinethickness
 		  yscaled 0.4ht
-		  rotated (-35*direction);
-		z1=(0.0wd,-direction*0.2ht);
-		z2=(0.2wd,+direction*0.2ht);
-		z3=(0.4wd,-direction*0.2ht);
-		z4=(0.6wd,+direction*0.2ht);
-		z5=(0.8wd,-direction*0.2ht);
-		z6-z5=(stem_size*0.5wd,+direction*stem_size*ht);
+		  rotated -dalpha#;
+
+		if direction > 0:
+			bot y1 = bot y3 = bot y5 = -direction*0.33ht;
+			top y2 = top y4 = +direction*0.33ht;
+		else:
+			top y1 = top y3 = top y5 = -direction*0.33ht;
+			bot y2 = bot y4 = +direction*0.33ht;
+		fi;
+		lft x1 = 0.0wd; lft x2 = 0.2wd; lft x3 = 0.4wd;
+		lft x4 = 0.6wd; lft x5 = 0.8wd;
+		y6 - y5 = direction*stem_ht;
+		(y6 - y5) = (x6 - x5) * tand(90-dalpha#);
+
 		draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
 
+		if direction > 0:
+			set_char_box(0, wd#, +direction*0.33ht#, stem_ht#);
+		else:
+			set_char_box(0, wd#, stem_ht#, -direction*0.33ht#);
+		fi;
 	fet_endchar;
 enddef;
 

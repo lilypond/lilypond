@@ -1,3 +1,9 @@
+2003-09-10  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* mf/parmesan-custodes.mf: vaticana custos: bugfix: slightly
+	shortened to avoid almost-collision with staff line; code cleanup;
+	other custodes: fixed char boxes; code cleanup
+
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond.py (global_latex_preamble): only set
