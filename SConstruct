@@ -159,9 +159,9 @@ else:
 	env.Append (LIBPATH = ['#/flower/' + out,],
 		    CPPPATH = [outdir, '#',])
 
-subdirs = ('flower', 'lily', 'mf')
 #subdirs = ('mf',)
 #subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
+subdirs = ('flower', 'lily', 'mf')
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
