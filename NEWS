@@ -1,5 +1,19 @@
+pl 9	
+	- declare rhythic_request
+	- preliminary support for real \mudelaheaders
+	- context-sensitive arithmetic spacing. Looks alot better
+	- silly GNU braces.
+	- JCN fixes for pl 8
+	- bf: midi instrument
+	- Vocabs from GMP-I
 
+pl 8.mb:
+	- use log of duration-name
+
+*******
+aug 15
 pl 8
+
 	- gif -> xpm
 	- bf: Whoops! Open eyes now, when finding shortest note in
 spring-spacer. Fixes spacing problems.
@@ -9,10 +23,14 @@ spring-spacer. Fixes spacing problems.
 	- Identifier doesn't store its name. Much cleaner now.	
 	- bf: Rest_collision_engraver now always announces
 	- bf: announce Staff_sym only once
-	- rewrite of mi2mu (JCN)
+pl 0.1.7.jcn1
+	- complete redo mid/back-end of mi2mu
+	- bf: do not create/play empty Audio-{text,instrument} events
+
 
 ********
 aug 14
+
 pl 7
 	- Audio_element as base for Audio_item and Audio_staff. fixes
 midi-lyric segfault
@@ -57,6 +75,7 @@ pl 0.1.3.jcn1
 
 *********
 aug 11
+
 pl 4
 	- correction of GNU Music Manifesto
 	- moved lowlevel stuff of Source_file to Mapped_file_storage. 

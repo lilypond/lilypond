@@ -1,19 +1,18 @@
-%{MudelaHeader
+\header{
+filename	 twinkle.ly
+title	twinkle twinkle little star
+description	traditional song in various languages.
+	 "Ah, vous dirais-je, maman" 
+	 "Altijd is Kortjakje ziek"
+	 "Twinkle twinkle little star"
 
- filename: twinkle.ly
- title: twinkle twinkle little star
- description: 
-  traditional song in various languages.
-  "Ah, vous dirais-je, maman" 
-  "Altijd is Kortjakje ziek"
-  "Twinkle twinkle little star"
+composers	Traditional
+enteredby	HWN & JCN
+copyright	public domain
+}
+%{
+Tested Features: lyrics
 
- composers: Traditional
- entered-by: HWN & JCN
- copyright: public domain
-
- Tested Features: lyrics
-EndMudelaHeader
 %}
 \version "0.1.1";
 
@@ -140,7 +139,6 @@ textiii = \lyric{
 		
 	>
 	\paper{
-		unitspace= 2.5\cm;
 	}
 	\midi{ 
 		\tempo 4 = 120 ;

@@ -1,15 +1,15 @@
-%{MudelaHeader
+\header{
+filename		twinkle.ly
+title		Ah, vous dirais-je, maman 
+description		twinkle twinkle in pop-song-settings
+composers		traditional
 
- filename: twinkle.ly
- title: Ah, vous dirais-je, maman 
- description: twinkle twinkle in pop-song-settings
- composers: traditional
+enteredby		HWN, chords by Johan Vromans
+copyright		public domain
+}
 
- entered-by: HWN, chords by Johan Vromans
- copyright: public domain
-
- Tested Features: lyrics and chords
-EndMudelaHeader
+%{
+Tested Features		lyrics and chords
 %}
 
 \version "0.1.1";
@@ -43,5 +43,5 @@ texte = \lyric{
         <  \melodic <  \id "Piano" "";  \melodie >
            \lyric   < \id "Lyric" "";  \texte >
         >
-        \paper { unitspace= 2.5\cm; }
+        \paper {  }
 }

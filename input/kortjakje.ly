@@ -1,14 +1,15 @@
-%{MudelaHeader
 
- filename: kortjakje.ly
- title: Ah,  vous dirais-je, maman (variations)
- description:  bare bones version. (written down from memory :-)
- composers: Mozart, KV 265
- entered-by: HWN
- copyright: PD
+\header{
+filename		kortjakje.ly
+title		Ah,  vous dirais-je, maman (variations)
+description		 bare bones version. (written down from memory :-)
+composers		Mozart, KV 265
+entered-by		HWN
+copyright		PD
+}
+%{
+Tested Features: example file with comments
 
- Tested Features: example file with comments
-EndMudelaHeader
 %}
 \version "0.1.1";
 

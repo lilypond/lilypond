@@ -1,3 +1,14 @@
+\header{
+title	La Gallina a 2 violini
+date	1637
+source	the manuscript of Canzoni overo Sonate Concertate 
+	libro terzo, opera duodecima 
+composer	 Tarquinio Merula (1594/95-1665)
+enteredby	 Mats Bengtsson
+copyright	 Public Domain 
+}
+
+
 %{
 From mats.bengtsson@s3.kth.seThu Aug 14 02:11:19 1997
 Date: Wed, 13 Aug 1997 18:24:53 +0200
@@ -20,20 +31,12 @@ either.
 
       /Mats
 
---------------------------------------------------
-%}
-%{
- title: La Gallina a 2 violini
- date: 1637
- source: the manuscript of Canzoni overo Sonate Concertate 
-   libro terzo, opera duodecima 
- composer(s): Tarquinio Merula (?-?)
- entered-by: Mats Bengtsson
- copyright: Public Domain 
+
+Tested Features: Note placement, multipart score, figured base, \breve
+
+note: the sharp signs hoovering over the bass part are no mistake, but
+part of the basso continuo
  
-
- Tested Features: Note placement, multipart score, figured base
-
 %}
 
 vi1=\melodic{
@@ -43,7 +46,7 @@ vi1=\melodic{
   d8 d d d d4 A16 B c A |
   B8 G G G16 A B8 G G G16 A | 
   B8 G G A16 B c4 B |
-  A8 D G4. Fis16 E Fis4 |
+  A8 D G2 Fis4 |
   G2 r2 |
   r1 |
   d8 d d d d4 A16 B c A |
@@ -58,12 +61,12 @@ vi1=\melodic{
   d8 G c2 B4 |
   c8 G G G16 A B4 G |
   r8 G G G16 A B4 G |
-  r8 E16 Fis G8 G  Fis G G Fis|
+  r8 E16 Fis G8 G  Fis! G G Fis! |
   G2 r |
   r1 |
   r16 d c B A G Fis E D8 d d d16 c |
   B8 d d d16 c B8 d d d16 e |
-  fis4 g2 fis4 |
+  fis4 g2 fis!4 |
   r16 g f e d c B A G8 g g g16 f |
   e8 g g g16 f e8 g g g16 a |
   b4 c'2 b4 |
@@ -78,11 +81,11 @@ vi1=\melodic{
   d1. |
   r4 d8 c B4 c8 d G4 A8 B |
   E1. |
-  r4 e8 d cis4 d8 e A4 B8 cis |
+  r4 e8 d cis4 d8 e A4 B8 cis! |
   Fis1. |
   r4 d d d d d |
   e e8 d c4 d8 e A4 B8 c |
-  Fis4 fis8 e d4 e8 fis B4 c8 d |
+  Fis4 fis8 e d4 e8 fis! B4 c8 d |
   G4 g g g g g |
   a4 c'8 b a4 b8 c' f4 g8 a |
   d4 g g g g g |
@@ -95,12 +98,13 @@ vi1=\melodic{
   c2 r |
   g8 g g g g4 d16 e f d |
   e8 G G G16 A B8 d d d16 e |
-  fis4 g2 fis4 |
+  fis4 g2 fis!4 |
   r16 g f e d c B A G8 g g g16 f |
   e2 r8 d d d16 e |
   fis a g fis e d c B A8 d d d16 e |
-  fis4 g2 fis4 |
-  g1
+  fis4 g2 fis!4 |
+  \cadenza 1;
+  g\breve
   \bar "|.";
 }
 
@@ -112,7 +116,7 @@ vi2=\melodic{
   d8 d d d d4 A16 B c A |
   B8 G G G16 A B8 G G G16 A | 
   B8 G G A16 B c4 B |
-  A8 D G4. Fis16 E Fis4 |
+  A8 D G2 Fis4 |
   G2 r2 |
   r1 |
   g8 g g g g4 d16 e f d |
@@ -127,7 +131,7 @@ vi2=\melodic{
   c4 B A2 |
   G r16 d c B A G Fis E |
   D8 d d d16 c B8 d d d16 e |
-  fis4 g g4. fis8 |
+  fis4 g g4. fis!8 |
   g2 r |
   r16 d c B A G Fis E D8 d d d16 c |
   B4 c2 B4 |
@@ -141,18 +145,18 @@ vi2=\melodic{
   r1. |
   r4 g8 f e4 f8 g c4 d8 e |
   A1. |
-  r4 a8 g fis4 g8 a d4 e8 fis |
+  r4 a8 g fis4 g8 a d4 e8 fis! |
   B1. |
   r4 g g g g g |
   a1. |
   r4 a a a a a |
   b d8 c B4 c8 d G4 A8 B |
   E4 g8 f e4 f8 g c4 d8 e |
-  A4 a8 g fis4 g8 a d4 e8 fis |
+  A4 a8 g fis4 g8 a d4 e8 fis! |
   B4 b8 a g4 a8 b e4 fis8 g |
   c4 A A A A A |
   B d8 c B4 c8 d D4 E |
-  Fis2 G Fis |
+  Fis2 G Fis! |
   \meter 4/4;
   G1 |
   r1 | r1 |
@@ -165,7 +169,8 @@ vi2=\melodic{
   c8 G G G16 A B d c B A G Fis E |
   D8 d d d16 e fis16 a g fis e d c B |
   A d c B A G Fis E D4 d |
-  B1
+  \cadenza 1;
+  B\breve
   \bar "|.";
 }
 
@@ -192,6 +197,7 @@ bc=\melodic{
   G1 |
   \meter 3/2;
   g1. | c |
+	% 30
   f | d^"\sharp" |
   g | c |
   A | d^"\sharp" |
@@ -206,7 +212,9 @@ bc=\melodic{
   G^"3 4 3" | c2 G |
   d1^"3 4 3" | G^"3 4 3" |
   c2 G | d1^"\sharp" ( |
-  ) d^"3 4 3" | G |
+  ) d^"3 4 3" | 
+  \cadenza 1;
+  G\breve 
   \bar "|.";
 }
 
@@ -217,9 +225,13 @@ bc=\melodic{
     \bc
   >
   \paper{
-    linewidth=18.\cm;
-    gourlay_maxmeasures=5.;
+    %linewidth=18.\cm;
+     \output "gallina.out";
+    gourlay_maxmeasures=7.;
   }
+ \midi{ 
+	\tempo 4=90;
+}
 }
 
 
