@@ -91,7 +91,10 @@ def parse_logfile (fn):
 			#urg
 			if 0: #testing
 				tags.append ('Regular')
-			tags[5] = re.sub (' ','-', tags[5])
+
+			
+			encoding = re.sub (' ','-', tags[5])
+			tags = tags[:-1]
 			name = tags[1:]
 			global_info['DesignSize'] = string.atof (tags[4])
 			global_info['FontName'] = string.join (name,'-')
@@ -106,7 +109,7 @@ def parse_logfile (fn):
 			global_info['FontBBox'] = '0 0 1000 1000'
 			global_info['Ascender'] = '0'
 			global_info['Descender'] = '0'
-			global_info['EncodingScheme'] = tags[5]
+			global_info['EncodingScheme'] = encoding
 	
 	return (global_info, charmetrics, deps)
 
