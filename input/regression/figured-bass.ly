@@ -6,7 +6,9 @@ figured bass requests and  rest-requests.  You must enter these using
 the special @code{\figures @{ @}} mode, which allows you to type
 numbers, like @code{<4 6+>}.
 
-You can also type letters by entering quoted strings.
+You can also type letters by entering quoted strings, which is shown in the
+last bass figure.
+
 " }
 
 \score { \notes  <<
@@ -19,8 +21,8 @@ You can also type letters by entering quoted strings.
 	<3+ 5- 7!>
 	<3 _! 5 _- 7>
 	<3 _ 5 _ 7>
-\override FiguredBass.BassFigure  #'font-family = #'roman
 	<"V7" ["bla" 6] 7>
+	
     }
  }
 

@@ -16,8 +16,8 @@
 	 (acc  (ly:music-property fig-music 'alteration))
 	 (acc-markup #f)
 	 (fig-markup
-	  (if (string? fig)
-	      (make-number-markup (make-simple-markup fig))
+	  (if (markup? fig)
+	      fig
 	      (if align-accs (make-simple-markup " ")
 		  (if (not (eq? acc '()))
 		      (make-simple-markup "")
