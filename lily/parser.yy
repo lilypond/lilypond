@@ -915,16 +915,16 @@ Repeated_music:
 			int dots = ($3 % 3) ? 0 : 1;
 			int shift = -intlog2 ((dots) ? ($3*2/3) : $3);
 
-			Sequential_music *seq = dynamic_cast<Sequential_music*> ($4);
 			
-			if (seq) {
-				int list_len = scm_ilength (seq->music_list ());
+			if ($4->is_mus_type ("sequential-music"))
+			{
+				int list_len = scm_ilength ($4->get_property ("elements"));
 				if (list_len != 2)
 					seq->origin ()->warning ("Chord tremolo must have 2 elements.");
 				shift -= 1;
 				r->compress (Moment (Rational (1, list_len)));
-				}
-			scm_call_3 (func, r->self_scm (), scm_int2num (shift),scm_int2num (dots));
+			}
+			scm_call_3 (func, r->self_scm (), scm_int2num (shift), scm_int2num (dots));
 
 		}
 		r->set_spot (*$4->origin ());

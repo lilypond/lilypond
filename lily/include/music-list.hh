@@ -34,14 +34,4 @@ public:
   Event_chord (SCM);
 };
 
-/**
-  Sequential_music is a list of music-elements which are placed behind each other.
- */
-class Sequential_music : public Music_sequence
-{
-public:
-  VIRTUAL_COPY_CONSTRUCTOR (Music, Sequential_music);
-  Sequential_music (SCM);
-};
-
 #endif /* MUSIC_LIST_HH */

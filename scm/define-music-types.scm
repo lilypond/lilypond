@@ -451,7 +451,7 @@ previously added property from a graphical object definition
 
 Syntax \\sequential @{..@} or simply @{..@} .")
 
-	(internal-class-name . "Sequential_music")
+	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -464,7 +464,7 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 to group start-mmrest, skip, stop-mmrest sequence. 
 
 Syntax @code{R2.*5} for 5 measures in 3/4 time.")
-	(internal-class-name . "Sequential_music")
+	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
