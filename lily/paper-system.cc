@@ -35,8 +35,8 @@ Paper_system::~Paper_system ()
 SCM
 Paper_system::mark_smob (SCM smob)
 {
-  Paper_system *line = (Paper_system*) ly_cdr (smob);
-  return line-> stencil_.expr ();
+  Paper_system *system = (Paper_system*) ly_cdr (smob);
+  return system-> stencil_.expr ();
 }
 
 int
@@ -80,52 +80,50 @@ Paper_system::to_stencil () const
   return stencil_;
 }
 
-LY_DEFINE (ly_paper_line_height, "ly:paper-system-extent",
-	   2, 0, 0, (SCM line, SCM axis),
-	   "Return the extent of @var{line}.")
+LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
+	   2, 0, 0, (SCM system, SCM axis),
+	   "Return the extent of @var{system}.")
 {
-  Paper_system *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   Axis ax = (Axis)ly_scm2int (axis);
-  return scm_make_real (pl->dim ()[ax]);
+  return scm_make_real (ps->dim ()[ax]);
 }
 
-
-
-LY_DEFINE (ly_paper_line_title_p, "ly:paper-system-title?",
-	   1, 0, 0, (SCM line),
-	   "Is  @var{line} a title line?")
+LY_DEFINE (ly_paper_system_title_p, "ly:paper-system-title?",
+	   1, 0, 0, (SCM system),
+	   "Is  @var{system} a title system?")
 {
-  Paper_system *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
-  return SCM_BOOL (pl->is_title ());
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
+  return SCM_BOOL (ps->is_title ());
 }
 
-LY_DEFINE (ly_paper_line_number, "ly:paper-system-number",
-	   1, 0, 0, (SCM line),
-	   "Return the number of @var{line}.")
+LY_DEFINE (ly_paper_system_number, "ly:paper-system-number",
+	   1, 0, 0, (SCM system),
+	   "Return the number of @var{system}.")
 {
-  Paper_system *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_int2num (pl->number_);
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
+  return scm_int2num (ps->number_);
 }
 
-LY_DEFINE (ly_paper_line_break_score, "ly:paper-system-break-penalty",
-	   1, 0, 0, (SCM line),
-	   "Return the score for page break after @var{line}.")
+LY_DEFINE (ly_paper_system_break_score, "ly:paper-system-break-penalty",
+	   1, 0, 0, (SCM system),
+	   "Return the score for page break after @var{system}.")
 {
-  Paper_system *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
-  return scm_int2num (int (pl->penalty ()));
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
+  return scm_int2num (int (ps->penalty ()));
 }
 
-LY_DEFINE (ly_paper_line_stencil, "ly:paper-system-stencil",
-	   1, 0, 0, (SCM line),
-	   "Return the height of @var{line}.")
+LY_DEFINE (ly_paper_system_stencil, "ly:paper-system-stencil",
+	   1, 0, 0, (SCM system),
+	   "Return the height of @var{system}.")
 {
-  Paper_system *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
-  return pl->to_stencil ().smobbed_copy ();
+  Paper_system *ps = unsmob_paper_system (system);
+  SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
+  return ps->to_stencil ().smobbed_copy ();
 }
 
