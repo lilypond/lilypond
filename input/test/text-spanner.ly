@@ -1,6 +1,5 @@
 
 \version "2.1.7"
-% TODO: check about other ottava functions.
 
 \header { texidoc = "@cindex text spanner
 You can make LilyPond print text spanners. "
@@ -13,8 +12,8 @@ You can make LilyPond print text spanners. "
 	b c 
         a \stopTextSpan
 
-        \property Voice.TextSpanner \revert #'style
-        \property Voice.TextSpanner \override #'style = #'dotted-line
+        \property Voice.TextSpanner \override #'dash-period = #2
+        \property Voice.TextSpanner \override #'dash-fraction = #0.0
         a \startTextSpan
 	b c 
         a \stopTextSpan

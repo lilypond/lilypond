@@ -1,5 +1,24 @@
 2004-01-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/music-functions.scm (determine-split-list): bugfixes.
+
+	* scm/lily.scm (uniq-list): new implementation, O(1) stack.
+
+	* input/test/scales-greek.ly: use C as base, results in different
+	alterations at the clef.
+
+	* input/regression/pedal-ped.ly: new file.
+
+	* input/regression/pedal-bracket.ly: new file.
+
+	* lily/piano-pedal-bracket.cc (brew_molecule): new function;
+	replace after_line_breaking()
+
+	* lily/line-interface.cc (line): read thickness.
+	(line): dash-fraction = 0 always for dotted-line style.
+
+	* input/test/staff-lines.ly (lower): bugfix.
+
 	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): move
 	\accepts Devnull into Score.
 

@@ -153,8 +153,10 @@ Tie_column::werner_directions (Grob *me)
   
   if (ties.size () == 1)
     {
-      Grob *  t = ties[0];      
-      set_grob_direction (t,Tie::get_default_dir (t));
+      Grob *  t = ties[0];
+      if (t->live ()
+	  && !get_grob_direction (t))
+	set_grob_direction (t,Tie::get_default_dir (t));
       return ;
     }
 

@@ -371,7 +371,10 @@ provided in @code{input/regression/molecule-hacking.ly}.
 (grob-property-description 'note-heads grob-list? "List of note head grobs")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'oriscus boolean? "is this neume an oriscus?.")
-(grob-property-description 'enclose-bounds boolean? "whether a text spanner should extend to the outer edge of the spanned notes")
+
+(grob-property-description 'enclose-bounds number?
+"How much of the bound a spanner  should enclose: +1 = completely, 0 = center, -1 not at all.")
+
 (grob-property-description 'padding ly:dimension? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'pedal-text ly:grob? "Pointer to the text of a mixed-style piano pedal.")
 (grob-property-description 'penalty number? "Penalty for breaking at

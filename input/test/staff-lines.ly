@@ -1,8 +1,11 @@
 
 \version "2.1.7"
 
-\header { texidoc="@cindex Staff Lines
-Set staff symbol property. "
+\header {
+
+    texidoc="@cindex Staff Lines Staff symbol properties may also be
+ set with @code{\\property}. "
+	  
 }
 
 
@@ -20,10 +23,10 @@ lower = \notes\relative c {
       \upper
     >>  
     \new Staff  {
-	\property Staff.StaffSymbol \set #'line-count = #4 } <<
+	\property Staff.StaffSymbol \set #'line-count = #4 
         \clef bass
         \lower
-    >>  
+    }
   >>
   \paper { raggedright=##t}  
 }

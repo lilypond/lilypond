@@ -64,8 +64,8 @@ Text_spanner::brew_molecule (SCM smob)
 	}
       else
 	  {
-	    bool encl = to_boolean (me->get_grob_property ("enclose-bounds"));
-	    span_points[d] = b->extent (common, X_AXIS)[encl ? d : -d];
+	    Real encl = robust_scm2double (me->get_grob_property ("enclose-bounds"), 0.0);
+	    span_points[d] = b->extent (common, X_AXIS).linear_combination (d * encl);
 
 	    if (is_number_pair (shorten))
 	      span_points -= d * gh_scm2double (index_get_cell (shorten, d));

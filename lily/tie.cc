@@ -58,9 +58,11 @@ Grob*
 Tie::head (Grob*me, Direction d) 
 {
   SCM c = me->get_grob_property ("head-pair");
-  c = index_get_cell (c, d);
 
-  return unsmob_grob (c);
+  if (gh_pair_p)
+    return unsmob_grob (index_get_cell (c, d));
+  else
+    return 0;
 }
 
 Real
@@ -134,7 +136,7 @@ Tie::get_control_points (SCM smob)
     {
       programming_error ("Tie without heads.");
       me->suicide ();
-      return SCM_UNSPECIFIED;
+      return SCM_EOL;
     }
 
   set_direction (me);
@@ -324,11 +326,14 @@ Tie::brew_molecule (SCM smob)
   Grob*me = unsmob_grob (smob);
 
   SCM cp = me->get_grob_property ("control-points");
-  if (cp == SCM_EOL)
+  if (!gh_pair_p (cp))		// list is more accurate
     {
       cp = get_control_points (smob);
       me->set_grob_property ("control-points", cp);
     }
+
+  if (!gh_pair_p (cp))
+    return Molecule ().smobbed_copy ();
   
   Real thick
     = Staff_symbol_referencer::line_thickness (me)

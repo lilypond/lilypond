@@ -1700,6 +1700,12 @@ def conv (str):
 
 conversions.append (((2,1,13), conv, """set-staff-size -> set-global-staff-size"""))
 
+def conv (str):
+	str =re.sub (r"#'style\s*=\s*#'dotted-line",
+		     r"#'dash-fraction = #0.0 ", str)
+	return str
+
+conversions.append (((2,1,14), conv, """style = dotted -> dash-fraction = 0"""))
 
 ################################
 #	END OF CONVERSIONS	
