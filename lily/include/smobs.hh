@@ -134,7 +134,7 @@ unsmob_ ## name (SCM s)			\
 return  CL::unsmob (s);				\
 }
 
-#define DECLARE_TYPE_P(CL) extern SCM CL_ ## _type_p_proc
+#define DECLARE_TYPE_P(CL) extern SCM CL ## _type_p_proc
 
 #endif /* SMOBS_HH */
 

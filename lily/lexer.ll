@@ -891,7 +891,7 @@ lookup_markup_command (String s)
 int
 music_head_type (SCM func)
 {
-	SCM type= scm_object_property (func, ly_symbol2scm ("music-head-signature"));
+	SCM type= scm_object_property (func, ly_symbol2scm ("music-head-signature-keyword"));
 	if (type == ly_symbol2scm ("scm"))
 	{
 		return MUSIC_HEAD_SCM;
