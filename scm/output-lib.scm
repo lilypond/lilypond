@@ -108,8 +108,7 @@
 (define-public (comment s) "")
 
 (define-public (ly:numbers->string lst)
-  (apply string-append
-	 (map (lambda (x) (string-append (ly:number->string x) " "))  lst)))
+  (string-join (map ly:number->string lst) " "))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
@@ -126,7 +125,7 @@
 
 (define-public (ly:number-pair->string c)
   (string-append (ly:number->string (car c)) " "
-		 (ly:number->string (cdr c)) " "))
+		 (ly:number->string (cdr c))))
 
 (define (font i)
   (string-append

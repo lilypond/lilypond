@@ -125,9 +125,10 @@
 ;; two beziers
 (define (bezier-sandwich l thick)
   (string-append 
-   (apply string-append (map ly:number-pair->string l))
+   (string-join (map ly:number-pair->string l) " ")
+   " "
    (ly:number->string thick)
-   " draw_bezier_sandwich "))
+   " draw_bezier_sandwich"))
 
 (define (bracket arch_angle arch_width arch_height  height arch_thick thick)
   (string-append
@@ -137,7 +138,7 @@
 
 (define (char i)
   (string-append 
-   "(\\" (ly:inexact->string i 8) ") show " ))
+   "(\\" (ly:inexact->string i 8) ") show" ))
 
 (define (comment s)
   (string-append "% " s "\n"))
@@ -158,7 +159,8 @@
 ;; what the heck is this interface ?
 (define (dashed-slur thick dash l)
   (string-append 
-   (apply string-append (map ly:number-pair->string l)) 
+   (string-join (map ly:number-pair->string l) " ")
+   " "
    (ly:number->string thick) 
    " [ "
    (ly:number->string dash)
@@ -256,18 +258,12 @@
 
 (define (draw-line thick x1 y1 x2 y2)
   (string-append 
-  "	1 setlinecap
-	1 setlinejoin "
-  (ly:number->string thick)
-	" setlinewidth "
-   (ly:number->string x1)
-   " "
-   (ly:number->string y1)
-   " moveto "
-   (ly:number->string x2)
-   " "
-   (ly:number->string y2)
-   " lineto stroke"))
+   "1 setlinecap 1 setlinejoin "
+   (ly:number->string thick) " setlinewidth "
+   (ly:number->string x1) " "
+   (ly:number->string y1) " moveto "
+   (ly:number->string x2) " "
+   (ly:number->string y2) " lineto stroke"))
 
 (define (end-output)
   "\nend-lilypond-output\n")
@@ -289,7 +285,7 @@
     (let ((c (assoc name-mag-pair font-name-alist)))
       
       (if c
-	  (string-append " " (cddr c) " setfont ")
+	  (string-append (cddr c) " setfont ")
 	  (begin
 	    (ly:warn
 	     (format "Programming error: No such font: ~S" name-mag-pair))
@@ -393,7 +389,7 @@
 
 (define (placebox x y s) 
   (string-append 
-   (ly:number->string x) " " (ly:number->string y) " {" s "} place-box\n"))
+   (ly:number->string x) " " (ly:number->string y) " { " s " } place-box\n"))
 
 (define (polygon points blotdiameter)
   (string-append
@@ -410,7 +406,6 @@
 
 (define (round-filled-box x y width height blotdiam)
    (string-append
-    " "
     (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
@@ -426,7 +421,7 @@
    " draw_box" ))
 
 (define (stop-system)
-  "}\nstop-system\n")
+  "} stop-system\n")
 
 (define stop-last-system stop-system)
 
@@ -437,7 +432,7 @@
 
 (define (text s)
 ;;  (string-append "(" (escape-parentheses s) ") show "))
-  (string-append "(" (ps-encoding s) ") show "))
+  (string-append "(" (ps-encoding s) ") show"))
 
 (define (unknown) 
   "\n unknown\n")
@@ -455,7 +450,7 @@
     (ly:number->string dx)
     " "
     (ly:number->string dy)
-    " draw_zigzag_line "))
+    " draw_zigzag_line"))
 
 (define (start-page)
   (set! page-number (+ page-number 1))
