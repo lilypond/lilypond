@@ -40,6 +40,11 @@ and
 
 ** Friendly chord-name exception entry.
 
+** Texts can be put on multimeasure rests, eg.
+
+	R1*20^\markup { "GP" }
+
+
 * OUTPUT
 
 ** Preliminary Sodipodi/SVG output
