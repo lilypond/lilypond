@@ -1,3 +1,11 @@
+2005-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ps/music-drawing-routines.ps (mark_file_line): Switch Action
+	based on pdf-viewer setting.
+
+	* scm/framework-ps.scm (write-preamble): Find and set preferred
+	pdf-viewer.
+
 2005-02-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-pdfpc-helper.py: new file. Invoke different
