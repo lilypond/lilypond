@@ -27,10 +27,10 @@ Version 1.6 is the latest stable release.
 @section Downloading
 
 The primary download site for sourcecode is
-@uref{ftp://ftp.lilypond.org/pub/GNU/LilyPond/}.
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/}.
 
 If you have a slow connection, then you are advised to use
-@uref{ftp://ftp.xcf.berkeley.edu/pub/xdelta/,xdelta} for patching
+@uref{http://sourceforge.net/projects/xdelta/,xdelta} for patching
 source archives; Xdelta (@file{.xd}) files are supplied on the FTP site.
 
 @section Compilation
