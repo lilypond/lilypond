@@ -22,7 +22,7 @@
 class Music_wrapper : public Music
 {
 public:
-  Music_wrapper ();
+  Music_wrapper (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music_wrapper);
 
   Music *element () const;

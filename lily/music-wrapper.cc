@@ -9,8 +9,8 @@
 
 #include "music-wrapper.hh"
 
-Music_wrapper::Music_wrapper ()
-  : Music ()
+Music_wrapper::Music_wrapper (SCM x)
+  : Music (x)
 {
 }
 

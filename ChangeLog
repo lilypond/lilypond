@@ -121,7 +121,6 @@
 	* Documentation/user/notation.itely (Ancient rests): Fix typo
 	(thanks Anthony)
 
->>>>>>> 1.3051
 2005-01-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/auto-beam.scm (score-override-auto-beam-setting): New function.
