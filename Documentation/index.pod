@@ -59,7 +59,7 @@ internal structures.
 =item *
 <a href=lilyliterature.html
 >
-resources on music typesetting
+Papers, books and online-resources on music typesetting
 </a
 >
 
