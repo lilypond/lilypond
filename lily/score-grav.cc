@@ -1,5 +1,5 @@
 /*
-  score-reg.cc -- implement Score_engraver
+  score-grav.cc -- implement Score_engraver
 
   source file of the GNU LilyPond music typesetter
 

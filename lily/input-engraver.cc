@@ -31,7 +31,7 @@ Input_engraver::print() const
     for (int i=0; i< consists_str_arr_.size(); i++)
 	mtor << consists_str_arr_[i] << ',';
     mtor << "contains " ;
-    for (iter(contains_igrav_p_list_.top(), i); i.ok(); i++) 
+    for (PCursor<Input_engraver*> i(contains_igrav_p_list_.top()); i.ok(); i++) 
 	i->print();
 #endif 
 }
@@ -45,7 +45,7 @@ Input_engraver::recursive_find(String nm)
 	return this;
 
     Input_engraver * r =0;
-    iter(contains_igrav_p_list_.top(), i);
+    PCursor<Input_engraver*> i(contains_igrav_p_list_.top());
     for (; !r &&i.ok(); i++) {
 	if (i->recursive_find(nm))
 	    r = i.ptr();
@@ -57,7 +57,7 @@ Input_engraver::recursive_find(String nm)
 Input_engraver *
 Input_engraver::find_igrav_l(String nm)
 {
-    for (iter(contains_igrav_p_list_.top(), i); i.ok(); i++)
+    for (PCursor<Input_engraver*> i(contains_igrav_p_list_.top()); i.ok(); i++) 
 	if (i->is_name_b( nm))
 	    return i;
 

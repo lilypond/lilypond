@@ -10,7 +10,13 @@
 #ifndef ITERATE_HH
 #define ITERATE_HH
 
-
+/*
+ ugh.
+ jcn: kjoet.
+      if we wouldn't have had this, things might have been 
+      just a little bit easier to read, imho.
+      (it does save quite some disk space, though)
+ */
 
 #define iterator(set)		typeof((set).top())
 #define iterator_bot(set)		typeof((set).bottom())

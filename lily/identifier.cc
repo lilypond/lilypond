@@ -7,17 +7,18 @@
 */
 
 #include <assert.h>
+#include "midi-def.hh"
 #include "paper-def.hh"
 #include "score.hh"
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-#include "input-engraver.hh"
 #include "symtable.hh"
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
 #include "input-engraver.hh"
+#include "input-performer.hh"
 
 IMPLEMENT_STATIC_NAME(Identifier);
 IMPLEMENT_IS_TYPE_B(Identifier);
@@ -67,6 +68,8 @@ DEFAULT_PRINT(Music_id,Music , music);
 DEFAULT_PRINT(Request_id, Request, request);
 DEFAULT_PRINT(Score_id, Score, score);
 DEFAULT_PRINT(Input_gravs_id, Input_engraver, igravs);
+DEFAULT_PRINT(Input_perfs_id, Input_performer, iperfs);
+DEFAULT_PRINT(Midi_def_id,Midi_def, mididef);
 DEFAULT_PRINT(Paper_def_id,Paper_def, paperdef);
 
 void
@@ -120,6 +123,8 @@ implement_id_class(Music_id, Music, music);
 implement_id_class(Score_id, Score, score);
 implement_id_class(Request_id, Request, request);
 implement_id_class(Input_gravs_id, Input_engraver, igravs);
+implement_id_class(Input_perfs_id, Input_performer, iperfs);
+implement_id_class(Midi_def_id, Midi_def, mididef);
 implement_id_class(Paper_def_id, Paper_def, paperdef);
 
 Identifier::Identifier(Identifier const&)
@@ -136,4 +141,6 @@ virtual_accessor(Music_id, Music, music);
 default_accessor(Score_id, Score, score);
 virtual_accessor(Request_id, Request, request);
 default_accessor(Input_gravs_id, Input_engraver, igravs);
+default_accessor(Input_perfs_id, Input_performer, iperfs);
+default_accessor(Midi_def_id, Midi_def, mididef);
 default_accessor(Paper_def_id, Paper_def, paperdef);

@@ -36,4 +36,4 @@ protected:
 
 
 
-#endif // Global_translator_HH
+#endif // GLOBAL_TRANSLATOR_HH

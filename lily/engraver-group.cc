@@ -47,7 +47,8 @@ Engraver_group_engraver::Engraver_group_engraver()
 void
 Engraver_group_engraver::set_feature(Feature d)
 {
-    iter_top(grav_list_, i);
+    PCursor<Engraver*> i(grav_list_.top());
+    // why the while construct?
     while (i.ok()) {
 	// this construction to ensure clean deletion
 	Engraver *grav_l = i++; 
@@ -58,9 +59,8 @@ Engraver_group_engraver::set_feature(Feature d)
 void
 Engraver_group_engraver::sync_features()
 {
-    iter_top(grav_list_, i);
+    PCursor<Engraver*> i(grav_list_.top());
     while (i.ok()) {
-
 	Engraver *grav_l = i++; 
 	grav_l->sync_features();
     }
@@ -69,9 +69,8 @@ Engraver_group_engraver::sync_features()
 void
 Engraver_group_engraver::do_pre_move_processing()
 {
-    iter_top(grav_list_, i);
+    PCursor<Engraver*> i(grav_list_.top());
     while (i.ok()) {
-	
 	Engraver *grav_l = i++; 
 	grav_l->pre_move_processing();
     }
@@ -80,9 +79,8 @@ Engraver_group_engraver::do_pre_move_processing()
 void
 Engraver_group_engraver::do_process_requests()
 {
-    iter_top(grav_list_, i);
+    PCursor<Engraver*> i(grav_list_.top());
     while (i.ok()) {
-	
 	Engraver *grav_l = i++; 
 	grav_l->process_requests();
     }
@@ -92,7 +90,7 @@ Engraver_group_engraver::do_process_requests()
 void
 Engraver_group_engraver::do_post_move_processing()
 {
-    iter_top(grav_list_, i);
+    PCursor<Engraver*> i(grav_list_.top());
     while (i.ok()) {
 		// this construction to ensure clean deletion
 	Engraver *grav_l = i++; 
@@ -108,8 +106,8 @@ Engraver_group_engraver::contains_b(Engraver* grav_l)const
     
     if (parent_b)
 	return true;
-    for (iter_top(grav_list_, j); j.ok(); j++)
-	if (j->contains_b(grav_l))
+    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
+	if (i->contains_b(grav_l))
 	    return true;
     return false;
 }
@@ -152,7 +150,7 @@ Engraver_group_engraver::remove_engraver_p(Engraver*grav_l)
 {
     group_l_arr_.substitute((Engraver_group_engraver*)grav_l,0);
     nongroup_l_arr_.substitute(grav_l,0);
-    iterator(grav_list_) grav_cur= grav_list_.find(grav_l);
+    PCursor<Engraver*> grav_cur( grav_list_.find(grav_l) );
     
     return grav_cur.remove_p();
 }
@@ -176,7 +174,7 @@ Engraver_group_engraver::do_print()const
 {
 #ifndef NPRINT
     mtor << "ID: " << id_str_ << "\n";
-    for (iter_top(grav_list_, i); i.ok(); i++) 
+    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
 	i->print();
 #endif
 }
@@ -272,7 +270,7 @@ Engraver_group_engraver::do_announces()
 void
 Engraver_group_engraver::do_removal_processing()
 {
-    for (iter( grav_list_.top(), i); i.ok(); i++)
+    for (PCursor<Engraver*> i(grav_list_.top()); i.ok(); i++)
 	i->do_removal_processing();
 }
 
