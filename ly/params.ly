@@ -154,6 +154,10 @@ rulethickness = \staffline;
 
 extender_height = 0.8*\staffline;
 
+hyphen_thickness = 0.05*\font_normal;
+hyphen_height = 0.2*\font_normal;
+hyphen_minimum_length = 0.25*\font_normal;
+
 % Multi-measure rests
 mmrest_x_minimum = 2.0*\staffheight;
 

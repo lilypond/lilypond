@@ -189,6 +189,7 @@ StaffGroupContext= \translator {
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
+	\consists "Hyphen_engraver";
 }
 
 \translator {

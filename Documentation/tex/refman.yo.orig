@@ -883,21 +883,6 @@ mudela(verbatim)(\score{
      foo1 __  bar2. __ _4 baz1 __ }
 > })
      
-If you want to have hyphens centred between syllables (rather than attached
-to the end of the first syllable) you can use the special code(--) lyric as
-separate word between syllables. This will result in a hyphen whose length
-varies depending on the space between syllables, and centred between the
-syllables. For example: 
-mudela(verbatim)(\score{
-  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
-                              e'4 f g'2 \bar "|."; }
-     \context Lyrics \lyrics { 
-              DOEXPAND(Fr\)`e4 -- re Ja -- que DOEXPAND(Fr\)`e -- re Ja -- que
-              Dor -- mez vous?2 Dor4 -- mez vous?2  }
-  >
-})
-
- 
 
 
 sect(Time)  

@@ -145,10 +145,4 @@ public:
   VIRTUAL_COPY_CONS(Music);
 };
 
-/// a centred hyphen
-class Hyphen_req : public Request  {
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
-
 #endif // MUSICALREQUESTS_HH
