@@ -66,10 +66,7 @@ void
 Axis_group_engraver::finalize ()
 {
   if (!staffline_)
-    {
-      programming_error ("Huh? This context never lived?");
-      return ;
-    }
+    return ;
   
   String type = get_daddy_grav ()->context_name ();
   SCM dims = get_property ("verticalExtent");

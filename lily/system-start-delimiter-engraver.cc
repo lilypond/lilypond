@@ -82,8 +82,11 @@ System_start_delimiter_engraver::process_music ()
 void
 System_start_delimiter_engraver::finalize ()
 {
-  delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-  typeset_grob (delim_);
+  if (delim_)
+    {
+      delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      typeset_grob (delim_);
+    }
 }
 
 ENTER_DESCRIPTION(System_start_delimiter_engraver,

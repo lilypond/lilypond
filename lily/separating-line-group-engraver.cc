@@ -83,6 +83,9 @@ Separating_line_group_engraver::process_music ()
 void
 Separating_line_group_engraver::finalize ()
 {
+  if (!sep_span_)
+    return ;
+  
   SCM ccol = get_property ("currentCommandColumn");
   Grob *column = unsmob_grob (ccol);
   

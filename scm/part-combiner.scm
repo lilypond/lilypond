@@ -258,7 +258,7 @@ Voice-state objects
 
   
   (let*
-      ((pc-debug #t)
+      ((pc-debug #f)
        (chord-threshold 8)
        (voice-state-vec1 (make-voice-states evl1))
        (voice-state-vec2 (make-voice-states evl2))
@@ -408,7 +408,6 @@ Only set if not set previously.
 		  ((notes1 (note-events vs1)) 
 		   (notes2 (note-events vs2))
 		   )
-
 		(cond
 		 ((and
 		   (= 1 (length notes1))
@@ -422,8 +421,10 @@ Only set if not set previously.
 		   (= 0 (length notes2)))
 		  (set! (configuration now-state) 'unisilence)))
 
-		(analyse-a2 (1+ ri))
-		)))))
+		))
+	  (analyse-a2 (1+ ri))
+
+	  )))
 	
    (define (analyse-solo12 ri)
     
@@ -441,8 +442,8 @@ Only set if not set previously.
      (define (put-range x a b)
        (do
 	   ((i a (1+ i)))
-	   ((> i b))
-	 (set! (configuration (vector-ref result i) x))
+	   ((> i b) b)
+	 (set! (configuration (vector-ref result i)) x)
 	 ))
      (define (put x)
        (set! (configuration (vector-ref result ri)) x))
@@ -515,7 +516,7 @@ Only set if not set previously.
    (analyse-spanner-states voice-state-vec1)
    (analyse-spanner-states voice-state-vec2)
 
-   (if #t
+   (if #f
        (begin
 	(display voice-state-vec1)
 	(display "***\n")
@@ -526,8 +527,8 @@ Only set if not set previously.
 	))
      
    (analyse-time-step 0)
-   (display result)
    (analyse-a2 0)
+;   (display result)
    (analyse-solo12 0)
 ;   (if pc-debug (display result))
 

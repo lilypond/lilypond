@@ -83,13 +83,18 @@ Spacing_engraver::process_music ()
       announce_grob(spacing_, SCM_EOL);
     }
 }
+
 void
 Spacing_engraver::finalize ()
 {
-  Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
-  spacing_->set_bound (RIGHT, p);
-  typeset_grob (spacing_);
-  spacing_ =0;
+  if (spacing_)
+    {
+      Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
+  
+      spacing_->set_bound (RIGHT, p);
+      typeset_grob (spacing_);
+      spacing_ =0;
+    }
 }
 
 void
