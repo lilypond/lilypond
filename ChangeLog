@@ -1,5 +1,8 @@
 2002-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/music-types.scm (music-descriptions): change name to
+	internal-class-name
+
 	* scm/chord-name.scm (chord::inner-name-banter): remove space.
 
 2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
