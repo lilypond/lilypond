@@ -3,10 +3,10 @@
 chordmodifiers = #default-chord-modifier-list
 
 whiteTriangleMarkup = #(make-override-markup
-			'(font-family . math) (make-simple-markup "M"))
+			'(font-encoding . math) (make-simple-markup "M"))
 
 blackTriangleMarkup = #(make-override-markup
-			'(font-family . math) (make-simple-markup "N"))
+			'(font-encoding . math) (make-simple-markup "N"))
 
 ignatzekExceptionMusic = \notes{
 	<c e gis>1-\markup { "+" }

@@ -120,7 +120,7 @@ Use @code{\\fontsize} otherwise."
   "Set font family to @code{number}, which yields the font used for
 time signatures and fingerings.  This font only contains numbers and
 some punctuation. It doesn't have any letters.  "
-  (interpret-markup paper (prepend-alist-chain 'font-family 'number props) arg))
+  (interpret-markup paper (prepend-alist-chain 'font-encoding 'number props) arg))
 
 (def-markup-command (roman paper props arg) (markup?)
   "Set font family to @code{roman}."
@@ -164,7 +164,7 @@ some punctuation. It doesn't have any letters.  "
 normal words (like ``piu'') should be done in a different font.  The
 recommend font for this is bold and italic"
   (interpret-markup
-   paper (prepend-alist-chain 'font-family 'dynamic props) arg))
+   paper (prepend-alist-chain 'font-encoding 'dynamic props) arg))
 
 (def-markup-command (italic paper props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}. "

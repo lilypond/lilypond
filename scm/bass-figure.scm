@@ -17,7 +17,7 @@
 	 (acc-markup #f)
 	 (fig-markup
 	  (if (string? fig)
-	      (make-simple-markup fig)
+	      (make-number-markup (make-simple-markup fig))
 	      (if align-accs (make-simple-markup " ")
 		  (if (not (eq? acc '()))
 		      (make-simple-markup "")

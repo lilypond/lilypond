@@ -5,9 +5,14 @@
 @node Top, , , 
 @top
 
-@chapter New features in 2.1 since 2.0
+@unnumbered New features in 2.1 since 2.0
 
 @itemize @bullet
+@item The code for font selection has been rewritten. In addition to
+existing font selection properties, the property @code{font-encoding}
+has been added, which makes the switch between normal  @code{text} and other
+encodings like @code{braces},  @code{music} and @code{math}. 
+
 @item The pmx2ly script has been removed from the distribution.
 
 @item Pedal brackets will now run to the last bar of a piece if they are not
@@ -575,7 +580,7 @@ it automagically through the new @code{lily-wins} frontend.
 
 
 
-@chapter New features in 1.8 since 1.6
+@unnumbered New features in 1.8 since 1.6
 
 @itemize
 
@@ -752,7 +757,7 @@ The manual has been completely revised and extended.
 
 @end itemize
 
-@chapter New features in 1.6 since 1.4
+@unnumbered New features in 1.6 since 1.4
 
 
 @itemize @bullet

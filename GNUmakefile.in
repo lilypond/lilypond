@@ -45,7 +45,6 @@ install-WWW:
 
 web-install:
 	$(MAKE) out=www install-WWW
-	$(MAKE) out=www 
 
 uninstall-WWW:
 	#TODO
