@@ -84,7 +84,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install-html-doc
+make prefix="$RPM_BUILD_ROOT%{_prefix}" webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/lilypond/" out=www web-install
 
 
 %post
@@ -138,13 +138,13 @@ scrollkeeper-update
 %{_bindir}/pmx2ly
 
 %doc buildscripts/out/convert-new-chords
-%doc NEWS
 %doc THANKS
 %doc COPYING
 %doc DEDICATION
 %doc README.txt
 %doc AUTHORS.txt
 %doc INSTALL.txt
+%doc NEWS.txt
 
 %if %{info}
 %{_infodir}/*
@@ -174,7 +174,7 @@ scrollkeeper-update
 
 %defattr(-, root, root)
 
-%{docdir}/@TOPLEVEL_VERSION@
+%{docdir}
 %{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
 
 
