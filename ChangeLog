@@ -1,5 +1,8 @@
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/chord-modifiers-init.ly (blackTriangleMarkup): reinstate
+	black triangle
+
 	* Documentation/user/invoking.itely (Editor support): remove
 	lilypond-latex section.
 
