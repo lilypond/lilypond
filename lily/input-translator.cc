@@ -6,7 +6,6 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-//#include "translator-admin.hh"
 #include "debug.hh"
 #include "engraver.hh"
 #include "input-translator.hh"
