@@ -414,7 +414,7 @@ def run_lilypond (files, outbase, dep_prefix):
 		if dep_prefix:
 			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
-	fs = string.join (files)
+	fs = '"' + string.join (files, '" "') + '"'
 
 	if not verbose_p:
 		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
@@ -613,6 +613,7 @@ None
 	f.write (s)
 	f.close ()
 
+	# FIXME: howto escape spaces in file names?
 	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 
 	if not verbose_p:
@@ -638,7 +639,7 @@ None.
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -tlandscape'
 
-	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
+	cmd = 'dvips "%s" -o"%s" "%s"' % (opts, outbase + '.ps', outbase + '.dvi')
 	
 	if not verbose_p:
 		progress ( _("Running %s...") % 'dvips')

@@ -1,5 +1,10 @@
-1.5.22.jcn3
+1.5.22.jcn4
 ===========
+
+* Stanza number: allow markup texts.
+
+* Partial bugfix: ly2dvi: handle spaces in .ly file names (except for
+latex calls).
 
 * Bugfix: prepend DATADIR to %loadpath too.
 
