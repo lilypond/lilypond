@@ -2,12 +2,8 @@
 % TODO: This file could be old.  Ask about it later.  -gp
 
 \header { texidoc =  "@cindex Time
-IMPORTANT NOTE: The current selection scheme for time signature
-symbols is not flexible enough for future extensions such as various
-flavours of early mensural notation or complex signatures as in
-contemporary music.  Therefore, the semantics of time-signature
-properties will quite definitely change, and maybe the syntax of the
-\time request will possibly be extended. See the input file for TODOs.
+
+Old time signatures. For further information, consult the file. 
     
 "
 }
@@ -29,6 +25,17 @@ style), "none" (which should be equivalent to the current "1xxx"
 style), and "notehead" (which should place a proper notehead to the
 right side of the nominator).  -- jr
 
+
+****************
+
+IMPORTANT NOTE: The current selection scheme for time signature
+symbols is not flexible enough for future extensions such as various
+flavours of early mensural notation or complex signatures as in
+contemporary music.  Therefore, the semantics of time-signature
+properties will quite definitely change, and maybe the syntax of the
+\time request will possibly be extended. See the input file for TODOs.
+
+****************
 
 %}
 

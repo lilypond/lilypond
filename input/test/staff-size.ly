@@ -1,9 +1,11 @@
 \version "1.7.18"
 
 \header { texidoc = "@cindex Staff Size
-Setting staff sizes is a little clumsy.  There
-are two options: using StaffContainer and override/revert, or
-\outputproperty. Both methods are shown in this example. "
+
+Setting staff sizes is a little clumsy.  There are two options: using
+@code{StaffContainer} and override/revert, or
+@code{\outputproperty}. Both methods are shown in this example. "
+
 }
 
 \score {
@@ -19,7 +21,7 @@ are two options: using StaffContainer and override/revert, or
 	c8 d  e-[ f g a] b c -\ff
   }
 
-\context Staff = SB { \dynamicDown c,,4 -\ff c c c  }
+\context Staff = SB \relative c'' { \dynamicDown c,,4 -\ff c c c  }
 \context Staff = SC {
   \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
     #'staff-space =  #0.8

@@ -96,7 +96,7 @@ endHorizScript = {
     }
       \context Lyrics=two \lyrics {
 	"simple"4
-	"appuy\'e"4.
+	"appuy\\'e"4.
 %{	\skip 1*3
 	\skip 4 \skip 4.
 	"voix et montant"

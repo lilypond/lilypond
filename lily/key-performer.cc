@@ -63,7 +63,7 @@ Key_performer::create_audio_elements ()
       my_do = my_do.transposed (to_c);
       to_c = my_do.transposed (Pitch(0,0,- my_do.get_alteration ()));
 
-      SCM c_pitchlist = transpose_key_alist (pitchlist, to_c.smobbed_copy());
+      SCM c_pitchlist = ly_transpose_key_alist (pitchlist, to_c.smobbed_copy());
 
       /*
 	MIDI keys are too limited for lilypond scales.

@@ -1,5 +1,11 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/staff-container.ly: update file
+
+	* input/test/stem.ly: remove
+
+	* lily/event.cc (LY_DEFINE): add ly: prefix.
+
 	* input/test/clef-manual-control.ly: from manual-clef
 
 	* input/test/repeat-shorter-bracket.ly: move from coda-kludge 
