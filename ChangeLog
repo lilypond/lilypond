@@ -1,3 +1,7 @@
+2004-11-29  Arno Waschk <arno@arnowaschk.de>
+
+	* mf/feta-schrift.mf: added <>-like articulation mark as "espressivo"
+
 2004-12-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/music-functions.scm (cue-substitute): voice counts start at 0.

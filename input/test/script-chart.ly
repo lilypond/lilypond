@@ -18,7 +18,7 @@ This chart shows all articulations, or scripts, that feta font contains.
 	\set Score.timing = ##f
 	\set Score.barAlways = ##t
 	\override Staff.BarLine  #'transparent = ##t
-        c''\accent             c''\marcato            c''\staccatissimo
+        c''\accent             c''\marcato            c''\staccatissimo 	c''\espressivo
         c''\staccato           c''\tenuto             c''\portato
         c''\upbow              c''\downbow            c''\flageolet
         c''\thumb              c''^\lheel              c''\rheel
@@ -33,7 +33,7 @@ This chart shows all articulations, or scripts, that feta font contains.
         c''\coda               c''\varcoda
       }
       \context Lyrics \lyricmode {
-        accent__                marcato__               staccatissimo__
+        accent__                marcato__               staccatissimo__		espressivo__
         staccato__              tenuto__                portato__
         upbow__                 downbow__               flageolet__
         thumb__                 lheel__                 rheel__

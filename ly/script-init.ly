@@ -15,6 +15,7 @@ harmonic = #(make-music 'HarmonicEvent)
 
 thumb = #(make-articulation "thumb")
 accent = #(make-articulation "accent")
+espressivo = #(make-articulation "espressivo")
 marcato = #(make-articulation "marcato")
 staccatissimo = #(make-articulation "staccatissimo")
 portato = #(make-articulation "portato")

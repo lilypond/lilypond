@@ -236,6 +236,32 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	labels(4);
 fet_endchar;
 
+fet_beginchar("espr", "espr", "espressivo")
+	set_char_box(1.9 staff_space#, 1.9 staff_space#, .5 staff_space#, .5 staff_space#);
+	save thickness, diminish;
+	thickness = 0.05 staff_space + linethickness;
+	pickup pencircle scaled thickness;
+	t = thickness;
+	diminish = .75;
+	top z1 =(0.2 staff_space,h);
+	rt z3 =(w,0);
+	x4 = x3;
+	y4 = y3 + .25 t * diminish;
+	x2 = .5[x1,x3];
+	z2 = whatever[z1,z3];
+	penpos1(t,90);
+	penpos2(t,90);
+	penpos4((2-diminish)*t*.5,90);
+	draw z1 .. z2;
+	penstroke z2e .. z4e;
+	penlabels(1,2,4);
+	labels(3);
+	draw z3;
+	addto currentpicture also currentpicture xscaled -1;
+	addto currentpicture also currentpicture yscaled -1;
+
+fet_endchar;
+
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
 	radius# =   0.20 * staff_space#;
