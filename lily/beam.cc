@@ -901,7 +901,8 @@ Beam::least_squares (SCM smob)
 	 slope esp. of the first part of a broken beam should predict
 	 where the second part goes.
        */
-
+      me->set_grob_property ("least-squares-dy",
+			     gh_double2scm (pos[RIGHT] - pos[LEFT]));
     }
   else
     {
