@@ -131,6 +131,7 @@ Tie_performer::create_audio_elements ()
 		  announce_element (Audio_element_info (p, event_));
 
 		  tied_notes_.del (i);
+		  break ; 
 		}
 	    }
 	}
@@ -161,7 +162,7 @@ Tie_performer::stop_translation_timestep ()
   event_ = 0;
   now_notes_ .clear ();
 
-  for (int i=0; i<  ties_.size (); i++)
+  for (int i=ties_.size (); i--;)
     {
       ties_[i]->note_drul_[RIGHT]->tie_to (ties_[i]->note_drul_[LEFT]);
     }
@@ -175,8 +176,7 @@ Tie_performer::start_translation_timestep ()
   event_ =0;
   done_ = false;
   Moment now = now_mom ();
-  for (int i= tied_notes_.size ();
-       i -- ;)
+  for (int i= tied_notes_.size (); i-- ;)
     {
       if (tied_notes_[i].end_ < now)
 	tied_notes_.del (i);
