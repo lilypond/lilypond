@@ -1,13 +1,14 @@
 #include "line.hh"
 #include "symbol.hh"
-#include "cols.hh"
+#include "molecule.hh"
+#include "pcol.hh"
 
 String
 Spanner::TeXstring() const
 {
     assert(right->line);
     Real w = left->hpos - right->hpos;
-    return (*strets)(w);
+    return strets->eval(w).tex;
 }
 
 Spanner *

@@ -1,21 +1,23 @@
 #include "line.hh"
+#include "dimen.hh"
 #include "symbol.hh"
-#include "cols.hh"
+#include "pcol.hh"
 #include "pscore.hh"
 
 String
 Line_of_staff::TeXstring() const
 {
     String s("%line_of_staff\n\\vbox to ");
-    s += String(maxheight() * VERT_TO_PT) +"pt{";
+    s += print_dimen(maxheight() ) +"{";
 
     //make some room
-    s += vstrut(base* VERT_TO_PT);
+    s += vstrut(base);
 
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
     {
-	s+=(*pstaff_->stafsym)(scor->score->linewidth);
+	Symbol sym = pstaff_->get_stafsym(scor->score->linewidth);
+	s+=sym.tex;
 	PCursor<const PCol *> cc(scor->cols);
 	Real lastpos=cc->hpos;
 
@@ -25,7 +27,7 @@ Line_of_staff::TeXstring() const
 	    lastpos = cc->hpos;
 
 	    // moveover
-	    s +=String( "\\kern ") + HOR_TO_PT*delta + "pt ";
+	    s +=String( "\\kern ") + print_dimen(delta);
 
 	    // now output the items.
 
@@ -102,7 +104,10 @@ Real
 Line_of_staff::maxheight() const
 {
     Interval y;
-    y = pstaff_->stafsym->height(scor->score->linewidth);
+    {
+	Symbol s = pstaff_->stafsym->eval(scor->score->linewidth);
+	y = s.dim.y;
+    }
     PCursor<const PCol *> cc(scor->cols);
     
     // all items in the current line & staff.
