@@ -150,26 +150,26 @@
 	       (cons (* factor (cadr x))
 		     (caddr x))))
    `(
-     (fetaNumber 14
+     (fetaNumber 20
 		 #(
-		  ,(delay  (ly:font-load "bigcheese11"))
-		  ,(delay  (ly:font-load "bigcheese13"))
-		  ,(delay  (ly:font-load "bigcheese14"))
-		  ,(delay  (ly:font-load "bigcheese16"))		  
-		  ,(delay  (ly:font-load "bigcheese18"))
-		  ,(delay  (ly:font-load "bigcheese20"))		  
-		  ,(delay  (ly:font-load "bigcheese23"))		  
-		  ,(delay  (ly:font-load "bigcheese26"))))
+		  ,(delay  (ly:font-load "feta-alphabet11"))
+		  ,(delay  (ly:font-load "feta-alphabet13"))
+		  ,(delay  (ly:font-load "feta-alphabet14"))
+		  ,(delay  (ly:font-load "feta-alphabet16"))		  
+		  ,(delay  (ly:font-load "feta-alphabet18"))
+		  ,(delay  (ly:font-load "feta-alphabet20"))		  
+		  ,(delay  (ly:font-load "feta-alphabet23"))		  
+		  ,(delay  (ly:font-load "feta-alphabet26"))))
      
      (fetaDynamic 20.0  #(
-		  ,(delay  (ly:font-load "bigcheese11"))
-		  ,(delay  (ly:font-load "bigcheese13"))		  
-		  ,(delay  (ly:font-load "bigcheese14"))
-		  ,(delay  (ly:font-load "bigcheese16"))		  
-		  ,(delay  (ly:font-load "bigcheese18"))
-		  ,(delay  (ly:font-load "bigcheese20"))		  
-		  ,(delay  (ly:font-load "bigcheese23"))		  
-		  ,(delay  (ly:font-load "bigcheese26"))))
+		  ,(delay  (ly:font-load "feta-alphabet11"))
+		  ,(delay  (ly:font-load "feta-alphabet13"))		  
+		  ,(delay  (ly:font-load "feta-alphabet14"))
+		  ,(delay  (ly:font-load "feta-alphabet16"))		  
+		  ,(delay  (ly:font-load "feta-alphabet18"))
+		  ,(delay  (ly:font-load "feta-alphabet20"))		  
+		  ,(delay  (ly:font-load "feta-alphabet23"))		  
+		  ,(delay  (ly:font-load "feta-alphabet26"))))
 			  
      (fetaMusic 20.0
 		#(
