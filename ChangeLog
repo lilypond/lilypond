@@ -1,3 +1,42 @@
+2005-02-05  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-autometric.mf (fet_beginchar): Check whether `feta_group'
+	is defined.
+
+	* mf/feta-alphabet.mf: Define `staffsize#'.
+	Include `feta-params.mf'.
+	s/staffheight/design_size/.
+
+	* mf/feta-alphabet??.mf: s/staffheight/design_size/.
+
+	* mf/feta-alphabet26.mf: Fix a serious bug (design size off by 8pt).
+
+	* mf/feta-nummer-code.mf: Reformatted.
+	(draw_six): Use outline intersection to avoid a self-intersecting
+	path.
+	("Numeral comma"): Fix serious outline glitches.  This slightly
+	changes the glyph shape.
+	("Numeral dash"): Use `draw_rounded_block'.
+	("Numeral dot"): Use `drawdot'.
+	("Numeral 1"): Assure identical tangent directions for the
+	intersection points of paths.  The glyph shape improvement is only
+	visible at very high magnifications.
+	("Numeral 2"): Use `solve' macro to make the lower right part of
+	the glyph outline touch the x axis exactly.  This changes the
+	glyph shape.
+	Minor fixes for better overlap removal support.
+	("Numeral 4"): Make lefter corner `rounder'.
+	("Numeral 5"): Assure identical tangent directions for the
+	intersection points of paths.  This improves the glyph shape at
+	high magnifications.
+	("Numeral 7"): Use `solve' macro to make the upper right part of
+	the glyph outline touch the metrics box exactly.  This changes the
+	glyph shape.
+	Avoid corner in the upper left part of the glyph (causing a minor
+	shape change).
+
+	* mf/feta-ital-*.mf: Removed.  Unused.
+
 2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/fill-line-test.ly: new file.

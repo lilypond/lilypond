@@ -203,7 +203,12 @@ def fet_beginchar (expr name, id_lit) =
 
 	% addition for mf2pt1
 	if known bp_per_pixel:
-		special "% MF2PT1: glyph_name " & feta_group & "." & idstr;
+		if known feta_group:
+			special "% MF2PT1: glyph_name "
+				& feta_group & "." & idstr;
+		else:
+			special "% MF2PT1: glyph_name " & idstr;
+		fi;
 	fi;
 
 	no_dimen_beginchar (incr code) name;
