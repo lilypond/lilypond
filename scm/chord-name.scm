@@ -84,7 +84,7 @@
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the  default should also be reversed --hwn
 (define-public (sequential-music-to-chord-exceptions seq . rest)
-  "Transform sequential music SEQ of type <<c d e>>-\markup{ foobar }
+  "Transform sequential music SEQ of type <<c d e>>-\\markup{ foobar }
 to (cons CDE-PITCHES FOOBAR-MARKUP), or to (cons DE-PITCHES
 FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 "

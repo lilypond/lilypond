@@ -232,7 +232,7 @@ i.e.  this is not an override"
 
 
 (define-public (context-spec-music m context . rest)
-  "Add \context CONTEXT = foo to M. "
+  "Add \\context CONTEXT = foo to M. "
   
   (let* ((cm (make-music-by-name 'ContextSpeccedMusic)))
     (ly:set-mus-property! cm 'element m)
@@ -308,7 +308,7 @@ i.e.  this is not an override"
     ))
 
 (define-public (glue-mm-rest-texts music)
-  "Check if we have R1*4-\markup { .. }, and if applicable convert to
+  "Check if we have R1*4-\\markup { .. }, and if applicable convert to
 a property set for MultiMeasureRestNumber."
   
   (define (script-to-mmrest-text script-music)

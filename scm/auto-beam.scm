@@ -85,7 +85,7 @@
 
 
 (define (override-property-setting context context-prop setting value)
-  "Like the C++ code that executes \override, but without type
+  "Like the C++ code that executes \\override, but without type
 checking. "
 
   (ly:set-context-property! context context-prop
