@@ -62,7 +62,7 @@ Staff_symbol::brew_molecule (SCM smob)
       width = 0;
     }
 
-  Real t = me->get_paper ()->get_var ("linethickness");
+  Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   SCM my_thick = me->get_grob_property("thickness");
   if (gh_number_p (my_thick))
     t *= gh_scm2double (my_thick);

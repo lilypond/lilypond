@@ -43,11 +43,6 @@ Paper_def::Paper_def (Paper_def const&src)
 }
 
 
-Real
-Paper_def::get_var (String s) const
-{
-  return get_realvar (ly_symbol2scm (s.to_str0 ()));
-}
 
 Real
 Paper_def::get_realvar (SCM s) const
@@ -66,12 +61,11 @@ Paper_def::get_realvar (SCM s) const
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  Real lw =  get_var ("linewidth");
-  Real ind = n? 0.0:get_var ("indent");
+  Real lw =  get_realvar (ly_symbol2scm ("linewidth"));
+  Real ind = n? 0.0:get_realvar (ly_symbol2scm ("indent"));
 
   return Interval (ind, lw);
 }
-
 
 
 int Paper_def::score_count_ = 0;
@@ -107,8 +101,6 @@ Paper_def::get_paper_outputter ()
 
 /*
   todo: use symbols and hashtable idx?
-
-
 */
 Font_metric *
 Paper_def::find_font (SCM fn, Real m)

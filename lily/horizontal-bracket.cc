@@ -51,7 +51,7 @@ Horizontal_bracket::brew_molecule (SCM smob)
   ext.unite (gs[0]->extent (cx, X_AXIS));
 
   Direction d = Directional_element_interface::get (me);
-  Real t = me->get_paper()->get_var ("linethickness");
+  Real t = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));
 
   SCM lthick = me->get_grob_property ("thickness");
   if (gh_number_p (lthick))

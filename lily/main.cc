@@ -424,7 +424,7 @@ main (int argc, char **argv)
   sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", false);
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", false);
 
-  ly_init_kpath (argv[0]);
+  init_kpath (argv[0]);
 
   bool help_b = false;
   oparser_p_static = new Getopt_long (argc, argv, options_static);

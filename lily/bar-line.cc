@@ -53,7 +53,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Real hair = gh_scm2double (me->get_grob_property ("hair-thickness"));
   Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
 
-  Real staffline = me->get_paper ()->get_var ("linethickness");
+  Real staffline = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   kern *= staffline;

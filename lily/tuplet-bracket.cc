@@ -170,7 +170,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       
   if (bracket_visibility)      
     {
-      Real  lt =  me->get_paper ()->get_var ("linethickness");
+      Real  lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   
       SCM thick = me->get_grob_property ("thickness");
       if (gh_number_p (thick))

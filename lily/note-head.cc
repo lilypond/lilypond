@@ -77,9 +77,9 @@ Note_head::brew_ledger_lines (Grob *me,
   if (lines_i)
     {
       Real ledgerlinethickness =
-	(me->get_paper ()->get_var ("ledgerlinethickness"));
+	(me->get_paper ()->get_realvar (ly_symbol2scm ("ledgerlinethickness")));
       Real blotdiameter = ledgerlinethickness;
-      //	(me->get_paper ()->get_var ("blotdiameter"));
+      //	(me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
       Interval y_extent =
 	Interval (-0.5*(ledgerlinethickness),
 		  +0.5*(ledgerlinethickness));

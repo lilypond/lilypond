@@ -238,7 +238,7 @@ Line_spanner::brew_molecule (SCM smob)
   Offset my_off;
   Offset his_off;
   
-  Real thick = me->get_paper ()->get_var ("linethickness");  
+  Real thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));  
 
   SCM s = me->get_grob_property ("thickness");
   if (gh_number_p (s))

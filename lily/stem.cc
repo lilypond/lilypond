@@ -421,7 +421,7 @@ Stem::position_noteheads (Grob*me)
 
 
   Real thick = gh_scm2double (me->get_grob_property ("thickness"))
-     * me->get_paper ()->get_var ("linethickness");
+     * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
       
   Grob *hed = support_head (me);
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
@@ -712,7 +712,7 @@ Stem::brew_molecule (SCM smob)
     {
       Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
 	// URG
-	* me->get_paper ()->get_var ("linethickness");
+	* me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
       
       Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
 					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
@@ -772,7 +772,7 @@ Stem::off_callback (SCM element_smob, SCM)
 	{
 	  Real rule_thick
 	    = gh_scm2double (me->get_grob_property ("thickness"))
-	    * me->get_paper ()->get_var ("linethickness");
+	    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
 	  
 	  r += - d * rule_thick * 0.5;
