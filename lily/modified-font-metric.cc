@@ -135,6 +135,13 @@ Modified_font_metric::count () const
 }
 
 Offset
+Modified_font_metric::attachment_point (String s) const
+{
+  Offset o = orig_->attachment_point (s);
+  return o * magnification_;
+}
+
+Offset
 Modified_font_metric::get_indexed_wxwy (int k) const
 {
   Offset o = orig_->get_indexed_wxwy (k);

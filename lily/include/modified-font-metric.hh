@@ -21,10 +21,11 @@ public:
 				      SCM font_encoding, SCM input_encoding);
   virtual int count () const;
   virtual Offset get_indexed_wxwy (int) const;
+  virtual Offset attachment_point (String) const;
   virtual int name_to_index (String) const;
   virtual String coding_scheme () const;
   virtual Font_metric *original_font () const;  
-
+  
 protected:
   SCM coding_vector_;
   SCM coding_table_;
