@@ -2,6 +2,7 @@
 	- design decent macro for bulbed endings
 	- printer dependencies.
 	- y-refpoint for rests should be the 4th staffline (gclef: b')
+	- segno, coda
 	- versioning	
 	- lo-res fixes.
 	- work out sizes of character fonts.
@@ -12,5 +13,4 @@
 	  * coda signs.
 	- 128th flags
 	- include important spacing dims in fetalog 
-
 	- more sizes, see readme
