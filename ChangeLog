@@ -1,5 +1,8 @@
 2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (Lilypond_snippet.is_outdated): fix
+	stat calls.
+
 	* Documentation/bibliography/SConscript (bibs): failed try to get
 	bib2html find html-long.bst.
 

@@ -27,11 +27,15 @@ Staff_symbol_referencer::on_staffline (Grob *me)
   return on_staffline (me, (int) rint (get_position (me)));
 }
 
+/*
+  This does not take size into account.
+  maybe rename: on_virtual_staffline, on_staff_or_ledger_line?
+ */
 bool
 Staff_symbol_referencer::on_staffline (Grob *me, int pos)
 {
   int sz = line_count (me) - 1;
-  return ((pos + sz) % 2) == 0 && abs (pos) <= sz;
+  return ((pos + sz) % 2) == 0;
 }
 
 Grob*

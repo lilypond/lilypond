@@ -1,4 +1,3 @@
-
 %%
 %
 % TODO: blot diameter should be fixed, not scalable.
@@ -25,7 +24,7 @@ fet_endchar;
 %
 
 code := 121;
-fet_beginchar ("dynamic z", "z", "dynz");
+fet_beginchar ("dynamic z", "z", "z");
  	set_char_box (0, .98 ex#, 0, 0.9 ex#);
 
 	save thin_thick, top_narrow, over_shoot;
@@ -112,7 +111,7 @@ slant_angle = 20;
 
 
 code := 101;
-fet_beginchar("dynamic f", "f", "dynf");
+fet_beginchar("dynamic f", "f", "f");
 	set_char_box (0, 1.1 ex#, descender#, ex# + ascender#);
 
 	save left_angle, right_angle;
@@ -210,7 +209,7 @@ fet_endchar;
 
 
 code := 114;
-fet_beginchar("dynamic s", "s", "dyns");
+fet_beginchar("dynamic s", "s", "s");
 	set_char_box (0, 17/24  ex#, 0, 1 ex#);
 
 	save left_angle, right_angle;
@@ -316,7 +315,7 @@ currenttransform := currenttransform slanted slant;
 code := 111;
 
 
-fet_beginchar("dynamic p", "p", "dynp")
+fet_beginchar("dynamic p", "p", "p")
 	%
 	% TODO w really   is 13/12 ex
 	% but should do kerning
@@ -468,7 +467,7 @@ fet_endchar;
 %
 code := 108;
 
-fet_beginchar("dynamic m", "m", "dynm");
+fet_beginchar("dynamic m", "m", "m");
 	set_char_box (0, 1.5 ex#, 0, 1.0 ex#);
 
 	% should share code with p for twiddle.
@@ -617,7 +616,7 @@ code := 113;
 
 
 currenttransform := identity slanted ypart(dir(15));
-fet_beginchar("dynamic r", "r", "dynr");
+fet_beginchar("dynamic r", "r", "r");
 	set_char_box (0, .75 ex#, 0, 1ex#);
 
 
