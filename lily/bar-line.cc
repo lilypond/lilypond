@@ -33,13 +33,14 @@ Bar_line::print (SCM smob)
       if (sz <= 0)
 	return SCM_EOL;
 
-      return compound_barline (me, str, sz).smobbed_copy ();
+      return compound_barline (me, str, sz, true).smobbed_copy ();
     }
   return SCM_EOL;
 }
 
 Stencil
-Bar_line::compound_barline (Grob *me, String str, Real h)
+Bar_line::compound_barline (Grob *me, String str, Real h,
+			    bool rounded)
 {
   Real kern = robust_scm2double (me->get_property ("kern"), 1);
   Real thinkern = robust_scm2double (me->get_property ("thin-kern"), 1);
@@ -54,8 +55,8 @@ Bar_line::compound_barline (Grob *me, String str, Real h)
   hair *= staffline;
   fatline *= staffline;
 
-  Stencil thin = simple_barline (me, hair, h);
-  Stencil thick = simple_barline (me, fatline, h);
+  Stencil thin = simple_barline (me, hair, h, rounded);
+  Stencil thick = simple_barline (me, fatline, h, rounded);
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
 
   int lines = Staff_symbol_referencer::line_count (me);
@@ -142,9 +143,13 @@ Bar_line::compound_barline (Grob *me, String str, Real h)
 Stencil
 Bar_line::simple_barline (Grob *me,
 			  Real w,
-			  Real h)
+			  Real h,
+			  bool rounded)
 {
-  Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+  Real blot =
+    rounded
+    ? me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"))
+    : 0.0;
 
   return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)), blot);
 }

@@ -17,7 +17,6 @@
 ;;;;  * inkscape SVG-font support
 ;;;;    - use fontconfig/fc-cache for now, see output-gnome.scm
 
-(debug-enable 'backtrace)
 (define-module (scm output-svg))
 (define this-module (current-module))
 

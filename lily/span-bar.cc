@@ -94,7 +94,8 @@ Span_bar::print (SCM smobbed_me)
 	    {
 	      Stencil interbar = Bar_line::compound_barline (staff_bar,
 							     glyph_string,
-							     l.length ());
+							     l.length (),
+							     false);
 	      interbar.translate_axis (l.center (), Y_AXIS);
 	      span_bar_mol.add_stencil (interbar);
 	    }
@@ -120,7 +121,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   /*
     urg.
   */
-  Stencil m = Bar_line::compound_barline (se, gl, 40 PT);
+  Stencil m = Bar_line::compound_barline (se, gl, 40 PT, false);
 
   return ly_interval2scm (m.extent (X_AXIS));
 }

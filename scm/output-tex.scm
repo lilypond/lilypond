@@ -6,8 +6,6 @@
 ;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
-;; (debug-enable 'backtrace)
-
 ;; The public interface is tight.
 ;; It has to be, because user-code is evalled with this module.
 

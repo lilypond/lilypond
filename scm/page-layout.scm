@@ -77,6 +77,7 @@
  Offsets is a list of increasing numbers. They must be negated to
 create offsets.
  "
+
   (let* ((topmargin (ly:output-def-lookup layout 'topmargin))
 
        ;; TODO: naming vsize/hsize not analogous to TeX.
@@ -142,13 +143,18 @@ create offsets.
 
     (if #f
 	(display (list
-		  "leftmargin" leftmargin "rightmargin" rightmargin)))
+		  "leftmargin " leftmargin "rightmargin " rightmargin
+		  )))
 
-    (set! page-stencil (ly:stencil-combine-at-edge
-			page-stencil Y DOWN head 0. 0.))
+    (if (and
+	 (ly:stencil? head)
+	 (not (ly:stencil-empty? head)))
+	(set! page-stencil (ly:stencil-combine-at-edge
+			    page-stencil Y DOWN head 0. 0.)))
 
     (map add-system (zip lines offsets))
-    (if (ly:stencil? foot)
+    (if (and (ly:stencil? foot)
+	     (not (ly:stencil-empty? foot)))
 	(set! page-stencil
 	      (ly:stencil-add
 	       page-stencil
