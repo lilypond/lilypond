@@ -6,9 +6,23 @@ done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
+> I have changed Mark_engraver to use the G_... classes.
+> My implementation has the following shortcomings at the
+> moment.
+> 
+> - markScriptPadding is not supported, since G_staff_side_item does not
+>   support padding.
+> 
+> - markBreakPriority is not supported. 
+> 
+> - Mostly, you want the marks aligned with the bar lines. I don't 
+>   really understand how to implement that feature.
+> 
+> - You get lots of warnings about missing 'number' and 'Large'
+> 
 
 	* scm-ify \property values.
-
+- The direction of textual scripts ('^' or '_') is ignored.
 	* move class Lookup {} into scm
 
 	* read tfms too.
@@ -16,6 +30,12 @@ grep for TODO and ugh/ugr/urg
 	* update mi2mu for lilypond 1.1
 
 BUGS:
+
+	* fix: standchen.
+
+	* fix:  cello suites
+
+	* fix extender
 
 	* fix braces
 
@@ -39,6 +59,8 @@ BUGS:
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
+	* check/set minimum slur/tie length
+
 	* msgfmt -o check?
 
 	* \breathmark TeX macro 
@@ -56,6 +78,8 @@ BUGS:
 	identifier.  
 
 	* space after bars?
+
+	* 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
 
 	* \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
 
