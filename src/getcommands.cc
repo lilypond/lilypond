@@ -40,18 +40,4 @@ get_meter_command(Real w, int n, int m)
     c->priority = 40;
     return c;
 }
-#if 0
-Command*
-get_bar_command(Real w)
-{
-    Command*c = new Command;
-    c->when = w;
-    c->code = INTERPRET;
-    c->args.add( "BAR");
-    c->args.add( "|");
-    c->priority = 170;
-    return c;
-}
 
-
-#endif
