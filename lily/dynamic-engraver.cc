@@ -56,7 +56,7 @@ class Dynamic_engraver : public Engraver
   
   void typeset_all ();
 
-TRANSLATOR_DECLARATIONS (Dynamic_engraver );
+  TRANSLATOR_DECLARATIONS (Dynamic_engraver);
   
 protected:
   virtual void finalize ();
@@ -399,9 +399,9 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  SCM head = scm_last_pair (i.grob_->get_property ("heads"));
+	  SCM head = scm_last_pair (i.grob_->get_property ("note-heads"));
 	  if (gh_pair_p (head))
-	    script_->set_parent (unsmob_grob (head),  X_AXIS);
+	    script_->set_parent (unsmob_grob (gh_car (head)),  X_AXIS);
 	}
       
     }
