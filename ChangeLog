@@ -4,6 +4,7 @@
 	(Paper size): rename node
 	(Page breaking): new node.
 	(Titling): move from invoking.
+	(File structure): new node.
 
 	* lily/parser.yy (score_body): allow \header and music anywhere in
 	\score body.

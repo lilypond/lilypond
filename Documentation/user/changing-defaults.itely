@@ -44,13 +44,13 @@ entering numbers, lists, strings and symbols in Scheme.
 
 
 @menu
-* Scheme tutorial::             
+* Scheme tutorial::
+* File structure::
 * Interpretation contexts::     
 * Tuning output::               
 * Fonts::                       
 * Text markup::                 
 * Global layout::               
-* Output details::              
 @end menu
 
 @node Scheme tutorial
@@ -228,7 +228,80 @@ respectively,
   #'((1) (2))
 @end example
 
+@node File structure
+@section File structure
 
+The following items may be present in a file at toplevel
+
+@itemize @bullet
+@item An output definition, such as @code{\bookpaper}, @code{\midi}
+and @code{\paper}. Such a definition at toplevel changes the default
+settings for the block entered.
+
+@item An @code{\header} block. This sets the global header block. This
+is the block containing the definitions for book-wide settings, like
+composer, title, etc. 
+
+@item An @code{\addquote} statement. See @ref{Quoting other voices}
+for more information.
+
+@item A @code{\score} block. This score will be formatted as a book
+containing a single movement.
+
+This behavior can be changed by setting the variable
+@code{toplevel-score-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/lily.scm}.
+
+
+@item A @code{\book} block formats the block
+
+This behavior can be changed by setting the variable
+@code{toplevel-book-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/lily.scm}.
+
+
+@item A compound music expression, such as
+@example
+  @{ c'4 d' e'2 @}
+@end example
+
+ This will format the piece as a book with a single movement.
+
+ 
+This behavior can be changed by setting the variable
+@code{toplevel-music-handler} at toplevel. The default handler is
+defined in the init file @file{scm/lily.scm}.
+ 
+@end itemize
+
+The following example shows three things which may be entered at
+toplevel
+@example
+   \paper  {
+     % movements are non-justified by default    
+     raggedright = ##t
+   }
+
+   \header {
+      title = "Do-re-mi"
+   }
+   
+   { c'4 d' e2 }
+@end example
+
+
+At any point in a file, any of the following lexical instructions can
+be entered:
+
+@itemize @bullet
+@item @code{\version}
+@item @code{\include}
+@item @code{\encoding}
+@item @code{\renameinput}
+@item 
+
+
+ 
 @node Interpretation contexts
 @section Interpretation contexts
 
@@ -285,7 +358,7 @@ Translation @arrow{} Context.
 
 @menu
 * Creating contexts::           
-* Changing context properties on the fly ::  
+* Changing context properties on the fly::  
 * Modifying context plug-ins::  
 * Layout tunings within contexts::  
 * Changing context default settings::  
@@ -1623,9 +1696,11 @@ Globally spoken, this procedure happens in three steps: first,
 flexible distances (``springs'') are chosen, based on durations. All
 possible line breaking combination are tried, and the one with the
 best results --- a layout that has uniform density and requires as
-little stretching or cramping as possible --- is chosen. When the score
-is processed by @TeX{}, each page is filled with systems, and page breaks
-are chosen whenever the page gets full.
+little stretching or cramping as possible --- is chosen.
+
+After spacing and linebreaking, the systems are distributed across
+pages, taking into account the size of the page, and the size of the
+titles.
 
 
 
@@ -1634,6 +1709,10 @@ are chosen whenever the page gets full.
 * Vertical spacing::            
 * Horizontal spacing::          
 * Line breaking::               
+* Line length and line breaking::  
+* Titling::                     
+* Page breaking::               
+* Paper size::                  
 * Page layout::                 
 @end menu
 
