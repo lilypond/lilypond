@@ -12,10 +12,10 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "0.1.10";
+\version "0.1.14";
 blah = 	\melodic {
 		\meter 6/8;	
-		\octave  'c ;
+		\octave  c, ;
 		\clef "bass";
 			c4. d
 		\octave  c ;
@@ -31,24 +31,24 @@ blah = 	\melodic {
 		 |[6/9 a  a a a a a a a \! a ]1/1 |
 		\octave  c'' ; 
 	
-		 [6/9'c->-.-\fermata \< 'g->-.-\fermata 
+		 [6/9'c->-.-\fermata \< g,->-.-\fermata 
 			d->-.-\fermata a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. c'''->-.-\fermata 
 			\! g'''->-.-\fermata \> ]1/1
 
 		[6/9 g'''->-.-\fermata c'''->-.-\fermata
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
-			a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 
-			'c->-.-\fermata ]1/1
+			a->-.-\fermata d->-.-\fermata g,->-.-\fermata \! 
+			c,->-.-\fermata ]1/1
 		 \octave c;
-		[6/9'c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata 
+		[6/9'c->-.-\fermata \< g,->-.-\fermata d->-.-\fermata 
 		a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. 
 			c'''->-.-\fermata \! g'''->-.-\fermata \> ]1/1
 		 [6/9 g'''->-.-\fermata c'''->-.-\fermata
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
 			a->-.-\fermata d->-.-\fermata 
-			'g->-.-\fermata \! 'c->-.-\fermata ]1/1
+			g,->-.-\fermata \! c,->-.-\fermata ]1/1
 		\octave  c' ;
 		\octave  c' ;   
 		 [2/3 c g d' ]1/1 

@@ -1,0 +1,6 @@
+sourcedir:	@LILYPOND_ROOTDIR@/releases
+topdir:		@LILYPOND_ROOTDIR@/redhat
+builddir:	@LILYPOND_ROOTDIR@/redhat/BUILD
+rpmdir:		@LILYPOND_ROOTDIR@/redhat/RPMS
+srcrpmdir:	@LILYPOND_ROOTDIR@/redhat/SRPMS
+

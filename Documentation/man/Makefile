@@ -4,7 +4,7 @@ depth = ../..
 include $(depth)/make/Include.make
 include $(depth)/make/Docrules.make
 SECTION=1
-MANTXT = $(addprefix $(outdir)/, $(addsuffix .txt,$(basename $(PODFILES) .pod)))
+MANTXT = $(addprefix $(outdir)/, $(addsuffix $(DOTTEXT),$(basename $(PODFILES) .pod)))
 MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(PODFILES) .pod)))
 
 default: $(MANTXT) $(MANGROFF)

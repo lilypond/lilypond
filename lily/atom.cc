@@ -12,6 +12,34 @@
 #include "string.hh"
 #include "varray.hh"
 #include "debug.hh"
+#include "main.hh"
+
+inline bool
+Atom::check_infinity_b ()const
+{
+  bool ridiculous = false;
+#ifndef NDEBUG
+  
+  /* infinity checks. */
+  for (int a = X_AXIS; a < NO_AXES; a++)
+    {
+      Axis ax = (Axis)a;
+      if (abs (off_[ax]) >= 100 CM)
+	{
+	  warning (_("ridiculous dimension ") + axis_name_str (ax)  + ", "
+		   +print_dimen(off_[ax]));
+	  
+	  if (experimental_features_global_b)
+	    assert (false);
+
+	  ((Atom*)this)->off_[ax] = 0.0;
+	  ridiculous = true;
+	}
+    }
+#endif
+  return ridiculous;
+}
+
 
 void
 Atom::print() const
@@ -57,27 +85,6 @@ Atom::str() const
 }
 
 
-bool
-Atom::check_infinity_b ()const
-{
-  bool ridiculous = false;
-#ifndef NDEBUG
-  
-  /* infinity checks. */
-  for (int a = X_AXIS; a < NO_AXES; a++)
-    {
-      Axis ax = (Axis)a;
-      if (abs (off_[ax]) >= 100 CM)
-	{
-	  warning (_("ridiculous dimension ") + axis_name_str (ax)  + ", "
-		   +print_dimen(off_[ax]));
-	  ((Atom*)this)->off_[ax] = 0.0;
-	  ridiculous = true;
-	}
-    }
-#endif
-  return ridiculous;
-}
 String
 Atom::TeX_string() const
 {

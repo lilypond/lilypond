@@ -12,6 +12,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
+#include "main.hh"
 
 Lyric_engraver::Lyric_engraver()
 {
@@ -55,6 +56,17 @@ Lyric_engraver::do_pre_move_processing()
 {
   if (lyric_item_p_)
     {
+      /*
+        urg. should check-out deriving from staff/line spanner
+	*/
+      if (experimental_features_global_b)
+        {
+	  if (lyric_item_p_->tdef_p_->static_name () == Text_def::static_name ())
+	    {
+	      Text_def* t = (Text_def*)lyric_item_p_->tdef_p_;
+	      t->text_str_ += "\\hrule 1mm 10mm 20mm";
+	    }
+	}
       typeset_element (lyric_item_p_);
       lyric_item_p_ =0;
     }

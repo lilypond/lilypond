@@ -9,11 +9,11 @@ include ./$(depth)/make/Include.make
 #
 
 # list of distribution files:
-# 
+
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
 EXTRA_DISTFILES =   TODO README  $(MFFILES)
-#
+
 lyout = $(outdir)/
 texout = $(outdir)/
 
@@ -23,12 +23,9 @@ FET_FILES = $(wildcard feta[0-9]*.mf)
 LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
 LOGFILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
-#
 
 default: $(LYTABLES) $(TEXTABLES) $(LOGFILES)
 
-localclean:
-	rm -f $(LYTABLES) $(TEXTABLES)
 
 $(outdir)/%.dvi: %.mf
 	mf $<

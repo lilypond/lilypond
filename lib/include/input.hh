@@ -21,6 +21,7 @@ class Input {
 public:
     
     void warning (String) const; // should use member func?
+    void non_fatal_error (String) const;
     void error (String) const;
     void message (String) const;
     void set_spot (Input const &);

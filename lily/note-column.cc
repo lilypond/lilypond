@@ -43,6 +43,15 @@ Note_column::head_positions_interval() const
 
 }
 
+Interval 
+Note_column::width () const
+{
+  if (head_l_arr_.size ())
+    return head_l_arr_[0]->width ();
+  else
+    return Interval (0,0);
+}
+
 void
 Note_column::do_pre_processing()
 {

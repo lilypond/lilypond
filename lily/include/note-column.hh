@@ -34,6 +34,8 @@ public:
   Link_array<Rest> rest_l_arr_;
     
   Interval_t<int> head_positions_interval() const;
+  Interval width () const;
+
   void translate_rests(int dy);
         
   DECLARE_MY_RUNTIME_TYPEINFO;

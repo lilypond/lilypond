@@ -22,6 +22,7 @@ SUBDIRS =
 
 LSMENTRY=$(outdir)/lilypond.lsm
 RPMSPEC=$(outdir)/lilypond.spec 
+RPMRC=$(outdir)/rpmrc
 IN_FILES = $(wildcard *.in)
 EXTRA_DISTFILES = $(IN_FILES)
 OUT_DISTFILES= $(outdir)/lelievijver.lsm $(LSMENTRY) $(RPMSPEC)
@@ -34,7 +35,7 @@ include ./$(depth)/make/Files.make
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 
-default: $(RPMSPEC) $(LSMENTRY)
+default: $(RPMSPEC) $(LSMENTRY) $(RPMRC)
 
 
 rpmdocs=BUGS TODO NEWS DEDICATION ANNOUNCE README
@@ -47,11 +48,16 @@ sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
 sed-date=sed 's!@DATE@!${date}!g'
 sed-examples = sed 's!@EXAMPLE_LYS@!${rpmexamples} ${rpmmudocs}!g'
 sed-docs=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
+sed-dottext=sed 's!@DOTTEXT@!${DOTTEXT}!g'
+sed-rootdir=sed 's!@LILYPOND_ROOTDIR@!${LILYPOND_ROOTDIR}!g'
 
 $(outdir)/%.spec: %.spec.in $(depth)/VERSION
-	cat $< | $(sed-version) | $(sed-docs) | $(sed-examples) > $@
+	cat $< | $(sed-version) | $(sed-docs) | $(sed-examples) \
+	| $(sed-dottext)> $@
 
 $(outdir)/%.lsm: %.lsm.in $(depth)/VERSION
 	cat $< | $(sed-version) | $(sed-date) > $@
 
+$(outdir)/%: %.in
+	cat $< | $(sed-rootdir) > $@
 

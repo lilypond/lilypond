@@ -9,14 +9,14 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 violoncello = \melodic{
 	\octave c;
-	c1\ff ~ | c | 'f4-. r r2 | r1 |
-	c1\ff ~ | c | 'f4-. r r2 | r1 |
-	c1\ff ~ | c | 'fis4-. r r2 | r1 |
-	'g4-. r r2 | 'g4-. r r2 |
+	c1\ff ~ | c | f,4-. r r2 | r1 |
+	c1\ff ~ | c | f,4-. r r2 | r1 |
+	c1\ff ~ | c | fis,4-. r r2 | r1 |
+	g,4-. r r2 | g,4-. r r2 |
 	c4\p r4 r2 | c4 r4 r2 | c4 r4 r2 | r1 |
 	c'4.-"cresc." c'8 bes4. bes8 | as4. as8 g4\f r4 |
 }

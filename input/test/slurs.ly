@@ -1,12 +1,12 @@
 
-\version "0.1.10";
+\version "0.1.14";
 
 \score{
 	\melodic{\octave c';
 
-		'c4 ~ 'c c'' ~ c'' ~ g ~ c ~
+		c,4 ~ c, c'' ~ c'' ~ g ~ c ~
 		d ~ e ~ f ~ g ~
-		a ~ b ~ 'c ~ c
+		a ~ b ~ c, ~ c
 
 		< c e ( > <)d f> 
 		\octave c'';
@@ -23,9 +23,9 @@
 
 	{
 %		\octave c';
-%		'c16( 'e( 'g( 'b( d( f( a( c'~ )))))))c4 c4 |
+%		c,16( e,( g,( b,( d( f( a( c'~ )))))))c4 c4 |
 %		\octave c''';
-%		'c16( a( f( d( 'b( 'g( 'e( 'c~ )))))))c4 c4 |
+%		c,16( a( f( d( b,( g,( e,( c,~ )))))))c4 c4 |
 %		\octave c';
 %		c'1() g' () c () g () c |
 

@@ -12,6 +12,8 @@
 \def\thecomposer{}
 \def\thearranger{}
 \def\theinstrument{}
+\def\theopus{}
+\def\thepiece{}
 %
 % duh.  LaTeX has a \title too.
 \renewcommand*{\title}[1]{\def\thetitle{#1\\}}
@@ -19,19 +21,37 @@
 \newcommand*{\composer}[1]{\def\thecomposer{#1\\}}
 \newcommand*{\arranger}[1]{\def\thearranger{#1}}
 \newcommand*{\instrument}[1]{\def\theinstrument{#1}}
+\newcommand*{\opus}[1]{\def\theopus{#1}}
+\newcommand*{\piece}[1]{\def\thepiece{#1}}
 %
 \newcommand*{\mudelatitle}[1]{\def\thetitle{#1\\}}
 \newcommand*{\mudelasubtitle}[1]{\def\thesubtitle{#1\\}}
 \newcommand*{\mudelacomposer}[1]{\def\thecomposer{#1\\}}
 \newcommand*{\mudelaarranger}[1]{\def\thearranger{#1}}
 \newcommand*{\mudelainstrument}[1]{\def\theinstrument{#1}}
+\newcommand*{\mudelaopus}[1]{\def\theopus{#1}}
+\newcommand*{\mudelapiece}[1]{\def\thepiece{#1}}
 %
 \def\makelilytitle
 {
   {\center\bfseries\huge\center\thetitle}
         \par
-       {\center\bfseries\large\thesubtitle}
-  %\bigskip
-  {\flushleft\theinstrument\hfill\scshape\thecomposer}{\hfill\thearranger}
+       {\center\bfseries\Large\thesubtitle}
+  \bigskip
+  {\flushright\scshape\thecomposer\par}
+  % urg
+  \edef\saveparskip{\parskip}\parskip-5mm
+  {\flushright\theopus\par}
+  {\flushright\thearranger\par}
+  \parskip\saveparskip
+  {\center\large\theinstrument\par}
+  {\flushleft\scshape\large\thepiece}
+}
+\def\makelilypiecetitle
+{
+  \bigskip
+  {\flushright\theopus\par}
+  {\flushleft\scshape\large\thepiece}
 }
 \endinput
+

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 clarinetto2 = \melodic{
 	\octave c';	
@@ -25,6 +25,6 @@ clarinetto2 = \melodic{
 	c'4-. r r2 | r1 |
 	c'4-. r r2 | b4-. r r2 |
 	R1 *5 |
-	r2 r4 'b4-. |
+	r2 r4 b,4-. |
 }
 

@@ -37,6 +37,8 @@ Stem::Stem ()
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
   dir_ = CENTER;
+  beam_dir_ = CENTER;
+  dir_forced_b_ = false;
   stem_xdir_ = LEFT;
   staff_size_i_ = 8;
 
@@ -320,10 +322,11 @@ Stem::note_delta_f () const
     }
   return r;
 }
+
 Real
 Stem::hpos_f () const
 {
-  return note_delta_f () +Item::hpos_f ();
+  return note_delta_f () + Item::hpos_f ();
 }
 
 /*
@@ -337,3 +340,4 @@ void
   head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
   rest_l_arr_.substitute ((Rest*)o_l, (Rest*)n_l);
 }
+

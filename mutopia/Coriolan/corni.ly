@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 \include "corno-1.ly"
 \include "corno-2.ly"
@@ -20,8 +20,8 @@ $corni_staff = \type Staff = corni <
 % ugh, key doesn't transpose along
 %		\global
 		\meter 4/4;
-		\transpose 'a \$corno1
-		\transpose 'a \$corno2
+		\transpose a, \$corno1
+		\transpose a, \$corno2
 	>
 >
 

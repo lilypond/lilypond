@@ -12,7 +12,7 @@
 #include "key.hh"
 #include "debug.hh"
 
-const int OCTAVES=14;		// ugh..
+const int NUMBER_OF_OCTAVES=14;		// ugh..
 const int ZEROOCTAVE=7;
 
 
@@ -41,48 +41,76 @@ Octave_key::clear ()
 Key::Key()
 {
   multi_octave_b_ = false;
-  octaves.set_size (OCTAVES);
+  octaves_.set_size (NUMBER_OF_OCTAVES);
+}
+
+int 
+Key::octave_to_index (int o) const
+{
+  int i = o + ZEROOCTAVE;
+  if (i < 0)
+    {
+      warning ("Don't have that many octaves (" + String (o) + ")");
+      i = 0;
+    }
+  if (i >= NUMBER_OF_OCTAVES)
+    {
+      warning ("Don't have that many octaves (" + String (o) + ")");
+      i = NUMBER_OF_OCTAVES -1;
+    }
+  return i;
 }
 
 Octave_key&
 Key::oct (int i)
 {
-  return octaves[i+ZEROOCTAVE];    
+
+  return octaves_[octave_to_index (i)];    
 }
 
 
 void
 Octave_key::set (int i, int a)
 {
-  assert (a > -3 && a < 3);
+  if (a <= -3)
+    {
+      warning ("Underdone accidentals (" + String (a)+ ")");
+      a = -2;
+    }
+  if (a >= 3)
+    {
+      warning ("Overdone accidentals (" + String (a) + ")");
+      a = 2;
+    }
   accidental_i_arr_[i]=a;
 }
 
 void
 Key::set (int o, int n , int a)
 {
-  octaves[o + ZEROOCTAVE].set (n,a);
+  int   i = octave_to_index (o);
+  octaves_[i].set (n,a);
 }
 
 void
 Key::set (int n, int a)
 {
-  for (int i= 0; i < OCTAVES ; i++)
-    octaves[i].set (n,a);
+  for (int i= 0; i < NUMBER_OF_OCTAVES ; i++)
+    octaves_[i].set (n,a);
 }
 void
 Key::clear ()
 {
-  for (int i= 0; i < OCTAVES ; i++)
-    octaves[i].clear ();
+  for (int i= 0; i < NUMBER_OF_OCTAVES ; i++)
+    octaves_[i].clear ();
 }
 void
 Key::print () const
 {
-  for (int i= 0; i < OCTAVES ; i++)
+  for (int i= 0; i < NUMBER_OF_OCTAVES ; i++)
     {
       DOUT << "octave " << i - ZEROOCTAVE << " Octave_key { ";
-      octaves[i].print ();
+      octaves_[i].print ();
       DOUT << "}\n";
     }
 }

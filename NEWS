@@ -1,3 +1,82 @@
+pl 63
+	- non_fatal_error () (should use!)
+	- Mozart Horn concerto 3, horn part
+	- bf: plet-spanner
+
+pl 62.jcn11
+	- bf: beam::set-stemlen:iterations 
+	- knee-bug.ly
+	- use knee in menuetto-ii
+	- bit on slope damping
+	- some bf's and doco
+	- bf's scsii
+	- scsii: bf' new: sarabande
+	- bf's allemande, courante
+	- bf: knee: stem through beams
+	- bf: too high beams
+
+pl 62.hwn1
+	- bf jcn8: deep copy Scope (ughugh.  I want GC!)
+	- cleaned Identifier
+	- mudela 0.1.14  'a -> a,
+	- class Scope
+	- .bib updates
+	- key robustifiction for extreme octaves
+	- ly2dvi 0.11
+	- energy "normalisation" removed. 
+	
+pl 62.jcn8
+	- beam: knee input/test/knee.ly
+	- vimrc init for lily
+	- errors display column number too
+	- scsii: bf's, new: allemande, courante
+	- looked at lyric lengthen "mir________." (eerste weigering)
+	- beam: knee [c \stemdown c' \stemup 'c]
+	- expressions parsed at identifier_init
+	- bf: slur/stem/whole x-adjust: 
+	  * use note-col width iso mean note-witdth
+	  * note-column:width ()
+	- now string variables in paper too -> mudelapapersize
+	- paper_def: real dict -> identifier dict
+	- My_lily_lexer: identifier dict stack
+	- init paper and a4 stuff
+	- \include \string
+	- all rvalues from parser var pool -> access rvalue as \rvalue
+	- string variables
+	- ly2dvi 0.10.jcn1
+	  * mudelapiece, mudelaopus (ugh, fix)
+	  * textheight
+	- more titledefs
+	- bf: table 20 typeface widths
+	- bf: toplevel/*.txt
+	- bf: ugly Documentation/mutopia fix (should rename dir to Mutopia/ ?)
+	- bf: make examples
+	- www.digicash.com/~jan/lilypond
+	- make website fixes
+	- ambiguity fixes in .ly's
+	- bf: relative-octave warning
+	- relative-octave: guess if ambiguous
+	- ambiguity warning for relative mode
+	- scsii: prelude 
+	- bf: slur gap
+	- bf's: scsii: menuetto
+	- .txt -> $(DOTTEXT)
+	- make website fixes
+	- .txt fixes
+	- bf: typo make-patch
+	- bf: *dist.sh cleanup
+	- bf: release.py
+	- bf: make/Targets doc (removed .txt extension)
+	- rpm-dist.sh
+	- make doos dist fixes
+	- doos-dist.sh windoze dist script
+	-- removed useless spacing hack at spring-spacer.cc:692
+	- bf: los-toros: do multi-bar rests (setting SkipBars = 1)
+	- scsii-menuetto.ly -> menuetto-urtext.ly, -cello.ly and -alto.ly
+	- bf: \octave c'; for relative-octaves
+	- bf: Documentation make
+
+*********
 pl 62
 	- no-touch hak.
 	- bfs: multi measure rests

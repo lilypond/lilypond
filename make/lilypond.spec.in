@@ -32,7 +32,7 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/*.txt
+%doc Documentation/out/*@DOTTEXT@
 %doc Documentation/tex/*.doc
 %doc Documentation/tex/*.bib
 %doc mutopia/*.ly

@@ -236,8 +236,8 @@ outcome of the applied recipy.  If, in a complicated case, the result
 "doesn't look good", they will ignore the rules and draw their own
 beams, based on experience.
 
-\item The exact rules probably even don't "really exsist" but in the
-minds of good engravers, in the form of experience
+\item The exact rules probably don't "really exist" but in the minds
+  of good engravers, in the form of experience
 \end{itemize}
 
 We'll propose to do a least-squares solve.  This seems to be the best
@@ -245,8 +245,8 @@ way to calculate the slope for a computerised engraver such as Lily.
 
 It would be nice to have some rules to catch and handle "ugly" cases,
 though.  In general, the slope of the beam should mirror the pitches
-of the notes.  If this "can't be done" because there simply is no
-uniform "trend", it would probably be best to set the slope to zero.
+of the notes.  If this can't be done because there simply is no
+uniform trend, it would probably be best to set the slope to zero.
 
 
 \subsection{Quantising}

@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features: example file with comments
 
 %}
-\version "0.1.10";
+\version "0.1.14";
 
 
 % the % is a comment.
@@ -48,14 +48,14 @@ begeleiding = \melodic{
 	\octave  c'; 		% default octave: 1 below the first octave.
 
 	%%% theme
-	'c4			% ' before note means one octave lower.
+	c,4			% ' before note means one octave lower.
 				% Similarly: ' after means one higher.
-	   c	e c	f c	e c	d 'b	c 'a	'f 'g	'c2 |
+	   c	e c	f c	e c	d b,	c a,	f, g,	c,2 |
 	\octave  c ;
-	e4 'g	d 'g	c 'g	'b 'g	e 'g	d 'g	c 'g	'b 'g
+	e4 g,	d g,	c g,	b, g,	e g,	d g,	c g,	b, g,
 	%%%% var 1
 	r8 e8()  c4  	r8 e8()  c4  	r8 f8() c4 	r8 e8() c4
-	r8 d8() 'b4 	r8 c8() 'a4 	r8 'a8() 'f4 	r8 'e8() 'c4
+	r8 d8() b,4 	r8 c8() a,4 	r8 a,8() f,4 	r8 e,8() c,4
 }
 
 \score{

@@ -16,7 +16,7 @@ TestedFeatures:
 % (maybe even sooner :-)
 %
 
-\version "0.1.10";
+\version "0.1.14";
 
 alto1 = \melodic{
 	\meter 4/4; 
@@ -42,7 +42,7 @@ alto1 = \melodic{
 }
 
 alto2 = \melodic{ 
-		\octave  'c ;
+		\octave  c, ;
 		\textstyle "italic";
 		% this should be a \dynamic, rather than text
 		[ c8 c8_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \ 
@@ -63,7 +63,7 @@ alto2 = \melodic{
 		% the c4 and c2, however are really 16th...
 			% we-ll say "simile" for now...
 	% 
-		\octave  'c ;
+		\octave  c, ;
 		\type Voice="altodivisi2" {
 		\stemdown
 		as4: as4: as2}

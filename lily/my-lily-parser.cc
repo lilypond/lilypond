@@ -16,6 +16,9 @@
 #include "parser.hh"
 #include "header.hh"
 #include "file-results.hh"
+#include "midi-def.hh"
+#include "paper-def.hh"
+#include "identifier.hh"
 
 My_lily_parser::My_lily_parser (Sources * source_l)
 {
@@ -177,9 +180,52 @@ My_lily_parser::get_melodic_req (Melodic_req* melodic, int quotes)
     {
       set_nearest (melodic);
       int d = melodic->pitch () - last_melodic_->pitch ();
+      int shift = 0;
       if (quotes && (sign (d) == sign (quotes)))
-	quotes -= sign (quotes);
-      melodic->octave_i_ += quotes;
+	shift -= sign (quotes);
+      if (!quotes && (abs (d) == 6))
+	{
+	  String str = _("Octave ambiguity; assuming ");
+	  /*
+	    [TODO]
+	    figure this out.
+
+	    If the distance is exactly*) half an octave, there is 
+	    no nearest pitch.  In that case, we'll try to guess what 
+	    composer/ typist meant.
+	    Firstly, we'll do this by comparing the 'notename distance':
+		
+	      f b'   % name-distance: f g a b: 3
+
+	    is surely a shorter notename distance than
+
+	      f 'b  % name-distance: b c d e f: 4
+
+	  (should we give a warning at all, or can we safely assume
+	  this is a positive interval up?)
+
+	  *) It is conceivable that, musically speaking, the interval
+	     with the greater pitch-distance is thought to be smaller?
+
+	  */
+
+	  int name_delta = melodic->notename_i_ - last_melodic_->notename_i_;
+	  int name_near = abs (name_delta) % 7;
+	  int name_wrap = (7 - abs (name_delta)) % 7;
+	  if (name_near != name_wrap)
+	    shift = name_near < name_wrap ? sign (name_delta) : -sign (name_delta);
+	  else if (sign (last_melodic_->accidental_i_) 
+	    != sign (melodic->accidental_i_))
+	    shift = last_melodic_->accidental_i_ - melodic->accidental_i_;
+	  else
+	    shift = -1;
+	  String name_str = notename_str (melodic);
+	  str += shift > 0 ? name_str + "'" : "'" + name_str;
+	  if (sign (d) == sign (shift))
+	    shift = 0;
+	  melodic->warning (str);
+	}
+      melodic->octave_i_ += quotes + shift;
     }
   else
     {
@@ -193,17 +239,12 @@ My_lily_parser::get_melodic_req (Melodic_req* melodic, int quotes)
 	  if (e)
 	    {
 	      int d = melodic->pitch () - last_melodic_->pitch ();
-	      String str = _("Interval bigger than quart");
+	      String str = _("Interval greater than quart");
 	      int n = 1 + (abs (d) - 1) / 12;
 	      String quote_str ('\'', n);
-#if 0
-	      str += d < 0 ? _(", prepend: ") : _(", append: ");
-	      str += quote_str;
-#else
 	      str += _(", relative: ");
 	      String name_str = notename_str (melodic);
 	      str += d < 0 ? quote_str + name_str : name_str + quote_str;
-#endif
 	      melodic->warning (str);
 	    }
 	}
@@ -416,5 +457,19 @@ void
 My_lily_parser::add_notename (String s, Melodic_req * m_p)
 {
   lexer_p_->add_notename (s, m_p);
+}
+
+Paper_def*
+My_lily_parser::default_paper_p ()
+{
+	Identifier *id = lexer_p_->lookup_identifier ("default_paper");
+	return id ? id->paperdef () : new Paper_def ;
+}
+
+Midi_def*
+My_lily_parser::default_midi_p ()
+{
+	Identifier *id = lexer_p_->lookup_identifier ("default_midi");
+	return id ? id->mididef () : new Midi_def ;
 }
 

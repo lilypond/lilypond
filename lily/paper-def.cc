@@ -17,18 +17,20 @@
 #include "assoc-iter.hh"
 #include "score-grav.hh"
 #include "p-score.hh"
+#include "identifier.hh"
 #include "main.hh"
+#include "scope.hh"
 
 
 Paper_def::Paper_def ()
 {
   lookup_p_ = 0;
-  real_vars_p_ = new Dictionary<Real>;
+  scope_p_ = new Scope;
 }
 
 Paper_def::~Paper_def ()
 {
-  delete real_vars_p_;
+  delete scope_p_;
   delete lookup_p_;
 }
 
@@ -36,28 +38,28 @@ Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
   lookup_p_ = s.lookup_p_? new Lookup (*s.lookup_p_) : 0;
-  lookup_p_->paper_l_ = this;
-  real_vars_p_ = new Dictionary<Real> (*s.real_vars_p_);
-}
-
-void
-Paper_def::set_var (String s, Real r)
-{
-  real_vars_p_->elem (s) = r;
+  if (lookup_p_)
+    {
+      lookup_p_->paper_l_ = this;
+    }
+  scope_p_ = new Scope (*s.scope_p_);
 }
 
 Real
 Paper_def::get_var (String s) const
 {
-  if (! real_vars_p_->elt_b (s))
+  if (!scope_p_->elt_b (s))
     error (_ ("unknown paper variable `")  + s+"'");
-  return real_vars_p_->elem (s);
+  Real * p = scope_p_->elem (s)->real ();
+  Real r = *p;
+  delete p;
+  return r;
 }
 
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
-  if (!shape_int_a_.size ())    
+  if (!shape_int_a_.size ())
     if (n)
       return Interval (0, linewidth_f ());
     else
@@ -178,10 +180,14 @@ Paper_def::print () const
 #ifndef NPRINT
   Music_output_def::print ();
   DOUT << "Paper {";
-  lookup_p_->print ();
-  for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok (); i++)
+  if (lookup_p_)
+    lookup_p_->print ();
+  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
     {
-      DOUT << i.key () << "= " << i.val () << "\n";
+      DOUT << i.key () << "= ";
+//      i.val ()->print ();
+// urg
+      DOUT << i.val ()->str () << "\n";
     }
   DOUT << "}\n";
 #endif
@@ -200,8 +206,9 @@ String
 Paper_def::TeX_output_settings_str () const
 {
   String s ("\n ");
-  for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok (); i++)
-    s += String ("\\def\\mudelapaper") + i.key () + "{" + i.val () + "}\n";
+  for (Assoc_iter<String,Identifier*> i (*scope_p_); i.ok (); i++)
+    s += String ("\\def\\mudelapaper") + i.key () 
+      + "{" + i.val ()->str () + "}\n";
   s +=  lookup_p_->texsetting + "% (Tex id)\n";
   return s;
 }
@@ -213,3 +220,4 @@ Paper_def::get_next_default_count () const
 {
   return default_count_i_ ++;
 }
+

@@ -14,7 +14,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.10";
+\version "0.1.14";
 
 $vocal_verse1 = \melodic{
 	\octave c';
@@ -164,42 +164,42 @@ $treble_intro = \melodic{
 	\octave c';
 	\clef violin;
 	% ugh: i'd like to type this!
-	%r8\pp [<'g-. c-.> <c-. es-.> <'g-. c-.> <c-. es-.> <'g-. c-.>] |
-	r8\pp <['g-. c-.> <c-. es-.> <'g-. c-.> <c-. es-.> <'g-. c-.]> |
-	r8 <['as-. c-.> <c-. es-.> <'as-. c-.> <c-. es-.> <'as-. c-.]> |
-	r8 <['as-. c-.> <c-. d-.> <'as-. c-.> <c-. d-.> <'as-. c-.]> |
-	r8 <['g-. 'b-.> <'b-. d-.> <'g-. 'b-.> <'b-. d-.> <'g-. 'b-.]> |
-	\break;
+	%r8\pp [<g,-. c-.> <c-. es-.> <g,-. c-.> <c-. es-.> <g,-. c-.>] |
+	r8\pp <[g,-. c-.> <c-. es-.> <g,-. c-.> <c-. es-.> <g,-. c-.]> |
+	r8 <[as,-. c-.> <c-. es-.> <as,-. c-.> <c-. es-.> <as,-. c-.]> |
+	r8 <[as,-. c-.> <c-. d-.> <as,-. c-.> <c-. d-.> <as,-. c-.]> |
+	r8 <[g,-. b,-.> <b,-. d-.> <g,-. b,-.> <b,-. d-.> <g,-. b,-.]> |
+	\break
 	
 }
 
 $treble_verse1 = \melodic{
 	\octave c';
 %	\clef violin;
-	r8 <['g c> <c es> <'g c> <c es> <'g c]> |
-	r8 <['f c> <c d> <'f c> <c d> <'f c]> |
-	r8 <['f 'g 'b> <'g 'b d> <'f 'g 'b> <'g 'b d> <'f 'g 'b]> |
-	r8 <['es 'g c> <'g c es> <'es 'g c> <'g c es> <'es 'g c]> |
+	r8 <[g, c> <c es> <g, c> <c es> <g, c]> |
+	r8 <[f, c> <c d> <f, c> <c d> <f, c]> |
+	r8 <[f, g, b,> <g, b, d> <f, g, b,> <g, b, d> <f, g, b,]> |
+	r8 <[es, g, c> <g, c es> <es, g, c> <g, c es> <es, g, c]> |
 	<g'4.( b> <)f'8 d'> <[/3 f' d'> <es' c'> <d' b]1/1> |
 	<c'2. es'> |
-	r8 <['g c> <c es> <'g c> <c es> <'g c]> |
-	r8 <['f c> <c d> <'f c> <c d> <'f c]> |
-	r8 <['f 'as 'bes> <'as 'bes d> <'f 'g 'bes> <'g 'bes d> <'f 'g 'bes]> |
-	r8 <['es 'g 'bes> <'g 'bes es> <'es 'g 'bes> <'g 'bes es]> 
+	r8 <[g, c> <c es> <g, c> <c es> <g, c]> |
+	r8 <[f, c> <c d> <f, c> <c d> <f, c]> |
+	r8 <[f, as, bes,> <as, bes, d> <f, g, bes,> <g, bes, d> <f, g, bes,]> |
+	r8 <[es, g, bes,> <g, bes, es> <es, g, bes,> <g, bes, es]> 
 	<{ es'( | )bes4. as8}{ c'( | )d4.( )f8 } > 
 	< [/3 f as> <es g> <d f]1/1> |
 	<es2. g> |
-	r8 <['f 'g> <'g 'b> <'f 'g> <'g 'b> <'f 'g]> |
-	r8 <['es 'g> <'g c> <'es 'g> <'g c> <'es 'g]> |
-	r8\pp <['es 'as c> <'as c es> <'es 'as c> <'as c es> <'es 'as c]> |
-	r8 <['es 'g 'bes> <'g 'bes 'es> <'es 'g 'bes> <'g 'bes 'es> <'es 'g 'bes]> |
+	r8 <[f, g,> <g, b,> <f, g,> <g, b,> <f, g,]> |
+	r8 <[es, g,> <g, c> <es, g,> <g, c> <es, g,]> |
+	r8\pp <[es, as, c> <as, c es> <es, as, c> <as, c es> <es, as, c]> |
+	r8 <[es, g, bes,> <g, bes, es,> <es, g, bes,> <g, bes, es,> <es, g, bes,]> |
 	% [/3 as\grace( bes )
 	[/3 as8(( g )as]1/1 c'4.-> ) as8 |
 	g2. |
-	r8 <['f 'g> <'g 'b> <'f 'g> <'g 'b> <'f 'g]> |
-	r8 <['e 'g> <'g c> <'e 'g> <'g c> <'e 'g]> |
-	r8 <['f 'a c> <'a c f> <'f 'a c> <'a c f> <'f 'a c]> |
-	r8 <['e 'g c> <'g c e> <'e 'g c> <'g c e> <'e 'g c]> |
+	r8 <[f, g,> <g, b,> <f, g,> <g, b,> <f, g,]> |
+	r8 <[e, g,> <g, c> <e, g,> <g, c> <e, g,]> |
+	r8 <[f, a, c> <a, c f> <f, a, c> <a, c f> <f, a, c]> |
+	r8 <[e, g, c> <g, c e> <e, g, c> <g, c e> <e, g, c]> |
 	<{[/3 f'8\f( e' f']1/1 a'4. )f'8 } {\[/3 f e f \] a4. f8 } > |
 	<e2 e'> r4 |
 }
@@ -208,11 +208,11 @@ $treble_eentje = \melodic{
 	\octave c';
 	<f2\mf as!(> <[as8.->( c'> <)f16 )as]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
-	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
+	<f4. g> <[b,8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2 g\pp> <e4 g> |
 	<f2\mf a(> <[a8.( c'> <)f16 )a]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
-	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
+	<f4. g> <[b,8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	<e2. g> |
 }
 
@@ -220,12 +220,12 @@ $treble_through = \melodic{
 	\octave c';
 	r2. |
 	% lily: 221: warning: Junking request: Span_dynamic_req: the \>
-	<['g8.\< g> <'g16 g> <'b8. b> <\!'b16\> b16> <d8. d'> <d16 d']> |
+	<[g,8.\< g> <g,16 g> <b,8. b> <\! b,16\> b16> <d8. d'> <d16 d']> |
 	% lily: 222: warning: Can't find cresc to end.
-	< { c4( )'b } { c'4( )b } > \!r |
+	< { c4( )b, } { c'4( )b } > \!r |
 % ugh
-%	<'g4. g> <'b8 b> <[d8.-> d'->> c'16] |
-	<'g4. g> <'b8 b> [d'8.-> c'16] |
+%	<g,4. g> <b,8 b> <[d8.-> d'->> c'16] |
+	<g,4. g> <b,8 b> [d'8.-> c'16] |
 % ugh, ugh: connecting chords
 	< { d2.\f( )a2} { e2. ~ e2 } { b2. c2 }> r4 |
 	< 
@@ -241,110 +241,110 @@ $treble_through = \melodic{
 		}
 	>
 	% 4 bars copied from end verse1
-	r8 <['f\p 'a c> <'a c f> <'f 'a c> <'a c f> <'f 'a c]> |
-	r8 <['e 'g c> <'g c e> <'e 'g c> <'g c e> <'e 'g c]> |
+	r8 <[f,\p a, c> <a, c f> <f, a, c> <a, c f> <f, a, c]> |
+	r8 <[e, g, c> <g, c e> <e, g, c> <g, c e> <e, g, c]> |
 	<{[/3 f'8\f( e' f']1/1 a'4. )f'8 } {\[/3 f e f \] a4. f8 } > |
 	<e2 e'> r4 |
 	<es2 es'> r4 |
 	<d2 d'> r4 |
-	<'b2 b> r4 |
+	<b,2 b> r4 |
 	<c2 c'> <e4\pp g> |
 
 	% four copied from begin eentje
 	<f2\mf as!(> <[as8.->( c'> <)f16 )as]> |
 	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.]> |
-	<f4. g> <['b8-. g-.(> <d-. g-.> <f-. )g-.]> |
+	<f4. g> <[b,8-. g-.(> <d-. g-.> <f-. )g-.]> |
 	\textstyle "italic";
 	<e2._"dim." g> |
-	<'g2. e g> |
-	<'g2.-\fermata e g> |
+	<g,2. e g> |
+	<g,2.-\fermata e g> |
 }
 
 $bass_intro = \melodic{
 	\octave c;
 	\clef bass;
-	<'c2 c> r4 |
-	<''as2 'as> r4 |
-	<''f2 'f> r4 |
-	<''g2 'g> r4 |
+	<c,2 c> r4 |
+	<as,,2 as,> r4 |
+	<f,,2 f,> r4 |
+	<g,,2 g,> r4 |
 }
 
 $bass_verse1 = \melodic{
 	\octave c;
 %	\clef bass;
-	<'c2 c> r4 |
-	<''as2 'as> r4 |
-	<''g2 'g> r4 |
-	<'c2 c> r4 |
-	<''g8 'g> <[g d'> <d' f'> <g d'> <d' f'> <g d']> |
-	<'c8 c> <[g c'> <c' es'> <g c'> <c' es'> <g c']> |
-	<'c2 c> r4 |
-	<''as2 'as> r4 |
-	<''bes2 'bes> r4 |
-	<''es2 'es> r4 |
-	''bes8 <['bes f> <f bes> <'bes f> <f bes> <'bes f]> |
-	''es8 <['bes es> <es g> <'bes es> <es g> <'bes es]> |
-	<''g2 'g> r4 |
-	<'c2 c> r4 |
-	<''as2 'as> r4 |
-	<''es2 'es> r4 |
-	<''bes8 'bes> <[f bes> <bes d'> <f bes> <bes d'> <f bes]> |
-	<''es8 'es> <[es g bes> <g bes es'> <es g bes> <g bes es'> <es g bes]> |
-	<''g2 'g> r4 |
-	<'c2 c> r4 |
-	<''f2 'f> r4 |
-	<'c2 c> r4 |
-	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
-	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<c,2 c> r4 |
+	<as,,2 as,> r4 |
+	<g,,2 g,> r4 |
+	<c,2 c> r4 |
+	<g,,8 g,> <[g d'> <d' f'> <g d'> <d' f'> <g d']> |
+	<c,8 c> <[g c'> <c' es'> <g c'> <c' es'> <g c']> |
+	<c,2 c> r4 |
+	<as,,2 as,> r4 |
+	<bes,,2 bes,> r4 |
+	<es,,2 es,> r4 |
+	bes,,8 <[bes, f> <f bes> <bes, f> <f bes> <bes, f]> |
+	es,,8 <[bes, es> <es g> <bes, es> <es g> <bes, es]> |
+	<g,,2 g,> r4 |
+	<c,2 c> r4 |
+	<as,,2 as,> r4 |
+	<es,,2 es,> r4 |
+	<bes,,8 bes,> <[f bes> <bes d'> <f bes> <bes d'> <f bes]> |
+	<es,,8 es,> <[es g bes> <g bes es'> <es g bes> <g bes es'> <es g bes]> |
+	<g,,2 g,> r4 |
+	<c,2 c> r4 |
+	<f,,2 f,> r4 |
+	<c,2 c> r4 |
+	<g,,8 g,> <[d g> <g b> <d g> <g b> <d g]> |
+	c,8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
 }
 
 $bass_eentje = \melodic{
 	\octave c;
-	<'c8 c> <[c f as!> <f as c'> <c f as> <f as c'> <c f as]> |
-	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
-	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
-	'c8 <[e g> <g c'> <e g> <g c'> <e g]> |
-	<'c8 c> <[c f a> <f a c'> <c f a> <f a c'> <c f a]> |
-	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
-	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
-	'c8 <[e g> <g c'> <e g> <g c'> <e g]> |
+	<c,8 c> <[c f as!> <f as c'> <c f as> <f as c'> <c f as]> |
+	c,8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<g,,8 g,> <[d g> <g b> <d g> <g b> <d g]> |
+	c,8 <[e g> <g c'> <e g> <g c'> <e g]> |
+	<c,8 c> <[c f a> <f a c'> <c f a> <f a c'> <c f a]> |
+	c,8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<g,,8 g,> <[d g> <g b> <d g> <g b> <d g]> |
+	c,8 <[e g> <g c'> <e g> <g c'> <e g]> |
 }
 
 $bass_through = \melodic{
 	\octave c;
-	<''g8 'g> <['g 'b d> <'b d f> <'g 'b d> <'as!-> b-> d->> <'b d f]> |
-	<''g8 'g> <['g d> <d f> <'g d> <'as-> b-> d->> <'b d f]> |
+	<g,,8 g,> <[g, b, d> <b, d f> <g, b, d> <as,!-> b-> d->> <b, d f]> |
+	<g,,8 g,> <[g, d> <d f> <g, d> <as,-> b-> d->> <b, d f]> |
 	% copied
-	<''g8 'g> <['g d> <d f> <'g d> <'as-> b-> d->> <'b d f]> |
-	<''g8 'g> <['g d e> <d f> <'g d> <'gis-> 'b-> d->> <'b d f]> |
-	<''gis8 'gis> <[d e> <e b> <d e> <e b> <d e]> |
-	<''a8 'a> <[c e> <e a> <c e> <e a> <c e]> |
-	<''a8 'a> <['a d f> <d f a> <'a d f> <d f a> <'a d f]> |
-	<''a8 'a> <['a c e> <c e a> <'a c e> <c e a> <'a c e]> |
+	<g,,8 g,> <[g, d> <d f> <g, d> <as,-> b-> d->> <b, d f]> |
+	<g,,8 g,> <[g, d e> <d f> <g, d> <gis,-> b,-> d->> <b, d f]> |
+	<gis,,8 gis,> <[d e> <e b> <d e> <e b> <d e]> |
+	<a,,8 a,> <[c e> <e a> <c e> <e a> <c e]> |
+	<a,,8 a,> <[a, d f> <d f a> <a, d f> <d f a> <a, d f]> |
+	<a,,8 a,> <[a, c e> <c e a> <a, c e> <c e a> <a, c e]> |
 	% 4 bars copied from end verse1
-	<''f2 'f> r4 |
-	<'c2 c> r4 |
-	<''g8 'g> <[d g> <g b> <d g> <g b> <d g]> |
-	'c8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
+	<f,,2 f,> r4 |
+	<c,2 c> r4 |
+	<g,,8 g,> <[d g> <g b> <d g> <g b> <d g]> |
+	c,8 <[c e g> <e g c'> <c e g> <e g c'> <c e g]> |
 
-	<'c8 c> <[c es! g> <es g c'> <c es! g> <es g c'> <c es! g]> |
-	<''f8 'f> <[d f> <f as!> <d f> <f as!> <d f]> |
-	<''g8 'g> <[d f> <f g> <d f> <f g> <d f]> |
-	'c8 <[c e> <e g> <c e> <e g> <c e]> |
-	'c8 <[c f> <f as> <c f> <f as> <c f]> |
-	'c8 <[c e> <e g> <c e> <e g> <c e]> |
-	''g8 <['g d> <d f> <'g d> <d f> <'g d]> |
+	<c,8 c> <[c es! g> <es g c'> <c es! g> <es g c'> <c es! g]> |
+	<f,,8 f,> <[d f> <f as!> <d f> <f as!> <d f]> |
+	<g,,8 g,> <[d f> <f g> <d f> <f g> <d f]> |
+	c,8 <[c e> <e g> <c e> <e g> <c e]> |
+	c,8 <[c f> <f as> <c f> <f as> <c f]> |
+	c,8 <[c e> <e g> <c e> <e g> <c e]> |
+	g,,8 <[g, d> <d f> <g, d> <d f> <g, d]> |
 	% copied from two bars back
-	'c8 <[c e> <e g> <c e> <e g> <c e]> |
-	'c8 <[c e> <e g> <c e> <e g> <c e]> |
-	<'c2._\fermata 'g c> |
+	c,8 <[c e> <e g> <c e> <e g> <c e]> |
+	c,8 <[c e> <e g> <c e> <e g> <c e]> |
+	<c,2._\fermata g, c> |
 }
 		
 global = \melodic{
 	\meter 3/4; 
 	\key bes es as;
 	\skip 4 * 12;
-	\break;
+	\break
 	\skip 4 * 234;
 	\bar "|.";
 }
@@ -420,26 +420,8 @@ $grand_staff = \type Grand_staff<
 >
 
 a4 = \paper{
-	gourlay_maxmeasures = 7.;
 	linewidth= 193.\mm;
-Score = \translator {
-	\type Score_engraver;
-
-	\consists "Timing_engraver";
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
-	\consists "Span_score_bar_engraver";
-	\consists "Score_priority_engraver";
-	\consists "Priority_horizontal_align_engraver";
-	\consists "Vertical_align_engraver";
-
-
-	\accepts "Staff_group";
-	\accepts "Staff";
-	\accepts "Rhythmic_staff";	
-	\accepts "Lyrics";
-	\accepts "Grand_staff";
-}
+	\include "score-bar-numbering.ly";
 }
 
 \score{

@@ -69,7 +69,14 @@ public:
   /// maximum number of beams
   int mult_i_;
 
+  /// direction stem (that's me)
   Direction dir_;
+
+  /// is direction explicitely specified?
+  bool dir_forced_b_;
+
+  /// direction of the beam
+  Direction beam_dir_;
     
   /* *************** */
   Stem ();

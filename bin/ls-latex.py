@@ -65,7 +65,7 @@ def bib_header (fn):
     if bib_title_re.search (s) == -1:
 	raise 'huh?'    
     header.title = bib_title_re.group (1)
-    header.outfile = fn
+    header.outfile = regsub.gsub ( '\.bib$', '.html' , fn)
     return header
 
 
@@ -97,7 +97,7 @@ def print_html_head (l,o,h):
 import getopt
 
 (cl_options, files) = getopt.getopt(sys.argv[1:], 
-				    'e:h', ['help', 'prefix=' ,'extension='
+				    'e:h', ['help', 'prefix=' 
 					    , 'title='])
 
 tex = ''
@@ -107,8 +107,6 @@ title = ''
 for opt in cl_options:
     o = opt[0]
     a = opt[1]
-    if o == '--extension' or o == '-e':
-	ext = a
     if o == '--prefix' or o == '-p':
 	pre = a
     if o == '--title' or o == '-t':

@@ -66,8 +66,8 @@ public:
   void remember_spot();
   Input pop_spot();
     
-  Paper_def*default_paper();
-  Midi_def*default_midi();
+  Paper_def*default_paper_p();
+  Midi_def*default_midi_p();
   void do_yyparse();
   void parser_error (String);
   void clear_notenames();

@@ -20,9 +20,10 @@ $(outdir)/%.gif: $(outdir)/%.ps
 	mv $(name-stem)-page*.gif $(outdir)/
 	touch $@
 
-$(outdir)/%.ly.txt: %.ly
+$(outdir)/%.ly$(DOTTEXT): %.ly
 	ln -f $< $@
 
 $(outdir)/%.dvi: %.ly
 	ly2dvi -o $(outdir)  $< 
+	-mv $(basename $<).midi $(outdir)
 

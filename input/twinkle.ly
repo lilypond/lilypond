@@ -15,7 +15,7 @@ copyright =	 "public domain";
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "0.1.10";
+\version "0.1.14";
 
 melody = \melodic{
 	\clef violin;
@@ -35,7 +35,7 @@ melody = \melodic{
 
 accompany = \melodic {
 	\clef "bass";
-	\octave 'c;
+	\octave c,;
 	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
@@ -55,15 +55,15 @@ global = \melodic {
 
 tekst = \lyric{ 
  	Al-4 tijd is Kort- jak- je ziek,2
-%	midden4 in_de week maar 's_zon- dags niet.2
+%	midden4 in_de week maar s,_zon- dags niet.2
 % ugly hack: insertion of  empty syllables creates columns on extra 
 % moments.  The net result is more spacing.
 %
-	midden8 _8 in_de8 _8 week4 maar 's_zon- dags niet.2
-	's_Zon-4 dags gaat ze naar de kerk,2
+	midden8 _8 in_de8 _8 week4 maar s,_zon- dags niet.2
+	s,_Zon-4 dags gaat ze naar de kerk,2
 	met4 een boek vol zil- ver werk.2
 	Al-4 tijd is Kort- jak- je ziek,2
-	midden8 _8  in_de8 _8 week4 maar 's_zon- dags niet.2
+	midden8 _8  in_de8 _8 week4 maar s,_zon- dags niet.2
 }
 
 %{
@@ -75,7 +75,7 @@ tekst. Mogen wij ook af en toe ergens op afgeven?
 hegedraagjetekst = \lyric{ 
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
-	's_Zon-4 dags gaat het door een raam,2
+	s,_Zon-4 dags gaat het door een raam,2
 	Weet4 dat ik me er- voor schaam.2
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2

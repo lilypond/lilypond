@@ -9,16 +9,16 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 timpani = \melodic{
 	\octave c;	
 	R1 *2 | c4-.\ff r r2 | R1 *3 |
 	c4-. r r2 | R1 *3 |
 	c4-. r r2 | r1 |
-	'g4-. r r2 | 'g4-. r r2 |
+	g,4-. r r2 | g,4-. r r2 |
 	R1 *5 |
-	r2 r4 'g4-. |
+	r2 r4 g,4-. |
 }
 
 $timpani_staff = \type Staff = timpani <

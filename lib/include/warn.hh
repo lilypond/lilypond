@@ -1,5 +1,5 @@
 /*
-  warn.hh -- declare 
+  warn.hh -- declare Error message functions
 
   source file of the LilyPond music typesetter
 
@@ -14,4 +14,5 @@
 
 void warning (String message_str  );
 void error (String message_str);
+void non_fatal_error (String);
 #endif // WARN_HH

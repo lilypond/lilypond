@@ -345,7 +345,7 @@ Spring_spacer::solve (Col_hpositions*positions) const
 	  WARN << _("solution doesn't satisfy constraints.\n") ;
 	}
       position_loose_cols (solution_vec);
-      positions->energy_f_ = calculate_energy_f (solution_vec) / energy_normalisation_f_;
+      positions->energy_f_ = calculate_energy_f (solution_vec);
       positions->config = solution_vec;
       positions->error_col_l_arr_ = error_pcol_l_arr();
     }
@@ -567,7 +567,7 @@ Spring_spacer::calc_idealspacing()
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
   Real interline_f = paper_l ()->interline_f ();
-  Real nw_f = paper_l ()->note_width ();
+
 
   Array<Real> ideal_arr_;
   Array<Real> hooke_arr_;
@@ -689,10 +689,6 @@ Spring_spacer::calc_idealspacing()
 		+ interline_f / 2;
 	      dist = dist >? minimum;
 	    }
-
-          // ugh: never let columns touch... try to set over here...
-	  // ugh: use j iso i triggers ice in gcc-2.7.2.3 
-          cols_[i].width_[LEFT] -= nw_f / 4;
 	  ideal_arr_[i] = dist;
 	}
     }

@@ -62,6 +62,7 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
+  // URG: share code with slur!
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
   Real notewidth = paper ()->note_width ();
@@ -132,6 +133,20 @@ Tie::do_post_processing()
 	}
     }
   while (flip(&d) != LEFT);
+
+  /*
+    Avoid too steep ties
+      * slur from notehead to stemend: c''()b''
+   */
+  Real damp_f = paper ()->get_var ("tie_slope_damping");
+  Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
+    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
+  d_off.x () += width ().length ();
+
+  Real ratio_f = abs (d_off.y () / d_off.x ());
+  if (ratio_f > damp_f)
+    dy_f_drul_[(Direction)(- dir_ * sign (d_off.y ()))] -=
+      dir_ * (damp_f - ratio_f) * d_off.x ();
 }
 
 void

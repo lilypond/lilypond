@@ -5,13 +5,13 @@ TestedFeatures =	 "This file tests Feta embedded slurs"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 shortlong = \melodic{
 	c4()c( c c  |
 	c c c c |
 	c c c c |
-	\break;
+	\break
 	c c c )c |
 }
 
@@ -22,9 +22,9 @@ dirs = \melodic {
 
 complex = \melodic{
 	\octave c';
-	'c16( 'e( 'g( 'b( d( f( a( c'())))))))c4 c4 |
+	c,16( e,( g,( b,( d( f( a( c'())))))))c4 c4 |
 	\octave c''';
-	'c16( a( f( d( 'b( 'g( 'e( 'c())))))))c4 c4 |
+	c,16( a( f( d( b,( g,( e,( c,())))))))c4 c4 |
 }
 
 over = \melodic{
@@ -56,24 +56,24 @@ under = \melodic{
 	\stemdown 
 	f'( \stemboth d d \stemdown )f'
 	f'( \stemboth c c \stemdown )f'
-	f'( \stemboth 'b 'b \stemdown )f'
-	f'( \stemboth 'a 'a \stemdown )f'
+	f'( \stemboth b, b, \stemdown )f'
+	f'( \stemboth a, a, \stemdown )f'
 	\stemdown
 	f'( a a )f'
 	f'( g g )f'
 	f'( f f )f'
-	f'( 'a 'a )f'
+	f'( a, a, )f'
 
 	\stemdown 
-	f'( \stemboth d 'b \stemdown )f'
-	f'( \stemboth 'b d \stemdown )f'
-	f'( \stemboth 'd 'b \stemdown )f'
-	f'( \stemboth 'b 'd \stemdown )f'
+	f'( \stemboth d b, \stemdown )f'
+	f'( \stemboth b, d \stemdown )f'
+	f'( \stemboth d, b, \stemdown )f'
+	f'( \stemboth b, d, \stemdown )f'
 	\stemdown
 	f'( f a )f'
 	f'( a f )f'
-	f'( f 'e )f'
-	f'( 'e f )f'
+	f'( f e, )f'
+	f'( e, f )f'
 }
 
 eccentric = \melodic{
@@ -96,9 +96,9 @@ tiltup = \melodic{
 	\stemup
 	e( c'' f )e'
 	\stemdown 
-	f'( \stemboth 'a 'a \stemdown )f''
+	f'( \stemboth a, a, \stemdown )f''
 	\stemdown
-	f'( 'a 'a )f''
+	f'( a, a, )f''
 }
 
 tiltdown = \melodic{
@@ -111,9 +111,9 @@ tiltdown = \melodic{
 	\stemup
 	e'( c'' f )e
 	\stemdown 
-	f''( \stemboth 'a 'a \stemdown )f'
+	f''( \stemboth a, a, \stemdown )f'
 	\stemdown
-	f''( 'a 'a )f'
+	f''( a, a, )f'
 }
 
 broken = \melodic{
@@ -126,8 +126,8 @@ broken = \melodic{
       a' a' a' a'()
       c( c c )c 
       c( c c )'f 
-      'f( c c )c 
-      'f( c c )'f
+      f,( c c )c 
+      f,( c c )'f
 }
 
 blend =	\melodic{
@@ -137,8 +137,8 @@ blend =	\melodic{
 	f'( c'' c'' )f'
 	e( c'' c'' )e
 	\stemdown
-	f'( \stemboth 'a 'a \stemdown )f'
-	f'( 'a 'a )f'
+	f'( \stemboth a, a, \stemdown )f'
+	f'( a, a, )f'
 
 	\stemboth
 	e( c'' c'' )e'
@@ -168,9 +168,9 @@ clipping = \melodic{
 	c( c''' c )c''
 	c''( c c''' )c
 	\stemdown
-	c( \stemup '''c '''c \stemdown )c
-	c( \stemup '''c c \stemdown )''c
-	''c( \stemup c '''c \stemdown )c
+	c( \stemup c,,, c,,, \stemdown )c
+	c( \stemup c,,, c \stemdown )''c
+	c,,( \stemup c c,,, \stemdown )c
 }
 
 \score{

@@ -5,17 +5,45 @@
 # Written by Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>
 #  Sat Nov 22 22:26:43 CET 1997
 #
+# $Id: ly2dvi.sh,v 1.13 1998/05/12 09:19:50 fred Exp $
+#
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.10"
+VERSION="0.11.hwn1"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
+# TODO:
+#  prevent orphaned "Lily is here" strings
+
 # NEWS
 
+#0.11.hwn1
+# - height vs heigth
+# - robustification: give \nonstopmode as LaTeX arg; no hanging if no TeX file.
+# - robustification: notice failed cp.
+
+#0.11
+#	- more papersizes (thanks Han-Wen) - don't expect LaTeX to accept all...
+#	- -W,--Width=       : set paper width  (points)
+#       - -H,--Height=      : set paper height (points)
+#	- -H and -W is used only when an unknown papersize is to be specified,
+#	  and has to be combined with a papersize option known to LaTeX
+#NB!	- -F,--headers=     : name of additional LaTeX headers input file.
+#NB!      Changed from -H to -F
+#	- -d,--dependencies : passed to lilypond
+
+
+#0.10.jcn1
+#	- HEIGHT -> HEIGHT
+#	- vertical margins (for a4), same on both sides
+#	- textheight from lilypond output file (mudelapapertextheight)
+#	- piece titling
+#	- mudelapiece, mudelaopus
+#
 #0.10
 #	- -K,--keeplilypond : Keep lilypond output files (default delete)
 #	- -k,--keeply2dvi   : Keep ly2dvi   output files (default delete)
@@ -24,10 +52,10 @@ echo "$IDENTIFICATION" 1>&2
 #	- Could not reinsert "\usepackage[T1]{fontenc}" because
 #	  "los-toros" won't work with it
 #	- Ekstra LaTeX headers from input file
-
 #0.9.hwn1
 #       - option to remove output of lily
-# 0.9	- Trap Lilypond abort
+# 0.9
+#	- Trap Lilypond abort
 #	- Replaced "\usepackage[T1]{fontenc}" with
 #	  \usepackage[latin1]{inputenc} (takk, Mats)
 #	- Removed "()" around "\LilyIdString" (Janne didn't want it)
@@ -40,7 +68,7 @@ echo "$IDENTIFICATION" 1>&2
 #	- Improved Lilypond error checking
 #	- Output orientation (landscape...). Overrides mudela file
 #	  variable orientation="landscape";
-#	- Paper width and heigth put into variables (only A4!)
+#	- Paper width and height put into variables (only A4!)
 #	- Adjusted top margin to default.....
 #
 #TODO
@@ -170,16 +198,19 @@ Usage: $0 [options] file[s]
 
 Options:
   -D,--debug           set debug mode
-  -H,--headers=        name of additional LaTeX headers file
+  -F,--headers=        name of additional LaTeX headers file
+  -H,--Height=         set paper height (points) (see manual page)
   -K,--keeplilypond    keep lilypond output files
   -L,--landscape       set landscape orientation
   -N,--nonumber        switch off page numbering
-  -O,--orientation=    set orientation (landscape or portrait (default))
-  -o,--output=         set output directory
+  -O,--orientation=    set orientation (obsolete - use -L instead) 
+  -W,--Width=          set paper width (points) (see manual page)
+  -d,--dependencies    tell lilypond make a dependencies file
   -h,--help            this help text
   -k,--keeply2dvi      keep ly2dvi output files
   -l,--language=       give LaTeX language (babel)
-  -p,--papersize=      give LaTeX papersize (eg. a4paper)
+  -o,--output=         set output directory
+  -p,--papersize=      give LaTeX papersize (eg. a4)
   -s,--separate        run all files separately through LaTeX
 
   files may be (a mix of) input to or output from lilypond(1)
@@ -198,10 +229,151 @@ then
   $debug_echo $IDENTIFICATION": temporary directory "$TMP" not found, set to /tmp"
   TMP=/tmp
 fi
-LOGFILE=$TMP/lilylog.$$			# Logfile for lilypond
-PWIDTH=600;				# Width of A4 paper!
-PHEIGTH=845;                            # Heigth of A4 paper!
+LOGFILE=$TMP/lilylog.$$	                # Logfile for lilypond
+PAPERSIZE=a4                            # Default papersize name
+PWIDTH=597                              # Default paperwidth
+PHEIGHT=845                             # Default paperheight
 PNUM="%"                                # Page numbering on
+LILYOPTS=""                             # Options to lilypond
+#
+setPaperZize() {
+case "$PAPERSIZE" in
+  a0*)
+    PWIDTH=2389
+    PHEIGHT=3381
+    PAPERSIZE=a0paper
+    ;;
+  a1|a1p*)
+    PWIDTH=1690
+    PHEIGHT=2389
+    PAPERSIZE=a1paper
+    ;;
+  a2*)
+    PWIDTH=1194
+    PHEIGHT=1690
+    PAPERSIZE=a2paper
+    ;;
+  a3*)
+    PWIDTH=845
+    PHEIGHT=1194
+    PAPERSIZE=a3paper
+    ;;
+  a4*)
+    PWIDTH=597
+    PHEIGHT=845
+    PAPERSIZE=a4paper
+    ;;
+  a5*)
+    PWIDTH=423
+    PHEIGHT=597
+    PAPERSIZE=a5paper
+    ;;
+  a6*)
+    PWIDTH=298
+    PHEIGHT=423
+    PAPERSIZE=a6paper
+    ;;
+  a7*)
+    PWIDTH=211
+    PHEIGHT=298
+    PAPERSIZE=a7paper
+    ;;
+  a8*)
+    PWIDTH=305
+    PHEIGHT=211
+    PAPERSIZE=a8paper
+    ;;
+  a9*)
+    PWIDTH=105
+    PHEIGHT=305
+    PAPERSIZE=a9paper
+    ;;
+  a10*)
+    PWIDTH=74
+    PHEIGHT=105
+    PAPERSIZE=a10paper
+    ;;
+  b0*)
+    PWIDTH=2847
+    PHEIGHT=4023
+    PAPERSIZE=b0paper
+    ;;
+  b1*)
+    PWIDTH=2012
+    PHEIGHT=2847
+    PAPERSIZE=b1paper
+    ;;
+  b2*)
+    PWIDTH=1423
+    PHEIGHT=2012
+    PAPERSIZE=b2paper
+    ;;
+  b3*)
+    PWIDTH=1006
+    PHEIGHT=1423
+    PAPERSIZE=b3paper
+    ;;
+  b4*)
+    PWIDTH=712
+    PHEIGHT=1006
+    PAPERSIZE=b4paper
+    ;;
+  b5*)
+    PWIDTH=503
+    PHEIGHT=712
+    PAPERSIZE=b5paper
+    ;;
+  archA)
+    PWIDTH=650
+    PHEIGHT=867
+    ;;
+  archB)
+    PWIDTH=867
+    PHEIGHT=1301
+    ;;
+  archC)
+    PWIDTH=1301
+    PHEIGHT=1734
+    ;;
+  archD)
+    PWIDTH=1734
+    PHEIGHT=2602
+    ;;
+  archE)
+    PWIDTH=2602
+    PHEIGHT=3469
+    ;;
+  flsa|flse)
+    PWIDTH=614
+    PHEIGHT=940
+    ;;
+  halfletter)
+    PWIDTH=397
+    PHEIGHT=614
+    ;;
+  ledger)
+    PWIDTH=1229
+    PHEIGHT=795
+    ;;
+  legal)
+    PWIDTH=614
+    PHEIGHT=1012
+    ;;
+  letter)
+    PWIDTH=614
+    PHEIGHT=795
+    ;;
+  note)
+    PWIDTH=542
+    PHEIGHT=723
+    ;;
+  *)
+    echo ""
+    echo $0": unknown papersize -- "$PAPERSIZE
+    echo ""
+    ;;
+esac
+}
 #
 # RC-files ?
 #
@@ -233,7 +405,7 @@ fi
 if [ -z "$MU_DEF" ]
 then
   MU_DEF="mudelatitle mudelasubtitle mudelacomposer \
-          mudelaarranger mudelainstrument"
+          mudelaopus mudelaarranger mudelapiece mudelainstrument"
 fi
 
 #
@@ -249,7 +421,7 @@ SEPFILE=N
 #
 # "x:" x takes argument
 #
-switches="DH:KLNO:hkl:o:p:s\?"
+switches="DF:H:KLNO:W:dhkl:o:p:s\?"
 options=""
 #
 # ugh, "\-" is a hack to support long options
@@ -264,8 +436,11 @@ do
       [ $debug_echo = echo ] && set -x
       debug_echo=echo
       ;;
-    H  )
+    F  )
       LATEXHF=$OPTARG
+      ;;
+    H  )
+      PHEIGHT=$OPTARG
       ;;
     K  )
       KEEP_LILY_OUTPUT=Y
@@ -278,6 +453,12 @@ do
       ;;
     N  )
       PNUM="\pagestyle{empty}"
+      ;;
+    W  )
+      PWIDTH=$OPTARG
+      ;;
+    d  )
+      LILYOPTS=$LILYOPTS" -d"
       ;;
     h  )
       help;
@@ -306,6 +487,15 @@ do
     -)
       $debug_echo "long option: \`$OPTARG'"
       case "$OPTARG" in
+        He*|-He*)
+          PHEIGHT=`echo $OPTARG | sed -e s/"^.*="//`
+          ;;
+        W*|-W*)
+          PWIDTH=`echo $OPTARG | sed -e s/"^.*="//`
+          ;;
+        dep*|-dep*)
+          LILYOPTS=$LILYOPTS" -d"
+          ;;
         d*|-d*)
           [ $debug_echo = echo ] && set -x
           debug_echo=echo
@@ -363,6 +553,31 @@ then
   exit 1
 fi
 #
+#
+mudelaDefs(){
+# Include \def\mudela-definitions
+#
+for L in $MU_DEF
+do
+  SS=$1
+  # LL=`egrep '^\\\\def.'$L'{' $OF`
+  LL=`egrep '^\\\\def.'$L'{' $File`
+  if [ "$LL" = "" ]
+  then
+    LL=`egrep '^\\\\def.'$L'{' $OF`
+  fi
+  if [ "$LL" != "" ]
+  then
+    ##{
+    LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
+    ##}{
+    if [ "$LLL" != "" ]
+    then
+      echo "$SS\\"$L'{'$LLL'}%'                                >> $LatF
+    fi
+  fi
+done
+}
 startFile(){
 #
 # LaTeX file name
@@ -387,6 +602,7 @@ eval `sed -n \\
   -e 's/\\\\def\\\\mudelalatexheaders{\([^}]*\).*$/fLHF=\1;/p' \\
   -e 's/\\\\def\\\\mudelaorientation{\([^}]*\).*$/fORI=\1;/p' \\
   -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
+  -e 's/\\\\def\\\\mudelapapertextheight{\([^}]*\).*$/THN=\1;/p' \\
   -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
     $File`
 #
@@ -406,6 +622,7 @@ then
 fi
 if [ -n "$PAPERSIZE" ]
 then
+  setPaperZize
   PAPEROPT=$PAPERSIZE
 fi
 #
@@ -460,12 +677,38 @@ then
 fi
 TWp=`echo $TW | sed -e 's/\..*$//'`
 PWp=$PWIDTH
+#
+# Find textheight
+#
+if [ -n "$THN" ]
+then
+  TH=$THN
+  case $TH in
+    *mm)
+      ;;
+    *cm)
+      ;;
+    *pt)
+      ;;
+    *)
+      TH=$TH"pt"
+      ;;
+  esac
+  $debug_echo "Text height = "$TH
+fi
+THp=`echo $TH | sed -e 's/\..*$//'`
+PHp=$PHEIGHT
 if [ "$ORIENTATION" = "landscape" ]
 then
-  PWp=$PHEIGTH
+  PWp=$PHEIGHT
+  PHp=$PWIDTH
 fi
-MARG=`expr $PWp - $TWp`
-MARG=`expr $MARG / 2`"pt"
+HMARG=`expr $PWp - $TWp`
+HMARG=`expr $HMARG / 2`"pt"
+$debug_echo "Text left = "$HMARG
+VMARG=`expr $PHp - $THp`
+VMARG=`expr $VMARG / 2`"pt"
+$debug_echo "Text top = "$VMARG
 #
 # Geometry: /var/lib/texmf/latex/geometry/geometry.dvi
 #
@@ -477,7 +720,7 @@ cat << EOF > $LatF
 % Automatically generated from  $IF, $NOW
 
 \documentclass$PAPER{article}
-\nonstopmode
+
 $LLNG
 \usepackage{geometry}
 \usepackage[latin1]{inputenc}
@@ -485,32 +728,33 @@ $LLNG
 $PNUM
 %\addtolength{\oddsidemargin}{-1cm}
 %\addtolength{\topmargin}{-1cm}
-\setlength{\textwidth}{$TW}
-%\geometry{width=$TW, left=$MARG, top=1cm}
-\geometry{width=$TW, left=$MARG}
+%\setlength{\textwidth}{$TW}
+%\setlength{\textheight}{$TH}
+%\geometry{width=$TW, left=$HMARG, top=1cm}
+%\geometry{width=$TW, left=$HMARG}
+%\geometry{height=$TH, top=$VMARG}
+% \geometry{body={$PWp pt, $PHp pt}, width=$TW, top=$HMARG, height=$TH, top=$VMARG}
+\geometry{width=$TW, top=$HMARG, height=$TH, top=$VMARG}
 \input lilyponddefs
 \input titledefs
 $LLHF
 \begin{document}
 EOF
-#
-# Include \def\mudela-definitions
-#
-for L in $MU_DEF
-do
-  LL=`egrep '^\\\\def.'$L'{' $OF`
-  if [ "$LL" != "" ]
-  then
-    LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
-    if [ "$LLL" != "" ]
-    then
-      echo "\\"$L'{'$LLL'}%'                                >> $LatF
-    fi
-  fi
-done
-#
+mudelaDefs
 cat << EOF >> $LatF
 \makelilytitle
+EOF
+}
+nextFile(){
+cat << EOF >> $LatF
+\def\theopus{}%
+\def\thepiece{}%
+EOF
+mudelaDefs "\\def"
+cat << EOF >> $LatF
+\def\theopus{\mudelaopus}% ugh
+\def\thepiece{\mudelapiece}%
+\makelilypiecetitle
 EOF
 }
 #
@@ -524,7 +768,7 @@ EOF
 #
 # Run LaTeX
 #
-latex $LatF || exit 5
+latex '\nonstopmode \input '$LatF || exit 5
 #
 # Rename dvi file
 #
@@ -532,7 +776,9 @@ if [ -f $FN.dvi ]
 then
     RESULT=$BN.dvi
     [ -n "$OUTPUTDIR" ] && RESULT="$OUTPUTDIR/$RESULT"
-    cp $FN.dvi $RESULT
+    
+    cp $FN.dvi $RESULT || exit 5
+
 fi
 #
 # Output some info
@@ -599,10 +845,12 @@ do
       then
         $debug_echo $IDENTIFICATION": Mudela file not found."
         TW=15.5cm
+        TH=25cm
       fi
     else
       $debug_echo $IDENTIFICATION": Mudela file name not found."
       TW=15.5cm
+      TH=25cm
     fi
   else
     #
@@ -614,9 +862,9 @@ do
     # Run lilypond
     # Grab output file names
     #
-    $debug_echo "lilypond "$IF
+    $debug_echo "lilypond "$LILYOPTS $IF
 
-    lilypond $IF 2>&1  | tee $LOGFILE
+    lilypond $LILYOPTS $IF 2>&1  | tee $LOGFILE
     OF=`egrep '^TeX output to ' $LOGFILE | \\
         sed -e 's/TeX output to//' -e 's/\.\.\.//'`
     $debug_echo "==> "$OF
@@ -648,6 +896,8 @@ do
     then
       FFile=$File
       startFile
+    else
+      nextFile
     fi
     cat << EOF >> $LatF
 \input{$File}

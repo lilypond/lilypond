@@ -53,8 +53,10 @@ Score::run_translator (Music_output_def *odef_l)
   Cpu_timer timer;
   Global_translator * trans_p = odef_l->get_global_translator_p();
   if (!trans_p)
-    return ;
-
+    {
+      non_fatal_error ("No toplevel translator.");
+      return ;
+    }
   *mlog << _("\nInterpreting music ...");
   trans_p->last_mom_ = music_p_->time_int().max ();
 

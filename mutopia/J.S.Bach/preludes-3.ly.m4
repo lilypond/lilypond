@@ -2,6 +2,7 @@
 filename =	 "preludes-3.ly";
 title =	 "3";
 opus = 	"BWV 999";
+piece = "\\numfont 3";
 % Pr"aludum in C Moll f"ur Laute
 % blz 16
 % Six Petits Pr'eludes

@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 %}
 
 \include "paper16.ly"
-\version "0.1.10";
+\version "0.1.14";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -36,16 +36,16 @@ melodie = \melodic{
 	\key bes;
 	\octave c';
 	\duration 8;
-	r \pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
+	r \pp < [ d a,-| > f-| < d a,-| > f-| < d a,-| ] > |
 %%2
-	r < [ d 'bes-| > f-| < d 'bes-| > f-| < d 'bes-| ] > |
+	r < [ d bes,-| > f-| < d bes,-| > f-| < d bes,-| ] > |
 %%3
 	\textstyle "italic";
-	r_"simile" < [ d 'bes > e < d 'bes > e < d 'bes ] >|
+	r_"simile" < [ d bes, > e < d bes, > e < d bes, ] >|
 	\textstyle "roman";
 	
 %%4
-	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
+	r < [ a, cis > e < a, cis > e < a, cis ] > |
 %%5
 	[2/3 a() bes a ]1/1 d'4. a |
 %%6
@@ -190,154 +190,154 @@ begeleiding = \melodic{
 	\key bes;
 	\octave c';
 	\duration 2;
-	'd r4 |
+	d, r4 |
 %%2
-	''bes r4 |
+	bes,, r4 |
 
 %%3
-	''g r4 |
+	g,, r4 |
 
 %%4
-	''a r4 |
+	a,, r4 |
 %%5
 \duration 8;
  	\multi 2 < { \stemup	
-		[ 'f 'a d 'a d 'a ] 
-		[ 'd 'e 'g 'e 'g 'e ] 
-		[ 'cis 'e 'g 'e 'g 'e ]
-		[ 'd 'a d 'a d 'a ]
+		[ f, a, d a, d a, ] 
+		[ d, e, g, e, g, e, ] 
+		[ cis, e, g, e, g, e, ]
+		[ d, a, d a, d a, ]
 		}
 	{ \stemdown 
-		'd2 r4 
-		 ''bes2 r4 
-		 ''a2 r4
-		'd2 r4
+		d,2 r4 
+		 bes,,2 r4 
+		 a,,2 r4
+		d,2 r4
 	} >
 %%9
 	\stemboth
-	[ 'a e g e g e ] |
+	[ a, e g e g e ] |
 %%10
-	[ 'd 'a d 'a d 'a ] |
+	[ d, a, d a, d a, ] |
 %%11
 	\multi 2 < 	
 	{ \stemup
-		[ 'f 'a d 'a d 'a ]
-		[ 'd 'e 'g 'e 'g 'e ] 
-		[ 'e 'g 'bes 'g 'bes 'g ] 
-		[ 'a c f c f c ]
+		[ f, a, d a, d a, ]
+		[ d, e, g, e, g, e, ] 
+		[ e, g, bes, g, bes, g, ] 
+		[ a, c f c f c ]
 	} { \stemdown 
-		'd2 r4 
-		 ''bes2 r4
-		 'c2 r4 
-		 'f2 r4 } 
+		d,2 r4 
+		 bes,,2 r4
+		 c,2 r4 
+		 f,2 r4 } 
 	>
 %%15
 	\stemboth
-	[ 'c 'g 'bes 'g 'bes 'g ] |
+	[ c, g, bes, g, bes, g, ] |
 %%16
-	[ ''f 'c 'f 'c 'f 'c ] |
+	[ f,, c, f, c, f, c, ] |
 	\multi 2 <
 	{ \stemup 
-		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
-		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
+		[ a,, e, g, e, g, e, ][ d, a, d a, d a, ]
+		[ bes,, f, bes, f, bes, f, ][ f,, c, f, c, f, c, ] }
 	{ \stemdown 
-		''a2 r4
-		'd2 r4 
-		''bes2 r4 
-		''f2 r4 
+		a,,2 r4
+		d,2 r4 
+		bes,,2 r4 
+		f,,2 r4 
 	} > 
 %%21
 	\stemboth
-	< [ 'e 'c > 'g c 'g c 'g ] |
+	< [ e, c, > g, c g, c g, ] |
 %%22
-	[ 'f 'a c 'a 'f 'c ] |
+	[ f, a, c a, f, c, ] |
 	\multi 2 < {
 		\stemup
-		[ ''a 'e 'g 'e 'g 'e ] 
-		[ 'd 'fis 'a 'fis 'a 'fis ] 
-		[ ''g 'd 'b 'd 'b 'd ] 
-		[ 'd 'a d 'a d 'a ] 
+		[ a,, e, g, e, g, e, ] 
+		[ d, fis, a, fis, a, fis, ] 
+		[ g,, d, b, d, b, d, ] 
+		[ d, a, d a, d a, ] 
 	}
 	{\stemdown
-		''a2 r4 
-		'd2 r4 
-		''g2 r4 
-		'd2 r4 
+		a,,2 r4 
+		d,2 r4 
+		g,,2 r4 
+		d,2 r4 
 	}
 	>
 	\stemboth
-	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
+	< [ cis, a,, > e, a, e, a, e, ] |
 %%28
-	[ 'd 'a d 'a d 'a ] |
+	[ d, a, d a, d a, ] |
 %%29
-	[ 'd 'g 'bes 'g 'bes 'g ] |
+	[ d, g, bes, g, bes, g, ] |
 %#%\volta1
 %%30 
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %%31
-	[ ''a 'e 'a 'e 'a 'e ] |
+	[ a,, e, a, e, a, e, ] |
 %%32
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %%33
-	[ 'd 'g 'b 'g 'b 'g ] |
+	[ d, g, b, g, b, g, ] |
 %%34
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %%35
-	[ ''a 'e 'a 'e 'a 'e ] |
+	[ a,, e, a, e, a, e, ] |
 %%36
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %#%\volta2
 %%37
-	[ ''a 'e 'g 'e ''bes^> 'e ] |
+	[ a,, e, g, e, bes,,^> e, ] |
 %%38
-	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] > |
+	[ a,, < e cis a, > < e cis a, > < e cis a, > < e cis a, > < e cis a, ] > |
 %%39
-	[ ''a 'e 'g 'e ''bes^> 'e ] |
+	[ a,, e, g, e, bes,,^> e, ] |
 %%40
-	[ ''a < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a > < e cis 'a ] > |
+	[ a,, < e cis a, > < e cis a, > < e cis a, > < e cis a, > < e cis a, ] > |
 %%41
-	[ ''ais 'e 'fis 'e 'fis 'e ] |
+	[ ais,, e, fis, e, fis, e, ] |
 %%42
-	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
+	< [ d, b,, > fis, b, fis, b, fis, ] |
 %%43
-	< [ 'e ''b > 'g 'b 'g 'b 'g ] |
+	< [ e, b,, > g, b, g, b, g, ] |
 %%44
-	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
+	< [ d, b,, > fis, b, fis, b, fis, ] |
 %%45
 	\multi 2 < { \stemup 
-		[ ''g 'd 'b 'd 'b 'd ] 
-		[ 'd 'a d 'a d 'a ] 
+		[ g,, d, b, d, b, d, ] 
+		[ d, a, d a, d a, ] 
 	} {
 		\stemdown
-		''g2 r4
-		'd2 r4 
+		g,,2 r4
+		d,2 r4 
 	} >
 
 %%47
 	\stemboth
-	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
+	< [ cis, a,, > e, a, e, a, e, ] |
 %%48
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %%49
-	[ 'd 'a d 'a d 'a ] |
+	[ d, a, d a, d a, ] |
 %%50
- 	[ ''g 'e 'g 'e 'g 'e ] |
+ 	[ g,, e, g, e, g, e, ] |
 %%51
-	[ ''a 'e 'g 'e 'g 'e ] |
+	[ a,, e, g, e, g, e, ] |
 %%52
-	[ ''d 'd 'fis 'd 'fis 'd ] |
+	[ d,, d, fis, d, fis, d, ] |
 %%53
-	[ 'd 'g 'bes 'g 'bes 'g ] |
+	[ d, g, bes, g, bes, g, ] |
 %%54
-	[ 'd 'fis 'a 'fis 'a 'fis ] |
+	[ d, fis, a, fis, a, fis, ] |
 %%55
-	[ ''a 'e 'g 'e 'g 'e ] |
+	[ a,, e, g, e, g, e, ] |
 %%56
-	[ ''d ''a 'd ''a 'd ''a ] |
+	[ d,, a,, d, a,, d, a,, ] |
 %%57
-	[ ''d ''a 'd ''a 'd ''a ]
+	[ d,, a,, d, a,, d, a,, ]
 %%58
-	< 'd2.^\fermata ''d2. > |
+	< d,2.^\fermata d,,2. > |
  }
 
 

@@ -8,6 +8,7 @@
 
 #include "proto.hh"
 #include "string.hh"
+#include "interval.hh"
 
 class istream;
 
@@ -28,7 +29,13 @@ public:
   int length_i () const;
   virtual int line_i (char const* pos_ch_c_l ) const;
   String name_str () const;
-  String file_line_no_str (char const* ch_c_l ) const;
+  String file_line_column_str (char const* ch_c_l ) const;
+
+protected:
+  Slice line_slice (char const* pos_ch_C) const;
+  String line_str (char const* pos_ch_C) const;
+  int column_i (char const* pos_ch_C) const;
+  int position_i (char const* pos_ch_C) const;
 
 private:
   String name_str_;
@@ -37,3 +44,4 @@ private:
 };
 
 #endif // SOURCE_FILE_HH //
+

@@ -1,6 +1,6 @@
 
 
-ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
+ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly$(DOTTEXT), $(examples)))
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(examples)))
 gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(examples)))
 

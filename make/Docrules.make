@@ -1,7 +1,7 @@
 # special rules for the documentation section.
 # There are too many to add to the general rules
 
-.SUFFIXES: .pod .txt .1  .html
+.SUFFIXES: .pod .1 $(DOTTEXT) .html
 
 pod2html=pod2html
 pod2groff=pod2man --center="LilyPond documentation" --section="0"\
@@ -17,12 +17,16 @@ $(outdir)/%.dvi: $(outdir)/%.mudtex
 $(outdir)/%.mudtex: %.doc
 	$(depth)/bin/out/mudela-book  --outdir=$(outdir)/ --outname=$(notdir $@) $<
 
-$(outdir)/%.txt: $(outdir)/%.1
+$(outdir)/%$(DOTTEXT): $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
 
-$(depth)/%.txt: $(outdir)/%.txt
+#$(depth)/%$(DOTTEXT): $(outdir)/%$(DOTTEXT)
+# urg
+# $(depth)/%$(DOTTEXT): out/%$(DOTTEXT)
+#	cp $< $@
+# huh?
+$(outdir)/%$(DOTTEXT): $(depth)/%
 	cp $< $@
-
 
 #  perl 5.003/4
 POD2HTML5004=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@

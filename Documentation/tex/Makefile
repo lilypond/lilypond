@@ -11,8 +11,11 @@ EXTRA_DISTFILES= $(BIBFILES) $(DOCFILES)
 
 dvi: $(DVIFILES)
 
-local-WWW: $(OUTDOCFILES:.doc=.ps.gz) $(addprefix $(outdir)/, $(BIBFILES))
-	ls-latex --title 'LaTeX documents about LilyPond' --extension .ps.gz $(BIBFILES) $(DOCFILES) > $(outdir)/index.html
+local-WWW: $(OUTDOCFILES:.doc=.ps.gz) $(addprefix $(outdir)/, $(BIBFILES:.bib=.html))
+	ls-latex --title 'LaTeX documents about LilyPond' $(BIBFILES) $(DOCFILES) > $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
-	ln $< $@
+	ln -f $< $@
+
+$(outdir)/%.html: %.bib
+	bib2html $< $@

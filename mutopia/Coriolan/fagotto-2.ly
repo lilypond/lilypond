@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.10";
+\version "0.1.14";
 
 fagotto2 = \melodic{
 	\octave c;	
@@ -20,6 +20,6 @@ fagotto2 = \melodic{
 	fis4-. r r2 | r1 |
 	g4-. r r2 | g4-. r r2 |
 	R1 *5 |
-	r2 r4 'g4-. |
+	r2 r4 g,4-. |
 }
 

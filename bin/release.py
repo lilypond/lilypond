@@ -35,7 +35,7 @@ os.link(released_tarball(cur_ver), tarball(cur_ver))
 os.system('python ' + lilydirs.topdir + '/bin/make-patch.py');
 
 pn = 'patch-%s' % version_tuple_to_str(cur_ver)
-os.system('gzip -9 ' + pn)
+# os.system('gzip -9 ' + pn)
 pn = pn + '.gz'
 rel_pn = lilydirs.release_dir + '../patches/' + pn;
 
