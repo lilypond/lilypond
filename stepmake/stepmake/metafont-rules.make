@@ -30,7 +30,7 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 
 $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
-	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg --simplify $(basename $(@F))
+	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
 	mv $(basename $(@F)).{pfa,pfb,svg} $(outdir)
 
 #%.afm:
