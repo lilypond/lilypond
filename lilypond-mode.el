@@ -534,7 +534,7 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map "\C-x\C-t" 'LilyPond-autocompletion)
+  (define-key LilyPond-mode-map [(shift control c)] 'LilyPond-autocompletion)
   )
 
 ;;; Menu Support
@@ -639,28 +639,40 @@ command."
 (defun LilyPond-autocompletion ()
   "Show completions in mini-buffer for the given word."
   (interactive)
-  (setq fn (LilyPond-words-filename))
-  (setq b (find-file-noselect fn))
-  (setq m (set-marker (make-marker) 1 (get-buffer b)))
   (defun add-dictionary-word (x)
     (nconc '(("" . 1)) x))
-  (setq i 1)
-  (while (> (buffer-size b) (marker-position m))
-    (setq i (+ i 1))
-    (setq copy (copy-alist (list (eval (symbol-name (read m))))))
-    (setcdr copy i)
-    (add-dictionary-word (list copy))
-    )
+  (if (eq (length (add-dictionary-word ())) 1) ; does not recreate the dict
+    (progn
+      (setq fn (LilyPond-words-filename))
+      (setq b (find-file-noselect fn t t))
+      (setq m (set-marker (make-marker) 1 (get-buffer b)))
+      (setq i 1)
+      (while (> (buffer-size b) (marker-position m))
+	(setq i (+ i 1))
+	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
+	(setcdr copy i)
+	(add-dictionary-word (list copy))
+	)
+      (kill-buffer b)))
+  (setq i 0)
+  (setq beg "")
   (setq ch (preceding-char))
-;  (if (or (and (>= ch 65) (<= ch 90)) 
-;	  (and (>= ch 97) (<= ch 122))) ; A-Z,a-z
-;      (message "yes") (message "no"))
-  (setq co (all-completions (char-to-string ch) (add-dictionary-word ())))
-  (while (> (length co) 0)
-    (message (car co)) 
-    (sit-for 0 500 1)
-    (setq co (cdr co))))
-
+  (while (or (and (>= ch 65) (<= ch 90)) 
+	     (and (>= ch 97) (<= ch 122))) ; add [A-Z,a-z] until non-alpha
+    (setq beg (concat (char-to-string ch) beg))
+    (setq i (+ i 1))
+    (setq ch (char-before (- (point) i)))
+   )
+  (if (> i 0)
+      (progn
+	(setq co (all-completions beg (add-dictionary-word ())))
+	; the completions are known already co, currently only show them
+	; later, one of them could be interactively added
+	(while (> (length co) 0)
+	  (sit-for 0 500 1)
+	  (message (car co)) 
+	  (setq co (cdr co))))))
+  
 (defun LilyPond-insert-string (pre)
   "Insert text to the buffer."
   (interactive)
