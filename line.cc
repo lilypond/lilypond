@@ -39,7 +39,7 @@ Line_of_staff::TeXstring() const
 		    s += sc->TeXstring();
 	}
     }
-    s+="\\hss}}";
+    s+="\\hss}\\vss}";
     return s;
 }
 
@@ -47,8 +47,11 @@ String
 Line_of_score::TeXstring() const
 {
      String s("\\vbox{");
-     for (PCursor<Line_of_staff*> sc(staffs); sc.ok(); sc++)
+     for (PCursor<Line_of_staff*> sc(staffs); sc.ok(); sc++){
 	 s += sc->TeXstring();
+	 if ((sc+1).ok())
+	     s+= "\\interstaffline\n";
+     }
      s += "}";
      return s;
 }

@@ -9,10 +9,6 @@
 
 	* Restricted cursor/list: make sublist from a list, and use rcursor as if list is as big as the sublist.
 
-	* Cursor signedcompare
-
-	* int Cursor::op-(Cursor)
-
 	* move towards gnu?
 
 		parsestream.h

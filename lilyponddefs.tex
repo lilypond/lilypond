@@ -2,17 +2,26 @@
 
 \def\musixtwentydefs{
 	\font\musicfnt=musix20
+
 %	\hulplijnbreedte5pt
 	%\hlijnhoogte1pt
 	%\balkskip4pt
+}
+\def\interstaffline{
+%	\vskip 20pt%
+}
+\def\interscoreline{
+	\par\vskip 10pt\par
+	\hrule height 2pt width2cm
+	\vskip 10pt
 }
 \musixtwentydefs
 \def\mdef#1#2{\def#1{{\musicfnt\char#2}}}
 \mdef\quartball{'007}
 \mdef\halfball{'010}
 \mdef\wholeball{'011}
-\mdef\wholerest{'074}
-\mdef\halfrest{'072}
+\mdef\wholerest{'075}
+\mdef\halfrest{'074}
 \mdef\quartrest{'076}
 \mdef\eighthrest{'077}
 \mdef\sixteenthrest{'078}
@@ -23,7 +32,11 @@
 \mdef\singledot{'00}
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
-\def\maatstreep{\vrule height10pt width 1pt}
+\def\maatstreep{\vrule height10pt }
+\def\finishbar{\vrule height10pt width 1pt}
 \parindent0pt
 
+\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+
+\def\cquartrest{\vcenter\quartrest}
 

@@ -12,7 +12,7 @@ struct Tex_stream {
     
     /// open a file for writing
     Tex_stream(String filename);
-    
+    void header();
     /// delegate conversion to string class.
     Tex_stream &operator<<(String);
 

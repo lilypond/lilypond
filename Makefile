@@ -1,6 +1,6 @@
 MAJVER=0
 MINVER=0
-PATCHLEVEL=2
+PATCHLEVEL=3
 
 # 
 #
@@ -9,7 +9,7 @@ include Sources.make
 progdocs=$(hdr) $(mycc)
 gencc=parser.cc lexer.cc
 cc=$(mycc) $(gencc)
-obs=$(cc:.cc=.o)
+obs=$(cc:.cc=.o) 
 
 
 #dist
@@ -20,27 +20,28 @@ PACKAGENAME=lilypond
 DNAME=$(PACKAGENAME)-$(VERSION)
 othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch
-IFILES= symbol.ini suzan.ly  lilyponddefs.tex test.tex .dstreamrc
+IFILES=dimen.tex symbol.ini suzan.ly maartje.ly  lilyponddefs.tex test.tex .dstreamrc
 OFILES=Makefile Sources.make depend 
-DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS)
+DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS) COPYING
 
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower
 FLOWERDIR=../flower
-CXXFLAGS=-I$(FLOWERDIR) -pipe -Wall -g
+#DEFINES=-DNDEBUG
+CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -g
 
 exe=$(PACKAGENAME)
 
-
+##################################################################
 
 $(exe): $(obs)
-	$(CXX) -o $(exe) $(obs) $(LOADLIBES)
+	$(CXX) -o $@ $(obs) $(LOADLIBES)
 clean:
-	rm -f $(exe) *.o $(DOCDIR)/* core
+	rm -f $(exe) *.o $(DOCDIR)/* core  
 
-realclean: clean
-	rm -f TAGS depend
-	
+distclean: clean
+	rm -f TAGS depend version.hh $(gencc) .GENERATE *~
+
 all: kompijl doc
 
 # doc++ documentation of classes
@@ -48,11 +49,15 @@ doc:
 	-mkdir $(DOCDIR)
 	doc++ -p -I -d $(DOCDIR) $(progdocs)
 
-back:
-	zip -u ~/backs/spacer *cc *hh
+depend: Sources.make  .GENERATE
+	$(CXX) $(CXXFLAGS) -MM $(cc) > $@
 
-depend: Sources.make 
-	$(CXX) $(CXXFLAGS) -MM $(cc) > depend
+# hack to create these sources once, before the dependencies
+.GENERATE:
+	touch .GENERATE depend
+	$(MAKE) version.hh
+	$(MAKE) $(gencc)
+	rm -f depend
 
 include depend
 
@@ -66,18 +71,20 @@ parser.hh: parser.cc
 version.o: $(obs) version.hh
 
 version.hh: Makefile make_version
-	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > version.hh
+	make_version $(MAJVER) $(MINVER) $(PATCHLEVEL)  > $@
 
 lexer.cc: lexer.l
-	flex -+ -t lexer.l > lexer.cc
+	flex -+ -t $< > $@
 
 DDIR=$(DNAME)
 dist:
 	-mkdir $(DDIR)
 	ln $(DFILES) $(DDIR)/
-	tar cfz $(DNAME).tar.gz $(DDIR)/*
+	tar cfz $(DNAME).tar.gz $(DDIR)/
 	rm -rf $(DDIR)/
 
 
 TAGS: $(mycc) $(hdr) Sources.make
 	etags -CT $(mycc) $(hdr) 
+
+

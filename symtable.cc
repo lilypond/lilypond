@@ -6,6 +6,20 @@
 #include "symtable.hh"
 #include "const.hh"
 
+static Symbol unknown;
+
+
+// scary! What if Symtable resizes on the fly...?
+const Symbol *
+Symtable::lookup(String s) const
+{
+    if (elt_query(s))
+	return &(*this)[s];
+    else {
+	WARN<<"Unknown symbol " << s <<'\n';
+	return &unknown;
+    }
+}
 
 Symtable* 
 Symtables::operator()(String s) 
@@ -53,25 +67,22 @@ Symtables the_sym_tables("symbol.ini");
 
 
 const Symbol*
-Symbol::find_ball(int i)
+Symbol::find_ball(int j)
 {
-    int j = intlog2(i)+1;
     if (j > 4) j = 4;
     Symtable * st = the_sym_tables("balls");
-    return &(*st)[String(j)];
-
+    return st->lookup(String(j));
 }
 
 const Symbol*
-Symbol::find_rest(int i)
+Symbol::find_rest(int j)
 {
-    int j = intlog2(i)+1;
-    return &(*the_sym_tables("rests"))[String(j)];
+    return the_sym_tables("rests")->lookup(String(j));
 }
 const Symbol*
 Symbol::find_bar(String s)
 {
-    return &(*the_sym_tables("bars"))[s];  
+    return the_sym_tables("bars")->lookup(s);
 }
 /****************************************************************/
 // bare bones.

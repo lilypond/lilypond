@@ -4,5 +4,5 @@
 int intlog2(int d);    
 Real duration_to_idealspace(Mtime d);
 class String;
-char *get_version();
+const char *get_version();
 #endif

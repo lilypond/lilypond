@@ -1,18 +1,11 @@
 #include "debug.hh"
 #include "dstream.hh"
-int debug_flags;
+#include "vector.hh"
+
+Dstream monitor(&cout,".dstreamrc");
 
 void
-set_debug(String s)
+debug_init()
 {
-    if (s.pos ('t')) {
-	debug_flags |= DEBUGTOKEN;
-	mtor << " Turning on token debug\n";
-    }
-    if (s.pos ('p')){
-	debug_flags |= DEBUGPARSER;
-	mtor << "Turning on parser debugger\n";
-    }
-}
-
-Dstream monitor(cout,".dstreamrc");
+    set_matrix_debug(monitor);
+}   

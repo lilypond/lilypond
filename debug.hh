@@ -6,7 +6,7 @@
 
 
 
-#define WARN warnout << "warning: "<<__FUNCTION__ << ": "
+#define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
 extern ostream &warnout ;
 extern ostream *mlog;  
 extern Dstream monitor; // monitor

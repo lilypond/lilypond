@@ -23,6 +23,7 @@ const int DOTPRINT=50; // every 50 lines dots
 %option debug
 %x notes
 %x incl
+%x quote
 
 OPTSIGN		!?
 NOTENAMEI       A|B|C|D|E|F|G|As|Bes|Ces|Des|Es|Fes|Ges|Ais|Bis|Cis|Dis|Eis|Fis|Gis
@@ -46,16 +47,14 @@ REAL		[0-9]+(\.[0-9]*)?
 
 <notes>{RESTNAME} 	{
 	const char *s = YYText();
-	yylval.string = new String (s);
-  	if (debug_flags & DEBUGTOKEN)
-		mtor << "rest:"<< yylval.string;
+	yylval.string = new String (s);	
+	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
 <notes>{PITCH}	{
 	const char *s = YYText();
 	yylval.string = new String (s);
-	if (debug_flags & DEBUGTOKEN)
-		mtor << "pitch:"<< yylval.string;
+	mtor << "pitch:"<< *yylval.string;
 	return PITCH;
 }
 <notes>{DURATION}	{
@@ -73,9 +72,20 @@ REAL		[0-9]+(\.[0-9]*)?
 	BEGIN(INITIAL); return '$';
 }
 <notes>.	{
-         cout << "SCANNER <notes> HOLE `" << YYText()<<'\''<<endl; 
-         return YYText()[0];
+	error("lexer error: illegal character found: " + String(YYText()));
 }
+
+\"		{
+	BEGIN(quote);
+}
+<quote>[^\"]*	{
+	yylval.string = new String (YYText());
+}
+<quote>\"	{
+	BEGIN(INITIAL);
+	return STRING;
+}
+
 <<EOF>> {
 	if(!close_input())
 		yyterminate();
@@ -91,14 +101,16 @@ REAL		[0-9]+(\.[0-9]*)?
 
 {REAL}		{
 	Real r;
-	sscanf (YYText(), "%lf", &r);
+	int cnv=sscanf (YYText(), "%lf", &r);
+	assert(cnv == 1);
+	mtor  << "token (REAL)" << r;
 	yylval.real = r;
 	return REAL;
 }
 
 [\{\}\[\]\(\)]	{
-    	if (debug_flags & DEBUGTOKEN)
-	    cout << "parens\n";
+
+	mtor << "parens\n";
 	return YYText()[0];
 }
 [ \t\n]+	{
@@ -136,7 +148,7 @@ new_input(String s)
 
    if (!lexer) {
        lexer = new yyFlexLexer;
-       lexer->set_debug( bool(debug_flags & DEBUGPARSER));
+       lexer->set_debug( !monitor.silence("Lexer"));
    }		
    
    lexer->switch_streams(newin);

@@ -1,7 +1,19 @@
 #!/bin/sh
 old=$1
 new=$2
-nm=$3
+nm=$3-
+newarc=$nm$new.tar.gz
+oldarc=$nm$old.tar.gz
+if [ ! -f $newarc ]
+then
+	echo cant find $newarc
+	exit
+fi
+if [ ! -f $oldarc ]
+then
+	echo cant find oldarc
+	exit
+fi
 if [ ! -x  $nm$new ]
 then
    echo untarring ..

@@ -1,11 +1,11 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
-//#include "mudobs.hh"
+
 #include "lexer.hh"
 #include "staff.hh"
 #include "score.hh"
+#include "main.hh"
 #include "keyword.hh"
-#include "globvars.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
 #define YYDEBUG 1
@@ -27,12 +27,13 @@
     Score *score;    
 }
 
-%token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME
+%token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
+
 
 %token <id> IDENTIFIER
 %token <string> PITCH DURATION RESTNAME
 %token <real> REAL
-
+%token <string> STRING
 
 %type <voice> voice_block voice_body voice_elts voice_elts_dollar
 %type <el> voice_elt
@@ -42,10 +43,9 @@
 
 %%
 
-mudela:
-	score_block { 
-		delete the_score; 
-		the_score = $1;
+mudela:	/* empty */
+	| score_block { 
+		add_score($1);
 	}
 	;
 
@@ -56,6 +56,9 @@ score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
 score_body:		{ $$ = new Score; } 
 	| score_body staff_block	{ $$->add($2); }
 	| score_body score_command	{ $$->add($2); }
+	| score_body OUTPUT STRING	{ $$->outfile = *$3;
+		delete $3;
+	}
 	;
 
 staff_block:
@@ -115,7 +118,7 @@ void
 parse_file(String s)
 {
    *mlog << "Parsing ... ";
-   yydebug = debug_flags & DEBUGPARSER;
+   yydebug = !monitor.silence("Parser");
    new_input(s);
    yyparse();
 }

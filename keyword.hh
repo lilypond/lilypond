@@ -13,5 +13,11 @@ struct Keyword_table
     int     lookup(const char *s) const;
 };
 
-struct Identifier{
+struct Identifier
+{
+    void *data;
+    int type;
+
+    Identifier();
+    ~Identifier();
 };

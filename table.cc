@@ -1,4 +1,5 @@
 #include "glob.hh"
+#include "debug.hh"
 #include "string.hh"
 #include "keyword.hh"
 #include "parser.hh"
@@ -8,6 +9,7 @@ static Keyword_ent  the_key_tab[]={
     "rhythmstaff", RHYTHMSTAFF,
     "score", SCORE,
     "bar", BAR,
+    "output", OUTPUT,
     0,0
 } ;
 
@@ -19,9 +21,13 @@ lookup_keyword(String s)
     return table.lookup(s);
 }
 
+Assoc<String, Identifier*> the_id_tab;
+
 Identifier*
 lookup_identifier(String s)
 {
-    assert(false);
-    return 0;
+    if (!the_id_tab.elt_query(s))
+	 the_id_tab[s]= new Identifier;
+    
+    return the_id_tab[s];
 }

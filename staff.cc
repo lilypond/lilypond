@@ -6,9 +6,11 @@ void
 Staff::clean_cols()
 {
     PCursor<Staff_column *> stc(cols);
-    for(; stc.ok(); stc++){
+    for(; stc.ok(); ){
 	if (!stc->score_column->used())
-	    stc.remove();
+	    stc.del();
+	else
+	    stc++;
     }
 }
 
@@ -122,11 +124,12 @@ Staff::process()
 void
 Staff::OK() const
 {
+#ifndef NDEBUG
     cols.OK();
     commands.OK();
     voices.OK();
-    assert(score_);
-    
+    assert(score_);    
+#endif    
 }
 
 
@@ -164,6 +167,7 @@ Staff_column::when() const
 {
     return score_column->when;
 }
+
 void
 Staff_column::add(Voice_element*ve)
 {
@@ -174,6 +178,7 @@ Staff_column::add(Voice_element*ve)
 	
     v_elts.add(ve);
 }
+
 Staff_column::Staff_column(Score_column*s) {
     score_column = s;
 }
