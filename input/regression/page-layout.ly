@@ -35,7 +35,7 @@ values for the whole paper while \paper for each \score block." }
 
 \book {
     \score {
-        \notes {
+        \relative c'' {
             \repeat unfold 10 {
                 \repeat unfold 4 {c4}
             }
@@ -44,7 +44,7 @@ values for the whole paper while \paper for each \score block." }
         \paper {linewidth = 13\cm}
     }
     \score {
-        \notes {
+        \relative c'' {
             \repeat unfold 10 {
                 \repeat unfold 4 {c4}
             }

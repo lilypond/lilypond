@@ -125,7 +125,7 @@ Tuplet_engraver::start_translation_timestep ()
 	    tuplets_[i].span_stop_ += tsd.main_part_;
 	}
 
-      if (now.main_part_ >= tuplets_[i].span_stop_)
+      if (now.main_part_ >= tuplets_[i].stop_)
 	{
 	  tuplets_.del (i);
 	}
