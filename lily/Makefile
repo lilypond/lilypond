@@ -73,3 +73,6 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 -include /dev/null $(DEPFILES)
 #
 
+
+localclean:
+	rm -f $(outdir)/parser.* $(outdir)/lexer.cc
