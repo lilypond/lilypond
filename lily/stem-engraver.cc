@@ -22,6 +22,7 @@ Stem_engraver::Stem_engraver()
   stem_p_ = 0;
   abbrev_p_ = 0;
   default_abbrev_i_ = 16;
+  rhythmic_req_l_ =0;
 }
 
 void

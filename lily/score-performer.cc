@@ -25,6 +25,7 @@ ADD_THIS_TRANSLATOR(Score_performer);
 
 Score_performer::Score_performer()
 {
+  performance_p_ =0;
 }
 
 
