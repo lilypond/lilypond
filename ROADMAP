@@ -10,12 +10,14 @@ LilyPond's source files.
      topdocs/			sources for the toplevel files (README.txt, INSTALL.txt, etc.)
      user/			User manuals
    buildscripts/		Scripts used during the build process
-   debian/			Files for building .deb packages.
-   flower/			A generic library.
+   debian/			Files for building .deb packages
+   flower/			A generic library
      include/
    input/			Various input files
      test/			Test features: one file per feature
      bugs/			Show bugs
+     no-notation/		Examples or bugs that do not produce output
+     regression/		Various features for regression test
      tutorial/			Examples from the tutorial 
    lily/			Source code for LilyPond
      include/
@@ -33,5 +35,6 @@ LilyPond's source files.
    ports/
    ps/				postscript library files
    tex/				TeX library files
+   scm/				Scheme initialisation and subroutine files
    scripts/			User scripts
    stepmake/			Generic make subroutine files

@@ -212,13 +212,9 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{spacing-loose.ly}
 
-@lilypondfile[printfilename]{spacing-accidentals.ly}
+@c not found @lilypondfile[printfilename]{spacing-accidentals.ly}
 
-@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
-
-@lilypondfile[printfilename]{spacing-accidentals.ly}
-
-@lilypondfile[printfilename]{spacing-accidentals-staff.ly}
+@c not found @lilypondfile[printfilename]{spacing-accidentals-staff.ly}
 
 @lilypondfile[printfilename]{lyrics-bar.ly}
 

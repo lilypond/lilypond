@@ -1,3 +1,21 @@
+1.5.6.jcn1
+=========
+
+* Include make/lilypond.mandrake.spec (unchecked!) and README.mandrake.
+
+* Comment out two non existing examples in regression test, add one
+missing from 1.5.5 distribution.
+
+* Revert silly grace-with-braces stuff in tutorial.
+
+* Add short crescendo bug to input/bugs.
+
+* Update and bit more verbose download instructions in INSTALL, 
+  fix some links on ftp.lilypond.org.
+
+1.5.6
+=====
+
 1.4.6.mb1
 =========
 

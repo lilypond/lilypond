@@ -28,8 +28,7 @@ servers}. Big enhancements go into the latest odd numbered version
 (1.3), whose webpages are on @uref{http://www.lilypond.org/,the lilypond
 site}.
 
-@subsection  source code
-
+@subsection Source code
 
 If you want to compile LilyPond from source, download here:
 @itemize @bullet
@@ -44,25 +43,42 @@ If you want to compile LilyPond from source, download here:
 @uref{http://www.lilypond.org/ftp/} by HTTP.
 @end itemize
 
+Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
+FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
+from source drill.
+
+For Red Hat Linux and SuSE Linux, @file{.spec} files are included in the
+tarball; see instructions below.
+
 @html
 <a name="download-binaries">
 @end html
 
 
 
-@subsection Binaries
+@subsection Precompiled binaries
 
-Binaries are available, but are not updated for every version released.
+If you want to track bleeding edge development, try:
+
+@itemize @bullet
+@item @uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond/, Debian
+GNU/Linux} usually has the latest binaries for the most useful stable
+and development versions, while
+@item @uref{http://rpmfind.net/linux/mandrake/cooker/contrib/RPMS/,
+Mandrake Cooker} also provides fairly recent versions.
+@end itemize
+
+Binaries are made available for other popular platforms, but as we need
+to compile them ourselves, they are not updated for every version
+released.
+
 @itemize @bullet
 @item @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/RedHat/RPMS/, Red Hat i386}
-@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/, LinuxPPC}
-@item @uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond/, Debian GNU/Linux}
+@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE, SuSE}
+@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/,
+LinuxPPC}
 @item
-@c  @uref{http://home.austin.rr.com/jbr/jeff/lilypond/, Windows Stable}
-@c @item @uref{ftp://ftp.lilypond.org/pub/lilypond/gnu-windows, Windows
-@c Testing} 
-@uref{http://www.lilypond.org/gnu-windows/, Windows Testing}
-
+@uref{http://www.lilypond.org/gnu-windows/, Windows}
 @end itemize
 
 @subsection Upgrading
@@ -374,16 +390,32 @@ platform.
 @subsection Mandrake
 
 Some binaries are available at rpmfind.net. Refer to 
-@uref{ftp://ftp.rpmfind.net/linux/Mandrake-devel/cooker/contrib/RPMS/}.
+@uref{http://rpmfind.net/linux/mandrake/cooker/contrib/RPMS/}.
 
+You can also compile a RPM for Mandrake yourself.  A spec file is in
+@file{make/out/lilypond.mandrake.spec}, see the instructions for building
+the Red Hat RPM.
 
 @subsection Debian GNU/Linux
 
 A Debian package is also available.  You may install it easily by running
 @command{apt-get} as root:
-
 @example
+
 	apt-get install lilypond lilypond-doc
+@end example
+
+You can also compile the .deb for Debian yourself, do:
+@example
+
+	apt-get -b source lilypond
+@end example
+
+If you're real impatient, you may even do:
+@example
+
+	cd lilypond-x.y.z   # a previous version
+        uscan               # download and build latest directly from upstream
 @end example
 
 

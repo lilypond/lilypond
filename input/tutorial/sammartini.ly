@@ -1,9 +1,9 @@
 
 \include "paper16.ly"
 
-stemdown = \property Voice.Stem \override #'direction = #-1
-stemup = \property Voice.Stem \override #'direction = #1
-stemboth = \property Voice.Stem \revert #'direction  
+stemDown = \property Voice.Stem \override #'direction = #-1
+stemUp = \property Voice.Stem \override #'direction = #1
+stemBoth = \property Voice.Stem \revert #'direction  
 
 viola = \notes \relative c' \context Voice = viola {
     <c4-\f-\arpeggio g' c>
