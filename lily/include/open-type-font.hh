@@ -32,6 +32,7 @@ public:
   SCM get_char_table () const;
   
   static SCM make_otf (String);
+  virtual String font_name () const;
   virtual ~Open_type_font();
   virtual Offset attachment_point (String) const;
   virtual int count () const;

@@ -211,12 +211,12 @@ LY_DEFINE (ly_text_dimension, "ly:text-dimension",
   Box b;
   Modified_font_metric*fm = dynamic_cast<Modified_font_metric*>
     (unsmob_metrics (font));
+  
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "modified font metric");
   SCM_ASSERT_TYPE (scm_is_string (text), text, SCM_ARG2, __FUNCTION__, "string");
-  
-  b = fm->text_dimension (ly_scm2string (text));
-  
-  return scm_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm (b[Y_AXIS]));
+  Stencil stc (fm->text_stencil (ly_scm2string (text)));
+  return scm_cons (ly_interval2scm (stc.extent (X_AXIS)),
+		   ly_interval2scm (stc.extent (Y_AXIS)));
 }
 
 LY_DEFINE (ly_font_file_name, "ly:font-file-name",
@@ -230,6 +230,12 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
   return scm_car (fm->description_);
 }
 
+String
+Font_metric::font_name () const
+{
+  String s ("unknown");
+  return s;
+}
 
 #include "afm.hh"
 
@@ -242,12 +248,7 @@ LY_DEFINE (ly_font_name, "ly:font-name",
   Font_metric *fm = unsmob_metrics (font);
       
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-
-  if (Modified_font_metric* mfm = dynamic_cast<Modified_font_metric*> (fm))
-    return ly_font_name (mfm->original_font ()->self_scm ());
-  else if (Adobe_font_metric* afm = dynamic_cast<Adobe_font_metric*> (fm))
-    return scm_makfrom0str (afm->font_info_->gfi->fontName);
-  return SCM_BOOL_F;
+  return scm_makfrom0str (fm->font_name().to_str0 ());
 }
 
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
@@ -326,4 +327,21 @@ SCM
 Font_metric::sub_fonts () const
 {
   return SCM_EOL;
+}
+
+Stencil
+Font_metric::text_stencil (String str) const
+{
+  SCM lst = scm_list_3 (ly_symbol2scm ("text"),
+			this->self_scm (),
+			scm_makfrom0str (str.to_str0 ()));
+  
+  Box b = text_dimension (str);
+  return Stencil (b, lst);
+}
+
+Box
+Font_metric::text_dimension (String) const
+{
+  return Box (Interval (0,0), Interval (0,0));
 }

@@ -183,3 +183,9 @@ Adobe_font_metric::coding_scheme () const
 {
   return font_info_->gfi->encodingScheme;
 }
+
+String
+Adobe_font_metric::font_name () const
+{
+  return font_info_->gfi->fontName;
+}

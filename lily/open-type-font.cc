@@ -273,3 +273,10 @@ Open_type_font::get_global_table () const
 {
   return lily_global_table_;
 }
+
+String
+Open_type_font::font_name () const
+{
+  return FT_Get_Postscript_Name (face_);
+}
+

@@ -29,9 +29,14 @@ Text_interface::interpret_string (SCM layout_smob,
 		   __FUNCTION__, "Layout definition");
   SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
 		   __FUNCTION__, "string");
+
+  String str = ly_scm2string (markup);
+
+#if 0
   SCM_ASSERT_TYPE (input_encoding == SCM_EOL || scm_is_symbol (input_encoding),
 		   input_encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
+
   String str = ly_scm2string (markup);
   if (!scm_is_symbol (input_encoding))
     {
@@ -62,6 +67,12 @@ Text_interface::interpret_string (SCM layout_smob,
     }
       
   return Stencil (b, lst).smobbed_copy ();
+#else
+  
+  
+  Font_metric *fm = select_encoded_font (layout, props, input_encoding);
+  return fm->text_stencil (str).smobbed_copy (); 
+#endif
 }
 
 

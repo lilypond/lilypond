@@ -9,35 +9,77 @@
 #include "all-font-metrics.hh"
 
 #include "open-type-font.hh"
-#include "config.hh"
 #include "main.hh"
 #include "warn.hh"
 #include "afm.hh"
 #include "tfm.hh"
 #include "scm-hash.hh"
 #include "kpath.hh"
+#include "pango-font.hh"
 
 static char const *default_font_str0_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
 {
-  afm_p_dict_ = new Scheme_hash_table;
-  tfm_p_dict_ = new Scheme_hash_table;
-  otf_p_dict_ = new Scheme_hash_table;
+  afm_dict_ = new Scheme_hash_table;
+  tfm_dict_ = new Scheme_hash_table;
+  otf_dict_ = new Scheme_hash_table;
+
+#ifdef HAVE_PANGO16
+  PangoFontMap*pfm =     pango_ft2_font_map_new ();
+
+  pango_ft2_fontmap_ =
+    G_TYPE_CHECK_INSTANCE_CAST(pfm,
+			       PANGO_TYPE_FT2_FONT_MAP,
+			       PangoFT2FontMap);
+  pango_dpi_ = 1200;
+  pango_ft2_font_map_set_resolution (pango_ft2_fontmap_,
+				     pango_dpi_, pango_dpi_);
+
+  pango_dict_ = new Scheme_hash_table;
+#endif
   
   search_path_.parse_path (path);
 }
 
 All_font_metrics::~All_font_metrics ()
 {
-  scm_gc_unprotect_object (afm_p_dict_->self_scm ());
-  scm_gc_unprotect_object (tfm_p_dict_->self_scm ());
-  scm_gc_unprotect_object (otf_p_dict_->self_scm ());
+  scm_gc_unprotect_object (afm_dict_->self_scm ());
+  scm_gc_unprotect_object (tfm_dict_->self_scm ());
+  scm_gc_unprotect_object (otf_dict_->self_scm ());
 }
 
 All_font_metrics::All_font_metrics (All_font_metrics const&)
 {
 }
+
+#ifdef HAVE_PANGO16
+Pango_font *
+All_font_metrics::find_pango_font (PangoFontDescription*description)
+{
+  gchar *fn = pango_font_description_to_filename (description);
+  SCM key = ly_symbol2scm (fn);
+
+  SCM val;
+  if (!pango_dict_->try_retrieve (key, &val))
+    {
+      if (verbose_global_b)
+	progress_indication ("[" + String (fn));
+      Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
+				       pango_dpi_,
+				       RIGHT,
+				       description);
+      val = pf->self_scm();
+      pango_dict_->set (key, val);
+      scm_gc_unprotect_object (val);
+
+      if (verbose_global_b)
+	progress_indication ("]");
+    }
+  g_free (fn); 
+  return dynamic_cast<Pango_font*> (unsmob_metrics (val));
+}
+#endif
 
 /*
   TODO: our AFM handling is broken: the units in an AFM file are
@@ -52,7 +94,7 @@ All_font_metrics::find_afm (String name)
   SCM sname = ly_symbol2scm (name.to_str0 ());
   SCM name_string = scm_makfrom0str (name.to_str0 ());
   SCM val;
-  if (!afm_p_dict_->try_retrieve (sname, &val))
+  if (!afm_dict_->try_retrieve (sname, &val))
     {
       String file_name;
 
@@ -80,7 +122,7 @@ All_font_metrics::find_afm (String name)
       if (verbose_global_b)
 	progress_indication ("]");
 
-      afm_p_dict_->set (sname, val);
+      afm_dict_->set (sname, val);
       scm_gc_unprotect_object (val);
 
       Adobe_font_metric *afm
@@ -126,7 +168,7 @@ All_font_metrics::find_otf (String name)
   SCM sname = ly_symbol2scm (name.to_str0 ());
   SCM name_string = scm_makfrom0str (name.to_str0 ());
   SCM val;
-  if (!otf_p_dict_->try_retrieve (sname, &val))
+  if (!otf_dict_->try_retrieve (sname, &val))
     {
       String file_name;
       
@@ -146,7 +188,7 @@ All_font_metrics::find_otf (String name)
       unsmob_metrics (val)->file_name_ = file_name;
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
-      otf_p_dict_->set (sname, val);
+      otf_dict_->set (sname, val);
       scm_gc_unprotect_object (val);
     }
 
@@ -159,7 +201,7 @@ All_font_metrics::find_tfm (String name)
   SCM sname = ly_symbol2scm (name.to_str0 ());
   SCM name_string = scm_makfrom0str (name.to_str0 ());
   SCM val;
-  if (!tfm_p_dict_->try_retrieve (sname, &val))
+  if (!tfm_dict_->try_retrieve (sname, &val))
     {
       String file_name;
       
@@ -188,7 +230,7 @@ All_font_metrics::find_tfm (String name)
       unsmob_metrics (val)->file_name_ = file_name;
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_make_real (1.0));
-      tfm_p_dict_->set (sname, val);
+      tfm_dict_->set (sname, val);
       scm_gc_unprotect_object (val);
     }
 

@@ -115,6 +115,7 @@ class Object_key_undumper;
 class Open_type_font;
 class Output_property;
 class Page;
+class Pango_font;
 class Paper_book;
 class Paper_column;
 class Paper_outputter;

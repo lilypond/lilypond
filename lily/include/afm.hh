@@ -35,6 +35,7 @@ public:
   virtual String coding_scheme () const;
   static SCM make_afm (AFM_Font_info*, unsigned, Real);
   virtual Real design_size () const;
+  virtual String font_name () const; 
 
 protected:
   AFM_CharMetricInfo const *find_char_metric (String name) const;

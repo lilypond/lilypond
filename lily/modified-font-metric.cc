@@ -7,6 +7,7 @@
 */
 
 #include "modified-font-metric.hh"
+#include "pango-font.hh"
 
 #include <cctype>
 
@@ -237,8 +238,25 @@ Modified_font_metric::tex_kludge (String text) const
   return Box (Interval (0, w), ydims);
 }
 
+Stencil
+Modified_font_metric::text_stencil (String text) const
+{
+  Box b; 
+  if (Pango_font * pf = dynamic_cast<Pango_font*> (orig_))
+    {
+      Stencil stc = pf->text_stencil (text);
+
+      Box b = stc.extent_box ();
+
+      b.scale (magnification_);
+      return Stencil (b, stc.expr());
+    }
+
+  return Font_metric::text_stencil (text);
+}
+
 Box
-Modified_font_metric::text_dimension (String text) 
+Modified_font_metric::text_dimension (String text) const
 {
   Box b; 
   if (input_encoding_ == "TeX")
@@ -339,3 +357,8 @@ Modified_font_metric::sub_fonts () const
   return orig_->sub_fonts();
 }
   
+String
+Modified_font_metric::font_name () const
+{
+  return original_font ()->font_name();
+}
