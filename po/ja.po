@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2002-08-18 17:05+0200\n"
+"POT-Creation-Date: 2003-07-18 14:45+0200\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,407 +13,1180 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lilypond-book.py:1019 ly2dvi.py:458 ly2dvi.py:491
-#, fuzzy, c-format
-msgid "Running %s..."
-msgstr "要求を捨てます: `%s'"
-
-#: ly2dvi.py:118
-msgid ""
-"Distributed under terms of the GNU General Public License.  It comes with NO "
-"WARRANTY."
+#. this is where special info is often stored
+#. ###############################################################
+#. lilylib.py -- options and stuff
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. ##  subst:\(^\|[^._a-z]\)\(abspath\|identify\|warranty\|progress\|warning\|error\|exit\|getopt_args\|option_help_str\|options_help_str\|help\|setup_temp\|read_pipe\|system\|cleanup_temp\|strip_extension\|cp_to_dir\|mkdir_p\|init\) *(
+#. ##  replace:\1ly.\2 (
+#. ## subst: \(help_summary\|keep_temp_dir_p\|option_definitions\|original_dir\|program_name\|pseudo_filter_p\|temp_dir\|verbose_p\)
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. lilylib globals
+#: lilylib.py:60
+msgid "lilylib module"
 msgstr ""
 
-#: ly2dvi.py:125 midi2ly.py:148 mup2ly.py:143 update-lily.py:137 input.cc:87
-msgid "warning: "
-msgstr "警告: "
-
-#: ly2dvi.py:128 ly2dvi.py:143 midi2ly.py:163 midi2ly.py:1012 midi2ly.py:1081
-#: mup2ly.py:146 mup2ly.py:160 update-lily.py:152 update-lily.py:458
-#: input.cc:92
-msgid "error: "
-msgstr "エラー: "
-
-#: ly2dvi.py:144 midi2ly.py:164 mup2ly.py:161 update-lily.py:153
-#, fuzzy
-msgid "Exiting ... "
-msgstr "行 ..."
-
-#: ly2dvi.py:202 midi2ly.py:222 mup2ly.py:219 update-lily.py:211
-#, fuzzy, c-format
-msgid "Usage: %s [OPTION]... FILE"
-msgstr "使い方: %s [オプション]... [ファイル]"
-
-#: ly2dvi.py:206 midi2ly.py:226 mup2ly.py:223 update-lily.py:215 main.cc:166
-msgid "Options:"
-msgstr "オプション:"
-
-#: ly2dvi.py:210 midi2ly.py:230 mup2ly.py:227 update-lily.py:219 main.cc:172
-#, c-format
-msgid "Report bugs to %s"
-msgstr "バグレポートは %s へ"
-
-#: ly2dvi.py:238 midi2ly.py:258 mup2ly.py:255 update-lily.py:247
-#, fuzzy, c-format
-msgid "Invoking `%s'"
-msgstr "要求を捨てます: `%s'"
-
-#: ly2dvi.py:243 midi2ly.py:262 mup2ly.py:260 update-lily.py:251
-#, c-format
-msgid "command exited with value %d"
-msgstr ""
-
-#: ly2dvi.py:246 midi2ly.py:264 mup2ly.py:263 update-lily.py:253
-msgid "(ignored)"
-msgstr ""
-
-#: ly2dvi.py:256 midi2ly.py:274 mup2ly.py:273 update-lily.py:263
-#, fuzzy, c-format
-msgid "Cleaning %s..."
-msgstr "要求を捨てます: `%s'"
-
-#: ly2dvi.py:330
-msgid "Run LilyPond using LaTeX for titling"
-msgstr ""
-
-#: ly2dvi.py:334 main.cc:115
-msgid "write Makefile dependencies for every input file"
-msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
-
-#: ly2dvi.py:335 midi2ly.py:98 mup2ly.py:74 update-lily.py:87 main.cc:111
+#: lilylib.py:63 lilypond-book.py:131 ly2dvi.py:128 midi2ly.py:100
+#: mup2ly.py:75 main.cc:111
 msgid "this help"
 msgstr "このヘルプ"
 
-#: ly2dvi.py:336 main.cc:113 main.cc:118
+#. ###############################################################
+#. Handle bug in Python 1.6-2.1
+#.
+#. there are recursion limits for some patterns in Python 1.6 til 2.1.
+#. fix this by importing pre instead. Fix by Mats.
+#. Attempt to fix problems with limited stack size set by Python!
+#. Sets unlimited stack size. Note that the resource module only
+#. is available on UNIX.
+#: lilylib.py:114 midi2ly.py:136 mup2ly.py:130 main.cc:188 main.cc:200
+#, c-format, python-format
+msgid "Copyright (c) %s by"
+msgstr "Copyright (c) %s by"
+
+#: lilylib.py:114
+msgid " 1998--2003"
+msgstr ""
+
+#: lilylib.py:118
+msgid "Distributed under terms of the GNU General Public License."
+msgstr ""
+
+#: lilylib.py:120
+msgid "It comes with NO WARRANTY."
+msgstr ""
+
+#: lilylib.py:127 midi2ly.py:150 mup2ly.py:144 input.cc:88
+msgid "warning: "
+msgstr "警告: "
+
+#. lots of midi files use plain text for lyric events
+#. FIXME: read from stdin when files[0] = '-'
+#: lilylib.py:130 midi2ly.py:165 midi2ly.py:1018 midi2ly.py:1083 mup2ly.py:147
+#: mup2ly.py:161 input.cc:93
+msgid "error: "
+msgstr "エラー: "
+
+#: lilylib.py:134
+#, fuzzy, python-format
+msgid "Exiting (%d)..."
+msgstr "行 ..."
+
+#: lilylib.py:194 midi2ly.py:224 mup2ly.py:220
+#, fuzzy, python-format
+msgid "Usage: %s [OPTION]... FILE"
+msgstr "使い方: %s [オプション]... [ファイル]"
+
+#: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
+msgid "Options:"
+msgstr "オプション:"
+
+#: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
+#, c-format, python-format
+msgid "Report bugs to %s"
+msgstr "バグレポートは %s へ"
+
+#: lilylib.py:228
+#, fuzzy, python-format
+msgid "Opening pipe `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#. successful pipe close returns 'None'
+#: lilylib.py:240
+#, python-format
+msgid "`%s' failed (%d)"
+msgstr ""
+
+#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 ly2dvi.py:512
+msgid "The error log is as follows:"
+msgstr ""
+
+#: lilylib.py:262 midi2ly.py:260 mup2ly.py:256
+#, fuzzy, python-format
+msgid "Invoking `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#: lilylib.py:264
+#, fuzzy, python-format
+msgid "Running %s..."
+msgstr "要求を捨てます: `%s'"
+
+#: lilylib.py:282
+#, python-format
+msgid "`%s' failed (%s)"
+msgstr ""
+
+#: lilylib.py:285 midi2ly.py:266 mup2ly.py:264
+msgid "(ignored)"
+msgstr ""
+
+#: lilylib.py:299 midi2ly.py:276 mup2ly.py:274
+#, fuzzy, python-format
+msgid "Cleaning %s..."
+msgstr "要求を捨てます: `%s'"
+
+#. Duh.  Python style portable: cp *.EXT OUTDIR
+#. system ('cp *.%s %s' % (ext, outdir), 1)
+#. Python < 1.5.2 compatibility
+#.
+#. On most platforms, this is equivalent to
+#. `normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+#. tex needs lots of memory, more than it gets by default on Debian
+#. TODO: * prevent multiple addition.
+#. * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+#. as these take prevalence over $TEXMF
+#. and thus may break tex run?
+#. $TEXMF is special, previous value is already taken care of
+#. # -sOutputFile does not work with bbox?
+#. # todo:
+#. # have better algorithm for deciding when to crop page,
+#. # and when to show full page
+#: lilylib.py:458
+msgid "Removing output file"
+msgstr ""
+
+#. !@PYTHON@
+#. once upon a rainy monday afternoon.
+#.
+#. ...
+#.
+#. (not finished.)
+#. ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
+#.
+#. Enhancements  (Roy R. Rankin)
+#.
+#. Header section moved to top of lilypond file
+#. handle treble, treble-8, alto, and bass clef
+#. Handle voices (V: headers) with clef and part names, multiple voices
+#. Handle w: lyrics with multiple verses
+#. Handle key mode names for minor, major, phrygian, ionian, locrian, aeolian,
+#. mixolydian, lydian, dorian
+#. Handle part names from V: header
+#. Tuplets handling fixed up
+#. Lines starting with |: not discarded as header lines
+#. Multiple T: and C: header entries handled
+#. Accidental maintained until next bar check
+#. Silent rests supported
+#. articulations fermata, upbow, downbow, ltoe, accent, tenuto supported
+#. Chord strings([-^]"string") can contain a '#'
+#. Header fields enclosed by [] in notes string processed
+#. W: words output after tune as abc2ps does it (they failed before)
+#. Enhancements (Laura Conrad)
+#.
+#. Barring now preserved between ABC and lilypond
+#. the default placement for text in abc is above the staff.
+#. %%LY now supported.
+#. \breve and \longa supported.
+#. M:none doesn't crash lily.
+#. Limitations
+#.
+#. Multiple tunes in single file not supported
+#. Blank T: header lines should write score and open a new score
+#. Not all header fields supported
+#. ABC line breaks are ignored
+#. Block comments generate error and are ignored
+#. Postscript commands are ignored
+#. lyrics not resynchronized by line breaks (lyrics must fully match notes)
+#. %%LY slyrics can't be directly before a w: line.
+#. ???
+#. TODO:
+#.
+#. Convert to new chord styles.
+#.
+#. UNDEF -> None
+#.
+#. uGUHGUHGHGUGH
+#. UGH
+#. treble8 is used by abctab2ps; -8va is used by barfly,
+#. and by my patch to abc2ps. If there's ever a standard
+#. about this we'll support that.
+#. find keywork
+#. assume that Q takes the form "Q:1/4=120"
+#. There are other possibilities, but they are deprecated
+#. outf.write ("\t\t\\consists Staff_margin_engraver\n")
+#. pitch manipulation. Tuples are (name, alteration).
+#. 0 is (central) C. Alteration -1 is a flat, Alteration +1 is a sharp
+#. pitch in semitones.
+#. abc to lilypond key mode names
+#. semitone shifts for key mode names
+#. latex does not like naked #'s
+#. latex does not like naked "'s
+#. break lyrics to words and put "'s around words containing numbers and '"'s
+#. escape "
+#. _ causes probs inside ""
+#. _ to ' _ '
+#. split words with -
+#. unless \-
+#. ~ to space('_')
+#. * to to space
+#. latex does not like naked #'s
+#. put numbers and " and ( into quoted string
+#. insure space between lines
+#. title
+#. strip trailing blanks
+#. Meter
+#. KEY
+#. seperate clef info
+#. there may or may not be a space
+#. between the key letter and the mode
+#. ugh.
+#. ugh.
+#. Notes
+#. Origin
+#. Reference Number
+#. Area
+#. History
+#. Book
+#. Composer
+#. Default note length
+#. Voice
+#. Words
+#. vocals
+#. tempo
+#. we use in this order specified accidental, active accidental for bar,
+#. active accidental for key
+#. (num /  den)  / defaultlen < 1/base
+#. return (str, num,den,dots)
+#. ignore slide
+#. ignore roll
+#. s7m2 input doesnt care about spaces
+#.
+#. remember accidental for rest of bar
+#.
+#. get accidental set in this bar or UNDEF if not set
+#. WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
+#. failed; not a note!
+#. escape '#'s
+#.
+#. |] thin-thick double bar line
+#. || thin-thin double bar line
+#. [| thick-thin double bar line
+#. :| left repeat
+#. |: right repeat
+#. :: left-right repeat
+#. |1 volta 1
+#. |2 volta 2
+#. first try the longer one
+#. bracket escape
+#. the nobarlines option is necessary for an abc to lilypond translator for
+#. exactly the same reason abc2midi needs it: abc requires the user to enter
+#. the note that will be printed, and MIDI and lilypond expect entry of the
+#. pitch that will be played.
+#.
+#. In standard 19th century musical notation, the algorithm for translating
+#. between printed note and pitch involves using the barlines to determine
+#. the scope of the accidentals.
+#.
+#. Since ABC is frequently used for music in styles that do not use this
+#. convention, such as most music written before 1700, or ethnic music in
+#. non-western scales, it is necessary to be able to tell a translator that
+#. the barlines should not affect its interpretation of the pitch.
+#. write other kinds of appending  if we ever need them.
+#. add comments to current voice
+#. Try nibbling characters off until the line doesn't change.
+#. dump_global (outf)
+#. !@PYTHON@
+#.
+#. convert-ly.py -- Update old LilyPond input files (fix name?)
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. TODO
+#. use -f and -t for -s output
+#. NEWS
+#. 0.2
+#. - rewrite in python
+#. Did we ever have \mudela-version?  I doubt it.
+#. lilypond_version_re_str = '\\\\version *\"(.*)\"'
+#. ###########################
+#. need new a namespace
+#. raise FatalConversionError()
+#. need new a namespace
+#. harmful to current .lys
+#. str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
+#. raise FatalConversionError()
+#. raise FatalConversionError()
+#. raise FatalConversionError()
+#. TODO: lots of other syntax change should be done here as well
+#. Ugh, but meaning of \stemup changed too
+#. maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
+#. I don't know exactly when these happened...
+#. ugh, we loose context setting here...
+#. (lacks capitalisation slur -> Slur)
+#. # dynamic..
+#. TODO: add lots of these
+#. ugh
+#. old fix
+#. Make sure groups of more than one ; have space before
+#. them, so that non of them gets removed by next rule
+#. Only remove ; that are not after spaces, # or ;
+#. Otherwise  we interfere with Scheme comments,
+#. which is badbadbad.
+#. 40 ?
+#. ###############################
+#. END OF CONVERSIONS
+#. ###############################
+#. !@PYTHON@
+#. info mostly taken from looking at files. See also
+#. http://lilypond.org/wiki/?EnigmaTransportFormat
+#. This supports
+#.
+#. * notes
+#. * rests
+#. * ties
+#. * slurs
+#. * lyrics
+#. * articulation
+#. * grace notes
+#. * tuplets
+#.
+#. todo:
+#. * slur/stem directions
+#. * voices (2nd half of frame?)
+#. * more intelligent lyrics
+#. * beams (better use autobeam?)
+#. * more robust: try entertainer.etf (freenote)
+#. * dynamics
+#. * empty measures (eg. twopt03.etf from freenote)
+#.
+#. uGUHGUHGHGUGH
+#. notename 0 == central C
+#. represent pitches as (notename, alteration), relative to C-major scale
+#. a fifth up
+#. should cache this.
+#. flag1 isn't all that interesting.
+#. 3: '>',
+#. 18: '\arpeggio' ,
+#. do grace notes.
+#. ugh.
+#. we don't attempt voltas since they fail easily.
+#. and g.repeat_bar == '|:' or g.repeat_bar == ':|:' or g.bracket:
+#. 4 layers.
+#. let's not do this: this really confuses when eE happens to be before  a ^text.
+#. if last_tag and last_indices:
+#. etf_file_dict[last_tag][last_indices].append (l)
+#. # do it
+#. staff-spec
+#. should use \addlyrics ?
+#. !@PYTHON@
+#. vim: set noexpandtab:
+#. This is was the idea for handling of comments:
+#. Multiline comments, @ignore .. @end ignore is scanned for
+#. in read_doc_file, and the chunks are marked as 'ignore', so
+#. lilypond-book will not touch them any more. The content of the
+#. chunks are written to the output file. Also 'include' and 'input'
+#. regex has to check if they are commented out.
+#.
+#. Then it is scanned for 'lilypond', 'lilypond-file' and 'lilypond-block'.
+#. These three regex's has to check if they are on a commented line,
+#. % for latex, @c for texinfo.
+#.
+#. Then lines that are commented out with % (latex) and @c (Texinfo)
+#. are put into chunks marked 'ignore'. This cannot be done before
+#. searching for the lilypond-blocks because % is also the comment character
+#. for lilypond.
+#.
+#. The the rest of the rexeces are searched for. They don't have to test
+#. if they are on a commented out line.
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. if __name__ == '__main__':
+#. lilylib globals
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. urg
+#. # FIXME
+#. # ly2dvi: silly name?
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: lilypond-book.py:120
+msgid "Process LilyPond snippets in hybrid html, LaTeX or texinfo document"
+msgstr ""
+
+#. another bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format
+#: lilypond-book.py:125 main.cc:110
+msgid "EXT"
+msgstr "EXT"
+
+#: lilypond-book.py:125
+#, fuzzy
+msgid "use output format EXT (texi [default], texi-html, latex, html)"
+msgstr "出力フォーマット EXT を使う"
+
+#: lilypond-book.py:126 lilypond-book.py:127 lilypond-book.py:129
+#: lilypond-book.py:130
+#, fuzzy
+msgid "DIM"
+msgstr "DIR"
+
+#: lilypond-book.py:126
+msgid "default fontsize for music.  DIM is assumed to be in points"
+msgstr ""
+
+#: lilypond-book.py:127
+msgid "deprecated, use --default-music-fontsize"
+msgstr ""
+
+#: lilypond-book.py:128
+msgid "OPT"
+msgstr ""
+
+#: lilypond-book.py:128
+msgid "pass OPT quoted to the lilypond command line"
+msgstr ""
+
+#: lilypond-book.py:129
+msgid "force fontsize for all inline lilypond. DIM is assumed be to in points"
+msgstr ""
+
+#: lilypond-book.py:130
+msgid "deprecated, use --force-music-fontsize"
+msgstr ""
+
+#: lilypond-book.py:132 ly2dvi.py:130 main.cc:113 main.cc:118
 msgid "DIR"
 msgstr "DIR"
 
-#: ly2dvi.py:336
+#: lilypond-book.py:132
+msgid "include path"
+msgstr ""
+
+#: lilypond-book.py:133
 #, fuzzy
-msgid "add DIR to LilyPond's search path"
-msgstr "DIR を検索パスに追加"
+msgid "write dependencies"
+msgstr "空白が必要です"
 
-#: ly2dvi.py:338
-#, c-format
-msgid "keep all output, output to directory %s.dir"
+#: lilypond-book.py:134
+msgid "PREF"
 msgstr ""
 
-#: ly2dvi.py:339
-msgid "don't run LilyPond"
+#: lilypond-book.py:134
+msgid "prepend PREF before each -M dependency"
 msgstr ""
 
-#: ly2dvi.py:340 main.cc:116
-msgid "produce MIDI output only"
-msgstr "MIDI 出力の生成のみ"
+#: lilypond-book.py:135
+msgid "don't run lilypond"
+msgstr ""
 
-#: ly2dvi.py:341 ly2dvi.py:342 midi2ly.py:100 main.cc:114 main.cc:117
+#: lilypond-book.py:136
+msgid "don't generate pictures"
+msgstr ""
+
+#: lilypond-book.py:137
+msgid "strip all lilypond blocks from output"
+msgstr ""
+
+#: lilypond-book.py:138 lilypond-book.py:139 ly2dvi.py:135 ly2dvi.py:136
+#: midi2ly.py:102 main.cc:114 main.cc:117
 msgid "FILE"
 msgstr "FILE"
 
-#: ly2dvi.py:341 midi2ly.py:100
-#, fuzzy
-msgid "write ouput to FILE"
-msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
-
-#: ly2dvi.py:342
-msgid "find pfa fonts used in FILE"
+#: lilypond-book.py:138
+msgid "filename main output file"
 msgstr ""
 
-#: ly2dvi.py:344
+#: lilypond-book.py:139
+msgid "where to place generated files"
+msgstr ""
+
+#: lilypond-book.py:140 ly2dvi.py:137
+msgid "RES"
+msgstr ""
+
+#: lilypond-book.py:141 ly2dvi.py:138
 msgid "set the resolution of the preview to RES"
 msgstr ""
 
-#: ly2dvi.py:345
-#, fuzzy
-msgid "generate PostScript output"
-msgstr "制限を緩和"
-
-#: ly2dvi.py:346
-#, fuzzy
-msgid "generate PDF output"
-msgstr "制限を緩和"
-
-#: ly2dvi.py:347
-msgid "use pdflatex to generate a PDF output"
-msgstr ""
-
-#: ly2dvi.py:349
-msgid "make a picture of the first system"
-msgstr ""
-
-#: ly2dvi.py:350
-msgid "KEY=VAL"
-msgstr ""
-
-#: ly2dvi.py:350
-msgid "change global setting KEY to VAL"
-msgstr ""
-
-#: ly2dvi.py:351 midi2ly.py:103 mup2ly.py:77 update-lily.py:91 main.cc:126
+#: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 #, fuzzy
 msgid "verbose"
 msgstr "詳細な情報を表示します"
 
-#: ly2dvi.py:352 midi2ly.py:104 mup2ly.py:78 update-lily.py:92 main.cc:125
-msgid "print version number"
+#: lilypond-book.py:143
+#, fuzzy
+msgid "print version information"
 msgstr "バージョン番号を表示"
 
-#: ly2dvi.py:353 midi2ly.py:105 mup2ly.py:79 update-lily.py:94 main.cc:127
+#: lilypond-book.py:144 ly2dvi.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
 msgid "show warranty and copyright"
 msgstr "保証と著作権について表示する"
 
-#: ly2dvi.py:448
-#, fuzzy, c-format
-msgid "no such setting: `%s'"
-msgstr "その様な楽器はありません: `%s'"
-
-#: ly2dvi.py:508
-#, c-format
-msgid "LilyPond crashed (signal %d)."
+#. format specific strings, ie. regex-es for input, and % strings for output
+#. global variables
+#. lilypond_binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
+#. only use installed binary  when we're installed too.
+#. only use installed binary  when we're installed too.
+#. ###############################################################
+#. Dimension handling for LaTeX.
+#.
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#: lilypond-book.py:230
+msgid "LaTeX failed."
 msgstr ""
 
-#: ly2dvi.py:509
-msgid "Please submit a bug report to bug-lilypond@gnu.org"
-msgstr ""
-
-#: ly2dvi.py:513
-#, c-format
-msgid "LilyPond failed on the input file (exit status %d)."
-msgstr ""
-
-#: ly2dvi.py:522
-#, fuzzy, c-format
-msgid "Analyzing %s..."
-msgstr "要求を捨てます: `%s'"
-
-#: ly2dvi.py:578
-#, fuzzy, c-format
-msgid "no LilyPond output found for `%s'"
-msgstr "Lily は %s に出力します..."
-
-#: ly2dvi.py:618
-#, fuzzy, c-format
-msgid "invalid value: `%s'"
-msgstr "無効な文字: `%c'"
-
-#: ly2dvi.py:724
-msgid "LaTeX failed on the output file."
-msgstr ""
-
-#: ly2dvi.py:726
-msgid "The error log is as follows:"
-msgstr ""
-
-#: ly2dvi.py:849
-#, fuzzy, c-format
-msgid "not a PostScript file: `%s'"
-msgstr "ファイルを開けません: `%s'"
-
-#: ly2dvi.py:865 midi2ly.py:1012 update-lily.py:458
-#, c-format
+#. URG see ly2dvi
+#. Convert numeric values, with or without specific dimension, to floats.
+#. Keep other strings
+#. ###############################################################
+#. How to output various structures.
+#. # maybe <hr> ?
+#. Verbatim text is always finished with \n.  FIXME: For HTML,
+#. this newline should be removed.
+#. Verbatim text is always finished with \n.  FIXME: For HTML,
+#. this newline should be removed.
+#. # Ugh we need to differentiate on origin:
+#. # lilypond-block origin wants an extra <p>, but
+#. # inline music doesn't.
+#. # possibly other center options?
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. verbatim text is always finished with \n
+#. do some tweaking: @ is needed in some ps stuff.
+#.
+#. ugh, the <p> below breaks inline images...
+#. clumsy workaround for python 2.2 pre bug.
+#. ###############################################################
+#. Recognize special sequences in the input
+#. Warning: This uses extended regular expressions.  Tread with care.
+#.
+#. legenda
+#.
+#. (?P<name>regex) -- assign result of REGEX to NAME
+#. *? -- match non-greedily.
+#. (?m) -- multiline regex: make ^ and $ match at each line
+#. (?s) -- make the dot match all characters including newline
+#. why do we have distinction between @mbinclude and @include?
+#. # we'd like to catch and reraise a more
+#. # detailed error, but alas, the exceptions
+#. # changed across the 1.5/2.1 boundary.
+#. ughUGH not original options
+#. First we want to scan the \documentclass line
+#. it should be the first non-comment line.
+#. The only thing we really need to know about the \documentclass line
+#. is if there are one or two columns to begin with.
+#. Then we add everything before \begin{document} to
+#. paperguru.m_document_preamble so that we can later write this header
+#. to a temporary file in find_latex_dims() to find textwidth.
+#. this is not bulletproof..., it checks the first 10 chunks
+#. newchunks.extend (func (m))
+#. python 1.5 compatible:
+#. we have to check for verbatim before doing include,
+#. because we don't want to include files that are mentioned
+#. inside a verbatim environment
+#. ugh fix input
+#. # Hmm, we should hash only lilypond source, and skip the
+#. # %options are ...
+#. # comment line
+#. # todo: include path, but strip
+#. # first part of the path.
+#. format == 'html'
+#. ugh rename
+#. Count sections/chapters.
+#. # TODO: do something like
+#. # this for texinfo/latex as well ?
+#. ugh
+#. fixme: be sys-independent.
+#.
+#. Ugh, fixing up dependencies for .tex generation
+#.
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#. # There used to be code to write .tex dependencies, but
+#. # that is silly: lilypond-book has its own dependency scheme
+#. # to ensure that all lily-XXX.tex files are there
+#. # TODO: put file name in front of texidoc.
+#. #
+#. # what's this? Docme --hwn
+#. #
+#. #docme: why global?
+#. Do It.
+#. should chmod -w
+#: lilypond-book.py:1557 ly2dvi.py:673 midi2ly.py:1018
+#, python-format
 msgid "getopt says: `%s'"
 msgstr ""
 
-#: ly2dvi.py:948
-msgid "pseudo filter"
-msgstr ""
-
-#: ly2dvi.py:951
-msgid "pseudo filter only for single input file"
-msgstr ""
-
-#: ly2dvi.py:980
-#, fuzzy, c-format
-msgid "filename should not contain spaces: `%s'"
-msgstr "既に含んでいます: `%s'"
-
-#: ly2dvi.py:1076 input-file-results.cc:67
-#, fuzzy, c-format
-msgid "dependencies output to `%s'..."
-msgstr "%s へ paper 出力..."
-
-#: ly2dvi.py:1090 ly2dvi.py:1104 includable-lexer.cc:49
-#: input-file-results.cc:187 input-file-results.cc:193 lily-guile.cc:97
-#, fuzzy, c-format
-msgid "can't find file: `%s'"
-msgstr "ファイルが見つかりません: `%s'"
-
-#: ly2dvi.py:1102 midi2ly.py:996
-#, fuzzy, c-format
-msgid "%s output to `%s'..."
-msgstr "%s への MIDI 出力"
-
-#: ly2dvi.py:1111
+#. HACK
+#. status = os.system ('lilypond -w')
+#: lilypond-book.py:1630 ly2dvi.py:777
 msgid "no files specified on command line"
 msgstr ""
 
-#: midi2ly.py:92
+#.
+#. Petr, ik zou willen dat ik iets zinvoller deed,
+#. maar wat ik kan ik doen, het verandert toch niets?
+#. --hwn 20/aug/99
+#. !@PYTHON@
+#.
+#. ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+#. document
+#. Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. This is the third incarnation of ly2dvi.
+#.
+#. Earlier incarnations of ly2dvi were written by
+#. Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
+#. Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
+#.
+#. Note: gettext work best if we use ' for docstrings and "
+#. for gettextable strings.
+#. --> DO NOT USE ''' for docstrings.
+#. ###############################################################
+#. Users of python modules should include this snippet
+#. and customize variables below.
+#. We'll suffer this path init stuff as long as we don't install our
+#. python packages in <prefix>/lib/pythonx.y (and don't kludge around
+#. it as we do with teTeX on Red Hat Linux: set some environment var
+#. (PYTHONPATH) in profile)
+#. If set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. Customize these
+#. if __name__ == '__main__':
+#. lilylib globals
+#. # FIXME
+#. # ly2dvi: silly name?
+#. # do -P or -p by default?
+#. #help_summary = _ ("Run LilyPond using LaTeX for titling")
+#: ly2dvi.py:121
+msgid "Run LilyPond, add titles, generate printable document"
+msgstr ""
+
+#: ly2dvi.py:127 main.cc:115
+msgid "write Makefile dependencies for every input file"
+msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
+
+#: ly2dvi.py:129
+msgid "print even more output"
+msgstr ""
+
+#: ly2dvi.py:130
+#, fuzzy
+msgid "add DIR to LilyPond's search path"
+msgstr "DIR を検索パスに追加"
+
+#: ly2dvi.py:132
+#, python-format
+msgid "keep all output, output to directory %s.dir"
+msgstr ""
+
+#: ly2dvi.py:133
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:134 main.cc:116
+msgid "produce MIDI output only"
+msgstr "MIDI 出力の生成のみ"
+
+#: ly2dvi.py:135 midi2ly.py:102
+#, fuzzy
+msgid "write ouput to FILE"
+msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
+
+#: ly2dvi.py:136
+msgid "find pfa fonts used in FILE"
+msgstr ""
+
+#: ly2dvi.py:139
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "制限を緩和"
+
+#: ly2dvi.py:140
+msgid "generate PNG page images"
+msgstr ""
+
+#: ly2dvi.py:141
+#, fuzzy
+msgid "generate PS.GZ"
+msgstr "制限を緩和"
+
+#: ly2dvi.py:142
+#, fuzzy
+msgid "generate PDF output"
+msgstr "制限を緩和"
+
+#: ly2dvi.py:143
+msgid "use pdflatex to generate a PDF output"
+msgstr ""
+
+#. FIXME: preview, picture; to indicate creation of a PNG?
+#: ly2dvi.py:145
+msgid "make a picture of the first system"
+msgstr ""
+
+#: ly2dvi.py:146
+msgid "make HTML file with links to all output"
+msgstr ""
+
+#: ly2dvi.py:147
+msgid "KEY=VAL"
+msgstr ""
+
+#: ly2dvi.py:147
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
+msgid "print version number"
+msgstr "バージョン番号を表示"
+
+#. other globals
+#. Pdftex support
+#. # yuk.
+#. lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
+#. only use installed binary  when we're installed too.
+#. init to empty; values here take precedence over values in the file
+#. # TODO: change name.
+#. for geometry v3
+#. Output formats that ly2dvi should create
+#. what a name.
+#. ly.warning (_ ("invalid value: %s") % `val`)
+#. ly.warning (_ ("invalid value: %s") % `val`)
+#: ly2dvi.py:232
+#, fuzzy, python-format
+msgid "no such setting: `%s'"
+msgstr "その様な楽器はありません: `%s'"
+
+#. 2 == user interrupt.
+#: ly2dvi.py:274
+#, python-format
+msgid "LilyPond crashed (signal %d)."
+msgstr ""
+
+#: ly2dvi.py:275
+msgid "Please submit a bug report to bug-lilypond@gnu.org"
+msgstr ""
+
+#: ly2dvi.py:281
+#, python-format
+msgid "LilyPond failed on input file %s (exit status %d)"
+msgstr ""
+
+#: ly2dvi.py:284
+#, python-format
+msgid "LilyPond failed on an input file (exit status %d)"
+msgstr ""
+
+#: ly2dvi.py:285
+#, fuzzy
+msgid "Continuing..."
+msgstr "要求を捨てます: `%s'"
+
+#. urg
+#: ly2dvi.py:296
+#, fuzzy, python-format
+msgid "Analyzing %s..."
+msgstr "要求を捨てます: `%s'"
+
+#. search only the first 10k
+#: ly2dvi.py:354
+#, fuzzy, python-format
+msgid "no LilyPond output found for `%s'"
+msgstr "Lily は %s に出力します..."
+
+#. The final \n seems important here. It ensures that the footers and taglines end up on the right page.
+#. TODO: should set textheight (enlarge) depending on papersize.
+#: ly2dvi.py:397
+#, fuzzy, python-format
+msgid "invalid value: `%s'"
+msgstr "無効な文字: `%c'"
+
+#. set sane geometry width (a4-width) for linewidth = -1.
+#. who the hell is 597 ?
+#. Ugh.  (La)TeX writes progress and error messages on stdout
+#. Redirect to stderr
+#: ly2dvi.py:511
+msgid "LaTeX failed on the output file."
+msgstr ""
+
+#. make a preview by rendering only the 1st line
+#. of each score
+#: ly2dvi.py:568
+msgid ""
+"Trying create PDF, but no PFA fonts found.\n"
+"Using bitmap fonts instead. This will look bad."
+msgstr ""
+
+#. ugh. Different targets?
+#. Added as functionality to ly2dvi, because ly2dvi may well need to do this
+#. in future too.
+#. no ps header?
+#: ly2dvi.py:615
+#, fuzzy, python-format
+msgid "not a PostScript file: `%s'"
+msgstr "ファイルを開けません: `%s'"
+
+#. todo
+#: ly2dvi.py:660
+#, fuzzy, python-format
+msgid "Writing HTML menu `%s'"
+msgstr "行 ..."
+
+#. signal programming error
+#. Don't convert input files to abspath, rather prepend '.' to include
+#. path.
+#. As a neat trick, add directory part of first input file
+#. to include path.  That way you can do without the clumsy -I in:
+#. ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
+#: ly2dvi.py:769
+msgid "pseudo filter"
+msgstr ""
+
+#: ly2dvi.py:772
+msgid "pseudo filter only for single input file"
+msgstr ""
+
+#. Ugh, maybe make a setup () function
+#. hmmm. Wish I'd 've written comments when I wrote this.
+#. now it looks complicated.
+#: ly2dvi.py:806
+#, fuzzy, python-format
+msgid "filename should not contain spaces: `%s'"
+msgstr "既に含んでいます: `%s'"
+
+#. to be sure, add tmpdir *in front* of inclusion path.
+#. os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
+#. We catch all exceptions, because we need to do stuff at exit:
+#. * copy any successfully generated stuff from tempdir and
+#. notify user of that
+#. * cleanout tempdir
+#. ## ARGH. This also catches python programming errors.
+#. ## this should only catch lilypond nonzero exit  status
+#. ## --hwn
+#. TODO: friendly message about LilyPond setup/failing?
+#.
+#: ly2dvi.py:845
+msgid "Running LilyPond failed. Rerun with --verbose for a trace."
+msgstr ""
+
+#. Our LilyPond pseudo filter always outputs to 'lelie'
+#. have subsequent stages and use 'lelie' output.
+#. unless: add --tex, or --latex?
+#. TODO: friendly message about TeX/LaTeX setup,
+#. trying to run tex/latex by hand
+#: ly2dvi.py:886
+msgid "Failed to make PS file. Rerun with --verbose for a trace."
+msgstr ""
+
+#. unless: add --tex, or --latex?
+#. TODO: friendly message about TeX/LaTeX setup,
+#. trying to run tex/latex by hand
+#: ly2dvi.py:916
+msgid "Running LaTeX falied. Rerun with --verbose for a trace."
+msgstr ""
+
+#. add DEP to targets?
+#: ly2dvi.py:926 input-file-results.cc:68
+#, fuzzy, c-format, python-format
+msgid "dependencies output to `%s'..."
+msgstr "%s へ paper 出力..."
+
+#: ly2dvi.py:937
+#, fuzzy, python-format
+msgid "%s output to <stdout>..."
+msgstr "%s への MIDI 出力"
+
+#: ly2dvi.py:942 ly2dvi.py:968 includable-lexer.cc:57
+#: input-file-results.cc:191 input-file-results.cc:197 lily-guile.cc:86
+#, fuzzy, c-format, python-format
+msgid "can't find file: `%s'"
+msgstr "ファイルが見つかりません: `%s'"
+
+#. Hmm, if this were a function, we could call it the except: clauses
+#: ly2dvi.py:965
+#, fuzzy, python-format
+msgid "%s output to %s..."
+msgstr "%s への MIDI 出力"
+
+#. !@PYTHON@
+#.
+#. midi2ly.py -- LilyPond midi import script
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#. Jan Nieuwenhuizen <janneke@gnu.org>
+#. ###############################################################
+#. Users of python modules should include this snippet.
+#.
+#. This soon to be removed for: import lilypond.lilylib as ly
+#. ###############################################################
+#. ###############################################################
+#. ############### CONSTANTS
+#. ###############################################################
+#. temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+#. original_dir = os.getcwd ()
+#. keep_temp_dir_p = 0
+#: midi2ly.py:94
 msgid "Convert MIDI to LilyPond source"
 msgstr ""
 
-#: midi2ly.py:95
+#: midi2ly.py:97
 msgid "print absolute pitches"
 msgstr ""
 
-#: midi2ly.py:96 midi2ly.py:101
+#: midi2ly.py:98 midi2ly.py:103
 msgid "DUR"
 msgstr "DUR"
 
-#: midi2ly.py:96
+#: midi2ly.py:98
 msgid "quantise note durations on DUR"
 msgstr ""
 
-#: midi2ly.py:97
+#: midi2ly.py:99
 msgid "print explicit durations"
 msgstr ""
 
-#: midi2ly.py:99
+#: midi2ly.py:101
 #, fuzzy
 msgid "ALT[:MINOR]"
 msgstr "ACC[:MINOR]"
 
-#: midi2ly.py:99
+#: midi2ly.py:101
 #, fuzzy
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr "調を設定: ACC +シャープ/-フラット :1 短調"
 
-#: midi2ly.py:101
+#: midi2ly.py:103
 msgid "quantise note starts on DUR"
 msgstr ""
 
-#: midi2ly.py:102
+#: midi2ly.py:104
 msgid "DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:102
+#: midi2ly.py:104
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr ""
 
-#: midi2ly.py:106
+#: midi2ly.py:108
 msgid "treat every text as a lyric"
 msgstr ""
 
-#: midi2ly.py:1027
+#: midi2ly.py:136 mup2ly.py:130
+msgid " 2001--2003"
+msgstr ""
+
+#: midi2ly.py:141 mup2ly.py:135
+msgid ""
+"\n"
+"Distributed under terms of the GNU General Public License. It comes with\n"
+"NO WARRANTY."
+msgstr ""
+
+#: midi2ly.py:166 mup2ly.py:162
+#, fuzzy
+msgid "Exiting ... "
+msgstr "行 ..."
+
+#: midi2ly.py:264 mup2ly.py:261
+#, python-format
+msgid "command exited with value %d"
+msgstr ""
+
+#. ###############################################################
+#. END Library
+#. ###############################################################
+#. hmm
+#. major scale: do-do
+#. minor scale: la-la  (= + 5) '''
+#. By tradition, all scales now consist of a sequence
+#. of 7 notes each with a distinct name, from amongst
+#. a b c d e f g.  But, minor scales have a wide
+#. second interval at the top - the 'leading note' is
+#. sharped. (Why? it just works that way! Anything
+#. else doesn't sound as good and isn't as flexible at
+#. saying things. In medieval times, scales only had 6
+#. notes to avoid this problem - the hexachords.)
+#. So, the d minor scale is d e f g a b-flat c-sharp d
+#. - using d-flat for the leading note would skip the
+#. name c and duplicate the name d.  Why isn't c-sharp
+#. put in the key signature? Tradition. (It's also
+#. supposedly based on the Pythagorean theory of the
+#. cycle of fifths, but that really only applies to
+#. major scales...)  Anyway, g minor is g a b-flat c d
+#. e-flat f-sharp g, and all the other flat minor keys
+#. end up with a natural leading note. And there you
+#. have it.
+#. John Sankey <bf250@freenet.carleton.ca>
+#.
+#. Let's also do a-minor: a b c d e f gis a
+#.
+#. --jcn
+#. as -> gis
+#. des -> cis
+#. ges -> fis
+#. g -> fisis
+#. d -> cisis
+#. a -> gisis
+#. b -> ces
+#. e -> fes
+#. f -> eis
+#. c -> bis
+#. # FIXME: compile fix --jcn
+#. TODO: move space
+#. fis cis gis dis ais eis bis
+#. bes es as des ges ces fes
+#. urg, we should be sure that we're in a lyrics staff
+#. all include ALL_NOTES_OFF
+#. ugh, must set key while parsing
+#. because Note init uses key
+#. Better do Note.calc () at dump time?
+#. last_lyric.clocks = t - last_time
+#. hmm
+#. urg, this will barf at meter changes
+#. urg LilyPond doesn't start at c4, but
+#. remembers from previous tracks!
+#. reference_note = Note (clocks_per_4, 4*12, 0)
+#. must be in \notes mode for parsing \skip
+#: midi2ly.py:1002
+#, fuzzy, python-format
+msgid "%s output to `%s'..."
+msgstr "%s への MIDI 出力"
+
+#: midi2ly.py:1033
 msgid "Example:"
 msgstr ""
 
-#: midi2ly.py:1081
+#: midi2ly.py:1083
 msgid "no files specified on command line."
 msgstr ""
 
-#: mup2ly.py:69
+#. !@PYTHON@
+#. mup2ly.py -- mup input converter
+#.
+#. source file of the GNU LilyPond music typesetter
+#.
+#. (c) 2001
+#. if set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#: mup2ly.py:70
 msgid "Convert mup to LilyPond source"
 msgstr ""
 
-#: mup2ly.py:72
+#: mup2ly.py:73
 msgid "debug"
 msgstr ""
 
-#: mup2ly.py:73
+#: mup2ly.py:74
 msgid "define macro NAME [optional expansion EXP]"
 msgstr ""
 
-#: mup2ly.py:75 main.cc:117
+#: mup2ly.py:76 main.cc:117
 #, fuzzy
 msgid "write output to FILE"
 msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
 
-#: mup2ly.py:76
+#: mup2ly.py:77
 msgid "only pre-process"
 msgstr ""
 
-#: mup2ly.py:1073
-#, fuzzy, c-format
+#. Duh.  Python style portable: cp *.EXT OUTDIR
+#. system ('cp *.%s %s' % (ext, outdir), 1)
+#. Python < 1.5.2 compatibility
+#.
+#. On most platforms, this is equivalent to
+#. `normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
+#. if set, LILYPONDPREFIX must take prevalence
+#. if datadir is not set, we're doing a build and LILYPONDPREFIX
+#. ###############################################################
+#. END Library
+#.
+#. PMX cut and paste
+#.
+#. if not self.entries:
+#. #return '\n'
+#. #ugh ugh
+#. return '\n%s = {}\n\n' % self.idstring ()
+#. ugh
+#. def set_clef (self, letter):
+#. clstr = clef_table[letter]
+#. self.voices[0].add_nonchord (Clef (clstr))
+#. urg
+#. maybe use import copy?
+#. for i in self.pitches:
+#. ch.pitches.append (i)
+#. for i in self.scripts:
+#. ch.scripts.append (i)
+#. http://www.arkkra.com/doc/uguide/contexts.html
+#. #self.current_staffs = []
+#. duh
+#. FIXME: 1?
+#. FIXME: does key play any role in this?
+#. ch = self.current_voices[0].last_chord ()
+#. ch.basic_duration = self.current_voices[0].last_chord ().basic_duration
+#. ugh
+#. ch = self.current_voices[0].last_chord ()
+#. `;' is not a separator, chords end with ';'
+#. mup resets default duration and pitch each bar
+#. ugh: these (and lots more) should also be parsed in
+#. context staff.  we should have a class Staff_properties
+#. and parse/set all those.
+#. shortcut: set to official mup maximum (duh)
+#. self.set_staffs (40)
+#: mup2ly.py:1076
+#, fuzzy, python-format
 msgid "no such context: %s"
 msgstr "その様な楽器はありません: `%s'"
 
-#: mup2ly.py:1297
-#, fuzzy, c-format
+#. hmm
+#. dig this: mup allows ifdefs inside macro bodies
+#. don't do nested multi-line defines
+#. duh: mup is strictly line-based, except for `define',
+#. which is `@' terminated and may span several lines
+#. don't define new macros in unactive areas
+#. To support nested multi-line define's
+#. process_function and macro_name, macro_body
+#. should become lists (stacks)
+#. The mup manual is undetermined on this
+#. and I haven't seen examples doing it.
+#.
+#. don't do nested multi-line define's
+#. writes to stdout for help2man
+#. don't call
+#. identify ()
+#. sys.stdout.flush ()
+#. handy emacs testing
+#. if not files:
+#. files = ['template.mup']
+#: mup2ly.py:1300
+#, fuzzy, python-format
 msgid "Processing `%s'..."
 msgstr "処理中..."
 
-#: mup2ly.py:1316
-#, fuzzy, c-format
+#: mup2ly.py:1319
+#, fuzzy, python-format
 msgid "Writing `%s'..."
 msgstr "行 ..."
-
-#: update-lily.py:76
-msgid "Fetch and rebuild from latest source package"
-msgstr ""
-
-#: update-lily.py:79
-#, c-format
-msgid "unpack and build in DIR [%s]"
-msgstr ""
-
-#: update-lily.py:80
-msgid "execute COMMAND, subtitute:"
-msgstr ""
-
-#: update-lily.py:81
-msgid "%b: build root"
-msgstr ""
-
-#: update-lily.py:82
-#, c-format
-msgid "%n: package name"
-msgstr ""
-
-#: update-lily.py:83
-#, fuzzy
-msgid "%r: release directory"
-msgstr "見つからないか作れません: `%s'"
-
-#: update-lily.py:84
-msgid "%t: tarball"
-msgstr ""
-
-#: update-lily.py:85
-msgid "%v: package version"
-msgstr ""
-
-#: update-lily.py:88
-#, c-format
-msgid "keep all output, and name the directory %s"
-msgstr ""
-
-#: update-lily.py:89
-msgid "upon failure notify EMAIL[,EMAIL]"
-msgstr ""
-
-#: update-lily.py:90
-msgid "remove previous build"
-msgstr ""
-
-#: update-lily.py:93
-#, c-format
-msgid "fetch and build URL [%s]"
-msgstr ""
-
-#: update-lily.py:429
-#, fuzzy, c-format
-msgid "Listing `%s'..."
-msgstr "行 ..."
-
-#: update-lily.py:497
-#, c-format
-msgid "latest is: %s"
-msgstr ""
-
-#: update-lily.py:498
-#, c-format
-msgid "relax, %s is up to date"
-msgstr ""
-
-#: update-lily.py:507 update-lily.py:520
-#, fuzzy, c-format
-msgid "Fetching `%s'..."
-msgstr "要求を捨てます: `%s'"
-
-#: update-lily.py:529
-#, fuzzy, c-format
-msgid "Building `%s'..."
-msgstr "要求を捨てます: `%s'"
 
 #: getopt-long.cc:146
 #, fuzzy, c-format
@@ -435,52 +1208,57 @@ msgstr "認識できないオプション: `%s'"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "オプション `%2$s' に対する無効な引数 `%1$s'"
 
-#: warn.cc:24
+#: warn.cc:25
 #, fuzzy, c-format
 msgid "warning: %s\n"
 msgstr "警告: "
 
-#: warn.cc:30
+#: warn.cc:31
 #, fuzzy, c-format
 msgid "error: %s\n"
 msgstr "エラー: "
 
-#: warn.cc:43
+#: warn.cc:44
 #, fuzzy, c-format
 msgid "programming error: %s (Continuing; cross thumbs)\n"
 msgstr " (続けます -- cross thumbs)"
 
-#: accidental-engraver.cc:181 new-accidental-engraver.cc:237
+#: accidental.cc:202 key-signature-interface.cc:137
+#, c-format
+msgid "accidental `%s' not found"
+msgstr ""
+
+#: accidental-engraver.cc:171 new-accidental-engraver.cc:238
 #, c-format
 msgid "Accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:206 new-accidental-engraver.cc:262
+#: accidental-engraver.cc:196 new-accidental-engraver.cc:263
 #, fuzzy, c-format
 msgid "unknown accidental typesetting: %s. Ignored"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: accidental-engraver.cc:222 new-accidental-engraver.cc:278
+#: accidental-engraver.cc:212 new-accidental-engraver.cc:279
 #, c-format
 msgid "Symbol is not a parent context: %s. Ignored"
 msgstr ""
 
-#: accidental-engraver.cc:225 new-accidental-engraver.cc:281
+#: accidental-engraver.cc:215 new-accidental-engraver.cc:282
 #, c-format
 msgid "Accidental typesetting must be pair or context-name: %s"
 msgstr ""
 
-#: afm.cc:60
+#: afm.cc:66
 #, fuzzy, c-format
 msgid "can't find character number: %d"
 msgstr "文字番号が見つかりません: %d"
 
-#: afm.cc:75
+#: afm.cc:81
 #, fuzzy, c-format
 msgid "can't find character called: `%s'"
 msgstr "呼び出された文字が見つかりません: `%s'"
 
-#: afm.cc:125
+#: afm.cc:142
 #, c-format
 msgid "Error parsing AFM file: `%s'"
 msgstr ""
@@ -501,81 +1279,87 @@ msgid ""
 "to show font paths."
 msgstr ""
 
-#: all-font-metrics.cc:167
+#: all-font-metrics.cc:103
+msgid ""
+"A script for removing font-files is delivered with the source-code,\n"
+"in buildscripts/clean-fonts.sh"
+msgstr ""
+
+#: all-font-metrics.cc:169
 #, fuzzy, c-format
 msgid "can't find font: `%s'"
 msgstr "フォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:168
+#: all-font-metrics.cc:170
 msgid "Loading default font"
 msgstr "デフォルトフォントをロードします"
 
-#: all-font-metrics.cc:183
+#: all-font-metrics.cc:185
 #, fuzzy, c-format
 msgid "can't find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:184 includable-lexer.cc:51 input-file-results.cc:188
+#: all-font-metrics.cc:186 includable-lexer.cc:59 input-file-results.cc:192
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(検索パス: `%s')"
 
-#: all-font-metrics.cc:185
+#: all-font-metrics.cc:187
 msgid "Giving up"
 msgstr "諦めました"
 
 #: auto-change-iterator.cc:43 change-iterator.cc:60
-#: part-combine-music-iterator.cc:97
+#: part-combine-music-iterator.cc:120
 msgid "Can't switch translators, I'm there already"
 msgstr "トランスレータを切り替えられません。既にそうなっています"
 
-#: bar-check-iterator.cc:58
+#: bar-check-iterator.cc:51
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "小節チェックが失敗: %s"
 
-#: beam-engraver.cc:167
-#, fuzzy
-msgid "already have a beam"
-msgstr "既に鈎があります"
-
-#: beam-engraver.cc:234
-#, fuzzy
-msgid "unterminated beam"
-msgstr "終端のないハイフン"
-
-#: beam-engraver.cc:267 chord-tremolo-engraver.cc:175
-#, fuzzy
-msgid "stem must have Rhythmic structure"
-msgstr "符尾はリズム構造を持たねばなりません"
-
-#: beam-engraver.cc:281
-#, fuzzy
-msgid "stem doesn't fit in beam"
-msgstr "符尾が鈎の中におさまりません"
-
-#: beam-engraver.cc:282
-#, fuzzy
-msgid "beam was started here"
-msgstr "鈎はここから開始されました"
-
-#: beam.cc:134
+#: beam.cc:146
 #, fuzzy
 msgid "beam has less than two visible stems"
 msgstr "鈎が二つ未満の符尾とともに使われました"
 
-#: beam.cc:139
+#: beam.cc:151
 #, fuzzy
 msgid "Beam has less than two stems. Removing beam."
 msgstr "鈎が二つ未満の符尾とともに使われました"
 
-#: beam.cc:951
+#: beam.cc:976
 msgid ""
 "Not sure that we can find a nice beam slope (no viable initial configuration "
 "found)."
 msgstr ""
 
-#: break-align-interface.cc:166
+#: beam-engraver.cc:176
+#, fuzzy
+msgid "already have a beam"
+msgstr "既に鈎があります"
+
+#: beam-engraver.cc:259
+#, fuzzy
+msgid "unterminated beam"
+msgstr "終端のないハイフン"
+
+#: beam-engraver.cc:292 chord-tremolo-engraver.cc:197
+#, fuzzy
+msgid "stem must have Rhythmic structure"
+msgstr "符尾はリズム構造を持たねばなりません"
+
+#: beam-engraver.cc:306
+#, fuzzy
+msgid "stem doesn't fit in beam"
+msgstr "符尾が鈎の中におさまりません"
+
+#: beam-engraver.cc:307
+#, fuzzy
+msgid "beam was started here"
+msgstr "鈎はここから開始されました"
+
+#: break-align-interface.cc:173
 #, fuzzy, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr "判らないトランスレータ: `%s'"
@@ -599,70 +1383,111 @@ msgstr "トランスレータそのものです"
 msgid "none of these in my family"
 msgstr "ファミリの中にありません"
 
-#: chord-tremolo-engraver.cc:137 percent-repeat-engraver.cc:182
+#: chord-tremolo-engraver.cc:98
+#, c-format
+msgid "Chord tremolo with %d elements. Must have two elements."
+msgstr ""
+
+#: chord-tremolo-engraver.cc:157
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "終端のないハイフン"
 
-#: chord-tremolo-iterator.cc:50
+#: chord-tremolo-iterator.cc:69
 #, fuzzy
 msgid "no one to print a tremolos"
 msgstr "反復記号を表示するものがありません"
 
-#: chord.cc:313
+#: clef.cc:64
 #, c-format
-msgid "invalid subtraction: not part of chord: %s"
-msgstr "無効な引き算: コードの一部ではありません: %s"
+msgid "clef `%s' not found"
+msgstr ""
 
-#: chord.cc:342
+#: cluster.cc:131
+#, fuzzy, c-format
+msgid "unknown cluster style `%s'"
+msgstr "不明な音部記号(Clef)"
+
+#: coherent-ligature-engraver.cc:84
 #, c-format
-msgid "invalid inversion pitch: not part of chord: %s"
-msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
+msgid "gotcha: ptr=%ul"
+msgstr ""
+
+#: coherent-ligature-engraver.cc:96
+#, c-format
+msgid "distance=%f"
+msgstr ""
+
+#: coherent-ligature-engraver.cc:139
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment = 0.01': ptr=%ul"
+msgstr ""
+
+#: custos.cc:92
+#, c-format
+msgid "custos `%s' not found"
+msgstr ""
 
 #: dimensions.cc:13
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:187 span-dynamic-performer.cc:82
+#: dynamic-engraver.cc:204 span-dynamic-performer.cc:82
 #, fuzzy
 msgid "can't find start of (de)crescendo"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: dynamic-engraver.cc:211
+#: dynamic-engraver.cc:216
 #, fuzzy
 msgid "already have a crescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:212
+#: dynamic-engraver.cc:217
 #, fuzzy
 msgid "already have a decrescendo"
 msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:215
+#: dynamic-engraver.cc:220
 #, fuzzy
 msgid "Cresc started here"
 msgstr "鈎はここから開始されました"
 
-#: dynamic-engraver.cc:307
+#: dynamic-engraver.cc:323
 #, fuzzy
 msgid "unterminated (de)crescendo"
 msgstr "終了していないクレッシェンド"
 
-#: extender-engraver.cc:96
+#: event.cc:49
+#, fuzzy, c-format
+msgid "Transposition by %s makes alteration larger than two"
+msgstr "%s の変調によって、二つを超える派生音が作られました"
+
+#: event-chord-iterator.cc:76 output-property-music-iterator.cc:27
+#, fuzzy, c-format
+msgid "Junking event: `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#: extender-engraver.cc:94
 msgid "unterminated extender"
 msgstr "終端のないエクステンダ"
 
-#: extender-engraver.cc:108
-msgid "Nothing to connect extender to on the left.  Ignoring extender request."
+#: extender-engraver.cc:106
+#, fuzzy
+msgid "Nothing to connect extender to on the left.  Ignoring extender event."
 msgstr "エクステンダが左側につながりません。エクステンダ要求を無視します。"
 
-#: folded-repeat-iterator.cc:78
+#: folded-repeat-iterator.cc:88
 msgid "no one to print a repeat brace"
 msgstr "反復記号を表示するものがありません"
 
-#: font-interface.cc:238
+#: font-interface.cc:239
 msgid "couldn't find any font satisfying "
 msgstr ""
+
+#: glissando-engraver.cc:100
+#, fuzzy
+msgid "Unterminated glissando."
+msgstr "終端されていないスラー"
 
 #: gourlay-breaking.cc:188
 #, c-format
@@ -671,6 +1496,27 @@ msgstr ""
 
 #: gourlay-breaking.cc:193
 msgid "No feasible line breaking found"
+msgstr ""
+
+#: gregorian-ligature-engraver.cc:59
+#, c-format
+msgid "\\%s ignored"
+msgstr ""
+
+#: gregorian-ligature-engraver.cc:64
+#, c-format
+msgid "implied \\%s added"
+msgstr ""
+
+#.
+#. Todo: do something sensible. The grob-pq-engraver is not water
+#. tight, and stuff like tupletSpannerDuration confuses it.
+#.
+#: grob-pq-engraver.cc:130
+#, c-format
+msgid ""
+"Skipped something?\n"
+"Grob %s ended before I expected it to end."
 msgstr ""
 
 #: hairpin.cc:98
@@ -682,114 +1528,117 @@ msgstr ""
 msgid "crescendo too small"
 msgstr "クレッシェンド"
 
-#: hyphen-engraver.cc:89
+#: horizontal-bracket-engraver.cc:64
+#, fuzzy
+msgid "Don't have that many brackets."
+msgstr "そんなに沢山のオクターブ (%s) を使わないでください"
+
+#: horizontal-bracket-engraver.cc:73
+#, fuzzy
+msgid "Conflicting note group events."
+msgstr "拍子の要求が競合します"
+
+#: hyphen-engraver.cc:87
 msgid "unterminated hyphen"
 msgstr "終端のないハイフン"
 
-#: hyphen-engraver.cc:101
-msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
+#: hyphen-engraver.cc:99
+#, fuzzy
+msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen event."
 msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 
-#: input-file-results.cc:71 source-file.cc:52 streams.cc:38
-#, fuzzy, c-format
-msgid "can't open file: `%s'"
-msgstr "ファイルを開けません: `%s'"
-
-#: input-file-results.cc:131
-msgid "Score contains errors; will not process it"
-msgstr "楽譜にエラーが含まれています -- 処理しません"
-
-#: input-file-results.cc:168
-#, fuzzy, c-format
-msgid "Now processing: `%s'"
-msgstr "未知のエスケープ文字列: `\\%s'"
-
-#: input.cc:98
+#: input.cc:99
 #, fuzzy
 msgid "non fatal error: "
 msgstr "続行可能なエラー: "
 
-#: input.cc:106 source-file.cc:147 source-file.cc:240
+#: input.cc:107 source-file.cc:146 source-file.cc:239
 msgid "position unknown"
 msgstr "位置が判りません"
 
-#: key-engraver.cc:91
-msgid "Conflicting key signatures found."
-msgstr ""
+#: input-file-results.cc:72 source-file.cc:54 streams.cc:38
+#, fuzzy, c-format
+msgid "can't open file: `%s'"
+msgstr "ファイルを開けません: `%s'"
 
-#: key-engraver.cc:92
-msgid "This was the other key definition."
-msgstr ""
+#: input-file-results.cc:132
+msgid "Score contains errors; will not process it"
+msgstr "楽譜にエラーが含まれています -- 処理しません"
 
-#: key-performer.cc:92
+#: input-file-results.cc:172
+#, fuzzy, c-format
+msgid "Now processing: `%s'"
+msgstr "未知のエスケープ文字列: `\\%s'"
+
+#: key-performer.cc:96
 msgid "FIXME: key change merge"
 msgstr "FIXME: キー変更のマージ"
 
-#: kpath.cc:64
+#: kpath.cc:76
 #, fuzzy, c-format
 msgid "Kpathsea couldn't find TFM file `%s'"
 msgstr "ファイルが見つかりません: `%s'"
 
-#: ligature-bracket.cc:105 ligature-bracket.cc:139 ligature-engraver.cc:124
-msgid "no left bound"
-msgstr ""
-
-#: ligature-engraver.cc:81
+#: ligature-engraver.cc:159
 #, fuzzy
 msgid "can't find start of ligature"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: ligature-engraver.cc:86
+#: ligature-engraver.cc:165
 msgid "no right bound"
 msgstr ""
 
-#: ligature-engraver.cc:108
+#: ligature-engraver.cc:191
 #, fuzzy
 msgid "already have a ligature"
 msgstr "既に鈎があります"
 
-#: ligature-engraver.cc:166
+#: ligature-engraver.cc:207
+msgid "no left bound"
+msgstr ""
+
+#: ligature-engraver.cc:258
 #, fuzzy
 msgid "unterminated ligature"
 msgstr "終端されていないスラー"
 
-#: ligature-engraver.cc:183
+#: ligature-engraver.cc:282
 msgid "ligature may not contain rest; ignoring rest"
 msgstr ""
 
-#: ligature-engraver.cc:184
+#: ligature-engraver.cc:283
 #, fuzzy
 msgid "ligature was started here"
 msgstr "鈎はここから開始されました"
 
-#: lily-guile.cc:99
+#: lily-guile.cc:88
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(読込パス: `%s')"
 
-#: lily-guile.cc:582
+#: lily-guile.cc:576
 #, c-format
 msgid "Can't find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:585
+#: lily-guile.cc:579
 msgid "Perhaps you made a typing error?"
 msgstr ""
 
-#: lily-guile.cc:591
+#: lily-guile.cc:585
 msgid "Doing assignment anyway."
 msgstr ""
 
-#: lily-guile.cc:605
+#: lily-guile.cc:599
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lookup.cc:141
+#: lookup.cc:173
 msgid "round filled box horizontal extent smaller than blot; decreasing blot"
 msgstr ""
 
-#: lookup.cc:146
+#: lookup.cc:178
 msgid "round filled box vertical extent smaller than blot; decreasing blot"
 msgstr ""
 
@@ -808,12 +1657,6 @@ msgstr ""
 #: main.cc:107
 msgid "set options, use -e '(ly-option-usage)' for help"
 msgstr ""
-
-#. another bug in option parser: --output=foe is taken as an abbreviation
-#. for --output-format
-#: main.cc:110
-msgid "EXT"
-msgstr "EXT"
 
 #: main.cc:110
 msgid "use output format EXT"
@@ -883,17 +1726,13 @@ msgstr ""
 "これを改変したり、複製を配布したりする事は歓迎されます。\n"
 "`--warranty' オプション付きで起動すると、より詳細な情報が得られます。\n"
 
-#: main.cc:188 main.cc:200
-#, c-format
-msgid "Copyright (c) %s by"
-msgstr "Copyright (c) %s by"
-
 #: main.cc:198
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- The GNU Project music typesetter"
 
 #: main.cc:206
+#, fuzzy
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -906,7 +1745,8 @@ msgid ""
 "\n"
 "    You should have received a copy (refer to the file COPYING) of the\n"
 "GNU General Public License along with this program; if not, write to\n"
-"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA "
+"02111-1307,\n"
 "USA.\n"
 msgstr ""
 "    This program is free software; you can redistribute it and/or\n"
@@ -940,78 +1780,73 @@ msgstr ""
 "です(COPYING ファイルを参照)。そうでない場合は、Free Software Foundation,\n"
 "Inc., 675 Mass Ave, Cambridge, MA 02139, USA に手紙を書いてください。\n"
 
-#: mensural-ligature-engraver.cc:321 mensural-ligature-engraver.cc:483
+#: mensural-ligature.cc:153
+#, c-format
+msgid "Mensural_ligature:thickness undefined on flexa %d; assuming 1.4"
+msgstr ""
+
+#: mensural-ligature.cc:169
+#, c-format
+msgid "Mensural_ligature:delta-pitch undefined on flexa %d; assuming 0"
+msgstr ""
+
+#: mensural-ligature.cc:182
+#, c-format
+msgid "Mensural_ligature:flexa-width undefined on flexa %d; assuming 2.0"
+msgstr ""
+
+#: mensural-ligature.cc:215
+msgid "Mensural_ligature:unexpected case fall-through"
+msgstr ""
+
+#: mensural-ligature.cc:225
+msgid "Mensural_ligature: (join_left == 0)"
+msgstr ""
+
+#: mensural-ligature-engraver.cc:248 mensural-ligature-engraver.cc:397
 msgid "unexpected case fall-through"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:332
+#: mensural-ligature-engraver.cc:259
 msgid "ligature with less than 2 heads -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:347
+#: mensural-ligature-engraver.cc:279
 msgid "can not determine pitch of ligature primitive -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:370
+#: mensural-ligature-engraver.cc:302
 msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:380
+#: mensural-ligature-engraver.cc:312
 msgid "mensural ligature: duration none of L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature.cc:152
-#, c-format
-msgid "Mensural_ligature: thickness undefined on flexa %d; assuming 1.4"
-msgstr ""
-
-#: mensural-ligature.cc:166
-#, c-format
-msgid "Mensural_ligature: delta-pitch undefined on flexa %d; assuming 0"
-msgstr ""
-
-#: mensural-ligature.cc:177
-#, c-format
-msgid "Mensural_ligature: flexa-width undefined on flexa %d; assuming 2.0"
-msgstr ""
-
-#: mensural-ligature.cc:208
-msgid "Mensural_ligature: unexpected case fall-through"
-msgstr ""
-
-#: mensural-ligature.cc:217
-msgid "Menusral_ligature: (join_left == 0)"
-msgstr ""
-
-#: midi-item.cc:144
+#: midi-item.cc:148
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "その様な楽器はありません: `%s'"
 
-#: midi-item.cc:234
+#: midi-item.cc:238
 msgid "silly duration"
 msgstr "馬鹿げた音長"
 
-#: midi-item.cc:247
+#: midi-item.cc:251
 msgid "silly pitch"
 msgstr "馬鹿げたピッチ"
 
-#: music-output-def.cc:113
+#: music-output-def.cc:111
 #, fuzzy, c-format
 msgid "can't find `%s' context"
 msgstr "`%s' コンテキストが見つかりません"
 
-#: music.cc:159
-#, c-format
-msgid "Transposition by %s makes accidental larger than two"
-msgstr "%s の変調によって、二つを超える派生音が作られました"
-
-#: my-lily-lexer.cc:142
+#: my-lily-lexer.cc:169
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "識別子名はキーワードです: `%s'"
 
-#: my-lily-lexer.cc:162
+#: my-lily-lexer.cc:191
 #, c-format
 msgid "error at EOF: %s"
 msgstr "EOF のところでエラー: %s"
@@ -1024,42 +1859,46 @@ msgstr "構文解析中..."
 msgid "Braces don't match"
 msgstr "ブレースが一致しません"
 
+#.
+#. music for the softenon children?
+#.
+#: new-fingering-engraver.cc:143
+msgid "music for the martians."
+msgstr ""
+
+#: new-tie-engraver.cc:166 tie-engraver.cc:217
+msgid "lonely tie"
+msgstr "一つだけのタイ"
+
 #: note-collision.cc:340
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "釣り合わない音符が多すぎます。それらを無視します。"
 
-#: note-head.cc:134
-msgid "Symbol not found, "
+#: note-head.cc:127
+#, c-format
+msgid "note head `%s' not found"
 msgstr ""
 
-#: output-property-music-iterator.cc:20 request-chord-iterator.cc:76
-#, c-format
-msgid "Junking request: `%s'"
-msgstr "要求を捨てます: `%s'"
-
-#: paper-def.cc:122
+#: paper-def.cc:96
 #, c-format
 msgid "paper output to `%s'..."
 msgstr "%s へ paper 出力..."
 
-#: paper-outputter.cc:57
-msgid ", at "
-msgstr ", at "
-
-#: paper-score.cc:77
+#: paper-score.cc:78
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr ""
 
-#: paper-score.cc:82
-msgid "Preprocessing elements..."
+#: paper-score.cc:83
+#, fuzzy
+msgid "Preprocessing graphical objects..."
 msgstr "要素を前処理中..."
 
-#: paper-score.cc:115
+#: paper-score.cc:116
 msgid "Outputting Score, defined at: "
 msgstr "譜面を出力します。ここで定義: "
 
-#: parse-scm.cc:80
+#: parse-scm.cc:79
 msgid "GUILE signaled an error for the expression begining here"
 msgstr ""
 
@@ -1069,22 +1908,27 @@ msgstr ""
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
 #.
-#: part-combine-music-iterator.cc:116
+#: part-combine-music-iterator.cc:139
 #, fuzzy, c-format
 msgid "I'm one myself: `%s'"
 msgstr "トランスレータそのものです"
 
-#: part-combine-music-iterator.cc:119
+#: part-combine-music-iterator.cc:142
 #, fuzzy, c-format
 msgid "none of these in my family: `%s'"
 msgstr "ファミリの中にありません"
 
-#: percent-repeat-engraver.cc:116
+#: percent-repeat-engraver.cc:109
 #, fuzzy
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "空のキーの扱い方が判りません"
 
-#: percent-repeat-iterator.cc:53
+#: percent-repeat-engraver.cc:163
+#, fuzzy
+msgid "unterminated percent repeat"
+msgstr "終端のないハイフン"
+
+#: percent-repeat-iterator.cc:65
 #, fuzzy
 msgid "no one to print a percent"
 msgstr "反復記号を表示するものがありません"
@@ -1112,136 +1956,104 @@ msgstr "音楽的定義より: %s"
 msgid "MIDI output to `%s'..."
 msgstr "%s への MIDI 出力"
 
-#: phrasing-slur-engraver.cc:117
+#: phrasing-slur-engraver.cc:123
 #, fuzzy
 msgid "unterminated phrasing slur"
 msgstr "終端されていないスラー"
 
-#: phrasing-slur-engraver.cc:132
+#: phrasing-slur-engraver.cc:141
 #, fuzzy
 msgid "can't find start of phrasing slur"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: piano-pedal-engraver.cc:230 piano-pedal-engraver.cc:245
-#: piano-pedal-engraver.cc:300 piano-pedal-performer.cc:82
+#: piano-pedal-engraver.cc:235 piano-pedal-engraver.cc:250
+#: piano-pedal-engraver.cc:305 piano-pedal-performer.cc:82
 #, fuzzy, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "呼び出された文字が見つかりません: `%s'"
 
-#: piano-pedal-engraver.cc:405
+#: piano-pedal-engraver.cc:410
 #, fuzzy
 msgid "unterminated pedal bracket"
 msgstr "終端のないハイフン"
 
-#: pitch.cc:25
-msgid "Pitch arguments out of range"
-msgstr ""
-
-#: porrectus.cc:35
-msgid "(left_head == 0)"
-msgstr ""
-
-#: porrectus.cc:46
-msgid "undefined left_head"
-msgstr ""
-
-#: porrectus.cc:65
-msgid "(right_head == 0)"
-msgstr ""
-
-#: porrectus.cc:76
-msgid "undefined right_head"
-msgstr ""
-
-#: porrectus.cc:96
-msgid "junking lonely porrectus"
-msgstr ""
-
-#: porrectus.cc:106
-msgid "porrectus style undefined; using mensural"
-msgstr ""
-
-#: porrectus.cc:251
-msgid "ascending vaticana style porrectus"
-msgstr ""
-
-#: property-iterator.cc:64
+#: property-iterator.cc:97
 #, c-format
 msgid "Not a grob name, `%s'."
 msgstr ""
 
-#: rest-collision.cc:186
+#: rest.cc:139
+#, c-format
+msgid "rest `%s' not found, "
+msgstr ""
+
+#: rest-collision.cc:199
 msgid "too many colliding rests"
 msgstr "休符の衝突が多すぎます"
 
-#: scm-option.cc:44
+#: scm-option.cc:45
 msgid "lilypond -e EXPR means:"
 msgstr ""
 
-#: scm-option.cc:46
+#: scm-option.cc:47
 msgid "  Evalute the Scheme EXPR before parsing any .ly files."
 msgstr ""
 
-#: scm-option.cc:48
+#: scm-option.cc:49
 msgid ""
 "  Multiple -e options may be given, they will be evaluated sequentially."
 msgstr ""
 
-#: scm-option.cc:50
+#: scm-option.cc:51
 msgid ""
 "  The function ly-set-option allows for access to some internal variables."
 msgstr ""
 
-#: scm-option.cc:52
+#: scm-option.cc:53
 msgid "Usage: lilypond -e \"(ly-set-option SYMBOL VAL)\""
 msgstr ""
 
-#: scm-option.cc:54
+#: scm-option.cc:55
 msgid "Where SYMBOL VAL pair is any of:"
 msgstr ""
 
-#: scm-option.cc:122
+#: scm-option.cc:128
 msgid "Unknown internal option!"
 msgstr ""
 
-#: score-engraver.cc:102
-#, fuzzy, c-format
-msgid "can't find `%s'"
-msgstr "見つかりません: `%s'"
-
-#: score-engraver.cc:103
-msgid "Fonts have not been installed properly.  Aborting"
-msgstr ""
-
-#: score-engraver.cc:207
-#, c-format
-msgid "unbound spanner `%s'"
-msgstr "閉じていないスパナ `%s'"
-
-#: score.cc:92
-#, c-format
-msgid "stack size cur %d, max %d\n"
-msgstr ""
-
-#: score.cc:109
+#: score.cc:85
 msgid "Interpreting music..."
 msgstr "楽曲の解釈中..."
 
-#: score.cc:122
+#: score.cc:97
 msgid "Need music in a score"
 msgstr "楽譜には楽曲が必要です"
 
 #. should we? hampers debugging.
-#: score.cc:135
+#: score.cc:111
 msgid "Errors found/*, not processing score*/"
 msgstr "エラーを発見/*, 楽譜を処理しません*/"
 
-#: score.cc:142
+#: score.cc:118
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "経過時間: %.2f 秒"
 
-#: script-engraver.cc:66
+#: score-engraver.cc:99
+#, fuzzy, c-format
+msgid "can't find `%s'"
+msgstr "見つかりません: `%s'"
+
+#: score-engraver.cc:100
+msgid "Fonts have not been installed properly.  Aborting"
+msgstr ""
+
+#: score-engraver.cc:205
+#, c-format
+msgid "unbound spanner `%s'"
+msgstr "閉じていないスパナ `%s'"
+
+#: script-engraver.cc:90
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr "音節 `%s' の解釈方法が判りません"
@@ -1252,32 +2064,23 @@ msgstr "音節 `%s' の解釈方法が判りません"
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Single_malt_grouping_item:  飲みすぎちゃった"
 
-#: simple-spacer.cc:254
+#: simple-spacer.cc:248
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr ""
 
-#: slur-engraver.cc:140
+#: slur-engraver.cc:141
 msgid "unterminated slur"
 msgstr "終端されていないスラー"
 
 #. How to shut up this warning, when Voice_devnull_engraver has
-#. eaten start request?
-#: slur-engraver.cc:157
+#. eaten start event?
+#: slur-engraver.cc:159
 #, fuzzy
 msgid "can't find start of slur"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: slur.cc:53
-#, fuzzy
-msgid "Putting slur over rest."
-msgstr "休符をまたいだスラーがあります。無視します。"
-
-#: slur.cc:424
-msgid "Slur over rest?"
-msgstr "スラーが休符をまたいでいる?"
-
-#: source-file.cc:65
+#: source-file.cc:67
 #, c-format
 msgid "Huh?  Got %d, expected %d characters"
 msgstr "は？ %2$d 文字あるはずなのに %1$d 文字しかない"
@@ -1292,18 +2095,36 @@ msgstr ""
 msgid "#<spring smob d= %f>"
 msgstr ""
 
-#: staff-symbol.cc:62
+#: staff-symbol.cc:61
 msgid "staff symbol: indentation yields beyond end of line"
 msgstr ""
-
-#: stem-engraver.cc:117
-#, c-format
-msgid "Adding note head to incompatible stem (type = %d)"
-msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d)"
 
 #: stem.cc:118
 msgid "Weird stem size; check for narrow beams"
 msgstr "変な符尾のサイズ -- 細い鈎のチェックをして下さい"
+
+#: stem.cc:611
+#, c-format
+msgid "flag `%s' not found"
+msgstr ""
+
+#: stem.cc:624
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr ""
+
+#: stem-engraver.cc:96
+msgid "tremolo duration is too long"
+msgstr ""
+
+#: stem-engraver.cc:124
+#, c-format
+msgid "Adding note head to incompatible stem (type = %d)"
+msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d)"
+
+#: stem-engraver.cc:125
+msgid "Don't you want polyphonic voices instead?"
+msgstr ""
 
 #: streams.cc:34
 #, fuzzy, c-format
@@ -1319,33 +2140,35 @@ msgstr "ファイルの同調エラー (ディスクが一杯?)"
 msgid "Element count %d."
 msgstr ""
 
-#: system.cc:377
+#: system.cc:372
 #, c-format
 msgid "Grob count %d "
 msgstr ""
 
-#: system.cc:391
-msgid "Calculating column positions..."
+#: system.cc:386
+#, fuzzy
+msgid "Calculating line breaks..."
 msgstr "カラム位置を計算中..."
 
-#: text-spanner-engraver.cc:92
+#: text-spanner-engraver.cc:81
 #, fuzzy
 msgid "can't find start of text spanner"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: text-spanner-engraver.cc:112
+#: text-spanner-engraver.cc:95
 #, fuzzy
 msgid "already have a text spanner"
 msgstr "既に鈎があります"
 
-#: text-spanner-engraver.cc:167
+#: text-spanner-engraver.cc:164
 #, fuzzy
 msgid "unterminated text spanner"
 msgstr "終端のないエクステンダ"
 
-#: text-spanner.cc:130
-msgid "Text_spanner too small"
-msgstr ""
+#: tfm.cc:83
+#, fuzzy, c-format
+msgid "can't find ascii character: %d"
+msgstr "ascii 文字が見つかりません: `%d'"
 
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
@@ -1359,16 +2182,7 @@ msgstr "`%s' の TFM ヘッダに %u 語しかありません"
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr "%s: TFM ファイルは %u 個のパラメタがありますが、%u 以上は扱えません"
 
-#: tfm.cc:83
-#, fuzzy, c-format
-msgid "can't find ascii character: %d"
-msgstr "ascii 文字が見つかりません: `%d'"
-
-#: tie-engraver.cc:216
-msgid "lonely tie"
-msgstr "一つだけのタイ"
-
-#: tie-performer.cc:161
+#: tie-performer.cc:159
 msgid "No ties were created!"
 msgstr "作られたタイがありません!"
 
@@ -1376,167 +2190,244 @@ msgstr "作られたタイがありません!"
 msgid "no one to print a tuplet start bracket"
 msgstr "タプレット開始ブラケットを表示するものがありません"
 
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:87
+#, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr ""
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:57
+#, c-format
+msgid "Found strange time signature %d/%d."
+msgstr ""
+
 #: translator-ctors.cc:53
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "判らないトランスレータ: `%s'"
 
-#: translator-def.cc:87
+#: translator-def.cc:105
 msgid "Program has no such type"
 msgstr "プログラムにはその様なタイプがありません"
 
-#: translator-def.cc:93
+#: translator-def.cc:111
 #, c-format
 msgid "Already contains: `%s'"
 msgstr "既に含んでいます: `%s'"
 
-#: translator-def.cc:94
+#: translator-def.cc:112
 #, fuzzy, c-format
 msgid "Not adding translator: `%s'"
 msgstr "判らないトランスレータ: `%s'"
 
-#: translator-def.cc:209
+#: translator-def.cc:229
 #, fuzzy, c-format
 msgid "can't find: `%s'"
 msgstr "見つかりません: `%s'"
 
-#: translator-group.cc:159
+#: translator-group.cc:158
 #, fuzzy, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr "`%2$s' に呼ばれた `%1$s' が見つからないか作れません"
 
-#: translator-group.cc:244
+#: translator-group.cc:230
 #, fuzzy, c-format
 msgid "can't find or create: `%s'"
 msgstr "見つからないか作れません: `%s'"
 
-#: volta-engraver.cc:111
+#: vaticana-ligature.cc:49
+msgid "ascending vaticana style flexa"
+msgstr ""
+
+#: vaticana-ligature.cc:219
+msgid "Vaticana_ligature:thickness undefined; assuming 1.4"
+msgstr ""
+
+#: vaticana-ligature.cc:233
+msgid "Vaticana_ligature:x-offset undefined; assuming 0.0"
+msgstr ""
+
+#: vaticana-ligature.cc:258
+msgid "Vaticana_ligature: (delta_pitch == 0)"
+msgstr ""
+
+#: vaticana-ligature.cc:271
+msgid "Vaticana_ligature:delta-pitch -> ignoring join"
+msgstr ""
+
+#: vaticana-ligature-engraver.cc:477
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
+msgstr ""
+
+#: volta-engraver.cc:112
 msgid "No volta spanner to end"
 msgstr ""
 
-#: volta-engraver.cc:121
+#: volta-engraver.cc:123
 msgid "Already have a volta spanner.  Stopping that one prematurely."
 msgstr ""
 
-#: volta-engraver.cc:125
+#: volta-engraver.cc:127
 msgid "Also have a stopped spanner.  Giving up."
 msgstr ""
 
-#: parser.yy:434
+#: parser.yy:480
 msgid "Identifier should have alphabetic characters only"
 msgstr ""
 
-#: parser.yy:729
+#: parser.yy:779
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr "繰り返しよりも選択肢が多い。超過分を捨てます。"
 
-#: parser.yy:798
+#: parser.yy:861 parser.yy:868
+msgid "pplycontext takes function argument"
+msgstr ""
+
+#: parser.yy:877
 msgid "Second argument must be a symbol"
 msgstr ""
 
-#: parser.yy:803
+#: parser.yy:882
 msgid "First argument must be a procedure taking one argument"
 msgstr ""
 
-#: parser.yy:1380
+#: parser.yy:1009
+msgid "pply takes function argument"
+msgstr ""
+
+#: parser.yy:1501
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1390
-msgid "Can't specify direction for this request"
-msgstr "この要求に対する方向を指定することはできません"
-
-#: parser.yy:1516
+#: parser.yy:1598
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1527
+#: parser.yy:1609
 #, fuzzy
 msgid "Must have duration object"
 msgstr "音長を最小に設定します"
 
-#: parser.yy:1536 parser.yy:1544
+#: parser.yy:1618 parser.yy:1626
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "歌詞は Lyric モード内に書いてください"
 
-#: parser.yy:1715 parser.yy:1768
+#: parser.yy:1798 parser.yy:1853
 #, c-format
 msgid "not a duration: %d"
 msgstr "音長ではありません: %d"
 
-#: parser.yy:1855
+#: parser.yy:1949
 msgid "Have to be in Note mode for notes"
 msgstr "音符は Note モード内に書いてください"
 
-#: parser.yy:1954
+#: parser.yy:2032
 msgid "Have to be in Chord mode for chords"
 msgstr "コードは Chord モード内に書いてください"
 
-#: parser.yy:2134
+#: parser.yy:2171
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:2206
+#: parser.yy:2316
 msgid "Suspect duration found following this beam"
 msgstr ""
 
-#: lexer.ll:178
+#: lexer.ll:186
 msgid "EOF found inside a comment"
 msgstr "コメント内に EOF が見つかりました"
 
-#: lexer.ll:192
+#: lexer.ll:200
 msgid "\\maininput disallowed outside init files"
 msgstr "初期化ファイルの外では \\maininput を記述できません"
 
-#: lexer.ll:216
+#: lexer.ll:224
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "未定義の識別子: `%s'"
 
 #. backup rule
-#: lexer.ll:225
+#: lexer.ll:233
 msgid "Missing end quote"
 msgstr "終了クオートがありません"
 
 #. backup rule
-#: lexer.ll:247 lexer.ll:251
+#: lexer.ll:255 lexer.ll:259
 msgid "white expected"
 msgstr "空白が必要です"
 
-#: lexer.ll:260
+#: lexer.ll:268
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "安全モードでは Scheme の評価をできません"
 
-#: lexer.ll:364
+#: lexer.ll:397 lexer.ll:487
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:480
+#: lexer.ll:574
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "無効な文字: `%c'"
 
-#: lexer.ll:566
+#: lexer.ll:651
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: lexer.ll:657
+#: lexer.ll:742
 #, fuzzy, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "間違った mudela バージョン: %s (%s, %s)"
 
-#: lexer.ll:658
+#: lexer.ll:743
 msgid "Consider updating the input with the convert-ly script"
 msgstr ""
 
 #, fuzzy
-#~ msgid "can't map file"
-#~ msgstr "ファイルをマップできません"
+#~ msgid "%r: release directory"
+#~ msgstr "見つからないか作れません: `%s'"
 
 #, fuzzy
-#~ msgid "use output format EXT (tex [default], pdftex, ps, scm or as)"
-#~ msgstr "出力フォーマット EXT を使う"
+#~ msgid "Listing `%s'..."
+#~ msgstr "行 ..."
+
+#, fuzzy
+#~ msgid "Fetching `%s'..."
+#~ msgstr "要求を捨てます: `%s'"
+
+#, fuzzy
+#~ msgid "Building `%s'..."
+#~ msgstr "要求を捨てます: `%s'"
+
+#~ msgid "invalid subtraction: not part of chord: %s"
+#~ msgstr "無効な引き算: コードの一部ではありません: %s"
+
+#~ msgid "invalid inversion pitch: not part of chord: %s"
+#~ msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
+
+#~ msgid ", at "
+#~ msgstr ", at "
+
+#, fuzzy
+#~ msgid "Putting slur over rest."
+#~ msgstr "休符をまたいだスラーがあります。無視します。"
+
+#~ msgid "Slur over rest?"
+#~ msgstr "スラーが休符をまたいでいる?"
+
+#~ msgid "Can't specify direction for this request"
+#~ msgstr "この要求に対する方向を指定することはできません"
+
+#, fuzzy
+#~ msgid "can't map file"
+#~ msgstr "ファイルをマップできません"
 
 #~ msgid "This binary was compiled with the following options:"
 #~ msgstr "このバイナリは以下のオプション付きでコンパイルされました"
@@ -1570,10 +2461,6 @@ msgstr ""
 
 #~ msgid "Oldest supported input version: %s"
 #~ msgstr "一番古い入力可能バージョン: %s"
-
-#, fuzzy
-#~ msgid "Cleaning `%s'..."
-#~ msgstr "要求を捨てます: `%s'"
 
 #, fuzzy
 #~ msgid "writing header field `%s' to `%s'..."
@@ -1771,9 +2658,6 @@ msgstr ""
 #~ msgid "Wrong type for property"
 #~ msgstr "属性値へのタイプが間違っています"
 
-#~ msgid "unknown clef type"
-#~ msgstr "不明な音部記号(Clef)"
-
 #~ msgid "too small"
 #~ msgstr "小さすぎます"
 
@@ -1789,9 +2673,6 @@ msgstr ""
 
 #~ msgid "Must stop before this music ends"
 #~ msgstr "この楽曲の終わりまでに止めなければなりません"
-
-#~ msgid "conflicting timing request"
-#~ msgstr "拍子の要求が競合します"
 
 #~ msgid "no one to print a volta bracket"
 #~ msgstr "volta ブラケットを表示するものがありません"
@@ -1878,9 +2759,6 @@ msgstr ""
 
 #~ msgid "No key name, assuming `C'"
 #~ msgstr "キー名がありません、`C' を試みます"
-
-#~ msgid "Don't have that many octaves (%s)"
-#~ msgstr "そんなに沢山のオクターブ (%s) を使わないでください"
 
 #~ msgid "underdone accidentals (%s)"
 #~ msgstr "フラットが多すぎます (%s)"

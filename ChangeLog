@@ -1,9 +1,18 @@
+2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/engraver-init.ly (LyricsVoiceContext): add padding for
+	separation items. This keeps lyrics from bumping into each other.
+
 2003-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in (topdocs-web): New target.
 	(local-web): Depend on topdocs-web; fixes html-doc.
 
 2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* po/lilypond.pot: run po-replace
+
+	* Documentation/GNUmakefile (SUBDIRS): remove windows/ directory
 
 	* scm/drums.scm (reset-drum-kit): new function.
 

@@ -315,7 +315,7 @@ LyricsVoiceContext= \translator{
 	\consists "Stanza_number_engraver"
 	\consists "Skip_event_swallow_translator"
 	phrasingPunctuation = #".,:!?\""
-	
+	SeparationItem \set #'padding = #0.5
 }
 NoteNamesContext = \translator {
 	\type "Engraver_group_engraver"
