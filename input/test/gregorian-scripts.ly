@@ -67,7 +67,7 @@ cantus = \notes \relative c' {
       Script \set #'padding = #0.0
 
       % prepare TextSpanner for \episem{Initium|Finis} use
-      TextSpanner \set #'type = #'line
+      TextSpanner \set #'style = #'line
       TextSpanner \set #'edge-height = #'(0 . 0)
       TextSpanner \set #'padding = #0.5
       TextSpanner \set #'edge-text = #'("" . "")

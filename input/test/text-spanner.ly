@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.22"
 % TODO: check about other ottava functions.
 
 \header { texidoc = "@cindex Ottava Spanner
@@ -12,14 +12,14 @@ You can make Lilypond print ottava spanners. "
 	b c 
         a #(ly:export (make-span-event 'TextSpanEvent STOP))
 
-        \property Voice.TextSpanner \revert #'type
-        \property Voice.TextSpanner \override #'type = #'dotted-line
+        \property Voice.TextSpanner \revert #'style
+        \property Voice.TextSpanner \override #'style = #'dotted-line
         a #(ly:export (make-span-event 'TextSpanEvent START))
 	b c 
         a #(ly:export (make-span-event 'TextSpanEvent STOP))
 
-        \property Voice.TextSpanner \revert #'type
-        \property Voice.TextSpanner \override #'type = #'dashed-line
+        \property Voice.TextSpanner \revert #'style
+        \property Voice.TextSpanner \override #'style = #'dashed-line
         \property Voice.TextSpanner \override #'edge-height = #'(1 . -2)
         a #(ly:export (make-span-event 'TextSpanEvent START))
 	b c 
