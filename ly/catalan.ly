@@ -1,8 +1,9 @@
 %{
 
- Common catalan names for notes. "b" means flat (bemoll), "d" means sharp (diesi).
- Also "s" is included for sharp (sostingut).  Neutral "diesi" and "sostingut" are approved
- by "Diccionari de la Llengua Catalana" from "Institut d'Estudis Catalans".
+ Common catalan names for notes. "b" means flat (bemoll), "d" means sharp
+ (diesi).  Also "s" is included for sharp (sostingut).  Both "diesi" and
+ "sostingut" are approved by "Diccionari de la Llengua Catalana" from
+ "Institut d'Estudis Catalans".
 
  Adapted from italiano.ly.
 
