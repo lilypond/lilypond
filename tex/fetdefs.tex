@@ -1,51 +1,59 @@
 % fetdefs.tex
 % encapsulating tex backend for auto-generated feta definitions
 
+\def\placebox#1#2#3{%
+        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
+
+
 \def\fetsixteendefs{%
-  \font\feta = feta16
-  \font\fetanummer = feta-nummer8
-  \font\dynfont = feta-din10 scaled \magstep 1
-  \font\bracefont = feta-braces16
-  \font\bracketfont = feta-brackets16
-  \font\fingerfont = feta-nummer4
+  \font\fetasixteen = feta16
+  \font\fetanummersixteen = feta-nummer8
+  \font\dynfontsixteen = feta-din10 scaled \magstep 1
+  \font\bracefontsixteen = feta-braces16
+  \font\fingerfontsixteen = feta-nummer4
+  \font\markfontsixteen = feta-nummer10
+\def\currentsize{sixteen}
 }
 
 \def\fettwentydefs{%
-  \font\feta = feta20
-  \font\fetanummer = feta-nummer10
-  \font\dynfont = feta-din10 scaled \magstep 2
-  \font\bracefont = feta-braces20
-  \font\bracketfont = feta-brackets20
-  \font\fingerfont = feta-nummer5
+  \font\fetatwenty = feta20
+  \font\fetanummertwenty = feta-nummer10
+  \font\dynfonttwenty = feta-din10 scaled \magstep 2
+  \font\bracefonttwenty = feta-braces20
+  \font\fingerfonttwenty = feta-nummer5
+  \font\markfonttwenty = feta-nummer12
+\def\currentsize{twenty}
 }
 
 \def\fettwentysixdefs{%
-  \font\feta = feta26
-  \font\fetanummer = feta-nummer12
-  \font\dynfont = feta-din10 scaled \magstep 3
-  \font\bracefont = feta-braces16
-  \font\bracketfont = feta-brackets20
-  \font\fingerfont = feta-nummer7
+  \font\fetatwentysix = feta26
+  \font\fetanummertwentysix = feta-nummer12
+  \font\dynfonttwentysix = feta-din10 scaled \magstep 3
+  \font\bracefonttwentysix = feta-braces16
+  \font\fingerfonttwenty = feta-nummer7
+  \font\markfonttwentysix = feta-nummer14
+\def\currentsize{twentysix}
 }
 
 \def\fetthirteendefs{%
-  \font\feta = feta13
-  \font\fetanummer = feta-nummer5
-  \font\dynfont = feta-din10 scaled \magstep 0
-  \font\bracefont = feta-braces16
-  \font\bracketfont = feta-brackets16
-  \font\fingerfont = feta-nummer3
+  \font\fetathirteen = feta13
+  \font\fetanummerthirteen = feta-nummer5
+  \font\dynfontthirteen = feta-din10 scaled \magstep 0
+  \font\bracefontthirteen = feta-braces16
+  \font\fingerfontthirteen = feta-nummer3
+  \font\markfonttwentysix = feta-nummer8
+\def\currentsize{thirteen}
 }
 
 \def\fetelevendefs{%
-  \font\feta = feta11
-  \font\fetanummer = feta-nummer5
-  \font\dynfont = feta-din10        % scaled \magstep-1
-  \font\bracefont = feta-braces16
-  \font\bracketfont = feta-brackets16
-  \font\fingerfont = feta-nummer3
+  \font\fetaeleven = feta11
+  \font\fetanummereleven = feta-nummer5
+  \font\dynfonteleven = feta-din10        % scaled \magstep-1
+  \font\bracefonteleven = feta-braces16
+  \font\fingerfonteleven = feta-nummer3
+  \font\markfonttwentysix = feta-nummer7
+\def\currentsize{eleven}
 }
-
 
 \def\sixteenfonts{\fetsixteendefs\cmrsixteen}
 \def\twentyfonts{\fettwentydefs\cmrtwenty}
@@ -53,12 +61,27 @@
 \def\elevenfonts{\fetelevendefs\cmreleven}
 \def\thirteenfonts{\fetthirteendefs\cmrthirteen}
 
+
+\def\bracefont{\csname bracefont\currentsize\endcsname}
+\def\fetanummer{\csname fetanummer\currentsize\endcsname}
+\def\dynfont{\csname dynfont\currentsize\endcsname}
+\def\fingerfont{\csname fingerfont\currentsize\endcsname}
+\def\markfont{\csname markfont\currentsize\endcsname}
+
+%\sixteenfonts
+%\twentysixfonts
+%\twentyfonts
+%\elevenfonts
+%\thirteenfonts
+
+\def\switchfont#1{\def\currentsize{#1}\csname feta\currentsize\endcsname}
+
 \def\fetdef#1#2{%
   \def#1{\hbox{\fetchar{#2}}}}
-\def\fetchar#1{\feta\char#1}
+\def\fetchar#1{\char#1}
 
 %\input feta16
-\input feta20
+%\input feta20
 
 % stacked numbers; overrules def in lilyponddefs
 % widest num should be .40 balkheight
@@ -88,9 +111,9 @@
   \else
     \vbox to 0pt{%
       \vss
-      \hbox to 0.45\staffheight{\hss\fetanummer #1\hss}%
+      \hbox to 0.45\staffheight{\hss \fetanummer #1\hss}%
       \nointerlineskip
-      \hbox to 0.45\staffheight{\hss\fetanummer #2\hss}%
+      \hbox to 0.45\staffheight{\hss \fetanummer #2\hss}%
       \vss}%
   \fi}
 
