@@ -217,11 +217,11 @@ Ambitus::brew_molecule (SCM smob)
   Molecule ledger_lines;
   int interspaces = Staff_symbol_referencer::line_count (me) - 1;
   ledger_lines =
-    Note_head::brew_ledger_lines (me, p_min, interspaces, l_extents, true);
+    Note_head::brew_ledger_lines (me, p_min, interspaces, l_extents, 0,true);
   ledger_lines.translate_axis (0.5 * p_min, Y_AXIS);
   molecule.add_molecule (ledger_lines);
   ledger_lines =
-    Note_head::brew_ledger_lines (me, p_max, interspaces, l_extents, true);
+    Note_head::brew_ledger_lines (me, p_max, interspaces, l_extents, 0, true);
   ledger_lines.translate_axis (0.5 * p_max, Y_AXIS);
   molecule.add_molecule (ledger_lines);
 

@@ -101,7 +101,7 @@ Custos::brew_molecule (SCM smob)
 	{
 	  Molecule ledger_lines =
 	    Note_head::brew_ledger_lines (me, pos, interspaces,
-					  molecule.extent (X_AXIS), true);
+					  molecule.extent (X_AXIS), 0, true);
 	  molecule.add_molecule (ledger_lines);
 	}
       return molecule.smobbed_copy ();

@@ -205,7 +205,7 @@ vaticana_add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
 				     hd[RIGHT] + right_ledger_protusion);
       Molecule ledger_lines =
 	Note_head::brew_ledger_lines (me, pos, interspaces,
-				      l_extents,
+				      l_extents, 0,
 				      ledger_take_space);
       ledger_lines.translate_axis (offs, Y_AXIS);
       out->add_molecule (ledger_lines);
@@ -260,7 +260,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
        * flexa_width.)
        */
       Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real flexa_width  = robust_scm2double ( me->get_grob_property ("flexa-width"), 2);
+      Real flexa_width  = robust_scm2double ( me->get_grob_property ("flexa-width"), 2)  *staff_space;
       out =
 	Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0,0)));
     }

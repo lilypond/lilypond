@@ -66,6 +66,7 @@ Note_head::brew_ledger_lines (Grob *me,
                               int pos,
                               int interspaces,
                               Interval x_extent,
+			      Real left_shorten,
 			      bool take_space)
 {
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
@@ -84,22 +85,30 @@ Note_head::brew_ledger_lines (Grob *me,
       Interval y_extent =
 	Interval (-0.5*(ledgerlinethickness),
 		  +0.5*(ledgerlinethickness));
-      Box ledger_line (x_extent, y_extent);
-
       Molecule proto_ledger_line =
-	Lookup::round_filled_box (ledger_line, blotdiameter);
+	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
+
+      x_extent[LEFT] += left_shorten;
+      Molecule proto_first_line =
+	Lookup::round_filled_box (Box (x_extent, y_extent), blotdiameter);
 
       if (!take_space)
-        proto_ledger_line.set_empty (true);
-
+        {
+	  proto_ledger_line.set_empty (true);
+	  proto_first_line.set_empty (true);
+	}
       
       Direction dir = (Direction)sign (pos);
       Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
         ? 0.0
         : -dir * inter_f;
+      
       for (int i = 0; i < line_count; i++)
         {
-          Molecule ledger_line (proto_ledger_line);
+          Molecule ledger_line ((i == 0) 
+				? proto_first_line
+				: proto_ledger_line
+				);
           ledger_line.translate_axis (-dir * inter_f * i * 2 + offs, Y_AXIS);
           molecule.add_molecule (ledger_line);
         }
@@ -134,10 +143,10 @@ internal_brew_molecule (Grob *me, bool with_ledgers)
   if (with_ledgers && interspaces >= 0
       && abs (pos) - interspaces > 1)
     {
-      Interval hd = out.extent (X_AXIS);
-      Real left_ledger_protusion = hd.length ()/4;
-      Real right_ledger_protusion = left_ledger_protusion;
+      Interval ledger_size = out.extent (X_AXIS);
+      ledger_size.widen ( ledger_size.length ()/4);
 
+      Real left_shorten =0.0;
       if (Grob * g = unsmob_grob(me->get_grob_property ("accidental-grob")))
 	{
 	  /*
@@ -149,16 +158,21 @@ internal_brew_molecule (Grob *me, bool with_ledgers)
 
 	  Grob *common = g->common_refpoint (me, X_AXIS);
 	  Real d =
-	    me->extent (common, X_AXIS)[LEFT]
-	    -g->extent (common, X_AXIS)[RIGHT];
-	  
-	  left_ledger_protusion = left_ledger_protusion <? (d/2);
+	    (me->extent (common, X_AXIS)[LEFT]
+	     +g->extent (common, X_AXIS)[RIGHT]) /2;
+
+	  left_shorten =  (-ledger_size[LEFT] + d) >?  0 ;
+
+	  /*
+	    TODO: shorten 2 ledger lines for the case natural +
+	    downstem.
+	   */
 	}
 
-      Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
-				     hd[RIGHT] + right_ledger_protusion);
       out.add_molecule (Note_head::brew_ledger_lines (me, pos, interspaces,
-						      l_extents, false));
+						      ledger_size,
+						      left_shorten,
+						      false));
     }
   return out;
 }
@@ -250,9 +264,8 @@ Note_head::brew_ez_molecule (SCM smob)
   if (abs (pos) - interspaces > 1)
     {
       Interval hd = m.extent (X_AXIS);
-      Real hw = hd.length ()/4;
-      Interval extent = Interval (hd[LEFT] - hw, hd[RIGHT] + hw);
-      m.add_molecule (brew_ledger_lines (me, pos, interspaces, extent, false));
+      hd.widen ( hd.length ()/4);
+      m.add_molecule (brew_ledger_lines (me, pos, interspaces, hd, 0, false));
     }
 
   return m.smobbed_copy ();
