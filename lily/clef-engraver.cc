@@ -224,6 +224,14 @@ Clef_engraver::do_pre_move_processing()
 	  if (octavate_p_)
 	    octavate_p_->set_elt_property("visibility-lambda", all);
 	}
+      else
+	{
+	  SCM beg = scm_eval (ly_symbol2scm ("begin-of-line-visible"));
+
+	  clef_p_->set_elt_property ("visibility-lambda", beg);
+	  if (octavate_p_)
+	    octavate_p_->set_elt_property ("visibility-lambda", beg);
+	}
       typeset_element (clef_p_);
       clef_p_ =0;
 

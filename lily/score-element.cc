@@ -247,7 +247,7 @@ Score_element::calculate_dependencies (int final, int busy,
   
   status_i_= busy;
 
-  for (SCM d=  get_elt_property ("dependencies"); d != SCM_EOL; d = gh_cdr (d))
+  for (SCM d=  get_elt_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
       unsmob_element (gh_car (d))
 	->calculate_dependencies (final, busy, funcptr);
@@ -377,17 +377,22 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	}
       else
 	{
-	  Score_element * ln = unsmob_element ( criterion);
-	  Line_of_score * line = dynamic_cast<Line_of_score*> (ln);
-	  Score_element * br =0;
-	  Line_of_score * dep_line = sc->line_l ();
+
+	  Line_of_score * line = dynamic_cast<Line_of_score*> (unsmob_element ( criterion));
+	 Line_of_score * dep_line = sc->line_l ();
 	  if (dep_line != line)
 	    {
-	      br = sc->find_broken_piece (line);
+	    Score_element * br = sc->find_broken_piece (line);
 	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
 	    }
 	  if (!dep_line)
 	    return SCM_UNDEFINED;
+
+	  if (!sc->common_refpoint (line, X_AXIS)
+	      || !sc->common_refpoint (line, Y_AXIS))
+	    {
+	      return SCM_UNDEFINED;
+	    }
 	}
     }
   else if (gh_pair_p (src))
@@ -438,10 +443,28 @@ Score_element::handle_broken_dependencies()
 	}
     }
 
+
   Line_of_score *line = line_l();
-  element_property_alist_
-    = handle_broken_smobs (element_property_alist_,
-			   line ? line->self_scm_ : SCM_UNDEFINED);
+
+  if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
+    {
+      element_property_alist_
+	= handle_broken_smobs (element_property_alist_,
+			       line ? line->self_scm_ : SCM_UNDEFINED);
+    }
+  else
+    {
+      /*
+	This element is `invalid'; it has been removed from all dependencies, so
+	let's junk the element itself.
+
+      */
+      element_property_alist_ = SCM_EOL;
+      set_extent_callback (0, Y_AXIS);
+      set_extent_callback (0, X_AXIS);
+    }
+
+
 }
 
 
@@ -609,10 +632,6 @@ Score_element::fixup_refpoint ()
 	{
 	  Score_element * newparent = parent->find_broken_piece (line_l ());
 	  set_parent (newparent, ax);
-	  if (!newparent)
-	    {
-	      programming_error ("Orphaned score-element.");
-	    }
 	}
 
       if (Item * i  = dynamic_cast<Item*> (this))
