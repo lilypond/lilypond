@@ -2,7 +2,7 @@
 \header {
 
 texidoc = "Cautionary accidentals are indicated using either
-smaller accidentals (default) or parentheses.
+parentheses (default) or smaller accidentals.
 
 "
 
@@ -12,7 +12,9 @@ smaller accidentals (default) or parentheses.
     \notes {
     c''4
     cis''?4
-    \property Staff.Accidental \override #'style = #'parentheses
+    \property Staff.Accidental \set #'cautionary-style = #'smaller
+    cis''?4
+    \property Staff.Accidental \set #'cautionary-style = #'parentheses
     cis''?4
     }}
 %% new-chords-done %%
