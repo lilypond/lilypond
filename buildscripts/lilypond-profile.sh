@@ -9,17 +9,20 @@
 
 
 
-# workaround for ZSH posix $0-problem
 
-# for zsh: start removing here
+
+# In ZSH, $0 is set to the script name, regardless of whether sourced
+# or run in a subshell.
 if [ -n "$ZSH_NAME" ] ; then
-    echo "You are running this script under zsh. Edit this script by hand. "
+    echo "Make sure that this script is sourced, ie. run as "
     echo 
-    echo "(failed to source lilypond-profile)"
+    echo "   . lilypond-profile"
+    echo ""
+    echo "Continuing anyway ..."
     return 2
 fi
 
-if [ `basename "$0"` = "lilypond-profile" ] ; then 
+if [ -z "$ZSH_NAME" -a `basename "$0"` = "lilypond-profile" ] ; then 
     cat >/dev/stderr <<EOF
     
 Error: This script cannot be run in a subshell; it MUST be sourced.
@@ -60,8 +63,6 @@ EOF
 
     return 2
 else
-#  for zsh: till here
-
 	if [ -z "$LILYPONDPREFIX" ]; then
 	    datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 	else
@@ -77,18 +78,7 @@ else
 		TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 		export TEXMF
 	fi
-
-
-	# For direct ps output: ps/lilyponddefs.ps
-#	GS_LIB="$datadir/ps:"${GS_LIB:=""}
-#	export GS_LIB
-
-	# For direct ps output fonts. Add all available TeX Type1 fonts
-#	tmppfadir=`kpsewhich ecrm10.pfa`
-#	GS_FONTPATH=$datadir/pfa:`dirname $tmppfadir`:${GS_FONTPATH:=""}
-#	export GS_FONTPATH
-
-fi # remove for zsh
+fi
  	
 
 

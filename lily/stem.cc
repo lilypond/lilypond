@@ -623,12 +623,19 @@ Stem::dim_callback (SCM e, SCM ax)
   Axis a = (Axis) ly_scm2int (ax);
   assert (a == X_AXIS);
   Grob *me = unsmob_grob (e);
-  Interval r (0, 0);
-  if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
+
+  Interval r;
+  
+  if (is_invisible (me))
+    {
+      r.set_empty ();
+    }    
+  else if (unsmob_grob (me->get_property ("beam")) || abs (duration_log (me)) <= 2)
     ;	// TODO!
   else
     r = flag (me).extent (X_AXIS)
       + thickness (me)/2;
+  
   return ly_interval2scm (r);
 }
 

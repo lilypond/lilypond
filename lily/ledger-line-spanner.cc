@@ -199,7 +199,7 @@ Ledger_line_spanner::print (SCM smob)
   // create  ledgers for note heads
   Real ledgerlinethickness =
     Staff_symbol::get_ledger_line_thickness (staff);
-  Real halfspace = Staff_symbol::staff_space (me)/2;
+  Real halfspace = Staff_symbol::staff_space (staff)/2;
   for (int i = heads.size (); i--; )
     {
       Item *h = dynamic_cast<Item*> (heads[i]);

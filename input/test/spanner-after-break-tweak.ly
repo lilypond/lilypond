@@ -12,23 +12,19 @@ after the line break in this example is moved around. "
 #(define (my-callback grob)
   (let* (
       (o (ly:grob-original grob))
-      (b (if (ly:grob? o) (ly:spanner-broken-into o) '() ))
-      )
+      (b (if (ly:grob? o) (ly:spanner-broken-into o) '() )))
 
     ;; Call the equivalent of Tie::after_line_breaking
     ;; if you're using this for other grob-types.
     
     (if (and  (>= (length b) 2) (eq? (car (last-pair b)) grob))
-	(ly:grob-set-property! grob 'extra-offset '(-2 . -1))
-	)
-  ))
+	(ly:grob-set-property! grob 'extra-offset '(-2 . 5))
+	)))
 
-#(debug-enable 'backtrace)
+\paper { raggedright = ##t } 
 
-\score { \relative c'' { 
+\relative c'' { 
     \override Tie  #'after-line-breaking-callback =
-       #my-callback
+    #my-callback
     c1 ~ \break c2 ~ c
 }
-    \paper { raggedright = ##t } 
-    }
