@@ -273,13 +273,15 @@ is what have collected so far, and has ascending page numbers."
 		   (-  (car (vector-ref real-extents (1- no-systems))))
 		   ))
 
+	 (fixed-dist (ly:output-def-lookup bookpaper 'betweensystempadding))
 	 (calc-spring
 	  (lambda (idx)
 	    (let*
 		((this-system-ext (vector-ref staff-extents idx))
 		 (next-system-ext (vector-ref staff-extents (1+ idx)))
-		 (fixed (- (cdr next-system-ext)
-			   (car this-system-ext)))
+		 (fixed (max 0  (- (+ (cdr next-system-ext)
+				      fixed-dist)
+				   (car this-system-ext))))
 		 (ideal (+ inter-system-space fixed))
 		 (hooke (/ 1 (- ideal fixed)))
 		 )
@@ -287,16 +289,15 @@ is what have collected so far, and has ascending page numbers."
 	    ))
 
 	 (springs (map calc-spring (iota (1- no-systems))))
-	 (fixed-dist (ly:output-def-lookup bookpaper 'betweensystempadding))
 	 (calc-rod
 	  (lambda (idx)
 	    (let*
 		((this-system-ext (vector-ref real-extents idx))
 		 (next-system-ext (vector-ref real-extents (1+ idx)))
-		 (distance (- (+ (cdr next-system-ext)
+		 (distance (max  (- (+ (cdr next-system-ext)
 				 fixed-dist)
-			      (car this-system-ext)
-			      ))
+				    (car this-system-ext)
+				    ) 0)) 
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
 	 (rods (map calc-rod (iota (1- no-systems))))
@@ -314,13 +315,13 @@ is what have collected so far, and has ascending page numbers."
 	       (cdr  result)))
 	 )
 
-     (if #f ;; debug.
+     (if #t ;; debug.
 	 (begin
 	   (display (list "\n# systems: " no-systems
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
 			  "\ninterscore" inter-system-space
 			  "\nspace-letf" space-left
-			  "\npage empty" page-very-empty
+			  "\npage empty" page-very-empty?
 			  "\nspring,rod" springs rods
 			  "\ntopskip " topskip
 			  " space " space
