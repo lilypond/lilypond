@@ -29,6 +29,7 @@ Voice = \translator {
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Slur_engraver";
+	\consists "Plet_engraver";
 	\accepts "Thread";
 }
 
@@ -68,6 +69,7 @@ Lyric_voice =
 	\consists "Lyric_engraver";
 	\consists "Line_group_engraver";
 	\consists "Beam_req_swallow_translator";
+	\consists "Plet_swallow_engraver";
 }
 
 Lyrics = \translator {

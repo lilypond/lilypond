@@ -12,7 +12,7 @@ copyright =	 "Public Domain";
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "0.1.7";
+\version "0.1.8";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names

@@ -38,7 +38,7 @@ part of the basso continuo --HWN
 
 %} 
 
-\version "0.1.7";
+\version "0.1.8";
 
 vi1=\melodic{
   \meter 4/4;
