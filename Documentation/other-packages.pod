@@ -45,20 +45,23 @@ A Preprocessor for MusiXTeX by Don Simons
 =item Musictex, http://www.gmd.de/Misc/Music/
 
 MusicTeX is a macro package for TeX to typeset polyphonic or
-instrumental music.  It was written by Daniel Taupin.  Now obsoleted
-by MusiXTeX and OpusTeX.
+instrumental music.  It was originally written by Daniel Taupin.  
 
 It includes a full-featured set of fonts.
 
 =item MusiXTeX, http://www.gmd.de/Misc/Music/
 
-Newer version of MusicTeX.  It also contains contributions by Ross
-Mitchell and Andreas Egler.  Daniel Taupin's branch still carries this
-name.
+A rewrite of MusicTeX, originally by Ross Mitchell and Andreas Egler. 
+After quarrels,  MusiXTeX has been split into two branches:
+
+=item MusiXTeX, http://www.gmd.de/Misc/Music/
+
+Daniel Taupin's now maintains the branch that still carries 
+the name MusiXTeX.
 
 =item OpusTeX, http://www.inf.ethz.ch/people/achermann/opustex
 
-Andreas Egler's branch of MusiXTeX.
+Andreas Egler's branch is called MusiXTeX.
 
 =item ABC2MTeX, http://www.gre.ac.uk/~c.walshaw/abc
 
