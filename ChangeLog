@@ -5,6 +5,7 @@
 
 	* scripts/lilypond-book.py (option_definitions): Use new lilylib
 	feature.
+	Sort options.
 
 2004-11-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
