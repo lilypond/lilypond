@@ -44,7 +44,7 @@ Commands_at::add(Input_command *i)
 	int l = i->args[1];
 	int o = i->args[2];
 	tdescription_.set_meter(l,o);
-	bottom().add(get_grouping_command( get_default_grouping(l)));
+	bottom().add(get_grouping_command( get_default_grouping(l,o)));
     }
 }
 
