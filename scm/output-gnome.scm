@@ -261,6 +261,25 @@ lilypond -fgnome input/simple-song.ly
     props))
     
 
+(define (dashed-line thick on off dx dy)
+  (draw-line thick 0 0 dx dy)) 
+
+(define (draw-line thick fx fy tx ty)
+  (let*
+      ((def (make <gnome-canvas-path-def>))
+       (props (make <gnome-canvas-bpath>
+		   #:parent (canvas-root)
+		   #:fill-color "black"
+		   #:outline-color "black"
+		   #:width-units thick)))
+    
+    (reset def)
+    (moveto def fx (- fy))
+    (lineto def tx (- ty))
+    (set-path-def props def)
+    props))
+    
+
 (define (round-filled-box breapth width depth height blot-diameter)
   ;; FIXME: no rounded corners on rectangle...
   ;; FIXME: blot?

@@ -653,7 +653,7 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   SCM sl = scm_make_real (s);
   SCM thick = scm_make_real (t);
   SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
-			    wid, sl, thick, SCM_UNDEFINED);
+			       wid, sl, thick, SCM_UNDEFINED);
 
   Box b (Interval (0, w + sqrt (sqr (t/s) + sqr (t))),
 	 Interval (0, w * s));
