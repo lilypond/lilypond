@@ -550,7 +550,7 @@ affects settings that were made in the same context.  In other words, the
 @seealso
 
 Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{All-backend-properties}, and
+@internalsref{PropertySet}, @internalsref{Backend}, and
 @internalsref{All layout objects}.
 
 

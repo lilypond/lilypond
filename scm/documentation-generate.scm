@@ -108,7 +108,7 @@
 @ifhtml
 
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
+@uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
 @end macro
 
 @end ifhtml

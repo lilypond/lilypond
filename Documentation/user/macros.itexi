@@ -104,7 +104,7 @@
 @c **** INFO ****
 
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond/lilypond-internals}@c
+@inforef{\NAME\,,lilypond-internals}@c
 @findex \NAME\@c
 @end macro
 
@@ -113,7 +113,7 @@
 @end macro
 
 @macro usermanref{NAME}
-@ref{\NAME\,,,lilypond/lilypond}@c
+@inforef{\NAME\}@c
 @end macro
 
 @end ifinfo
