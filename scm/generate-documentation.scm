@@ -42,7 +42,38 @@
 (display
  (string-append
   "@c -*-texinfo-*-"
-  (texi-file-head "LilyPond internals" outname "(lilypond.info)")) out-port)
+  (texi-file-head "LilyPond internals" outname "(lilypond.info)")
+  "
+
+@ifhtml
+@macro usermanref{NAME}
+@uref{../lilypond/\\NAME\\.html,\\NAME\\}
+@cindex \\NAME\\
+@end macro
+@end ifhtml
+
+@ifinfo
+@macro usermanref{NAME}
+@inforef{\\NAME\\,,lilypond}
+@cindex \\NAME\\
+@end macro
+@end ifinfo
+
+@ifhtml
+@macro glossaryref{NAME}
+@uref{../music-glossary/\\NAME\\.html,\\NAME\\}
+@cindex \\NAME\\
+@end macro
+@end ifhtml
+
+@ifinfo
+@macro glossaryref{NAME}
+@inforef{\\NAME\\,,music-glossary}
+@cindex \\NAME\\
+@end macro
+@end ifinfo
+
+") out-port)
 
 (define top-node
   (make <texi-node>

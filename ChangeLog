@@ -1,5 +1,8 @@
 2002-10-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/generate-documentation.scm (string-append): add macro
+	definitions.
+
 	* lily/text-item.cc (lookup_text): don't use virtual fonts for
 	normal texts.
 
@@ -127,6 +130,8 @@
 	* lily/parser.yy: remove arpeggio keyword; use identifier. Idem
 	for \penalty, \glissando.
 
+	* VERSION: release 1.7.3
+	
 2002-10-13  Rune Zedeler  <rune@zedeler.dk>
 
 	* lily/accidental-engraver.cc: Fix
