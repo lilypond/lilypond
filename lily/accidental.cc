@@ -68,7 +68,7 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
       && !parens
       && scm_ilength (accs) == 1)
     {
-      switch (scm_to_int (scm_car (accs))
+      switch (scm_to_int (scm_car (accs)))
 	{
 	case FLAT:
 	  {
@@ -114,21 +114,23 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	    TODO: add support for, double flat.
 	  */
 	}
+    }
+      
+  if (!boxes.size ())
+    boxes.push (b);
 
-	      if (!boxes.size ())
-		boxes.push (b);
+  Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
+	    a->relative_coordinate (common[Y_AXIS], Y_AXIS));
+  for (int i = boxes.size (); i--;)
+    {
+      boxes[i].translate (o);
+    }
 
-	      Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
-			a->relative_coordinate (common[Y_AXIS], Y_AXIS));
-	      for (int i = boxes.size (); i--;)
-		{
-		  boxes[i].translate (o);
-		}
+  return boxes;
+}
 
-	      return boxes;
-	      }
 
-      /*
+/*
        * Some styles do not provide all flavours of accidentals, e.g. there
        * is currently no sharp accidental in vaticana style.  In these cases
        * this function falls back to one of the other styles.
@@ -252,10 +254,10 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	return mol.smobbed_copy ();
       }
 
-      /*
-	TODO: should move inside-slur into item?
+/*
+  TODO: should move inside-slur into item?
 
-      */
-      ADD_INTERFACE (Accidental_interface, "accidental-interface",
-		     "a single accidental",
-		     "inside-slur cautionary cautionary-style style tie accidentals");
+*/
+ADD_INTERFACE (Accidental_interface, "accidental-interface",
+	       "a single accidental",
+	       "inside-slur cautionary cautionary-style style tie accidentals");
