@@ -1,11 +1,8 @@
 \version "1.7.18"
-% FIXME: check that this file actually works.
 \header {
 texidoc = "@cindex Boxed Molecule
 You can override the molecule callback to draw a box around
-arbitrary grobs.
-
-" }
+arbitrary grobs. " }
 
 
  \score { \notes \relative c''  {

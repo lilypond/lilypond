@@ -1,3 +1,8 @@
+2003-08-13  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/bar-lines-lyric-only.ly, boxed-molecule.ly,
+	cue-notes.ly: minor fixes.
+
 2003-08-13  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: bugfix: remove obsolete link to
