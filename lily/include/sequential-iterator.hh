@@ -73,7 +73,7 @@ protected:
 protected:
   Moment here_mom_;
   Music_iterator * iter_;
-  Protected_scm  list_;
+  SCM  list_;
   SCM cursor_;
   
   virtual void next_element (bool side_effect);

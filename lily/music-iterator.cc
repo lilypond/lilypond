@@ -21,6 +21,7 @@
 
 Music_iterator::Music_iterator ()
 {
+  music_ = 0;
   smobify_self ();
 }
 

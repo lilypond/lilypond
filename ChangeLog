@@ -1,4 +1,11 @@
+2002-09-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/sequential-iterator.hh (class Sequential_iterator):
+	don't use Protected_scm for music-iterator members. 
+
+	* lily/music-iterator.cc (Music_iterator): initialize music_
 	
+
 2002-09-09  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/test/accid.ly: updated test file to show all available
