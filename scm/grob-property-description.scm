@@ -56,7 +56,7 @@ attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
 (grob-property-description 'bars list? "list of barline pointers.")
-(grob-property-description 'barsize-procedure procedure? "Procedure that computes the size of a bar line.")
+(grob-property-description 'bar-size-procedure procedure? "Procedure that computes the size of a bar line.")
 (grob-property-description 'baseline-skip number? "Baseline skip to use for multiple lines of text.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")

@@ -40,9 +40,9 @@ in the toplevel directory, as INSTALL.txt
 @section Documentation
 
 The documentation is available online at
-@uref{http://www.cs.uu.nl/~hanwen/lilypond/index.html}.  You can also
-build it locally. This does require a working LilyPond binary.  The
-following formats are supported:
+@uref{http://www.lilypond.org/}.  You can also build it locally. This
+does require a working LilyPond binary.  The following formats are
+supported:
 @itemize @bullet
 
 @item HTML. Refer to INSTALL.txt for information
@@ -91,8 +91,8 @@ If you have bugreports, you should send them to this list.
 
 If you have received this file as part of a DOS/Window32 distribution
 (@file{LilyPond-*.zip}), it is advisable to also download the
-source package, since it might contain more documentation
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,source package}, since it
+might contain more documentation
 
 @section Caveats
 

@@ -1,0 +1,151 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename installing.info
+@settitle LilyPond on Windows
+
+@node Top
+@top
+
+@chapter WINDOWS - Installing GNU LilyPond on Windows
+
+This document explains how to install the binary release for windows
+on a Microsoft Windows 95, 98, NT or 2000 machine.
+
+This release is a free extra service of the developers to assist windows
+users. Please remember that we (the developers) rather dislike windows,
+and none of us use it.  Don't complain to us that installing LilyPond is
+too difficult; rather, send us code that works better.
+
+You must install the following software:
+
+@table @asis
+@item LilyPond
+Download and run
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/setup.exe, setup.exe}
+to install LilyPond.
+
+This will install the minimal set of cygwin tools needed to run
+LilyPond.  If you already have cygwin installed, don't worry: nothing
+will be installed twice.  To expand on this minimal set, click
+@uref{http://sources.redhat.com/cygwin/setup.exe,here},
+or visit a Cygwin
+@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
+
+@item A full TeX installation.
+
+For example,  download  and install 
+@uref{http://prdownloads.sourceforge.net/miktex/miktex-2.0-lvl-1.zip,MikTeX},
+or visit @uref{http://www.miktex.org,www.miktex.org}.
+@c See @file{/usr/doc/cygwin/tetex-beta-20001218.README} for details.
+
+@item Ghostview.
+
+You can use GSView-2.6.  This old package has two advantages.  It has
+gsview and ghostscript bundeled, and it doesn't popup @emph{Register
+Now|Cancel} windows all the time.  It doesn't work together with Yap to
+display PostScript specials.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv26w32.exe,here} to
+install GSView-2.6 (GhostView for Windows), or visit
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+
+You can also use the newer versions GSView-3.6 and GhostScript-6.50 If
+you install both these packages, Yap will display PostScript specials.
+You get annoying @emph{Register Now|Cancel} popups, though.
+
+Click @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} for
+GSview and 
+Click @uref{ftp://mirror.cs.wisc.edu/pub/mirrors/ghost/AFPL/gs650/gs650w32.exe
+,here} for GhostScript.
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+or visit the
+@uref{http://www.cs.wisc.edu/~ghost/,Ghostscript, Ghostview and GSview site}.
+
+@item Python
+Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
+install Python-1.5.2, or visit
+@uref{http://www.python.org,www.python.org}.
+
+We have not tried using newer versions than 1.5.2.
+@end table
+
+
+@section Windows running setup
+
+If you're lucky, after running @file{setup.exe} you're all set up.
+
+Open a LilyPond shell (or any bash shell), and type
+@example
+lilypond --help
+@end example
+
+If you don't see something similar to
+@example
+Usage: lilypond [OPTION]... [FILE]...
+
+Typeset music and or play MIDI from FILE
+
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
+Options:
+  -h,--help             this help
+[..]
+@end example
+
+you should try adding @file{/usr/lilypond-x.y.z/bin} to your @var{PATH},
+do:
+@example
+PATH=/usr/lilypond-1.3.147/bin:$PATH
+@end example
+
+and try again.
+
+[TODO:
+
+
+* emacs-mode installation, figure out and describe proper
+emacs-on-cygwin setup.
+
+* talk about /etc/profile.d/lilypond-profile.sh
+
+* GUILE errors, simple guile test
+
+* (La)TEX errors, simple tex test
+
+
+]
+@ignore 
+
+  guile -v
+  Guile 1.4.1
+
+  guile -e %load-path
+  ERROR: Wrong type to apply: ("/usr/share/guile/site" /usr/share/guile/1.4.1")
+  
+
+  
+Mats?
+
+Let's take this step by step.
+
+It should not be critical which MikTeX version you use.
+Let's first verify that your MikTeX works as it should.
+Open a DOS window. Run the commands
+>> latex sample2e
+ Should produce some lines of output
+>> yap sample2e
+ Should display a three page document.
+
+Next step; verify that the geometry package is in place. 
+Save the attached file to the directory where you run 
+your DOS window. Run the commands
+>> latex geometrytest
+>> yap geometrytest
+This one you should get a single page document with some text
+in each corner.
+]
+
+@end ignore
+
+

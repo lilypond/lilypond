@@ -1,8 +1,8 @@
-\version "1.3.146"
-%
-% TODO: junkme.
-%
 
+\header {
+texidoc = "The full orchestra plays a notes, where groups stop one after another. USe this to tune equalizer settings. "
+}
+\version "1.3.146"
 
 flauti = \notes \relative c' {
   \property Staff.midiInstrument = #"flute"
@@ -60,7 +60,7 @@ timpani = \notes \relative c' {
   R1*6 c1 R1*4
 }
 
-violinoB = \notes \relative c' {
+violinoI = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino I"
   \property Staff.instr		= #"Vl. I"
@@ -68,7 +68,7 @@ violinoB = \notes \relative c' {
   R1*7 c1 R1*3
 }
 
-violinoC = \notes \relative c' {
+violinoII = \notes \relative c' {
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino II"
   \property Staff.instr		= #"Vl. II"
@@ -117,8 +117,8 @@ violoncello = \notes \relative c' {
     >
     \context StaffGroup ="archi" <
       \context GrandStaff ="violini" <
-        \context Staff ="violino1" \violino1
-        \context Staff ="violino2" \violino2
+        \context Staff ="violino1" \violinoI
+        \context Staff ="violino2" \violinoII
       >
       \context Staff ="viola" \viola
       \context Staff ="violoncello" \violoncello

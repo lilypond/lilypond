@@ -37,11 +37,11 @@ which substitutes some @AT_VARIABLES@ as well.
     <table align=left>
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
-        <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
-        <a href="http://appel.lilypond.org/wiki?LilyPond">WikiWikiWeb</a><br>
+        <a href="http://www.lilypond.org/">LilyPond website</a><br>
+        <a href="http://www.lilypond.org/wiki">WikiWikiWeb</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
-        <a href="http://www.lilypond.org">LilyPond dot org</a><br>
+        <a href="http://www.cs.uu.nl/~hanwen/lilypond/">Han-Wen's site</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
@@ -49,32 +49,18 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
-    	<a href="@TOP@Documentation/topdocs/out-www/FAQ.html">Small FAQ</a><br>
-    	<a href="http://appel.lilypond.org/wiki?LilyPondFaqs">Full FAQ</a><br>
+    	<a href="http://appel.lilypond.org/wiki?LilyPondFaqs">FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">User manual</a><br>
 	<a href="@TOP@Documentation/out-www/regression-test.html">Regression Test</a><br>
 	<a href="@TOP@Documentation/user/out-www/lilypond-internals/lilypond-internals.html">Documentation of internals</a><br>
 <br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
-	<a href="@INDEX@#download-source"><b>Download Source</b></a>
+	<b>Download </b>
       </td></tr>
       <tr><td><font size=-1>
-        <a href="ftp://ftp.gnu.org/pub/gnu/lilypond">Stable</a><br>
-        <a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development">Development</a><br>
-	<br>
-      </td></tr>
-      <tr><td bgcolor="#e8e8ff">
-	<a href="@INDEX@#download-binary"><b>Download Binary</b></a>
-      </td></tr>
-      <tr><td><font size=-1>
-	<a href="ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/">RedHat i386</a><br>
-	<a href="ftp://appel.lilypond.org/pub/gnu/LilyPond/linuxppc-2000-Q4">LinuxPPC</a><br>
-	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond">Debian Stable</a><br>
-	<a href="ftp://ftp.debian.org/debian/pool/main/l/lilypond1.3">Debian Unstable</a><br>
-	<a href="http://home.austin.rr.com/jbr/jeff/lilypond/">Windows Stable</a><br>
-	<a href="http://appel.lilypond.org/lilypond/gnu-windows">Windows Unstable</a><br>
-	<br>
+<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source</a><br>
+	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">Binary</a>	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<a href="@INDEX@#music"><b>Music</b></a>

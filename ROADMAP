@@ -4,7 +4,7 @@ LilyPond's source files.
 
    Documentation/
      bibliography/		.bib files with references to books and articles
-     ntweb/			building on NT
+     windows/			building on windows
      pictures/			.xpms of the logo
      programmer/		programmers documentation, including a test document
      topdocs/			sources for the toplevel files (README.txt, INSTALL.txt, etc.)

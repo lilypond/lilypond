@@ -1,3 +1,11 @@
+
+\header {
+texidoc = "note heads for improvisation have a different shape. "
+}
+
+%{ TODO: the construct with separet SquashVoice context is a little
+ gory. FIXME.  %}
+
 \version "1.3.146"
 
 improOn = \notes {\translator Voice = impro }
@@ -7,7 +15,7 @@ global = \notes { s1*3 \bar "|." }
 
 \score {
   <
-    \context ChordNames \chords {e8:m7*7 a2.:m7 bes4:m7 b1:m7 e8:m }
+    \context ChordNames \chords {e8*7:m7 a2.:m7 bes4:m7 b1:m7 e8:m }
     \context Staff \notes <
       \context SquashVoice = impro { \global }
       \context Voice = melo \transpose c'' {
@@ -24,7 +32,7 @@ global = \notes { s1*3 \bar "|." }
       \alias Voice
       \consists Pitch_squash_engraver
       \consists Local_key_engraver
-      squashedPosition = 6
+      squashedPosition = #0
       NoteHead \override #'style = #'slash
       Accidentals \override #'transparent = ##t
     }

@@ -39,10 +39,9 @@ are in the toplevel directory, as INSTALL.txt
 Documentation
 =============
 
-   The documentation is available online at
-`http://www.cs.uu.nl/~hanwen/lilypond/index.html'.  You can also build
-it locally. This does require a working LilyPond binary.  The following
-formats are supported:
+   The documentation is available online at `http://www.lilypond.org/'.
+You can also build it locally. This does require a working LilyPond
+binary.  The following formats are supported:
    * HTML. Refer to INSTALL.txt for information on how to make the HTML
      documentation.
 
@@ -85,9 +84,9 @@ Windows 32
 ==========
 
    If you have received this file as part of a DOS/Window32 distribution
-(`LilyPond-*.zip'), it is advisable to also download the source
-package, since it might contain more documentation
-`ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/'
+(`LilyPond-*.zip'), it is advisable to also download the source package
+(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/), since it might contain more
+documentation
 
 Caveats
 =======

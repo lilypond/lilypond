@@ -6,6 +6,7 @@
   (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <string.h>
 
 #include "box.hh"
 #include "debug.hh"
@@ -46,16 +47,22 @@ Volta_spanner::brew_molecule (SCM smob)
   if (!bar_arr.size ())
     return SCM_EOL;
 
-  bool no_vertical_start = false;
-  bool no_vertical_end = to_boolean (me->get_grob_property ("last-volta"));
   Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_l_);
 
   bool first_bracket = orig_span && (orig_span->broken_into_l_arr_[0] == (Spanner*)me);
   
   bool last_bracket = orig_span && (orig_span->broken_into_l_arr_.top () == (Spanner*)me);
 
-  no_vertical_start = orig_span && !first_bracket;
-  no_vertical_end = orig_span && !last_bracket;
+  bool no_vertical_start = orig_span && !first_bracket;
+  bool no_vertical_end = orig_span && !last_bracket;
+  SCM bars = me->get_grob_property ("bars");
+  Grob * endbar =   unsmob_grob (gh_car (bars));
+  SCM glyph = endbar->get_grob_property("glyph");
+  String str = ly_scm2string(glyph);
+  const char* cs = str.ch_C();
+  no_vertical_end |=
+    (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
+     && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
   Real half_space = 0.5;

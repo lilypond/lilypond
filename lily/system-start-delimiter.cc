@@ -32,7 +32,7 @@ System_start_delimiter::staff_bracket (Grob*me,Real height)
 		    me->get_grob_property ("bracket-thick"),
 		    SCM_UNDEFINED);
 
-  /*
+/*
 TODO: sort this out.
     
 Another thing:
@@ -47,10 +47,9 @@ But I really think that you mean
 (arc_height changes the x-axis-size of arc ; arc_width changes the
 y-axis-size)
 Will not fix it since I'm not sure.
-
--Rune
   
    */
+
   Real h = height + 2 * arc_height;
   Box b (Interval (0, 1.5), Interval (-h/2, h/2));
   Molecule mol (b, at);

@@ -821,9 +821,9 @@ if 1:
 if 1:
 	def conv (str):
 		str = re.sub ('\(align', '(axis', str)
-		str = re.sub ('\(row', '(columns', str)
+		str = re.sub ('\(rows', '(columns', str)
 		return str
-	conversions.append (((1,3,148), conv, '(align -> (axis, (row -> columns'))
+	conversions.append (((1,3,148), conv, '"(align" -> "(axis", "(rows" -> "(columns"'))
 
 
 ################################

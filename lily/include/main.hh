@@ -39,6 +39,6 @@ extern int score_count_global;
 extern Sources* source_global_l;
 
 #include <iostream.h> /* gcc 3.0 */
-void print_lilypond_versions (ostream &os);
+
 
 #endif /* MAIN_HH */

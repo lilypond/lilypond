@@ -1,22 +1,9 @@
---- ../lilypond-1.3.149.jcn2/CHANGES	Fri Apr 20 15:44:19 2001
-++ b/CHANGES	Sun Apr 22 15:11:37 2001
-@@ -1,3 +1,10 @@
 1.3.149.jcn3
 ============
 
 * Bugfix: markup text: lines with markup.
 
 * Fixed line height in postscript output.
-
- 1.3.149.jcn2
- ============
- 1.3.149.jcn2
-============
-
-* Fixed one more shift/reduce rule in parser: c1/e  NOT
-
-1.3.149.jcn1
-============
 
 * Windows installer stuff: the ``It shouldn't be hard -- but do need
   some sleep'' release.
@@ -40,6 +27,37 @@
   - Wrappers for all python scripts.
 
 * Removed RMAIL header from german-chords.ly + fixes (Rune).
+
+1.3.149.hwn1
+============
+
+* Website fixes
+
+* Allow ` for lyric punctuation
+
+* Add note to refman  saying to read the tutorial first.
+
+* Changed regular identifier error  to  warning.
+
+* Make lexer emit FRACTION for N/M (where N, M unsigned numbers). This
+fixes one shift reduce, fixing the problem with multiplied durations
+and inversions.
+
+* Set measureLength and beatLength from the parser. This fixes percent
+repeats that come directly after a time signature change.
+
+* Bugfix: process clef change upon Clef_engraver creation. This fixes
+grace notes beginning a piece; bug with combining clef changes and
+grace notes remains.
+
+* Bugfix: typo in convert-ly rule
+
+* spelling: barsize-procedure -> bar-size-procedure
+
+* fixes for input/test/ (thanks, Laura) 
+
+* Bugfix: \version "1.2.4.foo" now doesn't cause a crash.
+
 
 1.3.149
 =======

@@ -23,6 +23,7 @@ struct Lilypond_version
   int major_i_;
   int minor_i_;
   int patch_i_;
+  String extra_patch_str_;
 };
 
 extern Lilypond_version oldest_version;

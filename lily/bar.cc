@@ -29,7 +29,7 @@ Bar::brew_molecule (SCM smob)
   Grob * me = unsmob_grob (smob);
 
   SCM s = me->get_grob_property ("glyph");
-  SCM barsiz_proc = me->get_grob_property ("barsize-procedure");
+  SCM barsiz_proc = me->get_grob_property ("bar-size-procedure");
   if (gh_string_p (s) && gh_procedure_p (barsiz_proc))
     {
       String str  =ly_scm2string (s);
