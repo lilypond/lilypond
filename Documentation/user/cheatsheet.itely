@@ -200,5 +200,52 @@ a-\> a a-\!
 <<c e>> 
 @end lilypond
 
+
+@item @code{\partial 8}
+@tab upstep
+@tab
+@lilypond[fragment]
+  \partial 8
+  f8 c2 d e
+@end lilypond 
+
+
+@item @code{\times 2/3}
+@tab triplets
+@tab
+@lilypond[relative 1,verbatim,fragment]
+  \times 2/3 { f8 g a }
+@end lilypond
+
+@item @code{\lyrics @{ @dots{} @}}
+@tab entering lyrics
+@tab
+
+@item @code{\context Lyrics}
+@tab printing lyrics
+@tab
+
+@item @code{twin -- kle}
+@tab lyric hyphen 
+@tab
+@lilypond[fragment,relative 1]
+\addlyrics \notes { g'4 g }
+  \context Lyrics \lyrics {  twin -- kle }
+@end lilypond 
+
+@item @code{\chords @{ c:dim f:maj7 @}}
+@tab chords 
+@tab
+@lilypond[fragment,relative 1]
+  \chords { c:dim f:maj7 }
+@end lilypond 
+
+@item @code{\context ChordNames}
+@tab printing chord names 
+@tab
+@lilypond[fragment,relative 1]
+  \context ChordNames \chords { c:dim f:maj7 }
+@end lilypond 
+
 @end multitable
 

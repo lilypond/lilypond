@@ -18,10 +18,10 @@
 * Running LilyPond::            Printing music
 * More basics::                 
 * Printing lyrics::             
-* Chord names::                 
 * A lead sheet::                
 * Listening to output::         
 * More movements ::             Joining separate pieces of music
+* Organising larger pieces::    
 * A piano excerpt::             Piano music
 * Fine tuning a piece::         
 * An orchestral score::         Conductor's score and individual parts
@@ -872,8 +872,9 @@ resulting in a centered hyphen between two syllables.
 More options, like putting multiple lines of lyrics below a melody are
 discussed in @ref{Vocal music}.
 
-@node Chord names
-@section Chord names
+
+@node A lead sheet
+@section A lead sheet
 
 In popular music, it is common to denote accompaniment as chord-names.
 Using them in LilyPond has two parts, just like lyrics: entering the
@@ -906,9 +907,6 @@ before the chords thus entered:
 
 A complete list of modifiers, and other options for layout are in the
 reference manual section @ref{Chords}.
-
-@node A lead sheet
-@section A lead sheet
 
  
 TODO: template example with chord names, lyrics and staff.
@@ -1050,7 +1048,7 @@ will be at the left.
 
 
 @node Organising larger pieces
-@sections Organising larger pieces
+@section Organising larger pieces
 
 TODO: discuss identifiers, p&c, .
 
