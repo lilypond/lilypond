@@ -20,6 +20,6 @@ protected:
     virtual void pre_move_processing();
 public:
     Collision_register();
-    NAME_MEMBERS(Collision_register);
+    NAME_MEMBERS();
 };
 #endif // COLLISION_REG_HH

@@ -33,7 +33,7 @@ public:
     int dir_i_;
    
         
-    NAME_MEMBERS(Note_column);
+    NAME_MEMBERS();
     Note_column();
     void add(Note_head *);
     void add(Stem *);

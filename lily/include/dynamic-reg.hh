@@ -23,7 +23,7 @@ class Dynamic_register : public Request_register {
 public:
     Dynamic_register();
     ~Dynamic_register();
-    NAME_MEMBERS(Dynamic_register);
+    NAME_MEMBERS();
 protected:
     virtual void acknowledge_element(Score_elem_info);
     virtual bool try_request(Request *req_l);

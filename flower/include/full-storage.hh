@@ -99,7 +99,7 @@ public:
     virtual bool trans_ok(int i, int j) const;
     virtual void trans_next(int &i, int &j) const;
     virtual Matrix_storage * clone();
-    NAME_MEMBERS(Full_storage);
+    NAME_MEMBERS();
     virtual bool try_right_multiply(Matrix_storage * dest, Matrix_storage const * );
 };
 

@@ -100,17 +100,19 @@ config:
 dummydep: $(DUMMYDEPS)
 #
 
-# value of $(OSTYPE) on windhoos; "make $OSTYPE" if you use bash :-)
+# value of $(OSTYPE) on windhoos...; "make $OSTYPE" if you use bash :-)
 #
-win32: 
-	$(MAKE) -C . CXX=g++ 
+win32:  windows32 # win/lose?
+#
+windows32:
+	$(MAKE) -C . "CXX=g++ -D_WINDOWS32"
 #
 
 # xcompile to doze:
 #
 doze:	dos
 dos: 
-	$(MAKE) -C . CXX="gcc-go32 -I/usr/i386-go32/include -I/usr/i386-go32/include/g++ -D_WIN32 -Dcaddr_t=char* -DMAP_SHARED=0"
+	$(MAKE) -C . CXX="gcc-go32 -I/usr/i386-go32/include -I/usr/i386-go32/include/g++ -D_WINDOWS32 -Dcaddr_t=char* -DMAP_SHARED=0"
 #
 
 # target help:
@@ -123,7 +125,7 @@ help:
 	@echo "	all clean config dist distclean doc doc++"
 	@echo "	exe help lib moduledist TAGS"
 	@echo "	dos:	xcomplile to dos"
-	@echo "	win32:	native cygnus-win32 compile" 
+	@echo "	windows32: native cygnus-gnu compile" 
 #
 
 doc:
@@ -165,7 +167,8 @@ endif
 
 TAGS:$(all-tag-sources)
 ifdef all-tag-sources
-	-etags -CT $(all-tag-sources) /dev/null
+	-etags -CT $(all-tag-sources) $(ERROR_LOG)
+	-ctags -CT $(all-tag-sources) $(ERROR_LOG)
 endif
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i TAGS ; done
@@ -220,9 +223,9 @@ $(LIBLILY): dummy
 
 # RedHat rpm package:
 #
-rpm:
+rpm: $(doc-dir)/$(outdir)/lelie_icon.xpm
 	-cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
-	-cp $(doc-dir)/*.gif $(rpm-sources)
+	-cp $< $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec
 #
@@ -232,7 +235,7 @@ installexe:
 	$(INSTALL) -m 755 $(EXECUTABLES) $(bindir)
 
 uninstallexe:
-	for a in $(EXECUTABLES); do rm -f $(bindir)/`basename $a`; done
+	for a in $(EXECUTABLES); do rm -f $(bindir)/`basename $$a`; done
 
 ifneq ($(DEPFILES),)
 include $(DEPFILES)

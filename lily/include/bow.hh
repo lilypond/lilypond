@@ -25,7 +25,7 @@ protected:
     Molecule*brew_molecule_p()const;
 public:
     Bow();
-    NAME_MEMBERS(Bow);
+    NAME_MEMBERS();
     Offset center() const;  
 };
 #endif // BOW_HH

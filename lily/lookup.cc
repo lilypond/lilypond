@@ -248,7 +248,7 @@ Lookup::vbrace(Real &y) const
 	y = 67 *2 PT;
     }
     
-    int idx = (y/2.0 - 20 ) + 148;
+    int idx = int(rint((y/2.0 - 20 ) + 148));
     
     Symbol s = (*symtables_)("param")->lookup("brace");
     

@@ -14,9 +14,9 @@
   The static_name() can *not* be inlined (this might have the effect that 
   s->name() != S::static_name(). Overlapping strings need not be merged in C++
  */
-#define NAME_MEMBERS(c)	\
+#define NAME_MEMBERS()	\
 static char const *static_name();\
-virtual char const *name() const{ return c::static_name(); } \
+virtual char const *name() const{ return static_name(); } \
 int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 
 #define IMPLEMENT_STATIC_NAME(c)\

@@ -15,7 +15,6 @@
 #include "spanner.hh"
 #include "scoreline.hh" 
 #include "staffline.hh"
-
 #include "pcursor.tcc"
 #include "plist.tcc"
 

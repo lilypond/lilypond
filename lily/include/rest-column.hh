@@ -21,7 +21,7 @@ class Rest_column : public Script_column {
 public:
     int dir_i_;
     void add(Note_head *);
-    NAME_MEMBERS(Rest_column);
+    NAME_MEMBERS();
     void translate_y(Real dy);
     Rest_column();
 protected:

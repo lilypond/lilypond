@@ -19,7 +19,7 @@ struct Note_head_register : Request_register {
     virtual void process_requests();
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    NAME_MEMBERS(Note_head_register);
+    NAME_MEMBERS();
 };
 
 

@@ -9,6 +9,7 @@
 #include "super-elem.hh"
 #include "scoreline.hh"
 #include "p-score.hh"
+#include "string.hh"
 
 String
 Super_elem::TeX_string()const

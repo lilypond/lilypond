@@ -12,7 +12,7 @@
 #include "text-def.hh"
 #include "debug.hh"
 #include "paper-def.hh"
-
+#include "symbol.hh"
 
 
 void
@@ -27,6 +27,7 @@ Text_spanner::set_support(Directional_spanner*d)
 
 Text_spanner::Text_spanner()
 {
+    spec_p_ = 0;
     support = 0;
 }
 
@@ -35,27 +36,20 @@ IMPLEMENT_STATIC_NAME(Text_spanner);
 void
 Text_spanner::do_print() const
 {
-    spec.print();
+    spec_p_->print();
 }
 
 void
 Text_spanner::do_post_processing()
 {
-    switch(spec.align_i_) {
-    case 0:
-	text_off_ = support->center() +
-	    Offset(0,support->dir_i_ * paper()->internote_f() * 4); // todo
-	break;
-    default:
-	assert(false);
-	break;
-    }    
+    text_off_ = support->center() +
+	Offset(0,support->dir_i_ * paper()->internote_f() * 4); // todo
 }
 
 Molecule*
 Text_spanner::brew_molecule_p() const
 {
-    Atom tsym (spec.create_atom());
+    Atom tsym (spec_p_->get_atom(paper(),0));
     tsym.translate(text_off_);
 
     Molecule*output = new Molecule;
@@ -69,7 +63,6 @@ Text_spanner::do_pre_processing()
     right_col_l_ = support->right_col_l_;
     left_col_l_ = support->left_col_l_;
     assert(left_col_l_ && right_col_l_);
-    spec.pdef_l_ = paper();
 }
 
 Interval
@@ -86,3 +79,8 @@ Text_spanner::do_substitute_dependency(Score_elem* o, Score_elem*n)
 	support = (Directional_spanner*) n->spanner();
 }
 
+
+Text_spanner::~Text_spanner()
+{
+    delete spec_p_;
+}

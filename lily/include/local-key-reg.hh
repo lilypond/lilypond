@@ -24,7 +24,7 @@ struct Local_key_register : Request_register {
     virtual void acknowledge_element(Score_elem_info);
     virtual void pre_move_processing();
     Local_key_register();
-    NAME_MEMBERS(Local_key_register);
+    NAME_MEMBERS();
 };
 
 #endif // LOCALKEYREG_HH

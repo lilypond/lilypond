@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "music.hh"
 #include "symbol.hh"
 #include "voice.hh"
 #include "voice-element.hh"
@@ -25,3 +26,4 @@ IPL_instantiate(Voice_element);
 IPL_instantiate(Voice);
 
 
+IPL_instantiate(Music);

@@ -14,7 +14,7 @@ struct Line_of_staff : public Spanner_elem_group{
 
     SPANNER_CLONE(Line_of_staff)
 public:
-    NAME_MEMBERS(Line_of_staff);
+    NAME_MEMBERS();
 
     /* *************** */
     /** 

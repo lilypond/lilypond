@@ -24,6 +24,6 @@ public:
     virtual void pre_move_processing();
     virtual void post_move_processing();
     Meter_register();
-    NAME_MEMBERS(Meter_register);
+    NAME_MEMBERS();
 };
 #endif // METERREG_HH

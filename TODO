@@ -8,7 +8,6 @@ grep for TODO and ugh/ugr
 
 
 IMPORTANT
-	* add mi2mu example output (.midi.ly and .gif) to website
 
 	* piano staff
 
@@ -21,8 +20,6 @@ IMPORTANT
 	* use Hungarian throughout code
 
 	* decent TeX page layout
-
-	* per staff item-widths [JCN]
 
 	* script priority
 
@@ -109,10 +106,7 @@ PROJECTS
 PARSER
 	* Duration -> Musical_duration, typedef Rational Duration?
 
-**********************
 HKN buglist:
-
-noten staan vaak te dicht aan de rechterkant van de maatstreep.
 
 tekst staat erg ver van notenbalken af
 
@@ -122,12 +116,8 @@ waarom geen ; achter dingen in \paper? (\textwidth 180\mm)
 Onduidelijk wanneer wel en geen \ voor een woord. Maak liever
 verplichte regels
 
-****************
-
 
 BUGS
-	* RPM permissions -> redhat!
-
 	* spurious Weird stem size warnings
 
 	* staccato dot positions.
@@ -137,7 +127,9 @@ BUGS
 	* lilypond - -> crash
 
 	* standchen triool beam up/down
-
+	
+	* (where are the) gcc compile warnings on linux
+	
 SEVERELY LACKING:
 
 	* SPEED!
@@ -152,8 +144,6 @@ FURTHER FOR ORCHESTRAL SCORE:
 	* barnumbers, markers
 
 	* abbreviations c4=16
-
-	* doublebar "||", finishbar "|||" (or "||." ?)
 
 INPUTLANGUAGE
 
@@ -182,6 +172,10 @@ PROJECTS
 	* add remove() methods to all items/spanners.
 
 SMALLISH PROJECTS
+
+	* A range for context errors (eg. mark both { and }. )
+
+	* text in staff  (sharpsharp in staff, text below)
 
 	* replace Score_elem member access by get()/set() methods, to enable
 	future embedded code.

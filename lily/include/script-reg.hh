@@ -18,7 +18,7 @@ class Script_register : public Request_register {
     /* *************** */
     bool acceptable_elem_b(Score_elem*);
 public:
-    NAME_MEMBERS(Script_register);
+    NAME_MEMBERS();
     Script_register();
 protected:
     virtual bool try_request(Request*);

@@ -28,7 +28,7 @@ public:
 protected:
     SPANNER_CLONE(Crescendo)
     virtual Molecule*brew_molecule_p()const;
-    NAME_MEMBERS(Crescendo);
+    NAME_MEMBERS();
     
 private:
     

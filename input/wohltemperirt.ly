@@ -14,7 +14,7 @@
 
 %}
 
-\version "0.0.57";
+\version "0.0.58";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names

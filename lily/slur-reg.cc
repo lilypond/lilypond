@@ -16,16 +16,19 @@
 bool
 Slur_register::acceptable_request_b(Request*req_l)
 {
-    return req_l->musical() && req_l->musical()->slur();
+   Musical_req *mus_l = req_l->musical();
+    
+    return mus_l && mus_l->slur();
 }
 
 bool
 Slur_register::try_request(Request *req_l)
 {
-    if(!req_l->slur())
+    Musical_req *mus_l = req_l->musical();
+    if(!mus_l || !mus_l->slur())
 	return false;
 
-    new_slur_req_l_arr_.push(req_l->slur());
+    new_slur_req_l_arr_.push(mus_l->slur());
     return true;
 }
 

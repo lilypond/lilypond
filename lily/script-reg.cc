@@ -19,8 +19,9 @@ Script_register::Script_register()
 bool
 Script_register::try_request(Request *r_l)
 {
-    if (!r_l->script())
+    if (!r_l->musical() || ! r_l->musical()->musicalscript())
 	return false ;
+    
     for (int i=0; i < script_req_l_arr_.size(); i++)
 	if ( !Script_req::compare(*script_req_l_arr_[i], *r_l->script())) {
 	    return true;

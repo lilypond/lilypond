@@ -31,7 +31,7 @@ public:
     /* ************** */
    
     Clef_register();
-    NAME_MEMBERS(Clef_register);
+    NAME_MEMBERS();
    
 };
 #endif // CLEF_HH

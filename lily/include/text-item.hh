@@ -18,8 +18,7 @@ class Text_item : public Item ,public Staff_side{
     void init(Text_def* tdef_l); 
  
 public:
-    Text_def * tdef_l();
-    Text_def const* tdef_c_l();
+
     int pos_i_;
 
     /// do I have width?
@@ -27,12 +26,12 @@ public:
     
     /* ***************/
 
-    Text_item(Text_def*,int dir=0);
+    Text_item(General_script_def*,int dir=0);
     virtual ~Text_item();
-    NAME_MEMBERS(Text_item);
+    NAME_MEMBERS();
 
 protected:
-    Text_def* tdef_p_;
+    General_script_def * tdef_p_;
 
     virtual void set_default_index();
     virtual Molecule* brew_molecule_p() const;

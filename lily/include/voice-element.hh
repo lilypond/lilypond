@@ -33,10 +33,8 @@ public:
     Voice_element(Voice_element const & src );
 
     void add(Request*);
-    bool find_plet_start_b(char c, Moment& moment_r);
     void print ()const;
     void set_default_group(String id);
-    void set_plet_backwards(Moment& now_moment_r, Moment until_moment, int num_i, int den_i);
 };
 
 #endif // VOICE-ELEMENT_HH

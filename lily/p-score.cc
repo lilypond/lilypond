@@ -243,8 +243,11 @@ PScore::breakable_col_range(PCol*l,PCol*r)const
 
     PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
     PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
-  
-    while ( start < stop ) {
+
+    /*
+      ugh! windows-suck-suck-suck.
+     */
+    while ( PCursor<PCol*>::compare(start,stop) < 0 ) {
 	if (start->breakable_b())
 	    ret.push(start);
 	start++;
@@ -260,7 +263,11 @@ PScore::col_range(PCol*l,PCol*r)const
     PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
     PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
     ret.push(l);
-    while ( start < stop )
+    
+    /*
+      ugh! windows-suck-suck-suck.
+     */
+    while ( PCursor<PCol*>::compare(start,stop) < 0 )
 	ret.push(start++);
     ret.push(r);
     return ret;
@@ -274,7 +281,10 @@ PScore::broken_col_range(PCol*l,PCol*r)const
     PCursor<PCol*> start(l ? find_col(l)+1 : cols.top() );
     PCursor<PCol*> stop(r ? find_col(r) : cols.bottom());
   
-    while ( start < stop ) {
+    /*
+      ugh! windows-suck-suck-suck.
+      */
+    while ( PCursor<PCol*>::compare(start,stop) < 0 ) {
 	if (start->breakable_b() && !start->line_l_ )
 	    ret.push(start);
 	start++;

@@ -3,9 +3,12 @@
 # @configure_input@
 
 INSTALL = @INSTALL@
-USER_CXXFLAGS = @CXXFLAGS@ @CPPFLAGS@
+USER_CXXFLAGS =
+USER_LDFLAGS =
 
 CXX = @CXX@
+ICFLAGS = @ICFLAGS@
+ILDFLAGS = @ILDFLAGS@
 libdir = @libdir@
 prefix = @prefix@
 TEXPREFIX = @TEXPREFIX@

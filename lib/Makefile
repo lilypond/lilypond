@@ -55,16 +55,13 @@ MAINTARGET = $(outdir)/$(LIBRARY)# huh?
 default: $(MAINTARGET)
 #
 
+localclean:
+	rm -f $(MAINTARGET)
+
 # generic targets and rules:
 #
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
-#
-
-# list of depend files:
-#
-
-#
 
 # auto dependencies:
 #

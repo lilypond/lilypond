@@ -77,7 +77,7 @@ int
 main( int argc_i, char* argv_sz_a[] )
 {
 	Long_option_init long_option_init_a[] = {
-		{0, "be-blonde", 'b'},
+		{0, "no-quantify", 'b'},
 		{0, "debug", 'd'},
 		{0, "help", 'h'},
 		{0, "no-silly", 'n'},

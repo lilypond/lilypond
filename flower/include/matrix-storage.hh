@@ -153,7 +153,7 @@ public:
     /**
       RTTI.
      */
-    NAME_MEMBERS(Matrix_storage);
+    NAME_MEMBERS();
 };
 
 

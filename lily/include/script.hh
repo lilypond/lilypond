@@ -15,14 +15,10 @@
   Accents that are put over a note-group.
  */
 class Script : public Item, public Staff_side {
-     /**
-      Vertical dir of symbol. -1 means invert the symbol.
-     */
-    int symdir_i_;
     
     int pos_i_;
     
-    Script_def *specs_l_;
+    General_script_def *specs_l_;
     Stem *stem_l_;
 
     /* *************** */
@@ -32,7 +28,7 @@ protected:
     virtual void do_pre_processing();
     virtual Interval do_width() const;
 private:
-    void set_symdir();
+
     void set_default_dir();
     void set_default_index();
     Symbol symbol()const;
@@ -40,7 +36,7 @@ public:
     static int compare(Script  *const&, Script *const&) ;
     Script(Script_req*);
     void set_stem(Stem*);
-    NAME_MEMBERS(Script);
+    NAME_MEMBERS();
 
 };
 

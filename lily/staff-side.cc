@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "interval.hh"
 #include "paper-def.hh"
 #include "dimen.hh"
 #include "staff-side.hh"

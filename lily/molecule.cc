@@ -1,4 +1,11 @@
-#include "varray.hh"
+/*
+  molecule.cc -- implement Molecule
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "interval.hh"
 #include "dimen.hh"
 #include "string.hh"
@@ -7,41 +14,6 @@
 #include "debug.hh"
 #include "tex.hh"
 
-void
-Atom::print() const
-{
-    mtor << "texstring: " <<sym.tex<<"\n";    
-}
-
-Box
-Atom::extent() const
-{
-    Box b( sym.dim);
-    b.translate(off);
-    return b;
-}
-
-Atom::Atom(Symbol s)
-{
-    sym=s;
-}
-
-
-String
-Atom::TeX_string() const
-{
-    /* infinity checks. */
-    assert( abs(off.x) < 100 CM);
-    assert( abs(off.y) < 100 CM);
-    
-    // whugh.. Hard coded...
-    String s("\\placebox{%}{%}{%}");
-    Array<String> a;
-    a.push(print_dimen(off.y));
-    a.push(print_dimen(off.x));
-    a.push(sym.tex);
-    return substitute_args(s, a);
-}
 
 /* *************** */
 
@@ -147,4 +119,10 @@ Molecule::print() const
 {
     for (iter_top(ats,c); c.ok(); c++)
 	c->print();
+}
+
+void
+Molecule::add(Atom const &a)
+{
+    ats.bottom().add(new Atom(a)); 
 }

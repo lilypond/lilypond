@@ -21,6 +21,6 @@ protected:
     virtual void pre_move_processing();
 public:
     Rest_collision_register();
-    NAME_MEMBERS(Rest_collision_register);
+    NAME_MEMBERS();
 };
 #endif // REST_COLLISION_REG_HH

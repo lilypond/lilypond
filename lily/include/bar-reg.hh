@@ -25,7 +25,7 @@ public:
     virtual void pre_move_processing();
     virtual void post_move_processing();
     Bar_register();
-    NAME_MEMBERS(Bar_register);
+    NAME_MEMBERS();
 };
 
 #endif // BARREG_HH

@@ -2,7 +2,7 @@
 % scales with accents.
 %
 
-\version "0.0.57";
+\version "0.0.58";
 blah = \staff{  melodicregs
 	\melodic {
 		\meter 6/8;	
@@ -19,30 +19,30 @@ blah = \staff{  melodicregs
 			c d 
 		\duration  8 ;
 	%ugr
-		 |[ a \< a a a a a a  \! a a \ff \> ]6/9 
+		 |[6/9 a \< a a a a a a  \! a a \ff \> ]1/1 
 		\octave  c' ;
-		 |[ a  a a a a a a a \! a ]6/9 
+		 |[6/9 a  a a a a a a a \! a ]1/1 
 		\octave  c'' ; 
 
 		 ['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
 		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
-		 [g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]6/9
+		 [6/9 g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]1/1
 		 \octave c;
 		['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
 		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
-		 [g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]6/9
+		 [6/9 g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]1/1
 		\octave  c' ;
 		\octave  c' ;   
-		 [ c g d' ]2/3 
-		 [ d' g c ]2/3  
-		 [ f c' g' ]2/3 
-		 [ g' c' f ]2/3  
+		 [2/3 c g d' ]1/1 
+		 [2/3 d' g c ]1/1  
+		 [2/3 f c' g' ]1/1 
+		 [2/3 g' c' f ]1/1  
 		\octave  c ;
-		 [ c g d' ]2/3 
-		 [ d' g c ]2/3  
-		 [ f c' g' ]2/3 
-		 [ g' c' f ]2/3 
-		 [ g' c' f ]2/3 
+		 [2/3 c g d' ]1/1 
+		 [2/3 d' g c ]1/1  
+		 [2/3 f c' g' ]1/1 
+		 [2/3 g' c' f ]1/1 
+		 [2/3 g' c' f ]1/1 
   \meter 4/4;
 	
 c1

@@ -1,3 +1,29 @@
+pl 67
+	- sketch of Music classes
+	- General_script_def as baseclass for Text_def and Script_def
+	- bf: clean lib/out/liblily.a
+	- bf: rests shorter than 1/4
+
+pl 66.jcn3
+	- bf: make uninstall
+	- conflily
+	- f: some pedaling
+	- plet hack removed :-( [ c c c ]2/3 -> [2/3 c c c ]1/1
+
+pl 66.jcn2
+	- bf: bar, Hilfslinie
+	- bf: configure for mingw32
+
+pl 66.jcn1
+	- WIN32 -> WINDOWS32, more win32->windows32
+	- some GNU/Linux changes
+	- cygnus b18 / mingw update
+	- doze compile; bf: p-score.cc compares
+	- reincluded toccata fixes
+	- small stuff: vi tags, typos, bibl
+
+******
+may 27
 pl 66
 	- make_website --jpeg, --png and --gif
 	- win32 -> windows32
@@ -11,6 +37,7 @@ pl 66
 
 ******
 may 26
+
 pl 65
 	- bf pathfind /root/file
 	- massive Score_elem rewrite:

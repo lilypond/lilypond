@@ -12,9 +12,8 @@
 
 EndMudelaHeader
 %}
-\version "0.0.57";
 
-\version "0.0.57";
+\version "0.0.58";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -45,29 +44,29 @@ melodie = \melodic{
 %%4
 	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
 %%5
-	[ a~ bes a ]2/3 d'4. a |
+	[2/3 a~ bes a ]1/1 d'4. a |
 %%6
-	[ g~ a g ]2/3 d'4 g r |
+	[2/3 g~ a g ]1/1 d'4 g r |
 
 %%7
-	a4.^> g [ g~ f e ]2/3 |
+	a4.^> g [2/3 g~ f e ]1/1 |
 %%8
 	f2 r4 |
 %%9
 
-	< { a'4.~  g' [ g'( f' )e' ]2/3 }
+	< { a'4.~  g' [2/3 g'( f' )e' ]1/1 }
 	{ cis'4. e'_"dolce" \plet 2/3; e' \plet 1/1; } > |
 %%10
 	< f'2. d'2. > |
 %%11
-	[ a ~  bes a ]2/3 f'4. a |
+	[2/3 a ~  bes a ]1/1 f'4. a |
 %%12
-	[ g~   a g ]2/3 e'4. d' |
+	[2/3 g~   a g ]1/1 e'4. d' |
 %%13
-	c'4. bes [ bes~   a g ]2/3 |
+	c'4. bes [2/3 bes~   a g ]1/1 |
 %%14
 	a2 r 
-	< { d'~  c'4. g [ bes a g ]2/3 }
+	< { d'~  c'4. g [2/3 bes a g ]1/1 }
 	{ f \p ~  e4._"dolce" bes 
 		\plet 2/3; g
 		\plet 1/1; 
@@ -82,12 +81,12 @@ melodie = \melodic{
 	[ d'8. a16 ] f4. d |
 %%19
 %#%	c'\grace\stemup
-	[ bes ~   a bes ]2/3 d'4. bes |
+	[2/3 bes ~   a bes ]1/1 d'4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
-	[ g~  fis g ]2/3 bes4.^> g |
+	[2/3 g~  fis g ]1/1 bes4.^> g |
 %%22
 	f!2. |
 %%23
@@ -95,17 +94,17 @@ melodie = \melodic{
 %%24
 	[ d'8. a16 ] fis4. d |
 %%25
-	[ b \mf~   ais b ]2/3 d'4. b |
+	[2/3 b \mf~   ais b ]1/1 d'4. b |
 %%26
 	< a2. fis2. > |
 %%27
-	[ e' \f~  dis' e' ]2/3 g'4. cis' |
+	[2/3 e' \f~  dis' e' ]1/1 g'4. cis' |
 %%28
 	< d'2. fis2. > |
 %#%\volta1
 %%29
-	< { bes2( [ d'8.~ )g16 ] }
-	{ g2 \mf [ bes8. bes16 ] } > |
+	< { bes2( [ d'8.~ )bes16 ] }
+	{ g2 \mf [ bes8. g16 ] } > |
 %%30
 	< { a4. [ a-. a-. a-. ] }
 	{ fis4. [ fis-.( fis-. )fis-. ] } > |
@@ -115,8 +114,8 @@ melodie = \melodic{
 %%32
 	< a2 fis2 \pp > < a4 fis4 > |
 %%33
-	< { b2( [ d'8.~  g16 ] }
-	{ g2 [ b8. b16 ] } > |
+	< { b2( [ d'8.~ )b16 ] }
+	{ g2 [ b8. g16 ] } > |
 %%34
 	< { a4. [ a-. a-. a-. ] }
 	{ fis4. [ fis-.( fis-. )fis-. ] } > |
@@ -136,7 +135,7 @@ melodie = \melodic{
 %%40
 	cis'2 r4 |
 %%41
-	< fis'4. \> cis'4. \f > e' [ e'~  d' \! cis' ]2/3 |
+	< fis'4. \> cis'4. \f > e' [2/3 e'~  d' \! cis' ]1/1 |
 %%42
 	[ b8. cis'16 ] d'4^> b r |
 %%43
@@ -145,11 +144,11 @@ melodie = \melodic{
 %%44
 	[ b8. \> cis'16 ] d'4^> b \! r |
 %%45
-	[ b \p ~  ais b ]2/3 d'4. b |
+	[2/3 b \p ~  ais b ]1/1 d'4. b |
 %%46
 	<a!2. fis2. > |
 %%47
-	[ e' \f~  dis' e' ]2/3 g'4.^> cis' |
+	[2/3 e' \f~  dis' e' ]1/1 g'4.^> cis' |
 %%48
 	\textstyle "italic";
 	< 
@@ -343,16 +342,16 @@ tekstI = \lyric{
 	_ _ _
 	_ _ _
 % 5
-	[ Lei- se8 ]2/3 fleh-4. en8 
-	[ mei- ne8 ]2/3 Lie- der8 _8
-	Durch4. die8 [ Nacht zu8 ]2/3 
+	[2/3 Lei- se8 ]1/1 fleh-4. en8 
+	[2/3 mei- ne8 ]1/1 Lie- der8 _8
+	Durch4. die8 [2/3 Nacht zu8 ]1/1 
 	dir;2 _    
 	_ _ _ 
 	_ _ _
 % 11
-	[ In den8 ]2/3 stil-4. len8 
-	[ Hain her-8 ]2/3 nie-4. der,8
-	Lieb4. chen,8 [ komm zu8 ]2/3 
+	[2/3 In den8 ]1/1 stil-4. len8 
+	[2/3 Hain her-8 ]1/1 nie-4. der,8
+	Lieb4. chen,8 [2/3 komm zu8 ]1/1 
 	mir!2 _
 	_ _ _ 
 	_ _ _
@@ -360,7 +359,7 @@ tekstI = \lyric{
 % 17
 	Fl\"us-8. ternd16 schlan-4. ke8 
 	Wip-8. fel16 rau-4. schen8
-	[ In des8 ]2/3 Mon-4. des8 
+	[2/3 In des8 ]1/1 Mon-4. des8 
 	Licht;2.
 	_ _ _ 
 	_ _ _
@@ -368,7 +367,7 @@ tekstI = \lyric{
 % 23
 	Des8. Ver-16 r\"a-4. ters8 
 	feind-8. lich16 Lau-4. schen8
-	[ F\"urch- te,8 ]2/3 Hol-4. de,8 
+	[2/3 F\"urch- te,8 ]1/1 Hol-4. de,8 
 	nicht.2.
 	_ _ _ 
 	_ _ _
@@ -388,7 +387,7 @@ tekstI = \lyric{
 	mich!2 _
 	Be-8. bend16 harr' ich8 _8
 	dir8. ent-16 ge- gen!8 _8
-	[ Komm, be-8 ]2/3 gl\"u4. cke8 
+	[2/3 Komm, be-8 ]1/1 gl\"u4. cke8 
 	mich!2.
 	_ _ _ _ _ _
 % 47
@@ -410,17 +409,17 @@ tekstII = \lyric{
 	_ _ _
 	_ _ _
 % 5
-	[ H\"orst die8 ]2/3 Nach-4. ti-8 
-	[ gal- len8 ]2/3 schla- gen?8 _8
-	Ach!4. sie8 [ fleh- en8 ]2/3 
+	[2/3 H\"orst die8 ]1/1 Nach-4. ti-8 
+	[2/3 gal- len8 ]1/1 schla- gen?8 _8
+	Ach!4. sie8 [2/3 fleh- en8 ]1/1 
 	dich,2 _
 	_ _ _ 
 	_ _ _
 
 % 11
-	[ Mit der8 ]2/3 T\"o-4. ne8
-	[ s\"u\ss- en8 ]2/3 Kla-4. gen8
-	Fleh-4. en8 [ sie f\"ur8 ]2/3
+	[2/3 Mit der8 ]1/1 T\"o-4. ne8
+	[2/3 s\"u\ss- en8 ]1/1 Kla-4. gen8
+	Fleh-4. en8 [2/3 sie f\"ur8 ]1/1
 	mich.2 _
 	_ _ _ 
 	_ _ _
@@ -428,7 +427,7 @@ tekstII = \lyric{
 % 17
 	Sie-8. ver-16 stehn4. des8
 	Bus-8. ens16 Seh-4. nen,8
-	[ Ken- nen8 ]2/3 Lieb-4. es-8 
+	[2/3 Ken- nen8 ]1/1 Lieb-4. es-8 
 	schmerz,2.
 	_ _ _ 
 	_ _ _
@@ -436,7 +435,7 @@ tekstII = \lyric{
 % 23
 	R\"uh-8. ren16 mit4. den8 
 	Sil-8. ber-16 t\"o-4. nen8
-	[ Jed- es8 ]2/3 wei-4. che8 
+	[2/3 Jed- es8 ]1/1 wei-4. che8 
 	Herz.2.
 	_ _ _ 
 	_ _ _

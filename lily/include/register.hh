@@ -111,7 +111,7 @@ public:
 
     Request_register();
     virtual ~Request_register(){}
-    NAME_MEMBERS(Request_register);
+    NAME_MEMBERS();
     void print() const;
 };
 

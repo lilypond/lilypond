@@ -6,6 +6,10 @@ grep for TODO and ugh/ugr
 
 IMPORTANT
 
+	* remove silly #warning using midi_voice list
+
+	* add mi2mu example output (.midi.ly and .gif) to website
+
 	* important? lily is important, go work on lily!
 
 	* faq about mi2mu midi t1. ?

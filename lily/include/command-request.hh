@@ -21,7 +21,6 @@ public:
     virtual Terminate_voice_req *terminate() {return 0;}
     virtual Group_change_req * groupchange() { return 0;}
     virtual Group_feature_req * groupfeature() { return 0; }
-  
     virtual Measure_grouping_req * measuregrouping() { return 0; }
     virtual Clef_change_req * clefchange() { return 0; }
     virtual Key_change_req * keychange() { return 0; }
@@ -30,7 +29,15 @@ public:
     virtual Bar_req *bar() { return 0; }
     virtual Cadenza_req *cadenza() { return 0; }
     virtual Timing_req*timing() {  return 0; }
+    virtual Command_script_req*commandscript() { return 0;}
 };
+
+
+class Command_script_req : public Command_req,  public Script_req {
+public:
+    REQUESTMETHODS(Command_script_req, commandscript);
+};
+
 
 
 /** Baseclass for meter/partial req. It has to be handled by

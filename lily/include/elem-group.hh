@@ -28,7 +28,7 @@ protected:
 public:
     Element_group();
     Element_group(Element_group const&);
-    NAME_MEMBERS(Element_group);
+    NAME_MEMBERS();
     virtual void translate(Offset);
     virtual void add_element(Score_elem*);
     virtual String TeX_string()const;

@@ -66,7 +66,7 @@ public:
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Note_head*n);
 
-    NAME_MEMBERS(Stem);
+    NAME_MEMBERS();
 
     Real hpos_f()const;
     

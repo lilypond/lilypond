@@ -24,7 +24,7 @@ public:
    
 
     /* *************** */
-    NAME_MEMBERS(Beam);
+    NAME_MEMBERS();
     Beam();
     void add(Stem*);
     
@@ -35,7 +35,6 @@ public:
 protected:
     virtual Interval do_width()const;    
     virtual Offset center() const;
-    virtual void do_break_at(PCol *,  PCol *);
     virtual void set_default_dir();
     virtual void do_pre_processing();
     virtual void do_post_processing();

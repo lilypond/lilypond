@@ -5,8 +5,8 @@ Lily literature -- reading on music engraving
 =head1 DESCRIPTION
 
 A list of resources on music printing/writing and engraving.  Please
-note that don't have access to most material (except a library copy of
-Chlapik)
+note that don't have access to most material (except Wanske and a 
+library copy of Chlapik)
 
 
 More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
@@ -16,9 +16,12 @@ More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 
 [partly by Mark Basinski <basinski@arizona.edu>]
 
-Herbert Chlapik, Die Praxis des Notengraphikers. Doblinger, 1987.
+Chlapik, Herbert. ``Die Praxis des Notengraphikers''. Doblinger, 1987.
+ISBN 3-9000 035-96-2.
 
-Helene Wanske, ?, Schott-Verlag Mainz.
+Wanske, Helene.  ``Musiknotation --- Von der Syntax des Notenstichs
+zum EDV-gesteuerten-1 Notensatz'', Schott-Verlag, Mainz 1988.  ISBN
+3-7957-2886-x. 1) e(lektronischen) D(aten)v(erarbeitung).
 
 Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
 revised edition by Arnold Broido and Daniel Dorff. Music Publisher's

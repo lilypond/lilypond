@@ -8,6 +8,7 @@
 
 #include "bow.hh"
 #include "paper-def.hh"
+#include "molecule.hh"
 #include "lookup.hh"
 
 Bow::Bow()

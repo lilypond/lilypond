@@ -19,7 +19,7 @@ struct Key_item : Item {
 
     
     /* *************** */
-NAME_MEMBERS(Key_item);
+NAME_MEMBERS();
     Key_item(int cposition);
     void add(int pitch, int acc);
     void read(const Key_register&);

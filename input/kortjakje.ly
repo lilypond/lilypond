@@ -10,7 +10,7 @@
  Tested Features: example file with comments
 EndMudelaHeader
 %}
-\version "0.0.57";
+\version "0.0.58";
 
 
 % the % is a comment.

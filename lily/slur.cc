@@ -53,18 +53,6 @@ Slur::do_pre_processing()
     left_col_l_ = encompass_arr_[0]->pcol_l_;    
 }
 
-void
-Slur::do_break_at(PCol*l, PCol*r) 
-{
-    assert(l->line_l_ == r->line_l_);
-
-    Array<Note_column*> old_encompass_arr = encompass_arr_;
-    encompass_arr_.set_size(0);
-    for (int i =0; i < old_encompass_arr.size(); i++) {
-	if (old_encompass_arr[i]->pcol_l_->line_l_==l->line_l_)
-	    encompass_arr_.push(old_encompass_arr[i]);
-    }
-}
 
 void
 Slur::do_substitute_dependency(Score_elem*o, Score_elem*n)

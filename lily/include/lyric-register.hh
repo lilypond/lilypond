@@ -21,7 +21,7 @@ class Lyric_register : public Request_register {
     virtual void process_requests();
     virtual void post_move_processing();
 public:
-    NAME_MEMBERS(Lyric_register);
+    NAME_MEMBERS();
     Lyric_register();
 };
 #endif // LYRIC_REGISTER_HH

@@ -23,26 +23,39 @@ Local_key_register::Local_key_register()
 void
 Local_key_register::pre_move_processing()
 {
+    Local_key_item *key_item_p = 0;
     if (mel_l_arr_.size()) {
-	Local_key_item *key_item_p = 0;
 	for (int i=0; i  < mel_l_arr_.size(); i++) {
 	    Item * support_l = support_l_arr_[i];
-
 	    Note_req * note_l = mel_l_arr_[i];
+
 	    if (tied_l_arr_.find_l(support_l) && 
-		!forced_l_arr_.find_l(support_l))
+		!note_l->forceacc_b_)
 		continue;
 	    
+	    if( !note_l->forceacc_b_ &&
+		local_key_.oct(note_l->octave_i_).acc(note_l->notename_i_)
+		== note_l->accidental_i_) 
+		continue;
+		
+		
+
 	    if (!key_item_p)
 		key_item_p = new Local_key_item(*get_staff_info().c0_position_i_l_);
 	    key_item_p->add(note_l);
-	    key_item_p->add(support_l);
+	    key_item_p->add_support(support_l);
 	    local_key_.oct(note_l->octave_i_)
 		.set(note_l->notename_i_, note_l->accidental_i_);
 	}
-	if (key_item_p)
-	    typeset_element(key_item_p);
+	
     }
+    if (key_item_p) {
+	for(int i=0; i < support_l_arr_.size(); i++)
+	    key_item_p->add_support(support_l_arr_[i]);
+	
+	typeset_element(key_item_p);
+    }
+    
     mel_l_arr_.set_size(0);
     tied_l_arr_.set_size(0);
     support_l_arr_.set_size(0);
@@ -53,18 +66,13 @@ void
 Local_key_register::acknowledge_element(Score_elem_info info)
 {    
     Score_elem * elem_l = info.elem_l_;
-    if (info.req_l_->note()) {
-	Note_req * note_l = info.req_l_->note();
+    if (info.req_l_->musical() && info.req_l_->musical()->note()) {
+	Note_req * note_l = info.req_l_->musical()->note();
 	Item * item_l = info.elem_l_->item();
 
-	if( note_l->forceacc_b_ ||
-	    local_key_.oct(note_l->octave_i_).acc(note_l->notename_i_)
-	    != note_l->accidental_i_) {
-	    mel_l_arr_.push(note_l );
-	    support_l_arr_.push(item_l);
-	    if (note_l->forceacc_b_)
-		forced_l_arr_.push(item_l);
-	}
+	mel_l_arr_.push(note_l );
+	support_l_arr_.push(item_l);
+	
     } else if (info.req_l_->command()
 	       && info.req_l_->command()->keychange()) { 
 	Key_register * key_reg_l =

@@ -13,7 +13,6 @@
 */
 
 #include "varray.hh"
-
 #include "proto.hh"
 #include "dimen.hh"
 #include "beam.hh"
@@ -52,11 +51,6 @@ Stem_info::Stem_info(Stem const *s)
 
 
 /* *************** */
-void
-Beam::do_break_at(PCol*l, PCol*r)
-{
-    assert (l->line_l_ == r->line_l_);
-}
 
 
 

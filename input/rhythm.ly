@@ -11,14 +11,14 @@
 	unsynced bars
 EndMudelaHeader
 %}
-\version "0.0.57";
+\version "0.0.58";
 
 %
 % 	Ive' got rhythm!
 %
 % add any impressive examples here, please
 
-\version "0.0.57";
+\version "0.0.58";
 
 ritme = \staff {
 	melodicregs
@@ -35,7 +35,7 @@ ritme = \staff {
 	% divide measure in 5 equal parts. Usually it 2+3 or 3+2
 	\grouping  16*5 ;	
 	[c8 c16 c8 ]				|	% watch THIS!
-	 [c16 c16 c16 c16]5/4 |
+	 [5/4 c16 c16 c16 c16]1/1 |
 	\meter   2/8;
 	c4 				|
 	c4	c4	c4	c4

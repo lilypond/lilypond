@@ -9,7 +9,7 @@
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "voice.hh"
-
+#include "script.hh"
 #include "identifier.hh"
 #include "varray.hh"
 #include "text-def.hh"
@@ -17,16 +17,6 @@
 #include "input-music.hh"
 #include "voice-element.hh"
 
-
-Request*
-get_plet_request( char c, int dur_i, int type_i )
-{
-    Plet_req* plet_req_p = new Plet_req;
-    plet_req_p->dur_i_ = dur_i;
-    plet_req_p->type_i_ = type_i;
-    plet_req_p->type_c_ = c;
-    return plet_req_p;
-}
 
 String *
 get_scriptdef(char c)
@@ -58,7 +48,9 @@ get_scriptdef(char c)
 Request*
 get_script_req(int d , Script_def*def)
 {
-    Script_req* script_req_p = new Script_req(d, def);
+    Musical_script_req* script_req_p = new Musical_script_req;
+    script_req_p->dir_i_ =d;
+    script_req_p->scriptdef_p_=def;
     return script_req_p;
 }
 

@@ -23,7 +23,7 @@ protected:
     virtual void acknowledge_element(Score_elem_info);
 public:
     Text_register();
-    NAME_MEMBERS(Text_register);
+    NAME_MEMBERS();
 };
 
 #endif // TEXTREG_HH

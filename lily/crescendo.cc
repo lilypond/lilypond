@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "molecule.hh"
 #include "dimen.hh"
 #include "crescendo.hh"
 #include "lookup.hh"

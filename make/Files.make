@@ -32,4 +32,4 @@ DEPFILES = $(wildcard $(depdir)/*.dep)
 
 build = $(outdir)/.build
 
-all-tag-sources=$(CCFILES) $(HHFILES)
+all-tag-sources=$(CCFILES) $(HHFILES) $(TCCFILES)

@@ -23,7 +23,7 @@ protected:
     virtual void do_pre_processing();
 public:
     Link_array<Note_column> clash_l_arr_;
-    NAME_MEMBERS(Collision);
+    NAME_MEMBERS();
     void add (Note_column*ncol_l);
     Collision();
     

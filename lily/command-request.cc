@@ -10,7 +10,10 @@
 #include "debug.hh"
 #include "musical-request.hh"
 
-
+void
+Command_script_req::do_print() const
+{}
+IMPLEMENT_STATIC_NAME(Command_script_req);
 IMPLEMENT_STATIC_NAME(Cadenza_req);
 
 void
@@ -193,7 +196,7 @@ Key_change_req::Key_change_req()
 Key_change_req::Key_change_req(Key_change_req const&c)
 {
 	for (int i=0; i < c.melodic_p_arr_.size(); i++) 
-		melodic_p_arr_.push( c.melodic_p_arr_[i]->clone()->melodic() );
+		melodic_p_arr_.push( c.melodic_p_arr_[i]->clone()->musical()->melodic() );
 	minor_b_ = c.minor_b_;
 	multi_octave_b_ = c.multi_octave_b_;
 }
