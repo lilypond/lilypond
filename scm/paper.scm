@@ -65,7 +65,7 @@
     (set-current-module old-mod)
     (module-define! old-mod '$defaultpaper new-paper)))
 
-(define paper-alist
+(define-public paper-alist
   '(("a6" . (cons (* 105 mm) (* 148.95 mm)))
     ("a5" . (cons (* 148.95 mm) (* 210 mm)))
     ("a4" . (cons (* 210 mm) (* 297.9 mm)))

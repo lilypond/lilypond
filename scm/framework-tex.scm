@@ -284,14 +284,15 @@
 	 (cmd (string-append "dvips "
 			     (if preview?
 				 " -E "
-				 (string-append " -t " papersizename))
+				 (if (member papersizename
+					     (map car paper-alist))
+				     (string-append "-t " papersizename)
+				     ""))
 			     (if landscape?
 				 " -t landscape "
 				 " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
-			     base
-
-			     )))
+			     base)))
 
     (if (not (ly:get-option 'verbose))
 	(begin

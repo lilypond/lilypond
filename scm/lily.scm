@@ -581,15 +581,17 @@ possibly turned off."
 
 ;;
 ;; ugh  -   double check this. We are leaking
-;; untrusted (user-settable) info to a command-line 
+;; untrusted (user-settable) info to a command-line
 ;;
+;; (regexp-substitute/global #f "[^[:alnum:]]" papersizename 'pre 'post))
 (define-public (postscript->pdf papersizename name)
-  (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersizename " " name))
-	 (output-name
-	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
-    (format (current-error-port) (_ "Converting to `~a'...") output-name)
+  (let* ((set-papersize (if (member papersizename (map car paper-alist))
+			    (string-append "-sPAPERSIZE=" papersizename " ")
+			    ""))
+	 (cmd (string-append "ps2pdf " set-papersize name))
+	 (pdf-name (string-append (basename name ".ps") ".pdf" )))
+    (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
     (ly:system cmd)))
-
 
 (define-public (postscript->png resolution name)
   (let
