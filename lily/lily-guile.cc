@@ -19,6 +19,20 @@
 #include "file-path.hh"
 #include "debug.hh"
 
+SCM
+ly_ch_C_to_scm (char const*c)
+{
+  // this all really sucks, guile should take char const* arguments!
+  return gh_str02scm ((char*)c);
+}
+
+SCM
+ly_ch_C_eval_scm (char const*c)
+{
+  // this all really sucks, guile should take char const* arguments!
+  return gh_eval_str ((char*)c);
+}
+
 /*
   scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
 
@@ -41,7 +55,7 @@ ly_quote_scm (SCM s)
 SCM
 ly_symbol (String name)
 {
-  return gh_car (scm_intern (name.ch_C(), name.length_i()));
+  return gh_car (scm_intern ((char*)name.ch_C(), name.length_i()));
 }
 
 String
@@ -53,7 +67,7 @@ symbol_to_string (SCM s)
 SCM
 ly_set_scm (String name, SCM val)
 {
-  return scm_sysintern (name.ch_C(), val);
+  return scm_sysintern ((char*)name.ch_C(), val);
   
 }
 
@@ -78,7 +92,7 @@ read_lily_scm_file (String fn)
 
   Simple_file_storage f(s);
   
-  gh_eval_str ((char *) f.ch_C());
+  ly_ch_C_eval_scm ((char *) f.ch_C());
   *mlog << ']' << flush;  
 }
 
@@ -100,7 +114,7 @@ ly_gulp_file (SCM name)
 
 
   Simple_file_storage f(s);
-  return gh_str02scm (f.ch_C());
+  return ly_ch_C_to_scm (f.ch_C());
 }
 
 void
@@ -152,8 +166,8 @@ ly_warning (SCM str)
 void
 init_functions ()
 {
-  scm_make_gsubr ("ly-warn", 1, 0, 0, ly_warning);
-  scm_make_gsubr ("ly-gulp-file", 1,0, 0, ly_gulp_file);
+  scm_make_gsubr ("ly-warn", 1, 0, 0, (SCM(*)(...))ly_warning);
+  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (SCM(*)(...))ly_gulp_file);
 }
 
 extern void init_symbols ();

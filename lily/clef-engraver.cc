@@ -130,7 +130,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
       create_clef();
       if(def)
 	clef_p_->set_elt_property(visibility_lambda_scm_sym,
-				  gh_eval_str ("postbreak_only_visibility"));
+				  ly_ch_C_eval_scm ("postbreak_only_visibility"));
     }
 
   /* ugh; should make Clef_referenced baseclass */
@@ -194,7 +194,7 @@ Clef_engraver::create_clef()
       String clefstyle = get_property ("clefStyle", 0);
       if (clefstyle.length_i ())
 	c->set_elt_property (style_scm_sym,
-			     gh_str02scm (clefstyle.ch_C()));
+			     ly_ch_C_to_scm (clefstyle.ch_C()));
       
       announce_element (Score_element_info (c, clef_req_l_));
       clef_p_ = c;

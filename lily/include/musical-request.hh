@@ -24,7 +24,7 @@ public:
   Duration duration_;
   virtual void do_print () const;
 
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
@@ -60,7 +60,7 @@ class Articulation_req : public Script_req
 public:
   String articulation_str_;
 protected:
-  virtual bool do_equal_b (Request*) const;
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -73,7 +73,7 @@ public:
   String style_str_;
 protected:
   VIRTUAL_COPY_CONS(Music);
-  virtual bool do_equal_b (Request*)const;
+  virtual bool do_equal_b (Request const*)const;
   virtual void do_print () const;
 };
 
@@ -88,7 +88,7 @@ struct Melodic_req :virtual Request
 protected:
   /// transpose. #delta# is relative to central c.
   virtual void transpose (Musical_pitch delta);
-  virtual bool do_equal_b (Request*) const;
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -110,7 +110,7 @@ public:
   Note_req();
 protected:
   virtual void do_print () const;
-  bool do_equal_b (Request*) const;
+  bool do_equal_b (Request const*) const;
   VIRTUAL_COPY_CONS(Music);
 };
 

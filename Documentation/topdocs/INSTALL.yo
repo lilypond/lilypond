@@ -305,6 +305,12 @@ label(w32)
 Separate instructions on building for W32 are avaible
 url(in the file README-W32.yo)(../../DOEXPAND(outdir)/README-W32.html).
 
+sect(BUGS)
+
+Send bug reports to bug-gnu-music@gnu.org.  For help and questions use
+help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please consult
+the faq before mailing your problems.
+
 sect(AUTHORS)
 
 nemail(Han-Wen Nienhuys)(hanwen@cs.uu.nl)

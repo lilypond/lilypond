@@ -41,7 +41,7 @@ Stem_staff_side_item::set_stem (Stem*s)
 Direction
 Stem_staff_side_item::get_default_direction () const
 {
-  return relative_dir_ * stem_l_->dir_;
+  return (Direction)(relative_dir_ * stem_l_->dir_);
 }
 
 void

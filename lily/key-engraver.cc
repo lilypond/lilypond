@@ -92,7 +92,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
       if (def)
 	{
 	  item_p_->set_elt_property (visibility_lambda_scm_sym,
-				    gh_eval_str ("postbreak_only_visibility"));
+				    ly_ch_C_eval_scm ("postbreak_only_visibility"));
 	}
     }
 

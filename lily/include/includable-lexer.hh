@@ -46,7 +46,7 @@ public:
   void new_input (String name, String data, Sources*);
 
   void add_lexed_char (int);
-  char const * here_ch_C ();
+  char const * here_ch_C () const;
 };
 
 

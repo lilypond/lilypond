@@ -100,18 +100,14 @@ Dimension_cache::relative_coordinate (Dimension_cache *d) const
 Dimension_cache *
 Dimension_cache::common_group (Dimension_cache const* s) const
 {
-  Link_array<Dimension_cache const> my_groups;
-  for (Dimension_cache const *c = this;
-       c ; c = c->parent_l_)
-    my_groups.push (c);
-  
+  Link_array<Dimension_cache> my_groups;
+  for (Dimension_cache const *c = this; c ; c = c->parent_l_)
+    my_groups.push ((Dimension_cache*)c);
   
   Dimension_cache const *common=0;
   
-  for (Dimension_cache const * d = s;
-       !common && d;
-       d = d->parent_l_)
-    common = my_groups.find_l (d);
+  for (Dimension_cache const * d = s; !common && d; d = d->parent_l_)
+    common = (Dimension_cache const*)my_groups.find_l (d);
 
   return (Dimension_cache*)common;
 }

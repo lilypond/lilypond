@@ -14,7 +14,7 @@ public:
     Text_record() { } // needed because of other ctor
 
     /// report an error in this line.
-    message (String s) {
+    void message (String s) {
 	cerr << '\n'<< filename << ": "<< line_no << s << "\n";
     }	       
     String operator[](int j) {

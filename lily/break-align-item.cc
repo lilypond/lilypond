@@ -47,7 +47,7 @@ Break_align_item::do_pre_processing()
 
   SCM symbol_list = SCM_EOL;
   Array<Real> dists;
-  SCM current_origin = gh_str02scm ("");
+  SCM current_origin = ly_ch_C_to_scm ("");
   for (int i=0; i <= elems.size (); i++)
     {
       Score_element *next_elt  = i < elems.size ()
@@ -61,11 +61,11 @@ Break_align_item::do_pre_processing()
 	  next_origin = next_elt->get_elt_property (origin_scm_sym);
 	  next_origin =
 	    (next_origin == SCM_BOOL_F)
-	    ? gh_str02scm ("")
+	    ? ly_ch_C_to_scm ("")
 	    : SCM_CDR (next_origin);
 	}
       else
-	next_origin = gh_str02scm ("begin-of-note");
+	next_origin = ly_ch_C_to_scm ("begin-of-note");
       
       SCM extra_space
 	= scm_eval (scm_listify (ly_symbol ("break-align-spacer"),
@@ -173,7 +173,7 @@ Break_align_item::add_breakable_item (Item *it)
 	warning bells about missing Y refpoints go off later on.
       */
       hg->dim_cache_[Y_AXIS]->parent_l_ = dim_cache_[Y_AXIS];
-      hg->set_elt_property (ly_symbol("origin"), gh_str02scm (it->name()));
+      hg->set_elt_property (ly_symbol ("origin"), ly_ch_C_to_scm (it->name ()));
 
       pscore_l_->typeset_element (hg);
       add_element_priority (hg, priority);

@@ -104,7 +104,7 @@ Stem_engraver::do_pre_move_processing()
 	  stem_p_->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
 	}
 
-      Translator_group const *which;
+      Translator_group* which;
       prop = get_property ("stemLeftBeamCount", &which);
       if (prop.isnum_b ())
 	{
@@ -127,7 +127,7 @@ Stem_engraver::do_pre_move_processing()
       prop = get_property ("stemStyle", 0);
       if (prop.to_bool ())
 	{
-	  stem_p_->set_elt_property (style_scm_sym, gh_str02scm (prop.ch_C()));
+	  stem_p_->set_elt_property (style_scm_sym, ly_ch_C_to_scm (prop.ch_C()));
 	}
       
       typeset_element(stem_p_);

@@ -107,7 +107,7 @@ Includable_lexer::close_input ()
 }
 
 char const*
-Includable_lexer::here_ch_C ()
+Includable_lexer::here_ch_C () const
 {
   if (include_stack_.empty ())
     return 0;

@@ -27,7 +27,7 @@ public:
   int find_tonic_i () const;
   int find_pitch_i (Musical_pitch p) const;
   int find_notename_i (Musical_pitch p) const;
-  void find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p);
+  void find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p) const;
 
   Array<Musical_pitch> pitch_arr_;
 };

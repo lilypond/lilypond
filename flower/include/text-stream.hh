@@ -48,7 +48,7 @@ public:
   }
   char peek() {
     if (eof_b ())
-      return -1;
+      return (char)-1;
     char c = get();
     unget (c);
     return c;

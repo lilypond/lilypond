@@ -254,7 +254,7 @@ setup_paths ()
 
 
 void
-main_prog (int argc, char **argv)
+main_prog (int, char**)
 {
   /*
     need to do this first. Engravers use lily.scm contents.
@@ -388,7 +388,7 @@ main (int argc, char **argv)
 #ifdef WINNT
   gh_enter (argc, argv, main_prog);
 #else
-  gh_enter (argc, argv, (void(*)())main_prog);
+  gh_enter (argc, argv, (void(*)(...))main_prog);
 #endif
 
   return 0;			// unreachable

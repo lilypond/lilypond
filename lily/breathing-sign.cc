@@ -26,7 +26,7 @@ Breathing_sign::Breathing_sign ()
   set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   set_elt_property (break_priority_scm_sym, gh_int2scm (-4));
   set_elt_property (visibility_lambda_scm_sym,
-		    gh_eval_str ("non_postbreak_visibility"));
+		    ly_ch_C_eval_scm ("non_postbreak_visibility"));
 }
 
 void

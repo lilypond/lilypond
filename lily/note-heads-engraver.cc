@@ -58,7 +58,7 @@ Note_heads_engraver::do_process_requests()
 	  Scalar dir = get_property ("verticalDirection",0);
 	  if (dir.isdir_b())
 	    {
-	      d->resolve_dir_ = int (dir);
+	      d->resolve_dir_ = (Direction)(int)dir;
 	    }
 	  
 	  announce_element (Score_element_info (d,0));
@@ -70,7 +70,7 @@ Note_heads_engraver::do_process_requests()
 	note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       else 
         note_p->set_elt_property (style_scm_sym,
-				  gh_str02scm (noteheadstyle.ch_C()));
+				  ly_ch_C_to_scm (noteheadstyle.ch_C()));
 
       
       Score_element_info itinf (note_p,note_req_l);

@@ -86,7 +86,8 @@ Interval
 Axis_group_element::extra_extent (Axis a )const
 {
   Interval g;
-  purge_extra ();		// Yeah yeah,  const correctness.
+  Axis_group_element* urg = (Axis_group_element*)this;
+  urg->purge_extra ();		// Yeah yeah,  const correctness.
   for (int i=0;  i < extra_elems_.size (); i++)
     {
       Interval ge = extra_elems_[i]->extent (a);

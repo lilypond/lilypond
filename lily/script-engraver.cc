@@ -42,7 +42,7 @@ Script_engraver::do_process_requests()
       Articulation_req* l=script_req_l_arr_[i];
 
 
-      SCM list = gh_eval_str (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
+      SCM list = ly_ch_C_eval_scm (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
       
       if (list == SCM_BOOL_F)
 	{
@@ -67,13 +67,13 @@ Script_engraver::do_process_requests()
       SCM priority = SCM_CAR(list);
 
       if (relative_stem_dir)
-	  ss->relative_dir_ = relative_stem_dir;
+	  ss->relative_dir_ = (Direction)relative_stem_dir;
       else
-	  ss->dir_ = force_dir;
+	  ss->dir_ = (Direction)force_dir;
 
       Scalar dir_prop (get_property ("articulationScriptVerticalDirection", 0));
       if (dir_prop.isnum_b () && (int) dir_prop != CENTER)
-	ss->dir_ = (int) dir_prop;
+	ss->dir_ = (Direction)(int)dir_prop;
 
       if (l->dir_)
 	ss->dir_ = l->dir_;

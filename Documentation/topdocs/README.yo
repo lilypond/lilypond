@@ -90,6 +90,13 @@ verb(rm `find /var/lib/texmf/fonts -name 'feta*'`)
 a script to do this for you is in file(buildscripts/clean-fonts.sh)
 
 
+sect(BUGS)
+
+Send bug reports to bug-gnu-music@gnu.org.  For help and questions use
+help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please consult
+the faq before mailing your problems.
+
+
 sect(CDROM DISTRIBUTIONS)
 
 If you have received LilyPond on a cdrom, chances are that development

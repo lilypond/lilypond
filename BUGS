@@ -1,6 +1,10 @@
 
 This documents serious bugs 
 
+Send bug reports to bug-gnu-music@gnu.org.  For help and questions use
+help-gnu-music@gnu.org and gnu-music-discuss@gnu.org.  Please consult
+the faq before mailing your problems.
+
 ********
 
 [LinuxPPC-R5, egcs-1.1.2-12c]
@@ -9,7 +13,7 @@ Serious egcs-1.1.2-12c (stock LinuxPPC R5) bug on ppc:
 
 	*dest++ = *src++;
 
-Bug report filed, fixed in egcs-1.1.2-12f.
+Bug report filed, fixed in egcs-1.1.2-12f or gcc-2.95-0a.
 Although we've currently got a workaround in place, the compiler
 is buggy; you should upgrade:
 

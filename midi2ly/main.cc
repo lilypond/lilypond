@@ -62,13 +62,13 @@ usage()
   "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
   );
   cout << _ (
-  "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
+  "  -n, --no-silly         assume no tuplets or double dots, smallest is 32\n"
   );
   cout << _ (
   "  -o, --output=FILE      set FILE as default output\n"
   );
   cout << _ (
-  "  -p, --no-plets         assume no plets\n"
+  "  -p, --no-tuplets       assume no tuplets\n"
   );
   cout << _ (
   "  -q, --quiet            be quiet\n"
@@ -148,7 +148,7 @@ main (int argc_i, char* argv_sz_a[])
 	{1, "key", 'k'},
 	{0, "no-silly", 'n'},
 	{1, "output", 'o'},
-	{0, "no-plets", 'p'},
+	{0, "no-tuplets", 'p'},
 	{0, "quiet", 'q'},
 	{1, "smallest", 's'},
 	{0, "no-timestamps", 'T'},

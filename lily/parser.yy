@@ -52,7 +52,8 @@ Mudela_version oldest_version ("1.1.52");
 void
 print_mudela_versions (ostream &os)
 {
-  os << "Oldest supported input version:   " << oldest_version.str () << endl;
+  os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
+    << endl;
 }
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
@@ -427,6 +428,9 @@ translator_spec_block:
 translator_spec_body:
 	TRANS_IDENTIFIER	{
 		$$ = $1->access_content_Translator (true);
+		Translator_group * tg = dynamic_cast<Translator_group*> ($$);
+		if (!tg)
+			THIS->parser_error (_("Need a translator group for a context"));
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING semicolon	{
@@ -456,8 +460,10 @@ translator_spec_body:
 
 		delete $4;
 		/* ugh*/
-		Translator_group * tr = dynamic_cast<Translator_group*>($$);
-		tr->set_property (*$2, str);
+		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
+		if (!tg)
+			THIS->parser_error (_("Need a translator group for a context"));
+		tg->set_property (*$2, str);
 	}
 	| translator_spec_body NAME STRING semicolon {
 		$$->type_str_ = *$3;
