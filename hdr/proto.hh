@@ -65,6 +65,7 @@ struct Slur_req;
 struct Span_req;
 struct Spanner;
 struct Staff;
+struct Col_configuration;
 struct Staff_column;
 struct Stem;
 struct Stem_req;
@@ -95,5 +96,8 @@ struct Rhythmic_grouping;
 struct Staff_commands_at ;
 struct Commands_at ;
 struct Time_description;
-
+struct Script_def;
+struct Text_def;
+struct Text_req;
+struct Melodic_req;
 #endif // PROTO_HH

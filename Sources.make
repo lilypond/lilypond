@@ -18,8 +18,9 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	clef.hh clefitem.hh  inputcommands.hh\
 	getcommand.hh inputmusic.hh timedescription.hh\
 	inputscore.hh inputstaff.hh identparent.hh\
-	inputcommand.hh grouping.hh moment.hh offset.hh
-
+	inputcommand.hh grouping.hh moment.hh offset.hh\
+	staffelem.hh idealspacing.hh break.hh\
+	scriptdef.hh script.hh textdef.hh textitem.hh
 
 mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	inputcommands.cc inputmusic.cc	\
@@ -40,10 +41,11 @@ mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	notehead.cc  stem.cc \
 	rest.cc bar.cc meter.cc keyitem.cc localkeyitem.cc clefitem.cc\
 	swalker.cc scoreline.cc\
-	simplewalker.cc\
+	simplewalker.cc scriptdef.cc script.cc\
 	texbeam.cc texslur.cc clef.cc key.cc slur.cc beam.cc\
 	idealspacing.cc  grouping.cc identifier.cc\
-	lexerinit.cc mylexer.cc\
+	lexerinit.cc mylexer.cc textdef.cc textitem.cc\
+	staffelem.cc wordwrap.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	template5.cc\
 	version.cc
