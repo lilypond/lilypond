@@ -10,10 +10,11 @@
 (define-module (scm output-tex)
   #:re-export (quote)
   #:export (define-fonts
+	     font-command
+	     fontify
 	     unknown
 	     output-paper-def
 	     output-scopes
-	     select-font
 	     blank
 	     dot
 	     beam
@@ -61,40 +62,32 @@
 ;;;;;;;; DOCUMENT ME!
 ;;;;;;;;
 
-(define font-name-alist  '())
+(define (font-command font)
+  (string-append
+   "magfont"
+   (string-encode-integer
+    (hashq (ly:font-name font) 1000000))
+   "m"
+   (string-encode-integer
+    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
 
-(define (tex-encoded-fontswitch name-mag)
-  (let* ((iname-mag (car name-mag))
-	 (ename-mag (cdr name-mag)))
-
-    (cons iname-mag
-	  (cons ename-mag
-		(string-append  "magfont"
-			  (string-encode-integer
-			   (hashq (car ename-mag) 1000000))
-			  "m"
-			  (string-encode-integer
-			   (inexact->exact (round (* 1000 (cdr ename-mag))))))))))
-
-(define-public (define-fonts internal-external-name-mag-pairs)
-  (set! font-name-alist (map tex-encoded-fontswitch
-			     internal-external-name-mag-pairs))
+(define (define-fonts paper font-list)
   (apply string-append
 	 (map (lambda (x)
-		(font-load-command (car x) (cdr x)))
-	      (map cdr font-name-alist))))
+		(font-load-command paper x))
+	      font-list)
+	 ))
 
 ;;
 ;; urg, how can exp be #unspecified?  -- in sketch output
 ;;
 ;; set! returns #<unspecified>  --hwn
 ;;
-(define-public (fontify name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
+(define (fontify font exp)
+  (string-append "\\" (font-command font)
 		 exp))
 
-
-(define-public (unknown) 
+(define (unknown) 
   "%\n\\unknown\n")
 
 (define (symbol->tex-key sym)
@@ -157,15 +150,6 @@
   (apply string-append
 	 (map output-scope scopes)))
 
-(define (select-font name-mag-pair)
-  (let ((c (assoc name-mag-pair font-name-alist)))
-    (if c
-	(string-append "\\" (cddr c))
-	(begin
-	  (ly:warn
-	   (format "Programming error: No such font: ~S" name-mag-pair))
-	  ""))))
-
 (define (blank)
   "")
 
@@ -193,12 +177,15 @@
 (define (symmetric-x-triangle t w h)
   (embedded-ps (list 'symmetric-x-triangle t w h)))
 
-(define (font-load-command name-mag command)
+(define (font-load-command paper font)
   (string-append
-   "\\font\\" command "="
-   (car name-mag)
+   "\\font\\" (font-command font) "="
+   (ly:font-name font)
    " scaled "
-   (ly:number->string (inexact->exact (round (* 1000 (cdr name-mag)))))
+   (ly:number->string (inexact->exact
+		       (round (* 1000
+			  (ly:font-magnification font)
+			  (ly:paper-lookup paper 'outputscale)))))
    "\n"))
 
 (define (ez-ball c l b)
@@ -277,7 +264,7 @@
    "\n\\" s "{" (ly:inexact->string i 10) "}" ))
 
 ;; FIXME: explain ploblem: need to do something to make this really safe.  
-(define-public (output-tex-string s)
+(define (output-tex-string s)
   (if safe-mode?
       (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
       s))

@@ -185,7 +185,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
 
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real slt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real slt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real y = slt * thick_thick/2 * ss;
   Real ythick = hair_thick * slt * ss;
   Box b (Interval (0,  0 >? (width - 2 * ythick)), Interval (-y, y));

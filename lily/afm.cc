@@ -206,11 +206,17 @@ Adobe_font_metric::find_by_name (String s) const
     }
   
   SCM at = (scm_list_n (ly_symbol2scm ("char"),
-		      scm_int2num (cm->code),
-		      SCM_UNDEFINED));
+			scm_int2num (cm->code),
+			SCM_UNDEFINED));
   
   //  at= fontify_atom ((Font_metric*)this, at);
   Box b = afm_bbox_to_box (cm->charBBox);
 
   return Stencil (b, at);
+}
+
+Real
+Adobe_font_metric::design_size () const
+{
+  return design_size_;    
 }

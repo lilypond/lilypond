@@ -34,5 +34,7 @@ public:
   SCM font_descriptions () const;
 };
 
+extern All_font_metrics *all_fonts_global;
+
 #endif /* ALL_FONTS_HH */
 

@@ -9,6 +9,7 @@
 
 #include <math.h>
 
+#include "all-font-metrics.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
@@ -33,7 +34,7 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
 {
   Paper_def *pap = unsmob_paper (paper);
   SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
-  return gh_double2scm (pap->get_realvar (name));
+  return gh_double2scm (pap->get_dimension (name));
 }
 
 bool
@@ -42,6 +43,12 @@ wild_compare (SCM field_val, SCM val)
   return (val == SCM_BOOL_F || field_val == ly_symbol2scm ("*") || field_val == val);
 }
 
+
+/*
+  TODO: this triggers a great number of font-loads (feta11 upto
+  parmesan23). We could make a Delayed_load_font_metric for which the
+  design size is specced in advance.
+ */
 Font_metric*
 get_font_by_design_size (Paper_def* paper, Real requested,
 			 SCM font_vector)
@@ -53,7 +60,10 @@ get_font_by_design_size (Paper_def* paper, Real requested,
   
   for (; i < n; i++)
     {
-      size = gh_scm2double (gh_car (SCM_VECTOR_REF (font_vector, i)));
+      SCM entry = SCM_VECTOR_REF (font_vector, i);
+      Font_metric *fm = unsmob_metrics (scm_force (entry));
+      size = fm->design_size ();
+      
       if (size > requested)
 	break ;
       last_size = size; 
@@ -71,9 +81,9 @@ get_font_by_design_size (Paper_def* paper, Real requested,
 	  size = last_size;
 	}
     }
-  
-  return paper->find_font (gh_cdr (SCM_VECTOR_REF (font_vector, i)),
-			   requested / size);
+
+  Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
+  return paper->find_scaled_font (fm, requested / size);
 }
 
 
@@ -114,8 +124,11 @@ select_font (Paper_def *paper, SCM chain)
       SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
   
       Real rmag = gh_pair_p (mag) ? robust_scm2double (gh_cdr (mag), 1.0) : 1;
-  
-      return paper->find_font (name, rmag);
+
+      Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
+      
+      
+      return paper->find_scaled_font (fm, rmag);
     }
   else if (scm_instance_p (name))
     {

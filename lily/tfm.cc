@@ -133,3 +133,9 @@ Tex_font_metric::make_tfm (String fn)
   
   return tfm->self_scm ();
 }
+
+Real
+Tex_font_metric::design_size ()const
+{
+  return info_.design_size;
+}

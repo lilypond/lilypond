@@ -1,3 +1,27 @@
+2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/output-tex.scm (font-command): use ly: functions to
+	construct name.
+	(define-fonts): don't use alist, just dump \font definitions.
+	(font-load-command): calculate proper scaling by taking
+	outputscale from paper argument.
+
+	* lily/stencil-scheme.cc (fontify_atom): insert Font_metric into
+	expression.
+
+	* lily/paper-outputter.cc (output_header): pass paper arg to
+	define-fonts
+
+	* lily/paper-def.cc (font_descriptions): dump list of
+	Scaled_font_metrics
+	(find_scaled_font): take Font_metric argument, store
+	Scaled_font_metrics in hash-table containing (size ->
+	Scaled_font_metrics) alist.
+	(get_dimension): rename from get_realvar
+
+	* lily/font-metric.cc (LY_DEFINE): ly:font-design-size,
+	ly:font-magnification, ly:font-name: new functions
+
 2004-04-03  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/dedication.itely,
@@ -13,6 +37,9 @@
 	(check_interfaces_for_property): Improve format of warning message.
 
 2004-04-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/font-metric.hh (struct Font_metric): add
+	design_size () method.
 
 	* buildscripts/mf-to-table.py (base): add DesignSize comment.
 

@@ -40,7 +40,6 @@ extern bool internal_type_checking_global_b;
 
 
 /* misc */
-extern All_font_metrics *all_fonts_global;
 extern Array<String> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
