@@ -12,81 +12,103 @@
 #include "real.hh"
 
 
-/// a Real interval
-struct Interval {
-    Real min, max;
+/// a T interval
+template<class T>
+struct Interval_t {
+    T left, right;
 
     /****************/
     
-    Real center() { return (min + max) /2;}
-    void translate(Real t) {
-	min += t;
-	max += t;
+    T center() { return (left + right) /2;}
+    void translate(T t) {
+	left += t;
+	right += t;
     }
-    Real operator[](int j) {
+    T operator[](int j) {
 	if (j==-1)
-	    return min;
+	    return left;
 	else if (j==1)
-	    return max;
+	    return right;
 	else
 	    assert(false);
-	    return 0.0;
-		
+	return 0;		
     }
-    void unite(Interval h) ;
+    void unite(Interval_t<T> h);
     /**
       PRE
       *this and h are comparable
       */
-    void intersect(Interval h);
+    void intersect(Interval_t<T> h);
 
-    Real length() const;
+    T length() const;
     void set_empty() ;
-    bool empty() const { return min > max; }
-    Interval() {
+    bool empty() const { return left > right; }
+    Interval_t() {
 	set_empty();
     }
-    Interval(Real m, Real M) {
-	min =m;
-	max = M;
+    Interval_t(T m, T M) {
+	left =m;
+	right = M;
     }
-    Interval &operator += (Real r) {
-	min += r;
-	max +=r;
+    Interval_t<T> &operator += (T r) {
+	left += r;
+	right +=r;
 	return *this;
     }
-    bool elt_q(Real r);
-    String str() const;
-
-    /// partial ordering
-    static compare(const Interval&,Interval const&);
-    /**
-      inclusion ordering. Crash if not comparable.
-      */
+    String str() const;    
+    bool elt_q(T r);
 };
 /**
-  this represents the closed interval [min,max].
-  No invariants
+  this represents the closed interval [left,right].
+  No invariants. T must be a totally ordered ring
   */
 
-Interval intersection(Interval, Interval const&);
+/// partial ordering
+template<class T>
+int Interval__compare(const Interval_t<T>&,Interval_t<T> const&);
+/**
+  inclusion ordering. Crash if not comparable.
+  */
+
+/****************************************************************
+  INLINE
+ ****************************************************************/
 
 #include "compare.hh"
 
-instantiate_compare(Interval&, Interval::compare);
+template_instantiate_compare(Interval_t<T>&, Interval__compare, template<class T>);
 
 
+template<class T>
+inline Interval_t<T>
+intersection(Interval_t<T> a, Interval_t<T> const&b)
+{
+    a.intersect(b);
+    return a;
+    
+}
+
+
+template<class T>
 inline
-Interval operator +(double a,Interval i )
+Interval_t<T> operator +(T a,Interval_t<T> i )
 {
     i += a;
     return i;
 }
 
+template<class T>
 inline
-Interval operator +(Interval i,double a ){
+Interval_t<T> operator +(Interval_t<T> i,T a ){
     return a+i;
 }
+
+typedef Interval_t<Real> Interval;
+
+
+#define Interval__instantiate(T) template struct Interval_t<T>;\
+  template  int Interval__compare(const Interval_t<T>&,Interval_t<T> const&)
+
 
 #endif // INTERVAL_HH
 
