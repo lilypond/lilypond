@@ -49,7 +49,7 @@ Note_column_engraver::acknowledge_element(Score_elem_info i)
 
     char const*nC = i.elem_l_->name();
 
-    if (nC == Script::static_name()) {
+    if (nC == Script::static_name() && i.req_l_ && i.req_l_->musical()) {
 	script_l_arr_.push((Script*)i.elem_l_->item());
     } else if (nC == Note_head::static_name()) {
 	Note_head * h_l = (Note_head*)i.elem_l_->item();
@@ -78,7 +78,7 @@ Note_column_engraver::acknowledge_element(Score_elem_info i)
 		ncol_p_->add(script_l_arr_[i]);
 	}
     
-	script_l_arr_.set_size(0);
+	script_l_arr_.clear();
     }
 
 }
@@ -107,7 +107,7 @@ Note_column_engraver::do_pre_move_processing()
 void
 Note_column_engraver::do_post_move_processing()
 {
-    script_l_arr_.set_size(0);
+    script_l_arr_.clear();
     stem_l_ =0;
 }
 

@@ -28,7 +28,7 @@ Dynamic_engraver::Dynamic_engraver()
 void
 Dynamic_engraver::do_post_move_processing()
 {
-    dynamic_req_l_arr_.set_size(0);
+    dynamic_req_l_arr_.clear();
 }
 
 bool    

@@ -14,7 +14,7 @@ void
 Rhythmic_grouping::init()
 {
     interval_ = 0;
-    children.set_size(0);     
+    children.clear();     
 }
 
 void

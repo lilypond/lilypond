@@ -69,8 +69,8 @@ Horizontal_align_item::do_pre_processing()
 		Horizontal_align_item_content(
 		    item_l_arr_[i], priority_i_arr_[i]));
 	content.sort(Horizontal_align_item_content::compare);
-	item_l_arr_.set_size(0);
-	priority_i_arr_.set_size(0);
+	item_l_arr_.clear();
+	priority_i_arr_.clear();
 	for  (int i =0; i < content.size(); i++) {
 	    item_l_arr_.push( content[i].item_l_ );
 	    priority_i_arr_.push( content[i].priority_i_);
@@ -93,14 +93,14 @@ Horizontal_align_item::do_pre_processing()
     Real center_dx_f = 0;
     for ( int i=0 ;  i < item_l_arr_.size(); i++) {
 	Real dx = where_f -dims[i][-1];
-	item_l_arr_[i]->translate_x( dx );
+	item_l_arr_[i]->translate( dx , X_AXIS);
 	if (item_l_arr_[i] == center_l_)
 	    center_dx_f = where_f;
 	where_f += dims[i].length();
     }
     if (center_dx_f && !align_i_ )
 	for ( int i=0 ;  i < item_l_arr_.size(); i++) 
-	    item_l_arr_[i]->translate_x( - center_dx_f );
+	    item_l_arr_[i]->translate( - center_dx_f , X_AXIS);
     
 }
 
