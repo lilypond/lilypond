@@ -3,8 +3,8 @@ depth = ..
 SUBDIRS=test regression tutorial no-notation ascii-art template mutopia sondag-morgen
 
 # nereides is tweaked a lot, can't do (read webpage)
-examples=trip star-spangled-banner paddy twinkle font20
-examples+=size11 size13 size16 size20 size23 size26
+examples= size11 size26 
+#examples+=size11 size13 size16 size20 size23 size26
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 EXTRA_DIST_FILES=paddy.abc

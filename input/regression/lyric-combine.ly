@@ -1,7 +1,7 @@
 \version "1.5.68"
+
 \header{
-texidoc="
-Lyrics can be set to a melody automatically.  Excess lyrics will be
+texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
 discarded.  Lyrics will not be set over rests.  You can have melismata
 either by setting a property melismaBusy, or by setting
 automaticMelismas (which will set melismas during slurs and ties).  If
@@ -9,8 +9,7 @@ you want a different order than first Music, then Lyrics, you must
 precook a chord of staves/lyrics and label those.  Of course
 @code{\rhythm} ignores any other rhythms in the piece.  Hyphens and
 extenders do not assume anything about lyric lengths, so they continue
-to work.
-"
+to work."
 }
 
 
@@ -24,9 +23,9 @@ m = \notes  \relative c'' {
 	\melismaEnd
 	b }
 
-noise = \repeat unfold 6 \notes \relative c'' {g16 g g g }
-q
-textI = \context LyricsVoice = "middle-1" \lyrics { la2 __ la -- la __ la la la la la  }
+noise = \repeat unfold 6 \notes \relative c'' { g16 g g g }
+
+ textI = \context LyricsVoice = "middle-1" \lyrics { la2 __ la -- la __ la la la la la  }
 textII = \context LyricsVoice = "middle-1" \lyrics { da -- da __ da -- da da da da da  }
 
 \score {

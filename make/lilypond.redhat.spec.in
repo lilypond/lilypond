@@ -12,7 +12,7 @@ Summary: Create and print music notation
 URL: http://www.lilypond.org/
 BuildRoot: /tmp/lilypond-install
 
-Buildrequires: t1utils bison flex pktrace texinfo
+Buildrequires: t1utils bison flex mftrace texinfo
 Requires: tetex  tetex-latex libstdc++ python 
 
 %description
