@@ -220,10 +220,8 @@ Slur::set_extremities ()
 	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
 	       s != SCM_EOL; s = gh_cdr (s))
 	    {
-	      SCM r = scm_eval (scm_listify (gh_caar (s),
-					     this->self_scm_,
-					     gh_int2scm ((int)dir),
-					     SCM_UNDEFINED));
+	      SCM r = gh_call2 (gh_caar (s), this->self_scm_,
+				 gh_int2scm ((int)dir));
 	      if (r != SCM_BOOL_F)
 		{
 		  index_set_cell (get_elt_property ("attachment"), dir,

@@ -8,38 +8,41 @@
      stem
      (get-pointer stem 'heads))))
 
+
+;; FIXME: document this.
 (define slur-extremity-rules
-  '(
-    ((lambda (slur dir)
+  (list
+    (cons (lambda (slur dir)
        ;; urg, code dup
        (let* ((note-columns (get-pointer slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
 	 (stem (get-pointer col 'stem)))
 	 (and stem
 	      (not (= (get-property slur 'direction) 
-		      (get-property stem 'direction)))))) . head)
+		      (get-property stem 'direction))))))  'head)
 
-    ((lambda (slur dir)
-       ;; if attached-to-stem
-       (and (attached-to-stem slur dir)
-	    ;; and got beam
-	    ;; urg, code dup
-	    (let* ((note-columns (get-pointer slur 'note-columns))
-		   (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		   (stem (get-pointer col 'stem)))
-	    (and stem
-		 (get-pointer stem 'beam)
-		 ;; and beam on same side as slur
-		 (let ((beaming (get-property stem 'beaming)))
-		   (if (pair? beaming)
-		       (>= 1
-			   (if (= dir -1) (car beaming) (cdr beaming)))
-		       #f)))))) . stem)
+    (cons (lambda (slur dir)
+	    ;; if attached-to-stem
+	    (and (attached-to-stem slur dir)
+		 ;; and got beam
+		 ;; urg, code dup
+		 (let* ((note-columns (get-pointer slur 'note-columns))
+			(col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
+			(stem (get-pointer col 'stem)))
+		   (and stem
+			(get-pointer stem 'beam)
+			;; and beam on same side as slur
+			(let ((beaming (get-property stem 'beaming)))
+			  (if (pair? beaming)
+			      (<= 1
+				  (if (= dir -1) (car beaming) (cdr beaming)))
+			      #f))))))
+	  'stem)
 
-    ((lambda (slur dir) (not (attached-to-stem slur dir))) . loose-end)
+    (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
 
     ;; default case, attach to head
-    ((lambda (x y) #t) . head)
+    (cons (lambda (x y) #t)  'head)
     ))
 
 
