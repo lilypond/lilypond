@@ -1,5 +1,6 @@
 -*-outline-layout:(2 (-1 -1 0 :) 0);outline-stylish-prefixes:nil -*-
 
+
 * GNU LilyPond TODO
 Features you cannot find in the documentation as working, should be
 mentioned here.  This is an assorted collection of stuff that will be
@@ -10,8 +11,20 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use hash tabs iso. alist_ for elt property?
-. * TODO: junk dstream output.
+. * alignment within @itemize
+. * make a trip test
+.  * base on praeludium
+.  * cross staff beam
+.  * remain very short
+.  * broken slurs, ties
+.  * chords on stem
+.  * grace notes.
+.  * dynamics.
+
+. * junk dstream output.
 . * agressive type-checking for SCM stuff.
+. * Must stop before this music ends:
+verse=\lyrics {
 . * use  "staff-space" and "half-space" iso interline,
     staff_line_leading () etc.
 . * why does Voice.beamQuantisation = #'none not work?
@@ -22,11 +35,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .  * make this file understandable for 3rd parties.
 . * \accepts -> \acceptedby 
 . * context in embedded SCM errors.
-. * eradicate all VIRTUAL_COPY_CONS () macros ; use indexed creation,
-    eg.
-
-	ctor_dict["Score_element"]->clone_func (orig);
-	ctor_dict["Score_element"]->create_func ();
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
 . * sparse ties.
