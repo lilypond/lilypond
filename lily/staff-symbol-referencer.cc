@@ -98,7 +98,8 @@ Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
       Real space = staff_symbol_referencer (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
-  sc->set_elt_property ("staff-position", gh_double2scm (0.0));
+  Score_element* urg = (Score_element*)sc;
+  urg->set_elt_property ("staff-position", gh_double2scm (0.0));
 
   return off;
 }
