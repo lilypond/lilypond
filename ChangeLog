@@ -1,3 +1,7 @@
+2004-10-31  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/invoking.itely: change "3.0" -> "2.4"
+
 2004-10-31  Werner Lemberg  <wl@gnu.org>
 
 	Resetting @exampleindent to `5' gives ugly results with texinfo's
