@@ -69,6 +69,7 @@ static Keyword_ent the_key_tab[]={
   {"outputproperty", OUTPUTPROPERTY},
   {"override", OVERRIDE},
   {"set", SET},
+  {"rest", REST},
   {"revert", REVERT},
   {"partial", PARTIAL},
   {"paper", PAPER},

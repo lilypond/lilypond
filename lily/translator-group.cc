@@ -13,6 +13,7 @@
 #include "moment.hh"
 #include "scm-hash.hh"
 #include "translator-def.hh"
+#include "main.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator (s)
@@ -300,10 +301,14 @@ Translator_group::internal_get_property (SCM sym) const
   return val;
 }
 
-
 void
 Translator_group::internal_set_property (SCM sym, SCM val)
 {
+#ifndef NDEBUG
+  if (internal_type_checking_global_b)
+    assert (type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")));
+#endif
+  
   properties_dict ()->set (sym, val);
 }
 
@@ -332,7 +337,7 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 
 	  if (gh_pair_p (prev) || prev == SCM_EOL)
 	    {
-	      bool ok = type_check_assignment (val, eltprop, ly_symbol2scm ("backend-type?"));
+	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
 	      
 	      if (ok)
 		{
@@ -442,3 +447,4 @@ add_trans_scm_funcs ()
 }
 
 ADD_SCM_INIT_FUNC (trans_scm, add_trans_scm_funcs);
+

@@ -239,13 +239,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TYPE
 %token UNSET
 %token CONTEXT
+%token REST
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE E_TILDE
 %token E_BACKSLASH
 %token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
 
-%type <i>	exclamations questions dots
+%type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_number bass_mod
 %type <scm> 	bass_figure figure_list figure_spec
 %token <i>	DIGIT
@@ -1034,7 +1035,7 @@ property_def:
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
-		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
 		t->set_mus_property ("grob-property", $6);
 		t->set_mus_property ("grob-value", $8);
@@ -1050,7 +1051,7 @@ property_def:
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
-		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("grob-property", $6);
 		t->set_mus_property ("grob-value", $8);
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1066,7 +1067,7 @@ property_def:
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Pop_property_iterator::constructor_cxx_function);
-		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("grob-property", $6);
 
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
@@ -1750,17 +1751,28 @@ figure_spec:
 	}
 	;
 
+
+optional_rest:
+	/**/   { $$ = 0; }
+	| REST { $$ = 1; }
+	;
+
 simple_element:
-	pitch exclamations questions optional_notemode_duration {
+	pitch exclamations questions optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
-		Note_req *n = new Note_req;
+		Music *n = 0;
+		if ($5)
+			n =  new Rest_req ;
+		else
+			n =  new Note_req;
 		
 		n->set_mus_property ("pitch", $1);
 		n->set_mus_property ("duration", $4);
+
 
 		if ($3 % 2)
 			n->set_mus_property ("cautionary", SCM_BOOL_T);
@@ -1769,7 +1781,7 @@ simple_element:
 
 		Simultaneous_music*v = new Request_chord (SCM_EOL);
 		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
-		
+
 		v->set_spot (i);
 		n->set_spot (i);
 		$$ = v;
