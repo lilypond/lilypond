@@ -10,10 +10,10 @@
 #include "repeated-music.hh"
 #include "musical-pitch.hh"
 
-//Repeated_music::Repeated_music (Music* r, int n, Music_list* a)
 Repeated_music::Repeated_music (Music* r, int n, Music_sequence* a)
 {
   repeats_i_ = n;
+  unfold_b_ = false;
   repeat_p_ = r;
   alternative_p_ = a;
 }
@@ -29,7 +29,6 @@ Repeated_music::Repeated_music (Repeated_music const& s)
 {
   repeat_p_ = (s.repeat_p_) ? s.repeat_p_->clone () : 0;
   // urg?
-//  alternative_p_ = (s.alternative_p_) ? dynamic_cast <Music_list*> (s.alternative_p_->clone ()) : 0;
   alternative_p_ = (s.alternative_p_) ? dynamic_cast <Music_sequence*> (s.alternative_p_->clone ()) : 0;
 }
 

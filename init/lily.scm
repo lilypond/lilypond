@@ -70,9 +70,13 @@
 
 (define emptybar empty1)
 (define setdynamic empty1)
-(define settext empty1)
-(define setnumber empty1)
+(define (settext s) (text "text" s))
+(define (setnumber s) (text "number" s))
+(define repeatbar empty1)
+(define startrepeat empty1)
 
+(define (setbold s) (text "bold" s))
+(define (setnumber-1 s) (text "numberj" s))
 
 ;;;;;;;; TeX
 

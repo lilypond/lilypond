@@ -1,13 +1,13 @@
 \score{
 	<
-		  \type Staff \notes\relative c''{ 
-			  c c c c 
-			  \repeat 2 { { d d d d } }
-			  \alternative { { a a a a } { a a a a } }
+		  \type Staff \notes\relative c'{ 
+			  c d e f
+			  \repeat 2 { g a b c }
+			  \alternative { { c b a g } { f e d c } }
 		  }
 		  \type Lyrics \lyrics {
 			  De eer- ste < { maat } { moet } >
-			  \repeat 2 { { } } 
+			  \repeat 2 { }
 			  \alternative < 
 				  { en dan twee keer } 
 				  { een koe- plet _ } 

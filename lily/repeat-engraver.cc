@@ -16,7 +16,7 @@
 #include "repeated-music.hh"
 #include "time-description.hh"
 #include "volta-spanner.hh"
-//#include "note-column.hh"
+#include "note-column.hh"
 
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
@@ -29,6 +29,10 @@ Repeat_engraver::do_try_music (Music* m)
 {
   if (Repeated_music* r = dynamic_cast<Repeated_music *> (m))
     {
+      r->unfold_b_ = get_property ("unfoldRepeats").to_bool ();
+      if (r->unfold_b_)
+        return true;
+ 
       Moment stop_mom = now_moment () + r->repeat_p_->duration () 
         + r->alternative_p_->music_p_list_p_->top ()->duration ();
       Moment alt_mom = now_moment () + r->repeat_p_->duration ();
@@ -63,7 +67,12 @@ void
 Repeat_engraver::acknowledge_element (Score_element_info i)
 {
   Moment now = now_moment ();
-//  if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
+  if (Note_column *c = dynamic_cast<Note_column *> (i.elem_l_))
+    {
+      for (int i = 0; i < volta_p_arr_.size (); i++)
+        if ((now >= alternative_start_mom_arr_[i]) && volta_p_arr_[i])
+	  volta_p_arr_[i]->add_column (c);
+    }
   if (Bar *c = dynamic_cast<Bar*> (i.elem_l_))
     {
       for (int i = 0; i < volta_p_arr_.size (); i++)

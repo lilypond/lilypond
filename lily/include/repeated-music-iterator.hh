@@ -29,6 +29,10 @@ protected:
   virtual void do_process_and_next (Moment);
 
 private:
+  void start_next_element ();
+
+  int unfold_i_;
+  Moment here_mom_;
   Music_iterator* repeat_iter_p_;
   Music_list_iterator* alternative_iter_p_;
 };

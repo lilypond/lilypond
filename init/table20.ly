@@ -12,7 +12,7 @@ table_twenty =
     % index symbol #parameters  	xmin xmax ymin ymax
 
      "style" = \table {
-		"bold"	"setbold"	1	0.0\pt	5.50\pt	0.0\pt	8.0\pt
+		"bold"	"setbold"	1	0.0\pt	5.50\pt	0.0\pt	10.0\pt
 		"dynamic"	"setdynamic"	1	0.0\pt	0.0\pt	0.0\pt	10.0\pt
 		"finger"	"setfinger"	1	0.0\pt	4.5\pt	0.0\pt	5.0\pt
 		"typewriter"	"settypewriter"	1	0.0\pt	5.5\pt	0.0\pt	10.0\pt
@@ -21,7 +21,7 @@ table_twenty =
 		"Large"	"setLarge"	1	0.0\pt	6.50\pt	0.0\pt	12.0\pt
 		"mark" 	"setmark"	1	0.0\pt	6.50\pt	0.0\pt	12.0\pt
 		"number"	"setnumber"	1	0.0\pt	8.0\pt	0.0\pt	10.0\pt
-		"number-1"	"setnumber-1"	1	0.0\pt	6.0\pt	0.0\pt	8.0\pt
+		"number-1"	"setnumber-1"	1	0.0\pt	6.0\pt	0.0\pt	7.0\pt
 		"roman"	"settext"	1	0.0\pt	5.6\pt	0.0\pt	10.0\pt
      }
 
