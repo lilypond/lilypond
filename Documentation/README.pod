@@ -17,7 +17,8 @@ music. LilyPond has these features:
 
 =over 5
 
-=item * ASCII script input, with identifiers (for music reuse),
+=item *
+ASCII script input, with identifiers (for music reuse),
 customizable notenames, customizable fontset
 
 =item *
@@ -28,12 +29,17 @@ multiple stafftypes (melodic, rhythmic)
 
 =item *
 beams, slurs, chords, super/subscripts (accents and text),
-triplets, clef changes, meter changes, general n-plet (triplet,
+triplets,  general n-plet (triplet,
 quadruplets, etc.)
 
 =item *
 multiple scores within one input file. Each score is output to
 a different file.
+
+=item *
+clef changes, meter changes, cadenza-mode, declaring markings
+in the music, repeat bars
+
 
 =back
 
@@ -162,10 +168,12 @@ flex (2.5.1 or better)
 =item *
 Bison or YACC.
 
-=item * The "Flower" library, which should be available from the same
+=item *
+The "Flower" library, which should be available from the same
 source you got this from.
 
-=item * perl.  The Makefile uses perl for trivial operations, and you
+=item *
+perl.  The Makefile uses perl for trivial operations, and you
 could tinker with it to use sed or awk.
 
 =back
@@ -227,7 +235,8 @@ named return values
 Han-Wen Nienhuys <hanwen@stack.nl>, Main author
 
 =item *
-Jan Nieuwenhuizen <jan@digicash.com>, bits of FlowerLib, general comments.
+Jan Nieuwenhuizen <jan@digicash.com>, Lyrics, bits of
+FlowerLib, general comments.
 
 =item *
 Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
@@ -293,14 +302,18 @@ This is a beta version of LilyPond. Please send your helpful comments
 and patches to me (see AUTHORS section)
 
 LilyPond is updated very frequently, the latest version is always available at:
-
-F<ftp://pcnov095.win.tue.nl/pub/lilypond>
+ftp://pcnov095.win.tue.nl/pub/lilypond. 
 
 
 =head1 FILES
 
-F<symbol.ini> The initialisation file with symbol tables etc. It
+=over 5
+
+=item F<symbol.ini>
+The initialisation file with symbol tables etc. It
 includes files from the directory F<init/>.
+
+=back
 
 =head1 SEE ALSO
 
