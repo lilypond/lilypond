@@ -173,7 +173,7 @@ My_lily_lexer::start_main_input ()
 void
 My_lily_lexer::set_identifier (SCM name, SCM s)
 {
-  assert (gh_string_p (name));
+  assert (ly_string_p (name));
   
   if (lookup_keyword (ly_scm2string (name)) >= 0)
     {
@@ -181,7 +181,7 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
     }
 
   SCM sym = scm_string_to_symbol (name);
-  SCM mod = gh_car (scopes_);
+  SCM mod = ly_car (scopes_);
 
   scm_module_define (mod, sym, s);
 }
