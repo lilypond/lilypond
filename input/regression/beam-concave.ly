@@ -71,7 +71,7 @@ beams this way."
     \clef treble
 
 %%%% This should not be concave (hwn)
-    [\stemUp bes8  \stemDown d'8 bes8]  
+    \stemUp bes8[  \stemDown d'8 bes8]  
   }
   \paper{
     raggedright = ##t

@@ -17,8 +17,8 @@
 	    e e]
 	    \translator Staff = down
 	    \stemUp
-	    [
-	    e8. \translator Staff = up
+	    e8.[
+		\translator Staff = up
 	    \stemDown
 	    e8.]
 	    
