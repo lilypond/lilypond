@@ -1,4 +1,4 @@
-article(INSTALL - compiling and installing GNU LilyPond)(HWN & JCN)()
+article(NSTALL - compiling and installing GNU LilyPond)(HWN & JCN)()
 
 sect(ABSTRACT)
 
@@ -51,8 +51,9 @@ Check out lurl(ftp://ftp.gnu.org).
 it()Bison (version 1.25 or newer).
 Check out lurl(ftp://ftp.gnu.org).
 
-it()Yodl.  All documentation will be in Yodl. (1.30.17)
-lurl(ftp://ftp.lilypond.org/pub/yodl)
+it()Yodl.  All documentation will be in Yodl. (1.31.15)
+lurl(ftp://ftp.lilypond.org/pub/yodl). You need the latest version of YODL,
+because the tutorial will trigger a bug in earlier versions.
 
 it()The geometry package for LaTeX is needed to use ly2dvi.  
 Available at 
@@ -97,10 +98,17 @@ and plenty of RAM is recommended for comfortable use.
 
 sect(WEBSITE)
 
+The website is the most convenient form to use for reading the
+documentation on-line documentation. It is made by entering verb(
+  make website
+)This does require a fully functioning
+
 If you want to auto-generate Lily's website, you'll need some additional
 conversion tools.
 
 itemize(
+it()YODL 1.31.15 or later.
+
 it()xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
 	the original is at
@@ -112,9 +120,10 @@ lurl(ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz).i
 
 The version of file(pnmtopng) that is distributed with RedHat 5.1 and
 5.2 contains a bug: pnmtopng is dynamically linked to the wrong
-version of libpng.  Recompile it from source, and make sure that the
-pnmtopng binary is linked statically to the libpng that is included in
-libgr.  RedHat 6.0 does not have this problem.
+version of libpng, which results in cropped images.  Recompile it from 
+source, and make sure that the pnmtopng binary is linked statically to 
+the libpng that is included in libgr.  RedHat 6.0 does not have this 
+problem.
 
 verb( tar xzf libgr-2.0.13.tar.gz
       make
@@ -132,6 +141,7 @@ man2html can be had from lurl(http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Ne
 The website will build without this utility, but you will not see our
 hypertextified bibliography.
 
+it()Doc++ (optional) to read the source code.
 
 )
 
@@ -277,7 +287,8 @@ verb(
 )
 
 Precompiled i386 RedHat RPMS are available from
-lurl(ftp://freshmeat.net/pub/rpms/lilypond/).
+lurl(ftp://freshmeat.net/pub/rpms/lilypond/) and
+lurl(http://linux.umbc.edu/software/lilypond/rpms/).
 
 
 sect(DEBIAN GNU/LINUX)
