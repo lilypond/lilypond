@@ -46,7 +46,25 @@
 			text-interface  font-interface break-aligned-interface))
 	))
 
-	(Beam . ,basic-beam-properties)
+	(Beam . (
+		 ;; todo: clean this up a bit: the list is getting
+		 ;; rather long.
+		 (molecule-callback . ,Beam::brew_molecule)
+		 (thickness . 0.42) ; in staff-space, should use stafflinethick?
+		 (before-line-breaking-callback . ,Beam::before_line_breaking)
+		 (after-line-breaking-callback . ,Beam::after_line_breaking)
+		 (default-neutral-direction . 1)
+		 (dir-function . ,beam-dir-majority)
+		 (height-quants .  ,default-beam-dy-quants)
+		 (vertical-position-quant-function . ,default-beam-y-quants)
+		 (beamed-stem-shorten . (0.5))
+		 (outer-stem-length-limit . 0.2)
+		 (slope-limit . 0.2)
+		 (flag-width-function . ,default-beam-flag-width-function)
+		 (space-function . ,default-beam-space-function)
+		 (damping . 1)
+		 (meta . ,(element-description "Beam" beam-interface))
+		 ))
 	 
 	(BreakAlignment . (
 		(breakable . #t)
@@ -287,13 +305,24 @@
 			rhythmic-head-interface font-interface 
 			note-head-interface ))
 	))
-	(NoteHeadLine . (
+	(Glissando . (
 			 (type . line)
 			 (gap . 0.5)
+			 (breakable . #t)
 			 (X-extent-callback . #f)
 			 (Y-extent-callback . #f)			 
 			 (molecule-callback . ,Line_spanner::brew_molecule)
-			 (meta . ,(element-description "NoteHeadLine"
+			 (meta . ,(element-description "Glissando"
+						       line-spanner-interface))
+			 ))
+	(FollowThread . (
+			 (type . line)
+			 (gap . 0.5)
+			 (breakable . #t)
+			 (X-extent-callback . #f)
+			 (Y-extent-callback . #f)			 
+			 (molecule-callback . ,Line_spanner::brew_molecule)
+			 (meta . ,(element-description "FollowThread"
 						       line-spanner-interface))
 			 ))
 
@@ -356,7 +385,27 @@
 		(meta . ,(element-description "ScriptColumn" script-column-interface))
 	))
 	
-	(Slur . ,default-basic-slur-properties)
+	(Slur . (
+		 (molecule-callback . ,Slur::brew_molecule)
+		 (thickness . 1.2)		
+		 (spacing-procedure . ,Slur::set_spacing_rods)		
+		 (minimum-length . 1.5)
+		 (after-line-breaking-callback . ,Slur::after_line_breaking)
+		 (extremity-rules . ,default-slur-extremity-rules)
+		 (extremity-offset-alist . ,default-slur-extremity-offset-alist)
+		 (de-uglify-parameters . ( 1.5  0.8  -2.0))
+		 (Y-extent-callback . ,Slur::height)
+		 (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5)
+			     (bezier-pct-c0 . -0.2) (bezier-pct-c3 . 0.000006)
+			     (bezier-pct-out-max . 0.8) (bezier-pct-in-max . 1.2)
+			     (bezier-area-steps . 1.0)))
+		 (beautiful . 0.5)
+		 (y-free . 0.75)
+		 (attachment-offset . ((0 . 0) . (0 . 0)))
+		 (slope-limit . 0.8)
+		 (meta . ,(element-description "Slur" slur-interface))
+		 ))
+	      
 	(SpacingSpanner . (
 		(spacing-procedure . ,Spacing_spanner::set_springs)
 		(stem-spacing-correction . 0.5)
@@ -438,6 +487,9 @@
 
 	(StemTremolo . (
 	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
+		(Y-extent-callback . ,Stem_tremolo::height)
+		(X-extent-callback . #f)
+
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
 		(beam-space-function . ,default-beam-space-function)

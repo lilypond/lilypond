@@ -48,6 +48,20 @@ Stem_tremolo::dim_callback (SCM e, SCM )
   return ly_interval2scm ( Interval (-space, space));
 }
 
+/*
+  ugh ?  --from Slur
+ */
+MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
+SCM
+Stem_tremolo::height (SCM smob, SCM ax)
+{
+  Axis a = (Axis)gh_scm2int (ax);
+  Grob * me = unsmob_grob (smob);
+  assert ( a == Y_AXIS);
+
+  SCM mol = me->get_uncached_molecule ();
+  return ly_interval2scm (unsmob_molecule (mol)->extent (a));
+}
 
 
 MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
