@@ -7,9 +7,16 @@
 @unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
+@item  LilyPond will try to keep
+staves at the same distances across a page, but it will stretch
+distances to prevent collisions. This results in a more orderly
+appearance of the page.
 
 @item Key signature cancellations are now printed before the bar line,
 and their appearance has been improved.
+
+@item Different voices that all use  @code{\quote} can now refer to
+each other.
 
 
 @item The automatic staff changer, which is invoked with

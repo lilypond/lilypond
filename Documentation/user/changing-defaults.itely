@@ -2227,6 +2227,12 @@ The default layout responds to the following settings in the
   This dimensions determines the distance between systems. It is the
 ideal distance between the center of the bottom staff of one system, and
 the center of the top staff of the next system.
+
+@item betweensystempadding
+This dimension is the minimum amount of white space that will always
+be present between the bottom most symbol of one system, and the
+topmost of the next system.
+
 @end table
 
 @example

@@ -35,7 +35,7 @@ inline bool ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 #define scm_is_bool(x) ly_c_boolean_p(x)
 inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
-#define scm_is_eq(x,y)  (SCM_EQ_P (x, y));
+#define scm_is_eq(x,y)  (SCM_EQ_P((x), (y)))
 
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double(x))
