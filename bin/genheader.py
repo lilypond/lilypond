@@ -66,7 +66,7 @@ def head_str(filename):
 
 def c_include(filename):
     startdef= filename;
-    trans = string.maketrans( string.lowercase + '.', string.uppercase + '_')
+    trans = string.maketrans( string.lowercase + '-.', string.uppercase + '__')
     startdef = string.translate(filename, trans)
 
    

@@ -39,13 +39,13 @@ Clef_item::read (String t)
 {
   type_= t;
   if (type_ == "violin")
-    y_off = 2;
+    y_position_i_ = -2;
   if (type_ == "alto")
-    y_off = 4;
+    y_position_i_ = 0;
   if (type_ == "tenor")
-    y_off = 6;
+    y_position_i_ = 2;
   if (type_ == "bass")
-    y_off = 6;
+    y_position_i_ = 2;
 }
 void
 Clef_item::read (Clef_engraver const &k)
@@ -61,7 +61,7 @@ Clef_item::brew_molecule_p() const
     t += "_change";
   Atom s = paper()->lookup_l ()->clef (t);
   Molecule*output = new Molecule (Atom (s));
-  output->translate (paper()->internote_f () * y_off, Y_AXIS);
+  output->translate_axis (paper()->internote_f () * y_position_i_, Y_AXIS);
   return output;
 }
 

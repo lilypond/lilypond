@@ -1,20 +1,20 @@
 \header{
-filename	 twinkle.ly
-title	twinkle twinkle little star
-description	traditional song in various languages.
-	 "Ah, vous dirais-je, maman" 
-	 "Altijd is Kortjakje ziek"
-	 "Twinkle twinkle little star"
+filename =	 "twinkle.ly";
+title =	 "twinkle twinkle little star";
+description =	 "traditional song in various languages."
+  "Ah, vous dirais-je, maman" 
+  "Altijd is Kortjakje ziek"
+  "Twinkle twinkle little star";
 
-composers	Traditional
-enteredby	HWN & JCN
-copyright	public domain
+composers =	 "Traditional";
+enteredby =	 "HWN & JCN";
+copyright =	 "public domain";
 }
 %{
 Tested Features: lyrics
 
 %}
-\version "0.1.6";
+\version "0.1.7";
 
 melody = \melodic{
 	\clef violin;
@@ -54,11 +54,11 @@ global = \melodic {
 
 tekst = \lyric{ 
  	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 in_de week maar s'_zon- dags niet.2
-	s'_Zon-4 dags gaat ze naar de kerk,2
+	midden4 in_de week maar 's_zon- dags niet.2
+	's_Zon-4 dags gaat ze naar de kerk,2
 	met4 een boek vol zil- ver werk.2
 	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 in_de week maar s'_zon- dags niet.2
+	midden4 in_de week maar 's_zon- dags niet.2
 }
 
 %{
@@ -70,7 +70,7 @@ tekst. Mogen wij ook af en toe ergens op afgeven?
 hegedraagjetekst = \lyric{ 
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2
-	s'_Zon-4 dags gaat het door een raam,2
+	's_Zon-4 dags gaat het door een raam,2
 	Weet4 dat ik me er- voor schaam.2
  	Al-4 tijd zuigt Bill Gates mijn piek,2
 	"\TeX"4 is slecht- ser dan mu- ziek.2

@@ -93,17 +93,12 @@ of use and power.
 =item A set of music fonts
 
 Preferably in Metafont, suited to both screen display and use on
-paper; This is needed because
-
-1. the copyright heritage of {Opus,Musix}tex is unclear.
-
-2. We don't have any legal papers which make these fonts free (to use
-and alter)
+paper.
 
 =item A typesetting engine
 
 A system with rules on how to set properties of items to be printed
-(up/down directions, breaking, dimensoins, etc) LilyPond provides one,
+(up/down directions, breaking, dimensions, etc) LilyPond provides one,
 but it is not (yet) suited to interactive typesetting
 
 =item A display engine
@@ -169,10 +164,6 @@ Libraries for reading and writing various audio/music/notation
 formats.
 
 =back
-
-The typesetting system has a complexity comparable to TeX's, the GUI
-would be comparable to LyX (?)  with additional complexity in
-recognizing input.
 
 =head1 TASKS (SHORT TERM)
 

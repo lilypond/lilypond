@@ -2,7 +2,7 @@
 %
 % FIXME other name
   
-\version "0.1.6";
+\version "0.1.7";
   
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }

@@ -1,11 +1,11 @@
 \header{
-filename	collisions.ly
-description	random counterpoint to test collisions
-enteredby	HWN,JCN
-copyright	public domain
-Tested		test the Collision resolution 
+filename =	 "collisions.ly";
+description =	 "random counterpoint to test collisions";
+enteredby =	 "HWN,JCN";
+copyright =	 "public domain";
+Tested =	 "test the Collision resolution ";
 }
-\version "0.1.6";
+\version "0.1.7";
 
 
 

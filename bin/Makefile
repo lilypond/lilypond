@@ -4,22 +4,24 @@ depth = ..
 include $(depth)/make/Include.make
 
 # list of distribution files:
-SCRIPTS = clearlily cpgento make-patch lily.efence \
-	make-version release conflily clean-fonts
-PERL_SCRIPTS_IN = $(wildcard *.in)
-PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.in=))
+PERL_SCRIPTS_IN = $(wildcard *.pl)
+PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.pl=))
+SH_SCRIPTS_IN = $(wildcard *.sh)
+SH_SCRIPTS = $(addprefix $(outdir)/, $(SH_SCRIPTS_IN:.sh=))
 PYTHON_SCRIPTS_IN = $(wildcard *.py)
 PYTHON_SCRIPTS = $(addprefix $(outdir)/, $(PYTHON_SCRIPTS_IN:.py=))
-EXTRA_DISTFILES = $(SCRIPTS) $(PERL_SCRIPTS_IN) $(PYTHON_SCRIPTS_IN) 
-#
+EXTRA_DISTFILES = $(SH_SCRIPTS_IN) $(PERL_SCRIPTS_IN) $(PYTHON_SCRIPTS_IN) 
 
-all: $(PERL_SCRIPTS) $(PYTHON_SCRIPTS)
 
-$(outdir)/%: %.in
-#	cd .. && CONFIG_FILES=bin/$(notdir $@) CONFIG_HEADERS= ./config.status
-#	mv $(< :.in=) $@
-# this nukes make/out/Configure_variables.make.
+all: $(PERL_SCRIPTS) $(PYTHON_SCRIPTS) $(SH_SCRIPTS)
+
+$(outdir)/%: %.pl
 	sed 's!@PERL@!$(PERL)!' < $< > $@
+	chmod 755 $@
+
+#FIXME.  Check for bash?
+$(outdir)/%: %.sh
+	sed 's!@SH@!$(SH)!' < $< > $@
 	chmod 755 $@
 
 $(outdir)/%: %.py

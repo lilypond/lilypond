@@ -21,7 +21,7 @@ def draw_brevis =
 
 	head_width# = 2 interline#;
 	holeheight = 3 stafflinethickness;
-	stem_width = 1.2 stafflinethickness;
+	stem_width = 1.4 stafflinethickness;
 
 
 	define_pixels(head_width);
@@ -66,8 +66,8 @@ fet_beginchar("Longa notehead", "-2", "longaball");
 	z7 = z5;
 	z6 - z7 = (-stem_width/2, -interline);
 	theta = angle(z6-z7)+ 90;
-	penpos7(stafflinethickness, theta);
-	penpos6(stem_width, theta);
+	penpos7(stem_width, theta);
+	penpos6(1.2 stem_width, theta);
 	
 	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
 	penlabels(6,7);

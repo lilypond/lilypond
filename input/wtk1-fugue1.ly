@@ -1,17 +1,17 @@
 \header{
-filename		fugue1.ly
-title		Fuga a 4
-description		Das Wohltemperierte Clavier I, Fuga I (c-major)
-opus		BWV 846
-composer		Johann Sebastian Bach (1685-1750)
-enteredby		Shay Rojansky
-copyright		Public Domain
+filename =	 "fugue1.ly";
+title =	 	 "Fuga a 4";
+description =	 "Das Wohltemperierte Clavier I, Fuga I (c-major)";
+opus =           "BWV 846";
+composer =	 "Johann Sebastian Bach (1685-1750)";
+enteredby =	 "Shay Rojansky";
+copyright =	 "Public Domain";
 }
 
 %{
 	
 %}
-\version "0.1.6";
+\version "0.1.7";
 
 
 global = 

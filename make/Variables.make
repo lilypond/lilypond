@@ -200,12 +200,6 @@ STRIPDEBUG=true
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
-# .hh should be first. Don't know why
-# take some trouble to auto ignore sources and obsolete stuff.
-progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v '$(OUTDIR_NAME)') \
-	$(shell $(FIND) ./ -name '*.cc' |egrep -v '$(OUTDIR_NAME)') \
-
-
 pod2html=pod2html
 pod2groff=pod2man --center="LilyPond documentation" --section="0"\
 	--release="LilyPond $(TOPLEVEL_MAJOR_VERSION).$(TOPLEVEL_MINOR_VERSION).$(TOPLEVEL_PATCH_LEVEL)" $< > $@
@@ -219,7 +213,4 @@ endif
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
 
-
-docxx-opts=-S -k -p
-docxx=doc++
 

@@ -15,30 +15,30 @@
 def fet_beginfont(expr name,size) =
 	font_identifier:=name&decimal size;
 	font_size size;
-	message "@{font:"&name&":"&decimal size&"@}";
+	message "@{font@:"&name&"@:"&decimal size&"@}";
 	message "";
 	enddef;
 
 def fet_endfont(expr name) =
-	message "@{tnof:"&name&"@}";
+	message "@{tnof@:"&name&"@}";
 	message "";
 	enddef;
 
 % group or table?
 def fet_begingroup(expr name) =
-	message "@{group:"&name&"@}";
+	message "@{group@:"&name&"@}";
 	message "";
 	begingroup
 enddef;
 
 def fet_endgroup(expr name) =
 	endgroup;
-	message "@{puorg:"&name&"@}";
+	message "@{puorg@:"&name&"@}";
 	message "";
 enddef;
 
 def autometric_output_char=
-	message "@{char:"&charnamestr&":"&decimal charcode&":"&decimal charbp&":"&decimal charwd&":"&decimal chardp&":"&decimal charht&":"&idstr&":"&texstr&"@}";
+	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&idstr&"@:"&texstr&"@}";
 enddef;
 
 
@@ -108,7 +108,7 @@ enddef;
 def breapth_endchar =
 	scantokens extra_endchar;
 	if proofing > 0: makebox_with_breapth(proofrule); fi
-	chardx := w + b;
+	chardx := 10*(w + b);
 	shipit;
 	endgroup
 enddef;

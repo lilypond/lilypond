@@ -1,16 +1,5 @@
-%{MudelaHeader
-
- filename: scripts.ly
- title:
- description: 
- composers:
- entered-by:HWN, MB
- copyright:
-
- Tested Features: scripts, text.
-EndMudelaHeader
-%}
-\version "0.1.6";
+	
+\version "0.1.7";
 
 
 blah = 	\melodic {

@@ -1,4 +1,14 @@
 
+
+test:=0;
+
+if test = -1:
+	mode := smoke;
+fi
+
+mode_setup;
+
+
 input feta-macros;
 
 make_pen_stack;
@@ -6,7 +16,7 @@ make_picture_stack;
 input feta-params;
 
 
-test:=	0;
+
 
 if test = 0: 
 	input feta-eindelijk;
@@ -16,5 +26,6 @@ if test = 0:
 	input feta-schrift;
 	input feta-banier;
 else:
-	input foo;
+
+	input feta-schrift;
 fi

@@ -35,7 +35,9 @@ Bar::brew_molecule_p() const
 {    
   Paper_def *p = paper();
   Atom s = p->lookup_l()->bar (type_str_, 
-				 p->get_var ("bar_size"));
+			       p->get_var ("bar_size"));
+   s.translate_axis (-s.extent()[Y_AXIS].center (), Y_AXIS);
+  
   Molecule*output = new Molecule (Atom (s));
   return output;
 }

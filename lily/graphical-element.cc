@@ -67,7 +67,7 @@ Graphical_element::absolute_offset() const
 }
 
 void
-Graphical_element::translate (Real y, Axis a)
+Graphical_element::translate_axis (Real y, Axis a)
 {
   if (axis_group_l_a_[a])
     axis_group_l_a_[a]->invalidate_cache (a);
@@ -109,8 +109,8 @@ Graphical_element::common_group (Graphical_element const* s, Axis a) const
 void
 Graphical_element::translate (Offset offset)
 {
-  translate (offset[Y_AXIS], Y_AXIS);
-  translate (offset[X_AXIS], X_AXIS);
+  translate_axis (offset[Y_AXIS], Y_AXIS);
+  translate_axis (offset[X_AXIS], X_AXIS);
 }
 
 Interval

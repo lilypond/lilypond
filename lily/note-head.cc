@@ -61,27 +61,27 @@ Note_head::brew_molecule_p() const
   Real inter_f = p->internote_f ();
 
   // ugh
-  bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
+  int streepjes_i = abs(position_i_) < staff_size_i_/2 
+    ? 0
+    : (abs(position_i_) - staff_size_i_/2) /2;
   
   Atom  s = p->lookup_l()->ball (balltype_i_);
   out = new Molecule (Atom (s));
-  out->translate (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
+  out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
 
-  if (streepjes_b) 
+  if (streepjes_i) 
     {
       int dir = sign (position_i_);
-      int s =(position_i_<-1) 
-	? -((-position_i_)/2)
-	: (position_i_-staff_size_i_)/2;
 	
-      Atom str = p->lookup_l()->streepjes (balltype_i_, s);
+      Atom streepje = p->lookup_l()->streepjes (balltype_i_, dir* streepjes_i);
+
       Molecule sm;
-      sm.add (Atom (str));
+      sm.add (streepje);
       if (position_i_ % 2)
-	sm.translate (-inter_f* dir, Y_AXIS);
-      out->add (sm);	    
+	sm.translate_axis (-inter_f* dir, Y_AXIS);
+      out->add (sm);
     }
   
-  out->translate (inter_f*position_i_, Y_AXIS);
+  out->translate_axis (inter_f*position_i_, Y_AXIS);
   return out;
 }

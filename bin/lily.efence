@@ -1,4 +1,0 @@
-#!/bin/sh
-gdb --command=bin/efence.gdbinit
-
-

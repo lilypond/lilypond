@@ -1,12 +1,18 @@
-	* write a String_hash template
 
+	* write a decent Dictionary
+	- write a String_hash template
+	- write a Pointer_hash template
 
 	* Array::slice() upper too
 
-	* write a Pointer_hash template
+	* fix ambiguous String constructor overloads, e.g.:
+	  String( int ) and String( char ), use 
+	
+	class String { 
+		explicit String(int);
+	}
 
-	* fix/junk ambiguous String constructor overloads, e.g.:
-	  String( int ) and String( char )
+	* Automake, libtool
 
 	* version numbering for shared lib.
 

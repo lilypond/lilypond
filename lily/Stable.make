@@ -1,7 +1,7 @@
 
 
 # a hack to keep exec size under control.
-stablecc=  offset.cc meter.cc boxes.cc \
+stablecc=meter.cc boxes.cc \
 	keyword.cc leastsquares.cc \
 	lookup.cc meter.cc\
 	parser.cc notename-table.cc lexer.cc\

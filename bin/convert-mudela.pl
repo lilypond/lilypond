@@ -119,6 +119,19 @@ sub convert_0_1_2_to_0_1_3
     s/\\hshift ([^;]+) *;/\\property Voice.hshift = $1/g;
 }
 
+my $header_b = 0;
+
+sub generic_conversion_scan
+{
+    if (/\\header *\{/)
+    {
+	$header_b = 1;
+    }
+    if ($header_b && /^ *\}/)
+    {
+	$header_b = 0;
+    }
+}
 sub convert_0_1_4_to_0_1_5
 {
     s/([<{]) *\\id "Piano" (.+);/\\type Grandstaff = $3 $1/;    
@@ -130,7 +143,16 @@ sub convert_0_1_5_to_0_1_6
 {
     s/< *\\multi (.*);/\\multi $1 </;
 }
-       
+
+sub convert_0_1_6_to_0_1_7
+{
+    if ($header_b) 
+    {
+	s/^([a-zA-z]+)[ \t]+(.*)$/$1 =\t \"$2\";/;
+	s/^([ \t])+(.*)$/$1 \"$2\";/;
+    }
+}  
+
 ###############################################################
 
 sub    last_conversion
@@ -177,14 +199,16 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 "0.1.4" => \&no_conv,
 			 "0.1.5" => \&convert_0_1_4_to_0_1_5,
 			 "0.1.6" => \&convert_0_1_5_to_0_1_6
+			 ,"0.1.7" => \&convert_0_1_6_to_0_1_7
 			 );
+
  
 
 sub versions 
 {
     return (sort { cmpver; } (keys %minor_conversions));
 }
-    
+
 
 sub show_rules
 {
@@ -212,6 +236,7 @@ sub do_conversion
     print STDERR "Applying following rules: ", join(", ", @mudela_levels) , "\n";
 
     while (<INLY>) {
+	generic_conversion_scan;
 	foreach $subroutine (@applicable_conversion) {
 	
 	    &$subroutine;

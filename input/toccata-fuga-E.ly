@@ -1,13 +1,13 @@
 \header{
-filename	toccata-fuga-E.ly
-title	toccata and fuga in E-major 
-opus	BWV 566
-	toccata		3 bar excerpt
-	2nd fuga	transposed subject --- 4 bar excerpt
+filename =	 "toccata-fuga-E.ly";
+title =	 "toccata and fuga in E-major ";
+opus =	 "BWV 566"
+	 "toccata		3 bar excerpt"
+	 "2nd fuga	transposed subject --- 4 bar excerpt";
 
-composers	Johann Sebastian Bach (1685-1750)
-enteredby	JCN
-copyright	public domain
+composers =	 "Johann Sebastian Bach (1685-1750)";
+enteredby =	 "JCN";
+copyright =	 "public domain";
 
 }
 
@@ -20,7 +20,7 @@ copyright	public domain
 %}
 
 
-\version "0.1.6";
+\version "0.1.7";
 
 toccata_commands = \melodic{
 	\meter 4/4;

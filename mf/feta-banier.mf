@@ -10,12 +10,12 @@ save foot_thickness, foot_depth, foot_width;
 
 flag_angle = 32;
 
-hip_thickness# = stafflinethickness#;
+hip_thickness# = 1.2 stafflinethickness#;
 foot_thickness# = blot_diameter#;
 flare# = 1.0 interline#;
 
 hip_depth# = 15/7 interline#; 
-hip_width# = 8/7 interline# + hip_thickness# /2 + stemthickness#/2;
+hip_width# = 7/8 interline# + hip_thickness# /2 + stemthickness#/2;
 
 foot_depth# = flare# + 15/7 interline#;
 foot_width# = .885 hip_width#;
@@ -35,8 +35,6 @@ define_pixels(flare,
 % page 119
 %
 def draw_eight_flag =
-
-
 	penpos0(stemthickness, 0);
 	penpos1(flare, 90);
 	penpos2(hip_thickness, 0);

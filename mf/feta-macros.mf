@@ -25,6 +25,20 @@ def scaledabout(expr point, scale) =
 	shifted -point scaled scale shifted point
 enddef;
 
+
+%
+% make a local (restored after endgroup) copy of t_var 
+%
+def local_copy(text type, t_var)=
+	save copy_temp;
+	type copy_temp;	
+	copy_temp := t_var;
+	save t_var;
+	type t_var;
+	t_var := copy_temp;
+enddef;
+
+
 %
 % Urgh! Want to do parametric types
 %

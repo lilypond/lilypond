@@ -18,6 +18,12 @@ Atom::print() const
 {
 #ifndef NPRINT
   DOUT << "texstring: " <<tex_<<"\n";    
+  
+  DOUT << "dim:";
+    for (Axis i=X_AXIS; i < NO_AXES; incr(i))
+      DOUT << axis_name_str(i) << " = " << dim_[i].str();
+
+  DOUT << "\noffset: " << off_.str ();
 #endif
 }
 
@@ -77,7 +83,7 @@ Atom::TeX_string() const
 }
 
 void
-Atom::translate (Real r, Axis a)
+Atom::translate_axis (Real r, Axis a)
 {
   off_[a] += r; 
 }

@@ -295,8 +295,7 @@ sub docxx_update
     $ban =~ s!index.html!../index.html!g;
     print BANNER $ban;
     close BANNER;
-    my_system "$MAKE -C $depth docxx-opts=\"-p -S -k -B /tmp/lilybanner.html\" doc++";
-    # should add a cute header.
+    my_system "BANNEROPT=\"-B /tmp/lilybanner.html\" $depth/bin/out/make-docxx";
 }
 
 sub do_tar

@@ -14,6 +14,7 @@ Molecule*
 Meter::brew_molecule_p() const
 {
   Atom s = paper()->lookup_l ()->meter (args);
+  s.translate_axis (-s.extent()[Y_AXIS].center (), Y_AXIS);
   return new Molecule (Atom (s));
 }
 

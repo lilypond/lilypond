@@ -1,14 +1,18 @@
 \header{
-enteredby      jcn
-copyright      PD
-TestedFeatures  This file tests some nasty Gourlay spacings
+enteredby =	 "jcn";
+copyright =	 "PD";
+TestedFeatures =	 "This file tests some nasty Gourlay spacings";
 }
 
-\version "0.1.6";
+\version "0.1.7";
+
+%{
+
+This is taken from [Gourlay]'s paper on breaking lines
+
+%}
 
 \score{
-% huh?
-%      \multi 2 \melodic < \octave c'';
        \melodic \multi 2 < \octave c'';
                { \stemup; d2 d     | d d | d4 d2. | }
                \octave c';

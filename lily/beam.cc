@@ -71,7 +71,7 @@ Beam::brew_molecule_p() const
       sb.translate (Offset (x, (x * slope  + left_pos)* inter_f));
       mol_p->add (sb);
     }
-  mol_p->translate (x0 - spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), X_AXIS);
+  mol_p->translate_axis (x0 - spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), X_AXIS);
   return mol_p;
 }
 
@@ -311,7 +311,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (int j = 0; j  < lhalfs; j++) 
 	{
 	  Atom b (a);
-	  b.translate (-dir_ * dy * (lwholebeams+j), Y_AXIS);
+	  b.translate_axis (-dir_ * dy * (lwholebeams+j), Y_AXIS);
 	  leftbeams.add (b);
 	}
     }
@@ -332,7 +332,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  for (; j  < nogap; j++) 
 	    {
 	      Atom b (a);
-	      b.translate (-dir_ * dy * j, Y_AXIS);
+	      b.translate_axis (-dir_ * dy * j, Y_AXIS);
 	      rightbeams.add (b); 
 	    }
 	  // TODO: notehead widths differ for different types
@@ -355,7 +355,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams + rhalfs; j++) 
 	{
 	  Atom b (a);
-	  b.translate (-dir_ * dy * j, Y_AXIS);
+	  b.translate_axis (-dir_ * dy * j, Y_AXIS);
 	  rightbeams.add (b); 
 	}
 	

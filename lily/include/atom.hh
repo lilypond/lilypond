@@ -24,7 +24,7 @@ struct Atom {
   Atom (String, Box);
   Atom ();
   void translate (Offset o);
-  void translate (Real r,Axis a);
+  void translate_axis (Real r,Axis a);
   /// how big is #this#?
   Box extent() const;
   void print() const;

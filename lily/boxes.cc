@@ -12,20 +12,22 @@
 void
 Box::translate (Offset o)
 {
-  x().translate (o.x ());
-  y().translate (o.y ());
+  for (Axis i=X_AXIS; i < NO_AXES; incr(i))
+    interval_a_[i] += o[i];
 }
 
 void
 Box::unite (Box b)
 {
-  x().unite (b.x ());
-  y().unite (b.y ());
+  for (Axis i=X_AXIS; i < NO_AXES; incr(i))
+    interval_a_[i].unite (b[i]);
 }
 
+/**
+  Initialize to empty.
+ */
 Box::Box()
 {        
-
 }
 
 Box::Box (Interval ix, Interval iy)

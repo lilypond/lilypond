@@ -1,11 +1,11 @@
 \header{
-title	La Gallina a 2 violini
-date	1637
-source	the manuscript of Canzoni overo Sonate Concertate 
-	libro terzo, opera duodecima 
-composer	 Tarquinio Merula (1594/95-1665)
-enteredby	 Mats Bengtsson
-copyright	 Public Domain 
+title =	 "La Gallina a 2 violini";
+date =	 "1637";
+source =	 "the manuscript of Canzoni overo Sonate Concertate "
+	 "libro terzo, opera duodecima ";
+composer =	 "Tarquinio Merula (1594/95-1665)";
+enteredby =	 "Mats Bengtsson";
+copyright =	 "Public Domain ";
 }
 
 
@@ -30,12 +30,15 @@ either.
 
 Tested Features: Note placement, multipart score, figured base, \breve
 
-note: the sharp signs hoovering over the bass part are no mistake, but
-part of the basso continuo
- 
 %}
+%{
 
-\version "0.1.6";
+note: the sharp signs hoovering over the bass part are no mistake, but
+part of the basso continuo --HWN
+
+%} 
+
+\version "0.1.7";
 
 vi1=\melodic{
   \meter 4/4;

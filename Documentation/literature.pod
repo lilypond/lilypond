@@ -44,14 +44,20 @@ notation issues as one is likely to get. MB]
 Karl Hader. ``Aus der Werkstatt eines Notenstechers'' Waldheim--Eberle
 Verlag, Vienna 1948
 
-[Hader was the leader of the Waldheim-Eberle music publishers.  This
-book contains the most important rules on engraving]
+[Hader was the chief-engraver of the Waldheim-Eberle music publishers.
+This book contains the most important rules on engraving (according to
+[Chlapik])]
 
 MPA. Standard music notation specifications for computer programming.
 December 1996
 
 [Pamphlet explaining some fine points in music font design HWN]
 
+D. Roush. ``Music Formatting Guidelines,'' Technical Report
+OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
+The Ohio State University, 1988.
+
+[Rules on formatting music formulated for use in computers HWN]
 
 =head2 Notation with computers
 
@@ -129,12 +135,6 @@ Computer and Information Science, The Ohio State University, 1987.
 
 [Placement of balls, stems, dots which occur at the same moment
 ("Simultaneity") HWN]
-
-D. Roush. ``Music Formatting Guidelines,'' Technical Report
-OSU-CISRC-3/88-TR10, Department of Computer and Information Science,
-The Ohio State University, 1988.
-
-[Rules on formatting music formulated for use in computers HWN]
 
 F. Sola. ``Computer Design of Musical Slurs, Ties and Phrase Marks,''
 Technical Report OSU-CISRC-10/87-TR32, Department of Computer and

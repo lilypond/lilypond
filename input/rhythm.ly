@@ -1,13 +1,13 @@
 \header{
-filename	rhythm.ly
-enteredby	HWN
-copyright	public domain
-TestedFeatures	 multiple meters, beaming, unsynced bars, userdefd engravers
+filename =	 "rhythm.ly";
+enteredby =	 "HWN";
+copyright =	 "public domain";
+TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 }
 
 
 
-\version "0.1.6";
+\version "0.1.7";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;

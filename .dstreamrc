@@ -5,18 +5,18 @@ Dstream			1
 
 # yydebug
 InitParser		1
-Parser			0
+Parser			1
 InitDeclarations	1
 Declarations		1
 # FlexLexer debug
 InitLexer		1
-Lexer			1
+Lexer			0
 
 
 # flower lib
 File_path		1
 Matrix			0
-Vector			1
+Vector			0
 
 # lily
 Atom			0
@@ -35,11 +35,11 @@ Engraver_group_engraver 0
 Group_change_req	0
 Head_column		0
 Idealspacing		0
-Ineq_constrained_qp 	1
+Ineq_constrained_qp 	0
 Input_translator	0
 Item			0
 Key_item		0
-Lookup			1
+Lookup			0
 Line_spacer		0
 Melodic_req		0
 Midi_def		0
@@ -47,7 +47,7 @@ Midistrings		1
 Mixed_qp		0
 Music			0
 Music_iterator		0
-My_lily_lexer		0
+My_lily_lexer		1
 Note_head		0
 Note_performer		0
 Note_req		0
@@ -80,8 +80,8 @@ Staff_commands		0
 Stem			0
 Stem			0
 Stem_req		0
-Symtable		1
-Symtables		1
+Symtable		0
+Symtables		0
 
 Text_def		0
 Text_req		0

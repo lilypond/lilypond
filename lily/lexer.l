@@ -56,7 +56,6 @@ void strip_leading_white (String&);
 %option warn
 
 %x incl
-%x header
 %x lyrics
 %x notes
 %x quote
@@ -67,11 +66,10 @@ A		[a-zA-Z]
 AA		{A}|_
 N		[0-9]
 AN		{AA}|{N}
-PUNCT		[?!,.:;']
+PUNCT		[?!,.:']
 ACCENT		\\[`'"^]
-NATIONAL	[\241-\377]
+NATIONAL  [\001-\006\021-\027\031\036\200-\377]
 TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
-
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
@@ -82,7 +80,8 @@ HORIZONTALWHITE		[ \t]
 BLACK		[^ \n\t\f]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
-LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
+LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
+ESCAPED		[nt\\'"]
 
 %%
 
@@ -123,29 +122,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
 }
-<header>{
-	[\{\}]	{
-		return YYText ()[0];
-	}
-	^{WORD}		{
-		String s=YYText ();
-		yylval.string = new String (s);
-		return FIELDNAME;
-	}
-	{HORIZONTALWHITE}+{BLACK}.*\n		{
-		String s=YYText ();
-		strip_leading_white (s);
-		strip_trailing_white (s);
-		yylval.string = new String (s);
-		return RECORDLINE;
-	}
-	{WHITE}* 	{
-	}
 
-	.		{
-		return YYText ()[0];
-	}
-}
 
 
 <notes,INITIAL,lyrics>\\include           {
@@ -222,19 +199,19 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	start_quote ();
 }
 <quote>{
-	\\\\	{
-		*yylval.string += '\\';
+	\\{ESCAPED}	{
+		*yylval.string += escaped_char(YYText()[1]);
 	}
-	\\\"	{
-		*yylval.string +='\"';
-	}
-	[^"]+	{
+	[^\\"]+	{
 		*yylval.string += YYText ();
 	}
 	\"	{
 		DOUT << "quoted string: `" << *yylval.string << "'\n";
 		yy_pop_state ();
 		return STRING;
+	}
+	.	{
+		*yylval.string += YYText ();
 	}
 }
 
@@ -412,13 +389,8 @@ My_lily_lexer::lyric_state_b () const
 	return YY_START == lyrics;
 }
 
-void 
-My_lily_lexer::push_header_state () 
-{
-	yy_push_state (header);
-}
-
-void strip_trailing_white (String&s)
+void
+strip_trailing_white (String&s)
 {
 	int i=0;
 	for (;  i < s.length_i (); i++) 
@@ -427,7 +399,9 @@ void strip_trailing_white (String&s)
 
 	s = s.nomid_str (0, i);
 }
-void strip_leading_white (String&s)
+
+void
+strip_leading_white (String&s)
 {
 	int i=s.length_i ();	
 	while (i--) 
@@ -435,5 +409,4 @@ void strip_leading_white (String&s)
 			break;
 
 	s = s.left_str (i+1);
-
 }

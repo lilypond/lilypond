@@ -44,8 +44,10 @@ Key_item::read (Key_engraver const & key_grav_r)
 void 
 Key_item::set_c_position (int c0)
 {
-  int octaves =(abs (c0) / 7) +1 ;
-  c_position=(c0 + 7*octaves)%7;
+  int from_bottom_pos = c0 + 4;	// ugh
+  int octaves =(abs (from_bottom_pos) / 7) +1 ;
+  from_bottom_pos =(from_bottom_pos + 7*octaves)%7;
+  c_position  = from_bottom_pos - 4;
 }
 
 
@@ -71,7 +73,7 @@ Key_item::brew_molecule_p() const
   for (int i =0; i < pitch.size(); i++) 
     {
       Atom a =paper()->lookup_l ()->accidental (acc[i]);
-      a.translate ((c_position + pitch[i]) * inter, Y_AXIS);
+      a.translate_axis ((c_position + pitch[i]) * inter, Y_AXIS);
       Molecule m (a);
       output->add_at_edge (X_AXIS, RIGHT, m);	
     }

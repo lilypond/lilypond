@@ -73,7 +73,7 @@ Line_of_score::set_breaking (Array<Col_hpositions> const &breaking)
 
       for (int i=0; i < curline.size(); i++)
 	{
-	  curline[i]->translate(config[i],X_AXIS);
+	  curline[i]->translate_axis (config[i],X_AXIS);
 	  curline[i]->line_l_ = (Line_of_score*)line_l;
 	}
     }

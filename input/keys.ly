@@ -1,16 +1,4 @@
-%{MudelaHeader
-
- filename: keys.ly
- title:
- description: 
- composers:
- entered-by:
- copyright:
-
- Tested Features: local key, key, forced accidentals
-EndMudelaHeader
-%}
-\version "0.1.6";
+\version "0.1.7";
 
 
 blah = \melodic{

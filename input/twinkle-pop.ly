@@ -1,18 +1,18 @@
 \header{
-filename		twinkle.ly
-title		Ah, vous dirais-je, maman 
-description		twinkle twinkle in pop-song-settings
-composers		traditional
+filename =	 "twinkle.ly";
+title =	 "Ah, vous dirais-je, maman ";
+description =	 "twinkle twinkle in pop-song-settings";
+composers =	 "traditional";
 
-enteredby		HWN, chords by Johan Vromans
-copyright		public domain
+enteredby =	 "HWN, chords by Johan Vromans";
+copyright =	 "public domain";
 }
 
 %{
 Tested Features		lyrics and chords
 %}
 
-\version "0.1.6";
+\version "0.1.7";
 
 melodie = \melodic {
         \clef"violin";

@@ -1,10 +1,10 @@
 \header{
-enteredby	jcn
-copyright	PD
-TestedFeatures	simple abbreviations
+enteredby =	 "jcn";
+copyright =	 "PD";
+TestedFeatures =	 "simple abbreviations";
 }
 
-\version "0.1.6";
+\version "0.1.7";
 
 \score{
 	\melodic{ 

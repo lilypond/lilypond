@@ -1,5 +1,5 @@
 /*
-  rest.cc -- implement 
+  rest.cc -- implement Rest
 
   source file of the GNU LilyPond music typesetter
 
@@ -17,10 +17,9 @@
 void
 Rest::do_add_processing ()
 {
-  if (balltype_i_ == 0)
-    position_i_ += 4;
-  else if (balltype_i_ == 1)
-    position_i_ += 4;
+  if (balltype_i_ != 0 && balltype_i_ != 1)
+    position_i_ -= 4;
+
   Rhythmic_head::do_add_processing ();
   if (dots_l_)
       dots_l_->position_i_ = position_i_;
@@ -34,14 +33,12 @@ Rest::Rest ()
 Molecule *
 Rest::brew_molecule_p () const
 {
-  int staff_size_i_ =8;
-  bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
-  if  (balltype_i_ < 0 || balltype_i_ > 1)
-    streepjes_b = false;
+  int staff_size_i_ = 8;
+  bool streepjes_b = abs(position_i_) > staff_size_i_ /2 &&  (balltype_i_ == 0 || balltype_i_ == 1);
   
   Atom s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Atom (s));
-  m->translate (position_i_ *  paper ()->internote_f (), Y_AXIS);
+  m->translate_axis (position_i_ *  paper ()->internote_f (), Y_AXIS);
   return m;
 }
 

@@ -37,7 +37,7 @@ Lyric_engraver::do_process_requests()
     {
       lyric_item_p_ =  new Text_item (lreq_l_->tdef_p_);
 
-      lyric_item_p_->translate (paper()->note_width ()/2 , X_AXIS);
+      lyric_item_p_->translate_axis (paper()->note_width ()/2 , X_AXIS);
       lyric_item_p_->dir_ = DOWN;
       lyric_item_p_->fat_b_ = true;
       announce_element (Score_elem_info (lyric_item_p_, lreq_l_));

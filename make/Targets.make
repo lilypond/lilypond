@@ -121,9 +121,6 @@ help:
 doc:
 	$(MAKE) -C $(depth)/Documentation do-doc
 
-# doc++ documentation of classes
-doc++: $(progdocs)	
-	$(docxx) $(docxx-opts) -d $(DOCDIR) $^
 
 # ugh. should generate in out/
 dist:
@@ -190,7 +187,7 @@ endif
 #
 
 $(outdir)/version.hh: VERSION
-	./$(lily_bindir)/make-version > $@
+	sh ./$(lily_bindir)/make-version.sh > $@
 
 
 # should this be in Rules?

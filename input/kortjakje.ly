@@ -1,17 +1,17 @@
 
 \header{
-filename		kortjakje.ly
-title		Ah,  vous dirais-je, maman (variations)
-description		 bare bones version. (written down from memory :-)
-composers		Mozart, KV 265
-enteredby		HWN
-copyright		public domain
+filename =	 "kortjakje.ly";
+title =	 "Ah,  vous dirais-je, maman (variations)";
+description =	 "bare bones version. (written down from memory :-)";
+composers =	 "Mozart, KV 265";
+enteredby =	 "HWN";
+copyright =	 "public domain";
 }
 %{
 Tested Features: example file with comments
 
 %}
-\version "0.1.6";
+\version "0.1.7";
 
 
 % the % is a comment.

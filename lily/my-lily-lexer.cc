@@ -164,3 +164,21 @@ My_lily_lexer::clear_notenames()
   delete note_tab_p_;
   note_tab_p_ = new Notename_table;
 }
+
+char
+My_lily_lexer::escaped_char(char c) const
+{
+  switch(c)
+    {
+    case 'n':
+      return '\n';
+    case 't':
+      return '\t';
+      
+    case '\'':
+    case '\"':
+    case '\\':
+      return c;
+    }
+  return 0;
+}

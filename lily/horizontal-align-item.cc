@@ -94,14 +94,14 @@ Horizontal_align_item::do_pre_processing()
   for (int i=0 ;  i < item_l_arr_.size(); i++) 
     {
       Real dx = where_f -dims[i][-1];
-      item_l_arr_[i]->translate (dx , X_AXIS);
+      item_l_arr_[i]->translate_axis (dx , X_AXIS);
       if (item_l_arr_[i] == center_l_)
 	center_dx_f = where_f;
       where_f += dims[i].length();
     }
   if (center_dx_f && !align_i_)
     for (int i=0 ;  i < item_l_arr_.size(); i++) 
-      item_l_arr_[i]->translate (- center_dx_f , X_AXIS);
+      item_l_arr_[i]->translate_axis (- center_dx_f , X_AXIS);
   
 }
 

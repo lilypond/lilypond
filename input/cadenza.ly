@@ -1,17 +1,17 @@
 \header{
-filename	cadenza.ly
-title	Cadenza ad libitum
-description	Cadenza to Mozart Horn concerto 3
-composer	unknown
-enteredby	HWN
-copyright	public domain
+filename =	 "cadenza.ly";
+title =	 "Cadenza ad libitum";
+description =	 "Cadenza to Mozart Horn concerto 3";
+composer =	 "unknown";
+enteredby =	 "HWN";
+copyright =	 "public domain";
 }
 
 %{
 Tested Features: cadenza mode
 %}
 
-\version "0.1.6";
+\version "0.1.7";
 
 
 cad = \melodic  {
@@ -26,8 +26,8 @@ cad = \melodic  {
 	c'4.\mf g8
 
 
-	[e'^"accel" ~ d' c' b]
-	[b~ c'] g-\fermata
+	[e'^"accel" () d' c' b]
+	[b() c'] g-\fermata
 		\bar "empty";
 			c [c_"rubato" e g c']
 	\octave c'';
@@ -56,7 +56,7 @@ cad = \melodic  {
 		\bar "" ;
 	[g8.(_"a tempo" e g8. )e]
 	a4. g8 [f8 e8 d8 c8]
-	'g2 d2^"\tr"
+	'g2 d2-\trill
 	c4
 	}}
 \score {
