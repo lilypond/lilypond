@@ -28,7 +28,7 @@
 	 (name (Translator::name engraver))
 	 (name-sym (string->symbol name))
 	 (desc (cdr (assoc 'description (Translator::description engraver))))
-	 (grobs (cdr (assoc 'grobs-created (Translator::description engraver))))
+	 (grobs (engraver-grobs engraver))
 	 )
 
     (string-append
@@ -141,14 +141,17 @@
 	 (apply string-append 
 		(map document-engraver-by-name consists))))))
 
-(define (engraver-grobs  name)
+(define (engraver-grobs  grav)
   (let* (
-	 (eg (find-engraver-by-name name all-engravers-list))
-      )
+	 (eg (if (string? grav)
+		 (find-engraver-by-name grav all-engravers-list)
+		 grav))
+	     
+	     )
 
     (if (eq? eg #f)
 	'()
-	(cdr (assoc 'grobs-created (Translator::description eg)))
+	(map symbol->string (cdr (assoc 'grobs-created (Translator::description eg))))
  	)
   ))
 

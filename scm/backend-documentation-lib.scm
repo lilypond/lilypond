@@ -11,6 +11,10 @@
 ;; alist of property descriptions
 
 
+;;;;;; TODO: sort out symbol vs. string stuff.
+;;;;;; TODO: use flatten write iso. string-append; might be possible to fold
+;;;;;; in symbol->string integrally.
+
 (define (backend-property->texi sym)
   (let* ((name (symbol->string sym))
 	(type (object-property sym 'backend-type?))
@@ -84,21 +88,21 @@
      (node (grob-name name))
      (texi-section 2 (grob-name name) #f)
      "\n"
-     (let* ((grob (string->symbol name))
+     (let* ((grob name)
 	    (engravers (filter-list
 			(lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
 	    (engraver-names (map Translator::name engravers))
 	    )
 
        (string-append
-	name " grobs are created by: "
+	(symbol->string name) " grobs are created by: "
 	(human-listify (map ref-ify
 			    (map engraver-name engraver-names)))))
 
 	    (apply string-append ifacedoc))))
      
-(define (engraver-makes-grob? name grav)
-  (memq name (assoc 'grobs-created (Translator::description grav)))
+(define (engraver-makes-grob? name-symbol grav)
+  (memq name-symbol (assoc 'grobs-created (Translator::description grav)))
   )
 
 (define (document-all-grobs name)
