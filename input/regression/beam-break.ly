@@ -1,6 +1,6 @@
 
 \header {
-    texidoc = "Beams can be printed across line breaks if forced.
+    texidoc = "Beams can be printed across line breaks, if forced.
 "
 
 }

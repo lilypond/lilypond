@@ -3,8 +3,8 @@
 
 \header{
 
-    texidoc="Automatic cross-staff knees also work (here we see them
-with explicit staff switches)."
+    texidoc="Automatic cross-staff knees work also (here they were
+produced with explicit staff switches)."
 
      }
 

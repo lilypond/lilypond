@@ -1,6 +1,9 @@
 
 \header {
-   texidoc = "Test drum notation."
+   texidoc = "In drum notation, there is a special clef symbol, drums are
+   placed to their own staff positions and have note heads according to the 
+   drum, an extra symbol may be attached to the drum, and the number of lines 
+   may be restricted."
 }
 
 

@@ -3,8 +3,8 @@
 
 \header{
 
-    texidoc = "Test beam quant positions for horizontal beams.  Staff
-lines should be covered in all cases. For 32nd beams, the free stem
+    texidoc = "In this test for beam quant positions for horizontal beams,
+staff lines should be covered in all cases. For 32nd beams, the free stem
 lengths are between 2 and 1.5."
 
 }

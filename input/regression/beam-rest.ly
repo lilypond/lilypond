@@ -1,6 +1,6 @@
 
 \header {
- texidoc = "The number of beams doesn't change on a rest."
+ texidoc = "The number of beams does not change on a rest."
 }
 
 \version "2.1.22"

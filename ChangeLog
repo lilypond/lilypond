@@ -1,3 +1,9 @@
+2004-02-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/regression/{many}.ly: improve descriptions: use complete 
+	sentences, try to describe what is tested, avoid `we´, do not use 
+	don't, ... 
+
 2004-02-15  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/refman.itely: use `@c´ if $internalsref{...} @c

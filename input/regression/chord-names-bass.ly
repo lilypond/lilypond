@@ -2,7 +2,8 @@
 
 \header {
 
-texidoc = "Test igatzek inversion and bass notes.
+texidoc = "In ignatzek inversions, a note is dropped down to act as the
+bass note of the chord. Bass note may be also added explicitly.  
 Above the staff: computed chord names. Below staff: entered chord name. 
 "
 

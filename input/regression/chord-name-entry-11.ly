@@ -2,7 +2,7 @@
 
 \header {
 
-    texidoc = "The 11 is only added to natural-3 if it
+    texidoc = "The 11 is only added to major-13 if it
  is mentioned explicitly."
 
 }

@@ -1,5 +1,5 @@
 \version "2.1.22"
-\header {texidoc="Tests lyric hyphens. "}
+\header {texidoc="In lyrics, hyphens may be used."}
 \score{
 	<<
 	\context Staff \notes { c' (c') (c') c' }

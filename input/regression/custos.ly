@@ -1,6 +1,6 @@
 \version "2.1.23"
 \header {
-    texidoc = "Custodes in various styles."
+    texidoc = "Custodes may be engraved in various styles."
 }
 
 \score {

@@ -3,8 +3,10 @@
 
 \header {
 
-texidoc = "Test file for the new chordname entry code (@code{\chords}
-mode): the suffixes are printed below the pitches."
+texidoc = "Chords can be produced with the new chordname entry 
+code (@code{\chords} mode), using a pitch and a suffix. Here,
+the suffixes are printed below pitches.
+"
 
 }
 

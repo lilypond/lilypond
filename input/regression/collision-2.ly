@@ -1,6 +1,6 @@
 \version "2.1.22"
 \header {
-texidoc = "Collisions for single head notes. "
+texidoc = "Single head notes may collide. "
 }
     \paper { raggedright= ##t }
 

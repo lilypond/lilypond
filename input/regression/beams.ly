@@ -1,7 +1,7 @@
 
 \version "2.1.22"
 \header {
-    texidoc = "Beams (simple)."
+    texidoc = "A simple test for beams."
 }
 
     \paper { raggedright= ##t }

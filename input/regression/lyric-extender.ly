@@ -1,6 +1,6 @@
 \version "2.1.22"
 
-\header { texidoc= "Tests lyric extenders. "}
+\header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
 
     \paper { raggedright= ##t }
 \score{

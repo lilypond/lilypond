@@ -2,8 +2,8 @@
 \version "2.1.22"
 \header{
 texidoc="
-Normal collisions. We have support for polyphony, where the
-middle voices are horizontally shifted.
+In addition to normal collision rules, there is support for polyphony, 
+where the collosion are avoided by shifting middle voices horizontally.
 "
 filename = 	 "collisions.ly"
 enteredby = 	 "HWN,JCN"

@@ -3,8 +3,7 @@
 
 \header {
 
-    texidoc = "French style beaming. In french beaming, the
-    stems do not go to the outer beams."
+    texidoc = "In french style beaming, the stems do not go between beams."
 
 }
 

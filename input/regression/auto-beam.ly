@@ -1,7 +1,8 @@
 
 \header {
 
-texidoc="Test automatic beamer: the last measure should have a single beam."
+texidoc="Beams are place automatically; the last measure should have a single 
+beam."
 
 }
 

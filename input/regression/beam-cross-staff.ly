@@ -3,7 +3,7 @@
 \header{
 texidoc="
 Beams can be typeset over fixed distance aligned staves, beam
-beautification doesn't really work, but knees do. Beams should be
+beautification does not really work, but knees do. Beams should be
 behave well, wherever the switching point is.
 "
 }

@@ -2,7 +2,7 @@
 
 
 \header {
-texidoc = "Jazz chords, unusual combinations."
+texidoc = "Jazz chords may have unusual combinations."
 }
 
 chs = \notes 
