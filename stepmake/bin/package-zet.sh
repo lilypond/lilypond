@@ -23,13 +23,13 @@ fi
 #
 # and create links to here, if necessary
 #
-if [ ! -r $sources ]; then
-	(cd ..; ln -s `pwd` $sources)
-fi
-#
 sourcetree=`basename \`pwd\``
 (cd ..; rm -f $package 2>&1 > /dev/null)
 (cd ..; ln -s $sourcetree $package)
+#
+if [ ! -r $sources ]; then
+	(cd ..; ln -s `pwd` $sources)
+fi
 #
 mkdir -p $prefix/bin
 result=`echo $PATH | grep "$HOME/usr/bin"`

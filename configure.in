@@ -54,21 +54,5 @@ AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
 AC_CHECK_SEARCH_RESULT($YODL2TEXINFO, yodl,  
     You should install Yodl 1.30.2 or newer)
 
-AC_MSG_CHECKING(links for running from sourcetree)
-LILYPONDPREFIX=$absolute_builddir
-LOCALES="it nl"
-for i in $LOCALES; do
-	dir=$LILYPONDPREFIX/share/locale/$i/LC_MESSAGES
-	if test ! -x $dir ; then
-		mkdir -p $dir
-	fi
-	rm -f $dir/lilypond.mo 
-	ln -sf $LILYPONDPREFIX/po/out/$i.mo $dir/lilypond.mo
-done
-rm -f afm; ln -sf $LILYPONDPREFIX/mf/out afm
-rm -f tfm; ln -sf $LILYPONDPREFIX/mf/out tfm
-rm -f cmtfm; ln -sf $TEX_TFMDIR cmtfm
-AC_MSG_RESULT(ok)
-
 AC_STEPMAKE_END
 

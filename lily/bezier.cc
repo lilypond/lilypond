@@ -21,6 +21,16 @@
 #define BEZIER_BOW_DOUT cerr
 #endif
 
+
+/*
+  [TODO]
+
+  * better names, esp. for all calc_foo functions
+  * blow_fit vs calc_default (Real) and calc_f (Real)
+  * exact height / tangent calculation
+
+ */
+
 void
 Curve::flipy ()
 {
@@ -245,6 +255,18 @@ Bezier_bow::calc ()
 
   calc_controls ();
 
+  /*
+    duh, this is crude (control-points)
+    perhaps it's even better to check the amount of blow_fit ()
+   */
+  for (int i=0; i < control_.size (); i++)
+    {
+      Real y = control_[i][Y_AXIS];
+      curve_extent_drul_[Y].unite (Interval (y, y));
+      Real x = control_[i][X_AXIS];
+      curve_extent_drul_[X].unite (Interval (x, x));
+    }
+
   print ();
   transform_back ();
 #ifndef NPRINT
@@ -360,6 +382,10 @@ Bezier_bow::calc_controls ()
       if (i && !calc_clipping ())
 	return;
 
+      /*
+	why do we always recalc from 0?
+	shouldn't calc_f () be used (too), rather than blow_fit () (only)?
+       */
       calc_default (0);
       calc_bezier ();
       

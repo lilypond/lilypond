@@ -34,6 +34,7 @@ protected:
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
   virtual Interval do_height () const;
+  Drul_array<Interval> curve_extent_drul () const;
 
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;

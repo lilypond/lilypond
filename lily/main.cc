@@ -221,6 +221,11 @@ setup_paths ()
   String lily_locale_dir;
   String name (PACKAGE);
   name.to_lower ();
+
+  /*
+    urg; what *do* we want with $LILYPONDPREFIX, DIR_DATADIR and $prefix/share
+    handy for multiple source-dir runs, though...
+   */
   if (!prefix_directory.empty_b())
     {
       lily_locale_dir = prefix_directory + "/share/locale";

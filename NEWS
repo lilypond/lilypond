@@ -1,3 +1,9 @@
+pl 60.jcn2
+	- moved creation of $BUILDDIR/share/locale into set-lily.sh
+	- slur slope change constraints when snapping
+	- slur height damping based on bow height
+	- don't typeset unfinished (auto) beams
+
 pl 60.jcn1
 	- interstaff slur tuning
 	- added some regtests
