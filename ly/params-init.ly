@@ -22,7 +22,8 @@ staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
 outputscale = \staffheight / 4.0
 
-blotdiameter = 0.4 / \outputscale
+blotdiameter = 0.4 \pt
+
 
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }

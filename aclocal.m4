@@ -267,7 +267,6 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
 	AC_MSG_RESULT($builddir)
 
 	(cd stepmake 2>/dev/null || mkdir stepmake)
-	(cd stepmake; rm -f stepmake; ln -s ../$srcdir/stepmake .)
 	(cd stepmake; rm -f bin; ln -s ../$srcdir/bin .)
 	AC_CONFIG_AUX_DIR(bin)
 	stepmake=stepmake

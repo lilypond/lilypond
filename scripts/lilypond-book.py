@@ -541,8 +541,10 @@ def bounding_box_dimensions(fname):
 	str = fd.read ()
 	s = re.search('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', str)
 	if s:
-		return (int (s.group (3) - s.group (1) + 0.5),
-			int (s.group (4) - s.group (2) + 0.5))
+		
+		gs = map (lambda x: string.atoi (x), s.groups ())
+		return (int (gs[2] - gs[0] + 0.5),
+			int (gs[3] - gs[1] + 0.5))
 	else:
 		return (0,0)
 

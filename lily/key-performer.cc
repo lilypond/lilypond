@@ -10,6 +10,7 @@
 #include "command-request.hh"
 #include "audio-item.hh"
 #include "performer.hh"
+#include "warn.hh"
 
 
 class Key_performer : public Performer

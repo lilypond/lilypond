@@ -50,6 +50,8 @@ AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 AC_STEPMAKE_MAKEINFO
 
+
+dnl need perl for help2man.
 AC_PATH_PROG(PERL, perl, error)
 
 AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h)
