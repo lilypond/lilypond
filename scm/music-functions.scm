@@ -308,31 +308,33 @@ a property set for MultiMeasureRestNumber."
     "Either reset centralCPosition to the stored original,
 or remember old centralCPosition, add OCTAVATION to centralCPosition,
 and set OTTAVATION to `8va', or whatever appropriate."
-    (if (= octavation 0)
-	(let*
-	    ((where (ly:context-property-where-defined context 'centralCPosition))
-	     (oc0 (ly:get-context-property context 'originalCentralCPosition)) )
+    (if (number? (ly:get-context-property  context 'centralCPosition))
+	
+	(if (= octavation 0)
+	    (let*
+		((where (ly:context-property-where-defined context 'centralCPosition))
+		 (oc0 (ly:get-context-property context 'originalCentralCPosition)))
 
-	  (ly:set-context-property context 'centralCPosition oc0)
-	  (ly:unset-context-property where 'originalCentralCPosition)
-	  (ly:unset-context-property where 'ottavation))
+	      (ly:set-context-property context 'centralCPosition oc0)
+	      (ly:unset-context-property where 'originalCentralCPosition)
+	      (ly:unset-context-property where 'ottavation))
 
-	(let*
-	    ((where (ly:context-property-where-defined context 'centralCPosition))
-	     (c0 (ly:get-context-property context 'centralCPosition))
-	     (new-c0 (+ c0 (* -7 octavation)))
-	     (string (cdr
-		      (assoc octavation '((2 . "15ma")
-					  (1 . "8va")
-					  (0 . #f)
-					  (-1 . "8va bassa")
-					  (-2 . "15ma bassa"))))))
+	    (let*
+		((where (ly:context-property-where-defined context 'centralCPosition))
+		 (c0 (ly:get-context-property context 'centralCPosition))
+		 (new-c0 (+ c0 (* -7 octavation)))
+		 (string (cdr
+			  (assoc octavation '((2 . "15ma")
+					      (1 . "8va")
+					      (0 . #f)
+					      (-1 . "8va bassa")
+					      (-2 . "15ma bassa"))))))
 
-	  (ly:set-context-property context 'centralCPosition new-c0)
-	  (ly:set-context-property context 'originalCentralCPosition c0)
-	  (ly:set-context-property context 'ottavation string)
-	  
-	  )))
+	      (ly:set-context-property context 'centralCPosition new-c0)
+	      (ly:set-context-property context 'originalCentralCPosition c0)
+	      (ly:set-context-property context 'ottavation string)
+	      
+	      ))))
 
   (ly:set-mus-property! m 'procedure  ottava-modify)
   (context-spec-music m "Staff")

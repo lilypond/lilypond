@@ -1,6 +1,12 @@
 \version "1.7.18"
-\header{ texidoc="@cindex Gourlay
-This is taken from Gourlay's paper on breaking lines. " }
+\header{
+
+    texidoc="@cindex Gourlay
+
+This is taken from Gourlay's paper on
+breaking lines.  "
+
+}
 
 \score{
        \notes \context Staff  \relative c'' <
