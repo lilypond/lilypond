@@ -190,7 +190,6 @@ bassdux = \context Voice=three \notes \relative c' {
 }
 
 \score {
- 
     \notes \context PianoStaff << 
         \override Score.TimeSignature  #'style = #'C
 	\context Staff = treble <<
@@ -220,5 +219,4 @@ bassdux = \context Voice=three \notes \relative c' {
 	\tempo 4 =84
     }
 }
-
 
