@@ -29,6 +29,7 @@ static Keyword_ent the_key_tab[]={
   {"acciaccatura", ACCIACCATURA},
   {"accepts", ACCEPTS},
   {"addlyrics", ADDLYRICS},
+  {"addquote", ADDQUOTE},
   {"alias", ALIAS},
   {"alternative", ALTERNATIVE},
   {"apply", APPLY},

@@ -18,6 +18,21 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Cue notes can  now be quoted directly from the parts that
+contain them. For example,
+
+@verbatim
+\addquote oboe \notes\relative c' { fis4 fis fis fis }
+
+\score {
+    \notes \relative c'' {
+	c8 d8 \quote 2 oboe es8 gis  
+    }
+}
+@end verbatim
+
+
+
 @item The naming of exported Scheme functions now follows Scheme conventions.
 Changes be applied to Scheme files with convert-ly:
 

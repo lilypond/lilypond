@@ -65,7 +65,7 @@ Entry point for the parser.
     
     (define (interpret-additions  chord mods)
       "Interpret additions. TODO: should restrict modifier use?"
-      
+
       (cond
        ((null? mods) chord)
        ((ly:pitch? (car mods))
@@ -168,15 +168,14 @@ the bass specified.
     (if (procedure? lead-mod)
 	(set! base-chord (lead-mod base-chord)))
 
-
     (set! complete-chord
 	  (if start-additions
 	   (interpret-additions base-chord flat-mods)
 	   (interpret-removals base-chord flat-mods)
 	   ))
     
-    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
-			      (sort complete-chord ly:pitch<?)))
+    (set! complete-chord (sort complete-chord ly:pitch<?))
+
 
     ;; If natural 11 + natural 3 is present, but not given explicitly,
     ;; we remove the 11.
@@ -186,16 +185,20 @@ the bass specified.
 	     (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
 	     (= 0 (ly:pitch-alteration (get-step 3 complete-chord)))
 	     )
-	(begin
-	  (set! complete-chord (remove-step 11  complete-chord))
-	  )
-	  
-	)
+	(set! complete-chord (remove-step 11  complete-chord)) )
 
+
+    ;; must do before processing inversion/bass, since they are
+    ;; not relative to the root. 
+    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
+			      complete-chord))
+
+    
     (if inversion
 	(set! complete-chord (process-inversion complete-chord)))
     (if bass
 	(set! bass (pitch-octavated-strictly-below bass root)))
+      
     
     (if #f
 	(begin

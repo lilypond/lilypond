@@ -237,6 +237,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %token ACCEPTS
 %token ADDLYRICS
+%token ADDQUOTE
 %token NEWADDLYRICS
 %token ALIAS
 %token ALTERNATIVE
@@ -422,6 +423,8 @@ toplevel_expression:
 	lilypond_header {
 		THIS->input_file_->header_ = $1;
 	}
+	| add_quote {
+	}
 	| score_block {
 		Score * sc = $1;
 
@@ -464,6 +467,7 @@ toplevel_expression:
 		scm_gc_unprotect_object ($1->self_scm ());
 	}
 	;
+
 
 embedded_scm:
 	SCM_T
@@ -1333,6 +1337,17 @@ chord_body_element:
 	}
 	;
 
+add_quote:
+	ADDQUOTE string Music {
+		static SCM adder;
+		if (!adder)
+			adder = scm_c_eval_string ("add-quotable");
+		
+		scm_call_2 (adder, $2, $3->self_scm ());
+		scm_gc_unprotect_object ($3->self_scm ());
+	}
+	;
+
 command_element:
 	command_req {
 		$$ = MY_MAKE_MUSIC("EventChord");
@@ -1363,7 +1378,7 @@ command_element:
 			quote->set_property ("duration", $2);
 			quote->set_property ("quoted-events", evs);
 		} else {
-			THIS->here_input ().warning (_f ("Can\'t find music.")); 
+			THIS->here_input ().warning (_f ("Can\'t find music")); 
 			quote = MY_MAKE_MUSIC ("Event");
 		}
 		quote->set_spot (THIS->here_input ());
