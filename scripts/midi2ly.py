@@ -1102,8 +1102,11 @@ for f in files:
 		o = output_name
  		(outdir, outbase) = os.path.split (o)
 
-	if outdir != '.':
-		mkdir_p (outdir, 0777)
+	if outdir != '.' and outdir != '':
+		try:
+			os.mkdir (outdir, 0777)
+		except OSError:
+			pass
 
 	convert_midi (f, o)
 

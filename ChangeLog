@@ -1,3 +1,7 @@
+2002-06-08  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* scripts/midi2ly.py: Fix handling of -o
+
 2002-06-08  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/molecule.cc (translate): set max distance to 100 cm.
