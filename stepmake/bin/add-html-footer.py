@@ -111,7 +111,7 @@ def set_gcos ():
 		pw = ntpwd.getpwname(os.environ['USERNAME'])
 	else:
 		import pwd
-		if os.environ.has_key('FAKEROOTKEY'):
+		if os.environ.has_key('FAKEROOTKEY') and os.environ.has_key('LOGNAME'):
 			pw = pwd.getpwnam (os.environ['LOGNAME'])
 		else:
 			pw = pwd.getpwuid (os.getuid())

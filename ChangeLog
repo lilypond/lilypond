@@ -1,5 +1,9 @@
 2003-08-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Debian patch, see debian/changelog (Anthony Fok).
+
+2003-08-04  Jan Nieuwenhuizen  <janneke@gnu.org>
+
 	* buildscripts/lilypond-profile.sh: Add workaround for zsh posix
 	problem.
 
