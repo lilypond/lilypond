@@ -18,11 +18,12 @@
 %% The overall structure of a file created by LilyPond is as follows:
 %%
 %%   <lilypond parameter definitions>
+%%   <font setup>
 %%   \ifx\lilypondstart \undefined
 %%     \input lilyponddefs
 %%   \fi
 %%   \lilypondstart
-%%   <font setup and note output>
+%%   <note output>
 %%   \lilypondend
 
 \newdimen\lytempdim
@@ -40,55 +41,50 @@
 }
 
 \gdef\lilypondstart{
+  \frenchspacing
   \begingroup
   \catcode `\@=11\relax
   %% \@nodocument is defined as \relax after `\begin{document}'
   \lilypondifundefined{@nodocument}
-    {
-      %% either plain TeX or texinfo or not at the beginning of LaTeX input
-      \def\x{\endgroup}}
-    {
-      %% FIXME: a4
-      %% provide a proper LaTeX preamble (for A4 paper format)
-      \def\x{
-        \endgroup
-        \def\lilyponddocument{}
-        \documentclass[a4paper]{article}
-        %% safe-mode
-        \nofiles
-        \usepackage{inputenc}
-        \pagestyle{empty}
-        \lilypondifundefined{lilypondclassic}
-        {
-          %% Nullify [La]TeX page layout settings, page layout by LilyPond.
+    {%% either plain TeX or texinfo or not at the beginning of LaTeX input
+     \def\x{\endgroup}}
+    {%% FIXME: a4
+     %% provide a proper LaTeX preamble (for A4 paper format)
+     \def\x{
+       \endgroup
+       \def\lilyponddocument{}
+       \documentclass[a4paper]{article}
+       %% safe-mode
+       \nofiles
+       \usepackage{inputenc}
+       \pagestyle{empty}
+       \lilypondifundefined{lilypondclassic}
+         {%% Nullify [La]TeX page layout settings, page layout by LilyPond.
           \topmargin-1in
           \headheight0pt\headsep0pt
           \oddsidemargin-1in
-          \evensidemargin\oddsidemargin
-        }
-        {
-          %% Center staves horizontally on page
+          \evensidemargin\oddsidemargin}
+         {%% Center staves horizontally on page
           \ifdim\lilypondpaperlinewidth\lilypondpaperunit > 0pt
-          \hsize\lilypondpaperlinewidth\lilypondpaperunit
-          \lytempdim \paperwidth
-          \advance\lytempdim -\the\hsize
-          \lytempdim 0.5\lytempdim
-          \advance\lytempdim -1in
-          \oddsidemargin \lytempdim
-          \evensidemargin \lytempdim
-          \fi
-        }
-        \parindent 0pt
-        %% TEXINFO workaround: \begin is defined as \outer, use \csname.
-        \csname begin\endcsname{document}}}
+            \hsize\lilypondpaperlinewidth\lilypondpaperunit
+            \lytempdim \paperwidth
+            \advance\lytempdim -\the\hsize
+            \lytempdim 0.5\lytempdim
+            \advance\lytempdim -1in
+            \oddsidemargin \lytempdim
+            \evensidemargin \lytempdim
+          \fi}
+       \parindent 0pt
+       %% TEXINFO workaround: \begin is defined as \outer, use \csname.
+       \csname begin\endcsname{document}}}
   \x}
 
 \gdef\lilypondend{
   \lilypondifundefined{lilypondbook}
-  {\lilypondifundefined{lilypondpaperlastpagefill}
-    {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
-    {}}
-  {}
+    {\lilypondifundefined{lilypondpaperlastpagefill}
+       {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
+       {}}
+    {}
   \begingroup
   \lilypondifundefined{lilyponddocument}
     {\def\x{\endgroup}}
@@ -98,8 +94,7 @@
 %% Inversed \loop ... \repeat macro
 \def\lilypondloop#1\lilypondrepeat{
   \def\lilypondbody{#1}
-  \lilyponditerate
-}
+  \lilyponditerate}
 
 \def\lilyponditerate{
   % \if ...
@@ -108,23 +103,19 @@
   \else
     \let\lilypondnext \lilyponditerate
   \fi
-  \lilypondnext
-}
+  \lilypondnext}
 
 %% Allow overriding of pagebreak
 \lilypondifundefined{lilypondpagebreak}
-{
-  \lilypondifundefined{@nodocument}
-  {\gdef\lilypondpagebreak{\eject}}
-  {\gdef\lilypondpagebreak{\newpage}}
-  }
-  {}
+{\lilypondifundefined{@nodocument}
+   {\gdef\lilypondpagebreak{\eject}}
+   {\gdef\lilypondpagebreak{\newpage}}}
+{}
       
 %% Include \special only once.
 \gdef\lilypondspecial{
   \special{header=music-drawing-routines.ps}
-  \gdef\lilypondspecial{}
-}
+  \gdef\lilypondspecial{}}
 
 %% The feta characters.
 \input feta20
@@ -158,13 +149,11 @@
 
 %% Allow overriding of interscoreline, e.g. for lilypond.py's --preview
 \lilypondifundefined{interscoreline}
-{
-  \lilypondifundefined{lilypondclassic}
-  {\gdef\interscoreline{}}
-  {\gdef\interscoreline{
+{\lilypondifundefined{lilypondclassic}
+   {\gdef\interscoreline{}}
+   {\gdef\interscoreline{
       \vskip\lilypondpaperinterscoreline\lilypondpaperunit
-      plus \lilypondpaperinterscorelinefill fill}}
-}
+      plus \lilypondpaperinterscorelinefill fill}}}
 {}
 
 %% Include postscript definitions unless using PDFTeX,
@@ -172,8 +161,8 @@
 %% MiKTeX workaround: use \csname.
 \lilypondifundefined{lilypondpostscript}
 {\lilypondifundefined{pdfoutput}
-  {\input lily-ps-defs }
-  {\pdfoutput = 1
+   {\input lily-ps-defs }
+   {\pdfoutput = 1
     \input lily-pdf-defs }}
 {}
 
