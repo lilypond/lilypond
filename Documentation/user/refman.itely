@@ -4432,6 +4432,65 @@ in this example disappears in the second line:
 @end lilypond
 
 
+@node Different editions from one source
+@subsection Different editions from one source
+
+The @code{\\tag} command marks music expressions with a name. These
+tagged expressions can be filtered out later.  With this mechanism it
+is possible to make different versions of the same music source.
+
+In the following example, we see two versions of a piece of music, one
+for the full score, and one with cue notes for the instrumental part:
+
+@example
+ c1
+    \relative c' <
+	\tag #'part <
+	  R1 \\
+	  {
+	      \property Voice.fontSize = #-1
+	      c4_"cue" f2 g4 } 
+        >
+	\tag #'score R1
+     >
+@end example
+
+The same can be applied to articulations, texts, etc.: they are
+made by prepending
+@example
+        -\tag #@var{your-tag} 
+@end example
+to an articulation, for example, 
+@example
+    c1-\tag #'part ^4
+@end example
+
+This defines a note with a conditional fingering indication.
+
+By applying the @code{remove-tag} function, tagged expressions can be
+filtered. For example,
+@example
+\simultaneous {
+        @var{the music}
+	\apply #(remove-tag 'score) @var{the music}
+	\apply #(remove-tag 'part) @var{the music}
+}
+@end example
+would yield
+
+@lilypondfile[notexidoc]{tag-filter.ly}
+
+The argument of the @code{\tag} command should be a symbol, or a list
+of symbols, for example,
+@example
+  \tag #'(original-part transposed-part) @dots{}
+@end example
+
+@seealso
+
+@inputfileref{input/regression,tag-filter.ly}
+
+
 @node Sound output for transposing instruments
 @subsection Sound output for transposing instruments
 

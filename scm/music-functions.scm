@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (music-map function music)
@@ -13,6 +12,48 @@
 	    (ly:set-mus-property! music 'element (music-map function  e)))
 	(function music)
 	))
+
+(define-public (music-filter pred? music)
+  "Filter out music expressions that do not satisfy PRED."
+  
+  (define (inner-music-filter pred? music)
+    "Recursive function."
+    (let* ((es (ly:get-mus-property music 'elements))
+	   (e (ly:get-mus-property music 'element))
+	   (as (ly:get-mus-property music 'articulations))
+	   (filtered-as (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) as)))
+	   (filtered-e (if (ly:music? e)
+			   (inner-music-filter pred? e)
+			   e))
+	   (filtered-es (filter ly:music? (map (lambda (y) (inner-music-filter pred? y)) es)))
+	   )
+
+      (ly:set-mus-property! music 'element filtered-e)
+      (ly:set-mus-property! music 'elements filtered-es)
+      (ly:set-mus-property! music 'articulations filtered-as)
+
+      ;; if filtering emptied the expression, we remove it completely.
+      (if (or (pred? music)
+	      (and (eq? filtered-es '()) (not (ly:music? e))
+		   (or (not (eq? es '()))
+		       (ly:music? e))))
+	  (set! music '()))
+      
+      music))
+
+  (set! music (inner-music-filter pred? music))
+  (if (ly:music? music)
+      music
+      (make-music-by-name 'Music)	;must return music.
+      ))
+
+(define-public (remove-tag tag)
+  (lambda (mus)
+    (music-filter
+     (lambda (m)
+       (let* ((tags (ly:get-mus-property m 'tags))
+	      (res (memq tag tags)))
+       res)) mus)))
 
 (define-public (display-music music)
   "Display music, not done with music-map for clarity of presentation."
