@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.6"
+#define MUDELA_VERSION "0.1.7"
 
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -183,7 +183,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <real>	REAL
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
-%token <string> FIELDNAME RECORDLINE
 %token <i> 	POST_QUOTES
 %token <i> 	PRE_QUOTES
 
@@ -228,9 +227,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <symtable>	symtable symtable_body
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
-%type <string>	header_record
+%type <string>	concat_strings
 
-%expect 2
+%expect 1
 
 
 %%
@@ -281,34 +280,28 @@ mudela_header_body:
 		{
 		$$ = new Header;
 	}
-	| mudela_header_body FIELDNAME header_record {
-		(*$$)[*$2] = *$3;
+	| mudela_header_body STRING '=' concat_strings ';' {
+		(*$$)[*$2] = *$4;
 		delete $2;
-		delete $3;
+		delete $4;
 	}
 	;
 
 mudela_header:
-	HEADER 	{
-		THIS->lexer_p_->push_header_state ();
-	}
-
-	'{' mudela_header_body '}'	{
-		$$ = $4;
-		THIS->lexer_p_->pop_state ();
+	HEADER '{' mudela_header_body '}'	{
+		$$ = $3;
 	}
 	;
 
 
-header_record:
+concat_strings:
 		{
 		$$ = new String;
 	}
-	| header_record RECORDLINE	{
+	| concat_strings STRING	{
 		*$$ += *$2;
-		delete $2;
 	}
-	;
+
 
 /*
 	DECLARATIONS
