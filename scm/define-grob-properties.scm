@@ -438,7 +438,9 @@ stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
 
-     
+     (same-direction-correction ,number? "Optical correction amount
+for stems that are placed in tight configurations. This amount is used
+for stems with the same direction to compensate for note-head to stem distance.")
      (string-count ,integer? "The number of strings in a fret diagram.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      
