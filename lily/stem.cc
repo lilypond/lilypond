@@ -43,6 +43,7 @@ Stem::Stem ()
   staff_size_i_ = 8;
 
   beam_gap_i_ = 0;
+  beam_l_ = 0;
 }
 
 Interval_t<int>
