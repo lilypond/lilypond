@@ -18,6 +18,40 @@ clearpage()
 
 subsect(NEWS) label(news)
 
+description(
+ dit(BUG FIXES)
+  itemize(
+   it() Error: Python path: Python installation is required nl()
+	Users reported problems with the installer finding the python
+	path for some versions of Python namely 1.5.  I am using a
+	slightly different approach so that problem should be solved.
+	Thanks to Mats Bengtsson and Wolfgang Fischler reporting and
+	helping with this issue.
+   it() Unable to find lilyponddefs.tex nl()
+	This was due to using version version 1.07 of MiKTeX.  I have
+	add known working versions for all of the required software
+	packages, per Mats suggestion. See link(Required
+	Packages)(packages). 
+  )
+)
+
+description(
+ dit(NOTES)
+  itemize(  
+   it() Please use the Add/Remove program control panel entry to
+        unistall your current version of Lilypond before you attempt to
+	install this one.
+
+   it() If you are upgrading from a previous version of lilypond you will most
+	likely need to flush your font cache.  I generally just toss
+	file(D:\localtexmf\fonts\tfm\public\ehrhardt) and
+	file(D:\localtexmf\fonts\pk\ljfour\public\ehrhardt) in the Recyle
+	Bin. Your local font directory may be different, please refer to your
+	local installation of code(TeX).
+ )
+)
+
+
 The FAT16, FAT32, and NTFS file system problems have been corrected.
 I have tested various installations that are known to be operational.
 The following configurations that have been tested. 
@@ -85,15 +119,9 @@ itemize(
     it()convert-mudela
     it()mudela-book
     it()lilypond
-    it()mi2mu
+    it()midi2ly
 )
 
-If you are upgrading from a previous version of lilypond you will most
-likely need to flush your font cache.  I generally just toss
-file(D:\localtexmf\fonts\tfm\public\ehrhardt) and
-file(D:\localtexmf\fonts\pk\ljfour\public\ehrhardt) in the Recyle
-Bin. Your local font directory may be different, please refer to your
-local installation of code(TeX).
 
 I have also converted the Manual Pages for the above tools to HTML for
 easy browsing.  This release has been tested on Windows NT 4.0sp3 and
@@ -111,7 +139,7 @@ link(Back to top)(contents)
 clearpage()
 
 
-subsect(Required packages) label(packages)
+subsect(Required Packages) label(packages)
 
 LilyPond uses the code(TeX) package as its rendering engine. code(TeX)
 represents the state-of-the-art in computer typesetting. It is used to
@@ -127,9 +155,12 @@ Gsview is used to display and print the music scores created by
 LilyPond.
 
 itemize(
-    it()url(code(MiKTeX))(http://www.snafu.de/~cschenk/miktex/)
-    it()url(code(Python))(http://www.python.org)
-    it()url(code(gsview))(http://www.cs.wisc.edu/~ghost/gsview/index.html)
+    it()url(code(MiKTeX))(http://www.snafu.de/~cschenk/miktex/). Versions
+        1.10b, 1.11, and 1.20b are known to work.
+    it()url(code(Python))(http://www.python.org). Version 1.5.1 and
+	possibly 1.5 work.
+    it()url(code(gsview))(http://www.cs.wisc.edu/~ghost/gsview/index.html). 
+	Version 5.10 is known to work.
 )
 
 link(Back to top)(contents)

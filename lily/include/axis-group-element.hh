@@ -20,15 +20,29 @@
 class Axis_group_element : public virtual Score_element,
 			   public virtual Graphical_axis_group
 {
+  Link_array<Score_element> extra_elems_;
+
 protected:
   virtual void do_print() const;
   virtual Link_array<Score_element> get_extra_dependencies() const;
 
-  virtual Interval do_height () const;
-  virtual Interval do_width () const;  
-public:
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Link_array<Score_element> elem_l_arr() const;
+  
+  virtual Interval do_height () const;
+  virtual Interval do_width () const;
+
+
+Interval extra_extent (Axis a ) const;
+  
+public:
+  /**
+     add an element that only influences size, but does not have  X/Y parent
+     relationship with THIS.
+  */
+  void add_extra_element (Score_element*);
+
+
   Axis_group_element ();
   virtual void set_axes (Axis,Axis);
 

@@ -3,16 +3,15 @@
 
 c' d e f |
 \repeat semi 2 { g a b c }
-\alternative { { c b a g a g a g} { f e d c } } \break
-%c, d e f |  % Assertion failure if this line is removed!!
+\alternative { { c b a g a g a g} { f e d c } } 
 \repeat semi 2 { g a b c }
-\alternative { { c b a g \break a g a g} { f e d c } } \break
+\alternative { { c b a g \break a g a g} { f e d c } } 
 c, d e f |
 \repeat semi 2 { g a b c }
-\alternative { { c b a g \break a g a g \break a b a b } { f e d c } } \break
+\alternative { { c b a g \break a g a g \break a b a b } { f e d c } }
 c, d e f |
 \repeat semi 2 { g a b c }
-\alternative { { c b a g } { f e d c \break a g a g} } \break
+\alternative { { c b a g } { f e d c \break a g a g} }
 c, d e f |
 \repeat semi 2 { g a b c }
 \alternative { { c b a g a g a g} { f e d c \bar "|.";} }

@@ -36,6 +36,19 @@ Scalar::to_rat () const
 }
 
 bool
+Scalar::isdir_b () const
+{
+  int conv = length_i ();
+  if (conv)
+    {
+      long l =0;
+      conv = sscanf (strh_.ch_C (), "%ld", &l);
+      conv = conv && (l >= -1 && l <= 1);
+    }
+  return conv;
+}
+
+bool
 Scalar::isnum_b () const
 {
   int conv = false;

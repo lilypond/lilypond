@@ -21,7 +21,8 @@ class Note_head_side: public virtual Item
 {
   Link_array<Item> support_l_arr_;
 public:
-  Direction align_dir_;
+  // naming to avoid conflict with Align_element
+  Direction notehead_align_dir_;
 
   Note_head_side ();
   void add_support (Item*);
