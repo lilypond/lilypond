@@ -1,3 +1,17 @@
+2004-03-23  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond.words.py: remove.
+	* buildscripts/lilypond-words.py: add new, renamed file. 
+	Give generated targets and dirs explicitly in arguments.
+
+	* GNUmakefile.in, elisp/GNUmakefile, elisp/lilypond-init.el,
+	elisp/lilypond-mode.el, vim/lilypond-ftplugin.vim,
+	vim/lilypond-syntax.vim: update to use new lilypond-words.py.
+ 	
+	* config.make.in: give '/usr/share/vim' explicitly as $(vimdir).
+
+	* vim/GNUmakefile: use --words and --vim targets in lilypond-words.py
+
 2004-03-22  Heikki Junes  <hjunes@cc.hut.fi>
 
         * config.make.in: add vimdir.

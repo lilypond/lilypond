@@ -4,7 +4,7 @@
 " Last Change:  2004 March 1
 "
 " Installed As:	vim/ftplugin/lilypond.vim
-" Uses Generated File:	vim/syntax/lilypond.words.el
+" Uses Generated File:	vim/syntax/lilypond-words.el
 "
 " Only do this when not done yet for this buffer
 if exists("b:did_ftplugin")
@@ -54,7 +54,7 @@ map <buffer> <F12> :g!/%.*/normal 0i%<Return>
 map <buffer> <S-F12> :g/%.*/normal 0x<Return>
 "
 " Completions in Insert/Replace-mode with <Ctrl-N>
-setlocal dictionary-=~/.vim/syntax/lilypond.words.el dictionary+=~/.vim/syntax/lilypond.words.el
+setlocal dictionary-=$VIM/syntax/lilypond-words dictionary+=$VIM/syntax/lilypond-words
 setlocal complete-=k complete+=k
 "
 setlocal showmatch
