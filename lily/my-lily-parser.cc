@@ -85,6 +85,9 @@ void
 My_lily_parser::parse_file (String init, String name, String out_name)
 {
   lexer_ = new My_lily_lexer (sources_);
+  // TODO: use $parser 
+  lexer_->set_identifier (ly_symbol2scm ("parser"),
+			  self_scm ());
   output_basename_ = out_name;
   
   lexer_->main_input_name_ = name;
@@ -117,6 +120,10 @@ My_lily_parser::parse_string (String ly_code)
   lexer_ = (parent == 0 ? new My_lily_lexer (sources_)
 	    : new My_lily_lexer (*parent));
 
+  // TODO: use $parser 
+  lexer_->set_identifier (ly_symbol2scm ("parser"),
+			  self_scm ());
+  
   lexer_->main_input_name_ = "<string>";
   lexer_->main_input_b_ = true;
 
@@ -280,9 +287,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
       My_lily_parser *parser = new My_lily_parser (&sources);
 
-      // TODO: use $parser 
-      parser->lexer_->set_identifier (ly_symbol2scm ("parser"),
-				      parser->self_scm ());
       parser->parse_file (init, file_name, out_file);
 
       bool error = parser->error_level_;
