@@ -42,7 +42,7 @@ Spacing_problem::OK() const
     }
     for (int i = 0; i < cols.size(); i++)
 	if (cols[i].fixed())
-	    fixed.add(i);
+	    fixed.push(i);
     for (int i = 0; i < cols.size(); i++) {
 	bool c=false;
 	for (int j =0; j<fixed.size(); j++)
@@ -186,7 +186,7 @@ Spacing_problem::solve() const
 	
 
     Array<Real> posns(sol);
-    posns.add(lp.eval(sol));
+    posns.push(lp.eval(sol));
     return posns;
 }
 
@@ -197,7 +197,7 @@ void
 Spacing_problem::add_column(const PCol *col, bool fixed, Real fixpos)
 {
     Colinfo c(col,(fixed)? &fixpos :  0);
-    cols.add(c);
+    cols.push(c);
 }
 
 void
@@ -209,7 +209,7 @@ Spacing_problem::add_ideal(const Idealspacing *i)
     if (!contains(l) || !contains(r)) {
 	return;
     }
-    ideals.add(i);
+    ideals.push(i);
 }
 
 void

@@ -11,6 +11,8 @@
 #include "lookup.hh"
 #include "grouping.hh"
 
+NAME_METHOD(Beam);
+
 struct Stem_info {
     Real x;
     Real idealy;
@@ -60,7 +62,7 @@ void
 Beam::add(Stem*s)
 {
     stems.bottom().add(s);
-    s->dependencies.add(this);
+    s->dependencies.push(this);
     s->print_flag = false;
 }
 
@@ -89,13 +91,13 @@ Beam::solve_slope()
     for (iter_top(stems,i); i.ok(); i++) {
 	i->set_default_extents();
 	Stem_info info(i);
-	sinfo.add(info);
+	sinfo.push(info);
     }
     Real leftx = sinfo[0].x;
     Least_squares l;
     for (int i=0; i < sinfo.size(); i++) {
 	sinfo[i].x -= leftx;
-	l.input.add(Offset(sinfo[i].x, sinfo[i].idealy));
+	l.input.push(Offset(sinfo[i].x, sinfo[i].idealy));
     }
 
     l.minimise(slope, left_pos);
@@ -152,12 +154,12 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 	for (; s.ok(); s++) {
 	    int f = intlog2(abs(s->flag))-2;
 	    assert(f>0);
-	    flags.add(f);
+	    flags.push(f);
 	}
 	int fi =0;
 	b= cur.generate_beams(flags, fi);
 	b.insert(0,0);
-	b.add(0);
+	b.push(0);
 	assert(stems.size() == b.size()/2);
     }
 
@@ -276,12 +278,11 @@ Beam::brew_molecule_p() const return out;
 }
 
 void
-Beam::print()const
+Beam::do_print()const
 {
 #ifndef NPRINT
-    mtor << "{ slope " <<slope << "left ypos " << left_pos;
+    mtor << "slope " <<slope << "left ypos " << left_pos;
     Spanner::print();
-    mtor << "}\n";
 #endif
 }
 
