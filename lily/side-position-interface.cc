@@ -162,10 +162,10 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 {
   Grob *me = unsmob_grob (element_smob);
   
-  
   Direction d = Side_position_interface::get_direction (me);
 
-  if (Staff_symbol_referencer::has_interface (me))
+  Grob * stsym = Staff_symbol_referencer::get_staff_symbol (me);
+  if (stsym)
     {
       Real p = Staff_symbol_referencer::get_position (me);
       Real rp = directed_round (p, d);
@@ -271,8 +271,8 @@ Side_position_interface::supported_b (Grob*me)
 
 
 ADD_INTERFACE (Side_position_interface,"side-position-interface",
-  "Position a victim object (this one) next to other objects (the
-support).  In this case, the direction signifies where to put the
-victim object relative to the support (left or right, up or down?)
-",
+  "Position a victim object (this one) next to other objects (the "
+"support).  In this case, the direction signifies where to put the  "
+"victim object relative to the support (left or right, up or down?) "
+,
   "side-support-elements direction-source direction side-relative-direction minimum-space padding");

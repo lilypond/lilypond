@@ -1,3 +1,10 @@
+2002-10-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/multi-measure-rest-center.ly: new file.
+
+	* lily/multi-measure-rest.cc (big_rest): multi measure rest was
+	off horizontally by 0.05 ss. Fixed.
+
 2002-10-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/tie.cc (get_control_points): also avoid staff lines on the
