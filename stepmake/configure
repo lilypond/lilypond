@@ -617,19 +617,17 @@ echo "configure:617: checking Package" >&5
     if test "x$PACKAGE" = "xSTEPMAKE"; then
 	echo "$ac_t""Stepmake package!" 1>&6
 
-	#if test "x$builddir" != "x"; then
-	#    builddir="../$builddir"
-	#else
-	#    builddir=..
-	#fi
-	if test "$srcdir" != "."; then
+	echo $ac_n "checking builddir""... $ac_c" 1>&6
+echo "configure:622: checking builddir" >&5
+	if test "$srcdir" = "."; then
+	    builddir=.
+	else
 	    absolute_builddir="`pwd`"
 	    package_absolute_builddir="`dirname $absolute_builddir`"
 	    package_srcdir="`dirname  $srcdir`"
 	    builddir="`dirname $package_srcdir`/`basename $package_absolute_builddir`/`basename $absolute_builddir`"
-	else
-	    builddir=.
 	fi
+	echo "$ac_t""$builddir" 1>&6
 
 	(cd stepmake 2>/dev/null || mkdir stepmake)
 	(cd stepmake; rm -f stepmake; ln -s ../$srcdir/stepmake .)
@@ -657,22 +655,40 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
     else
         echo "$ac_t""$PACKAGE" 1>&6
 
-	if test "$srcdir" != "."; then
-	    absolute_builddir="`pwd`"
-	    builddir="`dirname  $srcdir`/`basename $absolute_builddir`"
-	else
+	echo $ac_n "checking builddir""... $ac_c" 1>&6
+echo "configure:660: checking builddir" >&5
+	if test "$srcdir" = "."; then
 	    builddir=.
+	    srcdir_build=no
+	else
+	    absolute_builddir="`pwd`"
+#	    builddir="`dirname  $srcdir`/`basename $absolute_builddir`"
+	    builddir="`bash $srcdir/buildscripts/walk.sh \"$srcdir\"`"
+	    srcdir_build=yes
+	fi
+	echo "$ac_t""$builddir" 1>&6
+	if expr "$srcdir" : '/' > /dev/null 2>&1; then
+	    absolute_srcdir=yes
+	    
+    echo "configure: warning: Absolute --srcdir specified: $srcdir" 1>&2
+    warn_b=yes
+
 	fi
 
 	echo $ac_n "checking for stepmake""... $ac_c" 1>&6
-echo "configure:669: checking for stepmake" >&5
+echo "configure:680: checking for stepmake" >&5
 	# Check for installed stepmake
 	if test -d $stepmake; then
 	    echo "$ac_t""$stepmake" 1>&6
 	else
-	    stepmake='$(depth)'/$srcdir/stepmake
+	    if test "$absolute_srcdir" != "yes"; then
+		stepmake='$(depth)'/$srcdir/stepmake
+	    else
+		stepmake=$srcdir/stepmake
+	    fi
 	    echo "$ac_t""$srcdir/stepmake  ($datadir/stepmake not found)" 1>&6
 	fi
+
 	ac_aux_dir=
 for ac_dir in \
 	  $HOME/usr/local/share/stepmake/bin\
@@ -781,7 +797,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:785: checking host system type" >&5
+echo "configure:801: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -806,7 +822,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:810: checking for $ac_word" >&5
+echo "configure:826: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -841,7 +857,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:845: checking for $ac_word" >&5
+echo "configure:861: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -878,7 +894,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:882: checking for $ac_word" >&5
+echo "configure:898: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -913,7 +929,7 @@ test -n "$TAR" || TAR="error"
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:917: checking for $ac_word" >&5
+echo "configure:933: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -953,7 +969,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:957: checking for $ac_word" >&5
+echo "configure:973: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_SHELL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -990,7 +1006,7 @@ fi
 	# Extract the first word of "bash", so it can be a program name with args.
 set dummy bash; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:994: checking for $ac_word" >&5
+echo "configure:1010: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1031,7 +1047,7 @@ fi
     # Extract the first word of "${PYTHON:-python}", so it can be a program name with args.
 set dummy ${PYTHON:-python}; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1035: checking for $ac_word" >&5
+echo "configure:1051: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1198,7 +1214,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:1202: checking language" >&5    
+echo "configure:1218: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -1233,7 +1249,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1237: checking for $ac_word" >&5
+echo "configure:1253: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1640,10 +1656,13 @@ rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
 
-    rm -f $srcdir/GNUmakefile
-    cp $srcdir/make/toplevel.make.in $srcdir/GNUmakefile
-    chmod 444 $srcdir/GNUmakefile
-    if test "$builddir" != "."; then
+    # regular in-place build
+    # test for srcdir_build = yes ?
+    if test "$builddir" = "."; then
+	rm -f $srcdir/GNUmakefile
+	cp $srcdir/GNUmakefile.in $srcdir/GNUmakefile
+	chmod 444 $srcdir/GNUmakefile
+    else # --srcdir build
         rm -f GNUmakefile
     	cp $srcdir/make/srcdir.make.in GNUmakefile
     	chmod 444 GNUmakefile
