@@ -66,9 +66,9 @@
 (if (not standalone)
     (map (lambda (x) (eval-string (ly-gulp-file x)))
 	 '("c++.scm"
-	   "backend-property.scm"
-	   "translator-properties.scm"
-	   "interface.scm"
+	   "grob-property-description.scm"
+	   "translator-property-description.scm"
+	   "interface-description.scm"
 	   "beam.scm"
 	   "clef.scm"
 	   "slur.scm"
@@ -77,5 +77,5 @@
 	   "generic-property.scm"
 	   "basic-properties.scm"
 	   "chord-name.scm"
-	   "element-descriptions.scm"
+	   "grob-description.scm"
 	   )))

@@ -52,7 +52,8 @@ which substitutes some @AT_VARIABLES@ as well.
     	<a href="@TOP@Documentation/topdocs/out-www/FAQ.html">Small FAQ</a><br>
     	<a href="http://appel.lilypond.org/wiki?LilyPondFaqs">Full FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">User manual</a><br>
-    	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
+    	<a href="@TOP@Documentation/user/out-www/features/features.html">Features</a><br>
+	<a href="@TOP@Documentation/out-www/regression-test.html">Regression Test</a><br>
 	<a href="http://appel.lilypond.org/wiki?LilyPondToDo">To do</a><br>
 <br>
       </td></tr>

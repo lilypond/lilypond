@@ -121,7 +121,7 @@
      doc)))
 
 ;; testin.. -- how to do this
-(eval-string (ly-gulp-file "interface.scm"))
+(eval-string (ly-gulp-file "interface-description.scm"))
 (define xinterface-description-alist
       `(
 	(general-grob . ,general-grob-interface)
@@ -148,7 +148,7 @@
 
 (use-modules (ice-9 string-fun))
 
-(define interface-file-str (string-append (ly-gulp-file "interface.scm") "\n(define "))
+(define interface-file-str (string-append (ly-gulp-file "interface-description.scm") "\n(define "))
 
 (define (list-interface-names)
   (let* ((text interface-file-str)
@@ -162,7 +162,7 @@
 
 
 
-(eval (ly-gulp-file "interface.scm"))
+(eval (ly-gulp-file "interface-description.scm"))
 
 (define interface-description-alist
   (map (lambda (x) (cons (string->symbol x) (eval-string x)))
