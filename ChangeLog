@@ -2,6 +2,7 @@
 
 	* scm/to-xml.scm: Fixes.  input/trip.ly now parses as xml (without
 	dtd).  Add preliminary dtd.
+	(re-sub-alist): Robustify.
 
 2002-09-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
