@@ -55,7 +55,7 @@ ES: acento, I: accento, F: accent, D: Akzent, NL: accent, DK: accent, S: accent,
 The stress of one tone over others.
 
 @item accidental
-ES: alteración, I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
+ES: alteración, I: alterazione, accidente, F: alt@'eration, D: Vorzeichen,
 Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: tillf@"alligt 
 f@"ortecken, N:
 
@@ -178,8 +178,8 @@ An appoggiatura may have more notes preceding the main note.
   \grace { [as16 ( bes] } < ) c4 as > 
   \grace { [as16 ( bes] } < ) c4 as > \bar "||"
   \grace { bes16 } as8_"performance" as16 bes as8 g |
-  < \context Voice = va { \stemUp as32 bes c8. as32 bes c8. }
-    \context Voice = vb { \stemDown as16 ~ as8. as16 ~ as8. } >
+  < \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
+    \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >
   \bar "||"
 }
 @end lilypond
@@ -252,10 +252,11 @@ baryton.
 The male voice intermediate between the @w{@ar{}@strong{bass}} and the
 @w{@ar{}@strong{tenor}}.
 
+@c  F: clef de troisi@`eme ligne dropped
+
 @item baritone clef
 ES:  clave de fa en tercera
-I: chiave di baritono, F: clef de ut cinqui@`eme ligne, clef de troisi@`eme
-ligne, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
+I: chiave di baritono, F: clef d' Ut cinqui@`eme ligne, clef de Fa troisi@`eme, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
 barytonklav, N: .
 
 C or F clef setting central C on the upper staff line. @w{@ar{}@strong{c clef}}
@@ -1062,8 +1063,10 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 }
 @end lilypond
 
+@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
+
 @item fermata
-ES: Calderón, I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
+ES: Calderón, I: corona, F: point d'orgue, point d'arr@^et, UK: pause, corona, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 
 Prolonged note or rest of indefinite duration.
 
@@ -1550,7 +1553,7 @@ harmony}} @w{@ar{}@strong{relative key}}.
 @w{@ar{}@strong{cadenza}}
 
 @item meter, time
-ES: compás, I: tempo, metro, F: m@`etre, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
+ES: compás, I: tempo, metro, F: indication de m@'esure, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
 S: taktart, N: .
 
 The basic scheme of @ar{}@w{}@strong{note value}s and @ar{}@w{}@strong{accent}s
@@ -1969,7 +1972,7 @@ kwart rust, DK:@w{ }fjerdedelspause, S: fj@"ardedelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item quintuplet
-ES: quintillo, I: quintina, F: quintuplet, D: Quintole, NL: kwintool, DK: kvintol, S:
+ES: quintillo, I: quintina, F: quintolet, D: Quintole, NL: kwintool, DK: kvintol, S:
 kvintol, N: .
 
 @w{@ar{}@strong{note value}}
@@ -2015,6 +2018,8 @@ gen@-ta@-gel@-se, S: repris, N: .
 }
 @end lilypond
 
+@c F: 'pause' if you mean a whole rest, 'silence' if you do not want to
+@c     specify the rest's value.
 @item rest
 ES: silencio, I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
 
@@ -2573,7 +2578,7 @@ or by the whole orchestra (choir), either at exactly the same pitch or in a
 different octave.
 
 @item upbeat
-ES: entrada anacrúsica, I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, DK: optakt, S:
+ES: entrada anacrúsica, I: anacrusi, F: anacrouse, lev@'ee, D: Auftakt, NL: opmaat, DK: optakt, S:
 upptakt, N:
 
 Initial note(s) of a melody occurring before the first bar
@@ -2624,7 +2629,7 @@ tones on the piano keyboard with exactly one key between them - including
 black and white keys - is a whole tone.
 
 @item woodwind
-ES: maderas, I: legni, F: le bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
+ES: maderas, I: legni, F: les bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
 S: tr@"abl@aa{}sare, N: .
 
 A family of blown wooden musical instruments. Today some of these instruments

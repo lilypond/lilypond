@@ -148,9 +148,9 @@ verbose_p = 0
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
 #
 environment = {
-	'MFINPUTS' : ':' + datadir + '/mf',
-	'TEXINPUTS': ':' + datadir + '/tex:' + datadir + '/ps',
-	'TFMFONTS' : ':' + datadir + '/tfm',
+	'MFINPUTS' : datadir + '/mf' + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps' + ':',
+	'TFMFONTS' : datadir + '/tfm' + ':',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
 }
