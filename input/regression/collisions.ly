@@ -9,7 +9,7 @@ enteredby = 	 "HWN,JCN";
 copyright = 	 "public domain";
 Tested = 	 "test the Collision resolution ";
 }
-\version "1.3.117";
+
 
 twovoice =  \context Staff \notes < 
 	\context Voice=i { \stemDown c4 d e f g2~  g4 a [c8 d e f] c2| }

@@ -6,7 +6,7 @@ under normal circumstances, these beams would get knees; here
 Beam.auto-knee-gap was set to false.
 ";
 }
-\version "1.3.117";
+
 \score{
 	\notes\relative c''{
 		[g8 c c,]

@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Breaks can be encouraged and discouraged using @code{\break} and

@@ -1,3 +1,4 @@
+
 \header { texidoc = "tuplet-spanner should not put visible brackets on
 beams even if they're auto generated."; }
 

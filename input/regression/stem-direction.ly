@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Beams, stems and noteheads often have communication troubles, since

@@ -1,4 +1,3 @@
-\version "1.3.117";
 
 one =  \notes\relative c{
 	c'' d e f

@@ -136,7 +136,7 @@
                (visibility-lambda . ,end-of-line-visible)
 	       (style .  vaticana)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-               (meta . ,(grob-description "Custos" custos-interface staff-symbol-interface break-aligned-interface) )
+               (meta . ,(grob-description "Custos" custos-interface staff-symbol-referencer-interface break-aligned-interface) )
        ))
 	
 	(Hairpin . (
@@ -428,6 +428,7 @@
 
 	(Script . (
 		(molecule-callback . ,Script::brew_molecule)
+		(direction . -1)
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(after-line-breaking-callback . ,Script::after_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
@@ -510,6 +511,7 @@
 	))
 	(SostenutoPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
+		(direction . -1)
 		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
 		 (,Side_position_interface::aligned_side
@@ -564,6 +566,7 @@
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
+		(direction . -1)
 		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
 				    (,Side_position_interface::aligned_side
@@ -599,6 +602,7 @@
 	(TextScript . (
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
+		(direction . -1)
 		(padding . 0.5)
 		(baseline-skip . 2)
 		(font-family . roman)
@@ -661,6 +665,7 @@
                 (font-shape . italic)
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
+		(direction . -1)
 		(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(Y-offset-callbacks .
 		 (,Side_position_interface::aligned_side

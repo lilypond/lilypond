@@ -1,3 +1,4 @@
+
 \header {
 texidoc =" Spacing for one staff in polymetric music should
 be not hampered by a staff in another time signature.";

@@ -6,7 +6,7 @@ knowing it.  Consequently, they fall over  often.
 ";
 }
 
-\version "1.3.117";
+
 
 onestaff =  \context Staff = foo\notes  {
 	\property Staff.instr = instr

@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 % Test scm markup text and kerning
 

@@ -1,3 +1,4 @@
+
 \header {
 
 texidoc ="tuplet bracket doesn't behave properly at line break. Not a real problem.";

@@ -5,7 +5,7 @@ point away from the center of the staff.  Override with
 @code{tieVerticalDirection}.
 ";
 }
-\version "1.3.117";
+
 
 t =  \notes \relative c' {   <c e g> ~ <c e g> }
 

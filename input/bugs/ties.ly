@@ -1,3 +1,4 @@
+
 \header {
   texidoc="Positioning of last ties is incorrect; ties between 2-1 and 1-1
   durations differ.";

@@ -1,3 +1,4 @@
+
 \header {
 texidoc ="1st beam should prob. be horizontal.";
 }

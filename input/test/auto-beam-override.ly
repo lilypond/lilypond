@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 %{
   Currently (1.1.27.jcn3), the auto-beam engraver will only engrave

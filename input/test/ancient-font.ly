@@ -3,7 +3,7 @@
     date	= "2000";
 }
 
-\version "1.3.120";
+
 
 \include "paper26.ly"
 

@@ -1,4 +1,5 @@
 
+
 % barline spacing  disrupts visual rhythm.
 
 #(set! space-alist (assoc-set! space-alist '("Staff_bar" "begin-of-note") '(minimum_space 0.0)))

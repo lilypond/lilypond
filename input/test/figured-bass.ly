@@ -2,7 +2,7 @@
 % (An alternative is to use a lyrics line if you want the figures
 % aligned vertically.)
 
-\version "1.3.117";
+
 
 % Scheme macros for accidentals. Note how they can be combined
 % with other strings, for example in: d^#`(rows ,sharp "4")

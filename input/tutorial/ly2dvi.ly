@@ -1,3 +1,4 @@
+
   \header {
         title = "Two miniatures";
   }

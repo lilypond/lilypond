@@ -34,7 +34,7 @@
 		     "(unset)"
 		   (scm->texi (cdr handle))))
 	 (propdoc (backend-property->texi sym)))
-	 
+    
     (cons (car propdoc) (string-append (cdr propdoc)
 					   "\nDefault value: "
 					   defval))))

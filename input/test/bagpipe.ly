@@ -1,4 +1,4 @@
-\version "1.3.117";
+
 % bagpipe music.
 
 \header
@@ -71,12 +71,12 @@ gcdg =  \notes{ \grace { [g'32 c d]}}
 % 
 \score {
   \notes { \time 6/8; \partial 4;
-  \property Voice.tieVerticalDirection = \up
+  \tieUp
   \slurUp
 f4 |
 \gg f4 e8 \thrd d4. |
 \eg a4.()a4 d8 |
-\gg d4 f8 \dble e4. ( | \nobreak
+\gg d4 f8 \dble e4. ( | \noBreak
 )e8 d4 \gg d4 e8 |
 
 \break

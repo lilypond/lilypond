@@ -1,3 +1,4 @@
+
 \header {
 texidoc ="Broken volta spanners behave correctly at left edge in all cases."
 };
@@ -36,7 +37,7 @@ Bar 23	Perfect
 
 %}
 
-voice1 = \notes {
+voiceB = \notes {
     \clef bass;
      \property Staff.instrument = "Bass"
      \property Staff.instr = "B"
@@ -62,7 +63,7 @@ voice1 = \notes {
 	}
     }
 }
-voice2 = \notes {
+voiceC = \notes {
     \repeat volta 2
     {
      bes8    bes8    c'8    c'8    a4    r8   g16    f16      |
@@ -77,7 +78,7 @@ voice2 = \notes {
         }
     }
 }
-voice3 = \notes {
+voiceD = \notes {
     \repeat volta 2
     {
      bes8    bes8    c'8    c'8    a4    r8   g16    f16      |
@@ -94,7 +95,7 @@ voice3 = \notes {
         }
     }
 }
-voice4 = \notes {
+voiceE = \notes {
     \repeat volta 2
     {
      bes8    bes8    c'8    c'8    a4    r8   g16    f16      |
@@ -118,11 +119,11 @@ voice4 = \notes {
 
 	\context Staff="4"
 	{
-	    \$voice1 
-	    \$voice2
+	    \voiceB 
+	    \voiceC
 	    \break
-	    \$voice3
-	    \$voice4
+	    \voiceD
+	    \voiceE
 	}
 
     >

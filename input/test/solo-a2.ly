@@ -1,3 +1,4 @@
+
 \score{
 	\context Staff = one <
 		\context Voice=one { \skip 1; }

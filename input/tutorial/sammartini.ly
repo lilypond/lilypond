@@ -1,3 +1,4 @@
+
 \include "paper16.ly";
 
 stemdown = \property Voice.Stem \override #'direction = #-1
@@ -6,40 +7,40 @@ stemboth = \property Voice.Stem \revert #'direction
 
 viola = \notes \relative c' \context Voice = viola {
 	<c4-\f-\arpeggio g' c>
-	\stemdown g'8. b,16
+	\stemDown g'8. b,16
 	s1 s2. r4
 	g
 }
 
 oboes = \notes \relative c'' \context Voice = oboe {
-	\stemup s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
+	\stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
 	\grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
 	<
 	  { \times 2/3 { a8 g c } \! c2 }
 	  \context Voice = oboeTwo {
-		\stemdown
+		\stemDown
 		\grace {
 		  \property Grace.Stem \override #'direction = #-1
 		  [f,16 g] }
 		f8 e e2
 	} >
-	\stemboth
+	\stemBoth
 	\grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
 	[<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
 	[<c16( e>  < )e8. g>] <c8 e,>
 }
 
 hoomPah  =  \repeat unfold 8
-  \notes  \transpose c' { c8 \stemdown c'8 \stemup }
+  \notes  \transpose c' { c8 \stemDown c'8 \stemUp }
 
 bassvoices = \notes \relative c' {
 	c4 g8. b,16
 	\autochange Staff \hoomPah
 	\translator Staff = down
-	\stemdown [c8 c'8] r4
+	\stemDown [c8 c'8] r4
 	<g d'> r4
-	< {\stemup r2 <e4 c'> <c8 g'> }
-	  \context Voice = reallyLow  {\stemdown g2 ~ | g4 c8 } >
+	< {\stemUp r2 <e4 c'> <c8 g'> }
+	  \context Voice = reallyLow  {\stemDown g2 ~ | g4 c8 } >
 }
 
 \score {

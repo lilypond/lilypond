@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 If @code{Score.skipBars} is set,

@@ -1,3 +1,4 @@
+
 \score { 
   \context Voice \notes\relative c {
     \property Staff.TimeSignature \override #'style = #'C

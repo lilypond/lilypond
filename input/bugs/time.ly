@@ -1,3 +1,4 @@
+
 % Uses old style
 
 \score {

@@ -1,4 +1,5 @@
 
+
 fragment = \notes {
   \property Voice.Beam \set #'direction = #1
   \property Voice.Beam \set #'height-hs = #0

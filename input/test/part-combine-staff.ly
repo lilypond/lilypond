@@ -1,3 +1,4 @@
+
 \score{
 	\context PianoStaff <
 		\context StaffCombineStaff=one \skip 1*7;
@@ -99,7 +100,7 @@
 			barNumberScriptPadding = #15
 			%% URG: this changes dynamics too
 			%%textStyle = #"italic"
-			timeSignatureStyle = #"C"
+			TimeSignature \override #'style = #'C
 			maximumRestCount = #1
 		}
 	}

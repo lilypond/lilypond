@@ -217,6 +217,7 @@
 	(music . ((font-family . music) (lookup . name)))
 	(finger . ((font-style . finger)))
 	(bold . ((font-series . bold)))
+	(upright . ((font-shape . upright)))
 	(italic . ((font-shape . italic)))
 	(named . ((lookup . name)))
 	(super . ((raise . 1) (font-relative-size . -1)))

@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 Auto change piano staff switches  voices  between up and down staffs

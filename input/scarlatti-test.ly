@@ -1,6 +1,6 @@
 %K000.ly LilyPond 1.2.16
 
-\version "1.3.117"
+
 
 \include "scarlatti-properties.ly"
 \include "scarlatti-paper.ly"
@@ -19,7 +19,7 @@
 %{
 %standard properties list
 rh={\property Thread.noteHeadStyle=""}
-lh={\property Thread.noteHeadStyle="diamond"}
+lh={\property Thread.noteHeadStyle = #'diamond}
 n={\property Thread.fontSize="0"}
 sm={\property Thread.fontSize="-1"}
 su={\property Voice.verticalDirection="1"}

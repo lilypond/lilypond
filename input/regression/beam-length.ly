@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 beams should look the same

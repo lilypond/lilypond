@@ -1,3 +1,4 @@
+
 \header {
 	crossRefNumber = "1";
 	tagline = "Lily was here 1.3.98 -- automatically converted from ABC";
@@ -32,7 +33,7 @@ e'8    f'8    g'8    a'8    bes'8    c''8
 
 	\context Staff="default"
 	{
-	    \$voicedefault 
+	    \voicedefault 
 	}
 
     >

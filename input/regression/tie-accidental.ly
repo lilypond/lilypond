@@ -1,3 +1,4 @@
+
 \header{
 texidoc="
 When tieing notes with accidentals across a bar boundary, the

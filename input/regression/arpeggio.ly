@@ -4,7 +4,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 ";
 }
 
-\version "1.3.117";
+
 
 \score{
     \context PianoStaff < 

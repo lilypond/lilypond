@@ -1,4 +1,4 @@
-\version "1.3.117";
+
 \score { 
   \context Voice \notes\relative c {
     

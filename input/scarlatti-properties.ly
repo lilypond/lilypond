@@ -1,7 +1,7 @@
 
 
 
-\version "1.3.117";
+
 
 rh=\property Thread.NoteHead \override #'style = #'default
 lh=\property Thread.NoteHead \override #'style = #'diamond
@@ -9,8 +9,8 @@ lh=\property Thread.NoteHead \override #'style = #'diamond
 n =  \property Thread.NoteHead \revert #'font-relative-size % = #'diamond %\property Thread.fontSize=#0  
 sm=\property Thread.NoteHead \override #'font-relative-size = #-1 
 
-% su=\property Voice.verticalDirection=#1  
-% sd=\property Voice.verticalDirection=#-1
+% su=\stemUp\slurUp\tieUp  
+% sd=\stemDown\slurDown\tieDown
 
 su=\property Voice.Stem \override #'direction = #1
 sd=\property Voice.Stem \override #'direction = #-1  

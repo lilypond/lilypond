@@ -1,3 +1,4 @@
+
 \score{
 	\notes\relative c'<
 		\time 6/8;

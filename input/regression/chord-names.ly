@@ -5,7 +5,7 @@ from guile.  For some unlogical names, guile customisation is used
 by default.
 ";
 }
-\version "1.3.117"
+
 chord =  \notes\transpose c''\chords{
    c1
    c:m
@@ -30,7 +30,7 @@ chord =  \notes\transpose c''\chords{
 
         	\translator { 
 			\ChordNamesContext
-			ChordName \override #'word-space = #1 
+			ChordNames \override #'word-space = #1 
 		}
     }
 }

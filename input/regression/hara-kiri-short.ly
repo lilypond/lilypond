@@ -6,7 +6,7 @@ therefore removed.  Also, any staff brackets and braces are removed.
 ";
 }
 
-\version "1.3.117";
+
 zager =  \context Staff = zager \notes \relative c'' {
 	\clef treble;
 	c1

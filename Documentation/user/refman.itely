@@ -1148,7 +1148,7 @@ You cannot have the grace note after the main note, in terms of
 duration, and main notes, but you can typeset the grace notes to the
 right of the main note using the property
 @code{graceAlignPosition}.
-@cindex @code{flagStyle}
+@cindex @code{flag-style}
 
 When grace music is interpreted, a score-within-a-score is set up:
 @var{musicexpr} has its own time bookkeeping, and you could (for
@@ -1156,13 +1156,13 @@ example) have a separate time signature within grace notes.  While in
 this score-within-a-score, you can create notes, beams, slurs, etc.
 Unbeamed eighth notes and shorter by default have a slash through the
 stem.  This behavior can be controlled with the
-@code{flagStyle} property.
+@code{Stem}.@code{flag-style} property.
 
 @quotation
 @lilypond[fragment,verbatim]
 \relative c'' {
   \grace c8 c4 \grace { [c16 c16] } c4
-  \grace { \property Grace.flagStyle = "" c16 } c4
+  \grace { \property Grace.Stem \override #'flag-style = ##f c16 } c4
 }
 
 @end lilypond
@@ -2456,14 +2456,12 @@ multimeasure rest.
 @cindex automatic part combining
 @cindex part combiner
 
-You will already have seen that LilyPond can combine several Threads
-into one Voice, and put several Voices onto one Staff.  The automatic
-part combiner takes this a step further.  Two parts of music can be
-combined together in an intelligent way, ie, when the two parts are
-identical for a period of time, only one can be showed.  In places where
-the two parts differ, stem directions can be set automatically.  That is
-why the part combiner is of great use for the typesetting of Hymns and
-orchestral scores.
+Automatic part combining is used to merge two parts of music onto on
+staff in an intelligent way.  It is aimed primarily at typesetting Hymns
+and orchestral scores.  When the two parts are identical for a period of
+time, only will be shown.  In places where the two parts differ, stem
+directions are set automatically.  Also, soli and @`{a} due parts can be
+identified and marke.
 
 
 @subsubsection Part combine syntax
@@ -2539,7 +2537,7 @@ not the textual markings, you may set the property @var{soloADue} to false:
     \translator {
       \VoiceContext
       soloADue = ##f
-    } }
+    }
   }
 }
 @end lilypond
@@ -2646,7 +2644,7 @@ A grob definition is an association list, that is stored in a context
 property.  By assigning to that property (using plain @code{\property}),
 you can change the resulting grobs.  
 @lilypond[verbatim, fragment]
-c'4 \property Voice.Stem = #'((meta .  ((interfaces . ())))) c'4
+c'4 \property Voice.Stem \override #'meta = #'((interfaces . ())) c'4
 @end lilypond
 The @code{\property} statement effectively empties the definition of the
 Stem object. One of the effects is that property specifying how it
@@ -2797,13 +2795,16 @@ form text markup expressions by composing scheme expressions
 in the following way.
 
 @lilypond[verbatim]
-\score { \notes \relative c' {
-  b-#"text"
-  c-#'(bold "text")
-  d-#'(lines "one" (bold "text"))
-  e-#'(music (named "noteheads-2" "flags-u3"))
+\score {
+  \notes \relative c' {
+    b-#"italic"
+    c-#'(upright "upright")
+    c-#'((bold upright) "bold")
+    d-#'(lines "one" ((bold upright) "two"))
+    e-#'(music (named "noteheads-2" "flags-u3"))
+  }
+  \paper { linewidth = 10.\cm; }
 }
-\paper { linewidth = 10.\cm; } }
 @end lilypond
 
 Normally, the Scheme markup text is stored in the @code{text} property

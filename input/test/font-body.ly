@@ -1,4 +1,4 @@
-\version "1.3.122";
+
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";

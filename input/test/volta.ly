@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+
 
 
 voiceE =  \notes {
@@ -40,7 +40,7 @@ voicedefault =  \notes {
             font_normal = 12.;
             \translator {
                  \StaffContext
-		 TimeSignature \override   #'style = #"C"
+		 TimeSignature \override   #'style = #'C
                  \consists Instrument_name_engraver;
             }
         }

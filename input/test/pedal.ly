@@ -2,7 +2,7 @@
 texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. ";
 }
 
-\version "1.3.120";
+
 
 
 \score{

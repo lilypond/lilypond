@@ -20,7 +20,7 @@ Tested Features: lyrics, interleaving lyrics and staffs, repeats,
 	auto beaming, adding lyrics to notes, hyphens
 %}
 
-\version "1.3.117";
+
 
 melody =  \notes \relative c'' {
 	\clef violin;

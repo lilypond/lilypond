@@ -1,4 +1,4 @@
-\version "1.3.117";
+
 
 voiceOne =  \notes\transpose c''{  \stemUp
 	R1 * 2 | f'4-. r r2 | R1 * 3 |

@@ -1,3 +1,4 @@
+
 \include "paper16.ly"
 
 \score { \notes
@@ -20,6 +21,6 @@
 \key cis \major; cis \key ces \major;  ces
 }
 
-	\paper{\paper_sixteen}
+	\paper{\paperSixteen}
 
 }
