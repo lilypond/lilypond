@@ -48,7 +48,7 @@ Mudela_voice::output (Mudela_stream& mudela_stream_r)
 	mudela_stream_r << "\n";
 
   int current_bar_i = 0;
-  Moment bar_mom = mudela_staff_l_->mudela_meter_p_->bar_mom();
+  Moment bar_mom = mudela_staff_l_->mudela_meter_l_->bar_mom();
 
   for  (PCursor<Mudela_item*> i (mudela_item_l_list_); i.ok(); i++) 
     {

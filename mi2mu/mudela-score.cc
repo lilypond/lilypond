@@ -136,7 +136,7 @@ Mudela_score::output (String filename_str)
 
   mudela_stream << "\\midi{\n";
   // let's not use silly 0 track
-  mudela_staff_p_list_.bottom()->mudela_tempo_p_->output (mudela_stream);
+  mudela_staff_p_list_.bottom()->mudela_tempo_l_->output (mudela_stream);
   mudela_stream << "}\n";
 
   mudela_stream << "}\n";

@@ -25,14 +25,9 @@ Mudela_staff::Mudela_staff (int number_i, String copyright_str, String track_nam
   copyright_str_ = copyright_str;
   instrument_str_ = instrument_str;
   name_str_ = track_name_str;
-  mudela_meter_p_ = new Mudela_meter (4, 2, 24, 8);
-  mudela_tempo_p_ = new Mudela_tempo (1000000);
-}
-
-Mudela_staff::~Mudela_staff()
-{
-  delete mudela_meter_p_;
-  delete mudela_tempo_p_;
+  mudela_key_l_ = 0;
+  mudela_meter_l_ = 0;
+  mudela_tempo_l_ = 0;
 }
 
 void
@@ -122,7 +117,7 @@ Mudela_staff::output (Mudela_stream& mudela_stream_r)
 void
 Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment now_mom, int bar_i)
 {
-  Moment bar_mom = mudela_meter_p_->bar_mom();
+  Moment bar_mom = mudela_meter_l_->bar_mom();
   Moment into_bar_mom = now_mom - Moment (bar_i - 1) * bar_mom;
   if  (bar_i > 1) 
     {
@@ -140,7 +135,7 @@ Mudela_staff::output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment no
 void 
 Mudela_staff::output_mudela_rest (Mudela_stream& mudela_stream_r, Moment begin_mom, Moment end_mom)
 {
-  Moment bar_mom = mudela_meter_p_->bar_mom();
+  Moment bar_mom = mudela_meter_l_->bar_mom();
   Moment now_mom = begin_mom;
 
   int begin_bar_i = (int) (now_mom / bar_mom) + 1; 
@@ -230,25 +225,16 @@ Mudela_staff::process()
      group items into voices
      */
 
+  assert (mudela_score_l_g);
+  mudela_key_l_ = mudela_score_l_g->mudela_key_l_;
+  mudela_meter_l_ = mudela_score_l_g->mudela_meter_l_;
+  mudela_tempo_l_ = mudela_score_l_g->mudela_tempo_l_;
+
   Link_list<Mudela_item*> items;
   for  (PCursor<Mudela_item*> i (mudela_item_p_list_); i.ok(); i++)
     items.bottom().add (*i);
   
   while  (items.size())
     eat_voice (items);
-}
-
-void
-Mudela_staff::set_tempo (int useconds_per_4_i)
-{
-  delete mudela_tempo_p_;
-  mudela_tempo_p_ = new Mudela_tempo (useconds_per_4_i);
-}
-
-void
-Mudela_staff::set_meter (int num_i, int den_i, int clocks_i, int count_32_i)
-{
-  delete mudela_meter_p_;
-  mudela_meter_p_ = new Mudela_meter (num_i, den_i, clocks_i, count_32_i);
 }
 

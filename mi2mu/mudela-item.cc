@@ -72,7 +72,7 @@ Mudela_key::notename_str (int pitch_i)
   int notename_i = notename_i_a[  (minor_i_ * 5 + pitch_i) % 12 ];
   
   static int accidentals_i_a[ 12 ] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
-  int accidental_i = accidentals_i_a[ minor_i_ * 5 + pitch_i % 12 ];
+  int accidental_i = accidentals_i_a[ (minor_i_ * 5 + pitch_i) % 12 ];
   if (accidental_i &&  (accidentals_i_ < 0)) 
     {
 	accidental_i = - accidental_i;

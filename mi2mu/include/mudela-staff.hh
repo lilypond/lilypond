@@ -15,7 +15,6 @@
 class Mudela_staff {
 public:
     Mudela_staff (int number_i, String copyright_str, String track_name_str, String instrument_str);
-    ~Mudela_staff();
 
     void add_item (Mudela_item* mudela_item_p);
     void eat_voice (Link_list<Mudela_item*>& items);
@@ -23,14 +22,13 @@ public:
     String name_str();
     void output (Mudela_stream& mudela_stream_r);
     void process();
-    void set_meter (int num_i, int den_i, int clocks_i, int count_32_i);
-    void set_tempo (int useconds_i);
 
     String copyright_str_;
     String instrument_str_;
     String name_str_;
-    Mudela_meter* mudela_meter_p_;
-    Mudela_tempo* mudela_tempo_p_;
+    Mudela_key* mudela_key_l_;
+    Mudela_meter* mudela_meter_l_;
+    Mudela_tempo* mudela_tempo_l_;
     int number_i_;
 
 private:
