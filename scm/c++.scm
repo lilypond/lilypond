@@ -45,6 +45,7 @@
    (,boolean? . "boolean")
    (,moment? . "moment")
    (,ly-input-location? . "input location")
+   (,music-list? . "list of music")
    (,music? . "music")
    (,number? . "number")
    (,char? . "char")
@@ -89,9 +90,12 @@
   (cons (f (car x)) (f (cdr x))))
 
 ;; used where?
-;;(define (reduce operator list)
-;;      (if (null? (cdr list)) (car list)
-;;	  (operator (car list) (reduce operator (cdr list)))))
+(define (reduce operator list)
+  "reduce OP [A, B, C, D, ... ] =
+   A op (B op (C ... ))
+"
+      (if (null? (cdr list)) (car list)
+	  (operator (car list) (reduce operator (cdr list)))))
 
 
 

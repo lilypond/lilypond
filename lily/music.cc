@@ -166,42 +166,6 @@ Music::internal_get_mus_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
-#if 0
-/*
-  Remove the value associated with KEY, and return it. The result is
-  that a next call will yield SCM_EOL (and not the underlying
-  `basic' property.
-*/
-SCM
-Music::remove_mus_property (const char* key)
-{
-  SCM val = get_mus_property (key);
-  if (val != SCM_EOL)
-    set_mus_property (key, SCM_EOL);
-  return val;
-}
-
-SCM
-Music::get_mus_property (const char *nm) const
-{
-  SCM sym = ly_symbol2scm (nm);
-  return get_mus_property (sym);
-}
-
-void
-Music::set_mus_property (const char* k, SCM v)
-{
-  SCM s = ly_symbol2scm (k);
-  set_mus_property (s, v);
-}
-
-void
-Music::set_immutable_mus_property (SCM s, SCM v)
-{
-  immutable_property_alist_ = gh_cons (gh_cons (s,v), mutable_property_alist_);
-  mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, s);
-}
-#endif
 
 void
 Music::internal_set_mus_property (SCM s, SCM v)
@@ -266,16 +230,20 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
       return SCM_UNSPECIFIED;
     }
 
-  if (sc)
+  if (!sc)
+    {
+      warning (_ ("ly_set_mus_property ():  not of type Music: "));
+      scm_write (mus, scm_current_error_port ());
+      return SCM_UNSPECIFIED;
+    }
+
+
+  bool ok = type_check_assignment (val, sym, ly_symbol2scm ("music-type?"));
+  if (ok)
     {
       sc->internal_set_mus_property (sym, val);
     }
-  else
-    {
-      warning (_ ("ly_set_mus_property ():  not of type Music"));
-      scm_write (mus, scm_current_error_port ());
-    }
-
+    
   return SCM_UNSPECIFIED;
 }
 
@@ -293,8 +261,9 @@ ly_make_music (SCM type)
     }
   else
     {
-      SCM s =       get_music (ly_scm2string (type))->self_scm ();
+      SCM s = get_music (ly_scm2string (type))->self_scm ();
       scm_gc_unprotect_object (s);
+
       return s;
     }
 }
@@ -314,9 +283,25 @@ ly_music_name (SCM mus)
    return ly_str02scm (nm);
 }
 
+SCM
+ly_music_list_p (SCM l)
+{
+  if (scm_list_p (l) != SCM_BOOL_T)
+    return SCM_BOOL_F;
+
+  while (gh_pair_p (l))
+    {
+      if (!unsmob_music (gh_car (l)))
+	return SCM_BOOL_F;
+      l =gh_cdr (l);
+    }
+  return SCM_BOOL_T;
+}
+
 static void
 init_functions ()
 {
+  scm_c_define_gsubr ("music-list?", 1, 0, 0, (Scheme_function_unknown)ly_music_list_p);  
   scm_c_define_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
   scm_c_define_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
   scm_c_define_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);

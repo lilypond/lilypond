@@ -78,42 +78,11 @@ newpage = {
 }
 
 % dynamic dir?  text script, articulation script dir?	
-oneVoice = { 	
-  \stemBoth
-  \slurBoth
-  \tieBoth
-  \shiftOff
-}
-
-voiceOne = {
-  \stemUp
-  \slurUp
-  \tieUp
-  \dotsUp    
-}
-
-voiceTwo = {
-  \stemDown
-  \slurDown
-  \tieDown
-  \dotsDown  
-}
-   
-voiceThree = {
-  \stemUp
-  \slurUp
-  \tieUp
-  \shiftOn
-  \dotsUp
-}
-
-voiceFour = {
-  \stemDown
-  \slurDown
-  \tieDown
-  \shiftOn
-  \dotsDown
-}
+oneVoice = #(context-spec-music (make-voice-props-revert) "Voice")
+voiceOne = #(context-spec-music (make-voice-props-set 0) "Voice")
+voiceTwo = #(context-spec-music (make-voice-props-set 1) "Voice")
+voiceThree =#(context-spec-music (make-voice-props-set 2) "Voice")
+voiceFour = #(context-spec-music (make-voice-props-set 3) "Voice")
 
 % There's also dash, but setting dash period/length should be fixed.
 slurDotted = \property Voice.Slur \override #'dashed = #1

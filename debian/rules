@@ -42,7 +42,7 @@ build-stamp:
 		--prefix=/usr --enable-optimise \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
-	$(MAKE)
+	$(MAKE) MAKE_PFA_FILES=1
 
 	touch build-stamp
 
@@ -75,7 +75,7 @@ install: build
 
 	# Add here commands to install the package into debian/tmp.
 	dh_installdirs
-	$(MAKE) prefix=$(PWD)/$(r)/usr install
+	$(MAKE) prefix=$(PWD)/$(r)/usr  MAKE_PFA_FILES=1 install
 
 	# Change from an absolute symlink to a relative symlink (Lintian)
 	if [ -L $(r)/usr/share/lilypond/cmtfm ]; then \

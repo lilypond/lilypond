@@ -41,5 +41,16 @@ else
         setenv TFMFONTS "$datadir/tfm:"
 endif
 
+if ($?TEXPSHEADERS) then
+        setenv TFMFONTS "$datadir/pfa:$TEXPSHEADERS"
+else
+        setenv TFMFONTS "$datadir/pfa:"
+endif
+if ($?TEXCONFIG) then
+        setenv TEXCONFIG "$datadir/pfa:$TEXPSHEADERS"
+else
+        setenv TEXCONFIG "$datadir/pfa:"
+endif
+
 
 

@@ -36,7 +36,7 @@
 (music-property-description 'direction dir? "Print this up or down?")
 (music-property-description 'text-type symbol? "Particular type of text script (eg. finger, dynamic).")
 (music-property-description 'element music? "The single child of a Music_wrapper music object, or the body of a repeat.")
-(music-property-description 'elements list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
+(music-property-description 'elements music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
 (music-property-description 'force-accidental boolean? "If set, a cautionary accidental should always be printed on this note")
 (music-property-description 'grob-property symbol? "The symbol of the grob property to set. ")
 (music-property-description 'grob-value scheme? "The value of the grob property to set")
@@ -49,6 +49,8 @@
 (music-property-description 'penalty number? "Penalty for break hint.")
 (music-property-description 'pitch pitch? "the pitch of this note")
 (music-property-description 'pitch-alist list? "list of pitches jointly forming the scale of a key signature")
+(music-property-description 'pop-first boolean? "Do a revert before we try to do a override on some grob property.")
+
 (music-property-description 'predicate procedure? "the predicate of a \outputproperty")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")

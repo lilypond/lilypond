@@ -8,7 +8,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex
+EXTRA_DIST_FILES += README feta.tex lilypond.map
 
 # don't try to make fonts from test files
 TEST_FILES = $(wildcard *test*.mf)
@@ -57,7 +57,7 @@ ifdef MAKE_PFA_FILES
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
 ALL_GEN_FILES += $(PFA_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
-INSTALLATION_OUT_FILES4=$(PFA_FILES)
+INSTALLATION_OUT_FILES4=$(PFA_FILES) lilypond.map
 
 pfa: $(PFA_FILES) 
 endif

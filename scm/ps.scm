@@ -92,7 +92,7 @@
    " { /"
    (car name-mag)
    " findfont "
-   "12 " (ly-number->string (cdr name-mag)) " mul "
+   "20 " (ly-number->string (cdr name-mag)) " mul "
    "lilypondpaperoutputscale div scalefont setfont } bind def "
    "\n"))
 
