@@ -1,5 +1,7 @@
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile (debian-mirror): rename bigcheese to emmentaler.
+
 	* lily/include/main.hh: lose _b hungarian suffixes for global
 	variables.
 
