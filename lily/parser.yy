@@ -255,7 +255,6 @@ yylex (YYSTYPE *s,  void * v)
 %token DEFAULT
 %token DENIES
 %token DESCRIPTION
-%token DURATION
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
@@ -281,7 +280,6 @@ yylex (YYSTYPE *s,  void * v)
 %token PAPER
 %token PARTCOMBINE
 %token PARTIAL
-%token PITCH
 %token PITCHNAMES
 %token PROPERTY
 %token RELATIVE
@@ -367,12 +365,11 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> note_chord_element chord_body chord_body_element
 %type <scm>  chord_body_elements 
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
-%type <scm>  verbose_duration
 	
 %type <scm>   post_events 
 %type <music> gen_text_def direction_less_event direction_reqd_event
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
-%type <scm>   explicit_pitch steno_tonic_pitch
+%type <scm>    steno_tonic_pitch
 %type <scm>	duration_length fraction
 
 %type <scm> new_chord step_number chord_items chord_item chord_separator step_numbers
@@ -540,9 +537,6 @@ identifier_init:
 	| post_event {
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
-	}
-	| verbose_duration {
-		$$ = $1;
 	}
 	| number_expression {
 		$$ = $1;
@@ -1022,8 +1016,10 @@ basic music objects too, since the meaning is different.
 
 		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
 
-		SCM new_id = scm_number_to_string (gh_int2scm (new_context_count ++),
-					gh_int2scm (10));
+		char s[1024];
+		snprintf (s, 1024, "uniqueContext%d", new_context_count ++);
+		
+		SCM new_id = scm_makfrom0str (s);
 		csm->set_mus_property ("context-id", new_id);
 		$$ = csm;
 	}
@@ -1706,9 +1702,6 @@ pitch:
 	steno_pitch {
 		$$ = $1;
 	}
-	| explicit_pitch {
-		$$ = $1;
-	}
 	;
 
 pitch_also_in_chords:
@@ -1716,26 +1709,9 @@ pitch_also_in_chords:
 	| steno_tonic_pitch
 	;
 
-explicit_pitch:
-	PITCH embedded_scm {
-		$$ = $2;
-		if (!unsmob_pitch ($2)) {
-			THIS->parser_error (_f ("Expecting musical-pitch value", 3));
-			 $$ = Pitch ().smobbed_copy ();
-		}
-	}
-	;
 
-verbose_duration:
-	DURATION embedded_scm 	{
-		$$ = $2;
-		if (!unsmob_duration ($2))
-		{
-			THIS->parser_error (_ ("Must have duration object"));
-			$$ = Duration ().smobbed_copy ();
-		}
-	}
-	;
+
+
 
 extender_req:
 	EXTENDER {
@@ -1861,9 +1837,6 @@ duration_length:
 	multiplied_duration {
 		$$ = $1;
 	}
-	| verbose_duration {
-		$$ = $1;
-	}	
 	;
 
 optional_notemode_duration:
@@ -1879,10 +1852,6 @@ optional_notemode_duration:
 
 		THIS->beam_check ($$);
 	}
-	| verbose_duration {
-		$$ = $1;
-		THIS->default_duration_ = *unsmob_duration ($$);
-	}	
 	;
 
 steno_duration:

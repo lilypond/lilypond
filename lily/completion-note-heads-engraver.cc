@@ -15,6 +15,8 @@
 #include "item.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
+#include "spanner.hh"
+#include "tie.hh"
 
 /*
 
@@ -35,6 +37,8 @@
 class Completion_heads_engraver : public Engraver
 {
   Link_array<Item> notes_;
+  Link_array<Item> prev_notes_;
+  Link_array<Grob> ties_;
   
   Link_array<Item> dots_;
   Link_array<Music> note_reqs_;
@@ -242,9 +246,23 @@ Completion_heads_engraver::process_music ()
       announce_grob (note,req->self_scm ());
       notes_.push (note);
     }
+  
+  if (prev_notes_.size() == notes_.size ())
+    {
+      for (int i= 0; i < notes_.size(); i++)
+	{
+	  Grob * p = new Spanner (get_property ("Tie"));
+	  Tie::set_interface (p); // cannot remove yet!
+	  
+	  Tie::set_head (p, LEFT, prev_notes_[i]);
+	  Tie::set_head (p, RIGHT, notes_[i]);
+	  
+	  ties_.push (p);
+	  announce_grob(p, SCM_EOL);
+	}
+    }
 
   left_to_do_ -= note_dur.get_length ();
-
 
   /*
     don't do complicated arithmetic with grace notes.
@@ -254,16 +272,21 @@ Completion_heads_engraver::process_music ()
     {
       left_to_do_ = Rational (0,0);
     }
-  
 }
  
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
+  for (int i = ties_.size (); i--;)
+    typeset_grob (ties_[i]); 
+  ties_.clear();
+  
   for (int i=0; i < notes_.size (); i++)
     {
       typeset_grob (notes_[i]);
     }
+  if (notes_.size())
+    prev_notes_ = notes_;
   notes_.clear ();
   
   for (int i=0; i < dots_.size (); i++)
@@ -277,10 +300,9 @@ Completion_heads_engraver::stop_translation_timestep ()
       scm_gc_unprotect_object (scratch_note_reqs_[i]->self_scm () );
       
     }
+  
   scratch_note_reqs_.clear();
 }
-
-Music * tie_req = 0;
 
 void
 Completion_heads_engraver::start_translation_timestep ()
@@ -289,18 +311,7 @@ Completion_heads_engraver::start_translation_timestep ()
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
       note_reqs_.clear ();
-    }
-
-  if (left_to_do_)
-    {
-      if (!tie_req)
-	tie_req = make_music_by_name (ly_symbol2scm ("TieEvent"));
-      
-      bool succ = daddy_trans_->try_music (tie_req);
-      if (!succ)
-	{
-	  programming_error ("Completion_heads_engraver: no-one to make tie.");
-	}
+      prev_notes_.clear ();
     }
 }
 
@@ -312,7 +323,7 @@ ENTER_DESCRIPTION(Completion_heads_engraver,
 /* descr */       "This engraver replaces "
 "@code{Note_heads_engraver}. It plays some trickery to "
 "break long notes and automatically tie them into the next measure.",
-/* creats*/       "NoteHead Dots",
+/* creats*/       "NoteHead Dots Tie",
 /* accepts */     "busy-playing-event note-event",
 /* acks  */      "",
 /* reads */       "centralCPosition measurePosition measureLength",

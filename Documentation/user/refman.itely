@@ -10,6 +10,10 @@
 @node Notation manual
 @chapter Notation manual
 
+This chapter describes all the different types of notation supported
+by LilyPond. It is intended as a reference for users that are already
+somewhat familiar with using LilyPond.
+
 @menu
 * Note entry::                  
 * Easier music entry::          
@@ -40,10 +44,9 @@
 @section Note entry
 @cindex Note entry
 
-This chapter describes all the different types of notation supported
-by LilyPond. It is intended as a reference for users that are already
-somewhat familiar with using LilyPond.
-
+The basic elements of any piece of music are the notes. This section
+is about basic notation elements notes, rests and related constructs,
+such as stems, tuplets and ties.
 
 @menu
 * Notes::                       
@@ -102,7 +105,7 @@ A sharp is formed by adding @code{-is} to the end of a pitch name and
 a flat is formed by adding @code{-es}.  Double sharps and double flats
 are obtained by adding @code{-isis} or @code{-eses}.  These
 names are the Dutch note names.  In Dutch, @code{aes} is contracted to
-@code{as} in Dutch, but both forms are accepted. Similarly, both
+@code{as}, but both forms are accepted. Similarly, both
 @code{es} and @code{ees} are accepted.
 
 There are predefined sets of note names for various other languages.
@@ -141,17 +144,6 @@ octave; each @code{,} lowers the pitch by an octave:
 @end lilypond
 
 
-There is also a verbose syntax for pitch specification:
-
-@c TODO: junk this? 
-@cindex @code{\pitch}
-@example
-  \pitch @var{scmpitch}
-@end example
-
-
-where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
-
 @refcommands
 
 Notes can be hidden and unhidden with the following commands:
@@ -165,6 +157,9 @@ Notes can be hidden and unhidden with the following commands:
 @seealso
 
 @noindent
+
+bla
+
 @internalsref{NoteEvent}, and @internalsref{NoteHead}.
 
 @node Chromatic alterations
@@ -248,7 +243,7 @@ other situations, you should use the @code{\skip} command:
 
 @lilypond[singleline,verbatim]
 \score {
-  \context Staff <<
+  \new Staff <<
     { \time 4/8 \skip 2 \time 4/4 } 
     \notes\relative c'' { a2 a1 }
   >>
@@ -269,7 +264,6 @@ produce any output, not even transparent output.
 
 
 @cindex duration
-@cindex @code{\duration}
 
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers
@@ -332,13 +326,6 @@ beats:
    a4
 @end lilypond
 
-Durations can also be produced using the verbose syntax
-@code{\duration @var{Scheme object}}:
-@lilypond[verbatim,fragment]
- c'\duration #(ly:make-duration 4 1)
-@end lilypond
-
-
 
 @refcommands
 
@@ -364,10 +351,9 @@ In dense chords, dots can overlap.
 @node Stems
 @subsection Stems
 
-Whenever a note is found,  a
-@internalsref{Stem} object is created automatically. For whole notes
-and rests, stem objects are also created, but in those cases, the stem
-is invisible.
+Whenever a note is found, a @internalsref{Stem} object is created
+automatically. For whole notes and rests, they are also created but
+made invisible.
 
 @refcommands
 
@@ -433,11 +419,15 @@ ties created for a chord, see @inputfileref{input/test,tie-sparse.ly}.
 @refbugs
 
 Tieing only a subset of the note heads of a pair of chords is not
-supported in a simple way.  It can be achieved by moving the
+supported in a simple way.
+
+@ignore
+It can be achieved by moving the
 tie-engraver into the @internalsref{Thread} context and turning on and
 off ties per @internalsref{Thread}.
+@end ignore
 
-Switching staves when a tie is active, will not produce a slanted tie.
+Switching staves when a tie is active will not produce a slanted tie.
 
 Formatting of ties is a difficult subject. The results are often not
 optimal.
@@ -459,11 +449,12 @@ with a fraction:
   \times @var{fraction} @var{musicexpr}
 @end example
 
-The duration of @var{musicexpr} will be multiplied by the fraction. 
-In the sheet music, the fraction's denominator will be printed over
-the notes, optionally with a bracket.  The most common tuplet is the
-triplet in which 3 notes have the length of 2, so the notes are 2/3
-of their written length:
+@noindent
+The duration of @var{musicexpr} will be multiplied by the fraction.
+The fraction's denominator will be printed over the notes, optionally
+with a bracket.  The most common tuplet is the triplet in which 3
+notes have the length of 2, so the notes are 2/3 of their written
+length:
 
 @lilypond[fragment,verbatim,center]
   g'4 \times 2/3 {c'4 c' c'} d'4 d'4
@@ -547,10 +538,8 @@ correct result.
 @cindex Music entry
 
 When entering music it is easy to introduce errors. This section deals
-with tricks and features of the input language that help when entering
-music, and find and correct mistakes.  Some features of the input
-language ease entering music, but also have other applications. They
-are not described in this section.
+with tricks and features of the input language that were added solely
+to help entering music, and find and correct mistakes.
 
 It is also possible to use external programs, for example GUI
 interfaces, or MIDI transcription programs, to enter or edit
@@ -829,29 +818,6 @@ The key signature indicates the scale in which a piece is played. It
 is denoted by a set of alterations (flats or sharps) at the start of
 the staff.
 
-WARNING!  The key signature only changes the output, not the music
-itself.  An F-sharp in the key of D major is still an F-sharp, not
-an F -- you must type @code{fis}, not @code{f}.  If you don't modify
-a pitch with @code{-is} or @code{-es}, LilyPond will assume that
-you want a natural note.  See this example:
-
-@quotation
-@example
-\key d \major
-fis4 f fes fis
-g2 fis
-@end example
-@end quotation
-
-@lilypond[noindent]
-\score{ \notes { \relative c'{
-\key d \major
-fis4 f fes fis
-g2 fis
-}}}
-@end lilypond
-
-
 @syntax
 
 Setting or changing the key signature is done with the @code{\key}
@@ -880,6 +846,10 @@ The standard mode names @code{\ionian},
 This command sets the context property
 @internalsref{Staff}.@code{keySignature}.  Non-standard key signatures
 can be specified by setting this property directly.
+
+Accidentals and key signatures often confuse new users, because
+unaltered notes get natural signs depending on the keysignature.  The
+tutorial explains why this is so in @ref{More about pitches}.
 
 @refbugs
 
@@ -989,9 +959,9 @@ the staff. They are created by invoking the function
 @end lilypond
 
 Internally the @code{set-octavation} function sets the properties
-@code{ottavation} (eg. to @code{"8va"}) and @code{centralCPosition}.
-
-@seealso
+@code{ottavation} (eg. to @code{"8va"}) and
+@code{centralCPosition}. The function also takes arguments -1 (for 8va
+bassa) and 2 (for 15ma).
 
 @internalsref{OttavaSpanner}.
 
@@ -1075,8 +1045,8 @@ Automatic beaming does not use measure grouping specified with
 
 Partial measures, for example in upsteps, are entered using the
 @code{\partial} command:
-@lilypond[fragment,verbatim]
-\partial 16*5  c'16 c4 |   a'2. ~ a'8. a'16 | g'1
+@lilypond[fragment,verbatim,relative 1]
+\partial 16*5  c16 cis d dis e |   a2. c,4 | b2
 @end lilypond
 
 The syntax for this command is 
@@ -4009,7 +3979,7 @@ scheme = \chords {
 @end lilypond
 
 The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (see @ref{Literature}).  It can be tuned through the
+Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
 following properties:
 
 @table @code
@@ -7298,7 +7268,7 @@ entering the chant, as the following short excerpt demonstrates:
 In the 20th century, composers have greatly expanded the musical
 vocabulary. With this expansion, many innovations in musical notation
 have been tried. For a comprehensive overview, refer to @cite{Stone
-1980} (see @ref{Literature}). In general, the use of new, innovative
+1980} (see @ref{Literature list}). In general, the use of new, innovative
 notation makes a piece harder to understand and perform and its use
 should therefore be avoided if possible.  For this reason, support for
 contemporary notation in LilyPond is limited.

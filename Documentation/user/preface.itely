@@ -5,9 +5,31 @@
 @unnumbered Preface
 
 @menu
+* Preface to version 2.0::
 * Preface to version 1.8::
 * Preface to version 1.6::
 @end menu
+
+
+@node Preface to version 2.0
+@unnumberedsec Preface to version 2.0
+
+
+Due to personal circumstances, I have been able to do a lot more on
+LilyPond during the past months. A testament to that is the quick
+release of version 2.0, less than two months after 1.8. We have taken
+the opportunity to make a few radical changes to the syntax: note
+attributes, like articulation, dynamics and fingerings are now
+post-fix exclusively. This makes entering scores easier: you never
+have to think about the order of the attributes.  With version 2.0, we
+have a new and improved platform for working on notation and
+typography features for coming versions,
+
+@c 
+
+Han-Wen,
+
+Utrecht/Eindhoven, The Netherlands, September 2003.
 
 @node Preface to version 1.8
 @unnumberedsec Preface to version 1.8

@@ -296,8 +296,8 @@
        )
 
     (make <texi-node>
-      #:name "Translation properties"
-      #:desc "All translation properties"
+      #:name "Context properties"
+      #:desc "All  context properties"
       #:text texi)
     ))
 

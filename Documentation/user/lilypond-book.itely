@@ -456,6 +456,8 @@ The La@TeX{} @code{\includeonly@{...@}} command is ignored.
 The Texinfo command @code{pagesize} is not interpreted. Almost all
 La@TeX{} commands that change margins and line widths are ignored.
 
+Only the first @code{\score} of a LilyPond block is processed.
+
 The size of a music block is limited to 1.5 kb, due to technical
 problems with the Python regular expression engine. For longer files,
 use @code{\lilypondfile}.  Using @code{\lilypondfile} also makes
@@ -467,3 +469,4 @@ The state of the GUILE interpreter is not reset between fragments;
 this means that changes made to global GUILE definitions, e.g. done
 with @code{set!} or @code{set-cdr!}, can leak from one fragment into
 the next fragment.
+
