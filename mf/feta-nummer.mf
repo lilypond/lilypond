@@ -9,6 +9,10 @@ input feta-params;
 
 
 
+%%%
+% TODO: make sure font size  for text and
+% font size for music both jibe with the number font.
+%%%
 
 %blot_diameter# = .4pt#;
 

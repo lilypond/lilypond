@@ -1,6 +1,5 @@
-\header {
 %    texidoc = "Include file for engraver example."
-}
+
 
 \paper { raggedright = ##t }
 
