@@ -82,7 +82,7 @@ Dynamic_engraver::do_process_requests()
 
     if ( new_cresc_p ) {
 	cresc_p_ = new_cresc_p;
-	cresc_p_->left_col_l_ = get_staff_info().musical_l()->pcol_l_;
+	cresc_p_->left_col_l_ = get_staff_info().musical_l();
 	if (dynamic_p_) {
 	    cresc_p_->left_dyn_b_ = true;
 	}
@@ -102,7 +102,7 @@ Dynamic_engraver::do_pre_move_processing()
 	if (dynamic_p_)
 	    to_end_cresc_p_->right_dyn_b_=true;
 	
-	to_end_cresc_p_->right_col_l_ = get_staff_info().musical_l()->pcol_l_;
+	to_end_cresc_p_->right_col_l_ = get_staff_info().musical_l();
 	to_end_cresc_p_->set_staffsym(s_l);
 	typeset_element(to_end_cresc_p_);
 	to_end_cresc_p_ = 0;

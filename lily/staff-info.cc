@@ -36,15 +36,17 @@ Staff_info::command_l()
 {
     return command_l_;
 }
+
 PCol*
 Staff_info::command_pcol_l()
 {
-    return command_l()->pcol_l_;
+    return command_l();
 }
+
 PCol*
 Staff_info::musical_pcol_l()
 {
-    return musical_l()->pcol_l_;
+    return musical_l();
 }
 
 Moment
