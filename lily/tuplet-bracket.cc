@@ -1,9 +1,9 @@
 /*
-  plet-spanner.cc -- implement Tuplet_spanner
+  plet-spanner.cc -- implement Tuplet_bracket
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -24,7 +24,7 @@
 #include "spanner.hh"
 
 void
-Tuplet_spanner::set_interface (Grob*me)
+Tuplet_bracket::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("tuplet-bracket"));
 }
@@ -32,9 +32,9 @@ Tuplet_spanner::set_interface (Grob*me)
 /*
   TODO: use stem->beam fields to find Beams. Autobeams aren't found
   through the engraver mechanism.  */
-MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule,1);
+MAKE_SCHEME_CALLBACK(Tuplet_bracket,brew_molecule,1);
 SCM
-Tuplet_spanner::brew_molecule (SCM smob) 
+Tuplet_bracket::brew_molecule (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
   Molecule  mol;
@@ -116,7 +116,7 @@ Tuplet_spanner::brew_molecule (SCM smob)
   use first -> last note for slope, and then correct for disturbing
   notes in between.  */
 void
-Tuplet_spanner::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
+Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
 {
   Link_array<Grob> column_arr=
     Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
@@ -174,7 +174,7 @@ Tuplet_spanner::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   use first -> last note for slope,
 */
 void
-Tuplet_spanner::calc_dy (Grob*me,Real * dy)
+Tuplet_bracket::calc_dy (Grob*me,Real * dy)
 {
   Link_array<Grob> column_arr=
     Pointer_group_interface__extract_elements (me, (Grob*)0, "columns");
@@ -186,10 +186,10 @@ Tuplet_spanner::calc_dy (Grob*me,Real * dy)
   *dy = column_arr.top ()->extent (column_arr.top (), Y_AXIS) [d]
     - column_arr[0]->extent (column_arr[0], Y_AXIS) [d];
 }
-MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking,1);
+MAKE_SCHEME_CALLBACK(Tuplet_bracket,after_line_breaking,1);
 
 SCM
-Tuplet_spanner::after_line_breaking (SCM smob)
+Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Link_array<Note_column> column_arr=
@@ -206,7 +206,7 @@ Tuplet_spanner::after_line_breaking (SCM smob)
   Direction d = Directional_element_interface::get (me);
   if (!d)
     {
-      d = Tuplet_spanner::get_default_dir (me);
+      d = Tuplet_bracket::get_default_dir (me);
       Directional_element_interface::set (me, d);
 
     }
@@ -233,7 +233,7 @@ Tuplet_spanner::after_line_breaking (SCM smob)
 
 
 Direction
-Tuplet_spanner::get_default_dir (Grob*me)
+Tuplet_bracket::get_default_dir (Grob*me)
 {
   Direction d = UP;
   SCM dir_sym =me->get_grob_property ("dir-forced");
@@ -259,14 +259,14 @@ Tuplet_spanner::get_default_dir (Grob*me)
 }
 
 void
-Tuplet_spanner::add_beam (Grob*me, Grob *b)
+Tuplet_bracket::add_beam (Grob*me, Grob *b)
 {
   me->add_dependency (b);
   Pointer_group_interface::add_element (me, "beams",b);
 }
 
 void
-Tuplet_spanner::add_column (Grob*me, Item*n)
+Tuplet_bracket::add_column (Grob*me, Item*n)
 {
   Pointer_group_interface::add_element (me, "columns",n);
   me->add_dependency (n);
