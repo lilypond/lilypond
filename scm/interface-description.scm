@@ -773,7 +773,7 @@ direction = Forced direction for all ties"
    ))
 
 
-(ly-eval (cons
+(primitive-eval (cons
 	  'begin
 	  (map (lambda (x) (list 'define (car x) (list 'quote (cdr x))))
 	       all-interfaces)))

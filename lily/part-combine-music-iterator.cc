@@ -202,11 +202,10 @@ Part_combine_music_iterator::get_state (Moment)
 	  if (first_pitches != SCM_EOL && second_pitches != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_pitches,
-			       scm_eval2 (ly_str02scm ("Pitch::less_p"),
-					  SCM_EOL));
+			       scm_primitive_eval (ly_str02scm ("Pitch::less_p")));
 	      scm_sort_list_x (second_pitches,
-			       scm_eval2 (ly_str02scm ("Pitch::less_p"),
-					  SCM_EOL));
+			       scm_primitive_eval (ly_str02scm ("Pitch::less_p")));
+
 	      interval = gh_int2scm (unsmob_pitch (gh_car (first_pitches))->steps ()
 				     - unsmob_pitch (gh_car (scm_last_pair (second_pitches)))->steps ());
 	    }
@@ -214,16 +213,14 @@ Part_combine_music_iterator::get_state (Moment)
 	  if (first_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_durations,
-			       scm_eval2 (ly_str02scm ("Duration::less_p"),
-					  SCM_EOL));
+			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
 	      first_mom += unsmob_duration (gh_car (first_durations))->length_mom ();
 	    }
 	  
 	  if (second_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (second_durations,
-			       scm_eval2 (ly_str02scm ("Duration::less_p"),
-					  SCM_EOL));
+			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
 	      second_mom += unsmob_duration (gh_car (second_durations))->length_mom ();
 	    }
 	  

@@ -203,9 +203,15 @@ else {last =0}}
     then
         AC_STEPMAKE_WARN("Guile version "$need_guile_version" or newer is needed")
     fi
+    changequote(<<, >>)dnl
+    GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
+    GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
+    changequote([, ])dnl
     GUILE_FLAGS
     AC_PATH_PROG(GUILE, guile, error)
     AC_SUBST(GUILE)
+    AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
+    AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
 ])
 
 AC_DEFUN(AC_STEPMAKE_INIT, [

@@ -51,7 +51,7 @@ Property_engraver::finalize ()
 Property_engraver::~Property_engraver ()
 {
   if (prop_dict_)
-    scm_unprotect_object (prop_dict_->self_scm ());
+    scm_gc_unprotect_object (prop_dict_->self_scm ());
 }
 
 void
@@ -111,7 +111,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 
       if (val == SCM_EOL)
 	;			// Not defined in context.
-      else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
+      else if (gh_apply (type_p, scm_list_n (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
 	{
 	  e->set_grob_property (elt_prop_sym, val);
@@ -140,7 +140,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	if (val != SCM_EOL)
 	  {			// not the right type: error message.
 	    SCM errport = scm_current_error_port ();
-	    SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	    SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
 	    SCM type_name = gh_call1 (typefunc, type_p);
 	    warning (_f ("Wrong type for property: %s, type: %s, value found: %s, type: %s",
 			 ly_symbol2string (prop_sym).ch_C (),

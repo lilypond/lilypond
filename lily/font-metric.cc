@@ -151,7 +151,8 @@ ly_find_glyph_by_name (SCM font, SCM name)
 static void
 font_metric_init ()
 {
-   scm_make_gsubr ("ly-find-glyph-by-name", 2 , 0, 0, (Scheme_function_unknown) ly_find_glyph_by_name);
+   scm_c_define_gsubr ("ly-find-glyph-by-name", 2 , 0, 0,
+		       (Scheme_function_unknown) ly_find_glyph_by_name);
 }
 
 ADD_SCM_INIT_FUNC (font_metric_init, font_metric_init);

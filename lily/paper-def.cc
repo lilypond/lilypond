@@ -140,7 +140,7 @@ Paper_def::find_font (SCM fn, Real m)
   SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
   scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
 
-  scm_unprotect_object (val);
+  scm_gc_unprotect_object (val);
 
   return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
 }

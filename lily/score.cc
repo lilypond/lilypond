@@ -44,7 +44,7 @@ Score::Score (Score const &s)
   
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone ()->self_scm () : SCM_EOL;
-  scm_unprotect_object (music_);
+  scm_gc_unprotect_object (music_);
   
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push (s.def_p_arr_[i]->clone ());
@@ -53,7 +53,7 @@ Score::Score (Score const &s)
  	{
 	  header_p_ = (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
 
-	  scm_unprotect_object (header_p_->self_scm ());
+	  scm_gc_unprotect_object (header_p_->self_scm ());
 	}
  
 }
@@ -106,7 +106,7 @@ Score::run_translator (Music_output_def *odef_l)
     }
 
   Music_output * output = trans_p->get_output_p ();
-  scm_unprotect_object (trans_p->self_scm ());
+  scm_gc_unprotect_object (trans_p->self_scm ());
   
   if (verbose_global_b)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));

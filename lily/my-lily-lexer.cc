@@ -146,7 +146,7 @@ My_lily_lexer::set_identifier (String name_str, SCM s)
 My_lily_lexer::~My_lily_lexer ()
 {
   delete keytable_p_;
-  scm_unprotect_object (toplevel_variable_tab_->self_scm ());
+  scm_gc_unprotect_object (toplevel_variable_tab_->self_scm ());
   delete scope_p_ ;
 }
 

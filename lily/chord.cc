@@ -392,7 +392,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	  n->set_mus_property ("duration", dur);
 	  n->set_mus_property ("inversion", SCM_BOOL_T);
 	  list = gh_cons (n->self_scm (), list);
-	  scm_unprotect_object (n->self_scm ());
+	  scm_gc_unprotect_object (n->self_scm ());
 	}
       else
 	warning (_f ("invalid inversion pitch: not part of chord: %s",
@@ -407,7 +407,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       n->set_mus_property ("duration", dur);
       n->set_mus_property ("bass", SCM_BOOL_T);
       list = gh_cons (n->self_scm (), list);
-      scm_unprotect_object (n->self_scm ());
+      scm_gc_unprotect_object (n->self_scm ());
     }
   
   for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
@@ -416,7 +416,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       n->set_mus_property ("pitch", gh_car (i));
       n->set_mus_property ("duration", dur);
       list = gh_cons (n->self_scm (), list);
-      scm_unprotect_object (n->self_scm ());
+      scm_gc_unprotect_object (n->self_scm ());
     }
 
   Simultaneous_music*v = new Request_chord (SCM_EOL);

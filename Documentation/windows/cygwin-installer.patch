@@ -40,7 +40,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
  static void
 +make_lily_bat ()
 +{
-+  batname = backslash (concat (root_dir, "/lilypond.bat", 0));
++  batname = backslash (concat (get_root_dir (), "/lilypond.bat", 0));
 +
 +  /* if the batch file exists, don't overwrite it */
 +  if (_access (batname, 0) == 0)
@@ -52,8 +52,8 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
 +
 +  fprintf (bat, "@echo off\n\n");
 +
-+  fprintf (bat, "%.2s\n", root_dir);
-+  fprintf (bat, "chdir %s\n\n", backslash (concat (root_dir+2, "/bin", 0)));
++  fprintf (bat, "%.2s\n", get_root_dir ());
++  fprintf (bat, "chdir %s\n\n", backslash (concat (get_root_dir ()+2, "/bin", 0)));
 +
 +  /* fprintf (bat, "bash --rcfile /bin/lilypond-profile\n"); */
 +  fprintf (bat, "bash --login -i\n");
@@ -64,7 +64,7 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
 +static void
  make_etc_profile ()
  {
-   char *fname = concat (root_dir, "/etc/profile", 0);
+   char *fname = concat (get_root_dir (), "/etc/profile", 0);
 @@ -299,11 +321,11 @@
  }
  
@@ -72,8 +72,8 @@ diff -urN ../cinstall/desktop.cc ./desktop.cc
 -save_icon ()
 +save_icon (char* iconfile, char* iconres)
  {
--  iconname = backslash (concat (root_dir, "/cygwin.ico", 0));
-+  iconname = backslash (concat (root_dir, iconfile, 0));
+-  iconname = backslash (concat (get_root_dir (), "/cygwin.ico", 0));
++  iconname = backslash (concat (get_root_dir (), iconfile, 0));
  
 -  HRSRC rsrc = FindResource (NULL, "CYGWIN.ICON", "FILE");
 +  HRSRC rsrc = FindResource (NULL, iconres, "FILE");

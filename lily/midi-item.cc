@@ -135,7 +135,7 @@ Midi_instrument::str() const
 {
   Byte program_byte = 0;
   bool found = false;
-  SCM proc = scm_eval2 (ly_symbol2scm ("midi-program"), SCM_EOL); 
+  SCM proc = scm_primitive_eval (ly_symbol2scm ("midi-program")); 
   SCM program = gh_call1 (proc, ly_symbol2scm (audio_l_->str_.ch_C()));
   found = (program != SCM_BOOL_F);
   if (found)

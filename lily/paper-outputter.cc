@@ -77,8 +77,8 @@ Paper_outputter::output_header ()
   SCM exp = gh_list (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
-  exp = scm_eval2 (exp, SCM_EOL);
-  scm_eval2 (exp, SCM_EOL);
+  exp = scm_primitive_eval (exp);
+  scm_primitive_eval (exp);
   
   String creator = gnu_lilypond_version_str ();
   
@@ -139,7 +139,7 @@ Paper_outputter::dump_scheme (SCM s)
     }
   else
     {
-      SCM result = scm_eval2 (s, SCM_EOL);
+      SCM result = scm_primitive_eval (s);
       char *c=gh_scm2newstr (result, NULL);
   
       *stream_p_ << c;

@@ -2,6 +2,8 @@
 %
 % Functions for direct and embedded PostScript
 
+/blot-diameter { lilypondpaperblotdiameter } bind def
+
 /euclidean_length  
 { 
 	1 copy mul exch 1 copy mul add sqrt 
@@ -15,26 +17,26 @@
 	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
-		/l 0.005 def
+		/blot 0.005 def
 	}{
-		/l 0.05 def
+		/blot blot-diameter def
 	} ifelse
 
 	0 setlinecap
-	l setlinewidth
+	blot setlinewidth
 	1 setlinejoin
 
-	l 2 div sub /h exch def
-	l 2 div sub /d exch def
+	blot 2 div sub /h exch def
+	blot 2 div sub /d exch def
 
 	%% UGH huh?
 	%% Where does this correction come from?
 	%% Why don't we need this in x direction?
-	h l 2 div sub /h exch def
-	d l 2 div sub /d exch def
+	h blot 2 div sub /h exch def
+	d blot 2 div sub /d exch def
 
-	l 2 div sub /w exch def
-	l 2 div sub /b exch def
+	blot 2 div sub /w exch def
+	blot 2 div sub /b exch def
 
 	b neg d neg moveto
 	b w add 0 rlineto
@@ -57,20 +59,20 @@
 	%% FIXME: hardcoded
 	currentdict /testing known {
 		%% real thin lines for testing
-		/l 0.01 def
+		/blot 0.005 def
 	}{
-		/l 0.1 def
+		/blot blot-diameter def
 	} ifelse
-	l 2 div setlinewidth
+	blot setlinewidth
 
  	0 setlinecap
 	1 setlinejoin
 
-	l sub /t exch def
-	l sub /w exch def
+	blot 2 mul sub /t exch def
+	blot 2 mul sub /w exch def
 	w mul /h exch def
 
-	l 2 div t 2 div neg moveto
+	blot t 2 div neg moveto
 	w h rlineto
 	0 t rlineto
 	w neg h neg rlineto

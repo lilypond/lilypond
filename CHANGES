@@ -1,8 +1,12 @@
 *** WARNING(reminder): all output via TeX (ie: using ly2dvi or plain
 *** lilypond) still yields broken stems, bars and staff lines.
 
-1.5.1.jcn1
+1.5.1.jcn2
 ==========
+
+* Use blot diameter for postscript beams and boxes.
+
+* Guile-1.5.0-cvs updates and Guile-1.4.x compatibility.
 
 * Beam knee fix.
 

@@ -19,7 +19,7 @@ ly_deep_mus_copy (SCM m)
   if (unsmob_music (m))
     {
       SCM ss =  unsmob_music (m)->clone ()->self_scm ();
-      scm_unprotect_object (ss);
+      scm_gc_unprotect_object (ss);
       return ss;
     }
   else if (gh_pair_p (m))
@@ -284,7 +284,7 @@ ly_make_music (SCM type)
   else
     {
       SCM s =       get_music (ly_scm2string (type))->self_scm ();
-      scm_unprotect_object (s);
+      scm_gc_unprotect_object (s);
       return s;
     }
 }
@@ -307,10 +307,10 @@ ly_music_name (SCM mus)
 static void
 init_functions ()
 {
-  scm_make_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
-  scm_make_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
-  scm_make_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);
-  scm_make_gsubr ("ly-music-name", 1, 0, 0, (Scheme_function_unknown)ly_music_name);    
+  scm_c_define_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
+  scm_c_define_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
+  scm_c_define_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);
+  scm_c_define_gsubr ("ly-music-name", 1, 0, 0, (Scheme_function_unknown)ly_music_name);    
 }
 ADD_SCM_INIT_FUNC (musicscm,init_functions);
 ADD_MUSIC(Music);

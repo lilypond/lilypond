@@ -122,7 +122,7 @@ Break_align_interface::do_alignment (Grob *me)
 	next_origin = ly_symbol2scm ("begin-of-note");
 
       SCM alist = me->get_grob_property ("space-alist");
-      SCM e = scm_assoc (scm_listify (current_origin,
+      SCM e = scm_assoc (scm_list_n (current_origin,
 				      next_origin,
 				      SCM_UNDEFINED), alist);
           
@@ -136,7 +136,7 @@ Break_align_interface::do_alignment (Grob *me)
 	  warning (_f ("unknown spacing pair `%s', `%s'",
 		       ly_symbol2string (current_origin),
 		       ly_symbol2string (next_origin)));
-	  extra_space = scm_listify (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
+	  extra_space = scm_list_n (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
 	}
 
       SCM symbol = gh_car (extra_space);

@@ -28,8 +28,8 @@ print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-static
-scm_sizet free_smob (SCM s)
+static size_t
+free_smob (SCM s)
 {
   delete unsmob_input (s);
   return 0;
@@ -44,13 +44,15 @@ ly_input_p (SCM x)
 static
 void start_input_smobs ()
 {
-  input_tag
-    = scm_make_smob_type_mfpe ("input", 0,
-			       mark_smob, free_smob,
-			       print_smob, 0);
-  scm_make_gsubr ("ly-input-location?", 1, 0, 0, (Scheme_function_unknown)ly_input_p);
- 
-}
+  input_tag = scm_make_smob_type ("input", 0);
+  scm_set_smob_mark (input_tag, mark_smob);
+  scm_set_smob_free (input_tag, free_smob);
+  scm_set_smob_print (input_tag, print_smob);
+  scm_set_smob_equalp (input_tag, 0);
+
+  scm_c_define_gsubr ("ly-input-location?", 1, 0, 0,
+		      (Scheme_function_unknown)ly_input_p);
+ }
 
 SCM
 make_input (Input ip)
@@ -70,7 +72,7 @@ unsmob_input (SCM s)
 {
   if (SCM_IMP (s))
     return 0;
-  if ((long)SCM_CAR (s) == input_tag) // ugh.
+  if (SCM_CAR (s) == (SCM)input_tag) // ugh.
     return (Input*) SCM_CDR (s);
   else						
     return 0;					

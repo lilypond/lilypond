@@ -101,7 +101,7 @@ set_lily_option (SCM var, SCM val)
 static void
 init_functions ()
 {
-  scm_make_gsubr ("set-lily-option", 2, 0, 0, (Scheme_function_unknown)set_lily_option);
+  scm_c_define_gsubr ("set-lily-option", 2, 0, 0, (Scheme_function_unknown)set_lily_option);
 }
 
 

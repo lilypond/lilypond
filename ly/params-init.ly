@@ -22,6 +22,8 @@ staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
 outputscale = \staffheight / 4.0
 
+blotdiameter = 0.4 / \outputscale
+
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }
 \translator { \ChoirStaffContext}

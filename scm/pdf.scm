@@ -281,7 +281,7 @@
   )
 
 (define (scm-pdf-output)
-  (ly-eval (pdf-scm 'all-definitions)))
+  (primitive-eval (pdf-scm 'all-definitions)))
 
 ; Local Variables:
 ; scheme-program-name: "guile"
