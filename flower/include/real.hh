@@ -17,7 +17,6 @@
 typedef double Real;
 const Real infinity_f = HUGE_VAL;
 
-
 template<class T> inline T abs (T x)
 {
   return x > 0 ? x : -x;

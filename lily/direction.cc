@@ -12,14 +12,14 @@
 
 String direction_str (Direction d, Axis a)
 {
-  if (!d)
-    return "center";
+  String s("center");
   if (a == Y_AXIS)
     {
-       return d == UP ? "up" : "down";
+       s =( d == UP ? "up" : "down");
     }
   else if (a == X_AXIS)
     {
-      return d == LEFT ? "left" : "right" ;
+      s = (d == LEFT ? "left" : "right" );
     }
+  return s;
 }

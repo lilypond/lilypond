@@ -26,7 +26,14 @@ struct Interval_t {
   static T infinity() ;
   static String T_to_str (T arg);
     
-  T center() { return (left + right) / T(2);}
+  // ugh, egcs 1.02 ices on this
+//  T center() { return (left + right) / T(2);}
+  // and can't handle this either
+  // anyone want to make a bug report?
+  T center() {
+    T two (2);
+    return (left + right) / two;
+  }
   void translate (T t) {
     left += t;
     right += t;

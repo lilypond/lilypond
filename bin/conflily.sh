@@ -29,9 +29,7 @@ if [ "x$LILYINCLUDE" = "x" ]; then
 	echo "export MFINPUTS=$MFINPUTS:$lelie/current/mf"
 fi
 
-mkdir -p ../build
-(cd ../build; 
-ln -sf $lelie/build/lily/lilypond bin/lilypond
-ln -sf $lelie/build/mi2mu/mi2mu bin/mi2mu
-../current/configure --prefix=/usr --enable-debugging --enable-printing --enable-checking)
+ln -sf $lelie/current/lily/out/lilypond bin/lilypond
+ln -sf $lelie/current/mi2mu/out/mi2mu bin/mi2mu
+configure --prefix=/usr --enable-debugging --enable-printing --enable-checking
 

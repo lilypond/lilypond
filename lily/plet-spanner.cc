@@ -65,7 +65,7 @@ Plet_spanner::brew_molecule_p () const
   Real interline_f = paper ()->interline_f ();
   Real numy_f = (dir_ > 0 ? 0 : -interline_f) + dir_ * interline_f / 2;
   Atom num (tdef_p_->get_atom (paper (), CENTER));
-  num.translate (Offset (width ().length ()/ 2 + dx_f_drul_[LEFT], 
+  num.translate (Offset (width ().length () / 1.8 + dx_f_drul_[LEFT], 
     dy_f_drul_[LEFT] + dy_f / 2 + numy_f));
 
   if (visibility_i_ >= 1)

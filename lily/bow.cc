@@ -4,58 +4,84 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+      Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #include "bow.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "lookup.hh"
+#include "bezier.hh"
 
 IMPLEMENT_IS_TYPE_B1(Bow,Directional_spanner);
 
 Bow::Bow ()
 {
-  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0;
+  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-}
-
-
-Offset
-Bow::center () const
-{
-  Real dy =  dy_f_drul_[RIGHT]-dy_f_drul_[LEFT];
-
-  Real w = width ().length ();
-
-  return Offset (w/2,dy );
 }
 
 Molecule*
 Bow::brew_molecule_p () const
 {
-  Molecule*output = new Molecule;
-  Real w = width ().length ();
+  Molecule* mol_p = new Molecule;
   
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
   
-  Real nw_f = paper ()->note_width ();
+  Real dx_f = width ().length ();
+  dx_f += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
   
-  w+= (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  Real round_w = w;		// slur lookup rounds the slurwidth .
-  
-  Atom a = paper ()->lookup_l ()->slur (dy_f, round_w, height_f (), dir_);
+  Atom a = paper ()->lookup_l ()->slur (get_controls ());
 
-  Real error = w-round_w;
-  a.translate (Offset ( (dx_f_drul_[LEFT] + 0.5*nw_f)
-		       + error/2,
-		       dy_f_drul_[LEFT]));
-  output->add (a);
-  return output;
+  a.translate (Offset (dx_f + dx_f_drul_[LEFT], dy_f + dy_f_drul_[LEFT]));
+  mol_p->add (a);
+  return mol_p;
 }
 
-Real
-Bow::height_f () const
+Offset
+Bow::center () const
 {
-  return 0;
+  Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+
+  Real dx = width ().length ();
+
+  return Offset (dx / 2, dy);
+}
+
+Interval
+Bow::do_width () const    
+{
+  Interval i = Spanner::do_width ();
+  Real dx = i.length();
+  return Interval (0, dx);
+}
+
+Array<Offset>
+Bow::get_controls () const
+{
+  Bezier_bow b (paper ());
+  b.set (get_encompass_offset_arr (), dir_);
+  b.calc ();
+  Array<Offset> controls;
+  controls.set_size (8);
+  for (int i = 0; i < 4; i++)
+    controls[i] = b.control_[i];
+  for (int i = 0; i < 4; i++)
+    controls[i + 4] = b.return_[i];
+  return controls;
+}
+
+Array<Offset>
+Bow::get_encompass_offset_arr () const
+{
+  Real dx = width (). length ();
+  dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+  Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+
+  Array<Offset> notes;
+  notes.push (Offset (0,0));
+  notes.push (Offset (dx, dy));
+
+  return notes;
 }
 

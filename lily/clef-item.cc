@@ -34,6 +34,12 @@ Clef_item::Clef_item()
   read ("violin");
 }
 
+/*
+ * Convert input clef string to 
+ * a clef symbol and a line position.
+ * This would be better done in the lexer (more efficient)
+ * or as a table-lookup.
+ */
 void
 Clef_item::read (String t)
 {
@@ -42,42 +48,58 @@ Clef_item::read (String t)
     {
       y_position_i_ = -2;
     }
-  else if (t == "french") 
+  else if (t == "bass") 
+    {
+      y_position_i_ = 2;
+    }
+  else if (t == "G" || t == "G2" || t == "treble")
+    {
+      symbol_ = "violin";
+      y_position_i_ == -2;
+    }
+  else if (t == "french" || t == "G1") 
     {
       symbol_="violin";
       y_position_i_ = -4;
     }
-  else if (t == "soprano") 
+  else if (t == "soprano" || t == "C1") 
     {
       symbol_="alto";
       y_position_i_ = -4;
     }
-  else if (t == "mezzosoprano")
+  else if (t == "mezzosoprano" || t == "C2")
     {
       symbol_ = "alto";
       y_position_i_ = -2;
     }
   else if (t == "alto") 
     {
+      symbol_ = "alto";
       y_position_i_ = 0;
     }
-  else if (t == "tenor") 
+  else if (t == "C3")
     {
-      symbol_="alto";
+      symbol_ = "alto";
+      y_position_i_ = 0;
+  }
+  else if (t == "tenor" || t == "C4") 
+  {
+      symbol_ = "alto";
       y_position_i_ = 2;
     }
-  else if (t == "baritone")
+  else if (t == "baritone" || t == "C5")
     {
       symbol_ = "alto";
       y_position_i_ = 4;
     }
-  else if (t == "varbaritone")
+  else if (t == "varbaritone" || t == "F3")
     {
       symbol_ = "bass";
       y_position_i_ = 0;
     }
-  else if (t == "bass") 
+  else if (t == "F" || t == "F4")
     {
+      symbol_ = "bass";
       y_position_i_ = 2;
     }
   else if (t == "subbass")
@@ -85,6 +107,21 @@ Clef_item::read (String t)
       symbol_ = "bass";
       y_position_i_ = 4;
     }
+  else if (isdigit(t[1]))
+	  switch (t[0])
+	  { // we've already dealt with plain F, G  or C clef 
+		  // position 0 is line 3.	  
+	  case 'G':
+	  case 'g':
+		  symbol_ = "violin";
+		  y_position_i_ =   2 * (t[1] - '0') - 6;
+		  break;
+	  case 'F':
+	  case 'f':
+		  symbol_ = "bass";
+		  y_position_i_ = 2 * (t[1] - '0') - 6;
+		  break;
+	  }
 }
 
 void

@@ -20,12 +20,12 @@
 class Bezier
 {
 public:
-  Bezier (int steps_i);
+  Bezier ();
 
   /**
   Calculate bezier curve into Offset (x,y) array.
   */
-  void calc ();
+  void calc (int steps);
 
   void set (Array<Offset> points);
 
@@ -50,8 +50,9 @@ public:
    Calculate bezier curve for bow from bow parameters.
    */
   void blow_fit ();
-  Real calc_f (Real height);
   void calc ();
+  Real calc_f (Real height);
+  void calc_bezier ();
   void calc_controls ();
   void calc_default (Real h);
   void calc_return (Real begin_alpha, Real end_alpha);

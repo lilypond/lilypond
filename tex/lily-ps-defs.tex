@@ -118,60 +118,21 @@ def
         }
         bind def
  staffheight 2 div /slurhtlimit exch def
- /slurratio 0.3333 def
- %
- %  (b*ratio)/(1 + b / htlimit)
- /getslurcontrol 
- { 
-        slurhtlimit 90 div /slur_alpha exch def
-        slurratio 60 div slur_alpha div  /slur_beta  exch def
-        slur_beta mul 1 atan slur_alpha mul
- } bind def
- staffrulethickness 1.5 mul  /slur_thick exch def
- /draw_slur
- {
-        staffrulethickness setlinewidth
-        0 0 moveto
-        /slur_dir exch def
-        /slur_height exch def
-        /slur_dy exch def
-        /slur_dx exch def
-        slur_dy slur_dx lily_distance /slur_b  exch def
-        slur_b getslurcontrol slur_height add
-        slur_dir mul /slur_ht exch def
-        slur_b getslurcontrol /slur_indent exch def       
-%
-        slur_dy slur_dx atan rotate
-        slur_indent slur_ht
-        slur_b slur_indent sub slur_ht
-        slur_b 0
-        rcurveto        
- %
-        slur_indent neg slur_ht slur_dir slur_thick mul  sub
-        slur_indent slur_b sub slur_ht slur_dir slur_thick mul  sub
-        slur_b neg  0
-        rcurveto
- %
-        gsave
-                fill
-        grestore
-        stroke
- } bind def
- /draw_control_slur
- {
-        staffrulethickness setlinewidth
-        0 0 moveto
-        rcurveto        
-        rcurveto
-        gsave
+/draw_slur
+{
+	staffrulethickness setlinewidth
+	0 0 moveto
+	rcurveto
+	rcurveto
+	gsave
 	fill
-        grestore
-        stroke
- } bind def
+	grestore
+	stroke
+	} bind def
 }}
-
 
 \def\turnOnExperimentalFeatures{%
 % draw a slur in embedded postscript
 \special{ps:
 }}
+

@@ -29,7 +29,7 @@
 #include "lookup.hh"
 #include "grouping.hh"
 #include "stem-info.hh"
-#include "main.hh"  // experimental features
+//#include "main.hh"  // experimental features
 
 
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
@@ -450,7 +450,8 @@ Beam::set_stemlens ()
 	  s->set_stemend (left_y_ + slope_f_ * x);
 	  Real y = s->stem_length_f ();
 	  // duh: 
-	  int mult_i = stems_[i]->beams_left_i_ >? stems_[i]->beams_right_i_;
+//	  int mult_i = stems_[i]->beams_left_i_ >? stems_[i]->beams_right_i_;
+	  int mult_i = multiple_i_;
 	  if (mult_i > 1)
 	      // dim(y) = internote
 	      y -= (Real)(mult_i - 1) * interbeam_f / internote_f;
@@ -588,7 +589,5 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
     Does beam quanting think  of the asymetry of beams? 
     Refpoint is on bottom of symbol. (FIXTHAT) --hwn.
    */
-  if (experimental_features_global_b && dir_ < 0)
-    leftbeams.translate_axis (-beamheight_f, Y_AXIS);
   return leftbeams;
 }

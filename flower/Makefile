@@ -17,22 +17,6 @@ depth = ..
 #
 NAME = flower
 MODULE_NAME = flower
-#
-# edit VERSION only
-include ./$(depth)/VERSION
-include ./$(depth)/flower/VERSION
-
-# generic variables:
-#
-include ./$(depth)/make/Variables.make
-include ./$(depth)/make/Files.make 
-
-#include $(flowerout)/Flower-flags.make
-
-
-#
-# descent order into subdirectories:
-#
 SUBDIRS = include 
 #
 
@@ -41,17 +25,14 @@ SUBDIRS = include
 SCRIPTS = 
 README_FILES = ONEWS NEWS README TODO
 EXTRA_DISTFILES= VERSION $(README_FILES) $(SCRIPTS)
-#Flower-flags.make.in
-# aclocal.m4 configure config.hh.in configure.in
 
+include ./$(depth)/VERSION
+include ./$(depth)/flower/VERSION
 
-
-
-# generic targets and rules:
-#
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
-#
 
 default: the-lib
 

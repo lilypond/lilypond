@@ -1,6 +1,6 @@
 MAJOR_VERSION=0
 MINOR_VERSION=1
-PATCH_LEVEL=57
+PATCH_LEVEL=58
 MY_PATCH_LEVEL=
 
 # use the above to send patches, always empty for released version:

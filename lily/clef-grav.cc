@@ -29,7 +29,7 @@ bool
 Clef_engraver::set_type (String s)
 {
   clef_type_str_ = s;
-  if (clef_type_str_ == "violin")
+  if (clef_type_str_ == "violin" || clef_type_str_ == "G" || clef_type_str_ == "G2")
     c0_position_i_= -6;
   else if (clef_type_str_ == "french")
     c0_position_i_= -8;
@@ -45,12 +45,25 @@ Clef_engraver::set_type (String s)
     c0_position_i_ = 4;
   else if (clef_type_str_ == "varbaritone")
     c0_position_i_ = 4;
-  else if (clef_type_str_ == "bass")
+  else if (clef_type_str_ == "bass" || clef_type_str_ == "F")
     c0_position_i_= 6;
   else if (clef_type_str_ == "subbass")
     c0_position_i_ = 8;
   else
+    switch(clef_type_str_[0])
+    {
+    case 'F': case 'f':
+	    c0_position_i_ = 2 * (clef_type_str_[1] - '0') - 2;
+	    break;
+    case  'G': case 'g':
+	    c0_position_i_ = 2 * (clef_type_str_[1] - '0') - 10;
+	    break;
+    case 'C': case 'c':
+	    c0_position_i_ = 2 * (clef_type_str_[1] - '0') - 6;
+	    break;
+    default:
     return false;
+    }		    
   
   return true;
 }

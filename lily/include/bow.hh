@@ -9,23 +9,30 @@
 
 #ifndef BOW_HH
 #define BOW_HH
+
 #include "directional-spanner.hh"
+#include "curve.hh"
 
 /**
   Base class for anything that looks like a slur.
   Anybody with a better name?
   */
-class Bow : public Directional_spanner {
+class Bow : public Directional_spanner
+{
+public:
+  Bow ();
+  Offset center () const;  
+
+  DECLARE_MY_RUNTIME_TYPEINFO;
+
 protected:
+  virtual Molecule* brew_molecule_p () const;
+  virtual Interval do_width () const;    
+  Array<Offset> get_controls () const;
+  virtual Array<Offset> get_encompass_offset_arr () const;
+
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
-
-  virtual Molecule* brew_molecule_p () const;
-  virtual Real height_f () const;
-
-public:
-  Bow();
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  Offset center() const;  
 };
+
 #endif // BOW_HH
