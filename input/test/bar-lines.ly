@@ -10,14 +10,14 @@
 \paper { raggedright = ##t }
 
 \relative {
-    \override Score.RehearsalMark #'font-family = #'typewriter
-    c4 \bar "|" \mark \markup {  \simple #"\"|\"" } 
-    c \bar "|:" \mark \markup {  \simple #"\"|:\"" } 
-    c \bar "||" \mark \markup {  \simple #"\"||\"" } 
-    \bar ":|" \mark \markup {  \simple #"\":|\"" } 
-    c \bar ".|" \mark \markup {  \simple #"\".|\"" } 
-    c \bar ".|." \mark \markup {  \simple #"\".|.\"" } 
-    c \bar ":|:" \mark \markup {  \simple #"\":|:\"" } 
-    c \bar "|." \mark \markup {  \simple #"\"|.\"" } 
-    c \bar ":" \mark \markup {  \simple #"\":\"" } 
+    c4 \bar "|" \mark \markup {  \simple #"|" }
+    c \bar "|:" \mark \markup {  \simple #"|:" }
+    c \bar "||" \mark \markup {  \simple #"||" }
+    c \bar ":|" \mark \markup {  \simple #":|" }
+    c \bar ".|" \mark \markup {  \simple #".|" }
+    c \bar ".|." \mark \markup {  \simple #".|." }
+    c \bar ":|:" \mark \markup {  \simple #":|:" }
+    c \bar "|." \mark \markup {  \simple #"|." }
+    c \bar ":" \mark \markup {  \simple #":" }
+    c
 }
