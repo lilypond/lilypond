@@ -1,3 +1,8 @@
+2004-07-06  Heikki Junes  <hjunes@cc.hut.fi>
+
+        * stepmake/bin/add-html-footer.py: use <div> instead of <table>,
+        add a faint, green border line.
+
 2004-07-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/font.scm (add-cmr-fonts): upright caps is eccc.

@@ -43,11 +43,7 @@ of @PACKAGE_NAME@
 """
 
 built = r"""
-<p>
-<table align="center" width="100%%" cellspacing="2" BGCOLOR="#e8ffe8">
- <tr>
-          <td align=left>
-
+<div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
 <a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
 <a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.
 <p>
@@ -56,8 +52,7 @@ This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
 <address><font size="-1">
 Report errors to &lt;<a href="mailto:%(mail_address)s">%(mail_address)s</a>&gt;.</font></address>
-        </tr>
-        </table>
+</div>
 
 
 """
