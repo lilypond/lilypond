@@ -9,7 +9,7 @@
 #include "bar-reg.hh"
 #include "bar.hh"
 #include "command-request.hh"
-#include "score-column.hh"
+//#include "score-column.hh"
 #include "time-description.hh"
 
 Bar_register::Bar_register()
@@ -83,5 +83,6 @@ Bar_register::post_move_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Bar_register);
+ADD_THIS_REGISTER(Bar_register);
 
 

@@ -61,7 +61,7 @@ Request_register::acceptable_request_b(Request*)const
 }
 
 bool
-Request_register::contains_b(Request_register *reg_l)
+Request_register::contains_b(Request_register *reg_l)const
 {
     return this == reg_l;
 }
@@ -76,9 +76,9 @@ void
 Request_register::print() const
 {
 #ifndef NPRINT
-    mtor << name() << " {";
+    mtor << "\n" << name() << " {";
     do_print();
-    mtor << "}\n";
+    mtor << "}";
 #endif
 }
 

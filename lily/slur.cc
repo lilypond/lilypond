@@ -59,8 +59,8 @@ Slur::set_default_dir()
 void
 Slur::do_pre_processing()
 {
-    right  = encompass.top()->pcol_l_;
-    left = encompass[0]->pcol_l_;    
+    right_col_l_  = encompass.top()->pcol_l_;
+    left_col_l_ = encompass[0]->pcol_l_;    
 }
 
 Spanner*
@@ -74,9 +74,9 @@ Slur::do_break_at(PCol*l, PCol*r) const
 	if (encompass[i]->pcol_l_->line_l_==l->line_l_)
 	    ret->encompass.push(encompass[i]);
     }
-    if (right != r)
+    if (right_col_l_ != r)
 	ret->open_right = true;
-    if (left != l)
+    if (left_col_l_ != l)
 	ret->open_left = true;
 
 

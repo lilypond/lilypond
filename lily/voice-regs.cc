@@ -11,16 +11,16 @@
 #include "musical-request.hh"
 #include "voice-regs.hh"
 #include "register.hh"
-#include "slur-reg.hh"
-#include "headreg.hh"
-#include "walk-regs.hh"
+#include "staff-regs.hh"	// needed because somebody has to delete us.
 #include "debug.hh"
+#include "input-register.hh"
+#include "voice-group-regs.hh"
 
-Voice_registers::Voice_registers(Voice *v_p)
+Voice_registers::Voice_registers(Voice *v_p, Input_register const*ireg_C)
 {
+    ireg_C_ = ireg_C;
     voice_l_ = v_p;
-    add(new Notehead_register);
-    add(new Slur_register);
+    add(ireg_C->get_nongroup_p_arr());
 }
 
 void
@@ -42,8 +42,12 @@ Voice_registers::try_request(Request*r_l)
 	daddy_reg_l_->terminate_register(this);
 	return true;		// scary. We're deleted now.. 
     } else if (c&&c->groupchange()) {
-
-	((Walker_registers*)daddy_reg_l_->daddy_reg_l_)->	// scary.
+	/* this is scary as well. The groupchange has to be handled by
+	 the Staff_registers, which are two levels up in the hierarchy
+	 */
+	  
+	assert(daddy_reg_l_->name() == Voice_group_registers::static_name());
+	((Staff_registers*)daddy_reg_l_->daddy_reg_l_)->	// scary.
 	    change_group(c->groupchange(), this,
 			 (Voice_group_registers*)daddy_reg_l_);	// UGR!
 	return true;
@@ -56,7 +60,7 @@ bool
 Voice_registers::acceptable_request_b(Request*r)
 {
     Command_req *  c_l = r->command();
-    return  r->groupchange() || (c_l&&c_l->terminate())
+    return   (c_l&&(c_l->terminate()||c_l->groupchange()))
 	|| Register_group_register::acceptable_request_b(r);
 }
 IMPLEMENT_STATIC_NAME(Voice_registers);

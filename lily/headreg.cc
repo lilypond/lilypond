@@ -46,7 +46,7 @@ Notehead_register::process_requests()
 	note_p_ = n_p;
 	n_p->set_rhythmic(note_req_l_->rhythmic());
 	n_p->position = note_req_l_->note()->height() +
-	    *get_staff_info().c0_position_i_;
+	    *get_staff_info().c0_position_i_l_;
     } else {
 	note_p_ = new Rest ( note_req_l_->rhythmic()->duration_);
 	if (note_req_l_->rhythmic()->duration_.type_i_ <= 2)
@@ -75,3 +75,4 @@ Notehead_register::post_move_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Notehead_register);
+ADD_THIS_REGISTER(Notehead_register);

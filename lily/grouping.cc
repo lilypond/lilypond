@@ -93,7 +93,7 @@ Rhythmic_grouping::intersect(MInterval t)
     
     for (int i=0; i < children.size(); i++) {
 	MInterval inter = intersection(t, children[i]->interval());
-	if (inter.empty() || inter.length() <= Rational( 0 )) {
+	if (inter.empty_b() || inter.length() <= Rational( 0 )) {
 	    delete children[i];
 	    children[i] =0;
 	} else {

@@ -75,3 +75,4 @@ Script_register::set_feature(Features i)
 	dir_i_ = i.direction_i_;
 }
 IMPLEMENT_STATIC_NAME(Script_register);
+ADD_THIS_REGISTER(Script_register);

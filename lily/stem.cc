@@ -42,7 +42,7 @@ Stem::set_stemend(Real se)
 
     // todo: margins
     if (!  ((dir > 0 && se >= maxnote) || (se <= minnote && dir <0))  )	
- 	warning("Weird stem size; check for narrow beams",0);
+ 	warning("Weird stem size; check for narrow beams");
     
     top = (dir < 0) ? maxnote           : se;
     bot = (dir < 0) ? se  : minnote;
@@ -107,7 +107,7 @@ void
 Stem::set_default_extents()
 {
     if (minnote > maxnote) {
-	warning("Empty stem. Ugh!", 0);
+	warning("Empty stem. Ugh!");
 	minnote = -10;
 	maxnote = 20;
     }

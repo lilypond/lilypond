@@ -40,7 +40,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	
 
 	    if (!key_item_p_) {
-		key_item_p_ = new Local_key_item(*get_staff_info().c0_position_i_);
+		key_item_p_ = new Local_key_item(*get_staff_info().c0_position_i_l_);
 	    }
 	    
 	    key_item_p_->add(note_l_);
@@ -64,7 +64,8 @@ Local_key_register::process_requests()
 	if (key_C_)  
 	    local_key_.reset(*key_C_);
 	else if( time_C_->when_ >Moment(0))
-	    warning ("Help me! can't figure  current key", 0);
+	    warning ("Help me! can't figure  current key", (const char*)0);
     }
 }
 IMPLEMENT_STATIC_NAME(Local_key_register);
+ADD_THIS_REGISTER(Local_key_register);

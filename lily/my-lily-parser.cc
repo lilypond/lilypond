@@ -1,5 +1,5 @@
 /*
-  my-lily-parser.cc -- implement 
+  my-lily-parser.cc -- implement My_lily_parser
 
   source file of the LilyPond music typesetter
 
@@ -45,18 +45,20 @@ My_lily_parser::parse_file(String init, String s)
     lexer_p_ = new My_lily_lexer;
 
     set_debug();
+    init_parse_b_ = true;
 
     lexer_p_->new_input(init, source_l_);
     do_yyparse();
     print_declarations();
    
     init_parse_b_ = false;
+    set_debug();
     lexer_p_->new_input(s, source_l_);
     do_yyparse();
 
 
     if(!define_spot_array_.empty())
-	warning("Braces don't match.",0);
+	warning("Braces don't match.");
 }
 
 My_lily_parser::~My_lily_parser()
@@ -67,7 +69,7 @@ My_lily_parser::~My_lily_parser()
 void
 My_lily_parser::remember_spot()
 {
-    define_spot_array_.push(here_ch_C());
+    define_spot_array_.push(here_input());
 }
 
 char const * 
@@ -109,7 +111,7 @@ My_lily_parser::get_word_element(Text_def* tdef_p, Duration * duration_p)
     Lyric_req* lreq_p = new Lyric_req(tdef_p);
 
     lreq_p->duration_ = *duration_p;
-     lreq_p->defined_ch_C_ = here_ch_C();
+    lreq_p->set_spot( here_input());
 
     velt_p->add(lreq_p);
 
@@ -121,11 +123,11 @@ Voice_element *
 My_lily_parser::get_rest_element(String,  Duration * duration_p )
 {    
     Voice_element* velt_p = new Voice_element;
-    velt_p->defined_ch_C_ = lexer_p_->here_ch_C();
+    velt_p->set_spot( here_input());
 
     Rest_req * rest_req_p = new Rest_req;
     rest_req_p->duration_ = *duration_p;
-     rest_req_p->defined_ch_C_ = here_ch_C();
+    rest_req_p->set_spot( here_input());
 
     velt_p->add(rest_req_p);
     delete duration_p;
@@ -136,18 +138,18 @@ Voice_element *
 My_lily_parser::get_note_element(Note_req *rq, Duration * duration_p )
 {
     Voice_element*v = new Voice_element;
-    v->defined_ch_C_ = here_ch_C();
+    v->set_spot( here_input());
     
     if (duration_p->type_i_ >= 2) {
 	Stem_req * stem_req_p = new Stem_req();
 	stem_req_p->duration_ = *duration_p;
 	
-	stem_req_p->defined_ch_C_ = here_ch_C();
+	stem_req_p->set_spot( here_input());
 	v->add(stem_req_p);
     }
 
     rq->set_duration(*duration_p);
-    rq->defined_ch_C_ = here_ch_C();
+    rq->set_spot( here_input());
 
 
     v->add(rq);
@@ -199,7 +201,7 @@ My_lily_parser::get_parens_request(char c)
 	break;
     }
 
-    req_p->defined_ch_C_ = here_ch_C();
+    req_p->set_spot( here_input());
     return req_p;
 }
 
@@ -212,7 +214,6 @@ My_lily_parser::My_lily_parser(Sources * source_l)
     textstyle_str_="roman";		// in lexer?
     error_level_i_ = 0;
     last_duration_mode = false;
-    defined_ch_C_ = 0;
     fatal_error_i_ = 0;
 }
 
@@ -227,4 +228,16 @@ My_lily_parser::add_requests(Voice_element*v)
 	v->add(post_reqs[i]);
     }
     post_reqs.set_size(0);
+}
+
+Input
+My_lily_parser::pop_spot()
+{
+    return define_spot_array_.pop();
+}
+
+Input
+My_lily_parser::here_input()const
+{
+    return Input(source_l_, here_ch_C());
 }

@@ -63,3 +63,4 @@ Meter_register::post_move_processing()
     meter_p_ =0;
 }
 IMPLEMENT_STATIC_NAME(Meter_register);
+ADD_THIS_REGISTER(Meter_register);

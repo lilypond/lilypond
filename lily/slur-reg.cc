@@ -57,8 +57,8 @@ Slur_register::process_requests()
 	// end slur: move the slur to other array
 	if (slur_req_l->spantype == Span_req::STOP) {
 	    if (slur_l_stack_.empty())
-		warning("can't find slur to end",
-		      slur_req_l->defined_ch_C_);
+		
+		      slur_req_l->warning("can't find slur to end");
 	    else {
 		end_slur_l_arr_.push(slur_l_stack_.pop());
 		requests_arr_.pop();
@@ -95,7 +95,8 @@ Slur_register::post_move_processing()
 Slur_register::~Slur_register()
 {
     for (int i=0; i < requests_arr_.size(); i++) {
-	warning("unterminated slur", requests_arr_[i]->defined_ch_C_);
+	requests_arr_[i]->warning("unterminated slur");
     }
 }
 IMPLEMENT_STATIC_NAME(Slur_register);
+ADD_THIS_REGISTER(Slur_register);

@@ -14,8 +14,8 @@ Staff_elem::TeXstring() const
 }
 
 Staff_elem::Staff_elem(Staff_elem const&s)
-    : dependants(s.dependants),
-      dependencies(s.dependencies)
+      :dependancy_l_arr_(s.dependancy_l_arr_),
+        dependant_l_arr_(s.dependant_l_arr_)
 {
     status = s.status;
     assert(!s.output);
@@ -25,7 +25,7 @@ Staff_elem::Staff_elem(Staff_elem const&s)
 }
 /**
   TODO:
-  If deleted, then remove dependants depency!
+  If deleted, then remove dependant_l_arr_ depency!
   */
 Staff_elem::~Staff_elem()
 {
@@ -49,7 +49,7 @@ Staff_elem::width() const
     } else
 	r = output->extent().x;
   
-    if (!r.empty()) // float exception on DEC Alpha
+    if (!r.empty_b()) // float exception on DEC Alpha
 	r+=offset_.x;
 
     return r;
@@ -66,7 +66,7 @@ Staff_elem::height() const
     } else
 	r = output->extent().y;
     
-    if (!r.empty())
+    if (!r.empty_b())
 	r+=offset_.y;
 
   
@@ -121,9 +121,9 @@ Staff_elem::pre_processing()
     assert(status != PRECALCING); // cyclic dependency
     status = PRECALCING;
 
-    for (int i=0; i < dependencies.size(); i++)
-	if (dependencies[i])
-	    dependencies[i]->pre_processing();
+    for (int i=0; i < dependancy_l_arr_.size(); i++)
+	if (dependancy_l_arr_[i])
+	    dependancy_l_arr_[i]->pre_processing();
 
     
     do_pre_processing();
@@ -137,9 +137,9 @@ Staff_elem::post_processing()
     assert(status != POSTCALCING);// cyclic dependency
     status=POSTCALCING;	
 
-    for (int i=0; i < dependencies.size(); i++)
-	if (dependencies[i])
-	    dependencies[i]->post_processing();
+    for (int i=0; i < dependancy_l_arr_.size(); i++)
+	if (dependancy_l_arr_[i])
+	    dependancy_l_arr_[i]->post_processing();
     do_post_processing();
     status=POSTCALCED;
 }
@@ -150,9 +150,9 @@ Staff_elem::molecule_processing()
     if (status >= OUTPUT)
 	return;
     status = OUTPUT;		// do it only once.
-    for (int i=0; i < dependencies.size(); i++)
-	if (dependencies[i])
-	    dependencies[i]->molecule_processing();
+    for (int i=0; i < dependancy_l_arr_.size(); i++)
+	if (dependancy_l_arr_[i])
+	    dependancy_l_arr_[i]->molecule_processing();
 
     output= brew_molecule_p();
 }
@@ -176,26 +176,26 @@ void
 Staff_elem::substitute_dependency(Staff_elem * old, Staff_elem * newdep)
 {
     bool hebbes_b=false;
-    for (int i=0; i < dependencies.size(); i++) {
-	if (dependencies[i] == old){
-	    dependencies[i] = newdep;
+    for (int i=0; i < dependancy_l_arr_.size(); i++) {
+	if (dependancy_l_arr_[i] == old){
+	    dependancy_l_arr_[i] = newdep;
 	    hebbes_b = true;
-	} else if (dependencies[i] == newdep) {
+	} else if (dependancy_l_arr_[i] == newdep) {
 	    hebbes_b = true;
 	}
     }
     if (!hebbes_b)
-	dependencies.push(newdep);
+	dependancy_l_arr_.push(newdep);
 }
 
 void
 Staff_elem::add_dependency(Staff_elem * p)
 {
-    for (int i=0; i < dependencies.size(); i ++)
-	if (dependencies[i] == p)
+    for (int i=0; i < dependancy_l_arr_.size(); i ++)
+	if (dependancy_l_arr_[i] == p)
 	    return;
     
-    dependencies.push(p);
-    p->dependants.push(p);
+    dependancy_l_arr_.push(p);
+    p->dependant_l_arr_.push(p);
 }
 IMPLEMENT_STATIC_NAME(Staff_elem);

@@ -57,7 +57,11 @@ Staff_walker::process_timing_reqs()
 	if (tr_l->meterchange()) {
 	    int b_i=tr_l->meterchange()->beats_i_;
 	    int o_i = tr_l->meterchange()->one_beat_i_;
-	    time_.set_meter(b_i, o_i);
+	    if (! time_.allow_meter_change_b() )
+		
+			tr_l->warning("Meterchange should be at start of measure");
+	    else
+		time_.set_meter(b_i, o_i);
 			
 	    *default_grouping = Rhythmic_grouping(
 		MInterval(0,Moment(b_i, o_i)), b_i);
@@ -69,7 +73,7 @@ Staff_walker::process_timing_reqs()
 	if (tr_l->partial()) {
 	    time_.setpartial(tr_l->partial()->duration_);
 	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
-	    warning( "Barcheck failed", tr_l->defined_ch_C_ );
+	    tr_l ->warning( "Barcheck failed");
 	} else if (tr_l->cadenza()) {
 	    time_.set_cadenza(tr_l->cadenza()->on_b_);
 	} else if (tr_l->measuregrouping()) {
