@@ -17,25 +17,16 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  virtual bool do_try_music (Music*);
+  virtual void acknowledge_element (Score_element_info);
 };
 
 ADD_THIS_TRANSLATOR (A2_devnull_engraver);
 
-bool
-A2_devnull_engraver::do_try_music (Music *m) 
+void
+A2_devnull_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_req * n = dynamic_cast <Note_req *> (m))
-    {
-      SCM a2 = get_property ("a2");
-      // should be able to read id_str_, no?
-      SCM second = get_property ("second");
-
-      if (a2 == SCM_BOOL_T && second == SCM_BOOL_T)
-	{
-	  return true;
-	}
-    }
-  return false;
+  if (daddy_trans_l_->id_str_ == "two"
+      && to_boolean (get_property ("unison"))
+      && to_boolean (get_property ("soloADue")))
+    i.elem_l_->suicide ();
 }
-      

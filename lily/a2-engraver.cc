@@ -23,12 +23,12 @@ public:
 protected:
   virtual void do_process_music ();
   virtual void acknowledge_element (Score_element_info);
-  //virtual void process_acknowledged ();
 
   virtual void do_pre_move_processing ();
 
 private:
   Item* text_p_;
+  enum State { NORMAL, SOLO, SPLIT_INTERVAL, UNISON } state_;
 };
 
 ADD_THIS_TRANSLATOR (A2_engraver);
@@ -36,6 +36,7 @@ ADD_THIS_TRANSLATOR (A2_engraver);
 A2_engraver::A2_engraver ()
 {
   text_p_ = 0;
+  state_ = NORMAL;
 }
 
 void
@@ -43,39 +44,50 @@ A2_engraver::do_process_music ()
 {
   if (!text_p_)
     {
-      SCM a2 = get_property ("a2");
+      SCM unison = get_property ("unison");
+      SCM unirhythm = get_property ("unirhythm");
       SCM solo = get_property ("solo");
-      SCM solo2 = get_property ("solo2");
+      SCM split_interval = get_property ("split-interval");
+      SCM solo_adue = get_property ("soloADue");
 
-      if (solo == SCM_BOOL_T || a2 == SCM_BOOL_T || solo2 == SCM_BOOL_T)
+      if (solo_adue == SCM_BOOL_T
+	  && ((solo == SCM_BOOL_T && state_ != SOLO)
+	      || (unison == SCM_BOOL_T && state_ != UNISON
+		  && daddy_trans_l_->id_str_ == "one")))
 	{
 	  text_p_ = new Item (get_property ("basicTextScriptProperties"));
 	  Side_position::set_axis (text_p_, Y_AXIS);
 	  announce_element (text_p_, 0);
       
-	  /*
-	    Urg, read prop
-	  */
-	  SCM text;
 	  Direction dir = UP;
+	  SCM text;
 	  if (solo == SCM_BOOL_T)
 	    {
-	      text = ly_str02scm ("Solo");
+	      state_ = SOLO;
+	      if (daddy_trans_l_->id_str_ == "one")
+		{
+		  text = get_property ("soloText");
+		}
+	      else
+		{
+		  text = get_property ("soloIIText");
+		  dir = DOWN;
+		}
 	    }
-	  else if (solo2 == SCM_BOOL_T)
+	  else if (unison == SCM_BOOL_T)
 	    {
-	      text = ly_str02scm ("Solo II");
-	      dir = DOWN;
+	      state_ = UNISON;
+	      if (daddy_trans_l_->id_str_ == "one")
+		text = get_property ("aDueText");
 	    }
-	  else if (a2 == SCM_BOOL_T)
-	    {
-	      text = ly_str02scm ("\\`a 2");
-	    }
-
+	  
 	  Side_position::set_direction (text_p_, dir);
 	  text_p_->set_elt_property ("text", text);
-
 	}
+      else if (unison == SCM_BOOL_T)
+	state_ = UNISON;
+      else if (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T)
+	state_ = SPLIT_INTERVAL;
     }
 }
 
@@ -95,26 +107,31 @@ A2_engraver::acknowledge_element (Score_element_info i)
       if (Stem::has_interface (i.elem_l_))
 	{
 	  Side_position::add_support (text_p_, i.elem_l_);
+	}
+    }
 	  
-	  SCM a2 = get_property ("a2");
-	  SCM solo = get_property ("solo");
-	  SCM solo2 = get_property ("solo2");
+	  
+  if (Stem::has_interface (i.elem_l_))
+    {
+      Item *stem_l = dynamic_cast<Item*> (i.elem_l_);
 
-	  SCM first = get_property ("first");
-	  SCM second = get_property ("second");
+      SCM unison = get_property ("unison");
+      SCM unirhythm = get_property ("unirhythm");
+      SCM solo = get_property ("solo");
+      SCM split_interval = get_property ("split-interval");
+      SCM solo_adue = get_property ("soloADue");
 
-	  if (solo != SCM_BOOL_T
-	      && solo2 != SCM_BOOL_T
-	      && a2 != SCM_BOOL_T)
+      if ((unirhythm != SCM_BOOL_T && solo != SCM_BOOL_T)
+	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
+	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
+	{
+	  if (daddy_trans_l_->id_str_ == "one")
 	    {
-	      if (first == SCM_BOOL_T)
-		{
-		  Directional_element_interface (i.elem_l_).set (UP);
-		}
-	      else if (second == SCM_BOOL_T)
-		{
-		  Directional_element_interface (i.elem_l_).set (DOWN);
-		}
+	      stem_l->set_elt_property ("direction", gh_int2scm (1));
+	    }
+	  else if (daddy_trans_l_->id_str_ == "two")
+	    {
+	      stem_l->set_elt_property ("direction", gh_int2scm (-1));
 	    }
 	}
     }
@@ -129,9 +146,5 @@ A2_engraver::do_pre_move_processing ()
       typeset_element (text_p_);
       text_p_ = 0;
     }
-  // burp: reset properties
-  daddy_trans_l_->set_property ("a2", SCM_BOOL_F);
-  daddy_trans_l_->set_property ("solo", SCM_BOOL_F);
-  daddy_trans_l_->set_property ("solo2", SCM_BOOL_F);
 }
 
