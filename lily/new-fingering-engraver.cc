@@ -58,14 +58,21 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	{
 	  Music * m = unsmob_music (gh_car (s));
 
-	  if (m && m->is_mus_type ("fingering-event"))
+	  if (!m)
+	    continue;
+	  
+
+	  if (m->is_mus_type ("fingering-event"))
 	    {
 	      add_fingering (inf.grob_ , m, note_ev);
+	    }
+	  else if (m->is_mus_type ("script-event"))
+	    {
+
 	    }
 	}
     }
 }
-
 
 void
 New_fingering_engraver::add_fingering (Grob * head,
@@ -126,10 +133,7 @@ New_fingering_engraver::position_scripts ()
       fingerings_[i].position_ = gh_scm2int (fingerings_[i].head_ -> get_grob_property( "staff-position"));
     }
   
-
-  
   Array<Finger_tuple> up, down, horiz;
-
   for (int i = fingerings_.size(); i--;)
     {
       SCM d = fingerings_[i].finger_event_->get_mus_property ("direction");

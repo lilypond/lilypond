@@ -191,20 +191,12 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 
 	(internal-class-name . "Event")
 	(types . (general-music mark-event event))
-	))  
-    (MelismaEvent
-     . (
-	(description .  "")
-
-	(internal-class-name . "Event")
-	(types . (general-music span-event melisma-playing-event event))
-	)) 
+	))
     (MelismaPlayingEvent
      . (
 	(description .  "")
-
 	(internal-class-name . "Event")
-	(types . (general-music event))
+	(types . (general-music melisma-playing-event event))
 	))
     (MultiMeasureRestEvent
      . (

@@ -8,19 +8,43 @@
  */
 
 #include "translator-group.hh"
-#include "lyric-combine-music-iterator.hh"
 #include "lyric-combine-music.hh"
 #include "event.hh"
 #include "note-head.hh"
 #include "grob.hh"
+#include "music-iterator.hh"
+
+class Lyric_combine_music_iterator : public Music_iterator
+{
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+  Lyric_combine_music_iterator ();
+  Lyric_combine_music_iterator (Lyric_combine_music_iterator const&src);
+  DECLARE_SCHEME_CALLBACK(constructor, ());
+protected:
+  virtual void construct_children ();
+  virtual Moment pending_moment () const;
+  virtual void do_quit(); 
+  virtual void process (Moment);
+  virtual Music_iterator *try_music_in_children (Music *) const;
+
+  virtual bool ok () const;
+  virtual void derived_mark () const;
+private:
+  bool get_busy_status ()const ;
+  bool  melisma_busy (); 
+  
+
+  Music_iterator * music_iter_;
+  Music_iterator * lyric_iter_;
+};
+
 
 
 /*
   Ugh, why static?
  */
 Music *busy_req;
-Music *melisma_start_req;
-Music *melisma_stop_req;
 Music *melisma_playing_req;
 
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
@@ -31,13 +55,6 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 	= make_music_by_name (ly_symbol2scm ("BusyPlayingEvent"));
       melisma_playing_req
 	= make_music_by_name (ly_symbol2scm ("MelismaPlayingEvent"));
-      melisma_stop_req
-	= make_music_by_name (ly_symbol2scm ("MelismaEvent"));
-      melisma_start_req
-	= make_music_by_name (ly_symbol2scm ("MelismaEvent"));
-
-      melisma_start_req->set_mus_property ("span-direction", gh_int2scm (START));
-      melisma_stop_req->set_mus_property ("span-direction", gh_int2scm (STOP));
     }
   
   music_iter_ =0;
@@ -106,6 +123,33 @@ Lyric_combine_music_iterator::get_busy_status () const
   return false;
 }
 
+
+bool
+Lyric_combine_music_iterator::melisma_busy ()
+{
+#if 0
+  
+  Translator_group * trg = music_iter_->report_to();
+  bool melisma_busy= to_boolean (trg->get_property ("melismaBusy"));
+
+  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("slurMelismaBusy"));
+  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("tieMelismaBusy"));
+  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("beamMelismaBusy"));
+  return melisma_busy;
+
+#else
+
+  /*
+    The above code is nicer since it doesn't rely on a special
+    engraver to signal the melisma status. Unfortunately,
+    music_iter_->report_to() might not be the context that sets the
+    melisma properties, but rather a parent context.
+   */
+  return  music_iter_->try_music (melisma_playing_req);
+#endif
+  
+}
+
 void
 Lyric_combine_music_iterator::process (Moment m)
 {
@@ -115,20 +159,13 @@ Lyric_combine_music_iterator::process (Moment m)
   
   music_iter_->process (m);
 
-  if (get_busy_status ())
+  if (get_busy_status () && !melisma_busy () && lyric_iter_->ok ())
     {
-      bool melisma_b = try_music (melisma_playing_req);
-      if (!melisma_b)
-	{
-	  if (lyric_iter_->ok ())
-	    {
-	      Moment m= lyric_iter_->pending_moment ();
-	      lyric_iter_->process (m);
-	    }
-	}
+      Moment m= lyric_iter_->pending_moment ();
+      lyric_iter_->process (m);
     }
-  
 }
+
 void
 Lyric_combine_music_iterator::do_quit ()
 {

@@ -53,9 +53,6 @@
       default-script-alist)
       )
 
-
-
-
 (set! default-script-alist
       (append 
       '(("accDiscant" . ((accordion "Discant" "") #f 0 1 0))
@@ -97,7 +94,6 @@
 	("accStdbaseTFE" . ((accordion "Stdbase" "TFE") #f 0 -1 0))
 	("accStdbaseMES" . ((accordion "Stdbase" "MES") #f 0 -1 0))
 	("accStdbaseTFMES" . ((accordion "Stdbase" "TFMES") #f 0 -1 0))
-
 	("accSB" . ((accordion "SB" "") #f 0 -1 0))
 	("accBB" . ((accordion "BB" "") #f 0 -1 0))
 	("accOldEE" . ((accordion "OldEE" "") #f 0 -1 0))
