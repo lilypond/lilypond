@@ -34,6 +34,8 @@ public:
   Rational truncated () const;
   void negate ();
   operator bool () const;
+  operator int () const;
+  operator double () const;
   operator String () const;
   Rational operator - () const;
   Rational ();
