@@ -168,7 +168,7 @@
 			   page-stencil))))
       )
 
-    (if #t
+    (if #f
 	(display (list
 		  "leftmargin" leftmargin "rightmargin" rightmargin
 		  )))

@@ -721,8 +721,6 @@ book_paper_block:
 output_def:
 	output_def_body '}' {
 		$$ = $1;
-		if ($1->parent_)
-			THIS->lexer_->remove_scope ();
 
 		THIS->lexer_->remove_scope ();
 		THIS->lexer_->pop_state ();
@@ -742,9 +740,6 @@ output_def_head:
 	}
 	| PAPER 	{
 		Output_def *p = get_paper (THIS);
-
-		if (p->parent_)
-			THIS->lexer_->add_scope (p->parent_->scope_);
 
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;

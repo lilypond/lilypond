@@ -1,5 +1,9 @@
 2004-09-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/lily-parser.cc (get_paper): don't set parent for \paper
+	blocks in the parser. This eliminates ordering dependency for
+	\bookpaper and \paper
+
 	* ly/part-paper-init.ly: remove file.
 
 	* lily/includable-lexer.cc (new_input): elucidate message.

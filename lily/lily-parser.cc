@@ -381,7 +381,6 @@ get_paper (Lily_parser *parser)
   paper = paper ? paper->clone () : new Output_def;
   paper->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
 
-  paper->parent_ = unsmob_output_def (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
   return paper;
 }
 

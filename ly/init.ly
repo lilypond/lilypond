@@ -29,7 +29,7 @@
 	    input-file-name ": old relative compatibility was not used."
 	)))%% there is a problem at the end of the input file
 
-
+#(display "HAI")
 #(if (pair? toplevel-scores)
   (ly:parser-print-book parser
    (apply ly:make-book $defaultbookpaper $globalheader (reverse toplevel-scores))))
