@@ -10,7 +10,7 @@
 #include "un-relativable-music.hh"
 
 Un_relativable_music::Un_relativable_music (SCM x)
-  : Music (x)
+  : Music_wrapper (x)
 {
 }
 
