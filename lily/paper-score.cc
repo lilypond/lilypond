@@ -110,7 +110,6 @@ Paper_score::calc_breaking ()
 void
 Paper_score::process ()
 {
-
   print ();
   progress_indication (_ ("Preprocessing elements...") + " ");
   line_l_->breakable_col_processing ();

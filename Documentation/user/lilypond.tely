@@ -86,7 +86,6 @@ than the names being similar :-)"
 * Invoking LilyPond::   Operation.
 * Reporting Bugs::      Where to report bugs.
 * Reference Manual::    Reference Manual.
-* Glossary::            A dictionary of musical terms.
 * More information::    Where to turn to for more help.
 * convert-mudela::      Upgrading input files.
 * Index::               Unified index.
@@ -111,8 +110,6 @@ than the names being similar :-)"
 @include bugs.itexi
 
 @mbinclude refman.itely
-
-@include glossary.itexi
 
 @include moreinfo.itexi
 

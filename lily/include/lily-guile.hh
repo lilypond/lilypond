@@ -21,7 +21,7 @@ SCM ly_symbol2scm (char const *);
 String ly_symbol2string (SCM);
 
 SCM ly_offset2scm (Offset o);
-
+Offset ly_scm2offset (SCM s);
 SCM ly_eval (SCM a);
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);

@@ -241,7 +241,7 @@ Tie::get_curve () const
       Real y0 = c.control_ [0][Y_AXIS];
       c.control_[2][Y_AXIS] = 
       c.control_[1][Y_AXIS] =
-	(c.control_[1][Y_AXIS] - y0)  * (newy / y) + y0; 
+	(c.control_[1][Y_AXIS] - y0)  * ((newy - y0) / (y - y0)) + y0; 
     }
   else
     programming_error ("Tie is nowhere horizontal");

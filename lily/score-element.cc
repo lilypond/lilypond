@@ -434,7 +434,6 @@ Score_element::handle_broken_dependencies()
   if (original_l_ && s)
     return;
 
-
   if (s)
     {
       for (int i = 0;  i< s->broken_into_l_arr_ .size (); i++)

@@ -215,7 +215,12 @@
 	 (map (lambda (x)
 		(font-load-command (car x) (cdr x))) font-name-alist)
   ))
-  
+
+(define (fontify name exp)
+  (string-append (select-font name)
+		 exp)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;
 
 
@@ -233,7 +238,10 @@
 
 
 
+;;;;;;;;;;;;;;;;;;; generic output
 
+(define (translate-atom offset exp)
+  exp)
 
 
 ;;;;;;;;;;;;;;;;;;; TeX output

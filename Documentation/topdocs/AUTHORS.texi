@@ -43,8 +43,10 @@ list is alphabetically ordered.
     misc bugfixes, some Beam and Stem code. 
 @item @email{drl@@vuse.vanderbilt.edu, David R. Linn},
     Mailing list maintenance.
-@item @email{, Adrian Mariano}
+@item @email{,Adrian Mariano}
     Reference manual, tutorial fixes, glossary.
+@item @email{scancm@@biobase.dk,Christian Mondrup}
+    Glossary.
 @item @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, 
     @uref{http://www.cs.uu.nl/~hanwen/}
     Main author (initials: HWN).

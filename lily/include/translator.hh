@@ -9,7 +9,8 @@
 
 #ifndef TRANSLATOR_HH
 #define TRANSLATOR_HH
- #include <typeinfo>
+
+#include <typeinfo>
 #include "global-ctor.hh"
 #include "string.hh"
 #include "lily-proto.hh"

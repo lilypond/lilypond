@@ -43,6 +43,8 @@ list is alphabetically ordered.
 
    * Adrian Mariano <>     Reference manual, tutorial fixes, glossary.
 
+   * Christian Mondrup <scancm@biobase.dk>     Glossary.
+
    * Han-Wen Nienhuys <hanwen@cs.uu.nl>,
      `http://www.cs.uu.nl/~hanwen/'     Main author (initials: HWN).
 

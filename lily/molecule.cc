@@ -5,6 +5,11 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
+/*
+  ugh. Rewrite not finished yet. Still must copy atom lists.
+ */
+
 #include <math.h>
 
 #include "interval.hh"
@@ -38,7 +43,7 @@ Molecule::translate (Offset o)
     
   for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
     {
-      unsmob_atom (gh_car (ptr))->off_ += o;
+      gh_set_car_x (ptr, translate_atom (o, gh_car (ptr)));
     }
   if (!empty_b ())
     dim_.translate (o);
@@ -54,7 +59,7 @@ Molecule::translate_axis (Real x,Axis a)
     }
   for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
     {
-      unsmob_atom (gh_car (ptr))->off_[a] += x;
+      gh_set_car_x (ptr, translate_atom_axis (x, a, gh_car (ptr)));
     }
 
   if (!dim_[a].empty_b ())
@@ -66,8 +71,7 @@ Molecule::add_molecule (Molecule const &m)
 {
   for (SCM ptr = gh_cdr (m.atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
     {
-      Atom *a = new Atom (*unsmob_atom (gh_car (ptr)));
-      add_atom (a->self_scm_);
+      add_atom (gh_car (ptr));
     }
   dim_.unite (m.dim_);
 }
@@ -77,8 +81,6 @@ Molecule::add_atom (SCM atomsmob)
 {
   gh_set_cdr_x (atom_list_,
 		gh_cons  (atomsmob, gh_cdr (atom_list_)));
-
-  scm_unprotect_object (atomsmob);
 }
 
 void
@@ -87,9 +89,8 @@ Molecule::operator=(Molecule const & src)
   if (&src == this)
     return;
 
-  atom_list_ = gh_cons (SCM_EOL,SCM_EOL);
+  atom_list_ = gh_cons (SCM_EOL,scm_list_copy (gh_cdr (src.atom_list_)));
   dim_= src.dim_;
-  add_molecule (src);
 }
 
 void
@@ -118,9 +119,8 @@ Molecule::print () const
 
 Molecule::Molecule (Molecule const &s)
 {
-  atom_list_ = gh_cons (SCM_EOL, SCM_EOL);
-  set_empty (true);
-  add_molecule (s);
+  atom_list_ = gh_cons (SCM_EOL, scm_list_copy (gh_cdr (s.atom_list_)));
+  dim_ = s.dim_;
 }
 
 Molecule::~Molecule ()

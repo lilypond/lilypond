@@ -20,7 +20,14 @@
 @itemize @bullet
 @item @uref{faq.html,FAQ: Frequently asked questions}, with answers
 @item @uref{programs.html,`Manual pages'}
-@item @uref{../user/out-www/index.html,User documentation}
+
+@item @uref{../user/out-www/lilypond.html,LilyPond reference manual}
+also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
+@item @uref{../user/out-www/glossary.html,A glossary of musical
+terms}, includes translations.  Also available in @uref{../user/out-www/glossary.ps.gz,Postscript})
+@item @uref{../user/out-www/mudela-book.html,mudela-book}, a tool for
+integrating text and music in LaTeX and texinfo; also available in
+@uref{../user/out-www/mudela-book.ps.gz,Postscript}
 @item @uref{../programmer/out-www/index.html,Programmer documentation}
 @item @uref{../bibliography/out-www/index.html,Bibliography}
 @item @uref{../misc/out-www/index.html,Miscellaneous texts}

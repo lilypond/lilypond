@@ -25,7 +25,8 @@ public:
   void add_column (Note_column*);
   void add_beam (Beam*);
 protected:
-  void calc_position_and_height (Real*,Real*)const;
+  void calc_dy (Real *) const;
+  void calc_position_and_height (Real*,Real *dy)const;
   
   virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);

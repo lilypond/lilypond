@@ -91,9 +91,6 @@ ly_parse_scm (char const* s, int* n)
   return answer;
 }
 
-/*
-  scm_m_quote doesn't use any env, but needs one for a good signature in GUILE.
-*/
 SCM
 ly_quote_scm (SCM s)
 {
@@ -334,4 +331,11 @@ SCM
 ly_offset2scm (Offset o)
 {
   return gh_cons (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]));
+}
+
+Offset
+ly_scm2offset (SCM s)
+{
+  return Offset (gh_scm2double (gh_car (s)),
+		 gh_scm2double (gh_cdr (s)));
 }

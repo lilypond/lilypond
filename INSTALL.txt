@@ -10,7 +10,7 @@ Abstract
 you should do.  If you are going to compile and install LilyPond often,
 e.g. when doing development, you might want to check out the
 `buildscripts/set-lily.sh' script.  It sets some environment variables
-and symlinks, which comes in handly when you have to compile LilyPond
+and symlinks, which comes in handy when you have to compile LilyPond
 more often.
 
 Obtaining

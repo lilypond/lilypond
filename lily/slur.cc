@@ -623,3 +623,4 @@ Slur::get_curve () const
   return curve;
 }
 
+	
