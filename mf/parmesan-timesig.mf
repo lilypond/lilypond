@@ -187,47 +187,47 @@ def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 enddef;
 
 %% tempus imperfectum cum prolatione imperfecta
-neo_mens_timesig ("Mensural 4/4 meter", "neo_mensural4/4", "neomensuralfourfourmeter",
+neo_mens_timesig ("Mensural 4/4 meter", "neomensural4/4", "neomensuralfourfourmeter",
 			false, false, false, false);
 
 %% tempus imperfectum cum prolatione imperfecta proportio dupla
-neo_mens_timesig ("Mensural 2/2 meter", "neo_mensural2/2", "neomensuralallabreve",
+neo_mens_timesig ("Mensural 2/2 meter", "neomensural2/2", "neomensuralallabreve",
 			false, false, true, false);
 
 %% tempus perfectum cum prolatione imperfecta
-neo_mens_timesig ("Mensural 3/2 meter", "neo_mensural3/2", "neomensuralthreetwometer",
+neo_mens_timesig ("Mensural 3/2 meter", "neomensural3/2", "neomensuralthreetwometer",
 			true, false, false, false);
 
 %% tempus imperfectum cum prolatione perfecta
-neo_mens_timesig ("Mensural 6/4 meter", "neo_mensural6/4", "neomensuralsixfourmeter",
+neo_mens_timesig ("Mensural 6/4 meter", "neomensural6/4", "neomensuralsixfourmeter",
 			false, false, false, true);
 
 %% tempus perfectum cum prolatione perfecta
-neo_mens_timesig ("Mensural 9/4 meter", "neo_mensural9/4", "neomensuralninefourmeter",
+neo_mens_timesig ("Mensural 9/4 meter", "neomensural9/4", "neomensuralninefourmeter",
 			true, false, false, true);
 
 %% tempus perfectum cum prolatione imperfecta proportio dupla
-neo_mens_timesig ("Mensural 3/4 meter", "neo_mensural3/4", "neomensuralthreefourmeter",
+neo_mens_timesig ("Mensural 3/4 meter", "neomensural3/4", "neomensuralthreefourmeter",
 			true, false, true, false);
 
 %% tempus imperfectum cum prolatione perfecta proportio dupla
-neo_mens_timesig ("Mensural 6/8 meter", "neo_mensural6/8", "neomensuralsixeightmeter",
+neo_mens_timesig ("Mensural 6/8 meter", "neomensural6/8", "neomensuralsixeightmeter",
 			false, false, true, true);
 
 %% tempus perfectum cum prolatione perfecta proportio dupla
-neo_mens_timesig ("Mensural 9/8 meter", "neo_mensural9/8", "neomensuralnineeight",
+neo_mens_timesig ("Mensural 9/8 meter", "neomensural9/8", "neomensuralnineeight",
 			true, false, true, true);
 	
 %% tempus imperfectum cum prolatione imperfecta diminutio simplex
-neo_mens_timesig ("Mensural 4/8 meter", "neo_mensural4/8", "neomensuralfoureightmeter",
+neo_mens_timesig ("Mensural 4/8 meter", "neomensural4/8", "neomensuralfoureightmeter",
 			false, true, false, false);
 
 %% tempus imperfectum cum prolatione perfecta diminutio simplex
-neo_mens_timesig ("Mensural 6/8 meter", "neo_mensural6/8alt", "neomensuralsixeightmeteralt",
+neo_mens_timesig ("Mensural 6/8 meter", "neomensural6/8alt", "neomensuralsixeightmeteralt",
 			false, true, false, true);
 
 %% tempus imperfectum cum prolatione imperfecta diminutio duplex
-neo_mens_timesig ("Mensural 2/4 meter", "neo_mensural2/4", "neomensuraltwofourmeter",
+neo_mens_timesig ("Mensural 2/4 meter", "neomensural2/4", "neomensuraltwofourmeter",
 			false, true, true, false);
 
 fet_endgroup ("timesig")

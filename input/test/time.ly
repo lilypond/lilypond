@@ -1,5 +1,5 @@
 
-\version "2.3.8"
+\version "2.3.9"
 % TODO: This file could be old.  Ask about it later.  -gp
 
 \header { texidoc = "@cindex Time
@@ -99,7 +99,7 @@ properties will quite definitely change, and maybe the syntax of the
     \time 9/8 
     c4. c4. c4. 
     \break
-    \override Staff.TimeSignature  #'style = #'neo_mensural
+    \override Staff.TimeSignature  #'style = #'neomensural
     \time 1/1 
     c1^"TimeSignature style = \#'neo\_mensural" 
     \time 2/2 

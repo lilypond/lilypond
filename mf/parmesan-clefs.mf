@@ -357,13 +357,13 @@ def draw_neo_mensural_c_clef(expr exact_center, reduction) =
 enddef;
 
 
-fet_beginchar("neo-mensural c clef", "neo_mensural_c", "neomenscclef")
+fet_beginchar("neo-mensural c clef", "neomensural_c", "neomenscclef")
 	if test = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_neo_mensural_c_clef((0,0), 1.0);
 fet_endchar;
-fet_beginchar("neo-mensural c clef", "neo_mensural_c_change", "cneomenscclef")
+fet_beginchar("neo-mensural c clef", "neomensural_c_change", "cneomenscclef")
 	draw_neo_mensural_c_clef((0,0), .8);
 fet_endchar;
 

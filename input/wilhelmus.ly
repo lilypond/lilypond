@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.9"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -81,7 +81,7 @@ voice =  \relative c' {
   d,4 | g4.\melisma a8\melismaEnd b2 a2 g4 | fis e8 \myBreak
   d8 | e4 g g fis | 
   
-  \override NoteHead #'style = #'neo_mensural
+  \override NoteHead #'style = #'neomensural
 
   g\breve
 

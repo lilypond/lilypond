@@ -73,7 +73,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 
   String actual_style (style.to_str0 ());
 
-  if ((style == "mensural") || (style == "neo_mensural")) {
+  if ((style == "mensural") || (style == "neomensural")) {
 
     /*
       FIXME: Currently, ancient font does not provide ledgered rests;
@@ -84,7 +84,7 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
     ledgered_b = 0;
 
     /*
-      There are no 32th/64th/128th mensural/neo_mensural rests.  In
+      There are no 32th/64th/128th mensural/neomensural rests.  In
       these cases, revert back to default style.
     */
     if (balltype > 4)

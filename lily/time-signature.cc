@@ -141,7 +141,7 @@ ADD_INTERFACE (Time_signature, "time-signature-interface",
 "        4/4 and 2/2 are typeset as C and struck C, respectively.  All\n"
 "        other time signatures are written with two digits.\n"
 "\n"
-"      @item @code{neo_mensural}\n"
+"      @item @code{neomensural}\n"
 "        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are\n"
 "        typeset with neo-mensural style mensuration marks.  All other time\n"
 "        signatures are written with two digits.\n"
