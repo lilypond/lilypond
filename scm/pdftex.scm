@@ -245,4 +245,4 @@
   )
 
 (define (scm-pdftex-output)
-  (ly-eval (pdftex-scm 'all-definitions)))
+  (primitive-eval (pdftex-scm 'all-definitions)))

@@ -40,14 +40,14 @@ needs a number of extra tricks.  All code for these tricks can be found
 in the source package directory @file{Documentation/windows}.
 
 @table @asis
-@item @var{guile-1.4-gnu-windows.patch}
+@item @file{guile-1.4-gnu-windows.patch}
 You may (Cygwin gets better every day) need this patch to compile GUILE.
-@item @var{cygwin-installer.patch}
+@item @file{cygwin-installer.patch}
 Apply this patch to the @file{cinstall} directory of
 @file{winsup-src/cinstall}, to get the LilyPond installer.
 
 Compiling @file{setup.exe} has been complicated a bit with the
-introduction of the non-feature bzip2.  Here's how I did it:
+introduction of the bzip2 feature:
 @quotation
 @example
     tar xjf cygwin-src-20010531.tar.bz2 
@@ -55,16 +55,17 @@ introduction of the non-feature bzip2.  Here's how I did it:
     tar xzf mingw-20010424-1.tar.gz
     cd winsup/cinstall
     patch < ../../cygwin-installer.patch
-    cp /home/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
-    cd ../bzip
+    cd ../bz2lib
     MINGW32=yes CFLAGS='-mno-cygwin' ./configure
     make
     cd -
+    MINGW32=yes CFLAGS='-mno-cygwin' ./configure
+    cp /home/cygwin/cygwin-1.3.2/usr/lib/mingw/crt2.o .
     make w32api_lib=/home/cygwin/cygwin-1.3.2/usr/lib/w32api \
         CXX='g++ -L/home/cygwin/cygwin-1.3.2/usr/lib/mingw'
 @end example
 @end quotation
-@item @var{--prefix=/usr/lilypond-x.y.x}
+@item @file{--prefix=/usr/lilypond-x.y.x}
 The standard binary installation installs LilyPond into its own prefix.
 We think it's silly, but do this is on special request of Windows users.
 @item @file{fix-suffixes.sh}

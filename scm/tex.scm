@@ -255,4 +255,4 @@
   )
 
 (define (scm-tex-output)
-  (ly-eval (tex-scm 'all-definitions)))
+  (primitive-eval (tex-scm 'all-definitions)))

@@ -144,7 +144,8 @@ init_syms ()
   design_sz_sym = scm_permanent_object (ly_symbol2scm ("font-design-size"));
   wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
 
-  scm_make_gsubr ("ly-get-default-font", 1 , 0, 0, (Scheme_function_unknown) ly_font_interface_get_default_font);
+  scm_c_define_gsubr ("ly-get-default-font", 1 , 0, 0,
+		      (Scheme_function_unknown) ly_font_interface_get_default_font);
 }
 
 

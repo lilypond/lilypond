@@ -75,7 +75,7 @@
 
    class Bla {
    Csmob *ptr;
-   ~Bla () {  scm_unprotect_object (ptr->self_scm_); }
+   ~Bla () {  scm_gc_unprotect_object (ptr->self_scm_); }
    
    };
 
@@ -104,9 +104,9 @@ protected: \
 	friend class Non_existant_class ; \
 	SCM smobbed_self () const; \
 private:\
-	static long smob_tag_;					\
+	static scm_t_bits smob_tag_;		       		\
 	static SCM mark_smob (SCM);				\
-	static scm_sizet free_smob (SCM s);			\
+	static size_t free_smob (SCM s);		        \
 	static int print_smob (SCM s, SCM p, scm_print_state*);	\
 public: \
 	static SCM equal_p (SCM a, SCM b);\

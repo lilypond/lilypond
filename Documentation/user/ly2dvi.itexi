@@ -138,6 +138,9 @@ block.
 @item papersize
    The paper size (as a name, e.g. @code{a4}). It is normally read from
 the @code{\paper} block.
+
+@item pagenumber
+   If set to @code{no}, no page numbers will be printed.
 @end table
 
 @unnumberedsubsec Environment variables

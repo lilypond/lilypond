@@ -336,7 +336,7 @@ Slur::get_attachment (Grob *me, Direction dir,
   int stemdir = stem ? Stem::get_direction (stem) : 1;
   int slurdir = gh_scm2int (me->get_grob_property ("direction"));
   SCM l = scm_assoc
-    (scm_listify (a,
+    (scm_list_n (a,
 		  gh_int2scm (stemdir * dir),
 		  gh_int2scm (slurdir * dir),
                   SCM_UNDEFINED), alist);

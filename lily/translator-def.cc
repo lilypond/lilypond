@@ -231,7 +231,7 @@ trans_list (SCM namelist, Translator_group*tg)
 	  tr->daddy_trans_l_ = tg;
 	  tr->output_def_l_  = tg->output_def_l_;
 
-	  scm_unprotect_object (str);
+	  scm_gc_unprotect_object (str);
 	}
     }
   return l; 

@@ -46,7 +46,7 @@ public:
 
     0 means ORPHAN,
    */
-  char status_i_;
+  char status_c_;
   String name () const;
 
   /*
@@ -89,7 +89,7 @@ public:
  
   /**
      Recursively track all dependencies of this Grob.  The
-     status_i_ field is used as a mark-field.  It is marked with
+     status_c_ field is used as a mark-field.  It is marked with
      #busy# during execution of this function, and marked with #final#
      when finished.
 

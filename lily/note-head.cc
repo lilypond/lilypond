@@ -99,11 +99,10 @@ Note_head::brew_molecule (SCM smob)
     UGH: use grob-property.
   */
   Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
-		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm ("find-notehead-symbol"),
+		ly_scm2string (scm_primitive_eval (gh_list (ly_symbol2scm ("find-notehead-symbol"),
 						  me->get_grob_property ("duration-log"),
 						  ly_quote_scm (style),
-						  SCM_UNDEFINED),
-					  SCM_EOL)));
+							    SCM_UNDEFINED))));
 
   if (streepjes_i) 
     {

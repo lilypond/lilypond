@@ -118,12 +118,12 @@ void
 clear_scores ()
 {
   for (int i=0; i < score_global_array.size (); i++)
-    scm_unprotect_object (score_global_array[i]->self_scm ());
+    scm_gc_unprotect_object (score_global_array[i]->self_scm ());
   score_global_array.clear ();
   
   inclusion_global_array.clear ();
   if (global_header_p)
-    scm_unprotect_object (global_header_p ->self_scm ());
+    scm_gc_unprotect_object (global_header_p ->self_scm ());
   global_header_p =0; 
 }
 

@@ -49,7 +49,7 @@ Grob::Grob (SCM basicprops)
    */
 
   pscore_l_=0;
-  status_i_ = 0;
+  status_c_ = 0;
   original_l_ = 0;
   immutable_property_alist_ =  basicprops;
   mutable_property_alist_ = SCM_EOL;
@@ -97,7 +97,7 @@ Grob::Grob (Grob const&s)
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
   
-  status_i_ = s.status_i_;
+  status_c_ = s.status_c_;
   pscore_l_ = s.pscore_l_;
 
   smobify_self ();
@@ -222,18 +222,16 @@ Grob::paper_l ()  const
 void
 Grob::calculate_dependencies (int final, int busy, SCM funcname)
 {
-  assert (status_i_ >=0);
-
-  if (status_i_ >= final)
+  if (status_c_ >= final)
     return;
 
-  if (status_i_== busy)
+  if (status_c_== busy)
     {
       programming_error ("Element is busy, come back later");
       return;
     }
   
-  status_i_= busy;
+  status_c_= busy;
 
   for (SCM d=  get_grob_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
@@ -247,7 +245,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
   
-  status_i_= final;
+  status_c_= final;
 
 }
 
@@ -866,9 +864,12 @@ init_functions ()
 {
   interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
 
-  scm_make_gsubr ("ly-get-grob-property", 2, 0, 0, (Scheme_function_unknown)ly_get_grob_property);
-  scm_make_gsubr ("ly-set-grob-property", 3, 0, 0, (Scheme_function_unknown)ly_set_grob_property);
-  scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (Scheme_function_unknown) spanner_get_bound);
+  scm_c_define_gsubr ("ly-get-grob-property", 2, 0, 0,
+		      (Scheme_function_unknown)ly_get_grob_property);
+  scm_c_define_gsubr ("ly-set-grob-property", 3, 0, 0,
+		      (Scheme_function_unknown)ly_set_grob_property);
+  scm_c_define_gsubr ("ly-get-spanner-bound", 2 , 0, 0,
+		      (Scheme_function_unknown) spanner_get_bound);
 }
 
 bool

@@ -37,8 +37,8 @@ Music_output_def::Music_output_def ()
   translator_p_dict_p_ = new Scope (translator_tab_);
 
   smobify_self ();
-  scm_unprotect_object (variable_tab_->self_scm ());
-  scm_unprotect_object (translator_tab_->self_scm ());  
+  scm_gc_unprotect_object (variable_tab_->self_scm ());
+  scm_gc_unprotect_object (translator_tab_->self_scm ());  
 }
 
 Music_output_def::~Music_output_def ()
@@ -53,8 +53,8 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   style_sheet_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
   smobify_self ();
-  scm_unprotect_object (variable_tab_->self_scm ());
-  scm_unprotect_object (translator_tab_->self_scm ());  
+  scm_gc_unprotect_object (variable_tab_->self_scm ());
+  scm_gc_unprotect_object (translator_tab_->self_scm ());  
 
   
   scope_p_ = new Scope (variable_tab_);

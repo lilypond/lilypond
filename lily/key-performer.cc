@@ -47,9 +47,9 @@ Key_performer::create_audio_elements ()
   if (key_req_l_) 
     {
       SCM pitchlist = key_req_l_->get_mus_property ("pitch-alist");
-      SCM proc = scm_eval2 (ly_symbol2scm ("accidentals-in-key"), SCM_EOL); 
+      SCM proc = scm_primitive_eval (ly_symbol2scm ("accidentals-in-key")); 
       SCM acc = gh_call1 (proc, pitchlist);
-      proc = scm_eval2 (ly_symbol2scm ("major-key"), SCM_EOL);
+      proc = scm_primitive_eval (ly_symbol2scm ("major-key"));
       SCM major = gh_call1 (proc, pitchlist);
       audio_p_ = new Audio_key (gh_scm2int (acc), major == SCM_BOOL_T); 
       Audio_element_info info (audio_p_, key_req_l_);

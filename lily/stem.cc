@@ -450,7 +450,7 @@ Stem::set_spacing_hints (Grob*me)
       Item* item = dynamic_cast<Item*> (me);
       Item * col =  item->column_l ();
       SCM dirlist =col->get_grob_property ("dir-list");
-      if (scm_sloppy_memq (scmdir, dirlist) == SCM_BOOL_F)
+      if (scm_c_memq (scmdir, dirlist) == SCM_BOOL_F)
 	{
 	  dirlist = gh_cons (scmdir, dirlist);
 	  col->set_grob_property ("dir-list", dirlist);

@@ -54,7 +54,9 @@
 ;;; Un-assorted stuff
 
 ;; URG guile-1.4/1.4.x compatibility
-(define (ly-eval x) (eval2 x #f))
+(if (not (defined? 'primitive-eval))
+    (define (primitive-eval form)
+      (eval2 form #f)))
 
 (define (sign x)
   (if (= x 0)

@@ -21,7 +21,7 @@ Translator_group::Translator_group (Translator_group const&s)
   
   Scheme_hash_table * tab =  new Scheme_hash_table (*s.properties_dict ());
   properties_scm_ = tab->self_scm ();
-  scm_unprotect_object (tab->self_scm ());
+  scm_gc_unprotect_object (tab->self_scm ());
 }
 
 Scheme_hash_table*
@@ -43,7 +43,7 @@ Translator_group::Translator_group ()
   Scheme_hash_table *tab = new Scheme_hash_table ;
   properties_scm_ = tab->self_scm ();
 
-  scm_unprotect_object (tab->self_scm ());
+  scm_gc_unprotect_object (tab->self_scm ());
 }
 
 void
@@ -421,7 +421,7 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
-	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
 	  SCM type_name = gh_call1 (typefunc, type_p);
 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
@@ -468,8 +468,8 @@ ly_set_trans_property (SCM context, SCM name, SCM val)
 void
 add_trans_scm_funcs ()
 {
-  scm_make_gsubr ("ly-get-trans-property", 2, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
-  scm_make_gsubr ("ly-set-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_set_trans_property);
+  scm_c_define_gsubr ("ly-get-trans-property", 2, 0, 0, (Scheme_function_unknown)ly_get_trans_property);
+  scm_c_define_gsubr ("ly-set-trans-property", 3, 0, 0, (Scheme_function_unknown)ly_set_trans_property);
 }
 
 ADD_SCM_INIT_FUNC (trans_scm, add_trans_scm_funcs);

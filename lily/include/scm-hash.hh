@@ -45,7 +45,7 @@ typedef std::map<SCM,SCM, SCM_less> Scm_stl_map;
 
    2. UPON DESTRUCTION, DO
 
-   scm_unprotect_object (tab->self_scm_);
+   scm_gc_unprotect_object (tab->self_scm_);
 
 
 

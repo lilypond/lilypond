@@ -139,7 +139,8 @@ make_duration (SCM l, SCM d)
 static void
 add_funcs ()
 {
-  scm_make_gsubr ("make-duration", 2, 0, 0, (Scheme_function_unknown)make_duration);
+  scm_c_define_gsubr ("make-duration", 2, 0, 0,
+		      (Scheme_function_unknown)make_duration);
 }
 
 ADD_SCM_INIT_FUNC (duration, add_funcs);

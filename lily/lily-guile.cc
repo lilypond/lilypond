@@ -45,7 +45,7 @@ ly_write2scm (SCM s)
 			    SCM_OPN | SCM_WRTNG,
 			    "ly_write2string");
   //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
-  SCM write = scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
+  SCM write = scm_primitive_eval (ly_symbol2scm ("write"));
   
   // scm_apply (write, port, SCM_EOL);
   gh_call2 (write, s, port);
@@ -74,8 +74,8 @@ ly_parse_scm (char const* s, int* n)
 
   /* Read expression from port */
   if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
-    answer = scm_eval_3 (form, 1, SCM_EOL); // guh?
-
+    answer = scm_primitive_eval (form);
+ 
   /*
    After parsing
 
@@ -126,7 +126,7 @@ String
 ly_symbol2string (SCM s)
 {
   assert (gh_symbol_p (s));
-  return String ((Byte*)SCM_CHARS (s), (int) SCM_LENGTH (s));
+  return String ((Byte*)SCM_STRING_CHARS (s), (int) SCM_STRING_LENGTH (s));
 }
 
 
@@ -183,8 +183,9 @@ String
 ly_scm2string (SCM s)
 {
   assert (gh_string_p (s));
-  int len; 
-  char * p = gh_scm2newstr (s , &len);
+
+  size_t len; 
+  char *p = gh_scm2newstr (s , &len);
   
   String r (p);
 
@@ -452,12 +453,15 @@ ly_version ()
 static void
 init_functions ()
 {
-  scm_make_gsubr ("ly-warn", 1, 0, 0, (Scheme_function_unknown)ly_warning);
-  scm_make_gsubr ("ly-version", 0, 0, 0, (Scheme_function_unknown)ly_version);  
-  scm_make_gsubr ("ly-gulp-file", 1,0, 0, (Scheme_function_unknown)ly_gulp_file);
-  scm_make_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
-
-  scm_make_gsubr ("ly-number->string", 1, 0,0, (Scheme_function_unknown) ly_number2string);
+  scm_c_define_gsubr ("ly-warn", 1, 0, 0,
+		      (Scheme_function_unknown)ly_warning);
+  scm_c_define_gsubr ("ly-version", 0, 0, 0,
+		      (Scheme_function_unknown)ly_version);  
+  scm_c_define_gsubr ("ly-gulp-file", 1,0, 0,
+		      (Scheme_function_unknown)ly_gulp_file);
+  scm_c_define_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
+  scm_c_define_gsubr ("ly-number->string", 1, 0,0,
+		      (Scheme_function_unknown) ly_number2string);
 
 
 #ifdef TEST_GC 

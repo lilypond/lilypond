@@ -287,7 +287,7 @@ Spanner::do_derived_mark ()
 {
   /*
     We'd be fucked if this is called before spanned_drul_[] is inited.  */
-  if (status_i_ == ORPHAN)
+  if (status_c_ == ORPHAN)
     return SCM_EOL;
   
   Direction d = LEFT;
