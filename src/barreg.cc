@@ -10,7 +10,7 @@
 #include "bar.hh"
 #include "commandrequest.hh"
 #include "complexwalker.hh"
-#include "sccol.hh"
+#include "scorecolumn.hh"
 
 
 Bar_register::Bar_register(Complex_walker*w)
@@ -22,11 +22,11 @@ Bar_register::Bar_register(Complex_walker*w)
 bool
 Bar_register::try_request(Request*r_l)
 {
-    if (!r_l->nonmus()->bar()) 
+    if (!r_l->command()->bar()) 
 	return false;
 
     assert(!bar_req_l_);
-    bar_req_l_ = r_l->nonmus()->bar();
+    bar_req_l_ = r_l->command()->bar();
 
     return true;
 }
