@@ -699,6 +699,10 @@ EasyNotation = \context {	% TODO: why \context override?
   \override TextSpanner #'edge-text = #'("" . "")
 }
 
+% FIXME: need something like
+%  \remove "Bar_number_engraver" (which lives on score level)
+% for vaticana and gregorian transcription staves
+
 \context {
   \Staff
   \name "VaticanaStaff"
