@@ -117,8 +117,7 @@
 	((qual (font-qualifier node))
 	 (def (font-default node))
 	 (val (chain-assoc-get qual alist-chain def))
-	 (desired-child (hashq-ref (font-children node) val))
-	 )
+	 (desired-child (hashq-ref (font-children node) val)))
 
     (if desired-child
 	(g-lookup-font desired-child alist-chain)
@@ -299,7 +298,7 @@
      (#(roman caps medium) .
       (10.0 . #(,(delay (ly:font-load "eccc10")))))
 
-     (#(roman slanted-caps medium) .
+     (#(roman caps medium) .
       (10.0 . #(,(delay (ly:font-load "ecsc10")))))
 
      (#(roman upright bold-narrow ) .
@@ -358,7 +357,7 @@
 (define-public (make-cmr-tree factor)
 
   (let
-      ((n (make-font-tree-node 'font-encoding 'music)))
+      ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
 
     (add-music-fonts n factor)
     (add-cmr-fonts n factor)
@@ -369,7 +368,7 @@
 (define-public (make-century-schoolbook-tree factor)
 
   (let
-      ((n (make-font-tree-node 'font-encoding 'music)))
+      ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
 
     (add-music-fonts n factor)
     (add-century-schoolbook-fonts n factor)
