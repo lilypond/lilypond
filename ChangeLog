@@ -1,3 +1,14 @@
+2004-06-20  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* input/regression/lily-in-scheme.ly: regression test for #{
+	... #} syntax
+
+	* scm/ly-from-scheme.scm (read-lily-expression): #$( ... )
+	was causing an error.
+
+	* Documentation/user/programming-interface.itely (Using LilyPond
+	syntax inside Scheme): documentation for #{ ... #} syntax.
+
 2004-06-19  Heikki Junes  <hjunes@cc.hut.fi> 
 
         * Documentation/index.html.in: use black thin <hr>.

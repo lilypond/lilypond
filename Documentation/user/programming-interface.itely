@@ -17,7 +17,8 @@
 * Input variables and Scheme::  
 * Internal music representation::  
 * Extending music syntax::      
-* Manipulating music expressions::  
+* Manipulating music expressions:: 
+* Using LilyPond syntax inside Scheme::   
 @end menu
 
 @node Input variables and Scheme
@@ -189,14 +190,25 @@ The above Scheme code only defines the functionality. The tag
 @code{\applymusic} is selected by defining
 
 @example
-  apply = #(ly:make-music-function
-   (list procedure? ly:music?)
-   (lambda (where func music)
-     (func music)))
+  applymusic = #(ly:make-music-function
+                  (list procedure? ly:music?)
+                  (lambda (location func music)
+                    (func music)))
+@end example
+
+A @code{def-music-function} macro is introduced on top of
+@code{ly:make-music-function} to ease the definition of music
+functions:
+
+@example
+  applymusic = #(def-music-function (location func music) (procedure? ly:music?)
+                  (func music))
 @end example
 
 Examples of the use of @code{\applymusic} are in the next section.
 
+@seealso
+@file{ly/music-functions-init.ly}.
 
 @node Manipulating music expressions
 @appendixsubsec Manipulating music expressions
@@ -289,6 +301,112 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 @inputfileref{input/test,unfold-all-repeats.ly}, and
 @inputfileref{input/test,music-box.ly}.
 
+
+@node Using LilyPond syntax inside Scheme
+@appendixsubsec Using LilyPond syntax inside Scheme
+
+Creating music expressions in scheme can be tedious, as they are
+heavily nested and the resulting scheme code is large. For some
+simple tasks, this can be avoided, using LilyPond usual syntax inside
+scheme, with the dedicated @code{#@{ ... #@}} syntax.
+
+The following two expressions give equivalent music expressions:
+@example
+  mynotes = @{ \override Stem #'thickness = #4
+              \notes @{ c'8 d' @} @}
+  
+  #(define mynotes #@{ \override Stem #'thickness = #4
+                      \notes @{ c'8 d' @} #@})
+@end example
+
+The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
+... @}} block, which is parsed. The resulting music expression, a
+@code{SequentialMusic} music object, is then returned and usable in scheme.
+
+Arbitrary scheme forms, including variables, can be used in @code{#@{ ... #@}}
+expressions with the @code{$} character (@code{$$} can be used to
+produce a single $ character). This makes the creation of simple
+functions straightforward. In the following example, a function
+setting the TextScript's padding is defined:
+
+@lilypond[verbatim,raggedright]
+  #(use-modules (ice-9 optargs))
+  #(define* (textpad padding #:optional once?)
+    (ly:export   ; this is necessary for using the expression
+                 ; directly inside a \notes block
+      (if once?
+          #{ \once \override TextScript #'padding = #$padding #}
+          #{ \override TextScript #'padding = #$padding #})))
+  
+  \score {
+      \notes {
+          c'^"1"
+          #(textpad 3.0 #t) % only once
+          c'^"2"
+          c'^"3"
+          #(textpad 5.0)
+          c'^"4"
+          c'^"5"
+          
+      }
+  }
+@end lilypond
+
+Here, the variable @code{padding} is a number; music expression
+variables may also be used in a similar fashion, as in the following
+example:
+
+@lilypond[verbatim,raggedright]
+  #(define (with-padding padding)
+     (lambda (music)
+       #{ \override TextScript #'padding = #$padding
+          $music
+          \revert TextScript #'padding #}))
+  
+  \score {
+      \notes {
+          c'^"1"
+          \applymusic #(with-padding 3)
+            { c'^"2" c'^"3"}
+          c'^"4"
+      }
+  }
+@end lilypond
+
+The function created by @code{(with-padding 3)} adds @code{\override} and
+@code{\revert} statements around the music given as an argument, and returns
+this new expression. Thus, this example is equivalent to:
+
+@example
+  \score @{
+      \notes @{
+          c'^"1"
+          @{ \override TextScript #'padding = #3
+            @{ c'^"2" c'^"3"@}
+            \revert TextScript #'padding
+          @}
+          c'^"4"
+      @}
+  @}
+@end example
+
+This function may also be defined as a music function:
+
+@lilypond[verbatim,raggedright]
+  withPadding = #(def-music-function (location padding music) (number? ly:music?)
+                   #{ \override TextScript #'padding = #$padding
+                      $music 
+                      \revert TextScript #'padding #})
+  
+  \score {
+      \notes {
+          c'^"1"
+          \withPadding #3
+            { c'^"2" c'^"3"}
+          c'^"4"
+      }
+  }
+@end lilypond
 
 
 @node Markup programmer interface
