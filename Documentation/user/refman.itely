@@ -3360,6 +3360,13 @@ scheme = \chords {
 }
 @end lilypond
 
+@refbugs
+
+Chord name printing implementation has been rewritten in 1.7. In 1.6,
+ChordNames internally generate markup texts with font changes.
+One of the results is that manually setting @code{font-relative-size}
+will have no effect; use @code{font-magnification} in this case.
+
 
 @node Writing parts
 @section Writing parts
