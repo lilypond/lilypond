@@ -24,6 +24,7 @@ struct Simple_column : Staff_column {
     svec<Rhythmic_req *> notes;
     svec<Slur_req *> slurs;
     Stem_req *stem_;
+    Real stem_requester_len;
     Beam_req *beam_;
     Simple_staff* staff_;
 
@@ -51,7 +52,7 @@ struct Simple_staff : Staff {
     Staff_column*create_col(Score_column*);
     
     virtual Item *get_TYPESET_item(Command*);
-    virtual Stem *get_stem(Stem_req *rq)=0;
+    virtual Stem *get_stem(Stem_req *rq, Real)=0;
     virtual Notehead *get_notehead(Note_req *rq, int b)=0;
     virtual Rest *get_rest(Rest_req *rq);
     virtual void set_output(PScore *);

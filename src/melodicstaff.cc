@@ -45,9 +45,9 @@ Melodic_staff::get_TYPESET_item(Command*com)
 }
 
 Stem *
-Melodic_staff::get_stem(Stem_req*rq)
+Melodic_staff::get_stem(Stem_req*rq, Real dur)
 {
-    Stem * s = new Stem(NO_LINES-1);
+    Stem * s = new Stem(NO_LINES-1, dur);
     s->flag = rq->stem_number;
     return s;
 }

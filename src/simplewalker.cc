@@ -144,7 +144,7 @@ Simple_walker::process_requests()
     }
     
     if (c->stem_) {
-	stem_ = s->get_stem(c->stem_->stem());
+	stem_ = s->get_stem(c->stem_->stem(), c->stem_requester_len);
     }
     
     for (int i = 0; i <  c->notes.sz(); i ++)  {
