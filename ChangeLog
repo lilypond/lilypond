@@ -1,3 +1,11 @@
+2005-02-04  Christian Hitz  <chhitz@gmx.net>
+
+	* scm/scm/define-markup-commands.scm (fill-line): rework for better
+	alignment with centered texts
+
+	* scm/stencil.scm (stack-stencils-padding-list): new function, takes a
+	list of paddings
+
 2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/GNUmakefile ($(outdir)/lilypond.map): add aybabtu to .map file.
