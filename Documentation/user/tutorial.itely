@@ -703,9 +703,10 @@ For example, if you'd put the following in a file called
 @file{layout.ly},
 
 @example
+  \version "1.3.124";
   \header @{ title = "Two miniatures";  @}
   
-  #(set point-and-click #t)
+  #(set! point-and-click #t)
   
   \paper @{
         linewidth = -1.0; @}
@@ -786,13 +787,33 @@ look like
 @end example
 
 @file{ly2dvi} runs it through LaTeX. LaTeX is a text-formatting system
-built on top of @TeX. It's very popular in the academic world. If LaTeX
+built on top of @TeX{}. It's very popular in the academic world. If LaTeX
 is successful, this will produce a @file{.dvi} file, containing both the
 titling and notes.  @code{ly2dvi} completes its task by deleting the two
 temporary files, leaving only @file{layout.dvi}.
 
+Next, now we'll look at the examples line by line to explain new things.
+
+@example 
+\version "1.3.124";
+@end example 
+Lilypond and its language are still under development, and occasionally,
+details of the syntax are changed. This fragment indicates for which
+version the input file was written. When you compile this file, the
+version number will be checked, and you will get a warning when the file
+is too old.
+
+This version number is also used by the @code{convert-ly} program (See
+@ref{convert-ly}), which uses it update the file to the latest lily
+version.
+
 @example
-        #(set point-and-click #t)
+  \header @{ title = "Two miniatures";  @}
+@end example
+This sets the titling information for the entire file.
+
+@example
+        #(set! point-and-click #t)
 @end example
 
 Editing input files can be quite complicated if you're working with
@@ -874,78 +895,78 @@ file is a piano reduction of the G major Sinfonia by Giovanni Battista
 Sammartini.  It was composed around 1740. 
 
 @lilypond[verbatim]
-
-\version "1.3.60";
 \include "paper16.ly";
 
+stemdown = \property Voice.Stem \override #'direction = #-1
+stemup = \property Voice.Stem \override #'direction = #1
+stemboth = \property Voice.Stem \revert #'direction  
+
 viola = \notes \relative c' \context Voice = viola {
-        <c4-\f g' c>
-        \stemDown g'8. b,16
-        s1 s2. r4
-        g
+	<c4-\f g' c>
+	\stemdown g'8. b,16
+	s1 s2. r4
+	g
 }
 
 oboes = \notes \relative c'' \context Voice = oboe {
-        \stemUp s4  g8. b,16 c8 r <e'8.-\p g> <f16 a>
-        \grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
-        <
-          { \times 2/3 { a8 g c } \! c2 }
-          \context Voice = oboeTwo {
-                \stemDown
-                \grace {
-                    \property Grace.Stem \override #'direction = #-1
-                    [f,16 g] }
-                f8 e e2
-        } >
-        \stemBoth
-        \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
-        [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
-        [<c16( e>  < )e8. g>] <c8 e,>
+	\stemup s4  g8. b,16 c8 r <e'8.-\p g> <f16 a>
+	\grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
+	<
+	  { \times 2/3 { a8 g c } \! c2 }
+	  \context Voice = oboeTwo {
+		\stemdown
+		\grace {
+		  \property Grace.Stem \override #'direction = #-1
+		  [f,16 g] }
+		f8 e e2
+	} >
+	\stemboth
+	\grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
+	[<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
+	[<c16( e>  < )e8. g>] <c8 e,>
 }
 
-hoomPah  = \notes \transpose c' {
-    c8 \translator Staff = top \stemDown 
-    c'8 \translator Staff = bottom \stemUp }
-
-hoomPahHoomPah = { [\hoomPah \hoomPah] }
+hoomPah  = \notes \repeat unfold 8 \transpose c' { c8 \stemdown c'8 \stemup }
 
 bassvoices = \notes \relative c' {
-        c4 g8. b,16
-        \repeat unfold 4 {\hoomPahHoomPah}
-        \stemDown [c8 c'8] r4
-        <g d'> r4
-        < {\stemUp r2 <e4 c'> <c8 g'> }
-          \context Voice = reallyLow  {\stemDown g2 ~ | g4 c8 } >
+	c4 g8. b,16
+	\autochange Staff \hoomPah 
+	\translator Staff = down
+	\stemdown [c8 c'8] r4
+	<g d'> r4
+	< {\stemup r2 <e4 c'> <c8 g'> }
+	  \context Voice = reallyLow  {\stemdown g2 ~ | g4 c8 } >
 }
 
 \score {
-        \context PianoStaff \notes <
-                \context Staff = top < \time 2/2;
-                        \viola
-                        \oboes
-                >
-                \context Staff = bottom < \time 2/2; \clef bass;
-                        \bassvoices
-                >
-        >
-        \midi { }
-        \paper {
-          indent = 0.0;
-          linewidth = 15.0 \cm; }
+	\context PianoStaff \notes <
+		\context Staff = up < \time 2/2;
+			\viola
+			\oboes
+		>
+		\context Staff = down < \time 2/2; \clef bass;
+			\bassvoices
+		>
+	>
+	\midi { }
+	\paper {
+	  indent = 0.0;
+	  linewidth = 15.0 \cm; }
 }
 @end lilypond
 
-If it looks like incomprehensible gibberish to you@dots{} Then you are
-right.  The author has doctored this example to have as many quirks in
-one system as possible.
-@example 
-\version "1.3.61";
-@end example 
-Lilypond and the Lilypond language is still under development, therefore
-it is useful to indicate the Lilypond version of the file. Lilypond 
-will check the version number and warn you when the syntax has
-changed. Also, the @code{convert-ly} program will be able to 
-update most of the syntax changes automatically.
+If it looks like incomprehensible gibberish to you, then you are right.
+This example has been doctored this example to have as many quirks as
+possible.
+
+@example
+stemdown = \property Voice.Stem \override #'direction = #-1
+stemup = \property Voice.Stem \override #'direction = #1
+stemboth = \property Voice.Stem \revert #'direction  
+@end example
+
+[explain grob push/pop] 
+
 @example 
 viola = \notes \relative c'  \context Voice = viola @{ 
 @end example 
@@ -960,18 +981,12 @@ precisely one Voice context.
 @code{<} and @code{>} are short hands for @code{\simultaneous @{} and
 @code{@}}. So the expression enclosed in @code{<} and @code{>} is a
 chord.  @code{\f} places a forte symbol  under the chord.
-[FIXME]
 
 @example 
-   \property Voice.verticalDirection = \down 
+   \stemdown
 @end example 
-@code{verticalDirection} is a property of the voice context. It
-controls the directions of stems, articulations marks and other
-symbols.
 
-If @code{verticalDirection} is set to @code{\down}
-(identifier for the integer -1) the stems go down,
-@code{\up} (identifier for the integer 1) makes the stems go up.
+
 @example 
         g'8. b,16 
 @end example 
@@ -996,7 +1011,7 @@ these notes are indeed processed by precisely one context with
 \stemUp s4  g8. b,16 c8 r <e'8.-\p g> <f16 a> 
 @end example 
 @code{\stemUp} is an identifier reference.  It is shorthand for
-@code{\property Voice.verticalDirection = \up}.  If possible, you
+@code{\property Voice.Stem \override #'direction = #1}.  If possible, you
 should use predefined identifiers like these for setting properties.
 Your input will be less dependent upon the implementation of LilyPond.
 @example 
@@ -1049,10 +1064,10 @@ etc. Here we fiddle with a property and make a beam.  The argument of
 @code{\grace} is sequential music.
 
 @example 
-\property Grace.verticalDirection = \down   
+\property Grace.Stem \override #'direction = #-1
 [f,16 g] @}
-  [FIXME]
 @end example 
+
 Normally, grace notes are always stem up, but in this case, the upper
 voice interferes. We set the stems down here.
 
@@ -1073,48 +1088,37 @@ This ends the two-part section.
 positioned as if it were single part music.
 
 The bass has a little hoom-pah melody to demonstrate parts switching
-between staffs.  Since it is repetitive, we use identifiers:
+between staffs.  Since it is repetitive, we use repeats:
 @example 
-hoomPah  = \notes \transpose c' @{ 
-@end example 
+hoomPah  = \notes  \repeat unfold 8
+@end example
+
+@example
+\transpose c' @{
+@end example
 Transposing can be done with @code{\transpose}.  It takes two
 arguments; the first specifies what central C should be transposed to.
 The second is the to-be-transposed music.  As you can see, in this
-case, the transposition is a no-op.  Central C is transposed to
+case, the transposition is a no-op, as  central C would be transposed to
 central C.
 
-The purpose of this no-op is circumventing relative mode.  Relative
-mode can not be used in conjunction with transposition, so relative
-mode will leave the contents of @code{\hoomPah} alone.  We can use it
-without having to worry about getting the motive in a wrong
-octave@footnote{@code{hoomPah = \relative @dots{}} would be more
-intuitive to use, but that would not let me plug @code{\transpose}
-:-).}.
+The purpose of this no-op is circumventing relative mode.  Relative mode
+can not be used in conjunction with transposition, so relative mode will
+leave the contents of @code{\hoomPah} alone.  We can use it without
+having to worry about getting the motive in a wrong octave.
 @example 
-c8 \translator Staff = top \stemDown  
-@end example 
-We assume that the first note will be put in the lower staff.  After
-that note we switch to the upper staff with @code{\translator}.  To be
-precise, this @code{\translator} entry switches the current voice to a
-@code{Staff} named @code{top}. So we have to name the upper staff
-`@code{top}'.  Stem directions are set to avoid interfering with the
-oboe voices.
-@example 
-c'8 \translator Staff = bottom \stemUp @} 
-@end example 
-Then a note is put on the upper staff, and we switch again.  We have
-to name the lower staff `@code{bottom}'.
-@example 
-hoomPahHoomPah = @{ [\hoomPah \hoomPah] @} 
-@end example 
-Put two of these fragments in sequence, and beam them.@example 
 bassvoices = \notes \relative c' @{
 c4 g8. b,16
-\repeat unfold 4 @{\hoomPahHoomPah @} 
+\autochange Staff \hoomPah 
 @end example 
 Entering the bass part is easy: the hoomPahHoomPah variable is
 repeated four times; @code{unfold} means that all four repetitions
 should be written out.
+
+@example
+	\translator Staff = down
+@end example
+
 @example 
 \context Voice = reallyLow  @{\stemDown g2 ~ | g4 c8 @} > 
 @end example 
@@ -1133,14 +1137,22 @@ indent = 0.0;
 @end example 
 To make some more room on the line, the first (in this case the only)
 line is not indented.  The line still looks very cramped, but that is due
-to the format of this tutorial.
+to the page layout of this document.
 
-This example shows a lot of features, but the organisation isn't
-perfect.  For example, it would be less confusing to use a chord
-containing sequential music than a sequence of chords for the oboe
-parts.
+[TODO:
 
-[TODO: demonstrate Hara-Kiri with scores and  part extraction.]
+Split piano in 2
+
+* Piano I:  autochange, simple chords, arpeggio, glissando, tuplets
+unfolded repeat, space rests.
+
+* Piano II: property push/pop, grace notes, multiple voices,
+dynamics,  stem up/stem down, 
+
+* Orchestral: demonstrate Hara-Kiri, part combining, part extraction,
+scores, transposition, instrument names,
+
+]
 
 @node  end of tutorial
 @section The end        
