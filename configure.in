@@ -100,7 +100,7 @@ if test "$gui_b" = "yes"; then
 fi
 
 STEPMAKE_FREETYPE2
-STEPMAKE_PANGO
+STEPMAKE_PANGO_FT2
 
 ## Optional tools for building documentation, website, extra fonts.
 
