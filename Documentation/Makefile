@@ -39,7 +39,7 @@ giffiles=$(XPMS:.xpm=.gif)
 gifs: $(addprefix $(outdir)/, $(giffiles))
 
 
-EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  $(wildcard Vocab*)
+EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  vocabulary-data vocabulary-forms.el 
 
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)

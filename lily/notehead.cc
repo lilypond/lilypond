@@ -31,7 +31,7 @@
 
 Note_head::Note_head (int ss)
 {
-  x_dir_i_ = 0;
+  x_dir_ = CENTER;
   staff_size_i_=ss;
   position_i_ = 0;
   balltype_i_ = 0;
@@ -46,14 +46,14 @@ Note_head::do_pre_processing()
 {
   // 8 ball looks the same as 4 ball:
   if (balltype_i_ > 2 && !rest_b_)
-	balltype_i_ = 2;
+    balltype_i_ = 2;
   	
   if (rest_b_) 
     {
-	if (balltype_i_ == 0)
-	    position_i_ += 6;
-	else if (balltype_i_ == 0)
-	    position_i_ += 4;
+      if (balltype_i_ == 0)
+	position_i_ += 6;
+      else if (balltype_i_ == 0)
+	position_i_ += 4;
     }
 }
 
@@ -68,13 +68,13 @@ Note_head::set_rhythmic (Rhythmic_req*r_req_l)
 IMPLEMENT_IS_TYPE_B1(Note_head,Item);
 
 void
-Note_head::do_print()const
+Note_head::do_print() const
 {
 #ifndef NPRINT
   if (rest_b_)
-	DOUT << "REST! ";
+    DOUT << "REST! ";
   DOUT << "balltype_i_ "<< balltype_i_ << ", position_i_ = "<< position_i_
-	 << "dots_i_ " << dots_i_;
+       << "dots_i_ " << dots_i_;
 #endif
 }
 
@@ -89,9 +89,9 @@ void
 Note_head::set_dots()
 {
   if (!(position_i_ %2) && rest_b_ && balltype_i_ == 0)
-	dot_delta_y_i_ = -1;
+    dot_delta_y_i_ = -1;
   else if (!(position_i_ %2))
-	dot_delta_y_i_ = 1;
+    dot_delta_y_i_ = 1;
 }
 
 /*
@@ -110,39 +110,39 @@ Note_head::brew_molecule_p() const
   bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
   
   if (!rest_b_)
-	s = p->lookup_l()->ball (balltype_i_);
+    s = p->lookup_l()->ball (balltype_i_);
   else 
     {
-	s = p->lookup_l()->rest (balltype_i_, streepjes_b);
+      s = p->lookup_l()->rest (balltype_i_, streepjes_b);
     }
   out = new Molecule (Atom (s));
-  out->translate (x_dir_i_ * s.dim.x().length () , X_AXIS);
+  out->translate (x_dir_ * s.dim.x().length () , X_AXIS);
   if (dots_i_) 
     {
-	Symbol d = p->lookup_l()->dots (dots_i_);
-	Molecule dm;
-	dm.add (Atom (d));
-	dm.translate (inter_f * dot_delta_y_i_ , Y_AXIS);
-	out->add_right (dm);
+      Symbol d = p->lookup_l()->dots (dots_i_);
+      Molecule dm;
+      dm.add (Atom (d));
+      dm.translate (inter_f * dot_delta_y_i_ , Y_AXIS);
+      out->add_right (dm);
     }
 
   
   if (rest_b_) 
     {
-	streepjes_b = false;
+      streepjes_b = false;
     }
   
   if (streepjes_b) 
     {
-	int dir = sign (position_i_);
-	int s =(position_i_<-1) ? -((-position_i_)/2): (position_i_-staff_size_i_)/2;
+      int dir = sign (position_i_);
+      int s =(position_i_<-1) ? -((-position_i_)/2): (position_i_-staff_size_i_)/2;
 	
-	Symbol str = p->lookup_l()->streepjes (s);
-	Molecule sm;
-	sm.add (Atom (str));
-	if (position_i_ % 2)
-	    sm.translate (-inter_f* dir, Y_AXIS);
-	out->add (sm);	    
+      Symbol str = p->lookup_l()->streepjes (s);
+      Molecule sm;
+      sm.add (Atom (str));
+      if (position_i_ % 2)
+	sm.translate (-inter_f* dir, Y_AXIS);
+      out->add (sm);	    
     }
   
   out->translate (inter_f*position_i_, Y_AXIS);

@@ -33,7 +33,7 @@ public:
     int dots_i_;
     int balltype_i_;
     int dot_delta_y_i_;
-    int x_dir_i_;
+    Direction x_dir_;
     
     /* *************** */
     
@@ -46,9 +46,9 @@ public:
     void set_dots();
     static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
-    virtual    void do_print()const;
+    virtual    void do_print() const;
     virtual void do_pre_processing();
-    virtual    Molecule* brew_molecule_p()const;
+    virtual    Molecule* brew_molecule_p() const;
 };
 #endif // NOTEHEAD_HH
 

@@ -3,17 +3,17 @@
 void
 Directional_spanner::set_default_dir()
 {
-  dir_i_ = -1;
+  dir_ = DOWN;
 }
 
 void
 Directional_spanner::do_pre_processing()
 {
-  if (!dir_i_)
+  if (!dir_)
 	set_default_dir();
 }
 
 Directional_spanner::Directional_spanner()
 {
-  dir_i_ = 0;
+  dir_ = CENTER;
 }
