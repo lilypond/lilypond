@@ -78,9 +78,8 @@ Translator::removal_processing ()
 }
 
 void
-Translator::announces ()
+Translator::do_announces ()
 {
-  do_announces ();
 }
 
 Music_output_def *
@@ -102,11 +101,6 @@ Translator:: stop_translation_timestep ()
 
 void
 Translator::start_translation_timestep ()
-{
-}
-
-void
-Translator::do_announces ()
 {
 }
 

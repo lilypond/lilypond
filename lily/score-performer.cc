@@ -76,7 +76,7 @@ Score_performer::one_time_step ()
 {
   // fixme: put this back.
   // process_music ();
-  announces ();
+  do_announces ();
   stop_translation_timestep ();
   check_removal ();
 }

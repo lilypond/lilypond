@@ -206,6 +206,7 @@ up for the musicexpr called @code{one}, down for the musicexpr called
 
 ",
 /* creats*/       "TextScript",
-/* acks  */       "grob-interface tie-interface note-head-interface ",
-/* reads */       "combineParts noDirection soloADue soloText soloIIText aDueText split-interval unison solo unisilence unirhythm",
+/* acks  */       "multi-measure-rest-interface
+slur-interface stem-interface tie-interface note-head-interface"
+,/* reads */       "combineParts noDirection soloADue soloText soloIIText aDueText split-interval unison solo unisilence unirhythm",
 /* write */       "");

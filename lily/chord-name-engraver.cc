@@ -21,13 +21,10 @@
 
 class Chord_name_engraver : public Engraver 
 {
-
   TRANSLATOR_DECLARATIONS( Chord_name_engraver);
-
 protected:
   virtual void stop_translation_timestep ();
-  virtual void acknowledge_grob (Grob_info i);
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
   virtual bool try_music (Music *);
 
 private:
@@ -78,16 +75,9 @@ Chord_name_engraver::try_music (Music* m)
 }
 
 void
-Chord_name_engraver::acknowledge_grob (Grob_info i)
+Chord_name_engraver::process_music ()
 {
-  if (Note_req* n = dynamic_cast<Note_req*> (i.music_cause ()))
-    add_note (n);
-}
-
-void
-Chord_name_engraver::process_acknowledged_grobs ()
-{
-  if (!chord_name_p_ && ly_car (chord_) != SCM_EOL)
+  if (ly_car (chord_) != SCM_EOL)
     {
       chord_name_p_ = new Item (get_property ("ChordName"));
       chord_name_p_->set_grob_property ("chord", chord_);
@@ -117,6 +107,6 @@ ENTER_DESCRIPTION(Chord_name_engraver,
 /* descr */       "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
 and generate the appropriate chordname.",
 /* creats*/       "ChordName",
-/* acks  */       "grob-interface",
+/* acks  */       "",
 /* reads */       "chordChanges",
 /* write */       "");

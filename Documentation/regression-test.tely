@@ -230,9 +230,6 @@ Grace note do weird things with timing. Fragile.
 
 @section Miscellaneous
 
-@lilypondfile[printfilename]{generic-property-override.ly}
-
-
 @lilypondfile[printfilename]{rhythmic-staff.ly}
 
 

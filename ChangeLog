@@ -1,5 +1,12 @@
 2002-07-07  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/score-engraver.cc (one_time_step): warn for grobs created
+	during stop_translation_timestep().
+
+	* lily/a2-engraver.cc: restrict acknowledged grob types.
+
+	* lily/chord-name-engraver.cc: remove acknowledge_grob().
+
 	* Documentation/user/tutorial.itely: doc carnage.
 
 2002-07-06  Rune Zedeler  <rune@zedeler.dk>

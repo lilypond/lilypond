@@ -206,6 +206,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Separating_line_group_engraver,
 /* descr */       "Generates objects for computing spacing parameters.",
 /* creats*/       "SeparationItem SeparatingGroupSpanner",
-/* acks  */       "grob-interface",
+/* acks  */       "item-interface",
 /* reads */       "",
 /* write */       "");
