@@ -279,30 +279,26 @@ Score_engraver::try_music (Music*r)
 {
   bool gotcha = Engraver_group_engraver::try_music (r);  
 
-  if (!gotcha)
+  if (!gotcha && r->is_mus_type ("break-event"))
     {
-      if (Break_req* b = dynamic_cast<Break_req *> (r))
-	{
-	  gotcha = true;
+      gotcha = true;
 
+      SCM pen = command_column_->get_grob_property ("penalty");
+      Real total_penalty = gh_number_p (pen)
+	? gh_scm2double (pen)
+	: 0.0;
 
-	  SCM pen = command_column_->get_grob_property ("penalty");
-	  Real total_penalty = gh_number_p (pen)
-	    ? gh_scm2double (pen)
-	    : 0.0;
-
-	  SCM rpen = b->get_mus_property ("penalty");
-	  if (gh_number_p (rpen))
-	    total_penalty +=  gh_scm2double (rpen);
+      SCM rpen = r->get_mus_property ("penalty");
+      if (gh_number_p (rpen))
+	total_penalty +=  gh_scm2double (rpen);
 	  
-	  if (total_penalty > 10000.0) //  ugh. arbitrary.
-	    forbid_breaks ();
+      if (total_penalty > 10000.0) //  ugh. arbitrary.
+	forbid_breaks ();
 
-	  command_column_->set_grob_property ("penalty",
-					       gh_double2scm (total_penalty));
-	}
+      command_column_->set_grob_property ("penalty",
+					  gh_double2scm (total_penalty));
     }
-   return gotcha;
+  return gotcha;
 }
 
 /*
@@ -351,7 +347,7 @@ that there are no beams or notes that prevent a breakpoint.)
 
 ",
 /* creats*/       "System PaperColumn NonMusicalPaperColumn",
-/* accepts */     "general-music",
-/* acks  */      "note-spacing-interface staff-spacing-interface",
+/* accepts */     "break-event",
+/* acks  */       "note-spacing-interface staff-spacing-interface",
 /* reads */       "currentMusicalColumn currentCommandColumn",
 /* write */       "");

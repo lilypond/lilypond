@@ -1293,20 +1293,17 @@ shorthand_command_req:
 		$$ = MY_MAKE_MUSIC("TieEvent");
 	}
 	| '['		{
-		Music *b= MY_MAKE_MUSIC("SpanEvent");
+		Music *b= MY_MAKE_MUSIC("BeamEvent");
 		b->set_mus_property ("span-direction", gh_int2scm (START))
 ;
-		b->set_mus_property ("span-type", scm_makfrom0str ("beam"));
 		$$ =b;
 
 
 		THIS->last_beam_start_ = b->self_scm ();
 	}
 	| ']'		{
-		Music *b= MY_MAKE_MUSIC("SpanEvent");
-		b->set_mus_property ("span-direction", gh_int2scm (STOP))
-;
-		b->set_mus_property ("span-type", scm_makfrom0str ("beam"));
+		Music *b= MY_MAKE_MUSIC("BeamEvent");
+		b->set_mus_property ("span-direction", gh_int2scm (STOP));
 		$$ = b;
 	}
 	| BREATHE {
@@ -1338,7 +1335,7 @@ verbose_command_req:
 		Music * b = MY_MAKE_MUSIC("BreakEvent");
 		SCM s = $2;
 		if (!gh_number_p (s))
-			s  =gh_int2scm (0);
+			s = gh_int2scm (0);
 
 		b->set_mus_property ("penalty", s);
 		b->set_spot (THIS->here_input ());
@@ -1591,15 +1588,13 @@ close_request_parens:
 		s->set_spot (THIS->here_input());
 	}
 	| E_SMALLER {
-		Music *s =MY_MAKE_MUSIC("SpanEvent");
+		Music *s =MY_MAKE_MUSIC("CrescendoEvent");
 		$$ = s;
-		s->set_mus_property ("span-type", scm_makfrom0str ( "crescendo"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_BIGGER {
-		Music *s =MY_MAKE_MUSIC("SpanEvent");
+		Music *s =MY_MAKE_MUSIC("DecrescendoEvent");
 		$$ = s;
-		s->set_mus_property ("span-type", scm_makfrom0str ("decrescendo"));
 		s->set_spot (THIS->here_input());
 	}
 	;
@@ -1615,8 +1610,7 @@ open_request:
 
 open_request_parens:
 	E_EXCLAMATION 	{
-		Music *s =  MY_MAKE_MUSIC("SpanEvent");
-		s->set_mus_property ("span-type", scm_makfrom0str ( "crescendo"));
+		Music *s =  MY_MAKE_MUSIC("CrescendoEvent");
 		s->set_spot (THIS->here_input());
 
 		$$ = s;

@@ -34,13 +34,13 @@ protected:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  void create_items (Request*);
+  void create_items (Music*);
   virtual bool try_music (Music *req);
   virtual void start_translation_timestep ();
   virtual void process_music ();
   
 private:
-  Mark_req * mark_req_;
+  Music * mark_req_;
 };
 
 
@@ -80,7 +80,7 @@ Mark_engraver::stop_translation_timestep ()
 
 
 void
-Mark_engraver::create_items (Request *rq)
+Mark_engraver::create_items (Music *rq)
 {
   if (text_)
     return;
@@ -103,16 +103,8 @@ Mark_engraver::start_translation_timestep ()
 bool
 Mark_engraver::try_music (Music* r)
 {
-  if (Mark_req *mr = dynamic_cast <Mark_req *> (r))
-    {
-      if (mark_req_ && mr->equal_b (mark_req_))
-	return true;
-      if (mark_req_)
-	return false;
-      mark_req_ = mr;
-      return true;
-    }
-  return false;
+  mark_req_ = r;
+  return true;
 }
 
 
@@ -190,7 +182,7 @@ Mark_engraver::process_music ()
 ENTER_DESCRIPTION(Mark_engraver,
 /* descr */       "",
 /* creats*/       "RehearsalMark",
-/* accepts */     "general-music",
-/* acks  */      "bar-line-interface",
+/* accepts */     "mark-event",
+/* acks  */       "bar-line-interface",
 /* reads */       "rehearsalMark stavesFound",
 /* write */       "");

@@ -39,8 +39,8 @@ protected:
 
 private:
   Spanner* line_; 
-  Request* req_;
-  Request* last_req_;
+  Music* req_;
+  Music* last_req_;
   Translator* last_staff_;
   bool follow_;
   Grob* head_;
@@ -63,11 +63,8 @@ Note_head_line_engraver::try_music (Music* m)
 {
   if (!req_)
     {
-      if (Glissando_req *r = dynamic_cast<Glissando_req*> (m))
-	{
-	  req_ = r;
-	  return true;
-	}
+      req_ = m;
+      return true;
     }
   return false;
 }
@@ -154,7 +151,7 @@ ENTER_DESCRIPTION(Note_head_line_engraver,
 /* descr */       "Engrave a line between two note heads, for example a glissando.
 If followVoice is set, staff switches also generate a line.",
 /* creats*/       "Glissando VoiceFollower",
-/* accepts */     "general-music",
-/* acks  */      "rhythmic-head-interface",
+/* accepts */     "glissando-event",
+/* acks  */       "rhythmic-head-interface",
 /* reads */       "followVoice",
 /* write */       "");

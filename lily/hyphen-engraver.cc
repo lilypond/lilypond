@@ -24,7 +24,7 @@ class Hyphen_engraver : public Engraver
 {
   Grob *last_lyric_;
   Grob *current_lyric_;
-  Hyphen_req* req_;
+  Music* req_;
   Spanner* hyphen_;
 public:
   TRANSLATOR_DECLARATIONS(Hyphen_engraver);
@@ -70,15 +70,11 @@ Hyphen_engraver::acknowledge_grob (Grob_info i)
 bool
 Hyphen_engraver::try_music (Music* r)
 {
-  if (Hyphen_req* p = dynamic_cast <Hyphen_req *> (r))
-    {
-      if (req_)
+  if (req_)
 	return false;
 
-      req_ = p;
+      req_ = r;
       return true;
-    }
-  return false;
 }
 
 void
@@ -136,7 +132,7 @@ Hyphen_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Hyphen_engraver,
 /* descr */       "Create lyric hyphens",
 /* creats*/       "LyricHyphen",
-/* accepts */     "general-music",
+/* accepts */     "hyphen-event",
 /* acks  */      "lyric-syllable-interface",
 /* reads */       "",
 /* write */       "");

@@ -198,7 +198,7 @@ Key_engraver::initialize ()
 ENTER_DESCRIPTION(Key_engraver,
 /* descr */       "",
 /* creats*/       "KeySignature",
-/* accepts */     "general-music",
+/* accepts */     "key-change-event",
 /* acks  */      "bar-line-interface clef-interface",
 /* reads */       "keySignature lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
 /* write */       "lastKeySignature");

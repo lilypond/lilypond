@@ -23,14 +23,9 @@ protected:
   virtual void create_audio_elements ();
 
 private:
-  Tempo_req* tempo_req_;
+Music* tempo_req_;
   Audio_tempo* audio_;
 };
-
-ENTER_DESCRIPTION (Tempo_performer, "","",
-		   "general-music",
-		   "","","" );
-
 
 Tempo_performer::Tempo_performer ()
 {
@@ -78,13 +73,13 @@ Tempo_performer::try_music (Music* req)
   if (tempo_req_)
     return false;
 
-  if (Tempo_req *t =
-      dynamic_cast <Tempo_req *> (req))
-    {
-      tempo_req_ = t;
+      tempo_req_ = req;
       return true;
-    }
-
-  return false;
 }
 
+
+
+
+ENTER_DESCRIPTION (Tempo_performer, "","",
+		   "tempo-event",
+		   "","","" );

@@ -22,11 +22,11 @@
 class Beam_engraver : public Engraver
 {
 protected:  
-  Drul_array<Span_req*> reqs_drul_;
+  Drul_array<Music*> reqs_drul_;
   
   Spanner *finished_beam_;
   Spanner *beam_;
-  Span_req * prev_start_req_;
+  Music * prev_start_req_;
 
   Beaming_info_list * beam_info_;
   Beaming_info_list * finished_beam_info_;  
@@ -96,42 +96,36 @@ Beam_engraver::Beam_engraver ()
 bool
 Beam_engraver::try_music (Music *m)
 {
-  if (Span_req * c = dynamic_cast<Span_req*> (m))
+  if (m->is_mus_type ("abort-event"))
     {
-      if (scm_equal_p (c->get_mus_property ("span-type"),
-		       scm_makfrom0str ("abort")) == SCM_BOOL_T)
-	{
-	  reqs_drul_[START] = 0;
-	  reqs_drul_[STOP] = 0;
-	  if (beam_)
-	    beam_->suicide ();
-	  beam_ = 0;
-	}
-      else if (scm_equal_p (c->get_mus_property ("span-type"),
-			    scm_makfrom0str ("beam")) == SCM_BOOL_T)
-	{
-	  Direction d =c->get_span_dir ();
+      reqs_drul_[START] = 0;
+      reqs_drul_[STOP] = 0;
+      if (beam_)
+	beam_->suicide ();
+      beam_ = 0;
+    }
+  else if (m->is_mus_type ("beam-event"))
+    {
+      Direction d = to_dir (m->get_mus_property ("span-direction"));
 
+      if (d == STOP && !valid_end_moment())
+	return false;
 
-      	  if (d == STOP && !valid_end_moment())
-	    return false;
-
-	  if (d == START && !valid_start_moment ())
-	    return false;
+      if (d == START && !valid_start_moment ())
+	return false;
 	  
-	  if (d == STOP)
+      if (d == STOP)
+	{
+	  SCM m = get_property ("automaticMelismata");
+	  SCM b = get_property ("autoBeaming");
+	  if (to_boolean (m) && !to_boolean (b))
 	    {
-	      SCM m = get_property ("automaticMelismata");
-	      SCM b = get_property ("autoBeaming");
-	      if (to_boolean (m) && !to_boolean (b))
-		{
-		  set_melisma (false);
-		}
+	      set_melisma (false);
 	    }
-
-	  reqs_drul_[d ] = c;
-	  return true;
 	}
+
+      reqs_drul_[d ] = m;
+      return true;
     }
   return false;
 }
@@ -261,8 +255,8 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	  if (Stem::get_beam (stem))
 	    return;
 
-	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
-	  if (!rhythmic_req)
+	  Music* m = info.music_cause();
+	  if (!m->is_mus_type ("rhythmic-event"))
 	    {
 	      String s = _ ("stem must have Rhythmic structure");
 	      if (info.music_cause ())
@@ -275,10 +269,10 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 	  last_stem_added_at_ = now;
-	  int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log ();
+	  int durlog  = unsmob_duration (m->get_mus_property ("duration"))-> duration_log ();
 	  if (durlog <= 2)
 	    {
-	      rhythmic_req->origin ()->warning (_ ("stem doesn't fit in beam"));
+	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
 	      prev_start_req_->origin ()->warning (_ ("beam was started here"));
 	      /*
 		don't return, since

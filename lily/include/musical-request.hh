@@ -27,10 +27,6 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
-class Skip_req  : public Rhythmic_req  {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
 
 
 struct Tremolo_req : public Request {
@@ -72,13 +68,6 @@ protected:
   virtual bool do_equal_b (Request const*) const;
 };
 
-class String_number_req : public Script_req
-{
-protected:
-  VIRTUAL_COPY_CONS (Music);
-  virtual bool do_equal_b (Request const*) const;
-};
-
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request
 {
@@ -90,58 +79,6 @@ protected:
   VIRTUAL_COPY_CONS (Music);
 };
 
-/**
-Put a rest on the staff. Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
-*/
-class Rest_req : public Rhythmic_req {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-
-/// an extender line
-class Extender_req : public Request  {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/// a centred hyphen
-class Hyphen_req : public Request  {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-
-
-/**
-   instruct lyric context to alter typesetting.  */
-class Melisma_req : public Span_req
-{
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-
-/**
-   Helping req to signal start of a melisma from within a context, and
-   to   */
-class Melisma_playing_req : public Request
-{
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-class Arpeggio_req : public Request
-{
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-class Glissando_req : public Request
-{
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
 
 
 #endif // MUSICALREQUESTS_HH

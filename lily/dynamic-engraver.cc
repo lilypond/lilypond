@@ -45,8 +45,8 @@ class Dynamic_engraver : public Engraver
 
   Text_script_req* script_req_;
   
-  Span_req * current_cresc_req_;
-  Drul_array<Span_req*> accepted_spanreqs_drul_;
+  Music * current_cresc_req_;
+  Drul_array<Music*> accepted_spanreqs_drul_;
 
   Spanner* line_spanner_;
   Spanner* finished_line_spanner_;
@@ -101,30 +101,27 @@ Dynamic_engraver::try_music (Music * m)
       script_req_ = dynamic_cast<Text_script_req*> (m);
       return true;
     }
-  else if (Span_req* s =  dynamic_cast <Span_req*> (m))
+  else if (m->is_mus_type ("abort-event"))
     {
-      String t = ly_scm2string (s->get_mus_property ("span-type"));
-      if (t== "abort")
-	{
-	  accepted_spanreqs_drul_[LEFT] = 0;
-	  accepted_spanreqs_drul_[RIGHT] = 0;
-	  /*
-	    Let's not kill the line spanner, since that would fuck up
-	    earlier, not-to-be-terminated stuff.
+      accepted_spanreqs_drul_[LEFT] = 0;
+      accepted_spanreqs_drul_[RIGHT] = 0;
+      /*
+	Let's not kill the line spanner, since that would fuck up
+	earlier, not-to-be-terminated stuff.
 
-	    It will disappear by itself when stop_translation_timestep
- () finds that there is nothing to support anymore.  */
+	It will disappear by itself when stop_translation_timestep
+	() finds that there is nothing to support anymore.  */
 	  
-	  if (cresc_)
-	    cresc_->suicide ();
-	  cresc_ = 0;
-	}
-      else if (t == "crescendo"
-	   || t == "decrescendo")
-	{
-	  accepted_spanreqs_drul_[s->get_span_dir ()] = s;
-	  return true;
-	}
+      if (cresc_)
+	cresc_->suicide ();
+      cresc_ = 0;
+    }
+  else if (m->is_mus_type ("decrescendo-event")
+	   || m->is_mus_type ("crescendo-event"))
+    {
+      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      accepted_spanreqs_drul_[d] = m;
+      return true;
     }
   return false;
 }
@@ -207,7 +204,8 @@ Dynamic_engraver::process_music ()
     {
       if (current_cresc_req_)
 	{
-	  String msg = current_cresc_req_->get_span_dir () == 1
+	  Direction sd = to_dir (current_cresc_req_->get_mus_property ("span-direction"));
+	  String msg = sd == 1
 	    ? _ ("already have a crescendo")
 	    : _ ("already have a decrescendo");
       
@@ -222,11 +220,17 @@ Dynamic_engraver::process_music ()
 	    TODO: Use symbols.
 	  */
 
-	  String start_type = ly_scm2string (accepted_spanreqs_drul_[START]->get_mus_property ("span-type"));
+	  String start_type = 
+	    ly_symbol2string (current_cresc_req_->get_mus_property ("name"));
 
 	  /*
 	    ugh. Use push/pop?
 	  */
+	  if (start_type == "DecrescendoEvent")
+	    start_type = "decrescendo";
+	  else if (start_type == "CrescendoEvent")
+	    start_type = "crescendo";
+	  
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
@@ -433,7 +437,7 @@ which takes care of vertical positioning.
 ",
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-/* accepts */     "general-music",
+/* accepts */     "text-script-event crescendo-event decrescendo-event",
 /* acks  */      "note-column-interface script-interface",
 /* reads */       "",
 /* write */       "");

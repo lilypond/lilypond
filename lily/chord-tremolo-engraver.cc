@@ -166,7 +166,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	}
       s->set_grob_property ("direction", d);
 
-      if (dynamic_cast <Rhythmic_req *> (info.music_cause ()))
+      if (info.music_cause ()->is_mus_type ("rhythmic-event"))
 	{
 	  Beam::add_stem (beam_, s);
 	}

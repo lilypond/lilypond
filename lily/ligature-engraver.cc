@@ -44,24 +44,19 @@ Ligature_engraver::Ligature_engraver ()
 bool
 Ligature_engraver::try_music (Music *m)
 {
-  if (Span_req *req_ = dynamic_cast<Span_req*> (m))
+  if (m->is_mus_type ("abort-event"))
     {
-      if (scm_equal_p (req_->get_mus_property ("span-type"),
-		       scm_makfrom0str ("abort")) == SCM_BOOL_T)
-	{
-	  reqs_drul_[START] = 0;
-	  reqs_drul_[STOP] = 0;
-	  if (ligature_)
-	    ligature_->suicide ();
-	  ligature_ = 0;
-	}
-      else if (scm_equal_p (req_->get_mus_property ("span-type"),
-			    scm_makfrom0str ("ligature")) == SCM_BOOL_T)
-	{
-	  Direction d = req_->get_span_dir ();
-	  reqs_drul_[d] = req_;
-	  return true;
-	}
+      reqs_drul_[START] = 0;
+      reqs_drul_[STOP] = 0;
+      if (ligature_)
+	ligature_->suicide ();
+      ligature_ = 0;
+    }
+  else if (m->is_mus_type ("ligature-event"))
+    {
+      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      reqs_drul_[d] = m;
+      return true;
     }
   return false;
 }
@@ -191,7 +186,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 ENTER_DESCRIPTION (Ligature_engraver,
 /* descr */       "Abstract class; a concrete subclass handles Ligature_requests by engraving Ligatures in a concrete style.",
 /* creats*/       "Ligature",
-/* accepts */     "general-music",
+/* accepts */     "ligature-event abort-event",
 /* acks  */      "ligature-head-interface rest-interface",
 /* reads */       "",
 /* write */       "");
