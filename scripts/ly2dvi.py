@@ -54,7 +54,7 @@ class Input:
         open file and set private class variable __fd.  The search
         sequence is: current directory followed by the directories
         found in include property list.  Each directory is searched
-        for file, file.ly, and file.fly.
+        for file, file.ly, file.sly and file.fly.
         
         input:  file   filename
         output: void
@@ -63,7 +63,7 @@ class Input:
 
         for i in [''] + Props.get('include')[0:]:
             ifile = os.path.join(i,file)
-            for j in ['','.ly','.fly']:
+            for j in ['','.ly','.fly', 'sly']:
                 jfile = ifile+j
                 try:
                     this.__fd = open( jfile, 'r' )
