@@ -116,7 +116,11 @@ Bar_number_engraver::create_items ()
 
 ENTER_DESCRIPTION (Bar_number_engraver,
 /* descr */       "A bar number is created whenever measurePosition is zero. It is\n"
-"put on top of all staves, and appears only at  left side of the staff.",
+		   "put on top of all staves, and appears only at  left side of the staff. "
+		   "The staves are taken from @code{stavesFound}, which is maintained by "
+		   "@code{@ref{Staff_collecting_engraver}}. "
+		   ,
+		   
 /* creats*/       "BarNumber",
 /* accepts */     "",
 /* acks  */      "break-aligned-interface",

@@ -1,5 +1,11 @@
 2004-03-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): add #'() case
+	to 1.9.0 conversion.
+	
+
+	* lily/mark-engraver.cc: doc string.
+
 	* make/lilypond.redhat.spec.in (Group): add vim scriptlets.
 
 	* Documentation/user/introduction.itely (Introduction): new node.

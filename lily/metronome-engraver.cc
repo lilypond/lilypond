@@ -108,7 +108,13 @@ Metronome_mark_engraver::process_music ()
 }
 
 ENTER_DESCRIPTION (Metronome_mark_engraver,
-/* descr */       "Engrave metro nome marking. This delegates the real work to the function in the metronomeMarkFormatter property",
+/* descr */       "Engrave metro nome marking. This delegates the formatting work "
+		   "to the function in the metronomeMarkFormatter property. "
+		   "The mark is put over all staves. "
+		   "The staves are taken from the @code{stavesFound} property, "
+		   "which is maintained by @code{@ref{Staff_collecting_engraver}}. "
+	
+		   ,
 /* creats*/       "MetronomeMark",
 /* accepts */     "metronome-change-event",
 /* acks  */       "time-signature-interface bar-line-interface",
