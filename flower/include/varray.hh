@@ -200,6 +200,11 @@ public:
 	arrcpy(r.thearray, thearray  + lower, s);
 	return r;
     }
+    void reverse() {
+	int h = size_/2;
+	for (int i =0,j = size_-1; i < h; i++,j--)
+	    swap(i,j);
+    }
 };
 
 #endif

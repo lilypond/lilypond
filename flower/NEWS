@@ -1,4 +1,6 @@
 version 1.1:
+pl 19
+	- Array::reverse()
 
 pl 18
 	- Path::find("/usr/..") fix
