@@ -1,5 +1,13 @@
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* config.make.in (prefix): Prepend $(DESTDIR) to allow install
+	without overriding prefix.
+
+	* aclocal.m4: Regenerate.
+	
+	* stepmake/aclocal.m4: Don't expand $prefix: fixes install with
+	other $prefix.
+
 	* cygwin/GNUmakefile: 
 	* ly/GNUmakefile: 
 	* python/GNUmakefile: 

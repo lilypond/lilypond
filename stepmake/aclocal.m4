@@ -235,24 +235,31 @@ AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
 
 
 AC_DEFUN(STEPMAKE_DATADIR, [
+    if test "$datadir" = "\${prefix}/share"; then
+	    datadir='${prefix}/share'
+    fi
     presome=${prefix}
     if test "$prefix" = "NONE"; then
 	presome=${ac_default_prefix}
     fi
-    datadir=$(echo ${datadir} | sed "s!\\\${prefix}!$presome!")
     
     package_datadir=$datadir/$package
     local_package_datadir=$package_datadir/$FULL_VERSION
     build_package_datadir=$builddir/share/$package
     
+    DATADIR=$(echo ${datadir} | sed "s!\\\${prefix}!$presome!")
+    PACKAGE_DATADIR=$(echo ${package_datadir} | sed "s!\\\${prefix}!$presome!")
+    LOCAL_PACKAGE_DATADIR=$(echo ${local_package_datadir} | sed "s!\\\${prefix}!$presome!")
+    BUILD_PACKAGE_DATADIR=$(echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!")
+    
     AC_SUBST(datadir)
     AC_SUBST(package_datadir)
     AC_SUBST(local_package_datadir)
     AC_SUBST(build_package_datadir)
-    AC_DEFINE_UNQUOTED(DATADIR, "${datadir}")
-    AC_DEFINE_UNQUOTED(PACKAGE_DATADIR, "${package_datadir}")
-    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_DATADIR, "${local_package_datadir}")
-    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, "${build_package_datadir}")
+    AC_DEFINE_UNQUOTED(DATADIR, "${DATADIR}")
+    AC_DEFINE_UNQUOTED(PACKAGE_DATADIR, "${PACKAGE_DATADIR}")
+    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_DATADIR, "${LOCAL_PACKAGE_DATADIR}")
+    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, "${BUILD_PACKAGE_DATADIR}")
 ])
 
 
@@ -334,10 +341,10 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     if test "$prefix" = "NONE"; then
 	    presome=${ac_default_prefix}
     fi
-    localedir=$(echo ${localedir} | sed "s!\\\${prefix}!$presome!")
+    LOCALEDIR=$(echo ${localedir} | sed "s!\\\${prefix}!$presome!")
     
     AC_SUBST(localedir)
-    AC_DEFINE_UNQUOTED(LOCALEDIR, "${localedir}")
+    AC_DEFINE_UNQUOTED(LOCALEDIR, "${LOCALEDIR}")
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
 ])
