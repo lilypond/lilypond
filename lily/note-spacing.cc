@@ -24,20 +24,34 @@ Note_spacing::has_interface (Grob* g)
   return g && g->has_interface (ly_symbol2scm ("note-spacing-interface"));
 }
 
-Real
-Note_spacing::get_spacing (Grob *me)
+void
+Note_spacing::get_spacing (Grob *me, Item* right_col,
+			   Real base_space, Real increment, Real *space, Real *fixed)
 {
+
   Drul_array<SCM> props(me->get_grob_property ("left-items"),
 			me->get_grob_property ("right-items"));
   Direction d = LEFT;
+  Direction col_dir =  right_col->break_status_dir ();
   Drul_array<Interval> extents;
   do
     {
       for (SCM  s = props[d]; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car(s)));
-	  extents[d].unite (it->extent (it->column_l (), X_AXIS));
 
+	  if (d == RIGHT && it->break_status_dir () != col_dir)
+	    {
+	      it = it -> find_prebroken_piece (col_dir);
+	    }
+	  /*
+	    some kind of mismatch, eg. a note column, that is behind a
+	    linebreak.
+	   */
+	  if (!it)
+	    continue; 
+	  
+	  extents[d].unite (it->extent (it->column_l (), X_AXIS));
 	  if (d == RIGHT)
 	    {
 	      Grob * accs = Note_column::accidentals (it);
@@ -54,14 +68,23 @@ Note_spacing::get_spacing (Grob *me)
     }
   while (flip (&d) != LEFT);
 
-  /*
-    
-    What's sticking out at the left of the right side has less
-    influence.
+  *fixed = (extents[LEFT][RIGHT] >? increment);
+  *space = (base_space - increment) + *fixed ;
 
-  */
-  Real dx= extents[LEFT][RIGHT] - 0.5 * extents[RIGHT][LEFT];
-  return dx;
+  if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
+    {
+      /*
+    
+      What's sticking out at the left of the right side has less
+      influence. We only take it into account if there is not enough
+      space.
+
+      this sucks: this criterion is discontinuous; FIXME.
+      */
+      *space += 0.5 * (( -extents[RIGHT][LEFT]) >? 0);
+    }
+
+  *space += stem_dir_correction (me, right_col);
 }
 
 Item *
@@ -149,7 +172,7 @@ Note_spacing::right_column (Grob*me)
 
 */
 Real
-Note_spacing::stem_dir_correction (Grob*me) 
+Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)  
 {
   Drul_array<Direction> stem_dirs(CENTER,CENTER);
   Drul_array<Interval> stem_posns;
@@ -183,6 +206,11 @@ Note_spacing::stem_dir_correction (Grob*me)
 	    {
 	      if (d == RIGHT && Separation_item::has_interface (it))
 		{
+		  if (it->column_l () != rcolumn)
+		    {
+		      it = it->find_prebroken_piece (rcolumn->break_status_dir ());
+		    }
+		  
 		  Grob *last = Staff_spacing::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
 
 		  if (last)
@@ -193,6 +221,7 @@ Note_spacing::stem_dir_correction (Grob*me)
 
 	      goto exit_func; 
 	    }
+	  
 	  if(Stem::invisible_b (stem))
 	    {
 	      correct = false;

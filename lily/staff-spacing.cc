@@ -40,11 +40,19 @@ Staff_spacing::next_note_correction (Grob * me,
 
   Item *col =dynamic_cast<Item*> (g)->column_l ();
   Real max_corr = 0. >? (- g->extent (col, X_AXIS)[LEFT]);
+
+  /*
+    Duh. If this gets out of hand, we should invent something more generic.
+   */
   if (Grob * a = Note_column::accidentals (g))
     {
       max_corr = max_corr >? (- a->extent (col, X_AXIS)[LEFT]);
     }
-
+  if (Grob* a = unsmob_grob (g->get_grob_property ("arpeggio")))
+    {
+      max_corr = max_corr >? (- a->extent (col, X_AXIS)[LEFT]);
+    }
+  
   /*
     Let's decrease the space a little if the problem is not located
     after a barline.
@@ -223,11 +231,4 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 
 
   *space += next_notes_correction (me, last_grob);
-
-  if (dynamic_cast<Item*> (me)-> break_status_dir () == RIGHT)
-    {
-      /* Start of line: this space is not stretchable */
-      *fixed = *space;
-    }
-  
 }

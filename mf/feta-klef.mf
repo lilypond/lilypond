@@ -227,7 +227,7 @@ def draw_bass_clef(expr exact_center, reduction) =
 	pickup pencircle scaled 1; 
 %	draw
 	fill
-           new_bulb (z1, 0.4 reduced_ss, 0.35 reduced_ss, 2 stafflinethickness,  1)
+           new_bulb (z1, 0.45 reduced_ss, 0.4 reduced_ss, 2.5 stafflinethickness,  1)
 
 {dir (90)}
 	        .. z2r{right} .. tension 1.0 .. z3r{down}  .. {curl 0} 

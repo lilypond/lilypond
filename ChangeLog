@@ -1,4 +1,66 @@
+2002-03-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.39 released
+
+	* lily/simple-spacer.cc (add_rod): rods take precedence over
+	infinitely stiff springs. This fixes bugs with arpeggios and bar-lines.
+
+	* lily/arpeggio-engraver.cc (acknowledge_grob): clean up.
+
+	* lily/note-spacing.cc (get_spacing): only insert space for
+	accidentals if necessary.
+
+	* input/regression/spacing-accidental-staffs.ly (texidoc): update example
+
+	* lily/spacing-spanner.cc (musical_column_spacing): new
+	function. Have correct spacing from note to end-of-line as well.
+
+2002-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+       * Documentation/topdocs/INSTALL.texi: Add section for MacOS X.
+
+       * darwin.patch: New file.
+
+       * lily/beam.cc (set_stem_shorten): Revive deceased stem shorten
+       code.  Shorten stems by fraction of stems to be shortened.
+
+       * lily/stem.cc (get_default_stem_end_position): Shorten only half
+       of shorten value for boundary cases.
+
+       * scm/grob-description.scm (Stem): Set stem-shorten to (1.0 0.5).
+       (Beam): Set beamed-stem-shorten to (1.0 0.5).
+
+2002-03-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+       * lily/beam.cc (check_stem_length_f): Try to lenthen more.
+
+       * scm/grob-description.scm (Beam): Add concaveness.  Replace
+       Beam::cancel_suspect_slope with Beam::check_concave.
+ 
+       * lily/beam.cc (check_concave): Calculate concaveness of beam, and
+       set slope to horizontal if concaveness > Beam.concaveness.  This
+       handles cases that kludgy cancel_suspect_slope was meant to catch
+       very well.
+       (cancel_suspect_slope): Remove.
+
+2002-03-12 Rune Zedeler <rune@zedeler.dk>
+
+ 	* lily/beam.cc lily/stem.cc lily/beam-engraver.cc allow for
+ 	stemLeftBeamCount and stemRightBeamCount to equal 0.
+ 	Fixes [c8 c4 c8]
+      
+2002-03-12  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/spacing-spanner.cc (breakable_column_spacing): Only do
+	fixed spacing for pref matter, if the next column is musical, and
+	at the same moment.
+
+	* lily/note-spacing.cc (stem_dir_correction): Use correct
+	discretionary for stem-bar spacing.
+
 2002-03-11  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.38 released 
 
 	* lily/grob.cc (warning): Use cause tracking to give more
 	meaningful errors from the backend. 

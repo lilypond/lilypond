@@ -17,8 +17,8 @@ class Note_spacing
 public:
   static bool has_interface (Grob*);
 
-  static Real get_spacing (Grob *me);
-  static Real stem_dir_correction (Grob *me);  
+  static void get_spacing (Grob *me, Item* , Real, Real, Real*, Real*);
+  static Real stem_dir_correction (Grob *me, Item * next_col);  
   static Item * right_column (Grob*);
   static Item * left_column (Grob*);  
 };

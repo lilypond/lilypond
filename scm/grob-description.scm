@@ -20,7 +20,7 @@
 	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
 	(direction . -1)
 	(left-padding . 0.2)
-	(right-padding . 0.4)
+	(right-padding . 0.5)
 	(paren-cautionaries . #t)
 	(font-family . music)
 	(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
@@ -52,7 +52,7 @@
 			(time-signature . (extra-space . 0.75)) 
 			(custos . (minimum-space . 2.0))
 			(clef .   (minimum-space . 1.0))
-			(begin-of-note . (extra-space . 1.0))
+			(begin-of-note . (extra-space . 1.3))
 			))
 
 	;;
@@ -98,8 +98,13 @@
 	;; todo: clean this up a bit: the list is getting
 	;; rather long.
 	(molecule-callback . ,Beam::brew_molecule)
+;;	(concaveness . 0.8)
+	(concaveness . 0.08)
+	(concaveness-no-slope . #t)
+	(concaveness-square . #t)
+	(ideal-lengthen . #t)
 	(y-dy-callbacks . (,Beam::least_squares
-			   ,Beam::cancel_suspect_slope
+			   ,Beam::check_concave
 			   ,Beam::slope_damping
 			   ,Beam::quantise_dy
 			   ,Beam::user_override
@@ -112,7 +117,7 @@
 	(dir-function . ,beam-dir-majority)
 	(height-quants .  ,default-beam-dy-quants)
 	(vertical-position-quant-function . ,default-beam-y-quants)
-	(beamed-stem-shorten . (0.5))
+	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
 	(flag-width-function . ,default-beam-flag-width-function)
@@ -631,6 +636,7 @@
 
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
+	
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 
@@ -723,7 +729,7 @@
 	;;  a whole staffspace seems a bit drastical: we'll do half.
 
 	(lengths . (3.5 3.5 3.5 4.5 5.0))
-	(stem-shorten . (0.5))
+	(stem-shorten . (1.0 0.5))
 					; if stem is on middle line, choose this direction.
 	(neutral-direction . -1)
 	(X-offset-callbacks . (,Stem::off_callback))
