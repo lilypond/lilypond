@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "p-col.hh"
@@ -63,9 +63,9 @@ Paper_column::do_print() const
       DOUT << "post: ";
       postbreak_l()->print();
     } 
-  if (break_status_i_)
+  if (break_status_dir_)
     {
-      DOUT <<'\n' << ((break_status_i_ == LEFT) ? "prebreak" : "postbreak");
+      DOUT << '\n' << ((break_status_dir_ == LEFT) ? "prebreak" : "postbreak");
       DOUT << '\n';
     }
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "bar.hh"
@@ -13,18 +13,16 @@
 #include "lookup.hh"
 #include "debug.hh"
 
-Bar::Bar()
+IMPLEMENT_IS_TYPE_B1 (Bar,Item);
+
+Bar::Bar ()
 {
   breakable_b_ = true;
   type_str_ = "|";
 }
 
-
-
-IMPLEMENT_IS_TYPE_B1(Bar,Item);
-
 void
-Bar::do_print() const
+Bar::do_print () const
 {
 #ifndef NPRINT
   DOUT << type_str_;
@@ -32,11 +30,10 @@ Bar::do_print() const
 }
 
 Molecule*
-Bar::brew_molecule_p() const
+Bar::brew_molecule_p () const
 {    
-  Paper_def *p = paper();
-  Atom s = p->lookup_l()->bar (type_str_, 
-			       p->get_var ("barsize"));
+  Paper_def *p = paper ();
+  Atom s = lookup_l ()->bar (type_str_, p->get_var ("barsize"));
   
   Molecule*output = new Molecule (Atom (s));
   return output;
@@ -51,19 +48,20 @@ static char const *bar_breaks[][3] ={
   {"|", "|", ""},
   {"", "|s", "|"},
   {"", "|:", "|:"},
-  {"||.", "||.", ""},
+  {"|.", "|.", ""},
   {":|", ":|", ""},
   {"||", "||", ""},
+  {".|.", ".|.", ""},
   {0,0,0}
 };
 
 void
-Bar::do_pre_processing()
+Bar::do_pre_processing ()
 {
   for (int i=0; bar_breaks[i][0]; i++) 
     {
       if (bar_breaks[i][1] == type_str_)
-	type_str_ = bar_breaks[i][break_status_i()+1];
+	type_str_ = bar_breaks[i][break_status_dir ()+1];
     }
   
   /*

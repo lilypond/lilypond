@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "axis-group-item.hh"
 #include "p-col.hh"
@@ -13,10 +13,10 @@ IMPLEMENT_IS_TYPE_B2(Axis_group_item, Axis_group_element, Item);
 void
 Axis_group_item::OK() const
 {
-  Link_array<Score_elem> elems = elem_l_arr ();
+  Link_array<Score_element> elems = elem_l_arr ();
   for (int i=0; i < elems.size(); i++) 
     {
-      Item * it_l = elems[i]->item();
+      Item * it_l = elems[i]->access_Item ();
       assert (it_l);
     }
 }
@@ -31,15 +31,15 @@ Axis_group_item::do_breakable_col_processing()
   copy_breakable_items();
   
 	    
-  Link_array<Score_elem> elems = elem_l_arr ();
+  Link_array<Score_element> elems = elem_l_arr ();
   for (int i=0; i < elems.size(); i++) 
     {
-      Item* it_l = elems[i]->item();
+      Item* it_l = elems[i]->access_Item ();
       Direction  j=LEFT;
       do 
 	{
 	  Item *new_l = 
-	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_i_);
+	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_dir_);
 	  ((Axis_group_item*)broken_to_drul_[j])->add_element (new_l);
 	}
       while (flip(&j)!=LEFT);
