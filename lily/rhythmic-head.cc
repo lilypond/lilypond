@@ -14,7 +14,7 @@
 #include "rest.hh"
 #include "dots.hh"
 #include "axis-group-element.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "stem.hh"
 
 void
@@ -26,9 +26,21 @@ Rhythmic_head::do_add_processing ()
     }
   if (dots_l_)
     {
-      dots_l_->no_dots_i_ = dots_i_;
+      dots_l_->dots_i_ = dots_i_;
     }
 }
+
+void
+Rhythmic_head::do_post_processing ()
+{
+  if (dots_l_)
+    {
+      if (stem_l_)
+	dots_l_->resolve_dir_ = stem_l_->dir_;
+      dots_l_->position_i_ = position_i_;
+    }
+}
+
 
 void
 Rhythmic_head::add_dots (Dots *dot_l)
@@ -37,13 +49,13 @@ Rhythmic_head::add_dots (Dots *dot_l)
   dot_l->add_dependency (this);  
 }
 
-
 Rhythmic_head::Rhythmic_head ()
 {
   dots_l_ =0;
   balltype_i_ =0;
   dots_i_ = 0;
   stem_l_ =0;
+  position_i_ =0;
 }
 
 void

@@ -210,18 +210,25 @@ Translator_group::find_create_translator_l (String n, String id)
   return ret;
 }
 
-
 bool
-Translator_group::do_try_music (Music* req_l)
+Translator_group::try_music_on_nongroup_children (Music *m)
 {
   bool hebbes_b =false;
 
   Link_array<Translator> nongroups (nongroup_l_arr ());
   
   for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
-    hebbes_b =nongroups[i]->try_music (req_l);
+    hebbes_b =nongroups[i]->try_music (m);
+  return hebbes_b;
+}
+
+bool
+Translator_group::do_try_music (Music* m)
+{
+  bool hebbes_b = try_music_on_nongroup_children (m);
+  
   if (!hebbes_b && daddy_trans_l_)
-    hebbes_b = daddy_trans_l_->try_music (req_l);
+    hebbes_b = daddy_trans_l_->try_music (m);
   return hebbes_b ;
 }
 

@@ -9,7 +9,7 @@
 #include "axis-group-spanner.hh"
 #include "debug.hh"
 #include "item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 
 /** Do stuff if we're not broken. In this case the last and first
   columns usually are pre- and postbreak respectively,

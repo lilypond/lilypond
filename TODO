@@ -10,47 +10,30 @@ Grep for TODO and ugh/ugr/urg.
 
 .* TODO before 1.2
 . * rename 'staff_line_leading' (who is being lead where?) to
-staff_space, interline; (or other meaningful name) and use throughout lily
-. * rename files to class-name:
-.  * heads-engraver
-.  * request-iterator
-.  * p-score
-.  * engraver-group
+staff_space, interline; (or other meaningful name) and use throughout
+lily
+
+[-> leading are the lead strips between the sticks (lines) of
+typeface. ie. leading is vertical space  --hwn]
+
+. * move \version check to lexer.ll
+. * junk delayed spanner breaking.
+. * check dangling_scm_sym working.
+. * revise pianobrace to put font stuff into Lookup
 . * standardise(d) switches: -v, --version; -d, --debug,
-. * Peter    1.  Key signatures are no longer transposed with the rest
-    of
-        the music.
-
-                \notes\transpose bes  {\key D; d1 }
-        should produce no key signature (key C)
-
-        2.  Crescendos and other dynamic markings that start inside a
-        \grace { } section are ignored.
-
-        \notes \relative c' { fis4 r4   \grace { [g16 ( \<   a16] }
-        ) b4 \! a8. g16}
-
-        3.  Slurs that end within a grace section but start outside
-        are treated strangely.
-        a2 d,4 ( \grace { [e16 ) d16]} cis8 d
-
-
-        4.  Lyrics and grace sections don't go too well together.
+. * spacing of accidentals
+. * restorations & repeats
+. * dotted rests?
+. * input/test/grace.ly spacing (triplet!)
+. * spanners from grace to  normal ctxt
+.* 4.  Lyrics and grace sections don't go too well together.
         The words are aligned with the main note, not the start of the
         grace note.  This is usually wrong, but is sometimes right.
-
-
 . * Auto_beam debugging output (waarom/wanneer heb jij die weggehaald?)
 .  * Rename illegal to invalid
 .  * Mats:
 
 - The Postscript output is still very experimental
-
-- The reference manual contain a number of exampels that don't
-  pass lilypond, among other the chord syntax.
-
-- Accidentals for grace notes are drawn at the wrong place. See
-  comment in grace.ly
 
 - It is impossible to typeset two textual scripts that are stacked
   on top of eachother and avoids note collisions and at the same
@@ -62,9 +45,6 @@ staff_space, interline; (or other meaningful name) and use throughout lily
   In my opinion, all scripts that share the same staff, should
   be stacked vertically, avoiding collisions with the notes
   in all voices.
-
-- If an \alternative is directly followed by a new \repeat, 
-  Lily gives an assertion failure. See the comment in volta.fly
 
 - I'd like to change the \repetitions command to Jan's suggested
   syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
@@ -83,38 +63,6 @@ staff_space, interline; (or other meaningful name) and use throughout lily
 GIFs attached for easy reference: #1: time meter and first note on the
 line are too close; #2: last note on the line and next bar are too
 close.
-
-- And I haven't got any feedback on this one, posted last week:
-
-Check out:
-
-\score {
-  \notes \relative c' {
-    \context Staff <
-      \context Voice = one { \stemdown c1 c4 }
-      \context Voice = two { \stemup d1 d4 }
-    >
-  }
-}
-
-Notes are shifted as expected. Now check out:
-
-\score {
-  \notes \relative c' {
-    \context Staff <
-      \context Voice = one { \stemdown c1 <a4 c4> }
-      \context Voice = two { \stemup d1 d4 }
-    >
-  }
-}
-
-i.e. do 
-
--      \context Voice = one { \stemdown c1 c4 }
-+      \context Voice = one { \stemdown c1 <a4 c4> }
-
-Now the chord collides with the note of the other voice!
-
 . * relative mode for midi2ly
 . * 
 Crescendi/diminuendi that cross a line break lose their vertical
@@ -153,15 +101,12 @@ following example.
 . * formatting of input stuff. 
 .  * deps for ly2dvi
 . * decide wether to junk _ in lyrics. 
-. * sane strategy for extensions (assume .ly):
-02:22:24 appel ~/usr/src/lilypond$ lilypond foo
-GNU LilyPond 1.1.54.
-[/home/fred/usr/src/lilypond/scm/lily.scm]
-warning: can't find file: `init'
 . * indent = 0.0 with linewidth=-1.0
 . * collisions & accidentals.
-. * auto-beaming in input/test/spacing.ly.
-huh, snap niks van: gewone beam gaat wel goed.  hoe kan abe nu
+. * auto-beaming in input/test/spacing.ly:
+Non-finished auto-beams (consider_end_and_begin didn't decide to
+end beam), that get typeset in removal_processing (eg: end of a piece)
+Huh, snap niks van: gewone beam gaat wel goed.  hoe kan abe nu
 invloed hebben op beam-creatie, stopt toch gewoon stokken in?
 . * music ending in grace notes.
 . * PostScript
@@ -307,7 +252,6 @@ repeated section with different words for each repeat.
 . * disable spaces in TeX stuff
 . * handle ^C for tmp/file creation.
 . * make LilyPond RPM fully relocatable
-. * dots & rest collisions.
 . * the warning about the negative slur/tie length appears twice
 which is irritating.
 . * better hshift (dots, distance, head dependent)
@@ -641,11 +585,3 @@ hesitate to ask.
 (require 'allout)
 (outline-init 't)
 
-+ pl 56.jcn3
-+ 	- slur de-hairification
-+ 	  * slurs always attached to noteheads, by default
-+ 	  * corrections for steep and high slurs
-+ 	  * snap to stem end when close
-+ 	- bow/tie/slur dy/dx fix
-+ 
-+ 

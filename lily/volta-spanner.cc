@@ -12,7 +12,7 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "note-column.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "bar.hh"
 #include "paper-def.hh"
 #include "volta-spanner.hh"

@@ -178,6 +178,8 @@ Dynamic_engraver::do_process_requests()
 	      new_sss_p = new Staff_side_spanner;
 	      new_sss_p->set_victim (new_cresc_p);
 	      new_sss_p->axis_ = Y_AXIS;
+	      // UGH.!
+	      // new_sss_p->set_elt_property (dangling_scm_sym, SCM_BOOL_T);
 	      announce_element (Score_element_info (new_sss_p, span_l));
 	    }
 	}

@@ -10,9 +10,8 @@
 #include "debug.hh"
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"
-// hmm
-//#include "request-chord-iterator.hh"
-#include "request-iterator.hh"
+#include "request-chord-iterator.hh"
+
 
 void
 Sequential_music_iterator::do_print() const

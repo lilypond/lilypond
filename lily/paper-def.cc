@@ -13,7 +13,7 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "score-engraver.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "identifier.hh"
 #include "main.hh"
 #include "scope.hh"

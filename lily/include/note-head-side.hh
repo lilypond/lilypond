@@ -21,6 +21,9 @@ class Note_head_side: public virtual Item
 {
   Link_array<Item> support_l_arr_;
 public:
+  Direction align_dir_;
+
+  Note_head_side ();
   void add_support (Item*);
   VIRTUAL_COPY_CONS (Score_element);
 protected:

@@ -39,7 +39,7 @@ dorian = 10
 
 
 papersize = "a4"
-
+\include "generic-paper.ly"
 \include "paper20.ly"
 
 \paper{

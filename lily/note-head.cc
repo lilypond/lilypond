@@ -13,6 +13,7 @@
 #include "lookup.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
+#include "stem.hh"
 
 void
 Note_head::flip_around_stem (Direction d)
@@ -22,7 +23,6 @@ Note_head::flip_around_stem (Direction d)
 
 Note_head::Note_head ()
 {
-  position_i_ = 0;
 }
 
 void
@@ -34,6 +34,8 @@ Note_head::do_pre_processing ()
   if (dots_l_)			// move into Rhythmic_head?
     dots_l_->position_i_ = position_i_;
 }
+
+
 
 int
 Note_head::compare (Note_head *const  &a, Note_head * const &b)

@@ -10,7 +10,7 @@
 #include "spring.hh"
 #include "debug.hh"
 #include "item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 
 Spring::Spring ()
 {

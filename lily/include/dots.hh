@@ -22,8 +22,9 @@ protected:
   virtual Molecule * do_brew_molecule_p () const;
   virtual void do_post_processing ();
 public:
-  int no_dots_i_;
+  int dots_i_;
   int position_i_;
+  Direction resolve_dir_;
   
   Dots ();
 };

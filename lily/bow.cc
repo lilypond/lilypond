@@ -70,7 +70,7 @@ Bow::do_height () const
   Array<Offset> c (get_controls());
   for (int i=0; i < c.size (); i++)
     {
-      Real y = c[i][Y_AXIS] + dy_f_drul_[LEFT];
+      Real y = c[i][Y_AXIS];
       iv.unite (Interval (y,y));
     }
   return iv;

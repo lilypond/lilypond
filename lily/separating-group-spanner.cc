@@ -9,7 +9,7 @@
 
 #include "separating-group-spanner.hh"
 #include "single-malt-grouping-item.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "paper-def.hh"
 #include "dimensions.hh"
 

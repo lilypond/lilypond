@@ -114,10 +114,9 @@ GraceContext=\translator {
 	\consists "Note_heads_engraver";
 	\consists "Local_key_engraver";
 	\consists "Stem_engraver";
-	\consists "Slur_engraver";
-	\consists "Timing_engraver";	%UGH.
 	\consists "Beam_engraver";
 	beamAuto = "1";
+	\consists "Slur_engraver";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 	\consists "Align_note_column_engraver";
@@ -129,6 +128,7 @@ GraceContext=\translator {
 	fontSize = "-1";
 	stemLength = "6.0";
 	verticalDirection = "1";
+	graceAccidentalSpace= 1.5 * \interline;
 };
 
 \translator{\GraceContext}

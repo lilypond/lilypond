@@ -180,7 +180,6 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
       
-
       if (rhythmic_req->duration_.durlog_i_<= 2)
 	{
 	  rhythmic_req->warning (_ ("stem doesn't fit in beam"));

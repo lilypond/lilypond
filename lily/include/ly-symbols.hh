@@ -31,6 +31,7 @@ DECLARE_LY_SYMBOL(char);
 DECLARE_LY_SYMBOL(change);
 DECLARE_LY_SYMBOL(damping);
 DECLARE_LY_SYMBOL(dashed);
+DECLARE_LY_SYMBOL(dangling);
 DECLARE_LY_SYMBOL(extremal);
 DECLARE_LY_SYMBOL(extra_space);
 DECLARE_LY_SYMBOL(dir_forced);

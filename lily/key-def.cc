@@ -1,5 +1,5 @@
 /*   
-  key-def.cc --  implement 
+  key-def.cc --  implement Key_def
   
   source file of the GNU LilyPond music typesetter
   

@@ -12,7 +12,7 @@
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "warn.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "line-of-score.hh"
 
 Spacing_spanner::Spacing_spanner ()

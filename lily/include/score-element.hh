@@ -135,6 +135,7 @@ protected:
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
   virtual void handle_prebroken_dependents ();
+  virtual void handle_broken_dependents ();
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
   static Interval dim_cache_callback (Dimension_cache*);

@@ -9,8 +9,8 @@
 #include "line-of-score.hh"
 #include "paper-def.hh"
 #include "paper-outputter.hh"
-#include "p-col.hh"
-#include "p-score.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "warn.hh"
 
 Line_of_score::Line_of_score()

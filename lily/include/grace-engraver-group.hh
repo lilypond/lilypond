@@ -18,6 +18,7 @@ class Grace_engraver_group : public Engraver_group_engraver, public Global_trans
   Link_array<Score_element> typeset_us_;
   Array<Score_element_info> announce_to_top_;
   bool calling_self_b_;
+  bool pass_to_top_b (Music *) const;
 public:
   VIRTUAL_COPY_CONS(Translator);
   Grace_engraver_group ();

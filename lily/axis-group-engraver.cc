@@ -8,7 +8,7 @@
 
 #include "axis-group-engraver.hh"
 #include "axis-group-spanner.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 
 Axis_group_engraver::Axis_group_engraver ()
 {

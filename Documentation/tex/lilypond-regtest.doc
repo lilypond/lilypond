@@ -24,6 +24,14 @@ you must create a special context called Thread.
 
 \mudelafile{noteheadstyle.ly}
 
+Noteheads can have dots, and ---although this is bad style--- rests
+can too.  Augmentation dots should never be printed on a staff line,
+but rather be shifted: down stem notes shift dots down, up stem up.
+In case of chords, all dots should be in a column.  The dots go along
+as  rests are shifted to avoid collisions.
+
+\mudelafile{dots.fly}
+
 Multiple measure rests do not collide with barlines and clefs.  They
 are not expanded when you set \verb+Score.SkipBars+.  Although the
 multi-measure-rest is a Spanner, minimum distances are set to keep it
@@ -47,10 +55,12 @@ point) are mixed.
 \section{Grace notes}
 
 Grace notes are typeset as an encapsulated piece of music. You can
-have beams, notes, chords, stems etc. within a \verb|\grace|
-section. Slurs that start within a grace section, but aren't ended are
-attached to the next normal note.  Grace notes have zero duration.  If
-there are tuplets, the grace notes won't be under the brace.
+have beams, notes, chords, stems etc. within a \verb|\grace| section.
+Slurs that start within a grace section, but aren't ended are attached
+to the next normal note.  Grace notes have zero duration.  If there
+are tuplets, the grace notes won't be under the brace.  Grace notes
+can have accidentals, but they are (currently) spaced at a fixed
+distance.
 
 
 

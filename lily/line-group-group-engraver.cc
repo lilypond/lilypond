@@ -12,7 +12,7 @@
 #include "bar.hh"
 #include "debug.hh"
 #include "line-group-group-engraver.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 
 Line_group_engraver_group::Line_group_engraver_group()
 {

@@ -9,7 +9,7 @@
 #include "staff-sym-engraver.hh"
 #include "staff-symbol.hh"
 #include "score.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "paper-def.hh"
 

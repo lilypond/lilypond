@@ -8,9 +8,9 @@
 
 #include "word-wrap.hh"
 #include "paper-def.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "debug.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "spring-spacer.hh"
 
 

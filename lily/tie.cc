@@ -9,7 +9,7 @@
 #include "paper-def.hh"
 #include "tie.hh"
 #include "note-head.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "debug.hh"
 
 

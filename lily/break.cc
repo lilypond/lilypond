@@ -12,8 +12,8 @@
 #include "spring-spacer.hh"
 #include "debug.hh"
 #include "line-of-score.hh"
-#include "p-score.hh"
-#include "p-col.hh"
+#include "paper-score.hh"
+#include "paper-column.hh"
 #include "cpu-timer.hh"
 #include "command-request.hh"
 

@@ -10,8 +10,8 @@
 #include "colhpos.hh"
 #include "spring-spacer.hh"
 #include "debug.hh"
-#include "p-col.hh"
-#include "p-score.hh"
+#include "paper-column.hh"
+#include "paper-score.hh"
 #include "paper-def.hh"
 
 #include "killing-cons.tcc"

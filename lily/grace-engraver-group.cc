@@ -10,6 +10,7 @@
 #include "lily-guile.hh"
 #include "ly-symbols.hh"
 #include "score-element.hh"
+#include "musical-request.hh"
 
 void
 Grace_engraver_group::start ()
@@ -99,12 +100,23 @@ ADD_THIS_TRANSLATOR(Grace_engraver_group);
 bool
 Grace_engraver_group::do_try_music (Music *m)
 {
-  bool hebbes_b =false;
+  bool hebbes_b = try_music_on_nongroup_children (m);
 
-  Link_array<Translator> nongroups (nongroup_l_arr ());
-  
-  for (int i =0; !hebbes_b && i < nongroups.size() ; i++)
-    hebbes_b =nongroups[i]->try_music (m);
+  if (!hebbes_b && pass_to_top_b (m))
+    {
+      hebbes_b = daddy_trans_l_->try_music (m);
+    }
 
   return hebbes_b;
+}
+
+bool
+Grace_engraver_group::pass_to_top_b (Music *m) const
+{
+  if (Span_req * sp = dynamic_cast<Span_req*> (m))
+    {
+      if (sp->span_type_str_ == "slur")
+	return true;
+    }
+  return false;
 }

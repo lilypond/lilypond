@@ -15,13 +15,11 @@
 class  Rest : public Rhythmic_head
 {
 public:
-  
-  
-  int position_i_;
   Rest ();
   void add_dots (Dots*);
 protected:
   virtual void do_add_processing ();
+  virtual void do_post_processing ();
   virtual Molecule * do_brew_molecule_p () const;
 };
 #endif // REST_HH

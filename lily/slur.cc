@@ -19,7 +19,7 @@
 #include "paper-def.hh"
 #include "note-column.hh"
 #include "stem.hh"
-#include "p-col.hh"
+#include "paper-column.hh"
 #include "molecule.hh"
 #include "debug.hh"
 #include "box.hh"
@@ -198,12 +198,39 @@ Slur::do_post_processing ()
     }
   while (flip (&d) != LEFT);
 
-  if (fix_broken_b)
-    do {
-      if (dy_f_drul_[d])
-	dy_f_drul_[-d] = dy_f_drul_[d];
+  int interstaff_i = 0;
+  for (int i = 0; i < encompass_arr_.size (); i++)
+    {
+      Encompass_info info (encompass_arr_[i], dir_, this);
+      if (info.interstaff_f_)
+	{
+	  interstaff_i++;
+	}
     }
-    while (flip (&d) != LEFT);
+  bool interstaff_b = interstaff_i && (interstaff_i < encompass_arr_.size ());
+
+  Drul_array<Encompass_info> info_drul;
+  info_drul[LEFT] = Encompass_info (encompass_arr_[0], dir_, this);
+  info_drul[RIGHT] = Encompass_info (encompass_arr_.top (), dir_, this);
+  Real interstaff_f = info_drul[RIGHT].interstaff_f_
+    - info_drul[LEFT].interstaff_f_;
+
+  if (fix_broken_b)
+    {
+      Direction d = (encompass_arr_.top () != spanned_drul_[RIGHT]) ?
+	RIGHT : LEFT;
+      dy_f_drul_[d] = info_drul[d].o_[Y_AXIS];
+      if (!interstaff_b)
+	{
+	  dy_f_drul_[d] -= info_drul[d].interstaff_f_;
+	  
+	  if (interstaff_i)
+	    {
+	      dy_f_drul_[LEFT] += info_drul[d].interstaff_f_;
+	      dy_f_drul_[RIGHT] += info_drul[d].interstaff_f_;
+	    }
+	}
+    }
 	
 
   /*
@@ -211,13 +238,30 @@ Slur::do_post_processing ()
     Catch and correct some ugly cases
    */
 
-  Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
+  Real height_damp_f;
+  Real slope_damp_f;
+  Real snap_f;
+  Real ratio_f;
+
+  if (!fix_broken_b)
+    dy_f_drul_[RIGHT] += interstaff_f;
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+
+  Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
   Real height_f = do_height ().length ();
 
-  Real height_damp_f = paper_l ()->get_var ("slur_height_damping");
-  Real slope_damp_f = paper_l ()->get_var ("slur_slope_damping");
-  Real ratio_f;
+  if (!interstaff_b)
+    {
+      height_damp_f = paper_l ()->get_var ("slur_height_damping");
+      slope_damp_f = paper_l ()->get_var ("slur_slope_damping");
+      snap_f = paper_l ()->get_var ("slur_snap_to_stem");
+    }
+  else
+    {
+      height_damp_f = paper_l ()->get_var ("slur_interstaff_height_damping");
+      slope_damp_f = paper_l ()->get_var ("slur_interstaff_slope_damping");
+      snap_f = paper_l ()->get_var ("slur_interstaff_snap_to_stem");
+    }
 
 
   /*
@@ -241,27 +285,28 @@ Slur::do_post_processing ()
       Direction d = (Direction)(- dir_ * (sign (dy_f)));
       if (!d)
 	d = LEFT;
-      dy_f_drul_[d] += dir_ * height_f * height_damp_f;
+      Real damp_f = dir_ * (ratio_f - height_damp_f) * dx_f;
+      dy_f_drul_[d] += damp_f;
       /*
-	if y positions at same height, correct both ends
+	if y positions at about the same height, correct both ends
        */
       if (abs (dy_f / dx_f ) < slope_damp_f)
 	{
-	  dy_f_drul_[-d] += dir_ * height_f * height_damp_f;
+	  dy_f_drul_[-d] += damp_f;
 	}
     }
 
   /*
     If, after correcting, we're close to stem-end...
   */
-  Real snap_f = paper_l ()->get_var ("slur_snap_to_stem");
   do
     {
       if ((note_column_drul[d] == spanned_drul_[d])
 	  && (note_column_drul[d]->stem_l_)
 	  && (note_column_drul[d]->stem_l_->dir_ == dir_)
 	  && (abs (note_column_drul[d]->stem_l_->extent (Y_AXIS)[dir_]
-		   - dy_f_drul_[d]) <= snap_f))
+		   - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
+	      <= snap_f))
 	{
 	  /*
 	    attach to stem-end
@@ -270,6 +315,7 @@ Slur::do_post_processing ()
 	  dx_f_drul_[d] = stem_l->hpos_f ()
 	    - spanned_drul_[d]->absolute_coordinate (X_AXIS);
 	  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[dir_];
+	  dy_f_drul_[d] += info_drul[d].interstaff_f_;
 	  dy_f_drul_[d] += dir_ * 2 * y_gap_f;
 	}
     }
@@ -280,20 +326,43 @@ Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
   Array<Offset> offset_arr;
+#if 0
+  /*
+    check non-disturbed slur
+    FIXME: x of ends off by a tiny bit!!
+  */
+  offset_arr.push (Offset (0, dy_f_drul_[LEFT]));
+  offset_arr.push (Offset (0, dy_f_drul_[RIGHT]));
+  return offset_arr;
+#endif
+
+  int interstaff_i = 0;
+  for (int i = 0; i < encompass_arr_.size (); i++)
+    {
+      Encompass_info info (encompass_arr_[i], dir_, this);
+      if (info.interstaff_f_)
+	{
+	  interstaff_i++;
+	}
+    }
+  bool interstaff_b = interstaff_i && (interstaff_i < encompass_arr_.size ());
+  
   Offset origin (absolute_coordinate (X_AXIS), 0);
 
   int first = 1;
   int last = encompass_arr_.size () - 2;
 
+  offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
   /*
     left is broken edge
   */
   if (encompass_arr_[0] != spanned_drul_[LEFT])
     {
       first--;
+      Encompass_info left_info (encompass_arr_[0], dir_, this);
+      if (interstaff_b)
+	offset_arr[0][Y_AXIS] += left_info.interstaff_f_;
     }
-  Encompass_info left_info (encompass_arr_[0], dir_, this);
-  offset_arr.push (Offset (0, left_info.interstaff_f_));
 
   /*
     right is broken edge
@@ -309,20 +378,9 @@ Slur::get_encompass_offset_arr () const
       offset_arr.push (info.o_ - origin);
     }
 
-  offset_arr.push (Offset (do_width ().length (), 0));
+  offset_arr.push (Offset (do_width ().length () + dx_f_drul_[RIGHT],
+			   dy_f_drul_[RIGHT]));
 
-#if 1
-  offset_arr[0] += Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
-  offset_arr.top () += Offset (dx_f_drul_[RIGHT], dy_f_drul_[RIGHT]);
-#else
-  /*
-    check non-disturbed slur
-    FIXME: ends off by a tiny bit!!
-  */
-  offset_arr[0] += Offset (0, dy_f_drul_[LEFT]);
-  offset_arr.top () += Offset (0, dy_f_drul_[RIGHT]);
-#endif
-  
   return offset_arr;
 }
 

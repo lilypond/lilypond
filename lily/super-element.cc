@@ -8,7 +8,7 @@
 
 #include "super-element.hh"
 #include "line-of-score.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "string.hh"
 #include "paper-outputter.hh"
 
@@ -26,6 +26,7 @@ enum Score_element_status {
   SPACING,
   SPACED,
   BROKEN,
+  BROKEN_SECOND,
   POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
   POSTCALCED,		// after spacing calcs done
   BREWING,
@@ -59,6 +60,8 @@ void
 Super_element::break_processing ()
 {
   calculate_dependencies (BROKEN, BROKEN, &Score_element::do_break_processing);
+  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
+			  &Score_element::handle_broken_dependents);
 }
 void
 Super_element::post_processing ()

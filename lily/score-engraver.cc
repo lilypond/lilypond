@@ -11,13 +11,11 @@
 #include "debug.hh"
 #include "item.hh"
 #include "score-engraver.hh"
-#include "p-score.hh"
+#include "paper-score.hh"
 #include "musical-request.hh"
 #include "score-column.hh"
 #include "command-request.hh"
 #include "paper-def.hh"
-
-
 
 Score_engraver::Score_engraver()
 {
@@ -125,6 +123,17 @@ Score_engraver::typeset_all()
     {
       Score_element * elem_p = elem_p_arr_[i];
       elem_p->add_processing ();
+
+#if 0				// TODO!
+      /*
+	elem_p wants to be connected to the rest of the
+	dependency graph.
+       */
+      
+      if (elem_p->get_elt_property (dangling_scm_sym) != SCM_BOOL_F)
+	scoreline_l_->add_dependency (elem_p);
+#endif
+      
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
 	    /*

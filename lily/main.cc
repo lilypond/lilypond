@@ -405,7 +405,7 @@ distill_inname_str (String name_str, String& ext_r)
 	  split_path (str,a,b,c,ext_r);
 
 	  // add extension if not present.
-	  char const* extensions[] = {"", "", ".ly", ".fly", ".sly", 0};
+	  char const* extensions[] = {"", ".ly", ".fly", ".sly", "", 0};
 	  extensions[0] = ext_r.ch_C ();
 	  for (int i = 0; extensions[i]; i++)
 	    {
@@ -416,6 +416,9 @@ distill_inname_str (String name_str, String& ext_r)
 		}
 	    }
 	  str = a+b+c+ext_r;
+	  // in any case, assume (init).ly
+	  if (!ext_r.length_i ())
+	    ext_r = ".ly";
 	}
     }
   else 

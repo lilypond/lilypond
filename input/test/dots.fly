@@ -1,0 +1,9 @@
+
+d''4. b c4 | <b4. c d e>  <f g a b>
+%This doesn't really work yet.
+
+\context Staff <
+	\context Voice = VA { \stemup <b c> r4.  }
+	\context Voice = VB { \stemdown <a b> r4. }
+>
+

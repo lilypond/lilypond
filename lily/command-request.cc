@@ -170,3 +170,11 @@ Mark_req::do_print () const
 {
   DOUT << str_;
 }
+void
+Key_change_req::transpose (Musical_pitch p)
+{
+  key_.transpose (p);
+}
+
+
+			   
