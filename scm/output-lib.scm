@@ -38,7 +38,13 @@
 			(else "")))
                                    
          )
-    (let* ((slur (Slur::print grob))
+    (let* (
+	   (slur ; (Slur::print grob)
+
+	    ;; 
+	    ;; FIXME: a hammer is not a slur.
+	    ;; 
+	    (ly:make-stencil '() '(0 . 0) '(0 . 0)))
 	   (paper (ly:grob-paper grob))
 	   (text (interpret-markup
 		  paper
@@ -54,7 +60,7 @@
         (ly:stencil-align-to! text 0 1)
         )
 
-      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
+;      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
       ) ) )
 
 

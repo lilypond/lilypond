@@ -11,9 +11,10 @@ ITELY_FILES := $(wildcard *.itely)
 ITEXI_FILES := $(wildcard *.itexi)
 LY_FILES := $(wildcard *.ly)
 LYINC_FILES := $(wildcard *.lyinc)
+ILY_FILES := $(wildcard *.ily)
 
 TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 
-EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(LYINC_FILES)
+EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(LYINC_FILES)  $(ILY_FILES)
 
 DVIPS_FLAGS= -u+ec-mftrace.map -u +lilypond.map  -Ppdf
