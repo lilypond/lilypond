@@ -106,6 +106,19 @@ Tuplet_bracket::brew_molecule (SCM smob)
   if (!columns.size ())
     return mol.smobbed_copy ();
 
+  
+
+  {
+    SCM lp = me->get_grob_property ("left-position");
+    SCM rp = me->get_grob_property ("right-position");  
+
+    if (!gh_number_p (rp) || !gh_number_p (lp))
+      after_line_breaking (smob);
+  }
+  
+  Real ly = gh_scm2double (me->get_grob_property ("left-position"));
+  Real ry = gh_scm2double (me->get_grob_property ("right-position"));  
+  
   bool equally_long = false;
   Grob * par_beam = parallel_beam (me, columns, &equally_long);
 
@@ -151,8 +164,6 @@ Tuplet_bracket::brew_molecule (SCM smob)
 
   Real w = x1 -x0;
   
-  Real ly = gh_scm2double (me->get_grob_property ("left-position"));
-  Real ry = gh_scm2double (me->get_grob_property ("right-position"));  
   SCM number = me->get_grob_property ("text");
 
   Paper_def *pap = me->get_paper ();

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \score {
     \notes\context PianoStaff <<
     \context Staff = up
@@ -18,7 +18,7 @@
             \property Voice.DynamicLineSpanner
 	      \override #'padding = #5.0
             \tieUp
-            fis16(\> d b\! \translator Staff = down
+            fis16(\> d b\! \change Staff = down
 	    \stemUp
 	    \clef treble g~ <g e>8) } \\
         { s16

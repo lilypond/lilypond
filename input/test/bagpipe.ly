@@ -1,4 +1,4 @@
-\version "2.1.1"
+\version "2.1.7"
 
 \header {
  texidoc = "@cindex Bagpipe Music

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 
 %{
  Header for Petites Preludes.
@@ -67,9 +67,9 @@ two =   \notes\relative c{
 	a8.\mordent bes16  g8.\prall f16 |
 	\stemDown
 	f2 e2 |
-	\translator Staff=lower \stemUp
+	\change Staff=lower \stemUp
 	r4 a, bes b |
-	\translator Staff=upper \stemDown\tieDown
+	\change Staff=upper \stemDown\tieDown
 	r16 b' a g  f8. f16 e2 ~ |
 	%5
 	e2 ~ e4 ~ e16 e f! d |
@@ -109,13 +109,13 @@ four =   \notes\relative c{
 	d2 cis |
 	\skip 1*2 |
 	\skip 4*3
-	\translator Staff=upper \stemUp
+	\change Staff=upper \stemUp
 	\property Voice.NoteColumn \override #'horizontal-shift = #1
 	c''4 |
 	%5
 	a gis ~ gis16 gis fis e 
 	\skip 4*1
-	\translator Staff=lower \stemDown
+	\change Staff=lower \stemDown
 	\property Voice.NoteColumn \override #'horizontal-shift = #0
 	\stemUp\tieUp
 	b2 a |

@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 \include "paper16.ly"
-\version "2.1.1"
+\version "2.1.7"
 
 \header {
   title = "Romanzen"
@@ -19,9 +19,9 @@
   copyright = "Public Domain"
 }
 
-u = { \translator Staff = up  \stemDown }
-m = { \translator Staff = mid  \stemUp  }
-d = { \translator Staff = down  \stemUp }
+u = { \change Staff = up  \stemDown }
+m = { \change Staff = mid  \stemUp  }
+d = { \change Staff = down  \stemUp }
 
 forcedBreak = \break
 
@@ -115,7 +115,7 @@ rightb = \notes \transpose c cis' {
  \property Voice.PhrasingSlur \revert #'extra-offset
  \property Voice.PhrasingSlur \revert #'beautiful
 
- \translator Staff=mid
+ \change Staff=mid
  \relative c { \stemDown \slurDown
   a4^1( g8^1 b4^1 a8^1 |
   f8..^1 f32^1 g8^2  a4.)^1 |
@@ -136,7 +136,7 @@ rightb = \notes \transpose c cis' {
   f4) e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
  \tieDown c4.~<f, c  >16\< \tieBoth <f h>~ < f^3 h >8[\>\! < e b^2> \!] |
- \translator Staff=mid
+ \change Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
   f8..^1 f32^1 g8^2  a8..)   \slurUp <f f'^3>32( <g g'^4>8 |
@@ -175,7 +175,7 @@ lefta = \notes \transpose c cis {
   \property Voice.NoteColumn \override #'horizontal-shift = #-1 des' s
  }
  >>
- \translator Staff=down \stemUp \slurUp \tieUp \phrasingSlurUp
+ \change Staff=down \stemUp \slurUp \tieUp \phrasingSlurUp
  f4^1( e8^1 g4^1 f8^1 |
  d8..^1 d32^2 e8^1  f4.) |
  a4^1( g8 b4 a8 |
@@ -229,7 +229,7 @@ leftb = \notes \transpose c cis {
   d) e( f16_4 d_5  c4.)_ \markup { \finger "4-3" }~ |
  \oneVoice
  c16( h,_4 c_3 cis_1 d_2 b,_3 a,_4 as,_1 g,8  c,8) |
- \translator Staff = down \stemDown \tieDown
+ \change Staff = down \stemDown \tieDown
  f16^\pp c f, c e c-3 g c-2 f, c f c |
  d c f, c-3 e c f c-2 f, c-3 e c |
  f c-2 f, c-3 e c ~ c c8 c c16 ~ |

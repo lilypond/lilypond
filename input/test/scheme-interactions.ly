@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \header { texidoc = "@cindex Scheme Interactions
 With @code{ly:export}, you can pass of the result of
 Scheme expressions as lilypond input.  Within a Scheme expression,

@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header {
 
     texidoc = "Clef changes at the start of a line get much more space

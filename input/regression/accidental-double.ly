@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header {
 	texidoc = "If two forced accidentals happen at the same time, only one
 	sharp sign is printed."

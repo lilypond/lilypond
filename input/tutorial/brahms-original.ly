@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \score {
     \notes\context PianoStaff <<
     \context Staff = up
@@ -8,7 +8,7 @@
             fis4-3_\p(~
             fis16 a)-5 } \\
         {
-            fis16(\> d b\! \translator Staff = down
+            fis16(\> d b\! \change Staff = down
             \clef treble g~ <g e>8) } \\
         { s16
           d'

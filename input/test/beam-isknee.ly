@@ -1,5 +1,5 @@
 
-\version "1.9.8"
+\version "2.1.7"
 \header{
 	texidoc="@cindex Beam Isknee
 LilyPond can beam across a Piano Staff.
@@ -12,7 +12,7 @@ LilyPond can beam across a Piano Staff.
 	\context Staff=two \notes\relative c'{
 		\clef bass
 % no knee
-		\stemUp  c8[ \translator Staff=one \stemDown g'16 f]
+		\stemUp  c8[ \change Staff=one \stemDown g'16 f]
 		s8
 		s2
 	}

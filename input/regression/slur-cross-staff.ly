@@ -1,5 +1,5 @@
 
-\version "1.9.8"
+\version "2.1.7"
 \header{
 texidoc="
 The same goes for slurs. They behave decently when broken across
@@ -12,32 +12,32 @@ linebreak.
 	\context PianoStaff <<
 	\context Staff=one \notes\relative c'{
 		\stemUp \slurUp
-		 c4( c \translator Staff=two c  c) |
-		\translator Staff=one
+		 c4( c \change Staff=two c  c) |
+		\change Staff=one
 		\stemUp \slurUp
-		 c4( c \translator Staff=two c  c) |
+		 c4( c \change Staff=two c  c) |
 		\stemUp \slurUp
-		 c4( c \translator Staff=one c  c) |
-		\translator Staff=two
+		 c4( c \change Staff=one c  c) |
+		\change Staff=two
 		\stemUp \slurUp
-		 c4( c \translator Staff=one c  c) |
-		\translator Staff=two
+		 c4( c \change Staff=one c  c) |
+		\change Staff=two
 		\stemUp \slurUp
-		 c4( \translator Staff=one c c  c) |
+		 c4( \change Staff=one c c  c) |
 		r2
-		\translator Staff=two
+		\change Staff=two
 		\stemUp \slurUp
-		 c4( \translator Staff=one c
+		 c4( \change Staff=one c
 		   \break
 		c  c)
 		r2
 %		\stemDown \slurDown
-%		 c4( \translator Staff=two c c \translator Staff=one  c)
+%		 c4( \change Staff=two c c \change Staff=one  c)
 		\stemDown \slurDown
-		 d4( \translator Staff=two c c \translator Staff=one  d)
-		\translator Staff=two
+		 d4( \change Staff=two c c \change Staff=one  d)
+		\change Staff=two
 		\stemUp \slurUp
-		 c4( \translator Staff=one c c \translator Staff=two  c)
+		 c4( \change Staff=one c c \change Staff=two  c)
 		r1
 	}
 	\context Staff=two \notes\relative c'{

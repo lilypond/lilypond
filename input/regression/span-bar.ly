@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \header {
 texidoc = "Span bars draw only in between staff bar lines, so setting those to transparent shows bar lines between systems only.
 "

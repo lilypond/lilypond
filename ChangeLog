@@ -1,5 +1,15 @@
 2004-01-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/*ly: run convert-ly
+	
+	* lily/tuplet-bracket.cc (brew_molecule): call after_line_breaking
+	() if dependencies are fluked.
+
+	* scm/document-translation.scm (engraver-doc-string): update on
+	latest string/symbol conventions.
+
+	* lily/translator-ctors.cc: use Scheme_hash_table.
+
 	* lily/translator-def.cc (get_translator_names): new function
 	(add_context_mod): new function
 	(get_accepted): new function

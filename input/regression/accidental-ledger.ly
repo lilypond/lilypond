@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 
 \header {
     texidoc = "Ledger lines are shortened when there are accidentals."

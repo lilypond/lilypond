@@ -4,7 +4,7 @@ longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.1.1"
+\version "2.1.7"
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 

@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.7"
 \header {
 
 
@@ -21,7 +21,7 @@
 	\set #'control-points =
 	#'((0 . -4) (2 . 0) (60 . 0) (63 . 4))
 			   c8( as' f c' as f c as' f
-			   \translator Staff = up
+			   \change Staff = up
 			   \clef treble
 			   c' as f' c as' f c' as
 			   f' c as' f c'4)

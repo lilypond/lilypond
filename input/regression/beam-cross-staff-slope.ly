@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.8"
+\version "2.1.7"
 \header {
     texidoc = "Cross staff  (kneed) beams don't cause extreme slopes."
 }
@@ -10,16 +10,16 @@
     \relative c'' <<
         {
 	    \stemDown
-            f16( \> d b\! \translator Staff = down \stemUp
+            f16( \> d b\! \change Staff = down \stemUp
             \clef treble g ~ < g e>8)
 	    
-	     e[ \translator Staff = up
+	     e[ \change Staff = up
 	    \stemDown
 	    e e]
-	    \translator Staff = down
+	    \change Staff = down
 	    \stemUp
 	    e8.[
-		\translator Staff = up
+		\change Staff = up
 	    \stemDown
 	    e8.]
 	    
