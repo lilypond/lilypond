@@ -79,17 +79,30 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
     {
       output_comment (nm);
     }
-      
+
+  SCM offset_sym = ly_symbol2scm ("translate-atom"); 
   for (SCM ptr = gh_cdr (m->atom_list_); ptr != SCM_EOL; ptr = gh_cdr (ptr))
     {
-      Atom * i = unsmob_atom (gh_car (ptr));
+      SCM func =  gh_car (ptr);
+      SCM funcptr = func;
 
-      Offset a_off = i->off_;
+      Offset a_off (0,0);
+      while (gh_pair_p (funcptr))
+	{
+	  if (gh_car (funcptr) == offset_sym)
+	    {
+	      SCM quot = gh_cadr (funcptr);
+	      a_off += ly_scm2offset (gh_cadr (quot));
+	    }
+	  funcptr = scm_last_pair (funcptr);
+	  if (funcptr != SCM_EOL )
+	    {
+	      funcptr = gh_car (funcptr);
+	    }
+	}
+      
       a_off += o;
-
-      if (!i->func_)
-	continue; 
-
+      
       Axis a = X_AXIS;
       while (a < NO_AXES)
 	{
@@ -107,7 +120,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 	= gh_list (ly_symbol2scm ("placebox"),
 		   gh_double2scm (a_off[X_AXIS]),
 		   gh_double2scm (a_off[Y_AXIS]),
-		   SCM(i->func_),
+		   func,
 		   SCM_UNDEFINED);
 
       output_scheme (box_scm);
@@ -132,21 +145,6 @@ Paper_outputter::output_scheme (SCM scm)
   last_cons_ = c;
 }
 
-
-int
-count_cells (SCM s)
-{
-  if (Atom * a = unsmob_atom (s))
-    {
-      return 2 + count_cells (a->func_);
-    }
-  else if (gh_pair_p (s))
-    {
-      return 2 + count_cells (gh_car (s))+ count_cells (gh_cdr (s));
-    }
-  else
-    return 1;
-}
 
 void
 Paper_outputter::dump_onto (Paper_stream *ps)
