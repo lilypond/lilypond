@@ -13,7 +13,7 @@
 /* GUILE only includes version in headers (libguile/version.h) as of
    1.5.x.  For some strange reason, they call it SCM.*VERSION.
 
-   Not including config.h here, saves a lot of unnecessary
+   Not including config.hh here, saves a lot of unnecessary
    recompiles. */
 #include <libguile.h>
 
@@ -23,7 +23,7 @@
 #define GUILE_MINOR_VERSION SCM_MINOR_VERSION
 #define GUILE_PATCH_LEVEL SCM_MICRO_VERSION
 #else
-#include "config.h"
+#include "config.hh"
 #endif
 #endif
 

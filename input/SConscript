@@ -1,13 +1,6 @@
 # -*-python-*-
 
-import os
-
 Import ('env')
-#sources = env['src_glob'] (env, '*.ly')
-#abc_sources = env['src_glob'] (env, '*.abc')
-#abc = map (lambda x: os.path.splitext (x)[0], abc_sources)
-#lys = map (env.Abc2ly, abc)
-
 abcs = env['glob'] (env, '*.abc')
 lys = env['glob'] (env, '*.ly') + map (env.ABC, abcs)
 pdfs = map (env.LilyPond, lys)

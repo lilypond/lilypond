@@ -41,7 +41,7 @@ env.PrependENVPath ('PATH',
 
 if os.environ.has_key ('TEXMF'):
 	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
-env.Append (ENV = {'TEXMF' : '{' + env['LILYPONDPREFIX'] + ',' \
+env.Append (ENV = {'TEXMF' : '{$LILYPONDPREFIX,' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
 
 if os.environ.has_key ('LD_LIBRARY_PATH'):
@@ -56,7 +56,7 @@ env.Append (PYTHONPATH = [os.path.join (env['absbuild'], env['out'],
 env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
 						os.pathsep) } )
 
-a = ['rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
+a = ['${__set_x}rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
      'LILYPONDPREFIX=$LILYPONDPREFIX \
      $PYTHON $LILYPOND_BOOK $__verbose \
      --include=${TARGET.dir} $LILYPOND_BOOK_INCLUDES \
@@ -88,19 +88,15 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-#debug = 'echo "PATH=$$PATH";'
-debug = ''
-a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX \
-$PYTHON $LILYPOND_PY $__verbose \
+a = '${set__x}LILYPONDPREFIX=$LILYPONDPREFIX \
+$PYTHON $LILYPOND_PY${__verbose}\
 --include=${TARGET.dir} \
 --output=${TARGET.base}  $SOURCE'
 lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
 
-#verbose = verbose_opt (env, ' --verbose')
-verbose = ''
-a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
+a = '${set__x}LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
 --strict --output=${TARGET} $SOURCE'
 ABC = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'ABC': ABC})
@@ -212,23 +208,35 @@ def at_copy (target, source, env):
     if os.path.basename (os.path.dirname (str (target[0]))) == 'bin':
 	    os.chmod (t, 0755)
 
-AT_COPY = Builder (action = at_copy)
+AT_COPY = Builder (action = at_copy, src_suffix = ['.in', '.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
-MO = Builder (action = '$MSGFMT -o $TARGET $SOURCE',
+MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
 	      suffix = '.mo', src_suffix = '.po')
 env.Append (BUILDERS = {'MO': MO})
 
-a = 'xgettext --default-domain=lilypond --join \
+ugh =  'ln -f po/lilypond.pot ${TARGET.dir}/lilypond.po; '
+a = ugh + 'xgettext --default-domain=lilypond --join \
 --output-dir=${TARGET.dir} --add-comments \
 --keyword=_ --keyword=_f --keyword=_i $SOURCES'
-POT = Builder (action = a, suffix = '.pot')
-#env.Append (BUILDERS = {'POT': POT})
-#env.Command(env['absbuild'] + '/po/' + env['out'] + '/lilypond.pot',
-env['pottarget'] = os.path.join (env['absbuild'], 'po', env['out'],
-			       'lilypond.pot')
-env['potcommand'] = a
+PO = Builder (action = a, suffix = '.pot',
+	      src_suffix = ['.cc', '.hh', '.py'], multi = 1)
+##env.Append (BUILDERS = {'PO': PO})
+##env.Command(env['absbuild'] + '/po/' + env['out'] + '/lilypond.pot',
+env['potarget'] = os.path.join (env['absbuild'], 'po', env['out'],
+				'lilypond.pot')
+env['pocommand'] = a
 
-a = 'msgmerge ${SOURCE} ${TARGET.dir}/lilypond.pot -o ${TARGET}'
+ugh = '; mv ${TARGET} ${SOURCE}'
+a = 'msgmerge ${SOURCE} ${SOURCE.dir}/lilypond.pot -o ${TARGET}' + ugh
 POMERGE = Builder (action = a, suffix = '.pom', src_suffix = '.po')
 env.Append (BUILDERS = {'POMERGE': POMERGE})
+
+a = '$PYTHON $srcdir/buildscripts/bib2html.py -o $TARGET $SOURCE'
+BIB2HTML = Builder (action = a, suffix = '.html', src_suffix = '.bib')
+env.Append (BUILDERS = {'BIB2HTML': BIB2HTML})
+
+a = '$PYTHON $srcdir/buildscripts/lys-to-tely.py \
+--name=${TARGET.base} --title="$TITLE" $SOURCES'
+LYS2TELY = Builder (action = a, suffix = '.tely', src_suffix = '.ly')
+env.Append (BUILDERS = {'LYS2TELY': LYS2TELY})

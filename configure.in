@@ -19,7 +19,7 @@ STEPMAKE_INIT
 AC_CONFIG_SRCDIR([lily/main.cc])
 
 # Move to aclocal.m4?
-AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
+AC_CONFIG_HEADER([$CONFIGFILE.hh:config.hh.in])
 
 # Uncomment the configuration options your package needs.
 

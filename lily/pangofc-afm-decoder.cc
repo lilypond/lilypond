@@ -23,7 +23,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-#include "config.h"
+#include "config.hh"
 #if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
 
 /* Need to access to PangoFcFont.full_pattern.  */

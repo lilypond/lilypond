@@ -1,0 +1,9 @@
+# -*-python-*-
+
+Import ('env')
+bibs = env['src_glob'] (env, '*.bib')
+env.AT_COPY ('index.html.in')
+
+map (env.BIB2HTML, bibs)
+env.Alias ('doc', bibs)
+

@@ -2,9 +2,8 @@ include $(stepdir)/www-targets.make
 
 local-dist: configure 
 
-# urg!: this gets into every package (ie: yodl)
 local-distclean: 
-	rm -f config.h config.hh config.make Makefile GNUmakefile \
+	rm -f config.hh config.make Makefile GNUmakefile \
 		config.cache config.status config.log index.html \
 		stepmake/stepmake/stepmake stepmake/stepmake/bin
 

@@ -1,32 +1,47 @@
 # -*-python-*-
 
 '''
-Experimental scons (www.scons.org) building:
+Experimental scons (www.scons.org) building.
 
-scons TARGET builds from source directory ./TARGET (not recursive)
+Usage
 
+    scons TARGET
 
-Usage:
-    scons
-    scons lily            # build lily
+build from source directory ./TARGET (not recursive)
 
-    LILYPONDPREFIX=out-scons/usr/share/lilypond lily/out-scons/lilypond-bin
-    scons doc             # build web doc
+Configure, build
 
-?    scons fonts           # build all font stuff (split this? )
+    scons [config]             # configure
+    scons                      # build all
 
-    scons config          # reconfigure
+Run from build tree
 
-    scons /               # builds all possible targets
+    run=$(pwd)/out-scons/usr
+    export LOCALE=$run/share/locale
+    export TEXMF='{'$run/share/lilypond,$(kpsexpand '$TEXMF')'}'
+    PATH=$run/bin:$PATH
 
-    scons install
-    scons -c              # clean
-    scons -h              # help
+    #optionally, if you do not use custom.py below
+    #export LILYPONDPREFIX=$run/share/lilypond
 
-    scons build=DIR       # scrdir build, write to new tree =build
-    scons out=DIR         # write output to deeper dir DIR
+    lilypond-bin input/simple
 
-Optionally, make a custom.py.  I have
+Other targets
+    scons mf-essential         # build minimal mf stuff
+
+    scons doc                  # build web doc
+    scons config               # reconfigure
+    scons install              # install
+    scons -c                   # clean
+    scons -h                   # help
+
+    scons /                    # build *everything* (including installation)
+
+Options  (see scons -h)
+    scons build=DIR            # clean scrdir build, output below DIR
+    scons out=DIR              # write output for alterative config to DIR
+
+Optional custom.py
 
 import os
 out='out-scons'
@@ -40,18 +55,17 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
-#   * add missing dirs
-#   * cleanup
+#  * add missing dirs:
+#     - input/mutopia
+#     - vim
+#  * more program configure tests (mfont, ...?)
 
-#   * separate environments?
-#     - compile environment checks headers and libraries
-#     - doc environment checks doc stuff
+#  * more fine-grained config.hh -- move lilypondprefix to version.hh?
+#    - config.hh:   changes after system upgrades, affects all files
+#    - version.hh:  prefix, version etc?  affects few
 
-#   * commandline targets:
-#      - clean => -c ?
-#   * more fine-grained config.h -- move lilypondprefix to version.hh?
-#     - config.h:   changes after system upgrades, affects all files
-#     - version.hh:  prefix, version etc?  affects few
+#  * grep FIXME $(find . -name 'S*t')
+
 
 import re
 import glob
@@ -61,26 +75,26 @@ import sys
 import stat
 import shutil
 
-# faster but scary: when changing #includes, do scons --implicit-deps-changed
-# SetOption ('implicit_cache', 1)
+# duh, we need 0.95.1
+EnsureSConsVersion (0, 95)
 
 # SConscripts are only needed in directories where something needs
 # to be done, building or installing
-# TODO: Documentation/*, input/*/*, vim, po
-# rename Documentation/* to ./doc?
+subdirs = ['flower', 'lily', 'mf', 'scm', 'ly',
+	   'scripts', 'elisp', 'buildscripts', 'po',
+	   'Documentation', 'Documentation/user', 'Documentation/topdocs',
+	   'Documentation/bibliography',
+	   'input', 'input/regression', 'input/test', 'input/template',
+	   'cygwin', 'debian',
+	   ]
 
-# somethin's broken wrt config.h checksums?
-FOOSUMS = 1
-
-subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
-	   'Documentation/user', 'Documentation/topdocs',
-	   'input', 'scripts', 'elisp',
-	   'buildscripts', 'cygwin', 'debian', 'po']
 
 usage = r'''Usage:
-scons [KEY=VALUE].. [TARGET]..
+scons [KEY=VALUE].. [TARGET|DIR]..
 
-where TARGET is config|lily|all|fonts|doc|tar|dist|release
+TARGETS: clean, config, doc, dist, install, mf-essential, po-update,
+         realclean, release, tar, TAGS
+
 '''
       
 
@@ -93,13 +107,13 @@ config_vars = (
 	'CXXFLAGS',
 	'DEFINES',
 	'LIBS',
+	'LINKFLAGS',
 	'METAFONT',
 	'PERL',
 	'PYTHON',
 	)
 
 # Put your favourite stuff in custom.py
-CacheDir ("buildcache")
 opts = Options ([config_cache, 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
@@ -133,7 +147,7 @@ version = packagepython.version_tuple_to_str (package.version)
 
 ENV = { 'PATH' : os.environ['PATH'] }
 for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
-    	if os.environ.has_key(key):
+    	if os.environ.has_key (key):
         	ENV[key] = os.environ[key]
 
 env = Environment (
@@ -163,12 +177,25 @@ env = Environment (
 
 Help (usage + opts.GenerateHelpText (env))
 
+# Add all config_vars to opts, so that they will be read and saved
+# together with the other configure options.
 map (lambda x: opts.AddOptions ((x,)), config_vars)
 opts.Update (env)
 
+env['checksums'] = 1
 if env['checksums']:
 	SetOption ('max_drift', 0)
 
+absbuild = Dir (env['build']).abspath
+outdir = os.path.join (Dir (env['build']).abspath, env['out'])
+run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
+
+CacheDir (os.path.join (outdir, 'build-cache'))
+
+if env['debugging']:
+	# No need to set $LILYPONDPREFIX to run lily, but cannot install...
+	env['prefix'] = run_prefix
+	
 prefix = env['prefix']
 bindir = os.path.join (prefix, 'bin')
 sharedir = os.path.join (prefix, 'share')
@@ -192,48 +219,50 @@ env.Append (
 	sharedir_package_version = sharedir_package_version,
 	)
 
-env.CacheDir (os.path.join (env['build'], '=build-cache'))
-
 if env['debugging']:
 	env.Append (CFLAGS = '-g')
 	env.Append (CXXFLAGS = '-g')
 if env['optimising']:
 	env.Append (CFLAGS = '-O2')
-	env.Append (CXXFLAGS = '-O2')
-	env.Append (CXXFLAGS = '-DSTRING_UTILS_INLINED')
+	env.Append (CXXFLAGS = ['-O2', '-DSTRING_UTILS_INLINED'])
 if env['warnings']:
-	env.Append (CFLAGS = '-W ')
-	env.Append (CFLAGS = '-Wall')
-	# what about = ['-W', '-Wall', ...]?
-	env.Append (CXXFLAGS = '-W')
-	env.Append (CXXFLAGS = '-Wall')
-	env.Append (CXXFLAGS = '-Wconversion')
+	env.Append (CFLAGS = ['-W', '-Wall'])
+	# CXXFLAGS = $CFLAGS ...
+	env.Append (CXXFLAGS = ['-W', '-Wall', '-Wconversion'])
+env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
 if env['verbose']:
-	env['__verbose'] = '--verbose'
+	env['__verbose'] = ' --verbose'
+	env['set__x'] = 'set -x;'
 
-# Hmm
-#env.Append (ENV = {'PKG_CONFIG_PATH' : string.join (env['PKG_CONFIG_PATH'],
-#						    os.pathsep),
-#		   'LD_LIBRARY_PATH' : string.join (env['LD_LIBRARY_PATH'],
-#						    os.pathsep),
-#		   'GUILE_LOAD_PATH' : string.join (env['GUILE_LOAD_PATH'],
-#						    os.pathsep), })
-
-outdir = os.path.join (Dir (env['build']).abspath, env['out'])
-
-# This is interesting, version.hh is generated automagically, just in
-# time.  Is this a .h /.hh issue?  It seems to be, using config.hh (in
-# flower/file-name.cc) works.  Bug report to SCons or rename to
-# config.hh or both?
-# config_h = os.path.join (outdir, 'config.hh')
-config_h = os.path.join (outdir, 'config.h')
-version_h = os.path.join (outdir, 'version.hh')
+config_hh = os.path.join (outdir, 'config.hh')
+version_hh = os.path.join (outdir, 'version.hh')
 
 env.Alias ('config', config_cache)
 
 
-## Explicit dependencies
+## Explicit target and dependencies
 
+if 'clean' in COMMAND_LINE_TARGETS:
+	# ugh: prevent reconfigure instead of clean
+	os.system ('touch %s' % config_cache)
+	
+	command = sys.argv[0] + ' -c .'
+	sys.stdout.write ('Running %s ... ' % command)
+	sys.stdout.write ('\n')
+	s = os.system (command)
+	if os.path.exists (config_cache):
+		os.unlink (config_cache)
+	Exit (s)
+
+if 'realclean' in COMMAND_LINE_TARGETS:
+	command = 'rm -rf $(find . -name "out-scons" -o -name ".scon*")'
+	sys.stdout.write ('Running %s ... ' % command)
+	sys.stdout.write ('\n')
+	s = os.system (command)
+	if os.path.exists (config_cache):
+		os.unlink (config_cache)
+	Exit (s)
+	
 # Without target arguments, build lily only
 if not COMMAND_LINE_TARGETS:
 	env.Default ('lily')
@@ -243,10 +272,8 @@ env.Alias ('doc',
 	    'Documentation/user',
 	    'Documentation/topdocs'])
 
-env.Depends (['lily', 'flower', 'all', '.'], config_h)
 env.Depends ('doc', ['lily', 'mf'])
 env.Depends ('input', ['lily', 'mf'])
-env.Depends ('doc', ['lily', 'mf'])
 
 
 def list_sort (lst):
@@ -389,7 +416,7 @@ def configure (target, source, env):
 		print 'Please install required packages'
 		for i in required:
 			print '%s:	%s-%s or newer (found: %s %s)' % i
-		sys.exit (1)
+		Exit (1)
 
 	if optional:
 		print
@@ -405,26 +432,7 @@ def config_header (target, source, env):
 	for i in list_sort (env['DEFINES'].keys ()):
 		config.write ('#define %s %s\n' % (i, env['DEFINES'][i]))
 	config.close ()
-
-if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
-	os.unlink (config_cache)
-# WTF?
-# scons: *** Calling Configure from Builders is not supported.
-# env.Command (config_cache, None, configure)
-if not os.path.exists (config_cache) \
-   or (os.stat ('SConstruct')[stat.ST_MTIME]
-       > os.stat (config_cache)[stat.ST_MTIME]):
-	env = configure (None, None, env)
-
-	# We 'should' save opts each time, but that makes config.h
-	# always out of date, and that triggers recompiles, even when
-	# using checksums?
-	if FOOSUMS: #not env['checksums']:
-		## FIXME: Is this smart, using option cache for saving
-		## config.cache?  I cannot seem to find the official method.
-		map (lambda x: opts.AddOptions ((x,)), config_vars)
-		opts.Save (config_cache, env)
-		env.Command (config_h, config_cache, config_header)
+env.Command (config_hh, config_cache, config_header)
 
 # hmm?
 def xuniquify (lst):
@@ -448,23 +456,55 @@ def uniquify (lst):
 			n -= 1
 	return lst
 
-for i in config_vars:
-	if env.has_key (i) and type (env[i]) == type ([]):
-		env[i] = uniquify (env[i])
 
-if not FOOSUMS: #env['checksums']:
+def save_config_cache (env):
 	## FIXME: Is this smart, using option cache for saving
 	## config.cache?  I cannot seem to find the official method.
-	map (lambda x: opts.AddOptions ((x,)), config_vars)
-	
+	for i in config_vars:
+		if env.has_key (i) and type (env[i]) == type ([]):
+			env[i] = uniquify (env[i])
 	opts.Save (config_cache, env)
-	env.Command (config_h, config_cache, config_header)
 
-env.Command (version_h, '#/VERSION',
+	## FIXME: Something changes in the ENVironment that triggers
+	## rebuild of everything if we continue after configuring.
+	## Maybe there's a variable missing from config_vars?
+		
+	## How to print and debug the reasons scons has for rebuilding
+	## a target (make --debug)?
+
+	## heet van de naald:
+	## - Add a --debug=explain option that reports the reason(s) why SCons
+
+	if 'config' in COMMAND_LINE_TARGETS:
+		sys.stdout.write ('\n')
+		sys.stdout.write ('LilyPond configured')
+		sys.stdout.write ('\n')
+		sys.stdout.write ('now run')
+		sys.stdout.write ('\n')
+		sys.stdout.write ('    scons [TARGET|DIR]...')
+		sys.stdout.write ('\n')
+		Exit (0)
+	elif 1: #not env['checksums']:
+		command = sys.argv[0] + ' ' + string.join (COMMAND_LINE_TARGETS)
+		sys.stdout.write ('Running %s ... ' % command)
+		sys.stdout.write ('\n')
+		s = os.system (command)
+		Exit (s)
+
+
+if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
+	os.unlink (config_cache)
+# WTF?
+# scons: *** Calling Configure from Builders is not supported.
+# env.Command (config_cache, None, configure)
+if not os.path.exists (config_cache) \
+   or (os.stat ('SConstruct')[stat.ST_MTIME]
+       > os.stat (config_cache)[stat.ST_MTIME]):
+	env = configure (None, None, env)
+	save_config_cache (env)
+
+env.Command (version_hh, '#/VERSION',
 	     '$PYTHON ./stepmake/bin/make-version.py VERSION > $TARGET')
-
-absbuild = Dir (env['build']).abspath
-run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
 
 # post-config environment update
 env.Append (
@@ -514,31 +554,46 @@ def symlink_tree (target, source, env):
 			frm = os.path.join (srcdir, src[1:])
 		else:
 			depth = len (string.split (dir, '/'))
-			frm = os.path.join ('../' * depth, src, env['out'])
+			if src.find ('@') > -1:
+				frm = os.path.join ('../' * depth,
+						    string.replace (src, '@',
+								    env['out']))
+			else:
+				frm = os.path.join ('../' * depth, src,
+						    env['out'])
+			if src[-1] == '/':
+				frm = os.path.join (frm, os.path.basename (dst))
+		if env['verbose']:
+			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
 		os.symlink (frm, os.path.basename (dst))
 	shutil.rmtree (run_prefix)
 	prefix = os.path.join (env['out'], 'usr')
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
-	     (('python', 'lib/lilypond/python'),
-	      # UGHR, lilypond.py uses lilypond-bin from PATH
-	      ('lily',   'bin'),
-	      ('#mf',    'share/lilypond/fonts/mf'),
-	      ('mf',     'share/lilypond/fonts/afm'),
-	      ('mf',     'share/lilypond/fonts/tfm'),
-	      ('mf',     'share/lilypond/fonts/type1'),
-	      ('#tex',   'share/lilypond/tex/source'),
-	      ('mf',     'share/lilypond/tex/generate'),
-	      ('#ly',    'share/lilypond/ly'),
-	      ('#scm',   'share/lilypond/scm'),
-	      ('#ps',    'share/lilypond/ps'),
-	      ('elisp',  'share/lilypond/elisp')))
+	     # ^# := source dir
+	     # @  := out
+	     # /$ := add dst file_name
+	     (('python',     'lib/lilypond/python'),
+	      ('lily/',      'bin/lilypond-bin'),
+	      ('scripts/',   'bin/lilypond'),
+	      ('scripts/',   'bin/lilypond-book'),
+	      ('#mf',        'share/lilypond/fonts/mf'),
+	      ('mf',         'share/lilypond/fonts/afm'),
+	      ('mf',         'share/lilypond/fonts/tfm'),
+	      ('mf',         'share/lilypond/fonts/type1'),
+	      ('#tex',       'share/lilypond/tex/source'),
+	      ('mf',         'share/lilypond/tex/generate'),
+	      ('#ly',        'share/lilypond/ly'),
+	      ('#scm',       'share/lilypond/scm'),
+	      ('#ps',        'share/lilypond/ps'),
+	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
+	      ('elisp',      'share/lilypond/elisp')))
 	os.chdir (srcdir)
 
 if env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
 	env.Command (stamp, 'SConstruct', [symlink_tree, 'touch $TARGET'])
 	env.Depends ('lily', stamp)
-
+	
 #### dist, tar
 def plus (a, b):
 	a + b
@@ -597,6 +652,12 @@ patch_name = os.path.join (outdir, tar_base + '.diff.gz')
 patch = env.PATCH (patch_name, tar_ball)
 env.Depends (patch_name, dist_ball)
 env.Alias ('release', patch)
+
+env.Append (
+	ETAGSFLAGS = ["""--regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'""",
+		      """--regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'"""])
+# filter-out some files?
+env.Command ('TAGS', src_files, 'etags $ETAGSFLAGS $SOURCES')
 
 for d in subdirs:
 	if os.path.exists (os.path.join (d, 'SConscript')):

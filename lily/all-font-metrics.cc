@@ -8,7 +8,7 @@
   
  */
 
-#include "config.h"
+#include "config.hh"
 #include "main.hh"
 #include "all-font-metrics.hh"
 #include "warn.hh"

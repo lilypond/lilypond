@@ -12,7 +12,7 @@
 #include <locale.h>
 #include <string.h>
 
-#include "config.h"
+#include "config.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>

@@ -1,3 +1,27 @@
+2004-07-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* SConstruct: Further development.
+	
+	* input/test/SConscript: 
+	* input/template/SConscript: 
+	* input/regression/SConscript: 
+	* Documentation/bibliography/SConscript:
+	* Documentation/bibliography/index.html.in: New file.
+
+	* Documentation/bibliography/GNUmakefile (local-WWW): Remove index
+	generation.
+
+	* buildscripts/builder.py: Add new builders.
+
+	* make/stepmake.make: 
+	* stepmake/stepmake/*.make: 
+	* configure.in:
+	* lily/*:
+	* flower*: Use config.hh (Was config.h).
+
+	* scm/encoding.scm (get-coding): Print friendly error message when
+	no encoding is found, rather than crashing.
+
 2004-07-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/new-slur.cc (score_slopes): strong sloping score only when

@@ -46,7 +46,7 @@ include $(config_make)
 outdir=$(outroot)/$(outbase)
 
 # why not generic ?? 
-config_h=$(builddir)/config$(CONFIGSUFFIX).h
+config_h=$(builddir)/config$(CONFIGSUFFIX).hh
 
 # The outdir that was configured for: best guess to find binaries
 outconfbase=out$(CONFIGSUFFIX)

@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#include "config.h"
+#include "config.hh"
 #include "getopt-long.hh"
 #include "international.hh"
 #include "string-convert.hh"

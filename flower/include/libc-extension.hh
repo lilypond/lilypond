@@ -6,16 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef LIBC_EXTENSION_HH
 #define LIBC_EXTENSION_HH
 
-#include "flower-proto.hh"
-#include "config.h"
-
-
 #include <cstddef>
 #include <stdarg.h>
+
+#include "config.hh"
+#include "flower-proto.hh"
 
 char* strnlwr (char* start ,int n);
 char* strnupr (char* start, int n);

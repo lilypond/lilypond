@@ -8,7 +8,7 @@
 
 #include <sstream>
 
-#include "config.h"
+#include "config.hh"
 
 #include "includable-lexer.hh"
 #include "file-path.hh"

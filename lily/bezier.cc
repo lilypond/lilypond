@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-#include "config.h"
+#include "config.hh"
 #include "warn.hh"
 #include "libc-extension.hh"
 #include "bezier.hh"

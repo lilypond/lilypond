@@ -7,7 +7,7 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "config.h"
+#include "config.hh"
 
 #include <stdio.h>
 #include <assert.h>
