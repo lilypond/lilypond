@@ -38,8 +38,8 @@ String
 Midi_chunk::str()
 {
     String str = header_str_;
-    String length_str = StringConversion::int2hex_str( data_str_.length_i() + footer_str_.length_i(), 8, '0' );
-    length_str = StringConversion::hex2bin_str( length_str );
+    String length_str = String_convert::i2hex_str( data_str_.length_i() + footer_str_.length_i(), 8, '0' );
+    length_str = String_convert::hex2bin_str( length_str );
     str += length_str;
     str += data_str_;
     str += footer_str_;
@@ -61,20 +61,20 @@ Midi_header::Midi_header( int format_i, int tracks_i, int clocks_per_4_i )
 {
     String str;
 	
-    String format_str = StringConversion::int2hex_str( format_i, 4, '0' );
-    str += StringConversion::hex2bin_str( format_str );
+    String format_str = String_convert::i2hex_str( format_i, 4, '0' );
+    str += String_convert::hex2bin_str( format_str );
 	
-    String tracks_str = StringConversion::int2hex_str( tracks_i, 4, '0' );
-    str += StringConversion::hex2bin_str( tracks_str );
+    String tracks_str = String_convert::i2hex_str( tracks_i, 4, '0' );
+    str += String_convert::hex2bin_str( tracks_str );
 
-    String tempo_str = StringConversion::int2hex_str( clocks_per_4_i, 4, '0' );
-    str += StringConversion::hex2bin_str( tempo_str );
+    String tempo_str = String_convert::i2hex_str( clocks_per_4_i, 4, '0' );
+    str += String_convert::hex2bin_str( tempo_str );
 
     set( "MThd", str, "" );
 }
 
 String
-Midi_item::int2varlength_str( int i )
+Midi_item::i2varint_str( int i )
 {
     int buffer_i = i & 0x7f;
     while ( (i >>= 7) > 0 ) {
@@ -136,8 +136,8 @@ Midi_tempo::str()
 {
     int useconds_per_4_i = 60 * (int)1e6 / tempo_i_;
     String str = "ff5103";
-    str += StringConversion::int2hex_str( useconds_per_4_i, 6, '0' );
-    return StringConversion::hex2bin_str( str );
+    str += String_convert::i2hex_str( useconds_per_4_i, 6, '0' );
+    return String_convert::hex2bin_str( str );
 }
 
 Midi_track::Midi_track( int number_i )
@@ -169,10 +169,10 @@ Midi_track::Midi_track( int number_i )
 
     String data_str;
     // only for format 0 (currently using format 1)?
-    data_str += StringConversion::hex2bin_str( data_ch_c_l );
+    data_str += String_convert::hex2bin_str( data_ch_c_l );
 
     char const* footer_ch_c_l = "00" "ff2f" "00";
-    String footer_str = StringConversion::hex2bin_str( footer_ch_c_l );
+    String footer_str = String_convert::hex2bin_str( footer_ch_c_l );
 
     set( "MTrk", data_str, footer_str );
 }
@@ -181,13 +181,14 @@ void
 Midi_track::add( int delta_time_i, String event_str )
 {
     assert(delta_time_i >= 0);
-    Midi_chunk::add( int2varlength_str( delta_time_i ) + event_str );
+    Midi_chunk::add( i2varint_str( delta_time_i ) + event_str );
 }
 
 void 
 Midi_track::add( Moment delta_time_moment, Midi_item* mitem_l )
 {
     // use convention of 384 clocks per 4
+    // use Duration_convert
     int delta_time_i = delta_time_moment * Moment( 384 ) / Moment( 1, 4 );
     add( delta_time_i, mitem_l->str() );
 }

@@ -60,7 +60,7 @@ static Keyword_ent the_key_tab[]={
 int
 My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
 {
-    text.lower();
+    text = text.lower_str();
     char const* ch_c_l = here_ch_c_l();
     if ( ch_c_l ) {
 	ch_c_l--;

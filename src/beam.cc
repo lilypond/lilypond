@@ -28,7 +28,7 @@ struct Stem_info {
 
 Stem_info::Stem_info(const Stem*s)
 {
-    x = s->hpos();
+    x = s->hindex();
     int dir = s->dir;
     idealy  = max(dir*s->top, dir*s->bot);
     miny = max(dir*s->minnote, dir*s-> maxnote);
@@ -119,9 +119,9 @@ void
 Beam::set_stemlens()
 {
     iter_top(stems,s);
-    Real x0 = s->hpos();    
+    Real x0 = s->hindex();    
     for (; s.ok() ; s++) {
-	Real x =  s->hpos()-x0;
+	Real x =  s->hindex()-x0;
 	s->set_stemend(left_pos + slope * x);	
     }
 }
@@ -192,8 +192,8 @@ Interval
 Beam::width() const
 {
     Beam * me = (Beam*) this;	// ugh
-    return Interval( (*me->stems.top()) ->hpos(),
-		     (*me->stems.bottom()) ->hpos() );
+    return Interval( (*me->stems.top()) ->hindex(),
+		     (*me->stems.bottom()) ->hindex() );
 }
 
 /*
@@ -202,8 +202,8 @@ Beam::width() const
 Molecule
 Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 {
-    assert( !next || next->hpos() > here->hpos()  );
-    assert( !prev || prev->hpos() < here->hpos()  );
+    assert( !next || next->hindex() > here->hindex()  );
+    assert( !prev || prev->hindex() < here->hindex()  );
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
@@ -216,7 +216,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     if (prev) {
 	int lhalfs= lhalfs = here->beams_left - prev->beams_right ;
 	int lwholebeams= here->beams_left <? prev->beams_right ;
-	Real w = (here->hpos() - prev->hpos())/4;
+	Real w = (here->hindex() - prev->hindex())/4;
 	Symbol dummy;
 	Atom a(dummy);
 	if (lhalfs)		// generates warnings if not
@@ -233,7 +233,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int rhalfs = here->beams_right - next->beams_left;
 	int rwholebeams = here->beams_right <? next->beams_left; 
 
-	Real w = next->hpos() - here->hpos();
+	Real w = next->hindex() - here->hindex();
 	Atom a = paper()->lookup_p_->beam(sl, w + stemdx);
 	
 	int j = 0;
@@ -264,7 +264,7 @@ Beam::brew_molecule_p() const return out;
 {
     Real inter=paper()->internote();
     out = new Molecule;
-    Real x0 = stems.top()->hpos();
+    Real x0 = stems.top()->hindex();
     
     for (iter_top(stems,i); i.ok(); i++) {
 	PCursor<Stem*> p(i-1);
@@ -273,7 +273,7 @@ Beam::brew_molecule_p() const return out;
 	Stem * next = n.ok() ? n.ptr() : 0;
 
 	Molecule sb = stem_beams(i, next, prev);
-	Real  x = i->hpos()-x0;
+	Real  x = i->hindex()-x0;
 	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
 	out->add(sb);
     }

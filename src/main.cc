@@ -18,7 +18,7 @@ extern void parse_file(String,String);
 
 
 void
-destill_inname( String &inName);
+destill_inname( String &name_str_r);
 long_option_init theopts[] = {
     1, "output", 'o',
     0, "warranty", 'w',
@@ -147,20 +147,20 @@ find_file(String f)
 
 /// make input file name: add default extension. "" is stdin.
 void
-destill_inname( String &inName)
+destill_inname( String &name_str_r)
 {
-    if ( inName.len() )
+    if ( name_str_r.length_i() )
         {
-        if( inName[ 0 ] != '-' ) 
+        if( name_str_r[ 0 ] != '-' ) 
 	    {
 	    String a,b,c,d;
-	    split_path(inName,a,b,c,d);
+	    split_path(name_str_r,a,b,c,d);
 
 	    // add extension if not present.
 	    if (d == "") 
 		d = ".ly";
-	    inName = a+b+c+d;
+	    name_str_r = a+b+c+d;
 	    }
-	} else inName = "";   
+	} else name_str_r = "";   
 }
 

@@ -27,7 +27,7 @@ public:
 	int close_i();
 	void error( char const* sz_l );
 	char const* here_ch_c_l();
-	static int varint2int_i( String str );
+	static int varint2_i( String str );
 	int yylex();
 
 private:

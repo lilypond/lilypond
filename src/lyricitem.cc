@@ -23,6 +23,6 @@ Lyric_item::do_pre_processing()
     // override Text_item
 
     // test context-error
-    if ( tdef_l_->text_str_.pos( "Gates" ) )// :-)
+    if ( tdef_l_->text_str_.index_i( "Gates" ) )// :-)
     	warning( "foul word", tdef_l_->defined_ch_c_l_ );
 }

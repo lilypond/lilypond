@@ -14,10 +14,10 @@ vstrut(Real h)
 static void
 substitute_arg(String& r, String arg)
 {
-    int p = r.pos('%');
+    int p = r.index_i('%');
     if (!p ) return ;
     else p--;
-    r = r.left(p) + arg + r.right(r.len() - p -1);
+    r = r.left_str(p) + arg + r.right_str(r.length_i() - p -1);
 }
 
 
@@ -27,7 +27,7 @@ substitute_args(String source, Array<String> args)
     String retval (source);
     for (int i = 0 ; i < args.size(); i++)
         substitute_arg(retval, args[i]);
-    while (retval.pos('%'))
+    while (retval.index_i('%'))
         substitute_arg(retval, "");
     return retval;
 }

@@ -63,7 +63,7 @@ struct Stem : Item {
     void add(Notehead*n);
     const char * name() const;
 
-    Real hpos()const;
+    Real hindex()const;
     void do_print() const;
     void set_stemend(Real);
     int get_default_dir();

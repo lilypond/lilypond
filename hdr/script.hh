@@ -32,7 +32,7 @@ struct Script : Item {
 private:
     void    	set_symdir();
     void	set_default_dir();
-    void	set_default_pos();
+    void	set_default_index();
     Symbol symbol()const;
 };
 

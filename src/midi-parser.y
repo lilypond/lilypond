@@ -12,6 +12,7 @@
 #include "my-midi-lexer.hh"
 #include "my-midi-parser.hh"
 #include "moment.hh"
+#include "duration.hh"
 #include "midi-event.hh"
 #include "midi-track.hh"
 #include "midi-score.hh"
@@ -19,6 +20,9 @@
 #ifndef NDEBUG
 #define YYDEBUG 1
 #endif
+
+//ugh
+static track_i = 0;
 
 %}
 
@@ -61,6 +65,7 @@
 midi:	/* empty */
 	| midi midi_score {
 		midi_parser_l_g->add_score( $2 );		
+		track_i = 0;
 	}
 	;
 
@@ -69,34 +74,31 @@ midi_score:
 	}
 	| midi_score track {
 		$$->add_track( $2 );
+		midi_parser_l_g->reset();
 	}
 	;
 
 header:	
 	HEADER INT32 INT16 INT16 INT16 {
 		$$ = new Midi_score( $3, $4, $5 );
-		midi_parser_l_g->set_division( $5 );
+		midi_parser_l_g->set_division_4( $5 );
 	}
 	;
 
 track: 
 	TRACK INT32 {
-		$$ = new Midi_track;
+		$$ = new Midi_track( track_i++ );
 	}
 	| track event {
-		$$->add_event( $2 );
+		$$->add_event( midi_parser_l_g->mom(), $2 );
 	}
 	;
 
 event:	
 	varint the_event {
-		if ( $2 && $2->mudela_str().length_i() ) {
-			if ( ( $2->mudela_str()[ 0 ] >= 'a' ) 
-				&& $2->mudela_str()[ 0 ] <= 'g' ) 
-				qtor << $2->mudela_str() << " ";
-			else
-				vtor << $2->mudela_str() << " ";
-		}
+		$$ = $2;
+		if ( $2 && $2->mudela_str().length_i() )
+			dtor << $2->mudela_str() << " " << flush;
 	}
 	;
 	
@@ -130,7 +132,7 @@ the_meta_event:
 	}
 	| text_event DATA {
 		$$ = 0;
-		vtor << *$2 << endl;
+		dtor << *$2 << endl;
 		delete $2;
 	}
 	| END_OF_TRACK {
@@ -138,7 +140,7 @@ the_meta_event:
 	}
 	| TEMPO INT8 INT8 INT8 { 
 		$$ = new Midi_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
-		vtor << $$->mudela_str() << endl; // ?? waai not at event:
+		dtor << $$->mudela_str() << endl; // ?? waai not at event:
 		midi_parser_l_g->set_tempo( ( $2 << 16 ) + ( $3 << 8 ) + $4 );
 	}
 	| SMPTE_OFFSET INT8 INT8 INT8 INT8 INT8 { 
@@ -146,7 +148,7 @@ the_meta_event:
 	}
 	| TIME INT8 INT8 INT8 INT8 { 
 		$$ = new Midi_time( $2, $3, $4, $5 );
-		vtor << $$->mudela_str() << endl; // ?? waai not at event:
+		dtor << $$->mudela_str() << endl; // ?? waai not at event:
 		midi_parser_l_g->set_time( $2, $3, $4, $5 );
 	}
 	| KEY INT8 INT8 { 
@@ -161,25 +163,25 @@ the_meta_event:
 
 text_event: 
 	TEXT {
-		vtor << endl << "Text: ";
+		dtor << "\n% Text: ";
 	}
 	| COPYRIGHT {
-		vtor << endl << "Copyright: ";
+		dtor << "\n% Copyright: ";
 	}
 	| TRACK_NAME {
-		vtor << endl << "Track  name: ";
+		dtor << "\n% Track  name: ";
 	}
 	| INSTRUMENT_NAME {
-		vtor << endl << "Instrument  name: ";
+		dtor << "\n% Instrument  name: ";
 	}
 	| LYRIC {
-		vtor << endl << "Lyric: ";
+		dtor << "\n% Lyric: ";
 	}
 	| MARKER {
-		vtor << endl << "Marker: ";
+		dtor << "\n% Marker: ";
 	}
 	| CUE_POINT {
-		vtor << endl << "Cue point: ";
+		dtor << "\n% Cue point: ";
 	}
 	;
 

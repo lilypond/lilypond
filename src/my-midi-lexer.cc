@@ -57,7 +57,7 @@ My_midi_lexer::here_ch_c_l()
 }
 
 int
-My_midi_lexer::varint2int_i( String str )
+My_midi_lexer::varint2_i( String str )
 {
         int var_i = 0;
 
@@ -68,7 +68,7 @@ My_midi_lexer::varint2int_i( String str )
 		if ( ! ( byte & 0x80 ) )
 			return var_i;
 	}
-	cout << "\nvarint2int:" << StringConversion::bin2hex_str( str ) << endl;
+	cout << "\nvarint2_i:" << String_convert::bin2hex_str( str ) << endl;
 	assert( 0 ); // illegal varint
 	return 0;
 }

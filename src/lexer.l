@@ -106,7 +106,7 @@ COMMENT		[%#].*\n
 	return DOTS;
 }
 <notes>{INT}		{
-	yylval.i = String(YYText()).value();
+	yylval.i = String_convert::dec2_i( String( YYText() ) );
 	return INT;
 }
 <notes>{COMMENT}	{
@@ -119,7 +119,7 @@ COMMENT		[%#].*\n
 }
 <notes>\"[^"]*\" {
 	String s (YYText()+1);
-	s = s.left(s.len()-1);
+	s = s.left_str(s.length_i()-1);
 	yylval.string = new String(s);
 	return STRING;
 }
@@ -144,7 +144,7 @@ COMMENT		[%#].*\n
 	return DOTS;
 }
 <lyrics>{INT}		{
-	yylval.i = String(YYText()).value();
+	yylval.i = String_convert::dec2_i( String( YYText() ) );
 	return INT;
 }
 <lyrics>{NOTECOMMAND}	{
@@ -172,19 +172,19 @@ COMMENT		[%#].*\n
 }
 <lyrics>\"[^"]*\" {
 	String s (YYText()+1);
-	s = s.left(s.len()-1);
+	s = s.left_str(s.length_i()-1);
 	yylval.string = new String(s);
 	return STRING;
 }
 <lyrics>{LYRICS} {
 	String s (YYText()); 
 	int i = 0;
-	while ((i=s.pos("_")) != 0) // change word binding "_" to " "
-		*(s.ch_l() + i - 1) = ' ';
-	if ((i=s.pos("\\,")) !=0)   // change "\," to TeX's "\c "
+	while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
+		*(s.ch_l() + i) = ' ';
+	if ((i=s.index_i("\\,")) != -1)   // change "\," to TeX's "\c "
 		{
-		*(s.ch_l() + i) = 'c';
-		s = s.left(i+1) + " " + s.right(s.len()-i-1);
+		*(s.ch_l() + i + 1) = 'c';
+		s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
 		}
 	yylval.string = new String(s);
 	return STRING;
@@ -221,8 +221,8 @@ include           {
 <incl>[ \t]*      { /* eat the whitespace */ }
 <incl>\"[^"]*\"+   { /* got the include file name */
    String s (YYText()+1);
-   s = s.left(s.len()-1);
-   defined_ch_c_l = here_ch_c_l() - String( YYText() ).len() - 1;
+   s = s.left_str(s.length_i()-1);
+   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
    new_input(s);
    yy_pop_state();
 }

@@ -19,6 +19,9 @@ extern Verbose level_ver;
 #endif
 
 extern Source* source_l_g;
+extern bool no_triplets_bo_g;
 void message( String message_str, char const* context_ch_c_l );
 void warning( String message_str, char const* context_ch_c_l );
 void error( String message_str, char const* context_ch_c_l );
+
+String version_str();

@@ -29,7 +29,7 @@ Input_file::Input_file(String s)
 	else {
 		Source_file* sourcefile_p = 0;
 		// ugh, very dirty, need to go away
-		if ( ( pf.right( 3 ).lower() == "mid" ) || ( pf.right( 4 ).lower() == "midi" ) )
+		if ( ( pf.right_str( 3 ).lower_str() == "mid" ) || ( pf.right_str( 4 ).lower_str() == "midi" ) )
 		    sourcefile_p = new Binary_source_file( pf );
 		else
 		    sourcefile_p = new Source_file( pf );

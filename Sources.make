@@ -1,7 +1,9 @@
 # Sources.make
 # sourcefiles to be shipped. Also used for dependencies
 
-hdr=bar.hh barreg.hh beam.hh boxes.hh break.hh clefreg.hh clefitem.hh\
+hdr=bar.hh barreg.hh beam.hh\
+	binary-source-file.hh\
+	boxes.hh break.hh clefreg.hh clefitem.hh\
 	colhpos.hh  commandrequest.hh   \
 	complexwalker.hh complexstaff.hh\
 	const.hh debug.hh dimen.hh directionalspanner.hh\
@@ -86,20 +88,30 @@ stablecc=request.cc bar.cc boxes.cc break.cc  \
 # m2m headers
 #
 mym2mhh=\
- binary-source-file.hh\
+ duration.hh\
+ lily-stream.hh\
  midi-event.hh\
  midi-main.hh\
  midi-score.hh\
  midi-track.hh\
  my-midi-lexer.hh\
  my-midi-parser.hh\
+ track-column.hh\
 
 #
- 
+
+# m2m shared headers
+#
+mym2msharedhh=\
+ binary-source-file.hh\
+
+#
+
 # m2m source
 #
 mym2mcc=\
- binary-source-file.cc\
+ duration.cc\
+ lily-stream.cc\
  midi-event.cc\
  midi-main.cc\
  midi-score.cc\
@@ -107,15 +119,17 @@ mym2mcc=\
  midi-track.cc\
  my-midi-lexer.cc\
  my-midi-parser.cc\
+ track-column.cc\
 
 #
 
 # m2m shared source
 #
 mym2msharedcc=\
+ binary-source-file.cc\
  inputfile.cc\
  sourcefile.cc\
  source.cc\
 
-
 # 
+

@@ -32,13 +32,13 @@ Binary_source_file::error_str( char const* pos_ch_c_l )
     char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_c_l() + length_off();
 
     String pre_str( (Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l );
-    pre_str = StringConversion::bin2hex_str( pre_str );
+    pre_str = String_convert::bin2hex_str( pre_str );
     for ( int i = 2; i < pre_str.length_i(); i += 3 )
-	pre_str = pre_str.left( i ) + " " + pre_str.mid( i + 1, INT_MAX );
+	pre_str = pre_str.left_str( i ) + " " + pre_str.mid_str( i + 1, INT_MAX );
     String post_str( (Byte const*)pos_ch_c_l, end_ch_c_l - pos_ch_c_l );
-    post_str = StringConversion::bin2hex_str( post_str );
+    post_str = String_convert::bin2hex_str( post_str );
     for ( int i = 2; i < post_str.length_i(); i += 3 )
-	post_str = post_str.left( i ) + " " + post_str.mid( i + 1, INT_MAX );
+	post_str = post_str.left_str( i ) + " " + post_str.mid_str( i + 1, INT_MAX );
 
     String str = pre_str
 	+ String( '\n' )
