@@ -291,8 +291,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       p->bracket_p_->set_bound (RIGHT, unsmob_grob(get_property ("currentMusicalColumn")));
 
-      // Set a property so that the molecule-creating function will know whether the right edge should be angled ___/
-      p->bracket_p_->set_grob_property("angle-right", gh_bool2scm((bool) p->req_l_drul_[START]) );
+      // Set a property so that the molecule-creating function will know whether the right edge should be flared ___/
+      p->bracket_p_->set_grob_property("right-widen", gh_bool2scm((bool) p->req_l_drul_[START]) );
       add_bound_item (p->line_spanner_, p->bracket_p_->get_bound (RIGHT));	  
 
       p->finished_bracket_p_ = p->bracket_p_;
@@ -309,8 +309,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       p->bracket_p_  = new Spanner (get_property ("PianoPedalBracket"));
       p->bracket_p_->set_interface (ly_symbol2scm ("piano-pedal-interface"));
 
-      // Set a property so that the molecule-creating function will know whether the left edge should be angled \___
-      p->bracket_p_->set_grob_property("angle-left", gh_bool2scm((bool) p->req_l_drul_[STOP]) );
+      // Set a property so that the molecule-creating function will know whether the left edge should be flared \___
+      p->bracket_p_->set_grob_property("left-widen", gh_bool2scm((bool) p->req_l_drul_[STOP]) );
 
       // Set this property for 'mixed style' pedals,    Ped._______/\ ,  
       // so the molecule function will shorten the ____ line by the length of the Ped. text. 
@@ -321,8 +321,6 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       if (p->item_p_)
 	p->bracket_p_->set_parent (p->item_p_, Y_AXIS);
       
-      Side_position_interface::set_axis (p->bracket_p_, Y_AXIS);
-      Side_position_interface::set_direction (p->bracket_p_, UP);
       p->bracket_p_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
       Axis_group_interface::add_element (p->line_spanner_, p->bracket_p_);	      
 
