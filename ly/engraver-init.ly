@@ -444,7 +444,8 @@ ScoreContext = \translator {
 	
 	defaultBarType = #"|"
 	barNumberVisibility = #default-bar-number-visibility
-
+	automaticBars = ##t
+	
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
 	autoBeamSettings = #default-auto-beam-settings

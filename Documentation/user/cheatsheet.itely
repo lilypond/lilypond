@@ -225,6 +225,14 @@ a-\> a a-\!
   \times 2/3 { f8 g a }
 @end lilypond
 
+
+@item @code{\grace}
+@tab grace notes
+@tab
+@lilypond[relative 1,fragment]
+  \grace b16 c4
+@end lilypond
+
 @item @code{\lyrics @{ @dots{} @}}
 @tab entering lyrics
 @tab
@@ -254,6 +262,18 @@ a-\> a a-\!
 @lilypond[fragment,relative 1]
   \context ChordNames \chords { c:dim f:maj7 }
 @end lilypond 
+
+@item @code{< @dots{} \\ @dots{} >}
+@tab polyphony
+@tab
+@lilypond[fragment,relative 1]
+ < c \\ g' >
+@end lilypond
+
+
+@item @code{s4 s8 s16}
+@tab spacer rests
+@tab
 
 @end multitable
 

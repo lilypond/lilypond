@@ -889,8 +889,8 @@ if 1:
 		for score in find_tex_files (files, extra_init):
 			preview_base = ly.strip_extension (score[0], '.tex')
 			ly.make_ps_images (preview_base + '.preview.ps',
-					     resolution=preview_resolution
-					     )
+					   resolution=preview_resolution
+					   )
 
 	if 'PDFTEX' in targets:
 		try:

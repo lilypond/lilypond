@@ -26,13 +26,12 @@ upper =  \context Staff \notes\relative c
 		{
 			
 			\property Voice.TextScript \set #'font-style = #'roman
-			c4-\mordent^#'(music "accidentals-1") r r |
-			c4-\mordent^#'(music "accidentals-1") r r
+			c4-\mordent^\markup { \musicglyph  "accidentals-1" } r r |
+			c4-\mordent^\markup { \musicglyph  "accidentals-1" } r r
 			\property Voice.TextScript \set #'font-style = #'italic
 		} \\
-		{ \stemDown a4 r r | a4 r r }
+		{ a4 r r | a4 r r }
 	> |
-	\stemBoth 
 	a'8 es d c bes a |
 	g fis e! d c' a |
 	%15
@@ -50,7 +49,6 @@ upper =  \context Staff \notes\relative c
 		}\\
 		{ \stemDown a4 }
 	>
-	\stemBoth 
 	a8 e' cis a bes! a |
 	g e' cis g e' cis |
 	g e' cis g a g |
@@ -91,7 +89,6 @@ upper =  \context Staff \notes\relative c
 	  } \\
 	  {  cis2 }
 	> 
-	\stemBoth 
 	d8 c! a d bes g |
 	%45
 	c a fis bes g e  |
@@ -122,7 +119,7 @@ lower =  \context Staff \notes\relative c{
 	fis,4 r r 
 	d  fis d |
 	\property Voice.TextScript \set #'font-style = #'roman
-	g4-\mordent^#'(music "accidentals-1") r r8 f!8 |
+	g4-\mordent^\markup { \musicglyph  "accidentals-1" } r r8 f!8 |
 	\property Voice.TextScript \set #'font-style = #'italic
 	e4-\prall r r |
 	f4-\mordent r r8 e |

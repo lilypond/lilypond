@@ -83,7 +83,7 @@ Extender_engraver::try_music (Music* r)
     return false;
 
   req_ = r;
-      return true;
+  return true;
 }
 
 void

@@ -17,8 +17,8 @@ upper =  \context Staff \notes\relative c{
 	<<d c a>>2
 	r4
 	<<d c a>>
-	< { \stemUp  d8-[ g, 8 b d] }
-	  \context Voice = ii < \stemDown b g >
+	< { d8-[ g, 8 b d] } \\
+	  { << b g >> }
 	>
 	
 	<<b g>>4
@@ -26,10 +26,10 @@ upper =  \context Staff \notes\relative c{
 	c2
 	r4
 	<
-		{ \stemUp\tieUp c ~ c8}
+	    {  c ~ c8} \\ 
 		% We get a warning: No ties created!
 		% but they are too!
-		\context Voice=ii { \stemDown\tieDown <<e, a>>4 ~ <<e a>>8 }
+	    { <<e, a>>4 ~ <<e a>>8 }
 	>
 	\stemBoth 
 	d, fis a  fis d c' a |
@@ -49,10 +49,9 @@ upper =  \context Staff \notes\relative c{
 }
 
 lower =  \context Staff \notes\relative c{
-	\context Voice=i
 	<
-		{ \stemUp\tieUp c1 ~ | c ~ | c }
-		\context Voice=ii { \stemDown\tieDown c,1 ~ | c ~ | c }
+		{ c1 ~ | c ~ | c } \\
+		{ c,1 ~ | c ~ | c }
 	>
 	\stemBoth |
 	r8 c e g  e c c' e, |
@@ -60,7 +59,7 @@ lower =  \context Staff \notes\relative c{
 	g2 r4 g |
 	a8 a, c e  c a g' e |
 	fis2 r4 d |
-	g-\mordent-#'(music "accidentals-1") g, 4 g'-\mordent g, |
+	g-\mordent-\markup  { \musicglyph #"accidentals-1" } g, 4 g'-\mordent g, |
 	% mordents in brackets...
 	g'-\mordent g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |

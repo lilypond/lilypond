@@ -398,8 +398,6 @@ def get_bbox (filename):
 
 
 def make_ps_images (ps_name, resolution = 90):
-
-
 	## todo:
 	## have better algorithm for deciding when to crop page,
 	## and when to show full page

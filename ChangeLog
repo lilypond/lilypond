@@ -1,3 +1,11 @@
+2003-06-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py (FatalConversionError.conv): conversion
+	rule for automaticBars.
+
+	* lily/timing-engraver.cc (start_translation_timestep): change
+	barNonAuto to automaticBars
+
 2003-06-30  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/perform-tie.ly: delete file.
@@ -10,6 +18,11 @@
 	it from staff context)
 
 2003-06-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/new-markup.scm (brew-new-markup-molecule): move old markup
+	glue into brew-new-markup-molecule.
+
+	* input/mutopia/J.S.Bach/Petites-Preludes/*.ly: syntax updates.
 
 	* Documentation/user/introduction.itely (Computerized typography):
 	new section

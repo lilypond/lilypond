@@ -26,7 +26,6 @@ upstaff =  \translator "Staff" = "upper"
 
 % upper = \context Staff \notes\relative c {
 upper =  \context Staff=upper \notes\relative c {
-	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'italic
 
 	r16 g'' c e r g, c e 
@@ -51,7 +50,6 @@ upper =  \context Staff=upper \notes\relative c {
 	<<f d b>>4
 	r4
 	
-	\stemBoth
 	\lowstaff
 	\stemUp
 	r16 g,, b d  
@@ -83,30 +81,26 @@ upper =  \context Staff=upper \notes\relative c {
 	b d b g  as f g d 
 	es fis a c 
 	< 
-		{ \stemUp r c8 b16 }
-		\context Voice=ii { \stemDown  d,8 f }
+		{ r c8 b16 } \\
+		{ d,8 f }
 	>
-	\stemBoth |
 	<<c g e>>1
 	\bar "|."
 }
 
-% lower = \context Staff \notes\relative c{
 lower =  \context Staff=lower \notes\relative c{
-	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'roman
-	c4 e g^#'(music "accidentals-1") -\mordent g,4 |
-	d'4-\mordent f a-\mordent^#'(music "accidentals-1")  a,4 |
+	c4 e g^\markup { \musicglyph #"accidentals-1" } -\mordent g,4 |
+	d'4-\mordent f a-\mordent^\markup { \musicglyph #"accidentals-1" }  a,4 |
  	e' e'-\mordent a, b-\upprall |
  	c4 e, fis gis-\upprall |
 	a4 c, d e-\upprall |
 	f4 e d-\prall c |
-	g'-\mordent^#'(music "accidentals-1")  g, g'-\mordent g, |
+	g'-\mordent^\markup { \musicglyph  #"accidentals-1" }  g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
 	g' r s s | s s s s \clef "bass" |
-	<
-		{ \stemUp\tieUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		\context Voice=ii { \stemDown\tieDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+	< { g1 ~ g ~ g ~ g ~ g ~ g ~ g } \\
+	  { g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<<c, c,>>1
 	\bar "|."

@@ -42,7 +42,7 @@ Timing_engraver::start_translation_timestep ()
 {
   Timing_translator::start_translation_timestep ();
 
-  SCM nonauto = get_property ("barNonAuto");
+  SCM automatic_bars = get_property ("automaticBars");
   Moment now = now_mom ();
   SCM which = get_property ("whichBar");
 
@@ -63,7 +63,7 @@ Timing_engraver::start_translation_timestep ()
 	->set_grob_property ("measure-length", mlen.smobbed_copy ()); 
     }
   
-  if (!gh_string_p (which) && !to_boolean (nonauto))
+  if (!gh_string_p (which) && to_boolean (automatic_bars))
     {
       SCM always = get_property ("barAlways");
 
@@ -95,5 +95,5 @@ ENTER_DESCRIPTION (Timing_engraver,
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "",
-/* reads */       "timeSignatureFraction barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
+/* reads */       "timeSignatureFraction automaticBars whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
 /* write */       "");

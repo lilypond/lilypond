@@ -419,7 +419,7 @@
 			))
 
 	(self-alignment-Y . 0)
-	(molecule-callback . ,Text_item::brew_molecule)		
+	(molecule-callback . ,brew-new-markup-molecule)		
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
