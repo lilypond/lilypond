@@ -91,7 +91,8 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 %endif
 
 
-chkfontpath --add=/usr/share/lilypond/pfa/
+/usr/X11R6/bin/mkfontdir  /usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+chkfontpath --add=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 echo 'Please logout first before using LilyPond.'
 
@@ -103,7 +104,8 @@ if [ $1 = 0 ]; then
 fi
 %endif
 
-chkfontpath --remove=/usr/share/lilypond/pfa/
+rm -f /usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/fonts.dir
+chkfontpath --remove=/usr/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 %files
 %defattr(-, root, root)
