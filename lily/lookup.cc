@@ -26,7 +26,7 @@
 #include "afm.hh"
 #include "scope.hh"
 #include "molecule.hh"
-#include "atom.hh"
+
 #include "lily-guile.hh"
 
 

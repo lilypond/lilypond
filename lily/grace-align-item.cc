@@ -14,7 +14,7 @@
 
 Grace_align_item::Grace_align_item ()
 {
-  stacking_dir_ = RIGHT;
+  set_elt_property ("stacking-dir", gh_int2scm (RIGHT));
   set_axis (X_AXIS);
 }
   
@@ -29,7 +29,7 @@ Grace_align_item::do_pre_processing ()
 
   
   Axis_align_item::do_pre_processing ();
-  translate_axis (-0.5* nhw, X_AXIS); // ugh.
+  //  translate_axis (-0.5* nhw, X_AXIS); // ugh.
 }
 
 

@@ -27,9 +27,9 @@ Melisma_engraver::do_try_music (Music *m )
 {
   if (dynamic_cast<Melisma_playing_req*>(m))
     {
-      SCM plain (get_property ("melismaBusy", 0));
-      SCM slur (get_property ("slurMelismaBusy", 0));
-      SCM tie (get_property ("tieMelismaBusy", 0));
+      SCM plain (get_property ("melismaBusy"));
+      SCM slur (get_property ("slurMelismaBusy"));
+      SCM tie (get_property ("tieMelismaBusy"));
       return (to_boolean (plain))
 	|| (to_boolean (slur))
 	|| (to_boolean (tie));

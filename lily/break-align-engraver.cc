@@ -40,7 +40,7 @@ Break_align_engraver::add_column (SCM smob)
 void
 Break_align_engraver::do_pre_move_processing ()
 {
-  SCM order = get_property ("breakAlignOrder", 0);
+  SCM order = get_property ("breakAlignOrder");
   for (; gh_pair_p (order); order = gh_cdr (order))
     {
       SCM p = scm_assoc ( gh_car (order), column_alist_);

@@ -30,7 +30,7 @@ void
 Bar_script_engraver::do_creation_processing ()
 {
   String t = type_  + "VisibilityFunction";
-  SCM proc = get_property (t, 0);
+  SCM proc = get_property (t);
 
   if (gh_procedure_p (proc))
       visibility_lambda_ = proc;
@@ -128,14 +128,14 @@ Bar_script_engraver::create_items (Request *rq)
   Side_position_interface staffside(text_p_);
   staffside.set_axis (axis_);
 
-  SCM prop = get_property (type_ + "Direction", 0);
+  SCM prop = get_property (type_ + "Direction");
   if (!isdir_b (prop))
     {
       prop = gh_int2scm (UP);
     }
   text_p_->set_elt_property ("direction", prop);
 
-  SCM padding = get_property (type_ + "ScriptPadding", 0);
+  SCM padding = get_property (type_ + "ScriptPadding");
   if (gh_number_p(padding))
     {
       text_p_->set_elt_property ("padding", padding);

@@ -58,7 +58,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  stem_l_ = 0;
 	}
 
-      SCM wg = get_property ("weAreGraceContext",0);
+      SCM wg = get_property ("weAreGraceContext");
       bool wegrace = to_boolean (wg);
 
       if (!wegrace)
@@ -71,7 +71,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
-  SCM wg = get_property ("weAreGraceContext",0);
+  SCM wg = get_property ("weAreGraceContext");
   bool wegrace = to_boolean (wg);
   if ((wegrace !=
       (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED))

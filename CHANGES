@@ -1,11 +1,40 @@
-1.3.28.jcn4
+
+1.3.29.hwn1
 ===========
+
+* Report type errors for \property. Helps with converting 1.2 input
+
+* Use Scheme for Align_element; fixed graceAlignPosition 
+and removed \property alignmentReference in the process.
+
+* Use generic properties for lyrics too.  This fixes \property
+Lyrics.textStyle
+
+
+* Add relative distance for constraints between non-column items.
+
+* Automatic \marks: use "\mark ; ". The mark numbers or letters are
+increased automatically.
+
+* Translators now only change properties of their own context. This
+removes the 2nd argument to Translator::get_property()
+
+* Bugfix for Metapost mode
+
+1.3.29.uu1
+==========
+
+* Updates of glossary  (Christian Mondrup)
+
+* Bugfix with bar number placement
+
+* Moved links to bibliography/ and misc/ to main index.
+
+1.3.29
+======
 
 * Moved Slur-specific code from Bezier_bow to Slur and Slur_bezier_bow.
   Slurs are now calculated just once.
-
-1.3.28.jcn3
-===========
 
 * Bezier_bow gets constants from paper.  Still no sensible solution for
   magic asymmetry gradient step constants.
@@ -13,9 +42,6 @@
 * Reinstantiated tangent-controls, more flexible than ever.  You can choose
   between area asymmetry and tangent-controls.  My guess is, tangent controls
   will be junked in 1.3.30.
-
-1.3.28.jcn2
-===========
 
 * Slur area: only look at x-gradient.
 

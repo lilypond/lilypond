@@ -15,6 +15,7 @@
 #include "duration.hh"
 #include "musical-pitch.hh"
 #include "key-def.hh"
+#include "protected-scm.hh"
 
 class Break_req : public Request {
 public:
@@ -26,10 +27,9 @@ protected:
 
 class Mark_req : public Request {
 public:
-  String str_;
+  Protected_scm mark_label_;
 protected:
   virtual bool do_equal_b (Request const*) const;
-  virtual void do_print () const;  
   VIRTUAL_COPY_CONS(Music);
 };
 

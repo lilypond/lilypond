@@ -19,6 +19,7 @@ SCM ly_str02scm (char const*c);
 SCM ly_eval_str (String s);
 SCM ly_symbol2scm (char const *);
 String ly_symbol2string (SCM);
+SCM ly_type (SCM);
 
 SCM ly_eval (SCM a);
 SCM ly_parse_scm (char const* s, int* n);

@@ -101,7 +101,7 @@ Local_key_engraver::process_acknowledged ()
 {
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
-      SCM f = get_property ("forgetAccidentals",0);
+      SCM f = get_property ("forgetAccidentals");
       bool forget = to_boolean (f);
       for (int i=0; i  < mel_l_arr_.size(); i++) 
 	{
@@ -188,7 +188,7 @@ Local_key_engraver::do_pre_move_processing()
 void
 Local_key_engraver::acknowledge_element (Score_element_info info)
 {
-  SCM wg= get_property ("weAreGraceContext", 0);
+  SCM wg= get_property ("weAreGraceContext");
   
   bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
   bool he_gr = to_boolean (info.elem_l_->get_elt_property ("grace"));
@@ -222,7 +222,7 @@ Local_key_engraver::do_process_requests()
 {
   if (time_trans_l_ && !time_trans_l_->measure_position ())
     {
-      if (!to_boolean (get_property ("noResetKey",0)) && key_grav_l_)
+      if (!to_boolean (get_property ("noResetKey")) && key_grav_l_)
 	local_key_= key_grav_l_->key_;
     }
   else if (key_grav_l_ && key_grav_l_->key_changed_b ())

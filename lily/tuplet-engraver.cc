@@ -50,7 +50,7 @@ Tuplet_engraver::do_try_music (Music *r)
 	  Moment m = now_mom () + c->length_mom ();
 	  stop_moments_.push (m);
 
-	  SCM s = get_property ("tupletSpannerDuration",0);
+	  SCM s = get_property ("tupletSpannerDuration");
 	  if (SMOB_IS_TYPE_B(Moment, s))
 	    m = m <? (now_mom () + *SMOB_TO_TYPE(Moment,s));
 	  
@@ -64,7 +64,7 @@ Tuplet_engraver::do_try_music (Music *r)
 void
 Tuplet_engraver::do_process_requests ()
 {
-  SCM v = get_property ("tupletInvisible", 0);
+  SCM v = get_property ("tupletInvisible");
   if (to_boolean (v))
     return;
 
@@ -90,7 +90,7 @@ void
 Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
   bool grace= to_boolean (i.elem_l_->get_elt_property ("grace"));
-  SCM wg = get_property ("weAreGraceContext",0);
+  SCM wg = get_property ("weAreGraceContext");
   bool wgb = to_boolean (wg);
   if (grace != wgb)
     return;
@@ -115,7 +115,7 @@ Tuplet_engraver::do_post_move_processing ()
   Moment now = now_mom ();
 
   Moment tsd;
-  SCM s = get_property ("tupletSpannerDuration",0);
+  SCM s = get_property ("tupletSpannerDuration");
   if (SMOB_IS_TYPE_B(Moment, s))
     tsd = *SMOB_TO_TYPE(Moment,s);
 

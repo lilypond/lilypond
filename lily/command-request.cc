@@ -123,17 +123,12 @@ Break_req::Break_req ()
 }
 
 
-void
-Mark_req::do_print () const
-{
-  DEBUG_OUT << str_;
-}
 
 bool
 Mark_req::do_equal_b (Request const * r) const
 {
   Mark_req const * other = dynamic_cast<Mark_req const*> (r);
-  return other && other->str_ == str_;
+  return other && scm_equal_p (other->mark_label_,  mark_label_);
 }
 
 void

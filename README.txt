@@ -50,7 +50,7 @@ Documentation
      You need a working LilyPond binary to create the DVI sources  .
 
    * use ASCII. Do using
-          	make -C doc
+          	make doc
 
 
 Comments

@@ -184,3 +184,8 @@
 
   )
    
+(define generic-lyrics-properties
+  (list generic-text-properties
+  )
+  
+)

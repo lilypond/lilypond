@@ -26,7 +26,7 @@
 #include "scope.hh"
 #include "identifier.hh"
 #include "lily-version.hh"
-#include "atom.hh"
+
 
 Paper_outputter::Paper_outputter ()
 {

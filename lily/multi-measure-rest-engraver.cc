@@ -118,7 +118,7 @@ Multi_measure_rest_engraver::do_process_requests ()
 
       announce_element (Score_element_info (mmrest_p_, busy_span_req_l_));
       start_measure_i_
-	= gh_scm2int (time->get_property ("currentBarNumber", 0));
+	= gh_scm2int (time->get_property ("currentBarNumber"));
     }
 }
 
@@ -163,7 +163,7 @@ Multi_measure_rest_engraver::do_post_move_processing ()
   if (mmrest_p_ && !time->measure_position ())
     {
       lastrest_p_ = mmrest_p_;
-      int cur = gh_scm2int (time->get_property ("currentBarNumber", 0));
+      int cur = gh_scm2int (time->get_property ("currentBarNumber"));
       lastrest_p_->set_elt_property ("measure-count",
 				     gh_int2scm (cur - start_measure_i_));
       mmrest_p_ = 0;

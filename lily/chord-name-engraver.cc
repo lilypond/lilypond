@@ -69,7 +69,7 @@ Chord_name_engraver::do_process_requests ()
     return;
 
   bool find_inversion_b = false;
-  SCM chord_inversion = get_property ("chordInversion", 0);
+  SCM chord_inversion = get_property ("chordInversion");
   if (gh_boolean_p (chord_inversion))
     find_inversion_b = gh_scm2bool (chord_inversion);
 

@@ -48,14 +48,14 @@ Timing_engraver::which_bar ()
       if (!now_mom ())
 	return "|";
 
-      SCM nonauto = get_property ("barNonAuto", 0);
+      SCM nonauto = get_property ("barNonAuto");
       if (!to_boolean (nonauto))
 	{
-	  SCM always = get_property ("barAlways", 0);
+	  SCM always = get_property ("barAlways");
 	  if (!measure_position ()
 	      || (to_boolean (always)))
 	    {
-	      SCM def=get_property ("defaultBarType" ,0);
+	      SCM def=get_property ("defaultBarType" );
 	      return (gh_string_p (def))? ly_scm2string (def) : "";
 	    }
 	}

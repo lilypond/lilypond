@@ -40,8 +40,8 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
     return;
 
 
-  SCM long_name = get_property ("instrument", 0);
-  SCM short_name = get_property ("instr", 0);
+  SCM long_name = get_property ("instrument");
+  SCM short_name = get_property ("instr");
 
   if (now_mom () > Moment (0))
     long_name = short_name;

@@ -599,7 +599,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
 
   Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
+  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
 
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;

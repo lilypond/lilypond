@@ -54,10 +54,12 @@ Align_note_column_engraver::do_creation_processing ()
 void
 Align_note_column_engraver::do_removal_processing ()
 {
-  SCM al = get_property ("graceAlignPosition", 0);
+  SCM al = get_property ("graceAlignPosition");
   if (isdir_b (al))
     {
-      directional_element (align_item_p_).set (to_dir (al));
+      Direction d = to_dir (al);
+      directional_element (align_item_p_).set (d);
+      align_item_p_->set_elt_property ("align-dir", to_dir (-d));
     }
   
   typeset_element (align_item_p_);
@@ -89,7 +91,7 @@ Align_note_column_engraver::process_acknowledged ()
 	 B. it has no pscore_l_ field.
 
       */
-      SCM grsp = get_property ("graceAccidentalSpace", 0);
+      SCM grsp = get_property ("graceAccidentalSpace");
       if (gh_number_p(grsp))
 	{
 	  /*

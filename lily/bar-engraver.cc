@@ -35,7 +35,7 @@ Bar_engraver::create_bar ()
       bar_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
 
       // urg: "" != empty...
-      SCM default_type = get_property ("defaultBarType", 0);
+      SCM default_type = get_property ("defaultBarType");
       if (gh_string_p (default_type))
 	{
 	  bar_p_->set_elt_property ("glyph", default_type); // gu.h
@@ -45,7 +45,7 @@ Bar_engraver::create_bar ()
       /*
 	urg.  Why did I implement this? And did I implement this so
 	clumsily?  */
-      SCM prop = get_property ("barAtLineStart", 0);
+      SCM prop = get_property ("barAtLineStart");
       if (to_boolean (prop))
 	{
 	  bar_p_->set_elt_property ("at-line-start", SCM_BOOL_T);
@@ -65,7 +65,7 @@ Bar_engraver::request_bar (String requested_type)
 {
   if (!now_mom ())
     {
-      SCM prop = get_property ("barAtLineStart", 0);
+      SCM prop = get_property ("barAtLineStart");
       if (!to_boolean (prop))
 	return;
     }

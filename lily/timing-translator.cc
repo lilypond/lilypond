@@ -96,11 +96,11 @@ Timing_translator::do_pre_move_processing()
   while (!global_l);
 
   /* allbars == ! skipbars */
-  SCM sb = get_property ("skipBars", 0);
+  SCM sb = get_property ("skipBars");
   bool allbars = !to_boolean (sb);
 
   // urg: multi bar rests: should always process whole of first bar?
-  SCM tim = get_property ("timing", 0);
+  SCM tim = get_property ("timing");
   bool timb = to_boolean (tim);
   if (timb && allbars)
     {
@@ -130,7 +130,7 @@ Timing_translator::do_creation_processing()
 Moment
 Timing_translator::measure_length () const
 {
-  SCM l = get_property("measureLength",0);
+  SCM l = get_property("measureLength");
   if (SMOB_IS_TYPE_B(Moment, l))
     return *SMOB_TO_TYPE (Moment, l);
   else
@@ -142,7 +142,7 @@ void
 Timing_translator::get_time_signature (int *n, int *d) const
 {
   Moment one_beat (1,4);
-  SCM one = get_property ("beatLength",0);
+  SCM one = get_property ("beatLength");
   if (SMOB_IS_TYPE_B (Moment, one))
     one_beat = *SMOB_TO_TYPE (Moment, one);
   *n = measure_length () / one_beat;
@@ -169,7 +169,7 @@ Timing_translator::Timing_translator()
 Moment
 Timing_translator::measure_position () const
 {
-  SCM sm = get_property ("measurePosition",0);
+  SCM sm = get_property ("measurePosition");
   
   Moment m   =0;
   if (SMOB_IS_TYPE_B (Moment, sm))
@@ -206,7 +206,7 @@ Timing_translator::do_post_move_processing()
 
   Moment * measposp =0;
 
-  SCM s = get_property ("measurePosition", 0);
+  SCM s = get_property ("measurePosition");
   if (SMOB_IS_TYPE_B (Moment, s))
     {
       measposp = SMOB_TO_TYPE (Moment,s);
@@ -220,15 +220,14 @@ Timing_translator::do_post_move_processing()
   *measposp += dt;
   // don't need to set_property
   
-  Translator_group * tr =daddy_trans_l_; 
-  SCM barn = get_property ("currentBarNumber", &tr);
+  SCM barn = get_property ("currentBarNumber");
   int b = 0;
   if (gh_number_p(barn))
     {
       b = gh_scm2int (barn);
     }
 
-  SCM cad = get_property ("timing", 0);
+  SCM cad = get_property ("timing");
   bool c= to_boolean (cad );
 
   Moment len = measure_length ();
@@ -238,6 +237,6 @@ Timing_translator::do_post_move_processing()
 	b ++;
       }
 
-  tr->set_property ("currentBarNumber", gh_int2scm (b));
+  daddy_trans_l_->set_property ("currentBarNumber", gh_int2scm (b));
 }
 

@@ -19,7 +19,7 @@
 #include "stem.hh"
 #include "dimension-cache.hh"
 #include "group-interface.hh"
-#include "atom.hh"
+
 
 
 Volta_spanner::Volta_spanner ()

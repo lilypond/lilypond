@@ -12,17 +12,17 @@
 
 Protected_scm::Protected_scm ()
 {
-  object_ = 0;
+  object_ = SCM_UNDEFINED;
 }
 
 Protected_scm::Protected_scm (SCM s)
 {
-  object_ = s  ? scm_protect_object (s): 0;
+  object_ = SCM_NIMP(s)  ? scm_protect_object (s): s;
 }
 
 Protected_scm::Protected_scm (Protected_scm const &s)
 {
-  object_ = s.object_ ? scm_protect_object (s.object_) : 0;
+  object_ = SCM_NIMP(s.object_) ? scm_protect_object (s.object_) : s.object_;
 }
 
 Protected_scm & 
@@ -30,10 +30,11 @@ Protected_scm::operator =(SCM s)
 {
   if (object_ == s)
     return *this;
-  if (object_)
+  
+  if (SCM_NIMP (object_))
     scm_unprotect_object(object_);
 
-  object_ =  s ? scm_protect_object (s): 0;
+  object_ =  SCM_NIMP (s) ? scm_protect_object (s): s;
   return *this;
 }
 
@@ -46,7 +47,7 @@ Protected_scm::operator = (Protected_scm const &s)
 
 Protected_scm::~Protected_scm ()
 {
-  if  (object_)
+  if  (SCM_NIMP (object_))
     {
       scm_unprotect_object (object_);
     }

@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "debug.hh"
 #include "paper-column.hh"
-#include "atom.hh"
+
 
 Crescendo::Crescendo ()
 {

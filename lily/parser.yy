@@ -996,18 +996,23 @@ verbose_command_req:
 		sp_p->span_type_str_ = ly_scm2string ($3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
-	}	
+	}
+	| MARK  {
+		Mark_req * m = new Mark_req;
+		$$ = m;
+	}
 	| MARK STRING {
 		Mark_req *m = new Mark_req;
-		m->str_ = ly_scm2string ($2);
+		m->mark_label_ = $2;
 		$$ = m;
 
 	}
 	| MARK unsigned {
 		Mark_req *m = new Mark_req;
-		m->str_ =  to_str ($2);
+		m->mark_label_ =  gh_int2scm ($2);
 		$$ = m;
 	}
+
 	| TIME_T unsigned '/' unsigned 	{
 		Time_signature_change_req *m = new Time_signature_change_req;
 		m->beats_i_ = $2;

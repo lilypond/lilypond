@@ -12,11 +12,54 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * use hash tabs iso. alist_ for elt property?
 . * unhardcode stuff in bezier-bow: all sizes other than 20pt are
     broken
+. * use ports iso. iostream. 
+. * hard constraints for  broken slurs to.
+. * mondrup
+
+- In some cases I don't get the large textsize within note examples I request.
+Consider for example the entry 'c clef', where \property Lyrics.textStyle = "large"
+used to give that result. It doesn't now. The large text sizes DO work in other cases,
+for example in the entry 'chord' (\property Voice.textStyle = "large"). To me it looks
+like the property Voice.textStyle is working while Lyrics.textStyle isn't. Consider
+for example the entry 'functional harmony' which has the same problem as 'chord'
+
+- I don't get full size clef changes upon issuing \property Voice.clefStyle =
+"fullSizeChanges", see for example the entry 'c clef'.
+
+- In the entry 'brace' the second note example using \context StaffGroup gets the
+staff bracket offset to the left page margin !! while the first note example behaves
+normally.
+
+- <p><img> in mudela-book
+. * mats
+
+If textStyle is set (in the \paper section), this setting 
+applies also to dynamics. 
+
+Also, the marginScriptPadding should be set by default to give 
+a nice layout, but that's already been reported on the list.
+
+-  What happened to the StaffGroup brackets? 
+  Try input/test/orchestscore.ly which worked fine in pl 27.
+
+- Why do I get bar numbers on every bar (both for the score
+  and the parts)?
+
+- Bar numbers and marks are not printed on top of the staffs,
+  but at one of the middle parts of the score. This may be 
+  related to the problem with the brackets, since the 
+  corresponding StaffGroup is the only one to get a bracket,
+  even though it is misplaced horisontally.
+
+- The score extends too high on the page, it often overwrites the
+  page number. LaTeX warns about overfull boxes. I'll take a look
+  at the page layout.
+
 . * control paper-size/-file from commandline ?
   lilypond --paper=paper16 foo.ly
   lilypond --paper=paper20 foo.ly
   lilypond --paper=paper-as9 foo.ly
-. * entangle ly/* paper-params papersize stuff
+. * detangle ly/* paper-params papersize stuff
 . * fix tremolos.
 . * change ) c4  to c4-)
 . * automated marks. 
@@ -337,6 +380,8 @@ touching it.
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
+. * Texinfo, add [ A | B | C ] style tocs to .html output, and don't rely
+    on @node names for html tocs.
 
 .* PROJECTS
 . * Scripts:

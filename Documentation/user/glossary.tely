@@ -2,6 +2,8 @@
 \input texinfo
 @setfilename glossary.info
 
+@c @pagesizes 10.3in
+
 @c @everyheading @| @thispage @|
 @evenheading @thispage @| @| 
 @oddheading @| @| @thispage @|
@@ -59,7 +61,7 @@ accidental.
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   gis1_"sharp" s s2
@@ -83,7 +85,7 @@ movement in slow tempo, esepecially the scond (slow) movement of
 I: accelerando, F: , D: accelerando, Schneller, NL: accelerando, DK:
 accelerando, S: accelerando, N:
 
-Stil faster tempo.
+Still faster tempo.
 
 @item allegro
 I: allegro, F: , D: Allegro, Schnell, Fr@"ohlich, Lustig, NL: allegro, DK:
@@ -96,14 +98,11 @@ especially the first and last movements of a @w{@ar{}@strong{sonata}}.
 I: contralto, F: alto,  D: Alt, NL: alt, DK: alt, S: alt, N: alt.
 
 A female voice of low range (@emph{contralto}). Originally the alto was a high
-male voice (hence the name) which by the use of falsetto reached the height
-height of the female voice. This type of voice is also known as
-@w{@ar{}@strong{counter tenor}}.
+male voice (hence the name) which by the use of falsetto reached the height of
+the female voice. This type of voice is also known as @w{@ar{}@strong{counter
+tenor}}.
 
 @item alto clef
-@c F: cl@'e d'ut, D: Altschl@"ussel, Bratschenschl@"ussel, NL: altsleutel, I:
-chiave di tenore.
-
 I: chiave di contralto, F: , D: Altschl@"ussel, Bratschenschl@"ussel, NL: alt
 sleutel, DK: altn@o{}gle, S: altklav, N:
 
@@ -117,20 +116,20 @@ mode hell@'enique D: reines Moll, NL: , DK: ren mol, S: ren mollskala, N: .
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \notes\relative c'' {
 a1 b c d e f g a }
 @end mudela
 
 @item andante
-I: andante, F: , D: Andante, NL: andante, DK: andante, S: andante,
+I: andante, F: andante, D: Andante, NL: andante, DK: andante, S: andante,
 N: andante. 
 
 walking tempo/character
 
 @item appoggiatura 
-I: appoggiatura, F: port de voix, D: Vorschlag, NL: voorslag, DK: forslag, S:
-f@"orslag, N:
+I: appoggiatura, F: appogiature, (port de voix), D: Vorschlag, NL: voorslag,
+DK: forslag, S: f@"orslag, N:
 
 Ornamental note, usually a second, that is melodically connected with the main
 note that follows it. In music before the 19'th century a. were usually
@@ -141,7 +140,8 @@ the duration of the long a. is proportionate to that of the main note.
 @
 
 @mudela[13pt,eps]
-\property Voice.textEmptyDimension = "1"
+\property Voice.textEmptyDimension = ##t
+
 \property Voice.textStyle = "large"
 \notes\relative c'' {
 \key d;
@@ -162,7 +162,7 @@ An appoggiatura may have more notes preceding the main note.
 @
 
 @mudela[13pt,eps]
-\property Voice.textEmptyDimension = "1"
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   \key as;
@@ -178,9 +178,8 @@ An appoggiatura may have more notes preceding the main note.
 @end mudela
 
 @item arpeggio
-I: arpeggio, F: arp@`ege, arp@`egement, D: Arpeggio, Akkordbrechungen,
-gebrochener Akkord, NL: gebroken akoord, DK: arpeggio,
-akkordbrydning, S: arpeggio, N:
+I: arpeggio, F: arp@`ege, D: Arpeggio, Akkordbrechungen, gebrochener Akkord,
+NL: gebroken akoord, DK: arpeggio, akkordbrydning, S: arpeggio, N:
 
 @
 
@@ -207,6 +206,8 @@ akkordbrydning, S: arpeggio, N:
 @item ascending interval
 I: intervallo ascendente, F: intervalle ascendant, D: steigendes Intervall,
 NL: stijgend interval, DK:@w{ }stigende interval, S: stigande intervall, N:
+
+A distance between a starting lower note and a higher ending note.
 
 @item augmented interval
 I: intervallo aumentato, F: intervalle augment@'e, D: @"uberm@"a@ss{}iges
@@ -244,7 +245,7 @@ baryton.
 The male voice intermediate between the @w{@ar{}@strong{bass}} and the
 @w{@ar{}@strong{tenor}}.
 
-@item bariton clef
+@item baritone clef
 I: chiave di baritono, F: , D: Barytonschl@"ussel, NL: baritonsleutel, DK:
 barytonn@o{}gle, S: barytonklav, N: .
 
@@ -273,8 +274,8 @@ beams determine the note value of the connected notes.
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
-\property Voice.textEmptyDimension = "1"
+\property Score.barNonAuto = ##t
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   [g8_"1/8" g g g] s16
@@ -331,7 +332,7 @@ orchestral or choral score.
 @end mudela
 
 @item brass
-I: ottoni, D: Blechbl@"aser, NL: koper (blazers), F: instruments de cuivre,
+I: ottoni, D: Blechbl@"aser, NL: koper (blazers), F: cuivres,
 DK: messingbl@ae{}sere, S: brassinstrument, m@"assingsinstrument, N:
 
 A family of blown musical instruments made of brass all using a cup formed
@@ -343,8 +344,10 @@ I: respiro, F: respiration, D: Atemzeichen, Trennungszeichen, NL:
 repercussieteken, DK:
 vejrtr@ae{}kningstegn, S: andningstecken, N: .
 
+Indication of where to breathe in vocal and wind instrument parts.
+
 @item breve
-I: breve, F: , D: Brevis, NL: brevis, DK: brevis, S: brevis, N:
+I: breve, F: br@`eve, D: Brevis, NL: brevis, DK: brevis, S: brevis, N:
 
 @w{@ar{}@strong{Note value}} twice as long as a whole note. Mainly used
 in pre-1650 music.
@@ -352,7 +355,7 @@ in pre-1650 music.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t
 \notes\relative c'' { g\breve } 
 @end mudela
 
@@ -369,7 +372,7 @@ lines.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.clefStyle = "fullSizeChanges"
 \addlyrics
@@ -389,10 +392,10 @@ I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
 @w{@ar{}@strong{harmonic cadence}} @w{@ar{}@strong{functional harmony}}
 
 @item cadenza
-I: cadenza, F: fioriture,  D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
+I: cadenza, F: cadence, D: Kadenz, NL: cadens, DK: kadence, S: kadens, N: .
 
 An extended, improvisatory style section inserted near the end of
-movement. The purpose of a c. is to give the singer or player a chance to
+movement. The purpose of a cadenza is to give the singer or player a chance to
 exhibit her technichal skill and not the least her ability to improvise. Since
 the middle of the 19'th century, however, most cadences have been written down
 by the composer.
@@ -426,7 +429,7 @@ chords are denoted open chords
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \time 4/4;
 \notes\relative c'' {
@@ -448,8 +451,8 @@ A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
-\notes\relative c' { c1 cis e f fis g gis a ais b c }
+\property Score.barNonAuto = ##t 
+\notes\relative c' { c1 cis d dis e f fis g gis a ais b c }
 @end mudela
 
 @item chromaticism
@@ -459,13 +462,13 @@ N:
 Use of tones extraneous to a @w{@ar{}@strong{diatonic scale}} (minor, major).
 
 @item church mode; ecclesiastical mode 
-I: modi ecclesiastici, F: mode eccl@'esiastique, D: Kirchentonart, NL:
+I: modo ecclesiastico, F: mode eccl@'esiastique, D: Kirchentonart, NL:
 kerktoonladder, DK: kirketoneart, S: kyrkotonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
 @item clef
-I: chiave, F: cl@'e, D: Schl@"ussel, Schl@"ussel, Notenschl@"ussel, NL:
+I: chiave, F: cl@'e, clef, D: Schl@"ussel, Schl@"ussel, Notenschl@"ussel, NL:
 sleutel, DK: n@o{}gle, S: klav, N:
 
 @w{@ar{}@strong{c clef}} @w{@ar{}@strong{f clef}} @w{@ar{}@strong{g clef}}
@@ -507,7 +510,7 @@ Melody moving in the narrow steps of the scale;
 @end mudela
 
 @item consonance 
-I: consonanza, F :consonance, D: Konsonanz, NL: consonant, DK: konsonans, S:
+I: consonanza, F: consonance, D: Konsonanz, NL: consonant, DK: konsonans, S:
 konsonans, N:
 
 @w{@ar{}@strong{harmony}}
@@ -569,8 +572,8 @@ composition methods.
 @end mudela
 
 @item counter tenor
-I: controtenore, F: , D: Kontratenor, NL: contratenor, DK: kontratenor, S:
-kontratenor, counter tenor, N: kontratenor
+I: controtenore, F: contre-tenor, D: Kontratenor, NL: contratenor, DK:
+kontratenor, S: kontratenor, counter tenor, N: kontratenor
 
 @w{@ar{}@strong{contralto}}
 
@@ -586,7 +589,7 @@ I: crescendo, F: crescendo, D: Crescendo, Lauter, NL: crescendo, DK:
 crescendo, S: crescendo, N:@w{ }crescendo.
 
 Increasing volume. Indicated by a rightwards opening horizontal wedge or the
-abbreviation "cresc".
+abbreviation "cresc.".
 
 @
 
@@ -632,7 +635,7 @@ I: decrescendo, D: Decrescendo, Leiser, NL: decrescendo, DK: decrescendo, S:
 decrescendo, N: decrescendo
 
 Decreasing tone volume. Indicated by a leftwards opening horizontal wedge  
-or the abbreviation "decresc".
+or the abbreviation "decresc.".
 
 @
 
@@ -646,9 +649,11 @@ I: intervallo discendente, F: intervalle descendant, D: fallendes Intervall,
 absteigendes Intervall, NL: dalend interval, DK:@w{ }faldende interval, S:
 fallande intervall, N:
 
+An distance between a starting higher note and a lower ending note.
+
 @item diatonic scale
-I: scala diatonica, F: , D: diatonische Tonleiter, NL: diatonische toonladder,
-DK: diatonisk skala, S: diatonisk skala, N:
+I: scala diatonica, F: gamme diatonique, D: diatonische Tonleiter, NL:
+diatonische toonladder, DK: diatonisk skala, S: diatonisk skala, N:
 
 A scale consisting of 5 @w{@ar{}@strong{whole tones}} and 2
 @w{@ar{}@strong{semitones}} (S). Scales played on the white keys of a piano
@@ -660,92 +665,92 @@ also to some extent in newer jazz music.
 @
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c' { 
   c1 d
-  \property Voice.textScriptPadding = "-10"
+  \property Voice.textScriptPadding = #-10
   e^"~~ S" f g a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Ionian }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c' { 
   d1
- \property Voice.textScriptPadding = "-10"
+ \property Voice.textScriptPadding = #-10
   e^"~~ S"
   f g a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d }
   \context Lyrics \lyrics { Dorian }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c' { 
-  \property Voice.textScriptPadding = "-10"
+  \property Voice.textScriptPadding = #-10
   e1^"~~ S"
   f g a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d e }
   \context Lyrics \lyrics { Phrygian }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c' { 
   f1 g a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   e^"~~ S" f }
   \context Lyrics \lyrics { Lydian }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
   g1 a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   e^"~~ S" f g }
   \context Lyrics \lyrics { Mixolydian }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { Aeolian }
 @end mudela
@@ -756,48 +761,48 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c' { 
   c1 d
-  \property Voice.textScriptPadding = "-10"
+  \property Voice.textScriptPadding = #-10
   e^"~~ S" f g a 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c }
   \context Lyrics \lyrics { Major }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   e^"~~ S" f g a }
   \context Lyrics \lyrics { "ancient minor" }
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   e^"~~ S" 
-  \property Voice.textScriptPadding = "1"
+  \property Voice.textScriptPadding = #1
   f!^"~~ A" 
   gis^"~~ S" 
   a }
@@ -805,20 +810,20 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end mudela
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
   a1
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   b^"~~ S" c d e fis 
-  \property Voice.textScriptPadding = "0"
+  \property Voice.textScriptPadding = #0
   gis^"~~ S" a g! 
   \property Voice.textScriptPadding = "-1"
   f!^"~~ S" e d 
-  \property Voice.textScriptPadding = "-4"
+  \property Voice.textScriptPadding = #-4
   c^"~~ S" b a
 }
   \context Lyrics \lyrics { "Melodic minor" }
@@ -832,7 +837,7 @@ intervall, N: .
 @w{@ar{}@strong{interval}}
 
 @item diminuendo
-I: diminuendo, F: , D: Diminuendo, NL: diminuendo, DK: diminuendo, 
+I: diminuendo, F: diminuendo, D: Diminuendo, NL: diminuendo, DK: diminuendo,
 S:@w{ }diminuendo, N:@w{ }diminuendo.
 
 @w{@ar{}@strong{decrescendo}}
@@ -882,8 +887,8 @@ dominant, N: .
 The fifth @w{@ar{}@strong{scale degree}} @w{@ar{}@strong{functional harmony}}
 
 @item dorian mode
-I: modo dorico, F: , D: Dorischer Kirchenton, NL: dorische toonladder,
-dorischer Kirchenton, DK: dorisk skala, S: dorisk skala, N:
+I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
+toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk skala, N:
 
 @w{@ar{}@strong{diatonic scale}}
 
@@ -973,7 +978,8 @@ achtste rust, DK:@w{ }ottendedelspause, S: @aa{}ttonddelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item engraving
-I: incisione, F: , D: Notenstechen, NL: steken, DK: nodestik, S: nottryck, N: .
+I: incisione, F: gravure, D: Notenstechen, NL: steken, DK: nodestik, S:
+nottryck, N: .
 
 Engraving means incising or etching a metal plate for
 printing. Photoengraving means drawing music with ink in a manner
@@ -992,7 +998,7 @@ but equal pitch.
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   gis1_"g sharp" s as1_"a flat" s s
@@ -1001,16 +1007,17 @@ but equal pitch.
 @end mudela
 
 @item equal temperament 
-I: temperamento equabile, F: , D: gleichschwebende Stimmung, NL:
-ge@-lijk@-zwe@-ven@-de temperatuur, DK: ligesv@ae{}vende temperatur,
-S: liksv@"avande temperatur, N: .
+I: temperamento equabile, F: temp@'erament @'egal, D: gleichschwebende
+Stimmung, NL: ge@-lijk@-zwe@-ven@-de temperatuur, DK: ligesv@ae{}vende
+temperatur, S: liksv@"avande temperatur, N: .
 
 Tuning system dividing the octave into 12 equal @w{@ar{}@strong{semitones}}
 (precisely 100 @w{@ar{}@strong{cents}}). @w{@ar{}@strong{temperament}}
 
 @item expression mark
-I: segno d'espressione, F: signe d'expressoin,  D: Vortragszeichen, NL:
-voordrachtsteken, DK: foredragsbetegnelse, S: f@"oredragsbeteckning, N: .
+I: segno d'espressione, F: signe d'expression, indication de nuance, D:
+Vortragszeichen, NL: voordrachtsteken, DK: foredragsbetegnelse, S:
+f@"oredragsbeteckning, N: .
 
 Performance indications concerning 1. volume, dynamics (for example
 @w{@ar{}@strong{forte}}, @w{@ar{}@strong{crescendo}}), 2. tempo (for example
@@ -1033,7 +1040,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 
 @ignore
 @mud ela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \property Voice.clefStyle = "fullSizeChanges"
 \property Lyrics.textStyle = "large"
 \addlyrics
@@ -1060,7 +1067,7 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 @end ignore
 
 @item fermata
-I: corona, F: pauses, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
+I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 
 Prolonged note or rest of indefinite duration.
 
@@ -1081,7 +1088,7 @@ I: quinta, F: quinte, D: Quinte, NL: kwint, I: , DK: kvint, S: kvint, N: kvint.
 @w{@ar{}@strong{thorough bass}}
 
 @item fingering
-I: ditteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
+I: diteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
 fingers@ae{}tning, S: fingers@"attning, N: .
 
 The methodical use of fingers in the playing of instruments.
@@ -1096,8 +1103,8 @@ a quarter note. The number of flags determines the @w{@ar{}@strong{note value}}.
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
-\property Voice.textEmptyDimension = "1"
+\property Score.barNonAuto = ##t
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   g8_"1/8" s8 
@@ -1115,7 +1122,7 @@ I: bemolle, F: b@'emol, D: B, b, NL: mol, DK: b, S: bef@"ortecken, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item forte
-I: forte, F: , D: forte, Laut, NL: forte, DK: forte, S: forte, N: .
+I: forte, F: forte, D: forte, Laut, NL: forte, DK: forte, S: forte, N: .
 
 Loud, abbreviated @b{f}, @emph{fortissimo} (@b{ff}) very loud,
 @emph{mezzoforte} (@b{mf}) medium loud.
@@ -1126,11 +1133,11 @@ I: quarta, F: quarte, D: Quarte, NL: kwart, DK: kvart, S: kvart, N: .
 @w{@ar{}@strong{interval}}
 
 @item fugue 
-I: fuga, F: , D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
+I: fuga, F: fugue, D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
 
 @w{@ar{}@strong{counterpoint}}
 
-@item functiontional harmony
+@item functional harmony
 I: armonia funzionale, F: , D: Funktionslehre, NL: , DK: funktionsanalyse,
 funktionsharmonik, S: funktionsl@"ara, N:
 
@@ -1143,8 +1150,8 @@ of the base chords.
 @
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
@@ -1158,8 +1165,8 @@ of the base chords.
 I: sol, F: sol, D: G, g, NL: g, DK: g, S: g, N: g.
 
 @item G clef
-I: chiave di sol, F: , D: G-Schl@"ussel, Violinschl@"ussel, NL: G-sleutel, DK:
-g-n@o{}gle, S: g-klav, N: .
+I: chiave di sol, F: cl@'e de sol, D: G-Schl@"ussel, Violinschl@"ussel, NL:
+G-sleutel, DK: g-n@o{}gle, S: g-klav, N: .
 
 A clef symbol indicating the G above central C. Used on the first and second
 note lines. A digit 8 above the clef symbol indicates that the notes must be
@@ -1170,7 +1177,7 @@ that).
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Voice.clefStyle = "fullSizeChanges"
 \addlyrics
@@ -1189,28 +1196,32 @@ that).
 @end mudela
 
 @item glissando
-I: glissando, F: glissement, D: Glissando, NL: glissando, DK: glissando, S:
+I: glissando, F: glissando, D: Glissando, NL: glissando, DK: glissando, S:
 glissando, N: glissando.
 
 Letting the pitch  slide fluently from one note to the other
 
 @item grace notes
-I: abbellimenti, F: , D: Verzierungen, Vorschl@"age, Vorschlagsnoten, NL:
-versieringen, DK: forsiringer, S: ornament, N: .
+I: abbellimenti, F: fioriture, petite[s] note[s], D: Verzierungen,
+Vorschl@"age, Vorschlagsnoten, NL: versieringen, DK: forsiringer, S: ornament,
+N: .
 
 Notes printed in small types to indicate that their time values are not
 counted in the rhythm of the bar. @w{@ar{}@strong{appoggiatura}}
 
 @item grand staff
-I: accolatura, F: , D: Akkolade, NL: piano systeem, DK: klaversystem, S:
-ackolad, b@"ojd klammer, N: .
+I: accolatura, F: accolade, D: Akkolade, NL: piano systeem, DK: klaversystem,
+S: ackolad, b@"ojd klammer, N: .
 
 @w{@ar{}@strong{brace}}
 
 A combination of two staffs with a brace.  Usually used for piano music.
 
 @item grave
-I: grave, F: , D: grave, langsam, traurig, NL: , DK: grave, S: grave, N: .
+I: grave, F: grave, D: grave, langsam, traurig, NL: , DK: grave, S: grave, N:
+.
+
+Slow, solemn.
 
 @item half note
 I: minima, F: blanche, UK: minim, D: Halbe, halbe Note, NL: halve noot, DK:
@@ -1249,8 +1260,8 @@ section. @ar{}@w{}@strong{functional harmony}
 @end mudela
 
 @item harmony
-I: armonia, F: , D: Harmonie, Zusammenklang, NL: harmonie, DK: samklang, S:
-samklang, N:
+I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
+samklang, S: samklang, N:
 
 Tones sounding simultaneously. Two note harmonies fall into the cathegories
 @emph{consonances} and @emph{dissonances}.
@@ -1260,7 +1271,7 @@ Consonances:
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   <g1_"unisone" g> s
@@ -1278,7 +1289,7 @@ Dissonances:
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   <g1_"second" a> s
@@ -1290,7 +1301,8 @@ Dissonances:
 Three note harmony @w{@ar{}@strong{chord}}
 
 @item homophony
-I: omofonia, F: , D: Homophonie, NL: homofonie, DK: homofoni, S: homofoni, N: .
+I: omofonia, F: homophonie, D: Homophonie, NL: homofonie, DK: homofoni, S:
+homofoni, N: .
 
 Music in which one voice leads melodically followed by the other voices more
 or less in the same rhythm. In contrast to @w{@ar{}@strong{polyphony}}.
@@ -1308,7 +1320,7 @@ forms an octave.
 @ 
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
@@ -1329,7 +1341,7 @@ forms an octave.
 @ 
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
@@ -1350,7 +1362,7 @@ forms an octave.
 @ 
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Lyrics.textStyle = "large"
 \property Voice.textStyle = "large"
 \addlyrics
@@ -1369,7 +1381,7 @@ forms an octave.
 @end mudela
 
 @item inverted interval
-I: rivolto, F: renversement d'intervalle, D: umgekerhtes Intervall, NL:
+I: intervallo rivolto, F: intervalle renvers@'e, D: umgekerhtes Intervall, NL:
 interval inversie, DK: omvendingsinterval, S: intervallets omv@"andning, N: .
 
 The difference between an interval and an octave.
@@ -1377,7 +1389,7 @@ The difference between an interval and an octave.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \property Voice.textStyle = "large"
 \notes\relative c'' {
   < g1_"second" a > s < g'_"seventh" a, > s \bar "||"; 
@@ -1394,7 +1406,8 @@ Tuning system in which the notes are obtained by adding and subtracting
 @w{natural} fifths and thirds. @w{@ar{}@strong{temperament}}
 
 @item key
-I: tonalit@`a, F: , D: Tonart, NL: toonsoort, DK: toneart, S: tonart, N: .
+I: tonalit@`a, F: tonalit@'e, D: Tonart, NL: toonsoort, DK: toneart, S:
+tonart, N: .
 
 According to the 12 tones of the @w{@ar{}@strong{chromatic scale}} there are 12
 keys, one on c, one on c-sharp etc. @w{@ar{}@strong{key signature}}
@@ -1407,15 +1420,15 @@ The sharps or flats appearing at the beginning of each staff indicating the
 key of the music. @w{@ar{}@strong{accidental}}
 
 @item largo
-I: largo, F: , D: Largo, Langsam, Breit, NL: largo, DK: largo, S: largo, N:
-largo
+I: largo, F: largo, D: Largo, Langsam, Breit, NL: largo, DK: largo, S: largo,
+N: largo
 
 Very slow in tempo, usually combined with great
 expressiveness. @emph{Larghetto} less slow than largo.
 
 @item leading note
-I: sensibile, F: sensible, D: Leitton, NL: leidtoon, DK: ledetone, S: ledton,
-N: .
+I: sensibile, F: note sensible, D: Leitton, NL: leidtoon, DK: ledetone, S:
+ledton, N: .
 
 The seventh @w{@ar{}@strong{scale degree}}, a @w{@ar{}@strong{semitone}} below
 the tonic; so called because of its strong tendency to ``lead up'' (resolve
@@ -1431,12 +1444,13 @@ A ledger line is an extension of the staff.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \notes\relative c'' { a,1 s c'' } 
 @end mudela
 
 @item legato
-I: legato, F: , D: legato, NL: legato, DK: legato, S: legato, N: .
+I: legato, F: legato, li@'e, D: legato, NL: legato, DK: legato, S: legato, N:
+.
 
 To be performed without any perceptible interruption between the notes (a)
 unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
@@ -1445,8 +1459,8 @@ unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
-\property Voice.textEmptyDimension = "1"
+\property Score.barNonAuto = ##t
+\emptyText
 \property Lyrics.textStyle = "large"
 \addlyrics
 \notes\relative c'' { 
@@ -1480,14 +1494,14 @@ forslag, S: l@aa{}ngt f@"orslag, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item longa
-I: longa, F: , D: Longa, NL: longa, DK: longa, S: longa, N: longa
+I: longa, F: longa, D: Longa, NL: longa, DK: longa, S: longa, N: longa
 
 note value: double length of @w{@ar{}@strong{brevis}}. @w{@ar{}@strong{note value}}
 
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \notes\relative c'' { g\longa } 
 @end mudela
 
@@ -1498,7 +1512,7 @@ groot interval, DK: stort interval, S: stort intervall, N: .
 @w{@ar{}@strong{interval}}
 
 @item major
-I: maggiore, F: mode majeur, D: Dur, NL: majeur, DK: dur, S: dur, N: dur.
+I: maggiore, F: [mode] majeur, D: Dur, NL: majeur, DK: dur, S: dur, N: dur.
 
 @w{@ar{}@strong{diatonic scale}}
 
@@ -1520,8 +1534,8 @@ throughout the composition and are marked from each other by
 bar-lines. @w{@ar{}@strong{meter}}
 
 @item mediant
-I: mediante, F: m@'ediante, NL: mediant, D: Mediant, DK: mediant, S: mediant,
-N: .
+I: mediante, modale, F: m@'ediante, NL: mediant, D: Mediant, DK: mediant, S:
+mediant, N: .
 
 1. The third @b{scale degree}. 2. A @w{@ar{}@strong{chord}} having its base tone
 a third from that of another chord. For example the tonic chord may be
@@ -1599,7 +1613,7 @@ First C below the 440 Hz A.
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \property Voice.clefStyle = "fullSizeChanges"
 \notes\relative c' { 
   \clef "F"; c1 s
@@ -1634,8 +1648,8 @@ key if the key is major and to the @w{@ar{}@strong{relative key}} if the key
 is minor.
 
 @item mordent
-I: mordente, F: mordant, pinc@`e, D: Mordent, NL: mordent, DK: mordent, S:
-mordent, N: .
+I: mordente, F: mordant, D: Mordent, NL: mordent, DK: mordent, S: mordent, N:
+.
 
 @w{@ar{}@strong{ornament}}
 
@@ -1649,7 +1663,7 @@ subject.
 
 @mudela[13pt,eps] 
 \property Score.timeSignatureStyle = "C2/2"
-\property Voice.textEmptyDimension = "1"
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   \time 4/4;
@@ -1661,14 +1675,14 @@ subject.
 @end mudela
 
 @item movement
-I: movimento, F: , D: Satz, NL: deel, DK: sats, S: sats, N: .
+I: movimento, F: mouvement, D: Satz, NL: deel, DK: sats, S: sats, N: .
 
 Greater musical works like @w{@ar{}@strong{symphony}} and
 @w{@ar{}@strong{sonata}} most often consist of several - more or less -
 independant pieces called movements.
 
 @item multibar rest
-I: pausa multipla, F: b@^aton de pause, NL: meermaats rust, D:
+I: pausa multipla, F: pause multiple, NL: meermaats rust, D:
 mehrtaktige Pause, DK: flertaktspause, S: flertaktspaus, N: .
 
 @
@@ -1676,7 +1690,7 @@ mehrtaktige Pause, DK: flertaktspause, S: flertaktspaus, N: .
 @mudela[13pt,eps]
 \notes\relative c'' {
 a1
-\property Score.skipBars=1 R1*3 
+\property Score.skipBars=##t R1*3 
 a1 }
 @end mudela
 
@@ -1693,7 +1707,7 @@ DK:@w{ }op@-l@o{}sningstegn, S: @aa{}terst@"allningstecken, N: .
 @w{@ar{}@strong{appoggiatura}}
 
 @item ninth
-I: nona, F: , D: None, NL: noon, DK: none, S: nona, N: .
+I: nona, F: neuvi@`eme, D: None, NL: noon, DK: none, S: nona, N: .
 
 @w{@ar{}@strong{interval}}
 
@@ -1702,6 +1716,12 @@ I: nona, F: , D: None, NL: noon, DK: none, S: nona, N: .
 
 @item note
 I: nota, F: note, D: Note, NL: noot, DK: node, S: not, N: ,
+
+Notes are signs by means of which music is fixed in writing. The term is, also
+used for the sound indicated by a note, and even for the key of the piano
+which produces the sound. However, a clear distinction between the terms tone
+and @w{@ar{}@strong{note}} is strongly recommended. Briefly, one sees a note,
+and hears a tone.
 
 @item note head
 I: testa, F: , D: Notenkopf, NL: nootballetje, DK: nodehovede, S: nothuvud, N:
@@ -1715,8 +1735,8 @@ instruments (often having no defined pitch) the note head may indicate the
 instrument.
 
 @item note value
-I: valore, durata, F: , D: Notenwert, NL: nootwaarde, DK nodev@ae{}rdi, S:
-notv@"arde, N: .
+I: valore, durata, F: dur@'ee, valeur (d'une note), D: Notenwert, NL:
+nootwaarde, DK nodev@ae{}rdi, S: notv@"arde, N: .
 
 Note values (durations) are measured as fractions, normally 1/2, of the next
 higher note value. The longest duration normally used is called @emph{brevis},
@@ -1727,7 +1747,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 
 @mudela[13pt,eps]
 \property Voice.textStyle = "large"
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \notes\relative c'' { 
   g\longa_"longa" g\breve_"breve" 
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
@@ -1736,7 +1756,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 
 @mudela[13pt,eps]
 \property Voice.textStyle = "large"
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \notes\relative c'' { 
   r\longa_"longa" r\breve_"breve" 
   r1_"1/1" r2_"1/2" r4_"1/4" s16 r8_"1/8" s16
@@ -1749,7 +1769,7 @@ half. Another dot adds yet a fourth of the duration.
 @
 
 @mudela[13pt,eps]
-\property Voice.textEmptyDimension = "1"
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   \time 4/4;
@@ -1766,7 +1786,7 @@ frequently used.
 
 @mudela[13pt,eps]
 \property Voice.textStyle = "large"
-\property Voice.textEmptyDimension = "1"
+\emptyText
 \notes\relative c'' { 
   \time 4/4;
   \times 2/3 {g8_"triplets" g g} g4 g8 g g4 \bar "||"; 
@@ -1787,8 +1807,8 @@ I: ottava, F: octave, D: Oktave, NL: octaaf, DK: oktav, S: oktav, N: .
 @w{@ar{}@strong{interval}}
 
 @item ornament; embellishment; accessory
-I: abbellimento, fioriture, abbellimenti, F: agr@`ement, ornement, D:
-Verzierung, Ornament, NL: versiering, DK: forsiring, S: ornament, N: .
+I: abbellimento, fioriture, F: agr@'ement, ornement, D: Verzierung, Ornament,
+NL: versiering, DK: forsiring, S: ornament, N: .
 
 Most commonly used is the @emph{trill}, the rapid alternation of a given note
 with the diatonic @w{@ar{}@strong{second}} above it. In the music from the
@@ -1801,7 +1821,7 @@ the upper note is played first.
 @mudela[13pt,eps]
 <
   \context Staff = sa {
-    \property Voice.textEmptyDimension = "1"
+    \emptyText
     \property Voice.textStyle = "large"
     \notes\relative c'' { 
       c2._"pre-1850"  b4\trill | c1 \bar "||";
@@ -1823,7 +1843,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @mudela[13pt,eps]
 <
   \context Staff = sa {
-    \property Voice.textEmptyDimension = "1"
+    \emptyText
     \property Voice.textStyle = "large"
     \notes\relative c'' { 
       a4_"turn" b\turn c2 \bar "||";
@@ -1842,22 +1862,22 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @w{@ar{}@strong{appoggiatura}}
 
 @item ossia
-I: ossia, F: facilit@'e, D: Ossia, NL: alternatief, DK: ossia, S: ossia, N: .
+I: ossia, F: ossia, D: Ossia, NL: alternatief, DK: ossia, S: ossia, N: .
 
 Ossia (otherwise) marks an alternative. It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
 
 @item part
-I: voce, parte, F: , D: Stimme, NL: partij, DK: stemme, S: st@"amma, N: .
+I: voce, parte, F: partie, D: Stimme, NL: partij, DK: stemme, S: st@"amma, N: .
 
 1. In instrumental or choral music the music for the single instrument
 or voice. 2. in contrapuntal music @w{@ar{}@strong{counterpoint}} the single
 melodic line of the contrapuntal web.
 
 @item percussion
-I: percussioni, F: , D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S: slagverk,
-N: .
+I: percussioni, F: percussion, D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S:
+slagverk, N: .
 
 A family of musical instruments which are played on by striking or
 shaking. Percussion instruments commonly used in a symphony orchestra are
@@ -1885,7 +1905,7 @@ The clear rendering in musical performance of the @w{@ar{}@strong{phrase}}s of
 the melody. Phrasing may be indicated by a @w{@ar{}@strong{slur}}.
 
 @item piano 
-I: piano, F: , D: piano, leise, NL: piano, DK: piano, S: piano, N: .
+I: piano, F: piano, D: piano, leise, NL: piano, DK: piano, S: piano, N: .
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
 @emph{mezzopiano} (@b{mp}) medium soft.
@@ -1895,14 +1915,14 @@ I: altezza, F: hauteur, D: Tonh@"ohe, NL: toonhoogte, DK: toneh@o{}jde, S:
 tonh@"ojd, N: .
 
 @item pizzicato
-I: pizzicato, F: , D: pizzicato, NL: pizzicato, getokkeld, DK: pizzicato, S:
-pizzicato.
+I: pizzicato, F: pizzicato, D: pizzicato, NL: pizzicato, getokkeld, DK:
+pizzicato, S: pizzicato.
 
 Play by plucking the strings.
 
 @item polyphony
-I: polifonia, F: , D: Polyphonie, NL: polyfonie, DK: polyfoni, S: polyfoni, N:
-.
+I: polifonia, F: polyphonie, D: Polyphonie, NL: polyfonie, DK: polyfoni, S:
+polyfoni, N: .
 
 Music written in a combination of several simultaneous voices (parts) of a
 more or less pronounced individuality. @w{@ar{}@strong{counterpoint}}
@@ -1911,8 +1931,8 @@ more or less pronounced individuality. @w{@ar{}@strong{counterpoint}}
 @w{@ar{}@strong{legato}}
 
 @item presto
-I: presto, F: , D: Presto, Sehr schnell, NL: presto, Sehr schnell, DK: presto,
-S: presto, N: .
+I: presto, F: presto, D: Presto, Sehr schnell, NL: presto, Sehr schnell, DK:
+presto, S: presto, N: .
 
 Very quick, i.e. quicker than @w{@ar{}@strong{allegro}}. @emph{prestissimo}
 denotes the highest possible degree of speed.
@@ -1945,19 +1965,20 @@ kwart rust, DK:@w{ }fjerdedelspause, S: fj@"ardedelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item quintuplet
-I: quintina, F: , D: Quintole, NL: kwintool, DK: kvintol, S: kvintol, N: .
+I: quintina, F: quintuplet, D: Quintole, NL: kwintool, DK: kvintol, S:
+kvintol, N: .
 
 @w{@ar{}@strong{note value}}
 
 @item rallentando
-I: rallentando, F: , D: rallentando, langsamer, NL: rallentando, DK:
-rallentando, S: rallentando, N: .
+I: rallentando, F: rallentando, D: rallentando, langsamer, NL: rallentando, DK:
+rallentando, S: rallentando, N: rallentando.
 
-@w{@ar{}@strong{ritardando}}
+Abbreviation "rall.". @w{@ar{}@strong{ritardando}}
 
 @item relative key
-I: tonalit@`a relativa, F: , D: Paralleltonart, DK: paralleltoneart, S:
-parallelltonart, N: .
+I: tonalit@`a relativa, F: tonalit@'e relative, D: Paralleltonart, DK:
+paralleltoneart, S: parallelltonart, N: .
 
 @w{@ar{}@strong{Major}} and @w{@ar{}@strong{minor}} @w{@ar{}@strong{key}} with
 the same @w{@ar{}@strong{signature}}.
@@ -1965,8 +1986,8 @@ the same @w{@ar{}@strong{signature}}.
 @
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
 \notes\relative c' { 
   \key es;
@@ -1992,7 +2013,7 @@ gen@-ta@-gel@-se, S: repris, N: .
 @end mudela
 
 @item rest
-I: pausa, F: soupir, D: Pause, NL: rust, DK: pause, S: paus, N: .
+I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -2009,13 +2030,14 @@ different measures. (c) Free rhythm, i.e. the use of temporal values having no
 common metrical unit (beat).
 
 @item ritardando
-I: ritardando, F: , D: Ritardando, Langsamer, NL: ritardando, DK: ritardando,
-S: ritardando, N: .
+I: ritardando, F: ritardando, D: Ritardando, Langsamer, NL: ritardando, DK:
+ritardando, S: ritardando, N: .
 
 Gradually slackening in speed. Mostly abbreviated to rit. or ritard. 
 
 @item ritenuto
-I: ritenuto, F: , D: Ritenuto, NL: ritenuto, DK: ritenuto, S: ritenuto, N: .
+I: ritenuto, F: ritenuto, D: Ritenuto, NL: ritenuto, DK: ritenuto, S:
+ritenuto, N: .
 
 Immediate reduction of speed.
 
@@ -2035,8 +2057,8 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 @
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Lyrics.textStyle = "large"
 \property Lyrics.minVerticalAlign = 8
 \addlyrics
@@ -2079,7 +2101,7 @@ semitones. @w{@ar{}@strong{interval}} @w{@ar{}@strong{chromatic scale}}
 @
 
 @mudela[13pt,eps] 
-\property Score.barNonAuto = "1" 
+\property Score.barNonAuto = ##t 
 \notes\relative c'' { g1 gis s a bes s b c }
 @end mudela
 
@@ -2089,7 +2111,7 @@ I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
 @w{@ar{}@strong{interval}}
 
 @item sextuplet, sextolet
-I: settimina, F: sextolet, D: Sextole, NL: sextool, DK: sekstol, S: sextol, N:
+I: sestina, F: sextolet, D: Sextole, NL: sextool, DK: sekstol, S: sextol, N:
 .
 
 @w{@ar{}@strong{note value}}
@@ -2156,15 +2178,15 @@ General term for systems of designating the degrees of the
 (@emph{ti})). @w{@ar{}@strong{scale degree}}.
 
 @item sonata
-I: sonata, F: , D: Sonate, NL: sonate, DK: sonate, S: sonat, N: .
+I: sonata, F: sonate, D: Sonate, NL: sonate, DK: sonate, S: sonat, N: .
 
 In its present-day meaning a sonata denotes an instrumental composition for
 piano or for some other instrument with piano accompaniment, which consists of
 three or four independant pieces, called movements.
 
 @item sonata form
-I: forma sonata, F: , D: Sonatenform, NL: hoofdvorm, sonatevorm, DK:
-sonateform, S: sonatform, N: .
+I: forma sonata, F: [en] forme de sonate, D: Sonatenform, NL: hoofdvorm,
+sonatevorm, DK: sonateform, S: sonatform, N: .
 
 A form used frequently for single movements of the @w{@ar{}@strong{sonata}},
 @w{@ar{}@strong{symphony}}, quartet etc. A movement written in sonata form
@@ -2186,7 +2208,8 @@ I: soprano, F: soprano, D: Sopran, NL: sopraan, DK: sopran, S: sopran, N: .
 The highest female voice.
 
 @item staccato
-I: staccato, F: , D: staccato, NL: staccato, DK: staccato, S: staccato, N:
+I: staccato, F: staccato, piqu@'e, d@'etach@'e, D: staccato, NL: staccato, DK:
+staccato, S: staccato, N:
 
 Playing the note(s) short. Staccato is indicated by a dot above or below the
 notehead.
@@ -2221,9 +2244,9 @@ note. @w{@ar{}@strong{beam}}
 @
 
 @mudela[13pt,eps]
-\property Score.noAutoBeaming = "1"
-\property Score.barNonAuto = "1"
-\property Voice.textEmptyDimension = "1"
+\property Score.noAutoBeaming = ##t
+\property Score.barNonAuto = ##t
+\emptyText
 \property Voice.textStyle = "large"
 \notes\relative c'' { 
   g2_"1/2" g' s16
@@ -2234,7 +2257,8 @@ note. @w{@ar{}@strong{beam}}
 @end mudela
 
 @item strings
-I: archi, F: , D: Streicher, NL: strijkers, DK: strygere, S: str@aa{}kar, N: .
+I: archi, F: cordes, D: Streicher, NL: strijkers, DK: strygere, S:
+str@aa{}kar, N: .
 
 A family of stringed musical instruments played with a bow. Strings commonly
 used in a symphony orchestra are violin, viola, violoncello and double bass.
@@ -2254,13 +2278,13 @@ The fourth @w{@ar{}@strong{scale degree}}. @w{@ar{}@strong{functional
 harmony}}
 
 @item submediant
-I: sopradominante, F: , D: Submediant, NL: submediant, DK: Submediant, S:
+I: sopratonica, F: , D: Submediant, NL: submediant, DK: Submediant, S:
 submediant, N: .
 
 The sixth @w{@ar{}@strong{scale degree}}.
 
 @item subtonic
-I: sensibile, F: sous-tonique, D: Subtonika, NL: subtonica, DK: Subtonika, S:
+I: sottotonica, F: sous-tonique, D: Subtonika, NL: subtonica, DK: Subtonika, S:
 subtonika, N: .
 
 The seventh @w{@ar{}@strong{scale degree}}
@@ -2278,7 +2302,8 @@ supertonika, S: supertonika, N: .
 The second @w{@ar{}@strong{scale degree}}.
 
 @item symphony
-I: sinfonia, F: , D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni, N: .
+I: sinfonia, F: symphonie, D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni,
+N: .
 
 A symphony may be defined as a @w{@ar{}@strong{sonata}} for orchestra.
 
@@ -2295,7 +2320,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 @
 
 @mudela[13pt,eps]
-\property Voice.textEmptyDimension = "1"
+\emptyText
 \property Voice.textStyle = "large"
 \time 4/4;
 \notes\relative c' {
@@ -2321,16 +2346,17 @@ The collection of staves @w{@ar{}@strong{staff}}, two or more, as used for the
 writing down of keyboard, chamber, choral or orchestral music.
 
 @item temperament
-I: temperamento, F: , D: Stimmung, Temperatur, NL: temperament, DK:
-temperatur, S: temperatur, N: .
+I: temperamento, F: temp@'erament, D: Stimmung, Temperatur, NL: temperament,
+DK: temperatur, S: temperatur, N: .
 
 Systems of tuning in which the intervals deviate from the accoustically pure
 intervals. @w{@ar{}@strong{meantone temperament}} @w{@ar{}@strong{equal
 temperament}}
 
 @item tempo indication
-I: indicazioni di tempo, F: signe de temps, D: Zeitma@ss{}, Tempobezeichnung,
-NL: tempo aanduiding, DK: tempobetegelse, S: tempobeteckning, N: .
+I: indicazione di tempo, F: indication de temps, D: Zeitma@ss{},
+Tempobezeichnung, NL: tempo aanduiding, DK: tempobetegelse, S:
+tempobeteckning, N: .
 
 The rate of speed of a composition or a section thereof, ranging from the
 slowest to the quickest, as is indicated by tempo marks as
@@ -2343,7 +2369,7 @@ I: tenore, F: t@'enor, D: Tenor, NL: tenor, DK: tenor, S: tenor, N: .
 The highest voice of men (apart from @w{@ar{}@strong{counter tenor}})
  
 @item tenth
-I: decima, F: , D: Dezime, NL: deciem, DK: decim, S: decima, N: .
+I: decima, F: dixi@`eme, D: Dezime, NL: deciem, DK: decim, S: decima, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -2369,8 +2395,8 @@ trettiotv@aa{}ondelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item thorough bass; figured bass
-I: basso continuo, F: basse chiffr@'e, D: Generalbass, bezifferter Bass, NL:
-basso continuo, DK:@w{ }generalbas, S: generalbas, N: .
+I: basso continuo, basso numerato, F: basse chiffr@'ee, D: Generalbass,
+bezifferter Bass, NL: basso continuo, DK:@w{ }generalbas, S: generalbas, N: .
 
 A method of indicating an accompaniment part by the bass notes only, together
 with figures designating the chief @w{@ar{}@strong{interval}}s and
@@ -2419,7 +2445,7 @@ uniting them into a single sound equal to the combined durations.
 @
 
 @mudela[13pt,eps]
-\property Score.barNonAuto = "1"
+\property Score.barNonAuto = ##t
 \notes\relative c'' { g2 ~ g4. }
 @end mudela
 
@@ -2471,7 +2497,7 @@ N: .
 @w{@ar{}@strong{G clef}}
 
 @item tremolo
-I: tremolo, F: tr@`emolo, D: Tremolo, NL: tremolo, DK: tremolo, S: tremolo, N:
+I: tremolo, F: tr@'emolo, D: Tremolo, NL: tremolo, DK: tremolo, S: tremolo, N:
 .
 
 On stringed instruments (@w{@ar{}@strong{strings}}) the quick reiteration of
@@ -2483,8 +2509,8 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 @
 
 @mudela[13pt,eps] 
-\property Voice.textEmptyDimension = "1"
-\property Score.barNonAuto = "1" 
+\emptyText
+\property Score.barNonAuto = ##t 
 \property Voice.textStyle = "large"
 \notes\relative c' {
   e2:32_"a" f:32 [ e8:16 f:16 g:16 a:16 ] s4 [:32 e1_"b" g]
@@ -2503,7 +2529,7 @@ triller, DK:@w{ }trille, S:@w{ }drill, N:@w{ }.
 @w{@ar{}@strong{ornament}}
 
 @item triple meter
-I: tempo ternario, F: temps ternaire, D: dreiteiliger Takt, NL: driedelige
+I: tempo ternario, F: mesure ternaire, D: dreiteiliger Takt, NL: driedelige
 maatsoort, DK: tredelt takt, S: tretakt, N: .
 
 @w{@ar{}@strong{meter}}
@@ -2527,8 +2553,8 @@ A two-pronged piece of steel used to indicate absolute pitch. Tuning forks
 give the international pitch for the tone @emph{a} (440 vibrations per second.)
  
 @item turn; gruppetto
-I: grupetto, F: bris@`e, groupe, doubl@`e, grupetto, D: Doppelschlag, NL:
-dubbelslag, DK: dobbeltslag, S: dubbelslag, N: .
+I: gruppetto, F: grupetto, D: Doppelschlag, NL: dubbelslag, DK: dobbeltslag,
+S: dubbelslag, N: .
 
 @item unison
 I: unisono, F: unisson, D: Unison, unisono, NL: unisono, DK: unison, S:
@@ -2539,7 +2565,8 @@ or by the whole orchestra (choir), either at exactly the same pitch or in a
 different octave.
 
 @item upbeat
-I: anacrusi, F: , D: Auftakt, NL: opmaat, I: , DK: optakt, S: upptakt, N:
+I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, I: , DK: optakt, S:
+upptakt, N:
 
 Initial note(s) of a melody occurring before the first bar
 line. @w{@ar{}@strong{measure}} @w{@ar{}@strong{meter}}
@@ -2581,7 +2608,8 @@ rust, DK: helnodespause, S: helnotspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item whole tone
-I: tono intero, F: , D: Ganzton, NL: hele toon, DK: heltone, S: helton, N: .
+I: tono intero, F: ton entier, D: Ganzton, NL: hele toon, DK: heltone, S:
+helton, N: .
 
 The @w{@ar{}@strong{interval}} of a major second. The interval between two
 tones on the piano keyboard with exactly one key between them - including
@@ -2601,7 +2629,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone and bassoon.
 
 @
 
-@item Litterature used
+@item Literature used
 The Harvard Dictionary of Music, London 1944. Many more or less litteral
 quotes from its articles have been included into the item explanation texts.
 

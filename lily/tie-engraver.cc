@@ -80,7 +80,7 @@ Tie_engraver::do_try_music (Music *m)
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
       req_l_ = c;
-      SCM m = get_property ("automaticMelismata",0);
+      SCM m = get_property ("automaticMelismata");
       bool am = gh_boolean_p (m) &&gh_scm2bool (m);
       if (am)
 	{
@@ -94,11 +94,6 @@ Tie_engraver::do_try_music (Music *m)
 void
 Tie_engraver::set_melisma (bool m)
 {
-  Translator_group *where = daddy_trans_l_;
-  get_property ("tieMelismaBusy", &where);
-  if (!where)
-    where = daddy_trans_l_;
-    
   daddy_trans_l_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
@@ -168,7 +163,7 @@ Tie_engraver::process_acknowledged ()
 	}
 
 
-      SCM sparse = get_property ("sparseTies", 0);
+      SCM sparse = get_property ("sparseTies");
       if (to_boolean (sparse))
 	{
 	  int i = scm_ilength (head_list);
@@ -234,7 +229,7 @@ Tie_engraver::do_pre_move_processing ()
 void
 Tie_engraver::do_post_move_processing ()
 {
-  SCM m = get_property ("automaticMelismata",0);
+  SCM m = get_property ("automaticMelismata");
   if (to_boolean (m))
     {
       set_melisma (false);

@@ -7,6 +7,7 @@
 */
 #include <math.h>
 
+#include "side-position-interface.hh"
 #include "warn.hh"
 #include "dimension-cache.hh"
 #include "lily-guile.hh"
@@ -25,15 +26,12 @@
 void
 Break_align_item::do_pre_processing()
 {
-  if (break_status_dir() == LEFT)
-    align_dir_ = LEFT;
-  else
-    align_dir_ = RIGHT;
-  
-  flip (&align_dir_);
-
+  Direction ad = (break_status_dir() == LEFT) ? RIGHT : LEFT;
   Real interline= paper_l ()->get_var ("interline");	
-  
+
+  set_elt_property ("self-alignment-X", gh_int2scm (ad));
+
+
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems (elem_l_arr ());
   
@@ -154,6 +152,8 @@ Break_align_item::do_pre_processing()
 
 Break_align_item::Break_align_item ()
 {
-  stacking_dir_ = RIGHT;
+  set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
   set_axis (X_AXIS);
+
+  dim_cache_[X_AXIS]->off_callbacks_.push (Side_position_interface::aligned_on_self);
 }

@@ -1,28 +1,8 @@
 \input texinfo @c -*-texinfo-*-
-@setfilename programs.info
-@settitle Programs
+@setfilename ly2dvi.info
+@settitle ly2dvi
 
-@node  Top, , , (dir)
-@top
-@menu
-* Programs::                      Your Softs-
-* Ly2dvi::                        Python utility to convert mudela to DVI
-* midi2ly::                       convert MIDI to -mudela-
-@end menu
-
-
-
-
-@node  Programs, , , Top
-@chapter Programs
-
-
-
-
-
-
-
-@node  Ly2dvi, , , Top
+@node  Top, , , 
 @menu
 * Ly2dvi DESCRIPTION::            Ly2dvi DESCRIPTION
 * Ly2dvi SYNOPSIS::               Ly2dvi SYNOPSIS
@@ -38,7 +18,7 @@
 @end menu
 @chapter Ly2dvi
 
-@node  Ly2dvi DESCRIPTION, , , Ly2dvi
+@node  Ly2dvi DESCRIPTION, , , Top
 @section DESCRIPTION
 ly2dvi is a Python script which creates input file for LaTeX,
 based on information from the output files from LilyPond.
@@ -52,12 +32,12 @@ one or more DVI files.
 The majority of this utility came from a bourne script written by Jan
 Arne Fagertun name @file{ly2dvi}. 
 
-@node  Ly2dvi SYNOPSIS, , , Ly2dvi
+@node  Ly2dvi SYNOPSIS, , , Top
 @section SYNOPSIS
 
         ly2dvi [options] inputfile[.ly] [....]
 
-@node  Ly2dvi OPTIONS, , , Ly2dvi
+@node  Ly2dvi OPTIONS, , , Top
 @section OPTIONS
 
 @table @samp
@@ -105,7 +85,7 @@ Arne Fagertun name @file{ly2dvi}.
     DVI file for each.
 @end table
 
-@node  Ly2dvi Features, , , Ly2dvi
+@node  Ly2dvi Features, , , Top
 @section Features
 
 ly2dvi responds to several parameters specified in the mudela
@@ -124,7 +104,7 @@ file. They are overridden by corresponding command line options.
     Specify name of papersize.
 @end table
 
-@node  Ly2dvi Environment, , , Ly2dvi
+@node  Ly2dvi Environment, , , Top
 @section Environment
 
 @table @samp
@@ -136,7 +116,7 @@ file. They are overridden by corresponding command line options.
     Temporary directory name. Default is /tmp
 @end table
 
-@node  Ly2dvi Files, , , Ly2dvi
+@node  Ly2dvi Files, , , Top
 @section Files
 
 @file{titledefs.tex} is inspected for definitions used to extract
@@ -238,7 +218,7 @@ present.  Possible value is a valid directory specification that is
 writable to the user.
 @end table
 
-@node  Ly2dvi Initialization Sequence, , , Ly2dvi
+@node  Ly2dvi Initialization Sequence, , , Top
 @section Initialization Sequence
 The initialization process reads inputs for several sources.  Below is
 a list of priorities for lowest to hightest proirity.
@@ -256,12 +236,12 @@ a list of priorities for lowest to hightest proirity.
 Note that this differs slightly from the original bourne shell
 version. 
 
-@node  Ly2dvi See Also, , , Ly2dvi
+@node  Ly2dvi See Also, , , Top
 @section See Also
 
 lilypond(1), tex(1), latex(1)
 
-@node  Ly2dvi Bugs, , , Ly2dvi
+@node  Ly2dvi Bugs, , , Top
 @section Bugs
 
 If you have found a bug, you should send a bugreport.
@@ -275,7 +255,7 @@ If you have found a bug, you should send a bugreport.
     to this mailinglist).
 @end itemize
 
-@node  Ly2dvi Remarks, , , Ly2dvi
+@node  Ly2dvi Remarks, , , Top
 @section Remarks
 
 Many papersizes are now supported. Information on other sizes
@@ -288,7 +268,7 @@ a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
 archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
 letter, note
 
-@node  Ly2dvi Authors, , , Ly2dvi
+@node  Ly2dvi Authors, , , Top
 @section Authors
 Python Version author:
 @email{daboys@@austin.rr.com, Jeffrey B. Reed},
@@ -301,54 +281,3 @@ Original bourne shell version author:
 
 
 
-
-
-
-@node  midi2ly, , , Top
-@menu
-* midi2ly DESCRIPTION::           midi2ly DESCRIPTION
-* midi2ly OPTIONS::               midi2ly OPTIONS
-@end menu
-@chapter midi2ly
-
-@node  midi2ly DESCRIPTION, , , midi2ly
-@section DESCRIPTION
-midi2ly translates a MIDI input file to Mudela (GNU LilyPond source
-format).  midi2ly is part of the GNU LilyPond music typesetting package.
-
-	midi2ly [options] midi-file
-
-@node  midi2ly OPTIONS, , , midi2ly
-@section OPTIONS
-
-@table @samp
-@item -b, --no-quantify,
-    Write exact durations, e.g.: `a4*385/384'.
-@item -D, --debug,
-    Print lots of debugging stuff.
-@item -h, --help,
-    Show a summary of usage.
-@item -I, --include=@file{DIR},
-    Add DIR to search path.
-@item -k, --key=ACC[:MINOR],
-    Set default key.  ACC > 0 sets number of sharps; ACC < 0 sets number 
-    of flats.  A minor key is indicated by ":1".
-@item -n, --no-silly,
-    Assume no plets or double dots, assume smallest (reciprocal) duration 16.
-@item -o, --output=@file{FILE},
-    Set @file{FILE} as default output.
-@item -p, --no-plets,
-    Assume no plets.
-@item -q, --quiet,
-    Be quiet.
-@item -s, --smallest=N,
-    Assume no shorter (reciprocal) durations than N.
-@item -v, --verbose,
-    Be verbose.
-@item -w, --warranty,
-    Show the warranty with which midi2ly comes. (It comes with @strong{NO WARRANTY}!)
-@item -x, --no-double-dots,
-    Assume no double dotted notes.
-@end table
-
-@bye

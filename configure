@@ -2554,7 +2554,12 @@ echo "configure:2545: checking for working metafont mode" >&5
     # For now let people define these in their environments
     #
     : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
-    : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
+
+    if test  ${INIMETAPOST} = "inimp" ; then
+       : ${INIMETAPOST_FLAGS=''}
+    else
+       : ${INIMETAPOST_FLAGS='-interaction=nonstopmode'}
+    fi
 
     rm -f mfput.*
     echo "$ac_t""$MFMODE" 1>&6
@@ -2582,7 +2587,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2586: checking for $ac_word" >&5
+echo "configure:2591: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_KPSEWHICH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2613,7 +2618,7 @@ done
 test -n "$KPSEWHICH" || KPSEWHICH="no"
 
     echo $ac_n "checking for TeX TFM directory""... $ac_c" 1>&6
-echo "configure:2617: checking for TeX TFM directory" >&5
+echo "configure:2622: checking for TeX TFM directory" >&5
     if test "x$TFMDIR" = xauto ; then
 	if test "x$TEX_TFMDIR" = "x" ; then
 	    if test "x$KPSEWHICH" != "xno" ; then
@@ -2636,7 +2641,7 @@ echo "configure:2617: checking for TeX TFM directory" >&5
 ## The GUILE_FLAGS macro.
   ## First, let's just see if we can find Guile at all.
   echo $ac_n "checking for Guile""... $ac_c" 1>&6
-echo "configure:2640: checking for Guile" >&5
+echo "configure:2645: checking for Guile" >&5
   guile-config link > /dev/null || {
     echo "configure: cannot find guile-config; is Guile installed?" 1>&2
     exit 1
@@ -2656,7 +2661,7 @@ echo "configure:2640: checking for Guile" >&5
     # Extract the first word of "guile", so it can be a program name with args.
 set dummy guile; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2660: checking for $ac_word" >&5
+echo "configure:2665: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_GUILE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2694,7 +2699,7 @@ fi
 
 
 echo $ac_n "checking for 8-bit clean memcmp""... $ac_c" 1>&6
-echo "configure:2698: checking for 8-bit clean memcmp" >&5
+echo "configure:2703: checking for 8-bit clean memcmp" >&5
 if eval "test \"`echo '$''{'ac_cv_func_memcmp_clean'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2702,7 +2707,7 @@ else
   ac_cv_func_memcmp_clean=no
 else
   cat > conftest.$ac_ext <<EOF
-#line 2706 "configure"
+#line 2711 "configure"
 #include "confdefs.h"
 #ifdef __cplusplus
 extern "C" void exit(int);
@@ -2715,7 +2720,7 @@ main()
 }
 
 EOF
-if { (eval echo configure:2719: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:2724: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_func_memcmp_clean=yes
 else
@@ -2733,12 +2738,12 @@ echo "$ac_t""$ac_cv_func_memcmp_clean" 1>&6
 test $ac_cv_func_memcmp_clean = no && LIBOBJS="$LIBOBJS memcmp.${ac_objext}"
 
 echo $ac_n "checking for vprintf""... $ac_c" 1>&6
-echo "configure:2737: checking for vprintf" >&5
+echo "configure:2742: checking for vprintf" >&5
 if eval "test \"`echo '$''{'ac_cv_func_vprintf'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2742 "configure"
+#line 2747 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char vprintf(); below.  */
@@ -2764,7 +2769,7 @@ vprintf();
 
 ; return 0; }
 EOF
-if { (eval echo configure:2768: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2773: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_vprintf=yes"
 else
@@ -2788,12 +2793,12 @@ fi
 
 if test "$ac_cv_func_vprintf" != yes; then
 echo $ac_n "checking for _doprnt""... $ac_c" 1>&6
-echo "configure:2792: checking for _doprnt" >&5
+echo "configure:2797: checking for _doprnt" >&5
 if eval "test \"`echo '$''{'ac_cv_func__doprnt'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2797 "configure"
+#line 2802 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char _doprnt(); below.  */
@@ -2819,7 +2824,7 @@ _doprnt();
 
 ; return 0; }
 EOF
-if { (eval echo configure:2823: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2828: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func__doprnt=yes"
 else
@@ -2846,12 +2851,12 @@ fi
 for ac_func in memmem snprintf vsnprintf gettext
 do
 echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
-echo "configure:2850: checking for $ac_func" >&5
+echo "configure:2855: checking for $ac_func" >&5
 if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 2855 "configure"
+#line 2860 "configure"
 #include "confdefs.h"
 /* System header to define __stub macros and hopefully few prototypes,
     which can conflict with char $ac_func(); below.  */
@@ -2877,7 +2882,7 @@ $ac_func();
 
 ; return 0; }
 EOF
-if { (eval echo configure:2881: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+if { (eval echo configure:2886: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
   rm -rf conftest*
   eval "ac_cv_func_$ac_func=yes"
 else
@@ -2916,7 +2921,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2920: checking for $ac_word" >&5
+echo "configure:2925: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -2949,7 +2954,7 @@ test -n "$MAKEINFO" || MAKEINFO="error"
 # Extract the first word of "perl", so it can be a program name with args.
 set dummy perl; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:2953: checking for $ac_word" >&5
+echo "configure:2958: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PERL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else

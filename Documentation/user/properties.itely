@@ -556,12 +556,6 @@ no clef is printed upon creation.
 @cindex properties!GrandStaff
 
 @table @samp 
-  @item @code{alignmentReference}@indexcode{alignmentReference}
-@propertytype{direction}
-    Set to @code{\center} for vertical alignment reference point to be
-    in the center of the vertical group.  Set to @code{\up} to put the
-    reference point at the top of the group.
-
   @item @code{maxVerticalAlign}@indexcode{maxVerticalAlign}  @propertytype{number}
     Set the maximum vertical distance between staffs.
 

@@ -339,3 +339,31 @@ scm_to (SCM s, Offset*)
   return Offset (gh_scm2double (gh_car (s)),
 		 gh_scm2double (gh_cdr (s)));
 }
+
+SCM
+ly_type (SCM exp)
+{
+  char const  * cp = "unknown";
+  if (gh_number_p (exp))
+    {
+      cp = "number";
+    }
+  else if (gh_string_p (exp))
+    {
+      cp = "string";
+    }
+  else if (gh_procedure_p (exp))
+    {
+      cp = "procedure";
+    }
+  else if (gh_boolean_p (exp))
+    {
+      cp = "boolean";
+    }
+  else if (gh_pair_p (exp))
+    {
+      cp = "list";
+    }
+
+  return ly_str02scm (cp);
+}
