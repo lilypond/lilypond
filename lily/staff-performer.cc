@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #include "staff-performer.hh"
@@ -77,7 +77,9 @@ String
 Staff_performer::new_instrument_str () 
 { 
   // mustn't ask Score for instrument: it will return piano!
-  String str = get_property ("instrument");
+  String str = get_property ("midi_instrument");
+  if (!str.length_i ())
+    str = get_property ("instrument");
   if (str == instrument_str_)
     return "";
 
@@ -85,7 +87,7 @@ Staff_performer::new_instrument_str ()
 
   return instrument_str_;
 
-/* ugh, but can't
+/* ugh, but can 't
   if (properties_dict_.elt_b ("instrument"))
     return properties_dict_["instrument"];
   return "";
@@ -97,7 +99,7 @@ Staff_performer::play (Audio_element* p)
 {
   if (p->is_type_b (Audio_item::static_name ())) 
     {
-      audio_staff_p_->add ( (Audio_item*)p);
+      audio_staff_p_->add_audio_item ( (Audio_item*)p);
     }
   Performer::play (p);
 }
