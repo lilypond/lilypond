@@ -323,6 +323,29 @@ AC_DEFUN(STEPMAKE_FLEXLEXER, [
 	warn='FlexLexer.h (flex package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
+    # check for yyFlexLexer.yy_current_buffer,
+    # in 2.5.4 <= flex < 2.5.29
+    AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
+	[stepmake_flexlexer_yy_current_buffer],
+	AC_TRY_COMPILE(,[
+return 0; }
+using namespace std;
+#include <FlexLexer.h>
+class yy_flex_lexer: public yyFlexLexer
+{
+  public:
+    yy_flex_lexer ()
+    {
+      yy_current_buffer = 0;
+    }
+};
+int foo () {
+],
+	    [stepmake_flexlexer_yy_current_buffer=yes],
+	    [stepmake_flexlexer_yy_current_buffer=no]))
+    if test $stepmake_flexlexer_yy_current_buffer = yes; then
+	AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1, [Define to 1 if yyFlexLexer has yy_current_buffer.])
+    fi
 ])
 
 
@@ -391,7 +414,7 @@ AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     ## First, let's just see if we can find Guile at all.
     AC_MSG_CHECKING("for guile-config")
-    for guile_config in guile-config $target-guile-config $build-guile-config; do
+    for guile_config in $GUILE_CONFIG guile-config $target-guile-config $build-guile-config; do
 	AC_MSG_RESULT("$guile_config")
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    AC_MSG_WARN("cannot execute $guile_config")

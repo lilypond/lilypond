@@ -9,15 +9,13 @@
 #ifndef LEXER_HH
 #define LEXER_HH
 
-using namespace std;
-#include <FlexLexer.h>
+#include "includable-lexer.hh"
 
 #include "dictionary.hh"
 #include "lily-proto.hh"
 #include "flower-proto.hh"
 #include "array.hh"
 #include "string.hh"
-#include "includable-lexer.hh"
 #include "duration.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"

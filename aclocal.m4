@@ -1,7 +1,4 @@
 dnl aclocal.m4   -*-shell-script-*-
-dnl WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from /home/hanwen/usr/src/lilypond/stepmake/aclocal.m4
-dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 
@@ -88,14 +85,15 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
 # add entry to missing-list ($2, one of 'OPTIONAL', 'REQUIRED').
 AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     r="`eval echo '$'"$1"`"
-    AC_MSG_CHECKING([$r version])
+    AC_MSG_CHECKING("$r version")
+    #exe=`STEPMAKE_GET_EXECUTABLE($r)`
     exe=`STEPMAKE_GET_EXECUTABLE($r)`
     ver=`STEPMAKE_GET_VERSION($exe)`
     num=`STEPMAKE_NUMERIC_VERSION($ver)`
     req=`STEPMAKE_NUMERIC_VERSION($3)`
-    AC_MSG_RESULT([$ver])
+    AC_MSG_RESULT("$ver")
     if test "$num" -lt "$req"; then
-	STEPMAKE_ADD_ENTRY($2, ["$r $3 (installed: $ver)"])
+	STEPMAKE_ADD_ENTRY($2, "$r $3 (installed: $ver)")
     fi
 ])
 
@@ -206,7 +204,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 ])
 
 AC_DEFUN(STEPMAKE_CXX, [
-    AC_LANG([C++])
+    AC_LANG_CPLUSPLUS
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
@@ -224,10 +222,12 @@ AC_DEFUN(STEPMAKE_CXX, [
 AC_DEFUN(STEPMAKE_CXXTEMPLATE, [
     AC_CACHE_CHECK([whether explicit instantiation is needed],
 	lily_cv_need_explicit_instantiation,
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+	AC_TRY_LINK([
     template <class T> struct foo { static int baz; };
     template <class T> int foo<T>::baz = 1;
-    ]], [[ return foo<int>::baz; ]])],[lily_cv_need_explicit_instantiation=no],[lily_cv_need_explicit_instantiation=yes]))
+    ], [ return foo<int>::baz; ],
+	    lily_cv_need_explicit_instantiation=no,
+	    lily_cv_need_explicit_instantiation=yes))
     if test x"$lily_cv_need_explicit_instantiation"x = x"yes"x; then
 	AC_DEFINE(NEED_EXPLICIT_INSTANTIATION)
     fi
@@ -243,33 +243,23 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 	presome=${ac_default_prefix}
     fi
     
-    build_package_datadir=$ugh_ugh_autoconf250_builddir/share/$package
+    package_datadir=$datadir/$package
+    local_package_datadir=$package_datadir/$FULL_VERSION
+    build_package_datadir=$builddir/share/$package
     
     DATADIR=`echo ${datadir} | sed "s!\\\${prefix}!$presome!"`
+    PACKAGE_DATADIR=`echo ${package_datadir} | sed "s!\\\${prefix}!$presome!"`
+    LOCAL_PACKAGE_DATADIR=`echo ${local_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     BUILD_PACKAGE_DATADIR=`echo ${build_package_datadir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(datadir)
+    AC_SUBST(package_datadir)
+    AC_SUBST(local_package_datadir)
     AC_SUBST(build_package_datadir)
-    AC_DEFINE_UNQUOTED(DATADIR, ["${DATADIR}"])
-    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, ["${BUILD_PACKAGE_DATADIR}"])
-])
-
-## ugh: cut & paste programming from datadir. 
-AC_DEFUN(STEPMAKE_LIBDIR, [
-
-    if test "$libdir" = "\${exec_prefix}/lib"; then
- 	libdir='${exec_prefix}/lib'
-    fi
-    presome=$exec_prefix
-    build_package_libdir=$ugh_ugh_autoconf250_builddir/lib/$package
-    
-    LIBDIR=`echo ${libdir} | sed "s!\\\${exec_prefix}!$presome!"`
-    BUILD_PACKAGE_LIBDIR=`echo ${build_package_libdir} | sed "s!\\\${exec_prefix}!$presome!"`
-    
-    AC_SUBST(libdir)
-    AC_SUBST(build_package_libdir)
-    AC_DEFINE_UNQUOTED(LIBDIR, ["${LIBDIR}"])
-    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_LIBDIR, ["${BUILD_PACKAGE_LIBDIR}"])
+    AC_DEFINE_UNQUOTED(DATADIR, "${DATADIR}")
+    AC_DEFINE_UNQUOTED(PACKAGE_DATADIR, "${PACKAGE_DATADIR}")
+    AC_DEFINE_UNQUOTED(LOCAL_PACKAGE_DATADIR, "${LOCAL_PACKAGE_DATADIR}")
+    AC_DEFINE_UNQUOTED(BUILD_PACKAGE_DATADIR, "${BUILD_PACKAGE_DATADIR}")
 ])
 
 
@@ -277,8 +267,7 @@ AC_DEFUN(STEPMAKE_END, [
     AC_SUBST(OPTIONAL)
     AC_SUBST(REQUIRED)
     
-    AC_CONFIG_FILES([$CONFIGFILE.make:config.make.in])
-AC_OUTPUT
+    AC_OUTPUT($CONFIGFILE.make:config.make.in)
 
     
     if test -n "$OPTIONAL"; then
@@ -321,7 +310,7 @@ AC_DEFUN(STEPMAKE_FLEX, [
     # AC_PROG_LEX
     # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
 
-    # AC_PROG_LEX()
+    # AC_DECL_YYTEXT
     # ugh, ugh
     ac_cv_prog_lex_root=lex.yy
     STEPMAKE_PROGS(FLEX, flex, $1)
@@ -329,10 +318,33 @@ AC_DEFUN(STEPMAKE_FLEX, [
 
 
 AC_DEFUN(STEPMAKE_FLEXLEXER, [
-    AC_CHECK_HEADERS([FlexLexer.h],[true],[false])
+    AC_HAVE_HEADERS(FlexLexer.h, true, false)
     if test $? -ne 0; then
 	warn='FlexLexer.h (flex package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)
+    fi
+    # check for yyFlexLexer.yy_current_buffer,
+    # in 2.5.4 <= flex < 2.5.29
+    AC_CACHE_CHECK([for yyFlexLexer.yy_current_buffer],
+	[stepmake_flexlexer_yy_current_buffer],
+	AC_TRY_COMPILE(,[
+return 0; }
+using namespace std;
+#include <FlexLexer.h>
+class yy_flex_lexer: public yyFlexLexer
+{
+  public:
+    yy_flex_lexer ()
+    {
+      yy_current_buffer = 0;
+    }
+};
+int foo () {
+],
+	    [stepmake_flexlexer_yy_current_buffer=yes],
+	    [stepmake_flexlexer_yy_current_buffer=no]))
+    if test $stepmake_flexlexer_yy_current_buffer = yes; then
+	AC_DEFINE(HAVE_FLEXLEXER_YY_CURRENT_BUFFER, 1, [Define to 1 if yyFlexLexer has yy_current_buffer.])
     fi
 ])
 
@@ -355,7 +367,7 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     LOCALEDIR=`echo ${localedir} | sed "s!\\\${prefix}!$presome!"`
     
     AC_SUBST(localedir)
-    AC_DEFINE_UNQUOTED(LOCALEDIR, ["${LOCALEDIR}"])
+    AC_DEFINE_UNQUOTED(LOCALEDIR, "${LOCALEDIR}")
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
 ])
@@ -387,10 +399,10 @@ AC_DEFUN(STEPMAKE_GUILE, [
 AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
     exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
     if test -x $exe; then
-	AC_MSG_CHECKING([guile compile flags])
+	AC_MSG_CHECKING("guile compile flags")
 	GUILE_CFLAGS="`$guile_config compile`"
 	AC_MSG_RESULT($GUILE_CFLAGS)
-	AC_MSG_CHECKING([guile link flags])
+	AC_MSG_CHECKING("guile link flags")
 	GUILE_LDFLAGS="`$guile_config link`"
 	AC_MSG_RESULT($GUILE_LDFLAGS)
     fi
@@ -401,12 +413,12 @@ AC_DEFUN([STEPMAKE_GUILE_FLAGS], [
 
 AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     ## First, let's just see if we can find Guile at all.
-    AC_MSG_CHECKING([for guile-config])
-    for guile_config in guile-config $target-guile-config $build-guile-config; do
-	AC_MSG_RESULT([$guile_config])
+    AC_MSG_CHECKING("for guile-config")
+    for guile_config in $GUILE_CONFIG guile-config $target-guile-config $build-guile-config; do
+	AC_MSG_RESULT("$guile_config")
 	if ! $guile_config --version > /dev/null 2>&1 ; then
-	    AC_MSG_WARN([cannot execute $guile_config])
-	    AC_MSG_CHECKING([if we are cross compiling])
+	    AC_MSG_WARN("cannot execute $guile_config")
+	    AC_MSG_CHECKING("if we are cross compiling")
 	    GUILE_CONFIG='echo no guile-config'
 	else
 	    GUILE_CONFIG=$guile_config
@@ -451,7 +463,6 @@ AC_DEFUN(STEPMAKE_GXX, [
 
 AC_DEFUN(STEPMAKE_INIT, [
 
-    AC_PREREQ(2.50)
     . $srcdir/VERSION
     FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
     if test x$MY_PATCH_LEVEL != x; then
@@ -487,33 +498,32 @@ AC_DEFUN(STEPMAKE_INIT, [
 
 	AC_MSG_CHECKING(builddir)
 
-	ugh_ugh_autoconf250_builddir="`pwd`"
-	
+	builddir="`pwd`"
+
 	if test "$srcdir" = "."; then
 	    srcdir_build=yes
 	else
 	    srcdir_build=no
-	    package_builddir="`dirname $ugh_ugh_autoconf250_builddir`"
+	    package_builddir="`dirname $builddir`"
 	    package_srcdir="`dirname  $srcdir`"
 	fi
-	AC_MSG_RESULT($ugh_ugh_autoconf250_builddir)
+	AC_MSG_RESULT($builddir)
 
 	(cd stepmake 2>/dev/null || mkdir stepmake)
 	(cd stepmake; rm -f bin; ln -s ../$srcdir/bin .)
-# only possible with autoconf < 2.50 -- hardcoded in configure.in
-#	AC_CONFIG_AUX_DIR(bin)
+	AC_CONFIG_AUX_DIR(bin)
 	stepmake=stepmake
     else
         AC_MSG_RESULT($PACKAGE)
 
 	AC_MSG_CHECKING(builddir)
-	ugh_ugh_autoconf250_builddir="`pwd`"
+	builddir="`pwd`"
 	if test "$srcdir" = "."; then
 	    srcdir_build=yes
 	else
 	    srcdir_build=no
 	fi
-	AC_MSG_RESULT($ugh_ugh_autoconf250_builddir)
+	AC_MSG_RESULT($builddir)
 
 	AC_MSG_CHECKING(for stepmake)
 	# Check for installed stepmake
@@ -521,28 +531,30 @@ AC_DEFUN(STEPMAKE_INIT, [
 	    AC_MSG_RESULT($stepmake)
 	else
 	    stepmake="`cd $srcdir/stepmake; pwd`"
-	    AC_MSG_RESULT([$srcdir/stepmake  ($datadir/stepmake not found)])
+	    AC_MSG_RESULT($srcdir/stepmake  ($datadir/stepmake not found))
 	fi
 
-# only possible with autoconf < 2.50 -- hardcoded in configure.in
-# 	AC_CONFIG_AUX_DIR(\
-# 	  stepmake/bin\
-# 	  $srcdir/stepmake/bin\
-#	)
+	AC_CONFIG_AUX_DIR(\
+	  $HOME/usr/local/share/stepmake/bin\
+	  $HOME/usr/local/lib/stepmake/bin\
+	  $HOME/usr/share/stepmake/bin\
+	  $HOME/usr/lib/stepmake/bin\
+	  /usr/local/share/stepmake/bin\
+	  /usr/local/lib/stepmake/bin\
+	  /usr/share/stepmake/bin\
+	  /usr/lib/stepmake/bin\
+	  stepmake/bin\
+	  $srcdir/stepmake/bin\
+	)
     fi
 
-    AC_SUBST(ugh_ugh_autoconf250_builddir)
+    AC_SUBST(builddir)
     AC_SUBST(stepmake)
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
-    # We don't need the upper case variant,
-    # so stick to macros are uppercase convention.
-    # AC_DEFINE_UNQUOTED(package, ["${package}"])
-    # AC_DEFINE_UNQUOTED(PACKAGE, ["${PACKAGE}"])
-    AC_DEFINE_UNQUOTED(PACKAGE, ["${package}"])
-    AC_DEFINE_UNQUOTED(PACKAGE_NAME, ["${PACKAGE_NAME}"])
-    AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, ["${FULL_VERSION}"])
+    AC_DEFINE_UNQUOTED(PACKAGE, "${PACKAGE_NAME}")
+    AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 
     if test -z "$package_depth"; then
     	package_depth="."
@@ -620,14 +632,13 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(LN)
     AC_SUBST(LN_S)
     AC_SUBST(INSTALL)
-    AC_DEFINE_UNQUOTED(DIRSEP, ['${DIRSEP}'])
-    AC_DEFINE_UNQUOTED(PATHSEP, ['${PATHSEP}'])
+    AC_DEFINE_UNQUOTED(DIRSEP, '${DIRSEP}')
+    AC_DEFINE_UNQUOTED(PATHSEP, '${PATHSEP}')
     AC_SUBST(DIRSEP)
     AC_SUBST(PATHSEP)
     AC_SUBST(ROOTSEP)
   
     STEPMAKE_DATADIR
-    STEPMAKE_LIBDIR
 ])
 
     
@@ -661,13 +672,13 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     [kpathsea_b=$with_kpathsea])
 
     if test "$kpathsea_b" != "no"; then	
-	AC_CHECK_HEADERS([kpathsea/kpathsea.h])
+	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
 	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
 	if test "$kpathsea_b" = "no"; then
 	    warn='kpathsea (libkpathsea-dev or kpathsea-devel package)
    Else, please specify the location of your kpathsea using
-   --with-kpathsea-include and --with-kpathsea-lib options.  You should
+   --with-kpathea-include and --with-kpathsea-lib options.  You should
    install kpathsea; see INSTALL.txt.  Rerun ./configure
    --without-kpathsea only if kpathsea is not available for your
    platform.'
@@ -822,7 +833,7 @@ AC_DEFUN(STEPMAKE_PERL, [
 
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
-    AC_CHECK_HEADERS([python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h],[PYTHON_HEADER=yes])
+    AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h, PYTHON_HEADER=yes)
     if test -z "$PYTHON_HEADER"; then
 	warn='python.h (python-devel, python-dev or libpython-dev package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)
