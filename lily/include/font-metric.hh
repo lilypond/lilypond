@@ -26,6 +26,7 @@ public:
   virtual Box get_indexed_char (int index) const;
   virtual Box get_ascii_char (int ascii) const;
   virtual int name_to_index (String) const;
+  virtual unsigned index_to_charcode (int) const;
   virtual int index_to_ascii (int) const;
   virtual Real design_size () const;
   virtual Stencil find_by_name (String) const;

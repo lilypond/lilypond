@@ -343,23 +343,5 @@ possibly turned off."
 	  (ly:font-file-name font)))))
 
 (define-public (char->unicode-index font char)
-  ;;  (format (current-error-port) "UNICODE:~S:~S:~S\n"
-  ;;   font (ly:font-encoding font) (char->integer char))
-  ;; (force-output (current-error-port))
-  (+ (case (ly:font-encoding font)
-       ((fetaMusic) (- #xe000 #x20))
-       ((fetaBraces) (- #xe000 #x40))
-       ((fetaBraces) (- #xe000 #x40))
-       ;;(else 0))
-       ;; FIXME: bigcheese says FontSpecific
-       (else (if (string=? (font-family font) "bigcheese20")
-		 ;;#xf000 0)))
-		 ;; FIXME: hmm, why does name_to_index not return actual
-		 ;; unicode mapping?
-
-		 ;; ugh, we must know which font from bigcheese;
-		 ;; feta-proper starts at 0xefc
-		 ;; but we cannot display feta-nummer or feta-din characters
-		 ;; this way
-		 #xe0fc 0)))
-     (char->integer char)))
+  ;;(ly:font-index-to-charcode (char->integer char))
+   (char->integer char))
