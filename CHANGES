@@ -1,4 +1,14 @@
---- ../lilypond-1.3.139.jcn3/CHANGES	Sun Mar 18 19:41:31 2001
+--- ../lilypond-1.3.139.jcn4/CHANGES	Sun Mar 18 23:27:12 2001
+++ b/CHANGES	Sun Mar 18 23:47:14 2001
+@@ -1,3 +1,8 @@
+1.3.139.jcn5
+============
+
+* Coriolan gets mutopia-id 57.
+
+ 1.3.139.jcn4
+ ============
+ --- ../lilypond-1.3.139.jcn3/CHANGES	Sun Mar 18 19:41:31 2001
 ++ b/CHANGES	Sun Mar 18 23:27:12 2001
 @@ -1,3 +1,8 @@
 1.3.139.jcn4
