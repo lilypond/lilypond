@@ -83,7 +83,7 @@ oddHeaderMarkup = \markup
 \fill-line {
   ""
   \on-the-fly #not-first-page \fromproperty #'header:instrument
-  \fromproperty #'page:page-number-string
+  \on-the-fly #not-first-page \fromproperty #'page:page-number-string
 }
 
 evenHeaderMarkup = \markup
