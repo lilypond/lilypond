@@ -7,15 +7,6 @@
 
 @chapter New features in 2.1 since 2.0
 
-@ignore
-Unreleased:
-
-@itemize
-@end itemize
-
-Version 2.1.13
-@end ignore
-
 @itemize @bullet
 
 @item Context definitions now use the word @code{\context} instead of @code{\translator}.
@@ -48,15 +39,15 @@ instrument. For example,
 @end verbatim
 
 @item The transposition of an instrument can be specified using the
-@code{\transposition} command. The following command specifies an
-E-flat alto saxophone:
+@code{\transposition} command.  An
+E-flat alto saxophone is specified as 
 
 @example
   \transposition es'
 @end example 
 
 @item The naming of exported Scheme functions now follows Scheme conventions.
-Changes be applied to Scheme files with convert-ly:
+Changes be applied to Scheme files with 
 
 @example
         convert-ly -e -n --from=2.1.24 --to=2.1.26 *.scm 
@@ -64,7 +55,7 @@ Changes be applied to Scheme files with convert-ly:
 
 
 @item Notes can  be excluded from auto-beaming, by  marking them with
-@code{\noBeam}:
+@code{\noBeam}
 @example
   c8 c \noBeam c c 
 @end example
