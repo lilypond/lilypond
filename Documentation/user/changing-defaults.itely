@@ -1677,8 +1677,8 @@ titles.
 * Setting global staff size::   
 * Paper size::                  
 * Page layout::                 
-* Vertical spacing of piano staves::  
 * Vertical spacing::            
+* Vertical spacing of piano staves::  
 * Horizontal spacing::          
 * Line length::                 
 * Line breaking::               
@@ -1935,14 +1935,6 @@ tagline is ``Engraved by LilyPond (@var{version})''.@footnote{Nicely
 printed parts are good PR for us, so please leave the tagline if you
 can.}
 
-To print a copyright symbol, use @code{\copyright}
-
-@example
-\header @{
-  copyright = "\copyright Your Name 2005"
-@}
-@end example
-
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\paper}.  The default
 implementations are in @file{scm/@/page@/-layout@/.scm}.
@@ -1971,6 +1963,63 @@ values of the leftmargin and linewidth.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
+
+
+@node Vertical spacing
+@subsection Vertical spacing
+
+@cindex vertical spacing
+@cindex distance between staves
+@cindex staff distance
+@cindex between staves, distance
+@cindex staves per page
+@cindex space between staves
+
+The height of each system is determined automatically.  To prevent
+systems from bumping into each other, some minimum distances are set.
+By changing these, you can put staves closer together, and thus put
+more systems onto one page.
+
+Normally staves are stacked vertically.  To make staves maintain a
+distance, their vertical size is padded.  This is done with the
+property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
+if you want to make it smaller than its default @code{#'(-4 . 4)},
+then you could set
+
+@example
+\set Staff.minimumVerticalExtent = #'(-3 . 3)
+@end example
+
+@noindent
+This sets the vertical size of the current staff to 4 staff spaces on
+either side of the center staff line.  The argument of
+@code{minimumVerticalExtent} is interpreted as an interval, where the
+center line is the 0, so the first number is generally negative.  The
+staff can be made larger at the bottom by setting it to @code{(-6 . 4)}. 
+
+To change the amount of space between systems, use
+@code{betweensystemspace}.  A score with only one staff is still
+considered to have systems, so setting @code{betweensystemspace}
+will be much more useful than changing @code{minimumVerticalExtent}.
+
+@example
+\layout @{
+  betweensystemspace = 10\mm
+@}
+@end example
+
+
+@seealso
+
+Internals: Vertical alignment of staves is handled by the
+@internalsref{VerticalAlignment} object.
+
+@refbugs
+
+@code{minimumVerticalExtent} is syntactic sugar for setting
+@code{minimum-Y-extent} of the @internalsref{VerticalAxisGroup} of the
+current context.  It can only be changed score wide.
+
 
 
 
@@ -2020,51 +2069,6 @@ The difference is demonstrated in the following example,
 @refbugs
 
 @code{forced-distance} cannot be changed per system.
-
-@node Vertical spacing
-@subsection Vertical spacing
-
-@cindex vertical spacing
-@cindex distance between staves
-@cindex staff distance
-@cindex between staves, distance
-@cindex staves per page
-@cindex space between staves
-
-The height of each system is determined automatically.  To prevent
-systems from bumping into each other, some minimum distances are set.
-By changing these, you can put staves closer together, and thus put
-more systems onto one page.
-
-Normally staves are stacked vertically.  To make staves maintain a
-distance, their vertical size is padded.  This is done with the
-property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
-if you want to make it smaller than its default @code{#'(-4 . 4)},
-then you could set
-
-@example
-\set Staff.minimumVerticalExtent = #'(-3 . 3)
-@end example
-
-@noindent
-This sets the vertical size of the current staff to 4 staff spaces on
-either side of the center staff line.  The argument of
-@code{minimumVerticalExtent} is interpreted as an interval, where the
-center line is the 0, so the first number is generally negative.  The
-staff can be made larger at the bottom by setting it to @code{(-6 . 4)}. 
-
-
-@seealso
-
-Internals: Vertical alignment of staves is handled by the
-@internalsref{VerticalAlignment} object.
-
-@refbugs
-
-@code{minimumVerticalExtent} is syntactic sugar for setting
-@code{minimum-Y-extent} of the @internalsref{VerticalAxisGroup} of the
-current context.  It can only be changed score wide.
-
 
 
 @node Horizontal spacing
