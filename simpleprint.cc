@@ -6,10 +6,9 @@
 #include "molecule.hh"
 #include "sccol.hh"
 
-Item *
-Simple_column::create_req_item(Request *rq)
+Molecule *
+Simple_column::create_req_mol(Request *rq)
 {
-    Item *i = new Item;
     Symbol s;
     int dots=0;
 
@@ -29,13 +28,11 @@ Simple_column::create_req_item(Request *rq)
 	dm.add(Atom(d));
 	m->add_right(dm);
     }
-    i->output=m;
-    return i;
+    return m;
 }
-Item *
-Simple_column::create_command_item(Command *com)
+Molecule *
+Simple_column::create_command_mol(Command *com)
 {
-    Item *i = new Item;
     Symbol s;
 
     if (com -> args[0] ==  "BAR" ) {
@@ -59,8 +56,8 @@ Simple_column::create_command_item(Command *com)
 	if (!wid.empty())
 	    m->translate(Offset(wid.max,0));
     }
-    i->output=m;
-    return i;
+    
+    return m;
 }
 
 void
