@@ -423,27 +423,43 @@ Absolute_dynamic_req::do_print() const
 {
 #ifndef NPRINT
   Dynamic_req::do_print();
-  DOUT << " loudness " <<loudness_str (loudness_);
+  DOUT << " loudness " <<loudness_str ();
 #endif
 }
 
 String
-Dynamic_req::loudness_str (Loudness l) 
+Dynamic_req::loudness_static_str (Loudness l) 
 {
   switch (l) 
     {
-  case FFF: return "fff";
-  case FF: return "ff";
-  case F: return "f";
-  case MF: return "mf";
-  case MP: return "mp";
-  case P: return "p";
-  case PP: return "pp";
-  case PPP: return "ppp";
+    case FFF: return "fff";
+    case FF: return "ff";
+    case F: return "f";
+    case MF: return "mf";
+    case MP: return "mp";
+    case P: return "p";
+    case PP: return "pp";
+    case PPP: return "ppp";
+    case FP: return "fp";
+    case SF: return "sf";
+    case SFZ: return "sfz";
     }
-  assert (false);
   return "";
 }
+
+String
+Absolute_dynamic_req::loudness_str () const
+{
+  String s = loudness_static_str (loudness_);
+  if (!s)
+    {
+      s = "mf";
+      warning (String ("Never heard of dynamic scale ") 
+	       + loudness_ + " assuming mf");
+    }
+  return s;
+}
+
 
 Absolute_dynamic_req::Absolute_dynamic_req()
 {
