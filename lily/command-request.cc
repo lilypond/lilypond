@@ -214,7 +214,7 @@ Measure_grouping_req::do_equal_b (Request*) const
 /* *************** */
 
 void
-Key_change_req::transpose (Melodic_req const & d) const
+Key_change_req::transpose (Melodic_req const * d) const
 {
   WARN << _("don't know how to transpose a key. \n");
   for (int i=0; i < melodic_p_arr_.size(); i++)

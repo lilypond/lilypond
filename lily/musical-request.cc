@@ -87,12 +87,12 @@ Melodic_req::Melodic_req()
 }
 
 void
-Melodic_req::transpose (Melodic_req const & delta)
+Melodic_req::transpose (Melodic_req const * delta)
 {
   int old_pitch = pitch();
-  int delta_pitch = delta.pitch();
-  octave_i_ += delta.octave_i_;
-  notename_i_ += delta.notename_i_;
+  int delta_pitch = delta->pitch();
+  octave_i_ += delta->octave_i_;
+  notename_i_ += delta->notename_i_;
   while  (notename_i_ >= 7)
     {
 	notename_i_ -= 7;
@@ -105,7 +105,7 @@ Melodic_req::transpose (Melodic_req const & delta)
   accidental_i_ -= delta_acc;
   if (abs (accidental_i_) > 2)
     {
-	delta.warning (_("transposition makes accidental larger than 2"));
+	delta->warning (_("transposition makes accidental larger than 2"));
     }
 }
 
