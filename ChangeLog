@@ -1,5 +1,10 @@
 2004-03-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Determining a grob
+	property):  new node.
+	(Layout interfaces): new node.
+	(Navigating the program reference): new node.
+
 	* lily/accidental-engraver.cc (acknowledge_grob): add property
 	harmonicAccidentals
 

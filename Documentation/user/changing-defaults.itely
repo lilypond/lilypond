@@ -8,16 +8,17 @@ quality as a default. Nevertheless, it may happen that you need to
 change that default layout.  The layout is controlled through a large
 number of proverbial ``knobs and switches.''  This chapter does not
 list each and every knob. Rather, it outlines what groups of controls
-are available, and how to tune them.
+are available, and it explains how to lookup which knob to use for a
+certain effect.
 
-Which controls are available for tuning is described in a separate
+The controls are available for tuning are described in a separate
 document, the @internalsref{Program reference} manual. This manual
 lists all different variables, functions and options available in
 LilyPond. It is available as a HTML document, which is available
 @uref{http://lilypond.org/doc/Documentation/user/out-www/lilypond-internals/,on-line},
 but is also included with the LilyPond documentation package.
 
-There are X areas where the default settings may be changed:
+There are three areas where the default settings may be changed:
 
 @itemize @bullet
 @item Output: changing the appearance of individual
@@ -262,6 +263,9 @@ reference, see
 Translation @arrow{} Context.
 @end ifnothtml
 
+[TODO: describe propagation]
+
+
 @menu
 * Creating contexts::           
 * Changing context properties on the fly ::  
@@ -274,8 +278,6 @@ Translation @arrow{} Context.
 
 @node Creating contexts
 @subsection Creating contexts
-
-[TODO: propagation]
 
 For scores with only one voice and one staff, correct contexts are
 created automatically. For more complex scores, it is necessary to
@@ -904,7 +906,20 @@ examples.
 @node Tuning output
 @section Tuning output
 
+In the previous section, we have already touched on a command that
+changes layout details, the @code{\override} command. In this section,
+we will look at in more detail how to use the command in practice.
+First, we will give a a few versatile commands, which are sufficient
+for many situations. The next section will discuss general use of
+@code{\override}.
 
+
+
+-nmost adjustments simply
+
+
+
+The commands changes 
 
 
 There are situations where default layout decisions are not
@@ -942,6 +957,10 @@ layout property name:
 @menu
 * Common tweaks::               
 * Constructing a tweak::        
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Determining a grob property::  
 @end menu
 
 
@@ -1033,6 +1052,23 @@ discusses in depth how to figure out these statements for yourself.
 @node Constructing a tweak
 @subsection Constructing a tweak
 
+The general procedure of changing output, that is, entering
+a command like
+
+@example
+        \override Voice.Stem #'thickness = #3.0
+@end example
+
+@noindent
+means that we have to determine these bits of information:
+
+@itemize
+@item The context, here: @context{Voice}.
+@item The layout object, here @code{Stem}.
+@item The layout property, here @code{thickness}
+@item A sensible value, here @code{3.0}
+@end itemize  
+
 
 @cindex internal documentation
 @cindex finding graphical objects
@@ -1042,25 +1078,26 @@ discusses in depth how to figure out these statements for yourself.
 @cindex @code{\set}
 @cindex internal documentation
 
+We demonstrate how to glean this information from the notation manual
+and the program reference.
 
+The program reference is a set of HTML pages, which is part of the
+documentation package. On Unix systems, it is is typically in
+@file{/usr/share/doc/lilypond}, if you have them, it is best to
+bookmark them in your webbrowser, because you will need them.  They
+are also available on the web: go to the
+@uref{http://lilypond.org,LilyPond website}, click ``Documentation'',
+select the correct version, and then click ``Program reference.''
 
-Three pieces of information are required to use @code{\override} and
-@code{\set}: the name of the layout object, the context and the name
-of the property.  We demonstrate how to glean this information from
-the notation manual and the program reference.
-
-The generated documentation is a set of HTML pages which should be
-included if you installed a binary distribution, typically in
-@file{/usr/share/doc/lilypond}.  They are also available on the web:
-go to the @uref{http://lilypond.org,LilyPond website}, click
-``Documentation'', select the correct version, and then click
-``Program reference.'' It is advisable to bookmark the local HTML
-files. They will load faster than the ones on the web and matches the
-version of LilyPond you are using.
+If you have them, use the local HTML files.  They will load faster,
+and they are exactly matched to LilyPond version installed.
  
 
 
 @c  [TODO: revise for new site.]
+
+@node Navigating the program reference
+@subsection Navigating the program reference
 
 Suppose we want to move the fingering indication in the fragment
 below:
@@ -1077,47 +1114,173 @@ instructions}), you will notice that there is written:
 @quotation
 @seealso
 
-Internals: @internalsref{FingerEvent} and @internalsref{Fingering}.
+Program reference: @internalsref{FingerEvent} and @internalsref{Fingering}.
 
 @end quotation
 
-@separate
+This  fragments points to two parts of the program reference: a page
+on @code{FingerEvent} and @code{Fingering}.
+
+The page on  @code{FingerEvent} describes the properties of the  music
+expression for the input @code{-2}. The page contains many links
+forward.  For example, it says
+
+@quotation
+  Accepted by: @internalsref{Fingering_engraver},
+@end quotation 
 
 @noindent
-In other words, the fingerings once entered, are internally stored as
-@code{FingerEvent} music objects. When printed, a @code{Fingering}
-layout object is created for every @code{FingerEvent}.
+That link brings us to the documentation for the Engraver, the
+plug-in, which says
 
-The Fingering object has a number of different functions, and each of
-those is captured in an interface. The interfaces are listed under
-@internalsref{Fingering} in the program reference.
+@quotation
+  This engraver creates the following layout objects: @internalsref{Fingering}.
+@end quotation
+
+In other words, once the @code{FingerEvent}s are interpreted, the
+@code{Fingering_engraver} plug-in will process them.
+The @code{Fingering_engraver} is also listed to create
+@internalsref{Fingering} objects,
 
 
+  Lo and behold, that is also the
+second bit of information listed under @b{See also} in the Notation
+manual. By clicking around in the program reference, we can follow the
+flow of information within the program, either forward (like we did
+here), or backwards, following links like this:
 
-The @code{Fingering} object has a fixed size
-(@internalsref{item-interface}), the symbol is a piece of text
-(@internalsref{text-interface}), whose font can be set
-(@internalsref{font-interface}).  It is centered horizontally
-(@internalsref{self-alignment-interface}), it is placed vertically
-next to other objects (@internalsref{side-position-interface}), and
-its placement is coordinated with other scripts
-(@internalsref{text-script-interface}).  It also has the standard
-@internalsref{grob-interface} (grob stands for Graphical object)
+@itemize @bullet
+
+@item @internalsref{Fingering}:
+  @internalsref{Fingering} objects are created by:
+  @b{@internalsref{Fingering_engraver}}
+
+@item @internalsref{Fingering_engraver}:
+Music types accepted: @b{@internalsref{fingering-event}}
+@item @internalsref{fingering-event}:
+Music event type @code{fingering-event} is in Music objects of type
+@b{@internalsref{FingerEvent}}
+@end itemize
+
+This path goes against the flow of information in the program: it
+starts from the output, and ends at the input event.
+
+The program reference can also be browsed like a normal document.  It
+contains a chapter on @internalsref{Music definitions}, on
+@internalsref{Translation}, and the @internalsref{Backend}. Every
+ chapter lists all the definitions used, and all properties that may
+ be tuned. 
+
+ 
+@node Layout interfaces
+@subsection Layout interfaces
+
+@internalsref{Fingering} is a layout object. Such an object is a
+symbol within the score. It has properties, which store numbers (like
+thicknesses and directions), but also pointers to related objects.
+A layout object is also called @emph{grob},
 @cindex grob
-@cindex graphical object
-@cindex layout object
-@cindex object, layout 
-with all the variables that come with
-it.  Finally, it denotes a fingering instruction, so it has
-@internalsref{finger-interface}.
+which is short for Graphical Object.
 
-For the vertical placement, we have to look under
-@code{side-position-interface}:
+
+The page for @code{Fingering} lists the definitions for the
+@code{Fingering} object. For example, the page says
+
+@quotation
+  @code{padding} (dimension, in staff space):
+  
+  @code{0.6}
+@end quotation
+
+which means that the number will be kept at a distance of at least 0.6
+of the note head.
+
+
+Each layout object may have several functions as a notational or
+typographical element. For example, the Fingering object
+has the following aspects
+
+@itemize @bullet
+@item Its size is independent of the horizontal spacing, unlike slurs or beams
+
+@item It is a piece of text. Granted, it's usually  a very short text.
+
+@item That piece of text is set in a font, unlike slurs or beams.
+@item Horizontally, the center of the symbol should be aligned to the
+center of the notehead
+@item Vertically, the symbol is placed next to the note and the staff.
+
+@item The
+ vertical position is also coordinated with other super and subscript
+symbols
+@end itemize
+
+Each of these aspects is captured in a so-called @emph{interface},
+which are listed on the @internalsref{Fingering} page at the bottom
+
+@quotation
+This object supports the following interfaces:
+@internalsref{item-interface},
+@internalsref{self-alignment-interface},
+@internalsref{side-position-interface}, @internalsref{text-interface},
+@internalsref{text-script-interface}, @internalsref{font-interface},
+@internalsref{finger-interface} and @internalsref{grob-interface}
+@end quotation
+
+Clicking any of the links will take you to the page of the respective
+object interface.  Each interface has a number of properties.  Some of
+them are not user-serviceable (``Internal properties''), but others
+are.
+
+@node Determining the grob property
+@subsection Determining the grob property
+
+We have been talking of `the' @code{Fingering} object, but actually it
+does  not amount to much. The initialization file
+@file{scm/define-grobs.scm} shows the soul of the `object',
+
+@verbatim
+   (Fingering
+     . (
+	(print-function . ,Text_item::print)
+	(padding . 0.6)
+	(staff-padding . 0.6)
+	(self-alignment-X . 0)
+	(self-alignment-Y . 0)
+	(script-priority . 100)
+	(font-encoding . number)
+	(font-size . -5)
+	(meta . ((interfaces . (finger-interface font-interface
+               text-script-interface text-interface
+               side-position-interface self-alignment-interface
+               item-interface))))
+  ))
+@end verbatim
+
+as you can see, @code{Fingering} is nothing more than a bunch of
+variable settings, and the webpage is directly generated from this
+definition.
+
+@node  Determining a grob property
+@subsection Determining a grob property
+
+Recall that we wanted to change the position of the @b{2} in 
+
+@lilypond[relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+Since the @b{2} is vertically positioned next to its note, we have to
+meddle with the interface associated with this positioning. This is
+done by @code{side-position-interface}. The page for this interface says
+
 @quotation
 @code{side-position-interface}
 
   Position a victim object (this one) next to other objects (the
-  support).  In this case, the property @code{direction} signifies where to put the
+  support).  The property @code{direction} signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
 
@@ -1129,8 +1292,8 @@ below this description, the variable @code{padding} is described as
 @item padding
  (dimension, in staff space)
 
-   add this much extra space between objects that are next to each
-other. Default value: @code{0.6}
+ add this much extra space between objects that are next to each
+  other. 
 @end table
 @end quotation
 
@@ -1138,7 +1301,7 @@ By increasing the value of @code{padding}, we can move away the
 fingering.  The following command inserts 3 staff spaces of white
 between the note and the fingering:
 @example
-\once \override Fingering   #'padding = #3
+\once \override Fingering #'padding = #3
 @end example
 
 Inserting this command before the Fingering object is created,
@@ -1152,35 +1315,16 @@ c-2
 f
 @end lilypond
 
-The context name @code{Voice} in the example above can be determined
-as follows. In the documentation for @internalsref{Fingering}, it says
+
+In this case, the context for this tweak is @context{Voice}, which
+does not have to be specified for @code{\override}.  This fact can
+also be deduced from the program reference, for the page for the
+@internalsref{Fingering_engraver} plug-in says
+
 @quotation
-Fingering grobs are created by: @internalsref{Fingering_engraver} @c
+  Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
 @end quotation
 
-Clicking @code{Fingering_engraver} shows the documentation of
-the module responsible for interpreting the fingering instructions and
-translating them to a @code{Fingering} object.  Such a module is called
-an @emph{engraver}.  The documentation of the @code{Fingering_engraver}
-says
-@example
-Fingering_engraver is part of contexts: Voice 
-@end example
-so tuning the settings for Fingering should be done with
-@example
-  \override Fingering @dots{}
-@end example
-
-Of course, the tweak may also done in a larger context than
-@code{Voice}, for example, @internalsref{Staff} or
-@internalsref{Score}.
-
-@seealso
-
-Internals: the program reference also contains alphabetical lists of
-@internalsref{Contexts}, @internalsref{All-layout-objects} and
-@internalsref{Music-expressions}, so you can also find which objects
-to tweak by browsing the internals document.
 
 @node Fonts
 @section Fonts

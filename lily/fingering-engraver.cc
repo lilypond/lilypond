@@ -30,7 +30,8 @@ protected:
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 
-  void make_script (Direction, Music*,Axis, int);
+private:
+  void make_script (Direction, Music*, int);
 };
 
 bool
@@ -51,7 +52,7 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
     {
       for (int i=0; i < fingerings_.size (); i++)
 	{
-	  Side_position_interface::add_support (fingerings_[i],inf.grob_);
+	  Side_position_interface::add_support (fingerings_[i], inf.grob_);
 	}
     }
   else if (Rhythmic_head::has_interface (inf.grob_))
@@ -61,7 +62,7 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 	  Grob*t = fingerings_[i];
 	  Side_position_interface::add_support (t,inf.grob_);
 	  if (!t->get_parent (X_AXIS))
-		t->set_parent (inf.grob_, X_AXIS);
+	    t->set_parent (inf.grob_, X_AXIS);
 	}
     }
 }
@@ -72,23 +73,32 @@ Fingering_engraver::process_music ()
   for (int i= reqs_.size (); i--;)
     {
       SCM dir = reqs_[i]->get_property ("direction");
-      make_script (to_dir (dir), reqs_[i], Y_AXIS, i);
+      make_script (to_dir (dir), reqs_[i], i);
     }
 }
 
+
 void
-Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
+Fingering_engraver::make_script (Direction d, Music *r, int i)
 {
   Item *fingering = make_item ("Fingering");
-
+  Axis a = Y_AXIS;
   Axis other = other_axis (a);
 
+  /*
+    Huh, what's this for? --hwn.
+
+    junkme.
+   */
   SCM pitch = r->get_property ("pitch");
   if (unsmob_pitch (pitch))
     fingering->set_property ("pitch", pitch);
-  
+
+  /*
+    We can't fold these definitions into define-grobs since
+    fingerings for chords need different settings. 
+  */
   Side_position_interface::set_axis (fingering, a);
-      
   fingering->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, other);
   fingering->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, other);
 

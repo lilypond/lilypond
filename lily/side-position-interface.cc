@@ -265,7 +265,7 @@ Side_position_interface::get_axis (Grob*me)
 
 ADD_INTERFACE (Side_position_interface,"side-position-interface",
 	       "Position a victim object (this one) next to other objects (the "
-	       "support).  In this case, the property @code{direction} signifies where to put the  "
+	       "support).   The property @code{direction} signifies where to put the  "
 	       "victim object relative to the support (left or right, up or down?)\n\n "
 	       "The routine also takes the size the staff into account if "
 	       "@code{staff-padding} is set. If undefined, the staff symbol is ignored." 
