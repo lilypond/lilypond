@@ -8,7 +8,7 @@
 %}
 
 \paper{
-	#(define page-breaking ly:optimal-page-breaks)
+    #(define page-breaking ly:optimal-page-breaks)
 }
 
 latinTest = \markup { \latin-i "Hellö" }

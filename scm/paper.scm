@@ -38,7 +38,9 @@
     (module-define! old-mod '$defaultpaper new-paper)))
 
 (define paper-alist
-  '(("a4" . (cons (* 210 mm) (* 297.9 mm)))
+  '(("a6" . (cons (* 105 mm) (* 148.95 mm)))
+    ("a5" . (cons (* 148.95 mm) (* 210 mm)))
+    ("a4" . (cons (* 210 mm) (* 297.9 mm)))
     ("a3" . (cons (* 297.9 mm) (* 420 mm)))
     ("legal" . (cons (* 8.5 in) (* 14.0 in)))
     ("letter" . (cons (* 8.5 in) (* 11.0 in)))

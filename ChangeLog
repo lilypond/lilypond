@@ -1,3 +1,9 @@
+2004-03-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/page-layout.scm: Further development.
+
+	* ly/declarations-init.ly (paper): Define page-breaking.
+
 2004-03-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Creating contexts):
@@ -19,10 +25,6 @@
 
 	* lily/include/lily-guile.hh (ly_scheme_function): new macro. Use
 	throughout.
-
-2004-03-18  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* ly/declarations-init.ly (paper): Define page-breaking.
 
 2004-03-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
