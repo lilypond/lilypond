@@ -83,10 +83,7 @@ public:
   Byte const* byte_C() const;
   char* ch_l();
   Byte* byte_l();
-#if 0
-  /// deprecated; use ch_C()
-  operator char const*() const { return ch_C(); }
-#endif
+
   String &operator =(String const & source);
 
   /// concatenate s

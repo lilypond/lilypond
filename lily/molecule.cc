@@ -40,10 +40,10 @@ Molecule::translate (Offset o)
 }
 
 void
-Molecule::translate (Real x,Axis a)
+Molecule::translate_axis (Real x,Axis a)
 {
   for (iter_top (ats,c); c.ok(); c++)
-    c->translate (x,a);
+    c->translate_axis (x,a);
 }
 
 void
@@ -66,7 +66,7 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m)
     }
   Real offset = extent ()[a][d] - m.extent ()[a][-d];
   Molecule toadd (m);
-  toadd.translate (offset, a);
+  toadd.translate_axis (offset, a);
   add (toadd);
 }
 
