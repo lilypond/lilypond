@@ -294,23 +294,21 @@
 		     (cons (car extra-offset)
 			   (- 0 (cdr extra-offset))))))
     (if grob (hashq-set! (grob-tweaks go) grob
-			 (cons (+ (car origin) (car offset))
-			       (- 0 (+ (cdr origin) (cdr offset))))))
-    ;;;(move item (car offset) (cdr offset))))
-    ))
+			 (cons
+			  'extra-offset
+			  (list
+			   (cons (+ (car origin) (car offset))
+				 (- 0 (+ (cdr origin) (cdr offset))))))))))
 
+;; FIXME: this only saves new tweaks, old tweaks are lost.
 (define-method (save-tweaks (go <gnome-outputter>))
-  (let ;;((file (current-error-port)))
-      ((file (open-file (string-append (name go) ".ly.t") "w")))
-    (format file ";;; TWEAKS \n")
-    (format file ";;(define grob-id-tweak-alist \n'(\n")
-    (hash-fold
-     (lambda (key value seed)
-       (format file "(~S extra-offset ~S)\n"
-	       (if (ly:grob? key) (ly:grob-id key) ";;unidentified grob")
-	       value))
-     #f (grob-tweaks go))
-    (format file ")\n;;)\n")))
+  (let ((tweaks (hash-fold
+		 (lambda (key value seed)
+		   (cons (cons (ly:grob-id key) value) seed))
+		 '() (grob-tweaks go))))
+    (if (not (null? tweaks))
+	(let ((file (open-file (string-append (name go) ".twy") "w")))
+	  (format file ";;; TWEAKS \n'~S\n" tweaks)))))
 
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)
@@ -320,21 +318,19 @@
     ((enter-notify) (gobject-set-property item 'fill-color "red"))
     ((leave-notify) (gobject-set-property item 'fill-color "black"))
     ((motion-notify) (if (ly:grob? (dragging go))
-			 (let* ((x (gdk-event-motion:x event))
-				(y (gdk-event-motion:y event))
-				;;(s (pixels-per-unit go))
-				(s output-scale)
-				(r (drag-location go)))
+			 (let ((x (gdk-event-motion:x event))
+			       (y (gdk-event-motion:y event))
+			       (s output-scale)
+			       (r (drag-location go)))
 			   ;;(stderr "MOVED AT: ~S ~S\n" x y)
 			   (move item (/ (- x (car r)) s) (/ (- y (cdr r)) s))
 			   (set! (drag-location go) (cons x y)))))
     ((button-release) (if (ly:grob? (dragging go))
-			  (let* ((x (gdk-event-button:x event))
-				 (y (gdk-event-button:y event))
-				 ;;(s (pixels-per-unit go))
-				 (s output-scale)
-				 (o (drag-origin go))
-				 (r (drag-location go)))
+			  (let ((x (gdk-event-button:x event))
+				(y (gdk-event-button:y event))
+				(s output-scale)
+				(o (drag-origin go))
+				(r (drag-location go)))
 			    (move item (/ (- x (car r)) s) (/ (- y (cdr r)) s))
 			    (set! (drag-location go) #f)
 			    (set! (drag-origin go) #f)
@@ -374,7 +370,9 @@
 	    (debugf "GROB: ~S\n" grob)
 	    (debugf "PROPERTIES: ~S\n" properties)
 	    (debugf "BASIC PROPERTIES: ~S\n" basic-properties)
-	    
+
+	    ;; FIXME: dialog iso window?
+	    ;; http://www.gtk.org/tutorial/sec-textentries.html
 	    (let ((window (make <gtk-window>))
 		  (vbox (make <gtk-vbox>))
 		  (button (make <gtk-button> #:label "Ok")))
