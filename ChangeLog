@@ -1,5 +1,7 @@
 2004-03-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (do_file): reinstate --filter support.
+
 	* buildscripts/mf-to-table.py (base): use %d for TfmCheckSum
 
 	* stepmake/stepmake/generic-targets.make: rewrite hack so no

@@ -2022,7 +2022,7 @@ conversions.append (((2,1,31), conv,
 		     '''remove \\alias Timing'''))
 
 def conv (str):
-	str = re.sub (r"(\set)?\s+(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
+	str = re.sub (r"(\\set)\s+)?(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
 		      r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
 		      + "#(make-vector 3 '\g<list>)", str)
 		      
