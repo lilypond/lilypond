@@ -1,4 +1,14 @@
---- ../lilypond-1.4.4.stable.jcn1/CHANGES	Fri Jun 29 18:23:09 2001
+--- ../lilypond-1.4.4.stable.jcn2/CHANGES	Sun Jul  8 18:51:34 2001
+++ b/CHANGES	Fri Jul 13 11:24:19 2001
+@@ -1,5 +1,7 @@
+-1.4.4.stable.jcn2
+1.4.4.stable.jcn3
+ =================
+
+* Bugfix: text2html: escape entities inside <pre>.
+ 
+ * Now really included lexer-gcc-3.0.patch.
+ --- ../lilypond-1.4.4.stable.jcn1/CHANGES	Fri Jun 29 18:23:09 2001
 ++ b/CHANGES	Sun Jul  8 18:51:34 2001
 @@ -1,5 +1,7 @@
 -1.4.4.stable.jcn1
