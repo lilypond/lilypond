@@ -153,6 +153,9 @@
 		(if (<= dy 1) "-" "="))
 	  (func "h-line" dx))))))
 
+(define (roundfilledbox breapth width depth height)
+  (filledbox breapth width depth height))
+
 (define (font-load-command name-mag command)
   ;; (display "name-mag: ")
   ;; (write name-mag)

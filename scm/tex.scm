@@ -249,6 +249,9 @@
        "depth " (number->dim depth)
        "height " (number->dim height) " ")))
 
+(define (roundfilledbox x y width height blotdiam)
+  (embedded-ps (list 'roundfilledbox  x y width height blotdiam)))
+
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))
 

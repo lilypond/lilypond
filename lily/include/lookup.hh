@@ -21,14 +21,15 @@ struct Lookup
   static Molecule bracket (Axis a, Interval iv, Direction d, Real thick, Real protude);
   static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
   static Molecule frame (Box b, Real thick);
-  static Molecule slur (Bezier controls, Real cthick, Real thick) ;
-  static Molecule bezier_sandwich (Bezier, Bezier);
-  static Molecule horizontal_slope (Real, Real, Real);
-  static Molecule beam (Real, Real, Real) ;
-  static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
-  static Molecule blank (Box b) ;
-  static Molecule filledbox (Box b) ;
-  static Molecule repeat_slash( Real w, Real slope, Real th);
+  static Molecule slur (Bezier controls, Real cthick, Real thick);
+  static Molecule bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
+  static Molecule horizontal_slope (Real width, Real slope, Real height);
+  static Molecule beam (Real slope, Real width, Real thick);
+  static Molecule dashed_slur (Bezier, Real thick, Real dash);
+  static Molecule blank (Box b);
+  static Molecule filledbox (Box b);
+  static Molecule roundfilledbox (Box b, Real blotdiameter);
+  static Molecule repeat_slash (Real w, Real slope, Real th);
 };
 
 #endif // LOOKUP_HH

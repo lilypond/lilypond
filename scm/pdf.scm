@@ -137,6 +137,31 @@
 		   (ly-number->string (+ depth height))
 		   " re f "))
 
+;; TODO:
+;;
+;;(define (dot x y diam)
+;;  (let (radius (/ diam 2))
+;;    (string-append (ly-number->string (x))
+;;		     (ly-number->string (y))
+;;		     (ly-number->string (radius))
+;;		     " ??? "))) ;; how to draw a circle in PDF?
+;;
+;;(define (roundfilledbox x width y height blotdiam)
+;;  (string-append " "
+;;    (dot x y blotdiam)
+;;    (dot (+ x width) y blotdiam)
+;;    (dot (+ x width) (+ y height) blotdiam)
+;;    (dot x (+ y height) blotdiam)
+;;    (filledbox (+ x (/ blotdiam 2)) (+ width (/ blotdiam 2)) y height)
+;;    (filledbox x width (+ y (/ blotdiam 2)) (+ height (/ blotdiam 2)))))
+;;
+;;
+;; WORKAROUND:
+;;
+  (define (roundfilledbox breadth width depth height) 
+    (filledbox breadth width depth height))
+;;
+
   (define (font-def i s) "")
 
   (define (font-switch i) "")
@@ -238,6 +263,7 @@
 	    (define end-output ,end-output)
 	    (define experimental-on ,experimental-on)
 	    (define filledbox ,filledbox)
+	    (define roundfilledbox ,roundfilledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define header-end ,header-end)
@@ -269,6 +295,7 @@
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'ez-ball) ez-ball)	
 	((eq? action-name 'filledbox) filledbox)
+	((eq? action-name 'roundfilledbox) roundfilledbox)
 	((eq? action-name 'repeat-slash) repeat-slash)
 	((eq? action-name 'select-font) select-font)
 	((eq? action-name 'volta) volta)

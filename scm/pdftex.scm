@@ -158,6 +158,9 @@
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
 
+  (define (roundfilledbox x width y height blotdiam)
+    (embedded-pdf ((pdf-scm 'roundfilledbox) x width y height blotdiam)))
+
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))
   

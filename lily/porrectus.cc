@@ -20,6 +20,7 @@
 #include "bezier.hh"
 #include "font-interface.hh"
 #include "paper-def.hh"
+#include "note-head.hh"
 #include "math.h" // rint
 
 void
@@ -82,75 +83,6 @@ Porrectus::get_right_head (Grob *me)
     }
 }
 
-// Uugh.  The following two functions are almost duplicated code from
-// custos.cc, which itself is similar to code in note-head.cc.  Maybe
-// this should be moved to staff-symbol-referencer.cc?
-Molecule
-Porrectus::create_ledger_line (Interval x_extent, Grob *me) 
-{
-  Molecule line;
-  Molecule slice = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
-  Interval slice_x_extent = slice.extent (X_AXIS);
-  Interval slice_y_extent = slice.extent (Y_AXIS);
-
-  // Create left ending of ledger line.
-  Molecule left_ending = slice;
-  left_ending.translate_axis (x_extent[LEFT] - slice_x_extent[LEFT], X_AXIS);
-  if (x_extent.length () > slice_x_extent.length ())
-    line.add_molecule (left_ending);
-
-  // Create right ending of ledger line.
-  Molecule right_ending = slice;
-  right_ending.translate_axis (x_extent[RIGHT] - slice_x_extent[RIGHT],
-			       X_AXIS);
-  line.add_molecule (right_ending);
-
-  // Fill out space between left and right ending of ledger line by
-  // lining up a series of slices in a row between them.
-  Molecule fill_out_slice = left_ending;
-  Real thick = slice_y_extent.length ();
-  Real delta_x = slice_x_extent.length () - thick;
-  Real xpos = x_extent [LEFT] + 2*delta_x + thick/2; // TODO: check: thick*2?
-  while (xpos <= x_extent[RIGHT])
-    {
-      fill_out_slice.translate_axis (delta_x, X_AXIS);
-      line.add_molecule (fill_out_slice);
-      xpos += delta_x;
-    }
-
-  return line;
-}
-
-Molecule
-Porrectus::create_streepjes (Grob *me,
-			     int pos,
-			     int interspaces,
-			     Interval extent)
-{
-  Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
-  int streepjes_i = abs (pos) < interspaces
-    ? 0
-    : (abs (pos) - interspaces) /2;
-  Molecule molecule = Molecule();
-  if (streepjes_i) 
-    {
-      Direction dir = (Direction)sign (pos);
-      Molecule ledger_line (create_ledger_line (extent, me));
-      ledger_line.set_empty (true);
-      Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
-	? 0.0
-	: -dir * inter_f;
-      for (int i = 0; i < streepjes_i; i++)
-	{
-	  Molecule streep (ledger_line);
-	  streep.translate_axis (-dir * inter_f * i * 2 + offs,
-				 Y_AXIS);
-	  molecule.add_molecule (streep);
-	}
-    }
-  return molecule;
-}
-
 MAKE_SCHEME_CALLBACK (Porrectus,brew_molecule,1);
 SCM 
 Porrectus::brew_molecule (SCM smob)
@@ -179,18 +111,15 @@ Porrectus::brew_molecule (SCM smob)
   bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
 
   /*
-
-  TODO:
-
-  ugr. why not  called direction?
-    
+   * This property is called stem-direction (rather than direction)
+   * since it only refers to this grob's stem (or, more precisely, its
+   * "cauda"), but not the grob as a whole.
    */
   SCM stem_direction_scm = me->get_grob_property ("direction");
   Direction stem_direction =
     gh_number_p (stem_direction_scm) ? to_dir (stem_direction_scm) : DOWN;
   if (!stem_direction)
     stem_direction = DOWN;
-
 
   /*
     TODO: revise name.
@@ -285,15 +214,25 @@ Porrectus::brew_molecule (SCM smob)
 
   molecule.translate_axis (left_position_f * space/2, Y_AXIS);
 
-  Molecule left_head_streepjes =
-    create_streepjes (me, (int)rint (left_position_f), interspaces, extent);
-  left_head_streepjes.translate_axis (left_position_f * space/2, Y_AXIS);
-  molecule.add_molecule (left_head_streepjes);
+  int left_pos = (int)rint (left_position_f);
+  if (abs (left_pos) - interspaces > 1)
+    {
+      Molecule left_head_ledger_lines =
+	Note_head::brew_ledger_lines (me, left_pos, interspaces, extent, true);
+      left_head_ledger_lines.translate_axis (left_position_f * space/2,
+					     Y_AXIS);
+      molecule.add_molecule (left_head_ledger_lines);
+    }
 
-  Molecule right_head_streepjes =
-    create_streepjes (me, (int)rint (right_position_f), interspaces, extent);
-  right_head_streepjes.translate_axis (right_position_f * space/2, Y_AXIS);
-  molecule.add_molecule (right_head_streepjes);
+  int right_pos = (int)rint (right_position_f);
+  if (abs (right_pos) - interspaces > 1)
+    {
+      Molecule right_head_ledger_lines =
+	Note_head::brew_ledger_lines (me, right_pos, interspaces, extent, true);
+      right_head_ledger_lines.translate_axis (right_position_f * space/2,
+					      Y_AXIS);
+      molecule.add_molecule (right_head_ledger_lines);
+    }
 
   return molecule.smobbed_copy();
 }
@@ -496,4 +435,3 @@ Porrectus::brew_mensural_molecule (Item *me,
 ADD_INTERFACE (Porrectus,"porrectus-interface",
   "A porrectus ligature, joining two note heads into a single grob.",
   "left-head right-head width add-stem auto-properties solid direction");
-

@@ -45,7 +45,6 @@ Lookup::beam (Real slope, Real width, Real thick)
   return Molecule (b, at);
 }
 
-
 Molecule
 Lookup::dashed_slur (Bezier b, Real thick, Real dash)
 {
@@ -72,7 +71,6 @@ Lookup::blank (Box b)
   return Molecule (b, SCM_EOL);
 }
 
-
 Molecule
 Lookup::filledbox (Box b) 
 {
@@ -86,6 +84,46 @@ Lookup::filledbox (Box b)
   return Molecule (b,at);
 }
 
+/*
+ * round filled box:
+ *
+ *   __________________________
+ *  /     \  ^           /     \
+ * |         |blot              |
+ * |   +   | |dia       |   +---|------
+ * |         |meter             |     ^
+ * |\ _ _ /  v           \ _ _ /|     |
+ * |                            |     |
+ * |                            |     | Box
+ * |                    <------>|     | extent
+ * |                      blot  |     | (Y_AXIS)
+ * |                    diameter|     |
+ * |                            |     |
+ * |  _ _                  _ _  |     |
+ * |/     \              /     \|     |
+ * | (0,0)                      |     v
+ * |   x   |            |   +---|------
+ * |   |                    |   |
+ *  \__|__/______________\__|__/
+ *     |                    |
+ *     |                    |
+ *     |                    |
+ *     |<------------------>|
+ *       Box extent(X_AXIS)
+ */
+Molecule
+Lookup::roundfilledbox (Box b, Real blotdiameter)
+{
+  SCM at = (scm_list_n (ly_symbol2scm ("roundfilledbox"),
+			gh_double2scm (-b[X_AXIS][LEFT]),
+			gh_double2scm (b[X_AXIS][RIGHT]),
+			gh_double2scm (-b[Y_AXIS][DOWN]),
+			gh_double2scm (b[Y_AXIS][UP]),
+			gh_double2scm (blotdiameter),
+			SCM_UNDEFINED));
+
+  return Molecule (b,at);
+}
 
 Molecule
 Lookup::frame (Box b, Real thick)
@@ -111,7 +149,6 @@ Lookup::frame (Box b, Real thick)
   return m;
   
 }
-
 
 /*
   Make a smooth curve along the points 
@@ -459,8 +496,6 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 
   return Molecule (b, slashnodot); //  http://slashnodot.org
 }
-
-
 
 Molecule
 Lookup::bracket (Axis a, Interval iv, Direction d, Real thick, Real protude)
