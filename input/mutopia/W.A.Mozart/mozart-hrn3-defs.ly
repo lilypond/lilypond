@@ -10,6 +10,8 @@ ritenuto = \textscript #'(italic  "rit.")
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 
+%{
+ 
 %% burp
 %% the very idea of a style sheet, is that it's easy to override
 %#(define (set-style! sheet name style)
@@ -29,7 +31,7 @@ ritenuto = \textscript #'(italic  "rit.")
                                         (font-shape . upright)
                                         (font-relative-size . 3)))
   
-  
+%}  
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -55,7 +57,7 @@ stopGraceMusic= \sequential {
 }
 
 \paper{
-    #(define fonts my-sheet)
+%    #(define fonts my-sheet)
     \translator {
         \ScoreContext
         skipBars = ##t
@@ -63,7 +65,7 @@ stopGraceMusic= \sequential {
         %% try to mimic Breitkopf
         RehearsalMark \override #'padding = #1
         MultiMeasureRest \override #'padding = #0.5
-        MultiMeasureRest \override #'number-threshold = #1
+        restNumberThreshold = #1
         
         Beam \override #'thickness = #0.6
         Beam \override #'space-function = #(lambda (beam mult) 0.8)
