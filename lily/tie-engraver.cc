@@ -89,9 +89,15 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       for  (int i = heads_to_tie_.size (); i--;)
 	{
 	  Grob *th =  heads_to_tie_[i];
-	  int staff_pos = gh_scm2int (h->get_grob_property ("staff-position"));
-	  int left_staff_pos = gh_scm2int (th->get_grob_property ("staff-position"));
-	  if (staff_pos == left_staff_pos)
+	  Music * right_mus = unsmob_music (h->get_grob_property ("cause"));
+	  Music * left_mus = unsmob_music (th->get_grob_property ("cause"));
+
+	  /*
+	    maybe should check positions too.
+          */
+	  if (right_mus && left_mus
+	      && gh_equal_p (right_mus->get_mus_property ("pitch"),
+                            left_mus->get_mus_property ("pitch")))
 	    {
 	      Grob * p = new Spanner (get_property ("Tie"));
 	      Tie::set_interface (p); // cannot remove yet!

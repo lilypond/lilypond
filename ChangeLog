@@ -1,3 +1,14 @@
+2004-01-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): release 2.0.2
+	
+	* lily/mark-engraver.cc (process_music): backport of mark \default
+	fix.
+
+	* lily/tie-engraver.cc (acknowledge_grob): backport tie/accidental
+	bugfix: make ties only for note heads with the same pitch.
+	
+
 2003-12-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/README.in (Suggested): Add gv, remove native windows

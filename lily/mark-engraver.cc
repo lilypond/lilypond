@@ -86,10 +86,7 @@ Mark_engraver::create_items (Music *rq)
   if (text_)
     return;
 
-  SCM s = get_property ("RehearsalMark");
-  text_ = new Item (s);
-
-
+  text_ = new Item (get_property ("RehearsalMark"));
   announce_grob(text_, rq->self_scm());
 }
 
@@ -121,8 +118,6 @@ Mark_engraver::process_music ()
     {
       create_items (mark_req_);
 
-      String t;
-
       /*
 	automatic marks.
        */
@@ -134,6 +129,8 @@ Mark_engraver::process_music ()
 	}
       else 
 	{
+	  String t ;
+	  
 	  if (!gh_string_p (m) && !gh_number_p (m)) 
 	    m =  get_property ("rehearsalMark");
 	  
@@ -152,19 +149,18 @@ Mark_engraver::process_music ()
 		{
 		  char c = t[0];
 		  c++;
-		  next = to_string (c);
+		  t = to_string (c);
 		}
-	      m = scm_makfrom0str (next.to_str0 ());
+	      m = scm_makfrom0str (t.to_str0 ());
 	    }
 	  else
 	    {
 	      m = gh_int2scm (1);
+	      t = to_string (1);
 	    }
 	  
-	  daddy_trans_->set_property ("rehearsalMark", m);
-	  
 	  text_->set_grob_property ("text",
-				      scm_makfrom0str (t.to_str0 ()));
+				    scm_makfrom0str (t.to_str0 ()));
 
 	  SCM series = SCM_EOL;
 	  SCM family = ly_symbol2scm ("number");
@@ -172,7 +168,13 @@ Mark_engraver::process_music ()
 	    {
 	      if (!isdigit (t[i])) 
 		{
-		  series = ly_symbol2scm ("bold");
+		  /*
+		    This looks strange, since \mark "A"
+		    isn't printed in bold.
+		    
+		   */
+		  
+		  // series = ly_symbol2scm ("bold");
 		  family = ly_symbol2scm ("roman");
 		  break;
 		}
@@ -182,6 +184,8 @@ Mark_engraver::process_music ()
 	  if (gh_symbol_p (family))
 	    text_->set_grob_property ("font-family",  family);
 	}
+
+      daddy_trans_->set_property ("rehearsalMark", m);
     }
 }
 
