@@ -1,3 +1,21 @@
+1.3.119
+=======
+
+* Added some feature examples.
+
+* Bugfix for \partial and auto-beamer.
+
+* Bugfixes: warnings.
+
+* More feature examples.
+ 
+* Renamed some scm files.
+
+* Some more documentation fixes (move hacking.texi into normal
+documentation.)
+
+* Bugfix: header protection in parser.yy
+
 1.3.117.mb1
 ===========
 

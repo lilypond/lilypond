@@ -19,16 +19,20 @@ TODO
 * Slur attachments::               Slur attachments
 * Text spanner::                   Text spanner
 * Engraver hacking::               Engraver hacking
+* Part combiner::                  Part combiner
 * Markup text::                    Markup text
+* Apply hacking::                  Apply hacking
 * Output property::                Output property
 * Embedded TeX::                   Embedded TeX
 * Embedded PostScript::            Embedded PostScript
 @end menu
 
+@ignore
 Testin'' a b c...
 @lilypond[fragment,relative,verbatim,center]
   a'' b c
 @end lilypond
+@end ignore
 
 @node Arpeggio
 @section Arpeggio
@@ -67,8 +71,6 @@ Testin'' a b c...
   >  
 @end lilypond
 
-@c part combiner
-
 @node Manual beam settings
 @section Manual beam settings
 
@@ -92,54 +94,186 @@ Control number of beams...
 @end lilypond
 
 @lilypond[fragment,relative,verbatim,center]
-    f'32 g a b b a g f
-    
-    \property Voice.autoBeamSettings
-      \set #'(end * * * *) = #(make-moment 1 4)
-    f32 g a b b a g f
-    
-    f32 g a
-    \property Voice.stemRightBeamCount = #1 b
-    \property Voice.stemLeftBeamCount = #1 b
-    a g f
+  f'32 g a b b a g f
+
+  \property Voice.autoBeamSettings
+    \set #'(end * * * *) = #(make-moment 1 4)
+  f32 g a b b a g f
+
+  f32 g a
+  \property Voice.stemRightBeamCount = #1 b
+  \property Voice.stemLeftBeamCount = #1 b
+  a g f
 @end lilypond
 
 Don't extend to middle line esp. for grace
 
 @lilypond[fragment,relative,verbatim,center]
-    \grace a'8 a4
-    \property Voice.Stem \set #'no-stem-extend = ##t
-    \grace g8 g4
+  \grace a'8 a4
+  \property Voice.Stem \set #'no-stem-extend = ##t
+  \grace g8 g4
 @end lilypond
   
-@c  beam slope
-@c beam start beam end
+Beam slope (height)
+
+Horizontal beam
+
+@lilypond[fragment,relative,verbatim,center]
+  \property Voice.Beam \set #'direction = #1
+  \property Voice.Beam \set #'height-hs = #0
+  [a''8 e' d c]
+@end lilypond
+
+beam start-y beam-height
+
+Weird beam
+@lilypond[fragment,relative,verbatim,center]
+  \property Voice.Beam \set #'y-position-hs = #4
+  \property Voice.Beam \set #'height-hs = #-4
+  [c'8 c] 
+@end lilypond
+
+
+Like stem...
+
+@lilypond[fragment,relative,verbatim,center]
+  [b''8 b]
+  \property Voice.Beam \set #'default-neutral-direction = #-1
+  [b b]
+@end lilypond
+
+There are several ways to calculate the direction of a beam.
+
+[Ross] states that the majority of the notes dictates the
+direction (and not the mean of "center distance")
+
+But is that because it really looks better, or because he wants
+to provide some real simple hands-on rules?
+     
+We have our doubts, so we simply provide all sensible alternatives:
+
+@table @samp
+@item majority
+number count of up or down notes
+@item mean
+mean centre distance of all notes
+@item median
+mean centre distance weighted per note
+@end table
+
+You can spot the difference of these settings quite easily from these simple examples:
+
+@lilypond[fragment,relative,verbatim,center]
+  [d''8 a]
+  \property Voice.Beam \set #'dir-function = #beam-dir-mean
+  [d a] 
+  \property Voice.Beam \set #'dir-function = #beam-dir-median
+  [d a]
+@end lilypond
+    
+@lilypond[fragment,relative,verbatim,center]
+  \time 3/8;
+  [d''8 a a]
+  \property Voice.Beam \set #'dir-function = #beam-dir-mean
+  [d a a] 
+  \property Voice.Beam \set #'dir-function = #beam-dir-median
+  [d a a] 
+@end lilypond
 
 
 @node Slur attachments
 @section Slur attachments
 
-BUG Override attachments...
+Override attachments...
 @lilypond[fragment,relative,verbatim,center]
-    \property Voice.Slur \set #'direction = #1
-    \property Voice.Stem \set #'length = #5.5
-    g''8(g)g4
-    g4(g8)g
-    \property Voice.Slur \set #'attachment = #'(stem . stem)
-    g8(g)g4
-    g4(g8)g
+  \property Voice.Slur \set #'direction = #1
+  \property Voice.Stem \set #'length = #5.5
+  g''8(g)g4
+  g4(g8)g
+  \property Voice.Slur \set #'attachment = #'(stem . stem)
+  g8(g)g4
+  g4(g8)g
 @end lilypond
 
+
+Test Before, after
+
+@c Ugh, ugh @multitable is broken in texinfo-4.0
+@c Fixed in 4.0.jcn3
+@c We'll have to postpone this before/after representation until
+@c jcn3 is rolled into texinfo...
+
+@multitable @columnfractions .40 .40
+@item
+@noindent
+@lilypond[fragment,relative,verbatim,center]
+\property Voice.Slur
+  \set #'direction = #1
+g''8(g)g4
+g4(g8)g
+@end lilypond
+@tab
+@lilypond[fragment,relative,verbatim,center]
+\property Voice.Slur
+  \set #'direction = #1
+\property Voice.Stem
+  \set #'length = #5.5
+\property Voice.Slur
+  \set #'attachment = #'(stem . stem)
+g''8(g)g4
+g4(g8)g
+@end lilypond
+@end multitable
+
+        
 Ophee slurs...
 @lilypond[fragment,relative,verbatim,center]
-    \property Voice.Slur \set #'direction = #1
-    \property Voice.Slur \set #'attachment = #'(head . head)
-    g''16()g()g()g()d'()d()d()d
+  \property Voice.Slur \set #'direction = #1
+  \property Voice.Slur \set #'attachment = #'(head . head)
+  g''16()g()g()g()d'()d()d()d
 @end lilypond
 
 
-@c steep slur correct
-@c  high slurs, eg from gnossienes
+Steep slur correct...
+@lilypond[fragment,relative,verbatim,center]
+  \property Voice.Stem \set #'direction = #1
+  \property Voice.Slur \set #'direction = #1
+  d'32( d'4 )d8..
+  \property Voice.Slur \set #'attachment = #'(stem . stem)
+  d,32( d'4 )d8..
+@end lilypond
+
+Ugly slurs...
+@lilypond[verbatim,center]
+\score {
+  \notes \context PianoStaff <
+    \time 6/4;
+    \context Staff=up { s1 * 6/4 }
+    \context Staff=down <
+      \clef bass;
+      \autochange Staff \context Voice
+        \notes \relative c {
+          d,8( a' d f a d f d a f d )a
+        }
+    >
+  >
+  \paper {
+    linewidth = -1.;
+    \translator {
+      \VoiceContext
+      Slur \override #'beautiful = #5.0
+      Slur \override #'direction = #1
+      Stem \override #'direction = #-1
+      autoBeamSettings \override #'(end * * * *)
+        = #(make-moment 1 2)
+    }
+    \translator {
+      \PianoStaffContext
+      VerticalAlignment \override #'threshold = #'(5 . 5)
+    }
+  }
+}
+@end lilypond
 
 
 @node Text spanner
@@ -157,13 +291,14 @@ Have crescendo set a text spanner iso hairpin
 @subsection Ottava
 
 @lilypond[fragment,relative,verbatim,center]
-    a'''' b c a
-    \property Voice.TextSpanner \set #'type = #'dotted-line
-    \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
-    \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
-    \property Staff.centralCPosition = #-13
-    a\spanrequest \start "text" b c a \spanrequest \stop "text"
+  a'''' b c a
+  \property Voice.TextSpanner \set #'type = #'dotted-line
+  \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
+  \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
+  \property Staff.centralCPosition = #-13
+  a\spanrequest \start "text" b c a \spanrequest \stop "text"
 @end lilypond
+
 
 
 @node Engraver hacking
@@ -177,11 +312,11 @@ No time signature, no barlines...
     d c b a
   }
   \paper {
+    linewidth = -1.;
     \translator {
       \StaffContext
       whichBar = #""
       \remove "Time_signature_engraver";
-      linewidth = -1.;
     }
   }
 }
@@ -192,22 +327,56 @@ No staff, no clef, squash pitches
 \score {
   \notes { c4 c4 c8 c8 }
   \paper {
+    linewidth = -1.;
     \translator {
       \StaffContext
       \remove Staff_symbol_engraver;
       \consists Pitch_squash_engraver;
       \remove Clef_engraver;
     }
-    linewidth = -1.;
   }
 }
 @end lilypond
 
 
+@node Part combiner
+@section Part combiner
+
+@lilypond[verbatim,center]
+\score{
+  \context Staff = flauti <
+    \time 4/4;
+    \context Voice=one \partcombine Voice
+    \context Thread=one \notes\relative c'' {
+      c4 d e f | b,4 d c d | r2 e4 f | c4 d e f |
+      c4 r e f | c4 r e f | c4 r a r | a a r a |
+      a2 \property Voice.soloADue = ##f a |
+    }
+    \context Thread=two \notes\relative c'' {
+      g4 b d f | r2 c4 d | a c c d | a4. b8 c4 d
+      c r e r | r2 s2 | a,4 r a r | a r r a |
+      a2 \property Voice.soloADue = ##f a |
+    }
+  >
+  \paper{
+    linewidth = 80 * \staffspace;
+    \translator{
+      \ThreadContext
+      \consists Rest_engraver;
+    }
+    \translator{
+      \VoiceContext
+      \remove Rest_engraver;
+    }
+  }
+}
+@end lilypond
+
+
+
+
 @node Markup text
 @section Markup text
-
-@c markup text hacking
 
 Metrome hack...
 
@@ -256,12 +425,136 @@ Don't move the finger 2, only text "m.d." ...
 }
 @end lilypond
 
-  
-@c subsection no clefs
+
 @c  equalizer
 
 
-@c Embedded TeX
+@node Apply hacking
+@section Apply hacking
+
+@lilypond[verbatim,center]
+music = \notes { c'4 d'4( e'4 f'4 }
+
+#(define (reverse-music music)
+  (let* ((elements (ly-get-mus-property music 'elements))
+	 (reversed (reverse elements))
+	 (span-dir (ly-get-mus-property music 'span-direction)))
+    
+    (ly-set-mus-property music 'elements reversed)
+    
+    (if (dir? span-dir)
+	(ly-set-mus-property music 'span-direction (- span-dir)))
+    
+    (map reverse-music reversed)
+    
+    music))
+
+\score {
+  \context Voice {
+    \music
+    \apply #reverse-music \music
+  }
+  \paper { linewidth = -1.; }
+}
+@end lilypond
+
+
+LilyPond is more flexible than some users realise.  Han-Wen could be
+very rich.
+
+Just too funny not to include.
+
+@example
+@quotation
+    I've just entered a request on cosource.com :
+@quotation
+        http://www.cosource.com/cgi-bin/cos.pl/wish/info/387
+@end quotation
+    Here's a copy of my feature request :
+@quotation
+        Your task, if you accept it is to implement a \smarttranspose
+        command> that would translate such oddities into more natural
+        notations. Double accidentals should be removed, as well as #E
+        (-> F), bC (-> B), bF (-> E), #B (-> C).
+@end quotation
+@end quotation
+You mean like this. (Sorry 'bout the nuked indentation.)
+
+Add IMPLEMENT_TYPE_P(Music, "music?"); to music.cc, and presto, done.
+
+That's an easy $ 100; if I'd make $ 200/hour for every hour I worked
+on Lily, I'd be very rich :)
+@end example
+
+
+@lilypond[verbatim,center]
+#(define  (unhair-pitch p)
+  (let* ((o (pitch-octave p))
+         (a (pitch-alteration p))
+	 (n (pitch-notename p)))
+
+    (cond
+     ((and (> a 0) (or (eq? n 6) (eq? n 2)))
+      (set! a (- a 1)) (set! n (+ n 1)))
+     ((and (< a 0) (or (eq? n 0) (eq? n 3)))
+      (set! a (+ a 1)) (set! n (- n 1))))
+    
+    (cond
+     ((eq? a 2)  (set! a 0) (set! n (+ n 1)))
+     ((eq? a -2) (set! a 0) (set! n (- n 1))))
+
+    (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))
+    (if (> n 7) (begin (set!  o (+ o 1)) (set! n (- n 7))))
+    
+    (make-pitch o n a)))
+
+#(define (smart-transpose music pitch)
+  (let* ((es (ly-get-mus-property music 'elements))
+	 (e (ly-get-mus-property music 'element))
+	 (p (ly-get-mus-property music 'pitch))
+	 (body (ly-get-mus-property music 'body))
+	 (alts (ly-get-mus-property music 'alternatives)))
+
+    (if (pair? es)
+	(ly-set-mus-property
+	 music 'elements
+	 (map (lambda (x) (smart-transpose x pitch)) es)))
+    
+    (if (music? alts)
+	(ly-set-mus-property
+	 music 'alternatives
+	 (smart-transpose alts pitch)))
+    
+    (if (music? body)
+	(ly-set-mus-property
+	 music 'body
+	 (smart-transpose body pitch)))
+
+    (if (music? e)
+	(ly-set-mus-property
+	 music 'element
+	 (smart-transpose e pitch)))
+    
+    (if (pitch? p)
+	(begin
+	  (set! p (unhair-pitch (Pitch::transpose p pitch)))
+	  (ly-set-mus-property music 'pitch p)))
+    
+    music))
+
+    
+music = \notes \relative c' { c4 d  e f g a b  c }
+
+\score {
+  \notes \context Staff {
+    \transpose ais' \music
+    \apply #(lambda (x) (smart-transpose x (make-pitch 0 5 1)))
+      \music
+  }
+  \paper { linewidth = -1.; }
+}
+@end lilypond
+
 
 @node Embedded TeX
 @section Embedded TeX
@@ -273,6 +566,9 @@ Don't move the finger 2, only text "m.d." ...
 @section Embedded PostScript
 
 Arbitrary lines and curves not supported...
+
+[TODO:] Make a direct postscript command?
+
 @lilypond[verbatim,center]
 \score {
   \notes \relative c'' {
@@ -282,9 +578,7 @@ Arbitrary lines and curves not supported...
     s2
     a'1
   }
-  \paper {
-    linewidth = 70.0*\staffspace;
-  }
+  \paper { linewidth = 70 * \staffspace; }
 }
 @end lilypond
 

@@ -9,21 +9,20 @@ property @code{followThread}.
 \score{
     \context PianoStaff <
         \context Staff=one \notes\relative c''{
-	    \context Thread
-%{	    
+	    \context Thread	    
             d,
 	    \translator Staff=two
 	    c
-
+%{
 	    b
 	    \translator Staff=one
 	    a'
-%}
+
 	    [c,8
 	    \translator Staff=two
 	    c]
 	    s2.
-
+%}
 	}
 	\context Staff=two { \clef bass; \skip 1*2; }
     >
