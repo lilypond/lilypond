@@ -1936,10 +1936,6 @@ how much space can be spent on a page, the latter creates the actual
 page given the system to put on it.
 
 
-@seealso
-
-Examples: @inputfileref{input/@/test,page@/-breaks@/.ly}
-
 @refbugs
 
 The option rightmargin is defined but doesn't set the right margin

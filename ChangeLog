@@ -2,7 +2,9 @@
 
 	* input/test/unfold-all-repeats.ly: added file back.
 
-	* Documentation/user/notation.itely: fixed misc broken
+	* Documentation/user/notation.itely,
+	Documentation/user/programming-interface.itely
+	Documentation/user/changing-defaults.itely: fixed misc broken
 	links to input/test/ files.
 
 2004-12-22  Jan Nieuwenhuizen  <janneke@gnu.org>
