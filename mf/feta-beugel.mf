@@ -1,31 +1,38 @@
+input feta-autometric;
 input feta-macros;
 input feta-params;
 
+fet_beginfont("feta-braces", 16);
+mode_setup;
+
+staffsize#:=16pt#;
+
 save code;
-code :=0;
+code := 0;
 
 
-def draw_brace( expr height_sharp, width_sharp) = 
-	save pendir, height, width, thin, thick;
+def draw_brace (expr height_sharp, width_sharp, slt_sharp) = 
+	save pendir, height, width, thin, thick, slt;
 	save penangle;
 	height# := height_sharp;
-	width#  := width_sharp;
+	width# := width_sharp;
+	slt# := slt_sharp;
 
 	beginchar(code, width#, height#/2, height#/2);
 	code := incr code;
 	  
-	define_pixels (height, width);
-	thin = 2 stafflinethickness;
+	define_pixels (height, width, slt);
+	thin = 2 slt;
 	thick = .5 width;
 	
 	z2 = .5 [z1, z3];
-	y3 = y1 + height/2;
+	y3l = y1 + height/2;
 	x3 = x1 + width;
 	y1 =0;
 	x3 = - width / 2;
 
 	pair pendir;
-	pendir = unitvector(x3 - x1, y3/6 - y1);
+	pendir = unitvector(x3 - x1, y3l/6 - y1);
 	penangle = angle pendir - 90;
 	penpos3(thin, penangle);
 	penpos2(thick, angle(z3 -z1) -90 );
@@ -39,10 +46,24 @@ def draw_brace( expr height_sharp, width_sharp) =
 endchar;
 enddef;
 
-for i := font_count * 256 step 1 until (font_count + 1) * 256 - 1:
-  % note: define_pixels (x) multiplies x by hppp,
-  %       we must never get bigger than infinity
-  y := min ((i + 1) * 0.25pt#, infinity/hppp - 1);
-  x := y / 12;
-  draw_brace (y, x);
+l := 0.05pt#;
+y := 10pt#;
+
+for i := 0 step 1 until font_count:
+  for j := 0 step 1 until 255:
+    % message "l: "&decimal l;
+    % note: define_pixels (x) multiplies x by hppp,
+    % must never get bigger than infinity
+    y := min (y + l / 2, infinity/hppp - 1);
+    % x should be about one staff space, taking brace to have
+    % default height of 3 staffs, this yields height / 3 / 4
+    x := y / 12;
+    % l should be about one stafflinethickness
+    l := x / 10;
+    if i = font_count:
+      draw_brace (y, x, l);
+    fi
+  endfor;
 endfor
+  
+fet_endfont("feta-braces");

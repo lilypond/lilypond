@@ -102,13 +102,16 @@
     ((-2 medium caps roman cmcsc 7) . "cmcsc7")
     ((-3 medium caps roman cmcsc 7) . "cmcsc7")
 
-    ;; smallest needs 8 steps: -3 to +5, so
-    ;; biggest also needs 8 available steps: +2 to + 10
-    ((10 * * braces feta-braces 3) . "feta-braces3")
-    ((9 * * braces feta-braces 3) . "feta-braces3")
-    ((8 * * braces feta-braces 3) . "feta-braces3")
-    ((7 * * braces feta-braces 3) . "feta-braces3")
-    ((6 * * braces feta-braces 3) . "feta-braces3")
+    ;; smallest needs 11 steps: -3 to +8, so
+    ;; biggest also needs 11 available steps: +2 to + 13
+    ((13 * * braces feta-braces 6) . "feta-braces6")
+    ((12 * * braces feta-braces 6) . "feta-braces6")
+    ((11 * * braces feta-braces 6) . "feta-braces6")
+    ((10 * * braces feta-braces 6) . "feta-braces6")
+    ((9 * * braces feta-braces 6) . "feta-braces6")
+    ((8 * * braces feta-braces 6) . "feta-braces6")
+    ((7 * * braces feta-braces 5) . "feta-braces5")
+    ((6 * * braces feta-braces 4) . "feta-braces4")
     ((5 * * braces feta-braces 3) . "feta-braces3")
     ((4 * * braces feta-braces 2) . "feta-braces2")
     ((3 * * braces feta-braces 1) . "feta-braces1")
