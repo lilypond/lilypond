@@ -14,7 +14,7 @@ copyright =	 "public domain";
 
 \score{
 	\$contrabasso_staff 
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 

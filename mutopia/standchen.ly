@@ -448,7 +448,7 @@ $grand_staff = \type GrandStaff<
 		\$lyric_staff
 		{ \notes \transpose a { \$grand_staff } }
 	>
-	\include "score-paper.ly";
+	\paper { \translator { \OrchestralScoreContext }}
 	\midi{
 		\tempo 4 = 54;
 	}

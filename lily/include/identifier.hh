@@ -86,7 +86,7 @@ struct Class ## _identifier : Identifier {\
     {\
       return this;\
     }\
-			     virtual Class* access_ ## Class (bool copy_b = true) const;\
+			     virtual Class* access_ ## Class (bool copy_b) const;\
 			     ~Class ## _identifier();\
 			     virtual void do_print () const; \
 			     virtual String do_str () const; \

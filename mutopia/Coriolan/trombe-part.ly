@@ -15,7 +15,7 @@ copyright =	 "public domain";
 \include "trombe.ly"
 \score{
 	\$trombe_staff 
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 

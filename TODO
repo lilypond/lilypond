@@ -7,9 +7,23 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+
+BUGS:
+
+	* fix Score.skipBars
+
+	* repeat bars: need distance after ":|" and before "|:"
+
+	* \shape 1st dim skipped? 
+
+	* fix marks/barnumbers/marginal notes
+
+****
+
+
 	* uniformise property names.
 
-	ydirection <-> yDirection
+	* ydirection <-> yDirection
 
 	* typo checks on property names?
 
@@ -28,8 +42,6 @@ grep for TODO and ugh/ugr/urg
 
 	* zip target for binary windows dist (JBR)
 
-	* repeat bars: need distance after ":|" and before "|:"
-
 	* text continuationss
 
 	* revise documentation
@@ -37,10 +49,6 @@ grep for TODO and ugh/ugr/urg
 	* abbrev -> tremolo
 
 	* junking \skip req in lyrics
-
-	* \shape 1st dim skipped? 
-
-	* Choire -> Choir
 
 	* Language:
 	- general plet mechanism.
@@ -64,13 +72,13 @@ grep for TODO and ugh/ugr/urg
 
 	* install TeX stuff into tex/generic directory.
 
+	* /etc/profile.d support for RPM.
+
 	* percussion note heads
 
 	* mi2mu empty staffs.
 
 	* include MIDI list 
-
-	* make separate translation property list.
 
 	* make GNU style webpages.
 

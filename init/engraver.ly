@@ -146,6 +146,8 @@ VoiceContext = \translator {
 ScoreContext = \translator {
 	\type Score_engraver;
 	Score;
+	defaultClef = violin;
+
 	\consists "Timing_engraver";
 
 	\consists "Bar_column_engraver";
@@ -184,10 +186,7 @@ ScoreWithNumbers = \translator {
 
 BarNumberingStaffContext = \translator {
 	\StaffContext
-
-
 	barColumnPriority = "0";
-
 	marginBreakPriority = "-4";
 	\consists "Mark_engraver";
 	\consists "Bar_column_engraver";
@@ -199,7 +198,6 @@ BarNumberingStaffContext = \translator {
 HaraKiriStaffContext = \translator {
 	\type "Hara_kiri_line_group_engraver";
 	Staff;
-	defaultclef = violin;
 	barColumnPriority = "0";
 	marginBreakPriority = "-4";
 
@@ -217,6 +215,15 @@ HaraKiriStaffContext = \translator {
 	\accepts "Voice";
 };
 
+OrchestralPartStaffContext = \translator {
+	\HaraKiriStaffContext
+	barColumnPriority = "0";
+	marginBreakPriority = "-4";
+	\consists "Mark_engraver";
+	\consists "Bar_column_engraver";
+	\consists "Bar_number_engraver";
+};
+
 OrchestralScoreContext= \translator {
 	\type Score_engraver;
 	Score;
@@ -224,6 +231,7 @@ OrchestralScoreContext= \translator {
 	markScriptPadding = "4.0";
 	barColumnPriority = "-4";
 	markBreakPriority = "-4";
+	defaultClef = violin;
 
 	\consists "Timing_engraver";
 	\consists "Bar_column_engraver";

@@ -26,7 +26,7 @@ $bassi = \type GrandStaff = bassi_group <
 
 \score{
 	\$bassi
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 

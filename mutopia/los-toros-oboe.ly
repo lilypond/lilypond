@@ -304,13 +304,13 @@ $staff_hoboone = \type Staff = hoboonestaff <
 >
 
 a4 = \paper{
-	\include "bar-numbering.ly"
+	\translator{ \BarNumberingStaffContext }
 }
 
 a4sixteen = \paper{
 	\paper_sixteen
 	linewidth= 193.\mm;
-	\include "bar-numbering.ly"
+	\translator { \BarNumberingStaffContext }
 }
 
 \score{

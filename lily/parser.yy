@@ -328,7 +328,7 @@ notenames_body:
 		$$ = new Notename_table;
 	}
 	| NOTENAME_TABLE_IDENTIFIER	{
-		$$ = $1-> access_Notename_table();
+		$$ = $1-> access_Notename_table(true);
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
 		(*$$)[*$2] = *$4;
@@ -425,7 +425,7 @@ translator_spec:
 
 translator_spec_body:
 	TRANS_IDENTIFIER	{
-		$$ = $1->access_Translator ();
+		$$ = $1->access_Translator (true);
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING ';'	{
@@ -497,7 +497,7 @@ score_body:		{
 		$$ = new Score;
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->access_Score ();
+		$$ = $1->access_Score (true);
 	}
 	| score_body mudela_header 	{
 		$$->header_p_ = $2;
@@ -557,7 +557,7 @@ paper_def_body:
 		$$ = p;
 	}
 	| PAPER_IDENTIFIER optional_semicolon	{
-		Paper_def *p = $1->access_Paper_def ();
+		Paper_def *p = $1->access_Paper_def (true);
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
@@ -585,10 +585,7 @@ real_primary:
 		$$ = $1;
 	}
 	| REAL_IDENTIFIER		{
-		Real *r_p = $1->access_Real ();
-		$$ = * r_p;
-		DOUT << "Lookup real: " << *r_p << "\n";
-		delete r_p;
+		$$= *$1->access_Real (false);
 	}
 	| dim
 	| '(' real ')' {
@@ -637,7 +634,7 @@ midi_body: /* empty */ 		{
 		$$ = THIS->default_midi_p ();
 	}
 	| MIDI_IDENTIFIER	{
-		$$ = $1-> access_Midi_def ();		
+		$$ = $1-> access_Midi_def (true);
 	}
 	| midi_body translator_spec	{
 		$$-> assign_translator ($2);
@@ -700,7 +697,7 @@ Music:
 		$$ = new Transposed_music ($3, *$2);
 		delete $2;
 	}
-	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
+	| MUSIC_IDENTIFIER { $$ = $1->access_Music (true); }
 	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
 	Music
@@ -792,7 +789,7 @@ abbrev_command_req:
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
-		$$ = $1->access_Request ();
+		$$ = $1->access_Request (true);
 	}
 	;
 
@@ -888,7 +885,7 @@ structured_post_request:
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->access_Request ();
+		$$ = (Request*)$1->access_Request (true);
 	}
 	| dynamic_req {
 		$$ = $1;
@@ -1229,7 +1226,7 @@ steno_duration:
 		     }
 	}
 	| DURATION_IDENTIFIER	{
-		$$ = $1->access_Duration ();
+		$$ = $1->access_Duration (true);
 	}
 	| steno_duration '.' 	{
 		$$->dots_i_ ++;
@@ -1327,9 +1324,7 @@ int:
 		$$ = -$2;
 	}
 	| INT_IDENTIFIER	{
-		int *i_p = $1->access_int ();
-		$$ = *i_p;
-		delete i_p;
+		$$ = *$1->access_int (false);
 	}
 	;
 
@@ -1338,10 +1333,7 @@ string_primary:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		String *s_p = $1->access_String ();
-
-		$$ = s_p;
-		DOUT << "Lookup string: " << *s_p << "\n";
+		$$ = $1->access_String (true);
 	}
 	;
 
@@ -1378,7 +1370,7 @@ symtables_body:
 		$$ = new Lookup;
 	}
 	| IDENTIFIER		{
-		$$ = $1->access_Lookup ();
+		$$ = $1->access_Lookup (true);
 	}
 	| symtables_body FONT STRING 		{
 		$$->font_ = *$3;

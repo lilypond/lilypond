@@ -40,7 +40,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   
   for (Dictionary_iter<Identifier*> i (*translator_p_dict_p_);  i.ok (); i++)
     {
-      Translator * t = i.val ()->access_Translator ();
+      Translator * t = i.val ()->access_Translator (false);
       t-> output_def_l_ = this;
     }
 }

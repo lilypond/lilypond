@@ -27,7 +27,7 @@ $viola_staff = \type Staff = violai <
 
 \score{
 	\$viola_staff
-	\include "part-paper.ly"
+	\include "coriolan-part-paper.ly"
 	\midi{ \tempo 4 = 160; }
 }
 
