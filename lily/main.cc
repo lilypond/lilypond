@@ -279,7 +279,15 @@ determine_output_options ()
 	|| make_ps
 	|| make_png
 	|| make_pdf))
-    make_pdf = true;
+    {
+      make_pdf = true;
+      make_ps = true;
+      if (found_tex)
+	{
+	  make_dvi = true;
+	  make_tex = true;
+	}
+    }
 }
 
 static void

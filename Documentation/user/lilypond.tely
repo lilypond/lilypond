@@ -161,16 +161,17 @@ this and other documentation.
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
+* Example templates::              Larger examples
 * Notation manual::                All notation supported, and how to
                                    produce it.
 * Changing defaults::              Tuning output.
+* Interfaces for programmers::
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * lilypond-book manual::           Integrating text and music with lilypond-book.
 * Unified index::                  
 * Notation manual details::
 * Literature list::
-* Interfaces for programmers::
 * Cheat sheet::     
 * GNU Free Documentation License:: FDL.
 @end menu
@@ -183,9 +184,11 @@ this and other documentation.
 @include preface.itely
 @include introduction.itely 
 @include tutorial.itely
+@include examples.itely
+@include invoking.itexi
 @include notation.itely
 @include changing-defaults.itely
-@include invoking.itexi
+@include programming-interface.itely
 @include lilypond-book.itely
 @include converters.itely
 
@@ -199,8 +202,6 @@ this and other documentation.
 @include notation-appendices.itely
 
 @include literature.itely
-
-@include programming-interface.itely
 
 @include cheatsheet.itely
 

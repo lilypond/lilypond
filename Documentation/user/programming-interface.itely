@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
 @node Interfaces for programmers
-@appendix Interfaces for programmers
+@chapter Interfaces for programmers
 
 
 
@@ -11,7 +11,7 @@
 @end menu
 
 @node Programmer interfaces for input 
-@appendixsec Programmer interfaces for input 
+@section Programmer interfaces for input 
 
 @menu
 * Input variables and Scheme::  
@@ -22,7 +22,7 @@
 @end menu
 
 @node Input variables and Scheme
-@appendixsubsec Input variables and Scheme
+@subsection Input variables and Scheme
 
 
 The input format supports the notion of variable: in the following
@@ -91,7 +91,7 @@ written as
 Mixing Scheme and lily identifiers is not possible with @code{--safe}.
 
 @node Internal music representation
-@appendixsubsec Internal music representation
+@subsection Internal music representation
 
 When a music expression is parsed, it is converted into a set of
 Scheme music objects. The defining property of a music object is that
@@ -104,23 +104,22 @@ A music object has three kinds of types:
   music name: Each music expression has a name, for example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
 a @internalsref{SimultaneousMusic}. A list of all expressions
-available is in the internals manual, under @internalsref{Music
-expressions}.
+available is in the internals manual, under
+@hyphenatedinternalsref{Music expressions,Music-expressions}.
 
 @item
-  `type' or interface: Each music name has several `types' or interface,
-  for example, a note is an @code{event},
-  but it is also a @code{note-event},
-  a @code{rhythmic-event} and
-   a @code{melodic-event}.
+  `type' or interface: Each music name has several `types' or
+interfaces, for example, a note is an @code{event}, but it is also a
+@code{note-event}, a @code{rhythmic-event} and a @code{melodic-event}.
 
   All classes of music are listed in the internals manual, under
-  @internalsref{Music classes}.
-@item
-C++ object: Each music object is represented by a C++ object. For technical
-reasons, different music objects may be represented by different C++
-object types. For example, a note is @code{Event} object, while
-@code{\grace} creates a @code{Grace_music} object.
+  @hyphenatedinternalsref{Music classes,Music-classes}.
+
+  @item
+C++ object: Each music object is represented by a C++ object. For
+technical reasons, different music objects may be represented by
+different C++ object types. For example, a note is @code{Event}
+object, while @code{\grace} creates a @code{Grace_music} object.
 
 We expect that distinctions between different C++ types will disappear
 in the future.
@@ -145,7 +144,7 @@ and @internalsref{GraceMusic} has its single argument in
 
 
 @node Extending music syntax
-@appendixsubsec Extending music syntax
+@subsection Extending music syntax
 
 The syntax of composite music expressions, like
 @code{\repeat}, @code{\transpose} and @code{\context}
@@ -213,7 +212,7 @@ Examples of the use of @code{\applymusic} are in the next section.
 @file{ly/music-functions-init.ly}.
 
 @node Manipulating music expressions
-@appendixsubsec Manipulating music expressions
+@subsection Manipulating music expressions
 
 Music objects and their properties can be accessed and manipulated
 directly, through the @code{\applymusic} mechanism.
@@ -305,7 +304,7 @@ LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
 
 
 @node Using LilyPond syntax inside Scheme
-@appendixsubsec Using LilyPond syntax inside Scheme
+@subsection Using LilyPond syntax inside Scheme
 
 Creating music expressions in scheme can be tedious, as they are
 heavily nested and the resulting scheme code is large. For some
@@ -412,7 +411,7 @@ This function may also be defined as a music function:
 
 
 @node Markup programmer interface
-@appendixsec Markup programmer interface
+@section Markup programmer interface
 
 
 @menu
@@ -421,7 +420,7 @@ This function may also be defined as a music function:
 @end menu
 
 @node Markup construction in scheme
-@appendixsubsec Markup construction in scheme
+@subsection Markup construction in scheme
 
 @cindex defining markup commands 
 
@@ -475,7 +474,7 @@ instead:
 @end lisp
 
 @node Markup command definition
-@appendixsubsec Markup command definition
+@subsection Markup command definition
 
 New markup commands can be defined
 with  the @code{def-markup-command} scheme macro.
@@ -636,7 +635,7 @@ to the @code{interpret-markup} function, with the @code{paper} and
 
 
 @node Contexts for programmers
-@appendixsec Contexts for programmers
+@section Contexts for programmers
 
 
 @menu
@@ -645,7 +644,7 @@ to the @code{interpret-markup} function, with the @code{paper} and
 @end menu
 
 @node Context evaluation
-@appendixsubsec Context evaluation
+@subsection Context evaluation
 
 @cindex calling code during interpreting
 @cindex @code{\applycontext}
@@ -670,7 +669,7 @@ current bar number on the standard output during the compile:
 
 
 @node Running a function on all layout objects
-@appendixsubsec Running a function on all layout objects
+@subsection Running a function on all layout objects
 
 
 @cindex calling code on layout objects
