@@ -503,3 +503,4 @@ L1 is copied, L2 not.
 	       ".scm"
 	       ) "w")))
 
+(set-debug-cell-accesses! 1000)
