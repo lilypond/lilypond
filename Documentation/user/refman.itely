@@ -24,6 +24,7 @@
 * Accidentals::                 
 * Expressive marks::            
 * Ornaments::                   
+* Fingering instructions::      
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
@@ -1745,10 +1746,6 @@ Bracket endings should be angled/slanted. (TODO)
 
 @menu
 * Articulations::               
-* Text scripts::                
-* Grace notes::                 
-* Glissando ::                  
-* Dynamics::                    
 @end menu
 
 
@@ -1855,6 +1852,13 @@ For finger changes, use markup texts:
 
 @internalsref{FingerEvent} and @internalsref{Fingering}.
 
+
+@menu
+* Text scripts::                
+* Grace notes::                 
+* Glissando ::                  
+* Dynamics::                    
+@end menu
 
 @node Text scripts
 @subsection Text scripts
