@@ -5,6 +5,7 @@
 	(Snippet.__init__): rewrite: do not use global variables h or
 	index.
 	(main): really support -I option.
+	(find_toplevel_snippets): new code.
 
 	* tex/texinfo.tex: really add file.
 	

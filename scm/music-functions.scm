@@ -501,7 +501,8 @@ Rest can contain a list of beat groupings
 
 
 ;;; splitting chords into voices.
-
+;; todo: spec \context Staff for  <<\\>>
+;;
 (define (voicify-list lst number)
    "Make a list of Musics.
 
