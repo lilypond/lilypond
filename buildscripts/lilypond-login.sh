@@ -33,9 +33,9 @@ unset noglob
 
 # Add all available TeX Type1 fonts (including Feta) to Ghostscript:
 if ( $?GS_FONTPATH ) then
-       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH"
- else
+       setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`:$GS_FONTPATH
+else
        setenv GS_FONTPATH `kpsewhich -expand-path=\$T1FONTS`
- endif
+endif
 
 
