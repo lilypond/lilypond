@@ -9,20 +9,20 @@ fet_begingroup("timesig");
 
 def draw_C =
 	save hair, bulb_rad;
-	hair# := .5 stafflinethickness#;
-	bulb_rad# := (interline# - stafflinethickness#) / 4;
+	hair# := stafflinethickness#;
+	bulb_rad# := interline# / 3;
 	define_pixels(hair, bulb_rad);
 
 	x1r = x5;
-	y1r = interline / 3;
-	z2r = (0, interline);
+	y1r = .4 interline;
+	z2 = (0, interline);
 	z3r = (-b, 0);
-	z4r = (0, -interline);
-	z5r = (w, -stafflinethickness);
+	z4 = (0, -interline);
+	z5r = (w, -2 stafflinethickness);
 	
-	penpos1(1.5 stafflinethickness, 0);
+	penpos1(hair, 0);
 	penpos2(stafflinethickness, 90);
-	penpos3(3 stafflinethickness, 180);
+	penpos3(4 stafflinethickness, 180);
 	penpos4(stafflinethickness, -90);
 	penpos5(hair, -5);
 	
@@ -42,13 +42,63 @@ fet_beginchar ("4/4 meter", "C", "fourfourmeter")
 	draw_C;
 fet_endchar;
 
-fet_beginchar ("4/4 meter", "C2", "allabreve")
+fet_beginchar ("2/2 meter", "C2", "allabreve")
 	set_char_box(.8 interline#, .7 interline#, 1.4 interline#, 1.4 interline#);
 	
 	draw_C;
-	draw_block((-stafflinethickness, -d), (0, h));
+	draw_block((-1.5stafflinethickness, -d), (0, h));
 fet_endchar;
 
+path threequartercircle;
+threequartercircle = halfcircle & quartercircle rotated 180;
+
+save Cdiameter,Cthickness;
+Cdiameter# := 3/2 interline#;
+Cthickness# := 2 stafflinethickness#;
+define_pixels(Cdiameter,Cthickness);
+
+fet_beginchar ("Mensural 4/4 meter", "oldC", "oldfourfourmeter")
+	set_char_box(.5 Cdiameter#, .5 Cdiameter#, .5 Cdiameter#, .5 Cdiameter#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 45 scaled Cdiameter;
+fet_endchar;
+
+fet_beginchar ("Mensural 2/2 meter", "oldC2", "oldallabreve")
+	set_char_box(.5 Cdiameter#, .5 Cdiameter#, interline#, interline#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 45 scaled Cdiameter;
+	draw_block((-Cthickness, -d), (0, h));
+fet_endchar;
+
+fet_beginchar ("Mensural 3/2 meter", "old3_2", "oldthreetwometer")
+	set_char_box(.5 Cdiameter#, .5 Cdiameter#, .5 Cdiameter#, .5 Cdiameter#);
+	
+	pickup pencircle scaled Cthickness;
+	draw fullcircle scaled Cdiameter;
+fet_endchar;
+
+fet_beginchar ("Mensural 6/4 meter", "old6_4", "oldsixfourmeter")
+	set_char_box(.5 Cdiameter#, .5 Cdiameter#, 
+		.5 Cdiameter# + .5 interline#, Cdiameter#+ .5 interline#);
+	
+	pickup pencircle scaled Cthickness;
+	draw threequartercircle rotated 45 scaled Cdiameter 
+		shifted (0,.5 interline);
+	pickup pencircle scaled 3 stafflinethickness;
+	draw (0,.5 interline);
+fet_endchar;
+
+fet_beginchar ("Mensural 9/4 meter", "old9_4", "oldninefourmeter")
+	set_char_box(.5 Cdiameter#, .5 Cdiameter#, 
+		.5 Cdiameter# + .5 interline#, Cdiameter#+ .5 interline#);
+	
+	pickup pencircle scaled Cthickness;
+	draw fullcircle scaled Cdiameter shifted (0,.5 interline);
+	pickup pencircle scaled 3 stafflinethickness;
+	draw (0,.5 interline);
+fet_endchar;
 
 
 fet_endgroup("timesig");
