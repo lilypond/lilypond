@@ -263,9 +263,9 @@ Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
 }
 
 void
-Gregorian_ligature_engraver::start_translation_timestep ()
+Gregorian_ligature_engraver::stop_translation_timestep ()
 {
-  Ligature_engraver::start_translation_timestep ();
+  Ligature_engraver::stop_translation_timestep ();
   pes_or_flexa_req_ = 0;
 }
 

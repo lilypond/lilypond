@@ -133,11 +133,6 @@ Text_engraver::stop_translation_timestep ()
       typeset_grob (ti);
     }
   texts_.clear ();
-}
-
-void
-Text_engraver::start_translation_timestep ()
-{
   reqs_.clear ();
 }
 

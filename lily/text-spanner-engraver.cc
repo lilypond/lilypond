@@ -20,7 +20,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_music ();
 
 private:
@@ -37,13 +36,6 @@ Text_spanner_engraver::Text_spanner_engraver ()
   finished_ = 0;
   current_req_ = 0;
   span_ =0;
-  req_drul_[START] = 0;
-  req_drul_[STOP] = 0;
-}
-
-void
-Text_spanner_engraver::start_translation_timestep ()
-{
   req_drul_[START] = 0;
   req_drul_[STOP] = 0;
 }
@@ -147,6 +139,8 @@ Text_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
+  req_drul_[START] = 0;
+  req_drul_[STOP] = 0;
 }
 
 void

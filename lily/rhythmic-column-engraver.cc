@@ -61,7 +61,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
 };
 
 
@@ -164,11 +163,7 @@ Rhythmic_column_engraver::stop_translation_timestep ()
       last_spacing_ = spacing_;
       spacing_ =0;
     }
-}
-
-void
-Rhythmic_column_engraver::start_translation_timestep ()
-{
+  
   dotcol_ =0;
   stem_ =0;
 }

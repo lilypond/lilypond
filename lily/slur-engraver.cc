@@ -194,11 +194,6 @@ Slur_engraver::stop_translation_timestep ()
       typeset_grob (end_slurs_[i]);
     }
   end_slurs_.clear ();
-}
-
-void
-Slur_engraver::start_translation_timestep ()
-{
   new_slur_evs_.clear ();
 }
 

@@ -37,7 +37,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   void create_items (Music*);
   virtual bool try_music (Music *req);
-  virtual void start_translation_timestep ();
   virtual void process_music ();
   
 private:
@@ -78,6 +77,7 @@ Mark_engraver::stop_translation_timestep ()
       typeset_grob (text_);
       text_ =0;
     }
+  mark_req_ = 0;
 }
 
 
@@ -89,13 +89,6 @@ Mark_engraver::create_items (Music *rq)
 
   text_ = new Item (get_property ("RehearsalMark"));
   announce_grob(text_, rq->self_scm());
-}
-
-
-void
-Mark_engraver::start_translation_timestep ()
-{
-  mark_req_ = 0;
 }
 
 

@@ -67,7 +67,6 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
 
@@ -483,6 +482,12 @@ Piano_pedal_engraver::stop_translation_timestep ()
     }
   
   typeset_all ();
+
+  for (Pedal_info*p = info_list_; p->name_; p ++)
+    {
+      p->event_drul_[STOP] = 0;
+      p->event_drul_[START] = 0;
+    }
 }
 
 
@@ -553,16 +558,6 @@ Piano_pedal_engraver::typeset_all ()
 	  typeset_grob (p->finished_line_spanner_);
 	  p->finished_line_spanner_ = 0;
 	}
-    }
-}
-
-void
-Piano_pedal_engraver::start_translation_timestep ()
-{
-  for (Pedal_info*p = info_list_; p->name_; p ++)
-    {
-      p->event_drul_[STOP] = 0;
-      p->event_drul_[START] = 0;
     }
 }
 

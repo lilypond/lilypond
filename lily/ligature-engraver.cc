@@ -219,13 +219,6 @@ Ligature_engraver::process_music ()
 }
 
 void
-Ligature_engraver::start_translation_timestep ()
-{
-  reqs_drul_[START] = 0;
-  reqs_drul_[STOP] = 0;
-}
-
-void
 Ligature_engraver::typeset_ligature (Spanner *, Array<Grob_info>)
 {
   programming_error ("Ligature_engraver::typeset_ligature (): "
@@ -242,6 +235,9 @@ Ligature_engraver::stop_translation_timestep ()
       finished_primitives_.clear ();
       finished_ligature_ = 0;
     }
+
+  reqs_drul_[START] = 0;
+  reqs_drul_[STOP] = 0;
 }
 
 void

@@ -88,6 +88,15 @@ Translator:: stop_translation_timestep ()
 {
 }
 
+/*
+  this function has 2 properties
+
+  - It is called before try_music()
+
+  - It is called before any user information enters the translators.
+  (i.e. any \property is not processed yet.)
+
+  */
 void
 Translator::start_translation_timestep ()
 {
