@@ -23,13 +23,13 @@ rattest ()
   cout << EXP_PRINT(i >? -i) << EXP_PRINT(i >? r);
   cout << EXP_PRINT(i <? r) ;
   Rational one(1);
-  cout << EXP_PRINT(one/4);
-  cout << EXP_PRINT(one + one/4);
+  cout << EXP_PRINT(one/Rational (4));
+  cout << EXP_PRINT(one + one/Rational (4));
   Rational nul (0,1);
   Rational kwart (1,4);
   nul += kwart;
   cout << EXP_PRINT(nul);
-  nul -= 2 * kwart;
+  nul -= Rational (2) * kwart;
   cout << EXP_PRINT(nul);
 
   cout << EXP_PRINT(Rational (1,128)  + Rational (1919,128));
