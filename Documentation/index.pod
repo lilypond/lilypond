@@ -14,7 +14,6 @@ version this was.
 =over 4
 
 =item *
-<! urg a href=ANNOUNCE-0.1$(DOTTEXT)>
 <a href=ANNOUNCE-0.1
 >
 The announcement of 0.1
@@ -103,6 +102,13 @@ TeX documents about LilyPond
 <a href=../man/out-www/index.html
 >
 Manual pages
+</a
+>
+
+=item *
+<a href=vocabulary.html
+>
+Musical vocabulary.
 </a
 >
 
