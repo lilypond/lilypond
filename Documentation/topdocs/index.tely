@@ -99,7 +99,7 @@ in PostScript, and LilyPond input.
 Others use LilyPond too.
 @uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html,John
 Sankey}, harpsichordist to the internet, is typesetting the complete
-@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html/,sonatas
+@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html,sonatas
 by Scarlatti}. Jeff Covey, guitar player and overall nice guy, is
 putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
 net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is a
@@ -168,9 +168,17 @@ Frequently Asked Questions} first.)
 
 @item bug-gnu-music@@gnu.org
     If you have bugreports, you should send them to this list.  If you
-want to know about bugs, subscribe: send mail with subject "subscribe" to
+want to know about bugs, subscribe: send mail with subject "subscribe"
+to
     @email{bug-gnu-music-request@@gnu.org}. The archive is at
 @uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}
+
+        Please include in your bugreport the version of LilyPond that
+you experience the problem with, a description of your system and sample
+input to reproduce the problem. Do not send output files over the list,
+they tend to be very big and don't help with describing the problem.
+
+
 @item gnu-music-discuss@@gnu.org,
     For discussions concerning LilyPond, to subscribe: send
     mail with subject "subscribe" to
