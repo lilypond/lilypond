@@ -43,6 +43,9 @@ env.Alias ('install', tfmdir)
 env.Alias ('install', afmdir)
 env.Alias ('install', pfadir)
 
+map (lambda x: env.Alias ('fonts', x), t + a + p)
+map (lambda x: env.Alias ('mf', x), t + a + p)
+
 #testing
 all_sources = ['SConscript',] + sources
 x = env.Tar (env['tarball'], all_sources)

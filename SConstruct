@@ -4,12 +4,16 @@
 Experimental scons (www.scons.org) building:
 
 Usage:
+    scons
     scons lily            # build lily
+
     LILYPONDPREFIX=out-scons/usr/share/lilypond lily/out-scons/lilypond-bin
     scons doc             # build web doc
 
-    scons                 # without args builds all targets below ./
-                          # maybe catch this one and only build lily?
+    scons fonts           # build all font stuff (split this? )
+
+XXX    scons                 # without args builds all targets below ./
+XXX                          # maybe catch this one and only build lily?
     scons /               # builds all possible targets
 
     scons install
@@ -36,12 +40,8 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 #   * separate environments?
 #     - compile environment checks headers and libraries
 #     - doc environment checks doc stuff
-#
-#   * running from build-dir, without installing?
-#     - scons will not install, if PREFIX lives outside of CWD
+#   * - help for targets?
 #     - build symlink tree
-#       + mimicking regular installation setup?
-#       + use tweaked scons 'install' target?
 #   * commandline targets:
 #      - clean => -c
 #      - dist, tar => env.Tar
@@ -58,6 +58,14 @@ import sys
 import string
 
 env = Environment ()
+
+# Without target arguments, build lily only
+if not COMMAND_LINE_TARGETS:
+	env.Default ('lily')
+
+# Target 'all' builds everything
+if 'all' in COMMAND_LINE_TARGETS:
+	env.Default ('lily', 'fonts', 'doc')
 
 # put your favourite stuff in custom.py
 opts = Options ('custom.py', ARGUMENTS)
