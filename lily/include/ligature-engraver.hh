@@ -11,6 +11,21 @@
 
 #include "engraver.hh"
 
+/*
+ * FIXME: Spanner *create_ligature_spanner () and virtual void
+ * typeset_ligature (...) are abstract methods, such that we would
+ * like to declare them abstract:
+ *
+ *    virtual Spanner *create_ligature_spanner () = 0;
+ *    virtual void typeset_ligature (...) = 0;
+ *
+ * Unfortunately, clone_const_helper() (as expanded from the
+ * TRANSLATOR_DECLARATIONS macro) requires this class to be
+ * instantiatable, such that it may not have any abstract virtual
+ * functions.  As a workaround, the actually abstract methods are
+ * implemented, but produce a programming_error whenever called. --jr
+ */
+
 class Ligature_engraver : public Engraver
 {
 protected:

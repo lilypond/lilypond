@@ -675,6 +675,11 @@ EasyNotation = \context {	% TODO: why \context override?
   autoBeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
+  %
+  % N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
+  % always produce dashed lines, regardless of the style property.
+  %
+  \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
   \override TextSpanner #'edge-height = #'(0 . 0)
   \override TextSpanner #'padding = #0.5
@@ -740,6 +745,11 @@ EasyNotation = \context {	% TODO: why \context override?
   autoBeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
+  %
+  % N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
+  % always produce dashed lines, regardless of the style property.
+  %
+  \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
   \override TextSpanner #'edge-height = #'(0 . 0)
   \override TextSpanner #'padding = #0.5
@@ -796,7 +806,7 @@ EasyNotation = \context {	% TODO: why \context override?
   % FIXME: unit on StaffSymbol's width should be \linewidth.
   % \override StaffSymbol #'width = #60.0
 
-  % Choose vaticana do clef on 3rd line as default.
+  % Choose petrucci g clef on 2nd line as default.
   clefGlyph = #"clefs-petrucci-g"
   middleCPosition = #-6
   clefPosition = #-2

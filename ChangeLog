@@ -1,3 +1,17 @@
+2004-09-21  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/notation.itely (ancient flags): documented
+	flags-related known bugs
+
+	* lily/include/ligature-engraver.hh: added comment about why and
+	how of (non-)use of abstract virtual methods
+
+	* ly/engraver-init.ly (VaticanaVoice,
+	GregorianTranscriptionVoice): bugfix (workaround): TextSpanner:
+	unset dash-fraction property in order to get solid lines
+
+	* ly/engraver-init.ly (MensuralStaff): fixed bad comment
+
 2004-09-21  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/convert-ly.py (ly): Corrected replacement of \scriptBoth

@@ -6016,6 +6016,16 @@ when typesetting the incipit of a transcribed piece of mensural
 music, the default flag style should be used.  There are no flags in
 Gregorian Chant notation.
 
+@refbugs
+
+The attachment of ancient flags to stems is slightly off due to a
+change in early 2.3.x.
+
+Vertically aligning each flag with a staff line assumes that stems
+always end either exactly on or exactly in the middle between two
+staff lines.  This may not always be true when using advanced layout
+features of classical notation (which however are typically out of
+scope for mensural notation).
 
 @node Ancient time signatures
 @subsection Ancient time signatures
