@@ -66,7 +66,8 @@ protected:
   virtual void next_element (bool);
   virtual void construct_children();
   virtual void process (Moment);
-  
+
+  bool first_time_;
   int alt_count_;
   int rep_count_;
   int done_count_;
@@ -76,6 +77,7 @@ protected:
 Volta_repeat_iterator::Volta_repeat_iterator()
 {
   done_count_ = alt_count_ = rep_count_= 0;
+  first_time_ = true;
 }
 
 SCM
@@ -159,9 +161,10 @@ Volta_repeat_iterator::next_element (bool side_effect)
 void
 Volta_repeat_iterator::process (Moment m)
 {
-  if (!m.to_bool ())
+  if (first_time_)
     {
       add_repeat_command (ly_symbol2scm ("start-repeat"));
+      first_time_ = false;
     }
   Sequential_iterator::process(m);
 }

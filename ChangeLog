@@ -1,3 +1,14 @@
+2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/unfolded-repeat-iterator.cc (process): bugfix: use a
+	"first" flag to decide whether to make a start-repeat
+
+	* input/regression/grace-volta-repeat-2.ly: new file.
+
+2003-06-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lilypond-indent.el: rename generic functions to LilyPond-*
+
 2003-06-22  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/thumb.ly: delete, merged into refman.
