@@ -654,9 +654,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
       distance = compound_note_space;
     }
 
-  //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
-
-  Spaceable_grob::add_spring (lc, rc, distance, strength, false);  
+  Spaceable_grob::add_spring (lc, rc, distance, strength);  
 }
 
 
@@ -803,7 +801,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
    */
   Real strength = 1 / (compound_space - compound_fixed);
   Real distance = compound_space;
-  Spaceable_grob::add_spring (l, r, distance, strength, false);
+  Spaceable_grob::add_spring (l, r, distance, strength);
 }
 
 

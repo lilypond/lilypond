@@ -335,13 +335,20 @@ System::get_line ()
 
      Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
-
+  Interval staff_refpoints;
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; ly_c_pair_p (s); s = ly_cdr (s))
       {
 	Grob *g = unsmob_grob (ly_car (s));
 	Stencil *stil = g->get_stencil ();
 
+	if (i == 0
+	    && Axis_group_interface::has_interface (g)
+	    && dynamic_cast<Spanner*> (g))
+	  {
+	    staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
+	  }
+  
 	/* Skip empty stencils and grobs that are not in this layer.  */
 	if (!stil
 	    || robust_scm2int (g->get_property ("layer"), 1) != i)
@@ -361,6 +368,7 @@ System::get_line ()
 	st.translate (o + extra);
 	*tail = scm_cons (st.expr (), SCM_EOL);
 	tail = SCM_CDRLOC(*tail);
+
 	
       }
 
@@ -374,7 +382,7 @@ System::get_line ()
 				 exprs));
   
   Paper_system *pl = new Paper_system (sys_stencil, false);
-
+  pl->staff_refpoints_ = staff_refpoints;
   Item * break_point =this->get_bound(LEFT);
   pl->penalty_ =
     robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
