@@ -15,29 +15,33 @@
 #include "virtual-font-metric.hh"
 #include "paper-def.hh"
 
-MAKE_SCHEME_CALLBACK(Text_item,interpret_markup,3);
+MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
   if (gh_string_p (markup))
     {
+      String str = ly_scm2string (markup);
+      if (str.index_any (" \t\n\r") != -1)
+	{
+	  /* Multi word string to line markup.  */
+	  SCM proc = scm_c_eval_string ("make-simple-markup");
+	  return interpret_markup (paper, props, scm_call_1 (proc, markup));
+	}
+
+      /* Simple word.  */
       Paper_def *pap = unsmob_paper (paper);
       Font_metric *fm = select_font (pap, props);
-  
-      SCM list = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
+      SCM lst = scm_list_n (ly_symbol2scm ("text"), markup, SCM_UNDEFINED);
       
       if (dynamic_cast<Virtual_font_metric*> (fm))
-	{
-	  /*
-	    ARGH.
-	  */
-	  programming_error ("Can't use virtual font for text.");
-	}
+	/* ARGH. */
+	programming_error ("Can't use virtual font for text.");
       else
-	list = fontify_atom (fm, list);
+	lst = fontify_atom (fm, lst);
 
-      Box b = fm->text_dimension (ly_scm2string (markup));
-      return Stencil (b, list).smobbed_copy();
+      Box b = fm->text_dimension (str);
+      return Stencil (b, lst).smobbed_copy ();
     }
   else if (gh_pair_p (markup))
     {
@@ -48,10 +52,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
       
       return scm_apply_2 (func, paper, props, args);
     }
-  else
-    {
-      return SCM_EOL;
-    }
+  return SCM_EOL;
 }
 
 MAKE_SCHEME_CALLBACK(Text_item,print,1);

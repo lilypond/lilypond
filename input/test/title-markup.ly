@@ -25,25 +25,26 @@ texidoc = "
 sizeTest = \markup {
 	\column <
             { \normalsize "normalsize"
-              \hspace #10
+              \hspace #5
               \smaller "smaller"
-              \hspace #10
+              \hspace #5
               \smaller \smaller "smaller"
-              \hspace #10
+              \hspace #5
               \smaller \smaller \smaller "smaller"
             }
             " " 
             { \normalsize "normalsize"
-              \hspace #10
+              \hspace #5
               \bigger "bigger"
-              \hspace #10
+              \hspace #5
               \bigger \bigger "bigger"
-              \hspace #10
+              \hspace #5
               \bigger \bigger \bigger "bigger"
             }
        >
 }
 
+spaceTest = \markup { "two space chars" }
 \header {
     texidoc = "Make titles using markup (WIP)."
 
@@ -85,10 +86,12 @@ sizeTest = \markup {
 	 >
     }
      foe = \sizeTest
+     bar = \spaceTest
 }
 
 \score {
     \context Staff \notes \relative c' {
 	c-\sizeTest % \markup { \center < \roman \caps "foe" > }
+        c-\spaceTest
     }
 }
