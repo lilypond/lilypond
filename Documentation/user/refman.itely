@@ -4180,17 +4180,41 @@ for the score.
 To print a  rehearsal mark, use the @code{\mark} command:
 @lilypond[fragment,verbatim]
 \relative c'' {
-  c1 \mark "A"
-  c1 \mark "B"
-  c1 \mark "12"
-  c1 \mark "13"
-  c1
+  c1 \mark \default
+  c1 \mark \default
+  c1 \mark #8 
+  c1 \mark \default
+  c1 \mark \default
 }
 @end lilypond
 
 The mark is incremented automatically if you use @code{\mark
-\default}. The value to use is stored in the property
-@code{rehearsalMark} is used and automatically incremented.
+\default}, but you can also use an integer argument to set the mark
+manually.  The value to use is stored in the property
+@code{rehearsalMark}.
+
+The style is defined by the property @code{markFormatter}. It is a
+function taking the current mark (an integer) and the current context
+as argument. It should return a markup object. In the following
+example, @code{markFormatter} is set to a canned procedure. After a
+few measures, it is set to function that produces a boxed number. 
+
+@lilypond[verbatim,fragment,relative 2]
+  \property Score.markFormatter = #format-mark-numbers 
+  c1 \mark \default
+  c1 \mark \default
+  \property Score.markFormatter
+    = #(lambda (mark  context)
+	(make-bold-markup (make-box-markup (number->string mark))))
+  c1 \mark \default
+  c1 \mark \default
+@end lilypond
+
+The file @file{scm/translation-functions.scm} contains the definitions
+of @code{format-mark-numbers} (the default format) and
+@code{format-mark-letters}. They can be used as inspiration for other
+formatting functions.
+
 
 @cindex coda on bar line
 @cindex segno on bar line
@@ -4206,16 +4230,13 @@ to access the appropriate symbol:
   c1
 @end lilypond
 
-In this case, during line breaks,
-marks must also be printed at the end of the line, and not at the
-beginning. Use the following to force that behavior:
+In this case, during line breaks, marks must also be printed at the
+end of the line, and not at the beginning. Use the following to force
+that behavior:
 @example
 \property Score.RehearsalMark \override
   #'break-visibility = #begin-of-line-invisible
 @end example
-
-See @inputfileref{input/test,boxed-molecule.ly} for putting boxes
-around the marks.
 
 @cindex fermatas
 @cindex coda
@@ -4226,7 +4247,13 @@ around the marks.
 
 Internals: @internalsref{MarkEvent}, @internalsref{RehearsalMark}
 
-Examples: @inputfileref{input/test,boxed-molecule.ly}.
+Init files: @file{scm/translation-functions.scm} contains the
+definition of @code{format-mark-numbers} and
+@code{format-mark-letters}. They can be used as inspiration for other
+formatting functions.
+
+Examples: @inputfileref{input/regression,rehearsal-mark-letter.ly},
+@inputfileref{input/regression,rehearsal-mark-number.ly}.
 
 
 @node Bar numbers

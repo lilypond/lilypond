@@ -1,5 +1,8 @@
 2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/refman.itely (Rehearsal marks): document new
+	functionality.
+
 	* input/regression/rehearsal-mark-number.ly: new file.
 
 	* input/regression/rehearsal-mark-letter.ly: new file.
