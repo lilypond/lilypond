@@ -106,7 +106,7 @@ this and other documentation.
 @menu
 * Tutorial::                       A tutorial introduction to lilypond.
 * Invoking LilyPond::              Operation.
-* Reporting Bugs::                 Where to report bugs.
+* Bug reports:: 	           Where to report bugs.
 * Reference Manual::               Reference Manual.
 @c Move to Reference Manual?
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
@@ -119,11 +119,13 @@ this and other documentation.
 @contents
 
 @macro keyindex {word}
-@cindex \\@code{\word\}
+@cindex @code{ \word\ }
+
 @end macro
 
 @macro indexcode {word}
-@cindex @code{\word\}
+@cindex @code{ \word\ }
+
 @end macro
 
 
@@ -139,7 +141,7 @@ this and other documentation.
 
 @mbinclude development.itexi
 
-@node Index, , , top
+@node Index
 @unnumbered Index
 
 @printindex cp

@@ -1,4 +1,5 @@
-@node Internals, , , Top
+@node Internals
+@chapter Internals
 
 @menu
 * Conversion stages::              Lilypond is a multi-pass program.
@@ -382,7 +383,7 @@ Molecule.
 
 
 
-@node  Development, , , top
+@node Development
 @chapter Development
 
 @menu
@@ -392,7 +393,7 @@ Molecule.
 * Helping with development:: 
 @end menu
 
-@node CodingStyle, , , Development
+@node CodingStyle
 @section CodingStyle - standards while programming for GNU LilyPond
 
 As a general rule, you should always try to continue computations, even
@@ -621,7 +622,7 @@ files, doing a release.
 
 Use them.
 
-@node Making patches, , , Development
+@node Making patches
 @section Making patches
 
 @unnumberedsec  Track and distribute your code changes
@@ -721,7 +722,7 @@ and don't forget to make automatically generated files:
  
 @end example 
 
-@node Localisation, , , Development
+@node Localisation
 @section Localisation - User messages in LilyPond
 
 This document provides some guidelines for uniformising user messages.
@@ -883,9 +884,8 @@ Please don't run make po/po-update with GNU gettext < 0.10.35
 
 @end itemize
 
-@node Helping with development, , , Development
-
-@chapter Getting involved
+@node Helping with development
+@section Getting involved
 
 If you want to help developing  LilyPond your  efforts are appreciated.
 You can help LilyPond in several ways. Not all tasks requiring
@@ -958,5 +958,3 @@ tools}
 @item Helping @uref{primrose.sourceforge.net,primrose}, a tool for
 scanning sheet music.
 @end itemize
-
-

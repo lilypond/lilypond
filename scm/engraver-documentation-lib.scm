@@ -26,7 +26,7 @@
 	 (props (car (cdddr engraver-descr)))
 	 (name (car engraver-descr))
 	 (desc (cadr engraver-descr))
-	 (objs (caddr engraver-descr))
+	 (objs (map symbol->string (caddr engraver-descr)))
 	 )
 
     (string-append
@@ -131,12 +131,14 @@
      (texi-section 2 (context-name name) #f)
       doc)))
 
+(define (symbol<? l r)
+  (string<? (symbol->string l) (symbol->string r)))
 
 (define (document-paper name)
   (let* ((paper-alist
 	  (sort (My_lily_parser::paper_description)
-		(lambda (x y) (string<? (car x) (car y)))))
-	 (names (sort (map car paper-alist) string<?))
+		(lambda (x y) (symbol<? (car x) (car y)))))
+	 (names (sort (map symbol->string (map car paper-alist)) string<?))
 	 (contexts (map cdr paper-alist))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-context name x)) contexts))))
