@@ -80,14 +80,16 @@ struct Voice_element;
 struct Voicegroup;
 
 struct Voice_list;
-struct Vertical_music;
-struct Horizontal_music;
-struct Horizontal_simple;
-struct Vertical_simple ;
+struct Input_music;
+struct Simple_music;
+struct Complex_music;
 struct Music_voice;
 struct Music_general_chord;
+
 struct Input_score;
 struct Input_staff;
 struct Input_command;
 struct Notename_tab;
+struct Input_file;
+struct Keyword_table;
 #endif // PROTO_HH
