@@ -136,7 +136,7 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
       Real left_ledger_protusion = hd.length ()/4;
       Real right_ledger_protusion = left_ledger_protusion;
 
-      if (unsmob_grob(me->get_grob_property ("accidentals-grob")))
+      if (unsmob_grob(me->get_grob_property ("accidental-grob")))
 	{
 	  /*
 	    make a little room for accidentals.
@@ -245,4 +245,4 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 
 ADD_INTERFACE (Note_head,"note-head-interface",
   "Note head",
-  "accidentals-grob style stem-attachment-function");
+  "accidental-grob style stem-attachment-function");

@@ -20,14 +20,15 @@ struct Skyline_entry
   Skyline_entry (Interval, Real);
 };
 
-void
-insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
-			    Direction d);
+
+void insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
+				 Direction d);
 Array<Skyline_entry>
-extents_to_skyline (Array<Box> extents, Axis a, Direction d);
+extents_to_skyline (Array<Box> const & extents, Axis a, Direction d);
+Array<Skyline_entry> empty_skyline (Direction d);
 Real
-skyline_meshing_distance (Array<Skyline_entry> buildings,
-			  Array<Skyline_entry> clouds);
+skyline_meshing_distance (Array<Skyline_entry> const &buildings,
+			  Array<Skyline_entry> const &clouds);
 
 
 #endif /* SKYLINE_HH */

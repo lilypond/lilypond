@@ -16,10 +16,11 @@ class Accidental_placement
 {
 public:
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
+  DECLARE_SCHEME_CALLBACK (extent_callback, (SCM element, SCM axis));  
   static void add_accidental (Grob *,Grob* );
 
   
-  static void position_accidentals (Grob* );
+  static SCM position_accidentals (Grob* );
   static bool has_interface (Grob*);
 };
 #endif /* ACCIDENTAL_PLACEMENT_HH */

@@ -13,7 +13,7 @@
 /**
   Least squares minimisation in 2 variables.
   */
-void minimise_least_squares (Real * coef, Real * offset, Array<Offset>);
+void minimise_least_squares (Real * coef, Real * offset, Array<Offset> const &);
 
 #endif // LEASTSQUARE_HH
 

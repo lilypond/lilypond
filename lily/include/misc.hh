@@ -20,7 +20,7 @@ sign (int i)
   else return 0;
 }
 
-Interval quantise_iv (Array<Real> positions, Real x);
+
 
 #endif
 

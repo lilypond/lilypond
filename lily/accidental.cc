@@ -2,6 +2,14 @@
 #include "item.hh"
 #include "molecule.hh"
 
+/*
+  TODO: insert support for smaller cautionaries, tie-break-reminders.
+  Either here or in new-accidental-engraver.
+
+  'accidentals should go, for a single 'accidental property -- see
+  accidental-placement.cc
+
+*/
 class Accidental_interface
 {
 public:
@@ -54,12 +62,14 @@ Accidental_interface::brew_molecule (SCM smob)
 				  style +
 				  to_str (gh_scm2int(entry))));
       
-      mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.0);
+      mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
     }
 
+#if 0
+  // TODO.
   if (to_boolean (me->get_grob_property ("parenthesize")))
     mol = parenthesize (me, mol); 
-  
+#endif
   return mol.smobbed_copy();
 }
 
@@ -67,4 +77,4 @@ Accidental_interface::brew_molecule (SCM smob)
 
 ADD_INTERFACE(Accidental_interface, "accidental-interface",
 	      "a single accidental",
-	      "accidentals parenthesize");
+	      "style accidentals");

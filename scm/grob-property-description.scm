@@ -29,7 +29,10 @@
 (grob-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}.")
 (grob-property-description 'accidentals list? "Alist with (PITCH
 . OPTION-LIST) entries. OPTION-LIST can contain 'cautionary, 'natural
-and 'tie-break-reminder ")
+and 'tie-break-reminder
+
+FIXME: outdated.
+")
 (grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
@@ -263,6 +266,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
+
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
 (grob-property-description 'penalty number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less
@@ -435,7 +439,7 @@ columns.
 (grob-property-description 'staff-support boolean? " JUNKME.")
 (grob-property-description 'script-molecule pair? "index code for script.")
 
-(grob-property-description 'accidentals-grob ly-grob? "accidentals for this note.")
+(grob-property-description 'accidental-grob ly-grob? "Accidental for this note.")
 
 (grob-property-description 'causes list? "list of cause objects.")
 (grob-property-description 'flag-count number? "")

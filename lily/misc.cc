@@ -20,7 +20,7 @@ intlog2 (int d)
   int i=0;
   while ((d != 1)) 
     {
-      d/= 2;
+      d /= 2;
       i++;
     }
   
@@ -34,36 +34,3 @@ log_2 (double x)
   return log (x)  /log (2.0);
 }
 
-
-static int
-comp (Real const &a, Real const &b)
-{
-  return sign (a-b);
-}
-
-Interval
-quantise_iv (Array<Real> positions, Real x)
-{
-  positions.sort (comp);
-  Real period = positions.top () - positions[0];
-  
-  int n =  int ((x - positions[0]) / period);
-  Real frac = (x - positions[0]) -  n * period;
-
-  while (frac < 0)
-    {
-      frac += period;
-      n --;
-    }
-  
-  Real px = frac + positions[0];
-  assert (positions[0] <= px && px <= positions.top ());
-  int i=0;
-  for (; i < positions.size () - 1; i++)
-    {
-      if (positions[i] <= px && px <= positions[i+1])
-	break; 
-    }
-
-  return Interval (positions[i] , positions[i+1]) + period * n;
-}

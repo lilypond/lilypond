@@ -16,7 +16,7 @@
 
 
 
-(debug-enable 'backtrace)
+;(debug-enable 'backtrace)
 
 
 (define point-and-click #f)
@@ -113,7 +113,10 @@
 	    (symbol->string (car y))))
 
 
-(define (ly-load x) (eval-string (ly-gulp-file x)))
+(define (ly-load x)
+  (primitive-load (%search-load-path x))
+
+  )
 
 (ly-load "output-lib.scm")
 

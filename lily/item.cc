@@ -172,8 +172,8 @@ Item::handle_prebroken_dependencies ()
 	suicide ();
       else if (empty)
 	{
-	  set_extent_callback (SCM_EOL, X_AXIS);
-	  set_extent_callback (SCM_EOL, Y_AXIS);
+	  set_extent (SCM_EOL, X_AXIS);
+	  set_extent (SCM_EOL, Y_AXIS);
 	}
       else if (trans)
 	set_grob_property ("molecule-callback", SCM_EOL);

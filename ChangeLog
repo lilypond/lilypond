@@ -1,5 +1,14 @@
 2002-04-21  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm (ly-load): use primitive-load for loading.
+
+	* lily/misc.cc: remove quantise_iv()
+
+	* lily/*.cc: pass read-only arrays by reference.
+	
+	* lily/grob.cc (common_refpoint_of_array): new function. Try to
+	use common_refpoint_of_{array, list} when possible.
+
 	* lily/include/accidental-placement.hh: new file.
 
 	* lily/accidental-placement.cc (alignment_callback): position

@@ -292,18 +292,22 @@ New_accidental_engraver::create_grobs ()
 		}
 	      
 	      Accidental_placement::add_accidental (accidental_placement_, a);
-	      
-	      Side_position_interface::add_support (a, support_l);
 	      announce_grob (a, SCM_EOL);
 
-	      // todo: add cautionary option
+	      
 	      SCM accs = gh_cons (gh_int2scm (pitch->alteration_i_), SCM_EOL);
 	      if (num == 2 && extra_natural_b)
 		accs = gh_cons (gh_int2scm (0), accs);
 
+	      /* TODO:
+
+	      add cautionary option in accidental.
+	       */
+	      
 	      if (tie_break_reminder)
 		;		// TODO.
-	      support_l->set_grob_property ("accidentals-grob", a->self_scm ());
+	      
+	      support_l->set_grob_property ("accidental-grob", a->self_scm ());
 
 	      a->set_grob_property ("accidentals", accs);
 	      accidental_arr_[i].accidental_ = a;

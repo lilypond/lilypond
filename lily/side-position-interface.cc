@@ -67,7 +67,7 @@ Side_position_interface::aligned_on_support_extents (SCM element_smob, SCM axis)
 SCM
 Side_position_interface::general_side_position (Grob * me, Axis a, bool use_extents)
 {
-  Grob *common = me->get_parent (a);
+
 
   /*
     As this is only used as a callback, this is called only once. We
@@ -79,13 +79,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
     
   */
   SCM support = me->get_grob_property ("side-support-elements");
-    // me->remove_grob_property ("side-support-elements");
-  for (SCM s = support; s != SCM_EOL; s = ly_cdr (s))
-    {
-      Grob * e  = unsmob_grob (ly_car (s));
-      if (e)
-	common = common->common_refpoint (e, a);
-    }
+  Grob *common = common_refpoint_of_list (support, me->get_parent (a), a);
   
   Interval dim;
   for (SCM s = support; s != SCM_EOL; s = ly_cdr (s))
