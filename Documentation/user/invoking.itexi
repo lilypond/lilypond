@@ -132,8 +132,7 @@ to generate titling; an example demonstrating all these fields is in
 @item footer
     A text to print in the footer of all but the last page.
 @item tagline
-    Line to print at the bottom of last page. The default text is ``Lily
-was here, @var{version-number}''.
+    Line to print at the bottom of last page. The default text is ``Engraved by LilyPond @var{version-number}''.
 @end table
 
 
