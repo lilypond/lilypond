@@ -1,6 +1,4 @@
 
-code := 111;
-
 save serif_thick;
 serif_thick# = 1.1 stafflinethickness#;
 define_blacker_pixels (serif_thick);
@@ -27,7 +25,7 @@ slant_angle = 20;
 
 code := 101;
 fet_beginchar("dynamic f", "f", "dynf");
-	set_char_box (0, 1.25 ex#, descender#, ex# + ascender#);
+	set_char_box (0, 1.1 ex#, descender#, ex# + ascender#);
 
 	save left_angle, right_angle;
 	save serif_length, serif_excentricity;
@@ -45,7 +43,9 @@ fet_beginchar("dynamic f", "f", "dynf");
 	serif_length = 0.96 ex;
 	serif_excentricity = 0.01 ex;
 
-	z1 = (0.375 ex, - serif_thick);
+
+	% z1 is the "base point"
+	z1 = (0.2 ex, - serif_thick);
 	y2 = y1 + ex;
 	z2l = z1 + whatever*dir (90 - left_angle);
 	penpos2 (f_thick, 0);
@@ -93,7 +93,10 @@ fet_beginchar("dynamic f", "f", "dynf");
 	fill p;
 %	draw p;
 
-	pickup pencircle scaled 1.1 serif_thick;
+%
+% todo round for pixels...
+%
+	pickup pencircle scaled round (1.4 serif_thick);
 	(rt x13) - (lft x14) = serif_length;
 	y13 = y14;
 	y14 = y2;
@@ -106,8 +109,96 @@ fet_beginchar("dynamic f", "f", "dynf");
 fet_endchar;
 
 
-save slant;
-slant := ypart (dir(20));
+%
+% Notes:
+%  
+% - The S is trapezoidal (i.e. narrower at the top) 
+%
+% - The white space is differently shaped at the top (the bulb's inner
+% curve is filled up.)
+%
+% - less heavy than the f and p signs.
+%
+
+
+code := 114;
+fet_beginchar("dynamic s", "s", "dyns");
+	set_char_box (0, 2/3 ex#, 0, 1 ex#);
+
+	save left_angle, right_angle;
+	save s_thick, s_thin;
+	save base_point;
+	save bulb_diam, bulb_len;
+	save over_shoot;
+	over_shoot = 0; % .2 serif_thick;
+	pair base_point;
+
+	bulb_diam = 11/70 ex;
+	bulb_len = 1.0 bulb_diam;
+	left_angle =  slant_angle - 0;
+	right_angle =  slant_angle -9;
+	s_thick = 7.5/36 ex;
+	s_thin = 5/70 ex;
+	base_point = (0,0);
+
+	penpos1 (bulb_diam, -45);
+	z1 = 0.35 [z2l,z2r] + bulb_len * dir(45);
+	penpos2 (bulb_diam, -25);
+	y2l = 0.845 [y7r, y3r];
+
+	z2l = base_point + whatever * dir (90-left_angle);
+	penpos3 (s_thin, 100);
+	x3l = 1/2 w ;
+	y3l = ypart base_point - over_shoot ;
+	
+	penpos4 (s_thick, 25);
+	ypart z4l  = ypart z1r;
+	z4r = base_point + (w,0) + whatever *dir(90-right_angle);
+	penpos5 (s_thick, 40);
+	z5 = z3l + whatever * dir (90-right_angle);
+	y5 = ypart (0.48 [z7r, z3r]);
+
+	
+	penpos6 (s_thick, 25);
+	z6l = base_point + whatever *dir(90-left_angle);
+	y6r = y9l;
+
+	penpos7 (.9 s_thin, 110);
+	z7l = 0.45 [z6r, z8l] + whatever * dir (90-left_angle);
+	y7r = h + over_shoot;
+
+	penpos8 (.9 bulb_diam, -25);
+	z8 = .6 [z4l,z4r] + whatever *dir(90-right_angle);
+
+	y8r = ypart (0.23 [z7r, z3r]);
+
+	penpos9 (.9 bulb_diam, -45);
+	z9 = .4 [z8r,z8l] + .9 bulb_len * dir (-135);
+
+	penlabels(1,2,3,4,5,6,7,8,9);
+
+	labels(12);
+	save p;
+	path p;
+	p := z2l{down} .. z3l{right} .. z4r{up}
+		.. z5r
+		.. z6r{up}
+		.. z7l{right}
+		%.. z8l{down}
+		..z9l{down}
+		.. z9r{right} .. z7r{left}
+		.. z6l{down}
+		.. z5l
+		.. z4l{down}
+		.. z3r{left}
+		.. z2r{up} .. z1r{up}
+		.. z1l{left} .. cycle;
+	pickup pencircle scaled 1;
+	fill p;
+fet_endchar;
+
+
+
 
 %
 % piano p, grabbed from Ed Breitkopf Mozart horn concerto 3.
@@ -131,6 +222,8 @@ slant := ypart (dir(20));
 save slant;
 slant := ypart (dir(slant_angle));
 currenttransform := currenttransform slanted slant;
+
+code := 111;
 
 
 fet_beginchar("dynamic p", "p", "dynp")
@@ -264,7 +357,7 @@ fet_endchar;
 code := 108;
 
 fet_beginchar("dynamic m", "m", "dynm");
-	set_char_box (0, 1.3 ex#, 0, 1.0 ex#);
+	set_char_box (0, 1.5 ex#, 0, 1.0 ex#);
 
 	% should share code with p for twiddle.
 
@@ -273,9 +366,12 @@ fet_beginchar("dynamic m", "m", "dynm");
 		i_left_space;
 	save p;
 	save idir, center, right_ending;
+	save overshoot;
 	pair center, idir, right_ending;
+
 	path p;
 
+	overshoot = .25  serif_thick;
 	i_thick := 21 / 80 ex;
 	i_angle := 0;
 	idir := dir(90- i_angle);
@@ -285,21 +381,21 @@ fet_beginchar("dynamic m", "m", "dynm");
 	i_twiddle_start_y =  8/16 ex;
 	i_twiddle_start_angle = 0;
 	center =(0,0);
-	bottom_blot = serif_thick;
+	bottom_blot = 1.5 serif_thick;
 
 	penpos1 (i_twiddle_thick, -i_twiddle_start_angle);
 	y1 = i_twiddle_start_y;
 	z1r = center - (i_left_space,0)  + whatever * idir;
 
-	y3 = bottom_blot + ypart center; 
+	y3 = 0.5 bottom_blot + ypart center; 
 	penpos3(i_thick, 0);
 	z3l = center + whatever * idir;
 	y4 = ypart center;
 	penpos4 (i_thick - bottom_blot, 0);
 	z4 - z3 = whatever * idir;
 
-	y2l = 1 ex;
-	z2l = .15 [z3l, z3r] + whatever * idir;
+	y2l = 1 ex  +  overshoot;
+	z2l = .08 [z3l, z3r] + whatever * idir;
 	z2r = 5/8 [z1r, z3l] + whatever * idir;
 	y2r = y5l + 1/9 ex;
 	z2 = 1/2 [z2l, z2r] ;
@@ -317,20 +413,25 @@ fet_beginchar("dynamic m", "m", "dynm");
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	clearxy;
 
+	i_angle := -3.2;
+	idir := dir(90 - i_angle);
+	i_left_space := 15/80 ex;
+
 
 	z1r = right_ending;
 	z5l = right_ending + (i_left_space,0);
 	penpos1(serif_thick, - i_twiddle_start_angle);
 
-	y3 = bottom_blot + ypart center; 
+	y3 = .5 bottom_blot + ypart center; 
 	penpos3(i_thick, 0);
 	z3l = z5l + whatever * idir;
 	y4 = ypart center;
 	penpos4(i_thick - bottom_blot, 0);
 	z4 - z3 = whatever * idir;
 
-	y2l = 1 ex;
-	z2l = .15 [z3l, z3r] + whatever * idir;
+	y2l = 1 ex+ overshoot;
+
+	z2l = .08 [z3l, z3r] + whatever * idir;
 	z2r = 5/8 [z1r, z3l] + whatever * idir;
 	y2r = y5l + 1/9 ex;
 	z2 = 1/2 [z2l, z2r] ;
@@ -346,9 +447,8 @@ fet_beginchar("dynamic m", "m", "dynm");
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 	i_thick := 23 / 80 ex;
-	i_angle := -7;
-	i_left_space := 14/80 ex;
-	end_overshoot = .25  serif_thick;
+	i_angle := -6;
+	i_left_space := 15/80 ex;
 
 
 	idir := dir(90- i_angle);
@@ -376,12 +476,12 @@ fet_beginchar("dynamic m", "m", "dynm");
 
 
 	y3l =  1/8 ex + ypart center; 
-	y2l = 1 ex+  end_overshoot;
+	y2l = 1 ex+  overshoot;
 	z2l = .08 [z3l, z3r] + whatever * idir;
 	z2r = 5/8 [z1r, z3l] + whatever * idir;
 	y2r = y5l + 1/9 ex;
 	z2 = 1/2 [z2l, z2r] ;
-	z8 = z7 - (0, 2 end_overshoot);
+	z8 = z7 - (0, 1 overshoot);
 
 	p := simple_serif (z1l, z1r, 90) .. tension 1.05
 		.. z2r{right} .. z5l --- z3l
@@ -418,3 +518,6 @@ fet_endchar;
 
 % Chester, Breitkopf suggest smaller sizes of these other chars,
 % using the x-height as reference point.
+
+ligtable "m" : "p" kern 0.25 ex#, "f" kern;
+ligtable "f" : "f"  kern -0.13 ex#;
