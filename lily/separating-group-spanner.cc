@@ -19,31 +19,30 @@ Separating_group_spanner::get_rods () const
   
   for (int i=0; i < spacing_unit_l_arr_.size () -1; i++)
     {
+      Single_malt_grouping_item *l =spacing_unit_l_arr_[i];
+      Single_malt_grouping_item *lb
+	= dynamic_cast<Single_malt_grouping_item*>(l->find_prebroken_piece (RIGHT));
+      Single_malt_grouping_item *r = spacing_unit_l_arr_[i+1];
+      Single_malt_grouping_item *rb
+	= dynamic_cast<Single_malt_grouping_item*>(r->find_prebroken_piece (LEFT));
+      
       a.push (Rod (spacing_unit_l_arr_[i], spacing_unit_l_arr_[i+1]));
-      bool lb =spacing_unit_l_arr_[i]->column_l ()->breakable_b_;
       if (lb)
 	{
-	  Rod r((Single_malt_grouping_item*)
-		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
-		       spacing_unit_l_arr_[i+1]);
-	  r.distance_f_ += paper ()->interline_f () *1.5;
-	  a.push (r);
+	  Rod rod(lb, r);
+	  rod.distance_f_ += paper ()->interline_f () *1.5;
+	  a.push (rod);
 	}
-      bool rb=spacing_unit_l_arr_[i+1]->column_l ()->breakable_b_;
+      
       if (rb)
 	{
-	  a.push (Rod (spacing_unit_l_arr_[i],
-		       (Single_malt_grouping_item*)
-		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT)));
+	  a.push (Rod (l, rb));
 	}
       if (lb && rb)
 	{
-	  Rod r((Single_malt_grouping_item*)
-		       spacing_unit_l_arr_[i]->find_prebroken_piece (RIGHT),
-		       (Single_malt_grouping_item*)
-		       spacing_unit_l_arr_[i+1]->find_prebroken_piece (LEFT));
-	  r.distance_f_ += paper ()->interline_f () *1.5;
-	  a.push (r);
+	  Rod rod(lb, rb);
+	  rod.distance_f_ += paper ()->interline_f () *1.5;
+	  a.push (rod);
 	}
     }
       
