@@ -17,8 +17,10 @@
     (Accidental
      . (
 	(print-function . ,Accidental_interface::print)
+	(inside-slur . #t) 
 	(cautionary-style . parentheses)
-	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
+	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface
+																       font-interface))))
 	))
     
     (AccidentalPlacement
@@ -773,7 +775,7 @@
 	))
 
     (PhrasingSlur
-     . (
+     . ((slur-details . ,default-slur-details)
 	(print-function . ,New_slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
@@ -885,7 +887,7 @@
 	))
 
     (Slur
-     . (
+     . ((slur-details . ,default-slur-details)
 	(print-function . ,New_slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
