@@ -1,5 +1,10 @@
 2002-07-23  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/separation-item.cc (width): cache extent in extent-X
+
+	* lily/spacing-spanner.cc (standard_breakable_column_spacing):
+	only add extent for non-musical column.
+
 	* lily/accidental-placement.cc (split_accidentals): new function
 	(get_relevant_accidental_extent): new function
 

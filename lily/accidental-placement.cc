@@ -111,8 +111,8 @@ Accidental_placement::split_accidentals (Grob * accs,
 }
 
 /*
-  Accidentals are special, because they appear and disappear before
-  and after ties at will.
+  Accidentals are special, because they appear and disappear after
+  ties at will.
 */
 Interval
 Accidental_placement::get_relevant_accidental_extent (Grob *me,

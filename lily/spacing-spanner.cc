@@ -28,9 +28,6 @@
 #include "break-align-interface.hh"
 #include "spacing-interface.hh"
 
-/*
-  paper-column:
- */
 class Spacing_spanner
 {
 public:
@@ -639,18 +636,25 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 				   Real * fixed, Real * space,
 				   Moment shortest)
 {
+ 
   *fixed = 0.0;
   Direction d = LEFT;
   Drul_array<Item*> cols(l,r);
   
   do
     {
-      Interval lext = cols[d]->extent (cols [d], X_AXIS);
-
-      *fixed += -d * lext[-d];
+      if (!Paper_column::musical_b (cols[d]))
+	{
+	  /*
+	    Tied accidentals over barlines cause problems, so lets see
+	    what happens if we do this for non musical columns only.
+	   */
+	  Interval lext = cols[d]->extent (cols [d], X_AXIS);
+	  *fixed += -d * lext[-d];
+	}
     }
   while (flip (&d) != LEFT);
-  
+
   if (l->breakable_b (l) && r->breakable_b(r))
     {
       Moment *dt = unsmob_moment (l->get_grob_property ("measure-length"));
@@ -669,8 +673,6 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 
       *space = *fixed + get_duration_space (me, dt, shortest.main_part_, &dummy);
     }
-  
-  
 }
 
 
