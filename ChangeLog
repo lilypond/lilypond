@@ -1,3 +1,7 @@
+2003-06-20  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/ broken.ly lyric-phrasing.ly: deleted.
+
 2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/slur.cc (get_boundary_notecolumn_y): change name from
