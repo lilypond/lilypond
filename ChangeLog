@@ -13,6 +13,8 @@
 
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Release 1.8.2.
+
 	* GNUmakefile.in (EXTRA_DIST_FILES): dist lilypond.vim too.
 
 	* scm/chord-ignatzek-names.scm: backport 1.9 fix for base notes. 
