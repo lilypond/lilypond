@@ -12,7 +12,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "nederlands.ly"
 

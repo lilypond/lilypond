@@ -8,7 +8,7 @@
 }
 
 
-\version "1.1.66";
+\version "1.2.0";
 
 %{
 	Note:  there are other verses, but the three here seem to be

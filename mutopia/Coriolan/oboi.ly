@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "oboe-1.ly"
 \include "oboe-2.ly"

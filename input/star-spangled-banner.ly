@@ -120,7 +120,7 @@ automaticLyrics = \notes \context GrandStaff <
 		\context Staff=staffA <
 			\beginmatter
 			\clef treble;
-			\property Staff.automaticMelismas = "1"
+			\property Staff.automaticMelismata = "1"
 			\notes \transpose c'' {\voiceone \$staff1_voice_1 \bar "|.";} 
 			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
@@ -170,4 +170,4 @@ handLyrics = \notes \context GrandStaff <
 }
 
 
-\version "1.1.66";
+\version "1.2.0";

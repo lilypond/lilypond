@@ -1,4 +1,4 @@
-\version "1.1.66";
+\version "1.2.0";
 
 voiceOne = \notes \relative c'' {
 	a1 a a
@@ -43,7 +43,7 @@ grandstaff = \context GrandStaff = one <
 	\paper{
 		linewidth=80.0\mm;
 		castingalgorithm = \Wordwrap;
-		\translator { \VoiceContext beamAuto=0; }
+		\translator { \VoiceContext noAutoBeaming = "1"; }
 		\translator { \HaraKiriStaffContext }
 		\translator { \OrchestralScoreContext skipBars = 1; }
 	}

@@ -1,4 +1,4 @@
-\version "1.1.66";
+\version "1.2.0";
 
 m = \notes \relative c''{
 c1 | c2 c | c c | c c | c c | c c | c c | c c | 

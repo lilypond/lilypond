@@ -6,7 +6,7 @@
    /Mats B
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 incipit = \notes\relative c'{
   <b1 fis' b d>

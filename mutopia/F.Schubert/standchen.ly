@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 vocalVerse = \notes\relative c''{
 	\property Voice.dynamicDir=1
@@ -323,8 +323,8 @@ lyricStaff = \context Lyrics = lyric<
 vocals = \notes{
 	\clef treble;
  	% certainly no auto-beaming for vocals
- 	\property Voice.beamAuto=0
-	\property Staff.automaticMelismas=1
+ 	\property Voice.noAutoBeaming = "1"
+	\property Staff.automaticMelismata=1
 
 	\property Voice.dynamicDir = \up
 	\skip 4 * 12; 

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "global.ly"
 \include "viola-1.ly"
@@ -23,7 +23,7 @@ $viola_staff = \context GrandStaff = viola <
 	%%\include "coriolan-part-paper.ly"
 	\paper{
 		castingalgorithm = \Wordwrap;
-		\translator { \VoiceContext beamAuto=0; }
+		\translator { \VoiceContext noAutoBeaming = "1"; }
 		\translator { \HaraKiriStaffContext }
 		% \translator { \ScoreContext skipBars = 1; }
 		\translator { \OrchestralScoreContext skipBars = 1; }

@@ -11,7 +11,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 % Process with 'ly2dvi -s parts.ly' to get the separate parts.
 
 
-\version "1.1.66";
+\version "1.2.0";
 
 \include "global.ly"
 \include "wood.ly"
@@ -32,7 +32,7 @@ my_paper = \paper {
     textScriptPadding = 5.0;
     textStyle = "italic";
     textEmptyDimension = 1;
-    beamAuto = 0; % Beams inserted explicitly as in the original.
+    noAutoBeaming = "1"; % Beams inserted explicitly as in the original.
   }
 }
 
