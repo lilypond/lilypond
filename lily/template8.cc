@@ -15,7 +15,7 @@
 #include "plist.tcc"
 
 
-IPL_instantiate(Audio_element);
-IPL_instantiate(Audio_column);
+template IPL_INSTANTIATE(Audio_element);
+template IPL_INSTANTIATE(Audio_column);
 
 
