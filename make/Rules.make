@@ -70,7 +70,7 @@ $(outdir)/%.1: %.pod
 	echo 0 > $@
 
 
-%.text: check-doc-deps
+$(depth)/%.text: check-doc-deps
 	rm -f $@
 	ln `find ${depth}/Documentation -name $@|head -1` .
 
