@@ -20,7 +20,6 @@
 // egcs
 typedef void (Translator::*Method_pointer) (void);
 #define set_property(x,y) internal_set_property(ly_symbol2scm(x),y)
-#define set_children_property(x,y) internal_set_children_property(ly_symbol2scm(x),y)
 
 class Scheme_hash_table;
 
@@ -44,7 +43,6 @@ public:
 
   void unset_property (SCM var_sym);
   void internal_set_property (SCM var_sym, SCM value);  
-  void internal_set_children_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;
 
   String id_str_;

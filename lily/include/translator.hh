@@ -30,10 +30,11 @@ public:							\
   virtual SCM static_translator_description () const;	\
   virtual SCM translator_description () const;
 
-/** Make some kind of #Element#s from Requests. Elements are made by
-  hierarchically grouped #Translator#s
-  */
-class Translator : public Input {
+/*
+  Translate music into grobs.
+*/
+class Translator
+{
   void init ();
 public:
   Music_output_def * output_def_l_;

@@ -39,7 +39,6 @@ Translator::Translator ()
 }
 
 Translator::Translator (Translator const &s)
-  : Input (s)
 {
   init ();
   output_def_l_ = s.output_def_l_;

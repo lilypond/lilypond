@@ -85,23 +85,18 @@ The head of the list:
 (translator-property-description 'autoAccidentals list? "List of
 different ways to typeset an accidental. All algorithms in the list
 are tried, and the one returning the most accidentals is used.
-Each entry is either a symbol containg a context name or a name-value
-pair containing an algorithm-description.
-The list must begin with a symbol (context name).
-The symbols denote in which context THE FOLLOWING algorithms (until next symbol) 
-will be interpreted. All notes in the interpretation context will share accidentals.
-The contexts must be stated in order, innermost first.
+Each algorithm-description is a name-value pair.
 The algorithms are:
 @table @samp
-@item same-octave:
+@item measure-same-octave:
 This is the default algorithm. Accidentals are typeset if the note changes
 the accidental of that note in that octave. Accidentals lasts to the end of the measure 
 and then as many measures as specified in the value. I.e. 1 means to the end
-of next measure, -1 means to the end of previous measure (that is: no duration at all), etc. #t means forever.
-@item any-octave:
+of next measure, -1 means to the end of previous measure (that is: no duration at all), etc.
+@item measure-any-octave:
 Accidentals are typeset if the note is different from 
 the previous note on the same pitch in any octave. The value has same meaning as in
-same-octave.
+measure-same-octave.
 @end table
 ")
 

@@ -13,6 +13,7 @@
 #include "grob.hh"
 #include "scm-hash.hh"
 #include "translator-group.hh"
+#include "warn.hh" 
 
 /*
   This is deprecated, since revert/override should be used

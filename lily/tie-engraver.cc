@@ -16,6 +16,7 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "grob-pitch-tuple.hh"
+#include "warn.hh"
 #include "note-head.hh"
 
 /**

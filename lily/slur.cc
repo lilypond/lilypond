@@ -166,16 +166,16 @@ Slur::check_slope (Grob *me)
     }
 }
 
-void
+/*
+  Set 'attachment grob property, and return it.
+*/
+SCM
 Slur::set_extremities (Grob *me)
 {
   if (!Directional_element_interface::get (me))
     Directional_element_interface::set (me, get_default_dir (me));
 
-  Direction dir = LEFT;
-  do 
-    {
-      SCM att = me->get_grob_property ("attachment");
+  SCM att = me->get_grob_property ("attachment");
       /*
        */
       if (!gh_pair_p (att))
@@ -185,6 +185,10 @@ Slur::set_extremities (Grob *me)
 	  me->set_grob_property ("attachment", att);
 	}
       
+  Direction dir = LEFT;
+  do 
+    {
+    
       if (!gh_symbol_p (index_cell (att, dir)))
 	{
 	  for (SCM s = me->get_grob_property ("extremity-rules");
@@ -204,6 +208,8 @@ Slur::set_extremities (Grob *me)
   while (flip (&dir) != LEFT);
 
   check_slope (me);
+
+  return att;
 }
 
 
@@ -274,9 +280,9 @@ Slur::get_attachment (Grob *me, Direction dir,
   SCM s = me->get_grob_property ("attachment");
   if (!gh_symbol_p (index_cell (s, dir)))
     {
-      set_extremities (me);
-      s = me->get_grob_property ("attachment");
+      s = set_extremities (me);
     }
+  
   SCM a = dir == LEFT ? ly_car (s) : ly_cdr (s);
   Spanner*sp = dynamic_cast<Spanner*> (me);
   String str = ly_symbol2string (a);
@@ -626,9 +632,14 @@ Slur::get_curve (Grob*me)
   Bezier b;
   int i = 0;
 
+  SCM attach = me->get_grob_property ("attachment");
+  if (!gh_pair_p (attach))
+    attach = set_extremities(me);
+
+  
   if (!Directional_element_interface::get (me)
-      || ! gh_symbol_p (index_cell (me->get_grob_property ("attachment"), LEFT))
-      || ! gh_symbol_p (index_cell (me->get_grob_property ("attachment"), RIGHT)))
+      || ! gh_symbol_p (index_cell (attach, LEFT))
+      || ! gh_symbol_p (index_cell (attach, RIGHT)))
     set_extremities (me);
   
   if (!gh_pair_p (me->get_grob_property ("control-points")))

@@ -334,8 +334,7 @@ extra_init = {
 	'pagenumber' : [1],
 	'textheight' : [], 
 	'linewidth' : [],
-	'orientation' : [],
-	'unit' : ['pt'],
+	'orientation' : []
 }
 
 extra_fields = extra_init.keys ()
@@ -568,15 +567,14 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	if extra['orientation']:
 		orientation = extra['orientation'][0]
 
- 	unit = extra['unit'][-1]
- 	# set sane geometry width (a4-width) for linewidth = -1.
+	# set sane geometry width (a4-width) for linewidth = -1.
 	maxlw = max (extra['linewidth'] + [-1])
 	if maxlw < 0:
 	        # who the hell is 597 ?
 		linewidth = '597pt'
 	else:
-		linewidth = '%d%s' % (maxlw, unit)
-	s = s + '\geometry{width=%s%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+		linewidth = maxlw
+	s = s + '\geometry{width=%smm%s,headheight=2mm,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
 		s = s + '\geometry{twosideshift=4mm}\n'

@@ -11,6 +11,7 @@
 #include "note-head.hh"
 #include "translator-group.hh"
 #include "spanner.hh"
+#include "warn.hh"
 
 
 String get_context_id (Translator_group * ancestor, const char * type);
