@@ -81,7 +81,7 @@
       SCM incr_scm = lc->get_property ("forced-spacing");
       if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
 	{
-	  me->warning (_f ("gotcha: ptr =%ul", lc));//debug
+	  me->warning (_f ("gotcha: ptr=%ul", lc));//debug
 	  ly_display_scm (lc->self_scm ());
 	  Real distance;
 	  if (incr_scm != SCM_EOL)
@@ -93,7 +93,7 @@
 	      me->warning ("distance undefined, assuming 0.1");
 	      distance = 0.1;
 	    }
-	  me->warning (_f ("distance =%f", distance));//debug
+	  me->warning (_f ("distance=%f", distance));//debug
 	  Real strength = 1.0;
 	  Spaceable_grob::add_spring (lc, rc, distance, strength);
 	  if (Item *rb = r->find_prebroken_piece (LEFT))
@@ -137,8 +137,8 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 #if 0 // experimental code to collapse spacing after ligature
 	      Grob *sibling_parent = sibling->get_parent (X_AXIS);
 	      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
-					   "setting `spacing-increment = "
-					   "0.01': ptr =%ul", parent));
+					   "setting `spacing-increment="
+					   "0.01': ptr=%ul", parent));
 	      sibling_parent->set_property ("forced-spacing",
 					      scm_make_real (0.01));
 #endif

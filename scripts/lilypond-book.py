@@ -1246,7 +1246,8 @@ def do_process_cmd (chunks):
 	ly.progress ('\n')
 
 	if ly_outdated:
-		ly.progress (_ ("Processing...\n"))
+		ly.progress (_ ("Processing..."))
+		ly.progress ('\n')
 		process_snippets (process_cmd, ly_outdated, texstr_outdated, png_outdated)
 	else:
 		ly.progress (_ ("All snippets are up to date..."))

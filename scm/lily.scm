@@ -89,10 +89,11 @@ predicates. Print a message at LOCATION if any predicate failed."
       (if (not (pred? arg))
 
 	  (begin
-	    (ly:input-message location
-			      (format #f
-				      (_ "wrong type for argument ~a. Expecting ~a, found ~s")
-				      count (type-name pred?) arg))
+	    (ly:input-message
+	     location
+	     (format
+	      #f (_ "wrong type for argument ~a.  Expecting ~a, found ~s")
+	      count (type-name pred?) arg))
 	    #f)
 	  #t))
 
