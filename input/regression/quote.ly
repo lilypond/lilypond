@@ -7,13 +7,13 @@ things are quoted. In this example, a 16th rests is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.4.0"
+\version "2.5.0"
 \layout {
     raggedright = ##t
 }
 
 
-quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff }
+quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff c }
 
 \addquote quoteMe \quoteMe 
 original = \relative c'' { c8 d s2 es8 gis8 }
@@ -35,7 +35,7 @@ original = \relative c'' { c8 d s2 es8 gis8 }
 	    s4
 	    \set fontSize = #-4
 	    \override Stem #'lengths = #'(2.5 2.5 3.0 3.0)
-	    \quote quoteMe 2.
+	    \quoteDuring #"quoteMe" { \skip 2. }
 	}
     >>
 >>

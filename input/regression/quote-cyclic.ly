@@ -6,11 +6,11 @@ example, there are notes with each full-bar rest."
 	  
  
 }
-\version "2.4.0"
+\version "2.5.0"
 A = \relative c' { c4 d e f | << R1            \\
-				 \quote "qB" 1 >> | }
+				 \quoteDuring #"qB" { \skip 1 } >> | }
 B = \relative c' { << R1            \\
-		      \quote "qA" 1 >> | f4 e d c | }
+		      \quoteDuring #"qA" { \skip 1 } >> | f4 e d c | }
 
 \addquote "qA" \A
 \addquote "qB" \B

@@ -184,6 +184,9 @@ New_quote_iterator::process (Moment m)
   if (Music_wrapper_iterator::ok())
     Music_wrapper_iterator::process (m);
 
+  if (!ly_c_vector_p (event_vector_))
+    return ;
+  
   if (event_idx_ < 0)
     {
       event_idx_ = binsearch_scm_vector (event_vector_,
