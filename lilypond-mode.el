@@ -299,12 +299,9 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-shell-process (name buffer command)
   (let ((old (current-buffer)))
     (switch-to-buffer-other-window buffer)
-    ;; Hmm, if we goto the end of the buffer, we don't see
-    ;; the messages scroll by.  I don't know how to fix this,
-    ;; so let's emty the buffer, then
-    ;;(goto-char (point-max))
-    (erase-buffer)
-    (goto-char (point-min))
+    ;; If we empty the buffer don't see messages scroll by.
+    ;; (erase-buffer)
+    
     (start-process-shell-command name buffer command)
     (switch-to-buffer-other-window old)))
   
@@ -327,8 +324,6 @@ command."
 		(if LilyPond-kick-xdvi
 		  (let ((process-xdvi (get-buffer-process buffer-xdvi)))
 		    (if process-xdvi
-			;; Don't open new xdvi window, but force redisplay
-			;; We could make this an option.
 			(signal-process (process-id process-xdvi) 'SIGUSR1)
 		      (LilyPond-shell-process name buffer-xdvi command)))
 		  (LilyPond-shell-process name buffer-xdvi command)))

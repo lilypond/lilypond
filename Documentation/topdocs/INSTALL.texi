@@ -13,8 +13,7 @@
 This document describes how to build LilyPond on Unix platforms.  It is
 also known to run and compile on Windows NT/95/98 as well.  More
 information on this topic can be found at the
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/, LilyPond on Windows
-page}.
+@uref{http://www.lilypond.org/gnu-windows/, LilyPond on Windows page}.
 
 
 @html

@@ -50,12 +50,6 @@ default:
 info: $(INFO_FILES)
 
 
-# The new pretest version of makeinfo, 4.0a splits html files into their own
-# directory.  Available from
-# ftp://texinfo.org/texinfo/pretests/texinfo-4.0a.tar.gz
-SPLITTING_MAKEINFO = $(shell makeinfo --version | egrep '4.0((.jcn[2,3])|a|b)')
-
-
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
@@ -70,20 +64,24 @@ $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-interna
 	-cp -f $(outdir)/lilypond-internals/index.html $@
 	$(deep-footify) $(shell find $(outdir)/$(*F)/*.html)
 
-ifneq ($(SPLITTING_MAKEINFO),)
+
+ifeq ($(SPLITTING_MAKEINFO),yes)
 
 DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
+
+local-WWW: rm-deep-symlinks
+
+rm-deep-symlinks:
+	cd $(outdir) && rm -f lilypond lilypond-internals; true
 
 else
 
 DEEP_HTML_FILES = $(outdir)/lilypond.html $(outdir)/lilypond-internals.html
 
-local-WWW: deep-symlinks
-
-
-
 # Links referred to by Documentation index
-LILYPOND_LINKS=Reference-Manual.html Features.html Ly2dvi.html Midi2ly.html
+LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
+
+local-WWW: deep-symlinks
 
 deep-symlinks:
 	cd $(outdir) && rm -f lilypond && ln -s . lilypond
