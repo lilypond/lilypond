@@ -114,7 +114,7 @@ binary-indep: build-doc install
 	dh_md5sums
 	dh_builddeb
 
-binary-arch: DH_OPTIONS=-a
+binary-arch: DH_OPTIONS=-s
 binary-arch: build install
 	dh_testdir
 	dh_testroot
