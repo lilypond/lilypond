@@ -22,8 +22,8 @@
 #include "main.hh"
 #include "paper-def.hh"
 #include "ly-module.hh"
-
 #include "paper-book.hh"
+#include "paper-score.hh"
 
 
 /*
@@ -146,36 +146,42 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   return scm_gc_unprotect_object (trans->self_scm ());
 }
 
-
+// FIXME: silly name, score/music is rendered, not the output -- render midi?
 LY_DEFINE (ly_render_output, "ly:render-output",
-	   3, 0, 0, (SCM context, SCM header, SCM out_filename),
-	   "Given a Score context in its final state, calculate the output, "
-	   "and  dump the result to @var{out-filename}, using "
-	   "@var{header} for the bibliographic information.")
+	   2, 0, 0, (SCM context, SCM outname),
+	   "Given a Score context in its final state,"
+           "process it and return the (rendered) result.")
 {
-  Global_context * gt = dynamic_cast<Global_context *> (unsmob_context (context));
-  
-  SCM_ASSERT_TYPE (gt, context, SCM_ARG1, __FUNCTION__, "Global context");
-  SCM_ASSERT_TYPE (ly_module_p (header), header, SCM_ARG2, __FUNCTION__, "module");
-  SCM_ASSERT_TYPE (gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__, "output filename");
+  Global_context *g = dynamic_cast<Global_context*> (unsmob_context (context));
+  SCM_ASSERT_TYPE (g, context, SCM_ARG1, __FUNCTION__, "Global context");
+  SCM_ASSERT_TYPE (gh_string_p (outname), outname, SCM_ARG2, __FUNCTION__, "output filename");
 
-  Music_output *output = gt->get_output ();
-  output->header_ = header;
+  Music_output *output = g->get_output ();
   progress_indication ("\n");
-  output->process (ly_scm2string (out_filename));
-
-#ifndef PAGE_LAYOUT
-  delete output;
-#endif
-
-  return SCM_UNDEFINED;
+  // ugh, midi still wants outname
+  return output->process (ly_scm2string (outname));
 }
 
 void
-default_rendering (SCM mus, SCM outdef, SCM head, SCM outname)
+default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
 {
-  SCM context = ly_run_translator (mus, outdef);
-  
-  if (unsmob_context (context))
-    ly_render_output (context,  head, outname);
+  SCM context = ly_run_translator (music, outdef);
+
+  if (Global_context *g = dynamic_cast<Global_context*>
+      (unsmob_context (context)))
+    {
+      SCM systems = ly_render_output (context, outname);
+      Music_output *output = g->get_output ();
+      if (systems != SCM_UNDEFINED)
+	{
+	  paper_book->scores_.push (systems);
+	  paper_book->headers_.push (header);
+	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
+	  paper_book->papers_.push (ps->paper_);
+#ifndef PAGE_LAYOUT
+	  paper_book->classic_output (ly_scm2string (outname));
+#endif
+	}
+      delete output;
+    }
 }

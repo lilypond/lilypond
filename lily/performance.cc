@@ -146,8 +146,7 @@ Performance::add_element (Audio_element *p)
   audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
 }
 
-
-void
+SCM
 Performance::process (String out)
 {
   if (out == "-")
@@ -165,4 +164,5 @@ Performance::process (String out)
 
   output (midi_stream);
   progress_indication ("\n");
+  return SCM_UNDEFINED;
 }

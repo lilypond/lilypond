@@ -105,6 +105,7 @@ class Music_output_def;
 class Music_sequence;
 class Music_wrapper;
 class Music_wrapper_iterator;
+class Page;
 class Pitch;
 class My_lily_lexer;
 class Note_performer;

@@ -1,3 +1,25 @@
+2004-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/include/music-output.hh (process): Change signature to
+	return SCM.
+
+	* lily/paper-book.cc (classic_output, get_title, get_scopes): New
+	method.
+
+	* lily/paper-score.cc (process): Return stencils rather than
+	outputting directly.  Remove paper-book kludge.  Delete grobs.
+	(output): Remove.
+
+	* lily/include/paper-score.hh (class Paper_score): Remove outputter_.
+
+	* lily/score-engraver.cc (get_output): Do not reset pscore_.
+
+	* lily/score.cc (default_rendering)
+	(ly_render_output): Move adding paper-score two levels up.
+
+	* lily/system.cc (get_line):
+	* lily/paper-outputter.cc (output_line): Fix `between-system-string'.
+
 2004-03-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/font.scm (paper20-font-vector): add more design sizes for
@@ -8,11 +30,6 @@
 
 	* scm/font.scm (paper20-font-vector): bugfix: use din12, not 10
 	for 12pt design size. 
-
-2004-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* lily/system.cc (get_line):
-	* lily/paper-outputter.cc (output_line): Fix `between-system-string'.
 
 2004-03-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

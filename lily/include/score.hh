@@ -6,7 +6,6 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #ifndef SCORE_HH
 #define SCORE_HH
 
@@ -26,12 +25,12 @@ public:
   Score ();
   Score (Score const&);
   DECLARE_SMOBS (Score,foo);
-private:
 };
-DECLARE_UNSMOB(Score,score); 
+DECLARE_UNSMOB (Score,score); 
 
 
 SCM ly_run_translator (SCM, SCM);
-SCM ly_render_output (SCM, SCM, SCM);
+SCM ly_render_output (SCM, SCM);
 void default_rendering (SCM,SCM,SCM,SCM);
-#endif
+
+#endif /* SCORE_HH */

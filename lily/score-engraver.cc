@@ -253,11 +253,10 @@ Score_engraver::set_columns (Paper_column *new_command,
 Music_output*
 Score_engraver::get_output ()
 {
-  Music_output * o = pscore_;
-  pscore_=0;
+  Music_output *o = pscore_;
+  ///FIXME WTF?  pscore_ = 0;
   return o;
 }
-
 
 bool
 Score_engraver::try_music (Music*r)
