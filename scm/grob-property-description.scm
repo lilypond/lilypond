@@ -287,11 +287,6 @@ Also works as a scaling parameter for the length of hyphen. .")
 FIXME: also pair? (cons LEFT RIGHT)
 
 ")
-(grob-property-description 'minimum-space-pair number-pair? "
-
-? (cons LEFT RIGHT)
-
-")
 (grob-property-description 'molecule-callback procedure? "Function
 taking grob as argument, returning a smobbed Molecule.
 

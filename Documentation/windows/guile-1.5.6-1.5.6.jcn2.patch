@@ -1,0 +1,797 @@
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/README ./CYGWIN-PATCHES/README
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/README	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/README	Thu Jul  4 12:07:01 2002
+@@ -0,0 +1,59 @@
++Guile
++------------------------------------------
++The GNU extension language and Scheme interpreter.
++
++Runtime requirements:
++  cygwin-1.3.10 or newer
++  libguile14
++
++Build requirements:
++  cygwin-1.3.10 or newer
++  binutils-20011102 or newer
++  gcc-2.95.3-5 or newer
++  autoconf CVS (20020703) or newer,
++    autoconf-devel-2.53a-1 should be ok.
++  automake CVS (20020703) or newer,
++    automake-devel-1.6.1-3 should be ok.
++  libtool CVS (20020703) or newer,
++    libtool-devel-20020502-2 should be ok.
++
++Canonical homepage:
++  http://www.gnu.org/software/guile/
++
++Canonical download:
++  ftp://ftp.gnu.org/pub/gnu/guile/
++  
++------------------------------------
++
++Build instructions:
++
++  unpack guile-1.5.6-1-src.tar.bz2
++    if you use setup to install this src package, it will be
++	 unpacked under /usr/src automatically
++  cd /usr/src
++  DISTDIR=/usr/src ./guile-1.5.6-1.sh
++
++This will create:
++  $DISTDIR/guile/guile-1.5.6-1-orig.tar.bz2
++  $DISTDIR/guile/guile-1.5.6-1-src.tar.bz2
++  $DISTDIR/guile/guile-1.5.6-1.tar.bz2
++  $DISTDIR/guile/guile-doc/guile-doc-1.5.6-1.tar.bz2
++  $DISTDIR/guile/libguile14-dev/libguile14-dev-1.5.6-1.tar.bz2
++  $DISTDIR/guile/libguile14/libguile14-1.5.6-1.tar.bz2
++
++------------------
++
++Port notes:
++
++  Patches with Cygwin compile fixes and cross building fixes have
++  been sent upstream.
++
++  These packages were built on GNU/Linux using cross building and
++  packaging scripts:
++
++      http://lilypond.org/cygwin/cygwin-cross-1.3.10.2.tar.gz
++
++  Jan Nieuwenhuizen
++  janneke@gnu.org
++
++Cygwin port maintained by: Jan Nieuwenhuizen  <janneke@gnu.org> 
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/changelog ./CYGWIN-PATCHES/changelog
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/changelog	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/changelog	Thu Jul  4 11:29:43 2002
+@@ -0,0 +1,9 @@
++guile (1.5.6-1) unstable; urgency=low
++
++  * Initial Release.
++
++ -- Jan Nieuwenhuizen <janneke@gnu.org>  Thu,  3 Jul 2002 04:28:07 +0200
++
++Local variables:
++mode: debian-changelog
++End:
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/guile-doc.hint ./CYGWIN-PATCHES/guile-doc.hint
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/guile-doc.hint	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/guile-doc.hint	Thu Jul  4 12:19:13 2002
+@@ -0,0 +1,8 @@
++sdesc: "The GNU extension language and Scheme interpreter (documentation)"
++category: doc
++requires: cygwin
++ldesc: "The GNU extension language and Scheme interpreter (documentation)
++This package contains the documentation for guile, including both
++a reference manual (via `info guile'), and a tutorial (via `info
++guile-tut')."
++
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/guile.hint ./CYGWIN-PATCHES/guile.hint
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/guile.hint	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/guile.hint	Thu Jul  4 12:11:15 2002
+@@ -0,0 +1,12 @@
++sdesc: "The GNU extension language and Scheme interpreter (executable)"
++category: interpreters
++requires: cygwin libguile14 
++ldesc: "The GNU extension language and Scheme interpreter (executable)
++Guile, the GNU Ubiquitous Intelligent Language for Extension, is a scheme
++implementation designed for real world programming, supporting a
++rich Unix interface, a module system, and undergoing rapid development.
++
++`guile' is a scheme interpreter that can execute scheme scripts (with a
++#! line at the top of the file), or run as an inferior scheme
++process inside Emacs."
++
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/libguile14-dev.hint ./CYGWIN-PATCHES/libguile14-dev.hint
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/libguile14-dev.hint	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/libguile14-dev.hint	Thu Jul  4 12:20:28 2002
+@@ -0,0 +1,8 @@
++sdesc: "Development headers and static libraries for Guile."
++category: development libs
++requires: cygwin
++ldesc: "Development headers and static libraries for Guile.
++`libguile.h' etc. C headers, aclocal macros, the `guile-snarf' and
++`guile-config' utilities, and static `libguile.a' libraries for Guile,
++the GNU Ubiquitous Intelligent Language for Extension."
++
+diff -purN /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/libguile14.hint ./CYGWIN-PATCHES/libguile14.hint
+--- /home/fred/usr/src/guile-1.5.6/CYGWIN-PATCHES/libguile14.hint	Thu Jan  1 01:00:00 1970
++++ ./CYGWIN-PATCHES/libguile14.hint	Thu Jul  4 12:17:19 2002
+@@ -0,0 +1,7 @@
++sdesc: "The GNU extension language and Scheme interpreter (runtime libraries)"
++category: libs
++requires: cygwin
++ldesc: "The GNU extension language and Scheme interpreter (runtime libraries)
++Guile shared object libraries and the ice-9 scheme module.  Guile is
++the GNU Ubiquitous Intelligent Language for Extension."
++
+diff -purN /home/fred/usr/src/guile-1.5.6/am/ChangeLog ./am/ChangeLog
+--- /home/fred/usr/src/guile-1.5.6/am/ChangeLog	Sun Mar  3 21:34:07 2002
++++ ./am/ChangeLog	Thu Jul  4 03:28:08 2002
+@@ -1,3 +1,8 @@
++2002-07-03  Jan Nieuwenhuizen  <janneke@gnu.org>
++
++	* pre-inst-guile (preinstguile): Initialize with
++	$(GUILE_FOR_BUILD) configure parameter.
++
+ 2002-03-03  Rob Browning  <rlb@defaultvalue.org>
+ 
+ 	* .cvsignore: add Makefile and Makefile.in.
+diff -purN /home/fred/usr/src/guile-1.5.6/am/pre-inst-guile ./am/pre-inst-guile
+--- /home/fred/usr/src/guile-1.5.6/am/pre-inst-guile	Tue Feb 26 12:12:18 2002
++++ ./am/pre-inst-guile	Thu Jul  4 03:25:45 2002
+@@ -28,7 +28,7 @@
+ 
+ ## Code:
+ 
+-preinstguile     = $(top_builddir_absolute)/pre-inst-guile
++preinstguile     = $(GUILE_FOR_BUILD)
+ preinstguiletool = GUILE="$(preinstguile)" $(top_srcdir)/scripts
+ 
+ ## am/pre-inst-guile ends here
+diff -purN /home/fred/usr/src/guile-1.5.6/configure.in ./configure.in
+--- /home/fred/usr/src/guile-1.5.6/configure.in	Tue Mar  5 00:24:38 2002
++++ ./configure.in	Thu Jul  4 04:05:56 2002
+@@ -20,7 +20,7 @@ dnl  along with GUILE; see the file COPY
+ dnl  Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ dnl  Boston, MA 02111-1307, USA.
+ 
+-AC_PREREQ(2.50)
++AC_PREREQ(2.53)
+ 
+ AC_INIT
+ AC_CONFIG_SRCDIR([Makefile.in])
+@@ -51,22 +51,26 @@ AC_ARG_ENABLE(error-on-warning,
+      *) AC_MSG_ERROR(bad value ${enableval} for --enable-error-on-warning) ;;
+    esac])
+ 
++
+ AC_ARG_ENABLE(debug-freelist,
+   [  --enable-debug-freelist include garbage collector freelist debugging code],
+   if test "$enable_debug_freelist" = y || test "$enable_debug_freelist" = yes; then
+-    AC_DEFINE(GUILE_DEBUG_FREELIST)
++    AC_DEFINE(GUILE_DEBUG_FREELIST, 1,
++      [Define this if you want to debug the free list (helps w/ GC bugs).])
+   fi)
+ 
+ AC_ARG_ENABLE(debug-malloc,
+   [  --enable-debug-malloc   include malloc debugging code],
+   if test "$enable_debug_malloc" = y || test "$enable_debug_malloc" = yes; then
+-    AC_DEFINE(GUILE_DEBUG_MALLOC)
++    AC_DEFINE(GUILE_DEBUG_MALLOC, 1,
++      [Define this if you want to debug scm_must_malloc/realloc/free calls.])
+   fi)
+ 
+ AC_ARG_ENABLE(guile-debug,
+   [  --enable-guile-debug    include internal debugging functions],
+   if test "$enable_guile_debug" = y || test "$enable_guile_debug" = yes; then
+-    AC_DEFINE(GUILE_DEBUG)
++    AC_DEFINE(GUILE_DEBUG, 1,
++      [Define this to include various undocumented functions used to debug.])
+   fi)
+ 
+ AC_ARG_ENABLE(arrays,
+@@ -110,6 +114,10 @@ AM_CONDITIONAL(HTMLDOC, test x$htmldoc_e
+ AC_ARG_ENABLE(deprecated,
+   [  --disable-deprecated    omit deprecated features [no]])
+ 
++
++AH_TEMPLATE([SCM_DEBUG_DEPRECATED],
++            [Define this if you want to exclude deprecated features.])
++
+ if test "$enable_deprecated" = no; then
+   AC_DEFINE(SCM_DEBUG_DEPRECATED, 1)
+ else
+@@ -121,34 +129,17 @@ else
+     warn_default=$enable_deprecated
+   fi
+   AC_DEFINE(SCM_DEBUG_DEPRECATED, 0)
+-  AC_DEFINE_UNQUOTED(SCM_WARN_DEPRECATED_DEFAULT, "$warn_default")
++  AC_DEFINE_UNQUOTED(SCM_WARN_DEPRECATED_DEFAULT, "$warn_default",
++  [Define this to control the default warning level for deprecated features.])
+ fi
+ 
+ dnl The --disable-debug used to control these two.  But now they are
+ dnl a required part of the distribution.
+-AC_DEFINE(DEBUG_EXTENSIONS)
+-AC_DEFINE(READER_EXTENSIONS)
++AC_DEFINE(DEBUG_EXTENSIONS, 1,
++  [Define if you want support for debugging Scheme programs.])
++AC_DEFINE(READER_EXTENSIONS, 1,
++  [Define if you want support for debugging Scheme programs.])
+ 
+-dnl files which are destined for separate modules.
+-
+-if test "$enable_arrays" = yes; then
+-   LIBOBJS="$LIBOBJS ramap.o unif.o"
+-   AC_DEFINE(HAVE_ARRAYS)
+-fi
+-
+-if test "$enable_posix" = yes; then
+-   LIBOBJS="$LIBOBJS filesys.o posix.o"
+-   AC_DEFINE(HAVE_POSIX)
+-fi
+-
+-if test "$enable_networking" = yes; then
+-   LIBOBJS="$LIBOBJS net_db.o socket.o"
+-   AC_DEFINE(HAVE_NETWORKING)
+-fi
+-
+-if test "$enable_debug_malloc" = yes; then
+-   LIBOBJS="$LIBOBJS debug-malloc.o"
+-fi
+ 
+ #--------------------------------------------------------------------
+ 
+@@ -164,11 +155,42 @@ AC_ISC_POSIX
+ AC_MINIX
+ 
+ AM_PROG_CC_STDC
++
++## Needed for building DLLs on Cygwin, before AM_PROG_LIBTOOL
++AC_LIBTOOL_WIN32_DLL
+ AM_PROG_LIBTOOL
+ 
+ AC_CHECK_PROG(have_makeinfo, makeinfo, yes, no)
+ AM_CONDITIONAL(HAVE_MAKEINFO, test "$have_makeinfo" = yes)
+ 
++dnl files which are destined for separate modules.
++
++if test "$enable_arrays" = yes; then
++   AC_LIBOBJ([ramap])
++   AC_LIBOBJ([unif])
++   AC_DEFINE(HAVE_ARRAYS, 1,
++     [Define this if you want support for arrays and uniform arrays.])
++fi
++
++if test "$enable_posix" = yes; then
++   AC_LIBOBJ([filesys])
++   AC_LIBOBJ([posix])
++   AC_DEFINE(HAVE_POSIX, 1,
++     [Define this if you want support for POSIX system calls in Guile.])
++fi
++
++if test "$enable_networking" = yes; then
++   AC_LIBOBJ([net_db])
++   AC_LIBOBJ([socket])
++   AC_DEFINE(HAVE_NETWORKING, 1,
++     [Define this if you want support for networking in Guile.])
++fi
++
++if test "$enable_debug_malloc" = yes; then
++   AC_LIBOBJ([debug-malloc])
++fi
++
++
+ AC_C_CONST
+ AC_C_INLINE
+ AC_C_BIGENDIAN
+@@ -190,7 +212,7 @@ AC_CACHE_CHECK([for long longs], scm_cv_
+ 			      scm_cv_long_longs=yes,
+ 			      scm_cv_long_longs=no))
+ if test "$scm_cv_long_longs" = yes; then
+-  AC_DEFINE(HAVE_LONG_LONGS)
++  AC_DEFINE(HAVE_LONG_LONGS, 1, [Define if the compiler supports long longs.])
+   AC_CHECK_SIZEOF(long long)
+ fi
+ 
+@@ -230,7 +252,8 @@ use_modules="$withval")
+ test -z "$use_modules" && use_modules=yes
+ DLPREOPEN=
+ if test "$use_modules" != no; then
+-  AC_DEFINE(DYNAMIC_LINKING)
++  AC_DEFINE(DYNAMIC_LINKING, 1,
++    [Define if you want support for dynamic linking.])
+   if test "$use_modules" = yes; then
+     DLPREOPEN="-dlpreopen force"
+   else
+@@ -263,7 +286,8 @@ AC_DEFUN(GUILE_FUNC_DECLARED, [
+ 		    guile_cv_func_$1_declared=yes,
+ 		    guile_cv_func_$1_declared=no))
+   if test [x$guile_cv_func_]$1[_declared] = xno; then
+-    AC_DEFINE([MISSING_]translit($1, [a-z], [A-Z])[_DECL])
++    AC_DEFINE([MISSING_]translit($1, [a-z], [A-Z])[_DECL], 1,
++      [Define if the operating system supplies $1 without declaring it.])
+   fi
+ ])
+ 
+@@ -280,13 +304,15 @@ AC_CACHE_CHECK([return type of usleep], 
+ 		   [guile_cv_func_usleep_return_type=int])])
+ case "$guile_cv_func_usleep_return_type" in
+   "void" )
+-    AC_DEFINE(USLEEP_RETURNS_VOID)
++    AC_DEFINE(USLEEP_RETURNS_VOID, 1,
++      [Define if the system headers declare usleep to return void.])
+   ;;
+ esac
+ 
+ AC_CHECK_HEADER(sys/un.h, have_sys_un_h=1)
+ if test -n "$have_sys_un_h" ; then
+-AC_DEFINE(HAVE_UNIX_DOMAIN_SOCKETS)
++  AC_DEFINE(HAVE_UNIX_DOMAIN_SOCKETS, 1,
++    [Define if the system supports Unix-domain (file-domain) sockets.])
+ fi
+ 
+ AC_CHECK_FUNCS(socketpair getgroups setpwent pause tzset)
+@@ -309,7 +335,7 @@ AC_CACHE_VAL(guile_cv_have_h_errno,
+ guile_cv_have_h_errno=yes, guile_cv_have_h_errno=no)])
+ AC_MSG_RESULT($guile_cv_have_h_errno)
+ if test $guile_cv_have_h_errno = yes; then
+-  AC_DEFINE(HAVE_H_ERRNO)
++  AC_DEFINE(HAVE_H_ERRNO, 1, [Define if h_errno is declared in netdb.h.])
+ fi
+ 
+ AC_MSG_CHECKING(whether uint32_t is defined)
+@@ -320,29 +346,39 @@ AC_CACHE_VAL(guile_cv_have_uint32_t,
+ 		  guile_cv_have_uint32_t=yes, guile_cv_have_uint32_t=no)])
+ AC_MSG_RESULT($guile_cv_have_uint32_t)
+ if test $guile_cv_have_uint32_t = yes; then
+-  AC_DEFINE(HAVE_UINT32_T)
++  AC_DEFINE(HAVE_UINT32_T, 1,
++    [Define if uint32_t typedef is defined when netdb.h is include.])
+ fi
+ 
+ AC_MSG_CHECKING(for working IPv6 support)
+ AC_CACHE_VAL(guile_cv_have_ipv6,
+-[AC_TRY_COMPILE([#include <netinet/in.h>
++[AC_TRY_COMPILE([
++#ifdef HAVE_SYS_TYPES_H
++#include <sys/types.h>
++#endif
++#include <netinet/in.h>
+ #include <sys/socket.h>],
+ [struct sockaddr_in6 a;  a.sin6_family = AF_INET6;],
+ guile_cv_have_ipv6=yes, guile_cv_have_ipv6=no)])
+ AC_MSG_RESULT($guile_cv_have_ipv6)
+ if test $guile_cv_have_ipv6 = yes; then
+-  AC_DEFINE(HAVE_IPV6)
++  AC_DEFINE(HAVE_IPV6, 1, [Define if you want support for IPv6.])
+ fi
+ 
+ # included in rfc2553 but not in older implementations, e.g., glibc 2.1.3.
+ AC_MSG_CHECKING(whether sockaddr_in6 has sin6_scope_id)
+ AC_CACHE_VAL(guile_cv_have_sin6_scope_id,
+-[AC_TRY_COMPILE([#include <netinet/in.h>],
++[AC_TRY_COMPILE([
++#ifdef HAVE_SYS_TYPES_H
++#include <sys/types.h>
++#endif
++#include <netinet/in.h>],
+ [struct sockaddr_in6 sok;  sok.sin6_scope_id = 0;],
+ guile_cv_have_sin6_scope_id=yes, guile_cv_have_sin6_scope_id=no)])
+ AC_MSG_RESULT($guile_cv_have_sin6_scope_id)
+ if test $guile_cv_have_sin6_scope_id = yes; then
+-  AC_DEFINE(HAVE_SIN6_SCOPE_ID)
++  AC_DEFINE(HAVE_SIN6_SCOPE_ID, 1,
++    [Define this if your IPv6 has sin6_scope_id in sockaddr_in6 struct.])
+ fi
+ 
+ AC_MSG_CHECKING(whether localtime caches TZ)
+@@ -389,7 +425,7 @@ else
+ fi])dnl
+ AC_MSG_RESULT($guile_cv_localtime_cache)
+ if test $guile_cv_localtime_cache = yes; then
+-  AC_DEFINE(LOCALTIME_CACHE)
++  AC_DEFINE(LOCALTIME_CACHE, 1, [Define if localtime caches the TZ setting.])
+ fi
+ 
+ dnl Test whether system calls are restartable by default on the
+@@ -408,15 +444,15 @@ if test "$enable_regex" = yes; then
+    if test "$ac_cv_header_regex_h" = yes ||
+       test "$ac_cv_header_rxposix_h" = yes ||
+       test "$ac_cv_header_rx_rxposix_h" = yes; then
+-     GUILE_NAMED_CHECK_FUNC(regcomp, norx, [LIBOBJS="regex-posix.o $LIBOBJS"],
+-     [AC_CHECK_LIB(rx, main)
+-      GUILE_NAMED_CHECK_FUNC(regcomp, rx, [LIBOBJS="regex-posix.o $LIBOBJS"])]
+-     )
++     GUILE_NAMED_CHECK_FUNC(regcomp, norx, [AC_LIBOBJ([regex-posix])],
++       [AC_CHECK_LIB(rx, main)
++        GUILE_NAMED_CHECK_FUNC(regcomp, rx, [AC_LIBOBJ([regex-posix])])])
+      dnl The following should not be necessary, but for some reason
+      dnl autoheader misses it if we don't include it!
+      if test "$ac_cv_func_regcomp_norx" = yes ||
+         test "$ac_cv_func_regcomp_rx" = yes; then
+-       AC_DEFINE(HAVE_REGCOMP)
++       AC_DEFINE(HAVE_REGCOMP, 1,
++         [This is included as part of a workaround for a autoheader bug.])
+      fi
+    fi
+ fi
+@@ -427,7 +463,7 @@ AC_REPLACE_FUNCS(inet_aton putenv strerr
+ # explicitly to LIBOBJS to make sure that it is translated to
+ # `alloca.lo' for libtool later on.  This can and should be done more cleanly.
+ AC_FUNC_ALLOCA
+-if test "$ALLOCA" = "alloca.o"; then LIBOBJS="alloca.o $LIBOBJS"; fi
++if test "$ALLOCA" = "alloca.o"; then AC_LIBOBJ([alloca]); fi
+ 
+ AC_CHECK_MEMBERS([struct stat.st_rdev])
+ AC_CHECK_MEMBERS([struct stat.st_blksize])
+@@ -442,7 +478,8 @@ AC_CACHE_CHECK([for S_ISLNK in sys/stat.
+                ac_cv_macro_S_ISLNK=yes,
+                ac_cv_macro_S_ISLNK=no)])
+ if test $ac_cv_macro_S_ISLNK = yes; then
+-  AC_DEFINE(HAVE_S_ISLNK)
++  AC_DEFINE(HAVE_S_ISLNK, 1,
++    [Define this if your system defines S_ISLNK in sys/stat.h.])
+ fi
+ 
+ AC_STRUCT_TIMEZONE
+@@ -457,7 +494,16 @@ GUILE_STRUCT_UTIMBUF
+ AC_TRY_RUN(aux (l) unsigned long l;
+ 	     { int x; exit (l >= ((unsigned long)&x)); }
+ 	   main () { int q; aux((unsigned long)&q); },
+-	   AC_DEFINE(SCM_STACK_GROWS_UP),,AC_MSG_WARN(Guessing that stack grows down -- see scmconfig.h.in))
++	   [AC_DEFINE([SCM_STACK_GROWS_UP], 1,
++              [Define this if a callee's stack frame has a higher address
++               than the caller's stack frame.  On most machines, this is
++               not the case.])],
++           [],
++           [AC_MSG_WARN(Guessing that stack grows down -- see scmconfig.h.in)])
++
++
++AH_TEMPLATE([SCM_SINGLES],
++  [Define this if floats are the same size as longs.])
+ 
+ AC_CACHE_CHECK([whether floats fit in longs], guile_cv_type_float_fits_long,
+     [AC_TRY_RUN([main () { exit (sizeof(float) > sizeof(long)); }],
+@@ -486,7 +532,9 @@ AC_CACHE_VAL(scm_cv_struct_linger,
+ 			scm_cv_struct_linger="no"))
+ AC_MSG_RESULT($scm_cv_struct_linger)
+ if test $scm_cv_struct_linger = yes; then
+-	AC_DEFINE(HAVE_STRUCT_LINGER)
++	AC_DEFINE([HAVE_STRUCT_LINGER], 1,
++          [Define this if your system defines struct linger, for use with the
++           getsockopt and setsockopt system calls.])
+ fi
+ 
+ 
+@@ -499,7 +547,8 @@ AC_CACHE_VAL(scm_cv_struct_timespec,
+ 			scm_cv_struct_timespec="no"))
+ AC_MSG_RESULT($scm_cv_struct_timespec)
+ if test $scm_cv_struct_timespec = yes; then
+-	AC_DEFINE(HAVE_STRUCT_TIMESPEC)
++	AC_DEFINE(HAVE_STRUCT_TIMESPEC, 1,
++          [Define this if your system defines struct timespec via <time.h>.])
+ fi
+ 
+ #--------------------------------------------------------------------
+@@ -541,15 +590,16 @@ esac
+ ## If we're using threads, bring in some other parts of Guile which
+ ## work with them.
+ if test "${THREAD_PACKAGE}" != "" ; then
+-  AC_DEFINE(USE_THREADS, 1)
++  AC_DEFINE(USE_THREADS, 1, [Define if using any sort of threads.])
+ 
+   ## Include the Guile thread interface in the library...
+-  LIBOBJS="$LIBOBJS threads.o"
++  AC_LIBOBJ([threads])
+ 
+   ## ... and tell it which package to talk to.
+   case "${THREAD_PACKAGE}" in
+     "QT" )
+-      AC_DEFINE(USE_COOP_THREADS, 1)
++      AC_DEFINE(USE_COOP_THREADS, 1,
++        [Define if using cooperative multithreading.])
+     ;;
+     * )
+       AC_MSG_ERROR(invalid value for THREAD_PACKAGE: ${THREAD_PACKAGE})
+@@ -559,7 +609,7 @@ if test "${THREAD_PACKAGE}" != "" ; then
+   ## Bring in scm_internal_select, if appropriate.
+   if test $ac_cv_func_gettimeofday = yes &&
+      test $ac_cv_func_select = yes; then
+-    AC_DEFINE(GUILE_ISELECT, 1)
++    AC_DEFINE(GUILE_ISELECT, 1, [Define to implement scm_internal_select.])
+   fi
+ 
+   AC_ARG_ENABLE(linuxthreads,
+@@ -568,11 +618,60 @@ if test "${THREAD_PACKAGE}" != "" ; then
+ 
+   ## Workaround for linuxthreads (optionally disabled)
+   if test $host_os = linux-gnu -a "$enable_linuxthreads" = yes; then
+-    AC_DEFINE(GUILE_PTHREAD_COMPAT, 1)
++    AC_DEFINE(GUILE_PTHREAD_COMPAT, 1,
++      [Define to enable workaround for COOP-linuxthreads compatibility.])
+     AC_CHECK_LIB(pthread, main)
+   fi
+ fi
+ 
++## Cross building	
++if test "$cross_compiling" = "yes"; then
++  AC_MSG_CHECKING(cc for build)
++  ## /usr/bin/cc still uses wrong assembler
++  ## CC_FOR_BUILD="${CC_FOR_BUILD-/usr/bincc}"
++  CC_FOR_BUILD="${CC_FOR_BUILD-PATH=/usr/bin:$PATH cc}"
++else
++  CC_FOR_BUILD="${CC_FOR_BUILD-$CC}"
++fi   
++AC_ARG_WITH(cc-for-build,
++  [  --with-cc-for-build=CC  native C compiler, to be used during build])
++test -n "$with_cc_for_build" && CC_FOR_BUILD="$with_cc_for_build"
++     
++## AC_MSG_CHECKING("if we are cross compiling")
++## AC_MSG_RESULT($cross_compiling)
++if test "$cross_compiling" = "yes"; then
++   AC_MSG_RESULT($CC_FOR_BUILD)
++fi
++
++## No need as yet to be more elaborate
++CCLD_FOR_BUILD="$CC_FOR_BUILD"
++
++AC_SUBST(cross_compiling)
++AC_SUBST(CC_FOR_BUILD)
++AC_SUBST(CCLD_FOR_BUILD)
++	
++## libtool erroneously calls CC_FOR_BUILD HOST_CC;
++## --HOST is the platform that PACKAGE is compiled for.
++HOST_CC="$CC_FOR_BUILD"
++AC_SUBST(HOST_CC)
++
++if test "$cross_compiling" = "yes"; then
++  AC_MSG_CHECKING(guile for build)
++  GUILE_FOR_BUILD="${GUILE_FOR_BUILD-guile}"
++else
++  GUILE_FOR_BUILD='$(top_builddir_absolute)/pre-inst-guile'
++fi   
++AC_ARG_WITH(guile-for-build,
++  [  --with-guile-for-build=CC  native guile executable, to be used during build])
++test -n "$with_guile_for_build" && GUILE_FOR_BUILD="$with_cc_for_build"
++
++## AC_MSG_CHECKING("if we are cross compiling")
++## AC_MSG_RESULT($cross_compiling)
++if test "$cross_compiling" = "yes"; then
++   AC_MSG_RESULT($GUILE_FOR_BUILD)
++fi
++AC_SUBST(GUILE_FOR_BUILD)
++  			
+ ## If we're using GCC, ask for aggressive warnings.
+ case "$GCC" in
+   yes )
+@@ -589,11 +688,11 @@ AC_PROG_AWK
+ ## If we're creating a shared library (using libtool!), then we'll
+ ## need to generate a list of .lo files corresponding to the .o files
+ ## given in LIBOBJS.  We'll call it LIBLOBJS.
+-LIBLOBJS="`echo ${LIBOBJS} | sed 's/\.o/.lo/g'`"
++LIBLOBJS="`echo ${LIB@&t@OBJS} | sed 's,\.[[^.]]* ,.lo ,g;s,\.[[^.]]*$,.lo,'`"
+ 
+ ## We also need to create corresponding .doc and .x files
+-EXTRA_DOT_DOC_FILES="`echo ${LIBOBJS} | sed 's/\.o/.doc/g'`"
+-EXTRA_DOT_X_FILES="`echo ${LIBOBJS} | sed 's/\.o/.x/g'`"
++EXTRA_DOT_DOC_FILES="`echo ${LIB@&t@OBJS} | sed 's,\.[[^.]]* ,.doc ,g;s,\.[[^.]]*$,.doc,'`"
++EXTRA_DOT_X_FILES="`echo ${LIB@&t@OBJS} | sed 's,\.[[^.]]* ,.x ,g;s,\.[[^.]]*$,.x,'`"
+ 
+ AC_SUBST(GUILE_MAJOR_VERSION)
+ AC_SUBST(GUILE_MINOR_VERSION)
+@@ -617,11 +716,13 @@ AC_SUBST(LIBGUILE_SRFI_SRFI_4_INTERFACE_
+ AC_SUBST(LIBGUILE_SRFI_SRFI_4_INTERFACE_REVISION)
+ AC_SUBST(LIBGUILE_SRFI_SRFI_4_INTERFACE_AGE)
+ AC_SUBST(LIBGUILE_SRFI_SRFI_4_INTERFACE)
++AC_SUBST(LIBGUILE_SRFI_SRFI_4_LTHACK)
+ 
+ AC_SUBST(LIBGUILE_SRFI_SRFI_13_14_INTERFACE_CURRENT)
+ AC_SUBST(LIBGUILE_SRFI_SRFI_13_14_INTERFACE_REVISION)
+ AC_SUBST(LIBGUILE_SRFI_SRFI_13_14_INTERFACE_AGE)
+ AC_SUBST(LIBGUILE_SRFI_SRFI_13_14_INTERFACE)
++AC_SUBST(LIBGUILE_SRFI_SRFI_13_14_LTHACK)
+ 
+ #######################################################################
+ 
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/ChangeLog ./libguile/ChangeLog
+--- /home/fred/usr/src/guile-1.5.6/libguile/ChangeLog	Sun Mar  3 02:14:37 2002
++++ ./libguile/ChangeLog	Thu Jul  4 03:27:54 2002
+@@ -1,3 +1,14 @@
++2002-07-03  Jan Nieuwenhuizen  <janneke@gnu.org>
++
++	* Makefile.am: Override default rule for c-tokenize.$(OBJECT);
++	this should be compiled for BUILD host.
++	Override default rule for
++	guile_filter_doc_snarfage$(EEXECT); this should run on BUILD host.
++	Add missing $(EXEEXT) to guile_filter_doc_snarfage invocation.
++
++	* guile.c, iselect.h, net_db.c, posix.c, socket.c: Cygwin compile
++	fixes. 
++
+ 2002-03-01  Dirk Herrmann  <D.Herrmann@tu-bs.de>
+ 
+ 	* gc.c (SCM_HEAP_SEG_SIZE, CELL_UP, CELL_DN, DOUBLECELL_ALIGNED_P,
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/Makefile.am ./libguile/Makefile.am
+--- /home/fred/usr/src/guile-1.5.6/libguile/Makefile.am	Fri Mar  1 19:19:36 2002
++++ ./libguile/Makefile.am	Thu Jul  4 03:27:23 2002
+@@ -33,14 +33,33 @@ ETAGS_ARGS = --regex='/SCM_\(GLOBAL_\)?\
+ 
+ lib_LTLIBRARIES = libguile.la
+ bin_PROGRAMS = guile
++
+ noinst_PROGRAMS = guile_filter_doc_snarfage
++guile_filter_doc_snarfage_SOURCES = c-tokenize.c
++
++## Override default rule; this should be compiled for BUILD host.
++## For some reason, OBJEXT does not include the dot
++c-tokenize.$(OBJEXT): c-tokenize.c
++	if [ "$(cross_compiling)" = "yes" ]; then \
++		$(CC_FOR_BUILD) -c -o $@ $<; \
++	else \
++		$(COMPILE) -c -o $@ $<; \
++	fi
++
++## Override default rule; this should run on BUILD host.
++guile_filter_doc_snarfage$(EXEEXT): $(guile_filter_doc_snarfage_OBJECTS) $(guile_filter_doc_snarfage_DEPENDENCIES) 
++	@rm -f guile_filter_doc_snarfage$(EXEEXT)
++	if [ "$(cross_compiling)" = "yes" ]; then \
++		$(CCLD_FOR_BUILD) -o $@ $(guile_filter_doc_snarfage_OBJECTS); \
++	else \
++		$(LINK) $(guile_filter_doc_snarfage_OBJECTS) $(LDADD) $(LIBS); \
++	fi
++
+ 
+ guile_SOURCES = guile.c
+ guile_LDADD = libguile.la
+ guile_LDFLAGS = @DLPREOPEN@
+ 
+-guile_filter_doc_snarfage_SOURCES = c-tokenize.c
+-
+ libguile_la_SOURCES = alist.c arbiters.c async.c backtrace.c boolean.c	    \
+     chars.c continuations.c debug.c deprecation.c dynl.c dynwind.c	    \
+     environments.c eq.c error.c eval.c evalext.c extensions.c		    \
+@@ -195,7 +214,7 @@ SUFFIXES = .x .doc
+ .c.doc:
+ 	-(test -n "${AWK+set}" || AWK="@AWK@"; ${AWK} -f ./guile-func-name-check $<)
+ 	(./guile-snarf-docs $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $< | \
+-	./guile_filter_doc_snarfage --filter-snarfage) > $@ || { rm $@; false; }
++	./guile_filter_doc_snarfage$(EXEEXT) --filter-snarfage) > $@ || { rm $@; false; }
+ 
+ $(DOT_X_FILES) $(EXTRA_DOT_DOC_FILES): snarf.h guile-snarf.in
+ 
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/guile.c ./libguile/guile.c
+--- /home/fred/usr/src/guile-1.5.6/libguile/guile.c	Wed Jun 27 21:30:20 2001
++++ ./libguile/guile.c	Thu Jul  4 03:25:46 2002
+@@ -55,7 +55,8 @@
+ #include <libltdl/ltdl.h>
+ #endif
+ 
+-#ifdef HAVE_WINSOCK2_H
++#if defined (HAVE_WINSOCK2_H) \
++  && !(defined (__CYGWIN32__) || defined (__CYGWIN__))
+ #include <winsock2.h>
+ #endif
+ 
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/iselect.h ./libguile/iselect.h
+--- /home/fred/usr/src/guile-1.5.6/libguile/iselect.h	Mon Jul 23 22:48:44 2001
++++ ./libguile/iselect.h	Thu Jul  4 03:25:46 2002
+@@ -67,7 +67,8 @@
+ #include <sys/select.h>
+ #endif
+ 
+-#ifdef HAVE_WINSOCK2_H
++#if defined (HAVE_WINSOCK2_H) \
++  && !(defined (__CYGWIN32__) || defined (__CYGWIN__))
+ #include <winsock2.h>
+ #endif
+ 
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/net_db.c ./libguile/net_db.c
+--- /home/fred/usr/src/guile-1.5.6/libguile/net_db.c	Mon Jul  9 16:24:40 2001
++++ ./libguile/net_db.c	Thu Jul  4 03:25:46 2002
+@@ -65,7 +65,8 @@
+ 
+ #include <sys/types.h>
+ 
+-#ifdef HAVE_WINSOCK2_H
++#if defined (HAVE_WINSOCK2_H) \
++  && !(defined (__CYGWIN32__) || defined (__CYGWIN__))
+ #include <winsock2.h>
+ #else
+ #include <sys/socket.h>
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/posix.c ./libguile/posix.c
+--- /home/fred/usr/src/guile-1.5.6/libguile/posix.c	Sat Nov 17 20:03:43 2001
++++ ./libguile/posix.c	Thu Jul  4 03:25:46 2002
+@@ -95,7 +95,8 @@ extern char *ttyname();
+ #ifdef HAVE_IO_H
+ #include <io.h>
+ #endif
+-#ifdef HAVE_WINSOCK2_H
++#if defined (HAVE_WINSOCK2_H) \
++  && !(defined (__CYGWIN32__) || defined (__CYGWIN__))
+ #include <winsock2.h>
+ #endif
+ 
+diff -purN /home/fred/usr/src/guile-1.5.6/libguile/socket.c ./libguile/socket.c
+--- /home/fred/usr/src/guile-1.5.6/libguile/socket.c	Mon Jul  9 16:24:40 2001
++++ ./libguile/socket.c	Thu Jul  4 03:25:46 2002
+@@ -61,7 +61,8 @@
+ #include <unistd.h>
+ #endif
+ #include <sys/types.h>
+-#ifdef HAVE_WINSOCK2_H
++#if defined (HAVE_WINSOCK2_H) \
++  && !(defined (__CYGWIN32__) || defined (__CYGWIN__))
+ #include <winsock2.h>
+ #else
+ #include <sys/socket.h>
+diff -purN /home/fred/usr/src/guile-1.5.6/qt/Makefile.am ./qt/Makefile.am
+--- /home/fred/usr/src/guile-1.5.6/qt/Makefile.am	Fri Feb 15 23:11:29 2002
++++ ./qt/Makefile.am	Thu Jul  4 03:53:53 2002
+@@ -24,7 +24,7 @@ AUTOMAKE_OPTIONS = gnu
+ ## subdirs are for making distributions only.
+ SUBDIRS = md time
+ 
+-lib_LTLIBRARIES = @QTHREAD_LTLIBS@
++lib_LTLIBRARIES =
+ EXTRA_LTLIBRARIES = libqthreads.la
+ 
+ ## Prevent automake from adding extra -I options
+diff -purN /home/fred/usr/src/guile-1.5.6/qt/Makefile.in ./qt/Makefile.in
+--- /home/fred/usr/src/guile-1.5.6/qt/Makefile.in	Tue Mar  5 00:43:37 2002
++++ ./qt/Makefile.in	Thu Jul  4 04:02:33 2002
+@@ -124,7 +124,7 @@ AUTOMAKE_OPTIONS = gnu
+ 
+ SUBDIRS = md time
+ 
+-lib_LTLIBRARIES = @QTHREAD_LTLIBS@
++lib_LTLIBRARIES =
+ EXTRA_LTLIBRARIES = libqthreads.la
+ 
+ DEFS = @DEFS@
+diff -purN /home/fred/usr/src/guile-1.5.6/srfi/Makefile.am ./srfi/Makefile.am
+--- /home/fred/usr/src/guile-1.5.6/srfi/Makefile.am	Sat Feb 23 23:10:04 2002
++++ ./srfi/Makefile.am	Tue Apr  9 19:26:37 2002
+@@ -29,19 +29,21 @@ DEFS = @DEFS@
+ INCLUDES = -I.. -I$(srcdir)/..
+ 
+ 
+-lib_LTLIBRARIES = libguile-srfi-srfi-13-14.la libguile-srfi-srfi-4.la
++lib_LTLIBRARIES = \
++	libguile-srfi-srfi-4-lt-@LIBGUILE_SRFI_SRFI_4_LTHACK@.la \
++	libguile-srfi-srfi-13-14-lt-@LIBGUILE_SRFI_SRFI_13_14_LTHACK@.la
+ 
+ BUILT_SOURCES = srfi-13.x srfi-14.x srfi-4.x
+ 
+-libguile_srfi_srfi_4_la_SOURCES = srfi-4.x srfi-4.c srfi-4.h
+-libguile_srfi_srfi_4_la_LIBADD = ../libguile/libguile.la
+-libguile_srfi_srfi_4_la_LDFLAGS = -export-dynamic \
++libguile_srfi_srfi_4_lt_@LIBGUILE_SRFI_SRFI_4_LTHACK@_la_SOURCES = srfi-4.x srfi-4.c srfi-4.h
++libguile_srfi_srfi_4_lt_@LIBGUILE_SRFI_SRFI_4_LTHACK@_la_LIBADD = ../libguile/libguile.la
++libguile_srfi_srfi_4_lt_@LIBGUILE_SRFI_SRFI_4_LTHACK@_la_LDFLAGS = -export-dynamic \
+   -version-info @LIBGUILE_SRFI_SRFI_4_INTERFACE@
+ 
+-libguile_srfi_srfi_13_14_la_SOURCES = srfi-13.x srfi-13.c srfi-14.x srfi-14.c\
++libguile_srfi_srfi_13_14_lt_@LIBGUILE_SRFI_SRFI_13_14_LTHACK@_la_SOURCES = srfi-13.x srfi-13.c srfi-14.x srfi-14.c\
+  srfi-13.h srfi-14.h
+-libguile_srfi_srfi_13_14_la_LIBADD = ../libguile/libguile.la
+-libguile_srfi_srfi_13_14_la_LDFLAGS = -export-dynamic \
++libguile_srfi_srfi_13_14_lt_@LIBGUILE_SRFI_SRFI_13_14_LTHACK@_la_LIBADD = ../libguile/libguile.la
++libguile_srfi_srfi_13_14_lt_@LIBGUILE_SRFI_SRFI_13_14_LTHACK@_la_LDFLAGS = -export-dynamic \
+   -version-info @LIBGUILE_SRFI_SRFI_13_14_INTERFACE@
+ 
+ srfidir = $(datadir)/guile/$(VERSION)/srfi
+@@ -65,9 +67,10 @@ GUILE_SNARF = ../libguile/guile-snarf
+ 
+ MKDEP = gcc -M -MG $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
+ 
++snarfcppopts = $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
++
+ SUFFIXES = .x
+ .c.x:
+-	$(GUILE_SNARF) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $< > $@ \
+-	|| { rm $@; false; }
++	$(GUILE_SNARF) -o $@ $< $(snarfcppopts)
+ 
+ CLEANFILES = *.x
