@@ -145,11 +145,11 @@ LY_DEFINE (duration_less, "ly:duration<?",
 }
 
 LY_DEFINE (make_duration, "ly:make-duration",
-	   2, 2, 0, (SCM length, SCM dotcount, SCM num, SCM den),
+	   1, 3, 0, (SCM length, SCM dotcount, SCM num, SCM den),
 	   "@var{length} is the negative logarithm (base 2) of the duration:\n"
 	   "1 is a half note, 2 is a quarter note, 3 is an eighth\n"
 	   "note, etc.  The number of dots after the note is given by\n"
-	   "@var{dotcount}.\n"
+	   "the optional argument @var{dotcount}.\n"
 	   "\n"
 	   "The duration factor is optionally given by @var{num}\n"
 	   "and @var{den}.\n\n"
@@ -158,8 +158,16 @@ LY_DEFINE (make_duration, "ly:make-duration",
 	   "(whole, half, quarter, etc.) and a number of augmentation\n"
 	   "dots. \n")
 {
-  SCM_ASSERT_TYPE (gh_number_p (length), length, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (gh_number_p (dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_integer_p (length) == SCM_BOOL_T,
+		   length, SCM_ARG1, __FUNCTION__, "integer");
+
+  int dots = 0;
+  if (dotcount != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (scm_integer_p (dotcount) == SCM_BOOL_T,
+		       dotcount, SCM_ARG2, __FUNCTION__, "integer");
+      dots = gh_scm2int (dotcount);
+    }
 
   bool compress = false;
   if (num != SCM_UNDEFINED)
@@ -178,7 +186,7 @@ LY_DEFINE (make_duration, "ly:make-duration",
   else
     den = gh_int2scm (1);
 
-  Duration p (gh_scm2int (length), gh_scm2int (dotcount));
+  Duration p (gh_scm2int (length), dots);
   if (compress)
     p = p.compressed (Rational (gh_scm2int (num), gh_scm2int (den)));
 

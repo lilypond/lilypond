@@ -147,8 +147,8 @@ LY_DEFINE (get_broken_into, "ly:spanner-broken-into",
   SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
 
   SCM s = SCM_EOL;
-  for (int i = me->broken_intos_.size (); i; i--)
-    s = gh_cons (me->broken_intos_[i-1]->self_scm (), s);
+  for (int i = me->broken_intos_.size (); i--;)
+    s = gh_cons (me->broken_intos_[i]->self_scm (), s);
   return s;
 }
 

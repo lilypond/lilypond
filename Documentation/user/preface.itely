@@ -11,6 +11,18 @@
 @end menu
 
 
+@node Preface to version 2.2
+@unnumberedsec Preface to version 2.2
+
+During the 2.1 development cycle, the cleanup of the existing features
+has continued unabated. Major areas of change are: orchestral
+notation, lyrics formatting and font size handling.
+
+Han-Wen and Jan
+
+Utrecht/Eindhoven, The Netherlands, March 2003. 
+
+
 @node Preface to version 2.0
 @unnumberedsec Preface to version 2.0
 

@@ -37,10 +37,6 @@ Engraver::announce_grob (Grob_info inf)
 void
 Engraver::announce_grob (Grob* e, SCM cause)
 {
-  /*
-    TODO: junk grob-info, and make a cause grob-property to store
-    `causes' generically.
-  */
   if (unsmob_music (cause) || unsmob_grob (cause))
     e->set_property ("cause", cause);
 

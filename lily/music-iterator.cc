@@ -150,7 +150,7 @@ Music_iterator::get_iterator (Music *m) const
 }
 
 /*
-  TODO: rename to prevent confusion between Translator::try_music and
+  TODO: rename to prevent confusion between Context::try_music and
   Iterator::try_music
   
  */

@@ -52,6 +52,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     cm = #(* 10 mm)
 
     raggedright = ##f
+    raggedlast = ##f 
     packed = ##f
     #(define $is-paper #t)
     

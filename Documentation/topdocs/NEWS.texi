@@ -134,13 +134,10 @@ It is shorter, cleaner and faster.  The special construct
 @code{mbinclude} has been removed, plain @code{@@include} or
 @code{\input} can be used now.
 
-@ignore
-It now supports
-running convert-ly on the lilypond snippets like so:
+It now supports running convert-ly on the lilypond snippets,
 @example
     lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
 @end example
-@end ignore
 
 @item The @code{LyricsVoice} context has been removed. Lyrics should only
 be constructed in @code{Lyrics}.
@@ -168,7 +165,7 @@ performed in a @code{DrumStaff} context:
 result, the syntax has been simplified as well:
 
 @example
-  \autochange @var{the music}
+  \autochange @var{the-music}
 @end example
 
 @item The ergonomic syntax of @code{\markup} now has an equivalent in
@@ -250,7 +247,10 @@ Both have the same effect on the global layout of a piece. Similarly,
 the paper size may be changed as follows
 
 @example
-  #(set-paper-size "a4")
+  #(set-default-paper-size "a4")
+  \paper @{
+    #(set-paper-size "a4")
+  @}
 @end example 
 
 
@@ -308,11 +308,11 @@ expression. For example,
 @end example 
 
 @item Features of spanner contexts, like @code{Staff}, can now be changed
-  using @code{\property}, eg.
+  using @code{\set}, eg.
 
 @example
   \new Staff @{
-       \property Staff.StaffSymbol \set #'line-count = #4
+       \override Staff.StaffSymbol #'line-count = #4
        c'4
   @} 
 @end example

@@ -41,8 +41,9 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
 /*
   TODO: add optional factor argument.
 */
-LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
-	   "Create the rational number with main timing @var{n}/@var{d}. \n"
+LY_DEFINE (make_moment,"ly:make-moment", 2,2,0, (SCM n, SCM d, SCM gn, SCM gd),
+	   "Create the rational number with main timing @var{n}/@var{d}, "
+	   "and optional grace timin @var{gn}/@var{gd}.\n"
 	   "\n"
 	   "\n"
 	   "Moment is a point in musical time. It is consists of a pair of\n"
@@ -54,7 +55,22 @@ LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
   SCM_ASSERT_TYPE (SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
   SCM_ASSERT_TYPE (SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
 
-  return Moment (Rational (gh_scm2int (n), gh_scm2int (d))).smobbed_copy ();
+  int grace_num = 0;
+  if (gn != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (SCM_INUMP (gn), gn, SCM_ARG3, __FUNCTION__, "integer");
+      grace_num = gh_scm2int (gn);
+    }
+
+  int grace_den = 1;
+  if (gd != SCM_UNDEFINED)
+    {
+      SCM_ASSERT_TYPE (SCM_INUMP (gd), gd, SCM_ARG4, __FUNCTION__, "integer");
+      grace_den = gh_scm2int (gd);
+    }
+
+  return Moment (Rational (gh_scm2int (n), gh_scm2int (d)),
+		 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
 LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
