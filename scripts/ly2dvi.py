@@ -14,7 +14,7 @@ Output: DVI file
 """
 
 name = 'ly2dvi'
-version = '0.0.5'
+version = '0.0.6'
 errorlog = ''
 
 import sys
@@ -444,14 +444,14 @@ class Properties:
         t=''
 	if os.environ.has_key ('TEXINPUTS'):
 		t = os.pathsep + os.environ['TEXINPUTS']
-        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'texmf',
-					       'tex', 'lilypond' ) + t
+        os.environ['TEXINPUTS'] = os.path.join(this.get('root'), 'share',
+					       'lilypond', 'tex' ) + t
 
         t=''
 	if os.environ.has_key ('MFINPUTS'):
 		t = os.pathsep + os.environ['MFINPUTS']
-        os.environ['MFINPUTS'] = os.path.join(this.get('root'), 'texmf',
-					       'mf', 'public', 'lilypond' ) + t
+        os.environ['MFINPUTS'] = os.path.join(this.get('root'), 'share',
+					       'lilypond', 'mf' ) + t
 
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')
@@ -505,8 +505,8 @@ class Properties:
         """
 
         if os.name == 'nt':
-            path = os.path.join(this.get('root'), 'texmf', 'tex',
-                                'lilypond', var)
+            path = os.path.join(this.get('root'), 'share', 'lilypond',
+                                'tex', var)
         else:
             path =''
             cmd =('kpsewhich tex %s %s' % (var,errorlog))
@@ -514,8 +514,8 @@ class Properties:
             path = pipe.readline ()[:-1] # chop off \n
             return_status =  pipe.close()
             if return_status and not path:
-                path = os.path.join(this.get('root'), 'texmf', 'tex',
-                                    'lilypond', var)
+                path = os.path.join(this.get('root'), 'share', 'lilypond',
+                                    'tex', var)
 	fd = open(path, 'r')
         return fd
 
@@ -554,7 +554,7 @@ class Properties:
         else: # Windows apps like edit choke on .lilyrc
             dotFilename='_lilyrc'
 
-	for d in [os.path.join(this.get('root'),'share','lilypond'), \
+	for d in [os.path.join(this.get('root'),'share','lilypond','ly'), \
                   os.environ['HOME'], os.curdir ]:
 	    file=os.path.join(d,dotFilename)
 	    try:
@@ -902,7 +902,7 @@ def writeLilylog(contents):
 def getTeXFile(contents):
     texfiles=[]
     for line in string.split(contents,'\n'):
-        m = re.search('^TeX output to (.+)\.\.\.', line)
+        m = re.search('^Paper output to (.+)\.\.\.', line)
         if m:
             texfiles.append(m.group(1))
 
