@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 % possible rename to staff-something.  -gp
 
 \header{ texidoc = "@cindex Staff Remove

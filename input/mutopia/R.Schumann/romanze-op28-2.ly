@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.1.22"
+\version "2.1.23"
 
 \header {
   title = "Romanzen"
@@ -279,11 +279,11 @@ leftb = \notes \transpose c cis {
     }
     \translator {
       \ScoreContext
-      SpacingSpanner \override #'common-shortest-duration = #(ly:make-moment 1 8)
+      \override SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8)
     }
     \translator {
       \PianoStaffContext
-      VerticalAlignment \override #'forced-distance = #13.0
+      \override VerticalAlignment #'forced-distance = #13.0
     }
   }
   \midi { \tempo 8=100 }

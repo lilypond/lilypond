@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
     
 texidoc = "@cindex Blank Paper Tab

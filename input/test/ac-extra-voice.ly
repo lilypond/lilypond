@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 
 %% I don't know what this example is supposed to do.  delete it?
 %% It shows how to use the autochange feature together with an extra
@@ -47,7 +47,7 @@ accompany = \repeat unfold 4  \basloopje
     \paper {
 	\translator{ 
 	    \StaffContext
-	    autoBeamSettings \override #'(end * * * *)
+	    \override autoBeamSettings #'(end * * * *)
 	 = #(ly:make-moment 1 2)
 	}
     }

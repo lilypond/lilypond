@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.23"
 
 \header {
 
@@ -24,7 +24,7 @@ The padding should be increased, to prevent clashes at the start of the line.
     raggedright = ##t
     \translator {
 	\ScoreContext
-	BarNumber \override #'break-visibility = #all-visible
+	\override BarNumber #'break-visibility = #all-visible
     }
   }
 }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.22"
+\version "2.1.23"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -353,8 +353,8 @@ lowerDynamics = \notes{
 	    \consists "Dynamic_engraver"
 	    \consists "Text_engraver"
 
-	    TextScript \override #'font-size = #2
-	    TextScript \override #'font-shape = #'italic
+	    \override TextScript #'font-size = #2
+	    \override TextScript #'font-shape = #'italic
 
 	    \consists "Skip_event_swallow_translator"
 
@@ -364,7 +364,7 @@ lowerDynamics = \notes{
 	\translator {
 	    \PianoStaffContext
 	    \accepts Dynamics
-	    VerticalAlignment \override #'forced-distance = #7
+	    \override VerticalAlignment #'forced-distance = #7
         }
     }
 }

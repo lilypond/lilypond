@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 
 \header{ texidoc ="@cindex Staff Space
 Setting staff space on a staff. "
@@ -17,7 +17,7 @@ Setting staff space on a staff. "
 >>
 \paper {  \translator  {
       \StaffContext
-      StaffSymbol \set #'staff-space = #5.5
+      \override StaffSymbol #'staff-space = #5.5
       }
 	raggedright=##t }
 }

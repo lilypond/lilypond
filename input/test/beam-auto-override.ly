@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.23"
 \header {
 
     texidoc = "@cindex Auto Beaming Override
@@ -45,7 +45,7 @@ The beam will be ended also when now % beamAutoEnd = 0.
     \paper{
       	\translator{
 	    \VoiceContext
-	    autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 2)
+	    \override autoBeamSettings #'(end * * * *) = #(ly:make-moment 1 2)
 	}
     }
 \paper{raggedright = ##t}

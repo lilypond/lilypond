@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
 
     texidoc = "LilyPond correctly determines the size of every
@@ -16,7 +16,7 @@
     \paper { 
 	 \translator {
 	     \ScoreContext
-	     System \override #'print-function = #box-grob-stencil
+	     \override System #'print-function = #box-grob-stencil
 	     }
     }
 }

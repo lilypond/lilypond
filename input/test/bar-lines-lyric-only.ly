@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header { texidoc = "@cindex Bar line lyric only
 You can move around @code{Bar_engraver} and
 @code{Span_bar_engraver} if you want bar lines on lyrics. "
@@ -22,7 +22,7 @@ You can move around @code{Bar_engraver} and
   \LyricsContext
   \consists Bar_engraver
   % need procedure, since lyrics doesn't have a staff_sym engraver.
-  BarLine \override #'bar-size-procedure = #(lambda (x) 3.0)
+  \override BarLine #'bar-size-procedure = #(lambda (x) 3.0)
 }
 \translator {
   \LyricsContext

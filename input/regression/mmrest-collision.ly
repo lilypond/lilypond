@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header { texidoc = "Tests a collision between multimeasure rests in
 different voices. " }
 \score {

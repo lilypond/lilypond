@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.23"
 
 \header { texidoc="@cindex Slur Ugly
 You can get ugly slurs, if you want. "
@@ -22,15 +22,15 @@ baseWalk = \notes \relative c {
     raggedright = ##t
     \translator {
       \VoiceContext
-      Slur \override #'beautiful = #5.0
-      Slur \override #'direction = #1
-      Stem \override #'direction = #-1
-      autoBeamSettings \override #'(end * * * *)
+      \override Slur #'beautiful = #5.0
+      \override Slur #'direction = #1
+      \override Stem #'direction = #-1
+      \override autoBeamSettings #'(end * * * *)
      = #(ly:make-moment 1 2)
     }
     \translator {
       \PianoStaffContext
-      VerticalAlignment \override #'threshold = #'(5 . 5)
+      \override VerticalAlignment #'threshold = #'(5 . 5)
     }
   }
 }

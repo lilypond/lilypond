@@ -52,7 +52,7 @@ paper block:
 
 
  %}
-\version "2.1.22"
+\version "2.1.23"
 
 upper = \notes \relative c {
 	\clef "treble"

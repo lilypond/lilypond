@@ -7,7 +7,7 @@ brackets above beats when you set beatGrouping.  "
 
 }
 
-\version "2.1.22"
+\version "2.1.23"
 
 
 %% TODO: should have 2/4 + 5/8 time sig style.

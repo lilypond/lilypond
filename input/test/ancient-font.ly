@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -233,10 +233,10 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 	    \consists Mensural_ligature_engraver
-	    NoteHead \set #'style = #'mensural
-%	    Stem \set #'flag-style = #'mensural %%%%%%%% FIXME: this core dumps
-	    Stem \set #'thickness = #1.0
-	    Rest \set #'style = #'mensural
+	    \override NoteHead #'style = #'mensural
+%	    \override Stem #'flag-style = #'mensural %%%%%%%% FIXME: this core dumps
+	    \override Stem #'thickness = #1.0
+	    \override Rest #'style = #'mensural
 	    autoBeaming = ##f
 	}
 	\translator {
@@ -245,7 +245,7 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 %	    \consists Gregorian_ligature_engraver %%%%%%%% TODO: not yet implemented
-	    NoteHead \set #'style = #'vaticana_punctum
+	    \override NoteHead #'style = #'vaticana_punctum
 	    autoBeaming = ##f
 	}
 	\translator {
@@ -254,13 +254,13 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \alias Staff
 	    \accepts MensuralVoice
 	    \consists Custos_engraver
-	    TimeSignature \set #'style = #'mensural
-	    KeySignature \set #'style = #'mensural
-	    Accidental \set #'style = #'mensural
-	    Custos \set #'style = #'mensural
-	    Custos \set #'neutral-position = #3
-	    Custos \set #'neutral-direction = #-1
-	    Custos \set #'adjust-if-on-staffline = ##t
+	    \override TimeSignature #'style = #'mensural
+	    \override KeySignature #'style = #'mensural
+	    \override Accidental #'style = #'mensural
+	    \override Custos #'style = #'mensural
+	    \override Custos #'neutral-position = #3
+	    \override Custos #'neutral-direction = #-1
+	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-petrucci_c2"
 	    clefPosition = #-2
 	    clefOctavation = #0 
@@ -272,14 +272,14 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 	    \accepts GregorianVoice
 	    \consists Custos_engraver
 	    \remove Time_signature_engraver
-	    StaffSymbol \set #'thickness = #2.0
-	    StaffSymbol \set #'line-count = #4
-	    KeySignature \set #'style = #'vaticana
-	    Accidental \set #'style = #'vaticana
-	    Custos \set #'style = #'vaticana
-	    Custos \set #'neutral-position = #4
-	    Custos \set #'neutral-direction = #-1
-	    Custos \set #'adjust-if-on-staffline = ##t
+	    \override StaffSymbol #'thickness = #2.0
+	    \override StaffSymbol #'line-count = #4
+	    \override KeySignature #'style = #'vaticana
+	    \override Accidental #'style = #'vaticana
+	    \override Custos #'style = #'vaticana
+	    \override Custos #'neutral-position = #4
+	    \override Custos #'neutral-direction = #-1
+	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-vaticana_do"
 	    clefPosition = #1
 	    clefOctavation = #0 

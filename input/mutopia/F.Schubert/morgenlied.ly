@@ -19,14 +19,15 @@
     chooses line breaks differently.
 
     Further manual tweaks: the slur in measure 12 has been flattened
-    manually. The beam in measure 3, left-hand, technically is wrong,
-    but has been added following the original.
+manually. The beam in measure 3, left-hand, technically is wrong, but
+has been added following the original. The crescendo in measure 4 has
+been lowered
 
 "
 
 }
 
-\version "2.1.22"
+\version "2.1.23"
 manuscriptBreak = { \break }
 
 
@@ -170,13 +171,13 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	}
 	\translator {
 	    \ScoreContext
-	    Beam \override #'thickness = #0.55
-	    SpacingSpanner \set #'spacing-increment = #1.0
-	    Slur \set #'height-limit = #1.5
+	    \override Beam #'thickness = #0.55
+	    \override SpacingSpanner #'spacing-increment = #1.0
+	    \override Slur #'height-limit = #1.5
 	}
 	\translator {
 	    \PianoStaffContext
-	    VerticalAlignment \override #'forced-distance = #10
+	    \override VerticalAlignment #'forced-distance = #10
 	}
 	\translator {
 	    \StaffContext

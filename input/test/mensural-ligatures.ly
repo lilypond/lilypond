@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -52,7 +52,7 @@ voice = \notes \transpose c c' {
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 	    \consists Mensural_ligature_engraver
-	    NoteHead \set #'style = #'mensural
+	    \override NoteHead #'style = #'mensural
 	}
 	\translator {
 	    \StaffContext
@@ -60,13 +60,13 @@ voice = \notes \transpose c c' {
 	    \alias Staff
 	    \accepts MensuralVoice
 	    \consists Custos_engraver
-	    TimeSignature \set #'style = #'mensural
-	    KeySignature \set #'style = #'mensural
-	    Accidental \set #'style = #'mensural
-	    Custos \set #'style = #'mensural
-	    Custos \set #'neutral-position = #3
-	    Custos \set #'neutral-direction = #-1
-	    Custos \set #'adjust-if-on-staffline = ##t
+	    \override TimeSignature #'style = #'mensural
+	    \override KeySignature #'style = #'mensural
+	    \override Accidental #'style = #'mensural
+	    \override Custos #'style = #'mensural
+	    \override Custos #'neutral-position = #3
+	    \override Custos #'neutral-direction = #-1
+	    \override Custos #'adjust-if-on-staffline = ##t
 	    clefGlyph = #"clefs-petrucci_g"
 	    clefPosition = #-2
 	    clefOctavation = #-0

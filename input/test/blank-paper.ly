@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
   texidoc="@cindex Blank Paper
 
@@ -14,8 +14,8 @@ Blank music paper with clefs. Change the repeat count to get more staves.
   \paper {
     \translator {
       \ScoreContext
-      TimeSignature \override #'transparent = ##t
-      NoteHead \override #'transparent = ##t
+      \override TimeSignature #'transparent = ##t
+      \override NoteHead #'transparent = ##t
       defaultBarType = #""
       \remove Bar_number_engraver
     }

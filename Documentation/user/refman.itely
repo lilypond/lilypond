@@ -315,8 +315,8 @@ r1 r2 r4 r8 r16 r32 r64 r64
     \translator {
       \StaffContext
         \remove "Clef_engraver"
-        StaffSymbol \set #'transparent = ##t 
-        TimeSignature \set #'transparent = ##t 
+        \override StaffSymbol #'transparent = ##t 
+        \override TimeSignature #'transparent = ##t 
         \consists "Pitch_squash_engraver"
     }
   }
@@ -2848,8 +2848,8 @@ mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     << \new DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
-            Stem \set #'transparent = ##t
-            Stem \set #'Y-extent-callback = ##f
+            \override Stem #'transparent = ##t
+            \override Stem #'Y-extent-callback = ##f
             minimumVerticalExtent = #'(-4.0 . 5.0)
     } \mus
         \context Lyrics \nam 
@@ -2858,7 +2858,7 @@ mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     %% need to do this, because of indented @itemize
     linewidth= 9 \cm 
     \translator { \ScoreContext
-    BarNumber \set #'transparent =##T
+    \override BarNumber #'transparent =##T
 }}}
 @end lilypond
 
@@ -2878,10 +2878,10 @@ mus = \drums  { timh ssh timl ssl cb s16 }
         \context DrumStaff \with {
             \remove Bar_engraver
             \remove Time_signature_engraver
-            Stem \set #'transparent = ##t
-            Stem \set #'Y-extent-callback = ##f
-            StaffSymbol \override #'line-count = #2
-            StaffSymbol \override #'staff-space = #2
+            \override Stem #'transparent = ##t
+            \override Stem #'Y-extent-callback = ##f
+            \override StaffSymbol #'line-count = #2
+            \override StaffSymbol #'staff-space = #2
             minimumVerticalExtent = #'(-3.0 . 4.0)
             drumStyleTable = #timbales-style
         } \mus
@@ -2901,12 +2901,12 @@ mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
             \remove Bar_engraver
             \remove Time_signature_engraver
             drumStyleTable = #congas-style
-            StaffSymbol \override #'line-count = #2
+            \override StaffSymbol #'line-count = #2
             
             %% this sucks; it will lengthen stems.
-            StaffSymbol \override #'staff-space = #2
-            Stem \set #'transparent = ##t
-            Stem \set #'Y-extent-callback = ##f
+            \override StaffSymbol #'staff-space = #2
+            \override Stem #'transparent = ##t
+            \override Stem #'Y-extent-callback = ##f
         } \mus
         \context Lyrics \nam 
     >>
@@ -2923,13 +2923,13 @@ mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
         \context DrumStaff\with {
             \remove Bar_engraver
             \remove Time_signature_engraver
-            StaffSymbol \override #'line-count = #2
+            \override StaffSymbol #'line-count = #2
             drumStyleTable = #bongos-style
            
             %% this sucks; it will lengthen stems.
-            StaffSymbol \override #'staff-space = #2
-            Stem \set #'transparent = ##t
-            Stem \set #'Y-extent-callback = ##f
+            \override StaffSymbol #'staff-space = #2
+            \override Stem #'transparent = ##t
+            \override Stem #'Y-extent-callback = ##f
         } \mus
         \context Lyrics \nam 
     >>
@@ -2946,10 +2946,10 @@ mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
         \context DrumStaff\with{
             \remove Bar_engraver
             drumStyleTable = #percussion-style
-            StaffSymbol \override #'line-count = #1
+            \override StaffSymbol #'line-count = #1
             \remove Time_signature_engraver
-            Stem \set #'transparent = ##t
-            Stem \set #'Y-extent-callback = ##f
+            \override Stem #'transparent = ##t
+            \override Stem #'Y-extent-callback = ##f
         } \mus
         \context Lyrics \nam 
     >>
@@ -5612,7 +5612,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5621,8 +5621,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5654,7 +5654,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5663,8 +5663,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5688,7 +5688,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5697,8 +5697,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5725,7 +5725,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5734,8 +5734,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5764,7 +5764,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5773,8 +5773,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5798,7 +5798,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5807,8 +5807,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5836,7 +5836,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5845,8 +5845,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5875,7 +5875,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5884,8 +5884,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5913,7 +5913,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5922,8 +5922,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5947,7 +5947,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5956,8 +5956,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -5984,7 +5984,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5993,8 +5993,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6022,7 +6022,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6031,8 +6031,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6056,7 +6056,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6065,8 +6065,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6093,7 +6093,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6102,8 +6102,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6127,7 +6127,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6136,8 +6136,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6165,7 +6165,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6174,8 +6174,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6199,7 +6199,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6208,8 +6208,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6237,7 +6237,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6246,8 +6246,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6271,7 +6271,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6280,8 +6280,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6309,7 +6309,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6318,8 +6318,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6343,7 +6343,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6352,8 +6352,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6377,7 +6377,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6386,8 +6386,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6414,7 +6414,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6423,8 +6423,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6448,7 +6448,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6457,8 +6457,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6482,7 +6482,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6491,8 +6491,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6519,7 +6519,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6528,8 +6528,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6553,7 +6553,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6562,8 +6562,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6587,7 +6587,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6596,8 +6596,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6624,7 +6624,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6633,8 +6633,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6658,7 +6658,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6667,8 +6667,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6692,7 +6692,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6701,8 +6701,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6729,7 +6729,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6738,8 +6738,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6763,7 +6763,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6772,8 +6772,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6797,7 +6797,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6806,8 +6806,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6834,7 +6834,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6843,8 +6843,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6868,7 +6868,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6877,8 +6877,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }
@@ -6906,7 +6906,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            StaffSymbol \set #'transparent = ##t
+            \override StaffSymbol #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6915,8 +6915,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \VoiceContext
             \remove Ligature_bracket_engraver
             \consists Vaticana_ligature_engraver
-            NoteHead \set #'style = #'vaticana_punctum
-            Stem \set #'transparent = ##t
+            \override NoteHead #'style = #'vaticana_punctum
+            \override Stem #'transparent = ##t
         }
     }
 }

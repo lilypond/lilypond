@@ -1,7 +1,11 @@
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.subst_in_trans):
+	conversion rule for \translator{}. Apply everywhere.  
+
 	* lily/parser.yy (music_property_def): set property for \once in
 	the PropertyMusic itself, not the ContextSpec.
+	(property_operation): change syntax within \translator { }
 
 	* scm/define-music-properties.scm (all-music-properties): clean up.
 

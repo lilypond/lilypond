@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header { texidoc = "@cindex Rhythm Exercise
 This example shows a way to generate rhythm exercises with
 LilyPond (e.g. no staff but retaining the barlines). "
@@ -8,7 +8,7 @@ LilyPond (e.g. no staff but retaining the barlines). "
 
 	 \paper {
 	     \translator { \StaffContext
-			   StaffSymbol \set #'transparent = ##t
+			   \override StaffSymbol #'transparent = ##t
 			   \consists Pitch_squash_engraver
 			   \remove Clef_engraver
 		       }
