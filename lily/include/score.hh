@@ -22,6 +22,7 @@ class Score : public Input
   DECLARE_SMOBS (Score, foo);
 
   SCM music_;
+
 public:
   String user_key_;
   Link_array<Output_def> defs_;
@@ -29,18 +30,19 @@ public:
   SCM texts_;
   bool error_found_;
   
-  SCM get_music () const;
-  void set_music (SCM music, SCM parser);
   Score ();
   Score (Score const&);
-  
+
+  SCM get_music () const;
+  void set_music (SCM music, SCM parser);
   SCM book_rendering (String, Output_def*, Output_def*, Object_key*);
 };
 
 DECLARE_UNSMOB (Score, score);
 
-SCM ly_run_translator (SCM, SCM, SCM);
+void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM);
+SCM ly_music_scorify (SCM, SCM);
 SCM ly_render_output (SCM, SCM);
-void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM, SCM);
+SCM ly_run_translator (SCM, SCM, SCM);
 
 #endif /* SCORE_HH */

@@ -18,18 +18,19 @@
 class Book : public Input
 {
   DECLARE_SMOBS (Book, foo);
+
 public:
   String user_key_;
-  
   SCM header_;
   Output_def *paper_;
+  SCM scores_;
 
-  void add_score (Score*);
-  Link_array<Score> scores_;
   Book ();
-  void set_keys ();
+  void add_score (SCM);
   Paper_book* process (String, Output_def*);
+  void set_keys ();
 };
+
 DECLARE_UNSMOB (Book, book);
 
 #endif /* BOOK_HH */

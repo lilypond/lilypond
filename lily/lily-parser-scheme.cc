@@ -26,6 +26,7 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
 	   1, 0, 0, (SCM what),
 	   "Deprecated.")
 {
+  (void) what;
   warning ("ly:set-point-and-click called");
   return SCM_UNSPECIFIED;
 }
@@ -205,16 +206,14 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM paper = get_paper (parser)->self_scm ();
   for (int i = 0; i < score->defs_.size (); i++)
     default_rendering (score->get_music (), score->defs_[i]->self_scm (),
-		       paper, header, score->texts_,
-		       os, key->self_scm ());
+		       paper, header, os, key->self_scm ());
 
   if (score->defs_.is_empty ())
     {
       Output_def *layout = get_layout (parser);
       default_rendering (score->get_music(), layout->self_scm (),
 			 get_paper (parser)->self_scm (),
-			 header, score->texts_,
-			 os, key->self_scm ());
+			 header, os, key->self_scm ());
       scm_gc_unprotect_object (layout->self_scm ());
     }
 

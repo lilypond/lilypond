@@ -25,14 +25,9 @@ LY_DEFINE(ly_make_book, "ly:make-book",
 
   if (ly_c_module_p (header))
     book->header_ = header;
-  
-  for (SCM s = scores; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Score *score = unsmob_score (scm_car (s));
-      if (score)
-	book->scores_.push (score);
-    }
-  
+
+  book->scores_ = scm_append (scm_list_2 (scores, book->scores_));
+
   SCM x = book->self_scm ();
   scm_gc_unprotect_object (x);
   return x;

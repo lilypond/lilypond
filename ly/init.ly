@@ -33,5 +33,5 @@
 
 #(if (pair? toplevel-scores)
   (ly:parser-print-book parser
-   (apply ly:make-book $defaultpaper $globalheader (reverse toplevel-scores))))
+   (apply ly:make-book $defaultpaper $globalheader toplevel-scores)))
 

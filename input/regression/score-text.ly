@@ -2,12 +2,15 @@
 
 \header {
 
-    texidoc = "Markup texts are set beneath a score."
+    texidoc = "Markup texts are rendered above or below a score."
 
 }
 
 \paper {
     linewidth = #110
+}
+\markup {
+    \fill-line { "High up above" }
 }
 <<
     \relative {

@@ -87,7 +87,7 @@ create offsets.
 	 (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
 	 (system-separator-stencil (if (markup? system-separator-markup)
 				       (interpret-markup layout
-							 (page-properties layout)
+							 (layout-extract-page-properties layout)
 							 system-separator-markup)
 				       #f))
 	 (lmargin (ly:output-def-lookup layout 'leftmargin))
