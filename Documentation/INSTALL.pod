@@ -215,6 +215,35 @@ clef symbol has changed position in recent versions of MusixTeX)
 
 =back
 
+At this time, GNU LilyPond output looks nice, but is not of production
+quality. If you're not discouraged; this is what I type in my xterm:
+
+	lilypond someinput.ly
+	tex lelie.tex
+	xdvi test&
+
+This is what the output looks like over here:
+
+	hw:~/musix/spacer$ GNU LilyPond 0.0.60 #8/FlowerLib 1.1.14 #2
+	Parsing ... [./input/kortjakje.ly[lots of stuff]]
+	Setting up requests...Processing requests ...[8][16][24][25]
+	Preprocessing elements... 
+	Calculating column positions ... [3][7][12][16][20][25]
+	Postprocessing elements...
+	TeX output to lelie.tex ...
+
+	hw:~/musix/spacer$ tex lelie
+	This is TeX, Version 3.14159 (C version 6.1)
+	(lelie.tex
+	Hyphenation patterns for english, dutch, german, loaded.
+	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
+	Output written on lelie.dvi (1 page, 8944 bytes).
+	Transcript written on lelie.log.
+
+	hw:~/musix/spacer$ xdvi lelie&
+	[1] 855
+
+Check out the input files, some of them have comments
 Please refer to the man page for more information.
 
 =head1 REDHAT LINUX
