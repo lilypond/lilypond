@@ -115,7 +115,11 @@ Finds file lilypond-words from load-path."
 	(setq currword (car co))
 	(if (> (length currword) 1)
 	    (if (and (string-equal "\\" (substring currword 0 1))
-		     (not (string-match "[^a-zA-Z-]" (substring currword 1)))
+	             (progn (string-match "[a-z-]+" currword)
+	    	            (= (match-end 0) (length currword)))
+		     (not (string-equal "\\longa" currword))
+		     (not (string-equal "\\breve" currword))
+		     (not (string-equal "\\maxima" currword))
 		     (string-equal (downcase currword) currword))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
@@ -132,7 +136,8 @@ Finds file lilypond-words from load-path."
 	(setq currword (car co))
 	(if (> (length currword) 1)
 	    (if (and (string-equal "\\" (substring currword 0 1))
-		     (not (string-match "[^a-zA-Z-]" (substring currword 1)))
+	             (progn (string-match "[a-zA-Z-]+" currword)
+	    	            (= (match-end 0) (length currword)))
 		     (not (string-equal (downcase currword) currword)))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
@@ -141,14 +146,33 @@ Finds file lilypond-words from load-path."
       wordlist))
   "LilyPond \\Identifiers")
 
-(defconst LilyPond-reserved-words 
+(defconst LilyPond-Capitalized-Reserved-Words 
   (let ((wordlist '("Staff")) ; add ReservedWords to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(setq currword (car co))
 	(if (> (length currword) 0)
-	    (if (not (string-match "[^a-zA-Z]" currword))
+	    (if (and (progn (string-match "[a-zA-Z_]+" currword)
+	    	            (= (match-end 0) (length currword)))
+		     (not (string-equal (downcase currword) currword)))
+		(add-to-list 'wordlist currword)))
+	(if (string-equal "-" (car (setq co (cdr co))))
+	    (while (and (> (length co) 0)
+			(not (string-equal "-" (car (setq co (cdr co)))))))))
+      wordlist))
+  "LilyPond ReservedWords")
+
+(defconst LilyPond-non-capitalized-reserved-words
+  (let ((wordlist '("c")) ; add note names lilypond.words
+	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+    (progn
+      (while (> (length co) 0)
+	(setq currword (car co))
+	(if (> (length currword) 0)
+	    (if (and (progn (string-match "[a-z]+" currword)
+	    	            (= (match-end 0) (length currword)))
+		     (string-equal (downcase currword) currword))
 		(add-to-list 'wordlist currword)))
 	(if (string-equal "-" (car (setq co (cdr co))))
 	    (while (and (> (length co) 0)
