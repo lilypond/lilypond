@@ -226,7 +226,7 @@
 		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
 		 "\\lybox{"
 		 (ly-number->string wd) "}{"
-		 (ly-number->string ht) "{%\n"))
+		 (ly-number->string ht) "}{%\n"))
 
 (define (stop-system) 
   "}%\n%\n\\interscoreline\n%\n")
