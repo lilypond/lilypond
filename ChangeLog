@@ -1,7 +1,10 @@
 2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-{pdf,pdftex,sketch}.scm (Module): remove bitrotted files.
+
 	* scm/framework-svg.scm (output-framework): put scaling in
 	document header. Apply scaling only once.
+	(output-framework): dump page size in px, not mm. 
 
 	* scm/lily-library.scm (modified-font-metric-font-scaling): rename
 	from font-size.
