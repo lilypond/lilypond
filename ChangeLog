@@ -1,3 +1,8 @@
+2001-12-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/stepmake/c++-rules.make:
+	* stepmake/stepmake/c-rules.make: Fixes for bison-1.28.
+
 2001-12-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* make/lilypond-vars.make: 
