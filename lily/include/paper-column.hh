@@ -24,13 +24,14 @@ public:
   virtual void do_break_processing ();
   virtual Paper_column *column_l () const;
   virtual System *line_l () const;
-
+  
   /// if lines are broken then this column is in #line#
   System *line_l_;
 
   static int rank_i (Grob*);
 
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM));
   
   Paper_column (SCM);
   static bool musical_b (Grob *);
