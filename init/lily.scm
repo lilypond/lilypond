@@ -18,7 +18,7 @@
 (define
   (numbers->string l)
   (apply string-append 
-  (map (lambda (n) (string-append (number->string n) " ")) l)))
+	 (map (lambda (n) (string-append (number->string n) " ")) l)))
 
 (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
 
@@ -26,21 +26,21 @@
   (let* ((n (inexact->exact x))
          (n64 (quotient n 64))
          (n8 (quotient (- n (* n64 64)) 8)))
-        (string-append
-         (number->string n64)
-         (number->string n8)
-         (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
+    (string-append
+     (number->string n64)
+     (number->string n8)
+     (number->string (remainder (- n (+ (* n64 64) (* n8 8))) 8)))))
 
 (define (inexact->string x radix)
   (let ((n (inexact->exact x)))
-       (number->string n radix)))
+    (number->string n radix)))
 
 
 (define
   (control->string c)
   (string-append
-    (string-append (number->string (car c)) " ")
-    (string-append (number->string (cadr c)) " ")))
+   (string-append (number->string (car c)) " ")
+   (string-append (number->string (cadr c)) " ")))
 
 
 
@@ -58,20 +58,34 @@
 
 ;;;;;;;;
 
-  (define (empty) 
-    "")
+(define (empty) 
+  "")
 
-  (define (empty1 a)
-    "")
+(define (empty1 a)
+  "")
 
-  (define (empty2 a b )
-    "")
-  
+(define (empty2 a b )
+  "")
+
 
 (define emptybar empty1)
 (define setdynamic empty1)
-(define settext empty1)
-(define setnumber empty1)
+(define startrepeat empty1)
+(define repeatbar empty1)
+(define finishbar empty1)
+(define extender empty1)
+(define startbar empty1)
+(define repeatbarstartrepeat empty1)
+(define fatdoublebar empty1)
+(define setfinger empty1)
+
+
+(define (settext s) (text "text" s))
+(define (setnumber s) (text "number" s))
+(define (setbold s) (text "bold" s))
+(define (setitalic s) (text "italic" s))
+(define (setnumber-1 s) (text "numberj" s))
+  
 
 
 ;;;;;;;; TeX
@@ -131,7 +145,7 @@
      "\n\\" s "{" (inexact->string i 10) "}" ))
   (define (char i)
     (string-append "\\show{" (inexact->string i 10) "}"))
-    
+  
   (define (invoke-dim1 s d)
     (string-append
      "\n\\" s "{" (number->dim d) "}"))
@@ -185,6 +199,7 @@
   (define (text f s)
     (string-append "\\set" f "{" s "}"))
 
+  
   (define (tuplet dx dy dir)
     (embedded-ps ((ps-scm 'tuplet) dx dy dir)))
 
@@ -196,35 +211,35 @@
   
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
-	   (define beam ,beam)
-	   (define tuplet ,tuplet)
-	   (define bracket ,bracket)
-	   (define crescendo ,crescendo)
-	   (define volta ,volta)
-	   (define slur ,slur)
-	   (define dashed-slur ,dashed-slur) 
-	   (define decrescendo ,decrescendo) 
-	   (define empty ,empty)
-	   (define end-output ,end-output)
-	   (define font-def ,font-def)
-	   (define font-switch ,font-switch)
-	   (define generalmeter ,generalmeter)
-	   (define header-end ,header-end)
-	   (define lily-def ,lily-def)
-	   (define header ,header) 
-	   (define invoke-char ,invoke-char) 
-	   (define invoke-dim1 ,invoke-dim1)
-	   (define placebox ,placebox)
-	   (define rulesym ,rulesym)
-	   (define start-line ,start-line)
-	   (define stem ,stem)
-	   (define stop-line ,stop-line)
-	   (define text ,text)
-	   (define experimental-on  ,experimental-on)
-	   (define char  ,char)
-	   (define maatstreep ,maatstreep)
-	   (define pianobrace ,pianobrace)
-	   ))
+	    (define beam ,beam)
+	    (define tuplet ,tuplet)
+	    (define bracket ,bracket)
+	    (define crescendo ,crescendo)
+	    (define volta ,volta)
+	    (define slur ,slur)
+	    (define dashed-slur ,dashed-slur) 
+	    (define decrescendo ,decrescendo) 
+	    (define empty ,empty)
+	    (define end-output ,end-output)
+	    (define font-def ,font-def)
+	    (define font-switch ,font-switch)
+	    (define generalmeter ,generalmeter)
+	    (define header-end ,header-end)
+	    (define lily-def ,lily-def)
+	    (define header ,header) 
+	    (define invoke-char ,invoke-char) 
+	    (define invoke-dim1 ,invoke-dim1)
+	    (define placebox ,placebox)
+	    (define rulesym ,rulesym)
+	    (define start-line ,start-line)
+	    (define stem ,stem)
+	    (define stop-line ,stop-line)
+	    (define text ,text)
+	    (define experimental-on  ,experimental-on)
+	    (define char  ,char)
+	    (define maatstreep ,maatstreep)
+	    (define pianobrace ,pianobrace)
+	    ))
 
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'beam) beam)
@@ -366,32 +381,32 @@
 
   ; dispatch on action-name
   (cond ((eq? action-name 'all-definitions)
-	`(begin
-	  (define beam ,beam)
-	  (define tuplet ,tuplet)
-	  (define bracket ,bracket)
-	  (define crescendo ,crescendo)
-	  (define volta ,volta)
-	  (define slur ,slur)
-	  (define dashed-slur ,dashed-slur) 
-	  (define decrescendo ,decrescendo) 
-	  (define empty ,empty)
-	  (define end-output ,end-output)
-	  (define font-def ,font-def)
-	  (define font-switch ,font-switch)
-	  (define generalmeter ,generalmeter)
-	  (define header-end ,header-end)
-	  (define lily-def ,lily-def)
-	  (define header ,header) 
-	  (define invoke-char ,invoke-char) 
-	  (define invoke-dim1 ,invoke-dim1)
-	  (define placebox ,placebox)
-	  (define rulesym ,rulesym)
-	  (define start-line ,start-line)
-	  (define stem ,stem)
-	  (define stop-line ,stop-line)
-	  (define text ,text)
-	  ))
+	 `(begin
+	    (define beam ,beam)
+	    (define tuplet ,tuplet)
+	    (define bracket ,bracket)
+	    (define crescendo ,crescendo)
+	    (define volta ,volta)
+	    (define slur ,slur)
+	    (define dashed-slur ,dashed-slur) 
+	    (define decrescendo ,decrescendo) 
+	    (define empty ,empty)
+	    (define end-output ,end-output)
+	    (define font-def ,font-def)
+	    (define font-switch ,font-switch)
+	    (define generalmeter ,generalmeter)
+	    (define header-end ,header-end)
+	    (define lily-def ,lily-def)
+	    (define header ,header) 
+	    (define invoke-char ,invoke-char) 
+	    (define invoke-dim1 ,invoke-dim1)
+	    (define placebox ,placebox)
+	    (define rulesym ,rulesym)
+	    (define start-line ,start-line)
+	    (define stem ,stem)
+	    (define stop-line ,stop-line)
+	    (define text ,text)
+	    ))
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'beam) beam)
 	((eq? action-name 'bracket) bracket)
@@ -402,7 +417,7 @@
 	((eq? action-name 'decrescendo) decrescendo)
 	(else (error "unknown tag -- PS-SCM " action-name))
 	)
-)
+  )
 
 
 
