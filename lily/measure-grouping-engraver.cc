@@ -110,7 +110,7 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
 }
 
 ENTER_DESCRIPTION (Measure_grouping_engraver,
-/* descr */       "Creates Measure_grouping objects using beatGrouping property",
+/* descr */       "Creates MeasureGrouping to indicate beat subdivision.",
 /* creats*/       "MeasureGrouping",
 /* accepts */     "",
 /* acks  */      "note-column-interface",
