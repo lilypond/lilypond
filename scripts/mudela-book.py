@@ -49,7 +49,11 @@ import __main__
 
 
 initfile = ''
-program_version = '1.3.69-very-unstable'
+
+
+program_version = '@TOPLEVEL_VERSION@'
+if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
+	program_version = '1.3.69-very-unstable'	
 
 include_path = [os.getcwd()]
 
