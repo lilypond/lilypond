@@ -151,7 +151,6 @@
     (map ly-load
 					; load-from-path
 	 '("output-lib.scm"
-	   "sketch.scm"
 	   "pdf.scm"
 	   "pdftex.scm"
       	   "c++.scm"
@@ -175,6 +174,3 @@
 	   "midi.scm"
 	   )))
 
-
-
-1
