@@ -35,9 +35,10 @@ testvar ()
 }
 
 
-# . ./stepmake/bin/package-zet.sh
-sourcetree=`basename \`pwd\``
-(cd .. ; rm lilypond-devel ; showln -s $sourcetree lilypond-devel)
+. ./stepmake/bin/package-zet.sh
+#urg.  LILYPOND_PREFIX, _SOURCEDIR, PATH, *INPUTS all broken
+#sourcetree=`basename \`pwd\``
+#(cd .. ; rm lilypond-devel ; showln -s $sourcetree lilypond-devel)
 
 
 echo You should add the following to your profile script

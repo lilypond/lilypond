@@ -73,6 +73,17 @@ Key_item::calculate_position(int p, int a) const
       {
 	p -= 7; /* Typeset below c_position */
       }
+    /* Provide for the four cases in which there's a glitch */
+    /* it's a hack, but probably not worth */
+    /* the effort of finding a nicer solution. dl. */
+    if (get_c_position ()==2 && a>0 && p==3)
+      p -= 7;
+    if (get_c_position ()==-3 && a>0 && p==-1)
+      p += 7;
+    if (get_c_position ()==-4 && a<0 && p==-1)
+      p += 7;
+    if (get_c_position ()==-2 && a<0 && p==-3)
+      p += 7;
     return p + get_c_position ();
   }
 }

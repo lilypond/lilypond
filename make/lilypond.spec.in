@@ -11,8 +11,11 @@ Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
 
-%description 
-@BLURB@
+%description
+LilyPond is a music typesetter.  It produces beautiful
+sheet music using a high level description file as input.  LilyPond is
+part of the GNU Project.
+
 
 %package documentation
 Summary: Prebuilt website containing all LilyPond documentation.
@@ -20,7 +23,7 @@ Group: Applications/Publishing
 # BuildArchitectures: noarch
 
 %description documentation
-@BLURB@
+
 
 The documentation of LilyPond, both in HTML and PostScript.
 

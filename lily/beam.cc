@@ -24,7 +24,6 @@ needs what, and what information should be available when.
 
 #include <math.h>
 
-#include "chord-tremolo.hh"
 #include "beaming.hh"
 #include "proto.hh"
 #include "dimensions.hh"
@@ -279,7 +278,7 @@ Beam::get_default_dir () const
 
      If dir is not determined: up (see stem::get_default_dir ()) */
 
-  Direction beam_dir;
+  Direction beam_dir = CENTER;
   Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
 
   SCM a = get_elt_property ("beam-dir-algorithm");
@@ -423,7 +422,8 @@ Beam::set_steminfo ()
       /*
 	Chord tremolo needs to beam over invisible stems of wholes
       */
-      if (!dynamic_cast<Chord_tremolo*> (this))
+      SCM trem = get_elt_property ("chord-tremolo");
+      if (gh_boolean_p (trem) && gh_scm2bool (trem))
 	{
 	  if (s->invisible_b ())
 	    continue;

@@ -1,5 +1,5 @@
 /*
-  abbreviation-beam-engraver.cc -- implement Chord_tremolo_engraver
+  chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,7 +11,7 @@
 #include "time-description.hh"
 #include "chord-tremolo-engraver.hh"
 #include "stem.hh"
-#include "chord-tremolo.hh"
+#include "beam.hh"
 #include "musical-request.hh"
 #include "misc.hh"
 #include "warn.hh"
@@ -86,7 +86,9 @@ Chord_tremolo_engraver::do_process_requests ()
 
       prev_start_req_ = reqs_drul_[START];
 
-      abeam_p_ = new Chord_tremolo;
+      abeam_p_ = new Beam;
+      abeam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
+      
       announce_element (Score_element_info (abeam_p_, reqs_drul_[LEFT]));
   }
 }

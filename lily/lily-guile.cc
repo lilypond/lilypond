@@ -20,7 +20,7 @@
 #include "debug.hh"
 
 SCM
-ly_ch_C_to_scm (char const*c)
+ly_str02scm (char const*c)
 {
   // this all really sucks, guile should take char const* arguments!
   return gh_str02scm ((char*)c);
@@ -168,7 +168,7 @@ ly_gulp_file (SCM name)
 
 
   Simple_file_storage f(s);
-  return ly_ch_C_to_scm (f.ch_C());
+  return ly_str02scm (f.ch_C());
 }
 
 void

@@ -39,13 +39,13 @@ public:
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
   Molecule hairpin (Real width, Real height, Real thick, bool decresc, bool continued) const;
-  Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real interline, Direction dir) const;
+  Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real height, Direction dir) const;
   Molecule rest (int, bool outside, String) const;
   Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Array<Offset> controls, Real thick) const;
   Molecule text (String style, String text, Paper_def*) const;
   Molecule staff_brace (Real dy, int) const;
-  Molecule staff_bracket (Real dy) const;
+  Molecule staff_bracket (Real height, Paper_def* paper_l) const;
   Molecule volta (Real h, Real w,  Real thick,  bool vert_start, bool vert_end) const;
   Molecule special_time_signature (String, int,int, Paper_def*) const;
   Molecule time_signature (int n,int d, Paper_def*) const;

@@ -75,9 +75,9 @@ courante_b = \notes \relative c {
 	f'4 s s |
 	s2.*2
 	%21
-	\property Voice.slurVerticalDirection=1
+	\slurup
 	f16 c'(bes a g f es d )es c' f, es |
-	\property Voice.slurVerticalDirection=0
+	\slurboth
 	bes4 s s
 	s2.*9
 	s2 s8.

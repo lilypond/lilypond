@@ -17,17 +17,12 @@
   direction */
 class Chord_tremolo : public Beam {
 public:
-  
-
-  Chord_tremolo();
-
   VIRTUAL_COPY_CONS(Score_element);
 
 protected:
-  virtual void do_print() const;
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
-  virtual Molecule* do_brew_molecule_p() const;
 };
 
+#error
 #endif // Chord_tremolo_HH
 

@@ -30,6 +30,12 @@
 ;; * fontlock: \melodic \melodic
 ;; 
 
+(defconst mu-version "1.2.16-dk1"
+  "`mudela-mode' version number.")
+
+(defconst mu-help-address "hanwen@cs.uu.nl"
+  "Address accepting submission of bug reports.")
+
 (defconst mudela-font-lock-keywords
   (let* ((keywords '("spanrequest" "simultaneous" "sequential" "accepts"
 		     "alternative" "bar" "breathe"
@@ -66,28 +72,10 @@
 (defvar mu-mode-map ()
   "Keymap used in `mudela-mode' buffers.")
 
-(defun mu-newline-and-indent ()
-  (interactive)
-  (newline)
-  (indent-relative-maybe)
-  "Newline and copy previous indentation")
-
 (if mu-mode-map
     ()
   (setq mu-mode-map (make-sparse-keymap))
-
-  (mapcar (function (lambda (key)
-		      (define-key
-			mu-mode-map key 'mu-newline-and-indent)))
-   (where-is-internal 'newline-and-indent))
-
-  (mapcar (function
-	   (lambda (x)
-	     (define-key mu-mode-map (car x) (cdr x))))
-	  '(("\C-c\C-c"  . mu-foo-bar)
-	    ))
-  ;; should do all keybindings this way
-  (define-key mu-mode-map [RET] 'mu-newline-and-indent)
+  ;; (define-key mu-mode-map "\C-c\C-c" 'mu-foo-bar)
   ) 
 
 (defvar mu-mode-syntax-table nil
@@ -121,9 +109,6 @@
 
   )	
 
-(defconst mu-blank-or-comment-re "[ \t]*\\($\\|%\\)"
-  "Regexp matching blank or comment lines.")
-
 (defconst mu-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
   "Regexp matching Identifier definitions.")
 
@@ -140,49 +125,52 @@
 
 (defun mudela-mode ()
   "Major mode for editing Mudela files."
-
   (interactive)
   ;; set up local variables
   (kill-all-local-variables)
-  (make-local-variable 'font-lock-defaults)
-  (make-local-variable 'paragraph-separate)
-  (make-local-variable 'paragraph-start)
-  (make-local-variable 'require-final-newline)
-  (make-local-variable 'comment-start)
-  (make-local-variable 'block-comment-start)
-  (make-local-variable 'block-comment-end)  
 
-  (setq comment-end "\n"
-	comment-start          "%"
-	comment-start-skip     "%{? *"
-	block-comment-start	"%{"
-	block-comment-end	"%}"	
-	)
-  (make-local-variable 'comment-end)
+  (make-local-variable 'font-lock-defaults)
+  (setq font-lock-defaults '(mudela-font-lock-keywords))
+
+  (make-local-variable 'paragraph-separate)
+  (setq paragraph-separate "^[ \t]*$")
+
+  (make-local-variable 'paragraph-start)
+  (setq	paragraph-start "^[ \t]*$")
+
+  (make-local-variable 'comment-start)
+  (setq comment-start "%")
+
   (make-local-variable 'comment-start-skip)
-  (setq comment-start-skip "%{")	;??
-  (make-local-variable 'comment-column)
+  (setq comment-start-skip "%{? *")
+
+  (make-local-variable 'comment-end)
+  (setq comment-end "\n")
+
+  (make-local-variable 'block-comment-start)
+  (setq block-comment-start "%{")
+
+  (make-local-variable 'block-comment-end)  
+  (setq block-comment-end   "%}")
+
+  ;; (make-local-variable 'comment-column)
+  ;; (setq comment-column 40)
+
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression mu-imenu-generic-expression)
+
   (make-local-variable 'indent-line-function)
+  (setq indent-line-function 'indent-relative-maybe)
  
   ;;
   (set-syntax-table mu-mode-syntax-table)
-  (setq major-mode             'mudela-mode
-	mode-name              "Mudela"
-	local-abbrev-table     mudela-mode-abbrev-table
-	font-lock-defaults     '(mudela-font-lock-keywords)
-	paragraph-separate     "^[ \t]*$"
-	paragraph-start        "^[ \t]*$"
-	require-final-newline  t
-	comment-column         40
-	indent-line-function	'indent-relative-maybe
-	)
+  (setq major-mode 'mudela-mode)
+  (setq mode-name "Mudela")
+  (setq local-abbrev-table mudela-mode-abbrev-table)
   (use-local-map mu-mode-map)
 
   ;; run the mode hook. mu-mode-hook use is deprecated
-  (run-hooks 'mudela-mode-hook)
-)
+  (run-hooks 'mudela-mode-hook))
 
 
 (defun mu-keep-region-active ()
@@ -194,17 +182,12 @@
        (setq zmacs-region-stays t)))
 
 
-(defun mu-comment-region (beg end &optional arg)
-  "Like `comment-region' but uses double hash (`#') comment starter."
-  (interactive "r\nP")
-  (let ((comment-start mu-block-comment-prefix))
-    (comment-region beg end arg)))
+;;(defun mu-comment-region (beg end &optional arg)
+;;  "Like `comment-region' but uses double hash (`#') comment starter."
+;;  (interactive "r\nP")
+;;  (let ((comment-start mu-block-comment-prefix))
+;;    (comment-region beg end arg)))
 
-(defconst mu-version "0.0.1"
-  "`mudela-mode' version number.")
-(defconst mu-help-address "hanwen@cs.uu.nl"
-  "Address accepting submission of bug reports.")
-
 (defun mu-version ()
   "Echo the current version of `mudela-mode' in the minibuffer."
   (interactive)

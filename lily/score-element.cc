@@ -241,6 +241,14 @@ Score_element::output_processing ()
   
   output_p_ = do_brew_molecule_p ();
   Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
+
+  SCM s = get_elt_property ("extra-offset");
+  if (gh_pair_p (s))
+    {
+      Real il = paper_l ()->get_var ("interline");
+      o[X_AXIS] += il * gh_scm2double (gh_car (s));
+      o[Y_AXIS] += il * gh_scm2double (gh_cdr (s));      
+    }
   
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    o,

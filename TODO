@@ -17,11 +17,9 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 	ctor_dict["Score_element"]->clone_func (orig);
 	ctor_dict["Score_element"]->create_func ();
 
-
+. * acc at tied note after linebreak.
 . * note head on stem err msg in dutch.
 . *  why need to run -C mf twice?
-. * fix interstaff stuff
-. * junk BLURB files.
 . * setting indent to 0 with \shape fails
 . * here's no difference at all in output. When either is jacked up to 7.0,
 everything works and matches up; when either is set just a bit above the
@@ -37,6 +35,7 @@ John
 . * rerun profile
 . * fix or replace feta-accordion.mf
 . * script engraver
+. * bracket pdf hack
 . * Chords:
 .  * Bass/inversion pitch when not part of Chord
 Sometimes a series of changing chords will be blocked out over a static tone
@@ -92,10 +91,7 @@ melismatic.
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
  
-. * ?  -Q, --find-old-relative show all changes in relative syntax
-What's old about absolute to relative conversion?  Could maybe use for
-abc2ly, midi2ly?
-
+. * Write scritp that uses --find-old-relative to do auto relativization.
 . * Junk shared cruft (duration, moment) in lib/
 
 

@@ -70,7 +70,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 	
     num.translate_axis (dy/2, Y_AXIS);
     
-    Real thick = paper_l ()->get_var ("tuplet-thick");
+    Real thick = paper_l ()->get_var ("tuplet_thick");
     if (bracket_visibility)      
       {
 	Real gap = paper_l () -> get_var ("tuplet_spanner_gap");

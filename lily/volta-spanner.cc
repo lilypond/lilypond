@@ -45,7 +45,7 @@ Volta_spanner::do_brew_molecule_p () const
 
   Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f/2;
-  Real t = paper_l ()->get_var ("volta-thick");
+  Real t = paper_l ()->get_var ("volta_thick");
 
   Real dx = internote_f;
   Real w = extent (X_AXIS).length () - dx - get_broken_left_end_align ();
