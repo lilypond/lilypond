@@ -244,6 +244,7 @@ lilypond -fgnome input/simple-song.ly
 (define (beam width slope thick blot)
   (let*
       ((def (make <gnome-canvas-path-def>))
+       (y (* (- width) slope))
        (props (make <gnome-canvas-bpath>
 		   #:parent (canvas-root)
 		   #:fill-color "black"
@@ -252,8 +253,8 @@ lilypond -fgnome input/simple-song.ly
     
     (reset def)
     (moveto def 0 0)
-    (lineto def width (* width slope))
-    (lineto def width (- thick))
+    (lineto def width y)
+    (lineto def width (- y thick))
     (lineto def 0 (- thick))
     (lineto def 0 0)
     (closepath def)
