@@ -1,10 +1,17 @@
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/notation.itely (Formatting cue notes): new
+	section.
+
+	* input/test/clef-end-of-line.ly: fold into manual.
+
 	* input/test/chords-without-melody.ly: fold into manual.
 
 	* input/test/cadenza-skip.ly: remove.
 
 	* input/test/clef-8-syntax.ly: remove.
+
+	* input/test/clef-manual-control.ly: move into manual.
 
 	* Documentation/user/notation.itely (Aligning to cadenzas): fold
 	in cadenza-skip.ly
