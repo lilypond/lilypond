@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.1.66";
+\version "1.2.0";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
@@ -138,5 +138,5 @@ endincipit = \notes{
     \nobreak \bar "";
 }
 
-autoBeamOff = \property Voice.beamAuto = ""
-autoBeamOn = \property Voice.beamAuto = "1"  
+autoBeamOff = \property Voice.noAutoBeaming = "1"
+autoBeamOn = \property Voice.noAutoBeaming = ""  
