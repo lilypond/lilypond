@@ -25,6 +25,10 @@ scheme = \chords {
   c:7		% 7 = dominant
   c:7.5+	% +7 = augmented dominant
   c:7.5-	% 7b5 = hard diminished dominant
+  c:7+.5-	%
+  c:7+.5+	%
+
+  % ninth chords
   c:9		% 7(9)
   c:9-		% 7(b9)
   c:9+		% 7(#9)
@@ -53,6 +57,7 @@ scheme = \chords {
   c:2^3
   c:2.7^3
   c:4^5.3
+
 }
 
 \score {
