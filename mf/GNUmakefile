@@ -78,7 +78,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(OTF_FILES) $(SVG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/Fontmap.lily $(OTF_FILES) $(SVG_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -99,7 +99,7 @@ INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/ly
 INSTALLATION_OUT_FILES4=$(FETA_LIST_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/fonts.scale $(outdir)/Fontmap $(outdir)/Fontmap.lily
+INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/Fontmap $(outdir)/Fontmap.lily
 
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
