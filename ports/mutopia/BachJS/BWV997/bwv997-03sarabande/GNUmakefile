@@ -1,0 +1,4 @@
+mutopia-examples = bwv997-03sarabande
+ depth = ../../../../..
+ include $(depth)/ports/ports.make
+ 

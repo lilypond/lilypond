@@ -8,9 +8,10 @@ depth = .
 
 # descent order into subdirectories:
 #
-SUBDIRS =  buildscripts scripts  flower lily mf midi2ly po debian \
-	Documentation ly input tex make mutopia intl $(builddir)/stepmake\
-	ps  scm
+SUBDIRS = buildscripts scripts flower lily mf midi2ly po \
+	Documentation ly input tex make intl ps scm \
+	debian $(builddir)/stepmake \
+	mutopia ports
 #
 
 SCRIPTS = configure aclocal.m4

@@ -180,7 +180,7 @@
   copyright = "Public Domain";
   maintainer = "Jan Nieuwenhuizen";
   maintainer_email = "janneke@gnu.org";
-  lastupdated =	 "2001/Mar/18";
+  lastupdated =	 "2001/Mar/19";
   mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
@@ -188,5 +188,5 @@
     ".\\\\Unrestricted modification and redistribution is permitted
     and encouraged---copy this music and share it.}";
  tagline = \mutopiapublicdomain;
- footer = "pre-Mutopia-2001/03/18-57";
+ footer = "Mutopia-2001/03/19-57";
 }

@@ -9,15 +9,19 @@
 #
 # Magic: find and include LilyPond's StepMake rules
 #
-# 0: follow LILYPONDPREFIX
-# 1: try source tree
-# 2: try installed tree in $HOME
-# 3: try system installed tree
+# 0: try local tree
+# 1: follow LILYPONDPREFIX
+# 2: try source tree in home
+# 3: try installed tree in $HOME
+# 4: try system installed tree
+# 5: try system installed tree
 #
-make-root=$(wildcard $(LILYPONDPREFIX)/make)
+make-root=$(wildcard $(depth)/make)
+make-root?=$(wildcard $(LILYPONDPREFIX)/make)
 make-root?=$(wildcard $(HOME)/usr/src/lilypond/make)
+make-root?=$(wildcard $(HOME)/usr/share/lilypond/make)
 make-root?=$(wildcard /usr/share/lilypond/make)
-make-root?=$(wildcard /usr/share/lilypond/make)
+make-root?=$(wildcard /usr/local/share/lilypond/make)
 #make-root=<LilyPond's datadir>/make
 ifneq ($(make-root),)
 ### some versions apparently choke on $(message)

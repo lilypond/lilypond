@@ -53,7 +53,6 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	@echo Making $@ from $<
 endif
 
-
 local-mutopia:
 	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
 
@@ -68,7 +67,9 @@ local-letter-clean:
 	rm -f $(outdir)-letter/*
 
 
-local-help:
+local-help: local-mutopia-help
+
+local-mutopia-help:
 	@echo -e "\
   <NAME>      update $(outdir)/<NAME>.ps\n\
   <NAME>-book update booklet $(outdir)/<NAME>-book.ps\n\
@@ -79,43 +80,5 @@ local-help:
   scores      update PostScript of all scores\n\
 "\
 #
-
-
-
-#
-# mutopia-archive playground
-#
-
-
-# -> mutopia-vars.make
-MUTOPIA_MIRROR = http://www.mutopiaproject.org/ftp
-# ugh: doesn't work
-# mutopia-dir = $(pwd:%/mutopia/%=mutopia)
-mutopia-dir = $(shell pwd | sed 's@.*mutopia@@')
-wget-list = $(mutopia-examples:%=$(mutopia-dir)/%)
-
-local-remove-ly:
-	-mv -f $(wildcard *.ly) $(outdir)
-
-remove-ly: local-remove-ly
-	$(LOOP)
-
-local-download: $(mutopia-examples:%=%.ly)
-	@echo downloading $<
-
-download: local-download
-	$(LOOP)
-
-# -> mutopia-rules.make
-ifeq ($(zipped),)
-%.ly:
-	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
-else
-%.zip:
-	wget $(MUTOPIA_MIRROR)/$(mutopia-dir)/$@
-
-%.ly:	%-lys.zip
-	unzip $<
-endif
 
 
