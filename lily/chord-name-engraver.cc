@@ -107,8 +107,8 @@ Chord_name_engraver::stop_translation_timestep ()
 }
 
 ENTER_DESCRIPTION(Chord_name_engraver,
-/* descr */       "Catch note-events, Tonic_reqs, Inversion_reqs, Bass_req
-and generate the appropriate chordname.",
+/* descr */       "Catch note-events, Tonic_reqs, Inversion_reqs, Bass_req "
+"and generate the appropriate chordname.",
 /* creats*/       "ChordName",
 /* accepts */     "note-event busy-playing-event",
 /* acks  */      "",

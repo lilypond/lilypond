@@ -265,7 +265,7 @@ TYPE ## _ ## FUNC ## _init_functions ()					\
 ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\
 
 
-void ly_add_function_documentation (char const * fname,
+void ly_add_function_documentation (SCM proc, char const * fname,
 				    char const * varlist,
 				    char const * doc);
 
@@ -286,7 +286,7 @@ INITPREFIX ## init ()\
 {\
  FNAME ## _proc \
     = scm_c_define_gsubr (PRIMNAME,REQ, OPT, VAR, (Scheme_function_unknown) FNAME);\
-  ly_add_function_documentation (PRIMNAME, #ARGLIST,  DOCSTRING);\
+  ly_add_function_documentation ( FNAME ## _proc ,PRIMNAME, #ARGLIST,  DOCSTRING);\
   scm_c_export (PRIMNAME,NULL);\
 }\
 ADD_SCM_INIT_FUNC (INITPREFIX ## init_unique_prefix, INITPREFIX ## init);\

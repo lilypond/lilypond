@@ -109,17 +109,5 @@ Custos::brew_molecule (SCM smob)
 }
 
 ADD_INTERFACE (Custos, "custos-interface",
-  "A custos is a staff context symbol that appears at the end of a
-  staff line with monophonic musical contents (i.e. with a single
-  voice).  It anticipates the pitch of the first note of the following
-  line and thus helps the player or singer to manage line breaks
-  during performance, thus enhancing readability of a score.
-
-  Custodes were frequently used in music notation until the 16th
-  century.  There were different appearences for different notation
-  styles.  Nowadays, they have survived only in special forms of
-  musical notation such as via the editio vaticana dating back to the
-  beginning of the 20th century.
-
-[TODO: add to glossary]",
+  "Engrave custodes",
   "style adjust-if-on-staffline neutral-direction neutral-position");

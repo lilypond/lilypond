@@ -72,6 +72,7 @@ public:
 private:
   int lookup_keyword (String);
   int scan_bare_word (String);
+  SCM scan_markup_word (String);
   int scan_escaped_word (String);
   int identifier_type (SCM);
   char escaped_char (char) const;

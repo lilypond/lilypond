@@ -238,5 +238,6 @@ is the  first to satisfy CRIT
        "script.scm"
        "drums.scm"
        "midi.scm"
+       "new-markup.scm"
        ))
 
