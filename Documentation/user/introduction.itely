@@ -40,6 +40,13 @@ which symbols to use for what. Second, one has to master music
 engraving: the art of placing symbols such that the result looks
 pleasing.
 
+
+
+@lilypondfile[notexidoc]{puer-fragment.ly}
+
+@center A fragment of neume notation
+
+
 Common music notation has its roots in the medieval time. In this
 time, monks started to write down hints that indicated how their
 sacred music was sung. These hints, neumes, gradually became simpler,
@@ -54,6 +61,8 @@ fixed amount of time, came into being together with the rise of
 counterpoint in the early renaissance.  The graphic language of
 notation is still under development; the innovations of contemporary
 music require still newer and more complex notations.
+
+
 
 The term music engraving derives from the traditional process of music
 printing.  Only a few decades ago, sheet music was made by cutting and

@@ -5,6 +5,12 @@
 ;;; (c)  2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
+
+;;;;;;;;;;;;;;;;;;
+;;; TODO:
+
+;; this is broken: we should not ever export variables from Scheme.
+
 ;; define factor of total volume per dynamic marking
 (define-public absolute-volume-alist '())
 (set! absolute-volume-alist
