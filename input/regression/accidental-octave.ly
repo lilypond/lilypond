@@ -3,8 +3,8 @@
 
 \header {
 texidoc="
-This shows how accidentals in different octaves are handled.
-(DOCME)
+This shows how accidentals in different octaves are handled. The note names 
+are also automatically printed but the octavation has been dropped out.
 "
 
 

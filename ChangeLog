@@ -1,3 +1,8 @@
+2004-04-17  Heikki Junes <janneke@gnu.org>
+
+	* input/regression/accidental-octave.ly: doc automatic showing
+	of note names.
+
 2004-04-16  Heikki Junes <janneke@gnu.org>
 
 	* po/fi.po: do "make po && make -C po po-update" at top-level,
