@@ -7,74 +7,49 @@
 */
 
 #include <math.h>
-#include "ly-smobs.icc"
 
 #include "atom.hh"
-#include "interval.hh"
-#include "string.hh"
-#include "array.hh"
-#include "debug.hh"
-#include "dimensions.hh"
 #include "lookup.hh"
-#include "main.hh"
 #include "global-ctor.hh"
 #include "font-metric.hh"
 
-Atom::Atom(SCM s)
+
+#if 0
+SCM translate_sym;
+
+static void init()
 {
-  SCM onstack = s;		// protection. just to be sure.
-  func_ = s;
-  self_scm_ = SCM_EOL;
-  smobify_self ();
+  translate_sym = sly_symbol2scm ("translate-atom");
+}
+
+ADD_SCM_INIT_FUNC(atom, init);
+#endif
+
+SCM
+translate_atom (Offset o, SCM func)
+{
+  return gh_list (ly_symbol2scm ("translate-atom"),
+		  ly_quote_scm (ly_offset2scm (o)),
+		  func,
+		  SCM_UNDEFINED);
 }
 
 SCM
-Atom::mark_smob (SCM s)
+translate_atom_axis (Real r, Axis a, SCM func)
 {
-  Atom*  a = SMOB_TO_TYPE(Atom, s);
-  assert (s == a->self_scm_);
-  return a->func_;
+  //  off_[a] += r;
+  Offset o ;
+  o[a] = r;
+  return gh_list (ly_symbol2scm ("translate-atom"),
+		  ly_quote_scm (ly_offset2scm (o)),
+		  func,
+		  SCM_UNDEFINED);
 }
 
-void
-Atom::fontify (Font_metric * met)
+
+SCM
+fontify_atom(Font_metric * met, SCM f)
 {
-  SCM desc = ly_quote_scm (met->description ());
-  SCM font_switch = gh_list (ly_symbol2scm ("select-font"),
-			     desc,
-			     SCM_UNDEFINED);
-
-  SCM f =func_;
-  func_ = gh_list (ly_symbol2scm ("string-append"),
-		   font_switch , f,
-		   SCM_UNDEFINED);
+  return  gh_list (ly_symbol2scm ("fontify"),
+		   ly_quote_scm (met->description ()), f, SCM_UNDEFINED);
 }
-
-void
-Atom::do_smobify_self ()
-{
-}
-
-Atom::Atom (Atom const &s)
-{
-  off_ = s.off_;
-  func_ = s.func_;
-  self_scm_= SCM_EOL;
-  smobify_self ();
-}
-int
-Atom::print_smob (SCM s, SCM p, scm_print_state*)
-{
-  Atom * a = unsmob_atom (s);
-
-  scm_puts ("#<Atom off ",p);
-  String str(a->off_.str ());
-  scm_puts ((char *)str.ch_C(), p);
-  scm_display (a->func_, p);
-  scm_puts ("> ",p);  
-  return 1;
-}
-  
-IMPLEMENT_UNSMOB(Atom, atom)
-IMPLEMENT_SMOBS(Atom)
-
