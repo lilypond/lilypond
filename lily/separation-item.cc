@@ -38,9 +38,9 @@ Separation_item::my_width (Score_element *me)
   for (SCM s =  me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
-      if (!SMOB_IS_TYPE_B(Score_element, elt))
+      if (!unsmob_element (elt))
 	continue;
-      
+
       Item *il = dynamic_cast<Item*> (unsmob_element (elt));
       if (pc != il->column_l ())
 	{

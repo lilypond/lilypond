@@ -87,9 +87,10 @@ Paper_def::line_dimensions_int (int n) const
 }
 
 void
-Paper_def::set_lookup (int i, Lookup*l)
+Paper_def::set_lookup (int i, SCM l)
 {
-  lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l->self_scm_);
+  assert (unsmob_lookup (l));
+  lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l);
 }
 
 

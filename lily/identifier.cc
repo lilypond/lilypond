@@ -22,18 +22,19 @@
 
 IMPLEMENT_UNSMOB(Identifier, identifier);
 IMPLEMENT_SMOBS(Identifier);
+IMPLEMENT_DEFAULT_EQUAL_P(Identifier);
 
 Identifier::Identifier (int code)
 {
-  self_scm_ = SCM_EOL;
   token_code_i_ = code;
   accessed_b_ = 0;
+  smobify_self ();
 }
 
 Identifier::Identifier (Identifier const&s)
   : Input (s)
 {
-  self_scm_ = SCM_EOL;
+  smobify_self ();  
   token_code_i_ = s.token_code_i_;
   accessed_b_ = s.accessed_b_;
 }
@@ -173,8 +174,3 @@ Identifier::mark_smob (SCM s)
 
 
 
-void
-Identifier::do_smobify_self ()
-{
-  
-}
