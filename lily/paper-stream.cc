@@ -25,7 +25,7 @@ Paper_stream::Paper_stream (String filename)
     error (_f ("Can't open file: `%s'", filename));
   nest_level = 0;
   line_len_i_ = 0;
-  outputting_comment=false;
+  outputting_comment_b_=false;
 }
 
 Paper_stream::~Paper_stream ()
@@ -46,13 +46,13 @@ Paper_stream::operator << (String s)
 {
   for (char const *cp = s.ch_C (); *cp; cp++)
     {
-      if (outputting_comment)
+      if (outputting_comment_b_)
 	{
 	  *os << *cp;
 	  if (*cp == '\n')
 	    {
-	      outputting_comment=false;
-
+	      outputting_comment_b_=false;
+	      line_len_i_ =0;
 	    }
 	  continue;
 	}
@@ -60,7 +60,7 @@ Paper_stream::operator << (String s)
       switch (*cp)
 	{
 	case '%':
-	  outputting_comment = true;
+	  outputting_comment_b_ = true;
 	  *os << *cp;
 	  break;
 	case '{':
@@ -108,6 +108,7 @@ Paper_stream::break_line ()
 {
   *os << '\n';
   *os << to_str (' ', nest_level);
+  outputting_comment_b_ = false;
   line_len_i_ = 0;
 }
 
