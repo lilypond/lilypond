@@ -1,11 +1,20 @@
-#include "musicalrequest.hh"
-#include "paperdef.hh"
+/*
+  textitem.cc -- implement Text_item
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+  #include "musicalrequest.hh"
+#include "paper-def.hh"
 #include "textitem.hh"
 #include "stem.hh"
 #include "molecule.hh"
 #include "lookup.hh"
 
-NAME_METHOD(Text_item);
+
 
 Text_item::Text_item(Text_req* treq_l, int staffsize_i)
 {
