@@ -133,7 +133,7 @@ usage ()
   /*
     No version number or newline here. It confuses help2man
    */
-  cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond");
+  cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond");
   cout << "\n\n";
   cout << _ ("Typeset music and or play MIDI from FILE");
   cout << "\n\n";
@@ -335,7 +335,11 @@ main_prog (int, char**)
   const char *arg  = oparser_p_static->get_next_arg ();
 
   if (!arg)
-    usage ();
+    {
+      usage ();
+      /* No FILE arguments is now a usage error */
+      exit (2);
+    }
   else
     do 
     {
@@ -383,8 +387,6 @@ main_prog (int, char**)
       output_name_global = save_output_name_global;
       
       p++;
-
-      oparser_p_static->get_next_arg ();      
     } while ((arg  = oparser_p_static->get_next_arg ()));
   delete oparser_p_static;
   oparser_p_static = 0;

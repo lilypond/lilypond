@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lilypond 1.2.8\n"
-"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "PO-Revision-Date: 1999-09-18 01:30+0200\n"
 "Last-Translator: Erwin Dieterich <bamse@gmx.de>\n"
 "Language-Team: LANGUAGE <de@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "warning: "
 msgstr "Warnung: "
 
-#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "Fehler: "
@@ -136,7 +136,7 @@ msgstr "Zeige die Versionsnummer"
 msgid "show warranty and copyright"
 msgstr "Zeige Garantie und Urheberrechte"
 
-#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "Uralt-Bitte: `%s'"
@@ -156,23 +156,23 @@ msgstr ""
 msgid "invalid value: %s"
 msgstr "Ungültiger Buchstabe `%c'"
 
-#: ly2dvi.py:807 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "Ausgabe auf Papier auf %s..."
 
-#: ly2dvi.py:817
+#: ly2dvi.py:791
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "MIDI-Ausgabe nach %s..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "Kann Datei `%s' nicht finden"
 
-#: ly2dvi.py:830
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr "Unerlaubte Subtraktion: nicht Teil eines Akkords: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "Unerlaubter Baßton: gehört nicht zum Akkord: %s"
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "Unbeendeter Bindestrich"
@@ -667,8 +667,8 @@ msgstr "Unterdrücke die automatische Benennung von Ausgabedateien und Export"
 #. No version number or newline here. It confuses help2man
 #.
 #: main.cc:136
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Benutzung: %s [OPTIONEN] ... [DATEI] ..."
 
 #: main.cc:138
@@ -859,7 +859,7 @@ msgstr ""
 msgid "none of these in my family: `%s'"
 msgstr ""
 
-#: percent-repeat-engraver.cc:118
+#: percent-repeat-engraver.cc:117
 #, fuzzy
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "Weiß nicht, wie ich eine fehlende Tonart behandeln soll"

@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "warning: "
 msgstr "attenzione: "
 
-#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "errore: "
@@ -137,7 +137,7 @@ msgstr ""
 msgid "show warranty and copyright"
 msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
 
-#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "Genero le voci..."
@@ -157,23 +157,23 @@ msgstr ""
 msgid "invalid value: %s"
 msgstr "carattere illegale: `%c'"
 
-#: ly2dvi.py:807 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "L'output stampato è inviato a %s..."
 
-#: ly2dvi.py:817
+#: ly2dvi.py:791
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "L'output MIDI è inviato a %s..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: ly2dvi.py:830
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "beam non terminato"
@@ -664,8 +664,8 @@ msgstr ""
 #. No version number or newline here. It confuses help2man
 #.
 #: main.cc:136
-#, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
 #: main.cc:138
@@ -851,7 +851,7 @@ msgstr ""
 msgid "none of these in my family: `%s'"
 msgstr ""
 
-#: percent-repeat-engraver.cc:118
+#: percent-repeat-engraver.cc:117
 #, fuzzy
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "non so manipolare tasti vuoti"

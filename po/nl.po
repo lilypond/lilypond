@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.4.1\n"
-"POT-Creation-Date: 2001-05-18 15:48+0200\n"
+"POT-Creation-Date: 2001-06-14 13:22+0200\n"
 "PO-Revision-Date: 2001-05-09 23:29+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -32,7 +32,7 @@ msgstr "Genereer .dvi met LaTeX voor LilyPond"
 msgid "warning: "
 msgstr "waarschuwing: "
 
-#: input.cc:90 ly2dvi.py:205 ly2dvi.py:830 mup2ly.py:98 mup2ly.py:188
+#: input.cc:90 ly2dvi.py:205 ly2dvi.py:804 mup2ly.py:98 mup2ly.py:188
 #: update-lily.py:123 update-lily.py:211 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "fout: "
@@ -142,7 +142,7 @@ msgstr "druk versienummer af"
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
-#: ly2dvi.py:383 ly2dvi.py:604 ly2dvi.py:629
+#: ly2dvi.py:383 ly2dvi.py:578 ly2dvi.py:603
 #, c-format
 msgid "Running %s..."
 msgstr "Uitvoeren %s..."
@@ -162,23 +162,23 @@ msgstr "geen lilypond uitvoer gevonden voor %s"
 msgid "invalid value: %s"
 msgstr "ongeldige waarde: %s"
 
-#: ly2dvi.py:807 scores.cc:44
+#: ly2dvi.py:781 scores.cc:44
 #, c-format
 msgid "dependencies output to `%s'..."
 msgstr "afhankelijkheden uitvoer naar %s..."
 
-#: ly2dvi.py:817
+#: ly2dvi.py:791
 #, c-format
 msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar `%s'..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:819
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:793
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: ly2dvi.py:830
+#: ly2dvi.py:804
 msgid "no files specified on command line."
 msgstr "geen bestanden gespecificeerd op de commandoregel."
 
@@ -490,7 +490,7 @@ msgstr "ongeldige aftrek: maakt geen deel uit van accoord: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "ongeldige inversie toon: geen onderdeel van accoord: %s"
 
-#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:193
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:192
 msgid "unterminated chord tremolo"
 msgstr "onbeëindigd akkoordtremolo"
 
@@ -654,8 +654,8 @@ msgstr "verbied naamgeving van uitvoer bestand en exportering"
 #.
 #: main.cc:136
 #, c-format
-msgid "Usage: %s [OPTION]... [FILE]..."
-msgstr "Gebruik: %s [OPTIE]... [BESTAND]..."
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "Gebruik: %s [OPTIE]... BESTAND..."
 
 #: main.cc:138
 msgid "Typeset music and or play MIDI from FILE"
@@ -839,7 +839,7 @@ msgstr "Ben er zelf een: `%s'"
 msgid "none of these in my family: `%s'"
 msgstr "geen van deze in mijn gezin: `%s'"
 
-#: percent-repeat-engraver.cc:118
+#: percent-repeat-engraver.cc:117
 msgid "Don't know how to handle a percent repeat of this length."
 msgstr "Weet niet hoe procent herhaling van deze lengte af te handelen."
 
@@ -1415,4 +1415,3 @@ msgstr "MIDI spoor verwacht"
 #: midi-track-parser.cc:353
 msgid "invalid track length"
 msgstr "ongeldige spoorlengte"
-
