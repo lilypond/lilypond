@@ -233,3 +233,7 @@ installexe:
 
 uninstallexe:
 	for a in $(EXECUTABLES); do rm -f $(bindir)/`basename $a`; done
+
+ifneq ($(DEPFILES),)
+include $(DEPFILES)
+endif
