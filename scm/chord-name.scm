@@ -10,7 +10,7 @@
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."
   (if (= (ly:pitch-steps p) 6)
-      -1
+      FLAT
       0))
 
 
@@ -20,7 +20,7 @@
 (define-public (alteration->text-accidental-markup alteration)
   (make-smaller-markup
    (make-raise-markup
-    (if (= alteration -1)
+    (if (= alteration FLAT)
 	0.3
 	0.6)
     (make-musicglyph-markup

@@ -1,13 +1,11 @@
 \version "1.9.8"
 
 \header{
-texidoc="
-The transparent clef should not occupy any space and with style
-@code{fullSizeChanges}, the changing clef should be typeset in full
-size. For octaviated clefs, the ``8'' should appear closely above or
-below the clef respectively.  The ``8'' is processed in a convoluted
-way, so this is fragile as well.
-"
+
+    texidoc=" Clefs with @code{full-size-change} should be typeset in
+full size. For octaviated clefs, the ``8'' should appear closely above
+or below the clef respectively."
+
 }
 
 
