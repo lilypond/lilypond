@@ -80,8 +80,10 @@
 
 /start-page
 {
-    /line-x left-margin output-scale div def
-    /line-y vsize top-margin sub def
+    %/line-x left-margin output-scale div def
+    %/line-y vsize top-margin sub def
+    /line-x 0 def
+    /line-y vsize def
 } bind def
 
 /stop-page
@@ -247,5 +249,10 @@ paper-size
 
 % initialise paper dimensions
 staff-height init-paper
+
+%/line-x left-margin output-scale div def
+%/line-y vsize top-margin sub def
+/line-x 0 def
+/line-y vsize def
 
 % end lilyponddefs.ps

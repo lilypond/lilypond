@@ -15,15 +15,15 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @dircategory GNU music project
 @direntry
 @c    ;; prepend GNU for dir, must be unique
-* GNU LilyPond: (./lilypond/lilypond).           The GNU music typesetter.
-* lilypond: (./lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
-* Glossary: (./lilypond/music-glossary).                  Glossary of music terms.
-* convert-ly: (./lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
-* midi2ly: (./lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
-* etf2ly: (./lilypond/lilypond)Invoking etf2ly.          Importing Finale.
-* abc2ly: (./lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
-* musedata2ly: (./lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
-* mup2ly: (./lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
+* GNU LilyPond: (lilypond/lilypond).           The GNU music typesetter.
+* lilypond: (lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
+* Glossary: (lilypond/music-glossary).                  Glossary of music terms.
+* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
+* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
+* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
+* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.          
+* musedata2ly: (lilypond/lilypond)Invoking musedata2ly.        Importing MuseData.
+* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup. 
 @end direntry
 
 
