@@ -2,6 +2,7 @@
 
 	* scripts/lilypond-book.py (Lilypond_snippet.__init__): 
 	only process options fi they're there.
+	(write_file_map): add version-seen? to snippet-map.ly
 
 2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
 
