@@ -24,6 +24,7 @@ struct PCursor : public Cursor<void *> {
     PCursor<T> operator +( int no) const {
 	return PCursor<T> (Cursor<void*>::operator+(no));
     }
+    
     PCursor(const PointerList<T> & l) : Cursor<void*> (l) {}
 
     PCursor( const Cursor<void*>& cursor ) : Cursor<void*>(cursor) { }
@@ -34,13 +35,17 @@ struct PCursor : public Cursor<void *> {
     T operator ->() const { return  ptr(); }
     operator T() { return ptr(); }
     T operator *() { return ptr(); }
+    void add(const T& p ) { Cursor<void*>::add((void*) p); }
+    void insert(const T& p ) { Cursor<void*>::insert((void*) p);}
 
 private:
 //    Cursor<void*>::operator void*;
     // sigh
 };
 /**
-don't create PointerList<void*>'s
+  don't create PointerList<void*>'s.
+  This cursor is just an interface class for Cursor. It takes care of the
+  appropriate type casts
  */
 
 
