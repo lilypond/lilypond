@@ -70,7 +70,6 @@ public:
   Moment body_length_mom () const;
   Moment alternatives_length_mom () const;
 
-  void print() const;
   /// Transpose, with the interval central C to #p#
   virtual void transpose (Musical_pitch p);
 
@@ -80,8 +79,6 @@ public:
 
   Repeated_music (Music*, int , Music_sequence*);
   Repeated_music (Repeated_music const&);
-protected:
-  virtual void do_print() const;
 };
 
 

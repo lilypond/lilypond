@@ -43,6 +43,7 @@
 #include "auto-change-music.hh"
 #include "part-combine-music.hh"
 #include "output-property.hh"
+#include "chord.hh"
 
 bool
 is_duration_b (int t)
@@ -90,12 +91,11 @@ print_mudela_versions (ostream &os)
     Music *music;
     Score *score;
     Scope *scope;
-    Interval *interval;
+
     Musical_req* musreq;
     Music_output_def * outputdef;
     Musical_pitch * pitch;
     Midi_def* midi;
-    Moment *moment;
     Real real;
     Request * request;
 
@@ -365,8 +365,6 @@ assignment:
 
 /*
  TODO: devise standard for protection in parser.
-		if (SCM_NIMP($4))
-			scm_unprotect_object ($4);
 
   The parser stack lives on the C-stack, which means that
 all objects can be unprotected as soon as they're here.
@@ -389,12 +387,15 @@ identifier_init:
 	}
 	| translator_spec_block {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| Music  {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| post_request {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| explicit_duration {
 		$$ = (new Duration_identifier ($1, DURATION_IDENTIFIER))->self_scm ();
@@ -502,7 +503,7 @@ score_body:
 
 		$$->set_spot (THIS->here_input ());
 		SCM m = $1->self_scm ();
-//		scm_unprotect_object (m);
+		scm_unprotect_object (m);
 		$$->music_ = m;
 	}
 	| SCORE_IDENTIFIER {
@@ -603,7 +604,7 @@ Music_list: /* empty */ {
 	| Music_list Music {
 		SCM s = $$;
 		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
-//		scm_unprotect_object ($2->self_scm ()); /* UGH */
+		scm_unprotect_object ($2->self_scm ()); /* UGH */
 
 	
 		if (gh_pair_p (gh_cdr (s)))
@@ -1393,7 +1394,8 @@ simple_element:
 
 chord:
 	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-                $$ = THIS->get_chord (*$1, $3, $4, $5, $6, *$2);
+                $$ = get_chord (*$1, $3, $4, $5, $6, *$2);
+		$$->set_spot (THIS->here_input ());
         };
 
 chord_additions: 

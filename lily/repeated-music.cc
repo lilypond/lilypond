@@ -26,7 +26,11 @@ Repeated_music::alternatives ()const
 
 Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
 {
-  set_mus_property ("body", beg->self_scm ());
+  if (beg)
+    {
+      set_mus_property ("body", beg->self_scm ());
+      scm_unprotect_object (beg->self_scm ());
+    }
   fold_b_ = false;
   repeats_i_ = times;
   volta_fold_b_ = true;
@@ -34,6 +38,7 @@ Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
     {
       alts->truncate (times);
       set_mus_property ("alternatives", alts->self_scm ());
+      scm_unprotect_object (alts->self_scm ());  
     }
 }
 
@@ -46,20 +51,6 @@ Repeated_music::Repeated_music (Repeated_music const &s)
   type_ = s.type_;
 }
 
-
-void
-Repeated_music::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "Fold = " << fold_b_ << " reps: " << repeats_i_;
-
-  if (body ())
-    body ()->print();
-  
-  if (alternatives ())
-    alternatives ()->print();
-#endif
-}
 
 Musical_pitch
 Repeated_music::to_relative_octave (Musical_pitch p)

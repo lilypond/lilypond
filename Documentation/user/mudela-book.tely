@@ -150,12 +150,12 @@ will set the @code{linewidth} variable to -1, so Lilypond
 will make the music as short as possible but without breaking the
 line. Here is a well know harmonic progression:
 @mudela[veryverbatim, intertext="produce a well known harmonic progression:"]
-  <c' e g> <b d g> <c2 e g>
+  \context Voice { <c' e g> <b d g> <c2 e g> }
 @end mudela
 
 If you want to place music examples in the text,
 @mudela[eps]
-  <c' e g> <b d g> <c2 e g>
+\context Voice {  <c' e g> <b d g> <c2 e g>}
 @end mudela
 , you can use the @code{eps} option. This will create the music as
 eps graphics and include it into the document with the 
@@ -164,7 +164,7 @@ eps graphics and include it into the document with the
 The code used look like this:
 @example
 @@mudela[eps]
-  <c' e g> <b d g> <c2 e g>
+ \context Voice { <c' e g> <b d g> <c2 e g> }
 @@end mudela
 @end example
 

@@ -29,6 +29,7 @@ public:
   static bool has_interface (Score_element*);  
   static Interval get_spanned_interval (Score_element*);
   static void add_bar (Score_element*,Score_element*);
+  static void evaluate_glyph (Score_element*);
   static void evaluate_empty (Score_element*);
   static Interval width_callback(Score_element *, Axis) ;
   static SCM get_bar_size (SCM);

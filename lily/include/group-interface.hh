@@ -28,8 +28,8 @@ struct Group_interface
   Score_element * elt_l_;
   String name_;
 public:
-  Group_interface (Score_element const*);
-  Group_interface (Score_element const*, String);
+  Group_interface (Score_element *);
+  Group_interface (Score_element *, String);
   int count ();
   void add_thing (SCM);
   bool has_interface ();
@@ -40,8 +40,8 @@ struct Pointer_group_interface {
   Score_element * elt_l_;
   String name_;
 public:
-  Pointer_group_interface (Score_element const*);
-  Pointer_group_interface (Score_element const*, String);
+  Pointer_group_interface (Score_element*);
+  Pointer_group_interface (Score_element*, String);
   int count ();
   void set_interface ();
   static bool has_interface (Score_element*);

@@ -9,14 +9,17 @@
 #include "group-interface.hh"
 #include "score-element.hh"
 
-Group_interface::Group_interface (Score_element const* e)
+/*
+  ugh: clean me, junk elt_l_ field
+ */
+Group_interface::Group_interface (Score_element * e)
 {
   elt_l_ = (Score_element*)e;
   name_ = "elements";
 }
 
 
-Group_interface::Group_interface (Score_element const *e, String s)
+Group_interface::Group_interface (Score_element  *e, String s)
 {
   elt_l_ =(Score_element*)e;
   name_ = s;

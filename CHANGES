@@ -1,3 +1,28 @@
+
+1.3.83
+======
+
+* small doc updates.
+
+* Cleanups related to barline handling:
+
+  - Removed Translator_group::get_simple_translator (), and -
+
+  - use properties to communicate about barlines and time sigs. (NOTE:
+    by default a time-signature of 4/4 is printed.)
+
+  - fix repeat bar behavior.
+
+
+* cleaned up Directional_element_interface
+
+* add name field to score-elements.
+
+* comment in some unprotects for Music in parser. Should bring down
+  cpu time and plug some leaks.
+
+* robustness fixes for etf2ly, tuplets, grace notes. 
+
 1.3.82
 ======
 

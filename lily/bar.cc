@@ -158,9 +158,11 @@ Bar::before_line_breaking  (SCM smob)
     {
       me->set_elt_property ("molecule-callback", SCM_BOOL_T);
       me->set_extent_callback (0, X_AXIS);
+
       // leave y_extent for spanbar? 
     }
-  else if (! gh_equal_p  (g, orig))
+
+  if (! gh_equal_p  (g, orig))
     me->set_elt_property ("glyph", g);
 
 

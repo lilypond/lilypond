@@ -13,7 +13,7 @@
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
-#include "timing-engraver.hh"
+
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
@@ -30,46 +30,8 @@ Bar_engraver::create_bar ()
   if (!bar_p_)
     {
       bar_p_ = new Item (get_property ("basicBarProperties"));
-      
-      SCM default_type = get_property ("defaultBarType");
-      if (gh_string_p (default_type))
-	{
-	  bar_p_->set_elt_property ("glyph", default_type); // ugh
-	}
-
       announce_element (bar_p_, 0);
     }
-}
-
-/**
-   Make a barline.  If there are both |: and :| requested, merge them
-   to :|:.
-*/
-void
-Bar_engraver::request_bar (String requested_type)
-{
-  if (!now_mom ())
-    {
-      SCM prop = get_property ("barAtLineStart");
-      if (!to_boolean (prop))
-	return;
-    }
-  bool  bar_existed = bar_p_;
-  create_bar ();
-  if (bar_existed && requested_type == "")
-    {
-      return;
-    }
-
-  String current = ly_scm2string (bar_p_->get_elt_property ("glyph"));
-  
-  if ((requested_type == "|:" && current== ":|")
-    || (requested_type == ":|" && current == "|:"))
-    requested_type = ":|:";
-
-  
-  bar_p_->set_elt_property ("glyph",
-			    ly_str02scm (requested_type.ch_C ()));
 }
 
 void 
@@ -80,27 +42,42 @@ Bar_engraver::do_creation_processing ()
 void
 Bar_engraver::do_removal_processing ()
 {
+  typeset_bar ();
+}
+
+/*
+  Bar_engraver should come *after* any engravers that expect bars to
+  modify whichBar in do_process_music () be typeset
+*/
+void
+Bar_engraver::do_process_music()
+{
+  SCM b =get_property ("whichBar");
+  if (gh_string_p (b))
+    {
+      create_bar ();
+    }
+}
+
+void
+Bar_engraver::typeset_bar ()
+{
   if (bar_p_) 
     {
+      SCM gl = get_property ("whichBar");
+      if (scm_equal_p (gl, bar_p_->get_elt_property ("glyph")) != SCM_BOOL_T)
+	  bar_p_->set_elt_property ("glyph", gl);
       typeset_element (bar_p_);
       bar_p_ =0;
     }
 }
 
-void
-Bar_engraver::do_process_music()
-{  
-  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");	// UGH.!
-
-  Timing_engraver * te = dynamic_cast<Timing_engraver*>(t);
-  String which = (te) ? te->which_bar () : "";
-
-  if (which.length_i ())
-    {
-      create_bar();
-      bar_p_->set_elt_property ("glyph",  ly_str02scm (which.ch_C ()));
-    }
-  
+/*
+  lines may only be broken if there is a barline in all staffs 
+*/
+void 
+Bar_engraver::do_pre_move_processing()
+{
   if (!bar_p_)
     {
       Score_engraver * e = 0;
@@ -109,23 +86,14 @@ Bar_engraver::do_process_music()
 	{
 	  e = dynamic_cast<Score_engraver*> (t);
 	}
-      
+
       if (!e)
 	programming_error ("No score engraver!");
       else
-	e->forbid_breaks ();
+	e->forbid_breaks ();	// guh. Use properties!
     }
-}
-
-
-void 
-Bar_engraver::do_pre_move_processing()
-{
-  if (bar_p_) 
-    {
-      typeset_element (bar_p_);
-      bar_p_ =0;
-    }
+  else
+    typeset_bar ();
 }
 
 ADD_THIS_TRANSLATOR(Bar_engraver);
