@@ -22,11 +22,7 @@ struct Interval_t : public Drul_array<T>
 
   static T infinity ();
   static String T_to_string (T arg);
-  T center () const
-  {
-    assert (!is_empty ());
-    return (elem (LEFT) + elem (RIGHT)) / T (2);
-  }
+  T center () const;
   void translate (T t)
     {
       elem_ref (LEFT) += t;
@@ -191,6 +187,15 @@ template<class T>
 inline
 Interval_t<T> operator * (Interval_t<T> i,T a){
   return a*i;
+}
+
+
+template<class T>
+inline T
+Interval_t<T>::center () const
+{
+  assert (!is_empty ());
+  return (elem (LEFT) + elem (RIGHT)) / T (2);
 }
 
 // again? see flower-proto.hh

@@ -401,7 +401,7 @@ Stem::position_noteheads (Grob *me)
   Real thick = thickness (me);
 
   Grob *hed = support_head (me);
-  Real w = Note_head::head_extent (hed,X_AXIS)[dir];
+  Real w = Note_head::head_extent (hed, X_AXIS)[dir];
   for (int i = 0; i < heads.size (); i++)
     heads[i]->translate_axis (w - Note_head::head_extent (heads[i],
 							  X_AXIS)[dir],

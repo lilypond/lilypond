@@ -190,28 +190,6 @@ vaticana_brew_join (Grob *me, int delta_pitch,
   return Lookup::round_filled_box (join_box, blotdiameter);
 }
 
-void
-vaticana_add_ledger_lines (Grob *me, Stencil *out, int pos, Real offs,
-			   bool ledger_take_space)
-{
-  int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  if (abs (pos) - interspaces > 1)
-    {
-      Interval hd = out->extent (X_AXIS);
-      Real left_ledger_protusion = hd.length ()/4;
-      Real right_ledger_protusion = left_ledger_protusion;
-
-      Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
-				     hd[RIGHT] + right_ledger_protusion);
-      Stencil ledger_lines =
-	Note_head::brew_ledger_lines (me, pos, interspaces,
-				      l_extents, 0,
-				      ledger_take_space);
-      ledger_lines.translate_axis (offs, Y_AXIS);
-      out->add_stencil (ledger_lines);
-    }
-}
-
 Stencil
 vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 {
@@ -300,14 +278,6 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 	vaticana_brew_join (me, delta_pitch, line_thickness, blotdiameter);
       join.translate_axis (head_width - line_thickness, X_AXIS);
       out.add_stencil (join);
-    }
-
-  vaticana_add_ledger_lines (me, &out, pos, 0, ledger_take_space);
-  if (!String::compare (glyph_name, "flexa"))
-    {
-      pos += flexa_height;
-      vaticana_add_ledger_lines (me, &out, pos, 0.5*flexa_height,
-				ledger_take_space);
     }
 
   return out;

@@ -32,6 +32,7 @@ _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
   return -2;
 }
 
+
 template<class T>
 bool 
 Interval_t<T>::superset (Interval_t<T> const& a) const

@@ -536,6 +536,7 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
      (all-elements ,grob-list? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
+     (ambituses ,grob-list? "list of Ambitus objects")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
      (beam ,ly:grob? "pointer to the beam, if applicable.")
      (center-element ,ly:grob? "grob which will be at the center of

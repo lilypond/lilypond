@@ -85,20 +85,8 @@ Custos::print (SCM smob)
       me->warning (_f ("custos `%s' not found", font_char));
       return SCM_EOL;
     }
-  else
-    {
-      // add ledger lines
-      int pos = Staff_symbol_referencer::get_rounded_position (me);
-      int interspaces = Staff_symbol_referencer::line_count (me)-1;
-      if (abs (pos) - interspaces > 1)
-	{
-	  Stencil ledger_lines =
-	    Note_head::brew_ledger_lines (me, pos, interspaces,
-					  stencil.extent (X_AXIS), 0, true);
-	  stencil.add_stencil (ledger_lines);
-	}
-      return stencil.smobbed_copy ();
-    }
+
+  return stencil.smobbed_copy ();
 }
 
 ADD_INTERFACE (Custos, "custos-interface",
