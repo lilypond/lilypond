@@ -237,7 +237,8 @@ border="0" src="%(base)s.png" alt="[picture of music]">''',
 	BEFORE: '',
 	AFTER: '',
 	VERBATIM: r'''@example
-%(verb)s@end example''',
+%(verb)s@end example
+''',
 	
 	},
 	
@@ -365,9 +366,8 @@ def split_options (option_string):
 
 
 class Snippet:
-	def __init__ (self, type, source, match):
+	def __init__ (self, type, match):
 		self.type = type
-		self.source = source
 		self.match = match
 		self.hash = 0
 		self.options = []
@@ -426,7 +426,11 @@ class Snippet:
 			func = Snippet.__dict__ ['output_' + format]
 			return func (self)
 		elif self.type == 'include':
-			return ''
+			s = self.match.group (0)
+			f = self.substring ('filename')
+			nf = os.path.splitext (f)[0] + format2ext[format]
+			
+			return re.sub (f, nf, s)
 		else:
 			return self.match.group (0)
 	
@@ -505,7 +509,7 @@ class Snippet:
 	
 
 
-def find_toplevel_snippets (str, types):
+def simple_find_toplevel_snippets (str, types):
 	"return: (new string, snippets)" 
 	snippets  = []
 	for t in types:
@@ -523,6 +527,29 @@ def find_toplevel_snippets (str, types):
 		str = regex.sub (notice_snippet, str)
 	return (str, snippets)
 
+def find_toplevel_snippets (infile, outfile, types):
+	res = ['(?P<regex%s>%s)' % (t,
+
+				    re.sub (r"\(\?P<[^>]+>", "(", snippet_res[format][t]))
+	       for t in types]
+
+	big_re = re.compile (string.join (res, '|'))
+	str = infile.read ()
+	i = big_re.finditer(str) 
+
+	snips= []
+	last_end = 0
+	for match in i:
+		outfile.write (str[last_end:match.start (0)])
+		last_end = match.end (0)
+		for t in types:
+			m =re.match (snippet_res[format][t], match.group(0))
+			if m:
+				sn = Snippet (t, m)
+				snips.append (sn)
+				outfile.write (sn.replacement_text (format))
+				break
+	return snips		
 
 
 def filter_pipe (input, cmd):
@@ -640,7 +667,6 @@ def do_file (input_filename):
 	else:
 		ih = open (input_filename)
 
-	source = ih.read ()
 	ly.progress ('\n')
 
 	ly.progress (_ ("Dissecting..."))
@@ -655,9 +681,6 @@ def do_file (input_filename):
 		'include',
 		'lilypond', )
 	
-	(source, snippets) = find_toplevel_snippets (source, snippet_types)
-	ly.progress ('\n')
-
 	output_file = None
 	if output_name == '-' or not output_name:
 		output_file = sys.stdout
@@ -677,6 +700,9 @@ def do_file (input_filename):
 		os.chdir (output_name)
 
 		
+	snippets = find_toplevel_snippets (ih, output_file, snippet_types)
+	ly.progress ('\n')
+
 
 	global default_ly_options
 	textwidth = 0
@@ -702,8 +728,6 @@ def do_file (input_filename):
 		
 		ly.progress (_ ("Compiling %s...") % output_filename)
 		ly.progress ('\n')
-
-	output_file.write (source)
 
 	def process_include (snippet):
 		os.chdir (original_dir)
@@ -770,7 +794,8 @@ def main ():
 	files = do_options ()
 	global process_cmd
 	if process_cmd:
-		process_cmd += string.join ([(' -I %s' % p) for p in include_path])
+		process_cmd += string.join ([(' -I %s' % p)
+					     for p in include_path])
 
 	ly.identify (sys.stderr)
 	ly.setup_environment ()
