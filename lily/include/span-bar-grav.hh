@@ -29,7 +29,8 @@ public:
     
   Span_bar_engraver();
 protected:
-    
+  virtual void do_creation_processing ();
+  virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_elem_info);
   virtual void do_pre_move_processing();
   virtual Span_bar* get_span_bar_p() const;

@@ -22,6 +22,17 @@ Span_bar_engraver::get_span_bar_p() const
   return new Span_bar;
 }
 
+
+void
+Span_bar_engraver::do_creation_processing ()
+{
+}
+
+void
+Span_bar_engraver::do_removal_processing ()
+{
+}    
+
 void
 Span_bar_engraver::acknowledge_element (Score_elem_info i)
 {
@@ -57,7 +68,6 @@ Span_bar_engraver::do_pre_move_processing()
       spanbar_p_ =0;
     }
   bar_l_arr_.set_size (0);
-	
 }
 
 
