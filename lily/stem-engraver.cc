@@ -104,13 +104,13 @@ Stem_engraver::do_pre_move_processing()
       SCM prop = get_property ("stemLeftBeamCount", &which);
       if (gh_number_p(prop))
 	{
-	  stem_p_->beams_i_drul_[LEFT] = gh_scm2int (prop);
+	  stem_p_->set_beaming (gh_scm2int (prop),LEFT);
 	  ((Translator_group*)which)->set_property ("stemLeftBeamCount", SCM_UNDEFINED);
 	}
       prop = get_property ("stemRightBeamCount", &which);
       if (gh_number_p(prop))
 	{
-	  stem_p_->beams_i_drul_[RIGHT] = gh_scm2int (prop);
+	  stem_p_->set_beaming (gh_scm2int (prop), RIGHT);
 	  ((Translator_group*)which)->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
 

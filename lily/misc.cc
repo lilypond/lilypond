@@ -32,23 +32,6 @@ log_2(double x) {
   return log (x)  /log (2.0);
 }
 
-#ifndef STANDALONE
-Interval
-itemlist_width (const Array<Item*> &its)
-{
-  Interval iv ;
-  iv.set_empty();
-   
-  for (int j =0; j < its.size(); j++)
-    {
-	iv.unite (its[j]->extent (X_AXIS));
-
-    }
-  return iv;
-}
-
-#endif
-
 
 /*
   TODO

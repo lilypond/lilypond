@@ -55,7 +55,7 @@ Stem_tremolo::do_brew_molecule_p () const
   int mult =0;
   if (Beam * b = st->beam_l ())
     {
-      mult = b->multiplicity_i_;
+      mult = b->get_multiplicity ();
     }
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
@@ -65,16 +65,25 @@ Stem_tremolo::do_brew_molecule_p () const
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 
   int beams_i = 0;
-  Real slope_f = 0.25;
+  Real dydx = 0.25;
+  
+  if (st && st->beam_l ())
+    {
+      Real dy = 0;
+      SCM s = st->beam_l ()->get_elt_property ("height");
+      if (s != SCM_UNDEFINED)
+	dy = gh_scm2double (s);
+      Real dx = st->beam_l ()->last_visible_stem ()->hpos_f ()
+	- st->beam_l ()->first_visible_stem ()->hpos_f ();
+      dydx = dy/dx;
+  
+      // ugh, rather calc from Stem_tremolo_req
+      beams_i = st->beam_count(RIGHT) >? st->beam_count (LEFT);
+    } 
 
-  if (st && st->beam_l ()) {
-    slope_f = st->beam_l ()->slope_f_;
-    // ugh, rather calc from Stem_tremolo_req
-    beams_i = st->beams_i_drul_[RIGHT] >? st->beams_i_drul_[LEFT];
-  } 
-
-  Molecule a (lookup_l ()->beam (slope_f, w, beam_f));
-  a.translate (Offset (-w/2, w / 2 * slope_f));
+  Molecule a (lookup_l ()->beam (dydx, w, beam_f));
+  a.translate (Offset (-w/2, w / 2 * dydx));
+  
 
   Molecule *beams= new Molecule; 
   for (int i = 0; i < abbrev_flags_i_; i++)

@@ -100,6 +100,7 @@
 ;;
 ;;
 
+;; (Measured in interlines? -- jcn)
 (define space-alist
  '(
    (("" "Clef_item") . (minimum-space 1.0))
@@ -140,7 +141,11 @@
 	(begin (ly-warn (string-append "Unknown spacing pair `" this "', `" next "'"))
 	       '(minimum-space 0.0)))))
   
-	
+
+;; Measured in interlines (urg: how to say #interline?)
+(define (stem-shorten flags) 0.5)
+(define (beamed-stem-shorten multiplicity) 0.5)
+
 
 ;;;;;;;; TeX
 

@@ -54,17 +54,16 @@ public:
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i () const;
 
-  Drul_array<int> beams_i_drul_;
-
-
+  int beam_count (Direction) const;
+  void set_beaming (int,  Direction d);
   /** 
     don't print flag when in beam.
     our beam, for aligning abbrev flags
    */
   Beam* beam_l () const;
   Note_head * first_head () const;
+  Score_element * support_head () const;
   Stem ();
-    
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
 
@@ -83,7 +82,6 @@ public:
   void set_default_extents();
   void set_noteheads();
 
-  Real stem_length_f() const;
   Real stem_end_f() const;
   Real stem_begin_f() const;
   Real note_delta_f () const;

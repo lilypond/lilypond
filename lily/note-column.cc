@@ -156,11 +156,26 @@ Note_column::do_post_processing ()
   if (!b || !b->stem_count ())
     return;
   
-  /* ugh. Should be done by beam. */
-  Direction d = stem_l ()->get_direction ();
-  Real beamy = (stem_l ()->hpos_f () - b->stem(0)->hpos_f ()) * b->slope_f_ + b->left_y_;
+  /* ugh. Should be done by beam.
+     (what? should be done --jcn)
+    scary too?: height is calculated during post_processing
+   */
+  Real dy = 0;
+  Real y = 0;
+  SCM s = b->get_elt_property ("height");
+  if (s != SCM_UNDEFINED)
+    dy = gh_scm2double (s);
+    s = b->get_elt_property ("y-position");
+  if (s != SCM_UNDEFINED)
+    y = gh_scm2double (s);
 
-  SCM s = get_elt_property ("rests");
+  Real x0 = b->first_visible_stem ()->hpos_f ();
+  Real dydx = b->last_visible_stem ()->hpos_f () - x0;
+
+  Direction d = stem_l ()->get_direction ();
+  Real beamy = (stem_l ()->hpos_f () - x0) * dydx + y;
+
+  s = get_elt_property ("rests");
   Score_element * se = unsmob_element (gh_car (s));
   Staff_symbol_referencer_interface si (se);
 

@@ -18,13 +18,9 @@
 class Note_head : public Rhythmic_head
 {
 public:
-  Note_head ();
-  void flip_around_stem (Direction);
   static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
-  Molecule make_molecule () const;
   
-  static  Interval dim_callback (Dimension_cache const*);
   virtual void do_pre_processing();
   virtual Molecule* do_brew_molecule_p() const;
 };
