@@ -551,8 +551,12 @@ You can use any filename extension, but if you do not use the
 recommended extension, you may need to manually specify what output
 format you want.  See @ref{Invoking lilypond-book} for details.
 
-@code{Lilypond-book} automatically selects the output format based
-on the filename.
+@code{lilypond-book} automatically selects the output format based
+on the filename.  For example, running @code{lilypond-book myfile.lytex}
+will make @code{lilypond-book} produce latex output.  If the file
+was merely @code{myfile}, then @code{lilypond-book} would not know
+which output format to produce (unless you specified it with
+@code{-f=latex}.
 
 @table @code
 

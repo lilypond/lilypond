@@ -1,3 +1,11 @@
+2004-10-31  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/changing-defaults.itely: clarify paper
+	size commands with correct info.
+
+	* Documentation/user/lilypond-book.itely: add more docs for
+	filename extensions.
+
 2004-10-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): Branch lilypond_2_4, release 2.4.0

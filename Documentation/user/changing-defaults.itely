@@ -2179,12 +2179,12 @@ Page breaks are computed by the @code{page-breaking} function in the
 To change the paper size, there are two equal commands,
 @example
   #(set-default-paper-size "a4")
-  \layout@{
+  \paper@{
     #(set-paper-size "a4")
   @}
 @end example
 
-The first command sets the size of all pages.  The second command sets the size of the pages that the @code{\layout} block applies to -- if the @code{\layout} block is at the top of the file, then it will apply to all pages.  If the @code{\layout} block is inside a @code{\score}, then the paper size will only apply to that score.
+The first command sets the size of all pages.  The second command sets the size of the pages that the @code{\paper} block applies to -- if the @code{\paper} block is at the top of the file, then it will apply to all pages.  If the @code{\paper} block is inside a @code{\score}, then the paper size will only apply to that score.
 
 The following paper sizes are supported.
 
