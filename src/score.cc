@@ -68,7 +68,7 @@ Score::clean_cols()
   */
 // todo
 PCursor<Score_column*>
-Score::create_cols(Real w)
+Score::create_cols(Moment w)
 {
     Score_column* c1 = new Score_column(w);
     Score_column* c2 = new Score_column(w);
@@ -98,7 +98,7 @@ Score::create_cols(Real w)
 }
 
 PCursor<Score_column*>
-Score::find_col(Real w,bool mus)
+Score::find_col(Moment w,bool mus)
 {
     PCursor<Score_column*> i(cols_);
     for (; i.ok(); i++) {
@@ -121,12 +121,12 @@ Score::do_pcols()
 	pscore_->add(i->pcol_);
     }
 }
-Real
+Moment
 Score::last() const
 {    
-    Real l = 0;
+    Moment l = 0;
     for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
-	l = MAX(l, i->last());
+	l = l>? i->last();
     }
     return l;
 }
