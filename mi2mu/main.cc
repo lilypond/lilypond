@@ -29,9 +29,6 @@ static File_path path;
 
 Verbose level_ver = NORMAL_ver;
 
-/// just to make sure print_rat is linked in
-static void (*rat_printer)(Moment const&);
-
 void
 usage()
 {
@@ -91,7 +88,6 @@ int
 main (int argc_i, char* argv_sz_a[])
 {
   Mudela_key key (0, 0);
-  rat_printer = print_rat;
 
   Long_option_init long_option_init_a[] =
     {
