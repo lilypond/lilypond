@@ -43,7 +43,6 @@ Script_column::before_line_breaking (SCM smob)
   Link_array<Grob> staff_sided 
     = Pointer_group_interface__extract_grobs (me, (Grob*)0, "scripts");
 				     
-				     
   for (int i=0; i < staff_sided.size (); i++)
     {
       Direction d = Side_position_interface::get_direction (staff_sided[i]);

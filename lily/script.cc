@@ -15,6 +15,8 @@
 #include "item.hh"
 #include "molecule.hh"
 #include "lookup.hh"
+#include "stem.hh"
+#include "note-column.hh"
 
 Molecule
 Script_interface::get_molecule (Grob * me, Direction d)
@@ -48,15 +50,24 @@ Script_interface::before_line_breaking (SCM smob)
 
   if (!d)
     {
-  /*
-    we should not have `arbitrary' directions. 
-   */
+      /*
+	we should not have `arbitrary' directions. 
+      */
       programming_error ("Script direction not yet known!");
       d = DOWN;
     }
   
   Side_position_interface::set_direction (me,d);
 
+  if (Grob * par = me->get_parent (X_AXIS))
+    {
+      Grob * stem = Note_column::stem_l (par);
+      if (stem && Stem::first_head (stem))
+	{
+	  me->set_parent (Stem::first_head (stem), X_AXIS);
+	}
+    }
+  
   return SCM_UNSPECIFIED;
 }
 
