@@ -5,11 +5,14 @@
 #include "boxes.hh"
 #include "item.hh"
 #include "symbol.hh"
+
 /// a symbol which can be translated, and freely copied
 struct Atom {
     Offset off;
     Symbol sym;
 
+    /****************/
+    
     void translate(Offset o) {
 	off += o;
     }
@@ -18,7 +21,7 @@ struct Atom {
     Box extent() const;
     Atom(Symbol s);
 
-  void print() const;
+    void print() const;
 
     String TeXstring() const;
 };
@@ -27,6 +30,8 @@ struct Atom {
 struct Molecule {
     IPointerList<Atom*> ats;
 
+    /****************/
+    
     Molecule() { }
     Molecule(Atom a) { add(a) ; }
 
