@@ -1,3 +1,14 @@
+2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc (head_count): Change function name. Change property
+	to #'note-heads i.s.o.  #'heads.
+	(position_noteheads): Kern noteheads for invisible stems.
+	(before_line_breaking): Do position_noteheads() for whole note
+	heads too.
+
+	* lily/accidental-placement.cc (position_accidentals): First
+	determine refpoints, only then determine extents.  
+
 2002-04-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/accidental-placement.cc (position_accidentals): use all

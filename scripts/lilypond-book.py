@@ -836,7 +836,7 @@ def chop_chunks(chunks, re_name, func, use_match=0):
         if c[0] == 'input':
             str = c[1]
             while str:
-		print re_name
+#		print re_name
                 m = get_re (re_name).search (str)
                 if m == None:
                     newchunks.append (('input', str))

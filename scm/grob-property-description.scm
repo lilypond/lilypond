@@ -188,11 +188,7 @@ is used by @ref{note-collision-interface}.")
 
 (grob-property-description 'grow-direction dir? "crescendo or decrescendo?.")
 (grob-property-description 'hair-thickness number? "thickness, measured in stafflinethickness.")
-(grob-property-description 'heads pair? "list of note heads,
-
-FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the  tie.
-
-.")
+(grob-property-description 'heads pair? "Pair of grob pointers, pointing to the two heads of the  tie.")
 (grob-property-description 'height number? "in staffspace.")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
