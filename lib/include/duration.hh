@@ -14,22 +14,10 @@
 
 #include "fproto.hh"
 #include "moment.hh"
-
+#include "plet.hh"
 // ugh, to get me in lily lib
 extern bool no_triplets_bo_g;
 
-/** 
-  The type and replacement value of a  plet (triplet, quintuplet.) Conceptually the same as a rational, but 4/6 != 2/3.
-  
-  (plet)
- */
-struct Plet {
-    Plet();
-    Moment mom()const;
-    bool unit_b()const;
-    int iso_i_;  // 2/3; 2 is not duration, maar of count!
-    int type_i_;
-};
 
 /**
   Class to handle "musical" durations. This means: balltype 1,2,4,etc. and dots.
@@ -37,23 +25,26 @@ struct Plet {
   (dur)
   */
 struct Duration {
-    /**
-      Ctor of Duration. type_i should be a power of 2. 
-       */
-    Duration();
-    /// is the "plet factor" of this note != 1 ?
-    bool plet_b();
-    String str()const;
-    void set_plet(int,int );
-    void set_plet(Duration );
-    static bool duration_type_b(int t);
-    void set_ticks( int ticks_i );
-    Moment length() const ;	// zo naai mij
-    static int division_1_i_s;
-    int type_i_;
-    int dots_i_;
-    Plet plet_;
-    int ticks_i_;
+  /**
+    Ctor of Duration. 
+    */
+  Duration();
+  Duration( int type_i, int dots_i = 0 );
+  /// is the "plet factor" of this note != 1 ?
+  bool plet_b();
+  String str()const;
+  void set_plet(int,int );
+  void set_plet(Duration );
+  static bool duration_type_b(int t);
+  void set_ticks( int ticks_i );
+  Moment length() const ;	// zo naai mij
+  static int division_1_i_s;
+
+  /// Logarithm of the base duration.
+  int durlog_i_;
+  int dots_i_;
+  Plet plet_;
+  int ticks_i_;
 };
 #endif // DURATION_HH
 

@@ -11,9 +11,9 @@ Some questions that have been answered before.
 Q: I get all kinds of errors while  compiling parser.cc
 
 A: LilyPond uses features of bison version 1.25. Please confirm that
-you are using a version 1.25 or better. Don't forget to do "make
-clean" after installing it. Don't forget to remove the stale
-bison.simple as well.
+you are using a version 1.25 or better, that is B<GNU> bison
+B<1.25>. Don't forget to do "make clean" after installing it. Don't
+forget to remove the stale F<bison.simple> as well.
 
 If the problem persists, then please mail me.
 
