@@ -166,6 +166,18 @@ Stem::first_head (Grob*me)
 }
 
 /*
+  The note head opposite to the first head.
+ */
+Grob*
+Stem::last_head (Grob*me)
+{
+  Direction d = get_direction (me);
+  if (!d)
+    return 0;
+  return extremal_heads (me)[d];
+}
+
+/*
   START is part where stem reaches `last' head. 
  */
 Drul_array<Grob*>
@@ -610,7 +622,27 @@ Stem::brew_molecule (SCM smob)
   Direction d = get_direction (me);
   
   
-  Real y1 = Staff_symbol_referencer::position_f (first_head (me));
+     
+  Real y1;
+
+  /*
+    This is required to avoid stems passing in tablature chords...
+   */
+
+
+  /*
+    TODO: make  the stem start a direction ?
+    
+  */
+  if (to_boolean (me->get_grob_property ("avoid-note-head")))
+    {
+      y1 = Staff_symbol_referencer::position_f (last_head (me));
+    }
+  else
+    {
+      y1 = Staff_symbol_referencer::position_f (first_head (me));
+    }
+  
   Real y2 = stem_end_position (me);
   
   Interval stem_y (y1 <? y2,y2 >? y1);

@@ -5,6 +5,36 @@
 ;;;; (c) 1998--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+; Tablature functions, by Jiba (jiba@tuxfamily.org)
+
+; The TabNoteHead stem attachment function.
+(define (tablature-stem-attachment-function style)
+  (cons 0.0 1.0)
+)
+
+; The TabNoteHead molecule callback.
+; Create a text molecule
+(define (tablature-molecule-callback grob)
+  (let ((molecule (fontify-text
+                   (ly-get-default-font grob)
+                   (string-append
+                    (number->string
+                     (- (pitch-semitones (ly-get-mus-property (ly-get-grob-property grob 'cause) 'pitch))
+                        (list-ref
+                         (ly-get-grob-property grob 'string-tunings)
+                         (- (ly-get-grob-property grob 'tab-string)
+                            1 ; remove 1 because list index starts at 0 and guitar string at 1.
+                            ))
+                        )
+                     )
+                    )
+                   )))
+    molecule ; return the molecule.
+    )
+  )
+
+; end of tablature functions
+
 
 (define (arg->string arg)
   (cond ((number? arg) (inexact->string arg 10))

@@ -223,7 +223,7 @@ InnerStaffGroupContext= \translator {
 	\accepts "RhythmicStaff"
 	\accepts "GrandStaff"
 	\accepts "PianoStaff"
-	
+	\accepts "TabStaff"	
 	\accepts "Lyrics"
 	\accepts "ChordNames"
 }
@@ -347,6 +347,7 @@ ScoreContext = \translator {
 	\consists "Span_arpeggio_engraver"
 
 	\accepts "Staff"
+	\accepts "TabStaff"
 	\accepts "StaffContainer"
 	\accepts "StaffGroup"
 	\accepts "RhythmicStaff"	
@@ -442,3 +443,37 @@ FiguredBassContext = \translator {
 	\consists "Figured_bass_engraver"	
 	\consistsend "Axis_group_engraver"
 }
+
+TabVoiceContext =   \translator {
+      \VoiceContext
+      \name "TabVoice"
+      \denies "Thread"
+      \consists "Tab_note_heads_engraver"
+}
+
+TabStaffContext = \translator {
+      \StaffContext
+      \alias "Staff"
+      \name "TabStaff"
+      \denies "Voice"
+      \accepts "TabVoice"
+      
+      % 6 strings
+      StaffSymbol \override #'line-count  = #6
+      StaffSymbol \override #'staff-space = #1.5
+      
+      % One may change the strings tuning as following :
+      % The lenght of the list must be equal to the number of string
+      %TabNoteHead \override #'string-tunings = #'(10 10 10 10 10 10)
+      
+      % Special "TAB" clef
+      clefGlyph = #"clefs-tab"
+      clefPosition = #0
+      
+      % Don't draw stems over the tabature figures !
+      Stem \override #'avoid-note-head = ##t
+      
+      % No accidental in tablature !
+      Accidental  = \turnOff 
+}
+   

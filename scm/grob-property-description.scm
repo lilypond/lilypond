@@ -464,3 +464,7 @@ functions set spanner positions.")
 (grob-property-description 'chord-name-function procedure? "DOCME")
 (grob-property-description 'minimum-beam-collision-distance number?
 "Minimum distance to beam for a rest collision.")
+
+(grob-property-description 'tab-string number?       "The tablature string of a TabNoteHead.")
+(grob-property-description 'avoid-note-head boolean? "if set, the stem of a chord does not pass through all note head, but start at the last note head. Used by tablature.")
+(grob-property-description 'string-tunings list?     "The strings tuning, in semi-tons from the middle C. Used by tablature.")
