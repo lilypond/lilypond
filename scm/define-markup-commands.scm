@@ -40,8 +40,8 @@
 					  (ly:stencil-extent x X))
 					stencils))))
 	(word-count (length markups))
-	(word-space (cdr (chain-assoc 'word-space props)))
-	(line-width (cdr (chain-assoc 'linewidth props)))
+	(word-space (chain-assoc-get 'word-space props))
+	(line-width (chain-assoc-get 'linewidth props))
 	(fill-space (if (< line-width text-width)
 			word-space
 			(/ (- line-width text-width)
@@ -64,7 +64,7 @@
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (stack-stencil-line
-   (cdr (chain-assoc 'word-space props))
+   (chain-assoc-get 'word-space props)
    (map (lambda (m) (interpret-markup paper props m)) args)))
 
 (def-markup-command (combine paper props m1 m2) (markup? markup?)
@@ -218,24 +218,24 @@ recommend font for this is bold and italic"
 (def-markup-command (column paper props args) (markup-list?)
   "Stack the markups in @var{args} vertically."
   (stack-lines
-   -1 0.0 (cdr (chain-assoc 'baseline-skip props))
+   -1 0.0 (chain-assoc-get 'baseline-skip props)
    (map (lambda (m) (interpret-markup paper props m)) args)))
 
 (def-markup-command (dir-column paper props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting
 of the @code{#'direction} layout property."
-  (let* ((dir (cdr (chain-assoc 'direction props))))
+  (let* ((dir (chain-assoc-get 'direction props)))
     (stack-lines
      (if (number? dir) dir -1)
      0.0
-     (cdr (chain-assoc 'baseline-skip props))
+      (chain-assoc-get 'baseline-skip props)
      (map (lambda (x) (interpret-markup paper props x)) args))))
 
 (def-markup-command (center-align paper props args) (markup-list?)
   "Put @code{args} in a centered column. "
   (let* ((mols (map (lambda (x) (interpret-markup paper props x)) args))
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
-    (stack-lines -1 0.0 (cdr (chain-assoc 'baseline-skip props)) mols)))
+    (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) mols)))
 
 (def-markup-command (right-align paper props arg) (markup?)
   (let* ((m (interpret-markup paper props arg)))
@@ -415,7 +415,7 @@ a shortened down stem."
   (ly:stencil-translate-axis (interpret-markup
                                paper
                                props arg)
-                              (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
+                              (* 0.5  (chain-assoc-get 'baseline-skip props))
                               Y))
 
 (def-markup-command (super paper props arg) (markup?)
@@ -442,7 +442,7 @@ Raising and lowering texts can be done with @code{\\super} and
     paper
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
     arg)
-   (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
+   (* 0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
 (def-markup-command (translate paper props offset arg) (number-pair? markup?)
@@ -467,7 +467,7 @@ that.
     paper
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
     arg)
-   (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+   (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
 (def-markup-command (normal-size-sub paper props arg) (markup?)
@@ -475,7 +475,7 @@ that.
 
   (ly:stencil-translate-axis
    (interpret-markup paper props arg)
-   (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+   (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
 (def-markup-command (hbracket paper props arg) (markup?)
@@ -602,10 +602,7 @@ the elements marked in @var{indices}, which is a list of numbers."
      (else
       (let*
 	  ((orig (car stencils))
-	   (handle  (chain-assoc 'direction  props))
-	   (dir (if (and (pair? handle) (ly:dir? (cdr handle)))
-		    (cdr handle)
-		    DOWN))
+	   (dir (chain-assoc-get 'direction  props DOWN))
 	   (new (ly:stencil-moved-to-edge last-stencil Y dir
 					  orig
 					  0.1 bskip))
@@ -649,7 +646,7 @@ the elements marked in @var{indices}, which is a list of numbers."
 		props
 		x)) args))
        (leading
-	(cdr (chain-assoc 'baseline-skip props)))
+	 (chain-assoc-get 'baseline-skip props))
        (stacked (stack-stencils stencils 1.25 #f))
        (brackets (make-brackets stacked indices '()))
        )
