@@ -1,22 +1,49 @@
-% feta-sleur.mf
-
+% feta-sleur.mf 
 mode_setup;
 thin:=.2pt;
 thick:=5thin;
-bow:=.2;
-
-def sign(expr a) =
-	((abs(a))/(a))
-	enddef;
+ybow:=.2;
+abow:=1.5;
 
 def draw_slur(expr a,b,d) =
 	beginchar(0,0,0,0) "Embedded mf";
 		% huh, factor 8?
 		z1=8a;
+		z2=8b;
+		save alpha; alpha=angle(z2-z1);
+		save len; len=length(z2-z1);
+		z3=(0,0);
+		z4=(len/2,len*ybow*d);
+		z5=(len,0);
+	 	save beta; beta=abow*angle(z4-z3);
+		penpos3(thin,90+beta);
+		penpos4(thick,90);
+		penpos5(thin,90-beta);
+		pickup pencircle;
+		path boogje;
+		boogje = z3l{dir(beta)}..z4l{right}..z5l{dir(-beta)}
+			..z5r{dir(180-beta)}..z4r{left}
+			..z3r{dir(180+beta)}..cycle;
+		penlabels(1,2,3,4,5);
+		boogje := boogje rotated alpha;
+		% silly mo*tex convenction
+%		boogje := boogje shifted ((x1-x2)/2,0);
+		fill boogje;
+		endchar;
+	enddef;
+
+def sign(expr a) =
+	((abs(a))/(a))
+	enddef;
+
+def xdraw_slur(expr a,b,d) =
+	beginchar(0,0,0,0) "Embedded mf";
+		% huh, factor 8?
+		z1=8a;
 		z3=8b;
 		save alpha; alpha=angle(z3-z1);
-		z2=(1/2[x1,x3],1/2[y1,y3])+d*bow*(x3-x1)*dir(alpha+90);
-	 	save beta; beta=d*sign(y3-y1)*1.5angle(z2-z1)-alpha;
+		z2=(1/2[x1,x3],1/2[y1,y3])+d*ybow*(x3-x1)*dir(alpha+90);
+	 	save beta; beta=d*sign(y3-y1)*abow*angle(z2-z1)-alpha;
 %		message "d: "&decimal d;
 %		message "dy: "& decimal sign(y3-y1);
 %		message "alpha: "&decimal alpha;
@@ -25,8 +52,9 @@ def draw_slur(expr a,b,d) =
 		penpos2(thick,alpha+90);
 		penpos3(thin,alpha-beta+90);
 		pickup pencircle;
-		fill z1l{dir(alpha+beta)}..z2l{dir(alpha)}..z3l{dir(alpha-beta)}
-			..z3r{dir(180+alpha-beta)}..z2r{dir(180+alpha)}..z1r{dir(180+alpha+beta)}
+		fill z1l{dir(alpha+beta)}..z2l{dir(alpha)}
+			..z3l{dir(alpha-beta)}..z3r{dir(180+alpha-beta)}
+			..z2r{dir(180+alpha)}..z1r{dir(180+alpha+beta)}
 			..cycle;
 		penlabels(1,2,3);
 		endchar;
