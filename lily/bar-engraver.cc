@@ -101,7 +101,7 @@ Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
     {
-      top_engraver ()->forbid_breaks ();	// guh. Use properties!
+      get_score_engraver ()->forbid_breaks ();	// guh. Use properties!
     }
   else
     typeset_bar ();

@@ -9,7 +9,8 @@
 
 #include "event.hh"
 #include "tie.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 #include "spanner.hh"
 #include "tie-column.hh"
 #include "engraver.hh"
@@ -83,7 +84,7 @@ void
 Tie_engraver::process_music ()
 {
   if (event_)
-    daddy_trans_->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    daddy_context_->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -132,7 +133,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 void
 Tie_engraver::start_translation_timestep ()
 {
-  daddy_trans_->set_property ("tieMelismaBusy",
+  daddy_context_->set_property ("tieMelismaBusy",
 			      gh_bool2scm (heads_to_tie_.size ()));
       
 }

@@ -31,7 +31,7 @@
      (X-extent-callback ,procedure? "Procedure that calculates the
 extent of this object. If this value is set to @code{#f}, the object
 is empty in the X direction.  The procedure takes a grob and axis
-argument, and returns a a number-pair.
+argument, and returns a number-pair.
 ")
 
      (X-offset-callbacks ,list? "A list of functions determining this
@@ -561,7 +561,8 @@ paper-columns or note-column objects.")
      (dependencies ,grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
      (elements ,grob-list? "list of grobs, type depending on the Grob where this is set in.")
      (heads ,grob-list? "List of note heads.")
-     (items-worth-living ,grob-list? "list of interesting items. If empty in a particular system, clear that system.")
+     (items-worth-living ,grob-list? "A list of interesting items. If
+empty in a particular staff, then that staff is erased.")
      (details ,list? "alist of parameters for detailed grob behavior.")
      (note-heads ,grob-list? "List of note head grobs")
      (side-support-elements ,grob-list? "the support, a list of grobs.")
@@ -583,10 +584,11 @@ columns.
 
      (positioning-done ,boolean?
 		       "Used to signal that a positioning element
-did it's job. This ensures that a positioning is only done once.")
+did its job. This ensures that a positioning is only done once.")
 
 
-     (script-stencil ,pair? "Index code for script -- internal, see script.cc.")
+     (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which
+acts as an index for looking up a Stencil object.")
 
      (meta ,list? "Contains meta information. It is an alist with the
 entries @code{name} and @code{interfaces}.")

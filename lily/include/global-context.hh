@@ -1,5 +1,5 @@
 /*
-  global-translator.hh -- declare Global_translator
+  global-context.hh -- declare Global_context
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,35 +7,33 @@
 */
 
 
-#ifndef GLOBAL_TRANSLATOR_HH
-#define GLOBAL_TRANSLATOR_HH
+#ifndef GLOBAL_CONTEXT_HH
+#define GLOBAL_CONTEXT_HH
 
-#include "translator-group.hh"
-#include "moment.hh"
+#include "context.hh"
 #include "pqueue.hh"
 
-class Global_translator : public virtual Translator_group
+class Global_context : public virtual Context
 {
   PQueue<Moment> extra_mom_pq_;
   Music_output_def*  output_def_;
+  
   friend class Music_output_def;
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Global_translator ();
-
+  Global_context (Music_output_def*);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator*);
-
+  virtual Score_context*get_score_context () const;
+  
   void apply_finalizations ();
   void add_finalization (SCM);
-  
+
   virtual Music_output *get_output ();     
   virtual void prepare (Moment);
   virtual void one_time_step ();
   virtual void finish ();
-  virtual void start ();
   virtual Music_output_def* get_output_def () const; 
   virtual Moment now_mom () const;
 
@@ -47,4 +45,4 @@ protected:
 
 
 
-#endif // GLOBAL_TRANSLATOR_HH
+#endif // GLOBAL_CONTEXT_HH

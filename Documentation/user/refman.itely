@@ -3524,11 +3524,14 @@ The complete example is shown here:
   << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
-    \set stanza = "1"
+    \set stanza = "B."
+    \set vocName = "Bert"
     Hi, my name is bert. }
   \lyricsto "duet" \new Lyrics {
-    \set stanza = "2" 
-    Ooooo, ch\'e -- ri, je t'aime. }
+    \set stanza = "E." 
+    \set vocName = "Ernie"
+    Ooooo, ch\'e -- ri, je t'aime.
+    }
   >> >>
 }
 @end lilypond
@@ -3540,19 +3543,19 @@ The complete example is shown here:
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
 @example
-    \set stanza = "Bert"
+    \set stanza = "B."
     @dots{}
-    \set stanza = "Ernie" 
+    \set stanza = "E." 
 @end example
 
 Notice how dots are surrounded with spaces in @code{\lyrics} mode, to
 prevent @code{stanza} being interpreted as a single
 string.
 
-Names of the singers should be added using @code{Lyrics
-. vocalName} and @code{Lyrics . vocNam}, analogous to instrument
-annotations for staves.
- 
+This example also demonstrates how names of the singers can be added
+using @code{vocalName} analogous to instrument annotations for staves.
+A short version may be entered as @code{vocNam}.
+
 To make empty spaces in lyrics, use @code{\skip}.
 
 

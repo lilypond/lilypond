@@ -5,7 +5,7 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "translator-group.hh"
+#include "context.hh"
 #include "paper-column.hh"
 #include "align-interface.hh"
 #include "span-bar.hh"
@@ -16,7 +16,7 @@
 class Vertical_align_engraver : public Engraver
 {
   Spanner * valign_;
-  bool qualifies_b (Grob_info) const;  
+  bool qualifies (Grob_info) const;  
 public:
   TRANSLATOR_DECLARATIONS(Vertical_align_engraver);
 protected:
@@ -53,18 +53,18 @@ Vertical_align_engraver::finalize ()
 }
 
 bool
-Vertical_align_engraver::qualifies_b (Grob_info i) const
+Vertical_align_engraver::qualifies (Grob_info i) const
 {
-  int sz = i.origin_transes ((Translator*)this).size ()  ;
+  int sz = i.origin_contexts ((Translator*)this).size ()  ;
 
-  return sz > 1 && Axis_group_interface::has_interface (i.grob_)
+  return sz > 0 && Axis_group_interface::has_interface (i.grob_)
     && !i.grob_->get_parent (Y_AXIS) && Axis_group_interface::axis_b (i.grob_, Y_AXIS);
 }
 
 void
 Vertical_align_engraver::acknowledge_grob (Grob_info i)
 {
-  if (qualifies_b (i))
+  if (qualifies (i))
     {
       Align_interface::add_element (valign_,i.grob_, get_property ("verticalAlignmentChildCallback"));
     }

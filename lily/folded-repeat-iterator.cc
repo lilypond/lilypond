@@ -7,12 +7,12 @@
   
  */
 
-
+#include "input.hh"
 #include "folded-repeat-iterator.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"
 #include "simultaneous-music-iterator.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 Folded_repeat_iterator::Folded_repeat_iterator ()
 {
@@ -140,7 +140,7 @@ Folded_repeat_iterator::derived_mark()const
 }
 
 void
-Folded_repeat_iterator::derived_substitute (Translator_group*f, Translator_group*t) 
+Folded_repeat_iterator::derived_substitute (Context *f, Context *t) 
 {
   if (main_iter_)
     main_iter_->substitute_outlet (f,t);

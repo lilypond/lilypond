@@ -428,7 +428,8 @@ Rest can contain a list of beat groupings
        (basic  (list set1 set2 set3 set4)))
 
     (context-spec-music
-     (make-sequential-music basic) 'Timing)))
+     (context-spec-music
+      (make-sequential-music basic) 'Timing) 'Score)))
 
 (define-public (make-mark-set label)
   "make the music for the \\mark command."

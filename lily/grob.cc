@@ -599,7 +599,7 @@ Grob::name () const
 void
 Grob::add_offset_callback (SCM cb, Axis a)
 {
-  if (!has_offset_callback_b (cb, a))
+  if (!has_offset_callback (cb, a))
   {
     dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_);
     dim_cache_[a].offsets_left_ ++;
@@ -607,14 +607,14 @@ Grob::add_offset_callback (SCM cb, Axis a)
 }
 
 bool
-Grob::has_extent_callback_b (SCM cb, Axis a)const
+Grob::has_extent_callback (SCM cb, Axis a)const
 {
   return scm_equal_p (cb, dim_cache_[a].dimension_) == SCM_BOOL_T;
 }
 
 
 bool
-Grob::has_offset_callback_b (SCM cb, Axis a)const
+Grob::has_offset_callback (SCM cb, Axis a)const
 {
   return scm_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
@@ -819,7 +819,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 "\n"
 	       "Grobs have a properties: Scheme variables, that can be read and set. "
 	       "They have two types. Immutable variables "
-	       "define the default style and behavior.  They are shared between  many objects "
+	       "define the default style and behavior.  They are shared between  many objects. "
 	       "They can be changed using @code{\\override} and @code{\\revert}. "
 	       "\n\n"
 	       "Mutable properties are variables that are specific to one grob. Typically, "

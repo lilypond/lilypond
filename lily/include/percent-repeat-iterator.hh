@@ -18,7 +18,7 @@ public:
   DECLARE_SCHEME_CALLBACK(constructor, ());
   Percent_repeat_iterator ();
 protected:
-  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+  virtual void derived_substitute (Context *f, Context *t) ;
 
   virtual void derived_mark () const;
   virtual Moment pending_moment () const;

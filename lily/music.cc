@@ -292,15 +292,13 @@ LY_DEFINE(ly_music_name, "ly:music-name", 1, 0, 0,
 // to do  property args 
 LY_DEFINE(ly_extended_make_music,
 	  "ly:make-bare-music", 2, 0, 0,  (SCM type, SCM props),
-	  "Make a music object/expression of type @var{type}, init with\n"
-"@var{props}. Warning: this interface will likely change in the near\n"
-"future.\n"
-"\n"
-"Music is the data type that music expressions are stored in. The data\n"
-"type does not yet offer many manipulations.\n"
-"\n"
-"WARNING: only for internal use. Please use make-music-by-name. \n"
-)
+	  "Make a C++ music object of type @var{type}, initialize with\n"
+	  "@var{props}. \n\n"
+	  ""
+	  "This function is for internal use, and is only called by "
+	  "@code{make-music-by-name}, which is the preferred interface "
+	  "for creating music objects. "
+	  )
 {
   SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
 
@@ -313,10 +311,10 @@ LY_DEFINE(ly_extended_make_music,
 // to do  property args 
 LY_DEFINE(ly_get_mutable_properties,
 	  "ly:get-mutable-properties", 1, 0, 0,  (SCM mus),
-"Return an alist signifying the mutable properties of @var{mus}.\n"
-"The immutable properties are not available; they should be initialized\n"
-"by the functions make-music-by-name function.\n"
-)
+	  "Return an alist containing the mutable properties of @var{mus}.\n"
+	  "The immutable properties are not available; they should be initialized\n"
+	  "by the  @code{make-music-by-name} function.\n"
+	  )
 {
   Music *m = unsmob_music (mus);
   SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "music");
@@ -324,7 +322,7 @@ LY_DEFINE(ly_get_mutable_properties,
   return m->get_property_alist (true);
 }
 
-LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0, 
+LY_DEFINE(ly_music_list_p,"ly:music-list?", 1, 0, 0, 
   (SCM l),"Type predicate: return true if @var{l} is a list of music objects.")
 {
   if (scm_list_p (l) != SCM_BOOL_T)

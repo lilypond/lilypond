@@ -1,3 +1,39 @@
+2004-02-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/grob-info.hh: origin_contexts() now does not
+	include the originating engraver
+
+	* lily/translator-group.cc (translator_each): clean up contents,
+	remove superfluous stubs. Engraver_group_engraver and
+	Performer_group_performer are the only classes using multiple
+	inheritance.
+
+	* lily/include/score-context.hh (class Score_context): interface
+	between Score_{engraver,performer} and Global_context.
+
+	* lily/include/global-context.hh (Context): change from
+	global-translator. This is the entry point for contexts; it is not
+	tweakable using \translator{}. Score is no longer the top context,
+	but sits underneath Global.
+
+	* lily/include/context.hh (class Context): brain surgery: split
+	out Context functionality from Translator_group. Context is now a
+	separate type from Translator.
+
+2004-02-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/include/translator.hh (class Translator): make
+	get_score_context() and get_global_translator (), and use the one
+	which is appropriate.
+
+	* lily/context.cc: partially put functionality of Translator_group
+	into Context.
+
+	* lily/include/context.hh (Translator): new class: put between
+	Translator and Translator_group. 
+
+	* lily/new-accidental-engraver.cc: remove file.
+
 2004-02-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{many}.ly: improve descriptions: use complete 
@@ -16,6 +52,10 @@
 	Draw more beatiful `->´ arrow in html: &rarr;
 
 2004-02-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/music.cc (LY_DEFINE): rename to ly:music-list?
+
+	* scripts/convert-ly.py (conv): add ly:music-list  change.
 
 	* lily/grob.cc: edit doc string.
 
@@ -63,7 +103,7 @@
 	* input/test/maximum-rest-count.ly: remove file.
 
 	* scripts/convert-ly.py (FatalConversionError.subst_in_trans):
-	conversion rule for \translator{}. Apply everywhere.  
+	conversion rule for \translator { }. Apply everywhere.  
 
 	* lily/parser.yy (music_property_def): set property for \once in
 	the PropertyMusic itself, not the ContextSpec.

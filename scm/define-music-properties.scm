@@ -30,7 +30,7 @@
 TODO: consider making type into symbol") 
      (absolute-octave ,integer?
 		      "The absolute octave for a octave check note.")
-     (articulations ,music-list?
+     (articulations ,ly:music-list?
 		    "Articulation events specifically for this note.")
      (articulation-type ,string? "key for script definitions alist.
 
@@ -56,7 +56,7 @@ eg. @code{\\tag #'part ...} could tag a piece of music as only being active in a
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (tonic ,ly:pitch? "Base of the scale")
      (element ,ly:music? "The single child of a Music_wrapper music object, or the body of a repeat.")
-     (elements ,music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
+     (elements ,ly:music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
      (force-accidental ,boolean? "If set, a cautionary accidental should always be printed on this note")
      (grob-property ,symbol? "The symbol of the grob property to set. ")
      (grob-value ,scheme? "The value of the grob property to set")

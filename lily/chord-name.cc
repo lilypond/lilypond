@@ -35,6 +35,6 @@ Chord_name::after_line_breaking (SCM smob)
 
 
 ADD_INTERFACE (Chord_name, "chord-name-interface",
-  "generate a chord name",
+  "A chord name.",
   "begin-of-line-visible");
 

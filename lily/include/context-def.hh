@@ -41,15 +41,15 @@ public:
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);
 
-  Link_array<Context_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
-  Translator_group * instantiate (SCM extra_ops);
+  Link_array<Context_def> path_to_acceptable_context (SCM type_string, Music_output_def* odef) const;
+  Context * instantiate (SCM extra_ops);
 
   SCM to_alist () const;
   bool is_alias (SCM) const;
   static SCM make_scm () ;
 
   SCM clone_scm ()const;
-  void apply_default_property_operations (Translator_group*);
+  void apply_default_property_operations (Context *);
 private:
   DECLARE_SMOBS (Context_def,foo);
   Context_def ();

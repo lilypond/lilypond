@@ -221,13 +221,19 @@ a\> a a\!
 \context Voice {  \grace b16 c4 }
 @end lilypond
 
-@item @code{\lyrics @{ @dots{} @}}
+@item @code{\lyrics @{ twinkle @}}
 @tab entering lyrics
 @tab
 
-@item @code{\context Lyrics}
+
+@item @code{\new Lyrics}
 @tab printing lyrics
 @tab
+twinkle
+@c cheating .. 
+@c@li lypond[fragment]
+@c  \lyrics \new Lyrics { twinkle }
+@c @end lilypond
 
 @item @code{twin -- kle}
 @tab lyric hyphen 

@@ -254,8 +254,8 @@ following options:
 
 @table @code
 @item verbatim
-CONTENTS is copied into the source enclosed in a verbatim block,
-followed by any text given with the @code{intertext} option, then
+@var{contents} is copied into the source, enclosed in a verbatim block;
+followed by any text given with the @code{intertext} option; then
 the actual music is displayed.  This option does not work with
 the short version of the music blocks:
 
@@ -287,12 +287,12 @@ prevents printing time signature.
 @item fragment
 @item nofragment
 overrides @command{lilypond-book} auto detection of what type of code is
-in the LilyPond block, voice contents or complete code.
+in the LilyPond block, voice contents, or complete code.
 
 @item indent=@var{size}\\@var{unit}
 sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
-not the text layout.  For single-line fragments the default is to
+not the text layout.  For single-line fragments, the default is to
 use no indentation.
 
 For example
@@ -324,7 +324,7 @@ documents are composed from small @file{.ly} files in this way:
 
 @item relative, relative=@var{N}
 uses relative octave mode.  By default, notes are specified relative
-central C.  The optional integer argument specifies the octave of the
+to central C.  The optional integer argument specifies the octave of the
 starting note, where the default @code{1} is central C.
 @end table
 
@@ -342,7 +342,7 @@ cd out && lilypond-book ../yourfile.tex
 
 @noindent
 or to use the @option{--output} command line option, and change to
-that director before running La@TeX{} or @file{makeinfo}:
+that directory before running La@TeX{} or @file{makeinfo}:
 
 @example
 lilypond-book --output=out yourfile.lytex
@@ -382,7 +382,7 @@ Place generated files in @var{dir}.
 
 @item @option{-P @var{process}}, @option{--process=@var{COMMAND}}
 Process lilypond snippets using @var{command}.  The default command is
-@var{lilypon-bin}.
+@var{lilypond-bin}.
 
 @item @option{--verbose}
 Be verbose.

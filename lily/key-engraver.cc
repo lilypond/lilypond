@@ -12,7 +12,7 @@
 #include "item.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "engraver.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
@@ -168,8 +168,8 @@ Key_engraver::read_ev (Key_change_ev const * r)
     if (gh_scm2int (ly_cdar (s)))
       accs = gh_cons (ly_car (s), accs);
 
-  daddy_trans_->set_property ("keySignature", accs);
-  daddy_trans_->set_property ("tonic" ,
+  daddy_context_->set_property ("keySignature", accs);
+  daddy_context_->set_property ("tonic" ,
 			      r->get_mus_property ("tonic"));
 }
 
@@ -178,18 +178,18 @@ void
 Key_engraver::start_translation_timestep ()
 {
   key_ev_ = 0;
-  daddy_trans_->set_property ("lastKeySignature", get_property ("keySignature"));
+  daddy_context_->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
 
 void
 Key_engraver::initialize ()
 {
-  daddy_trans_->set_property ("keySignature", SCM_EOL);
-  daddy_trans_->set_property ("lastKeySignature", SCM_EOL);
+  daddy_context_->set_property ("keySignature", SCM_EOL);
+  daddy_context_->set_property ("lastKeySignature", SCM_EOL);
 
   Pitch p(0,0,0);
-  daddy_trans_->set_property ("tonic", p.smobbed_copy ());
+  daddy_context_->set_property ("tonic", p.smobbed_copy ());
 
 }
 

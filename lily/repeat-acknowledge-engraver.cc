@@ -6,8 +6,10 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "engraver.hh"
 #include "translator-group.hh"
+#include "context.hh"
 #include "repeated-music.hh"
 
 
@@ -36,7 +38,7 @@ public:
 void
 Repeat_acknowledge_engraver::initialize ()
 {
-  daddy_trans_->set_property ("repeatCommands", SCM_EOL);
+  daddy_context_->set_property ("repeatCommands", SCM_EOL);
 }
 
 
@@ -47,9 +49,9 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  Translator_group * tr = daddy_trans_->where_defined (ly_symbol2scm ("repeatCommands"));
+  Context * tr = daddy_context_->where_defined (ly_symbol2scm ("repeatCommands"));
   if (!tr)
-    tr = daddy_trans_;
+    tr = daddy_context_;
 
   tr->set_property ("repeatCommands", SCM_EOL);
 }
@@ -102,7 +104,7 @@ Repeat_acknowledge_engraver::process_music ()
     {
       if (s != "" || (volta_found && !gh_string_p (wb)))
 	{
-	  daddy_trans_->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
+	  daddy_context_->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
 	}
     }
 }

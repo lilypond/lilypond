@@ -7,7 +7,7 @@
  */
 
 #include "interpretation-context-handle.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 Interpretation_context_handle::Interpretation_context_handle ()
 {
@@ -42,7 +42,7 @@ Interpretation_context_handle::~Interpretation_context_handle ()
 }
 
 void
-Interpretation_context_handle::up (Translator_group*t)
+Interpretation_context_handle::up (Context *t)
 {
   outlet_ = t;
   t->iterator_count_ ++;
@@ -78,7 +78,7 @@ Interpretation_context_handle::operator = (Interpretation_context_handle const &
 }
 
 void
-Interpretation_context_handle::set_translator (Translator_group*trans)
+Interpretation_context_handle::set_translator (Context *trans)
 {
   if (outlet_ ==trans)
     return;
@@ -88,7 +88,7 @@ Interpretation_context_handle::set_translator (Translator_group*trans)
     up (trans);
 }
 
-Translator_group*
+Context *
 Interpretation_context_handle::get_outlet () const
 {
   

@@ -7,10 +7,10 @@
 */
 
 #include "change-iterator.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "music.hh"
 #include "warn.hh"
-
+#include "input.hh"
 
 
 void
@@ -38,8 +38,8 @@ Change_iterator::error (String reason)
 void
 Change_iterator::process (Moment m)
 {
-  Translator_group * current = get_outlet ();
-  Translator_group * last = 0;
+  Context * current = get_outlet ();
+  Context * last = 0;
 
   SCM to_type = get_music ()->get_mus_property ("change-to-type");
   String to_id =  ly_scm2string (get_music ()->get_mus_property ("change-to-id"));
@@ -52,7 +52,7 @@ Change_iterator::process (Moment m)
   while (current && !current->is_alias (to_type))
     {
       last = current;
-      current = current->daddy_trans_;
+      current = current->daddy_context_;
     }
 
   if (current && current->id_string_ == to_id)
@@ -64,10 +64,10 @@ Change_iterator::process (Moment m)
   if (current) 
     if (last)
       {
-	Translator_group * dest = 
-	  get_outlet ()->find_create_translator (to_type, to_id, SCM_EOL);
-	current->remove_translator (last);
-	dest->add_used_group_translator (last);
+	Context * dest = 
+	  get_outlet ()->find_create_context (to_type, to_id, SCM_EOL);
+	current->remove_context (last);
+	dest->add_context (last);
       }
     else
       {

@@ -11,8 +11,9 @@
 #include "warn.hh"
 #include "translator-group.hh"
 #include "context-def.hh"
-
+#include "global-context.hh"
 #include "moment.hh"
+#include "context.hh"
 #include "ly-smobs.icc"
 
 
@@ -23,31 +24,21 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
+  self_scm_ = SCM_EOL;
   simple_trans_list_ = SCM_BOOL_F;
-  trans_group_list_ = SCM_EOL;
-  properties_scm_ = SCM_EOL;
-  definition_ = SCM_EOL;
-  daddy_trans_ =0;
-  accepts_list_ = SCM_EOL;
+  daddy_context_ =0;
+  smobify_self ();
 }
 
 Translator::Translator ()
 {
-  self_scm_ = SCM_EOL;
   init ();
-  output_def_ = 0;
-  smobify_self ();
 }
 
-Translator::Translator (Translator const &s)
+Translator::Translator (Translator const &)
 {
-  self_scm_ = SCM_EOL;
   init ();
-  output_def_ = s.output_def_;
-
-  smobify_self ();
 }
-
 
 bool
 Translator::try_music (Music *)
@@ -59,27 +50,29 @@ Translator::try_music (Music *)
 Moment
 Translator::now_mom () const
 {
-  return daddy_trans_->now_mom ();
-}
-
-void
-Translator::do_announces ()
-{
+  return daddy_context_->now_mom ();
 }
 
 Music_output_def *
 Translator::get_output_def () const
 {
-  return
-    (daddy_trans_)
-    ? daddy_trans_->get_output_def ()
-    : 0;
+  return daddy_context_->get_output_def ();
 }
+
+
+Translator_group*
+Translator::get_daddy_translator () const
+{
+  Translator *t
+    = unsmob_translator (daddy_context_->implementation_);
+  return dynamic_cast<Translator_group*> (t);
+}
+
 
 SCM
 Translator::internal_get_property (SCM sym) const
 {
-  return daddy_trans_->internal_get_property (sym);
+  return daddy_context_->internal_get_property (sym);
 }
 
 void
@@ -121,13 +114,7 @@ SCM
 Translator::mark_smob (SCM sm)
 {
   Translator * me = (Translator*) SCM_CELL_WORD_1 (sm);
-  scm_gc_mark (me->simple_trans_list_);
-  scm_gc_mark (me->trans_group_list_);
-  scm_gc_mark (me->definition_);  
-  scm_gc_mark (me->properties_scm_);  
-  scm_gc_mark (me->accepts_list_);
-
-  return me->properties_scm_;
+  return me->simple_trans_list_;
 }
 
 SCM
@@ -135,6 +122,21 @@ Translator::translator_description () const
 {
   return SCM_EOL;
 }
+
+
+Global_context *
+Translator::get_global_context () const
+{
+  return daddy_context_ ->get_global_context ();
+}
+
+
+Score_context *
+Translator::get_score_context () const
+{
+  return daddy_context_->get_score_context ();
+}  
+
 
 SCM
 Translator::static_translator_description ()const
@@ -146,9 +148,3 @@ Translator::static_translator_description ()const
 IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
 IMPLEMENT_TYPE_P(Translator,"ly:translator?");
-
-SCM
-Translator::get_simple_trans_list()
-{
-  return SCM_EOL;
-}

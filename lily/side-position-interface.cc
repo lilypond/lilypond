@@ -244,8 +244,8 @@ Side_position_interface::set_axis (Grob*me, Axis a)
 Axis
 Side_position_interface::get_axis (Grob*me)
 {
-  if (me->has_offset_callback_b (Side_position_interface::aligned_side_proc, X_AXIS)
-      || me->has_offset_callback_b (Side_position_interface::aligned_side_proc , X_AXIS))
+  if (me->has_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS)
+      || me->has_offset_callback (Side_position_interface::aligned_side_proc , X_AXIS))
     return X_AXIS;
 
   

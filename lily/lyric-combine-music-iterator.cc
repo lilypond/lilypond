@@ -7,7 +7,7 @@
   
  */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "lyric-combine-music.hh"
 #include "event.hh"
 #include "note-head.hh"
@@ -29,7 +29,7 @@ protected:
 
   virtual bool ok () const;
   virtual void derived_mark () const;
-  virtual void derived_substitute (Translator_group*,Translator_group*) ;
+  virtual void derived_substitute (Context *,Context *) ;
 private:
   bool get_busy_status ()const ;
   bool melisma_busy (); 
@@ -39,10 +39,12 @@ private:
 };
 
 
+#include "translator.hh"
+
 bool
 melisma_busy (Translator* tr)
 {
-  SCM melisma_properties = tr->get_property ("melismaBusyProperties");
+  SCM melisma_properties = tr->daddy_context_->get_property ("melismaBusyProperties");
   bool busy = false;
 
   for (; gh_pair_p (melisma_properties);
@@ -97,7 +99,7 @@ Lyric_combine_music_iterator::derived_mark()const
 }
 
 void
-Lyric_combine_music_iterator::derived_substitute (Translator_group*f,Translator_group* t)
+Lyric_combine_music_iterator::derived_substitute (Context *f,Context * t)
 {
   if (music_iter_)
     music_iter_->substitute_outlet (f,t);
@@ -124,7 +126,7 @@ Lyric_combine_music_iterator::get_busy_status () const
   if (try_music (busy_req))
     return true;
   
-  Translator_group * tr = music_iter_->get_outlet ();
+  Context * tr = music_iter_->get_outlet ();
 
   SCM grobs = tr->get_property ("busyGrobs");
   Moment now = tr->now_mom();

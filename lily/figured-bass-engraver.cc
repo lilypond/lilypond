@@ -11,7 +11,7 @@ source file of the GNU LilyPond music typesetter
 #include "text-item.hh"
 #include "event.hh"
 #include "item.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 class Figured_bass_engraver : public Engraver
 {
@@ -82,7 +82,7 @@ Figured_bass_engraver::process_music ()
 	  for (int i = 0; i <figures_.size (); i++)
 	    l = gh_cons (figures_[i]->self_scm(), l);
 
-	  SCM markup = scm_call_2 (proc, l, daddy_trans_->self_scm ());
+	  SCM markup = scm_call_2 (proc, l, daddy_context_->self_scm ());
 
 	  figure_ = make_item ("BassFigure");
 	  figure_->set_grob_property ("text", markup);

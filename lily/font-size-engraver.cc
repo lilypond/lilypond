@@ -33,7 +33,7 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
   /*
     We only want to process a grob once.
    */
-  if (gi.origin_trans_->daddy_trans_ != daddy_trans_)
+  if (gi.origin_trans_->daddy_context_ != daddy_context_)
     return ;
   
   if (gh_number_p (sz) && gh_scm2double (sz))

@@ -10,7 +10,7 @@
 #include "grob-info.hh"
 #include "music.hh"
 #include "translator-group.hh"
-
+#include "context.hh"
 
 Grob_info::Grob_info ()
 {
@@ -25,15 +25,15 @@ Grob_info::music_cause ()
   return unsmob_music (cause);
 }
 
-Link_array<Translator>
-Grob_info::origin_transes (Translator* end) const
+Link_array<Context>
+Grob_info::origin_contexts (Translator* end) const
 {
-  Translator * t = origin_trans_;
-  Link_array<Translator> r;
+  Context * t = origin_trans_->daddy_context_;
+  Link_array<Context> r;
   do {
     r.push (t);
-    t = t->daddy_trans_;
-  } while (t && t != end->daddy_trans_);
+    t = t->daddy_context_;
+  } while (t && t != end->daddy_context_);
   
   return r;
 }

@@ -10,7 +10,7 @@
 #include "event.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "warn.hh"
 
 /*
@@ -51,7 +51,7 @@ Slur_performer::process_music ()
 void
 Slur_performer::set_melisma (bool ml)
 {
-  daddy_trans_->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+  daddy_context_->set_property ("slurMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void

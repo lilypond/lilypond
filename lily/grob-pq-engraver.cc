@@ -6,7 +6,7 @@
   (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "engraver.hh"
 #include "grob.hh"
 #include "warn.hh"
@@ -56,7 +56,7 @@ Grob_pq_engraver::Grob_pq_engraver()
 void
 Grob_pq_engraver::initialize ()
 {
-  daddy_trans_->set_property ("busyGrobs", SCM_EOL); 
+  daddy_context_->set_property ("busyGrobs", SCM_EOL); 
 }
 
 void
@@ -117,7 +117,7 @@ Grob_pq_engraver::stop_translation_timestep ()
   
   busy = scm_merge_x (current_list, busy, ly_grob_pq_less_p_proc);
   current_grobs_.clear ();
-  daddy_trans_->set_property ("busyGrobs", busy);
+  daddy_context_->set_property ("busyGrobs", busy);
 }
 
 void
@@ -139,7 +139,7 @@ Grob_pq_engraver::start_translation_timestep ()
     }
 
   if (start_busy != busy)
-    daddy_trans_->set_property ("busyGrobs", busy);
+    daddy_context_->set_property ("busyGrobs", busy);
 
 }
 

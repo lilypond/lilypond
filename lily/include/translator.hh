@@ -39,45 +39,30 @@ public:
   Music_output_def * output_def_;
   
   Translator (Translator const &);
+  Context * daddy_context_ ;
 
-  
-  Translator_group * daddy_trans_ ;
   void removal_processing ();
   virtual Music_output_def *get_output_def () const;
-
   SCM internal_get_property (SCM symbol) const;
-  
+  virtual Translator_group* get_daddy_translator ()const;
   virtual Moment now_mom () const;  
 
-  /*
-    ugh: bubbled up.
-   */
-  SCM definition_;
-  SCM properties_scm_;
-  SCM trans_group_list_;
-  SCM accepts_list_;
-  virtual SCM get_simple_trans_list ();
 public:
   DECLARE_SMOBS (Translator, dummy);
-private:
-  /*
-    ugh: bubbled up from Translator_group. 
-   */
-
 protected:			// should be private.
   SCM simple_trans_list_;
   friend class Context_def;
 public:
-  Global_translator * top_translator () const;
+  Score_context * get_score_context () const;
+  Global_context * get_global_context () const;
+  
   TRANSLATOR_DECLARATIONS(Translator);
   virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_announces () ;
   virtual void initialize () ;
   virtual void finalize ();
 };
-
 
 /**
   A macro to automate administration of translators.
@@ -134,4 +119,5 @@ void add_translator (Translator*trans);
 
 Translator*get_translator (SCM s);
 DECLARE_UNSMOB(Translator,translator);
+bool melisma_busy (Translator*);
 #endif // TRANSLATOR_HH

@@ -218,16 +218,12 @@ Cluster::print (SCM smob)
 }
 
 ADD_INTERFACE (Cluster,"cluster-interface",
-  "A graphically drawn musical cluster. " 
-"\n\n"
-"@code{padding} adds to the vertical extent of the shape (top and "
-"bottom) and is expressed in units of staffspace.  Since the pitch "
-"range of a single pitch is infinitely small, if padding is set to "
-"@code{0.0}, this possibly results in an invisible shape, if you,for "
-"example, say @code{c-\\startCluster d e-\\endCluster}.  The default "
-"value for @code{padding} therefore is @code{0.25}, such that a single "
-"pitch roughly shows the same height as a note head. "
-"\n\n"
-"@code{style} controls the shape of cluster segments.  Valid values include 'leftsided-stairs', 'rightsided-stairs', 'centered-stairs', and 'ramp'.\n"
+	       "A graphically drawn musical cluster. " 
+	       "\n\n"
+	       "@code{padding} adds to the vertical extent of the shape (top and "
+	       "bottom). \n\n"
+	       "The property @code{style} controls the shape of cluster segments.  Valid values "
+	       "include @code{leftsided-stairs}, @code{rightsided-stairs}, @code{centered-stairs}, "
+	       "and @code{ramp}.\n"
 ,
   "style padding columns");

@@ -310,6 +310,8 @@ Dot_column::add_head (Grob * me, Grob *rh)
 
 
 ADD_INTERFACE (Dot_column, "dot-column-interface",
-  "Interface that groups dots so they form a column",
-  "positioning-done direction stem");
+	       "Groups dot objects so they form a column, and position dots so they do not "
+	       "clash with staff lines "
+	       ,
+	       "positioning-done direction stem");
 

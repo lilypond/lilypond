@@ -149,7 +149,7 @@ Staff_symbol_referencer::set_position (Grob*me,Real p)
 
     }
 
-  if (me->has_offset_callback_b (Staff_symbol_referencer::callback_proc, Y_AXIS))
+  if (me->has_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS))
     return ; 
 
   me->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
@@ -173,8 +173,8 @@ compare_position (Grob *const  &a, Grob * const &b)
 }
 
 ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
-	       "Object whose Y position is meant relative to a staff "
-	       "symbol. These objects usually have "
-	       "Staff_symbol_referencer::callback in their Y-offset-callback. "
+	       "An object whose Y position is meant relative to a staff "
+	       "symbol. These usually have "
+	       "@code{Staff_symbol_referencer::callback} in their @code{Y-offset-callbacks}. "
 	       ,
 	       "staff-position");

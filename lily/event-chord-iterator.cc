@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "warn.hh"
 #include "event-chord-iterator.hh"
 #include "music-list.hh"
@@ -16,7 +16,7 @@ Event_chord_iterator::Event_chord_iterator ()
 {
 }
 
-Translator_group*
+Context *
 Event_chord_iterator::get_req_translator ()
 {
   assert (get_outlet ());

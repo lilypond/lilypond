@@ -106,7 +106,7 @@ Drum_notes_engraver::process_music ()
 	      Item *p  = make_item ("Script");
 	      SCM desc  = SCM_EOL;
 	      make_script_from_event (p, &desc,
-				      daddy_trans_, script,
+				      daddy_context_, script,
 				      0);
 
 	      if (p->get_grob_property ("follow-into-staff"))

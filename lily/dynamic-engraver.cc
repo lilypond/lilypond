@@ -16,7 +16,7 @@
 #include "engraver.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "axis-group-interface.hh"
 #include "script.hh"
 
@@ -239,7 +239,7 @@ Dynamic_engraver::process_music ()
 	    {
 	      cresc_  = make_spanner ("TextSpanner");
 	      cresc_->set_grob_property ("style", s);
-	      daddy_trans_->set_property ((start_type
+	      daddy_context_->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
 	      /*
@@ -249,7 +249,7 @@ Dynamic_engraver::process_music ()
 		{
 		  cresc_->set_grob_property ("edge-text",
 					     gh_cons (s, scm_makfrom0str ("")));
-		  daddy_trans_->set_property ((start_type + "Text").to_str0 (),
+		  daddy_context_->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
 		}
 	    }

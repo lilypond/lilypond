@@ -7,28 +7,32 @@
                Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-
+#include "context.hh"
 #include "performer-group-performer.hh"
 #include "warn.hh"
+
+void
+Performer::do_announces ()
+{
+}
 
 void 
 Performer::play_element (Audio_element* p) 
 { 
-  get_daddy_perf ()->play_element (p); 
+  get_daddy_performer ()->play_element (p); 
 }
 
 int
 Performer::get_tempo () const
 {
-  return get_daddy_perf ()->get_tempo ();
+  return get_daddy_performer ()->get_tempo ();
 }
 
 Performer_group_performer*
-Performer::get_daddy_perf () const
+Performer::get_daddy_performer () const
 {
-  return (daddy_trans_) 
-    ?dynamic_cast<Performer_group_performer *> (daddy_trans_)
-    : 0;
+  return
+    dynamic_cast<Performer_group_performer *> (get_daddy_translator ());
 }
 
 void
@@ -47,9 +51,8 @@ Performer::announce_element (Audio_element_info i)
 {
   if (!i.origin_trans_)
     i.origin_trans_= this;
-  get_daddy_perf ()->announce_element (i);
+  get_daddy_performer ()->announce_element (i);
 }
-
 
 void
 Performer::process_music ()

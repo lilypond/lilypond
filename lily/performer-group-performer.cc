@@ -8,7 +8,7 @@
  */
 
 #include "performer-group-performer.hh"
-
+#include "context.hh"
 #include "audio-element.hh"
 #include "warn.hh"
 
@@ -27,21 +27,11 @@ void
 Performer_group_performer::announce_element (Audio_element_info info)
 {
   announce_infos_.push (info);
-  Performer::announce_element (info);
-}
+  Translator *t
+    = unsmob_translator (daddy_context_->daddy_context_->implementation_);
 
-
-
-void
-Performer_group_performer::create_audio_elements ()
-{
-  for (SCM p = get_simple_trans_list (); gh_pair_p (p); p = ly_cdr (p))
-    {
-      Translator * t = unsmob_translator (ly_car (p));
-      Performer * eng = dynamic_cast<Performer*> (t);
-      if (eng)
-	eng->create_audio_elements ();
-    }
+  if (Performer_group_performer * eg = dynamic_cast<Performer_group_performer*> (t))
+    eg->announce_element (info);
 }
 
 void
@@ -64,28 +54,15 @@ Performer_group_performer::acknowledge_audio_elements ()
 void
 Performer_group_performer::do_announces ()
 {
-  for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
+  while (1)
     {
-      Translator * t = unsmob_translator (ly_car (p));
-      dynamic_cast<Performer_group_performer*> (t)->do_announces ();
-    }
-
+      performer_each (get_simple_trans_list (),
+		      &Performer::create_audio_elements);
   
-  create_audio_elements ();
-    
-  while (announce_infos_.size ())
-    {
+      if (!announce_infos_.size ())
+	break ;
+      
       acknowledge_audio_elements ();
-      announce_infos_.clear ();
-      create_audio_elements ();
-    }
-
-  if (announce_infos_.size ())
-    {
-#if 0  //printf?  -> include <stdio.h>     
-      printf ("do_announces: elt: %s\n",
-	      classname (announce_infos_[0].elem_));
-#endif      
       announce_infos_.clear ();
     }
 }
@@ -94,27 +71,44 @@ Performer_group_performer::Performer_group_performer()
 {
 }
 
-/*
-  C & P from Engraver.
-
-  Should move into Translator ? 
- */
+/* c&p engraver-group.cc */
 void
-Performer_group_performer::process_music ()
+recurse_down_performers (Context * c, Performer_method ptr, bool context_first)
 {
-   for (SCM p = get_simple_trans_list (); gh_pair_p (p); p =ly_cdr (p))
-    {
-      Translator * t = unsmob_translator (ly_car (p));
-      Performer * eng = dynamic_cast<Performer*> (t);
+  Performer_group_performer * tg
+    = dynamic_cast<Performer_group_performer*> (unsmob_translator (c->implementation_));
 
-      if (eng)
-	eng->process_music ();
-    }
-   for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
+
+  if (!context_first)
     {
-      Translator * t = unsmob_translator (ly_car (p));
-      Performer*eng = dynamic_cast<Performer*> (t);
-      if (eng)
-	eng->process_music ();
+      performer_each (tg->get_simple_trans_list (),
+		     ptr);
+
+      (tg->*ptr) ();
+    }
+
+  for (SCM s = c->context_list_ ; gh_pair_p (s);
+       s =gh_cdr (s))
+    {
+      recurse_down_performers (unsmob_context (gh_car (s)), ptr, context_first);
+    }
+
+  if (context_first)
+    {
+      performer_each (tg->get_simple_trans_list (),
+		     ptr);
+      (tg->*ptr) ();
+    }
+}
+
+
+void
+performer_each (SCM list, Performer_method method)
+{
+  for (SCM p = list; gh_pair_p (p); p = ly_cdr (p))
+    {
+      Performer * e = dynamic_cast<Performer*>(unsmob_translator (ly_car (p)));
+      if (e)
+	(e->*method) ();
     }
 }

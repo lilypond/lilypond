@@ -8,7 +8,7 @@
  */
 
 #include "music.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "event.hh"
 #include "music-wrapper-iterator.hh"
 #include "direction.hh"
@@ -36,8 +36,8 @@ void
 Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
 				 String to_id)
 {
-  Translator_group * current = it->get_outlet ();
-  Translator_group * last = 0;
+  Context * current = it->get_outlet ();
+  Context * last = 0;
 
   /*
     Cut & Paste from Change_iterator (ugh).
@@ -52,7 +52,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
   while (current && !current->is_alias (to_type_sym))
     {
       last = current;
-      current = current->daddy_trans_;
+      current = current->daddy_context_;
     }
 
   if (current && current->id_string_ == to_id)
@@ -64,10 +64,10 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
   if (current) 
     if (last)
       {
-	Translator_group * dest = 
-	  it->get_outlet ()->find_create_translator (to_type_sym, to_id, SCM_EOL);
-	current->remove_translator (last);
-	dest->add_used_group_translator (last);
+	Context * dest = 
+	  it->get_outlet ()->find_create_context (to_type_sym, to_id, SCM_EOL);
+	current->remove_context (last);
+	dest->add_context (last);
       }
     else
       {
@@ -86,7 +86,6 @@ void
 Auto_change_iterator::process (Moment m)
 {
   Music_wrapper_iterator::process (m);
-
   
   Moment now = get_outlet ()->now_mom ();
   Moment *splitm = 0;

@@ -309,17 +309,17 @@ Pitch::less_p (SCM p1, SCM p2)
  */
 
 LY_DEFINE(make_pitch, "ly:make-pitch", 3, 0, 0, 
-	  (SCM o, SCM n, SCM a),
+	  (SCM octave, SCM note, SCM alter),
 	  "@var{octave} is specified by an integer, zero for the octave containing "
 	  "middle C.  @var{note} is a number from 0 to 6, with 0 corresponding to C "
-	  "and 6 corresponding to B.  The shift is zero for a natural, negative for "
+	  "and 6 corresponding to B.  The @var{alter} is zero for a natural, negative for "
 	  "flats, or positive for sharps. ")
 {
-  SCM_ASSERT_TYPE(gh_number_p (o), o, SCM_ARG1, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE(gh_number_p (n), n, SCM_ARG2, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE(gh_number_p (a), a, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(scm_integer_p (octave)== SCM_BOOL_T , octave, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(scm_integer_p (note)== SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(scm_integer_p (alter)== SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
 
-  Pitch p (gh_scm2int (o), gh_scm2int (n), gh_scm2int (a));
+  Pitch p (gh_scm2int (octave), gh_scm2int (note), gh_scm2int (alter));
   return p.smobbed_copy ();
 }
 
@@ -407,8 +407,9 @@ LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
 
 LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
 	  (SCM pitch, SCM  root),
-	  "Return pitch with value DELTA =  PITCH - ROOT, ie, "
-	  "ROOT == (ly:pitch-transpose PITCH DELTA).")
+	  "Return pitch @var{delta} such that @code{pitch} transposed by "
+	  "@var{delta} equals @var{root}"
+	  )
 {
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);

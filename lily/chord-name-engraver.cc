@@ -16,7 +16,7 @@
 #include "item.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "warn.hh"
 
 class Chord_name_engraver : public Engraver 
@@ -102,7 +102,7 @@ Chord_name_engraver::process_music ()
 
   SCM name_proc = get_property ("chordNameFunction");
   SCM markup = scm_call_4 (name_proc, pitches, bass, inversion,
-			   daddy_trans_->self_scm());
+			   daddy_context_->self_scm ());
 
   /*
     Ugh. 

@@ -6,7 +6,7 @@
      (c) 2004 Han-Wen Nienhuys
 */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "event.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
@@ -21,7 +21,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK(constructor, ()); 
 protected:
-  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+  virtual void derived_substitute (Context *f, Context *t) ;
   virtual void derived_mark () const;
   New_pc_iterator (New_pc_iterator const &);
 
@@ -57,10 +57,10 @@ private:
   Interpretation_context_handle shared_;
   Interpretation_context_handle solo_;
   
-  void substitute_both (Translator_group * to1,
-			Translator_group * to2);
+  void substitute_both (Context * to1,
+			Context * to2);
 
-  void kill_mmrest (Translator_group*);
+  void kill_mmrest (Context *);
   void chords_together ();
   void solo1 ();
   void solo2 ();
@@ -88,8 +88,8 @@ New_pc_iterator::derived_mark () const
 }
 
 void
-New_pc_iterator::derived_substitute (Translator_group*f,
-				     Translator_group*t)
+New_pc_iterator::derived_substitute (Context *f,
+				     Context *t)
 {
   if (first_iter_)
     first_iter_->substitute_outlet (f,t);
@@ -147,7 +147,7 @@ New_pc_iterator::chords_together ()
 
 
 void
-New_pc_iterator::kill_mmrest (Translator_group * tg)
+New_pc_iterator::kill_mmrest (Context * tg)
 {
   static Music * mmrest;
   if (!mmrest)
@@ -186,10 +186,10 @@ New_pc_iterator::solo1 ()
 }
 
 void
-New_pc_iterator::substitute_both (Translator_group * to1,
-				  Translator_group * to2)
+New_pc_iterator::substitute_both (Context * to1,
+				  Context * to2)
 {
-  Translator_group *tos[]  = {to1,to2};
+  Context *tos[]  = {to1,to2};
   Music_iterator *mis[] = {first_iter_, second_iter_}; 
   Interpretation_context_handle *hs[] = {
     &null_,
@@ -207,7 +207,7 @@ New_pc_iterator::substitute_both (Translator_group * to1,
 
   for (int j =  0; hs[j]; j++)
     {
-      Translator_group* t = hs[j]->get_outlet ();
+      Context * t = hs[j]->get_outlet ();
       if (t != to1 && t != to2)
 	kill_mmrest (t);
     }
@@ -293,8 +293,8 @@ New_pc_iterator::construct_children ()
 			  
 			  SCM_UNDEFINED);
 
-  Translator_group *tr
-    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Voice"),
+  Context *tr
+    =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
   shared_.set_translator (tr);
@@ -304,14 +304,14 @@ New_pc_iterator::construct_children ()
    */
   set_translator (tr);
 
-  Translator_group *solo_tr
-    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Voice"),
+  Context *solo_tr
+    =  get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
 					      "solo",props);
 
   solo_ .set_translator (solo_tr);
 
-  Translator_group *null
-    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Devnull"),
+  Context *null
+    =  get_outlet ()->find_create_context (ly_symbol2scm ("Devnull"),
 					     "", SCM_EOL);
 
   if (!null)
@@ -319,7 +319,7 @@ New_pc_iterator::construct_children ()
   
   null_.set_translator (null);
 
-  Translator_group *one = tr->find_create_translator (ly_symbol2scm ("Voice"),
+  Context *one = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "one", props);
 
   one_.set_translator (one);
@@ -328,7 +328,7 @@ New_pc_iterator::construct_children ()
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_car (lst))));
 
 
-  Translator_group *two = tr->find_create_translator (ly_symbol2scm ("Voice"),
+  Context *two = tr->find_create_context (ly_symbol2scm ("Voice"),
 						      "two", props);
   two_.set_translator (two);
   set_translator (two);

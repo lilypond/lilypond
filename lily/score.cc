@@ -16,7 +16,7 @@
 #include "music-output.hh"
 #include "music-iterator.hh"
 #include "music.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "scm-hash.hh"
 #include "cpu-timer.hh"
 #include "main.hh"
@@ -112,7 +112,9 @@ LY_DEFINE(ly_run_translator, "ly:run-translator",
   SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__, "Output definition");
   
   Cpu_timer timer;
-  Global_translator * trans = odef->get_global_translator ();
+  
+  Global_context * trans = new Global_context (odef);
+  
   if (!trans)
     {
       programming_error ("no toplevel translator");
@@ -133,7 +135,6 @@ LY_DEFINE(ly_run_translator, "ly:run-translator",
       return SCM_BOOL_F;	// todo: shoudl throw exception.
     }
 
-  trans->start ();
   trans->run_iterator_on_me (iter);
   iter->quit();
   scm_remember_upto_here_1 (protected_iter);
@@ -154,11 +155,10 @@ LY_DEFINE(ly_render_output, "ly:render-output",
 	  "and  dump the result to @var{out-filename}, using "
 	  "@var{header} for the bibliographic information.")
 {
-  Translator *tr = unsmob_translator (context);
-  Global_translator * gt = dynamic_cast<Global_translator*> (tr);
+  Global_context * gt = dynamic_cast<Global_context *> (unsmob_context (context));
   
   SCM_ASSERT_TYPE(gt, context, SCM_ARG1, __FUNCTION__,
-		  "Score context");
+		  "Global context");
   SCM_ASSERT_TYPE(ly_module_p(header), header, SCM_ARG2, __FUNCTION__,
 		  "module");
   SCM_ASSERT_TYPE(gh_string_p (out_filename), out_filename, SCM_ARG3, __FUNCTION__,
@@ -181,6 +181,7 @@ default_rendering (SCM mus, SCM outdef, SCM head, SCM outname)
 {
   SCM context = ly_run_translator (mus, outdef);
   
-  if (unsmob_translator (context))
+  if (unsmob_context (context))
     ly_render_output (context,  head, outname);
 }
+

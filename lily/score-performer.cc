@@ -51,41 +51,24 @@ void
 Score_performer::announce_element (Audio_element_info info)
 {
   announce_infos_.push (info);
-
-
-  /*
-    huh?
-    copied from score-engraver, but
-    this way staff gets in list twice
-  if (Audio_item* i = dynamic_cast<Audio_item*> (info.elem_))
-    performance_->add_element (i);
-  */
 }
 
 void 
 Score_performer::prepare (Moment m)
 {
-  Global_translator::prepare (m);
   audio_column_ = new Audio_column (m);
   play_element (audio_column_);
-  start_translation_timestep ();
+  recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, true);
 }
 
 
 void 
 Score_performer::one_time_step ()
 {
-  process_music ();
-  do_announces ();
-  stop_translation_timestep ();
-  check_removal ();
+  recurse_down_performers (daddy_context_, &Performer::process_music, false);
+  recurse_down_performers (daddy_context_, &Performer::do_announces, true);
+  recurse_down_translators (daddy_context_, &Translator::stop_translation_timestep, false);
 }
-
-void
-Score_performer::start ()
-{
-}
-
 
 int
 Score_performer::get_tempo () const
@@ -93,12 +76,6 @@ Score_performer::get_tempo () const
   return performance_->midi_->get_tempo (Moment (Rational (1, 4)));
 }
 
-void
-Score_performer::finish ()
-{
-  check_removal ();
-  finalize ();
-}
 
 Music_output *
 Score_performer::get_output ()
@@ -111,7 +88,6 @@ Score_performer::get_output ()
 void
 Score_performer::initialize ()
 {
-  unsmob_context_def (definition_)->apply_default_property_operations (this);
   performance_ = new Performance;
   performance_->midi_ = dynamic_cast<Midi_def*> (get_output_def ());
 

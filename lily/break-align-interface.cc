@@ -233,8 +233,8 @@ Break_align_interface::do_alignment (Grob *me)
 ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "Items that are aligned in prefatory matter.\n"
 	       "\n"
-	       "The spacing of these items is controlled by the space-alist\n"
-	       "property. It contains a list break-align-symbols with a specification\n"
+	       "The spacing of these items is controlled by the @code{space-alist}\n"
+	       "property. It contains a list @code{break-align-symbol}s with a specification\n"
 	       "of the associated space. The space specification can be "
 	       "@table @code\n"
 	       "@item (minimum-space . @var{spc}))\n"
@@ -248,7 +248,7 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "  Add @var{spc} amount of space.\n"
 	       "@end table\n"
 	       "\n"
-	       "Special keys for the alist are 'first-note and 'next-note, signifying\n"
+	       "Special keys for the alist are @code{first-note} and @code{next-note}, signifying\n"
 	       "the first note on a line, and the next note halfway a line.\n"
 	       "\n"
 	       "Rules for this spacing are much more complicated than this. \n"
@@ -256,8 +256,8 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "break-align-symbol space-alist");
 
 ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
-  "See @ref{break-aligned-interface}.",
-  "positioning-done");
+	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
+	       "positioning-done");
 
 
 

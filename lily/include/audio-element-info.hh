@@ -16,11 +16,13 @@
 /**
   Data container for broadcasts 
   */
-struct Audio_element_info {
+class Audio_element_info {
+public:
   Audio_element * elem_;
   Music *event_;
-  Translator *  origin_trans_;
-  Link_array<Translator> origin_transes (Translator*) const;  
+  Translator *origin_trans_;
+
+  Link_array<Context> origin_contexts (Translator*) const;  
 
   Audio_element_info (Audio_element*, Music*);
   Audio_element_info ();

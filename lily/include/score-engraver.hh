@@ -11,13 +11,10 @@
 #define SCORE_ENGRAVER_HH
 
 #include "engraver-group-engraver.hh"
-#include "global-translator.hh"
+#include "score-translator.hh"
 
-/**
-  Top level engraver. Puts elements into appropriate columns.
- */
-class Score_engraver : 
-  public Engraver_group_engraver, public Global_translator 
+class Score_engraver : public virtual Score_translator,
+		       public virtual Engraver_group_engraver
 {
   System *system_;
   int breaks_;			// used for stat printing
@@ -31,11 +28,11 @@ class Score_engraver :
   void set_columns (Paper_column*,Paper_column*);
   void typeset_all ();
 protected:
-  /* Global_translator */
-  virtual void prepare (Moment);
+  /* Score_translator */
   virtual void finish ();
+  virtual void prepare (Moment);
   virtual void one_time_step ();
-
+  
   /* Engraver_group_engraver interface */
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);

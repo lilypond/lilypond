@@ -15,7 +15,8 @@
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 
 /**
    Create line-spanner grobs for lines that connect note heads.
@@ -36,7 +37,7 @@ protected:
 
 private:
   Spanner* line_; 
-  Translator* last_staff_;
+  Context* last_staff_;
   bool follow_;
   Grob* head_;
   Grob* last_head_;
@@ -59,11 +60,12 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
       head_ = info.grob_;
       if (to_boolean (get_property ("followVoice")))
 	{
-	  Translator_group  * tr = daddy_trans_;
+	  Context * tr = daddy_context_;
 	  while (tr && !tr->is_alias (ly_symbol2scm ( "Staff")))
-	    tr = tr->daddy_trans_ ;
+	    tr = tr->daddy_context_ ;
 
-	  if (tr && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
+	  if (tr
+	      && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
 	    {
 	      if (last_head_)
 		follow_ = true;

@@ -9,7 +9,7 @@
  */
 
 #include "main.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -29,7 +29,7 @@
 
 
 void
-execute_pushpop_property (Translator_group * trg,
+execute_pushpop_property (Context * trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
   if (gh_symbol_p (prop) && gh_symbol_p (eltprop))
@@ -37,7 +37,7 @@ execute_pushpop_property (Translator_group * trg,
       if (val != SCM_UNDEFINED)
 	{
 	  SCM prev = SCM_EOL;
-	  Translator_group * where = trg->where_defined (prop);
+	  Context * where = trg->where_defined (prop);
 
 	  /*
 	    Don't mess with MIDI.
@@ -113,7 +113,7 @@ execute_pushpop_property (Translator_group * trg,
   PRE_INIT_OPS is in the order specified, and hence must be reversed.
  */
 void
-apply_property_operations (Translator_group*tg, SCM pre_init_ops)
+apply_property_operations (Context *tg, SCM pre_init_ops)
 {
   SCM correct_order = scm_reverse (pre_init_ops);
   for (SCM s = correct_order; gh_pair_p (s); s = ly_cdr (s))
@@ -141,14 +141,17 @@ apply_property_operations (Translator_group*tg, SCM pre_init_ops)
   contexts has changed. The alist is updated if necessary. 
    */
 SCM
-updated_grob_properties (Translator_group* tg, SCM sym)
+updated_grob_properties (Context * tg, SCM sym)
 {
   assert (gh_symbol_p (sym));
   
   tg = tg->where_defined (sym);
+  if (!tg)
+    return SCM_EOL;
+  
   SCM daddy_props
-    = (tg->daddy_trans_)
-    ? updated_grob_properties (tg->daddy_trans_, sym)
+    = (tg->daddy_context_)
+    ? updated_grob_properties (tg->daddy_context_, sym)
     : SCM_EOL;
   
   SCM props  = tg->internal_get_property (sym);
@@ -184,14 +187,14 @@ updated_grob_properties (Translator_group* tg, SCM sym)
 }
 
 Item*
-make_item_from_properties (Translator_group* tg, SCM x)
+make_item_from_properties (Context * tg, SCM x)
 {
   SCM props = updated_grob_properties (tg, x);
   return new Item (props);
 }
 
 Spanner*
-make_spanner_from_properties (Translator_group *tg, SCM x)
+make_spanner_from_properties (Context *tg, SCM x)
 {
   SCM props = updated_grob_properties (tg, x);
   return new Spanner (props);

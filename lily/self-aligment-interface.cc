@@ -105,6 +105,19 @@ Self_alignment_interface::aligned_on_self (SCM element_smob, SCM axis)
 
 
 ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",
-  "Position self using some alignment",
-  "self-alignment-X self-alignment-Y");
+	       "Position this object on itself and/or on its parent. To this end, the following functions "
+	       " are provided: \n"
+	       "@table @code \n"
+	       "@item Self_alignment_interface::aligned_on_self\n"
+	       "  Align self on reference point, using @code{self-alignment-X} and "
+	       "@code{self-alignment-Y}."
+	       "@item Self_alignment_interface::aligned_on_parent\n"
+	       "@item Self_alignment_interface::centered_on_parent\n"
+	       "  Shift the object so its own reference point is centered on the  "
+	       " extent of the parent \n"
+	       "@item Self_alignment_interface::centered_on_other_axis_parent\n"
+	       " For X-axis, center on the Y-parent, and vice versa.\n "
+	       "@end table\n"
+	       ,
+	       "self-alignment-X self-alignment-Y");
 

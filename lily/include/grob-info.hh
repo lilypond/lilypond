@@ -14,7 +14,7 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 
-/**
+/*
   Data container for broadcasts.
   */
 struct Grob_info {
@@ -25,7 +25,7 @@ struct Grob_info {
 
 public:
   Music * music_cause ();
-  Link_array<Translator> origin_transes (Translator*) const;
+  Link_array<Context> origin_contexts (Translator*) const;
   Grob_info ();
 };
 

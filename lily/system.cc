@@ -466,14 +466,12 @@ System::post_processing (bool last_line)
 
   /*
     generate all stencils  to trigger all font loads.
-
-    (ugh. This is not very memory efficient.)  */
-
+  */
   SCM all = get_grob_property ("all-elements")  ;
   all = uniquify_list (all);
 
   /*
-    triger font loads first.
+    trigger font loads first.
 
     This might seem inefficient, but Stencils are cached per grob
     anyway.

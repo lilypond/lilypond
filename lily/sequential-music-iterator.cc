@@ -6,7 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "translator-group.hh"
+#include "context.hh"
+
+
 #include "warn.hh"
 #include "sequential-music-iterator.hh"
 #include "music-list.hh"

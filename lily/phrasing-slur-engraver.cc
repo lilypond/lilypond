@@ -8,7 +8,8 @@
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 #include "engraver.hh"
 #include "spanner.hh"
 

@@ -17,6 +17,7 @@
 #include "warn.hh"
 #include "spanner.hh"
 #include "tie.hh"
+#include "global-context.hh"
 
 /*
 
@@ -181,7 +182,8 @@ Completion_heads_engraver::process_music ()
 
       Moment next = now;
       next.main_part_ += note_dur.get_length ();
-      top_engraver ()->add_moment_to_process (next);
+      
+      get_global_context ()->add_moment_to_process (next);
       do_nothing_until_ = next.main_part_;
     }
 

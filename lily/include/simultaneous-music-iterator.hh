@@ -17,7 +17,7 @@ class Simultaneous_music_iterator : public Music_iterator
 public:
   Simultaneous_music_iterator ();
   Simultaneous_music_iterator (Simultaneous_music_iterator const&);
-  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+  virtual void derived_substitute (Context *f, Context *t) ;
   virtual void derived_mark () const;
   DECLARE_SCHEME_CALLBACK(constructor, ());
   

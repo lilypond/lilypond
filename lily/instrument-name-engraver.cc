@@ -14,7 +14,7 @@
 #include "side-position-interface.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "text-item.hh"
 
 class Instrument_name_engraver : public Engraver
@@ -42,7 +42,7 @@ Instrument_name_engraver::Instrument_name_engraver ()
 void
 Instrument_name_engraver::initialize ()
 {
-  daddy_trans_->set_property ("instrumentSupport", SCM_EOL); 
+  daddy_context_->set_property ("instrumentSupport", SCM_EOL); 
 }
 
 void
@@ -111,7 +111,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       SCM nl = gh_cons (i.grob_->self_scm (),
 			get_property ("instrumentSupport"));
 
-      daddy_trans_->set_property ("instrumentSupport", nl);
+      daddy_context_->set_property ("instrumentSupport", nl);
     }
 }
 

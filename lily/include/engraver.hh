@@ -48,22 +48,22 @@ protected:
   virtual void announce_grob (Grob*, SCM cause);
   virtual void announce_grob (Grob_info);
   virtual void process_music ();
-
-  Score_engraver * top_engraver () const;
-
+  virtual void do_announces ();
+  Engraver_group_engraver*get_daddy_engraver () const;
 
 public:
-  Engraver_group_engraver * get_daddy_grav () const;
+  Score_engraver * get_score_engraver () const;
   /**
     override other ctor
    */
   TRANSLATOR_DECLARATIONS(Engraver);
 };
 
-#define make_item(x) make_item_from_properties (daddy_trans_, ly_symbol2scm (x))
-#define make_spanner(x) make_spanner_from_properties (daddy_trans_, ly_symbol2scm (x))
-Item* make_item_from_properties (Translator_group* tg, SCM x);
-Spanner* make_spanner_from_properties (Translator_group * tg, SCM x);
+#define make_item(x) make_item_from_properties (daddy_context_, ly_symbol2scm (x))
+#define make_spanner(x) make_spanner_from_properties (daddy_context_, ly_symbol2scm (x))
+Item* make_item_from_properties (Context * tg, SCM x);
+Spanner* make_spanner_from_properties (Context * tg, SCM x);
+
 
 
 

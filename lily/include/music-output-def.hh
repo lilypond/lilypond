@@ -31,10 +31,9 @@ public:
   Music_output_def (Music_output_def const&);
   Music_output_def ();
 
-  Global_translator *get_global_translator ();
-  Translator_group *get_group_translator (String type) const;
+  Context *get_group_translator (String type) const;
   void assign_translator (SCM transdef);
-  SCM find_translator (SCM name) const;
+  SCM find_context_def (SCM name) const;
   String outname_string () ;
   SCM get_scmvar (String id)const;
   SCM lookup_variable  (SCM sym) const;

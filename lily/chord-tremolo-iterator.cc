@@ -46,7 +46,7 @@ Chord_tremolo_iterator::derived_mark () const
 }
 
 void
-Chord_tremolo_iterator::derived_substitute (Translator_group*f, Translator_group*t) 
+Chord_tremolo_iterator::derived_substitute (Context *f, Context *t) 
 {
   if (child_iter_)
     child_iter_->substitute_outlet (f,t);

@@ -13,24 +13,24 @@
 #include "performer.hh"
 #include "translator-group.hh"
 
-/**
-  Group a number of performers. Usually delegates everything to its contents.
-*/
+typedef void (Performer::*Performer_method) (void);
 
 class Performer_group_performer : public Performer, public virtual Translator_group {
 public:
   TRANSLATOR_DECLARATIONS(Performer_group_performer);
   
   virtual void do_announces ();
-  virtual void process_music ();
   virtual void announce_element (Audio_element_info);
 protected:
   Array<Audio_element_info> announce_infos_;
-  void create_audio_elements ();
 
 private:
   void acknowledge_audio_elements ();
 };
+
+void recurse_down_performers (Context * c, Performer_method ptr,
+			       bool context_first);
+void performer_each (SCM list, Performer_method method);
 
 #endif // PERFORMER_GROUP_PERFORMER_HH
 

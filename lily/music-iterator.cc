@@ -13,7 +13,7 @@
 
 #include "warn.hh"
 #include "music-iterator.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
 #include "simple-music-iterator.hh"
@@ -35,14 +35,14 @@ Music_iterator::~Music_iterator ()
 {
 }
 
-Translator_group* 
+Context * 
 Music_iterator::get_outlet () const
 {
   return handle_.get_outlet ();
 }
 
 void
-Music_iterator::set_translator (Translator_group *trans)
+Music_iterator::set_translator (Context *trans)
 {
   handle_.set_translator (trans);
 }
@@ -115,7 +115,7 @@ Music_iterator::music_start_mom ()const
 }
 
 void
-Music_iterator::init_translator (Music *m, Translator_group *report)
+Music_iterator::init_translator (Music *m, Context *report)
 {
   music_ = m;
   assert (m);
@@ -124,7 +124,7 @@ Music_iterator::init_translator (Music *m, Translator_group *report)
 }
 
 void
-Music_iterator::substitute_outlet (Translator_group*f, Translator_group *t)
+Music_iterator::substitute_outlet (Context *f, Context *t)
 {
   if (get_outlet () == f)
     set_translator (t);
@@ -132,7 +132,7 @@ Music_iterator::substitute_outlet (Translator_group*f, Translator_group *t)
 }
 
 void
-Music_iterator::derived_substitute (Translator_group*,Translator_group*)
+Music_iterator::derived_substitute (Context *,Context *)
 {
 }
 

@@ -23,7 +23,7 @@ class Performer : public virtual Translator
 public:
   VIRTUAL_COPY_CONS (Translator);
   friend class Performer_group_performer;  
-  Performer_group_performer* get_daddy_perf () const;
+  Performer_group_performer* get_daddy_performer () const;
 
 protected:
   virtual void announce_element (Audio_element_info);
@@ -32,6 +32,7 @@ protected:
   virtual int get_tempo () const;
   virtual void play_element (Audio_element * elem );
   virtual void process_music ();
+  virtual void do_announces ();
 };
 
 

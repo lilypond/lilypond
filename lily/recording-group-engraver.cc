@@ -65,13 +65,10 @@ Recording_group_engraver::finalize ()
 bool
 Recording_group_engraver::try_music (Music  *m)
 {
-  bool here_success = Translator_group::try_music_on_nongroup_children (m);
-  bool retval = here_success;
-  if (!here_success && daddy_trans_)
-    retval = daddy_trans_->try_music (m);
-      
+  bool retval = Translator_group::try_music (m);
+
   SCM seq = gh_cdar (accumulator_);
-  seq = gh_cons (gh_cons  (m->self_scm(), gh_bool2scm (here_success)),
+  seq = gh_cons (gh_cons  (m->self_scm(), gh_bool2scm (retval)),
 		 seq);
   
   scm_set_cdr_x  (gh_car (accumulator_), seq);

@@ -18,17 +18,11 @@
 #include "translator-group.hh"
 
 
-/**
-  Group a number of engravers. Usually delegates everything to its contents.
-  Postfix: group
-  */
-class Engraver_group_engraver : public Engraver,
+class Engraver_group_engraver : public virtual Engraver,
 				public virtual Translator_group
 {
 protected:
   Array<Grob_info> announce_infos_;
-
-  
   
 public:
   TRANSLATOR_DECLARATIONS(Engraver_group_engraver);
@@ -36,11 +30,14 @@ public:
   virtual void initialize ();
   virtual void do_announces ();
   virtual void announce_grob (Grob_info);
-  virtual void process_music ();
 private:
   virtual void acknowledge_grobs ();
-  virtual void process_acknowledged_grobs_in_simple_children ();
 };
+
+typedef void (Engraver::*Engraver_method) (void);
+
+void recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first);
+void engraver_each (SCM list, Engraver_method method);
 
 #endif // ENGRAVERGROUP_HH
 

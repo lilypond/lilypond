@@ -13,7 +13,8 @@
 #include "engraver.hh"
 #include "event.hh"
 #include "grob.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 
 /**
    Signal existence of melismas.

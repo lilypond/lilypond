@@ -12,6 +12,7 @@
 #include "audio-item.hh"
 #include "audio-staff.hh"
 #include "performer-group-performer.hh"
+#include "context.hh"
 
 /** Perform a staff. Individual notes should have their instrument
  (staff-wide) set, so we override play_element ()
@@ -64,7 +65,7 @@ Staff_performer::initialize ()
   audio_staff_ = new Audio_staff;
   announce_element (Audio_element_info (audio_staff_, 0));
 
-  name_ = new Audio_text (Audio_text::TRACK_NAME, id_string_);
+  name_ = new Audio_text (Audio_text::TRACK_NAME, daddy_context_->id_string_);
   announce_element (Audio_element_info (name_, 0));
 
   tempo_ = new Audio_tempo (get_tempo ());

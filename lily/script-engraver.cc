@@ -11,7 +11,8 @@
 #include "rhythmic-head.hh"
 #include "engraver.hh"
 #include "note-column.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 #include "warn.hh"
 
 struct Script_tuple
@@ -83,7 +84,7 @@ copy_property (Grob * g , SCM sym, SCM alist)
   ScriptStaccato , ScriptMarcato, etc. )
  */
 void make_script_from_event (Grob *p,
-			     SCM * descr, Translator_group*tg,
+			     SCM * descr, Context *tg,
 			     SCM art_type, 
 			     int index)
 {
@@ -133,7 +134,7 @@ Script_engraver::process_music ()
 
       Grob * p = make_item ("Script");
 
-      make_script_from_event (p, &scripts_[i].description_, daddy_trans_,
+      make_script_from_event (p, &scripts_[i].description_, daddy_context_,
 			      l->get_mus_property ("articulation-type"),
 			      i);
 

@@ -9,9 +9,7 @@
 #include "property-iterator.hh"
 #include "music.hh"
 #include "context-def.hh"
-#include "translator-group.hh"
-#include "global-translator.hh"
-
+#include "global-context.hh"
 
 bool check_grob(Music *mus, SCM sym);
 
@@ -50,8 +48,8 @@ SCM
 Property_iterator::once_finalization(SCM translator, SCM music )
 {
   Music * m = unsmob_music (music);
-  Translator_group * tg
-    = dynamic_cast<Translator_group*> (unsmob_translator (translator));
+  Context * tg
+    = dynamic_cast<Context *> (unsmob_context (translator));
   SCM sym = m->get_mus_property ("symbol");
 
   tg->unset_property (sym);
@@ -66,8 +64,7 @@ Property_iterator::do_quit ()
       SCM trans = get_outlet ()->self_scm();
       SCM music = get_music()->self_scm();
 
-      Global_translator * tg=  get_outlet ()->top_translator ();
-
+      Global_context * tg = get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }
@@ -123,7 +120,7 @@ SCM
 Push_property_iterator::once_finalization (SCM trans, SCM music)
 {
   Music * mus = unsmob_music (music);
-  Translator_group * tg = dynamic_cast<Translator_group*> (unsmob_translator (trans));
+  Context * tg = dynamic_cast<Context *> (unsmob_context (trans));
     
   SCM sym = mus->get_mus_property ("symbol");
   if (check_grob (mus, sym))
@@ -143,7 +140,7 @@ Push_property_iterator::do_quit ()
       SCM trans = get_outlet ()->self_scm();
       SCM music = get_music ()->self_scm();
 
-      Global_translator * tg=  get_outlet ()->top_translator ();
+      Global_context * tg=  get_outlet ()->get_global_context ();
       tg->add_finalization (scm_list_n (once_finalization_proc,
 					trans, music, SCM_UNDEFINED));
     }

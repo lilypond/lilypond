@@ -266,8 +266,11 @@ find_fixed_alignment_parent  (Grob *g)
 
 
 ADD_INTERFACE (Align_interface, "align-interface",
-  " Order grobs top to bottom/left to right/right to left etc.",
-  "forced-distance stacking-dir align-dir threshold positioning-done center-element elements axes");
+	       "Order grobs from top to bottom, left to right, right to left or bottom"
+	       "to top."
+	       ,
+	       "forced-distance stacking-dir align-dir threshold positioning-done "
+	       "center-element elements axes");
 
 
 struct Foobar

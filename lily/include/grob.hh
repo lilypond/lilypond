@@ -143,9 +143,9 @@ public:
 
 
   // duh. slim down interface here. (todo)
-  bool has_offset_callback_b (SCM callback, Axis)const;
+  bool has_offset_callback (SCM callback, Axis)const;
   void add_offset_callback (SCM callback, Axis);
-  bool has_extent_callback_b (SCM, Axis)const;  
+  bool has_extent_callback (SCM, Axis)const;  
   void set_extent (SCM , Axis);
   Real get_offset (Axis a) const;
   
