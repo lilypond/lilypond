@@ -19,7 +19,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c  goes to Top.
 @c  * lilypond: (lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
 * GNU LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* Glossary: (lilypond/music-glossary).                  Glossary of music terms.
 * convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.

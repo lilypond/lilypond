@@ -2,6 +2,10 @@
 @settitle Music Glossary
 @setfilename music-glosssary.info
 
+@dircategory GNU music project
+@direntry
+* Glossary: (lilypond/music-glossary).                  Glossary of music terms.
+@end direntry
 
 @ifhtml
 This document is also available in @uref{music-glossary.ps.gz,gzipped
