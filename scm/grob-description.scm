@@ -231,6 +231,16 @@
 	(meta . ((interfaces . (clef-interface staff-symbol-referencer-interface font-interface break-aligned-interface item-interface ))))
 	))
 
+    (Cluster
+     . (
+	(molecule-callback . ,Cluster::brew_molecule)
+	(spacing-procedure . ,Spanner::set_spacing_rods)		
+	(minimum-length . 0.0)
+	(padding . 0.25)
+	(shape . leftsided-stairs)
+	(meta . ((interfaces . (cluster-interface spanner-interface))))
+	))
+
     (ChordName
      . (
 	(molecule-callback . ,Chord_name::brew_molecule)
@@ -448,7 +458,7 @@
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(font-family . ancient)
-	(style . mensural)
+	(style . default)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(meta . ((interfaces . (ligature-head-interface rhythmic-head-interface
 							font-interface
@@ -533,9 +543,10 @@
     
     (MeasureGrouping
      . (
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(Y-offset-callbacks . (,Side_position_interface::out_of_staff 
+			       ,Side_position_interface::aligned_side))
 	(molecule-callback . ,Measure_grouping::brew_molecule)
-	(meta . ((interfaces . (spanner-interface measure-grouping-interface))))
+	(meta . ((interfaces . (spanner-interface measure-grouping-interface))))	(staff-padding . 3)
 	(padding . 2)
 	(direction . 1)
 	(thickness . 1)

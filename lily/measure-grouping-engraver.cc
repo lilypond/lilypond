@@ -20,7 +20,7 @@ protected:
   Spanner * grouping_;
   Rational stop_grouping_mom_;
 
-  virtual void start_translation_timestep ();
+  virtual void process_music ();
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
 };
@@ -30,9 +30,9 @@ Measure_grouping_engraver::finalize()
 {
   if (grouping_)
     {
-      grouping_->set_bound (RIGHT,
-			    unsmob_grob (get_property ("currentCommandColumn")));
+      grouping_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
       typeset_grob (grouping_);
+      grouping_->suicide ();
       grouping_= 0;
     }
 }
@@ -48,12 +48,11 @@ Measure_grouping_engraver::acknowledge_grob (Grob_info gi)
 }
 
 void
-Measure_grouping_engraver::start_translation_timestep ()
+Measure_grouping_engraver::process_music ()
 {
   Moment now = now_mom();
   if (grouping_ && now.main_part_ >= stop_grouping_mom_ && !now.grace_part_)
     {
-      Side_position_interface::add_staff_support (grouping_);
       grouping_->set_bound (RIGHT,
 			    unsmob_grob (get_property ("currentMusicalColumn")));
       typeset_grob (grouping_);

@@ -28,26 +28,33 @@ Measure_grouping::brew_molecule (SCM grob)
   Real t = me->get_paper ()->get_var ("linethickness") *   gh_scm2double (thick); 
   Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
-  Real w = me->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
-    - me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS);
+
+  Interval rext = me->get_bound (RIGHT)->extent (common, X_AXIS);
+  
+  
+  Real w =(rext.empty_b()
+	   ? me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS)
+	   : rext[RIGHT])
+    - me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
 
   Interval iv (0,w);
 
   Molecule m; 
   if (which == ly_symbol2scm ("bracket"))
     {
-      m = Lookup::bracket (X_AXIS, iv,t, gh_scm2double (height));
+      m = Lookup::bracket (X_AXIS, iv, t,-gh_scm2double (height));
     }
   else if (which == ly_symbol2scm ("triangle"))
     {
       m = Lookup::triangle (iv, t, gh_scm2double (height));
     }
 
+  m.align_to (Y_AXIS, DOWN);
   return m.smobbed_copy();
 }
 
 ADD_INTERFACE (Measure_grouping,"measure-grouping-interface",
 	       "indicate groups of beats. Valid choices for 'type are 'bracket and 'triangle.",
-	       "thickness height");
+	       "thickness type height");
 
   

@@ -48,14 +48,13 @@
 } bind def
 
 
-/draw_symmetric_x_triangle %  th w h
+/draw_symmetric_x_triangle % h w th
 {
     setlinewidth
     0 0 moveto
-    dup
-    0 rlineto
-    2 div
-    exch rlineto
+    dup 0 lineto
+    2 div 
+    exch lineto
     0 0 lineto
     stroke
 } bind def
@@ -118,6 +117,26 @@
 		closepath gsave stroke grestore fill
 	} ifelse
 } bind def 
+
+/draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot
+{
+	/blot exch def
+
+	0 setlinecap
+	blot setlinewidth
+	1 setlinejoin
+
+	/points exch def
+	2 copy
+	moveto
+	1 1 points {pop lineto} for
+	currentdict /testing known {
+		%% outline only, for testing:
+		stroke
+	}{
+		closepath gsave stroke grestore fill
+	} ifelse
+} bind def
 
 /draw_repeat_slash % width slope thick
 {

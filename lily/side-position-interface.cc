@@ -211,6 +211,37 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   return gh_double2scm (o);
 }
 
+/*
+  Maintain a minimum distance to the staff. This is similar to side
+  position with padding, but it will put adjoining objects on a row if
+  stuff sticks out of the staff a little.
+ */
+MAKE_SCHEME_CALLBACK (Side_position_interface,out_of_staff,2);
+SCM
+Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
+{
+  Grob *me = unsmob_grob (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
+
+  Grob * st = Staff_symbol_referencer::get_staff_symbol (me);
+
+  if (!st)
+    return gh_int2scm (0);
+
+  Real padding=0.0;
+  SCM spad = me->get_grob_property ("staff-padding");
+
+  if (gh_number_p (spad))
+    padding = gh_scm2double (spad);
+  
+  Grob *common = me->common_refpoint (st, Y_AXIS);
+  Direction d = Side_position_interface::get_direction (me);
+  Interval staff_size = st->extent (common, Y_AXIS);
+  Interval me_ext = me->extent (common, a);
+  Real diff =  d*staff_size[d] + padding - d*me_ext[-d];
+  return gh_double2scm (diff >? 0);
+}
+
 void
 Side_position_interface::add_staff_support (Grob*me)
 {
@@ -275,4 +306,4 @@ ADD_INTERFACE (Side_position_interface,"side-position-interface",
 "support).  In this case, the direction signifies where to put the  "
 "victim object relative to the support (left or right, up or down?) "
 ,
-  "side-support-elements direction-source direction side-relative-direction minimum-space padding");
+  "staff-padding side-support-elements direction-source direction side-relative-direction minimum-space padding");

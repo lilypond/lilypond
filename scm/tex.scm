@@ -81,6 +81,9 @@
     
     ))
 
+(define (dot x y radius)
+  (embedded-ps (list 'dot x y radius)))
+
 (define (beam width slope thick)
   (embedded-ps (list 'beam  width slope thick)))
 
@@ -259,6 +262,9 @@
 
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
+
+(define (polygon points blotdiameter)
+  (embedded-ps (list 'polygon points blotdiameter)))
 
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))

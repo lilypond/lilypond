@@ -64,8 +64,8 @@ Note_heads_engraver::try_music (Music *m)
 	Urg ; this is not protocol. We should accept and return
 	true, or ignore.
       */
-      in_ligature = (m->get_mus_property("span-direction")
-		     == gh_int2scm (START));
+      in_ligature = (to_dir (m->get_mus_property("span-direction")) == START);
+      return false;
     }
   
   return false;

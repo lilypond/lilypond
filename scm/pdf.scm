@@ -230,6 +230,8 @@
 
 (define (text s) "")
 
+(define (polygon points blotdiameter) "") ;; TODO
+
 (define (draw-line thick fx fy tx ty)
   (string-append (setlineparams)
 		 (setlinewidth thick)

@@ -1221,7 +1221,7 @@ command_element:
 
 		$$ = MY_MAKE_MUSIC("EventChord");
 		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
-  	  scm_gc_unprotect_object (l->self_scm());
+		scm_gc_unprotect_object (l->self_scm());
 		$$->set_spot (THIS->here_input ());
 	}
 	| E_RIGHTSQUARE {
@@ -1232,8 +1232,7 @@ command_element:
 		$$ = MY_MAKE_MUSIC("EventChord");
 		$$->set_mus_property ("elements", scm_cons (l->self_scm (), SCM_EOL));
 		$$->set_spot (THIS->here_input ());
-	  scm_gc_unprotect_object (l->self_scm());
-
+		scm_gc_unprotect_object (l->self_scm());
 	}
 	| E_BACKSLASH {
 		$$ = MY_MAKE_MUSIC("VoiceSeparator");
@@ -1277,34 +1276,13 @@ command_element:
 		$$ = unsmob_music (result);
 	}
 	| TIME_T fraction  {
-		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
+		static SCM proc;
+		if (!proc)
+			proc = scm_c_eval_string ("make-time-signature-set");
 
-		int l = gh_scm2int (ly_car ($2));
-		int o = gh_scm2int (ly_cdr ($2));
-
-		Moment one_beat = Moment (1)/Moment (o);
-		Moment len = Moment (l) * one_beat;
-
-
-		Music *p2 = set_property_music (ly_symbol2scm ("measureLength"), len.smobbed_copy ());
-		Music *p3 = set_property_music (ly_symbol2scm ("beatLength"), one_beat.smobbed_copy ());
-
-		SCM list = scm_list_n (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
-		Music *seq = MY_MAKE_MUSIC("SequentialMusic");
-		seq->set_mus_property ("elements", list);
-		
-
-		Music * sp = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		sp->set_mus_property ("element", seq->self_scm ());
-
-		scm_gc_unprotect_object (p3->self_scm ());
-		scm_gc_unprotect_object (p2->self_scm ());
-		scm_gc_unprotect_object (p1->self_scm ());
-		scm_gc_unprotect_object (seq->self_scm ());
-
-		$$ = sp;
-
-		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Timing"));
+		SCM result = scm_apply_2   (proc, gh_car ($2), gh_cdr ($2), SCM_EOL);
+		scm_gc_protect_object (result);
+		$$ = unsmob_music (result);
 	}
 	;
 

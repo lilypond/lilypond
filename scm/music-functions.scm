@@ -236,6 +236,44 @@ this is not an override
       ))
     ))
 
+
+(define-public (make-property-set sym val)
+  (let*
+      (
+       (m (make-music-by-name 'PropertySet))
+       )
+    (ly:set-mus-property! m 'symbol sym)
+    (ly:set-mus-property! m 'value val)
+    m
+  ))
+
+(define-public (make-time-signature-set num den . rest)
+  " Set properties for time signature NUM/DEN.
+Rest can contain a list of beat groupings 
+
+"
+  
+  (let*
+      (
+       (set1 (make-property-set 'timeSignatureFraction (cons num den) ))
+       (beat (ly:make-moment 1 den))
+       (len  (ly:make-moment num den))
+       (set2 (make-property-set 'beatLength beat))
+       (set3 (make-property-set 'measureLength len))
+       (set4 (make-property-set 'beatGrouping (if (pair? rest)
+						  (car rest)
+						  '())))
+       (basic  (list set1 set2 set3 set4))
+       
+       )
+
+    (context-spec-music
+     (make-sequential-music basic) "Timing")))
+
+(define-public (set-time-signature num den . rest)
+  (ly:export (apply make-time-signature-set `(,num ,den . ,rest)))
+  )
+
 (define-public (make-penalty-music pen)
  (let
      ((m (make-music-by-name 'BreakEvent)))
@@ -366,6 +404,7 @@ this is not an override
     ;;(display  symbol)
     ;;(eq? #t (ly:get-grob-property elt symbol))
     (not (eq? #f (memq symbol (ly:get-grob-property elt 'interfaces))))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

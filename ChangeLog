@@ -1,3 +1,53 @@
+2002-11-11 Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/include/lily-proto.hh, ly/engraver-init.ly,
+	ly/spanners-init.ly, scm/grob-description.scm,
+	scm/grob-property-description.scm, scm/music-types.scm,
+	lily/cluster-engraver.cc, lily/cluster.cc,
+	lily/include/cluster.hh, input/test/cluster.ly: cluster
+	implementation
+
+	* lily/include/lookup.hh, lily/lookup.cc, scm/pdf.scm
+	ps/music-drawing-routines.ps, scm/ascii-script.scm, scm/ps.scm,
+	scm/sketch.scm, scm/tex.scm: support for dots and polygons added
+
+	* lily/lookup.cc: bugfix: fixed infinite loop in frame ()
+
+	* mf/parmesan-heads.mf: bugfix: vaticana punctum set_char_box
+
+	* scm/grob-description.scm: bugfix: by default, use default note
+	head style when engraving ligatures
+
+	* lily/note-heads-engraver.cc: bugfix: do not steal ligature events
+
+	* lily/mensural-ligature-engraver.cc: bugfix: accept ligature
+	events
+
+	* lily/ligature-bracket-engraver.cc: bugfix: accept ligature events
+
+	* input/test/ancient-font.ly: bugfix: style -> flag-style
+
+	* lily/ligature-engraver.cc: indentation fix
+
+	* lily/parser.yy: indentation fixes
+	
+2002-11-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/measure-grouping.ly: more elaborate example.
+
+	* lily/moment.cc: ly:add-moment, ly:mul-moment,
+	ly:div-moment. New functions 
+
+	* scm/music-functions.scm (set-time-signature): new function,
+	allow inline time sig settings with measure grouping.
+
+	* lily/parser.yy (command_element): move time sig construction
+	into Scheme.
+
+	* lily/side-position-interface.cc (out_of_staff): new function,
+	like padding, but keep minimum distance from staff. Easier than
+	linespanners (dynamics, pedals), but roughly the same effect.
+
 2002-11-10 Heikki Junes  <hjunes@cc.hut.fi>
 
 	* emacs-mode.el: Added spanish-note-replacements 
