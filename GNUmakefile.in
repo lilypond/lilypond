@@ -71,23 +71,22 @@ TOP_HTMLS = index.html short-examples.html long-examples.html
 
 short-examples: web-reqs
 	$(MAKE) out=www -C input WWW
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
-
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html input/
 
 long-examples: web-reqs
 	$(MAKE) out=www -C mutopia WWW
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/$@.html mutopia/
 
 lily: lily/$(outdir)/lilypond
 
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
+local-web: web-doc $(TOP_HTMLS:%=%) footify do-top-doc top-web
 
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
-	cd $(builddir) && find `find Documentation input mutopia -type d -name 'out-www'` \
+	cd $(builddir) && find `find Documentation input mutopia -type d -name 'out-www' -print` \
 		-not -name '*.dvi' -not -name '*ly' -not -name '*.tex' \
 		-not -name '*.ps' -not -name '*.eps' -not -name '*pk' \
 		-not -name '*.aux' -not -name '*.cp' -not -name '*.fn' \
@@ -97,6 +96,7 @@ top-web:
 		-not -name '*.texi' -not -name '*.texidoc' -not -name '*.tp' \
 		-not -name '*.pdfps' -not -name '*.eps.bbox' \
 		-not -name '*.log' -not -name 'out-www' -not -name '*.dep' \
+		-print \
 	    > $(outdir)/weblist
 	cd $(builddir) && ls *.png *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
@@ -115,7 +115,7 @@ WWW-clean:
 	$(MAKE) -C mutopia WWW-clean
 
 top-WWW-clean:
-	rm -f $(TOP_HTMLS) lily-[0-9]*.png
+	cd $(depth)/$(builddir) && rm -f $(TOP_HTMLS) lily-[0-9]*.png
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 
 WWW:

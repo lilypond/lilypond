@@ -2,7 +2,8 @@ dnl configure.in   -*-shell-script-*-
 dnl Process this file with autoconf to produce a configure script. 
 
 # Bootstrap the init proces.  List a file identifies your package.
-AC_INIT(make/lilypond.lsm.in)
+AC_INIT
+AC_CONFIG_SRCDIR([make/lilypond.lsm.in])
 AC_CONFIG_HEADER($CONFIGFILE.h:config.hh.in)
 
 # Bootstrap StepMake configure
@@ -35,8 +36,8 @@ STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 
-# AC_HAVE_HEADERS(limits.h malloc.h string.h unistd.h values.h)
-AC_HAVE_HEADERS(assert.h sys/stat.h)
+# AC_CHECK_HEADERS([limits.h malloc.h string.h unistd.h values.h])
+AC_CHECK_HEADERS([assert.h sys/stat.h])
 AC_HEADER_STAT
 
 AC_FUNC_MEMCMP
