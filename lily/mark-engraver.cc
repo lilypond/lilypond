@@ -57,7 +57,7 @@ void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
   Grob * s = inf.grob_l_;
- if (text_p_ && Bar_line::has_interface (s))
+  if (text_p_ && Bar_line::has_interface (s))
     {
       /*
 	Ugh. Figure out how to do this right at beginning of line, (without

@@ -1,6 +1,4 @@
-
-
-@c Note:
+@c Note: -*-texinfo-*-
 @c
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -55,30 +53,30 @@ provided in @ref{Tuning output} and @ref{Interpretation context}. The
 syntactical details are described at the end of the manual.
 
 @menu
-* Overview::			
-* Note entry::			
-* Staff notation::		
-* Polyphony::			
-* Beaming::			
-* Expressive marks::		
-* Ornaments::			
-* Repeats::			
-* Rhythmic music::		
-* Piano music::			
-* Lyrics::			
-* Chords::			
-* Writing parts::		
-* Custodes::			
-* Figured bass::		
-* Tuning output::		
-* Page layout::			
-* Output formats::		
-* Sound::			
-* Music entry::			
-* Skipping corrected music::	
-* Interpretation context::	
-* Syntactic details::		
-* Lexical details::		
+* Overview::                    
+* Note entry::                  
+* Staff notation::              
+* Polyphony::                   
+* Beaming::                     
+* Expressive marks::            
+* Ornaments::                   
+* Repeats::                     
+* Rhythmic music::              
+* Piano music::                 
+* Lyrics::                      
+* Chords::                      
+* Writing parts::               
+* Custodes::                    
+* Figured bass::                
+* Tuning output::               
+* Page layout::                 
+* Output formats::              
+* Sound::                       
+* Music entry::                 
+* Skipping corrected music::    
+* Interpretation context::      
+* Syntactic details::           
+* Lexical details::             
 @end menu
 
 @c . {Overview}
@@ -140,15 +138,15 @@ brevity we omit obligatory lint such as @code{\score} blocks and
 
 
 @menu
-* Notes::			
-* Pitches::			
-* Rests::			
-* Skips::			
-* Durations::			
-* Ties::			
-* Tuplets::			
-* Defining pitch names::	
-* Easy Notation note heads ::	
+* Notes::                       
+* Pitches::                     
+* Rests::                       
+* Skips::                       
+* Durations::                   
+* Ties::                        
+* Tuplets::                     
+* Defining pitch names::        
+* Easy Notation note heads ::   
 @end menu
 
 @c . {Notes}
@@ -553,11 +551,11 @@ the @code{-f ps} option of lilypond produces the correct result.
 @cindex Staff notation
 
 @menu
-* Key signature::		
-* Clef::			
-* Time signature::		
-* Unmetered music::		
-* Bar lines::			
+* Key signature::               
+* Clef::                        
+* Time signature::              
+* Unmetered music::             
+* Bar lines::                   
 @end menu
 
 @c .  {Key}
@@ -1128,11 +1126,11 @@ horizontal, falls two staff spaces:
 
 @c .   {Slurs}
 @menu
-* Slurs ::			
-* Phrasing slurs::		
-* Breath marks::		
-* Tempo::			
-* Text spanners::		
+* Slurs ::                      
+* Phrasing slurs::              
+* Breath marks::                
+* Tempo::                       
+* Text spanners::               
 @end menu
 
 @node Slurs 
@@ -1296,11 +1294,11 @@ An application---or rather, a hack---is to fake octavation indications.
 @section Ornaments
 @cindex Ornaments
 @menu
-* Articulations::		
-* Text scripts::		
-* Grace notes::			
-* Glissando ::			
-* Dynamics::			
+* Articulations::               
+* Text scripts::                
+* Grace notes::                 
+* Glissando ::                  
+* Dynamics::                    
 @end menu
 
 @c .   {Articulation}
@@ -1637,12 +1635,12 @@ Make beat or measure repeats. These look like percent signs.
 @end table  
 
 @menu
-* Repeat syntax::		
-* Repeats and MIDI::		
-* Manual repeat commands::	
-* Tremolo repeats::		
-* Tremolo subdivisions::	
-* Measure repeats::		
+* Repeat syntax::               
+* Repeats and MIDI::            
+* Manual repeat commands::      
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
 @end menu
 
 @node Repeat syntax
@@ -1840,7 +1838,7 @@ with slashes, and repeating that measure with percents.
 
 
 @menu
-* Rhythmic staves::		
+* Rhythmic staves::             
 @end menu
 
 @node Rhythmic staves
@@ -1870,11 +1868,11 @@ behavior.  In this section we discuss the @internalsref{PianoStaff} and some
 other pianistic peculiarities.
 
 @menu
-* Automatic staff changes::	
-* Manual staff switches::	
-* Pedals::			
-* Arpeggio::			
-* Voice follower lines::	
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Arpeggio::                    
+* Voice follower lines::        
 @end menu 
 
 
@@ -1887,8 +1885,9 @@ Voices can switch automatically between the top and the bottom
 staff. The syntax for this is
 @example
         \autochange @var{contexttype} \context @var{childcontexttype}
-     		@var{musicexp}
+     		@var{musicexp} 
 @end example
+@c
 This will switch the interpretation context of @var{musicexp} between
 a @var{contexttype} named @code{up} and @code{down}. Typically, you
 use @internalsref{Staff} for @var{contexttype}, and
@@ -2097,10 +2096,10 @@ The associated grob is @internalsref{VoiceFollower}.
 
 
 @menu
-* Lyrics mode::			
-* Printing lyrics::		
+* Lyrics mode::                 
+* Printing lyrics::             
 * Automatic syllable durations::  
-* More stanzas::		
+* More stanzas::                
 @end menu
 
 @c .  {Lyrics mode}
@@ -2325,8 +2324,8 @@ not attempt to be intelligent. If you enter @code{f bes d}, it does not
 interpret this as an inversion.
 
 @menu
-* Chords mode::			
-* Printing named chords::	
+* Chords mode::                 
+* Printing named chords::       
 @end menu
 
 @c .  {Chords mode}
@@ -2547,14 +2546,14 @@ problems in orchestral music.
 
 @c .  {Transpose}
 @menu
-* Rehearsal marks::		
-* Bar numbers::			
-* Instrument names::		
-* Transpose::			
+* Rehearsal marks::             
+* Bar numbers::                 
+* Instrument names::            
+* Transpose::                   
 * Sound output for transposing instruments::  
-* Multi measure rests::		
-* Automatic part combining::	
-* Hara kiri staves::		
+* Multi measure rests::         
+* Automatic part combining::    
+* Hara kiri staves::            
 @end menu
 
 @c .   {Rehearsal marks}
@@ -2940,13 +2939,13 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a grob property in that object.
 
 @menu
-* Tuning groups of grobs ::	
-* Tuning per grob ::		
-* What to tune?::		
-* Font selection::		
-* Text markup::			
-* Invisible grobs::		
-* Dirty tricks::		
+* Tuning groups of grobs ::     
+* Tuning per grob ::            
+* What to tune?::               
+* Font selection::              
+* Text markup::                 
+* Invisible grobs::             
+* Dirty tricks::                
 @end menu
 
 @node Tuning groups of grobs 
@@ -3492,13 +3491,13 @@ and (La)@TeX{} putting the notation on a page, including page breaks.
 The part of LilyPond is documented here.
 
 @menu
-* Paper block::			
-* Paper variables::		
-* Font Size::			
-* Paper size::			
-* Line break::			
-* Page break::			
-* Output scaling::		
+* Paper block::                 
+* Paper variables::             
+* Font Size::                   
+* Paper size::                  
+* Line break::                  
+* Page break::                  
+* Output scaling::              
 @end menu
 
 @c .  {Paper block}
@@ -3748,10 +3747,10 @@ meaning that you don't have access to continuously scaled fonts.
 LilyPond can output processed music in different output formats.  
 
 @menu
-* TeX output::			
-* PostScript output::		
-* Scheme output::		
-* ASCIIScript output::		
+* TeX output::                  
+* PostScript output::           
+* Scheme output::               
+* ASCIIScript output::          
 @end menu
 
 @node TeX output
@@ -3935,8 +3934,8 @@ It is currently not possible to use the percussion channel (generally
 channel 10 of a MIDI file).
 
 @menu
-* MIDI block::			
-* MIDI instrument names::	
+* MIDI block::                  
+* MIDI instrument names::       
 @end menu
 
 @c .  {MIDI block}
@@ -3996,9 +3995,9 @@ number.
 @section Music entry
 @cindex Music entry
 @menu
-* Relative::			
-* Bar check::			
-* Point and click::		
+* Relative::                    
+* Bar check::                   
+* Point and click::             
 @end menu
 
 When entering music with LilyPond, it is easy to introduce errors. This
@@ -4216,12 +4215,12 @@ c d b bes a g c2 }
 @section Interpretation context
 
 @menu
-* Creating contexts::		
-* Default contexts::		
-* Context properties::		
-* Engravers and performers::	
+* Creating contexts::           
+* Default contexts::            
+* Context properties::          
+* Engravers and performers::    
 * Changing context definitions::  
-* Defining new contexts::	
+* Defining new contexts::       
 @end menu
 
 
@@ -4568,13 +4567,13 @@ such an identifier outside of @code{\score}, you must do
 This section describes details that were too boring to be put elsewhere.
 
 @menu
-* Top level::			
-* Identifiers::			
-* Music expressions::		
+* Top level::                   
+* Identifiers::                 
+* Music expressions::           
 * Manipulating music expressions::  
-* Assignments::			
-* Lexical modes::		
-* Ambiguities::			
+* Assignments::                 
+* Lexical modes::               
+* Ambiguities::                 
 @end menu
 
 @c .  {Top level}
@@ -4813,7 +4812,7 @@ More examples are given in the distributed example files in
 
 @c .   {Span requests}
 @menu
-* Span requests::		
+* Span requests::               
 @end menu
 
 @node Span requests
@@ -4972,15 +4971,15 @@ right time between
 Even more boring details, now on lexical side of the input parser.
 
 @menu
-* Comments::			
-* Direct Scheme::		
-* Keywords::			
-* Integers::			
-* Reals::			
-* Strings::			
-* Main input::			
-* File inclusion::		
-* Version information::		
+* Comments::                    
+* Direct Scheme::               
+* Keywords::                    
+* Integers::                    
+* Reals::                       
+* Strings::                     
+* Main input::                  
+* File inclusion::              
+* Version information::         
 @end menu
 
 
