@@ -48,48 +48,10 @@ Staff_walker::when() const
     return ptr()->when();
 }
 
-
 void
 Staff_walker::process_timing_reqs()
 {
-    // first all meter changes
-    for (int i=0; i < ptr()->timing_req_l_arr_.size(); i++) {
-	Timing_req * tr_l = ptr()->timing_req_l_arr_[i];
-	if (tr_l->meterchange()) {
-	    int b_i=tr_l->meterchange()->beats_i_;
-	    int o_i = tr_l->meterchange()->one_beat_i_;
-	    if (! time_.allow_meter_change_b() )
-		
-			tr_l->warning("Meterchange should be at start of measure");
-	    else
-		time_.set_meter(b_i, o_i);
-			
-	    *default_grouping = Rhythmic_grouping(
-		MInterval(0,Moment(b_i, o_i)), b_i);
-	} 
-    }
-    
-    // then do the rest
-    for (int i=0; i < ptr()->timing_req_l_arr_.size(); i++) {
-	Timing_req * tr_l = ptr()->timing_req_l_arr_[i];
-	if (tr_l->partial()) {
-	    Moment m = tr_l->partial()->duration_;
-	    String error = time_.try_set_partial_str(m);
-	    if (error != "") {
-		tr_l->warning(error);
-	    } else 
-		time_.setpartial(m);
-	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
-	    tr_l ->warning( "Barcheck failed");
-	} else if (tr_l->cadenza()) {
-	    time_.set_cadenza(tr_l->cadenza()->on_b_);
-	} else if (tr_l->measuregrouping()) {
-	    *default_grouping = parse_grouping(
-		tr_l->measuregrouping()->beat_i_arr_,
-		tr_l->measuregrouping()->elt_length_arr_);
-	}
-    }
-    time_.OK();
+    ptr()->update_time(time_, default_grouping);
 }
 
 void
