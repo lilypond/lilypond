@@ -1,7 +1,7 @@
 \header {
-texidoc = "Accidentals are available in different ancient styles. This
-files lists all of them."
-
+texidoc = "@cindex Ancient Accidentals
+Accidentals are available in different ancient styles. This
+file lists all of them."
 }
 
 \version "1.7.18"
@@ -50,6 +50,5 @@ files lists all of them."
 	
   }
   \paper { }  
-  \midi { }
 }
 %% new-chords-done %%

@@ -1,10 +1,10 @@
 \version "1.7.18"  %% or actually: 1.7.1 ...
 \header {
-texidoc= "Using make-music, you can add
-various stuff to notes. Here is an example
-how to add an extra fingering. 
+texidoc= "@cindex make-music Fingering
+You can add various stuff to notes using make-music.
+Here is an example of how to add an extra fingering. 
 
-In general, first do a display of the music you want ot
+In general, first do a display of the music you want to
 create, then write a function that will build the structure for you."
 } 
 

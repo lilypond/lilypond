@@ -1,7 +1,7 @@
 \version "1.7.18"
 \header {
 
-    texidoc = "
+    texidoc = "@cindex Auto Beaming Override
 Show how auto-beaming settings can be overridden.
 
  The auto-beamer will only engrave beams that end when:
