@@ -12,7 +12,7 @@
 #include "plist.hh"
 #include "varray.hh"
 #include "glob.hh"
-#include "pstaff.hh"
+#include "p-staff.hh"
 
 /// one broken line of staff.
 struct Line_of_staff {
