@@ -1,3 +1,8 @@
+2003-06-12  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: Fix: match concurrent one-char opening and 
+	closing slurs: '()', etc. Add comments.
+
 2003-06-10  Graham Percival  <gperlist@shaw.ca>
 
    * input/test/beam-abbrev.ly input/test/default-neutral-dir.ly
