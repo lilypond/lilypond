@@ -165,6 +165,36 @@ def soft_penstroke text t =
 enddef;
 
 
+def soft_start_penstroke text t =
+	forsuffixes e = l, r:
+		path_.e := t;
+	endfor;
+
+	if cycle path_.l:
+		cyclestroke_;
+	else:
+		fill path_.l
+		-- reverse path_.r
+		..tension1.5.. cycle;
+	fi;
+enddef;
+
+
+def soft_end_penstroke text t =
+	forsuffixes e = l, r:
+		path_.e := t;
+	endfor;
+
+	if cycle path_.l:
+		cyclestroke_;
+	else:
+		fill path_.l
+		..tension1.5.. reverse path_.r
+		-- cycle;
+	fi;
+enddef;
+
+
 %
 % Make a round path segment going from P to Q.  2*A is the angle that the
 % path should take.

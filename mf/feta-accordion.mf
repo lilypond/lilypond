@@ -358,17 +358,21 @@ fet_beginchar ("accOldEE", "accOldEE")
 
 	z1 = (0, 0);
 	z2 = (0, ir);
+	z3 = (0, -ir);
 
 	penpos1 (blot_diameter, 0);
 	penpos2 (stroke_width + blot_diameter, 0);
+	penpos3 (stroke_width + blot_diameter, 0);
 
 	pickup pencircle scaled (lr + blot_diameter);
 
-	for pp := 0 step 45 until 360:
-		drawdot (0, 0) shifted (ir * (dir pp));
+	for pp := 0 step 45 until 180:
+		drawdot z2 rotated pp;
+		drawdot z3 rotated pp;
 
-		penstroke (z1e
-			   -- z2e) rotated pp;
+		penstroke (z2e
+			   -- z1e
+			   -- z3e) rotated pp;
 	endfor;
 
 	pickup pencircle scaled lr;
@@ -383,35 +387,34 @@ fet_beginchar ("accOldEE", "accOldEE")
 	h := lh + lt;
 	b := w := (lh + hround accreg_linethickness) / 2;
 
-	penpos3 (hround accreg_linethickness, 0);
-	penpos4 (lt, 90);
-	penpos5 (hround accreg_linethickness, 180);
-	penpos6 (lt, 270);
+	penpos10 (hround accreg_linethickness, 0);
+	penpos11 (lt, 90);
+	penpos12 (hround accreg_linethickness, 180);
+	penpos13 (lt, 270);
 
-	z3r = (w, h / 2);
-	z4r = (0, h);
-	z5r = (-b, h / 2);
-	z6r = (0, 0);
+	z10r = (w, h / 2);
+	z11r = (0, h);
+	z12r = (-b, h / 2);
+	z13r = (0, 0);
 
-	% penlabels (1, 2, 3, 4, 5, 6);
+	% penlabels (1, 2, 10, 11, 12, 13);
 
 	% mf doesn't handle pixel dropouts in outline objects, so we use
 	% `draw' if not called by mpost
 	if known miterlimit:
-		penstroke z3e
-			  .. z4e
-			  .. z5e
-			  .. z6e
+		penstroke z10e
+			  .. z11e
+			  .. z12e
+			  .. z13e
 			  .. cycle;
 	else:
 		pickup pencircle xscaled accreg_linethickness yscaled lt;
-		draw z3
-		     .. z4
-		     .. z5
-		     .. z6
+		draw z10
+		     .. z11
+		     .. z12
+		     .. z13
 		     .. cycle;
 	fi;
-
 fet_endchar;
 
 
