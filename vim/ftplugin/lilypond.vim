@@ -53,8 +53,4 @@ map <buffer> <S-F12> :g/%.*/normal 0x<Return>
 " Completions in Insert/Replace-mode with <Ctrl-N>
 set dictionary-=~/.vim/syntax/lilypond.words.el dictionary+=~/.vim/syntax/lilypond.words.el
 set complete-=k complete+=k
-" errorformat for lily (with columns) and gcc
-" (how to see multiple-line error messages?)
-"
-se errorformat=%f:%l:%c:\ %m,%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m
 
