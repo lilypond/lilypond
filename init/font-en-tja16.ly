@@ -1,4 +1,4 @@
-% generated at Fri Sep 26 09:25:30 1997 from out/font-en-tja16.log
+% generated at Mon Sep 29 11:32:20 1997 from out/font-en-tja16.log
 % changes will be lost
 
 % font-en-tja=\symboltables {
@@ -17,9 +17,8 @@
 		"-2"	"\sixtyfourthrest"	-0.00\pt	5.33\pt	19.47\pt	-0.00\pt
 		"-2"	"\hundredtwentyeighthrest"	-0.00\pt	5.33\pt	23.47\pt	-0.00\pt
 		}
-	"beamslopes" = \table {
-		"uslope"	"\beamuslope{%}{%}"	2.00\pt	32.00\pt	0.00\pt	-0.00\pt
-		"dslope"	"\beamdslope{%}{%}"	2.00\pt	32.00\pt	0.00\pt	-0.00\pt
-		"horizontal"	"\rulesym{%}{%}"	-0.00\pt	0.00\pt	0.00\pt	-0.00\pt
+	"foobars" = \table {
+		"1"	"\sharp"	-0.00\pt	4.40\pt	6.00\pt	-6.00\pt
+		"0"	"\natural"	-0.00\pt	2.67\pt	6.00\pt	-6.00\pt
 		}
 	%  } % font-en-tja

@@ -1,23 +1,30 @@
-pl 17.jcn2
+
+pl 18
+	- bf: Box[X_AXIS] = b
+	- sharp sign, natural sign
+	- linethickness parametric
+	- bin/mf-deps.py script
+	- split into size/generic mf-files
+	- moved beams out of font-en-tja into vette-beams.  
+	- Made corresponding .cc changes.
+	
+
+jcn patches
 	- egcs compile (no link yet)
 	- nicer 4rest
 	- beam font (je kunt wel tegen een grapje, eva?)
 	- mf-to-table: 
 	  * "breapth" (x-depth) feature
 	  * handle generic stuff such as beams
-
-pl 17.jcn1
-	- all of the above
-
-pl 16.jcn3
 	- polished noteheads
 	- fixed 8-128 rests
 	- 4rest
 	- mf-to-table generates tex defs
 	- bf:mf-to-table and conflily outname check
-
-pl 16.jcn2
 	- 8-128 rests
+
+******
+sep 24
  
 pl 17
 	- bf: ledgerline width

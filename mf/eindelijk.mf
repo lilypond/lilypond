@@ -1,8 +1,6 @@
 % eindelijk.mf
 % LilyPond's own rest(s)
 
-define_pixels(interline);
-define_pixels(stafflinethickness);
 % MO*TeX stuff
 % nhh#:=interline#;
 % nhw#:=6/5*interline#;

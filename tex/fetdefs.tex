@@ -3,9 +3,11 @@
 
 \def\fetsixteendefs{
         \font\fontentja=font-en-tja16
+        \font\vetfont=vette-beams16
 }
 \def\fettwentydefs{
-	\font\fontentja=font-en-tja20
+        \font\fontentja=font-en-tja20
+        \font\vetfont=vette-beams20
 }
 
 % \def\fetdef#1#2{\def#1{\fetchar{#2}}}
@@ -15,14 +17,6 @@
 
 \input font-en-tja20
 
-\def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
-        \advance\count0 by \beamuslopestart
-	% huh?? -- think i followed taupin beam convention
-	% is lily confused?
-	\advance\count0 by -8
-        \fetchar\count0}}
-\def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
-        \advance\count0 by \beamdslopestart
-	% huh??
-	\advance\count0 by -8
-        \fetchar\count0}}
+\def\beamslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0by128
+        {\vetfont\char\count0}}}

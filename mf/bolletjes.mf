@@ -4,7 +4,6 @@
 % most beautiful bolletjes are pronounced, not circular, 
 % and not even symmetric.
 
-interline#:=staffsize#/(stafflines-1);
 %noteheight#:=interline#;
 % even more pronounced (almost overdone), just like the original
 noteheight#:=interline#+1.5stafflinethickness#;

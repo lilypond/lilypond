@@ -23,8 +23,7 @@
 Atom
 Lookup::beam_element (int sidx, int widx, Real slope) const
 {
-  char dir_char = slope >0 ? 'u' : 'd';
-  String name = dir_char + String("slope");
+  String name = String("slope");
   Atom bs=(*symtables_)("beamslopes")->lookup (name);
   
   Array<String> args;
@@ -38,24 +37,6 @@ Lookup::beam_element (int sidx, int widx, Real slope) const
   return bs;
 }
 
-// ugh.. hard wired tex-code.
-static int
-slope_index (Real &s)
-{
-  if (abs (s) > 0.5)
-    {
-      WARN << "beam steeper than 0.5 (" << s << ")\n";
-      s = sign (s) * 0.5;
-    }
-
-  int i = int (rint (s *  20.0));
-
-  s = i/20.0;
-  if (s>0)
-    return 6*i;
-  else
-    return -6 * i;
-}
 
 Atom
 Lookup::rule_symbol (Real height, Real width) const
@@ -73,24 +54,32 @@ Lookup::rule_symbol (Real height, Real width) const
 Atom
 Lookup::beam (Real &slope, Real width) const
 {        
-  int sidx = slope_index (slope);
-  if (!slope)
-    return rule_symbol (2 PT, width);
+  int sidx = 0;
+  if (abs (slope) > 1.0)
+    {
+      WARN << "beam steeper than 1.0 (" << slope << ")\n";
+      slope = sign (slope);
+    }
 
-  Interval xdims = (*symtables_)("beamslopes")->lookup ("uslope").dim_[X_AXIS];
+  sidx = int (rint (slope *  20.0));
+  slope = sidx / 20.0;
+  
+  Interval xdims = (*symtables_)("beamslopes")->lookup ("slope").dim_[X_AXIS];
   Real min_wid = xdims[LEFT];
   Real max_wid = xdims[RIGHT];
-
+  assert(max_wid > 0);
+  int widths = intlog2 (int (max_wid/min_wid)) + 1;
+  
   if (width < min_wid) 
     {
       WARN<<"Beam too narrow. (" << print_dimen (width) <<")\n";
       width = min_wid;
     }
-  Real elemwidth = max_wid;
-  int widx = intlog2 (int (max_wid/min_wid));
-
-  Molecule m;
   
+  Real elemwidth = max_wid;
+  
+  int widx  =widths - 1;
+  Molecule m;
   while (elemwidth > width) 
     {
       widx --;
@@ -99,7 +88,7 @@ Lookup::beam (Real &slope, Real width) const
   Real overlap = elemwidth/4;
   Real last_x = width - elemwidth;
   Real x = overlap;
-  Atom elem (beam_element (sidx, widx, slope));
+  Atom elem (beam_element (sidx * widths, widx, slope));
   m.add (elem);
   while (x < last_x) 
     {

@@ -55,8 +55,8 @@ Lookup::half_slur_middlepart (Real &dx, Direction dir) const
 
   Atom s;
   
-  s.dim_.y() = Interval (min (0,0), max (0,0)); // todo
-  s.dim_.x() = Interval (0,dx);
+  s.dim_[Y_AXIS] = Interval (min (0, 0), max (0, 0)); // todo
+  s.dim_[X_AXIS] = Interval (-dx/2, dx/2);
 
   String f =  String ("\\hslurchar");
   f += direction_char (CENTER);
@@ -73,6 +73,11 @@ Lookup::half_slur_middlepart (Real &dx, Direction dir) const
 
   return s;
 }
+
+/*
+   The halfslurs have their center at the end pointing away from the notehead.  
+   This lookup translates so that width() == [0, w]
+ */
 
 Atom
 Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
@@ -99,8 +104,8 @@ Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
     }
 	
   Atom s;
-  s.dim_.x() = Interval (0,dx);
-  s.dim_.y() = Interval (min (0,dy), max (0,dy));
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (min (0, dy), max (0, dy));
 
 
   String f = String ("\\hslurchar");
@@ -171,17 +176,18 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
     }
   
   Atom s;
-  s.dim_.x() = Interval (-dx/2,dx/2);
-  s.dim_.y() = Interval (min (0,dy), max (0,dy));
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (min (0, dy), max (0, dy));
 
   String f = String ("\\slurchar") + String (direction_char (y_sign));
 
   int idx=-1;
-  if (y_sign) {	
-    idx = hidx * 16 + widx;
-    if (dir < 0)
-      idx += 128;
-  }
+  if (y_sign) 
+    {	
+      idx = hidx * 16 + widx;
+      if (dir < 0)
+	idx += 128;
+    }
   else 
     {
       if (dx >= 4*54 PT) 
@@ -222,17 +228,18 @@ Lookup::big_slur (int dy , Real &dx, Direction dir) const
   Real right_wid = left_wid;
 
   Atom l = half_slur (l_dy, left_wid, dir, -1);
+  
+   
   Atom r = half_slur (r_dy, right_wid, dir, 1);
   Real mid_wid = dx - left_wid - right_wid;
 
   Molecule mol;
   mol.add (l);
   Atom a (half_slur (0, mid_wid, dir, 0));
-  a.translate (slur_extra * internote_f, Y_AXIS);
   mol.add_at_edge (X_AXIS, RIGHT, a);
   mol.add_at_edge (X_AXIS, RIGHT, r);
+
   mol.translate (l_dy * internote_f, Y_AXIS);
-  
   Atom s;
   s.tex_ = mol.TeX_string();
   s.dim_ = mol.extent();

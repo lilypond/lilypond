@@ -66,7 +66,6 @@
         \balkheight=20pt
         \notewidth=7.15pt
         \noteheight=5pt
-        \staffrulethickness=0.4pt
         \musixtwentyfonts
         \font\textmusic=cmmi12
         \musixcalc
@@ -74,7 +73,6 @@
 
 \def\musixsixteendefs{
         \balkheight=16pt
-        \staffrulethickness=0.4pt
         \notewidth=5.93pt
         \noteheight=4pt
         \musixsixteenfonts
@@ -97,6 +95,10 @@
         \smallspace=.3\interlinedist
         \interstaffrule=\balkheight
         \divide\interstaffrule by 4
+
+        %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
+        % We know better
+        \staffrulethickness=0.1\interlinedist
 }
 
 

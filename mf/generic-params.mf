@@ -1,0 +1,9 @@
+
+interline#:=staffsize#/(stafflines-1);
+  
+        %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
+        % We know better
+stafflinethickness#:=0.1 interline#;
+
+define_pixels(interline);
+define_pixels(stafflinethickness);

@@ -8,5 +8,6 @@
 	- check out Adobe Sonata/Petrucci font layout.  They are the
 standard for Music fonts
 	- rewrite : make a metafont iso font
+	- perl script to generate dependencies for mf 
 l
 

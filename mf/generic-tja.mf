@@ -1,0 +1,25 @@
+
+
+% better versions of Taupin/Egler savepic cmds
+%
+%
+picture save_picture_stack[];
+numeric stack_idx;
+stack_idx := 0;
+
+def push_picture(expr p) = save_picture_stack[incr stack_idx] := p enddef;
+def push_current = push_picture (currentpicture) enddef;
+def pop_picture =  save_picture_stack[ decr stack_idx] enddef;
+def top_picture = save_picture_stack[stack_idx] enddef;
+
+
+def scaledabout(expr point, scale) =
+	shifted -point scaled scale shifted point
+enddef;
+
+
+input generic-params;
+input bolletjes;
+input eindelijk;
+input toevallig;
+

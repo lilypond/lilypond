@@ -22,13 +22,9 @@ struct Atom {
 
   String str() const;		// for printing.
   Atom (String, Box);
-    Atom ();
-  void translate (Offset o) {
-    off_ += o;
-  }
-  void translate (Real r,Axis a){
-    off_[a] += r;
-  }
+  Atom ();
+  void translate (Offset o);
+  void translate (Real r,Axis a);
   /// how big is #this#?
   Box extent() const;
   void print() const;

@@ -20,7 +20,8 @@ TestedFeatures	font-en-tja
 		[c8 c] [a' a']
 %		[c a'] [a' c]
 		[c d e f] [a' g' f' e']
-		r1 r2 r4 r8 r16 r32 r64 r128
+		[cis' dis' c' d'] [cisis' disis' ceses' deses']
+		  r1 r2 r4 r8 r16 r32 r64 r128
 	}
 	\paper{ 
 	    \paper_twenty
