@@ -3,6 +3,8 @@
 	* lily/slur-scoring.cc (score_edges): add exp(slope*dir*leftright)
 	factor in edge attraction. This reflects that the left edge may
 	have a larger gap for an ascending up-slur.
+	(get_base_attachments): copy bound Y from right bound, if there is
+	only one note-column after the line break.
 
 2004-09-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
