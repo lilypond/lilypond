@@ -67,12 +67,13 @@ final-install:
 
 web-ext = gz html midi pdf png txt ly
 
-footify = MAILADDRESS=bug-lilypond@gnu.org  $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
+footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
+footifymail = MAILADDRESS=bug-lilypond@gnu.org
 
 local-WWW-post:
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
-	cd $(builddir) && $(footify) `$(FIND) . -name '*.html' -print`
-	cd $(builddir) && rm -f `find . -name \*.html~ -print`
+	cd $(builddir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
+	cd $(builddir) && find . -name \*.html~ -print | xargs rm -f
 	cd $(builddir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
 		> $(outdir)/weblist
