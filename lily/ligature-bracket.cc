@@ -146,4 +146,4 @@ Ligature_bracket::brew_molecule (SCM smob)
 
 ADD_INTERFACE(Ligature_bracket, "ligature-bracket-interface",
 	      "",
-	      "width height");
+	      "width thickness height");

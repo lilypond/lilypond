@@ -1,3 +1,10 @@
+2002-04-18  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Toggles font-lock-multiline (Emacs 21.1 or newer).
+
+	* lilypond-font-lock.el: Handles multiline-strings. Fontifies notes 
+	more strictly. Use more clever regular expressions. Commented regexps.
+
 2002-04-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: "C-c f" does font-lock-fontify-buffer.

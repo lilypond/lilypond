@@ -35,7 +35,7 @@
 "alias" "\\(altern\\|rel\\)ative" "apply" "arpeggio" "autochange" "bar" "break"
 "breathe" "breve" "beamintervals" "broken" "blend" "\\(bc\\|end\\)incipit" 
 "ch\\(ar\\)?" "cg" "chord\\(s\\|stest\\|\\(chord\\)?modifiers\\)?"
-"clef[ \t]*\\(F\\|G\\|alto\\|baritone\\|bass\\|\\(mezzo\\)?soprano\\|treble\\|violin\\|tenor\\)?"
+"clef[ \t]*\"?\\(F\\|G\\|alto\\|baritone\\|bass\\|\\(mezzo\\)?soprano\\|treble\\|violin\\|tenor\\)?\"?"
 "clipping" "[cm]m" "coda" "complex" 
 "\\(command\\)?spanrequest" "consists\\(end\\)?"
 "context" "contrabasso" "\\(de\\)?cr" "default" "denies" "different" "dirs"
@@ -117,48 +117,68 @@
 ;; font-lock- comment / string / keyword / builtin / function-name / 
 ;;            variable-name / type / constant / warning -face
 
+;; The order below is designed so that proofreading would be possible.
+
+;; Fontify...
+;; ... first identifiers and keywords.
+;; ... then other expressions having '\'-mark in the beginning.
+;; ... the right and the left side of '='-marks.
+;; ... reserved words, e.g., FiguredBass.
+;; ... notes and rests
+;; "on top", 6) ... '<{[]}>'-brackets
+;; "on top", 7) ... ties, slurs and hairpins
+;; "on top", 8) ... (multiline-)scheme; urgh. one should count the slurs
+;; "on top", 9) ... strings
+;; "on top", 10) ... (multiline-)comments
+
+;; One should note 'font-lock-multiline' has been possible since Emacs 21.1.
+;; See, e.g., text in "http://emacs.kldp.org/emacs-21.1/etc/NEWS".
+
+;; ... identifiers (defined above, see iregex)
+      (cons (concat "\\(\\([_^-]?\\(" iregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-function-name-face))
+
+;; ... keywords (defined above, see kwregex)
+      (cons (concat "\\(\\([_^-]?\\(" kwregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-keyword-face))
+
+;; ... keyword-type constructs, e.g., ^\abracadabra
       '("\\([_^-]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
+
+;; ... the left sid e of '=' -mark
       '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
+
+;; ... the right side of '=' -mark
       '("[ \t]*=[ \t]*\\([_a-zA-Z.0-9-]+\\)" 1 font-lock-variable-name-face)
 
-
-;; other reserved words
+;; ... reserved words (defined above, see rwregex)
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
-;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("\\([sR]\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*[ \t]*[*][ \t]*[0-9]+\\)"1 font-lock-type-face)
-      '("[ <\{[~(!)\t\\\|]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+;; ... multiplied rests, e.g., R1 *8
+      '("\\([sR]\\(128\\|6?4\\|3?2\\|16?\\|8\\)?[.]*[ \t]*[*][ \t]*[0-9]+\\)"1 font-lock-type-face)
 
-;; highlight identifiers
-      (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\_-()^]\\)") '(0 font-lock-function-name-face t))
+;; ... notes and rests, accidentals and duration, e.g., a,?16..
+      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\|[srR]\\)\\(128\\|6?4\\|3?2\\|16?\\|8\\)?[.]*\\)" 2 font-lock-type-face)
 
-;; highlight keywords
-      (cons (concat "\\([_^-]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\_-()^]\\)") '(0 font-lock-keyword-face t))
-
-;; highlight bracketing constructs
+;; "on top", ... '{[]}'-brackets
       '("\\([][}{]\\)" 0 font-lock-warning-face t)
-      ;; these regexps allow angle-brackets to be highlighted when and only when they delimit simultaneous music
-      ;; fontify open < but leave crescendos \< alone
-      '("\\([^\\]\\|^\\)\\(<\\)" 2 font-lock-warning-face t)
-      ;; fontify the close-brackets in <a b c--> (tenuto) and <a b c-^> (marcato)
-      '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t) 
-      ;; but leave a b c-> (accent) alone, accounting for whitespace
-      '("\\([^\\t\\n _^-]\\|^\\)\\s-*\\(>\\)" 2 font-lock-warning-face t)
-      ;; ties ~, slurs \( () \), hairpins \<,  \>, end-of-hairpin \!, 
+
+;; "on top", ... '<>'-brackets, not marcato '->'
+      '("\\(\\(-.\\)+\\|[^-^_]\\)\\([[<>]+\\)" 3 font-lock-warning-face t) 
+
+;; "on top", ... ties ~, slurs \( () \), hairpins \<, \>, \! 
       '("\\(\\\\[(<!>)]\\|[(~)]\\)" 0 font-lock-builtin-face t)
 
-;; highlight scheme: handle slurs up to seventh level
+;; "on top", ... (multiline-)scheme: try find slurs up to 7th
       '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z-:]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
 
-;; highlight strings: urgh. should hangle strings in strings, i.e., \\\"
-      '("\\([_^-]?\"[^\"]*\"\\)" 0 font-lock-string-face t)
+;; "on top", ... strings
+      '("\\([_^-]?\"\\([^\"\\\\]\\|\\\\.\\|\\\\\n\\)*\"\\)" 0 font-lock-string-face t)
 
-;; highlight (block) comments; urgh. block comments should be updatable
+;; "on top", ... (multiline-)comments
       '("\\(%\\({[^%]*%\\(}\\|\\([^}][^%]*%\\)+}\\)\\|.*\\)\\)" 0 font-lock-comment-face t)
 
       )
     )
-  "Additional expressions to highlight in LilyPond mode.")
+  "Additional expressions to fontify in LilyPond mode.")
 
 ;; define a mode-specific abbrev table for those who use such things
 (defvar LilyPond-mode-abbrev-table nil

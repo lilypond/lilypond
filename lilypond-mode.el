@@ -656,9 +656,14 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (make-local-variable 'font-lock-defaults)
   (setq font-lock-defaults '(LilyPond-font-lock-keywords))
 
-  ; string and comments are fontified explicitly
+  ;; string and comments are fontified explicitly
   (make-local-variable 'font-lock-keywords-only)
   (setq font-lock-keywords-only t)
+
+  ;; Multi-line font-locking needs Emacs 21.1 or newer.
+  ;; For older versions there is hotkey "C-c f".
+  (make-local-variable 'font-lock-multiline) 
+  (setq font-lock-multiline t) 
 
   (make-local-variable 'paragraph-separate)
   (setq paragraph-separate "^[ \t]*$")
