@@ -1,4 +1,7 @@
 pl 13.jcn1
+	- untangled Chord_name (item) and Chord (list-of-pitches)
+	
+pl 13.jcn1
 	- bezier-bow fix
 
 pl 12.hwn1

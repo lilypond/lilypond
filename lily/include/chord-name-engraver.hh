@@ -28,7 +28,7 @@ protected:
 
 private:
   Array<Musical_pitch> pitch_arr_;
-  Chord* chord_p_;
+  Chord_name* chord_name_p_;
   Tonic_req* tonic_req_;
   Inversion_req* inversion_req_;
   Bass_req* bass_req_;

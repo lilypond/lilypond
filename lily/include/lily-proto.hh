@@ -60,6 +60,7 @@ struct Cadenza_req;
 struct Change_iterator;
 struct Change_translator;
 struct Chord;
+struct Chord_name;
 struct Chord_name_engraver;
 struct Chord_tremolo; 
 struct Chord_tremolo_engraver;
