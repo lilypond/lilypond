@@ -416,7 +416,8 @@ object.")
      (slope ,number? "The slope of this object.")
      (slope-limit ,number? "Set slope to zero if slope is running away
 steeper than this.")
-
+     (slur-details ,list?
+		   "An alist of scoring parameters for slur formatting")
      (space-alist ,list? "A table that specifies distances between
 prefatory items, like clef and time-signature. The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
