@@ -288,10 +288,8 @@
 
 	  `(x . ,(- breapth))
 	  `(y . ,(- height))
-	  ;;`(y . ,(* 4 (- height)))
 	  `(width . ,(+ breapth width))
 	  `(height . ,(+ depth height))
-	  ;;`(height . ,(* 4 (+ depth height)))
 	  `(ry . ,(/ blot-diameter 2))
 	  `(transform
 	    . ,(format #f "scale (~f, ~f)" output-scale output-scale))))
