@@ -114,8 +114,8 @@ Collision::do_pre_processing()
       Note_column *cd_l =clash_groups[DOWN][0];
       Note_head * nu_l= cu_l->head_l_arr_[0];
       Note_head * nd_l = cd_l->head_l_arr_.top();
-      int downpos = 	cd_l->head_positions_interval ()[SMALLER];
-      int uppos = 	cu_l->head_positions_interval ()[BIGGER];      
+      int downpos = 	cd_l->head_positions_interval ()[BIGGER];
+      int uppos = 	cu_l->head_positions_interval ()[SMALLER];      
       
       bool merge  =
 	downpos == uppos
