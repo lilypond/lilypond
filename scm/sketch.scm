@@ -30,8 +30,9 @@
 ;;    ))
 
 
-;; guile < 1.4 compatibility for eval
-(if (or (equal? (minor-version) "4")
+;; guile <= 1.4.x compatibility for eval
+(if (or (equal? (minor-version) "4.1")
+	(equal? (minor-version) "4")
 	(equal? (minor-version) "3.4"))
     (define (ly-eval e m)
       (eval-in-module e m))
