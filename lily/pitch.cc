@@ -165,7 +165,7 @@ interval (Pitch const & from , Pitch const & to )
 /* FIXME
    Merge with *pitch->text* funcs in chord-name.scm
  */
-char const *accname[] = {"eses", "eseh", "es", "eh" "",
+char const *accname[] = {"eses", "eseh", "es", "eh", "",
 			 "ih", "is" , "isih",  "isis"};
 
 String

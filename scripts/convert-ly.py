@@ -1558,7 +1558,7 @@ Please hand-edit, using
 as a substitution text.""" % (m.group (1), m.group (2)) )
 		raise FatalConversionError ()
 
-	if re.search ("ly:(make-pitch|ly:pitch-alteration)", str):
+	if re.search ("ly:(make-pitch|pitch-alteration)", str):
 		sys.stderr.write (
 """The alteration field of Scheme pitches was multiplied by 2
 to support quarter tone accidentals. Please edit ly:make-pitch and

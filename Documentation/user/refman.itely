@@ -109,6 +109,9 @@ names are the Dutch note names.  In Dutch, @code{aes} is contracted to
 Half-flats and half-sharps are formed by adding @code{-eh} and
 @code{-ih}; the following is a series of Cs with increasing pitches:
 
+@cindex quarter tones
+@cindex semi-flats, semi-sharps
+
 @lilypond[verbatim,relative 2]
   ceses4
   ceseh
@@ -813,7 +816,7 @@ using @code{\override} or @code{\set}.  At the moment that
 @code{\property Staff} is interpreted, a @internalsref{Staff} context
 is made, and the @internalsref{StaffSymbol} is created before any
 @code{\override} is effective. Properties can be changed in a
-@code{\translator} definition, or by using @code{\outputproperty}.
+@code{\translator} definition, or by using @code{\applyoutput}.
 
 @refbugs
 
@@ -3708,7 +3711,7 @@ chord.
 You can change the number of strings, by setting the number of lines
 in the @internalsref{TabStaff} (the @code{line-count} property of
 @internalsref{TabStaff} can only be changed using
-@code{\outputproperty}, for more information, see @ref{Tuning
+@code{\applyoutput}, for more information, see @ref{Tuning
 objects}).
 
 You can change the tuning of the strings. A string tuning is given as
@@ -3722,8 +3725,8 @@ g:
 @lilypond[fragment,verbatim]
   \context TabStaff <<
 
-    \outputproperty #(make-type-checker 'staff-symbol-interface)
-                    #'line-count = #4
+    \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface)
+                    'line-count 4)
     \property TabStaff.stringTunings =  #'(-5 -10 -15 -20)
     
     \notes {
@@ -4887,7 +4890,7 @@ Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "vaticana_do2" c
 @end lilypond
@@ -4898,7 +4901,7 @@ Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "vaticana_fa2" c
 @end lilypond
@@ -4909,7 +4912,7 @@ Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "medicaea_do2" c
 @end lilypond
@@ -4920,7 +4923,7 @@ Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "medicaea_fa2" c
 @end lilypond
@@ -4931,7 +4934,7 @@ historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "hufnagel_do2" c
 @end lilypond
@@ -4942,7 +4945,7 @@ historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
 @lilypond[relative 0, notime]
 \context Staff
-\outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #4
+\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "hufnagel_fa2" c
 @end lilypond

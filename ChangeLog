@@ -1,5 +1,7 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PACKAGE_NAME): release 1.9.7
+
 	* Documentation/topdocs/NEWS.texi (Top): add quarter tones.
 
 	* Documentation/user/refman.itely (Pitches): doc quarter tones.
@@ -7,7 +9,8 @@
 	* lily/pitch.cc (LY_DEFINE): ly:pitch-quartertones: new function
 	(quartertone_pitch): new function
 
-	* mf/feta-toevallig.mf: add 3/4 sharp, 1/4 sharp, 1/4 flat.
+	* mf/feta-toevallig.mf: add 3/4 sharp, 1/4 sharp, 1/4 flat, 3/4
+	flat. WARNING: FONT CHANGED.
 
 	* ly/nederlands.ly: add -eh and -ih for quarter tones.
 
@@ -23,7 +26,7 @@
 
 	* lily/lily-guile.cc: remove ly:verbose?
 
-	* lily/scm-option.cc (LY_DEFINE): add verbose to  get-option.
+	* lily/scm-option.cc (LY_DEFINE): add verbose to get-option.
 
 	* lily/parser.yy (TODO): only do gh_call() for apply with
 	procedure argument.
@@ -59,6 +62,8 @@
 
 2003-09-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.9.6
+	
 	* lilypond-mode.el (LilyPond-command-alist): invoke lilypond
 	iso. ly2dvi.
 
@@ -97,7 +102,7 @@
 	it would be too small.
 
 	* lily/font-metric.cc: return #f for non-existent glyph.
-
+	
 	* VERSION (MY_PATCH_LEVEL): read VERSION; version number is now
 	exported through config.make.
 
