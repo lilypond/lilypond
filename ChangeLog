@@ -1,3 +1,8 @@
+2004-10-28  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* Documentation/user/notation.itely (Fret diagrams): add extra
+	notes to example to avoid collisions between fret diagrams.
+
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/scm-option.cc: add 'resolution to ly:get-option argument
