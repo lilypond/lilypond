@@ -1,0 +1,6 @@
+# lib/include/Makefile.am.wild
+
+noinst_HEADERS = $(wildcard *.hh *.icc *.tcc)
+
+EXTRA_DIST = Makefile.am.wild
+
