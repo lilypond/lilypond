@@ -28,7 +28,7 @@ public:
 	void reset();
 	void set_division_4( int division_4_i );
 	void set_key( int accidentals_i, int minor_i );
-	void set_tempo( int useconds_i );
+	void set_tempo( int useconds_per_4_i );
 	void set_time( int num_i, int den_i, int clocks_i, int count_32_i );
 
 	int bar_i_;
