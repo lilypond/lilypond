@@ -87,6 +87,10 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 %%
 
 
+<*>\r		{
+	// windows-suck-suck-suck
+}
+
 <notes,incl,INITIAL,lyrics>{
   "%{"	{
 	yy_push_state(longcomment);
