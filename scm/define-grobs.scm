@@ -735,7 +735,7 @@
 	(edge-height . (1.0 . 1.0))
 	(shorten-pair . (0.0 . 0.0))
 	(thickness .  1.0)
-	(meta . ((interfaces . (text-spanner-interface piano-pedal-bracket-interface spanner-interface))))
+	(meta . ((interfaces . (text-spanner-interface piano-pedal-interface piano-pedal-bracket-interface spanner-interface))))
 	))
 
     (RepeatSlash

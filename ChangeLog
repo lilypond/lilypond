@@ -1,5 +1,7 @@
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): rule for pedal-style  
+
 	* lily/text-spanner.cc (brew_molecule): use bracket-flare
 	iso. edge-widen.
 

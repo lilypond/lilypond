@@ -71,6 +71,10 @@ are interesting enough to maintain a hara-kiri staff."
  "tablature notes"
  '())
 
+(ly:add-interface
+ 'piano-pedal-interface
+ "A piano pedal sign"
+ '())
 
 
 ;; todo: figure out where  to put this doco:

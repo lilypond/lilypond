@@ -3029,10 +3029,10 @@ where @var{X} is one of the pedal types: @code{Sustain},
 documentation of @internalsref{SustainPedal} for more information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the 
-@code{pedal-type} property of @internalsref{SustainPedal} objects: 
+@code{pedalSustainStyle} property to @code{bracket} objects: 
 
 @lilypond[fragment,verbatim]
- \property Staff.SustainPedal \override #'pedal-type = #'bracket
+ \property Staff.pedalSustainStyle = #'bracket
  c''4-\sustainDown d''4 e''4
  a'4-\sustainUp-\sustainDown
  f'4 g'4 a'4-\sustainUp
@@ -3042,7 +3042,7 @@ A third style of pedal notation is a mixture of text and brackets,
 obtained by setting @code{pedal-type} to @code{mixed}:
 
 @lilypond[fragment,verbatim]
-\property Staff.SustainPedal \override #'pedal-type = #'mixed
+ \property Staff.pedalSustainStyle = #'mixed
 c''4-\sustainDown d''4 e''4
 c'4-\sustainUp-\sustainDown
  f'4 g'4 a'4-\sustainUp
@@ -3084,8 +3084,8 @@ You can specify an arpeggio sign on a chord by attaching an
   <<c e g c>>-\arpeggio
 @end lilypond
 
-When an arpeggio crosses staves in piano music, you attach an arpeggio
-to the chords in both staves, and set
+When an arpeggio crosses staves, you attach an arpeggio to the chords
+in both staves, and set
 @internalsref{PianoStaff}.@code{connectArpeggios}.
 
 @lilypond[fragment,relative,verbatim]
@@ -3095,9 +3095,6 @@ to the chords in both staves, and set
     \context Voice = other { \clef bass  <<c,, e g>>-\arpeggio }
   >
 @end lilypond
-
-This command creates @internalsref{Arpeggio} objects.  Cross staff
-arpeggios are @internalsref{PianoStaff}.@internalsref{Arpeggio}.
 
 The direction of the arpeggio is sometimes denoted by adding an
 arrowhead to the wiggly line.  This can be typeset by setting
@@ -3130,6 +3127,12 @@ arpeggiate the chord. To draw these brackets, set the
 @code{\arpeggioBracket}, 
 @cindex @code{\arpeggio}
 @code{\arpeggio}, 
+
+@seealso
+
+@internalsref{ArpeggioEvent} expression lead to
+@internalsref{Arpeggio} objects.  Cross staff arpeggios are
+@internalsref{PianoStaff}.@internalsref{Arpeggio}.
 
 @refbugs
 
@@ -3175,7 +3178,7 @@ The associated object is @internalsref{VoiceFollower}.
 @node Vocal music
 @section Vocal music
 
-This section discusses how to enter, and print lyrics.
+This section discusses how to enter and print lyrics.
 
 @menu
 * Entering lyrics::             
@@ -3214,7 +3217,6 @@ syllable includes a @code{@}}, and hence the opening brace is not balanced.
 @example
   \lyrics @{ twinkle@}
 @end example
-which may be confusing. 
 
 @cindex @code{\property}, in @code{\lyrics}
 Similarly, a  period following a alphabetic sequence, is included in the
@@ -3323,7 +3325,7 @@ putting both together, you would get
 @cindex SATB
 @cindex choral score
 
-An example of a  SATB score setup is in the file
+A complete example of a SATB score setup is in the file
 @inputfileref{input/template,satb}.
 
 @seealso
@@ -3367,8 +3369,8 @@ that identity followed by a dash.  In the preceding example, the
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
 The convention for naming @internalsref{LyricsVoice} and
-@internalsref{Voice} must also be used to get melismata on rests
-correct.
+@internalsref{Voice} must also be used to get melismata correct in
+conjunction with rests.
 
 The complete example is shown here.
 @lilypond[singleline,verbatim]
@@ -3398,9 +3400,7 @@ surrounded with spaces in @code{\lyrics} mode.
     \property LyricsVoice . stanza = "Ernie" 
 @end example
 
-You can use empty syllables, e.g. @code{_4} or @code{" "4} to enter
-lyrics. This can confuse the LilyPond -- for example, this might put
-(empty) lyrics under rests. To remedy this, use @code{\skip} instead.
+To make empty spaces in lyrics, use @code{\skip}.
 
 
 
@@ -3420,7 +3420,7 @@ it contains @code{"bar"}.  However, it could also be interpreted as
 making or a music identifier @code{\foo} containing the syllable
 `bar'.  The force the latter interpretation, use
 @example
-  foo = \lyrics bar
+  foo = \lyrics bar4
 @end example
 
 
@@ -3523,10 +3523,9 @@ are printed as tablature, by using @internalsref{TabStaff} and
 }
 @end lilypond
 
-If you do not specify a string number then one is selected
-automatically: the first string that does not give a fret number less
-than @code{minimumFret} is selected. The default value for
-@code{minimumFret} is 0.
+When no string is specified, the first string that does not give a
+fret number less than @code{minimumFret} is selected. The default
+value for @code{minimumFret} is 0.
 
 
 @example
@@ -3568,7 +3567,8 @@ chord.
 You can change the number of strings, by setting the number of lines
 in the @internalsref{TabStaff} (the @code{line-count} property of
 @internalsref{TabStaff} can only be changed using
-@code{\outputproperty}, for more information, see @ref{Tuning objects}.
+@code{\outputproperty}, for more information, see @ref{Tuning
+objects}).
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number
@@ -3600,20 +3600,20 @@ note pitch.
 
 @refbugs
 
-As tablature is a recent feature, most of the guitar special effects
-such as bend are not yet supported.
+Most of the guitar special effects such as bend have not been
+implemented yet.
+
 
 
 @node Chord names
 @section Chord names
 @cindex Chords
 
-LilyPond has support for both entering and printing named chords.
-These chords are internally represented as a set of pitches. Therefore
-they can be entered by name and printed as notes, entered as notes and
-printed as chord names, or (the most common case) entered them by
-name, and print them as name. The following fragment shows these
-options:
+LilyPond has support for both printing chord names.  Chords may be
+entered in musical chord notation, i.e. @code{<< .. >>}, but they can
+also be entered by name. Internally, the chords are represented as a
+set of pitches, so they can be transposed.
+
 
 @lilypond[verbatim,singleline]
 twoWays = \notes \transpose c c' {
@@ -3631,8 +3631,8 @@ twoWays = \notes \transpose c c' {
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
-be intelligent. The chord @code{f bes d}, is not interpreted as an
-inversion.
+be intelligent. The last chord (@code{f bes d}) is not interpreted as
+an inversion.
 
 
 @menu
@@ -3735,8 +3735,9 @@ as bass notes, can be specified by appending
    \chords { c1 c/g c/f }
 @end lilypond 
 @cindex @code{/+}
-If you do not want to remove the bass note from the chord, but rather
-add the note, then you can use @code{/+}@var{pitch}.
+
+A bass note can be added instead of transposed out of the chord,
+by using  @code{/+}@var{pitch}.
 
 @lilypond[fragment,verbatim,center]
    \chords { c1 c/+g c/+f }
@@ -3759,9 +3760,6 @@ last.
   \chords { c:5.5-.5+ }
 @end lilypond
 
-In chord mode, dashes and carets are used to indicate chord additions
-and subtractions, so articulation scripts cannot be entered.
-
 
 @node Printing chord names
 @subsection Printing chord names
@@ -3776,7 +3774,7 @@ described above, or directly using @code{<<} and @code{>>}.
 
 @lilypond[verbatim,singleline]
 scheme = \notes {
-  \chords {a1 b c} <<d' f' g'>>  <<e' g' b'>>
+  \chords {a1 b c} <<d' f' a'>>  <<e' g' b'>>
 }
 \score {
   \notes<
@@ -3791,7 +3789,7 @@ You can make the chord changes stand out by setting
 display chord names when there is a change in the chords scheme and at
 the start of a new line.
 
-@lilypond[verbatim]
+@lilypond[verbatim, linewidth=9cm]
 scheme = \chords {
   c1:m c:m \break c:m c:m d
 }
@@ -3802,17 +3800,14 @@ scheme = \chords {
         \scheme }
     \context Staff \transpose c c' \scheme
   >
-\paper{linewidth= 9.\cm}
 }
 @end lilypond
 
 The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (See @ref{Literature}).
+Klaus Ignatzek (See @ref{Literature}).  It can be tuned through the
+following properties:
 
-The Ignatzek chord name formatting can be tuned in a number of ways
-through the following properties:
 @table @code
-
 @cindex chordNameExceptions
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
@@ -3837,7 +3832,7 @@ separators, e.g.
 \context ChordNames \chords {
       c:7sus4
       \property ChordNames.chordNameSeparator
-        = \markup { "|" }
+        = \markup { \typewriter "|" }
       c:7sus4 }
 @end lilypond
 
@@ -3850,10 +3845,10 @@ B-chord) can be produced by storing a new function in this property.
 
 @cindex chordNoteNamer
 @item chordNoteNamer
-The default is to print single notes (as for instance the bass note)
-using the @code{chordRootNamer}. However, by setting this function to a non-null
-value you can specify a different function. I.e. you could use letters
-in lower case for the base note.
+The default is to print single pitch, e.g. the bass note, using the
+@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
+to a specialized function to change this behavior.  For example, the
+base can be printed in lower case.
 
 @end table
 
