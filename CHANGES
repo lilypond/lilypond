@@ -1,5 +1,48 @@
-1.3.102.jcn1
+1.3.103.jcn5
 ============
+
+* Documentation build fix: don't run LilyPond when generating plain info doc.
+
+* Resurrected info documentation and made cross links between manual
+and generated doco, some small fixes.
+
+* Made small Time signature style fix.
+
+* Generate texinfo iso html documentation.
+
+* Added x-references for elements->engravers and engravers->contexts.
+
+* Fixed number font listing in style sheet.
+
+* Fixed default font settings for text items, text-item now uses
+font-interface's alist-chain.
+
+* Renamed property AutoBeam to autoBeamSettings to avoid confusion
+about non-existing AutoBeam element.
+
+* Mensural clefs (courtesy Juergen Reuter)
+
+1.3.103.lec1
+============
+
+* abc2ly enhancements
+
+	* %%LY comments
+
+	* explanation of rationale for %%MIDI nobarlines
+
+	* supports -8va as a syntax for tenor clef
+
+	* pushing the Staff.timeSignatureStyle property
+
+	* parses space between key letter and mode in K: statement
+
+	* default for guitar chords is above the staff
+
+	* fix for translation of :: repeat
+
+1.3.103
+=======
 
 * Translated auto-beam properties to alist.
 
