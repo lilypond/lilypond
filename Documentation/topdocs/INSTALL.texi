@@ -546,16 +546,19 @@ and:
         fink install tetex
 @end example        
 
+For more information about @file{apt-get} and @file{fink}, see
+@uref{http://fink.sf.net,fink.sourceforge.net}.
+
 @c  brokenness of autoconf; don't ask
 Then, configure, patch, make and install LilyPond using these commands:
 
 @example
         CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
             ./configure --prefix=/sw
-        make -C lily out/parser.hh out/parser.cc
+        make -C lily out/parser.hh out/parser.cc out/config.h
         patch -p0 < darwin.patch
         make -C lily out/parser.o
-        make all
+        make DEPENDENCIES_OUTPUT=/dev/null all
         make install
 @end example
 
@@ -583,11 +586,6 @@ LilyPond with gcc-3.0 you may do:
 @end example
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
-
-@unnumberedsubsec Python-2.1[.1]
-
-Regular expressions are broken in Python 2.1.[.1], either upgrade or
-downgrade python.
 
 @unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
 

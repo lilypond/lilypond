@@ -477,7 +477,9 @@ re_dict = {
 		  },
 
 
-	# why do we have distinction between @mbinclude and @include? 
+	# why do we have distinction between @mbinclude and @include?
+
+	
 	'texi': {
 		 'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
 		 'input': no_match,
@@ -486,13 +488,9 @@ re_dict = {
 		 'landscape': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
 		 'verb': r"""(?P<code>@code{.*?})""",
-		 'lilypond-file': '(?m)^(?!@c)(?P<match>@lilypondfile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)})',
-		 'lilypond' : '(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?{(?P<code>.*?)})',
-# pyton2.2b2 barfs on this
-		 'lilypond-block': r"""(?m)^(?!@c)(?P<match>(?s)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s))""",
-
-# 1.5.2 barfs on this. 
-# 'lilypond-block': r"""(?m)^(?!@c)(?P<match>@lilypond(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end lilypond\s)""",
+		 'lilypond-file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
+		 'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
+		 'lilypond-block': r"""(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s""",
 		  'option-sep' : ',\s*',
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
@@ -506,7 +504,14 @@ for r in re_dict.keys ():
 	olddict = re_dict[r]
 	newdict = {}
 	for k in olddict.keys ():
-		newdict[k] = re.compile (olddict[k])
+		try:
+			newdict[k] = re.compile (olddict[k])
+		except:
+			print 'invalid regexp: %s' % olddict[k]
+
+			# we'd like to catch and reraise a more detailed  error, but
+			# alas, the exceptions changed across the 1.5/2.1 boundary.
+			raise "Invalid re"
 	re_dict[r] = newdict
 
 	

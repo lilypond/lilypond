@@ -1,4 +1,5 @@
 
+
 @c Note:
 @c
 @c A menu is needed before every deeper *section nesting of @node's; run
@@ -1816,7 +1817,7 @@ patterns that divide the measure length are replaced by slashes.
  \context Voice { \repeat  "percent" 4  { c'4 }
     \repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
 }
-@end lilypond
+@end lilypond   
 
 The signs are represented by these grobs: @internalsref{RepeatSlash} and
 @internalsref{PercentRepeat} and @internalsref{DoublePercentRepeat}.
