@@ -14,6 +14,7 @@ struct Clef;
 
 /// 
 struct Keyitem : Item {
+    const char * name() const;
     Array<int> pitch;
     Array<int> acc;
     int c_position;

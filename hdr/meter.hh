@@ -10,6 +10,7 @@
 #include "varray.hh"
 
 struct Meter: Item {
+    const char * name() const;
     Array<Scalar> args;
     /****************/
     
