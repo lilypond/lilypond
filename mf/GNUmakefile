@@ -25,6 +25,7 @@ FETA_FONTS = $(FETA_MF_FILES:.mf=)
 
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
+LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
 AFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.afm) \
 	$(AF_FILES:%.af=$(outdir)/%.afm)
@@ -47,9 +48,6 @@ foe:
 	echo $(MFINPUTS)
 	echo $(TEXMF)
 	kpsewhich exbase.mf
-
-$(outdir)/feta20.otf-table:
-	cat $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp > $@
 
 $(outdir)/%.otf: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
@@ -85,7 +83,7 @@ PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(CHEESES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(CHEESES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
@@ -164,7 +162,7 @@ get-pfa: get-rpm-pfa
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%list.ly $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
+$(outdir)/%.lisp $(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%list.ly $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
