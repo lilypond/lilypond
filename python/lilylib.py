@@ -242,9 +242,12 @@ def error_log (name):
 
 def read_pipe (cmd, mode = 'r'):
 	redirect = ''
+	error_log_file = ''
 	if __main__.verbose_p:
 		progress (_ ("Opening pipe `%s\'") % cmd)
-		redirect = ' 2>%s' % error_log (command_name (cmd))
+		error_log_file = error_log (command_name (cmd))
+		redirect = ' 2>%s' % error_log_file
+		
 	pipe = os.popen (cmd + redirect, mode)
 	output = pipe.read ()
 	status = pipe.close ()
@@ -260,8 +263,13 @@ def read_pipe (cmd, mode = 'r'):
 			error (_ ("The error log is as follows:"))
 			sys.stderr.write (open (error_log (command_name (cmd)).read ()))
 		exit (status)
+		
 	if __main__.verbose_p:
 		progress ('\n')
+
+	if error_log_file:
+		os.unlink (error_log_file)
+		
 	return output
 
 def system (cmd, ignore_error = 0, progress_p = 0):

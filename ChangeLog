@@ -1,5 +1,7 @@
 2003-07-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mutopia/claop.py (accents): update to 1.8
+
 	* Documentation/user/music-glossary.tely (Top): remove 13pt.
 
 	* Documentation/user/macros.itexi: don't color glossary links.
