@@ -1,0 +1,4 @@
+sdesc: "A program for printing sheet music"
+category: Publishing
+requires: ash bash guile python tetex-beta texmf-base
+#suggests: rxvt xdvi
