@@ -1,3 +1,11 @@
+%{
+  argh. DOCME
+
+
+  template that puts dynamics on a separate line, so it is neatly
+centered between staffs.
+%}
+
 \version "1.5.1"
 
 \header {
@@ -31,28 +39,26 @@ dynamics = \notes {
 }
 
 pedal = \notes {
- s2\sustaindown s2\sustainup
+ s2\sustainDown s2\sustainUp
 }
 
 \score {
-  \context pianostaff <
-    \context staff=upper \upper
-    \context dynamics=dynamics \dynamics
-    \context staff=lower <
+  \context PianoStaff <
+    \context Staff=upper \upper
+    \context Dynamics=dynamics \dynamics
+    \context Staff=lower <
       \clef bass
       \lower
     >
-    \context dynamics=pedal \pedal
+    \context Dynamics=pedal \pedal
   >
   \paper {
     \translator {
-      \type "engraver_group_engraver"
-      \name dynamics
-      \consists "output_property_engraver"
-      Generic_property_list = #generic-voice-properties
-      \consists "Property_engraver"
-      MinimumVerticalExtent = #'(-1 . 1)
-
+      \type "Engraver_group_engraver"
+      \name Dynamics
+      \consists "Output_property_engraver"
+      
+      minimumVerticalExtent = #'(-1 . 1)
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
       
@@ -80,8 +86,6 @@ pedal = \notes {
     \translator {
       \type "Performer_group_performer"
       \name Dynamics
-      Generic_property_list = #generic-voice-properties
-
       \consists "Piano_pedal_performer"
       \consists "Span_dynamic_performer"
       \consists "Dynamic_performer"
