@@ -27,20 +27,12 @@ protected:
   Paper_score *pscore_;
   Real linewidth_;
 
-  /// search all pcols which are breakable.
   Link_array<Grob> find_breaks () const;
-
   Array<int> find_break_indices () const;
-    
-
-  /// helper: solve for the columns in #curline#.
   void solve_line (Column_x_positions*) const;
-
-  /// does curline fit on the paper?    
   bool feasible (Link_array<Grob> const &) const;
-    
 
-  Simple_spacer* generate_spacing_problem (Link_array<Grob> const &, Interval) const;
+  Simple_spacer_wrapper* generate_spacing_problem (Link_array<Grob> const &, Interval) const;
 
   virtual Array<Column_x_positions> do_solve () const=0;
 
@@ -48,7 +40,6 @@ public:
   Simple_spacer* (*get_line_spacer) ();
   Break_algorithm ();
   void set_pscore (Paper_score*);
-
   Array<Column_x_positions> solve () const;
 };
 
