@@ -18,8 +18,9 @@
 * Running LilyPond::            Printing music
 * More basics::                 
 * Printing lyrics::             
-* A melody with chords ::       
-* More stanzas::                
+* Chord names::                 
+* A lead sheet::                
+* Listening to output::         
 * More movements ::             Joining separate pieces of music
 * A piano excerpt::             Piano music
 * Fine tuning a piece::         
@@ -684,6 +685,16 @@ c-. c-- c->
 @end quotation
 @separate
 
+Similarly, fingering indications can be added to a note using @code{-}
+and the digit to be printed.
+@lilypond[verbatim,relative 1]
+  c-3 e-5 b-2 a-1
+@end lilypond
+
+
+  
+
+
 Dynamic signs are made by adding the markings to the note:
 @quotation
 @lilypond[verbatim,relative 1]
@@ -732,17 +743,48 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @separate
 
 
-TODO: triplets, partial 
+A pickup (or upstep) is entered with the keyword @code{\partial}. It
+is followed by a duration: @code{\partial 4} is a quarter note upstep.
+@lilypond[relative 1,verbatim,fragment]
+  \partial 8
+  f8 c2 d e
+@end lilypond
 
-Now you know the basic ingredients of a music file, so this is the
-right moment to experiment and try your at hand typing some simple
-files.
+Tuplets are made with the @code{\times} keyword.  It takes two
+arguments: a fraction and a piece of music.  The duration of the piece
+of music is multiplied by the fraction.  Triplets make notes occupy
+2/3 of their notated duration, so for a triplet, the fraction is 2/3.
+@c
+@lilypond[relative 0,verbatim,fragment]
+  \times 2/3 { f8 g a }
+  \times 2/3 { c r c }
+@end lilypond 
 
-When you are comfortable with the basics, you might want to read the
-rest of this chapter.  It continues in tutorial-style, but it is much
-more in-depth, dealing with more advanced topics such as lyrics,
-chords, orchestral scores and parts, fine tuning of output, polyphonic
-music, and integrating text and music.
+
+
+
+Comments are pieces of the input that are ignored.  There are two
+types of comments. A line comments are introduced by @code{%}: after
+that, the rest of that line is ignored.  Block comments span larger
+sections of input.  Anything that is enclosed in @code{%@{} and
+@code{%@}} is ignored too. The following fragment shows possible uses
+for comments.
+
+@example
+  % notes for twinkle twinkle follow:
+  c4 c   g' g  a a
+  
+  %@{
+  
+    This line, and the notes below
+    are ignored, since they are in a
+    block comment.
+
+    g g f f e e d d c2 
+  %@}
+@end example
+
+
 
 
 
@@ -766,7 +808,7 @@ The melody for this song is as follows
 @lilypond[fragment,relative=1]
    \partial 8
      c8
-   \times 2/3 {  f g g } \times 2/3 { g4-( a2-) }
+   \times 2/3 {  f4 g g } \times 2/3 { g4-( a2-) }
 @end lilypond
 
 The lyrics can be set to these notes, combining both with the
@@ -823,181 +865,58 @@ resulting in a centered hyphen between two syllables.
 \score {
   \addlyrics \notes \relative f' { \time 2/4
     f4 f c' c' }
-    \lyrics { Twin -- kle twin -- kle
+    \context Lyrics \lyrics { Twin -- kle twin -- kle
  }}
 @end lilypond
 
+More options, like putting multiple lines of lyrics below a melody are
+discussed in @ref{Vocal music}.
 
-@node A melody with chords 
-@section A melody with chords
+@node Chord names
+@section Chord names
 
+In popular music, it is common to denote accompaniment as chord-names.
+Using them in LilyPond has two parts, just like lyrics: entering the
+chords (with @code{\chords}), and printing them (with @code{\context
+ChordNames}).
 
-@ignore
+Chord names are entered by starting chords mode (with @code{\chords}).
+In chords mode, you can enter chords with a letter (indicating the
+root of the chord), and a durations following that.
+@c
+@lilypond[verbatim]
+  \chords { c2 f4. g8 } 
+@end lilypond
+The result of @code{\chords} is a list of chords, and is  equivalent
+to entering chords with @code{<<@dots{}>>}.
 
-@separate
-@example 
-        \partial 8
-@end example 
+Other chords can be created by adding modifiers, after a colon.  The
+following example shows a few common modifiers
+@c
+@lilypond[verbatim]
+  \chords { c2 f4:m g4:maj7 gis1:dim7 }
+@end lilypond
 
-@cindex @code{\partial}
-@cindex anacrusis
-The piece starts with an anacrusis (or ``pickup'') of one eighth.
-@separate
+Printing chords is done by adding @code{\context ChordNames}
+before the chords thus entered:
+@c
+@lilypond[verbatim]
+ \context ChordNames \chords \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+@end lilypond
 
-@separate
-@example 
+A complete list of modifiers, and other options for layout are in the
+reference manual section @ref{Chords}.
 
-        c4 c8 d [es () d] c4 | f4 f8 g [es() d] c g |
-        c4 c8 d [es () d] c4 | d4 es8 d c4.
-        \bar "|."
+@node A lead sheet
+@section A lead sheet
+
  
-@end example 
+TODO: template example with chord names, lyrics and staff.
 
-@cindex manual beaming
-@cindex automatic beaming, turning off
-We use explicit beaming.  Since this is a song, we turn automatic
-beams off and use explicit beaming where needed.
-@separate
-@example 
 
-        @}
+@node Listening to output
+@section Listening to output
  
-@end example 
-This ends the definition of @code{melody}.  
-
-@separate
-@example 
-
-        text = \lyrics @{
- 
-@end example
-@cindex lyrics
-@cindex identifier assignment
-@cindex syllables, entering
-This defines the lyrics, similar to what we have seen before.
-
-@separate
-@example 
-
-        accompaniment =\chords @{
- 
-@end example
-@cindex chords
-@cindex mode, chords
-We will put chords over the music. To enter them, we use a special mode
-analogous to @code{\lyrics} and @code{\notes} mode, where you can give
-the names of the chords you want instead of listing the notes
-comprising the chord.
-@separate
-@example 
-
-        r8
- 
-@end example 
-There is no accompaniment during the anacrusis.
-@separate
-@example 
-
-        c2:3- 
- 
-@end example
-
-@cindex tonic
-@cindex chord modifier
-@cindex modifier, chord 
-This is a c minor chord, lasting for a half note. Chords are entered using
-the tonic.  Notes can be changed to create different chords.  In this case,
-a lowered third is used (making a C major chord into a C minor chord).
-The code for this is @code{3-}. 
-
-@separate
-@example
-f:3-.7
-@end example
-Similarly, @code{7} modifies (adds) a seventh, which is small by
-default to create the @code{f a c es} chord.  Multiple modifiers must be
-separated by dots.
-@separate
-@example 
-
-        d:min es4 c8:min r8
- 
-@end example
-Some modifiers have predefined names, e.g. @code{min} is  the same as
-@code{3-}, so @code{d-min} is a minor @code{d} chord.
-@separate
-@example 
-
-        c2:min f:min7 g:7^3.5 c:min @}
- 
-@end example
-@cindex named modifier
-
-A named modifier @code{min} and a normal modifier @code{7} do not have
-to be separated by a dot.  Tones from a chord are removed with chord
-subtractions.  Subtractions are started with a caret, and they are
-also separated by dots.  In this example, @code{g:7^3.5} produces a
-minor seventh (a G7 chord without the third or the fifth).  The
-brace ends the sequential music.
-@separate
-@example 
-
-        \score @{
-                \simultaneous @{
- 
-@end example 
-We assemble the music in the @code{\score} block.  Melody, lyrics and
-accompaniment have to sound at the same time, so they should be
-@code{\simultaneous}.
-@cindex @code{\simultaneous}
-@separate
-To print chords as chords names, they have to be interpreted as
-such. This is done with the following command: The following command
-explicitly creates an interpretation context of @code{ChordNames} type
-to interpret the music @code{\accompaniment}.
-@example 
-
-        \context ChordNames \accompaniment
- 
-@end example
-
-@separate
-@example 
-
-        \context Staff @{
- 
-@end example
-
-We place the melody on a staff. 
-@separate
-@example 
-
-        \property Staff.autoBeaming = ##f
- 
-@end example
-@cindex \property
-@cindex context variables
-@cindex setting context variables
-An interpretation context has variables that tune its behavior.  These
-variables are also called @emph{properties}.  The @code{autoBeaming}
-variable in a @code{Staff} controls whether 8th and shorter notes are
-beamed automatically. Setting the variable to @code{##f}, which is the
-boolean value @var{false}, turns it off.
-
-
-@separate
-@example 
-
-          \melody
-        @}
- 
-@end example 
-Finally, we put the melody on the current staff.   The
-@code{\property} directives and @code{\melody} are grouped in sequential
-music,  so the property settings are done before the melody is
-processed.
-
-@separate
 @example 
 
         \midi  @{ \tempo 4=72@}
@@ -1007,83 +926,16 @@ MIDI (Musical Instrument Digital Interface) is a standard for
 connecting and recording digital instruments.  A MIDI file is like a
 tape recording of a MIDI instrument. The @code{\midi} block makes the
 music go to a MIDI file, so you can listen to the music you entered.
-It is great for checking the music.  Whenever you hear something
-weird, you probably hear a typing error.
+It is great for checking the music: octaves that are off, or
+accidentals that were mistyped, stand out very much when listening to
+the musical transcription.
 
 @code{\midi} is similar to @code{\paper @{ @}}, since it also
 specifies an output method.  You can specify the tempo using the
 @code{\tempo} command, in this case the tempo of quarter notes is set
 to 72 beats per minute.
-@separate
-@example 
-
-        \paper @{ linewidth = 10.0\cm @}
- 
-@end example 
-We also want notation output.  The linewidth is short so that the piece
-will be set in two lines.
-
-@end ignore 
 
 
-@node More stanzas
-@section More stanzas
-
-
-@cindex phrasing
-
-If you have multiple stanzas printed underneath each other, the vertical
-groups of syllables should be aligned around punctuation.  LilyPond can
-do this if you tell it which lyric lines belong to which melody.
-We show how you can do this by showing how you could print a frivolous
-fragment of a fictional Sesame Street duet. 
-
-@lilypond[singleline,verbatim]
-\score {
-\addlyrics
-  \notes \relative c'' \context Voice = duet { \time 3/4
-     g2 e4 a2 f4 g2.  }
-  \lyrics \context Lyrics <
-  \context LyricsVoice = "duet-1" {
-    \property LyricsVoice . stanza = "Bert"
-    Hi, my name is bert.    }
-  \context LyricsVoice = "duet-2" {
-    \property LyricsVoice . stanza = "Ernie" 
-    Ooooo, ch\'e -- ri, je t'aime. }
-  >
-}
-@end lilypond
-
-To this end, give the Voice context an identity, and set the
-LyricsVoice to a name starting with that identity followed by a dash.
-In the following example, the Voice identity is @code{duet},
-@example
-\context Voice = duet @{
-     \time 3/4
-     g2 e4 a2 f4 g2.  @}
-@end example
-and the
-identities of the LyricsVoices are @code{duet-1} and @code{duet-2}.
-@example
-  \context LyricsVoice = "duet-1" @{
-    Hi, my name is bert. @}
-  \context LyricsVoice = "duet-2" @{
-    Ooooo, ch\'e -- ri, je t'aime. @}
-@end example
-The convention for naming @code{LyricsVoice} and @code{Voice} must
-also be used to get melismata on rests correct.
-
-
-We add the names of the singers.  This can be done by setting
-@code{LyricsVoice.Stanza} (for the first system) and
-@code{LyricsVoice.stz} for the following systems.   You must
-surround dots with spaces in @code{\lyrics} mode.
-
-@example
-    \property LyricsVoice . stanza = "Bert"
-    @dots{}
-    \property LyricsVoice . stanza = "Ernie" 
-@end example
 
 
 @node More movements 
@@ -1097,6 +949,8 @@ show you how to create titles like this:
 
 @center @strong{Two miniatures}
 @flushright
+F. Bar Baz
+
 Opus 1.
 @end flushright
 @flushleft
@@ -1124,19 +978,10 @@ Opus 2.
 For example, consider the following file (@file{miniatures.ly}) 
 
 @example
-\version "1.5.72"
 \header @{
   title = "Two miniatures"
   composer = "F. Bar Baz" 
   tagline = "small is beautiful" @}
-
-\paper @{ raggedright = ##t @}
-
-%@{
-
-Mental note: discuss Schenkerian analysis of these key pieces.
-
-%@}
 
 \score @{
     \notes @{ c'4 d'4 @}
@@ -1180,49 +1025,6 @@ change @code{tagline} in the @code{\header}, as shown above.
 @cindex signature line
 @cindex tag line
 
-@separate
-@example
-  \paper @{ 
-    raggedright = ##t @}
-@end example
-
-A paper block at top level (i.e. not in a @code{\score} block) sets
-the default page layout.  The following @code{\score} blocks do not
-have @code{\paper} sections so the settings of this block are used.
-
-When @code{raggedright} is set, the spacing is set to natural length:
-a short phrase takes up little space, a longer phrase takes more
-space, all on the same line.
-
-@example
-%@{
-
-Mental note: discuss Schenkerian analysis of these key pieces.
-
-%@}
-@end example
-
-Mental notes to yourself can be put into comments. There are two types
-of comments. Line comments are introduced by @code{%}, and block
-comments are delimited by @code{%@{} and @code{%@}}.
-
-@separate
-@example
-  \score @{
-    \notes @{ c'4 d'4 @}
-@end example
-
-In previous examples, most notes were specified in relative octaves
-(i.e. each note was put in the octave that is closest to its preceding
-note).  This is convenient when copying existing music: you have to do
-less typing, and errors are easily spotted.
-
-There is also absolute octave specification, which you get when you do
-not include @code{\relative} in your input file.  In this input mode,
-the middle C is denoted by @code{c'}. Going down, you get @code{c}
-@code{c,} @code{c,,} etc.  Going up, you get @code{c''} @code{c'''}
-etc.  Absolute octaves are convenient when you write LilyPond input
-directly, either by hand (i.e. composing) or by computer.
 
 @separate
 @example
@@ -1247,39 +1049,10 @@ will be at the left.
 
 
 
-@example
-\version "1.5.72"
-\header @{
-  title = "Two miniatures"
-  composer = "F. Bar Baz" 
-  tagline = "small is beautiful" @}
+@node Organising larger pieces
+@sections Organising larger pieces
 
-\paper @{ raggedright = ##t @}
-
-\score @{
-    \notes @{ c'4 d'4 @}
-    \header @{
-        opus = "Opus 1."
-        piece = "Up" @}
-@}
-\score @{
-    \notes @{ d'4 c'4 @}
-    \header @{
-        opus = "Opus 2."
-        piece = "Down" @}
-@}
-@end example
-
-TODO:
-@example
-
-scoreA = \score @{ \deelA  @}
-scoreB = \score @{ \deelA  @}
-
-% \score @{ \scoreA @}
-\score @{ \scoreB @}
-
-@end example
+TODO: discuss identifiers, p&c, .
 
 @separate
 @example 
@@ -1287,7 +1060,7 @@ scoreB = \score @{ \deelA  @}
 @end example 
 Lilypond and its language are still under development, and
 occasionally details of the syntax are changed.  The @code{version}
-fragment indicates which version of LilyPond the input file was written
+fragment indicates which LilyPond version the input file was written
 for.  When you compile this file, the version number will be checked
 and you will get a warning when the file is too old.  This version
 number is also used by the @code{convert-ly} program (See
@@ -1323,12 +1096,6 @@ there is precisely one @code{Voice} context, so we give it a unique
 name (`@code{viola}').
 
 @separate
-@example 
-<<c g' c>>4-\arpeggio
-@end example 
-The delimiters @code{<<} and @code{>>} enclose the pitches of a chord.
-@code{\arpeggio} typesets an arpeggio sign (a wavy vertical line)
-before the chord.
 
 @cindex arpeggio
 
@@ -1387,10 +1154,7 @@ ending on the following chord.
 @end example
 @cindex tuplet
 @cindex triplets
-Tuplets are made with the @code{\times} keyword.  It takes two
-arguments: a fraction and a piece of music.  The duration of the piece
-of music is multiplied by the fraction.  Triplets make notes occupy 2/3
-of their notated duration, so in this case the fraction is 2/3.
+
 @separate
 @example 
 @{ <<d f>>8 <<e g>> <<f a>> @} 
@@ -1415,11 +1179,10 @@ voice, which continues with upward stems:
 @example
 \\
 @end example
-The easiest way to enter multiple voices is demonstrated
-here. Separate the components of the voice (single notes or entire
-sequences) with @code{\\} in a simultaneous music expression. The
-@code{\\} separators split first voice, second voice, third voice, and
-so on.
+Entering multiple voices is demonstrated here. Separate the
+components of the voice (single notes or entire sequences) with
+@code{\\} in a simultaneous music expression. The @code{\\} separators
+split first voice, second voice, third voice, and so on.
 
 As far as relative mode is concerned, the previous note is the
 @code{c'''2} of the upper voice, so we have to go an octave down for
@@ -1448,26 +1211,7 @@ hoomPah  =  \repeat unfold 8
 The unfolded repeat prints the notes in its argument as if they were
 written out in full eight times.
 @separate
-@example
-\notes \transpose c c' @{
-@end example
-@cindex transposing
-@cindex relative mode and transposing
 
-Transposing can be done with @code{\transpose}, which takes two arguments.
-The first specifies what central C should be transposed to.  The second
-is the to-be-transposed music.  As you can see, in this case, the
-transposition has no effect, as central C stays at central C.
-
-The purpose of this no-op is to protect it from being interpreted as
-relative notes.  Relative mode cannot be used together with
-transposition, so @code{\relative} will leave the contents of
-@code{\hoomPah} alone.  We can use it without having to worry about
-getting the motive in a wrong octave. Conversely, if you want to
-transpose a fragment of music entered with @code{\relative}, then you
-should make sure that @code{\transpose} comes before @code{\relative}.
-
-@separate
 @cindex staff switch, manual
 @cindex cross staff voice, manual
 @cindex @code{\translator}
@@ -1528,7 +1272,7 @@ to the page layout of this document.
 @ignore
 [TODO:
 
-* font-size, multi-stanza.
+* font-size
 
 * Simple part combining in a Hymn
 @end ignore
@@ -1553,11 +1297,7 @@ The code for the untuned example shows us some new things.
 @cindex crescendo
 
 
-@cindex fingering instructions
-[TODO: moveme]
 
-Fingering indications are entered with @code{-@var{N}}, where
-@var{N} is a digit.
 
 Now that we have the basic piece of music entered, we want to fine
 tune it so that we get something that resembles the original printed
@@ -1762,6 +1502,9 @@ notes), there should be more space.  This space is controlled by
 @example
  \property Voice.DynamicLineSpanner \override #'padding = #5.0
 @end example
+
+
+(TODO: huh? what's this: )
 
 This command resembles the one for setting slur attachments, but
 subtly differs in its details.  Grob properties can be manipulated
