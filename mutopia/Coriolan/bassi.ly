@@ -20,7 +20,11 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 		%\property StaffCombineStaff.instrument = #"Violoncello\ne\nContrabasso"
 		\property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
 		\property StaffCombineStaff.instr = #"Vc."
-		\clef "bass"; 
+		%\clef "bass";
+		% Ugh, clef broken in 1.3.125
+		\property StaffCombineStaff.clefGlyph = #"clefs-F"
+		\property StaffCombineStaff.clefPosition = #2
+
 		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
@@ -30,7 +34,10 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 		\property StaffCombineStaff.instrument = #"Contrabasso"
 		\property StaffCombineStaff.instr = #"Cb."
 %		\property StaffCombineStaff.transposing = #-12
-		\clef "bass"; 
+	 	%\clef "bass"; 
+		% Ugh, clef broken in 1.3.125
+		\property StaffCombineStaff.clefGlyph = #"clefs-F"
+		\property StaffCombineStaff.clefPosition = #2
 		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 

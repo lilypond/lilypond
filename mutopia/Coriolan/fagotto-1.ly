@@ -51,12 +51,22 @@ fagottoI =  \notes \relative c {
 	)d2. es4\sf(|
 	)d4 r r2|
 	R1*9|
-	\clef "tenor";
+	
+	%\clef "tenor";
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-C"
+	\property VoiceCombineStaff.clefPosition = #2
+
 	\property VoiceCombineVoice.crescendoText = "cresc."
 	\property VoiceCombineVoice.crescendoSpanner = "dashed-line"
 	g'2.(as4 \p\<|
 	g f d)bes
-	\clef "bass";
+
+	%\clef "bass";
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-F"
+	\property VoiceCombineStaff.clefPosition = #2
+	
 	|
 	\!bes2\ff as|
 	g c~|
@@ -220,10 +230,22 @@ fagottoI =  \notes \relative c {
 	r4 r8 es\< es4. es8|
 	r4 r8 es es4. es8|
 	r4 r8 %
-	\clef "tenor"; %
+
+	%\clef "tenor"; %
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-C"
+	\property VoiceCombineStaff.clefPosition = #2
+
+	
 	f f4. f8|
 	r4 r8 g g4. g8 %
-	\clef "bass"; %
+	
+	%\clef "bass"; %
+	% Ugh, clef broken in 1.3.125
+	\property VoiceCombineStaff.clefGlyph = #"clefs-F"
+	\property VoiceCombineStaff.clefPosition = #2
+
+	
 	|
 	\!f2.\ff()es4|
 	d(c d)c|

@@ -19,7 +19,12 @@ violiGroup =  \context PianoStaff = violi_group \notes <
 		\property StaffCombineStaff.midiInstrument = #"viola"
 		\property StaffCombineStaff.instrument = #"Viola"
 		\property StaffCombineStaff.instr = #"Vla."
-		\clef "alto"; 
+		
+		%\clef "alto";
+		% Ugh, clef broken in 1.3.125
+		\property StaffCombineStaff.clefGlyph = #"clefs-C"
+		\property StaffCombineStaff.clefPosition = #0
+
 		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
@@ -28,7 +33,12 @@ violiGroup =  \context PianoStaff = violi_group \notes <
 		\property StaffCombineStaff.midiInstrument = #"viola"
 		\property StaffCombineStaff.instrument = #"Viola II"
 		\property StaffCombineStaff.instr = #"Vla. II"
-		\clef "alto"; 
+		
+		%\clef "alto"; 
+		% Ugh, clef broken in 1.3.125
+		\property StaffCombineStaff.clefGlyph = #"clefs-C"
+		\property StaffCombineStaff.clefPosition = #0
+
 		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
@@ -45,7 +55,12 @@ violiGroup =  \notes \context VoiceCombineStaff = violi <
 		\property VoiceCombineStaff.midiInstrument = #"viola"
 		\property VoiceCombineStaff.instrument = #"Viola"
 		\property VoiceCombineStaff.instr = #"Vla."
-		\clef "alto"; 
+
+		%\clef "alto"; 
+		% Ugh, clef broken in 1.3.125
+		\property VoiceCombineStaff.clefGlyph = #"clefs-C"
+		\property VoiceCombineStaff.clefPosition = #0
+
 		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
