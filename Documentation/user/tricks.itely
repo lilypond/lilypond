@@ -37,7 +37,6 @@ yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
 @menu
 * Manual beam settings::        Manual beam settings
 * Engraver hacking::            Engraver hacking
-* Part combiner::               Part combiner
 * Markup text::                 Markup text
 * Apply hacking::               Apply hacking
 * Embedded TeX::                Embedded TeX

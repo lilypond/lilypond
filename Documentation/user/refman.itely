@@ -19,6 +19,7 @@
 
 @macro refbugs
 @unnumberedsubsec Bugs
+
 @end macro
 
 
@@ -835,6 +836,7 @@ control the number of beams through the properties
 * Slur ::                       
 * Phrasing slur::               
 * Breath marks::                
+* Tempo::                       
 @end menu
 
 @node Slur 
@@ -2973,7 +2975,7 @@ The contexts for MIDI output are defined in @file{ly/performer.ly}.
 The MIDI instrument name is set by the @code{Staff.midiInstrument}
 property or, if that property is not set, the @code{Staff.instrument}
 property.  The instrument name should be chosen from the list in
-@ref{MIDI Instrument}.
+@ref{MIDI instruments}.
 
 @refbugs
 
