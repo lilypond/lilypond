@@ -45,7 +45,6 @@ static Keyword_ent the_key_tab[]={
   {"mm", MM_T},
   {"notenames", NOTENAMES},
   {"notes" , NOTES},
-  {"octave", OCTAVE},
   {"output", OUTPUT},
   {"partial", PARTIAL},
   {"paper", PAPER},
