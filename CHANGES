@@ -1,4 +1,19 @@
-1.4.2.jcn4
+--- ../lilypond-1.4.3.jcn1/CHANGES	Thu Jun 14 21:29:50 2001
+++ b/CHANGES	Tue Jun 19 12:40:33 2001
+@@ -1,5 +1,12 @@
+-1.4.3.jcn1
+1.4.3.jcn2
+ ==========
+
+* Fixed broken link in website.
+
+* Ly2dvi now leaves .tex and .latex output if latex fails, and cleans
+the temp dir if anything fails.
+
+* Fixes for windows scripts (Raybro Brohinksy).
+ 
+ * Added -mieee to CFLAGS for alpha.
+ 1.4.2.jcn4
 ==========
 
 * Windows: bugfix for tex-wrappers, added tex wrapper for dvips.
