@@ -1,5 +1,7 @@
 2002-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* buildscripts/ontgaar.py: get_music () -> get_pending_events ().
+	
 	* buildscripts/ontgaar.py: New file.
 
 	* scm/grob-property-description.scm (conditional-elements): Add

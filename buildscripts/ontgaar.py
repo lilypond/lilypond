@@ -97,11 +97,7 @@ for f in files:
 	s = re.sub (r'to_c(\W)', r'to_cX\1', s)
 	s = re.sub (r'P_C', r'P_XC', s)
 
-	# Hmm, music-iterators already have
-	# SCM get_music () and Music*music_l ()
-	# Let's keep any get_X names as they are
-	s = re.sub (r'(\W)get_music(\W)', r'\1Xget_music\2', s)
-	s = re.sub (r'(\W)get_lyrics(\W)', r'\1Xget_lyrics\2', s)
+	s = re.sub (r'(\W)get_music(\W)', r'\1Yget_pending_events\2', s)
 
 	s = re.sub (r'2_i(\W)', r'2int\1', s)
 	s = re.sub (r'2_u(\W)', r'2unsigned\1', s)
@@ -172,9 +168,7 @@ for f in files:
 	s = re.sub (r'Yget_hex', 'hex', s)
 	s = re.sub (r'Yget_index', 'index', s)
 	s = re.sub (r'Yget_length', 'length', s)
-	s = re.sub (r'Yget_music', 'the_music', s)
 	s = re.sub (r'Yget_remove', 'remove', s)
-	s = re.sub (r'Yget_lyrics', 'the_lyrics', s)
 	s = re.sub (r'Yget_report', 'report', s)
 	s = re.sub (r'Yget_size', 'size', s)
 	s = re.sub (r'Yget_get', 'get', s)
