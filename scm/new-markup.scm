@@ -375,8 +375,11 @@ Also set markup-signature and markup-keyword object properties."
 
 
 (define-public (stack-stencil-line space stencils)
-  (if (pair? stencils)
-      (if (pair? (cdr stencils))
+  (if (and (pair? stencils)
+	   (ly:stencil? (car stencils)))
+      
+      (if (and (pair? (cdr stencils))
+	       (ly:stencil? (cadr stencils)))
           (let* ((tail (stack-stencil-line  space (cdr stencils)))
                  (head (car stencils))
                  (xoff (+ space (cdr (ly:stencil-get-extent head X)))))

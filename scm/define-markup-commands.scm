@@ -19,12 +19,11 @@
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
   (let ((toks (string-tokenize str)))
-    (if (< 1 (length  toks))
-	(interpret-markup paper props
+    (interpret-markup paper props
 			  (make-line-markup
 			   (map make-word-markup toks)))
-	(interpret-markup paper props str))))
-    
+    ))
+
 (define (font-markup qualifier value)
   (lambda (paper props arg)
     (interpret-markup paper
