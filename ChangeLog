@@ -1,5 +1,7 @@
 2003-07-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.7.25
+	
 	* Documentation/user/introduction.itely (Introduction): rewrite
 	start of introduction.
 
@@ -70,7 +72,7 @@
 
 	* input/regression/slur-area.ly: move from test/
 
-	* input/test/: : remove simple-slur-endings slur-attachment
+	* input/test/: remove simple-slur-endings slur-attachment
 	slur-broken-cross-staff slur-broken.ly slur-damping.ly
 	slur-follow-music.ly slur-position.ly slur-proof.ly slur-shape.ly
 	slur-symmetry slur-symmetry tie-broken.ly
