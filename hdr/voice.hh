@@ -3,15 +3,16 @@
 
 #include "proto.hh"
 #include "plist.hh"
+#include "moment.hh"
 
 /// class for  horizontal stuff.
 struct Voice {
     IPointerList<Voice_element *> elts;
-    Real start;
+    Moment start;
 
     /****************/
-    Real when(const Voice_element*)const;
-    Real last() const;
+    Moment when(const Voice_element*)const;
+    Moment last() const;
     Voice();
     Voice(Voice const&);
     void add(Voice_element*);
@@ -30,7 +31,7 @@ struct Voicegroup {
 
 /// one horizontal bit. 
 struct Voice_element {
-    Real duration;
+    Moment duration;
     const Voicegroup *group;
     const Voice *voice_;
     IPointerList<Request*> reqs;

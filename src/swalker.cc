@@ -13,7 +13,7 @@ Staff_walker::Staff_walker(Staff * s, PScore*ps )
     break_status = BREAK_END - BREAK_PRE;
 }
 
-Real
+Moment
 Staff_walker::when() const
 {
     return (* (PCursor<Staff_column*> *) this)->when();

@@ -10,16 +10,17 @@
 #include "plist.hh"
 #include "proto.hh"
 #include "voice.hh"
+#include "moment.hh"
 
 struct Voice_list : public PointerList<Voice*> {
-    void translate_time(Real dt);
+    void translate_time(Moment dt);
 };
 
 /// ABC for input structures
 struct Input_music {
     virtual Voice_list convert()=0;
-    virtual Real length()=0;
-    virtual void translate_time(Real dt)=0;
+    virtual Moment length()=0;
+    virtual void translate_time(Moment dt)=0;
     virtual ~Input_music(){}
     virtual void print() const =0;
     // virtual void transpose(...) const =0;
@@ -47,9 +48,9 @@ struct Simple_music : Input_music {
     /****/
     virtual Simple_music*simple() { return this; }  
     void add(Voice_element*);
-    virtual Real length();
+    virtual Moment length();
     virtual Voice_list convert();
-    virtual void translate_time(Real dt);
+    virtual void translate_time(Moment dt);
     virtual void print() const;
     virtual Input_music *clone() const {
 	return new Simple_music(*this);
@@ -74,8 +75,8 @@ struct Music_voice : Complex_music {
  
     
     /****************/
-    Real length();
-    virtual void translate_time(Real dt);
+    Moment length();
+    virtual void translate_time(Moment dt);
     virtual Voice_list convert();
     void add_elt(Voice_element*);
     virtual Input_music *clone() const {
@@ -97,9 +98,9 @@ struct Music_general_chord : Complex_music {
 
     /****************/
 
-    virtual Real length();
+    virtual Moment length();
     virtual Voice_list convert();
-    virtual void translate_time(Real dt);
+    virtual void translate_time(Moment dt);
     void add_elt(Voice_element*);
     virtual Input_music *clone() const {
 	return new Music_general_chord(*this);

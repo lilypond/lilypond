@@ -1,6 +1,7 @@
 #include "proto.hh"
 #include "real.hh"
 #include "string.hh"
+#include "moment.hh"
 
 /// symbols, dimensions and constants
 struct Paperdef {
@@ -26,7 +27,7 @@ struct Paperdef {
     Real standard_height()const;
     Real note_width() const;
     void print() const;
-    Real duration_to_dist(Real);
+    Real duration_to_dist(Moment);
 };
 /** This struct takes care of all kinds of symbols, dimensions and
  constants. Most of them are related to the point-size of the fonts,

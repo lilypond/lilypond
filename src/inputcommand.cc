@@ -6,9 +6,6 @@ Input_command::Input_command()
 {
 }
 
-Input_command::Input_command(Real )
-{
-}
 
 Input_command::operator Command()
 {
@@ -39,19 +36,11 @@ Input_command::operator Command()
 
 
 Input_command*
-get_partial_command(Real u)
+get_partial_command(Moment u)
 {
     Input_command*c = new Input_command;
     c->args.add("PARTIAL");
     c->args.add(u);
-    return c;
-}
-
-Input_command*
-get_grouping_command(Real r,svec<int>a ) 
-{
-    Input_command*c = get_grouping_command(a);
-    c->args.insert(r,1);
     return c;
 }
 
@@ -109,7 +98,7 @@ get_bar_command()
 }
 
 Input_command *
-get_skip_command(int n, Real m)
+get_skip_command(int n, Moment m)
 {
     Input_command*c = new Input_command;
     

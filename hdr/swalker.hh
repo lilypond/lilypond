@@ -19,7 +19,7 @@ struct Staff_walker : public PCursor<Staff_column*> {
     /****************/
 
     int priority() const;		// Command
-    Real when() const;    
+    Moment when() const;    
     virtual ~Staff_walker();
     Staff_walker(Staff*, PScore*);
     void process() ;

@@ -21,7 +21,7 @@ struct Staff {
 
     /****************************************************************/
     void add(PointerList<Voice*> &s);
-    void process_commands(Real l);
+    void process_commands(Moment l);
 
     Staff(const Staff&src);
     void add_voice(Voice *v);
@@ -37,9 +37,9 @@ struct Staff {
 
     void OK() const;
     void print() const;
-    Real last() const;
+    Moment last() const;
     void clean_cols() ;
-    Staff_column * get_col(Real,bool);
+    Staff_column * get_col(Moment,bool);
 
     Staff();
 

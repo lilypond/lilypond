@@ -71,7 +71,7 @@ Rest_req::print() const
 }
 
 
-Real
+Moment
 Rhythmic_req::duration() const {    
     return wholes( balltype,dots);
 }

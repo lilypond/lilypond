@@ -30,10 +30,10 @@ Voice::print() const
 #endif
 }
 
-Real
+Moment
 Voice::last() const
 {
-    Real l =start;
+    Moment l =start;
     for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
 	l  += vec->duration;
     return l;
