@@ -125,7 +125,7 @@ binary-indep: build-doc install
 		-exec cp -a --parents '{}' $(r_data)/$(d)/examples ';'
 	dh_installchangelogs
 
-	mv $(r_data)/usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
+	mv $(r_data)/usr/share/lilypond/$(VERSION)/fonts/map/lilypond.map \
 	   $(r_data)/etc/texmf/dvips/lilypond.map
 
 	dh_link	usr/share/lilypond/$(VERSION)/tex \
