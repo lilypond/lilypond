@@ -25,7 +25,7 @@
   */
 class Span_bar_engraver : public Engraver
 {
-  Item * spanbar_;
+  Item *spanbar_;
   Link_array<Item> bars_;
 
 public:
@@ -33,16 +33,12 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
-
 };
-
 
 Span_bar_engraver::Span_bar_engraver ()
 {
   spanbar_ =0;
 }
-
-
 
 void
 Span_bar_engraver::acknowledge_grob (Grob_info i)
@@ -58,11 +54,11 @@ Span_bar_engraver::acknowledge_grob (Grob_info i)
 	  spanbar_ = make_item ("SpanBar");
 
 	  spanbar_->set_parent (bars_[0], X_AXIS);
-
 	  announce_grob (spanbar_, SCM_EOL);
 	}
     }
 }
+
 void
 Span_bar_engraver::stop_translation_timestep ()
 {
@@ -73,7 +69,7 @@ Span_bar_engraver::stop_translation_timestep ()
 
       SCM vissym =ly_symbol2scm ("break-visibility");
       SCM vis = bars_[0]->internal_get_property (vissym);	  
-      if (scm_equal_p (spanbar_->internal_get_property (vissym), vis) != SCM_BOOL_T)
+      if (gh_equal_p (spanbar_->internal_get_property (vissym), vis))
 	spanbar_->internal_set_property (vissym, vis);
 
       typeset_grob (spanbar_);
@@ -81,11 +77,6 @@ Span_bar_engraver::stop_translation_timestep ()
     }
   bars_.set_size (0);
 }
-
-
-
-
-
 
 
 ENTER_DESCRIPTION (Span_bar_engraver,

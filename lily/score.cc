@@ -113,7 +113,9 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   
   Cpu_timer timer;
   
-  Global_context * trans = new Global_context (odef);
+  Global_context * trans = new Global_context (odef,
+					       music->get_length ()
+					       );
   
   if (!trans)
     {
@@ -122,7 +124,6 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
     }
   progress_indication (_ ("Interpreting music..."));
   
-  trans->final_mom_ = music->get_length ();
   SCM protected_iter = Music_iterator::get_static_get_iterator (music);
   Music_iterator * iter = unsmob_iterator (protected_iter);
   iter->init_translator (music, trans);
@@ -132,7 +133,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   if (! iter->ok ())
     {
       warning (_ ("Need music in a score"));
-      return SCM_BOOL_F;	// todo: shoudl throw exception.
+      return SCM_BOOL_F;	// todo: should throw exception.
     }
 
   trans->run_iterator_on_me (iter);

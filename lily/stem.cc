@@ -302,8 +302,6 @@ Stem::get_default_stem_end_position (Grob*me)
 	}
     }
 
-
-
   /* URGURGURG
      'set-default-stemlen' sets direction too
    */
@@ -314,14 +312,10 @@ Stem::get_default_stem_end_position (Grob*me)
       set_grob_direction (me, dir);
     }
 
-
   /* stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay] */
-  if (!chord_start_y (me)
-      || (get_direction (me) != get_default_dir (me)))
+  if (dir * head_positions (me)[dir] >= 0)
     {
-      
-  
       SCM sshorten = me->get_property ("stem-shorten");
       SCM scm_shorten = gh_pair_p (sshorten) ?
 	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
@@ -329,7 +323,7 @@ Stem::get_default_stem_end_position (Grob*me)
       
   
       /* On boundary: shorten only half */
-      if (abs (head_positions (me)[get_direction (me)]) <= 1)
+      if (abs (head_positions (me)[dir]) <= 1)
 	shorten *= 0.5;
   
       length -= shorten;

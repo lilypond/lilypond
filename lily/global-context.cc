@@ -16,10 +16,12 @@
 #include "score-context.hh"
 #include "context-def.hh"
 #include "music-output-def.hh"
+#include "grace-fixup.hh"
 
-Global_context::Global_context (Music_output_def*o)
+Global_context::Global_context (Music_output_def *o, Moment final)
 {
   output_def_ = o;
+  final_mom_ = final;
   definition_ = o->find_context_def (ly_symbol2scm ("Global"));
   unsmob_context_def (definition_)->apply_default_property_operations (this);
   accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));
@@ -34,7 +36,7 @@ Global_context::get_output_def () const
 void
 Global_context::add_moment_to_process (Moment m)
 {
-  if (m  > final_mom_)
+  if (m > final_mom_)
     return;
 
   if (m < now_mom_)
@@ -125,17 +127,6 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
       if (w.main_part_.is_infinity ())
 	break ;
       
-#if 0      
-      //      printf ("proccing %s\n ",       w.to_string ().to_str0 ());
-      if (first)
-	{
-	  /*
-	    Huh? 
-	   */
-	  set_property ("measurePosition", w.smobbed_copy ());
-	}
-#endif
-      
       prepare (w);
 
       if (iter->ok ())
@@ -157,7 +148,7 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 	}
       
       one_time_step ();
-      first = false;      
+      first = false;
     }
 }
 
@@ -173,8 +164,8 @@ Global_context::apply_finalizations ()
 }
 
 /*
-   Add a function to execute before stepping to the next time step.
- */
+  Add a function to execute before stepping to the next time step.
+*/
 void
 Global_context::add_finalization (SCM x)
 {
@@ -183,3 +174,8 @@ Global_context::add_finalization (SCM x)
   set_property ("finalizations" ,lst); 
 }
 
+Moment
+Global_context::previous_moment () const
+{
+  return prev_mom_;
+}

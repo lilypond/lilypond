@@ -15,9 +15,9 @@
 
 class Hyphen_engraver : public Engraver
 {
-  Music* ev_;
-  Spanner* hyphen_;
-  Spanner * finished_hyphen_;  
+  Music *ev_;
+  Spanner *hyphen_;
+  Spanner *finished_hyphen_;  
 public:
   TRANSLATOR_DECLARATIONS (Hyphen_engraver);
 

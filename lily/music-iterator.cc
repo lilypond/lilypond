@@ -98,6 +98,7 @@ Music_iterator::get_static_get_iterator (Music *m)
   assert (m);
   p->music_length_ = m->get_length ();
   p->start_mom_ = m->start_mom ();
+  
   return iter;
 }
 
