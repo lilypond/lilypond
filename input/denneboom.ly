@@ -2,8 +2,8 @@
 filename =	 "denneboom.ly";
 enteredby =	 "jcn";
 copyright =	 "public domain";
-TestedFeatures = "This file tests silly line shapes";
 }
+%{ file tests silly line shapes %}
 
 \include "paper20.ly"
 
@@ -95,9 +95,8 @@ denneboom_shape = \paper{
 		 65. \mm, 30. \mm
 		 ;
 	gourlay_maxmeasures = 30.;
-% uhuh, loop if you comment these in
-%		arithmetic_basicspace = 3.8;
-%		arithmetic_multiplier = 8.\pt;
+	arithmetic_basicspace = 3.8;
+	arithmetic_multiplier = 8.\pt;
 }
 
 \score{
@@ -105,39 +104,7 @@ denneboom_shape = \paper{
 		\context Staff { \time 3/4; \melody }
 		\context Lyrics \verse_one
 	\paper{ 
-% huh?
-%		\denneboom_shape 
-	\paper_twenty
-	indent = 20. \mm;
-	\shape  70. \mm, 50. \mm,
-		 65. \mm, 30. \mm,
-		 57.5 \mm, 45. \mm,
-		 50. \mm, 60. \mm,
-		 42.5 \mm, 75. \mm,
-		 35. \mm, 90. \mm,
-		 27.5 \mm, 105. \mm,
-		 20. \mm, 120. \mm,
-		 10. \mm, 140. \mm,
-%		 65. \mm, 30. \mm,
-		 65. \mm, 40. \mm
-		 ;
-	gourlay_maxmeasures = 30.;
-% uhuh, loop if you comment these in
-		arithmetic_basicspace = 3.8;
-%		arithmetic_multiplier = 8.\pt;
-		arithmetic_multiplier = 7.5\pt;
-		casting_algorithm= \Wordwrap;
+		\denneboom_shape 
 	}
 	\midi{ \tempo 4 = 90; }
 }
-
-%{
-\score{
-	<
-		\melody_staff
-		\verse_two_staff
-	>
-	\paper{ \denneboom_shape }
-	\midi{ \tempo 4 = 90; }
-}
-%}
