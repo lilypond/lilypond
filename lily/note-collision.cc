@@ -206,7 +206,16 @@ check_meshing_chords (Grob*me,
       if (wipe_ball && wipe_ball->live ())
 	{
 	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
-	  wipe_ball->set_grob_property ("molecule", SCM_EOL);	  
+	  wipe_ball->set_grob_property ("molecule", SCM_EOL);
+
+	  if (Grob *d = unsmob_grob (wipe_ball->get_grob_property ("dot")))
+	    d->suicide ();
+	}
+
+      if (wipe_ball == 0
+	  && unsmob_grob (nd->get_grob_property ("dot")))
+	{
+	  unsmob_grob (nd->get_grob_property ("dot"))->suicide ();
 	}
     }
   else if (close_half_collide && !touch)

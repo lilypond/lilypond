@@ -231,12 +231,14 @@ remove_collision (Dot_configuration &cfg, int p)
 SCM
 Dot_column::do_shifts (Grob*me)
 {
-  
   Link_array<Grob> dots =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "dots");
   
   dots.sort (compare_position);
-
+  for (int i = dots.size (); i--;)
+    if (!dots[i]->live ())
+      dots.del (i);
+  
   Dot_configuration cfg;
   for (int i =0;i < dots.size (); i++)
     {
