@@ -35,7 +35,7 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(memmem snprintf )
 AC_CONFIG_HEADER(out/config.hh:config.hh.in)
 
-CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
+CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
 
 AC_OUTPUT(out/Flower-flags.make:Flower-flags.make.in)
 

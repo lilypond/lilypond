@@ -898,7 +898,7 @@ done
 
 
 
-CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
+CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
 
 trap '' 1 2 15
 cat > confcache <<\EOF

@@ -40,13 +40,16 @@ include ./$(depth)/make/Rules.make
 
 spec: $(outdir)/lilypond.spec
 
-rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))
+rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))\
+	BUGS TODO NEWS DEDICATION ANNOUNCE README
+rpmmudocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/*.doc)))
+rpmdvis=$(rpmmudocs:.doc=.dvi)
 rpmexamples= $(addprefix input/, $(notdir $(shell ls $(depth)/input/*.{ly,tex})))
 
 
 sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
 sed-date=sed 's!@DATE@!${date}!g'
-sed-examples = sed 's!@EXAMPLE_LYS@!${rpmexamples}!g'
+sed-examples = sed 's!@EXAMPLE_LYS@!${rpmexamples} ${rpmdvis}!g'
 sed-docs=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
 
 $(outdir)/lilypond.spec: lilypond.spec.in $(depth)/.version
