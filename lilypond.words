@@ -121,6 +121,8 @@ Grace
 \\grandstaff
 GrandStaff
 \\GrandStaffContext
+\\groupClose
+\\groupOpen
 \\grstaff
 Hairpin
 \\hairyChord
@@ -147,10 +149,10 @@ InnerChoirStaff
 \\legato
 \\legniGroup
 \\lheel
+Ligature_bracket_engraver
 \\linebreak
 \\lineprall
 \\locrian
-\\longa
 \\lower
 \\lowerOctave
 \\lowerOne
@@ -171,6 +173,7 @@ Lyrics
 \\melodic
 \\melodicStaff
 \\melody
+Mensural_ligature_engraver
 mezzosoprano
 \\mf
 \\midi
@@ -291,6 +294,7 @@ Score
 \\segno
 \\sequential
 \\set
+\\setMmRestFermata
 \\settings
 \\sf
 \\sff
@@ -344,12 +348,14 @@ Staff
 StaffSymbol
 \\staffTwo
 \\start
+\\startTextSpan
 Stem
 \\stemBoth
 \\stemDown
 \\steminvert
 \\stemUp
 \\stop
+\\stopTextSpan
 \\stopped
 \\stpaper
 \\stscore
