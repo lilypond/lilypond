@@ -130,7 +130,7 @@ traditional 1+2.
 @end lisp
 
 The arrow @result{} shows that the result of evaluating @code{(+ 1 2)}
-is @code{3}.  Calculations may be nested: the result of a function may
+is @code{3}.  Calculations may be nested; the result of a function may
 be used for another calculation.
 
 @lisp
@@ -139,7 +139,7 @@ be used for another calculation.
    @result{} #13
 @end lisp
 
-These calculations are examples of evaluations: an expression like
+These calculations are examples of evaluations; an expression like
 @code{(* 3 4)} is replaced by its value @code{12}. A similar thing
 happens with variables. After defining a variable  
 
@@ -245,15 +245,31 @@ clef, and time signature are added. LilyPond @emph{interprets} the
 input. During this step, the musical information is inspected in time
 order, similar to reading a score from left to right. While reading,
 the program remembers where measure boundaries are, and what pitches
-need explicit accidentals.
+need explicit accidentals.  This information can be presented on
+several levels.  For example, the effect of an accidental is limited
+to a single stave, while a bar line must be synchronized across the
+entire score.
 
-This is contextual information and it can be presented on several
-levels.  For example, the effect of an accidental is limited to a
-single stave, while a bar line must be synchronized across the entire
-score.  To match this hierarchy, LilyPond's interpretation step is
-hierarchical.  There are interpretation contexts, like
-@context{Voice}, @context{Staff}, and @context{Score}, and each level 
-can maintain its own properties.
+Within LilyPond, these rules and bits of information are grouped in
+so-called Contexts. Examples of context are @context{Voice},
+@context{Staff}, and @context{Score}.  They are hierarchical, for
+example, a @context{Staff} can contain many @context{Voice}s, and a
+@context{Score} can contain many @context{Staff} contexts.
+
+Each context has the responsibility for enforcing some notation rules,
+creating some notation objects and maintaining the associated
+properties.  So, the synchronization of bar lines is handled at
+@context{Score} context.  The @context{Voice} may introduce an
+accidentals and then the @context{Staff} context maintains the rule to
+show or suppress the accidental for the remainder of the measure.
+
+For simple scores, contexts are created implicitly, and you need not
+be aware of them. For larger pieces, such as piano music, they must be
+created explicitly to make sure that you get as many staves as you
+need, and that they are in the correct order.  For typesetting pieces
+with specialized notation, it can be useful to modify existing or
+define new contexts.
+
 
 Full description of all available contexts is in the program
 reference, see
@@ -282,7 +298,7 @@ Translation @arrow{} Context.
 
 For scores with only one voice and one staff, correct contexts are
 created automatically. For more complex scores, it is necessary to
-instantiate them by hand.  There are three commands which do this.
+create them by hand.  There are three commands which do this.
 
 The easiest command is @code{\new}, and it also the quickest to type.
 It is prepended to a  music expression, for example
@@ -914,15 +930,7 @@ First, we will give a a few versatile commands, which are sufficient
 for many situations. The next section will discuss general use of
 @code{\override}.
 
-
-
--nmost adjustments simply @c HJ: what is this?
-
-
-
-The commands changes  @c HJ: what is this?
-
-
+@ignore
 There are situations where default layout decisions are not
 sufficient.  In this section we discuss ways to override these
 defaults.
@@ -954,6 +962,7 @@ layout property name:
   #'layout-property-name
 @end example
 
+@end ignore
 
 @menu
 * Common tweaks::               

@@ -38,13 +38,6 @@ the
 @ref{Cheat sheet}, which is a table listing all commands for quick
 reference.
 
-@c unnecesary cruft?
-In this tutorial, we will show step by step how to enter such files,
-and illustrate the process with fragments of input and the
-corresponding output.  At the end of every section, a paragraph will
-list where to find further information on the topics discussed.
-
-
 @menu
 * First steps::                 
 * Running LilyPond::            
@@ -107,7 +100,7 @@ a1 a2 a4 a16 a32
 @end quotation
 
 If you do not specify a @rglos{duration}, the duration last entered is
-used; the first note's duration defaults to a quarter
+used; the duration of the first note defaults to a quarter
 @c FIXME: let's omit the first note rule?
 @c  The first note will be a quarter
 
@@ -144,13 +137,13 @@ s16_" "
 Add a dot @samp{.} after the duration to get a @rglos{dotted note}
 
 @example
-a2.  a4 a8.  a16
+a2. a4 a8. a16
 @end example
 
 @quotation
 @lilypond[notime]
 \set Score.timing = ##f
-\transpose c c' { a2.  a4 a8.  a16 s16_" " }
+\transpose c c' { a2. a4 a8. a16 s16_" " }
 @end lilypond
 @end quotation
 
@@ -275,6 +268,13 @@ see  @ref{Time signature}.
 @c instruct (how) to use them; let advanced user figure-out what
 @c commands to type?
 
+@c
+@c We don't have enough space to explain  either VIM
+@c or Emacs non-advanced users, and I fear that both editors will only
+@c confuse newbies. I vote for keeping the material in footnotes.
+@c 
+@c --hwn 
+
 In the last section we explained what kind of things you could enter
 in a LilyPond file.  In this section we will explain what commands to
 run and how to view or print the output.  If you have not used
@@ -283,14 +283,14 @@ file yourself, read this section.  The instructions that follow are
 for Unix-like systems.  Some additional instructions for Microsoft
 Windows are given at the end of this section.
 
-@c FIXME: remove footnotes/integrate in text
 Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If it has not been
-installed already, refer to the file @file{INSTALL.txt}}.  In your
-text editor, enter the following input and save the file as
-@file{test.ly}
+installed already, refer to
+@c FIXME lousy reference.
+the file @file{INSTALL.txt}}. In your text editor, enter the following
+input and save the file as @file{test.ly}
 
 @example
 \score @{
@@ -581,8 +581,8 @@ An example of the use of quotes is in the following Mozart fragment
 @lilypond[raggedright,fragment,verbatim]
 \key a \major
 \time 6/8
-cis''8.  d''16 cis''8 e''4 e''8
-b'8.  cis''16 b'8 d''4 d''8 
+cis''8. d''16 cis''8 e''4 e''8
+b'8. cis''16 b'8 d''4 d''8 
 @end lilypond 
 @end quotation
 
@@ -623,8 +623,8 @@ entered as
 \relative c'' {
   \key a \major
   \time 6/8
-  cis8.  d16 cis8 e4 e8
-  b8.  cis16 b8 d4 d8
+  cis8. d16 cis8 e4 e8
+  b8. cis16 b8 d4 d8
 }
 @end lilypond 
 @end quotation
@@ -695,11 +695,11 @@ notes
 @end lilypond
 @end quotation
 
-This technique becomes useful for non-monophonic music.  To enter music
+This technique is useful for non-monophonic music.  To enter music
 with more voices or more staves, we also combine expressions in
-parallel.  Two voices that should play at the same time, are entered as
-a simultaneous combination of two sequences.  A ``simultaneous'' music
-expression is formed by enclosing expressions in @code{<<} and
+parallel.  Two voices that should play at the same time, are entered
+as a simultaneous combination of two sequences.  A ``simultaneous''
+music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two notes) are combined simultaneously
  
@@ -819,7 +819,7 @@ We can now typeset a melody with two staves
       \clef violin
       \relative c'' {
         e2 d4 c2 b4 a8[ a]
-        b[ b] g[ g] a2.  }  
+        b[ b] g[ g] a2. }  
     }
     \new Staff {
        \clef bass
@@ -1189,7 +1189,7 @@ In popular music, it is common to denote accompaniment as chord-names.
 Such chords can  be entered like notes,
 
 @example
-c2 f4.  g8
+c2 f4. g8
 @end example
 
 @noindent

@@ -40,9 +40,8 @@ has obvious advantages; prints are cheaper to make, editorial work can
 be delivered by email.  Unfortunately, the pervasive use of computers
 has also decreased the graphical quality of scores.  Computer
 printouts have a bland, mechanical look, which makes them unpleasant
-to play from.  The most important features of a music print is the
-font, i.e, the symbols or glyphs, and the placement or spacing of the
-symbols.
+to play from.
+
 
 @c introduce illustrating aspects of engraving, font...
 The images below illustrate the difference between traditional
@@ -197,7 +196,7 @@ software.  The remaining cases can be tuned by hand.  Over the course
 of years, the software can be refined to do more and more
 automatically, so manual overrides are less and less necessary.
 
-When we started we wrote the LilyPond entirely using the C++
+When we started we wrote the LilyPond program entirely in the C++
 programming language, the program's functionality was set in stone by
 the developers.  That proved to be unsatisfactory for a number of
 reasons:
@@ -222,9 +221,9 @@ notation works.
 @end itemize
 
 These problems have been addressed by integrating the GUILE
-interpreter for the scheme programming language and rewriting parts of
-LilyPond in scheme.  The new, flexible formatting is built around the
-notion of graphical objects, described by scheme variables and
+interpreter for the Scheme programming language and rewriting parts of
+LilyPond in Scheme.  The new, flexible formatting is built around the
+notion of graphical objects, described by Scheme variables and
 functions.  This architecture encompasses formatting rules,
 typographical style and individual formatting decisions.  The user has
 direct access to most of these controls.
