@@ -1,7 +1,11 @@
 2004-12-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/main.cc (setup_paths): Add svg to search path.
+
 	* scm/output-svg.scm:
 	* scm/framework-svg.scm: Add pageSet.  Update.
+	(dump-fonts): New function.
+	(output-framework): Use it.
 
 	* mf/GNUmakefile: 
 	* buildscripts/gen-bigcheese-scripts.py: Also generate SVG font.
