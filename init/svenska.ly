@@ -3,12 +3,6 @@
 %
 % by Mats Bengtsson.
 
-
-%
-% Please note that, while these names are used to enter *notes*, they
-% actually are *melodic*s, i.e. they represent a pitch solely. Notes
-% have a rhythmic part too. This is the reason that we don't write 'note { .. }'
-%
 \notenames {
 	cessess	= \musicalpitch { -1 0 -2 }
 	cess 	= \musicalpitch { -1 0 -1 }

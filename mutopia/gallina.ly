@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.0.3";
+\version "1.0.4";
 
 vi1=\notes \relative c'' {
   \time 4/4;

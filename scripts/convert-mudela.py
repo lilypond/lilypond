@@ -14,7 +14,7 @@
 #  - rewrite in python
 
 program_name = 'convert-mudela'
-version = '0.3'
+version = '0.2'
 
 
 import os
@@ -189,6 +189,16 @@ if 1:
 		return newlines
 	
 	conversions.append ((1,0,3), conv, '\melodic -> \notes\n')
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  regsub.gsub ('default_paper *=', '',x)
+			x =  regsub.gsub ('default_midi *=', '',x)			
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,4), conv, 'default_{paper,midi}\n')
 
 
 ############################
@@ -215,7 +225,6 @@ def do_conversion (infile, from_version, outfile, to_version):
 			lines = x[1] (lines)
 			last_conversion = x[0]
 			
-		sys.stderr.write ('\n')
 
 	except FatalConversionError:
 		sys.stderr.write ('Error while converting; I won\'t convert any further')
@@ -263,16 +272,11 @@ def do_one_file (infile_name):
 	
 	do_conversion (infile, from_version, outfile, to_version)
 
-	if infile_name:
-		infile.close ()
-
-	if outfile_name:
-		outfile.close ()
-
 	if __main__.edit:
 		os.rename (infile_name, infile_name + '~')
 		os.rename (infile_name + '.NEW', infile_name)
 
+	sys.stderr.write ('\n')
 
 edit = 0
 to_version = ()

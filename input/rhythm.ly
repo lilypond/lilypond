@@ -7,7 +7,7 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "1.0.3";
+\version "1.0.4";
 
 ritme = \notes\transpose c'' {
 	\partial 8;

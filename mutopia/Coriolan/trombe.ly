@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 \include "trombo-1.ly"
 \include "trombo-2.ly"

@@ -61,7 +61,6 @@ public:
   Midi_def*default_midi_p();
   void do_yyparse();
   void parser_error (String);
-  void clear_notenames();
 
   Array<Request*>* get_parens_request (int t);
     

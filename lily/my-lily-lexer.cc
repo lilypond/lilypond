@@ -27,11 +27,9 @@ static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
   {"bar", BAR},
   {"cadenza", CADENZA},
-  {"clear", CLEAR},
   {"clef", CLEF},
   {"cm", CM_T},
   {"consists", CONSISTS},
-  {"contains", CONTAINS},
   {"duration", DURATION},
   {"font", FONT},
   {"grouping", GROUPING},
@@ -178,10 +176,10 @@ My_lily_lexer::add_notename (String s, Musical_pitch p)
 }
 
 void
-My_lily_lexer::clear_notenames()
+My_lily_lexer::set_notename_table(Notename_table *p)
 {
   delete note_tab_p_;
-  note_tab_p_ = new Notename_table;
+  note_tab_p_ = p;
 }
 
 char

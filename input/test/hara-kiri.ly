@@ -1,4 +1,4 @@
-\version "1.0.3";
+\version "1.0.4";
 
 toeter_i = \notes\relative c {
 	\property Staff.instrument = "Toeters"
@@ -62,7 +62,7 @@ zoger = \type Staff = zoger \notes \relative c {
 	\skip 1*1;
 }
 
-default_paper = \include "score-paper.ly";
+ \include "score-paper.ly";
 
 zagers = \type GrandStaff <
 	\zager

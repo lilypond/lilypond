@@ -20,10 +20,14 @@ PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
-export BIBINPUTS="$(topdir)/Documentation/tex//"#huh?
 
 
 include $(depth)/make/stepmake.make 
+
+
+export BIBINPUTS:="$(topdir)/Documentation/tex//"#huh?
+
+
 
 dvi: $(OUT_BIB_FILES) $(DVI_FILES)
 

@@ -1,8 +1,10 @@
-one = \melodic\relative c{
+\version "1.0.4";
+
+one = \notes\relative c{
 	c'' d e f
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	\clef "bass";
 	c'2 g2
 }
@@ -16,7 +18,7 @@ two = \melodic\relative c{
 	\midi{}
 }
 
-% A full-mudala example with two staffs
+% A full-mudela example with two staffs
 %
 % Type:
 %

@@ -53,7 +53,10 @@ Music_output_def::find_translator_l (String name) const
 Global_translator *
 Music_output_def::get_global_translator_p () 
 {
-  Translator * t = find_translator_l ("Score")->clone ();
+  Translator * t = find_translator_l ("Score");
+  if (!t)
+    error (_("Can't find Score context"));
+  t = t->clone ();
   Global_translator *g = t->group_l ()->global_l ();
   t->add_processing ();
   

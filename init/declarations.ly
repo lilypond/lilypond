@@ -13,7 +13,7 @@ Wordwrap = 0.0
 
 \include "paper20.ly"
 
-default_paper = \paper{
+\paper{
 	\paper_twenty
 }
 

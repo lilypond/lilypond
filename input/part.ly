@@ -1,4 +1,5 @@
-part = \melodic{
+\version "1.0.4";
+part = \{
 	c-1 c c c
 	r1*3
 	c4-5 c c c
@@ -30,7 +31,7 @@ a4 = \paper{
 
 \score{
 	<
-		\melodic{ 
+		\notes{ 
 			\property Score.part = 1
 			\part
 		}
@@ -40,7 +41,7 @@ a4 = \paper{
 
 \score{
 	<
-		\melodic{ 
+		\notes{ 
 			\property Score.part = 0
 			\part
 		}

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 \include "flauto-1.ly"
 \include "flauto-2.ly"

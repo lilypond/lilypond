@@ -1,21 +1,19 @@
---- ../lilypond-1.0.9/NEWS	Thu Sep 17 12:03:26 1998
-++ b/NEWS	Sat Sep 19 23:46:51 1998
-@@ -1,3 +1,8 @@
-pl 9.jbr1
-        - scripts/convert-mudela.py: We must close infile and outfile before
-          a rename occurs.  NT Windows locks open files.
-          stepmake/bin/package-zip32.sh: renamed all python bins to:
-          <filename>.py in NT Windows distribution.
- 
- (need to fix pictures. I know)
- pl 9.jcn1
+
+(need to fix pictures. I know)
+
+
+pl 9.jcn1
 	- started gnuisation of website
 	  * filetype and size
 	  * 'no gifs due to patent problems'
 	- bumped stepmake version nr (again):
 	  please update stepmake/VERSION after making changes to stepmake...
-
-(need to fix pictures. I know)
+  
+pl 9.hwn1
+	- do default midi,paper by toplevel \paper / \midi (mudela 1.0.4)
+	- bf: error if no Score context
+	- notename table now can be declared as well.
+	- junked \clear
 
 pl 9
 	

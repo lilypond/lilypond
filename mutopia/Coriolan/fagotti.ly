@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 \include "fagotto-1.ly"
 \include "fagotto-2.ly"

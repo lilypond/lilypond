@@ -5,7 +5,7 @@ TestedFeatures =	 "This file tests trills"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 \score{
 	\notes{ 

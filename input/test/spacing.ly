@@ -6,7 +6,7 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "1.0.3";
+\version "1.0.4";
 
 multipart = \notes{ 
     \type StaffGroup < 

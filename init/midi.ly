@@ -1,5 +1,5 @@
 
-default_midi = \midi {
+\midi {
         \tempo 4=60;
 	\include "performer.ly"
 }

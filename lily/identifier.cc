@@ -18,7 +18,7 @@
 #include "script-def.hh"
 #include "request.hh"
 #include "translator.hh"
-
+#include "notename-table.hh"
 
 IMPLEMENT_IS_TYPE_B(Identifier);
 
@@ -102,7 +102,7 @@ Class ## _identifier::do_str () const { \
 }
 
 
-
+DUMMY_STR(Notename_table);
 DUMMY_STR(General_script_def);
 DUMMY_STR(Lookup);
 DUMMY_STR(Translator);
@@ -126,7 +126,8 @@ STRING_PRINT(Duration);
 STRING_PRINT(Real);
 STRING_PRINT(int);
 STRING_PRINT(String);
-
+STRING_PRINT(Notename_table);
+  
 #define DEFAULT_STR(Class) \
 String \
 Class ## _identifier::do_str () const\
@@ -185,12 +186,12 @@ IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Request);
 IMPLEMENT_ID_CLASS(Midi_def);
 IMPLEMENT_ID_CLASS(Paper_def);
-
+IMPLEMENT_ID_CLASS(Notename_table);
 VIRTUAL_ACCESSOR(Music);
 VIRTUAL_ACCESSOR(Request);
 VIRTUAL_ACCESSOR(Translator);
 VIRTUAL_ACCESSOR(General_script_def);
-
+DEFAULT_ACCESSOR(Notename_table);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(int);
 DEFAULT_ACCESSOR(Real);

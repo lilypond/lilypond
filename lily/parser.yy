@@ -10,7 +10,7 @@
 */
 
 #include <iostream.h>
-
+#include "notename-table.hh"
 #include "scalar.hh"
 #include "translation-property.hh"
 #include "script-def.hh"
@@ -45,7 +45,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.3");
-Mudela_version version ("1.0.3");
+Mudela_version version ("1.0.4");
 
 
 // needed for bison.simple's malloc() and free()
@@ -103,6 +103,7 @@ Paper_def* current_paper = 0;
     Midi_def* midi;
     Moment *moment;
     Note_req *notereq;
+    Notename_table *notenametab;
     Paper_def *paper;
     Real real;
     Request * request;
@@ -139,61 +140,54 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 
-%token ALIAS
+%token ABSDYNAMIC
+%token ACCEPTS
 %token BAR
 %token BEAMPLET
-%token MAEBTELP
-%token PENALTY
 %token CADENZA
-%token CLEAR
 %token CLEF
-%token CONTAINS
-%token RELATIVE
-%token CONSISTS
-%token ACCEPTS
 %token CM_T
+%token CONSISTS
 %token DURATION
-%token ABSDYNAMIC
 %token END
+%token FONT
 %token GROUPING
-%token TRANSLATOR
 %token HEADER
 %token IN_T
-%token LYRIC
 %token KEY
 %token KEYSIGNATURE
+%token LYRIC
+%token MAEBTELP
 %token MARK
+%token MEASURES
+%token MIDI
+%token MM_T
 %token MUSIC
 %token MUSICAL_PITCH
-%token NOTES
-%token MIDI
-%token TIME_T
-%token MM_T
-
 %token NOTENAMES
+%token NOTES
 %token OCTAVE
 %token OUTPUT
 %token PAPER
 %token PARTIAL
+%token PENALTY
 %token PLET
-%token TELP
+%token PROPERTY
 %token PT_T
+%token RELATIVE
 %token SCORE
 %token SCRIPT
 %token SHAPE
 %token SKIP
 %token SPANDYNAMIC
-
-%token START_T
 %token SYMBOLTABLES
 %token TABLE
-%token TRANSPOSE
+%token TELP
 %token TEMPO
+%token TIME_T
+%token TRANSLATOR
+%token TRANSPOSE
 %token TYPE
-%token FONT
-%token MEASURES
-%token TITLE
-%token PROPERTY
 %token VERSION
 
 /* escaped */
@@ -204,7 +198,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <pitch>	NOTENAME_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
-
+%token <id>	NOTENAME_TABLE_IDENTIFIER
 %token <id>	MUSIC_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
 %token <id>	SCRIPT_IDENTIFIER
@@ -248,7 +242,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration>	duration_length
 
 %type <scalar>  scalar
-%type <music>	Music transposed_music relative_music Sequential_music Simultaneous_music
+%type <music>	Music  relative_music Sequential_music Simultaneous_music
 %type <music>	property_def translator_change
 %type <music_list> Music_list
 %type <paper>	paper_block paper_body
@@ -271,24 +265,40 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <symtable>	symtable symtable_body
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
-
+%type <notenametab> notenames_body notenames_block
 %expect 1
 
 
 %%
 
 mudela:	/* empty */
-	| mudela mudela_header {
-		delete header_global_p;
-		header_global_p = $2;
-	}
-	| mudela score_block {
-		score_global_array.push ($2);
-	}
+	| mudela toplevel_expression {}
 	| mudela add_declaration { }
 	| mudela error
 	| mudela check_version { }
-	| mudela add_notenames { }
+	;
+
+toplevel_expression:
+	notenames_block			{
+		THIS->lexer_p_->set_notename_table ($1);
+	}
+	| mudela_header {
+		delete header_global_p;
+		header_global_p = $1;
+	}
+	| score_block {
+		score_global_array.push ($1);
+	}
+	| paper_block {
+		Identifier * id = new
+			Paper_def_identifier ($1, PAPER_IDENTIFIER);
+		THIS->lexer_p_->set_identifier ("$defaultpaper", id)
+	}
+	| midi_block {
+		Identifier * id = new
+			Midi_def_identifier ($1, MIDI_IDENTIFIER);
+		THIS->lexer_p_->set_identifier ("$defaultmidi", id)
+	}
 	;
 
 check_version:
@@ -305,17 +315,23 @@ check_version:
 	}
 	;
 
-add_notenames:
-	NOTENAMES '{' notenames_body '}'
+
+notenames_block:
+	NOTENAMES '{' notenames_body '}'  {  $$ = $3; }
 	;
+
+
+
 notenames_body:
 	/**/	{
+		$$ = new Notename_table;
 	}
-	| notenames_body CLEAR	{
-		THIS->clear_notenames ();
+	| NOTENAME_TABLE_IDENTIFIER	{
+		$$ = $1-> access_Notename_table();
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
-		THIS->add_notename (*$2, *$4);
+		(*$$)[*$2] = *$4;
+
 		delete $4;
 		delete $2;
 	}
@@ -342,7 +358,6 @@ mudela_header:
 /*
 	DECLARATIONS
 */
-
 add_declaration:
 	STRING {
 		THIS->remember_spot ();
@@ -358,6 +373,9 @@ identifier_init:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
 
+	}
+	| notenames_block {
+		$$ = new Notename_table_identifier ($1, NOTENAME_TABLE_IDENTIFIER);
 	}
 	| paper_block {
 		$$ = new Paper_def_identifier ($1, PAPER_IDENTIFIER);
@@ -681,7 +699,11 @@ Music:
 	}
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
-	| transposed_music	{ $$ = $1; }
+	| TRANSPOSE musical_pitch Music {
+		$$ = $3;
+		$$ -> transpose (*$2);
+		delete $2;
+	}
 	| MUSIC_IDENTIFIER { $$ = $1->access_Music (); }
 	| NOTES
 		{ THIS->lexer_p_->push_note_state (); }
@@ -741,14 +763,6 @@ scalar:
 	| int		{ $$ = new Scalar ($1); }
 	;
 
-
-transposed_music:
-	TRANSPOSE musical_pitch Music {
-		$$ = $3;
-		$$ -> transpose (*$2);
-		delete $2;
-	}
-	;
 
 
 request_chord:
