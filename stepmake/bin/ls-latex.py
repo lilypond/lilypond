@@ -143,7 +143,10 @@ for opt in options:
 
 l = sys.stdout
 
-l.write ('<html><title>%s</title><h1> %s</h1><ul>\n' % (title, title))
+l.write (r"""<html><title>%s</title>
+<body>
+<h1> %s</h1><ul>
+""" % (title, title))
 
 
 for x in files:
@@ -161,5 +164,5 @@ for x in files:
 	head.title = head.filename
     print_html_head (l, pre, head)
 
-l.write ('</ul></html>')
+l.write ('</ul></body></html>')
 
