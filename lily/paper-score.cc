@@ -57,9 +57,10 @@ Paper_score::typeset_element (Score_element * elem_p)
   elem_p->pscore_l_ = this;
 
   // take over protection.
-  SCM_CDR(protected_scms_) = gh_cons (elem_p->element_property_alist_,
+  assert (elem_p->self_scm_ != SCM_EOL);
+  SCM_CDR(protected_scms_) = gh_cons (elem_p->self_scm_,
 				      SCM_CDR (protected_scms_));
-  scm_unprotect_object (elem_p->element_property_alist_);
+  scm_unprotect_object (elem_p->self_scm_);
   
   SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
   if (p != SCM_BOOL_F)

@@ -144,6 +144,14 @@ protected:
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
   static Interval dim_cache_callback (Dimension_cache*);
+public:
+  SCM smobify_self ();
+  static SCM mark_smob (SCM);
+  static scm_sizet free_smob (SCM s);
+  static int print_smob (SCM s, SCM p, scm_print_state*);
+  static long smob_tag;
+  static void init_smobs();
+  SCM self_scm_;
 };
 
 

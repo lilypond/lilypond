@@ -12,6 +12,7 @@
 #include "engraver-group-engraver.hh"
 #include "debug.hh"
 #include "paper-def.hh"
+#include "score-element.hh"
 
 void
 Engraver::fill_staff_info (Staff_info&)
@@ -23,6 +24,12 @@ void
 Engraver::announce_element (Score_element_info i)
 {
   i.origin_trans_l_arr_.push (this);
+  Score_element *s  = i.elem_l_;
+  if (s->self_scm_ == SCM_EOL)
+    {
+      scm_protect_object (s->smobify_self ());
+    }
+  
   daddy_grav_l()->announce_element (i);
 }
 
