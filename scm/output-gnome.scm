@@ -137,7 +137,7 @@ lilypond -fgnome input/simple-song.ly
 (define (music-font? font)
   (let ((family (car (font-name-style font))))
     (string=? (substring family 0 (min (string-length family) 10))
-	      "emmentaler")))
+	      "Emmentaler")))
 
 ;;; FONT may be font smob, or pango font string
 (define (pango-font-name font)
@@ -383,7 +383,8 @@ lilypond -fgnome input/simple-song.ly
 (define (text font s)
   (make <gnome-canvas-text>
     #:parent (canvas-root)
-    #:x 0.0 #:y 0.0
+    ;;#:x 0.0 #:y 0.0
+    #:x 0.0 #:y (if (music-font? font) 0.15 0.69)
     #:anchor (if (music-font? font) 'west 'south-west)
     #:font (pango-font-name font)
     #:size-points (canvas-font-size font)
