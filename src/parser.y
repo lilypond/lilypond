@@ -39,7 +39,7 @@ int fatal_error_i = 0;
     String *string;
     const char *consstr;
     Paperdef *paper;
-    Mididef* midi;
+    Midi_def* midi;
     Input_music *music;
     Music_general_chord *chord;
     Music_voice *mvoice; 
@@ -201,7 +201,7 @@ score_block:
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
 		$$->defined_ch_c_l_ = define_spots.pop();
-		if (!$$->paper_p_)
+		if (!$$->paper_p_ && ! $$->midi_p_)
 			$$->paper_p_ = default_paper();
 
 		/* handle error levels. */
@@ -267,7 +267,7 @@ midi_block:
 	;
 
 midi_body: { 
-		$$ = new Mididef; 
+		$$ = new Midi_def; 
 	}
 	| midi_body OUTPUT STRING	{ 
 		$$->outfile_str_ = *$3; 
@@ -299,9 +299,6 @@ staff_init:
 	| STRING		{
 		$$ = new Input_staff(*$1);
 		delete $1;
-	}
-	| MIDI		{
-		$$ = new Input_staff("midi");
 	}
 	;
 
