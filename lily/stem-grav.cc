@@ -25,7 +25,7 @@ void
 Stem_engraver::do_creation_processing ()
 {
   Scalar prop = get_property ("abbrev");
-  if (prop && prop.isnum ()) 
+  if (prop.isnum_b ()) 
     {
       default_abbrev_i_  = prop;
     }
@@ -34,9 +34,9 @@ Stem_engraver::do_creation_processing ()
 void
 Stem_engraver::acknowledge_element(Score_elem_info i)
 {
-  if (i.elem_l_->is_type_b (Note_head::static_name()))
+  if (i.elem_l_->is_type_b (Rhythmic_head::static_name()))
     {
-      Note_head *h  = (Note_head*) i.elem_l_->item();
+      Rhythmic_head *h  = (Rhythmic_head*) i.elem_l_->item();
       if (!stem_p_) 
 	{
 	  Rhythmic_req * r = i.req_l_->musical()->rhythmic();
@@ -52,7 +52,7 @@ Stem_engraver::acknowledge_element(Score_elem_info i)
 		t = default_abbrev_i_;
 	      else
 		default_abbrev_i_ = t;
-	      stem_p_->abbrev_flag_i_ = intlog2 (t) - (durlog_i>? 2);
+	      stem_p_->abbrev_flag_i_ =intlog2 (t) - (durlog_i>? 2);
 	    }
 	  announce_element (Score_elem_info (stem_p_, r));
 	}
@@ -65,7 +65,8 @@ Stem_engraver::do_pre_move_processing()
 {
   if (stem_p_)
     {
-      dir_ = (Direction) int(get_property ("ydirection"));
+      Scalar prop = get_property ("ydirection");
+      dir_ = prop.isnum_b () ? int(prop) : CENTER;
       if (dir_)
 	stem_p_->dir_ = dir_;
 
