@@ -1,5 +1,7 @@
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* GNUmakefile.in (EXTRA_DIST_FILES): dist lilypond.vim too.
+
 	* scm/document-markup.scm (markup-doc-node): sort markup function
 	list.
 
@@ -23,7 +25,8 @@
 	* Documentation/user/refman.itely: revise section explaining grace
 	notes.
 
-	* lily/translator-scheme.cc (LY_DEFINE): add !
+	* lily/translator-scheme.cc (LY_DEFINE): add ! to
+	ly:set-context-property
 
 	* input/*/*.ly (vmus): use \new everywhere.
 
