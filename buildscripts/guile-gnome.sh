@@ -41,7 +41,8 @@ rm -rf g-wrap
 ## tla get a.rottmann@gmx.at--2004-main/g-wrap--tng g-wrap
 ## pull latest g-wrap from janneke -- this step is probably no longer
 ## necessary when you read this
-tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
+tla register-archive janneke@gnu.org--2004-gnome \
+    http://lilypond.org/~janneke/{arch}/2004-gnome || true
 tla get janneke@gnu.org--2004-gnome/g-wrap--janneke g-wrap
 cd g-wrap
 
@@ -60,7 +61,8 @@ make install
 cd ../..
 
 ## 4.  get guile-gnome
-tla register-archive guile-gnome-devel@gnu.org--2004 http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
+tla register-archive guile-gnome-devel@gnu.org--2004 \
+    http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
 rm -rf guile-gnome
 tla get guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
 cd guile-gnome
