@@ -19,27 +19,11 @@
 
 
 /*
-  text: string | (markup sentence)
-  markup: markup-symbol | (markup-symbol . parameter)
-  sentence: text | sentence text
-  
-
-  Properties:
-
-  * Font:
-  ---* Type:
-  ------* Series: medium, bold
-  ------* Shape: upright, italic, slanted
-  ------* Family: roman, music, orator, typewriter
-
-  ---* Size:
-  ------* size: ...,-2,-1,0,1,2,... (style-sheet -> cmrXX, fetaXX)
-  ------* points: 11,13,16,20,23,26 (for feta)
-  ------* magnification: UNSIGNED
-
-  * Typesetting:
-  ---* kern: INT (staff-space)
-  ---* align: horizontal/vertical / lines / rows
+    TEXT : STRING | (MARKUP SENTENCE)
+    MARKUP: PROPERTY | ABBREV
+    SENTENCE: TEXT | SENTENCE TEXT
+    PROPERTY: (key . value)
+    ABBREV: rows lines roman music bold italic named super sub text, or any font-style
  */
 Molecule
 Text_item::text2molecule (Score_element *me, SCM text, SCM properties) 
@@ -74,22 +58,21 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
   if (paper == SCM_EOL)
     paper = scm_string_to_symbol (me->paper_l ()->get_scmvar ("style_sheet"));
 
-  SCM font_name;
+  // should move fallback to scm
+  SCM font_name = ly_str02scm ("cmr10");
   if (gh_pair_p (style))
     {
       SCM f = get_elt_property (me, "style-to-font-name");
-      font_name = gh_call2 (f, paper, gh_cdr (style));
+      if (gh_procedure_p (f))
+	font_name = gh_call2 (f, paper, gh_cdr (style));
     }
   else
     {
       SCM f = get_elt_property (me, "properties-to-font-name");
-      font_name = gh_call2 (f, paper, properties);
+      if (gh_procedure_p (f))
+	font_name = gh_call2 (f, paper, properties);
     }
    
-  // should move fallback to scm
-  if (!gh_string_p (font_name))
-    font_name = ly_str02scm ("cmr10");
-    
   SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
 
   Molecule mol;

@@ -100,10 +100,8 @@
 	es,, f ges as bes ces d es
 	
 	\key as\minor;
-	as, bes ces des es fes g as
-	
-	
-  }
+	as, bes ces des es fes g as}
+
   \paper { }  
   \midi { }
 }

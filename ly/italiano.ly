@@ -10,7 +10,7 @@
 
 % contributed by Paolo Zuliani <zuliap@easynet.it>
 
-\notenames #'
+\notenames #'(
 	(dobb . ( -1 0 -2 ))
 	(dob . ( -1 0 -1 ))
 	(do . ( -1 0 0 ))

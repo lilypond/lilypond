@@ -403,7 +403,7 @@ ly_version ()
   char const* vs =  "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
 
   
-  return gh_eval_str (vs);
+  return gh_eval_str ((char*)vs);
 }
 
 static void

@@ -100,22 +100,22 @@ fugaIIRight = \notes   \relative c''   {
        \context Voice=one {
        \shiftOff
        \stemUp
-	  e4 
+	  e4 -5
        }
        \context Voice=two {
 	  \shiftOn
 	  \stemUp
-	  cis
+	  cis-4
        }
        \context Voice=three {
 	  \shiftOnn
 	  \stemUp
-	  ais
+	  ais-3 
        }
        \context Voice=four {
 	  \shiftOnnn
 	  \stemUp
-	  fis
+	  fis-2
        }
   >
 
