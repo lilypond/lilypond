@@ -1,4 +1,4 @@
-\version "1.3.117";
+\version "1.3.120";
 
 m =  \notes \relative c''{
 
@@ -89,7 +89,7 @@ c1 | c2 c | c c | R1*5
   >
 >
  \paper {
-%    \paper_sixteen;
+%    \paperSixteen;
     linewidth = 185.\mm;
     textheight = 260.\mm;
     \translator {

@@ -7,7 +7,7 @@ description =  "This file tests the Feta music font";
 % "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.3.117";
+\version "1.3.120";
 \include "paper16.ly"
 \include "font-body.ly"
 
@@ -16,7 +16,7 @@ description =  "This file tests the Feta music font";
 	\paper{ 
 	    % don't change this.
 	    % otherwise 16pt and 20pt layouts differ.
-	    \paper_sixteen
+	    \paperSixteen
 	    linewidth = 12.5 \cm;
 	    gourlay_maxmeasures =5.;
 	}

@@ -18,7 +18,7 @@ bigger = 1
 center=0
 
 break =  \penalty  -1000000; 
-nobreak =  \penalty 1000000; 
+noBreak =  \penalty 1000000; 
 \include "scale-definitions.ly"
 
 melisma = \property Staff.melismaBusy = ##t

@@ -612,6 +612,22 @@ if 1:
 	conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
 
 
+if 1:
+	def conv (str):
+		def regularize_paper (match):
+			return regularize_id (match.group (1))
+		
+		str = re.sub ('(paper_[a-z]+)', regularize_paper, str)
+		str = re.sub ('sustainup', 'sustainUp', str)
+		str = re.sub ('sustaindown', 'sustainDown', str)
+		str = re.sub ('sostenutoup', 'sostenutoUp', str)
+		str = re.sub ('sostenutodown', 'sostenutoDown', str)
+		str = re.sub ('unachorda', 'unaChorda', str)
+		str = re.sub ('trechorde', 'treChorde', str)
+	
+		return str
+	
+	conversions.append (((1,3,120), conv, 'paper_xxx -> paperXxxx, pedalup -> pedalUp.'))
 
 ############################
 	

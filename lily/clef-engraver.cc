@@ -180,11 +180,14 @@ Clef_engraver::create_grobs ()
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");
   SCM octavation = get_property ("clefOctavation");
-
+  SCM force_clef = get_property ("forceClef");
+  
   if (clefpos == SCM_EOL
       || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F)    
+      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
+      || to_boolean (force_clef)
+      )
     {
       set_glyph();
       set_central_c (glyph, clefpos, octavation);
@@ -192,6 +195,12 @@ Clef_engraver::create_grobs ()
       create_clef ();
 
       clef_p_->set_grob_property ("non-default", SCM_BOOL_T);
+    }
+
+  if (to_boolean (force_clef))
+    {
+      Translator_group * w = daddy_trans_l_->where_defined (ly_symbol2scm ("forceClef"));
+      w->set_property ("forceClef", SCM_EOL);
     }
 }
 

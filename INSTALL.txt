@@ -53,7 +53,8 @@ Prerequisites
      (ftp://ftp.gnu.org/gnu/make/).
 
    * Flex (version 2.5.4a or newer).  Check out
-     ftp://ftp.gnu.org/gnu/flex/ (ftp://ftp.gnu.org/gnu/flex/).
+     ftp://ftp.gnu.org/pub/gnu/non-gnu/flex/
+     (ftp://ftp.gnu.org/pub/gnu/non-gnu/flex/).
 
    * Bison (version 1.25 or newer).  Check out
      ftp://ftp.gnu.org/gnu/bison/ (ftp://ftp.gnu.org/gnu/bison/).

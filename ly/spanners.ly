@@ -1,6 +1,4 @@
 
-
-% 1st arg dynamic (louder/softer). 2nd arg spantype
 cr = \spanrequest \start "crescendo"
 decr = \spanrequest  \start "decrescendo"
 rc = \spanrequest   \stop "crescendo"
@@ -26,14 +24,14 @@ endcresc = \spanrequest \stop "crescendo"
 %}
 
 % better name sustainstart/stop? 
-sustaindown = \spanrequest \start "Sustain"
-sustainup = \spanrequest \stop "Sustain"
+sustainDown = \spanrequest \start "Sustain"
+sustainUp = \spanrequest \stop "Sustain"
 
-unachorda = \spanrequest \start "UnaChorda"
-trechorde = \spanrequest \stop "UnaChorda"
+unaChorda = \spanrequest \start "UnaChorda"
+treChorde = \spanrequest \stop "UnaChorda"
 
-sostenutodown = \spanrequest \start "Sostenuto"
-sostenutoup = \spanrequest \stop "Sostenuto"
+sostenutoDown = \spanrequest \start "Sostenuto"
+sostenutoUp = \spanrequest \stop "Sostenuto"
 
 %crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
 %decresc = \property Voice.crescendoText = "decr."

@@ -1,5 +1,5 @@
 
-\version "1.3.117";
+\version "1.3.120";
 
 
 \include "paper-as5.ly"
@@ -22,7 +22,7 @@
 		}
 	>
 	\paper {
-%		\paper_as_nine
+%		\paperAs_nine
 		indent=4.0\char;
 		linewidth=78.0\char;
     		\translator { \StaffContext barSize = #4.5 }

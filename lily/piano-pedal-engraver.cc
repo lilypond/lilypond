@@ -17,13 +17,6 @@
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 
-
-
-
-
-/**
-   engrave Piano pedals symbols.
- */
 class Piano_pedal_engraver : public Engraver
 {
 public:
@@ -134,9 +127,14 @@ Piano_pedal_engraver::create_grobs ()
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
-      if (p->item_p_)
+      if (p->item_p_ || ! (p->req_l_drul_[STOP] || p->req_l_drul_[START]))
 	continue;
+      
       SCM s = SCM_EOL;
+      SCM strings = get_property( ("pedal" + String (p->name_) + "Strings").ch_C());
+      if( scm_ilength (strings) < 3)
+	continue;
+      
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START])
 	{
 	  if (!p->start_req_l_)
@@ -145,7 +143,7 @@ Piano_pedal_engraver::create_grobs ()
 	    }
 	  else
 	    {
-	      s = get_property (("stopStart" + String (p->name_ )).ch_C());
+	      s = gh_cadr (strings);
 	    }
 	  p->start_req_l_ = p->req_l_drul_[START];
 	}
@@ -157,14 +155,14 @@ Piano_pedal_engraver::create_grobs ()
 	    }
 	  else
 	    {
-	      s = get_property (("stop" + String (p->name_ )).ch_C());
+	      s = gh_car (strings);
 	    }
 	  p->start_req_l_ = 0;
 	}
       else if (p->req_l_drul_[START])
 	{
 	  p->start_req_l_ = p->req_l_drul_[START];
-	  s = get_property (("start" + String (p->name_ )).ch_C());
+	  s = gh_caddr (strings);
 	}
 
       if (gh_string_p (s))
@@ -198,6 +196,7 @@ Piano_pedal_engraver::stop_translation_timestep ()
       if (p->item_p_)
 	{
 	  Side_position::add_staff_support (p->item_p_);
+	  
 	  /*
 	    Hmm.
 	  */

@@ -1,8 +1,8 @@
 % paper-as9.ly
 
-\version "1.3.110";
+\version "1.3.120";
 
-paper_as_nine = \paper {
+paperAsNine = \paper {
 	staffheight = 9.\char;
 
 %	font_large = 4.;
@@ -38,4 +38,4 @@ paper_as_nine = \paper {
 	\include "params-as.ly";
 }
 
-\paper { \paper_as_nine }
+\paper { \paperAs_nine }

@@ -1,6 +1,6 @@
 % Toplevel AsciiScript initialisation file. 
 
-\version "1.3.110";
+\version "1.3.120";
 
 \include "declarations-as.ly"
 
@@ -27,7 +27,7 @@
 )
 
 \paper {
-    \paper_as_nine
+    \paperAs_nine
     \translator { \StaffContext barSize = \staffheight; }
 
     % no beam-slope

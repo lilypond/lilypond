@@ -4,7 +4,7 @@ http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
 
-\version "1.3.117";
+\version "1.3.120";
 
 % TODO: 
 %
@@ -164,7 +164,7 @@ text =  \lyrics {
 		>
 	>
 	\paper{
-		\paper_sixteen
+		\paperSixteen
 		textheight = 230.\mm;
 		linewidth= 180.\mm;
 		\translator {
