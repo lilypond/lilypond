@@ -336,7 +336,11 @@ Beam::brew_molecule (SCM grob)
   Real last_width = -1 ;
 
 
-  SCM gap = me->get_grob_property ("gap");
+  Real gap_length =0.0;
+  SCM scm_gap = me->get_grob_property ("gap");
+  if (gh_number_p (scm_gap))
+    gap_length = gh_scm2double (scm_gap);
+  
   Molecule the_beam;
   Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   
@@ -347,7 +351,7 @@ Beam::brew_molecule (SCM grob)
       SCM this_beaming = st ? st->get_grob_property ("beaming") : SCM_EOL;
       Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
       Real stem_width = st ? gh_scm2double (st->get_grob_property ("thickness")) *lt : 0 ;
-
+      Direction stem_dir = st ? to_dir (st->get_grob_property ("direction")) : CENTER;
       /*
 	We do the space left of ST, with lfliebertjes pointing to the
 	right from the left stem, and rfliebertjes pointing left from
@@ -356,7 +360,7 @@ Beam::brew_molecule (SCM grob)
       SCM left = (i>0) ? gh_cdr (last_beaming) : SCM_EOL;
       SCM right = st ? gh_car (this_beaming) : SCM_EOL;
 
-      Array<int> fullbeams;
+      Array<int> full_beams;
       Array<int> lfliebertjes;
       Array<int> rfliebertjes;	  
 
@@ -366,7 +370,7 @@ Beam::brew_molecule (SCM grob)
 	  int b = gh_scm2int (gh_car (s));
 	  if (scm_memq (gh_car(s), right) != SCM_BOOL_F)
 	    {
-	      fullbeams.push (b);
+	      full_beams.push (b);
 	    }
 	  else
 	    {
@@ -401,22 +405,39 @@ Beam::brew_molecule (SCM grob)
 	  width_corr += stem_width/2;
 	}
 
-      if (gh_number_p (gap))
-	{
-	  Real g = gh_scm2double (gap);
-	  stem_offset += g;
-	  width_corr -= 2*g; 
-	}
 	  
       Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
-      for (int j = fullbeams.size(); j--;)
+      Molecule gapped;
+
+      int gap_count = 0;
+      if (gh_number_p (me->get_grob_property ("gap-count")))
+	{
+	  gap_count = gh_scm2int (me->get_grob_property ("gap-count"));
+	  gapped = Lookup::beam (dydx, w + width_corr - 2 * gap_length, thick);
+
+	  full_beams.sort (default_compare);
+	  if (stem_dir == UP)
+	    full_beams.reverse ();
+	}
+
+      int k = 0;
+      for (int j = full_beams.size (); j--;)
 	{
 	  Molecule b (whole);
+	  
+	  if (k++ < gap_count)
+	    {
+	      b = gapped;
+	      b.translate_axis (gap_length, X_AXIS);
+	    }
 	  b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
-	  b.translate_axis (dydx * (last_xposn - x0) + bdy * fullbeams[j], Y_AXIS);
+	  b.translate_axis (dydx * (last_xposn - x0) + bdy * full_beams[j], Y_AXIS);
+
 	  the_beam.add_molecule (b);	      
 	}
 
+      
+	  
       if (lfliebertjes.size() || rfliebertjes.size())
 	{
 	  Real nw_f;

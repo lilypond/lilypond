@@ -137,7 +137,7 @@
 	(molecule-callback . ,Beam::brew_molecule)
 	(concaveness-gap . 2.0)
 	(concaveness-threshold . 0.08)
-	
+	(gap . 0.8)
 	(positions . (#f . #f))
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
