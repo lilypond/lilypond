@@ -49,14 +49,14 @@
     {%% either plain TeX or texinfo or not at the beginning of LaTeX input
      \def\x{
        \endgroup
-       \def\lilypondfontencoding##1{}}}
+       \def\lilypondfontencoding####1{}}}
     {%% FIXME: a4
      %% provide a proper LaTeX preamble (for A4 paper format)
      \def\x{
        \endgroup
        \def\lilyponddocument{}
-       \def\lilypondfontencoding##1{
-         \fontencoding{##1}\selectfont}
+       \def\lilypondfontencoding####1{
+         \fontencoding{####1}\selectfont}
        \documentclass[a4paper]{article}
        %% safe-mode
        \nofiles
