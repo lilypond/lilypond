@@ -93,7 +93,7 @@ vaticana_brew_flexa (Grob *me,
       me->warning (_ ("ascending vaticana style flexa"));
     }
 
-  Real width = robust_scm2double ( me->get_property ("flexa-width"), 2);
+  Real width = robust_scm2double (me->get_property ("flexa-width"), 2);
 
   /*
    * Compensate curve thickness that appears to be smaller in steep
