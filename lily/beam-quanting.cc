@@ -101,8 +101,8 @@ Beam::quanting (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   SCM s = me->get_property ("positions");
-  Real yl = scm_to_double (ly_car (s));
-  Real yr = scm_to_double (ly_cdr (s));
+  Real yl = scm_to_double (scm_car (s));
+  Real yr = scm_to_double (scm_cdr (s));
 
 
   /*

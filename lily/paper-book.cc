@@ -155,9 +155,9 @@ Paper_book::output (String outname)
   pages ();
   
   SCM formats = ly_output_formats ();
-  for (SCM s = formats; scm_is_pair (s); s = ly_cdr (s)) 
+  for (SCM s = formats; scm_is_pair (s); s = scm_cdr (s)) 
     {
-      String format = ly_scm2string (ly_car (s));
+      String format = ly_scm2string (scm_car (s));
       String file_name = outname;
       
       if (file_name != "-")
@@ -384,9 +384,9 @@ Paper_book::systems ()
   
   int i = 0;
   Paper_system *last = 0;
-  for (SCM s = systems_; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s = systems_; s != SCM_EOL; s = scm_cdr (s))
     {
-      Paper_system *ps = unsmob_paper_system (ly_car (s));
+      Paper_system *ps = unsmob_paper_system (scm_car (s));
       ps->number_ = ++i;
 
       if (last && last->is_title ())

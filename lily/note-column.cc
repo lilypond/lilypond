@@ -55,9 +55,9 @@ Note_column::head_positions_interval (Grob *me)
   iv.set_empty ();
 
   SCM h = me->get_property ("note-heads");
-  for (; scm_is_pair (h); h = ly_cdr (h))
+  for (; scm_is_pair (h); h = scm_cdr (h))
     {
-      Grob *se = unsmob_grob (ly_car (h));
+      Grob *se = unsmob_grob (scm_car (h));
       
       int j = Staff_symbol_referencer::get_rounded_position (se);
       iv.unite (Slice (j,j));
@@ -158,9 +158,9 @@ Note_column::accidentals (Grob *me)
 {
   SCM heads = me->get_property ("note-heads");
   Grob * acc = 0;
-  for (;scm_is_pair (heads); heads =ly_cdr (heads))
+  for (;scm_is_pair (heads); heads =scm_cdr (heads))
     {
-      Grob * h = unsmob_grob (ly_car (heads));
+      Grob * h = unsmob_grob (scm_car (heads));
       acc = h ? unsmob_grob (h->get_property ("accidental-grob")) : 0;
       if (acc)
 	break;

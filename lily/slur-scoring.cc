@@ -229,7 +229,7 @@ get_detail (SCM alist, SCM sym)
 {
   SCM entry = scm_assq (sym, alist);
   return robust_scm2double (scm_is_pair (entry)
-			    ? ly_cdr (entry)
+			    ? scm_cdr (entry)
 			    : SCM_EOL,
 			    0.0);
 }
@@ -307,10 +307,10 @@ broken_trend_y (Slur_score_state const &state, Direction hdir)
 
 
       
-      SCM last_point =  ly_car (scm_last_pair (neighbor->get_property ("control-points")));
+      SCM last_point =  scm_car (scm_last_pair (neighbor->get_property ("control-points")));
 
       
-      return scm_to_double (ly_cdr (last_point))
+      return scm_to_double (scm_cdr (last_point))
 	+ neighbor->relative_coordinate (common_next_system, Y_AXIS);
     }
   return by;
@@ -1124,7 +1124,7 @@ get_extra_encompass_infos (Slur_score_state const &state)
 		  && scm_ilength (accs) == 1)
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (ly_car (accs)))
+		  switch (scm_to_int (scm_car (accs)))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

@@ -81,9 +81,9 @@ Tab_note_heads_engraver::process_music ()
       Music * tabstring_event=0;
 
       for (SCM s =event->get_property ("articulations");
-	   !tabstring_event && scm_is_pair (s); s = ly_cdr (s))
+	   !tabstring_event && scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Music * art = unsmob_music (ly_car (s));
+	  Music * art = unsmob_music (scm_car (s));
 
 	  if (art->is_mus_type ("string-number-event"))
 	    tabstring_event = art;

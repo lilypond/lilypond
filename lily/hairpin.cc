@@ -71,7 +71,7 @@ Hairpin::print (SCM smob)
 	    {
 	      bool neighbor_found = false;
 	      for (SCM  adj = me->get_property ("adjacent-hairpins");
-		   scm_is_pair (adj); adj = ly_cdr (adj))
+		   scm_is_pair (adj); adj = scm_cdr (adj))
 		{
 		  /*
 		    FIXME: this will fuck up in case of polyphonic
@@ -79,7 +79,7 @@ Hairpin::print (SCM smob)
 		    in the current staff/voice.
 		  */
 		  
-		  Spanner *pin = unsmob_spanner (ly_car (adj));
+		  Spanner *pin = unsmob_spanner (scm_car (adj));
 		  if (pin
 		      && (pin->get_bound (LEFT)->get_column() == b->get_column ()
 			  || pin->get_bound (RIGHT)->get_column() == b->get_column() ))

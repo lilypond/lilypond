@@ -227,7 +227,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 Axis
 Align_interface::axis (Grob*me)
 {
-  return  Axis (scm_to_int (ly_car (me->get_property ("axes"))));
+  return  Axis (scm_to_int (scm_car (me->get_property ("axes"))));
 }
 
 void

@@ -279,8 +279,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
     inner_padding = 1.0;
   
   Stencil mol; 
-  for (SCM  s = mols; scm_is_pair (s); s = ly_cdr (s))
-      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (ly_car (s)),
+  for (SCM  s = mols; scm_is_pair (s); s = scm_cdr (s))
+      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
 		       inner_padding, 0);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
