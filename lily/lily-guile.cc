@@ -479,6 +479,10 @@ parse_symbol_list (const char * list)
   char *orig = s;
   SCM create_list = SCM_EOL;
 
+  char * e = s + strlen (s) - 1;
+  while (e >= s && isspace (*e))
+    *e -- = 0;
+
   for (char * p = s; *p; p++)
     {
       if (*p == '\n')

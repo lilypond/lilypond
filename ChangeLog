@@ -1,5 +1,9 @@
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lily-guile.cc (parse_symbol_list): strip spaces at the end.
+
+	* Documentation/topdocs/INSTALL.texi (Top): reorder.
+
 	* scripts/convert-ly.py (conv): add up-to-staff conversion rule.
 
 	* lily/include/directional-element-interface.hh:

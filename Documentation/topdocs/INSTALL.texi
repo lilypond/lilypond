@@ -67,16 +67,14 @@ script automating this has been included, see
 You need the following packages to compile LilyPond:
 
 @itemize
-@item
- @uref{http://gcc.gnu.org/,
-The GNU c++ compiler} (version 3.1 or newer).
-EGCS and 2.x are known to cause crashes.
 
-@item @uref{http://www.python.org,Python} (version 2.1 or newer).
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
+newer),
+
+  You will need to install some additional packages to get mftrace to
+work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
-
-@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
 @item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
@@ -84,9 +82,6 @@ WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
 distribution supports g++ 3.x and flex.  For workarounds, see
 lexer-gcc-3.1.sh in the source directory.
-
-@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or
-newer, but not 1.50 or 1.75).
 
 @item @TeX{}.
 
@@ -107,12 +102,16 @@ package for LaTeX}.
 
 @item kpathsea, a library for searching (@TeX{}) files.
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
-newer),
+@item
+ @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.1 or
+newer).  EGCS and 2.x are known to cause crashes.
 
-  You will need to install some additional packages to get mftrace to
-work.
+@item @uref{http://www.python.org,Python} (version 2.1 or newer).
 
+@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
+
+@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or
+newer, but not 1.50 or 1.75).
 @end itemize
 
 @subsection Running requirements

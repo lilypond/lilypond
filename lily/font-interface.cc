@@ -55,5 +55,6 @@ Font_interface::font_alist_chain (Grob*g)
 
 
 ADD_INTERFACE (Font_interface, "font-interface",
-  "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)",
-  "font-magnification font font-series font-shape font-family font-name font-design-size font-relative-size");
+	       "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)",
+	       "font-magnification font font-series font-shape "
+	       "font-family font-name font-design-size font-relative-size");
