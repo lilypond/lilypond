@@ -327,7 +327,7 @@
 			  (print-function . ,Percent_repeat_item_interface::double_percent)
 			  (breakable . #t)
 			  (slope . 1.0)
-			  (font-encoding . music)
+			  (font-encoding . fetaMusic)
 			  (width . 2.0)
 			  (thickness . 0.48)
 			  (break-align-symbol . staff-bar)
@@ -347,7 +347,7 @@
 	(no-spacing-rods . #t)
 	(script-priority . 100)
 	(font-series . bold)
-	(font-encoding . dynamic)
+	(font-encoding . fetaDynamic)
 	(font-shape . italic)
 	(self-alignment-Y . 0)
 	(meta . ((interfaces . (font-interface text-interface self-alignment-interface  dynamic-interface script-interface item-interface))))
@@ -392,7 +392,7 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-	(font-encoding . number)
+	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
 	))
@@ -589,7 +589,7 @@
 	(thick-thickness . 6.6)
 	(hair-thickness . 2.0)
 	(padding . 1)
-	(font-encoding . music)
+	(font-encoding . fetaMusic)
 	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
     
@@ -603,7 +603,7 @@
 	(direction . 1)
 	(padding . 1.3)
 	(staff-padding . 1.3)
-	(font-encoding . number)
+	(font-encoding . fetaNumber)
 	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
     (MultiMeasureRestText
@@ -748,7 +748,7 @@
 	(print-function . ,Multi_measure_rest::percent)
 	(slope . 1.0)
 	(thickness . 0.48)
-	(font-encoding . music)
+	(font-encoding . fetaMusic)
 	(meta . ((interfaces . (multi-measure-rest-interface  spanner-interface font-interface percent-repeat-interface))))
 	))
 
@@ -818,7 +818,7 @@
 	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
 	(before-line-breaking-callback . ,Script_interface::before_line_breaking)
-	(font-encoding . music)
+	(font-encoding . fetaMusic)
 	(meta . ((interfaces . (script-interface side-position-interface font-interface item-interface ))))
 	))
 
@@ -1045,7 +1045,7 @@
 	(glyph . "brace")
 	(print-function . ,System_start_delimiter::print)
 	(collapse-height . 5.0)
-	(font-encoding . braces)
+	(font-encoding . fetaBraces)
 	(Y-extent-callback . #f)
 	(meta . ((interfaces . (system-start-delimiter-interface font-interface))))
 	))
@@ -1241,7 +1241,7 @@
 	(print-function . ,Volta_bracket_interface::print)
 	(direction . 1)
 	(padding . 1)
-	(font-encoding . number)
+	(font-encoding . fetaNumber)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(thickness . 1.6)  ;  linethickness
 	(height . 2.0) ; staffspace;

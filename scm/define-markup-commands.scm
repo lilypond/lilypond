@@ -123,7 +123,7 @@ Use @code{\\fontsize} otherwise."
   "Set font family to @code{number}, which yields the font used for
 time signatures and fingerings.  This font only contains numbers and
 some punctuation. It doesn't have any letters.  "
-  (interpret-markup paper (prepend-alist-chain 'font-encoding 'number props) arg))
+  (interpret-markup paper (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
 
 (def-markup-command (roman paper props arg) (markup?)
   "Set font family to @code{roman}."
@@ -167,7 +167,7 @@ some punctuation. It doesn't have any letters.  "
 normal words (like ``pi@`{u}'') should be done in a different font.  The
 recommend font for this is bold and italic"
   (interpret-markup
-   paper (prepend-alist-chain 'font-encoding 'dynamic props) arg))
+   paper (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
 (def-markup-command (italic paper props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}. "
@@ -274,7 +274,7 @@ accordingly."
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 "
   (ly:find-glyph-by-name
-   (ly:paper-get-font paper (cons '((font-encoding . music))
+   (ly:paper-get-font paper (cons '((font-encoding . fetaMusic))
                                   props))
    glyph-name))
 
@@ -336,7 +336,7 @@ and/or @code{extra-offset} properties. "
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
   
-  (let* ((font (ly:paper-get-font paper (cons '((font-encoding . music)) props)))
+  (let* ((font (ly:paper-get-font paper (cons '((font-encoding . fetaMusic)) props)))
          (stemlen (max 3 (- log 1)))
          (headgl (ly:find-glyph-by-name
                   font

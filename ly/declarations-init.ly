@@ -60,11 +60,11 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     #(define $is-paper #t)
     
     #(define font-defaults
-      '((font-encoding . music))
+      '((font-encoding . fetaMusic))
       )
 
     #(define text-font-defaults
-      '((font-encoding . text)
+      '((font-encoding . latin1)
 	(baseline-skip . 2)
 	(word-space . 0.6)
 	))

@@ -84,7 +84,7 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
     }
 
   String char_name = style + to_string (n) + "/" + to_string (d);
-  me->set_property ("font-encoding", ly_symbol2scm ("music"));
+  me->set_property ("font-encoding", ly_symbol2scm ("fetaMusic"));
   Stencil out = Font_interface::get_default_font (me)
     ->find_by_name ("timesig-" + char_name);
   if (!out.is_empty ())
@@ -102,7 +102,7 @@ Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = me->get_property_alist_chain (Font_interface::text_font_alist_chain (me));
   chain = scm_cons (scm_list_1 (scm_cons (ly_symbol2scm ("font-encoding"),
-					 ly_symbol2scm ("number"))),
+					 ly_symbol2scm ("fetaNumber"))),
 		    chain);
 				
   SCM sn = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain,
