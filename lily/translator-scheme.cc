@@ -199,7 +199,7 @@ LY_DEFINE(ly_context_pushpop_property,
   SCM_ASSERT_TYPE(gh_symbol_p (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE(gh_symbol_p (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
 
-  tg->execute_pushpop_property (grob, eltprop, val);
+  execute_pushpop_property (tg, grob, eltprop, val);
 
   return SCM_UNDEFINED;
 }

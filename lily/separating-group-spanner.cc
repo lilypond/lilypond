@@ -72,15 +72,6 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
     }
 }
 
-MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods_and_seqs,1);
-SCM
-Separating_group_spanner::set_spacing_rods_and_seqs (SCM smob)
-{
-  set_spacing_rods (smob);
-
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)

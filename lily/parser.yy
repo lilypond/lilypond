@@ -577,8 +577,10 @@ translator_spec_body:
 
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
 			SCM tag = gh_caar (p);
+
+			/* TODO: should make new tag "grob-definition" ? */
 			td->add_context_mod (scm_list_n (ly_symbol2scm ("assign"),
-							tag, ly_cdar (p), SCM_UNDEFINED));
+							tag, gh_cons (ly_cdar (p), SCM_EOL), SCM_UNDEFINED));
 		}
 	}
 	| translator_spec_body context_mod {
@@ -945,7 +947,6 @@ basic music objects too, since the meaning is different.
 			scm_gc_unprotect_object (startm->self_scm ());
 		}
 
-	
 		Music* seq = MY_MAKE_MUSIC("SequentialMusic");
 		seq->set_mus_property ("elements", ms);
 

@@ -120,7 +120,7 @@ local-clean:
 $(builddir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(topdir)/mf
 
-$(outdir)/lilypond.texi: $(ITELY_FILES) macros.itexi
+$(outdir)/lilypond.texi: $(ITELY_FILES) macros.itexi 
 
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake

@@ -67,21 +67,6 @@ Engraver::process_music ()
 {
   
 }
-
-Item*
-Engraver::internal_make_item (SCM x)
-{
-  SCM props = internal_get_property (x);
-  return new Item (props);
-}
-
-Spanner*
-Engraver::internal_make_spanner (SCM x)
-{
-  SCM props = internal_get_property (x);
-  return new Spanner (props);
-}
-
 Engraver::Engraver()
 {
 }

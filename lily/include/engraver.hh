@@ -51,8 +51,6 @@ protected:
 
   Score_engraver * top_engraver () const;
 
-  Item * internal_make_item (SCM);
-  Spanner * internal_make_spanner (SCM);
 
 public:
   Engraver_group_engraver * get_daddy_grav () const;
@@ -62,10 +60,11 @@ public:
   TRANSLATOR_DECLARATIONS(Engraver);
 };
 
-#define make_item(x) internal_make_item (ly_symbol2scm (x))
-#define make_spanner(x) internal_make_spanner (ly_symbol2scm (x))
+#define make_item(x) make_item_from_properties (daddy_trans_, ly_symbol2scm (x))
+#define make_spanner(x) make_spanner_from_properties (daddy_trans_, ly_symbol2scm (x))
+Item* make_item_from_properties (Translator_group* tg, SCM x);
+Spanner* make_spanner_from_properties (Translator_group * tg, SCM x);
 
 
 
 #endif // ENGRAVER_HH
-

@@ -104,81 +104,6 @@ Translator_group::add_fresh_group_translator (Translator*t)
 }
 
 bool
-Translator_group::is_removable () const
-{
-  return trans_group_list_ == SCM_EOL && ! iterator_count_;
-}
-
-Translator_group *
-Translator_group::find_existing_translator (SCM n, String id)
-{
-  if ((is_alias (n) && (id_string_ == id || id.is_empty ())) || n == ly_symbol2scm ("Current"))
-    return this;
-
-  Translator_group* r = 0;
-  for (SCM p = trans_group_list_; !r && gh_pair_p (p); p = ly_cdr (p))
-    {
-      Translator *  t = unsmob_translator (ly_car (p));
-      
-      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);    }
-
-  return r;
-}
-
-
-Translator_group*
-Translator_group::find_create_translator (SCM n, String id, SCM operations)
-{
-  Translator_group * existing = find_existing_translator (n,id);
-  if (existing)
-    return existing;
-
-
-  /*
-    TODO: use accepts_list_.
-   */
-  Link_array<Context_def> path
-    = unsmob_context_def (definition_)->path_to_acceptable_translator (n, get_output_def ());
-
-  if (path.size ())
-    {
-      Translator_group * current = this;
-
-      // start at 1.  The first one (index 0) will be us.
-      for (int i=0; i < path.size (); i++)
-	{
-	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
-
-	  Translator_group * new_group
-	    = path[i]->instantiate (ops);
-
-	  if (i == path.size () -1)
-	    {
-	      new_group->id_string_ = id;
-	    }
-
-	  current->add_fresh_group_translator (new_group);
-	  apply_property_operations (new_group, ops);
-	  
-	  current = new_group;
-	}
-
-      return current;
-    }
-
-  Translator_group *ret = 0;
-  if (daddy_trans_)
-    ret = daddy_trans_->find_create_translator (n, id, operations);
-  else
-    {
-      warning (_f ("Cannot find or create `%s' called `%s'",
-		   ly_symbol2string (n).to_str0 (), id));
-      ret =0;
-    }
-  return ret;
-}
-
-bool
 Translator_group::try_music (Music* m)
 {
   bool hebbes_b = try_music_on_nongroup_children (m);
@@ -214,49 +139,6 @@ Translator_group::remove_translator (Translator*trans)
 }
 
 
-/*
-  Default child context as a SCM string, or something else if there is
-  none.
-*/
-SCM
-default_child_context_name (Translator_group const *tg)
-{
-  return gh_pair_p (tg->accepts_list_)
-    ? ly_car (scm_last_pair (tg->accepts_list_))
-    : SCM_EOL;
-}
-
-
-bool
-Translator_group::is_bottom_context () const
-{
-  return !gh_symbol_p (default_child_context_name (this));
-}
-
-Translator_group*
-Translator_group::get_default_interpreter ()
-{
-  if (!is_bottom_context ())
-    {
-      SCM nm = default_child_context_name (this);
-      SCM st = get_output_def ()->find_translator (nm);
-
-      Context_def *t = unsmob_context_def (st);
-      if (!t)
-	{
-	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
-	  t = unsmob_context_def (this->definition_);
-	}
-      Translator_group *tg = t->instantiate (SCM_EOL);
-      add_fresh_group_translator (tg);
-      if (!tg->is_bottom_context ())
-	return tg->get_default_interpreter ();
-      else
-	return tg;
-    }
-  return this;
-}
-
 static void
 static_each (SCM list, Method_pointer method)
 {
@@ -272,110 +154,6 @@ Translator_group::each (Method_pointer method)
   static_each (trans_group_list_, method);
 }
 
-
-/*
-  PROPERTIES
- */
-Translator_group*
-Translator_group::where_defined (SCM sym) const
-{
-  if (properties_dict ()->contains (sym))
-    {
-      return (Translator_group*)this;
-    }
-
-  return (daddy_trans_) ? daddy_trans_->where_defined (sym) : 0;
-}
-
-/*
-  return SCM_EOL when not found.
-*/
-SCM
-Translator_group::internal_get_property (SCM sym) const
-{
-  SCM val =SCM_EOL;
-  if (properties_dict ()->try_retrieve (sym, &val))
-    return val;
-
-  if (daddy_trans_)
-    return daddy_trans_->internal_get_property (sym);
-  
-  return val;
-}
-
-void
-Translator_group::internal_set_property (SCM sym, SCM val)
-{
-#ifndef NDEBUG
-  if (internal_type_checking_global_b)
-    assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
-#endif
-  
-  properties_dict ()->set (sym, val);
-}
-
-/*
-  TODO: look up to check whether we have inherited var? 
- */
-void
-Translator_group::unset_property (SCM sym)
-{
-  properties_dict ()->remove (sym);
-}
-
-
-/*
-  Push or pop (depending on value of VAL) a single entry (ELTPROP . VAL)
-  entry from a translator property list by name of PROP
-*/
-void
-Translator_group::execute_pushpop_property (SCM prop, SCM eltprop, SCM val)
-{
-  if (gh_symbol_p (prop))
-    {
-      if (val != SCM_UNDEFINED)
-	{
-	  SCM prev = internal_get_property (prop);
-
-	  if (gh_pair_p (prev) || prev == SCM_EOL)
-	    {
-	      bool ok = type_check_assignment (eltprop, val, ly_symbol2scm ("backend-type?"));
-	      
-	      if (ok)
-		{
-		  prev = gh_cons (gh_cons (eltprop, val), prev);
-		  internal_set_property (prop, prev);
-		}
-	    }
-	  else
-	    {
-	      // warning here.
-	    }
-	  
-	}
-      else
-	{
-	  SCM prev = internal_get_property (prop);
-
-	  /*
-	    TODO: should have scm_equal_something () for reverting
-	    autobeam properties.
-	   */
-	  SCM newprops= SCM_EOL ;
-	  while (gh_pair_p (prev) && !SCM_EQ_P(ly_caar (prev), eltprop))
-	    {
-	      newprops = gh_cons (ly_car (prev), newprops);
-	      prev = ly_cdr (prev);
-	    }
-	  
-	  if (gh_pair_p (prev))
-	    {
-	      newprops = scm_reverse_x (newprops, ly_cdr (prev));
-	      internal_set_property (prop, newprops);
-	    }
-	}
-    }
-}
 
 
 
@@ -482,32 +260,7 @@ Translator_group::context_name () const
   return ly_symbol2string (td->get_context_name ());
 }
 
-/*
-  PRE_INIT_OPS is in the order specified, and hence must be reversed.
- */
-void
-apply_property_operations (Translator_group*tg, SCM pre_init_ops)
-{
-  SCM correct_order = scm_reverse (pre_init_ops);
-  for (SCM s = correct_order; gh_pair_p (s); s = ly_cdr (s))
-    {
-      SCM entry = ly_car (s);
-      SCM type = ly_car (entry);
-      entry = ly_cdr (entry); 
-      
-      if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
-	{
-	  SCM val = ly_cddr (entry);
-	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
-	  tg->execute_pushpop_property (ly_car (entry), ly_cadr (entry), val);
-	}
-      else if (type == ly_symbol2scm ("assign"))
-	{
-	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
-	}
-    }
-}
 
 SCM
 names_to_translators (SCM namelist, Translator_group*tg)
@@ -538,37 +291,5 @@ SCM
 Translator_group::get_simple_trans_list ()
 {
   return simple_trans_list_;
-
 }
 
-
-  
-#if 0
-SCM
-Translator_group::get_simple_trans_list ()
-{
-  if (simple_trans_list_ != SCM_BOOL_F)
-    return simple_trans_list_;
-  
-  Context_def * td = unsmob_context_def (definition_);
-
-  /*
-    The following cannot work, since start_translation_timestep ()
-    triggers this code, and start_translation_timestep happens before
-    \property Voice.Voice =#'()
-    
-   */
-      trans_names = td->get_translator_names (SCM_EOL); 
-  
-  SCM trans_names = internal_get_property (td->get_context_name ());
-  if (!gh_pair_p (trans_names))
-    {
-    }
-
-  simple_trans_list_ = names_to_translators (trans_names, this);
-
-  
-  static_each (simple_trans_list_, &Translator::initialize);
-  return simple_trans_list_;
-}
-#endif

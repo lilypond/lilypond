@@ -322,11 +322,11 @@ New_pc_iterator::construct_children ()
   for (char const**p = syms; *p; p++)
     {
       SCM sym = ly_symbol2scm (*p);
-      one->execute_pushpop_property (sym,
+      execute_pushpop_property (one, sym,
 				     ly_symbol2scm ("direction"), gh_int2scm (1));
 
-      two->execute_pushpop_property (sym,
-				     ly_symbol2scm ("direction"), gh_int2scm (-1));
+      execute_pushpop_property (two, sym,
+				ly_symbol2scm ("direction"), gh_int2scm (-1));
     }
 
 }
