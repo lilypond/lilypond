@@ -9,7 +9,7 @@ $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
 
-.PHONY: clean
+.PHONY: clean docxx
 
 clean:
 	rm -f $(exe) $(DOCDIR)/* core $(obs) $(ALLDEPS)
@@ -30,9 +30,8 @@ doc:
 	$(MAKE) -C Documentation doc
 
 # doc++ documentation of classes
-docpp: $(progdocs)
-	-mkdir $(DOCDIR)
-	doc++ -p -I -d $(DOCDIR) $^
+docxx: $(progdocs)	
+	doc++ -p -d $(DOCDIR) $^
 
 $(OBJECTDIR)/%.o: $(CCDIR)/%.cc
 	$(DODEP)\

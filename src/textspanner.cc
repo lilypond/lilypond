@@ -3,6 +3,7 @@
 #include "textspanner.hh"
 #include "textdef.hh"
 #include "debug.hh"
+#include "paper.hh"
 
 NAME_METHOD(Text_spanner);
 
@@ -29,20 +30,20 @@ Text_spanner::do_post_processing()
 {
     switch(spec.align_i_) {
     case 0:
-	tpos = support->center();
+	text_off_ = support->center() +
+	    Offset(0,support->dir_i_ * paper()->internote() * 4); // todo
 	break;
     default:
 	assert(false);
 	break;
-    }
-    
-    
+    }    
 }
+
 Molecule*
 Text_spanner::brew_molecule_p() const
 {
     Atom tsym (spec.create_atom(paper()));
-    tsym.translate(tpos);
+    tsym.translate(text_off_);
 
     Molecule*output = new Molecule;
     output->add( tsym );

@@ -2,5 +2,5 @@
 
 Directional_spanner::Directional_spanner()
 {
-    dir = 0;
+    dir_i_ = 0;
 }
