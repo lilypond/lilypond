@@ -99,7 +99,7 @@
                (breakable . #t )
                (molecule-callback . ,Custos::brew_molecule)
                (visibility-lambda . ,end-of-line-visible)
-	       (style .  "vaticana")
+	       (style .  vaticana)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
                (meta . ,(element-description "Custos" custos-interface staff-symbol-interface break-aligned-interface) )
        ))

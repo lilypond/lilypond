@@ -7,12 +7,33 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "lyric-engraver.hh"
+#include "engraver.hh"
 #include "musical-request.hh"
 #include "item.hh"
 #include "paper-def.hh"
 #include "font-metric.hh"
 #include "side-position-interface.hh"
+
+/**
+   Generate texts for lyric syllables.  We only do one lyric at a time.  
+   Multiple copies of this engraver should be used to do multiple voices.
+ */
+class Lyric_engraver : public Engraver 
+{
+protected:
+  virtual void stop_translation_timestep();
+  virtual bool try_music (Music *);
+  virtual void create_grobs ();
+  virtual void start_translation_timestep ();
+  
+public:
+  Lyric_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+
+private:
+  Lyric_req * req_l_;
+  Item* text_p_;
+};
 
 ADD_THIS_TRANSLATOR (Lyric_engraver);
 
@@ -37,7 +58,7 @@ Lyric_engraver::try_music (Music*r)
 }
 
 void
-Lyric_engraver::deprecated_process_music()
+Lyric_engraver::create_grobs ()
 {
   if (req_l_)
     {

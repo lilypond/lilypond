@@ -14,11 +14,7 @@
 #include "midi-stream.hh"
 #include "string-convert.hh"
 #include "debug.hh"
-#include "score.hh"
-#include "source-file.hh"
-#include "source.hh"
-#include "audio-staff.hh"
-
+#include "translator-def.hh"
 
 ADD_THIS_TRANSLATOR (Score_performer);
 
@@ -105,10 +101,12 @@ Score_performer::get_output_p ()
 }
 
 void
-Score_performer::do_add_processing ()
+Score_performer::initialize ()
 {
-  Translator_group::do_add_processing ();
+  unsmob_translator_def (definition_)->apply_property_operations (this);
   assert (dynamic_cast<Midi_def *> (output_def_l_));
   performance_p_ = new Performance;
-  performance_p_->midi_l_ = dynamic_cast<Midi_def*>(output_def_l_); 
+  performance_p_->midi_l_ = dynamic_cast<Midi_def*>(output_def_l_);
+
+  Translator_group::initialize ();
 }

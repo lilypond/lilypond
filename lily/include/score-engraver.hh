@@ -47,14 +47,14 @@ protected:
   /* Engraver_group_engraver interface */
 
   virtual bool try_music (Music*);
-  virtual void do_creation_processing();
-  virtual void do_removal_processing();
+  virtual void initialize();
+  virtual void finalize();
   virtual void announce_grob (Grob_info);
   virtual void do_announces();
   virtual void typeset_grob (Grob*elem_p);
 
   virtual void stop_translation_timestep();
-  virtual void do_add_processing ();
+
 };
 
 #endif // SCORE_GRAV_HH

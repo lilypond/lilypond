@@ -17,7 +17,7 @@ MAKE_SCHEME_CALLBACK(Grace_align_item,before_line_breaking,1);
 SCM
 Grace_align_item::before_line_breaking (SCM smob)
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
 
   SCM space = me->get_grob_property ("horizontal-space");
   me->set_grob_property ("threshold",

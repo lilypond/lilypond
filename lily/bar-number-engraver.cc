@@ -26,17 +26,17 @@ protected:
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void create_grobs ();
   void create_items();
-  void  deprecated_process_music ();
+
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
 };
 
 void
-Bar_number_engraver::deprecated_process_music ()
+Bar_number_engraver::create_grobs ()
 {
   // todo include (&&!time->cadenza_b_ )
   SCM bn = get_property("currentBarNumber");
@@ -54,13 +54,6 @@ Bar_number_engraver::deprecated_process_music ()
     }
 }
 
-void
-Bar_number_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-
 ADD_THIS_TRANSLATOR(Bar_number_engraver);
 
 Bar_number_engraver::Bar_number_engraver ()
@@ -69,7 +62,7 @@ Bar_number_engraver::Bar_number_engraver ()
 }
 
 void
-Bar_number_engraver::do_creation_processing ()
+Bar_number_engraver::initialize ()
 {
   /*
     ugh: need to share code with mark_engraver

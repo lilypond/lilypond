@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking,1);
 SCM
 Script_column::before_line_breaking (SCM smob)
 {
-  Grob* me = unsmob_element (smob);
+  Grob* me = unsmob_grob (smob);
   Drul_array<Link_array<Grob> > arrs;
   Link_array<Grob> staff_sided 
     = Pointer_group_interface__extract_elements (me, (Grob*)0, "scripts");

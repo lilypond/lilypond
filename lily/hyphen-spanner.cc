@@ -24,7 +24,7 @@ MAKE_SCHEME_CALLBACK(Hyphen_spanner,brew_molecule,1)
 SCM 
 Hyphen_spanner::brew_molecule (SCM smob)
 {
-  Spanner * sp = dynamic_cast<Spanner*> (unsmob_element (smob));
+  Spanner * sp = dynamic_cast<Spanner*> (unsmob_grob (smob));
 
   Grob * common = sp;
   Direction d = LEFT;

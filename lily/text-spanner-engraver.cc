@@ -26,10 +26,9 @@ public:
   Text_spanner_engraver ();
   
 protected:
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
@@ -87,12 +86,6 @@ Text_spanner_engraver::try_music (Music *m)
 void
 Text_spanner_engraver::create_grobs ()
 {
-  deprecated_process_music ();
-}
-
-void
-Text_spanner_engraver::deprecated_process_music ()
-{
   /////
   if (req_drul_[STOP])
     {
@@ -104,7 +97,7 @@ Text_spanner_engraver::deprecated_process_music ()
       else
 	{
 	  assert (!finished_);
-	  Grob* e = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (RIGHT, e);
 
 	  finished_ = span_;
@@ -125,7 +118,7 @@ Text_spanner_engraver::deprecated_process_music ()
 	  current_req_ = req_drul_[START];
 	  span_  = new Spanner (get_property ("TextSpanner"));
 	  Side_position::set_axis (span_, Y_AXIS);
-	  Grob *e = unsmob_element (get_property ("currentMusicalColumn"));
+	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);
 	  announce_grob (span_, req_drul_[START]);
 	}
@@ -160,7 +153,7 @@ Text_spanner_engraver::stop_translation_timestep ()
 }
 
 void
-Text_spanner_engraver::do_removal_processing ()
+Text_spanner_engraver::finalize ()
 {
   typeset_all ();
   if (span_)

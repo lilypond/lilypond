@@ -40,7 +40,7 @@ class Tie_performer : public Performer
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
-
+  Tie_performer ();
 private:
   bool done_;
   PQueue<CNote_melodic_tuple> past_notes_pq_;
@@ -50,6 +50,7 @@ private:
   Link_array<Audio_tie> tie_p_arr_;
   
 protected:
+  virtual void initialize ();
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Audio_element_info);
@@ -57,7 +58,33 @@ protected:
   virtual void create_grobs ();
 };
 
+
+Tie_performer::Tie_performer ()
+{
+  req_l_ = 0;
+  done_ = false;
+}
+
 ADD_THIS_TRANSLATOR (Tie_performer);
+
+
+#if 0
+Tie_performer::Tie_performer ()
+{
+  // URG
+  // if we don't do this, lily dumps core
+  // which means that ``initialize'' and
+  // ``start_translation_timestep'' did not happen?!
+  initialize ();
+}
+#endif
+
+void
+Tie_performer::initialize ()
+{
+  req_l_ = 0;
+}
+
 
 bool
 Tie_performer::try_music (Music *m)

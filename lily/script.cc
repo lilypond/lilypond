@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Script,after_line_breaking,1);
 SCM
 Script::after_line_breaking (SCM smob)
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
 
   Direction d = Side_position::get_direction (me);
   Side_position::set_direction (me,d);
@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK(Script,brew_molecule,1);
 SCM
 Script::brew_molecule (SCM smob)
 {
-  Grob *me= unsmob_element (smob);
+  Grob *me= unsmob_grob (smob);
 #if 0
    Direction dir = DOWN;
    SCM d = me->get_grob_property ("direction");

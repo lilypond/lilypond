@@ -18,7 +18,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,y_extent,2);
 SCM
 Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
 
   assert (a == Y_AXIS);
@@ -55,7 +55,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_callback,2);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   consider_suicide (me);
@@ -67,7 +67,7 @@ MAKE_SCHEME_CALLBACK(Hara_kiri_group_spanner,force_hara_kiri_in_parent_callback,
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_in_parent_callback (SCM element_smob, SCM axis)
 {
-  Grob *daughter = unsmob_element (element_smob);
+  Grob *daughter = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   force_hara_kiri_callback (daughter->parent_l (a)->self_scm (), axis);

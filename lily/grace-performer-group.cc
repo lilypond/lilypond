@@ -39,9 +39,9 @@ Grace_performer_group::finish ()
 }
 
 void
-Grace_performer_group::do_removal_processing ()
+Grace_performer_group::finalize ()
 {
-  Performer_group_performer::do_removal_processing ();
+  Performer_group_performer::finalize ();
 }
 
 void

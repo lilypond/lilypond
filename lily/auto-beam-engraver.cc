@@ -33,14 +33,16 @@ public:
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
 
 private:
-  void begin_beam ();
-  void consider_end_and_begin (Moment test_mom);
+  bool test_moment (Direction, Moment);
+  void consider_begin (Moment);
+  void consider_end (Moment);
   Spanner* create_beam_p ();
+  void begin_beam ();
   void end_beam ();
   void junk_beam ();
   bool same_grace_state_b (Grob* e);
@@ -54,7 +56,7 @@ private:
   Link_array<Item>* stem_l_arr_p_;
 
 
-  bool first_b_;
+  bool count_i_;
   Moment last_add_mom_;
 
   /*
@@ -73,7 +75,7 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
-  first_b_ = true;
+  count_i_ = 0;
   stem_l_arr_p_ = 0;
   shortest_mom_ = Moment (1, 8);
   finished_beam_p_ = 0;
@@ -82,14 +84,38 @@ Auto_beam_engraver::Auto_beam_engraver ()
 }
 
 /*
-  rename me: consider_end_or_begin () ? 
- */
-void
-Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
+  Determine end moment for auto beaming (or begin moment, but mostly
+  0==anywhere) In order of increasing priority:
+  
+  i.   begin anywhere, end at every beat
+  ii.  end   *    <num> <den>
+  iii. end <type> <num> <den>
+  
+  iv.  end   *      *     *
+  v.   end <type>   *     *
+  
+  
+  Rationale:
+  
+  [to be defined in config file]
+  i.   easy catch-all rule
+  ii.  exceptions for time signature
+  iii. exceptions for time signature, for specific duration type
+  
+  [user override]
+  iv.  generic override
+  v.   override for specific duration type
+  
+*/
+bool
+Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 {
   SCM wild = gh_list (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
-  SCM b = gh_list (ly_symbol2scm ("begin"), SCM_UNDEFINED);
-  SCM e = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
+  SCM function;
+  if (dir == START)
+    function = gh_list (ly_symbol2scm ("begin"), SCM_UNDEFINED);
+  else
+    function = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
   Moment one_beat = *unsmob_moment( get_property ("beatLength"));
   int num = *unsmob_moment (get_property("measureLength")) / one_beat;
@@ -101,112 +127,82 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
 
   SCM settings = get_property ("autoBeamSettings");
   
-  /*
-    Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
-    In order of increasing priority:
-
-    i.   every beat
-    ii.  end   *    <num> <den>
-    iii. end <type> <num> <den>
-
-    iv.  end   *      *     *
-    v.   end <type>   *     *
-
-
-    Rationale:
-
-    [to be defined in config file]
-    i.   easy catch-all rule
-    ii.  exceptions for time signature
-    iii. exceptions for time signature, for specific duration type
-
-    [user override]
-    iv.  generic override
-    v.   override for specific duration type
-
-  */
+  /* first guess */
   
-
-  /*
-    first guess: begin beam at any position
-  */
-  Moment begin_mom (0);
-  /*
-    first guess: end beam at end of beat
-  */
-  SCM one (get_property ("beatLength"));
-
-  Moment end_mom;
-  if (unsmob_moment (one))
-    end_mom = *unsmob_moment (one);
-
-  /*
-    second guess: property generic time exception
-  */
-  SCM begin = gh_assoc (gh_append3 (b, wild, time), settings);
+  /* begin beam at any position
+   (and fallback for end) */
+  Moment moment (0);
   
-  if (begin != SCM_BOOL_F && unsmob_moment (gh_cdr (begin)))
-    begin_mom = * unsmob_moment (gh_cdr (begin));
-
-  SCM end = gh_assoc (gh_append3 (e, wild, time), settings);
-  if (end != SCM_BOOL_F && unsmob_moment (gh_cdr (end)))
-    end_mom = * unsmob_moment (gh_cdr (end));
-
-  /*
-    third guess: property time exception, specific for duration type
-  */
-  SCM begin_mult = gh_assoc (gh_append3 (b, type, time), settings);
-  if (begin_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (begin_mult)))
-    begin_mom = * unsmob_moment (gh_cdr (begin_mult));
-  
-  SCM end_mult = gh_assoc (gh_append3 (e, type, time), settings);
-  if (end_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (end_mult)))
-    end_mom = * unsmob_moment (gh_cdr (end_mult));
-
-  /*
-    fourth guess [user override]: property plain generic
-  */
-  begin = gh_assoc (gh_append3 (b, wild, wild), settings);
-  if (begin != SCM_BOOL_F && unsmob_moment (gh_cdr (begin)))
-    begin_mom = * unsmob_moment (gh_cdr (begin));
-
-  end = gh_assoc (gh_append3 (e, wild, wild), settings);
-  if (end != SCM_BOOL_F && unsmob_moment (gh_cdr (end)))
-    end_mom = * unsmob_moment (gh_cdr (end));
-
-  /*
-    fifth guess [user override]: property plain, specific for duration type
-  */
-  begin_mult = gh_assoc (gh_append3 (b, type, wild), settings);
-  if (begin_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (begin_mult)))
-    begin_mom = * unsmob_moment (gh_cdr (begin_mult));
-  
-  end_mult = gh_assoc (gh_append3 (e, type, wild), settings);
-  if (end_mult != SCM_BOOL_F && unsmob_moment (gh_cdr (end_mult)))
-    end_mom = * unsmob_moment (gh_cdr (end_mult));
-
-  Rational r;
-  if (end_mom)
-    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (end_mom);
-  else
-    r = Moment (1);
-
-  if (stem_l_arr_p_ && stem_l_arr_p_->size () > 1 && !r)
-    end_beam ();
-
-  /*
-    Allow already started autobeam to end
-   */
-  SCM on = get_property ("noAutoBeaming");
-  if (to_boolean (on))
-    return;
-
-  if (begin_mom)
-    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (begin_mom);
-  if (!stem_l_arr_p_ && (!begin_mom || !r))
-    begin_beam ();
-}
+  /* end beam at end of beat */
+  if (dir == STOP)
+    {
+      SCM beat (get_property ("beatLength"));
       
+      if (unsmob_moment (beat))
+	moment = *unsmob_moment (beat);
+    }
+
+  /* second guess: property generic time exception */
+  SCM m = gh_assoc (gh_append3 (function, wild, time), settings);
+  
+  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
+    moment = * unsmob_moment (gh_cdr (m));
+
+  /* third guess: property time exception, specific for duration type */
+  m = gh_assoc (gh_append3 (function, type, time), settings);
+  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
+    moment = * unsmob_moment (gh_cdr (m));
+
+  /* fourth guess [user override]: property plain generic */
+  m = gh_assoc (gh_append3 (function, wild, wild), settings);
+  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
+    moment = * unsmob_moment (gh_cdr (m));
+
+  /* fifth guess [user override]: property plain, specific for duration type */
+  m = gh_assoc (gh_append3 (function, type, wild), settings);
+  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
+    moment = * unsmob_moment (gh_cdr (m));
+  
+  Rational r;
+  if (moment)
+    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (moment);
+  else
+    {
+      if (dir == START)
+	/* if undefined, starting is ok */
+	r = 0;
+      else
+	/* but ending is not */
+	r = 1;
+    }
+  return !r;
+}
+
+void
+Auto_beam_engraver::consider_begin (Moment test_mom)
+{
+  bool off = to_boolean (get_property ("noAutoBeaming"));
+  if (!stem_l_arr_p_ && ! off)
+    {
+      bool b = test_moment (START, test_mom);
+      if (b)
+	begin_beam ();
+    }
+}
+
+void
+Auto_beam_engraver::consider_end (Moment test_mom)
+{
+  if (stem_l_arr_p_ && stem_l_arr_p_->size () > 1)
+    {
+      /* Allow already started autobeam to end:
+	 don't check for noAutoBeaming */
+      bool b = test_moment (STOP, test_mom);
+      if (b)
+	end_beam ();
+    }
+}
+
 Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
@@ -292,7 +288,7 @@ Auto_beam_engraver::typeset_beam ()
 void
 Auto_beam_engraver::start_translation_timestep ()
 {
-  first_b_ =true;
+  count_i_ = 0;
   /*
     don't beam over skips
    */
@@ -314,7 +310,7 @@ Auto_beam_engraver::stop_translation_timestep ()
 }
 
 void
-Auto_beam_engraver::do_removal_processing ()
+Auto_beam_engraver::finalize ()
 {
   /* finished beams may be typeset */
   typeset_beam ();
@@ -390,26 +386,36 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	  return;
 	}
 
-      /*
-	if shortest duration would change
-	reconsider ending/starting beam first.
-      */
       Moment dur = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
-      consider_end_and_begin (dur);
-      if (!stem_l_arr_p_)
-	return;
+      /* FIXME:
+
+	This comment has been here since long:
+
+	   if shortest duration would change
+	    consider ending and beginning beam first. 
+
+	but the code didn't match: */
+#if 1
       
+      consider_end (dur);
+      consider_begin (dur);
+
+      if (dur < shortest_mom_)
+	shortest_mom_ = dur;
+#else
+      /* I very much suspect that we wanted: */
+
+      consider_end (shortest_mom_);
       if (dur < shortest_mom_)
 	{
 	  shortest_mom_ = dur;
-	  if (stem_l_arr_p_->size ())
-	    {
-	      shortest_mom_ = dur;
-	      consider_end_and_begin (shortest_mom_);
-	      if (!stem_l_arr_p_)
-		return;
-	    }
+	  consider_end (shortest_mom_);
 	}
+      consider_begin (shortest_mom_);
+#endif
+
+      if (!stem_l_arr_p_)
+	return;
       
       Moment now = now_mom ();
       
@@ -424,12 +430,12 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 void
 Auto_beam_engraver::create_grobs ()
 {
-  if (first_b_)
+  if (!count_i_)
     {
-      first_b_ = false;
-      consider_end_and_begin (shortest_mom_);
+      consider_end (shortest_mom_);
+      consider_begin (shortest_mom_);
     }
-  else
+  else if (count_i_ > 1)
     {
       if (stem_l_arr_p_)
 	{
@@ -444,5 +450,11 @@ Auto_beam_engraver::create_grobs ()
 	      junk_beam ();
 	    }
 	}    
-    }  
+    }
+
+  /*
+    count_i_++ -> 
+
+        auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
+  count_i_ = count_i_ + 1;
 }

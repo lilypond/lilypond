@@ -22,8 +22,8 @@ public:
   Vertical_align_engraver();
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing();
-  virtual void do_removal_processing();
+  virtual void initialize();
+  virtual void finalize();
 };
 
 Vertical_align_engraver::Vertical_align_engraver()
@@ -32,17 +32,17 @@ Vertical_align_engraver::Vertical_align_engraver()
 }
 
 void
-Vertical_align_engraver::do_creation_processing()
+Vertical_align_engraver::initialize()
 {
   valign_p_ =new Spanner (get_property ("VerticalAlignment"));
-  valign_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
+  valign_p_->set_bound(LEFT,unsmob_grob (get_property ("currentCommandColumn")));
   announce_grob (valign_p_ , 0);
 }
 
 void
-Vertical_align_engraver::do_removal_processing()
+Vertical_align_engraver::finalize()
 {
-  valign_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
+  valign_p_->set_bound(RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
   typeset_grob (valign_p_);
   valign_p_ =0;
 }

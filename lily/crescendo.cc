@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK (Hairpin, brew_molecule, 1);
 SCM
 Hairpin::brew_molecule (SCM smob) 
 {
-  Grob *me= unsmob_element (smob);
+  Grob *me= unsmob_grob (smob);
   Spanner *span = dynamic_cast<Spanner*>(me);
 
   Real line = me->paper_l ()->get_var ("stafflinethickness");  

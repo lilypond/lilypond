@@ -31,7 +31,7 @@ public:
   ~Piano_pedal_performer ();
   
 protected:
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual bool try_music (Music*);
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
@@ -55,7 +55,7 @@ Piano_pedal_performer::~Piano_pedal_performer()
 }
 
 void
-Piano_pedal_performer::do_creation_processing ()
+Piano_pedal_performer::initialize ()
 {
   info_alist_ = new Pedal_info[4];
   Pedal_info *p = info_alist_;

@@ -32,7 +32,7 @@ public:
 Time_signature_engraver::Time_signature_engraver()
 { 
   time_signature_p_ =0;
-  last_time_fraction_ = SCM_EOL;
+  last_time_fraction_ = SCM_BOOL_F;
 }
 
 void
@@ -42,7 +42,7 @@ Time_signature_engraver::create_grobs()
     not rigorously safe, since the value might get GC'd and
     reallocated in the same spot */
   SCM fr= get_property ("timeSignatureFraction");
-  if (last_time_fraction_ != fr)
+  if (!time_signature_p_ && last_time_fraction_ != fr)
     {
       last_time_fraction_ = fr; 
       time_signature_p_ = new Item (get_property ("TimeSignature"));

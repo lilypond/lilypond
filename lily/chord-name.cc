@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK (Chord_name,after_line_breaking,1);
 SCM
 Chord_name::after_line_breaking (SCM smob)
 {
-  Item* me = dynamic_cast<Item*> (unsmob_element (smob));
+  Item* me = dynamic_cast<Item*> (unsmob_grob (smob));
   assert (me);
     
   SCM s = me->get_grob_property ("begin-of-line-visible");
@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK (Chord_name,brew_molecule,1);
 SCM
 Chord_name::brew_molecule (SCM smob) 
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   SCM style = me->get_grob_property ("style");
 
   if (!gh_symbol_p (style))

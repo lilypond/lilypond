@@ -13,7 +13,6 @@
 Transposed_music::Transposed_music (Music *p, Pitch pit)
   : Music_wrapper (p)
 {
-  transpose_to_pitch_ = pit;
   p->transpose (pit);
   set_mus_property ("type", ly_symbol2scm ("transposed-music"));
 }

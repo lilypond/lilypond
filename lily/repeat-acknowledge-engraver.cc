@@ -30,13 +30,13 @@ public:
 
   virtual void start_translation_timestep ();
   virtual void process_music ();
-  virtual void do_creation_processing ();
+  virtual void initialize ();
 
   bool first_b_;
 };
 
 void
-Repeat_acknowledge_engraver::do_creation_processing ()
+Repeat_acknowledge_engraver::initialize ()
 {
   first_b_ = true;
   daddy_trans_l_->set_property ("repeatCommands", SCM_EOL);

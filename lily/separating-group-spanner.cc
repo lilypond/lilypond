@@ -38,7 +38,7 @@ MAKE_SCHEME_CALLBACK(Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
   
   for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
@@ -48,8 +48,8 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       SCM elt = gh_cadr (s);
       SCM next_elt = gh_car (s);
 
-      Item *l = dynamic_cast<Item*> (unsmob_element (elt));
-      Item *r = dynamic_cast<Item*> (unsmob_element ( next_elt));
+      Item *l = dynamic_cast<Item*> (unsmob_grob (elt));
+      Item *r = dynamic_cast<Item*> (unsmob_grob ( next_elt));
 
       if (!r || !l)
 	continue;
@@ -83,7 +83,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
    */
   for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Item * it =dynamic_cast<Item*>(unsmob_element (gh_car (s)));
+      Item * it =dynamic_cast<Item*>(unsmob_grob (gh_car (s)));
       if (it && it->broken_b ())
 	{
 	  it->find_prebroken_piece (LEFT) ->suicide ();

@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK(Dots,quantised_position_callback,2);
 SCM
 Dots::quantised_position_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
     
@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Dots,brew_molecule,1);
 SCM  
 Dots::brew_molecule (SCM d)
 {
-  Grob *sc = unsmob_element (d);
+  Grob *sc = unsmob_grob (d);
   Molecule mol;
   
   SCM c = sc->get_grob_property ("dot-count");

@@ -104,6 +104,8 @@ public:
   virtual SCM do_derived_mark ();
 
   Molecule * get_molecule () const;
+  SCM get_uncached_molecule () const;
+  
   void suicide ();
   
   DECLARE_SCHEME_CALLBACK(preset_extent, (SCM smob, SCM axis));
@@ -172,7 +174,7 @@ public:
   DECLARE_SCHEME_CALLBACK(fixup_refpoint, (SCM));
 };
 
-Grob * unsmob_element (SCM);
+Grob * unsmob_grob (SCM);
 
 #endif // STAFFELEM_HH
 

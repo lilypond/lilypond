@@ -38,9 +38,9 @@ Grace_engraver_group::finish ()
 }
 
 void
-Grace_engraver_group::do_removal_processing ()
+Grace_engraver_group::finalize ()
 {
-  Engraver_group_engraver::do_removal_processing ();
+  Engraver_group_engraver::finalize ();
 }
 
 void
@@ -118,9 +118,9 @@ Grace_engraver_group::pass_to_top_b (Music *m) const
 }
 
 void
-Grace_engraver_group::do_creation_processing ()
+Grace_engraver_group::initialize ()
 {
   calling_self_b_ = true;
-  Engraver_group_engraver::do_creation_processing ();
+  Engraver_group_engraver::initialize ();
   calling_self_b_ = false;  
 }

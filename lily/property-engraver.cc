@@ -28,8 +28,8 @@ class Property_engraver : public Engraver
 
 protected:
   virtual void acknowledge_grob (Grob_info ei);
-  virtual void do_creation_processing ();
-  virtual void do_removal_processing ();
+  virtual void initialize ();
+  virtual void finalize ();
 public:
   ~Property_engraver();
   Property_engraver();
@@ -43,7 +43,7 @@ Property_engraver::Property_engraver()
   prop_dict_ = 0;
 }
 void
-Property_engraver::do_removal_processing()
+Property_engraver::finalize()
 {
   
 }
@@ -55,7 +55,7 @@ Property_engraver::~Property_engraver ()
 }
 
 void
-Property_engraver::do_creation_processing ()
+Property_engraver::initialize ()
 {
   prop_dict_ = new Scheme_hash_table;
 
@@ -70,9 +70,7 @@ Property_engraver::do_creation_processing ()
 void
 Property_engraver::acknowledge_grob (Grob_info i)
 {
-  /////////
-  return;
-  SCM ifs = i.elem_l_->get_grob_property ("interfaces");
+ SCM ifs = i.elem_l_->get_grob_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
     {      

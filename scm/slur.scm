@@ -117,6 +117,7 @@
    (extremity-rules . ,default-slur-extremity-rules)
    (extremity-offset-alist . ,default-slur-extremity-offset-alist)
    (de-uglify-parameters . ( 1.5  0.8  -2.0))
+   (Y-extent-callback . ,Slur::height)
    (details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5)
    	(bezier-pct-c0 . -0.2) (bezier-pct-c3 . 0.000006)
 	(bezier-pct-out-max . 0.8) (bezier-pct-in-max . 1.2)

@@ -30,11 +30,10 @@ public:
 
 protected:
   virtual void acknowledge_grob (Grob_info i);
-  void deprecated_process_music ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void create_grobs ();
 
 private:
@@ -95,13 +94,6 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 
 void
 Multi_measure_rest_engraver::create_grobs ()
-{  
-  deprecated_process_music ();
-}
-
-
-void
-Multi_measure_rest_engraver::deprecated_process_music ()
 {
   if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
@@ -181,7 +173,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 
 
 void
-Multi_measure_rest_engraver::do_removal_processing ()
+Multi_measure_rest_engraver::finalize ()
 {
   if (mmrest_p_)
     typeset_grob (mmrest_p_);

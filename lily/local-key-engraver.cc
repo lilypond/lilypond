@@ -34,9 +34,9 @@ protected:
   void deprecated_process_music();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep();
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void create_grobs ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
 public:
 
   // todo -> property
@@ -65,7 +65,7 @@ Local_key_engraver::Local_key_engraver()
 }
 
 void
-Local_key_engraver::do_creation_processing ()
+Local_key_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
   daddy_trans_l_->set_property ("localKeySignature",  last_keysig_);  
@@ -176,7 +176,7 @@ Local_key_engraver::create_grobs ()
 }
 
 void
-Local_key_engraver::do_removal_processing ()
+Local_key_engraver::finalize ()
 {
   // TODO: if grace ? signal accidentals to Local_key_engraver the 
 }

@@ -604,8 +604,9 @@ music_output_def_body:
 			junk this ? there already is tempo stuff in
 			music.
 		*/
-		int m = gh_scm2int ( $2->get_mus_property ("metronome-count")); 
-		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), m);
+		int m = gh_scm2int ( $2->get_mus_property ("metronome-count"));
+		Duration *d = unsmob_duration ($2->get_mus_property ("duration"));
+		dynamic_cast<Midi_def*> ($$)->set_tempo (d->length_mom (), m);
 	}
 	| music_output_def_body error {
 

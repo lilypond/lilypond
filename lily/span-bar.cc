@@ -29,7 +29,7 @@ MAKE_SCHEME_CALLBACK(Span_bar,width_callback,2);
 SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
-  Grob *se = unsmob_element (element_smob);
+  Grob *se = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (scm_axis);
   assert (a == X_AXIS);
   String gl = ly_scm2string (se->get_grob_property ("glyph"));
@@ -46,8 +46,8 @@ MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking,1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
-  evaluate_empty (unsmob_element (smob));
-  evaluate_glyph (unsmob_element (smob));
+  evaluate_empty (unsmob_grob (smob));
+  evaluate_glyph (unsmob_grob (smob));
 
   /*
     no need to call   Bar::before_line_breaking (), because the info
@@ -60,7 +60,7 @@ MAKE_SCHEME_CALLBACK(Span_bar,center_on_spanned_callback,2);
 SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 {
-  Grob *me = unsmob_element (element_smob);
+  Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
@@ -92,7 +92,7 @@ void
 Span_bar::evaluate_glyph (Grob*me)
 {
   SCM elts = me->get_grob_property ("elements");
-  Grob * b = unsmob_element (gh_car (elts));
+  Grob * b = unsmob_grob (gh_car (elts));
   SCM glsym =ly_symbol2scm ("glyph");
   SCM gl =b ->get_grob_property (glsym);
   if (!gh_string_p (gl))
@@ -132,7 +132,7 @@ MAKE_SCHEME_CALLBACK(Span_bar,get_bar_size,1);
 SCM
 Span_bar::get_bar_size (SCM smob)
 {
-  Grob* me =  unsmob_element (smob);
+  Grob* me =  unsmob_grob (smob);
   Interval iv (get_spanned_interval (me));
   if (iv.empty_b ())
     {

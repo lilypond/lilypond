@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK(Lyric_extender,brew_molecule,1)
 SCM 
 Lyric_extender::brew_molecule (SCM smob) 
 {
-  Spanner *sp = dynamic_cast<Spanner*> (unsmob_element (smob));
+  Spanner *sp = dynamic_cast<Spanner*> (unsmob_grob (smob));
 
   // ugh: refp
   Real leftext = sp->get_bound (LEFT)->extent (sp->get_bound (LEFT),

@@ -21,7 +21,7 @@ MAKE_SCHEME_CALLBACK(Align_interface,alignment_callback,2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
-  Grob * me = unsmob_element (element_smob);
+  Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis )gh_scm2int (axis);
   Grob * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))

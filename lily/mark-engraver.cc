@@ -38,9 +38,8 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   void create_items(Request*);
   virtual bool try_music (Music *req_l);
-  void deprecated_process_music ();
   virtual void start_translation_timestep ();
-  virtual void do_creation_processing ();
+  virtual void initialize ();
   virtual void create_grobs ();
   
 private:
@@ -58,7 +57,7 @@ Mark_engraver::Mark_engraver ()
 }
 
 void
-Mark_engraver::do_creation_processing ()
+Mark_engraver::initialize ()
 {
   daddy_trans_l_->set_property ("staffsFound", SCM_EOL); // ugh: sharing with barnumber grav.
 }
@@ -138,12 +137,6 @@ Mark_engraver::try_music (Music* r_l)
 
 void
 Mark_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Mark_engraver::deprecated_process_music ()
 {
   if (mark_req_l_)
     {

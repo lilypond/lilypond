@@ -26,8 +26,8 @@ public:
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
-  virtual void  stop_translation_timestep ();
-  virtual void  start_translation_timestep ();
+  virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();
 };
 
 

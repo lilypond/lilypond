@@ -23,8 +23,8 @@ protected:
   Spanner *staffline_p_;   
 
   virtual void create_line_spanner ();
-  virtual void do_creation_processing();
-  virtual void do_removal_processing();
+  virtual void initialize();
+  virtual void finalize();
   virtual void typeset_grob (Grob*);
 public:
   VIRTUAL_COPY_CONS(Translator);

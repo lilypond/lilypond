@@ -61,7 +61,7 @@ Line_of_score::output_lines ()
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
-      unsmob_element (gh_car (s))->do_break_processing ();
+      unsmob_grob (gh_car (s))->do_break_processing ();
     }
   /*
     fixups must be done in broken line_of_scores, because new elements
@@ -88,7 +88,7 @@ Line_of_score::output_lines ()
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
-      unsmob_element (gh_car (s))->handle_broken_dependencies ();
+      unsmob_grob (gh_car (s))->handle_broken_dependencies ();
     }
   handle_broken_dependencies ();
 
@@ -113,7 +113,7 @@ Line_of_score::output_lines ()
       if (i < broken_into_l_arr_.size () - 1)
 	{
 	  SCM lastcol =  gh_car (line_l->get_grob_property ("columns"));
-	  Grob*  e = unsmob_element (lastcol);
+	  Grob*  e = unsmob_grob (lastcol);
 	  SCM inter = e->get_grob_property ("between-system-string");
 	  if (gh_string_p (inter))
 	    {
@@ -229,7 +229,7 @@ Line_of_score::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_grob_property ("columns");
-  Grob * prev =  gh_pair_p (cs) ? unsmob_element (gh_car (cs)) : 0;
+  Grob * prev =  gh_pair_p (cs) ? unsmob_grob (gh_car (cs)) : 0;
 
   p->rank_i_ = prev ? Paper_column::rank_i (prev) + 1 : 0; 
 
@@ -249,27 +249,27 @@ void
 Line_of_score::pre_processing ()
 {
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->discretionary_processing ();
+    unsmob_grob (gh_car (s))->discretionary_processing ();
 
   if(verbose_global_b)
     progress_indication ( _f("Element count %d ",  element_count ()));
 
   
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_element (gh_car (s))->handle_prebroken_dependencies ();
+    unsmob_grob (gh_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_grob_property ("all-elements"));
   
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob* sc = unsmob_element (gh_car (s));
+      Grob* sc = unsmob_grob (gh_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * e = unsmob_element (gh_car (s));
+      Grob * e = unsmob_grob (gh_car (s));
       SCM proc = e->get_grob_property ("spacing-procedure");
       if (gh_procedure_p (proc))
 	gh_call1 (proc, e->self_scm ());
@@ -282,7 +282,7 @@ Line_of_score::post_processing (bool last_line)
   for (SCM s = get_grob_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob* sc = unsmob_element (gh_car (s));
+      Grob* sc = unsmob_grob (gh_car (s));
       sc->calculate_dependencies (POSTCALCED, POSTCALCING,
 				  ly_symbol2scm ("after-line-breaking-callback"));
     }
@@ -306,7 +306,7 @@ Line_of_score::post_processing (bool last_line)
     (ugh. This is not very memory efficient.)  */
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      unsmob_element (gh_car (s))->get_molecule ();
+      unsmob_grob (gh_car (s))->get_molecule ();
     }
   /*
     font defs;
@@ -328,7 +328,7 @@ Line_of_score::post_processing (bool last_line)
    */ 
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob *sc = unsmob_element (gh_car (s));
+      Grob *sc = unsmob_grob (gh_car (s));
       Molecule *m = sc->get_molecule ();
       if (!m)
 	continue;
@@ -373,7 +373,7 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   
   while (gh_pair_p (s) && gh_car (s) != l->self_scm ())
     {
-      Paper_column*c = dynamic_cast<Paper_column*> ( unsmob_element (gh_car (s)));
+      Paper_column*c = dynamic_cast<Paper_column*> ( unsmob_grob (gh_car (s)));
       if (Item::breakable_b (c) && !c->line_l_)
 	ret.push (c);
 

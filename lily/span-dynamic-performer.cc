@@ -31,7 +31,6 @@ protected:
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Audio_element_info);
   virtual void create_grobs ();
-  void deprecated_process_music ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 
@@ -67,7 +66,7 @@ Span_dynamic_performer::acknowledge_grob (Audio_element_info i)
 }
 
 void
-Span_dynamic_performer::deprecated_process_music ()
+Span_dynamic_performer::create_grobs ()
 {
   if (span_start_req_l_ || span_req_l_drul_[START])
     {
@@ -106,26 +105,22 @@ Span_dynamic_performer::deprecated_process_music ()
       Audio_dynamic_tuple a = { audio_p_, now_mom () };
       dynamic_tuple_arr_.push (a);
     }
-}
 
-void
-Span_dynamic_performer::create_grobs ()
-{
-  deprecated_process_music ();
+
   if (span_req_l_drul_[STOP])
-   { 
-     finished_dynamic_tuple_arr_.top ().audio_l_->volume_ = last_volume_;
-   }
-
+    { 
+      finished_dynamic_tuple_arr_.top ().audio_l_->volume_ = last_volume_;
+    }
+  
   if (span_req_l_drul_[START])
     {
-     dynamic_tuple_arr_[0].audio_l_->volume_ = last_volume_;
+      dynamic_tuple_arr_[0].audio_l_->volume_ = last_volume_;
     }
   span_start_req_l_ = 0;
   span_req_l_drul_[START] = 0;
   span_req_l_drul_[STOP] = 0;
 }
-  
+
 void
 Span_dynamic_performer::stop_translation_timestep ()
 {

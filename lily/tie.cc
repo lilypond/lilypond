@@ -65,7 +65,7 @@ Tie::head (Grob*me, Direction d)
   SCM c = me->get_grob_property ("heads");
   c = index_cell (c, d);
 
-  return unsmob_element (c);
+  return unsmob_grob (c);
 }
 
 Real
@@ -110,7 +110,7 @@ Tie::get_default_dir (Grob*me)
 SCM
 Tie::get_control_points (SCM smob)
 {  
-  Spanner*me = dynamic_cast<Spanner*> (unsmob_element (smob));
+  Spanner*me = dynamic_cast<Spanner*> (unsmob_grob (smob));
   Direction headdir = CENTER; 
   if (head (me,LEFT))
     headdir = LEFT;
@@ -286,7 +286,7 @@ MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods,1);
 SCM
 Tie::set_spacing_rods (SCM smob)  
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
   Spanner*sp = dynamic_cast<Spanner*> (me);
   Rod r;
 
@@ -304,7 +304,7 @@ MAKE_SCHEME_CALLBACK(Tie,brew_molecule,1);
 SCM
 Tie::brew_molecule (SCM smob) 
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
 
   SCM cp = me->get_grob_property ("control-points");
   if (cp == SCM_EOL)

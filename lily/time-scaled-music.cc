@@ -13,11 +13,12 @@
 Time_scaled_music::Time_scaled_music (int n, int d,Music *mp)
   : Music_wrapper (mp)
 {
-  num_i_ = n;
-  den_i_ = d;
-  compress (Moment (num_i_,den_i_));
+  set_mus_property ("numerator", gh_int2scm (n));
+  set_mus_property ("denominator", gh_int2scm (d));
   set_mus_property ("type",
 		    Time_scaled_music_iterator::constructor_cxx_function);
+  
+  compress (Moment (n,d));
 }
 
 

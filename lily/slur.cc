@@ -111,7 +111,7 @@ MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   if (!scm_ilength (me->get_grob_property ("note-columns")))
     {
       me->suicide ();
@@ -199,9 +199,9 @@ Real
 Slur::get_first_notecolumn_y (Grob *me, Direction dir)
 {
   Grob *col = dir == LEFT
-    ? unsmob_element (gh_car (scm_reverse (me->get_grob_property
+    ? unsmob_grob (gh_car (scm_reverse (me->get_grob_property
 					   ("note-columns"))))
-    : unsmob_element
+    : unsmob_grob
     (gh_car (me->get_grob_property ("note-columns")));
   
   Grob *common[] =
@@ -369,7 +369,7 @@ Slur::encompass_offset (Grob*me,
 			Grob **common) 
 {
   Offset o;
-  Grob* stem_l = unsmob_element (col->get_grob_property ("stem"));
+  Grob* stem_l = unsmob_grob (col->get_grob_property ("stem"));
   
   Direction dir = Directional_element_interface::get (me);
   
@@ -422,7 +422,7 @@ Slur::get_encompass_offset_arr (Grob *me)
   Link_array<Grob>  encompass_arr;
   while (gh_pair_p (eltlist))
     {
-      encompass_arr.push (unsmob_element (gh_car (eltlist)));      
+      encompass_arr.push (unsmob_grob (gh_car (eltlist)));      
       eltlist =gh_cdr (eltlist);
     }
   encompass_arr.reverse ();
@@ -482,7 +482,7 @@ MAKE_SCHEME_CALLBACK(Slur,set_spacing_rods,1);
 SCM
 Slur::set_spacing_rods (SCM smob)
 {
-  Grob*me = unsmob_element (smob);
+  Grob*me = unsmob_grob (smob);
 
   Rod r;
   Spanner*sp = dynamic_cast<Spanner*>(me);
@@ -498,13 +498,28 @@ Slur::set_spacing_rods (SCM smob)
 
 
 /*
+  ugh ?
+ */
+MAKE_SCHEME_CALLBACK(Slur,height,2);
+SCM
+Slur::height (SCM smob, SCM ax)
+{
+  Axis a = (Axis)gh_scm2int (ax);
+  Grob * me = unsmob_grob (smob);
+  assert ( a == Y_AXIS);
+
+  SCM mol = me->get_uncached_molecule ();
+  return ly_interval2scm (unsmob_molecule (mol)->extent (a));
+}
+
+/*
   Ugh should have dash-length + dash-period
  */
 MAKE_SCHEME_CALLBACK (Slur, brew_molecule,1);
 SCM
 Slur::brew_molecule (SCM smob)
 {
-  Grob * me = unsmob_element (smob);
+  Grob * me = unsmob_grob (smob);
   if (!scm_ilength (me->get_grob_property ("note-columns")))
     {
       me->suicide ();

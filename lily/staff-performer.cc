@@ -31,8 +31,8 @@ public:
 
 protected:
   virtual void play_element (Audio_element* p);
-  virtual void do_removal_processing ();
-  virtual void do_creation_processing ();
+  virtual void finalize ();
+  virtual void initialize ();
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
 
@@ -60,7 +60,7 @@ Staff_performer::~Staff_performer ()
 }
 
 void
-Staff_performer::do_creation_processing ()
+Staff_performer::initialize ()
 {
   audio_staff_p_ = new Audio_staff;
   announce_element (Audio_element_info (audio_staff_p_, 0));
@@ -71,7 +71,7 @@ Staff_performer::do_creation_processing ()
   tempo_p_ = new Audio_tempo (get_tempo_i ());
   announce_element (Audio_element_info (tempo_p_, 0));
 
-  Performer_group_performer::do_creation_processing ();
+  Performer_group_performer::initialize ();
 }
 
 void
@@ -85,7 +85,6 @@ Staff_performer::create_grobs ()
       instrument_p_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_p_, 0));
     }
-  //Performer_group_performer::deprecated_process_music ();
 }
 
 void
@@ -115,9 +114,9 @@ Staff_performer::stop_translation_timestep ()
 }
 
 void
-Staff_performer::do_removal_processing ()
+Staff_performer::finalize ()
 {
-  Performer_group_performer::do_removal_processing ();
+  Performer_group_performer::finalize ();
   Performer::play_element (audio_staff_p_);
   audio_staff_p_ = 0;
 }

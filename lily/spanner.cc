@@ -327,8 +327,8 @@ extend_spanner_over_item (Item *it, SCM extremal_pair)
   if (!it)
     return;
   Item * col = it->column_l ();
-  Item * i1 = dynamic_cast<Item*> (unsmob_element (gh_car (extremal_pair)));
-  Item * i2 = dynamic_cast<Item*> (unsmob_element (gh_cdr (extremal_pair)));
+  Item * i1 = dynamic_cast<Item*> (unsmob_grob (gh_car (extremal_pair)));
+  Item * i2 = dynamic_cast<Item*> (unsmob_grob (gh_cdr (extremal_pair)));
   int r = Paper_column::rank_i (col);
   if (!i1 || r < Paper_column::rank_i (i1->column_l ()))
     {
@@ -348,14 +348,14 @@ extend_spanner_over_elements (SCM value, SCM extremal_pair)
       extend_spanner_over_elements (gh_car (value), extremal_pair);
       extend_spanner_over_elements (gh_cdr (value), extremal_pair);
     }
-  else if (unsmob_element (value))
+  else if (unsmob_grob (value))
     {
-      if (Spanner * sp = dynamic_cast<Spanner*> (unsmob_element(value)))
+      if (Spanner * sp = dynamic_cast<Spanner*> (unsmob_grob(value)))
 	{
 	  extend_spanner_over_item (sp->get_bound (LEFT), extremal_pair);
 	  extend_spanner_over_item (sp->get_bound (RIGHT), extremal_pair);
 	}
-      else if (Item * it= dynamic_cast<Item*> (unsmob_element(value)))
+      else if (Item * it= dynamic_cast<Item*> (unsmob_grob(value)))
 	extend_spanner_over_item (it, extremal_pair);
     }
 }
@@ -379,8 +379,8 @@ extend_spanner_over_elements (Grob*s)
   SCM pair = gh_cons (s1,s2);
   extend_spanner_over_elements (sp->mutable_property_alist_, pair);
 
-  Grob *p1 =  unsmob_element (gh_car (pair));
-  Grob* p2 = unsmob_element (gh_cdr (pair));
+  Grob *p1 =  unsmob_grob (gh_car (pair));
+  Grob* p2 = unsmob_grob (gh_cdr (pair));
   sp->set_bound (LEFT,p1);
   sp->set_bound (RIGHT, p2);
 

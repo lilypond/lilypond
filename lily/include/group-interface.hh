@@ -46,7 +46,7 @@ Pointer_group_interface__extract_elements (Grob const *elt, T *, const char* nam
   for (SCM s = elt->get_grob_property (name); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM e = gh_car (s);
-      arr.push (dynamic_cast<T*> (unsmob_element (e)));
+      arr.push (dynamic_cast<T*> (unsmob_grob (e)));
     }
 
   arr.reverse ();

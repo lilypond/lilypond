@@ -1,5 +1,36 @@
-1.3.108.uu1
-===========
+1.3.109.jcn2
+============
+
+* Fixed a mysterious typo in toplevel index.
+
+* Enabled property-engraver.
+
+* Cleanup in Auto-beam-engraver (still broken, because timings are off?)
+
+* Collapsed all ``void Foo::create_grobs () { deprecated_process_music
+(); }'' occurences, and reactivated some disabled code (note-name,
+chord-name, custos, lyrics).  Reactivated Timing_translator using
+process_music ().
+
+1.3.109.hwn1
+============
+
+* unsmob_element -> unsmob_grob
+
+* Make a Slur::height callback, to prevent early brew_molecule
+call. This fixes cross-staff slurs.
+
+* Bugfix: custodes style must be symbol, not string.
+
+* do_creation_processing () -> initialize (), do_removal_processing ()
+-> finalize ().  Remove (do_)add_processing.
+
+* Move Relative_octave_music::last_pitch_ into SCM, junk
+Transposed_music::to_pitch_, junked Time_scaled_music::{den_i_,
+num_i_}, Rhythmic_req::duration_, Melodic_req::pitch_
+
+1.3.109
+=======
 
 * Bugfix: resurrected point-and-click. 
 
@@ -21,8 +52,8 @@ various XXXX functions as wrapper for do_XXX functions.
 {pre,post}_move_processing -> {stop,start}_translation_timestep,
 do_try_music -> try_music.
 
-1.3.107.jcn3
-============
+1.3.108
+=======
 
 * Dropped ly_lists_equal for gh_equal_
 

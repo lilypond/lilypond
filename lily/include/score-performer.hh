@@ -29,7 +29,7 @@ protected:
   virtual void prepare (Moment mom);
   virtual void process();
   virtual void start();
-  virtual void do_add_processing ();
+  virtual void initialize ();
   virtual void announce_element (Audio_element_info);
   virtual int get_tempo_i() const;
   virtual void play_element (Audio_element* p);

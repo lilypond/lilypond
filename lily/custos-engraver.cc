@@ -26,10 +26,9 @@ public:
   Custos_engraver();
   virtual void start_translation_timestep();
   virtual void acknowledge_grob(Grob_info);
-  void deprecated_process_music ();
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   VIRTUAL_COPY_CONS(Translator);
 
 private:
@@ -67,16 +66,6 @@ Custos_engraver::start_translation_timestep ()
 }
 
 
-/*
-  TODO check if this works with forced bar lines?
- */
-void
-Custos_engraver::deprecated_process_music ()
-{
-  if (gh_string_p (get_property( "whichBar")))
-    custos_permitted = true;
-}
-
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
@@ -106,8 +95,9 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 void
 Custos_engraver::create_grobs ()
 {
-  deprecated_process_music ();
-
+  if (gh_string_p (get_property( "whichBar")))
+    custos_permitted = true;
+  
   if (custos_permitted)
     {
       for (int i = pitches_.size (); i--;)
@@ -136,7 +126,7 @@ Custos_engraver::create_custos()
 }
 
 void
-Custos_engraver::do_removal_processing ()
+Custos_engraver::finalize ()
 {
   for (int i = custos_arr_.size (); i--;)
     {

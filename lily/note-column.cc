@@ -20,7 +20,7 @@
 bool
 Note_column::rest_b (Grob*me) 
 {
-  return unsmob_element (me->get_grob_property ("rest"));
+  return unsmob_grob (me->get_grob_property ("rest"));
 }
 
 int
@@ -48,7 +48,7 @@ Item *
 Note_column::stem_l (Grob*me) 
 {
   SCM s = me->get_grob_property ("stem");
-  return  dynamic_cast<Item*>(unsmob_element (s));
+  return  dynamic_cast<Item*>(unsmob_grob (s));
 }
   
 Slice
@@ -61,7 +61,7 @@ Note_column::head_positions_interval(Grob *me)
   SCM h = me->get_grob_property ("note-heads");
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
-      Grob *se = unsmob_element (gh_car (h));
+      Grob *se = unsmob_grob (gh_car (h));
       
       int j = int (Staff_symbol_referencer::position_f (se));
       iv.unite (Slice (j,j));
@@ -72,7 +72,7 @@ Note_column::head_positions_interval(Grob *me)
 Direction
 Note_column::dir (Grob*  me)
 {
-  Grob *stem = unsmob_element (me->get_grob_property ("stem"));
+  Grob *stem = unsmob_grob (me->get_grob_property ("stem"));
   if (stem && Stem::has_interface (stem))
     return Stem::get_direction (stem);
   else if (gh_pair_p (me->get_grob_property ("note-heads")))
@@ -111,7 +111,7 @@ Note_column::add_head (Grob*me,Grob *h)
 void
 Note_column::translate_rests (Grob*me,int dy_i)
 {
-  Grob * r = unsmob_element (me->get_grob_property ("rest"));
+  Grob * r = unsmob_grob (me->get_grob_property ("rest"));
   if (r)
     {
       r->translate_axis (dy_i * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);

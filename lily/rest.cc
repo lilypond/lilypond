@@ -19,14 +19,14 @@ MAKE_SCHEME_CALLBACK(Rest,after_line_breaking,1);
 SCM
 Rest::after_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   int bt = gh_scm2int (me->get_grob_property ("duration-log"));
   if (bt == 0)
     {
       me->translate_axis (Staff_symbol_referencer::staff_space (me) , Y_AXIS);
     }
 
-  Grob * d = unsmob_element (me->get_grob_property ("dot"));
+  Grob * d = unsmob_grob (me->get_grob_property ("dot"));
   if (d && bt > 4) // UGH.
     {
       d->set_grob_property ("staff-position",
@@ -42,7 +42,7 @@ MAKE_SCHEME_CALLBACK(Rest,brew_molecule,1);
 SCM
 Rest::brew_internal_molecule (SCM smob)
 {
-  Grob* me = unsmob_element (smob);
+  Grob* me = unsmob_grob (smob);
   
   bool ledger_b =false;
 

@@ -16,7 +16,7 @@
 
 @unnumberedsec What is LilyPond?
 
-LilyPond is a music typesetting.  It produces beautiful sheet music
+LilyPond is a music typesetter.  It produces beautiful sheet music
 using a high level description file as input. It excels at typesetting
 classical music, but you can also print pop-songs.  With LilyPond we
 hope to make music publication software available to anyone on the
@@ -73,15 +73,6 @@ examples} and @uref{long-examples.html,longer examples}. The
 examples include sound bites  in MIDI, pictures in PNG, printable scores
 in PostScript, and LilyPond input. Others use LilyPond too, and have put
 scores on the web. Head over to @uref{http://appel.lilypond.org/wiki/index.php?DownloadLilyPondScores}
-@uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html,John
-Sankey}, harpsichordist to the internet, is typesetting the complete
-@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html,sonatas
-by Scarlatti}. Jeff Covey, guitar player and overall nice guy, is
-putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
-net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is an
-archive of public domain sheet music under construction. Dirk Lattermann
-also put some works @uref{http://www.alqualonde.de/lilypond.html,on the
-web}.
 
 @html
 <a name="download-source">

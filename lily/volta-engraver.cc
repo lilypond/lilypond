@@ -28,7 +28,7 @@ protected:
 
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_removal_processing ();
+  virtual void finalize ();
   virtual void stop_translation_timestep ();
   void deprecated_process_music ();
   virtual void create_grobs ();
@@ -155,7 +155,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 }
 
 void
-Volta_engraver::do_removal_processing ()
+Volta_engraver::finalize ()
 {
   if (volta_span_p_)
     {

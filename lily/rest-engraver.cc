@@ -22,7 +22,8 @@ protected:
   virtual bool try_music (Music *);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  void deprecated_process_music ();
+  virtual void create_grobs ();
+
 public:
   
   VIRTUAL_COPY_CONS(Translator);
@@ -62,7 +63,7 @@ Rest_engraver::stop_translation_timestep ()
 }
 
 void
-Rest_engraver::deprecated_process_music ()
+Rest_engraver::create_grobs ()
 {
   if (rest_req_l_ && !rest_p_) 
     {

@@ -16,9 +16,6 @@
 class Transposed_music : public Music_wrapper
 {
 public:
-  Pitch transpose_to_pitch_;
-
-
   Transposed_music (Music*, Pitch);
   
   VIRTUAL_COPY_CONS(Music);

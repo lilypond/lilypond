@@ -327,7 +327,7 @@ MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs,1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;

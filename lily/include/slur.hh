@@ -23,7 +23,7 @@ public:
   static Direction get_default_dir (Grob *me);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
-
+  DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
 private:  
   static Real get_first_notecolumn_y (Grob *me, Direction dir);
   static Offset broken_trend_offset (Grob *me, Direction dir);

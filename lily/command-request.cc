@@ -33,7 +33,7 @@ Tempo_req::do_equal_b (Request const *r) const
 {
   Tempo_req const *t = dynamic_cast <Tempo_req const*> (r);
 
-  return t&& t->dur_.length_mom ()== dur_.length_mom ();
+  return t; //  && t->dur_.length_mom ()== dur_.length_mom ();
   // && metronome_i_ == t->metronome_i_;
 }
 

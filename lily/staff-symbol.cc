@@ -22,7 +22,7 @@ MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule,1);
 SCM
 Staff_symbol::brew_molecule (SCM smob)
 {
-  Grob *me = unsmob_element (smob);
+  Grob *me = unsmob_grob (smob);
   Spanner* sp = dynamic_cast<Spanner*> (me);
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);

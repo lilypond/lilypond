@@ -21,8 +21,6 @@
  */
 class Rhythmic_req  : public virtual Request  {
 public:
-  Duration duration_;
-
   bool do_equal_b (Request const*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
@@ -76,8 +74,6 @@ protected:
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request
 {
-  Pitch pitch_;
-
   static int compare (Melodic_req const&,Melodic_req const&);
   
 protected:

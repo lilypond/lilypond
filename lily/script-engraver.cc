@@ -17,12 +17,11 @@ class Script_engraver : public Engraver {
   Link_array<Articulation_req> script_req_l_arr_;
 
 public:
-  VIRTUAL_COPY_CONS(Translator);
-  
-  Script_engraver();
+  VIRTUAL_COPY_CONS (Translator);
+
 protected:
   virtual bool try_music (Music*);
-  void deprecated_process_music ();
+  virtual void initialize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void create_grobs ();
@@ -30,9 +29,10 @@ protected:
 };
 
 
-Script_engraver::Script_engraver()
+void
+Script_engraver::initialize ()
 {
-  start_translation_timestep();
+  script_req_l_arr_.clear();
 }
 
 bool
@@ -53,12 +53,6 @@ Script_engraver::try_music (Music *r_l)
 
 void
 Script_engraver::create_grobs ()
-{
-  deprecated_process_music ();
-}
-
-void
-Script_engraver::deprecated_process_music()
 {
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {
@@ -181,6 +175,6 @@ Script_engraver::start_translation_timestep()
   script_req_l_arr_.clear();
 }
 
-ADD_THIS_TRANSLATOR(Script_engraver);
+ADD_THIS_TRANSLATOR (Script_engraver);
 
 
