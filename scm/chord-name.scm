@@ -77,58 +77,37 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-(define-public (sequential-music-to-chord-exceptions seq)
-  "Transform sequential music of <<a b c>>-\markup{ foobar } type to
- (cons ABC-PITCHES FOOBAR-MARKUP)
- "
-  
+(define-public (sequential-music-to-chord-exceptions seq omit-root)
+  "Transform sequential music SEQ of type <<c d e>>-\markup{ foobar }
+to (cons CDE-PITCHES FOOBAR-MARKUP), or to (cons DE-PITCHES
+FOOBAR-MARKUP) if OMIT-ROOT.
+"
+  (define (chord-to-exception-entry m)
+    (let* ((elts (ly:get-mus-property m 'elements))
+	   (pitches (map (lambda (x) (ly:get-mus-property x 'pitch))
+			 (filter-list
+			  (lambda (y) (memq 'note-event
+					    (ly:get-mus-property y 'types)))
+			  elts)))
+	   (sorted (sort pitches ly:pitch<?))
+	   (root (car sorted))
+	   (normalized (map (lambda (x) (ly:pitch-diff x root)) sorted))
+	   (texts (map (lambda (x) (ly:get-mus-property x 'text))
+		       (filter-list
+			(lambda (y) (memq 'text-script-event
+					  (ly:get-mus-property y 'types)))
+			elts)))
+	   (text (if (null? texts) #f (car texts))))
+      (cons (if omit-root (cdr normalized) normalized) text)))
+
   (define (is-req-chord? m)
     (and
      (memq 'event-chord (ly:get-mus-property m 'types))
-     (not (equal? (ly:make-moment 0 1) (ly:get-music-length m)))
-    ))
+     (not (equal? (ly:make-moment 0 1) (ly:get-music-length m)))))
 
-  (define (chord-to-exception-entry m)
-    (let*
-	(
-	 (elts   (ly:get-mus-property m 'elements))
-	 (pitches (map
-		   (lambda (x)
-		     (ly:get-mus-property x 'pitch)
-		     )
-		   (filter-list
-		    (lambda (y) (memq 'note-event (ly:get-mus-property y 'types)))
-		    elts)))
-	 (sorted  (sort pitches ly:pitch<? ))
-	 (root (car sorted))
-	 (non-root (map (lambda (x) (ly:pitch-diff x root)) (cdr sorted)))
-	 (texts (map
-		 (lambda (x)
-		   (ly:get-mus-property x 'text)
-		   )
-		 
-		 (filter-list
-		  (lambda (y)
-		    (memq 'text-script-event
-			  (ly:get-mus-property y 'types))) elts)
-		 ))
-	 (text (if (null? texts)
-		   #f
-		   (car texts)))
-
-	 )
-      (cons non-root text)
-    ))
-
-  (let*
-    (
-     (elts (filter-list is-req-chord? (ly:get-mus-property seq 'elements)))
-     (alist (map chord-to-exception-entry elts))
-     )
-    (filter-list (lambda (x) (cdr x)) alist)
-  ))
-
-
+  (let* ((elts (filter-list is-req-chord? (ly:get-mus-property seq 'elements)))
+	 (alist (map chord-to-exception-entry elts)))
+    (filter-list (lambda (x) (cdr x)) alist)))
 
 
 (define-public (new-chord-name-brew-molecule grob)

@@ -1,15 +1,11 @@
+\version "1.7.18"
 
 \header {
     texidoc = "test file for new-new-chord names, ie, double-plus-new-chord-name
-TODO: FIXME.
 "
 }
 
-\score { \notes { c4^"fixme"}}
-
-%{
-
-efull = \chordnames {
+efullmusic = \notes {
 
     %% ? what 'bout maj7?
     %% c:7 = \markup { \normal-size-super "maj7" }
@@ -18,26 +14,31 @@ efull = \chordnames {
     %% American:
     %% c:3-.5-.7- = \markup { "dim" }
     %% Jazz:
-    c:3-.5-.7- = \markup { \super " o" }
+    %% c:3-.5-.7-
+    <<c es ges bes>>-\markup { \super " o" }
 
-    %% Hmm
-    %%    	   ;;Pick your favorite maj7
-    %%	   ((0) mathm-markup-object)  ;;a white triangle
-    %%	   ;;((0) mathn-markup-object) ;;a black triangle
-    %% ;;((0) (make-simple-markup "maj7")) ;;good old maj7
-
-    %% This ok?
-    c:7+ = \markup { \normal-size-super \override #'(font-family . math) "N" }
+    %% Hmm, this ok?
+    %% c:7+
+    <<c e g b>>-\markup { \normal-size-super
+			  \override #'(font-family . math) "N" }
     %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
     %%c:3.5.7 = \markup { \normal-size-super "maj7" }
 }
 
-epartial = \chordnames {
-    c:2^3 = \markup { \normal-size-super "2" }
-    c:3-  = \markup { "m" }
-    c:4   = \markup { \normal-size-super "sus4" }
-    c:5^3 = \markup { \normal-size-super "5" }
+efull = #(sequential-music-to-chord-exceptions efullmusic #f)
+
+epartialmusic = \notes {
+    %c:2^3 =
+    <<c d>>-\markup { \normal-size-super "2" }
+    %c:3-
+    <<c es>>-\markup { "m" }
+    %c:4
+    <<c f>>-\markup { \normal-size-super "sus4" }
+    %c:5^3
+    <<c g>>-\markup { \normal-size-super "5" }
 }
+
+epartial = #(sequential-music-to-chord-exceptions epartialmusic #f)
 
 
 ch = \notes \transpose c' c' 
@@ -117,5 +118,3 @@ ch = \notes \transpose c' c'
 	}
     }
 }
-
-%} 
