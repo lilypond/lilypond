@@ -198,8 +198,9 @@ PDF can then be produced with @code{ps2pdf}.
 @cindex latin1
 
 LilyPond does not use the LaTeX font handling scheme for lyrics and text
-markups, so if you use non-anglosaxian characters in your lilypond-book
-documents, include @code{\usepackage[latin1]@{inputenc@}} in the file
+markups, so if you use characters in your lilypond-book
+documents that are not included in the standard US-ASCII character set,
+include @code{\usepackage[latin1]@{inputenc@}} in the file 
 header but do not include @code{\usepackage[[T1]@{fontenc@}}. Character
 sets other than latin1 are not supported directly but may be handled by
 explicitly specifying the @code{font-name} property in LilyPond and
