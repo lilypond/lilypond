@@ -25,7 +25,7 @@
 @subsection Input variables and Scheme
 
 
-The input format supports the notion of variable: in the following
+The input format supports the notion of variables: in the following
 example, a music expression is assigned to a variable with the name
 @code{traLaLa}.
 @example
@@ -43,7 +43,7 @@ traLaLa = @{ c'4 d'4 @}
 @end example
 @c
 In effect, each input file is a scope, and all @code{\header},
-@code{\midi} and @code{\layout} blocks are scopes nested inside that
+@code{\midi}, and @code{\layout} blocks are scopes nested inside that
 toplevel scope.
 
 Both variables and scoping are implemented in the GUILE module system.
@@ -62,7 +62,7 @@ is internally converted to a Scheme definition
 This means that input variables and Scheme variables may be freely
 mixed.  In the following example, a music fragment is stored in the
 variable @code{traLaLa}, and duplicated using Scheme.  The result is
-imported in a @code{\score} by means of a second variable
+imported in a @code{\score} block by means of a second variable
 @code{twice}:
 @example
 traLaLa = @{ c'4 d'4 @}
@@ -111,7 +111,7 @@ available is in the internals manual, under
 @item
 `type' or interface: Each music name has several `types' or
 interfaces, for example, a note is an @code{event}, but it is also a
-@code{note-event}, a @code{rhythmic-event} and a @code{melodic-event}.
+@code{note-event}, a @code{rhythmic-event}, and a @code{melodic-event}.
 
 All classes of music are listed in the internals manual, under
 @internalsref{Music classes}.
@@ -149,7 +149,7 @@ property of @internalsref{RepeatedMusic}, and the alternatives in
 @subsection Extending music syntax
 
 The syntax of composite music expressions, like
-@code{\repeat}, @code{\transpose} and @code{\context}
+@code{\repeat}, @code{\transpose}, and @code{\context}
 follows the general form of
 
 @example
@@ -172,7 +172,7 @@ A music function is created with @code{ly:make-music-function},
 @end example
 
 @code{\applymusic} takes a Scheme function and a Music expression as
-argument.  This is encoded in its first argument,
+arguments.  This is encoded in its parameter list,
 
 @example
 (list procedure? ly:music?)
@@ -181,8 +181,7 @@ argument.  This is encoded in its first argument,
 The function itself takes another argument, an Input location
 object.  That object is used to provide error messages with file names
 and line numbers.  The definition is the second argument of
-@code{ly:make-music-function}.  The body is function simply calls the
-function
+@code{ly:make-music-function}.  The body simply calls the function
 
 @example
 (lambda (where func music)
@@ -243,7 +242,7 @@ its argument,
 @end lilypond
 
 The use of such a function is very limited.  The effect of this
-function is void when applied to an argument which is does not have
+function is void when applied to an argument that does not have
 multiple children.  The following function application has no effect
 
 @example
@@ -253,7 +252,7 @@ multiple children.  The following function application has no effect
 @noindent
 In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which
 has no @code{elements}, only a single @code{element}.  Every generally
-applicable function for @code{\applymusic} must---like music expressions
+applicable function for @code{\applymusic} must -- like music expressions
 themselves -- be recursive.
 
 The following example is such a recursive function: It first extracts
@@ -318,7 +317,7 @@ music function @code{\displayMusic}.
 
 Creating music expressions in Scheme can be tedious, as they are
 heavily nested and the resulting Scheme code is large.  For some
-simple tasks, this can be avoided, using LilyPond usual syntax inside
+simple tasks, this can be avoided, using common LilyPond syntax inside
 Scheme, with the dedicated @code{#@{ ... #@}} syntax.
 
 The following two expressions give equivalent music expressions:
@@ -336,7 +335,7 @@ The content of @code{#@{ ... #@}} is enclosed in an implicit @code{@{
 
 Arbitrary Scheme forms, including variables, can be used in @code{#@{ ... #@}}
 expressions with the @code{$} character (@code{$$} can be used to
-produce a single $ character).  This makes the creation of simple
+produce a single @code{$} character).  This makes the creation of simple
 functions straightforward.  In the following example, a function
 setting the TextScript's padding is defined:
 
@@ -413,7 +412,8 @@ withPadding =
 @node Markup programmer interface
 @section Markup programmer interface
 
-Markups implemented as special Scheme functions.  When applied with as
+@c Please rewrite the second sentence; I don't unѕerstand its meaning. AS
+Markups are implemented as special Scheme functions.  When applied with as
 arguments an output definition (@code{\layout} or @code{\paper}),
 and a list of properties and other arguments, produce a Stencil
 object.
@@ -477,8 +477,8 @@ call.  Example:
 @end lisp
 
 @noindent
-is invalid.  One should use the @code{make-line-markup} (resp
-@code{make-center-markup}, @code{make-column-markup}) function
+is invalid.  One should use the @code{make-line-markup} (resp.,
+@code{make-center-markup} or @code{make-column-markup}) function
 instead,
 @lisp
 (markup (make-line-markup (fun-that-returns-markups)))
@@ -558,7 +558,7 @@ This selects the caps font by setting the @code{font-shape} property to
 
 To make the above available as @code{\smallcaps} command, we have to
 define a function using @code{def-markup-command}.  The command should
-take a single argument, of markup type.  Therefore, the start of the
+take a single argument, of type markup.  Therefore, the start of the
 definition should read
 @example
 (def-markup-command (smallcaps layout props argument) (markup?)
@@ -567,7 +567,7 @@ definition should read
 @noindent
 
 What follows is the content of the command: we should interpret
-the @code{argument} as a markup, i.e.
+the @code{argument} as a markup, i.e.,
 
 @example
 (interpret-markup layout @dots{} argument)
@@ -584,14 +584,14 @@ above example:
 
 @noindent
 The variable @code{props} is a list of alists, and we prepend to it by
-consing a list with the extra setting.
+cons'ing a list with the extra setting.
 
 
 Suppose that we are typesetting a recitative in an opera, and
 we would like to define a command that will show character names in a
 custom manner.  Names should be printed with small caps and translated a
 bit to the left and top.  We will define a @code{\character} command
-that takes into account the needed translation, and uses the newly
+that takes into account the necessary translation, and uses the newly
 defined @code{\smallcaps} command:
 
 @example
@@ -645,8 +645,8 @@ The final result is as follows:
 @end lilypond
 
 We have used the @code{caps} font shape, but suppose that our font
-that does not have a small-caps variant.  In that case, we have to fake
-the small caps font, by setting a string in upcase, with the first
+does not have a small-caps variant.  In that case we have to fake
+the small caps font by setting a string in upcase with the first
 letter a little larger:
 
 @example
@@ -738,7 +738,7 @@ object found in the context, with the following arguments:
 @end itemize
 
 
-In addition, the cause of the layout object, i.e.  the music
+In addition, the cause of the layout object, i.e., the music
 expression or object that was responsible for creating it, is in the
 object property @code{cause}.  For example, for a note head, this is a
 @internalsref{NoteHead} event, and for a @internalsref{Stem} object,

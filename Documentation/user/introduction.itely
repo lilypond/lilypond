@@ -128,7 +128,7 @@ constant rhythm.  The spacing should reflect that.  Unfortunately, the
 eye deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
 consecutive stems.  As a result, the notes of an up-stem/@/down-stem
-combination should be put farther apart, and the notes of a down-up
+combination should be put farther apart, and the notes of a down-stem/@/up-stem
 combination should be put closer together, all depending on the
 combined vertical positions of the notes.  The first two measures are
 printed with this correction, the last two measures without.  The notes
@@ -137,17 +137,17 @@ in the last two measures form down-stem/@/up-stem clumps of notes.
 @cindex typography
 
 Musicians are usually more absorbed with performing than with studying
-the looks of piece of music, so nitpicking about typographical details
+the looks of a piece of music, so nitpicking about typographical details
 may seem academical.  But it is not.  In larger pieces with monotonous
 rhythms, spacing corrections lead to subtle variations in the layout
 of every line, giving each one a distinct visual signature.  Without
 this signature all lines would look the same, and they become like a
 labyrinth.  If a musician looks away once or has a lapse in
-concentration, they might lose their place on the page.
+concentration, the lines might lose their place on the page.
 
 Similarly, the strong visual look of bold symbols on heavy staff lines
-stands out better when music is far away from reader, for example, if
-it is on a music stand.  A careful distribution of white space allows
+stands out better when the music is far away from the reader, for example,
+if it is on a music stand.  A careful distribution of white space allows
 music to be set very tightly without cluttering symbols together.  The
 result minimizes the number of page turns, which is a great advantage.
 
@@ -156,7 +156,7 @@ pretty, not only for its own sake, but especially because it helps the
 reader in her task.  For performance material like sheet music, this is
 of double importance: musicians have a limited amount of attention.  The
 less attention they need for reading, the more they can focus on
-playing itself.  In other words, better typography translates to better
+playing the music.  In other words, better typography translates to better
 performances.
 
 These examples demonstrate that music typography is an art that is
@@ -183,10 +183,10 @@ appearance, so people cannot be replaced completely.  However, much of
 the dull work can be automated.  If LilyPond solves most of the common
 situations correctly, this will be a huge improvement over existing
 software.  The remaining cases can be tuned by hand.  Over the course
-of years, the software can be refined to do more and more
+of years, the software can be refined to do more and more things
 automatically, so manual overrides are less and less necessary.
 
-When we started we wrote the LilyPond program entirely in the C++
+When we started, we wrote the LilyPond program entirely in the C++
 programming language; the program's functionality was set in stone by
 the developers.  That proved to be unsatisfactory for a number of
 reasons:
@@ -195,7 +195,7 @@ reasons:
 @item When LilyPond makes mistakes,
 users need to override formatting decisions.  Therefore, the user must
 have access to the formatting engine.  Hence, rules and settings cannot
-be fixed by us at compile time but must be accessible for users at
+be fixed by us at compile-time but must be accessible for users at
 run-time.
 
 @item Engraving is a matter of visual judgment, and therefore a matter of
@@ -220,7 +220,7 @@ direct access to most of these controls.
 Scheme variables control layout decisions.  For example, many
 graphical objects have a direction variable that encodes the choice
 between up and down (or left and right).  Here you see two chords,
-with accents and arpeggio.  In the first chord, the graphical objects
+with accents and arpeggios.  In the first chord, the graphical objects
 have all directions down (or left).  The second chord has all
 directions up (right).
 
@@ -265,7 +265,7 @@ Formatting rules are also preset variables: each object has variables
 containing procedures.  These procedures perform the actual
 formatting, and by substituting different ones, we can change the
 appearance of objects.  In the following example, the rule which note
-head objects use to produce their symbol is changed during the music
+head objects are used to produce their symbol is changed during the music
 fragment.
 
 @c FIXME: this example has errors:
@@ -323,18 +323,18 @@ symbols should be printed, in other words what notation to use.
 Common music notation is a system of recording music that has evolved
 over the past 1000 years.  The form that is now in common use dates
 from the early renaissance.  Although the basic form (i.e., note heads on a
-5-line staff) has not changed, the details still change to express the
+5-line staff) has not changed, the details still evolve to express the
 innovations of contemporary notation.  Hence, it encompasses some 500
 years of music.  Its applications range from monophonic melodies to
-monstrous counterpoint for large orchestras.
+monstrous counterpoints for large orchestras.
 
 How can we get a grip on such a many-headed beast, and force it into
-the confines of a computer program?  Our solution is break up the
+the confines of a computer program?  Our solution is to break up the
 problem of notation (as opposed to engraving, i.e., typography) into
 digestible and programmable chunks: every type of symbol is handled by
 a separate module, a so-called plug-in.  Each plug-in is completely
 modular and independent, so each can be developed and improved
-separately.  Such plug-ins are called @code{engraver}, by analogy with
+separately.  Such plug-ins are called @code{engraver}s, by analogy with
 craftsmen who translate musical ideas to graphic symbols.
 
 In the following example, we see how we start out with a plug-in for
@@ -483,7 +483,7 @@ be grouped.  The engravers for note heads, stems, slurs, etc., go into a
 group called `Voice context,' while the engravers for key, accidental,
 bar, etc., go into a group called `Staff context.'  In the case of
 polyphony, a single Staff context contains more than one Voice context.
-Similarly, more Staff contexts can be put into a single Score
+Similarly, multiple Staff contexts can be put into a single Score
 context.  The Score context is the top level notation context.
 
 @seealso
@@ -753,7 +753,7 @@ Program reference
 @end ifhtml
 
 The program reference is a set of heavily cross linked HTML pages,
-which document the nit-gritty details of each and every LilyPond
+which document the nitty-gritty details of each and every LilyPond
 class, object, and function.  It is produced directly from the
 formatting definitions used.
 
@@ -763,7 +763,7 @@ control thickness values, distances, etc., can be changed in input
 files.  There are a huge number of formatting options, and all of them
 are described in this document.  Each section of the
 notation manual has a @b{See also} subsection, which refers to the
-the generated documentation.  In the HTML document, these subsections
+generated documentation.  In the HTML document, these subsections
 have clickable links.
 
 @item
@@ -786,7 +786,7 @@ The regression tests
 This collection of files tests each notation and engraving feature of
 LilyPond in one file.  The collection is primarily there to help us
 debug problems, but it can be instructive to see how we exercise the
-program.  The format is similar to the the tips and tricks document.
+program.  The format is similar to the tips and tricks document.
 @end itemize
 
 
@@ -799,7 +799,7 @@ vary from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
 example, @file{input/@/test/@/bla@/.ly} may refer to the file
-@file{lilypond@/-2.3.14/@/input/@/test/@/bla@/.ly}.  On binary packages
+@file{lilypond@/-2.4.0/@/input/@/test/@/bla@/.ly}.  On binary packages
 for the Unix platform, the documentation and examples can typically be
 found somewhere below @file{/usr/@/share/@/doc/@/lilypond/}.
 Initialization files, for example @file{scm/@/lily@/.scm}, or

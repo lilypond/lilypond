@@ -25,7 +25,7 @@ The midi output allocates a channel for each staff, and one for global
 settings.  Therefore the midi file should not have more than 15 staves
 (or 14 if you do not use drums).  Other staves will remain silent.
 
-Not all midi players correctly handle tempo change in the midi
+Not all midi players correctly handle tempo changes in the midi
 output.  Players that are known to work include
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
@@ -53,7 +53,7 @@ to a score, for example,
 @end example 
 
 The tempo is specified using the @code{\tempo} command.  In this
-case the tempo of quarter notes is set to 72 beats per minute.
+example the tempo of quarter notes is set to 72 beats per minute.
 
 
 If there is a @code{\midi} command in a @code{\score}, only MIDI will
@@ -71,11 +71,11 @@ be added
 
 
 
-Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
+Ties, dynamics, and tempo changes are interpreted.  Dynamic marks,
 crescendi and decrescendi translate into MIDI volume levels.  Dynamic
 marks translate to a fixed fraction of the available MIDI volume
 range, crescendi and decrescendi make the volume vary linearly between
-their two extremities.  The fractions can be adjusted by
+their two extremes.  The fractions can be adjusted by
 @code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
 For each type of MIDI instrument, a volume range can be defined.  This
 gives a basic equalizer control, which can enhance the quality of

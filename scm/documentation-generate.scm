@@ -155,7 +155,7 @@
      (backend-doc-node)
      (all-scheme-functions-doc)
      (make <texi-node>
-       #:name "Index"
+       #:name "Indexes"
        #:text "
 @unnumbered Concept index
 
