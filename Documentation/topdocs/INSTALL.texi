@@ -351,13 +351,6 @@ guile-devel, flex, bison, texinfo, tetex-devel, groff,
 libgr-progs.
 
 
-@b{Warning}
-
-There appears to be a problem with the Xdvi shipped with Red Hat 7.1.
-Symptoms: Xdvi responds very sluggishly or hangs while viewing
-lilypond output. The cause for this problem is unknown; you are advised
-to recompile Xdvi from source.
-
 @subsection LinuxPPC
 
 
