@@ -17,9 +17,8 @@ class Rhythmic_head : public Item, public Staff_symbol_referencer
 {
 public:
   Stem * stem_l_;
-  int balltype_i_;
-
   Dots * dots_l_;
+    int balltype_i_;
 
   void add_dots (Dots *);
   Rhythmic_head ();

@@ -1,5 +1,5 @@
 /*   
-  g-staff-side.cc --  implement Staff_side_element
+  staff-side.cc --  implement Staff_side_element
   
   source file of the GNU LilyPond music typesetter
   
@@ -14,181 +14,131 @@
 #include "dimensions.hh"
 #include "dimension-cache.hh"
 
-Staff_side_element::Staff_side_element ()
+Staff_sidify::Staff_sidify (Score_element *e)
 {
-  to_position_l_ = 0;
-  set_elt_property ("transparent", SCM_BOOL_T);
-  axis_ = Y_AXIS;
+  elt_l_ = e;
 }
+
 
 void
-Staff_side_element::do_pre_processing ()
+Staff_sidify::add_support (Score_element*e)
 {
-  if (!get_direction ())
-    set_direction (get_default_direction ());
-
-  if (axis_ == X_AXIS)
-    position_self ();
+  SCM sup = elt_l_->get_elt_property ("side-support");
+  elt_l_->set_elt_property ("side-support",
+			    gh_cons (e->self_scm_,sup));
 }
+
+Real
+Staff_sidify::aligned_position (Dimension_cache const *c)
+{
+  return position_self (c);
+}
+
 
 Direction
-Staff_side_element::get_default_direction () const
+Staff_sidify::get_direction () const
 {
-  return DOWN;
-}
+  SCM d = elt_l_->get_elt_property ("direction");
+  if (isdir_b (d))
+    return to_dir (d) ? to_dir (d) : DOWN;
 
-
-void
-Staff_side_element::set_victim (Score_element *e)
-{
-  add_dependency (e);
-  to_position_l_ = e;
-  to_position_l_->set_parent (this, axis_);
-}
-
-void
-Staff_side_element::add_support (Score_element*e)
-{
-  add_dependency (e);
-  support_l_arr_.push (e);
-}
-
-
-void
-Staff_side_element::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
-  if (o == to_position_l_)
-    to_position_l_ = n;
-  else
-    support_l_arr_.unordered_substitute (o,n);
-}
-
-void
-Staff_side_element::position_self ()
-{
-  if (to_position_l_ &&
-      to_position_l_->get_elt_property ("transparent") != SCM_UNDEFINED)
-    return;
-
-  Axis other = Axis ((axis_ + 1) % NO_AXES);
-  if (parent_l (axis_)->empty_b (axis_)
-      &&parent_l (axis_)->empty_b (other)) // guh
+  Direction relative_dir = UP;
+  SCM reldir = elt_l_->get_elt_property ("side-relative-direction");	// should use a lambda.
+  if (isdir_b (d))
     {
-      warning (_("No support; erasing script"));
-      to_position_l_->set_empty (X_AXIS,Y_AXIS);
-      to_position_l_->set_elt_property ("transparent", SCM_BOOL_T);
-      set_empty (X_AXIS, Y_AXIS);
-      return ;
+      relative_dir = to_dir (reldir);
     }
   
-  Interval dim;
-  Graphical_element *common = 0;
-  if (support_l_arr_.size ())
+  SCM other_elt = elt_l_->get_elt_property ("direction-source");
+  if (SMOB_IS_TYPE_B (Score_element, other_elt))
     {
-      common = common_refpoint (typecast_array (support_l_arr_, (Graphical_element*)0),
-				axis_);
+      Score_element * e = SMOB_TO_TYPE(Score_element,other_elt);
 
-      for (int i=0; i < support_l_arr_.size (); i++)
-	{
-	  Score_element * e = support_l_arr_ [i];
-	  Real coord = e->relative_coordinate (common, axis_);
-
-	  dim.unite (coord + e->extent (axis_));
-	}
+      return relative_dir * Staff_sidify (e).get_direction ();
     }
-  else
-     common = parent_l (axis_);
+  
+  return DOWN;
+}
+  
+/**
+   Callback that does the aligning.
+ */
+Real
+Staff_sidify::position_self (Dimension_cache const * c)
+{
+  Score_element * me = dynamic_cast<Score_element*> (c->element_l ());
+
+  Interval dim;
+  Axis  axis = c->axis ();
+  Graphical_element *common = me->parent_l (axis);
+  SCM support = me->get_elt_property ("side-support");
+  for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
+    {
+      assert (SMOB_IS_TYPE_B (Score_element, gh_car (s)));
+      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
+      common = common->common_refpoint (e, axis);
+    }
+  
+  for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
+    {
+      Score_element * e  = SMOB_TO_TYPE(Score_element, gh_car (s));
+      Real coord = e->relative_coordinate (common, axis);
+
+      dim.unite (coord + e->extent (axis));
+    }
+
 
   if (dim.empty_b ())
     {
       dim = Interval(0,0);
     }
 
-  
-  Interval sym_dim
-    = to_position_l_
-    ? to_position_l_->extent (axis_)
-    : Interval(0,0);
+  Real off =  me->parent_l (axis)->relative_coordinate (common, axis);
 
-  Real off =  relative_coordinate (common, axis_);
 
-  SCM pad = remove_elt_property ("padding");
+  Direction dir = Staff_sidify (me).get_direction ();
+    
+  SCM pad = me->remove_elt_property ("padding");
   if (pad != SCM_UNDEFINED)
     {
-      off += gh_scm2double (pad) * get_direction ();
+      off += gh_scm2double (pad) * dir;
     }
-  Real total_off = dim[get_direction ()] + off;
+  Real total_off = dim[dir] + off;
 
-  /*
-    "no-staff-support" is ugh bugfix to get staccato dots right.
-   */
-  if (to_position_l_ && to_position_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED)
-     total_off += - sym_dim[-get_direction ()];
-  
-  dim_cache_[axis_]->set_offset (total_off);
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
+
+  return total_off;
 }
 
 void
-Staff_side_element::do_post_processing ()
+Staff_sidify::set_axis (Axis a)
 {
-  if (axis_ == Y_AXIS)
-    position_self ();
+  if (elt_l_->get_elt_property ("transparent") == SCM_UNDEFINED)
+    elt_l_->set_elt_property ("side-support" ,SCM_EOL);
+
+  Axis other = Axis ((a +1)%2);
+  elt_l_->dim_cache_[a]->set_offset_callback (position_self);
+  elt_l_->dim_cache_[other]->set_offset_callback (0);  
 }
 
-
-void
-Staff_side_element::do_add_processing ()
+Axis
+Staff_sidify::get_axis () const
 {
-  if (get_elt_property ("no-staff-support") == SCM_UNDEFINED
-      && axis_ == Y_AXIS && staff_symbol_l ())
-    {
-      add_support (staff_symbol_l ());
-    }
-}
-
-Interval
-Staff_side_element::do_height () const
-{
-  Interval i;
-  if (to_position_l_)
-    return to_position_l_->extent (Y_AXIS);
-  return i;
+  if (elt_l_->dim_cache_[X_AXIS]->off_callback_l_ == position_self) // UGH.
+    return X_AXIS;
+  else
+    return Y_AXIS;  
 }
 
 void
-Staff_side_element::do_print () const
+Staff_sidify::set_direction (Direction d) 
 {
-#ifndef NPRINT
-  if (to_position_l_)
-    DEBUG_OUT << "positioning " << to_position_l_->name();
-
-  DEBUG_OUT << "axis == " << axis_name_str (axis_)
-       << ", dir == " << to_str ((int)get_direction () );
-#endif
+  elt_l_->set_elt_property ("direction", gh_int2scm (d));
 }
 
-
-Interval
-Staff_side_item::do_width () const
+bool
+Staff_sidify::is_staff_side_b ()
 {
-  Interval i;
-  if (to_position_l_)
-    return to_position_l_->extent (X_AXIS);
-  return i;
+  return elt_l_->get_elt_property ("side-support") != SCM_UNDEFINED;
 }
-
-void
-Staff_side_item::do_print () const
-{
-  Staff_side_element::do_print ();
-}
-
-void
-Staff_side_spanner::do_print () const
-{
-  Staff_side_element::do_print ();
-}
-

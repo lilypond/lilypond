@@ -10,6 +10,8 @@
 #ifndef Stem_STAFF_SIDE_HH
 #define Stem_STAFF_SIDE_HH
 
+#error
+
 #include "staff-side.hh"
 /**
    Position self, analogous to Staff_side_item, but use Stem direction

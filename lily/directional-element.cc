@@ -8,7 +8,7 @@
  */
 
 #include "directional-element.hh"
-#include "property-inspect.hh"
+
 
 Directional_element::Directional_element ()
 {

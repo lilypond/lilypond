@@ -16,13 +16,15 @@
 #include "stem.hh"
 #include "staff-symbol.hh"
 
+/**
+   typeset directions that are  plain text.
+ */
 class Text_engraver : public Engraver
 {
   Link_array<Text_script_req> reqs_;
-  Link_array<Staff_side_item> positionings_;
   Link_array<Text_item> texts_;
 public:
-  Text_engraver();
+
   VIRTUAL_COPY_CONS(Translator);
 protected:
   virtual bool do_try_music (Music* m);
@@ -32,10 +34,6 @@ protected:
   virtual void acknowledge_element (Score_element_info);
 };
 
-Text_engraver::Text_engraver ()
-{
-  
-}
 
 bool
 Text_engraver::do_try_music (Music *m)
@@ -54,19 +52,21 @@ Text_engraver::acknowledge_element (Score_element_info i)
 {
   if (Note_head *n = dynamic_cast<Note_head*> (i.elem_l_))
     {
-      for (int i=0; i < positionings_.size (); i++)
+      for (int i=0; i < texts_.size (); i++)
 	{
-	  positionings_[i]->add_support (n);
-	  if (positionings_[i]->axis_ == X_AXIS
-	      && !positionings_[i]->parent_l (Y_AXIS))
-	    positionings_[i]->set_parent (n, Y_AXIS);
+	  Staff_sidify st (texts_[i]);
+	  st.add_support (n);
+	  if (st.get_axis( ) == X_AXIS
+	      && !texts_[i]->parent_l (Y_AXIS))
+	    texts_[i]->set_parent (n, Y_AXIS);
 	}
     }
   if (Stem *n = dynamic_cast<Stem*> (i.elem_l_))
     {
-      for (int i=0; i < positionings_.size (); i++)
+      for (int i=0; i < texts_.size (); i++)
 	{
-	  positionings_[i]->add_support (n);
+	  Staff_sidify st(texts_[i]);
+	  st.add_support (n);
 	}
     }
 }
@@ -79,23 +79,23 @@ Text_engraver::do_process_requests ()
       Text_script_req * r = reqs_[i];
 
       Text_item *text = new Text_item;
-      Staff_side_item *ss = new Staff_side_item;
-
-
+      Staff_sidify stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal",0);
       if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
 	{
-	  ss->axis_ = X_AXIS;
-	  text->set_parent (ss, Y_AXIS);
-			       
+	  stafy.set_axis (X_AXIS);
+	  //	  text->set_parent (ss, Y_AXIS);
 	}
-      ss->set_victim (text);
-      ss->set_elt_property ("script-priority",
+      else
+	stafy.set_axis (Y_AXIS);
+      
+      text->set_elt_property ("script-priority",
 			    gh_int2scm (200));
 
-      ss->set_direction (r->get_direction ());
-
+      if (r->get_direction ())
+	stafy.set_direction (r->get_direction ());
+      
       text->text_str_ = r->text_str_;
       
       if (r->style_str_.length_i ())
@@ -108,10 +108,7 @@ Text_engraver::do_process_requests ()
 	}
 
       announce_element (Score_element_info (text, r));
-      announce_element (Score_element_info (ss, r));
-
       texts_.push (text);
-      positionings_.push (ss);
     }
 }
 
@@ -121,10 +118,8 @@ Text_engraver::do_pre_move_processing ()
   for (int i=0; i < texts_.size (); i++)
     {
       typeset_element (texts_[i]);
-      typeset_element (positionings_[i]);
     }
   texts_.clear ();
-  positionings_.clear ();
 }
 
 void

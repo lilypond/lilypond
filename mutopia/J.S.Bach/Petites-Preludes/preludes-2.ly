@@ -49,56 +49,38 @@ upper = \context Staff \notes\relative c{
 	r8 c' e g  e c bes' g |
 	a c, f a  f c c' a |
 	b g b d  b g f' d |
+	<e2 c g>
+	r4
+	<e c g >
+	<d2 c a>
+	r4
+	<d c a>
+	< { \stemup [d8 g, 8 b d] }
+	  \context Voice = ii < \stemdown b g >
+	>
+	
+	<b4 g>
+	<e b>
+	c2
+	r4
 	<
-		{\stemup e2 r4 e }
-		\context Voice = ii {\stemdown <c2 g > r4 <c g > }
-	>
-	\stemboth |
-	< 
-		 { \stemup d2 r4 d }
-		 \context Voice = ii { \stemdown <c2 a > r4 <c a > }
-	>
-	\stemboth |
-	< 
-		 { \stemup d8 }
-		 \context Voice = ii { \stemdown <b 8 g > }
-	>
-	\stemboth 
-	g, 8 b d 
-	<
-		{ \stemup b 4 e }
-		\context Voice = ii { \stemdown g, 4 b }
-	>
-	\stemboth |
-	<
-		{ \stemup c2 r4 < {c ~ c8} {a 4 ~ a 8} > }
-		\context Voice=ii { \stemdown c2 r4 e, 4 ~ e 8 }
+		{ \stemup c ~ c8} 
+		\context Voice=ii { \stemdown <e,4 a> ~ <e8 a> }
 	>
 	\stemboth 
 	d, fis a  fis d c' a |
 	b g b d  b g f'! d |
 	e g, c e  c g g' e |
 	fis a, c fis  c a a' fis |
-	<
-		{ \stemup g2 }
-		\context Voice = ii { \stemdown <d2 b > }
-	>
-	\stemboth 
-	r4 b4 |
-	c,8 e g c  g e bes' g |
+	<g2 d b>
+	r4 b,4 |
+	c8 e g c  g e bes' g |
 	a16 g f e  d c b ! a 
 	b g a b  c d e f |
 	g4
-	<
-		{ \stemup c,2 b 4 }
-		\context Voice=ii { \stemdown g 2 d 4 }
-	>
-	\stemboth 
-	<
-		{ \stemup c1 }
-		\context Voice=ii { \stemdown e, 1}
-	>
-	\stemboth 
+	<g,2 c>
+	<d4 b'>
+	<e1 c'>
 	\bar "|.";
 }
 
@@ -121,9 +103,9 @@ lower = \context Staff \notes\relative c{
 	g'8 g, b d  b g f'! d |
 	e c e g  e c c' e, |
 
-	f1 |
+	f1 ~ |
 	f8 d e c g'4 g, |
-	<c1 c,1>
+	c,1
 	\bar "|.";
 }
 

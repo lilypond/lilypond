@@ -6,7 +6,7 @@
 
 #include "script-engraver.hh"
 #include "script.hh"
-#include "stem-staff-side.hh"
+#include "staff-side.hh"
 #include "musical-request.hh"
 #include "stem.hh"
 #include "staff-symbol.hh"
@@ -50,8 +50,8 @@ Script_engraver::do_process_requests()
 	  continue;
 	}
       Script *p =new Script;
-      Stem_staff_side_item * ss =new Stem_staff_side_item;
-
+      Staff_sidify stafy (p); 
+      
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
 			   SCM_CAR(list));
@@ -65,42 +65,29 @@ Script_engraver::do_process_requests()
       list = SCM_CDR(list);
       SCM priority = SCM_CAR(list);
 
+      
       if (relative_stem_dir)
-	  ss->relative_dir_ = (Direction)relative_stem_dir;
+	  p->set_elt_property ("side-relative-direction", gh_int2scm (relative_stem_dir));
       else
-	  ss->set_direction ((Direction)force_dir);
-
-      SCM dir_prop (get_property ("articulationScriptVerticalDirection", 0));
-      if (gh_number_p(dir_prop))
-	ss->set_direction (to_dir (dir_prop));
+	  stafy.set_direction ((Direction)force_dir);
 
       if (l->get_direction ())
-	ss->set_direction (l->get_direction ());
-
-      SCM paddingprop = get_property ("articulationScriptPadding", 0);
-      if (gh_number_p(paddingprop))
-	{
-	  ss->set_elt_property ("padding", paddingprop);
-	}
+	stafy.set_direction (l->get_direction ());
 
       SCM axisprop = get_property ("scriptHorizontal",0);
       if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
-	ss->axis_ = X_AXIS;
-
+	stafy.set_axis (X_AXIS);
+      else
+	stafy.set_axis (Y_AXIS);
+      
       if (follow_staff && !gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
-	ss->set_elt_property ("no-staff-support", SCM_BOOL_T);
+	p->set_elt_property ("no-staff-support", SCM_BOOL_T);
 
-      p->set_staff_side (ss);
-      ss->set_elt_property ("script-priority", priority);
-      if (gh_number_p (paddingprop))
-	ss->set_elt_property ("padding", paddingprop);
-  
+      p->set_elt_property ("script-priority", priority);
   
       script_p_arr_.push (p);
-      staff_side_p_arr_.push (ss);
       
       announce_element (Score_element_info (p, l));
-      announce_element (Score_element_info (ss, l));
     }
 }
 
@@ -109,28 +96,28 @@ Script_engraver::acknowledge_element (Score_element_info inf)
 {
   if (Stem *s = dynamic_cast<Stem*>(inf.elem_l_))
     {
-      for (int i=0; i < staff_side_p_arr_.size(); i++)
-	if (Stem_staff_side_item * ss = dynamic_cast<Stem_staff_side_item*>(staff_side_p_arr_[i]))
-	  {
-	    ss->set_stem (s);
-	    ss->add_support (s);
-	  }
+      for (int i=0; i < script_p_arr_.size(); i++)
+	{
+	  Staff_sidify stafy (script_p_arr_[i]);
+	  stafy.elt_l_->set_elt_property ("direction-source", s->self_scm_);
+	  stafy.add_support (s);
+	}
     }
   else if (Rhythmic_head * rh = dynamic_cast<Rhythmic_head*>(inf.elem_l_))
     {
-      for (int i=0; i < staff_side_p_arr_.size(); i++)
+      for (int i=0; i < script_p_arr_.size(); i++)
 	{
-	  Staff_side_item * ss = dynamic_cast<Staff_side_item*>(staff_side_p_arr_[i]);
+	  Staff_sidify stafy(script_p_arr_[i]);
 	  
-	  if (!ss->parent_l (X_AXIS))
+	  if (!stafy.elt_l_->parent_l (X_AXIS))
 	    {
-	      ss->set_parent (inf.elem_l_, X_AXIS);
+	      stafy.elt_l_->set_parent (inf.elem_l_, X_AXIS);
 	    }
-	  if (ss->axis_ == X_AXIS
-	      && !ss->parent_l (Y_AXIS))
-	    ss->set_parent (rh, Y_AXIS);
+	  if (stafy.get_axis () == X_AXIS
+	      && !stafy.elt_l_->parent_l (Y_AXIS))
+	    stafy.elt_l_->set_parent (rh, Y_AXIS);
 	  
-	  ss->add_support (rh);
+	  stafy.add_support (rh);
 	}
     }  
 }
@@ -141,10 +128,8 @@ Script_engraver::do_pre_move_processing()
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
       typeset_element (script_p_arr_[i]);
-      typeset_element (staff_side_p_arr_[i]);
     }
   script_p_arr_.clear();
-  staff_side_p_arr_.clear ();
 }
 
 void

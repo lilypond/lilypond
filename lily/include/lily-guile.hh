@@ -36,6 +36,8 @@ SCM array_to_list (SCM *a , int l);
 void read_lily_scm_file (String);
 void init_lily_guile ();
 
+bool isdir_b (SCM s);
+Direction to_dir (SCM s);
 
 
 void init_ly_protection ();
@@ -58,6 +60,7 @@ public:\
   }						\
 } _ ## name ## _scm_initter;			\
 /* end define */
+
 
 
 #endif // LILY_GUILE_HH

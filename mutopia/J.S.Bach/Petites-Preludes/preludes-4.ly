@@ -41,32 +41,32 @@ one = \context Staff \notes\relative c {
 %	r16_"legato" 
 	r16
 	\property Voice . textStyle = "finger"
-	d'( fis d  a' b cis a 
+	d' fis d  a' b cis a 
 	d cis d e  d fis e d |
 	\property Voice . textStyle = "finger"
 	\stemup 
-	)cis4 fis ~ fis8 fis e4 ~ | 
-	e16 \stemboth a,16( cis a  d e fis d 
+	cis4 fis ~ fis8 fis e4 ~ | 
+	e16 \stemboth a,16 cis a  d e fis d 
 	g fis g a  g b a g |
 	\stemup
 
-	)fis4 e8 a <fis4 d> <gis e> |
+	fis4 e8 a <fis4 d> <gis e> |
 	%5
-	<a4( e> <fis d> < )g!16 d> fis g a 
+	<a4 e> <fis d> < g!16 d> fis g a 
 	\stemboth
 	g b a g |
 	\property Voice . textStyle = "italic"
 
 	fis e fis g  fis a g fis 
 	\property Voice . textStyle = "finger"
-%	e4-"2\\_5" ~ e16 e,( fis g  |
-	e4 ~ e16 e,( fis g  |
+%	e4-"2\\_5" ~ e16 e, fis g  |
+	e4 ~ e16 e, fis g  |
 	\property Voice . textStyle = "italic"
 
 	a g a b  a c b a 
 	g fis g a  g b a g |
 	\stemup
-	)fis4 
+	fis4 
 	\skip 4*7; |
 	%10
 	\property Voice . textStyle = "finger"
@@ -90,7 +90,7 @@ one = \context Staff \notes\relative c {
 	b4 a ~ a8 g ~  g16 fis8 e16 |
 	fis8 e~  e d~ d4 cis |
 
-	d2 ~ d16 a( b cis )d4 |
+	d2 ~ d16 a b cis d4 |
 	\bar "|.";
 }
 
@@ -98,8 +98,8 @@ two = \context Staff \notes\relative c{
 	\context Voice=ii
 	\stemup
 	\property Voice . textStyle = "finger"
-	fis4( e8 a4 a4 gis8 | 
-	) a8
+	fis4 e8 a4 a4 gis8 | 
+	 a8
 	\translator Staff=upper \stemdown
 
 	a'4 a8 b4. cis8 ~ | 
@@ -112,7 +112,7 @@ two = \context Staff \notes\relative c{
 	%5
 	r8 a4 a8
 	\translator Staff=lower \stemup
-	g8( fis )e4 ~ | 
+	g8 fis e4 ~ | 
 	e4 d ~ d16 d cis b cis4 ~ |
 	cis8 a d4. d4^> cis8 |
 	\translator Staff=upper \stemdown
@@ -153,25 +153,25 @@ three = \notes\relative c{
    	\context Voice=iii
 	\stemdown 
 	d4 cis b e |
-	a16 a,( cis a  d e fis d 
+	a16 a, cis a  d e fis d 
 	g fis g a  g b a g |
-	)fis4 fis e a |
-	d16 \stemboth d,( fis d  a' b cis a 
-	d cis d e  d fis e ) d |
+	fis4 fis e a |
+	d16 \stemboth d, fis d  a' b cis a 
+	d cis d e  d fis e  d |
 	%5
 	cis b cis d  c e d c 
-	\stemdown b4 cis8 b( |
-	a )fis b a  gis e a g |
+	\stemdown b4 cis8 b |
+	a fis b a  gis e a g |
 	fis4. d8 e4 a4 |
 	\stemboth
-	r16 d,( fis d  )g8-. g,-. 
-	r16 e'( g e  )a8-. a,-. |
-	r16 fis'( a fis  )b8-. b,-. r16 g'( b g  )d'8-. d,-. |
+	r16 d, fis d  g8 g, 
+	r16 e' g e  a8 a, |
+	r16 fis' a fis  b8 b, r16 g' b g  d'8 d, |
 	%10
-	r16 d,16( fis d  a' b cis a  d b d b 
+	r16 d,16 fis d  a' b cis a  d b d b 
 	fis' g a fis |
-	)fis16 g,( b g  d' e fis d  )g8-. g,-. r16 cis( e cis |
-	)fis8-. fis,-. \stemdown r16 b( d b  )e8-. e,-. 
+	fis16 g, b g  d' e fis d  g8 g, r16 cis e cis |
+	fis8 fis, \stemdown r16 b d b  e e,
 	r16 a cis a |
 	\stemboth
 	d e fis d  g fis e d  cis! a b cis 

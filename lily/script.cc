@@ -19,19 +19,6 @@
 #include "paper-def.hh"
 #include "dimension-cache.hh"
 
-Script::Script ()
-{
-  staff_side_l_ =0;
-}
-
-void
-Script::do_substitute_element_pointer (Score_element*o, Score_element*n)
-{
-  if (o == staff_side_l_)
-    staff_side_l_ = dynamic_cast<Staff_side_item*>(n);
-}
-
-
 
 Molecule
 Script::get_molecule(Direction d) const
@@ -62,40 +49,36 @@ Script::do_pre_processing ()
   /*
     center my self on the note head.
    */
-  Graphical_element * e = staff_side_l_->parent_l(X_AXIS);
+  Graphical_element * e = parent_l(X_AXIS);
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
 }
 
 void
 Script::do_post_processing ()
 {
-  Direction d =  staff_side_l_->get_direction ();
+  Direction d =  Staff_sidify (this).get_direction ();
   Molecule m (get_molecule(d));
 
   /*
     UGH UGH UGH
    */
+#if 0
   if (staff_side_l_->get_elt_property ("no-staff-support") == SCM_UNDEFINED) 
     translate_axis (- m.dim_[Y_AXIS][Direction (-d)], Y_AXIS);
+#endif
 }
 
-void
-Script::set_staff_side (Staff_side_item*g)
-{
-  staff_side_l_ = g;
-  add_dependency (g);
-  set_parent (g, Y_AXIS);
-}
 
 Molecule*
 Script::do_brew_molecule_p () const
 {
-  return new Molecule (get_molecule (staff_side_l_->get_direction ()));
+  Direction dir = DOWN;
+  SCM d = get_elt_property ("direction");
+  if (isdir_b (d))
+    dir = to_dir (d);
+  
+  return new Molecule (get_molecule (dir));
 }
 
-void
-Script::do_print () const
-{
 
-}
 

@@ -29,14 +29,33 @@
 		(list 'verticalDirection dir? 'direction)
 		)
 	))
-  
+
+(define generic-script-properties
+  (cons "Script" (list
+		  (list 'articulationScriptVerticalDirection dir? 'direction)
+		  (list 'articulationScriptPadding number? 'padding)
+
+		  ))
+  )
+
+
+
 (define generic-text-properties
   (cons "Text_item" (list
 		     (list 'textStyle string? 'style)
 		     (list 'textScriptPadding number? 'padding)
+		     (list 'textVerticalAlignment dir? 'self-alignment-Y)
+		     (list 'textHorizontalAlignment dir? 'self-alignment-X)
 		     )
 	))
 
+(define generic-crescendo-properties
+  (cons "Crescendo" (list
+		     (list 'dynamicDirection dir? 'direction)
+		     (list 'verticalDirection dir? 'direction)
+		     (list 'dynamicPadding number? 'padding) 
+		     )))
+  
 (define generic-bar-properties
   (cons "Staff_bar" (list
 		     (list 'barSize number? 'bar-size))
@@ -98,18 +117,26 @@
    generic-beam-properties
    generic-text-properties
    generic-note-column-properties
+   generic-crescendo-properties
    generic-All-properties
    ))
 
 (define generic-grace-properties generic-voice-properties)
 (define generic-staff-properties
   (list
+   generic-text-properties   
    generic-bar-properties
    generic-timesig-properties
    generic-clef-properties
    generic-All-properties      
    )
   )
+(define generic-grand-staff-properties
+  (list
+   generic-text-properties   
+   generic-bar-properties
+   ))
+
 
 (define generic-thread-properties
   (list generic-All-properties

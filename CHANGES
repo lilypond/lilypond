@@ -1,4 +1,14 @@
+pl7.mb1
+	- bf: timeSignatureStyle works again
 
+pl 7.hwn1
+	- Dirk Latterman key/mmrest patches
+	- Offset callbacks in Dimension_cache
+	- Junked Staff_side_*
+	- Staff_sidify: interface class.
+	- prelude-{1,2} fixes.
+
+***********
 pl 6.uu2
 	- bf: PS font selecting.
 

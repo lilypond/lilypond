@@ -22,7 +22,6 @@ String &
 Adobe_font_char_metric::name ()
 {
   return N_;
-  
 }
 
 int &

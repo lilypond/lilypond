@@ -51,7 +51,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
     {
       create_items (0);
       text_p_->text_str_ = ly_scm2string (long_name);
-      staff_side_p_->set_direction (LEFT);
+      text_p_->set_elt_property ("direction", gh_int2scm (LEFT));
       Bar_script_engraver::attach_script_to_item (i);
 
       /*

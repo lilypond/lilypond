@@ -86,7 +86,6 @@ def read_texinfo_header (s):
 
 	m = re.search( '@settitle (.*)\n', s)
 	if m:
-		print 'title found! '
 		header.title = m.group (1)
 	m = re.search( '@author (.*)\n', s)
 	if m:

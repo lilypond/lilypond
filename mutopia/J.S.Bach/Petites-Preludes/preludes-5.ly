@@ -47,9 +47,9 @@ upper = \context Staff \notes\relative c
 	cis bes' g e a g |
 	f d f a f a |
 	d a d f d f |
-	b ( f e d c b |
+	b  f e d c b |
 	%10
-	a gis fis )e d' b |
+	a gis fis e d' b |
 	< 
 		{
 			\stemup 
@@ -61,8 +61,8 @@ upper = \context Staff \notes\relative c
 		\context Voice=ii { \stemdown a4 r r | a4 r r }
 	> |
 	\stemboth 
-	a'8( es d c bes a |
-	g fis e! )d c' a |
+	a'8 es d c bes a |
+	g fis e! d c' a |
 	%15
 	bes8-\mordent d8 bes g g'4 |
 	r8 d c bes a-\prall g |

@@ -11,6 +11,9 @@
     \context Staff = bass { \property Staff.instrument = "Left " \clef bass; c4 }>
 
 \paper {
+\translator { \ScoreContext
+	textVerticalAlignment = #0
+	}
 \translator { \StaffContext \consists "Staff_margin_engraver"; }
 \translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
 }}

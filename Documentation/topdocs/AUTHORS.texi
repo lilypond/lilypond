@@ -37,6 +37,8 @@ list is alphabetically ordered.
     mf/ital-*.mf (these were taken from the CM fonts)
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     breathing signs
+@item @email{dlatt@@datenrat.de, Dirk Lattermann},
+	minor improvements on accidentals/ties/multi measure rests
 @item @email{wl@@gnu.org, Werner Lemberg},
     misc bugfixes, some Beam and Stem code. 
 @item @email{drl@@vuse.vanderbilt.edu, David R. Linn},

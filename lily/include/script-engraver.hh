@@ -13,7 +13,6 @@
 
 class Script_engraver : public Engraver {
   Link_array<Script> script_p_arr_;
-  Link_array<Staff_side_item> staff_side_p_arr_;
   Link_array<Articulation_req> script_req_l_arr_;
 
 public:

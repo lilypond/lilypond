@@ -9,6 +9,7 @@
 
 #include <string.h>
 
+#include "misc.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -26,14 +27,39 @@
 
 
 Interval
-Score_element::dim_cache_callback (Dimension_cache*c)
+Score_element::dim_cache_callback (Dimension_cache const*c)
 {
-  Score_element *  e =dynamic_cast<Score_element*>( c->element_l());
+  Score_element *  e =dynamic_cast<Score_element*> (c->element_l());
   if(e->dim_cache_[X_AXIS] == c)
     return e->do_width ();
   else
     return e->do_height ();
 }
+
+
+
+Real
+set_alignment_callback (Dimension_cache const *c)
+{
+  String s ("self-alignment-");
+  Axis ax = c->axis ();
+  s +=  (ax == X_AXIS) ? "X" : "Y";
+  Score_element *elm = dynamic_cast<Score_element*> (c->element_l ());
+  SCM align (elm->get_elt_property (s));
+  if (isdir_b (align))
+    {
+      Direction d = to_dir (align);
+      Interval ext(elm->extent (ax));
+      if (d)
+	{
+	  return - ext[d];
+	}
+      return - ext.center ();
+    }
+  else
+    return 0.0;
+}
+
 
 Score_element::Score_element()
 {
@@ -204,12 +230,23 @@ Score_element::add_processing()
   if (status_i_)
     return;
   status_i_ ++;
+
+  if (get_elt_property ("self-alignment-X") != SCM_UNDEFINED)
+    {
+      dim_cache_[X_AXIS]->set_offset_callback (set_alignment_callback);
+    }
+  
+  if (get_elt_property ("self-alignment-Y") != SCM_UNDEFINED)
+    {
+      dim_cache_[Y_AXIS]->set_offset_callback (set_alignment_callback);
+    }
+  
   do_add_processing();
 }
 
 void
 Score_element::calculate_dependencies (int final, int busy,
-				    Score_element_method_pointer funcptr)
+				       Score_element_method_pointer funcptr)
 {
   assert (status_i_ >=0);
 
@@ -337,6 +374,36 @@ Score_element::substitute_dependency (Score_element* old, Score_element* new_l)
   old->do_substitute_element_pointer (this, 0);
 }
 
+
+/**
+   Do break substitution, and return new value.
+ */
+SCM 
+Score_element::handle_broken_smobs (SCM s, Line_of_score * line)
+{
+  if (SMOB_IS_TYPE_B (Score_element, s))
+    {
+      Score_element *sc = SMOB_TO_TYPE (Score_element, s);
+      Score_element * br =0;
+      if (sc->line_l () != line)
+	{
+	  br = sc->find_broken_piece (line);
+	}
+
+      if (br)
+	return br->self_scm_;
+    }
+  else if (gh_pair_p (s))
+    {
+      /*
+	UGH! breaks on circular lists.
+       */
+      gh_set_car_x (s, handle_broken_smobs (gh_car (s), line));
+      gh_set_cdr_x (s, handle_broken_smobs (gh_cdr (s), line));
+    }
+  return s;
+}
+
 void
 Score_element::handle_broken_dependencies()
 {
@@ -344,7 +411,7 @@ Score_element::handle_broken_dependencies()
   if (!line)
     return;
 
-  do_substitute_arrays ();
+  element_property_alist_ = handle_broken_smobs (element_property_alist_, line);
 
   Link_array<Score_element> new_deps;
 
@@ -366,28 +433,14 @@ Score_element::handle_broken_dependencies()
 
 
 /*
-  This sux.
-
-  unlike with spanners, the number of items can increase
-
-  span: item1
-
-  becomes
-
-  span: item1 item2 item3
-
-  How to let span (a derived class) know that this happened?
-
-
   TODO: cleanify.
  */
 void
 Score_element::handle_prebroken_dependencies()
 {
-  /*  dynamic_cast<Item*> (this) && 
-  if (!break_status_dir ())
-    return;
-  */
+  element_property_alist_
+    = handle_broken_smobs (element_property_alist_, line_l ());
+
   Link_array<Score_element> old_arr, new_arr;
   
   for (int i=0; i < dependency_size(); i++) 
@@ -449,10 +502,6 @@ Score_element::do_print () const
 {
 }
 
-void
-Score_element::do_substitute_arrays ()
-{
-}
 
 
 Score_element*
@@ -479,6 +528,8 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
      
   scm_puts ("#<Score_element ", port);
   scm_puts ((char *)sc->name (), port);
+  scm_puts ("properties = ", port);
+  scm_display (sc->element_property_alist_, port);
   scm_puts (" >", port);
   return 1;
 }

@@ -1,7 +1,7 @@
 \version "1.3.5";
 
 m = \notes \relative c''{
-c1 | c2 c | c c | c c | c c | c c | c c | c c | 
+c1 | c2 c | c c | c c | \break c c | c c | c c | c c | 
 }
 
 \score{ < 
@@ -88,6 +88,7 @@ c1 | c2 c | c c | c c | c c | c c | c c | c c |
     textheight = 260.\mm;
     \translator {
 	\OrchestralScoreContext
+	barNumberScriptPadding = 10;
         minVerticalAlign = 2.2*\staffheight; 
     }
     \translator { \StaffContext

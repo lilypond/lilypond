@@ -10,11 +10,13 @@
 #ifndef CRESCENDO_HH
 #define CRESCENDO_HH
 
-#include "spanner.hh"
+#include "directional-spanner.hh"
 /**
   The hairpin symbol. (cresc)
+
+  (normal spanner?)
  */
-class Crescendo : public Spanner {
+class Crescendo : public Directional_spanner {
 public:
   int grow_dir_;
     

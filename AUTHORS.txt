@@ -32,6 +32,9 @@ list is alphabetically ordered.
 
    * Michael Krause <m.krause@tu-harburg.de>,     breathing signs
 
+   * Dirk Lattermann <dlatt@datenrat.de>, 	minor improvements on
+     accidentals/ties/multi measure rests
+
    * Werner Lemberg <wl@gnu.org>,     misc bugfixes, some Beam and Stem
      code.
 
