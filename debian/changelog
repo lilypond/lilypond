@@ -1,3 +1,42 @@
+lilypond1.7 (1.7.16-1) unstable; urgency=low
+
+  * New upstream release.
+  * Change package name to lilypond1.7.
+  * Add Conflicts with lilypond.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 15 Apr 2003 16:39:26 +0200
+
+lilypond (1.6.9-1) unstable; urgency=low
+
+  * New upstream release.
+  * Depend on mftrace iso pktrace.
+  * Add guile-1.6-dev as alternative dependency to libguile-dev
+  * Install lilypond.words too.
+  * Bugfix for docdir when with changed package name.
+  * Remove netpbm, bibtex2html dependencies.
+  * Remove gcc-3.x/lexer kludge.
+
+ --  Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 15 Apr 2003 14:25:54 +0200
+
+lilypond (1.6.6-2) unstable; urgency=high
+
+  * Hmm, so /usr/share/texmf/dvips/config is an symlink, and thus
+    /usr/share/lilypond/1.6.6/dvips/lilypond.map conflicts with tetex-base.
+    Let's move it to /etc/texmf/dvips/lilypond.map then, and make it a
+    conffile.  Thanks for all the (duplicate) bug reports!  ;-)
+    (Closes: Bug#169811, #169812, #169877, #169946)
+
+ -- Anthony Fok <foka@debian.org>  Sat, 23 Nov 2002 19:21:04 +0800
+
+lilypond (1.6.6-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Updated Debian section in Documentation/topdocs/INSTALL.texi.
+  * FTBFS bug due to bugs in bison-1.50.  Now explicitly Build-Depends
+    on bison << 1:1.50 or >= 1:1.75-1.  (Closes: Bug#165662)
+
+ -- Anthony Fok <foka@debian.org>  Tue, 22 Oct 2002 02:05:33 +0800
+
 lilypond (1.6.4-1) unstable; urgency=medium
 
   * New upstream release.
