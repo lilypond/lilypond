@@ -304,6 +304,7 @@ Beam::brew_molecule (SCM grob)
   Real last_width = -1 ;
   
 
+  * Determine auto knees based on positions if it's set by the user.
   
   Molecule the_beam;
   Real lt = me->paper_l ()->get_var ("linethickness");
@@ -565,9 +566,10 @@ Beam::consider_auto_knees (Grob *me, Direction d)
 	{
 	  for (int i=0; i < stems.size (); i++)
 	    {
-	      if (Stem::invisible_b (stems[i]))
-		continue;
 	      Item *s = stems[i];	  
+	      if (Stem::invisible_b (s) || 
+		  s->get_grob_property ("dir-forced") == SCM_BOOL_T)
+		continue;
 	      Real y = Stem::extremal_heads (stems[i])[d]
 		->relative_coordinate (common, Y_AXIS);
 
@@ -630,13 +632,14 @@ Beam::after_line_breaking (SCM smob)
   SCM s = ly_deep_copy (me->get_grob_property ("positions"));
   me->set_grob_property ("positions", s);
 
-  if (ly_car (s) != SCM_BOOL_F)
-    return SCM_UNSPECIFIED;
+  if (ly_car (s) == SCM_BOOL_F)
+    {
 
-  // one wonders if such genericity is necessary  --hwn.
-  SCM callbacks = me->get_grob_property ("position-callbacks");
-  for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
-    gh_call1 (ly_car (i), smob);
+      // one wonders if such genericity is necessary  --hwn.
+      SCM callbacks = me->get_grob_property ("position-callbacks");
+      for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
+	gh_call1 (ly_car (i), smob);
+    }
 
   set_stem_lengths (me);  
   return SCM_UNSPECIFIED;

@@ -95,8 +95,6 @@ Duration::mark_smob (SCM)
 }
 
 IMPLEMENT_SIMPLE_SMOBS (Duration);
-
-
 int
 Duration::print_smob (SCM s, SCM port, scm_print_state *)
 {

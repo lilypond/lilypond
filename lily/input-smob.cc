@@ -80,10 +80,7 @@ make_input (Input ip)
   Input * nip =  new Input (ip);
   SCM z;
   
-  SCM_NEWCELL (z);
-  SCM_SETCAR (z, (SCM)input_tag);
-  SCM_SETCDR (z, (SCM)nip);
-				// fixme: done_malloc
+  SCM_NEWSMOB (z, input_tag, nip);
   return z;
 }
 

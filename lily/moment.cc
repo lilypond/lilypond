@@ -13,7 +13,6 @@
 #include "warn.hh"
 #include "ly-smobs.icc"
 
-
 IMPLEMENT_SIMPLE_SMOBS (Moment);
 IMPLEMENT_TYPE_P (Moment, "moment?");
 

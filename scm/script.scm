@@ -2,17 +2,15 @@
 ;;           follow-into-staff :: bool
 ;;           dir-relative-to-stem :: int
 ;;           force-dir :: int
-;;           priority :: int
 
-;;TODO?      extra padding :: Real (given in staff spaces)
 
+;;           priority :: int -- lower number means closer to the  note head. 
 
 ;; TODO: generate Grob types for this, by prepending appropriate props
 ;; on top of Script (?)  
 
 
 ;; TODO: don't use 2 level indiriection, simply set
-
 ;; thumb = \script #'((feta . ( . .. ) (follow-staff .  #f))
 
 
