@@ -1,3 +1,11 @@
+2002-07-19  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scm/engraver-documentation-lib.scm
+	(document-property-operation): add properties to context
+	documentation.
+
+	* scm/documentation-lib.scm (pad-string-to): align info menus.
+
 2002-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* debian/GNUmakefile: Remove lilypond.links.
@@ -54,7 +62,6 @@
 	against user override of CFLAGS.
 	
 	* stepmake/stepmake/c-vars.make (ALL_CFLAGS): Include CFLAGS.
-
 
 2002-07-17  Han-Wen  <hanwen@cs.uu.nl>
 

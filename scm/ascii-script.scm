@@ -9,6 +9,7 @@
 
 
 (debug-enable 'backtrace)
+
 (define (tex-encoded-fontswitch name-mag)
   (let* ((iname-mag (car name-mag))
 	 (ename-mag (cdr name-mag)))

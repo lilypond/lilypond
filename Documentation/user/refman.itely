@@ -1655,6 +1655,34 @@ put them up:
 Other symbols can be added using the syntax
 @var{note}@code{-\}@var{name}. Again, they can be forced up or down
 using @code{^} and @code{_}.
+
+@cindex accent      
+@cindex marcato      
+@cindex staccatissimo
+@cindex fermata 
+@cindex stopped     
+@cindex staccato     
+@cindex tenuto        
+@cindex upbow
+@cindex downbow
+@cindex foot marks
+@cindex organ pedal marks
+@cindex turn         
+@cindex open          
+@cindex flageolet
+@cindex reverseturn 
+@cindex trill        
+@cindex prall         
+@cindex mordent
+@cindex prallprall  
+@cindex prallmordent 
+@cindex prall, up
+@cindex prall, down
+@cindex mordent
+@cindex thumb marking
+@cindex segno         
+@cindex coda
+
 @lilypond[]
   \score {
     <
@@ -1798,13 +1826,14 @@ staffs, using this grace timing.
 @end lilypond
 
 
-The syntax is as follows.
-@example
-  \grace @var{musicexpr}
-@end example
-
 Unbeamed eighth notes and shorter by default have a slash through the
-stem.
+stem. This can be controlled with grob property @code{flag-style} of
+@internalsref{Stem}. The change in formatting is accomplished by
+inserting @code{\startGraceMusic} before handling the grace notes, and
+@code{\stopGraceMusic} after finishing the grace notes. You can add to
+these definitions to globally change grace note formatting. The
+standard definitions are in @file{ly/grace-init.ly}.
+
 
 @lilypond[fragment,verbatim]
 \relative c'' \context Voice {

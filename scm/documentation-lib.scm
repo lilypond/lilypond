@@ -82,10 +82,25 @@ Add a ref if REF is set
    "\n@end table\n"))
 
 (define (texi-menu items-alist)
+  (let
+      (
+       (maxwid (apply max (map (lambda (x) (string-length (car x)))
+			       items-alist)))
+       )
+    
+
+    
   (string-append
   "\n@menu"
   (apply string-append
-	 (map (lambda (x) (string-append "\n* " (car x) ":: " (cdr x)))
+	 (map (lambda (x)
+		(string-append
+		(pad-string-to 
+		 (string-append "\n* " (car x) ":: ")
+		 (+ maxwid 8)
+		 )
+		(cdr x))
+		)
 	      items-alist))
   "\n@end menu\n"
   ;; Menus don't appear in html, so we make a list ourselves
@@ -94,7 +109,7 @@ Add a ref if REF is set
   (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
 			 items-alist))
   "\n@end ifhtml\n"
-  "\n@end ignore\n"))
+  "\n@end ignore\n")))
 
   
 (define (texi-node-menu name items-alist)
@@ -103,7 +118,14 @@ Add a ref if REF is set
    (texi-section 1 name #f)
    (texi-menu items-alist)))
 
+
+(define (pad-string-to str wid)
+  (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
+  )
+
 (define (texi-file-head name file-name top items-alist)
+
+  
   (string-append
    "\\input texinfo @c -*-texinfo-*-"
    "\n@setfilename " file-name ".info"

@@ -10,6 +10,8 @@
 ;;; Running LilyPond on this file generates the documentation
 
 
+(debug-enable 'backtrace)
+
 
 
 ;;;;;;;;;;;;;;;;
@@ -33,23 +35,21 @@
 ;; are described...
 (define no-copies #f)
 
-
-
 (let* ((doc (string-append
-	     (document-music "music properties") 
- 	     (document-paper "interpretation contexts")
- 	     (document-all-engravers "engravers")
-	     (document-all-engraver-properties "context properties")
- 	     (document-all-grobs "grob overview")
- 	     (document-all-interfaces "interfaces")
+	     (document-music "Music properties") 
+ 	     (document-paper "Contexts")
+ 	     (document-all-engravers "Engravers")
+	     (document-all-engraver-properties "Context properties")
+ 	     (document-all-grobs "Grob overview")
+ 	     (document-all-interfaces "Interfaces")
 
-	     (node "backend properties")
-	     (texi-section 1 "backend properties" #f)
+	     (node "Backend properties")
+	     (texi-section 1 "Backend properties" #f)
 
-	     (document-all-backend-properties "backend properties")
+	     (document-all-backend-properties "Backend properties")
 
-	     (node "function documentation")
-	     (texi-section 1 "function documentation" #f)
+	     (node "Function documentation")
+	     (texi-section 1 "Function documentation" #f)
 
 	     (document-all-scheme-functions)
 	     
@@ -67,14 +67,14 @@
      ;; we can't use (dir) and top if we're included by lilypond.tely
      "LilyPond internals" name "(lilypond.info)"
      '(
-       ("music properties" . "properties for Music representation")
-       ("interpretation contexts" . "Hierarchy and grouping of Engravers")
-       ("engravers" . "Engravers create Grobs")
-       ("context properties" . "context properties")       
-       ("grob overview" . "Detailed description of all Grobs")
-       ("interfaces" . "Grob Interfaces")
-       ("backend properties" . "Grob properties")
-       ("function documentation" . "All embedded functions")
+       ("Music properties" . "properties for Music representation")
+       ("Contexts" . "Hierarchy and grouping of Engravers")
+       ("Engravers" . "Engravers create Grobs")
+       ("Context properties" . "context properties")       
+       ("Grob overview" . "Detailed description of all Grobs")
+       ("Interfaces" . "Grob Interfaces")
+       ("Backend properties" . "Grob properties")
+       ("Function documentation" . "All embedded functions")
        ("Index" . "index")
        ))
 
