@@ -4,6 +4,7 @@ FAQ - LilyPond FAQs
 
 =head1 DESCRIPTION
 
+Some questions that have been answered before.
 
 Q: Why are [] around the notes, and () inbetween?
 
@@ -31,3 +32,12 @@ please :).
 Q: Why GPL?
 
 A: Yes.
+
+Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
+
+A: You should do what you like, but at some time we will enable
+quoting of music ("Stichnoten"). Besides if you are going to type an
+orchestral score, then you'd probably want to enter most of those
+commands only once.
+
+
