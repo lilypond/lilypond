@@ -24,7 +24,7 @@ for line in F.readlines():
 F.close()
 
 # keywords in markup
-F = open('scm/new-markup.scm', 'r')
+F = open('scm/markup.scm', 'r')
 for line in F.readlines():
     m = re.search(r"^(\s*\(cons\s*)([a-z-]*)(-markup)",line)
     if m:

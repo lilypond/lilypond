@@ -1,5 +1,11 @@
 2005-03-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* buildscripts/lilypond-words.py (F): 
+	* elisp/SConscript (a): 
+	* elisp/GNUmakefile (LILYPOND_WORDS_DEPENDS):
+	* vim/SConscript (a): 
+	* vim/GNUmakefile (LILYPOND_WORDS_DEPENDS): Update.
+
 	* lily/general-scheme.cc: Build fix.
 
 	* scm/markup.scm:

@@ -8,7 +8,7 @@ a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --el --dir=${TARGET.dir}'
 e.Command ('lilypond-words.el',
 	   ['#/lily/lily-lexer.cc',
 	    '#/buildscripts/lilypond-words.py',
-	    '#/scm/new-markup.scm',
+	    '#/scm/markup.scm',
 	    '#/ly/engraver-init.ly',],
 	   a)
 
