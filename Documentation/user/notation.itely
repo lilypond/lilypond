@@ -1100,13 +1100,15 @@ off. Empty bar lines,
 @noindent
 indicate where line breaks can occur.
 
-
 @refcommands
 
 @cindex @code{\cadenzaOn}
 @code{\cadenzaOn}, 
 @cindex @code{\cadenzaOff}
 @code{\cadenzaOff}.
+
+
+
 
 @node Bar lines
 @subsection Bar lines
@@ -4041,6 +4043,24 @@ scheme = \chords {
 >>
 @end lilypond
 
+The previous examples all show chords over a staff. This is not
+necessary. Chords may also be printed separately.  It may be necessary
+to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
+for showing repeats.
+
+@lilypond[raggedright,verbatim]
+\new ChordNames \with {
+	\override BarLine #'bar-size = #4
+	\consists Bar_engraver
+	\consists "Volta_engraver"
+} 
+\repeat volta 2 \chords {
+	f1:maj f:7 bes:7
+	c:maj  es
+}
+@end lilypond
+
+
 The default chord name layout is a system for Jazz music, proposed by
 Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
 following properties
@@ -4082,10 +4102,6 @@ alteration. The transformation from pitch to letter is done by this
 function.  Special note names (for example, the German ``H'' for a
 B-chord) can be produced by storing a new function in this property.
 
-The predefined variables @code{\germanChords},
-@code{\semiGermanChords} set these variables.
-
-
 @cindex @code{chordNoteNamer}
 @item chordNoteNamer
 The default is to print single pitch, e.g. the bass note, using the
@@ -4095,6 +4111,11 @@ base can be printed in lower case.
 
 @end table
 
+The predefined variables @code{\germanChords},
+@code{\semiGermanChords} set these variables. The effect is
+demonstrated here,
+
+@lilypondfile[notexidoc]{chord-names-german.ly}
 
 There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords. The
@@ -4122,7 +4143,6 @@ chart}.  Turning on these styles is described in the input file
 Examples: @inputfileref{input/regression,chord-name-major7.ly},
 @inputfileref{input/regression,chord-name-exceptions.ly},
 @inputfileref{input/test,chord-names-jazz.ly},
-@inputfileref{input/test,chord-names-german.ly},
 @inputfileref{input/test,chords-without-melody.ly}.
 
 
@@ -4187,6 +4207,38 @@ connected.  This is the default for the score.
 @cindex brace, vertical
 @cindex grand staff
 @cindex staff group
+
+
+@node Aligning to cadenzas
+@subsection Aligning to cadenzas
+
+
+In an orchestral context, cadenzas bring cause a special probelem:
+when constructing a score that includes a cadenza, all other
+instruments should skip just as many notes as the length of the
+cadenza, otherwise they will start too soon or too late. 
+
+A solution to this problem are the functions @code{mmrest-of-length}
+and @code{skip-of-length}. These Scheme functions take a piece music
+as argument, and generate a @code{\skip} or multi rest, exactly as
+long as the piece. The use of @code{mmrest-of-length} is demonstrated
+in the following example. 
+
+@lilypond[raggedright] 
+cadenza =  \relative c' {
+    c4 d8 << { e f g } \\ { d4. } >>
+    g4 f2 g4 g
+}
+    
+\new GrandStaff <<
+  \new Staff { \cadenza c'4 } 
+  \new Staff {
+    #(ly:export (mmrest-of-length cadenza))
+    c'4
+  }
+>>
+@end lilypond
+
 
 
 

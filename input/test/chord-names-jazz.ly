@@ -1,6 +1,4 @@
 \version "2.3.8"
-
-
 \header {
 
 texidoc = " Chord names are generated from a list pitches.  The

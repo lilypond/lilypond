@@ -1,5 +1,14 @@
 2004-07-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/chords-without-melody.ly: fold into manual.
+
+	* input/test/cadenza-skip.ly: remove.
+
+	* input/test/clef-8-syntax.ly: remove.
+
+	* Documentation/user/notation.itely (Aligning to cadenzas): fold
+	in cadenza-skip.ly
+
 	* mf/parmesan*.mf: change neo_mensural to neomensural.
 
 	* input/test/trills.ly: remove.
