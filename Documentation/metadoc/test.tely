@@ -12,10 +12,13 @@
 @node foo
 @section foo
 
-@mudela[veryverbatim, intertext="produces this music:"]
+@mudela[verbatim, intertext="produces this music:"]
+\include "paper16.ly"
 \score{
   \notes\relative c'{
   	a b c
   }
 }
 @end mudela
+
+@bye
