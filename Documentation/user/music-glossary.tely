@@ -249,6 +249,19 @@ N: ?.
 C clef setting central C on the middle line of the staff
 @aref{C clef}.
 
+@aitem{ambitus}
+ES: ambitus,
+I: ambitus,
+F: ambitus,
+D: ambitus,
+NL: ambitus,
+DK: ambitus,
+S: ambitus,
+FI: ambitus, ‰‰niala, soitinala,
+N: ?.
+
+The term ambitus denotes a range of pitches for a given voice a part of music. It also may denote the pitch range that a musical instrument is capable of playing.
+
 @aitem{ancient minor scale}
 I: scala minore naturale,
 F: forme du mode mineur ancien, trois@`eme mode, mode hell@'enique
