@@ -7,6 +7,10 @@
 @unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
+
+@item Support for fret diagrams  has been contributed by Carl
+D. Sorensen. @file{input/test/fret-diagram.ly} contains an example.
+ 
 @item The @code{--safe} mode has been revisited: it makes the basic
 ly: interface available, and stops malicious @TeX{} code.
 

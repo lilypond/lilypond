@@ -32,9 +32,9 @@ class Paper_book
   Real height_;
   SCM copyright_;
   SCM tagline_;
-
 public:
   Array<Score_lines> score_lines_;
+  Book_paper_def *bookpaper_;
 
   Paper_book ();
 

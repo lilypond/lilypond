@@ -400,7 +400,7 @@ Stem::position_noteheads (Grob*me)
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
   for (int i=0; i < heads.size (); i++)
     {
-      heads[i]->translate_axis (w - Note_head::head_extent (heads[i],X_AXIS)[dir],
+      heads[i]->translate_axis (w - Note_head::head_extent (heads[i], X_AXIS)[dir],
 				X_AXIS);
     }
 

@@ -270,6 +270,8 @@ filter_performers (SCM l)
       if (dynamic_cast<Performer*> (unsmob_translator (ly_car (*tail))))
 	{
 	  *tail = ly_cdr (*tail);
+	  if (!ly_c_pair_p (*tail))
+	    break ;
 	}
     }
   return l;
@@ -279,11 +281,14 @@ filter_performers (SCM l)
 SCM
 filter_engravers (SCM l)
 {
-  for (SCM *tail = &l; ly_c_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
+  SCM *tail = &l;  
+  for (; ly_c_pair_p (*tail) ; tail = SCM_CDRLOC (*tail))
     {
       if (dynamic_cast<Engraver*> (unsmob_translator (ly_car (*tail))))
 	{
 	  *tail = ly_cdr (*tail);
+	  if (!ly_c_pair_p (*tail))
+	    break ;
 	}
     }
   return l;

@@ -65,6 +65,7 @@ void
 Book::process (String outname, Music_output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
+  paper_book->bookpaper_ = bookpaper_;
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
@@ -91,6 +92,7 @@ SCM
 Book::to_stencil (Music_output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
+  paper_book->bookpaper_ = bookpaper_;
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {

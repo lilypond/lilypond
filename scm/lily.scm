@@ -122,6 +122,15 @@
 ;;; Unassorted utility functions.
 
 
+;; modules
+(define-public (ly:modules-lookup modules sym)
+  "DOCME."
+  (let ((v (module-variable (car modules) sym)))
+    (if (and v (variable-bound? v) (variable-ref v))
+	(variable-ref v)
+	(if (module? (cdr modules)) (ly:modules-lookup (cdr modules) sym)))))
+
+
 ;;;;;;;;;;;;;;;;
 ; alist
 (define-public (assoc-get key alist . default)
@@ -455,6 +464,7 @@ L1 is copied, L2 not.
        "font.scm"
        "encoding.scm"
        
+       "fret-diagrams.scm"
        "define-markup-commands.scm"
        "define-grob-properties.scm"
        "define-grobs.scm"
