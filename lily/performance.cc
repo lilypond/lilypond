@@ -19,7 +19,6 @@
 #include "audio-staff.hh"
 #include "performance.hh"
 #include "score.hh"
-#include "input-file-results.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
 
@@ -170,9 +169,6 @@ Performance::process (String out)
   
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));
-
-  // fixme: dependencies
-  //add_target_file (out);
 
   output (midi_stream);
   progress_indication ("\n");

@@ -13,7 +13,6 @@
 #include "array.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"
-#include "input-file-results.hh"
 #include "input-smob.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"

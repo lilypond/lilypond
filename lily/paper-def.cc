@@ -18,7 +18,6 @@
 #include "scaled-font-metric.hh"
 #include "main.hh"
 #include "scm-hash.hh"
-#include "input-file-results.hh" // urg? header_global
 #include "paper-outputter.hh"
 #include "ly-module.hh"
 
@@ -80,9 +79,6 @@ Paper_def::get_paper_outputter (String outname) const
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
-  // fixme: dependencies
-  //  add_target_file (outname);
-  
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
   p.ext = "";
