@@ -60,13 +60,14 @@ scoreTitleMarkup = \markup {
     (interpret-markup layout props arg)
     empty-stencil))
 
-%%#(define (multiple-pages layout props arg)
+#(define (not-single-page layout props arg)
+  (if (not (and (= (chain-assoc-get 'page:page-number props -1) 1)
+	        (chain-assoc-get 'page:last? props -1)))
+    (interpret-markup layout props arg)
+    empty-stencil))
 
 oddHeaderMarkup = \markup
-%% Do not print page number on fist page.
-%% FIXME: only if multiple pages, do page number
-%% \on-the-fly #multiple-pages
-\on-the-fly #not-first-page
+\on-the-fly #not-single-page
 \fill-line {
   ""
   \on-the-fly #not-first-page \fromproperty #'header:instrument

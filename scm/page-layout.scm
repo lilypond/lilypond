@@ -47,7 +47,7 @@
 	     (not (ly:stencil-empty? head-stencil)))
 	(set! head-stencil
 	      (ly:stencil-combine-at-edge
-	       stencil Y  dir head-stencil
+	       stencil Y dir head-stencil
 	       sep 0.0)))
 
     head-stencil))
@@ -67,31 +67,31 @@
 	       (interval-length (ly:stencil-extent foot Y))
 	       0))))
     
-					;    (display (list "\n available" available head foot))
+    ;; (display (list "\n available" available head foot))
     available))
 
 (define-public (default-page-make-stencil
-		 lines offsets layout scopes number last? )
+		 lines offsets layout scopes number last?)
   "Construct a stencil representing the page from LINES.
 
  Offsets is a list of increasing numbers. They must be negated to
 create offsets.
  "
-  (let* ((topmargin  (ly:output-def-lookup layout 'topmargin))
+  (let* ((topmargin (ly:output-def-lookup layout 'topmargin))
        
        ;; TODO: naming vsize/hsize not analogous to TeX.
        
-       (vsize (ly:output-def-lookup layout 'vsize))
-       (hsize (ly:output-def-lookup layout 'hsize))
+	 (vsize (ly:output-def-lookup layout 'vsize))
+	 (hsize (ly:output-def-lookup layout 'hsize))
 
-       (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
-       (system-separator-stencil (if (markup? system-separator-markup)
-				     (interpret-markup layout
-						       (page-properties layout)
-						       system-separator-markup)
-				     #f))
-       (lmargin (ly:output-def-lookup layout 'leftmargin))
-       (leftmargin (if lmargin
+	 (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
+	 (system-separator-stencil (if (markup? system-separator-markup)
+				       (interpret-markup layout
+							 (page-properties layout)
+							 system-separator-markup)
+				       #f))
+	 (lmargin (ly:output-def-lookup layout 'leftmargin))
+	 (leftmargin (if lmargin
 		       lmargin
 		       (/ (- hsize
 			     (ly:output-def-lookup layout 'linewidth)) 2)))
@@ -118,8 +118,7 @@ create offsets.
 		      (set! page-stencil
 			    (ly:stencil-add page-stencil
 					    (ly:stencil-translate-axis stencil
-					     (- 0 head-height y topmargin) Y)
-					    ))))
+					     (- 0 head-height y topmargin) Y)))))
        (add-system (lambda (stencil-position)
 		     (let*
 			 ((system (car stencil-position))
@@ -128,7 +127,6 @@ create offsets.
 			  (is-title (ly:paper-system-title?
 				     (car stencil-position))))
 
-		    
 		       (add-to-page stencil y)
 		       (if (and (ly:stencil? system-separator-stencil)
 				last-system
@@ -140,8 +138,7 @@ create offsets.
 						 (- y
 						    (cdr (ly:paper-system-staff-extents system))))))
 		       (set! last-system system)
-		       (set! last-y y)
-		       ))))
+		       (set! last-y y)))))
 
     (if #f
 	(display (list
@@ -163,19 +160,16 @@ create offsets.
 
     (ly:stencil-translate page-stencil (cons leftmargin 0))))
 
-
-
-
 ;;; optimal page breaking
 
 ;;; This is not optimal page breaking, this is optimal distribution of
 ;;; lines over pages; line breaks are a given.
 
-					; TODO:
-					;
-					; - density scoring
-					; - separate function for word-wrap style breaking?
-					; - raggedbottom? raggedlastbottom? 
+;; TODO:
+;;
+;; - density scoring
+;; - separate function for word-wrap style breaking?
+;; - raggedbottom? raggedlastbottom? 
 
 (define-public (ly:optimal-page-breaks
 		lines paper-book)
@@ -203,12 +197,12 @@ is what have collected so far, and has ascending page numbers."
 	done))
 
   (define (combine-penalties force user best-paths)
-    (let* ((prev-force  (if (null? best-paths)
-			  0.0
-			  (node-force  (car best-paths))))
-	 (prev-penalty (if (null? best-paths)
+    (let* ((prev-force (if (null? best-paths)
 			   0.0
-			   (node-penalty (car best-paths))))
+			   (node-force (car best-paths))))
+	   (prev-penalty (if (null? best-paths)
+			     0.0
+			     (node-penalty (car best-paths))))
 	 (inter-system-space (ly:output-def-lookup paper 'betweensystemspace))
 	 (force-equalization-factor 0.3)
 	 (relative-force (/ force inter-system-space))
@@ -222,21 +216,18 @@ is what have collected so far, and has ascending page numbers."
 
   (define (space-systems page-height lines ragged?)
     (let* ((inter-system-space
-	  (ly:output-def-lookup paper 'betweensystemspace))
-	 (system-vector (list->vector
-			 (append lines
-				 (if (= (length lines) 1)
-				     '(#f)
-				     '()))))
-
+	    (ly:output-def-lookup paper 'betweensystemspace))
+	   (system-vector (list->vector
+			   (append lines
+				   (if (= (length lines) 1)
+				       '(#f)
+				       '()))))
 	 (staff-extents
 	  (list->vector
-	   (append  (map
-		     ly:paper-system-staff-extents
-		     lines)
-		    (if (= (length lines) 1)
-			'((0 .  0))
-			'()))))
+	   (append (map ly:paper-system-staff-extents lines)
+		   (if (= (length lines) 1)
+		       '((0 . 0))
+		       '()))))
 	 (real-extents
 	  (list->vector
 	   (append
@@ -249,7 +240,7 @@ is what have collected so far, and has ascending page numbers."
 	 (topskip (interval-end (vector-ref real-extents 0)))
 	 (space-left (- page-height
 			(apply + (map interval-length (vector->list real-extents)))))
-	 
+
 	 (space (- page-height
 		   topskip
 		   (-  (interval-start (vector-ref real-extents (1- no-systems))))))
@@ -259,7 +250,7 @@ is what have collected so far, and has ascending page numbers."
 	  (lambda (idx)
 	    (let* ((this-system-ext (vector-ref staff-extents idx))
 		 (next-system-ext (vector-ref staff-extents (1+ idx)))
-		 (fixed (max 0  (- (+ (interval-end next-system-ext)
+		 (fixed (max 0 (- (+ (interval-end next-system-ext)
 				      fixed-dist)
 				   (interval-start this-system-ext))))
 		 (title1? (and (vector-ref system-vector idx)
@@ -361,15 +352,15 @@ CURRENT-BEST is the best result sofar, or #f."
                            force user-penalty
 			   best-paths))
 
-	   
+
            (better? (or
                      (not current-best)
                      (< total-penalty (node-penalty current-best))))
            (new-best (if better?
 			 (make <optimally-broken-page-node>
-			   #:prev  (if (null? best-paths)
-				       #f
-				       (car best-paths))
+			   #:prev (if (null? best-paths)
+				      #f
+				      (car best-paths))
 			   #:lines current-lines
 			   #:pageno this-page-num
 			   #:force force
@@ -401,7 +392,6 @@ CURRENT-BEST is the best result sofar, or #f."
           (walk-paths (cdr done-lines) (cdr best-paths)
                       (cons (car done-lines) current-lines)
                       last? new-best)
-	  
 	  new-best)))
 
   (define (walk-lines done best-paths todo)
@@ -415,7 +405,7 @@ DONE."
 	       (last? (null? (cdr todo)))
 	       (next (walk-paths done best-paths (list this-line) last? #f)))
 
-					;	  (display "\n***************")
+	  ;; (display "\n***************")
 	  (walk-lines (cons this-line done)
 		      (cons next best-paths)
 		      (cdr todo)))))
@@ -433,10 +423,8 @@ DONE."
 		   "\nsystems " (map node-lines break-nodes)
 		   "\npenalties " (map node-penalty break-nodes)
 		   "\nconfigs " (map node-configuration break-nodes))))
-
     
-					; create stencils.
-    
+    ;; create stencils.
     (map (lambda (node)
 	   ((ly:output-def-lookup paper 'page-make-stencil)
 	    (node-lines node)
@@ -446,5 +434,3 @@ DONE."
 	    (node-page-number node)
 	    (eq? node best-break-node)))
 	 break-nodes)))
-
-
