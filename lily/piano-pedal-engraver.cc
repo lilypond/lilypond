@@ -461,7 +461,6 @@ Piano_pedal_engraver::typeset_all ()
       
       if (p->finished_bracket_p_)
 	{
-	  
 	  Grob * l = p->finished_bracket_p_->get_bound (LEFT);
 	  Grob * r = p->finished_bracket_p_->get_bound (RIGHT);      
 	  if (!r)

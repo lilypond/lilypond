@@ -359,7 +359,7 @@ System::pre_processing ()
     unsmob_grob (ly_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
-    progress_indication (_f ("Element count %d ",  element_count ()));
+    progress_indication (_f ("Grob count %d ",  element_count ()));
 
   
   for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))

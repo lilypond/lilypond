@@ -40,7 +40,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
 (grob-property-description 'align-dir dir? "Which side to align? -1: left side, 0: around center of width, 1: right side.")
 (grob-property-description 'alignment-done boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once).")
-(grob-property-description 'all-elements list? "list of all grobs in this line. Needed for protecting grobs from GC.")
+(grob-property-description 'all-elements grob-list? "list of all grobs in this line. Needed for protecting grobs from GC.")
 (grob-property-description 'arch-angle number? "turning angle of the hook of a system brace" )
 (grob-property-description 'arch-height number? "height of the hook of a system brace.")
 (grob-property-description 'arch-thick number? "thickness of the hook of system brace.")
@@ -60,7 +60,7 @@ attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 (grob-property-description 'axes list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
-(grob-property-description 'bars list? "list of barline pointers.")
+(grob-property-description 'bars grob-list? "list of barline pointers.")
 (grob-property-description 'bar-size-procedure procedure? "Procedure that computes the size of a bar line.")
 (grob-property-description 'base-shortest-duration moment?
 			   "Spacing is based on the shortest notes in a piece. Normally, pieces are spaced as if notes at least as short as this are present.")
@@ -79,7 +79,7 @@ This procedure is called (using dependency resolution) before line breaking, but
 (grob-property-description 'between-cols pair? "Where to attach a loose column to")
 (grob-property-description 'between-system-string string? "string
  to dump between two systems. Useful for forcing pagebreaks.")
-(grob-property-description 'bounded-by-me list? "list of spanners that have this
+(grob-property-description 'bounded-by-me grob-list? "list of spanners that have this
 column as start/begin point. Only columns that have grobs or act as bounds are spaced.")
 (grob-property-description 'bracket-thick number? "width of a system start bracket. .")
 (grob-property-description 'break-align-symbol symbol? "the index in the spacing table (symbol) of the to be aligned item.")
@@ -101,7 +101,7 @@ noteheads, to the vertically nearest outer notehead, divided by the
 square of the inner notes involved.")
 (grob-property-description 'collapse-height number? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
-(grob-property-description 'columns list? "list of grobs, typically containing paper-columns.")
+(grob-property-description 'columns grob-list? "list of grobs, typically containing paper-columns.")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
@@ -111,7 +111,7 @@ square of the inner notes involved.")
 
 (grob-property-description 'neutral-direction dir? "Where to go if we're on the neutral position of the staff (by default, the middle of the staff; see also grob-property neutral-position).  [Ross] has the following to say about this: Some engravers consider the middle line neutral, and take the option of using either up- or down-stems for notes that fall on it. However, more up-to-date engraving no longer permits an option; now a down-stem is always appropriate.")
 (grob-property-description 'neutral-position number? "Position (in half staff spaces) where to flip the direction of stems: by default, custodes above this position get their stems downwards; custodes below this position get their stems upwards.  A value of 0 designates the center of the staff.  Use property neutral-direction to control the behaviour of stems on the neutral position itself.  (Note: currently, neutral-position is supported only for custodes; for stems of note heads, neutral-position is currently fixed to 0, i.e. the middle of the staff.)")
-(grob-property-description 'dependencies list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
+(grob-property-description 'dependencies grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
 (grob-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
 (grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.
@@ -135,7 +135,7 @@ mean centre distance weighted per note
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
 (grob-property-description 'edge-widen pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
-(grob-property-description 'elements list? "list of grobs, type depending on the Grob where this is set in.")
+(grob-property-description 'elements grob-list? "list of grobs, type depending on the Grob where this is set in.")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
 (grob-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}.")
@@ -190,7 +190,7 @@ is used by @ref{note-collision-interface}.")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
-(grob-property-description 'items-worth-living list? "list of interesting items. If empty in a particular system, clear that system.")
+(grob-property-description 'items-worth-living grob-list? "list of interesting items. If empty in a particular system, clear that system.")
 (grob-property-description 'kern number? "amount of extra white space to add.
 
 For text,  this is `relative'(?) to the current alignment.
@@ -262,8 +262,8 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'no-spacing-rods boolean? "read from grobs: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM).")
 (grob-property-description 'no-stem-extend boolean? "should stem not be extended to middle staff line?.")
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
-(grob-property-description 'note-heads list? "List of note head grobs")
-(grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measuer rest.")
+(grob-property-description 'note-heads grob-list? "List of note head grobs")
+(grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measure rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
@@ -297,7 +297,7 @@ with this much space for the shortest duration. This is explessed in @code{spaci
 (grob-property-description 'shortest-playing-duration moment? "duration of the shortest playing in that column.")
 (grob-property-description 'shortest-starter-duration moment? "duration of the shortest notes that starts exactly in this column.")
 (grob-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
-(grob-property-description 'side-support-elements list? "the support, a list of grobs.")
+(grob-property-description 'side-support-elements grob-list? "the support, a list of grobs.")
 (grob-property-description 'slope number? "some kind of slope")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
 (grob-property-description 'solid boolean? "should porrectus be solidly filled?.")
@@ -326,7 +326,7 @@ terms of note head bounding box.")
 
 (grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity.")
 (grob-property-description 'stem-spacing-correction number? "optical correction amount.  [TODO: doco] ")
-(grob-property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+(grob-property-description 'stems grob-list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'support-head ly-grob? "the note head at
 one end of the stem.")
@@ -427,15 +427,15 @@ one of: line, dashed-line, trill or dotted-line.
 ;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; INTERNAL
 
-(grob-property-description 'left-neighbors list? " List of
+(grob-property-description 'left-neighbors grob-list? " List of
 spacing-wish grobs that are close to the current column.
 
 The closest spacing-wishes determine the actual distances between the
 columns.
 ")
-(grob-property-description 'right-neighbors list? "see left-neighbors")
-(grob-property-description 'left-items list? "")
-(grob-property-description 'right-items list? "")
+(grob-property-description 'right-neighbors grob-list? "see left-neighbors")
+(grob-property-description 'left-items grob-list? "")
+(grob-property-description 'right-items grob-list? "")
 
 (grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
 (grob-property-description 'font font-metric? "Cached font metric object")
@@ -450,7 +450,7 @@ columns.
 
 (grob-property-description 'accidental-grob ly-grob? "Accidental for this note.")
 
-(grob-property-description 'causes list? "list of cause objects.")
+(grob-property-description 'causes grob-list? "list of cause objects.")
 (grob-property-description 'flag-count number? "")
 (grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")
 (grob-property-description 'chord pair? "?")

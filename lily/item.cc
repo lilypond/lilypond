@@ -146,8 +146,7 @@ Item::handle_prebroken_dependencies ()
   if (original_l_)
     {
       set_break_subsititution (gh_int2scm (break_status_dir ()));
-      mutable_property_alist_ = do_break_substitution(original_l_->mutable_property_alist_);
-
+      mutable_property_alist_ = substitute_mutable_properties(original_l_->mutable_property_alist_);
     }
   
   /*
@@ -158,7 +157,6 @@ Item::handle_prebroken_dependencies ()
 
     handle break-visibility the item itself iso. breakstatusdir, so
     the function can do more complicated things.
-    
   */
   SCM vis = get_grob_property ("break-visibility");
   if (gh_procedure_p (vis))
