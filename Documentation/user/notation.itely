@@ -1181,7 +1181,7 @@ The command @code{\bar }@var{bartype} is a short cut for doing
 is set to a string, a bar line of that type is created.
 
 @cindex whichBar
-@cindex repeatCommands
+@cindex @code{repeatCommands}
 @cindex defaultBarType
 
 You are encouraged to use @code{\repeat} for repetitions.  See
