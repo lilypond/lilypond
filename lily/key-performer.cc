@@ -14,9 +14,7 @@
 class Key_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Key_performer ();
+  TRANSLATOR_DECLARATIONS(Key_performer);
   ~Key_performer ();
 
 protected:
@@ -28,8 +26,6 @@ private:
   Key_change_req* key_req_l_;
   Audio_key* audio_p_;
 };
-
-ADD_THIS_TRANSLATOR (Key_performer);
 
 Key_performer::Key_performer ()
 {
@@ -83,3 +79,4 @@ Key_performer::try_music (Music* req_l)
   return false;
 }
 
+ENTER_DESCRIPTION(Key_performer,"","","","","");

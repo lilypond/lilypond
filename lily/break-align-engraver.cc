@@ -25,13 +25,12 @@ protected:
   void add_column (SCM);
   
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Break_align_engraver ();
+  TRANSLATOR_DECLARATIONS(Break_align_engraver);
 };
 
 
 
-ADD_THIS_TRANSLATOR (Break_align_engraver);
+
 
 void
 Break_align_engraver::add_column (SCM smob)
@@ -87,7 +86,7 @@ Break_align_engraver::Break_align_engraver ()
 void
 Break_align_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Item * item_l = dynamic_cast <Item *> (inf.elem_l_))
+  if (Item * item_l = dynamic_cast <Item *> (inf.grob_l_))
     {
       if (item_l->empty_b (X_AXIS) || item_l->parent_l (X_AXIS))
 	return;
@@ -155,3 +154,9 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
       Axis_group_interface::add_element (group, item_l);
     }
 }
+ENTER_DESCRIPTION(Break_align_engraver,
+/* descr */       "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder",
+/* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
+/* acks  */       "grob-interface", // break-aligned-interface ?
+/* reads */       "breakAlignOrder",
+/* write */       "");

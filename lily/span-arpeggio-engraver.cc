@@ -22,9 +22,8 @@
 class Span_arpeggio_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Span_arpeggio_engraver ();
-
+  TRANSLATOR_DECLARATIONS(Span_arpeggio_engraver);
+  
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
@@ -45,9 +44,9 @@ void
 Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
     if (info.origin_trans_l_arr (this).size ()
-        && Arpeggio::has_interface (info.elem_l_))
+        && Arpeggio::has_interface (info.grob_l_))
     {
-      arpeggios_.push (info.elem_l_);
+      arpeggios_.push (info.grob_l_);
     }
 }
 
@@ -101,5 +100,11 @@ Span_arpeggio_engraver::stop_translation_timestep ()
   arpeggios_.clear ();
 }
 
-ADD_THIS_TRANSLATOR (Span_arpeggio_engraver);
 
+
+ENTER_DESCRIPTION(Span_arpeggio_engraver,
+/* descr */       "",
+/* creats*/       "Arpeggio",
+/* acks  */       "arpeggio-interface",
+/* reads */       "connectArpeggios",
+/* write */       "");

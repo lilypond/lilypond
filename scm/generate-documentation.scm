@@ -11,17 +11,13 @@
 ;;; Running LilyPond on this file generates the documentation
 
 
+(define load-files '("documentation-lib.scm"
+		     "engraver-documentation-lib.scm"
+		     "music-documentation-lib.scm"
+		     "backend-documentation-lib.scm"))
 
-;; We use ly-gulp because these files live in
-;;
-;;     PATH=$LILYPONDPREFIX/scm:<datadir>/scm
-;;
-(eval-string
- (apply string-append
- (map ly-gulp-file '("documentation-lib.scm"
-				"engraver-documentation-lib.scm"
-				"music-documentation-lib.scm"
-				"backend-documentation-lib.scm"))))
+(map load-from-path load-files)
+
 
 ;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
 ;;

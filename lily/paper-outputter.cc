@@ -123,6 +123,19 @@ Paper_outputter::output_scheme (SCM scm)
   dump_scheme (scm);
 }
 
+void flatten_write (SCM x, Paper_stream*ps)
+{
+  if (ly_pair_p (x))
+    {
+      flatten_write (ly_car (x),ps);
+      flatten_write (ly_cdr (x),ps);
+    }
+  else if (gh_string_p (x))
+    {
+      *ps  << String ( SCM_STRING_CHARS(x)) ;
+    }
+}
+
 
 /*
   UGH.
@@ -140,10 +153,7 @@ Paper_outputter::dump_scheme (SCM s)
   else
     {
       SCM result = scm_primitive_eval (s);
-      char *c=gh_scm2newstr (result, NULL);
-  
-      *stream_p_ << c;
-      free (c);
+      flatten_write (result, stream_p_);
     }
 }
 
@@ -153,8 +163,8 @@ Paper_outputter::output_scope (Scope *scope, String prefix)
   SCM al = scope->to_alist ();
   for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM k = gh_caar (s);
-      SCM v = gh_cdar (s);
+      SCM k = ly_caar (s);
+      SCM v = ly_cdar (s);
       String s = ly_symbol2string (k);
 
       

@@ -371,5 +371,5 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   Box b (Interval (0, w + sqrt (sqr(t/s) + sqr (t))),
 	 Interval (0, w * s));
 
-  return Molecule (b, slashnodot);
+  return Molecule (b, slashnodot); //  http://slashnodot.org
 }

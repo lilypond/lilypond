@@ -1,110 +1,11 @@
 
-(define (engraver-description name description created-elts properties)
-  (list name description created-elts properties)
-  )
-
-
-(define engraver-description-alist
-  (list
-   (cons
-    'Stem_engraver
-    (engraver-description
-     "Stem_engraver"
-     "Create stems and single-stem tremolos.  It also works together with
-the beam engraver for overriding beaming."
-     '(Stem StemTremolo)
-     '(tremoloFlags
-      stemLeftBeamCount
-      stemRightBeamCount    
-      )))
-   
-   (cons
-    'Hyphen_engraver
-    (engraver-description
-     "Hyphen_engraver"
-     "Create lyric hyphens"
-     '(LyricHyphen)
-     '(
-      )))
-
-   (cons
-    'Extender_engraver
-    (engraver-description
-     "Extender_engraver"
-     "Create lyric extenders"
-     '(LyricExtender)
-     '(
-      )))
-
-   
-   (cons
-    'Separating_line_group_engraver
-    (engraver-description
-     "Separating_line_group_engraver"
-     "Generates objects for computing spacing parameters."
-     '(SeparationItem SeparatingGroupSpanner)
-     '(
-      )))
-
-   (cons
-    'Axis_group_engraver
-    (engraver-description
-     "Axis_group_engraver"
-     "Group all objects created in this context in a VerticalAxisGroup spanner."
-     '(VerticalAxisGroup)
-     '(VerticalExtent MinimumVerticalExtent ExtraVerticalExtent)
-     ))
-
-   (cons
-    'Hara_kiri_engraver
-    (engraver-description
-     "Hara_kiri_engraver"
-     "Like Axis_group_engraver, but make a hara kiri spanner, and add
-interesting items (ie. note heads, lyric syllables and normal rests)"
-     '(HaraKiriVerticalGroup)
-     '()
-     ))
-
-   
-   (cons
-    'Local_key_engraver
-    (engraver-description
-     "Local_key_engraver"
-     "Make accidentals.  Catches note heads, ties and notices key-change
-   events.  Due to interaction with ties (which don't come together
-   with note heads), this needs to be in a context higher than Tie_engraver.
-   (FIXME)."
-     '(Accidentals)
-     '(
-      localKeySignature
-      forgetAccidentals
-      noResetKey
-      
-      )))
-
-   
-   (cons
-    'Volta_engraver
-    (engraver-description
-     "Volta_engraver"
-     "Make volta brackets"
-     '(VoltaBracket)
-     '(repeatCommands voltaSpannerDuration)
-     ))
-
-   (cons
-    'Clef_engraver
-    (engraver-description
-     "Clef_engraver"
-     "Determine and set reference point for pitches"
-     '(Clef OctavateEight)
-     '( clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility )))
-   
-   (cons
-    'A2_engraver
-    (engraver-description
-     "A2_engraver"
-     "Part combine engraver for orchestral scores.
+;;
+;; TODO: this should come from the C++ code, really.
+;;
+(define engraver-description-alist-old
+'((A2_engraver 
+  (name . "A2_engraver")
+  (description . "Part combine engraver for orchestral scores.
 
 The markings @emph{a2}, @emph{Solo} and @emph{Solo II}, are
 created by this engraver.  It also acts upon instructions of the part
@@ -113,424 +14,377 @@ slur and tie directions, always when both threads are not identical;
 up for the musicexpr called @code{one}, down for the musicexpr called
 @code{two}.
 
-"
-     '(TextScript)
-     '(
-      combineParts
-      noDirection
-      soloADue
-      soloText
-      soloIIText
-      aDueText
-      split-interval
-      unison
-      solo
-      unisilence
-      unirhythm
-      )))
+")
+  (grobs-created TextScript)
+  (interfaces-acked all)
+  (properties-read combineParts noDirection soloADue soloText soloIIText aDueText split-interval unison solo unisilence unirhythm)
+  )
+ (Arpeggio_engraver 
 
-   (cons
-    'Arpeggio_engraver
-    (engraver-description
-     "Arpeggio_engraver"
-     "Generate an Arpeggio from a Arpeggio_req"
-     '(Arpeggio)
-     '(
-      )))
+  (name . "Arpeggio_engraver")
+  (description . "Generate an Arpeggio from a Arpeggio_req")
+  (grobs-created Arpeggio)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Auto_beam_engraver 
 
-   (cons
-   'Auto_beam_engraver
-    (engraver-description
-     "Auto_beam_engraver"
-     "Generate beams based on measure characteristics and observed
+  (name . "Auto_beam_engraver")
+  (description . "Generate beams based on measure characteristics and observed
 Stems.  Uses beatLength, measureLength and measurePosition to decide
 when to start and stop a beam.  Overriding beaming is done through
 @ref{Stem_engraver} properties stemLeftBeamCount and
 stemRightBeamCount.
-"
-     '(
-       Beam)
-     '(
-      noAutoBeaming
-      autoBeamSettings)))
+")
+  (grobs-created Beam)
+  (interfaces-acked grob-interface)
+  (properties-read noAutoBeaming autoBeamSettings)
+  )
+ (Axis_group_engraver 
 
-   (cons
-    'Bar_engraver
-    (engraver-description
-     "Bar_engraver"
-     "Create barlines. This engraver is controlled through the
-@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point"
-     '(BarLine)
-     '(
-      whichBar
-      stavesFound
-      )))
+  (name . "Axis_group_engraver")
+  (description . "Group all objects created in this context in a VerticalAxisGroup spanner.")
+  (grobs-created VerticalAxisGroup)
+  (interfaces-acked grob-interface)
+  (properties-read VerticalExtent MinimumVerticalExtent ExtraVerticalExtent)
+  )
+ (Bar_engraver 
 
+  (name . "Bar_engraver")
+  (description . "Create barlines. This engraver is controlled through the
+@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point")
+  (grobs-created BarLine)
+  (interfaces-acked grob-interface)
+  (properties-read whichBar stavesFound)
+  )
+ (Bar_number_engraver 
 
-   (cons
-    'Bar_number_engraver
-    (engraver-description
-     "Bar_number_engraver"
-     "A bar number is created whenever measurePosition is zero. It is
-put on top of all staves, and appears only at  left side of the staff."
-     '(BarNumber)
-     '(
-      currentBarNumber
-      )))
+  (name . "Bar_number_engraver")
+  (description . "A bar number is created whenever measurePosition is zero. It is
+put on top of all staves, and appears only at  left side of the staff.")
+  (grobs-created BarNumber)
+  (interfaces-acked grob-interface)
+  (properties-read currentBarNumber)
+  )
+ (Beam_engraver 
 
+  (name . "Beam_engraver")
+  (description . "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
+printed with flags instead of beams.")
+  (grobs-created Beam)
+  (interfaces-acked grob-interface)
+  (properties-read beamMelismaBusy)
+  )
+ (Break_align_engraver 
 
-   (cons
-    'Beam_engraver
-    (engraver-description
-     "Beam_engraver"
-     "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
-    printed with flags instead of beams."
-     '(Beam)
-     '(
-      beamMelismaBusy
-      )))
+  (name . "Break_align_engraver")
+  (description . "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder")
+  (grobs-created BreakAlignment BreakAlignGroup LeftEdge)
+  (interfaces-acked grob-interface)
+  (properties-read breakAlignOrder)
+  )
+ (Breathing_sign_engraver 
 
-   (cons
-    'Break_align_engraver
-    (engraver-description
-     "Break_align_engraver"
-     "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder"
-     '(BreakAlignment BreakAlignGroup LeftEdge)
-     '(
-      breakAlignOrder
-      
-      )))
+  (name . "Breathing_sign_engraver")
+  (description . "")
+  (grobs-created BreathingSign)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Chord_name_engraver 
 
+  (name . "Chord_name_engraver")
+  (description . "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
+and generate the appropriate chordname.")
+  (grobs-created ChordName)
+  (interfaces-acked grob-interface)
+  (properties-read chordChanges)
+  )
+ (Chord_tremolo_engraver 
 
-   (cons
-    'Breathing_sign_engraver
-    (engraver-description
-     "Breathing_sign_engraver"
-     ""
-     '(BreathingSign)
-     '(
-      )))
+  (name . "Chord_tremolo_engraver")
+  (description . "Generates beams for  tremolo repeats.")
+  (grobs-created Beam)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Clef_engraver 
 
+  (name . "Clef_engraver")
+  (description . "Determine and set reference point for pitches")
+  (grobs-created Clef OctavateEight)
+  (interfaces-acked grob-interface)
+  (properties-read clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility)
+  )
+ (Collision_engraver 
 
-   (cons
-    'Chord_name_engraver
-    (engraver-description
-     "Chord_name_engraver"
-     "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
-and generate the appropriate chordname."
-     '(ChordName)
-     '(chordChanges)))
+  (name . "Collision_engraver")
+  (description . "")
+  (grobs-created NoteCollision)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Custos_engraver 
 
+  (name . "Custos_engraver")
+  (description . "")
+  (grobs-created Custos)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Dot_column_engraver 
 
-   (cons
-    'Chord_tremolo_engraver
-    (engraver-description
-     "Chord_tremolo_engraver"
-     "Generates beams for the \repeat X tremolo ... construct"
-     '(Beam)
-     '(
-      )))
-
-
-
-   (cons
-    'Collision_engraver
-    (engraver-description
-     "Collision_engraver"
-     ""
-     '(NoteCollision
-       )
-     '(
-      )))
-
-   (cons
-    'Custos_engraver
-    (engraver-description
-     "Custos_engraver"
-     ""
-     '(Custos)
-     '(
-      )))
-
-
-   (cons
-    'Dot_column_engraver
-    (engraver-description
-     "Dot_column_engraver"
-     " Engraves dots on dotted notes shifted to the right of the note.
+  (name . "Dot_column_engraver")
+  (description . " Engraves dots on dotted notes shifted to the right of the note.
 If omitted, then dots appear on top of the notes.
-"
-     '(DotColumn
-       )
-     '(
-      )))
+")
+  (grobs-created DotColumn)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Dynamic_engraver 
 
+  (name . "Dynamic_engraver")
+  (description . "")
+  (grobs-created DynamicLineSpanner DynamicText Hairpin TextSpanner)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Engraver_group_engraver 
 
-   (cons
-    'Dynamic_engraver
-    (engraver-description
-     "Dynamic_engraver"
-     ""
-     '(DynamicLineSpanner
-       DynamicText Hairpin
-       TextSpanner)
-     '(
-      )))
+  (name . "Engraver_group_engraver")
+  (description . "A group of engravers taken together")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Extender_engraver 
 
+  (name . "Extender_engraver")
+  (description . "Create lyric extenders")
+  (grobs-created LyricExtender)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Font_size_engraver
+  (name . "Font_size_engraver")
+  (description . "Puts fontSize into font-relative-size grob property.")
+  (grobs-created )
+  (interfaces-acked grob-interface)
+  (properties-read fontSize)
+  )
+ (Hara_kiri_engraver 
 
+  (name . "Hara_kiri_engraver")
+  (description . "Like Axis_group_engraver, but make a hara kiri spanner, and add
+interesting items (ie. note heads, lyric syllables and normal rests)
+")
+  (grobs-created HaraKiriVerticalGroup)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Hyphen_engraver 
 
+  (name . "Hyphen_engraver")
+  (description . "Create lyric hyphens")
+  (grobs-created LyricHyphen)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Instrument_name_engraver 
 
+  (name . "Instrument_name_engraver")
+  (description . " Prints the name of the instrument (specified by
+@code{Staff.instrument} and @code{Staff.instr})
+at the left of the
+staff.")
+  (grobs-created InstrumentName)
+  (interfaces-acked bar-line-interface dynamic-interface axis-group-interface)
+  (properties-read instrument instr)
+  )
+ (Key_engraver 
 
+  (name . "Key_engraver")
+  (description . "")
+  (grobs-created KeySignature)
+  (interfaces-acked grob-interface)
+  (properties-read keySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature)
+  )
+ (Local_key_engraver 
+  (name . "Local_key_engraver")
+  (description . "Make accidentals.  Catches note heads, ties and notices key-change
+events.  Due to interaction with ties (which don't come together
+with note heads), this needs to be in a context higher than Tie_engraver. FIXME")
+  (grobs-created Accidentals)
+  (interfaces-acked grob-interface)
+  (properties-read localKeySignature forgetAccidentals noResetKey)
+  )
+ (Lyric_engraver 
 
-   (cons
-    'Instrument_name_engraver
-    (engraver-description
-     "Instrument_name_engraver"
-     " Prints the name of the instrument (specified by
-    @code{Staff.instrument} and @code{Staff.instr}) at the left of the
-    staff."
-     '(InstrumentName)
-     '(
-      instrument
-      instr
-      )))
+  (name . "Lyric_engraver")
+  (description . "")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Lyric_phrasing_engraver 
 
-   (cons
-    'Engraver_group_engraver
-    (engraver-description
-     "Engraver_group_engraver"
-     "A group of engravers taken together"
-     '()
-     '(
-      )))
+  (name . "Lyric_phrasing_engraver")
+  (description . "")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read automaticPhrasing melismaEngraverBusy associatedVoice phrasingPunctuation)
+  )
+ (Mark_engraver 
 
-   (cons
-    'Key_engraver
-    (engraver-description
-     "Key_engraver"
-     ""
-     '(KeySignature
-       )
-     '( keySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature )))
+  (name . "Mark_engraver")
+  (description . "")
+  (grobs-created RehearsalMark)
+  (interfaces-acked grob-interface)
+  (properties-read rehearsalMark stavesFound)
+  )
+ (Melisma_engraver 
 
-   (cons 'Lyric_engraver
-	 (engraver-description
-	  "Lyric_engraver"
-	  ""
-	  '()
-	  '(
-	   ;; FIXME
-	   )))
+  (name . "Melisma_engraver")
+  (description . "")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy)
+  )
+ (Multi_measure_rest_engraver 
 
-   (cons 'Lyric_phrasing_engraver
-	 (engraver-description
-	  "Lyric_phrasing_engraver"
-	  ""
-	  '()
-	  '(
-	   automaticPhrasing
-
-	   melismaEngraverBusy
-	   associatedVoice
-	   phrasingPunctuation
-	   )))
-
-   (cons
-    'Mark_engraver
-    (engraver-description
-     "Mark_engraver"
-     ""
-     '(RehearsalMark)
-     '(
-
-      rehearsalMark
-      stavesFound
-      )))
-
-
-   (cons
-    'Melisma_engraver
-    (engraver-description
-     "Melisma_engraver"
-     ""
-     '()
-     '(
-
-      melismaBusy
-      slurMelismaBusy
-      tieMelismaBusy
-      beamMelismaBusy
-      )))
-
-
-   (cons
-    'Multi_measure_rest_engraver
-    (engraver-description
-     "Multi_measure_rest_engraver"
-     "Engraves multi-measure rests that are produced with @code{R}.  Reads
+  (name . "Multi_measure_rest_engraver")
+  (description . "Engraves multi-measure rests that are produced with @code{R}.  Reads
 measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
-   "
-     '(MultiMeasureRest)
-     '(currentBarNumber currentCommandColumn measurePosition
-      )))
+")
+  (grobs-created MultiMeasureRest)
+  (interfaces-acked grob-interface)
+  (properties-read currentBarNumber currentCommandColumn measurePosition)
+  )
+ (Note_head_line_engraver 
 
-   (cons
-    'Note_heads_engraver
-    (engraver-description
-     "Note_heads_engraver"
-     "Generate one or more noteheads from Music of type Note_req."
-     '(NoteHead Dots)
-     '(
-      )))
+  (name . "Note_head_line_engraver")
+  (description . "Engrave a line between two note heads, for example a glissando.
+If followVoice is set, staff switches also generate a line.")
+  (grobs-created Glissando VoiceFollower)
+  (interfaces-acked grob-interface)
+  (properties-read followVoice)
+  )
+ (Note_heads_engraver 
 
-   (cons
-    'Note_head_line_engraver
-    (engraver-description
-     "Note_head_line_engraver"
-     "Engrave a line between two note heads, for example a glissando.
-If followVoice is set, staff switches also generate a line."
-     '(Glissando VoiceFollower)
-     '(followVoice)))
+  (name . "Note_heads_engraver")
+  (description . "Generate one or more noteheads from Music of type Note_req.")
+  (grobs-created NoteHead Dots)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Note_name_engraver 
 
-   (cons
-    'Note_name_engraver
-    (engraver-description
-     "Note_name_engraver"
-     ""
-     '(NoteName)
-     '(
-      )))
+  (name . "Note_name_engraver")
+  (description . "")
+  (grobs-created NoteName)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Output_property_engraver 
 
-
-   (cons
-    'Output_property_engraver
-    (engraver-description
-     "Output_property_engraver"
-     "Interpret Music of Output_property type, and apply a function
-to any Graphic objects that satisfies the predicate."
-     '()
-     '(
-      )))
-
-
-   (cons
-    'Piano_pedal_engraver
-    (engraver-description
-     "Piano_pedal_engraver"
-     "Engrave piano pedal symbols."
-     '(SostenutoPedal SustainPedal UnaCordaPedal)
-     '(pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings
-      )))
-
-   (cons 
-    'Pitch_squash_engraver
-    (engraver-description
-     "Pitch_squash_engraver"
-     "Treat all pitches as middle C.  Note that the notes move, but
+  (name . "Output_property_engraver")
+  (description . "Interpret Music of Output_property type, and apply a function
+to any Graphic objects that satisfies the predicate.")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Percent_repeat_engraver
+  (name . "Percent_repeat_engraver")
+  (description . "Make beat, whole bar and double bar repeats.")
+  (grobs-created PercentRepeat RepeatSlash DoublePercentRepeat)
+  (interfaces-acked grob-interface)
+  (properties-read measureLength currentCommandColumn)
+  )
+ 
+ (Piano_pedal_engraver 
+  (name . "Piano_pedal_engraver")
+  (description . "Engrave piano pedal symbols.")
+  (grobs-created SostenutoPedal SustainPedal UnaCordaPedal)
+  (interfaces-acked rhythmic-head-interface stem-interface)
+  (properties-read pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings)
+  )
+ (Pitch_squash_engraver 
+  (name . "Pitch_squash_engraver")
+  (description . "Treat all pitches as middle C.  Note that the notes move, but
 the locations of accidentals stay the same. 
 Set the position field of all note heads to zero. This useful for
-making a single line staff that demonstrates the rhythm of a melody."
-     '()
-     '(
-      squashedPosition
-      )))
-   
-   (cons
-    'Porrectus_engraver
-    (engraver-description
-     "Porrectus_engraver"
-     "Join adjacent notes to a porrectus ligature."
-     '(Porrectus)
-     '(
-      )))
+making a single line staff that demonstrates the rhythm of a melody.")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read squashedPosition)
+  )
+ (Phrasing_slur_engraver
+  (name . "Phrasing_slur_engraver")
+  (description . "Print phrasing slurs. Similar to Slur_engraver")
+  (grobs-created PhrasingSlur)
+  (interfaces-acked grob-interface)
+  (properties-read slurBeginAttachment slurEndAttachment slurMelismaBusy)
+ )  
+ (Porrectus_engraver 
 
+  (name . "Porrectus_engraver")
+  (description . "Join adjacent notes to a porrectus ligature.")
+  (grobs-created Porrectus)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Property_engraver 
 
-   (cons
-    'Property_engraver
-    (engraver-description
-     "Property_engraver"
-"This is a engraver that converts \property settings into
+  (name . "Property_engraver")
+  (description . "This is a engraver that converts property settings into
 back-end grob-property settings. Example: Voice.stemLength will set
 #'length in all Stem objects.
 
-Due to CPU and memory requirements, the use of this engraver is deprecated."
-     '()
-     '(Generic_property_list)
-      ))
+Due to CPU and memory requirements, the use of this engraver is deprecated.")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read Generic_property_list)
+  )
+ (Repeat_acknowledge_engraver 
 
+  (name . "Repeat_acknowledge_engraver")
+  (description . "Acknowledge repeated music, and convert the contents of
+repeatCommands ainto an appropriate setting for whichBar")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read repeatCommands whichBar)
+  )
+ (Rest_collision_engraver 
 
-   (cons
-    'Repeat_acknowledge_engraver
-    (engraver-description
-     "Repeat_acknowledge_engraver"
-     
-     "Acknowledge repeated music, and convert the contents of
-repeatCommands ainto an appropriate setting for whichBar"
-     '()
-     '(
-      repeatCommands
-      whichBar
- 
-      )))
+  (name . "Rest_collision_engraver")
+  (description . "Handles collisions of rests.")
+  (grobs-created RestCollision)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Rest_engraver 
 
+  (name . "Rest_engraver")
+  (description . "")
+  (grobs-created Rest Dots)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Rhythmic_column_engraver 
 
-   (cons
-    'Rest_collision_engraver
-    (engraver-description
-     "Rest_collision_engraver"
-     "Handles collisions of rests."
-     '(RestCollision)
-     '(
-      )))
+  (name . "Rhythmic_column_engraver")
+  (description . "Generates NoteColumn, an objects that groups stems, noteheads and rests.")
+  (grobs-created NoteColumn)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Score_engraver 
 
+  (name . "Score_engraver")
+  (description . "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)
 
-   (cons
-    'Rest_engraver
-    (engraver-description
-     "Rest_engraver"
-     ""
-      '(Rest Dots)
-   '(
-      )))
-
-
-   (cons
-    'Rhythmic_column_engraver
-    (engraver-description
-     "Rhythmic_column_engraver"
-     "Generates NoteColumn, an objects that groups stems, noteheads and rests."
-     '(NoteColumn)
-     '(
-      )))
-
-
-   (cons
-    'Script_column_engraver
-    (engraver-description
-     "Script_column_engraver"
-     ""
-     '(ScriptColumn)
-     '(
-      )))
-
-
-   (cons
-    'Script_engraver
-    (engraver-description
-     "Script_engraver"
-     "    Handles note ornaments generated by @code{\script}.  
-"
-     '(Script)
-     '(
-      scriptDefinitions 
-      scriptHorizontal
-      )))
-
-   (cons
-    'Score_engraver
-    (engraver-description
-     "Score_engraver"
-     "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)
 
 This engraver decides whether a column is breakable. The default is
 that a column is always breakable. However, when every Bar_engraver
@@ -539,308 +393,243 @@ Score_engraver::forbid_breaks to stop linebreaks.  In practice, this
 means that you can make a breakpoint by creating a barline (assuming
 that there are no beams or notes that prevent a breakpoint.)
 
-"
-     '(LineOfScore PaperColumn NonMusicalPaperColumn)
-     '(
-      currentMusicalColumn
-      currentCommandColumn
-      )))
-   
-   (cons 'Skip_req_swallow_translator
-	 (engraver-description
-	  "Skip_req_swallow_translator"
-	  ""
-	  '()
-	  '(
-	   ;; FIXME
-	   )))
 
-   (cons
-    'Slur_engraver
-    (engraver-description
-     "Slur_engraver"
-     "Build slurs from Slur_reqs"
-     '(Slur)
+")
+  (grobs-created LineOfScore PaperColumn NonMusicalPaperColumn)
+  (interfaces-acked grob-interface)
+  (properties-read currentMusicalColumn currentCommandColumn)
+  )
+ (Script_column_engraver 
 
-     '(
-      slurBeginAttachment
-      slurEndAttachment
-      slurMelismaBusy
-      )))
+  (name . "Script_column_engraver")
+  (description . "")
+  (grobs-created ScriptColumn)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Script_engraver 
 
+  (name . "Script_engraver")
+  (description . "    Handles note ornaments generated by @code{\\script}.  
+")
+  (grobs-created Script)
+  (interfaces-acked grob-interface)
+  (properties-read scriptDefinitions scriptHorizontal)
+  )
+ (Separating_line_group_engraver 
 
-   (cons
-    'Spacing_engraver
-    (engraver-description
-     "Spacing_engraver"
-     "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  "
-     '(SpacingSpanner)
-     '(
-      )))
+  (name . "Separating_line_group_engraver")
+  (description . "Generates objects for computing spacing parameters.")
+  (grobs-created SeparationItem SeparatingGroupSpanner)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Skip_req_swallow_translator 
 
+  (name . "Skip_req_swallow_translator")
+  (description . "")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Slur_engraver 
 
-   (cons
-    'Span_arpeggio_engraver
-    (engraver-description
-     "Span_arpeggio_engraver"
-     ""
-     '(Arpeggio)
-     '(
-      connectArpeggios
-      )))
+  (name . "Slur_engraver")
+  (description . "Build slurs from Slur_reqs")
+  (grobs-created Slur)
+  (interfaces-acked grob-interface)
+  (properties-read slurBeginAttachment slurEndAttachment slurMelismaBusy)
+  )
+ (Spacing_engraver 
 
+  (name . "Spacing_engraver")
+  (description . "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ")
+  (grobs-created SpacingSpanner)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Span_arpeggio_engraver 
 
-   (cons
-    'Span_bar_engraver
-    (engraver-description
-     "Span_bar_engraver"
-     "This engraver makes cross-staff barlines: It catches all normal
-bar lines, and draws a single span-bar across them."
+  (name . "Span_arpeggio_engraver")
+  (description . "")
+  (grobs-created Arpeggio)
+  (interfaces-acked grob-interface)
+  (properties-read connectArpeggios)
+  )
+ (Span_bar_engraver 
 
-     '(SpanBar)
-     '(
-      )))
+  (name . "Span_bar_engraver")
+  (description . "This engraver makes cross-staff barlines: It catches all normal
+bar lines, and draws a single span-bar across them.")
+  (grobs-created SpanBar)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Staff_symbol_engraver 
 
+  (name . "Staff_symbol_engraver")
+  (description . "create the constellation of five (default)
+staff lines.")
+  (grobs-created Sta
+		 ffSymbol)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Stanza_number_engraver 
 
-   (cons
-    'Staff_symbol_engraver
-    (engraver-description
-     "Staff_symbol_engraver"
-     "create the constellation of five (default) staff lines."
-     '(StaffSymbol)
-     '(
-      )))
+  (name . "Stanza_number_engraver")
+  (description . "")
+  (grobs-created StanzaNumber)
+  (interfaces-acked grob-interface)
+  (properties-read stz stanza)
+  )
+ (Stem_engraver 
 
+  (name . "Stem_engraver")
+  (description . "Create stems and single-stem tremolos.  It also works together with
+the beam engraver for overriding beaming.")
+  (grobs-created Stem StemTremolo)
+  (interfaces-acked rhythmic-head-interface)
+  (properties-read tremoloFlags stemLeftBeamCount stemRightBeamCount)
+  )
+ (System_start_delimiter_engraver 
 
-   (cons
-    'Stanza_number_engraver
-    (engraver-description
-     "Stanza_number_engraver"
-     ""
-     '(StanzaNumber
-       )
-     '(
-      stz
-      stanza
-      )))
+  (name . "System_start_delimiter_engraver")
+  (description . "creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner")
+  (grobs-created SystemStartBar SystemStartBrace SystemStartBracket)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Text_engraver 
 
+  (name . "Text_engraver")
+  (description . "Create text-scripts")
+  (grobs-created TextScript)
+  (interfaces-acked grob-interface)
+  (properties-read scriptHorizontal textNonEmpty)
+  )
+ (Text_spanner_engraver 
 
+  (name . "Text_spanner_engraver")
+  (description . "Create text spanner from a  Span_req ")
+  (grobs-created TextSpanner)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Thread_devnull_engraver 
 
-   (cons
-    'System_start_delimiter_engraver
-    (engraver-description
-     "System_start_delimiter_engraver"
-     "creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner"
-     '(SystemStartBar SystemStartBrace SystemStartBracket)
-     '(
-      )))
-
-
-   (cons
-    'Text_engraver
-    (engraver-description
-     "Text_engraver"
-     "Create text-scripts"
-     '(TextScript)
-     '(
-      scriptHorizontal
-      textNonEmpty
-      )))
-
-
-   (cons
-    'Text_spanner_engraver
-    (engraver-description
-     "Text_spanner_engraver"
-     "Create text spanner from a  Span_req "
-     '(TextSpanner)
-     '(
-      )))
-
-
-   (cons
-    'Thread_devnull_engraver
-    (engraver-description
-     "Thread_devnull_engraver"
-     "Kill elements whenever we are Voice called `two' and either
+  (name . "Thread_devnull_engraver")
+  (description . "Kill elements whenever we are Voice called `two' and either
 unison, unisilence or soloADue is set.@footnote{On unix systems, the
 file @file{/dev/null} is special device: anything written to it is
 discarded.}. This engraver works closely together with the part
 combiner.  When the part combiner notices that two threads are
 identical, it tells the @code{Thread_devnull_engraver} to discard
 everything in the second thread.
-"
-
-     '()
-     '()))
-
-
-   (cons
-    'Tie_engraver
-    (engraver-description
-     "Tie_engraver"
-     "Generate ties between noteheads of equal pitch."
-     '(Tie TieColumn)
-     '(sparseTies
-      tieMelismaBusy
-      )))
-
-
-   (cons
-    'Time_signature_engraver
-    (engraver-description
-     "Time_signature_engraver"
-     "Create a TimeSignature whenever @code{timeSignatureFraction} changes"
-     '(TimeSignature)
-     '(
-      )))
-
-
-   (cons
-    'Timing_engraver
-    (engraver-description
-     "Timing_engraver"
-     " Responsible for synchronizing timing information from staves. 
-    Normally in @code{Score}.  In order to create polyrhythmic music,
-    this engraver should be removed from @code{Score} and placed in
-    @code{Staff}."
-     '()
-     '(
-      timeSignatureFraction
-      barCheckNoSynchronize
-      barNonAuto
-      whichBar      
-      barAlways
-      defaultBarType
-      skipBars
-      timing
-      oneBeat
-      measureLength
-      measurePosition 
-      currentBarNumber
-      )))
-
-
-   (cons
-    'Tuplet_engraver
-    (engraver-description
-     "Tuplet_engraver"
-     "Catch Time_scaled_music and generate appropriate bracket  "
-     '( TupletBracket)
-     '(tupletNumberFormatFunction tupletSpannerDuration tupletInvisible)))
-
-
-   (cons
-    'Vertical_align_engraver
-    (engraver-description
-     "Vertical_align_engraver"
-     "Catch Vertical axis groups and stack them."
-     '(VerticalAlignment)
-     '(
-      )))
-
-
-   (cons
-    'Voice_devnull_engraver
-    (engraver-description
-     "Voice_devnull_engraver"
-     "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set."
-     '()
-     '(
-      )))
-   ))
-
-
-(set! engraver-description-alist
-      (sort engraver-description-alist alist<?))
-
-(define context-description-alist
-  '(
-(Grace . "
-    The context for handling grace notes.  It used to be instantiated
-    automatically when you use @code{\grace}.  Basically, it is an
-    `embedded' miniature of the Score context.  Since this context
-    needs special interaction with the rest of LilyPond, you should
-    not explicitly instantiate it.
-
-   DEPRECATED.
 ")
-(LyricsVoice . "
-    Corresponds to a voice with lyrics.  Handles the printing of a
-    single line of lyrics.
-")
-(Thread . "
-    Handles note heads, and is contained in the Voice context.  You
-    have to instantiate this explicitly if you want to adjust the
-    style of individual note heads.
-")
-(Voice . "
-    Corresponds to a voice on a staff.  This context handles the
-    conversion of dynamic signs, stems, beams, super- and subscripts,
-    slurs, ties, and rests.
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Tie_engraver 
 
-    You have to instantiate this explicitly if you want to have
-    multiple voices on the same staff.")
+  (name . "Tie_engraver")
+  (description . "Generate ties between noteheads of equal pitch.")
+  (grobs-created Tie TieColumn)
+  (interfaces-acked grob-interface)
+  (properties-read sparseTies tieMelismaBusy)
+  )
+ (Time_signature_engraver 
 
-(ChordNamesVoice . "
-    A voice with chord names.  Handles printing of a line of chord
-    names.")
+  (name . "Time_signature_engraver")
+  (description . "Create a TimeSignature whenever @code{timeSignatureFraction} changes")
+  (grobs-created TimeSignature)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Timing_engraver 
 
-(ChordNames . "
-    Typesets chord names.  Can contain @code{ChordNamesVoice}
-    contexts.")
+  (name . "Timing_engraver")
+  (description . " Responsible for synchronizing timing information from staves. 
+Normally in @code{Score}.  In order to create polyrhythmic music,
+this engraver should be removed from @code{Score} and placed in
+@code{Staff}.")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read timeSignatureFraction barCheckNoSynchronize barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber)
+  )
+ (Tuplet_engraver 
 
-(Lyrics . "
-    Typesets lyrics.  It can contain @code{LyricsVoice} contexts.
-")
-(Staff . "
-    Handles clefs, bar lines, keys, accidentals.  It can contain
-    @code{Voice} contexts.
-")
-(RhythmicStaff . "
-    A context like @code{Staff} but for printing rhythms.  Pitches are
-    ignored; the notes are printed on one line.  It can contain
-    @code{Voice} contexts.
-")
-(GrandStaff . "
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
-    brace on the left side, grouping the staves together.  The bar
-    lines of the contained staves are connected vertically.  It can
-    contain @code{Staff} contexts.")
+  (name . "Tuplet_engraver")
+  (description . "Catch Time_scaled_music and generate appropriate bracket  ")
+  (grobs-created TupletBracket)
+  (interfaces-acked grob-interface)
+  (properties-read tupletNumberFormatFunction tupletSpannerDuration tupletInvisible)
+  )
+ (Vertical_align_engraver 
 
-(PianoStaff . "
-    Just like @code{GrandStaff} but with @code{minVerticalAlign} set
-    equal to @code{maxVerticalAlign} so that interstaff beaming and
-    slurring can be used.")
+  (name . "Vertical_align_engraver")
+  (description . "Catch Vertical axis groups and stack them.")
+  (grobs-created VerticalAlignment)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Voice_devnull_engraver 
 
-(StaffGroup . "
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
-    bracket on the left side, grouping the staves together.  The bar
-    lines of the contained staves are connected vertically.  It can
-    contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
-    @code{Lyrics} contexts.
-")
-(ChoirStaff . "
-    Identical to @code{StaffGroup} except that the contained staves
-    are not connected vertically.
-")
-(Score . "
-    This is the top level notation context.  No other context can
-    contain a @code{Score} context.  This context handles the
-    administration of time signatures.  It also makes sure that items
-    such as clefs, time signatures, and key-signatures are aligned
-    across staves.  It can contain @code{Lyrics}, @code{Staff},
-    @code{RhythmicStaff}, @code{GrandStaff}, @code{StaffGroup}, and
-    @code{ChoirStaff} contexts.
+  (name . "Voice_devnull_engraver")
+  (description . "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set.")
+  (grobs-created)
+  (interfaces-acked grob-interface)
+  (properties-read)
+  )
+ (Volta_engraver 
 
-    You cannot explicitly instantiate a Score context (since it is
-    not contained in any other context).  It is instantiated
-    automatically when an output definition (a @code{\score} or
-    @code{\paper} block) is processed.
-")
+  (name . "Volta_engraver")
+  (description . "Make volta brackets")
+  (grobs-created VoltaBracket)
+  (interfaces-acked grob-interface)
+  (properties-read repeatCommands voltaSpannerDuration)
+  )
+ )
 )
-)
+(define (alist<? x y)
+  (string<? (symbol->string (car x))
+	    (symbol->string (car y))))
 
-(set! context-description-alist
-      (sort context-description-alist alist<?))
+;(set! engraver-description-alist
+;      (sort engraver-description-alist alist<?))
+
+
+(define (humane-listify l)
+  (cond
+   ((null? l) "")
+   ((null? (cdr l)) (symbol->string (car l)))
+   (else (string-append (symbol->string (car l)) " " (human-listify (cdr l)))
+	 
+	 )))
+   
+(define (print-entry x)
+  (define (mungle x)
+    (string-append (string-downcase (regexp-substitute/global #f "_" x 'pre "-" 'post)) ".cc"))
+  
+  (let ((cop (open-file (mungle (car x)) "a")))
+    (define (w y)
+      (write y cop))
+    (define (d y)
+      (display y cop))
+    
+    (d "ENTER_DESCRIPTION(")
+    (d (car x))
+    (d ",\n/* descr */       ")
+    (w (cdr (assoc 'description (cdr x))))
+    (d ",\n/* creats*/       ")
+    (w (human-listify (cdr (assoc 'grobs-created (cdr x)))))
+    (d ",\n/* acks  */       ")
+    (w (human-listify (cdr (assoc 'interfaces-acked (cdr x)))))
+    (d ",\n/* reads */       ")	
+    (w (human-listify (cdr (assoc 'properties-read (cdr x)))))
+    (d ",\n/* write */       \"\");\n")
+))
+
+;(map print-entry engraver-description-alist)
 

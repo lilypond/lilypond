@@ -159,7 +159,8 @@ verbose_p = 0
 #
 environment = {
 	'MFINPUTS' : datadir + '/mf' + ':',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + os.getcwd() + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:' + '.:'
+		+ os.getcwd() + ':',
 	'TFMFONTS' : datadir + '/tfm' + ':',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
@@ -777,6 +778,8 @@ if files and files[0] != '-':
 		os.chdir (outdir)
 		cp_to_dir (PK_PATTERN, tmpdir)
 
+	# to be sure, add tmpdir *in front* of inclusion path.
+	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
 	os.chdir (tmpdir)
 	
 	if lily_p:

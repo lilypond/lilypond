@@ -87,17 +87,17 @@ Local_key_item::after_line_breaking (SCM smob)
   for (SCM s = accs;
 	gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM opts = gh_cdar (s);
+      SCM opts = ly_cdar (s);
 
       SCM t = scm_memq (ly_symbol2scm ("tie-break-reminder"), opts);
       if (t != SCM_BOOL_F)
 	{
-	  Grob *tie = unsmob_grob (gh_cadr (t));
+	  Grob *tie = unsmob_grob (ly_cadr (t));
 	  Spanner *sp = dynamic_cast<Spanner*> (tie);
 	  if (!sp->original_l_)
 	    {
 	      /* there should be a better way to delete part of me */
-	      scm_set_car_x (s, scm_list_n (gh_caar (s),
+	      scm_set_car_x (s, scm_list_n (ly_caar (s),
 					 ly_symbol2scm ("deleted"),
 					 SCM_UNDEFINED));
 	      me->set_grob_property ("molecule", SCM_EOL);
@@ -144,8 +144,8 @@ Local_key_item::brew_molecule (SCM smob)
   for (SCM s = accs;
 	gh_pair_p (s); s = ly_cdr (s))
     {
-      Pitch p (*unsmob_pitch (gh_caar (s)));
-      SCM opts = gh_cdar (s);
+      Pitch p (*unsmob_pitch (ly_caar (s)));
+      SCM opts = ly_cdar (s);
       
       if (scm_memq (ly_symbol2scm ("deleted"), opts) != SCM_BOOL_F)
 	continue;

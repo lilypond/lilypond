@@ -24,8 +24,7 @@ class Piano_pedal_performer : public Performer
   };
 
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Piano_pedal_performer ();
+  TRANSLATOR_DECLARATIONS(Piano_pedal_performer);
   ~Piano_pedal_performer ();
   
 protected:
@@ -39,8 +38,6 @@ private:
   Link_array<Audio_piano_pedal> audio_p_arr_;
   Pedal_info * info_alist_;
 };
-
-ADD_THIS_TRANSLATOR (Piano_pedal_performer);
 
 Piano_pedal_performer::Piano_pedal_performer ()
 {
@@ -142,3 +139,4 @@ Piano_pedal_performer::try_music (Music* r)
     }
   return false;
 }
+ENTER_DESCRIPTION (Piano_pedal_performer, "","","","","" );

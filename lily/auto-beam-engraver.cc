@@ -26,10 +26,7 @@
  */
 class Auto_beam_engraver : public Engraver
 {
-public:
-  Auto_beam_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
-
+  TRANSLATOR_DECLARATIONS(Auto_beam_engraver);
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -70,7 +67,7 @@ private:
   Beaming_info_list*finished_grouping_p_;
 };
 
-ADD_THIS_TRANSLATOR (Auto_beam_engraver);
+
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
@@ -324,7 +321,6 @@ Auto_beam_engraver::start_translation_timestep ()
 void
 Auto_beam_engraver::stop_translation_timestep ()
 {
-  
   typeset_beam ();
 }
 
@@ -344,23 +340,23 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
   if (stem_l_arr_p_)
     {
-      if (Beam::has_interface (info.elem_l_))
+      if (Beam::has_interface (info.grob_l_))
 	{
 	  end_beam ();
 	}
-      else if (Bar::has_interface (info.elem_l_))
+      else if (Bar::has_interface (info.grob_l_))
 	{
 	  end_beam ();
 	}
-      else if (Rest::has_interface (info.elem_l_))
+      else if (Rest::has_interface (info.grob_l_))
 	{
 	  end_beam ();
 	}
     }
   
-  if (Stem::has_interface (info.elem_l_))
+  if (Stem::has_interface (info.grob_l_))
     {
-      Item* stem_l = dynamic_cast<Item *> (info.elem_l_);
+      Item* stem_l = dynamic_cast<Item *> (info.grob_l_);
 				       
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);
       if (!rhythmic_req)
@@ -474,3 +470,14 @@ Auto_beam_engraver::create_grobs ()
         auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
   count_i_ = count_i_ + 1;
 }
+ENTER_DESCRIPTION(Auto_beam_engraver,
+/* descr */       "Generate beams based on measure characteristics and observed
+Stems.  Uses beatLength, measureLength and measurePosition to decide
+when to start and stop a beam.  Overriding beaming is done through
+@ref{Stem_engraver} properties stemLeftBeamCount and
+stemRightBeamCount.
+",
+/* creats*/       "Beam",
+/* acks  */       "stem-interface rest-interface beam-interface bar-line-interface",
+/* reads */       "noAutoBeaming autoBeamSettings",
+/* write */       "");

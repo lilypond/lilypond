@@ -28,11 +28,11 @@ protected:
   virtual Spanner* get_spanner_p () const;
   virtual void add_element (Grob*) ;
 public:  
-  VIRTUAL_COPY_CONS (Translator);
-  Axis_group_engraver ();
+TRANSLATOR_DECLARATIONS(
+  Axis_group_engraver );
 };
 
-ADD_THIS_TRANSLATOR (Axis_group_engraver);
+
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -94,7 +94,7 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
-  elts_.push (i.elem_l_);
+  elts_.push (i.grob_l_);
 }
 
 /*
@@ -135,7 +135,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Hara_kiri_engraver);
 };
 
 void
@@ -157,10 +157,27 @@ void
 Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
-  if (Rhythmic_head::has_interface (i.elem_l_)
-      || i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (Rhythmic_head::has_interface (i.grob_l_)
+      || i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.elem_l_);
+      Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.grob_l_);
     }
 }
-ADD_THIS_TRANSLATOR (Hara_kiri_engraver);
+
+Hara_kiri_engraver::Hara_kiri_engraver(){}
+
+ENTER_DESCRIPTION(Hara_kiri_engraver,
+/* descr */       "Like Axis_group_engraver, but make a hara kiri spanner, and add
+interesting items (ie. note heads, lyric syllables and normal rests)
+",
+/* creats*/       "HaraKiriVerticalGroup",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");
+
+ENTER_DESCRIPTION(Axis_group_engraver,
+/* descr */       "Group all objects created in this context in a VerticalAxisGroup spanner.",
+/* creats*/       "VerticalAxisGroup",
+/* acks  */       "grob-interface",
+/* reads */       "VerticalExtent MinimumVerticalExtent ExtraVerticalExtent",
+/* write */       "");

@@ -18,9 +18,7 @@ class Score_performer:
   public Performer_group_performer, public Global_translator 
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Score_performer ();
+  TRANSLATOR_DECLARATIONS(Score_performer);
   ~Score_performer ();
   Performance *performance_p_;
 

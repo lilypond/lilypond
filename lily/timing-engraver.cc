@@ -28,8 +28,7 @@ protected:
   virtual void process_music ();
 
 public:
-  Timing_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Timing_engraver);
 };
 
 
@@ -38,7 +37,7 @@ Timing_engraver::Timing_engraver ()
   last_moment_.main_part_ = Rational (-1);
 }
 
-ADD_THIS_TRANSLATOR (Timing_engraver);
+
 
 void
 Timing_engraver::start_translation_timestep ()
@@ -90,3 +89,13 @@ Timing_engraver::process_music ()
 {
   Timing_translator::process_music ();
 }
+
+ENTER_DESCRIPTION(Timing_engraver,
+/* descr */       " Responsible for synchronizing timing information from staves. 
+Normally in @code{Score}.  In order to create polyrhythmic music,
+this engraver should be removed from @code{Score} and placed in
+@code{Staff}.",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "timeSignatureFraction barCheckNoSynchronize barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
+/* write */       "");

@@ -166,8 +166,8 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   SCM e = ly_assoc_chain (ly_symbol2scm ("extent"), p);
   if (gh_pair_p (e) && ly_number_pair_p (ly_cdr (e)))
     {
-      extent = Interval (gh_scm2double (gh_cadr (e)) * staff_space,
-		       gh_scm2double (gh_cddr (e)) * staff_space);
+      extent = Interval (gh_scm2double (ly_cadr (e)) * staff_space,
+		       gh_scm2double (ly_cddr (e)) * staff_space);
       extent_b = true;
     }
 
@@ -201,7 +201,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 	
       SCM next_p = SCM_EOL;
       if (gh_pair_p (ly_car (text)))
-	next_p = scm_list_n (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
+	next_p = scm_list_n (gh_call2 (f, sheet, ly_caar (text)), SCM_UNDEFINED);
       SCM next_k = ly_assoc_chain (ly_symbol2scm ("kern"), next_p);
       Real next_kern = kern[axis];
       if (gh_pair_p (next_k) && gh_number_p (ly_cdr (next_k)))

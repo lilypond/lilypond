@@ -200,7 +200,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 
   for (SCM s = fonts ; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM qlist = gh_caar (s);
+      SCM qlist = ly_caar (s);
 
       if (name != SCM_BOOL_F)
 	{
@@ -231,7 +231,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 	}
 
       
-      SCM qname = gh_cdar (s);
+      SCM qname = ly_cdar (s);
       return qname;
     }
 

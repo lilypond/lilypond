@@ -31,8 +31,7 @@ protected:
   virtual void create_grobs ();
 
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Slur_engraver ();
+  TRANSLATOR_DECLARATIONS(Slur_engraver);
 };
 
 Slur_engraver::Slur_engraver ()
@@ -94,9 +93,9 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Note_column::has_interface (info.elem_l_))
+  if (Note_column::has_interface (info.grob_l_))
     {
-      Grob *e =info.elem_l_;
+      Grob *e =info.grob_l_;
       for (int i = 0; i < slur_l_stack_.size (); i++)
 	Slur::add_column (slur_l_stack_[i], e);
       for (int i = 0; i < end_slur_l_arr_.size (); i++)
@@ -195,4 +194,10 @@ Slur_engraver::start_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Slur_engraver);
+
+ENTER_DESCRIPTION(Slur_engraver,
+/* descr */       "Build slurs from Slur_reqs",
+/* creats*/       "Slur",
+/* acks  */       "note-column-interface",
+/* reads */       "slurBeginAttachment slurEndAttachment slurMelismaBusy",
+/* write */       "");

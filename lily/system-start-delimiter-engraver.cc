@@ -19,8 +19,7 @@
 class System_start_delimiter_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  System_start_delimiter_engraver ();
+  TRANSLATOR_DECLARATIONS(System_start_delimiter_engraver);
 
 protected:
   Spanner * delim_;
@@ -29,22 +28,22 @@ protected:
   virtual void finalize ();
 };
 
-ADD_THIS_TRANSLATOR (System_start_delimiter_engraver);
+
 
 void
 System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Staff_symbol::has_interface (inf.elem_l_))
+  if (Staff_symbol::has_interface (inf.grob_l_))
     {
       /*
 	don't add as Axis_group_interface::add_element (delim_,),
 	because that would set the parent as well */
 	  
-      Pointer_group_interface::add_element (delim_, "elements", inf.elem_l_);
+      Pointer_group_interface::add_element (delim_, "elements", inf.grob_l_);
     }
-  else if (System_start_delimiter::has_interface (inf.elem_l_))
+  else if (System_start_delimiter::has_interface (inf.grob_l_))
     {
-      SCM gl = inf.elem_l_->get_grob_property ("glyph");
+      SCM gl = inf.grob_l_->get_grob_property ("glyph");
       SCM my_gl = delim_->get_grob_property ("glyph");
 
       /*
@@ -52,13 +51,13 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
        */
       if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
 	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
-	inf.elem_l_->translate_axis (-0.8, X_AXIS); // ugh
+	inf.grob_l_->translate_axis (-0.8, X_AXIS); // ugh
       else if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("bracket")
               && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
        {
-         inf.elem_l_->translate_axis ( -0.8, X_AXIS); // ugh
-         inf.elem_l_->set_grob_property ("arch-height",
-           gh_double2scm(gh_scm2double(inf.elem_l_->get_grob_property
+         inf.grob_l_->translate_axis ( -0.8, X_AXIS); // ugh
+         inf.grob_l_->set_grob_property ("arch-height",
+           gh_double2scm(gh_scm2double(inf.grob_l_->get_grob_property
                                        ("arch-height"))+0.5));
        }
     }
@@ -88,3 +87,9 @@ System_start_delimiter_engraver::finalize ()
   typeset_grob (delim_);
 }
 
+ENTER_DESCRIPTION(System_start_delimiter_engraver,
+/* descr */       "creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner",
+/* creats*/       "SystemStartBar SystemStartBrace SystemStartBracket",
+/* acks  */       "system-start-delimiter-interface staff-symbol-interface",
+/* reads */       "",
+/* write */       "");

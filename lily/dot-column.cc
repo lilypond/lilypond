@@ -16,10 +16,6 @@
 #include "axis-group-interface.hh"
 #include "stem.hh"
 
-void
-Dot_column::set_interface (Grob* me)
-{
-}
 MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)

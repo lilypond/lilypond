@@ -22,10 +22,7 @@
 class Dynamic_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Dynamic_performer ();
-
+  TRANSLATOR_DECLARATIONS(Dynamic_performer);
 protected:
   virtual bool try_music (Music* req_l);
   virtual void stop_translation_timestep ();
@@ -36,7 +33,7 @@ private:
   Audio_dynamic* audio_p_;
 };
 
-ADD_THIS_TRANSLATOR (Dynamic_performer);
+
 
 Dynamic_performer::Dynamic_performer ()
 {
@@ -137,3 +134,5 @@ Dynamic_performer::try_music (Music* r)
   return false;
 }
 
+ENTER_DESCRIPTION(Dynamic_performer,
+		  "","","","","");

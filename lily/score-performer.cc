@@ -16,7 +16,14 @@
 #include "debug.hh"
 #include "translator-def.hh"
 
-ADD_THIS_TRANSLATOR (Score_performer);
+
+
+ENTER_DESCRIPTION(Score_performer,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");
 
 
 Score_performer::Score_performer ()

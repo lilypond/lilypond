@@ -24,8 +24,7 @@ TODO:
 
 class Breathing_sign_engraver : public Engraver {
 public:
-  Breathing_sign_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Breathing_sign_engraver);
   
 protected:
   virtual bool try_music (Music *req_l);
@@ -87,4 +86,10 @@ Breathing_sign_engraver::start_translation_timestep ()
   breathing_sign_req_l_ = 0;
 }
 
-ADD_THIS_TRANSLATOR (Breathing_sign_engraver);
+
+ENTER_DESCRIPTION(Breathing_sign_engraver,
+/* descr */       "",
+/* creats*/       "BreathingSign",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

@@ -182,11 +182,11 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	   !gh_pair_p (spring_params) && gh_pair_p (s);
 	   s = ly_cdr (s))
 	{
-	  Grob *other = unsmob_grob (gh_caar (s));
+	  Grob *other = unsmob_grob (ly_caar (s));
 	  if (other != cols[i+1])
 	    continue;
 
-	  spring_params = gh_cdar (s);
+	  spring_params = ly_cdar (s);
 	}
 
       Spring_description desc;
@@ -223,11 +223,11 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   gh_pair_p (s); s = ly_cdr (s))
 	{
-	  Grob * other = unsmob_grob (gh_caar (s));
+	  Grob * other = unsmob_grob (ly_caar (s));
 	  int oi = cols.find_i (other);
 	  if (oi >= 0)
 	    {
-	      add_rod (i, oi, gh_scm2double (gh_cdar (s)));
+	      add_rod (i, oi, gh_scm2double (ly_cdar (s)));
 	    }
 	}
     }

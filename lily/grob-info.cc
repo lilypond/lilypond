@@ -13,7 +13,7 @@
 
 Grob_info::Grob_info (Grob*s_l, Music *r_l)
 {
-  elem_l_ = s_l;
+  grob_l_ = s_l;
   req_l_ = r_l;
   origin_trans_l_ = 0;  
 }
@@ -21,7 +21,7 @@ Grob_info::Grob_info (Grob*s_l, Music *r_l)
 
 Grob_info::Grob_info ()
 {
-  elem_l_ = 0;
+  grob_l_ = 0;
   req_l_ = 0;
   origin_trans_l_ = 0;
 }

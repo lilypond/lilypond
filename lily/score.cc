@@ -51,7 +51,9 @@ Score::Score (Score const &s)
   /*
     TODO: this is not very elegant.... 
    */
-  store_locations_global_b = (scm_c_eval_string ("point-and-click") !=  SCM_BOOL_F);
+  /*  store_locations_global_b = (scm_c_eval_string ("point-and-click") !=  SCM_BOOL_F);*/
+  store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
+      
 
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone ()->self_scm () : SCM_EOL;
@@ -181,7 +183,7 @@ Score::mark_smob (SCM s)
 }
 
 int
-Score::print_smob (SCM s, SCM p, scm_print_state*)
+Score::print_smob (SCM , SCM p, scm_print_state*)
 {
   scm_puts ("#<Score>", p);
 

@@ -23,9 +23,7 @@ struct Audio_dynamic_tuple
 class Span_dynamic_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Span_dynamic_performer ();
+  TRANSLATOR_DECLARATIONS(Span_dynamic_performer);
 
 protected:
   virtual bool try_music (Music*);
@@ -44,8 +42,6 @@ private:
   Direction dir_;
   Direction finished_dir_;
 };
-
-ADD_THIS_TRANSLATOR (Span_dynamic_performer);
 
 Span_dynamic_performer::Span_dynamic_performer ()
 {
@@ -188,3 +184,4 @@ Span_dynamic_performer::try_music (Music* r)
     }
   return false;
 }
+ENTER_DESCRIPTION (Span_dynamic_performer, "","","","","" );

@@ -22,8 +22,7 @@
 class Volta_engraver : public Engraver
 {
 public:
-  Volta_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Volta_engraver);
 protected:
 
   virtual void acknowledge_grob (Grob_info);
@@ -38,8 +37,6 @@ protected:
 
   SCM start_str_;
 };
-
-ADD_THIS_TRANSLATOR (Volta_engraver);
 
 Volta_engraver::Volta_engraver ()
 {
@@ -62,10 +59,10 @@ Volta_engraver::process_music ()
       if (gh_pair_p (c) && ly_car (c) == ly_symbol2scm ("volta")
 	  && gh_pair_p (ly_cdr (c)))
 	{
-	  if (gh_cadr (c) ==  SCM_BOOL_F)
+	  if (ly_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
 	  else
-	    start_str_ = gh_cadr (c);
+	    start_str_ = ly_cadr (c);
 	}
       
       cs = ly_cdr (cs);
@@ -135,7 +132,7 @@ Volta_engraver::create_grobs ()
 void
 Volta_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Item* item = dynamic_cast<Item*> (i.elem_l_))
+  if (Item* item = dynamic_cast<Item*> (i.grob_l_))
     {
       if (Note_column::has_interface (item))
 	{
@@ -182,3 +179,10 @@ Volta_engraver::stop_translation_timestep ()
 /*
   TODO: should attach volta to paper-column if no bar is found.
  */
+
+ENTER_DESCRIPTION(Volta_engraver,
+/* descr */       "Make volta brackets",
+/* creats*/       "VoltaBracket",
+/* acks  */       "bar-line-interface note-column-interface",
+/* reads */       "repeatCommands voltaSpannerDuration",
+/* write */       "");

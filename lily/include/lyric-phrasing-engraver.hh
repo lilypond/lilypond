@@ -74,9 +74,9 @@ private:
   Syllable_group * lookup_context_id (const String &context_id);
 
 public:
-  Lyric_phrasing_engraver ();
+
   ~Lyric_phrasing_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(  Lyric_phrasing_engraver);
 
 private:
   /** association list of Syllable_group smobs

@@ -28,9 +28,7 @@ class Key_engraver : public Engraver
   void read_req (Key_change_req const * r);
 
 public:
-  Key_engraver ();
-  
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Key_engraver);
 
   Key_change_req * keyreq_l_;
   Item * item_p_;
@@ -111,7 +109,7 @@ Key_engraver::try_music (Music * req_l)
 void
 Key_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Clef::has_interface (info.elem_l_))
+  if (Clef::has_interface (info.grob_l_))
     {
       SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))
@@ -119,7 +117,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	  create_key (false);
 	}
     }
-  else if (Bar::has_interface (info.elem_l_)
+  else if (Bar::has_interface (info.grob_l_)
 	   && gh_pair_p (get_property ("keySignature")))
     {
       create_key (true);
@@ -165,7 +163,7 @@ Key_engraver::read_req (Key_change_req const * r)
 	}
     }
   for (SCM s = n ; gh_pair_p (s); s = ly_cdr (s))
-    if (gh_scm2int (gh_cdar (s)))
+    if (gh_scm2int (ly_cdar (s)))
       accs = gh_cons (ly_car (s), accs);
 
   old_accs_ = get_property ("keySignature");
@@ -187,5 +185,11 @@ Key_engraver::initialize ()
 }
 
 
-ADD_THIS_TRANSLATOR (Key_engraver);
 
+
+ENTER_DESCRIPTION(Key_engraver,
+/* descr */       "",
+/* creats*/       "KeySignature",
+/* acks  */       "bar-line-interface clef-interface",
+/* reads */       "keySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
+/* write */       "");

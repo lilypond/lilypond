@@ -70,8 +70,8 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
       SCM up = me->get_grob_property ("de-uglify-parameters");
       
       Real c1 = gh_scm2double (ly_car (up));
-      Real c2 = gh_scm2double (gh_cadr (up));
-      Real c3 = gh_scm2double (gh_caddr (up)); 
+      Real c2 = gh_scm2double (ly_cadr (up));
+      Real c3 = gh_scm2double (ly_caddr (up)); 
       
       if (h > c1 * f)
 	{
@@ -180,12 +180,12 @@ Slur::set_extremities (Grob *me)
 	  for (SCM s = me->get_grob_property ("extremity-rules");
 	       s != SCM_EOL; s = ly_cdr (s))
 	    {
-	      SCM r = gh_call2 (gh_caar (s), me->self_scm (),
+	      SCM r = gh_call2 (ly_caar (s), me->self_scm (),
 				 gh_int2scm ((int)dir));
 	      if (r != SCM_BOOL_F)
 		{
 		  index_set_cell (me->get_grob_property ("attachment"), dir,
-				  gh_cdar (s));
+				  ly_cdar (s));
 		  break;
 		}
 	    }

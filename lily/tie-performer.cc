@@ -39,8 +39,7 @@ inline int compare (CNote_melodic_tuple const &a, CNote_melodic_tuple const &b)
 class Tie_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Tie_performer ();
+  TRANSLATOR_DECLARATIONS(Tie_performer);
 private:
   bool done_;
   PQueue<CNote_melodic_tuple> past_notes_pq_;
@@ -65,19 +64,8 @@ Tie_performer::Tie_performer ()
   done_ = false;
 }
 
-ADD_THIS_TRANSLATOR (Tie_performer);
+ENTER_DESCRIPTION (Tie_performer, "", "", "", "", "");
 
-
-#if 0
-Tie_performer::Tie_performer ()
-{
-  // URG
-  // if we don't do this, lily dumps core
-  // which means that ``initialize'' and
-  // ``start_translation_timestep'' did not happen?!
-  initialize ();
-}
-#endif
 
 void
 Tie_performer::initialize ()
@@ -175,6 +163,7 @@ Tie_performer::create_audio_elements ()
     }
 }
 
+
 void
 Tie_performer::stop_translation_timestep ()
 {
@@ -233,3 +222,4 @@ CNote_melodic_tuple::time_compare (CNote_melodic_tuple const&h1,
 {
   return (h1.end_ - h2.end_).main_part_.sign ();
 }
+

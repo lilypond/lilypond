@@ -33,7 +33,7 @@
 struct Local_key_engraver : Engraver {
   Item *key_item_p_;
 protected:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Local_key_engraver);
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -55,13 +55,12 @@ public:
   Link_array<Grob> support_l_arr_;
   Link_array<Item> forced_l_arr_;
   Link_array<Grob> tie_l_arr_;
-  Local_key_engraver ();
+
 };
 
 Local_key_engraver::Local_key_engraver ()
 {
   key_item_p_ =0;
-
   last_keysig_ = SCM_EOL;
 }
 
@@ -242,18 +241,18 @@ Local_key_engraver::acknowledge_grob (Grob_info info)
 {
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
 
-  if (note_l && Rhythmic_head::has_interface (info.elem_l_))
+  if (note_l && Rhythmic_head::has_interface (info.grob_l_))
     {
       mel_l_arr_.push (note_l);
-      support_l_arr_.push (info.elem_l_);
+      support_l_arr_.push (info.grob_l_);
     }
-  else if (Tie::has_interface (info.elem_l_))
+  else if (Tie::has_interface (info.grob_l_))
     {
-      tie_l_arr_.push (info.elem_l_);
+      tie_l_arr_.push (info.grob_l_);
     }
-  else if (Arpeggio::has_interface (info.elem_l_))
+  else if (Arpeggio::has_interface (info.grob_l_))
     {
-      arpeggios_.push (info.elem_l_); 
+      arpeggios_.push (info.grob_l_); 
     }
   
 }
@@ -286,5 +285,13 @@ Local_key_engraver::process_music ()
 
 
 
-ADD_THIS_TRANSLATOR (Local_key_engraver);
 
+
+ENTER_DESCRIPTION(Local_key_engraver,
+/* descr */       "Make accidentals.  Catches note heads, ties and notices key-change
+events.  Due to interaction with ties (which don't come together
+with note heads), this needs to be in a context higher than Tie_engraver. FIXME",
+/* creats*/       "Accidentals",
+/* acks  */       "rhythmic-head-interface tie-interface arpeggio-interface",
+/* reads */       "localKeySignature forgetAccidentals noResetKey",
+/* write */       "");

@@ -25,8 +25,7 @@
 class Repeat_acknowledge_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Repeat_acknowledge_engraver ();
+  TRANSLATOR_DECLARATIONS(Repeat_acknowledge_engraver);
 
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -101,4 +100,11 @@ Repeat_acknowledge_engraver::process_music ()
     }
 }
 
-ADD_THIS_TRANSLATOR (Repeat_acknowledge_engraver);
+
+ENTER_DESCRIPTION(Repeat_acknowledge_engraver,
+/* descr */       "Acknowledge repeated music, and convert the contents of
+repeatCommands ainto an appropriate setting for whichBar",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "repeatCommands whichBar",
+/* write */       "");

@@ -166,7 +166,8 @@ ly_gulp_file (SCM fn)
 void
 read_lily_scm_file (String fn)
 {
-  scm_c_eval_string ((char *) gulp_file_to_string (fn).ch_C ());
+  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C ());
+  //  scm_c_eval_string ((char *) gulp_file_to_string (fn).ch_C ());
 }
 
 extern "C" {
@@ -446,7 +447,7 @@ ly_version ()
 {
   char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
   
-  return scm_c_eval_string ((char*)vs);
+  return gh_eval_str ((char*)vs);
 }
 
 static void
@@ -498,4 +499,30 @@ ly_assoc_chain (SCM key, SCM achain)
     }
   else
     return SCM_BOOL_F;
+}
+
+/*
+  LIST has the form "sym1 sym2 sym3" 
+ */
+SCM
+parse_symbol_list (const char * list)
+{
+  char * s = strdup (list);
+  char *orig = s;
+  SCM create_list = SCM_EOL;
+  if (!s[0] )
+    s = 0;
+
+  while (s)
+    {
+      char *next = strchr (s, ' ');
+      if (next)
+	*next++ = 0;
+
+      create_list = gh_cons (ly_symbol2scm (s), create_list);
+      s = next;
+    }
+
+  free (orig);
+  return create_list;
 }

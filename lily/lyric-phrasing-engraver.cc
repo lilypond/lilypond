@@ -16,7 +16,7 @@
 String get_context_id (Translator_group * ancestor, const char * type);
 String trim_suffix (String &id);
 
-ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
+
 
 /*
   TODO: this code is too hairy, and does things that should be in the
@@ -108,13 +108,13 @@ Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
     if (! (gh_boolean_p (s) && !to_boolean (s))) {
       /* match found */
       // (key . ((alist_entry . old_entry) . previous_entry))
-      if (to_boolean (gh_cdadr (s))) { // it's an old entry ... make it a new one
-	SCM val = gh_cons (gh_cons (gh_caadr (s), SCM_BOOL_F), gh_cddr (s)); 
+      if (to_boolean (ly_cdadr (s))) { // it's an old entry ... make it a new one
+	SCM val = gh_cons (gh_cons (ly_caadr (s), SCM_BOOL_F), ly_cddr (s)); 
 	voice_alist_ = scm_assoc_set_x (voice_alist_, ly_car (s), val);
-	return unsmob_voice_entry (gh_caar (val));
+	return unsmob_voice_entry (ly_caar (val));
       }
       else { // the entry is current ... return it.
-	SCM entry_scm = gh_caadr (s);
+	SCM entry_scm = ly_caadr (s);
 	return unsmob_voice_entry (entry_scm);
       }
     }
@@ -124,7 +124,7 @@ Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
 		    Syllable_group::make_entry ()); 
 
   voice_alist_ = scm_acons (key, val, voice_alist_);
-  return unsmob_voice_entry (gh_caar (val));
+  return unsmob_voice_entry (ly_caar (val));
 }
 
 
@@ -154,7 +154,7 @@ Lyric_phrasing_engraver::record_extender (const String &context_id, Grob * exten
     if (! (gh_boolean_p (s) && !to_boolean (s))) {
       /* match found */
       // (key . ((alist_entry . old_entry) . previous_entry))
-      SCM previous_scm = gh_cddr (s);
+      SCM previous_scm = ly_cddr (s);
       if (previous_scm != SCM_EOL) {
 	Syllable_group * v = unsmob_voice_entry (previous_scm);
 	v->add_extender (extender);
@@ -178,7 +178,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
     return;
 
 
-  Grob *h = i.elem_l_;
+  Grob *h = i.grob_l_;
 
   if (Note_head::has_interface (h)) {
     /* caught a note head ... do something with it */
@@ -266,10 +266,10 @@ void Lyric_phrasing_engraver::create_grobs ()
   punc = gh_string_p (sp) ? ly_scm2string (sp) : ".,;:?!\""; 
   
   for (SCM v=voice_alist_; gh_pair_p (v); v = ly_cdr (v)) {
-    SCM v_entry = gh_cdar (v);
+    SCM v_entry = ly_cdar (v);
     // ((current . oldflag) . previous)
-    if (!to_boolean (gh_cdar (v_entry))) { // not an old entry left over from a prior note ...
-      Syllable_group *entry = unsmob_voice_entry (gh_caar (v_entry));
+    if (!to_boolean (ly_cdar (v_entry))) { // not an old entry left over from a prior note ...
+      Syllable_group *entry = unsmob_voice_entry (ly_caar (v_entry));
 
       /*
 	TODO: give context for warning.
@@ -297,17 +297,17 @@ void
 Lyric_phrasing_engraver::stop_translation_timestep ()
 {
   for (SCM v=voice_alist_; gh_pair_p (v); v = ly_cdr (v)) {
-    SCM entry_scm = gh_cdar (v);
+    SCM entry_scm = ly_cdar (v);
     // ((alist_entry . entry_is_old) . previous_entry)
-    Syllable_group * entry = unsmob_voice_entry (gh_caar (entry_scm));
+    Syllable_group * entry = unsmob_voice_entry (ly_caar (entry_scm));
 
     // set previous_entry, set entry_is_old, and resave it to alist_
     // but only change if this current was not old.
-    if (! to_boolean (gh_cdar (entry_scm))) { 
+    if (! to_boolean (ly_cdar (entry_scm))) { 
       Syllable_group * previous_entry = unsmob_voice_entry (ly_cdr (entry_scm));
       previous_entry->copy (entry);
-      entry_scm = gh_cons (gh_cons (gh_caar (entry_scm), SCM_BOOL_T), ly_cdr (entry_scm));
-      voice_alist_ = scm_assoc_set_x (voice_alist_, gh_caar (v), entry_scm);
+      entry_scm = gh_cons (gh_cons (ly_caar (entry_scm), SCM_BOOL_T), ly_cdr (entry_scm));
+      voice_alist_ = scm_assoc_set_x (voice_alist_, ly_caar (v), entry_scm);
     }
     entry->next_lyric ();
   }
@@ -316,3 +316,9 @@ Lyric_phrasing_engraver::stop_translation_timestep ()
 
 
 
+ENTER_DESCRIPTION(Lyric_phrasing_engraver,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "lyric-syllable-interface note-head-interface lyric-extender-interface",
+/* reads */       "automaticPhrasing melismaEngraverBusy associatedVoice phrasingPunctuation",
+/* write */       "");

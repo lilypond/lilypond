@@ -18,11 +18,11 @@
 class Melisma_engraver:public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Melisma_engraver);
   bool try_music (Music *);
 };
 
-ADD_THIS_TRANSLATOR (Melisma_engraver);
+
 
 bool
 Melisma_engraver::try_music (Music *m) 
@@ -46,3 +46,12 @@ Melisma_engraver::try_music (Music *m)
   daddy_trans_l_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
   return false;
 }
+Melisma_engraver::Melisma_engraver()
+{
+}
+ENTER_DESCRIPTION(Melisma_engraver,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy",
+/* write */       "");

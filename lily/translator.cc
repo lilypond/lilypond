@@ -15,11 +15,6 @@
 #include "moment.hh"
 #include "ly-smobs.icc"
 
-char const*
-Translator::name () const
-{
-  return classname (this);
-}
 
 Translator::~Translator ()
 {
@@ -158,6 +153,37 @@ Translator::mark_smob (SCM sm)
   return me->properties_scm_;
 }
 
+MAKE_SCHEME_CALLBACK(Translator,name,1);
+SCM
+Translator::name (SCM trans) 
+{
+  if (unsmob_translator (trans))
+    {
+      char const* nm = classname (unsmob_translator (trans));
+      return gh_str02scm (nm);
+    }
+  return
+    SCM_EOL;
+}
+
+MAKE_SCHEME_CALLBACK(Translator,description,1)
+SCM
+Translator::description (SCM me) 
+{
+  if (unsmob_translator (me))
+    return unsmob_translator(me)->translator_description ();
+  else
+    {
+      programming_error ("Translator::description ()");  
+      return SCM_EOL;
+    }
+}
+
+SCM
+Translator::translator_description () const
+{
+  return SCM_EOL;
+}
 
 int
 Translator::print_smob (SCM s, SCM port, scm_print_state *)
@@ -165,7 +191,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   Translator *sc = (Translator *) ly_cdr (s);
      
   scm_puts ("#<Translator ", port);
-  scm_puts ((char *)sc->name (), port);
+  scm_display (name (s), port);
   scm_display (sc->simple_trans_list_, port);
   /*
     don't try to print properties, that is too much hassle.
@@ -173,6 +199,12 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   scm_puts (" >", port);
   
   return 1;
+}
+
+SCM
+Translator::static_translator_description ()const
+{
+  return SCM_EOL;
 }
 
 IMPLEMENT_UNSMOB (Translator, translator);

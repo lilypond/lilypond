@@ -22,8 +22,7 @@
 class Multi_measure_rest_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Multi_measure_rest_engraver ();
+  TRANSLATOR_DECLARATIONS(Multi_measure_rest_engraver);
 
 protected:
   virtual bool try_music (Music*);
@@ -43,7 +42,7 @@ private:
   Spanner *lastrest_p_;
 };
 
-ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
+
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
@@ -179,3 +178,12 @@ Multi_measure_rest_engraver::finalize ()
   if (lastrest_p_)
     typeset_grob (lastrest_p_);
 }
+
+ENTER_DESCRIPTION(Multi_measure_rest_engraver,
+/* descr */       "Engraves multi-measure rests that are produced with @code{R}.  Reads
+measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
+",
+/* creats*/       "MultiMeasureRest",
+/* acks  */       "",
+/* reads */       "currentBarNumber currentCommandColumn measurePosition",
+/* write */       "");

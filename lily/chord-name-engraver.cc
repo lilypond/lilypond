@@ -21,9 +21,8 @@
 
 class Chord_name_engraver : public Engraver 
 {
-public:
-  Chord_name_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+
+  TRANSLATOR_DECLARATIONS( Chord_name_engraver);
 
 protected:
   virtual void stop_translation_timestep ();
@@ -40,7 +39,7 @@ private:
   Protected_scm last_chord_;
 };
 
-ADD_THIS_TRANSLATOR (Chord_name_engraver);
+
 
 Chord_name_engraver::Chord_name_engraver ()
 {
@@ -114,3 +113,10 @@ Chord_name_engraver::stop_translation_timestep ()
   chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
 }
 
+ENTER_DESCRIPTION(Chord_name_engraver,
+/* descr */       "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
+and generate the appropriate chordname.",
+/* creats*/       "ChordName",
+/* acks  */       "grob-interface",
+/* reads */       "chordChanges",
+/* write */       "");

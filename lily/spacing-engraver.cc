@@ -43,15 +43,14 @@ class Spacing_engraver : public Engraver
   Array<Rhythmic_tuple> stopped_durations_;
 
   Spanner * spacing_p_;
+  
+  TRANSLATOR_DECLARATIONS(Spacing_engraver);
 protected:
-  VIRTUAL_COPY_CONS (Translator);
   virtual void acknowledge_grob (Grob_info);
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual void initialize ();
   virtual void finalize ();
-public:
-  Spacing_engraver ();
 };
 
 inline int
@@ -93,7 +92,7 @@ Spacing_engraver::finalize ()
 void
 Spacing_engraver::acknowledge_grob (Grob_info i)
 {
-  if (to_boolean (i.elem_l_->get_grob_property ("non-rhythmic")))
+  if (to_boolean (i.grob_l_->get_grob_property ("non-rhythmic")))
     return;
   
   if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.req_l_))
@@ -153,6 +152,12 @@ Spacing_engraver::start_translation_timestep ()
     stopped_durations_.push (playing_durations_.get ());
 }
 
-ADD_THIS_TRANSLATOR (Spacing_engraver);
 
 
+
+ENTER_DESCRIPTION(Spacing_engraver,
+/* descr */       "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
+/* creats*/       "SpacingSpanner",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

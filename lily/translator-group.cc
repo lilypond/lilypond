@@ -130,10 +130,12 @@ Translator_group::find_create_translator_l (String n, String id)
 	{
 	  Translator_group * new_group = path[i]->instantiate (output_def_l_);
 
+	  if (i == path.size () -1)
+	    new_group->id_str_ = id;	  
 	  current->add_group_translator (new_group);
 	  current = new_group;
 	}
-      current->id_str_ = id;
+
       return current;
     }
 
@@ -346,7 +348,7 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	  SCM prev = get_property (prop);
 
 	  SCM newprops= SCM_EOL ;
-	  while (gh_pair_p (prev) && gh_caar (prev) != eltprop)
+	  while (gh_pair_p (prev) && ly_caar (prev) != eltprop)
 	    {
 	      newprops = gh_cons (ly_car (prev), newprops);
 	      prev = ly_cdr (prev);

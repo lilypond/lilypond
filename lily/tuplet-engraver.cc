@@ -20,7 +20,7 @@
 class Tuplet_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Tuplet_engraver);
 
 protected:
   Link_array<Time_scaled_music> time_scaled_music_arr_;
@@ -96,11 +96,11 @@ Tuplet_engraver::create_grobs ()
 void
 Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.elem_l_))
+  if (Note_column::has_interface (i.grob_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_bracket::add_column (started_span_p_arr_[j], dynamic_cast<Item*> (i.elem_l_));
+	  Tuplet_bracket::add_column (started_span_p_arr_[j], dynamic_cast<Item*> (i.grob_l_));
     }
 }
 
@@ -148,6 +148,13 @@ Tuplet_engraver::finalize ()
     }  
 }
 
-ADD_THIS_TRANSLATOR (Tuplet_engraver);
 
 
+Tuplet_engraver::Tuplet_engraver(){}
+
+ENTER_DESCRIPTION(Tuplet_engraver,
+/* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",
+/* creats*/       "TupletBracket",
+/* acks  */       "note-column-interface",
+/* reads */       "tupletNumberFormatFunction tupletSpannerDuration tupletInvisible",
+/* write */       "");

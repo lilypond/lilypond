@@ -29,8 +29,8 @@ protected:
   virtual void create_grobs ();
 
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Phrasing_slur_engraver ();
+  TRANSLATOR_DECLARATIONS(Phrasing_slur_engraver);
+  
 };
 
 Phrasing_slur_engraver::Phrasing_slur_engraver ()
@@ -86,9 +86,9 @@ Phrasing_slur_engraver::try_music (Music *req_l)
 void
 Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Note_column::has_interface (info.elem_l_))
+  if (Note_column::has_interface (info.grob_l_))
     {
-      Grob *e =info.elem_l_;
+      Grob *e =info.grob_l_;
       for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
 	Slur::add_column (phrasing_slur_l_stack_[i], e);
       for (int i = 0; i < end_phrasing_slur_l_arr_.size (); i++)
@@ -180,4 +180,10 @@ Phrasing_slur_engraver::start_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Phrasing_slur_engraver);
+
+ENTER_DESCRIPTION(Phrasing_slur_engraver,
+/* descr */       "Print phrasing slurs. Similar to Slur_engraver",
+/* creats*/       "PhrasingSlur",
+/* acks  */       "note-column-interface",
+/* reads */       "slurBeginAttachment slurEndAttachment slurMelismaBusy",
+/* write */       "");

@@ -119,11 +119,18 @@
        "ascii-script.scm"
        ))
 
+(define ctor list)
+
+
+(define (ly-load x) (eval-string (ly-gulp-file x)))
+
 (if (not standalone)
-    (map (lambda (x) (eval-string (ly-gulp-file x)))
+    (map ly-load
+					; load-from-path
 	 '("c++.scm"
 	   "grob-property-description.scm"
 	   "translator-property-description.scm"
+	   "context-description.scm"
 	   "interface-description.scm"
 	   "beam.scm"
 	   "clef.scm"
@@ -140,5 +147,6 @@
 	   "drums.scm"
 	   "midi.scm"
 	   )))
+
 
 

@@ -23,14 +23,14 @@ class Instrument_name_engraver : public Engraver
   
   void create_text (SCM s);
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Instrument_name_engraver ();
+  TRANSLATOR_DECLARATIONS(Instrument_name_engraver);
+
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
 };
 
-ADD_THIS_TRANSLATOR (Instrument_name_engraver);
+
 
 Instrument_name_engraver::Instrument_name_engraver ()
 {
@@ -77,7 +77,7 @@ Instrument_name_engraver::create_text (SCM txt)
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Bar::has_interface (i.elem_l_))
+  if (Bar::has_interface (i.grob_l_))
     {
       SCM s = get_property ("instrument");
   
@@ -91,8 +91,8 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 	create_text (s);
     }
 
-  if (dynamic_cast<Spanner*> (i.elem_l_)
-      && i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface")))
+  if (dynamic_cast<Spanner*> (i.grob_l_)
+      && i.grob_l_->has_interface (ly_symbol2scm ("dynamic-interface")))
     return;
 
   /*
@@ -102,12 +102,12 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     therefore the location of its refpoint won't be very useful.
     
   */
-  if (dynamic_cast<Spanner*> (i.elem_l_)
-      && ((Axis_group_interface::has_interface (i.elem_l_)
-	   && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS)))
-      && !Align_interface::has_interface (i.elem_l_))
+  if (dynamic_cast<Spanner*> (i.grob_l_)
+      && ((Axis_group_interface::has_interface (i.grob_l_)
+	   && Axis_group_interface::axis_b (i.grob_l_, Y_AXIS)))
+      && !Align_interface::has_interface (i.grob_l_))
     {
-      SCM nl = gh_cons (i.elem_l_->self_scm (),
+      SCM nl = gh_cons (i.grob_l_->self_scm (),
 			get_property ("instrumentSupport"));
 
       daddy_trans_l_->set_property ("instrumentSupport", nl);
@@ -117,3 +117,12 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 
 
 
+ENTER_DESCRIPTION(Instrument_name_engraver,
+/* descr */       " Prints the name of the instrument (specified by
+@code{Staff.instrument} and @code{Staff.instr})
+at the left of the
+staff.",
+/* creats*/       "InstrumentName",
+/* acks  */       "bar-line-interface axis-group-interface",
+/* reads */       "instrument instr",
+/* write */       "");

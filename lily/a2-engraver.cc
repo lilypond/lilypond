@@ -18,9 +18,8 @@
 
 class A2_engraver : public Engraver
 {
-public:
-  A2_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(A2_engraver);
+
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
@@ -30,7 +29,7 @@ private:
   enum State { SOLO, SPLIT_INTERVAL, UNIRHYTHM, UNISILENCE, UNISON } state_;
 };
 
-ADD_THIS_TRANSLATOR (A2_engraver);
+
 
 A2_engraver::A2_engraver ()
 {
@@ -94,17 +93,17 @@ A2_engraver::acknowledge_grob (Grob_info i)
   
   if (text_p_)
     {
-      if (Note_head::has_interface (i.elem_l_))
+      if (Note_head::has_interface (i.grob_l_))
 	{
 	  Grob*t = text_p_;
-	  Side_position_interface::add_support (t, i.elem_l_);
+	  Side_position_interface::add_support (t, i.grob_l_);
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
-	    t->set_parent (i.elem_l_, Y_AXIS);
+	    t->set_parent (i.grob_l_, Y_AXIS);
 	}
-      if (Stem::has_interface (i.elem_l_))
+      if (Stem::has_interface (i.grob_l_))
 	{
-	  Side_position_interface::add_support (text_p_, i.elem_l_);
+	  Side_position_interface::add_support (text_p_, i.grob_l_);
 	}
     }
 	  
@@ -139,10 +138,10 @@ A2_engraver::acknowledge_grob (Grob_info i)
   /* Must only set direction for VoiceCombines, not for StaffCombines:
      we can't detect that here, so, ugh, yet another property */
   if (!to_boolean (get_property ("noDirection"))
-      && (Stem::has_interface (i.elem_l_)
-	  || Slur::has_interface (i.elem_l_)
-	  // || Tie::has_interface (i.elem_l_)
-	  || i.elem_l_->has_interface (ly_symbol2scm ("tie-interface"))
+      && (Stem::has_interface (i.grob_l_)
+	  || Slur::has_interface (i.grob_l_)
+	  // || Tie::has_interface (i.grob_l_)
+	  || i.grob_l_->has_interface (ly_symbol2scm ("tie-interface"))
 	  
 	  /*
 	    Usually, dynamics are removed by *_devnull_engravers for the
@@ -151,9 +150,9 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	    hand, colliding of scripts may be worse.
 	    So, we don't set directions for these when we're playing solo.
 	  */
-	  || (i.elem_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || (i.grob_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
 	      && state_ != SOLO)
-	  || (i.elem_l_->has_interface (ly_symbol2scm ("text-interface"))
+	  || (i.grob_l_->has_interface (ly_symbol2scm ("text-interface"))
 	      && state_ != SOLO)
 	  ))
     {
@@ -170,18 +169,18 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	  /*
 	    Blunt axe method: every grob gets a propertysetting.
 	   */
-	  i.elem_l_->set_grob_property ("direction", gh_int2scm (d));
+	  i.grob_l_->set_grob_property ("direction", gh_int2scm (d));
 	}
     }
 
   /*
     todo: should we have separate state variable for being "rest while
     other has solo?"  */
-  if ( Multi_measure_rest::has_interface (i.elem_l_) && d )
+  if ( Multi_measure_rest::has_interface (i.grob_l_) && d )
     if (state_ == UNIRHYTHM
 	&& unisilence != SCM_BOOL_T)
     {
-      i.elem_l_->set_grob_property ("staff-position", gh_int2scm (d * 6));
+      i.grob_l_->set_grob_property ("staff-position", gh_int2scm (d * 6));
     }
 }
 
@@ -196,3 +195,18 @@ A2_engraver::stop_translation_timestep ()
     }
 }
 
+ENTER_DESCRIPTION(A2_engraver,
+/* descr */       "Part combine engraver for orchestral scores.
+
+The markings @emph{a2}, @emph{Solo} and @emph{Solo II}, are
+created by this engraver.  It also acts upon instructions of the part
+combiner.  Another thing that the this engraver, is forcing of stem,
+slur and tie directions, always when both threads are not identical;
+up for the musicexpr called @code{one}, down for the musicexpr called
+@code{two}.
+
+",
+/* creats*/       "TextScript",
+/* acks  */       "grob-interface tie-interface note-head-interface ",
+/* reads */       "combineParts noDirection soloADue soloText soloIIText aDueText split-interval unison solo unisilence unirhythm",
+/* write */       "");

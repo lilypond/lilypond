@@ -24,15 +24,19 @@ public:
   VIRTUAL_COPY_CONS (Translator);
 };
 
-#define DECLARE_REQUEST_SWALLOWER(TYPE)  \
-struct TYPE ## _swallow_translator : public Type_swallow_translator {\
-  TYPE ## _swallow_translator () { \
-      swallow_str_ =  #TYPE;\
-  }\
-  \
-  VIRTUAL_COPY_CONS (Translator);\
-};\
-ADD_THIS_TRANSLATOR (TYPE ## _swallow_translator);\
+#define DECLARE_REQUEST_SWALLOWER(TYPE)					\
+struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
+  TRANSLATOR_DECLARATIONS (TYPE ## _swallow_translator);  \
+};									\
+  TYPE ## _swallow_translator :: TYPE ## _swallow_translator() {\
+      swallow_str_ =  #TYPE;						\
+  }									\
+ENTER_DESCRIPTION(TYPE ## _swallow_translator,				\
+		  "Swallow requests of " #TYPE " type.",		\
+		  "",							\
+		  "",							\
+		  "",							\
+		  "");
 
 #endif // TYPESWALLOW_GRAV_HH
 

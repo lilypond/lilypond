@@ -24,15 +24,14 @@
 	)
   )
 
-(define (grob-description name . interfaces)
-  (let* ((ifs (cons general-grob-interface interfaces))
+(define (grob-description . interfaces)
+  (let* ((ifs (cons grob-interface interfaces))
 	 (props (map caddr ifs))
 					;	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
 					;					(apply append props)))
 	 (syms (map car ifs))
 	 )
     (list (cons 'separator "\n\n\n")	;easy printing.
-	  (cons 'name name)
 	  (cons 'interfaces syms)
 	  (cons 'interface-descriptions ifs)
 					; (cons 'interface-descriptions (cadr merged))
@@ -42,7 +41,7 @@
 
 
 (lily-interface
- 'general-grob-interface
+ 'grob-interface
  "All grobs support this"
  '(
    X-offset-callbacks 

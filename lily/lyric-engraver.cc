@@ -27,15 +27,13 @@ protected:
   virtual void start_translation_timestep ();
   
 public:
-  Lyric_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
-
+  TRANSLATOR_DECLARATIONS(Lyric_engraver);
 private:
   Lyric_req * req_l_;
   Item* text_p_;
 };
 
-ADD_THIS_TRANSLATOR (Lyric_engraver);
+
 
 
 Lyric_engraver::Lyric_engraver ()
@@ -97,3 +95,9 @@ Lyric_engraver::start_translation_timestep ()
 }
 
 
+ENTER_DESCRIPTION(Lyric_engraver,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

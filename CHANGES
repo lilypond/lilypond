@@ -1,3 +1,25 @@
+1.5.12.jcn2
+===========
+
+* half-baken --with-kpathsea configuration fix.
+
+* ly2dvi: add `.' to TEXINPUTS to catch broken TEXINPUTS settings.
+
+* guile-1.4 compile fix.
+
+1.5.12.hwn1
+===========
+
+* Move engraver descriptions into the C code.  They are accessible
+from Scheme. Grand rehacking to make stuff work again.
+
+* Precompute which engravers are eligible to acknowledge a certain
+type of grob. Speedup: approx 10 % on interpretation phase.
+
+
+1.5.12
+======
+
 1.5.11.jcn1
 ===========
 

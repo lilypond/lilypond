@@ -20,8 +20,7 @@
 class Piano_pedal_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Piano_pedal_engraver ();
+  TRANSLATOR_DECLARATIONS(Piano_pedal_engraver);
   ~Piano_pedal_engraver ();
 protected:
   virtual void initialize ();
@@ -44,7 +43,7 @@ private:
   Pedal_info *info_list_;
 };
 
-ADD_THIS_TRANSLATOR (Piano_pedal_engraver);
+
 
 Piano_pedal_engraver::Piano_pedal_engraver ()
 {
@@ -88,17 +87,17 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
     {
       if (p->item_p_)
 	{
-	  if (Rhythmic_head::has_interface (info.elem_l_))
+	  if (Rhythmic_head::has_interface (info.grob_l_))
 	    {
-	      Side_position_interface::add_support (p->item_p_, info.elem_l_);
+	      Side_position_interface::add_support (p->item_p_, info.grob_l_);
 
 	      if (Side_position_interface::get_axis (p->item_p_) == X_AXIS
 		  && !p->item_p_->parent_l (Y_AXIS))
-		p->item_p_->set_parent (info.elem_l_, Y_AXIS);
+		p->item_p_->set_parent (info.grob_l_, Y_AXIS);
 	    }
-	  if (Stem::has_interface (info.elem_l_))
+	  if (Stem::has_interface (info.grob_l_))
 	    {
-	      Side_position_interface::add_support (p->item_p_,info.elem_l_);
+	      Side_position_interface::add_support (p->item_p_,info.grob_l_);
 	    }
 	}
     }
@@ -143,7 +142,7 @@ Piano_pedal_engraver::create_grobs ()
 	    }
 	  else
 	    {
-	      s = gh_cadr (strings);
+	      s = ly_cadr (strings);
 	    }
 	  p->start_req_l_ = p->req_l_drul_[START];
 	}
@@ -155,7 +154,7 @@ Piano_pedal_engraver::create_grobs ()
 	    }
 	  else
 	    {
-	      s = gh_caddr (strings);
+	      s = ly_caddr (strings);
 	    }
 	  p->start_req_l_ = 0;
 	}
@@ -222,3 +221,9 @@ Piano_pedal_engraver::start_translation_timestep ()
       p->req_l_drul_[START] = 0;
     }
 }
+ENTER_DESCRIPTION(Piano_pedal_engraver,
+/* descr */       "Engrave piano pedal symbols.",
+/* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal",
+/* acks  */       "rhythmic-head-interface stem-interface",
+/* reads */       "pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings",
+/* write */       "");

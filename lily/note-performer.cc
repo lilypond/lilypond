@@ -18,7 +18,7 @@ Convert reqs to audio notes.
 */
 class Note_performer : public Performer {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Note_performer);
   
 protected:
   virtual bool try_music (Music *req_l) ;
@@ -32,8 +32,6 @@ private:
   Array<Audio_note*> note_p_arr_;
   Array<Audio_note*> delayed_p_arr_;
 };
-
-ADD_THIS_TRANSLATOR (Note_performer);
 
 void 
 Note_performer::create_audio_elements ()
@@ -125,4 +123,10 @@ Note_performer::try_music (Music* req_l)
       return true;
     }
   return false;
+}
+
+ENTER_DESCRIPTION(Note_performer,"","","","","");
+
+Note_performer::Note_performer()
+{
 }

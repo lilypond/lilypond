@@ -24,8 +24,7 @@
 class Clef_engraver : public  Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Clef_engraver ();
+  TRANSLATOR_DECLARATIONS(Clef_engraver);
 
   Direction octave_dir_;
 
@@ -34,7 +33,6 @@ protected:
   virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
-  virtual void do_creation_processing ();
 private:
   Item * clef_p_;
   Item * octavate_p_;
@@ -78,10 +76,10 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  Item * item =dynamic_cast <Item *> (info.elem_l_);
+  Item * item =dynamic_cast <Item *> (info.grob_l_);
   if (item)
     {
-      if (Bar::has_interface (info.elem_l_)
+      if (Bar::has_interface (info.grob_l_)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
 
@@ -131,18 +129,6 @@ Clef_engraver::create_clef ()
 
 void
 Clef_engraver::process_music ()
-{
-  inspect_clef_properties ();
-}
-
-/*
-  this must be done in creation_proc() since grace notes will be
-  processed before Clef_engraver::prcoess_music()
-
-  Grace notes and clef changes are still broken.
-*/
-void
-Clef_engraver::do_creation_processing ()
 {
   inspect_clef_properties ();
 }
@@ -213,5 +199,11 @@ Clef_engraver::start_translation_timestep ()
 {
 }
 
-ADD_THIS_TRANSLATOR (Clef_engraver);
 
+
+ENTER_DESCRIPTION(Clef_engraver,
+/* descr */       "Determine and set reference point for pitches",
+/* creats*/       "Clef OctavateEight",
+/* acks  */       "bar-line-interface key-interface",
+/* reads */       "clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility",
+/* write */       "");

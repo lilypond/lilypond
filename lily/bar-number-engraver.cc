@@ -29,10 +29,7 @@ protected:
   virtual void initialize ();
   virtual void create_grobs ();
   void create_items ();
-
-public:
-  VIRTUAL_COPY_CONS (Translator);
-  Bar_number_engraver ();
+  TRANSLATOR_DECLARATIONS(  Bar_number_engraver );
 };
 
 
@@ -59,7 +56,7 @@ Bar_number_engraver::create_grobs ()
     }
 }
 
-ADD_THIS_TRANSLATOR (Bar_number_engraver);
+
 
 Bar_number_engraver::Bar_number_engraver ()
 {
@@ -80,11 +77,11 @@ Bar_number_engraver::initialize ()
 void
 Bar_number_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob * s = inf.elem_l_;
+  Grob * s = inf.grob_l_;
   if (Staff_symbol::has_interface (s))
     {
       SCM sts = get_property ("stavesFound");
-      SCM thisstaff = inf.elem_l_->self_scm ();
+      SCM thisstaff = inf.grob_l_->self_scm ();
       if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
 	daddy_trans_l_->set_property ("stavesFound", gh_cons (thisstaff, sts));
     }
@@ -124,3 +121,10 @@ Bar_number_engraver::create_items ()
   announce_grob (text_p_, 0);
 }
 
+ENTER_DESCRIPTION(Bar_number_engraver,
+/* descr */       "A bar number is created whenever measurePosition is zero. It is
+put on top of all staves, and appears only at  left side of the staff.",
+/* creats*/       "BarNumber",
+/* acks  */       "staff-symbol-interface break-aligned-interface",
+/* reads */       "currentBarNumber",
+/* write */       "");

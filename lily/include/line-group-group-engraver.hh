@@ -18,7 +18,8 @@
 
   DEPRECATED.
   */
-class Line_group_engraver_group : public Engraver_group_engraver {
+class Line_group_engraver_group : public Engraver_group_engraver
+{
 protected:
   Spanner *staffline_p_;   
 
@@ -27,9 +28,7 @@ protected:
   virtual void finalize ();
   virtual void typeset_grob (Grob*);
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Line_group_engraver_group ();
+  TRANSLATOR_DECLARATIONS(Line_group_engraver_group);
 };
 
 

@@ -13,9 +13,7 @@
 class Regular_spacing_engraver : public Engraver
 {
 public:
-  Regular_spacing_engraver ();
-  VIRTUAL_COPY_CONS(Translator);
-
+  TRANSLATOR_DECLARATIONS(Regular_spacing_engraver);
   Moment last_moment_;
   SCM last_col_;
 protected:
@@ -57,4 +55,10 @@ Regular_spacing_engraver::process_music ()
 }
 
 
-ADD_THIS_TRANSLATOR(Regular_spacing_engraver);
+ENTER_DESCRIPTION(Regular_spacing_engraver,
+/* descr */       ".",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "regularSpacingDelta",
+/* write */       "");
+

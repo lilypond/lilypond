@@ -70,8 +70,7 @@ inline int compare (PHead_melodic_tuple const &a, PHead_melodic_tuple const &b)
 
 class Porrectus_engraver : public Engraver {
 public:
-  Porrectus_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Porrectus_engraver);
   
 protected:
   virtual bool try_music (Music *req_l);
@@ -108,12 +107,12 @@ Porrectus_engraver::try_music (Music *m)
 void
 Porrectus_engraver::acknowledge_grob (Grob_info info_l_)
 {
-  if (Rhythmic_head::has_interface (info_l_.elem_l_))
+  if (Rhythmic_head::has_interface (info_l_.grob_l_))
     {
       Note_req *note_req_l_ = dynamic_cast <Note_req *> (info_l_.req_l_);
       if (!note_req_l_)
 	return;
-      right_heads_.push (PHead_melodic_tuple (info_l_.elem_l_, note_req_l_,
+      right_heads_.push (PHead_melodic_tuple (info_l_.grob_l_, note_req_l_,
 					      now_mom () +
 					      note_req_l_->length_mom ()));
     }
@@ -181,7 +180,7 @@ Porrectus_engraver::start_translation_timestep ()
     left_heads_.push (past_notes_pq_.get ());
 }
 
-ADD_THIS_TRANSLATOR (Porrectus_engraver);
+
 
 // TODO: PHead_melodic_tuple is duplicated code from tie-engraver.cc.
 // Maybe put this into public class?
@@ -222,3 +221,9 @@ PHead_melodic_tuple::time_compare (PHead_melodic_tuple const&h1,
   int result = Moment::compare(h1.end_,  h2.end_);
   return result;
 }
+ENTER_DESCRIPTION(Porrectus_engraver,
+/* descr */       "Join adjacent notes to a porrectus ligature.",
+/* creats*/       "Porrectus",
+/* acks  */       "rhythmic-head-interface",
+/* reads */       "",
+/* write */       "");

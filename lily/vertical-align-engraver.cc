@@ -18,8 +18,7 @@ class Vertical_align_engraver : public Engraver
   Spanner * valign_p_;
   bool qualifies_b (Grob_info) const;  
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Vertical_align_engraver ();
+  TRANSLATOR_DECLARATIONS(Vertical_align_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void initialize ();
@@ -53,8 +52,8 @@ Vertical_align_engraver::qualifies_b (Grob_info i) const
 {
   int sz = i.origin_trans_l_arr ((Translator*)this).size ()  ;
 
-  return sz > 1 && Axis_group_interface::has_interface (i.elem_l_)
-    && !i.elem_l_->parent_l (Y_AXIS) && Axis_group_interface::axis_b (i.elem_l_, Y_AXIS);
+  return sz > 1 && Axis_group_interface::has_interface (i.grob_l_)
+    && !i.grob_l_->parent_l (Y_AXIS) && Axis_group_interface::axis_b (i.grob_l_, Y_AXIS);
 }
 
 void
@@ -62,8 +61,14 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 {
   if (qualifies_b (i))
     {
-      Align_interface::add_element (valign_p_,i.elem_l_, get_property ("verticalAlignmentChildCallback"));
+      Align_interface::add_element (valign_p_,i.grob_l_, get_property ("verticalAlignmentChildCallback"));
     }
 }
 
-ADD_THIS_TRANSLATOR (Vertical_align_engraver);
+
+ENTER_DESCRIPTION(Vertical_align_engraver,
+/* descr */       "Catch Vertical axis groups and stack them.",
+/* creats*/       "VerticalAlignment",
+/* acks  */       "axis-group-interface",
+/* reads */       "",
+/* write */       "");

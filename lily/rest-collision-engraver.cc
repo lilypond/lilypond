@@ -22,12 +22,10 @@ protected:
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Rest_collision_engraver ();
-  
+  TRANSLATOR_DECLARATIONS(Rest_collision_engraver);  
 };
 
-ADD_THIS_TRANSLATOR (Rest_collision_engraver);
+
 
 Rest_collision_engraver::Rest_collision_engraver ()
 {
@@ -50,8 +48,8 @@ Rest_collision_engraver::create_grobs ()
 void
 Rest_collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.elem_l_))
-    note_column_l_arr_.push (i.elem_l_);
+  if (Note_column::has_interface (i.grob_l_))
+    note_column_l_arr_.push (i.grob_l_);
 }
 
 void
@@ -64,3 +62,9 @@ Rest_collision_engraver::stop_translation_timestep ()
     }
   note_column_l_arr_.clear ();
 }
+ENTER_DESCRIPTION(Rest_collision_engraver,
+/* descr */       "Handles collisions of rests.",
+/* creats*/       "RestCollision",
+/* acks  */       "note-column-interface",
+/* reads */       "",
+/* write */       "");

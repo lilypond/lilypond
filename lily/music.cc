@@ -101,9 +101,9 @@ print_alist (SCM a, SCM port)
 {
   for (SCM s = a; gh_pair_p (s); s = ly_cdr (s))
     {
-      scm_display (gh_caar (s), port);
+      scm_display (ly_caar (s), port);
       scm_puts (" = ", port); 
-      scm_write (gh_cdar (s), port);
+      scm_write (ly_cdar (s), port);
       scm_puts ("\n", port);
     }
 }
