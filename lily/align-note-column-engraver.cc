@@ -60,7 +60,7 @@ Align_note_column_engraver::do_removal_processing ()
   if (isdir_b (al))
     {
       Direction d = to_dir (al);
-      directional_element (align_item_p_).set (d);
+      Directional_element_interface (align_item_p_).set (d);
     }
   
   typeset_element (align_item_p_);

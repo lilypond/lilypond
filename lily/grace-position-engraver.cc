@@ -96,7 +96,7 @@ Grace_position_engraver::do_pre_move_processing ()
       Axis_group_interface (last_musical_col_l_).add_element (align_l_);
     }
 
-  last_musical_col_l_ = get_staff_info ().musical_pcol_l ();
+  last_musical_col_l_ = dynamic_cast<Paper_column*>( unsmob_element (get_property ("currentMusicalColumn")));
 }
 
 void

@@ -16,7 +16,7 @@
 	      indent = 0.0\pt;
 		%for broken!
 		% linewidth= 30.\mm;
-		castingalgorithm = \Wordwrap;
+
 	}
 }
 

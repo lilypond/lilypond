@@ -55,13 +55,6 @@ protected:
     Announce element. Default: pass on to daddy. Utility
     */
   virtual void announce_element (Score_element_info);
-   
-  /**
-    Get information on the staff. Default: ask daddy.
-    */
-  virtual Staff_info get_staff_info() const;
-  virtual void fill_staff_info (Staff_info&);
-
 public:
   VIRTUAL_COPY_CONS(Translator);
   Engraver_group_engraver * daddy_grav_l() const;

@@ -101,6 +101,11 @@ not be on staff lines.
 
 @mudelafile{staccato-pos.ly}
 
+Dynamics appear below or above the staff.  If multiple dynamics are
+linked with (de)crescendi, they should be on the same line.
+
+@mudelafile{dyn-line.ly}
+
 @section Chord names
 
 Chord names are generated from a list pitches, and are customisable

@@ -53,7 +53,7 @@ Dot_column::Dot_column (SCM s)
 {
   Pointer_group_interface gi (this, "dots");
   gi.set_interface ();
-  directional_element (this).set (RIGHT);
+  Directional_element_interface (this).set (RIGHT);
   
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes(X_AXIS,X_AXIS);

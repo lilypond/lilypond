@@ -50,11 +50,11 @@ SCM
 Breathing_sign::member_after_line_breaking ()
 {
   Real space = staff_symbol_referencer (this).staff_space();
-  Direction d = directional_element (this). get ();
+  Direction d = Directional_element_interface (this). get ();
   if (!d)
     {
       d = UP;
-      directional_element(this).set (d);
+      Directional_element_interface (this).set (d);
     }
 
   translate_axis(2.0 * space * d, Y_AXIS);

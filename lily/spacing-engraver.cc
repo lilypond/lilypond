@@ -35,15 +35,14 @@ void
 Spacing_engraver::do_creation_processing ()
 {
   spacing_p_  =new Spacing_spanner (SCM_EOL);
-  spacing_p_->set_bound (LEFT, get_staff_info ().command_pcol_l ());  
+  spacing_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));  
   announce_element (Score_element_info (spacing_p_, 0));
 }
 
 void
 Spacing_engraver::do_removal_processing ()
 {
-  Paper_column * p = get_staff_info ().command_pcol_l ();
-
+  Score_element * p = unsmob_element (get_property ("currentCommandColumn"));
   spacing_p_->set_bound (RIGHT, p);
   typeset_element (spacing_p_);
   spacing_p_ =0;
@@ -95,7 +94,7 @@ Spacing_engraver::do_pre_move_processing ()
   shortest_playing = shortest_playing <? starter;
   
   Paper_column * sc
-    = dynamic_cast<Paper_column*> (get_staff_info ().musical_pcol_l ());
+    = dynamic_cast<Paper_column*> (unsmob_element (get_property ("currentMusicalColumn")));
 
   SCM sh = smobify (new Moment (shortest_playing));
   SCM st = smobify (new Moment (starter));

@@ -50,6 +50,8 @@ Slur::add_column (Note_column*n)
       Pointer_group_interface (this, "note-columns").add_element (n);
       add_dependency (n);
     }
+
+  add_bound_item (this, n);
 }
 
 void
@@ -103,6 +105,7 @@ Slur::get_default_dir () const
 void
 Slur::do_add_processing ()
 {
+#if 0
   Link_array<Note_column> encompass_arr =
     Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
@@ -112,6 +115,7 @@ Slur::do_add_processing ()
       if (encompass_arr.size () > 1)
 	set_bound (RIGHT, encompass_arr.top ());
     }
+#endif
 }
 
 
@@ -121,7 +125,7 @@ Slur::encompass_offset (Note_column const* col) const
 {
   Offset o;
   Stem* stem_l = col->stem_l ();
-  Direction dir = directional_element (this).get ();
+  Direction dir = Directional_element_interface (this).get ();
   
   if (!stem_l)
     {
@@ -130,7 +134,7 @@ Slur::encompass_offset (Note_column const* col) const
       o[Y_AXIS] = col->extent (Y_AXIS)[dir];
       return o;  
     }
-  Direction stem_dir = directional_element (stem_l).get ();
+  Direction stem_dir = Directional_element_interface (stem_l).get ();
   o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
 
   /*
@@ -203,8 +207,8 @@ ADD_SCM_INIT_FUNC (score_elt, init_score_elts);
 void
 Slur::set_extremities ()
 {
-  if (!directional_element (this).get ())
-    directional_element (this).set (get_default_dir ());
+  if (!Directional_element_interface (this).get ())
+    Directional_element_interface (this).set (get_default_dir ());
 
   Direction dir = LEFT;
   do 
@@ -252,7 +256,7 @@ Slur::get_attachment (Direction dir) const
 		Default position is centered in X, on outer side of head Y
 	       */
 	      o += Offset (0.5 * n->extent (X_AXIS).length (),
-			   0.5 * ss * directional_element (this).get ());
+			   0.5 * ss * Directional_element_interface (this).get ());
 	    }
 	  else if (str == "alongside-stem")
 	    {
@@ -262,7 +266,7 @@ Slur::get_attachment (Direction dir) const
 	       */
 	      o += Offset (n->extent (X_AXIS).length ()
 			   * (1 + st->get_direction ()),
-			   0.5 * ss * directional_element (this).get ());
+			   0.5 * ss * Directional_element_interface (this).get ());
 	    }
 	  else if (str == "stem")
 	    {
@@ -289,7 +293,7 @@ Slur::get_attachment (Direction dir) const
 	  SCM l = scm_assoc
 	    (scm_listify (a,
 			  gh_int2scm (st->get_direction () * dir),
-			  gh_int2scm (directional_element (this).get () * dir),
+			  gh_int2scm (Directional_element_interface (this).get () * dir),
 			  SCM_UNDEFINED),
 	     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
 	  
@@ -415,7 +419,7 @@ Slur::member_brew_molecule () const
   if (gh_number_p (d))
     a = lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
+    a = lookup_l ()->slur (one, Directional_element_interface (this).get () * thick, thick);
 
   return a.create_scheme();
 }
@@ -424,7 +428,7 @@ void
 Slur::set_control_points ()
 {
   Slur_bezier_bow bb (get_encompass_offset_arr (),
-		      directional_element (this).get ());
+		      Directional_element_interface (this).get ());
 
   Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
   Real h_inf = paper_l ()->get_var ("slur_height_limit_factor") * staff_space;
@@ -471,8 +475,7 @@ Slur::get_curve () const
   Bezier b;
   int i = 0;
 
-  // URGURG?
-  if (!directional_element (this).get ()
+  if (!Directional_element_interface (this).get ()
       || ! gh_symbol_p (index_cell (get_elt_property ("attachment"), LEFT)))
     ((Slur*)this)->set_extremities ();
   
@@ -487,7 +490,7 @@ Slur::get_curve () const
     }
   
   Array<Offset> enc (get_encompass_offset_arr ());
-  Direction dir = directional_element (this).get ();
+  Direction dir = Directional_element_interface (this).get ();
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];

@@ -66,12 +66,16 @@ Tie::get_default_dir () const
   Stem * sl =  head(LEFT) ? head (LEFT)->stem_l () :0;
   Stem * sr =  head(RIGHT) ? head (RIGHT)->stem_l () :0;  
 
-  if (sl && directional_element (sl).get () == UP
-      && sr && directional_element (sr).get () == UP)
+  if (sl && Directional_element_interface (sl).get () == UP
+      && sr && Directional_element_interface (sr).get () == UP)
     return DOWN;
   else
     return UP;
 }
+
+/*
+  fixme  must  use spanned drul from heads elt property
+ */
 
 void
 Tie::do_add_processing()
@@ -103,8 +107,8 @@ Tie::member_after_line_breaking ()
       return SCM_UNDEFINED;
     }
 
-  if (!directional_element (this).get ())
-    directional_element (this).set (get_default_dir ());
+  if (!Directional_element_interface (this).get ())
+    Directional_element_interface (this).set (get_default_dir ());
   
   Real staff_space = staff_symbol_referencer (this).staff_space ();
   Real half_space = staff_space / 2;
@@ -154,7 +158,7 @@ Tie::member_after_line_breaking ()
   int ypos_i = int (ypos);
  
   Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
-  Direction dir = directional_element (this).get();
+  Direction dir = Directional_element_interface (this).get();
   if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
     {
       if (abs (ypos_i) % 2)
@@ -203,7 +207,7 @@ Tie::member_brew_molecule () const
   if (gh_number_p (d))
     a = lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
   else
-    a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
+    a = lookup_l ()->slur (one, Directional_element_interface (this).get () * thick, thick);
   
   return a.create_scheme(); 
 }
@@ -213,7 +217,7 @@ Tie::member_brew_molecule () const
 Bezier
 Tie::get_curve () const
 {
-  Direction d (directional_element (this).get ());
+  Direction d (Directional_element_interface (this).get ());
   Bezier_bow b (get_encompass_offset_arr (), d);
 
   Real staff_space = staff_symbol_referencer (this).staff_space ();

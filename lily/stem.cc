@@ -95,14 +95,14 @@ Stem::stem_end_position () const
 Direction
 Stem::get_direction () const
 {
-  Direction d = directional_element (this).get ();
+  Direction d = Directional_element_interface (this).get ();
 
   if (!d)
     {
        Stem * me = (Stem*) this;
        d = get_default_dir ();
        // urg, AAARGH!
-       directional_element (me).set (d);
+       Directional_element_interface (me).set (d);
     }
   return d ;
 }
@@ -301,7 +301,7 @@ Stem::get_default_stem_end_position () const
   if (!dir)
     {
       dir = get_default_dir ();
-      directional_element (this).set (dir);
+      Directional_element_interface (this).set (dir);
     }
   
   /* 
@@ -533,7 +533,7 @@ Stem::calc_stem_info () const
 {
   assert (beam_l ());
 
-  Direction beam_dir = directional_element (beam_l ()).get ();
+  Direction beam_dir = Directional_element_interface (beam_l ()).get ();
   if (!beam_dir)
     {
       programming_error ("Beam dir not set.");
@@ -575,7 +575,7 @@ Stem::calc_stem_info () const
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  if (!beam_dir || (beam_dir == directional_element (this).get ()))
+  if (!beam_dir || (beam_dir == Directional_element_interface (this).get ()))
     /* normal beamed stem */
     {
       if (multiplicity)

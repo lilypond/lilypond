@@ -47,7 +47,7 @@ void
 Staff_symbol_engraver::do_creation_processing()
 {
   span_p_ = new Staff_symbol (get_property ("staffSymbolBasicProperties"));
-  span_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+  span_p_->set_bound(LEFT,unsmob_element (get_property ("currentCommandColumn")));
 
   announce_element (Score_element_info (span_p_, 0));
 }
@@ -63,7 +63,7 @@ Staff_symbol_engraver::do_removal_processing()
   if (gh_number_p (n))
     span_p_->set_elt_property ("line-count", n);
 
-  span_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
+  span_p_->set_bound(RIGHT,unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (span_p_);
   span_p_ =0;
 }

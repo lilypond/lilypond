@@ -9,7 +9,7 @@ title="symmetry";
 		[d''8( f )a, d'] r2
 	}
 	\paper{
-		castingalgorithm = \Wordwrap;
+
 		linewidth = 50.0\mm;
 	}
 }

@@ -38,7 +38,7 @@ broken = \notes\transpose c''{
 	      indent = 0.0\pt;
 		%for broken!
 		linewidth= 30.\mm;
-		castingalgorithm = \Wordwrap;
+
 	}
 }
 

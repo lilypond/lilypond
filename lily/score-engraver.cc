@@ -200,17 +200,11 @@ Score_engraver::set_columns (Paper_column *new_command_l,
       if (news[i])
 	*current[i] = news[i];
     }
-}
 
-Staff_info
-Score_engraver::get_staff_info() const
-{
-  Staff_info inf = Engraver_group_engraver::get_staff_info();
-
-  inf.command_l_ = command_column_l_;
-  inf.musical_l_ = musical_column_l_;
-  
-  return inf;
+  if (new_musical_l)
+    set_property ("currentMusicalColumn", new_musical_l->self_scm_);
+  if (new_command_l)
+    set_property ("currentCommandColumn", new_command_l->self_scm_);  
 }
 
 Music_output*

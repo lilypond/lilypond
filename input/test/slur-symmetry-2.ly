@@ -10,7 +10,7 @@ title="symmetry";
 		[g,( e, )c' c]
 	}
 	\paper{
-		castingalgorithm = \Wordwrap;
+
 		linewidth = 50.0\mm;
 	}
 }

@@ -470,17 +470,19 @@ ScoreContext = \translator {
 		(dot-count . 1) 
 	)
 	basicDynamicLineSpannerProperties = #`(
-
+		(dynamic-interface . #t)
+		(axes . ( 1))
 	)
 	basicDynamicTextProperties	 = # `(
 		(style . "dynamic")
+		(dynamic-interface . #t)
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
 	)
 	leftEdgeBasicProperties = #`(
-	  (break-align-symbol . Left_edge_item)
-	  (breakable . #t)
+		(break-align-symbol . Left_edge_item)
+		(breakable . #t)
 	)
 	basicGraceAlignItemProperties = #`(
 		(axes . (0))

@@ -15,7 +15,7 @@
 	}
 	\paper{ 
 		linewidth = 80.\mm; 
-		castingalgorithm = \Wordwrap;
+
 	}
 }
 
