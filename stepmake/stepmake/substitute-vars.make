@@ -10,12 +10,12 @@ DATE = $(date)
 
 # for all FILE in AT_FILES:
 # substitute occurrences of @FILE@ with contents $(at-dir)BLA$(at-ext)
-sed-atfiles = -e '' $(foreach i, $(AT_FILES), \
+sed-atfiles = -e '\#' $(foreach i, $(AT_FILES), \
   -e '/@$i@/r $(at-dir)$i$(at-ext)' -e 's%@$i@%%g')
 
 # for all VAR in ATVARIABLES
 # substitute occurrences of @VAR@ with $(VAR)
-sed-atvariables = -e '' $(foreach i, $(ATVARIABLES), -e 's!@$i@!$($i)!g')
+sed-atvariables = -e '\#' $(foreach i, $(ATVARIABLES), -e 's!@$i@!$($i)!g')
 
 # these are obsolete
 # use ATVARIABLES

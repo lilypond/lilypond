@@ -129,23 +129,49 @@ Chord::Chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musica
   fifth.transpose (Musical_pitch (2, -1));
 
   /*
+    remove double adds (urg: sus4)
+   */
+  for (int i = add_arr_p->size () - 1; i >= 0 ; i--)
+    {
+      int j = ::find_pitch_i (add_arr_p, (*add_arr_p)[i]);
+      if ((j != -1) && (i != j))
+        {
+	    add_arr_p->get (i);
+	} 
+    }
+
+  /*
     default chord includes upto 5: <1, 3, 5>
    */
   add_arr_p->insert (tonic, 0);
-  int highest_trap = trap_i (tonic, add_arr_p->top ());
+  Array<Musical_pitch> tmp = *add_arr_p;
+  int highest_trap = trap_i (tonic, tmp.top ());
   if (highest_trap < 5)
-    add_arr_p->push (fifth);
+    tmp.push (fifth);
 
   /*
     find missing triads
    */
-  Array<Musical_pitch> missing_arr = missing_triads_pitch_arr (add_arr_p);
+  Array<Musical_pitch> missing_arr = missing_triads_pitch_arr (&tmp);
+  if (highest_trap < 5)
+    missing_arr.push (fifth);
 
   /*
-    if additions include 4, assume sus4 and don't add third implicitely
+    if additions include some 3, don't add third
    */
   Musical_pitch third = tonic;
   third.transpose (Musical_pitch (2));
+  if (::find_notename_i (add_arr_p, third) != -1)
+    {
+      int i = ::find_pitch_i (&missing_arr, third);
+      if (i != -1)
+	missing_arr.get (i);
+    }
+  
+  /*
+    if additions include 4, assume sus4 and don't add third implicitely
+     C-sus (4) = c f g (1 4 5)
+   */
   Musical_pitch sus = tonic;
   sus.transpose (Musical_pitch (3));
   if (::find_pitch_i (add_arr_p, sus) != -1)
@@ -154,6 +180,17 @@ Chord::Chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musica
       if (i != -1)
 	missing_arr.get (i);
     }
+
+  /*
+    if additions include some 5, don't add fifth
+   */
+  if (::find_notename_i (add_arr_p, fifth) != -1)
+    {
+      int i = ::find_pitch_i (&missing_arr, fifth);
+      if (i != -1)
+	missing_arr.get (i);
+    }
+  
   
   /*
     complete the list of triads to be added
@@ -176,7 +213,7 @@ Chord::Chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musica
 	    break;
 	  }
       if (j == sub_arr_p->size ())
-        pitch_arr_.push (p);
+	pitch_arr_.push (p);
     }
 
   pitch_arr_.sort (Musical_pitch::compare);

@@ -1,3 +1,8 @@
+pl 63.jcn1
+	- some faq entries
+	- chord input and proceccing fixes
+	- bf: nederlands.ly
+	
 pl 62.hwn1
 	- ps-to-pfa.py: use std modules re, find 
 	- minor input fixes
