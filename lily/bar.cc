@@ -16,6 +16,7 @@
 Bar::Bar()
 {
     type_str_ = "|";
+    spanned_i_ = 0;
 }
 
 
@@ -31,7 +32,9 @@ Bar::do_print()const
 Molecule*
 Bar::brew_molecule_p()const
 {    
-    Symbol s = paper()->lookup_l()->bar(type_str_);
+    Paper_def *p = paper();
+    Symbol s = p->lookup_l()->bar( type_str_, 
+				   p->get_var("bar_size") );
     Molecule*output = new Molecule(Atom(s));
     return output;
 }

@@ -13,6 +13,7 @@
 class Bar:public Item {
 public:
     String type_str_;
+    int spanned_i_;
     
     NAME_MEMBERS();
     SCORE_ELEM_CLONE(Bar);
