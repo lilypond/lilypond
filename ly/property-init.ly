@@ -164,4 +164,4 @@ hideStaffSwitch = \property PianoStaff.followVoice = ##f
 % To remove a Volta bracet or some other graphical object,
 % set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff
 
-turnOff = #'((meta .  ((interfaces . ()))))
+turnOff = #'()
