@@ -75,14 +75,14 @@ vector of symbols."
        
        '(
 	 ;; teTeX
-	 ("TeX typewriter text" . "09fbbfac.enc") ;; cmtt10
-	 ("TeX math symbols" . "10037936.enc") ;; cmbsy
-	 ("ASCII caps and digits" . "1b6d048e.enc") ;; cminch
-	 ("TeX math italic" . "aae443f0.enc")  ;; cmmi10
-	 ("TeX extended ASCII" . "d9b29452.enc")
-	 ("TeX text" . "f7b6d320.enc")
-	 ("TeX text without f-ligatures" . "0ef0afca.enc")
-	 ("Extended TeX Font Encoding - Latin" . "tex256.enc")
+	 ("TeX-typewriter-text" . "09fbbfac.enc") ;; cmtt10
+	 ("TeX-math-symbols" . "10037936.enc") ;; cmbsy
+	 ("ASCII-caps-and-digits" . "1b6d048e.enc") ;; cminch
+	 ("TeX-math-italic" . "aae443f0.enc")  ;; cmmi10
+	 ("TeX-extended-ASCII" . "d9b29452.enc")
+	 ("TeX-text" . "cmr.enc")
+	 ("TeX-text-without-f-ligatures" . "0ef0afca.enc")
+	 ("Extended-TeX-Font-Encoding---Latin" . "tex256.enc")
 	 
 	 ("T1" . "tex256.enc")
 

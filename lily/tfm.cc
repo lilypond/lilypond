@@ -105,7 +105,7 @@ Tex_font_metric::make_tfm (String filename)
   
   tfm->encoding_table_ =
     scm_call_1 (ly_scheme_function ("get-coding-table"),
-		scm_makfrom0str (tfm->info_.coding_scheme.to_str0 ()));
+		scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
 
   return tfm->self_scm ();
 }
@@ -119,7 +119,13 @@ Tex_font_metric::design_size () const
 String
 Tex_font_metric::coding_scheme () const
 {
-  return info_.coding_scheme;
+  String scm = info_.coding_scheme;
+
+  for(int i = 0; i < scm.length (); i++)
+    if (scm[i] == ' ')
+      scm[i] = '-';
+
+  return scm;
 }
 
 int
