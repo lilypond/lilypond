@@ -1,5 +1,7 @@
 2002-08-03  Han-Wen  <hanwen@cs.uu.nl>
 
+	* VERSION: released 1.5.71 
+	
 	* lily/beam.cc (consider_auto_knees): rewrite function; now only
 	consider horizontal knees. Fixes input/bugs/bizzarre-beam.ly
 
