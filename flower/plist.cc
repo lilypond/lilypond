@@ -3,14 +3,10 @@
 // not inlined since it assumes knowledge of destructor.
 template<class T>
 void
-PointerList<T>::remove( Cursor<T> me )
+IPointerList<T>::remove(PCursor<T> me )
 {
     if ( me.ok() ) {
-	delete *me;
-        List<T>::remove( me ); 
+	delete me.ptr();
+        List<void*>::remove(me); 
     }
 }
-
-
-
-
