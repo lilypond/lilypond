@@ -14,21 +14,21 @@
 
 const int MAXLINELEN = 200;
 
-Paper_stream::Paper_stream (String filename)
+ostream *
+open_file_stream (String filename)
 {
+  ostream *os;
   if (filename.length_i () && (filename != "-"))
     os = new ofstream (filename.ch_C ());
   else
-    //    os = new ostream (cout.ostreambuf ());
     os = new ostream (cout._strbuf);
   if (!*os)
     error (_f ("can't open file: `%s'", filename));
-  nest_level = 0;
-  line_len_i_ = 0;
-  outputting_comment_b_=false;
+  return os;
 }
 
-Paper_stream::~Paper_stream ()
+void
+close_file_stream (ostream *os)
 {
   *os << flush;
   if (!*os)
@@ -37,6 +37,19 @@ Paper_stream::~Paper_stream ()
       exit_status_i_ = 1;
     }
   delete os;
+}  
+
+Paper_stream::Paper_stream (String filename)
+{
+  os_ = open_file_stream (filename);
+  nest_level = 0;
+  line_len_i_ = 0;
+  outputting_comment_b_=false;
+}
+
+Paper_stream::~Paper_stream ()
+{
+  close_file_stream (os_);
   assert (nest_level == 0);
 }
 
@@ -48,7 +61,7 @@ Paper_stream::operator << (String s)
     {
       if (outputting_comment_b_)
 	{
-	  *os << *cp;
+	  *os_ << *cp;
 	  if (*cp == '\n')
 	    {
 	      outputting_comment_b_=false;
@@ -61,19 +74,19 @@ Paper_stream::operator << (String s)
 	{
 	case '%':
 	  outputting_comment_b_ = true;
-	  *os << *cp;
+	  *os_ << *cp;
 	  break;
 	case '{':
 	  nest_level++;
-	  *os << *cp;
+	  *os_ << *cp;
 	  break;
 	case '}':
 	  nest_level--;
-	  *os << *cp;
+	  *os_ << *cp;
 
 	  if (nest_level < 0)
 	    {
-	      delete os;	// we want to see the remains.
+	      delete os_;	// we want to see the remains.
 	      assert (nest_level>=0);
 	    }
 
@@ -81,33 +94,33 @@ Paper_stream::operator << (String s)
 	  if (nest_level == 0)
 	    break;
 
-	  *os << '%';
+	  *os_ << '%';
 	  break_line ();
 	  break;
 	case '\n':
 	  break_line ();
 	  break;
 	case ' ':
-	  *os <<  ' ';
+	  *os_ <<  ' ';
 	  if (line_len_i_ > MAXLINELEN)
 	    break_line ();
 
 	  break;
 	default:
-	  *os << *cp;
+	  *os_ << *cp;
 	  break;
 	}
     }
   //urg, for debugging only!!
-  *os << flush;
+  *os_ << flush;
   return *this;
 }
 
 void
 Paper_stream::break_line ()
 {
-  *os << '\n';
-  *os << to_str (' ', nest_level);
+  *os_ << '\n';
+  *os_ << to_str (' ', nest_level);
   outputting_comment_b_ = false;
   line_len_i_ = 0;
 }

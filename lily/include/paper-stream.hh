@@ -13,7 +13,7 @@ class Paper_stream
 {
 public:
     bool outputting_comment_b_;
-    ostream *os;
+    ostream *os_;
     int nest_level;
     /// to check linelen in output. TeX has limits.
     int line_len_i_;
@@ -31,5 +31,10 @@ private:
     Paper_stream (Paper_stream const&);
     void break_line();
 };
+
+class ostream;
+ostream *open_file_stream (String filename);
+void close_file_stream (ostream *os);
+
 
 #endif // PAPER_STREAM_HH

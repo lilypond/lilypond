@@ -368,7 +368,7 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
-		THIS->lexer_p_-> scope_l_arr_.pop ();		
+		THIS->lexer_p_-> scope_l_arr_.pop ();
 	}
 	;
 
@@ -663,13 +663,30 @@ Alternative_music:
 Repeated_music:
 	REPEAT STRING bare_unsigned Music Alternative_music
 	{
-		Music_sequence* m = dynamic_cast <Music_sequence*> ($5);
-		if (m && $3 < m->length_i ())
+		Music_sequence* alts = dynamic_cast <Music_sequence*> ($5);
+		if (alts && $3 < alts->length_i ())
 			$5->origin ()->warning (_ ("More alternatives than repeats.  Junking excess alternatives."));
+		Music *beg = $4;
+		int times = $3;
 
+		Repeated_music * r = new Repeated_music (SCM_EOL);
+
+		if (beg)
+			{
+			r-> set_mus_property ("body", beg->self_scm ());
+			scm_unprotect_object (beg->self_scm ());
+			}
+		r->set_mus_property ("repeat-count", gh_int2scm (times >? 1));
+
+		if (alts)
+			{
+			alts->truncate (times);
+			r-> set_mus_property ("alternatives", alts->self_scm ());
+			scm_unprotect_object (alts->self_scm ());  
+			}
 		SCM func = scm_eval2 (ly_symbol2scm ("repeat-name-to-ctor"), SCM_EOL);
 		SCM result = gh_call1 (func, $2);
-		Repeated_music * r = new Repeated_music ($4, $3 >? 1, m);
+
 		set_music_properties (r, result);
 
 		r->set_spot (*$4->origin ());
@@ -678,25 +695,31 @@ Repeated_music:
 	;
 
 Music_sequence: '{' Music_list '}'	{
-		$$ = new Music_sequence (gh_car ($2));
+		$$ = new Music_sequence (SCM_EOL);
+		$$->set_mus_property ("elements", gh_car ($2));
 	}
 	;
 
 Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
-		$$ = new Sequential_music (gh_car ($3));
+		$$ = new Sequential_music (SCM_EOL);
+		$$->set_mus_property ("elements", gh_car ($3));
 	}
 	| '{' Music_list '}'		{
-		$$ = new Sequential_music (gh_car ($2));
+		$$ = new Sequential_music (SCM_EOL);
+		$$->set_mus_property ("elements", gh_car ($2));
 	}
 	;
 
 Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
-		$$ = new Simultaneous_music (gh_car ($3));
+		$$ = new Simultaneous_music (SCM_EOL);
+		$$->set_mus_property ("elements", gh_car ($3));
+
 	}
 	| '<' Music_list '>'	{
-		$$ = new Simultaneous_music (gh_car ($2));
+		$$ = new Simultaneous_music (SCM_EOL);
+		$$->set_mus_property ("elements", gh_car ($2));
 	}
 	;
 
@@ -714,7 +737,7 @@ Simple_music:
 			THIS->parser_error (_("First argument must be a procedure taking 1 argument"));
 		}
 
-	  Music *m = new Music;
+	  Music *m = new Music (SCM_EOL);
 	  m->set_mus_property ("predicate", pred);
 	  m->set_mus_property ("symbol", $3);
 	  m->set_mus_property ("value",  $5);
@@ -741,7 +764,9 @@ Simple_music:
 
 Composite_music:
 	CONTEXT STRING Music	{
-		Context_specced_music *csm =  new Context_specced_music ($3);
+		Context_specced_music *csm =  new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", $3->self_scm ());
+		scm_unprotect_object ($3->self_scm ());
 
 		csm->set_mus_property ("context-type",$2);
 		csm->set_mus_property ("context-id", ly_str02scm (""));
@@ -749,17 +774,25 @@ Composite_music:
 		$$ = csm;
 	}
 	| AUTOCHANGE STRING Music	{
-		Auto_change_music * chm = new Auto_change_music ($3);
+		Auto_change_music * chm = new Auto_change_music (SCM_EOL);
+		chm->set_mus_property ("element", $3->self_scm ());
+
+		scm_unprotect_object ($3->self_scm ());
 		chm->set_mus_property ("what", $2); 
 
 		$$ = chm;
 		chm->set_spot (*$3->origin ());
 	}
 	| GRACE Music {
-		$$ = new Grace_music ($2);
+		$$ = new Grace_music (SCM_EOL);
+		$$->set_mus_property ("element", $2->self_scm ());
+		scm_unprotect_object ($2->self_scm ());
+
 	}
 	| CONTEXT STRING '=' STRING Music {
-		Context_specced_music *csm =  new Context_specced_music ($5);
+		Context_specced_music *csm =  new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", $5->self_scm ());
+		scm_unprotect_object ($5->self_scm ());
 
 		csm->set_mus_property ("context-type", $2);
 		csm->set_mus_property ("context-id", $4);
@@ -773,24 +806,47 @@ Composite_music:
 		bare_unsigned '/' bare_unsigned Music 	
 
 	{
-		$$ = new Time_scaled_music ($3, $5, $6);
+		int n = $3; int d = $5;
+		Music *mp = $6;
+		$$ = new Time_scaled_music (SCM_EOL);
 		$$->set_spot (THIS->pop_spot ());
+
+
+		$$->set_mus_property ("element", mp->self_scm ());
+		scm_unprotect_object (mp->self_scm ());
+		$$->set_mus_property ("numerator", gh_int2scm (n));
+		$$->set_mus_property ("denominator", gh_int2scm (d));
+		$$->compress (Moment (n,d));
+
 	}
 	| Repeated_music		{ $$ = $1; }
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	| TRANSPOSE musical_pitch Music {
-		$$ = new Transposed_music ($3, *unsmob_pitch ($2));
+		$$ = new Transposed_music (SCM_EOL);
+		Music *p = $3;
+		Pitch pit = *unsmob_pitch ($2);
+
+		p->transpose (pit);
+		$$->set_mus_property ("element", p->self_scm ());
+		scm_unprotect_object (p->self_scm ());
 	}
 	| TRANSPOSE steno_tonic_pitch Music {
-		$$ = new Transposed_music ($3, *unsmob_pitch ($2));
+		$$ = new Transposed_music (SCM_EOL);
+		Music *p = $3;
+		Pitch pit = *unsmob_pitch ($2);
+
+		p->transpose (pit);
+		$$->set_mus_property ("element", p->self_scm ());
+		scm_unprotect_object (p->self_scm ());
+	
 	}
 	| APPLY embedded_scm Music  {
 		SCM ret = gh_call1 ($2, $3->self_scm ());
 		Music *m = unsmob_music (ret);
 		if (!m) {
 			THIS->parser_error ("\\apply must return a Music");
-			m = new Music ();
+			m = new Music (SCM_EOL);
 			}
 		$$ = m;
 	}
@@ -821,27 +877,48 @@ Composite_music:
 
 relative_music:
 	RELATIVE absolute_musical_pitch Music {
-		$$ = new Relative_octave_music ($3, *unsmob_pitch ($2));
+		Music * p = $3;
+		Pitch pit = *unsmob_pitch ($2);
+		$$ = new Relative_octave_music (SCM_EOL);
+
+		$$->set_mus_property ("element", p->self_scm ());
+		scm_unprotect_object (p->self_scm ());
+
+		$$->set_mus_property ("last-pitch", p->to_relative_octave (pit).smobbed_copy ());
+
 	}
 	;
 
 re_rhythmed_music:
 	ADDLYRICS Music Music {
-		Lyric_combine_music * l = new Lyric_combine_music ($2, $3);
-		$$ = l;
+	  Lyric_combine_music * l = new Lyric_combine_music (SCM_EOL);
+	  l->set_mus_property ("music", $2->self_scm ());
+	  l->set_mus_property ("lyrics", $3->self_scm ());
+	  scm_unprotect_object ($3->self_scm ());
+	  scm_unprotect_object ($2->self_scm ());
+	  $$ = l;
 	}
 	;
 
 part_combined_music:
 	PARTCOMBINE STRING Music Music {
-		Part_combine_music * p = new Part_combine_music ($2, $3, $4);
+		Part_combine_music * p = new Part_combine_music (SCM_EOL);
+
+		p->set_mus_property ("what", $2);
+		p->set_mus_property ("one", $3->self_scm ());
+		p->set_mus_property ("two", $4->self_scm ());  
+
+		scm_unprotect_object ($3->self_scm());
+		scm_unprotect_object ($4->self_scm());  
+
+
 		$$ = p;
 	}
 	;
 
 translator_change:
 	TRANSLATOR STRING '=' STRING  {
-		Music * t = new Music;
+		Music * t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Change_iterator::constructor_cxx_function);
 		t-> set_mus_property ("change-to-type", $2);
@@ -854,54 +931,66 @@ translator_change:
 
 property_def:
 	PROPERTY STRING '.' STRING '='  scalar {
-		Music *t = new Music;
+		Music *t = new Music (SCM_EOL);
 
 		t->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("value", $6);
 
-		Context_specced_music *csm = new Context_specced_music (t);
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
+
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
+
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING SET embedded_scm '=' embedded_scm {
-		Music *t = new Music;
+		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
 		t->set_mus_property ("grob-property", $6);
 		t->set_mus_property ("grob-value", $8);
-		Context_specced_music *csm = new Context_specced_music (t);
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING OVERRIDE embedded_scm '=' embedded_scm {
-		Music *t = new Music;
+		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("grob-property", $6);
 		t->set_mus_property ("grob-value", $8);
-		Context_specced_music *csm = new Context_specced_music (t);
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
+
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
 		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
-		Music *t = new Music;
+		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Pop_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
 		t->set_mus_property ("grob-property", $6);
 
-		Context_specced_music *csm = new Context_specced_music (t);
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
+
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
@@ -935,26 +1024,30 @@ request_chord:
 
 command_element:
 	command_req {
-		$$ = new Request_chord (gh_cons ($1->self_scm (), SCM_EOL));
+		$$ = new Request_chord (SCM_EOL);
+		$$->set_mus_property ("elements", gh_cons ($1->self_scm (), SCM_EOL));
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
 	| BAR STRING ';' 			{
-		Music *t = new Music;
+		Music *t = new Music (SCM_EOL);
 
 		t->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", ly_symbol2scm ("whichBar"));
 		t->set_mus_property ("value", $2);
 
-		Context_specced_music *csm = new Context_specced_music (t);
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
+
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
 		csm->set_mus_property ("context-type", ly_str02scm ("Score"));
 	}
 	| PARTIAL duration_length ';' 	{
-		Music * p = new Music;
+		Music * p = new Music (SCM_EOL);
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
 		p->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
@@ -962,7 +1055,10 @@ command_element:
 		Moment m = - unsmob_duration($2)->length_mom ();
 		p->set_mus_property ("value", m.smobbed_copy ());
 
-		Context_specced_music * sp = new Context_specced_music (p);
+		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
+		sp->set_mus_property ("element", p->self_scm ());
+		scm_unprotect_object (p->self_scm ());
+
 		$$ =sp ;
 		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
 	}
@@ -972,19 +1068,23 @@ command_element:
 
 		SCM l = SCM_EOL;
 		for (SCM s = result ; gh_pair_p (s); s = gh_cdr (s)) {
-			Music * p = new Music;
+			Music * p = new Music (SCM_EOL);
 			set_music_properties(p, gh_car (s));
 			l = gh_cons (p->self_scm (), l);
 			scm_unprotect_object (p->self_scm ());
 		}
-		Sequential_music * seq = new Sequential_music (l);
+		Sequential_music * seq = new Sequential_music (SCM_EOL);
+		seq->set_mus_property ("elements", l);
 
-		Context_specced_music * sp = new Context_specced_music (seq);
+		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
+		sp->set_mus_property ("element", seq->self_scm ());
+		scm_unprotect_object (seq->self_scm ());
+
 		$$ =sp ;
 		sp-> set_mus_property("context-type", ly_str02scm("Staff"));
 	}
 	| TIME_T bare_unsigned '/' bare_unsigned ';' {
-		Music * p = new Music;
+		Music * p = new Music (SCM_EOL);
 		p->set_mus_property ("symbol",
 			ly_symbol2scm ( "timeSignatureFraction"));
 		p->set_mus_property ("iterator-ctor",
@@ -993,8 +1093,11 @@ command_element:
 		p->set_mus_property ("value", gh_cons (gh_int2scm ($2),
 							gh_int2scm ($4)));
 
-		Context_specced_music * sp = new Context_specced_music (p);
-		$$ =sp ;
+		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
+		sp->set_mus_property ("element", p->self_scm ());
+		scm_unprotect_object (p->self_scm ());
+
+		$$ = sp;
 		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
 	}
 	;
@@ -1469,10 +1572,11 @@ simple_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
-		Simultaneous_music*v = new Request_chord (gh_list (n->self_scm (), SCM_UNDEFINED));
+		Simultaneous_music*v = new Request_chord (SCM_EOL);
+		v->set_mus_property ("elements", gh_list (n->self_scm (), SCM_UNDEFINED));
 		
 /*
-FIXME
+FIXME: location is one off, since ptich & duration don't contain origin refs. 
 */
 		v->set_spot (THIS->here_input ());
 		n->set_spot (THIS->here_input ());
@@ -1497,7 +1601,8 @@ FIXME
 		      rest_req_p->set_spot (THIS->here_input());
 			e = rest_req_p->self_scm ();
 		    }
-		  Simultaneous_music* velt_p = new Request_chord (gh_list (e,SCM_UNDEFINED));
+		  Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
+		velt_p-> set_mus_property ("elements", gh_list (e,SCM_UNDEFINED));
 		  velt_p->set_spot (THIS->here_input());
 
 
@@ -1514,13 +1619,17 @@ FIXME
 		sp1->set_mus_property ("span-type", r);
 		sp2->set_mus_property ("span-type", r);
 
-		Request_chord * rqc1 = new Request_chord (gh_list (sp1->self_scm (), SCM_UNDEFINED));
-		Request_chord * rqc2 = new Request_chord (gh_list (sk->self_scm (), SCM_UNDEFINED));;
-		Request_chord * rqc3 = new Request_chord(gh_list (sp2->self_scm (), SCM_UNDEFINED));;
+		Request_chord * rqc1 = new Request_chord (SCM_EOL);
+		rqc1->set_mus_property ("elements", gh_list (sp1->self_scm (), SCM_UNDEFINED));
+		Request_chord * rqc2 = new Request_chord (SCM_EOL);
+		rqc2->set_mus_property ("elements", gh_list (sk->self_scm (), SCM_UNDEFINED));;
+		Request_chord * rqc3 = new Request_chord(SCM_EOL);
+		rqc2->set_mus_property ("elements", gh_list (sp2->self_scm (), SCM_UNDEFINED));;
 
 		SCM ms = gh_list (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
 
-		$$ = new Sequential_music (ms);
+		$$ = new Sequential_music (SCM_EOL);
+		$$->set_mus_property ("elements", ms);
 	}
 	| STRING { 
 	 	THIS->remember_spot ();
@@ -1538,7 +1647,8 @@ FIXME
                 lreq_p->set_mus_property ("text", $1);
 		lreq_p->set_mus_property ("duration",$3);
 		lreq_p->set_spot (THIS->here_input());
-		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
+		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
+		velt_p->set_mus_property ("elements", gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
 
 		$$= velt_p;

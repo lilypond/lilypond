@@ -43,6 +43,8 @@ public:
   void output_comment (String s);
   void output_string (SCM s);
   void output_scheme (SCM scm);
+  static void output_score_header_field (String filename, String key, String value);
+  static void output_score_header_fields (Paper_def *paper);
 };
 
 #endif // PAPER_OUTPUTTER_HH

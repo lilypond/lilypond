@@ -61,7 +61,7 @@ c:m5-.7-	% o = diminished seventh chord
 >
     \paper
     {
-        \translator { \ChordNamesContext ChordNames \override #'word-space = #1 }
+        \translator { \ChordNamesContext ChordName \override #'word-space = #1 }
 %        \translator { \LyricsContext textScriptWordSpace = #0.3 }
     }
 }

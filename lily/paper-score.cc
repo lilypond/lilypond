@@ -67,8 +67,6 @@ Paper_score::calc_breaking ()
   return sol;
 }
 
-
-
 /*
   urg. clean me
  */
@@ -125,10 +123,13 @@ Paper_score::process ()
   outputter_l_->output_scheme (scm);
 
   progress_indication ("\n");
+
+  outputter_l_->output_score_header_fields (paper_l_);
+    
   // huh?
   delete outputter_l_;
   outputter_l_ = 0;
-
+  
   if (verbose_global_b)
     ly_display_scm (scm_gc_stats ()); 
 }

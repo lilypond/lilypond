@@ -121,6 +121,11 @@ Paper_def::paper_stream_p () const
 }
 
 
+/* URGURGUGUUGH
+
+   not const.
+
+   Wat een puinhoop is dit. */
 String
 Paper_def::base_output_str () const
 {
@@ -133,6 +138,11 @@ Paper_def::base_output_str () const
       if (def)
 	str += "-" + to_str (def);
     }
+
+  /* Must store value, as this function can be called only once */
+  Paper_def *urg = (Paper_def*)this;
+  urg->current_output_base_ = str;
+
   return str;
 }
 

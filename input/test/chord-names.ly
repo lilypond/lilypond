@@ -30,7 +30,7 @@ chord = \notes\transpose c''\chords{
 
         	\translator { 
 			\ChordNamesContext
-			ChordNames \override #'word-space = #1 
+			ChordName \override #'word-space = #1 
 		}
     }
 }
