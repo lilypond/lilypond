@@ -28,6 +28,19 @@ Lookup::add(String s, Symtable*p)
     symtables_->add(s, p);
 }
 
+Symbol
+Lookup::text( String style, String text , int dir)
+{
+    svec<String> a;
+ 
+    a.add((*symtables_)("style")->lookup(style).tex);
+    Symbol s = (*symtables_)("align")->lookup(dir);
+    a[0] =  substitute_args( text,a);
+
+    s.tex = substitute_args(s.tex,a);
+    return s;
+}
+
 /****************/
 
 Real
