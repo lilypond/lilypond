@@ -476,7 +476,7 @@ re_dict = {
 		  'preamble-end': r'(?P<code>\\begin{document})',
 		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
 		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
-		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*\{(?P<filename>.+)})',
+		  'lilypond-file': r'(?m)^[^%\n]*?(?P<match>\\lilypondfile\s*(\[(?P<options>.*?)\])?\s*{(P<filename>[^}]+)})',
 		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
 		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
 		  'def-post-re': r"\\def\\postLilypondExample",
