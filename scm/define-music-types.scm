@@ -33,7 +33,7 @@ Call the argument with all current grobs during interpreting phase.
 
 Syntax
 
-\applyoutput FUNC
+\\applyoutput FUNC
 
 arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.

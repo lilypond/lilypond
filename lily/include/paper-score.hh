@@ -34,7 +34,7 @@ protected:
   virtual SCM process (String);
 
 private:
-  Protected_scm score_;
+  Protected_scm systems_;
 
   void preprocess ();
   void calc_idealspacing ();

@@ -31,7 +31,6 @@ Paper_score::Paper_score ()
 {
   paper_ = 0;
   system_ = 0;
-  score_ = SCM_EOL;
 }
 
 Paper_score::Paper_score (Paper_score const &s)
@@ -46,7 +45,7 @@ Paper_score::typeset_line (System *system)
   if (!system_)
     system_ = system;
 
-  score_ = gh_cons (system->self_scm (), score_);
+  systems_ = gh_cons (system->self_scm (), systems_);
   system->pscore_ = this;
 
   scm_gc_unprotect_object (system->self_scm ());
@@ -92,7 +91,7 @@ Paper_score::process (String)
   progress_indication ("\n");
 
   /* Only keep result stencils in lines_, *title_; delete all grobs.  */
-  score_ = SCM_EOL;
+  systems_ = SCM_EOL;
   
   return lines;
 }

@@ -364,8 +364,6 @@ fragments in the DVI output only. For getting images in the HTML
 version,  the format 
 @code{texi-html} must be used.
 
-@ignore
-@c broken
 @item @option{-F @var{filter}}, @option{--filter=@var{filter}}
 Pipe snippets through @var{filter}.
 
@@ -373,7 +371,6 @@ For example:
 @example
     lilypond-book --filter='convert-ly --from=2.0.0' my-book.tely
 @end example
-@end ignore
 
 @item @option{--help}
 Print a short help message.

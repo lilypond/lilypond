@@ -503,6 +503,7 @@ L1 is copied, L2 not.
 	       ) "w"))
        )
 
+    (display "DUMPING...\n")
     (display
      (filter
       (lambda (x) (not (symbol? x))) 

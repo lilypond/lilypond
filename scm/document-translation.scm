@@ -133,7 +133,7 @@
        (eg (find-engraver-by-name name ))
        )
 
-    (cons (symbol->string name )
+    (cons (string-append "@code{" (ref-ify (symbol->string name)) "}")
 	  (engraver-doc-string eg #f)
      )
     ))
@@ -205,8 +205,10 @@
       #:text
       (string-append 
        desc
-       "\n\n This context is also known as: \n\n"
-       (human-listify aliases)
+       (if (pair? aliases)
+	   (string-append "\n\n This context is also known as: \n\n"
+			  (human-listify aliases))
+	   "")
        "\n\nThis context creates the following layout objects: \n\n"
        (human-listify (uniq-list (sort grob-refs string<? )))
        "."
@@ -229,7 +231,7 @@
        
        "\n\nThis context is built from the following engravers: "
        (description-list->texi
-	      (map document-engraver-by-name consists))
+	(map document-engraver-by-name consists))
        ))))
 
 (define (engraver-grobs grav)

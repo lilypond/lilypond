@@ -21,7 +21,6 @@
 class Staff_symbol_referencer 
 {
 public:
-  
   static bool has_interface (Grob*);
   static bool ugly_hack (Grob*);  
   static void set_position (Grob*,Real);
@@ -31,10 +30,9 @@ public:
      Leading are the lead strips between the sticks (lines) of
      typeface. ie. leading is vertical space.
   */
- 
   static Real line_thickness (Grob*);
   static Real staff_space (Grob*);
-  static Grob * get_staff_symbol (Grob*);
+  static Grob *get_staff_symbol (Grob*);
   static bool on_staffline (Grob*);
   static bool on_staffline (Grob*,int);
   static int line_count (Grob*);
