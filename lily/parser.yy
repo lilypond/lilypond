@@ -649,13 +649,6 @@ book_body:
 		$$->scores_.push (score);
 		scm_gc_unprotect_object (score->self_scm ());
 	}
-	| book_body Composite_music {
-		Music *music = $2;
-		Score *score
-			= unsmob_score (ly_music_scorify (music->self_scm ()));
-		$$->scores_.push (score);
-		scm_gc_unprotect_object (music->self_scm ());
-	}
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}

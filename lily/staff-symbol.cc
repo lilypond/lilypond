@@ -38,6 +38,9 @@ Staff_symbol::print (SCM smob)
 
     --hwn.
    */
+  Real t = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
+  
   Direction d = LEFT;
   do
     {
@@ -60,13 +63,12 @@ Staff_symbol::print (SCM smob)
 	      && !x->extent (x, X_AXIS).is_empty ())
 	    span_points[d] += x->extent (x, X_AXIS)[d];
 	}
+
+      span_points[d] -= d* t/2;
     }
   while (flip (&d) !=LEFT);
 
 
-  Real t = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
-  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
-  
   int l = Staff_symbol::line_count (me);
   
   Real height = (l-1) * staff_space (me) /2;

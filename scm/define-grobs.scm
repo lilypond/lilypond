@@ -408,8 +408,9 @@
 	(padding . 0.6)
 	(minimum-space . 1.2)
 	(direction . -1)
-	(meta . ((interfaces . (dynamic-interface axis-group-interface side-position-interface spanner-interface))))
-	))
+	
+	(meta . ((interfaces . (dynamic-interface axis-group-interface
+						  side-position-interface spanner-interface)))) ))
 
     (LeftEdge
      . (
@@ -532,7 +533,9 @@
 	(break-align-symbol . key-signature)
 	(break-visibility . ,begin-of-line-visible)
 	(breakable . #t)
-	(meta . ((interfaces . (key-signature-interface  font-interface  break-aligned-interface item-interface ))))
+	
+	(meta . ((interfaces . (key-signature-interface font-interface
+							break-aligned-interface item-interface ))))
 	))
     (LedgerLineSpanner
      . (
@@ -613,7 +616,9 @@
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
-	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
+	(meta . ((interfaces . (text-interface
+				side-position-interface font-interface mark-interface
+				self-alignment-interface item-interface ))))
 	))
      (MetronomeMark
      . (
@@ -621,7 +626,9 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
 	(padding . 0.8)
-	(meta . ((interfaces . (text-interface side-position-interface font-interface metronome-mark-interface item-interface))))
+	(meta . ((interfaces . (text-interface
+				side-position-interface font-interface
+				metronome-mark-interface item-interface))))
 	))
     (MeasureGrouping
      . (
@@ -698,7 +705,9 @@
 	(Y-extent-callback . ,Note_head::extent)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
-	(meta . ((interfaces . (rhythmic-grob-interface rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface item-interface ))))
+	(meta . ((interfaces . (rhythmic-grob-interface
+				rhythmic-head-interface font-interface note-head-interface
+				staff-symbol-referencer-interface item-interface ))))
 	))
 
     (NoteSpacing
@@ -890,7 +899,6 @@
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
-;	(base-shortest-duration . ,(ly:make-moment 1 8 3 2))
 	(base-shortest-duration . ,(ly:make-moment 1 8))
 	(meta . ((interfaces . (spacing-interface spacing-spanner-interface spanner-interface))))
 	))
