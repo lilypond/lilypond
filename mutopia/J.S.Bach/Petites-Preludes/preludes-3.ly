@@ -45,10 +45,10 @@ note, some have dotted half notes.
 
 
 %}
-\version "1.3.110";
+\version "1.3.117";
 
 
-upper =  \notes \transpose c'' {
+upper =   \notes \transpose c'' {
 	r16 [c es g] [es c es c] r c r c |
 	r16 [c es g] [es c es c] r c r c |
 	r16 [c f as] [f c f c] r c r c |
@@ -100,7 +100,7 @@ upper =  \notes \transpose c'' {
 	\bar "|.";
 }
 
-lower =  \notes{
+lower =   \notes{
 	c4 r [g8 es] |
 	c4 r [g8 es] |
 	c4 r [as8 f] |

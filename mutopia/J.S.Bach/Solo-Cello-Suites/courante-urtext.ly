@@ -7,7 +7,7 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-courante_a = \context Staff \notes \relative c {
+couranteA =  \context Staff \notes \relative c {
 	\context Voice=i
 	d'16 |
 	d a f a d, f g a bes a bes g |
@@ -57,7 +57,7 @@ courante_a = \context Staff \notes \relative c {
 	\bar "|.";		
 }
 
-courante_b = \notes \relative c {
+couranteB =  \notes \relative c {
 	\context Voice=ii
 	\stemDown
 	s16 |
@@ -84,9 +84,9 @@ courante_b = \notes \relative c {
 	s2 s8.
 }
 
-courante = \context Staff \notes<
- \$courante_a
- \$courante_b
+courante =  \context Staff \notes<
+ \couranteA
+ \couranteB
 >
 
-\version "1.3.110";
+\version "1.3.117";

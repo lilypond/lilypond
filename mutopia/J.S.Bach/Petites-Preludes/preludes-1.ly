@@ -44,14 +44,14 @@ Lemoine puts fermatas on ending bar lines everywhere.
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 
-lowstaff = \translator "Staff" = "lower"
-upstaff = \translator "Staff" = "upper"
+lowstaff =  \translator "Staff" = "lower"
+upstaff =  \translator "Staff" = "upper"
 
 % upper = \context Staff \notes\relative c {
-upper = \context Staff=upper \notes\relative c {
+upper =  \context Staff=upper \notes\relative c {
 	\context Voice=i
 	\property Voice . textStyle = "italic"
 
@@ -117,7 +117,7 @@ upper = \context Staff=upper \notes\relative c {
 }
 
 % lower = \context Staff \notes\relative c{
-lower = \context Staff=lower \notes\relative c{
+lower =  \context Staff=lower \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "roman"
 	c4 e g^"\\textsharp"-\mordent g,4 |
@@ -137,7 +137,7 @@ lower = \context Staff=lower \notes\relative c{
 	\bar "|.";
 }
 
-global = \notes{
+global =  \notes{
 	\time 4/4;
 }
 

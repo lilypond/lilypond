@@ -1,18 +1,18 @@
-\version "1.3.110";
+\version "1.3.117";
 
-voiceOne = \notes \relative c'' {
+voiceOne =  \notes \relative c'' {
 	a1 a a
 	a2 a2
 	a2 a8 a a a
 }
 
-staffOne = \context Staff = one <
+staffOne =  \context Staff = one <
 	\notes \context Voice=one < 
 		\voiceOne
 	>
 >
 
-voiceTwo = \notes \relative c' {
+voiceTwo =  \notes \relative c' {
 	% we must have a Thread context before we can switch staffs
 	% in this case, the notes before the switching  will do that 
 	% implicitely
@@ -26,14 +26,14 @@ voiceTwo = \notes \relative c' {
 	c8 c c c
 }
 
-staffTwo = \context Staff = two <
+staffTwo =  \context Staff = two <
 	% notes must go to Staff context: we want to switch Staff translators
 	%\notes \context Voice=one < 
 		\voiceTwo
 	%>
 >
 
-grandstaff = \context GrandStaff = one <
+grandstaff =  \context GrandStaff = one <
 	\staffOne
 	\staffTwo
 >

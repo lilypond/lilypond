@@ -1,15 +1,15 @@
 \header{
-filename =	 "trombo-2.ly";
-%title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+filename = 	 "trombo-2.ly";
+xtitle = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-tromboII = \notes \relative c {
+tromboII =  \notes \relative c {
 	R1*2 |
 	c'4-.\ff r r2 |
 	R1*3 |

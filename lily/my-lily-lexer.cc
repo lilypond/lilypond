@@ -9,8 +9,10 @@
 #include <strstream.h>
 #include <ctype.h>
 
+#include "lily-proto.hh"
+#include "scm-hash.hh"
 #include "interval.hh"
-#include "identifier.hh"
+
 #include "lily-guile.hh"
 #include "parser.hh"
 #include "keyword.hh"
@@ -91,8 +93,11 @@ static Keyword_ent the_key_tab[]={
 My_lily_lexer::My_lily_lexer()
 {
   keytable_p_ = new Keyword_table (the_key_tab);
-  toplevel_scope_p_ = new Scope;
-  scope_l_arr_.push (toplevel_scope_p_);
+  toplevel_variable_tab_ = new Scheme_hash_table ;
+  scope_p_ = new Scope (toplevel_variable_tab_);
+  
+  scope_l_arr_.push (scope_p_);
+  
   errorlevel_i_ = 0;
   main_input_b_ = false;
 }
@@ -138,7 +143,8 @@ My_lily_lexer::set_identifier (String name_str, SCM s)
 My_lily_lexer::~My_lily_lexer()
 {
   delete keytable_p_;
-  delete toplevel_scope_p_ ;
+  scm_unprotect_object (toplevel_variable_tab_->self_scm ());
+  delete scope_p_ ;
 }
 
 

@@ -7,7 +7,7 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet see viola_scripts .
 %}
 
-prelude_notes = \notes \relative c {
+preludeNotes =  \notes \relative c {
 	\context Voice=i
 	d8 f a4 ~ a16 f e d |
 	cis e g a bes4 ~ bes16 a g f |
@@ -88,7 +88,7 @@ prelude_notes = \notes \relative c {
 	\stemUp <cis2. g> | <d f,> | <d e,> | <cis e,> | <d f,>
 }
 
-prelude_b = \notes \relative c {
+preludeB =  \notes \relative c {
 	\context Voice=ii
 	\stemDown
 	s2.*47
@@ -102,96 +102,96 @@ prelude_b = \notes \relative c {
 }
 
 
-fig1 = \notes{ s16( s s )s }
-fig2 = \notes{ s16( s ) s s }
-fig3 = \notes{ s16 s( s )s }
-fig4 = \notes{ s16( s s s s s s )s }
-fig5 = \notes{ s8.()s16 }
+figB =  \notes{ s16( s s )s }
+figC =  \notes{ s16( s ) s s }
+figD =  \notes{ s16 s( s )s }
+figE =  \notes{ s16( s s s s s s )s }
+figF =  \notes{ s8.()s16 }
 
 % of course, i just type fig1, and add the \ and the silly $ later
-prelude_slurs = \notes{
+preludeSlurs =  \notes{
 	\context Voice=i
-	s4 s4 \$fig3 |
-	\$fig1 s4 \$fig3 |
-	\$fig1 s4 \$fig3 |
-	\$fig1 s8( s s )s  |
+	s4 s4 \figD |
+	\figB s4 \figD |
+	\figB s4 \figD |
+	\figB s8( s s )s  |
 	%5
-	\$fig3 s2 |
+	\figD s2 |
 	s2. |
-	s2 \$fig1 |
-	s2 \$fig1 |
-	s2 \$fig1 |
+	s2 \figB |
+	s2 \figB |
+	s2 \figB |
 	%10
-	\$fig3 \$fig3 \$fig1 |
-	\$fig3 \$fig3 s4 |
-	\$fig3 s2 |
-	s4 s4 \$fig3 |
-	\$fig3 \$fig3 \$fig3 |
+	\figD \figD \figB |
+	\figD \figD s4 |
+	\figD s2 |
+	s4 s4 \figD |
+	\figD \figD \figD |
 	%15
 	s4 s s16 s s8 |
-	\$fig3 \$fig3 s4 |
+	\figD \figD s4 |
 	s2. |
-	\$fig1 s4 \$fig1 |
-	s2 \$fig1 |
+	\figB s4 \figB |
+	s2 \figB |
 	%20
-	\$fig1 s4 \$fig1 |
-	s4 \$fig3 \$fig3 |
-	\$fig3 \$fig3 \$fig3 |
-	s2 \$fig1 |
+	\figB s4 \figB |
+	s4 \figD \figD |
+	\figD \figD \figD |
+	s2 \figB |
 	s2. |
 	%25
-	\$fig3 s4 \$fig1 |
-	\$fig2 \$fig3 \$fig3 |
-	\$fig2 \$fig3 \$fig3 |
-	\$fig2 \$fig3 s4  |
-	\$fig2 \$fig3 \$fig3 |
+	\figD s4 \figB |
+	\figC \figD \figD |
+	\figC \figD \figD |
+	\figC \figD s4  |
+	\figC \figD \figD |
 	%30
-	\$fig3 \$fig3 \$fig1 |
-	\$fig2 \$fig3 \$fig3 |
+	\figD \figD \figB |
+	\figC \figD \figD |
 	s2. |
-	s4 \$fig3 \$fig3 |
-	\$fig2 \$fig3 \$fig3 |
+	s4 \figD \figD |
+	\figC \figD \figD |
 	%35
-	\$fig2 s2 |
+	\figC s2 |
 	s2. |
 	s2. |
 	s2. |
 	s2. |
 	%40
-	s4 s4 \$fig3 |
-	\$fig1 s2 |
-	s2 \$fig3 |
-	\$fig2 s2 |
+	s4 s4 \figD |
+	\figB s2 |
+	s2 \figD |
+	\figC s2 |
 	s2. |
 	%45
 	s2. |
-	s4 \$fig2 s4 |
-	\$fig3 \$fig2 s4 |
+	s4 \figC s4 |
+	\figD \figC s4 |
 	s2. |
-	\$fig3 s2 |
+	\figD s2 |
 	%50
-	\$fig3 s4 \$fig2 |
+	\figD s4 \figC |
 	s2. |
-	s4 \$fig3 s4 |
-	s2 \$fig2 |
-%	s8()s \$fig4 |
-%	s8.()s16 \$fig4 |
-	\$fig5 \$fig4 |
+	s4 \figD s4 |
+	s2 \figC |
+%	s8()s \figE |
+%	s8.()s16 \figE |
+	\figF \figE |
 	%55
-	\$fig3 \$fig4 |
-	\$fig3 \$fig4 |
-	\$fig3 \$fig3 s4 |
-	s4 \$fig3 s4 |
+	\figD \figE |
+	\figD \figE |
+	\figD \figD s4 |
+	s4 \figD s4 |
 }
 
-prelude_a = \notes<
-	\$prelude_notes
-	\$prelude_slurs
+preludeA =  \notes<
+	\preludeNotes
+	\preludeSlurs
 >
 
-prelude = \context Staff \notes<
-	\$prelude_a
-	\$prelude_b
+prelude =  \context Staff \notes<
+	\preludeA
+	\preludeB
 >
 
-\version "1.3.110";
+\version "1.3.117";

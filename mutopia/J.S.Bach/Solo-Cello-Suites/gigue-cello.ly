@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "gigue-urtext.ly";
 
-gigue_cello_global = \notes{
+gigueCelloGlobal =  \notes{
 	\time 3/8;
 	\key f \major;
 	\clef bass;
@@ -25,17 +25,17 @@ gigue_cello_global = \notes{
 	}
 }
 
-gigue_cello_scripts = \notes{
+gigueCelloScripts =  \notes{
 }
 
-gigue_cello_staff = \context Staff <
-	\$gigue
-	\$gigue_cello_global
-	\$gigue_cello_scripts
+gigueCelloStaff =  \context Staff <
+	\gigue
+	\gigueCelloGlobal
+	\gigueCelloScripts
 >
 
 \score{
-	\$gigue_cello_staff
+	\gigueCelloStaff
 	\paper{
 		\translator{
 			\VoiceContext
@@ -46,6 +46,6 @@ gigue_cello_staff = \context Staff <
 	\midi{ \tempo 4 = 60; }
 	\header{
 	opus= "" ; 
-piece ="Gigue"; }
+piece = "Gigue"; }
 }
 

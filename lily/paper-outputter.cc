@@ -23,7 +23,7 @@
 #include "font-metric.hh"
 #include "main.hh"
 #include "scope.hh"
-#include "identifier.hh"
+
 #include "lily-version.hh"
 #include "paper-def.hh"
 #include "file-results.hh"
@@ -33,8 +33,10 @@
   Ugh, this is messy.
  */
 
-Paper_outputter::Paper_outputter (Paper_stream  * ps )
+Paper_outputter::Paper_outputter (String name)
 {
+  stream_p_ =  new Paper_stream (name);
+
  /*
    lilypond -f scm x.ly
    guile -s x.scm
@@ -43,16 +45,15 @@ Paper_outputter::Paper_outputter (Paper_stream  * ps )
 
   if (verbatim_scheme_b_)
     {
-	*ps << ""
+	*stream_p_ << ""
 	  ";;; Usage: guile -s x.scm > x.tex\n"
-	  "(primitive-load-path 'lily.scm)\n"
-	  "(scm-tex-output)\n"
-	  ";(scm-ps-output)\n"
-	  "(map (lambda (x) (display (eval x))) '(\n"
+	  "(primitive-load-path 'standalone.scm)\n"
+	  ";(scm-tex-output)\n"
+	  "(scm-ps-output)\n"
+	  "(map (lambda (x) (display (ly-eval x))) '(\n"
 	;
     }
 
-  stream_p_ = ps;
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -139,18 +140,7 @@ Paper_outputter::dump_scheme (SCM s)
 {
   if  (verbatim_scheme_b_)
     {
-      SCM p;
-
-      p = scm_mkstrport (SCM_INUM0, 
-			 scm_make_string (SCM_INUM0, SCM_UNDEFINED),
-			 SCM_OPN | SCM_WRTNG,
-			 "Paper_outputter::dump_scheme()");
-
-      SCM wr =scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
-      scm_apply (wr, s, gh_list (p, SCM_UNDEFINED));
-  
-      SCM result =  scm_strport_to_string (p);
-      *stream_p_ << ly_scm2string (result);
+      *stream_p_ << ly_scm2string (ly_write2scm (s));
     }
   else
     {
@@ -243,7 +233,7 @@ Paper_outputter::output_string (SCM str)
 }
 
 void
-Paper_outputter::output_score_header_field (String filename, String key, String value)
+Paper_outputter::write_header_field_to_file (String filename, String key, String value)
 {
   if (filename != "-")
     filename += String (".") + key;
@@ -258,21 +248,14 @@ Paper_outputter::output_score_header_field (String filename, String key, String 
 }
 
 void
-Paper_outputter::output_score_header_fields (Paper_def *paper)
+Paper_outputter::write_header_fields_to_file (Scope * header)
 {
-  if (global_score_header_fields.size ())
+  if (global_dumped_header_fieldnames.size ())
     {
-      SCM fields;
-#if 0 // ugh, how to reach current Score or Paper_score?
-      if (paper->header_l_)
-	fields = paper->header_l_->to_alist ();
-      else
-#endif
-	fields = header_global_p->to_alist ();
-      String base = paper->current_output_base_;
-      for (int i = 0; i < global_score_header_fields.size (); i++)
+      SCM fields = header->to_alist ();
+      for (int i = 0; i < global_dumped_header_fieldnames.size (); i++)
 	{
-	  String key = global_score_header_fields[i];
+	  String key = global_dumped_header_fieldnames[i];
 	  SCM val = gh_assoc (ly_symbol2scm (key.ch_C ()), fields);
 	  String s;
 	  /* Only write header field to file if it exists */
@@ -280,7 +263,7 @@ Paper_outputter::output_score_header_fields (Paper_def *paper)
 	    {
 	      s = ly_scm2string (gh_cdr (val));
 	      /* Always write header field file, even if string is empty ... */
-	      output_score_header_field (base, key, s);
+	      write_header_field_to_file (basename_, key, s);
 	    }
 	}
     }

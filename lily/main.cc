@@ -51,7 +51,7 @@ String init_str_global;
 int default_count_global;
 File_path global_path;
 
-Array<String> global_score_header_fields;
+Array<String> global_dumped_header_fieldnames;
 
 bool safe_global_b = false;
 bool experimental_features_global_b = false;
@@ -93,7 +93,6 @@ Long_option_init theopts[] = {
 void
 identify (ostream* os)
 {
-  //*os << gnu_lilypond_version_str () << endl;
   *os << gnu_lilypond_version_str ();
 }
 
@@ -155,16 +154,16 @@ version ()
   cout << endl;
 
   cout << _f ("Copyright (c) %s by", "1996--2000");
-  cout << "Han-Wen Nienhuys <hanwen@cs.uu.nl>\n"
-       << "Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  cout << '\n';
+  cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
+  cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
 
 void
 notice ()
 {
   cout << '\n';
-  // GNU GNU?
-  cout << _ ("GNU LilyPond -- The GNU Project music typesetter");
+  cout << _ ("GNU LilyPond -- The music typesetter");
   cout << '\n';
   cout << _f ("Copyright (c) %s by", "1996--2000");
   cout << '\n';
@@ -352,7 +351,7 @@ main (int argc, char **argv)
 	  find_old_relative_b= true;
 	  break;
 	case 'H':
-	  global_score_header_fields.push (oparser_global_p->optional_argument_ch_C_);
+	  global_dumped_header_fieldnames.push (oparser_global_p->optional_argument_ch_C_);
 	  break;
 	case 'I':
 	  global_path.push (oparser_global_p->optional_argument_ch_C_);

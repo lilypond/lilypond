@@ -1,9 +1,9 @@
 \header{
-filename =	"twinkle.ly";
-title =		"Twinkle Twinkle Little Star";
-composer =	"Traditional";
-enteredby =	"hwn and jcn";
-copyright =	"public domain";
+filename = 	"twinkle.ly";
+title = 		"Twinkle Twinkle Little Star";
+composer = 	"Traditional";
+enteredby = 	"hwn and jcn";
+copyright = 	"public domain";
 }
 
 %{
@@ -20,9 +20,9 @@ Tested Features: lyrics, interleaving lyrics and staffs, repeats,
 	auto beaming, adding lyrics to notes, hyphens
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
-melody = \notes \relative c'' {
+melody =  \notes \relative c'' {
 	\clef violin;
 	\property Staff.instrument = "alto sax"
 	
@@ -36,7 +36,7 @@ melody = \notes \relative c'' {
 	f f | e e | d d8.( e16 | )c2 |
 }
 
-accompany = \notes \relative c {
+accompany =  \notes \relative c {
 	\clef "bass";
 	c4 c' | e c | f c | e c | 
 	d b | c a | f g | c,2 | 
@@ -49,7 +49,7 @@ accompany = \notes \relative c {
 }
 
 
-tekst = \lyrics{ 
+tekst =  \lyrics{ 
  	Al -- tijd is Kort -- jak -- je ziek, " "
 	midden "in de" week maar "'s zon" -- dags  " " niet.
 	"'s Zon" -- dags gaat ze naar de kerk, " "
@@ -64,7 +64,7 @@ Ja inderdaad. Dit is geen educatieve danwel muzikaal verantwoorde
 tekst. Mogen wij ook af en toe ergens op afgeven?
 %}
 
-hegedraagjetekst = \lyrics{ 
+hegedraagjetekst =  \lyrics{ 
  	Al -- tijd zuigt Bill Gates mijn piek, " "
 	"\TeX" is slecht -- ser dan mu --  " " ziek.
 	"'s Zon" -- dags gaat het door een raam, " "
@@ -73,7 +73,7 @@ hegedraagjetekst = \lyrics{
 	"\TeX" is slecht -- ser dan mu --  " " ziek.
 }
 
-texte = \lyrics{ 
+texte =  \lyrics{ 
 	\property Lyrics . textStyle" =  "italic" 
 %	\property Lyrics . textStyle" =  "roman" 
  	Ah! vous dir -- ai -- je ma -- man " "
@@ -84,7 +84,7 @@ texte = \lyrics{
 	Va -- lent mieux que la rai --  " " son
 }
 
-texti = \lyrics{
+texti =  \lyrics{
 	\property "Lyrics"."textStyle" =  "roman"
 	Twin -- kle, twin -- kle, lit -- tle star, " "
 	How I won -- der what you  " " are.
@@ -94,7 +94,7 @@ texti = \lyrics{
 	How I won -- der what you  " " are!
 }
 
-textii = \lyrics{
+textii =  \lyrics{
 	When the bla -- zing sun is gone, " "
 	When he no -- thing shines up --  " " on,
 	Then you show your lit -- tle light, " "
@@ -103,7 +103,7 @@ textii = \lyrics{
 	How I won -- der what you  " " are!
 }
 
-textiii = \lyrics{
+textiii =  \lyrics{
 	Then the tra -- veler in the dark " "
 	Thanks you for your ti -- ny  " " spark;
 	He could not see which way to go,

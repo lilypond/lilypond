@@ -1,11 +1,11 @@
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "prelude-urtext.ly";
 
-prelude_viola_global = \notes{
+preludeViolaGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef alto;
@@ -13,17 +13,17 @@ prelude_viola_global = \notes{
 	\bar "|.";
 }
 
-prelude_viola_scripts = \notes{
+preludeViolaScripts =  \notes{
 }
 
-prelude_viola_staff = \context Staff <
-	\notes \transpose c' \$prelude
-	\$prelude_viola_global
-	\$prelude_viola_scripts
+preludeViolaStaff =  \context Staff <
+	\notes \transpose c' \prelude
+	\preludeViolaGlobal
+	\preludeViolaScripts
 >
 
 \score{
-	\$prelude_viola_staff
+	\preludeViolaStaff
 	\paper{ }
 	\midi{ \tempo 4 = 40; }
 	\header{

@@ -1,3 +1,43 @@
+1.3.117.mb1
+===========
+
+* Bugfix: fetdefs.tex: don't redefine the standard TeX macros 
+  \sharp,\natural or \flat.
+
+* Bugfix: ly2dvi: handle the --landscape option. Leave the textheight
+  calculation to the geometry package. Remove some dead code.
+
+* Bugfix: correct font-family for TextSpanner.
+
+* Bugfix: script-engraver.cc: forced script directions work again.
+
+1.3.117.jcn2
+============
+
+* Resurrected direct scheme output, ie. lilypond -fscm
+
+* Warning message fixes and po update.
+
+* Bugfix: debian package.
+
+* Resurrected direct postscript output, ie. lilypond --output-format=ps.
+
+1.3.117.hwn1
+============
+
+* Broken left-edge of volta, Again. Now the Final Fix.
+
+* Smobified Score, smobified Music_output_def, removed Identifier.
+Reorganised Scope and Scheme_hash_table to this end.
+
+* Small cleanups in relations between
+Paper_def/Paper_outputter/Paper_stream.
+
+* lilypond syntax update: deprecate $ syntax for identifiers; Provide
+convert-ly method.
+
+* Rename: don't use grobs in performer methods.
+
 1.3.116.jcn4
 ============
 

@@ -402,13 +402,13 @@ number, boolean, etc.), LilyPond has a number of specialized data types,
   @item Music: see @ref{Music expressions}
   @item Identifier
   @item Translator_def:
-See       section @ref{contextdefs} for more information
+See section @ref{contextdefs} for more information
 
   @item Duration
   @item Pitch
-  @item Score (TODO, smobme)
-@item  Music_output_def (TODO, smobme)
-
+  @item Score
+  @item Music_output_def (TODO: this is not really a Scheme object
+yet. Nevertheless, you can use identifiers to make references to them )
   @item Moment (rational number)
 @end itemize
 
@@ -416,16 +416,18 @@ LilyPond also includes some transient object types. Objects of these
 types are built during a LilyPond run, and do not `exist' per se within
 your input file. These objects are created as a result of your input
 file, so you can include commands in the input to manipulate them,
-during a lilypond run .
+during a lilypond run.
 
 @itemize @bullet
   @item Grob: short for Graphical object. See @ref{Grobs}. 
-  @item Molecule: device-independent paper output object,
-    including dimensions.  Produced by some Grob functions 
-  @item Translator: object that  produces audio  objects or Grobs
+  @item Molecule: device-independent page output object,
+    including dimensions.  Produced by some Grob functions
+    See @ref{Molecules}
+  @item Translator: object that produces audio objects or Grobs.
+  @item Font_metric: object representing a font. (Not yet user
+accessible.)
 
-  @item Font_metric: object representing a font. (Not yet user accessible.)
-  @item Audio_element: (TODO, smobme)
+@c  @item Audio_element: (todo,  smobme)
 @end itemize
 
 Identifiers allow objects to be assigned to names during the parse
@@ -439,10 +441,10 @@ appearing in the @code{\paper} block, see Section @ref{paper}.
 @var{value} is any valid Scheme value or any of the input-types listed
 above.
 
-An identifier can be created with any string for its name, but you
-will only be able to refer to identifiers whose names begin with a
-letter, being entirely alphanumeric.  It is impossible to refer to an
-identifier whose name is the same as the name of a keyword.
+An identifier can be created with any string for its name, but you will
+only be able to refer to identifiers whose names begin with a letter,
+being entirely alphanumeric.  It is impossible to refer to an identifier
+whose name is the same as the name of a keyword.
 
 The right hand side of an identifier assignment is parsed completely
 before the assignment is done, so it is allowed to redefine an
@@ -2833,9 +2835,11 @@ assignment @var{sym} = @var{val} is done.  For example
 @end example
 
 This shifts all elements that have a @code{text} property one staff
-space to the left.
+space to the left. This mechanism is rather clumsy to use, but it allows
+you tweak any setting of any grob.
 
 @node Items and Spanners, , , Grobs
+@unnumberedsubsec Items and Spanners
 
 Grobs can also be distinguished in their role in the horizontal spacing.
 A lot of grobs define constraints on the spacing by their sizes. For
@@ -2862,7 +2866,14 @@ direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
 this grob should be transparent and invisible.
 
 @node Pointer substitution, , , Grobs
+@unnumberedsubsec Pointer substitution
 
+
+Symbols that cross line-breaks (such as slurs) cause some more
+complications. When a  spanner crosses a line-break, then the spanner is
+"broken into pieces", for every line that the spanner is in, a copy of
+the grob is made. A substitution process redirects all grob-reference
+so that spanner grob will only reference other grobs in the same line.
 
 @node Molecule, , , Reference Manual
 

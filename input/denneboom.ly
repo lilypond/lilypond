@@ -1,15 +1,15 @@
 \header{
-filename =	 "denneboom.ly";
-enteredby =	 "jcn";
-copyright =	 "public domain";
+filename = 	 "denneboom.ly";
+enteredby = 	 "jcn";
+copyright = 	 "public domain";
 }
 %{ file tests silly line shapes %}
 
 \include "paper20.ly"
 
-\version "1.3.110";
+\version "1.3.117";
 
-oden = \lyrics{ 
+oden =  \lyrics{ 
 	O |
 	den- ne- boom, o | 
 	den- ne- boom  Wat |
@@ -17,7 +17,7 @@ oden = \lyrics{
 	won- der- schoon 
 }
 
-ikheb = \lyrics{
+ikheb =  \lyrics{
 	Ik | 
 	heb u laatst in_'t |
 	bos zien staan  toen |
@@ -25,7 +25,7 @@ ikheb = \lyrics{
 	kaars- jes aan 
 }
 
-ugloeit = \lyrics{
+ugloeit =  \lyrics{
 	U |
 	gloeit in bar- re | 
 	win- ter- tijd, als |
@@ -33,7 +33,7 @@ ugloeit = \lyrics{
 	licht ge- spreid 
 }
 
-oboom = \notes\transpose c''{
+oboom =  \notes\transpose c''{
 	g,8 |
 	c8. c16 c4. d8 | 
 	e8. e16 e4. e8 | 
@@ -41,7 +41,7 @@ oboom = \notes\transpose c''{
 	d8. c16 c4 r8
 }
 
-bos = \notes\transpose c''{
+bos =  \notes\transpose c''{
 	g8 | 
 	g e a4. g8 | 
 	g8. f16 f4 r8 f8 |
@@ -50,7 +50,7 @@ bos = \notes\transpose c''{
 }
 
 
-melody = \notes{
+melody =  \notes{
 	\oboom
 	\oboom
 	\bos
@@ -58,29 +58,29 @@ melody = \notes{
 }
 
 
-verse_one = \notes{
+verseOne =  \notes{
 	\oden
 	\oden
 	\ikheb
 	\oden
 }
 
-verse_one_staff = \context Lyrics = one 
+verseOneStaff =  \context Lyrics = one 
 	\verse_one
 
 
-verse_two = \notes{
+verseTwo =  \notes{
 	\oden
 	\oden
 	\ugloeit
 	\oden
 }
 
-verse_two_staff = \context Lyrics = two 
+verseTwoStaff =  \context Lyrics = two 
 	\verse_two
 
 
-denneboom_shape = \paper{ 
+denneboomShape =  \paper{ 
 	\paper_twenty
 	indent = 20. \mm;
 

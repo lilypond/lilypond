@@ -50,13 +50,11 @@ class Paper_def : public Music_output_def
 protected:
   VIRTUAL_COPY_CONS(Music_output_def);
 
-  Protected_scm scaled_fonts_;
+
 public:    
-  Protected_scm style_sheet_;
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
   static int default_count_i_;
-  String current_output_base_;
   
   /*
     JUNKME
@@ -73,8 +71,7 @@ public:
   virtual int get_next_default_count () const;
   static void reset_default_count();
   void output_settings (Paper_outputter*) const;
-  Paper_stream* paper_stream_p () const;
-  String base_output_str () const;
+  Paper_outputter* paper_outputter_p () ;
 
   Font_metric * find_font (SCM name, Real mag);
   

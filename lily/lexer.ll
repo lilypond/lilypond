@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include "score.hh"
 #include "lily-guile.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -36,10 +37,10 @@
 #include "debug.hh"
 #include "main.hh"
 #include "musical-request.hh"
-#include "identifier.hh"
 #include "version.hh"
 #include "lilypond-input-version.hh"
 #include "translator-def.hh"
+#include "music-output-def.hh"
 
 /*
 RH 7 fix (?)
@@ -482,6 +483,9 @@ My_lily_lexer::scan_escaped_word (String str)
 	} else if (unsmob_translator_def (sid)) {
 		yylval.scm = sid;
 		return TRANSLATOR_IDENTIFIER;
+	} else if (unsmob_score (sid)) {
+		yylval.scm =sid;
+		return SCORE_IDENTIFIER;
 	} else if (Music * mus =unsmob_music (sid)) {
 		yylval.scm = sid;
 		
@@ -489,16 +493,12 @@ My_lily_lexer::scan_escaped_word (String str)
 	} else if (unsmob_duration (sid)) {
 		yylval.scm = sid;
 		return DURATION_IDENTIFIER;
+	} else if (unsmob_music_output_def (sid)) {
+		yylval.scm = sid;
+		return MUSIC_OUTPUT_DEF_IDENTIFIER;
 	}
 
-
-
-
-	Identifier * id = unsmob_identifier (sid);
-	if (id) {
-		yylval.id = id;
-		return id->token_code_i_;
-	} else if (sid != SCM_UNDEFINED) {
+	if (sid != SCM_UNDEFINED) {
 		yylval.scm = sid;
 		return SCM_IDENTIFIER;
 	}

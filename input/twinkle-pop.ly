@@ -1,15 +1,15 @@
 \header{
-filename =	 "twinkle-pop.ly";
-%title =	 "Ah, vous dirais-je, maman ";
-description =	 "twinkle twinkle in pop-song-settings";
-composer =	 "traditional";
-enteredby =	 "HWN, chords by Johan Vromans";
-copyright =	 "public domain";
+filename = 	 "twinkle-pop.ly";
+xtitle = 	 "Ah, vous dirais-je, maman ";
+description = 	 "twinkle twinkle in pop-song-settings";
+composer = 	 "traditional";
+enteredby = 	 "HWN, chords by Johan Vromans";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-melodie = \notes\relative c'' {
+melodie =  \notes\relative c'' {
         \clef "violin";
         \time 2/4 ;
 
@@ -22,7 +22,7 @@ melodie = \notes\relative c'' {
         f4 f  | e e  | d d | c2 \bar "|.";
 }
 
-acc = \chords {
+acc =  \chords {
 	% why don't \skip, s4 work?
         c2 c f c
         f c g:7 c
@@ -33,7 +33,7 @@ acc = \chords {
         f c g:7 c
 }
 
-text = \lyrics{ 
+text =  \lyrics{ 
         \property Lyrics . textStyle =  "italic"
 
         Ah!4 vous dir -- ai -- je ma man2

@@ -33,7 +33,7 @@ protected:
   virtual void play_element (Audio_element* p);
   virtual void finalize ();
   virtual void initialize ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
   virtual void stop_translation_timestep ();
 
 private:
@@ -75,7 +75,7 @@ Staff_performer::initialize ()
 }
 
 void
-Staff_performer::create_grobs ()
+Staff_performer::create_audio_elements ()
 {
   String str = new_instrument_str ();
   if (str.length_i ())

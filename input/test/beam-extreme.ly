@@ -4,7 +4,7 @@ Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.
 ";
 }
-\version "1.3.110";
+\version "1.3.117";
 \score{
 	\notes\relative c''{
 		[g8 c c,]

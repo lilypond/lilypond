@@ -1,4 +1,4 @@
-\version "1.3.110";
+\version "1.3.117";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -16,7 +16,7 @@ Would this be acceptable/good enough/convenient for entry?
 
 %}
 
-scales = \notes \transpose c'' \chords{
+scales =  \notes \transpose c'' \chords{
 		%<c1 e g>
 		c1:m c:min c4:dim c:aug c:sus c:maj
                 c1:6 c4:7 c:9 c:11 c:13
@@ -32,7 +32,7 @@ scales = \notes \transpose c'' \chords{
 		c\breve c\longa
 	}
 
-keys = \notes{
+keys =  \notes{
                 s1
                 s1 s1 s1
                 s1 s1

@@ -1,3 +1,5 @@
+
+
 (define all-music-properties '())
 
 (define (music-property-description symbol type? description)
@@ -7,11 +9,11 @@
   )
 (define (true? x) #t)
 
-(music-property-description 'iterator-ctor c++-function? "")
+(music-property-description 'iterator-ctor c++-function? "Function to construct music-event-iterator object for this Music")
 (music-property-description 'duration duration? "")
-(music-property-description 'metronome-count number? "")
-(music-property-description 'span-type symbol? "")
-(music-property-description 'alternatives list? "")
+(music-property-description 'metronome-count number? "How many beats in a minute?")
+(music-property-description 'span-type symbol? "What kind of spanner should be created?")
+(music-property-description 'alternatives music? "Music_sequence of alternatives for repeated music.")
 (music-property-description 'articulation-type symbol? "key for scriptDefinitions alist")
 (music-property-description 'bass boolean? "")
 (music-property-description 'body music? "")

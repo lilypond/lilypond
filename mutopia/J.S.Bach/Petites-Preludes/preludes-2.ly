@@ -42,8 +42,8 @@ Old versions of LilyPond include this prelude with dynamics and fingerings.
 
 
 
-\version "1.3.110";
-upper = \context Staff \notes\relative c{
+\version "1.3.117";
+upper =  \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "italic"
 	r8 c' e g  e c bes' g |
@@ -84,7 +84,7 @@ upper = \context Staff \notes\relative c{
 	\bar "|.";
 }
 
-lower = \context Staff \notes\relative c{
+lower =  \context Staff \notes\relative c{
 	\context Voice=i
 	<
 		{ \stemUp c1 ~ | c ~ | c }
@@ -109,7 +109,7 @@ lower = \context Staff \notes\relative c{
 	\bar "|.";
 }
 
-global = \notes{
+global =  \notes{
 	\time 4/4;
 }
 

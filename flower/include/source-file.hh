@@ -47,19 +47,15 @@ public:
   char const* pos_ch_C () { return pos_ch_C_; }
   String get_str (int n);
   void set_pos (char const * pos_ch_C);
-  
-  // tbd
-  // String get_line ();
-  // String get_word ();
-  // only used in binary-source-file, currently
-
-
 public:
   Slice line_slice (char const* pos_ch_C) const;
   String line_str (char const* pos_ch_C) const;
   int column_i (char const* pos_ch_C) const;
   int char_i (char const* pos_ch_C) const;
 
+  /*
+    DOCUMENT-ME
+   */
   char const* pos_ch_C_;
 
 private:

@@ -555,6 +555,7 @@
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
                 (font-shape . italic)
+		(font-family . roman)
 		(type . "line")
 		
 		;; urg, only for (de)cresc. text spanners

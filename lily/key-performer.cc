@@ -20,7 +20,7 @@ public:
 
 protected:
   virtual bool try_music (Music* req_l);
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
   virtual void stop_translation_timestep ();
 
 private:
@@ -41,7 +41,7 @@ Key_performer::~Key_performer ()
 }
 
 void
-Key_performer::create_grobs ()
+Key_performer::create_audio_elements ()
 {
   if (key_req_l_ &&
       gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))

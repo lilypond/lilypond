@@ -3,33 +3,33 @@ texidoc="
 Normal collisions. We have support for polyphony, where the
 middle voices are horizontally shifted.
 ";
-filename =	 "collisions.ly";
-description =	 "random counterpoint to test collisions";
-enteredby =	 "HWN,JCN";
-copyright =	 "public domain";
-Tested =	 "test the Collision resolution ";
+filename = 	 "collisions.ly";
+description = 	 "random counterpoint to test collisions";
+enteredby = 	 "HWN,JCN";
+copyright = 	 "public domain";
+Tested = 	 "test the Collision resolution ";
 }
-\version "1.3.110";
+\version "1.3.117";
 
-twovoice = \context Staff \notes < 
+twovoice =  \context Staff \notes < 
 	\context Voice=i { \stemDown c4 d e f g2~  g4 a [c8 d e f] c2| }
 	\context Voice=ii { \stemUp g4 f e g ~ g2 g2  c4 g4 g2 } 
 >
 
-twovoicesteminvert = \context Staff \notes <  
+twovoicesteminvert =  \context Staff \notes <  
 	% the f and g on 4th beat are exceptionally ugh.
 	\context Voice=i { \stemUp c4 d e f g2 g4 a | }
 	\context Voice=ii { \stemDown g4 f e g  g2 g2 } 
 >
 
-threevoice = \context Staff \notes <
+threevoice =  \context Staff \notes <
 	\context Voice=i { \stemUp g4 f e f g a g2 }
 	\context Voice=ii { \stemUp \property Voice.NoteColumn \override #'horizontal-shift = #1
 		e2  e2  e2  e2 }
 	\context Voice=iii { \stemDown c4 d e d c d es }
 >
 
-chordstest = \context Staff \notes <
+chordstest =  \context Staff \notes <
 	\context Voice = i \relative c {
 		\stemUp e4 dis c f g f a b b
 	}
@@ -38,7 +38,7 @@ chordstest = \context Staff \notes <
 	}
 >
 
-hairyChord = \context Staff \notes\relative c' <
+hairyChord =  \context Staff \notes\relative c' <
      \context Voice=one {
  \property Voice.NoteColumn \override #'horizontal-shift = #0
 	\stemUp 

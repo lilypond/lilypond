@@ -1,25 +1,25 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
-global = \notes {
+global =  \notes {
 	\key a \minor;
 	\time 6/4;
 %	\skip 1.*34;
 %	\bar ".|";
 }
 
-melody = \notes\relative c''{
+melody =  \notes\relative c''{
 	r2 r r 
 	r2 r r
 	r4 a'8-- \< a--	a-- a-- c-- \!b-- a--\> gis f \!e 
 	es8 \grace b c r4 r2 r
 }
 
-basloopje = \notes\relative c{
+basloopje =  \notes\relative c{
 	d,8(	a' d f a d f d a f d	)a
 }
 
-accompany = \notes \relative c{
+accompany =  \notes \relative c{
 	\notes\relative c \basloopje
 	\notes\relative c \basloopje
 	\notes\relative c \basloopje

@@ -4,9 +4,9 @@
 	piece = "Allemande";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-global = \notes{
+global =  \notes{
 	\time 4/4;
 	\partial 8*3;
 	\key es \major;
@@ -19,7 +19,7 @@ global = \notes{
 	\bar ":|";
 }
 
-hoyreEn = \notes\relative c'''{
+hoyreEn =  \notes\relative c'''{
 %	\partial 4.; 
 	[as16 g f] |
 	[g16 d es b][c f es d][es b c g][as d c b] |
@@ -79,7 +79,7 @@ hoyreEn = \notes\relative c'''{
 	>	s8
 }
 
-venstreEn = \notes\relative c{
+venstreEn =  \notes\relative c{
 	\clef bass; 
 %	\partial 4.; 
 	r16 r8 |

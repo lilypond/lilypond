@@ -53,9 +53,9 @@ protected:
   virtual void initialize ();
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
-  virtual void acknowledge_grob (Audio_element_info);
+  virtual void acknowledge_audio_element (Audio_element_info);
   virtual bool try_music (Music*);
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
 };
 
 
@@ -101,7 +101,7 @@ Tie_performer::try_music (Music *m)
 }
 
 void
-Tie_performer::acknowledge_grob (Audio_element_info i)
+Tie_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_note *nh = dynamic_cast<Audio_note *> (i.elem_l_))
     {
@@ -113,7 +113,7 @@ Tie_performer::acknowledge_grob (Audio_element_info i)
 }
 
 void
-Tie_performer::create_grobs ()
+Tie_performer::create_audio_elements ()
 {
   if (req_l_ && ! done_)
     {

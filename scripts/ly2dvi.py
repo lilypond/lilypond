@@ -224,11 +224,11 @@ class TeXOutput:
     #
     def start(this,file):
         """
-        Start LaTeX file.  Calculates the horizontal and vertical
-        margin using pagewidth, pageheight, linewidth, and textheight.
-        Creates temporary output filename and opens it for write.
-        Sends the LaTeX header information to output.  Lastly sends
-        the title information to output.
+        Start LaTeX file. Sets the linewidth (and possibly the
+        textheight) and leaves the page layout to the geometry
+        package. Creates temporary output filename and opens it
+        for write. Sends the LaTeX header information to output.
+        Lastly sends the title information to output.
 
         input:  file  output file name 
         output: None
@@ -236,16 +236,14 @@ class TeXOutput:
         """
 
         now=time.asctime(time.localtime(time.time()))
-        linewidth = Props.get('linewidth')
-        textheight = Props.get('textheight')
 
-        if Props.get('orientation') == 'landscape':
-            pagewidth = Props.get('pageheight')
-            pageheight = Props.get('pagewidth')
+        # Only set the textheight if it was explicitly set by the user,
+        # otherwise use the default. Helps to handle landscape correctly!
+        if Props.get('textheight') > 0:
+            textheightsetting = ',textheight=' + `Props.get('textheight')` + 'pt'
         else:
-            pageheight = Props.get('pageheight')
-            pagewidth = Props.get('pagewidth')
-                            	 
+            textheightsetting = ''
+
 
         top= r"""
 %% Creator: %s
@@ -264,7 +262,7 @@ class TeXOutput:
 %%\headheight9pt
 %%\headsep0pt
 %% Maybe this is too drastic, but let us give it a try.
-\geometry{width=%spt, textheight=%spt,headheight=2mm,headsep=0pt,footskip=2mm} 
+\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s} 
 \input{titledefs}
 %s
 \makeatletter
@@ -275,8 +273,8 @@ class TeXOutput:
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
 \begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
-        Props.get('language'), Props.get('pagenumber'), linewidth,
-        textheight, Props.get('header') )
+        Props.get('language'), Props.get('pagenumber'), Props.get('linewidth'),
+        textheightsetting, Props.get('orientation'), Props.get('header') )
         
         base, ext = os.path.splitext(file)
         this.__base = base
@@ -363,10 +361,13 @@ class TeXOutput:
 			 % (outfile))
 
         if Props.get('postscript'):
+            dvipsopts=''
+            if Props.get('orientation') == 'landscape':
+                dvipsopts=dvipsopts + ' -t landscape'
             psoutfile=this.__base + '.ps'
             if Props.get('output') != '':
                 psoutfile = os.path.join(Props.get('output'), psoutfile )
-            stat = os.system('dvips -o %s %s' % (psoutfile,outfile))
+            stat = os.system('dvips %s -o %s %s' % (dvipsopts,psoutfile,outfile))
             if stat:
                 sys.exit('ExitBadPostscript')
             
@@ -418,8 +419,6 @@ class Properties:
             this.__roverrideTable[i[1]]=i[0]
         
         this.__data = {
-            'pagewidth'    :  [597, this.__overrideTable['init']],
-            'pageheight'   :  [845, this.__overrideTable['init']],
             'papersize'    :  ['a4paper', this.__overrideTable['init']],
             'textheight'   :  [0, this.__overrideTable['init']],
             'linewidth'    :  [500, this.__overrideTable['init']],
@@ -649,8 +648,6 @@ class Properties:
         for paper in paperTable:
             if re.match(paper[0],size):
                 found=1
-                this.__set('pagewidth',paper[1],requester)
-                this.__set('pageheight',paper[2],requester)
                 this.__set('papersize',paper[3],requester)
                 break
 

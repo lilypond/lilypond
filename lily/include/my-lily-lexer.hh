@@ -31,7 +31,9 @@ class My_lily_lexer : public Includable_lexer
 public:
   String main_input_str_;
   void * lexval_l;
-  Scope * toplevel_scope_p_;
+  Scheme_hash_table * toplevel_variable_tab_;
+  Scope * scope_p_;
+  
   bool main_input_b_;
 
   /*

@@ -52,10 +52,11 @@ typedef map<SCM,SCM, SCM_less> Scm_stl_map;
 
    TODO:
 
-   This should come from GUILE. We're typically doing double work,
+  - This should come from GUILE. We're typically doing double work,
    because KEY already is a symbol, and is looked up in a symbol
    hashtable.
-   
+
+  - use GUILE hashtables iso STL.
  */
 class Scheme_hash_table :  private Scm_stl_map
 {

@@ -1,8 +1,8 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
 
-voice4 = \notes {
+voiceE =  \notes {
 \clef bass;
  \property Staff.instrument = "Bass"
  \property Staff.instr = "B"
@@ -18,7 +18,7 @@ voice4 = \notes {
     }
 }
 }
-voicedefault = \notes {
+voicedefault =  \notes {
  
  \time 4/4; \key f \major ; 
  \tempo 4 = 200;
@@ -29,8 +29,8 @@ voicedefault = \notes {
 
         \context Staff="4"
         {
-            \$voicedefault
-            \$voice4 
+            \voicedefault
+            \voiceE 
         }
 
     >

@@ -1,13 +1,13 @@
 \header{
 title= "The Feta Font";
-subtitle = "proofsheet"; 
-enteredby =	 "jcn & hwn";
-copyright =	 "public domain";
-description = "This file tests the Feta music font";
+subtitle =  "proofsheet"; 
+enteredby = 	 "jcn & hwn";
+copyright = 	 "public domain";
+description =  "This file tests the Feta music font";
 % "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "font-body.ly"
 \score{

@@ -1,18 +1,18 @@
 \header{
-filename =	 "clarinetti.ly";
+filename = 	 "clarinetti.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "clarinetto-1.ly"
 \include "clarinetto-2.ly"
 
-clarinettiStaff = \context VoiceCombineStaff = clarinetti <
+clarinettiStaff =  \context VoiceCombineStaff = clarinetti <
 	\property VoiceCombineStaff.midiInstrument = #"clarinet"
 	\property VoiceCombineStaff.instrument = #"2 Clarinetti\n(B\\textflat)"
 	\property VoiceCombineStaff.instr = #"Cl.\n(B\\textflat)"

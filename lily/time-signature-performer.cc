@@ -22,7 +22,7 @@ public:
 protected:
 
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
 
   SCM prev_fraction_;
 private:
@@ -43,7 +43,7 @@ Time_signature_performer::~Time_signature_performer ()
 
 
 void
-Time_signature_performer::create_grobs ()
+Time_signature_performer::create_audio_elements ()
 {
   SCM fr = get_property ("timeSignatureFraction");
   if (gh_pair_p (fr)

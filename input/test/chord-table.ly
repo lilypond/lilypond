@@ -1,10 +1,10 @@
 \header{
-filename =	"chord-table.ly";
-copyright = 	"public domain";
-enteredby = 	"jcn";
+filename = 	"chord-table.ly";
+copyright =  	"public domain";
+enteredby =  	"jcn";
 }
 
-tab = \notes\transpose c'''\chords{
+tab =  \notes\transpose c'''\chords{
 	c1 c:m c:4 c:m4 c:5+ c:5- c:dim c:5-.5+ c:6\break %c:m6\break
 }
 
@@ -41,4 +41,4 @@ tab = \notes\transpose c'''\chords{
 
 }
 
-\version "1.3.110"; 
+\version "1.3.117"; 

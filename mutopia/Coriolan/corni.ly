@@ -1,18 +1,18 @@
 \header{
-filename =	 "corni.ly";
+filename = 	 "corni.ly";
 % %title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "corno-1.ly"
 \include "corno-2.ly"
 
-corniStaff = \context VoiceCombineStaff = corni <
+corniStaff =  \context VoiceCombineStaff = corni <
 	\property VoiceCombineStaff.midiInstrument = #"french horn"
 	\property VoiceCombineStaff.instrument = #"2 Corni\n(E\\textflat)"
 	\property VoiceCombineStaff.instr = #"Cor.\n(E\\textflat)"

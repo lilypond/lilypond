@@ -1,6 +1,6 @@
-\version "1.3.110";
+\version "1.3.117";
 
-toeter_i = \notes\relative c <{
+toeterI =  \notes\relative c <{
 		\property Staff.instrument = #"Toeters"
 		\property Staff.instr = #"Ttr." }
 	\context Voice = lower { \stemDown s1*6 }
@@ -16,7 +16,7 @@ toeter_i = \notes\relative c <{
 	g g g g 
 }>
 
-toeter_ii = \notes \relative c \context Voice = together { 
+toeterIi =  \notes \relative c \context Voice = together { 
 	c''4^"toet II" c c c 
 	d d d d 
 	R1 
@@ -28,12 +28,12 @@ toeter_ii = \notes \relative c \context Voice = together {
 	g g g g
 }
 
-toeters = \context Staff = toeters <
+toeters =  \context Staff = toeters <
 	\toeter_i
 	\toeter_ii
 >
  
-zager = \context Staff = zager \notes \relative c'' {
+zager =  \context Staff = zager \notes \relative c'' {
 	\clef treble;
 	\property Staff.instrument = #"Zager"
 	\property Staff.instr = #"Zag."
@@ -48,7 +48,7 @@ zager = \context Staff = zager \notes \relative c'' {
 	f e d c
 }
 
-zoger = \context Staff = zoger \notes \relative c'' {
+zoger =  \context Staff = zoger \notes \relative c'' {
 	\clef treble;
 	\property Staff.instrument = #"Zoger"
 	\property Staff.instr = #"Zog."
@@ -63,7 +63,7 @@ zoger = \context Staff = zoger \notes \relative c'' {
 	\skip 1*1;
 }
 
-zagers = \context GrandStaff <
+zagers =  \context GrandStaff <
 	\zager
 	\zoger
 >

@@ -7,7 +7,7 @@
   metre = "6 6. 8 6. D";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 sop=\notes \transpose c''{
 	ees2  ees4 ees4 g2 g2 |  c'1.
@@ -55,7 +55,7 @@ bass=\notes \transpose c' {
 	g,2 | aes, ees bes, bes, | ees\breve
 }
 
-global = \notes{
+global =  \notes{
 	\time 4/2;
 	\key ees \major;
 	\skip 2*4; \skip 1.; \bar "||";
@@ -66,7 +66,7 @@ global = \notes{
 	\skip 2; \skip 2*12;\skip 1.; \bar "||";
 }
 
-$upper_staff = \context Staff = upper {
+upperStaff =  \context Staff = upper {
 	\clef "treble";
 	\context Staff <
 		\global
@@ -75,7 +75,7 @@ $upper_staff = \context Staff = upper {
 	>
 }
 
-$lower_staff = \context Staff = lower {
+lowerStaff =  \context Staff = lower {
 	\clef "bass";
 	\context Staff <
 		\global
@@ -86,8 +86,8 @@ $lower_staff = \context Staff = lower {
 
 \score{
 	\context ChoirStaff\notes	<
-		\$upper_staff
-		\$lower_staff
+		\upperStaff
+		\lowerStaff
 	>
 	\paper {
 	        indent = 0.0\mm;

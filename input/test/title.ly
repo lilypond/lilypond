@@ -1,16 +1,16 @@
 \header{
-filename =	"title.ly";
-title =		"Title";
-subtitle =	"Subtitle";
+filename = 	"title.ly";
+title = 		"Title";
+subtitle = 	"Subtitle";
 composer=	"Composer (xxxx-yyyy)";
-arranger =	"Arranger";
-copyright = 	"public domain";
-enteredby = 	"jcn";
-source = 	"urtext";
+arranger = 	"Arranger";
+copyright =  	"public domain";
+enteredby =  	"jcn";
+source =  	"urtext";
 instrument=	"Instrument";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
 \score{
 	\notes

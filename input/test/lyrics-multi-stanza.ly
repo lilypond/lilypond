@@ -1,5 +1,5 @@
 
-\version "1.3.110";
+\version "1.3.117";
 \include "english.ly"
 
 \header{
@@ -18,7 +18,7 @@ Multiple stanzas
     poet = "Thomas Kelly (1769-1855)";
 }
 
-allup = \notes{
+allup =  \notes{
 	\stemUp
 	\slurUp
         \tieUp
@@ -26,7 +26,7 @@ allup = \notes{
 	\autoBeamOff
 }
 
-alldown = \notes{
+alldown =  \notes{
 	\stemDown
 	\slurDown
         \tieDown
@@ -34,13 +34,13 @@ alldown = \notes{
 	\autoBeamOff
 }
 
-Global =  \notes{
+Global =   \notes{
         \key g \major;
         \time 4/4;
 	\partial 4;
 }
 
-Soprano = \notes \relative c' {
+Soprano =  \notes \relative c' {
 	\allup
 	d4 | g g b b a g a b a g b a g( a )g % modified to test melisma align right
 
@@ -55,26 +55,26 @@ Soprano = \notes \relative c' {
 
 	g d'2 c b4.( c8 )a4 a g2.
 }
-Alto = \notes \relative c'{
+Alto =  \notes \relative c'{
 	\alldown
 	d4 | d d g g fs g fs g fs e g fs d2.
 	d4 | g d b g' [b8 a] [g fs] g4 fs g2 a g fs4( e8 )g fs2.
 	d4 | g g d g [fs8 e] [fs g] fs4 g f2 e d4.( d8 )d4 fs4 d2.
 }
-Tenor = \notes \relative c{
+Tenor =  \notes \relative c{
 	\allup
 	d4 | b' b d d c  b c  d c  b d c  b2.
 	a4 | b a g b  [d8 c] [b a] b4 a  b2 c b  a   a2.
 	g4 | b d b d [c8  b] [c  d]  c4 b g2 g g4.( a8 [fs )a] c4 b2.
 }
-Bass = \notes \relative c{
+Bass =  \notes \relative c{
 	\alldown
 	d4 | g g g g d d d g d e d d g,2.
 	d'4 | g d b g' [b8 a] [g fs] g4 d g2 fs e a d,2.
 	g4 | g g g g d d d e b2 c d2. d4 g,2.
 }
 
-TheLyrics =  \lyrics <
+TheLyrics =   \lyrics <
         {
 	    \context LyricsVoice = "Soprano-1"
 	    \property LyricsVoice .stanza = "1:"

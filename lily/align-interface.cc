@@ -106,14 +106,14 @@ Align_interface::align_to_extents (Grob * me, Axis a)
   Array<Interval> dims;
 
   Link_array<Grob> elems;
-  Link_array<Grob> all_elts
+  Link_array<Grob> all_grobs
     = Pointer_group_interface__extract_elements (  me, (Grob*) 0, "elements");
-  for (int i=0; i < all_elts.size(); i++) 
+  for (int i=0; i < all_grobs.size(); i++) 
     {
-      Interval y = all_elts[i]->extent(me, a);
+      Interval y = all_grobs[i]->extent(me, a);
       if (!y.empty_b())
 	{
-	  Grob *e =dynamic_cast<Grob*>(all_elts[i]);
+	  Grob *e =dynamic_cast<Grob*>(all_grobs[i]);
 
 	  // todo: fucks up if item both in Halign & Valign. 
 	  SCM min_dims = e->remove_grob_property ("minimum-space");
@@ -141,6 +141,7 @@ Align_interface::align_to_extents (Grob * me, Axis a)
   
  
   Real where_f=0;
+  Array<Real> translates ;
   for (int j=0 ;  j < elems.size(); j++) 
     {
       Real dy = 0.0;
@@ -155,10 +156,29 @@ Align_interface::align_to_extents (Grob * me, Axis a)
 	}
 
       where_f += stacking_dir * dy;
-      elems[j]->translate_axis (where_f, a);
+      translates.push (where_f);
+    }
+
+  /*
+    also move the grobs that were empty, to maintain spatial order. 
+   */
+  if (translates.size  ())
+    {
+      int i =0;
+      int j =0;
+      Real w = translates[0];
+      while (j  < all_grobs.size ())
+	{
+	  if (i < elems.size () && all_grobs[j] == elems[i])
+	    {
+	      w = translates[i++];
+	    }
+	  all_grobs[j]->translate_axis (w, a);
+
+	  j++;
+	}
     }
 }
-
 
 Axis
 Align_interface::axis (Grob*me)

@@ -22,17 +22,17 @@
    * organ staff...
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
 
 
-praeludium_commands = \notes {
+praeludiumCommands =  \notes {
   \time 4/4;
    \key e \major;
 }
 
-praeludium_right =  \notes {
-  \$praeludium_commands
+praeludiumRight =   \notes {
+  \praeludiumCommands
   \clef violin;
 
   % 13 -- how to type -- where to split -- this more neatly?
@@ -63,8 +63,8 @@ praeludium_right =  \notes {
   % 16
 }
 
-praeludium_left = \notes \relative c {
-  \$praeludium_commands
+praeludiumLeft =  \notes \relative c {
+  \praeludiumCommands
   \clef bass;
 
   % 13
@@ -85,8 +85,8 @@ praeludium_left = \notes \relative c {
   %16
 }
 
-praeludium_pedal = \notes \relative c{
-  \$praeludium_commands  
+praeludiumPedal =  \notes \relative c{
+  \praeludiumCommands  
   \clef bass;
 
   %13
@@ -97,13 +97,13 @@ praeludium_pedal = \notes \relative c{
 }
 
 
-fugaII_commands = \notes{
+fugaIICommands =  \notes{
   \time3/4;
   \key e \major;              % E-major
 }
 
-fugaII_right = \notes   \relative c''   {
-  \$fugaII_commands
+fugaIIRight =  \notes   \relative c''   {
+  \fugaIICommands
   \clef violin;
 
   %15
@@ -150,8 +150,8 @@ fugaII_right = \notes   \relative c''   {
   %19
 }
 
-fugaII_left = \notes {
-  \$fugaII_commands  
+fugaIILeft =  \notes {
+  \fugaIICommands  
   \clef bass;
 
   %15
@@ -166,8 +166,8 @@ fugaII_left = \notes {
   %19
 }
 
-fugaII_pedal = \notes \relative c {
-  \$fugaII_commands  
+fugaIIPedal =  \notes \relative c {
+  \fugaIICommands  
   \clef bass;
 
   %15
@@ -178,7 +178,7 @@ fugaII_pedal = \notes \relative c {
   %19
 }
 
-breakmusic = \notes { 
+breakmusic =  \notes { 
   %\time4/4;
   r1
 }

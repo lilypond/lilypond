@@ -36,7 +36,11 @@ extern Array<String> get_inclusion_names ();
 extern void set_inclusion_names (Array<String>);
 
 extern File_path global_path;
-extern Array<String> global_score_header_fields;
+
+/*
+  names of header fields to be dumped to a separate file.
+*/
+extern Array<String> global_dumped_header_fieldnames;
 
 extern String default_outname_base_global;
 extern String default_outname_suffix_global;

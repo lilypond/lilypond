@@ -1,15 +1,15 @@
 \header{
-filename =	 "contrabasso.ly";
-%title =	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
-description =	 "";
-composer =	 "Ludwig van Beethoven (1770-1827)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+filename = 	 "contrabasso.ly";
+xtitle = 	 "Ouvert\\"ure zu Collins Trauerspiel \\"Coriolan\\" Opus 62";
+description = 	 "";
+composer = 	 "Ludwig van Beethoven (1770-1827)";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-contrabasso = \notes \relative c {
+contrabasso =  \notes \relative c {
 	% copied 21 from cello
 	c1\ff ~ |
 	c |

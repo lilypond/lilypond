@@ -6,14 +6,13 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <iostream.h>
+#include "ly-smobs.icc"
 
+#include "scm-hash.hh"
 #include "score.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "music-output.hh"
-#include "source.hh"
-#include "source-file.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "global-translator.hh"
@@ -33,23 +32,28 @@ Score::Score()
   header_p_ = 0;
   music_ = SCM_EOL;
   errorlevel_i_ = 0;
+  smobify_self ();
 }
 
 Score::Score (Score const &s)
   : Input (s)
 {
+  music_ = SCM_EOL;
+
+  smobify_self ();
+  
   Music * m =unsmob_music (s.music_);
   music_ =  m?m->clone()->self_scm () : SCM_EOL;
+  
   for (int i=0; i < s.def_p_arr_.size (); i++)
     def_p_arr_.push(s.def_p_arr_[i]->clone());
   errorlevel_i_ = s.errorlevel_i_;
-  header_p_ =  (s.header_p_) ? new Scope (*s.header_p_): 0;
+  header_p_ =  (s.header_p_) ? new Scheme_hash_table (*s.header_p_): 0;
 }
 
 Score::~Score()
 {
-  delete header_p_;
-  junk_pointer_array (def_p_arr_);
+  
 }
 
 void
@@ -100,7 +104,10 @@ Score::run_translator (Music_output_def *odef_l)
   if(verbose_global_b)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));
 
-  output->header_l_ = header_p_;
+  if (!header_p_)
+    header_p_ = new Scheme_hash_table; // ugh
+  Scope bla (header_p_);
+  output->header_l_ = &bla;
   output->origin_str_ =  location_str();
 
   progress_indication ("\n");
@@ -138,4 +145,28 @@ void
 Score::add_output (Music_output_def *pap_p)
 {
   def_p_arr_.push(pap_p);
+}
+
+IMPLEMENT_SMOBS(Score);
+IMPLEMENT_DEFAULT_EQUAL_P(Score);
+IMPLEMENT_UNSMOB(Score, score);
+
+SCM
+Score::mark_smob (SCM s)
+{
+  Score * sc = (Score*) SCM_CELL_WORD_1(s);
+  if (sc->header_p_)
+    scm_gc_mark (sc->header_p_->self_scm ());
+  for (int i = sc->def_p_arr_.size (); i--;)
+    scm_gc_mark (sc->def_p_arr_[i]->self_scm ());
+  
+  return sc->music_;
+}
+
+int
+Score::print_smob (SCM s, SCM p, scm_print_state*)
+{
+  scm_puts ("#<Score>", p);
+
+  return 1;
 }

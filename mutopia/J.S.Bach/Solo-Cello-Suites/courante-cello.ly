@@ -1,9 +1,9 @@
 
-\version "1.3.110";
+\version "1.3.117";
 
 \include "courante-urtext.ly";
 
-courante_cello_global = \notes{
+couranteCelloGlobal =  \notes{
 	\time 3/4;
 	\key f \major;
 	\clef bass;
@@ -19,17 +19,17 @@ courante_cello_global = \notes{
 	}
 }
 
-courante_cello_scripts = \notes{
+couranteCelloScripts =  \notes{
 }
 
-courante_cello_staff = \context Staff <
-	\$courante
-	\$courante_cello_global
-	\$courante_cello_scripts
+couranteCelloStaff =  \context Staff <
+	\courante
+	\couranteCelloGlobal
+	\couranteCelloScripts
 >
 
 \score{
-	\$courante_cello_staff
+	\couranteCelloStaff
 	\paper {}
 	\midi{ \tempo 4 = 55; }
 	\header{ piece = "Courante";

@@ -1,16 +1,16 @@
 \header{
-filename =	"violino-i.ly";
-title =		 "Vier Duette";
-description =	"Four duets for Violino and Violoncello (Viola)";
-opus =		"BWV";
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"Public Domain";
+filename = 	"violino-i.ly";
+title = 		 "Vier Duette";
+description = 	"Four duets for Violino and Violoncello (Viola)";
+opus = 		"BWV";
+composer = 	"Johann Sebastian Bach (1685-1750)";
+enteredby = 	"jcn";
+copyright = 	"Public Domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-$violino_i = \notes\relative c'' {
+violinoI =  \notes\relative c'' {
   \property Voice.beamAutoEnd = "3/8"
   %% should fix autobeamer: not only check shortest type's end in beam,
   %%% but also the newly added type's end
@@ -76,13 +76,13 @@ $violino_i = \notes\relative c'' {
 
 \include "global-i.ly"
 
-$violino_i_staff = \context Staff = violino <
+violinoIStaff =  \context Staff = violino <
   %urg
   % \notes\property Voice.textStyle = "large" s4^"Moderato"
   % \notes {s4. \property Voice.textStyle = "large" s4^"Moderato"}
   % urg, timidity violino patches broken?
   %\property Staff.instrument = "violin"
   \property Staff.instrument = "viola"
-  \$violino_i
-  \$global_i
+  \violinoI
+  \globalI
 >

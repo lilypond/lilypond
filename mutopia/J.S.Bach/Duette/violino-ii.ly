@@ -1,16 +1,16 @@
 \header{
-filename =	"violino-ii.ly";
-title =		 "Vier Duette";
-description =	"Four duets for Violino and Violoncello (Viola)";
-opus =		"BWV";
-composer =	"Johann Sebastian Bach (1685-1750)";
-enteredby =	"jcn";
-copyright =	"Public Domain";
+filename = 	"violino-ii.ly";
+title = 		 "Vier Duette";
+description = 	"Four duets for Violino and Violoncello (Viola)";
+opus = 		"BWV";
+composer = 	"Johann Sebastian Bach (1685-1750)";
+enteredby = 	"jcn";
+copyright = 	"Public Domain";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-$violino_ii = \notes\relative c''{
+violinoIi =  \notes\relative c''{
   R1*8 |
   r2 e | 
 %10
@@ -91,14 +91,14 @@ $violino_ii = \notes\relative c''{
 
 \include "global-ii.ly"
 
-$violino_ii_staff = \context Staff = violino <
+violinoIiStaff =  \context Staff = violino <
   %urg
   % \notes\property Voice.textStyle = "large" s4^"Moderato"
   % \notes {s4. \property Voice.textStyle = "large" s4^"Moderato"}
   % urg, timidity violino patches broken?
   %\property Staff.instrument = "violin"
   \property Staff.instrument = "viola"
-  \$violino_ii
-  \$global_ii
+  \violinoIi
+  \globalIi
 >
-\version "1.3.110";
+\version "1.3.117";

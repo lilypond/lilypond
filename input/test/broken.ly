@@ -1,13 +1,13 @@
 \header{
-enteredby =	 "jcn";
-copyright =	 "PD";
-TestedFeatures =	 "This file tests Feta embedded slurs" +
+enteredby = 	 "jcn";
+copyright = 	 "PD";
+TestedFeatures = 	 "This file tests Feta embedded slurs" +
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.3.110";
+\version "1.3.117";
 
-shortlong = \notes{
+shortlong =  \notes{
 	c4()c( c c  |
 	c c c c |
 	c c c c |
@@ -15,7 +15,7 @@ shortlong = \notes{
 	c c c )c |
 }
 
-broken = \notes\transpose c''{
+broken =  \notes\transpose c''{
 
       c c c c()
       c c c c(

@@ -1,12 +1,12 @@
 \header{
-filename =	 "beams.ly";
-composer =	 "heu";
-enteredby =	 "jcn";
-copyright =	 "PD";
+filename = 	 "beams.ly";
+composer = 	 "heu";
+enteredby = 	 "jcn";
+copyright = 	 "PD";
 
-TestedFeatures =	 "beams and beamflags";
+TestedFeatures = 	 "beams and beamflags";
 }
-\version "1.3.110";
+\version "1.3.117";
 
 \score{
 	<

@@ -1,12 +1,12 @@
 \header{
-title =	 "La Gallina à 2 violini";
-date =	 "1637";
-source =	 "the manuscript of Canzoni overo Sonate Concertate "
+title = 	 "La Gallina à 2 violini";
+date = 	 "1637";
+source = 	 "the manuscript of Canzoni overo Sonate Concertate "
 	+ "libro terzo, opera duodecima ";
-composer =	 "Tarquinio Merula (1594/95-1665)";
-enteredby =	 "Mats Bengtsson";
-copyright =	 "Public Domain ";
-subtitle = "from Canzoni overo Sonate Concertate libro terzo, "
+composer = 	 "Tarquinio Merula (1594/95-1665)";
+enteredby = 	 "Mats Bengtsson";
+copyright = 	 "Public Domain ";
+subtitle =  "from Canzoni overo Sonate Concertate libro terzo, "
 	+ "opera duodecima 1637";
 }
 
@@ -45,9 +45,9 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.3.110";
+\version "1.3.117";
 
-global = \notes {
+global =  \notes {
   \property StaffGroup.timeSignatureStyle = "old"
   \time 4/4;
   \tempo 4=100;

@@ -22,7 +22,7 @@ protected:
 
   virtual bool try_music (Music* req_l);
   virtual void stop_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void create_audio_elements ();
 
 private:
   Tempo_req* tempo_req_l_;
@@ -43,7 +43,7 @@ Tempo_performer::~Tempo_performer ()
 
 
 void
-Tempo_performer::create_grobs ()
+Tempo_performer::create_audio_elements ()
 {
   if (tempo_req_l_)
     {

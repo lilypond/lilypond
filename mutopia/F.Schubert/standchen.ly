@@ -1,5 +1,5 @@
 \header{
-filename =	 "standchen.ly";
+filename = 	 "standchen.ly";
 %
 % From the album:
 % Schubert-Lieder
@@ -10,13 +10,13 @@ filename =	 "standchen.ly";
 % page 60
 %
 title    = "St\\\"andchen";
-subtitle = "(Serenade)\\\\``Leise flehen meine Lieder''";
-opus =	 "D. 957 No. 4";
-date = "August 1828";
-composer =	 "Franz Schubert (1797-1828)";
+subtitle =  "(Serenade)\\\\``Leise flehen meine Lieder''";
+opus = 	 "D. 957 No. 4";
+date =  "August 1828";
+composer = 	 "Franz Schubert (1797-1828)";
 poet=	 "Text by Ludwig Rellstab (1799-1860)";
-enteredby =	 "JCN";
-copyright =	 "public domain";
+enteredby = 	 "JCN";
+copyright = 	 "public domain";
 
   % mutopia headers.
   mutopiatitle = "St\\\"andchen";
@@ -41,13 +41,13 @@ multiple \paper{}s in one \score
 Note: Original key f.
 %}
 
-\version "1.3.110";
+\version "1.3.117";
 
-dynamicUp = 	\property Voice.DynamicLineSpanner \override #'direction = #1
-dynamicRevert = 	\property Voice.DynamicLineSpanner \revert #'direction
+dynamicUp =  	\property Voice.DynamicLineSpanner \override #'direction = #1
+dynamicRevert =  	\property Voice.DynamicLineSpanner \revert #'direction
 
 
-vocalVerse = \notes\relative c''{
+vocalVerse =  \notes\relative c''{
 	\dynamicUp
 	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
@@ -76,7 +76,7 @@ vocalVerse = \notes\relative c''{
 	c!2. |
 }
 
-vocalThrough = \notes\relative c{
+vocalThrough =  \notes\relative c{
 	\dynamicUp
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
@@ -96,7 +96,7 @@ vocalThrough = \notes\relative c{
 	e2 r4 |
 }
 
-lyricVerseOne = \lyrics{
+lyricVerseOne =  \lyrics{
 	Lei- se fleh- en mei- ne Lie- der 
 	Durch die Nacht zu dir; 
 	In den stil- len Hain her- nie- der
@@ -111,7 +111,7 @@ lyricVerseOne = \lyrics{
 	F\"urch- te, Hol- de, nicht.
 }
 	
-lyricVerseTwo = \lyrics{
+lyricVerseTwo =  \lyrics{
 	H\"orst die Nach- ti- gal- len schla- gen? 
 	Ach! sie fleh- en dich, 
 	Mit der T\"o- ne s\"u- "\ss en" Kla- gen
@@ -126,7 +126,7 @@ lyricVerseTwo = \lyrics{
 	Jed- es wei- che Herz.
 }
 
-lyricThrough = \lyrics{
+lyricThrough =  \lyrics{
 	La\ss auch dir die Brust be- we- gen 
 	Lieb- chen, h\"o- re mich! 
 	Be- bend harr' ich dir ent- ge- gen! 
@@ -136,7 +136,7 @@ lyricThrough = \lyrics{
 	Be- gl\"uk- ke mich!
 }
 
-trebleIntro = \notes\relative c{
+trebleIntro =  \notes\relative c{
 	r8^"\bf M\\\"a\\ss ig"\pp <g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.> |
 	r8 <as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.> |
 	r8 <as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.> |
@@ -144,7 +144,7 @@ trebleIntro = \notes\relative c{
 	\break
 }
 
-trebleVerseOne = \notes\relative c{
+trebleVerseOne =  \notes\relative c{
 	%5
 	r8 <g' c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
@@ -179,7 +179,7 @@ trebleVerseOne = \notes\relative c{
 	< {a4.- > )f8}  { a'4. f8 }  > |
 }
 
-trebleEentje = \notes \relative c'{
+trebleEentje =  \notes \relative c'{
 	\stemBoth
 	<e2 e'> <e4 g>|
 	<f2\mf as!(> <as8.->( c> <)f16 )as> |
@@ -193,7 +193,7 @@ trebleEentje = \notes \relative c'{
 	<e2. g> |
 }
 
-trebleThrough = \notes \relative c'{
+trebleThrough =  \notes \relative c'{
 	\stemBoth
 	<e2. e'> |
 	%61
@@ -248,7 +248,7 @@ trebleThrough = \notes \relative c'{
 	<g2.-\fermata e' g> |
 }
 
-bassIntro = \notes\relative c{
+bassIntro =  \notes\relative c{
 	\dynamicUp
 %1
 	<c,2 c'> r4 |
@@ -257,7 +257,7 @@ bassIntro = \notes\relative c{
 	<g2 g'> r4 |
 }
 
-bassVerseOne = \notes\relative c{
+bassVerseOne =  \notes\relative c{
 %	\clef bass;
 	\dynamicUp
 %5
@@ -289,7 +289,7 @@ bassVerseOne = \notes\relative c{
 	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
 }
 
-bassEentje = \notes\relative c{
+bassEentje =  \notes\relative c{
 	\dynamicUp
 	<c,8 c'> [<c' f as!> <f as c> <c f as> <f as c> <c f as>] |
 	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
@@ -301,7 +301,7 @@ bassEentje = \notes\relative c{
 	c,8 [<e' g> <g c> <e g> <g c> <e g>] |
 }
 
-bassThrough = \notes\relative c{
+bassThrough =  \notes\relative c{
 	\dynamicUp
 	%61
 	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
@@ -335,7 +335,7 @@ bassThrough = \notes\relative c{
 	<c,2._\fermata g' c> |
 }
 		
-global = \notes{
+global =  \notes{
 	\time 3/4; 
 	\key es \major;
 	\skip 4 * 12;
@@ -344,17 +344,17 @@ global = \notes{
 	\bar "|.";
 }
 
-allLyrics = \lyrics {
+allLyrics =  \lyrics {
 	\lyricVerseOne
 	\lyricVerseTwo
 	\lyricThrough
 }
 
-lyricStaff = \context Lyrics = lyric<
+lyricStaff =  \context Lyrics = lyric<
 	\allLyrics
 >
 		
-vocals = \notes{
+vocals =  \notes{
 	\clef treble;
  	% certainly no auto-beaming for vocals
  	\property Voice.noAutoBeaming = ##t
@@ -368,13 +368,13 @@ vocals = \notes{
 	\vocalThrough
 }
 
-vocalStaff = \context Staff = vocal<
+vocalStaff =  \context Staff = vocal<
 	  \property Staff.instrument = "synth voice"
 	  \global
 	  \vocals
 >
 
-treble = {
+treble =  {
 	\clef treble;
 	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
 	\trebleIntro 
@@ -384,12 +384,12 @@ treble = {
 	\trebleThrough
 }
 
-trebleStaff = \context Staff = treble< 
+trebleStaff =  \context Staff = treble< 
 	\global
 	\treble
 >
 
-bass = {
+bass =  {
 	\clef bass;
 	\bassIntro 
 	\bassVerseOne 
@@ -398,12 +398,12 @@ bass = {
 	\bassThrough
 }
 
-bassStaff = \context Staff = bass<
+bassStaff =  \context Staff = bass<
 	\global
 	\bass
 >
 
-grandStaff = \context PianoStaff <
+grandStaff =  \context PianoStaff <
 	\trebleStaff
 	\bassStaff
 >

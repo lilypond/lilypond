@@ -1,15 +1,15 @@
 \header{
-filename =	 "rhythm.ly";
-enteredby =	 "HWN";
-copyright =	 "public domain";
-TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
+filename = 	 "rhythm.ly";
+enteredby = 	 "HWN";
+copyright = 	 "public domain";
+TestedFeatures = 	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 }
 
 
 
-\version "1.3.110";
+\version "1.3.117";
 
-ritme = \notes\transpose c'' {
+ritme =  \notes\transpose c'' {
 	\time  4/4;
 	\partial 8;
 	c8					|
@@ -35,13 +35,13 @@ ritme = \notes\transpose c'' {
 	 }
 	
 
-another = 
+another =  
 	\notes \relative c'' { \time 6/4; 
 		c1.  c1. \time 4/4;c4 c4 c4 c4  c1 c1 c1
 	 }
 
 
-yanother = 
+yanother =  
 	\notes{ \time 4/4; 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
 	 }
