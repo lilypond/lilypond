@@ -56,3 +56,9 @@ Scaled_font_metric::text_dimension (String t) const
   b.scale (magnification_f_);
   return b;
 }
+
+int
+Scaled_font_metric::count () const
+{
+  return orig_l_->count ();
+}

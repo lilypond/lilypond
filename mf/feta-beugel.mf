@@ -11,7 +11,8 @@ save code;
 code := 0;
 
 
-def draw_brace (expr height_sharp, width_sharp, slt_sharp) = 
+def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
+
 	save pendir, height, width, thin, thick, slt;
 	save penangle;
 	height# := height_sharp;
@@ -46,11 +47,20 @@ def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 endchar;
 enddef;
 
-l := 0.05pt#;
+
+
+% l is the increment.
+l := 0.2pt#;
 y := 10pt#;
 
+
+
 for i := 0 step 1 until font_count:
-  for j := 0 step 1 until 255:
+
+  %% We can't store more than 64 (65?) height dimensions in a TFM
+  %% file, so we make small files.
+
+  for j := 0 step 1 until 65:
     % message "l: "&decimal l;
     % note: define_pixels (x) multiplies x by hppp,
     % must never get bigger than infinity

@@ -358,7 +358,6 @@ Like @code{tuplet-bracket-visibility}, but for the number.")
 function of type (beam multiplicity dy staff-line-thickness) -> real.  Default value: default-beam-y-quants, also available: beam-traditional-y-quants.
 .")
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
-(grob-property-description 'weird number? "urg?")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")

@@ -79,10 +79,19 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
   return &dummy_static_char_metric;  
 }
 
+
+/*
+  UGH: glyphs need not be consecutive in TFM.
+ */
 int
 Tex_font_metric::count () const
 {
-  return ascii_to_metric_idx_.size ();
+  for (int i = ascii_to_metric_idx_.size (); i--;)
+    {
+      if (ascii_to_metric_idx_[i] != -1)
+	return i + 1;
+    }
+  return 0;
 }
 
 Box
