@@ -44,6 +44,7 @@ OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 # URG.  Lilypond specific. Move out. 
 $(outdir)/%.html: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ $<
+	$(footify) $@
 
 $(outdir)/%.tex: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
@@ -54,6 +55,7 @@ local-WWW-donotdoit: $(HTML_FILES) $(OUTTEX_FILES:.doc=.ps.gz)  $(addprefix $(ou
 	$(PYTHON) $(step-bindir)/ls-latex.py --title 'LaTeX documents about design and implementation of LilyPond' \
 	  $(TELY_FILES)  $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+	$(footify) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
@@ -61,6 +63,7 @@ $(outdir)/%.bib: %.bib
 # ignore result since bib2html is nonstandard. Errors would halt the RPM build.j  
 $(outdir)/%.html: %.bib
 	-bib2html $< $@
+	$(footify) $@
 
 # Yeah right: 
 # make -k out/mudela.dvi => cp -f out/vocabulary.tex out/mudela.dvi

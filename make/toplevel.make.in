@@ -32,11 +32,10 @@ website: fonts htmldoc examples doc++
 fonts:
 	$(MAKE) -C $(depth)/mf 
 
-
 examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
-	$(footify)
+	$(footify) `$(FIND) . -name '*.html' -print`
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 localinstall:
@@ -48,4 +47,4 @@ local-WWW-clean:
 	$(depth)/buildscripts/out/clean-fonts
 
 footify:
-	$(footify)
+	$(footify) `$(FIND) . -name '*.html' -print`

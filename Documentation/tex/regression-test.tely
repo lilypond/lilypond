@@ -8,7 +8,9 @@
 @title LilyPond Regression test
 @end ignore
 
-@node Top, , , 
+@node Top, , ,
+
+@section Introduction
 
 This document tries give an brief overview of LilyPond features.  When
 the text correspond with the shown notation, we consider LilyPond
