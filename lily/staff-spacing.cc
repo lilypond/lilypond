@@ -238,4 +238,4 @@ ADD_INTERFACE (Staff_spacing, "staff-spacing-interface",
 	       "This object calculates spacing details from a "
 	       " breakable symbol (left) to another object. For example, it takes care "
 	       " of  optical spacing from  a bar lines to a note.",
-	       "same-direction-correction stem-spacing-correction left-items right-items");
+	       "stem-spacing-correction left-items right-items");
