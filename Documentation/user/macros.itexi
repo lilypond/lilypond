@@ -1,17 +1,5 @@
 @c -*-texinfo-*-
 
-@c Only reference in HTML.
-@macro htmlref {NAME}
-@ifhtml
-@ref{\NAME\}@c
-@end ifhtml
-@ifnothtml
-\NAME\@c
-@end ifnothtml
-@end macro
-
-
-
 
 @c Reference GLOSsary
 @macro rglos {NAME}

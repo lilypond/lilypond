@@ -74,7 +74,7 @@ should then be able to create and print your first sheets of music.
 @section First steps
 
 We start off by showing how very simple music is entered in LilyPond:
-you get a note simply by typing its @htmlref{note name}, from @samp{a}
+you get a note simply by typing its note name, from @samp{a}
 through @samp{g}.  So if you enter
 
 @example
