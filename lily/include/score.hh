@@ -16,6 +16,7 @@
 #include "moment.hh"
 #include "assoc.hh"
 #include "string.hh"
+#include "input.hh"
 
 /// the total music def of one movement
 struct Score {
@@ -28,7 +29,7 @@ struct Score {
     IPointerList<Score_column*> cols_;
     PScore *pscore_p_;
 
-    char const *defined_ch_C_;
+    Input input_;
     int errorlevel_i_;
     
     /* *************************************************************** */
