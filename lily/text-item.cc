@@ -18,7 +18,7 @@
 #include "all-font-metrics.hh"
 #include "afm.hh"
 #include "lookup.hh"
-
+#include "virtual-font-metric.hh"
 
 /*
 
@@ -88,11 +88,21 @@ Text_item::lookup_character (Grob *, Font_metric*fm, SCM char_name)
 }
 
 
+
 Molecule
 Text_item::lookup_text (Grob *, Font_metric*fm, SCM text)
 {
   SCM list = scm_list_n (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
-  list = fontify_atom (fm, list);
+
+  if (dynamic_cast<Virtual_font_metric*> (fm))
+    {
+      /*
+	ARGH.
+       */
+      programming_error ("Can't use virtual font for text.");
+    }
+  else
+    list = fontify_atom (fm, list);
   
   return Molecule (fm->text_dimension (ly_scm2string (text)), list);
 }

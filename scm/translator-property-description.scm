@@ -300,6 +300,10 @@ this is done with the pedal.")
 Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
 ")
 
+(translator-property-description 'restNumberThreshold number?
+				 "If a multimeasure rest takes less
+than this number of measures, no number is printed. ")
+
 (translator-property-description 'scriptHorizontal boolean? "  Put
 scripts left or right of note heads.  Support for this is limited.
 Accidentals will collide with scripts.

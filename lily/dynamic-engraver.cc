@@ -442,11 +442,11 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     }
 }
 ENTER_DESCRIPTION(Dynamic_engraver,
-/* descr */       "
-This engraver creates hairpins, dynamic texts, and their vertical
-alignments.  The symbols are collected onto a DynamicLineSpanner grob
-which takes care of vertical positioning.  
-",
+/* descr */       
+"This engraver creates hairpins, dynamic texts, and their vertical\n"
+"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
+"which takes care of vertical positioning.  "
+,
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 /* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",

@@ -9,7 +9,7 @@
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
-
+#include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
 #include "moment.hh"
@@ -38,19 +38,22 @@ private:
   int start_measure_;
   Moment start_moment_;
   
+
   Spanner *mmrest_;
-  Spanner *lastrest_;
+  Spanner *number_;
+
+  Spanner *last_number_;
+  Spanner *last_rest_;
 };
-
-
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
   start_measure_ = 0;
-  mmrest_  = lastrest_ =0;
+  mmrest_ = 0;
+  last_rest_ =0;
+  number_ = 0;
   new_req_ = busy_span_req_ = stop_req_ =0;
 }
-
 
 bool
 Multi_measure_rest_engraver::try_music (Music* req)
@@ -95,8 +98,13 @@ Multi_measure_rest_engraver::process_music ()
   if (busy_span_req_ && !mmrest_)
     {
       mmrest_ = new Spanner (get_property ("MultiMeasureRest"));
+      number_ = new Spanner (get_property ("MultiMeasureRestNumber"));
 
-      announce_grob(mmrest_, busy_span_req_->self_scm());
+      Side_position_interface::add_support (number_, mmrest_);
+      number_->set_parent (mmrest_, Y_AXIS);
+
+      announce_grob (mmrest_, busy_span_req_->self_scm());
+      announce_grob (number_, busy_span_req_->self_scm());
       start_measure_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
@@ -106,9 +114,15 @@ Multi_measure_rest_engraver::process_music ()
       Grob *cmc = unsmob_grob (get_property( "currentCommandColumn"));
       Item *it = dynamic_cast<Item*> (cmc);
       if (mmrest_)
-	add_bound_item (mmrest_, it);
-      if (lastrest_)
-	add_bound_item (lastrest_,it);
+	{
+	  add_bound_item (mmrest_, it);
+	  add_bound_item (number_, it);
+	}
+      if (last_rest_)
+	{
+	  add_bound_item (last_rest_,it);
+	  add_bound_item (last_number_, it);
+	}      
     }
 }
 
@@ -123,19 +137,27 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
     {
       typeset_grob (mmrest_);
+      typeset_grob (number_);
+      Side_position_interface::add_staff_support (number_);
       /*
 	we must keep mmrest_ around to set measure-count, so
 	no mmrest_ = 0 here. 
        */
+
+      
     }
 
-  if (lastrest_)
+  if (last_rest_)
     {
       /* sanity check */
-      if (lastrest_->get_bound (LEFT) && lastrest_->get_bound (RIGHT)
-	  && lastrest_->get_bound (LEFT) != lastrest_->get_bound (RIGHT))
-	typeset_grob (lastrest_);
-      lastrest_ = 0;
+      if (last_rest_->get_bound (LEFT) && last_rest_->get_bound (RIGHT)
+	  && last_rest_->get_bound (LEFT) != last_rest_->get_bound (RIGHT))
+	{
+	  typeset_grob (last_rest_);
+	  typeset_grob (last_number_);
+	}
+      last_rest_ = 0;
+      last_number_ = 0;
     }
 
   if (new_req_)
@@ -154,22 +176,35 @@ Multi_measure_rest_engraver::start_translation_timestep ()
   
   if (mmrest_ && !mp.to_bool ())
     {
-      lastrest_ = mmrest_;
+      last_rest_ = mmrest_;
+      last_number_ = number_;
+
       int cur = gh_scm2int (get_property ("currentBarNumber"));
-      lastrest_->set_grob_property ("measure-count",
-				     gh_int2scm (cur - start_measure_));
+      int num = cur - start_measure_;
+      last_rest_->set_grob_property ("measure-count", gh_int2scm (num));
+
       SCM sml = get_property ("measureLength");
       Rational ml = (unsmob_moment (sml)) ? unsmob_moment (sml)->main_part_ : Rational (1);
-      if (ml < Rational (2))
+      if (ml >= Rational (2))
 	{
-	  lastrest_->set_grob_property ("use-breve-rest", SCM_BOOL_F);
-	}
-      else
-	{
-	  lastrest_->set_grob_property ("use-breve-rest", SCM_BOOL_T);
+	  last_rest_->set_grob_property ("use-breve-rest", SCM_BOOL_T);
 	}
 
       mmrest_ = 0;
+
+      SCM text =last_number_->get_grob_property ("text");
+      SCM thres = get_property ("restNumberThreshold");
+      int t = 1;
+      if (gh_number_p (thres))
+	t = gh_scm2int (thres);
+      
+      if (text == SCM_EOL && num <= t)
+	last_number_->suicide();
+      else if (text == SCM_EOL)
+	{
+	  text = scm_number_to_string (gh_int2scm (num), SCM_MAKINUM (10));
+	  last_number_->set_grob_property ("text", text);
+	}
     }
 }
 
@@ -178,19 +213,26 @@ void
 Multi_measure_rest_engraver::finalize ()
 {
   if (mmrest_)
-    typeset_grob (mmrest_);
-  if (lastrest_)
-    typeset_grob (lastrest_);
+    {
+      typeset_grob (mmrest_);
+      typeset_grob (number_);
+    }
+  if (last_rest_)
+    {
+      typeset_grob (last_rest_);
+      typeset_grob (last_number_);
+    }
 }
 
 ENTER_DESCRIPTION(Multi_measure_rest_engraver,
-/* descr */       "Engraves multi-measure rests that are produced with @code{R}.  Reads
-measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest.
-Reads measureLength to determine if it should use a whole rest or a breve rest to represent 1 measure
-
-",
-/* creats*/       "MultiMeasureRest",
+/* descr */
+		  "Engraves multi-measure rests that are produced with @code{R}.  Reads "
+"measurePosition and currentBarNumber to determine what number to print "
+"over the MultiMeasureRest.  Reads measureLength to determine if it "
+"should use a whole rest or a breve rest to represent 1 measure "
+		  ,
+/* creats*/       "MultiMeasureRest MultiMeasureRestNumber",
 /* accepts */     "multi-measure-rest-event",
 /* acks  */      "",
-/* reads */       "currentBarNumber currentCommandColumn measurePosition measureLength",
+/* reads */       "currentBarNumber restNumberThreshold currentCommandColumn measurePosition measureLength",
 /* write */       "");
