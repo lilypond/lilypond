@@ -3,12 +3,7 @@ dnl  Process this file with autoconf to produce a configure script.
 
 dnl should cache result.
 dnl should  look in $prefix first.
-printing_b=no
-checking_b=yes
-debug_b=yes
-optimise_b=no
-profile_b=no
-#shared_b=no
+
 
 AC_DEFUN(AC_TEX_PREFIX, [
     
@@ -79,7 +74,13 @@ dnl     AC_REQUIRE([AC_TEX_PREFIX])
    
 AC_INIT(flower/choleski.cc)
 
-
+# if given here, these vars are initted at the checking point.
+printing_b=no
+checking_b=yes
+debug_b=yes
+optimise_b=no
+profile_b=no
+    
 AC_LANG_CPLUSPLUS
 
 AC_ARG_ENABLE(printing,
