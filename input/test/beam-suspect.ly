@@ -1,5 +1,8 @@
 \version "1.7.18"
-% I don't understand the point of this one.  delete it?
+% I don't understand the point of this one.  Demonstrates
+% wierd beamings?  I'd say delete it or move to regression.
+\header{ texidoc="DELETE or MOVE TO REGRESSION
+"}
 \score{
 	\notes\relative c'{
 		\stemUp

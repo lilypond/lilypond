@@ -1,6 +1,8 @@
 \version "1.7.18"
 %  does this belong in regression?  delete it?  it doens't look
-%  like a special trick or a great learning tool...
+%  like a special trick or a great learning tool, but it might
+%  be useful in testing length os beam stems, or something like
+%  that.
 \header{
 filename =	 "beam-pos.ly"
 composer =	 "jcn"
@@ -9,6 +11,8 @@ copyright =	 "PD"
 title = "Beam quantization"
 
 TestedFeatures =	 "beam quant positions"
+texidoc="DELETE or MOVE TO REGRESSION
+"
 }
 
 \score{
