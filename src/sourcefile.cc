@@ -26,21 +26,21 @@
 
 Source_file::Source_file( String &filename_str )
 {
-    data_caddr_m = 0;
-    fildes_i_m = 0;
-    size_off_m = 0;
-    name_str_m = filename_str;
-    istream_p_m = 0;
+    data_caddr_ = 0;
+    fildes_i_ = 0;
+    size_off_ = 0;
+    name_str_ = filename_str;
+    istream_p_ = 0;
 
     open();
     map();
-    filename_str = name_str_m;
+    filename_str = name_str_;
 }
 
 Source_file::~Source_file()
 {
-    delete istream_p_m;
-    istream_p_m = 0;
+    delete istream_p_;
+    istream_p_ = 0;
     unmap();
     close();
 }
@@ -49,15 +49,15 @@ char const*
 Source_file::ch_c_l()
 {
     assert( this );
-    return (char const*)data_caddr_m;
+    return (char const*)data_caddr_;
 }
 
 void
 Source_file::close()
 {
-    if ( fildes_i_m ) {
-	::close( fildes_i_m );
-	fildes_i_m = 0;
+    if ( fildes_i_ ) {
+	::close( fildes_i_ );
+	fildes_i_ = 0;
     }
 }
 
@@ -77,7 +77,7 @@ Source_file::error_str( char const* pos_ch_c_l )
 	}
 
     char const* end_ch_c_l = pos_ch_c_l;
-    while ( end_ch_c_l < data_ch_c_l + size_off_m )
+    while ( end_ch_c_l < data_ch_c_l + size_off_ )
         if ( *end_ch_c_l++ == '\n' ) {
 	    break;
 	}
@@ -111,22 +111,22 @@ Source_file::error_str( char const* pos_ch_c_l )
 bool
 Source_file::in_b( char const* pos_ch_c_l )
 {
-    return ( pos_ch_c_l && ( pos_ch_c_l >= ch_c_l() ) && ( pos_ch_c_l < ch_c_l() + size_off_m ) );
+    return ( pos_ch_c_l && ( pos_ch_c_l >= ch_c_l() ) && ( pos_ch_c_l < ch_c_l() + size_off_ ) );
 }
 
 istream*
 Source_file::istream_l()
 {
-    assert( fildes_i_m );
-    if ( !istream_p_m ) {
-	if ( size_off_m ) // can-t this be done without such a hack?
-	    istream_p_m = new istrstream( ch_c_l(), size_off_m );
+    assert( fildes_i_ );
+    if ( !istream_p_ ) {
+	if ( size_off_ ) // can-t this be done without such a hack?
+	    istream_p_ = new istrstream( ch_c_l(), size_off_ );
         else {
-	    istream_p_m = new istrstream( "", 0 );
-	    istream_p_m->set(ios::eofbit);
+	    istream_p_ = new istrstream( "", 0 );
+	    istream_p_->set(ios::eofbit);
 	}
     }
-    return istream_p_m;
+    return istream_p_;
 }
 
 int
@@ -146,47 +146,47 @@ Source_file::line_i( char const* pos_ch_c_l )
 void
 Source_file::map()
 {
-    if ( fildes_i_m == -1 )
+    if ( fildes_i_ == -1 )
 	return;
 
-    data_caddr_m = (caddr_t)mmap( (void*)0, size_off_m, PROT_READ, MAP_SHARED, fildes_i_m, 0 );
+    data_caddr_ = (caddr_t)mmap( (void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0 );
 
-    if ( (int)data_caddr_m == -1 )
-	warning( String( "can't map: " ) + name_str_m + String( ": " ) + strerror( errno ), defined_ch_c_l ); //lexer->here_ch_c_l() );
+    if ( (int)data_caddr_ == -1 )
+	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ), defined_ch_c_l ); //lexer->here_ch_c_l() );
 }
 
 String
 Source_file::name_str()
 {
-    return name_str_m;
+    return name_str_;
 }
 
 void
 Source_file::open()
 {
-    String name_str = find_file( name_str_m );
+    String name_str = find_file( name_str_ );
     if ( name_str != "" ) 
-        name_str_m = name_str;
+        name_str_ = name_str;
 
-    fildes_i_m = ::open( name_str_m, O_RDONLY );	
+    fildes_i_ = ::open( name_str_, O_RDONLY );	
 	    
-    if ( fildes_i_m == -1 ) {
-	warning( String( "can't open: " ) + name_str_m + String( ": " ) + strerror( errno ), defined_ch_c_l ); // lexer->here_ch_c_l() );
+    if ( fildes_i_ == -1 ) {
+	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno ), defined_ch_c_l ); // lexer->here_ch_c_l() );
         return;
     }
 
     struct stat file_stat;
-    fstat( fildes_i_m, &file_stat );
-    size_off_m = file_stat.st_size;
+    fstat( fildes_i_, &file_stat );
+    size_off_ = file_stat.st_size;
 }
 
 void
 Source_file::unmap()
 {
-    if ( data_caddr_m ) {
-	munmap( data_caddr_m, size_off_m );
-    	data_caddr_m = 0;
-	size_off_m = 0;
+    if ( data_caddr_ ) {
+	munmap( data_caddr_, size_off_ );
+    	data_caddr_ = 0;
+	size_off_ = 0;
     }
 }
 String

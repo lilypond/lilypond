@@ -16,7 +16,7 @@ public:
     Source_file* sourcefile_l( char const* ch_c_l );
 
 private:
-    IPointerList<Source_file*> sourcefile_p_iplist_m;
+    IPointerList<Source_file*> sourcefile_p_iplist_;
 };
 
 #endif // SOURCE_HH //

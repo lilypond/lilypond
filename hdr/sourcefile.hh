@@ -11,7 +11,7 @@ class Source_file
 {
 public:
     /**
-      RETURN path to opened file.
+      @return path to opened file.
      */
     Source_file( String &filename_str );
     ~Source_file();
@@ -29,11 +29,11 @@ private:
     void open();
     void unmap();
 
-    istream* istream_p_m;
-    int fildes_i_m;
-    String name_str_m;
-    off_t size_off_m;
-    caddr_t data_caddr_m;
+    istream* istream_p_;
+    int fildes_i_;
+    String name_str_;
+    off_t size_off_;
+    caddr_t data_caddr_;
 };
 
 #endif // SOURCE_FILE_HH //

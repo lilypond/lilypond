@@ -14,7 +14,7 @@ void set_lexer();
 
 struct Input_file {
 	istream* is;
-	char const* defined_ch_c_l_m;
+	char const* defined_ch_c_l_;
 	Source_file* sourcefile_l_;
 	int line;
 	String name;
@@ -31,7 +31,7 @@ struct My_flex_lexer : yyFlexLexer {
     Assoc<String, Identifier*> *the_id_tab;
     Keyword_table * keytable;
     Notename_tab * defaulttab;
-    char const* data_ch_c_l_m;
+    char const* data_ch_c_l_;
     int errorlevel_i_;
     /* *************** */
     int ret_notename(int *p, String text, int octave_mod);    
