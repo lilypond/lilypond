@@ -21,19 +21,20 @@
 @unnumberedsubsec Manuals
 
 @itemize @bullet
-@item @uref{../user/out-www/lilypond/lilypond.html,LilyPond reference manual}
+@item @uref{../user/out-www/lilypond/lilypond.html,LilyPond user manual}
+@item @uref{../user/out-www/lilypond/Reference-Manual.html#Reference Manual,LilyPond reference manual}
 also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
 @item LilyPond @uref{../user/out-www/lilypond-internals/lilypond-internals.html,internals}
-@item @uref{../user/out-www/features/features.html, LilyPond features}
+@item @uref{../user/out-www/lilypond/Features.html#Features, LilyPond features}
 work in progress, to me merged with reference manual.
 @item @uref{../user/out-www/glossary.html,A glossary of musical
 terms}, includes translations.  Also available in @uref{../user/out-www/glossary.ps.gz,Postscript})
 @item @uref{../user/out-www/lilypond-book.html,lilypond-book}, a tool for
 integrating text and music in LaTeX and texinfo; also available in
 @uref{../user/out-www/lilypond-book.ps.gz,Postscript}
-@item @uref{../user/out-www/ly2dvi.html,ly2dvi}  does page layout for
+@item @uref{../user/out-www/lilypond/Ly2dvi.html#Ly2dvi,ly2dvi}  does page layout for
 LilyPond printout.
-@item @uref{../user/out-www/midi2ly.html,midi2ly} 
+@item @uref{../user/out-www/lilypond/Midi2ly.html#Midi2ly,midi2ly} 
 converts MIDI files to LilyPond input
 @item @uref{regression-test.html, LilyPond test document}
 Also available in @uref{regression-test.ps.gz,Postscript}

@@ -1,5 +1,43 @@
-1.3.121.hwn1
+1.3.122.mb2
+===========
+
+* Added macro \turnOff to remove volta brackets or any other 
+  graphical objects, see input/test/volta.ly or mutopia/J.S.Bach/pa.ly
+
+* Removed the "none" clef, use Clef \override #'transparent = ##t instead.
+
+* Bugfix ly2dvi: paper variable orientation = "landscape" works.
+
+* Allow for wildcards in the font style alist to give more robust font
+selection handling. Ignore shape and series for the font families:
+braces, dynamic and music.
+
+* Bugfix: stem and dstem font symbol.
+
+1.3.122.jcn3
 ============
+
+* More website link fixes, split and nonsplit.
+
+* Non-splitting makeinfo website fix.
+
+* Doco fixes, included feature document into main documentation.
+
+* lily/chord.cc (member_notename, lower_pitch): gh_member returns a list of
+which car is the member!
+
+* Bugfix: added equal_p to list of smob functions.  This fixes
+behaviour of property chordChanges.
+
+* More guile-1.4.1 snapshot fixes, generated doco.
+
+* Doco fixes.
+
+* Small fixes for guile-1.4.1 snapshot which is more strict on symbols
+vs strings.
+
+1.3.122
+=======
 
 * Small lilypond-book cleanups.
 
