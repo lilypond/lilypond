@@ -16,7 +16,6 @@
 #include "main.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
-#include "paper-outputter.hh"
 #include "paper-score.hh"
 #include "warn.hh"
 #include "all-font-metrics.hh"
