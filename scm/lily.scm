@@ -111,6 +111,11 @@
    (("Key_item" "begin-of-note") . (extra_space 2.5))
    (("Staff_bar" "begin-of-note") . (extra_space 1.0))
    (("Clef_item" "begin-of-note") . (minimum_space 5.0))
+   (("" "Breathing_sign") . (minimum_space 0.0))
+   (("Breathing_sign" "Key_item") . (minimum_space 1.5))
+   (("Breathing_sign" "begin-of-note") . (minimum_space 1.0))
+   (("Breathing_sign" "Staff_bar") . (minimum_space 1.5))
+   (("Breathing_sign" "Clef_item") . (minimum_space 2.0))
    )
 )
  

@@ -73,3 +73,8 @@ Music_sequence::maximum_length () const
 
   return dur;
 }
+int
+Music_sequence::length_i () const
+{
+  return cons_list_size_i (music_p_list_p_->head_);
+}

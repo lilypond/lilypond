@@ -22,9 +22,13 @@ restsII = \context Staff \notes {
 	\stemup
 	\transpose c'' { [c''8 r8 c''8 c''8]
 	[c8 r8 c8 c8]
+	[c8 r8 r8 c'''8]	
 	\stemdown
 	[c8 r8 c8 c8]
-	[c''8 r8 c''8 c''8] }
+	[c''8 r8 c''8 c''8]
+	[c'8 r8 r8 c'''8]
+	
+	}
 }
 
 \score{

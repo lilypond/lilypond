@@ -760,9 +760,9 @@ class Properties:
         """
 
         if int(value) == 1:
-            this.__set('pagenumber',1,requester)
+            this.__set('pagenumber','\\pagestyle{empty}',requester)
         else:
-            this.__set('pagenumber',0,requester)
+            this.__set('pagenumber','%',requester)
 
     #
     # setSeparate
@@ -990,7 +990,7 @@ def main():
         elif o == '--landscape' or o == '-L':
 	    Props.setOrientation('landscape','commandline')
         elif o == '--nonumber' or o == '-N':
-	    Props.setNonumber('commandline')
+	    Props.setNonumber(1,'commandline')
         elif o == '--Width' or o == '-W':
 	    Props.setLineWidth(a,'commandline')
         elif o == '--dependencies' or o == '-d':

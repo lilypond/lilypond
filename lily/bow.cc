@@ -48,17 +48,13 @@ Bow::do_brew_molecule_p () const
     }
   a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
 
-  Molecule* mol_p = new Molecule;
-  mol_p->add_molecule (a);
-
-  return mol_p;
+  return new Molecule (a); 
 }
 
 Offset
 Bow::center () const
 {
   Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-
   Real dx =  extent(X_AXIS).length ();
 
   return Offset (dx / 2, dy);
@@ -76,7 +72,7 @@ Bow::do_height () const
   Array<Offset> c (get_controls());
   for (int i=0; i < c.size (); i++)
     {
-      Real y = c[i][Y_AXIS];
+      Real y = c[i][Y_AXIS] + dy_f_drul_[LEFT];
       iv.unite (Interval (y,y));
     }
   return iv;

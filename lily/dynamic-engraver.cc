@@ -133,7 +133,12 @@ Dynamic_engraver::do_process_requests()
 	      staff_side_p_->dir_ = (Direction) (int) prop;
 	    }
 
-
+     prop = get_property ("dynamicPadding", 0);
+         if (prop.isnum_b ())
+           {
+             staff_side_p_->set_elt_property (padding_scm_sym, 
+                                              gh_double2scm(Real(prop)));
+           }
 	  announce_element (Score_element_info (text_p_, absd));
 	  announce_element (Score_element_info (staff_side_p_, absd));
 	}

@@ -55,7 +55,6 @@ Note_head::do_width () const
 Molecule*
 Note_head::do_brew_molecule_p() const 
 {
-  Molecule*out = 0;
   Real inter_f = staff_line_leading_f ()/2;
   int sz = lines_i ()-1;
 
@@ -71,15 +70,12 @@ Note_head::do_brew_molecule_p() const
       type = ly_scm2string (SCM_CDR(style));
     }
   
-  Molecule head (lookup_l()->notehead (balltype_i_, type));
-
-  
-  out = new Molecule (Molecule (head));
+  Molecule*  out = new Molecule (lookup_l()->notehead (balltype_i_, type));
 
   if (streepjes_i) 
     {
       Direction dir = sign (position_i_);
-      Interval hd = head.dim_[X_AXIS];
+      Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
       Molecule ledger

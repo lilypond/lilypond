@@ -515,3 +515,8 @@ Spring_spacer::constructor()
 
 
 
+
+Spring_spacer::~Spring_spacer()
+{
+  delete ideal_p_list_;
+}

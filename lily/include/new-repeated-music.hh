@@ -41,12 +41,10 @@
 
 
    If the number of repeats is smaller than the number of alternatives, then
-
-   FIXME
+   the excess alternatives are ignored for all timing purposes.
 
    If the number of repeats is bigger than the number of alternatives, then
-
-   FIXME
+   the first alternative is assumed to be repeated.
    
 */
 class New_repeated_music : public Music

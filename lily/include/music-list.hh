@@ -41,9 +41,11 @@ public:
   virtual void transpose (Musical_pitch );
   virtual void compress (Moment);
   void add_music (Music *music_p);
-
+  int length_i () const;
   Moment cumulative_length () const;
   Moment maximum_length () const;
+  virtual ~Music_sequence ();
+  
 protected:
   virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual void do_print() const;

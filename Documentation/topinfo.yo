@@ -21,6 +21,7 @@ redef(htmlbodyopt)(2)()
 COMMENT(redef(includefile)(1)(INCLUDEFILE(man/ARG1)))
 includefile(programs.yo)
 
+nodeprefix()
 redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Tutorial ))
 COMMENT(yodl2texinfo should be able to cope now, although ugly...)
 redef(article)(3)(chapter(ARG1))
@@ -39,8 +40,14 @@ redef(article)(3)(nodeprefix()chapter(ARG1)nodeprefix(Mutopia ))
 COMMENT(yodl2texinfo should be able to cope now, although ugly...)
 redef(article)(3)(chapter(ARG1))
 
+COMMENT( 
+
+dropped? --jcn
+
 redef(includefile)(1)(INCLUDEFILE(ARG1))
 includefile(mutopia.yo)
+
+)
 
 nchapter(Concept Index)
 COMMENT( urg makeindex())

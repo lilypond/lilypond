@@ -35,7 +35,10 @@ public:
   enum Dir_algorithm { /* DOWN=-1, UP=1, */ MAJORITY=2, MEAN, MEDIAN };
 
   Link_array<Stem> stems_;
-  /// the slope of the beam in posns / point (dimension)   
+  /**
+     the slope of the beam in (staffpositions) per (X-dimension, in PT).
+     UGH. standardise this for once and for all.
+   */
   Real slope_f_;
 
   /// position of leftmost end of beam  

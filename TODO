@@ -9,46 +9,10 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
-. * junk separate mudela versioning.
 . * indent = 0.0 with linewidth=-1.0
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
-. * By the way, I'm not sure the translation of 'C, G, and F clef'
-> should include Alto, Violin, Bass <clef translated>.
-[..]
-
-I understand your point.  It should be changed.
-
-
-> 
-> The terms C-clef, G-clef, F-clef stand for the signs, being
-> mutated forms of a C, a G and an F.
-> 
-> The terms Violin Clef etc. stand for the signs being used in
-> special positions on the staff.
-> 
-> The G-clef-sign indicates g' on the line around which the
-> snake centers. It is a Violin Clef if it is centered around the
-> second line (from below), and a French Violin Clef if it is
-> centered around the lowest.
-> 
-> The C-clef indicates c' on the line that gets
-> 'pinched' by it. It is a Soprano, Mezzosoprano (English?), Alto, Tenor
-> and (don't remember exactly, maybe Baritone) Clef, depending on
-> the line (from highest to lowest).
-> 
-> The F-clef-sign indicates f on the line between
-> the two dots. If it's on the second line from above, it is called
-> Bass Clef. If it's on the middle line, it is called (maybe
-> Baritone) Clef too, because it indicates the same pitches as the
-> C-Clef on the highest line. So, you could write an Alto Clef by
-> putting the F-clef sign on the lowest line (but that's _very_
-> uncommon).
-> 
-> Sorry, this is written very messy because I'm in a hurry,
-> but I hope you understand what I want to say.
-> 
 . * didot / big point.
 . * midi key.
 . * Repeats
@@ -60,11 +24,25 @@ I understand your point.  It should be changed.
 .  * kind of 'initial property' iso fold/volta(semi)/unfold strings
 . * fix singleStaffBracket
 . * declare performers in \midi
+. * input/test/stem-spacing.ly: 12/4 touches first note
+4 too high?
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
+. * 
+BUGS:
+> +
+> +    Causes segfault:
+> +
+> +    \score{
+> +      \notes{  \context Voice {
+> +         \repeat fold 2 { a b c d } {}
+> +     }
+> +     }
+> +    }
+> +
 . * dots & rest collisions?
 . * mudela-book.py
 .  * fix \mudelafile{} to have decent functionality
@@ -74,18 +52,8 @@ this fragment is floating eps, than 1, otherwise 2). say
 preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * use less RE's
 . * slurs colllide with lyrics.
-. * Is there any reasonable way to do this: I would like to have one file
-that can generate the same tune in two different modes without having
-to go through and rewrite all the music in the other mode.
-
-Lyrics and scripts collide.
-. * Phrasing:  Indicating the textual underlay of a piece, or
-otherwise dividing a piece into phrases.
-
-There are distinct ways of specifying the first two (although at
-present, they're not properly distinguished) but no distinct way to
-specify the third.  Should there be?
-. * rest collision minimum dist.
+. * junk _ in lyric mode for " "
+. * Lyrics and scripts collide.
 . * a note with a circle after it, meaning:
 
    note + circle = note + 1/4 of its length
@@ -96,14 +64,16 @@ specify the third.  Should there be?
    possible with lily?
 . * tuplets that are written as "number : note", for example
    "3 : [image of a half note here]".  possible?
-. * repeat engraver, gallina.ly
 
 . * Matanya's tips: 
+.  * don't  shorten stems/staffs closer to each other.
 .  * accidentals closer to note head
 .  * to space the staffs/staffgroups contained in the score.  
 .  * heavier beams?
 
 .* Cleanups needed
+. * \$ and $ identifier syntax.
+. * Y dimension units: staffspace vs. Point
 . * Beam
 . * Stem
 . * Slur
@@ -139,7 +109,6 @@ specify the third.  Should there be?
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
-. * remove Interval dim_ from Dimension_cache and rename the struct.
 . * do scaled fonts generally 
 . * The Lilypond accidental symbols are available through the TeX macros, 
 \textflat, \textsharp and \textnatural defined in the init file
@@ -148,14 +117,11 @@ where XX corresponds to the size. I don't know where (or even if) they
 are installed but they are generated in the mf/out/ directory during the
 compilation.
 . * make dependencies () a virtual function.
-. * one big ly2dvi input that includes *all* tests.
 . * store req -> element, element -> element causes for warnings
 . * include examples in RPM.
 . * fix partial measures in meaningful way.
-. * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.
-.  * use SCM and Molecules for {accordeon stuff, }
 .  * bigger and fatter 4/4 C
 . * sort out directory stuff.
 .  * --prefix option?
@@ -167,11 +133,6 @@ compilation.
 . * do --safe for PS output?
 . * convert-mudela --output
 . * Staff_margin (with a partial measure.)
-. * fix pletvisibility properties:
-.  * bracket on/off/no-bracket-when-beam
-.  * num on/off/no-num-when-beam
-. * fix: standchen.
-. * junk text{sharp,flat,etc}
 . * fix convert-mudela manpage
 . * decimal point in \paper {}
 . * {  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
@@ -182,7 +143,6 @@ compilation.
 . * scm-ify \property values.
 . * move class Lookup {} into scm
 . * msgfmt -o check?
-. * \breathmark TeX macro 
 . * add new glyphs to font.ly
 . * formatting of input stuff. 
 . * \notes{ a \< b \cr } vs \notes{ a \< b \! }
@@ -203,6 +163,38 @@ compilation.
 
 .* STUFF
 . * compulsory hshift
+. * 
+My wish list for lyrics. I dream of a time when I will have enough time to
+become familiar enough with the source code to be able to implement some of
+these myself, but I don't know when that will be, so I thought I'd "publish"
+my suggestions in case someone else is in a position to give them some
+priority. Otherwise, perhaps they could go on the todo list?
+
+If any of these are already implemented, please let me what the syntax is to
+use them!
+
+1. Stanza numbering. Numbering at the beginning of a song with the number
+set to the left of the first note. It would also be nice (but not as
+important) to be able to have some form of automatic numbering at the
+beginning of each new line. This would make it easier to follow songs with a
+large number of stanzas.
+
+2. Hyphens between syllables. At the moment there appears to be no easy way
+to position a hyphen mid-way between the syllables it breaks.
+
+3. Notes centred above/below lyrics rather than left-aligned.
+
+4. It would be very nice to be able to build some kind of phrasing into the
+lyrics of hymns, etc, so that the first words of a phrase are left aligned
+with each other, the last words are right aligned, and the words in between
+are centred.
+
+5. In a song, with (say) four stanzas and a chorus, it would be nice to be
+able to vertically align the chorus midway between the staves.
+
+6. It would be nice to be able to put vertical brackets either side of a
+repeated section with different words for each repeat.
+
 . * Give # lines in linebreaking.  
 . * arrows on slurs.
 . * rewrite context defs using Scheme
@@ -251,9 +243,9 @@ compilation.
 . * add mudela-book-doc source to webstie.
 . * Rethink Time_description
 \cadenza , \meter, \grouping should all be \properties
+. * fix singleStaffBracket
 . * rename
 .  * measure -> bar
-.  * abbrev -> tremolo
 .  * abbreviation-beam -> (measured/unmeasured) tremolo
 .  * partial -> anacrouse
 . * robustify Beam (in case of no stems, 32nd notes)
@@ -298,6 +290,16 @@ touching it.
     small sizes.
 
 .* 3RD PARTY BUGS
+. * UMR: Uninitialized memory read
+      This is occurring while in:
+            qst            [qsort.c]
+            qsort          [libc.so.1]
+            Keyword_table::Keyword_table(Keyword_ent*) [keyword.cc:28]
+            My_lily_lexer::My_lily_lexer() [my-lily-lexer.cc:78]
+            My_lily_parser::parse_file(String,String) [my-lily-parser.cc:54]
+            do_one_file(String,String) [scores.cc:124]
+      Reading 4 bytes from 0xefffeca8 on the stack.
+      Address 0xefffeca8 is 728 bytes below frame pointer in function 
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * mf-to-table -> add space before ; in AFM output.  (-> check AFM
     spec. Is this a bug in afm2tfm?)
@@ -490,16 +492,15 @@ hesitate to ask.
 .  * specify number of lines
 
 .* INPUTLANGUAGE
-. * \rhythms 4 16 16 16 16; c c c c c -> c4 c16 etc. 
+. * \rhythms 4 16 16 16 16; c c c c c -> c4 c16 etc.
+. * convention for slurs vs. phrasing marks.
 . * Language:
 .  * \translator -> ?
 .  * fix \partial 
 .  * \bla {} vs \bla ; 
 .  * mix engraver hacking with music ?
 .  * \once\property  KEY = VAL
-.  * \addtranslator, \removetranslator
-.  * junk ^ and _ for scripts
-.  * junk _ for lyrics.
+.  * input property
 .  * abstract grammar.
 . * Figure out semicolons.
 . * c4 4 4 4 for c4 c4 c4 c4?
@@ -529,8 +530,6 @@ hesitate to ask.
 
 . * lyric in staff  (sharpsharp in staff, text below)
 
-. * half sharps/flats
-
 . * write Dynamic_line (to group dynamics horizontally)
 
 . * use Real for all y positions.
@@ -543,8 +542,6 @@ hesitate to ask.
 
 . * midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
-. * stafftypes: voice names/ instrument names.
-
 . * lily \tempo
 
 . *   % toe to bheel   four to five
@@ -556,10 +553,7 @@ hesitate to ask.
           (where "to" is a tiny bow)
 
 . * auxilliary file for caching info.
-
 . * Text_crescendo
-
-. * revise calcideal
 
 .* IDEAS
 . * Output data structures of Mudela in XML/SGML.
@@ -568,104 +562,6 @@ hesitate to ask.
 . * Spacing_request for manually adjusting spacing
 . * caching breakpoints
 . * used fixedpoint arithmetic for min. energy.
-. * move towards incremental algorithms.
-. * versioning stuff (cvt mudela, mudela, etc.)
-. * dynamic loading of engravers? 
-.* SMOBS
-Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
-
-> 	class Foo_class {
-> 		Foo_smob *smob_ptr_;
-> 	}
-> 
-> 	struct Foo_smob {
-> 		Foo_class *class_ptr_
-> 	}
-
-Usually you can get away without having this interlinked structure.
-One piece of information you need when exporting objects to scheme is
-the smob tag for your class.  You might store this value (a long) into
-a class static variable, or a file static variable.  I'll use a class
-static variable in this example.
-
-I typically use code that works like this (untested code ahead):
-
-class Foo_class {
-    static long *Foo_smob_tag;
-    SCM obj; // representation as a scheme object, description comes later
-}
-
-// call this once on startup
-void init_Foo_class {
-    static scm_smobfuns type_rec;
-
-    type_rec.mark = foo_mark;
-    type_rec.free = foo_free;
-    type_rec.print = foo_display;
-    type_rec.equalp = 0;
-    Foo_class::Foo_smob_tag = new int(scm_new_smob(type_rec));
-}
-
-When you want to export an object to scheme, you put a pointer to the
-object itself in the cdr of the cell, and the tag in the car of the
-cell.  The code looks like this:
-
-// Is this a Foo?
-static int
-foo_p(SCM obj)
-{
-    return(SCM_NIMP(obj) && SCM_CAR(obj) == Foo_class::Foo_smob_tag);
-}
-
-// given a Scheme representation, return, a C++ representation
-static Foo_class *
-foo_unbox(SCM obj)
-{
-    return((Foo_class*)SCM_CDR(obj));
-}
-
-// the SCM representation of the object is stored inside itself
-// this will become useful when destructor gets called
-static SCM
-foo_box(Foo_class *foo)
-{
-    SCM_DEFER_INTS;
-    SCM_NEWCELL(foo->obj);
-    SCM_SETCAR(foo->obj, Foo_class::Foo_smob_tag);
-    SCM_SETCDR(foo->obj, (SCM)foo);
-    SCM_ALLOW_INTS;
-    return foo->obj;
-}
-
-> C++ determines life time, so what is the strategy?
-
-What happens now when the destructor gets called?  Lets set the cdr to
-NULL, and then check for that in all of the primitive functions that
-use your smob.  We'll call this notion 'live'; a scheme object is
-'live' if the C++ representation still exists, it's dead if the C++
-object is gone.  You can still have references to dead objects in
-scheme code; it's just an error to use them.  This idea is stolen from
-Emacs's handling of buffers ('buffer-live-p' and friends).
-
-Add another function, foo_live_p:
-
-static int
-foo_live_p(SCM obj)
-{
-    return(foo_p(obj) && SCM_CDR(obj) != NULL);
-}
-
-In you destructor, you need to do:
-
-~Foo_class()
-{
-    SCM_CDR(this->obj, NULL);
-}
-
-When writing new primitives, now just check foo_live_p().
-
-I hope the above helps,
-
 
 * OUTLINE SETUP
 .* .EMACS

@@ -88,13 +88,23 @@ New_repeated_music::compress (Moment p)
 Moment
 New_repeated_music::alternatives_length_mom () const
 {
-  if (alternatives_p_)
+  if (!alternatives_p_ )
+    return 0;
+  
+  if  (fold_b_)
+    alternatives_p_->maximum_length ();
+
+  Moment m =0;
+  int done =0;
+  Cons<Music> *p = alternatives_p_->music_p_list_p_->head_;
+  while (p && done < repeats_i_)
     {
-      return  (fold_b_)
-	? alternatives_p_->maximum_length ()
-	: alternatives_p_->cumulative_length ();
+      m = m + p->car_->length_mom ();
+      done ++;
+      if (repeats_i_ - done < alternatives_p_->length_i ())
+	p = p->next_;
     }
-  return 0; 
+  return m;
 }
 
 Moment

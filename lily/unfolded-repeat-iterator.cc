@@ -24,6 +24,7 @@ Unfolded_repeat_iterator::Unfolded_repeat_iterator ()
   done_count_ =0;
   current_iter_p_ =0;
   do_main_b_ = false;
+  alternative_count_i_ =0;
 }
 
 /**
@@ -47,21 +48,42 @@ Unfolded_repeat_iterator::next_element ()
   if (do_main_b_)
     {
       done_mom_ += mus->repeat_body_p_->length_mom ();
+
+      if (!mus->semi_fold_b_)
+	done_count_ ++;
+     
       if (alternative_cons_l_)
 	{
 	  current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
 	  do_main_b_ = false;
 	}
+      else if (done_count_ <  mus->repeats_i_ && !mus->semi_fold_b_) 
+	{
+	  current_iter_p_ = get_iterator_p (mus->repeat_body_p_);
+	  do_main_b_ = true;
+	}
     }
   else
     {
+      /*
+	we're not in the main part. So we're either in an alternative, or
+	we just finished.
+      */
       if (alternative_cons_l_)
 	{
 	  done_mom_ += alternative_cons_l_->car_->length_mom ();
-	  alternative_cons_l_ = alternative_cons_l_->next_;
-	  done_count_ ++;	  
-	}
 
+	  if (mus->semi_fold_b_ || 
+	      mus->repeats_i_ - done_count_  < alternative_count_i_)
+	    alternative_cons_l_ = alternative_cons_l_->next_;
+	  
+	  /*
+	    we've done the main body as well, but didn't go over the other
+	    increment.  */
+	  if (mus->semi_fold_b_)
+	    done_count_ ++;
+	}
+      
       if (done_count_ < mus->repeats_i_ && alternative_cons_l_)
 	{
 	  if (mus->semi_fold_b_)
@@ -74,6 +96,7 @@ Unfolded_repeat_iterator::next_element ()
 	}
     }
 }
+
 
 bool
 Unfolded_repeat_iterator::ok () const
@@ -94,6 +117,9 @@ Unfolded_repeat_iterator::construct_children ()
   alternative_cons_l_ = (mus->alternatives_p_)
     ? mus->alternatives_p_->music_p_list_p_->head_
     : 0;
+
+  for (Cons<Music> *p = alternative_cons_l_; p; p = p->next_)
+    alternative_count_i_ ++;
 
   if (mus->repeat_body_p_)
     {

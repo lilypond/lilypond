@@ -25,6 +25,7 @@ static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
+  {"breathe", BREATHE},
   {"cadenza", CADENZA},
   {"chordmodifiers", CHORDMODIFIERS},
   {"chords", CHORDS},

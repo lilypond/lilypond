@@ -105,6 +105,7 @@ Paper_stream::operator << (Scalar s)
 void
 Paper_stream::break_line ()
 {
+  // aaargh
   *os << "%\n";
   *os << to_str (' ', nest_level);
   line_len_i_ = 0;

@@ -52,10 +52,13 @@
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "new-repeated-music.hh"
+#include "version.hh"
+
 
 // mmm
 Mudela_version oldest_version ("1.0.20");
-Mudela_version version ("1.0.21");
+Mudela_version version ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
+
 
 void
 print_mudela_versions (ostream &os)
@@ -64,26 +67,6 @@ print_mudela_versions (ostream &os)
 }
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
-
-struct Assignment {
-	String *name_p_;
-	Identifier *id_p_;
-	~Assignment () {
-		delete name_p_;
-		delete id_p_;
-	}
-	Assignment () {
-		name_p_ = 0;
-		id_p_ =0;
-	}
-	Assignment (Assignment const&s)
-	{
-		name_p_ = new String (*s.name_p_);
-		id_p_ = s.id_p_->clone ();
-	}
-};
-
-Paper_def* current_paper = 0;
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -156,6 +139,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
+%token BREATHE
 %token CADENZA
 %token CHORDMODIFIERS
 %token CHORDS
@@ -938,6 +922,9 @@ abbrev_command_req:
 		b->span_dir_ = STOP;
 		b->span_type_str_ = "beam";
 		$$ = b;
+	}
+	| BREATHE {
+		$$ = new Breathing_sign_req;
 	}
 	;
 

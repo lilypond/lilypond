@@ -38,6 +38,10 @@ tremolo must be parallel to the beam.  If the stem is invisible
 
 \mudelafile{stem-tremolo.ly}
 
+Beams, stems and noteheads often have communication troubles, since
+the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
+point) are mixed.
+
 
 \section{Beams, slurs and other spanners}
 
@@ -63,6 +67,25 @@ The bracket does not interfere with the stafflines, and the number is
 centered in the gap in the bracket.
 
 \mudelafile{tup.ly}
+
+\section{Repeats}
+
+LilyPond has three modes for repeats: folded, unfolded and
+semi-unfolded.  Unfolded repeats are fully written out. Semi unfolded
+repeats have the body written and all alternatives sequentially.
+Folded repeats have the body written and all alternatives
+simultaneously.  If the number of alternatives is larger than the
+repeat count, the excess alternatives are ignored.  If the number of
+alternatives is smaller, the first alternative is multiplied to get to
+the number of repeats.
+
+Unfolded behavior:
+
+\mudelafile{repeat-unfold.ly}
+
+Semi (un)0folded behavior:
+
+\mudelafile{repeat-semifold.ly}
 
 \section{Multiple notes}
 
@@ -106,6 +129,14 @@ may be on normal staffs, but also on compound staffs, like the
 PianoStaff
 
 \mudelafile{staff-margin.ly}
+
+Breathing signs, also used for phrasing, do normally not influence
+global spacing -- only if space gets tight, notes are shifted to make
+room for the breathing sign. Breathing signs break beams running
+through their voice. In the following example, the notes in the first
+two bars all have the same distance from each other:
+
+\mudelafile{breathing-sign.ly}
 
 
 \section{Clefs and Time Signatures}

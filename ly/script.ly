@@ -14,7 +14,12 @@ accent = \script "accent"
 marcato = \script "marcato"
 staccatissimo = \script "staccatissimo"
 
-% portato is indicated by slurred & dotted notes. Not really supported. 
+% portato is indicated
+% either by
+%   *  slurred & dotted notes. 
+%or by
+%  * slur and dash notes.
+% Neither are  really supported, but c4-.-- should work.
 % portato = \script "portato"
 
 fermata = \script "fermata"
