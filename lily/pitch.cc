@@ -154,13 +154,13 @@ Pitch::str () const
   if (alteration_i_)
     s += String (accname[alteration_i_ + 2]);
 
-  if (octave_i_ > 0)
+  if (octave_i_ >= 0)
     {
       int o = octave_i_ + 1;
       while (o--)
 	s += "'";
     }
-  else if (octave_i_ <0)
+  else if (octave_i_ < 0)
     {
       int o = (-octave_i_) - 1;
       while (o--)
