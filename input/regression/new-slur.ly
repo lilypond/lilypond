@@ -9,6 +9,9 @@
 
 % #(ly:set-option 'debug-beam #t)
 
+%% help lilypond-book
+%% \score
+
 \relative {
     \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
     \override Slur #'print-function = #New_slur::print     

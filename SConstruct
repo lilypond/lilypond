@@ -184,6 +184,14 @@ if env['checksums']:
 	SetOption ('max_drift', 0)
 	TargetSignatures ("content")
 
+# build web in out-www, so that scons is a drop-in replacement for make
+# we can revise the entire web building when web is built with scons.
+web_kluts = ''
+# Hmm:  scons: *** maximum recursion limit exceeded
+if 0 and 'web' in COMMAND_LINE_TARGETS:
+	web_kluts = 'out-scons' #env['out']
+	env['out'] = 'out-www'
+
 absbuild = Dir (env['build']).abspath
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
 run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
@@ -771,5 +779,9 @@ for d in subdirs:
 		# and ./out build.
 		if os.path.abspath (b) != os.path.abspath (d):
 			env.BuildDir (b, d, duplicate = 0)
+		if web_kluts:
+			# look in out-scons 
+			env.Repository (os.path.join (env['build'], d,
+						      web_kluts))
        		SConscript (os.path.join (b, 'SConscript'))
 
