@@ -20,7 +20,7 @@
   )
 
 ;; put this in an alist?
-(define
+(define-public
   all-user-grob-properties
 
   (map
@@ -84,7 +84,6 @@ original molecule drawer to draw the balloon around.")
      (base-shortest-duration ,ly:moment?
 			     "Spacing is based on the shortest notes in a piece. Normally, pieces are spaced as if notes at least as short as this are present.")
      (baseline-skip ,ly:dimension? "Baseline skip to use for multiple lines of text.")
-     (bass ,list? " musical-pitch, optional.")
      (beam-thickness ,ly:dimension? "thickness, measured in staffspace.")
      (beam-width ,ly:dimension? "width of the tremolo sign.")
      (beamed-lengths ,list? "list of stem lengths given beam multiplicity .")
@@ -231,7 +230,7 @@ exactly a factor 2 larger. Fractional values are allowed.")
 
      (force-hshift ,number? "amount of collision_note_width that
 overides automatic collision settings. This is used by
-@ref{note-collision-interface}.")
+@internalsref{note-collision-interface}.")
 
      (fraction ,number-pair? "fraction of a time signature.")
      (french-beaming ,boolean? "Use French
@@ -251,7 +250,6 @@ name of character within font.")
 
      (grow-direction ,ly:dir? "crescendo or ,decrescendo?.")
      (hair-thickness ,number? "thickness, measured in linethickness.")
-     (head-pair ,pair? "Pair of grob pointers, pointing to the two heads of the tie.")
      (height ,ly:dimension? "in staffspace.")
 
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
@@ -259,11 +257,10 @@ slur, the closer it is to this height.")
 
      (horizontal-shift ,integer? "integer that identifies ranking of
 note-column for horizontal shifting. This is used by
-@ref{note-collision-interface}.")
+@internalsref{note-collision-interface}.")
      (ideal-distances ,list? "(OBJ . (DIST . STRENGTH)) pairs.")
      (inclinatum ,boolean? "is this neume an ,inclinatum?.")
      (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
-     (inversion ,list? " musical-pitch, optional.")
      (join-heads ,boolean? "Whether to join the noteheads of an ambitus grob with a vertical line.")
      (kern ,ly:dimension? "amount of extra white
 space to add. For barline, space after a thick line.")
@@ -300,12 +297,12 @@ measure. Used in some spacing situations.")
 noteheads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
-@ref{note-collision-interface} .")
+@internalsref{note-collision-interface} .")
 
      (merge-differently-dotted ,boolean? " Merge
 noteheads in collisions, even if they have a different number of
 dots. This normal notation for some types of polyphonic music. The
-value of this setting is used by @ref{note-collision-interface} .")
+value of this setting is used by @internalsref{note-collision-interface} .")
 
      (meta ,list? "Contains meta information. It is an alist with the
 entries @code{name} and @code{interfaces}.")
@@ -346,7 +343,6 @@ as a real penalty.")
      (pitch-max ,ly:pitch? "FIXME, JUNKME")
      (pitch-min ,ly:pitch? "FIXME, JUNKME")
      
-     (pitches ,list? "list of musical-pitch.")
      (quilisma ,boolean? "is this neume a ,quilisma?.")
      (positions ,pair?
 
@@ -383,7 +379,7 @@ reference point.
 This is used in spacing. Making this larger will make the score tighter.")
      (shortest-duration-space ,ly:dimension? "Start
 with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
-@ref{spacing-spanner-interface}.")
+@internalsref{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "duration of the shortest playing in that column.")
      (shortest-starter-duration ,ly:moment? "duration of the shortest notes that starts exactly in this column.")
      (side-relative-direction ,ly:dir? "if set: get the direction from a different object, and multiply by this.")
@@ -397,7 +393,7 @@ minimum-space or extra-space.")
 
      (spacing-increment ,number? "Add this much space for a doubled
 duration. Typically, the width of a note head. See also
-@ref{spacing-spanner-interface}.")
+@internalsref{spacing-spanner-interface}.")
 
      (spacing-procedure ,procedure? "procedure taking grob as
 argument. This is called after before-line-breaking-callback, but
@@ -496,7 +492,7 @@ duration of a measure is a breve or longer.")
   )
 
 
-(define all-internal-grob-properties
+(define-public all-internal-grob-properties
   (map
    (lambda (x)
      (apply define-internal-grob-property x))
@@ -560,10 +556,10 @@ did it's job. This ensures that a positioning is only done once.")
 
      ;; TODO: use interface for this!
      (chord-tremolo ,boolean? "if set, this beam is a tremolo. ")
-     (chord ,pair? "?")
-     (begin-of-line-visible ,boolean? "?")
-     (quant-score ,number? "Beam quanting score
--- can be stored for debugging")
+     (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
+     (head-pair ,pair? "Pair of grob pointers, pointing to the two heads of the tie.")
+     (quant-score ,number? "Beam quanting score -- can be stored for
+debugging")
      (least-squares-dy ,number? 
 		       "ideal beam slope, without damping.")
      (ligature-primitive-callback ,procedure? "callback that brews ligature head.")
@@ -592,3 +588,4 @@ functions set spanner positions.")
   (append
    all-internal-grob-properties
    all-user-grob-properties))
+

@@ -48,11 +48,12 @@
 (define-class <Split-state> ()
   (configuration #:init-value '() #:accessor configuration)
   (when-moment #:accessor when #:init-keyword #:when)
+
+  ; voice-states are states starting with the Split-state or later
+  ;
   (is #:init-keyword #:voice-states #:accessor voice-states)
   (synced  #:init-keyword #:synced #:init-value  #f #:getter synced?) )
 			     
-
-
 
 (define-method (write (x <Split-state> ) f)
   (display (when x) f)
@@ -449,81 +450,102 @@ Only set if not set previously.
 		    
        ))
      (define (put-range x a b)
-       (display (list "put range "  x a b "\n"))
+;       (display (list "put range "  x a b "\n"))
        (do
 	   ((i a (1+ i)))
 	   ((> i b) b)
 	 (set! (configuration (vector-ref result i)) x)
 	 ))
+     
      (define (put x)
-      
-       (display (list "putting "  x "\n"))
-      (set! (configuration (vector-ref result ri)) x))
-	    
+;       (display (list "putting "  x "\n"))
+
+       (set! (configuration (vector-ref result ri)) x))
+
+     (define (current-voice-state now-state voice-num)
+       (define vs ((if (= 1 voice-num) car cdr)
+		   (voice-states now-state) ) )
+       (if (equal? (when now-state) (when vs))
+	   vs
+	   (previous-voice-state vs)
+       ))
+     
      (define (try-solo type start-idx current-idx)
        "Find a maximum stretch that can be marked as solo. Only set
 the mark when there are no spanners active."
        (if (< current-idx (vector-length result))
 	   (let*
 	       ((now-state (vector-ref result current-idx))
-		(solo-state ((if (equal? type 'solo1) car cdr) (voice-states now-state)))
-		(silent-state ((if (equal? type 'solo1) cdr car) (voice-states now-state)))
+		(solo-state (current-voice-state now-state (if (equal? type 'solo1) 1 2)))
+		
+		(silent-state (current-voice-state now-state (if (equal? type 'solo1) 2 1)))
 		(silent-notes (if silent-state (note-events silent-state) '()))
 		(solo-notes (if solo-state (note-events solo-state) '()))
+		
 		(soln (length solo-notes))
 		(siln (length silent-notes)))
 
+	     (display (list "trying " type " at "  (when now-state) solo-state silent-state  "\n"))
 	     (cond
 	      ((not (equal? (configuration now-state) 'apart))
 	       current-idx)
-	      ((= soln 0) current-idx)
-	      ((> siln 0) current-idx)
-	      ((null? (span-state solo-state))
+	      ((> siln 0) start-idx)
+
+	      ((and
+		;
+		; This includes rests. This isn't a problem: long rests
+		; will be shared with the silent voice, and be marked
+		; as unisilence. Therefore, long rests won't 
+		;  accidentally be part of a solo.
+		;
+		(null? (span-state solo-state)))
 	       (put-range type start-idx current-idx)
-	       current-idx)
+	       (try-solo type (1+ current-idx) (1+  current-idx)))
 	      (else
 	       (try-solo type start-idx (1+ current-idx)))
 	       
 	      ))
-	   (1- current-idx)))
-	      
+	   start-idx)) ; try-solo
+
+     
      (define (analyse-moment ri)
-       "Analyse 'apart  starting at RI. Return next index. "
+       "Analyse 'apart starting at RI. Return next index. "
         (let*
 	   ((now-state (vector-ref result ri))
-	    (vs1 (car (voice-states now-state)))
-	    (vs2 (cdr (voice-states now-state)))
+	    (vs1 (current-voice-state now-state 1))
+	    (vs2 (current-voice-state now-state 2))
+;	    (vs1 (car (voice-states now-state)))
+;	    (vs2 (cdr (voice-states now-state)))
 	    (notes1 (if vs1 (note-events vs1) '()))
 	    (notes2 (if vs2 (note-events vs2) '()))
 	    (n1 (length notes1))
 	    (n2 (length notes2)) )
 
-	  (display (list "analysing "  (when now-state)
-			 "\n1= " vs1 
-			 "\n2= " vs2 
-			 "\n"))
-	  
-	  (cond
-	   ((and (= n1 0) (= n2 0))
-	    (put 'apart-silence)
-	    (1+ ri) )
+	  (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
 
-	   ((and (= n2 0)
-		 (equal? (when vs1) (when now-state))
-		 (null? (previous-span-state vs1)))
-	    (try-solo 'solo1 ri ri))
-	   ((and (= n1 0)
-		 (equal? (when vs2) (when now-state))
-		 (null? (previous-span-state vs2)))
-	    (try-solo 'solo2 ri ri))
-	   (else
-	    (1+ ri))
-       )))
+	  
+	  (max				; we should always increase.
+	   (cond
+	    ((and (= n1 0) (= n2 0))
+	     (put 'apart-silence)
+	     (1+ ri) )
+
+	    ((and (= n2 0)
+		  (equal? (when vs1) (when now-state))
+		  (null? (previous-span-state vs1)))
+	     (try-solo 'solo1 ri ri))
+	    ((and (= n1 0)
+		  (equal? (when vs2) (when now-state))
+		  (null? (previous-span-state vs2)))
+	     (try-solo 'solo2 ri ri))
+	    (else (1+ ri) ))
+	   (1+ ri))
+	  ))  ; analyse-moment
 	  
      (if (< ri (vector-length result))
 	 (if (equal? (configuration (vector-ref result ri)) 'apart)
 	     (analyse-solo12 (analyse-moment ri))
-	     (analyse-solo12 (1+ ri)))) )
+	     (analyse-solo12 (1+ ri)))) ) ; analyse-solo12
      
    
    (analyse-spanner-states voice-state-vec1)
@@ -541,7 +563,7 @@ the mark when there are no spanners active."
      
    (analyse-time-step 0)
 ;   (display result)
-;   (analyse-a2 0)
+   (analyse-a2 0)
 ;   (display result)
    (analyse-solo12 0)
    (display result)
@@ -550,7 +572,7 @@ the mark when there are no spanners active."
 		 (lambda (x) (cons (when x) (configuration x)))
 		 (vector->list result)))
 
-   (if pc-debug (display result))
+;   (if pc-debug (display result))
    result))
 
 

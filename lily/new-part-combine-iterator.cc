@@ -48,10 +48,17 @@ private:
   Status state_;
   Status playing_state_;
 
+  /*
+    TODO: this is getting of hand... 
+   */
   Interpretation_context_handle one_;
   Interpretation_context_handle two_;
   Interpretation_context_handle null_;
   Interpretation_context_handle shared_;
+  Interpretation_context_handle solo_;
+  
+  void substitute_both (Translator_group * to1,
+			Translator_group * to2);
 
   void kill_mmrest (Translator_group*);
   void chords_together ();
@@ -98,12 +105,12 @@ New_pc_iterator::do_quit ()
   if (second_iter_)
     second_iter_->quit();
 
+  null_.set_translator (0);
   one_ .set_translator (0);
   two_.set_translator (0);
   shared_.set_translator (0);
+  solo_.set_translator (0);
 }
-
-
 
 Moment
 New_pc_iterator::pending_moment () const
@@ -133,10 +140,8 @@ New_pc_iterator::chords_together ()
     {
       playing_state_ = TOGETHER;
       state_ = TOGETHER;
-      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
-      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
-      second_iter_->substitute_outlet (two_.get_outlet (), shared_.get_outlet ());
-      second_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
+
+      substitute_both (shared_.get_outlet (), shared_.get_outlet());
     }
 }
 
@@ -162,11 +167,9 @@ New_pc_iterator::solo1 ()
   else
     {
       state_ = SOLO1;
-      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
-      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
-
-      second_iter_->substitute_outlet (two_.get_outlet (), null_.get_outlet ());
-      second_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
+      substitute_both (solo_.get_outlet (),
+		       null_.get_outlet ());
+      
       kill_mmrest (two_.get_outlet ());
       kill_mmrest (shared_.get_outlet ());
 
@@ -181,6 +184,36 @@ New_pc_iterator::solo1 ()
       playing_state_ = SOLO1;
     }
 }
+
+void
+New_pc_iterator::substitute_both (Translator_group * to1,
+				  Translator_group * to2)
+{
+  Translator_group *tos[]  = {to1,to2};
+  Music_iterator *mis[] = {first_iter_, second_iter_}; 
+  Interpretation_context_handle *hs[] = {
+    &null_,
+    &one_, &two_,
+    &shared_,  &solo_,
+    0
+  };
+  
+  for (int i = 0; i < 2 ; i++)
+    {
+      for (int j =  0; hs[j]; j++)
+	if (hs[j]->get_outlet () != tos[i])
+	  mis[i]->substitute_outlet (hs[j]->get_outlet (), tos[i]); 
+    }
+
+  for (int j =  0; hs[j]; j++)
+    {
+      Translator_group* t = hs[j]->get_outlet ();
+      if (t != to1 && t != to2)
+	kill_mmrest (t);
+    }
+}
+
+
 void
 New_pc_iterator::unisono (bool silent)
 {
@@ -190,12 +223,8 @@ New_pc_iterator::unisono (bool silent)
     return; 
   else
     {
+      substitute_both (shared_.get_outlet (), null_.get_outlet ());
 
-      first_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
-      first_iter_->substitute_outlet (one_.get_outlet (), shared_.get_outlet ());
-
-      second_iter_->substitute_outlet (two_.get_outlet (), null_.get_outlet ());
-      second_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
       kill_mmrest (two_.get_outlet ());
       kill_mmrest (shared_.get_outlet ());
 
@@ -222,13 +251,7 @@ New_pc_iterator::solo2 ()
     {
       state_ = SOLO2;
       
-      second_iter_->substitute_outlet (null_.get_outlet (), shared_.get_outlet ());
-      second_iter_->substitute_outlet (two_.get_outlet (), shared_.get_outlet ());
-
-      first_iter_->substitute_outlet (one_.get_outlet (), null_.get_outlet ());
-      first_iter_->substitute_outlet (shared_.get_outlet (), null_.get_outlet ());
-      kill_mmrest (one_.get_outlet ());
-      kill_mmrest (shared_.get_outlet ());
+      substitute_both (null_.get_outlet (), solo_.get_outlet ());
       
       if (playing_state_ != SOLO2)
 	{
@@ -253,13 +276,10 @@ New_pc_iterator::apart (bool silent)
   else
     {
       state_ = APART;
-  
-      first_iter_->substitute_outlet (null_.get_outlet (), one_.get_outlet ());
-      first_iter_->substitute_outlet (shared_.get_outlet (), one_.get_outlet ());
-  
-      second_iter_->substitute_outlet (null_.get_outlet (), two_.get_outlet ());
-      second_iter_->substitute_outlet (shared_.get_outlet (), two_.get_outlet ());    }
+      substitute_both (one_.get_outlet (), two_.get_outlet ());
+    }
 }
+
 
 void
 New_pc_iterator::construct_children ()
@@ -277,8 +297,19 @@ New_pc_iterator::construct_children ()
     =  get_outlet ()->find_create_translator (ly_symbol2scm ("Voice"),
 					     "shared",props);
 
-  shared_ .set_translator (tr); 
+  shared_.set_translator (tr);
+
+  /*
+    If we don't, we get a new staff for every Voice.
+   */
   set_translator (tr);
+
+  Translator_group *solo_tr
+    =  get_outlet ()->find_create_translator (ly_symbol2scm ("Voice"),
+					      "solo",props);
+
+  solo_ .set_translator (solo_tr);
+
   Translator_group *null
     =  get_outlet ()->find_create_translator (ly_symbol2scm ("Devnull"),
 					     "", SCM_EOL);

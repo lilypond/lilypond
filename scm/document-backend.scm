@@ -170,21 +170,24 @@ node."
     (map interface-doc interface-description-alist)
     ))
 
-(define (all-backend-properties-doc)
+(define (backend-properties-doc-string lst)
   (let*
       (
-       (ps (sort (map symbol->string all-backend-properties) string<?))
+       (ps (sort (map symbol->string lst) string<?))
        (descs (map (lambda (prop)
 		     (document-property (string->symbol prop) 'backend #f))
 		   ps))
        (texi (description-list->texi descs))
        )
+    texi))
+
+(define (all-backend-properties-doc)
     (make <texi-node>
       #:name "All backend properties"
       #:desc "All grob properties in a big list"
-      #:text texi)
-  ))
+      #:text (backend-properties-doc-string all-backend-properties)))
 
+  
 ;(dump-node (grob-doc (cdadr all-grob-descriptions))  (current-output-port) 0 )
 (define (backend-doc-node)
   (make <texi-node>

@@ -60,6 +60,10 @@ extra-local-help:
 
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
+$(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
+$(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
+
+
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --html $<

@@ -218,7 +218,7 @@ accidental.
 \context Staff \notes\relative c'' {
   gis1 s s gisis s s ges s s geses s s g!
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "sharp  " "db. sharp  " "flat  " "db. flat  " natural
 }
@@ -717,7 +717,7 @@ lines.
   \clef tenor c s s
   \clef baritone c s s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   \property Lyrics . LyricText \override #'self-alignment-X = #-1
   "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
 }
@@ -816,7 +816,7 @@ chords are denoted open chords
   <g b d f> s s
   <g b d f a> s s
 }
-\context LyricsVoice \lyrics{
+\context Lyrics \lyrics{
   \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "major  " "minor  " "diminished  " "augmented  "
   "seventh-chord  " "ninth-chord  "
@@ -1218,7 +1218,7 @@ also to some extent in newer jazz music.
     \property Voice.TextScript \set #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Ionian
   }
 @end lilypond
@@ -1233,7 +1233,7 @@ also to some extent in newer jazz music.
     \property Voice.TextScript \set #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c d
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Dorian
   }
 @end lilypond
@@ -1247,7 +1247,7 @@ also to some extent in newer jazz music.
     \property Voice.TextScript \set #'padding = #-4
     e1^"~~ S" f g a b^"~~ S" c d e
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Phrygian
   }
 @end lilypond
@@ -1262,7 +1262,7 @@ also to some extent in newer jazz music.
     \property Voice.TextScript \set #'padding = #-4
     b^"~~ S" c d e^"~~ S" f
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Lydian
   }
 @end lilypond
@@ -1276,7 +1276,7 @@ also to some extent in newer jazz music.
     g1 a
     \property Voice.TextScript \set #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Mixolydian
   }
 @end lilypond
@@ -1291,7 +1291,7 @@ also to some extent in newer jazz music.
     \property Voice.TextScript \set #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Aeolian
   }
 @end lilypond
@@ -1311,7 +1311,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
     \property Voice.TextScript \set #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     Major
   }
 @end lilypond
@@ -1326,7 +1326,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
     \property Voice.TextScript \set #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     "ancient minor"
   }
 @end lilypond
@@ -1341,7 +1341,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
     \property Voice.TextScript \set #'padding = #-4
     b^"~~ S" c d e^"~~ S" f!^"~~ A" gis^"~~ S" a
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     "Harmonic minor"
   }
 @end lilypond
@@ -1357,7 +1357,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
     b^"~~ S" c d e fis gis^"~~ S"
     a g! f!^"~~ S" e d c^"~~ S" b a
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     "Melodic minor"
   }
 @end lilypond
@@ -1699,7 +1699,7 @@ but equal pitch.
 \context Staff \notes\relative c'' {
   gis1 s s as s s <des g,!> s s <cis g!> s s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "g sharp  " "a flat  " "dim fifth  " "augm fourth"
 }
@@ -1780,7 +1780,7 @@ symbol indicates playing an octave lower (for example on double bass
   \clef "F_8"
   f1
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "baritone  "
   "bass  "
@@ -1948,7 +1948,7 @@ variants of the base chords.
 \context Voice \notes\relative c'' {
   <g e c >1 < a f d > < b g e >
   <c a f > < d b g > < e c a > < f d b > }
-\context LyricsVoice \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" }
+\context Lyrics \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" }
 @end lilypond
 
 @aitem{G}
@@ -1994,7 +1994,7 @@ scores are notated like that).
   \clef "G_8"
   g s s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   \property Lyrics . LyricText \set #'self-alignment-X = #-1
   "french violin clef  "
   "violin clef  "
@@ -2115,7 +2115,7 @@ section.  @aref{functional harmony}.
     \partial 4 c4 | f, g c2
     \bar "|."
   }
-  \context LyricsVoice \lyrics {
+  \context Lyrics \lyrics {
     T S D T
   }
 >>
@@ -2211,7 +2211,7 @@ of such two forms an octave.
   < g b! >^"major" s
   < g bis >^"augm" s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   "unisone  " "second  " "second  " "second  "
   "third   " "third  " "third  " "third  "
 }
@@ -2232,7 +2232,7 @@ of such two forms an octave.
   < g e'! >^"major"  s
   < g eis' >^"augm"  s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   "fourth  " "fourth  " "fifth  " "fifth  "
   "sixth  " "sixth  " "sixth  " "sixth  "
 }
@@ -2253,7 +2253,7 @@ of such two forms an octave.
   < g bes' >^"minor"  s
   < g b'! >^"major"  s
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   "seventh  " "seventh  " "seventh  " "octave  "
   "none  " "none  " "decime  " "decime  "
 }
@@ -2395,7 +2395,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
   c4-.-( d-. e-.-) \bar "||"
   c4-. d-. e-. \bar "||"
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
 %  \property Lyrics . LyricText \set #'font-style = #'large
   a
   b "" ""
@@ -3403,7 +3403,7 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 \context Staff \notes\relative c' {
   c1 d e f g a b c
 }
-\context LyricsVoice \lyrics {
+\context Lyrics \lyrics {
   << { I II III IV V VI VII I }
     { T "" ""  S  D } >>
 }
@@ -4016,8 +4016,8 @@ with figures designating the chief @aref{interval}s and
     \key es \major
     es8 c d bes c as bes16 as g f | es4
   }
-  \context LyricsVoice \lyrics {
-    \property LyricsVoice . VerticalAlign \override #'threshold = #'(6 . 12)
+  \context Lyrics \lyrics {
+    \property Lyrics . VerticalAlign \override #'threshold = #'(6 . 12)
     << { "" "6" "" "4" "" "6" "" "" "6" "4" }
       { "" ""  "" "2" "" ""  "" "" ""  "2" } >>
   }

@@ -36,5 +36,5 @@ Chord_name::after_line_breaking (SCM smob)
 
 ADD_INTERFACE (Chord_name, "chord-name-interface",
   "generate a chord name",
-  "pitches chord style inversion bass begin-of-line-visible");
+  "begin-of-line-visible");
 

@@ -17,6 +17,8 @@
 ;;;;;;;;;;;;;;;; TODO : make modules of these!
 ;;;;;;;;;;;;;;;;
 
+; todo: naming: grob vs. layout property
+
 (define load-files '("documentation-lib.scm"
 		     "document-functions.scm"
 		     "document-translation.scm"
@@ -75,6 +77,34 @@
 @end ifinfo
 
 
+@macro internalsref{NAME}
+@ref{\\NAME\\}
+@end macro
+
+@ifhtml
+
+@macro inputfileref{DIR,NAME}
+@uref{../../../../\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
+@end macro
+
+@end ifhtml
+
+@ifinfo
+
+@macro inputfileref{DIR,NAME}
+@file{\\DIR\\/\\NAME\\}
+@end macro
+
+@end ifinfo
+
+@iftex
+@macro inputfileref{DIR,NAME}@c
+@file{\\DIR\\/\\NAME\\}@c
+@end macro
+@end iftex
+
+
+
 @ignore
 @omftitle LilyPond internals
 @omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
@@ -121,3 +151,28 @@
 
 (dump-node top-node out-port 0)
 (newline (current-error-port))
+
+
+(dump-node (all-scheme-functions-doc)
+	   (open-output-file "scheme-functions.tely")
+	   2)
+
+(dump-node
+ (make <texi-node>
+   #:name "Layout property overview"
+   #:desc "All user serviceable layout properties"
+   #:text (backend-properties-doc-string all-user-grob-properties))
+
+ (open-output-file "layout-properties.tely")
+ 2)
+
+(dump-node
+ (make <texi-node>
+   #:name "Context property overview"
+   #:desc "All user serviceable context properties"
+   #:text (translation-properties-doc-string all-user-translation-properties))
+ 
+ (open-output-file "context-properties.tely")
+ 2)
+
+

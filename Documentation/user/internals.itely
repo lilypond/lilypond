@@ -72,7 +72,7 @@ regularly. For example, beaming behavior is tuned with
 These use mixed-caps naming: @code{autoBeamSettings},
 @code{ignoreMelismata}. They are assigned as follows:
 @example
-  \property LyricsVoice.ignoreMelismata = ...
+  \property Lyrics.ignoreMelismata = ...
 @end example
 
 @item Layout properties

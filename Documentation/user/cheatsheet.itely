@@ -234,7 +234,7 @@ a\> a a\!
 @tab
 @lilypond[fragment,relative=1]
  \notes { g'4 g }
-  \lyricsto "" \new LyricsVoice \lyrics {  twin -- kle }
+  \lyricsto "" \new Lyrics \lyrics {  twin -- kle }
 @end lilypond 
 
 @item @code{\chords @{ c:dim f:maj7 @}}
