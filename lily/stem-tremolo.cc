@@ -7,43 +7,37 @@
   
  */
 
-#include "stem-tremolo.hh"
-#include "warn.hh"
 #include "beam.hh"
-#include "paper-def.hh"
-#include "lookup.hh"
-#include "stem.hh"
-#include "item.hh"
-#include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
+#include "item.hh"
+#include "lookup.hh"
+#include "paper-def.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem-tremolo.hh"
+#include "stem.hh"
+#include "warn.hh"
 
-/*
-  TODO:
-    lengthen stem if necessary
- */
-MAKE_SCHEME_CALLBACK (Stem_tremolo,dim_callback,2);
+/* TODO: lengthen stem if necessary  */
 
-/*
-  todo: init with cons. 
- */
+MAKE_SCHEME_CALLBACK (Stem_tremolo, dim_callback, 2);
+
+/* todo: init with cons.  */
 SCM
 Stem_tremolo::dim_callback (SCM e, SCM)
 {
-  Grob * se = unsmob_grob (e);
+  Grob *se = unsmob_grob (e);
   
   Real space = Staff_symbol_referencer::staff_space (se);
   return ly_interval2scm (Interval (-space, space));
 }
 
-/*
-  ugh ?  --from Slur
- */
+/* ugh ?  --from Slur   */
 MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
 SCM
 Stem_tremolo::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)ly_scm2int (ax);
-  Grob * me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_stencil ();
@@ -53,7 +47,6 @@ Stem_tremolo::height (SCM smob, SCM ax)
   else
     return ly_interval2scm (Interval ());
 }
-
 
 Stencil
 Stem_tremolo::raw_stencil (Grob *me)
@@ -67,9 +60,7 @@ Stem_tremolo::raw_stencil (Grob *me)
       Real dy = 0;
       SCM s = beam->get_property ("positions");
       if (is_number_pair (s))
-	{
-	  dy = -ly_scm2double (ly_car (s)) +ly_scm2double (ly_cdr (s));
-	}
+	dy = -ly_scm2double (ly_car (s)) +ly_scm2double (ly_cdr (s));
       
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
 	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
@@ -88,7 +79,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   thick *= ss;
   
   Stencil a (Lookup::beam (dydx, width, thick, blot));
-  a.translate (Offset (-width/2, width / 2 * dydx));
+  a.translate (Offset (-width * 0.5, width * 0.5 * dydx));
   
   int tremolo_flags = 0;
   SCM s = me->get_property ("flag-count");
@@ -103,11 +94,7 @@ Stem_tremolo::raw_stencil (Grob *me)
       return Stencil ();
     }
 
-  /*
-    Who the fuck is 0.81 ?
-
-    --hwn.
-   */
+  /* Who the fuck is 0.81 ? --hwn.   */
   Real beam_translation = beam ? Beam::get_beam_translation (beam) : 0.81;
 
   Stencil mol; 
@@ -119,7 +106,6 @@ Stem_tremolo::raw_stencil (Grob *me)
     }
   return mol;
 }
-
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo,print,1);
 SCM
@@ -135,6 +121,9 @@ Stem_tremolo::print (SCM grob)
   
   Grob *beam = Stem::get_beam (stem);
   Direction stemdir = Stem::get_direction (stem);
+  if (stemdir == 0)
+    stemdir = UP;
+
   Real beam_translation
     = (beam && beam->live ())
     ? Beam::get_beam_translation (beam)
@@ -145,50 +134,39 @@ Stem_tremolo::print (SCM grob)
   Real ss = Staff_symbol_referencer::staff_space (me);
 
   // ugh, rather calc from Stem_tremolo_req
-  int beam_count = (beam) ? (Stem::beam_multiplicity (stem).length () + 1): 0;
-
+  int beam_count = beam ? (Stem::beam_multiplicity (stem).length () + 1) : 0;
 
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
   if (ly_c_number_p (sbt))
-    {
-      beamthickness = ly_scm2double (sbt) * ss;
-    }
+    beamthickness = ly_scm2double (sbt) * ss;
 
   Real end_y
-    = Stem::stem_end_position (stem) *ss/2 
+    = Stem::stem_end_position (stem) * ss / 2
     - stemdir * (beam_count * beamthickness
 		 + ((beam_count -1) >? 0) * beam_translation);
 
-  /*
-    the 0.33 ss is to compensate for the size of the note head
-   */
-  Real chord_start_y = Stem::chord_start_y (stem) +
-    0.33 * ss * stemdir;
+  /* FIXME: the 0.33 ss is to compensate for the size of the note head.  */
+  Real chord_start_y = Stem::chord_start_y (stem) + 0.33 * ss * stemdir;
 
   Real padding = beam_translation;
 
-  /*
-    if there is a flag, just above/below the notehead.
-    if there is not enough space, center on remaining space,
-    else one beamspace away from stem end.
-   */
+  /* if there is a flag, just above/below the notehead.
+     if there is not enough space, center on remaining space,
+     else one beamspace away from stem end.  */
   if (!beam && Stem::duration_log (stem) >= 3)
     {
       mol.align_to (Y_AXIS, -stemdir);
-      mol.translate_axis (chord_start_y + .5 * stemdir, Y_AXIS);
+      mol.translate_axis (chord_start_y + 0.5 * stemdir, Y_AXIS);
     }
-  else if (stemdir * (end_y - chord_start_y) - 2*padding - mol_ext.length ()  < 0.0)
-    {
-      mol.translate_axis (0.5 * (end_y + chord_start_y)  - mol_ext.center (),Y_AXIS);
-    }
+  else if (stemdir * (end_y - chord_start_y) - 2 * padding - mol_ext.length ()
+	   < 0.0)
+    mol.translate_axis (0.5 * (end_y + chord_start_y) - mol_ext.center (),
+			Y_AXIS);
   else
-    {
-      mol.translate_axis (end_y - stemdir * beam_translation
-			  -mol_ext [stemdir]
-			  , Y_AXIS);
-    }
-  
+    mol.translate_axis (end_y - stemdir * beam_translation -mol_ext [stemdir],
+			Y_AXIS);
+
   return mol.smobbed_copy ();
 }
 
