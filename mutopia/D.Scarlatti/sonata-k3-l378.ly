@@ -1,6 +1,6 @@
  \header {
  composer =  "Domenico Scarlatti";
- title="Sonata K.3"
+ title="Sonata K.3";
  opus="L.378";
  movement="Presto";
  copyright = "General Public License";

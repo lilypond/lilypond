@@ -28,6 +28,9 @@ struct Scalar : public String
   operator Real();
   operator int();
   bool to_bool () const;
+  Rational to_rat () const;
+  int to_i () const;
+  Real to_f () const;
 
   /*
     urg, these are bit silly; perhaps should make "Print_string" class

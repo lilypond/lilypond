@@ -13,16 +13,21 @@ Would this be acceptable/good enough/convenient for entry?
    Cmaj7                  c-7+; c-maj
    C7                     c-7
    Csus; Csus4            c-4; c-sus
+
 %}
 
 scales = \notes \transpose c'' \chords{
 		%<c1 e g>
 		c1-m c-min c4-dim c-aug c-sus c-maj
                 c1-6 c4-7 c-9 c-11 c-13
-		c1-7^5 c-13^5^7^9^11
+		c1-7^5 c-13^5.7.9.11
 		% c1-7^5 c-13^5
 		c1 g d a e b fis
                 c1 f bes es as des ges
+		% wierd, multiple -add, ^sub
+		c-7+.9-^3.5
+		% long
+		c\breve c\longa
 	}
 
 keys = \notes{
@@ -43,6 +48,8 @@ keys = \notes{
                 \key as; s1
                 \key des; s1
                 \key ges; s1
+                \key c; s1*2
+                \key c; s1*6
 	}
 
 \score{

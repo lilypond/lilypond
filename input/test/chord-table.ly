@@ -5,9 +5,7 @@ enteredby = 	"jcn";
 }
 
 tab = \notes\transpose c'''\chords{
-	c1 c-m c-4 c-m4 c-5+ c-5- c-m5- c-5-5+ c-6\break %c-m6\break
-	% Han-Wen: try this instead, and Wierd Things (spacing etc) happen:
-%	\notes {<c1 e g>} c1-m c-4 c-m4 c-5+ c-5- c-m5- c-5-5+ c-6  c-m6\break
+	c1 c-m c-4 c-m4 c-5+ c-5- c-m5- c-5.5+ c-6\break %c-m6\break
 }
 
 \score{

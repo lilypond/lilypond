@@ -28,6 +28,7 @@ protected:
 
 private:
   void begin_beam ();
+  void consider_end_and_begin ();
   void end_beam ();
   void junk_beam ();
   void typeset_beam ();

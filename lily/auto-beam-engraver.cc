@@ -27,42 +27,32 @@ Auto_beam_engraver::Auto_beam_engraver ()
   grouping_p_ = 0;
 }
 
-/*
-  should move this to rational, but may reject now
-  */
-Rational
-str2rat (String str)
+void
+Auto_beam_engraver::do_process_requests ()
 {
-  int num;
-  int den = 1;
-  if (int i = str.index_i ('/') != -1)
-    {
-      den = str.cut_str (i + 1, str.length_i ()).value_i ();
-      str = str.left_str (i);
-    }
-  num = str.value_i ();
-  return Rational (num, den);
+  consider_end_and_begin ();
 }
 
 void
-Auto_beam_engraver::do_process_requests ()
+Auto_beam_engraver::consider_end_and_begin ()
 {
   Time_description const *time = get_staff_info().time_C_;
 
   Scalar begin = get_property ("beamAutoBegin", 0);
-  Moment begin_mom = str2rat (begin);
+  Moment begin_mom = begin.to_rat ();
   
   Scalar end = get_property ("beamAutoEnd", 0);
-  Moment end_mom = str2rat (end);
+  Moment end_mom = end.to_rat ();
 
   if (mult_i_)
     {
+      int type = 1 << (mult_i_ + 2);
       Scalar end_mult = get_property (String ("beamAutoEnd")
-				      + to_str (1 << (mult_i_ + 2)), 0);
+				      + to_str (type), 0);
       if (end_mult.length_i ())
-	end_mom = str2rat (end_mult);
-      else if (end_mom / Moment (mult_i_, 1) > Moment (4))
-	end_mom /= Moment (mult_i_);
+	end_mom = end_mult.to_rat ();
+      else if (Moment (type, 4) / end_mom > Moment (4))
+	end_mom /= Moment (type, 8);
     }
 
   Real f;
@@ -240,13 +230,23 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	}
       else
 	{
+	  int m = (rhythmic_req->duration_.durlog_i_ - 2);
+	  /*
+	    if multiplicity would become greater,
+	    reconsider ending/starting beam first.
+	   */
+	  if (m > mult_i_)
+	    {
+	      mult_i_ = m;
+	      consider_end_and_begin ();
+	    }
+	  mult_i_ = m;
 	  grouping_p_->add_child (start, rhythmic_req->duration ());
 	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
 	  beam_p_->add_stem (stem_l);
 	  Moment now = now_moment ();
 	  last_add_mom_ = now;
 	  extend_mom_ = extend_mom_ >? now + rhythmic_req->duration ();
-	  mult_i_ = mult_i_ >? (rhythmic_req->duration_.durlog_i_ - 2);
 	}
     }
 }
