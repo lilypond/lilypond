@@ -39,7 +39,6 @@ do_pod2html=$(POD2HTML5003)
 
 $(outdir)/%.html: %.pod $(depth)/VERSION
 	$(do_pod2html) 
-#
 
 $(outdir)/%.5: %.pod
 	$(pod2groff)
