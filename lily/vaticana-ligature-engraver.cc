@@ -557,10 +557,6 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   prev_primitive->set_property ("glyph-name",
 				scm_makfrom0str (prev_glyph_name.to_str0 ()));
 
-#if 0
-  Real ligature_width =
-#endif
-
   align_heads (primitives, flexa_width, thickness);
 
 #if 0 // experimental code to collapse spacing after ligature
