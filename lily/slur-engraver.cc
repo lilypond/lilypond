@@ -49,9 +49,6 @@ Slur_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("slur-event"))
     {
-      /*
-	Let's not start more than one slur per moment.
-      */
       Direction d = to_dir (m->get_property ("span-direction"));
       if (d == START)
 	{
@@ -60,9 +57,6 @@ Slur_engraver::try_music (Music *m)
 	}
       else if (d == STOP)
 	{
-	  if (slurs_.is_empty ())
-	    return false;
-	  
 	  events_[STOP] = m;
 	  return true;
 	}
