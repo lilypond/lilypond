@@ -596,6 +596,7 @@ mkdir \\Cygnus\\var\\lib
 bash -c '
 	dll=\`type -p cygwin1.dll\`;
 	wdll=\`./cygpath -w \$dll\`;
+	wdll=\${wdll:-\\Cygnus\\bin};
 	echo cygwin1.dll \$wdll > newdll; echo \$wdll \$wdll.orig\$\$ > olddll'
 if not errorlevel 0 goto nobash
 rem # mv -f \$old_dll \$old_dll.orig\$\$
@@ -658,8 +659,8 @@ for i in bash-2 guile-1 rpm-3 lilypond-$lilypond_version; do
 	dist_rpms="$dist_rpms $rpm"
 done
 
-rm -f $www/setup.zip
-cd $www && zip setup.zip lily-w32 $distbase/* $dist_rpms
+rm -f $www/setup*.zip
+cd $www && zip setup-lilypond-$lilypond_version.zip lily-w32 $distbase/* $dist_rpms
 
 # make small zip dist available
 #

@@ -1,24 +1,27 @@
 
+# Don't remove $(outdir)/.log's.  Logs are a target!
+
 $(outdir)/%.dvi: %.mf
 	$(METAFONT) "\nonstopmode; input $<;"
 	gftodvi  $(basename $<)
-	mv   $(basename $<).dvi $(outdir)
+	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
 
 $(outdir)/%.log: %.mf
 	$(METAFONT) $<
 	mv $(@F) $@
-	rm $(basename $< ).*gf
+	rm $(basename $(@F)).*gf
 
-$(outdir)/%.tfm: %.mf
+$(outdir)/%.tfm $(outdir)%.log: %.mf
 	$(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
-	mv $(@F) $(outdir)
-	rm $(basename $<).*gf $(basename $<).*log
+# Let's keep this log output, it saves another mf run.
+	mv $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
+	rm $(basename $(@F)).*gf 
 
 $(outdir)/%.$(XPM_RESOLUTION)gf: %.mf
 	$(METAFONT) "\\mode=$(XPM_MODE); \\input $<"
 	mv $(@F) out
-	rm -f $(basename $<).log $(basename $<).tfm
+	rm -f $(basename $(@F)).tfm $(basename $(@F)).*log
 
 $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@

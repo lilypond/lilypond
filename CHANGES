@@ -1,3 +1,22 @@
+1.3.42.jcn2
+===========
+
+* mf/feta-accordion.mf: Fixed strange turning paths.
+
+* mf/feta-beugel.mf: Fixed infinity errors.
+
+* Use a more discriptive name for windows setup.zip.
+
+* mf/GNUmakefile: Have logs as last target, so that normally, they're 
+not made twice.
+
+* stepmake/stepmake/metafont-rules.make: Don't remove the .log files.
+The logs are a target, removing them retriggers make.
+
+* stepmake/stepmake/metapost-rules.make: Remove the correct log and tfm
+files, ie the ones that clutter the source directory, not the target logs.
+
+
 1.3.42.jcn1
 ===========
 

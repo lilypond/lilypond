@@ -18,7 +18,9 @@ AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
 
-ALL_GEN_FILES= $(TEXTABLES) $(LOG_FILES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES)
+# Make tfm files first, log files last, 
+# so that normally log files aren't made twice
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES) $(LOG_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/mf/
@@ -52,3 +54,4 @@ $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 localclean:
 	rm -f mfplain.mem mfplain.log mpout.log
 	rm -f *.tfm *.log
+
