@@ -282,15 +282,12 @@ work than classifying the pitches."
 	((get-step 6 pitches) (set! main-name (get-step 6 pitches)))
 	((get-step 5 pitches) (set! main-name (get-step 5 pitches)))
 	((get-step 4 pitches) (set! main-name (get-step 4 pitches)))
-	((get-step 3 pitches) (set! main-name (get-step 3 pitches)))
-	)
-       
-       (let*
-	   (
-	    (3-diff? (lambda (x y)
-		       (= (- (pitch-step y) (pitch-step x)) 2)))
-	    (split (split-at-predicate 3-diff? (remove-uptil-step 5 pitches)))
-	    )
+	((get-step 3 pitches) (set! main-name (get-step 3 pitches))))
+
+       (let* ((3-diff? (lambda (x y)
+			 (= (- (pitch-step y) (pitch-step x)) 2)))
+	      (split (split-at-predicate
+		      3-diff? (remove-uptil-step 5 pitches))))
 	 (set! alterations (append alterations (car split)))
 	 (set! add-steps (append add-steps (cdr split)))
 	 (set! alterations (delq main-name alterations))
@@ -309,11 +306,7 @@ work than classifying the pitches."
 		      (map is-natural-alteration? alterations)))
 	     (begin
 	       (set! main-name (last alterations))
-	       (set! alterations '())
-	       ))
+	       (set! alterations '())))
 
-	 (ignatzek-format-chord-name root prefixes main-name alterations add-steps suffixes bass-note)
-	 )))
-       ))
-  
-
+	 (ignatzek-format-chord-name
+	  root prefixes main-name alterations add-steps suffixes bass-note))))))

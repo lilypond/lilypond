@@ -199,30 +199,31 @@ found."
     (else
      (set-car! acc (cons (car lst) (car acc)))
      (set-cdr! acc (cdr lst))
-     acc))
-   (let* ((c (cons '() '())))
-     (inner-split predicate lst  c)
-     (set-car! c (reverse! (car c)))
-     c)))
+     acc)))
+ 
+ (let* ((c (cons '() '())))
+   (inner-split predicate lst  c)
+   (set-car! c (reverse! (car c)))
+   c))
 
 (define-public (split-list lst sep?)
-  "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
+   "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
    =>
    ((a b c) (d e f) (g))
   "
-  ;; " Emacs is broken
-  (define (split-one sep?  lst acc)
-    "Split off the first parts before separator and return both parts."
-    (if (null? lst)
-	(cons acc '())
-	(if (sep? (car lst))
-	    (cons acc (cdr lst))
-	    (split-one sep? (cdr lst) (cons (car lst) acc)))))
-  
-  (if (null? lst)
-      '()
-      (let* ((c (split-one sep? lst '())))
-	(cons (reverse! (car c) '()) (split-list (cdr c) sep?)))))
+   ;; " Emacs is broken
+   (define (split-one sep?  lst acc)
+     "Split off the first parts before separator and return both parts."
+     (if (null? lst)
+	 (cons acc '())
+	 (if (sep? (car lst))
+	     (cons acc (cdr lst))
+	     (split-one sep? (cdr lst) (cons (car lst) acc)))))
+   
+   (if (null? lst)
+       '()
+       (let* ((c (split-one sep? lst '())))
+	 (cons (reverse! (car c) '()) (split-list (cdr c) sep?)))))
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
