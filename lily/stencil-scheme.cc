@@ -25,7 +25,8 @@ LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_number_pair (np), np, SCM_ARG3, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (is_number_pair (np), np, SCM_ARG3, __FUNCTION__,
+		   "number pair");
 
   Interval iv = ly_scm2interval (np);
   s->dim_[Axis (gh_scm2int (axis))] = iv;

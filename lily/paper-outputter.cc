@@ -189,7 +189,7 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
     {
       Stencil *stil = unsmob_stencil (ly_car (s));
       if (stil)
-	output_expr (stil->get_expr (), stil->origin ());
+	output_expr (stil->get_expr (), Offset (0,0));
       /* Only if !PAGE_LAYOUT */
       else if (ly_caar (s) == ly_symbol2scm ("between-system-string"))
 	between = ly_cdar (s);

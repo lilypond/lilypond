@@ -73,26 +73,25 @@ uniquify_list (SCM l)
   int len = scm_ilength (l);
   SCM  * arr = new SCM[len];
   int k = 0;
-  for (SCM s =l ; SCM_NNULLP (s); s = SCM_CDR (s))
+  for (SCM s = l; SCM_NNULLP (s); s = SCM_CDR (s))
     arr[k++] = SCM_CAR (s);
 
   assert (k == len);
   qsort (arr, len, sizeof (SCM), &scm_default_compare);
 
   k = 0;
-  SCM s =l;
+  SCM *tail = &l;
+  
   for (int i = 0; i < len ; i++)
     {
       if (i && arr[i] == arr[i-1])
 	continue;
 
-      SCM_SETCAR (s, arr[i]);
-
-      if (i < len - 1)
-	s = SCM_CDR (s);
+      SCM_SETCAR (*tail, arr[i]);
+      tail = SCM_CDRLOC(*tail);
     }
 
-  SCM_SETCDR (s, SCM_EOL);
+  *tail = SCM_EOL;
   delete[] arr;
   
   return l; 
@@ -402,8 +401,10 @@ System::get_line ()
      Start with layer 3, since  scm_cons prepends to list.
      
   */
+  SCM all = get_property ("all-elements");
+  
   for (int i = LAYER_COUNT; i--;)
-    for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+    for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
       {
 	Grob *g = unsmob_grob (ly_car (s));
 	Stencil *stil = g->get_stencil ();
@@ -419,10 +420,14 @@ System::get_line ()
 	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
 					  Offset (0, 0))
 	  * Staff_symbol_referencer::staff_space (g);
-	
-	/* FIXME: 0.5 */
-	stil->translate ((o + extra) * 0.5);
-	stencils = scm_cons (stil->smobbed_copy (), stencils);
+
+	/*
+	  must copy the stencil, for we cannot change the stencil
+	  cached in G.
+	 */
+	SCM my_stencil = stil->smobbed_copy ();
+	unsmob_stencil (my_stencil)->translate (o + extra);
+	stencils = scm_cons (my_stencil, stencils);
       }
 
   if (output_format_global != PAGE_LAYOUT)
