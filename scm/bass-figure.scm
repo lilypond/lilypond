@@ -33,7 +33,10 @@
 	 (fig-markup
 	  (if (string? fig)
 	      (make-simple-markup fig)
-	      (make-simple-markup (if align-accs " " ""))
+	      (if align-accs (make-simple-markup " ")
+		  (if (not (eq? acc '()))
+		      (make-simple-markup "")
+		      (make-strut-markup)))
 	      )))
 
       (if (number? acc)
