@@ -7,6 +7,7 @@
   
  */
 
+#include "config.h"
 #include "main.hh"
 #include "all-font-metrics.hh"
 #include "debug.hh"
@@ -17,11 +18,11 @@
 #include "scm-hash.hh"
 
 
-
-
+#if HAVE_KPATHSEA_KPATHSEA_H
 extern "C" {
 #include <kpathsea/kpathsea.h>
 }
+#endif
 
 const char * default_font_sz_ = "cmr10";
 
@@ -48,12 +49,15 @@ All_font_metrics::find_afm (String name)
   if (!afm_p_dict_->elem_b (sname))
     {
       String path;
+
+#if KPATHSEA && HAVE_KPSE_FIND_FILE
       if (path.empty_b ())
 	{
-	  char  * p = kpse_find_file(name.ch_C(), kpse_afm_format, true);
+	  char  * p = kpse_find_file (name.ch_C(), kpse_afm_format, true);
 	  if (p)
 	    path = p;
 	}
+#endif
       
       if (path.empty_b())
 	path = search_path_.find (name  + ".afm");
@@ -103,11 +107,14 @@ All_font_metrics::find_tfm (String name)
     {
       String path;
       
+//#if KPATHSEA && HAVE_KPSE_FIND_TFM  -- urg: a macro
+#if KPATHSEA && HAVE_KPSE_FIND_FILE
       if (path.empty_b())
 	{
-	  char * p = kpse_find_tfm(name.ch_C());
+	  char * p = kpse_find_tfm (name.ch_C());
 	  path = p;
 	}
+#endif
       if (path.empty_b())
 	path = search_path_.find (name  + ".tfm");
       if (path.empty_b())

@@ -778,6 +778,8 @@
   (define (char i)
     (func "char" i))
 
+  (define (define-origin a b c ) "")
+
   (define (end-output) 
     (func "end-output"))
   
@@ -819,6 +821,8 @@
 	   (string-append "(define " key " " (arg->string val) ")\n")
 	   ""))
 
+  (define (no-origin) "")
+  
   (define (placebox x y s) 
     (let ((ey (inexact->exact y)))
 	  (string-append "(move-to " (number->string (inexact->exact x)) " "
@@ -847,6 +851,8 @@
   (define (text s)
 	  (func "text" s))
 
+  (define (tuplet ht gap dx dy thick dir) "")
+
   (define (volta h w thick vert-start vert-end)
 	  ;; urg
 	  (string-append
@@ -871,6 +877,7 @@
 	    (define beam ,beam)
 	    (define bracket ,bracket)
 	    (define char ,char)
+	    (define define-origin ,define-origin)
 	    ;;(define crescendo ,crescendo)
 	    (define bezier-sandwich ,bezier-sandwich)
 	    ;;(define dashed-slur ,dashed-slur) 
@@ -886,6 +893,7 @@
 	    (define lily-def ,lily-def)
 	    ;;(define invoke-char ,invoke-char) 
 	    ;;(define invoke-dim1 ,invoke-dim1)
+	    (define no-origin ,no-origin)
 	    (define placebox ,placebox)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
@@ -893,10 +901,10 @@
 	    (define stop-line ,stop-line)
 	    (define stop-last-line ,stop-line)
 	    (define text ,text)
-	    ;;(define tuplet ,tuplet)
+	    (define tuplet ,tuplet)
 	    (define volta ,volta)
 	    ))
-	;;((eq? action-name 'tuplet) tuplet)
+	((eq? action-name 'tuplet) tuplet)
 	;;((eq? action-name 'beam) beam)
 	;;((eq? action-name 'bezier-sandwich) bezier-sandwich)
 	;;((eq? action-name 'bracket) bracket)

@@ -136,11 +136,11 @@ Chord_name::brew_molecule (SCM smob)
     style = ly_str02scm ("banter");
 
   SCM inversion = sc-> get_elt_property ("inversion");
-  if (inversion != SCM_BOOL_T)
+  if (inversion == SCM_EOL)
     inversion = SCM_BOOL_F;
 
   SCM bass =  sc->get_elt_property ("bass");
-  if (bass != SCM_BOOL_T)
+  if (bass == SCM_EOL)
     bass = SCM_BOOL_F;
 
   SCM pitches =  sc->get_elt_property ("pitches");

@@ -67,6 +67,10 @@ Prerequisites
    * Bison (version 1.25 or newer).  Check out
      ftp://ftp.gnu.org/gnu/bison/ (ftp://ftp.gnu.org/gnu/bison/).
 
+   * TeX.  If you want LilyPond to use kpathsea support (recommended),
+     make sure you have tetex 1.0 or newer (1.0.6 is known to work).
+     You may need to install a tetex-devel or tetex-dev package too.
+
    * Texinfo (version 4.0 or newer).  Check out
      ftp://ftp.gnu.org/gnu/texinfo/ (ftp://ftp.gnu.org/gnu/texinfo/).
      Most documentation is in texinfo.
@@ -94,7 +98,7 @@ Running
    GNU LilyPond does use a lot of resources. For operation you need the
 following software
 
-   * TeX
+   * TeX.
 
    * A PostScript printer and/or viewer (such as Ghostscript) is
      strongly     recommended.  Xdvi will show all embedded PostScript

@@ -118,8 +118,8 @@ My_lily_parser::get_chord (Musical_pitch tonic,
 
   Tonic_req* t = new Tonic_req;
   t->pitch_ = tonic;
+  SCM l = gh_cons (t->self_scm (), SCM_EOL);
 
-  SCM l = SCM_EOL;
   //urg
   if (chord.inversion_b_
       && Chord::find_notename_i (&chord.pitch_arr_, chord.inversion_pitch_) > 0)
@@ -137,7 +137,7 @@ My_lily_parser::get_chord (Musical_pitch tonic,
     }
 
   Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
-  for (int i = 0; i < pitch_arr.size (); i++)
+  for (int i = pitch_arr.size (); --i >= 0;)
     {
       Musical_pitch p = pitch_arr[i];
       Note_req* n = new Note_req;

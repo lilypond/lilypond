@@ -8,6 +8,9 @@ chord = \notes\transpose c''\chords{
    c:5-.7+
    c:m7
    c:7
+   d
+   d/a
+   d/+gis
 }
 
 \score{

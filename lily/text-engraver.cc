@@ -97,8 +97,22 @@ Text_engraver::do_process_music ()
       if (r->style_str_.length_i ())
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
       
-      SCM empty = get_property ("textNonEmpty");
-      if (to_boolean (empty))
+      /*
+       huh?, this said:
+
+	 SCM empty = get_property ("textNonEmpty");
+	 if (to_boolean (empty))
+	    no-spacing-rods
+
+       Text is empty by default, which means that the only condition
+       for not setting 'no-spacing-rods' should be: boolean && true.
+
+       Anyway, non-empty text has been broken for some time now.
+       */
+      SCM nonempty = get_property ("textNonEmpty");
+      if (to_boolean (nonempty))
+        ;
+      else
 	{
 	  text->set_elt_property ("no-spacing-rods" , SCM_BOOL_F);
 	  text->set_extent_callback (0, X_AXIS);

@@ -6,12 +6,10 @@
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include <stdio.h>
-
-#include "scm-hash.hh"
 #include "ly-smobs.icc"
-
-
+#include "scm-hash.hh"
 
 Scheme_hash_table::Scheme_hash_table ()
 {

@@ -27,7 +27,7 @@
 
 \paper {
     \paper_as_nine
-    \translator { \StaffContext barSize = #'staff-height }
+    \translator { \StaffContext barSize = \staffheight; }
 
     % no beam-slope
     %\translator { \VoiceContext beamHeight = #0; }

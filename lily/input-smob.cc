@@ -14,7 +14,6 @@
 
 static long input_tag;
 
-
 static
 SCM mark_smob (SCM)
 {

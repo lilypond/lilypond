@@ -16,24 +16,34 @@ TestedFeatures =	 "Banter named chords";
 % when this file has been parsed...
 
 % {
-#(set! note-names-alist
-      (append 
-      '(
-	; use these for German naming
-	((6 . 0) . ("H" ""))
-	((6 . -1) . ("B" ("feta-1" . "")))
-	)
-      note-names-alist))
 
-#(set! chord-names-alist
+#;(define chord::names-alist-banter '())
+#(set! chord::names-alist-banter
       (append 
       '(
-        (((0 . 0) (2 . -1) (4 . -1)) . ("m" . ("script" . "5-")))
+        (((0 . 0) (2 . -1) (4 . -1)) . (("m" ("5-" . (type . "super")))))
 	; Co iso Cm5-7-
-	; urg, niet te pruimen
-        ; (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" . ("feta-1" . ".")))
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("" . ("script" . "o")))
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . ("o" (type "super")))
 	)))
+
+% German note names:
+% Urg, this will break again, in time
+% Is this correct, anyway?
+
+#(define (pitch->text pitch)
+  (if (and (= (modulo (cadr pitch) 7) 6)
+	      (= (caddr pitch) -1))
+      (cons (make-string 1 (integer->char 66)) '())
+      (cons
+       (if (= (modulo (cadr pitch) 7) 6)
+	   (make-string 1 (integer->char 72))
+	   (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
+       (if (= (caddr pitch) 0)
+	   '()
+	   (list (list (string-append "accidentals-" 
+				      (number->string (caddr pitch)))
+		       '(font . "feta")))))))
+
 % }
 
 chord = \notes\transpose c''\chords{

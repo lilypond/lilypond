@@ -75,6 +75,10 @@ Check out @uref{ftp://ftp.gnu.org/gnu/flex/,ftp://ftp.gnu.org/gnu/flex/}.
 @item Bison (version 1.25 or newer).
 Check out @uref{ftp://ftp.gnu.org/gnu/bison/,ftp://ftp.gnu.org/gnu/bison/}.
 
+@item TeX.  If you want LilyPond to use kpathsea support (recommended),
+make sure you have tetex 1.0 or newer (1.0.6 is known to work).  You may
+need to install a tetex-devel or tetex-dev package too.
+
 @item Texinfo (version 4.0 or newer). 
 Check out @uref{ftp://ftp.gnu.org/gnu/texinfo/,ftp://ftp.gnu.org/gnu/texinfo/}.
 Most documentation is in texinfo.
@@ -103,7 +107,7 @@ GNU LilyPond does use a lot of resources. For operation you need the
 following software
 
 @itemize @bullet
-@item TeX
+@item TeX.
 @item A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
