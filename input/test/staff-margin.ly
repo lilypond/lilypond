@@ -1,6 +1,6 @@
 
 	
-\version "1.3.5";
+\version "1.3.42";
 
 \score {
 
@@ -15,8 +15,8 @@ linewidth=-1.0;
 \translator { \ScoreContext
 	%textVerticalAlignment = #0
 	}
-%\translator { \StaffContext \consists "Staff_margin_engraver"; }
-%\translator { \PianoStaffContext \consists "Staff_margin_engraver"; }
+%\translator { \StaffContext \consists "Instrument_name_engraver"; }
+%\translator { \PianoStaffContext \consists "Instrument_name_engraver"; }
 \translator { \StaffContext \consists "New_staff_margin_engraver"; }
 \translator { \PianoStaffContext \consists "New_staff_margin_engraver"; }
 }}

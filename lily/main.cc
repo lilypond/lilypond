@@ -129,7 +129,7 @@ _(
     "localedir: `" DIR_LOCALEDIR "'\n"
     "\n";
 
-  print_mudela_versions (cout);
+
   cout << endl;
 
   cout << _f ("Report bugs to %s", "bug-gnu-music@gnu.org") << endl;

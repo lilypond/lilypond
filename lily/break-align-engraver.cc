@@ -101,7 +101,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
 
 	  Item * edge = new Item;
-	  SCM edge_sym =   ly_symbol2scm ("Left_edge_item");
+	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  edge->set_elt_property ("break-align-symbol", edge_sym);
 
 	  /*

@@ -1,4 +1,4 @@
-\version "1.3.5";
+\version "1.3.42";
 
 m = \notes \relative c''{
 c1 | c2 c | c c | c c | \break c c | c c | c c | c c | 
@@ -92,7 +92,7 @@ c1 | c2 c | c c | c c | \break c c | c c | c c | c c |
         minVerticalAlign = 2.2*\staffheight; 
     }
     \translator { \StaffContext
-	\consists "Staff_margin_engraver";
+	\consists "Instrument_name_engraver";
         marginScriptPadding = 15.0;
     }
   }

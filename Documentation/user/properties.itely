@@ -480,8 +480,8 @@ no clef is printed upon creation.
 
   @item @code{instrument}, @code{instr} @propertytype{string}
     @indexcode{instrument}@indexcode{instr}  
-    If @code{Staff_margin_engraver}
-@cindex Staff_margin_engraver
+    If @code{Instrument_name_engraver}
+@cindex Instrument_name_engraver
  is
     added to the Staff translator, then the @code{instrument} property
     is used to label the first line of the staff and the @code{instr}

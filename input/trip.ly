@@ -159,6 +159,12 @@ fugaIIPedal = \notes \relative c {
   \context Score  \notes <
     \context PianoStaff <
       \context Staff = treble {
+	\property Staff.instrument = #"right"
+	\property Staff.instr = #"rt"
+	\property PianoStaff.instrument = #"hands"
+	\property PianoStaff.instr = #"hs"
+
+
  	\property Score.midiInstrument = "church organ"
         \praeludiumRight r1 \fugaIIRight }
       \context Staff = bass { 
@@ -166,6 +172,9 @@ fugaIIPedal = \notes \relative c {
     > 
     \context Staff = pedal \relative c  <
       {
+	\property Staff.instrument = #"left"
+	\property Staff.instr = #"lt"
+
         \time 4/4;
 	\key e; 
   \clef bass;
@@ -189,6 +198,12 @@ fugaIIPedal = \notes \relative c {
   \paper {
 
    \translator { \OrchestralScoreContext }
+	\translator { \PianoStaffContext
+		\consists "Instrument_name_engraver";
+	}
+	\translator { \StaffContext
+		\consists "Instrument_name_engraver";
+	}
   }
 
   \midi {

@@ -1,5 +1,5 @@
 
-% 	$Id: norsk.ly,v 1.3 2000/03/23 12:52:56 fred Exp $	
+% 	$Id: norsk.ly,v 1.4 2000/04/04 17:00:58 fred Exp $	
 
 %{
 
@@ -104,4 +104,4 @@
 
 
 
-\version "1.3.38";
+\version "1.3.42";
