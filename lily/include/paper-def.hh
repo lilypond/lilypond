@@ -83,6 +83,7 @@ public:
   Real geometric_spacing(Moment) const;
   Real arithmetic_constant(Moment minimal_mom) const;
   Real arithmetic_spacing( Moment mom,Real constant) const;
+  String TeX_output_settings_str () const;
 };
 
 #endif // Paper_def_HH
