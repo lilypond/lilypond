@@ -16,7 +16,9 @@ use of the scheme function @code{set-octavation}.
   a b c a
   #(set-octavation 0)
 
-  a b c a 
+  a #(set-octavation 1) b
+  #(set-octavation 0)
+  c a 
 }
 }
 
