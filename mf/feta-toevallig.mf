@@ -1,8 +1,8 @@
 %
 % Accidentals from various sources, notably
 %
-%   Baerenreiter edition of Schuberts `Auf dem Strom' (sharp, natural, flat)
-%   F Hofmeister edition of Muellers `Etueden fuer Horn'  (double sharp)
+%   Baerenreiter edition of Schuberts `Auf dem Strom' (sharp, natural)
+%   F Hofmeister edition of Muellers `Etueden fuer Horn'  (double sharp, flat)
 %
 
 
@@ -19,7 +19,7 @@ fet_beginchar("Sharp" , "1", "sharp");
 	save interbeam, interstem, beamheight, beamwidth, 
 		stemwidth;
 
-	interbeam := 1.1 interline;
+	interbeam := 1.05 interline;
 	interstem := 7/16 ;
 	beamheight := 4 stafflinethickness;
 	beamwidth := w;
@@ -102,6 +102,7 @@ fet_beginchar( "Natural", "0", "natural")
 	labels(1,2,3,4);
 	fet_endchar;
 
+
 %
 % Dedicated to my mom.    (3/10/97)
 %
@@ -109,63 +110,100 @@ fet_beginchar( "Natural", "0", "natural")
 %    -- HW
 %
 
-%
-% FIXME more metaness
-% FIXME distribution of the crooks' thickness
-%
-% FIXME probably doesn't look quite right. 
-%
+% TODO: remove crook_fatness
+def draw_meta_flat(expr xcenter, w, crook_fatness) =
+	clearxy;
+	save crook_thinness;
+	save top_stem_thick, bottom_stem_thick, hair;
+	save center;
+	pair center;
+	center = (xcenter, 0);
 
-def flat_meta_symbol(expr w, d, h, 
-	 stemwidth, crook_fatness, crook_thinness,
-	bottom_stem_thick, top_stem_thick)=
+	crook_thinness = 1.25 stafflinethickness;
+	top_stem_thick = 2 stafflinethickness;
+	bottom_stem_thick = 1.2 stafflinethickness;
 
-	z1 = (0, h);
-	z2 = (0, -d);
-	brush(z1, top_stem_thick , z2, bottom_stem_thick);
+
+	z1 = (0, 2 interline) + center;
+	z2 = (0, - 1/2 interline)+  center;
+
+	penpos1(top_stem_thick, 0);
+	penpos2(bottom_stem_thick, 0); 
+
+	fill simple_serif(z1r, z1l, 30) -- z2l -- z2r -- cycle;
+
+
+	y3l = (interline - stafflinethickness)/2 + ypart center;
+	z3l = whatever [z2r,z1r];
+
+	z3r = .26 [z2r, z1r];
+
+
+	z4 = (3/8 interline, interline/2) + center;
+	penpos4(whatever, 53);
+	y4l - y4r = 2 crook_thinness ;
+%	y4l - y4r = 6/20[crook_thinness, crook_fatness] ;
+
+	y5r = 1/4 interline + ypart center;
+	x5l = w + xpart center;
+	penpos5(crook_fatness, -175);
+
+	z8 = (0, - interline/2 - stafflinethickness/2) + center;
+
+	z9 = (x5,0);
+
+	save ne_angle;
+	ne_angle = angle(z9 - z8);
+
+	z7 = 8/33 [z8,z9];
+	z6l = 18/33 [z8,z9] + .5 crook_thinness *dir(ne_angle -90);
+  
+	penpos7(crook_thinness, ne_angle + 90);
+
+	z6r = .3 (z9-z8) + z7r;
+
+%	penpos7(crook_thinness, angle(dir(z8-center) -180);
+
+	penpos8(whatever, ne_angle + 90);
+	x8r =  xpart center - bottom_stem_thick/2;
+	penlabels(range 0 thru 10);
+
+	z10 = (bottom_stem_thick/2, -1/5 interline) + center;
+
+	unfill z3r{up} .. z4r{right} .. tension .9 
+		.. z6r ---
+		z7r{left}
+		.. z10 {up} -- cycle;
+	fill z8r{down}
+		.. tension 0.8 ..z8l{(z9-z8)}
+		.. z7l
+		.. z6l
+		.. z5l{up}
+		.. z4l{left} .. z3l -- cycle;
+		
+	labels(10);
+enddef;
+
 	
-	z3 = (0, 7/16 interline);
-	z4 = z3 + whatever * (dir 30);
-	y4 = 1/2 interline ;
-	y5 = 4/16 interline;
-	x5 + crook_fatness/2 = w;
-	z6 = z2 + (0,-1) * (bottom_stem_thick - crook_thinness);
-
-	penpos3(crook_thinness, 90);
-	penpos4(crook_thinness, 90);
-	penpos5(crook_fatness, 0);
-	penpos6(crook_thinness, -90);
-	labels(1,2,3,4,5,6);
-	penstroke z3e{dir 32} .. z4e{dir 30} .. z5e{down} .. {dir 220}z6e;
-	enddef;
-	
-def flat_symbol (expr w, d, h)=
-	save stemwidth, bottom_stem_thick, top_stem_thick, 
-		crook_thinness, crook_fatness;
-	stemwidth = stafflinethickness;
-	crook_fatness = 1/4 interline;
-	crook_thinness =  stemwidth;
-	bottom_stem_thick =  5/4 stemwidth;
-	top_stem_thick = 2 stemwidth;
-	flat_meta_symbol(w,d,h, stemwidth, crook_fatness, crook_thinness, 
-		bottom_stem_thick, top_stem_thick);
-	enddef;
-
 %
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
 fet_beginchar("Flat", "-1", "flat")
-	set_char_box(0, 9/12 interline#, .5 interline#, 2 interline#);
-	flat_symbol (w, d, h);
+	set_char_box(1.2 stafflinethickness#, .8 interline#, .5 interline#, 2 interline#);
+	draw_meta_flat(0, w, 1/3 interline);
 	fet_endchar;
 
+
 fet_beginchar("Double flat", "-2", "flatflat")
-	set_char_box(0, 18/12 interline#, .5 interline#, 2 interline#);
-	flat_symbol(w/2, d, h);
-	addto currentpicture also currentpicture
-		shifted (w/2 - stafflinethickness/2,0);
+	save left_wid, overlap, right_wid;
+	left_wid = .7;
+	right_wid = .8;
+	overlap = .05;
+	set_char_box(1.2 stafflinethickness#, (left_wid + right_wid -overlap) *interline#, .5 interline#, 2 interline#);
+	draw_meta_flat(0, left_wid*  interline, 1/3 interline);
+	draw_meta_flat((left_wid - overlap) *interline,  
+		right_wid *interline, 1/3 interline);
 	fet_endchar;
-	
 
 fet_beginchar("Double sharp", "2", "sharpsharp")
 	set_char_box(0, interline#, .5 interline#, .5 interline#);
