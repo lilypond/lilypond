@@ -23,6 +23,7 @@
 
 Plet_spanner::Plet_spanner ()
 {
+  beam_l_ =0;
   bracket_visibility_b_ = true;
   num_visibility_b_ = true;
   
