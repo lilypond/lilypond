@@ -17,18 +17,18 @@ public:
   ~Interpretation_context_handle ();
   Interpretation_context_handle ();
   Interpretation_context_handle* clone () const;
-  void set_translator (Translator_group*);
+  void set_translator (Context *);
   bool try_music (Music *);
   void operator = (Interpretation_context_handle const&);
   Interpretation_context_handle (Interpretation_context_handle const&);
-  Translator_group * get_outlet () const;
+  Context * get_outlet () const;
 
   int get_count () const;
   void quit ();
 private:
-  Translator_group * outlet_;
+  Context * outlet_;
   void down ();
-  void up (Translator_group*);
+  void up (Context *);
 };
 
 #endif /* INTERPRETATION_CONTEXT_HANDLE_HH */

@@ -21,7 +21,7 @@ class Event_chord_iterator : public Simple_music_iterator
   /**
      Find a bottom notation context to deliver events to.
    */
-  virtual Translator_group* get_req_translator ();
+  virtual Context * get_req_translator ();
 
 
   /*

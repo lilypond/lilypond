@@ -53,9 +53,9 @@ Dots::print (SCM d)
 
 
 ADD_INTERFACE (Dots, "dots-interface",
-  "The dots to go with a notehead/rest.  A separate interface, since they "
-" are a party in collision resolution. "
-" #'direction is the Direction to handle staff-line collisions in.",
-  "direction dot-count");
+	       "The dots to go with a notehead or rest."
+	       "@code{direction} sets the preferred direction to move in case of staff "
+	       "line collisions.",
+	       "direction dot-count");
 
 

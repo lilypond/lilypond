@@ -51,7 +51,7 @@ Script_column::before_line_breaking (SCM smob)
     {
       Grob *sc = unsmob_grob (gh_car (s));
 
-      if (!sc->has_offset_callback_b (Side_position_interface::aligned_side_proc, X_AXIS))
+      if (!sc->has_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS))
 	staff_sided.push (sc);
     }
   

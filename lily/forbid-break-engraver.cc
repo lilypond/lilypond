@@ -38,7 +38,7 @@ Forbid_line_break_engraver::start_translation_timestep()
       Grob *g = unsmob_grob (gh_cdar (busy));
       if (Rhythmic_head::has_interface (g))
 	{
-	  top_engraver()->forbid_breaks();
+	  get_score_engraver()->forbid_breaks();
 	}
       busy = gh_cdr(busy);
     }

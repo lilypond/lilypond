@@ -9,7 +9,8 @@
 
 #include "engraver.hh"
 #include "grob.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 
 class Output_property_engraver : public Engraver
 {
@@ -59,17 +60,17 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	}
       else
 	{
-	  Translator_group * d =
-	    dynamic_cast<Translator_group*> (inf.origin_trans_);
+	  Context * d =
+	    dynamic_cast<Context *> (inf.origin_trans_);
 
 	  if (!d)
-	    d = dynamic_cast<Translator_group*> (inf.origin_trans_->daddy_trans_);
+	    d = dynamic_cast<Context *> (inf.origin_trans_->daddy_context_);
 	  
 	  SCM proc = o->get_mus_property ("procedure");
 	  scm_call_3 (proc,
 		      inf.grob_->self_scm(),
 		      d->self_scm(), 
-		      daddy_trans_->self_scm());
+		      daddy_context_->self_scm());
 	}
     }
 }

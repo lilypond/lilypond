@@ -58,9 +58,6 @@ public:
 };
 
 
-void apply_push_property (Translator_group*trans, SCM syms, SCM eprop, SCM val);
-void apply_pop_property (Translator_group*trans, SCM syms, SCM eprop);
-
 
 #endif // PROPERTY_HH
 #endif

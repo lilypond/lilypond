@@ -29,7 +29,7 @@ public:
 };
 
 void make_script_from_event (Grob *p,
-			     SCM * descr, Translator_group*tg,
+			     SCM * descr, Context *tg,
 			     SCM type, 
 			     int index);
 #endif /* Stem_SCRIPT_HH */

@@ -45,8 +45,8 @@ Span_arpeggio_engraver::Span_arpeggio_engraver ()
 void
 Span_arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
-    if (info.origin_transes (this).size ()
-        && Arpeggio::has_interface (info.grob_))
+  if (Arpeggio::has_interface (info.grob_)
+      && info.origin_contexts (this).size ()) // huh? what's this test for? 
     {
       arpeggios_.push (info.grob_);
     }

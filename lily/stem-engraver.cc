@@ -13,7 +13,8 @@
 #include "misc.hh"
 #include "stem-tremolo.hh"
 #include "item.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 #include "engraver.hh"
 
 
@@ -87,7 +88,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		else
 		  requested_type = 8; 
 	      else
-		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
+		daddy_context_->set_property ("tremoloFlags", gh_int2scm (requested_type));
 
 	      int tremolo_flags = intlog2 (requested_type) - 2
 		- (duration_log > 2 ? duration_log - 2 : 0);
@@ -147,13 +148,13 @@ Stem_engraver::stop_translation_timestep ()
       if (gh_number_p (prop))
 	{
 	  Stem::set_beaming (stem_,gh_scm2int (prop),LEFT);
-	  daddy_trans_->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
+	  daddy_context_->unset_property (ly_symbol2scm ("stemLeftBeamCount"));
 	}
       prop = get_property ("stemRightBeamCount");
       if (gh_number_p (prop))
 	{
 	  Stem::set_beaming (stem_,gh_scm2int (prop), RIGHT);
-	  daddy_trans_->unset_property (ly_symbol2scm ("stemRightBeamCount"));
+	  daddy_context_->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
 
       typeset_grob (stem_);

@@ -12,6 +12,7 @@
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
+#include "context.hh"
 
 /**
    Put stuff in a Spanner with an Axis_group_interface.
@@ -68,7 +69,7 @@ Axis_group_engraver::finalize ()
   if (!staffline_)
     return ;
   
-  String type = get_daddy_grav ()->context_name ();
+  String type = daddy_context_->context_name ();
   SCM dims = get_property ("verticalExtent");
   
   if (is_number_pair (dims))

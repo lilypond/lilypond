@@ -11,7 +11,7 @@
 #include "grace-iterator.hh"
 
 
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "warn.hh"
 
 void

@@ -7,7 +7,7 @@
   
  */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "audio-item.hh"
 #include "event.hh"
 #include "pqueue.hh"
@@ -64,7 +64,7 @@ void
 Tie_performer::process_music ()
 {
   if (event_)
-    daddy_trans_->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    daddy_context_->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 

@@ -33,8 +33,8 @@ Axis_group_interface::axis_b (Grob*me,Axis a)
 
     
    */
-  return me->has_extent_callback_b (group_extent_callback_proc, a) ||
- (me->has_extent_callback_b (Hara_kiri_group_spanner::y_extent_proc, a));
+  return me->has_extent_callback (group_extent_callback_proc, a) ||
+ (me->has_extent_callback (Hara_kiri_group_spanner::y_extent_proc, a));
 }
 
 Interval
@@ -93,9 +93,9 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
   /*
     why so convoluted ? (fixme/documentme?) 
    */
-  if (me->has_extent_callback_b (Grob::stencil_extent_proc, a1))
+  if (me->has_extent_callback (Grob::stencil_extent_proc, a1))
     me->set_extent (Axis_group_interface::group_extent_callback_proc,a1);
-  if (me->has_extent_callback_b (Grob::stencil_extent_proc, a2))
+  if (me->has_extent_callback (Grob::stencil_extent_proc, a2))
     me->set_extent (Axis_group_interface::group_extent_callback_proc,a2);
 }
 
@@ -121,5 +121,5 @@ Axis_group_interface::get_children (Grob*me)
 
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
-  "a group of coupled grobs",
+  "An object that groups other layout objects.",
   "axes");

@@ -13,6 +13,7 @@
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "item.hh"
+#include "context.hh"
 
 /**
   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
@@ -100,7 +101,7 @@ Metronome_mark_engraver::process_music ()
 
       SCM proc = get_property ("metronomeMarkFormatter");
       SCM result= scm_call_2 (proc, mark_ev_->self_scm (),
-			      daddy_trans_->self_scm()); 
+			      daddy_context_->self_scm()); 
       
       text_->set_grob_property ("text", result);
     }

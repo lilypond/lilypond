@@ -10,7 +10,7 @@
 #include "engraver.hh"
 #include "repeated-music.hh"
 #include "engraver-group-engraver.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "warn.hh"
 #include "misc.hh"
 #include "spanner.hh"
@@ -19,7 +19,8 @@
 #include "bar-line.hh"
 
 #include "score-engraver.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 
 /**
   This acknowledges repeated music with "percent" style.  It typesets
@@ -113,7 +114,7 @@ Percent_repeat_engraver::try_music (Music * m)
       repeat_ = rp;
 
       
-      Global_translator *global =top_engraver();
+      Global_context *global = get_global_context ();
       for (int i = 0; i < count; i++)  
 	global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
   
@@ -146,11 +147,11 @@ Percent_repeat_engraver::process_music ()
 	forbid breaks on a % line. Should forbid all breaks, really.
        */
 
-	    top_engraver()->forbid_breaks ();	// guh. Use properties!      
+	  get_score_engraver ()->forbid_breaks ();	// guh. Use properties!      
 	}
       next_moment_ = next_moment_ + body_length_;
 
-      top_engraver()->add_moment_to_process (next_moment_);
+      get_global_context ()->add_moment_to_process (next_moment_);
     }
 }
 

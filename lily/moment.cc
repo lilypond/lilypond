@@ -103,7 +103,7 @@ LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
 }
 
 LY_DEFINE (ly_moment_less_p,"ly:moment<?", 2,0,0, (SCM a, SCM b),
-	   "Comparation.")
+	   "Compare two moments.")
 {
   Moment * ma = unsmob_moment (a);
   Moment * mb = unsmob_moment (b);

@@ -1386,25 +1386,21 @@ command_element:
 	| BAR STRING  			{
 		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);
 
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-
-		$$ = csm;
+		Music *csm = context_spec_music (ly_symbol2scm ("Timing"), SCM_UNDEFINED,
+					t, SCM_EOL);
+		$$ = context_spec_music (ly_symbol2scm ("Score"), SCM_UNDEFINED, csm, SCM_EOL);
 		$$->set_spot (THIS->here_input ());
-
-		csm->set_mus_property ("context-type", ly_symbol2scm ("Timing"));
+		t->set_spot (THIS->here_input ());
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->get_length ();
 		Music * p = set_property_music (ly_symbol2scm ( "measurePosition"),m.smobbed_copy ());
-
-		Music * sp = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		sp->set_mus_property ("element", p->self_scm ());
-		scm_gc_unprotect_object (p->self_scm ());
-
-		$$ =sp ;
-		sp-> set_mus_property ("context-type", ly_symbol2scm ("Timing"));
+		p->set_spot (THIS->here_input ());
+		p = context_spec_music (ly_symbol2scm ("Timing"), SCM_UNDEFINED,
+					p, SCM_EOL);
+		p = context_spec_music (ly_symbol2scm ("Score"), SCM_UNDEFINED,
+					p, SCM_EOL);
+		$$ =p ;
 	}
 	| CLEF STRING  {
 		static SCM proc ;

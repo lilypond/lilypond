@@ -9,13 +9,12 @@
 #define SCORE_PERFORMER_HH
 
 #include "performer-group-performer.hh"
-#include "global-translator.hh"
+#include "score-translator.hh"
 
 /**
   Top level performer. Completely takes care of MIDI output
  */
-class Score_performer: 
-  public Performer_group_performer, public Global_translator 
+class Score_performer : public Score_translator, public virtual Performer_group_performer
 {
 public:
   TRANSLATOR_DECLARATIONS(Score_performer);
@@ -23,10 +22,8 @@ public:
   Performance *performance_;
 
 protected:
-  virtual void finish ();
   virtual void prepare (Moment mom);
   virtual void one_time_step ();
-  virtual void start ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
   virtual int get_tempo () const;

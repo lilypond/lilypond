@@ -8,7 +8,8 @@
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 #include "engraver.hh"
 #include "spanner.hh"
 
@@ -87,7 +88,7 @@ Slur_engraver::try_music (Music *ev)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  daddy_trans_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
+  daddy_context_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void

@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "warn.hh"
 #include "simultaneous-music-iterator.hh"
 #include "music-list.hh"
@@ -27,7 +27,7 @@ Simultaneous_music_iterator::derived_mark()const
 }
 
 void
-Simultaneous_music_iterator::derived_substitute(Translator_group*f,Translator_group*t)
+Simultaneous_music_iterator::derived_substitute(Context *f,Context *t)
 {
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     unsmob_iterator (gh_car (s))-> substitute_outlet (f,t);
@@ -53,8 +53,8 @@ Simultaneous_music_iterator::construct_children ()
 	 number number as name */
 
       SCM name = unsmob_context_def (get_outlet ()->definition_)->get_context_name ();
-      Translator_group * t = (j && separate_contexts_b_)
-	? get_outlet ()->find_create_translator (name, to_string (j), SCM_EOL)
+      Context * t = (j && separate_contexts_b_)
+	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
 	: get_outlet ();
 
       if (!t)

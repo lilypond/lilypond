@@ -10,7 +10,7 @@
 #include "event.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "warn.hh"
 
 class Beam_performer : public Performer {
@@ -49,7 +49,7 @@ Beam_performer::set_melisma (bool ml)
 {
   SCM b = get_property ("autoBeaming");
   if (!to_boolean (b))
-    daddy_trans_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+    daddy_context_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void

@@ -109,5 +109,5 @@ Custos::print (SCM smob)
 }
 
 ADD_INTERFACE (Custos, "custos-interface",
-  "Engrave custodes",
+  "A custos object.",
   "style adjust-if-on-staffline neutral-direction neutral-position");

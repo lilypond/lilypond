@@ -11,8 +11,11 @@
     \consists "Key_performer"
     \consists "Tempo_performer"
     \consists "Time_signature_performer"
-
 }
+\translator {
+    \name Global
+    \accepts Score
+    }
 \translator {
     \StaffContext
     \name DrumStaff

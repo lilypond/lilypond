@@ -721,6 +721,7 @@
 	(axes . (0))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(before-line-breaking-callback . ,Paper_column::before_line_breaking)
+	(breakable . #t)
 	;; debugging stuff: print column number.
 ;	(print-function . ,Paper_column::print) (font-name . "cmr8")	(Y-extent-callback . #f)
 

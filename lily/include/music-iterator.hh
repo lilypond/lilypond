@@ -74,18 +74,18 @@ public:
   /**
     The translation unit that we this iterator is reporting  to now.
    */
-  Translator_group* get_outlet () const;
+  Context * get_outlet () const;
 
-  void set_translator (Translator_group*);
+  void set_translator (Context *);
   
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit
    */
   static SCM get_static_get_iterator (Music * mus);
-  void init_translator (Music  *, Translator_group *); 
+  void init_translator (Music  *, Context *); 
   void quit ();
-  void substitute_outlet (Translator_group* from, Translator_group *to);
-  virtual void derived_substitute (Translator_group*, Translator_group*);
+  void substitute_outlet (Context * from, Context *to);
+  virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;
   virtual bool ok () const;
 

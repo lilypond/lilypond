@@ -14,12 +14,21 @@
 #include "warn.hh"
 #include "spanner.hh"
 #include "item.hh"
+#include "context.hh"
+#include "score-context.hh"
+
+Engraver_group_engraver*
+Engraver::get_daddy_engraver () const
+{
+  return dynamic_cast<Engraver_group_engraver*> (get_daddy_translator ());
+}
 
 void
 Engraver::announce_grob (Grob_info inf)
 {
-  get_daddy_grav ()->announce_grob (inf);
+  get_daddy_engraver ()->announce_grob (inf);
 }
+
 
 /*
   CAUSE is the object (typically a Music object)  that
@@ -40,9 +49,7 @@ Engraver::announce_grob (Grob* e, SCM cause)
   if (!i.origin_trans_)
     i.origin_trans_ = this;
 
-
-
-  get_daddy_grav ()->announce_grob (i);
+  get_daddy_engraver ()->announce_grob (i);
 }
 
 
@@ -50,17 +57,11 @@ Engraver::announce_grob (Grob* e, SCM cause)
 void
 Engraver::typeset_grob (Grob*p)
 {
-  get_daddy_grav ()->typeset_grob (p);
+  Engraver *dad = get_daddy_engraver ();
+  dad->typeset_grob (p);
 }
 
 
-Engraver_group_engraver*
-Engraver::get_daddy_grav () const
-{
-  return (daddy_trans_)
-       ? dynamic_cast<Engraver_group_engraver *> (daddy_trans_)
-       : 0;
-}
 
 void
 Engraver::process_music ()
@@ -73,9 +74,16 @@ Engraver::Engraver()
 
 
 Score_engraver* 
-Engraver::top_engraver () const
+Engraver::get_score_engraver () const
 {
-  return dynamic_cast<Score_engraver*> (top_translator());
+  SCM t = get_score_context ()->implementation_;
+  return dynamic_cast<Score_engraver*> (unsmob_translator (t));
+}
+
+
+void
+Engraver::do_announces ()
+{
 }
 
 ENTER_DESCRIPTION(Engraver,

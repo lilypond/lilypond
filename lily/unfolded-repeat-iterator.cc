@@ -10,7 +10,7 @@ source file of the GNU LilyPond music typesetter
 
 #include "music.hh"
 #include "sequential-iterator.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 class Unfolded_repeat_iterator : public Sequential_iterator
 {
@@ -107,7 +107,7 @@ Volta_repeat_iterator::add_repeat_command (SCM what)
   SCM reps = ly_symbol2scm ("repeatCommands");
   SCM current_reps = get_outlet ()->internal_get_property (reps);
 
-  Translator_group * where = get_outlet ()->where_defined (reps);
+  Context * where = get_outlet ()->where_defined (reps);
   if (where
       && current_reps == SCM_EOL || gh_pair_p (current_reps))
     {

@@ -6,10 +6,11 @@
   (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
-#include "score-engraver.hh"
 #include "spanner.hh"
 #include "warn.hh"
 #include "side-position-interface.hh"
+#include "global-context.hh"
+#include "engraver.hh"
 
 class Measure_grouping_engraver : public Engraver
 {
@@ -92,7 +93,7 @@ Measure_grouping_engraver::process_music ()
 
 
 	      stop_grouping_mom_ = now.main_part_ + Rational(grouplen - 1) * bl ;
-	      top_engraver ()->add_moment_to_process (Moment (stop_grouping_mom_));
+	      get_global_context ()->add_moment_to_process (Moment (stop_grouping_mom_));
 
 	      if (grouplen == 3)
 		grouping_->set_grob_property ("style", ly_symbol2scm ("triangle"));

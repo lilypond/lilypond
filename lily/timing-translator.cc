@@ -11,21 +11,14 @@
 #include "timing-translator.hh"
 
 #include "translator-group.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "multi-measure-rest.hh"
 
 
 void
 Timing_translator::stop_translation_timestep ()
 {
-  Translator *t = this;
-  Global_translator *global =0;
-  do
-    {
-      t = t->daddy_trans_ ;
-      global = dynamic_cast<Global_translator*> (t);
-    }
-  while (!global);
+  Global_context *global = get_global_context ();
 
   /* allbars == ! skipbars */
   SCM sb = get_property ("skipBars");
@@ -57,14 +50,14 @@ Timing_translator::initialize ()
     move this to engraver-init.ly? 
    */
  
-  daddy_trans_->set_property ("timing" , SCM_BOOL_T);  
-  daddy_trans_->set_property ("currentBarNumber" , gh_int2scm (1));
+  daddy_context_->set_property ("timing" , SCM_BOOL_T);  
+  daddy_context_->set_property ("currentBarNumber" , gh_int2scm (1));
 
-  daddy_trans_->set_property ("timeSignatureFraction",
+  daddy_context_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
-  daddy_trans_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
-  daddy_trans_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
-  daddy_trans_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
+  daddy_context_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
+  daddy_context_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
+  daddy_context_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
 }
 
 Rational
@@ -101,14 +94,7 @@ Timing_translator::measure_position () const
 void
 Timing_translator::start_translation_timestep ()
 {
-  Translator *t = this;
-  Global_translator *global =0;
-  do
-    {
-      t = t->daddy_trans_ ;
-      global = dynamic_cast<Global_translator*> (t);
-    }
-  while (!global);
+  Global_context *global =get_global_context ();
 
   Moment now = global->now_mom_;
   Moment dt = now  - global->prev_mom_;
@@ -136,7 +122,7 @@ Timing_translator::start_translation_timestep ()
   else
     {
       measposp = now;
-      daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
+      daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
     }
   
   measposp += dt;
@@ -158,8 +144,8 @@ Timing_translator::start_translation_timestep ()
       b ++;
     }
 
-  daddy_trans_->set_property ("currentBarNumber", gh_int2scm (b));
-  daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
+  daddy_context_->set_property ("currentBarNumber", gh_int2scm (b));
+  daddy_context_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
 ENTER_DESCRIPTION(Timing_translator,"","","","","","");

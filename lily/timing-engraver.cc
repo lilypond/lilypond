@@ -5,8 +5,7 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "translator-group.hh"
-
+#include "context.hh"
 #include "grob-info.hh"
 #include "multi-measure-rest.hh"
 #include "timing-translator.hh"
@@ -74,14 +73,14 @@ Timing_engraver::start_translation_timestep ()
 	}
     }
 
-  daddy_trans_->set_property ("whichBar", which);
+  daddy_context_->set_property ("whichBar", which);
 }
 
 void
 Timing_engraver::stop_translation_timestep ()
 {
   Timing_translator::stop_translation_timestep ();
-  daddy_trans_->set_property ("whichBar", SCM_EOL);
+  daddy_context_->set_property ("whichBar", SCM_EOL);
   last_moment_ = now_mom ();
 }
 

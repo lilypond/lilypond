@@ -10,7 +10,7 @@
 
 #include "warn.hh"
 #include "music-output-def.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "context-def.hh"
 #include "main.hh"
 #include "file-path.hh"
@@ -83,31 +83,13 @@ Music_output_def::assign_translator (SCM transdef)
   find the translator for NAME. NAME must be a symbol.
  */
 SCM
-Music_output_def::find_translator (SCM name) const
+Music_output_def::find_context_def (SCM name) const
 {  
   SCM val  =SCM_EOL;
   translator_tab_->try_retrieve (name, &val);
   return val;
 }
 
-
-Global_translator *
-Music_output_def::get_global_translator () 
-{
-  SCM key = ly_symbol2scm ("Score");
-  Context_def * t = unsmob_context_def (find_translator (key));
-
-  if (!t)
-    error (_f ("can't find `%s' context", "Score"));
-
-  Translator_group * tg = t->instantiate (SCM_EOL);
-  dynamic_cast<Global_translator*> (tg)->output_def_ = this;
-  
-
-  tg->initialize ();
-  
-  return dynamic_cast <Global_translator *> (tg);
-}
 
 int
 Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)

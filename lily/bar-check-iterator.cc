@@ -10,7 +10,7 @@
 
 #include "simple-music-iterator.hh"
 #include "event.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 /*
   Check bar checks. We do this outside the engravers so that you can
@@ -36,7 +36,7 @@ Bar_check_iterator::process (Moment m)
   Simple_music_iterator::process(m);
   if (!m.to_bool ())
     {
-      Translator_group *tr = get_outlet ();
+      Context *tr = get_outlet ();
 
       SCM mp = tr->get_property ("measurePosition");
       SCM sync= tr->get_property ("barCheckSynchronize");

@@ -29,20 +29,6 @@ LY_DEFINE (ly_get_grob_property,
 "Grob properties are stored as GUILE association lists, with symbols as\n"
 "keys. All lookup functions identify undefined properties with\n"
 "end-of-list (i.e. @code{'()} in Scheme or @code{SCM_EOL} in C)\n"
-"\n"
-"Properties are stored in two ways:\n"
-"@itemize @bullet\n"
-"@item mutable properties.\n"
-"Grob properties that change from object to object. The storage of\n"
-"these are private to a grob. For example pointers to other grobs are\n"
-"always stored in the mutable properties.\n"
-"\n"
-"@item immutable properties.\n"
-"Grob properties that are shared across different grobs of the same\n"
-"type. The storage is shared, and hence it is read-only. Typically, this\n"
-"is used to store function callbacks, and default settings. They are\n"
-"initially read from @file{scm/grob-description.scm}.\n"
-"@end itemize\n"
 "\n")
 {
   Grob * sc = unsmob_grob (grob);
@@ -135,7 +121,7 @@ LY_DEFINE (ly_get_system,
 LY_DEFINE (ly_get_original,
 	   "ly:get-original",
 	   1, 0, 0, (SCM grob),
-	   "Return the original Grob of @var{grob}")
+	   "Return the unbroken original Grob of @var{grob}.")
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");

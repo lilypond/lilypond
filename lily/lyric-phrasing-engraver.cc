@@ -8,7 +8,7 @@ source file of the GNU LilyPond music typesetter
  */
 
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "engraver.hh"
 #include "note-head.hh"
 #include "lyric-extender.hh"
@@ -50,7 +50,7 @@ private:
   void add_lyric_extender (Grob_info);
   void add_stanza_number (Grob_info);
   Phrasing_association *get_phrasing_assoc (String nm);
-  String get_voice_name_for_lyric (Translator_group*tr);
+  String get_voice_name_for_lyric (Context *tr);
   Link_array<Phrasing_association> assocs_;
 };
 
@@ -95,12 +95,12 @@ Lyric_phrasing_engraver::get_phrasing_assoc (String nm)
 
 
 String
-Lyric_phrasing_engraver::get_voice_name_for_lyric (Translator_group*tr)
+Lyric_phrasing_engraver::get_voice_name_for_lyric (Context *tr)
 {
   SCM voice_context = tr->get_property ("associatedVoiceContext");
   if (Translator *vc = unsmob_translator (voice_context))
     {
-      return dynamic_cast<Translator_group*> (vc)->id_string_;
+      return dynamic_cast<Context *> (vc)->id_string_;
     }
   
   SCM voice = tr->get_property ("associatedVoice");
@@ -121,9 +121,9 @@ Lyric_phrasing_engraver::get_voice_name_for_lyric (Translator_group*tr)
 void
 Lyric_phrasing_engraver::add_lyric_extender (Grob_info inf)
 {
-  Translator_group * tr = inf.origin_trans_->daddy_trans_;
+  Context * tr = inf.origin_trans_->daddy_context_;
   while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
-    tr = tr->daddy_trans_;
+    tr = tr->daddy_context_;
 
   if (!tr)
     return;
@@ -136,9 +136,9 @@ Lyric_phrasing_engraver::add_lyric_extender (Grob_info inf)
 void
 Lyric_phrasing_engraver::add_stanza_number  (Grob_info inf)
 {
-  Translator_group * tr = inf.origin_trans_->daddy_trans_;
+  Context * tr = inf.origin_trans_->daddy_context_;
   while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
-    tr = tr->daddy_trans_;
+    tr = tr->daddy_context_;
 
   if (!tr)
     return;
@@ -150,9 +150,9 @@ Lyric_phrasing_engraver::add_stanza_number  (Grob_info inf)
 void
 Lyric_phrasing_engraver::add_voice_phrasing (Grob_info inf)
 {
-  Translator_group * tr = inf.origin_trans_->daddy_trans_;
+  Context * tr = inf.origin_trans_->daddy_context_;
   while (tr && !tr->is_alias (ly_symbol2scm ("Voice")))
-    tr = tr->daddy_trans_;
+    tr = tr->daddy_context_;
 
   if (!tr)
     return;
@@ -165,9 +165,9 @@ Lyric_phrasing_engraver::add_voice_phrasing (Grob_info inf)
 void
 Lyric_phrasing_engraver::add_lyric_phrasing (Grob_info inf)
 {
-  Translator_group * tr = inf.origin_trans_->daddy_trans_;
+  Context * tr = inf.origin_trans_->daddy_context_;
   while (tr && !tr->is_alias (ly_symbol2scm ("Lyrics")))
-    tr = tr->daddy_trans_;
+    tr = tr->daddy_context_;
 
   if (!tr)
     return;

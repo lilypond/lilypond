@@ -10,7 +10,7 @@
 
 #include <ctype.h>
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "engraver.hh"
@@ -61,8 +61,8 @@ Clef_engraver::set_glyph ()
 
   SCM basic = ly_symbol2scm ("Clef");
   
-  execute_pushpop_property (daddy_trans_, basic, glyph_sym, SCM_UNDEFINED);
-  execute_pushpop_property (daddy_trans_, basic, glyph_sym, glyph);
+  execute_pushpop_property (daddy_context_, basic, glyph_sym, SCM_UNDEFINED);
+  execute_pushpop_property (daddy_context_, basic, glyph_sym, glyph);
 }
 
 /** 
@@ -149,7 +149,7 @@ Clef_engraver::inspect_clef_properties ()
 
   if (to_boolean (force_clef))
     {
-      Translator_group * w = daddy_trans_->where_defined (ly_symbol2scm ("forceClef"));
+      Context * w = daddy_context_->where_defined (ly_symbol2scm ("forceClef"));
       w->set_property ("forceClef", SCM_EOL);
     }
 }

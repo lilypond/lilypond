@@ -7,7 +7,7 @@ source file of the GNU LilyPond music typesetter
 
  */
 
-#include "translator-group.hh"
+#include "context.hh"
 #include "lyric-combine-music.hh"
 #include "event.hh"
 #include "grob.hh"
@@ -29,14 +29,14 @@ protected:
   virtual bool run_always ()const;
   virtual bool ok () const;
   virtual void derived_mark () const;
-  virtual void derived_substitute (Translator_group*,Translator_group*);
+  virtual void derived_substitute (Context *,Context *);
 private:
   bool start_new_syllable () ;
   void find_voice ();
 
   bool made_association_;
-  Translator_group * lyrics_context_;
-  Translator_group* music_context_;
+  Context * lyrics_context_;
+  Context * music_context_;
   Music_iterator * lyric_iter_;
 };
 
@@ -123,7 +123,7 @@ New_lyric_combine_music_iterator::derived_mark()const
 }
 
 void
-New_lyric_combine_music_iterator::derived_substitute (Translator_group*f, Translator_group*t)
+New_lyric_combine_music_iterator::derived_substitute (Context *f, Context *t)
 {
   if (lyric_iter_)
     lyric_iter_->substitute_outlet (f,t);
@@ -132,32 +132,6 @@ New_lyric_combine_music_iterator::derived_substitute (Translator_group*f, Transl
   if (music_context_ && music_context_ == f)
     music_context_ = t; 
 }
-
-/*
-  ID == "" means accept any ID.
- */
-Translator_group *
-find_context_below (Translator_group * where,
-		    String type, String id)
-{
-  if (where->is_alias (ly_symbol2scm (type.to_str0 ())))
-    {
-      if (id == "" || where->id_string_ == id)
-	return where;
-    }
-  
-  Translator_group * found = 0;
-  for (SCM s = where->trans_group_list_;
-       !found && gh_pair_p (s); s = gh_cdr (s))
-    {
-      Translator_group * tr = dynamic_cast<Translator_group*> (unsmob_translator (gh_car (s)));
-
-      found = find_context_below (tr, type, id);
-    }
-
-  return found; 
-}
-
 
 
 void
@@ -188,12 +162,12 @@ New_lyric_combine_music_iterator::find_voice ()
   
       if (gh_string_p (voice_name))
 	{
-	  Translator_group *t = get_outlet ();
-	  while (t && t->daddy_trans_)
-	    t = t->daddy_trans_;
+	  Context *t = get_outlet ();
+	  while (t && t->daddy_context_)
+	    t = t->daddy_context_;
 
 	  String name = ly_scm2string (voice_name);
-	  Translator_group *voice = find_context_below (t, "Voice", name);
+	  Context *voice = find_context_below (t, "Voice", name);
 	  if (!voice)
 	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s\n",
 						  name.to_str0 ())); 
@@ -221,7 +195,7 @@ New_lyric_combine_music_iterator::process (Moment )
   if (!music_context_)
     return ;
   
-  if (!music_context_->daddy_trans_)
+  if (!music_context_->daddy_context_)
     {
       /*
 	The melody has died.

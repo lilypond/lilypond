@@ -135,6 +135,6 @@ Hairpin::print (SCM smob)
 
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
-  "hairpin crescendo.",
+  "A hairpin (de)crescendo.",
   "grow-direction height if-text-padding");
 

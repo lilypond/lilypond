@@ -13,6 +13,7 @@
 #include "warn.hh"
 #include "music-output-def.hh"
 #include "ly-smobs.icc"
+#include "score-context.hh"
 
 int
 Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
@@ -163,7 +164,7 @@ Context_def::get_accepted (SCM user_mod) const
 
 	   
 Link_array<Context_def>
-Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef) const
+Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) const
 {
   assert (gh_symbol_p (type_sym));
   
@@ -172,7 +173,7 @@ Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef
   Link_array<Context_def> accepteds;
   for (SCM s = accepted; gh_pair_p (s); s = ly_cdr (s))
     {
-      Context_def *t = unsmob_context_def (odef->find_translator (ly_car (s)));
+      Context_def *t = unsmob_context_def (odef->find_context_def (ly_car (s)));
       if (!t)
 	continue;
       accepteds.push (t);
@@ -197,7 +198,7 @@ Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef
       Context_def * g = accepteds[i];
 
       Link_array<Context_def> result
-	= g->path_to_acceptable_translator (type_sym, odef);
+	= g->path_to_acceptable_context (type_sym, odef);
       if (result.size () && result.size () < best_depth)
 	{
 	  result.insert (g,0);
@@ -216,8 +217,6 @@ Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef
 
 IMPLEMENT_SMOBS (Context_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
-
-
 
 
 SCM
@@ -252,18 +251,32 @@ Context_def::get_translator_names (SCM user_mod) const
 }
 
 
-Translator_group *
+Context *
 Context_def::instantiate (SCM ops)
 {
-  Translator * g = get_translator (translator_group_type_);
-  g = g->clone (); 
+  Context * tg =  0;
 
-  Translator_group *tg = dynamic_cast<Translator_group*> (g);
+  if (context_name_ == ly_symbol2scm ("Score"))
+    tg = new Score_context ();
+  else
+    tg = new Context ();
+
+  
   tg->definition_ = self_scm ();
 
   SCM trans_names = get_translator_names (ops); 
-  tg->simple_trans_list_ = names_to_translators (trans_names, tg);
+
+  Translator * g = get_translator (translator_group_type_);
+  g = g->clone ();
+  
+  g->simple_trans_list_ = names_to_translators (trans_names, tg);
+  tg->implementation_ = g->self_scm ();
+  g->daddy_context_ = tg;
+  
+  scm_gc_unprotect_object (g->self_scm ());
+  
   tg->accepts_list_ = get_accepted  (ops);
+  
   return tg;
 }
 
@@ -285,7 +298,7 @@ Context_def::make_scm ()
 }
 
 void
-Context_def::apply_default_property_operations (Translator_group *tg)
+Context_def::apply_default_property_operations (Context *tg)
 {
   apply_property_operations (tg , property_ops_);
 }

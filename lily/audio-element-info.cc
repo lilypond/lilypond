@@ -8,6 +8,7 @@
 
 #include "audio-element-info.hh"
 #include "translator-group.hh"
+#include "context.hh"
 
 Audio_element_info::Audio_element_info (Audio_element*s, Music *r)
 {
@@ -25,15 +26,15 @@ Audio_element_info::Audio_element_info ()
 }
 
 
-Link_array<Translator>
-Audio_element_info::origin_transes (Translator* end) const
+Link_array<Context>
+Audio_element_info::origin_contexts (Translator* end) const
 {
-  Translator * t = origin_trans_;
-  Link_array<Translator> r;
+  Context * t = origin_trans_->daddy_context_;
+  Link_array<Context> r;
   do {
     r.push (t);
-    t = t->daddy_trans_;
-  } while (t && t != end->daddy_trans_);
+    t = t->daddy_context_;
+  } while (t && t != end->daddy_context_);
   
   return r;
 }

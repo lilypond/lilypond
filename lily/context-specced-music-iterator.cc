@@ -9,7 +9,7 @@
 */
 
 #include "music-wrapper-iterator.hh"
-#include "translator-group.hh"
+#include "context.hh"
 
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
@@ -29,8 +29,8 @@ Context_specced_music_iterator::construct_children ()
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_mus_property ("property-operations");
   
-  Translator_group* a
-    = get_outlet ()->find_create_translator (ct, c_id, ops);
+  Context * a
+    = get_outlet ()->find_create_context (ct, c_id, ops);
 
   if (a)
     set_translator (a);

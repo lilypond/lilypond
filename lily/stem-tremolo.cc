@@ -199,5 +199,5 @@ Stem_tremolo::set_stem (Grob*me,Grob *s)
 
 
 ADD_INTERFACE (Stem_tremolo,"stem-tremolo-interface",
-  "",
+  "A beam slashing a stem to indicate a tremolo.",
   "stem beam-width beam-thickness flag-count");

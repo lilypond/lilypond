@@ -9,7 +9,7 @@
 #include <ctype.h>
 
 #include "bar-line.hh"
-
+#include "context.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "item.hh"
@@ -127,12 +127,12 @@ Mark_engraver::process_music ()
 	    {
 	      int mark_count = gh_scm2int (m);
 	      mark_count ++;
-	      daddy_trans_->set_property ("rehearsalMark",
-					  gh_int2scm (mark_count));
+	      daddy_context_->set_property ("rehearsalMark",
+					    gh_int2scm (mark_count));
 	    }
 
 	  if (gh_number_p (m))
-	    m = scm_call_2 (proc, m, daddy_trans_->self_scm ());
+	    m = scm_call_2 (proc, m, daddy_context_->self_scm ());
 	  else
 	    warning ("rehearsalMark does not have integer value.");
 	}

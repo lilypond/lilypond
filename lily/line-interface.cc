@@ -98,10 +98,10 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
 ADD_INTERFACE(Line_interface, "line-interface",
 	      "Generic line objects. Any object using lines supports this.  Normally,"
-	      "you get a straight line. If dash-period is defined, a dashed line is "
-	      "produced; the length of the dashes is tuned with" 
+	      "you get a straight line. If @code{dash-period} is defined, a dashed line is "
+	      "produced; the length of the dashes is tuned with " 
 	      "@code{dash-fraction}. If the latter is set to 0, a dotted line is "
-	      "produced. If @code{dash-fraction} is negative, the line is set "
+	      "produced. If @code{dash-fraction} is negative, the line is made "
 	      "transparent.",
 	      
 	      "dash-period dash-fraction thickness style")

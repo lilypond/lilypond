@@ -12,25 +12,17 @@
 #include "warn.hh"
 #include "paper-score.hh"
 #include "grob.hh"
+#include "context.hh"
+
+
 
 void
 Engraver_group_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
-  Engraver::announce_grob (info);
+  get_daddy_engraver ()->announce_grob (info);
 }
 
-void
-Engraver_group_engraver::process_acknowledged_grobs_in_simple_children ()
-{
-  for (SCM p = get_simple_trans_list (); gh_pair_p (p); p = ly_cdr (p))
-    {
-      Translator * t = unsmob_translator (ly_car (p));
-      Engraver * eng = dynamic_cast<Engraver*> (t);
-      if (eng)
-	eng->process_acknowledged_grobs ();
-    }
-}
 
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
 SCM find_accept_engravers (SCM gravlist, SCM music_descr);
@@ -79,66 +71,37 @@ Engraver_group_engraver::acknowledge_grobs ()
 	{
 	  Translator * t = unsmob_translator (ly_car (p));
 	  Engraver * eng = dynamic_cast<Engraver*> (t);
-	  if (eng && eng!= info.origin_trans_)
+	  if (eng && eng != info.origin_trans_)
 	    eng->acknowledge_grob (info);
 	}
     }
 }
 
+
 void
 Engraver_group_engraver::do_announces ()
 {
-  for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
+  do
     {
-      Translator * t = unsmob_translator (ly_car (p));
-      dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
-    }
+      engraver_each (get_simple_trans_list (),
+		     &Engraver::process_acknowledged_grobs);
 
-   process_acknowledged_grobs_in_simple_children ();
-    
-   do
-    {
+      if (!announce_infos_.size())
+	break;
+
       acknowledge_grobs ();
       announce_infos_.clear ();
-      process_acknowledged_grobs_in_simple_children ();
     }
-   while (announce_infos_.size ());
+  while (1);
 }
 
 
-
-/*
-  order is : top to bottom (as opposed to do_announces)
- */
-void
-Engraver_group_engraver::process_music ()
-{
-   for (SCM p = get_simple_trans_list (); gh_pair_p (p); p =ly_cdr (p))
-    {
-      Translator * t = unsmob_translator (ly_car (p));
-      Engraver * eng = dynamic_cast<Engraver*> (t);
-
-      if (eng)
-	eng->process_music ();
-    }
-   for (SCM p = trans_group_list_; gh_pair_p (p); p =ly_cdr (p))
-    {
-      Translator * t = unsmob_translator (ly_car (p));
-      Engraver*eng = dynamic_cast<Engraver*> (t);
-      if (eng)
-	eng->process_music ();
-    }
-}
 
 void
 Engraver_group_engraver::initialize ()
 {
-  /*
-    docme: why bool_f.
-    
-   */
   SCM tab = scm_make_vector (gh_int2scm (61), SCM_BOOL_F);
-  set_property ("acknowledgeHashTable", tab);
+  daddy_context_->set_property ("acknowledgeHashTable", tab);
 
   Translator_group::initialize ();
 }
@@ -189,3 +152,44 @@ find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
 }
 
 
+/* c&p engraver-group.cc */
+void
+recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
+{
+  Engraver_group_engraver * tg
+    = dynamic_cast<Engraver_group_engraver*> (unsmob_translator (c->implementation_));
+
+
+  if (!context_first)
+    {
+      engraver_each (tg->get_simple_trans_list (),
+		     ptr);
+
+      (tg->*ptr) ();
+    }
+
+  for (SCM s = c->context_list_ ; gh_pair_p (s);
+       s =gh_cdr (s))
+    {
+      recurse_down_engravers (unsmob_context (gh_car (s)), ptr, context_first);
+    }
+
+  if (context_first)
+    {
+      engraver_each (tg->get_simple_trans_list (),
+		     ptr);
+      (tg->*ptr) ();
+    }
+}
+
+
+void
+engraver_each (SCM list, Engraver_method method)
+{
+  for (SCM p = list; gh_pair_p (p); p = ly_cdr (p))
+    {
+      Engraver * e = dynamic_cast<Engraver*>(unsmob_translator (ly_car (p)));
+      if (e)
+	(e->*method) ();
+    }
+}

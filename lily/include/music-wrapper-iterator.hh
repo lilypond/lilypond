@@ -24,7 +24,7 @@ public:
   DECLARE_SCHEME_CALLBACK(constructor, ());  
   Music_wrapper_iterator ();
 
-  virtual void derived_substitute (Translator_group*f, Translator_group*t) ;
+  virtual void derived_substitute (Context *f, Context *t) ;
 
   virtual void derived_mark () const;
   virtual void construct_children () ;

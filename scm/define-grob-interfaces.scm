@@ -66,7 +66,7 @@ extents of a cluster spanner at this X position.
 
 (ly:add-interface
  'multi-measure-interface
- "Multi measure rest, and friends (mmrest number, mmrest text)."
+ "Multi measure rest, and the text or number that is printed over it."
  '())
 
 

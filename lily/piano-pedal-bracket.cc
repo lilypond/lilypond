@@ -87,5 +87,6 @@ Piano_pedal_bracket::print (SCM smob)
 
 
 ADD_INTERFACE (Piano_pedal_bracket,"piano-pedal-bracket-interface",
-	       "The bracket of the piano pedal.  It can be tuned through the regular bracket properties (bracket-flare, edge-height, shorten-pair).",
+	       "The bracket of the piano pedal.  It can be tuned through the regular "
+	       "bracket properties.",
 	       "edge-height shorten-pair bracket-flare pedal-text");

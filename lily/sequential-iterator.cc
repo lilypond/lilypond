@@ -7,7 +7,7 @@
 */
 
 #include "translator-group.hh"
-
+#include "context.hh"
 #include "sequential-iterator.hh"
 #include "music-list.hh"
 
@@ -72,7 +72,7 @@ Sequential_iterator::derived_mark ()const
 
 
 void
-Sequential_iterator::derived_substitute (Translator_group*f,Translator_group*t)
+Sequential_iterator::derived_substitute (Context *f,Context *t)
 {
   if (iter_)
     iter_->substitute_outlet (f,t);
@@ -215,13 +215,13 @@ Sequential_iterator::next_element (bool)
 void
 Sequential_iterator::descend_to_child ()
 {
-  Translator_group  * child_report = child_report = iter_->get_outlet ();
-  Translator_group * me_report = get_outlet ();
+  Context * child_report = child_report = iter_->get_outlet ();
+  Context * me_report = get_outlet ();
 
-  Translator_group * c = child_report;
+  Context * c = child_report;
   while (c && c != me_report)
     {
-      c= c->daddy_trans_;
+      c= c->daddy_context_;
     }
   
   if (c == me_report)

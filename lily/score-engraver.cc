@@ -15,13 +15,16 @@
 #include "score-engraver.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
-
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
 #include "context-def.hh"
-
 #include "staff-spacing.hh"
 #include "note-spacing.hh"
+#include "context.hh"
+#include "global-context.hh"
+
+
+
 
 /*
   TODO: the column creation logic is rather hairy. Revise it.
@@ -44,15 +47,12 @@ Score_engraver::make_columns ()
   if (!command_column_)
     {
       SCM nmp
-	= updated_grob_properties (this,
+	= updated_grob_properties (daddy_context_,
 				   ly_symbol2scm ("NonMusicalPaperColumn"));
-      SCM pc = updated_grob_properties (this,
+      SCM pc = updated_grob_properties (daddy_context_,
 					ly_symbol2scm ("PaperColumn"));
       
       set_columns (new Paper_column (nmp), new Paper_column (pc));
-  
-      command_column_->set_grob_property ("breakable", SCM_BOOL_T);
-
 
       Grob_info i1;
       i1.grob_ = command_column_;
@@ -69,20 +69,18 @@ Score_engraver::make_columns ()
 }
 
 void
-Score_engraver::prepare (Moment w)
+Score_engraver::prepare (Moment m)
 {
-  Global_translator::prepare (w);
-
   /*
     TODO: don't make columns when skipTypesetting is true.
    */
   make_columns ();
-  
-  command_column_->set_grob_property ("when", now_mom_.smobbed_copy ());
-  musical_column_->set_grob_property ("when", now_mom_.smobbed_copy ());
 
+  SCM w = m.smobbed_copy ();
+  command_column_->set_grob_property ("when", w);
+  musical_column_->set_grob_property ("when", w);
   
-  Translator_group::start_translation_timestep();
+  recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, false);
 }
 
 void
@@ -90,9 +88,8 @@ Score_engraver::finish ()
 {
   if ((breaks_%8))
     progress_indication ("[" + to_string (breaks_) + "]");
-   
-  check_removal ();
-  finalize ();
+
+  recurse_down_translators (daddy_context_, &Translator::finalize, true);
 }
 
 /*
@@ -106,13 +103,11 @@ Score_engraver::initialize ()
     error (_f ("can't find `%s'", "feta20.afm")
 	   + "\n" +_ ("Fonts have not been installed properly.  Aborting"));
    
-  unsmob_context_def (definition_)->apply_default_property_operations (this);
 
-  assert (!daddy_trans_);
   pscore_ = new Paper_score;
   pscore_->paper_ = dynamic_cast<Paper_def*> (get_output_def ());
 
-  SCM props = updated_grob_properties (this, ly_symbol2scm ("System"));
+  SCM props = updated_grob_properties (daddy_context_, ly_symbol2scm ("System"));
 
   pscore_->typeset_line (new System (props));
   
@@ -128,7 +123,7 @@ Score_engraver::initialize ()
 void
 Score_engraver::finalize ()
 {
-  Engraver_group_engraver::finalize ();
+  Score_translator::finalize ();
 
   Grob * cc
     = unsmob_grob (get_property ("currentCommandColumn"));
@@ -138,33 +133,17 @@ Score_engraver::finalize ()
   typeset_all ();
 }
 
+
 void
 Score_engraver::one_time_step ()
 {
   if (!to_boolean (get_property ("skipTypesetting")))
     {
-      process_music ();
-      do_announces ();
+      recurse_down_engravers (daddy_context_, &Engraver::process_music, false);
+      recurse_down_engravers (daddy_context_, &Engraver::do_announces, true);
     }
   
-  stop_translation_timestep ();
-  
-  apply_finalizations ();
-  check_removal ();
-
-
-  for (int i = announce_infos_.size(); i--;)
-    {
-      Grob *g = announce_infos_[i].grob_;
-      if (!dynamic_cast<Paper_column*> (g)) // ugh.
-	{
-	  String msg= "Grob "
-	    + g->name()
-	    + " was created too late!";
-	  g->programming_error (msg);
-	}
-    }
-  announce_infos_.clear ();
+  recurse_down_translators (daddy_context_, &Translator::stop_translation_timestep, true);
 }
 
 void
@@ -262,12 +241,12 @@ Score_engraver::set_columns (Paper_column *new_command,
   musical_column_ = new_musical;
   if (new_command)
     {
-      set_property ("currentCommandColumn", new_command->self_scm ());  
+      daddy_context_->set_property ("currentCommandColumn", new_command->self_scm ());  
     }
   
   if (new_musical)
     {
-      set_property ("currentMusicalColumn", new_musical->self_scm ());
+      daddy_context_->set_property ("currentMusicalColumn", new_musical->self_scm ());
     }
 }
 
@@ -307,15 +286,9 @@ Score_engraver::try_music (Music*r)
   return gotcha;
 }
 
-/*
-  TODO:  use property Score.breakForbidden = #t
- */
 void
 Score_engraver::forbid_breaks ()
 {
-  /*
-    result is junked.
-   */
   if (command_column_)
     command_column_->set_grob_property ("breakable", SCM_EOL);
 }

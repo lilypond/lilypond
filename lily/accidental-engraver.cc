@@ -7,6 +7,7 @@
 
 #include "event.hh"
 
+
 #include "item.hh"
 #include "tie.hh"
 #include "rhythmic-head.hh"
@@ -16,7 +17,7 @@
 #include "engraver.hh"
 #include "arpeggio.hh"
 #include "warn.hh"
-#include "translator-group.hh"
+#include "context.hh"
 #include "protected-scm.hh"
 
 /**
@@ -30,7 +31,7 @@ struct Accidental_entry {
   bool done_;
   Music * melodic_;
   Grob * accidental_;
-  Translator_group *origin_;
+  Context *origin_;
   Grob*  head_;
   Accidental_entry();
 };
@@ -75,13 +76,14 @@ public:
 
 
 static void
-set_property_on_children (Translator_group * trans, const char * sym, SCM val)
+set_property_on_children (Context * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
-  for (SCM p = trans->trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {
-    Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
-    set_property_on_children(trg,sym,ly_deep_copy(val));
-  }
+  for (SCM p = trans->context_list_; gh_pair_p (p); p = ly_cdr(p))
+    {
+      Context *trg =  unsmob_context (ly_car (p));
+      set_property_on_children(trg, sym, ly_deep_copy(val));
+    }
 }
 
 Accidental_engraver::Accidental_engraver ()
@@ -95,13 +97,14 @@ Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
 
-  Translator_group * trans_ = daddy_trans_;
+  Context * trans_ = daddy_context_;
   while (trans_)
     {
-      trans_ -> set_property ("localKeySignature",  ly_deep_copy (last_keysig_));
-      trans_ = trans_->daddy_trans_;
+      trans_ -> set_property ("localKeySignature",
+			      ly_deep_copy (last_keysig_));
+      trans_ = trans_->daddy_context_;
     }
-  set_property_on_children (daddy_trans_,"localKeySignature", last_keysig_);
+  set_property_on_children (daddy_context_,"localKeySignature", last_keysig_);
 }
 
 /*
@@ -157,7 +160,7 @@ number_accidentals_from_sig (SCM sig, Music *, Pitch *pitch, SCM curbarnum, SCM 
 }
 
 static int
-number_accidentals (Music * note, Pitch *pitch, Translator_group * origin, 
+number_accidentals (Music * note, Pitch *pitch, Context * origin, 
 		    SCM accidentals, SCM curbarnum)
 {
   int number = 0;
@@ -200,9 +203,9 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
       */
       else if (gh_symbol_p (rule))
 	{
-	  Translator_group * dad = origin;
+	  Context * dad = origin;
 	  while (dad && !dad->is_alias (rule))
-	    dad = dad->daddy_trans_;
+	    dad = dad->daddy_context_;
       
 	  if (dad)
 	    origin = dad;
@@ -234,7 +237,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  accidentals_[i].done_  = true;
 	  Grob * support = accidentals_[i].head_;
 	  Music * note = accidentals_[i].melodic_;
-	  Translator_group * origin = accidentals_[i].origin_;
+	  Context * origin = accidentals_[i].origin_;
 
 	  Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
 	  if (!pitch)
@@ -384,7 +387,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 		    (localsig, on_s, gh_cons (scm_int2num (a), barnum)); 
 		}
 	      origin->set_property ("localKeySignature",  localsig);
-	      origin = origin->daddy_trans_;
+	      origin = origin->daddy_context_;
 	    }
 	}
     }
@@ -434,7 +437,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
     {
       Accidental_entry entry ;
       entry.head_ = info.grob_;
-      entry.origin_ = info.origin_trans_->daddy_trans_;
+      entry.origin_ = info.origin_trans_->daddy_context_;
       entry.melodic_ = note;
 
       accidentals_.push (entry);
@@ -463,13 +466,13 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Translator_group * trans_ = daddy_trans_;
+      Context * trans_ = daddy_context_;
       while (trans_)
 	{
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
-	  trans_ = trans_->daddy_trans_;
+	  trans_ = trans_->daddy_context_;
 	}
-      set_property_on_children(daddy_trans_,"localKeySignature", sig);
+      set_property_on_children(daddy_context_,"localKeySignature", sig);
 
       last_keysig_ = sig;
     }

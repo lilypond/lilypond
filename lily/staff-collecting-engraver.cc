@@ -9,7 +9,8 @@ source file of the GNU LilyPond music typesetter
 #include "staff-symbol.hh"
 #include "engraver.hh"
 #include "grob.hh"
-#include "translator-group.hh"
+#include "context.hh"
+
 
 class Staff_collecting_engraver : public Engraver
 {
@@ -31,7 +32,7 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
       SCM staffs = get_property ("stavesFound");
       staffs = gh_cons (gi.grob_->self_scm (), staffs);
 
-      daddy_trans_->set_property ("stavesFound", staffs);
+      daddy_context_->set_property ("stavesFound", staffs);
     }
 }
 

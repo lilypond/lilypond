@@ -728,7 +728,10 @@ LY_DEFINE(ly_bracket ,"ly:bracket",
 LY_DEFINE(ly_filled_box ,"ly:round-filled-box",
 	  3, 0, 0,
 	  (SCM xext, SCM yext, SCM blot),
-	  "Make a filled-box of dimensions @var{xext}, @var{yext} and roundness @var{blot}.")
+	  "Make a @code{Stencil} "
+	  " that prints a filled-box of dimensions @var{xext}, "
+	  "@var{yext} and roundness @var{blot}."
+	  )
 {
   SCM_ASSERT_TYPE(is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
   SCM_ASSERT_TYPE(is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;

@@ -444,5 +444,5 @@ Accidental_placement::position_accidentals (Grob * me)
 
 ADD_INTERFACE(Accidental_placement,
 	      "accidental-placement-interface",
-	      "Take care of complex accidental collisions.",
+	      "Resolve accidental collisions.",
 	      "left-padding padding right-padding accidental-grobs positioning-done")

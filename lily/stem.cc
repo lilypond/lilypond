@@ -851,6 +851,13 @@ void
 Stem::calc_stem_info (Grob *me)
 {
   Direction my_dir = get_grob_direction (me);
+
+  if (!my_dir)
+    {
+      programming_error ("No stem dir set?");
+      my_dir  = UP;
+    }
+  
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
   Real beam_translation = Beam::get_beam_translation (beam);

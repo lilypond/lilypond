@@ -52,12 +52,14 @@
 	}
     >>
 
-    \paper { linewidth = -1.0
+    \paper {
+	raggedright = ##t 
 
-	     \translator {
-		 \StaffContext
-		 \consists Horizontal_bracket_engraver }
-
-	 }
+	\translator {
+	    \StaffContext
+	    \consists Horizontal_bracket_engraver
+	}
+	
+    }
     \midi { \tempo 8 = 60 }
 }

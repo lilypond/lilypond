@@ -29,7 +29,7 @@ Music_wrapper_iterator::derived_mark () const
 }
 
 void
-Music_wrapper_iterator::derived_substitute (Translator_group*f,Translator_group*t) 
+Music_wrapper_iterator::derived_substitute (Context *f,Context *t) 
 {
   
   if (child_iter_)

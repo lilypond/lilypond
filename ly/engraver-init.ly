@@ -1,5 +1,11 @@
 \version "2.1.23"
 
+\translator {
+    \name Global
+
+    % nothing else needed -- tweaks are ignored anyway.
+    \accepts Score
+    }
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -210,9 +216,7 @@
     \name DrumVoice
     \alias Voice
 
-    \description " A voice on a percussion staff."
-    
-    
+    \description "A voice on a percussion staff."
     \remove "Arpeggio_engraver"
     \consists "Multi_measure_rest_engraver"
     \consists "Text_spanner_engraver"

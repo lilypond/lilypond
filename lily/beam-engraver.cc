@@ -6,7 +6,7 @@
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include "engraver-group-engraver.hh"
+
 #include "engraver.hh"
 #include "event.hh"
 #include "beam.hh"
@@ -18,6 +18,7 @@
 #include "drul-array.hh"
 #include "item.hh"
 #include "spanner.hh"
+#include "context.hh"
 
 class Beam_engraver : public Engraver
 {
@@ -46,7 +47,7 @@ protected:
   void set_melisma (bool);
 
   Moment last_stem_added_at_;
-    virtual void stop_translation_timestep ();
+  virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void finalize ();
 
@@ -58,7 +59,7 @@ protected:
   virtual bool valid_end_point ();
   
 public:
-  TRANSLATOR_DECLARATIONS(  Beam_engraver );
+  TRANSLATOR_DECLARATIONS(Beam_engraver);
 };
 
 
@@ -120,7 +121,7 @@ Beam_engraver::set_melisma (bool ml)
 {
   SCM b = get_property ("autoBeaming");
   if (!to_boolean (b))
-    daddy_trans_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+    daddy_context_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
@@ -128,7 +129,7 @@ Beam_engraver::process_music ()
 {
   if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
     {
-      top_engraver ()->forbid_breaks ();
+      get_score_engraver ()->forbid_breaks ();
     }
 
   if (start_ev_)

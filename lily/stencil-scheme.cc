@@ -12,11 +12,8 @@
 LY_DEFINE(ly_stencil_set_extent_x,"ly:stencil-set-extent!", 3 , 0, 0, 
 	  (SCM mol, SCM axis, SCM np),
 	  "Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in \n"
-"@var{axis} direction (0 or 1 for x- and y-axis respectively).\n"
-"\n"
-"Note that an extent @code{(A . B)} is an interval and hence @code{A} is\n"
-"smaller than @code{B}, and is often negative.\n"
-)
+	  "@var{axis} direction (0 or 1 for x- and y-axis respectively).\n"
+	  )
 {
   Stencil* m = unsmob_stencil (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "stencil");
@@ -151,37 +148,14 @@ LY_DEFINE(ly_stencil_add ,
 LY_DEFINE(ly_make_stencil,
 	  "ly:make-stencil", 3, 0, 0,  (SCM expr, SCM xext, SCM yext),
 	  " \n"
-"The objective of any typesetting system is to put ink on paper in the \n"
-"right places. For LilyPond, this final stage is left to the @TeX{} and \n"
-"the printer subsystem. For lily, the last stage in processing a score is \n"
-"outputting a description of what to put where.  This description roughly \n"
-"looks like \n"
-"@example \n"
-"        PUT glyph AT (x,y) \n"
-"        PUT glyph AT (x,y) \n"
-"        PUT glyph AT (x,y)  \n"
-"@end example \n"
-"you merely have to look at the tex output of lily to see this. \n"
-"Internally these instructions are encoded in Stencils.@footnote{At some \n"
-"point LilyPond also contained Atom-objects, but they have been replaced \n"
-"by Scheme expressions, making the name outdated.}  A stencil is \n"
-"what-to-print-where information that also contains dimension information \n"
-"(how large is this glyph?). \n"
-" \n"
-"Conceptually, Stencils can be constructed from Scheme code, by \n"
-"translating a Stencil and by combining two stencils. In BNF \n"
-"notation: \n"
-" \n"
-"@example \n"
-"Stencil  :: COMBINE Stencil Stencil \n"
-"           | TRANSLATE Offset Stencil \n"
-"           | GLYPH-DESCRIPTION \n"
-"           ; \n"
-"@end example \n"
-" \n"
-"If you are interested in seeing how this information is stored, you \n"
-"can run with the @code{-f scm} option. The scheme expressions are then \n"
-"dumped in the output file.")
+	  "Stencils are a device independent output expressions."
+	  "They carry two pieces of information: \n\n"
+	  "1: a specification of how to print this object. "
+	  "This specification is processed by the output backends, for example "
+	  "@file{scm/output-tex.scm}.\n\n"
+	  "2: the vertical and horizontal extents of the object.\n\n"
+	  
+	  )
 {
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  

@@ -10,7 +10,7 @@
 #include "event.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
-#include "global-translator.hh"
+#include "global-context.hh"
 #include "warn.hh"
 
 /**
@@ -25,8 +25,7 @@ protected:
 
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
-  Global_translator* get_global_translator ();
-
+ 
 private:
   Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;
@@ -61,29 +60,13 @@ Note_performer::create_audio_elements ()
     }
 }
 
-Global_translator*
-Note_performer::get_global_translator ()
-{
-  Translator *t = this;
-  Global_translator *global =0;
-  do
-    {
-      t = t->daddy_trans_ ;
-      global = dynamic_cast<Global_translator*> (t);
-    }
-  while (!global);
-
-  return global;
-}
-
 
 void
 Note_performer::stop_translation_timestep ()
 {
-
   // why don't grace notes show up here?
   // --> grace notes effectively do not get delayed
-  Global_translator* global = get_global_translator ();
+  Global_context * global = get_global_context ();
   for (int i=0; i < notes_.size (); i++)
     {
       Audio_note* n = notes_[i];
