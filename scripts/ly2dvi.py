@@ -127,7 +127,7 @@ copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
 option_definitions = [
 	('', 'd', 'dependencies',
 	 _ ("write Makefile dependencies for every input file")),
-	('', 'h', 'help', _ ("this help")),
+	('', 'h', 'help', _ ("print this help")),
 	('', '', 'debug', _ ("print even more output")),
 	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
 	('', 'k', 'keep',
@@ -147,7 +147,7 @@ option_definitions = [
 	('', '', 'preview', _ ("make a picture of the first system")),
 	('','', 'html', _("make HTML file with links to all output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
-	('', 'V', 'verbose', _ ("verbose")),
+	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]

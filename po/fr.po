@@ -41,7 +41,7 @@ msgstr "module lilylib"
 
 #: lilylib.py:63 lilypond-book.py:131 ly2dvi.py:128 midi2ly.py:100
 #: mup2ly.py:75 main.cc:111
-msgid "this help"
+msgid "print this help"
 msgstr "cette aide"
 
 #. ###############################################################
@@ -518,7 +518,7 @@ msgid "set the resolution of the preview to RES"
 msgstr "utiliser la RÉSOLUTION pour la prévisualitation"
 
 #: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
-msgid "verbose"
+msgid "be verbose"
 msgstr "mode explicatif"
 
 #: lilypond-book.py:143

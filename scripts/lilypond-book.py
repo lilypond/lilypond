@@ -127,7 +127,7 @@ option_definitions = [
 	(_ ("OPT"), '', 'extra-options', _ ("pass OPT quoted to the lilypond command line")),
 	(_ ("DIM"), '', 'force-music-fontsize', _ ("force fontsize for all inline lilypond. DIM is assumed to be in points")),
 	(_ ("DIM"), '', 'force-lilypond-fontsize', _ ("deprecated, use --force-music-fontsize")),
-	('', 'h', 'help', _ ("this help")),
+	('', 'h', 'help', _ ("print this help")),
 	(_ ("DIR"), 'I', 'include', _ ("include path")),
 	('', 'M', 'dependencies', _ ("write dependencies")),
 	(_ ("PREF"), '',  'dep-prefix', _ ("prepend PREF before each -M dependency")),
@@ -138,7 +138,7 @@ option_definitions = [
 	(_ ("FILE"), '', 'outdir', _ ("where to place generated files")),
 	(_ ('RES'), '', 'preview-resolution',
 	 _ ("set the resolution of the preview to RES")),
-	('', 'V', 'verbose', _ ("verbose")),
+	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version information")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
