@@ -11,8 +11,13 @@ Override with @code{noStemExtend}.
 
 \score { 
   \context Voice \notes\relative c {
-    [f8 f]  [f64 f] \grace { [f8 e8] }
-	\property Grace.Stem \override #'no-stem-extend = ##t
+    [f8 f]  [f64 f] 
+    \grace { 
+      [f8 e8] 
+      \property Voice.Stem \override #'no-stem-extend = ##f
+      [f8 e8] 
+      \property Voice.Stem \revert #'no-stem-extend
+    }
 	[f8 f]
 	
   }

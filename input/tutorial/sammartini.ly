@@ -21,7 +21,7 @@ oboes = \notes \relative c'' \context Voice = oboe {
         \context Voice = oboeTwo {
             \stemDown
             \grace {
-                \property Grace.Stem \override #'direction = #-1
+                \stemDown
                 [f,16 g] }
                 f8 e e2
             }
