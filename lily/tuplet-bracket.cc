@@ -173,7 +173,7 @@ Tuplet_bracket::print (SCM smob)
  if (scm_is_string (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
-      SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
+      SCM snum = Text_interface::interpret_markup (pap->self_scm (), properties, number);
       num = *unsmob_stencil (snum);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);

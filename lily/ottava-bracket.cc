@@ -72,8 +72,8 @@ Ottava_bracket::print (SCM smob)
   SCM properties = Font_interface::text_font_alist_chain (me);
   SCM markup = me->get_property ("text");
   Stencil text;
-  if (Text_item::markup_p (markup)) 
-    text = *unsmob_stencil (Text_item::interpret_markup (paper->self_scm (), properties, markup));
+  if (Text_interface::markup_p (markup)) 
+    text = *unsmob_stencil (Text_interface::interpret_markup (paper->self_scm (), properties, markup));
 
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),

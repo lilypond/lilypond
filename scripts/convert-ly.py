@@ -2212,7 +2212,8 @@ def conv (str):
 	str = re.sub (r'Text_item', 'Text_interface', str)
 	return str
 
-conversions.append (((2, 3, 18), conv,
+conversions.append (((2, 3, 18),
+		     conv,
 		     '''Text_item -> Text_interface''' )
 
 ################################

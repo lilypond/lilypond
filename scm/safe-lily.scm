@@ -275,7 +275,7 @@
      Sustain_pedal::print
      System_start_delimiter::after_line_breaking
      System_start_delimiter::print
-     Text_item::print
+     Text_interface::print
      Text_spanner::print
      Tie::print
      Tie_column::after_line_breaking

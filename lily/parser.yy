@@ -2563,7 +2563,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 
 		*destination = p->self_scm ();
 		return OUTPUT_DEF_IDENTIFIER;
-	} else if (Text_item::markup_p (sid)) {
+	} else if (Text_interface::markup_p (sid)) {
 		*destination = sid;
 		return MARKUP_IDENTIFIER;
 	}

@@ -87,7 +87,7 @@ Slur::print (SCM smob)
       String str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
-      Stencil tm = *unsmob_stencil (Text_item::interpret_markup
+      Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->get_paper ()->self_scm (), properties,
 				     quant_score));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0, 0);

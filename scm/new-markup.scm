@@ -406,8 +406,8 @@ Also set markup-signature and markup-keyword object properties."
       (make-line-markup (list-insert-separator markups sep))
       empty-markup))
 
-(define-public brew-new-markup-stencil Text_item::print)
-(define-public interpret-markup Text_item::interpret_markup)
+(define-public brew-new-markup-stencil Text_interface::print)
+(define-public interpret-markup Text_interface::interpret_markup)
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
 

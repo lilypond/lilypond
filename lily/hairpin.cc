@@ -17,6 +17,7 @@
 #include "warn.hh"
 #include "paper-column.hh"
 #include "lookup.hh"
+#include "text-item.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 
@@ -61,16 +62,22 @@ Hairpin::print (SCM smob)
 	}
       else
 	{
-	  if (dynamic_cast<Paper_column*> (b))
+	  if (Text_interface::has_interface (b))
+	    {
+	      Interval e = b->extent (common, X_AXIS);
+	      if (!e.is_empty ())
+		x_points[d] = e[-d] - d*padding;
+	    }
+	  else
 	    {
 	      bool neighbor_found = false;
 	      for (SCM  adj = me->get_property ("adjacent-hairpins");
 		   ly_c_pair_p (adj); adj = ly_cdr (adj))
 		{
 		  /*
-		   FIXME: this will fuck up in case of polyphonic
-		   notes in other voices. Need to look at note-columns
-		   in the current staff/voice.
+		    FIXME: this will fuck up in case of polyphonic
+		    notes in other voices. Need to look at note-columns
+		    in the current staff/voice.
 		  */
 		  
 		  Spanner *pin = unsmob_spanner (ly_car (adj));
@@ -89,12 +96,7 @@ Hairpin::print (SCM smob)
 	      x_points[d] =
 		neighbor_found ? e.center() - d * padding / 3 : e[d];
 	    }
-	  else
-	    {
-	      Interval e = b->extent (common, X_AXIS);
-	      if (!e.is_empty ())
-		x_points[d] = e[-d] - d*padding;
-	    }
+	  
 	}
     }
   while (flip (&d) != LEFT);

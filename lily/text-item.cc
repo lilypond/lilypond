@@ -1,5 +1,5 @@
 /*   
-  text-item.cc -- implement Text_item
+  text-item.cc -- implement Text_interface
 
   source file of the GNU LilyPond music typesetter
   
@@ -18,9 +18,9 @@
 #include "modified-font-metric.hh"
 #include "ly-module.hh"
 
-MAKE_SCHEME_CALLBACK (Text_item, interpret_string, 4)
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 4)
 SCM
-Text_item::interpret_string (SCM paper_smob,
+Text_interface::interpret_string (SCM paper_smob,
 			     SCM props, SCM input_encoding, SCM markup)
 {
   Output_def *paper = unsmob_output_def (paper_smob);
@@ -65,9 +65,9 @@ Text_item::interpret_string (SCM paper_smob,
 }
 
 
-MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3)
 SCM
-Text_item::interpret_markup (SCM paper_smob, SCM props, SCM markup)
+Text_interface::interpret_markup (SCM paper_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
     return interpret_string (paper_smob, props, SCM_EOL, markup);
@@ -83,9 +83,9 @@ Text_item::interpret_markup (SCM paper_smob, SCM props, SCM markup)
   return SCM_EOL;
 }
 
-MAKE_SCHEME_CALLBACK (Text_item,print,1);
+MAKE_SCHEME_CALLBACK (Text_interface,print,1);
 SCM
-Text_item::print (SCM grob)
+Text_interface::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   
@@ -96,7 +96,7 @@ Text_item::print (SCM grob)
 
 /* Ugh. Duplicated from Scheme.  */
 bool
-Text_item::markup_p (SCM x)
+Text_interface::markup_p (SCM x)
 {
   return (scm_is_string (x)
 	  || (ly_c_pair_p (x)
@@ -105,7 +105,7 @@ Text_item::markup_p (SCM x)
 				      ly_symbol2scm ("markup-signature"))));
 }
 
-ADD_INTERFACE (Text_item,"text-interface",
+ADD_INTERFACE (Text_interface,"text-interface",
 	       "A scheme markup text, see @usermanref{Text-markup}.",
 	       "text baseline-skip word-space");
 
