@@ -32,9 +32,9 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   assert (a == Y_AXIS);
   me = me->get_parent (X_AXIS);
 
-  if (!to_boolean (me->get_grob_property ("collision-done")))
+  if (!to_boolean (me->get_grob_property ("positioning-done")))
     {
-      me->set_grob_property ("collision-done", SCM_BOOL_T);
+      me->set_grob_property ("positioning-done", SCM_BOOL_T);
   
       do_shifts (me);
     }
@@ -291,5 +291,5 @@ Dot_column::add_head (Grob * me, Grob *rh)
 
 ADD_INTERFACE (Dot_column, "dot-column-interface",
   "Interface that groups dots so they form a column",
-  "collision-done direction stem");
+  "positioning-done direction stem");
 

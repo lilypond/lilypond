@@ -26,7 +26,7 @@ struct Lookup
   static Molecule slur (Bezier controls, Real cthick, Real thick);
   static Molecule bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
   static Molecule horizontal_slope (Real width, Real slope, Real height);
-  static Molecule beam (Real slope, Real width, Real thick);
+  static Molecule beam (Real slope, Real width, Real thick, Real blot);
   static Molecule dashed_slur (Bezier, Real thick, Real dash);
   static Molecule blank (Box b);
   static Molecule filled_box (Box b);

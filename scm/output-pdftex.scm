@@ -48,8 +48,8 @@
     
     ))
 
-(define (beam width slope thick)
-  (embedded-pdf (list 'beam  width slope thick)))
+(define (beam width slope thick blot)
+  (embedded-pdf (list 'beam  width slope thick blot)))
 
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-pdf (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))

@@ -302,8 +302,13 @@ signature at this point in the measure.  The format is the same as for keySignat
 ) 
 (translator-property-description 'localKeySignatureChanges list? "Experimental.
  [DOCME]")
+
 (translator-property-description 'majorSevenSymbol markup? "How should
 the major7 be formatted in a chord name?")
+(translator-property-description 'markFormatter procedure? "Procedure
+taking as arguments context and rehearsal mark. It should return the
+formatted mark as a markup object.")
+
 (translator-property-description 'measureLength ly:moment? "Length of one
 measure in the current time signature last?")
 (translator-property-description 'measurePosition ly:moment? "How much
@@ -361,7 +366,7 @@ that indicates how to print sustain pedals: text, bracket or mixed
 (translator-property-description 'pedalUnaCordaStyle symbol? "see pedalSustainStyle.")
 (translator-property-description 'pedalSostenutoStyle symbol? "see pedalSustainStyle.")
 
-(translator-property-description 'rehearsalMark number-or-string? "The
+(translator-property-description 'rehearsalMark integer? "The
 last rehearsal mark printed.")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 (translator-property-description 'scriptDefinitions list? "

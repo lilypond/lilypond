@@ -197,7 +197,7 @@
 (define (font-load-command name-mag command)
   "")
 
-(define (beam x y width slope thick)
+(define (beam x y width slope thick blot)
   (apply sketch-filled-rectangle
 	 (list width (* slope width) 0 thick x y)))
 

@@ -29,9 +29,9 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 
   Grob * rc = unsmob_grob (them->get_grob_property ("rest-collision"));
 
-  if (rc && !to_boolean (rc->get_grob_property ("rest-collision-done")))
+  if (rc && !to_boolean (rc->get_grob_property ("positioning-done")))
     {
-      rc->set_grob_property ("rest-collision-done", SCM_BOOL_T);
+      rc->set_grob_property ("positioning-done", SCM_BOOL_T);
 
       do_shift (rc);
     }
@@ -243,5 +243,5 @@ Rest_collision::do_shift (Grob *me)
 ADD_INTERFACE (Rest_collision,"rest-collision-interface",
   "Move around ordinary rests (not multi-measure-rests) to avoid "
 "conflicts.",
-  "maximum-rest-count minimum-distance rest-collision-done elements");
+  "maximum-rest-count minimum-distance positioning-done elements");
 

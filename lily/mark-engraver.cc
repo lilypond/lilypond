@@ -7,18 +7,13 @@
 */
 
 #include <ctype.h>
+
 #include "bar-line.hh"
 
-#include "staff-symbol.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
-#include "lily-guile.hh"
-#include "paper-column.hh"
-#include "paper-def.hh"
-#include "side-position-interface.hh"
-#include "staff-symbol-referencer.hh"
 #include "item.hh"
-#include "group-interface.hh"
+#include "warn.hh"
 #include "text-item.hh"
 
 /**
@@ -36,11 +31,11 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   void create_items (Music*);
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *ev);
   virtual void process_music ();
   
 private:
-  Music * mark_req_;
+  Music * mark_ev_;
 };
 
 
@@ -50,7 +45,7 @@ private:
 Mark_engraver::Mark_engraver ()
 {
   text_ =0;
-  mark_req_ = 0;
+  mark_ev_ = 0;
 }
 
 void
@@ -77,7 +72,7 @@ Mark_engraver::stop_translation_timestep ()
       typeset_grob (text_);
       text_ =0;
     }
-  mark_req_ = 0;
+  mark_ev_ = 0;
 }
 
 
@@ -95,7 +90,7 @@ Mark_engraver::create_items (Music *rq)
 bool
 Mark_engraver::try_music (Music* r)
 {
-  mark_req_ = r;
+  mark_ev_ = r;
   return true;
 }
 
@@ -110,79 +105,42 @@ Mark_engraver::try_music (Music* r)
 void
 Mark_engraver::process_music ()
 {
-  if (mark_req_)
+  if (mark_ev_)
     {
-      create_items (mark_req_);
+      create_items (mark_ev_);
 
       /*
 	automatic marks.
        */
+
       
-      SCM m = mark_req_->get_mus_property ("label");
-      if (Text_item::markup_p (m))
+      SCM m = mark_ev_->get_mus_property ("label");
+      SCM proc = get_property ("markFormatter");
+      if (!Text_item::markup_p (m) &&
+	  gh_procedure_p (proc))
 	{
-	  text_->set_grob_property ("text",m);
-	}
-      else 
-	{
-	  String t ;
-	  
-	  if (!gh_string_p (m) && !gh_number_p (m)) 
+	  if (!gh_number_p (m)) 
 	    m =  get_property ("rehearsalMark");
-	  
-	  if (gh_number_p (m))
+
+	  if (scm_integer_p (m) == SCM_BOOL_T
+	      && scm_exact_p (m) == SCM_BOOL_T)
 	    {
 	      int mark_count = gh_scm2int (m);
-	      t = to_string (mark_count);
 	      mark_count ++;
-	      m = gh_int2scm (mark_count);
+	      daddy_trans_->set_property ("rehearsalMark",
+					  gh_int2scm (mark_count));
 	    }
-	  else if (gh_string_p (m))
-	    {
-	      t = ly_scm2string (m);
-	      String next;
-	      if (t.length ())
-		{
-		  char c = t[0];
-		  c++;
-		  t = to_string (c);
-		}
-	      m = scm_makfrom0str (t.to_str0 ());
-	    }
-	  else
-	    {
-	      m = gh_int2scm (1);
-	      t = to_string (1);
-	    }
-	  
-	  text_->set_grob_property ("text",
-				    scm_makfrom0str (t.to_str0 ()));
 
-	  SCM series = SCM_EOL;
-	  SCM family = ly_symbol2scm ("number");
-	  for (int i=0; i < t.length (); i++)
-	    {
-	      if (!isdigit (t[i])) 
-		{
-		  /*
-		    This looks strange, since \mark "A"
-		    isn't printed in bold.
-		    
-		   */
-		  
-		  // series = ly_symbol2scm ("bold");
-		  family = ly_symbol2scm ("roman");
-		  break;
-		}
-	    }
-	  if (gh_symbol_p (series))
-	    text_->set_grob_property ("font-series",  series);
-	  if (gh_symbol_p (family))
-	    text_->set_grob_property ("font-family",  family);
+	  if (gh_number_p (m))
+	    m = scm_call_2 (proc, m, daddy_trans_->self_scm ());
+	  else
+	    warning ("rehearsalMark does not have integer value.");
 	}
 
-      if (gh_number_p (m) || gh_string_p (m))
-	daddy_trans_->set_property ("rehearsalMark", m);
+      if (Text_item::markup_p (m))
+	text_->set_grob_property ("text", m);
+      else
+	warning ("Mark label should be markup object.");
     }
 }
 
@@ -191,5 +149,5 @@ ENTER_DESCRIPTION(Mark_engraver,
 /* creats*/       "RehearsalMark",
 /* accepts */     "mark-event",
 /* acks  */       "bar-line-interface",
-/* reads */       "rehearsalMark stavesFound",
+/* reads */       "rehearsalMark markFormatter stavesFound",
 /* write */       "");

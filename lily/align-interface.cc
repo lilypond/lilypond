@@ -21,7 +21,7 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_grob_property ("alignment-done")))
+  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
     {
       Align_interface::align_elements_to_extents (par, ax);
     }
@@ -35,7 +35,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
   Grob * me = unsmob_grob (element_smob);
   Axis ax = (Axis)gh_scm2int (axis);
   Grob * par = me->get_parent (ax);
-  if (par && !to_boolean (par->get_grob_property ("alignment-done")))
+  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
     {
       Align_interface::align_to_fixed_distance (par, ax);
     }
@@ -48,7 +48,7 @@ Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
 void
 Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 {
-  me->set_grob_property ("alignment-done", SCM_BOOL_T);
+  me->set_grob_property ("positioning-done", SCM_BOOL_T);
   
   SCM d =   me->get_grob_property ("stacking-dir");
   
@@ -126,7 +126,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 void
 Align_interface::align_elements_to_extents (Grob * me, Axis a)
 {
-  me->set_grob_property ("alignment-done", SCM_BOOL_T);
+  me->set_grob_property ("positioning-done", SCM_BOOL_T);
   
   SCM d =   me->get_grob_property ("stacking-dir");
   
@@ -286,7 +286,7 @@ find_fixed_alignment_parent  (Grob *g)
 
 ADD_INTERFACE (Align_interface, "align-interface",
   " Order grobs top to bottom/left to right/right to left etc.",
-  "forced-distance stacking-dir align-dir threshold alignment-done center-element elements axes");
+  "forced-distance stacking-dir align-dir threshold positioning-done center-element elements axes");
 
 
 struct Foobar
