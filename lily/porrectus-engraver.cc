@@ -1,7 +1,7 @@
 /*
   porrectus-engraver.cc -- implement Porrectus_engraver
 
-  Copyright (c) 2001--2002  Juergen Reuter
+  Copyright (c) 2001--2003  Juergen Reuter
 
   written for the GNU LilyPond music typesetter
 */

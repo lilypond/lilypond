@@ -1,7 +1,7 @@
 /*
   cluster-engraver.cc -- implement Cluster_engraver
 
-  (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2003 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "engraver.hh"

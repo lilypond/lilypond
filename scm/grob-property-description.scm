@@ -379,6 +379,8 @@ as a real penalty.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'porrectus-height number? "in staffspace.")
 (grob-property-description 'porrectus-width number? "in staffspace.")
+(grob-property-description 'prefix-set number? "DOCME")
+
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'right-padding number? "space right of accs.")
