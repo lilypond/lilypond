@@ -7,6 +7,17 @@ optimise_b=yes
 shared_b=no
 LIB_SUFFIX=.a
 
+# if given here, these vars are initted at the checking point.
+if test x$host = xNONE; then
+    flowerbuildprefix=.
+else
+    flowerbuildprefix="../$host-build-dir/Flower"
+    mkdir $flowerbuildprefix;
+    for a in `find -type d -and -not -name '*-build-dir'`; do
+	mkdir $flowerbuildprefix/$a;
+    done
+fi
+    
 AC_ARG_ENABLE(shared,
     [  enable-shared       shared flower library],
     [shared_b=$enableval])
@@ -33,9 +44,9 @@ AC_PROG_CXX
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(memmem snprintf )
-AC_CONFIG_HEADER(out/config.hh:config.hh.in)
+AC_CONFIG_HEADER($flowerbuildprefix/out/config.hh:config.hh.in)
 
-CXX="$ac_cv_prog_CXX" ../bin/make-version > out/version.hh
+CXX="$ac_cv_prog_CXX" ../bin/make-version > $flowerbuildprefix/out/version.hh
 
-AC_OUTPUT(out/Flower-flags.make:Flower-flags.make.in)
+AC_OUTPUT($flowerbuildprefix/out/Flower-flags.make:Flower-flags.make.in)
 
