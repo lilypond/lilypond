@@ -32,41 +32,48 @@
 	(right-padding . 0.15)
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))
 	))
+    (Ambitus
+     . (
+	(axes . (0 1))
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
+	(space-alist . (
+			(clef . (extra-space . 0.5))
+			(key-signature . (extra-space . 0.0))
+			(staff-bar . (extra-space . 0.0))
+			(time-signature . (extra-space . 0.0)) 
+			(first-note . (fixed-space . 0.0))
+			))
+	(breakable . #t)
+	(break-align-symbol . ambitus)
+	(break-visibility . ,begin-of-line-visible)
+	(meta . ((interfaces . (axis-group-interface break-aligned-interface ambitus-interface item-interface ))))
+	))
 
     (AmbitusLine
      . (
-       (breakable . #t)
-       (break-align-symbol . ambitus)
        (print-function . ,Ambitus::print)
        (join-heads . #t)
-       (X-offset-callbacks (,Self_alignment_interface::centered_on_parent))
-       (break-visibility . ,begin-of-line-visible)
-       (space-alist . (
-		       (clef . (extra-space . 0.0))
-		       (key-signature . (extra-space . 0.0))
-		       (staff-bar . (extra-space . 0.0))
-		       (time-signature . (extra-space . 0.0)) 
-		       (first-note . (fixed-space . 0.0))
-		       ))
-       (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface break-aligned-interface item-interface  font-interface))))
+       (thickness . 2)
+       (X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
+    
+       (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface item-interface  font-interface))))
        ))
     (AmbitusAccidental
      . (
 	(print-function . ,Accidental_interface::print)
 	(font-family . music)
+	(padding . 0.5)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1) 
 	(cautionary-style . parentheses)
-	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface font-interface))))
+	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface break-aligned-interface side-position-interface font-interface))))
 	))
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
 	(style . default)
-	(breakable . #t)
 	(print-function . ,Note_head::print)
-	(break-align-symbol . ambitus)
-        (break-visibility . ,begin-of-line-visible)
 	(glyph-name-procedure . ,find-notehead-symbol)
 	(X-extent-callback . ,Note_head::extent)
 	(Y-extent-callback . ,Note_head::extent)

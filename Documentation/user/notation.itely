@@ -3720,7 +3720,9 @@ example is in @inputfileref{input/test,ambitus-mixed.ly}.
 
 @seealso
 
-Program reference: @internalsref{Ambitus}.
+Program reference: @internalsref{Ambitus},
+@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
+@internalsref{AmbitusAccidental}.
 
 Examples:  @inputfileref{input/regression,ambitus.ly},
 @inputfileref{input/test,ambitus-mixed.ly}.

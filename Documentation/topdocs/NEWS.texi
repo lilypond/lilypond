@@ -8,6 +8,13 @@
 
 @itemize @bullet
 
+@item Support ambituses has been rewritten. The Ambitus object is now
+a grouping object, composed of @code{AmbitusLine},
+@code{AmbitusAccidental} and @code{AmbitusNoteHead}. These objects may
+be tuned similar to accidentals and note heads.
+
+@item Ledger lines are now shortened to prevent them from colliding.
+
 @item Slur formatting has been rewritten. The new slur code
 works similar to the Beam formatter: scores are assigned for all
 esthetic components of a slur. A large number of combinations for
