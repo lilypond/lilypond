@@ -5,7 +5,7 @@ include $(depth)/make/Include.make
 
 # list of distribution files:
 SCRIPTS = clearlily cpgento make-patch lily.efence \
-	make-version release conflily clean-fonts
+	make-version release conflily clean-fonts mf-deps.py
 PERL_SCRIPTS_IN = $(wildcard *.in)
 PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.in=))
 EXTRA_DISTFILES = $(SCRIPTS) $(PERL_SCRIPTS_IN)
