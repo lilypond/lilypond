@@ -1,3 +1,10 @@
+2005-04-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* make/lilypond-vars.make: remove TEXMF from variables.
+	remove DEB_BUILD pk font variables.
+	remove GUILE_LOAD_PATH
+	remove TeX memory vars.
+
 2005-04-04  Werner Lemberg  <wl@gnu.org>
 
 	* lilypond/scm-option.cc (ly_option_usage): Add final newline.
