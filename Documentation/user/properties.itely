@@ -1,7 +1,6 @@
 @node Properties, , , Reference Manual
 
-Properties are Scheme values, so they have a type.  The type of a
-property is listed in parentheses after the property name.
+Properties are Scheme values. Most of them are in the generated documentation, but some MIDI properties are not. Here is their documentation
 
 @macro propertytype{t}
  (\t\)
@@ -9,7 +8,6 @@ property is listed in parentheses after the property name.
 
 
 @table @samp
-
   @item @code{midiInstrument}@indexcode{midiInstrument} @propertytype{string}
     Sets the instrument for MIDI output.  If this property is not set
     then LilyPond will use the @code{instrument} property.  This must
@@ -17,119 +15,10 @@ property is listed in parentheses after the property name.
     appears in section @ref{midilist}.  If you use a string which
     is not listed, LilyPond will silently substitute piano.
 
-  @item @code{restStyle}@indexcode{restStyle} @propertytype{string}
-    Change the layout of rests shorter than quarter notes. 
-    Currently, the standard layout @code{""} and mensural notation
-    @code{"mensural"} are available. Mensural rests of duration
-    32 or shorter are not available.
-@lilypond[verbatim]
-r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
-\property Staff.restStyle = "mensural"
-r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128 
-@end lilypond
-
   @item @code{transposing}@indexcode{transposing} @propertytype{integer}
     Transpose the MIDI output.  Set this property to the number of
     half-steps to transpose by.
 
-
-
-@item @code{tupletSpannerDuration} @indexcode{tupletSpannerDuration}
-@propertytype{moment}
-
 @end table
 
-@subsubheading Staff properties
-
-@cindex properties!Staff
-
-@table @samp
- 
-
-  @item @code{noVoltaBraces}@indexcode{noVoltaBraces} @propertytype{boolean}
-    Set to true to suppress the printing of brackets over alternate
-    endings specified by the command @code{\alternative}. [BROKEN]
-
-
-  @item @code{keyOctaviation}@indexcode{keyOctaviation} @propertytype{boolean}
-    If set to false, then keys are the same in all octaves.  If set
-    to true then the key signature for different octaves can be
-    different and is specified independently:
-
-    @example
-      \keysignature bes fis'
-    @end example
-
-    The default value is @code{#f}.  Can be set to @code{#t} with
-    @code{\specialkey} or reset with @code{\normalkey}. [BROKEN]
-
-  @item @code{timeSignatureStyle}@indexcode{timeSignatureStyle} @propertytype{symbol}
-    Changes the default two-digit layout for time signatures.  The
-    following values are recognized:
-
-    @table @samp
-      @item @code{C}@indexcode{C}  
-        4/4 and 2/2 are typeset as C and struck C, respectively.  All
-        other time signatures are written with two digits.
-
-      @item @code{old}@indexcode{old}  
-        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
-        typeset with old-style mensuration marks.  All other time
-        signatures are written with two digits.
-
-      @item @code{1xxx}@indexcode{1xxx}  
-        All time signatures are typeset with a single
-        digit, e.g. 3/2 is written as 3. (Any symbol starting
-	with the digit @code{1} will do.)
-
-      @item @indexcode{CM/N}@code{C}@var{M}@code{/}@var{N}, 
-      @indexcode{oldM/N}@code{old}@var{M}@code{/}@var{N} or
-      @code{old6/8alt}@indexcode{old6/8alt}  
-        Tells LilyPond to use a specific symbol as time signature, 
-	regardless of the actual time signature.
-    @end table
-
-    The different time signature characters are shown below with its
-    names:
-
-@lilypond[center,verbatim]
-
- \score {
-   \notes\relative c'' {
-     \property Voice.TextScript \set #'font-shape = #'upright
-     \property Voice.TextScript \set #'font-family = #'typewriter
-     \property Staff.TimeSignature \set #'style = #'C2/2
-     \time 2/2; a2^"C2/2" a2 
-     \property Staff.TimeSignature \set #'style = #'C4/4
-     \time 2/2; a2^"C4/4" a2 
-     \property Staff.TimeSignature \set #'style = #'old2/2
-     \time 2/2; a2^"old2/2" a2 
-     \property Staff.TimeSignature \set #'style = #'old3/2
-     \time 2/2; a2^"old3/2" a2 
-     \property Staff.TimeSignature \set #'style = #'old2/4
-     \time 2/2; a2^"old2/4" a2 
-     \property Staff.TimeSignature \set #'style = #'old4/4
-     \time 2/2; a2^"old4/4" a2 
-     \property Staff.TimeSignature \set #'style = #'old6/4
-     \time 2/2; a2^"old6/4" a2 
-     \property Staff.TimeSignature \set #'style = #'old9/4
-     \time 2/2; a2^"old9/4" a2 
-     \property Staff.TimeSignature \set #'style = #'old4/8
-     \time 2/2; a2^"old4/8" a2 
-     \property Staff.TimeSignature \set #'style = #'old6/8
-     \time 2/2; a2^"old6/8" a2 
-     \property Staff.TimeSignature \set #'style = #'old6/8alt
-     \time 2/2; a2^"old6/8alt" a2 
-     \property Staff.TimeSignature \set #'style = #'old9/8
-     \time 2/2; a2^"old9/8" a2 
-   }
-   \paper {
-     linewidth = 4.5 \in;
-   }
- }
-    
-@end lilypond
-
-
-@end table
 
