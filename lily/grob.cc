@@ -137,6 +137,19 @@ Grob::stencil_extent (SCM element_smob, SCM scm_axis)
   return ly_interval2scm (e);
 }
 
+
+Interval
+robust_relative_extent (Grob*me, Grob*refp, Axis a)
+{
+  Interval ext =  me->extent  (refp, a);
+  if (ext.is_empty())
+    {
+      ext.add_point (me->relative_coordinate (refp, a));
+    }
+
+  return ext;      
+}
+
 Output_def *
 Grob::get_paper () const
 {
