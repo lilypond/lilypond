@@ -264,6 +264,7 @@ StaffGroupContext= \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver";
 	\consistsend "Axis_group_engraver";
+	LyricVoiceMinimumVerticalExtent = #(cons -2.5 2.5)
 
 	\name LyricVoice ;
 	\consists "Separating_line_group_engraver";
@@ -405,7 +406,7 @@ ScoreContext = \translator {
 		(break-align-symbol . Staff_bar)
 		(barsize-procedure . ,Bar::get_staff_bar_size)
 		(molecule-callback . ,Bar::brew_molecule)	   
-		(visibility-lambda . ,begin-of-line-invisible)
+		(visibility-lambda . ,all-visible)
 		(breakable . #t)
 		(before-line-breaking-callback . ,Bar::before_line_breaking)
 		;;
@@ -522,7 +523,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Local_key_item::brew_molecule)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
-		(interfaces . (accidentals-interface ))
+		(interfaces . (accidentals-interface))
 	)
 	basicLineOfScoreProperties = #`(
 		(axes . (0 1))
@@ -605,6 +606,9 @@ ScoreContext = \translator {
 	)
 	basicSpacingSpannerProperties =#`(
 		(spacing-procedure . ,Spacing_spanner::set_springs)
+
+		;; assume that notes at least this long are present.
+		(maximum-duration-for-spacing . ,(make-moment 1 8))
 	)
 	basicSpanBarProperties = #`(
 		(break-align-symbol . Staff_bar)
