@@ -1,3 +1,15 @@
+2002-11-30  Heikki Junes <hjunes@cc.hut.fi>
+
+	* make/lilypond.mandrake.spec.in: remove extra %changelog entries,
+	add pre/post-dependencies and menus with icons from source.
+
+	* Documentation/pictures/lilypond-48x48.xpm:
+	* Documentation/pictures/lilypond-32x32.xpm:
+	* Documentation/pictures/lilypond-16x16.xpm: new files.
+
+	* stepmake/stepmake/generic-targets.make:
+	* stepmake/stepmake/toplevel-targets.make: Add make rpm-mandrake.
+
 2002-11-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/music-map.ly (texidoc): new file.
