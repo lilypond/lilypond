@@ -30,11 +30,11 @@
       a a a8 ( a) a4
     }
     \context Lyrics <<
-      \context LyricsVoice = "v-1" \lyrics {
+      \new LyricsVoice \newaddlyrics "v"  \lyrics {
         \property LyricsVoice . stanza = "1:"
         Start sentence melisma end.
       }
-      \context LyricsVoice = "v-2" \lyrics {
+      \new LyricsVoice \newaddlyrics "v" \lyrics {
         \property LyricsVoice . stanza = "2:"
         x x x __ x.
       }

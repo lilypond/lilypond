@@ -1,3 +1,4 @@
+\version "2.1.9"
 \header {
 
 texidoc = "Lyric phrasing:
@@ -10,27 +11,16 @@ texidoc = "Lyric phrasing:
 
 
 \score{
-\context Staff  {
- \addlyrics
-   \notes \relative c' \context Voice = "bla" {
-       \autoBeamOff
-       c4( c16 d c b)  c4
-       d16[ e f g]
-						 
-   }
-   \lyrics \context LyricsVoice = "bla-1" {
-       al tijd
-       izzz
-   }
- 
- }
-
-\paper { raggedright = ##t
-
-	 \translator {
-	     \VoiceContext
-
-	 }
-     }
+<<	\notes \relative c' \context Voice = "bla" {
+	    \autoBeamOff
+	    c4( c16 d c b)  c4
+	    d16[ e f g]
+	    
+	}
+	\lyrics  \newaddlyrics  "bla" \context LyricsVoice {
+	    al tijd
+	    izzz
+	} >>
+	
+    \paper { raggedright = ##t }
 }
-

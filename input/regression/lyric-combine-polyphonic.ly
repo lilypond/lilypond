@@ -2,7 +2,7 @@
 \header {
 
 texidoc ="Polyphonic rhythms and rests don't disturb
-@code{\addlyrics}."
+@code{\newaddlyrics}."
 
 }
 
@@ -11,29 +11,23 @@ texidoc ="Polyphonic rhythms and rests don't disturb
        \clef violin
        \time 8/8
        \key des \major
-       << \context Voice = one {
-          \voiceOne
-          \addlyrics
-          \notes {
-             bes'4 bes'4
-             bes'4 bes'4
+       <<
+	   \context Voice = one {
+	       \voiceOne
+	       bes'4 bes'4
+	       bes'4 bes'4
+	   }
+	  \context Voice = two {
+	      \voiceTwo
+	      ees'8 r8 r8 r8 ees' r8 r8 r8 
           }
-          \context Lyrics \lyrics
-          {
-             Do __ mi __ nus ex
-          }
+          \newaddlyrics "two" \lyrics \new LyricsVoice {
+             Do na
          }
-         \context Voice = two {
-          \voiceTwo
-          \addlyrics
-          \notes {
-             ees'8 r8 r8 r8 ees' r8 r8 r8 
-          }
-          \context Lyrics \lyrics
-         {
-             Do __ na
-          }
-         }
+	 \lyrics  \newaddlyrics "one" \new LyricsVoice
+	   {
+	       Do mi nus ex
+	   }
        >>
     }
     \paper { raggedright = ##t}

@@ -1,7 +1,16 @@
 2004-01-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/*.ly: use newaddlyrics iso. addlyrics
+
+	* input/regression/lyrics-multi-stanza.ly (texidoc): remove file.
+
+	* lily/lyric-extender.cc (brew_molecule): behave decently in case
+	of line breaks.
+	(brew_molecule): add padding to left, not right.
+
 	* lily/system.cc (uniquify_list): new function
-	(output_lines): uniquify_list () on all-elements
+	(output_lines): uniquify_list () on all-elements. This fixes
+	double symbols in the output.
 
 	* lily/beam.cc (rest_collision_callback): don't move anything if
 	staff-position is set.

@@ -1,4 +1,3 @@
-
 \version "2.1.7"
 \header
 {
@@ -7,14 +6,13 @@
 
 
 \score {
-        \simultaneous {
-          \addlyrics
-             \new Staff
-             \notes \relative c'' {
-		 \property Staff.autoBeaming = ##f
-		 c8 c8[ c8 c8]  c8    }
-          	
-             \context Lyrics \lyrics { bla bla bla }
-        }
-        \paper { raggedright = ##t }
+    <<
+	\new Staff
+	    \notes \relative c'' {
+		\property Staff.autoBeaming = ##f
+		c8 c8[ c8 c8]  c8    }
+	
+	\newaddlyrics "" \new LyricsVoice \lyrics { bla bla bla }
+    >>
+    \paper { raggedright = ##t }
 }

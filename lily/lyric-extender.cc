@@ -33,7 +33,7 @@ Lyric_extender::brew_molecule (SCM smob)
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
 								  "heads"));
 
-  if (!heads.size ())
+  if (!heads.size () && r->break_status_dir () == CENTER)
     return SCM_EOL;
 
   common = common_refpoint_of_array (heads, common, X_AXIS);
@@ -44,23 +44,23 @@ Lyric_extender::brew_molecule (SCM smob)
   else
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
 
-
   if (isinf (left_point))
     return SCM_EOL;
-  
 
   /*
     It seems that short extenders are even lengthened to go past the note head,  but
     haven't found a pattern in it yet. --hwn  1/1/04
     
    */
-  
   SCM minlen =  me->get_grob_property ("minimum-length");
   Real right_point
     = left_point + (gh_number_p (minlen) ? gh_scm2double (minlen) : 0.0);
 
-  right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
-
+  if (r->break_status_dir ())
+    right_point = infinity_f;
+  else
+    right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
+  
   Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
   Real pad = 2* h;
   right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
@@ -69,7 +69,7 @@ Lyric_extender::brew_molecule (SCM smob)
     return SCM_EOL;
   
 
-  right_point += pad;
+  left_point += pad;
 
   Real w = right_point - left_point;
 
