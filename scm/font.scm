@@ -297,6 +297,9 @@
 		)))
      
      (#(roman caps medium) .
+      (10.0 . #(,(delay (ly:font-load "eccc10")))))
+
+     (#(roman slanted-caps medium) .
       (10.0 . #(,(delay (ly:font-load "ecsc10")))))
 
      (#(roman upright bold-narrow ) .
