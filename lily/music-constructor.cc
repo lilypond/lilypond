@@ -37,13 +37,13 @@ get_music_ctor (String s)
 }
 
 Music * 
-make_music (String s)
+make_music (String s, SCM init)
 {
   Music_ctor c = get_music_ctor (s);
   if (!c)
     programming_error (String ("No constructor for music: ") + s);
   assert (c);
   
-  return (*c) ();
+  return (*c) (init);
 }
 

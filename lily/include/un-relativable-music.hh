@@ -15,7 +15,7 @@
 class Un_relativable_music: public Music_wrapper
 {
 public:
-  Un_relativable_music ();
+  Un_relativable_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Un_relativable_music);
 
   Pitch to_relative_octave (Pitch);

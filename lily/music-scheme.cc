@@ -73,8 +73,7 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 	  )
 {
   SCM_ASSERT_TYPE (scm_is_string (type), type, SCM_ARG1, __FUNCTION__, "string");
-  SCM s = make_music (ly_scm2string (type))->self_scm ();
-  unsmob_music (s)->immutable_property_alist_ = props;
+  SCM s = make_music (ly_scm2string (type), props)->self_scm ();
   scm_gc_unprotect_object (s);
   return s;
 }

@@ -39,10 +39,10 @@ Music::name () const
     }
 }
 
-Music::Music ()
+Music::Music (SCM init)
 {
   self_scm_ = SCM_EOL;
-  immutable_property_alist_ = SCM_EOL;
+  immutable_property_alist_ = init;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
 }

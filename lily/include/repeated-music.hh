@@ -49,7 +49,6 @@
 class Repeated_music : public Music
 {
 public:
-  Repeated_music ();
   Repeated_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Repeated_music);
 

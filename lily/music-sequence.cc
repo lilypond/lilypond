@@ -11,8 +11,8 @@
 #include "pitch.hh"
 #include "input.hh"
 
-Music_sequence::Music_sequence ()
-  : Music ()
+Music_sequence::Music_sequence (SCM x)
+  : Music (x)
 {
 }
 
@@ -20,17 +20,6 @@ SCM
 Music_sequence::music_list () const
 {
   return get_property ("elements");
-}
-
-/*
-  Ugh this sucks. Linear. do not use.
- */
-void
-Music_sequence::append_music (Music *m)
-{
-  set_property ("elements",
-		ly_append2 (music_list (), scm_cons (m->self_scm (), SCM_EOL)));
-  scm_gc_unprotect_object (m->self_scm ());
 }
 
 void

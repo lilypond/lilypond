@@ -31,8 +31,10 @@ Relative_octave_music::to_relative_octave (Pitch p)
 }
 
 
-Relative_octave_music::Relative_octave_music ()
+Relative_octave_music::Relative_octave_music (SCM x)
+  : Music (x)
 {
+  
 }
 
 ADD_MUSIC (Relative_octave_music);

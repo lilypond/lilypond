@@ -1,3 +1,11 @@
+2005-01-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/music.hh (class Music): include SCM init argument.
+
+	* scripts/convert-ly.py (conv): add  # to \property scalar value.
+
+	* mf/GNUmakefile: don't install *list.ly
+
 2005-01-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* mf/GNUmakefile (CFF_FILES): Bugfix: only big cheeses and braces.

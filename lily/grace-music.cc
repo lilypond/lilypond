@@ -27,10 +27,9 @@ Grace_music::start_mom () const
   return gl;
 }
 
-Grace_music::Grace_music ()
+Grace_music::Grace_music (SCM x)
+  : Music_wrapper (x)
 {
-  set_property ("iterator-ctor",
-		Grace_iterator::constructor_proc);
 }
 
 ADD_MUSIC (Grace_music);

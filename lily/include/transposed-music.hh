@@ -15,7 +15,6 @@
 class Transposed_music : public Music_wrapper
 {
 public:
-  Transposed_music ();
   Transposed_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Transposed_music);
 

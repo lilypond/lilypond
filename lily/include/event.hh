@@ -20,7 +20,7 @@
 class Event : public Music
 {
 public:
-  Event ();
+  Event (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
   virtual void compress (Moment);
   virtual Moment get_length () const;
@@ -34,6 +34,7 @@ public:
 class Key_change_ev  : public Event
 {
 public:
+  Key_change_ev (SCM);
   SCM pitch_alist ();
   
 protected:

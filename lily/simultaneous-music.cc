@@ -24,7 +24,8 @@ Simultaneous_music::start_mom () const
   return Music_sequence::minimum_start (get_property ("elements"));
 }
 
-Simultaneous_music::Simultaneous_music ()
+Simultaneous_music::Simultaneous_music (SCM x)
+  : Music (x)
 {
 
 }

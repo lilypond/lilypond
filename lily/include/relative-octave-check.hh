@@ -15,6 +15,7 @@
 class Relative_octave_check : public Music
 {
 public:
+  Relative_octave_check (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Relative_octave_check);
 
   virtual Pitch to_relative_octave (Pitch);

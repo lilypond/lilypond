@@ -15,7 +15,7 @@
 class Untransposable_music : public Music_wrapper
 {
 public:
-  Untransposable_music ();
+  Untransposable_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Untransposable_music);
 
   virtual Pitch to_relative_octave (Pitch);
