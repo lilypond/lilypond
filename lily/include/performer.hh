@@ -28,6 +28,11 @@ public:
     virtual void process_requests();
 
     virtual void set( Moment mom );
+    // <ugh>
+    virtual void set_track( int& track_i_r );
+    virtual int get_track_i() const;
+    // </ugh>
+
     virtual bool try_request( Request* req_l );
 
     virtual void do_removal_processing();

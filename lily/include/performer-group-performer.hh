@@ -32,6 +32,11 @@ public:
     virtual bool do_try_request( Request* req_l );
     virtual bool try_request(Request*r) { return Performer::try_request(r) ; }
 
+    // <ugh>
+    virtual void set_track( int& track_i_r );
+    virtual int get_track_i() const;
+    // </ugh>
+
 protected:
 
     virtual Translator* find_get_translator_l( String name, String id );
@@ -46,8 +51,8 @@ protected:
 
     bool is_bottom_performer_b() const;
     virtual Performer_group_performer* find_performer_l( String name, String id );
-    
     virtual void do_print()const;
+
 private:
     Pointer_list<Performer*> perf_p_list_;
     

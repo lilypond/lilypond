@@ -56,7 +56,7 @@ Staff_performer::header()
     // lieve wendy, nu heb je mijn track_i_ / get_staff_i weggehaald...
     // zie ook note-performer: ugh
     // ugh, need to know channel (===track===staff) too
-    int channel_i = 0;
+    int channel_i = track_i_;
     Midi_instrument instrument( channel_i, instrument_str() );
     midi_track_p_->add( Moment( 0 ), &instrument );
 
@@ -78,4 +78,19 @@ Staff_performer::play_event( Midi_item* l )
     midi_mom_ += delta_t;
     midi_track_p_->add( delta_t, l);
 }
+
+
+//<ugh>
+int
+Staff_performer::get_track_i() const
+{
+    return track_i_;
+}
+
+void
+Staff_performer::set_track( int& track_i_r )
+{
+    track_i_ = track_i_r++;
+}
+//</ugh>
 

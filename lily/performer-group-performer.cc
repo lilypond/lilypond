@@ -132,6 +132,26 @@ Performer_group_performer::process_requests()
 	i->process_requests();
 }
 
+//<ugh>
+int
+Performer_group_performer::get_track_i() const
+{
+    int track_i = Performer::get_track_i();
+
+    for ( int i = 0; i < nongroup_l_arr_.size(); i++ )
+	nongroup_l_arr_[ i ]->set_track( track_i );
+    
+    return track_i;
+}
+
+void
+Performer_group_performer::set_track( int& track_i_r )
+{
+    for ( PCursor<Performer*> i( perf_p_list_.top() ); i.ok(); i++ )
+        i->set_track( track_i_r );
+}
+//</ugh>
+
 bool
 Performer_group_performer::do_try_request( Request* req_l )
 {

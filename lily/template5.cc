@@ -17,8 +17,9 @@
 Interval__instantiate(Rational);
 Interval__instantiate(int);
 
-#ifdef AIX
-const Real INFTY = 1e8;	// ARGh. AIX sucks
+const Real INFTY_f = (Real)INT_MAX;
+#if defined AIX || defined _WIN32
+const Real INFTY = 1e8;	// ARGh. AIX sucks -- so does doze
 #else
 const Real INFTY = HUGE_VAL;
 #endif
