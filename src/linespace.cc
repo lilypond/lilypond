@@ -1,10 +1,13 @@
 #include <math.h>
 #include "linespace.hh"
+#include "pcol.hh"
 #include "debug.hh"
 #include "qlp.hh"
 #include "unionfind.hh"
+#include "idealspacing.hh"
 
 const Real COLFUDGE=1e-3;
+
 //#define COLFUDGE 1e-3
 bool
 Spacing_problem::contains(const PCol *w)
@@ -38,7 +41,7 @@ Spacing_problem::OK() const
 	connected.connect(l,r);		
     }
     for (int i = 0; i < cols.sz(); i++)
-	if (cols[i].fixed)
+	if (cols[i].fixed())
 	    fixed.add(i);
     for (int i = 0; i < cols.sz(); i++) {
 	bool c=false;
@@ -56,7 +59,7 @@ Spacing_problem::check_constraints(Vector v) const
     // mtor << "checking solution " << v << '\n';
     for (int i=0; i < dim; i++) {
 
-	if (cols[i].fixed&& abs(cols[i].fixpos - v(i)) > COLFUDGE) {
+	if (cols[i].fixed()&& abs(cols[i].fixed_position() - v(i)) > COLFUDGE) {
 	    return false;
 	}
 	if (!i) 
@@ -101,8 +104,8 @@ Spacing_problem::try_initial_solution() const
     int dim=cols.sz();
     Vector initsol(dim);
     for (int i=0; i < dim; i++) {
-	if (cols[i].fixed) {
-	    initsol(i)=cols[i].fixpos;	    
+	if (cols[i].fixed()) {
+	    initsol(i)=cols[i].fixed_position();	    
 	} else {
 	    Real mindist=cols[i-1].minright()
 		+cols[i].minleft();
@@ -124,6 +127,7 @@ Spacing_problem::find_initial_solution() const
     assert(check_constraints(v));
     return v;
 }
+
 // generate the matrices
 void
 Spacing_problem::make_matrices(Matrix &quad, Vector &lin, Real &c) const
@@ -155,13 +159,12 @@ Spacing_problem::make_constraints(Mixed_qp& lp) const
     int dim=cols.sz();
     for (int j=0; j < dim; j++) {
 	Colinfo *c=&(cols[j]);
-	if (c->fixed) {
-	    lp.add_fixed_var(j,c->fixpos);	    
+	if (c->fixed()) {
+	    lp.add_fixed_var(j,c->fixed_position());	    
 	}
 	if (j > 0){
 	    Vector c1(dim);
 	    
-	       
 	    c1(j)=1.0 ;
 	    c1(j-1)=-1.0 ;
 	    lp.add_inequality_cons(c1, cols[j-1].minright() +
@@ -199,11 +202,7 @@ Spacing_problem::solve() const
 void
 Spacing_problem::add_column(const PCol *col, bool fixed, Real fixpos)
 {
-    Colinfo c;
-    c.fixed=fixed;
-    c.fixpos=fixpos;
-    assert(col);
-    c.pcol_=col;
+    Colinfo c(col,(fixed)? &fixpos :  0);
     cols.add(c);
 }
 
@@ -246,21 +245,50 @@ Spacing_problem::print() const
     
 }
 
+/*****************/
+
 void
 Colinfo::print() const
 {
 #ifndef NPRINT
     mtor << "column { ";
-    if (fixed)
-	mtor << "fixed at " << fixpos<<", ";
+    if (fixed())
+	mtor << "fixed at " << fixed_position()<<", ";
     assert(pcol_);
     mtor << "[" << minleft() << ", " << minright() << "]";
     mtor <<"}\n";
 #endif
 }
 
+Colinfo::Colinfo(Colinfo const&c)
+{
+    fixpos = (c.fixpos)?new Real(*c.fixpos):0;
+    pcol_ = c.pcol_;
+    width = c.width;
+}
+
+Colinfo::Colinfo(const PCol*col_p, const Real*fixed_r_p )
+{
+    fixpos = (fixed_r_p)? new Real(*fixed_r_p) : 0;
+    pcol_ = col_p;
+    width = pcol_->width();
+}
+
+Colinfo::~Colinfo()
+{
+    delete fixpos;
+}
+
 Colinfo::Colinfo()
 {
-    fixed=false;
     pcol_=0;
+    fixpos = 0;
+}
+void
+Colinfo::operator=(Colinfo const&c )
+{
+    delete fixpos;
+    fixpos = (c.fixpos)?new Real(*c.fixpos):0;
+    pcol_ = c.pcol_;
+    width = c.width;
 }
