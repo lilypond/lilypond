@@ -8,13 +8,13 @@
 #(set! chord::names-alist-american
       (append 
       '(
-	;; any changes here, see scm/chord-names.scm
+	;; any changes here, see scm/chord-name.scm
 
 	)
       chord::names-alist-american))
 
 chord = \notes\transpose c''\chords{
-	\property ChordNames.ChordNames \override #'style = #"american"
+	\property ChordNames.ChordName \override #'style = #'american
 c         % Major triad
 cs:m      % Minor triad
 df:m5-    % Diminished triad
