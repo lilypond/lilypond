@@ -114,13 +114,13 @@ ScoreContext = \translator {
 }
 
 \translator {
-	\type Performer_group_performer
-	\consists Note_performer
+	\type "Performer_group_performer"
+	\consists "Note_performer"
 	\name ChordNameVoice	
 }
 
 \translator {
-	\type Performer_group_performer
+	\type "Performer_group_performer"
 
 	\name StaffGroup
 	\accepts Staff
@@ -131,10 +131,10 @@ ScoreContext = \translator {
 \translator { \ScoreContext }
 \translator { \StaffContext }
 \translator { \StaffContext \name RhythmicStaff }
-\translator { \TabVoiceContext }
 \translator { \VoiceContext }
 \translator { \ThreadContext }
 \translator { \PianoStaffContext }
+\translator { \TabVoiceContext }
 \translator { \TabStaffContext }
 \translator { \GrandStaffContext }
 \translator { \FiguredBassContext }

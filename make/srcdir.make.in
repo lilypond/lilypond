@@ -46,6 +46,9 @@ web:
 	$(SRCMAKE) out=www WWW
 	$(SRCMAKE) out=www WWW-post
 
+web-install:
+	$(SRCMAKE) out=www web-install
+
 install:
 	$(SRCMAKE) install
 	$(SRCMAKE) final-install
