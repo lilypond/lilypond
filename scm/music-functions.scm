@@ -742,5 +742,5 @@ use GrandStaff as a context. "
 				   '()
 				   context))
       (else
-       (ly:warn (string-append "Unknown accidental style: " (symbol->string style)))
+       (ly:warn "Unknown accidental style: ~S" (symbol->string style))
        (make-sequential-music '()))))))
