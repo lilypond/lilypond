@@ -83,9 +83,8 @@
 	    (not (almost-equal want-r (cdr posns))))
 	(begin
 	  (ly:warn
-	   (format "Error in beam quanting found. Want (~S,~S) found (~S)."
-		   want-l want-r posns
-		   ))
+	    "Error in beam quanting found. Want (~S,~S) found (~S)."
+		   want-l want-r posns )
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "(~S,~S)" want-l want-r)))
 	(set! (ly:grob-property beam 'quant-score) "")
@@ -102,16 +101,14 @@
     
     (if (not correct)
 	(begin
-	  (ly:warn
-	   (format "Error in beam quanting found. Want ~S 0 found ~S."
-		   (procedure-name comparison) slope-sign
-		   ))
+	  (ly:warn "Error in beam quanting found. Want ~S 0 found ~S."
+		   (procedure-name comparison) slope-sign)
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "~S 0" (procedure-name comparison) )))
 	(set! (ly:grob-property beam 'quant-score) "")
 
 	
-	  )))
+	)))
 		 
 (define-public (check-quant-callbacks l r)
   (list Beam::least_squares
