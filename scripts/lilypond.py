@@ -501,6 +501,7 @@ leaving a PS file in OUTBASE.ps
 				pass
 
 		if pfa_file:
+			#opts = opts + ' -Ppdf -G0 -u +lm.map -u +lilypond.map'
 			opts = opts + ' -Ppdf -G0 -u +ec-mftrace.map -u +lilypond.map'
 		else:
 			ly.warning (_ ('''Trying create PDF, but no PFA fonts found.
