@@ -4,11 +4,11 @@
 
 % Ugh, we need to override some LaTeX titling stuff
 \header {
-  title =	"Ouvertüre\\vrule width0pt height 0pt depth 1ex"
-  subtitle =	"\\normalsize Zu Heinrich Joseph v. Collins Trauerspiel\\vrule width0pt height 0pt depth 1ex"
-  subsubtitle =	"\\Large\\bf Coriolan"
+  title =	"Ouvertüre"
+  subtitle =	"Zu Heinrich Joseph v. Collins Trauerspiel"
+  subsubtitle =	\markup { \large \bold "Coriolan" }
   opus = "Op. 62"
-  piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio"
+  piece = \markup { \large Allegro con brio }
   composer = 	 "Ludwig van Beethoven (1770-1827)"
 
 texidoc = "@cindex Orchestra Score

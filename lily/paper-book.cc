@@ -18,6 +18,12 @@
 #include "warn.hh"
 
 
+/*
+  Ugh. the Function of the Paper_book class is unclear. Trim this
+  file.
+  
+ */
+
 // JUNKME
 SCM
 stencil2line (Stencil stil, bool is_title = false)
@@ -129,7 +135,6 @@ void
 Paper_book::output (String outname)
 {
   if (!score_lines_.size ())
-    // FIXME: no end-output?
     return;
     
   /* Generate all stencils to trigger font loads.  */
@@ -296,55 +301,6 @@ Paper_book::score_title (int i)
 
   
 
-
-/* calculate book height, #lines, stencils.  */
-void
-Paper_book::init ()
-{
-  int score_count = score_lines_.size ();
-
-  /* Calculate the full book height.  Hmm, can't we cache system
-     heights while making stencils?  */
-  height_ = 0;
-  Stencil btitle = book_title ();
-  if (!btitle.is_empty ())
-    height_ += btitle.extent (Y_AXIS).length ();
-  
-  for (int i = 0; i < score_count; i++)
-    {
-      Stencil title = score_title (i);
-      if (!title.is_empty ())
-	height_ += title.extent (Y_AXIS).length ();
-
-      int line_count = SCM_VECTOR_LENGTH (score_lines_[i].lines_);
-      for (int j = 0; j < line_count; j++)
-	{
-	  SCM s = scm_vector_ref ((SCM) score_lines_[i].lines_, scm_int2num (j));
-	  height_ += unsmob_paper_line (s)->dim ()[Y_AXIS];
-	}
-    }
-
-  Output_def *paper = bookpaper_;
-  
-  SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
-    scopes = scm_cons (header_, scopes);
-
-  SCM make_tagline = paper->c_variable ("make-tagline");
-  tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
-  Real tag_height = 0;
-  if (Stencil *s = unsmob_stencil (tagline_))
-    tag_height = s->extent (Y_AXIS).length ();
-  height_ += tag_height;
-
-  SCM make_copyright = paper->c_variable ("make-copyright");
-  copyright_ = scm_call_2 (make_copyright, paper->self_scm (), scopes);
-  Real copy_height = 0;
-  if (Stencil *s = unsmob_stencil (copyright_))
-    copy_height = s->extent (Y_AXIS).length ();
-  height_ += copy_height;
-}
-
 SCM
 Paper_book::lines ()
 {
@@ -374,13 +330,29 @@ Paper_book::lines ()
   return lines_;
 }
 
+
+SCM
+make_tagline (Output_def*paper, SCM scopes)
+{
+  SCM make_tagline = paper->c_variable ("make-tagline");
+  SCM tagline = scm_call_2 (make_tagline, paper->self_scm (), scopes);
+  return tagline;
+}
+
+SCM
+make_copyright (Output_def *paper, SCM scopes)
+{
+  SCM make_copyright = paper->c_variable ("make-copyright");
+  SCM  copyright = scm_call_2 (make_copyright, paper->self_scm (), scopes);
+  return copyright;
+}
+
 SCM
 Paper_book::pages ()
 {
   if (ly_c_pair_p (pages_))
     return pages_;
 
-  init ();
   Output_def *paper = bookpaper_;
   Page *page = new Page (paper, 1);
 
@@ -396,15 +368,23 @@ Paper_book::pages ()
 
   SCM all = lines ();
   SCM proc = paper->c_variable ("page-breaking");
-  SCM breaks = scm_apply_0 (proc, scm_list_n (all, scm_make_real (height_),
+  SCM breaks = scm_apply_0 (proc, scm_list_n (all,
+					      self_scm (),
 					      scm_make_real (text_height),
 					      scm_make_real (-copy_height),
 					      scm_make_real (-tag_height),
 					      SCM_UNDEFINED));
 
-  /* Copyright on first page.  */
-  if (unsmob_stencil (copyright_))
-    page->copyright_ = copyright_;
+
+  /*
+    UGH - move this out of C++.
+   */
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
+  
+  tagline_ = make_tagline (bookpaper_, scopes);
+  copyright_ = make_tagline (bookpaper_, scopes);
 
   int page_count = SCM_VECTOR_LENGTH ((SCM) breaks);
   int line = 1;
@@ -431,25 +411,52 @@ Paper_book::pages ()
       pages_ = scm_cons (page->self_scm (), pages_);
     }
 
-  /* Tagline on last page.  */
-  if (unsmob_stencil (tagline_))
-    page->tagline_ = tagline_;
-
   pages_ =  scm_reverse (pages_);
   return pages_;
 }
 
+
+
 static SCM
-c_ragged_page_breaks (SCM lines, Real book_height, Real text_height,
+c_ragged_page_breaks (SCM lines,
+		      Paper_book *book,
+		      Real text_height,
 		      Real first, Real last)
 {
   int page_number = 0;
-  int page_count = int (book_height / text_height + 0.5);
+
+  Real book_height =0.;
+  for (SCM s = lines ; ly_c_pair_p (s);  s = ly_cdr (s))
+    {
+      book_height += unsmob_paper_line (s)->dim ()[Y_AXIS];
+    }
+
+  /*
+    UGH.
+   */
+  SCM scopes = SCM_EOL;
+  if (ly_c_module_p (book->header_))
+    scopes = scm_cons (book->header_, scopes);
+  
+
+  SCM tag = make_tagline (book->bookpaper_, scopes);
+  if (unsmob_stencil (tag))
+    {
+      book_height += unsmob_stencil (tag)->extent (Y_AXIS).length ();
+    }
+
+  SCM cr = make_copyright (book->bookpaper_, scopes);
+  if (unsmob_stencil (cr))
+    {
+      book_height += unsmob_stencil (cr)->extent (Y_AXIS).length ();
+    }
+
+  int page_count = int (book_height / text_height + 0.5); // ceil?
   SCM breaks = SCM_EOL;
   Real page_height = text_height + first;
   Real h = 0;
   int number = 0;
-  for (SCM s = lines; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s = lines; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Paper_line *pl = unsmob_paper_line (ly_car (s));
       if (!pl->is_title () && h < page_height)
@@ -473,14 +480,16 @@ LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
 	   5, 0, 0, (SCM lines, SCM book, SCM text, SCM first, SCM last),
 	   "Return a vector with line numbers of page breaks.")
 {
-  SCM_ASSERT_TYPE (scm_pair_p (lines), lines, SCM_ARG1, __FUNCTION__, "list");
-  SCM_ASSERT_TYPE (ly_c_number_p (book), book, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_c_number_p (text), text, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_c_number_p (first), first, SCM_ARG2, __FUNCTION__, "real");
-  SCM_ASSERT_TYPE (ly_c_number_p (last), last, SCM_ARG2, __FUNCTION__, "real");
+  Paper_book* b = unsmob_paper_book (book);
 
-  return c_ragged_page_breaks (lines,
-			       ly_scm2double (book), ly_scm2double (text),
+  SCM_ASSERT_TYPE (scm_pair_p (lines), lines, SCM_ARG1, __FUNCTION__, "list");
+  SCM_ASSERT_TYPE (b, book, SCM_ARG2, __FUNCTION__, "Paper_book");
+  SCM_ASSERT_TYPE (ly_c_number_p (text), text, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_c_number_p (first), first, SCM_ARG4, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE (ly_c_number_p (last), last, SCM_ARG5, __FUNCTION__, "number");
+
+  return c_ragged_page_breaks (lines, b,
+			       ly_scm2double (text),
 			       ly_scm2double (first), ly_scm2double (last));
 }
 

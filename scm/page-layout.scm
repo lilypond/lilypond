@@ -96,7 +96,9 @@
 ;; max density %
 (define MAX-CRAMP 0.05)
 
-(define-public (ly:optimal-page-breaks lines book-height text-height
+(define-public (ly:optimal-page-breaks lines
+				       paper-book
+				       text-height
 				       first-diff last-diff)
   "DOCME"
   ;; FIXME: may need some tweaking: square, cubic
@@ -119,7 +121,6 @@
       (if (= page-number 1)
 	  (set! h (+ h first-diff)))
       (if (= page-number page-count)
-	  ;;(> page-number (/ book-height text-height))
        (set! h (+ h last-diff)))
       h))
 
@@ -206,12 +207,11 @@
 
     (if (ly:get-option 'verbose)
 	(begin
-	  (format (current-error-port) "Estimated page count: ~S\n"
-		  (/ book-height text-height))
-	(format (current-error-port) "breaks: ~S\n" breaks)
-	(force-output (current-error-port))))
-	;; TODO: if solution is bad return no breaks and revert to
-	;;       ragged bottom
+	  (format (current-error-port) "breaks: ~S\n" breaks)
+	  (force-output (current-error-port))))
+    
+    ;; TODO: if solution is bad return no breaks and revert to
+    ;;       ragged bottom
     (list->vector breaks)))
 
 

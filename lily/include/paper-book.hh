@@ -33,9 +33,6 @@ class Paper_book
 
   SCM lines_;
   SCM pages_;
-
-  
-  Real height_;			// what is this variable for? 
   SCM copyright_;
   SCM tagline_;
 public:
@@ -50,7 +47,6 @@ public:
   Stencil book_title ();
   Stencil score_title (int);
   void classic_output (String);
-  void init ();
   void output (String);
 };
 

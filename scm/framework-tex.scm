@@ -167,7 +167,7 @@
    (lambda (x)
      (ly:outputter-dump-string outputter x))
    (list
-    (header  "creator"
+    (header  "creator"			;FIXME
 	     "timestamp"
 	     bookpaper
 	     (length lines)
