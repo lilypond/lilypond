@@ -1,3 +1,57 @@
+2001-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.27 released.
+
+	* Documentation/user/refman.itely (Bar numbers): added bar number
+	documentation.
+
+	* scm/font.scm (make-style-sheet): Fixes to make staff-sizes work
+	again.
+
+2001-12-22  Mats Bengtsson  <matsb@matsb@s3.kth.se>
+
+	* tex/lilyponddefs.tex: Make sure interscorelinefill=1 doesn't
+	spread the last few lines all over the last page of a score.
+
+2001-12-24  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/third-try.cc: 3rd try at revising spacing
+	engine. Not yet finished.
+
+	* lily/paper-column.cc (brew_molecule): print debugging marks on a
+	paper-column.
+
+	* lily/tie-engraver.cc (class Tie_engraver): Use busyGrobs for
+	collecting past note heads.
+
+	* lily/note-heads-engraver.cc (try_music): Remove end_mom_
+	stuff.
+
+	* lily/grob-pq-engraver.cc (class Grob_pq_engraver): New file, new
+	class. Keep a queue of grobs that are still playing in busyGrobs. 
+
+	* lily/lyric-combine-music-iterator.cc (get_busy_status): New
+	function. Use busyGrobs to detect playing notes.
+	
+2001-12-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+ 
+	* Documentation/topdocs/INSTALL.texi: Added note about broken
+	python-2.1.  Updated note for Debian's broken (well, broken for
+	our use anyway) tex configuration.
+	
+	* scripts/lilypond-book.py (re_dict): python2.2 fix.
+	
+	* stepmake/stepmake/c++-rules.make ($(outdir)/%.hh): 
+	($(outdir)/%.cc): Adapted to bison-1.30; added bison < 1.30 fix.
+	
+	* scripts/lilypond-book.py (bounding_box_dimensions): Bugfix.
+	(But left margin of png's still misses a few pixels.  Arg.)
+	
+2001-12-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el (LilyPond-command-next-midi): Make
+	possible to kill midi-process (using "C-c C-m").
+
 2001-12-14  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond-book.py (LatexPaper.set_geo_option):
