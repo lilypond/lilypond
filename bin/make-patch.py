@@ -41,7 +41,7 @@ def help():
 
 def untar(fn):
     # os.system('pwd');
-    sys.stderr.write('untarring ' + fn)
+    sys.stderr.write('untarring ' + fn + '\n')
 # can't seem to fix errors:
 # gzip: stdout: Broken pipe
 # tar: Child returned status 1
@@ -50,7 +50,7 @@ def untar(fn):
 # ugh, even this does not work, but one error message less :-)
     os.system ('gzip --quiet -dc ' + fn + '| tar xf - ')
 # so print soothing message:
-    sys.stderr.write('make-patch:ugh: Please ignore error: gzip: stdout: Broken pipe\n');
+#    sys.stderr.write('make-patch:ugh: Please ignore error: gzip: stdout: Broken pipe\n');
     sys.stderr.flush()
 
 
@@ -101,6 +101,7 @@ def makepatch(fv, tv, patfile_nm):
     os.chdir(prev_cwd)
     
 def main():
+    os.environ['GZIP'] = '-q'
     sys.stderr.write('This is make-patch version %s\n' % mp_version)
     (cl_options, files) = getopt.getopt(sys.argv[1:], 
 					'hf:o:t:', ['output=', 'help', 'from=', 'to='])
