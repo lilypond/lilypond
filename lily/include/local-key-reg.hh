@@ -9,11 +9,15 @@
 #define LOCALKEYREG_HH
 #include "register.hh"
 #include "key.hh"
+#include "parray.hh"
 
 struct Local_key_register : Request_register {
     Key local_key_;
-    Local_key_item* key_item_p_;
     Key const *key_C_;
+    Array<Note_req* > mel_l_arr_;
+    Array<Item* > support_l_arr_;
+    Pointer_array<Item * > forced_l_arr_;
+    Pointer_array<Item *> tied_l_arr_;
     /* *************** */
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);
