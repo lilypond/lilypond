@@ -103,15 +103,17 @@ else:
 while datadir[-1] == os.sep:
 	datadir= datadir[:-1]
 
-# Try to cater for bad installations of LilyPond, that have
-# broken TeX setup.  Just hope this doesn't hurt good TeX
-# setups.  Maybe we should check if kpsewhich can find
-# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
+kpse = os.popen ('kpsexpand \$TEXMF').read()
+kpse = re.sub('[ \t\n]+$','', kpse)
+type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
+
 environment = {
-	'MFINPUTS' : datadir + '/mf:',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
-	'TFMFONTS' : datadir + '/tfm:',
-	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
+	# TODO: * prevent multiple addition.
+	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+	#         as these take prevalence over $TEXMF
+	#         and thus may break tex run?
+	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
+	'GS_FONTPATH' : type1_paths,
 	'GS_LIB' : datadir + '/ps',
 }
 
@@ -123,6 +125,10 @@ non_path_environment = {
 }
 
 def setup_environment ():
+	# $TEXMF is special, previous value is already taken care of
+	if os.environ.has_key ('TEXMF'):
+		del os.environ['TEXMF']
+ 
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
@@ -1264,7 +1270,7 @@ def compile_all_files (chunks):
 				f.close ()
 
 	for e in eps:
-		cmd = r"tex '\nonstopmode \input %s'" % e
+		cmd = r"echo $TEXMF; tex '\nonstopmode \input %s'" % e
 		quiet_system (cmd, 'TeX')
 		
 		cmd = r"dvips -E -o %s %s" % (e + '.eps', e)

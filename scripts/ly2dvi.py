@@ -386,7 +386,10 @@ kpse = re.sub('[ \t\n]+$','', kpse)
 type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
 
 environment = {
-	## todo: prevent multiple addition.
+	# TODO: * prevent multiple addition.
+	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+	#         as these take prevalence over $TEXMF
+	#         and thus may break tex run?
 	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
 	'GS_FONTPATH' : type1_paths,
 	'GS_LIB' : datadir + '/ps',
@@ -404,7 +407,6 @@ def setup_environment ():
 	if os.environ.has_key ('TEXMF'):
 		del os.environ['TEXMF']
  
-
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):

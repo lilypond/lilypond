@@ -1,5 +1,11 @@
 2002-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* GNUmakefile.in (builddir-setup): Bugfix: include srcdir/tex as
+	well as mf/out as subdirs of tex, for kpathsea to find through TEXMF.
+
+	* scripts/lilypond-book.py (environment): Bugfix: update to new
+	TEXMF scheme, from ly2dvi.
+
 	* lily/lookup.cc (slur): Invoke bezier-bow.
 
 	* scm/tex.scm (bezier-bow): 
