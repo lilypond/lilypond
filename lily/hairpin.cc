@@ -48,7 +48,7 @@ Hairpin::print (SCM smob)
   Direction d = LEFT;
   do
     {
-      bounds[d] =spanner->get_bound (d);
+      bounds[d] = spanner->get_bound (d);
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
   while (flip (&d) != LEFT);
@@ -59,7 +59,7 @@ Hairpin::print (SCM smob)
   do
     {
       Item *b = bounds[d];
-      x_points[d]  = b->relative_coordinate (common, X_AXIS);
+      x_points[d] = b->relative_coordinate (common, X_AXIS);
       if (broken [d])
 	{
 	  if (d == LEFT)
@@ -74,15 +74,15 @@ Hairpin::print (SCM smob)
 		adjacent to a text-dynamic, and we may move closer. We
 		make the padding a little smaller, here.
 	      */
-	      Interval e =b->extent (common, X_AXIS);
+	      Interval e = b->extent (common, X_AXIS);
 	      if (e.is_empty ())
 		e = Interval (0,0) + b->relative_coordinate (common, X_AXIS);
 	      
-	      x_points[d] = e.center () - d  * padding /3; // ugh.
+	      x_points[d] = e.center () - d  * padding / 3; // ugh.
 	    }
 	  else
 	    {
-	      Interval e =b->extent (common, X_AXIS);
+	      Interval e = b->extent (common, X_AXIS);
 	      if (!e.is_empty ())
 		x_points[d] = e[-d] - d*padding;
 	    }
@@ -118,13 +118,13 @@ Hairpin::print (SCM smob)
 
   /*
     should do relative to staff-symbol staff-space?
-   */
+  */
 
   Stencil mol;
   mol  = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
   mol.add_stencil (Line_interface::line (me,
-						 Offset (0, -starth),
-						 Offset (width, -endh)));
+					 Offset (0, -starth),
+					 Offset (width, -endh)));
 
   mol.translate_axis (x_points[LEFT]
 		      - bounds[LEFT]->relative_coordinate (common, X_AXIS),

@@ -10,7 +10,7 @@ IMAGES=$(wildcard *.png)
 
 OUT_EPS_IMAGES=$(addprefix $(outdir)/,$(IMAGES:.png=.eps))
 OUT_PNG_IMAGES=$(addprefix $(outdir)/,$(IMAGES))
-
+OUT_ITEXI_FILES=$(addprefix $(outdir)/,$(ITELY_FILES:.itely=.itexi) 
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)

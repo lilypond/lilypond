@@ -17,14 +17,10 @@ install-info: local-install-info
 uninstall-info: local-uninstall-info
 
 install-info: $(INFO_FILES)
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
-	$(INFOINSTALL) local-install
-	-install-info --info-dir=$(infodir) $(outdir)/$(package).info
+	$(INFO_INSTALL_COMMAND) local-install
 
 uninstall-info:
-	-install-info --info-dir=$(infodir) --remove $(outdir)/$(package).info
-	$(INFOINSTALL) local-uninstall
-	-rmdir $(infodir)
+	$(INFO_INSTALL_COMMAND) local-uninstall
 
 
 TEXINFO_ALL_MENUS_UPDATE_EL ='\
