@@ -30,6 +30,15 @@ StaffContext=\translator {
 	\consists "Rest_collision_engraver";
 	\consists "Local_key_engraver";
 
+	startSustain = #"Ped."
+	stopSustain = #"*"
+	stopStartSustain = #"*Ped."
+	startUnaChorda = #"una chorda"
+	stopUnaChorda = #"tre chorde"
+	% should make separate lists for stopsustain and startsustain 
+	
+	\consists "Piano_pedal_engraver";
+
 	\consistsend "Axis_group_engraver";
 
 %{
@@ -114,15 +123,6 @@ VoiceContext = \translator {
 	\consists "A2_engraver";
 	\consists "Voice_devnull_engraver";
 
-
-	startSustain = #"Ped."
-	stopSustain = #"*"
-	stopStartSustain = #"*Ped."
-	startUnaChorda = #"una chorda"
-	stopUnaChorda = #"tre chorde"
-	% should make separate lists for stopsustain and startsustain 
-	
-	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
 	\consists "Rhythmic_column_engraver";
