@@ -35,5 +35,8 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
-lilypond.spec: lilypond.spec.in $(depth)/.version
-	sed 's/@TOPLEVEL_VERSION@/${TOPLEVEL_VERSION}/g'< $< > $@
+spec: $(outdir)/lilypond.spec
+
+rpm-docs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))
+$(outdir)/lilypond.spec: lilypond.spec.in $(depth)/.version
+	cat $< | sed 's/@TOPLEVEL_VERSION@/${TOPLEVEL_VERSION}/g'|sed 's#@TEXT_DOCS@#$(rpm-docs)#g' > $@
