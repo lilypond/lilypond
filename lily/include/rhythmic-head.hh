@@ -23,7 +23,7 @@ public:
   Dots * dots_l () const;
   int dot_count () const;
 protected:
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
 };
 
 #endif // RHYTHMIC_HEAD_HH

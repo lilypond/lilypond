@@ -30,7 +30,7 @@ protected:
   virtual bool do_try_music (Music* m);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void acknowledge_element (Score_element_info);
 };
 
@@ -72,7 +72,7 @@ Text_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Text_engraver::do_process_requests ()
+Text_engraver::do_process_music ()
 {
   for (int i=0; i < reqs_.size (); i++)
     {

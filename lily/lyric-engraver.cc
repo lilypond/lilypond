@@ -36,7 +36,7 @@ Lyric_engraver::do_try_music (Music*r)
 }
 
 void
-Lyric_engraver::do_process_requests()
+Lyric_engraver::do_process_music()
 {
   if (req_l_)
     {

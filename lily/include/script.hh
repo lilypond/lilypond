@@ -24,8 +24,8 @@ class Script : public Item
 public:
   
 protected:
-  virtual void do_pre_processing ();
-  virtual void do_post_processing ();
+  virtual void before_line_breaking ();
+  virtual void after_line_breaking ();
   Molecule do_brew_molecule () const;
 };
 

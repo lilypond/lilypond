@@ -36,7 +36,7 @@ enum Score_element_status {
 void
 Super_element::pre_processing ()
 {
-  calculate_dependencies (PRECALCED, PRECALCING, &Score_element::do_pre_processing);
+  calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
 }
 
 void
@@ -56,18 +56,13 @@ Super_element::breakable_col_processing ()
   //  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
 }
 
-void
-Super_element::break_processing ()
-{
-  calculate_dependencies (BROKEN, BROKEN, &Score_element::do_break_processing);
-}
 
 void
 Super_element::post_processing ()
 {
   //  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
   //		  &Score_element::handle_broken_dependents);
-  calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::do_post_processing);
+  calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::after_line_breaking);
 }
 
 void

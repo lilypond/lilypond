@@ -89,7 +89,7 @@ protected:
 protected:
   Molecule flag () const;
 
-  virtual void do_pre_processing();
+  virtual void before_line_breaking();
   static Interval dim_callback (Dimension_cache const*);
   virtual Molecule do_brew_molecule() const;
 

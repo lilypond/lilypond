@@ -116,8 +116,8 @@ Tuplet_spanner::do_add_processing ()
       Link_array<Note_column> column_arr=
 	Group_interface__extract_elements (this, (Note_column*)0, "columns");
       
-      set_bounds (LEFT, column_arr[0]);
-      set_bounds (RIGHT, column_arr.top ());  
+      set_bound (LEFT, column_arr[0]);
+      set_bound (RIGHT, column_arr.top ());  
     }
 }
 
@@ -189,7 +189,7 @@ Tuplet_spanner::calc_dy (Real * dy) const
 }
 
 void
-Tuplet_spanner::do_post_processing ()
+Tuplet_spanner::after_line_breaking ()
 {
   Link_array<Note_column> column_arr=
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
@@ -223,8 +223,8 @@ calc_position_and_height  (&offset,&dy);
       Score_element *b = unsmob_element (gh_car (bs));
       Beam * beam_l = dynamic_cast<Beam*> (b);
       if (!broken_b () 
-	  && spanned_drul_[LEFT]->column_l () == beam_l->spanned_drul_[LEFT]->column_l ()
-	  && spanned_drul_[RIGHT]->column_l () == beam_l->spanned_drul_[RIGHT]->column_l ())
+	  && get_bound (LEFT)->column_l () == beam_l->get_bound (LEFT)->column_l ()
+	  && get_bound (RIGHT)->column_l () == beam_l->get_bound (RIGHT)->column_l ())
 	set_elt_property ("parallel-beam", SCM_BOOL_T);
     }
 }

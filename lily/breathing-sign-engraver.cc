@@ -42,7 +42,7 @@ Breathing_sign_engraver::do_try_music (Music*r_l)
 }
 
 void
-Breathing_sign_engraver::do_process_requests()
+Breathing_sign_engraver::do_process_music()
 {
   if(breathing_sign_req_l_)
     {

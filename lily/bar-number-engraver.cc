@@ -22,7 +22,7 @@ Bar_number_engraver::Bar_number_engraver()
 
 
 void
-Bar_number_engraver::do_process_requests ()
+Bar_number_engraver::do_process_music ()
 {
   Translator *tr = daddy_grav_l ()->get_simple_translator ("Timing_engraver");
   Timing_translator *time = dynamic_cast<Timing_translator*>(tr);

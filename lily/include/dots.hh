@@ -22,7 +22,7 @@ class Dots :
 {
 protected:
   virtual Molecule do_brew_molecule () const;
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
 public:
   
   Dots ();

@@ -45,7 +45,7 @@ Staff_performer::do_creation_processing ()
 }
 
 void
-Staff_performer::do_process_requests ()
+Staff_performer::do_process_music ()
 {
   String str = new_instrument_str ();
   if (str.length_i ())
@@ -55,7 +55,7 @@ Staff_performer::do_process_requests ()
       instrument_p_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_p_, 0));
     }
-  Performer_group_performer::do_process_requests ();
+  Performer_group_performer::do_process_music ();
 }
 
 void

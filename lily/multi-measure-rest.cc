@@ -40,7 +40,7 @@ Multi_measure_rest::do_brew_molecule () const
   Direction d = LEFT;
   do
     {
-      Item * col = spanned_drul_[d]->column_l ();
+      Item * col = get_bound (d)->column_l ();
 
       Interval coldim = col->extent (X_AXIS)
 	+ col->relative_coordinate (0, X_AXIS);
@@ -51,7 +51,7 @@ Multi_measure_rest::do_brew_molecule () const
   Molecule mol;
   Real x_off = 0.0;
 
-  Real rx  = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
+  Real rx  = get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
@@ -143,15 +143,15 @@ Multi_measure_rest::do_add_processing ()
     {
       Link_array<Item> column_arr (Group_interface__extract_elements (this, (Item*)0, "columns"));
 				    
-      set_bounds (LEFT, column_arr[0 >? column_arr.size () - 2]);
-      set_bounds (RIGHT, column_arr.top ());
+      set_bound (LEFT, column_arr[0 >? column_arr.size () - 2]);
+      set_bound (RIGHT, column_arr.top ());
     }
 
   // set columns to SCM_EOL?
 }
   
 void
-Multi_measure_rest::do_post_processing ()
+Multi_measure_rest::after_line_breaking ()
 {
   if (!gh_pair_p (get_elt_property ("columns")))
     set_elt_property ("transparent", SCM_BOOL_T);
@@ -175,14 +175,14 @@ Multi_measure_rest::get_rods () const
 {
   Array<Rod> a;
 
-  if (!(spanned_drul_[LEFT] && spanned_drul_[RIGHT]))
+  if (!(get_bound (LEFT) && get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
       return a;
     }
 
-  Item * l = spanned_drul_[LEFT]->column_l ();
-  Item * r = spanned_drul_[RIGHT]->column_l ();
+  Item * l = get_bound (LEFT)->column_l ();
+  Item * r = get_bound (RIGHT)->column_l ();
   Item * lb = l->find_broken_piece (RIGHT);
   Item * rb = r->find_broken_piece (LEFT);      
   

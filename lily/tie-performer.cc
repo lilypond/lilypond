@@ -47,7 +47,7 @@ Tie_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Tie_performer::do_process_requests ()
+Tie_performer::do_process_music ()
 {
   if (req_l_)
     {

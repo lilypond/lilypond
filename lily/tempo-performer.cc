@@ -32,7 +32,7 @@ Tempo_performer::do_print () const
 }
 
 void
-Tempo_performer::do_process_requests ()
+Tempo_performer::do_process_music ()
 {
   if (tempo_req_l_)
     {

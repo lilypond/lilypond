@@ -31,7 +31,7 @@ Extender_engraver::acknowledge_element (Score_element_info i)
     {
       current_lyric_l_ = t;
       if (extender_spanner_p_
-	  && !extender_spanner_p_->spanned_drul_[RIGHT]
+	  && !extender_spanner_p_->get_bound (RIGHT)
 	    )
 	  {
 	    extender_spanner_p_->set_textitem (RIGHT, t);
@@ -60,12 +60,12 @@ Extender_engraver::do_removal_processing ()
   if (extender_spanner_p_)
     {
       req_l_->warning (_ ("unterminated extender"));
-      extender_spanner_p_->set_bounds(RIGHT, get_staff_info ().command_pcol_l ());
+      extender_spanner_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
     }
 }
 
 void
-Extender_engraver::do_process_requests ()
+Extender_engraver::do_process_music ()
 {
   if (req_l_)
     {

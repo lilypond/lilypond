@@ -31,16 +31,18 @@ Span_bar::width_callback (Dimension_cache const * c)
 {
   Span_bar*  s= dynamic_cast<Span_bar*> (c->element_l ());  
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
-  
-  Molecule m = s->lookup_l ()->bar (gl, 40 PT, s->paper_l ());
+
+  /*urg.
+   */
+  Molecule m = s->compound_barline (gl, 40 PT);
   
   return m.extent (X_AXIS);
 }
 
 void
-Span_bar::do_pre_processing ()
+Span_bar::before_line_breaking ()
 {
-  Bar::do_pre_processing ();
+  Bar::before_line_breaking ();
   
   evaluate_empty ();
   
@@ -48,9 +50,9 @@ Span_bar::do_pre_processing ()
 }
 
 void
-Span_bar::do_post_processing ()
+Span_bar::after_line_breaking ()
 {
-  Bar::do_post_processing ();
+  Bar::after_line_breaking ();
   Interval i(get_spanned_interval ());
 
   translate_axis (i.center (), Y_AXIS);
@@ -88,6 +90,10 @@ Span_bar::evaluate_empty ()
       type_str= ".|.";
     }
   }
+
+  /*
+    uhh. should do something with type_str ?!!
+   */
 }
 
 Interval
@@ -113,6 +119,7 @@ Span_bar::get_spanned_interval () const
 	  y_int.unite (y + iv);
 	}
     }
+  
   return y_int;
 }
 
@@ -123,29 +130,21 @@ Span_bar::height_callback (Dimension_cache const *c)
   return s->get_spanned_interval ();
 }
 
-Molecule 
-Span_bar::do_brew_molecule () const
+Real
+Span_bar::get_bar_size () const
 {
-  Interval iv (get_spanned_interval ());
-  Molecule output;
-  SCM s = get_elt_property ("glyph");
-  if (gh_string_p (s) && !iv.empty_b())
-    {
-      output.add_molecule (lookup_l ()->bar (ly_scm2string (s),
-					      iv.length (),
-					      paper_l ()));
-    }
-  else
-    {
-      programming_error("Huh? My children deflated (FIXME)");
-    }
-  return output;
+   Interval iv (get_spanned_interval ());
+   if (iv.empty_b ())
+     {
+       programming_error("Huh? My children deflated (FIXME)");
+       iv = Interval (0,0);
+     }
+   return iv.length ();
 }
-
-
 
 Span_bar::Span_bar ()
 {
+  group (this).set_interface ();
   dim_cache_[X_AXIS]->set_callback (width_callback);
   dim_cache_[Y_AXIS]->set_callback (height_callback);  
 }

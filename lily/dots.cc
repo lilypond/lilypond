@@ -19,7 +19,7 @@ Dots::Dots ()
 }
 
 void
-Dots::do_post_processing ()
+Dots::after_line_breaking ()
 {
   SCM d= get_elt_property ("dot-count");
   if (!gh_number_p (d) || !gh_scm2int (d))
@@ -42,7 +42,7 @@ Dots::do_post_processing ()
 Molecule  
 Dots::do_brew_molecule () const
 {
-  Molecule mol (lookup_l ()->fill (Box (Interval (0,0),
+  Molecule mol (lookup_l ()->blank (Box (Interval (0,0),
 					  Interval (0,0))));
   Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 

@@ -45,8 +45,8 @@ public:
 
 protected:
  
-  virtual void do_pre_processing ();
-  virtual void do_post_processing ();
+  virtual void before_line_breaking ();
+  virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;
 
   Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;

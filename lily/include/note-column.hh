@@ -17,7 +17,7 @@
   (chord) and scripts) as a single entity.  */
 class Note_column : public Axis_group_item {
 protected:
-  virtual void do_post_processing () ;
+  virtual void after_line_breaking () ;
 public:
 
   static int shift_compare (Note_column *const &, Note_column*const&);

@@ -24,7 +24,7 @@ protected:
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void process_acknowledged ();
   virtual void do_creation_processing ();
 private:

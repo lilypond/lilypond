@@ -23,7 +23,7 @@ public:
   Molecule ledger_line (Interval) const;
 protected:
   
-  virtual void do_pre_processing();
+  virtual void before_line_breaking ();
   virtual Molecule do_brew_molecule() const;
 };
 #endif // NOTEHEAD_HH

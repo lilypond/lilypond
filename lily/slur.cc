@@ -121,8 +121,8 @@ Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l,
 					 Real default_height)
 {
   Real length = curve_.control_[3][X_AXIS]; 
-  Real bbc = paper_l->get_var ("bezier_beautiful");
-  Real beautiful = length * default_height / bbc;
+  Real sb = paper_l->get_var ("slur_beautiful");
+  Real beautiful = length * default_height * sb;
 
   DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
   DEBUG_OUT << to_str ("Length: %f\n", length);
@@ -302,9 +302,9 @@ Slur::do_add_processing ()
 
   if (encompass_arr.size ())
     {
-      set_bounds (LEFT, encompass_arr[0]);    
+      set_bound (LEFT, encompass_arr[0]);    
       if (encompass_arr.size () > 1)
-	set_bounds (RIGHT, encompass_arr.top ());
+	set_bound (RIGHT, encompass_arr.top ());
     }
 }
 
@@ -352,7 +352,7 @@ Slur::encompass_offset (Note_column const* col) const
 }
 
 void
-Slur::do_post_processing ()
+Slur::after_line_breaking ()
 {
   set_extremities ();
   set_control_points ();
@@ -411,7 +411,7 @@ Slur::set_extremities ()
       dx_f_drul_[d] = 0;
       dy_f_drul_[d] = 0;
       
-      if ((note_column_drul[d] == spanned_drul_[d])
+      if ((note_column_drul[d] == get_bound (d))
 	  && note_column_drul[d]->first_head ()
 	  && (note_column_drul[d]->stem_l ()))
 	{
@@ -425,7 +425,7 @@ Slur::set_extremities ()
 	      && !((my_dir == stem_l->get_direction ())
 		   && stem_l->beam_l () && (stem_l->beam_count (-d) >= 1)))
 	    {
-	      dx_f_drul_[d] = spanned_drul_[d]->extent (X_AXIS).length () / 2;
+	      dx_f_drul_[d] = get_bound (d)->extent (X_AXIS).length () / 2;
 	      dx_f_drul_[d] -= d * x_gap_f;
 
 	      if (stem_l->get_direction () != my_dir)
@@ -445,7 +445,7 @@ Slur::set_extremities ()
 	  else
 	    {
 	      dx_f_drul_[d] = stem_l->hpos_f ()
-		- spanned_drul_[d]->relative_coordinate (0, X_AXIS);
+		- get_bound (d)->relative_coordinate (0, X_AXIS);
 	      /*
 		side attached to beamed stem
 	       */
@@ -503,7 +503,7 @@ Slur::set_extremities ()
 
   if (fix_broken_b)
     {
-      Direction d = (encompass_arr.top () != spanned_drul_[RIGHT]) ?
+      Direction d = (encompass_arr.top () != get_bound (RIGHT)) ?
 	RIGHT : LEFT;
       dy_f_drul_[d] = info_drul[d][Y_AXIS];
       if (!interstaff_b)
@@ -569,7 +569,7 @@ Slur::get_encompass_offset_arr () const
 
   int cross_count  = cross_staff_count ();
   bool cross_b = cross_count && cross_count < encompass_arr.size ();
-  if (encompass_arr[0] != spanned_drul_[LEFT])
+  if (encompass_arr[0] != get_bound (LEFT))
     {
       first--;
       Real is   = calc_interstaff_dist (encompass_arr[0], this);
@@ -580,7 +580,7 @@ Slur::get_encompass_offset_arr () const
   /*
     right is broken edge
   */
-  if (encompass_arr.top () != spanned_drul_[RIGHT])
+  if (encompass_arr.top () != get_bound (RIGHT))
     {
       last++;
     }
@@ -603,38 +603,15 @@ Slur::get_rods () const
 {
   Array<Rod> a;
   Rod r;
-  r.item_l_drul_ = spanned_drul_;
+  r.item_l_drul_[LEFT] = get_bound (LEFT);
+  r.item_l_drul_[RIGHT] = get_bound (RIGHT);
+  
   r.distance_f_ = paper_l ()->get_var ("slur_x_minimum");
 
   a.push (r);
   return a;
 }
 
-
-
-#if 0
-SCM
-ugly_scm (Bezier  b) 
-{
-  b.translate (-b.control_[0]);
-  Real alpha = b.control_[3].arg ();
-
-  b.rotate ( -alpha);
-  if (b.control_[1][Y_AXIS] < 0)
-    {
-      b.control_[1][Y_AXIS] *= -1;
-      b.control_[2][Y_AXIS] *= -1;      
-    }
-
-  Real len = b.control_[3][X_AXIS];
-  Real indent = 10 *b.control_[1][X_AXIS] / len ;
-  Real ht = 10 *b.control_[1][Y_AXIS] / len ;
-  
-  SCM res = scm_eval (scm_listify (ly_symbol2scm ("slur-ugly"), gh_double2scm (indent), gh_double2scm (ht), SCM_UNDEFINED ));
-
-  return res;
-}
-#endif
 
 
 /*
@@ -653,19 +630,6 @@ Slur::do_brew_molecule () const
   else
     a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
 
-#if 0 
-  SCM u = ugly_scm (one);
-  if (gh_pair_p (u))
-    {
-      Molecule mark = lookup_l ()-> text ( "roman",
-			   to_str (gh_scm2double (gh_car (u)), "%0.2f") + "," +
-			   to_str(gh_scm2double (gh_cdr (u)), "%0.2f"),
-			   paper_l ());
-
-      mark.translate_axis (20 , Y_AXIS);
-      a.add_molecule (mark);
-    }
-#endif
   return a;
 }
 

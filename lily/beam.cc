@@ -50,10 +50,10 @@ Beam::add_stem (Stem*s)
   assert (!s->beam_l ());
   s->set_elt_property ("beam", self_scm_);
 
-  if (!spanned_drul_[LEFT])
-    set_bounds (LEFT,s);
+  if (!get_bound (LEFT))
+    set_bound (LEFT,s);
   else
-    set_bounds (RIGHT,s);
+    set_bound (RIGHT,s);
 }
 
 int
@@ -79,7 +79,7 @@ Beam::get_multiplicity () const
    their beam, during 'final-pre-processing'.]
  */
 void
-Beam::do_pre_processing ()
+Beam::before_line_breaking ()
 {
   // Why?
   if (visible_stem_count () < 2)
@@ -263,7 +263,7 @@ Beam::set_stem_shorten ()
   Adjust stem lengths to reach beam.
  */
 void
-Beam::do_post_processing ()
+Beam::after_line_breaking ()
 {
   /* first, calculate y, dy */
   Real y, dy;
@@ -742,7 +742,7 @@ Beam::do_brew_molecule () const
       mol.add_molecule (sb);
     }
   mol.translate_axis (x0 
-    - spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS), X_AXIS);
+    - get_bound (LEFT)->relative_coordinate (0, X_AXIS), X_AXIS);
 
   return mol;
 }

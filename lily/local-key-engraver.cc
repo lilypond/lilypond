@@ -34,7 +34,7 @@ struct Local_key_engraver : Engraver {
   Local_key_item *key_item_p_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void do_process_requests();
+  virtual void do_process_music();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
   virtual void do_creation_processing ();
@@ -218,7 +218,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Local_key_engraver::do_process_requests()
+Local_key_engraver::do_process_music()
 {
   if (time_trans_l_ && !time_trans_l_->measure_position ())
     {

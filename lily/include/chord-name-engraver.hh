@@ -23,7 +23,7 @@ public:
 protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info i);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual bool do_try_music (Music* m);
 
 private:

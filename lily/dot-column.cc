@@ -70,7 +70,7 @@ Dot_column::Dot_column ()
    Should be smarter.
  */
 void
-Dot_column::do_post_processing ()
+Dot_column::after_line_breaking ()
 {
   Link_array<Dots> dots = Group_interface__extract_elements (this, (Dots*)0 , "dots"); 
   dots.sort (Dot_column::compare);

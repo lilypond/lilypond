@@ -18,7 +18,7 @@ Time_signature_engraver::Time_signature_engraver()
 }
 
 void
-Time_signature_engraver::do_process_requests()
+Time_signature_engraver::do_process_music()
 {
   Translator * result =
     daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh

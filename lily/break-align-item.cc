@@ -24,7 +24,7 @@
 */
 
 void
-Break_align_item::do_pre_processing()
+Break_align_item::before_line_breaking ()
 {
   Direction ad = (break_status_dir() == LEFT) ? RIGHT : LEFT;
   Real interline= paper_l ()->get_var ("interline");	
@@ -103,7 +103,7 @@ Break_align_item::do_pre_processing()
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_elt_property ("minimum-space", first_pair);
   
-  Axis_align_item::do_pre_processing();
+  Axis_align_item::before_line_breaking ();
 
 
   Real pre_space = elems[0]->relative_coordinate (column_l (), X_AXIS);

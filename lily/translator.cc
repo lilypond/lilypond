@@ -145,7 +145,7 @@ Translator::process_requests ()
     return; 
   
   status = PROCESSED_REQS;
-  do_process_requests ();
+  do_process_music ();
 }
 
 void
@@ -182,7 +182,7 @@ Translator:: do_pre_move_processing(){}
 void
 Translator::do_post_move_processing(){}
 void
-Translator::do_process_requests () {}
+Translator::do_process_music () {}
 void
 Translator::do_creation_processing() {}
 void

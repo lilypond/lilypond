@@ -30,7 +30,7 @@ protected:
   Drul_array<Real> dx_f_drul_;
 
   virtual Direction get_default_dir () const;
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
   virtual void do_add_processing ();
   Array<Rod> get_rods () const;
 

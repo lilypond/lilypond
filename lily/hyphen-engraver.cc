@@ -29,7 +29,7 @@ Hyphen_engraver::acknowledge_element (Score_element_info i)
     {
       current_lyric_l_ = t;
       if (hyphen_spanner_p_
-	  && !hyphen_spanner_p_->spanned_drul_[RIGHT]
+	  && !hyphen_spanner_p_->get_bound (RIGHT)
 	    )
 	  {
 	    hyphen_spanner_p_->set_textitem (RIGHT, t);
@@ -58,12 +58,12 @@ Hyphen_engraver::do_removal_processing ()
   if (hyphen_spanner_p_)
     {
       req_l_->warning (_ ("unterminated hyphen"));
-      hyphen_spanner_p_->set_bounds(RIGHT, get_staff_info ().command_pcol_l ());
+      hyphen_spanner_p_->set_bound(RIGHT, get_staff_info ().command_pcol_l ());
     }
 }
 
 void
-Hyphen_engraver::do_process_requests ()
+Hyphen_engraver::do_process_music ()
 {
   if (req_l_)
     {

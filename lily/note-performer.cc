@@ -31,7 +31,7 @@ Note_performer::do_print () const
 }
 
 void 
-Note_performer::do_process_requests () 
+Note_performer::do_process_music () 
 {
   if (note_req_l_arr_.size ())
     {

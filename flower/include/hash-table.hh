@@ -61,9 +61,12 @@ public:
   int lookup  (K s, unsigned int initial_hash)
     {
       int sz =dict_arr_.size ();
-      int i = initial_hash % sz;
+      initial_hash = initial_hash % sz; 
+      int i;
       int j = 0;
       while (j <= sz/2) {
+	i = (initial_hash + j*j) % sz;
+	
 	if (dict_arr_[i].free_b_)
 	  return i;
 
@@ -71,7 +74,6 @@ public:
 	  return i;
 
 	j++;
-	i = (i + j*j) % sz;
       }
 
       

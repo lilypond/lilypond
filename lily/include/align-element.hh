@@ -50,8 +50,8 @@ public:
   void set_axis (Axis);
   int get_count (Score_element*)const;
 protected:
-  virtual void do_post_processing() ;
-  virtual void do_pre_processing ();
+  virtual void after_line_breaking () ;
+  virtual void before_line_breaking ();
   virtual void do_side_processing ();
 };
 #endif // VERTICAL_ALIGN_ITEM_HH

@@ -44,7 +44,11 @@ Bar_engraver::create_bar ()
 #if 0
       /*
 	urg.  Why did I implement this? And did I implement this so
-	clumsily?  */
+	clumsily?
+
+	input/test/just-friends.ly
+	Maybe a staffgroup of just one staff would be a better solution.
+      */
       SCM prop = get_property ("barAtLineStart");
       if (to_boolean (prop))
 	{
@@ -103,7 +107,7 @@ Bar_engraver::do_removal_processing ()
 }
 
 void
-Bar_engraver::do_process_requests()
+Bar_engraver::do_process_music()
 {  
   Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
 

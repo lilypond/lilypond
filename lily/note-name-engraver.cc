@@ -18,7 +18,7 @@ public:
   Link_array<Note_req> req_l_arr_;
   Link_array<Text_item> texts_;
   virtual bool  do_try_music (Music*m);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_pre_move_processing ();
 };
 
@@ -35,7 +35,7 @@ Note_name_engraver::do_try_music (Music *m)
 
 
 void
-Note_name_engraver::do_process_requests ()
+Note_name_engraver::do_process_music ()
 {
   String s ;
   for (int i=0; i < req_l_arr_.size (); i++)

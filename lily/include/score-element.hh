@@ -141,14 +141,14 @@ protected:
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
   /// do calculations before determining horizontal spacing
-  virtual void do_pre_processing ();
+  virtual void before_line_breaking ();
 
   /// generate rods & springs
   virtual void do_space_processing ();
 
   virtual void do_breakable_col_processing ();
   /// do calculations after determining horizontal spacing
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
     
   virtual Link_array<Score_element> get_extra_dependencies () const;
 

@@ -17,7 +17,7 @@ class Break_align_item : public Axis_align_item {
 
 
 protected:
-  virtual void do_pre_processing();
+  virtual void before_line_breaking ();
 public:
   Break_align_item ();
   VIRTUAL_COPY_CONS(Score_element);

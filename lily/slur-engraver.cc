@@ -63,7 +63,7 @@ Slur_engraver::do_removal_processing ()
 }
 
 void
-Slur_engraver::do_process_requests()
+Slur_engraver::do_process_music()
 {
   Array<Slur*> start_slur_l_arr_;
   for (int i=0; i< new_slur_req_l_arr_.size(); i++)

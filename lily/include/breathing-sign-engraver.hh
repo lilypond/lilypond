@@ -21,7 +21,7 @@ public:
   
 protected:
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_requests();
+  virtual void do_process_music();
 
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();

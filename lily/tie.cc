@@ -26,7 +26,7 @@ Tie::set_head (Direction d, Item * head_l)
   assert (!head (d));
   index_set_cell (get_elt_property ("heads"), d, head_l->self_scm_);
   
-  set_bounds (d, head_l);
+  set_bound (d, head_l);
   add_dependency (head_l);
 }
 
@@ -92,7 +92,7 @@ Tie::do_add_processing()
 }
 
 void
-Tie::do_post_processing()
+Tie::after_line_breaking ()
 {
   if (!head (LEFT) && !head (RIGHT))
     {
@@ -179,7 +179,10 @@ Tie::get_rods () const
 {
   Array<Rod> a;
   Rod r;
-  r.item_l_drul_ = spanned_drul_;
+
+  r.item_l_drul_ [LEFT]=get_bound (LEFT);
+  r.item_l_drul_ [RIGHT]=get_bound (RIGHT);  
+  
   r.distance_f_ = paper_l ()->get_var ("tie_x_minimum");
   a.push (r);
   return a;

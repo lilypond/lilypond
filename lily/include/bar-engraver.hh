@@ -26,7 +26,7 @@ public:
 protected:
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
-  virtual void do_process_requests();
+  virtual void do_process_music();
   virtual void do_pre_move_processing();
 
 

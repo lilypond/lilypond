@@ -54,7 +54,7 @@ Timing_translator::time_signature_req_l() const
 }
 
 void
-Timing_translator::do_process_requests()
+Timing_translator::do_process_music()
 {
   for (int i=0; i < timing_req_l_arr_.size (); i++)
     {

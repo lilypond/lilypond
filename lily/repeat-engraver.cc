@@ -137,7 +137,7 @@ Repeat_engraver::queue_events ()
 }
 
 void
-Repeat_engraver::do_process_requests ()
+Repeat_engraver::do_process_music ()
 {
   if (repeated_music_l_ && !done_this_one_b_)
     { 

@@ -29,7 +29,7 @@ class Clef_engraver : public  Engraver {
   void create_clef();
   bool set_type (String);
 protected:
-  virtual void do_process_requests();
+  virtual void do_process_music();
   virtual void do_pre_move_processing();
   virtual void do_creation_processing();
   virtual void do_post_move_processing();
@@ -183,7 +183,7 @@ Clef_engraver::create_clef()
 
 
 void
-Clef_engraver::do_process_requests()
+Clef_engraver::do_process_music()
 {
   if (clef_req_l_)
     {

@@ -27,8 +27,8 @@ Tie_column::add_tie (Tie *s)
   Group_interface g (this, "ties");
   if (!g.count ())
     {
-      set_bounds (LEFT, s->head (LEFT));
-      set_bounds (RIGHT, s->head (RIGHT));
+      set_bound (LEFT, s->head (LEFT));
+      set_bound (RIGHT, s->head (RIGHT));
     }
   
   group (this, "ties").add_element (s);
@@ -92,7 +92,7 @@ Tie_column::set_directions ()
 }
 
 void
-Tie_column::do_post_processing ()
+Tie_column::after_line_breaking ()
 {
   set_directions ();
 }

@@ -21,7 +21,7 @@ public:
   Note_performer();
 
 protected:
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual bool do_try_music (Music *req_l) ;
   virtual void do_print () const;
   virtual void do_pre_move_processing ();

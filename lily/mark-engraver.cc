@@ -20,7 +20,7 @@ public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual void do_post_move_processing ();
 private:
   Mark_req * mark_req_l_;
@@ -59,7 +59,7 @@ Mark_engraver::do_try_music (Music* r_l)
 }
 
 void
-Mark_engraver::do_process_requests ()
+Mark_engraver::do_process_music ()
 {
   if (mark_req_l_)
     {

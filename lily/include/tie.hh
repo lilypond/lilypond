@@ -37,7 +37,7 @@ protected:
   Drul_array<Real> dx_f_drul_;
 
   virtual void do_add_processing ();
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
 
   virtual Array<Rod> get_rods () const;
 

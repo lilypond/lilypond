@@ -15,7 +15,7 @@
 class  Rest : public Rhythmic_head
 {
 protected:
-  virtual void do_post_processing ();
+  virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;
 };
 #endif // REST_HH

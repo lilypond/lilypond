@@ -50,7 +50,7 @@ Extender_spanner::do_brew_molecule () const
 
 
 void
-Extender_spanner::do_post_processing ()
+Extender_spanner::after_line_breaking ()
 {
   // UGH
   Real gap = paper_l ()->get_var ("interline");
@@ -58,8 +58,8 @@ Extender_spanner::do_post_processing ()
   Direction d = LEFT;
   do
     {
-      Item* t = spanned_drul_[d]
-	? spanned_drul_[d] : spanned_drul_[(Direction)-d];
+      Item* t = get_bound (d)
+	? get_bound (d) : get_bound ((Direction)-d);
       if (d == LEFT)
         dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else
@@ -72,7 +72,7 @@ Extender_spanner::do_post_processing ()
 void
 Extender_spanner::set_textitem (Direction d, Item* textitem_l)
 {
-  set_bounds (d, textitem_l);
+  set_bound (d, textitem_l);
   add_dependency (textitem_l);
 }
 

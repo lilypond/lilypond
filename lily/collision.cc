@@ -28,7 +28,7 @@ Collision::add_column (Note_column* ncol_l)
  */
 
 void
-Collision::do_pre_processing()
+Collision::before_line_breaking ()
 {
   Array<Shift_tup> autos (automatic_shift ());
   Array<Shift_tup> hand (forced_shift ());

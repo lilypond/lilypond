@@ -36,7 +36,7 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music*);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
 public:
   Beam_engraver ();
   VIRTUAL_COPY_CONS (Translator);

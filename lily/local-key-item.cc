@@ -33,7 +33,7 @@ Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
 
 
 void
-Local_key_item::do_pre_processing()
+Local_key_item::before_line_breaking ()
 {
   accidental_arr_.sort (Local_key_cautionary_tuple::compare);
 }
@@ -126,7 +126,7 @@ Local_key_item::do_brew_molecule() const
 
 	Box b(Interval (0, gh_scm2double (pads[d]) * note_distance),
 	      Interval (0,0));
-	Molecule m (lookup_l ()->fill (b));
+	Molecule m (lookup_l ()->blank (b));
 	mol.add_at_edge (X_AXIS, d, m, 0);
       } while ( flip (&d)!= LEFT);
     }

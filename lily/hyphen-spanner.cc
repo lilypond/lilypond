@@ -57,7 +57,7 @@ Hyphen_spanner::do_brew_molecule () const
 
 
 void
-Hyphen_spanner::do_post_processing ()
+Hyphen_spanner::after_line_breaking ()
 {
   // UGH
   Real gap = paper_l ()->get_var ("interline");
@@ -65,8 +65,8 @@ Hyphen_spanner::do_post_processing ()
   Direction d = LEFT;
   do
     {
-      Item* t = spanned_drul_[d]
-	? spanned_drul_[d] : spanned_drul_[(Direction)-d];
+      Item* t = get_bound (d)
+	? get_bound (d) : get_bound ((Direction)-d);
       if (d == LEFT)
         dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else
@@ -79,7 +79,7 @@ Hyphen_spanner::do_post_processing ()
 void
 Hyphen_spanner::set_textitem (Direction d, Item* textitem_l)
 {
-  set_bounds (d, textitem_l);
+  set_bound (d, textitem_l);
   add_dependency (textitem_l);
 }
 

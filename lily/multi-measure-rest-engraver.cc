@@ -26,7 +26,7 @@ public:
 
 protected:
   virtual void acknowledge_element (Score_element_info i);
-  virtual void do_process_requests ();
+  virtual void do_process_music ();
   virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
@@ -87,7 +87,7 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
 
 
 void
-Multi_measure_rest_engraver::do_process_requests ()
+Multi_measure_rest_engraver::do_process_music ()
 {
   if (new_req_l_ && stop_req_l_)
     stop_req_l_ = 0;
