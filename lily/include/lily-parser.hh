@@ -1,5 +1,5 @@
 /*
-  my-lily-parser.hh -- declare Lily_parser
+  lily-parser.hh -- declare Lily_parser
 
   source file of the GNU LilyPond music typesetter
 

@@ -8,15 +8,15 @@
 
 @itemize @bullet
 
-@item Running trills now have their own spanner and event. They are
-started and stopped with
+@item Running trills now have their own spanner and event,
+for example,
+
 @example
-  @var{note}\startTrillSpan
-  @var{note}\stopTrillSpan 
+  c1\startTrillSpan c4\stopTrillSpan 
 @end example
 
-@item There is a new  markup commands @code{\postscript} that takes a
-string that is dumped as verbatim PostScript.
+@item There is a new markup command @code{\postscript} that takes a
+string that is dumped as verbatim PostScript in the output.
 
 @item The melody  for a @code{\lyricsto} text can be changed during a
 melody by setting the @code{associatedVoice} property.
