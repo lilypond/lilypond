@@ -1,3 +1,11 @@
+% 
+% feta-generic.mf --  implement 
+% 
+% source file of the Feta (defintively not an abbreviation for Font-En-Tja)
+% music font
+% 
+% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+% 
 
 
 if test = -1:
@@ -28,7 +36,7 @@ else:
 %	input feta-bolletjes;	
 %	input feta-banier;
 %	input feta-eindelijk;
-	input feta-klef;
+%	input feta-klef;
 %	input feta-toevallig;
-%	input feta-schrift;
+	input feta-schrift;
 fi

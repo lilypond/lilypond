@@ -1,7 +1,8 @@
-% 
+% -*- Fundamental -*-  (emacs-20 mf mode mucks
 % feta-schrift.mf --  implement scripts
 % 
-% source file of the Feta (Font-En-Tja) music font
+% source file of the Feta (defintively not an abbreviation for Font-En-Tja)
+% music font
 % 
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 %	Jan Nieuwenhuizen <jan@digicash.com>
@@ -12,39 +13,39 @@ fet_begingroup("scripts")
 
 
 def draw_fermata =
-	save alpha, radius, crook_thinness, crook_fatness, dot_diam;
-	
+  save alpha, radius, crook_thinness, crook_fatness, dot_diam;
+  
 	% [Wanske] and some  Baerenreiter editions
 	% suggest ca 80 degrees iso half-circle
-	alpha := 10;
+  alpha := 10;
 
-	radius# = 1.25 interline#;
-	crook_thinness# = 1.5stafflinethickness#;
-	crook_fatness# = 4 stafflinethickness#;
+  radius# = 1.25 interline#;
+  crook_thinness# = 1.5stafflinethickness#;
+  crook_fatness# = 4 stafflinethickness#;
 
-	radius# + crook_fatness#/2 = h#;
-	radius# + crook_thinness#/2 = w#;
-	set_char_box(w#, w#, crook_thinness#/2, h#);
-	
-	define_pixels(radius, crook_thinness, crook_fatness);
-	dot_diam = 4/3 crook_fatness;
+  radius# + crook_fatness#/2 = h#;
+  radius# + crook_thinness#/2 = w#;
+  set_char_box(w#, w#, crook_thinness#/2, h#);
+  
+  define_pixels(radius, crook_thinness, crook_fatness);
+  dot_diam = 4/3 crook_fatness;
 
 
-	penpos1(crook_thinness, 0);
-	penpos2(crook_fatness, -90);
-	z1 = (-radius,0);
-	z2 = (0, radius);
+  penpos1(crook_thinness, 0);
+  penpos2(crook_fatness, -90);
+  z1 = (-radius,0);
+  z2 = (0, radius);
 
-	fill z1l{dir (-alpha-90)}..{dir (90-alpha)}z1r..
-		{right}z2r -- z2l{left} .. cycle;
+  fill z1l{dir (-alpha-90)}..{dir (90-alpha)}z1r..
+  {right}z2r -- z2l{left} .. cycle;
 
-	addto currentpicture also 
-		currentpicture xscaled -1;
+  addto currentpicture also 
+  currentpicture xscaled -1;
 
-	pickup pencircle scaled dot_diam;
-	x4 =0;
-	bot y4 = - crook_thinness/2;
-	draw z4;
+  pickup pencircle scaled dot_diam;
+  x4 =0;
+  bot y4 = - crook_thinness/2;
+  draw z4;
 enddef;
 
 fet_beginchar("fermata up", "ufermata", "ufermata")
@@ -453,7 +454,8 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	draw_bulb(-1, z13r, z13l, bulb_size * r_fatness, 1.5);
 fet_endchar;
 
-fet_beginchar("organ-heel", "pedalheel", "pedalheel")
+
+def draw_heel =
 	save radius, thickness, wall;
 
 	radius# := .5 interline#;
@@ -474,10 +476,21 @@ fet_beginchar("organ-heel", "pedalheel", "pedalheel")
 
 	draw z1{down} .. z2{down} .. z3{left};
 	addto currentpicture also currentpicture xscaled -1;
+	
+enddef;
+
+
+fet_beginchar("left heel", "upedalheel", "upedalheel")
+	draw_heel;
 	labels(1,2,3);
 fet_endchar;
 
-fet_beginchar("organ-toe", "pedaltoe", "pedaltoe")
+fet_beginchar("right heel", "dpedalheel", "dpedalheel")
+	draw_heel;
+	y_mirror_char;
+fet_endchar;
+
+def draw_toe =
 	save ht,wd;
 
 	thickness := 1.5 stafflinethickness;
@@ -497,7 +510,16 @@ fet_beginchar("organ-toe", "pedaltoe", "pedaltoe")
 
 
 	draw z1 -- z2 -- z3;
+
+enddef;
+	
+fet_beginchar("left toe", "upedaltoe", "upedaltoe")
+	draw_toe;
 	labels(1,2,3);
+fet_endchar;
+fet_beginchar("right toe", "dpedaltoe", "dpedaltoe")
+	draw_toe;
+	y_mirror_char;
 fet_endchar;
 
 fet_beginchar("Flageolet", "flageolet", "flageolet")
