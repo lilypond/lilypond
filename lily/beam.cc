@@ -172,18 +172,18 @@ Beam::before_line_breaking (SCM smob)
   return SCM_EOL;
 }
 
-/*
-  We want a maximal number of shared beams, but if there is choice, we
-  take the one that is closest to the end of the stem. This is for situations like
-
-       x
-      |
-      |
-  |===|
-  |=
-  |
-  x
-*/
+/* We want a maximal number of shared beams, but if there is choice, we
+ * take the one that is closest to the end of the stem. This is for
+ * situations like
+ *
+ *        x
+ *       |
+ *       |
+ *   |===|
+ *   |=
+ *   |
+ *  x
+ */
 int
 position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
 				    Direction left_dir,
