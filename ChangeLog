@@ -18,6 +18,9 @@
 
 2004-09-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/pangofc-afm-decoder.cc (pango_fc_afm_get_glyph): Increment
+	character position.  Huh?
+
 	* scm/output-gnome.scm (placebox): Shield affine-relative.
 
 	* buildscripts/guile-gnome.sh: Update.  Do not use GUILE CVS,
