@@ -114,7 +114,7 @@ text = \lyrics {
       % Ugly fix:
       Whose broad \bar "|.";
     }
-    \context LyricVoice = "one-2" 
+    \context LyricsVoice = "one-2" 
     { 
       stripes and bright stars, through the per -- il -- ous fight,
       O'er the ram -- parts we watched, were so gal -- lant -- ly
@@ -148,7 +148,7 @@ text = \lyrics {
 				\$staff1_voice_2
 			}
 		>
-		\context LyricVoice = "one-1" \text
+		\context LyricsVoice = "one-1" \text
 		\context Staff=lower <
 			\global
 			\clef bass;

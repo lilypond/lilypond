@@ -23,7 +23,7 @@ endif
 local-WWW: #index.html 
 
 index.html: check-top-web NEWS
-	$(sed-version) < Documentation/topdocs/$(outdir)/topweb.html > $@
+##	$(sed-version) < Documentation/topdocs/$(outdir)/topweb.html > $@
 
 WWW-clean: local-WWW-clean
 	$(MAKE) out='www' clean

@@ -238,9 +238,9 @@ StaffGroupContext= \translator {
 LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver";
 	\consistsend "Axis_group_engraver";
-	LyricVoiceMinimumVerticalExtent = #(cons -1.2 1.2)
+	LyricsVoiceMinimumVerticalExtent = #(cons -1.2 1.2)
 
-	\name LyricVoice ;
+	\name LyricsVoice ;
 	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
@@ -265,7 +265,7 @@ LyricsContext = \translator {
 	\consists "Property_engraver";
 	\consistsend "Axis_group_engraver";
 	
-	\accepts "LyricVoice";
+	\accepts "LyricsVoice";
 }
 
 ChordNamesVoiceContext = \translator {

@@ -72,7 +72,7 @@ the examples included. We have @uref{short-examples.html,short
 examples} and @uref{long-examples.html,longer examples}. The
 examples include sound bites  in MIDI, pictures in PNG, printable scores
 in PostScript, and LilyPond input. Others use LilyPond too, and have put
-scores on the web. Head over to @uref{http://appel.lilypond.org/wiki/index.php?DownloadLilyPondScores}
+scores on the web. Head over to @uref{http://appel.lilypond.org/wiki?DownloadLilyPondScores}
 
 @html
 <a name="download-source">
@@ -120,10 +120,10 @@ Testing}
 @end html
 @unnumberedsec Mailing lists
 
-If you have questions, do write to the mailing lists!
- (But don't forget to read the
-@uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
-Frequently Asked Questions} first.)
+If you have questions, do write to the mailing lists.  But don't forget
+to read the @uref{Documentation/topdocs/out-www/FAQ.html,Very Frequently
+Asked Questions} and @uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
+Frequently Asked Questions} first.
 
 
 @itemize @bullet

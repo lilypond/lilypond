@@ -71,7 +71,7 @@ PianoStaffContext = \translator {
 \translator {
 	\type "Performer_group_performer";
 	\consists "Lyric_performer";
-	\name LyricVoice;
+	\name LyricsVoice;
 }
 
 \translator{
@@ -81,7 +81,7 @@ PianoStaffContext = \translator {
 }
 \translator { 
 	\type "Staff_performer";
-	\accepts LyricVoice;
+	\accepts LyricsVoice;
 	\name Lyrics;
 	\consists "Time_signature_performer";
 	\consists "Tempo_performer";
