@@ -1,6 +1,10 @@
 /*
-  balloon.cc -- implement Balloon objects
- */
+  balloon.cc -- implement Balloon
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "text-item.hh"
 #include "grob.hh"
@@ -12,9 +16,8 @@
 #include "paper-def.hh"
 #include "misc.hh"
 
-struct Balloon_interface
+class Balloon_interface
 {
-  
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
@@ -24,66 +27,59 @@ MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
 SCM
 Balloon_interface::print (SCM smob) 
 {
-  Grob *me= unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
 
   SCM cb = me->get_property ("balloon-original-callback");
-  SCM scm_mol  =  SCM_EOL;
+  SCM stil = SCM_EOL;
 
   if (ly_c_procedure_p (cb))
-    {
-      scm_mol = scm_call_1 (cb, smob);
-    }
+    stil = scm_call_1 (cb, smob);
 
-  if (!unsmob_stencil (scm_mol))
-    return scm_mol;
+  if (!unsmob_stencil (stil))
+    return stil;
 
   SCM scm_off = me->get_property ("balloon-text-offset");
 
   if (!is_number_pair (scm_off))
-    return scm_mol;
+    return stil;
 
   Offset off = ly_scm2offset (scm_off);
-  Stencil * m = unsmob_stencil (scm_mol);
-  Box orig_extent = m->extent_box ();
+  Stencil *s = unsmob_stencil (stil);
+  Box orig_extent = s->extent_box ();
   Box box_extent = orig_extent;
 
-  Real w = robust_scm2double (me->get_property ("balloon-padding"),  .1);
+  Real w = robust_scm2double (me->get_property ("balloon-padding"), .1);
   box_extent.widen (w, w);
-  
-  
+
+  // FIXME
   Stencil fr = Lookup::frame (box_extent, 0.1, 0.05);
 
+  fr.add_stencil (*s);
   
-  fr.add_stencil (*m);
-
-
-
   SCM bt = me->get_property ("balloon-text");
   SCM chain = Font_interface::text_font_alist_chain (me);
   chain = scm_cons (me->get_property ("balloon-text-props"), chain);
 
+  SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (),
+					  chain, bt);
 
-  SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain, bt);
-
-  
-  Stencil *text_mol = unsmob_stencil (text);
-  
+  Stencil *text_stil = unsmob_stencil (text);
+ 
   Offset z1;
-
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
-      Axis  a ((Axis)i);
+      Axis a ((Axis)i);
       z1[a] = box_extent [a].linear_combination (sign (off[a]));
-      text_mol->align_to (a, -sign (off[a]));
+      text_stil->align_to (a, -sign (off[a]));
     }
 
   Offset z2 = z1 + off;
-  
+ 
   fr.add_stencil (Line_interface::line (me, z1, z2));
 
-  text_mol->translate (z2);
-  fr.add_stencil (*text_mol);
-  
+  text_stil->translate (z2);
+  fr.add_stencil (*text_stil);
+ 
   fr = Stencil (orig_extent, fr.get_expr ());
   return fr.smobbed_copy ();
 }

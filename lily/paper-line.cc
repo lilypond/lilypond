@@ -7,8 +7,9 @@
 */
 
 #include "paper-line.hh"
-#include "ly-smobs.icc"
-#include "string.hh" // to_string
+#include "stencil.hh"
+#include "string.hh"
+#include "virtual-methods.hh"
 
 #define TITLE_PENALTY -1
 
@@ -25,24 +26,26 @@ Paper_line::~Paper_line ()
 {
 }
 
+#include "ly-smobs.icc"
 IMPLEMENT_SMOBS (Paper_line);
 IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
 
 SCM
-Paper_line::mark_smob (SCM s)
+Paper_line::mark_smob (SCM smob)
 {
-  Paper_line *line = (Paper_line*) ly_cdr (s);
+  Paper_line *line = (Paper_line*) ly_cdr (smob);
   return line->stencils_;
 }
 
 int
-Paper_line::print_smob (SCM s, SCM port, scm_print_state*)
+Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  scm_puts ("#<Paper_line ", port);
-  Paper_line *line = (Paper_line*) ly_cdr (s);
-  scm_puts (to_string (line->number_).to_str0 (), port);
-  if (line->is_title ())
+  Paper_line *p = (Paper_line*) ly_cdr (smob);
+  scm_puts ("#<", port);
+  scm_puts (classname (p), port);
+  scm_puts (to_string (p->number_).to_str0 (), port);
+  if (p->is_title ())
     scm_puts (" t", port);
   scm_puts (" >", port);
   return 1;
@@ -70,6 +73,15 @@ SCM
 Paper_line::stencils () const
 {
   return stencils_;
+}
+
+SCM
+Paper_line::to_stencil () const
+{
+  Stencil stencil = Stencil ();
+  for (SCM s = stencils_; ly_c_pair_p (s); s = ly_cdr (s))
+    stencil.add_stencil (*unsmob_stencil (ly_car (s)));
+  return stencil.smobbed_copy ();
 }
 
 LY_DEFINE (ly_paper_line_height, "ly:paper-line-height",

@@ -21,10 +21,12 @@ class Paper_line
   int penalty_;
   
 public:
+  int number_;
+
   Paper_line (Offset, SCM, int penalty = 0, bool = false);
 
-  int number_;
   Offset dim () const;
+  SCM to_stencil () const;
   SCM stencils () const;
   bool is_title () const;
   int penalty () const;

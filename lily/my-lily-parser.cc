@@ -233,16 +233,15 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   char const *extensions[] = {"ly", "", 0};
   String file_name = global_path.find (file, extensions);
   
-  /* By default, use base name of input file for output file name */
+  /* By default, use base name of input file for output file name,
+     write output to cwd; do not use root and directory parts of input
+     file name.  */
   File_name out_file_name (file_name);
   if (file_name != "-")
     out_file_name.ext_ = output_format_global;
-  
-  /* By default, write output to cwd; do not copy directory part
-     of input file name */
   out_file_name.root_ = "";
   out_file_name.dir_ = "";
-  
+
   if (!output_name_global.is_empty ())
     out_file_name = File_name (output_name_global);
   
@@ -251,13 +250,14 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
     init = init_name_global;
   else
     init = "init.ly";
-  
+
   String out_file = out_file_name.to_string ();
 
   if (init.length () && global_path.find (init).is_empty ())
     {
       warning (_f ("can't find init file: `%s'", init));
-      warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
+      warning (_f ("(search path: `%s')",
+		   global_path.to_string ().to_str0 ()));
       exit (2);
     }
 

@@ -167,8 +167,8 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
 void
 Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  Offset dim = pl->dim ();
+  Paper_line *p = unsmob_paper_line (line);
+  Offset dim = p->dim ();
   if (dim[Y_AXIS] > 50 CM)
     {
       programming_error ("Improbable system height.");
@@ -179,13 +179,15 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 			     ly_quote_scm (ly_offset2scm (*origin)),
 			     ly_quote_scm (ly_offset2scm (dim))));
 
-  for (SCM s = pl->stencils (); ly_c_pair_p (s); s = ly_cdr (s))
+#if 0 /* FIXME: how stupid is this wrt memory management?  */
+  for (SCM s = p->stencils (); ly_c_pair_p (s); s = ly_cdr (s))
     output_expr (unsmob_stencil (ly_car (s))->get_expr (), Offset (0, 0));
+#else
+  output_stencil (unsmob_stencil (p->to_stencil ()));
+#endif
 
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
 			     ly_bool2scm (is_last)));
-
-  (*origin)[Y_AXIS] += dim[Y_AXIS];
 }
 
 void

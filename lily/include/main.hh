@@ -26,9 +26,6 @@ void set_inclusion_names (Array<String>);
 
 extern String init_name_global;
 
-/* FIXME: in warn.cc */
-void progress_indication (String);
-
 /* options */
 extern Array<String> dump_header_fieldnames_global;
 extern bool no_paper_global_b;
