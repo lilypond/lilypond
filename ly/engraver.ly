@@ -116,6 +116,7 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	\consists "Text_engraver";
 	\consists "A2_engraver";
+	devNullVoice = #'unisolo
 	\consists "Voice_devnull_engraver";
 
 	\consists "Script_engraver";
@@ -179,13 +180,15 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
+	\name Thread;
+	
+	devNullThread = #'unisolo
 	\consists "Thread_devnull_engraver";
 	\consists "Note_heads_engraver";
 	\consists "Note_head_line_engraver";
 	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";
-	\name Thread;
 }
 
 GrandStaffContext=\translator{
@@ -354,6 +357,9 @@ ScoreContext = \translator {
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
 	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
+
+	%devNullThread = #'unisolo
+	%devNullVoice = #'unisolo
 
 	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
 

@@ -1631,7 +1631,7 @@ This is a short-cut for doing
 @end example
 
 You are encouraged to use @code{\repeat} for repetitions.  See
-@ref{Repeat}, and the documentation of @code{whichBar} in
+@ref{Repeats}, and the documentation of @code{whichBar} in
 @ref{(lilypond-internals)LilyPond context properties}.
 
 

@@ -1,5 +1,13 @@
+1.3.128.jcn1
+============
+
+* Small doco fixes.
+
+* Added user control for devnull engravers.
+
 1.3.127.jcn3
 ============
+
 * Mutopia preparations and Coriolan fixes.
 
 * Small beam cleanup, changed y-position-hs,height-hs user overrides to

@@ -12,8 +12,6 @@ texidoc="Bar number settable and padding adjustable.";
   }
   \paper {
     linewidth = 40*\staffspace;
-    \translator {
-      \BarNumberingStaffContext
-    }
+    % \translator { \BarNumberingStaffContext }
   }
 }

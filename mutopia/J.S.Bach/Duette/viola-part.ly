@@ -18,7 +18,7 @@ copyright = 	 "Public Domain";
 \score{
   \violaIStaff
   \paper{
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
   }
   \midi{
 %urg, real/duration
@@ -36,7 +36,7 @@ copyright = 	 "Public Domain";
   \violaIiStaff
   \paper{
 %    castingalgorithm=0.0;
-    \translator { \BarNumberingStaffContext }
+    %\translator { \BarNumberingStaffContext }
     %\translator { \ScoreContext skipBars = 1; }
   }
   \midi{

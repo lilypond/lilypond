@@ -24,7 +24,8 @@ grstaff =  \notes \context GrandStaff <
 >
 
 scpaper =  \paper {\translator {\OrchestralScoreContext}}
-stpaper =  \paper{ \translator {\BarNumberingStaffContext }}
+% stpaper =  \paper{ \translator {\BarNumberingStaffContext }}
+stpaper =  \paper{ }
 
 scscore =  \score { \grstaff \paper {
 \scpaper

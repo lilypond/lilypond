@@ -2,7 +2,7 @@
 
 \paper {
 linewidth = 180.\mm;
-\translator { \BarNumberingStaffContext }
+% \translator { \BarNumberingStaffContext }
 }
 
 % \include "prelude-" + \instr + ".ly";

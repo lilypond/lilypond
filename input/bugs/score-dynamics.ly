@@ -16,104 +16,79 @@ contrabasso = \notes\relative c'' {
   c2\pp c d1 e
 }
 
-flautiStaff =  \notes \context VoiceCombineStaff = flauti <
- \context VoiceCombineVoice=oneBassi \End
- \context VoiceCombineVoice=twoBassi \End
-  \context VoiceCombineVoice=Flauti \partcombine VoiceCombineVoice
-    \context VoiceCombineThread=oneFlauti \violoncello
-    \context VoiceCombineThread=twoFlauti \contrabasso
+flautiStaff =  \notes \context Staff = flauti <
+ \context Voice=oneBassi \End
+ \context Voice=twoBassi \End
+  \context Voice=Flauti \partcombine Voice
+    \context Thread=oneFlauti \violoncello
+    \context Thread=twoFlauti \contrabasso
 >
 
+staffCombineProperties = {
+	\property Voice.devNullThread = #'unisolo
+	\property Voice.soloADue = ##t
+	\property Voice.soloText = #""
+	\property Voice.soloIIText = #""
+	% This is non-conventional, but currently it is
+	% the only way to tell the difference.
+	\property Voice.aDueText = #"\\`a2"
+	\property Voice.splitInterval = #'(1 . 0)
+	\property Voice.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+}
 
 \score {
   <
   \flautiStaff
 
   \context PianoStaff = bassi_group \notes <
-    \context StaffCombineStaff=oneBassi \End
-    \context StaffCombineStaff=twoBassi \End
+    \context Staff=oneBassi \End
+    \context Staff=twoBassi \End
 
-    \context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
-      \context StaffCombineVoice=oneBassi \violoncello
-      \context StaffCombineVoice=twoBassi \contrabasso
+    \context Staff=oneBassi \partcombine Staff
+      \context Voice=oneBassi { \staffCombineProperties \violoncello }
+      \context Voice=twoBassi { \staffCombineProperties \contrabasso }
  >
 
-  >
-  \paper{
+ >
+  \paper {
     % \paperSixteen
-
-    %textheight = 290.0\mm;
-    %linewidth = 195.0\mm;
-    textheight = 285.0\mm;
-    linewidth = 190.0\mm;
-
-    \translator{ \HaraKiriStaffContext }
-    %
-    % The Voice combine hierarchy
-    %
+    linewidth = 80 * \staffspace;
+    textheight = 200 * \staffspace;
     \translator{
       \ThreadContext
-      \name "VoiceCombineThread";
       \consists "Rest_engraver";
     }
     \translator{
       \VoiceContext
-      \name "VoiceCombineVoice";
+      \remove "Rest_engraver";    
+
+      % The staff combine (bassi part) needs a
+      % thread_devnull_engraver here.
+      % Instead of maintaining two separate hierarchies,
+      % we switch add it, but switch it off immideately.
+      % The staff combine parts switch it on.
+      devNullThread = #'never
+      \consists "Thread_devnull_engraver";
+
       soloText = #"I."
       soloIIText = #"II."
-      \remove "Rest_engraver";
-      \accepts "VoiceCombineThread";
+      soloADue = ##f
     }
     \translator{
       \HaraKiriStaffContext
       \consists "Mark_engraver";
-      \name "VoiceCombineStaff";
-      \accepts "VoiceCombineVoice";
-    }
-
-    %
-    % The Staff combine hierarchy
-    %
-    \translator{
-      \ThreadContext
-      \name "StaffCombineThread";
-    }
-    \translator{
-      \VoiceContext
-      \name "StaffCombineVoice";
-      \accepts "StaffCombineThread";
-      \consists "Thread_devnull_engraver";
     }
     \translator {
-      \HaraKiriStaffContext
-      \name "StaffCombineStaff";
-      \accepts "StaffCombineVoice";
-
-      soloADue = ##t
-      soloText = #""
-      soloIIText = #""
-      % This is non-conventional, but currently it is
-      % the only way to tell the difference.
-      aDueText = #"\\`a2"
-      splitInterval = #'(1 . 0)
-      changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
-    }
-    \translator {
-      \StaffGroupContext
-      \accepts "VoiceCombineStaff";
-      \accepts "StaffCombineStaff";
-    }
-    \translator{ \HaraKiriStaffContext }
-
-    \translator {
-      %\ScoreContext
       \OrchestralScoreContext
-      \accepts "VoiceCombineStaff";
-      \accepts "StaffCombineStaff";
-      TimeSignature \override #'style = #'C
-      skipBars = ##t 
+      skipBars = ##t
+      % Hmm
+      currentBarNumber = #218
       BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
+      marginScriptHorizontalAlignment = #1
+      TimeSignature \override #'style = #'C
     }
+    \translator { \HaraKiriStaffContext }
   }
 }
+
