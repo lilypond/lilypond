@@ -9,9 +9,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 1.4.6\n"
-"POT-Creation-Date: 2001-09-09 17:30+0200\n"
-"PO-Revision-Date: 2001-09-09 17:34+0200\n"
+"Project-Id-Version: lilypond 1.4.8\n"
+"POT-Creation-Date: 2001-10-09 19:29+0200\n"
+"PO-Revision-Date: 2001-10-09 19:30+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,180 +19,181 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 2001-05-09 23:29+0200\n"
 "From:  <janneke@gnu.org>\n"
-"Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po --add-comments --keyword=_\n"
+"Xgettext-Options: --c++ --default-domain=lilypond --join --output-dir=../po "
+"--add-comments --keyword=_\n"
 "Files: bow.cc int.cc\n"
 
-#: ly2dvi.py:106
+#: ly2dvi.py:109
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr "Genereer .dvi met LaTeX voor LilyPond"
 
 #: data-file.cc:118 input.cc:85 ly2dvi.py:191 midi-parser.cc:100 mup2ly.py:93
-#: update-lily.py:118 warn.cc:23
+#: update-lily.py:119 warn.cc:23
 msgid "warning: "
 msgstr "waarschuwing: "
 
-#: input.cc:90 ly2dvi.py:206 ly2dvi.py:639 ly2dvi.py:657 ly2dvi.py:848
-#: mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9
+#: input.cc:90 ly2dvi.py:206 ly2dvi.py:638 ly2dvi.py:656 ly2dvi.py:847
+#: mup2ly.py:98 mup2ly.py:188 update-lily.py:124 update-lily.py:212 warn.cc:9
 #: warn.cc:17
 msgid "error: "
 msgstr "fout: "
 
-#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:126
 msgid "Exiting ... "
 msgstr "Beëidigen ..."
 
-#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:184
 #, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Gebruik: %s [OPTIE]... BESTAND"
 
-#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:188
 msgid "Options:"
 msgstr "Opties:"
 
-#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:192
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 "Meld luizen in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>"
 
-#: ly2dvi.py:306 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:305 mup2ly.py:185 update-lily.py:209
 #, c-format
 msgid "Invoking `%s'"
 msgstr "Uitvoeren `%s'"
 
-#: ly2dvi.py:310 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:309 mup2ly.py:188 update-lily.py:212
 #, c-format
 msgid "command exited with value %d"
 msgstr "opdracht eindigde met waarde %d"
 
-#: ly2dvi.py:312 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:311 mup2ly.py:190 update-lily.py:214
 msgid "(ignored)"
 msgstr "(genegeerd)"
 
-#: ly2dvi.py:322
+#: ly2dvi.py:321
 #, c-format
 msgid "Cleaning %s..."
 msgstr "Schoonmaken %s..."
 
-#: ly2dvi.py:337 mup2ly.py:214 update-lily.py:237
+#: ly2dvi.py:336 mup2ly.py:214 update-lily.py:238
 #, c-format
 msgid "no such setting: %s"
 msgstr "geen dergelijke instelling: %s"
 
-#: ly2dvi.py:350 main.cc:113
+#: ly2dvi.py:349 main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "schrijf Makefile afhankelijkheden voor elk invoerbestand"
 
-#: ly2dvi.py:351 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:350 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:252
 msgid "this help"
 msgstr "deze hulp"
 
-#: ly2dvi.py:352 main.cc:111 main.cc:116
+#: ly2dvi.py:351 main.cc:111 main.cc:116
 msgid "DIR"
 msgstr "DIR"
 
-#: ly2dvi.py:352
+#: ly2dvi.py:351
 msgid "add DIR to LilyPond's search path"
 msgstr "voeg DIR toe aan LilyPonds zoekpad"
 
-#: ly2dvi.py:353
+#: ly2dvi.py:352
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr "bewaar alle uitvoer, en noem de directory %s.dir"
 
-#: ly2dvi.py:354
+#: ly2dvi.py:353
 msgid "don't run LilyPond"
 msgstr "draai LilyPond niet"
 
-#: ly2dvi.py:355 main.cc:114
+#: ly2dvi.py:354 main.cc:114
 msgid "produce MIDI output only"
 msgstr "produceer alleen MIDI uitvoer"
 
-#: ly2dvi.py:356 ly2dvi.py:357 main.cc:99 main.cc:112 main.cc:115
+#: ly2dvi.py:355 ly2dvi.py:356 main.cc:99 main.cc:112 main.cc:115
 msgid "FILE"
 msgstr "BESTAND"
 
-#: ly2dvi.py:356
+#: ly2dvi.py:355
 msgid "write ouput to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
-#: ly2dvi.py:357
+#: ly2dvi.py:356
 msgid "find pfa fonts used in FILE"
 msgstr "zoek pfa fonts gebruikt in BESTAND"
 
-#: ly2dvi.py:359
+#: ly2dvi.py:358
 msgid "generate PostScript output"
 msgstr "genereer PostScipt uitvoer"
 
-#: ly2dvi.py:360
+#: ly2dvi.py:359
 msgid "KEY=VAL"
 msgstr "SEUTEL=WAARDE"
 
-#: ly2dvi.py:360
+#: ly2dvi.py:359
 msgid "change global setting KEY to VAL"
 msgstr "verander globale instelling SLEUTEL in WAARDE"
 
-#: ly2dvi.py:361 main.cc:119 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:360 main.cc:119 mup2ly.py:1120 update-lily.py:256
 msgid "verbose"
 msgstr "breedsprakig"
 
-#: ly2dvi.py:362 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:361 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:257
 msgid "print version number"
 msgstr "druk versienummer af"
 
-#: ly2dvi.py:363 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:362 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:259
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
-#: ly2dvi.py:385 ly2dvi.py:580 ly2dvi.py:605
+#: ly2dvi.py:384 ly2dvi.py:579 ly2dvi.py:604
 #, c-format
 msgid "Running %s..."
 msgstr "Uitvoeren %s..."
 
-#: ly2dvi.py:398
+#: ly2dvi.py:397
 #, c-format
 msgid "Analyzing %s..."
 msgstr "Analyseer %s..."
 
-#: ly2dvi.py:454
+#: ly2dvi.py:453
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr "geen lilypond uitvoer gevonden voor %s"
 
-#: ly2dvi.py:496
+#: ly2dvi.py:495
 #, c-format
 msgid "invalid value: %s"
 msgstr "ongeldige waarde: %s"
 
-#: ly2dvi.py:639
+#: ly2dvi.py:638
 #, c-format
 msgid "not a PostScript file: `%s'"
 msgstr "geen PostScript bestand: `%s'"
 
-#: ly2dvi.py:657
+#: ly2dvi.py:656
 #, c-format
 msgid "getopt says: `%s'"
 msgstr "getopt zegt: `%s'"
 
-#: ly2dvi.py:824 scores.cc:44
+#: ly2dvi.py:823 scores.cc:44
 #, c-format
 msgid "dependencies output to `%s'..."
 msgstr "afhankelijkheden uitvoer naar `%s'..."
 
-#: ly2dvi.py:835
+#: ly2dvi.py:834
 #, c-format
 msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar `%s'..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:837
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:836
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: ly2dvi.py:848
+#: ly2dvi.py:847
 msgid "no files specified on command line."
 msgstr "geen bestanden gespecificeerd op de commandoregel."
 
@@ -240,80 +241,80 @@ msgstr "Schrijven van `%s'..."
 msgid "Fetch and rebuild from latest source package"
 msgstr "Grijp en herbouw van meest recente source pakket"
 
-#: update-lily.py:223
+#: update-lily.py:224
 #, c-format
 msgid "Cleaning `%s'..."
 msgstr "Schoonmaken van `%s'..."
 
-#: update-lily.py:243
+#: update-lily.py:244
 #, c-format
 msgid "unpack and build in DIR [%s]"
 msgstr "pak uit en bouw in DIR [%s]"
 
-#: update-lily.py:244
+#: update-lily.py:245
 msgid "execute COMMAND, subtitute:"
 msgstr "voer COMMAND uit, substitueer:"
 
-#: update-lily.py:245
+#: update-lily.py:246
 msgid "%b: build root"
 msgstr "%b: bouw-root"
 
-#: update-lily.py:246
+#: update-lily.py:247
 #, c-format
 msgid "%n: package name"
 msgstr "%n: pakketnaam"
 
-#: update-lily.py:247
+#: update-lily.py:248
 msgid "%r: release directory"
 msgstr "%r: uitgave directory"
 
-#: update-lily.py:248
+#: update-lily.py:249
 msgid "%t: tarball"
 msgstr "%t: tar-bal"
 
-#: update-lily.py:249
+#: update-lily.py:250
 msgid "%v: package version"
 msgstr "%v: pakketversie"
 
-#: update-lily.py:252
+#: update-lily.py:253
 #, c-format
 msgid "keep all output, and name the directory %s"
 msgstr "bewaar alle uitvoer, en noem de directory %s"
 
-#: update-lily.py:253
+#: update-lily.py:254
 msgid "upon failure notify EMAIL[,EMAIL]"
 msgstr "bij fout bericht EMAIL[,EMAIL]"
 
-#: update-lily.py:254
+#: update-lily.py:255
 msgid "remove previous build"
 msgstr "verwijder vorige bouw"
 
-#: update-lily.py:257
+#: update-lily.py:258
 #, c-format
 msgid "fetch and build URL [%s]"
 msgstr "grijp en bouw URL [%s]"
 
-#: update-lily.py:365
+#: update-lily.py:366
 #, c-format
 msgid "Listing `%s'..."
 msgstr "Lijst van `%s'"
 
-#: update-lily.py:426
+#: update-lily.py:427
 #, c-format
 msgid "latest is: %s"
 msgstr "meest recente is: %s"
 
-#: update-lily.py:427
+#: update-lily.py:428
 #, c-format
 msgid "relax, %s is up to date"
 msgstr "ontspan, %s is bij de tijd"
 
-#: update-lily.py:435 update-lily.py:448
+#: update-lily.py:436 update-lily.py:449
 #, c-format
 msgid "Fetching `%s'..."
 msgstr "Grijpen van `%s'..."
 
-#: update-lily.py:457
+#: update-lily.py:458
 #, c-format
 msgid "Building `%s'..."
 msgstr "Bouwen van `%s'..."
@@ -889,7 +890,7 @@ msgid "can't find start of phrasing slur"
 msgstr "kan start van fraseringsboog niet vinden"
 
 #: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154
-#: piano-pedal-performer.cc:87
+#: piano-pedal-performer.cc:86
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "kan start van piano pedaal niet vinden: `%s'"
@@ -1130,32 +1131,32 @@ msgstr "Tweede argument moet een symbool zijn"
 msgid "First argument must be a procedure taking 1 argument"
 msgstr "Eerste argument moet een procedure zijn met 1 argument"
 
-#: parser.yy:1263
+#: parser.yy:1264
 msgid "Expecting string as script definition"
 msgstr "Verwacht string voor script definitie"
 
-#: parser.yy:1273
+#: parser.yy:1274
 msgid "Can't specify direction for this request"
 msgstr "Kan richting voor dit verzoek niet specificeren"
 
-#: parser.yy:1398
+#: parser.yy:1399
 msgid "Expecting musical-pitch value"
 msgstr "Verwacht musical-pitch waarde"
 
-#: parser.yy:1409
+#: parser.yy:1410
 msgid "Must have duration object"
 msgstr "Moet duur object hebben"
 
-#: parser.yy:1418 parser.yy:1426
+#: parser.yy:1419 parser.yy:1427
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Moet in Lyric modus zijn voor liedteksten"
 
-#: parser.yy:1579 parser.yy:1636
+#: parser.yy:1580 parser.yy:1637
 #, c-format
 msgid "not a duration: %d"
 msgstr "geen duur: %d"
 
-#: parser.yy:1645
+#: parser.yy:1648
 msgid "Have to be in Note mode for notes"
 msgstr "Moet in Note modus zijn voor noten"
 
@@ -1288,7 +1289,6 @@ msgid "% Automatically generated"
 msgstr "% Automatisch gegenereerd"
 
 #: lilypond-stream.cc:97
-#, c-format
 msgid "% from input file: "
 msgstr "% van invoerbestand: "
 

@@ -66,10 +66,17 @@ import __main__
 import operator
 import tempfile
 import traceback
-import resource
- 
- 
-       
+
+# Attempt to fix problems with limited stack size set by Python!
+# Sets unlimited stack size. Note that the resource module only
+# is available on UNIX.
+try:
+       import resource
+       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
+except:
+       pass
+
+
 datadir = '@datadir@'
 sys.path.append (datadir + '/python')
 try:

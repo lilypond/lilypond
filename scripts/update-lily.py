@@ -64,6 +64,7 @@ tar xzf %r/%t &&
 rm -f building &&
 ln -s %n-%v building &&
 cd %n-%v &&
+rm -f config.cache &&
 ./configure --prefix=$HOME/usr && make all web
 ) >> %n-%v/log.txt 2>&1 &&
 rm -f %n &&

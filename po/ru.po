@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-09 17:30+0200\n"
+"POT-Creation-Date: 2001-10-09 19:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -14,178 +14,178 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ly2dvi.py:106
+#: ly2dvi.py:109
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
 #: data-file.cc:118 input.cc:85 ly2dvi.py:191 midi-parser.cc:100 mup2ly.py:93
-#: update-lily.py:118 warn.cc:23
+#: update-lily.py:119 warn.cc:23
 msgid "warning: "
 msgstr "предупреждаю: "
 
-#: input.cc:90 ly2dvi.py:206 ly2dvi.py:639 ly2dvi.py:657 ly2dvi.py:848
-#: mup2ly.py:98 mup2ly.py:188 update-lily.py:123 update-lily.py:211 warn.cc:9
+#: input.cc:90 ly2dvi.py:206 ly2dvi.py:638 ly2dvi.py:656 ly2dvi.py:847
+#: mup2ly.py:98 mup2ly.py:188 update-lily.py:124 update-lily.py:212 warn.cc:9
 #: warn.cc:17
 msgid "error: "
 msgstr "ошибка: "
 
-#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:125
+#: ly2dvi.py:207 mup2ly.py:100 update-lily.py:126
 msgid "Exiting ... "
 msgstr ""
 
-#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:183
+#: ly2dvi.py:265 mup2ly.py:158 update-lily.py:184
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
-#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:187
+#: ly2dvi.py:269 main.cc:120 main.cc:149 mup2ly.py:162 update-lily.py:188
 msgid "Options:"
 msgstr "Опции:"
 
-#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:191
+#: ly2dvi.py:273 main.cc:124 main.cc:172 mup2ly.py:168 update-lily.py:192
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: ly2dvi.py:306 mup2ly.py:185 update-lily.py:208
+#: ly2dvi.py:305 mup2ly.py:185 update-lily.py:209
 #, fuzzy, c-format
 msgid "Invoking `%s'"
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:310 mup2ly.py:188 update-lily.py:211
+#: ly2dvi.py:309 mup2ly.py:188 update-lily.py:212
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:312 mup2ly.py:190 update-lily.py:213
+#: ly2dvi.py:311 mup2ly.py:190 update-lily.py:214
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:322
+#: ly2dvi.py:321
 #, fuzzy, c-format
 msgid "Cleaning %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:337 mup2ly.py:214 update-lily.py:237
+#: ly2dvi.py:336 mup2ly.py:214 update-lily.py:238
 #, fuzzy, c-format
 msgid "no such setting: %s"
 msgstr "нет такого инструмента: `%s'"
 
-#: ly2dvi.py:350 main.cc:113
+#: ly2dvi.py:349 main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "записывать зависимости Makefile для каждого входного файла"
 
-#: ly2dvi.py:351 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:251
+#: ly2dvi.py:350 main.cc:96 main.cc:109 mup2ly.py:1117 update-lily.py:252
 msgid "this help"
 msgstr "эта справка"
 
-#: ly2dvi.py:352 main.cc:111 main.cc:116
+#: ly2dvi.py:351 main.cc:111 main.cc:116
 msgid "DIR"
 msgstr "КАТ"
 
-#: ly2dvi.py:352
+#: ly2dvi.py:351
 #, fuzzy
 msgid "add DIR to LilyPond's search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: ly2dvi.py:353
+#: ly2dvi.py:352
 #, c-format
 msgid "keep all output, and name the directory %s.dir"
 msgstr ""
 
-#: ly2dvi.py:354
+#: ly2dvi.py:353
 msgid "don't run LilyPond"
 msgstr ""
 
-#: ly2dvi.py:355 main.cc:114
+#: ly2dvi.py:354 main.cc:114
 msgid "produce MIDI output only"
 msgstr "производить вывод только MIDI"
 
-#: ly2dvi.py:356 ly2dvi.py:357 main.cc:99 main.cc:112 main.cc:115
+#: ly2dvi.py:355 ly2dvi.py:356 main.cc:99 main.cc:112 main.cc:115
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: ly2dvi.py:356
+#: ly2dvi.py:355
 #, fuzzy
 msgid "write ouput to FILE"
 msgstr "записывать вывод в ОСНОВА[-x].расширение"
 
-#: ly2dvi.py:357
+#: ly2dvi.py:356
 msgid "find pfa fonts used in FILE"
 msgstr ""
 
-#: ly2dvi.py:359
+#: ly2dvi.py:358
 msgid "generate PostScript output"
 msgstr ""
 
-#: ly2dvi.py:360
+#: ly2dvi.py:359
 msgid "KEY=VAL"
 msgstr ""
 
-#: ly2dvi.py:360
+#: ly2dvi.py:359
 msgid "change global setting KEY to VAL"
 msgstr ""
 
-#: ly2dvi.py:361 main.cc:119 mup2ly.py:1120 update-lily.py:255
+#: ly2dvi.py:360 main.cc:119 mup2ly.py:1120 update-lily.py:256
 #, fuzzy
 msgid "verbose"
 msgstr "быть болтливым"
 
-#: ly2dvi.py:362 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:256
+#: ly2dvi.py:361 main.cc:105 main.cc:118 mup2ly.py:1121 update-lily.py:257
 msgid "print version number"
 msgstr "выводить номер версии"
 
-#: ly2dvi.py:363 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:258
+#: ly2dvi.py:362 main.cc:107 main.cc:120 mup2ly.py:1122 update-lily.py:259
 msgid "show warranty and copyright"
 msgstr "показать гарантию и copyright"
 
-#: ly2dvi.py:385 ly2dvi.py:580 ly2dvi.py:605
+#: ly2dvi.py:384 ly2dvi.py:579 ly2dvi.py:604
 #, fuzzy, c-format
 msgid "Running %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:398
+#: ly2dvi.py:397
 #, fuzzy, c-format
 msgid "Analyzing %s..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: ly2dvi.py:454
+#: ly2dvi.py:453
 #, c-format
 msgid "no lilypond output found for %s"
 msgstr ""
 
-#: ly2dvi.py:496
+#: ly2dvi.py:495
 #, fuzzy, c-format
 msgid "invalid value: %s"
 msgstr "неверный символ: `%c'"
 
-#: ly2dvi.py:639
+#: ly2dvi.py:638
 #, fuzzy, c-format
 msgid "not a PostScript file: `%s'"
 msgstr "не могу открыть файл: `%s'"
 
-#: ly2dvi.py:657
+#: ly2dvi.py:656
 #, c-format
 msgid "getopt says: `%s'"
 msgstr ""
 
-#: ly2dvi.py:824 scores.cc:44
+#: ly2dvi.py:823 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to `%s'..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: ly2dvi.py:835
+#: ly2dvi.py:834
 #, fuzzy, c-format
 msgid "%s output to `%s'..."
 msgstr "вывод MIDI в %s..."
 
-#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:837
+#: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:836
 #: midi-score-parser.cc:24 scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "не могу найти файл: `%s'"
 
-#: ly2dvi.py:848
+#: ly2dvi.py:847
 msgid "no files specified on command line."
 msgstr ""
 
@@ -234,81 +234,81 @@ msgstr "Выбрасываю музыку: `%s'"
 msgid "Fetch and rebuild from latest source package"
 msgstr ""
 
-#: update-lily.py:223
+#: update-lily.py:224
 #, fuzzy, c-format
 msgid "Cleaning `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: update-lily.py:243
+#: update-lily.py:244
 #, c-format
 msgid "unpack and build in DIR [%s]"
 msgstr ""
 
-#: update-lily.py:244
+#: update-lily.py:245
 msgid "execute COMMAND, subtitute:"
 msgstr ""
 
-#: update-lily.py:245
+#: update-lily.py:246
 msgid "%b: build root"
 msgstr ""
 
-#: update-lily.py:246
+#: update-lily.py:247
 #, c-format
 msgid "%n: package name"
 msgstr ""
 
-#: update-lily.py:247
+#: update-lily.py:248
 #, fuzzy
 msgid "%r: release directory"
 msgstr "не могу найти или создать: `%s'"
 
-#: update-lily.py:248
+#: update-lily.py:249
 msgid "%t: tarball"
 msgstr ""
 
-#: update-lily.py:249
+#: update-lily.py:250
 msgid "%v: package version"
 msgstr ""
 
-#: update-lily.py:252
+#: update-lily.py:253
 #, c-format
 msgid "keep all output, and name the directory %s"
 msgstr ""
 
-#: update-lily.py:253
+#: update-lily.py:254
 msgid "upon failure notify EMAIL[,EMAIL]"
 msgstr ""
 
-#: update-lily.py:254
+#: update-lily.py:255
 msgid "remove previous build"
 msgstr ""
 
-#: update-lily.py:257
+#: update-lily.py:258
 #, c-format
 msgid "fetch and build URL [%s]"
 msgstr ""
 
-#: update-lily.py:365
+#: update-lily.py:366
 #, fuzzy, c-format
 msgid "Listing `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: update-lily.py:426
+#: update-lily.py:427
 #, c-format
 msgid "latest is: %s"
 msgstr ""
 
-#: update-lily.py:427
+#: update-lily.py:428
 #, c-format
 msgid "relax, %s is up to date"
 msgstr ""
 
-#: update-lily.py:435 update-lily.py:448
+#: update-lily.py:436 update-lily.py:449
 #, fuzzy, c-format
 msgid "Fetching `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
 
-#: update-lily.py:457
+#: update-lily.py:458
 #, fuzzy, c-format
 msgid "Building `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
@@ -876,7 +876,7 @@ msgid "can't find start of phrasing slur"
 msgstr "что-то не найду начало группировки штилей"
 
 #: piano-pedal-engraver.cc:142 piano-pedal-engraver.cc:154
-#: piano-pedal-performer.cc:87
+#: piano-pedal-performer.cc:86
 #, fuzzy, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "что-то не найду начало группировки штилей"
@@ -1118,33 +1118,33 @@ msgstr "Второй аргумент должен быть символом"
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1263
+#: parser.yy:1264
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1273
+#: parser.yy:1274
 msgid "Can't specify direction for this request"
 msgstr "Не могу указать направление для этого запроса"
 
-#: parser.yy:1398
+#: parser.yy:1399
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1409
+#: parser.yy:1410
 #, fuzzy
 msgid "Must have duration object"
 msgstr "установить наименьшую продолжительность"
 
-#: parser.yy:1418 parser.yy:1426
+#: parser.yy:1419 parser.yy:1427
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Должен быть в Лирическом режиме для лирики"
 
-#: parser.yy:1579 parser.yy:1636
+#: parser.yy:1580 parser.yy:1637
 #, c-format
 msgid "not a duration: %d"
 msgstr "не продолжительность: %d"
 
-#: parser.yy:1645
+#: parser.yy:1648
 msgid "Have to be in Note mode for notes"
 msgstr "Должен быть в Нотном режиме для нот"
 
