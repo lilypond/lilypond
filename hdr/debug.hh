@@ -3,9 +3,10 @@
 #include <assert.h>
 #include <iostream.h>
 #include "dstream.hh"
+#include "real.hh"
 
 void error(String s);		// errors
-
+void error_t(String s, Real when);
 // warnings
 void warning(String s);
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
@@ -20,9 +21,10 @@ extern Dstream monitor; // monitor
 #ifdef NPRINT
 #define mtor if (0) monitor	// clever hack 
 #else
-#define mtor monitor.identify_as(__PRETTY_FUNCTION__)
+#define mtor if (check_debug) monitor.identify_as(__PRETTY_FUNCTION__)
 #endif
 
+extern bool check_debug;
 
 
 #endif
