@@ -135,6 +135,7 @@ NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
 OUTPUTIMAGE = 'outputimage'
+PACKED = 'packed'
 PAPER = 'paper'
 PREAMBLE = 'preamble'
 PRINTFILENAME = 'printfilename'
@@ -401,6 +402,8 @@ ly_options = {
 		QUOTE: r'''linewidth = %(linewidth)s - 2.0 * %(exampleindent)s''',
 
 		RAGGEDRIGHT: r'''raggedright = ##t''',
+
+		PACKED: r'''packed = ##t''',
 	},
 
 	##
