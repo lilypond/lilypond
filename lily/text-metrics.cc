@@ -9,6 +9,7 @@
 #include "dimensions.hh"
 #include "font-metric.hh"
 #include "main.hh"
+#include "file-path.hh"
 
 static SCM text_dimension_hash_tab;
 
@@ -77,10 +78,10 @@ LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
 void
 try_load_text_metrics (String basename)
 {
-  String path =  global_path.find_file (basename +  ".textmetrics");
+  String path =  global_path.find (basename +  ".textmetrics");
   if (path != "")
     {
-      String contents (gulp_file_to_string (path));
+      String contents (gulp_file_to_string (path, true));
       contents = "(quote (" +  contents + "))";
 
       SCM lst = scm_c_eval_string (contents.to_str0 ());
