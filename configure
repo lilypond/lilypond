@@ -53,3 +53,6 @@ echo '#define LIBDIR "'$PREFIX'/"'> hdr/config.hh
 touch Site.make
 $MAKE -f Initial.make
 
+echo "The sources are ready for compiling. "
+echo "To make sure that you don't have any stale dependencies: do"
+echo "		make clean"
