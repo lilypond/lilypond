@@ -375,3 +375,5 @@ Variable foo: an C<Int*> that you must delete
 Variable bar: an C<Int*> that you must not delete
 
 =back
+
+Generally default arguments are taboo, except for nil pointers.

@@ -11,6 +11,7 @@
 
 #include <FlexLexer.h>
 
+#include "lily-proto.hh"
 #include "proto.hh"
 #include "fproto.hh"
 #include "varray.hh"
@@ -26,23 +27,23 @@ void set_lexer();
 /// lexer for Mudela
 class My_lily_lexer : public Includable_lexer {
     int lookup_keyword(String);
-    void lookup_notename(int &large, int &small, String s);
     int scan_bare_word(String);
     int scan_escaped_word(String);
 
     bool post_quotes_b_;
 public:
-   void * lexval_l;
+    void * lexval_l;
     
-    
+    Notename_table  *note_tab_p_;
     Assoc<String, Identifier*> *identifier_assoc_p_;
     Keyword_table * keytable_p_;
     int errorlevel_i_;
 
     /* *************** */
 
+    void clear_notenames();
     Identifier*lookup_identifier(String s);
- 
+    Melodic_req* lookup_melodic_req_l(String s);
     void push_note_state();
     void push_lyric_state();
     void pop_state();
@@ -52,7 +53,7 @@ public:
     ~My_lily_lexer();
     int yylex();
     void print_declarations(bool init_b) const;
-
+    void add_notename(String, Melodic_req*);
     bool note_state_b() const;
     bool lyric_state_b() const;
 };

@@ -9,26 +9,23 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, standchen.tex)
 %
-% thanks to \music group changing, all notes 
-% (except for grace notes) are printed
-%
-%%1
+
 melodie = \melodic{  
-	\meter{ 3/4 }
-	\clef\violin
-	\key{ bes }
-	\octave{ c }
-	\duration{ 8 }
-	r pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
+	\meter  3/4 ;
+	\clef\violin;
+	\key  bes ;
+	\octave  c' ;
+	\duration  8 ;
+	r \pp < [ d 'a-| > f-| < d 'a-| > f-| < d 'a-| ] > |
 %%2
 	r < [ d 'bes-| > f-| < d 'bes-| > f-| < d 'bes-| ] > |
 %%3
-	\textstyle "italic"
-	r_"simile" < [ d 'bes > e < d 'bes > e < d 'bes ] >
-	\textstyle "roman" |
+	\textstyle "italic";
+	r_"simile" < [ d 'bes > e < d 'bes > e < d 'bes ] >|
+	\textstyle "roman" ;
+	
 %%4
 	r < [ 'a cis > e < 'a cis > e < 'a cis ] > |
-%#%:|
 %%5
 	[ a()bes a ]2/3  d'4. a |
 %%6
@@ -41,11 +38,11 @@ melodie = \melodic{
 %%9
 
 	< { a'4.( )g'  [ g'( f' )e' ]2/3  }
-	{ cis'4. e'_"dolce"  \plet{ 2/3 } e' \plet{ 1/1 } } > |
+	{ cis'4. e'_"dolce"  \plet  2/3 ; e' \plet  1/1 ; } > |
 %%10
 	< f'2. d'2. > |
 %%11
-	[ a pp( )bes a ]2/3  f'4. a |
+	[ a (\pp )bes a ]2/3  f'4. a |
 %%12
 	[ g( ) a g ]2/3  e'4. d' |
 %%13
@@ -53,42 +50,44 @@ melodie = \melodic{
 %%14
 	a2 r 
 	< { d'( | )c'4. g  [ bes a g ]2/3  }
-	{ f p ( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } > |
+	{ f \p ( | )e4._"dolce" bes  
+		\plet  2/3 ; g
+		\plet  1/1 ;  
+	} > |
 %%16
 	< a2. f2. > |
 %%17
-	\textstyle "italic"
+	\textstyle "italic";
 	[ a8._"cresc." cis'16 ] f'4. e'
-	\textstyle "roman" |
+	\textstyle "roman" ;|
 %%18
 	[ d'8. a16 ] f4. d |
 %%19
 %#%	c'\grace\stemup
-	[ bes pp( ) a bes ]2/3  d'4. bes |
+	[ bes (\pp ) a bes ]2/3  d'4. bes |
 %%20
 	a2. |
 %%21
 %#%	a\grace
 	[ g( )fis g ]2/3  bes4.^> g |
 %%22
-%#%	=f2. |
-	f2. |
+	f!2. |
 %%23
-	[ a8. mf cis'16 ] f'4. e' |
+	[ a8. \mf cis'16 ] f'4. e' |
 %%24
 	[ d'8. a16 ] fis4. d |
 %%25
-	[ b mf( ) ais b ]2/3 d'4. b |
+	[ b \mf( ) ais b ]2/3 d'4. b |
 %%26
 	< a2. fis2. > |
 %%27
-	[ e' df( )dis' e' ]2/3 g'4. cis' |
+	[ e' \f( )dis' e' ]2/3 g'4. cis' |
 %%28
 	< d'2. fis2. > |
 %#%\volta1
 %%29
 	<  { bes2( [ d'8.( ))g16 ] }
-	{ g2 mf [ bes8. bes16 ] } > |
+	{ g2 \mf [ bes8. bes16 ] } > |
 %%30
 	< { a4. [ a-. a-. a-. ] }
 	{ fis4. [ fis-.( fis-. )fis-. ] } > |
@@ -96,7 +95,7 @@ melodie = \melodic{
 	< { a4. [ a-. a-. a-. ] }
 	{ g4. [ cis-.( e-. )g-. ] } > |
 %%32
-	< a2 fis2 pp > < a4 fis4 > |
+	< a2 fis2 \pp > < a4 fis4 > |
 %%33
 	< { b2( [ d'8.( ) )g16 ] }
 	{ g2 [ b8. b16 ] } > |
@@ -116,36 +115,37 @@ melodie = \melodic{
 	d'4( )cis'4 r4 |
 %%39
 %#%	> a4. [ cis' e'8. >! d'16 ] |
-	a4. [ cis' e'8. d'16 ] |
+	a4. \> [ cis' e'8. \! d'16 ] |
 %%40
 	cis'2 r4 |
 %%41
-	< fis'4. cis'4. df > e'  [ e'( )d' cis' ]2/3  |
+	< fis'4. \> cis'4. \f > e'  [ e'( )d' \! cis' ]2/3  |
 %%42
 	[ b8. cis'16 ] d'4^> b r |
 %%43
 
-	[ b8. df cis'16 ] d'4^> b r |
+	[ b8. \f cis'16 ] d'4^> b r |
 %%44
-	[ b8. cis'16 ] d'4^> b r |
+	[ b8. \> cis'16 ] d'4^> b \! r |
 %%45
-	[ b p ( )ais b ]2/3  d'4. b |
+	[ b \p ( )ais b ]2/3  d'4. b |
 %%46
-%#%	{ =a2. fis2. } |
-	< a2. fis2. > |
+	<a!2. fis2. > |
 %%47
-	[ e' df( )dis' e' ]2/3  g'4.^> cis' |
+	[ e' \f( )dis' e' ]2/3  g'4.^> cis' |
 %%48
-	\textstyle "italic"
-	< \multivoice { \stem{ 1 } fis2.( | \stem{ -1 } )f2. }
-	{ \stem{ 1 } d'2.( | \stem{ 1 } )d'4 r4_"decresc." d'4 } >
-	\textstyle "roman" |
+	\textstyle "italic";
+	< \multivoice {
+		\stem  1 ; fis2.( 
+		| \stem  -1 ; )f2. }
+	{ \stem  1 ; d'2.( | \stem  1 ; )d'4 r4_"decresc." d'4 } >
+	\textstyle "roman"; |
 %%50
 	< bes2. e2. > |
 %%51
 	< a2. cis2. > |
 %%52
-	< fis2 d2 > < a4 fis4 pp > |
+	< fis2 d2 > < a4 fis4 \pp > |
 %%53
 
 	< bes2 g2 > < [ d'8.^> bes8. > < bes16 g16 ] > |
@@ -156,9 +156,9 @@ melodie = \melodic{
 	< { a4. [ a-. a-. a-. ] }
 	{ g4. [ cis-.( e-. )g-. ] } > |
 %%56
-	\textstyle "italic"
+	\textstyle "italic";
 	< a2. fis2._"dim." >
-	\textstyle "roman" |
+	\textstyle "roman"; |
 %%57
 	< a2. fis2. > |
 %%58
@@ -167,11 +167,11 @@ melodie = \melodic{
 }
 
 begeleiding = \melodic{ 
-	\meter{3/4}
-	\clef\bass
-	\key{bes}
-	\octave{ c }
-	\duration{2}
+	\meter 3/4;
+	\clef\bass;
+	\key bes;
+	\octave  c' ;
+	\duration 2;
 	'd r4 |
 %%2
 	''bes r4 |
@@ -183,66 +183,66 @@ begeleiding = \melodic{
 	''a r4 |
 %#%:|
 %%5
-\duration{ 8 }
- 	< \multivoice { \stem{ 1 } [ 'f 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+\duration  8 ;
+ 	< \multivoice { \stem  1 ; [ 'f 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%6
- 	< \multivoice { \stem{ 1 } [ 'd 'e 'g 'e 'g 'e ] }
-	{ \stem{ -1 } ''bes2 r4 } > |
+ 	< \multivoice { \stem  1 ; [ 'd 'e 'g 'e 'g 'e ] }
+	{ \stem  -1 ; ''bes2 r4 } > |
 %%7 
-	< \multivoice { \stem{ 1 } [ 'cis 'e 'g 'e 'g e ] }
-	{ \stem{ -1 } ''a2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'cis 'e 'g 'e 'g e ] }
+	{ \stem  -1 ; ''a2 r4 } > |
  %%8
-	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%9
 	[ 'a e g e g e ] |
 %%10
 	[ 'd 'a d 'a d 'a ] |
 %%11
-	< \multivoice { \stem{ 1 } [ 'f 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'f 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%12 == 6
-	< \multivoice { \stem{ 1 } [ 'd 'e 'g 'e 'g 'e ] }
-	{ \stem{ -1 } ''bes2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'e 'g 'e 'g 'e ] }
+	{ \stem  -1 ; ''bes2 r4 } > |
 %13
 	< \multivoice { [ 'e 'g 'bes 'g 'bes 'g ] }
-	{ \stem{ -1 } 'c2 r4 } > |
+	{ \stem  -1 ; 'c2 r4 } > |
 %%14
-	< \multivoice { \stem{ 1 } [ 'a c f c f c ] }
-	{ \stem{ -1 } 'f2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'a c f c f c ] }
+	{ \stem  -1 ; 'f2 r4 } > |
 %%15
 	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
 %%17
-	< \multivoice { \stem{ 1 } [ ''a 'e 'g 'e 'g 'e ] }
-	{ \stem{ -1 } ''a2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''a 'e 'g 'e 'g 'e ] }
+	{ \stem  -1 ; ''a2 r4 } > |
 %%18
-	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%19
-	< \multivoice { \stem{ 1 } [ ''bes 'f 'bes 'f 'bes 'f ] }
-	{ \stem{ -1 } ''bes2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''bes 'f 'bes 'f 'bes 'f ] }
+	{ \stem  -1 ; ''bes2 r4 } > |
 %%20
-	< \multivoice { \stem{ 1 } [ ''f 'c 'f 'c 'f 'c ] }
-	{ \stem{ -1 } ''f2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''f 'c 'f 'c 'f 'c ] }
+	{ \stem  -1 ; ''f2 r4 } > |
 %%21
 	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
 %%23
-	< \multivoice { \stem{ 1 } [ ''a 'e 'g 'e 'g 'e ] }
-	{ \stem{ -1 } ''a2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''a 'e 'g 'e 'g 'e ] }
+	{ \stem  -1 ; ''a2 r4 } > |
 %%24
-	< \multivoice { \stem{ 1 } [ 'd 'fis 'a 'fis 'a 'fis ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'fis 'a 'fis 'a 'fis ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%25
-	< \multivoice { \stem{ 1 } [ ''g 'd 'b 'd 'b 'd ] }
-	{ \stem{ -1 } ''g2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''g 'd 'b 'd 'b 'd ] }
+	{ \stem  -1 ; ''g2 r4 } > |
 %%26
-	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%27
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%28
@@ -283,11 +283,11 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multivoice { \stem{ 1 } [ ''g 'd 'b 'd 'b 'd ] }
-	{ \stem{ -1 } ''g2 r4 } > |
+	< \multivoice { \stem  1 ; [ ''g 'd 'b 'd 'b 'd ] }
+	{ \stem  -1 ; ''g2 r4 } > |
 %%46
-	< \multivoice { \stem{ 1 } [ 'd 'a d 'a d 'a ] }
-	{ \stem{ -1 } 'd2 r4 } > |
+	< \multivoice { \stem  1 ; [ 'd 'a d 'a d 'a ] }
+	{ \stem  -1 ; 'd2 r4 } > |
 %%47
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%48
@@ -316,8 +316,8 @@ begeleiding = \melodic{
 
 
 tekstI = \lyric{
-	\meter{ 3/4 }
-	\duration{4}
+	\meter  3/4 ;
+	\duration 4;
 	_ _ _
 	_ _ _
 	_ _ _
@@ -383,8 +383,8 @@ tekstI = \lyric{
 }
 
 tekstII = \lyric{
-        \meter{3/4}
-	\duration{4}
+        \meter 3/4;
+	\duration 4;
 	_ _ _
 	_ _ _
 	_ _ _
@@ -447,9 +447,7 @@ tekstII = \lyric{
 }
 
 \score{
-	\staff{ lyricregs
-		
-		tekstI tekstII }
+	\staff{ lyricregs tekstI tekstII }
 	\staff{ melodicregs melodie }
 	\staff{ melodicregs begeleiding }
 	\paper{

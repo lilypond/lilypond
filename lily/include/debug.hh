@@ -10,13 +10,11 @@
 #include "dstream.hh"
 #include "real.hh"
 #include "proto.hh"
+#include "warn.hh"
 
-void warning( String message_str  );
-void error( String message_str);
 void error_t(const String& s, Time_description const &  t_tdes);
 void error_t(String const &s, const Moment &when);
-// warnings
-//void warning(String s);
+
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
 extern ostream &warnout ;
 
@@ -25,6 +23,7 @@ extern ostream *mlog;
 
 // debugging
 extern Dstream *monitor; // monitor
+
 
 #ifdef NPRINT
 #define mtor if (0) *monitor	// clever hack 

@@ -1,3 +1,16 @@
+pl 48.hwn1
+	- lsm template
+	- clef in cadenza mode.
+	- notename clear
+	- \command bla; for \meter, \clef, \octave etc.
+
+pl 48
+	- notenames init
+	- Duration order -> grouping
+	- broken key s
+	- default octave
+******
+april 3
 pl 47
 	- dynamic flowerlib
 	- Input mods: now use Source_file iso Sources

@@ -1,36 +1,60 @@
 #!/usr/bin/perl -w
 
-die "arg needed\n" if (!($#ARGV+1));
-my $fn = $ARGV[0];
-my $hh_q = ($fn =~ /hh$/ );
-my $MAILADRESS=$ENV{MAILADRESS};
-my @pw=(getpwuid($<));
-my $username=$pw[6];
-my $what="implement ";
-$what = "declare " if ($hh_q);
-my ($PROJECT, $cwd);
-$PROJECT = "the LilyPond music typesetter";
-chop($cwd = `pwd`);
+# generate the standard header of a LilyPond source file.
+my $fn;
 
-$PROJECT= "the Flower Library" if ($cwd =~ /flower/);
-my $headstr ="/*
+sub
+    do_init
+{
+    $MAILADRESS=$ENV{MAILADRESS};
+     @pw=(getpwuid($<));
+     $username=$pw[6];
+
+    die "arg needed\n" if (!($#ARGV+1));
+     $fn = $ARGV[0];
+
+     $hh_b =  ($fn =~ /hh$/ );
+     $inc_b=  ($hh_b || $fn =~ /[ti]cc$/);
+}
+
+sub 
+    do_head
+{
+    
+    my $what="implement ";
+    $what = "declare " if ($hh_b);
+    my ($PROJECT, $cwd);
+    $PROJECT = "the LilyPond music typesetter";
+    chop($cwd = `pwd`);
+    
+    $PROJECT= "the Flower Library" if ($cwd =~ /flower/);
+    
+    my $headstr ="/*
   $fn -- $what
 
   source file of $PROJECT
 
   (c) 1997 $username <$MAILADRESS>
 */\n";
-
-my $startdef= $fn;
-$startdef =~ s/[\.-]/_/g;
-$startdef =~ tr/a-z/A-Z/;
-my $terminatestr="\n";
-if ($hh_q) {
-    $headstr .= "\n\n#ifndef $startdef\n#define $startdef\n";
-    $terminatestr .= "#endif // $startdef\n"  
+    print $headstr;
 }
+sub do_inc
+{
+    my $headstr="";
+    my $startdef= $fn;
+    $startdef =~ s/[\.-]/_/g;
+    $startdef =~ tr/a-z/A-Z/;
+    my $terminatestr="\n";
 
-print $headstr, $terminatestr;
+    if ($inc_b) {
+	$headstr = "\n\n#ifndef $startdef\n#define $startdef\n";
+	$terminatestr .= "#endif // $startdef\n"  
+	}
 
+    print $headstr, $terminatestr;
+}
+do_init;
+do_head;
+do_inc;
 
 

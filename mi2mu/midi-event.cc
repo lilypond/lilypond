@@ -174,7 +174,7 @@ Midi_time::Midi_time( int num_i, int den_i, int clocks_4_i, int count_32_i )
 {
 	sync_f_ = 1.0;
 	if ( count_32_i != 8 )
-		warning( String( "#32 in quarter: " ) + String( count_32_i ), 0 );
+		warning( String( "#32 in quarter: " ) + String( count_32_i ));
 	num_i_ = num_i;
 	den_i_ = den_i;
 	clocks_1_i_ = clocks_4_i * 4; 

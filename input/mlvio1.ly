@@ -11,11 +11,11 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-violinI = \melodic{ 
-	\clef "violin"
-	\octave{c}
-	\duration{4}
-	\key{fis}
+violinI = \melodic  {
+	\clef "violin";
+	\octave c;
+	\duration 4;
+	\key fis;
 %1
 	g [ b8. a16 ] |
 %2
@@ -47,9 +47,10 @@ violinI = \melodic{
 %15
 	c' b |
 %16
-	\textstyle "italic"
+	\textstyle "italic";
 	a g_"fine"
-	\textstyle "roman" |
+	\textstyle "roman" ;
+	|
 %\newline
 %17=1
 	g [ b8. a16 ] |
@@ -86,7 +87,7 @@ violinI = \melodic{
 	cis' c' |
 %variant a'
 %33
-	\duration{16} [ b8 d' d' ] [ d'8 d' d' ] |
+	\duration 16; [ b8 d' d' ] [ d'8 d' d' ] |
 %34
 	[ g'8 d' d' ] b4 |
 %35
@@ -102,10 +103,10 @@ violinI = \melodic{
 %40
 	c'4 < b4 d'4 > |
 %41
-	\textstyle "italic"
-	\duration{8}
+	\textstyle "italic";
+	\duration 8;
 	r_"pizz" d r g
-	\textstyle "roman" |
+	\textstyle "roman" ;|
 %42
 	r d e4 |
 %43
@@ -122,9 +123,9 @@ violinI = \melodic{
 	r d' [ d' b ] |
 %theme 2
 %49
-	\textstyle "italic"
+	\textstyle "italic";
 	r4_"arco"  [ b8  b  b ]2/3 
-	\textstyle "roman" |
+	\textstyle "roman" ;|
 %50
 	r4  [ g g g ]2/3  |
 %51
@@ -138,7 +139,7 @@ violinI = \melodic{
 %55
 	b2 |
 %56
-	g2 \key{bes es as}|
+	g2 \key bes es as;|
 % \key\Es ||
 %57
 	f r f r |
@@ -149,16 +150,16 @@ violinI = \melodic{
 %60
 	c' r c'4 |
 %61
-	\duration{16}
+	\duration 16;
 	 [ as f d f as d' ]4/6   [ as f d 'as d f ]4/6  |
 %62
 	 [ g es c 'g c es ]4/6   [ g c' es' c' g es ]4/6  |
 %63
 	 [ g d g bes d' g' ]4/6   [ f' d' bes g f d ]4/6  |
 %64
-	\duration{8}
+	\duration 8;
 	[ c g ] g4 |
-% \meter{6/8} ||
+% \meter 6/8; ||
 %65
 	[ g g g ] g4.  |
 %66
@@ -175,7 +176,7 @@ violinI = \melodic{
 	[ f' d' b ] [ g a8 b ] |
 %72
 	c' r4 r4. |
-% \meter{2/4} ||
+% \meter 2/4; ||
 %73
 	f r f r |
 %74
@@ -185,7 +186,7 @@ violinI = \melodic{
 %76
 	c' r c'4 |
 %77
-	\duration{16}
+	\duration 16;
 	 [ as f d f as d' ]4/6   [ as f d 'as d f ]4/6  |
 %78
 	 [ g es c 'g c es ]4/6   [ f c' es' c' g es ]4/6  |
@@ -194,7 +195,7 @@ violinI = \melodic{
 %80
 	[ c8 g8 ] g4 |
 %81
-	\duration{2}
+	\duration 2;
 	c' |
 %82
 	c' |
@@ -209,10 +210,10 @@ violinI = \melodic{
 %87
 	d |
 %88
-	\textstyle "italic"
+	\textstyle "italic";
 	a_"dacapo"
-	\textstyle "roman"
-	\key{fis} |
+	\textstyle "roman";
+	\key fis; |
 % \key\G ||
 	
 }

@@ -13,6 +13,13 @@
 #include "voice-element.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
+#include "parser.hh"
+
+void
+My_lily_parser::clear_notenames()
+{
+    lexer_p_->clear_notenames();
+}
 
 void
 My_lily_parser::set_debug()
@@ -81,8 +88,7 @@ My_lily_parser::here_ch_C()const
 void
 My_lily_parser::parser_error(String s)
 {
-    lexer_p_->LexerError(s);
-
+    here_input().error(s);
     if ( fatal_error_i_ )
 	exit( fatal_error_i_ );
     error_level_i_ = 1;
@@ -162,9 +168,6 @@ My_lily_parser::get_parens_request(char c)
 {
     Request* req_p=0;
     switch (c) {
-    case '|':
-	req_p = new Barcheck_req;
-	break;
 
     case '[':
     case ']':
@@ -177,7 +180,12 @@ My_lily_parser::get_parens_request(char c)
     }
     break;
 
-
+    case '>':
+    case '!':
+    case '<':
+	req_p = new Span_dynamic_req;
+	break;
+    
     case ')':
     case '(':
 	req_p = new Slur_req;
@@ -188,10 +196,13 @@ My_lily_parser::get_parens_request(char c)
     }
     
     switch (c) {
+    case '<':
+    case '>':
     case '(':
     case '[':
 	req_p->span()->spantype = Span_req::START;
 	break;
+    case '!':
     case ')':
     case ']':
 	req_p->span()->spantype = Span_req::STOP;
@@ -199,6 +210,11 @@ My_lily_parser::get_parens_request(char c)
 	
     default:
 	break;
+    }
+
+   if (req_p->musical()->span_dynamic()) {
+	Span_dynamic_req* s_l= (req_p->musical()->span_dynamic()) ;
+	s_l->dynamic_dir_i_ = (c == '<') ? 1:-1;
     }
 
     req_p->set_spot( here_input());
@@ -241,4 +257,10 @@ My_lily_parser::here_input()const
 {
     Source_file * f_l= lexer_p_->source_file_l();
     return Input(f_l, here_ch_C());
+}
+
+void
+My_lily_parser::add_notename(String s, Melodic_req * m_p)
+{
+    lexer_p_->add_notename(s, m_p);
 }

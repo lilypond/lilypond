@@ -11,11 +11,11 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-violinII = \melodic{ 
-	\clef "violin"
-	\octave{c}
-	\duration{4}
-	\key{fis}
+violinII = \melodic  {
+	\clef "violin";
+	\octave c;
+	\duration 4;
+	\key fis;
 %1
 	d2 |
 %2
@@ -47,9 +47,9 @@ violinII = \melodic{
 %15
 	c d |
 %16
-	\textstyle "italic"
+	\textstyle "italic";
 	d2_"fine" |
-	\textstyle "roman"
+	\textstyle "roman";
 % \newline
 %17=1
 	d2 |
@@ -86,7 +86,7 @@ violinII = \melodic{
 	a fis |
 %variant a
 %33
-	\duration{16}
+	\duration 16;
 	[ g8 b b ] [ b8 g a ] |
 %34
 	[ b8 b b ] f4 |
@@ -103,10 +103,10 @@ violinII = \melodic{
 %40
 	fis4 g4 |
 %41
-	\duration{8}
-	\textstyle "italic"
+	\duration 8;
+	\textstyle "italic";
 	r_"pizz"
-	\textstyle "roman"
+	\textstyle "roman";
 	'b r 'b |
 %42
 	r 'b 'g4 |
@@ -124,9 +124,9 @@ violinII = \melodic{
 	r fis [ fis d ] |
 %theme 2
 %49
-	\textstyle "italic"
+	\textstyle "italic";
 	r4_"arco"
-	\textstyle "roman"
+	\textstyle "roman";
 	[ d8 d d ]2/3  |
 %50
 	r4  [ g8 g g ]2/3  |
@@ -141,7 +141,7 @@ violinII = \melodic{
 %55
 	d2 |
 %56
-	f4 e4 \key{bes es as}|
+	f4 e4 \key bes es as;|
 % \key\Es ||
 %57
 	d r 'b r |
@@ -159,9 +159,9 @@ violinII = \melodic{
 	'b d4.  |
 %64
 	es2 |
-% \meter{6/8} ||
+% \meter 6/8; ||
 %65
-	\duration{8}
+	\duration 8;
 	[ c c c ] c4.  |
 %66
 	[ 'g 'g 'g ] 'g4.  |
@@ -178,7 +178,7 @@ violinII = \melodic{
 %72
 	es r4 r4. |
 %73
-% \meter{2/4} ||
+% \meter 2/4; ||
 	d r 'b r |
 %74
 	'g r es r |
@@ -187,7 +187,7 @@ violinII = \melodic{
 %76
 	g r es4 |
 %77
-	\duration{2}
+	\duration 2;
 	f |
 %78
 	es |
@@ -210,9 +210,9 @@ violinII = \melodic{
 %87
 %	= g |
 %88
-	\textstyle "italic"
-	fis_"dacapo" \key{fis}|
-	\textstyle "roman"
+	\textstyle "italic";
+	fis_"dacapo" \key fis;|
+	\textstyle "roman";
 % \key\G ||
 	
 }

@@ -1,6 +1,11 @@
 #ifndef LIST_CC
 #define LIST_CC
 
+
+// instantiate a template:  explicit instantiation.
+#define L_instantiate(a)  template class List<a>; template class Cursor<a>; \
+  template class Link<a>
+
 #include "list.hh"
 
 template<class T>

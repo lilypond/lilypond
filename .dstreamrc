@@ -2,7 +2,7 @@
 Dstream			1
 
 File_path		1
-My_lily_lexer		1
+My_lily_lexer		0
 PCol			1
 Score_column		1
 Ineq_constrained_qp 	1
@@ -14,7 +14,7 @@ Idealspacing		1
 
 # yydebug
 InitParser		1
-Parser			1
+Parser			0
 InitDeclarations	1
 Declarations		1
 # FlexLexer debug

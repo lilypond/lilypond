@@ -25,7 +25,7 @@ Lily_stream::~Lily_stream()
 {
     delete os_p_;
     if ( indent_i_ )
-	warning( "lily indent level: " + String( indent_i_ ), 0 );
+	warning( "lily indent level: " + String( indent_i_ ));
 }
 
 Lily_stream&
@@ -131,7 +131,7 @@ Lily_stream::open()
 {
     os_p_ = new ofstream( filename_str_ );
     if ( !*os_p_ )
-	error ( "can't open `" + filename_str_ + "\'", 0 );
+	error ( "can't open `" + filename_str_ + "\'");
 }
 
 void

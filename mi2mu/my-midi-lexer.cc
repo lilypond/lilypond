@@ -29,9 +29,12 @@ My_midi_lexer::~My_midi_lexer()
 void
 My_midi_lexer::error( char const* sz_l )
 {
-    if ( !source_file_l_ ) {
+    if (1|| !source_file_l_ ) {
 	cerr << "error at EOF" << sz_l << '\n';
     } else {
+	
+	// FIXME
+	#if 0
 	char const* ch_C = here_ch_C();
 	if ( ch_C ) {
 	    ch_C--;
@@ -40,7 +43,8 @@ My_midi_lexer::error( char const* sz_l )
 	    ch_C++;
 	}
 	errorlevel_i_ |= 1;
-	::error( sz_l, ch_C );
+	error( sz_l);
+	#endif
     }
 }
 

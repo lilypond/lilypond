@@ -44,7 +44,7 @@ checking_b=yes
 debug_b=yes
 optimise_b=no
 profile_b=no
-    
+#shared_b=no
 AC_ARG_ENABLE(printing,
     [  enable-printing        set debug printing],
     [printing_b=$enableval])
@@ -128,7 +128,7 @@ if test $MAKE = "error"
 then
 	AC_MSG_ERROR(Please install GNU make)
 else
-	$MAKE -v| grep GNU >& /dev/null
+	$MAKE -v| grep GNU > /dev/null
 	if test "$?" = 1
 	then
 		AC_MSG_WARN(Please install *GNU* make)
@@ -151,7 +151,7 @@ then
 	AC_MSG_WARN(can't find flex. Please install Flex (2.5 or better))
 fi
 
-if $CXX --version | grep '2\.7' >& /dev/null
+if $CXX --version | grep '2\.7' > /dev/null
 then
 	true
 else
@@ -203,4 +203,10 @@ If you only want help on the make targets, do a
 
 	make help
 
+
 END
+
+    
+#if test $shared_b = yes; then
+#    echo "NOTE: you are building the *shared* library. You should 
+#fi    

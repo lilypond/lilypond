@@ -173,6 +173,13 @@ Key_change_req::transpose(Melodic_req const & d)const
 }
 
 IMPLEMENT_STATIC_NAME(Key_change_req);
+void
+Key_change_req::squash_octaves()
+{
+    for (int i=0; i < melodic_p_arr_.size(); i++) {
+	melodic_p_arr_[i]->octave_i_ = 0;
+    }
+}
 
 void
 Key_change_req::do_print() const
@@ -185,6 +192,7 @@ Key_change_req::do_print() const
 Key_change_req::Key_change_req()
 {
 	minor_b_ = false;
+	multi_octave_b_= false;
 }
 
 Key_change_req::Key_change_req(Key_change_req const&c)
@@ -192,6 +200,7 @@ Key_change_req::Key_change_req(Key_change_req const&c)
 	for (int i=0; i < c.melodic_p_arr_.size(); i++) 
 		melodic_p_arr_.push( c.melodic_p_arr_[i]->clone()->melodic() );
 	minor_b_ = c.minor_b_;
+	multi_octave_b_ = c.multi_octave_b_;
 }
 
 Key_change_req::~Key_change_req()
@@ -208,7 +217,7 @@ Key_change_req::flats_i()
 		Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
 		assert( mel_l );
 		if ( mel_l->accidental_i_ < 0 )
-			flats_i++;
+			flats_i -= mel_l->accidental_i_;
 	}
 	return flats_i;
 }
@@ -227,7 +236,7 @@ Key_change_req::sharps_i()
 		Melodic_req* mel_l = melodic_p_arr_[i]->melodic();
 		assert( mel_l );
 		if ( mel_l->accidental_i_ > 0 )
-			sharps_i++;
+			sharps_i+= mel_l->accidental_i_;
 	}
 	return sharps_i;
 }

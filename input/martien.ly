@@ -1,3 +1,4 @@
+%% BUG in MIDI!
 %
 % Viola Quartet
 % Martien Lohman (194x-????) 
@@ -13,15 +14,15 @@
 % \barnumberstyle\boxed
 
 globalmusic= \melodic{
-		\meter {2/4}
+		\meter 2/4;
 %		\key fis
-		\skip {2*56}
+		\skip 2*56;
 %		\key bes es as
-		\skip {2*8}
-		\meter {6/8}
-		\skip{ 8*48}
-		\meter {2/4}
-		\skip {2*16}
+		\skip 2*8;
+		\meter 6/8;
+		\skip 8*48;
+		\meter 2/4;
+		\skip 2*16;
 %		\key fis
 }
 

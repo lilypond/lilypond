@@ -1,4 +1,10 @@
 
+	Announcing
+	
+		LILYPOND
+
+	The Music Typesetter
+
 Do you pine for the nice days of Linux 0.95, when men were men and
 wrote their own applications? Are you without a nice project and just
 dying to cut your teeth into a bleeding edge application you can
@@ -52,8 +58,8 @@ for running you need
 
 FEATURES
 
-ASCII script input, with identifiers (for music reuse), customizable
-notenames
+ASCII script input (mudela), with identifiers (for music reuse),
+customizable notenames
 
 MIDI output lets you check if you have entered the correct notes.
 MIDI to Mudela conversion through the mi2mu program.

@@ -86,11 +86,6 @@ class List
 #include "list.icc"
 #include "cursor.hh"
 
-// instantiate a template:  explicit instantiation.
-#define L_instantiate(a)  template class List<a>; template class Cursor<a>; \
-  template class Link<a>
-
-
 #endif // __LIST_HH //
     
    

@@ -5,17 +5,17 @@
 %	Public Domain -- typed by by HWN
 %
  global = \melodic{
- 	\meter{ 4/4 }
- 	\grouping{ 2*2 }
- 	\key{ bes es as }
+ 	\meter 4/4 ;
+ 	\grouping 2*2; 
+ 	\key bes es as; 
   }
   
- dux = \melodic{ 
- 	\clef\violin
- 	\octave{ c }
- 	\duration{ \last }
+ dux = \melodic  {
+ 	\clef "violin";
+ 	\octave c' ;
+ 	\duration  \last ;
 
-	\stem{-1}
+	\stem -1;
 	 r8-"dux" 	
 	[c'16 b] [c'8 g] [as c'16 b] [c'8 d'] |
 	[g c'16 b] [c'8 d'] [f16 g] as4 [g16 f]	|
@@ -27,9 +27,9 @@
 	r8 [as g f] [g f16 es] [f8 d] | 
 }
 
-comes = \melodic{ 
-	\octave{ c' }
-	\stem{1}
+comes = \melodic  {
+	\octave c'' ;
+	\stem 1;
 	r1 |
 	r1 |
 	r8-"comes" [g16 fis] [g8 c] [es g16 f] [g8 a]|
@@ -41,9 +41,9 @@ comes = \melodic{
 	
 }
 
-bassdux = \melodic{ 
-	\clef \bass
-	\octave{ c }
+bassdux = \melodic  {
+	\clef "bass";
+	\octave c' ;
 	r1 |
 	r |
 	r |

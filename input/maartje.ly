@@ -4,17 +4,17 @@
 %
 %
 globals=\melodic{
-		\meter {4/ 4}
-		\partial {8}
-		\skip {1*8}
-		\skip {3*2 }
+		\meter 4/ 4;
+		\partial 8;
+		\skip 8*1;
+		\skip 2*3 ;
 		\bar ":|:"
-		\skip {1*2}
-		\meter {2/4}
+		\skip 2*1;
+		\meter 2/4;
 }
 
-ritme = \staff{melodicregs
- 	globals
+%ritme = \staff{melodicregs
+% 	globals
 % rhythmic broken for  now
 % 	\rhytmic{
 % 	c8
@@ -29,17 +29,17 @@ ritme = \staff{melodicregs
 % 
 % 	 c2 c2 c2 c2 c2 c2 c2 c2 c2 c2
 % 	}
-}
+%}
 
 melody= \staff{melodicregs
 	globals
-	\melodic{
-	c8\key{fis cis gis}
+	\melodic \octave  {c;
+	c8\key fis cis gis;
 	|r4 r4 r4 r4
 	|cis'2..	r8
 	| r4 r8 r16 r32 r32 
 
-	\duration {4}
+	\duration 4;
 	<
 		 { c () 'bes [c8 c8] }
 		 { fis' ()gisis' fis8 fis8 }
@@ -53,7 +53,7 @@ melody= \staff{melodicregs
 	[d8 e8 f'8 g8]  d8 e8 f8 g8
 	|fis''2
 	| a8 b8 c'8 d'8 |c''8 '''c8 c4 |c4  c4 |c4
-	\duration{ 16 } 'b 'a 'g 'f \duration{ 4}
+	\duration  16 ; 'b 'a 'g 'f \duration  4;
 	\clef\bass	
 
 	|c 'b 'a 'g 'f 'e 'd 'c ''b ''a ''g ''f ''e ''d ''c
@@ -66,7 +66,7 @@ melody= \staff{melodicregs
 		\geometric 1.4
 		\unitspace 3.0 \cm
 	}
-	ritme
-	melody
+
+	\staff{	 melody}
 }
 

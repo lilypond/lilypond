@@ -1,5 +1,5 @@
 /*
-  duration-convert.cc -- implement 
+  duration-convert.cc -- implement Duration_convert
 
   source file of the LilyPond music typesetter
 
@@ -7,7 +7,7 @@
 */
 #include <assert.h>
 #include "duration-convert.hh"
-#include "debug.hh"
+#include "warn.hh"
 
 // statics Duration_convert
 bool const Duration_convert::midi_as_plet_b_s = true;

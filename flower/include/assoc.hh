@@ -53,11 +53,11 @@ struct Assoc {
 	return arr.size() -1;
     }
 public:
-    bool elt_query(K key) const {
+    bool elt_b(K key) const {
 	return find(key) >= 0;
     }
     void del(K key) {
-	assert(elt_query(key));
+	assert(elt_b(key));
 	int i= find(key);
 	arr[i].free = true;
     }
@@ -66,11 +66,17 @@ public:
 	int i = find_creat(key);
 	arr[i].val = val;
     }
-    V& operator[](K key) {
+    V& elem(K key) {
 	return arr[find_creat(key)].val;
+	}
+    V& operator[](K key) {
+	return elem(key);
     }
     V const & operator[](K key) const {
-	assert(elt_query(key));
+	return elem(key);
+    }
+    V const & elem(K key) const { 
+	assert(elt_b(key));
 	return arr[find(key)].val;
     }
 };

@@ -544,7 +544,7 @@ checking_b=yes
 debug_b=yes
 optimise_b=no
 profile_b=no
-    
+#shared_b=no
 # Check whether --enable-printing or --disable-printing was given.
 if test "${enable_printing+set}" = set; then
   enableval="$enable_printing"
@@ -1071,7 +1071,7 @@ if test $MAKE = "error"
 then
 	{ echo "configure: error: Please install GNU make" 1>&2; exit 1; }
 else
-	$MAKE -v| grep GNU >& /dev/null
+	$MAKE -v| grep GNU > /dev/null
 	if test "$?" = 1
 	then
 		echo "configure: warning: Please install *GNU* make" 1>&2
@@ -1094,7 +1094,7 @@ then
 	echo "configure: warning: can't find flex. Please install Flex (2.5 or better)" 1>&2
 fi
 
-if $CXX --version | grep '2\.7' >& /dev/null
+if $CXX --version | grep '2\.7' > /dev/null
 then
 	true
 else
@@ -1584,4 +1584,10 @@ If you only want help on the make targets, do a
 
 	make help
 
+
 END
+
+    
+#if test $shared_b = yes; then
+#    echo "NOTE: you are building the *shared* library. You should 
+#fi    

@@ -1,5 +1,10 @@
 #include "plist.hh"
 
+#define PL_instantiate(a)  template class PointerList<a*>; \
+	template class PCursor<a*>;
+#define IPL_instantiate(a) PL_instantiate(a); \
+	template class IPointerList<a*>
+	
 template<class T>
 IPointerList<T>::~IPointerList()
 {

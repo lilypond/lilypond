@@ -1,5 +1,4 @@
 before 0.1
-	* fix mi2mu
 
 	* update 20 pt table
 
@@ -9,6 +8,8 @@ before 0.1
 	
 	* remove unnecessary or confusing constructs from .ly
 
+	* key undo
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -17,23 +18,17 @@ PARSER
 
 MAKE-STUFF
 
-	* flower config: separate optiflags.
-
 	* do platform stuff: configure, header(s), targets, build (out?)
 	
 BUGS
 
-	* key at clef change.
-
-	* key undo
-
-	* key at broken :||:
+	* help-lines
 
 	* [c8. c32 c32]
 
 	* cis ( | ) cis
 
-	* parser error handling (can you say Segfault?)
+	* lilypond - -> 
 
 SEVERELY LACKING:
 
@@ -49,8 +44,6 @@ FURTHER FOR ORCHESTRAL SCORE:
 
 INPUTLANGUAGE
 
-	* unix style paths for LILYINCLUDE ENV
-
 	* configure pitch_byte
 
 	* special key.
@@ -63,15 +56,16 @@ INPUTLANGUAGE
 
 	* Raw request syntax
 
-	* uniformate: \clef\violin, \clef"violin", \geometric 1.4, 
-	  \meter{ 2/4 }, etc.
-
 	* subtime with Subtle_reqs
 
 SMALLISH PROJECTS
 
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
+
+	* half-sharps, half-flats
+	
+	* unix style paths for LILYINCLUDE EN
 
 	* rpm package buildroot
 
@@ -81,11 +75,11 @@ SMALLISH PROJECTS
 	
 	* caching breakpoints / saving them. 
 
-	* key { C } 
-	
 	* use dstream feature in mi2mu
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
+
+	- declare notenametab?
 
 	* use tors feature in lily
 
@@ -141,8 +135,6 @@ DOC
 
 	* all errors
 
-	* a decent webpage
-
 	* a test suite
 
 FUTURE
@@ -151,7 +143,7 @@ FUTURE
 	
 	* multiple scripst.
 
-	* mixed  fontsizes
+	* mixed fontsizes
 
 	* put scripts on bars
 
@@ -173,7 +165,7 @@ FUTURE
 
 	* revise calcideal
 
-	* eentje/tweetje
+	* volta
 
 	* piano staff
 

@@ -1,3 +1,11 @@
+/*
+  symtable.cc -- implement Symbol_table
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "misc.hh"
 #include "dimen.hh"
 #include "debug.hh"
@@ -28,7 +36,7 @@ Symtables::~Symtables()
 Symbol 
 Symtable::lookup(String s) const
 {
-    if (elt_query(s))
+    if (elt_b(s))
 	return (*this)[s];
     else {
 	error( "Symtable `" + id_str+ "\': unknown symbol `" +s+"'\n");

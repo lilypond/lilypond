@@ -28,15 +28,6 @@ get_plet_request( char c, int dur_i, int type_i )
     return plet_req_p;
 }
 
-
-void
-add_requests(Voice_element *v, Array<Request*> &req)
-{
-    for (int i = 0; i < req.size(); i++) {
-	v->add(req[i]);
-    }
-    req.set_size(0);
-}
 String *
 get_scriptdef(char c)
 {
@@ -89,8 +80,8 @@ get_grouping_req(Array<int> i_arr)
 {
     Measure_grouping_req * mr_p = new Measure_grouping_req;
     for (int i=0; i <i_arr.size(); ) {
-	mr_p->beat_i_arr_.push(i_arr[i++]);
 	mr_p->elt_length_arr_.push(Moment(1, i_arr[i++]));
+	mr_p->beat_i_arr_.push(i_arr[i++]);
     }
     return mr_p;
 }

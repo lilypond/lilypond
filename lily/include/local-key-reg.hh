@@ -11,7 +11,7 @@
 #include "key.hh"
 
 struct Local_key_register : Request_register {
-    Local_key local_key_;
+    Key local_key_;
     Local_key_item* key_item_p_;
     Key const *key_C_;
     /* *************** */

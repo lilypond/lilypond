@@ -3,36 +3,47 @@
 const int OCTAVES=14;		// ugh..
 const int ZEROOCTAVE=7;
 
-Key::Key()
+Octave_key::Octave_key()
 {
     accidental_i_arr_.set_size(7);
     for (int i= 0; i < 7 ; i++)
 	accidental_i_arr_[i] = 0;
 }
 
-Local_key::Local_key()
+Key::Key()
 {
+    multi_octave_b_ = false;
     octaves.set_size(OCTAVES);
 }
 
-Key&
-Local_key::oct(int i)
+Octave_key&
+Key::oct(int i)
+{
+    return octaves[i+ZEROOCTAVE];    
+}
+
+Octave_key
+Key::oct(int i)const
 {
     return octaves[i+ZEROOCTAVE];    
 }
 
 void
-Key::set(int i, int a)
+Octave_key::set(int i, int a)
 {
     assert(a > -3 && a < 3);
     accidental_i_arr_[i]=a;    
 }
 
-
 void
-Local_key::reset(Key k)
+Key::set(int o, int n , int a)
 {
-    for (int i= 0; i < OCTAVES ; i++)
-	octaves[i] = k;
+    octaves[o + ZEROOCTAVE].set(n,a);
 }
 
+void
+Key::set (int n, int a)
+{
+    for (int i= 0; i < OCTAVES ; i++)
+	octaves[i].set(n,a);
+}

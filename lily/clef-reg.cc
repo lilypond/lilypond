@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>,
   Mats Bengtsson <matsb@s3.kth.se>
 */
-
+#include "bar.hh"
 #include "clef-reg.hh"
 #include "clef-item.hh"
 #include "debug.hh"
@@ -47,7 +47,16 @@ Clef_register::read_req(Clef_change_req*c_l)
     if (!set_type(c_l->clef_str_))
 	c_l->error("unknown clef type ");
 }
-
+void
+Clef_register::acknowledge_element(Staff_elem_info info)
+{
+    if (info.elem_p_->name() == Bar::static_name()) {
+	if (!clef_p_){
+	    create_clef();
+	    clef_p_->change = false;
+	}
+    }
+}
 bool
 Clef_register::try_request(Request * r_l)
 {
@@ -62,21 +71,21 @@ Clef_register::try_request(Request * r_l)
     return true;
 }
 
+void 
+Clef_register::create_clef()
+{
+    clef_p_ = new Clef_item;
+    clef_p_->read(*this);
+    announce_element(Staff_elem_info(clef_p_,
+					 clef_req_l_));
+}
+
 void
 Clef_register::process_requests()
 {
-    Time_description const *time_l = get_staff_info().time_C_;
-    if (!clef_req_l_ && (!time_l->whole_in_measure_|| !time_l->when_)) {
-	clef_p_ = new Clef_item;
-	clef_p_->change = false;
-    } else if (clef_req_l_) {
-	clef_p_ = new Clef_item;
+    if (clef_req_l_) {
+	create_clef();
 	clef_p_->change = true;
-    }
-    if (clef_p_) {
-	clef_p_->read(*this);
-	announce_element(Staff_elem_info(clef_p_,
-					 clef_req_l_));
     }
 }
 

@@ -1,5 +1,5 @@
 /*
-  my-lily-parser.hh -- declare 
+  my-lily-parser.hh -- declare My_lily_parser
 
   source file of the LilyPond music typesetter
 
@@ -32,15 +32,13 @@ class My_lily_parser {
     Voice_element* get_word_element(Text_def*, Duration*);
     void set_last_duration(Duration const *);
     void set_duration_mode(String s);
-public:
     friend int yyparse( void*);
-   
+public:
     int default_octave_i_;
     Duration default_duration_;
     String textstyle_str_;
     
     bool last_duration_mode ;
-
     Array<Request*> pre_reqs, post_reqs;
     int fatal_error_i_;
     Sources * source_l_;
@@ -49,6 +47,7 @@ public:
     My_lily_lexer * lexer_p_;
  
     Moment plet_mom();
+    void add_notename(String, Melodic_req* req_p);
     Input here_input()const;
     void remember_spot();
     Input pop_spot();
@@ -56,6 +55,7 @@ public:
     Paper_def*default_paper();
     void do_yyparse();
     void parser_error(String);
+    void clear_notenames();
 
     Request* get_parens_request(char c);
     

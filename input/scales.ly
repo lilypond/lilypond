@@ -4,36 +4,47 @@
 
 blah = \staff{  melodicregs
 	\melodic {
-		\duration { 8 }		  \meter {6/8}	
- 		
-		\octave{ c }
-			 |[ a cr a a a a a a a rc a ff decr ]6/9 
-			\octave{ c }
-			 |[ a  a a a a a a a rc a ]6/9 
-			\octave { c' } 
-			 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
-			 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
-			\octave{ c'' }
-			 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
-			 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
-			\octave { ''c}   
-			 [ c g d' ]2/3 
-			 [ d' g c ]2/3  
-			 [ f c' g' ]2/3 
-			 [ g' c' f ]2/3  
-			\octave{ c }
-			 [ c g d' ]2/3 
-			 [ d' g c ]2/3  
-			 [ f c' g' ]2/3 
-			 [ g' c' f ]2/3 
-			 [ g' c' f ]2/3 
-  \meter {4/4}
+		\meter 6/8;	
+		\duration 4.;
+		\octave  'c ;
+	\clef "bass";
+			c d
+		\octave  c ;
+			c d 
+		\clef "violin" ;
+		\octave  c' ;
+			c d
+		\octave  c'' ;
+			c d 
+		\duration  8 ;
+	%ugr
+		 |[ a \< a a a a a a  \! a a \ff \> ]6/9 
+		\octave  c' ;
+		 |[ a  a a a a a a a \! a ]6/9 
+		\octave  c'' ; 
+		 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
+		 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
+		\octave  c' ;
+		 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
+		 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
+		\octave  c' ;   
+		 [ c g d' ]2/3 
+		 [ d' g c ]2/3  
+		 [ f c' g' ]2/3 
+		 [ g' c' f ]2/3  
+		\octave  c ;
+		 [ c g d' ]2/3 
+		 [ d' g c ]2/3  
+		 [ f c' g' ]2/3 
+		 [ g' c' f ]2/3 
+		 [ g' c' f ]2/3 
+  \meter 4/4;
 	
 c1
-	\duration { 8}
+	\duration  8;
 	[c-> d-> e-> f->][g-> a-> b-> c'->] % 1
-\octave{c'}	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
-\octave{c}	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
+\octave c';	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
+\octave c;	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
 	[c-. d-. e-. f-.][g-. a-. b-. c'-.]
 	[c'-- b-- a-- g][f-- e-- d c--] % 5
 	[c-portato d-portato e-portato f-portato]

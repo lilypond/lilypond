@@ -34,7 +34,7 @@ struct Rhythmic_grouping {
     ~Rhythmic_grouping();
 
     void add_child(Moment start, Moment len);
-    bool child_fit_query(Moment start);
+    bool child_fit_b(Moment start);
     void split(Rhythmic_grouping r);
     void split(Array<MInterval>);
     void split(int n);

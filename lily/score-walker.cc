@@ -29,6 +29,7 @@ Score_walker::Score_walker(Score *s)
 	s->find_col(s->last(), false)->set_breakable();
     }
     reinit();
+    breaks_i_=0;
 }
 
 
@@ -102,13 +103,16 @@ Score_walker::process()
 	    walker_p_arr_[i]->process();
 	}
     }
-    if (when().denominator() == 1) {
-	*mlog << "." <<flush;
+    if (break_allowed_b()){
+	breaks_i_ ++;
+	if (! (breaks_i_ % 8)) 
+	    *mlog << "[" <<breaks_i_<<"]"<<flush;
     }
 }
 
 Score_walker::~Score_walker()
 {
+    *mlog << "[" <<breaks_i_<<"]"<<flush;
     for (int i=0; i < walker_p_arr_.size(); i++) 
 	delete walker_p_arr_[i];
     assert( !score_l_->find_col(score_l_->last(), true)->used_b());

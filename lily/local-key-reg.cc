@@ -52,7 +52,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 	Key_register * key_reg_l =
 	    (Key_register*)info.origin_reg_l_arr_[0];
 	key_C_ = &key_reg_l->key_;
-	local_key_.reset(*key_C_);
+	local_key_ = *key_C_;
     }	
 }
 
@@ -62,7 +62,7 @@ Local_key_register::process_requests()
     Time_description const * time_C_ = get_staff_info().time_C_;
     if (! time_C_->whole_in_measure_){
 	if (key_C_)  
-	    local_key_.reset(*key_C_);
+	    local_key_= *key_C_;
 	else if( time_C_->when_ >Moment(0))
 	    warning ("Help me! can't figure  current key");
     }

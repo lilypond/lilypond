@@ -18,13 +18,13 @@
 
 struct Identifier : public Input {
     void *data;
-    String name;
+    String name_str_;
     bool init_b_;
     bool accessed_b_;
     int token_code_i_;
     
     Identifier(String n, int code) ;
-    virtual ~Identifier() {}
+    virtual ~Identifier() ;
 
     void print()const;
     virtual char const *classname() const{ return "new Identifier"; }
