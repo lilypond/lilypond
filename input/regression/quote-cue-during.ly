@@ -3,7 +3,7 @@ stem directions on both quoted and main voice, and deliver the quoted
 voice in the @code{cue} @code{Voice}."
 
 }
-\version "2.4.0"
+\version "2.5.0"
 \layout {
     raggedright = ##t
 }

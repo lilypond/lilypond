@@ -10,7 +10,7 @@ quoted ones) will transposed as well.  "
 
 }
 
-\version "2.4.0"
+\version "2.5.0"
 
 \layout { raggedright = ##t }
 
@@ -32,8 +32,8 @@ quoteTest = {
     \transposition f  % french horn
     
     g'4
-    << \quote clarinet 4 s4^"clar" >> 
-    << \quote sax 4 s4^"sax" >> 
+    << \quoteDuring #"clarinet" { \skip 4 } s4^"clar" >> 
+    << \quoteDuring #"sax" { \skip 4 } s4^"sax" >> 
 }
 
 
