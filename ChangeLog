@@ -1,5 +1,14 @@
 2004-11-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/aclocal.m4: Barf if kpathsea/kpathsea.h is not
+	found.  (backportme)
+
+	* Documentation/topdocs/INSTALL.texi (ec-fonts-mtraced): Add
+	version requirement.  (backportme)
+
+	* configure.in: Be explicit about old versions of
+	ec-fonts-mtraced.  (backportme)
+
 	* lily/context-selector.cc (set_tweaks): New function.
 	* lily/grob-selector.cc (set_tweaks): (Re)set hash table.  Fixes
 	web with -DTWEAK.

@@ -756,17 +756,17 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     [kpathsea_b=$with_kpathsea])
 
     if test "$kpathsea_b" != "no"; then	
-	AC_CHECK_HEADERS([kpathsea/kpathsea.h])
+	AC_CHECK_HEADERS([kpathsea/kpathsea.h],,kpathsea_b=no)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
 	AC_CHECK_FUNCS(kpse_find_file,,kpathsea_b=no)
 	if test "$kpathsea_b" = "no"; then
 	    warn='kpathsea (libkpathsea-dev, kpathsea-devel or tetex-devel
    package).
-   Else, please specify the location of your kpathsea using
-   --with-kpathsea-include and --with-kpathsea-lib options.  You should
-   install kpathsea; see INSTALL.txt.  Rerun ./configure
-   --without-kpathsea only if kpathsea is not available for your
-   platform.'
+   Else, please specify the directories where kpathsea/kpathsea.h and
+   libkpathsea.a are installed using --with-kpathsea-include and
+   --with-kpathsea-lib options.  You should install kpathsea; see
+   INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea
+   is not available for your platform.'
 	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
 	fi
     fi
