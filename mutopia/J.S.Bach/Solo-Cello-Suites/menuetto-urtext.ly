@@ -135,7 +135,7 @@ menuettoIi =  \context Staff\notes \relative c {
 	b,8()a g()fis g b |
 	%13
 	e, d'( cis )b cis()ais |
-	d,( b' a! g fis )e |
+	d, b'( a! g fis )e |
 	g( fis e d cis )d |
 	b( cis d e fis )g |
 	a( g fis g a )b |

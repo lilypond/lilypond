@@ -64,6 +64,7 @@ and documenting bugfixes.
 @section Chord names
 
 @lilypondfile[printfilename]{chord-names.ly}
+@lilypondfile[printfilename]{chord-changes.ly}
 
 
 
