@@ -7,17 +7,17 @@
 #ifndef KEY_HH
 #define KEY_HH
 
-#include "vray.hh"
+#include "varray.hh"
 #include "scalar.hh"
 
 class Key {
-    svec<int> accidentals;
+    Array<int> accidentals;
 
     /****************/
 
 public:
-    svec<int> read(svec<Scalar> );
-    svec<int> oldkey_undo(svec<Scalar>);
+    Array<int> read(Array<Scalar> );
+    Array<int> oldkey_undo(Array<Scalar>);
 
     Key();
     void set(int i, int acc);
@@ -31,7 +31,7 @@ struct Local_key
     Local_key();
 
 private:
-    svec<Key> octaves;
+    Array<Key> octaves;
 };
 
 #endif // KEY_HH

@@ -7,13 +7,13 @@
 #ifndef METER_HH
 #define METER_HH
 #include "item.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 struct Meter: Item {
-    svec<Scalar> args;
+    Array<Scalar> args;
     /****************/
     
-    Meter(svec<Scalar> args) ;
+    Meter(Array<Scalar> args) ;
     Molecule*brew_molecule() const;
 };
 #endif // METER_HH

@@ -7,7 +7,7 @@
 #ifndef LOCALKEYITEM_HH
 #define LOCALKEYITEM_HH
 #include "item.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 struct Local_acc {
     int name , acc, octave;
@@ -15,8 +15,8 @@ struct Local_acc {
 };
 
 struct Local_key_item : Item {
-    svec<Local_acc> accs;
-    svec<Notehead*> group;
+    Array<Local_acc> accs;
+    Array<Notehead*> group;
     int c0_position;		// move into walker
 
     /****************/

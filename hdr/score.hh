@@ -1,6 +1,6 @@
 #ifndef SCORE_HH
 #define SCORE_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "moment.hh"
@@ -8,12 +8,12 @@
 /// the total music def of one movement
 struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
-    Paperdef *paper_;
+    Paperdef *paper_p_;
     IPointerList<Staff*> staffs_;
     
     /// "runtime" fields for setting up spacing    
     IPointerList<Score_column*> cols_;
-    PScore *pscore_;
+    PScore *pscore_p_;
 
     /****************************************************************/
 
@@ -22,22 +22,32 @@ struct Score {
     ~Score();    
     void add(Staff*);        
 
-
-
-    void OK() const;
-    PCursor<Score_column *> find_col(Moment,bool);
+    /// do everything except outputting to file
     void process();
+    
+    /// output to file
     void output(String fn);
-    PCursor<Score_column*> create_cols(Moment);
+
+    // standard
+    void OK() const;
     void print() const;
+
+    // utils:
+    PCursor<Score_column*> create_cols(Moment);
+    PCursor<Score_column *> find_col(Moment,bool);
+    /// when does the last *musical* element finish?
     Moment last() const;
     
 private:
-    void do_pcols();    
+    Score(Score const&){}
+    void do_cols();
+    /**
+      make the pcol_l_ fields of each Score_column point to the correct PCol,
+      remove any unnecessary Score_column's
+     */
+
+    /// remove unused cols
     void clean_cols();
-    void distribute_commands();
-    void do_connect(PCol *c1, PCol *c2, Real d,Real);
-    void connect(PCol* c1, PCol *c2, Real d,Real = 1.0);
     
     /// add #Idealspacings# to #pscore_#
     void calc_idealspacing();

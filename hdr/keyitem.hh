@@ -8,12 +8,12 @@
 #define KEYITEM_HH
 
 #include "item.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 /// 
 struct Keyitem : Item {
-    svec<int> pitch;
-    svec<int> acc;
+    Array<int> pitch;
+    Array<int> acc;
     int c_position;
 
     
@@ -21,7 +21,7 @@ struct Keyitem : Item {
     
     Keyitem(int cposition);
     void add(int pitch, int acc);
-    void read(svec<int> k);
+    void read(Array<int> k);
 
     void preprocess();
 

@@ -34,7 +34,7 @@ void
 Ineq_constrained_qp::OK() const
 {
 #ifndef NDEBUG    
-    assert(cons.sz() == consrhs.sz());
+    assert(cons.size() == consrhs.size());
     Matrix Qdif= quad - quad.transposed();
     assert(Qdif.norm()/quad.norm() < EPS);
 #endif    
@@ -52,12 +52,12 @@ Mixed_qp::solve(Vector start) const
     print();
     Ineq_constrained_qp pure(*this);
     
-    for  (int i= eq_cons.sz()-1; i>=0; i--) {
+    for  (int i= eq_cons.size()-1; i>=0; i--) {
 	pure.eliminate_var(eq_cons[i], eq_consrhs[i]);
 	start.del(eq_cons[i]);
     }
     Vector sol = pure.solve(start);
-    for (int i= 0; i < eq_cons.sz(); i++) {
+    for (int i= 0; i < eq_cons.size(); i++) {
 	sol.insert( eq_consrhs[i],eq_cons[i]);
     }
     return sol;
@@ -80,7 +80,7 @@ Ineq_constrained_qp::eliminate_var(int idx, Real value)
     row.del(idx);
     lin +=row ;
 
-   for (int i=0; i < cons.sz(); i++) {
+   for (int i=0; i < cons.size(); i++) {
       consrhs[i] -= cons[i](idx) *value;
       cons[i].del(idx);
    }
@@ -91,8 +91,8 @@ Ineq_constrained_qp::eliminate_var(int idx, Real value)
 void
 Ineq_constrained_qp::assert_solution(Vector sol) const
 {
-    svec<int> binding;
-    for (int i=0; i < cons.sz(); i++) {
+    Array<int> binding;
+    for (int i=0; i < cons.size(); i++) {
 	Real R=cons[i] * sol- consrhs[i];
 	assert(R> -EPS);
 	if (R < EPS)
@@ -109,7 +109,7 @@ Ineq_constrained_qp::print() const
     mtor << "Quad " << quad;
     mtor << "lin " << lin <<"\n"
 	<< "const " << const_term<<"\n";
-    for (int i=0; i < cons.sz(); i++) {
+    for (int i=0; i < cons.size(); i++) {
 	mtor << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
 	mtor << "\n";
     }
@@ -137,7 +137,7 @@ Mixed_qp::OK() const
 {
 #ifndef NDEBUG
     Ineq_constrained_qp::OK();
-    assert(eq_consrhs.sz() == eq_cons.sz());
+    assert(eq_consrhs.size() == eq_cons.size());
 #endif    
 }
 
@@ -146,7 +146,7 @@ Mixed_qp::print() const
 {
 #ifndef NPRINT
     Ineq_constrained_qp::print();
-    for (int i=0; i < eq_cons.sz(); i++) {
+    for (int i=0; i < eq_cons.size(); i++) {
 	mtor << "eq cons "<<i<<": x["<<eq_cons[i]<<"] == " << eq_consrhs[i]<<"\n";
     }
 #endif

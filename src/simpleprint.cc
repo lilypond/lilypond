@@ -13,7 +13,7 @@ Item *
 Simple_staff::get_TYPESET_item(Command *com)
 {
     Item *s=0;
-    svec<Scalar> arg( com->args);
+    Array<Scalar> arg( com->args);
     String type =arg[0];
     arg.del(0);
     if (type ==  "BAR" ) {
@@ -32,12 +32,12 @@ Simple_staff::get_TYPESET_item(Command *com)
 
 
 Interval
-itemlist_width(const svec<Item*> &its)
+itemlist_width(const Array<Item*> &its)
 {
     Interval iv ;
     iv.set_empty();
      
-    for (int j =0; j < its.sz(); j++){
+    for (int j =0; j < its.size(); j++){
 	iv.unite (its[j]->width());
 
     }
@@ -49,18 +49,18 @@ Simple_column::typeset_item(Item *i, int breakst)
 {
     assert(i);
     
-    staff_->pscore_->typeset_item(i, score_column->pcol_,
+    staff_->pscore_l_->typeset_item(i, score_column_l_->pcol_l_,
 				  staff_->theline,breakst);
     
     if (breakst == BREAK_PRE - BREAK_PRE) {
 	
-        svec<Item*> to_move(
-	    staff_->pscore_->select_items(staff_->theline,
-					  score_column->pcol_->prebreak));
+        Array<Item*> to_move(
+	    staff_->pscore_l_->select_items(staff_->theline,
+					  score_column_l_->pcol_l_->prebreak_p_));
 	Interval column_wid = itemlist_width(to_move);
 	assert(!column_wid.empty());
 
-	for (int j=0; j < to_move.sz(); j++) {
+	for (int j=0; j < to_move.size(); j++) {
 	    to_move[j]->translate(Offset(-column_wid.right, 0));
 	}
     }
@@ -70,13 +70,13 @@ void
 Simple_column::typeset_item_directional(Item *i, int dir, int breakst)
 {
     assert(i);
-    PCol * c=score_column->pcol_;
+    PCol * c=score_column_l_->pcol_l_;
     if (breakst == 0)
-	c = c->prebreak;
+	c = c->prebreak_p_;
     else if (breakst == 2)
-	c = c->postbreak;
+	c = c->postbreak_p_;
     
-    svec<Item*> to_move(staff_->pscore_->select_items(staff_->theline,
+    Array<Item*> to_move(staff_->pscore_l_->select_items(staff_->theline,
 						      c));    
     typeset_item(i, breakst);
 
@@ -89,8 +89,8 @@ Simple_column::typeset_item_directional(Item *i, int dir, int breakst)
 void
 Simple_staff::set_output(PScore* ps )
 {
-    pscore_ = ps;
-    pscore_->add(theline);
+    pscore_l_ = ps;
+    pscore_l_->add(theline);
 }
 
 

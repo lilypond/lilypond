@@ -6,7 +6,7 @@
 
 #ifndef STAFFELEM_HH
 #define STAFFELEM_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "proto.hh"
 #include "offset.hh"
 #include "molecule.hh"
@@ -20,13 +20,13 @@ struct Staff_elem {
 	OUTPUT,			// molecule has been output
     } status;
     bool calc_children;
-    svec<Staff_elem*> dependencies;
+    Array<Staff_elem*> dependencies;
     
-    /// indirection to the pstaff it is in
-    PStaff *pstaff_;
+    ///  the pstaff it is in
+    PStaff *pstaff_l_;
 
     /****************/
-    
+    Staff_elem(Staff_elem const&);
     String TeXstring () const ;
     virtual void print() const;
     virtual Interval width() const;

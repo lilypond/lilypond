@@ -9,7 +9,7 @@
 
 #include "string.hh"
 #include "plist.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "proto.hh"
 
 struct Input_staff {
@@ -22,10 +22,9 @@ struct Input_staff {
     void add(Input_music*m);
     Input_staff(Input_staff&);
     Input_staff(String);
-    void add(svec<Input_command*> &s);
-    Staff* parse(PointerList<Input_command*>);
+    void add(Array<Input_command*> &s);
+    Staff* parse(PointerList<Input_command*>, Score*);
     void print() const;
- 
 };
 
 

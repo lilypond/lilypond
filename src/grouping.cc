@@ -12,14 +12,16 @@ Rhythmic_grouping::init()
 void
 Rhythmic_grouping::OK()const
 {
-    assert(bool(children.sz()) != bool(interval_));
+#ifndef NDEBUG
+    assert(bool(children.size()) != bool(interval_));
 
-    for (int i= 0; i < children.sz(); i++) {
+    for (int i= 0; i < children.size(); i++) {
 	children[i]->OK();
 	if (i>0)
 	    assert(children[i-1]->interval().right ==
 		   children[i]->interval().left);
     }
+#endif
 }
 
 Moment
@@ -48,7 +50,7 @@ Rhythmic_grouping::split(Rhythmic_grouping r)
     r.intersect(interval());
     split(r.intervals());
     
-    for (int i= 0; i < children.sz(); i++) {
+    for (int i= 0; i < children.size(); i++) {
 	if (!children[i]->interval_) {
 	    Rhythmic_grouping here(r);	
 	    children[i]->split(here);
@@ -57,17 +59,17 @@ Rhythmic_grouping::split(Rhythmic_grouping r)
 }
 
 
-svec<MInterval>
+Array<MInterval>
 Rhythmic_grouping::intervals()
 {
-    svec<MInterval> r;
-    if (interval_ || children.sz() == 1) {
+    Array<MInterval> r;
+    if (interval_ || children.size() == 1) {
 	MInterval i(interval());
 	MInterval r1(i), r2(i);
 	r1.right = r2.left = i.center();
 	r.add(r1); r.add(r2);
     } else {
-	for (int i=0; i < children.sz(); i++)
+	for (int i=0; i < children.size(); i++)
 	    r.add(children[i]->interval());
     }
     return r;
@@ -80,7 +82,7 @@ Rhythmic_grouping::intersect(MInterval t)
 	return;
     }
     
-    for (int i=0; i < children.sz(); i++) {
+    for (int i=0; i < children.size(); i++) {
 	MInterval inter = intersection(t, children[i]->interval());
 	if (inter.empty() || inter.length() <= 0) {
 	    delete children[i];
@@ -89,7 +91,7 @@ Rhythmic_grouping::intersect(MInterval t)
 	    children[i]->intersect(t);
 	}
     }
-    for (int i=0; i < children.sz(); ) {
+    for (int i=0; i < children.size(); ) {
 	if (!children[i])
 	    children.del(i);
 	else
@@ -99,14 +101,14 @@ Rhythmic_grouping::intersect(MInterval t)
 }
 
 void
-Rhythmic_grouping::split(svec<MInterval> splitpoints)
+Rhythmic_grouping::split(Array<MInterval> splitpoints)
 {
     //check on splitpoints..
     int j = 0, i=0, starti = 0, startj = 0;
     
-    svec<Rhythmic_grouping*> ch;
+    Array<Rhythmic_grouping*> ch;
     while (1) {
-	if  ( i >= children.sz() || j >= splitpoints.sz())
+	if  ( i >= children.size() || j >= splitpoints.size())
 	    break;
 	
 	assert( 
@@ -152,7 +154,7 @@ Rhythmic_grouping::Rhythmic_grouping(MInterval t, int n)
 }
 
 
-Rhythmic_grouping::Rhythmic_grouping(svec<Rhythmic_grouping*> r)
+Rhythmic_grouping::Rhythmic_grouping(Array<Rhythmic_grouping*> r)
     :children(r)
 {
     interval_ =0;
@@ -168,7 +170,7 @@ void
 Rhythmic_grouping::copy(Rhythmic_grouping const&s)
 {
     interval_ =  (s.interval_)? new MInterval(*s.interval_) : 0;
-    for (int i=0; i < s.children.sz(); i++)
+    for (int i=0; i < s.children.size(); i++)
        children.add(new Rhythmic_grouping(*s.children[i]));
 }
 
@@ -189,7 +191,7 @@ void
 Rhythmic_grouping::junk()
 {
     delete interval_;
-    for (int i=0; i < children.sz(); i++)
+    for (int i=0; i < children.size(); i++)
 	delete children[i];
     init();
 }
@@ -201,7 +203,7 @@ Rhythmic_grouping::print()const
     mtor << "{ \n";
     if (interval_)
 	mtor<<" Interval "<< interval_->str();
-    for (int i=0; i < children.sz(); i++) {
+    for (int i=0; i < children.size(); i++) {
 	children[i]->print();
     }
     mtor << "}\n";
@@ -212,14 +214,14 @@ void
 Rhythmic_grouping::add_child(Moment start, Moment len)
 {
     Moment stop = start+len;
-    for (int i=0; i < children.sz(); i ++) {
+    for (int i=0; i < children.size(); i ++) {
 	MInterval j=children[i]->interval();
 	if (j.left == start && j.right==stop) {
 	    return;
 	}
     }
     
-    if (children.sz())
+    if (children.size())
 	assert ( children.last()->interval().right== start);
 
     children.add(new Rhythmic_grouping(MInterval(start, stop)));
@@ -231,23 +233,23 @@ Rhythmic_grouping::Rhythmic_grouping()
 }
 
 int
-min_elt(svec<int> v)
+min_elt(Array<int> v)
 {
     int i = 1000;		// ugh
-    for (int j = 0 ; j <  v.sz(); j++)
+    for (int j = 0 ; j <  v.size(); j++)
 	i = i <? v[j];
     return i;
 }
 
-svec<int>
-Rhythmic_grouping::generate_beams(svec<int> flags, int &flagidx)
+Array<int>
+Rhythmic_grouping::generate_beams(Array<int> flags, int &flagidx)
 {
     
     assert (!interval_) ;
     
-    svec< svec<int> > children_beams;
-    for (int i=0; i < children.sz(); i++) {
-	svec<int> child_beams;
+    Array< Array<int> > children_beams;
+    for (int i=0; i < children.size(); i++) {
+	Array<int> child_beams;
 	if (children[i]->interval_) {
 	    int f = flags[flagidx++];
 	    child_beams.add(f);
@@ -257,18 +259,18 @@ Rhythmic_grouping::generate_beams(svec<int> flags, int &flagidx)
 	}
 	children_beams.add(child_beams);
     }
-    svec<int> beams;
+    Array<int> beams;
     int lastm, m, nextm;
-    for (int i=0; i  < children_beams.sz(); i++) {
+    for (int i=0; i  < children_beams.size(); i++) {
 	bool add_left =  (i >0);
-	bool add_right = (i  < children_beams.sz() -1);
+	bool add_right = (i  < children_beams.size() -1);
 
 	if (!i)
 	    m =  min_elt(children_beams[i]);
 	if (add_right)
 	    nextm = min_elt(children_beams[i+1]);
 	
-	if (children_beams[i].sz() == 1) {
+	if (children_beams[i].size() == 1) {
 	    if (add_right)
 		beams.add(m);
 	    if (add_left)
@@ -283,7 +285,7 @@ Rhythmic_grouping::generate_beams(svec<int> flags, int &flagidx)
 	lastm = m;
 	m = nextm;	
     }
-    assert(!(beams.sz()%2));
+    assert(!(beams.size()%2));
     return beams;
 }
 

@@ -3,7 +3,7 @@
 
 #include "glob.hh"
 #include "plist.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "vector.hh"
 #include "interval.hh"
 
@@ -29,8 +29,8 @@ struct Colinfo {
 
 /// spacing for one line.
 class Spacing_problem {
-    svec<const Idealspacing*> ideals;
-    svec<Colinfo> cols;
+    Array<const Idealspacing*> ideals;
+    Array<Colinfo> cols;
 
     /// the index of #c# in #cols#
     int col_id(const PCol *c) const;
@@ -51,7 +51,7 @@ class Spacing_problem {
 
 public:
     /// solve the spacing problem
-    svec<Real> solve() const;
+    Array<Real> solve() const;
     /**
     return the column positions, and the energy (last element)
     */

@@ -1,4 +1,4 @@
-#include "vray.hh"
+#include "varray.hh"
 #include "interval.hh"
 #include "dimen.hh"
 #include "string.hh"
@@ -32,7 +32,7 @@ Atom::TeXstring() const
 {
     // whugh.. Hard coded...
     String s("\\placebox{%}{%}{%}");
-    svec<String> a;
+    Array<String> a;
     a.add(print_dimen(off.y));
     a.add(print_dimen(off.x));
     a.add(sym.tex);

@@ -8,7 +8,7 @@ Least_squares::minimise(Real &coef, Real &offset)
     Real sqx =0.0;
     Real sxy = 0.0;
 
-    for (int i=0; i < input.sz();i++) {
+    for (int i=0; i < input.size();i++) {
 	Real x=input[i].x;
 	Real y = input[i].y;
 	sx += x;
@@ -16,7 +16,7 @@ Least_squares::minimise(Real &coef, Real &offset)
 	sqx += sqr(x);
 	sxy += x*y;
     }
-    int N = input.sz();
+    int N = input.size();
     
 
     coef = (N * sxy - sx*sy )/(N*sqx - sqr(sx));

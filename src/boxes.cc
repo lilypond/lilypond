@@ -1,6 +1,6 @@
 #include "boxes.hh"
 #include "const.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 
 Box::Box()

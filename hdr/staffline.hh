@@ -9,15 +9,15 @@
 
 #include "real.hh"
 #include "plist.hh"
-#include "vray.hh"
+#include "varray.hh"
 #include "glob.hh"
 #include "pstaff.hh"
 
 /// one broken line of staff.
 struct Line_of_staff {
 
-    Line_of_score  * line_of_score_;
-    PStaff *pstaff_;
+    Line_of_score  * line_of_score_l_;
+    PStaff *pstaff_l_;
 
     /****************/
     

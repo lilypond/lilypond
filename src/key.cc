@@ -36,14 +36,14 @@ Local_key::reset(Key k)
 	octaves[i] = k;
 }
 
-svec<int>
-Key::read(svec<Scalar> s)
+Array<int>
+Key::read(Array<Scalar> s)
 {
-    svec<int> newkey;
+    Array<int> newkey;
     for (int j = 0; j < 7; j++)
 	accidentals[j] = 0;
    
-    for (int i=0; i < s.sz(); ) {
+    for (int i=0; i < s.size(); ) {
 	int large = s[i++];
 	int small = s[i++];
 	accidentals[large]=small;
@@ -54,21 +54,21 @@ Key::read(svec<Scalar> s)
     return newkey;
 }
 
-svec<int>
-Key::oldkey_undo(svec<Scalar>s)
+Array<int>
+Key::oldkey_undo(Array<Scalar>s)
 {
-    svec<int> oldkey;
-    svec<int> newkey;
+    Array<int> oldkey;
+    Array<int> newkey;
     newkey.set_size(7);
-    for (int i=0; i < newkey.sz(); i++)
+    for (int i=0; i < newkey.size(); i++)
 	newkey[i] = 0;
 	
-    for (int i=0; i < s.sz(); ) {
+    for (int i=0; i < s.size(); ) {
 	int large = s[i++];
 	int small = s[i++];
 	newkey[large] = small;
     }
-    for (int i=0; i < newkey.sz(); i++)
+    for (int i=0; i < newkey.size(); i++)
 	if (accidentals[i] && accidentals[i] != newkey[i]) {
 	    oldkey.add(i);
 	    oldkey.add(0);

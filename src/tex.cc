@@ -2,7 +2,7 @@
 #include "tex.hh"
 #include "symbol.hh"
 #include "const.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 String
 vstrut(Real h)
@@ -22,20 +22,20 @@ substitute_arg(String& r, String arg)
 
 
 String
-substitute_args(String source, svec<String> args)    
+substitute_args(String source, Array<String> args)    
 {
     String retval (source);
-    for (int i = 0 ; i < args.sz(); i++)
+    for (int i = 0 ; i < args.size(); i++)
         substitute_arg(retval, args[i]);
     while (retval.pos('%'))
         substitute_arg(retval, "");
     return retval;
 }
 String
-substitute_args(String source, svec<Scalar> args)    
+substitute_args(String source, Array<Scalar> args)    
 {
-    svec<String> sv;
-    for (int i = 0 ; i < args.sz(); i++)
+    Array<String> sv;
+    for (int i = 0 ; i < args.size(); i++)
 	sv.add(args[i]);
     
     return substitute_args(source, sv);

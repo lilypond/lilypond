@@ -9,25 +9,25 @@
    
     */
 
-svec<Col_configuration>
+Array<Col_configuration>
 Word_wrap::solve()
 {
     problem_OK();
     iter_top(pscore_.cols,curcol);
-    svec<Col_configuration> breaking;
-    svec<PCol *> breakpoints(find_breaks());
-    assert(breakpoints.sz()>=2);
-    for (int i=0 ; i < breakpoints.sz() -1; ) {
+    Array<Col_configuration> breaking;
+    Array<PCol *> breakpoints(find_breaks());
+    assert(breakpoints.size()>=2);
+    for (int i=0 ; i < breakpoints.size() -1; ) {
 	Col_configuration minimum;
 	Col_configuration current;
 
         // do  another line
-	PCol *post = breakpoints[i]->postbreak;
+	PCol *post = breakpoints[i]->postbreak_p_;
 	current.add( post);
 	curcol++;		// skip the breakable.
 	i++;
 
-	while (i < breakpoints.sz()) {
+	while (i < breakpoints.size()) {
 
 	    // add another measure.
 	    while (breakpoints[i] != curcol.ptr()){
@@ -35,9 +35,9 @@ Word_wrap::solve()
 		current.add(curcol);
 		curcol++;
 	    }
-	    current.add(breakpoints[i]->prebreak );
+	    current.add(breakpoints[i]->prebreak_p_ );
 	    if (!feasible(current.cols)) {
-		if (!minimum.cols.sz())
+		if (!minimum.cols.size())
 		    error("sorry, this measure is too long");
 		break;
 	    }

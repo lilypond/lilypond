@@ -22,17 +22,17 @@ Line_of_score::TeXstring() const
 }
 
 
-Line_of_score::Line_of_score(svec<PCol *> sv,
+Line_of_score::Line_of_score(Array<PCol *> sv,
 			     PScore *ps)
 {
-    pscore_ = ps;
-    for (int i=0; i< sv.sz(); i++) {
+    pscore_l_ = ps;
+    for (int i=0; i< sv.size(); i++) {
 	PCol *p=(PCol *) sv[i];
 	cols.bottom().add(p);
-	p->line=this;
+	p->line_l_=this;
     }
 
-    for (iter_top(pscore_->staffs,sc); sc.ok(); sc++)
+    for (iter_top(pscore_l_->staffs,sc); sc.ok(); sc++)
 	staffs.bottom().add(new Line_of_staff(this, sc));    
 }
 /* construct a line with the named columns. Make the line field

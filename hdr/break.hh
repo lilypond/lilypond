@@ -6,18 +6,18 @@
 
 #ifndef BREAK_HH
 #define BREAK_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "proto.hh"
-typedef svec<PCol*>  Line_of_cols;
+typedef Array<PCol*>  Line_of_cols;
 
 struct Col_configuration {
     Line_of_cols cols;
-    svec<Real> config;
+    Array<Real> config;
     Real energy;
 
     /****************/
     void OK()const;
-    void setsol(svec<Real>);
+    void setsol(Array<Real>);
     Col_configuration() ;
     void add( PCol*c);
     void print() const;
@@ -33,21 +33,21 @@ struct Break_algorithm {
     /// check if the spacing/breaking problem is well-stated
     void problem_OK()const;
     /// search all pcols which are breakable.
-    svec<PCol *> find_breaks() const;
+    Array<PCol *> find_breaks() const;
 
      /// helper: solve for the columns in #curline#.
-    svec<Real> solve_line(Line_of_cols) const;
+    Array<Real> solve_line(Line_of_cols) const;
 
     
     /// does curline fit on the paper?    
     bool feasible(Line_of_cols)const;
     
-    virtual svec<Col_configuration> solve()=0;
+    virtual Array<Col_configuration> solve()=0;
 };
 
 /// wordwrap type algorithm: move to next line if current is optimal.
 struct Word_wrap : Break_algorithm {
-    virtual svec<Col_configuration> solve();
+    virtual Array<Col_configuration> solve();
     Word_wrap(PScore&);
 };
 #endif // BREAK_HH

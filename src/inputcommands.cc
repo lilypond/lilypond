@@ -4,6 +4,8 @@
 #include "staffcommands.hh"
 #include "getcommand.hh"
 #include "command.hh"
+#include "stcol.hh"
+#include "staff.hh"
 
 void
 Commands_at::print() const
@@ -25,7 +27,7 @@ Commands_at::Commands_at(Moment dt, Commands_at* prev)
     : tdescription_(dt, (prev)? &prev->tdescription_ : 0)
 {
     if (prev&& !tdescription_.whole_in_measure) {
-	bottom().add(get_bar_command());
+	bottom().add(get_newmeasure_command());
     }
 }
 
@@ -70,7 +72,7 @@ Commands_at::parse(Staff_commands_at*s)
 {
     s->tdescription_ = tdescription_;
     for (iter_top(*this,cc); cc.ok(); cc++) {
-	if (cc->args.sz() &&  cc->args[0] !="") {
+	if (cc->args.size() &&  cc->args[0] !="") {
 	    Command c = **cc;
 	    s->add(c);
 	    
@@ -169,30 +171,31 @@ Input_commands::add(Input_command c)
     
 }
 
-Staff_commands*
-Input_commands::parse() const
+void
+Input_commands::parse(Staff * staff_l) const
 {
     print();
-    Staff_commands*nc = new Staff_commands;
-
     for (iter_top(*this,i); i.ok(); i++) {
 
-	Staff_commands_at* s= nc->find(i->when());
-	if (!s){
-	    s = new Staff_commands_at(i->tdescription_);
-	    nc->add(s);
-	}
+	Staff_column* col_l = staff_l->get_col(i->when(), false);
+	if (!col_l->staff_commands_p_)
+	    col_l->staff_commands_p_ = new Staff_commands_at(i->tdescription_);
+	
+	Staff_commands_at * com_l = col_l->staff_commands_p_;
+	
 	if (!i->when()) {   /* all pieces should start with a breakable. */
+	    com_l->set_breakable();
+	    #if 0
 	    Command c;//(0.0);
 	    c.code = INTERPRET;
 	    c.args.add("BAR");
 	    c.args.add("empty");
-	    s->add(c);
+	    com_l->add(c);
+	    #endif
 	}
 
-	i->parse(s);
+	i->parse(com_l);
     }
-    return nc;
 }
 
 
