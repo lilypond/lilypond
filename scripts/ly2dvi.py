@@ -733,7 +733,6 @@ for opt in options:
 		sys.exit (0)
 	elif o == '--find-pfa' or o == '-f':
 		fonts = map (lambda x: x + '.pfa', find_pfa_fonts (a))
-		print `fonts`
 		files = map (lambda x:
 			     find_file_in_path (os.environ['GS_FONTPATH'], x),
 			     fonts)
