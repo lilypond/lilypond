@@ -19,7 +19,7 @@ takes care of:
 
 struct Notehead : Item {
     const char * name() const;
-    const char* defined_ch_c_l_m; //sorry, trying to find error in martien.ly
+
     int position;
     /// -1 = lowest, 0 = inside, 1 = top
     int extremal;

@@ -10,7 +10,7 @@
 #include "scalar.hh"
 #include "varray.hh"
 #include "moment.hh"
-
+/// command without time assoced 
 struct Input_command {
     /// analogous to argv[]
     Array<Scalar> args;
