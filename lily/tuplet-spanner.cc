@@ -19,8 +19,7 @@
 
 Tuplet_spanner::Tuplet_spanner ()
 {
-  bracket_visibility_b_ = true;
-  num_visibility_b_ = true;
+  parallel_beam_b_ = false;
 }
 
 /*
@@ -31,36 +30,52 @@ Tuplet_spanner::do_brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
 
+  // Default behaviour: number always, bracket when no beam!
+  bool bracket_visibility = !parallel_beam_b_;
+  bool number_visibility = true;
+  SCM visibility_sym =get_elt_property (tuplet_visibility_scm_sym);
+  if (visibility_sym != SCM_BOOL_F)
+    {
+      /* Property values:
+	 0       show nothing
+	 1       show number
+	 2       show (number and bracket)-if-no-beam
+	 3       show number, and bracket-if-no-beam
+	 4       show number, and bracket
+      */
+      int value = gh_scm2int (SCM_CDR(visibility_sym));
+      bracket_visibility = (value == 4 || (value > 1 && !parallel_beam_b_));
+      number_visibility = (value > 2 || value == 1 || 
+			   (value == 2 && !parallel_beam_b_));
+    }
+  
   if (column_arr_.size ()){
     Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
+    Real w = extent (X_AXIS).length () + ncw;
     Molecule num (lookup_l ()->text ("italic",
 				     number_str_));
     num.align_to (X_AXIS, CENTER);
+    num.translate_axis (w/2, X_AXIS);
     Real interline = paper_l ()->get_realvar (interline_scm_sym);
-    
-    if (beam_l_arr_.size () == 1 && !bracket_visibility_b_)
-      {
-	Beam *beam_l = beam_l_arr_[0];
-	Directional_spanner* ds = dynamic_cast<Directional_spanner*>(beam_l);
+    Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
+      - column_arr_[0]->extent (Y_AXIS) [dir_];
+    num.align_to (Y_AXIS, CENTER);
+    num.translate_axis (dir_ * interline, Y_AXIS);
 	
+    num.translate_axis (dy/2, Y_AXIS);
+
+    
+    /*    if (beam_l_arr_.size () == 1 && !bracket_visibility)
+      {
 	num.translate_axis (dir_ * interline,  Y_AXIS);
-	num.translate (ds->center ());
-	num.translate_axis (ncw, X_AXIS);
       }
-    
-    if (bracket_visibility_b_)      
+    */
+    if (bracket_visibility)      
       {
-	Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
-	  - column_arr_[0]->extent (Y_AXIS) [dir_];
-	Real w = extent (X_AXIS).length () + ncw;
-	num.align_to (Y_AXIS, CENTER);
-	num.translate_axis (dir_ * interline, Y_AXIS);
-	
-	num.translate (Offset (w/2, dy/2));
 	mol_p->add_molecule (lookup_l ()->plet (dy, w, dir_));
       }
 
-    if (num_visibility_b_)
+    if (number_visibility)
       {
 	mol_p->add_molecule (num);
       }
@@ -91,11 +106,11 @@ Tuplet_spanner::do_post_processing ()
       if (!broken_b () 
 	  && spanned_drul_[LEFT]->column_l () == beam_l->spanned_drul_[LEFT]->column_l ()
 	  && spanned_drul_[RIGHT]->column_l () == beam_l->spanned_drul_[RIGHT]->column_l ())
-	bracket_visibility_b_ = false;
+	parallel_beam_b_ = true;
     }
 
-  if (column_arr_.size () == 1)
-    bracket_visibility_b_ = false;
+  //  if (column_arr_.size () == 1)
+  //    bracket_visibility_b_ = false;
 }
 
 void
@@ -113,6 +128,13 @@ Direction
 Tuplet_spanner::get_default_dir () const
 {
   Direction d = UP;
+  SCM dir_sym =get_elt_property (dir_forced_scm_sym);
+  if (dir_sym != SCM_BOOL_F) {
+    d= (Direction) gh_scm2int (SCM_CDR(dir_sym));
+    if (d != CENTER)
+      return d;
+  }
+
   for (int i=0; i < column_arr_.size (); i ++) 
     {
       if (column_arr_[i]->dir () < 0) 

@@ -73,10 +73,17 @@ G_script_engraver::do_process_requests()
       if (l->dir_)
 	ss->dir_ = l->dir_;
 
+      Real padding = 1.0;
+      Scalar paddingprop = get_property ("articulationScriptPadding", 0);
+      if (paddingprop.length_i() && paddingprop.isnum_b ())
+	{
+	  padding = (Real)paddingprop;
+	}
+      
       ss->staff_support_b_ = !follow_staff;
       p->set_staff_side (ss);
       ss->set_elt_property (script_priority_scm_sym, priority);
-      ss->set_elt_property (padding_scm_sym, gh_double2scm(1.0));
+      ss->set_elt_property (padding_scm_sym, gh_double2scm(padding));
       script_p_arr_.push (p);
       staff_side_p_arr_.push (ss);
       

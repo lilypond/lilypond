@@ -16,11 +16,6 @@
   We need virtual constructors, 
   let's try decentralised factory for specific audio implemenations.
 
-  TODO:
-
-  virtual Niff_item* niff_item_p() = 0;
-  
-  virtual CSound_item* score_item_p() = 0;
  */
 struct Audio_item : public Audio_element {
   Audio_item (Request* req_l);

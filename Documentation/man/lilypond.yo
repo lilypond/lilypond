@@ -6,7 +6,7 @@ COMMENT(
 
 manpage(LilyPond)
        (1)
-	(1998)
+	(1999)
        (The LilyPond package)
        (The GNU Project Music Typesetter)
 
@@ -24,10 +24,10 @@ includefile(../BLURB.in)
 
 manpageoptions()
 description(
-dit(-I,--include=FILE)
+dit(-I,--include=)
     add file(FILE) to the search path for input files.
 dit(-M,--midi)
-    This disables TeX output. If you have a \midi definition, it will do the 
+    Disable TeX output. If you have a \midi definition, it will do the 
     midi output only.
 dit(-d,--dependencies)
     Also output rules to be included in Makefile.
@@ -52,7 +52,7 @@ dit(-i,--init=FILE)
 dit(--include, -I=DIRECTORY)
     Add file(DIRECTORY) to the search path for input files.
 dit(--ignore-version, -V)
-    Make incompatible mudela version non-fatal.
+    Make the incompatible mudela version warning non-fatal.
 )
 
 manpagesection(FEATURES)
@@ -67,10 +67,10 @@ it()ASCII script input, with identifiers (for music reuse),
     customizable notenames, customisable fontset.
 it()MIDI output lets you check if you have entered the correct notes.
 it()MIDI to Mudela conversion through the mi2mu program.
-it()Multiple staffs in one score.  Each staff can have different meters.
+it()Multiple staffs in one score.  Each staff can have different time signatures.
 it()Beams, slurs, ties, chords, super/subscripts (accents and text)
     triplets, general n-plet (triplet, quadruplets, etc.), lyrics,
-    transposition dynamics (both absolute and hairpin style).
+    transposition, dynamics (both absolute and hairpin style).
 it()Multiple voices within one staff; beams optionally shared
     between voices.  Up to four voices is handled cleanly.
 it()Multiple scores within one input file.  Each score is output to
@@ -80,7 +80,7 @@ it()Clef changes, meter changes, cadenza-mode, key changes, repeat bars.
 
 manpagesection(DISCLAIMER)
 
-GNU LilyPond is copyright 1996-1998 by its authors.  GNU LilyPond is
+GNU LilyPond is copyright 1996-1999 by its authors.  GNU LilyPond is
 distributed under the terms of the GNU General Public License.  GNU LilyPond 
 is provided without any warranty what so ever.
 GNU LilyPond may be freely distributed.  For further information consult 
@@ -88,15 +88,17 @@ the GNU General Public License, from the file file(COPYING).
 
 manpagesection(PROBLEMS)
 
-There is an extensive list of todoes and bugs.  See file(TODO).  If you
-have a problem you should try to find out
+There is an extensive list of todoes and bugs.  See the file
+file(TODO) distributed with the sources.  If you have a problem you
+should try to find out
 
 itemize(
 it()If the bug has been fixed in a newer release.
 it()If the bug has been found earlier, consult file(TODO) and file(BUGS).
 )
 
-If you have found a bug, then you should send a bugreport.
+If you have found a bug, then we would appreciate it if you sent a
+bugreport.
 
 itemize(
 it()Send a copy of the input which causes the error.
@@ -104,15 +106,16 @@ it()Send a description of the platform you use.
 it()Send a description of the LilyPond version you use 
     (with compile/configure options please).
 it()Send a description of the bug itself.
-it()Send it to email(bug-gnu-music@gnu.org) (you don't have to subscribe
-    to this mailinglist).
+it()Send it to email(bug-gnu-music@gnu.org); you don't have to be subscribed
+    to this mailinglist.
 )
 
 manpagefiles()
 description(
 dit(file(init.ly)) 
     The initialisation file with symbol tables etc.  It
-    includes files from the directory file(init/).
+    includes files from the directory
+    file(PREFIX/share/lilypond/ly/). (file(PREFIX) typically is file(/usr/local)
 )
 
 manspagesection(environment)
@@ -121,6 +124,8 @@ description(
 dit(LILYINCLUDE)
     additional directories for finding lilypond data.  The
     format is like the format of file(PATH).
+dit(LILYPREFIX)
+	[FIXME]
 dit(LANG)
     selects the language for the warning messages of LilyPond.
 )
@@ -131,25 +136,26 @@ Lots of them.  See file(TODO) and file(BUGS)
 
 manpageseealso()
 
+LilyPond comes with various other documentation files, but most are in
+the form of manual pages.  They are included in the source
+package. Interesting documents include 
+
 description(
-dit(internals)
-    On technical details of LilyPond
-dit(mudela-man)
-    On the input format.  This is a LilyPond-enhanced LaTeX document.
 dit(MANIFESTO)
     Goals of the GNU LilyPond project.
 dit(FAQ)
     The GNU LilyPond FAQ list
-dit(GNU url(LilyPond)(http://www.cs.uu.nl/people/hanwen/lilypond/index.html))
-    has her own webpage.  This webpage contains the MIDI, GIF and PS files for 
-    some standard music files.  It also has the complete LilyPond documentation
 )
 
-GNU LilyPond is
-updated very frequently, the latest version is always available at:
-lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond).  This FTP site is mirrored
-at a number of sites; consult the project web pages for information
-about mirrors.
+A further source for information is the website, which can be found at
+lurl(http://www.lilypond.org/).  The website contains on-line versions
+of the documentation
+
+
+GNU LilyPond is updated very frequently, the latest version is always
+available at: lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond).  This FTP
+site is mirrored at a number of sites; consult the project web pages
+for information about mirrors.
 
 For programs which are part of the GNU music project, the following
 mailing list have been setup:
@@ -178,43 +184,10 @@ gnu-music-discuss.
 manpagesection(REMARKS)
 
 GNU LilyPond has no connection with the music package Rosegarden, other
-than the names being similar (:-)
-
-manpagesection(HISTORY)
-cindex(History)
-
-(for a  detailed changelog, see file(NEWS))
-
-GNU LilyPond's roots lie in MPP, a preprocessor to the rather arcane
-MusiXTeX macro package for TeX.  A friend of mine, Jan Nieuwenhuizen
-wrote the first 44 versions (0.01 to 0.44), then his program caught my
-attention, and I was slowly sucked in to the interesting problem of
-easily producing beautifully printed music.  I contributed some
-code.  We soon realised that MPP's design was too fundamentally broken
-to be repaired, so it was decided to rewrite MPP.  We debated a lot about
-the requirements to an inputformat (fall 1995).  I sat down and started
-with a parser-first, bottom-up rewrite called mpp95 (which totally
-failed, obviously).
-
-After long and hard thinking, I came up with an algorithm for the
-horizontal spacing of multiple staffs (april 1996) I coded it (and did
-not test it).  After starting with this fundamental piece, I slowly
-added the stages which come before spacing, and after.  A half year
-later, I had a first working version, (october 1996).  I announced
-Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
-details on spacing; it was downloaded approximately 4 times.  Then I
-got the hang of it, and in the subsequent two months, I coded until it
-had doubled in size (pl 23).
-
-Most the other history is described in the NEWS file.  The first large
-scale release (0.1) was done after approximately 78 patchlevels on
-August 1, 1997.
+than the names being similar :-)
 
 manpageauthor()
 cindex(Author)
-
-Please consult the documentation file file(AUTHORS.txt) for more detailed
-information, and small contributions. 
 
 itemize(
 it()nemail(Han-wen Nienhuys)(hanwen@cs.uu.nl)
@@ -222,3 +195,7 @@ it()nemail(Han-wen Nienhuys)(hanwen@cs.uu.nl)
 it()nemail(Jan Nieuwenhuizen)(janneke@gnu.org)
     lurl(http://www.xs4all.nl/~jantien)
 )
+
+Please consult the documentation file file(AUTHORS) for more detailed
+information, and small contributions.
+

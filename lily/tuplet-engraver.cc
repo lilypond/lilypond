@@ -34,12 +34,25 @@ Tuplet_engraver::do_try_music (Music *r)
 void
 Tuplet_engraver::do_process_requests ()
 {
+  int dir = 0;
+  Scalar prop = get_property ("tupletDirection", 0);
+  if (prop.isnum_b())
+    dir = (int)prop;
+  int visibility = 3;
+  prop = get_property ("tupletVisibility", 0);
+  if (prop.isnum_b())
+    visibility = (int)prop;
+
   for (int i= started_span_p_arr_.size ();
        i < time_scaled_music_arr_.size (); i++)
     {
       Tuplet_spanner* glep = new Tuplet_spanner;
       started_span_p_arr_.push (glep);
       glep->number_str_ = to_str (time_scaled_music_arr_[i]->den_i_);
+      glep->set_elt_property(tuplet_visibility_scm_sym,
+                             gh_int2scm (visibility));
+      if (dir != 0)
+	glep->set_elt_property(dir_forced_scm_sym, gh_int2scm (dir));
       announce_element (Score_element_info (glep, time_scaled_music_arr_ [i]));
     }
 }

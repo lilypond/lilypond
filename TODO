@@ -50,7 +50,6 @@ I understand your point.  It should be changed.
 > but I hope you understand what I want to say.
 > 
 . * didot / big point.
-. * devise standard for functioning of Vertical_align_element.
 . * midi key.
 . * Repeats
 .  * input/bugs/rep.ly (moved from test)
@@ -81,15 +80,7 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 that can generate the same tune in two different modes without having
 to go through and rewrite all the music in the other mode.
 
-Long lyrics don't get a space at the end.  They just run right up
-against the next lyric.  (I don't think this used to be the case.)
-
 Lyrics and scripts collide.
-
-\key b; \time 4/4; looks bad.  The clef and time signature are too close.
-
-restStyle=mensural doesn't seem to work (lots of characters not found
-for rests.fly)
 . * Phrasing:  Indicating the textual underlay of a piece, or
 otherwise dividing a piece into phrases.
 
@@ -101,7 +92,7 @@ specify the third.  Should there be?
 
    note + circle = note + 1/4 of its length
 
-   the circle is like a dot that's not filled in.  for example, on
+5   the circle is like a dot that's not filled in.  for example, on
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
@@ -113,22 +104,6 @@ specify the third.  Should there be?
 .  * spacing for prefatory matter
 .  * accidentals closer to note head
 .  * to space the staffs/staffgroups contained in the score.  
-
-In the orchestscore.ly file, I tried:
-\paper{
-    \translator {
-        \OrchestralScoreContext
-        minVerticalAlign = 3.0*\staffheight;
-    }
-    \translator { 
-        \StaffGroupContext
-        minVerticalAlign = 3.0*\staffheight;
-    }
-    \translator { 
-        \StaffContext
-        minVerticalAlign = 3.0*\staffheight;
-    }
-}
 .  * heavier beams?
 
 .* Cleanups needed
@@ -169,7 +144,7 @@ In the orchestscore.ly file, I tried:
 > see the problem for August.
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie, Extender)
-.  * make wide_spanner_engraver (line_group_spanne,r staff_symbol)
+.  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
 . * remove Interval dim_ from Dimension_cache and rename the struct.
 . * do scaled fonts generally 
 . * Spacing.
@@ -257,9 +232,6 @@ compilation.
 . * use Fourier transformation for rhythmic quantisation.
 . * horizontal centering of dynamics 
 . * $DEPENDENCIES_OUTPUT support
-. * Xdvi zooming ?! Try to understand GS garbage collection.
-gs: Error: /undefined in draw_beam
-gs: Operand stack:
 . * fix vertical alignment and stafflines
 . * declaring Performers
 . * *.yo: fix pod manpage layout legacy
@@ -425,34 +397,6 @@ languages:
 > Would it be hard to add support for proper dynamics in MIDI output?  I
 > would really like to have this feature...
 
-To answer this, I have to give a little background.  Please say so if
-I am being obtuse.
-
-Both audio and notation elements are created decentrally, when
-LilyPond says "Interpreting music ... [8][16] etc."  After all
-elements are created, they are processed again to calculate all
-parameters.  After that is done, they are dumped onto the output (the
-MIDI stream or the TeX file).
-
-The audio and notation elements are created by objects called
-performer and engraver respectively.  They work by taking a chunk of
-input (a so-called request), and using the request to create an audio
-or notation element.
-
-After some processing, the engraver sends the created elements to
-its enclosing notation/performance context.
-
-In the case of notation, engravers can also modify existing elements
-created by sibling engravers.  Eg. the beam-engraver will modify stems
-when it creates a beam over a couple of stems.  This is done in
-Engraver::do_acknowledge_element () and
-Engraver::do_process_acknowledged ().
-
-In the case of audio, there are no mechanisms to modify existing audio
-elements. After the audio elements are created, they are sent directly
-to the enclosing context (an instance of Performer_group_performer),
-through the method Performer::play ()
-
 Concretely spoken, for dynamics you have to write a performer
 (Dynamics_performer), that will take the input requests. If I
 understand correctly, every MIDI note played must have its dynamic
@@ -465,15 +409,8 @@ So the best way of handling this, is
 
   1 supporting dynamic settings in Audio_note
 
-  2 mimicking the broadcast/acknowledge mechanism of the Engravers in
-  the Performers
-
-  3 using that mechanism to write a Dynamics_performer that will modify
+  2 Write a Dynamics_performer that will modify
   any notes it finds to set appropriate strengths.
-
-You could also kludge this by deriving from Performer_group_performer
-a performer that also sets dynamics within notes, but that is not the
-elegant way to do it.
 
 I'd say that the work involved is not hard, but you have to be fluent
 with C++ and need some insight into the working of Notation Contexts
@@ -486,7 +423,6 @@ valuable, and I think I have more interesting things to do than fixing
 the MIDI output (I don't even have a soundcard).  But I *do* want to help
 you or other people with implementing this, so if you need help, don't
 hesitate to ask.
-
 .  * account for rhythmic position in measure
 .  * etc.
 

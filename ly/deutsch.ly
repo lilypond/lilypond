@@ -1,8 +1,10 @@
-%
 % common german names for notes. "es" means flat, "is" means sharp
 %
 % by Roland Meier <meier@informatik.th-darmstadt.de>
 % based on swedish.ly by Mats Bengtsson.
+
+% 1999/06/09 Bjoern Jacke <bjoern.jacke@gmx.de>
+%            added asas and marked ases as `unusual'
 
 
 %
@@ -36,7 +38,8 @@
 	g 	= \musicalpitch { -1 4 0 }
 	gis 	= \musicalpitch { -1 4 1 }
 	gisis	= \musicalpitch { -1 4 2 }
-	ases 	= \musicalpitch { -1 5 -2 }
+	asas 	= \musicalpitch { -1 5 -2 }
+	ases 	= \musicalpitch { -1 5 -2 }  % non-standard name for asas
 	as 	= \musicalpitch { -1 5 -1 }
 	a 	= \musicalpitch { -1 5 0 }
 	ais 	= \musicalpitch { -1 5 1 }
@@ -78,7 +81,8 @@
 	G 	= \musicalpitch { -2 4 0 }
 	Gis 	= \musicalpitch { -2 4 1 }
 	Gisis	= \musicalpitch { -2 4 2 }
-	Ases 	= \musicalpitch { -2 5 -2 }
+	Asas 	= \musicalpitch { -2 5 -2 }
+	Ases 	= \musicalpitch { -2 5 -2 }  % non-standard name for Asas
 	As 	= \musicalpitch { -2 5 -1 }
 	A 	= \musicalpitch { -2 5 0 }
 	Ais 	= \musicalpitch { -2 5 1 }

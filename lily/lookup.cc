@@ -381,8 +381,11 @@ Lookup::stem (Real y1, Real y2) const
  taken from Knuth's plain.tex: */
 static Real mag_steps[] = {1, 1, 1.200, 1.440, 1.7280,  2.074, 2.488};
 
+/**
+   TODO: THIS IS UGLY.  Since the user has direct access to TeX
+   strings, we try some halfbaked attempt to detect TeX trickery.
 
-
+*/
 Molecule
 Lookup::text (String style, String text) const
 {
@@ -416,14 +419,21 @@ Lookup::text (String style, String text) const
 
   Font_metric* afm_l = all_fonts_global_p->find_font (style);
   DOUT << "\nChars: ";
-  
+
+
+  int brace_count =0;
   for (int i = 0; i < text.length_i (); i++) 
     {
+      
       if (text[i]=='\\')
 	for (i++; (i < text.length_i ()) && isalpha(text[i]); i++)
 	  ;
       else
 	{
+	  if (text[i] == '{')
+	    brace_count ++;
+	  else if (text[i] == '}')
+	    brace_count --;
           Character_metric *c = afm_l->get_char ((unsigned char)text[i],false);
 
 	  w += c->dimensions()[X_AXIS].length ();
@@ -439,6 +449,21 @@ Lookup::text (String style, String text) const
       ydims *= mag_steps[font_mag];
     }
 
+  if(brace_count)
+    {
+      warning (_f ("Non-matching braces in text `%s', adding braces.", text.ch_C()));
+
+      if (brace_count < 0)
+	{
+	  text = to_str ('{', -brace_count) + text;
+	}
+      else 
+	{
+	  text = text + to_str ('}', brace_count);
+	}
+    }
+
+  
   DOUT << "\n" << to_str (w) << "\n";
   m.dim_.x () = Interval (0, w);
   m.dim_.y () = ydims;

@@ -39,6 +39,15 @@
 
    is called unfolded.  Useful for MIDI.
 
+
+   If the number of repeats is smaller than the number of alternatives, then
+
+   FIXME
+
+   If the number of repeats is bigger than the number of alternatives, then
+
+   FIXME
+   
 */
 class New_repeated_music : public Music
 {
