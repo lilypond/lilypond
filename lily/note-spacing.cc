@@ -15,6 +15,8 @@
 #include "note-column.hh"
 #include "warn.hh"
 #include "stem.hh"
+#include "separation-item.hh"
+#include "staff-spacing.hh"
 
 bool
 Note_spacing::has_interface (Grob* g)
@@ -155,8 +157,13 @@ Note_spacing::stem_dir_correction (Grob*me)
   Drul_array<SCM> props(me->get_grob_property ("left-items"),
 			me->get_grob_property ("right-items"));
 
+  Real correction = 0.0;
+  
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
+  Interval bar_xextent;
+  Interval bar_yextent;  
+  
   bool correct = true;
   Direction d = LEFT;
   bool acc_right = false;
@@ -172,17 +179,31 @@ Note_spacing::stem_dir_correction (Grob*me)
 	  
 	  Grob *stem = Note_column::stem_l (it);
 
-	  if (!stem || Stem::invisible_b (stem))
+	  if (!stem)
+	    {
+	      if (d == RIGHT && Separation_item::has_interface (it))
+		{
+		  Grob *last = Staff_spacing::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
+
+		  if (last)
+		    bar_yextent = Staff_spacing::bar_y_positions (last);
+
+		  break;
+		}
+
+	      goto exit_func; 
+	    }
+	  if(Stem::invisible_b (stem))
 	    {
 	      correct = false;
-	      goto exit_loop ;
+	      goto exit_func ;
 	    }
 
 	  Direction sd = Stem::get_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
 	    {
 	      correct = false;
-	      goto exit_loop;
+	      goto exit_func;
 	    }
 	  stem_dirs[d] = sd;
 
@@ -204,9 +225,15 @@ Note_spacing::stem_dir_correction (Grob*me)
   if (acc_right)
     return 0.0;
 
-  
-  if (correct && stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
+  if (!bar_yextent.empty_b())
     {
+      stem_dirs[RIGHT] = - stem_dirs[LEFT];
+      stem_posns[RIGHT] = bar_yextent;
+    }
+  
+  if (correct &&stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
+    {
+      
       intersect = stem_posns[LEFT];  
       intersect.intersect(stem_posns[RIGHT]);
       correct = correct && !intersect.empty_b ();
@@ -214,13 +241,17 @@ Note_spacing::stem_dir_correction (Grob*me)
       if (!correct)
 	return 0.0;
       /*
-      Ugh. 7 is hardcoded.
-    */
-      Real correction = abs (intersect.length ());
+	Ugh. 7 is hardcoded.
+      */
+      correction = abs (intersect.length ());
       correction = (correction/7) <? 1.0;
       correction *= stem_dirs[LEFT] ;
       correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
-      return correction;
+
+      if (!bar_yextent.empty_b())
+	{
+	  correction *= 0.5;
+	}
     }
   else if (correct)
     {
@@ -256,11 +287,13 @@ Note_spacing::stem_dir_correction (Grob*me)
       Real corr = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
       corr =  (delta <= 1) ? 0.0 : 0.25;
       
-      return -lowest * corr ;
+      correction=  -lowest * corr ;
     }
 
+  if (!bar_xextent.empty_b())
+    correction += - bar_xextent[LEFT];
   
- exit_loop:
-  return 0.0;
+ exit_func:
+  return correction;
 }
  
