@@ -73,6 +73,8 @@
 /* define if you have sys/stat.h */
 #define STAT_MACROS_BROKEN 0
 
+/* define if you have sstream */
+#define HAVE_SSTREAM 0
 
 /* GUILE only includes version in headers (libguile/version.h) as of
    1.5.x.  For some strange reason, they call it SCM.*VERSION. */
