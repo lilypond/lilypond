@@ -41,7 +41,7 @@ msgstr ""
 msgid "lilylib module"
 msgstr "lilylib moduuli"
 
-#: lilylib.py:63 lilypond-book.py:131 ly2dvi.py:128 midi2ly.py:100
+#: lilylib.py:63 lilypond-book.py:131 lilypond.py:128 midi2ly.py:100
 #: mup2ly.py:75 main.cc:111
 msgid "print this help"
 msgstr "näytä tämä opastus"
@@ -112,7 +112,7 @@ msgstr "Avataan putki `%s'"
 msgid "`%s' failed (%d)"
 msgstr "`%s' epäonnistui (%d)"
 
-#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 ly2dvi.py:512
+#: lilylib.py:242 lilylib.py:289 lilypond-book.py:231 lilypond.py:512
 msgid "The error log is as follows:"
 msgstr "Virheloki on seuraava:"
 
@@ -466,7 +466,7 @@ msgstr "pakota fonttikoko kullekin LilyPond-osiolle. DIM oletetaan olevan pistei
 msgid "deprecated, use --force-music-fontsize"
 msgstr "vanhentunut, käytä --force-music-fontsize"
 
-#: lilypond-book.py:132 ly2dvi.py:130 main.cc:113 main.cc:118
+#: lilypond-book.py:132 lilypond.py:130 main.cc:113 main.cc:118
 msgid "DIR"
 msgstr "DIR"
 
@@ -498,7 +498,7 @@ msgstr "jätä tuottamatta kuvat"
 msgid "strip all lilypond blocks from output"
 msgstr "riisu kaikki lilypond -osiot tulostuksesta"
 
-#: lilypond-book.py:138 lilypond-book.py:139 ly2dvi.py:135 ly2dvi.py:136
+#: lilypond-book.py:138 lilypond-book.py:139 lilypond.py:135 lilypond.py:136
 #: midi2ly.py:102 main.cc:114 main.cc:117
 msgid "FILE"
 msgstr "TIEDOSTO"
@@ -511,15 +511,15 @@ msgstr "tiedostonimi päätulostustiedostolle"
 msgid "where to place generated files"
 msgstr "tuotettujen tiedostojen sijoituspaikka"
 
-#: lilypond-book.py:140 ly2dvi.py:137
+#: lilypond-book.py:140 lilypond.py:137
 msgid "RES"
 msgstr "RES"
 
-#: lilypond-book.py:141 ly2dvi.py:138
+#: lilypond-book.py:141 lilypond.py:138
 msgid "set the resolution of the preview to RES"
 msgstr "aseta esikatselulle tarkkuus RES"
 
-#: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
+#: lilypond-book.py:142 lilypond.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 msgid "be verbose"
 msgstr "ole runsassanainen"
 
@@ -527,7 +527,7 @@ msgstr "ole runsassanainen"
 msgid "print version information"
 msgstr "tulosta versioinformaatio"
 
-#: lilypond-book.py:144 ly2dvi.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
+#: lilypond-book.py:144 lilypond.py:150 midi2ly.py:107 mup2ly.py:80 main.cc:127
 msgid "show warranty and copyright"
 msgstr "näytä takuu ja copyright"
 
@@ -623,14 +623,14 @@ msgstr "LaTeX epäonnistui."
 #. #docme: why global?
 #. Do It.
 #. should chmod -w
-#: lilypond-book.py:1557 ly2dvi.py:673 midi2ly.py:1018
+#: lilypond-book.py:1557 lilypond.py:673 midi2ly.py:1018
 #, python-format
 msgid "getopt says: `%s'"
 msgstr "getopt sanoo: `%s'"
 
 #. HACK
 #. status = os.system ('lilypond -w')
-#: lilypond-book.py:1630 ly2dvi.py:777
+#: lilypond-book.py:1630 lilypond.py:777
 msgid "no files specified on command line"
 msgstr "tiedostoja ei määritelty komentorivillä"
 
@@ -640,7 +640,7 @@ msgstr "tiedostoja ei määritelty komentorivillä"
 #. --hwn 20/aug/99
 #. !@PYTHON@
 #.
-#. ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+#. lilypond.py -- Run LilyPond, add titles to bare score, generate printable
 #. document
 #. Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
 #.
@@ -673,82 +673,82 @@ msgstr "tiedostoja ei määritelty komentorivillä"
 #. # ly2dvi: silly name?
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
-#: ly2dvi.py:121
+#: lilypond.py:121
 msgid "Run LilyPond, add titles, generate printable document."
 msgstr "Aja LilyPond, lisää otsikot, tuota tulostettava dokumentti."
 
-#: ly2dvi.py:127 main.cc:115
+#: lilypond.py:127 main.cc:115
 msgid "write Makefile dependencies for every input file"
 msgstr "kirjoita Makefile -riippuvuudet kullekin tulostustiedostolle"
 
-#: ly2dvi.py:129
+#: lilypond.py:129
 msgid "print even more output"
 msgstr "kirjoita vieläpä enemmän tulostetta"
 
-#: ly2dvi.py:130
+#: lilypond.py:130
 msgid "add DIR to LilyPond's search path"
 msgstr "lisää DIR LilyPondin hakupolkuun"
 
-#: ly2dvi.py:132
+#: lilypond.py:132
 #, python-format
 msgid "keep all output, output to directory %s.dir"
 msgstr "säilytä kaikki tulosteet, kirjoita hakemistoon %s.dir"
 
-#: ly2dvi.py:133
+#: lilypond.py:133
 msgid "don't run LilyPond"
 msgstr "jätä ajamatta LilyPond"
 
-#: ly2dvi.py:134 main.cc:116
+#: lilypond.py:134 main.cc:116
 msgid "produce MIDI output only"
 msgstr "tuota vain MIDI -tuloste"
 
-#: ly2dvi.py:135 midi2ly.py:102
+#: lilypond.py:135 midi2ly.py:102
 msgid "write output to FILE"
 msgstr "tulosta tiedostoon TIEDOSTO"
 
-#: ly2dvi.py:136
+#: lilypond.py:136
 msgid "find pfa fonts used in FILE"
 msgstr "etsi pfa fontit joita käytettiin tiedostossa TIEDOSTO"
 
-#: ly2dvi.py:139
+#: lilypond.py:139
 msgid "generate PostScript output"
 msgstr "tuota PostScript -tuloste"
 
-#: ly2dvi.py:140
+#: lilypond.py:140
 msgid "generate PNG page images"
 msgstr "tuota PNG -kuvat sivuista"
 
-#: ly2dvi.py:141
+#: lilypond.py:141
 msgid "generate PS.GZ"
 msgstr "tuota PS.GZ"
 
-#: ly2dvi.py:142
+#: lilypond.py:142
 msgid "generate PDF output"
 msgstr "tuota PDF -tuloste"
 
 # käytä pdflatex:ia tuottaaksesi PDF -tulosteen
-#: ly2dvi.py:143
+#: lilypond.py:143
 msgid "use pdflatex to generate a PDF output"
 msgstr "käytä pdflatex:ia tuottaaksesi PDF -tulosteen"
 
 #. FIXME: preview, picture; to indicate creation of a PNG?
-#: ly2dvi.py:145
+#: lilypond.py:145
 msgid "make a picture of the first system"
 msgstr "tee kuva ensimmäisestä kokonaisuudesta"
 
-#: ly2dvi.py:146
+#: lilypond.py:146
 msgid "make HTML file with links to all output"
 msgstr "tee HTML -tiedosto johon on linkitetty kaikki tulosteet"
 
-#: ly2dvi.py:147
+#: lilypond.py:147
 msgid "KEY=VAL"
 msgstr "KEY=VAL"
 
-#: ly2dvi.py:147
+#: lilypond.py:147
 msgid "change global setting KEY to VAL"
 msgstr "vaihda globaali asetus KEY arvoksi VAL"
 
-#: ly2dvi.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
+#: lilypond.py:149 midi2ly.py:106 mup2ly.py:79 main.cc:125
 msgid "print version number"
 msgstr "tulosta versionumero"
 
@@ -764,50 +764,50 @@ msgstr "tulosta versionumero"
 #. what a name.
 #. ly.warning (_ ("invalid value: %s") % `val`)
 #. ly.warning (_ ("invalid value: %s") % `val`)
-#: ly2dvi.py:232
+#: lilypond.py:232
 #, python-format
 msgid "no such setting: `%s'"
 msgstr "asetusta ei löydy: `%s'"
 
 #. 2 == user interrupt.
-#: ly2dvi.py:274
+#: lilypond.py:274
 #, python-format
 msgid "LilyPond crashed (signal %d)."
 msgstr "LilyPond kaatui (signaali %d)."
 
-#: ly2dvi.py:275
+#: lilypond.py:275
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
 msgstr "Ole hyvä ja lähetä virheraportti osoitteeseen bug-lilypond@gnu.org"
 
-#: ly2dvi.py:281
+#: lilypond.py:281
 #, python-format
 msgid "LilyPond failed on input file %s (exit status %d)"
 msgstr "LilyPond epäonnistui syöttötiedoston %s kohdalla (lopetustila %d)."
 
-#: ly2dvi.py:284
+#: lilypond.py:284
 #, python-format
 msgid "LilyPond failed on an input file (exit status %d)"
 msgstr "LilyPond epäonnistui syöttötiedoston kohdalla (lopetustila %d)."
 
-#: ly2dvi.py:285
+#: lilypond.py:285
 msgid "Continuing..."
 msgstr "Jatketaan..."
 
 #. urg
-#: ly2dvi.py:296
+#: lilypond.py:296
 #, python-format
 msgid "Analyzing %s..."
 msgstr "Analysoidaan %s..."
 
 #. search only the first 10k
-#: ly2dvi.py:354
+#: lilypond.py:354
 #, python-format
 msgid "no LilyPond output found for `%s'"
 msgstr "`%s' jäi ilman LilyPond -tulostetta"
 
 #. The final \n seems important here. It ensures that the footers and taglines end up on the right page.
 #. TODO: should set textheight (enlarge) depending on papersize.
-#: ly2dvi.py:397
+#: lilypond.py:397
 #, python-format
 msgid "invalid value: `%s'"
 msgstr "epäkelpo arvo: `%s'"
@@ -816,13 +816,13 @@ msgstr "epäkelpo arvo: `%s'"
 #. who the hell is 597 ?
 #. Ugh.  (La)TeX writes progress and error messages on stdout
 #. Redirect to stderr
-#: ly2dvi.py:511
+#: lilypond.py:511
 msgid "LaTeX failed on the output file."
 msgstr "LaTeX epäonnistui tulostustiedossa."
 
 #. make a preview by rendering only the 1st line
 #. of each score
-#: ly2dvi.py:568
+#: lilypond.py:568
 msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
@@ -834,13 +834,13 @@ msgstr ""
 #. Added as functionality to ly2dvi, because ly2dvi may well need to do this
 #. in future too.
 #. no ps header?
-#: ly2dvi.py:615
+#: lilypond.py:615
 #, python-format
 msgid "not a PostScript file: `%s'"
 msgstr "ei ole PostScript-tiedosto: `%s'"
 
 #. todo
-#: ly2dvi.py:660
+#: lilypond.py:660
 #, python-format
 msgid "Writing HTML menu `%s'"
 msgstr "Kirjoitetan HTML-valikko `%s'..."
@@ -851,18 +851,18 @@ msgstr "Kirjoitetan HTML-valikko `%s'..."
 #. As a neat trick, add directory part of first input file
 #. to include path.  That way you can do without the clumsy -I in:
 #. ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
-#: ly2dvi.py:769
+#: lilypond.py:769
 msgid "pseudo filter"
 msgstr "valefiltteri"
 
-#: ly2dvi.py:772
+#: lilypond.py:772
 msgid "pseudo filter only for single input file"
 msgstr "valefiltteroi ain yksi tulostetiedosto"
 
 #. Ugh, maybe make a setup () function
 #. hmmm. Wish I'd 've written comments when I wrote this.
 #. now it looks complicated.
-#: ly2dvi.py:806
+#: lilypond.py:806
 #, python-format
 msgid "filename should not contain spaces: `%s'"
 msgstr "tiedostoniemessä ei saa olla välilyöntejä: `%s'"
@@ -878,7 +878,7 @@ msgstr "tiedostoniemessä ei saa olla välilyöntejä: `%s'"
 #. ## --hwn
 #. TODO: friendly message about LilyPond setup/failing?
 #.
-#: ly2dvi.py:845
+#: lilypond.py:845
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr "LilyPond -ajo epäonnistui. Aja uudelleen lisäten --verbose jäljitystä varten."
 
@@ -887,36 +887,36 @@ msgstr "LilyPond -ajo epäonnistui. Aja uudelleen lisäten --verbose jäljitystä va
 #. unless: add --tex, or --latex?
 #. TODO: friendly message about TeX/LaTeX setup,
 #. trying to run tex/latex by hand
-#: ly2dvi.py:886
+#: lilypond.py:886
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr "Epäonnistui PS -tiedoston tuottamisessa. Aja uudelleen lisäten --verbose jäljitystä varten."
 
 #. unless: add --tex, or --latex?
 #. TODO: friendly message about TeX/LaTeX setup,
 #. trying to run tex/latex by hand
-#: ly2dvi.py:916
+#: lilypond.py:916
 msgid "Running LaTeX falied. Rerun with --verbose for a trace."
 msgstr "LaTeX -ajo epäonnistui. Aja uudelleen lisäten --verbose jäljitystä varten."
 
 #. add DEP to targets?
-#: ly2dvi.py:926 input-file-results.cc:68
+#: lilypond.py:926 input-file-results.cc:68
 #, c-format, python-format
 msgid "dependencies output to `%s'..."
 msgstr "riippuvuuksien tulosteet paikkaan `%s'"
 
-#: ly2dvi.py:937
+#: lilypond.py:937
 #, python-format
 msgid "%s output to <stdout>..."
 msgstr "%s -tuloste paikkaan <stdout>..."
 
-#: ly2dvi.py:942 ly2dvi.py:968 includable-lexer.cc:57
+#: lilypond.py:942 lilypond.py:968 includable-lexer.cc:57
 #: input-file-results.cc:191 input-file-results.cc:197 lily-guile.cc:86
 #, c-format, python-format
 msgid "can't find file: `%s'"
 msgstr "tiedostoa ei löydy: `%s'"
 
 #. Hmm, if this were a function, we could call it the except: clauses
-#: ly2dvi.py:965
+#: lilypond.py:965
 #, python-format
 msgid "%s output to %s..."
 msgstr "%s -tuloste paikkaan %s..."

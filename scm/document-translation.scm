@@ -91,7 +91,7 @@
 			     context-description-alist))))
 	   (string-append
 	    name " is part of contexts: "
-	    (human-listify (map ref-ify (map context-name contexts)))))
+	    (human-listify (map ref-ify (map symbol->string contexts)))))
 	 ""
 	 ))))
 
@@ -171,7 +171,8 @@
 (define (context-doc context-desc)
   (let*
       (
-       (name (cdr (assoc 'type-name context-desc)))
+       (name-sym (cdr (assoc 'type-name context-desc)))
+       (name (symbol->string name-sym))
        (desc-handle (assoc 'description context-desc))
        (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
 		 (cdr desc-handle) "(not documented)"))
@@ -209,7 +210,7 @@
 	   (string-append
 	    "\n\nContext "
 	    name " can contain \n"
-	    (human-listify (map ref-ify (map context-name accepts)))))
+	    (human-listify (map ref-ify  (map symbol->string accepts)))))
        
        "\n\nThis context is built from the following engravers: "
        (description-list->texi
