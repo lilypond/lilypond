@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.0"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -11,51 +11,47 @@
 }
 
 %% hymn tricks
-#(define (override-alist-property grob-name alist-property entry)
+#(define (prepend-grob-property grob-name
+	  grob-prop entry)
   (lambda (context)
-    (let* ((grob-properties (ly:context-property context grob-name))
-	   (alist-cons (chain-assoc-get alist-property grob-properties '()))
-	   (new-alist-cons (assoc-set! alist-cons (car entry) (cdr entry)))
-	   (new-props (assoc-set! (car grob-properties)
-				  alist-property new-alist-cons)))
-      (ly:context-set-property! context grob-name (list new-props)))))
-  
-#(define (set-extra-space grob-name entry value)
-  (override-alist-property grob-name 'space-alist
-   ;;;huh, broken? --jcn
-   ;;;(cons entry (cons 'fixed-space value))))
-   (cons entry (cons 'extra-space value))))
-      
-noclefs = \notes { s1 \set Staff.Clef = \turnOff }
-margins = {
-  %% first line left margin
-  \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
-  
-  %% next lines left margin
-  %% \applycontext #(set-extra-space 'KeySignature 'first-note 15)
-  \applycontext #(set-extra-space 'KeySignature 'staff-bar 15)
-  
-  %% next lines small key-signature margin
-  \applycontext #(set-extra-space 'LeftEdge 'key-signature 1.0)
+   (ly:context-pushpop-property context grob-name grob-prop
+    (cons
+     entry
+     (assoc-get grob-prop (car (ly:context-property context grob-name)))))))
 
-  %% using StaffSymbol.width now
-  %% right margin
-  %%\applycontext #(set-extra-space 'BarLine 'right-edge 12.5)
+#(define (set-extra-space grob-name entry value)
+  (prepend-grob-property grob-name 'space-alist
+   (cons entry (cons 'extra-space value))))
+
+noclefs = \notes {
+  s1
+  \override Staff.Clef #'break-visibility = #(lambda (dir) (cons #t #t))
 }
 
-smallBarLines = {
+setMargins = {
+  %% first line left margin
+  \context Staff \applycontext #(set-extra-space 'TimeSignature 'first-note 4.5)
+  
+  %% next lines left margin
+  \context Staff \applycontext #(set-extra-space 'KeySignature 'staff-bar 15)
+  
+  %% next lines small key-signature margin
+  \context Staff \applycontext #(set-extra-space 'LeftEdge 'key-signature 4.0)
+}
+
+pipeSymbol = {
   %% Set height of bar line to 2 staff-spaces
-  \override Staff.BarLine #'bar-size-procedure = #(lambda (x) 2)
+  \once \override Staff.BarLine #'bar-size-procedure = #(lambda (x) 2)
   %% Move barline one staff-space up
-  \override Staff.BarLine #'extra-offset = #'(0 . 1)
+  \once \override Staff.BarLine #'extra-offset = #'(0 . 1)
+  \bar "|"
 }
 
 endBarLine = {
-  \revert Staff.BarLine #'bar-size-procedure
-  \revert Staff.BarLine #'extra-offset
-  \override Staff.BarLine #'extra-offset = #'(12 . 0)
-  \bar "|."
+
 }
+
+myBreak = { \bar "" \break }
 
 \paper {
   indent = 0.0\mm
@@ -66,27 +62,32 @@ endBarLine = {
 voice = \notes \relative c' {
   \clef violin
   \key g \major
-  \partial 4
-  d4 g g a a b a8
-  b8 c4 b a a g2.
+  d4 | g g a a b | a8 \myBreak
+  b8 | c4 b a a | g2.
 
-  d4 g g a a b a8
-  b8 c4 b a a g2.
+  d4 | g g a a | b a8
+  b8 | c4 b a a| g2.
 
-  b8[ c] d2 e4 d2 c4 b a8
-  b8 c4 b a g a2.
+  b8[ c] | d2 e4 d2 c4 | b a8
+  b8 | c4 b a g | a2.
 
-  d,4 g4.\melisma a8\melismaEnd b2 a2 g4 fis e8
-  d8 e4 g g fis
+  d,4 | g4.\melisma a8\melismaEnd b2 a2 g4 | fis e8
+  d8 | e4 g g fis |
+  
   \override NoteHead #'style = #'neo_mensural
+
   g\breve
+
+
+  \override Staff.BarLine #'extra-offset = #'(12 . 0)
+  \bar "|."
 }
 
 stich = \notes \relative c'' {
   \override Staff.NoteCollision #'merge-differently-dotted = ##t
   \set fontSize = #-3
   %% broken?
-  \override Voice.Stem #'beamed-lengths = #(map (lambda (x) (* 0.2 x)) '(3.26))
+  \override Stem #'beamed-lengths = #(map (lambda (x) (* 0.2 x)) '(3.26))
 
   \voiceTwo
   \partial 4
@@ -147,33 +148,20 @@ linebreaks = \notes {
     \context Staff <<
       \override Staff.StaffSymbol #'width = #'80
       \set Staff.autoBeaming = ##f
-      \margins
-      \smallBarLines
-
+      \set Score.timing = ##f
+      \setMargins
+     
       %% Less vertical space needed with lyrics
       \set Staff.minimumVerticalExtent = #'(2 . 2)
-      
-      %% Second time signature
-      %% \override Staff.TimeSignature   #'print-function =
-      %% #(second-time-signature '(3 . 2) Time_signature::print)
       
       %% Custom time signature
       \override Staff.TimeSignature #'print-function = #Text_item::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
-      
-      %% Invisible alternating time signature 
-      \notes {
-	\partial 4 s4
-	\override Staff.TimeSignature #'print-function = #'()
-	\repeat unfold 2 { \time 4/4 s1 \time 2/4 s2 \time 4/4 s1*2 }
-	\time 3/2 s2*3 \time 2/4 s2 \time 4/4 s1*2
-	\time 7/4 s4*7 \time 2/4 s2
-	\time 4/4 s1 \time 4/2 s1*2
-      }
-
+    
       \context Voice = "voice" \voice
-        \linebreaks
-        \noclefs
+      \linebreaks
+      \noclefs
+      
       \context Voice = "stich" \stich
     >>
     \lyricsto "voice" \new Lyrics {

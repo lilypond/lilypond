@@ -101,8 +101,11 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
 	  announce_grob (align_, SCM_EOL);
 
-	  left_edge_ = make_item ("LeftEdge");
-	  add_to_group (left_edge_->get_property ("break-align-symbol"), left_edge_);
+	  Context*origin = inf.origin_contexts (this)[0];
+	  left_edge_ =  make_item_from_properties (origin,
+						   ly_symbol2scm ("LeftEdge"));
+	  add_to_group (left_edge_->get_property ("break-align-symbol"),
+			left_edge_);
 	  announce_grob (left_edge_, SCM_EOL);
 	}
       
@@ -136,9 +139,12 @@ Break_align_engraver::add_to_group (SCM align_name, Item*item)
 }
 
 ENTER_DESCRIPTION (Break_align_engraver,
-/* descr */       "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder",
-/* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
-/* accepts */     "",
-/* acks  */       "break-aligned-interface"
-,/* reads */       "",
-/* write */       "");
+		   "Align grobs with corresponding @code{break-align-symbols} into "
+		   "groups, and order the groups according to @code{breakAlignOrder}. "
+		   "The left edge of the alignment gets a separate group, with a symbol @code{left-edge}. "
+		   ,
+		   /* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
+		   /* accepts */     "",
+		   /* acks  */       "break-aligned-interface",
+		   /* reads */       "",
+		   /* write */       "");
