@@ -1563,8 +1563,13 @@ the bottom of the last page.  This signature is produced from the
 the layout of different versions can be compared using archived
 print-outs (that include a version number).
 
-Many people find the default tagline too droll.  If that is the case,
-assign something else to @code{tagline}, as shown above.
+@cindex Lily was here
+@cindex signature line
+@cindex tag line
+
+Many people find the default tagline (``Lily was here'') too droll.
+If that is the case, assign something else to @code{tagline}, as shown
+above.
 
 @separate
 @example
