@@ -13,11 +13,11 @@ copyright =	 "public domain";
 
 oboe1 = \melodic{
 	\octave c'';	
-	r1 | r1 | as4-.\ff r r2 | r1 |
-	r1 | r1 | as4-. r r2 | r1 |
-	r1 | r1 | a4-. r r2 | r1 |
+	r1*2 | as4-.\ff r r2 | r1*3 |
+	as4-. r r2 | r1*3 |
+	a4-. r r2 | r1 |
 	g4-. r r2 | g4-. r r2 |
-	r1 | r1 | r1 | r1 |
+	r1*4 |
 	as2\p_"\ \ \ cresc." ( g | )fis2. g4-.\f |
 }
 

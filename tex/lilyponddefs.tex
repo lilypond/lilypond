@@ -70,44 +70,72 @@
         \musixcalc
 }
 
-\def\cmrtwenty{
+  \def\cmrtwenty{
+          \font\smalltextfont=cmr8
         \font\meterfont=cmbx15
-        \font\italicfont=cmti10 scaled \magstep1
-        \font\musicmathfont=cmsy10
-        \font\normaltextfont=cmr10 %\textfont is a primitive
-        \font\smalltextfont=cmr8
-        \font\boldfont=cmbx10
-        \font\textmusic=cmmi12
-        \font\largefont=cmbx12
-}
-\def\cmrsixteen{
-        \font\smalltextfont=cmr6
-        \font\normaltextfont=cmr8 %\textfont is a primitive
-        \font\meterfont=cmbx12
-        \font\italicfont=cmti9
-        \font\textmusic=cmmi10
-        \font\boldfont=cmbx8
-        \font\largefont=cmbx10
-}
-\def\cmreleven{
-        \font\smalltextfont=cmr5
-        \font\normaltextfont=cmr6
-        \font\meterfont=cmbx8
-        \font\italicfont=cmti6
-        \font\textmusic=cmmi8
-        \font\boldfont=cmbx6
-        \font\largefont=cmbx8
-}
-
-\def\cmrthirteen{
-        \font\smalltextfont=cmr6
-        \font\normaltextfont=cmr7
-        \font\meterfont=cmbx9
-        \font\italicfont=cmti7
-        \font\textmusic=cmmi9
-        \font\boldfont=cmbx7
-        \font\largefont=cmbx9
-}
+          \font\textmusic=cmmi12
+%        \font\musicmathfont=cmsy10 %%Not used?? /MB
+        \ifundefined{documentclass}
+                \font\normaltextfont=cmr10 %\textfont is a primitive
+                \font\italicfont=cmti10 scaled \magstep1
+                \font\boldfont=cmbx10
+                \font\largefont=cmbx12
+        \else
+                \def\settext##1{{\normalfont\normalsize ##1}}
+                \def\setitalic##1{\textit{\normalsize ##1}}
+                \def\setbold##1{\textbf{\normalsize ##1}}
+                \def\setlarge##1{\textbf{\large ##1}}
+        \fi
+  }
+  \def\cmrsixteen{
+          \font\smalltextfont=cmr6
+          \font\meterfont=cmbx12
+          \font\textmusic=cmmi10
+        \ifundefined{documentclass}
+                \font\normaltextfont=cmr8 %\textfont is a primitive
+                \font\italicfont=cmti9
+                \font\boldfont=cmbx8
+                \font\largefont=cmbx10
+        \else
+                \def\settext##1{{\normalfont\footnotesize ##1}}
+                \def\setitalic##1{\textit{\small ##1}}
+                \def\setbold##1{\textbf{\footnotesize ##1}}
+                \def\setlarge##1{\textbf{\normalsize ##1}}
+        \fi
+  }
+  \def\cmreleven{
+          \font\smalltextfont=cmr5
+          \font\meterfont=cmbx8
+          \font\textmusic=cmmi8
+        \ifundefined{documentclass}
+                \font\normaltextfont=cmr6
+                \font\italicfont=cmti6
+                \font\boldfont=cmbx6
+                \font\largefont=cmbx8
+        \else
+                \def\settext##1{{\normalfont\tiny ##1}}
+                \def\setitalic##1{\textit{\tiny ##1}}
+                \def\setbold##1{\textbf{\tiny ##1}}
+                \def\setlarge##1{\textbf{\footnotesize ##1}}
+        \fi
+  }
+  
+  \def\cmrthirteen{
+          \font\smalltextfont=cmr6
+          \font\meterfont=cmbx9
+          \font\textmusic=cmmi9
+        \ifundefined{documentclass}
+                \font\normaltextfont=cmr7
+                \font\italicfont=cmti7
+                \font\boldfont=cmbx7
+                \font\largefont=cmbx9
+        \else
+                \def\settext##1{{\normalfont\scriptsize ##1}}
+                \def\setitalic##1{\textit{\scriptsize ##1}}
+                \def\setbold##1{\textbf{\scriptsize ##1}}
+                \def\setlarge##1{\textbf{\small ##1}}
+        \fi
+  }
 \def\musixsixteendefs{
         \sixteenfonts
         \musixcalc
@@ -223,12 +251,15 @@
 
 \def\rulesym#1#2{\dimen0=#1%
         \vrule height .5\dimen0 depth .5\dimen0 width #2}
-\def\settext#1{\normaltextfont #1}
-\def\setitalic#1{\italicfont #1}
-\def\setbold#1{\boldfont #1}
+\ifundefined{documentclass}
+        \def\settext#1{\normaltextfont #1}
+        \def\setitalic#1{\italicfont #1}
+        \def\setbold#1{\boldfont #1}
+        \def\setlarge#1{\largefont #1}
+\fi
+
 \def\setdynamic#1{\dynfont #1}
 \def\setfinger#1{\fingerfont #1}
-\def\setlarge#1{\largefont #1}
 \def\setnumber#1{\fetanummer #1}
 
 % the interline symbol. Redefine to remove it.

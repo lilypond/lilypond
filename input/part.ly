@@ -1,11 +1,11 @@
 part = \melodic{
 	\octave c;
-	c c c c
+	c-1 c c c
 	r1*3
-	c4 c c c
-	c c c c
-	c c c c
-	c c c c
+	c4-5 c c c
+	c-6 c c c
+	c-7 c c c
+	c-8 c c c
 }
 
 a4 = \paper{

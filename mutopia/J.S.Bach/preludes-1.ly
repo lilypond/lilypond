@@ -1,7 +1,12 @@
 \header{
 filename =	 "preludes-1.ly";
-title =	 "DOUZE P\'ETITES PRELUDES";
-% tempo = "Moderato"
+% mmm
+title =	 "DOUZE PETITES PR\'ELUDES";
+opus = "BWV 924";
+% blz 1
+% Clavierb"uchlein f"ur W. Fr. Bach
+% Clav. W. Fr. Bach: 2-Praeambulum I
+% ca 1720
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";

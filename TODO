@@ -20,6 +20,10 @@ grep for TODO and ugh/ug
 
 	* robustify Beam (in case of no stems, 32nd notes)
 
+	* fix [c8 c16 c16] (mustn't slope)
+
+	* fix silly " "2*12 a4 (=4*12) sticky plet 
+
 	* check for groff / troff/ nroff et
 
 	* latex quirk?
@@ -180,9 +184,13 @@ languages:
 
 	* add to MIDI output:
 	- tempo change
+	- ornaments (and trills?)
 	- repeat
 	- slurs
-	- dynamics etc.
+	- accents
+	- dynamics
+	- account for rhythmic position in measure
+	- etc.
 
 	* grace notes
 	- make separate class for Grace_*_engravers 

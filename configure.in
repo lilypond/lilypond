@@ -106,11 +106,15 @@ AC_ARG_ENABLE(config,
      
 
 if test "$printing_b" = no; then
+    # ugh
     AC_DEFINE(NPRINT)
+    DEFINES="$DEFINES -DNPRINT"
 fi
     
 if test "$checking_b" = no; then
+    # ugh
     AC_DEFINE(NDEBUG)
+    DEFINES="$DEFINES -DNDEBUG"
 fi
 
 if test "$optimise_b" = yes; then

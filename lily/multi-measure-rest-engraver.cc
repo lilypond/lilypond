@@ -78,7 +78,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
   if (part_b_)
     return;
 
-  if (last_mom_ <= now_moment () + Moment (1))
+  if (last_mom_ <= now_moment ())
     multi_measure_req_l_ = 0;
 }
 

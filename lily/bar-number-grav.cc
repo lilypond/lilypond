@@ -34,10 +34,13 @@ Bar_number_engraver::acknowledge_element (Score_elem_info i)
       script_p_ = new Script;
       Text_def *td_p =new Text_def;
       td_p->text_str_ = time->bars_i_;
+      td_p->align_i_ = LEFT;
 
       script_p_->specs_l_ = td_p;
       script_p_->breakable_b_ = true;
       script_p_->dir_ = UP;
+//      script_p_->y_ += 2;
+      script_p_->y_ = 8;
 
       announce_element (Score_elem_info (script_p_, &dummy));
     }

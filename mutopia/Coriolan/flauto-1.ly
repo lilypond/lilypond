@@ -13,11 +13,11 @@ copyright =	 "public domain";
 
 flauto1 = \melodic{
 	\octave c'';	
-	r1 | r1 | c'4-.\ff r r2 | r1 |
-	r1 | r1 | d'4-. r r2 | r1 |
-	r1 | r1 | es'4-. r r2 | r1 |
+	r1*2 | c'4-.\ff r r2 | r1*3 |
+	d'4-. r r2 | r1*3 |
+	es'4-. r r2 | r1 |
 	g'4-. r r2 | b4-. r r2 |
-	r1 | r1 | r1 | r1 |
+	r1*4 |
 	r2 es'\p_"\ \ \ cresc." ( | )dis'2. es'4-.\f |
 }
 

@@ -15,6 +15,7 @@ copyright =	 "public domain";
 \include "trombe.ly"
 
 \score{
+%	\property Score.part = 1
 	\$trombe_staff
 	\paper{}
 }

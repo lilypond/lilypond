@@ -13,11 +13,11 @@ copyright =	 "public domain";
 
 clarinetto1 = \melodic{
 	\octave c';	
-	r1 | r1 | c'4-.\ff r r2 | r1 |
-	r1 | r1 | d'4-. r r2 | r1 |
-	r1 | r1 | es'4-. r r2 | r1 |
+	r1*2 | c'4-.\ff r r2 | r1*3 |
+	d'4-. r r2 | r1*3 |
+	es'4-. r r2 | r1 |
 	es'4-. r r2 | d'4-. r r2 |
-	r1 | r1 | r1 | r1 |
+	r1*4 |
 	as2\p_"\ \ \ cresc." ( g | )fis2. g4-.\f |
 }
 

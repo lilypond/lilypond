@@ -11,6 +11,7 @@ shortlong = \melodic{
 	c4()c( c c  |
 	c c c c |
 	c c c c |
+	\break;
 	c c c )c |
 }
 
@@ -133,6 +134,7 @@ blend =	\melodic{
 	\octave c';
 	e( c'' c'' )e
 	\stemup
+	f'( c'' c'' )f'
 	e( c'' c'' )e
 	\stemdown
 	f'( \stemboth 'a 'a \stemdown )f'
@@ -174,7 +176,7 @@ clipping = \melodic{
 \score{
 	\melodic{ 
 		% use blend for fast check
-		%\blend
+		\blend
 % {
 		\shortlong
 		\dirs
@@ -185,16 +187,16 @@ clipping = \melodic{
 		\tiltup
 		\tiltdown
 		\bug
-		\clipping
 % }
+		\clipping
 		% use broken with small linewidth
 		%\broken
 	}
 	\paper{ 
 	      indent = 0.0\pt;
 		%for broken!
-		%linewidth= 40.\mm;
-		%castingalgorithm = \Wordwrap;
+		% linewidth= 30.\mm;
+		castingalgorithm = \Wordwrap;
 	}
 }
 

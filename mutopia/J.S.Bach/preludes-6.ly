@@ -1,6 +1,11 @@
 \header{
 filename =	 "preludes-6.ly";
 title =	 "6";
+opus = "BWV 940";
+% blz 11
+% Six Petits Pr'eludes
+% Collection Johann Peter Kellner
+% ca 1703 - 1707
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";

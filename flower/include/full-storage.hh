@@ -13,6 +13,10 @@
 #include "varray.hh"
 #include "real.hh"
 
+#ifndef INLINE
+#define INLINE inline
+#endif
+
 /// simplest matrix storage. refer to its baseclass for the doco.
 class Full_storage 
 {
@@ -26,9 +30,9 @@ class Full_storage
   /// the storage
   Real** els_p_p_;
 
-  void init() ;
+  INLINE void init() ;
      
-  bool valid (int i, int j) const ; 
+  INLINE bool valid (int i, int j) const ; 
 
   void resize_rows (int);
   void resize_cols (int);
@@ -40,13 +44,13 @@ public:
   void OK() const;
     
     /// height of matrix
-  int rows() const;
+  INLINE int rows() const;
 
   /// width of matrix
-  int cols() const;
+  INLINE int cols() const;
 
   /// size if square
-  int dim() const;
+  INLINE int dim() const;
       
   /**  set the size. contents lost.       
       PRE
@@ -87,10 +91,10 @@ public:
     in the 0-part of a sparse matrix.
     */
 
-  Real& elem (int i,int j);
+  INLINE Real& elem (int i,int j);
 
   /// access a element, no modify
-  Real elem (int i, int j) const;
+  INLINE Real elem (int i, int j) const;
 
   Array<Real> row (int i) const ;
   Array<Real> column (int j) const;
@@ -124,7 +128,7 @@ public:
           ..
 
     */
-  bool mult_ok (int i, int j) const;
+  INLINE bool mult_ok (int i, int j) const;
 
   /**
       walk through matrix (regular multiply).
@@ -134,12 +138,12 @@ public:
       PRE
       mult_ok (i,j)
      */
-  void mult_next (int &i, int &j) const;
+  INLINE void mult_next (int &i, int &j) const;
 
   /**
       valid matrix entry. return false if at end of row
     */
-  bool trans_ok (int i, int j) const;
+  INLINE bool trans_ok (int i, int j) const;
 
   /**
       walk through matrix (transposed multiply).
@@ -149,21 +153,17 @@ public:
       ver_ok (i,j)
      */
 
-  void trans_next (int &i, int &j) const;
+  INLINE void trans_next (int &i, int &j) const;
 
-  Full_storage();
-  Full_storage (int i, int j);
-  Full_storage (Full_storage const&);
-  Full_storage (int i);
+  INLINE Full_storage();
+  INLINE Full_storage (int i, int j);
+  INLINE Full_storage (Full_storage const&);
+  INLINE Full_storage (int i);
   void operator=(Full_storage const &);
     
     
   ~Full_storage();
 };
-
-#ifndef INLINE
-#define INLINE inline
-#endif
 
 #include "full-storage.icc"
 

@@ -8,13 +8,12 @@
 #define ARRAY_H
 #include <assert.h>
 
-/// copy a bare (C-)array from #src# to #dest# sized  #count#
-template<class T>
-inline void arrcpy (T*dest, T*src, int count) {
-  for (int i_shadows_local=0; i_shadows_local < count ; i_shadows_local++)
-    *dest++ = *src++;
-}
+#ifndef INLINE
+#define INLINE inline
+#endif
 
+/// copy a bare (C-)array from #src# to #dest# sized  #count#
+template<class T> void arrcpy (T*dest, T*src, int count);
 
 /**
   Scaleable array/stack template, for a type T with default constructor.
@@ -187,14 +186,8 @@ public:
     }
   bool empty() const 
     { return !size_; }
-  void insert (T k, int j) 
-    {
-      assert (j >=0 && j<= size_);
-      set_size (size_+1);
-      for (int i=size_-1; i > j; i--)
-	array_p_[i] = array_p_[i-1];
-      array_p_[j] = k;
-    }
+
+  void insert (T k, int j);
   /**
      remove  i-th element, and return it.
   */
@@ -218,24 +211,7 @@ public:
     }
   // quicksort.
   void sort (int (*compare)(T const&,T const&),
-	     int lower = -1, int upper = -1) 
-    {
-      if (lower < 0) 
-	{
-	  lower = 0 ;
-	  upper = size()-1;
-	}
-      if (lower >= upper)
-	return;
-      swap (lower, (lower+upper)/2);
-      int last = lower;
-      for (int i= lower +1; i <= upper; i++)
-	if (compare (array_p_[i], array_p_[lower]) < 0)
-	  swap (++last,i);
-      swap (lower, last);
-      sort (compare, lower, last-1);
-      sort (compare, last+1, upper);
-    }
+	     int lower = -1, int upper = -1);
   void concat (Array<T> const &src) 
     {
       int s = size_;
@@ -251,12 +227,9 @@ public:
       arrcpy (r.array_p_, array_p_  + lower, s);
       return r;
     }
-  void reverse() 
-    {
-      int h = size_/2;
-      for (int i =0,j = size_-1; i < h; i++,j--)
-	swap (i,j);
-    }
+  void reverse();
 };
+
+#include "varray.icc"
 
 #endif
