@@ -1,5 +1,11 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* make/mutopia-rules.make ($(outdir)/%.pdf): use +lilypond.map to
+	get scalable cm fonts too.
+
+	* stepmake/stepmake/metafont-rules.make (ENCODINGOPTION): add
+	--encoding for mftrace if present.
+
 	* input/regression/slur-area.ly: move from test/
 
 	* input/test/: : remove simple-slur-endings slur-attachment
