@@ -76,7 +76,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   if (beam)
     {
       Real dy = 0;
-      SCM s = beam->get_grob_property ("height");
+      SCM s = beam->get_grob_property ("dy");
       if (gh_number_p (s))
 	dy = gh_scm2double (s);
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
