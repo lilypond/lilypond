@@ -55,16 +55,6 @@ for name in [
 # more identifiers
 for name in [
 'ly/declarations-init.ly',
-'ly/paper11-init.ly',
-'ly/paper13-init.ly',
-'ly/paper16-init.ly',
-'ly/paper19-init.ly',
-'ly/paper20-init.ly',
-'ly/paper23-init.ly',
-'ly/paper26-init.ly',
-'ly/paper-as5-init.ly',
-'ly/paper-as9-init.ly',
-'ly/paper-init.ly',
 'ly/params-init.ly',
 'ly/params-as-init.ly',
 ]:
