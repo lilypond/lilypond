@@ -6,6 +6,7 @@
 % TeXbook ex 7.7
 \def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
 
+% skip if included already
 \def\SkipLilydefs{\endinput}
 \ifundefined{EndLilyPondOutput}
         \def\EndLilyPondOutput{\csname bye\endcsname}
@@ -14,7 +15,10 @@
 \SkipLilydefs
 % should use \endinput
 
-        \def\mdef#1#2{\def#1{\mchar{#2}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% macros to shorten other definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\mdef#1#2{\def#1{\mchar{#2}}}
 \def\mchar#1{\musicfnt\char#1}
 \def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
 \def\maccentraise#1#2{\dimen0=\noteheight
@@ -34,19 +38,23 @@
 \def\rightalign#1{\hbox to 0pt{\hss#1}}
 
 
-%% musix defs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% set up dimensions
 \parindent=0pt
 \newdimen\smallspace
 \newdimen\interlinedist
-        \newcount\n
-        \newdimen\balkhoog
-        \newdimen\notewidth
-        \newdimen\noteheight
-        \newdimen\notewidthhalf
-        \newdimen\notewidthdouble
-        \newdimen\staffrulethickness
-        \newdimen\interstaffrule
+\newcount\n
+\newdimen\balkhoog
+\newdimen\notewidth
+\newdimen\noteheight
+\newdimen\notewidthhalf
+\newdimen\notewidthdouble
+\newdimen\staffrulethickness
+\newdimen\interstaffrule
 \newdimen\balkhalf
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% set fonts and primary dimensions
 \def\musixtwentydefs{
         \font\textfont=cmr10
         \font\meterfont=cmbx12
@@ -90,6 +98,9 @@
         \musixcalc
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% do derivative calcs
+
 \def\musixcalc{
         \interlinedist=\fontdimen5\musicfnt
         \smallspace=.3\interlinedist
@@ -104,7 +115,8 @@
                \balkhalf=\balkhoog
  \rationalmultiply\balkhalf*1/2 
 }
-% \def\dyn{\italicfont}
+
+% dynamics take extra kerning
 \def\dyn{\dynfont}
 \def\kdynf{\dynfont f\kern-.1ex}
 \def\kdynm{\dynfont m\kern-.15ex}
@@ -120,13 +132,10 @@
 \def\dynff{\dynf\kdynf}
 \def\dynfff{\dynff\kdynf}
 
-\def\slurcharh#1{{\slurhfont\char#1}}
-\def\slurcharu#1{{\slurufont\char#1}}
-\def\slurchard#1{{\slurdfont\char#1}}
-\def\hslurcharh#1{{\hslurhfont\char#1}}
-\def\hslurcharu#1{{\hslurufont\char#1}}
-\def\hslurchard#1{{\hslurdfont\char#1}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% provide interface to musixtex fonts 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mdef\quartball{'007}
 \mdef\halfball{'010}
 \mdef\wholeball{'011}
@@ -170,64 +179,6 @@
 \mdef\uhundredtwentyeighthflag{44}
 
 \maccentdef\repeatcolon{55}{2/1}
-\def\emptybar{}
-
-\def\thinbar{\vrule height\balkhoog}
-\def\thickbar{\vrule height\balkhoog width 2\smallspace}
-\def\maatstreep{\thinbar}
-%? what-s wrong with rightalign?
-\def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
-%%% \def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
-% \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
-\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
-\def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
-\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
-\def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
-
-%compatability
-\def\repeatbar{\repeatstopbar}
-\def\startrepeat{\repeatstartbar}
-\def\repeatbarstartrepeat{\repeatstopstart}
-
-\def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
-        \nointerlineskip
-        \vbox to \balkhalf{\vss\meterfont #2}}}
-\def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
-\def\lineseparator{\defaultlineseparator}
-\def\beauty{%
-        \par\vskip 10pt plus 30pt minus 10pt\par
-        \hskip -5pt\lineseparator
-        \par\vskip 10pt plus 30pt minus 10pt\par
-}
-
-\def\interstaffline{%
-        \vskip 10pt
-}
-\def\ugly{\nointerlineskip\par
-\vskip 40pt\par\vbox{\leftalign{\vrule width30pt height1pt}}\par\vskip 40pt
-}
-\def\interscoreline{\beauty}
-
-
-\def\lines#1#2{%
- \vbox{\kern-\interstaffrule
-        \n=0\nointerlineskip%
-        \loop\ifnum\n<#1\advance\n by1%
-                \kern\interstaffrule
-                \hrule height \staffrulethickness width#2
-                \repeat
-        }}
-
-\def\toplines#1{ % why space needed here?
-        \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
-\def\botlines#1{ % idem ditto
-        \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
-
-%
-% a staffsymbol with #1 lines, width #2
-% bottom at baseline
-\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
-
 \def\eighthflag{\topalign{\ueighthflag}}
 \def\sixteenthflag{\topalign{\usixteenthflag}}
 \def\thirtysecondflag{\topalign{\uthirtysecondflag}}
@@ -285,6 +236,63 @@
 \def\toeheel{\vbox{\mytoe\myheel}}
 %%
 
+\def\emptybar{}
+
+\def\thinbar{\vrule height\balkhoog}
+\def\thickbar{\vrule height\balkhoog width 2\smallspace}
+\def\maatstreep{\thinbar}
+
+%? what-s wrong with rightalign?
+\def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
+
+%%% \def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
+% \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+
+\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+\def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
+
+%compatibility
+\def\repeatbar{\repeatstopbar}
+\def\startrepeat{\repeatstartbar}
+\def\repeatbarstartrepeat{\repeatstopstart}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% parametric symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\slurcharh#1{{\slurhfont\char#1}}
+\def\slurcharu#1{{\slurufont\char#1}}
+\def\slurchard#1{{\slurdfont\char#1}}
+\def\hslurcharh#1{{\hslurhfont\char#1}}
+\def\hslurcharu#1{{\hslurufont\char#1}}
+\def\hslurchard#1{{\hslurdfont\char#1}}
+% stacked numbers
+\def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
+        \nointerlineskip
+        \vbox to \balkhalf{\vss\meterfont #2}}}
+
+% stacked horizontal lines 
+\def\lines#1#2{%
+ \vbox{\kern-\interstaffrule
+        \n=0\nointerlineskip%
+        \loop\ifnum\n<#1\advance\n by1%
+                \kern\interstaffrule
+                \hrule height \staffrulethickness width#2
+                \repeat
+        }}
+
+\def\toplines#1{ % why space needed here?
+        \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+\def\botlines#1{ % idem ditto
+        \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+
+%
+% a staffsymbol with #1 lines, width #2
+% bottom at baseline
+\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
+
 \def\stem#1#2{\vrule height#2 depth-#1}
 
 \def\placebox#1#2#3{%
@@ -300,7 +308,24 @@
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
 
-        
+% the interline symbol. Redefine to remove it.
+\def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
+\def\lineseparator{\defaultlineseparator}
+\def\beauty{%
+        \par\vskip 10pt plus 30pt minus 10pt\par
+        \hskip -5pt\lineseparator
+        \par\vskip 10pt plus 30pt minus 10pt\par
+}
 
+
+% redefine if not happy with interline spacing
+%
+\def\interstaffline{%
+        \vskip 10pt
+}
+\def\interscoreline{\beauty}
+        
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% big fat marks, if errors are detected.
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
-\def\linescoreerrormark{\placebox{0pt}{-10pt}{\bf L!}}
+\def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}

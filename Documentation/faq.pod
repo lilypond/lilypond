@@ -109,9 +109,9 @@ to associate one Request with one Item or Spanner.
 
 =head2 Miscellaneous
 
-Q: How do I change the staff-dividers?
+Q: How do I change the TeX layout?
 
-A: See lilyponddefs.tex
+A: See lilyponddefs.tex, it has some comments.
 
 
 Q: Why GPL?
