@@ -24,6 +24,7 @@ struct Scaled_font_metric : public Font_metric
   virtual Offset get_indexed_wxwy (int) const;
   virtual int name_to_index (String) const;
 protected:
+  virtual Real design_size () const;
   virtual Box get_indexed_char (int)const;
   virtual Box get_ascii_char (int)const;
   Font_metric *orig_;

@@ -242,7 +242,7 @@ LY_DEFINE (ly_font_design_size,"ly:font-design-size", 1 , 0, 0,
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return gh_cdr (fm->description_);
+  return gh_double2scm  (fm->design_size ());
 }
 
 
