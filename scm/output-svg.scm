@@ -50,12 +50,15 @@
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
+  "o = open"
   (format #f "<~S~a>\n" entity (attributes attributes-alist)))
 
 (define-public (eoc entity . attributes-alist)
+  " oc = open/close"
   (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
 
 (define-public (ec entity)
+  "c = close"
   (format #f "</~S>\n" entity))
 
 (define-public (entity entity string . attributes-alist)
@@ -105,8 +108,7 @@
        (match-2 (regexp-exec pango-description-regexp-nocomma str))
        (match (if match-1
 		  match-1
-		  match-2))
-       )
+		  match-2)))
 
     (if (regexp-match? match)
 	(begin
@@ -152,11 +154,35 @@
 
 ;;; catch-all for missing stuff
 ;;; comment this out to see find out what functions you miss :-)
-(define (dummy . foo) "")
-(map (lambda (x) (module-define! this-module x dummy))
-     (append
-      (ly:all-stencil-expressions)
-      (ly:all-output-backend-commands)))
+
+(if #f
+    (begin
+      (define (dummy . foo) "")
+      (map (lambda (x) (module-define! this-module x dummy))
+	   (append
+	    (ly:all-stencil-expressions)
+	    (ly:all-output-backend-commands)))
+      ))
+
+(define (url-link url x y)
+  (string-append
+   (eo 'a `(xlink:href . ,url))
+   (eoc 'rect
+	`(x . ,(car x))
+	`(y . ,(car y))
+	`(width . ,(- (cdr x) (car x)))
+	`(height . ,(- (cdr y) (car y)))
+	'(fill . "none")
+	'(stroke . "none")
+	'(stroke-width . "0.0"))
+   (ec 'a)))
+
+(define (grob-cause offset grob)
+  "")
+
+(define (no-origin)
+  "")
+
 
 (define (rect-beam width slope thick blot-diameter)
   (let* ((x width)
@@ -177,7 +203,7 @@
 	    `(height . ,(+ thick (* (abs z) (/ thick 2))))
 	    `(rx . ,(/ blot-diameter 2))
 	    `(transform . ,(format #f "matrix (1, ~f, 0, 1, 0, 0)"  z)
-			   ))))
+			))))
 
 (define (beam width slope thick blot-diameter)
   (let* ((b blot-diameter)
@@ -215,7 +241,7 @@
 			   0 (- t)
 			   (- w) h
 			   0 t))
-	  )))
+	    )))
 
 (define (bezier-sandwich lst thick)
   (let* ((first (list-tail lst 4))
@@ -229,7 +255,7 @@
 	    '(fill . "black")
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0)))
-	  )))
+	    )))
 
 (define (char font i)
   (dispatch

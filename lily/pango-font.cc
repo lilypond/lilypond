@@ -237,6 +237,9 @@ Pango_font::text_stencil (String str) const
   if (!dest.extent_box ()[X_AXIS].is_empty ())
     {
       Stencil frame = Lookup::frame (dest.extent_box (), 0.1, 0.1);
+      Box empty;
+      empty.set_empty();
+      Stencil dimless_frame (empty, frame.expr());
       dest.add_stencil (frame);
     }
 #endif
@@ -250,87 +253,4 @@ Pango_font::font_file_name () const
   return SCM_BOOL_F;
 }
 
-#endif
-
-#if 0
-void test_pango ()
-{
-  int dpi = 1200;
-
-  char *font_family = "Emmentaler";
-  PangoContext *pango_context
-    = pango_ft2_get_context (dpi, dpi);
-  PangoFontDescription *font_description;
-  font_description = pango_font_description_new ();
-  pango_font_description_set_family (font_description, g_strdup (font_family));
-  pango_font_description_set_style (font_description, (PangoStyle) 20);
-  pango_context_set_font_description (pango_context, font_description);
-
-  PangoAttrList *attr_list = pango_attr_list_new ();
-  char *str = "sfz";
-  GList *items = pango_itemize (pango_context, str, 0, strlen (str),
-				attr_list, NULL);
-
-  GList *ptr = items;
-  while (ptr)
-    {
-      PangoItem *item = (PangoItem *)ptr->data;
-      printf ("off %d len %d num %d\n", item->offset, item->length, item->num_chars);
-
-      PangoAnalysis paobj = item->analysis;
-      PangoAnalysis *pa = &paobj;
-
-      PangoFontDescription *descr = pango_font_describe (pa->font);
-      //      assert (font_description == descr);
-      printf ("font descr string '%s' fname '%s'",
-	      pango_font_description_to_string (descr),
-	      pango_font_description_to_filename (descr));
-
-      printf ("type name %s\n", g_type_name (G_TYPE_FROM_INSTANCE (pa->font)));
-      PangoFcFont *fcfont = G_TYPE_CHECK_INSTANCE_CAST (pa->font,
-							PANGO_TYPE_FC_FONT,
-							PangoFcFont);
-
-      FcPattern *fcpat = fcfont->font_pattern;
-      FcPatternPrint (fcpat);
-      char *retval ="bla";
-
-      FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) &retval);
-      printf ("retval %s\n", retval);
-
-      FT_Face ftface = pango_fc_font_lock_face (fcfont);
-
-      printf ("shape %ux %s lang %ux font %ux languagae %ux\nft face %ux\n", pa->shape_engine,
-	      G_OBJECT_TYPE_NAME (pa->shape_engine),
-	      pa->lang_engine, pa->font, pa->language, ftface);
-
-      PangoGlyphString *pgs = pango_glyph_string_new ();
-      pango_shape (str, strlen (str), pa, pgs);
-
-      int i;
-      for (i = 0; i < pgs->num_glyphs; i++)
-	{
-	  PangoGlyphInfo *pgi = pgs->glyphs + i;
-
-	  PangoGlyph pg = pgi->glyph;
-	  PangoGlyphGeometry ggeo = pgi->geometry;
-
-	  printf ("c %d w %d x %d y %d\n", pg, ggeo.width, ggeo.x_offset,
-		  ggeo.y_offset);
-
-	  char str[1024];
-	  FT_Get_Glyph_Name (ftface, pg, str, 1024);
-	  printf ("glyph %s\n", str);
-	}
-      printf ("\nPS name %s\n", FT_Get_Postscript_Name (ftface));
-
-      PangoRectangle r1;
-      PangoRectangle r2;
-
-      pango_glyph_string_extents (pgs, pa->font, &r1, &r2);
-
-      ptr = ptr->next;
-      printf ("\nnext item\n");
-    }
-}
 #endif

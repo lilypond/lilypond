@@ -99,8 +99,8 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 	    rstem[Y_AXIS] *= 1.1;
 
 	    belly[Y_AXIS] *= 0.75;
-	    lstem[X_AXIS][RIGHT] *= .5;
-	    rstem[X_AXIS][LEFT] = lstem[X_AXIS][RIGHT];
+	    lstem[X_AXIS][RIGHT] *= .33;
+	    rstem[X_AXIS][LEFT] = rstem[X_AXIS].linear_combination (1.0/3.0);
 	    lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
 	    rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
 	    boxes.push (belly);
