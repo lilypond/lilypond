@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    remove)
+        if [ -x /usr/bin/texhash -a -e /usr/lib/texmf/ls-R ]; then
+            texhash
+        fi
+    ;;
+
+    upgrade)
+    ;;
+
+    purge)
+        if [ -x /usr/bin/texhash -a -e /usr/lib/texmf/ls-R ]; then
+            texhash
+        fi
+    ;;
+
+    failed-upgrade|abort-install|abort-upgrade|disappear)
+    ;;
+
+    *)
+        echo "postrm called with unknown argument \`$1'" >&2
+        exit 0
+    ;;
+esac
