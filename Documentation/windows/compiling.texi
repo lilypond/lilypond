@@ -16,70 +16,67 @@ ftp://ftp.lilypond.org/pub/LilyPond/}.
 You need the following packages to compile Lilypond on Windows.
 
 @table @code
-@item The GNU + Cygnus tools, 1.3.6 or newer.
-Check out the @uref{http://sources.redhat.com/cygwin,Cygwin webpage}.
+@item The GNU + Cygnus tools, 1.3.10 or newer.
+Check out the @uref{http://cygwin.com,Cygwin webpage}.
 You can get the latest version of the GNU + Cygnus tools from cygnus
-@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
-Install everything, including tetex and texmf.
-@item GUILE 1.4, or newer.
-Check out the @uref{http://www.gnu.org/software/guile.html,GUILE
-webpage}.  You may need the patch @file{guile-1.4-gnu-windows.patch}
-included in LilyPond's source distribution.
+@uref{http://cygwin.com/mirrors.html,mirror site}.
 @end table
 
 @subsection Cross compiling
 
-These binaries are cross compiled for Windows on a GNU/Linux box.  You
-may want to check out the
-@uref{http://www.lilypond.org/gnu-windows/cygwin-cross.tar.gz,cross
-compilation scripts}.
+These binaries are cross compiled for Windows on a GNU/Linux box using
+mknetrel.  Get it from:
+@quotation
+@example
+     cvs -d:pserver:anoncvs@@sources.redhat.com:/cvs/cygwin-apps co mknetrel
+@end example
+@end quotation
+
+If your distribution does not include a Cygwin cross building
+environment, you can quite easily create one using mknetrel.
+Apply
+@uref{http://lilypond.org/people/jan/cygwin/mknetnel/mknetrel-cross-tools-.patch,this
+patch}, and read @file{CROSS-TOOLS}.
+
+Although mknetrel is well suited for this, the mknetrel maintainer
+does not see any reason to include this patch.
+
+You can also get
+@uref{http://lilypond.org/lilypond/cygwin/i386-gnu-linux-x-i686-pc-cygwin,
+precompiled binaries for GNU/Linux ix68}.
 
 @subsection Compiling on Windows
 
-Compiling on Windows should be possible, but how should we now?  If you
-have any experiences you want to share, please do so at
-@uref{http://lilypond.org/wiki?CompilingOnWindows,Compiling on Windows}.
-Or write to one of the mailing lists.
+Compiling on Windows should be possible, but how should we know?  If
+you have any experiences you want to share, please do so at
+@uref{http://lilypond.org/wiki?CompilingOnWindows,Compiling on
+Windows}.  Or write to one of the mailing lists.
 
 @section Windows installation specifics
 
 Installing LilyPond on Windows is similar to a unix installation, but
-needs a number of extra tricks.  All code for these tricks can be found
-in the source package directory @file{Documentation/windows}.
+needs a number of extra tricks.  All code for these tricks can be
+found in LilyPond's mknetrel build script in the source package
+directory @file{cygwin/mknetrel}.
 
-@table @asis
-@item @var{guile-1.4-gnu-windows.patch}
-You may (Cygwin gets better every day) need this patch to compile GUILE.
-@item @var{cygwin-installer.patch}
-Apply this patch to the @file{setup} directory of
-@file{cygwin-apps/setup}, to get the LilyPond installer.
 
-Compiling @file{setup.exe} has been complicated a bit with the
-introduction of the bzip2 feature.  Here's how I did it:
-@ignore
-old setup
+@section The LilyPond installer
+
+The LilyPond installer will probably be dropped real soon now.  It's a
+patched version of the Cygwin installer.  Get it from:
+
 @quotation
 @example
-    mkdir cygwin-20020218 && cd cygwin-20020218
-    export CVSROOT=:pserver:anoncvs@@anoncvs.cygnus.com:/cvs/src
-    touch $HOME/.cvspass
-    cvs login
-    cvs -z3 co -D20020218 winsup
-    cd src/winsup/cinstall
-    patch < $HOME/usr/src/lilypond/Documentation/windows/cygwin-installer.patch
-    (cd ../bz2lib; ./configure; make)
-    ./configure
-    CYGWIN=$HOME/usr/src/cygwin/cygwin-1.3.6
-    cp $HOME/usr/src/lilypond/Documentation/windows/LilyPond.ico .
-    make w32api_lib=$CYGWIN/usr/lib/w32api \
-        CXX="g++ -L$CYGWIN/usr/lib/mingw"
-    cp -pv setup.exe $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
-    strip $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
+     cvs -d:pserver:anoncvs@@sources.redhat.com:/cvs/cygwin-apps co setup
 @end example
-@end ignore
+@end quotation
+
+and apply @uref{http://lilypond.org/cygwin/cygwin-installer.patch,this patch}.
+
+Here's how I did it:
 @quotation
 @example
-    CYGWIN=$HOME/usr/src/cygwin/cygwin-1.3.10 # where your cygwin lives
+    CYGWIN=$HOME/cygwin  # where your cygwin lives
     cd $CYGWIN
     wget ftp://ftp.sf.net/pub/sourceforge/mingw/gcc-2.95.3-20010828.tar.gz
     wget ftp://ftp.sf.net/pub/sourceforge/mingw/w32api-1.4.tar.gz
@@ -100,7 +97,7 @@ old setup
     cvs login
     cvs -z3 -r setup-200206 setup
     cd setup
-    patch < $HOME/cvs/lilypond/Documentation/windows/cygwin-installer.patch
+    patch < $HOME/cvs/savannah/lilypond/Documentation/windows/cygwin-installer.patch
     cp $HOME/cvs/lilypond/Documentation/windows/LilyPond.ico .
     CPPFLAGS="-I$CYGWIN/usr/include/mingw \
                 -I$CYGWIN/usr/mingw/mingw32/include \
@@ -116,24 +113,3 @@ old setup
     strip $CYGWIN/dist/cygwin-1.3.10/new-setup.exe
 @end example
 @end quotation
-@item @var{--prefix=/usr/lilypond-x.y.x}
-The standard binary installation installs LilyPond into its own prefix.
-We think it's silly, but do this is on special request of Windows users.
-@item @file{fix-suffixes.sh}
-Add @file{.exe} to binary executables.
-@item @file{/etc/postinstall/}
-A post installation script that updates a symlink.
-@item @file{/etc/profile.d/}
-A number of login profile scripts set environment vars, every time you
-start the LilyPond/Cygwin shell (or Bash, for that matter).
-@end table
-
-These scripts and tricks are known to work, but may be incomplete.  If
-you find a bug, please send us your fix.
-
-Windows users have indicated that a DOS style login (as supposed to the
-LilyPond/Cygwin shell), would be useful.  We don't enjoy DOS scripting,
-and think users should try the bash shell, which is better suited for
-typing in commands.  It really helps a lot and pays off to read some
-introduction to this Bash shell.  However, if you have written useful
-DOS login scripts, please send us your code.
