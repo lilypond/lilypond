@@ -1,5 +1,5 @@
 /*
-  head-grav.cc -- part of GNU LilyPond
+  completion-note-heads-engraver.cc -- Completion_heads_engraver
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
@@ -18,6 +18,10 @@
 #include "spanner.hh"
 #include "tie.hh"
 #include "global-context.hh"
+
+/*
+TODO: make matching rest engraver.
+*/
 
 /*
 
