@@ -113,10 +113,9 @@ def warranty ():
 	sys.stdout.write ('\n')
 	sys.stdout.write ('  Han-Wen Nienhuys')
 	sys.stdout.write ('  Jan Nieuwenhuizen')
+	sys.stdout.write ('\n\n')
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ (r'''
-Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.'''))
+	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License.  It comes with NO WARRANTY."))
 	sys.stdout.write ('\n')
 
 def progress (s):
@@ -127,7 +126,8 @@ def warning (s):
 
 def user_error (s, e=1):
 	errorport.write (program_name + ":" + _ ("error: ") + s + '\n')
-	sys.exit (e)
+	if (e):
+		sys.exit (e)
 	
 def error (s):
 	'''Report the error S.  Exit by raising an exception. Please
@@ -330,24 +330,27 @@ pdftex_p = 0
 help_summary = _ ("Run LilyPond using LaTeX for titling")
 
 option_definitions = [
-	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
+	('', 'd', 'dependencies',
+	 _ ("write Makefile dependencies for every input file")),
 	('', 'h', 'help', _ ("this help")),
 	(_ ("DIR"), 'I', 'include', _ ("add DIR to LilyPond's search path")),
-	('', 'k', 'keep', _ ("keep all output, and name the directory %s.dir") % program_name),
+	('', 'k', 'keep',
+	 _ ("keep all output, output to directory %s.dir") % program_name),
 	('', '', 'no-lily', _ ("don't run LilyPond")),
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
 	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
-	# FIXME: preview, picture; to indicate creation of a PNG?
-	('', '', 'preview', _("make a picture of the first system.")),
-	(_ ('RES'), '', 'preview-resolution', _("set the resolution of the preview to RES.")),
+	(_ ('RES'), '', 'preview-resolution',
+	 _ ("set the resolution of the preview to RES")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', 'p', 'pdf', _ ("generate PDF output")),	
+	('', '', 'pdftex', _ ("use pdflatex to generate a PDF output")),
+	# FIXME: preview, picture; to indicate creation of a PNG?
+	('', '', 'preview', _ ("make a picture of the first system")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
-	('', '', 'pdftex', _("Use pdflatex to generate a PDF output")),
 	]
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
@@ -442,7 +445,7 @@ def set_setting (dict, key, val):
 	try:
 		dict[key].append (val)
 	except KeyError:
-		warning (_ ("no such setting: %s") % `key`)
+		warning (_ ("no such setting: `%s'") % `key`)
 		dict[key] = [val]
 
 
@@ -501,11 +504,13 @@ def run_lilypond (files, dep_prefix):
 	exit_status = status >> 8
 
 	# 2 == user interrupt.
-	if signal and  signal <> 2:
-		error("\n\nLilyPond crashed (signal %d). Please submit a bugreport to bug-lilypond@gnu.org\n" % signal)
+	if signal and  signal != 2:
+		error ("\n\n" + _ ("LilyPond crashed (signal %d).") % signal \
+		       + _ ("Please submit a bug report to bug-lilypond@gnu.org") + "\n")
 
 	if status:
-		error ("\n\nLilyPond failed on the input file. (exit status %d)\n" % exit_status)
+		error ( "\n" \
+			+ _ ("LilyPond failed on the input file (exit status %d).") % exit_status + "\n")
 		
 
 def analyse_lilypond_output (filename, extra):
@@ -570,7 +575,7 @@ def find_tex_files (files, extra):
 			x = x + 1
 	if not x:
 		fstr = string.join (files, ', ')
-		warning (_ ("no LilyPond output found for %s") % fstr)
+		warning (_ ("no LilyPond output found for `%s'") % fstr)
 	return tfiles
 
 def one_latex_definition (defn, first):
@@ -610,7 +615,7 @@ def global_latex_preamble (extra):
 		try:
 			options = ly_paper_to_latexpaper[extra['papersize'][0]]
 		except KeyError:
-			warning (_ ("invalid value: %s") % `extra['papersize'][0]`)
+			warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
 			pass
 
 	if extra['latexoptions']:
@@ -716,15 +721,18 @@ None
 		start = m.start (0)
 		logstr = logstr[start:start+200]
 		
-		sys.stderr.write(_("""LaTeX failed on the output file.
-The error log is as follows:
-%s...\n""" % logstr))
+		user_error (_ ("LaTeX failed on the output file."), 0)
+		sys.stderr.write ("\n")
+		user_error (_ ("The error log is as follows:"), 0)
+		sys.stderr.write ("\n")
+		sys.stderr.write (logstr)
+		sys.stderr.write ("\n")
 		raise 'LaTeX error'
 	
 	if preview_p:
 		# make a preview by rendering only the 1st line.
 		preview_fn = outbase + '.preview.tex'
-		f = open(preview_fn, 'w')
+		f = open (preview_fn, 'w')
 		f.write (r'''
 %s
 \input lilyponddefs
@@ -838,9 +846,7 @@ def find_pfa_fonts (name):
 	s = open (name).read ()
 	if s[:len (PS)] != PS:
 		# no ps header?
-		errorport.write (_( "error: ") + _ ("not a PostScript file: `%s\'" % name))
-		errorport.write ('\n')
-		sys.exit (1)
+		user_error (_ ("not a PostScript file: `%s\'" % name))
 	here = 0
 	m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	pfa = []
@@ -856,8 +862,7 @@ try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:
 	errorport.write ('\n')
-	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
-	errorport.write ('\n')
+	user_error (_ ("getopt says: `%s\'" % s), 0)
 	errorport.write ('\n')
 	help ()
 	sys.exit (2)
@@ -943,7 +948,7 @@ if files and (files[0] == '-' or output_name == '-'):
 			progress (_ ("pseudo filter"))
 	else:
 		help ()
-		user_error (_ ("pseudo filter only for single input file."), 2)
+		user_error (_ ("pseudo filter only for single input file"), 2)
 		
 	
 original_output = output_name
@@ -1103,4 +1108,4 @@ if files:
 	
 else:
 	help ()
-	user_error (_ ("no files specified on command line."), 2)
+	user_error (_ ("no files specified on command line"), 2)
