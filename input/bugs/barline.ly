@@ -1,13 +1,10 @@
 \header {
-	title = "The river is flowing";
-	composer = "Traditonal (?)";
+texidoc= "Staffs that end half way a system should end at the bar line.";
 }
 
 melody = \notes \relative c' {
 	\partial 8;
 	g8 |
-	
-	
 	\bar "|.";\clef bass;
 }
 
@@ -15,7 +12,7 @@ melody = \notes \relative c' {
 
 accompaniment =\chords  \sequential {
 	r8
-	c2:min f:min 7 
+	r2 r2
 }
 
 \score {
@@ -25,5 +22,4 @@ accompaniment =\chords  \sequential {
 	  	\melody }
 	}
 	\paper { }
-	\midi  { }
 }

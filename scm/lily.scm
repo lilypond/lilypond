@@ -78,4 +78,5 @@
 	   "basic-properties.scm"
 	   "chord-name.scm"
 	   "grob-description.scm"
+	   "script.scm" "midi.scm"
 	   )))

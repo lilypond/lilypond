@@ -1,6 +1,4 @@
 
-#(eval-string (ly-gulp-file "paper.scm"))
-
 \paper {
 	texsetting = "";
 	pssetting = "";

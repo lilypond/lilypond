@@ -100,10 +100,7 @@ key signatures after the bar lines:
 @end example
 ")
 (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
-(translator-property-description 'chordInversion boolean? " Determines whether LilyPond should look for chord inversions when
-    translating from notes to chord names.  Set to 1 to find
-    inversions.  The default is 0 which does not look for
-    inversions.")
+(translator-property-description 'chordChanges boolean? "Only show changes in chords scheme?")
 (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
 (translator-property-description 'clefOctavation integer? "Add
 this much extra octavation. Values of 7 and -7 are common.")
@@ -124,9 +121,15 @@ every barline.
 ")
 (translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
 (translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
-(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME]
+(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME];
+
+This variable is typically read at Score level, so overriding
+Staff.defaultBarType will have no effect.
+
 ")
-(translator-property-description 'drarnChords boolean? "")
+(translator-property-description 'chordChanges boolean? "Only generate chords
+if they change.
+")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
 (translator-property-description 'explicitKeySignatureVisibility procedure? "visibility-lambda function for explicit Key changes.")
 (translator-property-description 'followThread boolean?
@@ -262,6 +265,7 @@ settings.
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
+(translator-property-description 'transposing integer? "Transpose the MIDI output.  Set this property to the number of half-steps to transpose by.")
 (translator-property-description 'tremoloFlags integer? "Number of tremolo flags to add if none is specified.")
 (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off

@@ -1,3 +1,42 @@
+1.3.126.jcn2
+============
+
+* Grand Refman restructuring, featuring outline mode.
+
+* Fixed missing menus and cross references.
+
+* Coriolan fixes and updates.
+
+* Bugfix: a2-engraver and *devnull_engraver recognise alternative
+'oneXXX' 'twoXXX' naming convention.
+
+* Enabled markup text to be used for instrument names.
+
+* Bugfix: interface description of System_start_delimiter
+
+* Slur attachment fix (thanks, Han-Wen)
+
+1.3.126.hwn1
+============
+
+* Bugfix in Global_translator::run_iterator_on_me (): only run
+iterator::process if iterator::ok() is true.
+
+* Bugfix: when iterating empty sequential-music, start out with an
+invalid iterator.
+
+* Bugfix: length calculation for volta repeat music with too few
+alternatives.
+
+* Bugfix: print different string for first printed alternative in
+volta repeat music with too few alternatives, eg. 1.-4.
+
+* Cleaned up bugs/ directory
+
+* Be less intelligent about default font backup, just load cmr10
+
+* Generated documentation: sort and uniq Grob lists of contexts.
+
 1.3.126
 =======
 * Doco:

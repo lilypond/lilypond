@@ -14,3 +14,8 @@ convert-ly: local-convert-ly
 
 local-convert-ly:
 	$(PYTHON) $(script-dir)/convert-ly.py -e *ly
+
+tar:
+	mkdir -p $(outdir)/$(tarball)
+	cp -p *.ly $(outdir)/$(tarball)
+	cd $(outdir) && tar czf $(tarball).tar.gz $(tarball)

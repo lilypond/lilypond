@@ -229,10 +229,7 @@ put on top of all staffs, and appears only at  left side of the staff."
      "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
 and generate the appropriate chordname."
      '(ChordName)
-     '(
-      chordInversion
-      drarnChords
-      )))
+     '(chordChanges)))
 
 
    (cons

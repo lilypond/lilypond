@@ -30,11 +30,9 @@ Tuplet_spanner::set_interface (Grob*me)
 }
 
 /*
-  TODO. 
- */
-
+  TODO: use stem->beam fields to find Beams. Autobeams aren't found
+  through the engraver mechanism.  */
 MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule,1);
-
 SCM
 Tuplet_spanner::brew_molecule (SCM smob) 
 {

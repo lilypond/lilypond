@@ -18,11 +18,7 @@
 #include "scm-hash.hh"
 #include "kpath.hh"
 
-
-
-
-
-const char * default_font_sz_ = "cmr10";
+static const char * default_font_sz_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
 {
@@ -159,12 +155,10 @@ All_font_metrics::find_font (String name)
   warning (_ ("Loading default font"));
   
   String def_name = default_font_sz_;
-  SCM l = scm_assoc (ly_str02scm ("default"),
-		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
-  
-  if (l != SCM_BOOL_F)
-    def_name = ly_scm2string (gh_cdr (l));
 
+  /*
+    we're in emergency recovery mode here anyway, so don't try to do
+    anything smart that runs the risk of failing.  */
   f= find_afm (def_name);
   if (f)
     return f;

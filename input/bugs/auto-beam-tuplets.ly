@@ -1,10 +1,10 @@
-\score { \notes {
-	\property Voice.tupletSpannerDuration = #(make-moment 1 4)
-  \property Voice.tupletNumberVisibility = #'if-no-beam
-  \property Voice.tupletBracketVisibility = #'if-no-beam
-  %  Gm7  /  F    |  A7   /  Dm   | 
+\header { texidoc = "tuplet-spanner should not put visible brackets on
+beams even if they're auto generated."; }
+
+\score { \notes \relative c' {
+  \property Voice.tupletSpannerDuration = #(make-moment 1 4)
+  \property Voice.TupletBracket \override #'tuplet-bracket-visibility = #'if-no-beam
   \times 2/3 {
-  [f,8 bes, d] [g d bes,] [f, a, c] [f c a,] | e, a, cis e cis a, d, f, a, d a, f, |
-  %  Db           |
-  des, aes, des f des aes, des, aes, des f des aes, | }
+	[f8 f f ][f8 f f ] f f f f f f 
+ }
 }}

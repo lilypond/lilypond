@@ -1,7 +1,18 @@
 @c -*-texinfo-*-
+@c Note:
+@c
+@c A menu is needed before every deeper *section nesting of @nodes
+@c Run M-x texinfo-all-menus-update
+@c to automagically fill in these menus
+@c before saving changes
+
 @ignore
 
 TODO
+  * cue notes
+  * different staff sizes
+  * font selection
+
   * move some stuff to refman
   * merge some stuff with refman entries
   
@@ -24,17 +35,17 @@ yes: \property Staff.VoltaBracket = #'((meta .  ((interfaces . ()))))
 @chapter Tricks
 
 @menu
-* Manual beam settings::           Manual beam settings
-* Slur attachments::               Slur attachments
-* Text spanner::                   Text spanner
-* Engraver hacking::               Engraver hacking
-* Part combiner::                  Part combiner
-* Markup text::                    Markup text
-* Apply hacking::                  Apply hacking
-* Output property::                Output property
-* Embedded TeX::                   Embedded TeX
-* Embedded PostScript::            Embedded PostScript
+* Manual beam settings::        Manual beam settings
+* Slur attachments::            Slur attachments
+* Engraver hacking::            Engraver hacking
+* Part combiner::               Part combiner
+* Markup text::                 Markup text
+* Output property::             Output property
+* Apply hacking::               Apply hacking
+* Embedded TeX::                Embedded TeX
+* Embedded PostScript::         Embedded PostScript
 @c * Index::                          Checking Feature index
+* Index::                       Checking Feature index
 @end menu
 
 
@@ -286,34 +297,6 @@ increasing the @code{beautiful} value:
 @end quotation
 
 
-@node Text spanner
-@section Text spanner
-
-
-
-Have crescendo set a text spanner instead of hairpin
-
-@lilypond[fragment,relative,verbatim]
-  \context Voice {
-    \property Voice.crescendoText = "cresc."
-    \property Voice.crescendoSpanner = #'dashed-line
-    a''2\mf\< a a \!a 
-  }
-@end lilypond
-
-@subsection Ottava
-
-@lilypond[fragment,relative,verbatim]
-  a'''' b c a
-  \property Voice.TextSpanner \set #'type = #'dotted-line
-  \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
-  \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
-  \property Staff.centralCPosition = #-13
-  a\spanrequest \start "text" b c a \spanrequest \stop "text"
-@end lilypond
-
-
-
 @node Engraver hacking
 @section Engraver hacking
 
@@ -390,6 +373,24 @@ No staff, no clef, squash pitches
 
 @node Markup text
 @section Markup text
+
+
+@ignore
+
+
+#(define text-flat '((font-relative-size . -2 ) (music "accidentals--1")))
+
+  \property VoiceCombineStaff.instrument = #`((kern . 0.5) (lines
+    "2 Clarinetti" (rows "     (B" ,text-flat ")")))
+
+    % Ugh, markup burps
+    \property StaffCombineStaff.instrument = #'((kern . 0.5)
+    (lines "Violoncello" (rows "     e") (rows "Contrabasso")))
+
+
+@end ignore
+
+
 
 Metrome hack...
 
