@@ -114,11 +114,15 @@
 
 
 (define (ly-load x)
-  ;; should check verbose
-;;  (format (current-error-port) "[~s]" x)
-  (primitive-load (%search-load-path x))
+  (let*
+      (
+       (fn (%search-load-path x))
+       )
+    (if (ly-verbose)
+	(format (current-error-port) "[~A]" fn))
+    (primitive-load fn)
 
-  )
+    ))
 
 
 

@@ -470,11 +470,20 @@ ly_unit ()
   return ly_str02scm (INTERNAL_UNIT);
 }
 
+
+SCM
+ly_verbose ()
+{
+  return gh_bool2scm (verbose_global_b);
+}
+
 static void
 init_functions ()
 {
   scm_c_define_gsubr ("ly-warn", 1, 0, 0,
 		      (Scheme_function_unknown)ly_warning);
+  scm_c_define_gsubr ("ly-verbose", 0, 0, 0,
+		      (Scheme_function_unknown)ly_verbose);
   scm_c_define_gsubr ("ly-version", 0, 0, 0,
 		      (Scheme_function_unknown)ly_version);  
   scm_c_define_gsubr ("ly-unit", 0, 0, 0,
