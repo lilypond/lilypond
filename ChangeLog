@@ -1,5 +1,13 @@
 2002-05-04  Han-Wen  <hanwen@cs.uu.nl>
 
+	* input/mozart-hrn*.ly: many corrections. 
+
+	* lily/dynamic-engraver.cc (acknowledge_grob): add Scripts  to
+	support for dynamic scripts.
+
+	* lily/accidental-placement.cc (position_accidentals): check for
+	collisions as well: should avoid those heads too.
+
 	* lily/beam.cc (check_concave): allow undefined gap and
 	threshold. Change the meaning of threshold/gap == 0.0.
 	(check_concave): skip Stolba concaveness check if we have a knee

@@ -788,6 +788,8 @@ Simple_music:
 	}
 	| MUSIC_IDENTIFIER {
 		$$ = unsmob_music ($1)->clone ();
+
+		$$->set_spot (THIS->here_input());
 	}
 	| property_def
 	| translator_change

@@ -18,7 +18,7 @@
    Needs support from Staff_side for proper operation.  Staff_side
    handles the positioning.
 */
-class Script
+class Script_interface
 {
 public:
   static Molecule get_molecule (Grob*,Direction d);

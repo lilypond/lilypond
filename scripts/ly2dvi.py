@@ -537,8 +537,9 @@ ly_paper_to_latexpaper =  {
 	'letter' : 'letterpaper', 
 }
 
-def global_latex_definition (tfiles, extra):
+#TODO: should set textheight (enlarge) depending on papersize. 
 
+def global_latex_definition (tfiles, extra):
 	'''construct preamble from EXTRA, dump Latex stuff for each
 lily output file in TFILES after that, and return the Latex file constructed.  '''
 
@@ -548,9 +549,10 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 
 	options = ''
 
+
 	if extra['papersize']:
 		try:
-			options = '%s' % ly_paper_to_latexpaper[extra['papersize'][0]]
+			options = ly_paper_to_latexpaper[extra['papersize'][0]]
 		except KeyError:
 			warning (_ ("invalid value: %s") % `extra['papersize'][0]`)
 			pass

@@ -401,7 +401,6 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
     {
       arpeggios_.push (info.grob_l_); 
     }
-  
 }
 
 void

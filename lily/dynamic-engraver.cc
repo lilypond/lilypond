@@ -18,7 +18,7 @@
 #include "directional-element-interface.hh"
 #include "translator-group.hh"
 #include "axis-group-interface.hh"
-
+#include "script.hh"
 
 /*
   TODO:
@@ -391,6 +391,9 @@ Dynamic_engraver::typeset_all ()
 void
 Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
+  if (!line_spanner_)
+    return ;
+  
   if (Note_column::has_interface (i.grob_l_))
     {
       if (line_spanner_
@@ -407,6 +410,17 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	}
       
     }
+  else if (Script_interface::has_interface (i.grob_l_) && script_p_)
+    {
+      SCM p = i.grob_l_->get_grob_property ("script-priority");
+
+      if (gh_number_p (p)
+	  && gh_scm2int (p) < gh_scm2int (script_p_->get_grob_property ("script-priority")))
+	{
+	  Side_position_interface::add_support (line_spanner_, i.grob_l_);
+
+	}	  
+    }
 }
 ENTER_DESCRIPTION(Dynamic_engraver,
 /* descr */       "
@@ -416,6 +430,6 @@ which takes care of vertical positioning.
 ",
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
-/* acks  */       "note-column-interface",
+/* acks  */       "note-column-interface script-interface",
 /* reads */       "",
 /* write */       "");

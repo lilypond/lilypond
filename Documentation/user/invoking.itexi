@@ -28,14 +28,17 @@ Output format for sheet music. Choices are @code{tex} (for @TeX{}
 output), @code{pdftex} for PDF@TeX{} input, @code{ps} (for PostScript), @code{scm} (for a Scheme
 dump), and @code{as} (for ASCII-art).
 
+Unless you have special requirements, you should use @TeX{}
+output. All other options are experimental.
+
 @c TODO: TFMFONTS
 
-For processing both the @TeX{} and the PostScript output, you must have
-appropriate environment variables set.  For @TeX{}, you have to set
-@code{MFINPUTS} and @code{TEXINPUTS} to point to the directory
-containing LilyPond metafont and .tex files.  For processing PostScript
-output with Ghostscript you have to set @code{GS_FONTPATH} to point to
-the directory containing LilyPond PFA files.
+For processing both the @TeX{} and the PostScript output, you must
+have appropriate environment variables set.  For @TeX{}, you have to
+set @code{MFINPUTS} and @code{TEXINPUTS} to point to the directory
+containing LilyPond metafont and @file{.tex} files.  For processing
+PostScript output with Ghostscript you have to set @code{GS_FONTPATH}
+to point to the directory containing LilyPond PFA files.
 
 Scripts to do this are included in
 @file{buildscripts/out/lilypond-profile} (for sh shells) and

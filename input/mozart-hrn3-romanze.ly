@@ -1,6 +1,6 @@
 
 \version "1.3.146"
-\include  "mozart-hrn3-defs.ly"
+%\include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
 	\key f \major
@@ -14,20 +14,20 @@ romanze = \notes \relative c' {
 	a2( [)g8 a( bes )b]
 	c4. () f8 a,4 a |
 	% 6 
-	[bes8 (c d) bes] g4 r8 c,-.
+	[bes8 (c d) bes] g4 r8 c,
 	[c8( e g )bes] [a( c f ) d]
 	c r e r f r r4
 	\mark "A"
 	R1*8
-	g4. ()f8  [e( d c) bes]
+	g4.\mf f8  [e d c bes]
 	% 18
 	[bes( a d )c] c4 r
 	R1*2
-	g'4.() f8 [e( d c) bes]
+	g'4. f8 [e d c bes]
 	[bes (a d ) c] c4 r
 	R1
 	% 25
-	[c16\mf ( d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
+	[c16 ( d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
 	[c16\p () d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
 	[c8 \< c, c c] [c c c \! c ]
 	\mark "B"
@@ -43,8 +43,8 @@ romanze = \notes \relative c' {
 	[d8( e f )d] b4 r8 g
 	[c ()e g g] [g( f e )d]
 	c4(
-	\grace { e16 }
-	[d8. )c16] [c8 c--( c-- )c--]
+	\grace { \longgrace e16 }
+	[d8. )c16 \< ] [c8 c-.( c-. \! )c-.]
 	\mark "C"
 	des1\sfp
 	g,1\sfp 
@@ -58,14 +58,14 @@ romanze = \notes \relative c' {
 	\! )a4 r r2
 	R1*3
 	c4.-\p () f8 a,4 a |
-	[bes8 (c d) bes] g4 r8 c,-.
+	[bes8 (c d) bes] g4 r8 c,
 	[c8( e g )bes] [a( c f ) d]
-	c-. r e-. r f4 r4
+	c r e r f4 r4
 	R1*3
 	r2 r4 r8 c,8
 	[c8( e g )bes] [a( c f ) d]
-	c-. r e-. r f4 r4	
-	g,1\pp
+	c r e r f4 r4	
+	g,1
 	c,2 c4. c8
 	[c8( e g )bes] [a( c f ) d]
 	c r e r f4 r4			% -. ? 
