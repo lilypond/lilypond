@@ -1,0 +1,26 @@
+# -*-python-*-
+
+import glob
+
+sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
+name = 'lyparser'
+
+Import ('env')
+e = env.Copy ()
+
+e.Append (YACCFLAGS = '-d')
+e.Append (CPPPATH = ['include', '#/lily/include', '#/flower/include'])
+e.Depends ('lexer.cc', 'parser.cc')
+
+# some stuff here from lily-as-lib
+if os.path.exists ('main.cc'):
+	if env['static']:
+		e.Library (name, sources) 
+	if not env['static'] or ['shared']:
+		e.SharedLibrary (name, sources)
+else:
+	#e.Append (LIBS = ['lygui', 'lyparser', 'lily', 'flower'])
+	e.Append (LIBS = ['flower'])
+	e.ParseConfig ('guile-config link')
+	name = 'lilypond-bin'
+	e.Program (name, sources)

@@ -1,0 +1,16 @@
+# -*-python-*-
+
+import glob
+sources = glob.glob ('*.cc')
+
+name = 'flower'
+
+Import ('env')
+##print `env.__dict__`
+
+e = env.Copy ()
+e.Append (CPPPATH = ['include'])
+if env['static']:
+	e.Library (name, sources) 
+if not env['static'] or ['shared']:
+	e.SharedLibrary (name, sources)
