@@ -1,3 +1,7 @@
+2003-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (fonts): Also make fontball.
+
 2003-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/*:

@@ -37,6 +37,8 @@ footify:
 
 fonts:
 	$(MAKE) -C $(depth)/mf
+	(cd $(builddir)/share/lilypond/fonts && \
+		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
 run-reqs: builddir-setup fonts lily
 web-reqs: run-reqs pfa-fonts
