@@ -6,104 +6,27 @@ import os
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
-###sources = glob.glob ('*.tely') + glob.glob ('user/*.tely')
-sources = ['user/lilypond.tely', 'user/music-glossary.tely']
-pngs = glob.glob ('user/*.png')
+sources = ['index.html.in', 'texinfo.css']
 os.chdir (here)
 
 Import ('env')
-e = env.Copy ()
-outdir = os.path.join (env['build'], reldir, env['out'])
 
-# Too late
-e.Append (LILYPOND_BOOK_PATH = [os.path.join (env['srcdir'], reldir, 'user')])
-e['LILYPOND_BOOK_PATH'].append (os.path.join (env['srcdir'], reldir, 'user'))
+#SConscript (os.path.join (b, 'SConscript'))
 
+# build = env['build']
+# out = env['out']
 
-
-def verbose_opt (env, opt):
-	if env['verbose']:
-		return opt
-	return ''
-
-LILYPOND_BIN = env['LILYPOND_BIN']
-LILYPONDPREFIX = env['LILYPONDPREFIX']
-
-
-mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
-lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
-userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
-e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
-e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
-e.Depends ('lilypond.texi', 'lilypond-internals.texi')
-e.Depends ('lilypond.texi', os.path.join (lilybuild, 'lilypond-bin'))
-
-png_stems = map (lambda x: os.path.splitext (x)[0], pngs)
-epss = map (e.Png2eps, png_stems)
-e.Depends ('lilypond.texi', epss)
-
-e.Command ('lilypond-internals.texi', LILYPOND_BIN,
-	   ('(cd $$(dirname $TARGET) && \
-	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \
-	    + verbose_opt (env, ' --verbose') \
-	    + ' ' + os.path.join (env['srcdir'], 'ly/generate-documentation')\
-	    + ')') % vars ())
-
-doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
-texis = map (e.Tely2texi, doc_stems)
-dvis = map (e.Texi2dvi, doc_stems)
-pss = map (e.PostScript, map (lambda x: x + '.dvi', doc_stems))
-pdfs = map (e.Dvi2pdf, doc_stems)
-
-docdir = os.path.join (env['srcdir'], 'Documentation')
-out = env['out']
-# TODO: purl (ugh?), symlinks
-a = ('makeinfo -I$$(dirname $SOURCE) \
---output=%(out)s/lilypond \
---css-include=%(docdir)s/texinfo.css \
---html' \
-     + verbose_opt (env, ' --verbose') \
-     + ' $SOURCE && \
-     makeinfo -I$$(dirname $SOURCE) \
-     --output=$TARGET \
-     --css-include=%(docdir)s/texinfo.css \
-     --html --no-split --no-headers' \
-     + verbose_opt (env, ' --verbose') \
-     + ' $SOURCE') % vars ()
-#e.Command ('lilypond/lilypond.html',
-#	   'lilypond.texi',
-e.Command ('user/lilypond/lilypond.html',
-	   'user/lilypond.texi',
-#	   os.path.join (userbuild, 'lilypond.texi'),
-	   a)
-
-# TODO: purl (ugh?), symlinks
-a = ('makeinfo -I$$(dirname $SOURCE) \
---output=%(out)s/lilypond-internals \
---css-include=%(docdir)s/texinfo.css \
---html' \
-     + verbose_opt (env, ' --verbose') \
-     + ' $SOURCE && \
-     makeinfo -I$$(dirname $SOURCE) \
-     --output=$TARGET \
-     --css-include=%(docdir)s/texinfo.css \
-     --html --no-split --no-headers' \
-     + verbose_opt (env, ' --verbose') \
-     + ' $SOURCE') % vars ()
-#e.Command ('lilypond-internals/lilypond-internals.html',
-#	   'lilypond-internals.texi',
-e.Command ('user/lilypond-internals/lilypond-internals.html',
-	   'user/lilypond-internals.texi',
-#	   os.path.join (userbuild, 'lilypond-internals.texi'),
-	   a)
-
-e.Alias ('doc', texis)
-e.Alias ('doc', dvis)
-e.Alias ('doc', pss)
-e.Alias ('doc', pdfs)
-
-#e.Alias ('doc', 'user/lilypond-internals/lilypond.html')
-#e.Alias ('doc', 'user/lilypond-internals/lilypond-internals.html')
+# subdirs = ['user',]
+# for d in subdirs:
+# 	b = os.path.join (build, d, out)
+# 	# Support clean sourctree build (srcdir build)
+# 	# and outdir build.
+# 	# TODO: figure out SConscript (dir, builddir, duplicate)) feature
+# 	if (build and build != '.') \
+# 	   or (out and out != '.'):
+# 		env.BuildDir (b, d, duplicate=0)
+# 	SConscript (os.path.join (b, 'SConscript'))
+#SConscript (os.path.join ('user', 'SConscript'))
 
 #testing
 all_sources = ['SConscript',] + sources

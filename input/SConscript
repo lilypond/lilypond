@@ -1,0 +1,40 @@
+# -*-python-*-
+
+import glob
+import os
+
+here = os.getcwd ()
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
+sources = glob.glob ('*.ly')
+abc_sources = glob.glob ('*.abc')
+os.chdir (here)
+
+Import ('env')
+e = env.Copy ()
+#outdir = os.path.join (env['build'], reldir, env['out'])
+
+# examples = simple simple-song les-nereides puer-fragment wilhelmus paddy
+
+stems = map (lambda x: os.path.splitext (x)[0], sources)
+pdfs = map (e.LilyPond, stems)
+
+abc_stems = map (lambda x: os.path.splitext (x)[0], abc_sources)
+lys = map (e.Abc2ly, abc_stems)
+pdfs = pdfs + map (e.LilyPond, lys)
+
+LILYPOND_BIN = env['LILYPOND_BIN']
+
+#e.Depends (pdfs, LILYPOND_BIN)
+# e.Depends (pdfs, 'lilypond-internals.texi')
+
+mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
+e.Depends ('doc', mfbuild)
+e.Depends ('doc', LILYPOND_BIN)
+#e.Depends (doc, 'lilypond-internals.texi')
+
+e.Alias ('doc', pdfs)
+
+#testing
+all_sources = ['SConscript',] + sources + abc_sources
+x = env.Tar (env['tarball'], all_sources)

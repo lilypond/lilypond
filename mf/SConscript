@@ -20,99 +20,14 @@ mf_sources = reduce (lambda x, y: x + y,
 os.chdir (here)
 
 Import ('env')
-MFMODE = env['MFMODE']
-def add_log_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.log'], source)
-
-def add_enc_ly_tex_target (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.enc', base + '.tex', base + 'list.ly']
-		, source)
-
-outdir = os.path.join (env['build'], reldir, env['out'])
-tfm = Builder (action = ('(cd ' + outdir + ' && ' \
-			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-			 + ' input $$(basename $SOURCE);" ' \
-			 + ' | grep -v "@\|>>")') % vars (),
-	       suffix = '.tfm',
-	       src_suffix = '.mf',
-	       emitter = add_log_target)
-
-afm = Builder (action = (sys.executable \
-			 + ' buildscripts/mf-to-table.py ' \
-			 + ' --outdir=%(outdir)s '\
-			 + ' --afm=%(outdir)s/$$(basename $TARGET .afm).afm' \
-			 + ' --enc=%(outdir)s/$$(basename $TARGET .afm).enc' \
-			 + ' --tex=%(outdir)s/$$(basename $TARGET .afm).tex' \
-			 + ' --ly=%(outdir)s/$$(basename $TARGET .afm)list.ly'\
-			 + ' %(outdir)s/$$(basename $SOURCE)') % vars (),
-	       suffix = '.afm',
-	       src_suffix = '.log',
-	       emitter = add_enc_ly_tex_target)
-
-def add_enc_src (target, source, env):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target, source + [base + '.enc'])
-
-def encoding_opt (target):
-	base = os.path.splitext (os.path.basename (str (target[0])))[0]
-	##enc = os.path.join (outdir, base + '.enc')
-	enc = base + '.enc'
-	if os.path.exists (os.path.join (outdir, enc)):
-		return ' --encoding=' + enc
-	return ''
-
-def verbose_opt (env, opt):
-	if env['verbose']:
-		return opt
-	return ''
-
-# UGH, should fix --output option for mftrace
-xpfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
-			 + ' mftrace -I %(outdir)s --pfa' \
-			 + ' --simplify --keep-trying' \
-			 + ' $$(basename $SOURCE .mf) ' \
-			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
-	       suffix = '.pfa',
-	       src_suffix = '.mf',
-	       emitter = add_enc_src)
-
-def run_mftrace (target, source, env):
-	TARGET = target[0]
-	SOURCE = source[0]
-	mf = os.path.basename (str (source[0]))
-	base = os.path.splitext (os.path.basename (str (target[0])))[0]
-	enc = base + '.enc'
-	mfdir = os.path.join (here, reldir)
-	outdir = os.path.join (env['build'], reldir, env['out'])
-	command = ('(cd %(outdir)s && '
-		   + ' MFINPUTS=.:%(outdir)s:' + mfdir\
-		   + ' mftrace --pfa --simplify --keep-trying' \
-		   + ' --include=%(outdir)s'\
-		   + verbose_opt (env, ' --verbose') \
-		   + encoding_opt (target) \
-		   + ' %(mf)s)') % vars ()
-	return os.system (command)
-
-pfa = Builder (action = run_mftrace,
-	       suffix = '.pfa',
-	       src_suffix = '.mf',
-	       emitter = add_enc_src)
-
-
-e = env.Copy (BUILDERS = {'Tfm' : tfm,
-			  'Afm' : afm, 'Pfa' : pfa},
-	      MFINPUTS = '#/mf')
-
+e = env.Copy ()
 #mf_sources = ('feta16.mf',)
 #mf_sources = ('feta-braces-a.mf',)
 font_stems = map (lambda x: os.path.splitext (x)[0], mf_sources)
 
-t = map (e.Tfm, font_stems)
-a = map (e.Afm, font_stems)
-p = map (e.Pfa, font_stems)
+t = map (e.TFM, font_stems)
+a = map (e.AFM, font_stems)
+p = map (e.PFA, font_stems)
 
 map (lambda x: e.Depends (x + '.pfa', x + '.enc'), font_stems)
 #map (lambda x: e.Depends (x + '.pfa', x + '.log'), font_stems)

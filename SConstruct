@@ -333,16 +333,22 @@ env['PYTHON'] = 'python'
 env['LILYPOND_BIN'] = os.path.join (absbuild, 'lily', out, 'lilypond-bin')
 env['LILYPONDPREFIX'] =	os.path.join (outdir, 'usr/share/lilypond')
 env['LILYPOND_BOOK'] = srcdir + '/scripts/lilypond-book.py'
+env['ABC2LY_PY'] = srcdir + '/scripts/abc2ly.py'
+env['MF_TO_TABLE_PY'] = srcdir + '/buildscripts/mf-to-table.py'
+env['LILYPOND_PY'] = srcdir + '/scripts/lilypond.py'
 env['LILYPOND_BOOK_FLAGS'] = ''
 env['LILYPOND_BOOK_FORMAT'] = 'texi-html'
+# ugh?
 env['LILYPOND_BOOK_PATH'] = ['.', '#/input', '#/input/regression',
 			     '#/input/test', '#/input/tutorial',
 			     os.path.join (absbuild, 'mf', out),
 			     '#/Documentation/user',
-			     os.path.join (absbuild, 'Documentation', out)]
+			     os.path.join (absbuild, 'Documentation', out),
+			     os.path.join (absbuild, 'Documentation/user', out),
+			     ]
 			     
 env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
-			os.path.join (absbuild, 'Documentation', out)]
+			os.path.join (absbuild, 'Documentation/user', out)]
 
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
@@ -352,7 +358,8 @@ SConscript ('buildscripts/builder.py')
 #subdirs = ['mf',]
 #subdirs = ['flower', 'lily', 'parser', 'gui', 'main',]
 #subdirs = ['flower', 'lily', 'mf', 'scm', 'ly']
-subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation']
+subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
+	   'Documentation/user', 'input']
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
