@@ -4,7 +4,7 @@
 
 // #define VERSION_SZ  MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL
 #define VERSION_SZ TOPLEVEL_VERSION
-static char *s = "GNU LilyPond " VERSION_SZ " #%d";
+static char *s = "GNU LilyPond " VERSION_SZ ;
 
 
 char const *

@@ -158,7 +158,7 @@ fuga2_pedal = \melodic {
   % 19
 }
 
-break = \melodic { 
+breakmusic = \melodic { 
   %\meter 4/4;
   r1
 }
@@ -169,12 +169,12 @@ break = \melodic {
   \type Score <
     \type Grandstaff <
       \type Staff = treble {
-        \praeludium_right \break \fuga2_right }
+        \praeludium_right \breakmusic \fuga2_right }
       \type Staff = bass { 
-        \praeludium_left \break \fuga2_left }
+        \praeludium_left \breakmusic \fuga2_left }
     > 
     \type Staff = pedal {
-      \praeludium_pedal \break \fuga2_pedal }
+      \praeludium_pedal \breakmusic \fuga2_pedal }
   >
 
   \paper{}
