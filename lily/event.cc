@@ -155,11 +155,9 @@ void
 Key_change_ev::transpose (Pitch p)
 {
   SCM pa = get_property ("pitch-alist");
-
   set_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy ()));
-  Pitch tonic = *unsmob_pitch (get_property ("tonic"));
-  set_property ("tonic",
-		    tonic.smobbed_copy ());
+
+  Event::transpose (p);
 }
 
 bool
