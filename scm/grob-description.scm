@@ -768,11 +768,13 @@
      . (
 	(breakable . #t)
 	(stem-spacing-correction . 0.4)
+	(knee-spacing-correction . 0.75)
 	(meta . ((interfaces . (spacing-interface staff-spacing-interface item-interface ))))
 	))
     (NoteSpacing
      . (
 	(stem-spacing-correction . 0.5)
+	(knee-spacing-correction . 0.75)
 	(meta . ((interfaces . (spacing-interface note-spacing-interface item-interface ))))
 	))
 

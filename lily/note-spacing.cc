@@ -314,7 +314,8 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  */
 	  
 	  correction = increment* stem_dirs[LEFT];
-	  *fixed += increment* stem_dirs[LEFT];
+	  correction *= gh_scm2double (me->get_grob_property ("knee-spacing-correction"));
+	  *fixed += correction;
 	}
       else
 	{
@@ -389,5 +390,5 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
 ADD_INTERFACE (Note_spacing,"note-spacing-interface",
   "",
-  "left-items right-items stem-spacing-correction");
+  "left-items right-items stem-spacing-correction knee-spacing-correction");
 

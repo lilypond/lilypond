@@ -248,7 +248,7 @@ signature before a key signature change.")
 (translator-property-description 'localKeySignature list? "the key
 signature at this point in the measure.  The format is the same as for keySignature. Is reset at every bar line."
 ) 
-(translator-property-description 'localKeySignatureChanges list? "??
+(translator-property-description 'localKeySignatureChanges list? "Experimental.
  [DOCME]")
 (translator-property-description 'measureLength moment? "Length of one
 measure in the current time signature last?")
