@@ -7,6 +7,81 @@ bottom_blot = 1.3 serif_thick;
 
 
 
+%
+% Couldn't find many z examples. This one is losely inspired 
+% by a sfz from Mueller etuden fuer Horn (Edition Hofmeister.)
+%
+
+code := 121;
+fet_beginchar ("dynamic z", "z", "dynz");
+ 	set_char_box (0, .98 ex#, 0, 0.9 ex#);
+
+	save thin_thick, top_narrow, over_shoot;
+	save bot_thick;
+
+	thin_thick = serif_thick;
+	top_narrow = thin_thick;
+	top_overshoot =  .8 serif_thick;
+	top_thick = .3 h ;
+	bot_thick = .2 ex;
+	bot_overshoot = serif_thick;
+
+	x0 = + top_narrow;
+	y0 = .9  [y1r, y1l];
+	y1l = .72 h;
+	x1r = .34 ex;
+	x2 = .66 ex;
+	y2 = y1r - top_overshoot;
+
+
+	y3 = h - .7 thin_thick;
+	x3 = w - .6 top_narrow - .5 thin_thick;
+
+	y4 = .5 thin_thick;
+	x4 = .5 thin_thick;
+
+	x5l =.25 ex;
+	y5l = .4 bot_overshoot;
+	y6l = -bot_overshoot;
+	x6 = w - 3 top_narrow;
+	x7 = w;
+	y7 = .82 [y8r, y6r];
+	x8r = w - .35 top_narrow;
+	x9 = w;
+	y8r = .45 h;
+
+	penpos1(top_thick, 80);
+	penpos3 (thin_thick, angle(z3-z4) + 90);
+	penpos4(thin_thick, angle (z3-z4) + 90);
+	penpos5(bot_thick, 70);
+	penpos6(3/2 bot_thick, 70);
+	penpos8 (thin_thick, 20);
+
+	penlabels(range 0 thru 9);
+
+	save p,q,r;
+	path p,q,r;
+
+	p := z0{down}
+		..  z1l{dir(10)}
+
+		.. simple_serif (z3l, z3r, 90) .. z2{left} .. z1r{left}
+		.. tension 1.2 
+		.. cycle;
+	q := z3l -- z3r -- z4r -- z4l -- cycle;
+	r := simple_serif (z4r, z4l, 90) .. z5l{right}
+		.. z6l{right}
+		.. z7{up}
+		.. simple_serif (z8r, z8l, 90)
+		..  z6r{left} .. z5r{left} .. cycle;
+	pickup pencircle scaled 1;
+%	draw p ; draw q ; draw r ;
+
+	fill p; fill q; fill r;
+
+fet_endchar;
+
+
 % forte f, grabbed from Ed Breitkopf Mozart horn concerto 3.
 %
 % NOTES:
