@@ -181,7 +181,6 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
     {
       int cmp = (lo + hi) / 2;
       b = fm->get_indexed_char (cmp);
-      //b = fm->get_indexed_char (fm->name_to_index ("brace" + to_string (cmp)));
       if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
 	hi = cmp;
       else
