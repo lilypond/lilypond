@@ -1,4 +1,3 @@
-# Pod_rules.make
 
 .SUFFIXES: .1 .5 .html .pod .txt
 

@@ -1,5 +1,3 @@
-# bin/Makefile
-
 depth = ..
 
 SEXECUTABLES=convert-ly lilypond-book ly2dvi abc2ly as2text etf2ly musedata2ly pmx2ly mup2ly

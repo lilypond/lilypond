@@ -1,4 +1,3 @@
-# install-targets.make
 
 local-install: local-install-files local-install-outfiles
 

@@ -1,5 +1,3 @@
-# title	   makefile for lilypond
-# file	   lily/Makefile 
 
 depth = ..
 

@@ -1,5 +1,4 @@
 
-
 PERL_SCRIPTS_IN := $(wildcard *.pl)
 PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.pl=))
 BASH_SCRIPTS_IN := $(wildcard *.bash)

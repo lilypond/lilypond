@@ -162,7 +162,7 @@ def remove_self_ref (s):
 	m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
 		      s, re.DOTALL)
 	while m:
-		sys.stderr.write ('self: %s\n' % m.group (2))
+		#sys.stderr.write ('self: %s\n' % m.group (2))
 		s = s[:m.start (1)] + m.group (2) + s[m.end (3):]
 		m = re.match ('.*?(<a href="[\./]*' + self_url + '#?[^"]*">)([^<]*)(</a>)',
 			      s, re.DOTALL)
@@ -237,7 +237,12 @@ def do_file (f):
 		m = re.match ('.*?<!-- (@[a-zA-Z0-9_-]*@)=(.*?) -->', s, re.DOTALL)
 
 	# urg
-	s = re.sub ('@WEB-TITLE@', '-- --', s)
+	# maybe find first node?
+	fallback_web_title = '-- --'
+	m = re.match ('.*?<title>\(.*?\)</title>', s, re.DOTALL)
+	if m:
+		fallback_web_title = m.group (1)
+	s = re.sub ('@WEB-TITLE@', fallback_web_title, s)
 	
 	s = remove_self_ref (s)
 

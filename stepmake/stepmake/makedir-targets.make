@@ -1,5 +1,4 @@
 
-
 spec: $(OUTSPEC_FILES)
 
 $(OUTSPEC_FILES): $(depth)/VERSION 

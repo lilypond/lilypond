@@ -1,12 +1,3 @@
-# title	   generic variables
-# file	   make/Variables.make
-#
-# do not change this file for site-wide extensions; please use 
-# make/$(outdir)/Site.make; 
-#
-# Any change in files in this directory (make/) would be distributed, if 
-# you do make dist 
-
 # directory names:
 
 # depth from group-dir
@@ -112,18 +103,6 @@ depfile = $(outdir)/$(subst .o,.dep,$(notdir $@))#
 DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 #
 
-
-# generic target names:
-#
-ifdef NAME
-EXECUTABLE = $(outdir)/$(NAME)
-else
-EXECUTABLE =
-endif
-
-EXECUTABLES = $(notdir $(EXECUTABLE))
-
-
 #
 
 #replace to do stripping of certain objects
@@ -146,5 +125,16 @@ LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) package=$(package) -C 
 ETAGS_FLAGS= # -CT
 CTAGS_FLAGS=-h
 
-include $(stepdir)/files.make
+makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
+
+DEP_FILES := $(wildcard $(outdir)/*.dep)
+
+IN_FILES := $(wildcard *.in)
+SOURCE_FILES += $(IN_FILES)
+
+# Preprocessed .in documentation _FILES:
+OUTIN_FILES = $(addprefix $(outdir)/, $(IN_FILES:%.in=%))
+
+ALL_SOURCES = $(SOURCE_FILES)
+
 

@@ -1,4 +1,3 @@
-
 # Don't remove $(outdir)/.log's.  Logs are a target!
 
 $(outdir)/%.0: %.mf $(outdir)/mfplain.mem  

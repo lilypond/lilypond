@@ -1,6 +1,3 @@
-# -*-Makefile-*-
-# title	   Toplevel_targets.make
-
 include $(stepdir)/www-targets.make
 
 local-dist: configure 
@@ -35,12 +32,6 @@ $(README_TXT_FILES): do-top-doc
 
 local-clean:
 
-###check-top-web:
-###	$(MAKE) -C Documentation/topdocs WWW
-#####
-
-####index.html: check-top-web NEWS
-
 local-dist: do-top-doc
 
 dist:
@@ -70,7 +61,7 @@ local-help:
   distclean   cleaner than clean (duh)\n\
   doc         update all documentation\n\
   release     roll tarball and generate patch\n\
-  rpm         build Red Hat package\n\
+  rpm         build rpm (Red Hat) package\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\

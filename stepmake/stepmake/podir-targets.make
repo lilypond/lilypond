@@ -1,4 +1,3 @@
-# Porules.make
 
 .SUFFIXES: .po .pot .mo
 

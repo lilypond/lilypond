@@ -1,6 +1,3 @@
-# dependency list of library:
-#
-
 
 default: $(LIBRARY)
 

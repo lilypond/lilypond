@@ -1,6 +1,3 @@
-# title	   C++ rules
-# file	   make/C++_rules.make
-
 .SUFFIXES: .cc .o .hh .yy .ll  .dep
 
 # compile rules:
