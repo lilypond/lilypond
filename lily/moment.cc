@@ -56,6 +56,16 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
+SCM
+Moment::as_scheme () const
+{
+  return scm_list_5 (ly_symbol2scm ("ly:make-moment"),
+		     scm_from_int (main_part_.num()),
+		     scm_from_int (main_part_.den()),
+		     scm_from_int (grace_part_.num()),
+		     scm_from_int (grace_part_.den()));
+}
+
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
 	   2, 2, 0, (SCM n, SCM d, SCM gn, SCM gd),

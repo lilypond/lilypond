@@ -299,6 +299,7 @@ or
 %token NAME
 %token NEWCONTEXT
 %token NOTEMODE
+%token OBJECTID	
 %token OCTAVE
 %token ONCE
 %token OVERRIDE SET REVERT
@@ -445,6 +446,7 @@ or
 %type <scm>	markup markup_line markup_list markup_list_body full_markup
 %type <scm> 	mode_changing_head
 %type <scm> 	mode_changing_head_with_context
+%type <scm>     object_id_setting 
 
 %type <score>	score_block score_body
 
@@ -469,6 +471,11 @@ lilypond:	/* empty */
 	| lilypond INVALID	{
 		THIS->error_level_ = 1;
 	}
+	;
+
+
+object_id_setting:
+	OBJECTID STRING { $$ = $2; } 
 	;
 
 toplevel_expression:
@@ -672,8 +679,7 @@ book_body:
 	}
 	| book_body score_block {
 		Score *score = $2;
-		$$->scores_.push (score);
-		scm_gc_unprotect_object (score->self_scm ());
+		$$->add_score (score);
 	}
 	| book_body lilypond_header {
 		$$->header_ = $2;
@@ -681,6 +687,9 @@ book_body:
 	| book_body error {
 		$$->paper_ = 0;
 		$$->scores_.clear();
+	}
+	| book_body object_id_setting {
+		$$->user_key_ = ly_scm2string ($2);
 	}
 	;
 
@@ -703,6 +712,9 @@ score_body:
 	| SCORE_IDENTIFIER {
 		$$ = new Score ( *unsmob_score ($1));
 		$$->set_spot (THIS->here_input ());
+	}
+	| score_body object_id_setting {
+		$$->user_key_ = ly_scm2string ($2);
 	}
 	| score_body Music {
 		SCM m = $2->self_scm ();

@@ -118,8 +118,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 ;;       stencil expressions should have docstrings.
 (define-public (ly:all-stencil-expressions)
   "Return list of stencil expressions."
-  '(
-    beam
+  '(beam
     bezier-sandwich
     blank
     bracket

@@ -693,7 +693,7 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 
   Offset z1(iv[LEFT], 0);
   Offset z2(iv[RIGHT], 0);
-  Offset z3(z2[X_AXIS]/2, protude);
+  Offset z3((z1 + z2)[X_AXIS]/2, protude);
 
   /*
     TODO: move Triangle to Line_interface ?

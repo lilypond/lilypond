@@ -7,7 +7,9 @@
        Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+
 #include "book.hh"
+#include "lilypond-key.hh"
 #include "context-selector.hh"
 #include "grob-selector.hh"
 #include "file-name.hh"
@@ -433,6 +435,8 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Score *score = unsmob_score (score_smob);
 
+  Object_key * key = new Lilypond_general_key (0, score->user_key_, 0);
+  
   if (score->error_found_)
     return SCM_UNSPECIFIED;
   
@@ -453,16 +457,19 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   for (int i = 0; i < score->defs_.size (); i++)
     default_rendering (score->get_music (), score->defs_[i]->self_scm (),
 		       paper,
-		       header, os);
+		       header, os,
+		       key->self_scm ());
 
   if (score->defs_.is_empty ())
     {
       Output_def *layout = get_layout (parser);
       default_rendering (score->get_music(), layout->self_scm (),
 			 get_paper (parser)->self_scm (),
-			 header, os);
+			 header, os, key->self_scm ());
       scm_gc_unprotect_object (layout->self_scm ());
     }
+
+  scm_gc_unprotect_object (key->self_scm ());
   return SCM_UNSPECIFIED;
 }
 
@@ -506,8 +513,8 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   (*c)++;
 
   Output_def *layout = get_layout (parser);
-
   Paper_book* pb = book->process (outname.to_string (), layout);
+  
   if (pb)
     {
       pb->output (outname.to_string ());
