@@ -71,6 +71,7 @@ public:
   void push_figuredbass_state ();
   void push_lyric_state ();
   void push_initial_state ();
+  void push_lyric_markup_state ();
   void push_markup_state ();
   void push_note_state (SCM tab);
   void pop_state ();

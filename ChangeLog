@@ -1,4 +1,28 @@
+2005-03-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/NEWS.tely (Top): Mention markup text feature.
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): toplevel-music-handler:
+	Add texts parameter.
+
 2005-03-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lexer.ll (lyric_markup): New mode.
+	(Lily_lexer::push_lyric_markup_state): New method.
+	(MARKUPCOMMAND): Markup during lyric mode returns LYRIC_MARKUP.
+
+	* lily/parser.yy (book_body):
+	(toplevel_expression): Grok \markup texts.
+
+	* lily/score-scheme.cc (ly:music-scorify): 
+	* scm/lily-library.scm (collect-music-for-book): Take texts
+	parameter.
+
+	* lily/score.cc (texts_): New member.
+
+	* lily/paper-book.cc (systems): Format score texts.
+
+	* score-text.ly: New file.
 
 	* ttftool/SConscript:
 	* kpath-guile/SConscript: New file.

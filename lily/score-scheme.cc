@@ -14,9 +14,9 @@
 #include "global-context.hh"
 
 LY_DEFINE (ly_music_scorify, "ly:music-scorify",
-	   2, 0, 0,
-	   (SCM music, SCM parser),
-	   "Return MUSIC encapsulated in SCORE.")
+	   3, 0, 0,
+	   (SCM music, SCM texts, SCM parser),
+	   "Return MUSIC with TEXTS encapsulated in SCORE.")
 {
 #if 0
   SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
@@ -24,6 +24,7 @@ LY_DEFINE (ly_music_scorify, "ly:music-scorify",
   Score *score = new Score;
 
   score->set_music (music, parser);
+  score->texts_ = texts;
 
   scm_gc_unprotect_object (score->self_scm ());
   return score->self_scm ();

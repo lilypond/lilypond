@@ -60,13 +60,13 @@
 			     head score)))
     (ly:parser-print-score parser book)))
 		
-(define-public (collect-scores-for-book  parser score)
+(define-public (collect-scores-for-book parser score)
   (ly:parser-define
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
     
-(define-public (collect-music-for-book parser music)
-  (collect-scores-for-book parser (ly:music-scorify music parser)))
+(define-public (collect-music-for-book parser music texts)
+  (collect-scores-for-book parser (ly:music-scorify music texts parser)))
 
 
   

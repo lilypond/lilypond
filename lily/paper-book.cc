@@ -12,6 +12,7 @@
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
+#include "text-item.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
@@ -236,6 +237,9 @@ Paper_book::systems ()
       systems_ = scm_cons (ps->self_scm (), systems_);
       scm_gc_unprotect_object (ps->self_scm ());
     }
+
+  SCM page_properties = scm_call_1 (ly_lily_module_constant ("page-properties"),
+				    paper_->self_scm ());
   
   int score_count = score_systems_.size ();
   for (int i = 0; i < score_count; i++)
@@ -258,6 +262,19 @@ Paper_book::systems ()
 
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
+	}
+
+      for (SCM s = score_systems_[i].texts_; s != SCM_EOL; s = scm_cdr (s))
+	{
+	  SCM t = Text_interface::interpret_markup (paper_->self_scm (),
+						    page_properties,
+						    scm_car (s));
+	  // FIXME: title=true?
+	  Paper_system *ps = new Paper_system (*unsmob_stencil (t), true);
+	  systems_ = scm_cons (ps->self_scm (), systems_);
+	  scm_gc_unprotect_object (ps->self_scm ());
+	  // FIXME: figure out penalty.
+	  //set_system_penalty (ps, score_systems_[i].header_);
 	}
     }
   
@@ -299,6 +316,7 @@ Score_systems::Score_systems ()
 {
   systems_ = SCM_EOL;
   header_ = SCM_EOL;
+  texts_ = SCM_EOL;
 }
 
 void
@@ -306,5 +324,6 @@ Score_systems::gc_mark ()
 {
   scm_gc_mark (systems_);
   scm_gc_mark (header_);
+  scm_gc_mark (texts_);
 }
 

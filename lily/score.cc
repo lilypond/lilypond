@@ -30,6 +30,7 @@ Score::Score ()
   : Input ()
 {
   header_ = SCM_EOL;
+  texts_ = SCM_EOL;
   music_ = SCM_EOL;
   error_found_ = false;
   smobify_self ();
@@ -55,6 +56,8 @@ Score::mark_smob (SCM s)
   
   if (sc->header_)
     scm_gc_mark (sc->header_);
+  if (sc->texts_)
+    scm_gc_mark (sc->texts_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   return sc->music_;
@@ -76,6 +79,7 @@ Score::Score (Score const &s)
   
   /* FIXME: SCM_EOL? */
   header_ = 0;
+  texts_ = 0;
 
   smobify_self ();
 
@@ -89,13 +93,17 @@ Score::Score (Score const &s)
   header_ = ly_make_anonymous_module (false);
   if (ly_c_module_p (s.header_))
     ly_module_copy (header_, s.header_);
+
+  if (s.texts_)
+    texts_ = s.texts_;
 }
 
 
 void
 default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
-		   SCM header, SCM outname,
+		   SCM header, SCM texts,
+		   SCM outname,
 		   SCM key)
 {
   SCM scaled_def = outdef;
@@ -135,6 +143,7 @@ default_rendering (SCM music, SCM outdef,
 	  Score_systems sc;
 	  sc.systems_ = systems;
 	  sc.header_ = header;
+	  sc.texts_ = texts;
 
 	  paper_book->score_systems_.push (sc);
 	  

@@ -107,9 +107,10 @@ SCM (* scm_parse_error_handler) (void *);
 %x figures
 %x incl
 %x lyrics
+%x lyric_markup
 %x lyric_quote
 %x longcomment
-%x markup 
+%x markup
 %x notes
 %x quote
 %x renameinput
@@ -149,7 +150,7 @@ HYPHEN		--
 	// windows-suck-suck-suck
 }
 
-<INITIAL,chords,incl,markup,lyrics,notes,figures>{
+<INITIAL,chords,figures,incl,lyrics,lyric_markup,markup,notes>{
   "%{"	{
 	yy_push_state (longcomment);
   }
@@ -274,7 +275,7 @@ HYPHEN		--
 <chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
-<INITIAL,markup,chords,lyrics,notes,figures>#	{ //embedded scm
+<INITIAL,chords,figures,lyrics,lyric_markup,markup,notes>#	{ //embedded scm
 	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
@@ -474,7 +475,7 @@ HYPHEN		--
 }
 
 
-<markup>{
+<markup,lyric_markup>{
 	\" {
 		start_quote ();
 	}
@@ -652,6 +653,12 @@ Lily_lexer::push_markup_state ()
 }
 
 void
+Lily_lexer::push_lyric_markup_state ()
+{
+	yy_push_state (lyric_markup);
+}
+
+void
 Lily_lexer::push_note_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
@@ -681,15 +688,16 @@ Lily_lexer::scan_escaped_word (String str)
 
 //	SCM sym = ly_symbol2scm (str.to_str0 ());
 
-	int l = lookup_keyword (str);
-	if (l != -1) {
-		return l;
-	}
+	int i = lookup_keyword (str);
+ 	if (i == MARKUP && is_lyric_state ())
+ 		return LYRIC_MARKUP;
+	if (i != -1)
+		return i;
+
 	SCM sid = lookup_identifier (str);
 	if (is_music_function (sid))
 	{
 		yylval.scm = get_music_function_transform (sid);
-		
 		return music_function_type (yylval.scm);
 	}
 

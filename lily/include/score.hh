@@ -26,6 +26,7 @@ public:
   String user_key_;
   Link_array<Output_def> defs_;
   SCM header_;
+  SCM texts_;
   bool error_found_;
   
   SCM get_music () const;
@@ -40,6 +41,6 @@ DECLARE_UNSMOB (Score, score);
 
 SCM ly_run_translator (SCM, SCM, SCM);
 SCM ly_render_output (SCM, SCM);
-void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM);
+void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM, SCM);
 
 #endif /* SCORE_HH */

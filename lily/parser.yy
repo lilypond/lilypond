@@ -231,32 +231,19 @@ yylex (YYSTYPE *s, YYLTYPE *l, void *v)
 
 %}
 
-%expect 3
+%expect 1
 
-/*
-  Three shift/reduce problems:
+/* One shift/reduce problem
 
-2. \markup identifier.
-
-  (what? --hwn)
-
-3. \markup { }
-
-  (what? --hwn)
-
-
-4.  \repeat
+1.  \repeat
 	\repeat .. \alternative
-
 
     \repeat { \repeat .. \alternative }
 
 or
 
     \repeat { \repeat } \alternative 
-
-)
- */
+*/
 
 
 %pure_parser
@@ -294,6 +281,7 @@ or
 %token KEY
 %token LAYOUT
 %token LYRICS
+%token LYRIC_MARKUP
 %token LYRICMODE
 %token MARK
 %token MIDI
@@ -373,7 +361,7 @@ or
 %token <scm> MARKUP_HEAD_SCM0_SCM1
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
-%token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
+%token <scm> LYRIC_MARKUP_IDENTIFIER MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
 %token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_FUNCTION_MUSIC 
 %token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
@@ -446,7 +434,9 @@ or
 %type <scm>  	Generic_prefix_music_scm 
 %type <scm>  	lyric_element
 %type <scm>     Alternative_music
-%type <scm>	full_markup markup_list markup_composed_list markup_braced_list markup_braced_list_body 
+%type <scm>	full_markup lyric_markup
+%type <scm>	markup_list markup_composed_list markup_braced_list markup_braced_list_body 
+%type <scm>	optional_text
 %type <scm>	markup_head_1_item markup_head_1_list markup simple_markup markup_top
 %type <scm> 	mode_changing_head
 %type <scm> 	mode_changing_head_with_context
@@ -502,10 +492,10 @@ toplevel_expression:
 		scm_call_2 (proc, THIS->self_scm (), score->self_scm ());
  		scm_gc_unprotect_object (score->self_scm ());
 	}
-	| toplevel_music {
+	| toplevel_music optional_text {
 		Music *music = $1;
 		SCM proc = THIS->lexer_->lookup_identifier ("toplevel-music-handler");
-		scm_call_2 (proc, THIS->self_scm (), music->self_scm ());
+		scm_call_3 (proc, THIS->self_scm (), music->self_scm (), $2);
  		scm_gc_unprotect_object (music->self_scm ());
 	}
 	| output_def {
@@ -551,6 +541,14 @@ lilypond_header:
 	}
 	;
 
+optional_text:
+	/* empty */ {
+		$$ = SCM_EOL
+	}
+	| optional_text full_markup {
+	  	$$ = ly_snoc ($2, $1);
+	}
+	;
 
 /*
 	DECLARATIONS
@@ -673,10 +671,19 @@ book_body:
 		$$->paper_ = $2;
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
-	| book_body score_block {
+	| book_body score_block optional_text {
 		Score *score = $2;
+		score->texts_ = $3;
 		$$->add_score (score);
 	}
+	/* let's do optional
+	| book_body full_markup {
+	  	if (!$$->scores_.size ())
+			THIS->parser_error (@2, _("\\markup cannot be used before \\score."));
+		Score *score = $$->scores_.top ();
+		score->texts_ = ly_snoc ($2, score->texts_);
+	}
+	*/
 	| book_body lilypond_header {
 		$$->header_ = $2;
 	}
@@ -2254,8 +2261,7 @@ simple_element:
 	;
 
 lyric_element:
-	/* FIXME: lyric flavoured markup would be better */
-	full_markup {
+	lyric_markup {
 		$$ = $1;
 	}
 	| LYRICS_STRING {
@@ -2423,6 +2429,18 @@ questions:
 This should be done more dynamically if possible.
 */
 
+lyric_markup:
+	LYRIC_MARKUP_IDENTIFIER {
+		$$ = $1;
+	}
+	| LYRIC_MARKUP
+		{ THIS->lexer_->push_lyric_markup_state (); }
+	markup_top {
+		$$ = $3;
+		THIS->lexer_->pop_state ();
+	}
+	;
+
 full_markup:
 	MARKUP_IDENTIFIER {
 		$$ = $1;
@@ -2505,6 +2523,9 @@ simple_markup:
 		$$ = make_simple_markup ($1);
 	}
 	| MARKUP_IDENTIFIER {
+		$$ = $1;
+	}
+	| LYRIC_MARKUP_IDENTIFIER {
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER {
@@ -2631,6 +2652,8 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		return OUTPUT_DEF_IDENTIFIER;
 	} else if (Text_interface::markup_p (sid)) {
 		*destination = sid;
+		if (is_lyric_state ())
+			return LYRIC_MARKUP_IDENTIFIER;
 		return MARKUP_IDENTIFIER;
 	}
 

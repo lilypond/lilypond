@@ -19,6 +19,7 @@ struct Score_systems
 {
   SCM systems_;
   SCM header_;
+  SCM texts_;
 
   Score_systems () ;
   void gc_mark ();
