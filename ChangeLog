@@ -2,6 +2,9 @@
 
 	* Documentation/user/notation.ly: More fixes to improve appearance.
 
+	* tex/texinfo.tex: Updated from texinfo CVS -- this version provides
+	better output for multicolumn tables.
+
 2004-11-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/main.cc (dir_info): Fixed typo in the printouts.
