@@ -8,19 +8,26 @@ DOC_FILES = $(wildcard *.doc)
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi) $(YO_FILES:.yo=.dvi))
 OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
 
+# just include me
+YO_URG_FILES = $(wildcard *.yo-urg)
+
 OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
 EL_FILES = $(wildcard *.el)
 BIB_FILES= $(wildcard *.bib)
-EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES)
+EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_FILES)
 HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 STEPMAKE_TEMPLATES=documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
-export BIBINPUTS="$(topdir)/Documentation/tex//"#huh?
 
 
 include $(depth)/make/stepmake.make 
+
+
+export BIBINPUTS:="$(topdir)/Documentation/tex//"#huh?
+
+
 
 dvi: $(OUT_BIB_FILES) $(DVI_FILES)
 
