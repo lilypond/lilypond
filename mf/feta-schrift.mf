@@ -175,6 +175,10 @@ fet_beginchar("marcato down", "dmarcato", "dmarcato")
 	xy_mirror_char;
 fet_endchar;
  
+%
+% used in french horn music todo
+%
+% TODO: too light at 20pt
 fet_beginchar("open (unstopped)", "open", "ouvert")
 	save thin, height, width, thick;
 	height# = 5/4 width#;
@@ -258,8 +262,8 @@ fet_beginchar("Downbow", "downbow", "downbow")
 	x4 = x3;
 	save p;
 	path p;
-	p := z1 -- z2 -- z3 -- z4 --cycle;
-	draw_rounded_path(p, blot_diameter);
+	filldraw z1 -- z2 -- z3 -- z4 --cycle;
+
 	pickup pencircle scaled stemthick;
 
 	bot y5 =0;
@@ -328,24 +332,6 @@ fet_beginchar("Turn","turn","turn")
 fet_endchar;
 
 
- 
-
-def draw_bulb(expr zl, zr, center_factor, radius_factor)=
-	begingroup;
-	clearxy;
-	save rad, ang;
-
-	ang = angle(zr-zl);
-	z0 = center_factor [zr, zl];
-	rad = center_factor * length(zr-zl);
-	
-	z1 = z0 + radius_factor* rad * dir(ang - 100);
-	z2 = z0 + rad * dir(ang - 270);
-	labels(0,1,2);
-	fill zr{dir (ang - 90)} .. z1 .. z2 -- cycle;
-
-	endgroup
-enddef;
 
 %
 % Inspired by a (by now) PD edition of Durand & C'ie edition of 
@@ -460,7 +446,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	fill z11r{dir 70} .. z13r{down} -- z13l{up} .. z11l{dir 250} -- cycle;
 	penlabels(range 1 thru 15);
 
-	draw_bulb(z13r, z13l, bulb_size, 1.5);
+	draw_bulb(-1, z13r, z13l, bulb_size, 1.5);
 fet_endchar;
 
 fet_beginchar("organ-heel", "pedalheel", "pedalheel")
