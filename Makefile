@@ -59,7 +59,7 @@ $(CCDIR)/parser.cc: parser.y
 	fi )
 	mv $(CCDIR)/parser.tab.c $@
 
-parser.hh: parser.cc
+$(parsheadnew): $(CCDIR)/parser.cc
 
 version.o: $(obs) version.hh
 
