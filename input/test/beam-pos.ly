@@ -1,17 +1,29 @@
-\version "1.3.5";
+\header{
+filename =	 "beam-pos.ly";
+composer =	 "jcn";
+enteredby =	 "jcn";
+copyright =	 "PD";
+
+TestedFeatures =	 "beam quant positions";
+}
 
 \score{
-	\notes\transpose c''{
-		% \property Score.beamQuantisation = 'test
-
-		[c8 c] [c c] [c c] [c c]
-		[a' a'] [a' a'] [a' a'] [a' a']
-		[c16 c] [c c] [c c] [c c]
-		[a' a'] [a' a'] [a' a'] [a' a']
+	\notes\relative c' { 
+		[c8 c] [a'' a]
+		[a, a] [c c]
+		[d,8 d] [g' g]
+		[g, g] [d' d]
+		[c,16 c c c] [a'' a a a]
+		[a, a a a] [c c c c]
+		\break
+		[c,32 c c c c c c c] [a'' a a a a a a a]
+		[f, f f f f f f f] [e' e e e e e e e]
+		\break
+		[c,8 d] [a'' g]
+		[g, f] [d' e]
+		\break
 	}
 	\paper{
-		castingalgorithm = \Wordwrap;
-		linewidth = 60.0\mm;
 	}
 }
 

@@ -27,28 +27,33 @@
 (define beam-sit (/ (+ beam-thickness staff-line) 2))
 (define beam-hang (- 1 (/ (- beam-thickness staff-line) 2)))
 
+;; Note: quanting period is take as quants.top () - quants[0], 
+;; which should be 1 (== 1 interline)
+
 (define beam-normal-dy-quants
   (list 0 (/ (+ beam-thickness staff-line) 2) (+ beam-thickness staff-line) 1))
 
 ;; two popular veritcal beam quantings
 ;; see params.ly: #'beam-vertical-quants
 (define (beam-normal-y-quants multiplicity dy)
-  (let ((quants (list beam-hang 1)))
+  (let ((quants (list beam-hang)))
     (if (or (<= multiplicity 1) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-sit quants)))
     (if (or (<= multiplicity 2) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-straddle quants)))
-    quants))
+    ;; period: 1 (interline)
+    (append quants (list (+ 1 (car quants))))))
 
 (define (beam-traditional-y-quants multiplicity dy)
-  (let ((quants '(1)))
+  (let ((quants '()))
     (if (>= dy (/ staff-line -2))
 	(set! quants (cons beam-hang quants)))
     (if (and (<= multiplicity 1) (<= dy (/ staff-line 2)))
 	(set! quants (cons beam-sit quants)))
     (if (or (<= multiplicity 2) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-straddle quants)))
-    quants))
+    ;; period: 1 (interline)
+    (append quants (list (+ 1 (car quants))))))
 
 
 ;; There are several ways to calculate the direction of a beam
