@@ -1,7 +1,8 @@
 2003-05-03  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Fix XEmacs: 
-	changed [S-iso-lefttab] to [(shift iso-lefttab)].
+	changed [S-iso-lefttab] to [(shift iso-lefttab)],
+	invoke explicitly easy-menu-add (in Emacs done automatically).
 	
 	* lilypond.words: Add few words from input/*/*.ly.
 
