@@ -26,7 +26,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
   Real last_size = -1e6;
   int i = 0;
 
-  String pango_description_string;
+  SCM pango_description_string = SCM_EOL;
   for (; i < n; i++)
     {
       SCM entry = scm_c_vector_ref (font_vector, i);
@@ -43,7 +43,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
 	{
 	  size = scm_to_double (scm_car (entry));
 	  pango_description_string
-	    = ly_scm2string (scm_cdr (entry));
+	    = scm_cdr (entry);
 	}
 #endif
       
@@ -64,14 +64,12 @@ get_font_by_design_size (Output_def *layout, Real requested,
     }
   
   Font_metric *fm = 0;
-  if (pango_description_string != "")
+  if (scm_is_string (pango_description_string))
     {
 #if HAVE_PANGO_FT2
-      PangoFontDescription *description
-	= pango_font_description_from_string (pango_description_string.to_str0 ());
-      return all_fonts_global->find_pango_font (description,
-						requested / size,
-						output_scale (layout));
+      return find_pango_font (layout,
+			      pango_description_string,
+			      requested / size);
 #else
       error ("Trying to retrieve pango font without HAVE_PANGO_FT2."); 
 #endif

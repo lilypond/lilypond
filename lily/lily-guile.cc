@@ -722,3 +722,23 @@ alist_equal_p (SCM a, SCM b)
     }
   return true;
 }
+
+
+
+SCM
+ly_alist_vals (SCM alist)
+{
+  SCM x = SCM_EOL;
+  for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
+    {
+      x = scm_cons (scm_cdar (p), x);
+    }
+  return x;
+}
+
+SCM
+ly_hash2alist (SCM tab)
+{
+  SCM func = ly_lily_module_constant ("hash-table->alist");
+  return scm_call_1 (func, tab);
+}

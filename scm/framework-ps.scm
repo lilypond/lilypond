@@ -83,6 +83,7 @@
 	  (display (list font fontname)))
       (define-font plain fontname scaling)))
 
+
   (apply string-append
 	 (map (lambda (x) (font-load-command x))
 	      (filter (lambda (x) (not (ly:pango-font? x)))
@@ -136,16 +137,25 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
+
 (define (supplies-or-needs paper load-fonts?)
-  (let* ((fonts (ly:paper-fonts paper)))
+  (define (extract-names font)
+    (if (ly:pango-font? font)
+	(map car (ly:pango-font-physical-fonts font))
+	(list (ly:font-name font))))
+  
+  (let* ((fonts (ly:paper-fonts paper))
+	 (names (apply append (map extract-names fonts)))
+	 )
+    
     (apply string-append
 	   (map (lambda (f)
 		  (format
 		   (if load-fonts?
 		    "%%DocumentSuppliedResources: font ~a\n"
 		    "%%DocumentNeededResources: font ~a\n")
-		   (ly:font-name f)))
-		fonts))))
+		   f))
+		names))))
 
 (define (eps-header paper bbox load-fonts?)
     (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
@@ -197,11 +207,14 @@
 	   (all-font-names
 	    (map
 	     (lambda (font)
-	       (if (string? (ly:font-file-name font))
-		   (list (ly:font-file-name font))
-		   (ly:font-sub-fonts font)))
-
+	       (cond
+		((string? (ly:font-file-name font)) (list (ly:font-file-name font)))
+		((ly:pango-font? font)
+		 (map cdr  (ly:pango-font-physical-fonts font)))
+		(else (ly:font-sub-fonts font))))
+		   
 	     fonts))
+	   
 	   (font-names
 	    (uniq-list
 	     (sort (apply append all-font-names) string<?)))

@@ -1,3 +1,19 @@
+2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Text encoding):
+	rewrite. 
+
+	* lily/pango-font.cc (physical_font_tab): new member. Store PSname
+	-> font_filename mapping.
+
+	* lily/pango-font-scheme.cc (LY_DEFINE): new file. New function
+	ly_pango_font_physical_fonts
+
+	* scm/framework-ps.scm (supplies-or-needs): extract names from
+	physical Pango_fonts.
+
+	* utf8.ly: new file.
+
 2005-02-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Page layout): add

@@ -131,28 +131,42 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 {
   Output_def *b = unsmob_output_def (bp);
 
-  SCM font_table = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
 
-  SCM ell = SCM_EOL;
-  if (scm_hash_table_p (font_table) == SCM_BOOL_T)
+  SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
+  SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));
+
+  SCM alist1 = SCM_EOL;
+  if (scm_hash_table_p (tab1) == SCM_BOOL_T)
     {
-      SCM func = ly_lily_module_constant ("hash-table->alist");
-
-      for (SCM s = scm_call_1 (func, font_table); scm_is_pair (s);
-	   s = scm_cdr (s))
-	{
-	  SCM entry = scm_car (s);
-	  for (SCM t = scm_cdr (entry); scm_is_pair (t); t = scm_cdr (t))
-	    {
-	      Font_metric *fm = unsmob_metrics (scm_cdar (t));
-
-	      if (dynamic_cast<Modified_font_metric*> (fm)
-		  || dynamic_cast<Pango_font*> (fm))
-		ell = scm_cons (fm->self_scm (), ell);
-	    }
-	}
+      alist1 = scm_append (ly_alist_vals (ly_hash2alist (tab1)));
+      
+      alist1 = ly_alist_vals (alist1);
     }
-  return ell;
+
+  SCM alist2 = SCM_EOL;
+  if (scm_hash_table_p (tab2) == SCM_BOOL_T)
+    {
+      // strip original-fonts/pango-font-descriptions
+      alist2 = scm_append (ly_alist_vals (ly_hash2alist (tab2)));
+
+      // strip size factors
+      alist2 = ly_alist_vals (alist2); 
+    }
+
+  SCM alist = scm_append (scm_list_2 (alist1, alist2));
+  SCM font_list = SCM_EOL;
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM entry = scm_car (s);
+      
+      Font_metric *fm = unsmob_metrics (entry);
+
+      if (dynamic_cast<Modified_font_metric*> (fm)
+	  || dynamic_cast<Pango_font*> (fm))
+	font_list = scm_cons (fm->self_scm (), font_list);
+    }
+  
+  return font_list;
 }

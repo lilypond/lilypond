@@ -30,6 +30,7 @@ Object_key_undumper::mark_smob (SCM smob)
 int
 Object_key_undumper::print_smob (SCM s, SCM port, scm_print_state*)
 {
+  (void) s; 
   scm_puts ("#<Object_key_undumper>", port);
   return 1;
 }

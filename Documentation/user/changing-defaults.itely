@@ -1,4 +1,4 @@
-@c -*- coding: latin-1; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @node Changing defaults
 @chapter Changing defaults
 
@@ -1123,7 +1123,6 @@ does not amount to much.  The initialization file
      (self-alignment-X . 0)
      (self-alignment-Y . 0)
      (script-priority . 100)
-     (font-encoding . number)
      (font-size . -5)
      (meta . ((interfaces . (finger-interface font-interface
                              text-script-interface text-interface
@@ -1394,11 +1393,12 @@ fonts.
 
 @itemize @bullet
 @item @code{font-encoding}
-is a symbol that sets layout of the glyphs.  Choices include @code{ec}
-for @TeX{} EC font encoding, @code{fetaBraces} for piano staff
-braces, @code{fetaMusic} the standard music font, including ancient
-glyphs, @code{fetaDynamic} for dynamic signs and @code{fetaNumber}
-for the number font.
+is a symbol that sets layout of the glyphs. This should only be set to
+select different types of non-text fonts, eg.
+
+@code{fetaBraces} for piano staff braces, @code{fetaMusic} the
+standard music font, including ancient glyphs, @code{fetaDynamic} for
+dynamic signs and @code{fetaNumber} for the number font.
 
 @item @code{font-family}
 is a symbol indicating the general class of the typeface.  Supported are
@@ -1552,59 +1552,36 @@ Syntax errors for markup mode are confusing.
 @node Text encoding
 @subsection Text encoding
 
-[FIXME: OBSOLETE, use UTF8 for input files.]
+LilyPond uses the Pango library to format multi-lingual texts.  This
+means that any text, be it title, lyric text, or musical instruction
+contaning non-ASCII characters should be entered as Unicode.
 
+@lilypondfile[utf8.ly]
 
-Texts can be entered in different encodings.  The encoding of the
-file can be set with @code{\encoding}.
-
-@example
-\encoding "latin1"
-@end example
-
-This command may be placed anywhere in the input file.  The current
-encoding is passed as an extra argument to @code{\markup} commands,
-and is passed similarly to lyric syllables.
-
-If no @code{\encoding} has been specified, then the encoding is taken
-from the @code{\layout} block (or @code{\paper}, if @code{\layout}
-does not specify encoding).  The variable @code{inputencoding} may be
-set to a string or symbol specifying the encoding, e.g.,
+The @TeX{} backend does not handle encoding specially at all. Strings
+in the input are put in the output as-is. Extents of text items in the
+@TeX{} backend, are determined by reading a file created via the
+@file{texstr} backend,
 
 @example
-\layout @{
-  inputencoding = "latin1"
-@} 
+  lilypond -b texstr input/les-nereides.ly
+  latex les-nereides.texstr
 @end example
 
-Normal strings are unaffected by @code{\encoding}.  This means that
-the following will usually not produce `Baﬂtuba' in the title.
+The last command produces @file{les-nereides.textmetrics}, which is
+read when you execute
 
 @example
-\header @{
-  title = "Grazing cow"
-  instrument = "Baﬂtuba"
-@}
+  lilypond -b tex input/les-nereides.ly
 @end example
 
-@noindent
-Rather, you should say
-@example
-instrument = \markup @{ Baﬂtuba @}
-@end example
+Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
+suitable LaTeX wrappers to load appropriate La@TeX{} packages for
+interpreting non-ASCII strings.
 
-@noindent
-or set @code{inputencoding} in the @code{\paper} block. 
+@seealso
 
-There is a special encoding, called @code{TeX}.  This encoding does not
-reencode text for the font used.  Rather, it tries to guess the width
-of @TeX{} commands, such as @code{\"}.  Strings encoded with @code{TeX}
-are passed to the output back-end verbatim.
-
-@cindex encoding
-@cindex @code{\encoding}
-@cindex inputencoding
-@cindex @TeX{} commands in strings
+@inputfileref{input/regression/,utf8.ly}
 
 
 @node Nested scores
