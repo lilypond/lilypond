@@ -31,7 +31,10 @@ if [ -z "$TEXDIRS" -o "$TEXDIRS" = "." ]; then
 fi
 
 # remove possibly stale .pk/.tfm files 
-FILES=`find $TEXDIRS -name "feta*$WHAT*tfm" -or -name "feta*$WHAT*pk"`
+FILES=$(find $TEXDIRS -name "feta*$WHAT*tfm" \
+  -or -name "feta*$WHAT*pk" \
+  -or -name "parmesan$WHAT*tfm" \
+  -or -name "parmesan*$WHAT*pk")
 
 echo removing $FILES
 rm  -f $FILES /tmp/cleaning-font-dummy
