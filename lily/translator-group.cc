@@ -346,7 +346,7 @@ Translator_group::execute_pushpop_property (SCM prop, SCM eltprop, SCM val)
 	    autobeam properties.
 	   */
 	  SCM newprops= SCM_EOL ;
-	  while (gh_pair_p (prev) && ly_caar (prev) != eltprop)
+	  while (gh_pair_p (prev) && !SCM_EQ_P(ly_caar (prev), eltprop))
 	    {
 	      newprops = gh_cons (ly_car (prev), newprops);
 	      prev = ly_cdr (prev);
