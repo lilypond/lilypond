@@ -22,6 +22,7 @@ static int temp_id_count;
 Voice_group_registers::Voice_group_registers(String id,
 					     Input_register const *ireg_C)
 {
+    dir_i_ =0;
     ireg_C_ =ireg_C;
     Register_group_register::add(ireg_C->get_nongroup_p_arr());
     if (id=="")			// ugh
@@ -113,3 +114,18 @@ Voice_group_registers::OK() const
 }
 	     
 	     
+void
+Voice_group_registers::set_feature(Feature f)
+{
+    if (f.type_ == "vdir")
+	dir_i_ = f.value_;
+    Register_group_register::set_feature(f);
+}
+
+Scalar
+Voice_group_registers::get_feature(String f)
+{
+    if (f == "vdir")
+	return dir_i_;
+    Register_group_register::get_feature(f);
+}

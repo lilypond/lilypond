@@ -40,9 +40,21 @@ Slur_register::acknowledge_element(Staff_elem_info info)
 	    end_slur_l_arr_[i]->add(col_l);
     }
 }
+
+void
+Slur_register::set_feature(Feature f)
+{
+    if (f.type_ == "vdir")
+	dir_i_ = f.value_ ;
+}
+
 /*
   abracadabra
   */
+Slur_register::Slur_register()
+{
+    dir_i_ =0;
+}
 void
 Slur_register::process_requests()
 {
@@ -75,6 +87,8 @@ void
 Slur_register::pre_move_processing()
 {
     for (int i = 0; i < end_slur_l_arr_.size(); i++) {
+	if (dir_i_)
+	    end_slur_l_arr_[i]->dir_i_ = dir_i_;
 	typeset_element(end_slur_l_arr_[i]);
     }
     end_slur_l_arr_.set_size(0);
