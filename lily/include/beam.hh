@@ -33,7 +33,7 @@ public:
     y-dy callbacks
    */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
-  DECLARE_SCHEME_CALLBACK (cancel_suspect_slope, (SCM));
+  DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (quantise_dy, (SCM));
   DECLARE_SCHEME_CALLBACK (user_override, (SCM));
