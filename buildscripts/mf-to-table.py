@@ -145,6 +145,7 @@ def write_fontlist (file, global_info, charmetrics):
 	file.write (r"""
 }
   \paper{
+    interscoreline=1
     \translator{
       \ScoreContext
       \remove "Bar_number_engraver"
@@ -156,6 +157,7 @@ def write_fontlist (file, global_info, charmetrics):
       \remove "Key_engraver"
       \remove "Time_signature_engraver"
       \remove "Staff_symbol_engraver"
+      minimumVerticalExtent = ##f
     }
   }
 }
