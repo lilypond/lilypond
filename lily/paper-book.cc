@@ -139,7 +139,7 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   pages ();
   
-  String format = output_format_global;
+  String format = output_backend_global;
   String file_name = outname;
       
   if (file_name != "-")
@@ -207,7 +207,7 @@ Paper_book::classic_output (String outname)
     scopes = scm_cons (score_systems_[0].header_, scopes);
   //end ugh
 
-  String format = output_format_global;
+  String format = output_backend_global;
   String mod_nm = "scm framework-" + format;
       
   SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());

@@ -187,7 +187,7 @@ Modified_font_metric::text_dimension (String text) const
       return b;
     }
 
-  if (output_format_global == "tex")
+  if (output_backend_global == "tex")
     {
       b = tex_kludge (text);
       return b;
