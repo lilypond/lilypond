@@ -34,6 +34,7 @@ public:
   SCM font_file_name () const;
   void register_font_file (String, String);
   Stencil text_stencil (String) const;
+  Stencil pango_item_string_stencil (PangoItem*, String) const;
 
   virtual SCM sub_fonts () const;
   virtual void derived_mark () const;
