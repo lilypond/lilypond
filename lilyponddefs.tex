@@ -43,9 +43,13 @@
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
 \mdef\mussepline{155}
-\mdef\ieigthflag{45}
-\mdef\isixteenthflag{46}
-\mdef\ithirtysecondflag{47}
+
+
+\mdef\deigthflag{45}
+\mdef\dsixteenthflag{46}
+\mdef\dthirtysecondflag{47}
+
+% pointing up
 \mdef\ueigthflag{40}
 \mdef\usixteenthflag{41}
 \mdef\uthirtysecondflag{42}
@@ -55,10 +59,10 @@
 \def\generalmeter#1#2{\vbox to 0pt{\vss\rm\hbox{#1}\hbox{#2}}}
 \def\lineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 
-\def\beauty{
-	\par\vskip 10pt\par
-	\hskip -5pt\lineseparator% \hbox to 1cm{\kern -5mm\hrulefill}
-	\vskip 10pt
+\def\beauty{%
+	\par\vskip 10pt plus 30pt minus 10pt\par
+	\hskip -5pt\lineseparator
+	\par\vskip 10pt plus 30pt minus 10pt\par
 }
 
 \def\interstaffline{%
@@ -114,3 +118,5 @@
 }
 
 
+\def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
+\def\rulesym#1#2{\vrule height #1 width #2}

@@ -114,7 +114,10 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
     Text_db cfg(fn);
     while (! cfg.eof()){	     
 	 Text_record  r(  cfg++);
-	 assert(r.sz() == 2);
+	 if (r.sz() != 2) {
+	     r.message("not enough fields in Dstream init.");
+	     continue;
+	 }
 	 (*silent)[r[0]] = r[1].to_bool();
     }
 

@@ -36,7 +36,6 @@ List<T>::OK() const
 
 
 template<class T>
-inline
 List<T>::~List()
 {
     Cursor<T> next(*this);
@@ -48,14 +47,17 @@ List<T>::~List()
 }
 
 template<class T>
-inline void
-List<T>::add( const T& thing, Cursor<T> after_me )
+void
+List<T>::add( const T& thing, Cursor<T> &after_me )
 {
     if (!size_) {		// not much choice if list is empty
         bottom_ = top_ = new Link<T>( thing );
+	if (!after_me.ok())
+	    after_me = bottom();
     } else {			// add at aprioprate place
-	Link<T> *p =  ( after_me.ok() ) ?
-	    after_me.pointer() : bottom().pointer();
+	if (!after_me.ok())
+	    after_me = bottom();
+	Link<T> *p =after_me.pointer();
 	p->add(thing);
 	if (p == bottom_)	// adjust bottom_ if necessary.
 	    bottom_ = p->next();
@@ -75,23 +77,37 @@ List<T>::add( const T& thing, Cursor<T> after_me )
 */
 
 template<class T>
-inline void
-List<T>::insert( const T& thing, Cursor<T> before_me )
+void
+List<T>::insert( const T& thing, Cursor<T> &before_me )
 {
     if (!size_) {
 	bottom_ = top_ = new Link<T>( thing );
+	if (!before_me.ok())
+	    before_me = top();
+	
     } else {
-	Link<T> *p = 
-	    (before_me.ok())?
-	    before_me.pointer() : top().pointer();
+	if (!before_me.ok())
+	    before_me = top();
+	
+	Link<T> *p = before_me.pointer() ;
 
 	p->insert(thing);
 	if (p == top_)
 	    top_ = p->previous();
     }
-	
-    size_++;
 
+    size_++;
 }
 
+
+template<class T>
+void
+List<T>::concatenate(List<T> const&s)
+{
+    Cursor<T> b(bottom());
+    for (Cursor<T> c(s); c.ok(); c++) {
+	b.add(c);
+	b++;
+    }
+}
 #endif

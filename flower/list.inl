@@ -19,13 +19,6 @@ List<T>::set_empty()
 }
 
 template<class T>
-inline
-List<T>::List( const T& thing )
-{
-    set_empty();
-    add( thing, Cursor<T>( *this, bottom_ ) );
-}
-template<class T>
 inline void
 List<T>::remove( Cursor<T> me )
 {

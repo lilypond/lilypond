@@ -1,6 +1,6 @@
 MAJVER=1
 MINVER=0
-PATCHLEVEL=8
+PATCHLEVEL=10
 
 PACKAGENAME=flower
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
@@ -13,6 +13,7 @@ include Sources.make
 
 obs=$(cc:.cc=.o)
 staticlib=libflower.a
+
 $(staticlib): $(obs)
 	$(AR) cr libflower.a $(obs)
 
@@ -24,8 +25,10 @@ depend: Sources.make
 
 clean:
 	rm -f $(obs) $(staticlib)
+
 realclean: clean
 	rm -f depend
+
 DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Sources.make TODO README
 DDIR=$(DNAME)
 
@@ -34,6 +37,7 @@ dist:
 	ln $(DFILES) $(DDIR)/
 	tar cfz $(DNAME).tar.gz $(DDIR)/*
 	rm -rf $(DDIR)/
+
 TAGS:
 	etags -CT $(inl) $(cc) $(hh)
 

@@ -1,3 +1,5 @@
+-*-text-*-
+
 CODING STANDARDS:
 
 Functions and methods do not return errorcodes, but use assert for
@@ -19,14 +21,15 @@ INDENTATION, in emacs:
 CLASSES and TYPES:
 
 	This_is_a_class
+	AClass_name	(for Abbreviation_class_name)
 
 DATA MEMBERS
 
-	Class:member
+	Class::member
 
-if the member's name resembles its type, then we use
+if the member's name resembles its type, then I use
 
-	Class Fubular { ..}
+	class Fubular { ..}
 
 	Class::fubular_
 
@@ -53,3 +56,36 @@ class Class {
 */
 
 Unfortunately most of the code isn't really documented that good.
+
+CLASSNAMES (2)
+
+A lot of classes in LilyPond start with 'P', this is to distinguish
+certain parts of LilyPond: the P stands for Printer, and the P-classes
+are supposed to be more lowlevel than the others. Example:
+
+	Staff uses PStaff, PScore and PCol to do the typesetting of
+symbols. Staff is are the "brains" for PStaff
+
+NB: in PCursor (which is part of the library) P stands for PointerCursor
+
+
+MEMBERS(2)
+
+Standard methods:
+
+	///check that *this satisfies its invariants, abort if not.
+	void OK() const
+
+	/// print *this (and substructures) to debugging log
+	void print() const
+
+	/// add some data to *this; 
+	add( .. )
+	/**
+	Presence of these methods usually imply that it is not feasible to this
+	via  a constructor
+	*/
+
+	/// replace some data of *this
+	set( .. )
+

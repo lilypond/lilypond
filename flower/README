@@ -1,5 +1,7 @@
 This library contains some general purpose routines which aren't
-standardised yet. It was written by:
+standardised libraries yet. It may be replaced by STL in time
+
+It was written by:
 
 	Han-Wen Nienhuys <hanwen@stack.nl>
 

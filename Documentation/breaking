@@ -1,0 +1,38 @@
+[Source files: command.hh, scommands.cc]
+
+BREAKING, PREBREAK POSTBREAK, etc.
+
+So what's the deal with PREBREAK and POSTBREAK and all this
+stuff?
+
+Let's take text as an example. In German some compound
+words change their spelling if they are broken: "backen" becomes
+"bak-ken".  TeX has a mechanism to deal with this, you would define
+the spelling of "backen" in TeX in this way
+
+	\discretionary{bak-}{ken}{backen}
+
+These 3 arguments are called "prebreak", "postbreak" and "nobreak"
+text.
+
+The same problem exists when typesetting music. If a line of music is
+broken, the next line usually gets a clef. So in TeX terms, the clef
+is a postbreak. The same thing happens with meter signs: Normally the
+meter follows the bar. If a line is broken at that bar, the bar along
+with the meter stays on the "last" line, but the next line also gets a
+meter sign after the clef. Using the previous notation,
+
+	\discretionary{bar meter}{clef meter}{ bar meter }
+
+In Lilypond, we have the same concepts (and the same
+terminology). Each (nonrhythmic) symbol is typeset using a Command
+(code: TYPESET). At a breakpoint, TYPESET commands can be grouped
+using separators (in lower case):
+
+	BREAK_PRE, typeset(bar), typeset(meter),
+	BREAK_MID, typeset(bar), typeset(meter),
+	BREAK_POST, typeset(clef), typeset(meter), BREAK_END 
+
+The BREAK command sequence is terminated with BREAK_END, so other
+commands (like INTERPRET) may follow this sequence.
+
