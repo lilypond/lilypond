@@ -12,3 +12,8 @@ GENERATE_OMF = $(PYTHON) $(depth)/buildscripts/texi2omf.py --format $(1) --locat
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM)
+
+# info stuff
+INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
+INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(DESTDIR)$(package_infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" -f $(stepdir)/install-out.sub.make
+

@@ -40,9 +40,18 @@ doc:
 install-WWW:
 	-$(INSTALL) -m 755 -d $(webdir) 
 	tar -C $(webdir)/ -xzf $(outdir)/web.tar.gz
+# install-WWW does not recurse; fake it visiting Documentation/user manually
+	$(MAKE) -C Documentation/user local-install-WWW
 
 web-install:
 	$(MAKE) out=www install-WWW
+	$(MAKE) out=www 
+
+uninstall-WWW:
+	#TODO
+
+web-uninstall:
+	$(MAKE) out=www uninstall-WWW=
 
 local-install:
 	$(INSTALL) -d $(local_lilypond_datadir)
@@ -52,16 +61,13 @@ final-install:
 	@echo " *** Before running, buildscripts/out/lilypond-{profile,login}"
 	@echo " *** must be run. You're advised to source these scripts from your "
 	@echo " *** login scripts. For more information, see Invoking LilyPond in the manual."
-	@echo 
+	@echo
 
 web-ext = gz html midi pdf png txt ly
 
 footify = MAILADDRESS=bug-lilypond@gnu.org  $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 
-bla:
-	cd $(builddir) && $(footify) `$(FIND) . -name '*.html' -print`
-
-local-WWW-post:  
+local-WWW-post:
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
 	cd $(builddir) && $(footify) `$(FIND) . -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`

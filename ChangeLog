@@ -1,3 +1,21 @@
+2004-02-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Store computed version in variable.
+
+	* configure.in: Export MAKEINFO_VERSION.
+
+	* config.make.in (MAKEINFO_VERSION): Add.
+
+	* make/ly-rules.make: Add makeinfo <= 4.6 workaround.
+
+	* Documentation/user/GNUmakefile: Only build info with images when
+	building web.
+
+	* GNUmakefile.in (install-WWW): Visit Documentation/user.
+
+	* stepmake/stepmake/texinfo-targets.make: Move info and texinfo
+	stuff from documentation-targets.make
+
 2004-02-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py (conv): 

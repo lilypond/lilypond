@@ -34,17 +34,33 @@ dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
-# Cancel the default info generation rule.  We want to generate info
-# from `.nexi', making sure we don't run LilyPond for images, when
-# generating info.  This will produce info docs without images.  For
-# full info documentation including images, run make web.
-$(outdir)/%.info: # $(outdir)/%.texi
+info: $(INFO_FILES)
+
+# There are two modes for info: with and without images.
+ifeq ($(out),www)
+
+# This builds all .info targets with images, in out-www.
+# Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
+
+#info: $(INFO_FILES)
+    # Cancel the special, non-image info generation rule that skips images:
+    $(outdir)/%.info: $(outdir)/%.nexi
+local-install-info: info
+	(cd $(package_infodir) && ln -s $(local_package_docdir)/html/Documentation/user/out-www/*png .)
+local-uninstall-WWW:
+	rm -f $(package_infodir)/*.png
+else
+    # Cancel the default info generation rule that generates images:
+    $(outdir)/%.info: # $(outdir)/%.texi
+endif
+
+# All web targets, except info image symlinks and info docs are
+# installed in non-recursing target from TOPDIR
+local-install-WWW: local-install-info
+local-uninstall-WWW: local-uninstall-info
 
 default: 
 
-# Info is now built by default via texinfo-rules.
-# We must build them by default, otherwise they get built during make install
-info: $(INFO_FILES)
 
 local-help: extra-local-help
 
@@ -101,23 +117,7 @@ deep-symlinks:
 endif
 
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-with-images info-dir
-
-# This builds all .info targets with images, in out-www.
-# Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
-# TODO: install .info into $(INFODIR)/lilypond/,
-# adding symlinks for images (or devise image include dir for Info?).
-info-with-images: $(INFO_FILES)
-	-cp -f $(INFO_INSTALL_FILES) $(builddir)/Documentation/user/$(outconfbase)
-
-local-install-info:
-# URG, silly home-brewn web-install target works from TOPDIR using tarball.
-# FIXME: doc pics get installed twice
-#	(cd $(package_infodir) && ln -s $(local_package_docdir)/html/*png .)
-	-(cd $(package_infodir) && ln -f $(builddir)/Documentation/user/$(outconfbase)-www/*png .)
-	
-local-uninstall-info:
-	rm -f $(package_infodir)/*.png
+local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info info-dir
 
 local-WWW-clean: deep-WWW-clean
 

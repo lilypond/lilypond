@@ -66,6 +66,7 @@ STEPMAKE_PROGS(MFTRACE, mftrace, OPTIONAL, 1.0.27)
 
 # new makeinfo for multi-page website docs
 STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.6)
+AC_SUBST(MAKEINFO_VERSION)
 
 
 if test "$optimise_b" = yes; then
