@@ -539,6 +539,7 @@ no extent.
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
 
+
 ;;; INTERNAL
 
 (grob-property-description 'left-neighbors grob-list? " List of
@@ -574,6 +575,7 @@ columns.
 -- can be stored for debugging")
 (grob-property-description 'least-squares-dy number? 
  "ideal beam slope, without damping.")
+(grob-property-description 'ligature-primitive-callback procedure? "FIXME")
 (grob-property-description 'stem-info pair? "caching of stem parameters")
 (grob-property-description 'note-columns pair? "list of NoteColumn grobs.")
 
@@ -581,6 +583,10 @@ columns.
 (grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")
 (grob-property-description 'position-callbacks list? "list of
 functions set spanner positions.")
+(grob-property-description 'join-left number? "DOCME")
+(grob-property-description 'delta-pitch number? "DOCME")
+(grob-property-description 'head-width number? "DOCME")
+(grob-property-description 'primitive number? "DOCME")
 (grob-property-description 'chord-name-function procedure? "DOCME")
 (grob-property-description 'minimum-beam-collision-distance number?
 "Minimum distance to beam for a rest collision.")

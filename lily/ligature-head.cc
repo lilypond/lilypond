@@ -43,4 +43,5 @@ Ligature_head::brew_molecule (SCM smob)
     }
 }
 
-ADD_INTERFACE (Ligature_head,"ligature-head-interface","Ligature head","");
+ADD_INTERFACE (Ligature_head,"ligature-head-interface","Ligature head",
+	       "ligature-primitive-callback");

@@ -575,9 +575,9 @@ Mensural_ligature_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ENTER_DESCRIPTION(Mensural_ligature_engraver,
+ENTER_DESCRIPTION (Mensural_ligature_engraver,
 /* descr */       "Handles Mensural_ligature_requests by glueing special ligature heads together.",
 /* creats*/       "MensuralLigature",
 /* acks  */       "ligature-head-interface note-head-interface rest-interface",
 /* reads */       "",
-/* write */       "");
+/* write */       "head-width join-left primitive");
