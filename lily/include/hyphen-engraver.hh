@@ -13,7 +13,6 @@
 #include "drul-array.hh"
 #include "hyphen-spanner.hh"
 #include "pqueue.hh"
-#include "extender-engraver.hh"
 
 
 /**

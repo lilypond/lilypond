@@ -8,11 +8,45 @@
 
 #include "proto.hh"
 #include "musical-request.hh"
-#include "extender-engraver.hh"
 #include "extender-spanner.hh"
 #include "paper-column.hh"
 #include "text-item.hh"
-#include "extender-engraver.hh"
+#include "engraver.hh"
+#include "drul-array.hh"
+#include "extender-spanner.hh"
+#include "pqueue.hh"
+
+
+/**
+  Generate an centred extender.  Should make a Extender_spanner that
+  typesets a nice centred extender of varying length depending on the
+  gap between syllables.
+
+  We remember the last Text_item that come across. When we get a
+  request, we create the spanner, and attach the left point to the
+  last lyrics, and the right point to any lyrics we receive by
+  then.  */
+class Extender_engraver : public Engraver
+{
+  Text_item *  last_lyric_l_;
+  Text_item * current_lyric_l_;
+  Extender_req* req_l_;
+  Lyric_extender* extender_spanner_p_;
+public:
+  Extender_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+
+protected:
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_removal_processing();
+  virtual void do_process_music();
+  virtual bool do_try_music (Music*);
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing ();
+private:
+
+};
+
 
 ADD_THIS_TRANSLATOR (Extender_engraver);
 
@@ -75,7 +109,7 @@ Extender_engraver::do_process_music ()
 	  return;
 	}
       
-      extender_spanner_p_ = new Extender_spanner (SCM_EOL);
+      extender_spanner_p_ = new Lyric_extender (get_property ("basicLyricExtenderProperties"));
       extender_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
       announce_element (Score_element_info (extender_spanner_p_, req_l_));
     }
