@@ -46,8 +46,8 @@ foe:
 $(outdir)/feta20.otf-table:
 	cat $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp > $@
 
-$(outdir)/bigcheese20.otf: $(outdir)/merge.pe $(outdir)/feta20.otf-table
-	(cd $(outdir) && fontforge -script merge.pe)
+$(outdir)/bigcheese20.otf: $(outdir)/bigcheese.pe $(outdir)/feta20.otf-table
+	(cd $(outdir) && fontforge -script bigcheese.pe)
 
 ## use separate package sauter-fonts-mftraced.
 SAUTER_FONTS = 

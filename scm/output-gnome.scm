@@ -285,12 +285,19 @@ lilypond -fgnome input/simple-song.ly
   (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
 
 (define (placebox x y expr)
+
+  (debugf "x,y: ~S,~S\n" x y)
+  ;; FIXME: dimensions with bigcheese are broken
+  ;;;       help hello-world of bigcheese a bit to figure out what's
+  ;;;       wrong
+  (set! x (+ 10 (/ x 50)))
+  (if (< y -800)
+      (set! y (+ y 700)))
+  (if (< y -250)
+      (set! y (+ y 250)))
+  
   (debugf "item: ~S\n" expr)
   (debugf "x,y: ~S,~S\n" x y)
-  ;; symbols enter visual
-  (set! x 10)
-  ;;(set! y -10)
-  ;;(set! y (/ y 10))
   (let ((item expr))
     ;;(if item
     ;; FIXME ugly hack to skip #unspecified ...
@@ -330,6 +337,7 @@ lilypond -fgnome input/simple-song.ly
 (define (named-glyph font name)
   (debugf "glyph:~S\n" name)
   (debugf "index:~S\n" (ly:font-get-glyph-index font name))
+  (debugf "font:~S\n" (font-family font))
   (text font (integer->char (ly:font-get-glyph-index font name))))
 
 (define (polygon coords blotdiameter)
@@ -365,7 +373,12 @@ lilypond -fgnome input/simple-song.ly
 
 (define (text font s)
   (define (pango-font-name font)
-    (font-family font))
+    (let ((family (font-family font)))
+      ;; Hmm, family is bigcheese20?
+      (if (string=? family "bigcheese20")
+	  (begin (debugf "BIGCHEESE\n")
+	  "LilyPond")
+	  family)))
   
   (define (pango-font-size font)
     (let* ((designsize (ly:font-design-size font))
