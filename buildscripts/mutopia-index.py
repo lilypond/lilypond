@@ -152,7 +152,11 @@ def gen_list(inputs, filename):
 			if file_exist_b(filename):
 				l.write ('<li><a href="%s">%s</a>' % (filename, desc))
 				size=os.stat(filename)[stat.ST_SIZE]
-				l.write (' (%s %dk)' % (type, (size + 512) / 1024))
+				kB=(size + 512) / 1024
+				if kB:
+					l.write (' (%s %dkB)' % (type, kB))
+				else:
+					l.write (' (%s %dcharacters)' % (type, size))
 				pictures = ['jpeg', 'png', 'xpm']
 				l.write ('\n')
 

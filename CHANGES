@@ -1,5 +1,7 @@
-1.5.14.jcn2
+1.5.14.jcn3
 ===========
+
+* Some website related fixes (thanks Tiggr).
 
 * Ugly hack in add-html-footer for disabling tutorial and refman links
 in sidebar.

@@ -147,8 +147,6 @@ lower =  \context Staff \notes \relative c{
     >
 
   \paper {
-    textheight = 295.\mm
-    \translator{ \OrchestralScoreContext }
     \translator{
 	    \VoiceContext
 	    Slur \override #'attachment = #'(stem . stem)
