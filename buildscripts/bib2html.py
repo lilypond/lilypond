@@ -9,7 +9,7 @@ import string
 def usage ():
     print 'usage: %s [-s style] [-o <outfile>] BIBFILES...';
 
-
+print os.environ['BSTINPUTS']
 
 (options, files) = getopt.getopt(sys.argv[1:], 's:o:', [])
 
@@ -58,12 +58,14 @@ open(tempfile + '.aux', 'w').write (r'''
 cmd = "bibtex %s" % tempfile;
 
 sys.stdout.write ("Invoking `%s'\n" % cmd)
-os.system (cmd) 
+stat = os.system (cmd)
+if stat <> 0:
+    sys.exit(1)
 
 
 #TODO: do tex -> html on output 
 
-bbl =open (tempfile + '.bbl').read ()
+bbl = open (tempfile + '.bbl').read ()
 
 open (output, 'w').write  (bbl)
 

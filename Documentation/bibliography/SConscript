@@ -1,9 +1,13 @@
 # -*-python-*-
+import os
 
 Import ('env')
 bibs = env['src_glob'] (env, '*.bib')
 env.AT_COPY ('index.html.in')
 
+# todo: must make html-long.bst as source too.
+env['ENV']['BSTINPUTS'] = ":"+os.getcwd()
+print env.BIB2HTML
 map (env.BIB2HTML, bibs)
 env.Alias ('doc', bibs)
 
