@@ -1,10 +1,15 @@
 /*
-  Junk String numbers.
-  
- */
+  string-number-engraver.cc -- implement String_number_engraver
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
 
 #include "engraver.hh"
 
+//  Junk String numbers.
 class String_number_engraver : public Engraver
 {
 public:

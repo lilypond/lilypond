@@ -1,5 +1,5 @@
 /*
-  pango-font.cc --  implement Pango_font
+  pango-font.cc -- implement Pango_font
 
   source file of the GNU LilyPond music typesetter
 

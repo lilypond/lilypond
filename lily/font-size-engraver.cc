@@ -1,5 +1,5 @@
 /*   
-  font-size-engraver.cc --  implement Font_size_engraver
+  font-size-engraver.cc -- implement Font_size_engraver
   
   source file of the GNU LilyPond music typesetter
   

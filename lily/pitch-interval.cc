@@ -1,5 +1,5 @@
 /* 
-  pitch-interval.cc --  implement Pitch_interval
+  pitch-interval.cc -- implement Pitch_interval
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  pango-select.cc --  implement lily font selection for Pango_fonts.
+  pango-select.cc -- implement lily font selection for Pango_fonts.
 
   source file of the GNU LilyPond music typesetter
 

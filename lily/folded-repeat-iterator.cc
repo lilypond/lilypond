@@ -1,5 +1,5 @@
 /*   
-     folded-repeat-iterator.cc --  implement Folded_repeat_iterator
+     folded-repeat-iterator.cc -- implement Folded_repeat_iterator
   
   source file of the GNU LilyPond music typesetter
   

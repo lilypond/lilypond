@@ -1,5 +1,5 @@
 /*
-  lily-parser-scheme.cc --  implement Lily_parser bindings
+  lily-parser-scheme.cc -- implement Lily_parser bindings
 
   source file of the GNU LilyPond music typesetter
 

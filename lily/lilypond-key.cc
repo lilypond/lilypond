@@ -1,5 +1,5 @@
 /*
-  lilypond-key.cc --  implement Lilypond_{grob, context}_key
+  lilypond-key.cc -- implement Lilypond_{grob, context}_key
 
   source file of the GNU LilyPond music typesetter
 

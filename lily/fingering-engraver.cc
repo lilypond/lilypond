@@ -1,5 +1,5 @@
 /*   
-  fingering-engraver.cc --  implement Fingering_engraver
+  fingering-engraver.cc -- implement Fingering_engraver
   
   source file of the GNU LilyPond music typesetter
   

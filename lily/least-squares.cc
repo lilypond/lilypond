@@ -1,5 +1,5 @@
 /*   
-  least-squares.cc --  implement minimise_least_squares
+  least-squares.cc -- implement minimise_least_squares
   
   source file of the GNU LilyPond music typesetter
   

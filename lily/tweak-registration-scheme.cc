@@ -1,5 +1,5 @@
 /*
-  tweak-registration-scheme.cc --  implement Tweak_registry bindings
+  tweak-registration-scheme.cc -- implement Tweak_registry bindings
 
   source file of the GNU LilyPond music typesetter
 

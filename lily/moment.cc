@@ -1,5 +1,5 @@
 /*   
-  moment.cc --  implement Moment
+  moment.cc -- implement Moment
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  spring.cc --  implement Spring
+  spring.cc -- implement Spring
   
   source file of the GNU LilyPond music typesetter
   

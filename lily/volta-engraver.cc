@@ -1,5 +1,5 @@
 /*   
-  volta-engraver.cc --  implement Volta_engraver
+  volta-engraver.cc -- implement Volta_engraver
   
   source file of the GNU LilyPond music typesetter
   

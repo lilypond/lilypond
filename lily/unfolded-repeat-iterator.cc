@@ -1,5 +1,5 @@
 /*   
-unfolded-repeat-iterator.cc --  implement Unfolded_repeat_iterator, Volta_repeat_iterator
+unfolded-repeat-iterator.cc -- implement Unfolded_repeat_iterator, Volta_repeat_iterator
 
 source file of the GNU LilyPond music typesetter
 

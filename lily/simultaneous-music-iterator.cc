@@ -1,5 +1,5 @@
 /*
-  Simultaneous_music-iterator.cc -- implement Simultaneous_music_iterator
+  simultaneous-music-iterator.cc -- implement Simultaneous_music_iterator
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  lyric-number-engraver.cc --  implement Stanza_number_engraver
+  lyric-number-engraver.cc -- implement Stanza_number_engraver
   
   source file of the GNU LilyPond music typesetter
   

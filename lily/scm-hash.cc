@@ -1,5 +1,5 @@
 /*
-  scm-hash.cc --  implement Scheme_hash_table
+  scm-hash.cc -- implement Scheme_hash_table
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  stem-grav.cc -- implement Stem_engraver
+  stem-engraver.cc -- implement Stem_engraver
 
   source file of the GNU LilyPond music typesetter
 

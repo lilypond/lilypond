@@ -1,5 +1,5 @@
 /* 
-  apply-context-iterator.cc --  implement Apply_context_iterator
+  apply-context-iterator.cc -- implement Apply_context_iterator
   
   source file of the GNU LilyPond music typesetter
   

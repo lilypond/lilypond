@@ -1,5 +1,5 @@
 /*   
-     staff-spacing.cc --  implement Staff_spacing
+     staff-spacing.cc -- implement Staff_spacing
 
      source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  object-key.cc --  implement Object_key
+  object-key.cc -- implement Object_key
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  music-sequence.cc --  implement Music_sequence
+  music-sequence.cc -- implement Music_sequence
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  output-def-scheme.cc --  implement Output_def bindings
+  output-def-scheme.cc -- implement Output_def bindings
 
   source file of the GNU LilyPond music typesetter
 

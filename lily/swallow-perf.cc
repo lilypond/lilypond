@@ -1,5 +1,5 @@
 /*
-  swallow-perf.cc -- implement Swallow_performer
+  swallow-performer.cc -- implement Swallow_performer
 
   source file of the GNU LilyPond music typesetter
 

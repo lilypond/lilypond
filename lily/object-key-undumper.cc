@@ -1,5 +1,5 @@
 /*
-  object-key-undumper.cc --  implement Object_key_undumper
+  object-key-undumper.cc -- implement Object_key_undumper
 
   source file of the GNU LilyPond music typesetter
 

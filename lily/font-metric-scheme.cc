@@ -1,5 +1,5 @@
 /*
-  font-metric-scheme.cc --  implement Font_metric scheme bindings
+  font-metric-scheme.cc -- implement Font_metric scheme bindings
 
   source file of the GNU LilyPond music typesetter
 

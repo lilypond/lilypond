@@ -1,5 +1,5 @@
 /* 
-  slur-configuration.cc --  implement Slur_configuration
+  slur-configuration.cc -- implement Slur_configuration
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  group-interface.cc --  implement Group_interface
+  group-interface.cc -- implement Group_interface
   
   source file of the GNU LilyPond music typesetter
   

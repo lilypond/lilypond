@@ -1,5 +1,5 @@
 /*
-  paper-book-scheme.cc --  implement Paper_book bindings
+  paper-book-scheme.cc -- implement Paper_book bindings
 
   source file of the GNU LilyPond music typesetter
 

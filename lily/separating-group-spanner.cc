@@ -1,5 +1,5 @@
 /*   
-  separating-group-spanner.cc --  implement Separating_group_spanner
+  separating-group-spanner.cc -- implement Separating_group_spanner
   
   source file of the GNU LilyPond music typesetter
   

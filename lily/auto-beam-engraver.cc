@@ -1,5 +1,5 @@
 /*   
-  auto-beam-engraver.cc --  implement Auto_beam_engraver
+  auto-beam-engraver.cc -- implement Auto_beam_engraver
   
   source file of the GNU LilyPond music typesetter
   

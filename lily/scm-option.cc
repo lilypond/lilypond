@@ -1,5 +1,5 @@
 /*
-  scm-option.cc --  implement option setting from Scheme
+  scm-option.cc -- implement option setting from Scheme
 
   source file of the GNU LilyPond music typesetter
 

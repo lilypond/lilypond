@@ -1,5 +1,5 @@
 /*   
-  measure-grouping-engraver.cc --  implement Measure_grouping_engraver
+  measure-grouping-engraver.cc -- implement Measure_grouping_engraver
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  score-scheme.cc --  implement Score bindings.
+  score-scheme.cc -- implement Score bindings.
 
   source file of the GNU LilyPond music typesetter
 

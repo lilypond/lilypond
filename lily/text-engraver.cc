@@ -1,5 +1,5 @@
 /*   
-  text-engraver.cc --  implement Text_engraver
+  text-engraver.cc -- implement Text_engraver
   
   source file of the GNU LilyPond music typesetter
   

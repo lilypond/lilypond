@@ -1,5 +1,5 @@
 /*
-  input-scheme.cc --  implement Input bindings.
+  input-scheme.cc -- implement Input bindings.
 
   source file of the GNU LilyPond music typesetter
 

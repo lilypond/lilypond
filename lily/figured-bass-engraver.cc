@@ -1,5 +1,5 @@
 /*   
-figured-bass-engraver.cc --  implement Figured_bass_engraver
+figured-bass-engraver.cc -- implement Figured_bass_engraver
 
 source file of the GNU LilyPond music typesetter
 

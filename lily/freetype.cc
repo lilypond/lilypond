@@ -1,5 +1,5 @@
 /*
-  freetype.cc --  implement Freetype routines.
+  freetype.cc -- implement Freetype routines.
 
   source file of the GNU LilyPond music typesetter
 

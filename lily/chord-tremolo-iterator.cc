@@ -1,5 +1,5 @@
 /*   
-  chord-tremolo-iterator.cc --  implement Chord_tremolo_iterator
+  chord-tremolo-iterator.cc -- implement Chord_tremolo_iterator
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  tie-column.cc --  implement Tie_column
+  tie-column.cc -- implement Tie_column
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /* 
-  system-start-delimiter.cc --  implement System_start_delimiter
+  system-start-delimiter.cc -- implement System_start_delimiter
 
   source file of the GNU LilyPond music typesetter
 

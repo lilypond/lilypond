@@ -1,5 +1,5 @@
 /*   
-  align-interface.cc --  implement Align_interface
+  align-interface.cc -- implement Align_interface
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  object-key-dumper-scheme.cc --  implement Object_key_dumper bindings
+  object-key-dumper-scheme.cc -- implement Object_key_dumper bindings
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  break-align-engraver.cc --  implement Break_align_engraver
+  break-align-engraver.cc -- implement Break_align_engraver
   
   source file of the GNU LilyPond music typesetter
   

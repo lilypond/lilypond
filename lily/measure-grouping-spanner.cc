@@ -1,5 +1,5 @@
 /*   
-	measure-grouping-spanner.cc --  implement Measure_grouping
+	measure-grouping-spanner.cc -- implement Measure_grouping
 
 	source file of the GNU LilyPond music typesetter
 

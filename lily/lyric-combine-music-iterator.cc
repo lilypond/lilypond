@@ -1,5 +1,5 @@
 /*   
-  lyric-combine-music-iterator.cc --  implement Lyric_combine_music_iterator
+  lyric-combine-music-iterator.cc -- implement Lyric_combine_music_iterator
   
   source file of the GNU LilyPond music typesetter
   

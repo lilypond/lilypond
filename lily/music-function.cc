@@ -1,5 +1,5 @@
 /* 
-  music-function.cc --  implement music_function
+  music-function.cc -- implement music_function
   
   source file of the GNU LilyPond music typesetter
   

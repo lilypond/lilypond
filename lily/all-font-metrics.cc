@@ -1,5 +1,5 @@
 /*
-  all-font-metrics.cc --  implement All_font_metrics
+  all-font-metrics.cc -- implement All_font_metrics
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-     piano-pedal-engraver.cc --  implement Piano_pedal_engraver
+     piano-pedal-engraver.cc -- implement Piano_pedal_engraver
   
      source file of the GNU LilyPond music typesetter
   

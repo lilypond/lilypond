@@ -1,5 +1,5 @@
 /*   
-  new-chord-tremolo-engraver.cc --  implement Chord_tremolo_engraver
+  new-chord-tremolo-engraver.cc -- implement Chord_tremolo_engraver
   
   source file of the GNU LilyPond music typesetter
   

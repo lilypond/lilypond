@@ -1,5 +1,5 @@
 /*
-  pango-select-scheme.cc --  implement Pango descr <-> string bindings
+  pango-select-scheme.cc -- implement Pango descr <-> string bindings
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  protected-scm.cc --  implement Protected_scm
+  protected-scm.cc -- implement Protected_scm
   
   source file of the GNU LilyPond music typesetter
   

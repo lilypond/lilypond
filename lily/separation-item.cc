@@ -1,5 +1,5 @@
 /*   
-     separation-item.cc --  implement Separation_item
+     separation-item.cc -- implement Separation_item
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  vertical-align-grav.cc -- implement Vertical_align_engraver
+  vertical-align-engraver.cc -- implement Vertical_align_engraver
 
   source file of the GNU LilyPond music typesetter
 

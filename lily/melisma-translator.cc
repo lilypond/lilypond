@@ -1,5 +1,5 @@
 /*   
-  melisma-engraver.cc --  implement Melisma_engraver
+  melisma-engraver.cc -- implement Melisma_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  script-column.cc --  implement Script_column
+  script-column.cc -- implement Script_column
   
   source file of the GNU LilyPond music typesetter
   

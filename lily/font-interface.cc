@@ -1,5 +1,5 @@
 /*
-  font-interface.cc --  implement Font_interface
+  font-interface.cc -- implement Font_interface
   
   source file of the GNU LilyPond music typesetter
 

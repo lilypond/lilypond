@@ -1,5 +1,5 @@
 /*
-  Translator_group.cc -- implement Translator_group
+  translator-group.cc -- implement Translator_group
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /* 
-  grace-engraver.cc --  implement Grace_engraver
+  grace-engraver.cc -- implement Grace_engraver
   
   source file of the GNU LilyPond music typesetter
   

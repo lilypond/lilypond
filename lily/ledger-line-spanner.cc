@@ -1,5 +1,5 @@
 /* 
-  ledger-line-spanner.cc --  implement Ledger_line_spanner
+  ledger-line-spanner.cc -- implement Ledger_line_spanner
   
   source file of the GNU LilyPond music typesetter
   

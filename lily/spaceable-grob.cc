@@ -1,5 +1,5 @@
 /*   
-  spaceable-grob.cc --  implement Spaceable_grob
+  spaceable-grob.cc -- implement Spaceable_grob
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  output-property-engraver.cc --  implement Output_property_engraver
+  output-property-engraver.cc -- implement Output_property_engraver
   
   source file of the GNU LilyPond music typesetter
   

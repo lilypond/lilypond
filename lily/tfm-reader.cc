@@ -1,5 +1,5 @@
 /*   
-  tfm-reader.cc --  implement Tex_font_metric_reader
+  tfm-reader.cc -- implement Tex_font_metric_reader
   
   source file of the GNU LilyPond music typesetter
   
