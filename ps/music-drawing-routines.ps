@@ -4,6 +4,10 @@
 
 /blot-diameter { lilypondpaperblotdiameter } bind def
 
+% fucking redhat xdvi patch.
+/skeel { scale } bind def
+
+
 /set_tex_dimen {
 	cvr def     
 } bind def
@@ -13,6 +17,7 @@
 	1 copy mul exch 1 copy mul add sqrt 
 } bind def 
 
+/skeel { scale } bind def
 % FIXME.  translate to middle of box.
 % Nice rectangle with rounded corners
 /draw_box % breapth width depth height

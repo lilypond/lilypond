@@ -65,7 +65,7 @@ if files:
 		if string.find (n, '+') >= 0:
 			s = "@lilypondfile{%s}" % n
 		else:
-			s = "@lilypondfile[printfilename]{%s}" % n
+			s = "@lilypondfile[printfilename,verbatim]{%s}" % n
 		return s
 
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")
@@ -76,4 +76,8 @@ if files:
 	h.write (s)
 	h.close ()
 	sys.stderr.write ('\n')
-	
+else:
+	# not Unix philosophy, but hey, at least we notice when
+	# we don't distribute any .ly files.
+	sys.stderr.write ("No files specified. Doing nothing")
+
