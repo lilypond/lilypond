@@ -1,6 +1,11 @@
 2003-09-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* VERSION (MY_PATCH_LEVEL): readd VERSION; version number is now
+	* lily/tuplet-bracket.cc (brew_molecule): don't print bracket when
+	it would be too small.
+
+	* lily/font-metric.cc: return #f for non-existent glyph.
+
+	* VERSION (MY_PATCH_LEVEL): read VERSION; version number is now
 	exported through config.make.
 
 	* input/regression/clef-oct.ly: new file.
@@ -73,8 +78,6 @@
 	* lily/lexer.ll: add \r to the rules for newlines; this fixes
 	problems on older Mac editors.
 
-	* configure.in: release 1.9.5
-	
 2003-09-12  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-clefs.mf: more set_char_box() fixes and code cleanup
@@ -102,6 +105,8 @@
 
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* configure.in: release 1.9.5
+	
 	* scripts/lilypond.py (global_latex_preamble): only set
 	twosideshift if 'twoside' is in latexoptions 
 
