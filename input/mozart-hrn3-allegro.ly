@@ -55,7 +55,7 @@ allegro =
 	d4. [e16 fis] [g () fis e d] [c() b a g]
 	\endcresc
 	< a1(-\trill
-1	  { s2 \grace{ [g16 a] } } >
+	  { s2 \grace{ [g16 a] } } >
 	\mark "C"
 	)g4 r r2
 	R1*15

@@ -11,6 +11,7 @@ beams this way."
 \score{
   \notes\relative c'{
     \property Voice.Beam \set #'concaveness-threshold = #0.08
+    \property Voice.Beam \set #'concaveness-bt2 = #2.0
     
 %% This case seems easy: second beam should be horizontal.
     
@@ -54,7 +55,10 @@ beams this way."
 %     %% SCS-VI Prelude, m82
 %     %% slope = 0.1ss (possibly b.o. context?)
 %     [g, e' cis]
+
     
+%%% `Han-Wen': this should be concave
+    [a,16^"horiz." a' a a]
   }
   \paper{
     linewidth = -1.0

@@ -90,6 +90,9 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
+(grob-property-description 'concaveness-gap number? "A beam is
+considered to be concave if the distance of an inner notehead to the
+line between two outer noteheads is bigger than this gap.")
 (grob-property-description 'concaveness-threshold number? "A beam is
 considered to be concave is concaveness is bigger than this threshold.
 Concaveness is calculated as the sum of the vertical distances of
