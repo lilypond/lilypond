@@ -64,9 +64,9 @@ Tie::do_post_processing()
   // URG: share code with slur!
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
-  Real notewidth = paper ()->note_width ();
+  // URG
+  Real notewidth = paper ()->note_width () * 0.8;
   Real interline_f = paper ()->interline_f ();
-  Real tie_min = paper ()->get_var ("tie_x_minimum");
 
   /* 
    [OSU]: slur and tie placement
@@ -121,20 +121,6 @@ Tie::do_post_processing()
       // tie attached to outer notehead
       if (!head_l_drul_[d])
 	{
-
-	/*
-	 urg, this is broken
-	 but who *is* going to assure that dx >= tie_min?
-	 */
-#if 0
-	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < tie_min)
-	    {
-//	      dx_f_drul_[d] -= d * tie_min 
-//		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * tie_min;
-	    }
-#endif
-
 	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
 	}
     }
@@ -165,3 +151,21 @@ Tie::do_substitute_dependency (Score_element*o, Score_element*n)
     head_l_drul_[RIGHT] = new_l;
 }
 
+Interval
+Tie::do_width () const
+{
+  Real min_f = paper ()->get_var ("tie_x_minimum");
+  Interval width_int = Bow::do_width ();
+  return width_int.length () < min_f ? Interval (0, min_f) : width_int;
+}
+
+Array<Rod>
+Tie::get_rods () const
+{
+  Array<Rod> a;
+  Rod r ((Single_malt_grouping_item*)head_l_drul_[LEFT],
+	 (Single_malt_grouping_item*)head_l_drul_[RIGHT]);
+  r.distance_f_ += do_width ().length ();
+  a.push (r);
+  return a;
+}

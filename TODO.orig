@@ -205,6 +205,8 @@ BUGS:
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
+	* check/set minimum slur/tie length
+
 	* msgfmt -o check?
 
 	* \breathmark TeX macro 

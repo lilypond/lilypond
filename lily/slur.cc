@@ -102,7 +102,6 @@ Slur::do_post_processing ()
   Real internote_f = interline_f / 2;
   // URG
   Real notewidth_f = paper ()->note_width () * 0.8;
-  Real slur_min = paper ()->get_var ("slur_x_minimum");
 
   /* 
    [OSU]: slur and tie placement
@@ -190,21 +189,6 @@ Slur::do_post_processing ()
 	    dy_f_drul_[u] += dir_ * internote_f;
 
 	  dy_f_drul_[d] = dy_f_drul_[(Direction)-d];
-
-	/*
-	 urg, this is broken
-	 but who *is* going to assure that dx >= slur_min?
-	 */
-#if 0
-
-	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < slur_min)
-	    {
-	    // huh? what was this supposed to do?
-//	      dx_f_drul_[d] -= d * slur_min 
-//		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * slur_min;
-	    }
-#endif
 	}
      }
   while (flip(&d) != LEFT);
@@ -298,3 +282,21 @@ Slur::get_encompass_offset_arr () const
   return notes;
 }
 
+Interval
+Slur::do_width () const
+{
+  Real min_f = paper ()->get_var ("slur_x_minimum");
+  Interval width_int = Bow::do_width ();
+  return width_int.length () < min_f ? Interval (0, min_f) : width_int;
+}
+
+Array<Rod>
+Slur::get_rods () const
+{
+  Array<Rod> a;
+  Rod r ((Single_malt_grouping_item*)encompass_arr_[0]->stem_l_->head_l_arr_[0],
+	 (Single_malt_grouping_item*)encompass_arr_.top ()->stem_l_->head_l_arr_[0]);
+  r.distance_f_ += do_width ().length ();
+  a.push (r);
+  return a;
+}

@@ -7,10 +7,8 @@
 #ifndef SLUR_HH
 #define SLUR_HH
 
-#include "directional-spanner.hh"
-#include "lily-proto.hh"
-#include "parray.hh"
 #include "bow.hh"
+#include "rod.hh"
 
 /**
   A #Bow# which tries to drape itself around the stems too.
@@ -33,6 +31,8 @@ protected:
   virtual void do_add_processing ();
   virtual void do_pre_processing ();
   virtual void do_substitute_dependency (Score_element*, Score_element*);
+  virtual Interval do_width () const;
+  Array<Rod> get_rods () const;
 };
 
 #endif // SLUR_HH
