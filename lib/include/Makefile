@@ -13,7 +13,7 @@ MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
 PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/.build
+build = ./$(depth)/lily/$(outdir)/.build
 #
 
 # generic stuff/Makefile

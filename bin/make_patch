@@ -37,5 +37,8 @@ fi
 
 #(cd $nm$old; touch depend; make clean)
 #(cd $nm$new; touch depend; make clean)
-(cd $nm$new; diff -urP  ../$nm$old . > ../patch-$new)
+
+echo 'use cd source-dir; patch -E -p0 < this_patch'> patch-$new
+
+(cd $nm$new; diff -urN  ../$nm$old . >> ../patch-$new)
 rm -rf $nm$old $nm$new
