@@ -22,7 +22,7 @@
 	))
     (AccidentalPlacement
      . (
-	(X-extent-callback . ,Accidental_placement::extent_callback)
+	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.3)
 	(right-padding . 0.3)
 	(meta . ((interfaces . (item-interface accidental-placement-interface))))

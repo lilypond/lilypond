@@ -20,6 +20,9 @@ source file of the GNU LilyPond music typesetter
 #include "note-collision.hh"
 #include "accidental-interface.hh"
 
+/*
+  Hmm. why not group-extent? 
+ */
 MAKE_SCHEME_CALLBACK(Accidental_placement,extent_callback, 2);
 SCM
 Accidental_placement::extent_callback(SCM s, SCM axis)
@@ -85,6 +88,64 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 
   me->set_grob_property ("accidentals", accs);
 }
+
+/*
+  Split into break reminders.
+ */
+void
+Accidental_placement::split_accidentals (Grob * accs,
+					 Link_array<Grob> *break_reminder,
+					 Link_array<Grob> *real_acc)
+{
+  for (SCM acs =accs->get_grob_property ("accidentals"); gh_pair_p (acs);
+       acs =gh_cdr (acs))
+    for (SCM s = gh_cdar (acs); gh_pair_p (s); s = gh_cdr (s))
+      {
+	Grob *a = unsmob_grob (gh_car (s));
+
+	if (unsmob_grob (a->get_grob_property ("tie")))
+	  break_reminder->push (a);
+	else
+	  real_acc->push (a);
+      }
+}
+
+/*
+  Accidentals are special, because they appear and disappear before
+  and after ties at will.
+*/
+Interval
+Accidental_placement::get_relevant_accidental_extent (Grob *me,
+						      Item *item_col,
+						      Grob *left_object)
+{
+  Link_array<Grob> br, ra;
+  Link_array<Grob> *which = 0;
+
+  Accidental_placement::split_accidentals (me, &br, &ra);
+  br.concat (ra);
+  
+  if (dynamic_cast<Item*>(left_object)->break_status_dir () == RIGHT)
+    which = & br;
+  else
+    which = & ra;
+  
+  Interval extent;
+  for (int i = 0; i < which->size(); i++)
+    {
+      extent.unite (which->elem(i)->extent (item_col, X_AXIS));
+    }
+
+  if (!extent.empty_b())
+    {
+      Real p = gh_scm2double (me->get_grob_property ("left-padding"));
+      extent[LEFT] -= p;
+    }
+  
+  return extent;
+}
+
+
 
 struct Accidental_placement_entry
 {

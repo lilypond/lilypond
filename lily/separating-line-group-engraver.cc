@@ -15,6 +15,7 @@
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"
 #include "group-interface.hh"
+#include "accidental-placement.hh"
 
 struct Spacings
 {
@@ -108,7 +109,6 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
       ->has_extent_callback_b(Axis_group_interface::group_extent_callback_proc, X_AXIS))
     return;
 
-
   
   if (to_boolean (it->get_grob_property ("no-spacing-rods")))
     return ;
@@ -156,7 +156,10 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 	}
     }
 
-  Separation_item::add_item (p_ref_,it);
+  if (Accidental_placement::has_interface (it))
+    Separation_item::add_conditional_item (p_ref_, it);
+  else
+    Separation_item::add_item (p_ref_,it);
 }
 
 void

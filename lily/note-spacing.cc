@@ -17,7 +17,7 @@
 #include "stem.hh"
 #include "separation-item.hh"
 #include "staff-spacing.hh"
-
+#include "accidental-placement.hh"
 
 void
 Note_spacing::get_spacing (Grob *me, Item* right_col,
@@ -55,7 +55,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	  
 	  if (Separation_item::has_interface (it))
 	    {
-	      extents[d].unite (Separation_item::my_width (it));
+	      extents[d].unite (Separation_item::width (it));
 	      continue;
 	    }
 
@@ -78,7 +78,12 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 		accs = Note_column::accidentals (it->get_parent (X_AXIS));
 	      
 	      if (accs)
-		extents[d].unite (accs->extent (it_col, X_AXIS));
+		{
+		  Interval v =
+		    Accidental_placement::get_relevant_accidental_extent (accs, it_col, me);
+		    
+		  extents[d].unite (v);
+		}
 	    }
 	}
 

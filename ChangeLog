@@ -1,5 +1,12 @@
 2002-07-23  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/accidental-placement.cc (split_accidentals): new function
+	(get_relevant_accidental_extent): new function
+
+	* lily/staff-spacing.cc (next_note_correction): idem
+
+	* lily/separating-group-spanner.cc (find_rods): use conditional_width().
+
 	* scm/sketch.scm: fix roundfilledbox definition
 
 	* lily/lily-guile.cc (robust_list_ref): be sensible with negative
