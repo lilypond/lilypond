@@ -130,22 +130,30 @@
 
 (define-public (unfold-repeats music)
   "
-This function replaces all repeats  with unfold repeats. It was 
-written by Rune Zedeler. "
+This function replaces all repeats  with unfold repeats. "
   
   (let ((es (ly:music-property music 'elements))
 	(e  (ly:music-property music 'element))
 	(n  (ly:music-name music)))
     (if (equal? n "Repeated_music")
-	(let*
-	    ((seq-arg? (memq 'sequential-music
-						   (ly:music-property e 'types))))
+	(begin
 	  
 	  (if (equal? (ly:music-property music 'iterator-ctor)
 		      Chord_tremolo_iterator::constructor)
-	      (begin
+	      (let*
+		  ((seq-arg? (memq 'sequential-music
+				   (ly:music-property e 'types)))
+		   (count  (ly:music-property music 'repeat-count))
+		   (dot-shift (if (= 0 (remainder count 3))
+				  -1 0))
+		   )
+
+		(if (= 0 -1)
+		    (set! count (* 2 (quotient count 3))))
+		
 		(shift-duration-log music (+ (if seq-arg? 1 0)
-					     (ly:intlog2 (ly:music-property music 'repeat-count))) 0)
+					     (ly:intlog2 count)) dot-shift)
+		
 		(if seq-arg?
 		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))
 		))
