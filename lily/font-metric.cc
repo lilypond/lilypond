@@ -82,7 +82,7 @@ Font_metric::~Font_metric ()
 Font_metric::Font_metric ()
 {
   description_ = SCM_EOL;
-
+  self_scm_ = SCM_EOL;
   smobify_self ();
 }
 

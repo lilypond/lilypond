@@ -44,6 +44,7 @@ Music::Music (Music const &m)
 {
   immutable_property_alist_ = m.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
+  self_scm_ = SCM_EOL;
 
   /*
     First we smobify_self, then we copy over the stuff.  If we don't,
@@ -58,6 +59,7 @@ Music::Music (Music const &m)
 
 Music::Music (SCM l)
 {
+  self_scm_ = SCM_EOL;
   immutable_property_alist_ = l;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
