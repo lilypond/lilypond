@@ -114,7 +114,7 @@ Quote_iterator::construct_children ()
 bool
 Quote_iterator::ok () const
 {
-  return (event_idx_ <  end_idx_);
+  return (event_idx_ <= end_idx_);
 }
 
 
@@ -147,26 +147,25 @@ Quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (!gh_pair_p (entry))
-    return;
-  
-  for (SCM s = gh_cdr (entry); gh_pair_p (s); s = gh_cdr (s))
+  if (gh_pair_p (entry))
     {
-      SCM ev_acc = gh_car (s);
-
-
-      Music * mus = unsmob_music (gh_car (ev_acc));
-      if (mus)
+      for (SCM s = gh_cdr (entry); gh_pair_p (s); s = gh_cdr (s))
 	{
-	  bool b = get_outlet ()->try_music (mus);
-      
-	  if (!b)
-	    mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name()));
-	}
-      else
-	programming_error ("need music in quote.");
-    }
+	  SCM ev_acc = gh_car (s);
 
+
+	  Music * mus = unsmob_music (gh_car (ev_acc));
+	  if (mus)
+	    {
+	      bool b = get_outlet ()->try_music (mus);
+      
+	      if (!b)
+		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name()));
+	    }
+	  else
+	    programming_error ("need music in quote.");
+	}
+    }
   event_idx_ ++; 
 }
 
