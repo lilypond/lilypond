@@ -1,3 +1,15 @@
+1.3.52.jcn1
+===========
+
+* Added toplevel doc target, to support building doc with --srcdir
+
+* Removed cygwin build stuff; updated versions at:
+
+      http://appel.dyndns.org/lilypond/gnu-windows/cross
+
+1.3.52
+======
+
 * Bugfix in smob handling.  Delete the C-part of freed smobs. Be
 honest about amount of allocation and deletion, so GUILE doesn't
 overestimate the amount of memory.

@@ -31,7 +31,8 @@ website: fonts htmldoc examples doc++
 fonts:
 	$(MAKE) -C $(depth)/mf 
 
-
+doc:
+	$(MAKE) -C Documentation
 
 htmldoc: 
 	$(MAKE) out='www' local-WWW
