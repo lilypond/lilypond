@@ -29,7 +29,7 @@ Score_horizontal_align_engraver::do_pre_move_processing()
 void
 Score_horizontal_align_engraver::acknowledge_element(Score_elem_info i)
 {
-    Request_engraver* reg = i.origin_grav_l_arr_[0];
+    Engraver* reg = i.origin_grav_l_arr_[0];
     if (reg->is_type_b( 
 	Score_align_engraver::static_name()) )
     {
@@ -46,5 +46,5 @@ Score_horizontal_align_engraver::acknowledge_element(Score_elem_info i)
     }
 }
 IMPLEMENT_STATIC_NAME(Score_horizontal_align_engraver);
-IMPLEMENT_IS_TYPE_B1(Score_horizontal_align_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Score_horizontal_align_engraver,Engraver);
 ADD_THIS_ENGRAVER(Score_horizontal_align_engraver);
