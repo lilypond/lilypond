@@ -1,5 +1,7 @@
 2002-10-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (chord_body): allow <<c e>>4 notation.
+
 	* lily/main.cc (main_prog): don't try to load init.EXT when
 	processing foo.EXT.
 

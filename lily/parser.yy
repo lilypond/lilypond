@@ -13,12 +13,44 @@
   Two shift/reduce problems:
     - empty music-list
     - empty pre-events
+
+
+
+(bullshit.
+
+s/r:
+
+1.	foo = bar.
+
+	"bar" -> String -> Lyric -> Music
+
+	"bar" -> String
+
+
+2.  \repeat
+	\repeat .. \alternative
+
+
+    \repeat { \repeat .. \alternative }
+
+or
+
+    \repeat { \repeat } \alternative 
+
+)
+
+--hwn
+
  */
 
 /*
 
-the rules for who is protecting what are very shady. TODO: uniformise
-this.
+TODO:
+
+* The rules for who is protecting what are very shady. Uniformise
+  this.
+
+* There are too many lexical modes. 
 
 
 */
@@ -119,10 +151,7 @@ of the parse stack onto the heap. */
 
 
 %union {
-
-    Link_array<Music> *reqvec;
-
-    String *string; // needed by the lexer as temporary scratch area.
+	String * string;
     Music *music;
     Score *score;
     Music_output_def * outputdef;
@@ -213,6 +242,10 @@ yylex (YYSTYPE *s,  void * v)
 %token CONTEXT
 %token REST
 
+%token CHORD_OPEN
+%token CHORD_CLOSE
+
+
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
@@ -258,10 +291,12 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	script_dir
 %type <scm>	identifier_init 
 
+%type <music> note_chord_element chord_body chord_body_element
+%type <scm>  chord_body_elements 
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
 %type <scm>  verbose_duration
 	
-%type <reqvec>  pre_events post_events
+%type <scm>  pre_events post_events
 %type <music> gen_text_def
 %type <scm>   steno_pitch pitch absolute_pitch
 %type <scm>   explicit_pitch steno_tonic_pitch
@@ -284,7 +319,6 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> hyphen_req
 %type <music> string_event
 %type <scm>	string bare_number number_expression number_term number_factor 
-
 %type <score>	score_block score_body
 
 %type <scm>	translator_spec_block translator_spec_body
@@ -650,12 +684,12 @@ The representation of a  list is the
 
  to have  efficient append.
 */
-Music_list: /* empty */ { /* SR conflict */
+Music_list: /* empty */ {
 		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {
 		SCM s = $$;
-		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
+ 		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
 		if (gh_pair_p (ly_cdr (s)))
 			gh_set_cdr_x (ly_cdr (s), c); /* append */
@@ -1121,19 +1155,67 @@ event_chord:
 	pre_events {
 		THIS->push_spot ();
 	} /*cont */ simple_element post_events	{
-		Music_sequence *l = dynamic_cast<Music_sequence*> ($3);
-		
-		$1->concat (*$4);
-	        for (int i=0; i < $1->size (); i++) {
-		  Music * m = $1->elem (i);
-		  l->append_music (m);
-		}
- 		$$ = $3;
+		SCM elts = $3-> get_mus_property ("elements");
 
-		delete $1;
-		delete $4;
+		elts = gh_append3 (elts, scm_reverse_x ($1, SCM_EOL),
+				   scm_reverse_x ($4, SCM_EOL));
+
+		$3-> set_mus_property ("elements", elts);
+		$$ = $3;
 	}
 	| command_element
+	| note_chord_element
+	;
+
+
+note_chord_element:
+	chord_body optional_notemode_duration post_events
+	{
+		SCM dur = unsmob_duration ($2)->smobbed_copy();
+		SCM es = $1->get_mus_property ("elements");
+		SCM postevs = scm_reverse_x ($3, SCM_EOL);
+
+		for (SCM s = es; gh_pair_p (s); s = gh_cdr (s))
+		  unsmob_music (gh_car(s))->set_mus_property ("duration", dur);
+		es = gh_append2 (es, postevs);
+
+		$1-> set_mus_property ("elements", es);
+		$$ = $1;
+	}
+	;
+
+chord_body:
+	CHORD_OPEN chord_body_elements CHORD_CLOSE
+	{
+		$$ = MY_MAKE_MUSIC("EventChord");
+		$$->set_mus_property ("elements",
+			scm_reverse_x ($2, SCM_EOL));
+	}
+	;
+
+chord_body_elements:
+	/* empty */ 		{ $$ = SCM_EOL; }
+	| chord_body_elements chord_body_element {
+		$$ = gh_cons ($2->self_scm(), $1);
+		scm_gc_unprotect_object ($2->self_scm());
+	}
+	;
+
+chord_body_element:
+	pitch exclamations questions post_events
+	{
+		Music * n = MY_MAKE_MUSIC("NoteEvent");
+		n->set_mus_property ("pitch", $1);
+		if ($3 % 2)
+			n->set_mus_property ("cautionary", SCM_BOOL_T);
+		if ($2 % 2 || $3 % 2)
+			n->set_mus_property ("force-accidental", SCM_BOOL_T);
+
+		SCM arts = scm_reverse_x ($4, SCM_EOL);
+		n->set_mus_property ("articulations", arts);
+
+		$$ = n;
+	}
 	;
 
 command_element:
@@ -1310,11 +1392,12 @@ verbose_command_req:
 
 post_events:
 	/* empty */ {
-		$$ = new Link_array<Music>;
+		$$ = SCM_EOL;
 	}
 	| post_events post_event {
 		$2->set_spot (THIS->here_input ());
-		$$->push ($2);
+		$$ = gh_cons ($2->self_scm(), $$);
+		scm_gc_unprotect_object ($2->self_scm());
 	}
 	;
 
@@ -1589,11 +1672,12 @@ script_dir:
 	;
 
 pre_events:
-	/* empty */ { /* SR conflict */
-		$$ = new Link_array<Music>;
+	/* empty */ { 
+		$$ = SCM_EOL;
 	}
 	| pre_events open_event {
-		$$->push ($2);
+		$$ = gh_cons ($2->self_scm(), $$);
+		scm_gc_unprotect_object ($2->self_scm());
 	}
 	;
 
@@ -1696,6 +1780,10 @@ tremolo_type:
 	;
 
 
+
+/*****************************************************************
+		BASS FIGURES
+*****************************************************************/
 bass_number:
 	DIGIT
 	| UNSIGNED 
@@ -1815,7 +1903,6 @@ simple_element:
  	| RESTNAME optional_notemode_duration		{
 
 		Input i = THIS->pop_spot ();
- 		SCM e = SCM_UNDEFINED;
 		Music * ev = 0;
  		if (ly_scm2string ($1) =="s") {
 			/* Space */
