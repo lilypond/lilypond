@@ -77,20 +77,32 @@ All_font_metrics::find_afm (String name)
 
       Adobe_font_metric *afm
 	= dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
-      Tex_font_metric * tfm = find_tfm (name);
 
-      if (tfm->info_.checksum != afm->checksum_)
+      /*
+	only check checksums if there is one.  We take the risk that
+	some file has valid checksum 0
+      */
+      if (afm->checksum_)
 	{
-	  String s = _f ("checksum mismatch for font file: `%s'",
-			 path.ch_C ());
-	  s += " " + _f ("does not match: `%s'", tfm->path_.ch_C ()); // FIXME
-	  s += "\n";
-	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
-	  s += " AFM: " + to_str ((int) afm->checksum_);
-	  s += "\n";
-	  s += _ (" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
-
-	  error (s);
+	  
+	  Tex_font_metric * tfm = find_tfm (name);
+	  
+	  /* FIXME: better warning message
+	     (maybe check upon startup for feta16.afm, feta16.tfm?)
+	  */
+	  if (tfm && tfm->info_.checksum != afm->checksum_)
+	    {
+	      String s = _f ("checksum mismatch for font file: `%s'",
+			     path.ch_C ());
+	      s += " " + _f ("does not match: `%s'", tfm->path_.ch_C ()); // FIXME
+	      s += "\n";
+	      s += " TFM: " + to_str ((int) tfm->info_.checksum);
+	      s += " AFM: " + to_str ((int) afm->checksum_);
+	      s += "\n";
+	      s += _ (" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
+	      
+	      error (s);
+	    }
 	}
     }
   
