@@ -163,10 +163,14 @@ def select_voice (name, rol):
 					check_clef(value)
 				elif keyword == "name":
 					value = re.sub ('\\\\','\\\\\\\\', value)
-					voices_append ("\\property Staff.instrument = %s\n" % value )
+					## < 2.2
+					##voices_append ("\\property Staff.instrument = %s\n" % value )
+					voices_append ("\\set Staff.instrument = %s\n" % value )
+					
 					__main__.part_names = 1
 				elif keyword == "sname" or keyword == "snm":
-					voices_append ("\\property Staff.instr = %s\n" % value )
+					##voices_append ("\\property Staff.instr = %s\n" % value )
+					voices_append ("\\set Staff.instr = %s\n" % value )
 		else:
 			break
 
@@ -191,7 +195,9 @@ def dump_default_bar (outf):
 	"""
 	Nowadays abc2ly outputs explicits barlines (?)
 	"""
-	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
+	## < 2.2
+	##outf.write ("\n\\property Score.defaultBarType = \"empty\"\n")
+	outf.write ("\n\\set Score.defaultBarType = \"empty\"\n")
 
 
 def dump_slyrics (outf):
