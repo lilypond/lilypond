@@ -95,7 +95,7 @@ if test x$MINGWPREFIX != xno; then
 fi
 
 if test $optimise_b = yes; then
-    DEFINES="$DEFINES -O2 -DSTRING_UTILS_INLINED"
+    DEFINES="$DEFINES -finline-functions -O2 -DSTRING_UTILS_INLINED"
 fi
 
 if test "x$OSTYPE" = "xWindows_NT"; then
@@ -171,7 +171,7 @@ AC_JUNK_ARGS( [if test "x$MFDIR" = xauto; then
 )
 
 AC_CHECK_SEARCH_RESULT($MAKE, GNU make,  You should install GNU make)
-AC_CHECK_SEARCH_RESULT( $BISON, bison,  Please install Bison, 1.25 or better)
+AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or better)
 AC_CHECK_SEARCH_RESULT($PERL, perl, You should install Perl, version 5 or better)
 AC_CHECK_SEARCH_RESULT($PYTHON, python, You should install Python)
 AC_CHECK_SEARCH_RESULT($PODMAN, pod,  You should install Perl, version 5 or better)
