@@ -1,5 +1,7 @@
-1.4.9.jcn2
+1.4.9.jcn3
 ==========
+
+* Really included .cvsignore.
 
 * Included Han-Wen's uu1 windows fixes.
 
@@ -12,7 +14,7 @@
 
 * Updated cygwin installer.
 
-* ly2dvi: Don't accept filenames with spaces.
+* ly2dvi: Don't accept filenames with spaces (+ fix).
 
 1.4.9
 =====

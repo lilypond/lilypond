@@ -806,9 +806,7 @@ if files and files[0] != '-':
 		outbase = strip_extension (outbase, i)
 	files = map (abspath, files)
 
-	all = files
-	all.append (output_name)
-	for i in all:
+	for i in files[:] + [output_name]:
 		if string.find (i, ' ') >= 0:
 			user_error (_ ("filename should not contain spaces: `%s'") % i)
 			
