@@ -1090,7 +1090,7 @@ if 1:
 		str = re.sub (r"\\transpose", r"\\transpose c'", str)
 		str = re.sub (r"\\transpose c' *([a-z]+)'", r"\\transpose c \1", str)
 		return str
-	conversions.append (((1,7,5), conv, '\transpose TO -> \transpose FROM  TO'))
+	conversions.append (((1,7,5), conv, '\\transpose TO -> \\transpose FROM  TO'))
 
 if 1:
 	def conv(str):
