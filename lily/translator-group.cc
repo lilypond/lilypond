@@ -20,7 +20,7 @@
 Translator_group*
 Translator_group::get_daddy_translator () const
 {
-  return get_parent_context ()->get_parent_context ()->implementation ();
+  return context ()->get_parent_context ()->implementation ();
 }
 
 
@@ -36,7 +36,7 @@ void
 Translator_group::initialize ()
 {
   SCM tab = scm_make_vector (scm_int2num (19), SCM_BOOL_F);
-  get_parent_context ()->set_property ("acceptHashTable", tab);
+  context ()->set_property ("acceptHashTable", tab);
 }
 
 

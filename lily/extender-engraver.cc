@@ -92,7 +92,7 @@ Extender_engraver::stop_translation_timestep ()
 
   if (extender_ || pending_extender_)
     {
-      Context *voice = get_voice_to_lyrics (get_parent_context ());
+      Context *voice = get_voice_to_lyrics (context ());
       Grob* h =  (voice) ? get_current_note_head (voice) : 0;
 
       if (h)

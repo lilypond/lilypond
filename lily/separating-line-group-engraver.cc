@@ -140,7 +140,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
       if (ib)
 	{
 	  p_ref_->set_property ("breakable", SCM_BOOL_T);
-	  get_parent_context ()->set_property ("breakableSeparationItem", p_ref_->self_scm ());
+	  context ()->set_property ("breakableSeparationItem", p_ref_->self_scm ());
 	}
       announce_grob (p_ref_, SCM_EOL);
 
@@ -179,7 +179,7 @@ void
 Separating_line_group_engraver::start_translation_timestep ()
 {
   if (break_item_)
-    get_parent_context ()->unset_property (ly_symbol2scm ("breakableSeparationItem"));
+    context ()->unset_property (ly_symbol2scm ("breakableSeparationItem"));
   break_item_ =0;
 }
 

@@ -74,7 +74,7 @@ void
 Tie_engraver::process_music ()
 {
   if (event_)
-    get_parent_context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -123,7 +123,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 void
 Tie_engraver::start_translation_timestep ()
 {
-  get_parent_context ()->set_property ("tieMelismaBusy",
+  context ()->set_property ("tieMelismaBusy",
 			      ly_bool2scm (heads_to_tie_.size ()));
       
 }

@@ -85,7 +85,7 @@ Figured_bass_engraver::process_music ()
 	      t = SCM_CDRLOC (*t);
 	    }
 	  figure_ = make_item ("BassFigure");
-	  scm_call_3 (proc, l, get_parent_context ()->self_scm (),
+	  scm_call_3 (proc, l, context ()->self_scm (),
 		      figure_->self_scm ());
 	  announce_grob (figure_, figures_[0]->self_scm ()); // todo
 	}

@@ -88,7 +88,7 @@ Slur_engraver::try_music (Music *ev)
 void
 Slur_engraver::set_melisma (bool m)
 {
-  get_parent_context ()->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
+  context ()->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void

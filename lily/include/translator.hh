@@ -37,7 +37,7 @@ class Translator
   void init ();
   
 public:
-  Context * get_parent_context () const { return daddy_context_; }
+  Context * context () const { return daddy_context_; }
   
   Translator (Translator const &);
 

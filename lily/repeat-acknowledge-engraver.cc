@@ -38,7 +38,7 @@ public:
 void
 Repeat_acknowledge_engraver::initialize ()
 {
-  get_parent_context ()->set_property ("repeatCommands", SCM_EOL);
+  context ()->set_property ("repeatCommands", SCM_EOL);
 }
 
 
@@ -49,9 +49,9 @@ Repeat_acknowledge_engraver::Repeat_acknowledge_engraver ()
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  Context * tr = get_parent_context ()->where_defined (ly_symbol2scm ("repeatCommands"));
+  Context * tr = context ()->where_defined (ly_symbol2scm ("repeatCommands"));
   if (!tr)
-    tr = get_parent_context ();
+    tr = context ();
 
   tr->set_property ("repeatCommands", SCM_EOL);
 }
@@ -104,7 +104,7 @@ Repeat_acknowledge_engraver::process_music ()
     {
       if (s != "" || (volta_found && !ly_c_string_p (wb)))
 	{
-	  get_parent_context ()->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
+	  context ()->set_property ("whichBar", scm_makfrom0str (s.to_str0 ()));
 	}
     }
 }

@@ -134,7 +134,7 @@ Script_engraver::process_music ()
 
       Grob * p = make_item ("Script");
 
-      make_script_from_event (p, &scripts_[i].description_, get_parent_context (),
+      make_script_from_event (p, &scripts_[i].description_, context (),
 			      l->get_property ("articulation-type"),
 			      i);
 

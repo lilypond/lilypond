@@ -30,7 +30,7 @@ Grob_pq_engraver::Grob_pq_engraver ()
 void
 Grob_pq_engraver::initialize ()
 {
-  get_parent_context ()->set_property ("busyGrobs", SCM_EOL); 
+  context ()->set_property ("busyGrobs", SCM_EOL); 
 }
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
@@ -71,7 +71,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 
       SCM busy= get_property ("busyGrobs");
       busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
-      get_parent_context ()->set_property ("busyGrobs", busy);
+      context ()->set_property ("busyGrobs", busy);
     }
 }
 
@@ -88,7 +88,7 @@ Grob_pq_engraver::stop_translation_timestep ()
     }
 
   if (start_busy != busy)
-    get_parent_context ()->set_property ("busyGrobs", busy);
+    context ()->set_property ("busyGrobs", busy);
 }
 
 void
@@ -108,7 +108,7 @@ Grob_pq_engraver::start_translation_timestep ()
     }
 
   if (start_busy != busy)
-    get_parent_context ()->set_property ("busyGrobs", busy);
+    context ()->set_property ("busyGrobs", busy);
 }
 
 
