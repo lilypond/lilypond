@@ -1,75 +1,146 @@
-\version "1.7.18"
-% FIXME: doesn't display anything useful.
-\header {
-texidoc = "Jazz notation for chord names.
+\version "1.7.23"
 
-FIXME.
+
+\header {
+
+texidoc = " Chord names are generated from a list pitches.  The
+functions constructing the names are customisable. This file shows
+Jazz chords, following Ignatzek (1995), page 17 and 18, Banter chords,
+and an alternative Jazz  chord notation.
+
 
 "
 
 }
-\score { \notes { c4^"fixme"}}
 
+chs = \notes \transpose c' c' 
+{
+	<<c e g>>1
+	<<c es g>>% m = minor triad
+	<<c e gis>>
+	<<c es ges>> \break
+	<<c e g bes>>
+	<<c es g bes>>
+	<<c e g b>> 		% triangle = maj
+	<<c es ges beses>> 
+	<<c es ges b>> \break
+	<<c e gis bes>>
+	<<c es g b>>
+	<<c e gis b>> 
+	<<c es ges bes>>\break
+	<<c e g a>>   % 6 = major triad with added sixth
+	<<c es g a>>  % m6 = minor triad with added sixth
+	<<c e g bes d'>> 
+	<<c es g bes d'>> \break
+	<<c es g bes d' f' a' >>
+	<<c es g bes d' f' >>
+	<<c es ges bes d' >> 
+	<<c e g bes des' >> \break
+	<<c e g bes dis'>>
+	<<c e g bes d' f'>>
+	<<c e g bes d' fis'>>
+	<<c e g bes d' f' a'>>\break
+	<<c e g bes d' fis' as'>>
+	<<c e gis bes dis'>>
+	<<c e g bes dis' fis'>>
+	<<c e g bes d' f' as'>>\break
+	<<c e g bes des' f' as'>>
+	<<c e g bes d' fis'>>
+	<<c e g b d'>>
+	<<c e g bes d' f' as'>>\break
+	<<c e g bes des' f' as'>>
+	<<c e g bes des' f' a'>>
+	<<c e g b d'>>
+	<<c e g b d' f' a'>>\break
+	<<c e g b d' fis'>>
+	<<c e g bes des' f ' a'>>
+	<<c f g>>
+	<<c f g bes>>\break
+	<<c f g bes d'>>
+	<<c e g d'>>	% add9
+	<<c es g f'>>
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% alternate Jazz notation
+
+efullmusicJazzAlt = \notes
+{
+    <<c e gis>>1-\markup { "+" }
+    <<c e g b>>-\markup { \normal-size-super
+    %			  \override #'(font-family . math) "N" }
+			  \override #'(font-family . math) "M" }
+    %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
+    %%c:3.5.7 = \markup { \normal-size-super "maj7" }
+
+   <<c es ges>>-\markup { \super "o" } % should be $\circ$ ?
+   <<c es ges bes>>-\markup { \super \combine "o" "/" }
+   <<c es ges beses>>-\markup { \super  "o7" }
+}
+
+efullJazzAlt = #(sequential-music-to-chord-exceptions efullmusicJazzAlt #f)
+
+epartialmusicJazzAlt = \notes{
+    <<c d>>1-\markup { \normal-size-super "2" }
+    <<c es>>-\markup { "m" }
+    <<c f>>-\markup { \normal-size-super "sus4" }
+    <<c g>>-\markup { \normal-size-super "5" }
+    
+    %% TODO, partial exceptions
+    <<c es f>>-\markup { "m" }-\markup { \normal-size-super "sus4" }
+    <<c d es>>-\markup { "m" }-\markup { \normal-size-super "sus2" }
+}
+
+epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f)
+
+jazzAltProperties =
+
+\sequential { 
+	    \property ChordNames.majorSevenSymbol = #whiteTriangleMarkup
+	    \property ChordNames.chordNameSeparator = #(make-simple-markup  "/")
+	    \property ChordNames.chordNameExceptionsFull = #efullJazzAlt
+	    \property ChordNames.chordNameExceptionsPartial = #epartialJazzAlt
+	    \property ChordNames.chordNameFunction = #jazz-chord-names
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+banterProperties = \sequential { 
+	    \property ChordNames.chordNameFunction = #banter-chord-names
+}
+
+\score{
+    <
+	\context ChordNames {
+	    \property ChordNames.instrument = #"Ignatzek (default)"
+	    \property ChordNames.instr = #"Def"
+	    \chs }
+	\context ChordNames = ALT {
+	    \property ChordNames.instrument = #"Alternative"
+	    \property ChordNames.instr = #"Alt"
+	    \jazzAltProperties
+	    \chs }
+
+	% This is the banter style.
+	% it gives exceedingly verbose (wide) names
+	% making this file take up to 4 pages.
+	
 %{
-
-%% This should only be necessary if your kpathsea setup is broken
-%
-% Make sure the correct msamxx.tfm is where lily can find it
-% (ie cwd or lily's tfm dir).
-%
-% For normal (20pt) paper, do
-%
-%   cp locate `msam9.tfm` LILYPONDPREFIXxtfm
-%
-
-scheme = \chords {
-  % major chords
-  c
-  c:6		% 6 = major triad with added sixth
-  c:maj		% triangle = maj
-  c:6.9^7	% 6/9 
-  c:9^7		% add9
-
-  % minor chords
-  c:m		% m = minor triad
-  c:m.6		% m6 = minor triad with added sixth
-  c:m.7+	% m triangle = minor major seventh chord
-  c:3-.6.9^7	% m6/9 
-  c:m.7		% m7
-  c:3-.9	% m9
-  c:3-.9^7	% madd9
-
-  % dominant chords
-  c:7		% 7 = dominant
-  c:7.5+	% +7 = augmented dominant
-  c:7.5-	% 7b5 = hard diminished dominant
-  c:9		% 7(9)
-  c:9-		% 7(b9)
-  c:9+		% 7(#9)
-  c:13^9.11 	% 7(13)
-  c:13-^9.11 	% 7(b13)
-  c:13^11	% 7(9,13)
-  c:13.9-^11	% 7(b9,13)
-  c:13.9+^11	% 7(#9,13)
-  c:13-^11	% 7(9,b13)
-  c:13-.9-^11	% 7(b9,b13)
-  c:13-.9+^11	% 7(#9,b13)
-
-  % half diminished chords
-  c:m5-.7		% slashed o = m7b5
-  c:9.3-.5-	% o/7(pure 9)
-
-  % diminished chords
-  c:m5-.7-	% o = diminished seventh chord
-}
-
-\score {
-  \notes <
-    \context ChordNames {
-	#(set-chord-name-style 'jazz)
-	\scheme }
-    \context Staff \transpose c c' \scheme
-  >
-}
-
+		\context ChordNames = BANTER  {
+	    \banterProperties
+	    \chs
+	    }
 %}
+	\context Staff \notes \transpose c c' { \chs }
+    >
+    \paper{
+	indent = 3.\cm
+	\translator { 
+	    \ChordNamesContext
+	    ChordName \override #'word-space = #1
+	    \consists Instrument_name_engraver
+	}
+    }
+}
+	

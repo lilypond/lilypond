@@ -3788,16 +3788,31 @@ in lower case for the base note.
 
 @end table
 
+
+There are also two other chord name schemes implemented: an alternate
+Jazz chord notation, and a systematic scheme called Banter chords. The
+alternate jazz notation is also shown on the chart in @ref{Chord name
+chart}.  Turning on these styles is described in the input file
+@inputfileref{input/test/,chord-names-jazz.ly}.
+
+@cindex Banter
+@cindex jazz chords
+@cindex chords, jazz  
+
+
 @refcommands
 
 @refcommand germanChords 
 @refcommand semiGermanChords 
 
 
+
+
 @seealso
 
 @inputfileref{input/regression,chord-name-major7.ly},
 @inputfileref{input/regression,chord-name-exceptions.ly},
+@inputfileref{input/test,chord-names-jazz.ly},
 @inputfileref{input/test,chord-names-german.ly},
 @file{scm/chords-ignatzek.scm}, @file{scm/chord-entry.scm}
 

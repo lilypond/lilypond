@@ -1,13 +1,16 @@
 2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/trills.ly (endHorizScript): fixes.
+
+	* input/test/chord-names-jazz.ly: merge in alternate Jazz
+	notation, move from regression.
+
 	* input/test/script-stack.ly: change name from stacked-scripts
 
 	* input/test/ossia.ly: octave errors.
 
 	* input/no-notation/midi-tuplets.ly: move from input/test/, idem
 	for midi-volume-equaliser
-
-	* 
 
 m2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
