@@ -1,0 +1,28 @@
+#!/bin/bash
+# conflily
+# ugh: must be executed from lilypond-x.x.x (bin/conflily)
+
+root=$HOME
+lelie=music/lily
+
+if [ ! -e $root/lelie ]
+then
+	echo ln -s $root/$lelie/current $root/lelie
+	ln -s $root/$lelie/current $root/lelie
+fi
+
+rm $root/$lelie/current >& /dev/null
+current=`basename \`pwd\``
+echo ln -s $root/$lelie/$current $root/$lelie/current
+ln -s $root/$lelie/$current $root/$lelie/current
+
+ln -sf $root/lelie/lily/out/lilypond bin/lilypond
+ln -sf $root/lelie/mi2mu/out/mi2mu bin/mi2mu
+
+if [ "x$LILYINCLUDE" = "x" ]
+then
+	export LILYINCLUDE=$root/lelie/init
+fi
+
+configure --prefix=$root --enable-debugging --enable-printing --enable-checking
+
