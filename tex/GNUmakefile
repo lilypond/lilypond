@@ -14,8 +14,9 @@ $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
 	rm -f $@
 	-ln $< $@
 
-$(outdir)/latin1.enc: latin1.enc
-	rm -f $@
-	-ln $< $@
+$(outdir)/latin1.enc: GNUmakefile
+	echo '/ISOLatin1Encoding ' > $@ 
+	echo 'ISOLatin1Encoding pstack' | gs -quiet -  >> $@
+	echo ' def ' >> $@
 
 all: $(INSTALLATION_FILES)

@@ -43,9 +43,9 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Output_def, Output_def);
   DECLARE_SMOBS (Output_def,);
 public:
+  SCM scope_;
   Output_def * parent_;
   Input input_origin_;
-  SCM scope_;
 
   Output_def (Output_def const&);
   Output_def ();

@@ -12,10 +12,12 @@
 
 (define-public (read-encoding-file filename)
   "Read .enc file, return (COMMAND-NAME . VECTOR-OF-SYMBOLS)."
-  (let* ((raw (ly:gulp-file (ly:kpathsea-expand-path filename)))
+  (let* ((path (ly:kpathsea-expand-path filename))
+	 (unused (if (string? path) #t (ly:warn "can't find ~s" filename)))
+	 (raw (ly:gulp-file path))
 	 (string (regexp-substitute/global #f "%[^\n]*" raw 'pre "" 'post))
 	 (command (match:substring
-		(string-match "/([^ \t\n\r]*)[ \t\n\r]+[[]" string) 1))
+		   (string-match "/([^ \t\n\r]*)[ \t\n\r]+[[]" string) 1))
 	 (encoding (match:substring (string-match "[[](.*)[]]" string) 1))
 	 (ps-lst (string-tokenize encoding))
 	 (lst (map (lambda (x) (string->symbol (substring x 1))) ps-lst))
@@ -101,15 +103,16 @@ vector of symbols."
 
 (define (get-coding coding-name)
   (let ((entry (assoc-get coding-name coding-alist)))
-    (if entry (cons (car entry) (force (cdr entry)))
+    (if entry
+	(cons (car entry) (force (cdr entry)))
 	(if (equal? coding-name "feta-music")
 	    (begin
 	      (ly:warn "installation problem: deprecated encoding requested: ~S" coding-name)
 	      (exit 1))
-	(let ((fallback "latin1"))
-*	  (ly:programming-error "no such encoding: ~S" coding-name)
-	  (ly:programming-error "programming error: cross thumbs, using: ~S:" fallback)
-	  (get-coding fallback))))))
+	    (let ((fallback "latin1"))
+	      (ly:programming-error "no such encoding: ~S" coding-name)
+	      (ly:programming-error "programming error: cross thumbs, using: ~S:" fallback)
+	      (get-coding fallback))))))
 
 (define-public (get-coding-filename coding-name)
   (car (get-coding coding-name)))

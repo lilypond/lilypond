@@ -35,20 +35,11 @@ Text_item::interpret_string (SCM paper_smob,
   String str = ly_scm2string (markup);
   if (!ly_c_symbol_p (input_encoding))
     {
-      /* FIXME: input_encoding is set in *book*_paper
-
-         Options include:
-	 
-         1. produce a bookpaper from a paper.
-	 2. add BOOKPAPER parameter to all callers, ie, all MARKUPs.  */
-      
-      programming_error ("FIXME: looking up input_encoding in paper");
-      programming_error ("as a workaround, set inputencoding in your \\paper block");
-      SCM var = ly_module_lookup (paper->scope_,
-				  ly_symbol2scm ("inputencoding"));
-      if (var != SCM_BOOL_F) 
-	input_encoding = scm_variable_ref (var);
-      
+      SCM enc = paper->lookup_variable (ly_symbol2scm ("inputencoding"));
+      if (ly_c_string_p (enc))
+	input_encoding = scm_string_to_symbol (enc);
+      else if (ly_c_symbol_p (enc))
+	input_encoding = enc;
     }
   
   Font_metric *fm = select_encoded_font (paper, props, input_encoding);

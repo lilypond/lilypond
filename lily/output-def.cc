@@ -75,7 +75,7 @@ assign_context_def (Output_def * m, SCM transdef)
   if (tp)
     {
       SCM sym = tp->get_context_name ();
-      scm_module_define (m->scope_, sym, transdef);
+      m->set_variable (sym, transdef);
     }  
 }
 
