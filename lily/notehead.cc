@@ -70,6 +70,10 @@ Notehead::brew_molecule_p() const return out;
     }
     out->translate(Offset(x_dir * p->note_width(),0));
     bool streepjes = (position<-1)||(position > staff_size+1);
+    
+    if (rest_b_ && balltype > 2)
+	streepjes = false;
+    
     if (streepjes) {
 	int dir = sign(position);
 	int s =(position<-1) ? -((-position)/2): (position-staff_size)/2;
