@@ -25,9 +25,11 @@ time3_2beamAutoEnd = "1/2";
 time3_2beamAutoEnd_16 = "1/4";
 time3_2beamAutoEnd_32 = "1/8";
 
-time3_4beamAutoBegin = "1/4";
+time3_4beamAutoBegin_8 = "1/4";
 time3_4beamAutoEnd_8 = "3/4";
-time3_4beamAutoBegin_32 = "1/8";
+time3_4beamAutoBegin_16 = "1/16";
+time3_4beamAutoEnd_16 = "1/4";
+%time3_4beamAutoBegin_32 = "1/8";
 time3_4beamAutoEnd_32 = "1/8";
 
 time3_8beamAutoBegin = "1/8";

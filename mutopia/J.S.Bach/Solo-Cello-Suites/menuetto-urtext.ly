@@ -18,24 +18,23 @@ menuetto_i_a = \context Staff \notes \relative c {
 	%7
 	<a f> <d f, bes,> <e g, g,> |
 	<cis2. e, a,> |
-	<a2\f e'> d8( e16 )f |
-	\slurdotted
-	e8( d cis )e a,()g |
-	a4 () d cis |
-	g'8( f e )f d() c |
+	<a2\f e'> d8 e16 f |
+	e8 d cis e a, g |
+	a4 d cis |
+	g'8 f e f d c |
 	%13
 	bes2 c4 |
 	a8 g a f <d'4 e, bes> |
 	<c f, a,> bes8 a g a |
-	f8( e )f a g bes |
+	f8 e f a g bes |
 	<a2^\trill fis> bes4 |
 	c8 bes c a fis4^\trill |
 	%19
 % dispute
 %	<bes,4 g' d'> <c, g' c> < d,8 bes'(> )a |
-	<d'4 g, bes,> <c g c,> bes8()a |
-	c8( bes a )bes g()bes |
-	d4 () cis d |
+	<d'4 g, bes,> <c g c,> bes8 a |
+	c8 bes a bes g bes |
+	d4 cis d |
 	g,8 f g e f4 |
 	g,8 g' <{e4.^\trill d8 } a4.> ~ |
 	<d2. a d,> |
@@ -44,7 +43,6 @@ menuetto_i_a = \context Staff \notes \relative c {
 menuetto_i_b = \context Staff \notes \relative c {
 	\context Voice = ii
 	\stemdown
-	\slurdotted
 	\skip 2.*1; |
 	<e8 c> \skip 8*5; |
 	\skip 2.*1; |
@@ -118,11 +116,9 @@ menuetto_i = \context Staff \notes<
 
 menuetto_ii = \context Staff\notes \relative c {
 	\context Voice=i
-	\slurdotted
-	fis4^\trill d8( e fis )g |
+	fis4^\trill d8 e fis g |
 	a4 fis, a' |
-	g,8()b e4 g |
-	\slurnormal
+	g,8 b e4 g |
 	d8( cis )b cis a g |
 	% ugh, forcing knee
 	% Lily's not yet smart enough to decide for herself.
@@ -135,11 +131,9 @@ menuetto_ii = \context Staff\notes \relative c {
 	cis4^\prall e8( d cis )b |
 	cis4 g, cis' |
 	fis,8()a d4 fis |
-	b,8()a g()fis \slurdotted g()b |
-	\slurnormal
+	b,8()a g()fis g b |
 	%13
 	e, d'( cis )b cis()ais |
-	% check slur! d, b' a! g fis )e |
 	d,( b' a! g fis )e |
 	g( fis e d cis )d |
 	b( cis d e fis )g |
@@ -148,12 +142,10 @@ menuetto_ii = \context Staff\notes \relative c {
 	%19
 	b8()a c( b a )g |
 	fis() g a()fis g()e |
-	\slurdotted
-	cis4^\trill a8( b cis )d |
-	\slurnormal
+	cis4^\trill a8 b cis d |
 	e( fis g )b a4 |
 	g8()fis e()d e()cis |
 	d2.
 }
 
-\version "1.1.52";
+\version "1.1.55";

@@ -263,22 +263,24 @@ Slur::do_post_processing ()
       snap_max_dy_f = paper_l ()->get_var ("slur_interstaff_snap_max_slope_change");
     }
 
-  Real ratio_f;
   if (!fix_broken_b)
     dy_f_drul_[RIGHT] += interstaff_f;
+
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+  if (!fix_broken_b)
+    dy_f -= interstaff_f;
   Real dx_f = do_width ().length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
 
   /*
     Avoid too steep slurs.
    */
-  ratio_f = abs (dy_f / dx_f);
-  if (ratio_f > slope_damp_f)
+  Real slope_ratio_f = abs (dy_f / dx_f);
+  if (slope_ratio_f > slope_damp_f)
     {
       Direction d = (Direction)(- dir_ * (sign (dy_f)));
       if (!d)
 	d = LEFT;
-      Real damp_f = (ratio_f - slope_damp_f) * dx_f;
+      Real damp_f = (slope_ratio_f - slope_damp_f) * dx_f;
       /*
 	must never change sign of dy
        */
@@ -300,15 +302,17 @@ Slur::do_post_processing ()
       Real width_f = curve_xy_drul[X].length ();
       
       dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+      if (!fix_broken_b)
+	dy_f -= interstaff_f;
 
-      ratio_f = abs (height_f / width_f);
-      if (ratio_f > height_damp_f)
+      Real height_ratio_f = abs (height_f / width_f);
+      if (height_ratio_f > height_damp_f)
 	{
 	  Direction d = (Direction)(- dir_ * (sign (dy_f)));
 	  if (!d)
 	    d = LEFT;
 	  /* take third step */
-	  Real damp_f = (ratio_f - height_damp_f) * width_f / 3;
+	  Real damp_f = (height_ratio_f - height_damp_f) * width_f / 3;
 	  /*
 	    if y positions at about the same height, correct both ends
 	  */
@@ -335,6 +339,8 @@ Slur::do_post_processing ()
   snapy_f_drul[LEFT] = snapy_f_drul[RIGHT] = 0;
   Drul_array<Real> snapx_f_drul;
   snapx_f_drul[LEFT] = snapx_f_drul[RIGHT] = 0;
+  Drul_array<bool> snapped_b_drul;
+  snapped_b_drul[LEFT] = snapped_b_drul[RIGHT] = false;
   do
     {
       if ((note_column_drul[d] == spanned_drul_[d])
@@ -353,6 +359,7 @@ Slur::do_post_processing ()
 	  snapy_f_drul[d] = stem_l->extent (Y_AXIS)[dir_];
 	  snapy_f_drul[d] += info_drul[d].interstaff_f_;
 	  snapy_f_drul[d] += dir_ * 2 * y_gap_f;
+	  snapped_b_drul[d] = true;
 	}
     }
   while (flip (&d) != LEFT);
@@ -361,9 +368,11 @@ Slur::do_post_processing ()
     only use snapped positions if sign (dy) will not change
     and dy doesn't change too much
     */
-  if (snapy_f_drul[LEFT] && snapy_f_drul[RIGHT]
+  if (!fix_broken_b)
+    dy_f += interstaff_f;
+  if (snapped_b_drul[LEFT] && snapped_b_drul[RIGHT]
       && ((sign (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT] - dy_f) 
+      && (!dy_f || (abs (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT] - dy_f)
 		    < abs (dy_f * snap_max_dy_f))))
     {
       do
@@ -374,18 +383,18 @@ Slur::do_post_processing ()
       while (flip (&d) != LEFT);
   
     }
-  else if (snapy_f_drul[LEFT]
+  else if (snapped_b_drul[LEFT]
       && ((sign (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT] - dy_f) 
+      && (!dy_f || (abs (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT] - dy_f)
 		    < abs (dy_f * snap_max_dy_f))))
     {
       Direction d = LEFT;
       dy_f_drul_[d] = snapy_f_drul[d];
       dx_f_drul_[d] = snapx_f_drul[d];
     }
-  else if (snapy_f_drul[RIGHT]
+  else if (snapped_b_drul[RIGHT]
       && ((sign (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT] - dy_f) 
+      && (!dy_f || (abs (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT] - dy_f)
 		    < abs (dy_f * snap_max_dy_f))))
     {
       Direction d = RIGHT;

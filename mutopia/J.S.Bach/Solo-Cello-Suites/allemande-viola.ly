@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.16";
+\version "1.1.55";
 
 \include "allemande-urtext.ly";
 
@@ -23,19 +23,15 @@ allemande_viola_global = \notes{
 	\time 4/4;
 	\key f;
 	\clef alto;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\partial 16;
 		s16
 		s1*11 |
-		s2 s4 s8
-		\partial 16*15;
+		s2 s4 s8.
+	} \repeat "semi" 2 {
 		s16
-	} \repeat 2 {
-		% urg
-		s32 \partial 16; s32
 		s1*11
 		s16*15
-		\partial 16*15;
 	}
 }
 

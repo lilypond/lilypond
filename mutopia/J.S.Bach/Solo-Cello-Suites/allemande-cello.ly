@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.1.52";
+\version "1.1.55";
 
 \include "allemande-urtext.ly";
 
@@ -27,15 +27,11 @@ allemande_cello_global = \notes{
 		\partial 16;
 		s16
 		s1*11 |
-		s2 s4 s8
-		\partial 16*15;
-		s16
+		s2 s4 s8.
 	} \repeat "semi" 2 {
-		% urg
-		s32 \partial 16; s32
+		s16
 		s1*11
 		s16*15
-		\partial 16*15;
 	}
 }
 

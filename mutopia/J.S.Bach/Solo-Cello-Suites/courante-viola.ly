@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.16";
+\version "1.1.55";
 
 \include "courante-urtext.ly";
 
@@ -23,20 +23,15 @@ courante_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
-	\repeat 2 {
+	\repeat "semi" 2 {
 		\partial 16;
 		s16
 		s2.*15
-		% hmm
-		s2 s8
-		\partial 16*11;
+		s2 s8.
+	} \repeat "semi" 2 {
 		s16
-	} \repeat 2 {
-		% urg
-		s32 \partial 16; s32
 		s2.*15
 		s16*11
-		\partial 16*11;
 	}
 }
 

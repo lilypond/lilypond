@@ -16,7 +16,8 @@ traditional song in various languages.
 %}
 
 %{
-Tested Features: lyrics, interleaving lyrics and staffs, repeats
+Tested Features: lyrics, interleaving lyrics and staffs, repeats,
+	auto beaming, adding lyrics to notes, hyphens
 %}
 
 \version "1.1.52";
@@ -52,12 +53,12 @@ global = \notes {
 }
 
 tekst = \lyrics{ 
- 	Al-4 tijd is Kort- jak- je ziek,2
-	midden4 "in de" week maar "'s zon-" dags niet.2
-	"'s Zon-"4 dags gaat ze naar de kerk,2
-	met4 een boek vol zil- ver werk.2
-	Al-4 tijd is Kort- jak- je ziek,2
-	mid-8 den  in de week4 maar "'s zon-" dags niet.2
+ 	Al -- tijd is Kort -- jak -- je ziek, " "
+	midden "in de" week maar "'s zon" -- dags  " " niet.
+	"'s Zon" -- dags gaat ze naar de kerk, " "
+	met een boek vol zil -- ver  " " werk. " "
+	Al -- tijd is Kort -- jak -- je ziek, " "
+	midden  "in de" week maar "'s zon" -- dags  " " niet.
 }
 
 
@@ -67,64 +68,79 @@ tekst. Mogen wij ook af en toe ergens op afgeven?
 %}
 
 hegedraagjetekst = \lyrics{ 
- 	Al-4 tijd zuigt Bill Gates mijn piek,2
-	"\TeX"4 is slecht- ser dan mu- ziek.2
-	"'s Zon-"4 dags gaat het door een raam,2
-	Weet4 dat ik me er- voor schaam.2
- 	Al-4 tijd zuigt Bill Gates mijn piek,2
-	"\TeX"4 is slecht- ser dan mu- ziek.2
+ 	Al -- tijd zuigt Bill Gates mijn piek, " "
+	"\TeX" is slecht -- ser dan mu --  " " ziek.
+	"'s Zon" -- dags gaat het door een raam, " "
+	Weet dat ik me er -- voor  " " schaam.
+ 	Al -- tijd zuigt Bill Gates mijn piek, " "
+	"\TeX" is slecht -- ser dan mu --  " " ziek.
 }
 
 texte = \lyrics{ 
 	\property Lyrics . textStyle" =  "italic" 
 %	\property Lyrics . textStyle" =  "roman" 
- 	Ah!4 vous dir- ai- je ma- man2
-	Ce4 qui cau- se mon tour- ment2
-	Pa-4 pa veut que je rai- son- ne
-	Comm' u- ne gran- de per- son- ne
-	Moi je dis que les bon- bons2
-	Va-4 lent mieux que la rai- son2
+ 	Ah! vous dir -- ai -- je ma -- man " "
+	Ce qui cau -- se mon tour --  " " ment
+	Pa -- pa veut que je rai -- son -- ne
+	Comm' u -- ne gran -- de per -- " " son -- ne
+	Moi je dis que les bon -- bons " "
+	Va -- lent mieux que la rai --  " " son
 }
 
 texti = \lyrics{
 	\property "Lyrics"."textStyle" =  "roman"
-	Twin-4 kle, twin- kle, lit- tle star,2
-	How4 I won- der what you are.2
-	Up4 a- bove the world so high,2
-	Like4 a dia- mond in the sky.2
-	Twin-4 kle, twin- kle, lit- tle star,2
-	How4 I won- der what you are!2
+	Twin -- kle, twin -- kle, lit -- tle star, " "
+	How I won -- der what you  " " are.
+	Up a -- bove the world so high, " "
+	Like a dia -- mond in the  " " sky. " "
+	Twin -- kle, twin -- kle, lit -- tle star, " "
+	How I won -- der what you  " " are!
 }
 
 textii = \lyrics{
-	When4 the bla- zing sun is gone,2
-	When4 he no- thing shines up- on,2
-	Then4 you show your lit- tle light,2
-	Twin-4 kle, twin- kle, all the night.2
-	Twin-4 kle, twin- kle, lit- tle star,2
-	How4 I won- der what you are!2
-	
+	When the bla -- zing sun is gone, " "
+	When he no -- thing shines up --  " " on,
+	Then you show your lit -- tle light, " "
+	Twin -- kle, twin -- kle, all the  " " night. " "
+	Twin -- kle, twin -- kle, lit -- tle star, " "
+	How I won -- der what you  " " are!
 }
 
 textiii = \lyrics{
-	Then4 the tra- veler in the dark2
-	Thanks4 you for your ti- ny spark;2
-	He4 could not see which way8 to8 go,2
-	If4 you did not twin- kle so.2
-	Twin-4 kle, twin- kle, lit- tle star,2
-	How4 I won- der what you are!2
+	Then the tra -- veler in the dark " "
+	Thanks you for your ti -- ny  " " spark;
+	He could not see which way to go,
+	If you did not twin -- kle  " " so. " "
+	Twin -- kle, twin -- kle, lit -- tle star, " "
+	How I won -- der what you  " " are!
 }
 
 \score{
-	<
-		\context Staff=i \repeat semi 2 < \global\melody >
-		\context Lyrics=top \context LyricVoice \repeat fold 2 {} \alternative { \tekst \texte }
+	\notes <
+		\context Staff=i s1
+		\context Lyrics=top s1
 		\context GrandStaff <
 			\context Staff=ii \repeat semi 2 < \global\melody >
 			\context Staff=iii \repeat semi 2 < \global\accompany >
 		>
-		\context Lyrics =bottom \context LyricVoice \repeat fold 3 {} 
-			\alternative { \texti \textii \textiii }
+		\context Lyrics=bottom s1
+		% ugh, \repeat in \addlyrics dumps core
+		\addlyrics
+			% \context Staff = i \repeat semi 2 <\global\melody>
+			\context Staff = i <\global\melody>
+			< 
+				%\repeat fold 2 {} 
+				%\alternative { 
+					\context Lyrics = top \tekst
+					\context Lyrics = top \texte
+				%}
+				%\repeat fold 3 {} 
+				%\alternative { 
+					\context Lyrics = bottom \texti
+					\context Lyrics = bottom \textii
+					\context Lyrics = bottom \textiii
+				%}
+			>
 	>
 	\paper{
 		gourlay_maxmeasures = 14.0;

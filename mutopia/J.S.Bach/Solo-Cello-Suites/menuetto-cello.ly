@@ -16,7 +16,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.1.52";
+\version "1.1.55";
 
 \include "menuetto-urtext.ly";
 
@@ -24,13 +24,14 @@ menuetto_i_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef bass;
-	\repeat    "semi" 2 {
+	\repeat "semi" 2 {
 		\skip 2.*8;
 	}
 	\repeat "semi" 2 {
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
+		\property Voice.textEmptyDimension = 1
 		s2._"Fine"
 	}
 }
@@ -87,6 +88,7 @@ menuetto_ii_cello_global = \notes{
 		\skip 2.*1;
 		\slurdotted
 		\skip 2.*14;
+		\property Voice.textEmptyDimension = 1
 		s2._"Menuetto I da Capo"
 	}
 

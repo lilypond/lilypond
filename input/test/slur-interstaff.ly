@@ -27,8 +27,6 @@
 	}
 	>
 	\paper{
-		% no slur damping
-		slur_slope_damping = 10.0;
 		\translator{
 			\PianoStaffContext
 			minVerticalAlign = 3.0*\staffheight;

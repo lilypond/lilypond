@@ -79,7 +79,28 @@ textx = \lyrics {
   and8 the8 home4. of8 the4 brave.2
 }
 
-text = \lyrics {  
+textxx = \lyrics {  
+  Oh __ " " \repeat fold 2 { }
+  \alternative {
+     { 
+       say. can you | see, by the16 dawn's ear- ly light What
+       so proud- ly we hailed, At the16 twi- light's last gleam-
+       ing. Whose broad16 
+     }
+
+    { 
+      stripes and bright stars, through the16 per- il- ous fight,
+      O'er the ram- parts we watched, were so16 gal- lant- ly 
+    }
+  }
+  stream- ing. And the16 rock- ets' red glare, the bombs
+  burst- ing in air, gave proof through the night that
+  our flag was still there, Oh say, does that star- span-
+  gled ban- ner yet wave, __ O'er the land __ of the free
+  and the home of the brave.
+}
+
+textxxx = \lyrics {  
   Oh4 __ 
   %\alternative {
      { 
@@ -100,6 +121,27 @@ text = \lyrics {
   and8 the8 home4. of8 the4 brave.2
 }
 
+text = \lyrics {  
+  Oh __ " "
+  %\alternative {
+     { 
+       say. can you | see, " " by the16 dawn's ear- ly light What
+       so proud- ly we hailed, At the16 twi- light's last gleam-
+       ing. Whose broad16 
+     }
+
+    %{ 
+      stripes and bright stars, through the16 per- il- ous fight,
+      O'er the ram- parts we watched, were so16 gal- lant- ly 
+    }
+  %}
+  stream- ing. And the16 rock- ets' red glare, the bombs
+  burst- ing in air, gave proof through the night that
+  our flag was still there, Oh say, does that " " star- span-
+  gled ban- ner " " yet " " wave, __ " " O'er the land __ " " of the free
+  and the home of the brave.
+}
+
 global = \notes {
 	\time 3/4;
 	\key D;
@@ -115,6 +157,7 @@ global = \notes {
 
 \score{ 
 	\context GrandStaff < 
+		\addlyrics
 		\context Staff=staffA < 
 			\global
 			\notes \transpose c'' {\voiceone \$staff1_voice_1 } 
