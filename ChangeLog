@@ -4,7 +4,7 @@
 	show-paren-mode sets blink-matching-paren-on-screen local.
 	Try to make show-paren-function to paren-highlight local.
 
-	* lilypond-indent.el (LilyPond-scan-sexps): mew function.
+	* lilypond-indent.el (LilyPond-scan-sexps): new function.
 	Copy definitions of Emacs' show-paren-function and
 	XEmacs' paren-highlight and make minimal changes;
 	add comments about locality. 
