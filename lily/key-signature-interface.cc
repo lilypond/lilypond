@@ -104,7 +104,7 @@ Key_signature_interface::brew_molecule (SCM smob)
   String style;
   if (gh_symbol_p (scm_style))
     {
-      style = ly_scm2string (scm_symbol_to_string (scm_style));
+      style = ly_symbol2string (scm_style);
     }
   else
     {

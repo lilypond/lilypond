@@ -133,7 +133,7 @@ Ambitus::brew_molecule (SCM smob)
   if (gh_symbol_p (scm_note_head_style))
     {
       String note_head_style =
-	ly_scm2string (scm_symbol_to_string (scm_note_head_style));
+	ly_symbol2string (scm_note_head_style);
     }
   else
     {
@@ -225,7 +225,7 @@ Ambitus::brew_molecule (SCM smob)
   if (gh_symbol_p (scm_accidentals_style))
     {
       accidentals_style =
-	ly_scm2string (scm_symbol_to_string (scm_accidentals_style));
+	ly_symbol2string (scm_accidentals_style);
     }
   else
     {

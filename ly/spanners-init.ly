@@ -1,9 +1,20 @@
 \version "1.5.68"
 
-cr = \spanrequest \start "crescendo"
-decr = \spanrequest  \start "decrescendo"
-rc = \spanrequest   \stop "crescendo"
-rced = \spanrequest \stop "decrescendo"
+
+#(define (make-span-request type spandir)
+  (let* ((m (make-music-by-name  type)))
+  (ly-set-mus-property! m 'span-direction spandir)
+  m
+  ))
+
+groupOpen = #(make-span-request 'NoteGroupingEvent START)
+groupClose = #(make-span-request 'NoteGroupingEvent STOP)
+
+
+cr = #(make-span-request 'CrescendoEvent START)
+rc = #(make-span-request 'CrescendoEvent STOP)
+decr = #(make-span-request 'DecrescendoEvent START)
+rced = #(make-span-request 'DecrescendoEvent STOP)
 
 cresc = \notes {
   \commandspanrequest \start "crescendo" 

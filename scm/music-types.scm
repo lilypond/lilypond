@@ -125,6 +125,12 @@
 	(iterator-ctor . ,Grace_iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))
 	))
+    (NoteGroupingEvent
+     . (
+	(description . "Start or stop grouping brackets.")
+	(internal-class-name . "Event")
+	(types . (general-music event note-grouping-event))
+	))
     (HyphenEvent
      . (
 	(description .  "")
