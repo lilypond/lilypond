@@ -9,7 +9,7 @@ grep for TODO and ugh/ugr/urg
 BUGS:
 	* c4 \! \> c4
 
-	* resurrect tremolo beams.
+	* tremolo stuff
 
 	* gallina barlines.
 
@@ -84,8 +84,6 @@ STUFF
 
 	* check out legal/(c) matters for scores.
 
-	* move option processing out of gh_enter
-
 	* check out GCC signatures?
 
 	* Align_element::padding  ?
@@ -96,8 +94,6 @@ STUFF
 
 	* typo checks on property names?
 
-	* --safe:  disallow backslashes
-
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
 
@@ -106,8 +102,6 @@ STUFF
 	* strip EXEs before installing
 
 	* zip target for binary windows dist (JBR)
-
-	* revise documentation
 
 	* junking \skip req in lyrics
 
@@ -127,8 +121,6 @@ STUFF
 
 	* mi2mu empty staffs.
 
-	* include MIDI list 
-
 	* midi_instrument -> midiInstrument
 
 	* horizontal centering of dynamics 
@@ -139,16 +131,11 @@ STUFF
 
 	* stable make/config stuff
 
-	* stemup/stemdown; see test/updown.fly
-	  - check examples; add \type Staff hither and thether
-
 	* $DEPENDENCIES_OUTPUT support
-
-	* use a fake-yodl.sh to mimick yodl when yodl is not installed
 
 	* fix BUGs
 
-	* fix weird behaviour when .AFMs not found.
+	* fix weird behaviour when .AFMs/.SCMs not found.
 
 	* Xdvi zooming ?! Try to understand GS garbage collection.
 		gs: Error: /undefined in draw_beam
@@ -168,11 +155,7 @@ STUFF
 
 	* make Tie_req a "command" { <c g> ~ <c g> }
 
-	* bib ep1988
-
 	* revise the Score_priority_align_engraver concept.  It sucks. 
-
-	* ly2xdvi, ly2ps
 
 	* make new VoiceOne, VoiceTwo, VoiceThree contexts with
 ydirection and hshift preset
@@ -237,7 +220,6 @@ ydirection and hshift preset
 	  * \cadenza , \meter, \grouping should all be \properties
 
 	* rename
-	  - plet -> tuplet
 	  - measure -> bar
 	  - abbrev -> tremolo
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
@@ -263,6 +245,7 @@ ydirection and hshift preset
 	
 	* handle ^C for tmp/file creation.
 
+	
 	* dots & rest collisions.
 
 	* documentation
@@ -493,10 +476,6 @@ PROJECTS
 	- use plet grouping
 	- separate visual from rhythmic info even more
 	- beams over bars
-	- endbeam req should be *after* the duration, so you can do
-	< { [c4]    }
-	  { c8. c16 } >
-
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
@@ -583,8 +562,6 @@ SMALLISH PROJECTS
 	* Flower types:
 	- A decent scalar type
 
-	* binsearch/hash for identifiers
-
 	* stafftypes: voice names/ instrument names.
 
 	* lily \tempo
@@ -639,8 +616,125 @@ IDEAS
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* Klavarskribo?
-5
-	* lyrics in chords still fuck up.
 
-	* Use hooks/dependency graphs for properties
+	* dynamic loading of engravers? 
 
+SMOBS:
+
+****************************************
+Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
+
+> mcmanus@IDT.NET writes:
+> > > I want different C++ objects (with scheme embedded) to be linked by
+> > > C++ pointers.  I want to access these other objects from the Scheme
+> > > code, and I want access to these pointers from C++.
+> > 
+> > You can do this with a  combination of smob's and primitive functions,
+> > though it may not be  be exactly what you wanted.   You would have one
+> > smob  for each class in  your application, and then  you would write a
+> > primitive function that would return the objects  that are linked to a
+> > base object.
+> 
+> And the smob and the C++ class are interlinked?  Like
+> 
+> 	class Foo_class {
+> 		Foo_smob *smob_ptr_;
+> 	}
+> 
+> 	struct Foo_smob {
+> 		Foo_class *class_ptr_
+> 	}
+
+Usually you can get away without having this interlinked structure.
+One piece of information you need when exporting objects to scheme is
+the smob tag for your class.  You might store this value (a long) into
+a class static variable, or a file static variable.  I'll use a class
+static variable in this example.
+
+I typically use code that works like this (untested code ahead):
+
+class Foo_class {
+    static long *Foo_smob_tag;
+    SCM obj; // representation as a scheme object, description comes later
+}
+
+// call this once on startup
+void init_Foo_class {
+    static scm_smobfuns type_rec;
+
+    type_rec.mark = foo_mark;
+    type_rec.free = foo_free;
+    type_rec.print = foo_display;
+    type_rec.equalp = 0;
+    Foo_class::Foo_smob_tag = new int(scm_new_smob(type_rec));
+}
+
+When you want to export an object to scheme, you put a pointer to the
+object itself in the cdr of the cell, and the tag in the car of the
+cell.  The code looks like this:
+
+// Is this a Foo?
+static int
+foo_p(SCM obj)
+{
+    return(SCM_NIMP(obj) && SCM_CAR(obj) == Foo_class::Foo_smob_tag);
+}
+
+// given a Scheme representation, return, a C++ representation
+static Foo_class *
+foo_unbox(SCM obj)
+{
+    return((Foo_class*)SCM_CDR(obj));
+}
+
+// the SCM representation of the object is stored inside itself
+// this will become useful when destructor gets called
+static SCM
+foo_box(Foo_class *foo)
+{
+    SCM_DEFER_INTS;
+    SCM_NEWCELL(foo->obj);
+    SCM_SETCAR(foo->obj, Foo_class::Foo_smob_tag);
+    SCM_SETCDR(foo->obj, (SCM)foo);
+    SCM_ALLOW_INTS;
+    return foo->obj;
+}
+
+> C++ determines life time, so what is the strategy?
+
+What happens now when the destructor gets called?  Lets set the cdr to
+NULL, and then check for that in all of the primitive functions that
+use your smob.  We'll call this notion 'live'; a scheme object is
+'live' if the C++ representation still exists, it's dead if the C++
+object is gone.  You can still have references to dead objects in
+scheme code; it's just an error to use them.  This idea is stolen from
+Emacs's handling of buffers ('buffer-live-p' and friends).
+
+Add another function, foo_live_p:
+
+static int
+foo_live_p(SCM obj)
+{
+    return(foo_p(obj) && SCM_CDR(obj) != NULL);
+}
+
+In you destructor, you need to do:
+
+~Foo_class()
+{
+    SCM_CDR(this->obj, NULL);
+}
+
+When writing new primitives, now just check foo_live_p().
+
+I hope the above helps,
+
+-russ
+
+
+--
+"Even if you are on the right track, you'll get run over 
+if you just sit there."  
+             --Will Rogers (1879-1935)
+
+***************************
