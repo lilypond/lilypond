@@ -38,7 +38,7 @@ private:
   Link_array<Music> text_events_;
   int start_measure_;
   Moment start_moment_;
-  
+  Rational last_main_moment_;
 
   Spanner *mmrest_;
   Link_array<Spanner> numbers_;
@@ -168,6 +168,7 @@ Multi_measure_rest_engraver::process_music ()
 	  for (int i = 0; i < numbers_.size(); i++)
 	    add_bound_item (numbers_[i], it);
 	}
+      
       if (last_rest_)
 	{
 	  add_bound_item (last_rest_,it);
@@ -232,12 +233,15 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-  
-  if (mmrest_ && !mp.to_bool ())
+
+  Moment now =now_mom ();
+  if (mmrest_
+      && now.main_part_ != last_main_moment_
+      && mp.main_part_ == Rational (0))
     {
       last_rest_ = mmrest_;
       last_numbers_ = numbers_;
-
+      
       int cur = gh_scm2int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
       last_rest_->set_grob_property ("measure-count", gh_int2scm (num));
@@ -250,7 +254,8 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	}
 
       mmrest_ = 0;
-
+      numbers_.clear ();
+      
       Grob * last = last_numbers_.size() ? last_numbers_[0] : 0;
       if (last && last->get_grob_property ("text") == SCM_EOL)
 	{
@@ -269,6 +274,8 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	    }
 	}
     }
+
+  last_main_moment_ = now.main_part_;
 }
 
 void
