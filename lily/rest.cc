@@ -46,7 +46,7 @@ Rest::do_brew_molecule_p () const
   bool ledger_b =false;
 
   if (balltype_i_ == 0 || balltype_i_ == 1)
-    ledger_b = abs(position_i ()  - (2* balltype_i_ - 1)) > lines_i (); 
+    ledger_b = abs(position_f ()  - (2* balltype_i_ - 1)) > lines_i (); 
       
 
   

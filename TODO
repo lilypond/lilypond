@@ -10,8 +10,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
-. * sleur.ly. * rerun profile
-. * mmrests
+. * Depracate Wordwrap
+. * rerun profile
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
 . * HaraKiriStaffContext removes bar lines and doesn't remove
@@ -65,8 +65,9 @@ the mensural music notation.
 bar line fully drawn across the staves and after that keep to the
 ChoirStaff bar line types in the rest of the scores
 
-- autoBeamMelisma: if I explicitly beam notes in a staff with auto beaming disabled I
-would like to have these beams also to be melismatic.
+- autoBeamMelisma: if I explicitly beam notes in a staff with auto
+beaming disabled I would like to have these beams also to be
+melismatic.
 
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".

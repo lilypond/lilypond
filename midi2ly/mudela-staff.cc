@@ -72,22 +72,26 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
       for (Cons<Mudela_item> *cp = i; cp && cp->car_->at_mom () == mom; cp = cp->next_)
 	now_items.push (i->car_);
 
-      Mudela_item * which = 0;
       Mudela_note * last_note = dynamic_cast<Mudela_note*> (voice_p->last_item_l_);
+      Link_array<Mudela_item> candidates; 
 
-      for (int i=0; !which && last_note && i < now_items.size (); i++)
+      for (int i=0; last_note && i < now_items.size (); i++)
 	{
 	  Mudela_note * now_note = dynamic_cast<Mudela_note*> (now_items[i]);
 	  if (now_note && last_note->channel_i_ != now_note->channel_i_)
-	    which = now_note;
+	    candidates.push (now_note);
 	}
 
-#if 0
-      // use pitch difference for determining which item to pick.
-      if (!which)
+      if (candidates.size())
+	{
+	  now_items = candidates;
+	}
+
+      Mudela_item * which = 0;
+      if (now_items.size () > 1)
 	{
 	  int mindiff = 100000;	// ugh
-	  for (int i=0; !which && last_note && i < now_items.size (); i++)
+	  for (int i=0; last_note && i < now_items.size (); i++)
 	    {
 	      Mudela_note *nt = dynamic_cast<Mudela_note*> (now_items[i]);
 	      if (!nt)
@@ -104,28 +108,25 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
 	    {
 	      which =0;
 	    }
-
 	}
-#endif
-      
-      if (!which && now_items.size ())
+      else if (now_items.size () == 1)
 	which = now_items[0];
-
       
-
-      if (!which)
+      if (which)
+	{
+	  while ((*pp)->car_ != which)
+	    pp = &(*pp)->next_;
+      
+	  mom += (*pp)->car_->duration_mom ();
+	  Cons<Mudela_item>* c = items.remove_cons (pp);
+	  voice_p->add_item (c->car_);
+	  delete c;
+	}
+      else 
 	{
 	  pp = &(*pp)->next_;
 	  continue;
 	}
-      
-      while ((*pp)->car_ != which)
-	pp = &(*pp)->next_;
-      
-      mom += (*pp)->car_->duration_mom ();
-      Cons<Mudela_item>* c = items.remove_cons (pp);
-      voice_p->add_item (c->car_);
-      delete c;
     }
 }
 

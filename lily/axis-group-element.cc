@@ -35,6 +35,7 @@ Axis_group_element::get_children ()
 {
   Link_array<Score_element> childs;
   Link_array<Score_element> elems = elem_l_arr ();
+
   elems.concat (extra_elems_ );
   for (int i=0; i < elems.size (); i++) 
     {

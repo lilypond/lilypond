@@ -71,17 +71,12 @@ Graphical_element::set_empty (bool b, Axis a1, Axis a2)
 }
 
 /**
-   Return true if empty in either direction.
+   Return true if empty in both A1  direction and A2 dir.
  */
 bool
-Graphical_element::empty_b (Axis a1, Axis a2)
+Graphical_element::empty_b (Axis a)
 {
-  bool b = false;
-  if (a1 != NO_AXES)
-    b = b || dim_cache_[a1]->empty_b ();
-  if (a2 != NO_AXES)
-    b = b || dim_cache_[a2]->empty_b ();
-  return b;
+  return dim_cache_[a]->empty_b ();
 }
 
 Interval
@@ -103,8 +98,6 @@ Graphical_element::do_print () const
   DOUT << '\n';
 #endif
 }
-
-
 
 void
 Graphical_element::invalidate_cache (Axis a)

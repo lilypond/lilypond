@@ -11,7 +11,6 @@
 #define LINE_SPACER_HH
 #include "lily-proto.hh"
 #include "array.hh"
-#include "vector.hh"
 #include "interval.hh"
 
 /**

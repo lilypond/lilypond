@@ -33,8 +33,12 @@ Hara_kiri_group_spanner::do_post_processing ()
   Link_array<Score_element> childs = get_children ();
   for (int i = 0; i < childs.size (); i++)
     {
-      childs[i]->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      childs[i]->set_empty (true, X_AXIS, Y_AXIS);
+      Score_element* s = childs[i];
+
+      if ( line_l () != s->line_l ())
+	programming_error ("Killing other children too");
+      s->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      s->set_empty (true, X_AXIS, Y_AXIS);
 
     }
   set_empty (true);
@@ -43,6 +47,7 @@ Hara_kiri_group_spanner::do_post_processing ()
 void
 Hara_kiri_group_spanner::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
+  Axis_group_spanner::do_substitute_element_pointer (o,n);
   if (Item *it = dynamic_cast<Item *> (o))
     interesting_items_.substitute (it, dynamic_cast<Item *> (n));
 }

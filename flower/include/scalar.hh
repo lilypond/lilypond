@@ -35,12 +35,6 @@ struct Scalar : public String
   int to_i () const;
   Real to_f () const;
 
-  /*
-    urg, these are bit silly; perhaps should make "Print_string" class
-    (derive from Scalar?)
-   */
-  Scalar (Vector const &v);
-  Scalar (Matrix const &m);
 
   /**   perl -like string to bool conversion.
    */

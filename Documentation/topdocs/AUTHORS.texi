@@ -56,6 +56,8 @@ list is alphabetically ordered.
     parts of Documentation/Vocab*, started internationalization stuff
 @item @email{glenprideaux@@iname.com, Glen Prideaux},
     minor bug fix to script used to generate doc++ documentation
+@item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
+    major extension, fixes to abc2ly, lilypond bug fixes
 @item @email{daboys@@austin.rr.com, Jeffrey B. Reed},
     Windows-NT support.
 @item Shay Rojanski

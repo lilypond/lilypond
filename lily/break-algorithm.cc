@@ -9,14 +9,12 @@
 #include "score-column.hh"
 #include "break.hh"
 #include "paper-def.hh"
-#include "spring-spacer.hh"
 #include "debug.hh"
 #include "line-of-score.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "cpu-timer.hh"
 #include "command-request.hh"
-#include "spring-spacer.hh"
 #include "simple-spacer.hh"
 
 
@@ -62,13 +60,7 @@ Break_algorithm::find_breaks () const
 Line_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
 {
-  Real r = pscore_l_->paper_l_->get_var ("simple_spacing_solver");
-    
-  Line_spacer * sp = 0;
-  if (r)
-    sp = new Simple_spacer;
-  else
-    sp = new Spring_spacer;
+  Line_spacer * sp =  new Simple_spacer;
   
   sp->default_space_f_ = pscore_l_->paper_l_->get_var ("loose_column_distance");
 

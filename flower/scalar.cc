@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include "scalar.hh"
 #include "rational.hh"
-#include "matrix.hh"
 
 Scalar::Scalar (Rational r)
 {
@@ -105,12 +104,4 @@ Scalar::to_bool () const
   return true;
 }
 
-Scalar::Scalar(Matrix const &m)
-{
-  *this = m.str ();
-}
 
-Scalar::Scalar (Vector const &v)
-{
-  *this = v.str ();
-}
