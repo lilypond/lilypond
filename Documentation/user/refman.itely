@@ -712,34 +712,17 @@ c d b bes a g c2 }
 
 Long notes can be converted automatically to tied notes.  This is done
 by replacing the @internalsref{Note_heads_engraver} by the
-@internalsref{Completion_heads_engraver}:
+@internalsref{Completion_heads_engraver}.
+In the following examples, notes crossing the barline are split and tied.
 
-@example
-  \paper @{ \translator @{
-      \ThreadContext
+
+@lilypond[noindent,verbatim]
+\new Voice \with {
       \remove "Note_heads_engraver"
       \consists "Completion_heads_engraver"
-  @} @}
-@end example
-
-which will make long notes tied in the following example:
-@example
-  \time 2/4
+} {
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
-@end example
-
-@lilypond[noindent]
-\score{
-  \notes\relative c'{
-  \time 2/4
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
-  }
-  \paper { \translator {
-      \ThreadContext
-      \remove "Note_heads_engraver"
-      \consists "Completion_heads_engraver"
-  } }
-  }
+}
 @end lilypond
 
 This engraver splits all running notes at the bar line, and inserts
@@ -752,7 +735,11 @@ is off.
 Not all durations (especially those containing tuplets) can be
 represented exactly; the engraver will not insert tuplets. 
 
+@seealso
 
+Examples: @inputfileref{input/regression,completion-heads.ly}
+
+Internals: @internalsref{Completion_heads_engraver}
 
 
 @node Staff notation

@@ -18,7 +18,15 @@ Version 2.1.13
 
 @itemize @bullet
 
-@item Drum notation is now supported  natively:
+@item The @code{Thread} context has been removed. Note heads and rests
+are now constructed at @code{Voice} level.
+
+@item  Harmonic notes can now be entered as
+@example
+   <c' g''\harmonic>
+@end example
+
+@item Drum notation is now supported  as a regular feature:
 percussion may be entered in @code{\drums} mode, and printed in a
 @code{DrumStaff} context:
 

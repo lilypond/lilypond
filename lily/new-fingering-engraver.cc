@@ -87,6 +87,10 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	    {
 	      add_script (inf.grob_, m, note_ev);
 	    }
+	  else if (m->is_mus_type ("harmonic-event"))
+	    {
+	      inf.grob_->set_grob_property ("style", ly_symbol2scm ("harmonic"));
+	    }
 	}
 
       heads_.push (inf.grob_);
@@ -317,7 +321,9 @@ New_fingering_engraver::New_fingering_engraver()
 }
 
 ENTER_DESCRIPTION(New_fingering_engraver,
-/* descr */       "Create fingering-scripts for notes in a new chord.",
+/* descr */       "Create fingering-scripts for notes in a new chord.  "
+		  "This engraver is ill-named, since it "
+		  "also takes care of articulations and harmonic note heads",
 /* creats*/       "Fingering",
 /* accepts */     "",
 /* acks  */       "rhythmic-head-interface stem-interface",

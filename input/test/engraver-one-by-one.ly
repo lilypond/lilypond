@@ -23,6 +23,7 @@ Staff context.
 
     }
 \paper { raggedright = ##t }
+
 \include "engraver-example.lyinc"
 
 
@@ -120,30 +121,11 @@ MyVoiceContext = \translator {
 	\consists "Tie_engraver"
 	\consists "Tie_engraver"
 	\consists "Tuplet_engraver"
-
-	\consists "Skip_event_swallow_translator"
-	\accepts Thread % bug if you leave out this!
-}
-
-MyThreadContext = \translator{
-	\type Engraver_group_engraver
-	\name Thread
-	localKeySignature = #'()
-\description "
-    Handles note heads, and is contained in the Voice context.  You
-    have to instantiate this explicitly if you want to adjust the
-    style of individual note heads.
-"
-	\consists "Font_size_engraver"	
 	\consists "Note_heads_engraver"
 	\consists "Rest_engraver"
 
-	% why here ? 
-	\consists "Output_property_engraver"	
-
+	\consists "Skip_event_swallow_translator"
 }
-
-
 
 
 \score {
@@ -151,7 +133,6 @@ MyThreadContext = \translator{
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
       }
 }
 
@@ -166,8 +147,7 @@ MyStaffContext = \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyStaffContext = \translator {
@@ -181,8 +161,7 @@ MyStaffContext = \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyVoiceContext = \translator {
@@ -195,8 +174,7 @@ MyVoiceContext = \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyVoiceContext = \translator {
@@ -209,8 +187,7 @@ MyVoiceContext = \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyVoiceContext= \translator {
@@ -226,8 +203,7 @@ MyVoiceContext= \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyStaffContext = \translator {
@@ -242,8 +218,7 @@ MyStaffContext = \translator {
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }
 
 MyStaffContext = \translator
@@ -256,6 +231,5 @@ MyStaffContext = \translator
   \paper {
       \translator { \MyStaffContext }
       \translator { \MyVoiceContext }
-      \translator { \MyThreadContext }
-      }
+            }
 }

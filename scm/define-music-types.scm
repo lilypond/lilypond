@@ -181,6 +181,12 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music event note-grouping-event))
 	))
+    (HarmonicEvent
+     . (
+	(description . "Mark a note as harmonic")
+	(internal-class-name . "Event")
+	(types . (general-music event harmonic-event))
+	))
     (HyphenEvent
      . (
 	(description .  "A hyphen between lyric syllables.")

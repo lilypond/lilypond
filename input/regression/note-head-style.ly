@@ -1,13 +1,12 @@
-\version "2.1.7"
+\version "2.1.19"
 \header{
 texidoc="
 Note head shapes are settable.  The stem endings should be adjusted
 per note head.  If you want different note head styles on one stem,
-you must create a special context called Thread.
+you must create a special context called Voice.
 
 Harmonic notes have a different shape and different
-dimensions. Nevertheless, noteheads in both styles can be combined, on
-either up or down stems.
+dimensions. 
 "
 }
 
@@ -74,32 +73,6 @@ pattern = \notes <<
     s1*0^\markup { "slash" }
     \pattern
     \break
-
-    \new Voice <<
-      \new Thread {
-        \property Thread.NoteHead \set #'style = #'cross
-        \property Voice.Stem \set #'direction = #1
-        c'16
-      }
-      \new Thread {
-        \property Thread.NoteHead \set #'style = #'default a16
-      }
-      \new Thread {
-        \property Thread.NoteHead \set #'style = #'mensural d'16
-      }
-    >>
-    \context Voice <<
-      \new Thread {
-        \property Thread.NoteHead \set #'style = #'cross
-        c'4 c'4 c'4 c'4
-      }
-      \new Thread {
-        \property Thread.NoteHead \set #'style = #'mensural
-        c''4 \stemDown c''
-        \property Thread.NoteHead \set #'style = #'slash
-        \stemUp c''4 \stemDown c''
-      }
-    >>
   }
 
   \paper {

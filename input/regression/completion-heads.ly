@@ -1,11 +1,9 @@
-\version "2.1.7"
+\version "2.1.19"
 
 \header{
 texidoc="
 
-If the Note_heads_engraver is replaced by the
-@code{Completion_heads_engraver}, notes that cross bar lines are split
-into tied notes.
+If the @code{Note_heads_engraver} is replaced by the @code{Completion_heads_engraver}, notes that cross bar lines are split into tied notes.
 
 "
 }
@@ -22,7 +20,7 @@ into tied notes.
   }
   \paper{
     \translator{
-      \ThreadContext
+      \VoiceContext
       \remove "Note_heads_engraver"
       \consists "Completion_heads_engraver"
     }

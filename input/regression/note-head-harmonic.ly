@@ -7,17 +7,13 @@
 \version "2.1.9"
 
 \score {
-  \context Voice \notes {
-    << { c''4 }
-       \new Thread {
-	   \property Thread.NoteHead \set #'style = #'harmonic
-	   f''4
-       }
-   >>
+ \notes {
+    < c''     f''\harmonic >4
+    \stemUp
+    < c''     f''\harmonic >
   }
 
   \paper {
-    linewidth = 50.0\mm
-    indent = 0.0\mm
+      raggedright = ##t 
   }
 }

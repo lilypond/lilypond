@@ -1774,6 +1774,7 @@ conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
 
 
 
+
 def conv (str):
 	str = re.sub (r'\\include "drumpitch-init.ly','', str)
 	str = re.sub (r'\\pitchnames ','pitchnames = ', str)
@@ -1785,9 +1786,22 @@ def conv (str):
 	str = re.sub (r"""\\apply\s+#\(drums->paper\s+'([a-z]+)\)""",
 		      r"""\property DrumStaff.drumStyleTable = #\1-style""",
 		      str)
+
+	if re.search ('Thread', str):
+		sys.stderr.write ("\nThread found. Check file manually!\n");
+
+	str = re.sub (r"""(\\once\s*)?\\property\s+Thread\s*\.\s*NoteHead\s*"""
+		      + r"""\\(set|override)\s*#'style\s*=\s*#'harmonic"""
+		      + r"""\s+([a-z]+[,'=]*)([0-9]*\.*)"""		      
+		      ,r"""<\3\\harmonic>\4""", str)
+
+	str = re.sub (r"""\\new Thread""", """\context Voice""", str)
+	str = re.sub (r"""Thread""", """Voice""", str)
+	
 	return str
 
-conversions.append (((2,1,19), conv, """Drum notation changes, Removing \chordmodifiers, \notenames  ."""))
+conversions.append (((2,1,19), conv, """Drum notation changes, Removing \chordmodifiers, \notenames.
+Harmonic notes. Thread context removed."""))
 
 ################################
 #	END OF CONVERSIONS	

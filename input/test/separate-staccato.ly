@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.19"
 % possible rename.  -gp
 
 \header { texidoc="@cindex Seperate Staccato
@@ -12,7 +12,7 @@ staccatos = \notes { s4-. s-. s-. s s }
 music = \notes\relative c' { c4 d e f g  a b c d e }
 
 \score {
-   \new Thread <<
+   \context Voice <<
      \music
      \repeat unfold 2 \staccatos
    >>
