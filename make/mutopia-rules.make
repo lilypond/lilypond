@@ -3,15 +3,18 @@
 $(outdir)/%.gif: $(outdir)/%.ps
 	sh $(PS_TO_GIFS) $<
 	-mv $(name-stem)-page*.gif $(outdir)/
-	touch $@
+	ln -s $(name-stem)-page1.gif $@
 
 $(outdir)/%.png: $(outdir)/%.ps
 	sh $(PS_TO_PNGS) $<
 	-mv $(name-stem)-page*.png $(outdir)/
-	touch $@
+	ln -s $(name-stem)-page1.png $@
 
 $(outdir)/%.ly.txt: %.ly
 	ln -f $< $@
+
+$(outdir)/%.ly.txt: $(outdir)/%.ly
+	cp -f $< $@
 
 $(outdir)/%.ly.txt: %.abc
 #which file to show here -- abc seems more cute?
