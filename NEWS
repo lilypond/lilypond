@@ -1,3 +1,37 @@
+
+(need to fix pictures. I know)
+
+pl 9
+	
+pl 8.uu1
+	- junked \staff, \multi
+	- bf Music_list::Music_list (Music_list const&)
+	- AC_SUBST(PATHSEP,DIRSEP)
+	- generate Documentation/tex/out/*.bib (AM)
+	- a4 fixes (AM)
+	- bf: metafont-*.make
+	- parser.yy: intlist mods. (mudela 1.0.2)
+	- \melodic -> \notes (mudela 1.0.3)
+	- typo: calcalute_dependencies ()
+
+pl 8.jcn3
+	- gif -> png
+	    * ps-to-pngs.sh
+	    * stepmake
+	    * website
+	    * yodl-1.31.4 (to be released)
+	- target 'texinfo' -> 'info'
+
+pl 8.jcn2
+	- more doco in texinfo (with yodl pl3)
+	- bf's: package-diff
+
+pl 8.jcn1
+ 	- removed tutorial from texinfo, yodl2texinfo is still rather broken
+ 	- bf: setlocale NUMERIC to 'C'
+ 	- removed ugly space from print-dimen
+
+*******
 pl 8
 	- make website fixes.
 
