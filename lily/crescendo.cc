@@ -24,7 +24,7 @@ Crescendo::Crescendo()
 Interval
 Crescendo::symbol_height()const
 {
-    return get_symbol().dim.y;
+    return get_symbol().dim[Y_AXIS];
 }
 
 static Real absdyn_dim = 10 PT;	// ugh
