@@ -39,6 +39,24 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   return 0 ;
 }
 
+SCM
+load_scheme_table (char const *tag_str, FT_Face face)
+{
+  FT_ULong length = 0;
+  FT_Byte* buffer =load_table ("LILC", face, &length);
+
+  SCM tab = SCM_EOL;
+  if (buffer)
+    {
+      String contents ((Byte const*)buffer, length);
+      contents = "(quote (" +  contents + "))";
+
+      SCM alist = scm_c_eval_string (contents.to_str0());
+      tab = alist_to_hashq (alist);
+      free (buffer);
+    }
+  return tab;
+}
 	    
 SCM
 Open_type_font::make_otf (String str)
@@ -57,30 +75,24 @@ Open_type_font::make_otf (String str)
     }
 
 
-  FT_ULong length = 0;
-  FT_Byte* buffer =load_table ("LILC", otf->face_, &length);
-  if (buffer)
-    {
-      String contents ((Byte const*)buffer, length);
-      contents = "(quote (" +  contents + "))";
 
-      SCM alist = scm_c_eval_string (contents.to_str0());
-      otf->lily_character_table_ = alist_to_hashq (alist);
-      free (buffer);
-    }
-
+  otf->lily_character_table_ =  load_scheme_table ("LILC", otf->face_);
+  otf->lily_global_table_ =  load_scheme_table ("LILY", otf->face_);
+  
   return otf->self_scm ();
 }
 
 Open_type_font::Open_type_font()
 {
   lily_character_table_ = SCM_EOL;
+  lily_global_table_ = SCM_EOL;
 }
 
 void
 Open_type_font::derived_mark () const
 {
   scm_gc_mark (lily_character_table_);
+  scm_gc_mark (lily_global_table_);
 }
 
 Offset

@@ -23,6 +23,8 @@ input feta-params;
 
 font_x_height  staff_space#;
 
+
+
 fet_beginfont("feta", design_size, "fetaMusic");
 if test = 0: 
 	input feta-eindelijk;
@@ -39,6 +41,14 @@ else:
 	input feta-test-generic.mf;
 
 fi
+
+autometric_parameter("staffsize", staffsize#);
+autometric_parameter("stafflinethickness", stafflinethickness#);
+autometric_parameter("staff_space", staff_space#)
+autometric_parameter("linethickness", linethickness#)
+autometric_parameter("black_notehead_width", black_notehead_width#);
+autometric_parameter("ledgerlinethickness", ledgerlinethickness#);
+autometric_parameter("blot_diameter", blot_diameter#);
 
 fet_endfont;
 

@@ -42,6 +42,11 @@ def fet_endgroup(expr name) =
 	message "";
 enddef;
 
+def autometric_parameter (expr name, value) =
+	message "@{parameter@:"&name&"@:"&decimal value&"@}";
+enddef;
+
+
 def autometric_output_char=
 	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&decimal charwx&"@:"&decimal charwy&"@:"&idstr&"@:"&texstr&"@}";
 enddef;

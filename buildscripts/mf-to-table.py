@@ -118,6 +118,9 @@ def parse_logfile (fn):
 			global_info['Descender'] = '0'
 			global_info['EncodingScheme'] = encoding
 
+		elif tags[0] == 'parameter':
+			global_info[tags[1]] = tags[2];
+			
 	return (global_info, charmetrics, deps)
 
 
@@ -159,7 +162,7 @@ def write_tex_defs (file, global_info, charmetrics):
 	file.write ('\\endinput\n')
 
 
-def write_otf_lisp_table (file, global_info, charmetrics):
+def write_character_lisp_table (file, global_info, charmetrics):
 
 	def conv_char_metric (charmetric):
 		f = 1.0
@@ -178,6 +181,20 @@ def write_otf_lisp_table (file, global_info, charmetrics):
 
 	for c in charmetrics:
 		file.write (conv_char_metric (c))
+
+
+def write_global_lisp_table (file, global_info):
+	str = ''
+
+	keys = ['staffsize', 'stafflinethickness', 'staff_space',
+		'linethickness', 'black_notehead_width', 'ledgerlinethickness',
+		'blot_diameter'
+		]
+	for k in keys:
+		str = str + "(%s . %s)\n" % (k,global_info[k])
+
+	file.write (str)
+
 	
 def write_ps_encoding (name, file, global_info, charmetrics):
 	encs = ['.notdef'] * 256
@@ -271,10 +288,11 @@ Options:
   getopt.getopt (sys.argv[1:],
 		 'a:d:hl:o:p:t:',
 		 ['enc=', 'afm=', 'outdir=', 'dep=', 'lisp=',
+		  'global-lisp=',
 		  'tex=', 'ly=', 'debug', 'help', 'package='])
 
-
-lisp_nm = ''
+global_lisp_nm = ''
+char_lisp_nm = ''
 enc_nm = ''
 texfile_nm = ''
 depfile_nm = ''
@@ -292,7 +310,9 @@ for opt in options:
 	elif o == '--tex' or o == '-t':
 		texfile_nm = a
 	elif o == '--lisp': 
-		lisp_nm = a
+		char_lisp_nm = a
+	elif o == '--global-lisp': 
+		global_lisp_nm = a
 	elif o == '--enc':
 		enc_nm = a
 	elif o == '--ly' or o == '-l':
@@ -330,7 +350,8 @@ for filenm in files:
 		enc_name = 'FetaBraceEncoding'
 
 	write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
-	write_otf_lisp_table (open (lisp_nm, 'w'), g, m)  
+	write_character_lisp_table (open (char_lisp_nm, 'w'), g, m)  
+	write_global_lisp_table (open (global_lisp_nm, 'w'), g)  
 	if depfile_nm:
 		write_deps (open (depfile_nm, 'wb'), deps,
 			    [base + '.dvi', base + '.pfa', base + '.pfb',
