@@ -104,8 +104,9 @@
 ;; "on top", ... (multiline-)scheme: try find slurs up to 7th
       '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z:-]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
 
-;; "on top", ... strings
-      '("\\([_^-]?\"\\([^\"\\\\]\\|\\\\.\\|\\\\\n\\)*\"\\)" 0 font-lock-string-face t)
+;; "on top", ... strings, match also unending strings at eof:
+;;               if '\n' was not found, it must be '$' which is eof (?).
+      '("\\([_^-]?\"\\([^\"\\\\]\\|\\\\.\\|\\\\\n\\)*\\(\"\\|$\\)\\)" 0 font-lock-string-face t)
 
 ;; "on top", ... (multiline-)comments
       '("\\(%\\({[^%]*%\\(}\\|\\([^}][^%]*%\\)+}\\)\\|.*\\)\\)" 0 font-lock-comment-face t)

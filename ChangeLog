@@ -10,6 +10,8 @@
 
 	* Documentation/user/music-glossary.tely: fix: change ä to @"a.
 
+	* lilypond-font-lock.el: match unending string at eof.
+	
 2003-06-10  Graham Percival  <gperlist@shaw.ca>
 
    * input/test/beam-abbrev.ly input/test/default-neutral-dir.ly
