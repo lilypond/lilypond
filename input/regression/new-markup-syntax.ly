@@ -24,6 +24,8 @@ texidoc = "New markup syntax."
 		\italic Norsk
 		\super "2"
 		\dynamic sfzp
+		\huge { "A" \smaller "A" \smaller \smaller "A"
+			\smaller \smaller \smaller "A" }
 		\sub "alike"
 	}	
     c''4

@@ -157,9 +157,39 @@
   ))
 
 (define-public (override-markup grob props . rest)
-  "Tack the 1st args in REST onto PROPS."
+  "Tack the 1st arg in REST onto PROPS, e.g.
+
+\override #'(font-family . married) \"bla\"
+
+"
+  
   (interpret-markup grob (cons (list (car rest)) props)
 		    (cadr rest)))
+
+(define-public (smaller-markup  grob props . rest)
+  "Syntax: \\smaller MARKUP"
+  (let*
+      (
+       (fs (cdr (chain-assoc 'font-relative-size props)))
+       (entry (cons 'font-relative-size (- fs 1)))
+       )
+  (interpret-markup
+   grob (cons (list entry) props)
+   (car rest))
+
+  ))
+
+(define-public (bigger-markup  grob props . rest)
+  "Syntax: \\bigger MARKUP"
+  (let*
+      (
+       (fs (cdr (chain-assoc 'font-relative-size props)))
+       (entry (cons 'font-relative-size (+ fs 1)))
+       )
+  (interpret-markup
+   grob (cons (list entry) props)
+   (car rest))
+  ))
 
 (map (lambda (x)
        (set-object-property! (car x) 'markup-signature (cdr x))
@@ -169,6 +199,8 @@
       (cons teeny-markup 'markup0)
       (cons tiny-markup 'markup0)
       (cons small-markup 'markup0)
+      (cons smaller-markup 'markup0)
+      (cons bigger-markup 'markup0)
       (cons italic-markup 'markup0)
       (cons dynamic-markup 'markup0)
       (cons large-markup 'markup0) 
@@ -212,6 +244,8 @@
 		    (ly:get-grob-property grob 'text)
 		    )
   )
+
+(define-public empty-markup `(,simple-markup ""))
 
 (define (interpret-markup  grob props markup)
   (let*

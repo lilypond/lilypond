@@ -1,3 +1,13 @@
+\header {
+
+	texidoc =  "German chords use H/B iso. B/B-flat.
+
+FIXME. Most likely broken during namespace reorganisation of early 1.7.
+
+"
+
+
+}
 \version "1.7.6"
 \include "german-chords-init.ly"
 
