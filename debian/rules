@@ -124,7 +124,7 @@ binary-arch: build install
 #	cp -a Documentation/misc/[ACN]* $(r)/$(d)/misc/
 
 #	dh_installexamples input
-	cp -aP `find input mutopia \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \)` \
+	cp -aP `find input  \( -name '*.*ly' -o -name '*.abc' -o -name '*.tex' -o -name 'TODO' \)` \
 		$(r)/$(d)/examples
 	for i in `find $(r)/$(d)/examples/ -type d -name out`; do \
 		mv -fv $$i/* $$i/..; rmdir $$i; done

@@ -132,7 +132,7 @@
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
 			       ,Beam::shift_region_to_valid
-;			       ,Beam::quanting
+			       ,Beam::quanting
 			      ))
 
 	;; TODO: should be in SLT.

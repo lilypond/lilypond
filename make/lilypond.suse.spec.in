@@ -260,7 +260,7 @@ touch var/adm/SuSEconfig/run-texhash
 
 %files doc
 # this gets too messy...
-%doc mutopia/
+
 %doc input/
 %doc web/
 # verbatim include of input: list the directory without issuing a %dir 

@@ -39,7 +39,6 @@ EXTRA_DOC_FILES = \
   Documentation/tex/*.bib\
   Documentation/pictures/out/lelie_logo.gif\
   input\
-  mutopia\
 
 INSTALLED_EXTRA_DOC_FILES = $(addprefix $(prefix:/%=%)/doc/lilypond/, $(EXTRA_DOC_FILES))
 
