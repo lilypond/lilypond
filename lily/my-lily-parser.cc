@@ -210,7 +210,7 @@ My_lily_parser::My_lily_parser(Sources * source_l)
     source_l_ = source_l;
     lexer_p_ = 0;
     default_duration_.type_i_ = 4;
-    default_octave_i_ = 3; // retain old default
+    default_octave_i_ = 0;
     textstyle_str_="roman";		// in lexer?
     error_level_i_ = 0;
     last_duration_mode = false;
@@ -239,5 +239,6 @@ My_lily_parser::pop_spot()
 Input
 My_lily_parser::here_input()const
 {
-    return Input(source_l_, here_ch_C());
+    Source_file * f_l= lexer_p_->source_file_l();
+    return Input(f_l, here_ch_C());
 }

@@ -1,10 +1,8 @@
-pl 46.jcn1
-Bugfix
-	- reincluded {interval,pcursor,plist}.tcc
-	- renamed Interval::elt_q to elt_b, invoking of empty to empty_b
-	- readded second (0) arg to warning function (only lily exports
-	  a warning(String) function)
-	- fixed dist make/Files.make
+pl 47
+	- dynamic flowerlib
+	- Input mods: now use Source_file iso Sources
+	- makefile lib deps restructured
+	- make_website now produces in out/
 
 pl 46
 	- examples.pod
