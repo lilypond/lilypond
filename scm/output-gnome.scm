@@ -14,7 +14,10 @@
 ;;;
 ;;; Try it:
 ;;;     lilypond-bin -fgnome input/simple-song.ly
-;;;
+
+;;; Set XEDITOR and add
+;;;    #(ly:set-point-and-click 'line-column)
+;;; to your .ly to get point-and-click
 
 ;;; TODO:
 ;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
@@ -24,6 +27,7 @@
 ;;;    - hack feta20: use latin1 encoding for gnome backend
 ;;;  * implement missing stencil functions
 ;;;  * implement missing commands (next, prev? page)
+;;;  * user-interface, keybindings
 
 ;;; Note: this install information is volatile
 ;;;       you'll probably want to pull all from
@@ -79,9 +83,6 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
 guile -s ../src/gtk/examples/hello.scm
 
 
-lilypond-bin -fgnome input/simple-song.ly
-
-
 "
 
 
@@ -93,6 +94,8 @@ lilypond-bin -fgnome input/simple-song.ly
 
 (use-modules
  (guile)
+ (ice-9 regex)
+ (srfi srfi-13)
  (lily)
  (gnome gtk)
  (gnome gtk gdk-event)
@@ -170,40 +173,100 @@ lilypond-bin -fgnome input/simple-song.ly
 		"")))))
       expr))
 
-;; helper functions
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
-
-(define (item-event item event . data)
-  (case (gdk-event:type event)
-    ((enter-notify) (gobject-set-property item 'fill-color "white"))
-    ((leave-notify) (gobject-set-property item 'fill-color "black"))
-    ((2button-press) (gobject-set-property item 'fill-color "red")))
-  #t)
-    
-(define (key-press-event item event . data)
-  (let ((keyval (gdk-event-key:keyval event))
-	(mods (gdk-event-key:modifiers event)))
-    (if (and (or (eq? keyval gdk:q)
-		 (eq? keyval gdk:w))
-	     (equal? mods '(control-mask modifier-mask)))
-	(gtk-main-quit))
-    #f))
-    
 ;;; Global vars
 (define main-window #f)
+(define main-canvas #f)
 (define canvas-root #f)
 
 (define system-origin '(0 . 0))
+
+;; UGHr
+(define item-locations (make-hash-table 31))
+(define location #f)
 
 (define canvas-width 400)
 (define canvas-height
   (inexact->exact (round (* 1.42 canvas-width))))
 
+;; TODO: use canvas scaling, use output-scale for paper/canvas dimensions?
 (define output-scale (* 2 2.83464566929134))
 ;;(define output-scale 2.83464566929134)
 ;;(define output-scale 1)
+
+;; helper functions
+(define (stderr string . rest)
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+
+(define x-editor #f)
+(define (get-x-editor)
+  (if (not x-editor)
+      (set! x-editor (getenv "XEDITOR")))
+  x-editor)
+
+(define ifs #f)
+(define (get-ifs)
+  (if (not ifs)
+      (set! ifs (getenv "IFS")))
+  (if (not ifs)
+      (set! ifs " 	"))
+  ifs)
+      
+(define (spawn-editor location)
+  (let* ((line (car location))
+	 (column (cadr location))
+	 (file-name (caddr location))
+	 (template (substring (get-x-editor) 0))
+	 
+	 ;; Adhere to %l %c %f?
+	 (command
+	  (regexp-substitute/global
+	   #f "%l" (regexp-substitute/global
+		    #f "%c"
+		    (regexp-substitute/global
+		     #f "%f" template 'pre file-name 'post)
+		    'pre (number->string column)
+		    'post)
+	   'pre (number->string line) 'post)))
+    
+    (stderr "spawning: ~s\n" command)
+    (if (= (primitive-fork) 0)
+	(let ((command-list (string-split command #\ )));; (get-ifs))))
+	  (apply execlp command-list)
+	  (primitive-exit)))))
+	  
+(define location-callback spawn-editor)
+
+(define (item-event item event . data)
+  (case (gdk-event:type event)
+    ((enter-notify) (gobject-set-property item 'fill-color "white"))
+    ((leave-notify) (gobject-set-property item 'fill-color "black"))
+    ((button-press)
+     (let ((location (hashq-ref item-locations item #f)))
+       (if location
+	   (location-callback location)
+	   (stderr "no location\n"))))
+    ((2button-press) (gobject-set-property item 'fill-color "red")))
+  #t)
+
+(define pixels-per-unit 1.0)
+(define (key-press-event item event . data)
+  (let ((keyval (gdk-event-key:keyval event))
+	(mods (gdk-event-key:modifiers event)))
+    (cond ((and (or (eq? keyval gdk:q)
+		    (eq? keyval gdk:w))
+		(equal? mods '(control-mask modifier-mask)))
+	   (gtk-main-quit))
+	  ((and #t ;;(null? mods)
+		(eq? keyval gdk:plus))
+	   (set! pixels-per-unit (* pixels-per-unit 2))
+	   (set-pixels-per-unit main-canvas pixels-per-unit))
+	  ((and #t ;; (null? mods)
+		(eq? keyval gdk:minus))
+	   (set! pixels-per-unit (/ pixels-per-unit 2))
+	   (set-pixels-per-unit main-canvas pixels-per-unit)))
+    #f))
 
 (define (char font i)
   ;;(text font (make-string 1 (integer->char i))))
@@ -219,6 +282,8 @@ lilypond-bin -fgnome input/simple-song.ly
 	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  
 	  (gtype-instance-signal-connect item 'event item-event)
+	  (if location
+	      (hashq-set! item-locations item location))
 	  item)
 	#f)))
 
@@ -261,6 +326,7 @@ lilypond-bin -fgnome input/simple-song.ly
     
     (show-all window)
     (set! canvas-root (root canvas))
+    (set! main-canvas canvas)
     (set! main-window window)))
 
 (define (text font string)
@@ -283,4 +349,13 @@ lilypond-bin -fgnome input/simple-song.ly
 
 (define (start-system origin . rest)
   (set! system-origin origin))
+
+;; origin -- bad name
+(define (define-origin file line col)
+  ;; ughr, why is this not passed as [part of] stencil object
+  (set! location (if (procedure? point-and-click)
+		     ;; duh, only silly string append
+		     ;; (point-and-click line col file)
+		     (list line col file)
+		     #f)))
 

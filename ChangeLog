@@ -1,7 +1,8 @@
 2004-05-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/output-gnome.scm: Add C-q, C-w keymapping.  Update
-	installation info.
+	* scm/output-gnome.scm: Add C-q, C-w keybindings.  Update
+	installation info.  Support point-and-click.  Add +/- zoom
+	keybindings.
 
 2004-05-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
