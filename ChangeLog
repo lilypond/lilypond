@@ -1,7 +1,14 @@
 2004-03-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (is_derived_class): use numbers
+	iso. booleans.
+
+	* python/lilylib.py (make_ps_images): add margin to PS images.
+
 	* scripts/lilypond-book.py (is_derived_class): new function. Take
 	class arg iso. object.
+	(to_eps): make a non EPS file if EPS contains %%Pages. Workaround
+	for bug in GS/dvips.
 
 	* lily/text-item.cc (interpret_markup): idem.
 

@@ -28,8 +28,8 @@
 class Key_engraver : public Engraver
 {
   void create_key (bool);
-  void read_ev (Key_change_ev const * r);
-  Key_change_ev * key_ev_;
+  void read_ev (Music const * r);
+  Music * key_ev_;
   Item * item_;
 
 public:
@@ -69,8 +69,8 @@ Key_engraver::create_key (bool def)
       item_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
       
-      // todo: put this in basic props.
-      item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
+      if (to_boolean (get_property ("printKeyCancellation")))
+	item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
       item_->set_property ("new-accidentals", get_property ("keySignature"));
 
       announce_grob (item_, key_ev_ ? key_ev_->self_scm () : SCM_EOL);
@@ -88,7 +88,6 @@ Key_engraver::create_key (bool def)
 bool
 Key_engraver::try_music (Music * ev)
 {
-  //  if (Key_change_ev *kc = dynamic_cast <Key_change_ev *> (ev))
   if (ev->is_mus_type ("key-change-event"))
     {
       if (!key_ev_)
@@ -96,7 +95,7 @@ Key_engraver::try_music (Music * ev)
 	  /*
 	    do this only once, just to be on the safe side.
 	    */	    
-	  key_ev_ = dynamic_cast<Key_change_ev*> (ev); // UGH.
+	  key_ev_ = ev;
 	  read_ev (key_ev_);
 	}
       
@@ -146,7 +145,7 @@ Key_engraver::stop_translation_timestep ()
 
 
 void
-Key_engraver::read_ev (Key_change_ev const * r)
+Key_engraver::read_ev (Music const * r)
 {
   SCM p = r->get_property ("pitch-alist");
   if (!gh_pair_p (p))
@@ -199,5 +198,5 @@ ENTER_DESCRIPTION (Key_engraver,
 /* creats*/       "KeySignature",
 /* accepts */     "key-change-event",
 /* acks  */      "bar-line-interface clef-interface",
-/* reads */       "keySignature lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
+/* reads */       "keySignature printKeyCancellation lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
 /* write */       "lastKeySignature tonic keySignature");

@@ -462,7 +462,11 @@ def make_ps_images (ps_name, resolution = 90):
 		output_file = re.sub (r'\.e?ps', '.png', ps_name)
 	
 
-		margin = 0
+
+		# need to have margin, otherwise edges of letters will
+		# be cropped off.
+
+		margin = 3 
 		fo = open (trans_ps, 'w')
 		fo.write ('%d %d translate\n' % (-bbox[0] + margin,
 						 -bbox[1] + margin))
