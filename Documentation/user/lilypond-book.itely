@@ -11,6 +11,7 @@ TODO: cleanup
 
 @end ignore
 
+
 @node Integrating text and music with lilypond-book
 @chapter Integrating text and music with lilypond-book
 
@@ -37,6 +38,8 @@ on using lilypond-book is in @ref{Integrating text and music}.
 * Music fragment options::
 * Invoking lilypond-book::
 @end menu
+
+TODO: explain how to use lilypond fonts in text.
 
 
 @cindex texinfo

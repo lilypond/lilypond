@@ -1,4 +1,7 @@
-	
+2003-01-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely (Top): add melisma.
+
 2002-01-08  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/gregorian-ligature-engraver.cc: bugfix: added missing
@@ -22,7 +25,7 @@
 	(double-plus-new-chord->markup): Fix sub->markup.
 
 
-g2003-01-07  Juergen Reuter  <reuter@ipd.uka.de>
+2003-01-07  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/custos-engraver.cc: added TODO; editorial changes
 
