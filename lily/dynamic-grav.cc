@@ -51,10 +51,8 @@ Dynamic_engraver::do_process_requests()
 	{
 	  Text_def * td_p = new Text_def;
 	  td_p->align_i_ = 0;
-	  String loud =Dynamic_req::loudness_str (
-						  dreq_l->absdynamic()->loudness_);
-	    
-	  td_p->text_str_ = paper()->lookup_l ()->dynamic (loud).tex;
+	  String loud = dreq_l->absdynamic()->loudness_str ();	    
+	  td_p->text_str_ = paper()->lookup_l ()->dynamic (loud).tex_;
 	  td_p->style_str_ = "dynamic";
 
 	  assert (!dynamic_p_) ; // TODO

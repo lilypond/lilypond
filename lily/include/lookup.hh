@@ -9,12 +9,13 @@
 #ifndef LOOKUPSYMS_HH
 #define LOOKUPSYMS_HH
 
-#include "symbol.hh"
+#include "atom.hh"
 #include "fproto.hh"
 #include "scalar.hh"
 #include "direction.hh"
 
-/// intuitive interface to symbol table
+/** handy interface to symbol table
+ */
 struct Lookup {
     Paper_def * paper_l_;
     Symtables *symtables_;
@@ -23,40 +24,40 @@ struct Lookup {
     void add (String, Symtable*);
     void print() const;
 
-    Symbol linestaff (int n, Real w) const;
-    Symbol fill (Box b) const;
-    Symbol beam_element (int,int,Real=0) const;
+    Atom linestaff (int n, Real w) const;
+    Atom fill (Box b) const;
+    Atom beam_element (int,int,Real=0) const;
 
     /// round slope to closest TeXslope
-    Symbol beam (Real&,Real) const;
+    Atom beam (Real&,Real) const;
 
     /**
       pos == 3 : 3 lines above staff (extending below note)
 
       pos == -3: below staff
       */
-    Symbol streepjes (int pos) const;
+    Atom streepjes (int pos) const;
 
-    Symbol vbrace (Real &dy) const;
-    Symbol meter (Array<Scalar>) const;
-    Symbol stem (Real y1_pos, Real y2_pos) const;
-    Symbol rule_symbol (Real height, Real width) const;
-    Symbol accidental (int) const;
-    Symbol ball (int) const;
-    Symbol flag (int, Direction) const;
-    Symbol rest (int, bool outside) const;
-    Symbol clef (String) const;
-    Symbol bar (String, Real height) const;
+    Atom vbrace (Real &dy) const;
+    Atom meter (Array<Scalar>) const;
+    Atom stem (Real y1_pos, Real y2_pos) const;
+    Atom rule_symbol (Real height, Real width) const;
+    Atom accidental (int) const;
+    Atom ball (int) const;
+    Atom flag (int, Direction) const;
+    Atom rest (int, bool outside) const;
+    Atom clef (String) const;
+    Atom bar (String, Real height) const;
     
-    Symbol dots (int) const;
-    Symbol slur (int dy, Real &dx, Direction dir) const;
-    Symbol half_slur (int dy, Real &dx, Direction dir, int xpart) const;
-    Symbol half_slur_middlepart (Real &dx, Direction dir) const;
-    Symbol big_slur (int dy, Real &dx, Direction dir) const;
-    Symbol text (String style, String text, int align = 1) const;
-    Symbol script (String idx) const;
-    Symbol hairpin (Real & width, bool decresc) const;
-    Symbol dynamic (String) const;
+    Atom dots (int) const;
+    Atom slur (int dy, Real &dx, Direction dir) const;
+    Atom half_slur (int dy, Real &dx, Direction dir, int xpart) const;
+    Atom half_slur_middlepart (Real &dx, Direction dir) const;
+    Atom big_slur (int dy, Real &dx, Direction dir) const;
+    Atom text (String style, String text, int align = 1) const;
+    Atom script (String idx) const;
+    Atom hairpin (Real & width, bool decresc) const;
+    Atom dynamic (String) const;
     Lookup();
     Lookup (Lookup const &);
     ~Lookup();

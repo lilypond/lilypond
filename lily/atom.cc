@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "symbol.hh"
+#include "atom.hh"
 #include "tex.hh"
 #include "interval.hh"
 #include "dimen.hh"
@@ -17,28 +17,43 @@ void
 Atom::print() const
 {
 #ifndef NPRINT
-  DOUT << "texstring: " <<sym_.tex<<"\n";    
+  DOUT << "texstring: " <<tex_<<"\n";    
 #endif
 }
 
 Box
 Atom::extent() const
 {
-  Box b (sym_.dim);
+  Box b (dim_);
   b.translate (off_);
   return b;
 }
 
-Atom::Atom (Symbol s)
+
+Atom::Atom()
+  : dim_ (Interval (0,0),Interval (0,0))
 {
-  sym_=s;
+  tex_ = "\\unknown";
+}
+
+Atom::Atom (String s, Box b)
+  :  dim_ (b)
+{
+  tex_ = s;
 }
 
 
 String
+Atom::str() const 
+{
+  return "Atom (\'"+tex_+"\', (" + dim_.x().str () + ", " 
+    + dim_.y ().str () + "))";
+}
+
+String
 Atom::TeX_string() const
 {
-  String tex_str = sym_.tex;
+  String tex_str = tex_;
   Offset off = off_;
 
   /* infinity checks. */

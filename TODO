@@ -6,7 +6,16 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	- naming Mozarella, Madeira, Muella, Fontaigna?
+
 	- bf: abbrevs over whole note
+
+	- scoping for properties
+
+	{ \multi 2  < { \stemup .. } { \stemdown .. } >
+		c2 }
+	
+	this modifies \stem for the c2
 
 	* use properties for:
 	- Text_style
@@ -21,9 +30,9 @@ grep for TODO and ugh/ugr
 	- cadenza mode? 
 	- MIDI instrument
 	- staff title
-	
+
 	* check out egcs
-	
+
 	* give Items/Spanners access to unbroken originals	
 
 3RD PARTY BUGS:
@@ -102,8 +111,8 @@ languages:
 
 	\score { < 
 		\melodic \type Staff { c'4 g'4 }
-		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
-		\lyric {   \id "Lyric" ""; bye4 hello4 }
+		\lyric { \id "Lyric" ""; hello4 bye4 < a chord > }
+		\lyric { \id "Lyric" ""; bye4 hello4 }
 		\melodic { \id "Staff" ""; c'4 g'4 }
 	> }
 
@@ -120,7 +129,7 @@ languages:
 	(which is at Voice_gravs level)
 	- make encapsulated spacing problems.
 
-	* On-demand loading of simple-engravers
+	* On-demand loading of simple-engravers?
 
 	* accidentals per Voice_group
 
@@ -259,8 +268,6 @@ SMALLISH PROJECTS
 	* progress when creating MIDI elts.
 
 	* A range for context errors (eg. mark both { and }. )
-
-	* merge Atom and Symbol
 
 	* lyric in staff  (sharpsharp in staff, text below)
 
