@@ -41,7 +41,7 @@ Item::breakable_b (Grob*me)
     return false;
 
   if (!dynamic_cast<Item*> (me))
-    programming_error ("only items can be breakable.");
+    me->programming_error ("only items can be breakable.");
   
   Item * i  =dynamic_cast<Item*> (me->get_parent (X_AXIS));
   return (i) ?  Item::breakable_b (i) : to_boolean (me->get_grob_property ("breakable"));

@@ -75,6 +75,12 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   Link_array<Grob> beam_stems = Pointer_group_interface__extract_grobs
     (b1, (Grob*)0, "stems");
 
+  if (beam_stems.size() == 0)
+    {
+      programming_error ("Beam under tuplet bracket has no stems!");
+      *equally_long = 0;
+      return 0;
+    }
   
   *equally_long = (beam_stems[0] == s1 && beam_stems.top() == s2);
   return b1;

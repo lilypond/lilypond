@@ -1,7 +1,21 @@
 2002-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/grob.cc (programming_error): add programming_error with
+	origin location.  
+
+	* lily/tuplet-bracket.cc (parallel_beam): robustness check, don't
+	fail if a beam doesn't have stems.  
+
+	* lily/engraver-group-engraver.cc (do_announces): scary change in
+	calling convention of create_grobs():  no create_grobs() call
+	before acknowledge_grobs().
+
+	* lily/sequential-music-iterator.cc (skip): add support for grace
+	notes. 
+
 	* lily/music.cc (Music): fix very subtle and nasty memory
-	corruption bug.
+	corruption bug. Typical symptom: "programming_error: Rhythmic_req
+	has no duration"
 
 	* mutopia/claop.py: new file: CLA(O)P II by Peter Wallin.
 

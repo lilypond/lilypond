@@ -5,6 +5,7 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <stdio.h>
 
 #include "debug.hh"
 #include "music.hh"
@@ -97,8 +98,9 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	}
 
       w = sneaky_insert_extra_moment (w);
+      
+      //      printf ("proccing %s\n ",       w.str().ch_C());
 
-      //      cout << "Proccing " << w << endl;
 
       
       if (first)
