@@ -22,6 +22,11 @@
 \ifundefined{LilyIdString}
         \def\LilyIdString{Lily was here}
 \fi
+\ifundefined{documentclass}
+        \input lilypond-plaintex
+\else
+        \input lilypond-latex
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % macros to shorten other definitions
@@ -55,113 +60,50 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
 % ugh
-\def\musixtwentydefs{
-        \twentyfonts
-        \musixcalc
+
+\def\cmrtwenty{
+        \font\smalltextfont=cmr8
+        \font\textmusic=cmmi12
 }
 
-  \def\cmrtwenty{
-          \font\smalltextfont=cmr8
-        \font\meterfont=cmbx12 at 15pt
-          \font\textmusic=cmmi12
-%        \font\musicmathfont=cmsy10 %%Not used?? /MB
-        \ifundefined{documentclass}
-                \font\normaltextfont=cmr10 %\textfont is a primitive
-                \font\italicfont=cmti10 scaled \magstep1
-                \font\boldfont=cmbx10
-                \font\largefont=cmbx12
-                \font\typewriterfont=cmtt10
-                %\font\Largefont=cmbx14
-                \font\Largefont=cmbx12 scaled \magstep 2
-                \font\hugefont=cmbx12 scaled \magstep 3
-        \else
-%                \def\settext##1{{\normalfont\normalsize ##1}}
-                \def\settext##1{{\normalfont ##1}}
-                \def\setitalic##1{\textit{\normalsize ##1}}
-                \def\setbold##1{\textbf{\normalsize ##1}}
-                \def\settypewriter##1{\texttt{\normalsize ##1}}
-                \def\setlarge##1{\textbf{\large ##1}}
-                \def\setLarge##1{\textbf{\Large ##1}}
-                \def\sethuge##1{\textbf{\huge ##1}}
-        \fi
-  }
-  \def\cmrsixteen{
-          \font\smalltextfont=cmr6
-          \font\meterfont=cmbx12
-          \font\textmusic=cmmi10
-        \ifundefined{documentclass}
-                \font\normaltextfont=cmr8 %\textfont is a primitive
-                \font\italicfont=cmti9
-                \font\boldfont=cmbx8
-                \font\typewriterfont=cmtt9
-                \font\largefont=cmbx10
-                \font\Largefont=cmbx12
-                \font\hugefont=cmbx12 scaled \magstep 2
-        \else
-                \def\settext##1{{\normalfont\footnotesize ##1}}
-                \def\setitalic##1{\textit{\small ##1}}
-                \def\setbold##1{\textbf{\footnotesize ##1}}
-                \def\settypewriter##1{\texttt{\normalsize ##1}}
-                \def\setlarge##1{\textbf{\normalsize ##1}}
-                \def\setLarge##1{\textbf{\large ##1}}
-                \def\sethuge##1{\textbf{\Large ##1}}
-        \fi
-  }
-  \def\cmrthirteen{
-          \font\smalltextfont=cmr6
-          \font\meterfont=cmbx9
-          \font\textmusic=cmmi9
-        \ifundefined{documentclass}
-                \font\normaltextfont=cmr7
-                \font\italicfont=cmti7
-                \font\boldfont=cmbx7
-                \font\largefont=cmbx9
-                \font\typewriterfont=cmtt7
-                \font\Largefont=cmbx10
-                \font\hugefont=cmbx12
-        \else
-                \def\settext##1{{\normalfont\scriptsize ##1}}
-                \def\setitalic##1{\textit{\scriptsize ##1}}
-                \def\setbold##1{\textbf{\scriptsize ##1}}
-                \def\setlarge##1{\textbf{\small ##1}}
-                \def\setLarge##1{\textbf{\normalsize ##1}}
-                \def\sethuge##1{\textbf{\large ##1}}
-        \fi
-  }
-  \def\cmreleven{
-          \font\smalltextfont=cmr5
-          \font\meterfont=cmbx8
-          \font\textmusic=cmmi8
-        \ifundefined{documentclass}
-                \font\normaltextfont=cmr6
-                \font\italicfont=cmti6
-                \font\boldfont=cmbx6
-                \font\typewriterfont=cmtt6
-                \font\largefont=cmbx8
-                \font\Largefont=cmbx9
-                \font\hugefont=cmbx10
-        \else
-                \def\settext##1{{\normalfont\tiny ##1}}
-                \def\setitalic##1{\textit{\tiny ##1}}
-                \def\setbold##1{\textbf{\tiny ##1}}
-                \def\setlarge##1{\textbf{\footnotesize ##1}}
-                \def\setLarge##1{\textbf{\small ##1}}
-                \def\sethuge##1{\textbf{\normalsize ##1}}
-        \fi
-  }
+\def\cmrsixteen{
+        \font\smalltextfont=cmr6
+        \font\textmusic=cmmi10
+        }
+\def\cmrthirteen{
+        \font\smalltextfont=cmr6
+        \font\textmusic=cmmi9
+        }
+\def\cmreleven{
+        \font\smalltextfont=cmr5
+        \font\textmusic=cmmi8
+        }
+
+%%%%%%%
+%
+\def\musixtwentydefs{
+      \twentyfonts
+      \csname cmrtwenty\texsuffix\endcsname
+      \musixcalc
+}
+
 \def\musixsixteendefs{
         \sixteenfonts
+        \csname cmrsixteen\texsuffix\endcsname
         \musixcalc
-}
+        }
 \def\musixtwentysixdefs{
-        \twentysixfonts
-        \musixcalc
-}
+      \csname cmrtwentysix\texsuffix\endcsname
+          \twentysixfonts
+         \musixcalc
+        }
 \def\musixthirteendefs{
         \thirteenfonts
-        \musixcalc
+        \csname cmrthirteen\texsuffix\endcsname
+       \musixcalc
 }
 \def\musixelevendefs{
+        \csname cmreleven\texsuffix\endcsname
         \elevenfonts
         \musixcalc
 }
@@ -171,15 +113,15 @@
 \def\textflat{\raise.2ex\hbox{\textmusic\char"5B}}
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % do derivative calcs
 
 % this has to be synced with the font definition
 \def\musixcalc{
         \staffheight=\mudelapaperbarsize pt
-        \interlinedist=\staffheight
+
+        % ugh.  Can extract ex dim from TFM
+        \interlinedist=\staffheight 
         \divide\interlinedist by 4
         \notewidth=\mudelapapernotewidth pt
 
@@ -190,10 +132,7 @@
         \stemthickness=\staffrulethickness
 }
 
-% stacked numbers; may be overruled in fetdefs
-\def\generalmeter#1#2{\vbox to 0pt{\vss\hbox{\meterfont
-         #1}\nointerlineskip
-         \hbox{\meterfont #2}\vss}}
+
 
 % stacked horizontal lines 
 
@@ -229,30 +168,6 @@
 \def\repeatbar{\repeatstopbar}
 \def\startrepeat{\repeatstartbar}
 \def\repeatbarstartrepeat{\repeatstopstart}
-
-\def\vruler#1{{%
-        \def\wid{\dimen0}%
-        \def\inc{\dimen1}%
-        \wid=#1pt
-        \inc=\wid
-        \divide\inc by #1
-        \divide\wid by 2
-        \here=-\wid
-        \loop\ifdim\here<\wid\advance\here by\inc
-                \hbox to0pt{\vbox to0pt{\vss\hrule width2pt height 0.05pt\kern\here}\hss}%
-        \repeat%
-}}
-\def\hruler#1#2{\hbox{%
-        \def\wid{\dimen0}%
-        \def\here{\dimen3}%
-        \wid=#1pt
-        \divide\wid by 2
-        \here=-\wid
-        \loop\ifdim\here<\wid\advance\here by #2
-                \hbox to0pt{\kern\here\vrule width0.05pt height 1pt depth 1pt\hss}%
-        \repeat%
-}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % parametric symbols
@@ -299,15 +214,6 @@
 %\let\rulesym\tinyrulesym
 %\let\rulesym\openrulesym
 
-\ifundefined{documentclass}
-        \def\settext#1{\normaltextfont #1}
-        \def\setitalic#1{\italicfont #1}
-        \def\setbold#1{\boldfont #1}
-        \def\settypewriter#1{\typewriterfont #1}
-        \def\setlarge#1{\largefont #1}
-        \def\setLarge#1{\Largefont #1}
-        \def\sethuge#1{\hugefont #1}
-\fi
 % the interline symbol. Redefine to remove it.
 \def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
 \def\lineseparator{\defaultlineseparator}
@@ -321,38 +227,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\postheader{}
 
-
-
-
-\ifundefined{documentclass}%
-%        \ifundefined{nolilyfooter}
-% Can't nest \ifundefined ??
-        \footline={\ifnum\pageno=1\smalltextfont\mudelacopyright\hfil \LilyIdString
-                \else\hfil\the\pageno\hfil\fi}%
-        \advance\hoffset by -.6in
- %       \fi%
+%
+% macros suck. \ifundefined{nolilyfooter} gives wierd errors from time
+%        to time. 
+\ifx\csname nolilyfooter\endcsname\relax
+	\message{footer defined}%
+        \csname lilyfooter\texsuffix\endcsname
 \else
-\let\nopagenumbers\relax
-        %% FIXME
-        \def\ps@plain{
-                \renewcommand{\@oddhead}{}%
-                \renewcommand{\@evenfoot}{}%
-                \renewcommand{\@evenhead}{}%
-                \renewcommand{\@oddfoot}{%
-                        \ifnum\thepage=1{\hfil \LilyIdString}%
-                        \else{%
-                                foo\hfil\the\pageno\hfil}%
-                        \fi}}
-        \def\ps@empty{
-                \renewcommand{\@oddhead}{}%
-                \renewcommand{\@evenfoot}{}%
-                \renewcommand{\@evenhead}{}%
-                \renewcommand{\@oddfoot}{%
-                        \ifnum\thepage=1{\hfil \LilyIdString}%
-                        \else{foo\hfil\the\pageno\hfil}%
-                        \fi}}%
+	\message{page empty!}
+	\csname nolilyfooter\texsuffix\endcsname
 \fi
-\nopagenumbers
-
-% debugging stuff:
-% \vbox to 0pt{\vskip .5cm \hruler{48}{3pt}\vss}
