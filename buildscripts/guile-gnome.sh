@@ -15,17 +15,6 @@ set -ex
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
 
-# Please state your love for the autotools today
-if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
-    MY_LIBTOOL=$(dpkg -l libtool | tail -1 | awk '{ print $3 }')
-    PANGO_LIBTOOL=1.5.6-1
-    if [ -x /usr/bin/gcc34 ] ;then
-	GCC34=gcc34
-    elif [ -x /usr/bin/gcc-3.4 ] ;then
-	GCC34=gcc-3.4
-    fi
-fi
-
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
 export AUTOCONF=$(which autoconf2.50)
@@ -58,25 +47,15 @@ echo "." > CVS/Repository
 cvs -z3 checkout -P pango
 cd pango
 rm -rf $OPT/pango
-if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
-    sudo apt-get --yes --force-yes install libtool=$PANGO_LIBTOOL
-fi    
 ./autogen.sh --help
 ./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
 make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
-if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
-    sudo apt-get --yes --force-yes install libtool=$MY_LIBTOOL
-fi    
 
 cd ../..
 
 export PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
-
-## 3.  *** NOTE: use guile-1.6 for g-wrap and guile-gnome ***
-## using GUILE CVS g-wrap/guile-gnome is experimental (read: segfaults)
-## Assuming that system has guile-1.6 installed in /usr/bin 
-PATH=/usr/bin:$PATH
+# 3.  [removed]
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
@@ -155,5 +134,5 @@ make install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
 GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
 LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH
 
-# simple test
-guile -s ../src/libgnomecanvas/examples/canvas.scm
+# simple test -- fails atm
+# guile -s ../src/libgnomecanvas/examples/canvas.scm

@@ -21,7 +21,6 @@
 
 ;;; You need:
 ;;;
-;;;   * guile-1.6.4 (NOT CVS -- we are working on this)
 ;;;   * Rotty's g-wrap--tng TLA, possibly Janneke's if you have libffi-3.4.
 ;;;   * guile-gnome TLA
 ;;;   * pango CVS (ie, > 2004-06-12)
@@ -29,16 +28,6 @@
 ;;; See also: guile-gtk-general@gnu.org
 
 ;;; Try it
-;;;
-;;;   * If you are using GUILE CVS, recompile LilyPond with GUILE 1.6.
-
-;;;     [If for some unknown or funny reason you do not want to
-;;;      overwrite your lilypond-bin with GUILE CVS, you can
-;;;      reconfigure a new configuration, say g16:
-"
-PATH=/usr/bin/:$PATH ./configure --enable-config=g16 && make conf=g16
-"
-;;;     ]
 ;;;
 ;;;   * Install gnome/gtk development stuff
 ;;;
