@@ -198,7 +198,7 @@ Duration_convert::ticks2standardised_dur( int ticks_i )
 		if ( mom == upper_mom ) // don-t miss last (sic)
 			return upper_dur;
 		if ( ( mom >= lower_mom ) && ( mom <= upper_mom ) ) {
-			warning( String( "duration not exact: " ) + String( (Real)mom ) , 0 );
+			warning( String( "duration not exact: " ) + String( (Real)mom ), 0 );
 			if ( abs( mom - lower_mom ) < abs( mom - upper_mom ) )
 				return lower_dur;
 			else
