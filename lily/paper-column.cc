@@ -128,4 +128,4 @@ Paper_column::brew_molecule (SCM p)
 
 ADD_INTERFACE (Paper_column, "paper-column-interface",
   "",
-  "between-cols between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");
+  "between-cols count between-system-string when bounded-by-me shortest-playing-duration shortest-starter-duration");

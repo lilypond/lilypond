@@ -21,7 +21,7 @@
 void
 Group_interface::add_thing (Grob*me, SCM sym, SCM thing)
 {
-  SCM handle = scm_sloppy_assq (sym, me->mutable_property_alist_);
+ SCM handle = scm_sloppy_assq (sym, me->mutable_property_alist_);
   if (handle != SCM_BOOL_F)
     {
       gh_set_cdr_x (handle, gh_cons (thing, gh_cdr (handle)));

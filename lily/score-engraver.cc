@@ -63,6 +63,10 @@ Score_engraver::prepare (Moment w)
   Global_translator::prepare (w);
 
   make_columns ();
+
+  command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
+  musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
+  
   start_translation_timestep ();
 }
 
@@ -207,8 +211,6 @@ Score_engraver::stop_translation_timestep ()
 	progress_indication ("[" + to_str (breaks_i_) + "]");
     }
 
-  command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
-  musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
 
   scoreline_l_->add_column (command_column_l_);
   scoreline_l_->add_column (musical_column_l_);
@@ -222,13 +224,18 @@ Score_engraver::set_columns (Paper_column *new_command_l,
 			     Paper_column *new_musical_l)
 {
   assert (!command_column_l_ && !musical_column_l_);
+
   command_column_l_ = new_command_l;
   musical_column_l_ = new_musical_l;
+  if (new_command_l)
+    {
+      set_property ("currentCommandColumn", new_command_l->self_scm ());  
+    }
   
   if (new_musical_l)
-    set_property ("currentMusicalColumn", new_musical_l->self_scm ());
-  if (new_command_l)
-    set_property ("currentCommandColumn", new_command_l->self_scm ());  
+    {
+      set_property ("currentMusicalColumn", new_musical_l->self_scm ());
+    }
 }
 
 Music_output*
