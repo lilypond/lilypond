@@ -33,7 +33,6 @@ protected:
 public:
   TRANSLATOR_DECLARATIONS(Engraver_group_engraver);
 
-  virtual void start_translation_timestep ();
   virtual void initialize ();
   virtual void do_announces ();
   virtual void announce_grob (Grob_info);
