@@ -54,7 +54,7 @@ example input files and the files from the Mutopia project.
 # -- not sure what this comment means; it's a relic from the PPC spec file -- mbrown@fensystems.co.uk
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
 make
-make local-web
+make web-doc
 
 %install
 

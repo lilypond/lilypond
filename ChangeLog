@@ -2,6 +2,9 @@
 
 	* VERSION: release 1.6.0 
 
+	* make/lilypond.redhat.spec.in: don't dist input/ separately
+	anymore
+
 	* Documentation/user/latex-example.latex: restore from old version
 
 	* Documentation/topdocs/index.tely: remove @settitle
