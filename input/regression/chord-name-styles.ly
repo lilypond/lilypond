@@ -1,17 +1,8 @@
-\version "1.7.10"
 \header {
-texidoc = "Jazz notation for chord names." 
+ texidoc = " show different naming conventions"
 }
 
-%% This should only be necessary if your kpathsea setup is broken
-%
-% Make sure the correct msamxx.tfm is where lily can find it
-% (ie cwd or lily's tfm dir).
-%
-% For normal (20pt) paper, do
-%
-%   cp locate `msam9.tfm` LILYPONDPREFIXxtfm
-%
+\version "1.7.10"
 
 scheme = \chords {
   % major chords
@@ -58,8 +49,26 @@ scheme = \chords {
   \notes <
     \context ChordNames {
 	#(set-chord-name-style 'jazz)
+	\property ChordNames.instrument = #"Jazz"
+	\property ChordNames.instr = #"Jz"
+	\scheme }
+    \context ChordNames = bn {
+	#(set-chord-name-style 'banter)
+	\property ChordNames.instrument = # "Banter"
+	\property ChordNames.instr = #"Bn"
+	\scheme }
+    \context ChordNames = am {
+	#(set-chord-name-style 'american)
+	\property ChordNames.instr = #"Am"
+	\property ChordNames.instrument = #"American"
 	\scheme }
     \context Staff \transpose c c' \scheme
   >
+\paper {
+linewidth = 16.0\cm
+
+\translator {
+  \ChordNamesContext \consists Instrument_name_engraver }
+}
 }
 %% new-chords-done %%
