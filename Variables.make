@@ -3,7 +3,7 @@
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=37
+PATCHLEVEL=38
 
 
 
@@ -19,7 +19,7 @@ DEBUGFLAG=-g
 # CXX=g++
 
 # turn off -pipe if linker doesn't support it
-EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes -DSTRING_UTILS_INLINED -O
+EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes -DSTRING_UTILS_INLINED
 
 #
 # -lefence = ElectricFence.
@@ -72,8 +72,10 @@ m2mcc=$(mym2mcc) $(mym2mgencc) $(mym2msharedcc)
 
 MY_CCSOURCE=$(addprefix $(CCDIR)/, $(mycc))
 CCSOURCE=$(addprefix $(CCDIR)/, $(cc))
+
 obs=$(addprefix $(OBJECTDIR)/,$(cc:.cc=.o)) 
 m2mobs=$(addprefix $(OBJECTDIR)/,$(m2mcc:.cc=.o)) 
+
 allcc=$(mycc) $(mym2mcc)
 allobs=$(obs) $(m2mobs)
 allexe=$(exe) $(m2m)
@@ -124,4 +126,5 @@ STRIPDEBUG=true #replace to do stripping of certain objects
 LINKER=$(CXX)
 include Site.make
 
+TAGSACTION=etags -l c++ --no-defines
 
