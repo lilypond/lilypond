@@ -270,7 +270,12 @@ Exit status of CMD '''
 	exit_status = status >> 8
 	
 	if status:
-		msg = _ ("`%s\' failed (%d)") % (name, exit_status)
+		
+		exit_type =  'status %d' % exit_status
+		if signal:
+			exit_type = 'signal %d' % signal 
+		
+		msg = _ ("`%s\' failed (%s)") % (name, exit_type)
 		if ignore_error:
 			if __main__.verbose_p:
 				warning (msg + ' ' + _ ("(ignored)"))
