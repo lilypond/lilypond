@@ -3773,15 +3773,17 @@ to the numbers
 @end lilypond
 
 Spaces or dashes may be inserted by using @code{_}.  Brackets are
-introduced with @code{[} and @code{]}
+introduced with @code{[} and @code{]}. You can also include text
+strings and text markups, see @ref{Overview of text markup commands}.
 
 @example
-< [4 6] 8 [_! 12] >
+< [4 6] 8 [_! 12] > < 5 \markup{ + \number 6 } >
 @end example
 @lilypond[quote,raggedright,fragment]
 \context FiguredBass
-\figuremode { < [4 6] 8 [_! 12] > }
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ + \number 6 } > }
 @end lilypond
+
 
 Although the support for figured bass may superficially resemble chord
 support, it works much simpler.  The @code{\figuremode} mode simply
