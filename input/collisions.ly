@@ -13,41 +13,42 @@ EndMudelaHeader
 \version "0.0.57";
 
 
-two_voice_steminvert = \melodic { 
-	< \multivoice 
-	  {	\octave c'; \stem 1;
-		c d e f~  g2 g a }
-	  { \stem -1;
-		g f e g ~ g2 g2 } 
-
-	>
-}	
 
 two_voice = \melodic { 
 	< \multivoice 
-	  {	\octave c'; \stem -1;
-		c d e f g2~  g a }
+	  {	\octave c'; \stem -1;\duration "last";
+		c4 d e f g2~  g4 a [c8 d e f] c2| }
 	  { \stem 1;
-		g f e g ~ g2 g2 } 
+		g4 f e g ~ g2 g2  c4 g4 g2 } 
 
 	>
 }	
 
+two_voice_steminvert = \melodic { 
+	< \multivoice  
+	  {	\octave c'; \stem 1;
+% the f and g on 4th beat are exceptionally ugh.
+		c4 d e f g2 g4 a | }
+	  { \stem -1;
+		g4 f e g  g2 g2 } 
+
+	>
+}	
 three_voice = \melodic {
 	< \multivoice
 	{ \stem 1; 
-		g f e f g a g2 }
+		g4 f e f g a g2 }
 	{ \hshift 1; \stem 1; 
 		e2  e2  e2  e2 }
 	{ \stem -1;
-		c d e d c d es }
+		c4 d e d c d es }
 	>
 }
 
 rests = \melodic  {
 	< \multivoice
-	{ \stem 1;\duration "last";
-		r8 r r r  r r r r 
+	{ \stem 1;
+		| r8 r r r  r r r r 
 		[c' b a g] [f e d c]
 	} 
 	{ \stem -1;
