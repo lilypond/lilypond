@@ -7,9 +7,11 @@
     Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "misc.hh"
-
 #include <math.h>
+
+#include "misc.hh"
+#include "string.hh"
+
 
 /*
   Return the 2-log, rounded down 
@@ -35,4 +37,26 @@ log_2 (double x)
   return log (x)  /log (2.0);
 }
 
- 
+Array<String>
+split_string (String s, char c)
+{
+  Array<String> rv; 
+  while (s.length ())
+    {
+      int i = s.index (c);
+      
+      if (i == 0)
+	{
+	  s = s.nomid_string (0, 1);
+	  continue;
+	}
+      
+      if (i < 0)
+	i = s.length () ;
+
+      rv.push (s.cut_string (0, i));
+      s = s.nomid_string (0, i);
+    }
+
+  return rv;
+}

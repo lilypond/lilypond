@@ -16,6 +16,17 @@
 	     (srfi srfi-13)
 	     (lily))
 
+(define (output-formats)
+  (define formats (ly:output-formats))
+  (set! formats (completize-formats formats))
+  (if (member "ps" formats)
+      (set! formats (cons "dvi" formats))) 
+  (if (member "dvi" formats)
+      (set! formats (cons "tex" formats)))
+
+  formats)
+
+(define framework-tex-module (current-module))
 (define-public (sanitize-tex-string s)
   (if (ly:get-option 'safe)
       (regexp-substitute/global
@@ -207,8 +218,10 @@
        "}%\n\\vfill\n"
        "}%\n\\vfill\n\\lilypondpagebreak\n")))
 
-(define-public (output-framework outputter book scopes fields basename )
-  (let* ((paper (ly:paper-book-paper book))
+(define-public (output-framework basename book scopes fields)
+  (let* ((filename (format "~a.tex" basename))
+	 (outputter  (ly:make-paper-outputter filename "tex"))
+	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (last-page (car (last-pair pages)))
 	 (with-extents
@@ -225,7 +238,10 @@
      (lambda (page)
        (dump-page outputter page (eq? last-page page) with-extents))
      pages)
-    (ly:outputter-dump-string outputter "\\lilypondend\n")))
+    (ly:outputter-dump-string outputter "\\lilypondend\n")
+    (ly:outputter-close outputter)
+    (postprocess-output book framework-tex-module filename
+			(output-formats))))
 
 (define (dump-line putter line last?)
   (ly:outputter-dump-string
@@ -244,8 +260,10 @@
        "}\\interscoreline\n")))
 
 (define-public (output-classic-framework
-		outputter book scopes fields basename)
-  (let* ((paper (ly:paper-book-paper book))
+		basename book scopes fields)
+  (let* ((filename (format "~a.tex" basename))
+	 (outputter  (ly:make-paper-outputter filename "tex"))
+	 (paper (ly:paper-book-paper book))
 	 (lines (ly:paper-book-systems book))
 	 (last-line (car (last-pair lines))))
     (for-each
@@ -261,11 +279,18 @@
 
     (for-each
      (lambda (line) (dump-line outputter line (eq? line last-line))) lines)
-    (ly:outputter-dump-string outputter "\\lilypondend\n")))
+    (ly:outputter-dump-string outputter "\\lilypondend\n")
+    (ly:outputter-close outputter)
+    (postprocess-output book framework-tex-module filename
+			(output-formats))
+    ))
 
 (define-public (output-preview-framework
-		outputter book scopes fields basename )
-  (let* ((paper (ly:paper-book-paper book))
+		basename book scopes fields)
+  (let* ((filename (format "~a.tex" basename))
+	 (outputter  (ly:make-paper-outputter filename
+					      "tex"))
+	 (paper (ly:paper-book-paper book))
 	 (lines (ly:paper-book-systems book))
 	 (first-notes-index (list-index
 			     (lambda (s) (not (ly:paper-system-title? s)))
@@ -287,7 +312,12 @@
      (lambda (lst)
        (dump-line outputter lst (not (ly:paper-system-title? lst))))
      (take lines (1+ first-notes-index)))
-    (ly:outputter-dump-string outputter "\\lilypondend\n")))
+    (ly:outputter-dump-string outputter "\\lilypondend\n")
+    (ly:outputter-close outputter)
+    (postprocess-output book framework-tex-module filename
+			(output-formats))
+
+))
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))

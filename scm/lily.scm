@@ -269,6 +269,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;; backend helpers.
 
 (define-public (ly:system command)
   (let* ((status 0)
@@ -320,6 +321,23 @@ predicates. Print a message at LOCATION if any predicate failed."
 		  " ")
 	      name)))
     (ly:system cmd)))
+
+(define-public (postprocess-output paper-book module filename formats)
+  (for-each (lambda (f)
+	      ((eval (string->symbol (string-append "convert-to-" f))
+		     module)
+	       paper-book filename))
+	      
+	    formats))
+
+(define-public (completize-formats formats)
+  (if (member "png" formats)
+      (set! formats (cons "ps" formats)))
+  (if (member "pdf" formats)
+      (set! formats (cons "ps" formats)))
+
+  formats)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."

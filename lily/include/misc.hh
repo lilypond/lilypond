@@ -1,3 +1,12 @@
+/*
+  misc.hh -- declare miscellaneous functions.
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
 #ifndef MISC_HH
 #define MISC_HH
 
@@ -19,7 +28,7 @@ sign (int i)
   else return 0;
 }
 
-
+Array<String> split_string (String s, char c);
 
 inline Real
 linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
@@ -27,8 +36,6 @@ linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
   return (x2 - x) / (x2 - x1) * y1 +
     (x - x1) / (x2 - x1) * y2 ;
 }
-
-
 
 #endif
 

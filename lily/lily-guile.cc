@@ -36,6 +36,7 @@ inline int my_isnan (Real r) { return isnan (r); }
 #include "pitch.hh"
 #include "dimensions.hh"
 #include "source-file.hh"
+#include "misc.hh"
 
 // #define TEST_GC
 
@@ -853,3 +854,28 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return scm_makfrom0str (gettext (scm_i_string_chars (string)));
 }
 
+
+
+
+LY_DEFINE (ly_output_backend, "ly:output-backend",
+           0, 0, 0, (),
+           "Return name of output backend.")
+{
+  return scm_makfrom0str (output_backend_global.to_str0 ());
+}
+
+
+LY_DEFINE (ly_output_formats, "ly:output-formats",
+           0, 0, 0, (),
+           "Formats passed to --format as a list of strings, "
+           "used for the output.")
+{
+  Array<String> output_formats = split_string (output_format_global, ',');
+
+  SCM lst = SCM_EOL;
+  int output_formats_count = output_formats.size ();
+  for (int i = 0; i < output_formats_count; i ++)
+    lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
+
+  return lst;
+}

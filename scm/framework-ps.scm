@@ -14,6 +14,8 @@
 	     (srfi srfi-13)
 	     (lily))
 
+(define framework-ps-module (current-module))
+
 (define (stderr string . rest)
   (apply format (cons (current-error-port) (cons string rest)))
   (force-output (current-error-port)))
@@ -217,13 +219,19 @@
    (load-fonts paper)
    (define-fonts paper)))
 
-(define-public (output-framework outputter book scopes fields basename)
-  (let* ((paper (ly:paper-book-paper book))
+
+  
+
+(define-public (output-framework basename book scopes fields )
+  (let* ((filename (format "~a.ps" basename))
+	 (outputter  (ly:make-paper-outputter filename
+					      (ly:output-backend)))
+	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
 	 (page-count (length pages)))
-    
+
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
@@ -237,10 +245,16 @@
        (dump-page outputter page page-number page-count landscape?))
      pages)
     
-    (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
+    (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")
+        (ly:outputter-close outputter)
+    (postprocess-output book framework-ps-module filename (ly:output-formats)) 
+))
 
-(define-public (output-preview-framework outputter book scopes fields basename)
-  (let* ((paper (ly:paper-book-paper book))
+(define-public (output-preview-framework basename book scopes fields )
+  (let* ((filename (format "~a.ps" basename))
+	 (outputter  (ly:make-paper-outputter filename
+					      (ly:output-backend)))
+	 (paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (scale  (ly:output-def-lookup paper 'outputscale ))
 	 (titles (take-while ly:paper-system-title? systems))
@@ -279,7 +293,37 @@
 					     "\n"))
 
     (ly:outputter-dump-stencil outputter dump-me)
-    (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
+    (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
+        (ly:outputter-close outputter)
+    (postprocess-output book framework-ps-module filename
+			(ly:output-formats)) 
+))
+
+
+(define-public (output-classic-framework
+		basename book scopes fields)
+  (let* ((paper (ly:paper-book-paper book))
+	 (lines (ly:paper-book-systems book))
+	 (last-line (car (last-pair lines))))
+    (for-each
+     (lambda (x)
+       (ly:outputter-dump-string outputter x))
+     (list
+      ;;FIXME
+      (header paper (length lines) #f)
+      "\\def\\lilypondclassic{1}%\n"
+      (output-scopes scopes fields basename)
+      (define-fonts paper)
+      (header-end)))
+
+    (for-each
+     (lambda (line) (dump-line outputter line (eq? line last-line))) lines)
+    (ly:outputter-dump-string outputter "\\lilypondend\n")
+    (ly:outputter-close outputter)
+    (postprocess-output book framework-ps-module filename (ly:output-formats)) 
+    ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
