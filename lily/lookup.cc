@@ -39,6 +39,25 @@ Lookup::dot (Offset p, Real radius)
   return Molecule (box, at);
 }
 
+
+
+/*
+ * Horizontal Slope:
+ *
+ *            /|   ^
+ *           / |   |
+ *          /  |   | height
+ *         /   |   |
+ *        /    |   v
+ *       |    /
+ *       |   /
+ * (0,0) x  /slope=dy/dx
+ *       | /
+ *       |/
+ *
+ *       <----->
+ *        width
+ */
 Molecule 
 Lookup::beam (Real slope, Real width, Real thick, Real blot) 
 {
@@ -99,33 +118,6 @@ Lookup::line (Real th, Offset from, Offset to)
   return Molecule (box, at);
 }
 
-Molecule
-Lookup::dashed_line (Real thick, Offset from, Offset to,
-		     Real dash_period, Real dash_fraction)
-{
-  dash_fraction = (dash_fraction >? 0) <? 1.0;
-  Real on = dash_fraction * dash_period + thick; 
-  Real off = dash_period - on;
-  
-  SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
-			gh_double2scm (thick), 
-			gh_double2scm (on),
-			gh_double2scm (off),
-			gh_double2scm (to[X_AXIS] - from[X_AXIS]),
-			gh_double2scm (to[Y_AXIS] - from[Y_AXIS]),
-			SCM_UNDEFINED);
-  
-  Box box;
-  box.add_point (Offset (0,0));
-  box.add_point (to - from);
-
-  box[X_AXIS].widen (thick/2);
-  box[Y_AXIS].widen (thick/2);  
-
-  Molecule m = Molecule (box, at);
-  m.translate (from);
-  return m;
-}
 
 Molecule
 Lookup::horizontal_line (Interval w, Real th)
@@ -477,37 +469,6 @@ Lookup::bezier_sandwich (Bezier top_curve, Bezier bottom_curve)
   Box b (x_extent, y_extent);
 
   return Molecule (b, horizontal_bend);
-}
-
-/*
- * Horizontal Slope:
- *
- *            /|   ^
- *           / |   |
- *          /  |   | height
- *         /   |   |
- *        /    |   v
- *       |    /
- *       |   /
- * (0,0) x  /slope=dy/dx
- *       | /
- *       |/
- *
- *       <----->
- *        width
- */
-Molecule
-Lookup::horizontal_slope (Real width, Real slope, Real height)
-{
-  SCM width_scm = gh_double2scm (width);
-  SCM slope_scm = gh_double2scm (slope);
-  SCM height_scm = gh_double2scm (height);
-  SCM horizontal_slope = scm_list_n (ly_symbol2scm ("beam"),
-				     width_scm, slope_scm,
-				     height_scm, SCM_UNDEFINED);
-  Box b (Interval (0, width),
-	 Interval (-height/2, height/2 + width*slope));
-  return Molecule (b, horizontal_slope);
 }
 
 /*

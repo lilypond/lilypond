@@ -73,28 +73,28 @@ brew_flexa (Grob *me,
   if (solid)
     {
       Molecule solid_head =
-	Lookup::horizontal_slope (width, corrected_slope, height);
+	Lookup::beam (corrected_slope, width, height, 0.0);
       molecule.add_molecule (solid_head);
     }
   else // outline
     {
       Molecule left_edge =
-	Lookup::horizontal_slope (thickness, corrected_slope, height);
+	Lookup::beam (corrected_slope, thickness, height, 0.0);
       molecule.add_molecule(left_edge);
 
       Molecule right_edge =
-	Lookup::horizontal_slope (thickness, corrected_slope, height);
+	Lookup::beam (corrected_slope, thickness, height, 0.0);
       right_edge.translate_axis (width-thickness, X_AXIS);
       right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
       molecule.add_molecule(right_edge);
 
       Molecule bottom_edge =
-	Lookup::horizontal_slope (width, corrected_slope, thickness);
+	Lookup::beam (corrected_slope, width, thickness, 0.0);
       bottom_edge.translate_axis (-0.5*height, Y_AXIS);
       molecule.add_molecule (bottom_edge);
 
       Molecule top_edge =
-	Lookup::horizontal_slope (width, corrected_slope, thickness);
+	Lookup::beam (corrected_slope, width, thickness, 0.0);
       top_edge.translate_axis (+0.5*height, Y_AXIS);
       molecule.add_molecule (top_edge);
     }

@@ -6,6 +6,8 @@
   (c) 2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <math.h>
+
 #include "molecule.hh"
 #include "item.hh"
 #include "spanner.hh"
@@ -17,8 +19,7 @@
 #include "warn.hh"
 #include "align-interface.hh"
 #include "lookup.hh"
-
-#include <math.h>
+#include "line-interface.hh"
 
 /*
   TODO: convert all Molecule functions to taking arguments of the form
@@ -32,37 +33,7 @@
   grob-properties. Make arbitrary paths.
   
  */
-Molecule
-dashed_line_molecule (Grob *me, Real thick, Offset from, Offset to)
-{
-  SCM type = me->get_grob_property ("style");
-  if (type == ly_symbol2scm ("dotted-line")
-      || type == ly_symbol2scm ("dashed-line"))
-    {
-      Real fraction = (type == ly_symbol2scm ("dotted-line")) ? 0.0 : 0.4;
 
-      
-      SCM s = me->get_grob_property ("dash-fraction");
-      if (gh_number_p (s))
-	fraction = gh_scm2double (s);
-
-      fraction = (fraction >? 0) <? 1.0;
-
-      Real period = Staff_symbol_referencer::staff_space (me);
-      s = me->get_grob_property ("dash-period");
-      if (gh_number_p (s))
-	period *= gh_scm2double (s);
-
-      if (period < 0)
-	return Molecule ();
-	
-      return Lookup::dashed_line (thick, from, to, period, fraction);
-    }
-  else
-    {
-      return Lookup::line (thick, from, to);
-    }
-}
 
 Molecule
 zigzag_molecule (Grob *me, Real thick, 
@@ -148,7 +119,7 @@ Line_spanner::line_molecule (Grob *me, Real thick,
     {
       return  (type == ly_symbol2scm ("zigzag"))
 	? zigzag_molecule (me, thick, from, to)
-	: dashed_line_molecule (me, thick, from, to);
+	: Line_interface::dashed_line (me, thick, from, to);
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -340,6 +311,6 @@ ADD_INTERFACE (Line_spanner, "line-spanner-interface",
 "gap is measured in staff-spaces.\n"
 "The property 'type is one of: line, dashed-line, trill, dotted-line or zigzag.\n"
 "\n",
-  "gap dash-period dash-fraction zigzag-width zigzag-length thickness style");
+  "gap zigzag-width zigzag-length thickness");
 
 

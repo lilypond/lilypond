@@ -397,12 +397,10 @@
 	(minimum-length . 2.0)
 	(if-text-padding . 1.0)
 	(width-correct . -1.0)
-
-	(dash-thickness . 1.2)
 	(dash-length . 4.0)
 	(self-alignment-Y . 0)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(meta . ((interfaces . (hairpin-interface self-alignment-interface dynamic-interface spanner-interface))))
+	(meta . ((interfaces . (hairpin-interface line-interface self-alignment-interface dynamic-interface spanner-interface))))
 	))
 
     (HorizontalBracket
@@ -1079,7 +1077,7 @@
      . (
 	(Y-offset-callbacks . (,Side_position_interface::out_of_staff
 			       ,Side_position_interface::aligned_side))
-	(molecule-callback . ,Text_spanner::brew_molecule)
+	(molecule-callback . ,Ottava_bracket::brew_molecule)
 	(font-shape . italic)
 	(font-family . roman)
 	(text-repeat-if-broken . #t)
@@ -1092,7 +1090,9 @@
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
 	(direction . 1)
-	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
+	(meta . ((interfaces . (ottava-bracket-interface
+				line-interface side-position-interface
+				font-interface text-interface spanner-interface))))		
 	))
     
     (TabNoteHead
@@ -1165,7 +1165,7 @@
 	(font-series . bold)
 
 	(font-size . -2)
-	(meta .  ((interfaces . (text-interface tuplet-bracket-interface font-interface spanner-interface))))
+	(meta .  ((interfaces . (text-interface line-interface tuplet-bracket-interface font-interface spanner-interface))))
 	))
 
     (UnaCordaPedal

@@ -356,10 +356,6 @@ direction manually:
 
 Internals: @internalsref{Dots}, and @internalsref{DotColumn}. 
 
-@refbugs
-
-In dense chords, dots can overlap.
-
 @node Stems
 @subsection Stems
 
@@ -504,10 +500,16 @@ instead.
 
 Internals: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
+Examples: @inputfileref{input/regression,tuplet-nest.ly}.
+
 @refbugs
 
 Nested tuplets are not formatted automatically.  In this case, outer
-tuplet brackets should be moved manually.
+tuplet brackets should be moved manually, which is demonstrated in
+@inputfileref{input/regression,tuplet-nest.ly}.
+
+
+
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
@@ -2149,7 +2151,7 @@ Internals: @internalsref{ScriptEvent}, and @internalsref{Script}.
 
 @refbugs
 
- These note ornaments appear in the printed output but have no
+These note ornaments appear in the printed output but have no
 effect on the MIDI rendering of the music.
 
 
@@ -2373,8 +2375,6 @@ Internals: @internalsref{GraceMusic}.
 
 @refbugs
 
-Grace notes cannot be used in the smallest size (@file{paper11.ly}).
-
 A score that starts with an @code{\grace} section needs an explicit
 @code{\context Voice} declaration, otherwise the main note and grace
 note end up on different staves.
@@ -2391,9 +2391,6 @@ care when you mix staves with grace notes and staves without, for example,
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
-
-Overriding settings cannot be done in separate styles for appoggiatura
-and acciaccatura.
 
 
 @node Glissando
@@ -3136,7 +3133,8 @@ handle this cross-staffing behavior.  In this section we discuss the
 There is no support for putting chords across staves.  You can get
 this result by increasing the length of the stem in the lower stave so
 it reaches the stem in the upper stave, or vice versa. An example is
-included with the distribution as @inputfileref{input/test,stem-cross-staff.ly}.
+included with the distribution as
+@inputfileref{input/test,stem-cross-staff.ly}.
 
 Dynamics are not centered, but kludges do exist. See
 @inputfileref{input/template,piano-dynamics.ly}.
@@ -3546,8 +3544,7 @@ Examples: @inputfileref{input/template,satb.ly},
  
 @refbugs
 
-@code{\lyricsto} is not automatic enough: melismata are not detected
-automatically, and melismata are not stopped when they hit a rest.
+Melismata are not detected automatically, and must be inserted by hand.
 
 
 @node More stanzas
@@ -4188,6 +4185,9 @@ To print a  rehearsal mark, use the @code{\mark} command:
 }
 @end lilypond
 
+@noindent
+(The letter I is skipped in accordance with engraving traditions.)
+
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
 manually.  The value to use is stored in the property
@@ -4199,7 +4199,7 @@ as argument. It should return a markup object. In the following
 example, @code{markFormatter} is set to a canned procedure. After a
 few measures, it is set to function that produces a boxed number. 
 
-@lilypond[verbatim,fragment,relative 2]
+@lilypond[verbatim,fragment,relative 1]
   \property Score.markFormatter = #format-mark-numbers 
   c1 \mark \default
   c1 \mark \default
@@ -8035,7 +8035,7 @@ added to LilyPond.
 @refbugs
 
 There is no style sheet provided for other fonts besides the @TeX{}
-family.
+Computer Modern family.
 
 @cindex font selection
 @cindex font magnification

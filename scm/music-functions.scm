@@ -437,10 +437,7 @@ Rest can contain a list of beat groupings
      (make-sequential-music basic) 'Timing)))
 
 (define-public (make-mark-set label)
-  " Set properties for time signature NUM/DEN.
-Rest can contain a list of beat groupings 
-
-"
+  "make the music for the \\mark command."
   
   (let*
       ((set (if (integer? label)

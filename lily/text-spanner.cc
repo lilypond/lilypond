@@ -34,14 +34,6 @@ MAKE_SCHEME_CALLBACK (Text_spanner, brew_molecule, 1);
   TODO: this function is too long
 
 
-  TODO: the string for ottava shoudl depend on the available space, ie.
-
-  
-  Long: 15ma        Short: 15ma    Empty: 15
-         8va                8va            8
-         8va bassa          8ba            8
-
-
 */
 SCM
 Text_spanner::brew_molecule (SCM smob) 
@@ -121,9 +113,9 @@ Text_spanner::brew_molecule (SCM smob)
       thick *=  gh_scm2double (st);
     }
   
+  Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
+						      Interval (1.0, 1.0));
   Drul_array<Molecule> edge_line;
-  SCM edge_height = me->get_grob_property ("edge-height");
-  if (is_number_pair (edge_height))
     {
       Direction d = LEFT;
       int dir = to_dir (me->get_grob_property ("direction"));
@@ -136,7 +128,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  if (gh_pair_p (flare))
 	    dx = gh_scm2double (index_get_cell (flare, d)) * d;
 
-	  Real dy = gh_scm2double (index_get_cell (edge_height, d)) * - dir;
+	  Real dy = - dir * edge_height[d] ;
 	  if (dy)
 	    edge_line[d] = Line_spanner::line_molecule (me, thick, Offset(0,0),
 							Offset (dx, dy));

@@ -24,6 +24,7 @@
 
 #include <math.h>
 
+#include "line-interface.hh"
 #include "beam.hh"
 #include "box.hh"
 #include "warn.hh"
@@ -220,8 +221,8 @@ Tuplet_bracket::brew_molecule (SCM smob)
       }
       while (flip (&d) != LEFT);
       
-      Molecule brack = make_bracket (Y_AXIS,
-				     w, ry - ly, lt,
+      Molecule brack = make_bracket (me, Y_AXIS,
+				     Offset (w, ry - ly), lt,
 				     height,
 				     gh_scm2double (gap),
 				     flare,
@@ -241,13 +242,14 @@ Tuplet_bracket::brew_molecule (SCM smob)
   brackets.
  */
 Molecule
-Tuplet_bracket::make_bracket (Axis protusion_axis,
-			      Real dx, Real dy, Real thick, Drul_array<Real> height,
+Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
+			      Axis protusion_axis,
+			      Offset dz,
+			      Real thick, Drul_array<Real> height,
 			      Real gap,
 			      Drul_array<Real> flare,
 			      Drul_array<Real> shorten)
 {
-  Offset dz = Offset (dx,dy);
   Drul_array<Offset> corners (Offset(0,0), dz);
   
   Real length = dz.length ();
@@ -273,12 +275,11 @@ Tuplet_bracket::make_bracket (Axis protusion_axis,
 
   Molecule m;
   do {
-
-    m.add_molecule (Lookup::line (thick, straight_corners[d],
-				  gap_corners[d]));
+    m.add_molecule (Line_interface::dashed_line (me, thick, straight_corners[d],
+						 gap_corners[d]));
     
-    m.add_molecule (Lookup::line (thick, straight_corners[d],
-				  flare_corners[d]));
+    m.add_molecule (Line_interface::dashed_line (me, thick, straight_corners[d],
+						 flare_corners[d]));
   } while (flip (&d) != LEFT);
 
   return m;  
