@@ -128,8 +128,12 @@ $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../$(srcdir)/mf && \
 		ln -s ../../../$(srcdir)/ps && \
-		ln -s ../../../$(srcdir)/scm && \
-		ln -s ../../../$(srcdir)/tex
+		ln -s ../../../$(srcdir)/scm
+	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
+		mkdir tex
+	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/tex && \
+		ln -s ../../../../$(srcdir)/tex source && \
+		ln -s ../../../../mf/$(outconfbase) generate
 	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION) && \
 		mkdir fonts
 	@cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)/fonts && \
