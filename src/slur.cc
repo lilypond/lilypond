@@ -12,10 +12,11 @@
 #include "molecule.hh"
 #include "debug.hh"
 #include "boxes.hh"
+
 NAME_METHOD(Slur);
+
 Slur::Slur()
 {
-    dir = 0;
     open_right=open_left=false;
 }
 
@@ -50,9 +51,9 @@ Slur::set_default_dir()
     /* should consult stems */
     Real meanpos = sumpos/Real(encompass.size());
     if (meanpos < 5)		// todo
-	dir = -1;
+	dir_i_ = -1;
     else
-	dir = 1;    
+	dir_i_ = 1;    
 }
 
 void
@@ -85,7 +86,8 @@ Slur::do_break_at(PCol*l, PCol*r) const
 void
 Slur::do_post_processing()
 {
-    set_default_dir();
+    if (!dir_i_)
+	set_default_dir();
 }
 
 Molecule*
@@ -104,12 +106,12 @@ Slur::brew_molecule_p() const
     Notehead *rnote_p =encompass.top();
     int lpos_i = lnote_p->position;
     int rpos_i = rnote_p->position;
-    Offset  left_off(lnote_p->x_dir, lpos_i + 2*dir);
-    Offset right_off(lnote_p->x_dir, rpos_i + 2*dir);
+    Offset  left_off(lnote_p->x_dir, lpos_i + 2*dir_i_);
+    Offset right_off(lnote_p->x_dir, rpos_i + 2*dir_i_);
     if (!lnote_p->extremal)
-	left_off += Offset(0.5, -dir);
+	left_off += Offset(0.5, -dir_i_);
     if (!rnote_p->extremal)
-	right_off+= Offset(-0.5, -dir);
+	right_off+= Offset(-0.5, -dir_i_);
     
     int dy = int(right_off.y - left_off.y);
     
@@ -120,7 +122,7 @@ Slur::brew_molecule_p() const
     w+= (right_off.x - left_off.x) * nw_f ;
     Real round_w = w;		// slur lookup rounds the slurwidth .
     
-    Symbol sl = paper()->lookup_p_->slur(dy , round_w, dir);
+    Symbol sl = paper()->lookup_p_->slur(dy , round_w, dir_i_);
 
     Real error = w-round_w;
     

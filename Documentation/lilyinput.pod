@@ -39,7 +39,7 @@ than in "command" mode, eg,
 
 	identifier = score { .. }
 
-So you have to signal that to the tokenizer. This is done with
+So you have to signal this to the tokenizer. This is done with
 '$'. '$' is a delimiter, which used by the tokenizer only. The same
 goes for lyrics, it has a '@' delimiter.
 

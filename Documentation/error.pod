@@ -10,6 +10,8 @@ A correctly parsed F<input.ly> does not guarantuee output. A lot
 (most) of the checking is done B<after> parsing (some checks even are
 done after the break calc!); I'm sorry.
 
+[outdated]
+
 The parser's job is to construct appropriate objects. It will B<only>
 detect parse errors.
 

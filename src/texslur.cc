@@ -28,9 +28,11 @@ char direction_char(int y_sign)
 Symbol
 Lookup::half_slur_middlepart(Real &dx, int dir)
 {
-    if (dx >= convert_dimen(400,"pt")) // todo
-	error ("halfslur too large");
-    int    widx = int(floor(dx / 4.0));
+    if (dx >= 400 PT) {// todo
+	WARN<<"halfslur too large" <<print_dimen(dx)<< "shrinking (ugh)\n";
+	dx = 400 PT;
+    }
+    int widx = int(floor(dx / 4.0));
     dx = widx * 4.0;
     if (widx) widx --;
     else {
@@ -39,7 +41,7 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
 
     Symbol s;
     
-    s.dim.y = Interval(min(0,0), max(0,0));
+    s.dim.y = Interval(min(0,0), max(0,0)); // todo
     s.dim.x = Interval(0,dx);
 
     String f =  String("\\hslurchar");
@@ -61,22 +63,23 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
 Symbol
 Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
 {
+    Real orig_dx = dx;
     if (!xpart)
 	return half_slur_middlepart(dx, dir);
 
     int widx;
     	 	
-    if (dx >= convert_dimen(96,"pt")) {
-	WARN << "Slur half too wide.";
-	dx =  convert_dimen(96,"pt");
+    if (dx >= 96 PT) {
+	WARN << "Slur half too wide." << print_dimen(orig_dx) << " shrinking (ugh)\n";
+	dx =  96 PT;
     }
-    
+
     widx = int(rint(dx/12.0));
     dx = widx*12.0;
     if (widx)
 	widx --;
     else {
-	WARN <<  "slur too narrow\n";
+	WARN <<  "slur too narrow " << print_dimen(orig_dx)<<"\n";
     }
 	
     Symbol s;
@@ -109,36 +112,36 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
 
 Symbol
 Lookup::slur (int dy , Real &dx, int dir)
-{				// ugh. assuming pt here.
-    assert(dx >=0);
+{
+    assert(dx >=0 && abs(dir) <= 1);
     int y_sign = sign(dy);
 
     bool large = dy > 16;
 
     if (y_sign) {
-	large |= dx>= convert_dimen(4*16, "pt");
+	large |= dx>= 4*16 PT;
     } else
-	large |= dx>= convert_dimen(4*54, "pt");
+	large |= dx>= 4*54 PT;
     
     if (large) {
 	return big_slur(dy, dx, dir);
     }
-    
+    Real orig_dx = dx;
     int widx = int(floor(dx/4.0)); // slurs better too small..
     dx = 4.0 * widx;
     if (widx)
 	widx --;
     else {
-	WARN <<  "slur too narrow\n";
+	WARN <<  "slur too narrow: " << print_dimen(orig_dx) << "\n";
     }
 
     int hidx = dy;
     if (hidx <0)
 	hidx = -hidx;
     hidx --; 
-    if (hidx > 16)
-	error("slur to steep");
-    
+    if (hidx > 16) {
+	WARN<<"slur to steep: " << dy << " shrinking (ugh)\n";
+    }
     
     Symbol s;
     s.dim.x = Interval(0,dx);
@@ -152,8 +155,11 @@ Lookup::slur (int dy , Real &dx, int dir)
 	if (dir < 0)
 	    idx += 128;
     } else {
-	if (dx >= convert_dimen(4*54, "pt"))
-	    error("slur too wide");
+	if (dx >= 4*54 PT) {
+	    WARN << "slur too wide: " << print_dimen(dx) <<
+		" shrinking (ugh)\n";
+	    dx = 4*54 PT;
+	}
 	idx = widx;
 	if (dir < 0)
 	    idx += 54;		
@@ -172,7 +178,7 @@ Lookup::slur (int dy , Real &dx, int dir)
 Symbol
 Lookup::big_slur(int dy , Real &dx, int dir)
 {
-    assert(dx >= convert_dimen(24,"pt"));
+    assert(dx >= 24 PT);
     Real slur_extra =abs(dy)  /2.0 + 2; 
     int l_dy = int(Real (dy)/2 + slur_extra*dir);
     int r_dy =  dy - l_dy;
