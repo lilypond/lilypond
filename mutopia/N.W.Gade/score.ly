@@ -1,5 +1,5 @@
 \header{
-title =         "Imellan Fjeldene. Ouverture";
+title =         "Imellem Fjeldene. Ouverture";
 composer =      "Niels W Gade";
 enteredby =     "Mats Bengtsson";
 latexheaders = "\\input global";
@@ -23,13 +23,13 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \property Staff.instrument = "Flauto"
       \property Staff.instr = "Fl."
       \global
+      \marks
       \flauto
     >
     \context Staff = oboe <
       \property Staff.instrument = "Oboe"
       \property Staff.instr = "Ob."
       \global
-      \marks
       \oboe
     >
     \context Staff = clarI <
@@ -68,14 +68,14 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     >
   >
     \context StaffGroup = percussion <\context Staff = timpani <
-      \property Staff.instrument = "Timpani"
-      \property Staff.instr = "Timp."
+      \property Staff.instrument = "Timp. \& Triang."
+      \property Staff.instr = "Timp. \& Triang."
       \global
       \timpani
     >
   >
   \context StaffGroup = strings <
-%    \context GrandStaff = violins <
+    \context GrandStaff = violins <
       \context Staff = viI <
         \property Staff.instrument = "Violin I"
         \property Staff.instr = "Vi. I"
@@ -88,7 +88,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
         \global
         \viII
       >
-%    >
+    >
     \context Staff = vla <
       \property Staff.instrument = "Viola"
       \property Staff.instr = "Vla."
@@ -119,16 +119,15 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
-%        marginHangOnClef = 1;
-        marginScriptPadding = "52.0";
+        marginScriptPadding = "15.0";
 	textstyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
         oldTieBehavior = 1;
     }
-%\translator{\VoiceContext
-%\remove Auto_beam_engraver; % Bug workaround!
-%}
+    \translator { \VoiceContext
+        oldTieBehavior = 1;
+    }
   }
 }
 

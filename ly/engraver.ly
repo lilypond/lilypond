@@ -59,7 +59,6 @@ StaffContext=\translator {
 \translator {
 	\type "Engraver_group_engraver";
 	\name ChoirStaff;
-	\consists "Vertical_align_engraver";
 	alignmentReference = \center;	
 	\consists "Staff_group_bar_engraver";
 	\consistsend "Axis_group_engraver";
@@ -122,21 +121,22 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
-	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
-	alignmentReference = \center;
-	minVerticalAlign = 1.5*\staffheight;
 
-	\consistsend "Axis_group_engraver";
+
 	\accepts "Staff";
 
 };
 \translator{\GrandStaffContext}
 
 PianoStaffContext = \translator{\GrandStaffContext
+	alignmentReference = \center;
+
+	\consists "Vertical_align_engraver";
 	minVerticalAlign = 3.0*\staffheight;
 	maxVerticalAlign = 3.0*\staffheight;
 
+%	\consistsend "Axis_group_engraver";
 	\name "PianoStaff";
 	
 };
@@ -144,8 +144,7 @@ PianoStaffContext = \translator{\GrandStaffContext
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
 	\consists "Span_bar_engraver";
-	\consists "Vertical_align_engraver";
-	alignmentReference = \center;
+
 	
 	\consists "Staff_group_bar_engraver";
 	\name StaffGroup;
@@ -175,7 +174,6 @@ StaffGroupContext= \translator {
 \translator {
 	\type "Engraver_group_engraver";
 	\name Lyrics;
-	\consists "Vertical_align_engraver";
 	\consistsend "Axis_group_engraver";
 	
 	\accepts "LyricVoice";
@@ -194,7 +192,6 @@ StaffGroupContext= \translator {
 ChordNameContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
-	\consists "Vertical_align_engraver";
 	\accepts "ChordNameVoice";
 	\consistsend "Axis_group_engraver";
 	};

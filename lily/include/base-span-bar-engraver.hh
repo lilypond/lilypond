@@ -15,14 +15,17 @@ class Axis_align_spanner;
 /** 
 
   Make bars that span multiple "staffs". Catch bars, and span a
-  Span_bar over them if we find more than 2 bars
+  Span_bar over them if we find more than 2 bars.  Vertical alignment
+  of staffs changes the appearance of spanbars.  It is up to the
+  aligner (Vertical_align_engraver, in this case, to add extra
+  dependencies to the spanbars.
 
   */
 class Base_span_bar_engraver : public Engraver
 {
   Span_bar * spanbar_p_;
   Array<Bar*> bar_l_arr_;
-  Axis_align_spanner * valign_l_;
+
 public:
   VIRTUAL_COPY_CONS(Translator);
   

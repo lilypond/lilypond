@@ -16,12 +16,10 @@
 Moment
 Simultaneous_music::length_mom () const
 {
-  Moment dur = 0;
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
-    dur = dur >? i->car_->length_mom ();
-
-  return dur;
+  return maximum_length ();
 }
+
+
 
 void
 Music_sequence::compress (Moment m)
@@ -44,12 +42,7 @@ Sequential_music::Sequential_music(Music_list *p)
 Moment
 Sequential_music::length_mom () const
 {
-  Moment last=0;
-  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
-    {
-      last += i->car_->length_mom ();
-    }
-  return  last;
+  return cumulative_length ();
 }
 
 Musical_pitch

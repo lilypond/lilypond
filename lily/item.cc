@@ -187,8 +187,8 @@ Item::handle_prebroken_dependents ()
 	  Item * broken_self = find_prebroken_piece (d);
 	  Item * broken_parent = parent->find_prebroken_piece (d);
 
-	  broken_self->dim_cache_[X_AXIS].parent_l_ =
-	    &broken_parent->dim_cache_[X_AXIS];
+	  broken_self->dim_cache_[X_AXIS]->parent_l_ =
+	    broken_parent->dim_cache_[X_AXIS];
 
 	  /*
 	    ugh. Should do this is after breaking?
@@ -204,8 +204,8 @@ Item::handle_prebroken_dependents ()
 		programming_error ("Vertical refpoint lost!");
 	      else if (yparenti)
 		{
-		  broken_self->dim_cache_[Y_AXIS].parent_l_ =
-		    &broken_yparent->dim_cache_[Y_AXIS];
+		  broken_self->dim_cache_[Y_AXIS]->parent_l_ =
+		    broken_yparent->dim_cache_[Y_AXIS];
 		}
 	    }
 	}

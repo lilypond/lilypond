@@ -14,7 +14,7 @@ if test = -1:
 fi
 
 mode_setup;
-
+%
 
 input feta-macros;
 
@@ -35,9 +35,9 @@ if test = 0:
 	input feta-klef;
 	input feta-timesig;
 else:
-%	input feta-bolletjes;	
+	input feta-bolletjes;	
 %	input feta-banier;
- 	input feta-eindelijk;
+% 	input feta-eindelijk;
 %	input feta-klef;
 %	input feta-toevallig;
 %	input feta-schrift;

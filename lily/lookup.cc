@@ -140,12 +140,17 @@ Molecule
 Lookup::simple_bar (String type, Real h) const
 {
   SCM thick = ly_symbol ("barthick_" + type);
-  Real w = 0.1 PT;
+  Real w = 0.0;
+  
   if (paper_l_->scope_p_->elem_b (thick))
     {
       w = paper_l_->get_realvar (thick);
     }
-
+  else
+    {
+      programming_error ("No bar thickness set ! ");
+      w = 1 PT;
+    }
   return filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 

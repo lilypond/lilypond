@@ -12,7 +12,7 @@
 static G_staff_side_item *
 get_g_staff_side (Item *i)
 {
-  Graphical_element *e1 = i->dim_cache_[Y_AXIS].parent_l_->element_l ();
+  Graphical_element *e1 = i->dim_cache_[Y_AXIS]->parent_l_->element_l ();
 
   return dynamic_cast<G_staff_side_item*>(e1);
 }

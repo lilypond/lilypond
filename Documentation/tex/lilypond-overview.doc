@@ -47,12 +47,13 @@ music until now:
   impossible to modify the score in a meaningful way.
   
 \item Formats for various notation programs.  Notation programs either
-  work with binary formats (e.g., NIFF\cite{niff-web}), need specific
-  platforms (e.g., Sibelius\cite{sibelius}, Score\cite{score}), are
-  proprietary or non-portable tools themselves (idem), produce
-  inadequate output (e.g., MUP\cite{mup}), are based on graphical
-  content (e.g., MusixTeX\cite{musixtex1}), or limit themselves to
-  specific subdomains (e.g., ABC\cite{abc2mtex}).
+  work with binary  formats (e.g., NIFF\cite{niff-web}), need specific
+  platforms   (e.g.,  Sibelius\cite{sibelius}),  are   proprietary  or
+  non-portable  tools  themselves  (idem), produce  inadequate  output
+  (e.g.,  MUP\cite{mup}),  are   based  on  graphical  content  (e.g.,
+  MusixTeX\cite{musixtex1}),  limit themselves to  specific subdomains
+  (e.g.,  ABC\cite{abc2mtex}),  or   require  considerable  skill  and
+  knowledge to use (e.g., SCORE\cite{score})
   
 \item SMDL\cite{smdl-web}.  This is a very rich ASCII format, that is
   designed for storing many types of music.  Unfortunately, there is
@@ -487,7 +488,7 @@ guidelines:
 An example of the first guideline in action is the horizontal spacing.
 The amount of space following a note should reflect the duration of
 that note: short notes get a small amount of space, long notes larger
-amounts.  Such spacing constraints can be quite subtle, for the
+amounts.  Such spacing constraints can be  subtle, for the
 ``amount of space'' is only the impression that should be conveyed; there
 has to be some correction for optical illusions.  See
 Figure~\ref{fig:spacing}.
@@ -587,8 +588,126 @@ The nonterminal productions can
 
 \section{Context in notation} 
 
+Music notation relies heavily on context.  Notational symbols do not
+have meaning if they are not surrounded by other context elements.  In
+this section we give some examples how the reader uses this context do
+derive meaning of a piece of notation.   We will focus on the prime
+example of context: the staff. 
+
+A staff is the grid of five horizontal lines, but it contains more components :
+\begin{itemize}
+\item A staff can have a key signature (printed at the left)
+\item A staff can have a time signature (printed at the left)
+\item A staff has bar lines
+\item A staff has a clef (printed at the left)
+\end{itemize}
+
+It is still possible to print notes without these components, but one
+cannot determine the meaning of the notes.
+\begin{mudela}
+\score{
+\notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+\paper { 
+  linewidth = -1.;
+  \translator {
+  \StaffContext
+  \remove "Time_signature_engraver";
+  \remove "Bar_engraver";
+  \remove "Staff_symbol_engraver";
+  \remove "Clef_engraver";
+  \remove "Key_engraver";
+  }
+ }
+}
+\end{mudela}
+
+As you can see, you can still make out the general form of the melody
+and the rhythm that is to be played, but the notation is difficult to
+read and the musical information is not complete.  The stress
+pattern in the notes can't be deduced from this output.  For this, we
+need a time signature.  Adding barlines helps with finding the strong
+and weak beats.
+\begin{mudela}
+\score {
+  \notes \relative c' {  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+  \paper{
+  linewidth = -1.;
+\translator{
+  \StaffContext
+  \remove "Staff_symbol_engraver";
+  \remove "Clef_engraver";
+  \remove "Key_engraver";}
+  }
+ }
+\end{mudela}
+
+It is impossible to deduce the exact pitch of the notes.  One needs a
+clef to do so.  Staff lines help the eye in determining the vertical
+position of a note wrt. to the clef.
+\begin{mudela}
+\score {
+  \notes \relative c' {\clef alto;  \time 2/4; g'4 c,4 a'4 f4 e c d2 }
+  \paper {
+    linewidth = -1.;
+  }
+}  
+\end{mudela}
+
+Now you know the pitch of the notes: you look at the start of the line
+and see a clef, and with this clef, you can determine the notated pitches.
+You have found the em(context) in which the notation is to be
+interpreted!
+
+
 \section{Interpretation context}
 
+Context (clef, time signature etc.) determines the relationship
+between musical and its notation in notes.  Because LilyPond writes
+notation, context works the other way around for LilyPond: with
+context a piece of music can be converted to notation.
+
+A reader remembers this context while reading the notation from left
+to right.  By analogy, LilyPond constructs this context while
+constructing notes from left to right.  This is what happens in the
+``Interpretation'' phase from~\ref{fig:intro-fig}.  In LilyPond, the
+state of this context is a set of variables with their values; A staff
+context contains variables like
+
+\begin{itemize}
+\item current clef
+\item current time signature
+\item current key
+\end{itemize}
+
+These variables determine when and how clefs, time signatures, bar
+lines and accidentals are printed.
+
+
+Staff is not the only form of context in notation.  In polyphonic
+music, the stem direction shows which notes form a voice: all notes of
+the same voice have stems pointing in the same direction.  The value
+of this variable determines the appearance of the printed stems.
+
+In LilyPond ``Notation context'' is abstracted to a data structure
+that is used, constructed and modified during the interpretation
+phase.  It contains context properties, and is responsible for
+creating notational elements: the staff context creates symbols for
+clefs, time signatures and key signatures.  The Voice context creates
+stems, note heads.
+
+For the fragment of polyphonic music below,
+\begin{mudela}
+  \context Staff { c'4 < { \stemup c'4 } \context Voice = VB { \stemdown a4 } > }
+\end{mudela}
+A staff context is created.  Within this staff context (which printed
+the clef), a Voice context is created, which prints the first note.
+Then, a second Voice context is created, with stem direction set to
+``up'', and the direction for the other is set to down. Both Voice
+contexts  are  still part of the same Staff context.
+
+In the same way, multiple staff scores are created: within the score
+context, multiple staff contexts are created.  Every staff context
+creates the notation associated with a staff.  
 
 \section{Discussion}
 

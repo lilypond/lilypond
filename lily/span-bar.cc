@@ -27,15 +27,6 @@ Span_bar::do_substitute_element_pointer (Score_element*o, Score_element*n)
   spanning_l_arr_.unordered_substitute (o, n);
 }
 
-void
-Span_bar::set_align (Align_element *a)
-{
-  add_dependency (a);
-  Score_element * e = dynamic_cast<Score_element*>(a);
-  Item * i = dynamic_cast<Item*> (e);
-  e = dynamic_cast<Score_element*> (a);
-  i = dynamic_cast<Item*>(e);
-}
 
 Interval
 Span_bar::do_width () const
@@ -51,9 +42,8 @@ Span_bar::do_pre_processing ()
   Bar::do_pre_processing ();
   
   evaluate_empty ();
-  translate_axis (extra_x_off_, X_AXIS);
   
-  dim_cache_[Y_AXIS].set_empty (false); // a hack to make mark scripts work.
+  dim_cache_[Y_AXIS]->set_empty (false); // a hack to make mark scripts work.
 }
 
 void
@@ -98,8 +88,8 @@ Span_bar::get_spanned_interval () const
       Dimension_cache*common = 
 	common_group (spanning_l_arr_[i], Y_AXIS);
 	
-      Real y = spanning_l_arr_[i]->dim_cache_[Y_AXIS].relative_coordinate (common)  
-	-dim_cache_[Y_AXIS].relative_coordinate (common);
+      Real y = spanning_l_arr_[i]->dim_cache_[Y_AXIS]->relative_coordinate (common)  
+	-dim_cache_[Y_AXIS]->relative_coordinate (common);
 
       y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
     }
@@ -124,7 +114,7 @@ Span_bar::do_brew_molecule_p () const
     }
   else
     {
-      warning("Huh? My children deflated (FIXME)");
+      programming_error("Huh? My children deflated (FIXME)");
     }
   return output;
 }
@@ -134,5 +124,4 @@ Span_bar::do_brew_molecule_p () const
 Span_bar::Span_bar ()
 {
   type_str_ = "";
-  extra_x_off_ = 0.0;
 }

@@ -679,7 +679,8 @@ timpani=\notes\relative c, {
 
 \property Staff."midi_instrument" = "timpani"
 
-R2.*6 |
+r2. | % Ensure that the staff is printed on page 1 of the score.
+R2.*5 |
 f2.:32 \pp ~ |
 f2.:32 ~ |
 f2.:32 ~ |
@@ -706,22 +707,39 @@ R2 |
 f8 r r4 |
 R2 |
 f8 r r4 |
-R2*16 |
-r4 r8 c' \p |
-[c-. \< c-. c-. \! c-.] |
-c4.:8 \f r8 |
-R2 |
-r4 r8 c \p |
-c2:8 \< |
-\! c4.:8 \f r8 |
-c4:32 ~ c8 r |
+R2*14 |
+\context Staff <{\voiceone \clef "treble";
+  r4^"Tri." r8 e''' |
+  [e e e e ] | 
+  [e e e g,, ] | % In reality: e e e e | e
+  g r r4 |
+  s4. \clef treble; e''8 |
+  e2:8 |
+  [e8 e e g,,] | % In reality: e e e e | e
+  g8 r r4 }
+ {\voicetwo r2 | r |
+  r4_" Timp." r8 \clef bass; c, |
+  [c-. \< c-. c-. \! c-.] |
+  c4.:8 \f r8 |
+  R2 |
+  r4 r8 \clef bass; c \p |
+  c2:8 \< |
+  \! c4.:8 \f r8 } >|
+c,4:32 ~ c8 r |
 c4:32 ~ c8 r |
 R2*2 |
 f,4:32 \f ~ f8 r |
 f4:32 ~ f8 r |
-R2*3 |
-r4 r8 c' \p |
-c2:8 \< |
+\context Staff <{\voiceone \clef "treble";
+  [e''' e e e ] | 
+  e r r e |
+  e2:8 |
+  [e8 e e g,, ] |} % In reality: e e e e 
+ {\voicetwo r2 |
+  r2 |
+  r2 |
+  r4 r8 \clef bass; c, \p |}>
+c,2:8 \< |
 \! c4.:8 r8 |
 R2*4 |
 c4 \f r |
@@ -749,22 +767,44 @@ R2 |
 f8 r r4 |
 R2*3 |
 c'4 \fz r |
-R2*12 |
-r4 r8 f, \p |
-[f \< f f \! f ] |
-f4.:8 \f r8 |
-R2 |
-r4 r8 f \p |
-f2:8 \< |
-\! f4.:8 \f r8 |
-f4:32 \f ~ f8 r |
-f4:32 ~ f8 r |
-R2*2 |
-f4:32 \f ~ f8 r |
-f4:32 ~ f8 r |
-R2*3 |
-r4 r8 f \p |
-f2:8 |
+R2*10 |
+\context Staff <{\voiceone \clef "treble";
+  r4^"Tri." r8 e'' |
+  [e e e e ] | 
+  [e e e g,, ] | % In reality: e e e e | e4
+  g4 r4 |
+  s4. \clef treble; e''8 |
+  [e e e e ] | 
+  [e e e g,, ] | % In reality: e e e e | e4
+  g4 r4 |
+  s2 | s2 |
+  s4. \clef treble; e''8 |
+  [e e e e ] | 
+  e r r e |
+  s2 | s | s |
+  r4 r8 \clef treble; e |
+  [e e e e ] | 
+  [e e e g,, ] | % In reality: e e e e 
+}
+ {\voicetwo r2 |
+  r |
+  r4 r8 \clef bass; f, \p |
+  [f \< f f \! f ] |
+  f4.:8 \f r8 |
+  r2 |
+  r4 r8 \clef bass; f \p |
+  f2:8 \< |
+  \! f4.:8 \f r8 |
+  f4:32 \f ~ f8 r |
+  f4:32 ~ f8 r |
+  r2 |
+  r | \clef bass; 
+  f4:32 \f ~ f8 r |
+  f4:32 ~ f8 r |
+  r2 | r | r |
+  r4 r8 \clef bass; f \p |
+ }>
+f,2:8 |
 f4.:8 r8 |
 R2*2 |
 c'4 \f r |
@@ -813,20 +853,20 @@ s2*9 |
 r4 r8 \clef "treble"; c'-.^"Clar. I" |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 \clef "bass"; |
-s2*21 |
-r4 r8 \clef "treble"; [g''16^"oboe" \p ( a ] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. e16 ( f ] ) e8-. \clef "bass"; s |
+s2*24 |
+%r4 r8 \clef "treble"; [g''16^"oboe" \p ( a ] |
+%[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
+%[ ) f8-. e16 ( f ] ) e8-. \clef "bass"; s |
 s2*77 |
-r4 r8 \clef "treble"; c-.^"Clar. I" |
+r4 r8 \clef "treble"; c'-.^"Clar. I" |
 [bes-. a-. g-. f-. ] |
 [e-. d-. c-. ] r8 \clef "bass"; |
-s2*25
-r4 r8 \clef "treble"; a''^"Oboe" |
-a-. [ gis-. gis-. \< g-.] |
-[g-. fis-. \! fis-. ] \clef "bass"; s8 |
+s2*28
+%r4 r8 \clef "treble"; a''^"Oboe" |
+%a-. [ gis-. gis-. \< g-.] |
+%[g-. fis-. \! fis-. ] \clef "bass"; s8 |
 s2*57 |
-r4 r8 \clef "treble"; bes,^"Vi. I" ( ] |
+r4 r8 \clef "treble"; bes'^"Vi. I" ( |
 ) bes'4. d,8 ( |
 ) d'4. c,8 ( |
 ) c'4. e,8 ( |

@@ -24,6 +24,11 @@ you must create a special context called Thread.
 
 \mudelafile{noteheadstyle.ly}
 
+Multiple measure rests do not collide with barlines and clefs.  They
+are not expanded when you set Score.SkipBars
+
+\mudelafile{multi-measure-rest.ly}
+
 
 \section{Beams, slurs and other spanners}
 
@@ -73,9 +78,9 @@ numberOfStaffLines.  Ledger lines both on note heads and rests are adjusted.
 
 \section{Global stuff}
 
-Markings that are attached to (invisible) barlines are quite
+Markings that are attached to (invisible) barlines are 
 delicate: the are attached to the rest of the score without the score
-knowing it.  Consequently, they fall over quite often.
+knowing it.  Consequently, they fall over  often.
 
 \mudelafile{bar-scripts.ly}
 

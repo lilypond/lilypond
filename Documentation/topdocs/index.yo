@@ -37,6 +37,10 @@ Note: These pages are created from the latest bf(development snapshots)
 of LilyPond, specifically, this page was made from LilyPond
 @TOPLEVEL_VERSION@.tar.gz
 
+Note: the pages may have been created from an unreleased development
+version.  Please have patience, all changes will appear in the
+official version.
+
 
 nsect(Free Software)
 
@@ -67,6 +71,7 @@ it()url(Reference Manual)(DOEXPAND(docdir)/tex/DOEXPAND(outdir)/refman.html)
 it()url(Mailing Lists)(DOEXPAND(docdir)/DOEXPAND(outdir)/mail.html)
 it()url(All of the LilyPond documentation)(DOEXPAND(docdir)/DOEXPAND(outdir)/index.html)
 it()url(The DOC++ documentation of the C++ sources.)(DOEXPAND(depth)/docxx/index.html)
+it()url(The installation instructions)(DOEXPAND(tops)/INSTALL.html)
 )
 
 nsect(Sites)

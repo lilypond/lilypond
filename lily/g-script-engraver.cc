@@ -103,9 +103,9 @@ G_script_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  G_staff_side_item * ss = dynamic_cast<G_staff_side_item*>(staff_side_p_arr_[i]);
 	  
-	  if (!ss->dim_cache_[X_AXIS].parent_l_)
+	  if (!ss->dim_cache_[X_AXIS]->parent_l_)
 	    {
-	      ss->dim_cache_[X_AXIS].parent_l_ = &inf.elem_l_->dim_cache_[X_AXIS];
+	      ss->dim_cache_[X_AXIS]->parent_l_ = inf.elem_l_->dim_cache_[X_AXIS];
 	    }
 	  ss->add_support (rh);
 	}

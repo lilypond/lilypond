@@ -37,8 +37,6 @@ it()GNU LilyPond uses TeX for its output. This is not a key issue: in a
 it()GNU LilyPond does not display notes directly, nor will it be rehacked
     to be used interactively. GNU LilyPond writes output to a file.  It
     will not be extended to play music, or to recognize music.
-    [As an aside, I am contemplating to create a library for rendering
-    music, which is "X-capable", so that others can create interactive tools]
 it()GNU LilyPond is intended to run on Unix platforms, but it should
     be portable to any platform which can run TeX and the GNU tools
 it()GNU LilyPond is free. Commercial windows packages for setting music are

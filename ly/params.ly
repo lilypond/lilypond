@@ -120,6 +120,7 @@ bar_kern = 3.0 * \staffline;
 bar_thinkern = 3.0 * \staffline;
 barthick_thick = 6.0* \staffline;
 barthick_thin = 1.6*\staffline;
+barthick_score = 1.6*\staffline;
 
 tuplet_thick = 1.0*\staffline;
 volta_thick = 1.6*\staffline;

@@ -25,7 +25,7 @@ disk-space run configure with code(--disable-debugging).
 Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section ref(w32).
 
-it() GNU C++ version 2.8 or newer (egcs-1.1 or newer is also fine).
+it() EGCS 1.1 or newer.
 it() Python 1.5 (Strictly speaking, you shouldn't need Python for 
    compiling and installing, but you'll need it to regenerate the font
    tables, e.g.). 
@@ -247,8 +247,8 @@ provided to do the work for you, see file(bin/clean-fonts.sh).
 nsect(CAVEATS)
 
 itemize(
-it()The -O2 option to gcc triggers a gcc bug on DEC Alpha in dstream.cc. You
-    should turn off this flag for this file.
+it()The -O2 option  triggers  bugs on various platforms (PowerPC, Alpha).
+    If you experience problems, you  should first try  turning off this.
 )
 
 nsect(EXAMPLE)

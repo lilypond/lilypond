@@ -1,42 +1,28 @@
 COMMENT(-*-Text-*-)
-DEFINEMACRO(Package)(0)(LilyPond) DEFINEMACRO(package)(0)(lilypond)
+
 
 redef(XXsetchapternum)(0)()
 
 notableofcontents()
-article(This is the toplevel README to Package())()()
+article(This is the toplevel README to LilyPond)()()
 
 includefile(../BLURB.in)
 
 sect(VERSIONING)
 
-Package() uses a versioning scheme similar to the Linux kernel.  In a
+LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
 For development versions 'y' is odd.  For using straightforward score
 production, please use the latest stable version.  Development versions
 may not produce good or nice scores.
 
-If you have downloaded a
-
-	*.pre*
-
-version, then this is version is *not* meant for producing nice output
-(but to keep your patchsets up to date).  It might not even compile.
-The same goes for a version with a 4th version number, eg
-
-	1.2.3.mypatch2
-
-It will be safer if you download 1.2.3 or wait for 1.2.4.
-
-
-
 sect(REQUIREMENTS)
 
-For the compilation and running of Package() you need some additional
+For the compilation and running of LilyPond you need some additional
 packages.  Please refer to the installation instructions.
 
 NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file), then
-you don't have to compile Package().
+you don't have to compile LilyPond.
 
 
 sect(INSTALLATION)
@@ -58,36 +44,35 @@ and then do this:
 
 	make doc
 
-You can also simply read the .yo sources.  They are ASCII text.
+You can also simply read the file(.yo) sources.  They are ASCII text.
 The complete documentation is accessible in formatted form at the 
 website lurl(http://www.cs.uu.nl/people/hanwen/lilypond/index.html)
 
 
 sect(COMMENTS)
 
-Package() is a long way from finished and polished.  We do appreciate
+LilyPond is a long way from finished and polished.  We do appreciate
 criticism, comments, bugreports, patches, etc.
-
+verb(
 	   Please send your e-mail to one of the MAILING LISTS
-
+)
 and not to us personally.  See file(Documentation/links.yo) for more info.
 
 
 sect(WINDOWS 32)
 
 If you have received this file as part of a DOS/Window32 distribution
-(package()-*.zip), then it is advisable to also download the source
+(LilyPond-*.zip), then it is advisable to also download the source
 package, since it might contain more documentation
 lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/)
 
-If you decide to build Package() from source, please read the INSTALL.txt
+If you decide to build LilyPond from source, please read the INSTALL.txt
 document first, especially the Windows NT/95 section.
 
 
 sect(CAVEATS)
 
-* Please read the file BUGS for some ugly bugs.  This especially applies
-Linux-Intel unix users.
+* Please read the file BUGS for some ugly bugs.  
 
 * If you have installed a previous version, be sure to remove old font
 files, eg
@@ -98,7 +83,7 @@ a script to do this for you is in file(buildscripts/clean-fonts.sh)
 
 sect(CDROM DISTRIBUTIONS)
 
-If you have received Package() on a cdrom, chances are that development
-has moved a some patchlevels up.  If possible, please check the latest 
-version of Package() before reporting bugs.
+If you have received LilyPond on a cdrom, chances are that development
+has moved a some patchlevels up.  Please check the latest version of
+LilyPond before reporting bugs.
 

@@ -17,33 +17,6 @@ Grep for TODO and ugh/ugr/urg.
 . * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
-. * m=\notes\relative c'''{
-  \time 2/4;
-
-  R2*4 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | \break
-  <{R2*10}{s2 \mark "A"; }> | % Too narrow space for the first rest in
-1.1.29
-  r4 r8 [g16 \p ( a ] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. e16 ( f ][ ) e8-. es16 ( f ] |
-[ ) es8 \f c16 ( d][es8 d16 c ] |
-) d4 r8 [g16 \p ( a ] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] | \break
-) c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 |
-}
-
-\score{
-  \m
-  \paper{
-    \translator{
-      \ScoreContext
-      SkipBars = 1;
-    }
-    \translator {
-      \OrchestralPartStaffContext
-    }
-  }
-}
 . * midi key.
 . * P.P.S. It can be cool in mudela-book to distinguish in
 pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
@@ -76,11 +49,6 @@ Lyrics and scripts collide.
 
 \key b; \time 4/4; looks bad.  The clef and time signature are too close.
 
-I noticed that ledger lines in the previewer looked like they had a
-double line (of different lengths).  On printed output, I think I can
-see a slight thickening of the ledger lines in the middle.  Is this
-supposed to happen?
-
 restStyle=mensural doesn't seem to work (lots of characters not found
 for rests.fly)
 . * Phrasing:  Indicating the textual underlay of a piece, or
@@ -89,7 +57,6 @@ otherwise dividing a piece into phrases.
 There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
-. * spacing of mmrests.
 . * rest collision minimum dist.
 . * Matanya's tips: 
 .  * spacing for prefatory matter
@@ -103,6 +70,23 @@ specify the third.  Should there be?
 So that makes for a staff space of 4 2/3 point. I'll add the
 dimensions to the TODO file.
 .  * accidentals closer to note head
+.  * to space the staffs/staffgroups contained in the score.  
+
+In the orchestscore.ly file, I tried:
+\paper{
+    \translator {
+        \OrchestralScoreContext
+        minVerticalAlign = 3.0*\staffheight;
+    }
+    \translator { 
+        \StaffGroupContext
+        minVerticalAlign = 3.0*\staffheight;
+    }
+    \translator { 
+        \StaffContext
+        minVerticalAlign = 3.0*\staffheight;
+    }
+}
 .  * heavier beams?
 
 .* Cleanups needed
@@ -115,6 +99,7 @@ dimensions to the TODO file.
 . * Spring generation
 . * Collision
 . * Rest_collision
+. * clef grav prop's 
 
 .* TODO before 1.2
 . * \selectmusic to cut pieces from music. 
@@ -122,19 +107,10 @@ dimensions to the TODO file.
 .  * Remove mutopia ramblings.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
-. * generic rest ledgers
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
-.  * The minimum distance between different staffs works only within 
-  StaffGroups, not between StaffGroups. The Gade Score looks quite
-  strange on the pages where the Timpani and/or Brass sections don't
-  play. I've set the minimum distance with:
-    \translator {
-       \OrchestralScoreContext
-        minVerticalAlign = 2.5*\staffheight;
-    }
 . * hangOnClef with non-breakable clefs.
 . * Aha, the problem is the new TeX code generation for changing fonts.
 > (The explanation below is mostly intended for Han-Wen and Jan)
@@ -152,7 +128,6 @@ dimensions to the TODO file.
 > fontencoding OT1 is for the hyphenation mechanism to work, an 
 > argument that's clearly irrelevant in our application. Yet we
 > see the problem for August.
-. * Check gcc 2.8.1 compatibility
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanne,r staff_symbol)
@@ -297,6 +272,7 @@ touching it.
 . * put errorlevel in Input class
 . * junk nesting slurs
 . * integrate midi-elts from mi2mu and lily?
+. * distinguish between unset and empty properties. 
 
 .* FONT
 . * the bracket is ugly (wings are too parabolic, should be more circular)
@@ -320,6 +296,9 @@ touching it.
 .  * glissando, arpeggio
 .  * lengthened trill
 . * include important spacing dims in fetalog 
+. * scalability: use blot_diameter everywhere, make font chubbier for
+    small sizes.
+
 .* 3RD PARTY BUGS
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * check out GCC signatures?

@@ -69,6 +69,8 @@ My_lily_parser::parse_file (String init, String s)
     }
 
   inclusion_global_array = lexer_p_->filename_str_arr_;
+
+  error_level_i_ = error_level_i_ | lexer_p_->errorlevel_i_; // ugh naming.
 }
 
 void

@@ -59,7 +59,7 @@ void
 G_script::do_pre_processing ()
 {
   Graphical_element * e
-    = staff_side_l_->dim_cache_[X_AXIS].parent_l_->element_l();
+    = staff_side_l_->dim_cache_[X_AXIS]->parent_l_->element_l();
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
 }
 
@@ -76,7 +76,7 @@ G_script::set_staff_side (G_staff_side_item*g)
 {
   staff_side_l_ = g;
   add_dependency (g);
-  dim_cache_[Y_AXIS].parent_l_ = & g->dim_cache_[Y_AXIS];
+  dim_cache_[Y_AXIS]->parent_l_ = g->dim_cache_[Y_AXIS];
 }
 
 Molecule*

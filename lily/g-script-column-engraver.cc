@@ -59,7 +59,7 @@ G_script_column_engraver::acknowledge_element( Score_element_info inf)
   if (!thing)
     return;
   
-  Dimension_cache * parcache = thing->dim_cache_[Y_AXIS].parent_l_;
+  Dimension_cache * parcache = thing->dim_cache_[Y_AXIS]->parent_l_;
   if (!parcache || !thing)
     return ;
   

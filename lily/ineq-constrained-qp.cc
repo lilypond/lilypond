@@ -271,6 +271,7 @@ void
 Ineq_constrained_qp::print() const
 {
 #ifndef NPRINT
+  DOUT << "Ineq_constrained_qp { " << '\n';
   DOUT << "Quad " << quad_;
   DOUT << "lin " << lin_ << '\n'
        << "const " << const_term_<< '\n';
@@ -279,5 +280,6 @@ Ineq_constrained_qp::print() const
       DOUT << "constraint["<<i<<"]: " << cons_[i] << " >= " << consrhs_[i];
       DOUT << '\n';
     }
+  DOUT << "}\n"; 
 #endif
 }

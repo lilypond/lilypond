@@ -122,8 +122,8 @@ Stem_info::Stem_info (Stem*s, int mult)
 
       interstaff_f_ = align->threshold_interval_[MIN] / internote_f;
 
-      Dimension_cache * beam_refpoint = &beam_l->dim_cache_[Y_AXIS];
-      Dimension_cache * stem_refpoint = &stem_l_->dim_cache_[Y_AXIS];
+      Dimension_cache * beam_refpoint = beam_l->dim_cache_[Y_AXIS];
+      Dimension_cache * stem_refpoint = stem_l_->dim_cache_[Y_AXIS];
 
       while (beam_refpoint->parent_l_ != common)
 	beam_refpoint = beam_refpoint->parent_l_;

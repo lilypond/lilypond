@@ -62,8 +62,8 @@ void
 Axis_group_element::set_axes (Axis a1, Axis a2)
 {
   Graphical_axis_group::set_axes (a1,a2);
-  dim_cache_[X_AXIS].set_empty ((a1 != X_AXIS && a2 != X_AXIS));
-  dim_cache_[Y_AXIS].set_empty ((a1 != Y_AXIS && a2 != Y_AXIS));
+  dim_cache_[X_AXIS]->set_empty ((a1 != X_AXIS && a2 != X_AXIS));
+  dim_cache_[Y_AXIS]->set_empty ((a1 != Y_AXIS && a2 != Y_AXIS));
 }
 
 

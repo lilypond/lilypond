@@ -85,7 +85,7 @@ sect(The first tune)
 label(sec:firsttune)
 
 To demonstrate what LilyPond input looks like, we start off with a
-full fledged, yet simple, example. It is somewhat convoluted version
+full fledged, yet simple, example. It is a convoluted version
 of one of the menuets in bind(J.)bind(S.)Bach's em(Clavierbuchlein).
 
 mudela(verbatim)(
@@ -279,7 +279,7 @@ second one without.  COMMENT(
 
 )verb( a8-. b-. cis-. d-. e-. fis-. % try some super and subscripts.)COMMENT(
 
-)There is more to music than just pitches and rhythms.  An important
+)There is more to music than  pitches and rhythms.  An important
 aspect is articulation.  You can enter articulation signs either in an
 abbreviated form, by a dash and the the character for the
 articulation to use,  e.g. code(-.) for staccato as shown above.
@@ -350,7 +350,7 @@ verb(\score {
  	\paper {  }
 })COMMENT(
 
-) we will leave out the the repetitive details for now and just print
+) we will leave out the the repetitive details for now and only print
 code(XXXX).
 
 
@@ -489,7 +489,7 @@ Chords can be entered in the music in the same places that notes
 can.  As an example we give a snippet of ``Twinkle Twinkle Little
 Star'' in chords.  The chords may seem slightly unconventional, but
 they only serve to show how chords work.  We've aligned the chords in
-the input on their starting beat just to help you reading it.  This
+the input on their starting beat  to help you reading it.  This
 layout does not influence the typesetting result in any way.
 
 mudela(verbatim, fragment)(
@@ -515,7 +515,7 @@ e.g., COMMENT(
 )COMMENT(
 
 )
-As you can see, LilyPond has some difficulty typesetting this
+As you can see, LilyPond has  difficulty typesetting this
 elegantly.  To adequately solve this, you have to persuade LilyPond to
 make separate stems for both sequential music lists.   This is a topic
 that is covered in bind(Section)ref(sec:polyphonic).
@@ -540,7 +540,7 @@ subsect(Names with chords)
 
 A more common problem is the typesetting of chord names.  LilyPond has
 a special kind of staff for this, the code(ChordNames) staff.  
-The code(ChordNames) staff accepts music just as a normal staff, 
+The code(ChordNames) staff accepts music like a normal staff, 
 but typesets only the name of each chord:
 COMMENT(
 
@@ -574,7 +574,7 @@ note. COMMENT(
   c''4-\tenuto )COMMENT(
 
 ) Typing a lot of staccato notes in this syntax will get tedious very
-quickly.  Therefore, Mudela has some handy abbreviations for
+quickly.  Therefore, Mudela has  handy abbreviations for
 articulation marks such as staccato and tenuto.  They are shown in the
 following example: COMMENT(
 
@@ -601,7 +601,7 @@ COMMENT(
 
 )mudela(fragment,verbatim)(c''4-1 g''4-5 c''-"Sul tasto" )
 COMMENT(Currently, the meaning of the
-syntax `note-dash-digit/articulation/text' is just ``add a superscript to this
+syntax `note-dash-digit/articulation/text' is  ``add a superscript to this
 note.''  This is not in line with our goal to em (define) music with
 Mudela.  We hope that this will be fixed in a future version of the
 language.  In the meantime you can abuse this: the super- and
@@ -640,7 +640,7 @@ start marker is.  The stopping marker is the closing parenthesis.
 For example:
 mudela(fragment,center,verbatim)( c'4( )c'4 )
 
-  The slur is quite flexible: you can nest nop(slurs,)footnote(This is
+The slur is flexible: you can nest nop(slurs,)footnote(This is
 inconsistent when compared to the syntax for articulation hints.  This
 will be fixed some time, we hope.) and you can connect a note with a
 slur on both the left and the right side:
@@ -808,7 +808,7 @@ dit(code(\grouping) var(durationslist)) sets the metric structure of the measure
         [c'8 c'16 c'8]
     )
 
-In practice, you won't be needing this command very often: the
+In practice, you won't be needing this command often: the
 grouping is switched automatically when you issue a code(\time)
 command.  It is set to a combination of groups
 of 2 and 3 beats, with as many groups of
@@ -824,7 +824,7 @@ notes.
 sect(Notation context)
 
 COMMENT(This section is about translation contexts, a topic of LilyPond that
-is somewhat advanced.  You don't have to understand this to use
+is  advanced.  You don't have to understand this to use
 LilyPond to print simple music.  If you don't want to typeset fancy
 polyphonic music or tweak the LilyPond notation engine, you can skip
 the next two sections.)
@@ -841,9 +841,11 @@ lines on which one can print note heads.  We will call this view on
 the concept of staff `staff symbol' from now on.
 
 But 
-there is more to a staff than just the symbol.  A staff
-contains---besides a staff symbol--- some more components:
-itemize(
+there is more to a staff than  the symbol.  A staff
+contains---besides a staff symbol---  more components:
+COMMENT(
+
+)itemize(
 it()A staff can have a key signature (printed at the left)
 it()A staff can have a time signature (printed at the left)
 it()A staff has bar lines
@@ -947,7 +949,7 @@ converted to notation.
 We see that a staff forms context, and that context is needed to
 convert between notation and music.  In LilyPond we turn around this
 reasoning: LilyPond has a notion of notation context, and the staff is
-just one example of a notation context.  In fact, the arguments of the
+an example of a notation context.  In fact, the arguments of the
 code(\context) command (Staff, GrandStaff) were all names of different
 contexts.  A notation context is a conversion between music and
 notation.
@@ -966,8 +968,8 @@ description(
 
 dit(GrandStaff) A code(GrandStaff) context contains code(Staff)
   contexts, and it adds a brace to the output at the
-  nop(left.)footnote(The GrandStaff is quite limited, LilyPond can not
-  do cross staff beaming and slurring.)
+  nop(left.)footnote(The GrandStaff is limited, LilyPond can not do
+  cross staff beaming and slurring.)
 
   A code(GrandStaff) context can contain code(Staff)s. Typically, it
   will contain two code(Staff)s, one treble staff, and one bass
@@ -1031,7 +1033,7 @@ sect(Nested music: multiple staffs)
 label(tutorial:more-staffs)
 
 Now we explain how to typeset music that runs in multiple staffs.
-Consider the following---somewhat unrealistic---example:
+Consider the following---unrealistic---example:
 
 mudela(fragment)(
  \context GrandStaff <e'4 {\clef bass; g4^""} >
@@ -1094,10 +1096,10 @@ mudela(verbatim,fragment)(
   >
 )COMMENT(
 
-) The names that you choose do not matter just as long as they are
+) The names that you choose do not matter  as long as they are
 different.  This is almost right, except for the brace at the left and
 the clef of the second staff.  If you want a brace, then you have to
-tell LilyPond that the chord you just formed is to be interpreted as a
+tell LilyPond that the chord you  formed is to be interpreted as a
 so-called grand staff.  This is also done with the code(\context)
 command.  The bass clef is made with a clef command:  COMMENT(
 
@@ -1142,7 +1144,7 @@ other words, notes enclosed in braces.  Let us try the following counterpoint:CO
   \context "Voice" = "two" { g'2 f'4 e'4 }
 >)
 
-As you can see the result is not quite perfect.  The notes on the last
+As you can see the result is not  perfect.  The notes on the last
 two beats look like plain chords and not like separate voices.  What
 really happened was that the stems of the upper and lower voices were
 printed on top of each other.
@@ -1202,7 +1204,7 @@ of all properties.
 sect(Lyrics)
 label(tutorial:lyrics)
 
-Since a lyrics can have durations just like notes, we consider them to
+Since a lyrics can have durations  like notes, we consider them to
 be music too.  Entering lyrics in mudela has two aspects. First, you
 have to enter the text, i.e., the syllables along with their
 durations.  After this, you have to specify how to convert these to
@@ -1245,7 +1247,7 @@ perfor0mable: COMMENT(
 
 ) The strings that makes up each syllable in the lyrics block are
 passed along to TeX() verbatim, so if you are proficient with TeX()
-you can do various nifty things.  Just keep in mind that a syllable
+you can do various nifty things.   Keep in mind that a syllable
 either starts with a letter (a character in the range `code(a)' to
 `code(z)' or `code(A)' to `code(Z)'), or it is a string enclosed
 double quotes. It ends with either a number for the duration, or a space.
@@ -1272,7 +1274,7 @@ urg
 sect(Toplevel Mudela)
 
 Back in bind(Section)ref(sec:firsttune) we said we would ignore
-toplevel constructions (e.g., code(\score)) until some later moment.
+toplevel constructions (e.g., code(\score)) until a later moment.
 Now we will look at these constructions.
 
 
@@ -1316,7 +1318,7 @@ mudela(verbatim)(
 You can also see identifiers in action within the code(\paper) block:
 the value code(-1.0) is assigned to code(linewidth).  Within the
 code(\paper) block, identifiers are not used as abbreviation only:
-assigning to some identifiers can influence the output: in this case,
+assigning to some  identifiers can influence the output: in this case,
 the music line is printed at natural width.  
 
 Recall the properties of a context, that could be set with
@@ -1514,7 +1516,7 @@ nop(Urtext)footnote(em(Urtext) is the German word for `original text'.
 The Urtext edition of a piece of music, is an edition that reflects
 the original writing of the composer.  Such editions are useful for
 musicologists, and performers that want to perform authentic
-interpretations.  However, for mere mortals, the Urtext can be quite
+interpretations.  However, for mere mortals, the Urtext can be 
 hard to read.  It might not contain fingering and beaming, and
 typically it is full of footnotes.  Moreover, common interpretations
 may have emerged---after the composer died.  For this reason, the
@@ -1699,7 +1701,7 @@ COMMENT(
 played.  You may leave out the code(\alternative) part.  There must not 
 be more alternative endings than the code(repeat-count).
 
-A somewhat less intuitive form may be needed for lyrics, when there are
+A less intuitive form may be needed for lyrics, when there are
 a couple alternatives, but nothing is repeated.  The code(\repeat) command
 must be present, but it may specify an empty music list:
 COMMENT(

@@ -4,7 +4,7 @@ m = \notes \relative c''{
 c1 | c2 c | c c | c c | c c | c c | c c | c c | 
 }
 
-\score{ <
+\score{ < 
   \context StaffGroup = wood <
     \context Staff = flauto <
       \property Staff.instrument = "Flauto"
@@ -53,7 +53,7 @@ c1 | c2 c | c c | c c | c c | c c | c c | c c |
     >
   >
   \context StaffGroup = strings <
-%    \context GrandStaff = violins <
+    \context GrandStaff = violins <
       \context Staff = viI <
         \property Staff.instrument = "Violin I"
         \property Staff.instr = "Vi. I"
@@ -64,7 +64,7 @@ c1 | c2 c | c c | c c | c c | c c | c c | c c |
         \property Staff.instr = "Vi. II"
         \m
       >
-%    >
+    >
     \context Staff = vla <
       \property Staff.instrument = "Viola"
       \property Staff.instr = "Vla."
@@ -88,10 +88,17 @@ c1 | c2 c | c c | c c | c c | c c | c c | c c |
     textheight = 260.\mm;
     \translator {
 	\OrchestralScoreContext
-        minVerticalAlign = 2.5*\staffheight;
+        minVerticalAlign = 3.5*\staffheight; % No effect!!??
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
+        marginScriptPadding = 15.0;
+    }
+    \translator { \StaffGroupContext
+        minVerticalAlign = 2.5*\staffheight;
+    }
+    \translator { \GrandStaffContext
+        minVerticalAlign = 2.5*\staffheight;
     }
   }
 }

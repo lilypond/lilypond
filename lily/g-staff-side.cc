@@ -46,7 +46,7 @@ G_staff_side_item::set_victim (Score_element *e)
 {
   add_dependency (e);
   to_position_l_ = e;
-  to_position_l_->dim_cache_[axis_].parent_l_ = &dim_cache_[axis_];
+  to_position_l_->dim_cache_[axis_]->parent_l_ = dim_cache_[axis_];
 }
 
 void
@@ -89,7 +89,7 @@ G_staff_side_item::position_self ()
 	}
     }
   else
-     common = dim_cache_[axis_].parent_l_;
+     common = dim_cache_[axis_]->parent_l_;
 
   if (dim.empty_b ())
     {
@@ -102,7 +102,7 @@ G_staff_side_item::position_self ()
     ? to_position_l_->extent (axis_)
     : Interval(0,0);
 
-  Real off = dim_cache_[axis_].relative_coordinate (common);
+  Real off = dim_cache_[axis_]->relative_coordinate (common);
 
   SCM pad = remove_elt_property (padding_scm_sym);
   if (pad != SCM_BOOL_F)
@@ -110,7 +110,7 @@ G_staff_side_item::position_self ()
       off += gh_scm2double (SCM_CDR(pad)) * dir_;
     }
   Real total_off = dim[dir_] - sym_dim[-dir_] + off;
-  dim_cache_[axis_].set_offset (total_off);
+  dim_cache_[axis_]->set_offset (total_off);
   if (fabs (total_off) > 100 CM)
     programming_error ("Huh ? Improbable staff side dim.");
 }

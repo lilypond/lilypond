@@ -81,8 +81,8 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
 
       interstaff_f_ = align->threshold_interval_[MIN];
 
-      Dimension_cache * slur_refpoint = &slur_l->dim_cache_[Y_AXIS];
-      Dimension_cache * note_refpoint = &note->dim_cache_[Y_AXIS];
+      Dimension_cache * slur_refpoint = slur_l->dim_cache_[Y_AXIS];
+      Dimension_cache * note_refpoint = note->dim_cache_[Y_AXIS];
 
       while (slur_refpoint->parent_l_ != common)
 	slur_refpoint = slur_refpoint->parent_l_;

@@ -1,5 +1,5 @@
 \score{
-	\context GrandStaff <
+	\context PianoStaff <
 	\context Staff=one \notes\relative c'{
 		\stemup [c8 c \translator Staff=two \stemup c c]
 		[c c c c]
@@ -22,7 +22,7 @@
 	>
 	\paper{
 		\translator{
-			\GrandStaffContext
+			\PianoStaffContext
 			minVerticalAlign = 3.0*\staffheight;
 			maxVerticalAlign = 3.0*\staffheight;
 		}
