@@ -95,7 +95,6 @@ DUMMYDEPS=\
 #
 ERROR_LOG = 2> /dev/null
 SILENT_LOG = 2>&1 >  /dev/null
-allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
 date = $(shell date +%x)
 allhh := $(shell $(FIND) ./ -name "*.hh" $(ERROR_LOG))
 allcc := $(shell $(FIND)  ./ -name "*.cc" $(ERROR_LOG))
@@ -170,7 +169,8 @@ DODEP=rm -f $(depfile); DEPENDENCIES_OUTPUT="$(depfile) $(outdir)/$(notdir $@)"
 
 # generic target names:
 #
-EXECUTABLE = $(NAME)$(EXE)
+EXECUTABLE = $(outdir)/$(NAME)$(EXE)
+EXECUTABLES = $(EXECUTABLE)
 LIB_PREFIX = lib
 
 ifndef LIB_SUFFIX

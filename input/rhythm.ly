@@ -8,6 +8,7 @@
  copyright:public domain
 
  Tested Features: multiple meters, beaming
+	unsynced bars
 EndMudelaHeader
 %}
 \version "0.0.57";
@@ -50,7 +51,7 @@ ritme = \staff {
 another = \staff {
 	melodicregs
 	\melodic{ \meter 4/4; 
-		c1 c1 c1 c4 c4 c4 c4  \meter  4/4; c1 c1 c1
+		c1.  c1. c4 c4 c4 c4  \meter  4/4; c1 c1 c1
 	 }
 }
 
@@ -66,6 +67,7 @@ yanother = \staff 	{
 	another
 	yanother
 	
+	\midi { }
 	\paper{
 		\unitspace 2\cm
 		\geometric 1.3
