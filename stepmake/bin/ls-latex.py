@@ -18,16 +18,18 @@ import glob
 
 import re
 
+format_names  = {'ps.gz': 'Compressed PostScript',
+		 'html' : 'HTML'
+		 }
+
 class Latex_head:
     def __init__ (self):
 	self.author = ''
 	self.title = ''
 	self.date = ''
 	self.format = ''
-
 	
-def read_latex_header (fn):
-    s = gulp_file (fn)
+def read_latex_header (s):
     header = Latex_head()
     m = re.search(r'\\author{([^}]+)}', s)
     if m:
@@ -36,81 +38,69 @@ def read_latex_header (fn):
     m = re.search (r'\\title{([^}]+)}',s )
     if m:
 	header.title = m.group (1)
-    else:
-	header.title = 'No title'
 
-    header.outfile = fn
-    header.outfile = re.sub ('\.latex$', '.ps.gz', header.outfile)
-    header.outfile = re.sub ('\.tex$', '.ps.gz', header.outfile)
-    header.outfile = re.sub ('\.doc$', '.ps.gz', header.outfile)
-    header.format = 'gzipped postscript'
+    header.formats = ['ps.gz']
     return  header
 
 
-def bib_header (fn):
-    s = gulp_file (fn)
-    m = re.search ('% *AUTHOR *= *(.*)$',s)
-    header = Latex_head()    
+def read_bib_header (s):
+
+    m = re.search ('% *AUTHOR *= *(.*)\n',s)
+
+    header = Latex_head()
+
     if m:
 	header.author = m.group (1)
 
-
-    m = re.search ('% *TITLE *= *(.*)$',s )
+    m = re.search ('% *TITLE *= *(.*)\n',s )
     if m:
 	header.title = m.group (1)
-    else:
-	header.title = '(bibliography without title)'
 
-    header.outfile = re.sub ( '\.bib$', '.html' , fn)
-    header.format = 'HTML'    
+    header.formats = ['html']
     return header
 
 
-def read_pod_header (fn):
+def read_pod_header (s):
     header = Latex_head ()
-    s = gulp_file (fn)
+
     i = re.search( '[^\n \t]', s)
     s = s[i:]
     i = re.search( '\n\n', s)
     s = s[i+2:]    
-    if i < 0:
-	sys.stderr.write ('gulped file: ' + fn + '\n')
-	raise 'huh?'
     i = re.search( '\n\n', s)
     header.title = s[:i]
-    header.filename = fn
-    header.outfile = re.sub ('\.pod$', '.html', fn)
+
     return  header
 
-def read_texinfo_header (fn):
+def read_texinfo_header (s):
     header = Latex_head ()
-    s = gulp_file (fn)
+
     m = re.search( '@settitle (.*$)', s)
     if m:
 	header.title = m.group (1)
-    header.filename = fn
-    header.outfile = re.sub ('\.tely', '.html', fn)
-    header.format = 'HTML'
+
+    header.formats = ['html', 'ps.gz']
     return header
 
-def read_tely_header (fn):
-    header = Latex_head ()
-    s = gulp_file (fn)
-    m = re.search( '@settitle (.*$)', s)
-    if m:
-	header.title = m.group (1)
-    header.filename = fn
-    header.outfile = re.sub ('\.tely', '.html', fn)
-    header.format = 'HTML'
-    return header
 
 
 def print_html_head (l,o,h):
     pre =o
 
-    l.write ('<li><a href=%s>%s (%s)</a>' % (pre + h.outfile, h.title, h.format ))
+    
+    fn = pre + h.basename
+
+    t = h.filename 
+    if h.title :
+	t = t + ': '+ h.title
+
+    l.write ('<li>%s </a>' % t)
+
     if h.author:
 	l.write ('<p>by %s</p>' % h.author)
+
+    for f in h.formats:
+	l.write ('(<a href=%s.%s>%s</a>)' % (fn, f, format_names [f]))
     l.write ('</li>\n')
 
 def help ():
@@ -149,19 +139,28 @@ l.write (r"""<html><title>%s</title>
 """ % (title, title))
 
 
+read_header_funcs = {
+    'pod' : read_pod_header,
+    'tex' : read_latex_header,
+    'doc' : read_latex_header,
+    'bib': read_bib_header, 
+    'latex' : read_latex_header,
+    'tely' : read_texinfo_header,
+    'texi': read_texinfo_header,
+}    
+
+
 for x in files:
-    if re.search ('\\.bib$', x) :
-	head = bib_header (x)
-    elif re.search ('\\.pod$', x) :
-	head = read_pod_header (x)
-    elif re.search ('\\.texinfo$', x) :
-	head = read_texinfo_header (x)
-    elif re.search ('\\.tely$', x):
-	head = read_tely_header (x)
-    else:
-	head = read_latex_header (x)
-    if head.title == '':
-	head.title = head.filename
+    m = re.search ('\\.([^.]*)$', x)
+    if m == None:
+	continue
+
+    s = gulp_file (x)
+    head = read_header_funcs [m.group(1)] (s)
+
+    head.filename = x
+    head.basename = re.sub ("\\.[^.]+", '', x)
+    
     print_html_head (l, pre, head)
 
 l.write ('</ul></body></html>')
