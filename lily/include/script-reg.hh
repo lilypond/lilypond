@@ -11,19 +11,23 @@
 #include "register.hh"
 
 
-struct Script_register : Request_register {
-    Script * script_p_;
-    Script_req * script_req_l_;
-    int dir_i_;
+class Script_register : public Request_register {
+    Array<Script *> script_p_arr_;
+    Array<Script_req *> script_req_l_arr_;
+
     /* *************** */
-    void set_feature(Features dir_i_);
+    bool acceptable_elem_b(Staff_elem*);
+public:
+    NAME_MEMBERS(Script_register);
     Script_register();
+protected:
+    virtual    void set_feature(Features dir_i_);
     virtual bool try_request(Request*);
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);
     virtual void pre_move_processing();
     virtual void post_move_processing();
-    NAME_MEMBERS(Script_register);
+
 };
 
 #endif // SCRIPTREG_HH
