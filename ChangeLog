@@ -1,3 +1,10 @@
+2004-01-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/engraver-init.ly (AncientRemoveEmptyStaffContext): move
+	\accepts Devnull into Score.
+
+	* scm/lily.scm: remove bla.scm load.
+
 2004-01-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION: release 2.1.14

@@ -383,7 +383,6 @@ L1 is copied, L2 not.
        "define-grob-interfaces.scm"
 
        "paper.scm"
-       "bla.scm"
        ))
 
 
