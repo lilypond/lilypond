@@ -63,9 +63,14 @@ $(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
 #
 lib: $(LIBRARY)
 #
-
+TOCLEAN= $(allobs) $(alldeps)
 clean: localclean
-	rm -f $(allobs) $(alldeps)
+ifdef allobs
+	rm -f $(allobs)
+endif
+ifdef alldeps
+	rm -f $(alldeps)
+endif
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
