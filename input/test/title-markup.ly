@@ -42,7 +42,10 @@ spaceTest = \markup { "two space chars" }
     
     %dedication = "För my dør Lily"
     % ugh: encoding char-size
-    dedication = "For my öòóôõø so dear Lily"
+    %dedication = "For my öòóôõø so dear Lily"
+    dedication = \markup { "For my "
+			   \latin-i { "öòóôõø" }
+			   " so dear Lily" }
     title = "Title"
     subtitle = "(and (the) subtitle)"
     subsubtitle = "Sub sub title"

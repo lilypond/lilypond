@@ -30,7 +30,7 @@
       (#:override '(baseline-skip . 4)
       #:column
       (#:fill-line
-       (#:latin-i (get 'dedication))
+       (#:normalsize (get 'dedication))
        #:fill-line
        (#:huge #:bigger #:bigger #:bigger #:bigger #:bold (get 'title))
        #:override '(baseline-skip . 3)

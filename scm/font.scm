@@ -27,19 +27,12 @@ or
   
 (define-public paper20-font-vector
   '((#(medium upright number) .
-     (10 . #(
-	     (4.0  . "feta-nummer4")
+     (10 . #((4.0  . "feta-nummer4")
 	     (6.0  . "feta-nummer6")
 	     (8.0  . "feta-nummer8")
 	     (10.0  . "feta-nummer10")
 	     (12.0  . "feta-nummer12")
-	     (16.0  . "feta-nummer16")
-	     
-
-	     )
-
-
-	 ))
+	     (16.0  . "feta-nummer16"))))
     (#(medium upright roman) .
      (10.0 . #((6.0 . "cmr6")
 	       (8.0 . "cmr8") 

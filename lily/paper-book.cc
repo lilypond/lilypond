@@ -26,21 +26,15 @@ stencil2line (Stencil* stil)
 		   scm_list_1 (scm_cons (z, stil->smobbed_copy ())));
 }
 
-static SCM
-height2line (Real h)
-{
-  static SCM z = ly_offset2scm (Offset (0, 0));
-  return scm_cons (ly_offset2scm (Offset (0, h)),
-		   scm_list_1 (scm_cons (z, SCM_EOL)));
-}
-
 // WIP -- simplistic page interface
 // Do we need this at all?  SCM, smob?
 class Page
 {
 public:
   Paper_def *paper_;
+  static int page_count_;
   int number_;
+  int line_count_;
 
   Protected_scm lines_;
   Protected_scm header_;
@@ -55,10 +49,12 @@ public:
   // HMMM all this size stuff to paper/paper-outputter?
   Real hsize_;
   Real vsize_;
+  Real left_margin_;
   Real top_margin_;
   Real bottom_margin_;
   Real foot_sep_;
   Real head_sep_;
+  Real text_width_;
 
   /* available area for text.  */
   Real text_height ();
@@ -67,12 +63,17 @@ public:
   void output (Paper_outputter*, bool);
 };
 
+int Page::page_count_ = 0;
+
 Page::Page (Paper_def *paper, int number)
 {
   paper_ = paper;
   number_ = number;
+  page_count_++;
+  
   height_ = 0;
   lines_ = SCM_EOL;
+  line_count_ = 0;
   
   hsize_ = paper->get_realvar (ly_symbol2scm ("hsize"));
   vsize_ = paper->get_realvar (ly_symbol2scm ("vsize"));
@@ -80,6 +81,8 @@ Page::Page (Paper_def *paper, int number)
   bottom_margin_ = paper->get_realvar (ly_symbol2scm ("bottom-margin"));
   head_sep_ = paper->get_realvar (ly_symbol2scm ("head-sep"));
   foot_sep_ = paper->get_realvar (ly_symbol2scm ("foot-sep"));
+  text_width_ = paper->get_realvar (ly_symbol2scm ("linewidth"));
+  left_margin_ = (hsize_ - text_width_) / 2;
   
   SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
   SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
@@ -100,21 +103,22 @@ Page::Page (Paper_def *paper, int number)
 void
 Page::output (Paper_outputter *out, bool is_last)
 {
-  if (get_header ())
-    {
-      out->output_line (stencil2line (get_header ()), false);
-      out->output_line (height2line (head_sep_), false);
-    }
+  Offset o (left_margin_, top_margin_);
+  Real vfill = line_count_ > 1 ? (text_height () - height_) / (line_count_ - 1)
+    : 0;
   out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
+  if (get_header ())
+    out->output_line (stencil2line (get_header ()), &o, false);
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
-    out->output_line (ly_car (s), is_last && gh_pair_p (ly_cdr (s)));
+    {
+      out->output_line (ly_car (s), &o, is_last && gh_pair_p (ly_cdr (s)));
+      if (gh_pair_p (ly_cdr (s)))
+	o[Y_AXIS] += vfill;
+    }
+  if (get_footer ())
+    out->output_line (stencil2line (get_footer ()), &o, is_last);
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
 				  gh_bool2scm (is_last && !get_footer ())));
-  if (get_footer ())
-    {
-      out->output_line (height2line (foot_sep_), false);
-      out->output_line (stencil2line (get_footer ()), is_last);
-    }
 }
 
 Real
@@ -228,6 +232,7 @@ Paper_book::get_pages ()
     }
 
   Paper_def *paper = papers_[0];
+  Page::page_count_ = 0;
   int page_number = 1;
   Page *page = new Page (paper, page_number++);
   fprintf (stderr, "book_height: %f\n", book_height);
@@ -260,6 +265,7 @@ Paper_book::get_pages ()
 	      if (j == 0 && title)
 		page->lines_ = ly_snoc (stencil2line (title), page->lines_);
 	      page->lines_ = ly_snoc (line, page->lines_);
+	      page->line_count_++;
 	      page->height_ += h;
 	      h = 0;
 	    }
@@ -282,7 +288,7 @@ Paper_book::classic_output (String outname)
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)
     out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),
-		      i == line_count - 1);
+		      0, i == line_count - 1);
   
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
   progress_indication ("\n");

@@ -1,5 +1,13 @@
 2004-03-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* ps/lilyponddefs.ps: Remove automatic page layout.
+
+	* scm/output-ps.scm (new-start-system): New interface function.
+
+	* lily/include/paper-outputter.hh (output_line): Add ORIGIN parameter.
+
+	* lily/paper-book.cc (output): Bugfix.
+
 	* Documentation/user/lilypond.tely: Bugfix: Remove './' from
 	direntries.
 

@@ -1,4 +1,6 @@
 %!PS-Adobe-2.0: lilyponddefs.ps
+% TODO:
+%  * junk all magic, start-line/stop-line just: placebox @ x.y
 %
 % Functions for direct PostScript output
 
@@ -11,9 +13,6 @@
 /staff-height lilypondpaperstaffheight def
 /line-width lilypondpaperlinewidth def
 
-% FIXME: why isn't this set (by default) by lily?
-% /text-height lilypondpapertextheight def
-
 /lily-output-units 2.83464  def  %% milimeter
 % /lily-output-units 0.996264  def  %% true points.
 
@@ -22,12 +21,6 @@
 /set-ps-scale-to-lily-scale { output-scale output-scale scale } bind def
 
 /paper-size { lilypondpaperpapersize } bind def
-
-%% FIXME: base-line-skip is too big, is this RIGHT?
-%% /line-height 14 staff-space mul def
-%% /base-line-skip lilypondpaperlineheight def
-%%/base-line-skip lilypondpaperlineheight lilypondpaperoutputscale div def
-/base-line-skip 0 def
 
 /init-paper {
 	gsave
@@ -80,10 +73,6 @@
 
 /start-page
 {
-    %/line-x left-margin output-scale div def
-    %/line-y vsize top-margin sub def
-    /line-x 0 def
-    /line-y vsize def
 } bind def
 
 /stop-page
@@ -91,156 +80,27 @@
     showpage
 } bind def
 
-% dump using baselineskip, fold to new page
-/start-system % height
+/stop-last-page
 {
-	dup base-line-skip gt {
-		/line-height exch def
-	}
-	{
-		pop /line-height base-line-skip def
-	} ifelse
-	line-y top-margin sub base-line-skip lt {
-		showpage
-		/line-y vsize top-margin sub def
-	} if
-	gsave
-	line-x line-y translate
+} bind def
+
+/start-system % x y
+{
+    gsave
+    exch output-scale mul exch
+    output-scale mul vsize exch sub translate
 } bind def
 
 /stop-system
 { 
-	/the-line exch def
-	the-line
-	stroke
-	grestore
-	line-y line-height output-scale mul sub /line-y exch def
-} bind def
-
-% FIXME: font definitions should come from LilyPond
-%        built-in ps fonts are ugly
-/huge-bold-font {
-	/Palatino-Bold findfont 20.7 scalefont setfont
-} bind def
-
-/Large-bold-font {
-	/Palatino-Bold findfont 17.3 scalefont setfont
-} bind def
-
-/large-bold-font {
-	/Palatino-Bold findfont 14.4 scalefont setfont
-} bind def
-
-/large-font {
-	/Palatino-Roman findfont 14.4 scalefont setfont
-} bind def
-
-/large-smallcaps-font {
-	% urg
-	/Bookman-Light findfont 14.4 scalefont setfont
-} bind def
-
-/normal-font {
-	/Palatino-Roman findfont 12 scalefont setfont
-} bind def
-
-/footnote-font {
-	/Palatino-Roman findfont 10 scalefont setfont
-} bind def
-
-/get-text-dimensions % path .. width height
-{
-	dup true charpath pathbbox
-	newpath
-	line-x line-y moveto
- 	exch 4 -1 roll
-	sub
-	3 1 roll
-	exch sub
-} bind def
-
-/set-centered
-{
-	line-x line-y moveto
-	get-text-dimensions
-	neg line-y add /line-y exch def
-	neg line-width add 2 div 0 rmoveto
-	show
-} bind def
-
-/set-left
-{
-	line-x line-y moveto
-	get-text-dimensions
-	neg line-y add /line-y exch def
-	pop
-	show
-} bind def
-
-/set-right
-{
-	line-x line-y moveto
-	get-text-dimensions
-	neg line-y add /line-y exch def
-	neg line-width add 0 rmoveto
-	show
-} bind def
-
-/make-lilypond-title
-{
-	currentdict /lilyponddedication known {
-		normal-font lilyponddedication set-centered
-		line-y 10 sub /line-y exch def
-	} if
-	currentdict /lilypondtitle known {
-		huge-bold-font lilypondtitle set-centered
-		line-y 5 sub /line-y exch def
-	} if
-	currentdict /lilypondsubtitle known {
-		Large-bold-font lilypondsubtitle set-centered
-		line-y 5 sub /line-y exch def
-	} if
-	currentdict /lilypondsubsubtitle known {
-		large-bold-font lilypondsubsubtitle set-centered
-	} if
-	line-y /mini-page exch def
-	currentdict /lilypondcomposer known {
-		large-smallcaps-font lilypondcomposer set-right
-		line-y 2 sub /line-y exch def
-	} if
-	currentdict /lilypondopus known {
-		normal-font lilypondopus set-right
-		line-y 3 sub /line-y exch def
-	} if
-	currentdict /lilypondarranger known {
-		normal-font lilypondarranger set-right
-		line-y 3 sub /line-y exch def
-	} if
-	currentdict /lilypondpoet known {
-		mini-page /line-y exch def
-		normal-font lilypondpoet set-left
-		line-y 3 sub /line-y exch def
-	} if
-	currentdict /lilypondtexttranslator known {
-		normal-font lilypondtexttranslator set-left
-		line-y 3 sub /line-y exch def
-	} if
-	currentdict /lilypondinstrument known {
-		large-font lilypondinstrument set-centered
-	} if
-	currentdict /lilypondpiece known {
-		large-smallcaps-font lilypondpiece set-left
-	} if
+    /the-line exch def
+    the-line stroke grestore
 } bind def
 
 /end-lilypond-output
 {
-	/line-y top-margin def
-	footnote-font lilypondtagline set-left
-	showpage
+%    showpage
 } bind def
-
-/turnOnExperimentalFeatures { } bind def
 
 staff-line-thickness setlinewidth
 
@@ -249,10 +109,5 @@ paper-size
 
 % initialise paper dimensions
 staff-height init-paper
-
-%/line-x left-margin output-scale div def
-%/line-y vsize top-margin sub def
-/line-x 0 def
-/line-y vsize def
 
 % end lilyponddefs.ps
