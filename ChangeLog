@@ -1,3 +1,7 @@
+2005-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/*: Oops, more grand 2005 replace bits.
+
 2005-02-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ps/music-drawing-routines.ps: new routine: insert PDF mark

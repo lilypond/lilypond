@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  2001--2004 Stephen Peters <portnoy@portnoy.org>
+;;;; (c) 2001--2005 Stephen Peters <portnoy@portnoy.org>
 
 
 ;currently no font commands; this is a helper for pdftex.scm.
