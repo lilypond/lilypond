@@ -3516,6 +3516,8 @@ Klaus Ignatzek (See @ref{Literature}).
 
 [TODO: add description for banter other jazz.]
 
+[TODO: describe tweak options, chordNameFunction,chordNameExceptions,
+majorSevenSymbol, chordNameSeparator]
 
 @node Writing parts
 @section Writing parts

@@ -1,5 +1,7 @@
 2003-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py (check_texidoc): add no-texidoc to options
+
 	* lily/new-chord-name-engraver.cc (process_music): give original
 	inversion pitch to chord name routine.
 

@@ -2341,15 +2341,15 @@ The second file, @file{input/tutorial/os-score.ly}, reads the
 definitions of the first (@file{input/tutorial/os-music.ly}), and
 defines the @code{\score} block for the full conductor's score.
 
-@verbatim
+@example
 \version "1.7.6"
 
 \include "os-music.ly"
 \include "paper13.ly"
 
 #(ly:set-point-and-click 'line-column)
-textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
-\score {
+textFlat = \markup @{\smaller \musicglyph #"accidentals--1"@}
+\score @{
   <
     \global
     \property Score.BarNumber \override #'padding = #3
@@ -2359,14 +2359,14 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
 	\property Staff.instrument = "2 Flauti"
 	\property Staff.instr = "Fl."
         \Key
-	\context Voice=one { \voiceOne \flautoI }
-	\context Voice=two { \voiceTwo \flautoII }
+	\context Voice=one @{ \voiceOne \flautoI @}
+	\context Voice=two @{ \voiceTwo \flautoII @}
       >
     >
     \context StaffGroup = timpani <
       \context Staff = timpani <
 	\property Staff.midiInstrument = #"timpani"
-	\property Staff.instrument = \markup { \column <<  "Timpani" "(C-G)" >> }
+	\property Staff.instrument = \markup @{ \column <<  "Timpani" "(C-G)" >> @}
 	\property Staff.instr = #"Timp."
 	\clef bass
         \Key
@@ -2376,8 +2376,8 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
     \context StaffGroup = brass <
       \context Staff = trombe <
   	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = \markup { \column << "2 Trombe" "(C)" >> }
-	\property Staff.instr = \markup{ \column << "Tbe." "(C)">> }
+	\property Staff.instrument = \markup @{ \column << "2 Trombe" "(C)" >> @}
+	\property Staff.instr = \markup@{ \column << "Tbe." "(C)">> @}
         \Key
 	\context Voice=one \partcombine Voice
 	  \context Thread=one \tromboI
@@ -2386,36 +2386,33 @@ textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
       \context Staff = corni <
         \property Staff.midiInstrument = #"french horn"
 	\property Staff.instrument
-	= \markup { \column << "Corno" { "(E"  \textFlat ")" } >> }
+	= \markup @{ \column << "Corno" @{ "(E"  \textFlat ")" @} >> @}
 	\property Staff.instr =
-	\markup { \column << "Cor." { "(E"  \textFlat ")" } >> }
+	\markup @{ \column << "Cor." @{ "(E"  \textFlat ")" @} >> @}
 	\property Staff.transposing = #3
 	\notes \key bes \major
 	\context Voice=one \corno
       >
     >
   >
-  \paper {
+  \paper @{
     indent = 15 * \staffspace
     linewidth = 60 * \staffspace
     textheight = 90 * \staffspace
-    \translator{
+    \translator@{
       \VoiceContext
       \consists "Multi_measure_rest_engraver"
-    }
-    \translator{
+    @}
+    \translator@{
       \HaraKiriStaffContext
       \remove "Multi_measure_rest_engraver"
-    }
-  }
-  \midi {
+    @}
+  @}
+  \midi @{
     \tempo 4 = 75
-  }
-}
-
-
-
-@end verbatim
+  @}
+@}
+@end example
 
 @center @strong{Zo, goed lieverd?}
 @sp 1

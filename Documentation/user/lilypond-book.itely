@@ -310,6 +310,9 @@ use no indentation.
 Set indentation of the first music system to zero.  This option
 affects LilyPond, not the text layout.
 
+@item notexidoc
+Do not include the .texidoc header. This is only for Texinfo output.
+
 @item noquote
 By default, @command{lilypond-book} puts both La@TeX{} and texinfo output
 into a quotation block.  Using this option prevents this; no indentation

@@ -42,7 +42,7 @@ rules.
 @node Jazz chords
 @section Jazz chords
 
-@lilypondfile{chords-ignatzek.ly}
+@lilypondfile[notexidoc]{chords-ignatzek.ly}
 
 @node MIDI instruments
 @section MIDI instruments
