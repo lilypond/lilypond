@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% looks like an old file; probably delete.
 
 \score{
 	\notes \transpose c c'{
@@ -8,6 +8,6 @@
 %		@c1@ @c-7@ @c-7^5@-1-3
 		\chords { c1 c:7 c:7^5 }
 	}
-
+	\paper { raggedright=##t}
 }
 %% new-chords-done %%

@@ -1,10 +1,9 @@
 \version "1.7.18"
-\header {
+% possible rename to scheme- or something like that.  -gp
+\header { texidoc= "@cindex Scheme Manual Accidentals
+Positions of accidentals may be manually set. This
+involves some scheme code. " }
 
-	 texidoc= "Positions of accidentals may be manually set. This
-involves some scheme code."
-
-}
 #(define (make-acc-position-checker pos)
   (lambda (elt)
    (and

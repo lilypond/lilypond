@@ -1,4 +1,5 @@
 \version "1.7.18"
+% pretty similar to hshift.ly.  Probably delete soon.
 
 \score { 
   \context Voice \notes\relative c {
@@ -30,6 +31,5 @@
   \paper {
     raggedright = ##t
   }  
-  \midi { }
 }
 %% new-chords-done %%

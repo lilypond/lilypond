@@ -10,6 +10,8 @@
 
 	* input/test/note-chords.ly: renamed to chord-names-no-inversions.ly.
 
+	* input/test/[l-o]*.ly: added texidoc index.
+
 2003-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): 

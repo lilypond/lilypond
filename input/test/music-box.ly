@@ -1,13 +1,11 @@
-
-\header{
-texidoc = "This example shows prelude in C major of WTK1, but coded
-using Scheme functions to save typing work.
-"
-
-}
-
-\include "deutsch.ly"
 \version "1.7.18"
+\include "deutsch.ly"
+% possible rename to scheme- something.  -gp
+% TODO: ask if it needs to have so many empty bars in the middle.  -gp
+\header{ texidoc = "@cindex Scheme Music Box
+This example shows prelude in C major of WTK1, but coded
+using Scheme functions to avoid typing work. " }
+
 
 #(define (transform music)
   (let* ((es (ly:get-mus-property music 'elements))

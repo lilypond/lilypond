@@ -1,4 +1,9 @@
 \version "1.7.18"
+% possible rename to bar-lines-foo.  -gp
+
+\header{ texidoc = "@cindex Bar Lines Remove
+You can stop Lilypond from printing bar lines by removing the engraver. "
+}
 
 \score {
   \notes \relative c'' {

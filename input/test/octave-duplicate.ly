@@ -1,6 +1,6 @@
 \version "1.7.18"
-\header {
-texidoc="Octave duplicate parts of music"
+\header { texidoc="@cindex Octave Doubling
+Octave doubling parts of music. "
 }
 
 upperOne = \notes\relative c'' {

@@ -1,9 +1,10 @@
 \version "1.7.18" 
 
-\header{
-texidoc="
-In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
-"
+\header{ texidoc="@cindex Nested Staff Groups
+Lilypond can print nested groups of staffs. "
+
+%   old texidoc; it sounds like a testing comment, rather than an "example" comment.
+%In InnerStaffGroup and InnerChoirStaff, the brackets should be shiftet leftwards.
 }
 
 \score { \notes

@@ -1,7 +1,12 @@
 \version "1.7.18"
+% possible rename to staff-something.  -gp
+
+\header{ texidoc = "@cindex Staff Remove
+You can stop Lilypond from printing the staff by removing the engraver. "
+}
 
 \score {
-  \notes { c4 c4 c8 c8 }
+  \notes { c4 d4 e8 d8 }
   \paper {
     raggedright = ##t
     \translator {
