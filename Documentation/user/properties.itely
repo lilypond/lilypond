@@ -56,7 +56,7 @@ TODO:
     longa notes which are square shaped as in the @code{'mensural} 
     style.
 
-    @mudela[center,verbatim]
+@mudela[center,verbatim]
       \score {
         \notes { 
           \property Staff.barNonAuto = 1
@@ -540,7 +540,7 @@ no clef is printed upon creation.
     The different time signature characters are shown below with its
     names:
 
-    @mudela[center,verbatim]
+@mudela[center,verbatim]
 
       \score {
         \notes\relative c'' {
