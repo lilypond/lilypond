@@ -69,9 +69,7 @@ which is put into a percussion-Staff, will be typeset as the rythm of
 that voice.
 
 After C<Staff> made up her mind, the resultant items and
-spanners are put on the PScore, and pointers to these items are
-stored in the C<Voice_element>. This construction enables the
-beams/stems to look up the balls it has to connect to. 
+spanners are put on the PScore.
 
 =over 5
 
@@ -191,10 +189,10 @@ commands (like INTERPRET) may follow this sequence.
 
 =head1 SPACING
 
-I think my way is the most elegant algorithm i've seen so far.  Some
-terminology: I call a vertical group of symbols (notes) which start at
-the same time a "column".  Each line of a score has notes in it,
-grouped in columns. The difference in starting time between those
+I think my method is the most elegant algorithm i've seen so far.
+Some terminology: I call a vertical group of symbols (notes) which
+start at the same time a "column".  Each line of a score has notes in
+it, grouped in columns. The difference in starting time between those
 columns makes it possible to determine ideal distances between those
 columns.
 
