@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.49"
 
 \header{
 texidoc="
@@ -8,7 +8,7 @@ In some cases, you may want to set slur attachments by hand.
 
 
 fragment = \notes {
-  \property Voice.noAutoBeaming = ##t
+  \property Voice.autoBeaming = ##f
   \property Voice.Stem \set #'direction = #1
   \property Voice.Slur \set #'direction = #1
   d'32( f'4 )d8..

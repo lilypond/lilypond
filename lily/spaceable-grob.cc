@@ -46,7 +46,9 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
 {
   if (d < 0.0 || strength <= 0.0)
     {
-      programming_error ("Adding reverse spring!");
+      programming_error ("Adding reverse spring! Setting to unit spring");
+      d = 1.0;
+      strength = 1.0;
     }
   
 #ifndef NDEBUG

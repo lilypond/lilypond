@@ -88,8 +88,8 @@ Beam_engraver::try_music (Music *m)
 	  if (d == STOP)
 	    {
 	      SCM m = get_property ("automaticMelismata");
-	      SCM b = get_property ("noAutoBeaming");
-	      if (to_boolean (m) && to_boolean (b))
+	      SCM b = get_property ("autoBeaming");
+	      if (to_boolean (m) && !to_boolean (b))
 		{
 		  set_melisma (false);
 		}
@@ -179,8 +179,8 @@ Beam_engraver::start_translation_timestep ()
   if (beam_p_)
     {
       SCM m = get_property ("automaticMelismata");
-      SCM b = get_property ("noAutoBeaming");
-      if (to_boolean (m) && to_boolean (b))
+      SCM b = get_property ("autoBeaming");
+      if (to_boolean (m) && !to_boolean (b))
 	{
 	  set_melisma (true);
 	}

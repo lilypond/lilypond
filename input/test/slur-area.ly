@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.49"
 
 \score{
 \notes\relative c''{
@@ -17,7 +17,7 @@ a(a a a a a d)a
 c,(g' c e f d b)g 
 c,(g' c e f d b)g 
 
-\property Voice.noAutoBeaming = ##t
+\property Voice.autoBeaming = ##f
 \stemUp
 a8(a a a a a a)a
 

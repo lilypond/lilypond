@@ -376,13 +376,13 @@ ScoreContext = \translator {
 	centralCPosition = #-6
 	
         automaticPhrasing = ##t
-
+	
 	defaultBarType = #"|"
 
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
 	autoBeamSettings = #auto-beam-settings
-
+	autoBeaming = ##t
 	scriptDefinitions = #default-script-alist
 
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback

@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.49"
 %K000.ly LilyPond 1.2.16
 \header {
 title="John's Scarlatti quotes"
@@ -33,8 +33,8 @@ ls={\property Voice.forceHorizontalShift="-0.6"}
 sls={\property Voice.forceHorizontalShift="-0.22"}
 rs={\property Voice.forceHorizontalShift="0.6"}
 srs={\property Voice.forceHorizontalShift="0.22"}
-ab={\property Voice.noAutoBeaming=##f}
-xb={\property Voice.noAutoBeaming=##t}
+ab={\property Voice.autoBeaming = ##t}
+xb={\property Voice.autoBeaming = ##f}
 %}
 
 

@@ -1,4 +1,4 @@
-\version "1.5.1"
+\version "1.5.49"
 
 \header {
   dedication = "dedication"
@@ -34,7 +34,7 @@ accompaniment = \chords {
     \context ChordNames \accompaniment
     \addlyrics
       \context Staff = one {
-        \property Staff.noAutoBeaming = ##t
+        \property Staff.autoBeaming = ##f
         \property Staff.automaticMelismata = ##t
         \melody
       }

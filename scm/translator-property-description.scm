@@ -263,10 +263,8 @@ top of those automatically detected. ")
 MIDI instrument to use ")
 (translator-property-description 'midiMinimumVolume number? "[DOCUMENT-ME]")
 (translator-property-description 'midiMaximumVolume number? "[DOCUMENT-ME]")
-
-
-(translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
-")
+(translator-property-description 'autoBeaming boolean? "If set to true
+then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
 (translator-property-description 'oneBeat moment? "  How long does one beat in the current time signature last?")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is

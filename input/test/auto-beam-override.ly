@@ -1,7 +1,5 @@
 \version "1.3.146"
 
-
-
 %{
   Currently (1.1.27.jcn3), the auto-beam engraver will only engrave
   sensible beams, which means that it will end a beam when:
@@ -29,7 +27,7 @@
       	c8 c c4
       	r8 c c c
 	% no autobeaming
-	\property Voice.noAutoBeaming = ##t
+	\property Voice.autoBeaming = ##f
       	c8 c c c
     }
     \paper{

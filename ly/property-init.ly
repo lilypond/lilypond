@@ -119,8 +119,8 @@ endincipit = \notes{
     \bar ""
 }
 
-autoBeamOff = \property Voice.noAutoBeaming = ##t
-autoBeamOn = \property Voice.noAutoBeaming = ##f
+autoBeamOff = \property Voice.autoBeaming = ##f
+autoBeamOn = \property Voice.autoBeaming = ##t
 
 emptyText = \property Voice.textNonEmpty = ##f
 fatText = \property Voice.textNonEmpty = ##t

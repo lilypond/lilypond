@@ -153,7 +153,7 @@
    (ly-number->string x1)
    " "
    (ly-number->string y1)
-   " moveto"
+   " moveto "
    (ly-number->string x2)
    " "
    (ly-number->string y2)

@@ -1,3 +1,4 @@
+\version "1.5.49"
 
 \header {
         title = "The river is flowing"
@@ -31,7 +32,7 @@ accompaniment =\chords {
 
           \addlyrics
              \context Staff = mel
-             {	\property Staff.noAutoBeaming = ##t
+             {	\property Staff.autoBeaming = ##f
 		\property Staff.automaticMelismata = ##t
           	\melody }
              \context Lyrics \text

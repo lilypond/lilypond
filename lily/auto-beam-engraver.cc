@@ -191,8 +191,8 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {
-  bool off = to_boolean (get_property ("noAutoBeaming"));
-  if (!stem_l_arr_p_ && ! off)
+  bool on = to_boolean (get_property ("autoBeaming"));
+  if (!stem_l_arr_p_ && on)
     {
       bool b = test_moment (START, test_mom);
       if (b)
@@ -206,7 +206,7 @@ Auto_beam_engraver::consider_end (Moment test_mom)
   if (stem_l_arr_p_)
     {
       /* Allow already started autobeam to end:
-	 don't check for noAutoBeaming */
+	 don't check for autoBeaming */
       bool b = test_moment (STOP, test_mom);
       if (b)
 	end_beam ();
@@ -481,5 +481,5 @@ stemRightBeamCount.
 ",
 /* creats*/       "Beam",
 /* acks  */       "stem-interface rest-interface beam-interface bar-line-interface",
-/* reads */       "noAutoBeaming autoBeamSettings subdivideBeams",
+/* reads */       "autoBeaming autoBeamSettings subdivideBeams",
 /* write */       "");

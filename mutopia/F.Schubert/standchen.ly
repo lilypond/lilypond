@@ -41,7 +41,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.3.146"
+\version "1.5.49"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -376,7 +376,7 @@ lyricStaff = \context Lyrics {
 vocals = \context Voice \notes {
 	\clef treble
  	% certainly no auto-beaming for vocals
- 	\property Voice.noAutoBeaming = ##t
+ 	\property Voice.autoBeaming = ##f
 	\property Staff.automaticMelismata= ##t
 
 	\dynamicUp

@@ -7,7 +7,7 @@ texidoc = "The flags of 8th notes take some space, but not
 }
 
 \score { \notes \relative c'' \context Staff {
-    \property Voice.noAutoBeaming = ##t
+    \property Voice.autoBeaming = ##f
     [a8 a8 a8 a8] a8 a8 a8 a8
 }
 \paper {
@@ -15,3 +15,5 @@ texidoc = "The flags of 8th notes take some space, but not
 linewidth = -1
     }
      }
+
+\version "1.5.49"
