@@ -18,6 +18,7 @@ class Global_translator : public virtual Translator {
     Moment last_mom_;
 public:
     Score *score_l_;
+    
     Global_translator();
     int moments_left_i()const;
     void modify_next(Moment&);
@@ -27,8 +28,11 @@ public:
     virtual void prepare(Moment);
     virtual void process() {}
     virtual void finish() {}
+    virtual void start() {}
     
+    NAME_MEMBERS();
 protected:
+    
     virtual Global_translator *global_l() { return this; }
     virtual int depth_i() const;
     virtual Translator *ancestor_l(int);
