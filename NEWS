@@ -1,3 +1,11 @@
+pl 24
+	- internationalization preps (FP)
+	- rewrote make-patch in python
+	- BUGS: added another flex/libio crash explanation
+	- feta: flags
+
+
+********
 pl 23
 	- feta changes: 1/4 rest, flat, bf 8-128 rest
 	- bf: cadenza
@@ -5,6 +13,7 @@ pl 23
 	- bf: rest-collision
 	- bf: meter placement
 	- junked cpgento.sh
+
 *********
 
 pl 22
