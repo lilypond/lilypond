@@ -30,7 +30,7 @@
 (define (global-filledbox width dy dx height x y)
   (string-append
    "fp((0,0,0))\n"
-   "lw(0.5)\n"
+   "lw(0.1)\n"
    "r("
    (sk-numbers->string
     (map global-mul-scale (list width dy dx height x y)))
@@ -55,7 +55,7 @@
 		 )
     (string-append
      "fp((0,0,0))\n"
-     "lw(0.5)\n"
+     "lw(0.1)\n"
      "b()\n"
      (global-bezier first)
      (global-bezier second)
@@ -109,12 +109,14 @@
 	  `(string-append
 	    "fp((0,0,0))\n"
 	    "le()\n"
-	    "lw(0.5)\n"
-;; urg, Sketch can't handle non-text fonts
+	    "lw(0.1)\n"
 ;;	    "Fn('" global-font "')\n"
-	    "Fn('Times-Roman')\n"
-	    "Fs(12)\n"
-	    "txt('" ,(ascii->string i) "',("
+;;	    "Fn('Times-Roman')\n"
+	    "Fn('TeX-feta20')\n"
+	    "Fs(20)\n"
+	    ;; chars > 128 don't work yet
+	    "txt('" ,(ascii->string (modulo i 128)) "',("
+;;	    "char(" ,(number->string i)  ",("
 	    (sk-numbers->string (list (* global-scale global-x)
 				      (* global-scale global-y)))
 	    "))\n")))
