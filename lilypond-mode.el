@@ -588,6 +588,7 @@ command."
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map [S-iso-lefttab] 'LilyPond-autocompletion)
+  (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
 
 ;;; Menu Support
@@ -689,52 +690,83 @@ command."
 	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
 
+(defun LilyPond-pre-word-search ()
+  "Fetch the alphabetic characters and \\ in front of the cursor."
+  (interactive)
+  (let ((pre "")
+	(prelen 0)
+	(ch (char-before (- (point) 0))))
+    (while (and ch (or (and (>= ch 65) (<= ch 90)) ; not bolp, A-Z
+		       (and (>= ch 97) (<= ch 122)) ; a-z
+		       (= ch 92))) ; \\
+      (setq pre (concat (char-to-string ch) pre))
+      (setq prelen (+ prelen 1))
+      (setq ch (char-before (- (point) prelen))))
+    pre))
+
+(defun LilyPond-post-word-search ()
+  "Fetch the alphabetic characters behind the cursor."
+  (interactive)
+  (let ((post "")
+	(postlen 0)
+	(ch (char-after (+ (point) 0))))
+    (while (and ch (or (and (>= ch 65) (<= ch 90)) ; not eolp, A-Z
+		       (and (>= ch 97) (<= ch 122)))) ; a-z
+      (setq post (concat post (char-to-string ch)))
+      (setq postlen (+ postlen 1))
+      (setq ch (char-after (+ (point) postlen))))
+    post))
+
 (defun LilyPond-autocompletion ()
   "Show completions in mini-buffer for the given word."
   (interactive)
-
-  ; search the begin of word: add [A-Za-z\\] until bolp/non-alpha
-  (setq pre "")
-  (setq prelen 0)
-  (setq ch (char-before (- (point) prelen)))
-  (while (and ch (or (and (>= ch 65) (<= ch 90)) ; bolp, A-Z
-		     (and (>= ch 97) (<= ch 122)) ; a-z
-		     (= ch 92))) ; \\
-    (setq pre (concat (char-to-string ch) pre))
-    (setq prelen (+ prelen 1))
-    (setq ch (char-before (- (point) prelen))))
-
-  ; search the end of word: add [A-Za-z] until eolp/non-alpha
-  (setq post "")
-  (setq postlen 0)
-  (setq ch (char-after (+ (point) postlen)))
-  (while (and ch (or (and (>= ch 65) (<= ch 90)) ; eolp, A-Z
-		     (and (>= ch 97) (<= ch 122)))) ; a-z
-    (setq post (concat post (char-to-string ch)))
-    (setq postlen (+ postlen 1))
-    (setq ch (char-after (+ (point) postlen))))
-  
+  (let ((pre (LilyPond-pre-word-search))
+	(post (LilyPond-post-word-search))
+	(compsstr ""))
   ; insert try-completion and show all-completions
-  (if (> prelen 0)
-      (progn
-	(setq trycomp (try-completion pre (LilyPond-add-dictionary-word ())))
-	(if (char-or-string-p trycomp)
-	    (if (string-equal (concat pre post) trycomp)
-		(goto-char (+ (point) postlen))
-	      (progn
-		(delete-region (point) (+ (point) postlen))
-		(insert (substring trycomp prelen nil))))
-	  (progn
-	    (delete-region (point) (+ (point) postlen))
-	    (font-lock-fontify-buffer))) ; only inserting fontifies
+    (if (> (length pre) 0)
+	(progn
+	  (setq trycomp (try-completion pre (LilyPond-add-dictionary-word ())))
+	  (if (char-or-string-p trycomp)
+	      (if (string-equal (concat pre post) trycomp)
+		  (goto-char (+ (point) (length post)))
+		(progn
+		  (delete-region (point) (+ (point) (length post)))
+		  (insert (substring trycomp (length pre) nil))))
+	    (progn
+	      (delete-region (point) (+ (point) (length post)))
+	      (font-lock-fontify-buffer))) ; only inserting fontifies
 	
-	(setq compsstr "")
 	(setq complist (all-completions pre (LilyPond-add-dictionary-word ())))
 	(while (> (length complist) 0)
 	  (setq compsstr (concat compsstr "\"" (car complist) "\" "))
 	  (setq complist (cdr complist)))
 	(message compsstr) 
-	(sit-for 0 100 1))))
+	(sit-for 0 100 1)))))
+
+(defun LilyPond-info ()
+  "Launch Info for lilypond."
+  (interactive)
+  (info "lilypond"))
+  
+(defun LilyPond-music-glossary-info ()
+  "Launch Info for music-glossary."
+  (interactive)
+  (info "music-glossary"))
+(defun LilyPond-internals-info ()
+  "Launch Info for lilypond-internals."
+  (interactive)
+  (info "lilypond-internals"))
+  
+(defun LilyPond-info-index-search ()
+  "Inside Emacs, launch `info lilypond --index-search word-under-cursor'"
+  (interactive)
+  (let ((str (concat (LilyPond-pre-word-search) (LilyPond-post-word-search))))
+    (if (and (> (length str) 0) 
+	     (string-equal (substring str 0 1) "\\"))
+	(setq str (substring str 1 nil)))
+    (LilyPond-info)
+    (Info-index str)))
 
 (defun LilyPond-insert-string (pre)
   "Insert text to the buffer."
@@ -854,6 +886,12 @@ command."
 	     ["Comment Region" comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
  	     ))
+	  '(("Info"
+	     ["LilyPond" LilyPond-info t]
+	     ["LilyPond index-search" LilyPond-info-index-search t]
+	     ["Music Glossary" LilyPond-music-glossary-info t]
+	     ["LilyPond internals" LilyPond-internals-info t]
+	     ))
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z]+\\) *="
