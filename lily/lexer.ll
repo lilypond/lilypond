@@ -801,7 +801,7 @@ strip_trailing_white (String&s)
 
 
 /* 2.1.2x something -> \property -> \set. */ 
-Lilypond_version oldest_version ("2.2.0");
+Lilypond_version oldest_version ("2.3.22");
 
 
 bool

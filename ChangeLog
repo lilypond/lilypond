@@ -1,5 +1,7 @@
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/lexer.ll (Lily_lexer): bump version req to 2.3.22.
+
 	* lily/parser.yy (Prefix_composite_music): change no-transposition
 	for mode_changing_head to figures too.
 
