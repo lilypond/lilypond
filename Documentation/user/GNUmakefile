@@ -17,16 +17,12 @@ PDF_FILES = $(DVI_FILES:.dvi=.pdf)
 
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
-INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
+INFO_DOCS = lilypond lilypond-internals music-glossary
+INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly-set-option (quote internal-type-checking) \#t)"'
-
-# Hmm, what about?
-# local-dist: check-info
-
-info: #  check-info  # -> reinstate when actively hacking doco.
 
 include $(depth)/make/stepmake.make 
 

@@ -1,6 +1,6 @@
 \input texinfo  @c -*-texinfo-*-
 @settitle Music Glossary
-@setfilename glosssary.info
+@setfilename music-glosssary.info
 
 @html
 <!--- @@WEB-TITLE@@=Music Glossary --->
@@ -84,9 +84,17 @@ they look too intrusive (says Han-Wen).
 
 
 @c If we want hypelinks, we must add anchors.
+@c Hmm, we need the @achor command in the item description itself
+@c (not before or after) to get mozilla jump to the right place.
 @c anchoritem
 @macro aitem{word}
-@anchor{\word\}@item \word\
+@item \word\@anchor{\word\}
+@end macro
+@macro aitemii{one,two}
+@item \one\; \two\@anchor{\one\; \two\}@anchor{\one\}
+@end macro
+@macro aitemiii{one,two,three}
+@item \one\; \two\; \three\@anchor{\one\; \two\; \three\}@anchor{\one\}
 @end macro
 
 
@@ -394,8 +402,7 @@ DK: h,
 S: h,
 N: h.
 
-@aitem{backfall; forefall}
-@anchor{backfall}
+@aitemii{backfall,forefall}
 @aref{appoggiatura}.
 
 @aitem{bar line}
@@ -748,8 +755,7 @@ N: ?.
 
 Use of tones extraneous to a @aref{diatonic scale} (minor, major).
 
-@aitem{church mode; ecclesiastical mode}
-@anchor{church mode}@anchor{ecclesiastical mode}
+@aitemii{church mode,ecclesiastical mode}
 ES: modo eclesi@'astico,
 I: modo ecclesiastico,
 F: mode eccl@'esiastique,
@@ -1050,7 +1056,7 @@ of a piano keybord are diatonic.
 The church modes are used in gregorial chant and pre baroque early music but
 also to some extent in newer jazz music.
 
-@lilypond[13pt,notime]
+@lilypond[13pt,notime,linewidth=110mm]
 \property Score.barNonAuto = ##t
 \property Score.LyricText \set #'font-style = #'large
 \property Score.TextScript \set #'font-style = #'large
@@ -1188,7 +1194,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
   }
 @end lilypond
 
-@lilypond[13pt,notime,linewidth=110mm]
+@lilypond[13pt,notime]
 \property Score.barNonAuto = ##t
 \property Score.LyricText \set #'font-style = #'large
 \property Score.TextScript \set #'font-style = #'large
@@ -1250,8 +1256,7 @@ scale.  Opposite of @aref{conjunct movement}.
   fis2 d4. \bar "||" }
 @end lilypond
 
-@aitem{dissonant interval; dissonance}
-@anchor{dissonant interval}@anchor{dissonance}
+@aitemii{dissonant interval,dissonance}
 ES: intervalo disonante, disonancias,
 I: intervallo dissonante, dissonanza,
 F: dissonance,
@@ -1653,8 +1658,7 @@ N: ?.
 
 The methodical use of fingers in the playing of instruments.
 
-@aitem{flag; pennant}
-@anchor{flag}@anchor{pennant}
+@aitem{flag,pennant}
 ES: corchete,
 I: coda (uncinata), bandiera,
 F: crochet,
@@ -1691,8 +1695,7 @@ N: ?.
 
 @aref{accidental}.
 
-@aitem{forefall; backfall}
-@anchor{forefall}
+@aitemii{forefall,backfall}
 @aref{appoggiatura}.
 
 @aitem{forte}
@@ -2143,8 +2146,7 @@ The seventh @aref{scale degree}, a @aref{semitone} below
 the tonic; so called because of its strong tendency to ``lead up'' (resolve
 upwards) to the tonic scale degree.
 
-@aitem{ledger line; leger line}
-@anchor{ledger line}@anchor{leger line}
+@aitemii{ledger line,leger line}
 ES: l@'{@dotless{i}}neas adicionales,
 I: tagli addizionali,
 F: ligne suppl@'ementaire,
@@ -2252,6 +2254,16 @@ Note value: double length of @aref{breve}.
   g\longa
 }
 @end lilypond
+
+@aitemii{lyrics,song texts}
+ES: .,
+I: .,
+F: .,
+D: .,
+NL: liedtekst,
+DK: .,
+S: .,
+N: ..
 
 @aitem{major interval}
 ES: intervalo mayor,
@@ -2490,8 +2502,7 @@ N: ?.
 
 @aref{ornament}.
 
-@aitem{motive; motif}
-@anchor{motive}@anchor{motif}
+@aitemii{motive,motif}
 ES: tema,
 I: inciso,
 F: incise,
@@ -2699,8 +2710,7 @@ N: ?.
 
 @aref{interval}.
 
-@aitem{ornament; embellishment; accessory}
-@anchor{ornament}@anchor{embellishment}@anchor{accessory}
+@aitemiii{ornament,embellishment,accessory}
 ES: adorno,
 I: abbellimento, fioriture,
 F: agr@'ement, ornement,
@@ -3545,8 +3555,7 @@ the underlaying (normal) pulse and the actual (abnormal) rhythm.
 }
 @end lilypond
 
-@aitem{syntonic comma; dydimic comma}
-@anchor{syntonic comma}
+@aitemii{syntonic comma,dydimic comma}
 I: comma sintonico (o didimico),
 F: comma syntonique,
 D: syntonisches Komma,
@@ -3661,8 +3670,7 @@ N: ?.
 
 @aref{note value}.
 
-@aitem{thorough bass; figured bass}
-@anchor{thorough bass}
+@aitemii{thorough bass,figured bass}
 ES: bajo cifrado,
 I: basso continuo, basso numerato,
 F: basse chiffr@'ee,
@@ -3705,8 +3713,7 @@ with figures designating the chief @aref{interval}s and
 >
 @end lilypond
 
-@aitem{tie; bind}
-@anchor{tie}
+@aitemii{tie,bind}
 ES: ligadura de prolongaci@'on,
 I: legatura (di valore),
 F: liaison,
@@ -3847,8 +3854,7 @@ N: ?.
 
 @aref{chord}.
 
-@aitem{trill; shake}
-@anchor{trill}@anchor{shake}
+@aitemii{trill,shake}
 ES: trino,
 I: trillo,
 F: trille, tremblement, battement (cadence),
@@ -3909,8 +3915,7 @@ N: ?.
 A two-pronged piece of steel used to indicate absolute pitch.  Tuning forks
 give the international pitch for the tone @emph{a} (440 vibrations per second.)
 
-@aitem{turn; gruppetto}
-@anchor{turn}@anchor{gruppetto}
+@aitemii{turn,gruppetto}
 ES: grupo,
 I: gruppetto,
 F: grupetto,

@@ -86,12 +86,11 @@ The user @uref{../user/out-www/lilypond.html, manual in one big page},
 for easy searching, or look it up in the
 @uref{../user/out-www/lilypond/Index.html,index}.
 
-@c glossary maybe for new users?
  @item
- A  @uref{../user/out-www/glossary.html,glossary}  of musical
+ A  @uref{../user/out-www/music-glossary.html,glossary}  of musical
 terms, including translations.  (also in
-@uref{../user/out-www/glossary.ps.gz,PostScript} and
-@uref{../user/out-www/glossary.pdf,PDF}).  Read this if you're not
+@uref{../user/out-www/music-glossary.ps.gz,PostScript} and
+@uref{../user/out-www/music-glossary.pdf,PDF}).  Read this if you're not
 familiar with English terms for notation.
 
 @item Documentation of

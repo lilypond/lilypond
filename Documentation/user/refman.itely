@@ -119,6 +119,8 @@ To use them, simply include the language specific init file.  For
 example: @code{\include "english.ly"}.  The available language files and
 the note names they define are:
 
+@anchor{note name}
+@anchor{note names}
 @example 
                         Note Names               sharp       flat
 nederlands.ly  c   d   e   f   g   a   bes b   -is         -es

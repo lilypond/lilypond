@@ -1,3 +1,17 @@
+@c -*-texinfo-*-
+
+@c Only reference in HTML.
+@macro htmlref {NAME}
+@ifhtml
+@ref{\NAME\}@c
+@end ifhtml
+@ifnothtml
+\NAME\@c
+@end ifnothtml
+@end macro
+
+
+@c Reference ENGraver description
 @ifnottex
 @macro reng {word}
 @ref{ (lilypond-internals)\word\, \word\ }
@@ -12,6 +26,7 @@
 @end iftex
 
 
+@c Reference GROB description
 @ifnottex
 @macro rgrob {word}
 @ref{ (lilypond-internals)\word\, \word\ }
@@ -26,6 +41,7 @@
 @end iftex
 
 
+@c Reference INTernals document
 @ifnottex
 @macro rint {word}
 @ref{ (lilypond-internals)\word\, \word\ }
@@ -38,6 +54,19 @@
 \word\
 @end macro
 @end iftex
+
+
+@c Reference GLOSsary
+@macro rglos {NAME}
+@ifhtml
+@c ugh: @ref assumes that external refs are split documents too
+@uref{../music-glossary.html#\NAME\,\NAME\}@c
+@end ifhtml
+@ifnothtml
+\NAME\@c
+@end ifnothtml
+@end macro
+
 
 @ifnottex
 @macro texisharp {word}
@@ -97,41 +126,8 @@ $\\flat$%
 @end macro
 @end ifhtml
 
-@ignore
 
-@c Huh, do outline mode and texinfo really fight eachother?
-@c Outline can only use spaces to indent topic headers
-@c (or bullets, but then topics can't start with `@c').
-@c Texinfo can't have spaces in macro names.
-
-@macro c_ {word}
-\word\
-@node \word\
-@section \word\
-@end macro
-
-@macro c__ {word}
-\word\
-@menu
-* \word\::                      
-@end menu
-
-@node \word\
-@subsection \word\
-@end macro
-
-@macro c___ {word}
-\word\
-@node \word\
-@unnumberedsubsubsection \word\
-@end macro
-
-@macro c_ {word}
-@end macro
-
-@end ignore
-
-
+@c dup?
 @ifhtml
 @macro internalsref{NAME}
 @uref{../lilypond-internals/\NAME\.html,\NAME\}

@@ -39,9 +39,9 @@ complex examples.
 @node First steps
 @section First steps
 
-We start off by showing how very simple music is entered in
-LilyPond: You get a note simply by typing its note name, from
-@samp{a} through @samp{g}.  So if you enter
+We start off by showing how very simple music is entered in LilyPond:
+you get a note simply by typing its @htmlref{note name}, from @samp{a}
+through @samp{g}.  So if you enter
 
 @example
 c d e f g a b
@@ -59,7 +59,7 @@ We will continue with this format: First we show a snippet of input,
 then the resulting output.
 
 The length of a note is specified by adding a number, @samp{1} for a
-whole note, @samp{2} for a half note, and so on:
+@rglos{whole note}, @samp{2} for a @rglos{half note}, and so on:
 
 @example
 a1 a2 a4 a16 a32
@@ -71,7 +71,7 @@ a1 a2 a4 a16 a32
 \transpose c'' { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
-If you don't specify a duration, the previous one is used: 
+If you don't specify a @rglos{duration}, the previous one is used: 
 
 @example
 a4 a a2 a
@@ -82,10 +82,10 @@ a4 a a2 a
 \transpose c'' { a a a2 a s16_" " }
 @end lilypond
 
-A sharp (@texisharp{}) is made by adding @samp{is}, a flat
-(@texiflat{}) by adding @samp{es}.  As you would expect, a
-double-sharp or double-flat is made by adding @samp{isis} or
-@samp{eses}:
+A @rglos{sharp} (@texisharp{}) is made by adding @samp{is}, a
+@rglos{flat} (@texiflat{}) by adding @samp{es}.  As you would expect,
+a @rglos{double sharp} or @rglos{double flat} is made by adding
+@samp{isis} or @samp{eses}:
 
 @example
 cis1 ees fisis aeses
@@ -96,7 +96,8 @@ cis1 ees fisis aeses
 \transpose c'' { cis1 ees fisis aeses s16_" " }
 @end lilypond
 
-Add a dot @samp{.} after the duration to get a dotted note:
+Add a dot @samp{.} after the duration to get a @rglos{dotted note}:
+
 @example
 a2. a4 a8. a16
 @end example
@@ -106,7 +107,8 @@ a2. a4 a8. a16
 \transpose c'' { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
-The meter (or time signature) can be set with the @code{\time} command:
+The @rglos{meter} (or @rglos{time signature}) can be set with the
+@code{\time} command:
 
 @example
 \time 3/4
@@ -125,7 +127,7 @@ s4_" "
 s16_" "
 @end lilypond
 
-The clef can be set using the @code{\clef} command:
+The @rglos{clef} can be set using the @code{\clef} command:
 
 @c what is more common name treble or violin?
 @c in Dutch, its violin.
@@ -151,7 +153,7 @@ s16_" "
 
 When you enter these commands in a file, you must to enclose them in
 @code{\notes @{@dots{}@}}.  This lets LilyPond know that music (and
-not lyrics, for example) follows:
+not @rglos{lyrics}, for example) follows:
 
 @example
 \notes @{
