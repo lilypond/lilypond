@@ -92,9 +92,10 @@ EGCS 1.1 may work, but is no longer supported.
 WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
 distribution supports g++ 3.x and flex.  For workarounds, see
-lexer-gcc-3.0.patch and lexer-gcc-3.1.sh in the source directory.
+lexer-gcc-3.1.sh in the source directory.
 
-@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or newer).
+@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or
+newer, but not 1.50 or 1.75).
 
 @item @TeX{}.
 
@@ -181,32 +182,47 @@ work.
 
 To install GNU LilyPond, type
 @example 
-	gunzip -c lilypond-x.y.z | tar xf -
-	cd lilypond-x.y.z
-	./configure		# run with --help to see appropriate options
-	make
-	make install
-	sh buildscripts/clean-fonts.sh      
+gunzip -c lilypond-x.y.z | tar xf -
+cd lilypond-x.y.z
+./configure		# run with --help to see appropriate options
+make
+make install
+sh buildscripts/clean-fonts.sh      
 @end example 
 
 If, in addition, you want to generate PDF files of your scores and have 
 installed mftrace, type
 @example 
-        make pfa-fonts
-        make MAKE_PFA_FILES=1 install
-        texhash
+make pfa-fonts
+make MAKE_PFA_FILES=1 install
+texhash
 @end example 
 PFA versions of the fonts for the latest LilyPond version can also be
 obtained from the web site using
-@example 
-        mkdir /tmp/newfonts
-        cd /tmp/newfonts/
-        wget -l 1 -nd -r -A pfa,map http://lilypond.org/stable/mf/out/
-        mv *.pfa $LILYPONDSHARE/fonts/type1/
-        mv *.map $LILYPONDSHARE/dvips/
-        texhash
+@example
+@ignore
+# old stuff
+mkdir /tmp/newfonts
+cd /tmp/newfonts/
+wget -l 1 -nd -r -A pfa,map http://lilypond.org/stable/mf/out/
+mv *.pfa $LILYPONDSHARE/fonts/type1/
+mv *.map $LILYPONDSHARE/dvips/
+texhash
+@end ignore
+@c this matches the current type1-1.8.0.tar.gz tarball at lilypond.org
+@c better not change this before 1.8.1?
+wget -P/tmp ftp://ftp.lilypond.org/pub/LilyPond/v1.8/type1-1.8.0.tar.gz
+tar -C /usr/share/lilypond/1.8.0/fonts -xf /tmp/type1-1.8.0.tar.gz
+mv /usr/share/lilypond/1.8.0/ && mv fonts/type1/*.map /usr/share/lilypond/1.8.0/dvips
+texhash
 @end example 
-where @code{$LILYPONDSHARE} denotes @code{/usr/share/lilypond/1.7.*/} or
+@ignore
+@c this matches new font tarbal layout and should work for 1.8.1.
+wget -P/tmp ftp://ftp.lilypond.org/pub/LilyPond/v1.8/type1-1.8.1.tar.gz
+tar -C /usr/share/lilypond/1.8.1 -xf /tmp/type1-1.8.1.tar.gz
+texhash
+@end ignore
+where @code{$LILYPONDSHARE} denotes @code{/usr/share/lilypond/1.8.0/} or
 wherever LilyPond is installed on your system.
 
 If you are doing an upgrade, you should remove all @file{feta}
@@ -326,18 +342,6 @@ Gcc 3.0.4 is flaky;  upgrade GCC.
 
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
-Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
-LilyPond with gcc-3.0 you may do
-
-@example
-	CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
-	make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
-	patch -p1 < lexer-gcc-3.0.patch
-	make conf=gcc-3.0 -C lily
-@end example
-
-@unnumberedsubsec Flex-2.5.4a and gcc-3.1.x
-
 Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
 LilyPond with gcc-3.1.1 you may do
 
@@ -348,7 +352,6 @@ LilyPond with gcc-3.1.1 you may do
 	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
 	make conf=gcc-3.1
 @end example
-
 
 
 @unnumberedsubsec OpenBSD

@@ -1,3 +1,11 @@
+lilypond (1.8.0-11) unstable; urgency=low
+
+  * New upstream release.
+  * Build on 1.5.1.
+  * Omit moving of /usr/share/doc -> /usr/doc.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Thu,  7 Aug 2003 17:47:52 +0200
+
 lilypond (1.7.29-11) unstable; urgency=low
 
   * New upstream release; pre1.8 build.

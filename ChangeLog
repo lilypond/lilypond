@@ -1,3 +1,28 @@
+2003-08-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* python/gettext.py: Remove.  We already require python 2.1, which
+	includes gettext.py.
+
+	* configure.in: Require python 2.1, as INSTALL.texi says.
+	it.
+
+	* Documentation/topdocs/INSTALL.texi: Add note to avoid bison
+	versions 1.50 and 1.75.  Remove note about lexer patch.
+
+2003-08-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/INSTALL.texi: Update type1 font
+	description to actual situation.  Add comment about new font ball
+	layout.
+
+	* GNUmakefile.in (pfa-fonts): Create font-ball so that untar
+	in $LILYPONDPREFIX suffices for installation.
+
+2003-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* debian/control (Build-Depends): Add flex-old as alternative to
+	flex.  Deprecate bison 1.75.
+
 2003-08-17  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lilypond.words, ly/engraver-init.ly, ly/params-init.ly: added
