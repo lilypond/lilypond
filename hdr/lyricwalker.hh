@@ -17,7 +17,7 @@ struct Lyric_walker: Staff_walker {
     Array<Lyric_item*> litem_l_array_;
 
     /****************/
-
+    
     virtual void do_TYPESET_command(Command*);
     virtual void do_INTERPRET_command(Command*);
     virtual void process_requests();
