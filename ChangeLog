@@ -1,3 +1,7 @@
+2003-10-24  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/test/transposition.ly: Fix key signatures, given in comments.
+
 2003-10-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scm/midi.scm (instrument-names-alist),
