@@ -23,5 +23,3 @@ PATCHES:
 	rm -f PATCHES
 	ln `$(FIND) ./ -name PATCHES.txt -print | head -1` $@
 
-
-

@@ -12,7 +12,7 @@ SUBDIRS = include test
 lib_LTLIBRARIES = libflower.la
 
 README_FILES = ONEWS NEWS README TODO VERSION
-EXTRA_DIST = Makefile.am.wild aclocal.m4 configure config.hh.in configure.in $(README_FILES)
+EXTRA_DIST = Makefile.am.wild aclocal.m4 configure configure.in $(README_FILES)
 
 libflower_la_SOURCES = $(wildcard *.cc)
 

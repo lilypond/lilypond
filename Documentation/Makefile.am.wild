@@ -18,6 +18,9 @@ MAN1GROFF = $(addsuffix .1,$(MAN1FILES))
 
 default: all $(TEXTFILES)
 
+%.1: %.pod
+	$(POD2MAN) --section=1 $*.pod > $@
+
 outdir = .
 
 install-data-hook: $(MAN1GROFF)
@@ -32,3 +35,4 @@ html: $(HTMLFILES)
 clean-hook:
 	rm $(TEXTFILES) $(MAN1GROFF)
 
+include $(top_srcdir)/Documentation/Rules.make
