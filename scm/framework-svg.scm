@@ -7,7 +7,7 @@
 (define-module (scm framework-svg))
 
 (use-modules (guile) (lily) (scm output-svg))
-(use-modules (srfi srfi-2) (ice-9 regex))
+(use-modules (srfi srfi-1) (srfi srfi-2) (srfi srfi-13) (ice-9 regex))
 
 ;; FIXME: 0.62 to get paper size right
 (define output-scale (* 0.62 scale-to-unit))
@@ -26,12 +26,16 @@
     
    (ly:outputter-dump-string
     outputter
-    (string-append
      (eo 'svg
 	 '(xmlns . "http://www.w3.org/2000/svg")
 	 '(version . "1.2")
 	 `(width . ,(format #f "~smm" page-width))
-	 `(height . ,(format #f "~smm" page-height)))
+	 `(height . ,(format #f "~smm" page-height))))
+   
+   (ly:outputter-dump-string outputter (dump-fonts outputter paper))
+   (ly:outputter-dump-string
+    outputter
+    (string-append
      ;; FIXME: only use pages if there are more than one, pageSet is
      ;; not supported by all SVG applications yet.
      (if page-set? (eo 'pageSet) "")
@@ -60,3 +64,20 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter (string-append (ec 'g)))
   (if page-set? (ly:outputter-dump-string outputter (ec 'page))))
+
+(define (embed-font string)
+  (let ((start (string-contains string "<defs>"))
+	(end (string-contains string "</defs>")))
+    (substring string (+ start 7) (- end 1))))
+
+(define (dump-fonts outputter paper)
+  (let* ((fonts (ly:paper-fonts paper))
+	 (font-names (uniq-list (sort (map ly:font-file-name fonts) string<?)))
+	 (svgs (map
+		(lambda (x)
+		  (let ((file-name (ly:find-file (string-append x ".svg"))))
+		    (if file-name (embed-font (ly:gulp-file file-name))
+			(begin (ly:warn "cannot find SVG font ~S" x) ""))))
+		(filter string? font-names))))
+    (entity 'defs (string-join svgs "\n"))))
+
