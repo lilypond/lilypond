@@ -266,7 +266,7 @@ Accidental_engraver::create_grobs ()
 		  SCM c0 = get_property ("centralCPosition");
 		  if (gh_number_p (c0))
 		    Staff_symbol_referencer::set_position (key_item_p_, gh_scm2int (c0));
-			 
+
 		  announce_grob (key_item_p_, SCM_EOL);
 		}
 
@@ -344,8 +344,8 @@ Accidental_engraver::create_grobs ()
   if (key_item_p_)
     {
       /*
-	We add the accidentals to the support of the arpeggio, so it is put left of the
-	accidentals. 
+	We add the accidentals to the support of the arpeggio, so it
+	is put left of the accidentals.
 	
       */
       for (int i = 0;  i < arpeggios_.size ();  i++)
