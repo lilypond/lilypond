@@ -81,8 +81,8 @@ one with cue notes for the instrumental part:
 
 @example
 << \tag #'part <<
-  @{ c4 f2 g4 @}      % in the part, we have cue-notes  
-  \\ R1 >>
+     @{ c4 f2 g4 @}      % in the part, we have cue-notes  
+     \\ R1 >>
   \tag #'score R1  % in the score: only a rest
 >>
 @end example

@@ -867,6 +867,18 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Moment rwhen =  Paper_column::when_mom (rc);
 
   Moment delta_t = rwhen - lwhen;
+  if (!Paper_column::musical_b (rc ))
+    {
+      /*
+	when toying with mmrests, it is possible to have musical
+	column on the left and non-musical on the right, spanning
+	several measures.
+       */
+      
+      Moment *dt = unsmob_moment (rc->get_grob_property ("measure-length"));
+      if (dt)
+	delta_t = delta_t <? *dt; 
+    }
   Real dist = 0.0;
 
   /*
