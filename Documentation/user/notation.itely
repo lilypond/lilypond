@@ -898,6 +898,8 @@ G clef on 2nd line
  F clef on 5th line
 @item percussion
  percussion clef
+@item tab
+ tablature clef
 @end table
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
@@ -1520,17 +1522,7 @@ automatic beaming in irregular meters such as @code{5/8}.
 This section describes how to change the way that accidentals are
 inserted automatically before the running notes.
 
-
-@menu
-* Using the predefined accidental variables::  
-* Customized accidental rules::  
-@end menu
-
-@node Using the predefined accidental variables
-@subsection Using the predefined accidental variables
-
-
-Common rules for typesetting macros have been canned in a
+Common rules for typesetting accidentals have been canned in a
 function. This function is called as follows:
 
 @cindex @code{set-accidental-style}
@@ -1649,43 +1641,6 @@ This rule reflects      20th century practice for piano notation. Very similar t
 @end lilypond
 @end table
 
-@node Customized accidental rules
-@subsection Customized accidental rules
-
-For determining when to print an accidental, several different rules
-are tried.  The rule that gives the highest number of accidentals is
-used.  Each rule consists of
-@table @var
-@item context:
-      In which context is the rule applied. For example, if
-@var{context} is @internalsref{Score} then all staves share
-accidentals, and if @var{context} is @internalsref{Staff} then all
-voices in the same staff share accidentals, but staves do not.
-
-@item octavation:
-      Whether the accidental changes all octaves or only the current
-      octave. Valid choices are 
-
-     @table @samp
-      @item same-octave:
-      This is the default algorithm. Accidentals are typeset if the note changes
-      the accidental of that note in that octave. Accidentals lasts to the end of the measure 
-      and then as many measures as specified in the value. I.e. 1 means to the end
-      of next measure, -1 means to the end of previous measure (that is: no duration at all), etc. #t means forever.
-      @item any-octave:
-      Accidentals are typeset if the note is different from 
-      the previous note on the same pitch in any octave. The value has same meaning as in
-      same-octave.
-      @end table
-
-@item laziness
-
-                        Over how many bar lines the accidental lasts.
-                              If @var{laziness} is @code{-1} then the accidental is forget
-                        immediately, and if @var{laziness} is @code{#t} then the accidental
-                              lasts forever.
-@end table
-
 
 @seealso
 
@@ -1695,29 +1650,18 @@ Program reference: @internalsref{Accidental_engraver},
 
 @refbugs
 
- Simultaneous notes are considered to be entered in
-sequential mode. This means that in a chord the accidentals are
-typeset as if the notes in the chord happened once at a time - in the
-order in which they appear in the input file.
+Simultaneous notes are considered to be entered in sequential
+mode. This means that in a chord the accidentals are typeset as if the
+notes in the chord happened once at a time - in the order in which
+they appear in the input file.
 
-This is only a problem when there are simultaneous notes whose
-accidentals depend on each other.  The problem only occurs when using
-non-default accidentals. In the default scheme, accidentals only
-depend on other accidentals with the same pitch on the same staff, so
-no conflicts possible.
+This is only a problem when accidentals in a chord depend on each
+other.  This problem can be solved by manually inserting @code{!} and
+@code{?}  for the problematic notes.
 
-This example shows two examples of the same music giving different
-accidentals depending on the order in which the notes occur in the
-input file:
-
-@lilypond[raggedright,fragment,verbatim]
-\set Staff.autoAccidentals = #'( Staff (any-octave . 0) )
-cis'4 <c'' c'> r2 | cis'4 <c' c''> r2
-| <cis' c''> r | <c'' cis'> r | 
-@end lilypond
-
-This problem can be solved by manually inserting @code{!} and @code{?}
-for the problematic notes.
+In the default scheme, accidentals only depend on other
+accidentals with the same pitch on the same staff, so no conflicts are
+possible.
 
 @node Expressive marks
 @section Expressive marks
@@ -2262,9 +2206,8 @@ The overrides should also be reverted inside the grace section.
 
 If the layout of grace sections must be changed throughout the music,
 then this can be accomplished through the function
-@code{add-grace-property}. The following example
-undefines the Stem direction  grace section, so stems do not always
-point up.
+@code{add-grace-property}. The following example undefines the Stem
+direction for this grace, so stems do not always point up.
 
 @example
   \new Staff @{
@@ -2326,10 +2269,13 @@ a note:
 
 Program reference: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
 
+Example files: @file{input/regression,glissando.ly}
+
+ 
 
 @refbugs
 
-Adding additional texts (such as @emph{gliss.}) is not supported.
+Printing text over the line (such as @emph{gliss.}) is not supported.
 
 
 @node Dynamics
@@ -2367,10 +2313,6 @@ Absolute dynamic marks are specified using a command after a note:
   c2\sf c\rfz
 @end lilypond
 
-@cindex @code{\cr}
-@cindex @code{\rc}
-@cindex @code{\decr}
-@cindex @code{\rced}
 @cindex @code{\<}
 @cindex @code{\>}
 @cindex @code{\"!}
@@ -2383,7 +2325,7 @@ with @code{\!}.  Because these marks are bound to notes, if you must
 use spacer notes if multiple marks during one note are needed:
 
 @lilypond[fragment,verbatim]
-  c''\< c''\!   d''\decr e''\rced 
+  c''\< c''\!   d''\> e''\! 
   << f''1 { s4 s4\< s4\! \>  s4\! } >>
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
@@ -2391,14 +2333,17 @@ in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example:
 
 @example
- \override Staff.Hairpin   #'minimum-length = #5
+ \override Staff.Hairpin #'minimum-length = #5
 @end example
 
 You can also use a text saying @emph{cresc.} instead of hairpins. Here
 is an example how to do it:
 
 @lilypond[fragment,relative=2,verbatim]
-  c4 \cresc c4 c c c \endcresc c4
+  \setTextCresc
+  c \< d e f\!
+  \setHairpinCresc
+  e\> d c b\!
 @end lilypond
 
 @cindex crescendo
@@ -2429,15 +2374,13 @@ You can also supply your own texts:
 
 @seealso
 
-Program reference: @internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent}, and
+Program reference: @internalsref{CrescendoEvent},
+@internalsref{DecrescendoEvent}, and
 @internalsref{AbsoluteDynamicEvent}.
 
-Dynamics are objects of @internalsref{DynamicText} and
-@internalsref{Hairpin}. Vertical positioning of these symbols is
-handled by the @internalsref{DynamicLineSpanner} object.
-
-If you want to adjust padding or vertical direction of the dynamics, you 
-must set properties for the @internalsref{DynamicLineSpanner} object.
+Dynamics @internalsref{DynamicText} and @internalsref{Hairpin}
+objects. Vertical positioning of these symbols is handled by the
+@internalsref{DynamicLineSpanner} object.
 
 
 @node Repeats
@@ -2556,7 +2499,7 @@ it is advisable to use braces in such situations.
 
 @cindex expanding repeats
 
-For instructions on how to unfold repeats for MIDI output, see the
+For instructions on how to expand repeats for MIDI output, see the
 example file @inputfileref{input/test,unfold-all-repeats.ly}.
 
 
@@ -2626,7 +2569,7 @@ style:
 Tremolo marks can also be put on a single note.  In this case, the
 note should not be surrounded by braces.
 @lilypond[verbatim,raggedright]
-    \repeat "tremolo" 4 c16
+    \repeat "tremolo" 4 c'16
 @end lilypond
 
 A similar mechanism  is the tremolo subdivision, described in
@@ -2662,7 +2605,7 @@ length is omitted, then then the last value (stored in
 
 @refbugs
 
-Tremolos in this style do not carry over into the MIDI output.
+Tremolos entered in this way do not carry over into the MIDI output.
 
 @seealso
 
@@ -2738,8 +2681,12 @@ Percussion notes may be entered in @code{\drums} mode, which is
 similar to @code{notes}.  Each piece of percussion has a full name and
 an abbreviated name, and both be used in input files:
 
+@example
+  hihat hh bassdrum bd
+@end example
 @lilypond[raggedright]
- \drums { hihat4 hh4 }
+        \new DrumStaff \drums {   hihat hh bassdrum bd
+ }
 @end lilypond
 
 The complete list of drum names is in the init file
@@ -2778,7 +2725,7 @@ The above example shows verbose polyphonic notation. The short
 polyphonic notation, described in @ref{Polyphony}, can also be used if
 the @internalsref{DrumVoices} are instantiated by hand first. For example, 
 
-@lilypond[fragment] 
+@lilypond[fragment,verbatim] 
 \drums \new DrumStaff <<
   \context DrumVoice = "1" {  s1 *2 }
   \context DrumVoice = "2" {  s1 *2 }
@@ -2821,6 +2768,7 @@ mus = \drums  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     %% need to do this, because of indented @itemize
     linewidth= 9 \cm 
     \context { \ScoreContext
+    \override LyricText #'font-family = #'typewriter
     \override BarNumber #'transparent =##T
 }}}
 @end lilypond
@@ -2848,7 +2796,10 @@ mus = \drums  { timh ssh timl ssl cb s16 }
             minimumVerticalExtent = #'(-3.0 . 4.0)
             drumStyleTable = #timbales-style
         } \mus
-        \context Lyrics \nam 
+        \context Lyrics {
+            \override LyricText #'font-family = #'typewriter
+
+        \nam  }
     >>
 }
 @end lilypond
@@ -2871,7 +2822,9 @@ mus = \drums  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
             \override Stem #'transparent = ##t
             \override Stem #'Y-extent-callback = ##f
         } \mus
-        \context Lyrics \nam 
+        \context Lyrics {
+                    \override LyricText #'font-family = #'typewriter
+\nam  }
     >>
 }
 @end lilypond
@@ -2894,7 +2847,9 @@ mus = \drums  { boh boho bohm ssh bol bolo bolm ssl s16 }
             \override Stem #'transparent = ##t
             \override Stem #'Y-extent-callback = ##f
         } \mus
-        \context Lyrics \nam 
+        \context Lyrics {
+                    \override LyricText #'font-family = #'typewriter
+\nam  }
     >>
 }
 @end lilypond
@@ -2914,7 +2869,10 @@ mus = \drums  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
             \override Stem #'transparent = ##t
             \override Stem #'Y-extent-callback = ##f
         } \mus
-        \context Lyrics \nam 
+        \context Lyrics {
+        \nam
+                    \override LyricText #'font-family = #'typewriter
+}
     >>
 }
 @end lilypond
@@ -2951,9 +2909,6 @@ Init files: @file{ly/drumpitch-init.ly}.
 Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
 @refbugs
-
-Short polyphonic notation, @code{<< @dots{} \\ @dots{} >>}, does not
-work for @internalsref{DrumVoices}.
 
 Because general MIDI does not contain rim shots, the sidestick is used
 for this purpose instead.
@@ -3086,8 +3041,9 @@ note or chord:
 
 What is printed can be modified by setting @code{pedal@var{X}Strings},
 where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to the generated
-documentation of @internalsref{SustainPedal} for more information.
+@code{Sostenuto} or @code{UnaCorda}.  Refer to
+@internalsref{SustainPedal} in the program reference for more
+information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the 
 @code{pedalSustainStyle} property to @code{bracket} objects: 
@@ -3228,6 +3184,8 @@ can be printed automatically. This is enabled if the property
   >>  
 @end lilypond
 
+@seealso
+
 The associated object is @internalsref{VoiceFollower}.
 
 @refcommands
@@ -3286,7 +3244,7 @@ Similarly, a period following a alphabetic sequence, is included in
 the resulting string. As a consequence, spaces must be inserted around
 property commands:
 @example
-  \override Score . LyricText   #'font-shape = #'italic
+  \override Score . LyricText #'font-shape = #'italic
 @end example
 
 @cindex @code{_}
@@ -3303,17 +3261,10 @@ specify words that cannot be written with the above rules:
 @end example
 
 @cindex hyphens
-Hyphens can be entered as ordinary hyphens at the end of a syllable, i.e.
-@example
-        soft- ware
-@end example
 
-These will be attached to the end of the first syllable.
-
-Centered hyphens are entered using the special `@code{-}@code{-}' lyric
-as a separate word between syllables.  The hyphen will have variable
-length depending on the space between the syllables and it will be
-centered between the syllables.
+Centered hyphens are entered as `@code{-}@code{-}' between syllables.
+The hyphen will have variable length depending on the space between
+the syllables and it will be centered between the syllables.
 
 @cindex melisma
 @cindex extender
@@ -3325,8 +3276,10 @@ next one. Such a line is called an extender line, and it is entered as
 
 @seealso
 
-Program reference: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
-@internalsref{ExtenderEvent}.
+Program reference: events @internalsref{LyricEvent},
+@internalsref{HyphenEvent}, and @internalsref{ExtenderEvent}. Objects:
+@internalsref{LyricHyphen}, @internalsref{LyricExtender} and
+@internalsref{LyricText}.
 
 Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
 
@@ -3375,7 +3328,8 @@ hierarchy of staves and lyrics first, e.g.
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
-  \lyricsto "soprano" \new Lyrics @emph{the lyrics}
+  \lyricsto "soprano" \context Lyrics = sopranoLyrics
+     @emph{the lyrics}
 @end example
 
 @noindent
@@ -3410,9 +3364,10 @@ an unslurred group of notes to be a melisma, then insert
 
 In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
-behavior}) is switched off.  The criteria for deciding melismata
-can be tuned with the property @code{melismaBusyProperties}. See
-@internalsref{Melisma_translator} for more information.
+behavior}) is switched off.  The criteria for deciding melismata can
+be tuned with the property @code{melismaBusyProperties}. See
+@internalsref{Melisma_translator} in the program reference for more
+information.
 
 When multiple stanzas are put on the same melody, it can happen that
 two stanzas have melismata in different locations. This can be
@@ -3489,11 +3444,9 @@ The complete example is shown here:
   << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
-    \set stanza = "B."
     \set vocNam = "Bert"
     Hi, my name is bert. }
   \lyricsto "duet" \new Lyrics {
-    \set stanza = "E." 
     \set vocNam = "Ernie"
     Ooooo, ch\'e -- ri, je t'aime.
     }
@@ -3507,15 +3460,15 @@ The complete example is shown here:
 
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
-@example
-    \set stanza = "B."
-    @dots{}
-    \set stanza = "E." 
-@end example
-
-Notice how dots are surrounded with spaces in @code{\lyrics} mode, to
-prevent @code{stanza} being interpreted as a single
-string.
+@lilypond
+<< \context Voice = duet { \time 3/4
+     g2 e4 a2 f4 g2.  }
+   \lyrics \lyricsto "duet" \new Lyrics {
+       \set vocNam = "1. "
+       Hi, my name is bert.
+   }
+>>
+@end lilypond
 
 This example also demonstrates how names of the singers can be added
 using @code{vocalName} analogous to instrument annotations for staves.
@@ -3554,29 +3507,17 @@ making or a music identifier @code{\foo} containing the syllable
 @subsection Ambitus
 @cindex ambitus
 
-The term @emph{ambitus} (plural: ambituses) denotes a range of pitches
-for a given voice in a part of music.  It also may denote the pitch
-range that a musical instrument is capable of playing.  Most musical
-instruments have their ambitus standardized (or at least there is
-agreement upon the minimal ambitus of a particular type of
-instrument), such that a composer or arranger of a piece of music can
-easily meet the ambitus constraints of the targeted instrument.
-However, the ambitus of the human voice depends on individual
-physiological state, including education and training of the voice.
-Therefore, a singer potentially has to check for each piece of music
-if the ambitus of that piece meets his individual capabilities.  This
-is why the ambitus of a piece may be of particular value to vocal
-performers.
+The term @emph{ambitus} denotes a range of pitches for a given voice
+in a part of music.  It also may denote the pitch range that a musical
+instrument is capable of playing.  Ambituses are printed on vocal
+parts, so singers can easily determine if it meets his or her
+capabilities.
 
-The ambitus is typically notated on a per-voice basis at the very
-beginning of a piece, e.g. nearby the initial clef or time signature of
-each staff.  The range is graphically specified by two note heads, that
-represent the minimum and maximum pitch.  Some publishers use a textual
-notation: they put the range in words in front of the corresponding
-staff.  LilyPond only supports the graphical ambitus notation.
-
-To apply, add the @internalsref{Ambitus_engraver} to the
-@internalsref{Voice} context, i.e.
+It denoted at the beginning of a piece near the initial clef.  The
+range is graphically specified by two note heads, that represent the
+minimum and maximum pitch.  To print such ambituses, add the
+@internalsref{Ambitus_engraver} to the @internalsref{Voice} context,
+for example,
 
 @example
   \paper @{
@@ -3590,23 +3531,16 @@ To apply, add the @internalsref{Ambitus_engraver} to the
 This results in the following output:
 
 @lilypond[raggedright]
-upper = \notes \relative c {
-  \clef "treble"
-  \key c \minor
-  as'' c e2 bes f cis d4 e f2 g
-}
-lower = \notes \relative c {
-  \clef "treble"
-  \key e \major
-  e'4 b g a c es fis a cis b a g f e d2
-}
 \score {
-  \context ChoirStaff {
-    <<
-      \new Staff { \upper }
-      \new Staff { \lower }
-    >>
-  }
+  \context ChoirStaff 
+  \notes \relative c'' <<
+    \new staff {
+      as'' c e2 cis,2
+    }
+    \new Staff  {
+      es4 b c f as g
+    }
+  >>
   \paper {
     \context {
       \StaffContext
@@ -3676,16 +3610,16 @@ value for @code{minimumFret} is 0:
 
 
 @example
-e8 fis gis a b cis' dis' e'
+e16 fis gis a b4
 \set TabStaff.minimumFret = #8
-e8 fis gis a b cis' dis' e'
+e16 fis gis a b4
 @end example
-@lilypond[noindent]
+@lilypond[noindent,raggedright]
 frag = \notes {
     \key e \major
-    e8 fis gis a b cis' dis' e'
+    e16 fis gis a b4
     \set TabStaff.minimumFret = #8
-    e8 fis gis a b cis' dis' e'
+    e16 fis gis a b4
 }
 \score {
   \context StaffGroup <<
@@ -3732,16 +3666,13 @@ g:
   >> 
 @end lilypond
 
-It is possible to change the Scheme function to format the tablature
-note text. The default is @code{fret-number-tablature-format}, which
-uses the fret number. For instruments that do not use this notation,
-you can create a special tablature formatting function. This function
-takes three argument: string number, string tuning and note pitch.
-
 @refbugs
 
 No guitar special effects have been implemented.
 
+@seealso
+
+Program reference: @internalsref{Tab_note_heads_engraver}.
 
 
 @node Chord names
@@ -4069,12 +4000,16 @@ some common problems in orchestral music.
 Polyphonic scores consist of many staves. These staves can be
 constructed in three different ways:
 @itemize @bullet
-@item The group is started with a brace at the left. This is done with the
-@internalsref{GrandStaff} context.
-@item The group is started with a bracket. This is done with the
+@item The group is started with a brace at the left, and bar lines are
+connected. This is done with the @internalsref{GrandStaff} context.
+
+@item The group is started with a bracket, and bar lines are connected. This is done with the
 @internalsref{StaffGroup} context
-@item The group is  started with a vertical line. This is the default
-for the score.
+
+
+@item The group is  started with a vertical line. Bar lines are not
+connected.  This is the default for the score.
+
 @end itemize
 
 @cindex Staff, multiple
@@ -4148,9 +4083,9 @@ to access the appropriate symbol:
   c1
 @end lilypond
 
-In this case, during line breaks, marks must also be printed at the
-end of the line, and not at the beginning. Use the following to force
-that behavior:
+In the case of a line break, marks must also be printed at the end of
+the line, and not at the beginning. Use the following to force that
+behavior:
 @example
 \override Score.RehearsalMark  
   #'break-visibility = #begin-of-line-invisible
@@ -4218,16 +4153,20 @@ staves.
 This can be achieved by setting @internalsref{Staff}.@code{instrument}
 and @internalsref{Staff}.@code{instr}. This will print a string before
 the start of the staff. For the first start, @code{instrument} is
-used, for the next ones @code{instr} is used:
+used, for the next ones @code{instr} is used.
 
 @quotation
-@lilypond[verbatim,raggedright]
-  \set Staff.instrument = "ploink " { c''4 }  
+@lilypond[verbatim,raggedright,relative=2]
+  \set Staff.instrument = "Ploink "
+  \set Staff.instr = "Plk "
+  c1
+  \break
+  c''
 @end lilypond
 @end quotation
 
 You can also use markup texts to construct more complicated instrument
-names:
+names, for example
 
 @quotation
 @lilypond[fragment,verbatim,raggedright]
@@ -4286,7 +4225,7 @@ transposition will produce the appropriate part
   \transpose a c @dots{}
 @end example   
 
-Since @var{from} and @var{to} are pitches, @code{\transpose} must be
+Since @var{from} and @var{to} are pitches, so @code{\transpose} must be
 inside a @code{\notes} section.  @code{\transpose} distinguishes
 between enharmonic pitches: both @code{\transpose c cis} or
 @code{\transpose c des} will transpose up half a tone.  The first
@@ -4459,10 +4398,10 @@ polyphony:
 @lilypond[verbatim,raggedright,fragment,relative=1]
   \new Staff \partcombine 
       {
-        g a( b) r
+        g g a( b) c c r r
       }
       {
-        g r4 r f
+        g g r4 r  e e g g 
       }
 @end lilypond
 
@@ -4542,9 +4481,9 @@ in this example disappears in the second line:
 }
 @end lilypond
 
-The first page shows all staves in full. If they should be  removed
-from  the first page too, set @code{remove-first} to false
-in @internalsref{RemoveEmptyVerticalGroup}.
+The first page shows all staves in full. If empty staves should be
+removed from the first page too, set @code{remove-first} to false in
+@internalsref{RemoveEmptyVerticalGroup}.
 
 Another application is making ossia sections, i.e. alternative
 melodies on a separate piece of staff, with help of a Frenched
@@ -4685,13 +4624,9 @@ Program reference: @internalsref{QuoteMusic}.
 @cindex Petrucci
 @cindex mensural
 
-@c [TODO: write more comprehensive introduction on ancient notation]
-
-Support for ancient notation is still under heavy development.
-Regardless of all of the current limitations (see the bugs section
-below for details), it includes features for mensural
-notation and Gregorian Chant notation.  There is also limited support
-for figured bass notation.
+Support for ancient notation includes features for mensural notation
+and Gregorian Chant notation.  There is also limited support for
+figured bass notation.
 
 Many graphical objects provide a @code{style} property, see
 @ref{Ancient note heads}, @ref{Ancient accidentals}, @ref{Ancient
@@ -4700,7 +4635,6 @@ signatures}.  By manipulating such a grob property, the typographical
 appearance of the affected graphical objects can be accommodated for a
 specific notation flavor without need for introducing any new
 notational concept.
-
 
 Other aspects of ancient notation can not that easily be expressed as
 in terms of just changing a style property of a graphical object.
@@ -5073,20 +5007,7 @@ historic style hufnagel combined do/fa clef @tab
 
 @end multitable
 
-@c --- This should go somewhere else: ---
-@c @item modern style percussion clef (glyph: @code{clefs-percussion})
-@c
-@c Supported clefs:
-@c @code{percussion}
-@c
-@c @lilypond{\override Staff.TimeSignature   #'transparent = ##t \clef "percussion" c'}
-@c
-@c @item modern style tab clef (glyph: @code{clefs-tab})
-@c
-@c Supported clefs:
-@c @code{tab}
-@c
-@c @lilypond{\context Staff \outputproperty #(make-type-checker 'staff-symbol-interface) #'line-count = #6 \override Staff.TimeSignature   #'transparent = ##t \clef "tab" c'}
+
 
 @emph{Modern style} means ``as is typeset in contemporary editions of
 transcribed mensural music''.
@@ -5104,15 +5025,12 @@ beams, depending on which staff line it is printed.
 
 @seealso
 
-In this manual: for the percussion clef, see @ref{Percussion staves}.
-For the @code{TAB} clef, see @ref{Tablatures}.
-
-Program reference: for modern clefs, see @ref{Clef}.
+In this manual: see @ref{Clef}.
 
 @refbugs
 
-The mensural g clef is temporarily mapped to the Petrucci g clef,
-until a new mensural g clef will have been implemented.
+The mensural g clef is mapped to the Petrucci g clef, until a new
+mensural g clef is implemented.
 
 
 
@@ -5236,15 +5154,15 @@ signatures.
 
 @refbugs
 
-Mensural signature glyphs are  mapped to time fractions in a
-hard-wired way.  This mapping is sensible, but still arbitrary: given
-a mensural time signature, the time fraction represents a modern meter
-that usually will be a good choice when transcribing a mensural piece
-of music.  For a particular piece of mensural music, however, the
-mapping may be unsatisfactory.  In particular, the mapping assumes a
-fixed transcription of durations (e.g. brevis = half note in 2/2,
-i.e. 4:1).  Some glyphs (such as the alternate glyph for 6/8 meter)
-are  not at all accessible through the @code{\time} command.
+Mensural signature glyphs are mapped to time fractions in a hard-wired
+way.  This mapping is sensible, but still arbitrary: given a mensural
+time signature, the time fraction represents a modern meter that
+usually will be a good choice when transcribing a mensural piece of
+music.  For a particular piece of mensural music, however, the mapping
+may be unsatisfactory.  In particular, the mapping assumes a fixed
+transcription of durations (e.g. brevis = half note in 2/2, i.e. 4:1).
+Some glyphs (such as the alternate glyph for 6/8 meter) are not at all
+accessible through the @code{\time} command.
 
 Mensural time signatures are supported typographically, but not yet
 musically.  The internal representation of durations is 
@@ -5275,7 +5193,6 @@ of musical notation such as contemporary editions of Gregorian chant
 like the @emph{editio vaticana}.  There are different custos glyphs
 used in different flavors of notational style.
 
-
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
 @internalsref{Staff} context when declaring the @code{\paper} block,
 as shown in the following example:
@@ -5292,11 +5209,11 @@ as shown in the following example:
 
 The result looks like this:
 
-@lilypond
+@lilypond[raggedright]
 \score {
     \notes {
 	a'1
-	\override Staff.Custos   #'style = #'mensural
+	\override Staff.Custos #'style = #'mensural
 	\break
 	g'
     }
@@ -5305,7 +5222,6 @@ The result looks like this:
 	    \StaffContext
 	    \consists Custos_engraver
 	}
-	linewidth = 4.0\cm
     }
 }
 @end lilypond
@@ -5316,70 +5232,33 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 
 @lilypond
 \score {
-    \notes {
-        \fatText
-        s
-        ^\markup {
+       \new Lyrics    \lyrics {
+        \markup {
             \column <
                 "vaticana" 
                 { " " \musicglyph #"custodes-vaticana-u0" }
-            >
-	    \column <
+            > }
+	\markup {    \column <
                 "medicaea"
 		{ " " \musicglyph #"custodes-medicaea-u0" }
-            >
+            >}
+            \markup {
 	    \column <
                 "hufnagel"
 		{ " " \musicglyph #"custodes-hufnagel-u0" }
-            >
+            >}
+            \markup {
             \column <
                 "mensural"
                 { " " \musicglyph #"custodes-mensural-u0" }
-            >
+            >}
         }
-    }
+    
     \paper {
 	raggedright = ##t 
-        interscoreline = 1
-        \context {
-            \ScoreContext
-            \remove "Bar_number_engraver"
-        }
-        \context{
-            \StaffContext
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \remove "Time_signature_engraver"
-            \remove "Staff_symbol_engraver"
-            minimumVerticalExtent = ##f
-        }
-    }
+        }      
 }
 @end lilypond
-
-If the boolean property @code{adjust-if-on-staffline} is set to
-@code{#t} (which it is by default), lily typesets slightly different
-variants of the custos glyph, depending on whether the custos, is
-typeset on or between staff lines.   The glyph will
-optically fit well into the staff, with the appendage on the right of
-the custos always ending at the same vertical position between two
-staff lines regardless of the pitch.  If you set
-@code{adjust-if-on-staffline} to @code{#f}, then
-a compromise between both forms is  used.
-
-Just like stems can be attached to note heads in two directions
-@emph{up} and @emph{down}, each custos glyph is available with its
-appendage pointing either up or down.  If the pitch of a custos is
-above a selectable position, the appendage will point downwards; if
-the pitch is below this position, the appendage will point upwards.
-Use property @code{neutral-position} to select this position.  By
-default, it is set to @code{0}, such that the neutral position is the
-center of the staff.  Use property @code{neutral-direction} to control
-what happens if a custos is typeset on the neutral position itself.
-By default, this property is set to @code{-1}, such that the appendage
-will point downwards.  If set to @code{1}, the appendage will point
-upwards.  Other values such as @code{0} are reserved for future
-extensions and should not be used.
 
 @seealso
 
@@ -5446,33 +5325,16 @@ Examples: @inputfileref{input/test,divisiones.ly}.
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
 
-In musical terminology, a ligature is a coherent graphical symbol that
-represents at least two distinct notes.  Ligatures originally appeared
-in the manuscripts of Gregorian chant notation roughly since the 9th
-century as an allusion to the accent symbols of Greek lyric poetry to
-denote ascending or descending sequences of notes.  Both, the shape
-and the exact meaning of ligatures changed tremendously during the
-following centuries: In early notation, ligatures were used for
-monophonic tunes (Gregorian chant) and very soon denoted also the way
-of performance in the sense of articulation.  With upcoming
-multiphony, the need for a metric system arised, since multiple voices
-of a piece have to be synchronized some way.  New notation systems
-were invented that used the manifold shapes of ligatures to now denote
-rhythmical patterns (e.g. black mensural notation, mannered notation,
-ars nova).  With the invention of the metric system of the white
-mensural notation, the need for ligatures to denote such patterns
-disappeared.  Nevertheless, ligatures were still in use in the
-mensural system for a couple of decades until they finally disappeared
-during the late 16th / early 17th century.  Still, ligatures have
-survived in contemporary editions of Gregorian chant such as the
-Editio Vaticana from 1905/08.
+A ligature is a coherent graphical symbol that represents at least two
+distinct notes.  Ligatures originally appeared in the manuscripts of
+Gregorian chant notation roughly since the 9th century to denote
+ascending or descending sequences of notes.  
 
-
-Syntactically, ligatures are simply enclosed by @code{\[} and
-@code{\]}.  Some ligature styles (such as Editio Vaticana) may need
-additional input syntax specific for this particular type of ligature.
-By default, the @internalsref{LigatureBracket} engraver just puts a
-square bracket above the ligature:
+Ligatures are entered by enclosing them in @code{\[} and @code{\]}.
+Some ligature styles may need additional input syntax specific for
+this particular type of ligature.  By default, the
+@internalsref{LigatureBracket} engraver just puts a square bracket
+above the ligature:
 
 @lilypond[raggedright,verbatim]
 \score {
@@ -5487,8 +5349,7 @@ square bracket above the ligature:
 To select a specific style of ligatures, a proper ligature engraver
 has to be added to the @internalsref{Voice} context, as explained in
 the following subsections.   Only white mensural ligatures
-are supported with certain limitations.  Support for Editio Vaticana
-will be added in the future.
+are supported with certain limitations.
 
 @menu
 * White mensural ligatures::    
@@ -5501,11 +5362,7 @@ will be added in the future.
 @cindex Mensural ligatures
 @cindex White mensural ligatures
 
-There is limited support for white mensural ligatures.  The
-implementation is still experimental; it may output strange
-warnings or even crash in some cases or produce weird results on more
-complex ligatures.
-
+There is limited support for white mensural ligatures.  
 
 To engrave white mensural ligatures, in the paper block the
 @internalsref{Mensural_ligature_engraver} has to be put into the
@@ -5583,6 +5440,11 @@ to the following:
 }
 @end lilypond
 
+@refbugs
+
+The implementation is experimental; it may output strange warnings or
+even crash in some cases or produce weird results on more complex
+ligatures.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures

@@ -303,7 +303,9 @@ DK: ambitus,
 S: ambitus,
 FI: ambitus, @"a@"aniala, soitinala.
 
-The term ambitus denotes a range of pitches for a given voice in a part of music. It also may denote the pitch range that a musical instrument is capable of playing.
+The term ambitus (plural: ambituses) denotes a range of pitches for a
+given voice in a part of music. It also may denote the pitch range
+that a musical instrument is capable of playing.
 
 @aitem{ancient minor scale}
 I: scala minore naturale,
@@ -2339,6 +2341,19 @@ S: liljedamm,
 FI: liljalampi.
 
 A pond with lilies floating in it, also the name of a music typesetter.
+
+@aitem{ligature}
+
+A ligature is a coherent graphical symbol that represents at least two
+distinct notes.  Ligatures originally appeared in the manuscripts of
+Gregorian chant notation roughly since the 9th century to denote
+ascending or descending sequences of notes.  In early notation,
+ligatures were used for monophonic tunes (Gregorian chant) and very
+soon denoted also the way of performance in the sense of articulation.
+With the invention of the metric system of the white mensural
+notation, the need for ligatures to denote such patterns disappeared.
+
+
 
 @aitem{line}
 ES: l@'{@dotless{i}}nea,
