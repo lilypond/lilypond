@@ -193,8 +193,8 @@ Accidental_interface::print (SCM smob)
     {
       SCM ac = Font_interface::font_alist_chain (me);
       ac = gh_cons (gh_cons (gh_cons
-			     (ly_symbol2scm ("font-relative-size"),
-			      scm_int2num (-1)), SCM_EOL),
+			     (ly_symbol2scm ("font-size"),
+			      scm_int2num (-2)), SCM_EOL),
 		    ac);
       fm = select_font (me->get_paper (), ac);
     }
