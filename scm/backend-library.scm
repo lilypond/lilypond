@@ -59,8 +59,12 @@
 		      (sanitize-command-option papersizename)
 		      (if (ly:get-option 'verbose) " --verbose " "")
 		      name)))
-    ;; Do not try to guess the name of the png file
-    (format (current-error-port) (_ "Converting to `~a'...") (format "~a.png" name))
+    ;; Do not try to guess the name of the png file,
+    ;; GS produces PNG files like BASE-page%d.png.
+    ;;(format (current-error-port) (_ "Converting to `~a'...")
+    ;;	    (string-append (basename name ".ps") "-page1.png" )))
+    (format (current-error-port) (_ "Converting to ~a...") "PNG")
+    (newline (current-error-port))
     (ly:system cmd)))
 
 (define-public (postprocess-output paper-book module filename formats)

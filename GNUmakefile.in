@@ -82,6 +82,7 @@ local-WWW-post:
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
 
+share-prefix = $(builddir)/share
 tree-prefix = $(builddir)/share/lilypond/$(TOPLEVEL_VERSION)
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
@@ -138,9 +139,9 @@ $(tree-prefix)/lilypond-force: GNUmakefile
 		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
-		mkdir -p $(tree-prefix)/locale/$i/LC_MESSAGES && \
-		cd $(tree-prefix)/locale/$i/LC_MESSAGES && \
-		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
+		mkdir -p $(share-prefix)/locale/$i/LC_MESSAGES && \
+		cd $(share-prefix)/locale/$i/LC_MESSAGES && \
+		ln -sf ../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
 	touch $@
 
 local-clean: builddir-setup-clean

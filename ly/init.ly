@@ -13,7 +13,8 @@
 #(define $globalheader #f)
 #(define version-seen? #f)
 
-#(set-debug-cell-accesses! 5000)
+#(if (defined? 'set-debug-cell-accesses!) (set-debug-cell-accesses 5000))
+
 \maininput
 %% there is a problem at the end of the input file
 
