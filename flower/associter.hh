@@ -21,12 +21,12 @@ struct Assoc_iter {
 	i= next(0);
     }
     int next(int j) {
-	while (j < assoc_.arr.sz() && assoc_.arr[j].free)
+	while (j < assoc_.arr.size() && assoc_.arr[j].free)
 	    j++;
 	return j;
     }
     bool ok() const {
-	return i < assoc_.arr.sz();
+	return i < assoc_.arr.size();
     }
     void OK()const {
 	assert(!ok() || !assoc_.arr[i].free);

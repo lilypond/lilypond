@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include "real.hh"
-#include "vray.hh"
+#include "varray.hh"
 
 class Dstream;
 class String;
@@ -11,10 +11,10 @@ void set_matrix_debug(Dstream&ds);
 
 /// a row of numbers
 class Vector  {
-    svec<Real> dat;
+    Array<Real> dat;
 public:
     void OK() const { dat.OK();}
-    int dim() const { return dat.sz(); }
+    int dim() const { return dat.size(); }
     Vector() { }
     Vector(const Vector&n);
     Vector(int n) {
@@ -69,13 +69,13 @@ public:
     Real norm_sq() {
 	return ((*this) * (*this));
     }
-    operator svec<Real> () { return dat; }
+    operator Array<Real> () { return dat; }
     void print() const;
     /// set to j-th element of unit-base
     void set_unit(int j) ;
 };
 /**
-    a vector. Storage is handled in svec, Vector only does the mathematics.
+    a vector. Storage is handled in Array, Vector only does the mathematics.
  */
 
 inline Vector

@@ -1,6 +1,6 @@
 MAJVER=1
 MINVER=0
-PATCHLEVEL=18
+PATCHLEVEL=19
 PACKAGENAME=flower
 
 #PROFILEFLAG=-pg
@@ -31,7 +31,7 @@ include Sources.make
 
 obs=$(cc:.cc=.o)
 staticlib=libflower.a
-
-DFILES=$(hh) $(cc) $(inl) $(templatecc) Makefile Variables.make make_version\
+ALLSOURCES=$(hh) $(cc) $(inl) $(templatecc) 
+DFILES=$(ALLSOURCES) Makefile Variables.make make_version\
 	Sources.make TODO README
 DDIR=$(DNAME)

@@ -8,7 +8,6 @@ include depend
 depend: Sources.make
 	$(CXX) -MM $(cc) > depend
 
-
 clean:
 	rm -f $(obs) $(staticlib)
 
@@ -25,6 +24,6 @@ dist:
 	tar cfz $(DNAME).tar.gz $(DDIR)/*
 	rm -rf $(DDIR)/
 
-TAGS:
+TAGS: $(ALLSOURCES)
 	etags -CT $(inl) $(cc) $(hh)
 

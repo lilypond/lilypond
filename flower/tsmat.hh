@@ -1,6 +1,6 @@
 #ifndef SMAT_HH
 #define SMAT_HH
-#include "vray.hh"
+#include "varray.hh"
 #include "vsmat.hh"
 
 /// simplest matrix storage. refer to its baseclass for the doco.
@@ -60,8 +60,8 @@ public:
 	assert(valid(i,j));
 	return els[i][j];
     }
-    virtual svec<T> row(int i) const;
-    virtual svec<T> column(int j) const;
+    virtual Array<T> row(int i) const;
+    virtual Array<T> column(int j) const;
 
     Full_storage() {
 	init();

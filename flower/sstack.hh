@@ -7,22 +7,22 @@
 #ifndef SSTACK_HH
 #define SSTACK_HH
 
-#include "vray.hh"
+#include "varray.hh"
 
-/// A simple stack based on svec.
+/// A simple stack based on Array.
 template<class T>
-struct sstack : svec<T> { 
+struct sstack : Array<T> { 
     T top() { return last(); }
     T pop() {
 	assert(!empty());
 	T l = last();
-        svec<T>::pop();
+        Array<T>::pop();
 	return l;
     }
     void push(T l) { add(l); }
 };
 /**
-  Same as for #svec# goes here.
+  Same as for #Array# goes here.
 */
 
 
