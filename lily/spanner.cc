@@ -19,6 +19,26 @@
 #include "system.hh"
 #include "group-interface.hh"
 
+
+MAKE_SCHEME_CALLBACK (Spanner, get_broken_into, 1);
+SCM
+Spanner::get_broken_into (SCM smob)
+{
+  if (Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob)))
+#if 0    
+    return ly_grob_array2scm (me->broken_into_l_arr_);
+#else
+  {
+      SCM s = SCM_EOL;
+      for (int i = me->broken_into_l_arr_.size (); i; i--)
+	s = gh_cons (me->broken_into_l_arr_[i-1]->self_scm (), s);
+      return s;
+  }
+#endif
+  
+  return SCM_EOL;
+}
+
 void
 Spanner::do_break_processing ()
 {
