@@ -103,16 +103,29 @@ Paper_outputter::output_line (SCM line, bool is_last)
   output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
 			     gh_double2scm (width), gh_double2scm (height)));
 
+  SCM between = SCM_EOL;
   for (SCM s = ly_cdr (line); gh_pair_p (s); s = ly_cdr (s))
     {
       Stencil *stil = unsmob_stencil (ly_cdar (s));
-      output_expr (stil->get_expr (), ly_scm2offset (ly_caar (s)));
+      SCM head = ly_caar (s);
+#ifndef PAGE_LAYOUT
+      if (head == ly_symbol2scm ("between-system-string"))
+	{
+	  between = stil->get_expr ();
+	  continue;
+	}
+#endif      
+      output_expr (stil->get_expr (), ly_scm2offset (head));
     }
 
   if (is_last)
     output_scheme (scm_list_1 (ly_symbol2scm ("stop-last-system")));
   else
-    output_scheme (scm_list_1 (ly_symbol2scm ("stop-system")));
+    {
+      output_scheme (scm_list_1 (ly_symbol2scm ("stop-system")));
+      if (between != SCM_EOL)
+	output_scheme (between);
+    }
 }
 
 void
