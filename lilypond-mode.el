@@ -89,46 +89,43 @@ Finds file lilypond-words from load-path."
       (kill-buffer b)))
 
 (defconst LilyPond-keywords 
-  (let ((wordlist ())
+  (let ((wordlist '("\\score")) ; add \keywords to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(if (> (length (car co)) 1)
 	    (if (and (string-equal "\\" (substring (car co) 0 1))
 		     (string-equal (downcase (car co)) (car co)))
-		(add-to-list 'wordlist (car co))))
+		(if (not (member (car co) wordlist))
+		    (add-to-list 'wordlist (car co)))))
 	(setq co (cdr co)))
-      (if (eq (length wordlist) 0)
-	  (setq wordlist '("\\score"))) ; add \keywords to lilypond.words
       wordlist))
   "LilyPond \\keywords")
 
 (defconst LilyPond-identifiers 
-  (let ((wordlist ())
+  (let ((wordlist '("\\voiceOne")) ; add \Identifiers to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(if (> (length (car co)) 1)
 	    (if (and (string-equal "\\" (substring (car co) 0 1))
 		     (not (string-equal (downcase (car co)) (car co))))
-		(add-to-list 'wordlist (car co))))
+		(if (not (member (car co) wordlist))
+		    (add-to-list 'wordlist (car co)))))
 	(setq co (cdr co)))
-      (if (eq (length wordlist) 0)
-	  (setq wordlist '("\\voiceOne"))) ; add \Identifiers to lilypond.words
       wordlist))
   "LilyPond \\Identifiers")
 
 (defconst LilyPond-reserved-words 
-  (let ((wordlist ())
+  (let ((wordlist '("Staff")) ; add ReservedWords to lilypond.words
 	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
     (progn
       (while (> (length co) 0)
 	(if (> (length (car co)) 0)
-	    (if (not (string-equal "\\" (substring (car co) 0 1)))
-		(add-to-list 'wordlist (car co))))
+	    (if (not (string-match "[^a-zA-Z]" (car co)))
+		(if (not (member (car co) wordlist))
+		    (add-to-list 'wordlist (car co)))))
 	(setq co (cdr co)))
-      (if (eq (length wordlist) 0)
-	  (setq wordlist '("Staff"))) ; add ReservedWords to lilypond.words
       wordlist))
   "LilyPond ReservedWords")
 
