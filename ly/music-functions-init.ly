@@ -83,7 +83,7 @@ cueDuring = #
   (string? ly:dir? ly:music?)
   (let*
       ((quote-music
-	(make-music 'NewQuoteMusic
+	(make-music 'QuoteMusic
 		    'quoted-context-type 'Voice
 		    'quoted-context-id "cue"
 		    'quoted-music-name what
@@ -117,7 +117,7 @@ quoteDuring = #
 (def-music-function
   (location what main-music)
   (string? ly:music?)
-  (make-music 'NewQuoteMusic
+  (make-music 'QuoteMusic
 	      'element main-music
 	      'quoted-music-name what
 	      'origin location))

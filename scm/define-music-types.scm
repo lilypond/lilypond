@@ -406,7 +406,7 @@ goes down).")
      . (
 	(description . "Quote preprocessed snippets of music. ")
 	(internal-class-name . "Music_wrapper") ;;  so we get Event::get_length ().
-	(iterator-ctor . ,New_quote_iterator::constructor)
+	(iterator-ctor . ,Quote_iterator::constructor)
 	(types . (general-music))
 	))
     
