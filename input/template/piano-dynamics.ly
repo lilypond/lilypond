@@ -1,8 +1,7 @@
 \version "2.1.7"
 \header {
 texidoc ="
-  Template that puts dynamics on a separate line, so it is neatly
-centered between staffs.
+  Dynamics on a separate line, neatly centered between staffs.
 "
 }
 

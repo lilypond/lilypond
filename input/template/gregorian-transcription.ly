@@ -3,8 +3,9 @@
 
 \header {
 texidoc = "Modern  transcriptions  of gregrorian music.
-Gregorian music has no measure, no stems, only uses half and quarter notes,
-and two types of barlines, a short one indicating a rest, a second indicating a breath mark."
+Gregorian music has no measure, no stems; it uses only half and quarter notes,
+and two types of barlines, a short one indicating a rest, and a second one
+indicating a breath mark."
 }
 
 

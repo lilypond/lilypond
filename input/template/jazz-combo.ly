@@ -6,7 +6,7 @@
         meter = "moderato"
         piece = "Swing"
 	tagline = "LilyPond example file by Amelie Zapf, Berlin 07/07/2003"
-	texidoc = "Jazz tune for combo (horns, piano, drums, bass, guitar)."
+	texidoc = "Jazz tune for combo (horns, guitar, piano, bass, drums)."
 }
 
 #(set-global-staff-size 16)

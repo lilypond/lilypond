@@ -15,7 +15,7 @@
   source =  "urtext "
   enteredby = "your name here"
   maintainerEmail = "your email here"
-  texidoc = "The standard header that ought to be above a file."
+  texidoc = "The standard header that ought to be in top of a file."
 
 }
 
