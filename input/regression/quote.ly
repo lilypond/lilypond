@@ -7,7 +7,7 @@ things are quoted. In this example, a 16th rests is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }
-\version "2.3.16"
+\version "2.3.17"
 \paper {
     raggedright = ##t
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 
 \header { texidoc = "By setting @code{Staff.keySignature} directly,
 key signatures can be set invidually per pitch.

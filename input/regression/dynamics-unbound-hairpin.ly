@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 
 \header {
 texidoc = "Crescendi may start off-notes, however, they should  not collapse into flat lines."

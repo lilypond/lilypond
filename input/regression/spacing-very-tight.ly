@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header {
 texidoc = "
  When tightly spaced, the spaces between elements (hinterfleisch?) 

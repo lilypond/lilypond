@@ -8,7 +8,7 @@
     For different configurations, the scripts can be moved manually."
     }
 
-\version "2.3.16"
+\version "2.3.17"
 \paper {
     raggedright = ##t
 }

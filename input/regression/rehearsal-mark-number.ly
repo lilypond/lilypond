@@ -5,7 +5,7 @@ By setting @code{markFormatter} we may choose a different style of mark printing
 	  
       }
 
-\version "2.3.16"
+\version "2.3.17"
 \score {
    \relative c''{
     \set Score.markFormatter = #format-mark-numbers 

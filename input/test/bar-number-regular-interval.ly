@@ -5,7 +5,7 @@ Bar numbers can also be printed inside boxes.
 
 " }
 
-\version "2.3.16"
+\version "2.3.17"
 
 \score {
     \context Staff  \transpose  c c' {

@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.17"
 \header {
 texidoc = "Within a bar, beat repeats denote that a music snippet should be
 played again."

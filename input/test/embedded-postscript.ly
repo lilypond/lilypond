@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header {
   texidoc = "@cindex Embedded Postscript
 By inserting the @TeX{} command \embeddedps, you can
