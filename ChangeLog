@@ -1,5 +1,9 @@
 2003-09-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/ottava.ly (texidoc): demo 15ma too.
+
+	* GNUmakefile.in ($(outdir)/VERSION): add VERSION target 
+
 	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly (sarabandeA):
 	octave fixes.
 

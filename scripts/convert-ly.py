@@ -1285,6 +1285,14 @@ if 1:
 		last_str = ''
 		while last_str <> str:
 		  last_str = str
+		  def sub_tremolos (m):
+			  tr = m.group (2)
+			  if tr not in slur_strs:
+				  slur_strs.append (tr)
+			  return  m.group (1)
+		  
+  		  str = re.sub (r"([a-z]+[',!? ]*)(:[0-9]+)", sub_tremolos, str)
+
 		  def sub_dyn_end (m):
 			  dyns.append (' \!')
 			  return ' ' + m.group(2)

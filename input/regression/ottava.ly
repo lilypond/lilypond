@@ -13,11 +13,12 @@ use of the scheme function @code{set-octavation}.
 \score {
   \notes\relative c''' \notes {
   a b c a
-  #(set-octavation 1)
-  a b c a
+  #(set-octavation 2)
+  a' b
+  c a
   #(set-octavation 0)
 
-  a #(set-octavation 1) b
+  a, #(set-octavation 1) b
   #(set-octavation 0)
   c a 
 }
