@@ -126,9 +126,11 @@
 	(Hairpin . (
 		(molecule-callback . ,Hairpin::brew_molecule)
 		(thickness . 1.0)
-		(padding . 1.0)
 		(height . 0.6666)
+
+		(if-text-padding . 1.0)
 		(width-correct . -1.0)
+		
 		(dash-thickness . 1.2)
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
@@ -403,6 +405,7 @@
 			     (bezier-area-steps . 1.0)))
 		 (beautiful . 0.5)
 		 (y-free . 0.75)
+		 (attachment . (#f . #f))
 		 (attachment-offset . ((0 . 0) . (0 . 0)))
 		 (slope-limit . 0.8)
 		 (meta . ,(grob-description "Slur" slur-interface))
@@ -553,9 +556,11 @@
 		(molecule-callback . ,Text_spanner::brew_molecule)
                 (font-shape . italic)
 		(type . "line")
-		;;; urg
-		;;;(padding . 1.0)
-		(width-correct . -1) ;ughr
+		
+		;; urg, only for (de)cresc. text spanners
+		(if-text-padding . 1.0)
+		(width-correct . -1)
+		
 		(direction . 1)
 		(meta . ,(grob-description "TextSpanner" text-spanner-interface  font-interface))		
 	))

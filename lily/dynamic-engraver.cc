@@ -252,10 +252,6 @@ Dynamic_engraver::create_grobs ()
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
 	      cresc_p_->set_grob_property ("type", s);
 	      
-	      // urg.  Can't set this into Text_spanner, because we
-	      // only want this for (de)crescendi spanners.
-	      cresc_p_->set_grob_property ("padding", gh_double2scm (1));
-	      
 	      daddy_trans_l_->set_property (start_type
 					    + "Spanner", SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C());

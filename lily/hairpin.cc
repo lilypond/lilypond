@@ -36,7 +36,7 @@ Hairpin::brew_molecule (SCM smob)
 
 
   /* Ugh, must be same as Text_spanner::brew_molecule.  */  
-  Real padding = gh_scm2double (me->get_grob_property ("padding"));
+  Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
   width -= broken_left;

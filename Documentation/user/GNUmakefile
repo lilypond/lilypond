@@ -29,28 +29,63 @@ dvi: $(DVI_FILES)
 
 ps: $(PS_FILES)
 
-# Cancel default info rule
+
+# Cancel default info generation rule.  We want to generate info from
+# `.nexi', making sure we don't run LilyPond for inline pictures, when
+# generating info.
 $(outdir)/%.info: $(outdir)/%.texi
 
 default: 
 
-# info is now built by default via texinfo-rules
-# we must build them by default, otherwise they get built during make install
+# Info is now built by default via texinfo-rules.
+# We must build them by default, otherwise they get built during make install
 info: $(INFO_FILES)
 
 
+# The next version of makeinfo should split html files into their own
+# directory.  For now available only as patches from
+# http://appel.lilypond.org/software
+SPLITTING_MAKEINFO = $(shell makeinfo --version | grep 4.0.jcn2)
+
+
+# Generic rule using % twice not possible?
+# $(outdir)/%/%.html: $(outdir)/%.texi
+$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+	-mv -f $(outdir)/*.png $(outdir)/lilypond
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+$(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+	-mv -f $(outdir)/*.png $(outdir)/lilypond-internals
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+$(outdir)/features/features.html: $(outdir)/features.texi
+	-$(MAKEINFO) --force --output=$@ --html $<
+	-mv -f $(outdir)/*.png $(outdir)/features
+	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
+
+ifneq ($(SPLITTING_MAKEINFO),)
+
 DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
+
+else
+
+DEEP_HTML_FILES = $(outdir)/lilypond.html $(outdir)/lilypond-internals.html
+
+endif
+
 
 local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
-	-mkdir $(outdir)/lilypond 
-	cp -f $(outdir)/*.png $(outdir)/lilypond
 	$(MAKE) deep-footify
 
 #	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation' \
 #	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 #	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
+
+
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
@@ -71,24 +106,7 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 else
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
-##	-cd $(outdir) && lilypond ../$(src-depth)/ly/generate-documentation
-##programming error: Improbable offset for translation: setting to zero (Continuing; cross thumbs)
-##programming error: Molecule::add_at_edge: adding empty molecule. (Continuing; cross thumbs)
 	touch $@
 	touch $(outdir)/$(*F).nexi
 endif
-
-# Generic rule not possible?
-# $(outdir)/%/%.html: $(outdir)/%.texi
-$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
-	-$(MAKEINFO) --force --output=$@ --html $<
-# we want footers even if website builds (or is built) partly
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
-
-
-$(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
-	-$(MAKEINFO) --force --output=$@ --html $<
-# we want footers even if website builds (or is built) partly
-	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
-
 

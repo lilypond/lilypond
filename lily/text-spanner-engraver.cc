@@ -117,6 +117,12 @@ Text_spanner_engraver::create_grobs ()
 	{
 	  current_req_ = req_drul_[START];
 	  span_  = new Spanner (get_property ("TextSpanner"));
+
+	  /* Ugh.  Reset (de)cresc. specific properties */
+	  span_->set_grob_property ("outer", SCM_BOOL_T);
+	  span_->set_grob_property ("if-text-padding", gh_double2scm (0));
+	  span_->set_grob_property ("width-correct", gh_double2scm (0));
+	  	    
 	  Side_position::set_axis (span_, Y_AXIS);
 	  Grob *e = unsmob_grob (get_property ("currentMusicalColumn"));
 	  span_->set_bound (LEFT, e);

@@ -37,7 +37,7 @@ Text_spanner::brew_molecule (SCM smob)
 
 
   /* Ugh, must be same as Hairpin::brew_molecule.  */
-  Real padding = gh_scm2double (me->get_grob_property ("padding"));
+  Real padding = gh_scm2double (me->get_grob_property ("if-text-padding"));
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
   width -= broken_left;
@@ -57,13 +57,23 @@ Text_spanner::brew_molecule (SCM smob)
 	  Real r = 0.0;
 	  if (!e.empty_b ())
 	    r = e[-d] + padding;
-	  width += d * r;
-	  extra_off[d] = r;
+	  /* Text spanners such as ottava, should span from outer limits of
+	   noteheads, iso (de)cresc. spanners that span the inner space */
+	  if (me->get_grob_property ("outer") != SCM_EOL)
+	    // r *= -1; // huh?
+	    {
+	      width -= d * r;
+	    }
+	  else
+	    {
+	      width += d * r;
+	      extra_off[d] = r;
+	    }
 	}
     }
   while (flip (&d) != LEFT);
 
-  // FIXME: ecs tells us
+  // FIXME: ecs tells us -- only for (de)cresc. spanners
   width += gh_scm2double (me->get_grob_property ("width-correct"));
   /* /Ugh */
 

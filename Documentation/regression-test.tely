@@ -89,11 +89,19 @@ and documenting bugfixes.
 
 @lilypondfile{beam-rest.ly}
 
+@lilypondfile{beam-length.ly}
+
 @lilypondfile{slur-nice.ly}
 @lilypondfile{slur-symmetry.ly}
 @lilypondfile{slur-symmetry-1.ly}
 
 @lilypondfile{slur-broken-trend.ly}
+
+@lilypondfile{slur-attachment.ly}
+
+@lilypondfile{slur-attachment-override.ly}
+
+@lilypondfile{ophee-slurs.ly}
 
 @lilypondfile{tie.ly}
 
