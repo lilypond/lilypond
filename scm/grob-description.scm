@@ -581,6 +581,7 @@
      . (
 	(type . line)
 	(gap . 0.5)
+	(zigzag-width . 0.75)
 	(breakable . #t)
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)			 

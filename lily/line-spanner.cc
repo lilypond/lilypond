@@ -61,6 +61,30 @@ line_atom (Grob* me, Real thick, Real dx, Real dy)
   return list;
 }
 
+static SCM
+zigzag_atom (Grob* me, Real thick, Real dx, Real dy)
+{
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  SCM ws = me->get_grob_property ("zigzag-width");
+  SCM ls = me->get_grob_property ("zigzag-length");
+  double w = (gh_number_p(ws) ? gh_scm2double(ws) : 1)*staff_space;
+  double l = (gh_number_p(ls) ? gh_scm2double(ls) : 1)*w;
+  double h = l>w/2 ? sqrt(l*l-w*w/4) : 0;
+  
+  SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
+		      gh_bool2scm (true),
+		      gh_double2scm (w),
+		      gh_double2scm (h),
+		      gh_double2scm (thick),
+		      gh_double2scm (dx),
+		      gh_double2scm (dy),
+		      SCM_UNDEFINED);
+
+  return list;
+}
+
+
+
 Molecule
 Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
 {
@@ -75,6 +99,15 @@ Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
       Box b (Interval (-0.5* thick +  (0 <? dx) ,0.5* thick+ (0 >? dx)),
 	     Interval (- 0.5* thick + (0<? dy), 0.5*thick + (0 >? dy)));
       mol = Molecule (b, line_atom (me, thick, dx, dy));
+    }
+  else if (gh_symbol_p (type)
+	   && type == ly_symbol2scm ("zigzag"))
+    {
+      // TODO:
+      Box b (Interval (-0.5* thick +  (0 <? dx) ,0.5* thick+ (0 >? dx)),
+	     Interval (- 0.5* thick + (0<? dy), 0.5*thick + (0 >? dy)));
+      mol = Molecule (b, zigzag_atom (me, thick, dx, dy));
+
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -263,6 +296,6 @@ Line_spanner::brew_molecule (SCM smob)
 ADD_INTERFACE (Line_spanner, "line-spanner-interface",
   "Generic line drawn between two objects, eg. for use with glissandi.
 gap is measured in staff-spaces.   ",
-  "gap dash-period dash-length thickness type");
+  "gap dash-period dash-length zigzag-width zigzag-length thickness type");
 
 

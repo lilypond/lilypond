@@ -16,13 +16,14 @@ The engraver does no time-keeping, so it involves some trickery to get
 		     % gliss non gliss and 
 	     c4 \glissando d e \glissando f \glissando \break
 	     % consecutive 
-	     c \glissando d \glissando e
+	     c \glissando d, \glissando e'
 	      < { \stemUp e8 \glissando g8 }
 	        \context Voice = VB {\stemDown \repeat unfold 4 d16 } >
-	     
+		\property Voice.Glissando \override #'type = #'zigzag
+		c4 \glissando c,, \glissando c' \glissando d
     }
     \paper{
-        linewidth = 70.\mm
+        linewidth = 50.\mm indent = 0
 	\translator{
 	       \StaffContext
 	       % makes for handier debugging

@@ -1,3 +1,17 @@
+2002-10-15  Rune Zedeler  <rune@zedeler.dk>
+
+	* scm/tex.scm (zigzig-line): added.
+
+	* scm/ps.scm (zigzag-line): added.
+
+	* ps/music-drawing-routines.ps (subvec): added.
+	(draw_zigzag_line): added.
+	
+	* lily/line-spanner.cc: Add support for #'type = #'zigzag. reading
+	grob properties zigzag-width and zigzag-length.
+
+	* input/regression/glissando.ly: Add some zig-zagged glissandi.
+
 2002-10-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/sodipodi.scm: Some fixes.  Sketch also groks this bare-bones

@@ -224,6 +224,50 @@
 } bind def 
 
 
+% a b c d subvec  ==  a-c b-d
+/subvec {
+  3 2 roll exch sub
+  3 1 roll
+  sub exch
+} bind def
+
+
+% centre? zzwidth zzheight thickness x0 y0 x1 y1
+/draw_zigzag_line {
+  newpath
+  6 dict begin
+ 
+  4 2 roll % zzuw zzh th x1 y1 x0 y0
+  2 copy
+  moveto
+  subvec % zzuw zzh th dx dy
+
+  2 copy euclidean_length /l exch def
+  l div /uy exch def
+  l div /ux exch def
+  setlinewidth
+  /zzh exch def
+  l exch div round /n exch def
+  n 0 gt { %if
+      /zzw l n 2 mul div def
+      {
+	  uy zzh mul 2 div ux zzh mul -2 div rmoveto
+      } if
+      1 1 n {
+	  ux zzw mul uy zzh mul sub
+	  uy zzw mul ux zzh mul add
+	  rlineto
+	  ux zzw mul uy zzh mul add
+	  uy zzw mul ux zzh mul sub
+	  rlineto
+      } bind for
+  }{ %else
+      pop
+      ux l mul uy l mul rlineto
+  } ifelse
+  stroke
+ end
+} bind def
 
 /bracket_traject 
 { 

@@ -152,6 +152,21 @@
    (numbers->string
     (list x y radius)) " draw_dot"))
 
+(define (zigzag-line centre? zzw zzh thick dx dy)
+  (string-append
+    (if centre? "true" "false")
+    " "
+    (ly:number->string zzw)
+    " "
+    (ly:number->string zzh)
+    " "
+    (ly:number->string thick)
+    " 0 0 "
+    (ly:number->string dx)
+    " "
+    (ly:number->string dy)
+    " draw_zigzag_line "))
+
 (define (draw-line thick x1 y1 x2 y2)
   (string-append 
   "	1 setlinecap
