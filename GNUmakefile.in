@@ -18,7 +18,7 @@ SUBDIRS = buildscripts python scripts \
 #
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh
-README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS TODO
+README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS 
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
 IN_FILES := $(wildcard *.in)
 PATCH_FILES = emacsclient.patch server.el.patch darwin.patch

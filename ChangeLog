@@ -1,5 +1,8 @@
 2004-02-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* GNUmakefile.in (README_FILES): remove TODO. Put in new CVS
+	module /cvsroot/lilypond/workbook/ 
+
 	* lily/tuplet-engraver.cc: remove tupletInvisible
 
 	* scm/define-translator-properties.scm: cleanup, separate in
@@ -13,7 +16,7 @@
 
 2004-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/part-combiner.scm: Add proper header.
+i	* scm/part-combiner.scm: Add proper header.
 
 	* All but lily/*: The great --2003 --2004 replace; the missing
 	`bits'.
