@@ -1604,10 +1604,16 @@ property code(\fontsize).
 
 dit(code(arithmetic_basicspace) and code(arithmetic_multiplier))
 The space taken by a note is determined by the formula 
-verb(arithmetic_multiplier * ( c + time ))
-where code(time) is the amount of time a note occupies.  The value of
-code(c) is affected by code(arithmetic_basicspace).  Increasing
-code(arithmetic_basicspace) will increase code(c).
+COMMENT(
+
+)verb(arithmetic_multiplier * ( c + log2 (time) ))COMMENT(
+
+) where code(time) is the amount of time a note occupies.  The value
+of code(c) is chosen such that the smallest space within a measure is
+arithmetic_basicspace.  The smallest space is the one following the
+shortest note in the measure.  Typically arithmetic_basicspace is set
+to the width of a quarter note head.
+
 dit(code(barsize)) Specify height of bars.  This value may need to be
 adjusted if you change the number of lines in the staff.
 dit(code(beam_dir_algorithm)) Specify algorithm for determining

@@ -2,9 +2,9 @@
 
 depth = ..
 
-SUBDIRS = J.S.Bach Coriolan W.A.Mozart
+SUBDIRS = J.S.Bach Coriolan W.A.Mozart F.Schubert D.Zipoli Hymns
 
-examples=standchen gallina
+examples= gallina
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make

@@ -68,7 +68,7 @@ twocolumn_re = re.compile('\\\\twocolumn')
 onecolumn_re = re.compile('\\\\onecolumn')
 preMudelaExample_re = re.compile('\\\\def\\\\preMudelaExample')
 postMudelaExample_re = re.compile('\\\\def\\\\postMudelaExample')
-boundingBox_re = re.compile('%%BoundingBox: ([0-9]*) ([0-9]*) ([0-9]*) ([0-9]*)')
+boundingBox_re = re.compile('%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)')
 
 def file_exist_b(name):
     try: 
@@ -201,6 +201,7 @@ class Mudela_output:
         # 'tex' or 'eps'
         self.graphic_type = 'tex'
         self.code_type = 'unknown'
+        self.code_type_override = None
     def write (self, line):
         # match only if there is nothing but whitespace before \begin HACK
         if re.search('^\s*\\\\begin{mudela}', line):
@@ -221,9 +222,9 @@ class Mudela_output:
         else:
             optlist = []
         if 'fragment' in optlist:
-            print "warning: obsolete option: fragment"
-        if 'floating' in optlist:
-            print "warning: obsolete option: floating, change to eps"
+            self.code_type_override = 'fly'
+        if 'nonfragment' in optlist:
+            self.code_type_override = 'ly'
         if 'eps' in optlist:
             self.graphic_type = 'eps'
         for pt in fontsize_pt2i.keys():
@@ -248,14 +249,13 @@ class Mudela_output:
     def close (self):
         if self.code_type == 'unknown':
             self.code_type = 'fly'
-        if self.code_type == 'ly':
-            self.write_red_tape()
-            for l in self.__lines:
-                self.file.write(l)
-        else:
-            self.write_red_tape()
-            for l in self.__lines:
-                self.file.write(l)
+        if self.code_type_override:
+            self.code_type = self.code_type_override
+            print "override:", self.code_type_override
+        self.write_red_tape()
+        for l in self.__lines:
+            self.file.write(l)
+        if self.code_type == 'fly':
             self.file.write('}}')
             
         self.file.close()
@@ -329,6 +329,7 @@ class Tex_output:
             else:
                 file.write(line)
         file.close()
+
 class Tex_input:
     def __init__ (self, filename):
         for fn in [filename, filename+'.tex', filename+'.doc']:
@@ -393,7 +394,7 @@ class Tex_input:
                         else:
                             opts = ', '+opts
                         (start, rest) = string.split(line, r_mud.group(), 1)
-                        retlines.append(start+'\n')
+                        retlines.append(start)#+'\n')
                         v = string.split(defined_mudela_cmd[r_mud.groups()[0]], '\n')
                         for l in v[1:-1]:
                             l = re.sub(r'\\fontoptions', opts, l)

@@ -77,7 +77,6 @@ instrument		ascii	midi instrument table lookup
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
 % that's what i use them for...
-% should compile a list with recognised properties!
 stemup = {
 	\skip 1*0;
 	% Stupid hack to make < { \stemup } > work

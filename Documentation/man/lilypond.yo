@@ -35,6 +35,9 @@ dit(-D,--debug)
     Turn debugging info on.  GNU LilyPond reads the file file(.dstreamrc), 
     which lists what functions and classes may produce copious debugging
     output.
+dit(-s,--safe)
+    Disallow untrusted code(\include) directives, backslashes in TeX()
+code and named output.
 dit(-t,--test)
     Switch on any experimental features.  Not for general public use.
 dit(-w,--warranty)

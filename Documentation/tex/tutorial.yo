@@ -563,16 +563,18 @@ can print it.  We'll start out by explaining how to obtain the
 smallest grains of nuance: the articulation of a single note.  Articulation
 is entered by writing a dash and the name of the desired articulation
 mark.  You have to add a backslash in front of the name to distinguish
-it from the name of a note.  mudela(fragment,verbatim)(
-  c''4-\staccato
-  c''4-\tenuto )
+it from the name of a note. COMMENT(
 
-Typing a lot of staccato notes in this syntax will get tedious very
+)mudela(fragment,verbatim)(
+  c''4-\staccato
+  c''4-\tenuto )COMMENT(
+
+) Typing a lot of staccato notes in this syntax will get tedious very
 quickly.  Therefore, Mudela has some handy abbreviations for
 articulation marks such as staccato and tenuto.  They are shown in the
-following example:
+following example: COMMENT(
 
-mudela()(
+)mudela()(
 \score{ <
         \property Score.textstyle = typewriter
         \type Staff \notes {
@@ -587,20 +589,21 @@ mudela()(
               "."4 "-" "+" "|" ">" "\^{ }" }
         >
         \paper { linewidth = 12.\cm; }
-})
+})COMMENT(
 
-Text and digits for fingering can be entered in the same manner: add a
+)Text and digits for fingering can be entered in the same manner: add a
 dash and the text or digit to be printed:
-mudela(fragment,verbatim)(
-  c''4-1 g''4-5 c''-"Sul tasto" )
+COMMENT(
+
+)mudela(fragment,verbatim)(c''4-1 g''4-5 c''-"Sul tasto" )
 COMMENT(Currently, the meaning of the
 syntax `note-dash-digit/articulation/text' is just ``add a superscript to this
-note.''  This is not in line with our goal to em(define) music with
+note.''  This is not in line with our goal to em (define) music with
 Mudela.  We hope that this will be fixed in a future version of the
 language.  In the meantime you can abuse this: the super- and
 subscripts can be forced into up or down position respectively by entering an
-a caret (code(^)) or an underscore, code(_) instead of the dash:
-mudela(fragment,verbatim,center)(
+a caret (code(^)) or an underscore, code (_) instead of the dash:
+mudela (fragment,verbatim,center) (
   c'4-^ c'4^^ c'''4-^ c'''4_^
 ))
 
@@ -608,12 +611,14 @@ Dynamic markings are another way to add a nuance to a note.  They are
 entered by adding the name for the dynamic sign after the note.  You
 should not enter a dash between the name and the note.footnote(This
   is inconsistent.  We hope that this will be fixed in a later
-  version of the language.)
-mudela(verbatim,fragment)(
-  c4 \ff c4 \fp c4 c4 \ppp c4 c4 \sfz
-)
+  version of the language.)COMMENT(
 
-COMMENT(UGH)
+)mudela(verbatim,fragment)(
+  c4 \ff c4 \fp c4 c4 \ppp c4 c4 \sfz
+)COMMENT(
+UGH
+
+)
 
 sect(Bridging the notes: beams, slurs and ties)
 
@@ -682,9 +687,9 @@ Crescendi and decrescendi can be printed in hairpin style.  The
 starting marker for the crescendo is code(\<), and for the decrescendo
 code(\>).  Both have code(\!) as the ending marker.
 mudela(fragment, verbatim)(
-   c4 \< \! c4 \> \! c2
+   \relative c'' { c4 \< \! c4 \> \! c2
       < c1
-        { s4 \< \! s4 \> \! s2 } >
+        { s4 \< \! s4 \> \! s2 } > }
 )
 This example shows a trick: by attaching the markings to space rests
 that run parallel to the whole note, you can have dynamic markings

@@ -6,7 +6,7 @@ STEPMAKE_TEMPLATES=metafont metapost install install-out
 
 EXTRA_DIST_FILES += TODO README feta.mp mfplain.ini
 
-FET_FILES = $(wildcard feta[0-9]*.mf)
+FET_FILES = $(wildcard feta[0-9]*.mf) feta-din10.mf
 
 LYTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.ly))
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
@@ -30,7 +30,7 @@ INSTALLATION_OUT_FILES1=$(AFM_FILES)
 
 INSTALLATION_OUT_DIR2=$(datadir)/ly
 INSTALLATION_OUT_FILES2=$(LYTABLES)
-
+export MFINPUTS:=.:$(MFINPUTS)
 include $(depth)/make/stepmake.make 
 
 default: $(ALL_GEN_FILES)

@@ -47,7 +47,7 @@ table_eleven  = \symboltables {
 
     "bars" = \table {
 	"empty"	"emptybar"	0
-	""	""	0			0.0\pt	0.0\pt	0.0\pt	16.0\pt
+	""	"emptybar"	0			0.0\pt	0.0\pt	0.0\pt	16.0\pt
 	"|"	"maatstreep"	1	0.0\pt	0.64\pt 	0.0\pt	20.0\pt
 	"||"	"doublebar"	1		0.0\pt	5.0\pt	0.0\pt	20.0\pt
 	"|."	"finishbar"	1		-5.0\pt	0.0\pt	0.0\pt	20.0\pt

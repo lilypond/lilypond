@@ -47,6 +47,20 @@ Chord_name_engraver::do_process_requests ()
   if (!pitch_arr_.size ())
     return;
 
+  /*
+   Banter style chord names (almost).
+   TODO:
+     - don't print inclusive scale (i.e. no "9" in c 9/11)
+     - handle c7 / cmaj7
+     - use #,b iso -es -is on tonica
+     - switch on property, add american (?) chordNameStyle
+
+  Scalar chordNameStyle = get_property ("chordNameStyle");
+  if (chordNameStyle == "Banner")
+     chord = pitches_to_banner (pitch_arr_.size ());
+
+   */
+
   Scalar style = get_property ("textstyle");
   Scalar alignment = get_property ("textalignment");
   Text_def* text_p = new Text_def;
@@ -57,21 +71,52 @@ Chord_name_engraver::do_process_requests ()
     text_p->align_dir_= (Direction)(int)alignment;
 
   Musical_pitch tonic = pitch_arr_[0];
-  text_p->text_str_ = tonic.str ();
+
+  Array<Musical_pitch> scale;
+  scale.push (Musical_pitch (0)); // c
+  scale.push (Musical_pitch (1)); // d
+  scale.push (Musical_pitch (2)); // e
+  scale.push (Musical_pitch (3)); // f
+  scale.push (Musical_pitch (4)); // g
+  scale.push (Musical_pitch (5)); // a
+  // 7 always means 7-...
+  scale.push (Musical_pitch (6, -1)); // b
+
+  for (int i = 0; i < scale.size (); i++)
+    scale[i].transpose (tonic);
+
+  //urg, should do translation in scheme.
+  char const *acc[] = {"\\textflat\\textflat", "\\textflat", "", "\\textsharp" , "\\textsharp\\textsharp"};
+  String tonic_str = tonic.str ();
+  tonic_str = tonic_str.left_str (1).upper_str ()
+    + acc[tonic.accidental_i_ + 2];
+
+  String add_str;
+  String sep_str;
   for (int i=1; i < pitch_arr_.size (); i++)
     {
       Musical_pitch p = pitch_arr_[i];
-      int trap = (p.notename_i_ - tonic.notename_i_ + 8) % 8 + 1;
-      if (((trap != 3) && (trap != 5)) || (p.accidental_i_))
+      int trap = p.notename_i_ - tonic.notename_i_ 
+        + (p.octave_i_ - tonic.octave_i_) * 7 + 1;
+      int accidental = p.accidental_i_ - scale[(trap - 1) % 7].accidental_i_;
+      if ((trap == 3) && (accidental == -1))
+        tonic_str += "m"; // hmm
+      else if (accidental || (!(trap % 2) || ((i + 1 == pitch_arr_.size ()) && (trap > 5))))
         {
-	  text_p->text_str_ += to_str ((p.notename_i_ - tonic.notename_i_ + 8) % 8 + 1);
-	  if (p.accidental_i_)
-	    text_p->text_str_ += p.accidental_i_ < 0 ? "-" : "+";
-	  if (i + 1 < pitch_arr_.size ())
-	    text_p->text_str_ += "/";
+	  add_str += sep_str;
+          if ((trap == 7) && (accidental == 1))
+            add_str += "maj7";
+          else
+            {
+              add_str += to_str (trap);
+              if (accidental)
+                add_str += accidental < 0 ? "-" : "+";
+            }
+	  sep_str = "/";
 	}
     }
 
+  text_p->text_str_ = tonic_str + "$^{" + add_str + "}$";
   Text_item* item_p =  new Text_item (text_p);
   item_p->dir_ = DOWN;
   item_p->fat_b_ = true;

@@ -4,6 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+       Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "my-lily-parser.hh"
@@ -171,25 +172,28 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   for (int i = 0; i < add_arr_p->size (); i++)
     {
       Musical_pitch p = tonic;
-      p.transpose ((*add_arr_p)[i]);
+      Musical_pitch q = (*add_arr_p)[i];
+      // duh, c7 should mean <c bes>
+      if (q.notename_i_ == 6)
+        q.accidental_i_--;
+      p.transpose (q);
       (*add_arr_p)[i] = p;
     }
   add_arr_p->sort (Musical_pitch::compare);
   for (int i = 0; i < sub_arr_p->size (); i++)
     {
       Musical_pitch p = tonic;
-      p.transpose ((*sub_arr_p)[i]);
+      Musical_pitch q = (*add_arr_p)[i];
+      // duh, c7 should mean <c bes>
+      if (q.notename_i_ == 6)
+        q.accidental_i_--;
+      p.transpose (q);
       (*sub_arr_p)[i] = p;
     }
   sub_arr_p->sort (Musical_pitch::compare);
 
-  Musical_pitch third;
-  third.notename_i_ = 2;
-
-  Musical_pitch mthird;
-  mthird.notename_i_ = 2;
-  mthird.accidental_i_ = -1;
-
+  Musical_pitch third (2);
+  Musical_pitch mthird (2, -1);
   Musical_pitch missing;
   missing = tonic;
   missing.transpose (third);
@@ -202,20 +206,31 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   /*
    must have minimum at 5 (3 is added automatically as missing)
    */
-  if (!add_arr_p->size () 
-    || ((add_arr_p->size () == 1) && 
-         ((add_arr_p->top ().notename_i_ != p.notename_i_)
-           || (add_arr_p->top () < p))))
+  if (!add_arr_p->size ())
     add_arr_p->push (p);
+  else if ((add_arr_p->top () < p) && (add_arr_p->top ().notename_i_ != p.notename_i_))
+    add_arr_p->push (p);
+  add_arr_p->sort (Musical_pitch::compare);
 
   Array<Musical_pitch> triads;
   triads.push (third);   // c e 
   triads.push (mthird);  // d f 
   triads.push (mthird);  // e g 
   triads.push (third);   // f a 
+  // 7 always seems means 7-...
   triads.push (third);   // g b 
+//  triads.push (mthird);   // g bes
   triads.push (mthird);  // a c 
   triads.push (mthird);  // b d 
+
+  /*
+    if first addition is 4, assume sus4 and don't add third implicitely
+   */
+  Musical_pitch sus (3);
+  sus.transpose (tonic);
+  if (add_arr_p->size ())
+    if ((*add_arr_p)[0] == sus)
+      missing.transpose (mthird);
 
   /*
    add missing triads
@@ -223,14 +238,25 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   for (int i = 0; i < add_arr_p->size (); i++)
     {
       Musical_pitch p = (*add_arr_p)[i];
-      if ((p > missing) && (p.notename_i_ != missing.notename_i_))
-        while ((p > missing) && (p.notename_i_ != missing.notename_i_))
+      if (p > missing)
+        while (p > missing)
 	  {
-	    add_arr_p->insert (missing, i++);
-	    missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 8) % 8]);
+	    if (p.notename_i_ != missing.notename_i_)
+	      {
+	        if ((missing.notename_i_ - tonic.notename_i_ + 7) % 7 == 6)
+		  {
+		    Musical_pitch special_seven = missing;
+		    Musical_pitch lower (0, -1);
+		    special_seven.transpose (lower);
+		    add_arr_p->insert (special_seven, i++);
+		  }
+		else
+		  add_arr_p->insert (missing, i++);
+	      }
+	    missing.transpose (triads[(missing.notename_i_ - tonic.notename_i_ + 7) % 7]);
 	  }
-	else
-	  i++;
+      else
+	i++;
     }
 
   /*
@@ -408,13 +434,6 @@ My_lily_parser::here_input() const
 {
   Source_file * f_l= lexer_p_->source_file_l();
   return Input (f_l, here_ch_C());
-}
-
-void
-My_lily_parser::add_notename (String s, Musical_pitch p)
-{
-  lexer_p_->add_notename (s, p);
-
 }
 
 Paper_def*

@@ -460,7 +460,7 @@ Lookup::plet (Real dy , Real dx, Direction dir) const
   a.lambda_ = gh_list(ly_symbol ("tuplet"),
 		      gh_double2scm (dx),
 		      gh_double2scm (dy),
-		      gh_int2scm (dir));
+		      gh_int2scm (dir), SCM_UNDEFINED);
   return a;
 }
 

@@ -37,15 +37,20 @@ public:
   String main_input_str_;
   void * lexval_l;
   Scope * toplevel_scope_p_;
+  bool main_input_b_;
   
   Notename_table *note_tab_p_;
   Array<Scope*> scope_l_arr_;
   Keyword_table * keytable_p_;
   int errorlevel_i_;
-
-
+  Notename_table *chordmodifier_tab_p_;
+  Musical_pitch lookup_notename (String s);
   void start_main_input ();
   void set_notename_table(Notename_table*tab_p);
+  bool chordmodifier_b (String) const;
+  void set_chordmodifier_table (Notename_table*tab_p);
+  Musical_pitch lookup_chordmodifier (String s);
+   
   bool notename_b(String) const;
   Identifier*lookup_identifier (String s);
   Musical_pitch lookup_pitch (String s);

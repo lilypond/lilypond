@@ -39,6 +39,12 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_header ()
 {
+ 
+  if (safe_global_b)
+    {
+      ly_set_scm ("security-paranoia", SCM_BOOL_T);
+      gh_eval_str ("(set! security-paranoia #t)");
+    }
   String s = String ("(eval (") + output_global_ch + "-scm 'all-definitions))";
   gh_eval_str (s.ch_C());
   

@@ -47,7 +47,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.7");
-Mudela_version version ("1.0.11");
+Mudela_version version ("1.0.12");
 
 
 // needed for bison.simple's malloc() and free()
@@ -104,11 +104,12 @@ Paper_def* current_paper = 0;
     Array<Musical_pitch> *pitch_arr;
     Array<String> * strvec;
     Array<int> *intvec;
+    Atom * symbol;
     Box *box;
-    Simultaneous_music *chord;
+    Notename_table *chordmodifiertab;
     Duration *duration;
+    General_script_def * script;
     Identifier *id;
-    Translator* trans;
     Music *music;
     Music_list *music_list;
     Score *score;
@@ -124,14 +125,14 @@ Paper_def* current_paper = 0;
     Paper_def *paper;
     Real real;
     Request * request;
-    General_script_def * script;
     Scalar *scalar;
+    Simultaneous_music *chord;
     String *string;
-    Atom * symbol;
     Symtable * symtable;
     Symtables* symtables;
-    Text_def * textdef;
     Tempo_req *tempo;
+    Text_def * textdef;
+    Translator* trans;
     char c;
     const char *consstr;
     int i;
@@ -163,6 +164,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token BAR
 %token BEAMPLET
 %token CADENZA
+%token CHORDMODIFIERS
 %token CHORDS
 %token CLEF
 %token CM_T
@@ -221,6 +223,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	dots
 %token <i>	DIGIT
 %token <pitch>	NOTENAME_PITCH
+%token <pitch>	CHORDMODIFIER_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
 %token <id>	NOTENAME_TABLE_IDENTIFIER
@@ -292,8 +295,9 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <symtable>	symtable symtable_body
 %type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
-%type <notenametab> notenames_body notenames_block
-%expect 4
+%type <notenametab> notenames_body notenames_block chordmodifiers_block
+
+%expect 6
 
 
 %left '-' '+'
@@ -312,6 +316,9 @@ mudela:	/* empty */
 toplevel_expression:
 	notenames_block			{
 		THIS->lexer_p_->set_notename_table ($1);
+	}
+	| chordmodifiers_block			{
+		THIS->lexer_p_->set_chordmodifier_table ($1);
 	}
 	| mudela_header {
 		delete header_global_p;
@@ -356,6 +363,11 @@ check_version:
 			}
 		}
 	}
+	;
+
+
+chordmodifiers_block:
+	CHORDMODIFIERS '{' notenames_body '}'  {  $$ = $3; }
 	;
 
 
@@ -424,6 +436,9 @@ block_identifier:
 	score_block {
 		$$ = new Score_identifier ($1, SCORE_IDENTIFIER);
 
+	}
+	| chordmodifiers_block {
+		$$ = new Notename_table_identifier ($1, NOTENAME_TABLE_IDENTIFIER);
 	}
 	| notenames_block {
 		$$ = new Notename_table_identifier ($1, NOTENAME_TABLE_IDENTIFIER);
@@ -1436,7 +1451,7 @@ simple_element:
 		$$ = THIS->get_word_element (*$1, $2);
 		delete $1;
 	}
-	| '@' chord ';'	{
+	| '@' chord {
 		if (!THIS->lexer_p_->chord_state_b ())
 			THIS->parser_error (_ ("have to be in Chord mode for chords"));
 		$$ = $2;
@@ -1445,10 +1460,8 @@ simple_element:
 
 
 chord:
-        NOTENAME_PITCH chord_additions chord_subtractions {
-		Duration d;
-		d.durlog_i_ = 0;
-                $$ = THIS->get_chord (*$1, $2, $3, d);
+        notemode_duration steno_musical_pitch chord_additions chord_subtractions {
+                $$ = THIS->get_chord (*$2, $3, $4, *$1);
         };
 
 chord_additions:
@@ -1459,24 +1472,33 @@ chord_additions:
 		$1->push (*$2);
 		$$ = $1;
 	}
+	| chord_additions CHORDMODIFIER_PITCH {
+		/* 
+		  urg, this is kind of ugly.
+		  all but "sus" chord modifiers can be
+		  handled as chord_additions...
+		 */
+		$1->push (*$2);
+		$$ = $1;
+	}
 	;
 
 chord_note:
         UNSIGNED {
 		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 8;
+		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 0;
         } 
 	| UNSIGNED '+' {
 		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 8;
+		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = 1;
 	}
 	| UNSIGNED '-' {
 		$$ = new Musical_pitch;
-		$$->notename_i_ = ($1 - 1) % 8;
+		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;
 		$$->accidental_i_ = -1;
 	}

@@ -138,7 +138,13 @@ EXTENDER	[_][_]
 
 
 <INITIAL,chords,lyrics,notes>\\maininput           {
-	start_main_input ();
+	if (!main_input_b_)
+	{
+		start_main_input ();
+		main_input_b_ = true;
+	}
+	else
+		error ("\\maininput disallowed outside init files.");
 }
 
 <INITIAL,chords,lyrics,notes>\\include           {
@@ -283,6 +289,9 @@ EXTENDER	[_][_]
 	{ALPHAWORD}	{
 		return scan_bare_word (YYText ());
 	}
+	{NOTECOMMAND}	{
+		return scan_escaped_word (YYText () + 1);
+	}
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
@@ -407,13 +416,12 @@ My_lily_lexer::scan_escaped_word (String str)
 		return id->token_code_i_;
 	}
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {
-		if (notename_b (str))
-			{
-			yylval.pitch = new Musical_pitch (lookup_pitch (str));
+		if (notename_b (str)) {
+			yylval.pitch = new Musical_pitch (lookup_notename (str));
 			yylval.pitch->set_spot (Input (source_file_l (), 
 			  here_ch_C ()));
 			return NOTENAME_PITCH;
-			}
+		}
 	}
 	if (check_debug)
 		print_declarations (true);
@@ -432,10 +440,16 @@ My_lily_lexer::scan_bare_word (String str)
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		if (notename_b (str)) {
 		    DOUT << "(notename)\n";
-		    yylval.pitch = new Musical_pitch (lookup_pitch (str));
+		    yylval.pitch = new Musical_pitch (lookup_notename (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
 		    return NOTENAME_PITCH;
+		} else if (chordmodifier_b (str)) {
+		    DOUT << "(chordmodifier)\n";
+		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));
+		    yylval.pitch->set_spot (Input (source_file_l (), 
+		      here_ch_C ()));
+		    return CHORDMODIFIER_PITCH;
 		}
 	}
 

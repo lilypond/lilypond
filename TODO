@@ -21,7 +21,6 @@ BUGS:
 	* who is trying to print too (small/big) piano braces all the time?
 	    warning: piano brace too small (16.000pt)
 
-
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
 	* msgfmt -o check?
@@ -44,7 +43,7 @@ BUGS:
 
 	* space after bars?
 
-	* [/3 c8 c16 c c c]/1
+	* \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
 
 	* fix singleStaffBracket
 
@@ -52,7 +51,7 @@ BUGS:
 
 	* The time signature warnings still remain, will be fixed later.
 
-ii	Summary of minor spelling irregularities:
+	Summary of minor spelling irregularities:
 	-  capitalization/use of underscores in property names
 
 	* fix SkipBars  -> skipBars
@@ -92,9 +91,7 @@ STUFF
 
 	* typo checks on property names?
 
-	* make engraver hacking robust.
-
-	* --safe:  disallow backslashes, disallow \include.
+	* --safe:  disallow backslashes
 
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
@@ -324,6 +321,8 @@ ydirection and hshift preset
 
 
 3RD PARTY BUGS:
+
+	* make GCC warn about ctor that leaves member vars  uninitialised.
 
 	* redhat (v?) graphical install bomb-out?
 

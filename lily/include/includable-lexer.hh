@@ -33,6 +33,8 @@ protected:
   Array<int> char_count_stack_;
 
 public:
+  bool allow_includes_b_;
+  
   Includable_lexer ();
   ~Includable_lexer ();
 

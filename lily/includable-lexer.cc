@@ -25,6 +25,7 @@
 Includable_lexer::Includable_lexer ()
 {
   yy_current_buffer = 0;
+  allow_includes_b_ = true;
 }
 
 /** set the  new input to s, remember old file.
@@ -32,6 +33,12 @@ Includable_lexer::Includable_lexer ()
 void
 Includable_lexer::new_input (String s, Sources  * global_sources)
 {
+  if (!allow_includes_b_)
+    {
+      LexerError ("include files are disallowed.");
+      return;
+    }
+  
   Source_file * sl = global_sources->get_file_l (s);
   if (!sl)
     {
@@ -44,7 +51,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
   char_count_stack_.push (0);
   if (yy_current_buffer)
     state_stack_.push (yy_current_buffer);
-  *mlog << "[" << s<<flush;
+  *mlog << "[" << s<< flush;
   include_stack_.push (sl);
 
   /*

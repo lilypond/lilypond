@@ -1,3 +1,5 @@
+\version "1.0.12";
+
 %{
 Would this be acceptable/good enough/convenient for entry?
 
@@ -14,9 +16,9 @@ Would this be acceptable/good enough/convenient for entry?
 %}
 
 scales = \notes\transpose c''\chords{
-		@c; @g; @d; @a; @e; @b; @fis;
-		@c; @f; @bes; @es; @as; @des; @ges;
-		@c6; @c7; @c9; @c11; @c13;
+		*c *g *d *a *e *b *fis
+		*c *f *bes *es *as *des *ges
+                *c6 *c7 *c9 *c11 *c13
 	}
 
 \score{

@@ -45,6 +45,7 @@ String default_outname_base_global =  "lelie";
 int default_count_global;
 File_path global_path;
 
+bool safe_global_b = false;
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
 
@@ -67,6 +68,7 @@ Long_option_init theopts[] = {
   {0, "find-fourths", 'Q'},
   {0, "ignore-version", 'V'},
   {1, "output-format", 'f'},
+  {0, "safe", 's'},
   {0,0,0}
 };
 
@@ -109,6 +111,8 @@ usage ()
   cout  << _ (
     "  -Q, --find-fourths     show all intervals greater than a fourth\n"
     );
+  cout << _ (
+    "  -s, --safe             inhibit file output naming and exporting TeX  macros\n");
   cout  << _ (
     "  -t, --test             switch on experimental features\n"
     );
@@ -283,6 +287,9 @@ main_prog (int argc, char **argv)
 	  break;
 	case 'V':
 	  version_ignore_global_b = true;
+	  break;
+	case 's':
+	  safe_global_b = true;
 	  break;
 	case 'd':
 	  dependency_global_b = true;

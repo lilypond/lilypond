@@ -12,6 +12,7 @@
 #include "global-translator.hh"
 #include "dictionary-iter.hh"
 #include "identifier.hh"
+#include "main.hh"
 
 int
 Music_output_def::get_next_default_count () const
@@ -94,8 +95,8 @@ Music_output_def::print () const
 String
 Music_output_def::get_default_output () const
 {
-  if (!scope_p_->elem_b ("output"))
-    return "";  
+  if (safe_global_b || !scope_p_->elem_b ("output"))
+    return "";
   Identifier * id = (*scope_p_) ["output"];
 
   String *p = id->access_content_String (false);
