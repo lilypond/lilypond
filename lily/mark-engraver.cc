@@ -166,19 +166,22 @@ Mark_engraver::process_music ()
 	  text_->set_grob_property ("text",
 				      scm_makfrom0str (t.to_str0 ()));
 
-	  String style = "mark-number";
+	  SCM series = SCM_EOL;
+	  SCM family = ly_symbol2scm ("number");
 	  for (int i=0; i < t.length (); i++)
 	    {
 	      if (!isdigit (t[i])) 
 		{
-		  style = "mark-letter";
+		  series = ly_symbol2scm ("bold");
+		  family = ly_symbol2scm ("roman");
 		  break;
 		}
 	    }
-	  SCM st = ly_symbol2scm (style.to_str0 ());
-	  text_->set_grob_property ("font-style",  st);
+	  if (gh_symbol_p (series))
+	    text_->set_grob_property ("font-series",  series);
+	  if (gh_symbol_p (family))
+	    text_->set_grob_property ("font-family",  family);
 	}
-
     }
 }
 
