@@ -1,7 +1,7 @@
 @c -*-texinfo-*-
 
 @node ly2dvi
-@section ly2dvi
+@chapter ly2dvi
 
 Ly2dvi is a Python script which creates input file for La@TeX{},
 based on information from the output files from LilyPond.
@@ -20,7 +20,7 @@ Arne Fagertun name @file{ly2dvi}.
         ly2dvi [options] inputfile[.ly] [....]
 
 
-@table @samp
+@table @code
 @item -D,--debug
     Set debug mode. There are two levels - in level one some debug
     info is written, in level two the command @strong{set -x} is run, which
@@ -72,7 +72,7 @@ Arne Fagertun name @file{ly2dvi}.
 Ly2dvi responds to several parameters specified in the LilyPond
 file. They are overridden by corresponding command line options.
 
-@table @samp
+@table @code
 @item language="";
     Specify La@TeX{} language
 @item latexheaders="";
@@ -87,7 +87,7 @@ file. They are overridden by corresponding command line options.
 
 @subsection Ly2dvi Environment
 
-@table @samp
+@table @code
 @item LILYPONDPREFIX
     Sets the root directory of the LilyPond installation
 @item LILYINCLUDE
@@ -102,7 +102,7 @@ file. They are overridden by corresponding command line options.
 additional text definitions from the LilyPond file. In the current
 version the following are defined:
 
-@table @samp
+@table @code
 @item title
     The title of the music. Centered on top of the first page.
 @item subtitle
@@ -137,7 +137,7 @@ and @strong{VALUE} is either a string, a 1, or a 0.  All files are parsed,
 in the shown sequence. In the current version the following are
 allowed:
 
-@table @samp
+@table @code
 @item DEBUG=value
 This turns off (default) or on the debug capabilities.  Possible
 values are 0 (off) and 1 (on).
@@ -201,6 +201,8 @@ writable to the user.
 The initialization process reads inputs for several sources.  Below is
 a list of priorities for lowest to hightest proirity.
 
+[FIXME: should use ly2dvirc iso lilyrc]
+
 @itemize @bullet
 @item  Program's defaults
 @item  Values found in LilyPond output file
@@ -211,15 +213,10 @@ a list of priorities for lowest to hightest proirity.
 @item  command line options
 @end itemize
 
-Note that this differs slightly from the original bourne shell
-version. 
-
 @subsection Ly2dvi Bugs
 
-@c should?
-FIXME.
-See @ref{Bug reports}.
-If you have found a bug, you should send a bugreport.
+See @ref{Bug reports}.  If you have found a bug, you should send a
+bugreport.
 
 @itemize @bullet
 @item Send a copy of the input which causes the error.

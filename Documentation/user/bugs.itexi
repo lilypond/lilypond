@@ -11,12 +11,13 @@ information:
 
 @itemize @bullet
 
-@item a sample input which causes the error. This is @strong{important
-} to determine the cause of the problem.
+@item a sample input which causes the error. Without this, we can not
+verify your problem.
 
 (and you will do us a favor if send a @strong{small} sample file)
 
-@item which LilyPond version you use. This is  @strong{important information}
+@item which LilyPond version you use. Without this, we can not verify
+your problem.
 
 
 This information tells us if you've found a new bug, or an old one.
@@ -29,8 +30,8 @@ system libraries, whether you downloaded a binary release)
 @end itemize
 
 
-You can send the report to @email{bug-gnu-music@@gnu.org}---You don't
-have to be subscribed to this mailinglist, or you can enter the bug in
-the LilyPond wiki, at
-@uref{http://appel.lilypond.org/wiki?LilyPondBugs}. 
+You can send the report to @email{bug-gnu-music@@gnu.org}. This is a
+mailinglist, but you don't have to be subscribed to it.  You may also
+enter the bug in the LilyPond wiki, at
+@uref{http://appel.lilypond.org/wiki?LilyPondBugs}.
 

@@ -1,457 +1,6 @@
 @c -*-texinfo-*-
 
 @c Move chapter
-@node Internals
-@chapter Internals
-
-@menu
-* Conversion stages::              Lilypond is a multi-pass program.
-* Moment:: 
-* Grobs::                          Graphical object  
-* Engraver::
-* Music_iterator::
-* Music::
-* Molecules::                       Molecules are stand-alone descriptions of output
-* Font metrics::                    Font metrics
-@end menu
-
-@node Conversion stages
-@section Conversion stages
-
-When translating the input to notation, there are number of distinct
-phases.  We list them here:
-
-@table @samp
-
-@item Parsing:
-
-The .ly file is read, and converted to a list of @code{Scores}, which
-each contain @code{Music} and paper/midi-definitions.
-
-@item Interpreting music
-@cindex interpreting music
-
-All music events are "read" in the same order as they would be played
-(or read from paper). At every step of the interpretation, musical
-events are delivered to
-interpretation contexts,
-@cindex engraver
-which use them to build grobs (or MIDI objects, for MIDI output).
-
-@item Prebreaking
-
-@cindex prebreaking
-
-At places where line breaks may occur, clefs and bars are prepared for
-a possible line break. 
-
-@item Preprocessing
-
-@cindex preprocessing
-
-In this stage, all information that is needed to determine line breaking
-is computed. 
-
-@item Break calculation:
-
-The lines and horizontal positions of the columns are determined.
-
-@item Breaking
-
-Relations between all grobs are modified to reflect line breaks. See
-also @ref{Pointer substitution}.
-
-@item Outputting:
-
-All vertical dimensions and spanning objects are computed, and all grobs
-are output, line by line.
-
-@end table
-
-@node Moment
-@section Moment
-
-Moment is a rational number. Since GUILE doesn't support them natively,
-so we created our own rational data type.
-
-@defun moment?
-@end defun
-
-@defun make-moment num den
-create the rational number @var{num}/@var{den}. 
-@end defun
-
-@node Grobs
-@section Grobs
-
-This section is about Grobs (short for Graphical Objects), which are
-formatting objects used to create the final output. This material is
-normally the domain of LilyPond gurus, but occasionally, a normal user
-also has to deal with grobs.
-
-The most simple interaction with Grobs are when you use
-@code{\override}:
-
-@example
-        \property Voice.Stem \override #'direction = #1
-@end example
-
-This piece of lily input causes all stem objects to be stem-up
-henceforth.  In effect, you are telling lilypond to extend the defintion
-of the "Stem" grob with the setting @code{direction := 1}.  Of course
-there are many more ways of customizing Lily output, and since most of
-them involve Grobs in some form, this section explains some details of
-how grobs work.
-
-@menu
-* What is a grob?::
-* Callbacks::
-* Setting grob properties::
-* Items and Spanners::
-* Pointer substitution::
-* Grob Scheme functions::
-@end menu
-
-@node What is a grob?
-@subsection What is a grob?
-
-In music notation, lots of symbols are related in some way.  You can
-think of music notation as a graph where nodes are formed by the
-symbols, and the arcs by their relations. A grob is node in that
-graph. A grob stores references to other grobs, the directed edges in
-the graph.
-
-The objective of this big graph of grobs, is to specify the notation
-problem. The solution of this problem is a description of the printout
-that is in closed form, i.e. but a list of values.  These values are
-Molecules. (see @ref{Molecules})
-
-All grobs have an X and Y-position on the page.  These X and Y positions
-are stored in a relative format, so they can easily be combined by
-stacking them, hanging one grob to the side of another, and coupling
-them into a grouping-grob.
-
-Each grob has a reference point, or parent: the position of a grob is
-stored relative to that reference point. For example the X-reference
-point of a staccato dot usually is the note head that it applies
-to. Whenever the note head is moved, the staccato dot moves along
-automatically.
-
-If you keep following offset reference points, you will always end up at
-the root-object. This root object is called @rgrob{Line_of_score}, and it
-represents a system (ie. a line of music).
-
-All grobs carry a set of grob-properties.  In the Stem example above,
-the property @code{direction} is set to value @code{1}.  The function
-that draws the symbol (@code{Stem::brew_molecule}) uses the value of
-@code{direction} to determine how to print the stem and the flag.  The
-appearance of a grob is determined solely by the values of its
-properties.
-
-Often, a grob also is associated with a symbol. On the other hand,
-Some grobs do not print any symbols, but take care of grouping
-objects. For example, there is a separate grob that stacks staffs
-vertically, so they are not printed in overstrike. The
-@rgrob{NoteCollision} is another example of an abstract grob.  It only
-moves around chords, but doesn't print anything.
-
-A complete list of grob types is found in
-@ref{(lilypond-internals)LilyPond backend}
-
-Grobs are created in the "Interpreting music" phase, by things in
-LilyPond called engravers.  In this phase of the translation, a load of
-grobs are created, and they are linked into a giant network of objects.
-This network of grobs forms the "specification" of the print
-problem. This problem is then solved: configurations, directions,
-dimensions, line breaks, etc.  are calculated. Finally,   the printing
-description in the form of Molecules (@ref{Molecules})  is extracted from
-the network. These are then dumped into the output file
-
-@node Callbacks
-@subsection Callbacks
-
-Offsets of grobs are relative to a parent reference point. Most
-positions are not known when an object is created, so these are
-calculated as needed. This is done by adding a callback for a specific
-direction.
-
-Suppose you have the following code in a .ly file.
-@example
-        #(define (my-callback gr axis)
-                (*  2.0 (get-gr-property grob 'direction))
-        )
-
-....
-
-        \property Voice.Stem \override #'Y-offset-callbacks = #(list
-                        my-callback)
-@end example
-
-When the Y-offset of a Stem object is needed, LilyPond will
-automatically execute all callbacks for that object. In this case, it
-will find @code{my-callback}, and execute that. The result is that the
-stem is translated by two staff spaces in its direction.
-
-(note: Y-offset-callbacks is also a property) 
-
-
-Offset callbacks can be stacked, ie.
-
-@example
-        \property .... \override #'Y-offset-callbacks = #(list
-                callback1 callback2 callback3)
-
-@end example
-
-The callbacks will be executed in the order callback3 callback2
-callback1. This is used for quantized positioning: the staccato dot is
-above or below a note head, and it must not be on a staff-line.
-
-To achieve this, for the staccato there are two callbacks: one callback
-that positions the grob above or below the note head, and one callback
-that rounds the Y-position of the grob to the nearest open space.
-
-Similarly, the size of a grob are determined through callbacks, settable
-with grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
-There can be only one extent-callback for each axis. No callback (value #f)
-means: "empty in this direction". If you fill in a pair, that pair
-hard-codes the extent in that coordinate.
-
-
-@node Setting grob properties
-@subsection Setting grob properties
-
-Grob properties are stored as GUILE association lists, with symbols as
-keys.   From C++, element properties can be accessed using the functions
-
-@example
-  SCM  get_grob_property (SCM) const;
-  void set_grob_property (const char * , SCM val);
-  void set_immutable_grob_property (const char * , SCM val);
-  void set_immutable_grob_property (SCM key, SCM val);  
-  void set_grob_property (SCM , SCM val);  
-  void set_grob_pointer (const char*, SCM val);
-  SCM  remove_grob_property (const char* nm);
-@end example
-
-In GUILE, LilyPond provides
-
-@example
-        ly-get-grob-property GROB SYMBOL
-        ly-set-grob-property GROB SYMBOL VALUE
-@end example
-
-All lookup functions identify undefined properties with 
-end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
-
-Properties are stored in two ways:
-@itemize @bullet
-@item mutable properties:
-element properties that change from object to object. The storage of
-these are private to a grob. Typically this is used to store lists of
-pointers to other grobs
-
-@item immutable properties:
-element properties that are shared across different grobs of the same
-type. The storage is shared, and hence it is read-only. Typically, this
-is used to store function callbacks, and values for shared element
-properties are read from @file{scm/element-description.scm}.
-@end itemize
-
-There are two ways to manually set grob properties.
-
-You can change immutable grob properties. This is done with the
-\override syntax:
-
-@example
-        \property Voice.Stem \override #'direction = #1
-@end example
-
-This will push the entry @code{'(direction . 1)} on the immutable
-property list for stems, in effect overriding the setting from
-@file{scm/element-description.scm}. This can be undone by 
-
-@example
-        \property Voice.stem \revert #'direction
-@end example
-
-If you use this a lot, this gets old quickly. So we also have a
-shorthand,
-
-@example
-        \property Context.GrobType \set #'prop = #VAL
-@end example
-
-this does a @code{\revert} followed by a @code{\override}
-
-The second way is \outputproperty. This construct looks like
-
-@example
-        \context ContextName \outputproperty @var{pred} #@var{sym} = #@var{val}
-@end example
-
-In this case, in every grob that satisfies @var{pred}, the property
-assignment @var{sym} = @var{val} is done.  For example
-
-@example
-        \outputproperty
-                #(lambda (gr) (string? (ly-get-grob-property gr
-                        'text)))
-                #'extra-offset = #'(-1.0 . 0.0)
-@end example
-
-This shifts all elements that have a @code{text} property one staff
-space to the left. This mechanism is rather clumsy to use, but it allows
-you tweak any setting of any grob.
-
-@node Items and Spanners
-@unnumberedsubsec Items and Spanners
-
-Grobs can also be distinguished in their role in the horizontal spacing.
-A lot of grobs define constraints on the spacing by their sizes. For
-example, note heads, clefs, stems, and all other symbols with a fixed
-shape.  These grobs form a subtype called @code{Item}.
-
-Other grobs have a shape that depends on the horizontal spacing. For
-example, slur, beam, tie, etc. These grobs form a subtype called
-@code{Spanner}. All spanners have two span-points (these must be
-@code{Item}s), one on the left and one on the right. The left bound is
-also the X-reference point.
-
-Some items need special treatment for line breaking. For example, a
-clef is normally only printed at the start of a line (ie. after a line
-break).  To model this, `breakable' items (clef, key signature, bar lines,
-etc.) are copied twice. Then we have three versions of each breakable
-item: one version if there is no line break, one version that is printed
-before the line break (at the end of a system), one version that is
-printed after the line break.
-
-Whether these versions are visible and take up space, is determined by
-the outcome of the visibility-lambda. This is a function taking a
-direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
-this grob should be transparent and invisible.
-
-@node Pointer substitution
-@unnumberedsubsec Pointer substitution
-
-
-Symbols that cross line-breaks (such as slurs) cause some more
-complications. When a  spanner crosses a line-break, then the spanner is
-"broken into pieces", for every line that the spanner is in, a copy of
-the grob is made. A substitution process redirects all grob-reference
-so that spanner grob will only reference other grobs in the same line.
-
-@node Grob Scheme functions
-@unnumberedsubsec Grob Scheme functions
-
-
-@defun ly-get-grob-property g sym
-  Get the value of a value in grob @var{g} of property @var{sym}. It
-will return @code{'()} (end-of-list) if not true.
-@end  defun
-
-@defun ly-set-grob-property g sym val
-@end defun
-
-@defun ly-get-spanner-bound spanner dir
-@end defun
-
-@defun ly-grob? g
-@end defun
-
-
-
-@node Engraver
-@section Engraver
-
-@node Music_iterator
-@section Music_iterator
-
-@node Music
-@section Music
-
-@node Molecules
-@section Molecules
-
-@cindex Molecule
-@cindex Atom
-@cindex Output description
-
-The objective of any typesetting system is to put ink on paper in the
-right places. For LilyPond, this final stage is left to the TeX and the
-printer subsystem. For lily, the last stage in processing a score is
-outputting a description of what to put where.  This description roughly
-looks like
-
-@example
-        PUT glyph AT (x,y)
-        PUT glyph AT (x,y)
-        PUT glyph AT (x,y) 
-@end example
-
-you merely have to look at the tex output of lily to see this.
-Internally these instructions are encoded in Molecules:@footnote{At some
-point LilyPond also contained Atom-objects, but they have been replaced
-by Scheme expressions.}.  A molecule is an object that combines
-dimension information (how large is this glyph ?) with
-what-to-print-where.
-
-Conceptually, Molecules can be constructed from Scheme code, by
-translating a Molecule and by combining two molecules. In BNF
-notation:
-
-@example
- Molecule = COMBINE Molecule Molecule
-           | TRANSLATE Offset Molecule
-	   | GLYPH-DESCRIPTION
-	   ;
-@end example
-
-If you are interested in seeing how this information is stored, you
-can run with the @code{-f scm} option. The scheme expressions are then
-dumped onto the output file.
-
-(refer to the C++ code for more details). All visible,
-ie. non-transparant, grobs have a callback to create a Molecule. The
-name of the property is @code{molecule-callback}, and its value should
-be a Scheme function taking one argument (the grob) and returning a
-Molecule.
-
-@defun molecule? m
-@end defun
-
-@defun ly-combine-molecule-at-edge  mol1 axis dir mol2 padding
-@end defun
-
-@defun molecule?  m 
-@end defun
-
-@defun ly-get-molecule-extent! mol axis
-@end defun
-
-@defun ly-set-molecule-extent! mol axis extent
-@end defun
-
-@node Font metrics
-@section Font metrics
-
-The font object represents the metric information of a font. Every font
-that is loaded into LilyPond can be accessed via Scheme. 
-
-[tfm vs. afm]
-
-
-@defun ly-get-default-font gr
-This returns the default font for grob @var{gr}.
-@end defun
-
-@defun ly-find-glyph-by-name font name
-This function retrieves a Molecule for the glyph named @var{name} in
-@var{font}.  The font must be available as a afm file.
-@cindex afm file
-
-@end defun
-
 
 @node Development
 @chapter Development
@@ -489,23 +38,23 @@ filenames
 
 @example 
 	".hh"	Include files
-	".cc"	Implementation files
-	".icc"	Inline definition files
-	".tcc"	non inline Template defs
+        ".cc"	Implementation files
+        ".icc"	Inline definition files
+        ".tcc"	non inline Template defs
 @end example 
 
 in emacs:
 
 @example 
-	(setq auto-mode-alist
-	      (append '(("\\.make$" . makefile-mode)
-			("\\.cc$" . c++-mode)
-			("\\.icc$" . c++-mode)
-			("\\.tcc$" . c++-mode)
-			("\\.hh$" . c++-mode)
-			("\\.pod$" . text-mode)		
-			)
-		      auto-mode-alist))
+        (setq auto-mode-alist
+              (append '(("\\.make$" . makefile-mode)
+        		("\\.cc$" . c++-mode)
+        		("\\.icc$" . c++-mode)
+        		("\\.tcc$" . c++-mode)
+        		("\\.hh$" . c++-mode)
+        		("\\.pod$" . text-mode)		
+        		)
+        	      auto-mode-alist))
 @end example 
 
 
@@ -516,36 +65,36 @@ The class Class_name is coded in @file{class-name.*}
 Standard GNU coding style is used.   In emacs:
 
 @example 
-	(add-hook 'c++-mode-hook
-		  '(lambda() (c-set-style "gnu")
-		     )
-		  )
+        (add-hook 'c++-mode-hook
+        	  '(lambda() (c-set-style "gnu")
+        	     )
+        	  )
 @end example 
 
 If you like using font-lock, you can also add this to your @file{.emacs}:
 
 @example 
-	(setq font-lock-maximum-decoration t)
-	(setq c++-font-lock-keywords-3 
-	      (append
-	       c++-font-lock-keywords-3
-	       '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
-	       ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
-	       ))
+        (setq font-lock-maximum-decoration t)
+        (setq c++-font-lock-keywords-3 
+              (append
+               c++-font-lock-keywords-3
+               '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+               ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
+               ))
 @end example 
 
 @unnumberedsubsec Classes and Types
 
 @example 
-	This_is_a_class
+        This_is_a_class
 @end example 
 
 @unnumberedsubsec Members
 
 @example 
-	Class::member ()
-	Type Class::member_type_
-	Type Class::member_type ()
+        Class::member ()
+        Type Class::member_type_
+        Type Class::member_type ()
 @end example 
 
 the @code{type} is a Hungarian notation postfix for @code{Type}. See below
@@ -573,7 +122,7 @@ near usage (mostly in member variables and functions).
 
 @unnumberedsubsec Types
 
-@table @samp
+@table @code
 @item @code{byte}
     unsigned char. (The postfix _by is ambiguous)
 @item @code{b}
@@ -598,13 +147,13 @@ near usage (mostly in member variables and functions).
 
 @example 
 
-	/*
+        /*
                 Slur blah. blah.
-	*/
-	class Slur @{
+        */
+        class Slur @{
                 ...
         @};
-	Slur* slur_p = new Slur;
+        Slur* slur_p = new Slur;
  
 @end example 
 
@@ -613,7 +162,7 @@ near usage (mostly in member variables and functions).
 The following types modify the meaning of the prefix. 
 These are preceded by the prefixes:
 
-@table @samp
+@table @code
 @item @code{a}
     array
 @item @code{arr}
@@ -647,7 +196,7 @@ foo_global_i: a global variable of type int commonly called "foo".
 static class members do not need the static_ prefix in the name (the
 Class::var notation usually makes it clear that it is static)
 
-@table @samp
+@table @code
 @item @code{loop_i}
     Variable loop: an integer
 @item @code{u}
@@ -671,7 +220,7 @@ expressing the type in english, and abbreviating it
 
 @example 
 
-	static Array<int*> foo
+        static Array<int*> foo
  
 @end example 
 
@@ -679,7 +228,7 @@ expressing the type in english, and abbreviating it
 
 @example 
 
-	foo_static_l_arr
+        foo_static_l_arr
  
 @end example 
 
@@ -733,15 +282,15 @@ In @file{VERSION}, set MY_PATCH_LEVEL:
 @example 
 
     VERSION:
-	...
-	MY_PATCH_LEVEL=jcn1
+        ...
+        MY_PATCH_LEVEL=jcn1
  
 @end example 
 
 In @file{CHANGES}, enter a summary of changes:
 
 @example 
-	0.1.73.jcn1
+        0.1.73.jcn1
         ===========
 
         * A concise, yet clearly readable description of what changed.
@@ -1033,3 +582,192 @@ tools}
 @item Helping @uref{primrose.sourceforge.net,primrose}, a tool for
 scanning sheet music.
 @end itemize
+
+@node ETF format
+@section  An incomplete description of the Enigma Transport Format
+
+Enigma Transport Format (ETF for short) is a format designed by Coda music
+technology, and it is used in the proprietary notation package
+Finale. Since it is very poorly documented, I'll attempt some
+documentation here.
+
+ETF is an memory dump where object pointers have been replaced by object
+numbers. The numbers are larger than 0 and the number 0 is used to
+denote the nil pointer.  The dump is encoded in ASCII (where the mac
+version uses CR, and the PC CR/LF as line delimiters)
+
+A file is divided into sections like this
+
+@example
+^section-header
+DATA
+^section-header
+DATA
+
+(etc.)
+@end example
+
+@var{DATA} is stored in the form of tagged lines, where a tagged line looks
+like
+
+@example
+^TG(N1[,N2]) X1 X2 X3 (etc)
+@end example
+
+The caret is at the start of the line, @code{TG} is a two letter tag,
+and @var{N1} (and optionally @var{N2}) are numbers identifying the
+object to be described. @var{X3}, @var{X4} etc contain data in the form
+of either a signed 16 bit number, or a 32 bit number (in hex, with a $
+sign prepended). The number of Xs per line for a certain tag is
+constant.
+
+The numbers in @code{N1} need not be consecutive or ascending, mostly.
+
+
+If an object is too large to fit on a single line (which typically has
+only five X's), it is put on multiple lines and padded with zero's, eg.
+
+@example
+^GF(1,2) 3 0 1 2 3
+^GF(1,2) 4 0 0 0 0
+@end example
+
+(the GF object requires 6 16 bit words, hence the 4 padding zeroes).
+
+Note structure:
+
+Each staff can contain up to four layers, where a layer correspond to a
+horizontal `line' of notes.  Each layer is broken up into frames, where
+each frame is one measure of a layer.
+
+@example
+  ^GF(s,m) @var{c} @var{flags} @var{f1} @var{f2} @var{f3}
+  ^GF(s,m) @var{f4} 0 0 0 0
+@end example
+
+Here @var{s} is the staff number, @var{m} the measure number,
+@var{flags} is a 16-bit bit-vector, and @var{f1} to @var{f4} are frame
+identifiers. @var{c} is a clef-identifier.
+
+There is a second variant of the @code{GF} tag, which has only one line;
+it looks like
+
+@example
+  ^GF(s,m) @var{fr} @var{c} @var{x} @var{y} @var{z}
+@end example
+
+here, @code{fr} is a frame number, @code{c} the clef number. The
+function of x, y , z is unknown.
+
+A frame is described by the FR tag
+
+@example
+  ^FR(@var{n}) @var{n1} @var{n2} 0 0
+@end example
+
+This means frame number @var{n} runs from note @var{n1} to note @var{n2}
+Where `running from' is interpreted as ``that part of a linked note list
+that starts with note @var{n1} and ends with note @var{n2}''. This is
+something different from the sequence of notes
+@var{n1}, @var{n1 + 1} , ... , @var{n2 - 1}, @var{n2}. 
+
+Notes (or more accurately chord-notes/rests) are described as follows:
+
+@example
+  ^eE(@var{n}) @var{l1 l2 dur pos $flags extflags pitchcount}
+     pitchrecords
+@end example
+
+This is note number @var{n} (in list where @var{l1} and @var{l2} are
+previous and next).
+
+Durations are stored as a number where 1024 is the quarter note, 512 the
+eighth, etc. Dotted notes are stored by multiplying the dur field
+appropriately.
+
+pitchcount is the number of pitch records. Each pitchrecord looks like
+@example
+        pitch $flags
+@end example
+(note that the line starts with spaces, and not with  a caret)
+
+
+pitch is a 16 bit number, where the lower order 4-bits is a signed
+nybble which adds an alteration (0 = natural,  1 = sharp, etc.)
+The remaining 12 bits encodes the note-name (octave inclusive.)
+
+Both the alteration and the note-name are relative to the scale as
+defined by the key-signature in this measure.  The person who invented
+this should have his head checked out.
+
+The key and time signature are defined in the MS field
+@example
+  ^MS(n) space key beats beatlen y z
+@end example
+
+@var{n} is the measure number.  @var{space} is the width of the
+measure (?), @var{key} the number of the keysignature (0 = C major, 1 G
+major, etc. 255 = F major, 254 = Bflat major). beats and beatlen
+determine time signature.
+
+Key and time are determined score wide. The mind boggles at how they
+plan to do polytonal and polymetric music. And how do they do
+mid-measure keychanges?
+
+Slurs are (among others) stored with an Sx tag
+
+@example
+  ^Sx(@var{slurnumber}) @var{stuff}
+@end example
+
+The slur has many parameters. The 6th number on the first line is the
+starting note, the 3rd number on the 4th line the ending note.
+
+
+Some other information can be found in the Finale Plug-in Development
+(there is a vague manual, and some source files that are useful).
+
+You can download the PDK from Coda's website,
+@uref{http://www.codamusic.com/coda/Fin2000_pdk_download.asp}. You do
+need to register as a user (you can also do it if you have never bought
+an coda product).
+
+
+More tags:
+@example
+RU - repeat
+ES - end repeat
+ET - end repeat text
+BR - backw repeat
+mt - measure text
+pT - page text
+TX - text blocks
+SD - shape
+DY - score expr
+AC - tempo
+GF - clef
+IS - staff spec
+DO (shape expression), 
+DT (text expression), 
+IK (chord playback), 
+IS (staff spec), 
+IV (chord suffix), 
+IX (articulation definition - documented in edata.h), 
+Iu (instrument used - documented in edata.h), 
+LA (layer preferences - documented in eprfdata.h), 
+MN (measure number region), 
+MS (measure spec), 
+PS (page spec), 
+RS (repeat style - documented in edata.h), 
+RT (text repeat style text - documented in edata.h), 
+SD (shape), 
+SS (staff system spec), 
+TX (text block), 
+pT (page text)
+
+TP - tuplet
+
+sl - slur shapetag
+@end example
+
+

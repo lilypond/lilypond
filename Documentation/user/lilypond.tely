@@ -17,28 +17,17 @@
 @subtitle The music typesetter
 @author Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
 
-     Copyright @copyright{} 1999 by the authors
 
-@vskip 0pt plus 1filll
 
-Permission is granted to make and distribute verbatim
-copies of this manual provided the copyright notice and
-this permission notice are preserved on all copies.
+Copyright @copyright{} 1999--2001 by the authors
 
-Permission is granted to copy and distribute modified
-versions of this manual under the conditions for
-verbatim copying, provided also that the sections
-entitled ``Copying'' and ``GNU General Public License''
-are included exactly as in the original, and provided
-that the entire resulting derived work is distributed
-under the terms of a permission notice identical to this
-one.
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections.
+  A copy of the license is included in the section entitled ``GNU
+  Free Documentation License''.
 
-Permission is granted to copy and distribute
-translations of this manual into another language,
-under the above conditions for modified versions,
-except that this permission notice may be stated in a
-translation approved by the Free Software Foundation.
 
 @end titlepage
 
@@ -47,49 +36,19 @@ This file documents GNU LilyPond.
 
 Copyright 1999 Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
 
-Permission is granted to make and distribute verbatim
-copies of this manual provided the copyright notice and
-this permission notice are preserved on all copies.
-
-@ignore
-Permission is granted to process this file through TeX
-and print the results, provided the printed document
-carries a copying permission notice identical to this
-one except for the removal of this paragraph (this
-paragraph not being relevant to the printed manual).
-
-@end ignore
-
-Permission is granted to copy and distribute modified
-versions of this manual under the conditions for
-verbatim copying, provided also that the sections
-entitled ``Copying'' and ``GNU General Public License''
-are included exactly as in the original, and provided
-that the entire resulting derived work is distributed
-under the terms of a permission notice identical to this
-one.
-
-Permission is granted to copy and distribute
-translations of this manual into another language,
-under the above conditions for modified versions,
-except that this permission notice may be stated in a
-translation approved by the Free Software Foundation.
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections.
+  A copy of the license is included in the section entitled ``GNU
+  Free Documentation License''.
 
 @end ifinfo
-
-@ignore
-Should add disclaimer, abstract
-
-"GNU LilyPond has no connection with the music package Rosegarden, other
-than the names being similar :-)"
-
-@end ignore
 
 @ifnottex
 @node Top
 @c FIXME: this should not be necessary...
 @top
-@end ifnottex
 
 @chapter GNU LilyPond --- The music typesetter
 
@@ -106,36 +65,36 @@ this and other documentation.
 
 @menu
 * Tutorial::                       A tutorial introduction to LilyPond.
+* Reference Manual::               Reference Manual.
+* Tricks::                       Features, tips and tricks.
 * Invoking LilyPond::              Operation.
 * Bug reports:: 	           Where to report bugs.
-* Reference Manual::               Reference Manual.
-* Features::                       Features, tips and tricks.
-* Utility programs::                       External programs.
+* ly2dvi::                         Generating nice output with titles.
+* convert-ly::                     Upgrading input files.
+* Conversion tools::                        Converting from MIDI input.
 * Internals::                      How it all works.
-* Development::                    On developing code for LilyPond.
 * Index of internals:(lilypond-internals).  Auto generated detailed documentation.
 * Index::                  Unified index.
 * Function Index::         Function index.
+* GNU Free Documentation License::     FDL.
 @end menu
+@end ifnottex
+
 
 @contents
 
 
 @mbinclude macros.itexi
-
 @mbinclude tutorial.itely
-
-@mbinclude invoking.itexi
-
-@mbinclude bugs.itexi
-
 @mbinclude refman.itely
-
-@mbinclude features.itely
-
-@mbinclude programs.itexi
-
-@mbinclude development.itexi
+@mbinclude tricks.itely
+@mbinclude internals.itely
+@mbinclude invoking.itexi
+@mbinclude bugs.itexi
+@mbinclude ly2dvi.itexi
+@mbinclude convert-ly.itexi
+@mbinclude convertors.itely
+@mbinclude literature.itely
 
 @c FIXME: Index has two alphabetically sorted lists @code vs plain?
 @node Index
@@ -148,6 +107,6 @@ this and other documentation.
 
 @printindex fn
 
-
+@mbinclude fdl.itexi
 
 @bye

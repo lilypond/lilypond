@@ -5,14 +5,14 @@ stemup = \property Voice.Stem \override #'direction = #1
 stemboth = \property Voice.Stem \revert #'direction  
 
 viola = \notes \relative c' \context Voice = viola {
-	<c4-\f g' c>
+	<c4-\f-\arpeggio g' c>
 	\stemdown g'8. b,16
 	s1 s2. r4
 	g
 }
 
 oboes = \notes \relative c'' \context Voice = oboe {
-	\stemup s4  g8. b,16 c8 r <e'8.-\p g> <f16 a>
+	\stemup s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
 	\grace <e8( g> <d4 f> <c2 e> \times 2/3 { <d8 \< f> <e g> <f a> }
 	<
 	  { \times 2/3 { a8 g c } \! c2 }
@@ -29,11 +29,12 @@ oboes = \notes \relative c'' \context Voice = oboe {
 	[<c16( e>  < )e8. g>] <c8 e,>
 }
 
-hoomPah  = \notes \repeat unfold 8 \transpose c' { c8 \stemdown c'8 \stemup }
+hoomPah  =  \repeat unfold 8
+  \notes  \transpose c' { c8 \stemdown c'8 \stemup }
 
 bassvoices = \notes \relative c' {
 	c4 g8. b,16
-	\autochange Staff \hoomPah o
+	\autochange Staff \hoomPah
 	\translator Staff = down
 	\stemdown [c8 c'8] r4
 	<g d'> r4

@@ -4,13 +4,7 @@
 @chapter Utility programs
 
 @menu
-* ly2dvi::                         Generating nice output with titles.
-* convert-ly::                     Upgrading input files.
-* midi2ly::                        Converting from MIDI input.
 @end menu
 
-@mbinclude ly2dvi.itexi
-@mbinclude convert-ly.itexi
-@mbinclude midi2ly.itexi
 
 

@@ -9,14 +9,16 @@ Properties are Scheme values. Most of them are in the generated documentation, b
 
 
 @table @samp
-  @item @code{midiInstrument}@indexcode{midiInstrument} @propertytype{string}
+@cindex @code{midiInstrument}
+  @item @code{midiInstrument} @propertytype{string}
     Sets the instrument for MIDI output.  If this property is not set
     then LilyPond will use the @code{instrument} property.  This must
     be set to one of the strings on the list of MIDI instruments that
     appears in section @ref{midilist}.  If you use a string which
     is not listed, LilyPond will silently substitute piano.
+@cindex @code{transposing}
 
-  @item @code{transposing}@indexcode{transposing} @propertytype{integer}
+  @item @code{transposing} @propertytype{integer}
     Transpose the MIDI output.  Set this property to the number of
     half-steps to transpose by.
 

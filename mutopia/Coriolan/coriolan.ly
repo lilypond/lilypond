@@ -4,7 +4,7 @@
  dvips -O 5mm,0mm -o coriolan.ps coriolan
 %}
 
-#(set! point-and-click #t)
+#(set point-and-click #t)
 
 \header{
 filename = 	 "coriolan.ly";

@@ -234,6 +234,7 @@ HYPHEN		--
 	cerr << _ ("white expected") << endl;
 	exit (1);
 }
+
 <INITIAL,chords,lyrics,notes>#	{ //embedded scm
 	//char const* s = YYText () + 1;
 	char const* s = here_ch_C ();
