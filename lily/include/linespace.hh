@@ -6,6 +6,7 @@
   (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#error
 
 #ifndef LINESPACE_HH
 #define LINESPACE_HH
@@ -15,25 +16,6 @@
 #include "vector.hh"
 #include "interval.hh"
 #include "pointer.hh"
-
-/// helper struct for #Spacing_problem#
-struct Colinfo {
-    PCol *pcol_l_;
-    P<Real> fixpos_p_;
-    Interval width;
-    int rank_i_;
-    /// did some tricks to make this column come out.
-    bool ugh_b_;		
-    /* *************** */
-    Colinfo();
-    Colinfo(PCol *,Real const *);
-
-    void print() const;
-    bool fixed() const { return fixpos_p_.get_C();}
-    Real fixed_position()const { return *fixpos_p_; }
-    Real minright() const { return width.right; }
-    Real minleft() const { return -width.left; }
-};
 
 
 /** the problem, given by the columns (which include constraints) and
@@ -59,7 +41,7 @@ struct Colinfo {
 
 */
 class Spacing_problem {
-    Array<Idealspacing const *> ideals;
+    PointerList<Idealspacing *> ideal_p_list_;
     Array<Colinfo> cols;
     Array<Colinfo> loose_col_arr_;
     
@@ -86,18 +68,7 @@ class Spacing_problem {
 
     void handle_loose_cols();
     void position_loose_cols(Vector &) const;
-public:
-    Array<PCol*> error_pcol_l_arr() const;
-
-    /** solve the spacing problem
-      
-      @return the column positions, and the energy (last element)
-
-      */
-    Array<Real> solve() const;
-
-    
-    /**
+   /**
        add a idealspacing to the problem.
       
     One pair of columns can have no, one or more idealspacings,
@@ -105,23 +76,27 @@ public:
     not in this problem, the spacing is ignored.
     */
     void add_ideal(Idealspacing const *i);
-    
-    
-    /** add a col to the problem. columns have to be added left to right. The column contains
-      info on it's minimum width.
-    */
-    void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
+    void print_ideal(Idealspacing const *)const; 
+    Vector try_initial_solution() const;
+    void calcideal();
+
+    Score_column* scol_l(int);
+    void connect(int i,int j, Real,Real);
+public:
+    static Line_spacer *constructor() {
+	return new Line_spacer;
+    }
+    Array<PCol*> error_pcol_l_arr() const;
+
+    virtual   Array<Real> solve() const;
+    virtual  void add_column(PCol  *, bool fixed=false, Real fixpos=0.0);
  
 
-
-    bool check_constraints(Vector v) const;
-
-    Vector try_initial_solution() const;
-    void OK() const;
-    void print() const;
-    void print_ideal(Idealspacing const *)const;
-    void prepare();
+    virtual Vector default_solution() contains { 
+	return try_initial_solution() ; 
+    }
+    virtual   bool check_constraints(Vector v) const;
+    virtual    void OK() const;
+    virtual    void print() const;
+    virtual    void prepare();
 };
-
-
-#endif

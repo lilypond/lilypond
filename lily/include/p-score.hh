@@ -25,13 +25,13 @@ public:
     Paper_def *paper_l_;
 
     /// the columns, ordered left to right
-    Pointer_list<PCol *> cols;
+    Pointer_list<PCol *> col_p_list_;
 
     /// the idealspacings, no particular order
-    Pointer_list<Idealspacing*> suz;
+    Pointer_list<Idealspacing*> suz_p_list_;
 
     /// crescs etc; no particular order
-    Pointer_list<Spanner *> spanners;
+    Pointer_list<Spanner *> span_p_list_;
 
     /// other elements
     Pointer_list<Score_elem*> elem_p_list_;
@@ -71,14 +71,6 @@ public:
 
     /* UTILITY ROUTINES */
 
-    /// get the spacing between c1 and c2, create one if necessary.
-    Idealspacing* get_spacing(PCol *c1, PCol *c2);
-
-    /// connect c1 and c2
-    void do_connect(PCol *c1, PCol *c2, Real distance_f, Real strength_f);
-
-    /// connect c1 and c2 and any children of c1 and c2
-    void connect(PCol* c1, PCol *c2, Real distance_f,Real  strength_f= 1.0);
     
     /* STANDARD ROUTINES */
     void OK()const;
@@ -94,6 +86,7 @@ private:
     /// before calc_breaking
     void preprocess();
 
+    void calc_idealspacing();
     /// calculate where the lines are to be broken, and use results
     void calc_breaking();
 
