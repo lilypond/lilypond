@@ -1,4 +1,5 @@
-
+pl 28.jcn1
+	- bit nicer + renamed feta-din10
 
 pl 28
 	- revised Staff_symbol::brew_molecule_p ()
