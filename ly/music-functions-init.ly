@@ -63,7 +63,7 @@ keepWithTag =
   (music-filter
    (lambda (m)
     (let* ((tags (ly:music-property m 'tags))
-	    (res (memq tag tags)))
+	   (res (memq tag tags)))
        (or
 	(eq? tags '())
 	(memq tag tags))))

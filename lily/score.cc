@@ -31,6 +31,7 @@ Score::Score ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
+  error_found_ = false;
   smobify_self ();
 }
 
@@ -221,6 +222,9 @@ Score::book_rendering (String outname,
 		       Output_def *paperbook,
 		       Output_def *default_def)
 {
+  if (error_found_)
+    return SCM_EOL;
+   
   SCM scaled_bookdef = SCM_EOL;
   Real scale = 1.0;
 
@@ -270,6 +274,11 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   Score * sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (paper);
 
+  if (sc->error_found_)
+    {
+      return SCM_EOL;
+    }
+  
   SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
   SCM_ASSERT_TYPE (od, paper, SCM_ARG2, __FUNCTION__, "Output_def");
 
@@ -312,8 +321,18 @@ Score::set_music (SCM music, SCM parser)
       unsmob_music (music)->origin ()->error (_("Already have music in score"));
       unsmob_music (music_)->origin ()->error (_("This is the previous music"));
     }
-	
+
+  if (Music * m = unsmob_music (music))
+    {
+      m->origin()->error (_("Error found in this music expression. Ignoring it"));
+      
+      this->error_found_ = this->error_found_ || to_boolean (m->get_property ("error-found"));
+      
+    }
+
   this->music_ = music;
+  if (this->error_found_)
+    this->music_ = SCM_EOL; 
 }
 
 SCM

@@ -1,5 +1,19 @@
 2004-09-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (Compile_error.process_include): catch
+	Compile_error exception, and remove output .texi.
+
+	* scm/define-music-properties.scm (all-music-properties): add
+	error-found
+
+	* lily/parser.yy (Music_list): add error-found to music with errors.
+
+	* lily/lily-parser.cc (LY_DEFINE): ignore scores with errors.
+
+	* lily/book.cc (process): ignore books with errors
+
+	* lily/include/score.hh (class Score): add error_found_ member.
+
 	* lily/drum-note-engraver.cc (try_music): idem.
 
 	* lily/note-heads-engraver.cc: remove start-playing-event.
@@ -7,8 +21,8 @@
 	* lily/part-combine-iterator.cc (Part_combine_iterator): use
 	BusyPlayingEvent to determine which voice was active last.
 	(unisono): use last active to where to get unisono information
-	from.
-
+	from. This fixes: partcombine-rest.ly (again).
+v/v
 	* scm/part-combiner.scm (determine-split-list): cleanups
 
 2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>

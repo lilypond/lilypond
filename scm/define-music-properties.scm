@@ -56,6 +56,7 @@ e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in 
      (text-type ,symbol? "Particular type of text script (e.g. finger, dynamic).")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (tonic ,ly:pitch? "Base of the scale")
+     (error-found ,boolean? "If true, a parsing error was found in this expression")
      (element ,ly:music? "The single child of a Music_wrapper music object, or the body of a repeat.")
      (elements ,ly:music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
      (force-accidental ,boolean? "If set, a cautionary accidental should always be printed on this note")

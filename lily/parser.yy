@@ -660,7 +660,8 @@ book_body:
 		$$->header_ = $2;
 	}
 	| book_body error {
-
+		$$->bookpaper_ = 0;
+		$$->scores_.clear();
 	}
 	;
 
@@ -705,7 +706,7 @@ score_body:
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| score_body error {
-
+		$$->error_found_ = true;
 	}
 	;
 
@@ -804,8 +805,8 @@ The representation of a  list is the
 
   (LIST . LAST-CONS)
 
- to have  efficient append.
-*/
+ to have efficient append.  */
+
 Music_list:
 	/* empty */ {
 		$$ = scm_cons (SCM_EOL, SCM_EOL);
@@ -814,6 +815,7 @@ Music_list:
 		SCM s = $$;
  		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
+
 		if (ly_c_pair_p (ly_cdr (s)))
 			scm_set_cdr_x (ly_cdr (s), c); /* append */
 		else
@@ -821,11 +823,23 @@ Music_list:
 		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
 	| Music_list embedded_scm {
+
 	}
 	| Music_list error {
+		Music * m = MY_MAKE_MUSIC("Music");
+		// ugh. code dup 
+		m->set_property ("error-found", SCM_BOOL_T);
+		SCM s = $$;
+ 		SCM c = scm_cons (m->self_scm (), SCM_EOL);
+		scm_gc_unprotect_object (m->self_scm ()); /* UGH */
+
+		if (ly_c_pair_p (ly_cdr (s)))
+			scm_set_cdr_x (ly_cdr (s), c); /* append */
+		else
+			scm_set_car_x (s, c); /* set first cons */
+		scm_set_cdr_x (s, c);  /* remember last cell */
 	}
 	;
-
 
 Music:
 	Simple_music

@@ -418,6 +418,9 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Score *score = unsmob_score (score_smob);
 
+  if (score->error_found_)
+    return SCM_UNSPECIFIED;
+  
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
@@ -490,12 +493,13 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   Output_def *paper = get_paper (parser);
 
   Paper_book* pb = book->process (outname.to_string (), paper);
+  if (pb)
+    {
+      pb->output (outname.to_string ());
+      scm_gc_unprotect_object (pb->self_scm ());
+    }
 
-  pb->output (outname.to_string ());
-  
   scm_gc_unprotect_object (paper->self_scm ());
-  scm_gc_unprotect_object (pb->self_scm ());
-
   return SCM_UNSPECIFIED;
 }
 
