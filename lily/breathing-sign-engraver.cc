@@ -33,7 +33,7 @@ protected:
   virtual void start_translation_timestep ();
 
 private:
-  Breathing_sign_req * breathing_sign_req_;
+  Music * breathing_sign_req_;
   Grob * breathing_sign_;
 };
 
@@ -46,13 +46,8 @@ Breathing_sign_engraver::Breathing_sign_engraver ()
 bool
 Breathing_sign_engraver::try_music (Music*r)
 {
-  if (Breathing_sign_req  * b= dynamic_cast <Breathing_sign_req *> (r))
-    {
-      breathing_sign_req_ = b;
-      return true;
-    }
- 
-  return false;
+  breathing_sign_req_ = r;
+  return true;
 }
 
 void
@@ -88,7 +83,7 @@ Breathing_sign_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Breathing_sign_engraver,
 /* descr */       "",
 /* creats*/       "BreathingSign",
-/* accepts */     "general-music",
+/* accepts */     "breathing-event",
 /* acks  */      "",
 /* reads */       "",
 /* write */       "");

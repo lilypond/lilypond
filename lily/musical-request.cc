@@ -98,15 +98,6 @@ Text_script_req::do_equal_b (Request const* r) const
 }
 
 bool
-String_number_req::do_equal_b (Request const* r) const
-{
-  String_number_req const* s  = dynamic_cast<String_number_req const*> (r);
-  return s && gh_equal_p (get_mus_property ("string"),
-			  s->get_mus_property ("string"));
-}
-
-
-bool
 Articulation_req::do_equal_b (Request const* r) const
 {
   Articulation_req const* a = dynamic_cast<Articulation_req const*> (r);
@@ -116,4 +107,3 @@ Articulation_req::do_equal_b (Request const* r) const
     && get_direction () == a->get_direction ();
 }
 
-ADD_MUSIC(String_number_req);

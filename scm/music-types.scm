@@ -9,8 +9,8 @@
 	))
     (ArpeggioEvent 
      . (
-	(internal-class-name .  "Arpeggio_req")
-	(types . (general-music event))
+	(internal-class-name .  "Request")
+	(types . (general-music arpeggio-event event))
 	))
     (ArticulationEvent
      . (
@@ -19,40 +19,42 @@
 	)) 
     (BassFigureEvent
      . (
-	(internal-class-name . "Bass_figure_req")
+	(internal-class-name . "Request")
 	(compress-procedure . ,music-duration-compress)
 	(length . ,music-duration-length) 
 	(types . (general-music event rhythmic-event bass-figure-event))
 	))
+    (BeamEvent
+     . (
+	(internal-class-name . "Request")
+	(types . (general-music event beam-event span-event))
+	))
     (BreakEvent
      . (
-	(internal-class-name . "Break_req")
-
-	(types . (general-music event))
-	)) 
+	(internal-class-name . "Request")
+	(types . (general-music break-event event))
+	))
     (BreathingSignEvent
      . (
-	(internal-class-name . "Breathing_sign_req")
-
+	(internal-class-name . "Request")
 	(types . (general-music event breathing-event))
 	)) 
     (BusyPlayingEvent
      . (
-	(internal-class-name . "Busy_playing_req")
-
+	(internal-class-name . "Request")
 	(types . (general-music event busy-playing-event))
 	)) 
     (ExtenderEvent
      . (
-	(internal-class-name . "Extender_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	))   
     (GlissandoEvent
      . (
-	(internal-class-name . "Glissando_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	)) 
-   (GraceMusic
+    (GraceMusic
      . (
 	(internal-class-name . "Grace_music")
 	(iterator-ctor . ,Grace_iterator::constructor)
@@ -60,13 +62,13 @@
 	))
    (HyphenEvent
      . (
-	(internal-class-name . "Hyphen_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	))   
     (KeyChangeEvent
      . (
 	(internal-class-name . "Key_change_req")
-	(types . (general-music event))
+	(types . (general-music key-change-event event))
 	)) 
     (LyricEvent
      . (
@@ -75,21 +77,21 @@
 	))
     (LigatureEvent
      . (
-	(internal-class-name . "Span_req")
+	(internal-class-name . "Request")
 	(span-type . ligature)
 	(types . (general-music event span-event ligature-event))
 	))
     (MarkEvent
      . (
-	(internal-class-name . "Mark_req")
-	(types . (general-music event))
+	(internal-class-name . "Request")
+	(types . (general-music mark-event event))
 	))  
     (MelismaEvent
      . (
 	(internal-class-name . "Melisma_playing_req")
-	(types . (general-music span-event event))
+	(types . (general-music span-event melisma-playing-event event))
 	)) 
-    (Melisma_playingEvent
+    (MelismaPlayingEvent
      . (
 	(internal-class-name . "Melisma_req")
 	(types . (general-music event))
@@ -264,12 +266,13 @@
     (ScriptEvent
      . (
 	(internal-class-name . "Script_req")
-
 	(types . (general-music event))
 	)) 
     (SkipEvent
      . (
 	(internal-class-name . "Request")
+	(length . ,music-duration-length) 
+	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event rhythmic-event skip-event))
 	)) 
     (SpanEvent
@@ -277,17 +280,25 @@
 	(internal-class-name . "Span_req")
 	(types . (general-music event))
 	)) 
+    (DecrescendoEvent
+     . (
+	(internal-class-name . "Request")
+	(types . (general-music dynamic-event decrescendo-event event))
+	)) 
+    (CrescendoEvent
+     . (
+	(internal-class-name . "Request")
+	(types . (general-music dynamic-event crescendo-event event))
+	)) 
     (StringNumberEvent
      . (
-	(internal-class-name . "String_number_req")
-
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	)) 
     (TempoEvent
      . (
-	(internal-class-name . "Tempo_req")
-
-	(types . (general-music event))
+	(internal-class-name . "Request")
+	(types . (general-music tempo-event event))
 	)) 
     (TextScriptEvent
      . (
@@ -321,7 +332,7 @@
        (props (hashq-ref music-name-to-property-table x '()))
        (name (if (pair? props)
 		 (cdr (assoc 'internal-class-name props))
-		 (misc-error "Can not find music object ~s" x)))
+		 (error "Can not find music object" x)))
        )
 
     (if (eq? props '())

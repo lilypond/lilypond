@@ -32,9 +32,9 @@ public:
   TRANSLATOR_DECLARATIONS(Ligature_engraver);
 
 private:
-  Drul_array<Span_req*> reqs_drul_;
+  Drul_array<Music*> reqs_drul_;
   
-  Span_req *prev_start_req_;
+  Music *prev_start_req_;
 
   // moment where ligature started.
   Moment ligature_start_mom_;

@@ -1,3 +1,13 @@
+2002-09-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/trip.ly (fugaIILeft): add arpeggio
+
+	* lily/translator-group.cc (try_music_on_nongroup_children):
+	oops. The name symbol is in the cdr of the assoc handle.
+
+	* lily/:  remove Arpeggio_req, Breathing_sign_req, Extender_req,
+	Hyphen_req, Glissando_req, Break_req, Mark_req 
+
 2002-09-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/musical-request.cc (music-duration-length,

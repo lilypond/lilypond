@@ -145,7 +145,7 @@ fugaIILeft =  \notes {
   \context Staff < 
      { 
     \gracetest
-    \relative b, < )b2 dis fis a b cis dis> \stemUp ais4 |
+    \relative b, < )b2 dis-\arpeggio fis a b cis dis> \stemUp ais4 |
       b2 b4 } \\
       {  s2 e4 | fis2 fis4 }
   >

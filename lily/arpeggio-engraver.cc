@@ -29,7 +29,7 @@ protected:
 
 private:
   Item* arpeggio_; 
-  Arpeggio_req *arpeggio_req_;
+  Music *arpeggio_req_;
 };
 
 Arpeggio_engraver::Arpeggio_engraver ()
@@ -43,13 +43,9 @@ Arpeggio_engraver::try_music (Music* m)
 {
   if (!arpeggio_req_)
     {
-      if (Arpeggio_req *a = dynamic_cast<Arpeggio_req*> (m))
-	{
-	  arpeggio_req_ = a;
-	  return true;
-	}
+      arpeggio_req_ = m;
     }
-  return false;
+  return true;
 }
 
 void
@@ -107,7 +103,7 @@ Arpeggio_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",
 /* creats*/       "Arpeggio",
-/* accepts */     "general-music",
-/* acks  */      "stem-interface rhythmic-head-interface note-column-interface",
+/* accepts */     "arpeggio-event",
+/* acks  */       "stem-interface rhythmic-head-interface note-column-interface",
 /* reads */       "",
 /* write */       "");

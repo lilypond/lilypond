@@ -42,6 +42,8 @@ and therefore only work in contexts which contain an
  "Internal variable: store interface to engraver smob table for current context. Don't mess with this."
  )
 
+(translator-property-description 'acceptHashTable vector? "Internal
+variable: store table with MusicName to Engraver entries.")
 (translator-property-description 'aDueText string? "text for begin of a due")
 (translator-property-description 'associatedVoice string? "Name of the Voice that has the melody for this LyricsVoice.")
 (translator-property-description 'autoBeamSettings list? "

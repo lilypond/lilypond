@@ -30,7 +30,7 @@ class Extender_engraver : public Engraver
 {
   Grob *last_lyric_;
   Grob *current_lyric_;
-  Extender_req* req_;
+  Music* req_;
   Spanner* extender_;
 public:
   TRANSLATOR_DECLARATIONS(Extender_engraver);
@@ -77,15 +77,11 @@ Extender_engraver::acknowledge_grob (Grob_info i)
 bool
 Extender_engraver::try_music (Music* r)
 {
-  if (Extender_req* p = dynamic_cast <Extender_req *> (r))
-    {
-      if (req_)
-	return false;
+  if (req_)
+    return false;
 
-      req_ = p;
+  req_ = r;
       return true;
-    }
-  return false;
 }
 
 void
@@ -144,7 +140,7 @@ Extender_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Extender_engraver,
 /* descr */       "Create lyric extenders",
 /* creats*/       "LyricExtender",
-/* accepts */     "general-music",
+/* accepts */     "extender-event",
 /* acks  */      "lyric-syllable-interface",
 /* reads */       "",
 /* write */       "");

@@ -23,36 +23,43 @@ public:
 };
 
 
+/*
+  HUH ?
 
+  how's this supposed to work?
+ */
 bool
 Melisma_engraver::try_music (Music *m) 
 {
-  if (dynamic_cast<Melisma_playing_req*> (m))
-    {
-      SCM plain (get_property ("melismaBusy"));
-      SCM slur (get_property ("slurMelismaBusy"));
-      SCM tie (get_property ("tieMelismaBusy"));
-      SCM beam (get_property ("beamMelismaBusy"));
+  SCM plain (get_property ("melismaBusy"));
+  SCM slur (get_property ("slurMelismaBusy"));
+  SCM tie (get_property ("tieMelismaBusy"));
+  SCM beam (get_property ("beamMelismaBusy"));
       
-      if ((to_boolean (plain))
-	  || (to_boolean (slur))
-	  || (to_boolean (tie))
-	  || (to_boolean (beam))) {
+  if ((to_boolean (plain))
+      || (to_boolean (slur))
+      || (to_boolean (tie))
+      || (to_boolean (beam)))
+    {
 
-	daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_T);
-	return true;
-      }
+      daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_T);
+      return true;
     }
-  daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
-  return false;
+  else
+    {
+      daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
+      return false;
+    }
 }
+
 Melisma_engraver::Melisma_engraver()
 {
 }
+
 ENTER_DESCRIPTION(Melisma_engraver,
 /* descr */       "",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "melisma-playing-event",
 /* acks  */      "",
 /* reads */       "melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy",
 /* write */       "");

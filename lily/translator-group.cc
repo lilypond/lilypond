@@ -122,8 +122,6 @@ Translator_group::find_existing_translator (String n, String id)
 }
 
 
-
-
 Translator_group*
 Translator_group::find_create_translator (String n, String id)
 {
@@ -216,7 +214,6 @@ bool
 Translator_group::is_bottom_translator_b () const
 {
   return !gh_string_p (unsmob_translator_def (definition_)->default_child_context_name ());
-
 }
 
 Translator_group*
@@ -431,12 +428,13 @@ bool
 Translator_group::try_music_on_nongroup_children (Music *m )
 {
   SCM tab = get_property ("acceptHashTable");
-  SCM name = scm_assq ( ly_symbol2scm ("name"), m->get_property_alist (false));
+  SCM name = scm_sloppy_assq (ly_symbol2scm ("name"),
+			      m->get_property_alist (false));
 
   if (!gh_pair_p (name))
     return false;
 
-  name = gh_car (name);
+  name = gh_cdr (name);
   SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
   if (accept_list == SCM_BOOL_F)
     {

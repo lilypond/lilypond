@@ -22,28 +22,6 @@ protected:
   VIRTUAL_COPY_CONS (Music);
 };
 
-class Mark_req : public Request {
-public:
-  virtual bool do_equal_b (Request const*) const;
-  SCM mark_label ();
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/*
-    int metronome_;
- */
-class Tempo_req : public Request
-{
-public:
-  Tempo_req ();
-protected:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-class Breathing_sign_req : public Request {
-  VIRTUAL_COPY_CONS (Music);
-};
-
 class Porrectus_req : public Request {
   VIRTUAL_COPY_CONS (Music);
 };
