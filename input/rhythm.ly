@@ -24,6 +24,7 @@ ritme = \staff {
 	melodicregs
 	\melodic{ %\octave ;
 	\partial 8;
+	\octave c';
 	\meter  4/4;
 	c8					|
 	
