@@ -1989,7 +1989,7 @@ def conv (str):
 		elif o >= 0:
 			str += "'" * (o + 1)
 			
-		return '\\tuning %s ' % str
+		return '\\transposition %s ' % str
 
 	
 	str = re.sub (r"\\set ([A-Za-z]+\s*\.\s*)?transposing\s*=\s*#([-0-9]+)",

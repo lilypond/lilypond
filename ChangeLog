@@ -1,3 +1,8 @@
+2004-04-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (FatalConversionError.subst): use
+	\transposition.
+
 2004-04-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/page.cc: Remove paper var caching.
