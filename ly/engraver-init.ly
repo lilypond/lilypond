@@ -141,9 +141,9 @@ VoiceContext = \translator {
  Must come before text_engraver, but after note_column engraver.
 
 %}
+	\consists "Text_engraver"
 	\consists "Dynamic_engraver"
 	\consists "Fingering_engraver"
-%	\consists "Text_engraver"
 
 	\consists "Script_engraver"
 	\consists "Script_column_engraver"

@@ -4,12 +4,11 @@ depth=../..
 
 OUT_BIB_FILES = $(addprefix $(outdir)/, $(BIB_FILES))
 BIB_FILES= $(wildcard *.bib)
-EXTRA_DIST_FILES= $(BIB_FILES)
+EXTRA_DIST_FILES= $(BIB_FILES) $(wildcard *.bst)
 
 STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
-export BIBINPUTS:=$(shell pwd)//$(PATHSEP)$(BIBINPUTS)
 include $(depth)/make/stepmake.make 
 
 dvi: $(DVI_FILES) $(OUT_BIB_FILES)
@@ -22,6 +21,7 @@ default:
 GENHTMLS = engraving colorado  computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
+
 local-WWW: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html))
 	$(PYTHON) $(step-bindir)/ls-latex.py  --title 'References on Music Notation' \
 	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES) \
@@ -33,7 +33,7 @@ $(outdir)/%.bib: %.bib
 	$(MAKE) footify
 
 $(outdir)/%.html: %.bib
-	-$(BIBTEX2HTML) $(BIBTEX2HTML_FLAGS)
+	$(PYTHON) $(depth)/buildscripts/bib2html.py -o $@ $<
 	$(footify) $@
 
 local-clean:

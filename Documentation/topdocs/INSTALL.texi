@@ -235,16 +235,6 @@ at
 @uref{ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz,in
 the pnmtopng FTP site}.
 
-@item @uref{http://www.lri.fr/~filliatr/ftp/bibtex2html/, Bibtex2html}, or
-@uref{http://www.uni-koblenz.de/ag-ki/ftp/bib2html/, Bib2html}.
-Bibtex2html is available in debian, while bib2html is in some rpm based
-distributions.
-Bib2html, in turn depends on man2html for proper installation.
-man2html can be had from @uref{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05,http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05}.
-
-The website will build without bib converter utility, but you will not
-see our hypertextified bibliography.
-
 @item texinfo (a development release)
 The documentation will build with texinfo-4.0, but if you want split
 html pages, you're best off using the lates pretest version from
@@ -491,7 +481,6 @@ in addition to the those needed for running:
 @item make, m4, flex, bison
 @item gettext
 @item groff, texinfo
-@item bibtex2html (not in Debian 2.2)
 @item tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
 @item dpkg-dev, debhelper, fakeroot
 @item gs, netpbm
@@ -519,7 +508,7 @@ For Debian in development ("unstable", the future 2.3 or 3.0):
 	apt-get install binutils cpp gcc libc6-dev \
         	g++ libstdc++2.10-dev \
 		python-base libguile-dev tetex-bin libkpathsea-dev \
-		tetex-extra flex bison texinfo bibtex2html groff gs \
+		tetex-extra flex bison texinfo  groff gs \
 		netpbm m4 gettext
 @end example
 

@@ -594,7 +594,7 @@ contains-grace extra-space stretch-distance ))
    'spaceable-element-interface
    "An grob (generally a Paper_column) that takes part in the
 spacing problem. "
-   '(
+   '(penalty 
      minimum-distances 
      ideal-distances  
      dir-list 

@@ -301,7 +301,7 @@ help with debugging large scores.")
 (translator-property-description 'squashedPosition integer? " Vertical position of
 squashing for Pitch_squash_engraver.")
 (translator-property-description 'stavesFound list? "list of all staff-symbols found.")
-(translator-property-description 'stanza string? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
+(translator-property-description 'stanza markup? "Stanza `number' to print at start of a verse. Use in LyricsVoice context.")
 
 
 (translator-property-description 'stemLeftBeamCount integer? "
@@ -310,7 +310,7 @@ Overrides automatic beaming.  The value is only used once, and then it
 is erased.
 .")
 (translator-property-description 'stemRightBeamCount integer? "idem, for the right side.")
-(translator-property-description 'stz string? "Abbreviated form for a stanza, see also Stanza property.")
+(translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
 (translator-property-description 'textNonEmpty boolean? " If set
