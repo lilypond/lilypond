@@ -35,9 +35,8 @@ treble =  \context Voice=treble \notes\relative c''{
 
     \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4)
 	    
-    % currently, this can't be (small italic,-) because in the paperblock
-    % we set italic_magnifictation to get large italics.
-    cis,16^2^"m.d."( <<fis fis,>>8 <<e! e,!>>
+    cis,16^2-(^\markup {\small \italic "m.d." }
+    <<fis fis,>>8 <<e! e,!>>
     | %4
     <<dis, a' dis>>4-)
     
@@ -62,6 +61,8 @@ treble =  \context Voice=treble \notes\relative c''{
 	 #(set-octavation 0)
 	
  	 cis32-[ a-1 fis-4 dis]   cis-[ a  fis-)-2]
+	 % the small grace in lower staff comes after us
+	 s32
     }
 
     \stemUp
@@ -74,8 +75,7 @@ treble =  \context Voice=treble \notes\relative c''{
     \property Voice.Fingering \set #'direction = #1
     
     % Manual fix for collision with slur
-    % padding \once does not work??
-    \once \property Voice.Fingering \set #'padding = #1
+    \property Voice.Fingering \set #'extra-offset = #'(0 . 1)
     <<gis gis,>> <<fis fis,>> e-)-1-4-5 r
 
     | %6
@@ -88,6 +88,10 @@ treble =  \context Voice=treble \notes\relative c''{
 
 trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     \stemDown
+    \slurDown
+    % \fingerDown
+    \property Voice.Fingering \set #'direction = #-1
+    \property Voice.Fingering \set #'extra-offset = #'(0 . 1.2)
     s2
     | %1
     s1*2
@@ -97,9 +101,11 @@ trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     <<e, gis, e d!>>2
     | %5
     s8 cis4. d4
-    <<cis e,>>8-[-( <<b-3 d,-1>>
+    %%<<cis e,>>8-[-( <<b-3 d,-1>>
+    <<cis e,>>8-[-( <<b d,>>-3-1
     | %6
-    <<a-2 cis,-1>>-)] cis4. d4 
+    %%<<a-2 cis,-1>>-)] cis4. d4 
+    <<a cis,>>-)-]-2-1 cis4. d4 
     <<cis e,>>8-[-( <<b d,>>
     | %7
     <<a cis,>>-)]
@@ -157,28 +163,34 @@ bass =  \context Voice=bass \notes\relative c{
     <
         %urg: staff-change: ! on dis
         <<cis'' a fis dis!>>-\arpeggio
-%	{ s8. \clef bass}
     >
-
-    %Hmm
-    %\grace { s16 s s s s32 s s s s \clef bass s }
-    \clef bass
-    \grace { <<e,,, e,>>32-( } <<gis' e>>2-)
+    
+    \grace {
+        s8
+        s16 s s
+ 	s32 s s
+	s s s
+	\clef bass
+        \property Voice.fontSize = #-3
+	<<e,,, e,>>32-(
+    } <<gis' e>>2-)
     
     | %5
     \slurUp
     
     % \fingerDown
     \property Voice.Fingering \set #'direction = #-1
-    \property Thread.Fingering \set #'direction = #-1
-    % hmm, ik ben blond?
     
-    a,8 e'-[-5-(<<a-2 cis-3>>-]-)
-    r b,-5 <<e-3 gis-5 d'>>4
+    %%a,8 e'-[-5-(<<a-2 cis-3>>-]-)
+    a,8 e'-[-5-(<<a cis>>-]-)-2-3
+    %%r b,-5 <<e-3 gis-5 d'>>4
+    r b,-5 <<e gis d'>>4-3-5
     \slurBoth
+    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1)
     e,8-[-5-(
     
     | %6
+    \once \property Voice.Fingering \set #'extra-offset = #'(0 . -1)
     a-)-2]
     \slurUp
     e'-[(<<a cis>>-)] r b, <<e gis d'>>4
@@ -218,34 +230,55 @@ middleDynamics =  \context Dynamics=middle \notes{
     s8-\!
 }
 
-lowerDynamics =  \context Dynamics=lower \notes{
+lowerDynamics = \context Dynamics=lower \notes{
     s2
-    %2
+    | %2
     s2-\sustainDown s8. s16-\sustainUp s4
-    %3
+    | %3
     s2-\sustainDown s8. s16-\sustainUp s4
-    %3
+    | %4
+    s4-\sustainDown
+    \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "*")
+    
+    % grace destroys pedal-line-spanner?
+    % let's do manual tweak:
+    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(10 . 0)
+    s8-\sustainUp
+    \once\property Dynamics.SustainPedal \set #'extra-offset = #'(16 . 0)
+    s8-\sustainDown
+%{
+    s4
+    \grace {
+    	   s8
+    	   s16 s s
+    	   s32 s s s-\sustainUp
+     	   s32 s s s-\sustainDown
+    }
+%}
+    s2
 
-    s4-\sustainDown s16
-    s32 s s-\sustainUp s
-    s32-\sustainDown s s s
-    s8
-
-    \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "")
-    s4 s16. s32--\sustainUp
-
-    %5
+    | %5
+    % ugh, I don't think that 'mixed should show last edge, but rather:
+    %
+    %   Ped__________/\__________ *
+    %
+    % that's what gray wants, anyway.
+    
+    \property Dynamics.pedalSustainStyle = #'mixed
     s8-\sustainDown s s
-    \property Dynamics.pedalSustainStrings = #'("Ped." "-P" "*")
-    s s-\sustainUp-\sustainDown s s
+    s s-\sustainUp-\sustainDown s
+    s-\sustainUp
+    \once \property Dynamics.pedalSustainStyle = #'text
     s-\sustainUp
 
-    %6
-    \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "")
+    | %6
+    \property Dynamics.pedalSustainStyle = #'mixed
     s8-\sustainDown s s
-    \property Dynamics.pedalSustainStrings = #'("Ped." "-P" "*")
-    s s-\sustainUp-\sustainDown s s
+    s s-\sustainUp-\sustainDown s
     s-\sustainUp
+    \once \property Dynamics.pedalSustainStyle = #'text
+    s-\sustainUp
+    | %7
 }
 
 \score{
@@ -278,7 +311,6 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    minimumVerticalExtent = #'(-1 . 1)
 
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
-	    pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 	    
 	    \consists "Piano_pedal_engraver"
 	    \consists "Script_engraver"
