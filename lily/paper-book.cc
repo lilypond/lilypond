@@ -29,7 +29,7 @@ stencil2line (Stencil* stil, bool is_title = false)
     z = scm_permanent_object (ly_offset2scm (Offset (0, 0)));
   Offset dim = Offset (stil->extent (X_AXIS).length (),
 		       stil->extent (Y_AXIS).length ());
-  Paper_line pl (dim, stil->smobbed_copy (), is_title);
+  Paper_line pl (dim, scm_cons (stil->smobbed_copy (), SCM_EOL), is_title);
   return pl.smobbed_copy ();
 }
 
@@ -140,7 +140,7 @@ Page::output (Paper_outputter *out, bool is_last)
 			is_last && gh_pair_p (ly_cdr (s)) && !get_copyright ()
 			&& !get_tagline () && !get_footer ());
       if (gh_pair_p (ly_cdr (s)) && unsmob_paper_line (line)->is_title ())
-	o[Y_AXIS] += vfill; 
+	o[Y_AXIS] += vfill;
     }
 
   o[Y_AXIS] = vsize_ - bottom_margin_;
