@@ -51,7 +51,7 @@ Options:
   -f, --from=VERSION     start from version; overrides \version found in file
   -s, --show-rules       print all rules.
   -t, --to=VERSION       show target version
-  -n, --no-version       don't add new version stamp.
+  -n, --no-version       don't add new version stamp
       --version          print program version
 
 Report bugs to bugs-gnu-music@gnu.org
