@@ -287,13 +287,9 @@ The alist contains the following entries: name, interfaces.
 ")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
-<<<<<<< grob-property-description.scm
+
 (grob-property-description 'minimum-X-extent number-pair? "minimum size in X dimension, measured in staff space.")
 (grob-property-description 'minimum-Y-extent number-pair? "see @code{minimum-Y-extent}.")
-=======
-(grob-property-description 'minimum-X-extent number-pair? "minimum size in X dimension, measured in staff space.")
-(grob-property-description 'minimum-Y-extent number-pair? "see @code{minimum-X-extent}.")
->>>>>>> 1.103
 (grob-property-description 'minimum-length number? "try to make the
 Grob at least this long.
 
