@@ -16,9 +16,7 @@ struct Atom {
     
     /// how big is #this#?
     Box extent() const;
-    Atom(const Symbol*s) {
-	sym=s;
-    }
+    Atom(const Symbol*s);
     String TeXstring() const;
 };
 
