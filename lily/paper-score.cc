@@ -133,7 +133,7 @@ Paper_score::process ()
       Score_element *sc = unsmob_element (gh_car (s));
       sc->handle_broken_dependencies ();
     }
-
+  
   outputter_l_ = new Paper_outputter ;
   outputter_l_->output_header ();
 
