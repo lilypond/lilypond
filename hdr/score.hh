@@ -4,6 +4,7 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "moment.hh"
+#include "assoc.hh"
 
 /// the total music def of one movement
 struct Score {
@@ -15,13 +16,17 @@ struct Score {
     IPointerList<Score_column*> cols_;
     PScore *pscore_p_;
 
+    String define_spot_str_;
+    
+    Assoc<String, Moment> markers_assoc_;
     /****************************************************************/
 
     /// construction
     Score(Paperdef*);
     ~Score();    
-    void add(Staff*);        
+    void add(Staff*);
 
+    void add_marks(Array<String>, Array<Moment>);
     /// do everything except outputting to file
     void process();
     
@@ -37,9 +42,10 @@ struct Score {
     PCursor<Score_column *> find_col(Moment,bool);
     /// when does the last *musical* element finish?
     Moment last() const;
-    
+
 private:
     Score(Score const&){}
+    ///
     void do_cols();
     /**
       make the pcol_l_ fields of each Score_column point to the correct PCol,
