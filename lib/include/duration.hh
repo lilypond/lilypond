@@ -13,7 +13,7 @@
 #define DURATION_HH
 
 #include "fproto.hh"
-#include "moment.hh"
+#include "rational.hh"
 #include "plet.hh"
 
 /**
@@ -27,11 +27,11 @@ struct Duration {
   bool plet_b ();
   String str () const;
   void set_plet (int,int );
-  void compress (Moment);
+  void compress (Rational);
 
   static bool duration_type_b (int t);
   void set_ticks (int ticks_i );
-  Moment length_mom () const ;
+  Rational length_mom () const ;
   static int division_1_i_s;
 
   /// Logarithm of the base duration.

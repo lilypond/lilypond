@@ -19,3 +19,4 @@ $(outdir)/%.txt: $(outdir)/%.texi
 $(outdir)/%.texi: %.texi
 	cp $< $@
 
+

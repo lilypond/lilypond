@@ -1,7 +1,6 @@
 #ifndef PAPER_STREAM_HH
 #define PAPER_STREAM_HH
 
-#include <iostream.h>
 #include "string.hh"
 
 /** Paper output
@@ -23,7 +22,7 @@ public:
     Paper_stream (String filename);
 
     /// delegate conversion to scalar class
-    Paper_stream &operator <<(Scalar);
+    Paper_stream &operator <<(String);
 
     /// close the file
     ~Paper_stream();

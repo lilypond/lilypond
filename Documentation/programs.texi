@@ -2,11 +2,10 @@
 @setfilename programs.info
 @settitle Programs
 
-@node Top, , midi2ly Authors, (dir)
+@node  Top, , , (dir)
 @top
 @menu
 * Programs::                      Your Softs-
-* convert-mudela::                convert-mudela to newer versions
 * Ly2dvi::                        Python utility to convert mudela to DVI
 * midi2ly::                       convert MIDI to -mudela-
 @end menu
@@ -14,7 +13,7 @@
 
 
 
-@node Programs, convert-mudela, , Top
+@node  Programs, , , Top
 @chapter Programs
 
 
@@ -23,7 +22,7 @@
 
 
 
-@node Ly2dvi, Ly2dvi DESCRIPTION, LilyPond Authors, Top
+@node  Ly2dvi, , , Top
 @menu
 * Ly2dvi DESCRIPTION::            Ly2dvi DESCRIPTION
 * Ly2dvi SYNOPSIS::               Ly2dvi SYNOPSIS
@@ -39,7 +38,7 @@
 @end menu
 @chapter Ly2dvi
 
-@node Ly2dvi DESCRIPTION, Ly2dvi SYNOPSIS, Ly2dvi, Ly2dvi
+@node  Ly2dvi DESCRIPTION, , , Ly2dvi
 @section DESCRIPTION
 ly2dvi is a Python script which creates input file for LaTeX,
 based on information from the output files from LilyPond.
@@ -53,12 +52,12 @@ one or more DVI files.
 The majority of this utility came from a bourne script written by Jan
 Arne Fagertun name @file{ly2dvi}. 
 
-@node Ly2dvi SYNOPSIS, Ly2dvi OPTIONS, Ly2dvi DESCRIPTION, Ly2dvi
+@node  Ly2dvi SYNOPSIS, , , Ly2dvi
 @section SYNOPSIS
 
         ly2dvi [options] inputfile[.ly] [....]
 
-@node Ly2dvi OPTIONS, Ly2dvi Features, Ly2dvi SYNOPSIS, Ly2dvi
+@node  Ly2dvi OPTIONS, , , Ly2dvi
 @section OPTIONS
 
 @table @samp
@@ -106,7 +105,7 @@ Arne Fagertun name @file{ly2dvi}.
     DVI file for each.
 @end table
 
-@node Ly2dvi Features, Ly2dvi Environment, Ly2dvi OPTIONS, Ly2dvi
+@node  Ly2dvi Features, , , Ly2dvi
 @section Features
 
 ly2dvi responds to several parameters specified in the mudela
@@ -125,7 +124,7 @@ file. They are overridden by corresponding command line options.
     Specify name of papersize.
 @end table
 
-@node Ly2dvi Environment, Ly2dvi Files, Ly2dvi Features, Ly2dvi
+@node  Ly2dvi Environment, , , Ly2dvi
 @section Environment
 
 @table @samp
@@ -137,7 +136,7 @@ file. They are overridden by corresponding command line options.
     Temporary directory name. Default is /tmp
 @end table
 
-@node Ly2dvi Files, Ly2dvi Initialization Sequence, Ly2dvi Environment, Ly2dvi
+@node  Ly2dvi Files, , , Ly2dvi
 @section Files
 
 @file{titledefs.tex} is inspected for definitions used to extract
@@ -239,7 +238,7 @@ present.  Possible value is a valid directory specification that is
 writable to the user.
 @end table
 
-@node Ly2dvi Initialization Sequence, Ly2dvi See Also, Ly2dvi Files, Ly2dvi
+@node  Ly2dvi Initialization Sequence, , , Ly2dvi
 @section Initialization Sequence
 The initialization process reads inputs for several sources.  Below is
 a list of priorities for lowest to hightest proirity.
@@ -257,12 +256,12 @@ a list of priorities for lowest to hightest proirity.
 Note that this differs slightly from the original bourne shell
 version. 
 
-@node Ly2dvi See Also, Ly2dvi Bugs, Ly2dvi Initialization Sequence, Ly2dvi
+@node  Ly2dvi See Also, , , Ly2dvi
 @section See Also
 
 lilypond(1), tex(1), latex(1)
 
-@node Ly2dvi Bugs, Ly2dvi Remarks, Ly2dvi See Also, Ly2dvi
+@node  Ly2dvi Bugs, , , Ly2dvi
 @section Bugs
 
 If you have found a bug, you should send a bugreport.
@@ -276,7 +275,7 @@ If you have found a bug, you should send a bugreport.
     to this mailinglist).
 @end itemize
 
-@node Ly2dvi Remarks, Ly2dvi Authors, Ly2dvi Bugs, Ly2dvi
+@node  Ly2dvi Remarks, , , Ly2dvi
 @section Remarks
 
 Many papersizes are now supported. Information on other sizes
@@ -289,7 +288,7 @@ a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, archA, archB, archC, archD,
 archE, b0, b1, b2, b3, b4, b5, flsa, flse, halfletter, ledger, legal,
 letter, note
 
-@node Ly2dvi Authors, midi2ly, Ly2dvi Remarks, Ly2dvi
+@node  Ly2dvi Authors, , , Ly2dvi
 @section Authors
 Python Version author:
 @email{daboys@@austin.rr.com, Jeffrey B. Reed},
@@ -305,24 +304,21 @@ Original bourne shell version author:
 
 
 
-@node midi2ly, midi2ly DESCRIPTION, Ly2dvi Authors, Top
+@node  midi2ly, , , Top
 @menu
 * midi2ly DESCRIPTION::           midi2ly DESCRIPTION
 * midi2ly OPTIONS::               midi2ly OPTIONS
-* midi2ly DISCLAIMER::            midi2ly DISCLAIMER
-* midi2ly SEE ALSO::              midi2ly SEE ALSO
-* midi2ly Authors::               midi2ly Authors
 @end menu
 @chapter midi2ly
 
-@node midi2ly DESCRIPTION, midi2ly OPTIONS, midi2ly, midi2ly
+@node  midi2ly DESCRIPTION, , , midi2ly
 @section DESCRIPTION
 midi2ly translates a MIDI input file to Mudela (GNU LilyPond source
 format).  midi2ly is part of the GNU LilyPond music typesetting package.
 
 	midi2ly [options] midi-file
 
-@node midi2ly OPTIONS, midi2ly DISCLAIMER, midi2ly DESCRIPTION, midi2ly
+@node  midi2ly OPTIONS, , , midi2ly
 @section OPTIONS
 
 @table @samp
@@ -354,34 +350,5 @@ format).  midi2ly is part of the GNU LilyPond music typesetting package.
 @item -x, --no-double-dots,
     Assume no double dotted notes.
 @end table
-
-@node midi2ly DISCLAIMER, midi2ly SEE ALSO, midi2ly OPTIONS, midi2ly
-@section DISCLAIMER
-
-midi2ly is copyright 1996, 1997 by its authors. midi2ly is distributed 
-as part of GNU LilyPond, under the terms of the GNU General Public
-License.  midi2ly is provided without any warranty what so ever.
-midi2ly may be freely distributed.  For further information consult
-the GNU General Public License, from the file @file{COPYING}.
-
-@node midi2ly SEE ALSO, midi2ly Authors, midi2ly DISCLAIMER, midi2ly
-@section SEE ALSO
-
-@table @samp
-@item @strong{lilypond}(1)
-    The GNU LilyPond music typesetter.
-@end table
-
-@node midi2ly Authors, Top, midi2ly SEE ALSO, midi2ly
-@section Authors
-
-Please consult the documentation file @file{AUTHORS} for more detailed
-information, and small contributions. 
-
-@email{janneke@@gnu.org, Jan Nieuwenhuizen}, @uref{http://www.xs4all.nl/~jantien}
-
-
-
-
 
 @bye

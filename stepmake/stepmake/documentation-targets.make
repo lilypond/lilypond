@@ -1,14 +1,12 @@
 
 default:
 
-do-doc: $(OUTTXT_FILES) 
-
 
 local-WWW: $(OUTHTML_FILES)
 	echo $^ > $(depth)/wwwlist
 
-doc: do-doc
-
+local-web:
+	$(MAKE) CONFIGSUFFIX=www local-WWW
 
 footify:
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))

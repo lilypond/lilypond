@@ -16,7 +16,7 @@
 #include "string.hh"
 #include "source-file.hh"
 #include "source.hh"
-#include "moment.hh"
+#include "rational.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
 #include "duration-iter.hh"
@@ -42,13 +42,13 @@ Duration::duration_type_b (int t)
 }
 
 void
-Duration::compress (Moment m)
+Duration::compress (Rational m)
 {
   plet_.iso_i_ *= m.num_i ();
   plet_.type_i_ *= m.den_i (); 
 }
 
-Moment
+Rational
 Duration::length_mom () const
 {
   return Duration_convert::dur2_mom (*this);

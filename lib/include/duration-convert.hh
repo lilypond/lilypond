@@ -1,5 +1,5 @@
 /*
-	  duration-convert.hh -- declare 
+  duration-convert.hh -- declare Duration_convert
 
   source file of the LilyPond music typesetter
 
@@ -11,7 +11,6 @@
 #define DURATION_CONVERT_HH
 #include "duration.hh"
 #include "string.hh"
-//#include "array.hh"
 #include "array.hh"
 
 /**
@@ -19,12 +18,8 @@
 	That is including (integer + division) representation for MIDI,
 	and conversion from unexact time representation (best guess :-).
 
-	A Moment (mom) is a Rational that holds the time fraction 
+	A Rational (mom) is a Rational that holds the time fraction 
 	compared to a whole note (before also called wholes).
-
-	SUGGESTION: currently a moment in time is called moment too;
-	let-s typedef Rational When too, so that we get 
-	When Staff_column::when (), Moment Voice_element::mom ().
 
 	[todo]
 	move all statics to real members, instantiate Duration_convert
@@ -51,27 +46,27 @@ struct Duration_convert {
   /// Return 0 if longer than whole note.
   static int type2_i (int type);
 
-  /// Return Moment representation (fraction of whole note).
-  static Moment dur2_mom (Duration dur );
+  /// Return Rational representation (fraction of whole note).
+  static Rational dur2_mom (Duration dur );
 
   /// Return Mudela string representation.
   static String dur2_str (Duration dur );
 
-  /// Return duration from Moment (fraction of whole) representation.
-  static Duration mom2_dur (Moment mom );
+  /// Return duration from Rational (fraction of whole) representation.
+  static Duration mom2_dur (Rational mom );
 
   /// Return standardised duration, best guess if not exact.
-  static Duration mom2standardised_dur (Moment mom );
+  static Duration mom2standardised_dur (Rational mom );
   
-  /// Return plet factor (not a Moment: should use Rational?).
-  static Moment plet_factor_mom (Duration dur );
+  /// Return plet factor (not a Rational: should use Rational?).
+  static Rational plet_factor_mom (Duration dur );
 
   static void set_array ();
 
   /** Return synchronisation factor for mom, so that
       mom2_dur (mom / sync_f ) will return the duration dur.		
   */ 
-  static Real sync_f (Duration dur, Moment mom );
+  static Real sync_f (Duration dur, Rational mom );
 
   /// Return exact duration, in midi-ticks if not-exact.
   static Duration ticks2_dur (int ticks_i );

@@ -44,7 +44,7 @@ Duration_convert::dur2ticks_i (Duration dur)
 {
   if (dur.ticks_i_)
     return dur.ticks_i_;
-  return dur2_mom (dur) * Moment (Duration::division_1_i_s);
+  return dur2_mom (dur) * Rational (Duration::division_1_i_s);
 }
 
 int
@@ -67,22 +67,22 @@ Duration_convert::type2_i (int type)
     return 1 << type;
 }
 
-Moment
+Rational
 Duration_convert::dur2_mom (Duration dur)
 {
   if (dur.ticks_i_)
-    return Moment (dur.ticks_i_, Duration::division_1_i_s);	
+    return Rational (dur.ticks_i_, Duration::division_1_i_s);	
 
   // or simply assert?
   if (dur.durlog_i_<-10)
-    return Moment (0);
-  Moment mom;
+    return Rational (0);
+  Rational mom;
   if (dur.durlog_i_<0)
-    mom = Moment (type2_i (-dur.durlog_i_), 1);
+    mom = Rational (type2_i (-dur.durlog_i_), 1);
   else
-    mom = Moment (1 , type2_i (dur.durlog_i_));
+    mom = Rational (1 , type2_i (dur.durlog_i_));
 
-  Moment delta = mom;
+  Rational delta = mom;
   while (dur.dots_i_--) 
     {
       delta /= 2.0;
@@ -93,7 +93,7 @@ Duration_convert::dur2_mom (Duration dur)
 }
 
 Duration
-Duration_convert::mom2_dur (Moment mom)
+Duration_convert::mom2_dur (Rational mom)
 {
   if (!mom) 
     {
@@ -111,8 +111,8 @@ Duration_convert::mom2_dur (Moment mom)
 
   //	dur.set_plet (type_mom, Duration::division_1_i_s / 4); 
 
-  //	Moment as_plet_mom = mom / dur.mom ();
-  Moment as_plet_mom = mom / dur.length_mom ();
+  //	Rational as_plet_mom = mom / dur.mom ();
+  Rational as_plet_mom = mom / dur.length_mom ();
   as_plet_mom *= dur.plet_.mom ();
   long num = as_plet_mom.num ();
   long den = as_plet_mom.den ();
@@ -121,7 +121,7 @@ Duration_convert::mom2_dur (Moment mom)
 }
 
 Duration
-Duration_convert::mom2standardised_dur (Moment mom)
+Duration_convert::mom2standardised_dur (Rational mom)
 {
   //	if (!dur_array_s.length_i ())
   if (!dur_array_s.size ())
@@ -129,12 +129,12 @@ Duration_convert::mom2standardised_dur (Moment mom)
   assert (dur_array_s.size ());
   for (int i = 0; i < dur_array_s.size () - 1; i++) 
     {
-      Moment lower_mom = dur2_mom (dur_array_s[ i ]);
+      Rational lower_mom = dur2_mom (dur_array_s[ i ]);
       if (mom <= lower_mom) 
 	{
 	  // all arbitrary, but 3/4 will get rid of the noise...
 	  // kinda ok
-	  if (i || (mom / lower_mom > Moment (3, 4)))
+	  if (i || (mom / lower_mom > Rational (3, 4)))
 	    return dur_array_s[ i ];
 	  else 
 	    {
@@ -143,7 +143,7 @@ Duration_convert::mom2standardised_dur (Moment mom)
 	      return d;
 	    }
 	}
-      Moment upper_mom = dur2_mom (dur_array_s[ i + 1 ]);
+      Rational upper_mom = dur2_mom (dur_array_s[ i + 1 ]);
       if ((mom < upper_mom)
 	  && ((mom - lower_mom) / lower_mom
 	      < (upper_mom - mom) / upper_mom))
@@ -164,14 +164,14 @@ Duration_convert::set_array ()
 }
 
 
-Moment
+Rational
 Duration_convert::plet_factor_mom (Duration dur)
 {
   return dur.plet_.mom ();
 }
 
 Real
-Duration_convert::sync_f (Duration dur, Moment mom)
+Duration_convert::sync_f (Duration dur, Rational mom)
 {
   return mom / dur2_mom (dur);
 }
@@ -179,7 +179,7 @@ Duration_convert::sync_f (Duration dur, Moment mom)
 Duration
 Duration_convert::ticks2_dur (int ticks_i)
 {
-  Moment mom (ticks_i, Duration::division_1_i_s);
+  Rational mom (ticks_i, Duration::division_1_i_s);
   if (midi_as_plet_b_s)
     return mom2_dur (mom);
 
@@ -194,7 +194,7 @@ Duration_convert::ticks2_dur (int ticks_i)
 Duration
 Duration_convert::ticks2standardised_dur (int ticks_i)
 {
-  Moment mom (ticks_i, Duration::division_1_i_s);
+  Rational mom (ticks_i, Duration::division_1_i_s);
   Duration dur = mom2standardised_dur (mom);
   return dur;
 }

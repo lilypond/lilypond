@@ -45,13 +45,13 @@ If you want to read the documentation online, these are options:
 @item use @file{.dvi},  for the tutorial and reference manual. Do
 
 @example 
-  make -C Documentation/tex/ dvi 
+  make -C Documentation/user/ dvi 
 @end example 
 
   
 @item  use ASCII. Do
 using @example 
-	make -C Documentation/
+	make -C doc
 @end example 
 
 @end itemize

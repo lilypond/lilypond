@@ -42,7 +42,7 @@ Paper_stream::~Paper_stream ()
 
 // print string. don't forget indent.
 Paper_stream&
-Paper_stream::operator << (Scalar s)
+Paper_stream::operator << (String s)
 {
   for (char const *cp = s.ch_C (); *cp; cp++)
     {
