@@ -165,21 +165,21 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
   int k = 0;
   bool do_shift = false;
 
-  for (Direction d = LEFT ;  d <= RIGHT; d = Direction (d + 1))
+  for (int d = LEFT; d <= RIGHT; d++)
     {
-      Real x = xext.linear_combination (d);
+      Real x = xext.linear_combination ((Direction) d);
       consider[k] = bezext.contains (x);
 
       if (consider[k])
 	{
-	  ys[k] =
-	    (fabs(bezext[LEFT] - x) < EPS)
+	  ys[k]
+	    = (fabs(bezext[LEFT] - x) < EPS)
 	    ? curve.control_[0][Y_AXIS]
 	    : ((fabs(bezext[RIGHT] - x) < EPS)
 	       ? curve.control_[3][Y_AXIS]
 	       : curve.get_other_coordinate (X_AXIS, x));
 	  consider[k] = true;
-
+	  
 	  if (yext.contains (ys[k]))
 	    do_shift = true;
 	}
@@ -189,11 +189,10 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
     {
       k = 0;
       Direction dir = get_grob_direction (script);
-      for (Direction d = LEFT ;  d <= RIGHT; d = Direction (d + 1))
+      for (int d = LEFT; d <= RIGHT; d++)
 	{
-	  offset = 
-	    dir * (dir * offset >? dir * (ys[k]
-					  - yext[-dir] + dir * slur_padding));
+	  offset = dir * (dir * offset >? dir
+			  * (ys[k] - yext[-dir] + dir * slur_padding));
 	  k++;
 	}
     }
