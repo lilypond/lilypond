@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-21 01:03+0200\n"
+"POT-Creation-Date: 2004-07-27 20:00-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,6 +22,7 @@ msgstr ""
 
 #: lilylib.py:63 lilypond-book.py:84 lilypond.py:127 midi2ly.py:100
 #: mup2ly.py:75 old-lilypond-book.py:129 main.cc:139 lily/main.cc:126
+#: lily/main.cc:131
 msgid "print this help"
 msgstr ""
 
@@ -59,11 +60,13 @@ msgid "Usage: %s [OPTIONS]... FILE"
 msgstr ""
 
 #: lilylib.py:194 midi2ly.py:227 mup2ly.py:223 main.cc:204 lily/main.cc:189
+#: lily/main.cc:200
 #, c-format
 msgid "Options:"
 msgstr ""
 
 #: lilylib.py:198 midi2ly.py:231 mup2ly.py:227 main.cc:208 lily/main.cc:193
+#: lily/main.cc:204
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr ""
@@ -163,7 +166,10 @@ msgstr ""
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #: lilypond-book.py:82 old-lilypond-book.py:123 main.cc:138 lily/main.cc:125
+#: lily/main.cc:130
 msgid "EXT"
 msgstr ""
 
@@ -181,6 +187,7 @@ msgstr ""
 
 #: lilypond-book.py:85 lilypond-book.py:87 lilypond.py:131
 #: old-lilypond-book.py:130 main.cc:141 main.cc:146 lily/main.cc:128
+#: lily/main.cc:133
 msgid "DIR"
 msgstr ""
 
@@ -201,7 +208,7 @@ msgid "write output to DIR"
 msgstr ""
 
 #: lilypond-book.py:88 lilypond.py:149 midi2ly.py:105 mup2ly.py:78
-#: old-lilypond-book.py:140 main.cc:149 lily/main.cc:134
+#: old-lilypond-book.py:140 main.cc:149 lily/main.cc:134 lily/main.cc:145
 msgid "be verbose"
 msgstr ""
 
@@ -210,7 +217,7 @@ msgid "print version information"
 msgstr ""
 
 #: lilypond-book.py:90 lilypond.py:151 midi2ly.py:107 mup2ly.py:80
-#: old-lilypond-book.py:142 main.cc:150 lily/main.cc:135
+#: old-lilypond-book.py:142 main.cc:150 lily/main.cc:135 lily/main.cc:146
 msgid "show warranty and copyright"
 msgstr ""
 
@@ -302,7 +309,7 @@ msgstr ""
 
 #: lilypond.py:129 lilypond.py:136 midi2ly.py:102 old-lilypond-book.py:136
 #: old-lilypond-book.py:137 main.cc:142 main.cc:145 lily/main.cc:129
-#: lily/main.cc:131
+#: lily/main.cc:131 lily/main.cc:134 lily/main.cc:136
 msgid "FILE"
 msgstr ""
 
@@ -327,11 +334,12 @@ msgstr ""
 msgid "don't run LilyPond"
 msgstr ""
 
-#: lilypond.py:135 main.cc:144 lily/main.cc:130
+#: lilypond.py:135 main.cc:144 lily/main.cc:130 lily/main.cc:135
 msgid "produce MIDI output only"
 msgstr ""
 
 #: lilypond.py:136 midi2ly.py:102 mup2ly.py:76 main.cc:145 lily/main.cc:131
+#: lily/main.cc:136
 msgid "write output to FILE"
 msgstr ""
 
@@ -388,6 +396,7 @@ msgid "change global setting KEY to VAL"
 msgstr ""
 
 #: lilypond.py:150 midi2ly.py:106 mup2ly.py:79 main.cc:148 lily/main.cc:133
+#: lily/main.cc:144
 msgid "print version number"
 msgstr ""
 
@@ -772,6 +781,7 @@ msgstr ""
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
+#. FIXME: broken sentence
 #: all-font-metrics.cc:100 lily/all-font-metrics.cc:95
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
@@ -877,6 +887,12 @@ msgstr ""
 #. errors hard to catch
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
 #.
 #.
 #. We could change the current translator's id, but that would make
@@ -1250,7 +1266,7 @@ msgstr ""
 msgid "round filled box vertical extent smaller than blot; decreasing blot"
 msgstr ""
 
-#: main.cc:99 lily/main.cc:86
+#: main.cc:99 lily/main.cc:86 lily/main.cc:91
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
 "License and you are welcome to change it and/or distribute copies of it\n"
@@ -1258,7 +1274,7 @@ msgid ""
 "information.\n"
 msgstr ""
 
-#: main.cc:105 lily/main.cc:92
+#: main.cc:105 lily/main.cc:92 lily/main.cc:97
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1275,7 +1291,7 @@ msgid ""
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
 
-#: main.cc:134 lily/main.cc:121
+#: main.cc:134 lily/main.cc:121 lily/main.cc:126
 msgid "EXPR"
 msgstr ""
 
@@ -1287,19 +1303,19 @@ msgstr ""
 msgid "use output format EXT"
 msgstr ""
 
-#: main.cc:140 lily/main.cc:127
+#: main.cc:140 lily/main.cc:127 lily/main.cc:132
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:140 lily/main.cc:127
+#: main.cc:140 lily/main.cc:127 lily/main.cc:132
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:141 lily/main.cc:128
+#: main.cc:141 lily/main.cc:128 lily/main.cc:133
 msgid "add DIR to search path"
 msgstr ""
 
-#: main.cc:142 lily/main.cc:129
+#: main.cc:142 lily/main.cc:129 lily/main.cc:134
 msgid "use FILE as init file"
 msgstr ""
 
@@ -1311,11 +1327,11 @@ msgstr ""
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:147 lily/main.cc:132
+#: main.cc:147 lily/main.cc:132 lily/main.cc:143
 msgid "run in safe mode"
 msgstr ""
 
-#: main.cc:170 lily/main.cc:155
+#: main.cc:170 lily/main.cc:155 lily/main.cc:166
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1340,41 +1356,44 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:196 lily/main.cc:181
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:196 lily/main.cc:181 lily/main.cc:192
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr ""
 
-#: main.cc:198 lily/main.cc:183
+#: main.cc:198 lily/main.cc:183 lily/main.cc:194
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:200 lily/main.cc:185
+#: main.cc:200 lily/main.cc:185 lily/main.cc:196
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:202 lily/main.cc:187
+#: main.cc:202 lily/main.cc:187 lily/main.cc:198
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:368 lily/main.cc:345
+#: main.cc:368 lily/main.cc:345 lily/main.cc:410
 #, c-format
 msgid "This option is for developers only."
 msgstr ""
 
-#: main.cc:369 lily/main.cc:346
+#: main.cc:369 lily/main.cc:346 lily/main.cc:411
 #, c-format
 msgid "Read the sources for more information."
 msgstr ""
 
 #: mensural-ligature.cc:183 lily/mensural-ligature.cc:183
+#: lily/mensural-ligature.cc:161
 msgid "Mensural_ligature:unexpected case fall-through"
 msgstr ""
 
 #: mensural-ligature.cc:193 lily/mensural-ligature.cc:193
+#: lily/mensural-ligature.cc:171
 msgid "Mensural_ligature: (join_left == 0)"
 msgstr ""
 
@@ -1491,6 +1510,9 @@ msgstr ""
 #.
 #. music for the softenon children?
 #.
+#.
+#. music for the softenon children?
+#.
 #: new-fingering-engraver.cc:155 lily/new-fingering-engraver.cc:153
 msgid "music for the martians."
 msgstr ""
@@ -1504,11 +1526,11 @@ msgstr ""
 msgid "cannot find Voice: %s"
 msgstr ""
 
-#: note-collision.cc:384 lily/note-collision.cc:400
+#: note-collision.cc:384 lily/note-collision.cc:400 lily/note-collision.cc:413
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr ""
 
-#: note-head.cc:139 lily/note-head.cc:137
+#: note-head.cc:139 lily/note-head.cc:137 lily/note-head.cc:45
 #, c-format
 msgid "note head `%s' not found"
 msgstr ""
@@ -1701,6 +1723,7 @@ msgstr ""
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:53 separation-item.cc:97 lily/separation-item.cc:53
 #: lily/separation-item.cc:97
 msgid "Separation_item:  I've been drinking too much"
@@ -1715,6 +1738,8 @@ msgstr ""
 msgid "unterminated slur"
 msgstr ""
 
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
 #. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
@@ -1793,6 +1818,7 @@ msgstr ""
 #. FIXME:
 #. FIXME:
 #. FIXME:
+#. FIXME:
 #: stem-engraver.cc:128 lily/stem-engraver.cc:126 lily/stem-engraver.cc:117
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
@@ -1833,6 +1859,8 @@ msgstr ""
 msgid "can't find ascii character: %d"
 msgstr ""
 
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
@@ -1923,11 +1951,18 @@ msgstr ""
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #: time-signature.cc:95 lily/time-signature.cc:95
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #.
 #. Todo: should make typecheck?
 #.
@@ -2198,6 +2233,7 @@ msgid "can't find init file: `%s'"
 msgstr ""
 
 #: lily/new-lyric-combine-music-iterator.cc:230
+#: lily/new-lyric-combine-music-iterator.cc:246
 #, c-format
 msgid "Haven't found Voice `%s'."
 msgstr ""
@@ -2228,15 +2264,44 @@ msgstr ""
 #. FIXME:
 #. FIXME:
 #. FIXME:
+#. FIXME:
 #: lily/script-engraver.cc:94
 msgid "Do not know how to interpret articulation: "
 msgstr ""
 
-#: lily/main.cc:122
+#: lily/main.cc:122 lily/main.cc:127
 msgid "set options, use -e '(ly:option-usage)' for help"
 msgstr ""
 
 #: lily/scm-option.cc:64
 #, c-format
 msgid "Usage: lilypond-bin -e \"(ly:set-option SYMBOL VAL)\""
+msgstr ""
+
+#: lily/main.cc:130
+msgid "select back-end to use"
+msgstr ""
+
+#: lily/main.cc:137
+msgid "generate a preview"
+msgstr ""
+
+#: lily/main.cc:138
+msgid "generate PNG"
+msgstr ""
+
+#: lily/main.cc:139
+msgid "generate PostScript"
+msgstr ""
+
+#: lily/main.cc:140
+msgid "generate DVI"
+msgstr ""
+
+#: lily/main.cc:141
+msgid "generate PDF (default)"
+msgstr ""
+
+#: lily/main.cc:142
+msgid "generate TeX"
 msgstr ""

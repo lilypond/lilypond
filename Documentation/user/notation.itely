@@ -2260,8 +2260,8 @@ direction for this grace, so stems do not always point up.
 
 @noindent
 Another option is to change the variables @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAccacciaturaMusic},
-@code{stopAccacciaturaMusic}, @code{startAppoggiaturaMusic},
+@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
 @code{stopAppoggiaturaMusic}.  More information is in the file
 @file{ly/grace-init.ly}.
 

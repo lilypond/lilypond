@@ -920,7 +920,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 @end lilypond
 
 @cindex grace notes
-@cindex accacciatura
+@cindex acciaccatura
 Grace notes are also made by prefixing a music expression with the
 keyword @code{\appoggiatura} or @code{\acciaccatura}
 @cindex appoggiatura
