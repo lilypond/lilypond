@@ -74,9 +74,6 @@ Break_align_interface::set_interface (Grob*me)
   Align_interface::set_axis (me,X_AXIS);
 }
 
-
-
-
 void
 Break_align_interface::do_alignment (Grob *me)
 {
@@ -223,4 +220,5 @@ Break_align_interface::do_alignment (Grob *me)
       elems[i]->translate_axis (here, X_AXIS);
     }
 }
+
 
