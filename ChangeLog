@@ -1,3 +1,11 @@
+2004-12-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/lexer.ll: add  <> to catch-all string rule
+
+2004-11-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/abc2ly.py: add ord() calls. 
+
 2004-12-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* cygwin/lily-wins.py (stat): remove old flag -p when calling lilypond.
