@@ -54,6 +54,7 @@ Hi,
 			five1
 		}
 	>
+\paper{raggedright = ##t}
 }
 
 

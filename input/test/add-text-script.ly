@@ -30,6 +30,7 @@ create, then write a function that will build the structure for you.
 
 \score {
   \apply #(lambda (x) (add-text-script x "6") (display x) x ) \notes { c4-3 }
+	\paper{ raggedright = ##t }
 }
 
 %% new-chords-done %%

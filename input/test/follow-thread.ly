@@ -23,6 +23,6 @@ fragment = \notes {
 
 \score {
   \notes\relative c \fragment
-  \paper { }  
+  \paper { raggedright = ##t }  
 }
 %% new-chords-done %%

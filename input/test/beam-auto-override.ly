@@ -45,6 +45,7 @@ The beam will be ended also when now % beamAutoEnd = 0
 	    autoBeamSettings \override #'(end * * * *) = #(ly:make-moment 1 2)
 	}
     }
+\paper{raggedright = ##t}
 }
 
 %% new-chords-done %%

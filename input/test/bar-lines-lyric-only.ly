@@ -21,6 +21,7 @@ Span_bar_engraver if you want bar lines on lyrics.
 
 
 \paper  {
+	raggedright = ##t
 \translator {
   \LyricsVoiceContext
   \consists Bar_engraver

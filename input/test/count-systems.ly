@@ -34,6 +34,7 @@ specified number of lines.
     }
     \paper{ indent = 0.0\mm
 	    linewidth = 10.0\mm
+		raggedright = ##t
 	}
 }
 %% new-chords-done %%

@@ -16,6 +16,7 @@ TODO: make molecule-callback to do this.
     s2
     a'1
   }
-  \paper { linewidth = 70 * \staffspace }
+  \paper { linewidth = 70 * \staffspace
+	raggedright = ##t  }
 }
 %% new-chords-done %%

@@ -12,6 +12,7 @@ Second line has bar numbers on start of every measure.
 	\break
 	c c c
     }
+	\paper{ raggedright = ##t }
 }
 
 %% new-chords-done %%

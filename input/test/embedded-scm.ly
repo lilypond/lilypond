@@ -6,6 +6,7 @@ You can embed scm functions in your scores.
 
 #(begin (newline)(display "hello world")(newline))\score{
 	\notes\relative c'{ c }
+\paper{raggedright = ##t}
 }
 
 %% new-chords-done %%

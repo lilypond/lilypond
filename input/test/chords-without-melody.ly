@@ -23,6 +23,7 @@ texidoc = "Jazz chords can also be used without notes."
 			\consists Bar_engraver
 			\consists "Volta_engraver"
 		}
+	raggedright = ##t
 	}
 }
 

@@ -19,5 +19,6 @@ Controlling beam positions.
 	\property Voice.Beam \revert #'positions
 	 c-[ e]  e-[ c]
   }
+\paper{raggedright = ##t}
 }
 %% new-chords-done %%

@@ -12,5 +12,6 @@ automatically insert barlines everywhere.
 		\property Score.barAlways = ##t
 		\property Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }
+	\paper{raggedright = ##t}
 }
 %% new-chords-done %%

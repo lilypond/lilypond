@@ -33,7 +33,7 @@ usually not restored explicitly.
 
 	r8^"Bsn." c'8  f'8-[ f'8]
 % FIXME: check to see if clef should be cancelled from the cue.  IIRC
-% it should be, but I could be wrong.
+% it should be, but I could be wrong.   -gp
 %       \property Staff.fontSize\unset
 %       \property Staff . Clef = \turnOff
        \clef treble

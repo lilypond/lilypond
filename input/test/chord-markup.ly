@@ -19,5 +19,6 @@ chord/markup test.
 			\column <<  "1"  { \bold "2" "3" } >> }
 		}
    >
+\paper{raggedright = ##t}
 }
 %% new-chords-done %%
