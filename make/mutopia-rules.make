@@ -13,9 +13,6 @@ $(outdir)/%.png: $(outdir)/%.ps
 $(outdir)/%.ly.txt: %.ly
 	ln -f $< $@
 
-$(outdir)/%.fly.txt: %.fly
-	ln -f $< $@
-
 $(outdir)/%.ly.txt: %.abc
 #which file to show here -- abc seems more cute?
 	ln -f $< $@
