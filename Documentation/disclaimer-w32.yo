@@ -1,9 +1,0 @@
-If you have the Cygnus gnu-windows32 port of the GNU utils, LilyPond
-will work in Windows-NT (/95/98?).
-
-We still recommend you use Unix.  In particular, use GNU/Linux: We've
-been there, and we've seen it happen several times.  It is em(much)
-easier and quicker to install RedHat Linux and LilyPond than to
-obtain, compile and install all the necessary tools to compile and run
-LilyPond on Windows.
-
