@@ -7,6 +7,7 @@
 */
 
 #include <math.h>
+#include "main.hh"
 #include "misc.hh"
 #include "lookup.hh"
 #include "molecule.hh"
@@ -15,7 +16,6 @@
 #include "paper-def.hh"
 #include "string-convert.hh"
 
-#include "main.hh"
 
 static char
 direction_char (Direction y_sign)
@@ -150,29 +150,28 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   // duh
   // let's try the embedded stuff
   bool embedded_b = experimental_features_global_b;
+  String embed;
   if (embedded_b)
     {
-      // huh, factor 8?
       Real fdy = dy*paper_l_->internote_f ();
       Real fdx = dx;
       String ps = "\\embeddedps{\n";
       // ugh, how bout " /draw_slur { ... } def "
-      ps += String_convert::int_str (fdx) + " " 
-      	+ String_convert::int_str (fdy) + " "
-	+ String_convert::int_str (dir) +
-	" drawslur}";
+      ps += String_convert::double_str (fdx) + " " 
+      	+ String_convert::double_str (fdy) + " "
+	+ String_convert::double_str (dir) +
+	" draw_slur}";
 
       String mf = "\\embeddedmf{\n";
       mf += "input feta-sleur;\n";
       mf += "draw_slur((0,0),";
-      mf += "(" + String_convert::int_str (fdx) + "," 
-      	+ String_convert::int_str (fdy) + "),";
-      mf += String_convert::int_str (dir) + ");\n";
+      mf += "(" + String_convert::double_str (fdx) + "," 
+      	+ String_convert::double_str (fdy) + "),";
+      mf += String_convert::double_str (dir) + ");\n";
       mf += "end.\n";
-      ps += "}\n";
+      mf += "}\n";
 
-      s.tex_ = ps + mf;
-      return s;
+      embed = ps + mf;
     }
 
   Direction y_sign = (Direction) sign (dy);
@@ -188,7 +187,13 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
 
   if (large)
     {
-      return big_slur (dy, dx, dir);
+      s = big_slur (dy, dx, dir);
+      if (embedded_b)
+        {
+	  s.tex_ = "\\embeddedtex{\n" + s.tex_ + "\n}\n";
+	  s.tex_ += embed;
+        }
+      return s;
     }
   Real orig_dx = dx;
   int widx = int (floor (dx/4.0)); // slurs better too small..
@@ -234,6 +239,11 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   assert (idx < 256);
   f+=String ("{") + String (idx) + "}";
   s.tex_ = f;
+  if (embedded_b)
+    { 
+      s.tex_ = "\\embeddedtex{\n" + s.tex_ + "\n}\n";
+      s.tex_ += embed;
+    }
 
   s.translate_axis (dx/2, X_AXIS);
   return s;

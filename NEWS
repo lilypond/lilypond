@@ -1,4 +1,22 @@
 
+
+pl 28
+	- revised Staff_symbol::brew_molecule_p ()
+	- naming: \makelilytitle
+	- fixes for TeX titledefs (thanks, (?))
+	- junked some obsolete pedal stuff.
+
+pl 27.om-je-te-helpen-met-je-ps-spul.jcn1
+	- embedded slurs:
+	  * bf: placements
+	  * added \embeddedtex
+	  * postscript is default
+	  * fixed \embeddedps
+	  * fixed mf: draw_slur
+	  * postscript macro: draw_slur
+
+********
+oct 28
 pl 27
 	- -t/--test switch for experimental stuff.
 	- bf: debian optimize is not with 'z'
