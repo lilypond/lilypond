@@ -5,22 +5,7 @@
 #include <stdlib.h>
 
 #include "my-lily-lexer.hh"
-
-/* for the keyword table */
-struct Keyword_ent
-{
-  char const *name;
-  int     tokcode;
-};
-
-struct Keyword_table
-{
-  Keyword_ent *table;
-  int     maxkey;
-  Keyword_table (Keyword_ent *);
-  int     lookup (char const *s) const;
-};
-
+#include "keyword.hh"
 
 /* for qsort */
 int
