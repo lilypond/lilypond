@@ -87,7 +87,7 @@
 ;;; Users may override in most cases, simply by issuing
 ;;;
 ;;;    % from here on consider ending beam every 1 4 note
-;;;    \property Voice.autoBeamSettings \push #'(end * * * *) = #(make-moment 1 4)
+;;;    \property Voice.autoBeamSettings \override #'(end * * * *) = #(make-moment 1 4)
 ;;;
 ;;;    % no autobeaming
 ;;;    \property Voice.beamAuto = ##f  
@@ -98,7 +98,7 @@
 ;;;        \translator{
 ;;;            \VoiceContext
 ;;;            % consider ending beam at every 1 2 note
-;;;            autoBeamSettings \push #'(end * * * *) = #(make-moment 1 2)
+;;;            autoBeamSettings \override #'(end * * * *) = #(make-moment 1 2)
 ;;;        }
 ;;;    }
 ;;;

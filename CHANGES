@@ -1,3 +1,13 @@
+1.3.131.jcn2
+============
+
+* Fixes for ascii-script output.  Stylesheet needs some work, just as
+PostScript output.
+
+* Bugfix: convert-ly --to accepts argument.
+
+* Prepared Petites Preludes for (first?) submission to mutopia.
+
 1.3.131.jcn1
 ============
 

@@ -1,34 +1,9 @@
-%{
+#(set! point-and-click #t)
 
- Six Petits Preludes,
- Collection Johann Peter Kellner
- ca 1703 - 1707
+opus = "BWV 924"
+piece = "1"
 
- Kellner was a student of Bach's that copied some 90 works of his master.
- 
-%}
-\header{
-  copyright =	 "public domain";
-  source = "Ed. Henry Lemoine Urtext";
-  title =	 "Pr\\\"aludum";
 
-  opus = "BWV 924";
-  composer =	 "Johann Sebastian Bach (1685-1750)";
-  enteredby =	 "jcn,hwn";
-
-  % mutopia headers.
-  mutopiatitle = "Prelude";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV924";
-  mutopiainstrument = "Piano";
-  style = "baroque";
-  copyright = "Public Domain";
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Nov/14";
-}
 %{
 
 TODO: this file needs additional layouting: the trills look
@@ -36,15 +11,14 @@ differently in Lemoine, and the sharps should be below the trill.
 
 Additionally, the performance of trills should be explained.
 
+FIXME (Bach sure didn't)?
 Lemoine puts fermatas on ending bar lines everywhere.
-
-1.2.x versions of lily contain a version with dynamics and fingerings.
 
 %}
 
 
 
-\version "1.3.117";
+\version "1.3.98";
 
 
 lowstaff =  \translator "Staff" = "lower"
@@ -53,7 +27,7 @@ upstaff =  \translator "Staff" = "upper"
 % upper = \context Staff \notes\relative c {
 upper =  \context Staff=upper \notes\relative c {
 	\context Voice=i
-	\property Voice . textStyle = "italic"
+	\property Voice.TextScript \set #'font-style = #'italic
 
 	r16 g'' c e r g, c e 
 	r g, c d r b d g |
@@ -73,11 +47,12 @@ upper =  \context Staff=upper \notes\relative c {
 	r b, d a' r b, d g 
 	r a, c g' r a, c f! |
 	
-	% ugh arpeggio
+	% ugh arpeggio FIXME: is that so?
 	<f4 d b4>
 	r4
 	
-	\stemBoth 
+	\stemBoth
+	\lowstaff
 	\stemUp
 	r16 g,, b d  
 	[ f \upstaff \stemDown g16 b d ] | 
@@ -119,7 +94,7 @@ upper =  \context Staff=upper \notes\relative c {
 % lower = \context Staff \notes\relative c{
 lower =  \context Staff=lower \notes\relative c{
 	\context Voice=i
-	\property Voice . textStyle = "roman"
+	\property Voice.TextScript \set #'font-style = #'roman
 	c4 e g^"\\textsharp"-\mordent g,4 |
 	d'4-\mordent f a-\mordent^"\\textsharp" a,4 |
  	e' e'-\mordent a, b-\upprall |
@@ -130,8 +105,8 @@ lower =  \context Staff=lower \notes\relative c{
 	g'-\mordent g, g'-\mordent g, |
 	g' r s s | s s s s \clef "bass"; |
 	<
-		{ \stemUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		\context Voice=ii { \stemDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		{ \stemUp\tieUp g1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		\context Voice=ii { \stemDown\tieDown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
 	\bar "|.";
@@ -157,7 +132,7 @@ global =  \notes{
 	\paper { linewidth = 18.0 \cm;  }
 	\midi{ \tempo 4 = 80; }
 	\header {
-		opus = "BWV 924";
-		piece = "1";
+		opus = \opus;
+		piece = \piece;
 	}
 }

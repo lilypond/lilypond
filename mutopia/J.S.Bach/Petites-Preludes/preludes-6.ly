@@ -1,37 +1,9 @@
-%{
+#(set! point-and-click #t)
 
- Six Petits Preludes,
- Collection Johann Peter Kellner
- ca 1703 - 1707
+opus = "BWV 940"
+piece = "6"
 
- Kellner was a student of Bach's that copied some 90 works of his master.
- 
-%}
-
-\header{
-  copyright =	 "public domain";
-  source = "Ed. Henry Lemoine Urtext";
-  title =	 "Pr\\\"aludum";
-  opus = "BWV 940";
-  composer =	 "Johann Sebastian Bach (1685-1750)";
-  enteredby =	 "jcn,hwn";
-
-  % mutopia headers.
-  mutopiatitle = "Prelude";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV940";
-  mutopiainstrument = "Piano";
-  style = "baroque";
-  copyright = "Public Domain";
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Nov/14";
-  
-}
-
-\version "1.3.117";
+\version "1.3.98";
 
 
 
@@ -43,7 +15,7 @@ one =  \context Staff \notes\relative c{
 	\stemBoth
 	d16 a' g f  e f cis d 
 	e8.-\mordent f16  d8.-\prall cis16 |
-	\stemUp
+	\stemUp\tieUp
 	cis4 ~ cis16 a d8 ~ d4 a |
 	%5
 	b2 ~ b4 a ~ |
@@ -65,7 +37,7 @@ two =  \context Staff \notes\relative c{
 	f2 e2 |
 	\translator Staff=lower \stemUp
 	r4 a, bes b |
-	\translator Staff=upper \stemDown
+	\translator Staff=upper \stemDown\tieDown
 	r16 b' a g  f8. f16 e2 ~ |
 	%5
 	e2 ~ e4 ~ e16 e f! d |
@@ -91,7 +63,7 @@ three =  \context Staff \notes\relative c{
 	e8.-\mordent f16  d8.-\prall c16 \stemBoth c4. d8 |
 	\stemDown
 	e4 ~ e16 f e d  cis a b cis  d e f d |
-	\property Voice . textStyle = "finger"
+	\property Voice.TextScript \set #'font-style = #'finger
 	bes!2 a ~ |
 	a a |
 	d, cis' |
@@ -106,13 +78,15 @@ four =  \context Staff \notes\relative c{
 	d2 cis |
 	\skip 1*2; |
 	\skip 4*3;
-	\translator Staff=upper \stemUp \property Voice.horizontalNoteShift = 1 
+	\translator Staff=upper \stemUp
+	\property Voice.NoteColumn \override #'horizontal-shift = #1
 	c''4 |
 	%5
 	a gis ~ gis16 gis fis e 
 	\skip 4*1;
-	\translator Staff=lower \stemDown \property Voice.horizontalNoteShift = 0 
-	\stemUp
+	\translator Staff=lower \stemDown
+	\property Voice.NoteColumn \override #'horizontal-shift = #0
+	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |
 	gis2 < g8 cis,> <f d> e4 |
@@ -148,7 +122,8 @@ global =  \notes{
 	}
 	\midi{ \tempo 4 = 40; }
 	\header{
-		opus = "BWV 940";
+		piece = \piece;
+		opus = \opus;
 	}
 }
 

@@ -60,7 +60,7 @@
      '("output-lib.scm"
        "tex.scm"
        "ps.scm"
-       ;; "ascii-script.scm"
+       "ascii-script.scm"
        ))
 
 (if (not standalone)

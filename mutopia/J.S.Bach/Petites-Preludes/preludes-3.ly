@@ -1,39 +1,7 @@
-%{
+#(set! point-and-click #t)
 
- Six Petits Preludes,
- Collection Johann Peter Kellner
- ca 1703 - 1707
-
-
-
-
- Kellner was a student of Bach's that copied some 90 works of his master.
-
- 
-%}
-\header{
-  copyright =	 "public domain";
-  source = "Ed. Henry Lemoine Urtext";
-  title =	 "Pr\\\"aludum in C moll";
-  subtitle = "f\\\"ur Laute";
-  composer =	 "Johann Sebastian Bach (1685-1750)";
-  enteredby =	 "jcn,hwn";
-  copyright =	 "public domain";
-
-  % mutopia headers.
-  mutopiatitle = "Prelude";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV999";
-  mutopiainstrument = "Piano";
-  style = "baroque";
-  copyright = "Public Domain";
-
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Nov/14";
-}
+opus= "BWV 999"
+piece = "3"
 
 %{
 
@@ -43,9 +11,10 @@ switch staffs to avoid leger lines.
 Not all editions agree on the last note: ed. Lemoine has a quarter
 note, some have dotted half notes.
 
-
+This file was partly generated using m4.
 %}
-\version "1.3.117";
+
+\version "1.3.98";
 
 
 upper =   \notes \transpose c'' {
@@ -156,6 +125,7 @@ lower =   \notes{
 	g,4 r [es8 c] |
 	g,4 r [es8 c] |
 	g,4 r r |
+	%% FIXME: \fermata?
 	g,4_\fermata 
 	\bar "|.";
 }
@@ -178,14 +148,11 @@ global  = \notes{
 		>
 	>
 	\paper{
-		\translator { \PianoStaffContext
-			minVerticalAlign = 2.2 * \staffheight; 
-			maxVerticalAlign = 2.2 * \staffheight ;
-		}
 		\translator {\OrchestralScoreContext }
 	}
 	\midi{ \tempo 4 = 100; }
 	\header{
-		opus = 	"BWV 999";
+		opus = \opus;
+		piece = \piece;
 	}
 }

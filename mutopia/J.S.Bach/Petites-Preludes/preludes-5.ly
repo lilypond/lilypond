@@ -1,41 +1,13 @@
-%{
+#(set! point-and-click #t)
 
- Six Petits Preludes,
- Collection Johann Peter Kellner
- ca 1703 - 1707
+piece = "5"
+opus = "BWV 926"
 
- Kellner was a student of Bach's that copied some 90 works of his master.
- 
-%}
-
-\header{
-  copyright =	 "public domain";
-  source = "Ed. Henry Lemoine Urtext";
-  title =	 "Pr\\\"aludum";
-  opus = "BWV 926";
-  composer =	 "Johann Sebastian Bach (1685-1750)";
-  enteredby =	 "jcn,hwn";
-
-  % mutopia headers.
-  mutopiatitle = "Prelude";
-  mutopiacomposer = "J.S.Bach";
-  mutopiaopus = "BWV926";
-  mutopiainstrument = "Piano";
-  style = "baroque";
-  copyright = "Public Domain";
-  maintainer = "Jan Nieuwenhuizen";
-  maintainer_email = "janneke@gnu.org";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
-  maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Nov/14";
-  
-}
-
-\version "1.3.117";
+\version "1.3.98";
 
 upper =  \context Staff \notes\relative c
 	\context Voice=i {
-	\property Voice . textStyle = "italic"
+	\property Voice.TextScript \set #'font-style = #'italic
 
 
 	[d'8 a' f d a' f] |
@@ -53,10 +25,10 @@ upper =  \context Staff \notes\relative c
 	< 
 		{
 			\stemUp 
-			\property Voice . textStyle = "roman"
+			\property Voice.TextScript \set #'font-style = #'roman
 			c4-\mordent^"(\\textsharp)" r r |
 			c4-\mordent^"(\\textsharp)" r r
-			\property Voice . textStyle = "italic"
+			\property Voice.TextScript \set #'font-style = #'italic
 		}
 		\context Voice=ii { \stemDown a4 r r | a4 r r }
 	> |
@@ -151,9 +123,9 @@ lower =  \context Staff \notes\relative c{
 	g! es' c g es' c  |
 	fis,4 r r 
 	d  fis d |
-	\property Voice . textStyle = "roman"
+	\property Voice.TextScript \set #'font-style = #'roman
 	g4-\mordent^"(\\textsharp)" r r8 f!8 |
-	\property Voice . textStyle = "italic"
+	\property Voice.TextScript \set #'font-style = #'italic
 	e4-\prall r r |
 	f4-\mordent r r8 e |
 	d4 r8 f e d |
@@ -186,13 +158,19 @@ lower =  \context Staff \notes\relative c{
 
 	[f a]
 	\stemDown
-	[d, f] a s s8 s4-"*" |
+	[d, f] a s s8 s4 |
 	\stemBoth
 % ugh whole rest has duration of one bar
 	R2. |
 %	r4 r r |
+	\stemBoth
 	cis,8 e cis a  d16 c bes a |
 	g8 g' a g a a, |
+	% ah, both at last
+	% what's going on here??
+	\stemBoth
+	\stemBoth
+	\stemBoth
 	d4 d' d, |
 	d r r |
 	d, d' d, |
@@ -223,8 +201,8 @@ global =  \notes{
 	}
 	\midi{ \tempo 4 = 90; }
 	\header{
-		piece = "5";
-		opus = "BWV 926";
+		piece = \piece;
+		opus = \opus;
 	}
 }
 
