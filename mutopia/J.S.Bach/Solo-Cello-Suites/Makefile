@@ -1,14 +1,12 @@
-# mutopia/J.S.Bach/Makefile
+# mutopia/J.S.Bach/Solo-Cello-Suites/Makefile
 
-depth = ../..
-
-SUBDIRS = Petites-Preludes Solo-Cello-Suites 
+depth = ../../..
 
 include $(depth)/make/Stepmake.make
 include $(make-dir)/Mutopia.make
 
 EXTRA_DIST_FILES=
 
-examples=wtk1-fugue2
+examples=scsii-cello
 
 include $(stepdir)/WWW.make

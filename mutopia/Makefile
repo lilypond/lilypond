@@ -1,21 +1,16 @@
 # mutopia/Makefile
 
-# subdir level:
-#
 depth = ..
-#
 
-# descent order into subdirectories:
-#
 SUBDIRS = J.S.Bach Coriolan W.A.Mozart
-EXTRA_DISTFILES +=  TODO
+
+include $(depth)/make/Stepmake.make
+include $(make-dir)/Mutopia.make
+
+EXTRA_DIST_FILES +=  TODO
 
 examples=standchen gallina
 
 
-#
-# generic stuff/Makefile
-#
-include $(depth)/make/Mutopia.make
 
-include $(depth)/make/WWW.make
+include $(stepdir)/WWW.make

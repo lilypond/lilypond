@@ -1,20 +1,14 @@
 # tex/Makefile
 
-# subdir level:
-#
 depth = ..
-#
-#
-include ./$(depth)/make/Include.make
-#
 
-# list of distribution files:
-# 
-TEXFILES = $(wildcard *.tex)
-DISTFILES = Makefile $(TEXFILES)
-#
+include $(depth)/make/Stepmake.make
+
+TEX_FILES = $(wildcard *.tex)
+DIST_FILES = Makefile $(TEX_FILES)
 
 INSTALLATION_DIR=$(TEXDIR)/lilypond
-INSTALLATION_FILES=$(TEXFILES)
+INSTALLATION_FILES=$(TEX_FILES)
 
-include $(depth)/make/Installfiles.make
+include $(stepdir)/Installfiles.make
+
