@@ -3176,15 +3176,12 @@ Dynamics are not centered, but kludges do exist. See
 
 @cindex cross staff stem
 @cindex stem, cross staff
+@cindex distance between staves in piano music
 
 The distance between the two staves is normally fixed across the
 entire score. It is possible to tune this per system, but it does
 require arcane command incantations. See
 @inputfileref{input/test,piano-staff-distance.ly}.
- 
-
-
-
 
 
 @node Automatic staff changes
