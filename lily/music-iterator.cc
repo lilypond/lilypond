@@ -26,7 +26,7 @@ Music_iterator::print() const
 {
 #ifndef NPRINT
     mtor << name() << "{";
-    mtor << "report to " << report_to_l_ << " (" << report_to_l_->name() << ")\n";
+    mtor << "report to " << report_to_l() << " (" << report_to_l()->name() << ")\n";
     mtor << "next at " << next_moment() << " ";
     do_print();
     mtor << "}\n";
@@ -36,27 +36,48 @@ Music_iterator::print() const
 Translator*
 Music_iterator::get_req_translator_l()
 {
-    assert(report_to_l_);
-    if (report_to_l_->is_bottom_engraver_b() )
-	return report_to_l_;
+    assert(report_to_l());
+    if (report_to_l()->is_bottom_engraver_b() )
+	return report_to_l();
 
-    set_translator( report_to_l_->get_default_interpreter() );
-    return report_to_l_;
+    set_translator( report_to_l()->get_default_interpreter() );
+    return report_to_l();
 }
 
 void
+Music_iterator::push_translator(Translator*t)
+{
+    if (t) {
+	report_to_l_arr_.push(t);
+	t->iterator_count_ ++;
+    }
+}
+
+void
+Music_iterator::pop_translator()
+{
+    if (report_to_l()) {
+	report_to_l()->iterator_count_ --;
+	report_to_l_arr_.pop();
+    }
+}
+
+Translator* 
+Music_iterator::report_to_l()const
+{
+    if (! report_to_l_arr_.size() )
+	return 0;
+    return report_to_l_arr_.top();
+}
+
+
+void
 Music_iterator::set_translator(Translator*reg)
-{    
-    if (report_to_l_==reg)
+{   
+    if (report_to_l()==reg)
 	return;
-
-    if (report_to_l_)
-	report_to_l_->iterator_count_ --;
-
-    report_to_l_ = reg;
- 
-    if (report_to_l_)
-	report_to_l_->iterator_count_ ++;
+    pop_translator();
+    push_translator(reg);
 }
 
 void
@@ -115,7 +136,7 @@ Music_iterator::static_get_iterator_p(Music *m,
 	    
 	} 
      } 
-     if (! p->report_to_l_ )
+     if (! p->report_to_l() )
 	 p ->set_translator(report_l);
     
     return p;
@@ -124,7 +145,7 @@ Music_iterator::static_get_iterator_p(Music *m,
 Music_iterator*
 Music_iterator::get_iterator_p(Music*m)const
 {
-    Music_iterator*p = static_get_iterator_p(m,report_to_l_);
+    Music_iterator*p = static_get_iterator_p(m,report_to_l());
     p->daddy_iter_l_ = (Music_iterator*)this;
     p->construct_children();
     return p;
@@ -133,7 +154,6 @@ Music_iterator::get_iterator_p(Music*m)const
 Music_iterator::Music_iterator()
 {
     daddy_iter_l_ =0;
-    report_to_l_ = 0;
     first_b_ = true;
 }
 
@@ -151,7 +171,7 @@ Chord_iterator::construct_children()
     for(iter(chord_C_->music_p_list_.top(), i); i.ok(); j++, i++) {
 	
 	Music_iterator * mi =  get_iterator_p( i.ptr());
-	set_translator(mi->report_to_l_->ancestor_l( chord_C_->multi_level_i_ ));
+	set_translator(mi->report_to_l()->ancestor_l( chord_C_->multi_level_i_ ));
 	if ( mi->ok() )
 	    children_p_list_.bottom().add( mi );
 	else 
@@ -227,8 +247,8 @@ Voice_iterator::construct_children()
 {
     if (ok()) {
 	iter_p_ = Music_iterator::get_iterator_p( ptr() );	
-	if (iter_p_->report_to_l_->depth_i() > report_to_l_->depth_i())
-	    set_translator(iter_p_->report_to_l_);
+	if (iter_p_->report_to_l()->depth_i() > report_to_l()->depth_i())
+	    set_translator(iter_p_->report_to_l());
     }
 }
 
@@ -300,7 +320,7 @@ void
 Request_iterator::process_and_next(Moment m)
 {
     if ( first_b_ ) {
-	bool gotcha = daddy_iter_l_->report_to_l_->try_request(req_l_);
+	bool gotcha = daddy_iter_l_->report_to_l()->try_request(req_l_);
 	if (!gotcha)
 	    req_l_->warning("Junking request: " + String(req_l_->name()));
 	first_b_ = false;
@@ -346,12 +366,15 @@ void
 Change_iterator::process_and_next(Moment mom)
 {
 #if 0
+    if ( id[0] == '-') {
+	
+    
     Engraver_group_engraver *group_l =
-	report_to_l_->find_get_grav_l(change_l_->type_str_, 
-					 change_l_->id_str_);
+	report_to_l()->find_get_translator_l(change_l_->type_str_, 
+					     change_l_->id_str_);
 
-    report_to_l_->daddy_grav_l_->remove_engraver_p(report_to_l_);
-    group_l->add(report_to_l_);
+    report_to_l()->daddy_grav_l_->remove_engraver_p(report_to_l());
+    group_l->add(report_to_l());
 #endif
     Music_iterator::process_and_next(mom);
 }

@@ -56,12 +56,14 @@ Rest_column::do_substitute_dependency(Score_elem*o,Score_elem*n)
 				(n)? (Note_head*)n->item() : 0);
 }
 
-/*
-  Are you sure. Horizontal_vertical_group_item::translate_y could handle this
+
+/**
+  translate the rest symbols
  */
 void
-Rest_column::translate_y(Real dy_f)
+Rest_column::translate_heads(int dy_i)
 {
     for (int i=0; i < head_l_arr_.size(); i++)
-	head_l_arr_[i]->translate_y(dy_f);
+	head_l_arr_[i]->position_i_ += dy_i;
 }
+
