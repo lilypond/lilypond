@@ -4,7 +4,7 @@
 
   Rehacked by HWN 3/nov/95
   removed String &
-  introduced Class String_handle
+  introduced class String_handle
   */
 
 #include <string.h>
@@ -15,6 +15,10 @@
 
 #include "string.hh"
 
+#ifdef STRING_DEBUG
+void* mymemmove( void* dest, void* src, size_t n );
+#define memmove mymemmove
+#endif
 
 static char* 
 strlwr( char* s )
@@ -58,9 +62,9 @@ String::String(Rational r)
 
 // return array, alloced with new.
 Byte*
-String::copy_by_p() const
+String::copy_byte_p() const
 {
-    Byte const* src = strh_.by_c_l();
+    Byte const* src = strh_.byte_c_l();
     Byte* dest = new Byte[strh_.length_i() + 1];
     memmove( dest, src, strh_.length_i() + 1 );
     return dest;    
@@ -86,16 +90,16 @@ String::String( char const* source )
     strh_ = source;    
 }
 
-String::String( Byte const* by_l, int length_i )
+String::String( Byte const* byte_l, int length_i )
 {   
-    assert( !length_i || by_l );
-    strh_.set( by_l, length_i );    
+    assert( !length_i || byte_l );
+    strh_.set( byte_l, length_i );    
 }
 
 void
 String::operator +=(String s)
 {
-    strh_.append( s.by_c_l(), s.length_i() );
+    strh_.append( s.byte_c_l(), s.length_i() );
 }
 
 int
@@ -104,16 +108,14 @@ String::length_i() const
     return strh_.length_i();
 }
 
-String::String(char c,  int n)
+// will go away, fixed anyway
+String::String( char c,  int n )
 {
-    int l = n;
-    assert(n >= 0 && n <= 80); // what the fuck is 80?
-//min(max( n, 0 ), 80); 
-    char s[81];
-    memset(s, c, l);
-    s[l] = 0;
-//    strh_ = s;
-    strh_.set( (Byte*)s, n );
+    n = n >= 0 ? n : 0;
+    char* ch_p = new char[ n ];
+    memset( ch_p, c, n );
+    strh_.set( (Byte*)ch_p, n );
+    delete ch_p;
 }
 
 String::String(int i)
@@ -133,13 +135,13 @@ String::String( const int i, const int n, char const c )
     String v( i );
     
     String str = String( fillChar, n - v.length_i() ) + String( v );
-    strh_.set( str.by_c_l(), str.length_i() );
+    strh_.set( str.byte_c_l(), str.length_i() );
 }
 
 Byte const*
-String::by_c_l() const
+String::byte_c_l() const
 {
-    return strh_.by_c_l();
+    return strh_.byte_c_l();
 }
 
 char const*
@@ -149,9 +151,9 @@ String::ch_c_l() const
 }
 
 Byte*
-String::by_l()
+String::byte_l()
 {
-    return strh_.by_l();
+    return strh_.byte_l();
 }
 
 char*
@@ -164,8 +166,8 @@ String::ch_l()
 int
 String::compare(String const& s1, String const& s2 ) 
 {
-    Byte const* p1 = s1.by_c_l();
-    Byte const* p2 = s2.by_c_l();
+    Byte const* p1 = s1.byte_c_l();
+    Byte const* p2 = s2.byte_c_l();
     if ( p1 == p2 )
 	return 0;
 
@@ -173,12 +175,8 @@ String::compare(String const& s1, String const& s2 )
     int i2 = s2.length_i();
     int i = i1 <? i2;
 
-    if (! i ) 
-	return 0;
-	
-    int result =  memcmp( p1, p2, i );
-    
-    return (result)? result : i1 - i2;
+    int result=  memcmp( p1, p2, i );
+    return result ? result : i1-i2;
 }
 
 
@@ -297,7 +295,7 @@ String::right( int n ) const
     if ( n < 1)
         String(); 
     
-    return String( strh_.by_c_l() + length_i() - n, n ); 
+    return String( strh_.byte_c_l() + length_i() - n, n ); 
 }
 
 
@@ -328,7 +326,7 @@ String::mid( int pos, int n ) const
     if ( ( n > length_i() ) ||  ( pos + n - 1 > length_i() ) )
 	n = length_i() - pos + 1;
 
-    return String( by_c_l() + pos -1, n );
+    return String( byte_c_l() + pos -1, n );
 }
 
 
@@ -338,7 +336,7 @@ String::upper()
 {
     // not binary safe
     assert( length_i() == strlen( ch_c_l() ) );
-    char *s = strh_.by_l();
+    char *s = strh_.byte_l();
     strupr( s );
     return *this;
 }
@@ -350,7 +348,7 @@ String::lower()
 {
     // not binary safe
     assert( length_i() == strlen( ch_c_l() ) );
-    char* s = strh_.by_l();
+    char* s = strh_.byte_l();
     strlwr(s);
     return *this;
 }
@@ -401,18 +399,18 @@ String quoteString( String msg, String quote)
 
 
 Byte*
-strrev( Byte* by_l, int length_i )
+strrev( Byte* byte_l, int length_i )
 {
   Byte by;
-  Byte* left_by_l = by_l;
-  Byte* right_by_l = by_l + length_i;
+  Byte* left_byte_l = byte_l;
+  Byte* right_byte_l = byte_l + length_i;
 
-  while ( right_by_l > left_by_l ) {
-    by = *left_by_l;
-    *left_by_l++ = *right_by_l;
-    *right_by_l-- = by;
+  while ( right_byte_l > left_byte_l ) {
+    by = *left_byte_l;
+    *left_byte_l++ = *right_byte_l;
+    *right_byte_l-- = by;
   }
-  return by_l;
+  return byte_l;
 }
 
 
@@ -420,6 +418,6 @@ String
 String::reversed() const
 {
     String str = *this;
-    strrev( str.by_l(), str.length_i() );
+    strrev( str.byte_l(), str.length_i() );
     return str;    
 }

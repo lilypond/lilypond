@@ -1,8 +1,6 @@
 /*
 
-  FILE   : string.hh -- implement String inline helper classes,
-   and declare stringclass.
- 
+  FILE   : string.hh -- declare String
  
   Rehacked by HWN 3/nov/95
   removed String & 's
@@ -17,7 +15,7 @@
 #include <iostream.h>
 #include <Rational.h>
 
-#include "stringutil.hh"
+#include "stringhandle.hh"
 
 /** 
  
@@ -66,7 +64,7 @@ public:
     /// String s = "abc";
     String( const char* source ); 
 
-    String( Byte const* l_by_c, int length_i ); 
+    String( Byte const* l_byte_c, int length_i ); 
     
     /// "ccccc"
     String( char c, int n = 1 );
@@ -82,12 +80,12 @@ public:
     String(  int i,  int n,  char c = ' ' );
 
     ///  return a "new"-ed copy of contents
-    Byte* copy_by_p() const; //  return a "new"-ed copy of contents
+    Byte* copy_byte_p() const; //  return a "new"-ed copy of contents
 
     char const* ch_c_l() const;
-    Byte const* by_c_l() const;
+    Byte const* byte_c_l() const;
     char* ch_l();
-    Byte* by_l();
+    Byte* byte_l();
 
     /// deprecated; use ch_c_l()
     operator const char *() const { return ch_c_l(); }
