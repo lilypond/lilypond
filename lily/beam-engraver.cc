@@ -111,6 +111,9 @@ Beam_engraver::try_music (Music *m)
       if (d == STOP && !valid_end_moment ())
 	return false;
 
+      if (d == STOP && !beam_)
+	return false;
+      
       if (d == START)
 	{
 	  evs_drul_[d] = m;
