@@ -89,6 +89,22 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
     }
 }
 
+void
+merge_skyline (Array<Skyline_entry> * a1,
+	       Array<Skyline_entry> const  & a2,
+	       Direction dir)
+{
+  for (int i = 0; i < a2.size(); i++)
+    {
+      Box b;
+      b[X_AXIS] = a2[i].width_;
+      b[Y_AXIS][dir] = a2[i].height_;
+      b[Y_AXIS][-dir] = dir * infinity_f ;
+
+      insert_extent_into_skyline (a1, b, X_AXIS, dir);
+    }
+}
+
 
 Array<Skyline_entry>
 empty_skyline (Direction d)
@@ -123,6 +139,7 @@ extents_to_skyline (Array<Box> const &extents, Axis a, Direction d)
 
   return skyline;
 }
+
 
 
 /*
@@ -171,4 +188,11 @@ Skyline_entry::Skyline_entry (Interval i, Real r)
   width_ = i;
   height_ = r;
   
+}
+
+void
+heighten_skyline (Array<Skyline_entry> *buildings, Real ground)
+{
+  for (int i = 0; i < buildings->size (); i++)
+    buildings->elem_ref (i).height_ += ground; 
 }

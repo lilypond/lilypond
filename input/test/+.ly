@@ -4,28 +4,16 @@
 %% other .texi documents too?
 
 \header{
-texidoc = "
+texidoc = #(string-append "
 @section Introduction
 
-This document tests all kinds of features, from simple to advanced,
-that are not really suited for the reference manual, and are not
-needed as a regression test.
-
-Here you may also find dirty tricks, or very the very latest features
-that have not been documented or fully implemented yet.
-
-"
+This document shows all kinds of tips and tricks, from simple to
+advanced.  Here you may also find dirty tricks, or very the very
+latest features that have not been documented or fully implemented
+yet. 
+This document is for LilyPond version 
+" (lilypond-version) ".")
 }
 
 
-\score { \context Lyrics \notes {
-    \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
-
-\mark #(ly:export    (string-append "(For LilyPond version "
-(lilypond-version) ")"))
-s2
- }
- \paper { indent = 0.0\pt
- raggedright   = ##t 
- }
-}
+\score { \context Lyrics \lyrics {  " " } }
