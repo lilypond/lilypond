@@ -1,6 +1,9 @@
 2004-11-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-gnome.scm (item-event): Print grob id.
+	(save-tweaks): New function.
+	(tweak): New funtion.
+	(item-event): Use it, bound to arrow keys.
 
 	* lily/context-property.cc (make_item_from_properties): Register grob.
 	* lily/context.cc (add_context): Register context.

@@ -12,6 +12,7 @@
 #include "grob.hh"
 #include "paper-column.hh"
 #include "scm-hash.hh"
+#include "warn.hh"
 
 Scheme_hash_table *Grob_selector::grobs_ = 0;
 
@@ -66,6 +67,6 @@ LY_DEFINE (ly_grob_id, "ly:grob-id",
 	   "Return grob id.")
 {
   Grob *grob = unsmob_grob (grob_scm);
-  SCM s = Grob_selector::identify_grob (grob);
-  return s;
+  SCM_ASSERT_TYPE (grob, grob_scm, SCM_ARG1, __FUNCTION__, "grob");
+  return Grob_selector::identify_grob (grob);
 }
