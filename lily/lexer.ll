@@ -63,7 +63,7 @@ SCM
 lookup_markup_command (String s);
 
 bool
-valid_version_b (String s);
+is_valid_version (String s);
 
 
 
@@ -171,7 +171,7 @@ HYPHEN		--
 	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state();
-	 if (!valid_version_b (s))
+	 if (!is_valid_version (s))
 		return INVALID;
 }
 <renameinput>\"[^"]*\"     { /* got the version number */
@@ -706,25 +706,25 @@ My_lily_lexer::scan_bare_word (String str)
 }
 
 bool
-My_lily_lexer::note_state_b () const
+My_lily_lexer::is_note_state () const
 {
 	return YY_START == notes;
 }
 
 bool
-My_lily_lexer::chord_state_b () const
+My_lily_lexer::is_chord_state () const
 {
 	return YY_START == chords;
 }
 
 bool
-My_lily_lexer::lyric_state_b () const
+My_lily_lexer::is_lyric_state () const
 {
 	return YY_START == lyrics;
 }
 
 bool
-My_lily_lexer::figure_state_b () const
+My_lily_lexer::is_figure_state () const
 {
 	return YY_START == figures;
 }
@@ -762,7 +762,7 @@ Lilypond_version oldest_version ("1.9.0");
 
 
 bool
-valid_version_b (String s)
+is_valid_version (String s)
 {
   Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
   Lilypond_version ver (s);

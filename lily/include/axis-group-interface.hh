@@ -22,7 +22,7 @@ struct Axis_group_interface
 
   static void add_element (Grob* me, Grob*);
   static void set_axes (Grob*,Axis,Axis);
-  static bool axis_b (Grob*,Axis);
+  static bool has_axis (Grob*,Axis);
   static Link_array<Grob> get_children (Grob*);
   static bool has_interface (Grob*);
   

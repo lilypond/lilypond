@@ -25,7 +25,7 @@ struct Spring_description
   Real length (Real force) const;
   Spring_description ();
 
-  bool sane_b () const;
+  bool is_sane () const;
 };
 
 struct Simple_spacer

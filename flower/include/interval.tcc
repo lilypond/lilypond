@@ -34,7 +34,7 @@ _Interval__compare (const Interval_t<T>&a,Interval_t<T> const&b)
 
 template<class T>
 bool 
-Interval_t<T>::contains_b (Interval_t<T> const& a) const
+Interval_t<T>::superset (Interval_t<T> const& a) const
 {
   int c_i= _Interval__compare (*this, a);
   if (c_i == -2)

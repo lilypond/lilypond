@@ -26,7 +26,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 }
 
 bool
-Axis_group_interface::axis_b (Grob*me,Axis a)
+Axis_group_interface::has_axis (Grob*me,Axis a)
 {
   /*
     urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?

@@ -105,7 +105,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
   */
   if (dynamic_cast<Spanner*> (i.grob_)
       && ((Axis_group_interface::has_interface (i.grob_)
-	   && Axis_group_interface::axis_b (i.grob_, Y_AXIS)))
+	   && Axis_group_interface::has_axis (i.grob_, Y_AXIS)))
       && !Align_interface::has_interface (i.grob_))
     {
       SCM nl = gh_cons (i.grob_->self_scm (),

@@ -64,10 +64,10 @@ public:
   void pop_state ();
   void LexerError (char const *);
   void set_identifier (SCM name_string, SCM);
-  bool note_state_b () const;
-  bool chord_state_b () const;
-  bool lyric_state_b () const;
-  bool figure_state_b () const;
+  bool is_note_state () const;
+  bool is_chord_state () const;
+  bool is_lyric_state () const;
+  bool is_figure_state () const;
 private:
   int lookup_keyword (String);
   int scan_bare_word (String);

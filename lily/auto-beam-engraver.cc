@@ -45,7 +45,7 @@ private:
   void begin_beam ();
   void end_beam ();
   void junk_beam ();
-  bool same_grace_state_b (Grob* e);
+  bool is_same_grace_state (Grob* e);
   void typeset_beam ();
 
   /*

@@ -37,7 +37,7 @@ Spanner::do_break_processing ()
     {
       if (Spanner* parent = dynamic_cast<Spanner*> (get_parent ((Axis)a)))
 	{
-	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
+	  if (!parent->spanned_rank_iv ().superset (this->spanned_rank_iv ()))
 	    {
 	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner `%s'.",
 					 name ().to_str0 (),

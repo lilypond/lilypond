@@ -118,7 +118,7 @@ tag_music (Music*m,  SCM tag, Input ip)
 
 
 bool
-regular_identifier_b (SCM id)
+is_regular_identifier (SCM id)
 {
   String str = ly_scm2string (id);
   char const *s = str.to_str0 () ;
@@ -144,7 +144,7 @@ make_simple_markup (SCM a)
 
 
 bool
-is_duration_b (int t)
+is_is_duration (int t)
 {
   return t && t == 1 << intlog2 (t);
 }
@@ -503,7 +503,7 @@ assignment:
 	*/
 		Input ip = THIS->pop_spot ();
 
-		if (! regular_identifier_b ($1))
+		if (! is_regular_identifier ($1))
 		{
 			ip.warning (_ ("Identifier should have alphabetic characters only"));
 		}
@@ -1494,12 +1494,12 @@ post_event:
 		$$ = $1;
 	}
 	| HYPHEN {
-		if (!THIS->lexer_->lyric_state_b ())
+		if (!THIS->lexer_->is_lyric_state ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC("HyphenEvent");
 	}
 	| EXTENDER {
-		if (!THIS->lexer_->lyric_state_b ())
+		if (!THIS->lexer_->is_lyric_state ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC("ExtenderEvent");
 	}
@@ -1791,7 +1791,7 @@ optional_notemode_duration:
 steno_duration:
 	bare_unsigned dots		{
 		int l = 0;
-		if (!is_duration_b ($1))
+		if (!is_is_duration ($1))
 			THIS->parser_error (_f ("not a duration: %d", $1));
 		else
 			l =  intlog2 ($1);
@@ -1846,7 +1846,7 @@ tremolo_type:
 		$$ =0;
 	}
 	| ':' bare_unsigned {
-		if (!is_duration_b ($2))
+		if (!is_is_duration ($2))
 			THIS->parser_error (_f ("not a duration: %d", $2));
 		$$ = $2;
 	}
@@ -1942,7 +1942,7 @@ simple_element:
 	pitch exclamations questions oct_check optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
-		if (!THIS->lexer_->note_state_b ())
+		if (!THIS->lexer_->is_note_state ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
 		Music *n = 0;
@@ -2035,7 +2035,7 @@ simple_element:
 	
 	| lyric_element optional_notemode_duration 	{
 		Input i = THIS->pop_spot ();
-		if (!THIS->lexer_->lyric_state_b ())
+		if (!THIS->lexer_->is_lyric_state ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 
 		Music * lreq = MY_MAKE_MUSIC("LyricEvent");
@@ -2050,7 +2050,7 @@ simple_element:
 	| new_chord {
 		THIS->pop_spot ();
 
-                if (!THIS->lexer_->chord_state_b ())
+                if (!THIS->lexer_->is_chord_state ())
                         THIS->parser_error (_ ("Have to be in Chord mode for chords"));
                 $$ = unsmob_music ($1);
 	}

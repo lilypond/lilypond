@@ -51,7 +51,7 @@ Script_column_engraver::acknowledge_grob (Grob_info inf)
   Item *thing = dynamic_cast<Item*> (inf.grob_);
   if (thing && Side_position_interface::has_interface (inf.grob_)) // ugh FIXME
     {
-      if (!Item::breakable_b (thing)
+      if (!Item::is_breakable (thing)
 	  && Side_position_interface::get_axis (inf.grob_) == Y_AXIS)
 	{
 	  scripts_.push (thing);

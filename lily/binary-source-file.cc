@@ -29,7 +29,7 @@ String
 Binary_source_file::error_string (char const* pos_str0) const
 {
   assert (this);
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return "";
 
   char const* begin_str0 = pos_str0 - 8 >? to_str0 ();
@@ -54,7 +54,7 @@ Binary_source_file::error_string (char const* pos_str0) const
 int
 Binary_source_file::get_line (char const* pos_str0) const
 {
-  if (!in_b (pos_str0))
+  if (!contains (pos_str0))
     return 0;
 
   return pos_str0 - to_str0 ();
