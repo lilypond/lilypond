@@ -191,11 +191,15 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	fi
 	crook_thinness = 1.3 stafflinethickness;
 	top_crook_thinness = 1.65 stafflinethickness;
-	top_stem_thick# = 2.2 stafflinethickness#;
+
+	% actually, this used to be 2.2 stafflinethickness,
+	% that looks very awful in 600dpi.
+	% TODO: a better (resolution indepedendent) fix  
+	
+	top_stem_thick# = 2.3 stafflinethickness#;
 	define_blacker_pixels (top_stem_thick);
 	bottom_overshoot = stafflinethickness;
 	bottom_stem_thick = 1.2 stafflinethickness;
-
 
 	z1 = (0, 2 staff_space) + center - (0, stafflinethickness/2
 		+ clearing);
@@ -235,19 +239,21 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 
 	z7 = z8 + whatever * bot_crook_dir + crook_thinness  * (bot_crook_dir rotated 90);
 
-	x7 = .4 [x11, x8];
+	x7 = .1 [x3r, x8];
 
 	penlabels(range 0 thru 10);
 
-	y10 = -1/5 staff_space;
+	y10 = -1/10 staff_space;
 %	draw_staff (-2, 2, 0.5);
 %	draw_staff (-2, 2, 0.0);
 
 	unfill z3r{z3r-z10} .. z4r{right} .. z5r{down}
 
 		..  z7{- bot_crook_dir}
-		& z7 .. tension 1.3
-		.. z10{z3r-z10}  -- cycle;
+		& z7 % .. tension 1.3
+		.. z10{z3r-z10}
+
+		-- cycle;
 	fill z2l{down}
 		
 		.. z11{right}
@@ -255,7 +261,7 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 		.. z5l{up}
 		.. z4l{left} .. z3l -- cycle;
 		
-	labels(11);
+	labels(10);
 enddef;
 
 	

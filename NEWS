@@ -14,7 +14,7 @@ LilyPond identifiers in Scheme, and use Scheme expressions instead of
 LilyPond identifiers.
 
 ** The internal representation of music has been cleaned up completely
-converted to Scheme data structure.  The representation may be
+and converted to Scheme data structures.  The representation may be
 exported as XML.
 
 ** A new syntax has been added for chords:
@@ -43,10 +43,8 @@ The syntax for this code is
 
 	\applycontext #SCHEME-FUNCTION
 
-
-** New algorithms for chord-name formatting have been installed. This
-algorithm can be tuned and has an ergonomic syntax for entering
-exceptions.
+** New algorithms for chord-name formatting have been installed. They
+can be tuned and have ergonomic syntax for entering exceptions.
 
 ** Texts may now be put on multimeasure rests, eg.
 
@@ -85,7 +83,7 @@ The syntax is
 ** Metronome markings are printed when a
 \tempo command is processed. 
 
-** Fingerings can be horizontally on chords.
+** Fingerings can be put on chords horizontally.
 
 ** The appearance of various glyphs has been fine-tuned 
 
