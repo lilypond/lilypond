@@ -4899,8 +4899,8 @@ Program reference: @internalsref{QuoteMusic}.
 
 
 The previous section deals with inserting notes from another
-voice. When making a part, there is also the part of formatting those
-notes. Here is an example of formatted cue notes
+voice. When making a part, these notes need to be specially formatted.
+Here is an example of formatted cue notes
 
 @lilypond[verbatim]
 smaller = {
