@@ -71,8 +71,8 @@
 }
 
 \def\musixcalc{
-	\interlinedist=\fontdimen5\musicfnt
-	\smallspace=.3\interlinedist
+        \interlinedist=\fontdimen5\musicfnt
+        \smallspace=.3\interlinedist
         \interstaffrule=\balkhoog
         \advance\interstaffrule by-\staffrulethickness
         \divide\interstaffrule by 4
@@ -245,6 +245,7 @@
 
 \def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
 \def\rulesym#1#2{\vrule height #1 width #2}
-
+\def\crescendosym#1{\count0=84\advance\count0 by #1}
+\def\decrescendosym#1{\count0=116\advance\count0 by #1}
 \def\settext#1{\textfont #1}
 \def\setitalic#1{\italicfont #1}
