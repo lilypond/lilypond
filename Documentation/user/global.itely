@@ -1,6 +1,1108 @@
 @c -*- coding: latin-1; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+
+@c A menu is needed before every deeper *section nesting of @node's; run 
+@c     M-x texinfo-all-menus-update
+@c to automatically fill in these menus before saving changes
+
 @node Global issues
 @chapter Global issues
 
-This is a placeholder for very-near future reorganization of the manual.
+This is a placeholder until I can write a nice intro for this chapter.
+
+@menu
+* Global layout:: 
+* File structure::
+* Sound::
+@end menu
+
+
+@node Global layout
+@section Global layout
+
+The global layout is determined by three factors: the page layout, the
+line breaks, and the spacing.  These all influence each other.  The
+choice of spacing determines how densely each system of music is set.
+This influences where line breaks are chosen, and thus ultimately, how
+many pages a piece of music takes.
+
+Globally spoken, this procedure happens in three steps: first,
+flexible distances (``springs'') are chosen, based on durations.  All
+possible line breaking combinations are tried, and the one with the
+best results -- a layout that has uniform density and requires as
+little stretching or cramping as possible -- is chosen.
+
+After spacing and linebreaking, the systems are distributed across
+pages, taking into account the size of the page, and the size of the
+titles.
+
+
+
+@menu
+* Setting global staff size::   
+* Paper size::                  
+* Page layout::                 
+* Vertical spacing::            
+* Vertical spacing of piano staves::  
+* Horizontal spacing::          
+* Line length::                 
+* Line breaking::               
+* Page breaking::               
+* Multiple movements::          
+* Creating titles::             
+@end menu
+
+
+@node Setting global staff size
+@subsection Setting global staff size
+
+@cindex font size, setting
+@cindex staff size, setting
+@cindex @code{layout} file
+
+To set the global staff size, use @code{set-global-staff-size}.
+
+@example
+#(set-global-staff-size 14)
+@end example
+
+@noindent
+This sets the global default size to 14pt staff height and scales all
+fonts accordingly.
+
+The Feta font provides musical symbols at eight different
+sizes.  Each font is tuned for a different staff size: at a smaller size
+the font becomes heavier, to match the relatively heavier staff lines.
+The recommended font sizes are listed in the following table:
+
+@quotation
+@multitable @columnfractions .15 .2 .22 .2
+
+@item @b{font name}
+@tab @b{staff height (pt)}
+@tab @b{staff height (mm)}
+@tab @b{use}
+
+@item feta11
+@tab 11.22
+@tab 3.9 
+@tab pocket scores
+
+@item feta13
+@tab 12.60
+@tab 4.4
+@tab
+ 
+@item feta14
+@tab 14.14
+@tab 5.0
+@tab 
+
+@item feta16
+@tab 15.87
+@tab 5.6
+@tab 
+
+@item feta18
+@tab 17.82
+@tab 6.3
+@tab song books
+
+@item feta20
+@tab 20
+@tab 7.0
+@tab standard parts 
+
+@item feta23
+@tab 22.45 
+@tab 7.9
+@tab 
+
+@item feta26
+@tab 25.2 
+@tab 8.9
+@tab
+@c modern rental material?
+
+@end multitable
+@end quotation
+
+These fonts are available in any sizes.  The context property
+@code{fontSize} and the layout property @code{staff-space} (in
+@internalsref{StaffSymbol}) can be used to tune the size for individual
+staves.  The sizes of individual staves are relative to the global size.
+
+@example
+
+@end example
+
+@seealso
+
+This manual: @ref{Selecting font sizes}.
+
+
+@node Paper size
+@subsection Paper size
+
+@cindex paper size
+@cindex page size
+@cindex @code{papersize}
+
+To change the paper size, there are two equal commands,
+@example
+#(set-default-paper-size "a4")
+\paper @{
+  #(set-paper-size "a4")
+@}
+@end example
+
+The first command sets the size of all pages.  The second command sets the size
+of the pages that the @code{\paper} block applies to -- if the @code{\paper}
+block is at the top of the file, then it will apply to all pages.  If the
+@code{\paper} block is inside a @code{\score}, then the paper size will only
+apply to that score.
+
+The following paper sizes are supported: @code{a6}, @code{a5}, @code{a4},
+@code{a3}, @code{legal}, @code{letter}, @code{tabloid}.
+
+@cindex orientation
+@cindex landscape
+
+If the symbol @code{landscape} is supplied as an argument to
+@code{set-default-paper-size}, the pages will be rotated by 90 degrees,
+and wider line widths will be set correspondingly.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example 
+
+
+@node Page layout
+@subsection Page layout
+
+@cindex page layout
+@cindex margins
+@cindex header, page
+@cindex footer, page
+
+LilyPond will do page layout, set margins, and add headers and
+footers to each page.
+
+The default layout responds to the following settings in the
+@code{\paper} block.
+
+@cindex \paper
+
+@quotation
+@table @code
+@item firstpagenumber
+The value of the page number of the first page.  Default is@tie{}1.
+
+@item printfirstpagenumber
+If set to true, will print the page number in the first page.  Default is
+false.
+
+@item hsize
+The width of the page.
+
+@item vsize
+The height of the page.
+
+@item topmargin
+Margin between header and top of the page.
+
+@item bottommargin
+Margin between footer and bottom of the page.
+
+@item leftmargin
+Margin between the left side of the page and the beginning of the music.
+
+@item linewidth
+The length of the systems.
+
+@item headsep
+Distance between the top-most music system and the page header.
+
+@item footsep
+Distance between the bottom-most music system and the page footer.
+
+@item raggedbottom
+If set to true, systems will not be spread across the page.
+
+This should be set false for pieces that have only two or three
+systems per page, for example orchestral scores.
+ 
+@item raggedlastbottom
+If set to false, systems will be spread to fill the last page.
+
+Pieces that amply fill two pages or more should have this set to
+true.
+
+@item betweensystemspace
+This dimensions determines the distance between systems.  It is the
+ideal distance between the center of the bottom staff of one system
+and the center of the top staff of the next system.
+
+Increasing this will provide a more even appearance of the page at the
+cost of using more vertical space.
+
+@item betweensystempadding
+This dimension is the minimum amount of white space that will always
+be present between the bottom-most symbol of one system, and the
+top-most of the next system.
+
+Increasing this will put systems whose bounding boxes almost touch
+farther apart.
+
+@item aftertitlespace
+Amount of space between the title and the first system.
+
+@item beforetitlespace 
+Amount of space between the last system of the previous piece and the
+title of the next.
+
+@item betweentitlespace
+Amount of space between consecutive titles (e.g., the title of the
+book and the title of a piece).
+
+@item systemSeparatorMarkup
+This contains a markup object, which will be inserted between
+systems.  This is often used for orchestral scores.
+
+The markup command @code{\slashSeparator} is provided as a sensible
+default,  for example
+
+@lilypond[raggedright]
+\paper {
+  systemSeparatorMarkup = \slashSeparator
+}
+
+\relative { c1 \break c1 }
+@end lilypond
+
+
+@end table
+@end quotation
+
+Example:
+
+@example
+\paper@{
+  hsize = 2\cm
+  topmargin = 3\cm
+  bottommargin = 3\cm
+  raggedlastbottom = ##t
+@}
+@end example
+
+You can also define these values in Scheme.  In that case @code{mm},
+@code{in}, @code{pt}, and @code{cm} are variables defined in
+@file{paper-defaults.ly} with values in millimeters.  That's why the
+value has to be multiplied in the example
+
+@example
+\paper @{
+  #(define bottommargin (* 2 cm)) 
+@}
+@end example
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where @code{tagline} from @code{\header} is added.  The default
+tagline is ``Engraved by LilyPond (@var{version})''.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
+
+The header and footer are created by the functions @code{make-footer}
+and @code{make-header}, defined in @code{\paper}.  The default
+implementations are in @file{scm/@/page@/-layout@/.scm}.
+
+The following settings influence the header and footer layout.
+
+@quotation
+@table @code
+@item printpagenumber
+  this boolean controls whether a pagenumber is printed. 
+@end table
+@end quotation
+
+The page layout itself is done by two functions in the
+@code{\paper} block, @code{page-music-height} and
+@code{page-make-stencil}.  The former tells the line-breaking algorithm
+how much space can be spent on a page, the latter creates the actual
+page given the system to put on it.
+
+
+@refbugs
+
+The option rightmargin is defined but doesn't set the right margin
+yet.  The value for the right margin has to be defined adjusting the
+values of the leftmargin and linewidth.
+
+The default page header puts the page number and the @code{instrument}
+field from the @code{\header} block on a line.
+
+
+@node Vertical spacing
+@subsection Vertical spacing
+
+@cindex vertical spacing
+@cindex distance between staves
+@cindex staff distance
+@cindex between staves, distance
+@cindex staves per page
+@cindex space between staves
+
+The height of each system is determined automatically.  To prevent
+systems from bumping into each other, some minimum distances are set.
+By changing these, you can put staves closer together, and thus put
+more systems onto one page.
+
+Normally staves are stacked vertically.  To make staves maintain a
+distance, their vertical size is padded.  This is done with the
+property @code{minimumVerticalExtent}.  It takes a pair of numbers, so
+if you want to make it smaller than its default @code{#'(-4 . 4)},
+then you could set
+
+@example
+\set Staff.minimumVerticalExtent = #'(-3 . 3)
+@end example
+
+@noindent
+This sets the vertical size of the current staff to 3 staff spaces on
+either side of the center staff line.  The argument of
+@code{minimumVerticalExtent} is interpreted as an interval, where the
+center line is the 0, so the first number is generally negative.  The
+staff can be made larger at the bottom by setting it to @code{(-6 . 4)}. 
+
+To change the amount of space between systems, use
+@code{betweensystemspace}.  A score with only one staff is still
+considered to have systems, so setting @code{betweensystemspace}
+will be much more useful than changing @code{minimumVerticalExtent}.
+
+@example
+\layout @{
+  betweensystemspace = 10\mm
+@}
+@end example
+
+
+@seealso
+
+Internals: Vertical alignment of staves is handled by the
+@internalsref{VerticalAlignment} object.
+
+@refbugs
+
+@code{minimumVerticalExtent} is syntactic sugar for setting
+@code{minimum-Y-extent} of the @internalsref{VerticalAxisGroup} of the
+current context.  It can only be changed score wide.
+
+
+
+
+@node Vertical spacing of piano staves
+@subsection Vertical spacing of piano staves
+
+The distance between staves of a @internalsref{PianoStaff} cannot be
+computed during formatting.  Rather, to make cross-staff beaming work
+correctly, that distance has to be fixed beforehand.
+ 
+The distance of staves in a @code{PianoStaff} is set with the
+@code{forced-distance} property of the
+@internalsref{VerticalAlignment} object, created in
+@internalsref{PianoStaff}.
+
+It can be adjusted as follows
+@example
+\new PianoStaff \with @{
+  \override VerticalAlignment #'forced-distance = #7
+@} @{
+  ...
+@}
+@end example
+
+@noindent
+This would bring the staves together at a distance of 7 staff spaces,
+measured from the center line of each staff.
+
+The difference is demonstrated in the following example,
+@lilypond[quote,verbatim]
+\relative <<
+  \new PianoStaff \with {
+    \override VerticalAlignment #'forced-distance = #7
+  } <<
+    \new Staff { c1 }
+    \new Staff { c }
+  >>
+  \new PianoStaff <<
+    \new Staff { c }
+    \new Staff { c }
+  >>
+>>    
+@end lilypond
+
+
+
+@refbugs
+
+@code{forced-distance} cannot be changed per system.
+
+
+@node Horizontal spacing
+@subsection Horizontal Spacing
+
+The spacing engine translates differences in durations into
+stretchable distances (``springs'') of differring lengths.  Longer
+durations get more space, shorter durations get less.  The shortest
+durations get a fixed amount of space (which is controlled by
+@code{shortest-duration-space} in the @internalsref{SpacingSpanner} object). 
+The longer the duration, the more space it gets: doubling a
+duration adds a fixed amount (this amount is controlled by
+@code{spacing-increment}) of space to the note.
+
+For example, the following piece contains lots of half, quarter, and
+8th notes; the eighth note is followed by 1 note head width (NHW). 
+The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
+
+@lilypond[quote,fragment,verbatim,relative=1]
+c2 c4. c8 c4. c8 c4. c8 c8
+c8 c4 c4 c4
+@end lilypond
+
+Normally, @code{spacing-increment} is set to 1.2 staff space, which is
+approximately the width of a note head, and
+@code{shortest-duration-space} is set to 2.0, meaning that the
+shortest note gets 2.4 staff space (2.0 times the
+@code{spacing-increment}) of horizontal space.  This space is counted
+from the left edge of the symbol, so the shortest notes are generally
+followed by one NHW of space.
+
+If one would follow the above procedure exactly, then adding a single
+32nd note to a score that uses 8th and 16th notes, would widen up the
+entire score a lot.  The shortest note is no longer a 16th, but a 32nd,
+thus adding 1 NHW to every note.  To prevent this, the shortest
+duration for spacing is not the shortest note in the score, but rather
+the one which occurs most frequently.
+
+
+The most common shortest duration is determined as follows: in every
+measure, the shortest duration is determined.  The most common shortest
+duration is taken as the basis for the spacing, with the stipulation
+that this shortest duration should always be equal to or shorter than
+an 8th note.  The shortest duration is printed when you run
+@code{lilypond} with the @code{--verbose} option.
+
+These durations may also be customized.  If you set the
+@code{common-shortest-duration} in @internalsref{SpacingSpanner}, then
+this sets the base duration for spacing.  The maximum duration for this
+base (normally an 8th), is set through @code{base-shortest-duration}.
+
+@cindex @code{common-shortest-duration}
+@cindex @code{base-shortest-duration}
+@cindex @code{stem-spacing-correction}
+@cindex @code{spacing}
+
+Notes that are even shorter than the common shortest note are
+followed by a space that is proportional to their duration relative to
+the common shortest note.  So if we were to add only a few 16th notes
+to the example above, they would be followed by half a NHW:
+
+@lilypond[quote,fragment,verbatim,relative=2]
+c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
+@end lilypond
+
+
+In the introduction (see @ref{Engraving}), it was explained that stem
+directions influence spacing.  This is controlled with the
+@code{stem-spacing-correction} property in the
+@internalsref{NoteSpacing}, object.  These are generated for every
+@internalsref{Voice} context.  The @code{StaffSpacing} object
+(generated in @internalsref{Staff} context) contains the same property
+for controlling the stem/bar line spacing.  The following example shows
+these corrections, once with default settings, and once with
+exaggerated corrections:
+
+@lilypond[quote,raggedright]
+{
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|
+  \override Staff.NoteSpacing #'stem-spacing-correction = #1.5
+  \override Staff.StaffSpacing #'stem-spacing-correction = #1.5
+  c'4 e''4 e'4 b'4 |
+  b'4 e''4 b'4 e''4|      
+}
+@end lilypond
+
+
+@seealso
+
+Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
+@internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
+@internalsref{SeparatingGroupSpanner}.
+
+@refbugs
+
+Spacing is determined on a score wide basis.  If you have a score that
+changes its character (measured in durations) halfway during the
+score, the part containing the longer durations will be spaced too
+widely.
+
+There is no convenient mechanism to manually override spacing.  The
+following work-around may be used to insert extra space into a score.
+@example
+ \once \override Score.SeparationItem #'padding = #1
+@end example
+
+No work-around exists for decreasing the amount of space.
+
+@node Line length
+@subsection Line length
+
+@cindex page breaks
+@cindex breaking pages
+
+@cindex @code{indent}
+@cindex @code{linewidth}
+
+@c Although linewidth can be set in \layout, it should be set in paper
+@c block, to get page layout right.
+@c Setting indent in \paper block makes not much sense, but it works.
+
+@c Bit verbose and vague, use examples?
+The most basic settings influencing the spacing are @code{indent} and
+@code{linewidth}.  They are set in the @code{\layout} block.  They
+control the indentation of the first line of music, and the lengths of
+the lines.
+
+If @code{raggedright} is set to true in the @code{\layout} block, then
+the lines are justified at their natural length.  This is useful for
+short fragments, and for checking how tight the natural spacing is.
+
+@cindex page layout
+@cindex vertical spacing
+
+The option @code{raggedlast} is similar to @code{raggedright}, but
+only affects the last line of the piece.  No restrictions are put on
+that line.  The result is similar to formatting text paragraphs.  In a
+paragraph, the last line simply takes its natural length.
+@c Note that for text there are several options for the last line.
+@c While Knuth TeX uses natural length, lead typesetters use the same
+@c stretch as the previous line.  eTeX uses \lastlinefit to
+@c interpolate between both these solutions.
+
+@node Line breaking
+@subsection Line breaking
+
+@cindex line breaks
+@cindex breaking lines
+
+Line breaks are normally computed automatically.  They are chosen so
+that lines look neither cramped nor loose, and that consecutive lines
+have similar density.
+
+Occasionally you might want to override the automatic breaks; you can
+do this by specifying @code{\break}.  This will force a line break at
+this point.  Line breaks can only occur at places where there are bar
+lines.  If you want to have a line break where there is no bar line,
+you can force an invisible bar line by entering @code{\bar
+""}.  Similarly, @code{\noBreak} forbids a line break at a 
+point.
+
+
+@cindex regular line breaks
+@cindex four bar music. 
+
+For line breaks at regular intervals use @code{\break} separated by
+skips and repeated with @code{\repeat}:
+@example
+<< \repeat unfold 7 @{
+         s1 \noBreak s1 \noBreak
+         s1 \noBreak s1 \break @}
+   @emph{the real music}
+>> 
+@end example
+
+@noindent
+This makes the following 28 measures (assuming 4/4 time) be broken every
+4 measures, and only there.
+
+@refcommands
+
+@code{\break}, and @code{\noBreak}.
+@cindex @code{\break}
+@cindex @code{\noBreak}
+
+@seealso
+
+Internals: @internalsref{BreakEvent}.
+
+
+@node Page breaking
+@subsection Page breaking
+
+The default page breaking may be overriden by inserting
+@code{\pageBreak} or @code{\noPageBreak} commands.  These commands are
+analogous to @code{\break} and @code{\noBreak}.  They should be
+inserted at a bar line.  These commands force and forbid a page-break
+from happening.  Of course, the @code{\pageBreak} command also forces
+a line break.
+
+Page breaks are computed by the @code{page-breaking} function in the
+@code{\paper} block. 
+
+@refcommands
+
+@cindex @code{\pageBreak}
+@code{\pageBreak}
+@cindex @code{\noPageBreak} 
+@code{\noPageBreak} 
+
+
+@node Multiple movements
+@subsection Multiple movements
+
+@cindex bibliographic information
+@cindex titles
+@cindex composer
+@cindex Engraved by LilyPond
+
+A document may contain multiple pieces of music.  Examples of these
+are an etude book, or an orchestral part with multiple movements.
+Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+The movements are combined together in a @code{\book} block, like
+
+@example
+\book @{
+  \score @{
+    @var{..}
+  @}
+  \score @{
+    @var{..}
+  @}
+@}
+@end example
+
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@cindex Engraved by LilyPond
+@cindex signature line
+
+@example 
+\book @{
+  \header @{
+    title = "Eight miniatures" 
+    composer = "Igor Stravinsky"
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Romanze" @}
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Menuetto" @}
+  @}
+@}
+@end example
+
+
+@node Creating titles
+@subsection Creating titles
+
+Titles are created for each @code{\score} block, and over a
+@code{\book}.
+
+The contents of the titles are taken from the @code{\header} blocks.
+The header block for a book supports the following
+@table @code
+@item title
+The title of the music.  Centered on top of the first page.
+
+@item subtitle
+Subtitle, centered below the title.
+
+@item subsubtitle
+Subsubtitle, centered below the subtitle.
+
+@item poet
+Name of the poet, flush-left below the subtitle.
+
+@item composer
+Name of the composer, flush-right below the subtitle.
+
+@item meter
+Meter string, flush-left below the poet.
+
+@item opus
+Name of the opus, flush-right below the composer.
+
+@item arranger
+Name of the arranger, flush-right below the opus.
+
+@item instrument
+Name of the instrument, centered below the arranger.
+
+@item dedication            
+To whom the piece is dedicated.
+
+@item piece
+Name of the piece, flush-left below the instrument.
+
+@cindex page breaks, forcing
+@item breakbefore
+  This forces the title to start on a new page.
+@end table
+
+Here is a demonstration of the fields available, 
+
+@lilypond[quote,verbatim,linewidth=11.0\cm]
+\paper {
+  linewidth = 9.0\cm
+  vsize = 10.0\cm
+}
+
+\book {
+  \header {
+    title = "Title,"
+    subtitle = "the subtitle,"
+    subsubtitle = "and the sub sub title"
+    poet = "Poet"
+    composer = "Composer"
+    texttranslator = "Text Translator"
+    meter = "Meter"
+    arranger = "Arranger"
+    instrument = "Instrument"
+    piece = "Piece"
+  }
+
+  \score {
+    \header {
+      piece = "piece1"
+      opus = "opus1" 
+    }
+    { c'1 }
+  }
+  \score {
+    \header {
+      piece = "piece2"
+      opus = "opus2" 
+    }
+    { c'1 }
+  }
+}
+@end lilypond
+
+Different fonts may be selected for each element by using
+@code{\markup}, e.g.,
+
+@example
+\header @{
+  title = \markup @{ \italic @{ The italic title @} @}
+@}
+@end example
+
+A more advanced option is to change the definitions of the following
+variables in the @code{\paper} block.  The init file
+@file{ly/titling-init.ly} lists the default layout.
+
+@table @code
+@item bookTitleMarkup
+  This is the title put over an entire @code{\book} block.  Typically,
+  it has the composer and the title of the piece
+  
+@item scoreTitleMarkup
+  This is the title put over a @code{\score} block within a
+@code{\book}.  Typically, it has the name of the movement (@code{piece}
+field).
+
+@item oddHeaderMarkup
+  This is the page header for odd-numbered pages. 
+
+  @item evenHeaderMarkup
+  This is the page header for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, headers are defined such that the page number is on the
+  outside edge, and the instrument is centered.
+
+@item oddFooterMarkup
+  This is the page footer for odd-numbered pages. 
+  
+@item evenFooterMarkup
+  This is the page footer for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, the footer has the copyright notice on the first, and
+  the tagline on the last page.
+@end table
+
+
+@cindex \paper
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+The following definition will put the title flush left, and the
+composer flush right on a single line.
+
+@verbatim
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line @{
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   @}
+  }
+}
+@end verbatim
+
+
+
+@node File structure
+@section File structure
+
+The major part of this manual is concerned with entering various
+forms of music in LilyPond.  However, many music expressions are not
+valid input on their own, for example, a @code{.ly} file containing
+only a note
+@example
+c'4
+@end example
+
+@noindent
+will result in a parsing error.  Instead, music should be inside other
+expressions, which may be put in a file by themselves.  Such
+expressions are called toplevel expressions.  This section enumerates
+them all.
+
+A @code{.ly} file contains any number of toplevel expressions, where a
+toplevel expression is one of the following
+
+@itemize @bullet
+@item
+An output definition, such as @code{\paper}, @code{\midi}, and
+@code{\layout}.  Such a definition at the toplevel changes the default
+settings for the block entered.
+
+@item
+A @code{\header} block.  This sets the global header block.  This
+is the block containing the definitions for book-wide settings, like
+composer, title, etc. 
+
+@item
+An @code{\addquote} statement.  See @ref{Quoting other voices}
+for more information.
+
+@item
+A @code{\score} block.  This score will be collected with other
+toplevel scores, and combined as a single @code{\book}.
+
+This behavior can be changed by setting the variable
+@code{toplevel-score-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item
+A @code{\book} block logically combines multiple movements
+(i.e., multiple @code{\score} blocks) in one document.  A number of
+@code{\scores} creates a single output file, where all movement are
+concatenated.
+
+This behavior can be changed by setting the variable
+@code{toplevel-book-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item A compound music expression, such as
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+This will add the piece in a @code{\score} and format it in a
+single book together with all other toplevel @code{\score}s and music
+expressions.
+ 
+This behavior can be changed by setting the variable
+@code{toplevel-music-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item An indentifier, such as
+@example
+foo = @{ c4 d e d @}
+@end example
+
+This can be used later on in the file by entering @code{\foo}.
+
+@end itemize
+
+The following example shows three things that may be entered at
+toplevel
+
+@example
+\layout @{
+  % movements are non-justified by default    
+  raggedright = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+   
+@{ c'4 d' e2 @}
+@end example
+
+
+At any point in a file, any of the following lexical instructions can
+be entered:
+
+@itemize @bullet
+@item @code{\version}
+@item @code{\include}
+@item @code{\renameinput}
+@end itemize 
+
+
+@node Sound
+@section Sound
+@cindex Sound
+
+@cindex MIDI
+
+MIDI (Musical Instrument Digital Interface) is a standard for
+connecting and controlling digital instruments.  A MIDI file is a
+series of notes in a number of tracks.  It is not an actual
+sound file; you need special software to translate between the
+series of notes and actual sounds.
+
+Pieces of music can be converted to MIDI files, so you can listen to
+what was entered.  This is convenient for checking the music; octaves
+that are off or accidentals that were mistyped stand out very much
+when listening to the MIDI output.
+
+@refbugs
+
+Many musically interesting effects, such as swing, articulation,
+slurring, etc., are not translated to midi.
+
+The midi output allocates a channel for each staff, and one for global
+settings.  Therefore the midi file should not have more than 15 staves
+(or 14 if you do not use drums).  Other staves will remain silent.
+
+Not all midi players correctly handle tempo changes in the midi
+output.  Players that are known to work include
+@uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+
+@menu
+* Creating MIDI files::         
+* MIDI block::                  
+* MIDI instrument names::       
+@end menu
+
+@node Creating MIDI files
+@section Creating MIDI files 
+
+To create a MIDI from a music piece of music, add a @code{\midi} block
+to a score, for example,
+
+@example 
+\score @{
+  @var{...music...}
+  \midi @{ \tempo 4=72 @}
+@}
+@end example 
+
+The tempo is specified using the @code{\tempo} command.  In this
+example the tempo of quarter notes is set to 72 beats per minute.
+
+
+If there is a @code{\midi} command in a @code{\score}, only MIDI will
+be produced.  When notation is needed too, a @code{\layout} block must
+be added
+
+@example 
+\score @{
+  @var{...music...}
+  \midi @{ \tempo 4=72 @}
+  \layout @{ @}
+@}
+@end example 
+@cindex layout block
+
+
+
+Ties, dynamics, and tempo changes are interpreted.  Dynamic marks,
+crescendi and decrescendi translate into MIDI volume levels.  Dynamic
+marks translate to a fixed fraction of the available MIDI volume
+range, crescendi and decrescendi make the volume vary linearly between
+their two extremes.  The fractions can be adjusted by
+@code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
+For each type of MIDI instrument, a volume range can be defined.  This
+gives a basic equalizer control, which can enhance the quality of
+the MIDI output remarkably.  The equalizer can be controlled by
+setting @code{instrumentEqualizer}.
+
+
+@node MIDI block
+@section MIDI block
+@cindex MIDI block
+
+
+The MIDI block is analogous to the layout block, but it is somewhat
+simpler.  The @code{\midi} block can contain
+@cindex MIDI block
+
+@itemize @bullet
+  @item a @code{\tempo} definition, and
+  @item context definitions.
+@end itemize
+
+A number followed by a period is interpreted as a real number, so
+for setting the tempo for dotted notes, an extra space should be
+inserted, for example
+
+@example
+\midi @{ \tempo 4 . = 120 @} 
+@end example
+
+
+@cindex context definition
+
+Context definitions follow precisely the same syntax as within the
+\layout block.  Translation modules for sound are called performers.
+The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
+
+
+@node MIDI instrument names
+@section MIDI instrument names
+
+@cindex instrument names
+@cindex @code{Staff.midiInstrument}
+
+The MIDI instrument name is set by the @code{Staff.midiInstrument}
+property.  The instrument name should be chosen from the list in
+@ref{MIDI instruments}.
+
+@example
+\set Staff.midiInstrument = "glockenspiel"
+@var{...notes...}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
+
 
