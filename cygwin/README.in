@@ -23,9 +23,7 @@ Suggested:
   ghostscript-x11
   rxvt
   tetex-x11
-  and, in anticipation of a PostScript viewer for Cygwin, a native
-  Windows PostScript viewer such as GSView from
-  http://www.cs.wisc.edu/~ghost
+  gv
 
 Build requirements:
   cygwin-1.5.2 or newer

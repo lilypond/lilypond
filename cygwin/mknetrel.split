@@ -44,7 +44,7 @@ devel_split () {
 
 doc_split () {
     mkdir -p ./$docprefix || exit 1
-    mv $inst/$infodir ./$infodir
+    #mv $inst/$infodir ./$infodir
     true
 }
 
