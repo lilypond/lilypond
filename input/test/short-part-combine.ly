@@ -1,5 +1,6 @@
 \version "1.7.18"
-% covered by part-combine.ly.  delete -gp
+\header {texidoc="
+covered by part-combine.ly.  DELETE. "}
 
 \score{
 	\context Staff <

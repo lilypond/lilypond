@@ -1,5 +1,6 @@
 \version "1.7.18"
-% covered by slur-attachment-override.  delete  -gp
+\header {texidoc="
+covered by slur-attachment-override.  DELETE. "}
 
 fragment = \notes {
   \property Voice.Slur \set #'direction = #1

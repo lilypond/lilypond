@@ -1,6 +1,6 @@
 \version "1.7.18"
 %  regression or delete.  -gp
-\header {texidoc = ""}
+\header {texidoc = "REGRESSION or DELETE. "}
 \score{
 	\notes \relative c''{
 		\slurUp c(a-) d(g,-)\break

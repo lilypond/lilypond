@@ -1,8 +1,9 @@
 \version "1.7.18"
-% delete; covered in refman.  Trust me, I'm a cellist, and I found
-% this stuff easily in the refman.  :)   -gp
 
 \header{ texidoc = "
+DELETE; covered in refman.  Trust me, I'm a cellist, and I found
+this stuff easily in the refman.  :)   -gp
+
 the thumb-script is used in cello music to indicate a note that should
  be played with your thumb."
 

@@ -1,5 +1,6 @@
 \version "1.7.18"
-% if this test isn't covered in regression, we're in trouble.  :)  delete.  -gp
+\header {texidoc = "
+if this test isn't covered in regression, we're in trouble.  :)  DELETE. "}
 
 \score{
 	\notes\relative c''{

@@ -1,6 +1,6 @@
 \version "1.7.18"
 % regression or delete.  -gp
-
+\header {texidoc = "REGRESSION or DELETE. "} 
 \score{
 	\notes{
 		c( d e  c-) |

@@ -1,6 +1,7 @@
 \version "1.7.18"
 % covered by refman.  delete.  -gp
-\header { texidoc = "@cindex Script Abbreviations
+\header { texidoc = "DELETE; covered by refman.
+@cindex Script Abbreviations
 Some scripts may be entered using an abbreviation. "
 }
 
