@@ -11,6 +11,7 @@
 #include "axis-group-interface.hh"
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
+#include "warn.hh"
 
 /**
    Put stuff in a Spanner with an Axis_group_interface.
