@@ -258,7 +258,16 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
   Direction d = LEFT;
   do {
     straight_corners[d] += - d * shorten[d] /length * dz;
-    gap_corners[d] = (dz * 0.5) + d * gap / length * dz;
+  } while (flip (&d) != LEFT);
+
+  /*
+    UGH: the shortening factor is magic.
+   */
+  gap = gap <?
+    (0.66 * (straight_corners[RIGHT] - straight_corners[LEFT]).length ());
+  
+  do {
+    gap_corners[d] = (dz * 0.5) + d * 0.5 * gap / length * dz;
   } while (flip (&d) != LEFT);
 
   Drul_array<Offset> flare_corners = straight_corners;

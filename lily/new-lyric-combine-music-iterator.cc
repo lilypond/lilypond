@@ -71,9 +71,8 @@ New_lyric_combine_music_iterator::start_new_syllable ()
   if (!b)
     return false;
 
-  /* FIXME: this is wrong use of construct_children () */
   if (!lyrics_context_)
-    construct_children ();
+    return false;
   
   if (!to_boolean (lyrics_context_->get_property ("ignoreMelismata")))
     {
@@ -167,10 +166,12 @@ New_lyric_combine_music_iterator::construct_children ()
   if (lyric_iter_)
     lyrics_context_ = find_context_below (lyric_iter_->report_to (),
 					  "LyricsVoice", "");
-  
-  if (music_context_ && !lyrics_context_)
-    lyrics_context_ = music_context_
-      ->find_create_translator (ly_symbol2scm ("LyricsVoice"), "", SCM_EOL);
+
+  /*
+    We do not create a LyricsVoice context, because the user might
+    create one with a different name, and then we will not find that
+    one.
+   */
 }
 
 void

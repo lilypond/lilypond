@@ -1174,7 +1174,7 @@
 
     (TupletBracket
      . (
-	(gap . 2.0)
+	(gap . 1.0)
 	(padding . 1.1)
 	(thickness . 1.6)
 	(edge-height . (0.7 . 0.7))
