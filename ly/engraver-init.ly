@@ -6,7 +6,12 @@
 
 StaffContext=\translator {
 	\type "Engraver_group_engraver"
-	\name Staff 
+	\name Staff
+
+	\description "Handles clefs, bar lines, keys, accidentals.  It can contain
+@code{Voice} contexts."
+
+	
 	\consists "Output_property_engraver"	
 	
 	\consists "Bar_engraver"
@@ -21,6 +26,8 @@ StaffContext=\translator {
 	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
 	\consists "Dot_column_engraver"
 
+	% perhaps move to Voice context?
+	\consists "Ottava_spanner_engraver"
 	\consists "Clef_engraver"
 	\consists "Key_engraver"
 	\consists "Time_signature_engraver"
@@ -80,6 +87,10 @@ InnerChoirStaffContext = \translator {
 ChoirStaffContext = \translator {
 	\InnerChoirStaffContext
 	\name ChoirStaff
+	
+	\description "Identical to @code{StaffGroup} except that the
+    contained staves are not connected vertically."
+	
 	\accepts "InnerChoirStaff"
 	\accepts "InnerStaffGroup"
 }
@@ -90,7 +101,11 @@ RhythmicStaffContext=\translator{
 	
 	\consists "Output_property_engraver"	
 
-
+\description  "
+    A context like @code{Staff} but for printing rhythms.  Pitches are
+    ignored; the notes are printed on one line.  It can contain
+    @code{Voice} contexts.
+"
 	minimumVerticalExtent = ##f
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
@@ -123,7 +138,13 @@ RhythmicStaffContext=\translator{
 VoiceContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Voice
+\description "
+    Corresponds to a voice on a staff.  This context handles the
+    conversion of dynamic signs, stems, beams, super- and subscripts,
+    slurs, ties, and rests.
 
+    You have to instantiate this explicitly if you want to have
+    multiple voices on the same staff."
 
 	localKeySignature = #'()
 	\consists "Font_size_engraver"
@@ -175,7 +196,11 @@ ThreadContext = \translator{
 	\type Engraver_group_engraver
 	\name Thread
 	localKeySignature = #'()
-
+\description "
+    Handles note heads, and is contained in the Voice context.  You
+    have to instantiate this explicitly if you want to adjust the
+    style of individual note heads.
+"
 	\consists "Font_size_engraver"	
 	\consists "Thread_devnull_engraver"
 	\consists "Note_heads_engraver"
@@ -193,6 +218,12 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver"
 	\name GrandStaff
 	localKeySignature = #'()
+	\description "
+    Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
+    brace on the left side, grouping the staves together.  The bar
+    lines of the contained staves are connected vertically.  It can
+    contain @code{Staff} contexts."
+
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
 	\consists "System_start_delimiter_engraver"
@@ -205,7 +236,10 @@ PianoStaffContext = \translator{
 	\GrandStaffContext
 	\name "PianoStaff"
 	\alias "GrandStaff"
-
+\description "
+    Just like @code{GrandStaff} but with @code{minVerticalAlign} set
+    equal to @code{maxVerticalAlign} so that interstaff beaming and
+    slurring can be used."
 	verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
 	VerticalAlignment \override #'forced-distance = #12
 	VerticalAlignment \override #'self-alignment-Y = #0
@@ -242,6 +276,14 @@ InnerStaffGroupContext= \translator {
 StaffGroupContext = \translator {
 	\InnerStaffGroupContext
 	\name StaffGroup
+	\description "
+    Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
+    bracket on the left side, grouping the staves together.  The bar
+    lines of the contained staves are connected vertically.  It can
+    contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
+    @code{Lyrics} contexts.
+"
+	
 	\accepts "InnerChoirStaff"
 	\accepts "ChoirStaff"
 	\accepts "InnerStaffGroup"
@@ -255,7 +297,13 @@ LyricsVoiceContext= \translator{
 	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(-1.2 . 1.2)
 	extraVerticalExtent = ##f
-	verticalExtent = ##f 
+	verticalExtent = ##f
+
+	\description "
+    Corresponds to a voice with lyrics.  Handles the printing of a
+    single line of lyrics.
+"
+	
 	\name LyricsVoice 
 	\consists "Separating_line_group_engraver"
 	\consists "Lyric_engraver"
@@ -283,7 +331,7 @@ NoteNamesContext = \translator {
 LyricsContext = \translator {
 	\type "Engraver_group_engraver"
 	\name Lyrics
-	
+	\description  "Typesets lyrics."
 	%% To get folded repeats right.
 	\consists Vertical_align_engraver 
 
@@ -299,7 +347,8 @@ LyricsContext = \translator {
 ChordNamesContext = \translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
-
+\description "    Typesets chord names."
+	
 	\consists "Rest_swallow_translator" 
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
@@ -337,6 +386,19 @@ ScoreContext = \translator {
 	\type Score_engraver
 	\name Score
 	localKeySignature = #'()
+
+	\description "This is the top level notation context.  No
+    other context can contain a @code{Score} context.  This context
+    handles the administration of time signatures.  It also makes sure
+    that items such as clefs, time signatures, and key-signatures are
+    aligned across staves.  It can contain @code{Lyrics},
+    @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff},
+    @code{StaffGroup}, and @code{ChoirStaff} contexts.
+
+    You cannot explicitly instantiate a Score context (since it is
+    not contained in any other context).  It is instantiated
+    automatically when an output definition (a @code{\score} or
+    @code{\paper} block) is processed."
 	
 	\consists "Repeat_acknowledge_engraver"
 	\consists "Staff_collecting_engraver"
@@ -467,10 +529,7 @@ EasyNotation =  \translator {
 	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
 }
 
-% retain for compatibility reasons (FIXME: convert-ly)
-GraceContext = \translator {
-	\type "Engraver_group_engraver"
-}
+
 
 FiguredBassContext = \translator {
 	\type "Engraver_group_engraver"
@@ -507,6 +566,9 @@ TabStaffContext = \translator {
       \alias "Staff"
       \name "TabStaff"
       \denies "Voice"
+
+      \description "Context for generating tablature. [DOCME]"
+      
       \accepts "TabVoice"
       
       % 6 strings

@@ -11,7 +11,6 @@
   title = "Romanzen"
   opus = "op. 28/2"
   composer = "R. Schumann (1810-1856)"
-  % latexpackages="rotating"
   enteredby="Rune Zedeler"
   maintainer="rune@zedeler.dk"
   mutopiatitle = "Romanzen - op. 28/2"
@@ -62,7 +61,7 @@ righta = \notes \transpose c cis' {
  e4^4( g8^5~<<g ces_4>> f^3  as-) |
  g4^4 b8^5~b a c'^5~ |
  c' b^4 ges^5 des^3 b,^5 \d  ges,16-[^4 f,] |
- e,^2^#'(large "ritard...") cis,^1 \u r8 r r4 r16 \d gis,^2^"R.H."-] |
+ e,^2^\markup { \large "ritard..." } cis,^1 \u r8 r r4 r16 \d gis,^2^"R.H."-] |
 
 
  \forcedBreak
@@ -73,16 +72,16 @@ righta = \notes \transpose c cis' {
  \m  a,-[( \u d^2 a d-] \m  c-[ \u d c' d-] \m  b,-[ \u  d-)^3] r8 |
  \m  c16-[( \u f c' f-] \m  es-[ \u f es' f-] \m  d-[ \u  f-)^3-] \m  f-[( \u as^2-] |
   f'-[  as-)-] \m  f-[( \u as f'  as-)] r8^\fermata r16 e'^2( f' g' | \stemBoth \tieBoth
- as' des'^1 c'8^#'(finger "2-3") h~h  c'16-) \clef F  e,16-[(^2 f, g,] |
+ as' des'^1 c'8^\markup { \finger "2-3" } h~h  c'16-) \clef F  e,16-[(^2 f, g,] |
  \forcedBreak
 
   as,-[^5 h,,^2-)-] \clef G <<c a^3>>8-[-( <<c g^2>>16 c'] <<c es ges c'^5>>4.~
  <<c es ges c'>>8-) s4 s8 r16 h^2( c' d' | 
- es' ges-1 f-2 a-1 c'-2 f'-4 \stemUp \tieUp e'-5 d' c' b-4 a^\prall^#'(finger "2-4-3") g |
+ es' ges-1 f-2 a-1 c'-2 f'-4 \stemUp \tieUp e'-5 d' c' b-4 a^\prall^\markup { \finger "2-4-3" } g |
   f-) f'-5( e'-5 d'-4 c'-3  f'-)-5 <<f^4 a^5>>4-( <<e^3 g^5>>8 |
  <<a, f^4>>4 <<g, e^3>>8 f16^4 d'^5~ d'8.-[ c'16^4] |
  \forcedBreak 
- < f8-)^3 \context Voice = another { \m  a,16-[^\pp \u c8 c16] } > \m  g,-[ \u c_3-] \m  b,-[^#'(finger "2-1") \u c8 c16-] \m  a,-[ \u c]~ | \stemBoth
+ < f8-)^3 \context Voice = another { \m  a,16-[^\pp \u c8 c16] } > \m  g,-[ \u c_3-] \m  b,-[^\markup { \finger "2-1" } \u c8 c16-] \m  a,-[ \u c]~ | \stemBoth
  c16 c8_4 c c16~c c8_2 c c16~ |
  c16 c8 c c16~c c8 c c16~ |
  c16 c8 c c16 r4^\fermata r8 | \bar "|."
@@ -165,8 +164,8 @@ lefta = \notes \transpose c cis {
   es' des'4^1~ \stemDown  des'8.-[ c'16] }
  }
  \transpose c' c, {
-  g4(-4 a8-3~a f-5 g-4 | a4-3 g8-#'(finger "4-3") ~g f-4 e-5 |
-   d4-)-#'(finger "4-5")( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
+  g4(-4 a8-3~a f-5 g-4 | a4-3 g8-\markup { \finger "4-3" } ~g f-4 e-5 |
+   d4-)-\markup { \finger "4-5" }( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
    c4-) r8 f4-4( as8-5~ | as g-4  b-)-5 as4-5( ces'8-4~ |
   ces' b des'-4  c'4-)-5( <<es'-4 es''>>8 |
   \stemDown \tieDown  des'4.-)_5~des'~ |
@@ -220,7 +219,7 @@ leftb = \notes \transpose c cis {
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |
  gis, <<a, c>>16 r16 r8 r4 cis8( |
-  d-) e( f16_4 d_5  c4.-)_ #'(finger "4-3")~ |
+  d-) e( f16_4 d_5  c4.-)_ \markup { \finger "4-3" }~ |
  \oneVoice
  c16( h,_4 c_3 cis_1 d_2 b,_3 a,_4 as,_1 g,8  c,8-) |
  \translator Staff = down \stemDown \tieDown
@@ -244,11 +243,12 @@ leftb = \notes \transpose c cis {
     \property PianoStaff.instrument="2. "
     \context Staff = up {
       \property Staff.DynamicLineSpanner \override #'direction = #-1
-      \clef G <\global \context Voice=upv \righta>
+      \clef G <\global \context Voice=upv \righta >
     }
     \context Staff = mid {
    % \property Staff.instrument="\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \property Staff.instrument=#'(rows ((raise . -7.5) "") ((raise . 7.5) (lines "Rechte   " "Hand.")))
+    \property Staff.instrument= \markup {
+	 \column << Rechte Hand >>  }
       \clef F <\global \context Voice=midv \rightb>
     }
       \context Staff = down {
@@ -277,4 +277,5 @@ leftb = \notes \transpose c cis {
   }
   \midi { \tempo 8=100 }
 }
+
 %% new-chords-done %%

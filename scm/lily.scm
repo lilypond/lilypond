@@ -337,13 +337,13 @@ is the  first to satisfy CRIT
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
-(use-modules (scm tex)
-	     (scm ps)
-	     (scm pysk)
-	     (scm ascii-script)
-	     (scm sketch)
-	     (scm sodipodi)
-	     (scm pdftex)
+(use-modules (scm output-tex)
+	     (scm output-ps)
+	     (scm output-pysk)
+	     (scm output-ascii-script)
+	     (scm output-sketch)
+	     (scm output-sodipodi)
+	     (scm output-pdftex)
 	     )
 
 (define output-alist
@@ -389,11 +389,10 @@ is the  first to satisfy CRIT
        "new-markup.scm"
        "bass-figure.scm"
        "music-functions.scm"
-       "music-property-description.scm"
+       "define-music-properties.scm"
        "auto-beam.scm"
-       "basic-properties.scm"
        "chord-name.scm"
-       "translator-property-description.scm"
+       "define-translator-properties.scm"
        "script.scm"
        "drums.scm"
        "midi.scm"
@@ -403,10 +402,9 @@ is the  first to satisfy CRIT
        "slur.scm"
        "font.scm"
        
-       "grob-property-description.scm"
-       "grob-description.scm"
-       "context-description.scm"
-       "interface-description.scm"
+       "define-grob-properties.scm"
+       "define-grobs.scm"
+       "define-grob-interfaces.scm"
        ))
 
 

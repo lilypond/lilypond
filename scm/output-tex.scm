@@ -1,29 +1,62 @@
-;;; pdftex.scm -- implement Scheme output routines for PDFTeX
+
+;;; tex.scm -- implement Scheme output routines for TeX
 ;;;
 ;;;  source file of the GNU LilyPond music typesetter
-;;;  modified from the existing tex.scm
 ;;; 
 ;;; (c)  1998--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
-;;; Stephen Peters <portnoy@portnoy.org>
 
 
-;; TODO: port this  to the new module framework.
-
-(define-module (scm pdftex))
-
-(use-modules (scm pdf)
-	     (guile)
+(define-module (scm output-tex) )
+(debug-enable 'backtrace)
+(use-modules (scm output-ps)
 	     (ice-9 regex)
 	     (ice-9 string-fun)
-	     (lily))
+	     (ice-9 format)
+	     (guile)
+	     (lily)
+	     )
+
+(define this-module (current-module))
+
+;;;;;;;;
+;;;;;;;; DOCUMENT ME!
+;;;;;;;;
 
 (define font-name-alist  '())
 
-(define this-module (current-module))
+(define (tex-encoded-fontswitch name-mag)
+  (let* ((iname-mag (car name-mag))
+	 (ename-mag (cdr name-mag)))
+    (cons iname-mag
+	  (cons ename-mag
+		(string-append  "magfont"
+			  (string-encode-integer
+			   (hashq (car ename-mag) 1000000))
+			  "m"
+			  (string-encode-integer
+			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
+
+(define (define-fonts internal-external-name-mag-pairs)
+  (set! font-name-alist (map tex-encoded-fontswitch
+			     internal-external-name-mag-pairs))
+  (apply string-append
+	 (map (lambda (x)
+		(font-load-command (car x) (cdr x)))
+	      (map cdr font-name-alist))))
+
+
+
+;; urg, how can exp be #unspecified?  -- in sketch output
+;;
+;; set! returns #<unspecified>  --hwn
+(define (fontify name-mag-pair exp)
+  (string-append (select-font name-mag-pair)
+		 exp))
+
+
 (define (unknown) 
   "%\n\\unknown\n")
-
 
 (define (select-font name-mag-pair)
   (let*
@@ -48,20 +81,32 @@
     
     ))
 
+(define (blank)
+  "")
+
+(define (dot x y radius)
+  (embedded-ps (list 'dot x y radius)))
+
 (define (beam width slope thick)
-  (embedded-pdf (list 'beam  width slope thick)))
+  (embedded-ps (list 'beam  width slope thick)))
 
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
-  (embedded-pdf (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
+  (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
 (define (dashed-slur thick dash l)
-  (embedded-pdf (list 'dashed-slur   thick dash l)))
+  (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
 (define (char i)
   (string-append "\\char" (inexact->string i 10) " "))
 
 (define (dashed-line thick on off dx dy)
-  (embedded-pdf (list 'dashed-line  thick on off dx dy)))
+  (embedded-ps (list 'dashed-line  thick on off dx dy)))
+
+(define (zigzag-line centre? zzw zzh thick dx dy)
+  (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
+
+(define (symmetric-x-triangle t w h)
+  (embedded-ps (list 'symmetric-x-triangle t w h)))
 
 (define (font-load-command name-mag command)
   (string-append
@@ -72,7 +117,7 @@
    "\n"))
 
 (define (ez-ball c l b)
-  (embedded-pdf (list 'ez-ball  c  l b)))
+  (embedded-ps (list 'ez-ball  c  l b)))
 
 (define (header-to-file fn key val)
   (set! key (symbol->string key))
@@ -81,14 +126,14 @@
       )
   (display
    (format "writing header field `~a' to `~a'..."
- 	   key
- 	   (if (equal? "-" fn) "<stdout>" fn)
- 	   )
+	   key
+	   (if (equal? "-" fn) "<stdout>" fn)
+	   )
    (current-error-port))
   (if (equal? fn "-")
       (display val)
       (display val (open-file fn "w"))
-      )
+  )
   (display "\n" (current-error-port))
   ""
   )
@@ -96,26 +141,26 @@
 (if (or (equal? (minor-version) "4.1")
 	(equal? (minor-version) "4")
 	(equal? (minor-version) "3.4"))
-    (define (embedded-pdf expr)
+    (define (embedded-ps expr)
       (let ((ps-string
 	     (with-output-to-string
-	       (lambda () (pdf-output-expression expr (current-output-port))))))
-	(string-append "\\embeddedpdf{" ps-string "}")))
-    (define (embedded-pdf expr)
+	       (lambda () (ps-output-expression expr (current-output-port))))))
+	(string-append "\\embeddedps{" ps-string "}")))
+    (define (embedded-ps expr)
       (let
 	  ((os (open-output-string)))
-	(pdf-output-expression expr os)
-	(string-append "\\embeddedpdf{" (get-output-string os) "}"))))
-
+	(ps-output-expression expr os)
+	(string-append "\\embeddedps{" (get-output-string os) "}"))))
 
 (define (comment s)
-  (simple-format #f "% ~a\n" s))
+  (string-append "% " s "\n"))
 
 (define (end-output) 
   (begin
 					; uncomment for some stats about lily memory	  
 					;		(display (gc-stats))
-    (string-append "%\n\\lilypondend\n"
+    (string-append
+     "\\lilypondend\n"
 					; Put GC stats here.
 		   )))
 
@@ -123,55 +168,24 @@
   "")
 
 (define (repeat-slash w a t)
-  (embedded-pdf (list 'repeat-slash w a t)))
-(define (fontify name-mag-pair exp)
-  (string-append (select-font name-mag-pair)
-		 exp))
-
-
-(define (tex-encoded-fontswitch name-mag)
-  (let* ((iname-mag (car name-mag))
-	 (ename-mag (cdr name-mag)))
-    (cons iname-mag
-	  (cons ename-mag
-		(string-append  "magfont"
-			  (string-encode-integer
-			   (hashq (car ename-mag) 1000000))
-			  "m"
-			  (string-encode-integer
-			   (inexact->exact (* 1000 (cdr ename-mag)))))))))
-(define (define-fonts internal-external-name-mag-pairs)
-  (set! font-name-alist (map tex-encoded-fontswitch
-			     internal-external-name-mag-pairs))
-  (apply string-append
-	 (map (lambda (x)
-		(font-load-command (car x) (cdr x)))
-	      (map cdr font-name-alist))))
-
-
-(define (font-switch i)
-  (string-append
-   "\\" (font i) "\n"))
-
-(define (font-def i s)
-  (string-append
-   "\\font" (font-switch i) "=" s "\n"))
+  (embedded-ps (list 'repeat-slash  w a t)))
 
 (define (header-end)
   (string-append
-   "\\def\\lilyoutputscalefactor{"
+   "\\def\\scaletounit{ "
    (number->string (cond
-		    ((equal? (ly:unit) "mm") (/ 72.0  25.4))
-		    ((equal? (ly:unit) "pt") (/ 72.0  72.27))
-		    (else (error "unknown unit" (ly:unit)))
-		    ))
-   "}%\n"
+		     ((equal? (ly:unit) "mm") (/ 72.0  25.4))
+		     ((equal? (ly:unit) "pt") (/ 72.0  72.27))
+		     (else (error "unknown unit" (ly:unit)))
+		     ))
+   " mul }%\n"
    "\\ifx\\lilypondstart\\undefined\n"
    "  \\input lilyponddefs\n"
    "\\fi\n"
-   "\\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit\n"
-   "\\lilypondpostscript\n"
-   "\\pdfcompresslevel=0"))
+   "\\outputscale = \\lilypondpaperoutputscale\\lilypondpaperunit\n"
+   "\\lilypondstart\n"
+   "\\lilypondspecial\n"
+   "\\lilypondpostscript\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!
 (define (header creator generate) 
@@ -185,15 +199,16 @@
 ;;
 ;; need to do something to make this really safe.
 ;;
-(define (output-tex-string s)
+(define-public (output-tex-string s)
   (if security-paranoia
       (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
       s))
 
 (define (lily-def key val)
   (let ((tex-key
-	 (regexp-substitute/global 
+	 (regexp-substitute/global
 	      #f "_" (output-tex-string key) 'pre "X" 'post))
+	 
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
@@ -211,10 +226,10 @@
 		 s "}%\n"))
 
 (define (bezier-bow l thick)
-  (embedded-pdf (list 'bezier-bow  `(quote ,l) thick)))
+  (embedded-ps (list 'bezier-bow  `(quote ,l) thick)))
 
 (define (bezier-sandwich l thick)
-  (embedded-pdf (list 'bezier-sandwich  `(quote ,l) thick)))
+  (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
 (define (start-system wd ht)
   (string-append "\\leavevmode\n"
@@ -231,35 +246,48 @@
 (define (stop-last-system)
   "}%\n")
 
-(define (filledbox breapth width depth height) 
-  (string-append "\\lyvrule{"
-		 (ly:number->string (- breapth)) "}{"
-		 (ly:number->string (+ breapth width)) "}{"
-		 (ly:number->string depth) "}{"
-		 (ly:number->string height) "}"))
+(define (filledbox breapth width depth height)
+  (if (and #f (defined? 'ps-testing))
+      (embedded-ps
+       (string-append (numbers->string (list breapth width depth height))
+		      " draw_box" ))
+      (string-append "\\lyvrule{"
+		     (ly:number->string (- breapth)) "}{"
+		     (ly:number->string (+ breapth width)) "}{"
+		     (ly:number->string depth) "}{"
+		     (ly:number->string height) "}")))
 
 (define (roundfilledbox x y width height blotdiam)
-  (embedded-pdf (list 'roundfilledbox  x y width height blotdiam)))
+  (embedded-ps (list 'roundfilledbox  x y width height blotdiam)))
 
 (define (text s)
   (string-append "\\hbox{" (output-tex-string s) "}"))
 
-(define (draw-line thick fx fy tx ty)
-  (embedded-pdf (list 'draw-line thick fx fy tx ty)))
+(define (tuplet ht gapx dx dy thick dir)
+  (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
 
+(define (polygon points blotdiameter)
+  (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
+
+(define (draw-line thick fx fy tx ty)
+  (embedded-ps (list 'draw-line thick fx fy tx ty)))
+
+(define (between-system-string string)
+  string
+  )
 (define (define-origin file line col)
   (if (procedure? point-and-click)
-      (string-append "\\special{src:\\string:"
+      (string-append "\\special{src:" ;;; \\string ? 
 		     (point-and-click line col file)
 		     "}" )
       "")
   )
 
-					; no-origin not supported in PDFTeX
+;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
+(define-public (tex-output-expression expr port)
+  (display (eval expr this-module) port )
+  )
 
 
-
-(define-public (pdftex-output-expression expr port)
-  (display (eval expr this-module) port) )

@@ -7,10 +7,10 @@
 
 
 
-(define-module (scm pysk)
+(define-module (scm output-pysk)
   )
 
-(use-modules (scm ps)
+(use-modules (scm output-ps)
 	     (ice-9 regex)
 	     (ice-9 string-fun)
 	     (guile)

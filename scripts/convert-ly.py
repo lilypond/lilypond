@@ -1170,6 +1170,23 @@ if 1:
 	
 	conversions.append (((1,7,17), conv, "Skip_req  -> Skip_event"))
 
+if 1:
+	def conv(str):
+		str = re.sub ("groupOpen",
+			      "startGroup", str)
+		str = re.sub ("groupClose",
+			      "stopGroup", str)
+		str = re.sub ("#'outer",
+			      "#'enclose-bounds", str)
+
+		return str
+	
+	conversions.append (((1,7,18), conv,
+			     """"groupOpen/Close  -> start/stopGroup,
+			     #'outer  -> #'enclose-bounds
+			     """))
+
+
 
 ################################
 #	END OF CONVERSIONS	

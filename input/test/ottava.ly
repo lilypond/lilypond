@@ -7,7 +7,7 @@ fragment = \notes {
   \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
   \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
   \property Staff.centralCPosition = #-13
-  a#(ly:export (make-span-event 'TextSpanEvent START)) b c a #(ly:export (make-span-event 'TextSpanEvent STOP))
+  a-\startTextSpan b c a-\stopTextSpan
 }
 
 \paper { raggedright = ##t} 

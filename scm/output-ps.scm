@@ -9,7 +9,7 @@
 (debug-enable 'backtrace)
 
 
-(define-module (scm ps))
+(define-module (scm output-ps))
 (define this-module (current-module))
 
 (use-modules

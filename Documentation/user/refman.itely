@@ -1646,16 +1646,16 @@ paper output, a metronome marking is printed
 @subsection Text spanners
 @cindex Text spanners
 
-Some textual indications, e.g. @i{rallentando} or @i{accelerando}, are
-often extended over many measures. This is indicated by following the
-text with a dotted line.  You can create such texts using text
-spanners. The syntax is as follows:
-@example
- \startTextSpan
- \stopTextSpan
-@end example
+Some performance indications, e.g. @i{rallentando} or @i{accelerando},
+are written as texts, and extended over many measures with dotted
+lines.  You can create such texts using text spanners: attach
+@code{\startTextSpan} and @code{\stopTextSpan} to the
+start and ending note of the spanner. 
+
 The string to be printed, as well as the style, is set through object
 properties.
+
+[TODO: 8va engraver.]
 
 An application is to fake octavation indications.
 
@@ -1686,14 +1686,14 @@ Brackets are used in musical analysis to indicate structure in musical
 pieces. LilyPond supports a simple form of nested horizontal brackets.
 To use this, add the @internalsref{Horizontal_bracket_engraver} to
 @internalsref{Staff} context.  A bracket is started with
-@code{\groupOpen} and closed with @code{\groupClose}. 
+@code{\startGroup} and closed with @code{\stopGroup}. 
 
 @lilypond[singleline,verbatim]
 \score { \notes \relative c'' {  
-	c4-\groupOpen-\groupOpen
-	c4-\groupClose
-	c4-\groupOpen
-        c4-\groupClose-\groupClose
+	c4-\startGroup-\startGroup
+	c4-\stopGroup
+	c4-\startGroup
+        c4-\stopGroup-\stopGroup
   }
   \paper { \translator {
 	    \StaffContext \consists "Horizontal_bracket_engraver"
