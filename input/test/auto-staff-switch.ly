@@ -2,7 +2,7 @@
 \score  {
 \notes {
 	\context AutoSwitchGrandStaff \relative c' {
-	c8^8 d^8 b^8 a^8 [a,^8 f'^8 g,^8 ~ g]
+	c8 d b a' a, f' g,4 ~ g
 
 	}
 }
@@ -12,19 +12,23 @@
 \accepts AutoSwitchGrandStaff;
 }
 \translator{
-	\context "Line_group_engraver_group";
+	\type "Engraver_group_engraver";
 	\name AutoSwitchGrandStaff;
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Piano_bar_engraver";
+	\consistsend "Axis_group_engraver";
 	minVerticalAlign = 2.*\staffheight;
 	maxVerticalAlign = 2.*\staffheight;	
+	switcherName = "Voice";
+	acceptorName = "Thread";
+	staffContextName = "Staff";
 
 	\accepts "AutoSwitchContext";
 	\accepts "Staff";
 }
 \translator {
-	\context "Engraver_group_engraver";
+	\type "Engraver_group_engraver";
 	\name "AutoSwitchContext";
 	\consists "Staff_switching_translator";
 }
