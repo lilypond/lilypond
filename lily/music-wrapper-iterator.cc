@@ -19,7 +19,7 @@ Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &sr
   : Music_iterator (src)
 {
   child_iter_ = (src.child_iter_) ? src.child_iter_->clone () : 0;
-  if (src.child_iter_)
+  if (child_iter_)
     scm_gc_unprotect_object (child_iter_->self_scm());
 }
 

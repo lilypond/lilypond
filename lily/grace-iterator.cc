@@ -22,14 +22,6 @@ Grace_iterator::process (Moment m)
   Music_wrapper_iterator::process (main);
 }
 
-void
-Grace_iterator::construct_children ()
-{
-  Music_wrapper_iterator::construct_children ();
-}
-
-
-
 Moment
 Grace_iterator::pending_moment () const
 {

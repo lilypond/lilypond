@@ -56,7 +56,7 @@ void
 Lyric_combine_music_iterator::derived_mark()const
 {
   if (music_iter_)
-  scm_gc_mark (music_iter_->self_scm());
+    scm_gc_mark (music_iter_->self_scm());
   if (lyric_iter_)
     scm_gc_mark (lyric_iter_->self_scm());
 }
@@ -135,8 +135,10 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator (Lyric_combine_music_
   lyric_iter_ = src.lyric_iter_ ? src.lyric_iter_->clone () : 0;
   music_iter_ = src.music_iter_ ? src.music_iter_->clone () : 0;  
 
-  scm_gc_unprotect_object (music_iter_->self_scm());
-  scm_gc_unprotect_object (lyric_iter_->self_scm());
+  if (lyric_iter_)
+    scm_gc_unprotect_object (music_iter_->self_scm());
+  if (music_iter_)
+    scm_gc_unprotect_object (lyric_iter_->self_scm());
 }
 
 Music_iterator*
