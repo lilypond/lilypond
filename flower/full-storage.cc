@@ -8,6 +8,7 @@
 
 #include "full-storage.hh"
 
+
 void
 Full_storage::operator=(Full_storage const &fs)
 {
@@ -18,6 +19,7 @@ Full_storage::operator=(Full_storage const &fs)
 	for (int j=0; j<width_i_; j++)
 	    els_p_p_[i][j]= fs.els_p_p_[i][j];
 }
+
 
 void
 Full_storage::OK() const
@@ -30,63 +32,18 @@ Full_storage::OK() const
 #endif
 }
 
-void
-Full_storage::resize_cols(int newh)
+
+
+
+Full_storage::~Full_storage() 
 {
-    if (newh <= max_height_i_) {
-	height_i_=newh;
-	return;
-    }
-   
-    Real ** newa=new Real*[newh];
-    int j=0;
-    for (; j < height_i_; j++)
-	newa[j] = els_p_p_[j];
-    for (; j < newh; j++)
-	newa[j] = new Real[max_width_i_];
-    delete[] els_p_p_;
-    els_p_p_=newa;
-
-    height_i_ = max_height_i_ = newh;
-}
-
-
-Full_storage::Full_storage(Matrix_storage*m)
-{
-    set_size(m->rows(), m->cols());
-    if ( !m->is_type_b ( Full_storage::static_name()))
-	for (int i=0; i<height_i_; i++)
-	    for (int j=0; j<width_i_; j++)
-		els_p_p_[i][j]=0.0;
-    for (int i,j=0; m->mult_ok(i,j); m->mult_next(i,j))
-	els_p_p_[i][j] = m->elem(i,j);
-}
-
-void
-Full_storage::resize_rows(int neww)
-{
-    if (neww <= max_width_i_) {
-	width_i_=neww;
-	return;
-    }
-    for (int i=0; i < max_height_i_ ; i++) {
-	Real* newa = new Real[neww];
-	for (int k=0; k < width_i_; k++)
-	    newa[k] = els_p_p_[i][k];
-
-	delete[] els_p_p_[i];
-	els_p_p_[i] = newa;
-    }
-    width_i_ = max_width_i_ = neww;	
-}
-
-Full_storage::~Full_storage() {
     for (int i=0; i < max_height_i_; i++)
 	delete [] els_p_p_[i];
     delete[] els_p_p_;
 }
 
 void
+
 Full_storage::resize(int rows, int cols)
 {
     OK();
@@ -95,17 +52,20 @@ Full_storage::resize(int rows, int cols)
 }
 
 
+
 bool
 Full_storage::mult_ok(int i, int ) const
 {
     return i < height_i_;
 }
 
+
 bool
 Full_storage::trans_ok(int , int j) const
 {
        return j < width_i_;
 } 
+
 
 
 void
@@ -119,6 +79,7 @@ Full_storage::trans_next(int &i, int &j) const
     }
 }
 
+
 void
 Full_storage::mult_next(int &i, int &j) const
 {
@@ -130,6 +91,7 @@ Full_storage::mult_next(int &i, int &j) const
     }
 }
 
+
 void
 Full_storage::delete_column(int k)
 {
@@ -139,6 +101,8 @@ Full_storage::delete_column(int k)
 	    els_p_p_[i][j-1]=els_p_p_[i][j];
     width_i_--;
 }
+
+
 void
 Full_storage::delete_row(int k)
 {
@@ -150,6 +114,7 @@ Full_storage::delete_row(int k)
 }
 
 
+
 void
 Full_storage::insert_row(int k)
 {
@@ -159,19 +124,6 @@ Full_storage::insert_row(int k)
 	for (int j=0; j <width_i_; j++)
 	    els_p_p_[i][j]=els_p_p_[i-1][j];
 
-}
-
-int
-Full_storage::dim()const
-{
-    assert (rows()==cols());
-    return rows();
-}
-
-Full_storage::Full_storage(Full_storage const&s)
-{
-    init();
-    (*this) = s;
 }
 
 bool
@@ -198,3 +150,61 @@ Full_storage::try_right_multiply(Matrix_storage * dest, Matrix_storage const * r
     
 }
 IMPLEMENT_IS_TYPE_B1(Full_storage,Matrix_storage);
+void
+Full_storage::resize_cols(int newh)
+{
+    if (newh <= max_height_i_) {
+	height_i_=newh;
+	return;
+    }
+   
+    Real ** newa=new Real*[newh];
+    int j=0;
+    for (; j < height_i_; j++)
+	newa[j] = els_p_p_[j];
+    for (; j < newh; j++)
+	newa[j] = new Real[max_width_i_];
+    delete[] els_p_p_;
+    els_p_p_=newa;
+
+    height_i_ = max_height_i_ = newh;
+}
+
+
+
+Full_storage::Full_storage(Matrix_storage*m)
+{
+    set_size(m->rows(), m->cols());
+    if ( !m->is_type_b ( Full_storage::static_name()))
+	for (int i=0; i<height_i_; i++)
+	    for (int j=0; j<width_i_; j++)
+		els_p_p_[i][j]=0.0;
+    for (int i,j=0; m->mult_ok(i,j); m->mult_next(i,j))
+	els_p_p_[i][j] = m->elem(i,j);
+}
+
+
+void
+Full_storage::resize_rows(int neww)
+{
+    if (neww <= max_width_i_) {
+	width_i_=neww;
+	return;
+    }
+    for (int i=0; i < max_height_i_ ; i++) {
+	Real* newa = new Real[neww];
+	for (int k=0; k < width_i_; k++)
+	    newa[k] = els_p_p_[i][k];
+
+	delete[] els_p_p_[i];
+	els_p_p_[i] = newa;
+    }
+    width_i_ = max_width_i_ = neww;	
+}
+
+#ifdef INLINE
+#undef INLINE
+#endif
+#define INLINE
+
+#include "full-storage.icc"

@@ -1,0 +1,94 @@
+/*
+  full-storage.icc -- implement Full_storage inline functions
+
+  source file of the Flower Library
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef FULL_STORAGE_ICC
+#define FULL_STORAGE_ICC
+
+
+INLINE void
+Full_storage::init()
+{
+    els_p_p_=0;
+    height_i_=width_i_=max_height_i_=max_width_i_=0;
+}
+INLINE bool
+Full_storage::valid(int i, int j)const
+{
+    return (i>=0 && i < height_i_)
+	&& (j < width_i_ && j >=0);
+}
+
+
+INLINE
+Full_storage::Full_storage(Full_storage const&s)
+{
+    init();
+    (*this) = s;
+}
+
+INLINE Real& 
+Full_storage::elem(int i,int j)
+{
+    assert(valid(i,j));
+    return els_p_p_[i][j];
+}
+
+INLINE Real
+Full_storage::elem(int i, int j) const {
+    assert(valid(i,j));
+    return els_p_p_[i][j];
+}
+
+INLINE
+Full_storage::Full_storage() {
+    init();
+}
+
+
+INLINE int
+Full_storage::rows() const
+{
+    return height_i_;
+}
+INLINE int
+Full_storage::cols() const
+{
+    return width_i_;
+}
+INLINE int
+Full_storage::dim()const
+{
+    assert (rows()==cols());
+    return rows();
+}
+
+INLINE void
+Full_storage::resize(int i)
+{
+    resize(i,i);
+}
+
+INLINE   
+Full_storage::Full_storage(int i,int j)
+{
+    init();
+    set_size(i,j);
+}
+
+INLINE 
+Full_storage::Full_storage(int i)
+{
+    init();
+    set_size(i);
+}
+ 
+INLINE
+IMPLEMENT_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
+
+#endif // FULL_STORAGE_ICC

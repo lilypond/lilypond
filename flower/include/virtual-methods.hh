@@ -24,10 +24,18 @@ int a_stupid_nonexistent_function_to_allow_the_semicolon_come_out()
 #define IMPLEMENT_STATIC_NAME(c)\
     char const *c::static_name() { return #c; } 
 
+
+
 #define VIRTUAL_COPY_CONS(T, R)\
   virtual R *clone() const { return  new T(*this); } \
   int  yet_another_stupid_function_to_allow_semicolon()
 
+
+#define DECLARE_VIRTUAL_COPY_CONS(T,R)\
+      virtual R *clone() const
+#define IMPLEMENT_VIRTUAL_COPY_CONS(T,R)\
+	R *T::clone() const { return  new T(*this); } \
+    
 #define IMPLEMENT_IS_TYPE_B(D) 							   \
     IMPLEMENT_STATIC_NAME(D)\
   bool D::static_is_type_b(const char *s)					   \

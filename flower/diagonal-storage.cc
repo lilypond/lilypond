@@ -9,6 +9,15 @@
 
 #include "diagonal-storage.hh"
 
+
+#ifdef INLINE
+#undef INLINE
+#endif
+
+#define INLINE inline
+
+#include "full-storage.icc"
+
 int
 Diagonal_storage::dim()const
 {
@@ -40,6 +49,7 @@ Diagonal_storage::band_size_i()const
 void
 Diagonal_storage::set_band_size(int s)
 {
+    assert( s>=0);
     Full_storage f(dim(), 2*s+1);
     for (int i=0; i < dim(); i++) {
 	int k=-s;
@@ -110,7 +120,7 @@ void
 Diagonal_storage::resize_dim(int d)
 {
     Full_storage f(d, 2*band_size_i()+1);
-    for (int i=0; i < d&& i < dim(); i++) {
+    for (int i=0; i < d && i < dim(); i++) {
 	for ( int k=0;  k < 2*band_size_i(); k++)
 	    f.elem(i,k) = elem(i,k);
     }
@@ -134,9 +144,7 @@ Diagonal_storage::mult_next(int &i, int &j)const
 	j = i- band_size_i();
     if ( j > i + band_size_i() || j >= dim() ) {
 	i++;
-	j = i - band_size_i(); 
-	if  (j < 0)
-	    j=0;
+	j = 0 >? i - band_size_i(); 
     }
 }
 
@@ -155,9 +163,7 @@ Diagonal_storage::trans_next(int &i, int& j)const
     
     if ( i >= dim() || i > j + band_size_i() ) {
 	j++;
-	i = j - band_size_i(); 
-	if  (i < 0)
-	    i=0;
+	i = 0 >? j - band_size_i(); 
     }
 }
 
@@ -178,8 +184,9 @@ Diagonal_storage::elem(int i, int j)
     /*
       if this fails, the previous call fucked up
       */
-    assert(nul_entry);
-    if (abs ( i-j ) > band_size_i())
+    assert(!nul_entry);
+
+    if (abs ( i-j ) > band_size_i())  
 	return nul_entry;
     else
 	return band_.elem(i, j - i + band_size_i());
@@ -196,8 +203,8 @@ Diagonal_storage::try_right_multiply(Matrix_storage*dest,
     if ( right->name() != Diagonal_storage::static_name() ) 
 	return false;
     
-    const Diagonal_storage*  diag = (Diagonal_storage const*)right;
-    int band2 = diag->band_size_i();
+    const Diagonal_storage*  right_diag = (Diagonal_storage const*)right;
+    int band2 = right_diag->band_size_i();
     int n = dim();
     /*
       should check if dest is a Diagonal_storage of sufficient size too.
@@ -209,7 +216,7 @@ Diagonal_storage::try_right_multiply(Matrix_storage*dest,
 	    int relk =  startk + band_size_i() -i;
 	    Real sum =0.0;
 	    for ( int k = startk; k <= stopk; k++)
-		sum += band_.elem(i, relk) * diag->elem(relk, j);
+		sum += band_.elem(i, relk++) * right_diag->elem(k, j);
 	    dest->elem(i, j) = sum;
 	    
 	}
@@ -234,3 +241,5 @@ Diagonal_storage::OK() const
 {
     band_.OK();
 }
+
+IMPLEMENT_VIRTUAL_COPY_CONS(Diagonal_storage, Matrix_storage);
