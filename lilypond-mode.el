@@ -20,7 +20,6 @@
 ;;; for installing instructions.
 
 ;;; TODO:
-;;;    * XEmacs-menus, broken ?
 ;;;    * parenthesis matching
 
 (require 'easymenu)
@@ -1080,6 +1079,9 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression LilyPond-imenu-generic-expression)
   (imenu-add-to-menubar "Index")
+
+  (easy-menu-add LilyPond-mode-menu)    ;; automatically added in Emacs, but
+  (easy-menu-add LilyPond-command-menu) ;; explicitly added in XEmacs
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
