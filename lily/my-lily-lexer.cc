@@ -95,6 +95,9 @@ My_lily_lexer::My_lily_lexer (Sources *sources)
   main_input_b_ = false;
   
   add_scope (ly_make_anonymous_module (false));
+
+  push_note_state (scm_c_make_hash_table (0));
+
 }
 
 My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
@@ -120,6 +123,7 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
     }
   
   scopes_ =  scopes;
+  push_note_state (scm_c_make_hash_table (0));
 }
 
 My_lily_lexer::~My_lily_lexer ()

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.8"
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
@@ -14,21 +14,21 @@ stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 
 % TODO: junkme!
-cresc = \notes {
+cresc =  {
   #(ly:export (make-event-chord (list cr)))
   \set crescendoText = \markup { \italic "cresc." }
   \set crescendoSpanner = #'dashed-line
 }
 
 
-dim = \notes {
+dim =  {
   #(ly:export (make-event-chord (list decr)))
 
   \set decrescendoText = \markup { \italic "dim." }
   \set decrescendoSpanner = #'dashed-line
 }
 
-enddim = \notes {
+enddim =  {
   #(ly:export (make-event-chord (list enddecr)))
   \unset decrescendoText 
   \unset decrescendoSpanner 
@@ -36,7 +36,7 @@ enddim = \notes {
 
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
-endcresc = \notes {
+endcresc =  {
   #(ly:export (make-event-chord (list endcr)))
   \unset crescendoText 
   \unset crescendoSpanner 

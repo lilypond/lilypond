@@ -176,39 +176,6 @@ s4_" "
 s16_" "
 @end lilypond
 
-@ignore
-To recognize names like @samp{c} and @samp{d} as pitches, they have to
-be entered inside a so-called @code{\notes} block.  This block is
-formed by enclosing notes and commands are enclosed in curly braces
-@code{@{@tie{}@dots{}@tie{}@}} and adding the keyword @code{\notes} before
-the opening brace
-
-@example
-@{
-  \time 3/4
-  \clef bass
-  c2 e4 g2.
-  f4 e d c2 r4
-@}
-@end example
-
-Now the piece of music is almost ready to be printed.  Enclose
-the @code{\notes} block in a @code{\score} block
-
-@example
-\score @{
-  \notes @{
-    \time 3/4
-    \clef bass
-    c2 e4 g2.
-    f4 e d c2 r4
-  @}
-@}
-@end example
-
-@noindent
-and the music will be converted to printable output.
-@end ignore
 
 Remember to enclose the notes and commands in curly braces
 @code{@{@tie{}@dots{}@tie{}@}} to convert it to printable output.
@@ -1157,7 +1124,7 @@ a lead sheet, for example,
 @lilypond[quote,raggedright]
 <<
   \new ChordNames \chords { r2 c:sus4 f } 
-  \notes \relative {
+  \relative {
     r4 c' \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
   }
@@ -1401,7 +1368,7 @@ By using variables, also known as identifiers, it is possible to break
 up complex music expressions.  An identifier is assigned as follows
 
 @example
-namedMusic = \notes @{ @dots{} @}
+namedMusic = @{ @dots{} @}
 @end example
 
 @noindent
@@ -1411,7 +1378,7 @@ In the next example, a two-note motive is repeated two times by using
 variable substitution
 
 @lilypond[quote,raggedright,verbatim,nofragment]
-seufzer = \notes {
+seufzer = {
   e'4( dis'4)
 }
 { \seufzer \seufzer }
@@ -1419,7 +1386,7 @@ seufzer = \notes {
 
 The name of an identifier should have alphabetic characters only;
 no numbers, underscores or dashes.  The assignment should be outside of
-the @code{\score} block.
+running music.
 
 It is possible to use variables for many other types of objects in the
 input.  For example,
@@ -1434,13 +1401,11 @@ Depending on its contents, the identifier can be used in different
 places.  The following example uses the above variables
 
 @example
-\score @{
-  \notes @{ c4^\name @}
   \paper @{
     \aFivePaper
     linewidth = \width
   @}
-@}
+  @{ c4^\name @}
 @end example
 
 More information on the possible uses of identifiers is in the
@@ -1461,7 +1426,7 @@ suppose that the file @file{horn-music.ly} contains the following part
 of a horn/bassoon duo
 
 @example
-hornNotes = \notes \relative c @{
+hornNotes =  \relative c @{
   \time 2/4
   r4 f8 a cis4 f e d
 @}
@@ -1475,8 +1440,9 @@ Then, an individual part is made by putting the following in a file
 \header @{
   instrument = "Horn in F"
 @}
-\score @{
-  \notes \transpose f c' \hornNotes
+
+@{
+ \transpose f c' \hornNotes
 @}
 @end example
 
@@ -1496,12 +1462,10 @@ tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
 
 @lilypond[quote,raggedright]
-\score {
-  \notes \transpose f c' \notes \relative c {
+  \transpose f c' \relative c {
     \time 2/4
     r4 f8 a cis4 f e d
   }
-}
 @end lilypond
 
 In ensemble pieces, one of the voices often does not play for many
@@ -1528,39 +1492,34 @@ This command sets the property @code{skipBars} in the
 this option to the music above, leads to the following result
 
 @lilypond[quote,raggedright]
-\score {
-  \notes \transpose f c' \relative c {
+\transpose f c' \relative c {
     \time 2/4
     \set Score.skipBars = ##t 
     R2*3
     r4 f8 a cis4 f e d
   }
-}
 @end lilypond
 
 
-The score is made by combining all of the music in a @code{\score}
-block.  Assuming that the other voice is in @code{bassoonNotes} in the
-file @file{bassoon-music.ly}, a score is made with
+The score is made by combining all of the music together.  Assuming
+that the other voice is in @code{bassoonNotes} in the file
+@file{bassoon-music.ly}, a score is made with
 
 @example
 \include "bassoon-music.ly"
 \include "horn-music.ly"
 
-\score @{
-  \simultaneous @{
+  <<
     \new Staff \hornNotes
     \new Staff \bassoonNotes
-  @}
-@}
+  >>
 @end example
 
 @noindent
 leading to 
 
 @lilypond[quote,raggedright]
-\score {
-  \notes \relative c \simultaneous {
+  \relative c <<
     \new Staff {
       \time 2/4 R2*3
       r4 f8 a cis4 f e d
@@ -1570,8 +1529,7 @@ leading to
       r4 d,8 f | gis4 c | b bes |
       a8 e f4 | g d | gis f
     }
-  }
-}
+  >>
 @end lilypond
 
 More in-depth information on preparing parts and scores can be found
@@ -1606,26 +1564,14 @@ Documents for lilypond-book may freely mix music and text.  For
 example,
 
 \begin@{lilypond@}
-  \score @{ \notes \relative c' @{
+ @{ \relative c' @{
      c2 g'2 \times 2/3 @{ f8 e d @} c'2 g4
-  @} @}
+  @} 
 \end@{lilypond@}
-
-If there is no \verb+\score+ block in the fragment,
-\texttt@{lilypond-book@} will supply one
-
-\begin[quote]@{lilypond@}
-  c'4
-\end@{lilypond@}
-
-\noindent
-In this example two things happened. A
-\verb+\score+ block was added, and the line width was set to natural
-length.
 
 Options are put in brackets.
 
-\begin[quote,staffsize=26,verbatim]@{lilypond@}
+\begin[fragment,quote,staffsize=26,verbatim]@{lilypond@}
   c'4 f16
 \end@{lilypond@}
 
@@ -1678,22 +1624,10 @@ Documents for lilypond-book may freely mix music and text.  For
 example,
 
 @lilypond
-\score { \notes \relative c' {
+\relative c' {
   c2 g'2 \times 2/3 { f8 e d } c'2 g4
-} }
+}
 @end lilypond
-
-If there is no @code{\score} block in the fragment,
-@code{lilypond-book} will supply one
-
-@lilypond[fragment,quote]
-c'4
-@end lilypond
-
-@noindent
-In this example two things happened. A
-@code{score} block was added, and the line width was set to natural
-length.
 
 Options are put in brackets.
 

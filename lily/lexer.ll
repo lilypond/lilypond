@@ -233,13 +233,6 @@ HYPHEN		--
 	{
 		start_main_input ();
 		main_input_b_ = true;
-/*
-This is broken - we should switch to \notes when the pitchnames are loaded.
-Then we get spanish etc. correct. --hwn.
-
-*/
-		SCM nn = lookup_identifier ("pitchnames");
-		push_note_state (alist_to_hashq (nn));
 	}
 	else
 		error (_ ("\\maininput not allowed outside init files"));

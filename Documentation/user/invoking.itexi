@@ -101,7 +101,7 @@ When LilyPond formatting available through a web server, the
 
 @verbatim
   #(system "rm -rf /")
-  \score {
+  {
     c4^#(ly:export (ly:gulp-file "/etc/passwd"))
   }
 @end verbatim
@@ -259,8 +259,8 @@ where the error was found. For example,
 
 @example
 test.ly:2:19: error: not a duration: 5:
-  \notes @{ c'4 e'5 
-                   g' @}
+  @{ c'4 e'5 
+             g' @}
 @end example
 
 

@@ -113,9 +113,8 @@ exact mathematical spacing, and once with corrections.  Can you
 spot which fragment is which?
 
 @cindex optical spacing
-@lilypond[quote,noindent]
-\score {
-  \notes {
+@lilypond[quote,noindent,fragment]
+{
     \override Staff.NoteSpacing #'stem-spacing-correction = #0.6
     c'4 e''4 e'4 b'4 |
     \stemDown b'4 e''4 a'4 e''4 | \bar "||"
@@ -123,8 +122,6 @@ spot which fragment is which?
     \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
     \stemBoth c'4 e''4 e'4 b'4 |
     \stemDown b'4 e''4 a'4 e''4 |
-  }
-  \paper { raggedright = ##t }
 }
 @end lilypond
 
@@ -252,11 +249,11 @@ lines---a characteristic of typographical style---are preset
 variables.  Changing them gives a different typographical impression.
 
 @lilypond[quote,raggedright]
-fragment = \notes {
+fragment =  {
   \clef bass f8 as8
   c'4-~ c'16 as g f e16 g bes c' des'4
 }
-\score {
+
   <<
     \new Staff \fragment
     \new Staff \with {
@@ -268,7 +265,6 @@ fragment = \notes {
       \override Tie #'extra-offset = #'(0 .  0.3)
    } \fragment
    >>
-}
 @end lilypond
 
 Formatting rules are also preset variables: each object has variables
@@ -296,8 +292,7 @@ their symbol is changed during the music fragment.
 	      ((-2) (make-smaller-markup (make-bold-markup "2")))
 	      (else (make-simple-markup "bla")))))))))
 
-\score {
-  \notes \context Voice \relative  c' {
+ \context Voice \relative  c' {
     \stemUp
     \set autoBeaming = ##f
     \time 2/4
@@ -313,7 +308,6 @@ their symbol is changed during the music fragment.
       \repeat unfold 5 { \applyoutput #mc-squared s8 }
     >>
   }
-}
 @end lilypond
 
 
@@ -482,7 +476,7 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 
 @lilypond[quote,raggedright]
 \include "engraver-example.lyinc"
-\score { \context Staff << \topVoice \\ \botVoice >> }
+\context Staff << \topVoice \\ \botVoice >> 
 @end lilypond
 
 In this situation, the accidentals and staff are shared, but the
@@ -607,13 +601,11 @@ simplest application is printing notes.
 By adding chord names and lyrics we obtain a lead sheet.
 
 @lilypond[quote,raggedright]
-\score {
   <<
     \context ChordNames \chords  { c2 c f2 c }
-    \new Staff \notes \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
+    \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
     \context Lyrics \lyrics  { twin4 kle twin kle lit tle star2 }
   >>
-}
 @end lilypond
 
 Polyphonic notation and piano music can also be printed.  The following

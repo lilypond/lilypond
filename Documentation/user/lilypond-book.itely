@@ -319,7 +319,7 @@ documents are composed from small @file{.ly} files in this way:
   \header @{
     texidoc = "this file demonstrates a single note"
   @}
-  \score @{ \notes @{ c'4 @} @} 
+  @{ c'4 @}
 @end example
 
 @item relative, relative=@var{N}

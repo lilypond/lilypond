@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.8"
 
 chordmodifiers = #default-chord-modifier-list
 
@@ -6,7 +6,7 @@ whiteTriangleMarkup = \markup { \override #'(font-encoding . TeX-math) "M" }
 
 blackTriangleMarkup = \markup { \override #'(font-encoding . TeX-math) "N" }
 
-ignatzekExceptionMusic = \notes{
+ignatzekExceptionMusic = {
 	<c e gis>1-\markup { "+" }
 	<c es ges>-\markup { \super "o" } % should be $\circ$ ?
 	<c es ges bes>-\markup { \super \combine "o" "/" }
@@ -16,7 +16,7 @@ ignatzekExceptionMusic = \notes{
 ignatzekExceptions = #(sequential-music-to-chord-exceptions
 		       ignatzekExceptionMusic #t)
 
-partialJazzMusic = \notes{
+partialJazzMusic = {
     <c d>1-\markup { \normal-size-super "2" }
     <c es>-\markup { "m" }
     <c f>-\markup { \normal-size-super "sus4" }

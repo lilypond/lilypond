@@ -242,7 +242,7 @@ twinkle
 @tab
 @lilypond[fragment,relative=2]
 <<
-  \notes { g'4 g }
+   { g'4 g }
   \lyricsto "" \new Lyrics { twin -- kle }
 >> 
 @end lilypond
