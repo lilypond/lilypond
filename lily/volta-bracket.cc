@@ -50,8 +50,8 @@ Volta_bracket_interface::brew_molecule (SCM smob)
 
   bool no_vertical_start = orig_span && !first_bracket;
   bool no_vertical_end = orig_span && !last_bracket;
-  SCM bars = me->get_grob_property ("bars");
-  Grob * endbar =   unsmob_grob (ly_car (bars));
+  SCM s = me->get_grob_property ("bars");
+  Grob * endbar =   unsmob_grob (ly_car (s));
   SCM glyph = endbar->get_grob_property("glyph");
   
   String str;
