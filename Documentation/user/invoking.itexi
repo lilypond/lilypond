@@ -10,6 +10,7 @@ This chapter details the technicalities of running LilyPond.
 * Invoking the lilypond binary::  
 * Error messages::              
 * Reporting bugs::              
+* Editor support::              
 * Point and click::             
 @end menu
 
@@ -465,6 +466,40 @@ problem. Don't forget to tell which version you use, and on which
 platform you run it.  Send the report to
 @email{bug-lilypond@@gnu.org}.
 
+@node Editor support
+@section Editor support
+
+@cindex editors
+@cindex vim
+@cindex emacs
+@cindex modes, editor 
+@cindex syntax coloring
+@cindex coloring, syntax
+
+There is support from different editors  for LilyPond.
+
+Emacs has a @file{lilypond-mode}, which provides keyword
+autocompletion, indentation, LilyPond specific parenthesis matching
+and syntax coloring, handy compile short-cuts and reading LilyPond
+manuals using Info.  If lilypond-mode is not installed on your
+platform, then refer to the installation instructions for more
+information.
+
+For VIM, a vimrc is supplied, along with syntax coloring tools. For
+more information, refer to the
+@ifhtml
+@uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
+@end ifhtml
+
+@ifnothtml
+installation instructions.
+@end ifnothtml
+
+For both editors, there is also a facility to jump in the input file
+to the source of errors in the graphical output. See @ref{Point and
+click}.
+
+
 @node Point and click
 @section Point and click
 @cindex poind and click
@@ -480,9 +515,9 @@ To use it, you need the following software:
 @item Xdvi, version 22.36 or newer.  Available from
 @uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
 
-   Most @TeX{} distributions ship with xdvik, which is always
-  a few versions behind the official Xdvi. To find out which Xdvi you
-  are running, try @code{xdvi -version} or @code{xdvi.bin -version}.
+   Most @TeX{} distributions ship with xdvik, which is always a few
+versions behind the official Xdvi. To find out which Xdvi you are
+running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or
 newer.  Enable option @emph{Inverse search} in the menu @emph{Settings}.
 
@@ -508,12 +543,6 @@ column location.
 
 @c move this elsewhere?
 
-There is also support for Emacs: lilypond-mode for Emacs provides
-keyword autocompletion, indentation, LilyPond specific parenthesis
-matching and syntax coloring, handy compile short-cuts and reading
-LilyPond manuals using Info.  If lilypond-mode is not installed on
-your platform, then refer to the installation instructions for more
-information.
 
 @cindex Emacs
 @cindex Emacs mode

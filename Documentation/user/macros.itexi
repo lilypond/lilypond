@@ -93,7 +93,7 @@ $\\flat$%
 @cindex \NAME\@c
 @end macro
 
-@macro inputfileref{DIR,NAME}i
+@macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
 

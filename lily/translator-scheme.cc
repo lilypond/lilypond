@@ -139,13 +139,13 @@ LY_DEFINE(ly_context_properties,
 
 LY_DEFINE(ly_translator_name,
 	  "ly:translator-name", 1,0,0,  (SCM trans),
-	  "Return the type name of the translator @var{trans}.")
+	  "Return the type name of the translator @var{trans}. The name is a symbol.")
 {
   Translator* tr =  unsmob_translator (trans);
   SCM_ASSERT_TYPE(tr, trans, SCM_ARG1, __FUNCTION__, "Context");
 
   char const* nm = classname (tr);
-  return scm_makfrom0str (nm);
+  return ly_symbol2scm (nm);
 }
 
 LY_DEFINE(ly_translator_description,
@@ -198,7 +198,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   scm_puts ("#<Translator ", port);
   if (Translator_def *d=unsmob_translator_def (sc->definition_))
     {
-      scm_display (d->type_name_, port);
+      scm_display (d->get_context_name (), port);
     }
   else
     scm_display (ly_translator_name (s), port);

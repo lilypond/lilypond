@@ -57,9 +57,10 @@
      "\n\nAccepted by: "
      (human-listify
       (map ref-ify
-      (map ly:translator-name
-	   (filter
-	    (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list))))
+	   (map symbol->string
+		(map ly:translator-name
+		     (filter
+		      (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list)))))
      "\n\n"
      )))
 
@@ -88,9 +89,9 @@
      "\n\nAccepted by: "
      (human-listify
       (map ref-ify
-      (map ly:translator-name
-	   (filter
-	    (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list))))
+	   (map symbol->string (map ly:translator-name
+		(filter
+		 (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list)))))
      "\n\nProperties: \n"
      (description-list->texi
       (map

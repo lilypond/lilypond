@@ -1644,6 +1644,15 @@ def conv (str):
 
 conversions.append (((2,1,4), conv, """removal of automaticMelismata; use melismaBusyProperties instead."""))
 
+
+
+def conv (str):
+	str =re.sub (r"\\translator\s+([a-zA-Z]+)", r"\\change \1", str)
+	return str
+
+conversions.append (((2,1,7), conv, """\\translator Staff -> \\change Staff"""))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

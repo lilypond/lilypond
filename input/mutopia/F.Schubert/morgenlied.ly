@@ -74,18 +74,19 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
 firstVerse = \lyrics {
     \property LyricsVoice . stanza = "1."
     
-    Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \manuscriptBreak
-    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit \manuscriptBreak
-    ge -- heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak
+    Sü -- ßes Licht! Aus gol -- de -- nen  Pfor -- ten brichst du __ \manuscriptBreak | 
+    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ Mit ge -- |
+    \manuscriptBreak
+    heim -- nis -- vol -- len Wor -- ten, in me -- lo -- di -- schen Ak -- kor -- den, grüß __ ich __ \manuscriptBreak |
     dei -- ne Ro -- sen -- pracht, grüß ich __ dei -- ne Ro -- sen -- pracht. 
     }
 
 secondVerse = \lyrics {
     \property LyricsVoice . stanza = "2."
 
-    Ach, der Lie -- be sanf "" -- tes We -- hen schwellt mir
-    das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich
-    nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht
+    Ach, der Lie -- be sanf "" -- tes We -- hen schwellt mir |
+    das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 
+    nur auf gold -- nen Hö -- hen mich im Mor -- gen -- duft er -- ge -- hen! Sehn -- sucht |
     zieht mich him -- mel -- wärts, Sehn -- sucht zieht mich him -- mel -- wärts.
     }
 

@@ -73,9 +73,9 @@ Music_output_def::assign_translator (SCM transdef)
   Translator_def *tp = unsmob_translator_def (transdef);
   assert (tp);
 
-  translator_tab_->set (tp->type_name_, transdef);
+  translator_tab_->set (tp->get_context_name (), transdef);
   
-  String nm = ly_symbol2string (tp->type_name_) + "Context";
+  String nm = ly_symbol2string (tp->get_context_name ()) + "Context";
 
 
   scm_module_define (scope_, ly_symbol2scm (nm.to_str0()), transdef);

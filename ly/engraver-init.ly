@@ -443,7 +443,7 @@ AncientRemoveEmptyStaffContext = \translator {
 	changeMoment = #`(,(ly:make-moment 0 0) . ,(ly:make-moment 1 512))
 	systemStartDelimiter =#'SystemStartBar
 
-	melismaBusyProperties = #'(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy)
+	melismaBusyProperties = #default-melisma-properties
 	
 	clefGlyph = #"clefs-G"
 	clefPosition = #-2

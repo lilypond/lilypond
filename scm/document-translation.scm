@@ -29,8 +29,8 @@
 	 (propsr (cdr (assoc 'properties-read (ly:translator-description engraver))))
 	 (propsw (cdr (assoc 'properties-written (ly:translator-description engraver))))
 	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver)))) 
-	 (name (ly:translator-name engraver))
-	 (name-sym (string->symbol name))
+	 (name-sym  (ly:translator-name engraver))
+	 (name (symbol->string name-sym))
 	 (desc (cdr (assoc 'description (ly:translator-description engraver))))
 	 (grobs (engraver-grobs engraver))
 	 )
@@ -79,11 +79,11 @@
 		(contexts
 		 (apply append
 			(map (lambda (x)
-			       (let ((context (cdr (assoc 'type-name x)))
+			       (let ((context (cdr (assoc 'context-name x)))
 				     (consists (append
 						(list (cdr (assoc 'group-type x)))
 						(cdr (assoc 'consists x))
-						(cdr (assoc 'end-consists x)))))
+						)))
 
 				 (if (member name consists)
 				     (list context)
@@ -101,7 +101,7 @@
 ;; First level Engraver description
 (define (engraver-doc grav)
   (make <texi-node>
-    #:name (ly:translator-name grav)
+    #:name (symbol->string (ly:translator-name grav))
     #:text (engraver-doc-string grav #t)
     ))
 
@@ -114,17 +114,18 @@
  (ly:get-all-translators))
 
 (define (find-engraver-by-name name)
+  "NAME is a symbol." 
   (hash-ref name->engraver-table name #f))
 
 (define (document-engraver-by-name name)
+  "NAME is a symbol."
   (let*
       (
        (eg (find-engraver-by-name name ))
        )
 
-    (cons name 
+    (cons (symbol->string name )
 	  (engraver-doc-string eg #f)
-	
      )
     ))
 
@@ -171,7 +172,7 @@
 (define (context-doc context-desc)
   (let*
       (
-       (name-sym (cdr (assoc 'type-name context-desc)))
+       (name-sym (cdr (assoc 'context-name context-desc)))
        (name (symbol->string name-sym))
        (aliases (map symbol->string (cdr (assoc 'aliases context-desc))))
        (desc-handle (assoc 'description context-desc))
@@ -182,7 +183,6 @@
        (consists (append
 		  (list (cdr (assoc 'group-type context-desc)))
 		  (cdr (assoc 'consists context-desc))
-		  (cdr (assoc 'end-consists  context-desc))
 		  ))
        (props (cdr (assoc 'property-ops context-desc)))
        (grobs  (context-grobs context-desc))
@@ -213,7 +213,7 @@
 	   (string-append
 	    "\n\nContext "
 	    name " can contain \n"
-	    (human-listify (map ref-ify  (map symbol->string accepts)))))
+	    (human-listify (map ref-ify (map symbol->string accepts)))))
        
        "\n\nThis context is built from the following engravers: "
        (description-list->texi
@@ -221,30 +221,23 @@
        ))))
 
 (define (engraver-grobs  grav)
-  (let* (
-	 (eg (if (string? grav)
+  (let* ((eg (if (symbol? grav)
 		 (find-engraver-by-name grav)
-		 grav))
-	     
-	     )
+		 grav)))
 
     (if (eq? eg #f)
 	'()
-	(map symbol->string (cdr (assoc 'grobs-created (ly:translator-description eg))))
- 	)
+	(map symbol->string (cdr (assoc 'grobs-created (ly:translator-description eg)))))
   ))
 
 (define (context-grobs context-desc)
-  (let* (
-	 (consists (append
+  (let* ((consists (append
 		    (list (cdr (assoc 'group-type context-desc)))
 		    (cdr (assoc 'consists context-desc))
-		    (cdr (assoc 'end-consists  context-desc))
 		    ))
 	 (grobs  (apply append
 		  (map engraver-grobs consists))
-	 )
-	 )
+	 ))
     grobs
     ))
 
@@ -272,8 +265,8 @@
 (define all-engravers-list  (ly:get-all-translators))
 (set! all-engravers-list
       (sort all-engravers-list
-	    (lambda (a b) (string<? (ly:translator-name a)
-				    (ly:translator-name b)))))
+	    (lambda (a b) (string<? (symbol->string (ly:translator-name a))
+				    (symbol->string (ly:translator-name b))))))
 
 (define (all-engravers-doc)
   (make <texi-node>

@@ -128,6 +128,6 @@ classname::static_translator_description () const \
 
 void add_translator (Translator*trans);
 
-Translator*get_translator (String s);
+Translator*get_translator (SCM s);
 DECLARE_UNSMOB(Translator,translator);
 #endif // TRANSLATOR_HH

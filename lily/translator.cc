@@ -50,13 +50,7 @@ Translator::Translator (Translator const &s)
 bool
 Translator::is_alias (SCM sym) const
 {
-  Translator_def * td = unsmob_translator_def (definition_);
-  bool b  = (sym == td->type_name_);
-
-  for (SCM a = td->type_aliases_; !b && gh_pair_p (a); a = ly_cdr (a))
-    b = b || sym == ly_car (a);
-
-  return b;
+  return unsmob_translator_def (definition_)->is_alias (sym);
 }
 
 bool

@@ -1,4 +1,37 @@
+2004-01-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/translator-def.cc (get_translator_names): new function
+	(add_context_mod): new function
+	(get_accepted): new function
+
+	* lily/parser.yy (context_mod): put all modifications of
+	\translator { } in a single production, encode as SCM.
+
+	* lily/translator-def.cc (add_context_mod): rewrite Translator_def
+	to use read-only lists, so additions to the definition can be
+	prepended easily.  
+
+	* Documentation/user/invoking.itexi (Editor support): add node on
+	editor support.
+
+	* Documentation/user/refman.itely (Bar check): add lyrics example
+	of bar checks. 
+
+	* input/mutopia/F.Schubert/morgenlied.ly: add bar checks.
+
+	* scripts/convert-ly.py (conv): add conversion rule.
+
+	* lily/parser.yy: use \change iso. \translator for staff switch.
+
+	* lily/my-lily-lexer.cc: add \change.
+
+	* scm/define-translator-properties.scm
+	(default-melisma-properties): add definition.
+
 2004-01-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/refman.itely (Bar lines): clarification of
+	systemStartDelimiter. 
 
 	* input/test/slur-shape.ly (x): remove file.
 
@@ -304,7 +337,7 @@
 	use -n for head/tail commands. 
 
 	* lily/tie-engraver.cc (acknowledge_grob): make ties only for note
-	heads with the same pitch. (backportme)
+	heads with the same pitch.
 
 2003-12-20  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
