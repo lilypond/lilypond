@@ -1,5 +1,5 @@
 /*
-  engraver.cc -- implement Request_engraver
+  engraver.cc -- implement Engraver
 
   Sourcefile of GNU LilyPond musictypesetter
 
@@ -13,7 +13,7 @@
 #include "debug.hh"
 
 void
-Request_engraver::post_move_processing()
+Engraver::post_move_processing()
 {
         
     if (status < CREATION_INITED) {
@@ -28,7 +28,7 @@ Request_engraver::post_move_processing()
 }
 
 bool
-Request_engraver::try_request(Request * r)
+Engraver::try_request(Request * r)
 {
     if (status < MOVE_INITED)
 	post_move_processing();
@@ -37,7 +37,7 @@ Request_engraver::try_request(Request * r)
 }
 
 void
-Request_engraver::process_requests()
+Engraver::process_requests()
 {
     if (status < PROCESSED_REQS)
 	post_move_processing();
@@ -49,75 +49,75 @@ Request_engraver::process_requests()
 }
 
 void
-Request_engraver::pre_move_processing()
+Engraver::pre_move_processing()
 {
     do_pre_move_processing();
     status = CREATION_INITED;
 }
 
 void
-Request_engraver::fill_staff_info(Staff_info&)
+Engraver::fill_staff_info(Staff_info&)
 {
     
 }
 
 Scalar
-Request_engraver::get_feature(String t)
+Engraver::get_feature(String t)
 {
     return daddy_grav_l_->get_feature(t);
 }
 
 bool
-Request_engraver::do_try_request(Request*)
+Engraver::do_try_request(Request*)
 {
     return false;
 }
 
-Request_engraver::Request_engraver()
+Engraver::Engraver()
 {
     status = VIRGIN;
     daddy_grav_l_ = 0;
 }
 
 void
-Request_engraver::announce_element(Score_elem_info i)
+Engraver::announce_element(Score_elem_info i)
 {
     i.origin_grav_l_arr_.push(this);
     daddy_grav_l_->announce_element(i);
 }
 
 void
-Request_engraver::typeset_element(Score_elem*p)
+Engraver::typeset_element(Score_elem*p)
 {
     daddy_grav_l_->typeset_element(p);
 }
 
 Paper_def*
-Request_engraver::paper()const
+Engraver::paper()const
 {
     return daddy_grav_l_->paper();
 }
 
 void
-Request_engraver::typeset_breakable_item(Item * nobreak_p)
+Engraver::typeset_breakable_item(Item * nobreak_p)
 {
     daddy_grav_l_->typeset_breakable_item(nobreak_p);
 }
 
 bool
-Request_engraver::contains_b(Request_engraver *grav_l)const
+Engraver::contains_b(Engraver *grav_l)const
 {
     return this == grav_l;
 }
 
 Staff_info
-Request_engraver::get_staff_info() const
+Engraver::get_staff_info() const
 {
     return daddy_grav_l_->get_staff_info();
 }
 
 void
-Request_engraver::print() const
+Engraver::print() const
 {
 #ifndef NPRINT
     mtor << "\n" << name() << " {";
@@ -126,11 +126,11 @@ Request_engraver::print() const
 #endif
 }
 
-IMPLEMENT_STATIC_NAME(Request_engraver);
-IMPLEMENT_IS_TYPE_B(Request_engraver);
+IMPLEMENT_STATIC_NAME(Engraver);
+IMPLEMENT_IS_TYPE_B(Engraver);
 
 void
-Request_engraver::do_print()const
+Engraver::do_print()const
 {
 }
 

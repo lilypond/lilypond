@@ -120,5 +120,5 @@ Tie_engraver::set_feature(Feature f)
 }
 
 IMPLEMENT_STATIC_NAME(Tie_engraver);
-IMPLEMENT_IS_TYPE_B1(Tie_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Tie_engraver,Engraver);
 ADD_THIS_ENGRAVER(Tie_engraver);

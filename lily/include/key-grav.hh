@@ -13,7 +13,7 @@
 #include "engraver.hh"
 #include "key.hh"
 
-struct Key_engraver : Request_engraver {
+struct Key_engraver : Engraver {
     Key key_;
     Key_change_req * keyreq_l_;
     Key_item * kit_p_;

@@ -14,7 +14,7 @@
   override default_grouping if setting a n-plet
   
  */
-class Stem_beam_engraver : public Request_engraver {
+class Stem_beam_engraver : public Engraver {
     Stem * stem_p_;
     Beam * beam_p_;
     Beam_req * beam_req_l_;

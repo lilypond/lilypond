@@ -65,5 +65,5 @@ Note_head_engraver::do_post_move_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Note_head_engraver);
-IMPLEMENT_IS_TYPE_B1(Note_head_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Note_head_engraver,Engraver);
 ADD_THIS_ENGRAVER(Note_head_engraver);

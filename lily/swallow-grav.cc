@@ -8,7 +8,7 @@
 #include "swallow-grav.hh"
 
 IMPLEMENT_STATIC_NAME(Swallow_engraver);
-IMPLEMENT_IS_TYPE_B1(Swallow_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Swallow_engraver,Engraver);
 ADD_THIS_ENGRAVER(Swallow_engraver);
 
 

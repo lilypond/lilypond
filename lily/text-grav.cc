@@ -71,5 +71,5 @@ Text_engraver::do_post_move_processing()
     text_req_l_ = 0;
 }
 IMPLEMENT_STATIC_NAME(Text_engraver);
-IMPLEMENT_IS_TYPE_B1(Text_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Text_engraver,Engraver);
 ADD_THIS_ENGRAVER(Text_engraver);

@@ -2,4 +2,4 @@
 #include "plist.tcc"
 #include "engraver.hh"
 
-IPL_instantiate(Request_engraver);
+IPL_instantiate(Engraver);

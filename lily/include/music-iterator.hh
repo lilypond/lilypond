@@ -28,7 +28,8 @@ public:
     Music_iterator* get_iterator_p(Music*)const;
     void set_translator(Translator*);
     Music_iterator();
-    virtual void next(Moment until);
+    
+    virtual void process_and_next(Moment until);
     virtual Moment next_moment()const;
     virtual bool ok()const;
     virtual ~Music_iterator();
@@ -49,14 +50,14 @@ protected:
     virtual Moment next_moment() const;
     
     virtual void do_print()const;
-    virtual void next(Moment);
+    virtual void process_and_next(Moment);
 };
 
 class Change_iterator : public Music_iterator {
     Change_reg * change_l_;
 public:
      NAME_MEMBERS();
-    virtual void next(Moment);
+    virtual void process_and_next(Moment);
     Change_iterator(Change_reg*);
 };
 
@@ -70,7 +71,7 @@ public:
 protected:
     virtual void do_print()const;
     virtual void construct_children();
-    virtual void next(Moment);
+    virtual void process_and_next(Moment);
     virtual Moment next_moment()const;
     virtual bool ok()const;
 };
@@ -98,7 +99,7 @@ protected:
     virtual void do_print()const;
     virtual void construct_children();
     ~Voice_iterator();    
-    virtual void next(Moment);
+    virtual void process_and_next(Moment);
     virtual Moment next_moment()const;
     virtual bool ok()const;
 };

@@ -121,5 +121,5 @@ Note_column_engraver::Note_column_engraver()
     do_post_move_processing();
 }
 IMPLEMENT_STATIC_NAME(Note_column_engraver);
-IMPLEMENT_IS_TYPE_B1(Note_column_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Note_column_engraver,Engraver);
 ADD_THIS_ENGRAVER(Note_column_engraver);

@@ -123,4 +123,4 @@ Meter_engraver::do_post_move_processing()
 
 IMPLEMENT_STATIC_NAME(Meter_engraver);
 ADD_THIS_ENGRAVER(Meter_engraver);
-IMPLEMENT_IS_TYPE_B1(Meter_engraver,Request_engraver); 
+IMPLEMENT_IS_TYPE_B1(Meter_engraver,Engraver); 

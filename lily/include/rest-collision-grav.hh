@@ -13,7 +13,7 @@
 #include "varray.hh"
 #include "engraver.hh"
 
-class Rest_collision_engraver : public Request_engraver {
+class Rest_collision_engraver : public Engraver {
     Rest_collision* rest_collision_p_;
     Array< Collision *> collision_l_arr_;
 protected:

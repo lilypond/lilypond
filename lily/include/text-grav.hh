@@ -9,7 +9,7 @@
 #define TEXTGRAV_HH
 #include "engraver.hh"
 
-class Text_engraver : public Request_engraver{
+class Text_engraver : public Engraver{
     Text_item * text_p_;
     Text_req * text_req_l_;
     int dir_i_;

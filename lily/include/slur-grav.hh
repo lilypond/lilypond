@@ -10,7 +10,7 @@
 
 #include "engraver.hh"
 
-class Slur_engraver :public Request_engraver {
+class Slur_engraver :public Engraver {
     Array<Slur_req*> requests_arr_;
     Array<Slur_req*> new_slur_req_l_arr_;
     Array<Slur *> slur_l_stack_;

@@ -7,8 +7,7 @@
 
   TODO
 
-  Less hairy code. Better slope calculations.
-  knee: ([\stem 1; c8 \stem -1; c8]
+  Less hairy code.  knee: ([\stem 1; c8 \stem -1; c8]
   
 */
 

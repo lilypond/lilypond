@@ -12,7 +12,7 @@
 
 #include "engraver.hh"
 
-class Note_column_engraver :public Request_engraver {
+class Note_column_engraver :public Engraver {
     Rest_column * rest_col_l();
     Note_column * note_col_l();
     

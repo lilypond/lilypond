@@ -16,7 +16,7 @@
   This engraver swallows everything given to it silently. The purpose of
   this is to prevent spurious "request junked" warnings.
  */
-class Swallow_engraver : public Request_engraver {
+class Swallow_engraver : public Engraver {
 protected:
     bool acceptable_request_b(Request*) const;
     bool do_try_request(Request*) ;
