@@ -293,7 +293,7 @@ FI: alttoavain.
 C clef setting middle C on the middle line of the staff
 @aref{C clef}.
 
-@aitem{ambitus}
+@aitem{ambit}
 ES: ambitus,
 I: ambitus,
 F: ambitus,
@@ -303,9 +303,9 @@ DK: ambitus,
 S: ambitus,
 FI: ambitus, @"a@"aniala, soitinala.
 
-The term ambitus (plural: ambituses) denotes a range of pitches for a
-given voice in a part of music. It also may denote the pitch range
-that a musical instrument is capable of playing.
+The term ambit (from latin: ambitus, plural: ambitus) denotes a range
+of pitches for a given voice in a part of music. It also may denote
+the pitch range that a musical instrument is capable of playing.
 
 @aitem{ancient minor scale}
 I: scala minore naturale,

@@ -21,10 +21,10 @@
 SCM
 Grob::get_property_alist_chain (SCM def) const
 {
-  return  scm_list_n (mutable_property_alist_,
-		      immutable_property_alist_,
-		      def,
-		      SCM_UNDEFINED);
+  return scm_list_n (mutable_property_alist_,
+		     immutable_property_alist_,
+		     def,
+		     SCM_UNDEFINED);
 }
 
 

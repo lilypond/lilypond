@@ -264,25 +264,6 @@ HYPHEN		--
 <chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
-<INITIAL,chords,lyrics,notes,figures>\\\${BLACK}*{WHITE}	{
-	String s=YYText () + 2;
-	s=s.left_string (s.length () - 1);
-	return scan_escaped_word (s); 
-}
-<INITIAL,chords,lyrics,notes,figures>\${BLACK}*{WHITE}		{
-	String s=YYText () + 1;
-	s=s.left_string (s.length () - 1);
-	return scan_bare_word (s);
-}
-<INITIAL,chords,lyrics,notes,figures>\\\${BLACK}*		{ // backup rule
-	error (_("white expected"));
-	exit (1);
-}
-<INITIAL,chords,lyrics,notes,figures>\${BLACK}*		{ // backup rule
-	error (_("white expected"));
-	exit (1);
-}
-
 <INITIAL,markup,chords,lyrics,notes,figures>#	{ //embedded scm
 	//char const* s = YYText () + 1;
 	char const* s = here_str0 ();

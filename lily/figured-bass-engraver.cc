@@ -78,14 +78,15 @@ Figured_bass_engraver::process_music ()
       if (gh_procedure_p (proc)) 
 	{
 	  SCM l = SCM_EOL;
-
-	  for (int i = 0; i <figures_.size (); i++)
-	    l = gh_cons (figures_[i]->self_scm (), l);
-
-	  SCM markup = scm_call_2 (proc, l, daddy_context_->self_scm ());
-
+	  SCM * t = &l;
+	  for (int i = 0; i < figures_.size (); i++)
+	    {
+	      *t = scm_cons (figures_[i]->self_scm (), SCM_EOL);
+	      t = SCM_CDRLOC (*t);
+	    }
 	  figure_ = make_item ("BassFigure");
-	  figure_->set_property ("text", markup);
+	  scm_call_3 (proc, l, daddy_context_->self_scm (),
+		      figure_->self_scm ());
 	  announce_grob (figure_, figures_[0]->self_scm ()); // todo
 	}
     }

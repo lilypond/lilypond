@@ -701,9 +701,6 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 }
 
 
-/*
-  TODO: use rounded boxes.
- */
 LY_DEFINE (ly_bracket ,"ly:bracket",
 	  4, 0, 0,
 	  (SCM a, SCM iv, SCM t, SCM p),
@@ -720,7 +717,7 @@ LY_DEFINE (ly_bracket ,"ly:bracket",
   return Lookup::bracket ((Axis)gh_scm2int (a), ly_scm2interval (iv),
 			  gh_scm2double (t),
 			  gh_scm2double (p),
-			  gh_scm2double (t)).smobbed_copy ();
+			  0.95 * gh_scm2double (t)).smobbed_copy ();
 }
 
 

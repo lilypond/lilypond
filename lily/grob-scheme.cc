@@ -68,6 +68,21 @@ LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
   return sc->get_paper ()->self_scm ();
 }
 
+
+LY_DEFINE(ly_grob_alist_chain, "ly:grob-alist-chain",
+	  1, 0, 0,
+	  (SCM g),
+	  "Get an alist chain for grob @var{g}."
+	  )
+{
+  Grob * sc = unsmob_grob (g);
+  SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
+
+  SCM defaults = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+  return sc->get_property_alist_chain (defaults);
+}
+
+
 LY_DEFINE (ly_get_extent, "ly:grob-extent", 3, 0, 0,
 	   (SCM grob, SCM refp, SCM axis),
 	   "Get the extent in @var{axis} direction of @var{grob} relative to "

@@ -527,7 +527,7 @@ AncientRemoveEmptyStaffContext = \context {
     tablatureFormat = #fret-number-tablature-format
 
     %%
-    bassFigureFormatFunction = #make-bass-figure-markup
+    bassFigureFormatFunction = #format-bass-figure
     metronomeMarkFormatter = #format-metronome-markup
     graceSettings = #`#(
 	(Voice Stem direction 1)

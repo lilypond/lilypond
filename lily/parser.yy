@@ -125,9 +125,13 @@ is_regular_identifier (SCM id)
   char const *s = str.to_str0 () ;
 
   bool v = true;
+/*
+  isalpha (*s);
+  s++;
+*/
   while (*s && v)
    {
-        v = v && isalpha (*s);
+        v = v && isalnum (*s);
         s++;
    }
   return v;
@@ -1936,7 +1940,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter =m->get_property ("alteration");
-			int alter = gh_number_p ( salter) ? gh_scm2int (salter) : 0;
+			int alter = gh_number_p (salter) ? gh_scm2int (salter) : 0;
 			m->set_property ("alteration",
 				gh_int2scm (alter + $2));
 		} else {

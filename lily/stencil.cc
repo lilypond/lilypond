@@ -27,6 +27,12 @@ Stencil::smobbed_copy () const
   return s->smobbed_self ();
 }
 
+Offset
+Stencil::origin () const
+{
+  return origin_;
+}
+
 Interval
 Stencil::extent (Axis a) const
 {
@@ -65,6 +71,7 @@ Stencil::translate (Offset o)
 		   expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
+  origin_ += o;
 }
   
 void
@@ -73,7 +80,7 @@ Stencil::translate_axis (Real x, Axis a)
   Offset o (0,0);
   o[a] = x;
   translate (o);
-}  
+}
 
 void
 Stencil::add_stencil (Stencil const &s)
@@ -108,29 +115,44 @@ Stencil::align_to (Axis a, Real x)
   translate_axis (-i.linear_combination (x), a);
 }
 
-/*  See scheme Function.  */
-void
-Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
-		       Real minimum)
+/*
+  TODO: unintuitive naming, you would expect *this to be moved.  Kept
+  API for compat with add_at_edge ().
+*/
+Stencil
+Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s, Real padding,
+			Real minimum) const
 {
   Real my_extent= is_empty () ? 0.0 : dim_[a][d];
   Interval i (s.extent (a));
   Real his_extent;
   if (i.is_empty ())
     {
-      programming_error ("Stencil::add_at_edge: adding empty stencil.");
+      programming_error ("Stencil::move_to_edge: adding empty stencil.");
       his_extent = 0.0;
     }
   else
     his_extent = i[-d];
 
   Real offset = (my_extent -  his_extent) + d * padding;
-  if (minimum > 0 && fabs (offset) <  minimum)
-    offset = sign (offset) * minimum; 
-  
+
   Stencil toadd (s);
-  toadd.translate_axis (offset, a);
-  add_stencil (toadd);
+  toadd.translate_axis (offset,a);
+
+  if (minimum > 0
+      && d *(- origin ()[a] + toadd.origin ()[a]) < minimum)
+    toadd.translate_axis ( -toadd.origin ()[a]
+			   + origin ()[a] + d* minimum, a);
+    
+  return toadd;
+}
+
+/*  See scheme Function.  */
+void
+Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
+		       Real minimum)
+{
+  add_stencil (moved_to_edge (a,d,s,padding, minimum));
 }
 
 /* Hmm... maybe this is not such a good idea ; stuff can be empty,

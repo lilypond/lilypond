@@ -1064,7 +1064,15 @@ indicating how much of the measure has passed at this point.
 Bar lines and bar numbers are calculated automatically. For unmetered
 music (e.g. cadenzas), this is not desirable.  By setting
 @code{Score.timing} to false, this automatic timing can be switched
-off.
+off. Empty bar lines,
+
+@example
+  \bar ""
+@end example
+
+@noindent
+indicate where line breaks can occur.
+
 
 
 @refcommands
