@@ -7,23 +7,31 @@ Well, there are still some scripts in this "urtext".
 But merging music and scripts doen't work too well yet (see alto_scripts).
 %}
 
-\version "0.1.14";
 n = { \slurnormal }
 d = { \slurdotted }
 
-prelude = \melodic{
-	[d,8 f] a4 ~ [a16 f( e )d] |
-	[cis( e g )a] bes4 ~ [bes16 a( g )f] |
+%
+% this must be redone a bit:
+% 
+%  * two voices: see allemande/sarabande
+%  * beams in different beam-thread: see first few bars
+%  * slurs/ties in two different threads: urtext, and additionals
+%  
+
+%prelude_notes = \melodic{
+prelude_notes = \type Thread = prelude \melodic{
+	d,8 f a4 ~ a16 f( e )d |
+	cis( e g )a bes4 ~ bes16 a( g )f |
+
 	[e( g a )cis] \d [e8.() bes,16] \n [a16( g f )e] |
 	[f( g a )f] [d8( c! bes )a] |
 	%5
 	[bes16 d( f )a] \d [d8.()c16] [bes( a g )f] |
 	[e( g bes )d] [c( a bes )g] [f( e )g bes,] |
 	\n [a c( e )g] \d [c8.()bes16] \n [a( g f )e] |
-	\d [d( f a )c] [bes( g a )f] \n [e( f )a f] |
+	\d [d( f a )c] [bes( g a )f] \n [e( f a )f] |
 	%9
 	\d [g, bes( d )f] [bes8.() a16] \n [g( f e )g] |
-	% check slur! [a, c( e )g] [c a( e )g] [f( a )'d )es] |
 	[a, c( e )g] [c a( e )g] [f( a )d, es] |
 	[d a( bes )d] [g bes( a )c] \d [bes( g )d' f,] |
 	%12
@@ -75,29 +83,35 @@ prelude = \melodic{
 	[e cis( b )cis]\n[a( b )cis d][e d e cis] |
 	%47
 	[d \n b( a )b][f,(gis )b cis][d cis d b] |
-	<g,,4^\fermata e' cis'> r r |
-	[bes16 g( fis)g][es g d g]\d[es( g)bes d,] |
+	<{\voiceone <d,4^\fermata cis'>}{\voicetwo g,,}>\onevoice r r |
+	[bes''16 g( fis)g][es g d g]\d[es( g)bes d,] |
 	[cis--( \n e!( g ))a]\d[bes8.()a16]\n[g( fis )g e'] |
 	%51
 	[f,! d' bes g]\d[a()f e()g][f()d cis()e] |
 	[d bes( a )g][fis--( \n a( c! ))es]\d[d( c bes )a] |
 	[bes g( fis )g][es g d g]\n[es( g )bes d,] |
 	%54
-	<\stemdown cis4 bes' {\voiceone [g'8.( )f16] }> 
-	\n[e!( d cis b][a g f )e] \stemboth |
+	<\voicetwo cis4 bes' {\voiceone [g'8.( )f16] }> 
+	\n[e!( d cis b][a g f )e] \onevoice |
 	\d[d--( \n a'( d ))e][f( e d c!][bes! a g )f] |
 	\d[e--( \n a( cis ))e][g( f e d][cis b a )g] |
 	[f a( d )f][a d,( f )a][d bes! c! a] |
 	[g,, \d d'( g )a][bes \n g( fis)g][es' g, d' g,] |
-	<a,2. g' cis'>|
-	<a,, f' d'> |
-	<a,, e' d'> |
-	<a,, e' cis'> |
-	<d,, a' f' d' > |
+	<{\voiceone <g2. cis'> | <f,2. d'> | <e, d'> | <e, cis'> | <f, d' > | }
+	{\voicetwo a,,2.  a a a <d, a'>}>
+	\octave c';
 }
 
+prelude_beam1 = \melodic { [s8 s]s4[s16 s s s] }
+prelude_beam2 = \melodic { [s16 s s s]s4[s16 s s s] }
 
+prelude_beams = \type Thread = prelude \melodic{
+	\$prelude_beam1
+	\$prelude_beam2
+}
 
-
-
+prelude = \type Voice \melodic<
+	\$prelude_notes
+	\$prelude_beams
+>
 
