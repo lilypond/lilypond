@@ -2,7 +2,7 @@
 
 Begin3
 Title: LilyPond
-Version: 0.0.72pre
+Version: 0.0.73pre
 Entered-date: 07/03/97
 Description: LilyPond is a program which converts a music-script (mudela) into
 TeX output, or MIDI to produce multi-staff scores. Features include multiple
@@ -13,7 +13,7 @@ Author: hanwen@stack.nl (Han-Wen Nienhuys)
 	jan@digicash.com (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: pcnov095.win.tue.nl /pub/lilypond/  
-	300k lilypond-0.0.72pre.tar.gz
+	300k lilypond-0.0.73pre.tar.gz
 Alternate-site: 
 Original-site: 
 Platform: unix/win32, GNU C++

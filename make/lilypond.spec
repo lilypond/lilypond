@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.0.72pre
+Version: 0.0.73pre
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.0.72pre.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.0.73pre.tar.gz
 Summary: A preprocessor to make TeX typeset music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
