@@ -549,7 +549,7 @@ shown on screen. See @ref{Point and click} for more information.
 * Relative octaves::            
 * Bar check::                   
 * Skipping corrected music::    
-* Automatic note splitting ::   
+* Automatic note splitting::    
 @end menu
 
 
@@ -1636,7 +1636,7 @@ for the problematic notes.
 @section Expressive marks
 
 @menu
-* Slurs ::                      
+* Slurs::                      
 * Phrasing slurs::              
 * Breath marks::                
 * Metronome marks::             
@@ -4053,7 +4053,7 @@ two whole notes), regardless of the time signature.
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax (see @ref{Text markup}) .  In this case, the number is
+@var{note}-@code{markup} syntax (see @ref{Text markup}).  In this case, the number is
 replaced. If you need both texts and the number, you must add the
 number by hand. A variable (@code{\fermataMarkup}) is provided for
 adding fermatas.
@@ -4189,7 +4189,7 @@ measure.
   >
 @end lilypond
 
-The part combiner is slated to be rewritten [TODO: explain why] .
+The part combiner is slated to be rewritten [TODO: explain why].
 
 @cindex @code{Thread_devnull_engraver}
 @cindex @code{Voice_engraver}
@@ -6655,7 +6655,7 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Tuning objects ::             
+* Tuning objects::             
 * Constructing a tweak::        
 * Applyoutput::                 
 * Outputproperty::              

@@ -25,12 +25,12 @@ which translates into fewer bugs and more adjustment options.
 
 Special thanks for version 1.8 go out to Juergen Reuter for lots of
 work on the ancient notation engine, and to Amy Zapf for pushing us to
-rewrite the chord name support
+rewrite the chord name support.
 
 @c TODO [wie meer?]  
 
 Han-Wen and Jan, 
-Utrecht/Eindhoven, April/May 2003  
+Utrecht/Eindhoven, April/May 2003.
 
 @node Preface to version 1.6
 @unnumberedsec Preface to version 1.6

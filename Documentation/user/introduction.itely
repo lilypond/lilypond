@@ -448,7 +448,7 @@ programs.
 Once you are experienced, you can simply use the manual as reference:
 there is an extensive index@footnote{If you are looking for something,
 and you cannot find it by using the index, that is considered a bug.
-In that case, please file a bug report}, but the document is also
+In that case, please file a bug report.}, but the document is also
 available in
 @ifnothtml
 a big HTML page,
