@@ -5424,6 +5424,24 @@ mus = { \key d \major cis d fis g }
 }
 @end lilypond
 
+@code{\transpose} may also be used to input written notes for a
+transposing instrument.  Pitches are normally entered into LilyPond
+in C (or ``concert pitch''), but they may be entered in another
+key.  For example, when entering music for a B-flat trumpet which
+begins on concert D, one would write
+
+@example
+\transpose c bes { e4 @dots{} }
+@end example
+
+To print this music in B-flat again (ie producing a trumpet part,
+instead of a concert pitch conductor's score) you would wrap the
+existing music with another @code{transpose}
+
+@example
+\transpose bes c { \transpose c bes { e4 @dots{} } }
+@end example
+
 
 @seealso
 
@@ -5453,7 +5471,8 @@ The transposition is entered after the keyword @code{\transposition}
 @noindent
 This command sets the property @code{instrumentTransposition}.  The value of
 this property is used for MIDI output and quotations.  It does not
-affect how notes are printed in the current staff.
+affect how notes are printed in the current staff.  To change the printed
+output, see @ref{transpose}.
 
 The pitch to use for @code{\transposition} should correspond to the
 transposition of the notes.  For example, when entering a score in
