@@ -7,7 +7,7 @@
 */
 #include "dot-column.hh"
 #include "note-column.hh"
-#include "script.hh"
+
 #include "note-head.hh"
 #include "stem.hh"
 #include "rest.hh"
@@ -21,8 +21,8 @@ Note_column::rest_b () const
 
 Note_column::Note_column()
 {
+  set_axes (X_AXIS,X_AXIS);
   stem_l_ = 0;
-  dir_ =CENTER;
 }
 
 void
@@ -46,44 +46,27 @@ Note_column::head_positions_interval() const
   return iv;
 }
 
-void
-Note_column::do_pre_processing()
+Direction
+Note_column::dir () const
 {
-  if (!dir_)
-    {
-      if (stem_l_)
-	dir_ = stem_l_->dir_;
-      else if (head_l_arr_.size ())
-	{
-	  //	  assert (false);	// looks obsolete?
-	  dir_ = sign (head_positions_interval().center ());
-	}
-    }
-  Script_column::do_pre_processing();
+  if (stem_l_)
+    return stem_l_->dir_;
+  else if (head_l_arr_.size ())
+    return sign (head_positions_interval().center ());
+
+  assert (false);
+  return CENTER;
 }
 
-  
 
 void
 Note_column::set_stem (Stem * stem_l)
 {
-  add_support (stem_l);
   stem_l_ = stem_l;
-  /* 
-     don't add stem to support; mostly invisible for rest-columns (and possibly taken . .)
-  */
-  Score_element::add_dependency (stem_l);
-  for (int i=0; i < script_l_arr_.size(); i++)
-    script_l_arr_[i]->set_stem (stem_l);
+  add_dependency (stem_l);
+  add_element (stem_l);
 }
 
-void
-Note_column::add_script (Script *script_l)
-{
-  Script_column::add_script (script_l) ;
-  if  (stem_l_)
-    script_l->set_stem (stem_l_);
-}
 
 void
 Note_column::do_substitute_element_pointer (Score_element*o, Score_element*n)
@@ -97,7 +80,7 @@ Note_column::do_substitute_element_pointer (Score_element*o, Score_element*n)
       head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
 			      (n)? dynamic_cast<Note_head *> (n) : 0);
     }
-  Script_column::do_substitute_element_pointer (o,n);
+
   if (dynamic_cast<Rest *> (o)) 
     {
       rest_l_arr_.substitute (dynamic_cast<Rest *> (o), 
@@ -111,13 +94,12 @@ Note_column::add_head (Rhythmic_head *h)
   if (Rest*r=dynamic_cast<Rest *> (h))
     {
       rest_l_arr_.push (r);
-      add_support (r);  
     }
   if (Note_head *nh=dynamic_cast<Note_head *> (h))
     {
       head_l_arr_.push (nh);
-      add_support (nh);
     }
+  add_element (h);
 }
 
 /**

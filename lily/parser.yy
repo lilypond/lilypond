@@ -106,18 +106,16 @@ Paper_def* current_paper = 0;
     Musical_pitch * pitch;
     Midi_def* midi;
     Moment *moment;
-    Note_req *notereq;
     Notename_table *notenametab;
     Paper_def *paper;
     Real real;
     Request * request;
     Scalar *scalar;
-    Simultaneous_music *chord;
+
     String *string;
     Tempo_req *tempo;
     Translator* trans;
     char c;
-    const char *consstr;
     int i;
     int ii[10];
 }
@@ -193,7 +191,7 @@ yylex (YYSTYPE *s,  void * v_l)
 /* escaped */
 %token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
 
-%type <i>	dots
+%type <i>	dots exclamations questions
 %token <i>	DIGIT
 %token <pitch>	NOTENAME_PITCH
 %token <pitch>	TONICNAME_PITCH
@@ -235,7 +233,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request> gen_text_def
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
-%type <notereq>	steno_notepitch
+
 %type <pitch_arr>	pitch_list
 %type <music>	chord notemode_chord
 %type <pitch_arr>	chord_additions chord_subtractions chord_notes
@@ -307,17 +305,17 @@ toplevel_expression:
 	;
 
 embedded_scm:
-	SCMFILE STRING ';' {
+	SCMFILE STRING semicolon {
 		read_lily_scm_file (*$2);
 		delete $2;
 	}
-	| SCM_T STRING ';' {
+	| SCM_T STRING semicolon {
 		gh_eval_str ($2->ch_l ());
 		delete $2;
 	};
 
 check_version:
-	VERSION STRING ';'		{
+	VERSION STRING semicolon		{
 	 	Mudela_version ver (*$2);
 		if (!((ver >= oldest_version) && (ver <= version))) {
 			if (THIS->ignore_version_b_) {
@@ -362,7 +360,7 @@ mudela_header_body:
 		$$ = new Scope;
 		THIS->lexer_p_-> scope_l_arr_.push ($$);
 	}
-	| mudela_header_body assignment ';' { 
+	| mudela_header_body assignment semicolon { 
 
 	}
 	;
@@ -445,7 +443,7 @@ translator_spec_body:
 		$$ = $1->access_content_Translator (true);
 		$$-> set_spot (THIS->here_input ());
 	}
-	| TYPE STRING ';'	{
+	| TYPE STRING semicolon	{
 		Translator* t = get_translator_l (*$2);
 		Translator_group * tg = dynamic_cast<Translator_group*> (t);
 
@@ -457,7 +455,7 @@ translator_spec_body:
 		$$ = t;
 		delete $2;
 	}
-	| translator_spec_body STRING '=' identifier_init ';'	{ 
+	| translator_spec_body STRING '=' identifier_init semicolon	{ 
 		Identifier* id = $4;
 		String_identifier *s = dynamic_cast<String_identifier*> (id);
 		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
@@ -475,19 +473,19 @@ translator_spec_body:
 		Translator_group * tr = dynamic_cast<Translator_group*>($$);
 		tr->set_property (*$2, str);
 	}
-	| translator_spec_body NAME STRING ';' {
+	| translator_spec_body NAME STRING semicolon {
 		$$->type_str_ = *$3;
 		delete $3;
 	}
-	| translator_spec_body CONSISTS STRING ';' {
+	| translator_spec_body CONSISTS STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
 		delete $3;
 	}
-	| translator_spec_body ACCEPTS STRING ';' {
+	| translator_spec_body ACCEPTS STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_acceptor (*$3, true);
 		delete $3;
 	}
-	| translator_spec_body REMOVE STRING ';' {
+	| translator_spec_body REMOVE STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, false);
 		delete $3;
 	}
@@ -583,13 +581,13 @@ paper_def_body:
 		delete $5;
 		$$->set_lookup ($2, l);
 	}
-	| paper_def_body assignment ';' {
+	| paper_def_body assignment semicolon {
 
 	}
 	| paper_def_body translator_spec_block {
 		$$->assign_translator ($2);
 	}
-	| paper_def_body SHAPE '=' shape_array ';' {
+	| paper_def_body SHAPE '=' shape_array semicolon {
 		$$->shape_int_a_ = *$4;
 		delete $4;
 	}
@@ -674,7 +672,7 @@ midi_body: /* empty */ 		{
 	| midi_body translator_spec_block	{
 		$$-> assign_translator ($2);
 	}
-	| midi_body tempo_request ';' {
+	| midi_body tempo_request semicolon {
 		$$->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
 		delete $2;
 	}
@@ -870,7 +868,7 @@ command_element:
 
 command_req:
 	abbrev_command_req
-	| verbose_command_req ';'	{ $$ = $1; }
+	| verbose_command_req semicolon	{ $$ = $1; }
 	;
 
 abbrev_command_req:
@@ -914,9 +912,9 @@ verbose_command_req:
 		m->one_beat_i_=$4;
 		$$ = m;
 	}
-	| PENALTY '=' int	{
+	| PENALTY int	{
 		Break_req * b = new Break_req;
-		b->penalty_i_ = $3;
+		b->penalty_i_ = $2;
 		b-> set_spot (THIS->here_input ());
 		$$ = b;
 	}
@@ -948,14 +946,14 @@ verbose_command_req:
 		$$ = key_p;
 		delete $2;
 	}
-	| KEYSIGNATURE pitch_list 	{
+	| KEYSIGNATURE pitch_list {
 		Key_change_req *key_p= new Key_change_req;
 		key_p->pitch_arr_ = *$2;
 		key_p->ordinary_key_b_ = false;
 		$$ = key_p;
 		delete $2;
 	}
-	| GROUPING intastint_list {
+	| GROUPING intastint_list  {
 		  Measure_grouping_req * mr_p = new Measure_grouping_req;
 		  for (int i=0; i < $2->size();) 
 		    {
@@ -1114,23 +1112,6 @@ musical_pitch:
 	| explicit_musical_pitch
 	;
 
-steno_notepitch:
-	musical_pitch	{
-		$$ = new Note_req;
-		
-		$$->pitch_ = *$1;
-		delete $1;
-	}
-	| steno_notepitch  '!' 		{
-		$$->forceacc_b_ = ! $$->forceacc_b_;
-	}
-	| steno_notepitch  '?' 		{
-		$$->forceacc_b_ = ! $$->forceacc_b_;
-		$$->cautionary_b_ = ! $$->cautionary_b_;
-	}
-	;
-
-
 explicit_duration:
 	DURATION '{' int_list '}'	{
 		$$ = new Duration;
@@ -1266,18 +1247,11 @@ duration_length:
 	}
 	;
 
-dots:
-	'.'		{ $$ = 1; }
-	| dots '.'	{ $$ ++; }
-	;
-
 entered_notemode_duration:
-	/* */		{
+	dots		{
 		$$ = new Duration (THIS->default_duration_);
-	}
-	| dots		{
-		$$ = new Duration (THIS->default_duration_);
-		$$->dots_i_  = $1;
+		if ($1)
+			$$->dots_i_  = $1;
 	}
 	| steno_duration	{
 		THIS->set_last_duration ($1);
@@ -1322,13 +1296,28 @@ abbrev_type:
 	;
 
 
-
 simple_element:
-	steno_notepitch notemode_duration  {
+	musical_pitch exclamations questions notemode_duration  {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for notes"));
-		$1->duration_ = *$2;
-		$$ = THIS->get_note_element ($1, $2);
+
+
+		Note_req *n = new Note_req;
+		
+		n->pitch_ = *$1;
+		delete $1;
+		n->duration_ = *$4;
+		delete $4;
+		n->forceacc_b_ = $2 % 2;
+		n->cautionary_b_ = $3 % 2;
+
+		Simultaneous_music*v = new Request_chord;
+		v->set_spot (THIS->here_input ());
+		n->set_spot (THIS->here_input ());
+
+		v->add_music (n);
+
+		$$ = v;
 	}
 	| RESTNAME notemode_duration		{
 		$$ = THIS->get_rest_element (*$1, $2);
@@ -1510,8 +1499,27 @@ string:
 
 
 
+dots:
+			{ $$ = 0; }
+	| dots '.'	{ $$ ++; }
+	;
 
 
+
+exclamations:
+		{ $$ = 0; }
+	| exclamations '!'	{ $$ ++; }
+	;
+
+questions:
+		{ $$ = 0; }
+	| questions '?'	{ $$ ++; }
+	;
+
+
+semicolon:
+	';'
+	;
 %%
 
 void

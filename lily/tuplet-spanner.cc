@@ -103,7 +103,7 @@ Tuplet_spanner::set_default_dir ()
   dir_ = UP;
   for (int i=0; i < column_arr_.size (); i ++) 
     {
-      if (column_arr_[i]->dir_ < 0) 
+      if (column_arr_[i]->dir () < 0) 
 	{
 	  dir_ = DOWN;
 	  break;

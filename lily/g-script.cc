@@ -12,7 +12,7 @@
   TODO: Quantisation support (staccato dots between stafflines)
 
 */
-
+#include "debug.hh"
 #include "g-script.hh"
 #include "lookup.hh"
 #include "g-staff-side.hh"
@@ -66,4 +66,10 @@ Molecule*
 G_script::do_brew_molecule_p () const
 {
   return new Molecule (get_molecule (staff_side_l_->dir_));
+}
+
+void
+G_script::do_print () const
+{
+  DOUT << "Indices: " << indices_drul_[LEFT] << ", " << indices_drul_[RIGHT];
 }

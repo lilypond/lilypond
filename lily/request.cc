@@ -30,5 +30,6 @@ bool
 Request::do_equal_b (Request*) const
 {
   return true;
+
 }
   

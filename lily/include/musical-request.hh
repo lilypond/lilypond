@@ -61,6 +61,7 @@ class Articulation_req : public G_script_req
 public:
   String articulation_str_;
 protected:
+  virtual bool do_equal_b (Request*) const;
   virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
 };
@@ -165,11 +166,12 @@ class Dynamic_req  : public virtual Request  {
 public:
   VIRTUAL_COPY_CONS(Music);
 };
-
+/*
+   merge with Articulation_req? 
+ */
 class Absolute_dynamic_req  : public Dynamic_req  {
 public:
   String loudness_str_;
-  String loudness_str () const;
   Absolute_dynamic_req();
 
 protected:

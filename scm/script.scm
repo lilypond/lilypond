@@ -1,4 +1,4 @@
-;; (name . '((downindexstring upindexstring)
+;; (name . '((downindexstring . upindexstring)
 ;;           follow-into-staff :: bool
 ;;           dir-relative-to-stem :: int
 ;;           force-dir :: int
@@ -15,8 +15,8 @@
 	("portato" . (("dportato" . "uportato") #f -1 0 0))
 	("fermata" . (("dfermata" . "ufermata") #f 1 0 0))
 	("stopped" . (("stopped" . "stopped") #f 0 1 0))
-	("staccato" . (("staccato" . "staccato") #t -1 0 0))
-	("tenuto" . (("tenuto" "tenuto") 1 -1 0 0))
+	("staccato" . (("staccato" . "staccato") #t -1 0 -100))
+	("tenuto" . (("tenuto" . "tenuto") 1 -1 0 0))
 	("upbow" . (("upbow" . "upbow") #f 0 1 0))
 	("downbow" . (("downbow" . "downbow") #f 0 1 0))
 	("lheel" . (("upedalheel" . "upedalheel") #f 0 -1  0))

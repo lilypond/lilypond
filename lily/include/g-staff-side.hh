@@ -26,13 +26,13 @@
 class G_staff_side_item : public Item, public Staff_symbol_referencer
 {
   void position_self ();
-public:
 
+public:
   Score_element * to_position_l_;
   Direction dir_;
   Link_array<Score_element> support_l_arr_;
   Axis axis_;
-
+  //junkme.
   bool staff_support_b_;
   
   G_staff_side_item ();
@@ -42,6 +42,9 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Direction get_default_direction () const;
 protected:
+  virtual Interval do_height () const;
+  virtual Interval do_width () const;
+  virtual void do_print () const;
   virtual void do_add_processing ();
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing ();

@@ -24,14 +24,24 @@ Offset::str () const
 }
 #endif
 
+
+/*
+  free bsd fix by John Galbraith
+ */
+  
 Offset
 complex_multiply (Offset z1, Offset z2)
 {
   Offset z;
-  z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS]*z2[Y_AXIS];
-  z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
+  if(!isinf(z2[Y_AXIS]))
+  {
+      z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS]*z2[Y_AXIS];
+      z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];
+  }
   return z;
 }
+
+
 
 Offset
 complex_exp (Offset o)

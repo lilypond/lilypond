@@ -9,6 +9,7 @@
 
 #include "g-staff-side.hh"
 #include "staff-symbol.hh"
+#include "debug.hh"
 
 G_staff_side_item::G_staff_side_item ()
 {
@@ -120,4 +121,33 @@ G_staff_side_item::do_add_processing ()
     {
       add_support (staff_symbol_l ());
     }
+}
+
+Interval
+G_staff_side_item::do_height () const
+{
+  Interval i;
+  if (to_position_l_)
+    return to_position_l_->extent (Y_AXIS);
+  return i;
+}
+
+Interval
+G_staff_side_item::do_width () const
+{
+  Interval i;
+  if (to_position_l_)
+    return to_position_l_->extent (X_AXIS);
+  return i;
+}
+void
+G_staff_side_item::do_print () const
+{
+#ifndef NPRINT
+  if (to_position_l_)
+    DOUT << "positioning " << to_position_l_->name();
+
+  DOUT << "axis == " << axis_name_str (axis_)
+       << ", dir == " << to_str (dir_ );
+#endif
 }

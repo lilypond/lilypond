@@ -19,7 +19,6 @@ Collision::Collision()
 void
 Collision::add_column (Note_column* ncol_l)
 {
-  // ugh.  Fixme.
   clash_l_arr_.push (ncol_l);
   add_element (ncol_l);
   add_dependency (ncol_l);
@@ -33,7 +32,7 @@ int idx (int dir, bool h_shift_b)
   assert (abs (dir) == 1);
   int j = dir > 0 ? 0 : 3;
   if (h_shift_b)
-	j += dir;
+    j += dir;
   return j;
 }
 
@@ -49,22 +48,22 @@ void
 Collision::do_pre_processing()
 {
   if (clash_l_arr_.size() <= 1)
-	return;
+    return;
 
   /*
     [stem up, stem up shifted, stem down shifted, stem down]
-    */
+  */
   Array<Note_column*> clash_group_arr_a[4];
 
   for (int i=0; i < clash_l_arr_.size(); i++)
     {
       Note_column* c_l = clash_l_arr_[i];
-      if (! c_l->dir_)
+      Direction d = c_l->dir ();
+      if (!d)
 	{
 	  warning (_ ("No stem direction set. Ignoring column in clash."));
 	  continue;
 	}
-      int d = (c_l->dir_);
 
       SCM shift = c_l->remove_elt_property (horizontal_shift_scm_sym);
       bool shift_b  = (shift != SCM_BOOL_F);
@@ -130,6 +129,7 @@ Collision::do_pre_processing()
 	x_off[idx (d, true)] = d *1.0 ;
     } while ((d *= -1) != 1);
 
+
   if (!middle.empty_b()
       && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)]) {
     // reproduction of bugfix at 3am ?
@@ -151,13 +151,8 @@ Collision::do_pre_processing()
     {
       if (col_l_a[j])
 	{
-	  /* collision.cc:138: request for method `translate' is ambiguous
-
-	     (shaddup)
-	     */
 	  Offset o (x_off[j] * wid_f, 0);
 	  col_l_a[j]->translate (o);
-	  //	  ((Score_element*)col_l_a[j])->translate (o);
 	}
     }
 }

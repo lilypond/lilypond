@@ -50,7 +50,7 @@ Slur::set_default_dir ()
   dir_ = DOWN;
   for (int i=0; i < encompass_arr_.size (); i ++) 
     {
-      if (encompass_arr_[i]->dir_ < 0) 
+      if (encompass_arr_[i]->dir () < 0) 
 	{
 	  dir_ = UP;
 	  break;

@@ -39,6 +39,9 @@ Boolean (true iff defined)
 class Score_element : public virtual Graphical_element {
   Protected_scm element_property_alist_;
   Link_array<Score_element> dependency_arr_;
+  /**
+     The lookup, determined by the font size. Cache this value.
+   */
   Lookup * lookup_l_;
 public:
   Score_element *original_l_;
@@ -85,7 +88,14 @@ public:
   bool linked_b () const;
   VIRTUAL_COPY_CONS(Score_element);
  
-  // ugh: no protection. Denk na, Vrij Veilig
+  /**
+     Recursively track all dependencies of this Score_element.  The
+     status_i_ field is used as a mark-field.  It is marked with
+     #busy# during execution of this function, and marked with #final#
+     when finished.
+
+     #funcptr# is the function to call to update this element.
+   */
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
 
 protected:

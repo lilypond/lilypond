@@ -35,13 +35,13 @@ enum Score_element_status {
 void
 Super_element::pre_processing ()
 {
-  calculate_dependencies (PRECALCING, PRECALCED, &Score_element::do_pre_processing);
+  calculate_dependencies (PRECALCED, PRECALCING, &Score_element::do_pre_processing);
 }
 
 void
 Super_element::space_processing ()
 {
-  calculate_dependencies (SPACING, SPACED, &Score_element::do_space_processing);
+  calculate_dependencies (SPACED, SPACING, &Score_element::do_space_processing);
 }
 
 /* for break processing, use only one status, because copies have to
@@ -63,13 +63,13 @@ Super_element::break_processing ()
 void
 Super_element::post_processing ()
 {
-  calculate_dependencies (POSTCALCING, POSTCALCED, &Score_element::do_post_processing);
+  calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::do_post_processing);
 }
 
 void
 Super_element::output_all () 
 {
-  calculate_dependencies (BREWING, BREWED, &Score_element::output_processing);
+  calculate_dependencies (BREWED, BREWING, &Score_element::output_processing);
 }
 
 

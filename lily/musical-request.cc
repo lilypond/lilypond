@@ -222,3 +222,10 @@ Articulation_req::do_print () const
 {
   DOUT << articulation_str_;
 }
+
+bool
+Articulation_req::do_equal_b (Request*r) const
+{
+  Articulation_req * a = dynamic_cast<Articulation_req*>(r);
+  return articulation_str_ == a->articulation_str_;
+}

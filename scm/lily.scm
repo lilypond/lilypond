@@ -61,12 +61,13 @@
 (define (spanbar_non_postbreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 (define (non_postbreak_visibility d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define (non_prebreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
 (define Span_bar_engraver_visibility non_postbreak_visibility)
-
+(define mark-visibility non_prebreak_visibility)
 (define Span_score_bar_engraver_visibility postbreak_only_visibility)
 (define Piano_bar_engraver_visibility postbreak_only_visibility)
 (define Staff_group_bar_engraver_visibility postbreak_only_visibility)

@@ -24,7 +24,7 @@ o    Anthony Fok <foka@debian.org>, debian package: debian/*
 o    Neil Jerram <nj104@cus.cam.ac.uk>.  parts of Documenta-
      tion/Vocab*
 
-o    Donald    Ervin    Knuth,     http://www.cs-staff.stan-
+o    Donald    Ervin    Knuth,     http://www-cs-staff.stan-
      ford.edu/~knuth/ mf/ital-*.mf (these  were  taken  from
      the CM fonts)
 

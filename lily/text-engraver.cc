@@ -78,6 +78,9 @@ Text_engraver::do_process_requests ()
       G_staff_side_item *ss = new G_staff_side_item;
 
       ss->set_victim (text);
+      ss->set_elt_property (script_priority_scm_sym,
+			    gh_int2scm (200));
+
       ss->dir_ = r->dir_;
 
       text->text_str_ = r->text_str_;

@@ -18,6 +18,7 @@ Mark_engraver::Mark_engraver ()
   mark_req_l_ = 0;
   axis_ = Y_AXIS;
   type_ = "mark";
+  visibility_lambda_ = gh_eval_str ("mark-visibility");
 }
 
 void

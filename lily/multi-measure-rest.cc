@@ -14,8 +14,6 @@
 #include "bar.hh"
 #include "lookup.hh"
 #include "rest.hh"
-#include "script.hh"
-
 #include "molecule.hh"
 #include "misc.hh"
 

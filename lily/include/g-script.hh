@@ -28,6 +28,7 @@ public:
   void set_staff_side (G_staff_side_item*);
 
 protected:
+virtual void do_print () const;
   virtual void do_substitute_element_pointer (Score_element*o,
 					      Score_element*n);
   virtual void do_pre_processing ();

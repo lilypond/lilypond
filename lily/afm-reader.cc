@@ -47,6 +47,8 @@ read_char_metric (String s, int size)
       String c = strip_leading_white (a[i]);
 
       Array<String> b = String_convert::split_arr (c, ' ');
+      if (!b.size ())
+	continue;
       if (b[0] == "C")
 	char_metric.C_ = b[1].value_i ();
       else if (b[0] == "WX")
@@ -71,7 +73,10 @@ Adobe_font_metric::read_char_metrics (Data_file &input, int size)
       Adobe_font_char_metric afm_char =read_char_metric (s, size);
       char_metrics_.push (afm_char);
       int i = char_metrics_.size ()-1;
-      ascii_to_metric_idx_ [afm_char.C_] = i;
+
+      // TFM files uses neg.  charcodes to store Space
+      if (afm_char.C_ >= 0)
+	ascii_to_metric_idx_ [afm_char.C_] = i;
       name_to_metric_dict_ [afm_char.N_] = i;
     }
 }
