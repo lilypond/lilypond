@@ -1339,31 +1339,12 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 It is not possible to specify beaming parameters for beams with mixed
 durations, that differ from the beaming parameters of all separate
 durations, i.e., you'll have to specify manual beams to get:
-@c FIXME: lily wants symbol for no good reason.
-@c lilypond: music.cc:189: void Music::internal_set_mus_property(scm_unused_struct *, scm_unused_struct *): Assertion `type_check_assignment (s, v, ly_symbol2scm ("music-type?"))' failed.
-@c @lily pond[fragment,singleline,relative]
-@c   \property Voice.autoBeamSettings
-@c  \override #'(end * * * *) = #(make-moment 3 8)
-@c  \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
-@c @end lily pond
-@quotation
-@example
+
+@lilypond[singleline,fragment,relative,noverbatim]
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(make-moment 3 8)
   \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
-@end example
-@end quotation
-@ignore
-@lily pond[singleline,relative,noverbatim]
-%%#(ly-set-option 'internal-type-checking #f)
-\score{
-  \notes\relative c{
-    \property Voice.autoBeamSettings
-    \override #'(end * * * *) = #(make-moment 3 8)
-    \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
-  }  
-}
-@end ignore
+@end lilypond
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
@@ -2943,9 +2924,13 @@ is given though the fingering mechanism, e.g. @code{c4-3} for a C
 quarter on the third string. The string 1 is the lowest one, and the
 tuning defaults to the standard guitar tuning (with 6 strings).
 
+<<<<<<< refman.itely
+@lilypond[fragment,verbatim]
+=======
 @c FIXME  TabStaff is broken
 @lily pond[fragment,verbatim]
 @example
+>>>>>>> 1.152
   \context TabStaff <
     \notes @{
       \property Staff.Stem \override #'direction = #1
@@ -2954,8 +2939,12 @@ tuning defaults to the standard guitar tuning (with 6 strings).
       e-3 c'-5 a-4 e'-6
     @}
   >  
+<<<<<<< refman.itely
+@end lilypond
+=======
 @end example
 @c @end lilypond
+>>>>>>> 1.152
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
