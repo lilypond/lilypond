@@ -34,6 +34,7 @@ Source_file::Source_file( String &filename_str )
 
     open();
     map();
+    // ugh!?, should call name_str() ! 
     filename_str = name_str_;
 }
 
@@ -83,15 +84,17 @@ Source_file::error_str( char const* pos_ch_c_l )
 	}
     end_ch_c_l--;
 
-// String( char const* p, int length ) is missing!?
-//    String line_str( begin_ch_c_l, end_ch_c_l - begin_ch_c_l );
-
+#if 1
+//    String( char const* p, int length ) is missing!?
+    String line_str( (Byte const*)begin_ch_c_l, end_ch_c_l - begin_ch_c_l );
+#else
     int length_i = end_ch_c_l - begin_ch_c_l;
     char* ch_p = new char[ length_i + 1 ];
     strncpy( ch_p, begin_ch_c_l, length_i );
     ch_p[ length_i ] = 0;
     String line_str( ch_p );
     delete ch_p;
+#endif
 
     int error_col_i = 0;
     char const* scan_ch_c_l = begin_ch_c_l;
@@ -127,6 +130,12 @@ Source_file::istream_l()
 	}
     }
     return istream_p_;
+}
+
+off_t
+Source_file::length_off()
+{
+    return size_off_;
 }
 
 int
@@ -191,8 +200,8 @@ Source_file::unmap()
     }
 }
 String
-Source_file::file_line_no_str(const char *cch_c_l )
+Source_file::file_line_no_str(char const *ch_c_l )
 {
     return name_str() + ": "
-	+ String( line_i( cch_c_l ) );
+	+ String( line_i( ch_c_l ) );
 }

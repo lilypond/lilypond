@@ -30,11 +30,11 @@ bass_staf = staff {
 score {
 	staff { mstaf }
 	staff { bass_staf }
+	commands {
+		meter { 2 * 4}
+	}
 	midi {
 		tempo 4:120
-	}
-	commands {
-		meter { 2 * 4 }
 	}
 }
 

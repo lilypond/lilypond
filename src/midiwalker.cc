@@ -21,6 +21,7 @@ Midi_walker::Midi_walker(Staff *st_l, Midi_track* track_l)
     track_l_ = track_l;
     last_moment_= 0;
 }
+
 /**
   output notestop events for all notes which end before #max_moment#
  */
@@ -32,11 +33,17 @@ Midi_walker::do_stop_notes(Moment max_moment)
 	Melodic_req * req_l = stop_notes.get();
 	
 	Midi_note note(req_l, track_l_->number_i_, false);
-	
-	Moment delta_t = stop_moment-last_moment_ ;
-	last_moment_ += delta_t;
-	track_l_->add(delta_t, &note );
+	output_event(note, stop_moment);
     }
+}
+/** advance the track to #now#, output the item, and adjust current
+  "moment".  */
+void
+Midi_walker::output_event(Midi_item &i, Moment now)
+{
+    Moment delta_t = now - last_moment_ ;
+    last_moment_ += delta_t;
+    track_l_->add(delta_t, &i );    
 }
 
 void
@@ -46,13 +53,15 @@ Midi_walker::process_requests()
     for ( int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++ )  {
 
 	Rhythmic_req *n = ptr()->musicalreq_l_arr_[i]->rhythmic();
-	if ( !n || !(n->note() || n->rest()) )
+	if ( !n)
+	    continue;
+	Note_req * note_l = n->note();
+	if (!note_l)
 	    continue;
 	
-	Midi_note note(n->melodic(), track_l_->number_i_, true);
-	stop_notes.enter(n->melodic(), n->duration() + ptr()->when() );
-	Moment dt = 0;
-	track_l_->add(dt, &note);
+	Midi_note note(note_l, track_l_->number_i_, true);
+	stop_notes.enter(note_l, n->duration() + ptr()->when() );
+	output_event(note, ptr()->when());
     }
 }
 

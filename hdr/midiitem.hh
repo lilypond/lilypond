@@ -23,11 +23,10 @@ struct Midi_note : public Midi_item {
     /**
       Generate a note-event on a channel pitch.
 
-      @param #melreq_l# the pitch. If null, then output a silent C
-      #on_b# turn on?
+      @param #melreq_l# is the pitch. 
      */
     Midi_note( Melodic_req* melreq_l, int channel_i, bool on_b );
-	
+
     virtual String str();
 
     int channel_i_;
@@ -60,7 +59,16 @@ private:
 
 struct Midi_header : Midi_chunk {
     /* *************** */
-    Midi_header( int format_i, int tracks_i, int tempo_i );
+    Midi_header( int format_i, int tracks_i, int clocks_per_4_i );
+};
+
+struct Midi_tempo : Midi_item {
+    /* *************** */
+    Midi_tempo( int tempo_i );
+
+    virtual String str();
+
+    int tempo_i_;
 };
 
 struct Midi_track : Midi_chunk {

@@ -7,10 +7,14 @@
 #include <iostream.h>
 #include "proto.hh"
 #include "plist.hh"
+#include "version.hh"
+#include "fversion.hh"
 #include "string.hh"
+#include "lgetopt.hh"
 #include "source.hh"
 #include "sourcefile.hh"
 #include "midi-main.hh"
+#include "moment.hh"
 #include "midi-event.hh"
 #include "midi-track.hh"
 #include "my-midi-lexer.hh"
@@ -19,9 +23,12 @@
 Source source;
 Source* source_l_g = &source;
 
+Verbose level_ver = NORMAL_ver;
+
 //ugh
 char const* defined_ch_c_l = 0;
 
+// ugh, another global
 String
 find_file( String str )
 {
@@ -32,7 +39,7 @@ find_file( String str )
 void
 message( String message_str, char const* context_ch_c_l )
 {
-    String str = "lilypond: ";
+    String str = "m2m: ";
     Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_c_l );
     if ( sourcefile_l ) {
 	str += sourcefile_l->file_line_no_str(context_ch_c_l) + String(": ");
@@ -64,11 +71,110 @@ error( String message_str, char const* context_ch_c_l )
         midi_lexer_l_g->errorlevel_i_ |= 1;
 }
 
+void
+help()
+{
+    btor <<
+	"--debug, -d		be really verbose\n"
+	"--help, -h		This help\n"
+        "--include, -I		add to file search path.\n"
+	"--output, -o		set default output\n"
+	"--quiet, -q		be quiet\n"
+	"--verbose, -v		be verbose\n"
+	"--warranty, -w		show warranty & copyright\n"
+	;
+}
+
+void
+identify()
+{
+	mtor << "This is m2m "  << VERSIONSTR << "/FlowerLib " << FVERSIONSTR
+		<< " of " << __DATE__ << " " << __TIME__ << endl;
+}
+    
+void 
+notice()
+{
+    mtor <<
+	"\n"
+	"M2m, translate midi to mudela.\n"
+	"Copyright (C) 1997 by\n"
+	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
+//	"Contributors\n"
+	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
+//	"  Mats Bengtsson <matsb@s3.kth.se>\n"
+	"\n"
+	"    This program is free software; you can redistribute it and/or\n"
+	"modify it under the terms of the GNU General Public License version 2\n"
+	"as published by the Free Software Foundation.\n"
+	"\n"
+	"    This program is distributed in the hope that it will be useful,\n"
+	"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+	"General Public License for more details.\n"
+	"\n"
+	"    You should have received a copy (refer to the file COPYING) of the\n"
+	"GNU General Public License along with this program; if not, write to\n"
+	"the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+	"USA.\n";
+}
+
 int
 main( int argc_i, char* argv_sz_a[] )
 {
-	if ( !argc_i )
-		return 2;
-	My_midi_parser midi_parser( argv_sz_a[ 1 ] );
-	return midi_parser.parse();
+	long_option_init long_option_init_a[] = {
+		0, "debug", 'd',
+		0, "help", 'h',
+//		1, "include", 'I',
+		1, "output", 'o',
+		0, "quiet", 'q',
+		0, "verbose", 'v',
+		0, "warranty", 'w',
+		0,0,0
+	};
+	Getopt_long getopt_long( argc_i, argv_sz_a, long_option_init_a );
+	identify();
+
+	String output_str;
+	while ( long_option_init* long_option_init_p = getopt_long() )
+		switch ( long_option_init_p->shortname ) {
+			case 'd':
+				level_ver = DEBUG_ver;
+				break;
+			case 'h':
+				help();
+				exit( 0 );
+				break;
+//			case 'I':
+//				path->push( getopt_long.optarg );
+//				break;
+			case 'o':
+				output_str = getopt_long.optarg;
+				break;
+			case 'q':
+				level_ver = QUIET_ver;
+				break;
+			case 'v':
+				level_ver = VERBOSE_ver;
+				break;
+			case 'w':
+				notice();
+				exit( 0 );
+				break;
+			default:
+				assert( 0 );
+				break;
+		}
+
+	char* arg_sz = 0;
+	while ( ( arg_sz = getopt_long.get_next_arg() ) ) {
+		My_midi_parser midi_parser( arg_sz );
+		int error_i = midi_parser.parse();
+		if ( error_i )
+			return error_i;
+		error_i = midi_parser.output( output_str );
+		if ( error_i )
+			return error_i;
+	}
+	return 0;
 }

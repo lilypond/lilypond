@@ -4,6 +4,8 @@
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
 #include "proto.hh"
+#include "string.hh"
+#include "moment.hh"
 #include "midi-event.hh"
 #include "midi-track.hh"
 

@@ -34,7 +34,6 @@ Q: Why GPL?
 
 A: Yes.
 
-
 Q: Why shouldn't I put all commands (\clef, \meter) inside the music?
 
 A: You should do what you like, but at some time we will enable
@@ -50,3 +49,32 @@ A: If it is reasonable, I'll add XXXX to the TODO list. In general
 finding a cute syntax (such as YYYY) isn't very hard. The complicated
 issue how to adapt the internals to do XXXX. The parser is really  a
 simple front end to the complicated internals. 
+
+Q: Why do I need g++ >= 2.7?
+
+A: By using g++ LilyPond is portable to all platforms which support
+g++ (there are quite a few). Not having to support other compilers
+saves us a *lot* of trouble. LilyPond & FlowerLib uses:
+
+=over 5
+
+=item *
+builtin bool
+
+=item *
+typeof
+
+=item *
+operator <?, operator >?
+
+=item *
+the new for-scope
+
+=item	 *
+class Rational (libg++)
+
+=item *
+named return values
+
+=back
+

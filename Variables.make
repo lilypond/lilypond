@@ -3,7 +3,7 @@
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=35
+PATCHLEVEL=36
 
 
 
@@ -19,7 +19,7 @@ DEBUGFLAG=-g
 # CXX=g++
 
 # turn off -pipe if linker doesn't support it
-EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes -DSTRING_UTILS_INLINED
+EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes -DSTRING_UTILS_INLINED -O
 
 #
 # -lefence = ElectricFence.

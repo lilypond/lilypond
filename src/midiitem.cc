@@ -57,7 +57,7 @@ Midi_duration::str()
     return String( "<duration: " ) + String( seconds_f_ ) + ">";
 }
 
-Midi_header::Midi_header( int format_i, int tracks_i, int tempo_i )
+Midi_header::Midi_header( int format_i, int tracks_i, int clocks_per_4_i )
 {
     String str;
 	
@@ -67,7 +67,7 @@ Midi_header::Midi_header( int format_i, int tracks_i, int tempo_i )
     String tracks_str = StringConversion::int2hex_str( tracks_i, 4, '0' );
     str += StringConversion::hex2bin_str( tracks_str );
 
-    String tempo_str = StringConversion::int2hex_str( tempo_i, 4, '0' );
+    String tempo_str = StringConversion::int2hex_str( clocks_per_4_i, 4, '0' );
     str += StringConversion::hex2bin_str( tempo_str );
 
     set( "MThd", str, "" );
@@ -103,12 +103,8 @@ Midi_item::output_midi( Midi_stream& midi_stream_r )
 
 Midi_note::Midi_note( Melodic_req* melreq_l, int channel_i, bool on_bo  )
 {
-
-    if (!melreq_l )
-	pitch_i_ = INT_MAX-1;	// any pitch. 
-    else
-        pitch_i_ = melreq_l->pitch() + c0_pitch_i_c_;
-    
+    assert(melreq_l);
+    pitch_i_ = melreq_l->pitch() + c0_pitch_i_c_;   
     channel_i_ = channel_i;
 
     // poor man-s staff dynamics:
@@ -130,6 +126,20 @@ Midi_note::str()
     return String( "" );
 }
 
+Midi_tempo::Midi_tempo( int tempo_i )
+{
+    tempo_i_ = tempo_i;
+}
+
+String
+Midi_tempo::str()
+{
+    int useconds_per_4_i = 60 * (int)1e6 / tempo_i_;
+    String str = "ff5103";
+    str += StringConversion::int2hex_str( useconds_per_4_i, 6, '0' );
+    return StringConversion::hex2bin_str( str );
+}
+
 Midi_track::Midi_track( int number_i )
 {
 //                4D 54 72 6B     MTrk
@@ -149,7 +159,7 @@ Midi_track::Midi_track( int number_i )
     number_i_ = number_i;
 	
     char const* data_ch_c_l = "00" "ff58" "0404" "0218" "08"
-	"00" "ff51" "0307" "a120"
+//	"00" "ff51" "0307" "a120"
 // why a key at all, in midi?
 // key: C
 	"00" "ff59" "02" "00" "00"
@@ -177,10 +187,8 @@ Midi_track::add( int delta_time_i, String event_str )
 void 
 Midi_track::add( Moment delta_time_moment, Midi_item* mitem_l )
 {
-    // silly guess: 24 midi clocks per 4 note
-    // huh?
-//	int delta_time_i = delta_time_moment / Moment( 1, 4 ) * Moment( 24 );
-    int delta_time_i = delta_time_moment / Moment( 1, 4 ) * Moment( 96 );
+    // use convention of 384 clocks per 4
+    int delta_time_i = delta_time_moment * Moment( 384 ) / Moment( 1, 4 );
     add( delta_time_i, mitem_l->str() );
 }
 

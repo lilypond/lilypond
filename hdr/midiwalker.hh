@@ -26,6 +26,8 @@ class Midi_walker : public PCursor<Staff_column*> {
 
     /* *************** */
     void do_stop_notes(Moment);
+    
+    void output_event(Midi_item&, Moment);
 public:
     
     Midi_walker(Staff*, Midi_track*);

@@ -13,11 +13,11 @@
 #include "midistream.hh"
 #include "debug.hh"
 
-Midi_stream::Midi_stream( String filename_str, int tracks_i, int tempo_i ) 
+Midi_stream::Midi_stream( String filename_str, int tracks_i, int clocks_per_4_i ) 
 {
     filename_str_ = filename_str;
     tracks_i_ = tracks_i;
-    tempo_i_ = tempo_i;
+    clocks_per_4_i_ = clocks_per_4_i;
     open();
     header();
 }
@@ -75,7 +75,7 @@ Midi_stream::header()
 //    *os_p_ << str;
 
 //      *this << Midi_header( 1, 1, tempo_i_ );
-      *this << Midi_header( 1, tracks_i_, tempo_i_ );
+      *this << Midi_header( 1, tracks_i_, clocks_per_4_i_ );
 }
 
 void
