@@ -10,8 +10,9 @@ void
 Text_spanner::set_support(Directional_spanner*d)
 {
     support = d;
-    dependencies.push(d);
-}    
+    add_depedency(d);
+}
+
 Text_spanner::Text_spanner()
 {
     support = 0;
