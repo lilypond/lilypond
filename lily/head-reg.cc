@@ -19,8 +19,8 @@ Note_head_register::Note_head_register()
 bool
 Note_head_register::try_request(Request *req_l) 
 {
-    if (req_l->note() || req_l->rest())
-	note_req_l_=req_l->rhythmic();
+    if (req_l->musical() && (req_l->musical()->note() || req_l->musical()->rest()))
+	note_req_l_=req_l->musical()->rhythmic();
     else
 	return false;
 

@@ -106,7 +106,10 @@ Midi_walker::process_requests()
     }
 
     for ( int i = 0; i < ptr()->musicalreq_l_arr_.size(); i++ )  {
-	Rhythmic_req *n = ptr()->musicalreq_l_arr_[i]->rhythmic();
+	Musical_req *m = ptr()->musicalreq_l_arr_[i]->musical();
+	if (!m)
+	    return;
+	Rhythmic_req *n = m->rhythmic();
 	if ( !n)
 	    continue;
 	Note_req * note_l = n->note();
