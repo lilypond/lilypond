@@ -169,7 +169,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	}      
     }
   
-  
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 

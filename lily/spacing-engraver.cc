@@ -105,7 +105,8 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
       Pointer_group_interface::add_grob (spacing_, ly_symbol2scm  ("wishes"), i.grob_);
     }
   
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
+      || i.grob_->internal_has_interface (ly_symbol2scm ("multi-measure-event")))
     return;
 
   /*
