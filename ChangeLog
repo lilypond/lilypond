@@ -1,5 +1,7 @@
 2003-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* make/lilypond.redhat.spec.in: move site-start back to /usr/share.
+
 	* lily/script-engraver.cc (make_script_from_event): don't crash on
 	non-string articulation-type.
 
