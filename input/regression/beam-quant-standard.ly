@@ -10,12 +10,14 @@
 % todo: make the check-quant function throw an error for incorrect quants
 %
 
-\paper  { raggedright = ##t }
+\paper  {
+    raggedright = ##t
+    #(define debug-beam-quanting #t)
+
+      }
 
 filler = \relative { e4 e }
 % 
-#(ly:set-option 'debug-beam #t)
-
 
 
 primes = \relative {
@@ -83,4 +85,3 @@ seconds = \relative {
 
 { \primes \seconds }
 
-#(ly:set-option 'debug-beam #f)

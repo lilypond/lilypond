@@ -7,8 +7,6 @@
     raggedright = ##t
 }
 
-% #(ly:set-option 'debug-beam #t)
-
 %% help lilypond-book
 %% \score
 
@@ -45,4 +43,3 @@
     c,,^( c')
     }
 
-% #(ly:set-option 'debug-beam #f)

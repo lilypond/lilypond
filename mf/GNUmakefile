@@ -6,7 +6,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex cmr.enc.in
+EXTRA_DIST_FILES += README feta.tex 
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\

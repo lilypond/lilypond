@@ -43,8 +43,6 @@ Notes:
 #include "spanner.hh"
 #include "warn.hh"
 
-bool debug_beam_quanting_flag;
-
 
 #if DEBUG_QUANTING
 #include "text-item.hh"  // debug output.
@@ -510,7 +508,7 @@ Beam::print (SCM grob)
 
 #if (DEBUG_QUANTING)
   SCM quant_score = me->get_property ("quant-score");
-  if (debug_beam_quanting_flag
+  if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && ly_c_string_p (quant_score))
     {
       

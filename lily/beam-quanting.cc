@@ -40,8 +40,6 @@ const int IDEAL_SLOPE_FACTOR = 10;
 const Real ROUND_TO_ZERO_SLOPE = 0.02;
 const int ROUND_TO_ZERO_POINTS = 4;
 
-extern bool debug_beam_quanting_flag;
-
 static Real
 shrink_extra_weight (Real x, Real fac)
 {
@@ -281,7 +279,7 @@ Beam::quanting (SCM smob)
 
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
-  if (debug_beam_quanting_flag
+  if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && ly_c_pair_p (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -307,13 +305,13 @@ Beam::quanting (SCM smob)
 		    ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
 						       qscores[best_idx].yr)));
 #if DEBUG_QUANTING
-  if (debug_beam_quanting_flag)
+  if (to_boolean (me->get_paper ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
     {
       qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
       
       // debug quanting
       me->set_property ("quant-score",
-			     scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
+			scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
     }
 #endif
 

@@ -2,7 +2,8 @@
 
     texidoc = "This file demonstrates how to load different
     (postscript) fonts. The file @file{font.scm} shows how to define
-    the scheme-function called."
+    the scheme-function @code{make-century-schoolbook-tree}."
+
 }
 
 \bookpaper

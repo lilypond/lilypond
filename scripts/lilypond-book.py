@@ -543,6 +543,9 @@ class Lilypond_snippet (Snippet):
 	def write_ly (self):
 		outf = open (self.basename () + '.ly', 'w')
 		outf.write (self.full_ly ())
+		
+		open (self.basename() + '.txt', 'w').write("image of music")
+		
 
 	def is_outdated (self):
 		base = self.basename ()
@@ -613,6 +616,7 @@ class Lilypond_snippet (Snippet):
 		str = output[TEXINFO][BEFORE] % vars ()
 		for image in self.get_images ():
 			base, ext = os.path.splitext (image)
+			
 			# URG, makeinfo implicitely prepends dot to ext
 			# specifying no extension is most robust
 			ext = ''
@@ -803,6 +807,7 @@ def process_snippets (cmd, snippets):
 			if not os.path.exists (i + '.eps') and os.path.exists (i + '.tex'):
 				to_eps (i)
 				ly.make_ps_images (i + '.eps', resolution=110)
+				
 #			elif os.path.exists (i + '.ps'):
 #				ly.make_ps_images (i + '.ps', resolution=110)
 

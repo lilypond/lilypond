@@ -124,10 +124,6 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     }
   else if (var == ly_symbol2scm ("new-relative"))
     lily_1_8_relative = false;
-  else if (var == ly_symbol2scm ("debug-beam"))
-    {
-      debug_beam_quanting_flag = true;
-    }
   else
     {
       if (ly_c_symbol_p (var))
