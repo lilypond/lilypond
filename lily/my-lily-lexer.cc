@@ -121,6 +121,11 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool unique_b)
 #endif
       delete old;
     }
+  if (lookup_keyword (name_str) >= 0)
+    {
+      warning (  _f ("Identifier name is a keyword (`%s')", name_str));
+    }
+  
   (*scope_l_arr_.top ())[name_str] = i;
 }
 
