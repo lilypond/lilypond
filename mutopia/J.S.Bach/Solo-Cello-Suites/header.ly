@@ -27,5 +27,5 @@ information is taken to the extreme.
   copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " +  \maintainername + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
   maintainer = "janneke@gnu.org";
 
-  lastupdated = "1999/Oct/16";
+  lastupdated = "2001/Jan/28";
 }

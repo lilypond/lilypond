@@ -1,3 +1,7 @@
+% Bugs:
+% * CLef has `Staff' hardcoded
+% * Dynamics into staff: pp/ff at first note cello/contrabass
+
 \header {
 texidoc="Template for part-combining orchestral scores";
 }
@@ -8,13 +12,10 @@ texidoc="Template for part-combining orchestral scores";
 
 
 flautoI = \notes\relative c'' {
-  c4\pp d e f
+  c4 d e f
   b,4 d c d
   r2 e4 f
   \break
- \context Score \outputproperty #(make-type-checker 'paper-column-interface)
- #'between-system-string = #"\\eject"
-
   c4 d e f
   c4 r e f
   c4 r e f
@@ -25,7 +26,7 @@ flautoI = \notes\relative c'' {
 }
 
 flautoII = \notes\relative c'' {
-  g4\ff b d f
+  g4 b d f
   r2 c4 d
   a c c d
   a4. b8 c4 d
@@ -77,42 +78,49 @@ violinoII = \notes\relative c'' {
   b1
 }
 
-violinoIStaff =  \context Staff = oneViolini <
+violinoIStaff =  \context Staff = oneViolino <
  \property Staff.midiInstrument = #"violin"
   \property Staff.instrument = #"Violino I"
   \property Staff.instr = #"Vl. I"
-  \violinoI
-  { \skip 1*9; \bar "|."; }
+  %\notes < 
+    %\global
+    %\context Voice=oneViolino
+    %\context Thread=oneViolino
+    \violinoI
+ % >
 >
 
-violinoIIStaff =  \context Staff = twoViolini <
+violinoIIStaff =  \context Staff = twoViolino <
   % MIDI hoort geeneens verschil tussen een
   % eerste en tweede viool ;-)
   \property Staff.midiInstrument = #"violin"
   \property Staff.instrument = #"Violino II"
   \property Staff.instr = #"Vl. II"
-  \violinoII
-  { \skip 1*9; \bar "|."; }
+  %\notes < 
+    %\global
+    %\context Voice=twoViolino
+    %\context Thread=twoViolino
+    \violinoII
+ % >
 >
 
 violaI = \notes\transpose c, \violinoI
 
 violaII = \notes\transpose c, \violinoII
 
-violeGroup =  \notes \context VoiceCombineStaff = oneViole <
+violiGroup =  \notes \context VoiceCombineStaff = oneVioli <
   \property VoiceCombineStaff.midiInstrument = #"viola"
   \property VoiceCombineStaff.instrument = #"Viola"
   \property VoiceCombineStaff.instr = #"Vla."
-  %\clef "alto";
-  % Ugh, clef broken in 1.3.125
-  \property VoiceCombineStaff.clefGlyph = #"clefs-C"
-  \property VoiceCombineStaff.clefPosition = #0
-  \key f \major;
-  { \skip 1*9; \bar "|."; }
+  \clef "alto";
 
-  \context VoiceCombineVoice=oneViole \partcombine VoiceCombineVoice
-    \context VoiceCombineThread=oneViole \violaI
-    \context VoiceCombineThread=twoViole \violaII
+  \key f \major;
+  \skip 1*314; 
+  \bar "|.";
+
+  \context VoiceCombineVoice=oneVioli \partcombine VoiceCombineVoice
+    \context VoiceCombineThread=oneVioli \violaI
+    \context VoiceCombineThread=twoVioli \violaII
 >
 
 violoncello = \notes\relative c {
@@ -139,13 +147,9 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
     \property StaffCombineStaff.instr = #"Vc."
     
-    %\clef "bass";
-    % Ugh, clef broken in 1.3.125
-    \property StaffCombineStaff.clefGlyph = #"clefs-F"
-    \property StaffCombineStaff.clefPosition = #2
-
+    \clef "bass";
     \key es \major;
-    \skip 1*9; 
+    \skip 1*314; 
     \bar "|.";
   }
   \context StaffCombineStaff=twoBassi {
@@ -153,13 +157,9 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.instrument = #"Contrabasso"
     \property StaffCombineStaff.instr = #"Cb."
     
-    %\clef "bass";
-    % Ugh, clef broken in 1.3.125
-    \property StaffCombineStaff.clefGlyph = #"clefs-F"
-    \property StaffCombineStaff.clefPosition = #2
-    
+    \clef "bass";
     \key as \major;
-    \skip 1*9; 
+    \skip 1*314; 
     \bar "|.";
   }
 
@@ -176,7 +176,7 @@ violiniGroup =  \context GrandStaff = violini_group <
 
 archiGroup =  \context StaffGroup = archi_group <
   \violiniGroup
-  \violeGroup
+  \violiGroup
   \bassiGroup
 >
 
@@ -196,6 +196,7 @@ archiGroup =  \context StaffGroup = archi_group <
     enteredby = "JCN";
     copyright = "public domain";
   }
+  %\paper {}
   \paper{
     \paperSixteen
 
