@@ -285,19 +285,6 @@ lilypond -fgnome input/simple-song.ly
   (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
 
 (define (placebox x y expr)
-
-  (debugf "x,y: ~S,~S\n" x y)
-  ;; FIXME: dimensions with bigcheese are broken
-  ;;;       help hello-world of bigcheese a bit to figure out what's
-  ;;;       wrong
-  (set! x (+ 10 (/ x 50)))
-  (if (< y -800)
-      (set! y (+ y 700)))
-  (if (< y -250)
-      (set! y (+ y 250)))
-  
-  (debugf "item: ~S\n" expr)
-  (debugf "x,y: ~S,~S\n" x y)
   (let ((item expr))
     ;;(if item
     ;; FIXME ugly hack to skip #unspecified ...
@@ -411,7 +398,6 @@ lilypond -fgnome input/simple-song.ly
       ;; ugh, experimental placement corections
       ;; #:x 0.0 #:y 0.0
       #:x 0.0 #:y (if (memq encoding '(fetaMusic fetaBraces)) 0.15 0.69)
-
       #:anchor (if (memq encoding '(fetaMusic fetaBraces)) 'west 'south-west)
       #:font (pango-font-name font)
       #:size-points (pango-font-size font)

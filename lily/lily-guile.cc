@@ -127,12 +127,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
   String contents = gulp_file_to_string (ly_scm2string (name), true);
-
-  char * data ;
-  SCM scm_str = scm_i_make_string (contents.length(), &data);
-  memcpy (data, contents.get_bytes(),  contents.length());
-  
-  return scm_str;
+  return scm_from_locale_stringn (contents.get_str0 (), contents.length ());
 }
 
 
