@@ -60,61 +60,59 @@ However, there is an automated procedure to reduce the amount of work
 involved HTML, La@TeX{}, and Texinfo documents.
 
 A script called @code{lilypond-book} will extract the music fragments,
-run format them, and put back the resulting notation.  This program is
-fully described in @ref{lilypond-book manual}.  Here we show a small
-example.  The example also contains explanatory text, so we will not
-comment on it further
+format them, and put back the resulting notation.  Here we show a
+small example for use with @LaTeX{}.  The example also contains explanatory text, so we will
+not comment on it further
 
-@example
-\documentclass[a4paper]@{article@}
-\begin@{document@}
+@verbatim
+\documentclass[a4paper]{article}
+\begin{document}
 
 Documents for lilypond-book may freely mix music and text.  For
 example,
 
-\begin@{lilypond@}
- @{ \relative c' @{
-     c2 g'2 \times 2/3 @{ f8 e d @} c'2 g4
-  @} 
-\end@{lilypond@}
+\begin{lilypond}
+\relative {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+}
+\end{lilypond}
 
 Options are put in brackets.
 
-\begin[fragment,quote,staffsize=26,verbatim]@{lilypond@}
+\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
   c'4 f16
-\end@{lilypond@}
+\end{lilypond}
 
 Larger examples can be put in a separate file, and introduced with
 \verb+\lilypondfile+.
 
-\lilypondfile[quote,noindent]@{screech-boink.ly@}
+\lilypondfile[quote,noindent]{screech-boink.ly}
 
-\end@{document@}
-@end example
+\end{document}
+@end verb+
 
 Under Unix, you can view the results as follows
 
 @example
-$ cd input/tutorial
-$ mkdir -p out/
-$ lilypond-book --output=out/ lilybook.tex
-lilypond-book (GNU LilyPond) 2.1.19
-Reading `input/tutorial/lilybook.tex'
-Reading `input/screech-boink.ly'
-@var{lots of stuff deleted}
-Writing `out/lilybook.tex'
-$ cd out
-$ latex lilybook
-@var{lots of stuff deleted}
-$ xdvi lilybook 
+cd input/tutorial
+mkdir -p out/
+lilypond-book --output=out/ lilybook.tex
+@emph{lilypond-book (GNU LilyPond) 2.3.11}
+@emph{Reading `input/tutorial/lilybook.tex'}
+@emph{..lots of stuff deleted..}
+@emph{Compiling `out//lilybook.tex'
+cd out
+latex lilybook
+@emph{lots of stuff deleted}
+xdvi lilybook 
 @end example
 
 To convert the file into a nice PDF document, run the following
 commands
 
 @example
-$ dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
-$ ps2pdf lilybook.ps
+dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
+ps2pdf lilybook.ps
 @end example
 
 Running lilypond-book and running latex creates a lot of temporary

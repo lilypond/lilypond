@@ -1388,7 +1388,15 @@ in the notation manual; see @ref{Orchestral music}.
 Setting run-time variables (`properties') is discussed in
 @ref{Changing context properties on the fly}.
 
-@node Conclusion of the tutorial
-@section Conclusion of the tutorial
 
+@ignore
 
+* longer example
+
+* discuss expectations (?)
+
+* conclude tutorial
+
+* overview of chapters?
+
+@end ignore
