@@ -1,5 +1,7 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION (PATCH_LEVEL): release 1.9.9
+
 	* input/regression/beam-quanting-32nd.ly (texidoc): new file
 
 	* lily/beam-quanting.cc: tune down SECONDARY_BEAM_DEMERIT, so stem
