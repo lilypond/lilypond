@@ -77,15 +77,6 @@ cadenzaOff = {
   \set Timing.measurePosition = #(ly:make-moment 0 1)
 }
 
-newpage = \notes
-{
-  \break
-  %% FIXME: page break penalty should tickle into Paper_line
-  %% \context Score \applyoutput
-  %%#(outputproperty-compatibility (make-type-checker 'paper-column-interface)
-  %%  'between-system-string "\\newpage")
-}
-
 % dynamic ly:dir?  text script, articulation script ly:dir?	
 oneVoice = #(context-spec-music (make-voice-props-revert) 'Voice)
 voiceOne = #(context-spec-music (make-voice-props-set 0) 'Voice)

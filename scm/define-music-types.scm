@@ -102,9 +102,7 @@ c8-[ c c-] c8")
 	))
     (BreakEvent
      . (
-   (description .  "Creates a line break.  
-
-Syntax: \\break.")
+   (description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
 
 	(internal-class-name . "Event")
 	(types . (general-music break-event event))

@@ -27,8 +27,12 @@ should also set allowBeamBreak, but how to do it "portably"? (ie. also
 working with lyric sections)
 
 %}
-break =#(make-event-chord (list (make-penalty-music -10001)))
-noBreak = #(make-event-chord (list (make-penalty-music 10001)))
+
+%% rather name \newline, \newpage ?
+break = #(make-event-chord (list (make-penalty-music -10001 0)))
+noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
+pagebreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
+noPagebreak = #(make-event-chord (list (make-penalty-music 0 10001)))
 
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)

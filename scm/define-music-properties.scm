@@ -74,7 +74,8 @@ e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in 
 		  "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")
-     (penalty ,number? "Penalty for break hint.")
+     (page-penalty ,number? "Penalty for page break hint.")
+     (penalty ,number? "Penalty for line break hint.")
      (pitch ,ly:pitch? "the pitch of this note")
      (pitch-alist ,list? "list of pitches jointly forming the scale of a key signature")
      (pop-first ,boolean? "Do a revert before we try to do a override on some grob property.")

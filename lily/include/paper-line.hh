@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2004  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 #ifndef PAPER_LINE_HH
 #define PAPER_LINE_HH
@@ -14,18 +14,20 @@
 
 class Paper_line
 {
-  DECLARE_SMOBS (Paper_line,)
+  DECLARE_SMOBS (Paper_line,);
   SCM stencils_;
   Offset dim_;
   bool is_title_;
+  int penalty_;
   
 public:
-  Paper_line (Offset, SCM, bool = false);
+  Paper_line (Offset, SCM, int penalty = 0, bool = false);
 
   int number_;
   Offset dim () const;
   SCM stencils () const;
   bool is_title () const;
+  int penalty () const;
 };
 
 DECLARE_UNSMOB (Paper_line, paper_line);

@@ -12,11 +12,12 @@
 
 #define TITLE_PENALTY -1
 
-Paper_line::Paper_line (Offset o, SCM stencils, bool is_title)
+Paper_line::Paper_line (Offset o, SCM stencils, int penalty, bool is_title)
 {
   dim_ = o;
   stencils_ = stencils;
   is_title_ = is_title;
+  penalty_ = penalty;
   smobify_self ();
 }
 
@@ -59,6 +60,12 @@ Paper_line::is_title () const
   return is_title_;
 }
 
+int
+Paper_line::penalty () const
+{
+  return penalty_;
+}
+
 SCM
 Paper_line::stencils () const
 {
@@ -85,9 +92,9 @@ LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
 
 LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
 	   1, 0, 0, (SCM line),
-	   "Return the score for breaking after @var{line}.")
+	   "Return the score for page break after @var{line}.")
 {
   Paper_line *pl = unsmob_paper_line (line);
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
-  return scm_int2num (int (pl->is_title ()) * TITLE_PENALTY);
+  return scm_int2num (int (pl->penalty ()));
 }

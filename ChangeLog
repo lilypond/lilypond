@@ -1,3 +1,20 @@
+2004-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/include/paper-line.hh (class Paper_line): New member
+	var penalty_.
+
+	* lily/system.cc (get_line): Initialise Paper_line with
+	page-penalty's from original grobs.
+
+	* scm/define-music-properties.scm (all-music-properties): Add
+	page-penalty.
+
+	* scm/define-grob-properties.scm (all-grob-descriptions): Idem.
+
+	* lily/score-engraver.cc (try_music): Handle page-penalty.
+
+	* ly/declarations-init.ly (pagebreak, noPagebreak): New command.
+
 2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* ly/declarations-init.ly (melismaEnd): typo

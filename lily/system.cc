@@ -6,6 +6,8 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <math.h>
+
 #include "axis-group-interface.hh"
 #include "warn.hh"
 #include "system.hh"
@@ -154,7 +156,8 @@ System::get_lines ()
 static void
 set_loose_columns (System* which, Column_x_positions const *posns)
 {
-  for (int i = 0; i < posns->loose_cols_.size (); i++)
+  int loose_col_count = posns->loose_cols_.size ();
+  for (int i = 0; i < loose_col_count; i++)
     {
       int divide_over = 1;
       Item *loose = dynamic_cast<Item*> (posns->loose_cols_[i]);
@@ -163,20 +166,19 @@ set_loose_columns (System* which, Column_x_positions const *posns)
       if (col->system_)
 	continue;
       
-      Item * left = 0;
-      Item * right = 0;
-      do
+      Item *left = 0;
+      Item *right = 0;
+      while (1)
 	{
 	  SCM between = loose->get_property ("between-cols");
 	  if (!is_pair (between))
 	    break;
 
-
 	  Item *le = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
 	  Item *re = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 
 	  if (!(le && re))
-	    break ;
+	    break;
 	  
 	  if (!left && le)
 	    {
@@ -185,10 +187,9 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 		left = left->find_prebroken_piece (RIGHT);
 	    }
 
-	  divide_over ++;
+	  divide_over++;
 	  loose = right = re->get_column ();
 	}
-      while (1);
 
       if (!right->get_system ())
 	right = right->find_prebroken_piece (LEFT);
@@ -331,14 +332,12 @@ System::get_line ()
   if (Stencil *me = get_stencil ())
     stencils = scm_cons (me->smobbed_copy (), stencils);
 
-  /* Output stencils in three layers: 0, 1, 2.  The default layer is
-     1.
+  /* Output stencils in three layers: 0, 1, 2.  Default layer: 1.
 
-     Start with layer 3, since  scm_cons prepends to list.
-     
-  */
+     Start with layer 3, since scm_cons prepends to list.  */
   SCM all = get_property ("all-elements");
-  
+
+  Real penalty = 0;
   for (int i = LAYER_COUNT; i--;)
     for (SCM s = all; is_pair (s); s = ly_cdr (s))
       {
@@ -357,19 +356,27 @@ System::get_line ()
 					  Offset (0, 0))
 	  * Staff_symbol_referencer::staff_space (g);
 
-	/*
-	  must copy the stencil, for we cannot change the stencil
-	  cached in G.
-	*/
+	/* Must copy the stencil, for we cannot change the stencil
+	   cached in G.  */
 	SCM my_stencil = stil->smobbed_copy ();
 	unsmob_stencil (my_stencil)->translate (o + extra);
 	stencils = scm_cons (my_stencil, stencils);
+
+	// FIXME: never original  
+	if (1 || g->original_)
+	  {
+	    SCM s = g->get_property ("page-penalty");
+	    // FIXME: 'page-penalty is never set
+	    // FIXME; page breaking is not discrete at +-10000
+	    if (is_number (s)) // && fabs (ly_scm2double (s)) < 10000)
+	      penalty += ly_scm2double (s);
+	  }
       }
 
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
   Paper_line *pl = new Paper_line (Offset (x.length (), y.length ()),
-				   stencils);
+				   stencils, penalty);
 
   scm_gc_unprotect_object (pl->self_scm ());
   return pl->self_scm ();
