@@ -235,7 +235,14 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
     Q: do want globally non-cramped lines, or locally equally cramped lines. 
    */
   Real demerit = abs (this_one.force_) +  abs (prev.force_ - this_one.force_)
-    + break_penalties;
+    + break_penalties
+    /*
+      This is rather ugly (not scale free), but we have to put a
+      penalty breaking two zero-force lines. Otherwise, we don't get a
+      unique solution (i.e.: line-breaks in short raggedright
+      fragments.)
+     */
+    +  1e-5;
 
   if (!this_one.satisfies_constraints_b_)
      {

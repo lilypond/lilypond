@@ -1,5 +1,8 @@
 2003-05-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/gourlay-breaking.cc (combine_demerits): add epsilon term to
+	force unique solution in zero-force case.
+
 	* lily/key-performer.cc (create_audio_elements): always use major
 	key
 

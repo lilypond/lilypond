@@ -144,13 +144,7 @@ Simple_spacer::active_blocking_force () const
 Real
 Simple_spacer::active_springs_stiffness () const
 {
-  Real den = 0.0;
-  for (int i=0; i < springs_.size (); i++)
-    if (springs_[i].active_b_)
-      {
-	den += 1 / springs_[i].hooke_;
-      }
-  return 1/den;
+  range_stiffness (0, springs_.size ());
 }
 
 void
