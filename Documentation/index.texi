@@ -22,8 +22,9 @@
 @itemize @bullet
 @item @uref{../user/out-www/lilypond.html,LilyPond reference manual}
 also available in @uref{../user/out-www/lilypond.ps.gz,Postscript}
-@item LilyPond @uref{../user/out-www/backend.html,backend reference} and
-  @uref{../user/out-www/translation.html, context reference}
+@item LilyPond @uref{../user/out-www/backend.html,backend reference},
+  @uref{../user/out-www/engravers.html, engraver reference} and
+  @uref{../user/out-www/contexts.html, context reference},
 @item @uref{../user/out-www/glossary.html,A glossary of musical
 terms}, includes translations.  Also available in @uref{../user/out-www/glossary.ps.gz,Postscript})
 @item @uref{../user/out-www/mudela-book.html,mudela-book}, a tool for
