@@ -401,7 +401,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	  < ly_scm2int (script_->get_property ("script-priority")))
 	Side_position_interface::add_support (line_spanner_, info.grob_);
     }
-  else if (New_slur::has_interface (info.grob_))
+  else if (Slur::has_interface (info.grob_))
     slur_ = dynamic_cast<Spanner*> (info.grob_);
 }
 

@@ -76,9 +76,9 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
   if (Note_column::has_interface (info.grob_))
     {
       for (int i = slurs_.size (); i--; )
-	New_slur::add_column (slurs_[i], e);
+	Slur::add_column (slurs_[i], e);
       for (int i = end_slurs_.size (); i-- ; )
-	New_slur::add_column (end_slurs_[i], e);
+	Slur::add_column (end_slurs_[i], e);
     }
   else
     {
@@ -86,9 +86,9 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 	TODO: maybe take more objects?  
        */
       for (int i = slurs_.size (); i--; )
-	New_slur::add_extra_encompass (slurs_[i], e);
+	Slur::add_extra_encompass (slurs_[i], e);
       for (int i = end_slurs_.size (); i--; )
-	New_slur::add_extra_encompass (end_slurs_[i], e);
+	Slur::add_extra_encompass (end_slurs_[i], e);
     }
 }
 

@@ -856,15 +856,13 @@ r4 <c e g>8[ <c f a>]~ <c f a>
 @end lilypond
 
 @example
-r4 <c e g>8\>( <c e g> <c e g> <c f a>8\!)
+r4 <c e g>8\>( <c e g> <c e g> <c f a>\!)
 @end example
 
 @lilypond[quote,relative=1,fragment]
 \slurUp
-r4 <c e g>8\>( <c e g> <c e g> <c f a>8\!)
+r4 <c e g>8\>( <c e g> <c e g> <c f a>\!)
 @end lilypond
-
-
 
 
 @node Advanced rhythmic commands
