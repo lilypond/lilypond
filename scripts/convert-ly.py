@@ -26,9 +26,12 @@ except:
 		return s
 underscore = _
 
-program_name = sys.argv[0]
-
+program_name = os.path.basename (sys.argv[0])
 version = '@TOPLEVEL_VERSION@'
+
+FROM_TO = _ ( "%s has been replaced by %s")
+NOT_SMART = _ ("Not smart enough to convert %s")
+UPDATE_MANUALLY	= _ ("Please refer to the manual for details, and update manually.")
 
 # Did we ever have \mudela-version?  I doubt it.
 # lilypond_version_re_str = '\\\\version *\"(.*)\"'
@@ -44,37 +47,37 @@ def identify ():
 	sys.stderr.write (program_id () + '\n')
 
 def usage ():
-	sys.stdout.write (
-		r"""Usage: %s [OPTIONS]... [FILE]...
-Try to convert to newer lilypond-versions.  The version number of the
-input is guessed by default from \version directive.
-
-Options:
-  -h, --help             print this help
+	sys.stdout.write (_ ("Usage: %s [OPTION]... [FILE]..." \
+			     % program_name))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("""\
+Update LilyPond input to newer version.  By default, update from the
+version taken from the \\version command, to the current LilyPond version."""))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Options:"))
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ ("""\
   -e, --edit             edit in place
-  -f, --from=VERSION     start from version [default: \version found in file]
-  -s, --show-rules       print all rules
-  -t, --to=VERSION       end at version [default: @TOPLEVEL_VERSION@]
-  -n, --no-version       don't add new version stamp
-      --version          print program version
-
-Report bugs to bugs-gnu-music@gnu.org.
-
-""" % program_name)
-
-
+  -f, --from=VERSION     start from version [default: \\version found in file]
+  -h, --help             print this help
+  -n, --no-version       do not add \\version command if missing
+  -s, --show-rules       print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]
+  -t, --to=VERSION       convert to version [default: @TOPLEVEL_VERSION@]
+  -v, --version          print program version"""))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Report bugs to %s.") % "bug-lilypond@gnu.org")
+	sys.stdout.write ('\n')
 	sys.exit (0)
 
 def print_version ():
-
-	sys.stdout.write (r"""%s
-
-This is free software.  It is covered by the GNU General Public
-License, and you are welcome to change it and/or distribute copies of
-it under certain conditions.  invoke as `%s --warranty' for more
+	sys.stdout.write (program_id ())
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ ("""\
+This program is free software.  It is covered by the GNU General Public
+License and you are welcome to change it and/or distribute copies of it
+under certain conditions.  Invoke as `%s --warranty' for more
 information.
-
-""" % (program_id (), program_name))
+""") % "lilypond")
 
 def str_to_tuple (s):
 	return tuple (map (string.atoi, string.split (s, '.')))
@@ -112,24 +115,29 @@ def show_rules (file):
 if 1:
 	def conv(str):
 		if re.search ('\\\\multi', str):
-			sys.stderr.write ('\nNot smart enough to convert \\multi')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "\\multi")
 		return str
 
 	conversions.append (((0,1,9), conv, '\\header { key = concat + with + operator }'))
 
-if 1:					# need new a namespace
+if 1:
 	def conv (str):
 		if re.search ('\\\\octave', str):
-			sys.stderr.write ('\nNot smart enough to convert \\octave')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "\\octave")
+			sys.stderr.write ('\n')
+			sys.stderr.write (UPDATE_MANUALLY)
+			sys.stderr.write ('\n')
 		#	raise FatalConversionError ()
 
 		return str
 
 	conversions.append ((
-		((0,1,19), conv, 'deprecated \\octave; can\'t convert automatically')))
+		((0,1,19), conv, 'deprecated \\octave; cannot convert automatically')))
 
 
-if 1:					# need new a namespace
+if 1:
 	def conv (str):
 		str = re.sub ('\\\\textstyle([^;]+);',
 					 '\\\\property Lyrics . textstyle = \\1', str)
@@ -176,7 +184,8 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search ('\\\\header', str):
-			sys.stderr.write ('\nNot smart enough to convert to new \\header format')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "new \\header format")
 		return str
 
 	conversions.append (((1,0,2), conv, '\\header { key = concat + with + operator }'))
@@ -208,7 +217,8 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search ('[a-zA-Z]+ = *\\translator',str):
-			sys.stderr.write ('\nNot smart enough to change \\translator syntax')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "\\translator syntax")
 		#	raise FatalConversionError ()
 		return str
 
@@ -278,7 +288,8 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search ('\\\\repeat',str):
-			sys.stderr.write ('\nNot smart enough to convert \\repeat')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "\\repeat")
 		#	raise FatalConversionError ()
 		return str
 
@@ -426,7 +437,8 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search ('\\\\repetitions',str):
-			sys.stderr.write ('\nNot smart enough to convert \\repetitions')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "\\repetitions")
 		#	raise FatalConversionError()
 		return str
 
@@ -453,7 +465,8 @@ if 1:
 		str = re.sub ("\\\\musicalpitch *{([0-9 -]+)}",
 			      "\\\\musicalpitch #'(\\1)", str)
 		if re.search ('\\\\notenames',str):
-			sys.stderr.write ('\nNot smart enough to convert to new \\notenames format')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "new \\notenames format")
 		return str
 
 	conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
@@ -471,7 +484,8 @@ if 1:
 if 1:
 	def conv (str):
 		if re.search ('\\[:',str):
-			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "new tremolo format")
 		return str
 
 	conversions.append (((1,3,41), conv,
@@ -496,7 +510,8 @@ if 1:
 if 1:
 	def conv (str):
 		if re.search ('\\\\keysignature', str):
-			sys.stderr.write ('\nNot smart enough to convert to new tremolo format')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "new tremolo format")
 		return str
 
 
@@ -607,7 +622,8 @@ if 1:
 	def conv (str):
 		str = re.sub ('ChordNames*', 'ChordNames', str)
 		if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
-			sys.stderr.write ('\nNot smart enough to convert to new \\textscript markup text')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "new \\textscript markup text")
 
 		str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
 
@@ -921,7 +937,8 @@ if 1:
 	def conv (str):
 		if re.search (r'\addlyrics',str) \
 		       and re.search ('automaticMelismata', str)  == None:
-			sys.stderr.write  ('automaticMelismata is turned on by default since 1.5.67. Please fix this by hand.')
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
 			raise FatalConversionError()
 		return str
 
@@ -1180,8 +1197,13 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search( r'\\GraceContext', str):
-			sys.stderr.write ("GraceContext has been removed")
-			sys.stderr.write ("please use #(add-to-grace-init .. )")
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "GraceContext")
+			sys.stderr.write (FROM_TO \
+					  % ("GraceContext", "#(add-to-grace-init .. )"))
+			sys.stderr.write ('\n')
+			sys.stderr.write (UPDATE_MANUALLY)
+			sys.stderr.write ('\n')
 			raise FatalConversionError()
 
 		str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
@@ -1219,9 +1241,11 @@ if 1:
 if 1:
 	def conv(str):
 		if re.search( r'-(start|stop)Cluster', str):
-			sys.stderr.write ("""Cluster syntax has been changed.
-Please refer to the manual for details, and convert manually.
-""")
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "Cluster syntax")
+			sys.stderr.write ('\n')
+			sys.stderr.write (UPDATE_MANUALLY)
+			sys.stderr.write ('\n')
 
 			raise FatalConversionError()
 
@@ -1442,7 +1466,12 @@ Postfix articulations, new text markup syntax, new chord syntax."""))
 if 1:
 	def conv (str):
 		if re.search ("font-style",str):
-			sys.stderr.write ("font-style is deprecated. Please remove.")
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "font-sytle")
+			sys.stderr.write ('\n')
+			sys.stderr.write (UPDATE_MANUALLY)
+			sys.stderr.write ('\n')
+
 			raise FatalConversionError()
 
 		str = re.sub (r'-\\markup', r'@\\markup', str)
@@ -1480,7 +1509,11 @@ if 1:
 			      'acciaccatura', str)
 
 		if re.search ("context-spec-music", str):
-			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand.")
+			sys.stderr.write ('\n')
+			sys.stderr.write (NOT_SMART % "context-spec-music")
+			sys.stderr.write ('\n')
+			sys.stderr.write (UPDATE_MANUALLY)
+			sys.stderr.write ('\n')
 
 			raise FatalConversionError()
 
@@ -1538,15 +1571,21 @@ conversions.append (((1,9,5), conv, 'HaraKiriVerticalGroup -> RemoveEmptyVertica
 
 def conv (str):
 	if re.search ("ly:get-font", str) :
-		sys.stderr.write (r"(ly:get-font foo ..)  has been replaced by" + \
-				  " (ly:paper-get-font (ly:grob-get-paper foo) .. ).\n" +\
-				  "please update manually.")
-
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "(ly:-get-font")
+		sys.stderr.write ('\n')
+		sys.stderr.write (FROM_TO \
+				  % ("(ly:paper-get-font (ly:grob-get-paper foo) .. )",
+				     "(ly:paper-get-font (ly:grob-get-paper foo) .. )"))
+		sys.stderr.write (UPDATE_MANUALLY)
+		sys.stderr.write ('\n')
 		raise FatalConversionError()
 
 	if re.search ("\\pitch *#", str) :
-		sys.stderr.write (r"\\pitch has been deprecated. " +\
-				  " Use Scheme code to construct arbitrary note events.")
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "\\pitch")
+		sys.stderr.write ('\n')
+		sys.stderr.write ("Use Scheme code to construct arbitrary note events.")
 
 		raise FatalConversionError()
 
@@ -1588,11 +1627,14 @@ as a substitution text.""" % (m.group (1), m.group (2)) )
 
 	if re.search ("ly:(make-pitch|pitch-alteration)", str) \
 	       or re.search ("keySignature", str):
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "pitches")
+		sys.stderr.write ('\n')
 		sys.stderr.write (
 """The alteration field of Scheme pitches was multiplied by 2
-to support quarter tone accidentals. You have to edit the following constructs by hand:
+to support quarter tone accidentals.  You must update the following constructs by manually:
 
-* calls of  ly:make-pitch and ly:pitch-alteration
+* calls of ly:make-pitch and ly:pitch-alteration
 * keySignature settings made with \property
 """)
 		raise FatalConversionError ()
@@ -1605,7 +1647,13 @@ remove \\outputproperty, move ly:verbose into ly:get-option'''))
 
 def conv (str):
 	if re.search ("dash-length",str):
-		sys.stderr.write ("""dash-length has been removed. Use dash-fraction instead.""")
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "dash-length")
+		sys.stderr.write ('\n')
+		sys.stderr.write (FROM_TO % ("dash-length", "dash-fraction"))
+		sys.stderr.write ('\n')
+		sys.stderr.write (UPDATE_MANUALLY)
+		sys.stderr.write ('\n')
 		raise FatalConversionError()
 	return str
 
@@ -1751,9 +1799,11 @@ conversions.append (((2,1,16), conv, """\\musicglyph #"accidentals-NUM" -> \\sha
 def conv (str):
 
 	if re.search (r'\\partcombine', str):
-		sys.stderr.write ('Warning: \\partcombine has been changed. '
-				  +'Check conversion manually!')
-
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "\\partcombine")
+		sys.stderr.write ('\n')
+		sys.stderr.write (UPDATE_MANUALLY)
+		sys.stderr.write ('\n')
 		raise FatalConversionError()
 
 	# this rule doesn't really work,
@@ -1928,6 +1978,9 @@ def conv (str):
 	str = re.sub (r'ly:get-broken-into', 'ly:spanner-broken-into', str)
 	str = re.sub (r'Melisma_engraver', 'Melisma_translator', str)
 	if re.search ("ly:get-paper-variable", str):
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "ly:paper-get-variable")
+		sys.stderr.write ('\n')
 		sys.stderr.write ('use (ly:paper-lookup (ly:grob-paper ))')
 		raise FatalConversionError()
 
@@ -2083,7 +2136,11 @@ conversions.append (((2, 3, 1), conv,
 
 def conv (str):
 	if re.search ('textheight', str):
-		sys.stderr.write("\nWarning: tuning of page layout has changed. See reference manual.\n")
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "tuning of page layout")
+		sys.stderr.write ('\n')
+		sys.stderr.write (UPDATE_MANUALLY)
+		sys.stderr.write ('\n')
 
 	str = re.sub (r'\\OrchestralScoreContext', '\\Score', str)
 	def func(m):
@@ -2340,8 +2397,7 @@ def conv (str):
 			return match.group (2)
 
 		sys.stderr.write ('\n')
-		sys.stderr.write (_ ("found obsolete \\encoding: %s") \
-				  % encoding)
+		sys.stderr.write (NOT_SMART % ("\\encoding: %s" % encoding))
 		sys.stderr.write ('\n')
 		sys.stderr.write (_ ("LilyPond source must be UTF-8"))
 		sys.stderr.write ('\n')
@@ -2396,14 +2452,16 @@ def latest_version ():
 def do_conversion (infile, from_version, outfile, to_version):
 	conv_list = get_conversions (from_version, to_version)
 
-	sys.stderr.write (_ ("Applying conversions: "))
+	sys.stderr.write (_ ("Applying conversion: "))
 	str = infile.read ()
 	last_conversion = ()
 	try:
 		for x in conv_list:
-			sys.stderr.write (tup_to_str (x[0]) + ', ')
+			sys.stderr.write (tup_to_str (x[0]))
 			str = x[1] (str)
 			last_conversion = x[0]
+			if x != conv_list[-1]:
+				sys.stderr.write (', ')
 
 	except FatalConversionError:
 		sys.stderr.write (_ ("%s: error while converting") \
@@ -2413,14 +2471,15 @@ def do_conversion (infile, from_version, outfile, to_version):
 		sys.stderr.write ('\n')
 
 	if last_conversion:
-		sys.stderr.write ('\n')
 		new_ver =  '\\version \"%s\"' % tup_to_str (last_conversion)
 
 		if re.search (lilypond_version_re_str, str):
-			str = re.sub (lilypond_version_re_str,'\\'+new_ver, str)
+			str = re.sub (lilypond_version_re_str,
+				      '\\%s' % new_ver, str)
 		elif add_version:
 			str = new_ver + '\n' + str
 
+		sys.stderr.write ('\n')
 		outfile.write (str)
 
 	return last_conversion
@@ -2477,7 +2536,6 @@ def do_one_file (infile_name):
 		os.rename (infile_name, infile_name + '~')
 		os.rename (infile_name + '.NEW', infile_name)
 
-	sys.stderr.write ('\n')
 	sys.stderr.flush ()
 
 edit = 0
@@ -2487,7 +2545,7 @@ from_version = ()
 outfile_name = ''
 show_rules_p = 0
 
-(options, files) = getopt.getopt (sys.argv[1:], 'ao:f:t:senh',
+(options, files) = getopt.getopt (sys.argv[1:], 'ao:f:t:senhv',
 				  ['no-version', 'version', 'output',
 				  'show-rules', 'help', 'edit',
 				  'from=', 'to='])

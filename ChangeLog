@@ -1,6 +1,7 @@
 2005-02-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scripts/convert-ly.py (2.5.2): Remove fatal encoding rule.
+	* scripts/convert-ly.py: Uniformize, internalize.
+	(2.5.2): Remove fatal encoding rule.
 	(2.5.13): Handle latin1 encoding gracefully.
 
 2005-02-23  Jan Nieuwenhuizen  <janneke@gnu.org>

@@ -86,10 +86,10 @@ static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
 static char const *NOTICE =
-_i ("This program is free software.  It is covered by the GNU General Public\n"
+_f ("This program is free software.  It is covered by the GNU General Public\n"
     "License and you are welcome to change it and/or distribute copies of it\n"
-    "under certain conditions.  Invoke as `lilypond --warranty' for more\n"
-    "information.\n");
+    "under certain conditions.  Invoke as `%s --warranty' for more\n"
+    "information.\n", "lilypond").to_str0 ();
   
 static char const *WARRANTY =
 _i ("    This program is free software; you can redistribute it and/or\n"
