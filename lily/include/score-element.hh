@@ -154,6 +154,9 @@ protected:
 
   static Interval dim_cache_callback (Dimension_cache const*);
 public:
+  static SCM ly_set_elt_property (SCM, SCM,SCM);
+  static SCM ly_get_elt_property (SCM, SCM);  
+  
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 

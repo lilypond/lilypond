@@ -5,6 +5,10 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
+/*
+  UGH. too many includes.
+ */
 #include "debug.hh"
 #include "music-list.hh"
 #include "music-iterator.hh"
@@ -32,6 +36,7 @@
 #include "auto-change-iterator.hh"
 #include "request.hh"
 #include "request-iterator.hh"
+#include "output-property.hh"
 
 void
 Music_iterator::do_print() const
@@ -149,12 +154,10 @@ Music_iterator::static_get_iterator_p (Music const *m)
       else
 	p = new Unfolded_repeat_iterator;
     }
-  else if (Request const * r = dynamic_cast<Request const* > (m))
-    {
-      p = new Request_iterator ;
-    }
   else
-    assert (0);
+    {
+      p = new Simple_music_iterator ;
+    }
 
   p->music_l_ = m;
   return p;

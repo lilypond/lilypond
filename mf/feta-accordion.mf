@@ -62,6 +62,7 @@ fet_beginchar("accStdbase", "accStdbase", "accStdbase")
 	currentpicture := currentpicture shifted (0, r);
 fet_endchar;
 
+%%% strange turning path.
 fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
 	save lh;
 	lh = accreg_lh;
@@ -143,6 +144,7 @@ def def_some_vars =
 	cTwo = 0.60;
 enddef;
 
+%%% strange turning path.
 fet_beginchar("accSB", "accSB", "accSB")
 	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
 	def_some_vars;
@@ -172,6 +174,7 @@ fet_beginchar("accSB", "accSB", "accSB")
 	currentpicture := currentpicture shifted (0, 2.4staff_space);
 fet_endchar;
 
+%%% strange turning path.
 fet_beginchar("accBB", "accBB", "accBB")
 	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
 	def_some_vars;
@@ -196,6 +199,7 @@ fet_beginchar("accBB", "accBB", "accBB")
 fet_endchar;
 
 
+%%% strange turning path.
 fet_beginchar("accOldEE", "accOldEE", "accOldEE")
 	set_char_box(staff_space#, staff_space#, 0, 2staff_space#);
 	show w;
