@@ -1,3 +1,8 @@
+2003-03-31  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/regression/breathing-sign.ly: updated to for ancient
+	notation
+
 2003-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/ly2dvi.py: Add newline.
