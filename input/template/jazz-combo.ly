@@ -196,7 +196,7 @@ down = \notes {
         bd4 s bd s bd s bd s bd s bd s
 }
 
-drumNotes = \context Staff = drums {
+drums = \context Staff = drums {
 	\global
 	\property Staff.instrument = #"Drums"
 	\clef percussion
@@ -229,7 +229,7 @@ drumNotes = \context Staff = drums {
                 
                 \context Staff = bass \bass
                 
-                \apply #(drums->paper 'drums) \drumNotes
+                \apply #(drums->paper 'drums) \drums
         >
 >
         \midi { \tempo 4 = 75 }

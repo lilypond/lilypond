@@ -85,7 +85,11 @@ def no_dimen_beginchar(expr c) =
 	scantokens extra_beginchar;
 enddef;
 
-code:=-1;
+
+%
+% we leave the ctrl characters alone.
+%
+code:=32;
 
 % starts just as plain mf's beginchar:
 %     charcode, 

@@ -185,6 +185,7 @@
 bounding box, where to attach the stem. e.g.: X==0 means horizontally
 centered, X==1 is at the right, X == -1 is at the left."
 
+
   (case style
     ((default)
      (if (< duration -1)
@@ -198,6 +199,10 @@ centered, X==1 is at the right, X == -1 is at the left."
     ((transparent) '(1.0 . 1.0))
     ((slash) '(1.0 . 1.0))
     ((harmonic) '(1.0 0.0))
+
+    ;;
+    ;;UGH this needs to be changed: triangle is not point-symmetric, has different attachments
+    ;;  for up/down stem
     ((triangle) '(0.75 . 0.15))
     ((baroque)
      (if (< duration 0)

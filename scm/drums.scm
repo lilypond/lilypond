@@ -3,6 +3,8 @@
 
 ;;;; changed eval to primitive-eval for guile 1.4/1.4.1 compatibility --jcn
 
+;; TODO: the design of this hack should be rethought.
+
 
 ;; ugh. Should make separate module?
 (define-public drum-pitch-names `(
@@ -82,84 +84,101 @@
 	(fivedown	  de	,(ly:make-pitch -1 2 0))
 ))
 
-(define-public drums `(
-	(acousticbassdrum default 	#f	  ,(ly:make-pitch -1 4 0))
-	(bassdrum	  default 	#f	  ,(ly:make-pitch -1 4 0))
-	(sidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
-	(acousticsnare	  default 	#f	  ,(ly:make-pitch 0 1 0))
-	(snare		  default 	#f	  ,(ly:make-pitch 0 1 0))
-	(handclap	  triangle	#f	  ,(ly:make-pitch 0 1 0))
-	(electricsnare	  default 	#f	  ,(ly:make-pitch 0 1 0))
-	(lowfloortom	  default 	#f	  ,(ly:make-pitch -1 3 0))
-	(closedhihat	  cross		"stopped" ,(ly:make-pitch 0 3 0))
-	(hihat		  cross		#f	  ,(ly:make-pitch 0 3 0))
-	(highfloortom	  default 	#f	  ,(ly:make-pitch -1 5 0))
-	(pedalhihat	  cross		#f	  ,(ly:make-pitch -1 2 0))
-	(lowtom		  default 	#f	  ,(ly:make-pitch -1 6 0))
-	(openhihat	  cross		"open"	  ,(ly:make-pitch 0 3 0))
-	(halfopenhihat	  xcircle	#f	  ,(ly:make-pitch 0 3 0))
-	(lowmidtom	  default 	#f	  ,(ly:make-pitch 0 0 0))
-	(himidtom	  default 	#f	  ,(ly:make-pitch 0 2 0))
-	(crashcymbala	  xcircle 	#f	  ,(ly:make-pitch 0 5 0))
-	(crashcymbal	  xcircle 	#f	  ,(ly:make-pitch 0 5 0))
-	(hightom	  default 	#f	  ,(ly:make-pitch 0 4 0))
-	(ridecymbala	  cross		#f	  ,(ly:make-pitch 0 5 0))
-	(ridecymbal	  cross		#f	  ,(ly:make-pitch 0 5 0))
-	(chinesecymbal	  mensural 	#f	  ,(ly:make-pitch 0 5 0))
-	(ridebell	  default	#f	  ,(ly:make-pitch 0 5 0))
-	(splashcymbal	  diamond 	#f	  ,(ly:make-pitch 0 5 0))
-	(cowbell	  triangle	#f	  ,(ly:make-pitch 0 5 0))
-	(crashcymbalb	  cross		#f	  ,(ly:make-pitch 0 5 0))
-	(vibraslap	  diamond 	#f	  ,(ly:make-pitch 0 4 0))
-	(ridecymbalb	  cross		#f	  ,(ly:make-pitch 0 5 0))
- ))
+(define-public (get-drum-kit kit)
+  (assoc-get-default kit percussive-instrument-settings '()))
 
-(define-public timbales `(
-	(losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
-	(lotimbale	  default	#f	  ,(ly:make-pitch -1 6 0))
-	(cowbell	  triangle	#f	  ,(ly:make-pitch 0 2 0))
-	(hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
-	(hitimbale	  default	#f	  ,(ly:make-pitch 0 1 0))
- ))
+;;
+;; all settings for percussive instruments.
+;; public so people can add their own stuff.
+;;
 
-(define-public congas `(
-	(losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
-	(loconga	  default	#f	  ,(ly:make-pitch -1 6 0))
-	(openloconga      default       "open"    ,(ly:make-pitch -1 6 0))
-	(muteloconga      default       "stopped" ,(ly:make-pitch -1 6 0))
-	(hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
-	(hiconga	  default	#f	  ,(ly:make-pitch 0 1 0))
-	(openhiconga      default       "open"    ,(ly:make-pitch 0 1 0))
-        (mutehiconga      default       "stopped" ,(ly:make-pitch 0 1 0))
-  
- ))
+(define-public
+  percussive-instrument-settings
+  `((drums
+    . (
+	   (acousticbassdrum default 	#f	  ,(ly:make-pitch -1 4 0))
+	   (bassdrum	  default 	#f	  ,(ly:make-pitch -1 4 0))
+	   (sidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
+	   (acousticsnare	  default 	#f	  ,(ly:make-pitch 0 1 0))
+	   (snare		  default 	#f	  ,(ly:make-pitch 0 1 0))
+	   (handclap	  triangle	#f	  ,(ly:make-pitch 0 1 0))
+	   (electricsnare	  default 	#f	  ,(ly:make-pitch 0 1 0))
+	   (lowfloortom	  default 	#f	  ,(ly:make-pitch -1 3 0))
+	   (closedhihat	  cross		"stopped" ,(ly:make-pitch 0 3 0))
+	   (hihat		  cross		#f	  ,(ly:make-pitch 0 3 0))
+	   (highfloortom	  default 	#f	  ,(ly:make-pitch -1 5 0))
+	   (pedalhihat	  cross		#f	  ,(ly:make-pitch -1 2 0))
+	   (lowtom		  default 	#f	  ,(ly:make-pitch -1 6 0))
+	   (openhihat	  cross		"open"	  ,(ly:make-pitch 0 3 0))
+	   (halfopenhihat	  xcircle	#f	  ,(ly:make-pitch 0 3 0))
+	   (lowmidtom	  default 	#f	  ,(ly:make-pitch 0 0 0))
+	   (himidtom	  default 	#f	  ,(ly:make-pitch 0 2 0))
+	   (crashcymbala	  xcircle 	#f	  ,(ly:make-pitch 0 5 0))
+	   (crashcymbal	  xcircle 	#f	  ,(ly:make-pitch 0 5 0))
+	   (hightom	  default 	#f	  ,(ly:make-pitch 0 4 0))
+	   (ridecymbala	  cross		#f	  ,(ly:make-pitch 0 5 0))
+	   (ridecymbal	  cross		#f	  ,(ly:make-pitch 0 5 0))
+	   (chinesecymbal	  mensural 	#f	  ,(ly:make-pitch 0 5 0))
+	   (ridebell	  default	#f	  ,(ly:make-pitch 0 5 0))
+	   (splashcymbal	  diamond 	#f	  ,(ly:make-pitch 0 5 0))
+	   (cowbell	  triangle	#f	  ,(ly:make-pitch 0 5 0))
+	   (crashcymbalb	  cross		#f	  ,(ly:make-pitch 0 5 0))
+	   (vibraslap	  diamond 	#f	  ,(ly:make-pitch 0 4 0))
+	   (ridecymbalb	  cross		#f	  ,(ly:make-pitch 0 5 0))
+	   ))
 
-(define-public bongos `(
-	(losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
-	(lobongo	  default	#f	  ,(ly:make-pitch -1 6 0))
-	(openlobongo      default       "open"    ,(ly:make-pitch -1 6 0))
-	(mutelobongo      default       "stopped" ,(ly:make-pitch -1 6 0))
-	(hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
-	(hibongo	  default	#f	  ,(ly:make-pitch 0 1 0))
-	(openhibongo      default       "open"    ,(ly:make-pitch 0 1 0))
-	(mutehibongo      default       "stopped" ,(ly:make-pitch 0 1 0))
- ))
+  (timbales
+   . (
+      (losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
+      (lotimbale	  default	#f	  ,(ly:make-pitch -1 6 0))
+      (cowbell	  triangle	#f	  ,(ly:make-pitch 0 2 0))
+      (hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
+      (hitimbale	  default	#f	  ,(ly:make-pitch 0 1 0))
+      ))
+
+  (congas
+   . (
+      (losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
+      (loconga	  default	#f	  ,(ly:make-pitch -1 6 0))
+      (openloconga      default       "open"    ,(ly:make-pitch -1 6 0))
+      (muteloconga      default       "stopped" ,(ly:make-pitch -1 6 0))
+      (hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
+      (hiconga	  default	#f	  ,(ly:make-pitch 0 1 0))
+      (openhiconga      default       "open"    ,(ly:make-pitch 0 1 0))
+      (mutehiconga      default       "stopped" ,(ly:make-pitch 0 1 0))
+      ))
+
+  (bongos
+    . (
+       (losidestick	  cross		#f	  ,(ly:make-pitch -1 6 0))
+       (lobongo	  default	#f	  ,(ly:make-pitch -1 6 0))
+       (openlobongo      default       "open"    ,(ly:make-pitch -1 6 0))
+       (mutelobongo      default       "stopped" ,(ly:make-pitch -1 6 0))
+       (hisidestick	  cross		#f	  ,(ly:make-pitch 0 1 0))
+       (hibongo	  default	#f	  ,(ly:make-pitch 0 1 0))
+       (openhibongo      default       "open"    ,(ly:make-pitch 0 1 0))
+       (mutehibongo      default       "stopped" ,(ly:make-pitch 0 1 0))
+       ))
 
 
-(define-public percussion `(
-	(opentriangle	  cross		"open"	  ,(ly:make-pitch 0 0 0))
-	(mutetriangle	  cross		"stopped" ,(ly:make-pitch 0 0 0))
-	(triangle	  cross		#f	  ,(ly:make-pitch 0 0 0))
-	(shortguiro	  default	"staccato",(ly:make-pitch 0 0 0))
-	(longguiro	  default	"tenuto"  ,(ly:make-pitch 0 0 0))
-	(guiro		  default	#f	  ,(ly:make-pitch 0 0 0))
-	(cowbell	  triangle	#f	  ,(ly:make-pitch 0 0 0))
-	(claves		  default	#f	  ,(ly:make-pitch 0 0 0))
-	(tambourine	  default	#f	  ,(ly:make-pitch 0 0 0))
-	(cabasa		  cross		#f	  ,(ly:make-pitch 0 0 0))
-	(maracas	  default	#f	  ,(ly:make-pitch 0 0 0))
-	(handclap	  default	#f	  ,(ly:make-pitch 0 0 0))
- ))
+  (percussion
+   . (
+      (opentriangle	  cross		"open"	  ,(ly:make-pitch 0 0 0))
+      (mutetriangle	  cross		"stopped" ,(ly:make-pitch 0 0 0))
+      (triangle	  cross		#f	  ,(ly:make-pitch 0 0 0))
+      (shortguiro	  default	"staccato",(ly:make-pitch 0 0 0))
+      (longguiro	  default	"tenuto"  ,(ly:make-pitch 0 0 0))
+      (guiro		  default	#f	  ,(ly:make-pitch 0 0 0))
+      (cowbell	  triangle	#f	  ,(ly:make-pitch 0 0 0))
+      (claves		  default	#f	  ,(ly:make-pitch 0 0 0))
+      (tambourine	  default	#f	  ,(ly:make-pitch 0 0 0))
+      (cabasa		  cross		#f	  ,(ly:make-pitch 0 0 0))
+      (maracas	  default	#f	  ,(ly:make-pitch 0 0 0))
+      (handclap	  default	#f	  ,(ly:make-pitch 0 0 0))
+      ))
+  ))
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -241,7 +260,7 @@
 	      (begin
 	       (display p) ;; UGH. FIXME. pitch->string ???
 	       (ly:warn " unknown drumpitch.")
-	       (cdar (primitive-eval kit))
+	       (cdar (get-drum-kit kit))
 	   ))
          ((eq? p (caddr (car pitches))) ((name->paper kit) (caar pitches)) )
 	 (else                          (p2p (cdr pitches) ) )
@@ -250,12 +269,12 @@
  )
 
 (define ((name->paper kit) n)
-   (let n2p ((pitches (primitive-eval kit)))
+   (let n2p ((pitches (get-drum-kit kit)))
      (cond ((eq? pitches '())
 	      (begin
 	       (ly:warn (string-append "Kit `" (symbol->string kit) "' doesn't contain drum `" n
 				       "'\nSee ly/drumpitch-init.ly for supported drums."))
-	       (cdar (primitive-eval kit))
+	       (cdar (get-drum-kit kit))
 	     ))
            ((eq? n (caar pitches))  (cdar pitches) )
 	   (else                    (n2p (cdr pitches) ) )
@@ -263,8 +282,9 @@
    )
  )
 
-
+;;
 ;; converts a midi-pitched (ly/drumpitch.ly) file to paper output.
+;;
 (define-public ((drums->paper kit) music)
   (begin
    (if (equal? (ly:get-mus-property music 'name) 'EventChord)
@@ -294,10 +314,6 @@
           (ly:set-mus-property!
            music 'element
            ((drums->paper kit) e))
-        )
-      )
-    )
-   )
+        ))))
    music
-  )
- )
+  ))
