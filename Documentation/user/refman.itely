@@ -3186,7 +3186,7 @@ named modifier.  Named modifiers are listed in the file
 @code{min} which lower the 3rd half a step, `@code{aug}' which
 raises the 5th, `@code{dim}' which lowers the 5th,
 `@code{maj}' which adds a raised 7th, and `@code{sus}'
-which replaces the 5th with a 4th.
+which replaces the 3rd with a 4th.
 
 @lilypond[fragment,verbatim]
 \transpose c'' {
