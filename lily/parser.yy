@@ -753,7 +753,7 @@ output_def_head:
 		THIS->lexer_->add_scope (p->scope_);
 	}
 	| PAPER 	{
-		Output_def* p = get_paper (THIS);
+		Output_def *p = get_paper (THIS);
 
 		if (p->parent_)
 			THIS->lexer_->add_scope (p->parent_->scope_);

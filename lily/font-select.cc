@@ -16,43 +16,47 @@
 #include "warn.hh"
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
-	   (SCM paper, SCM chain),
+	   (SCM paper_smob, SCM chain),
 
 	   "Return a font metric satisfying the font-qualifiers "
 	   "in the alist chain @var{chain}.\n"
-	   "(An alist chain is a list of alists, containing grob properties).\n")
+	   "(An alist chain is a list of alists, "
+	   "containing grob properties).\n")
 {
-  Output_def *pap = unsmob_output_def (paper);
-  SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
+  Output_def *paper = unsmob_output_def (paper_smob);
+  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
+		   __FUNCTION__, "paper definition");
   
-  Font_metric *fm = select_font (pap, chain);
+  Font_metric *fm = select_font (paper, chain);
   return fm->self_scm ();
 }
 
 LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
-	   (SCM paper, SCM name),
+	   (SCM paper_smob, SCM name),
 	   "Return the paper variable @var{name}.")
 {
-  Output_def *pap = unsmob_output_def (paper);
-  SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
-  return scm_make_real (pap->get_dimension (name));
+  Output_def *paper = unsmob_output_def (paper_smob);
+  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
+		   __FUNCTION__, "paper definition");
+  return scm_make_real (paper->get_dimension (name));
 }
 
 bool
 wild_compare (SCM field_val, SCM val)
 {
-  return (val == SCM_BOOL_F || field_val == ly_symbol2scm ("*") || field_val == val);
+  return (val == SCM_BOOL_F
+	  || field_val == ly_symbol2scm ("*")
+	  || field_val == val);
 }
-
 
 /*
   TODO: this triggers a great number of font-loads (feta11 upto
   parmesan23). We could make a Delayed_load_font_metric for which the
   design size is specced in advance.
  */
-Font_metric*
-get_font_by_design_size (Output_def* paper, Real requested,
-			 SCM font_vector, SCM input_encoding_name)
+Font_metric *
+get_font_by_design_size (Output_def *paper, Real requested,
+			 SCM font_vector, SCM input_encoding)
 {
   int n = SCM_VECTOR_LENGTH (font_vector);
   Real size = 1e6;
@@ -66,40 +70,36 @@ get_font_by_design_size (Output_def* paper, Real requested,
       size = fm->design_size ();
       
       if (size > requested)
-	break ;
+	break;
       last_size = size; 
     }
 
   if (i == n)
-    {
-      i = n-1;
-    }
+    i = n - 1;
   else if (i > 0)
     {
       if ((requested / last_size) < (size / requested))
 	{
-	  i -- ;
+	  i--;
 	  size = last_size;
 	}
     }
 
-  Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
-  return
-    find_scaled_font (paper, fm, requested / size, input_encoding_name);
+  Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector,
+							       i)));
+  return find_scaled_font (paper, fm, requested / size, input_encoding);
 
 }
-
 
 Font_metric*
-get_font_by_mag_step (Output_def* paper, Real requested_step,
-		      SCM font_vector, Real default_size, SCM input_encoding_name)
+get_font_by_mag_step (Output_def *paper, Real requested_step,
+		      SCM font_vector, Real default_size,
+		      SCM input_encoding)
 {
-  return get_font_by_design_size (paper,
-				  default_size * pow (2.0, requested_step / 6.0),
-				  font_vector, input_encoding_name);
+  return get_font_by_design_size (paper, default_size
+				  * pow (2.0, requested_step / 6.0),
+				  font_vector, input_encoding);
 }
-
-
 
 SCM
 properties_to_font_size_family (SCM fonts, SCM alist_chain)
@@ -107,9 +107,8 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
   return scm_call_2 (ly_scheme_function ("lookup-font"), fonts, alist_chain);
 }
 
-
 Font_metric *
-select_encoded_font (Output_def *paper, SCM chain, SCM encoding_name)
+select_encoded_font (Output_def *paper, SCM chain, SCM input_encoding)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
@@ -119,18 +118,17 @@ select_encoded_font (Output_def *paper, SCM chain, SCM encoding_name)
       name = properties_to_font_size_family (fonts, chain);
     }
   else
-    name  = ly_cdr (name);
+    name = ly_cdr (name);
 
   if (ly_c_string_p (name))
     {
       SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
-  
-      Real rmag = ly_c_pair_p (mag) ? robust_scm2double (ly_cdr (mag), 1.0) : 1;
-
-      Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
-      
-      
-      return find_scaled_font (paper, fm, rmag, encoding_name);
+      Real rmag = (ly_c_pair_p (mag)
+		   ? robust_scm2double (ly_cdr (mag), 1.0)
+		   : 1);
+      Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
+		   
+      return find_scaled_font (paper, fm, rmag, input_encoding);
     }
   else if (scm_instance_p (name))
     {
@@ -138,16 +136,15 @@ select_encoded_font (Output_def *paper, SCM chain, SCM encoding_name)
       SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
       
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
-      Real req = 0.0;
+      Real req = 0;
       if (ly_c_pair_p (font_size))
 	req = ly_scm2double (ly_cdr (font_size));
 
-      return get_font_by_mag_step (paper, req,
-				   vec, ly_scm2double (base_size), encoding_name);
+      return get_font_by_mag_step (paper, req, vec, ly_scm2double (base_size),
+				   input_encoding);
     }
 
   assert (0);
-
   return 0;
 }
 

@@ -7,11 +7,16 @@
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
 
-    inputencoding = #"TeX"
+    %% This is weird; `everyone' uses LATIN1?  How does I select TeX
+    %% input encoding in EMACS? -- jcn
+    %%%%inputencoding = #"TeX"
+    inputencoding = #"latin1"
+
     printpagenumber = ##t
-   %
-   % 20pt staff, 5 pt = 1.75 mm
-   %
+
+    %%
+    %% 20pt staff, 5 pt = 1.75 mm
+    %%
 
    outputscale = #1.7573
     

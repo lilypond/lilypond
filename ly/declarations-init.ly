@@ -1,12 +1,18 @@
+\version "2.3.8"
+
+%% < 1.8 compatibility switch
 #(ly:set-option 'old-relative)
 
-\version "2.3.8"
+%% named durations
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
 
 \include "music-functions-init.ly"
-\include "nederlands.ly"		% dutch
+
+%% default note names are dutch
+\include "nederlands.ly"
+
 \include "drumpitch-init.ly"		
 \include "chord-modifiers-init.ly"
 \include "script-init.ly"
@@ -20,46 +26,41 @@ start = -1
 stop = 1
 smaller = -1
 bigger = 1
-center=0
+center = 0
 
-%{
-
-should also set allowBeamBreak, but how to do it "portably"? (ie. also
-working with lyric sections)
-
-try \once \set Score.allowBeamBreak = ##t
-
-%}
+%% FIXME
+%% should also set allowBeamBreak, but how to do it "portably"? (ie. also
+%% working with lyric sections)
+%%
+%% try \once \set Score.allowBeamBreak = ##t
 
 %% rather name \newline, \newpage ?
 break = #(make-event-chord (list (make-penalty-music -10001 0)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
 pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
-pagebreak = \pageBreak % ugh.
 noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
-noPagebreak = \noPageBreak % ugh
+
+%% why these defines?
+pagebreak = \pageBreak
+noPagebreak = \noPageBreak
 
 noBeam = #(make-music 'BeamForbidEvent) 
 pipeSymbol = #(make-music 'BarCheck)
 
-foo =  { \pageBreak }
+foo = { \pageBreak }
 
 \include "scale-definitions-init.ly"
-
 
 melisma = #(make-span-event 'ManualMelismaEvent START)
 melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 \include "grace-init.ly"
-
-% ugh
 \include "midi-init.ly"
-
 \include "book-paper-defaults.ly"
 
 \paper {
-    mm = #(ly:output-def-lookup $defaultbookpaper  'mm)
-    unit = #(ly:output-def-lookup $defaultbookpaper  'unit)
+    mm = #(ly:output-def-lookup $defaultbookpaper 'mm)
+    unit = #(ly:output-def-lookup $defaultbookpaper 'unit)
 
     in = #(* 25.4 mm)
     pt = #(/  in 72.27)
@@ -73,27 +74,25 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 
 partCombineListener = \paper {
- \context {
-	  \Voice
-	  \consists Note_heads_engraver
-	  \consists Rest_engraver
-	  \type "Recording_group_engraver"
-	  recordEventSequence = #notice-the-events-for-pc
- }
- \context { \Score skipTypesetting = ##t }
+    \context {
+	\Voice
+	\consists Note_heads_engraver
+	\consists Rest_engraver
+	\type "Recording_group_engraver"
+	recordEventSequence = #notice-the-events-for-pc
+    }
+    \context { \Score skipTypesetting = ##t }
 }
 
 #(set-part-combine-listener partCombineListener)
 
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
-
 \include "property-init.ly"
 
-%% reset default duration
-unusedEntry =  { c4 }
+setDefaultDurationToQuarter = { c4 }
 
-%% must have size argument for GUILE 1.6 compat.
+%% MAKE-HASH-TABLE in GUILE 1.6 takes mandatory size parameter.
 #(define musicQuotes (make-hash-table 29))
 
 #(define toplevel-book-handler ly:parser-print-book)

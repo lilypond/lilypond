@@ -1,14 +1,13 @@
 /*   
-  scaled-font-metric.hh -- declare Font_metric
+  modified-font-metric.hh -- declare Font_metric
   
   source file of the GNU LilyPond music typesetter
   
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
- */
+*/
 
-#ifndef SCALED_FONT_METRIC_HH
-#define SCALED_FONT_METRIC_HH
+#ifndef MODIFIED_FONT_METRIC_HH
+#define MODIFIED_FONT_METRIC_HH
 
 #include "font-metric.hh"
 
@@ -49,4 +48,4 @@ protected:
   Box tex_kludge (String) const;
 };
 
-#endif /* SCALED_FONT_METRIC_HH */
+#endif /* MODIFIED_FONT_METRIC_HH */

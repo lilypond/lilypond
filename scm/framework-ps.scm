@@ -14,6 +14,13 @@
 	     (srfi srfi-13)
 	     (lily))
 
+(define (stderr string . rest)
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+;;(define pdebug stderr)
+(define (pdebug . rest) #f)
+
 (define mm-to-bigpoint
   (/ 72 25.4))
 
@@ -44,21 +51,19 @@
 	 (pfas (map
 		(lambda (x)
 		
-		(let*
-		    ((aname (string-append x ".pfa"))
-		     (apath (ly:kpathsea-expand-path aname))
-
-		     (bpath (if (not apath)
-				(ly:kpathsea-expand-path (string-append x ".pfb"))
-				#f)))
-		     
-			    
-		  (cond
-		   (apath (ly:gulp-file apath))
-		   (bpath (ly:pfb->pfa bpath))
-		   (else
-		    (ly:warn "Can't find PFA font ~S" x)
-		    ""))))
+		  (let* ((aname (string-append x ".pfa"))
+			 (apath (ly:kpathsea-expand-path aname))
+			 
+			 (bpath (if (not apath)
+				    (ly:kpathsea-expand-path
+				     (string-append x ".pfb"))
+				    #f)))
+		    (cond
+		     (apath (ly:gulp-file apath))
+		     (bpath (ly:pfb->pfa bpath))
+		     (else
+		      (ly:warn "Can't find PFA font ~S" x)
+		      ""))))
 		(filter string? font-names))))
   
     (string-join pfas "\n")))
@@ -95,6 +100,15 @@
 	   (ops (ly:output-def-lookup bookpaper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
+      ;; debugging: [output]encoding is broken
+      ;; found so far: coding-alist is empty!
+      (pdebug "font: ~S\n" font)
+      (pdebug "fontname: ~S\n" fontname)
+      (pdebug "input-encoding:~S\n" input-encoding)
+      (pdebug "font-encoding:~S\n" font-encoding)
+
+      (pdebug "coding-alist:~S\n" coding-alist)
+      
       (string-append
        (define-font plain fontname scaling)
        (if (equal? input-encoding font-encoding)
@@ -112,6 +126,7 @@
 	 (encodings (uniq-list (sort-list (filter string? encoding-list)
 					  string<?))))
 
+    (pdebug "encodings:~S\n" encodings)
     (string-append
      (apply string-append (map font-load-encoding encodings))
      (apply string-append
@@ -134,7 +149,7 @@
      (value->string (ly:output-def-lookup paper ly-key)) " def \n"))
 
   (string-append
-   "/lily-output-units " (number->string mm-to-bigpoint) "  def  %% milimeter \n"
+   "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter \n"
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
    (output-entry "paper-size" 'papersize)
@@ -157,7 +172,8 @@
 (define (eps-header bookpaper bbox)
   (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
 		 "%%Creator: creator time-stamp\n"
-		 "%%BoundingBox: " (string-join (map number->string  bbox) " ") "\n"
+		 "%%BoundingBox: "
+		 (string-join (map number->string bbox) " ") "\n"
 		 "%%EndComments\n"))
 
 (define (page-header bookpaper page-count)
@@ -165,7 +181,8 @@
 		 "%%Creator: creator time-stamp\n"
 		 "%%Pages: " (number->string page-count) "\n"
 		 "%%PageOrder: Ascend\n"
-		 "%%DocumentPaperSizes: " (ly:output-def-lookup bookpaper 'papersize) "\n"))
+		 "%%DocumentPaperSizes: "
+		 (ly:output-def-lookup bookpaper 'papersize) "\n"))
 
 (define (preamble bookpaper)
   (list
@@ -199,7 +216,8 @@
 	 (systems (ly:paper-book-lines book))
 	 (scale  (ly:output-def-lookup bookpaper 'outputscale ))
 	 (titles (take-while ly:paper-system-title? systems))
-	 (non-title (find (lambda (x) (not (ly:paper-system-title? x))) systems))
+	 (non-title (find (lambda (x)
+			    (not (ly:paper-system-title? x))) systems))
 	 (dump-me
 	  (stack-stencils Y DOWN 0.0 
 			  (map ly:paper-system-stencil
@@ -225,6 +243,7 @@
 			    (string-append "0 0 start-system { "
 					   "set-ps-scale-to-lily-scale "
 					   "\n"))
+
   (ly:outputter-dump-stencil outputter dump-me)
   (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
 
@@ -252,4 +271,3 @@
 
 (define-public (convert-to-ps book name)
   #t)
-

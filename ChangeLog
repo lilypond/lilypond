@@ -1,3 +1,28 @@
+2004-08-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily.scm: Mark un-internationlised user messages (with FIXME).
+
+	* lily/include/modified-font-metric.hh (struct
+	Modified_font_metric): New file.  (WAS: incorrectly named
+	scaled-font-metric.hh ?)
+
+	* lily/include/scaled-font-metric.hh: Remove.
+
+	* lily/text-item.cc (interpret_string): Identify and document
+	input-encoding problem.
+
+	* lily/paper-book.cc (pages): Do not use `paper' as variable name
+	for a Bookpaper.
+
+	* tex/latin1.enc: Replace /minus with /hyphen.  WL says that's the
+	latin1 name.
+
+	* scm/encoding.scm: For latin1 (input-)encoding, use
+	latin1.  (Cork.enc is NOT latin1 -- see man latin1).
+
+	* ly/book-paper-defaults.ly: Add a comment about suspicious TeX
+	inputencoding.
+
 2004-08-12  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.html: fixes.

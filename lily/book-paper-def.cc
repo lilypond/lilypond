@@ -10,7 +10,7 @@
 #include "font-metric.hh"
 #include "ly-module.hh"
 #include "output-def.hh"
-#include "scaled-font-metric.hh"
+#include "modified-font-metric.hh"
 #include "virtual-font-metric.hh"
 
 Real
