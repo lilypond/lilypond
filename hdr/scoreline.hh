@@ -13,7 +13,7 @@
 /// the columns of a score that form one line.
 struct
 Line_of_score {
-    PointerList<const PCol *> cols;
+    PointerList<PCol *> cols;
 
     // need to store height of each staff.
     IPointerList<Line_of_staff*> staffs;
@@ -21,7 +21,7 @@ Line_of_score {
 
     /****************/
     void process() ;
-    Line_of_score(svec<const PCol *> sv,  PScore *);
+    Line_of_score(svec<PCol *> sv,  PScore *);
 
     String TeXstring() const;
 

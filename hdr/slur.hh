@@ -25,7 +25,7 @@ struct Slur : Spanner {
     void add(Notehead*);
     void set_default_dir();
     Interval height() const;
-    Spanner* broken_at(const PCol*, const PCol*) const;
+    Spanner* broken_at( PCol*, PCol*) const;
     void process();
 private:
     void brew_molecule();

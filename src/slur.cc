@@ -52,7 +52,7 @@ Slur::preprocess()
 }
 
 Spanner*
-Slur::broken_at(const PCol*l, const PCol*r) const
+Slur::broken_at(PCol*l, PCol*r) const
 {
     assert(l->line == r->line);
     Slur*ret = new Slur(*this);

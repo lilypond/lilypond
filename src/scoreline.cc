@@ -22,7 +22,7 @@ Line_of_score::TeXstring() const
 }
 
 
-Line_of_score::Line_of_score(svec<const PCol *> sv,
+Line_of_score::Line_of_score(svec<PCol *> sv,
 			     PScore *ps)
 {
     pscore_ = ps;

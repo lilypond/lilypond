@@ -64,13 +64,13 @@ Line_of_staff::Line_of_staff(Line_of_score * sc, PStaff*st)
     pstaff_=st;
 
     
-    const PCol *linestart = sc->cols.top();
-    const PCol *linestop = sc->cols.bottom();
+    PCol *linestart = sc->cols.top();
+    PCol *linestop = sc->cols.bottom();
 
     
     for (PCursor<const Spanner*> sp(pstaff_->spans); sp.ok(); sp++) {
-	const PCol *brokenstart = &MAX(*linestart, *sp->left);
-	const PCol *brokenstop = &MIN(*linestop, *sp->right);
+	PCol *brokenstart = &MAX(*linestart, *sp->left);
+	PCol *brokenstop = &MIN(*linestop, *sp->right);
 	if ( *brokenstart < *brokenstop) {
 	    line_of_score_->pscore_-> // higghl
 		add_broken(sp->broken_at(brokenstart,brokenstop));
