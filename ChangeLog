@@ -2,6 +2,8 @@
 
 	* input/bugs/rhytmicstaff-tie.ly: add file.
 
+	* THANKS: Create skeleton for 2.1.
+
 2003-10-31  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/test/bar-lines.ly (TODO): dashed "|".
