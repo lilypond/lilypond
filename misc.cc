@@ -1,6 +1,6 @@
 #include "misc.hh"
 #include "glob.hh"
-#include "mtime.hh"
+
 #include <math.h>
 
 int intlog2(int d) {
@@ -26,7 +26,7 @@ const double WHOLE_SPACE = 5.0; // should be settable from input
 
   
 Real
-duration_to_idealspace(Mtime d, Real w)
+duration_to_idealspace(Real d, Real w)
 {
     // see  Roelofs, p. 57
     return w * pow(ENGRAVERS_SPACE, log2(d));

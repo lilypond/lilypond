@@ -1,6 +1,13 @@
+/*
+  proto.hh -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef PROTO_HH
+#define PROTO_HH
 #include "real.hh"
 
-class Parametric_symbol;
 class Line_of_score;
 class Line_of_staff;
 class PCol;
@@ -74,3 +81,10 @@ struct Identifier;
 struct Keyword;
 class Mixed_qp;
 class Paperdef;
+class Score_commands;
+class Parametric_symbol;
+
+
+
+#endif // PROTO_HH
+

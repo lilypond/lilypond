@@ -1,18 +1,18 @@
 #ifndef VOICE_HH
 #define VOICE_HH
 
-#include "mtime.hh"
+
 #include "list.hh"
 #include "request.hh"
 
 /// class for  horizontal stuff.
 struct Voice {
     PointerList<Voice_element *> elts;
-    Mtime start;
+    Real start;
 
     /****************/
-    Mtime when(const Voice_element*)const;
-    Mtime last() const;
+    Real when(const Voice_element*)const;
+    Real last() const;
     Voice();
     void add(Voice_element*);
     void print() const;
@@ -30,7 +30,7 @@ struct Voicegroup {
 
 /// 
 struct Voice_element {
-    Mtime duration;
+    Real duration;
     const Voicegroup *group;
     const Voice *voice;
     PointerList<Request*> reqs;
