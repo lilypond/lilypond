@@ -177,7 +177,7 @@ breakmusic = \notes {
 % these should be two separate scores...
 \score{
   \type Score <
-    \type GrandStaff <
+    \type PianoStaff <
       \type Staff = treble {
         \praeludium_right \breakmusic \fugaII_right }
       \type Staff = bass { 
