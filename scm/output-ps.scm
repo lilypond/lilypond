@@ -167,15 +167,16 @@
   (let* ((name (ly:font-name font))
 	 (magnify (ly:font-magnification font))
 	 (coding-alist (ly:font-encoding-alist font))
-	 (encoding (assoc-get 'input-name coding-alist))
+	 (input-encoding (assoc-get 'input-name coding-alist))
+	 (font-encoding (assoc-get 'output-name coding-alist))
 	 (coding-command (if (not (null? override-coding-command))
 			     (car override-coding-command)
-			     (get-coding-command encoding))))
+			     (get-coding-command font-encoding))))
 
     (string-append
      "magfont" (string-encode-integer (hashq  name 1000000))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
-     (if (equal? coding-command "AdobeStandardEncoding") ""
+     (if (equal? input-encoding font-encoding) ""
 	 (string-append "e" coding-command)))))
 
 (define (define-fonts paper font-list)
@@ -206,12 +207,13 @@
      (else basename)))
 
   (define (font-load-command paper font)
-    (let* ((command (font-command font))
-	   (plain (font-command font "AdobeStandardEncoding"))
-	   (basename (ly:font-name font))
+    (let* ((basename (ly:font-name font))
 	   (fontname (guess-ps-fontname basename))
 	   (coding-alist (ly:font-encoding-alist font))
-	   (encoding (assoc-get 'input-name coding-alist))
+	   (input-encoding (assoc-get 'input-name coding-alist))
+	   (font-encoding (assoc-get 'output-name coding-alist))
+	   (plain (font-command font (get-coding-command font-encoding)))
+	   (command (font-command font))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:paper-lookup paper 'outputscale))
@@ -219,8 +221,14 @@
 
       (string-append
        (define-font plain fontname scaling)
-       (if (equal? command plain) ""
-	   (reencode-font plain encoding command)))))
+       (if (or (equal? input-encoding font-encoding)
+	       ;; guh
+	       (equal? font-encoding "fetaBraces")
+	       (equal? font-encoding "fetaNumber")
+	       (equal? font-encoding "fetaMusic")
+	       (equal? font-encoding "parmesanMusic"))
+	       ""
+	   (reencode-font plain input-encoding command)))))
   
   (define (font-load-encoding encoding)
     (let ((filename (get-coding-filename encoding)))
