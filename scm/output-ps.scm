@@ -205,7 +205,7 @@
 	   (fontname (ly:font-name font))
 	   (mangled (possibly-mangle-fontname fontname))
 	   (coding-alist (ly:font-encoding-alist font))
-	   (encoding (assoc-get 'input-name coding-alist ))
+	   (encoding (assoc-get 'input-name coding-alist))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:paper-lookup paper 'outputscale))
@@ -224,22 +224,29 @@
 	 (format (current-error-port) "ops ~S\n" ops)
 	 (format (current-error-port) "scaling ~S\n" scaling)))
       
-      (if (or (equal? encoding "ISOLatin1Encoding")
-	      ;; UGH, uhg 
-	      (equal? fontname "feta20")
-	      (equal? fontname "parmesan20"))
+      (if (equal? encoding "AdobeStandardEncoding")
 	  (define-font command mangled scaling)
 	  ;; FIXME: should rather tag encoded font
 	  (let ((raw (string-append command "-raw"))
-		(vector (get-coding-command encoding))
-		(filename (get-coding-filename encoding)))
+		(vector (get-coding-command encoding)))
 	    (string-append
-	     (ly:kpathsea-gulp-file filename)
 	     (define-font raw mangled scaling)
 	     (reencode-font raw vector command))))))
   
-  (apply string-append
-	 (map (lambda (x) (font-load-command paper x)) font-list)))
+  (define (font-load-encoding encoding)
+    (let ((filename (get-coding-filename encoding)))
+      (ly:kpathsea-gulp-file filename)))
+
+  (let* ((encoding-list (map (lambda (x)
+			       (assoc-get 'input-name
+					  (ly:font-encoding-alist x)))
+			     font-list))
+	 (encodings (uniq-list (sort-list encoding-list string<?))))
+    
+    (string-append
+     (apply string-append (map font-load-encoding encodings))
+     (apply string-append
+	    (map (lambda (x) (font-load-command paper x)) fonts)))))
 
 (define (define-origin file line col) "")
 
