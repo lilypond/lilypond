@@ -158,9 +158,7 @@ number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazy
   int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
   int num;
-  if (a == p
-      && !to_boolean (note->get_mus_property ("force-accidental"))
-      && gh_number_p (prev_acc))
+  if (a == p && gh_number_p (prev_acc))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
@@ -262,6 +260,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      num = num_caut;
 	      cautionary = true;
 	    }
+
+	  if(num==0 && to_boolean (note->get_mus_property ("force-accidental")))
+	     num=1;
 	  
 	  bool different = num < 0;
 	  num = abs (num);
