@@ -41,7 +41,9 @@ void notice()
 	"LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
+	"Contributors\n"
 	"  Jan-Nieuwenhuizen <jan@digicash.com>\n"
+	"  Mats Bengtsson <matsb@s3.kth.se>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"
@@ -62,7 +64,7 @@ static File_path * path =0;
 struct Main_init {
     Main_init() {
 	path = new File_path(LIBDIR);
-	path->add(String(LIBDIR)+"init/");
+	path->push(String(LIBDIR)+"init/");
 	debug_init();
     }
     ~Main_init() {
@@ -86,7 +88,7 @@ main (int argc, char **argv)
 	    exit(0);
 	    break;
 	case 'I':
-	    path->add(oparser.optarg);
+	    path->push(oparser.optarg);
 	    break;
 	case 'h':
 	    help();
