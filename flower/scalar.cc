@@ -43,8 +43,8 @@ Scalar::operator int()
     return value();
 }
 
-bool
-Scalar::to_bool() const
+
+Scalar::operator bool() const
 {
     if (!len())
 	return false;
