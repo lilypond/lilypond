@@ -35,10 +35,10 @@ Staff_symbol_referencer_interface::has_interface_b ()
 
 
 int
-Staff_symbol_referencer_interface::lines_i () const
+Staff_symbol_referencer_interface::line_count () const
 {
   Staff_symbol *st = staff_symbol_l ();
-  return st  ?  st->no_lines_i_ : 5;
+  return st  ?  st->line_count () : 0;
 }
 
 Staff_symbol*
@@ -53,7 +53,7 @@ Staff_symbol_referencer_interface::staff_space () const
 {
   Staff_symbol * st = staff_symbol_l ();
   if (st)
-    return st->staff_space_;
+    return st->staff_space ();
   else if (elt_l_->pscore_l_ && elt_l_->paper_l ())
     elt_l_->paper_l ()->get_var ("interline");
  

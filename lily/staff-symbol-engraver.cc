@@ -54,21 +54,6 @@ Staff_symbol_engraver::do_creation_processing()
 void
 Staff_symbol_engraver::do_removal_processing()
 {
-  SCM l (get_property ("numberOfStaffLines", 0));
-  if (gh_number_p(l))
-    {
-      span_p_->no_lines_i_ = gh_scm2int (l);
-    }
-
-  SCM sz (get_property ("staffLineLeading", 0));
-  if (gh_number_p(sz))
-    {
-      span_p_->staff_space_ = gh_scm2double (sz);
-    }
-  else
-    {
-      span_p_->staff_space_ = paper_l ()->get_var ("interline");
-    }
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);
   span_p_ =0;
@@ -81,7 +66,7 @@ Staff_symbol_engraver::acknowledge_element (Score_element_info s)
   s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
 
   SCM ss =s.elem_l_->remove_elt_property ("staff-support");
-  if (gh_boolean_p (ss) && gh_scm2bool (ss))
+  if (to_boolean (ss))
     {
       Side_position_interface si (s.elem_l_);
       if (si.has_interface_b ())

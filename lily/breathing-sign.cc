@@ -9,6 +9,7 @@ TODO: --> see breathing-sign-engraver.cc
 
 */
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 #include "breathing-sign.hh"
 #include "string.hh"
@@ -22,11 +23,8 @@ TODO: --> see breathing-sign-engraver.cc
 
 Breathing_sign::Breathing_sign ()
 {
-  set_direction (UP);
   set_elt_property ("breakable", SCM_BOOL_T);
 }
-
-
 
 Molecule*
 Breathing_sign::do_brew_molecule_p () const
@@ -47,6 +45,6 @@ Breathing_sign::do_post_processing()
 {
   Real dl = Staff_symbol_referencer_interface (this).staff_space();
 
-  translate_axis(2.0 * dl * get_direction (), Y_AXIS);
+  translate_axis(2.0 * dl * directional_element(this).get (), Y_AXIS);
 }
 

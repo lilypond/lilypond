@@ -7,18 +7,28 @@
   
  */
 
-#include "directional-element.hh"
+#include "directional-element-interface.hh"
 
 
-Directional_element::Directional_element ()
+Directional_element_interface::Directional_element_interface (Score_element const *s)
 {
+  elt_l_ =  (Score_element*)s;
 }
 
+bool
+Directional_element_interface::has_interface_b () const
+{
+  return isdir_b (elt_l_->get_elt_property ("direction"));
+}
+
+
+  
+
 Direction
-Directional_element::get_direction () const
+Directional_element_interface::get () const
 {
   // return dir_;
-  SCM d= get_elt_property ("direction");
+  SCM d= elt_l_->get_elt_property ("direction");
   if (!isdir_b(d))
     return CENTER;
       
@@ -26,7 +36,13 @@ Directional_element::get_direction () const
 }
 
 void
-Directional_element::set_direction (Direction d) 
+Directional_element_interface::set (Direction d) 
 {
-  set_elt_property ("direction", gh_int2scm (d));
+  elt_l_->set_elt_property ("direction", gh_int2scm (d));
+}
+
+Directional_element_interface
+directional_element (Score_element const*s)
+{
+  return s;
 }

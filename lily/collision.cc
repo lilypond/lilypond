@@ -145,10 +145,8 @@ Collision::automatic_shift ()
       /*
 	TODO.
        */
-      Note_head * nu_l= cu_l->first_head();  // cu_l->head_l_arr_[0];
-      Note_head * nd_l = cd_l->first_head(); // cd_l->head_l_arr_.top();
-
-
+      Note_head * nu_l= cu_l->first_head();
+      Note_head * nd_l = cd_l->first_head();
       
       int downpos = 	cd_l->head_positions_interval ()[BIGGER];
       int uppos = 	cu_l->head_positions_interval ()[SMALLER];      
@@ -171,7 +169,6 @@ Collision::automatic_shift ()
 	  }
 	  while ((flip (&d))!= UP);
     }
-
 
   do
     {

@@ -11,7 +11,6 @@
 #include "array.hh"
 #include "moment.hh"
 #include "molecule.hh"
-#include "directional-element.hh"
 #include "stem-info.hh"
 
 /**the rule attached to the ball.
@@ -41,8 +40,7 @@
 
   
   */
-class Stem : public Item,
-	     public Directional_element
+class Stem : public Item
 {
 public:
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
@@ -56,6 +54,8 @@ public:
    */
   Beam* beam_l () const;
   Note_head * first_head () const;
+  Drul_array<Note_head*> extremal_heads () const;
+
   Score_element * support_head () const;
   Stem ();
 
@@ -66,25 +66,28 @@ public:
   Stem_info calc_stem_info () const;
 
   Real chord_start_f () const;
-  
+  Direction get_direction () const;
   int type_i () const;
   void set_stemend (Real);
   Direction get_default_dir() const;
+
   int get_center_distance(Direction) const;
-  Real  get_default_stemlen() const;
-
-  void position_noteheads();
-
-  Real stem_end_position () const;
-
-  // todo: cleanup, naming
-  Real note_delta_f () const;
+  int heads_i () const;
 
   bool invisible_b() const;
     
   /// heads that the stem encompasses (positions)
-  Interval_t<int> head_positions() const;
+  Interval head_positions() const;
 
+protected:
+  friend class Stem_tremolo;	// ugh.
+  Real  get_default_stem_end_position () const;
+  void position_noteheads();
+
+
+  Real stem_end_position () const;
+  // todo: cleanup, naming
+  Real note_delta_f () const;
 protected:
   Molecule flag () const;
 

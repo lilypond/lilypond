@@ -12,6 +12,7 @@
 #include "note-column.hh"
 #include "local-key-item.hh"
 #include "warn.hh"
+#include "directional-element-interface.hh"
 
 /**
    catch notes, and put them in a row.
@@ -53,7 +54,7 @@ Align_note_column_engraver::do_removal_processing ()
   SCM al = get_property ("graceAlignPosition", 0);
   if (isdir_b (al))
     {
-      align_item_p_->set_direction (to_dir (al));
+      directional_element (align_item_p_).set (to_dir (al));
     }
   
   typeset_element (align_item_p_);

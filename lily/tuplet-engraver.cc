@@ -62,7 +62,7 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
 {
   bool grace= (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED);
   SCM wg = get_property ("weAreGraceContext",0);
-  bool wgb = gh_boolean_p (wg) && gh_scm2bool (wg);
+  bool wgb = to_boolean (wg);
   if (grace != wgb)
     return;
   

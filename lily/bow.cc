@@ -15,6 +15,7 @@
 #include "lookup.hh"
 #include "bezier-bow.hh"
 #include "main.hh"
+#include "directional-element-interface.hh"
 
 Bow::Bow ()
 {
@@ -33,7 +34,7 @@ Bow::do_brew_molecule_p () const
   if (gh_number_p (d))
     a = lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
   else
-    a = lookup_l ()->slur (one, get_direction () * thick, thick);
+    a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
   
   return new Molecule (a); 
 }
@@ -58,7 +59,7 @@ Bezier
 Bow::get_curve () const
 {
   Bezier_bow b (paper_l (),
-		get_encompass_offset_arr (), get_direction ());
+		get_encompass_offset_arr (), directional_element (this).get ());
   
   return b.get_curve ();
 }

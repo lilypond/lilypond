@@ -45,7 +45,7 @@ Bar_engraver::create_bar ()
 	urg.  Why did I implement this?
        */
       SCM prop = get_property ("barAtLineStart", 0);
-      if (gh_boolean_p (prop) && gh_scm2bool (prop))
+      if (to_boolean (prop))
 	{
 	  bar_p_->set_elt_property ("at-line-start", SCM_BOOL_T);
 	}
@@ -64,7 +64,7 @@ Bar_engraver::request_bar (String requested_type)
   if (!now_mom ())
     {
       SCM prop = get_property ("barAtLineStart", 0);
-      if (!gh_boolean_p (prop) && gh_scm2bool (prop))
+      if (!to_boolean (prop))
 	return;
     }
   bool  bar_existed = bar_p_;

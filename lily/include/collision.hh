@@ -13,7 +13,7 @@
 #include "axis-group-item.hh"
 #include "tuple.hh"
 
-
+//junkme, use SCM conses.
 typedef Tuple<Score_element*, Real> Shift_tup;
 
 /**

@@ -20,7 +20,7 @@ class Tie : public Bow
 {
 public:
   Tie ();
-  void set_head (Direction, Note_head*head_l);
+  void set_head (Direction, Item*head_l);
   VIRTUAL_COPY_CONS(Score_element);
 
   Note_head* head (Direction) const;

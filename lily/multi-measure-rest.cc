@@ -89,17 +89,17 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   
   mol_p->add_molecule (s);
-  Real interline_f
+  Real staff_space
     = staff_symbol_referencer_interface (this).staff_space ();
   if (measures_i_ == 1 && rest_symbol)
     {
-      mol_p->translate_axis (interline_f, Y_AXIS);
+      mol_p->translate_axis (staff_space, Y_AXIS);
     }
   else if (measures_i_ > 1)
     {
       Molecule s (lookup_l ()->text ("number", to_str (measures_i_), paper_l ()));
       s.align_to (X_AXIS, CENTER);
-      s.translate_axis (3.0 * interline_f, Y_AXIS);
+      s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol_p->add_molecule (s);
     }
   mol_p->translate_axis (x_off, X_AXIS);

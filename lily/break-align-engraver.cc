@@ -83,7 +83,7 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 	return;
 
       SCM bp=item_l->remove_elt_property ("breakable");
-      bool breakable = (gh_boolean_p  (bp) && gh_scm2bool (bp));
+      bool breakable = (to_boolean (bp));
       if (!breakable)
 	return ;
 

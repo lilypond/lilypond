@@ -18,17 +18,11 @@
 class Staff_symbol : public Spanner
 {
 public:
-  /// this many lines.
-  int no_lines_i_;
-  Real staff_space_;
-  Real staff_space ();
-  
-  
-  Staff_symbol ();
+  Real staff_space () const;
   int steps_i() const;
+  int line_count () const;
 protected:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Molecule* do_brew_molecule_p() const;
-  virtual void do_print() const;
 };
 #endif // STAFFSYM_HH

@@ -235,3 +235,6 @@ Wordwrap =0.0;
 % 
 #'Local_key_item::left-padding = #'0.2
 #'Local_key_item::right-padding = #'0.4
+
+#'Staff_symbol::staff-space = \interline ;
+#'Staff_symbol::line-count = #5

@@ -13,8 +13,6 @@
 #include "spanner.hh"
 #include "item.hh"
 
-#include "directional-element.hh"
-
 struct Side_position_interface
 {
   Score_element * elt_l_;

@@ -7,7 +7,7 @@
 #ifndef HYPHEN_SPANNER_HH
 #define HYPHEN_SPANNER_HH
 
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 /** 
   centred hyphen 
@@ -18,7 +18,7 @@
   The length of the hyphen line should stretch based on the
   size of the gap between syllables.
   */
-class Hyphen_spanner : public Directional_spanner
+class Hyphen_spanner : public Spanner
 {
 public:
 Hyphen_spanner ();

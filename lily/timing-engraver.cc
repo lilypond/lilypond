@@ -49,11 +49,11 @@ Timing_engraver::which_bar ()
 	return "|";
 
       SCM nonauto = get_property ("barNonAuto", 0);
-      if (!gh_boolean_p (nonauto) && gh_scm2bool (nonauto))
+      if (!to_boolean (nonauto))
 	{
 	  SCM always = get_property ("barAlways", 0);
 	  if (!measure_position ()
-	      || (gh_boolean_p (always) && gh_scm2bool (always)))
+	      || (to_boolean (always)))
 	    {
 	      SCM def=get_property ("defaultBarType" ,0);
 	      return (gh_string_p (def))? ly_scm2string (def) : "";

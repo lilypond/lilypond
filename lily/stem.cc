@@ -8,7 +8,7 @@
 
   TODO: This is way too hairy
 */
-
+#include "directional-element-interface.hh"
 #include "dimension-cache.hh"
 #include "stem.hh"
 #include "debug.hh"
@@ -49,31 +49,20 @@ Stem::beam_count (Direction d) const
     return 0;
 }
 
-Interval_t<int>
+Interval
 Stem::head_positions () const
 {
-  /* 
-    Mysterious FreeBSD fix by John Galbraith.  Somehow, the empty intervals 
-    trigger FP exceptions on FreeBSD.  Fix: do not return infinity 
-
-   */
-  if (!first_head ())
+  if (!heads_i ())
     {
-      return Interval_t<int> (100,-100);	
+      Interval iv;
+      return iv;
     }
 
-  Link_array<Note_head> head_l_arr =
-    Group_interface__extract_elements (this, (Note_head*)0, "heads");
   
-  Interval_t<int> r;
-  for (int i =0; i < head_l_arr.size (); i++)
-    {
-      Staff_symbol_referencer_interface si (head_l_arr[i]);
-      int p = (int)si.position_f ();
-      r[BIGGER] = r[BIGGER] >? p;
-      r[SMALLER] = r[SMALLER] <? p;
-    }
-  return r;
+  Drul_array<Note_head*> e (extremal_heads ());
+
+  return Interval (staff_symbol_referencer_interface (e[DOWN]).position_f (),
+		   staff_symbol_referencer_interface( e[UP]).position_f ()); 
 }
 
 
@@ -88,20 +77,33 @@ Real
 Stem::stem_end_position () const
 {
   SCM p =get_elt_property ("stem-end-position");
-  Real len;
+  Real pos;
   if (!gh_number_p (p))
     {
       Stem * me = (Stem*) this;
-      len = get_default_stemlen ();
-
-      // FIXME: len != position
-      me->set_elt_property ("stem-end-position", gh_double2scm (len));
+      pos = get_default_stem_end_position ();
+      me->set_elt_property ("stem-end-position", gh_double2scm (pos));
     }
   else
-    len = gh_scm2double (p);
+    pos = gh_scm2double (p);
 
-  return len;
+  return pos;
 }
+
+Direction
+Stem::get_direction () const
+{
+  Direction d = directional_element (this).get ();
+
+  if (!d)
+    {
+       Stem * me = (Stem*) this;
+       d = get_default_dir ();
+       directional_element (me).set (d);
+    }
+  return d ;
+}
+
 
 void
 Stem::set_stemend (Real se)
@@ -121,8 +123,6 @@ Stem::type_i () const
   return first_head () ?  first_head ()->balltype_i () : 2;
 }
 
-
-
 /*
   Note head that determines hshift for upstems
  */ 
@@ -133,10 +133,25 @@ Stem::support_head ()const
   Score_element * nh = unsmob_element (h);
   if (nh)
     return nh;
+  else if (heads_i () == 1)
+    {
+      /*
+	UGH.
+       */
+      
+      return unsmob_element (gh_car (get_elt_property ("heads")));
+    }
   else
     return first_head ();
 }
 
+
+int
+Stem::heads_i ()const
+{
+  Group_interface gi (this, "heads");
+  return gi.count ();
+}
 
 /*
   The note head which forms one end of the stem.  
@@ -144,32 +159,48 @@ Stem::support_head ()const
 Note_head*
 Stem::first_head () const
 {
-  const int inf = 1000000;
-  int pos = -inf;		
-  Direction dir = get_direction ();
+  return extremal_heads ()[-get_direction ()];
+}
 
-  Note_head *nh =0;
+/*
+  START is part where stem reaches `last' head. 
+ */
+Drul_array<Note_head*>
+Stem::extremal_heads () const
+{
+  const int inf = 1000000;
+  Drul_array<int> extpos;
+  extpos[DOWN] = inf;
+  extpos[UP] = -inf;  
+  
+  Drul_array<Note_head *> exthead;
+  exthead[LEFT] = exthead[RIGHT] =0;
+  
   for (SCM s = get_elt_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
     {
       Note_head * n = dynamic_cast<Note_head*> (unsmob_element (gh_car (s)));
       Staff_symbol_referencer_interface si (n);
-      int p = dir * int(si.position_f ());
-      if (p > pos)
+      
+      int p = int(si.position_f ());
+
+      Direction d = LEFT;
+      do {
+      if (d* p > d* extpos[d])
 	{
-	  nh = n;
-	  pos = p;
+	  exthead[d] = n;
+	  extpos[d] = p;
 	}
+      } while (flip (&d) != DOWN);
     }
 
-  return nh;
+  return exthead;
 }
 
 void
 Stem::add_head (Rhythmic_head *n)
 {
   n->set_elt_property ("stem", this->self_scm_);
-  n->add_dependency (this);	// ?
-  
+  n->add_dependency (this);
 
   Group_interface gi (this);
   if (Note_head *nh = dynamic_cast<Note_head *> (n))
@@ -189,14 +220,18 @@ Stem::Stem ()
 bool
 Stem::invisible_b () const
 {
-  return !(first_head () && first_head()->balltype_i () >= 1);
+  /*
+    UGH. Who determines balltype for stem?
+   */
+  Note_head * nh = dynamic_cast<Note_head*> (support_head ());
+  return !(heads_i () && nh->balltype_i () >= 1);
 }
 
 int
 Stem::get_center_distance (Direction d) const
 {
   int staff_center = 0;
-  int distance = d*(head_positions()[d] - staff_center);
+  int distance = (int) (d*(head_positions()[d] - staff_center));
   return distance >? 0;
 }
 
@@ -213,7 +248,7 @@ Stem::get_default_dir () const
 }
 
 Real
-Stem::get_default_stemlen () const
+Stem::get_default_stem_end_position () const
 {
   bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
   String type_str = grace_b ? "grace-" : "";
@@ -247,9 +282,8 @@ Stem::get_default_stemlen () const
   Direction dir = get_direction ();
   if (!dir)
     {
-      Stem * me = (Stem*) this;
       dir = get_default_dir ();
-      me->set_direction (dir);
+      directional_element (this).set (dir);
     }
   
   /* 
@@ -260,13 +294,14 @@ Stem::get_default_stemlen () const
       && (get_direction () != get_default_dir ()))
     length_f -= shorten_f;
 
-  Real st_f = head_positions()[-dir] + dir * length_f;
 
-  bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
-  if (!grace_b && !no_extend_b && dir * st_f < 0)
-    st_f = 0.0;
+   Real st = head_positions()[dir] + dir * length_f;
+  
+   bool no_extend_b = to_boolean (get_elt_property ("no-stem-extend"));
+    if (!grace_b && !no_extend_b && dir * st < 0)
+      st = 0.0;
 
-  return st_f;
+  return st;
 }
 
 /*
@@ -282,7 +317,7 @@ Stem::flag_i () const
 void
 Stem::position_noteheads ()
 {
-  if (!first_head ())
+  if (!heads_i ())
     return;
   
   Link_array<Score_element> heads =
@@ -327,7 +362,7 @@ Stem::position_noteheads ()
 void
 Stem::do_pre_processing ()
 {
-  get_default_stemlen ();	// ugh. Trigger direction calc.
+  stem_end_position ();	// ugh. Trigger direction calc.
   position_noteheads ();
 
   if (invisible_b ())
@@ -486,7 +521,7 @@ Stem::calc_stem_info () const
 {
   assert (beam_l ());
 
-  Direction beam_dir = beam_l ()->get_direction ();
+  Direction beam_dir = directional_element (beam_l ()).get ();
   if (!beam_dir)
     {
       programming_error ("Beam dir not set.");
@@ -507,7 +542,7 @@ Stem::calc_stem_info () const
   info.idealy_f_ *= beam_dir;
   SCM grace_prop = get_elt_property ("grace");
 
-  bool grace_b = gh_boolean_p (grace_prop) && gh_scm2bool (grace_prop);
+  bool grace_b = to_boolean (grace_prop);
   
   Array<Real> a;
   SCM s;
@@ -521,7 +556,7 @@ Stem::calc_stem_info () const
   scm_to_array (s, &a);
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  if (!beam_dir || (beam_dir == get_direction ()))
+  if (!beam_dir || (beam_dir == directional_element (this).get ()))
     /* normal beamed stem */
     {
       if (multiplicity)
@@ -544,9 +579,7 @@ Stem::calc_stem_info () const
 	than middle staffline, just as normal stems.
 	
       */
-      SCM extend_prop = get_elt_property ("no-stem-extend");
-      bool no_extend_b = gh_boolean_p (extend_prop)
-	&& gh_scm2bool (extend_prop);
+      bool no_extend_b = to_boolean (get_elt_property ("no-stem-extend"));
       if (!grace_b && !no_extend_b)
 	{
 	  /* highest beam of (UP) beam must never be lower than middle

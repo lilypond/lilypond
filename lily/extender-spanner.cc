@@ -21,7 +21,7 @@
 #include "extender-spanner.hh"
 
 Extender_spanner::Extender_spanner ()
-  : Directional_spanner ()
+  : Spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
   dim_cache_[Y_AXIS]->set_callback (Dimension_cache::point_dimension_callback);

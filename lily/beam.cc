@@ -14,7 +14,7 @@
     * move paper vars to scm
 
 */
-
+#include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "dimensions.hh"
 #include "beam.hh"
@@ -84,8 +84,8 @@ Beam::do_pre_processing ()
       set_elt_property ("transparent", SCM_BOOL_T);
     }
 
-  if (!get_direction ())
-    set_direction (get_default_dir ());
+  if (!directional_element (this).get ())
+    directional_element (this).set (get_default_dir ());
 
   auto_knees ();
   set_stem_directions ();
@@ -108,8 +108,8 @@ Beam::get_default_dir () const
   for (int i=0; i <stem_count (); i++)
     do { // HUH -- waar slaat dit op?
       Stem *s = stem (i);
-      int current = s->get_direction () 
-	? (1 + d * s->get_direction ())/2
+      Direction sd = directional_element (s).get ();
+      int current = sd	? (1 + d * sd)/2
 	: s->get_center_distance ((Direction)-d);
 
       if (current)
@@ -146,13 +146,13 @@ Beam::get_default_dir () const
 void
 Beam::set_stem_directions ()
 {
-  Direction d = get_direction ();
+  Direction d = directional_element (this).get ();
   for (int i=0; i <stem_count (); i++)
     {
       Stem *s = stem (i);
       SCM force = s->remove_elt_property ("dir-forced");
       if (!gh_boolean_p (force) || !gh_scm2bool (force))
-	s->set_direction (d);
+	directional_element (s).set (d);
     }
 } 
 
@@ -176,6 +176,8 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
   bool knee_b = false;
   int knee_y = 0;
   SCM gap = get_elt_property (gap_str);
+  Direction d = directional_element (this).get ();
+  
   if (gh_number_p (gap))
     {
       int auto_gap_i = gh_scm2int (gap);
@@ -183,9 +185,9 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
         {
 	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
 	    - calc_interstaff_dist (stem (i-1), this));
-	  int l_y = (int)(stem (i-1)->head_positions()[get_direction ()])
+	  int l_y = (int)(stem (i-1)->head_positions()[d])
 	    + (int)calc_interstaff_dist (stem (i-1), this);
-	  int r_y = (int)(stem (i)->head_positions()[get_direction ()])
+	  int r_y = (int)(stem (i)->head_positions()[d])
 	    + (int)calc_interstaff_dist (stem (i), this);
 	  int gap_i = r_y - l_y;
 
@@ -201,9 +203,9 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
     {
       for (int i=0; i < stem_count (); i++)
         {
-	  int y = (int)(stem (i)->head_positions()[get_direction ()])
+	  int y = (int)(stem (i)->head_positions()[d])
 	    + (int)calc_interstaff_dist (stem (i), this);
-	  stem (i)->set_direction (y < knee_y ? UP : DOWN);
+	  directional_element (stem (i)).set (y < knee_y ? UP : DOWN);
 	  stem (i)->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
     }
@@ -275,8 +277,8 @@ Beam::do_post_processing ()
   /*
     until here, we used only stem_info, which acts as if dir=up
    */
-  y *= get_direction ();
-  dy *= get_direction ();
+  y *= directional_element (this).get ();
+  dy *= directional_element (this).get ();
 
   /* set or read dy as necessary */
   SCM s = get_elt_property ("height");
@@ -313,7 +315,7 @@ Beam::do_post_processing ()
 	  */
 	  int quant_dir = 0;
 	  if (abs (y_shift) > half_space / 2)
-	    quant_dir = sign (y_shift) * get_direction ();
+	    quant_dir = sign (y_shift) * directional_element (this).get ();
 	  y = quantise_y_f (y, dy, quant_dir);
 	  set_stem_length (y, dy);
 	}
@@ -416,9 +418,13 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   Real stem_y = (s->hpos_f () - x0) / dx * dy + y;
 
   /* knee */
-  if (get_direction () != s->get_direction ())
-    {
-      stem_y -= get_direction ()
+   Direction dir  = directional_element(this).get ();
+   Direction sdir = directional_element (s).get ();
+   
+    /* knee */
+   if (dir!= sdir)
+      {
+       stem_y -= dir 
 	* (thick / 2 + (beam_multiplicity - 1) * interbeam_f);
 
       Staff_symbol_referencer_interface me (s);
@@ -427,7 +433,7 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
       // huh, why not for first visible?
       if (//(s != first_visible_stem ()) &&
 	  me.staff_symbol_l () != last.staff_symbol_l ())
-	stem_y += get_direction ()
+	stem_y += directional_element (this).get ()
 	  * (beam_multiplicity - stem_multiplicity) * interbeam_f;
     }
   return stem_y;
@@ -438,6 +444,8 @@ Beam::check_stem_length_f (Real y, Real dy) const
 {
   Real shorten = 0;
   Real lengthen = 0;
+  Direction dir = directional_element (this).get ();
+  
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
@@ -446,24 +454,20 @@ Beam::check_stem_length_f (Real y, Real dy) const
 
       Real stem_y = calc_stem_y_f (s, y, dy);
 	
-      stem_y *= get_direction ();
+      stem_y *= dir;
       Stem_info info = s->calc_stem_info ();
 
-      if (stem_y > info.maxy_f_)
-	shorten = shorten <? info.maxy_f_ - stem_y;
-
-      if (stem_y < info.miny_f_)
-        lengthen = lengthen >? info.miny_f_ - stem_y; 
+      // if (0 > info.maxy_f_ - stem_y)
+      shorten = shorten <? info.maxy_f_ - stem_y;
+      // if (0 < info.miny_f_ - stem_y)
+      lengthen = lengthen >? info.miny_f_ - stem_y; 
     }
 
   if (lengthen && shorten)
     warning (_ ("weird beam vertical offset"));
 
   /* when all stems are too short, normal stems win */
-  if (shorten)
-    return shorten * get_direction ();
-  else
-    return lengthen * get_direction ();
+  return dir * ((shorten) ?  shorten : lengthen);
 }
 
 /*
@@ -541,7 +545,7 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
   if (a.size () <= 1)
     return y;
 
-  Real up_y = get_direction () * y;
+  Real up_y = directional_element (this).get () * y;
   Interval iv = quantise_iv (a, up_y/staff_space) * staff_space;
 
   Real q = up_y - iv[SMALLER] <= iv[BIGGER] - up_y 
@@ -549,7 +553,7 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
   if (quant_dir)
     q = iv[(Direction)quant_dir];
 
-  return q * get_direction ();
+  return q * directional_element (this).get ();
 }
 
 void
@@ -609,6 +613,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   else
     nw_f = paper_l ()->get_var ("quartwidth");
 
+
+  Direction dir = directional_element (this).get ();
+  
   /* half beams extending to the left. */
   if (prev)
     {
@@ -627,7 +634,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (-get_direction () * dy * (lwholebeams+j), Y_AXIS);
+	  b.translate_axis (-dir * dy * (lwholebeams+j), Y_AXIS);
 	  leftbeams.add_molecule (b);
 	}
     }
@@ -652,7 +659,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  for (; j  < nogap; j++)
 	    {
 	      Molecule b (a);
-	      b.translate_axis (-get_direction () * dy * j, Y_AXIS);
+	      b.translate_axis (-dir  * dy * j, Y_AXIS);
 	      rightbeams.add_molecule (b);
 	    }
 	  // TODO: notehead widths differ for different types
@@ -664,10 +671,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  if (!here->invisible_b ())
-	    b.translate (Offset (gap_f, -get_direction () * dy * j));
-	  else
-	    b.translate (Offset (0, -get_direction () * dy * j));
+	  b.translate (Offset (here->invisible_b () ? 0 : gap_f, -dir * dy * j));
 	  rightbeams.add_molecule (b);
 	}
 
@@ -678,7 +682,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams + rhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (-get_direction () * dy * j, Y_AXIS);
+	  b.translate_axis (- dir * dy * j, Y_AXIS);
 	  rightbeams.add_molecule (b);
 	}
 

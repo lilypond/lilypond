@@ -60,7 +60,7 @@ Local_key_engraver::process_acknowledged ()
     if (!key_item_p_ && mel_l_arr_.size()) 
     {
         SCM f = get_property ("forgetAccidentals",0);
-        bool forget = gh_boolean_p (f) && gh_scm2bool(f);
+        bool forget = to_boolean (f);
         for (int i=0; i  < mel_l_arr_.size(); i++) 
 	    {
 	        Item * support_l = support_l_arr_[i];
@@ -183,7 +183,7 @@ Local_key_engraver::do_process_requests()
   if (time_C_ && !time_C_->measure_position ())
     {
       SCM n =  get_property ("noResetKey",0);
-      bool no_res = gh_boolean_p (n) && gh_scm2bool (n);
+      bool no_res = to_boolean (n);
       if (!no_res && key_grav_l_)
 	local_key_= key_grav_l_->key_;
     }

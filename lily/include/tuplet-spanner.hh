@@ -8,7 +8,7 @@
 #define Tuplet_spanner_HH
 
 #include "pointer.hh"
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 /** supportable plet: triplets, eentweetjes, ottava, etc.
 
@@ -17,7 +17,7 @@
 
   todo: handle breaking elegantly.
 */
-class Tuplet_spanner : public Directional_spanner
+class Tuplet_spanner : public Spanner
 {
 public:
   Tuplet_spanner ();
@@ -25,7 +25,9 @@ public:
   void add_column (Note_column*);
   void add_beam (Beam*);
   
-
+  /*
+    JUNKME.
+   */
   String  number_str_;
 
   bool parallel_beam_b_;

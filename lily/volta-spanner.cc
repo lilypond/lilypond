@@ -53,11 +53,11 @@ Volta_spanner::do_brew_molecule_p () const
   if (bar_arr.top ()->type_str_.length_i () > 1)
     no_vertical_end = false;
 
-  Real interline_f = paper_l ()->get_var ("interline");
-  Real internote_f = interline_f/2;
+  Real staff_space = paper_l ()->get_var ("interline");
+  Real half_staff_space = staff_space/2;
   Real t = paper_l ()->get_var ("volta_thick");
 
-  Real dx = internote_f;
+  Real dx = half_staff_space;
   Real w = spanner_length() - dx - get_broken_left_end_align ();
   Real h = paper_l()->get_var ("volta_spanner_height");
   Molecule volta (lookup_l ()->volta (h, w, t, no_vertical_start, no_vertical_end));
@@ -75,7 +75,7 @@ Volta_spanner::do_brew_molecule_p () const
   Molecule two (lookup_l ()->text ("number", "2", paper_l ()));
   Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
-	      h / internote_f - gap);
+	      h / half_staff_space - gap);
   num.translate (off);
   mol_p->add_molecule (volta);
   mol_p->add_molecule (num);

@@ -16,12 +16,10 @@
 class Stem_tremolo : public Item {
 protected:
   Stem * stem_l () const;
-  virtual void do_print () const;
   virtual Molecule *do_brew_molecule_p () const;
 
   static Interval dim_callback (Dimension_cache const*);
 public:
-  int abbrev_flags_i_;
   Stem_tremolo ();
   void set_stem (Stem *);
 };

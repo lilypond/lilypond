@@ -31,7 +31,7 @@ void
 Bar_script_engraver::do_creation_processing ()
 {
   SCM prop = get_property (type_ + "HangOnClef", 0);
-  if (gh_boolean_p (prop) && gh_scm2bool (prop))
+  if (to_boolean (prop))
     {
       hang_on_clef_b_ = true;
     }

@@ -16,19 +16,13 @@
 #include "offset.hh"
 #include "dimension-cache.hh"
 #include "staff-symbol-referencer.hh"
-
+#include "directional-element-interface.hh"
 
 Stem_tremolo::Stem_tremolo ()
 {
   set_elt_property ("stem", SCM_EOL);
-  abbrev_flags_i_ = 1;
 }
 
-void
-Stem_tremolo::do_print () const
-{
-  DEBUG_OUT << "abbrev_flags_i_ " << abbrev_flags_i_;
-}
 
 Stem *
 Stem_tremolo::stem_l ()const
@@ -61,7 +55,7 @@ Stem_tremolo::do_brew_molecule_p () const
   Real interbeam_f = paper_l ()->interbeam_f (mult);
   Real w  = gh_scm2double (get_elt_property ("beam-width"));
   Real space = Staff_symbol_referencer_interface (st).staff_space ();
-  Real internote_f = space / 2;
+  Real half_staff_space = space / 2;
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 
   int beams_i = 0;
@@ -84,9 +78,15 @@ Stem_tremolo::do_brew_molecule_p () const
   Molecule a (lookup_l ()->beam (dydx, w, beam_f));
   a.translate (Offset (-w/2, w / 2 * dydx));
   
+  int abbrev_flags = 1;
+  {
+    SCM a = get_elt_property ("abbrev-flags");
+    if (gh_number_p (a))
+      abbrev_flags = gh_scm2int (a);
+  }
 
   Molecule *beams= new Molecule; 
-  for (int i = 0; i < abbrev_flags_i_; i++)
+  for (int i = 0; i < abbrev_flags; i++)
     {
       Molecule b (a);
       b.translate_axis (interbeam_f * i, Y_AXIS);
@@ -99,8 +99,8 @@ Stem_tremolo::do_brew_molecule_p () const
       if (st->beam_l ())
         {
 	  beams->translate (Offset(st->hpos_f () - hpos_f (),
-	    st->stem_end_position () * internote_f - 
-	    st->beam_l ()->get_direction () * beams_i * interbeam_f));
+	    st->stem_end_position () * half_staff_space - 
+	    directional_element (st->beam_l ()).get () * beams_i * interbeam_f));
 	}
       else
 	{  

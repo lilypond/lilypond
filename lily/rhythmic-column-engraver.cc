@@ -59,7 +59,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 	}
 
       SCM wg = get_property ("weAreGraceContext",0);
-      bool wegrace = gh_boolean_p (wg) && gh_scm2bool (wg);
+      bool wegrace = to_boolean (wg);
 
       if (!wegrace)
 	for (int i=0; i < grace_slur_endings_.size(); i++)
@@ -72,7 +72,7 @@ void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
   SCM wg = get_property ("weAreGraceContext",0);
-  bool wegrace = gh_boolean_p (wg) && gh_scm2bool (wg);
+  bool wegrace = to_boolean (wg);
   if ((wegrace !=
       (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED))
     && !dynamic_cast<Slur*> (i.elem_l_))

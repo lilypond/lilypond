@@ -8,7 +8,7 @@
 #define BEAM_HH
 
 #include "lily-proto.hh"
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 
 /** a beam connects multiple stems.
@@ -23,7 +23,7 @@
    damping: amount of beam slope damping. (int)
    should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 */
-class Beam : public Directional_spanner
+class Beam : public Spanner
 {
 public:
 

@@ -11,15 +11,13 @@
 #define NOTE_HEAD_SIDE_HH
 
 #include "item.hh"
-#include "directional-element.hh"
 
 /**
    be next to noteheads.
    */
-class Note_head_side: public virtual Item, public virtual Directional_element
+class Note_head_side: public virtual Item
 {
 public:
-
   Note_head_side ();
   bool supported_b () const;
   void add_support (Item*);

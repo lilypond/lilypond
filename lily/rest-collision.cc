@@ -92,9 +92,9 @@ Rest_collision::do_pre_processing()
 	/* FIXME
 	  staff_space =  rcol->rest_l_arr[0]->staff_space ();
 	*/
-      Real internote_f = staff_space/2;
+      Real half_staff_space_f = staff_space/2;
       Real minimum_dist = paper_l ()->get_var ("restcollision_minimum_dist")
-	* internote_f;
+	* half_staff_space_f;
       
       /*
 	assumption: ref points are the same. 
@@ -113,7 +113,7 @@ Rest_collision::do_pre_processing()
 
 
       // FIXME
-      int stafflines = 5; // rcol->rest_l_arr[0]->lines_i ();
+      int stafflines = 5; // rcol->rest_l_arr[0]->line_count;
 
       
       // move discretely by half spaces.

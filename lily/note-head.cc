@@ -52,7 +52,7 @@ Note_head::do_brew_molecule_p() const
   Staff_symbol_referencer_interface si (this);
   
   Real inter_f = si.staff_space ()/2;
-  int sz = si.lines_i ()-1;
+  int sz = si.line_count ()-1;
   Real p = si.position_f ();
   int streepjes_i = abs (p) < sz 
     ? 0

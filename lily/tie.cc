@@ -12,9 +12,10 @@
 #include "paper-column.hh"
 #include "debug.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 void
-Tie::set_head (Direction d, Note_head * head_l)
+Tie::set_head (Direction d, Item * head_l)
 {
   assert (!head (d));
   index_set_cell (get_elt_property ("heads"), d, head_l->self_scm_);
@@ -89,8 +90,8 @@ Tie::do_post_processing()
       return;
     }
 
-  Real interline_f = paper_l ()->get_var ("interline");
-  Real internote_f = interline_f / 2;
+  Real staff_space = paper_l ()->get_var ("interline");
+  Real half_staff_space = staff_space / 2;
   Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
   Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
 
@@ -175,22 +176,23 @@ Tie::do_post_processing()
     ? Staff_symbol_referencer_interface (head (LEFT)).position_f ()
     : Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
 
-  Real y_f = internote_f * ypos; 
+  Real y_f = half_staff_space * ypos; 
   int ypos_i = int (ypos);
  
   Real dx_f = extent (X_AXIS).length () + dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
+  Direction dir = directional_element (this).get();
   if (dx_f < paper_l ()->get_var ("tie_staffspace_length"))
     {
       if (abs (ypos_i) % 2)
-	y_f += get_direction () * internote_f;
-      y_f += get_direction () * y_gap_f;
+	y_f += dir * half_staff_space;
+      y_f += dir * y_gap_f;
     }
   else
     {
       if (! (abs (ypos_i) % 2))
-	y_f += get_direction () * internote_f;
-      y_f += get_direction () * internote_f;
-      y_f -= get_direction () * y_gap_f;
+	y_f += dir * half_staff_space;
+      y_f += dir * half_staff_space;
+      y_f -= dir * y_gap_f;
     }
   
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = y_f;

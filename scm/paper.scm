@@ -105,6 +105,7 @@
 ;; beamed stems
 (define beamed-stem-shorten '(0.5))
 (define beamed-stem-length '(0.0 2.5 2.0 1.5))
+(define grace-beamed-stem-length '(0.0 2.5 2.0 1.5))
 (define beamed-stem-minimum-length '(0.0 1.5 1.25 1.0))
 (define grace-beamed-stem-minimum-length
   (map (lambda (x) (* grace-length-factor x)) beamed-stem-minimum-length))

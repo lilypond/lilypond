@@ -296,3 +296,10 @@ scm_to (SCM s, Real* r)
   // urg
   *r = gh_number_p (s) ? gh_scm2double (s) : 0;
 }
+
+  
+bool
+to_boolean (SCM s)
+{
+  return gh_boolean_p (s) && gh_scm2bool (s);
+}

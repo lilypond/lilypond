@@ -63,6 +63,15 @@
 		     (list 'barSize number? 'bar-size))
 	)
   )	
+
+(define staff-symbol-properties
+  (cons "Staff_symbol" (list
+			(list 'numberOfStaffLines number? 'line-count)
+			(list 'staffLineLeading number? 'staff-space)
+			)
+	)
+  )
+
 (define generic-breathing-sign-properties
   (cons "Breathing_sign"
 	(list

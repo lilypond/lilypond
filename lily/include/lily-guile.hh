@@ -39,6 +39,7 @@ void init_lily_guile ();
 bool isdir_b (SCM s);
 Direction to_dir (SCM s);
 
+bool to_boolean (SCM s);
 
 void init_ly_protection ();
 unsigned int ly_scm_hash (SCM s);

@@ -97,7 +97,7 @@ Timing_translator::do_pre_move_processing()
 
   // urg: multi bar rests: should always process whole of first bar?
   SCM tim = get_property ("timing", 0);
-  bool timb = gh_boolean_p (tim) && gh_scm2bool (tim);
+  bool timb = to_boolean (tim);
   if (timb && allbars)
     {
       Moment barleft = (measure_length () - measure_position ());
@@ -227,7 +227,7 @@ Timing_translator::do_post_move_processing()
     }
 
   SCM cad = get_property ("timing", 0);
-  bool c= gh_boolean_p (cad ) && gh_scm2bool (cad);
+  bool c= to_boolean (cad );
 
   Moment len = measure_length ();
   while (c && *measposp >= len)

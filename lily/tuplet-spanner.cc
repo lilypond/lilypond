@@ -18,6 +18,7 @@
 #include "note-column.hh"
 #include "dimensions.hh"
 #include "group-interface.hh"
+#include "directional-element-interface.hh"
 
 
 
@@ -74,10 +75,12 @@ Tuplet_spanner::do_brew_molecule_p () const
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);
       Real interline = paper_l ()->get_var ("interline");
-      Real dy = column_arr.top ()->extent (Y_AXIS) [get_direction ()]
-	- column_arr[0]->extent (Y_AXIS) [get_direction ()];
+
+      Direction dir = directional_element (this).get ();
+      Real dy = column_arr.top ()->extent (Y_AXIS) [dir]
+	- column_arr[0]->extent (Y_AXIS) [dir];
       num.align_to (Y_AXIS, CENTER);
-      num.translate_axis (get_direction () * interline, Y_AXIS);
+      num.translate_axis (dir * interline, Y_AXIS);
 	
       num.translate_axis (dy/2, Y_AXIS);
     
@@ -86,14 +89,14 @@ Tuplet_spanner::do_brew_molecule_p () const
 	{
 	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
 	
-	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, get_direction ()));
+	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, dir));
 	}
 
       if (number_visibility)
 	{
 	  mol_p->add_molecule (num);
 	}
-      mol_p->translate_axis (get_direction () * interline, Y_AXIS);
+      mol_p->translate_axis (dir * interline, Y_AXIS);
     }
   return mol_p;
 }
@@ -118,8 +121,15 @@ Tuplet_spanner::do_post_processing ()
     Group_interface__extract_elements (this, (Note_column*)0, "columns");
       
 
+  Direction d =   directional_element (this).get ();
+  if (!d)
+    {
+      d = UP;
+      directional_element (this).set (d);
+    }
+  
   if (column_arr.size())
-    translate_axis (column_arr[0]->extent (Y_AXIS)[get_direction ()], Y_AXIS);
+    translate_axis (column_arr[0]->extent (Y_AXIS)[d], Y_AXIS);
 
   
   if (scm_ilength (get_elt_property ("beams")) == 1)
