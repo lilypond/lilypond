@@ -333,15 +333,10 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
   positions->config_.push (indent_f_);
   for (int i=0; i <springs_.size (); i++)
     {
-      if (ragged)
-        {
-	  // ragged right operation: do not apply any force
-	  positions->config_.push (positions->config_.top () + springs_[i].length (0.0));
-	}
-      else
-        {
-	  positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
-	}
+      Real  l = springs_[i].length ((ragged) ? 0.0 : force_f_);
+      positions->config_.push (positions->config_.top () + l);
+
+      assert (l >= 0);
     }
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;

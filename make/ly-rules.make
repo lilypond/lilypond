@@ -6,14 +6,16 @@
 $(outdir)/%.latex: %.doc
 	rm -f $@
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES)\
-$(LILYPOND_BOOK_FLAGS) --dependencies --outdir=$(outdir) $<
+$(LILYPOND_BOOK_FLAGS) --verbose --dependencies --outdir=$(outdir) $<
 	chmod -w $@
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	rm -f $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $(LILYPOND_BOOK_FLAGS) $<
+	set|egrep '(TEX|LILY)'
+
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --verbose $(LILYPOND_BOOK_FLAGS) $<
 	chmod -w $@
 
 $(outdir)/%.texi: $(outdir)/%.tely
