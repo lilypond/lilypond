@@ -48,7 +48,7 @@
 bool
 is_duration_b (int t)
 {
-  return t && t == 1 << intlog2(t);
+  return t && t == 1 << intlog2 (t);
 }
 
 
@@ -73,7 +73,7 @@ print_lilypond_versions (ostream &os)
 }
 
 
-// needed for bison.simple's malloc() and free()
+// needed for bison.simple's malloc () and free ()
 #include <malloc.h>
 
 #ifndef NDEBUG
@@ -84,7 +84,8 @@ print_lilypond_versions (ostream &os)
 
 #define YYPARSE_PARAM my_lily_parser_l
 #define YYLEX_PARAM my_lily_parser_l
-#define THIS ((My_lily_parser *) my_lily_parser_l)
+#define THIS\
+	((My_lily_parser *) my_lily_parser_l)
 
 #define yyerror THIS->parser_error
 #define ARRAY_SIZE(a,s)   if (a.size () != s) THIS->parser_error (_f ("Expecting %d arguments", s))
@@ -167,7 +168,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token KEY
 %token LYRICS
 %token MARK
-%token MEASURES
+%token MULTI_MEASURE_REST
 %token MIDI
 %token MM_T
 %token PITCH
@@ -347,7 +348,7 @@ notenames_body:
 		if (!unsmob_pitch (pt))
 			THIS->parser_error ("Need pitch object.");
 		else
-			scm_hashq_set_x (tab, gh_caar(s), pt);
+			scm_hashq_set_x (tab, gh_caar (s), pt);
 	  }
 
 	  $$ = tab;
@@ -460,7 +461,7 @@ translator_spec_body:
 			->add_push_property (scm_string_to_symbol ($2), $4, $6);
 	}
 	| translator_spec_body STRING REVERT embedded_scm  {
-	  unsmob_translator_def($$)->add_pop_property (
+	  unsmob_translator_def ($$)->add_pop_property (
 		scm_string_to_symbol ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
@@ -468,10 +469,10 @@ translator_spec_body:
 		if (gh_string_p ($4) || gh_number_p ($4) || gh_boolean_p ($4))
 			v = $4;
 		else 
-			THIS->parser_error (_("Wrong type for property value"));
+			THIS->parser_error (_ ("Wrong type for property value"));
 
 		/* ugh*/
-		unsmob_translator_def($$)->add_property_assign ($2, v);
+		unsmob_translator_def ($$)->add_property_assign ($2, v);
 	}
 	| translator_spec_body NAME STRING semicolon {
 		unsmob_translator_def ($$)->type_name_ = $3;
@@ -550,7 +551,7 @@ score_body:
 output_def:
 	music_output_def_body '}' {
 		$$ = $1;
-		THIS-> lexer_p_-> scope_l_arr_.pop();
+		THIS-> lexer_p_-> scope_l_arr_.pop ();
 	}
 	;
 
@@ -580,13 +581,13 @@ music_output_def_body:
 	}
 	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
-		p = p->clone();
+		p = p->clone ();
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
 	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
-		p = p->clone();
+		p = p->clone ();
 
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
@@ -727,12 +728,12 @@ Simple_music:
 		SCM pred = $2;
 		if (!gh_symbol_p ($3))
 		{
-			THIS->parser_error (_("Second argument must be a symbol")); 
+			THIS->parser_error (_ ("Second argument must be a symbol")); 
 		}
 		/*hould check # args */
 		if (!gh_procedure_p (pred))
 		{
-			THIS->parser_error (_("First argument must be a procedure taking 1 argument"));
+			THIS->parser_error (_ ("First argument must be a procedure taking 1 argument"));
 		}
 
 		Music *m = new Music (SCM_EOL);
@@ -751,7 +752,7 @@ Simple_music:
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
 		$$ = $1;
-		$$->compress (Moment($3, $5 ));
+		$$->compress (Moment ($3, $5 ));
 	}
 	| Simple_music '*' bare_unsigned		 {
 		$$ = $1;
@@ -907,8 +908,8 @@ part_combined_music:
 		p->set_mus_property ("one", $3->self_scm ());
 		p->set_mus_property ("two", $4->self_scm ());  
 
-		scm_unprotect_object ($3->self_scm());
-		scm_unprotect_object ($4->self_scm());  
+		scm_unprotect_object ($3->self_scm ());
+		scm_unprotect_object ($4->self_scm ());  
 
 
 		$$ = p;
@@ -1006,12 +1007,12 @@ scalar:
 
 request_chord:
 	pre_requests simple_element post_requests	{
-		Music_sequence *l = dynamic_cast<Music_sequence*>($2);
+		Music_sequence *l = dynamic_cast<Music_sequence*> ($2);
 		if (l) {
-			for (int i=0; i < $1->size(); i++)
-				l->append_music ($1->elem(i));
-			for (int i=0; i < $3->size(); i++)
-				l->append_music ($3->elem(i));
+			for (int i=0; i < $1->size (); i++)
+				l->append_music ($1->elem (i));
+			for (int i=0; i < $3->size (); i++)
+				l->append_music ($3->elem (i));
 			}
 		else
 			programming_error ("Need Sequence to add music to");
@@ -1051,7 +1052,7 @@ command_element:
 		p->set_mus_property ("iterator-ctor",
 			Property_iterator::constructor_cxx_function);
 
-		Moment m = - unsmob_duration($2)->length_mom ();
+		Moment m = - unsmob_duration ($2)->length_mom ();
 		p->set_mus_property ("value", m.smobbed_copy ());
 
 		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
@@ -1068,7 +1069,7 @@ command_element:
 		SCM l = SCM_EOL;
 		for (SCM s = result ; gh_pair_p (s); s = gh_cdr (s)) {
 			Music * p = new Music (SCM_EOL);
-			set_music_properties(p, gh_car (s));
+			set_music_properties (p, gh_car (s));
 			l = gh_cons (p->self_scm (), l);
 			scm_unprotect_object (p->self_scm ());
 		}
@@ -1080,7 +1081,7 @@ command_element:
 		scm_unprotect_object (seq->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property("context-type", ly_str02scm("Staff"));
+		sp-> set_mus_property ("context-type", ly_str02scm ("Staff"));
 	}
 	| TIME_T bare_unsigned '/' bare_unsigned ';' {
 		Music * p = new Music (SCM_EOL);
@@ -1121,13 +1122,13 @@ shorthand_command_req:
 	}
 	| '['		{
 		Span_req*b= new Span_req;
-		b->set_span_dir(START);
+		b->set_span_dir (START);
 		b->set_mus_property ("span-type", ly_str02scm ("beam"));
 		$$ =b;
 	}
 	| ']'		{
 		Span_req*b= new Span_req;
-		b->set_span_dir( STOP);
+		b->set_span_dir ( STOP);
 		b->set_mus_property ("span-type", ly_str02scm ("beam"));
 		$$ = b;
 	}
@@ -1140,7 +1141,7 @@ shorthand_command_req:
 verbose_command_req:
 	COMMANDSPANREQUEST bare_int STRING { /*TODO: junkme */
 		Span_req * sp_p = new Span_req;
-		sp_p-> set_span_dir ( Direction($2));
+		sp_p-> set_span_dir ( Direction ($2));
 		sp_p->set_mus_property ("span-type",$3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
@@ -1178,7 +1179,7 @@ verbose_command_req:
 		Key_change_req *key_p= new Key_change_req;
 		
 		key_p->set_mus_property ("pitch-alist", $3);
-		((Music* )key_p)->transpose (* unsmob_pitch ($2));
+ ((Music* )key_p)->transpose (* unsmob_pitch ($2));
 		$$ = key_p; 
 	}
 	;
@@ -1246,7 +1247,7 @@ verbose_request:
 	}
 	| SPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
-		sp_p->set_span_dir( Direction($2));
+		sp_p->set_span_dir ( Direction ($2));
 		sp_p->set_mus_property ("span-type", $3);
 		sp_p->set_spot (THIS->here_input ());
 		$$ = sp_p;
@@ -1257,7 +1258,6 @@ verbose_request:
                a->set_mus_property ("tremolo-type", gh_int2scm ($1));
                $$ = a;
         }
-
 	| SCRIPT STRING 	{ 
 		Articulation_req * a = new Articulation_req;
 		a->set_mus_property ("articulation-type", $2);
@@ -1361,7 +1361,7 @@ explicit_duration:
 		$$ = $2;
 		if (!unsmob_duration ($2))
 		{
-			THIS->parser_error (_("Must have duration object"));
+			THIS->parser_error (_ ("Must have duration object"));
 			$$ = Duration ().smobbed_copy ();
 		}
 	}
@@ -1393,12 +1393,12 @@ close_request_parens:
 	'('	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm( "slur"));
+		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
 	}
 	| E_OPEN	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm( "phrasing-slur"));
+		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
 	}
 	| E_SMALLER {
 		Span_req*s =new Span_req;
@@ -1430,12 +1430,12 @@ open_request_parens:
 	| ')'	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm( "slur"));
+		s->set_mus_property ("span-type", ly_str02scm ( "slur"));
 	}
 	| E_CLOSE	{
 		Span_req* s= new Span_req;
 		$$ = s;
-		s->set_mus_property ("span-type", ly_str02scm( "phrasing-slur"));
+		s->set_mus_property ("span-type", ly_str02scm ( "phrasing-slur"));
 	}
 	;
 
@@ -1456,7 +1456,7 @@ gen_text_def:
 		String ds = to_str ($1);
 		Text_script_req* t = new Text_script_req;
 
-		t->set_mus_property ("text",  ly_str02scm (ds.ch_C()));
+		t->set_mus_property ("text",  ly_str02scm (ds.ch_C ()));
 		t->set_mus_property ("text-type" , ly_symbol2scm ("finger"));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
@@ -1465,10 +1465,10 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = gh_str02scm  ("hat");
+		$$ = gh_str02scm ("hat");
 	}
 	| '+'		{
-		$$ = gh_str02scm("plus");
+		$$ = gh_str02scm ("plus");
 	}
 	| '-' 		{
 		$$ = gh_str02scm ("dash");
@@ -1612,24 +1612,24 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		      Skip_req * skip_p = new Skip_req;
 		      skip_p->set_mus_property ("duration" ,$2);
 
-		      skip_p->set_spot (THIS->here_input());
+		      skip_p->set_spot (THIS->here_input ());
 			e = skip_p->self_scm ();
 		    }
 		  else
 		    {
 		      Rest_req * rest_req_p = new Rest_req;
 		      rest_req_p->set_mus_property ("duration", $2);
-		      rest_req_p->set_spot (THIS->here_input());
+		      rest_req_p->set_spot (THIS->here_input ());
 			e = rest_req_p->self_scm ();
 		    }
 		  Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
 		velt_p-> set_mus_property ("elements", gh_list (e,SCM_UNDEFINED));
-		  velt_p->set_spot (THIS->here_input());
+		  velt_p->set_spot (THIS->here_input ());
 
 
 		  $$ = velt_p;
 	}
-	| MEASURES optional_notemode_duration  	{
+	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		Skip_req * sk = new Skip_req;
 		sk->set_mus_property ("duration", $2);
 		Span_req *sp1 = new Span_req;
@@ -1644,7 +1644,7 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		rqc1->set_mus_property ("elements", gh_list (sp1->self_scm (), SCM_UNDEFINED));
 		Request_chord * rqc2 = new Request_chord (SCM_EOL);
 		rqc2->set_mus_property ("elements", gh_list (sk->self_scm (), SCM_UNDEFINED));;
-		Request_chord * rqc3 = new Request_chord(SCM_EOL);
+		Request_chord * rqc3 = new Request_chord (SCM_EOL);
 		rqc3->set_mus_property ("elements", gh_list (sp2->self_scm (), SCM_UNDEFINED));;
 
 		SCM ms = gh_list (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
@@ -1667,7 +1667,7 @@ FIXME: location is one off, since ptich & duration don't contain origin refs.
 		Lyric_req* lreq_p = new Lyric_req;
                 lreq_p->set_mus_property ("text", $1);
 		lreq_p->set_mus_property ("duration",$3);
-		lreq_p->set_spot (THIS->here_input());
+		lreq_p->set_spot (THIS->here_input ());
 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
 		velt_p->set_mus_property ("elements", gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
 
@@ -1839,11 +1839,11 @@ bare_unsigned:
 			$$ = gh_scm2int ($1);
 
 		} else {
-			THIS->parser_error (_("need integer number arg"));
+			THIS->parser_error (_ ("need integer number arg"));
 			$$ = 0;
 		}
 		if ($$ < 0) {
-			THIS->parser_error (_("Must be positive integer"));
+			THIS->parser_error (_ ("Must be positive integer"));
 			$$ = -$$;
 			}
 
@@ -1857,7 +1857,7 @@ bare_int:
 			$$ = k;
 		} else
 		{
-			THIS->parser_error (_("need integer number arg"));
+			THIS->parser_error (_ ("need integer number arg"));
 			$$ = 0;
 		}
 	}

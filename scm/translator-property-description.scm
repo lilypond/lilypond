@@ -2,6 +2,12 @@
 (define all-translation-properties '())
 
 (define (translator-property-description symbol type? description)
+ (if (not (equal? #f (object-property symbol 'translation-doc)))
+      (begin
+	(ly-warn (string-append "Redefining " (symbol->string symbol) "\n"))
+	(exit 2)
+      ))
+  
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)
   (set! all-translation-properties (cons symbol all-translation-properties))
@@ -116,6 +122,17 @@ arpeggios that cross staffs.
 (translator-property-description 'crescendoText string? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
 (translator-property-description 'crescendoSpanner symbol? "Type of spanner to be used for crescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
 (translator-property-description 'decrescendoText string? "Text to print at start of non-hairpin decrecscendo, ie: @samp{dim.}")
+(translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
+every barline.
+")
+(translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
+(translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
+(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME];
+
+This variable is typically read at Score level, so overriding
+Staff.defaultBarType will have no effect.
+
+")
 (translator-property-description 'devNullThread symbol? "User control of Thread_devnull_engraver: one of
 @table @samp
 @item (), or unset
@@ -137,20 +154,7 @@ Do nothing.
 @end table
 ")
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
-(translator-property-description 'currentBarNumber integer? "Contains the current barnumber. This property is incremented at
-every barline.
-")
-(translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
-(translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
-(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME];
 
-This variable is typically read at Score level, so overriding
-Staff.defaultBarType will have no effect.
-
-")
-(translator-property-description 'chordChanges boolean? "Only generate chords
-if they change.
-")
 (translator-property-description 'easyPlay boolean? "Copy note names into note head grob property")
 
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
@@ -230,15 +234,10 @@ this is done with the pedal.")
 (translator-property-description 'phrasingPunctuation string? "")
 (translator-property-description 'rehearsalMark number-or-string? "")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
-(translator-property-description 'repeatCommands list? "")
 (translator-property-description 'scriptDefinitions list? "
 Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information
 ")
 
-(translator-property-description 'scriptHorizontal boolean? "  Put
-scripts left or right of note heads.  Support for this is limited.
-Accidentals will collide with scripts.
-")
 (translator-property-description 'scriptHorizontal boolean? "  Put
 scripts left or right of note heads.  Support for this is limited.
 Accidentals will collide with scripts.

@@ -15,8 +15,7 @@
 @titlepage
 @title GNU LilyPond
 @subtitle The music typesetter
-@author Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
-
+@author Han-Wen Nienhuys, Jan Nieuwenhuizen, Adrian Mariano,  Tom Cato Amundsen
 
 
 Copyright @copyright{} 1999--2001 by the authors
@@ -68,6 +67,7 @@ this and other documentation.
 
 
 @menu
+* Preface::                        Preface 
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
 * Tricks::                       Features, tips and tricks.
@@ -88,8 +88,8 @@ this and other documentation.
 
 @contents
 
-
 @mbinclude macros.itexi
+@mbinclude preface.itely
 @mbinclude tutorial.itely
 @mbinclude refman.itely
 @mbinclude tricks.itely
@@ -98,6 +98,7 @@ this and other documentation.
 @mbinclude bugs.itexi
 @mbinclude ly2dvi.itexi
 @mbinclude convert-ly.itexi
+@mbinclude lilypond-book.itely
 @mbinclude convertors.itely
 @mbinclude literature.itely
 

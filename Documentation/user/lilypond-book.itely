@@ -1,0 +1,544 @@
+
+@tex
+\def\preLilypondExample{\vspace{0.5cm}}
+@end tex
+
+@node lilypond-book
+@chapter  lilypond-book
+
+[ The tutorial part is at the moment commented out and moved to 
+the end of this document ]
+
+[TODO: THIS MANUAL IS NOT FINISHED YET. FIXME.]
+
+@command{lilypond-book} is a script that helps integrating lilypond with
+La@TeX{} or texinfo. @command{lilypond-book} runs Lilypond on fragments
+of lilypond in your source file, and includes the results into a
+document that can be processed with La@TeX{}, @command{makeinfo} or
+@command{texi2dvi}.  The result is a text document with formatted music
+integrated.
+
+@command{lilypond-book} will do its best to try to align the music to
+the left and right margins. Currently all papersizes, one- and
+twocolumn mode and the @code{geometry} package is supported. 
+The TeXinfo command @code{pagesize} is on the TODO list for Lilypond 1.4.
+But changing the linewidth in other ways will not give you a straight
+right margin.
+
+This document assumes you have basic knowledge of GNU LilyPond and
+La@TeX{} or texinfo.
+
+@section TeXinfo reference
+
+Your markup the lilypond code like this:
+@example
+@@lilypond[options, go, here]
+ YOUR LILYPOND CODE
+@@end lilypond
+@end example
+
+or
+
+@example
+@@lilypond[option, go, here]@{ YOUR LILYPOND CODE @}
+@end example
+
+@command{lilypond-book} knows the default margins, and a few papersizes.
+These commands should be in the beginning of the document:
+@itemize @bullet
+@item @code{@@afourpaper}
+@item @code{@@afourlatex}
+@item @code{@@afourwide}
+@item @code{@@smallbook}
+@end itemize
+@code{@@pagesizes} are not yet supported.
+
+@subsection Examples
+
+Two simple examples. First a complete block:
+
+@example
+@@lilypond[26pt]
+c' d' e' f' g'2 g'
+@@end lilypond
+@end example
+
+produces this music:
+@lilypond
+c' d' e' f' g'2 g'
+@end lilypond
+
+Then the short version:
+@example
+@@lilypond[11pt]@{<c' e' g'>@}
+@end example
+
+and its music:
+
+@lilypond[11pt]{<c' e' g'>}
+
+
+@subsection @@example and @@code
+
+I'm not sure if this will go into the final documentation, this is
+here mostly to remember me on why things are the way they are.
+
+@command{lilypond-book} will do nothing with special with @code{@@code} and
+@code{@@example} environments. The 'code' and 'example' commands
+should work just as normal. People looking at document that should be
+processed by @command{lilypond-book}, should notice nothing special, except from
+some block like this:
+@example
+@@lilypond
+BLABLA
+@@end lilypond
+@end example
+
+or this:
+
+@code{@@lilypond@{ BLABLA @}}
+
+Anything other is a bug in @command{lilypond-book}.
+
+So to get this in the printed manual:
+
+@example
+@@lilypond[26pt]
+\relative c'@{c d e f g2 g@}
+@@end lilypond
+@end example
+
+you have to write this:
+
+@example
+@@example
+@@@@lilypond[26pt]
+\relative c'@@@{c d e f g2 g@@@}
+@@@@end lilypond
+@@end example
+@end example
+
+Simply explained, every '@{', '@}' and '@@' has to be written as '@@@{',
+'@@@}' and '@@@@'. This is how it works in plain texinfo too.
+
+
+@section La@TeX{} reference
+
+Your markup the lilypond code like this:
+@example
+\begin[option, go, here]@{lilypond@}
+ YOUR LILYPOND CODE
+\end@{lilypond@}
+@end example
+
+or 
+
+@example
+\lilypond@{ YOUR LILYPOND CODE @}
+@end example
+
+Lilypond-book know about the @code{\onecolumn} and 
+@code{\twocolumn} commands, the @code{geometry} package and
+all the standard paper sizes.
+
+The music will be surrounded by @code{\preLilypondExample} and
+@code{\postLilypondExample}. The variables are 
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+@strong{[UGH: THIS DOES NOT HAPPEN WHEN
+YOU USE THE SHORT FORM, \LILYPOND@{ ... @}, CHECK OUT WHY]}
+
+@subsection Examples 
+
+@example
+\begin[26pt]@{lilypond@}
+c' d' e' f' g'2 g'2
+\end@{lilypond@}
+@end example
+
+produces this music:
+
+@lilypond[26pt]
+c' d' e' f' g'2 g'2
+@end lilypond
+
+Then the short version:
+@example
+\lilypond[11pt]@{<c' e' g'>@}
+@end example
+
+and its music:
+
+@lilypond[11pt]{<c' e' g'>}
+
+
+@subsection \begin@{verbatim@} and \verb|\verb| 
+
+There work just as expected. Look at @file{mb-latex.tex} for details.
+
+@section Options
+
+@table @code
+@item eps
+    the music is created as eps graphics that can be inserted in 
+    the middle of a text line, not only as a separate paragraph.
+    (La@TeX{} only)
+@item verbatim
+    CONTENTS is copied into the source enclosed in a verbatim block,
+    followed by any text given with the @code{intertext} option, then
+    the actual music is displayed. This option does not work with
+    the short version of the lilypond blocks:
+
+    @code{ @@lilypond@{ CONTENTS @} } and @code{ \lilypond@{ CONTENTS @} }
+    
+@item intertext="text inside apostrophs"
+    Used in conjunction with @code{verbatim} option.
+@item filename=FILENAME
+    Save the lilypond code to FILENAME instead of using a hash value
+    of CONTENTS.
+@item 11pt, 13pt, 16pt, 20pt, 26pt
+    set the fontsize to use for the music
+@item singleline
+  linewidth = -1.
+@item multiline
+  linewidth = textwidth
+@item fragment
+@item nonfragment
+    Override @command{lilypond-book} autodetection of what type of code is in the
+    lilypond block, voice contents or complete code.
+@end table
+
+@section Invocation
+
+When you run @command{lilypond-book} it will generate lots of small
+files that Lilypond will process. So to avoid all the garbage in
+your source directory, you should either change to a temporary
+directory, or use the @code{--outdir} commandline options:
+
+@code{cd out && lilypond-book ../yourfile.tex}
+
+@code{lilypond-book --outdir=out yourfile.tex}
+
+
+For latex input, the file to give to latex has ext @file{.latex}.
+TeXinfo input will be written to a file with ext @file{.texi}. So be
+careful, don't give the source file that ext, or the file will be
+overwritten.
+
+If you use @code{--outdir}, you should also @code{cd} to that directory
+before running LaTeX or makeinfo.
+
+@strong{[UGH: IS THIS THE BEST WAY TO DO IT? MAYBE ADD A COMMENT LINE TO THE
+GENERATED FILE, SO LILYPOND-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
+IS GENERATED.]}
+
+@strong{About the input}
+
+If the file contains the ``block''
+
+@example 
+
+        \begin@{lilypond@}
+        CONTENTS
+        \end@{lilypond@}
+ 
+@end example 
+
+then LilyPond is run on CONTENTS.  @command{lilypond-book} puts the result back,
+surrounded by @code{\preLilypondExample} and @code{\postLilypondExample}
+commands. @code{\preLilypondExample} and @code{posLilypondExample} is
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+
+
+@subsection Command line options
+
+@table @code
+
+@item @option{-f}, @option{--format=}
+    Specify the document type to process, @code{latex} or @code{texi}.
+    @command{lilypond-book} usually figure out this automatically.
+@item --default-music-fontsize=??pt
+    Set the fontsize to use for lilypond if no fontsize is given
+    as option.
+@item --force-music-fontsize=??pt
+    Force all lilypond to use this fontsize, overriding options
+    given to \begin@{lilypond@}
+@item -I DIR, --include=DIR
+    include path
+@item -M, --dependencies
+        Write dependencies to out-www/filename.dep
+@item --dep-prefix=PREF
+        prepend PREF before each -M dependency
+@item -n, --no-lily
+        don't run lilypond
+@item --no-pictures
+        don't generate pictures
+@item --read-lys
+        don't write ly files. This way you can do
+        @example
+        lilypond-book file.tely
+        convert-ly
+        lilypond-book --read-lys
+        @end example
+@item --outname=FILE
+    The name of La@TeX{} file to output. If this option  is not given,
+    the output name derived from the input name.
+@item --outdir=
+        where to place generated files
+@item --version
+        print version information
+@item --help
+        Print a short help message
+@end table
+
+
+
+@command{lilypond-book} is written in python 1.5, so you have to install
+@uref{http://www.python.org,python}.
+
+
+
+@section Bugs
+  
+The La@TeX{} \includeonly@{...@} command is ignored.
+
+Ignores almost all La@TeX{} commands that changes margins and linewidths.
+
+@section Authors
+
+@email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, @uref{http://www.cs.uu.nl/people/hanwen}
+
+@email{tca@@gnu.org, Tom Cato Amundsen}
+
+
+
+@ignore
+
+So what does this look like? Well, here is an example:
+@lilypond[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+}
+@end lilypond
+If you are lucky, the above example show a nice feature of LilyPond
+and La@TeX{}. Since LilyPond can output the music as @TeX{} graphics,
+La@TeX{} can insert pagebreaks between the lines of music.
+
+Notice that there is no @code{\paper} statement in the example
+above. Lilypond-book will insert some code for you that defines the
+linewidth and the font to use. If you don't want to change the default, 
+there is no need to put an empty @code{\paper@{@}} inside the @code{\score}.
+In the example above, something like
+this might be inserted before your code:
+@example
+\include "paper16.ly"
+\paper@{ \paper_sixteen
+    linewidth = 390.\pt;
+    castingalgorithm = \Gourlay;
+@}
+@end example
+The actual values for linewidth will differ depending on papersize and
+number of columns. Also, if you use a different fontsize for the
+music, another file than @code{paper16.ly} will be included.
+
+If you want to make the music not so wide, you can insert a
+@code{\paper} statement that set the linewidth:
+
+@lilypond[veryverbatim, intertext="produces this music:"]
+\score{
+  \notes\relative c'{
+    \time 5/8;
+    [e16( g b c a g][e a b d] | )e2 d,8 |
+    [e16( g b c a g][e a b d] | )b2 [a16( f] |
+    [e a b d] )e4 c8 | [es16( bes a as g es][d c b! )g] |
+    [f( a b d b a][f a b d] | )e2
+  }
+  \paper{linewidth = 10.\cm;}
+}
+@end lilypond
+
+Very often, if you mix music and text, the music is often only a 
+few notes or at most a few bars. This music should be as short as
+possible and not stretched to be aligned to the right margin.
+
+If you only write voice-contents in the lilypond block, @command{lilypond-book}
+will set the @code{linewidth} variable to -1, so Lilypond
+will make the music as short as possible but without breaking the
+line. Here is a well know harmonic progression:
+@lilypond[veryverbatim, intertext="produce a well known harmonic progression:"]
+  \context Voice { <c' e g> <b d g> <c2 e g> }
+@end lilypond
+
+If you want to place music examples in the text,
+@lilypond[eps]
+\context Voice {  <c' e g> <b d g> <c2 e g>}
+@end lilypond
+, you can use the @code{eps} option. This will create the music as
+eps graphics and include it into the document with the 
+@code{\includegraphics} command.
+
+The code used look like this:
+@example
+@@lilypond[eps]
+ \context Voice { <c' e g> <b d g> <c2 e g> }
+@@end lilypond
+@end example
+
+You can also use the @code{eps} option if the block is a complete
+lilypond source. This 5 cm long empty line, 
+@lilypond[eps]
+\score{
+  \notes{s}
+  \paper{ linewidth = 5.\cm;}
+}
+@end lilypond
+was created with this code:
+@example
+@@lilypond[eps]
+\score@{
+  \notes@{s@}
+  \paper@{ linewidth = 5.\cm;@}
+@}
+@@end lilypond
+@end example
+
+To avoid that La@TeX{} places the music on a line of its one, there should
+be no empty lines between the normal text and the lilypond
+environment. 
+
+You can also use @code{lilypondfile} (on a separate line, FIXME), to
+include another file.
+
+@section Fontsize options You can use all lilypond fontsizes in
+@command{lilypond-book}.  The default 16pt fontsize is probably to big to be
+included in the middle of the text, 11pt or 13pt is probably better.
+
+The code can look like this:
+@example
+@@lilypond[13pt, eps]
+<c' e g>
+@@end lilypond
+@end example
+
+The following options set the fontsize:
+@itemize
+@item @code{11pt}
+@lilypond[11pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{13pt}
+@lilypond[13pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{16pt}
+@lilypond[16pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{20pt}
+@lilypond[20pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@item @code{26pt}
+@lilypond[26pt, eps]
+  \relative c'{
+    r16 [c d e][f d e c] [g'8 c][b-\prall c] |
+    [d16 g, a b][c a b g][d'8 g f-\prall g]
+  }
+@end lilypond
+@end itemize
+
+
+@section More options
+@itemize
+@item The @code{singleline} option set @code{linewidth} to -1.0.
+@item The @code{multiline} option set @code{linewidth} to a value letting
+the music be aligned to the right margin. The music can span several
+lines. 
+@end itemize
+
+@section Just in case...
+The options @code{fragment} and @code{nonfragment} will override
+@command{lilypond-book} when it scans the lilypond code to see if it is voice
+contents or complete code. This might be useful if @command{lilypond-book} choose
+wrong. 
+
+Since there is no finder's fee which doubles every year, there is no
+need to wait for the price money to grow. So send a bug report today
+if you need this one of these options.
+
+@section Examples
+
+This was all options to @code{\begin}. The rest of the lilypond
+document will show some ways you can use lilypond in
+La@TeX{} documents. It will also act as a simple test-suite for
+lilypond-book. You can place @code{eps} lilypond in and marginspars just
+as any other included eps graphics.
+
+@lilypond
+\score{
+  \notes\relative c'{ 
+        \time 12/8;  
+        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+        
+        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+@end lilypond
+
+
+To the right you can see some bars from the trumpet fanfara from the
+beginning of the fantastic street opera ``Houdini the Great'', by the
+Danish composer Andy Pape. The music is put inside a
+@code{floatingfigure} environment, and the music will be aligned by
+the right marging if you set floatingfigure width and lilypond linewidth
+to the same value. The code looks like this:
+
+@lilypond[verbatim]
+\score{
+  \notes\relative c'{ 
+    \time 12/8;  
+    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
+        
+    r4.-\fermata [cis,16 cis g'8 f16 f b8]
+    [g16 g f8 b16 b] dis4.-\fermata
+  }
+  \paper{linewidth = 7.\cm;}
+}
+@end lilypond
+
+If you have a lot of small music examples like this in the middle of
+your text, you might get a nicer look by using ``double'' line
+spacing. Put the @code{\linespread@{1.6@}} command into the preamble of
+your document. Then the line spacing will not be increased between the
+lines where you have music printed with the smallest font size.
+
+Lilypond-book does know about @code{\onecolumn} and @code{\twocolumn}. 
+So the music will be adjusted to the new linewith:
+
+Verbatim environments will also ignore the page margins. That is
+a feature of La@TeX{}. (But you usually put things inside a verbatim
+environment when you don't want La@TeX{} to do any linebreaking)
+
+@end ignore

@@ -9,10 +9,16 @@
 (define all-music-properties '())
 
 (define (music-property-description symbol type? description)
-  (set-object-property! symbol 'music-type? type?)
+ (if (not (equal? #f (object-property symbol 'music-doc)))
+      (begin
+	(ly-warn (string-append "Redefining " (symbol->string symbol) "\n"))
+	(exit 2)
+      ))
+ (set-object-property! symbol 'music-type? type?)
   (set-object-property! symbol 'music-doc description)
   (set! all-music-properties (cons symbol all-music-properties))
   )
+
 (define (true? x) #t)
 
 (music-property-description 'iterator-ctor c++-function? "Function to construct music-event-iterator object for this Music")
