@@ -1,3 +1,8 @@
+2003-01-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely (Manual repeat commands): add
+	note about font selection.
+
 2003-01-12  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: propose recompiling midi while invoking playing,

@@ -2409,9 +2409,11 @@ command can be
 @item 'end-repeat
  Print a :| bar line
 @item (volta . @var{text})
- Print a volta bracket saying @var{text} (the text can be specified
- as a text string or as a markup text, see @ref{Text markup}).
-@item (volta . #f)
+ Print a volta bracket saying @var{text}. The text can be specified as
+a text string or as a markup text, see @ref{Text markup}. Do not
+forget to change the font, as the default number font does not contain
+alphabetic characters.
+@item (volta . #f) 
  Stop a running volta bracket
 @end table
 
