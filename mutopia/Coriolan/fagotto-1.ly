@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.3.4";
+\version "1.3.42";
 
 fagotto1 = \notes \relative c {
 	R1*2 |
