@@ -139,7 +139,7 @@ Piano_pedal_engraver::create_grobs ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s",  p->name_));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'",  p->name_));
 	    }
 	  else
 	    {
@@ -151,7 +151,7 @@ Piano_pedal_engraver::create_grobs ()
 	{
 	  if (!p->start_req_l_)
 	    {
-	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: %s", p->name_));
+	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	    }
 	  else
 	    {

@@ -165,12 +165,12 @@ msgstr "Uitvoeren %s..."
 
 #: ly2dvi.py:654 scores.cc:44
 #, c-format
-msgid "dependencies output to %s..."
+msgid "dependencies output to `%s'..."
 msgstr "afhankelijkheden uitvoer naar %s..."
 
 #: ly2dvi.py:665
 #, c-format
-msgid "%s output to %s..."
+msgid "%s output to `%s'..."
 msgstr "%s uitvoer naar %s..."
 
 #: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
@@ -215,7 +215,7 @@ msgstr "Verwerken..."
 
 #: mup2ly.py:1203
 #, fuzzy, c-format
-msgid "Writing %s..."
+msgid "Writing `%s'..."
 msgstr "Beëidigen ..."
 
 #: update-lily.py:46
@@ -787,7 +787,7 @@ msgstr "Schroot verzoek: `%s'"
 
 #: paper-def.cc:109
 #, c-format
-msgid "paper output to %s..."
+msgid "paper output to `%s'..."
 msgstr "papier uitvoer naar %s..."
 
 #: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
@@ -796,7 +796,7 @@ msgstr ", bij "
 
 #: paper-outputter.cc:232
 #, c-format
-msgid "writing header field %s to %s..."
+msgid "writing header field `%s' to `%s'..."
 msgstr "Schijven van kop veld %s naar bestand %s..."
 
 #: paper-score.cc:80
@@ -856,7 +856,7 @@ msgstr "van muzikale definitie: %s"
 
 #: performance.cc:168
 #, c-format
-msgid "MIDI output to %s..."
+msgid "MIDI output to `%s'..."
 msgstr "MIDI uitvoer naar %s..."
 
 #: phrasing-slur-engraver.cc:119
@@ -1202,7 +1202,7 @@ msgstr "#32 in kwart: %d"
 
 #: lilypond-score.cc:108
 #, c-format
-msgid "Lily output to %s..."
+msgid "Lily output to `%s'..."
 msgstr "Lelie uitvoer naar %s..."
 
 #: lilypond-score.cc:119

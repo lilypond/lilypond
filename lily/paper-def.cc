@@ -106,7 +106,7 @@ Paper_outputter*
 Paper_def::paper_outputter_p () 
 {
   String outname = outname_str (); 
-  progress_indication (_f ("paper output to %s...",
+  progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
   target_str_global_array.push (outname);

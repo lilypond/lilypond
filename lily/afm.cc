@@ -73,6 +73,11 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
     return font_inf_->cmi + (*ai).second;
 }
 
+int
+Adobe_font_metric::count () const
+{
+  return ascii_to_metric_idx_.size ();
+}
 
 Box
 Adobe_font_metric::get_char (int code) const
@@ -110,7 +115,7 @@ read_afm_file (String nm)
 
   if (ok)
     {
-      error (_f ("Error parsing AFM file: %s", nm.ch_C ()));
+      error (_f ("Error parsing AFM file: `%s'", nm.ch_C ()));
       exit (2);
     }
   fclose (f);
