@@ -1,12 +1,10 @@
 \version "1.7.18"
 
-\header{
-texidoc="
+\header{ texidoc="@cindex Part Combine
 In orchestral scores and hymns, voices are traditionally combined onto
 one staff.  LilyPond has a part combiner, that combines or separates two
 voices according to actual rhythm and pitch.  User-defined texts such as
-``solo'' and ``@`a2'' are typeset automagically, as appropriate.
-"
+``solo'' and ``@`a2'' are typeset automagically, as appropriate. "
 }
 
 \score{
@@ -25,6 +23,7 @@ voices according to actual rhythm and pitch.  User-defined texts such as
     }
   >
   \paper{
+	raggedright = ##t
     linewidth = 80 * \staffspace
     \translator{
       \ThreadContext

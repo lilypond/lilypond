@@ -1,6 +1,7 @@
 \version "1.7.18"
 \header {
-    texidoc = "rests in various styles."
+    texidoc = "@cindex Rests
+Rests in various styles."
 }
 
 % FIXME: Currently, this file produces "warning: flag `d-3' not found"

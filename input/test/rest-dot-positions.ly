@@ -1,4 +1,7 @@
 \version "1.7.18"
+% candidate for regression.  -gp
+\header { texidoc = "@cindex Rest Dot Positions
+This file tests dotted rests. " }
 
 muz = \notes \relative c'' {
     \time 6/1
@@ -50,5 +53,6 @@ muz = \notes \relative c'' {
 	  \context Voice=two { \voiceTwo \muz }
       >
   }
+	\paper{}
 }
 %% new-chords-done %%

@@ -1,6 +1,8 @@
-
 \version "1.7.18"
-
+\header { texidoc = "@cindex Repeat Manual
+You can manually control repeat signs and numbers to produce
+unusual output. "
+}
 
 \score { \notes {
 % First a normal looking repeat:
@@ -17,5 +19,6 @@
     \property Score.repeatCommands = #'((volta #f))
  c c
 }
+	\paper{raggedright=##t}
 }
 %% new-chords-done %%

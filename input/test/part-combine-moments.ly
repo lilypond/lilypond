@@ -1,4 +1,11 @@
 \version "1.7.19"
+% TODO: this example has a ton of text for very little output.
+% Is it all needed?  -gp
+% should this go to regression or be delete'd?   -gp
+\header{ texidoc="@cindex Part Combine Moments
+When you combine two voices with the same notes, you should
+only have one stem. "
+}
 
 \score{
 	\context PianoStaff <
@@ -17,7 +24,7 @@
 				}
 		>
 	\paper {
-
+		raggedright= ##t
 		textheight = 295.0\mm
 		linewidth = 180.0\mm
 
