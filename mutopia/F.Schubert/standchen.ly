@@ -43,8 +43,12 @@ Note: Original key f.
 
 \version "1.3.93";
 
+dynamicUp = 	\property Voice.DynamicLineSpanner \push #'direction = #1
+dynamicRevert = 	\property Voice.DynamicLineSpanner \pop #'direction
+
+
 vocalVerse = \notes\relative c''{
-	\property Voice.dynamicDirection=\up
+	\dynamicUp
 	\times 2/3 { [ g8( )as] g } c4. g8 |
 	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
 	g4.-> f8 \times 2/3 { [ f( )es] d } |
@@ -73,7 +77,7 @@ vocalVerse = \notes\relative c''{
 }
 
 vocalThrough = \notes\relative c{
-	\property Voice.dynamicDirection=\up
+	\dynamicUp
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
 	g4. b8 d8. c16 |
@@ -176,7 +180,7 @@ trebleVerseOne = \notes\relative c{
 }
 
 trebleEentje = \notes \relative c'{
-	\context Voice=one \property Voice.verticalDirection = \center
+	\stemBoth
 	<e2 e'> <e4 g>|
 	<f2\mf as!(> <as8.->( c> <)f16 )as> |
 	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
@@ -190,7 +194,7 @@ trebleEentje = \notes \relative c'{
 }
 
 trebleThrough = \notes \relative c'{
-	\context Voice=one \property Voice.verticalDirection = \center
+	\stemBoth
 	<e2. e'> |
 	%61
 	R2. |
@@ -201,18 +205,18 @@ trebleThrough = \notes \relative c'{
 	%65
 	< { d,2.\f a'2} { e2. ~ e2 } { b'2. c,2 }> r4 |
 	\context Staff < 
-		{
-			\context Voice=one \property Voice.verticalDirection = 1 
+		\context Voice=one {
+			\voiceOne
 			a8. b16 c4-> () a8 r |
 			a8. b16 c4-> () a8 r |
 		}
-		{ 
-			\context Voice=two \property Voice.verticalDirection = -1 
+		\context Voice=two {
+			\voiceTwo
 			<d,4 f> <d2 f> |
 			<c!4 es> <c2 es> |
 		}
 	>
-	\context Voice=one \property Voice.verticalDirection = 0
+
 	% 4 bars copied from end verse1
 	r8 <f, a c> <a c f> <f a c> <a c f> <f a c> |
 	%70
@@ -222,8 +226,10 @@ trebleThrough = \notes \relative c'{
 	< { a4.-> )f8 } { a'4. f8 } > |
 	<e2 e'> r4 |
 	<es!2 es'! > r4 |
-	\property Voice . textStyle =  "italic"
+	\property Voice . TextItem \push #'font-style = #'italic
 	<d2_"decresc." d'> r4 |
+	\property Voice . TextItem \pop #'font-style
+
 	%75
 	<b2 b'> r4 |
 	<c2 c'> <e4\pp g> |
@@ -233,14 +239,17 @@ trebleThrough = \notes \relative c'{
 	<e4. g> <e8-. g-.(> <e-. g-.> <e-. )g-.> |
 	<f4. g> <b,8-. g'-.(> <d-. g-.> <f-. )g-.> |
 	%80
-	\property Voice . textStyle =  "italic"
+
+	\property Voice . TextItem \push #'font-style = #'italic
 	<e2._"dim." g> |
+	\property Voice . TextItem \pop #'font-style
+
 	<g,2. e' g> |
 	<g2.-\fermata e' g> |
 }
 
 bassIntro = \notes\relative c{
-	\property Voice.dynamicDirection=1
+	\dynamicUp
 %1
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -250,7 +259,7 @@ bassIntro = \notes\relative c{
 
 bassVerseOne = \notes\relative c{
 %	\clef bass;
-	\property Voice.dynamicDirection=1
+	\dynamicUp
 %5
 	<c,2 c'> r4 |
 	<as2 as'> r4 |
@@ -281,7 +290,7 @@ bassVerseOne = \notes\relative c{
 }
 
 bassEentje = \notes\relative c{
-	\property Voice.dynamicDirection=1
+	\dynamicUp
 	<c,8 c'> [<c' f as!> <f as c> <c f as> <f as c> <c f as>] |
 	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
 	<g,8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
@@ -293,7 +302,7 @@ bassEentje = \notes\relative c{
 }
 
 bassThrough = \notes\relative c{
-	\property Voice.dynamicDirection=1
+	\dynamicUp
 	%61
 	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
 	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
@@ -351,7 +360,7 @@ vocals = \notes{
  	\property Voice.noAutoBeaming = ##t
 	\property Staff.automaticMelismata= ##t
 
-	\property Voice.dynamicDirection = \up
+	\dynamicUp
 	\skip 4 * 12; 
 	\vocalVerse 
 	\skip 4 * 24; 
