@@ -1,0 +1,72 @@
+=head1 NAME
+
+The Homepage of LilyPond -- the GNU Project music typesetter
+
+=head1 DESCRIPTION
+
+LilyPond is the GNU Project music typesetter.  This program can print
+beautiful sheet music from a music definition file.  It can also play
+a play (mechanical) performances to a MIDI file.  Features include
+multiple staffs, meters, clefs, keys, lyrics, versatile
+input-language, cadenzas, beams, slurs, triplets.  It includes a nice
+font of musical symbols.
+
+This is not a Fanmail/Hype page. These pages were entirely created from
+the LilyPond package-sources. 
+
+Note: These pages are created from the latest B<development snapshots>
+of LilyPond.  You can look at the bottom if you want to know which
+version this was.
+
+=head2 Mirrors
+
+=over 4
+
+=item http://sca.uwaterloo.ca/lilypond/
+
+Eric Praetzel was kind enough to provide a mirror of both the website
+and the ftp site.  
+
+=back
+
+=head2 Examples
+
+=over 4
+
+=item *
+<a href=../input/out-www/index.html
+>
+short examples of what LilyPond can do: MIDI, PS, .gif and input.
+</a
+>
+
+=item *
+<a href=../mutopia/out-www/index.html
+>
+examples of what LilyPond can do
+with real music: MIDI, PS, .gif and input 
+</a
+>
+
+=back
+
+=head2 NEWS! 
+
+This is what the latest version brings:
+
+top_of_NEWS
+
+=head2 Documentation: Introduction
+
+=over 4
+
+=item *
+<a href=../Documentation/out-www/index.html
+>
+All of the LilyPond documentation.
+</a
+>
+
+
+
+=back

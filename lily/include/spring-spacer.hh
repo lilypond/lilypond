@@ -45,6 +45,7 @@
 
 class Spring_spacer : public Line_spacer {
   friend class Durations_iter;
+  
     
   Pointer_list<Idealspacing *> ideal_p_list_;
   Array<Colinfo> cols_;
@@ -83,7 +84,8 @@ class Spring_spacer : public Line_spacer {
   Real calculate_energy_f (Vector) const;
 public:
   static Line_spacer *constructor();
-
+  Real energy_normalisation_f_;
+  Spring_spacer ();
   virtual void solve (Col_hpositions*) const;
   virtual void lower_bound_solution (Col_hpositions*) const;
   virtual void add_column (Paper_column  *, bool fixed=false, Real fixpos=0.0);

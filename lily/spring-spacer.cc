@@ -317,6 +317,11 @@ Spring_spacer::lower_bound_solution (Col_hpositions*positions) const
   positions->satisfies_constraints_b_ = check_constraints (solution_vec);
 }
 
+Spring_spacer::Spring_spacer ()
+{
+  energy_normalisation_f_ = 1.0;
+}
+
 void
 Spring_spacer::solve (Col_hpositions*positions) const
 {
@@ -340,7 +345,7 @@ Spring_spacer::solve (Col_hpositions*positions) const
 	  WARN << _("solution doesn't satisfy constraints.\n") ;
 	}
       position_loose_cols (solution_vec);
-      positions->energy_f_ = calculate_energy_f (solution_vec);
+      positions->energy_f_ = calculate_energy_f (solution_vec) / energy_normalisation_f_;
       positions->config = solution_vec;
       positions->error_col_l_arr_ = error_pcol_l_arr();
     }

@@ -173,11 +173,15 @@ Set the directory where TeX and Metafont live
 
 =item B<--enable-tex-dir>
 
-Set then directory TeX input is in (detected as a subdir of tex-prefix)
+Set then directory TeX input is in (detected as a subdir of
+tex-prefix).  This should be a directory that is reachable both for
+tex and latex.  On my system the best choice would be
+F</usr/lib/texmf/texmf/tex/generic//>.
 
 =item B<--enable-mf-dir>
 
-Set the directory mf input is in (idem)
+Set the directory mf input is in (idem).   On my system the best
+choice would be F</usr/lib/texmf/texmf/fonts/source/public/>.
 
 =item B<--enable-config>
 
@@ -273,11 +277,15 @@ Please refer to the man page for more information.
 
 =head1 REDHAT LINUX
 
-RedHat Linux users should be able to get a RPM. A spec file is in
-F<make/out/lilypond.spec>. You should be able to create an rpm as a
-normal user. Be sure you have a F<~/.rpmrc>, and edit the RPM-dir in
-F<Variables.make>. (If you create the RPM as a normal user the
-permissions will not be set correctly, unfortunately)
+RedHat Linux users can compile an RPM. A spec file is in
+F<make/out/lilypond.spec>.  You should install a gif file called
+F<lelie_icon.gif> along with the sources.  You can generate this gif
+file by typing
+
+     make gifs
+
+in the directory F<Documentation>.
+
 
 
 =head1 DEBIAN GNU/LINUX

@@ -9,15 +9,17 @@
 #include "score-column.hh"
 #include "break.hh"
 #include "paper-def.hh"
-#include "line-spacer.hh"
+#include "spring-spacer.hh"
 #include "debug.hh"
 #include "scoreline.hh"
 #include "p-score.hh"
 #include "p-col.hh"
 #include "cpu-timer.hh"
+#include "command-request.hh"
 
 String
-Col_stats::str () const {
+Col_stats::str () const
+{
   String s (count_i_);
   s += _ (" lines");
   if  (count_i_)
@@ -98,7 +100,7 @@ Break_algorithm::find_breaks () const
 Line_spacer*
 Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) const
 {
-  Line_spacer * sp= (*get_line_spacer) ();
+  Spring_spacer * sp= (Spring_spacer*) (*get_line_spacer) (); // ugh
 
   sp->paper_l_ = pscore_l_->paper_l_;
   sp->add_column (curline[0], true, line.min ());
@@ -106,7 +108,10 @@ Break_algorithm::generate_spacing_problem (Line_of_cols curline, Interval line) 
     sp->add_column (curline[i]);
 
   if (line.length () > 0)
-    sp->add_column (curline.top (), true, line.max ());
+    {
+      sp->add_column (curline.top (), true, line[RIGHT]);
+      sp->energy_normalisation_f_  = sqr (line.length ());
+    }
   else
     sp->add_column (curline.top ());
 
@@ -138,7 +143,7 @@ Break_algorithm::feasible (Line_of_cols curline) const
   for (int i=0; i < curline.size (); i++)
     {
       if (i && i < curline.size () -1
-	  && ((Score_column*)curline[i])->forced_break_b ())
+	  && (((Score_column*)curline[i])->break_penalty_i () >= Break_req::FORCE))
 	return false;
     }
   return true;

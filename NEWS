@@ -1,3 +1,59 @@
+pl 62
+	- no-touch hak.
+	- bfs: multi measure rests
+	- fixed the website.
+	- add extra space after breakable columns.
+
+
+pl 61.jcn8
+	- mudela relative octave feature: 
+	  * Documentation/relative-octaves.pod
+	  * \octave relative;
+	  * lilypond -f for automatically finding new relative quote positions
+	    (sorry, fully automated convert is too complex)
+	  * mutopia/ltor.ly: octave quotes reduced from 511 to 59
+	- better conflily
+	- bf: abbreviation-beam-engraver: set beam::multiple_i_
+	- bf: open_abbrev_parens
+	- dotted/dashed slurs/ties
+	- fixed-up scsii-menuetto; use dotted-slurs
+	- slur_thickness runtime
+	- bf: typo lilyponddefs: elevendefs
+	- moved hard-coded slur parameters to runtime
+	- make-patch -r: diff against latest release
+	- allow semicolons after paper_identifier and \include
+	- params.ly: parameterised some paper vars
+	- bf: beam quantise for slope = 0
+	- interbeam (mult>3) open-up to paper-def to paper!
+	- "implemented" Paper-def::staffheight
+	- simplification + bf bezier clipping
+	- vandale fix
+	- moved doco from paper*ly to fonts.doc
+	- papers with expressions
+	- paper20.ly: rewrote precalculated values as expressions
+	- simple expressions in mudela (paper-body only)
+	- beam_thickness centralised and run-time...
+	- \nobreak
+	- bf: beamquantise: never sit if mult > 1
+	- bf: broken slur y-offset (not!)
+	- pagelength hack in tex/headers
+	- alignment of bracket (in span-score-bar.cc)
+	- boolean *break_b to continue break_penalty_i; maar nu...
+	- removed paper20 includes, \paper_twenty from examples
+	- dropped latex files
+	- renamed standje, standchen.
+	- parser accepts range of mudela-versions
+	- Mudela_version
+	- String_convert::split
+	- bf's: los-toros-oboe
+	- braindead Break_req with penalty; junked Disallow_break_req and 
+	  Break_force_req 
+	
+pl 61.ag1
+	- implemented octave-shifted clefs.
+
+********
+
 pl 61
 	- bf: mudela-book error msgs
 	- don't dist feta-tables.

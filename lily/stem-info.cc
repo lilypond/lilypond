@@ -28,8 +28,8 @@ Stem_info::Stem_info (Stem const *s)
   mult_i_ = s->mult_i_;
 
   /*
-    [todo] 
-    * get algorithm runtime
+    [TODO]
+    make this runtime
 
     Breitkopf + H\"artel:
     miny_f_ = interline + #beams * interbeam
@@ -45,18 +45,16 @@ Stem_info::Stem_info (Stem const *s)
 
   Real internote_f = s->paper ()->internote_f ();
   Real interline_f = 2.0 * internote_f;
-  Real interbeam_f = s->paper ()->interbeam_f ();
-  Real staffline_f = s->paper ()->rule_thickness ();
-  Real beam_f = 0.48 * (interline_f - staffline_f);
+  Real interbeam_f = s->paper ()->interbeam_f (mult_i_);
+  Real beam_f = s->paper ()->beam_thickness_f ();
          
-  if (check_debug && !monitor->silent_b ("Stem_info"))
-    {
+
+  {
       static int i = 1;
-      cout << "******" << i++ << "******" << endl;
-      cout << "begin_f: " << s->stem_begin_f () * dir_ << endl;
-      // urg urg urg
-      cout << "chord_f/i: " << s->chord_start_f () * dir_ / internote_f << endl;
-    }
+      DOUT << "******" << i++ << "******\n" 
+	   << "begin_f: " << s->stem_begin_f () * dir_ 
+	   << "\nchord_f/i: " << s->chord_start_f () * dir_ / internote_f << '\n';
+  }
 
   /*
     For simplicity, we'll assume dir = UP and correct if 
@@ -84,13 +82,12 @@ Stem_info::Stem_info (Stem const *s)
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
 
-  if (check_debug && !monitor->silent_b ("Stem_info"))
-    {
-      cout << "dir_: " << dir_ << endl;
-      cout << "mult_i_: " << mult_i_ << endl;
-      cout << "idealy_f_: " << idealy_f_ << endl;
-      cout << "miny_f_: " << miny_f_ << endl;
-    }
+
+  DOUT << "dir_: " << dir_ << '\n';
+  DOUT << "mult_i_: " << mult_i_ << '\n';
+  DOUT << "idealy_f_: " << idealy_f_ << '\n';
+  DOUT << "miny_f_: " << miny_f_ << '\n';
+
 
   idealy_f_ = miny_f_ >? idealy_f_;
 }
