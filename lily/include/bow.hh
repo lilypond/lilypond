@@ -17,15 +17,13 @@
   */
 class Bow : public Directional_spanner {
 protected:
-    int left_pos_i_;
-    int right_pos_i_;
-    Real left_dx_f_;
-    Real right_dx_f_;
+  Drul_array<int> pos_i_drul_;
+  Drul_array<Real> dx_f_drul_;
     
-    Molecule*brew_molecule_p()const;
+  Molecule*brew_molecule_p() const;
 public:
-    Bow();
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Offset center() const;  
+  Bow();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Offset center() const;  
 };
 #endif // BOW_HH
