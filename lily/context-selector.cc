@@ -37,6 +37,8 @@ Context_selector::identify_context (Context *context, int count)
   /* TODO: start time, parent-context-at-start */
   return ly_symbol2scm ((context->context_name ()
 			 + ","
+			 + context->id_string ()
+			 + ","
 			 + to_string (count)).to_str0 ());
 }
 
