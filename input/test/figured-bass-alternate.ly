@@ -6,8 +6,8 @@ markup texts."
 \version "2.1.7"
 
 nat = \markup { \musicglyph #"accidentals-0" }
-sh = \markup { \smaller \raise #0.6 \musicglyph #"accidentals-1" }
-fl = \markup { \musicglyph #"accidentals--1" }
+sh = \markup { \smaller \raise #0.6 \musicglyph #"accidentals-2" }
+fl = \markup { \musicglyph #"accidentals--2" }
 
 \score {
       \context Voice \notes {
