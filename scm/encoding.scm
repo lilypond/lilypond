@@ -106,8 +106,8 @@ vector of symbols."
 	      (ly:warn "installation problem: deprecated encoding requested: ~S" coding-name)
 	      (exit 1))
 	(let ((fallback "latin1"))
-	  (ly:warn "programming error: no such encoding: ~S" coding-name)
-	  (ly:warn "programming error: cross thumbs, using: ~S:" fallback)
+*	  (ly:programming-error "no such encoding: ~S" coding-name)
+	  (ly:programming-error "programming error: cross thumbs, using: ~S:" fallback)
 	  (get-coding fallback))))))
 
 (define-public (get-coding-filename coding-name)
