@@ -311,6 +311,10 @@ For example
 sets indentation of the first music system to zero.  This option
 affects LilyPond, not the text layout.
 
+@item quote
+sets linewidth to the width of a quotation and puts the output
+in a quotation block.
+
 @item texidoc
 Includes the @code{texidoc} field, if defined in the file. This is
 only for Texinfo output.
