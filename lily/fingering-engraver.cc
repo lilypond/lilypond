@@ -22,7 +22,7 @@ class Fingering_engraver : public Engraver
   Link_array<Item> fingerings_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Fingering_engraver);
+  TRANSLATOR_DECLARATIONS (Fingering_engraver);
 protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
@@ -69,7 +69,7 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 void
 Fingering_engraver::process_music ()
 {
-  for (int i= reqs_.size(); i--;)
+  for (int i= reqs_.size (); i--;)
     {
       SCM dir = reqs_[i]->get_property ("direction");
       make_script (to_dir (dir), reqs_[i], Y_AXIS, i);
@@ -115,7 +115,7 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
   SCM dig =  r->get_property ("digit");
   fingering->set_property ("text", scm_number_to_string (dig, gh_int2scm (10)));
 
-  announce_grob (fingering, r->self_scm());
+  announce_grob (fingering, r->self_scm ());
   fingerings_.push (fingering);
 }
 
@@ -139,12 +139,12 @@ Fingering_engraver::start_translation_timestep ()
   reqs_.clear ();
 }
 
-Fingering_engraver::Fingering_engraver()
+Fingering_engraver::Fingering_engraver ()
 {
 
 }
 
-ENTER_DESCRIPTION(Fingering_engraver,
+ENTER_DESCRIPTION (Fingering_engraver,
 /* descr */       "Create fingering-scripts",
 /* creats*/       "Fingering",
 /* accepts */     "fingering-event",

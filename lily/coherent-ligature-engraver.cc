@@ -28,7 +28,7 @@
  *
  * - collect all accidentals that occur within the ligature and put
  * them at the left side of the ligature (TODO; see function
- * collect_accidentals()),
+ * collect_accidentals ()),
  *
  * - collapse superflous space after each ligature (TODO).
  *
@@ -60,11 +60,11 @@
  * of the ligature (to preemptively avoid collision with adjacent
  * notes); or maybe just additionally create a
  * mensural/vaticana/whatever-ligature grob (e.g. via
- * Mensural_ligature::print(SCM)) that just consists of a
+ * Mensural_ligature::print (SCM)) that just consists of a
  * bounding box around all primitives of the ligature.
  *
- * TODO: Maybe move functions fold_up_primitives() and
- * join_primitives() from subclasses to here?  N.B. it is not
+ * TODO: Maybe move functions fold_up_primitives () and
+ * join_primitives () from subclasses to here?  N.B. it is not
  * appropriate to put these into Ligature_engraver, since, for
  * example, Ligature_bracket_engraver does not share any of this code.
  */
@@ -73,7 +73,7 @@
  * TODO: Let superflous space after each ligature collapse.  The
  * following code should help in doing so (though it does not yet
  * fully work).  Just put the following code into
- * Spacing_spanner::do_measure().  I put it temporarily here as memo
+ * Spacing_spanner::do_measure ().  I put it temporarily here as memo
  * until it really works and I also get Han-Wen's/Jan's permission to
  * add it to the spacing spanner code.
  */
@@ -139,7 +139,7 @@ Coherent_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 	      sibling_parent->warning (_f ("Coherent_ligature_engraver: "
 					   "setting `spacing-increment = "
 					   "0.01': ptr=%ul", parent));
-	      sibling_parent->set_property("forced-spacing",
+	      sibling_parent->set_property ("forced-spacing",
 					      gh_double2scm (0.01));
 #endif
 	      sibling->set_parent (column, X_AXIS);
@@ -175,7 +175,7 @@ compute_delta_pitches (Array<Grob_info> primitives)
   int prev_pitch = 0;
   int delta_pitch = 0;
   Item *prev_primitive = 0, *primitive = 0;
-  for (int i = 0; i < primitives.size(); i++) {
+  for (int i = 0; i < primitives.size (); i++) {
     primitive = dynamic_cast<Item*> (primitives[i].grob_);
     Music *music_cause = primitives[i].music_cause ();
     int pitch =

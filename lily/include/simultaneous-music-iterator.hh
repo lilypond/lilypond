@@ -22,7 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK(constructor, ());
   
   /// make a new context for every child.
-  bool separate_contexts_b_;
+  bool create_separate_contexts_;
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;

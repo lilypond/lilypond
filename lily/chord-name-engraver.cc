@@ -21,7 +21,7 @@
 
 class Chord_name_engraver : public Engraver 
 {
-  TRANSLATOR_DECLARATIONS( Chord_name_engraver);
+  TRANSLATOR_DECLARATIONS ( Chord_name_engraver);
 protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
@@ -57,7 +57,7 @@ Chord_name_engraver::add_note (Music * n)
 void
 Chord_name_engraver::process_music ()
 {
-  if (!notes_.size() )
+  if (!notes_.size () )
     return;
   
   SCM bass = SCM_EOL;
@@ -110,8 +110,8 @@ Chord_name_engraver::process_music ()
   SCM chord_as_scm = gh_cons (pitches, gh_cons (bass, inversion));
   
   chord_name_ = make_item ("ChordName");
-  chord_name_->set_property("text", markup);
-  announce_grob(chord_name_, notes_[0]->self_scm ());
+  chord_name_->set_property ("text", markup);
+  announce_grob (chord_name_, notes_[0]->self_scm ());
   SCM s = get_property ("chordChanges");
   if (to_boolean (s) && gh_pair_p (last_chord_) 
       && gh_equal_p (chord_as_scm, last_chord_))
@@ -149,7 +149,7 @@ Chord_name_engraver::stop_translation_timestep ()
   The READs description is not strictly accurate:
   which properties are read depend on the chord naming function active.
 */
-ENTER_DESCRIPTION(Chord_name_engraver,
+ENTER_DESCRIPTION (Chord_name_engraver,
 /* descr */       "Catch note-events "
 "and generate the appropriate chordname.",
 /* creats*/       "ChordName",

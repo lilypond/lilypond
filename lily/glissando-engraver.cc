@@ -19,7 +19,7 @@
 class Glissando_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Glissando_engraver);
+  TRANSLATOR_DECLARATIONS (Glissando_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -113,7 +113,7 @@ Glissando_engraver::finalize ()
 
 
 
-ENTER_DESCRIPTION(Glissando_engraver,
+ENTER_DESCRIPTION (Glissando_engraver,
 /* descr */       "Engrave a glissandi",
 /* creats*/       "Glissando",
 /* accepts */     "glissando-event",

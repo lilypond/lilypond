@@ -30,7 +30,7 @@ protected:
   virtual Spanner* get_spanner () ;
   virtual void add_element (Grob*) ;
 public:  
-  TRANSLATOR_DECLARATIONS(Axis_group_engraver);
+  TRANSLATOR_DECLARATIONS (Axis_group_engraver);
 };
 
 Axis_group_engraver::Axis_group_engraver ()
@@ -49,7 +49,7 @@ Axis_group_engraver::process_music ()
 
       staffline_->set_bound (LEFT,it);
 
-      announce_grob(staffline_, SCM_EOL);
+      announce_grob (staffline_, SCM_EOL);
     }
 } 
 
@@ -150,7 +150,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
 public:
-  TRANSLATOR_DECLARATIONS(Hara_kiri_engraver);
+  TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
 };
 
 void
@@ -181,11 +181,11 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 }
 
 
-Hara_kiri_engraver::Hara_kiri_engraver()
+Hara_kiri_engraver::Hara_kiri_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Hara_kiri_engraver,
+ENTER_DESCRIPTION (Hara_kiri_engraver,
 /* descr */       "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
 "interesting items (ie. note heads, lyric syllables and normal rests) ",
 /* creats*/       "RemoveEmptyVerticalGroup",
@@ -194,7 +194,7 @@ ENTER_DESCRIPTION(Hara_kiri_engraver,
 /* reads */       "",
 /* write */       "");
 
-ENTER_DESCRIPTION(Axis_group_engraver,
+ENTER_DESCRIPTION (Axis_group_engraver,
 /* descr */       "Group all objects created in this context in a VerticalAxisGroup spanner.",
 /* creats*/       "VerticalAxisGroup",
 /* accepts */     "",

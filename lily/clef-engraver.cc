@@ -21,7 +21,7 @@
 class Clef_engraver : public  Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Clef_engraver);
+  TRANSLATOR_DECLARATIONS (Clef_engraver);
 
   Direction octave_dir_;
 
@@ -87,7 +87,7 @@ Clef_engraver::create_clef ()
   if (!clef_)
     {
       Item *c= make_item ("Clef");
-      announce_grob(c, SCM_EOL);
+      announce_grob (c, SCM_EOL);
 
       clef_ = c;
       SCM cpos = get_property ("clefPosition");
@@ -113,7 +113,7 @@ Clef_engraver::create_clef ()
 	  g->set_parent (clef_, X_AXIS);
 	  g->set_property ("direction", scm_int2num (dir));
 	  octavate_ = g;
-	  announce_grob(octavate_, SCM_EOL);
+	  announce_grob (octavate_, SCM_EOL);
 	}
     }
 }
@@ -190,7 +190,7 @@ Clef_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Clef_engraver,
+ENTER_DESCRIPTION (Clef_engraver,
 /* descr */       "Determine and set reference point for pitches",
 /* creats*/       "Clef OctavateEight",
 /* accepts */     "",

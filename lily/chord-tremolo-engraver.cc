@@ -42,7 +42,7 @@
 class Chord_tremolo_engraver : public Engraver
 {
   void typeset_beam ();
-  TRANSLATOR_DECLARATIONS(Chord_tremolo_engraver);
+  TRANSLATOR_DECLARATIONS (Chord_tremolo_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -130,14 +130,14 @@ Chord_tremolo_engraver::process_music ()
 	  Moment mp
 	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 	  beam_start_location_ = mp;
-	  announce_grob(beam_, repeat_->self_scm());
+	  announce_grob (beam_, repeat_->self_scm ());
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
 	  if (flags_)
 	    {
 	      stem_tremolo_ = make_item ("StemTremolo");
-	      announce_grob(stem_tremolo_, repeat_->self_scm());
+	      announce_grob (stem_tremolo_, repeat_->self_scm ());
 	      stem_tremolo_->set_property ("flag-count",
 						scm_int2num (flags_));
 	    }
@@ -172,7 +172,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
     {
       Grob * s = info.grob_;
 
-      if (start_mom_ == now_mom())
+      if (start_mom_ == now_mom ())
 	Stem::set_beaming (s, flags_, RIGHT);
       else
 	Stem::set_beaming (s, flags_, LEFT);
@@ -229,7 +229,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Chord_tremolo_engraver,
+ENTER_DESCRIPTION (Chord_tremolo_engraver,
 /* descr */       "Generates beams for  tremolo repeats.",
 /* creats*/       "Beam",
 /* accepts */     "repeated-music",

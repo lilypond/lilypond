@@ -16,7 +16,7 @@
 class Auto_change_iterator : public Music_wrapper_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
   
   Auto_change_iterator ();
 

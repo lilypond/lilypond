@@ -14,7 +14,7 @@
 class Grob_pq_engraver: public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Grob_pq_engraver);
+  TRANSLATOR_DECLARATIONS (Grob_pq_engraver);
 protected:
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
@@ -23,7 +23,7 @@ protected:
 };
 
 
-Grob_pq_engraver::Grob_pq_engraver()
+Grob_pq_engraver::Grob_pq_engraver ()
 {
 }
 
@@ -33,7 +33,7 @@ Grob_pq_engraver::initialize ()
   daddy_context_->set_property ("busyGrobs", SCM_EOL); 
 }
 
-LY_DEFINE(ly_grob_pq_less_p, "ly:grob-pq-less?",
+LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq-less?",
 	  2, 0 ,0, (SCM a, SCM b), 
 	  "Compare 2 Grob PQ entries. Internal")
 {
@@ -66,7 +66,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 
       Moment end = n + l;
       SCM lst = scm_acons (end.smobbed_copy (),
-			 gi.grob_->self_scm(),
+			 gi.grob_->self_scm (),
 			 SCM_EOL);
 
       SCM busy= get_property ("busyGrobs");
@@ -94,7 +94,7 @@ Grob_pq_engraver::stop_translation_timestep ()
 void
 Grob_pq_engraver::start_translation_timestep ()
 {
-  Moment now = now_mom();
+  Moment now = now_mom ();
 
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
@@ -104,9 +104,9 @@ Grob_pq_engraver::start_translation_timestep ()
 	Todo: do something sensible. The grob-pq-engraver is not water
 	tight, and stuff like tupletSpannerDuration confuses it.
        */
-      programming_error (_f("Skipped something?\nGrob %s ended before "
+      programming_error (_f ("Skipped something?\nGrob %s ended before "
 			    "I expected it to end.",
-			    unsmob_grob (gh_cdar (busy))->name().to_str0()));
+			    unsmob_grob (gh_cdar (busy))->name ().to_str0()));
       
       busy = gh_cdr (busy);
     }
@@ -117,7 +117,7 @@ Grob_pq_engraver::start_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Grob_pq_engraver,
+ENTER_DESCRIPTION (Grob_pq_engraver,
 
 /* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this \
 engraver is a sort-of a failure, since it doesn't handle all sorts of \

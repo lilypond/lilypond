@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 
 class Figured_bass_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Figured_bass_engraver);
+  TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
 protected:
   Link_array<Music> figures_;
   Music * rest_req_;
@@ -28,7 +28,7 @@ protected:
 };
 
 
-Figured_bass_engraver::Figured_bass_engraver()
+Figured_bass_engraver::Figured_bass_engraver ()
 {
   figure_ = 0;
   rest_req_ = 0;
@@ -69,7 +69,7 @@ Figured_bass_engraver::process_music ()
   if (rest_req_)
     {
       figure_ = make_item ("BassFigure");
-      announce_grob(figure_, rest_req_->self_scm()); // todo
+      announce_grob (figure_, rest_req_->self_scm ()); // todo
       figure_->set_property ("text" , scm_makfrom0str ("-"));
     }
   else if (figures_.size ())
@@ -80,19 +80,19 @@ Figured_bass_engraver::process_music ()
 	  SCM l = SCM_EOL;
 
 	  for (int i = 0; i <figures_.size (); i++)
-	    l = gh_cons (figures_[i]->self_scm(), l);
+	    l = gh_cons (figures_[i]->self_scm (), l);
 
 	  SCM markup = scm_call_2 (proc, l, daddy_context_->self_scm ());
 
 	  figure_ = make_item ("BassFigure");
 	  figure_->set_property ("text", markup);
-	  announce_grob(figure_, figures_[0]->self_scm()); // todo
+	  announce_grob (figure_, figures_[0]->self_scm ()); // todo
 	}
     }
 }
 
   
-ENTER_DESCRIPTION(Figured_bass_engraver,
+ENTER_DESCRIPTION (Figured_bass_engraver,
 /* descr */       "Make figured bass numbers.",
 /* creats*/       "BassFigure",
 /* accepts */     "rest-event bass-figure-event",

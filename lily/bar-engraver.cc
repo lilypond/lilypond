@@ -22,7 +22,7 @@
 class Bar_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(  Bar_engraver );
+  TRANSLATOR_DECLARATIONS (Bar_engraver);
   void request_bar (String type_string);
     
 protected:
@@ -52,7 +52,7 @@ Bar_engraver::create_bar ()
       if (scm_equal_p (gl, bar_->get_property ("glyph")) != SCM_BOOL_T)
 	  bar_->set_property ("glyph", gl);
       
-      announce_grob(bar_, SCM_EOL);
+      announce_grob (bar_, SCM_EOL);
     }
 }
 
@@ -69,7 +69,7 @@ Bar_engraver::finalize ()
   This is a little hairy : whichBar may be set by
   Repeat_acknowledge_engraver::process_music, which is at score
   context. This means that grobs could should be created after
-  process_music. We do stuff process_acknowledged_grobs(), just to be
+  process_music. We do stuff process_acknowledged_grobs (), just to be
   on the safe side.
      
 */
@@ -108,7 +108,7 @@ Bar_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Bar_engraver,
+ENTER_DESCRIPTION (Bar_engraver,
 /* descr */       "Create barlines. This engraver is controlled through the "
 "@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
 /* creats*/       "BarLine",

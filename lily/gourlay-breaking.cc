@@ -167,7 +167,7 @@ Gourlay_breaking::do_solve () const
 
   /* do the last one */
   if (breaks.size () % HAPPY_DOTS_I)
-    progress_indication (String ("[") + to_string (breaks.size()) + "]");    
+    progress_indication (String ("[") + to_string (breaks.size ()) + "]");    
 
   progress_indication ("\n");
 
@@ -197,7 +197,7 @@ Gourlay_breaking::do_solve () const
       Column_x_positions cp (optimal_paths[final_breaks[i]].line_config_);
       
       lines.push (cp);
-      if(!cp.satisfies_constraints_)
+      if (!cp.satisfies_constraints_)
 	warning ("Could not find line breaking that satisfies constraints.");
     }
   return lines;

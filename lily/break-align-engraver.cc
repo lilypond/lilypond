@@ -28,7 +28,7 @@ protected:
   void add_column (SCM);
   
 public:
-  TRANSLATOR_DECLARATIONS(Break_align_engraver);
+  TRANSLATOR_DECLARATIONS (Break_align_engraver);
 };
 
 void
@@ -116,7 +116,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 
 	  left_edge_ = make_item ("LeftEdge");
 	  add_to_group (left_edge_->get_property ("break-align-symbol"), left_edge_);
-	  announce_grob(left_edge_, SCM_EOL);
+	  announce_grob (left_edge_, SCM_EOL);
 	}
       
       add_to_group (align_name, item);
@@ -124,7 +124,7 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 }
 
 void
-Break_align_engraver::add_to_group(SCM align_name, Item*item)
+Break_align_engraver::add_to_group (SCM align_name, Item*item)
 {
   SCM s = scm_assoc (align_name, column_alist_);
   Item * group = 0;
@@ -140,7 +140,7 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item)
 
       group->set_property ("break-align-symbol", align_name);
       group->set_parent (align_, Y_AXIS);
-      announce_grob(group, item->self_scm());
+      announce_grob (group, item->self_scm ());
 	  
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 
@@ -148,7 +148,7 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item)
   Axis_group_interface::add_element (group, item);
 }
 
-ENTER_DESCRIPTION(Break_align_engraver,
+ENTER_DESCRIPTION (Break_align_engraver,
 /* descr */       "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder",
 /* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",
 /* accepts */     "",

@@ -63,7 +63,7 @@ Engraver::typeset_grob (Grob*p)
 
 
 
-Engraver::Engraver()
+Engraver::Engraver ()
 {
 }
 
@@ -76,7 +76,7 @@ Engraver::get_score_engraver () const
 }
 
 
-ENTER_DESCRIPTION(Engraver,
+ENTER_DESCRIPTION (Engraver,
 		   "", "",
 		  "",
 		  "", "", "");

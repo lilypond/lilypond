@@ -34,7 +34,7 @@ Grob::get_property_alist_chain (SCM def) const
 
     set_prop (name,cons (thing, get_prop (name)))
 
-  since it can reuse the handle returned by scm_assq().
+  since it can reuse the handle returned by scm_assq ().
 */
 void
 Grob::add_to_list_property (SCM sym, SCM thing) 
@@ -54,7 +54,7 @@ Grob::add_to_list_property (SCM sym, SCM thing)
 	mutable prop list.
       */
       handle = scm_sloppy_assq (sym, immutable_property_alist_);
-      SCM tail = (handle != SCM_BOOL_F) ? gh_cdr(handle) : SCM_EOL;
+      SCM tail = (handle != SCM_BOOL_F) ? gh_cdr (handle) : SCM_EOL;
       SCM val = gh_cons (thing, tail);
 
       mutable_property_alist_ = gh_cons (gh_cons (sym, val),

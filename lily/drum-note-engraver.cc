@@ -23,7 +23,7 @@ class Drum_notes_engraver : public Engraver
   Link_array<Music> events_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Drum_notes_engraver);
+  TRANSLATOR_DECLARATIONS (Drum_notes_engraver);
 
 protected:
   virtual bool try_music (Music *ev) ;
@@ -32,7 +32,7 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
-Drum_notes_engraver::Drum_notes_engraver()
+Drum_notes_engraver::Drum_notes_engraver ()
 {
 }
 
@@ -122,7 +122,7 @@ Drum_notes_engraver::process_music ()
 
 
       
-      announce_grob (note,ev->self_scm());
+      announce_grob (note,ev->self_scm ());
       notes_.push (note);
     }
 }
@@ -187,7 +187,7 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Drum_notes_engraver,
+ENTER_DESCRIPTION (Drum_notes_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots Script",
 /* accepts */     "note-event busy-playing-event",

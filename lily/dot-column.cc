@@ -41,7 +41,7 @@ Dot_column::force_shift_callback (SCM element_smob, SCM axis)
   return gh_double2scm (0.0);
 }
 
-MAKE_SCHEME_CALLBACK(Dot_column,side_position, 2);
+MAKE_SCHEME_CALLBACK (Dot_column,side_position, 2);
 SCM
 Dot_column::side_position (SCM element_smob, SCM axis)
 {

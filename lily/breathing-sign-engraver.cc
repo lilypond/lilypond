@@ -24,7 +24,7 @@ TODO:
 
 class Breathing_sign_engraver : public Engraver {
 public:
-  TRANSLATOR_DECLARATIONS(Breathing_sign_engraver);
+  TRANSLATOR_DECLARATIONS (Breathing_sign_engraver);
   
 protected:
   virtual bool try_music (Music *req);
@@ -56,7 +56,7 @@ Breathing_sign_engraver::process_acknowledged_grobs ()
     {
       breathing_sign_ = make_item ("BreathingSign");
 
-      announce_grob(breathing_sign_, breathing_sign_req_->self_scm());
+      announce_grob (breathing_sign_, breathing_sign_req_->self_scm ());
       breathing_sign_req_ = 0;
     }
 }
@@ -73,7 +73,7 @@ Breathing_sign_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Breathing_sign_engraver,
+ENTER_DESCRIPTION (Breathing_sign_engraver,
 /* descr */       "",
 /* creats*/       "BreathingSign",
 /* accepts */     "breathing-event",

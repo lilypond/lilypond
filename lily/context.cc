@@ -68,7 +68,7 @@ Context::add_context (Context*t)
       Context_def * td = unsmob_context_def (t->definition_);
 
       /*
-	this can not move before add_context(), because \override
+	this can not move before add_context (), because \override
 	operations require that we are in the hierarchy.
       */
       td->apply_default_property_operations (t);
@@ -326,7 +326,7 @@ find_context_below (Context * where,
 SCM
 Context::properties_as_alist () const
 {
-  return properties_dict()->to_alist();
+  return properties_dict ()->to_alist ();
 }
 
 String
@@ -355,7 +355,7 @@ Context::get_output_def () const
     ? daddy_context_->get_output_def () : 0;
 }
 
-Context::~Context()
+Context::~Context ()
 {
   
 }
@@ -363,7 +363,7 @@ Context::~Context()
 Moment
 Context::now_mom () const
 {
-  return daddy_context_->now_mom();
+  return daddy_context_->now_mom ();
 }
 
 int
@@ -410,7 +410,7 @@ Context::mark_smob (SCM sm)
 
 IMPLEMENT_SMOBS (Context);
 IMPLEMENT_DEFAULT_EQUAL_P (Context);
-IMPLEMENT_TYPE_P(Context,"ly:context?");
+IMPLEMENT_TYPE_P (Context,"ly:context?");
 
 bool
 Context::try_music (Music* m)

@@ -48,8 +48,8 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
   else
     {
       programming_error ("#'style should be symbol.");
-      me->suicide();
-      return  Stencil();
+      me->suicide ();
+      return  Stencil ();
     }
 
 
@@ -63,7 +63,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	{
 	  Box box;
 	  box.add_point (bottom_points[i] - hvpadding);
-	  box.add_point (Offset(top_points[i + 1][X_AXIS],
+	  box.add_point (Offset (top_points[i + 1][X_AXIS],
 				top_points[i][Y_AXIS]) + hvpadding);
 	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	}
@@ -73,7 +73,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
       for (int i = 0; i < size - 1; i++)
 	{
 	  Box box;
-	  box.add_point (Offset(bottom_points[i][X_AXIS],
+	  box.add_point (Offset (bottom_points[i][X_AXIS],
 				bottom_points[i + 1][Y_AXIS]) - hvpadding);
 	  box.add_point (top_points[i + 1] + hvpadding);
 	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
@@ -134,7 +134,7 @@ Cluster::print (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   if (!spanner)
     {
-      me->programming_error ("Cluster::print(): not a spanner");
+      me->programming_error ("Cluster::print (): not a spanner");
       return SCM_EOL;
     }
 
@@ -188,7 +188,7 @@ Cluster::print (SCM smob)
     {
       Spanner *orig = dynamic_cast<Spanner*> (spanner->original_);
       
-      if (spanner->get_break_index () < orig->broken_intos_.size()-1)
+      if (spanner->get_break_index () < orig->broken_intos_.size ()-1)
 	{
 	  Spanner * next = orig->broken_intos_[spanner->get_break_index () + 1];
 	  SCM cols = next->get_property ("columns");

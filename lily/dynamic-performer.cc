@@ -21,7 +21,7 @@
 class Dynamic_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Dynamic_performer);
+  TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
   virtual bool try_music (Music* req);
   virtual void stop_translation_timestep ();
@@ -126,7 +126,7 @@ Dynamic_performer::try_music (Music* r)
   return false;
 }
 
-ENTER_DESCRIPTION(Dynamic_performer,
+ENTER_DESCRIPTION (Dynamic_performer,
 		  /*descr*/		  "",
 		  /* creats*/ "",
 		  /* accepts */     "absolute-dynamic-event",

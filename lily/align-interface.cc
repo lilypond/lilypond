@@ -73,8 +73,8 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 	This is not very elegant, in that we need special support for
 	hara-kiri. Unfortunately, the generic wiring of
 	force_hara_kiri_callback () (extent and offset callback) is
-	such that we might get into a loop if we call extent() or
-	offset() the elements.
+	such that we might get into a loop if we call extent () or
+	offset () the elements.
 	
 	 
        */
@@ -82,8 +82,8 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 	  && Hara_kiri_group_spanner::has_interface (elems[j]))
 	Hara_kiri_group_spanner::consider_suicide (elems[j]);
 
-      if (!elems[j]-> live())
-	elems.del(j);
+      if (!elems[j]->live ())
+	elems.del (j);
     }
 
   for (int j =0; j < elems.size (); j++)
@@ -115,7 +115,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 
   TODO: maybe we should rethink and throw out thresholding altogether.
   The original function has been taken over by
-  align_to_fixed_distance().
+  align_to_fixed_distance ().
 */
 void
 Align_interface::align_elements_to_extents (Grob * me, Axis a)

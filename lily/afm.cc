@@ -9,7 +9,7 @@
 
 #include <string.h>
 
-#include "warn.hh"		// error()
+#include "warn.hh"		// error ()
 #include "libc-extension.hh"
 #include "afm.hh"
 #include "stencil.hh"

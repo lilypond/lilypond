@@ -190,6 +190,6 @@ Breathing_sign::offset_callback (SCM element_smob, SCM)
   return gh_double2scm (inter_f * sz * d);
 }
 
-ADD_INTERFACE(Breathing_sign, "breathing-sign-interface",
+ADD_INTERFACE (Breathing_sign, "breathing-sign-interface",
 	      "A breathing sign.",
 	      "direction");

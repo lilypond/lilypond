@@ -14,7 +14,7 @@
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor,());
+  DECLARE_SCHEME_CALLBACK (constructor,());
   virtual void construct_children ();
 };
 
@@ -35,6 +35,6 @@ Context_specced_music_iterator::construct_children ()
   if (a)
     set_translator (a);
 
-  Music_wrapper_iterator::construct_children();
+  Music_wrapper_iterator::construct_children ();
 }
-IMPLEMENT_CTOR_CALLBACK(Context_specced_music_iterator);
+IMPLEMENT_CTOR_CALLBACK (Context_specced_music_iterator);

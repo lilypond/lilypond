@@ -21,7 +21,7 @@ void
 Chord_tremolo_iterator::construct_children ()
 {
   Repeated_music * rep = dynamic_cast<Repeated_music*> (get_music ());
-  factor_  = Moment (Rational(1, 1));
+  factor_  = Moment (Rational (1, 1));
   child_iter_ = unsmob_iterator (get_iterator (rep->body ()));
 }
 
@@ -32,17 +32,17 @@ Chord_tremolo_iterator::Chord_tremolo_iterator ()
 }
 
 void
-Chord_tremolo_iterator::do_quit()
+Chord_tremolo_iterator::do_quit ()
 {
   if (child_iter_)
-    child_iter_->quit();
+    child_iter_->quit ();
 }
 
 void
 Chord_tremolo_iterator::derived_mark () const
 {
   if (child_iter_)
-    scm_gc_mark (child_iter_->self_scm());
+    scm_gc_mark (child_iter_->self_scm ());
 }
 
 void

@@ -27,10 +27,10 @@ struct Accidental_entry {
   Context *origin_;
   Grob*  head_;
   bool tied_;
-  Accidental_entry();
+  Accidental_entry ();
 };
 
-Accidental_entry::Accidental_entry()
+Accidental_entry::Accidental_entry ()
 {
   tied_ = false;
   done_ = false;
@@ -73,10 +73,10 @@ static void
 set_property_on_children (Context * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
-  for (SCM p = trans->context_list_; gh_pair_p (p); p = ly_cdr(p))
+  for (SCM p = trans->context_list_; gh_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
-      set_property_on_children(trg, sym, ly_deep_copy(val));
+      set_property_on_children (trg, sym, ly_deep_copy (val));
     }
 }
 
@@ -115,7 +115,7 @@ number_accidentals_from_sig (bool *different,
 			     bool ignore_octave)
 {
   int n = pitch->get_notename ();
-  int o = pitch->get_octave();
+  int o = pitch->get_octave ();
   int a = pitch->get_alteration ();
   int curbarnum_i = gh_scm2int (curbarnum);
   int accbarnum_i = 0;
@@ -219,7 +219,7 @@ SCM
 Accidental_engraver::get_bar_num ()
 {
   SCM barnum = get_property ("currentBarNumber");
-  SCM smp = get_property("measurePosition");
+  SCM smp = get_property ("measurePosition");
       
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   if (mp.main_part_ < Rational (0)
@@ -232,7 +232,7 @@ Accidental_engraver::get_bar_num ()
 void
 Accidental_engraver::process_acknowledged_grobs ()
 {
-  if (accidentals_.size () && !accidentals_.top().done_)
+  if (accidentals_.size () && !accidentals_.top ().done_)
     {
       SCM accidentals =  get_property ("autoAccidentals");
       SCM cautionaries =  get_property ("autoCautionaries");
@@ -294,7 +294,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      if (!accidental_placement_)
 		{
 		  accidental_placement_ = make_item ("AccidentalPlacement");
-		  announce_grob (accidental_placement_, a->self_scm());
+		  announce_grob (accidental_placement_, a->self_scm ());
 		}
 	      
 	      Accidental_placement::add_accidental (accidental_placement_, a);
@@ -415,18 +415,18 @@ Accidental_engraver::stop_translation_timestep ()
 	}
     }
   
-  for (int i = 0; i < accidentals_.size(); i++)
+  for (int i = 0; i < accidentals_.size (); i++)
     {
       if (Grob *a = accidentals_[i].accidental_)
 	typeset_grob (a);
     }
 
   if (accidental_placement_)
-    typeset_grob(accidental_placement_);
+    typeset_grob (accidental_placement_);
 
   accidental_placement_ = 0;
   
-  accidentals_.clear();
+  accidentals_.clear ();
   left_objects_.clear ();
   right_objects_.clear ();
 }
@@ -457,7 +457,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
     {
       left_objects_.push (info.grob_); 
     }
-  else if (info.grob_->internal_has_interface (ly_symbol2scm("finger-interface")))
+  else if (info.grob_->internal_has_interface (ly_symbol2scm ("finger-interface")))
     {
       left_objects_.push (info.grob_); 
     }
@@ -479,7 +479,7 @@ Accidental_engraver::process_music ()
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
 	  trans_ = trans_->daddy_context_;
 	}
-      set_property_on_children(daddy_context_,"localKeySignature", sig);
+      set_property_on_children (daddy_context_,"localKeySignature", sig);
 
       last_keysig_ = sig;
     }

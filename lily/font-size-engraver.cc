@@ -13,7 +13,7 @@
 class Font_size_engraver : public Engraver
 {
   
-  TRANSLATOR_DECLARATIONS(Font_size_engraver);
+  TRANSLATOR_DECLARATIONS (Font_size_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info gi);
 private:
@@ -46,7 +46,7 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
 }
 
 
-ENTER_DESCRIPTION(Font_size_engraver,
+ENTER_DESCRIPTION (Font_size_engraver,
 /* descr */       "Puts fontSize into font-relative-size grob property.",
 /* creats*/       "",
 /* accepts */     "",

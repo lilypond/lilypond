@@ -85,7 +85,7 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
 void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 {
   /* Check for illegal head modifier combinations */
-  for (int i = 0; i < primitives.size(); i++)
+  for (int i = 0; i < primitives.size (); i++)
     {
     Grob *primitive = primitives[i].grob_;
 
@@ -200,7 +200,7 @@ provide_context_info (Array<Grob_info> primitives)
   int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_pitch = 0;
-  for (int i = 0; i < primitives.size(); i++) {
+  for (int i = 0; i < primitives.size (); i++) {
     Grob *primitive = primitives[i].grob_;
     Music *music_cause = primitives[i].music_cause ();
     int context_info = 0;

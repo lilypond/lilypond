@@ -143,10 +143,10 @@ Beam::quanting (SCM smob)
   Array<Real> base_lengths;
   Array<Real> stem_xposns;  
 
-  Drul_array<bool> dirs_found(0,0);
+  Drul_array<bool> dirs_found (0,0);
   Grob *common[2];
   for (int a = 2; a--;)
-    common[a] = common_refpoint_of_array (stems, me, Axis(a));
+    common[a] = common_refpoint_of_array (stems, me, Axis (a));
 
   Grob * fvs = first_visible_stem (me);
   Grob *lvs = last_visible_stem (me);
@@ -161,7 +161,7 @@ Beam::quanting (SCM smob)
     stem_y != 0.0, when we're cross staff.
     
    */
-  for (int i= 0; i < stems.size(); i++)
+  for (int i= 0; i < stems.size (); i++)
     {
       Grob*s = stems[i];
 
@@ -289,7 +289,7 @@ Beam::quanting (SCM smob)
       int i = 0;
 
       Real mindist = 1e6;
-      for (; i < qscores.size(); i ++)
+      for (; i < qscores.size (); i ++)
 	{
 	  Real d =fabs (qscores[i].yl- ins[LEFT]) + fabs (qscores[i].yr - ins[RIGHT]);
 	  if (d < mindist)
@@ -448,8 +448,8 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
-  Drul_array<Real> y(yl,yr);
-  Drul_array<Direction> dirs(ldir,rdir);
+  Drul_array<Real> y (yl,yr);
+  Drul_array<Direction> dirs (ldir,rdir);
   
   Real extra_demerit = SECONDARY_BEAM_DEMERIT / (beam_counts[LEFT] >? beam_counts[RIGHT]);
 
