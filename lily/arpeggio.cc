@@ -137,7 +137,6 @@ Arpeggio::brew_chord_bracket (SCM smob)
 /*
   We have to do a callback, because print () triggers a
   vertical alignment if it is cross-staff.
-  This callback also adds padding.
 */
 MAKE_SCHEME_CALLBACK (Arpeggio, width_callback,2);
 SCM
@@ -148,7 +147,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
   assert (a == X_AXIS);
   Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
 
-  return ly_interval2scm (arpeggio.extent (X_AXIS) * 1.5);
+  return ly_interval2scm (arpeggio.extent (X_AXIS));
 }
 
 
