@@ -1,5 +1,7 @@
 2004-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/invoking.itexi (Editor support): Fix typo.
+
 	* Documentation/user/tutorial.itely:
 	* Documentation/user/refman.itely: Add short note about being part
 	of lilypond.tely.
