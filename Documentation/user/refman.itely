@@ -7533,7 +7533,6 @@ treatment of the difference between translation and layout.
 * Applyoutput::                 
 * Font selection::              
 * Text markup::                 
-* Common text markup commands::  
 @end menu
 
 
@@ -8061,9 +8060,10 @@ to more words:
 
 @noindent
 For clarity, you can also do this for single arguments, e.g.
-@example
-  \markup @{ is \italic @{ anyone @} home @}
-@end example
+
+@verbatim
+  \markup { is \italic { anyone } home }
+@end verbatim
 
 @cindex font size, texts
 
@@ -8071,8 +8071,14 @@ For clarity, you can also do this for single arguments, e.g.
 
 
 
+@menu
+* Common text markup commands::  
+* Markup construction in scheme::  
+* Markup command definition::   
+@end menu
+
 @node Common text markup commands
-@subsection Common text markup commands
+@subsubsection Common text markup commands
 
 
 The following size commands set absolute sizes:
