@@ -88,7 +88,7 @@ Stem::set_default_stemlen()
     int stafftop = 2*staff_center;
     stemlen = STEMLEN  + (maxnote - minnote);
     
-    // uhh... how about non 5-line staffs?	
+    // uhh... how about non 5-line staffs?
     if (maxnote < -2 && dir == 1){
 	int t = staff_center - staff_center/2; 
 	stemlen = t - minnote +2;
@@ -111,7 +111,7 @@ Stem::set_default_extents()
 
     set_stemend((dir< 0) ? maxnote-stemlen: minnote +stemlen);
     if (dir > 0){	
-	stem_xoffset = paper()->note_width();
+	stem_xoffset = paper()->note_width()-paper()->rule_thickness();
     } else
 	stem_xoffset = 0;
 }
