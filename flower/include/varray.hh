@@ -156,6 +156,14 @@ public:
 	    thearray[i] = thearray[i-1];
 	thearray[j] = k;
     }
+    /**
+      remove  i-th element, and return it.
+     */
+    T get(int i) {
+	T t = elem(i);
+	del (i);
+	return t;
+    }
     void del(int i) {
 	assert(i >=0&& i < size_);
 	arrcpy(thearray+i, thearray+i+1, size_-i-1);
