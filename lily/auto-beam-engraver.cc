@@ -22,8 +22,6 @@
 #include "context.hh"
 
 /*
-  TODO: figure what to do in grace?
-
   TODO: documentme.
  */
 class Auto_beam_engraver : public Engraver
@@ -33,6 +31,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
+  virtual bool try_music (Music*);
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -48,6 +47,7 @@ private:
   bool is_same_grace_state (Grob* e);
   void typeset_beam ();
 
+  Music *forbid_;
   /*
     shortest_mom is the shortest note in the beam.
    */
@@ -83,11 +83,18 @@ Auto_beam_engraver::process_music ()
       consider_end (shortest_mom_);
       junk_beam ();
     }
+
+  if (forbid_)
+    {
+      consider_end (shortest_mom_);
+      junk_beam ();
+    }
 }
 
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
+  forbid_ = 0;
   count_ = 0;
   stems_ = 0;
   shortest_mom_ = Moment (Rational (1, 8));
@@ -95,6 +102,19 @@ Auto_beam_engraver::Auto_beam_engraver ()
   finished_grouping_ = 0;
   grouping_ = 0;
   beam_settings_ = SCM_EOL;  
+}
+
+
+bool
+Auto_beam_engraver::try_music (Music*m)
+{
+  if (m->is_mus_type  ("beam-forbid-event"))
+    {
+      forbid_ = m;
+      return true;
+    }
+
+  return false;
 }
 
 /*
@@ -220,7 +240,8 @@ void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {
   bool on = to_boolean (get_property ("autoBeaming"));
-  if (!stems_ && on)
+  if (!stems_ && on
+      && !forbid_)
     {
       bool b = test_moment (START, test_mom);
       if (b)
@@ -353,6 +374,7 @@ Auto_beam_engraver::start_translation_timestep ()
 	  end_beam ();
 	}
     }
+  forbid_ = 0;
 }
 
 void
@@ -511,7 +533,7 @@ ENTER_DESCRIPTION (Auto_beam_engraver,
 "stemRightBeamCount. "
 ,
 /* creats*/       "Beam",
-/* accepts */     "",
+/* accepts */     "beam-forbid-event",
 /* acks  */      "stem-interface rest-interface beam-interface bar-line-interface",
 /* reads */       "autoBeaming autoBeamSettings beatLength subdivideBeams",
 /* write */       "");

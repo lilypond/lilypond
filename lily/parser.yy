@@ -139,7 +139,7 @@ make_simple_markup (SCM a)
 	if (!simple)
 	simple = scm_c_eval_string ("simple-markup");
 
-	return scm_list_n (simple, a, SCM_UNDEFINED);
+	return scm_list_2 (simple, a);
 }
 
 
@@ -579,8 +579,8 @@ translator_spec_body:
 			SCM tag = gh_caar (p);
 
 			/* TODO: should make new tag "grob-definition" ? */
-			td->add_context_mod (scm_list_n (ly_symbol2scm ("assign"),
-							tag, gh_cons (ly_cdar (p), SCM_EOL), SCM_UNDEFINED));
+			td->add_context_mod (scm_list_3 (ly_symbol2scm ("assign"),
+							tag, gh_cons (ly_cdar (p), SCM_EOL)));
 		}
 	}
 	| translator_spec_body context_mod {
@@ -1126,20 +1126,20 @@ context_change:
 
 property_operation:
 	STRING '='  scalar {
-		$$ = scm_list_n (ly_symbol2scm ("assign"),
-			scm_string_to_symbol ($1), $3, SCM_UNDEFINED);
+		$$ = scm_list_3 (ly_symbol2scm ("assign"),
+			scm_string_to_symbol ($1), $3);
 	}
 	| UNSET STRING {
-		$$ = scm_list_n (ly_symbol2scm ("unset"),
-			scm_string_to_symbol ($2), SCM_UNDEFINED);
+		$$ = scm_list_2 (ly_symbol2scm ("unset"),
+			scm_string_to_symbol ($2));
 	}
 	| OVERRIDE STRING embedded_scm '=' embedded_scm {
-		$$ = scm_list_n (ly_symbol2scm ("push"),
-			scm_string_to_symbol ($2), $3, $5, SCM_UNDEFINED);
+		$$ = scm_list_4 (ly_symbol2scm ("push"),
+			scm_string_to_symbol ($2), $3, $5);
 	}
 	| REVERT STRING embedded_scm {
-		$$ = scm_list_n (ly_symbol2scm ("pop"),
-			scm_string_to_symbol ($2), $3, SCM_UNDEFINED);
+		$$ = scm_list_3 (ly_symbol2scm ("pop"),
+			scm_string_to_symbol ($2), $3);
 	}
 	;
 
@@ -1160,46 +1160,46 @@ translator_mod:
 context_mod:
 	property_operation { $$ = $1; }
 	| translator_mod STRING {
-		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+		$$ = scm_list_2 ($1, $2);
 	}
 	;
 
 context_prop_spec:
 	STRING  {
-		$$ = scm_list_n (ly_symbol2scm ("Bottom"), scm_string_to_symbol ($1), SCM_UNDEFINED);
+		$$ = scm_list_2 (ly_symbol2scm ("Bottom"), scm_string_to_symbol ($1));
 	}
 	| STRING '.' STRING {
-		$$ = scm_list_n (scm_string_to_symbol ($1), scm_string_to_symbol ($3), SCM_UNDEFINED);
+		$$ = scm_list_2 (scm_string_to_symbol ($1), scm_string_to_symbol ($3));
 	}
 	;
 
 music_property_def:
 	OVERRIDE context_prop_spec embedded_scm '=' scalar {
-		$$ = property_op_to_music (scm_list_n (
+		$$ = property_op_to_music (scm_list_4 (
 			ly_symbol2scm ("poppush"),
 			gh_cadr ($2),
-			$3, $5, SCM_UNDEFINED));
+			$3, $5));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| REVERT context_prop_spec embedded_scm {
-		$$ = property_op_to_music (scm_list_n (
+		$$ = property_op_to_music (scm_list_3 (
 			ly_symbol2scm ("pop"),
 			gh_cadr ($2),
-			$3, SCM_UNDEFINED));
+			$3));
 
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| SET context_prop_spec '=' scalar {
-		$$ = property_op_to_music (scm_list_n (
+		$$ = property_op_to_music (scm_list_3 (
 			ly_symbol2scm ("assign"),
 			gh_cadr ($2),
-			$4, SCM_UNDEFINED));
+			$4));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| UNSET context_prop_spec {
-		$$ = property_op_to_music (scm_list_n (
+		$$ = property_op_to_music (scm_list_2 (
 			ly_symbol2scm ("unset"),
-			gh_cadr ($2), SCM_UNDEFINED));
+			gh_cadr ($2)));
 		$$= context_spec_music (gh_car ($2), SCM_UNDEFINED, $$, SCM_EOL);
 	}
 	| ONCE music_property_def {
@@ -1966,7 +1966,7 @@ simple_element:
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
 		Music *v = MY_MAKE_MUSIC("EventChord");
-		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
+		v->set_mus_property ("elements", scm_list_1 (n->self_scm ()));
 		scm_gc_unprotect_object (n->self_scm());
 
 		v->set_spot (i);
@@ -1981,7 +1981,7 @@ simple_element:
 		n->set_mus_property ("drum-type" , $1);
 
 		Music *v = MY_MAKE_MUSIC("EventChord");
-		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
+		v->set_mus_property ("elements", scm_list_1 (n->self_scm ()));
 		scm_gc_unprotect_object (n->self_scm());
 		v->set_spot (i);
 		n->set_spot (i);
@@ -2013,7 +2013,7 @@ simple_element:
 		ev->set_mus_property ("duration" ,$2);
 		ev->set_spot (i);
  		Music * velt = MY_MAKE_MUSIC("EventChord");
-		velt->set_mus_property ("elements", scm_list_n (ev->self_scm (),SCM_UNDEFINED));
+		velt->set_mus_property ("elements", scm_list_1 (ev->self_scm ()));
 		velt->set_spot (i);
 
 		scm_gc_unprotect_object (ev->self_scm());
@@ -2043,7 +2043,7 @@ simple_element:
 		lreq->set_mus_property ("duration",$2);
 		lreq->set_spot (i);
 		Music * velt = MY_MAKE_MUSIC("EventChord");
-		velt->set_mus_property ("elements", scm_list_n (lreq->self_scm (), SCM_UNDEFINED));
+		velt->set_mus_property ("elements", scm_list_1 (lreq->self_scm ()));
 
 		$$= velt;
 	}
@@ -2088,10 +2088,10 @@ chord_separator:
 		$$ = ly_symbol2scm ("chord-caret"); 
 	}
 	| CHORD_SLASH steno_tonic_pitch {
- 		$$ = scm_list_n (ly_symbol2scm ("chord-slash"), $2, SCM_UNDEFINED); 
+ 		$$ = scm_list_2 (ly_symbol2scm ("chord-slash"), $2); 
 	}
 	| CHORD_BASS steno_tonic_pitch {
-		$$ = scm_list_n (ly_symbol2scm ("chord-bass"), $2, SCM_UNDEFINED); 
+		$$ = scm_list_2 (ly_symbol2scm ("chord-bass"), $2); 
 	}
 	;
 
@@ -2216,7 +2216,7 @@ string:
 		$$ = $1;
 	}
 	| string '+' string {
-		$$ = scm_string_append (scm_list_n ($1, $3, SCM_UNDEFINED));
+		$$ = scm_string_append (scm_list_2 ($1, $3));
 	}
 	;
 
@@ -2254,34 +2254,34 @@ markup:
 		$$ = make_simple_markup ($1);
 	}
 	| MARKUP_HEAD_EMPTY {
-		$$ = scm_list_n ($1, SCM_UNDEFINED);
+		$$ = scm_list_1 ($1);
 	}
 	| MARKUP_HEAD_MARKUP0 markup {
-		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+		$$ = scm_list_2 ($1, $2);
 	}
 	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
-		$$ = scm_list_n ($1, $2, $3, SCM_UNDEFINED);
+		$$ = scm_list_3 ($1, $2, $3);
 	}
 	| MARKUP_HEAD_SCM0_MARKUP1 SCM_T markup {
-		$$  = scm_list_n ($1, $2, $3, SCM_UNDEFINED); 
+		$$  = scm_list_3 ($1, $2, $3); 
 	}
 	| markup_line {
 		$$ = $1;
 	}
 	| MARKUP_HEAD_LIST0 markup_list {
-		$$ = scm_list_n ($1,$2, SCM_UNDEFINED);
+		$$ = scm_list_2 ($1,$2);
 	}
 	| MARKUP_HEAD_SCM0 embedded_scm {
-		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+		$$ = scm_list_2 ($1, $2);
 	}
 	| MARKUP_HEAD_SCM0_SCM1_MARKUP2 embedded_scm embedded_scm markup {
-		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
+		$$ = scm_list_4 ($1, $2, $3, $4);
 	}
 	| MARKUP_HEAD_SCM0_SCM1_SCM2 embedded_scm embedded_scm embedded_scm {
-		$$ = scm_list_n ($1, $2, $3, $4, SCM_UNDEFINED);
+		$$ = scm_list_4 ($1, $2, $3, $4);
 	}
 	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
-		$$ = scm_list_n ($1, $2, $3, SCM_UNDEFINED);
+		$$ = scm_list_3 ($1, $2, $3);
 	}
 	| MARKUP_IDENTIFIER {
 		$$ = $1;
@@ -2299,7 +2299,7 @@ markup_line:
 		if (!line)
 			line = scm_c_eval_string ("line-markup");
 	
-		$$ = scm_list_n (line, scm_reverse_x ($2, SCM_EOL), SCM_UNDEFINED);
+		$$ = scm_list_2 (line, scm_reverse_x ($2, SCM_EOL));
 	}
 	;
 

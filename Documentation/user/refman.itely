@@ -1322,6 +1322,14 @@ When these automatic decisions are not good enough, beaming can be
 entered explicitly. It is also possible to define  beaming patterns
 that differ from the defaults.
 
+Individual notes may be marked with @code{\noBeam}, to prevent them
+from being beamed:
+
+@lilypond[fragment,verbatim,relative=2]
+  \time 2/4 c8 c\noBeam c c
+@end lilypond
+
+
 @seealso
 
 Internals: @internalsref{Beam}. 
