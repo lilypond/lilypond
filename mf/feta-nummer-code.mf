@@ -210,14 +210,14 @@ dot_diam# = 7/8flare#;
 define_pixels(dot_diam);
 
 code := 31; % , 32
-fet_beginchar("Space", "space", "space")
+fet_beginchar("Space", "space")
 	set_char_box(0, space#,  0,height#);
 fet_endchar;
 
 code := 43;  % , = 44 
 
 % urg
-fet_beginchar("Numeral comma", "comma", "comma")
+fet_beginchar("Numeral comma", "comma")
 	set_char_box(0, dot_diam#, 3/2dot_diam#, dot_diam#);
 	pickup pencircle scaled dot_diam;
 	draw (dot_diam/2,dot_diam/2);
@@ -232,7 +232,7 @@ fet_beginchar("Numeral comma", "comma", "comma")
 	penlabels(1);
 fet_endchar;
 
-fet_beginchar("Numeral dash", "hyphen", "hyphen")
+fet_beginchar("Numeral dash", "hyphen")
 	set_char_box(0, height#/3, 0, height#);
 	pickup pencircle scaled thin;
 	lft x1 = -b;
@@ -241,7 +241,7 @@ fet_beginchar("Numeral dash", "hyphen", "hyphen")
 	draw z1 .. z2;
 fet_endchar;
 
-fet_beginchar("Numeral dot", "period", "period")
+fet_beginchar("Numeral dot", "period")
 	set_char_box(0, dot_diam#, 0, dot_diam#);
 	pickup pencircle scaled dot_diam;
 	draw (dot_diam/2,dot_diam/2);
@@ -252,7 +252,7 @@ fet_endchar;
 
 code := 47; % 0 = 48
 
-fet_beginchar("Numeral 0", "zero", "zero")
+fet_beginchar("Numeral 0", "zero")
 	set_char_box(0, 11/15height# * widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -271,7 +271,7 @@ fet_beginchar("Numeral 0", "zero", "zero")
 		..tension t..z4l..tension t..cycle;
 fet_endchar;
 	
-fet_beginchar("Numeral 1", "one", "one")
+fet_beginchar("Numeral 1", "one")
 %	set_char_box(0, 19/30height#*widen, 0, height#);
 	set_char_box(0, 1/2foot_width#+3/2thick#+1/2hair#, 0, height#);
 	message "w:"&decimal w;
@@ -303,7 +303,7 @@ fet_beginchar("Numeral 1", "one", "one")
 	draw_foot(x1);
 fet_endchar;
 
-fet_beginchar("Numeral 2", "two", "two")
+fet_beginchar("Numeral 2", "two")
 	set_char_box(0, 22/30 height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -356,7 +356,7 @@ fet_endchar;
 % TODO: should widen a bit. The right edge of the 3 bumps into next glyph in
 % combinations 
 %
-fet_beginchar("Numeral 3", "three", "three")
+fet_beginchar("Numeral 3", "three")
 	set_char_box(0, 2/3height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -421,7 +421,7 @@ fet_endchar;
 
 
 	
-fet_beginchar("Numeral 4", "four", "four")
+fet_beginchar("Numeral 4", "four")
 	set_char_box(0, 4/5height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -463,7 +463,7 @@ fet_beginchar("Numeral 4", "four", "four")
 	draw_foot(x5);
 fet_endchar;
 
-fet_beginchar("Numeral 5", "five", "five")
+fet_beginchar("Numeral 5", "five")
 	set_char_box(0, 27/40 height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -516,11 +516,11 @@ fet_beginchar("Numeral 5", "five", "five")
 
 fet_endchar;
 
-fet_beginchar("Numeral 6", "six", "six")
+fet_beginchar("Numeral 6", "six")
 	draw_six;
 fet_endchar;
 
-fet_beginchar("Numeral 7", "seven", "seven")
+fet_beginchar("Numeral 7", "seven")
 	set_char_box(0, 11/15height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -575,7 +575,7 @@ fi
 	penlabels(1,2,3,4,5,6);
 fet_endchar;
 
-fet_beginchar("Numeral 8", "eight", "eight")
+fet_beginchar("Numeral 8", "eight")
 	set_char_box(0, 11/15height#*widen, 0, height#);
 	message "w:"&decimal w;
 	message "h:"&decimal h;
@@ -609,7 +609,7 @@ fet_beginchar("Numeral 8", "eight", "eight")
 		..z2l{dir(beta)}..cycle;
 fet_endchar;
 
-fet_beginchar("Numeral 9", "nine", "nine")
+fet_beginchar("Numeral 9", "nine")
 	draw_six;
 %	xy_mirror_char;
 	currentpicture := currentpicture scaled -1;

@@ -81,7 +81,6 @@ def parse_logfile (fn):
 			m = {
 				'description': tags[1],
 				'name': name,
-				'tex': tags[10],
 				'code': string.atoi (tags[2]),
 				'breapth': string.atof (tags[3]),
 				'width': string.atof (tags[4]),
@@ -157,8 +156,13 @@ def write_tex_defs (file, global_info, charmetrics):
 	## nm = global_info['FontFamily']
 	nm = font_family
 	for m in charmetrics:
+		
+		texname = re.sub ('[_.]', 'X',  m['name'])
+		def digit_to_letter (match):
+			return chr (ord (match.group(1)) - ord ('0') + ord ('A'))
+		texname = re.sub ('([0-9])', digit_to_letter, texname)
 		file.write (r'''\gdef\%s%s{\char%d}%%%s''' % \
-			    (nm, m['tex'], m['code'],'\n'))
+			    (nm, texname, m['code'],'\n'))
 	file.write ('\\endinput\n')
 
 

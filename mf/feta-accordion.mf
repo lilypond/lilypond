@@ -14,7 +14,7 @@ define_pixels(accreg_dot_size, accreg_linethickness, accreg_lh);
 pen accreg_pen;
 accreg_pen := pencircle xscaled accreg_linethickness yscaled 0.7accreg_linethickness;
 
-fet_beginchar("accDiscant", "accDiscant", "accDiscant")
+fet_beginchar("accDiscant", "accDiscant")
 	save r, sx;
 	r# = 3/2accreg_lh#;
 	define_pixels(r);
@@ -28,13 +28,13 @@ fet_beginchar("accDiscant", "accDiscant", "accDiscant")
 	currentpicture := currentpicture shifted (0, r);
 fet_endchar;
 
-fet_beginchar("accDot", "accDot", "accDot")
+fet_beginchar("accDot", "accDot")
 	set_char_box(accreg_dot_size#, accreg_dot_size#, 0, 0);
 	pickup pencircle scaled accreg_dot_size;
 	draw(0, 0);
 fet_endchar;
 
-fet_beginchar("accFreebase", "accFreebase", "accFreebase")
+fet_beginchar("accFreebase", "accFreebase")
 	save r;
 	r#= accreg_lh#;
 	define_pixels(r);
@@ -45,7 +45,7 @@ fet_beginchar("accFreebase", "accFreebase", "accFreebase")
 	currentpicture := currentpicture shifted (0, r);
 fet_endchar;
 
-fet_beginchar("accStdbase", "accStdbase", "accStdbase")
+fet_beginchar("accStdbase", "accStdbase")
 	save r, sx;
 	r# = 2accreg_lh#;
 	define_pixels(r);
@@ -60,7 +60,7 @@ fet_beginchar("accStdbase", "accStdbase", "accStdbase")
 fet_endchar;
 
 %%% strange turning path.
-fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
+fet_beginchar("accBayanbase", "accBayanbase")
 	save lh;
 	lh = accreg_lh;
 %	set_char_box(accreg_lh#, accreg_lh#, 3accreg_lh#, 0);
@@ -157,7 +157,7 @@ enddef;
 
 
 %%% strange turning path.
-fet_beginchar("accOldEE", "accOldEE", "accOldEE")
+fet_beginchar("accOldEE", "accOldEE")
 	set_char_box(staff_space#, staff_space#, 0, 2staff_space#);
 	show w;
 	show h;

@@ -1,5 +1,7 @@
 2004-12-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-autometric.mf (code): remove tex name from fet_beginchar.
+
 	* lily/open-type-font.cc (load_scheme_table): new function
 
 	* lily/dots.cc (print): replace - 

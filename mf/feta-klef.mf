@@ -69,14 +69,14 @@ def draw_c_clef (expr reduction) =
 
 	enddef;
 
-fet_beginchar ("C clef", "C", "altoclef")
+fet_beginchar ("C clef", "C")
 	if test_staff = 1:
 		draw_staff (-2,2, 0.0);
 	fi;
 	draw_c_clef (1.0);
 fet_endchar;
 
-fet_beginchar ("C clef", "C_change", "caltoclef")
+fet_beginchar ("C clef", "C_change")
 	if test_staff = 1:
 		draw_staff (-2,2, 0.0);
 	fi;
@@ -238,14 +238,14 @@ enddef;
 
 
 
-fet_beginchar("F clef ", "F", "bassclef")
+fet_beginchar("F clef ", "F")
 	if test_staff = 1:
 		draw_staff(-3,1, 0.0);
 	fi;
 	draw_bass_clef((0, 0), 1.0);
 fet_endchar;
 
-fet_beginchar("F clef (reduced)", "F_change", "cbassclef")
+fet_beginchar("F clef (reduced)", "F_change")
 	draw_bass_clef((0, 0),0.8);
 fet_endchar;
 
@@ -443,14 +443,14 @@ def draw_gclef (expr reduction)=
 enddef;
 
 
-fet_beginchar("G clef", "G", "trebleclef")
+fet_beginchar("G clef", "G")
 	if test_staff = 1:
 		draw_staff(-1,3, 0.0);
 	fi;
 	draw_gclef(1.0);
 fet_endchar;
 
-fet_beginchar("G clef", "G_change", "ctrebleclef")
+fet_beginchar("G clef", "G_change")
 	draw_gclef(0.8);
 fet_endchar;
 
@@ -478,11 +478,11 @@ def draw_percussion_clef(expr reduction) =
 	draw_block((w-razt,-d),(w,h));
 enddef;
 
-fet_beginchar("percussion clef", "percussion", "percussionclef")
+fet_beginchar("percussion clef", "percussion")
 	draw_percussion_clef(1.0);
 fet_endchar;
 
-fet_beginchar("percussion clef (reduced)", "percussion_change", "cpercussionclef")
+fet_beginchar("percussion clef (reduced)", "percussion_change")
 	draw_percussion_clef(.8);
 fet_endchar;
 
@@ -661,11 +661,11 @@ def draw_tab_clef(expr reduction) =
 	  (2.1*reduced_ss,letterheight),0.25);
 enddef;
 
-fet_beginchar("tab clef", "tab", "tabclef")
+fet_beginchar("tab clef", "tab")
 	draw_tab_clef(1.0);
 fet_endchar;
 
-fet_beginchar("tab clef (reduced)", "tab_change", "ctabclef")
+fet_beginchar("tab clef (reduced)", "tab_change")
 	draw_tab_clef(.8);
 fet_endchar;
 
@@ -679,8 +679,8 @@ if 0 = 1:
 
 savecode:=code;
 code:=97;
-fet_beginchar("Ascii b", "b", "b")
-%%fet_beginchar("G clef", "G", "trebleclef")
+fet_beginchar("Ascii b", "b")
+%%fet_beginchar("G clef", "G")
 	if test_staff = 1:
 		draw_staff(-1,3, 0.0);
 	fi;

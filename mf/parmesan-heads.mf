@@ -100,7 +100,7 @@ def draw_neomensural_left_stemmed_head (expr wid) =
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Left stemmed notehead", "lneomensural", "neomensuralleftstemmedhead");
+fet_beginchar("Left stemmed notehead", "lneomensural");
 	draw_neomensural_left_stemmed_head (2 staff_space#);
 fet_endchar;
 
@@ -129,15 +129,15 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar("Neo-mensural maxima notehead", "s-3neomensural", "neomensuralmaximahead");
+fet_beginchar("Neo-mensural maxima notehead", "s-3neomensural");
 	draw_neomensural_longa (2.6 staff_space#)
 fet_endchar;
 
-fet_beginchar("Neo-mensural longa notehead", "s-2neomensural", "neomensurallongahead");
+fet_beginchar("Neo-mensural longa notehead", "s-2neomensural");
 	draw_neomensural_longa (2 staff_space#)
 fet_endchar;
 
-fet_beginchar("Neo-mensural brevis notehead", "s-1neomensural", "neomensuralbrevishead")
+fet_beginchar("Neo-mensural brevis notehead", "s-1neomensural")
 	draw_neomensural_brevis(2 staff_space#);
 fet_endchar;
 
@@ -181,7 +181,7 @@ def draw_neomensural_open_head (expr wid, height)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
-fet_beginchar("Neo-mensural open head","s0neomensural","neomensuralsemibrevishead")
+fet_beginchar("Neo-mensural open head","s0neomensural")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
@@ -198,11 +198,11 @@ fet_beginchar("Harmonic notehead (Neo-mensural open)",
 fet_endchar;
 
 
-fet_beginchar("Neo-mensural open head","s1neomensural","neomensuralminimahead")
+fet_beginchar("Neo-mensural open head","s1neomensural")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural black head","s2neomensural","neomensuralsemiminimahead")
+fet_beginchar("Neo-mensural black head","s2neomensural")
       draw_neomensural_black_head (staff_space#, noteheight#);
 fet_endchar;
 
@@ -231,19 +231,19 @@ def draw_mensural_longa (expr wid) =
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Mensural left stemmed notehead", "slmensural", "mensuralleftstemmedhead");
+fet_beginchar("Mensural left stemmed notehead", "slmensural");
 	draw_mensural_left_stemmed_head (staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural maxima notehead", "s-3mensural", "mensuralmaximahead");
+fet_beginchar("Mensural maxima notehead", "s-3mensural");
 	draw_mensural_longa (2.0 staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural longa notehead", "s-2mensural", "mensurallongahead");
+fet_beginchar("Mensural longa notehead", "s-2mensural");
 	draw_mensural_longa (staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural brevis notehead", "s-1mensural", "mensuralbrevishead")
+fet_beginchar("Mensural brevis notehead", "s-1mensural")
 	draw_mensural_brevis(staff_space#);
 fet_endchar;
 
@@ -288,15 +288,15 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 enddef;
 
 
-fet_beginchar("Mensural open head","s0mensural","mensuralsemibrevishead")
+fet_beginchar("Mensural open head","s0mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural open head","s1mensural","mensuralminimahead")
+fet_beginchar("Mensural open head","s1mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural black head","s2mensural","mensuralsemiminimahead")
+fet_beginchar("Mensural black head","s2mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 
@@ -601,7 +601,7 @@ punctum_char("Ed. Vat. cephalicus", "vaticana-cephalicus",
 	     false, false, true, false, false, 1.0);
 
 % quilisma
-fet_beginchar("Ed. Vat. quilisma", "vaticana-quilisma", "vatquilismahead")
+fet_beginchar("Ed. Vat. quilisma", "vaticana-quilisma")
 	save b_h,a_w;
 	a_b:=1.54; % b_h*a_b/a_w = wd/ht
 	b_h:=0.85;
@@ -794,7 +794,7 @@ punctum_char("Hufnagel punctum", "hufnagel-punctum", "hufpunctumhead", false)
 punctum_char("Hufnagel virga", "hufnagel-virga", "hufvirgahead", true)
 
 % pes lower punctum
-fet_beginchar("Hufnagel pes lower punctum", "hufnagel-lpes", "huflpeshead")
+fet_beginchar("Hufnagel pes lower punctum", "hufnagel-lpes")
 	save width, height, alpha;
 	width# = 2*staff_space#;
 	height# = 0.7*staff_space#;

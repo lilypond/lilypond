@@ -48,7 +48,7 @@ enddef;
 
 
 def autometric_output_char=
-	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&decimal charwx&"@:"&decimal charwy&"@:"&idstr&"@:"&texstr&"@}";
+	message "@{char@:"&charnamestr&"@:"&decimal charcode&"@:"&decimal charbp&"@:"&decimal charwd&"@:"&decimal chardp&"@:"&decimal charht&"@:"&decimal charwx&"@:"&decimal charwy&"@:"&idstr&"@}";
 enddef;
 
 def hround_pixels(expr sharped) = hround(sharped * hppp) enddef;
@@ -104,17 +104,15 @@ code:=32;
 % and then adds:
 %     charname	see below
 %     id	index in lily's table
-%     texstr	name of tex macro in lily's table and tex backend
 
 % the dims are uninitialised; you should use set_char_box manually.
-def fet_beginchar(expr name, id_lit, texstr_lit) =
-	save texstr, idstr, charnamestr;
+def fet_beginchar(expr name, id_lit) =
+	save  idstr, charnamestr;
 	save charbp;
 	save w,b,h,d;
 	save charwx, charwy;
 
-	string texstr, idstr, charnamestr;
-	texstr := texstr_lit;
+	string idstr, charnamestr;
 	charnamestr := name;
 	idstr := id_lit;
 

@@ -7,6 +7,11 @@
 @unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
+
+@item
+LilyPond now uses FreeType read the Feta font as an OpenType
+font. This is cleaner design and more robust.
+
 @item
 A new script, @code{\espressivo} has been added, for a combination of
 crescendo and decrescendo on a single note.

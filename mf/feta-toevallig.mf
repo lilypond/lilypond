@@ -68,7 +68,7 @@ def draw_meta_sharp (expr width) =
 
 	enddef;
 
-fet_beginchar("Sharp" , "2", "sharp");
+fet_beginchar("Sharp" , "2");
 	set_char_box(0, 1.1 staff_space#, 1.5 staff_space#, 
 		1.5 staff_space#);
 	draw_meta_sharp (w);
@@ -86,7 +86,7 @@ fet_beginchar("Sharp" , "2", "sharp");
 
 	fet_endchar;
 
-fet_beginchar("1/2 Sharp" , "1", "semisharp");
+fet_beginchar("1/2 Sharp" , "1");
 	set_char_box(0, 0.7 staff_space#, 1.5 staff_space#, 
 		1.5 staff_space#);
 
@@ -104,7 +104,7 @@ fet_beginchar("1/2 Sharp" , "1", "semisharp");
 	fet_endchar;
 
 
-fet_beginchar("3/4 Sharp" , "3", "threequartersharp");
+fet_beginchar("3/4 Sharp" , "3");
 	set_char_box(0, 1.6 staff_space#, 1.5 staff_space#, 
 		1.5 staff_space#);
 
@@ -127,7 +127,7 @@ fet_beginchar("3/4 Sharp" , "3", "threequartersharp");
 %
 %
 
-fet_beginchar( "Natural", "0", "natural")
+fet_beginchar("Natural", "0")
 	save height, xcenter;
 	save interbeam, interstem, beamheight, beamwidth, 
 	stemwidth;
@@ -297,19 +297,19 @@ enddef;
 %
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
-fet_beginchar("Flat", "-2", "flat")
+fet_beginchar("Flat", "-2")
 	set_char_box(1.2 stafflinethickness#, .8 staff_space#, 0.6 staff_space#, 1.9 staff_space#);
 	draw_meta_flat(0, w, 0.31 staff_space);
 	fet_endchar;
 
-fet_beginchar("Semi flat", "-1", "semiflat")
+fet_beginchar("Semi flat", "-1")
 	set_char_box(1.2 stafflinethickness#, .8 staff_space#, 0.6 staff_space#, 1.9 staff_space#);
 	draw_meta_flat(0, w, 0.31 staff_space);
 	currentpicture := currentpicture xscaled -1 shifted (w - b, 0);  
 	fet_endchar;
 
 
-fet_beginchar("Double Flat", "-4", "flatflat")
+fet_beginchar("Double Flat", "-4")
 	save left_wid, overlap, right_wid;
 	left_wid = .7;
 	right_wid = .8;
@@ -320,7 +320,7 @@ fet_beginchar("Double Flat", "-4", "flatflat")
 		right_wid *staff_space, 0.33 staff_space);
 	fet_endchar;
 
-fet_beginchar("3/4 Flat", "-3", "threeqflat")
+fet_beginchar("3/4 Flat", "-3")
 	save left_wid, overlap, right_wid;
 	left_wid = .7;
 	right_wid = .8;
@@ -340,7 +340,7 @@ fet_beginchar("3/4 Flat", "-3", "threeqflat")
 	fet_endchar;
 
 
-fet_beginchar("Double Sharp", "4", "sharpsharp")
+fet_beginchar("Double Sharp", "4")
 	set_char_box(0, staff_space#, .5 staff_space#, .5 staff_space#);
 	save klaverblad, klaversteel;
 
@@ -390,11 +390,11 @@ def draw_paren =
 	.. simple_serif(z1r, z1l, 90) .. z2l{down} -- cycle;
 enddef;
   
-fet_beginchar("Right Parenthesis", "rightparen", "rightparen")
+fet_beginchar("Right Parenthesis", "rightparen")
 	draw_paren;
 fet_endchar;
 
-fet_beginchar("Left Parenthesis", "leftparen", "leftparen")
+fet_beginchar("Left Parenthesis", "leftparen")
 	draw_paren;
         currentpicture := currentpicture xscaled -1;
         set_char_box(charwd, charbp, chardp, charht);

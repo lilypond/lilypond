@@ -97,7 +97,7 @@ def add_flag(expr yoff, flare, hip_wid_multiplier,
 	endgroup
 enddef;
 
-fet_beginchar("8th Flag (up)", "u3", "eighthflag")
+fet_beginchar("8th Flag (up)", "u3")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -123,7 +123,7 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 			   (0, 0));
 fet_endchar;
 
-fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
+fet_beginchar("16th Flag (up)", "u4")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -159,7 +159,7 @@ fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")
 fet_endchar;
 
 
-fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
+fet_beginchar("32nd Flag (up)", "u5")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -198,7 +198,7 @@ fet_beginchar("32nd Flag (up)", "u5", "thirtysecondflag")
 			   (0, -3 staff_space));
 fet_endchar;
 
-fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
+fet_beginchar("64th Flag (up)", "u6")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -238,7 +238,7 @@ fet_beginchar("64th Flag (up)", "u6", "sixtyfourthflag")
 			   (0, -4 staff_space));
 fet_endchar;
 
-fet_beginchar("8th (down)", "d3", "deighthflag")
+fet_beginchar("8th (down)", "d3")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -280,7 +280,7 @@ fet_endchar;
 %
 %
 
-fet_beginchar("grace dash (up)", "ugrace", "gracedash")
+fet_beginchar("grace dash (up)", "ugrace")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth;
@@ -304,7 +304,7 @@ fet_beginchar("grace dash (up)", "ugrace", "gracedash")
 
 fet_endchar;
 
-fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
+fet_beginchar("grace dash (down)", "dgrace")
 	save flare, hip_depth_ratio, hip_width,	foot_depth;
 	save flagspace, total_depth, flag_count;
 	
@@ -331,7 +331,7 @@ fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
 	y_mirror_char;
 fet_endchar;
 
-fet_beginchar("16th (down)", "d4", "dsixteenthflag")
+fet_beginchar("16th (down)", "d4")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -369,7 +369,7 @@ fet_beginchar("16th (down)", "d4", "dsixteenthflag")
 	y_mirror_char;
 fet_endchar;
 
-fet_beginchar("32nd (down)", "d5", "dthirtysecondflag")
+fet_beginchar("32nd (down)", "d5")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
@@ -407,7 +407,7 @@ fet_beginchar("32nd (down)", "d5", "dthirtysecondflag")
 
 	y_mirror_char;
 fet_endchar;
-fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
+fet_beginchar("64th (down)", "d6")
 	save flare, 
 		hip_depth_ratio, hip_width,
 		foot_depth, foot_width_ratio;
