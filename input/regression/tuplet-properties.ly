@@ -6,7 +6,7 @@ for instance, bracketed (B) and non-bracketed (NB).
 }
  
 
-\version "2.1.26"
+\version "2.1.28"
 
 
 \score { 

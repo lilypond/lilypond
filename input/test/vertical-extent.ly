@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "

@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 % MERGED: stuff from follow-break.ly to follow-thread.ly
 
 % followVoice: connect note heads with line when thread switches staff 

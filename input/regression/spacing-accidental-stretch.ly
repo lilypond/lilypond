@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 
 \header {
     texidoc = "Accidentals do not influence the amount of stretchable space.

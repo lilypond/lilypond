@@ -41,8 +41,6 @@ Paper_def::Paper_def (Paper_def const&src)
 {
 }
 
-
-
 Real
 Paper_def::get_realvar (SCM s) const
 {

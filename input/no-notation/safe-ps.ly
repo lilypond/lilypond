@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.28"
 
 \header{
     texidoc = "This should not survive lilypond --safe-mode

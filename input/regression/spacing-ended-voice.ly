@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.26"
+\version "2.1.28"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."

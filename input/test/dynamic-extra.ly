@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 % probably should be merged into refman.
 \header{
     texidoc = "@cindex Dynamic Piu Forte

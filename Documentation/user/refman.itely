@@ -8088,12 +8088,12 @@ In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
 stack expressions grouped with @code{<}, and @code{>} vertically with
-the command @code{\column}. Similarly, @code{\center} aligns texts by
-their center lines:
+the command @code{\column}. Similarly, @code{\center-align} aligns
+texts by their center lines:
 
 @lilypond[verbatim,fragment,relative=1]
  c1^\markup { \column < a bbbb c > }
- c1^\markup { \center < a bbbb c > }
+ c1^\markup { \center-align < a bbbb c > }
  c1^\markup { \line < a b c > }
 @end lilypond
 
@@ -8174,7 +8174,7 @@ is this table:
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
 @item @code{@{ ... @}} @tab @code{#:line ( ... )}
-@item @code{\center < ... >} @tab @code{#:center ( ... )}
+@item @code{\center-align < ... >} @tab @code{#:center ( ... )}
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable

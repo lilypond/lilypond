@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 
 \header { texidoc="@cindex Trill
 The extended trill may be produced using @code{TextSpanner} with @code{trill} 

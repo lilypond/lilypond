@@ -1980,6 +1980,13 @@ conversions.append (((2,1,28), conv,
 		     """make-music-by-name -> make-music,
 new syntax for setting \\arpeggioBracket"""))
 
+def conv (str):
+	str = re.sub (r'\\center([^-])', '\\center-align\\1', str)
+	return str
+
+conversions.append (((2,1,29), conv,
+		     '\\center -> \\center-align'))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

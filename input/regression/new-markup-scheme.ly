@@ -5,7 +5,7 @@
     texts using a similar syntax as @code{\\markup}."
 
     }
-\version "2.1.26"
+\version "2.1.28"
 \score {
     \notes {
         \fatText
@@ -50,7 +50,7 @@
               #:super "2"
               #:dynamic "sfzp"
               #:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
-                             #:smaller #:smaller #:smaller "A")
+                             #:smaller #:smaller #:smaller "A")xo
               #:sub "alike")
     }
     \paper { 

@@ -18,25 +18,51 @@
 (def-markup-command (simple paper props str) (string?)
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
-  (let ((toks (string-tokenize str)))
     (interpret-markup paper props
-			  (make-line-markup
-			   (map make-word-markup toks)))
-    ))
+		      (make-line-markup
+		       (map make-word-markup (string-tokenize str)))))
 
+(define-public empty-markup
+  (make-simple-markup ""))
+
+;;(def-markup-command (fill-line paper props line-width markups)
+;;  (number? markup-list?)
+;; no parser tag -- should make number? markuk-list? thingy
+(def-markup-command (fill-line paper props markups)
+  (markup-list?)
+  "Put @var{markups} in a horizontal line of width @var{line-width}.
+   The markups are spaced/flushed to fill the entire line."
+
+  (let* ((stencils (map (lambda (x) (interpret-markup paper props x))
+			markups))
+	 (text-width (apply + (map interval-length
+				   (map (lambda (x)
+					  (ly:stencil-get-extent x X))
+					stencils))))
+	(word-count (length markups))
+	(word-space (cdr (chain-assoc 'word-space props)))
+	(line-width (cdr (chain-assoc 'linewidth props)))
+	(fill-space (if (< line-width text-width)
+			word-space
+			(/ (- line-width text-width)
+			   (if (= word-count 1) 2 (- word-count 1)))))
+	(line-stencils (if (= word-count 1)
+			   (map (lambda (x) (interpret-markup paper props x))
+				(list (make-word-markup "")
+				      (car markups)
+				      (make-word-markup "")))
+				stencils)))
+    (stack-stencil-line fill-space line-stencils)))
+  
 (define (font-markup qualifier value)
   (lambda (paper props arg)
     (interpret-markup paper
 		      (prepend-alist-chain qualifier value props)
                       arg)))
 
-(define-public empty-markup
-  (make-simple-markup ""))
-
 (def-markup-command (line paper props args) (markup-list?)
-  "Put @var{args} in a horizontal line. The property @code{word-space} determines
-the space between each markup in @var{args}.
-"
+  "Put @var{args} in a horizontal line.  The property @code{word-space}
+determines the space between each markup in @var{args}."
   (stack-stencil-line
    (cdr (chain-assoc 'word-space props))
    (map (lambda (m) (interpret-markup paper props m)) args)))
@@ -47,13 +73,11 @@ the space between each markup in @var{args}.
    (interpret-markup paper props m1)
    (interpret-markup paper props m2)))
 
-
 (def-markup-command (finger paper props arg) (markup?)
   "Set the argument as small numbers."
   (interpret-markup paper
                     (cons '((font-size . -4) (font-family . number)) props)
                     arg))
-
 
 (def-markup-command (fontsize paper props mag arg) (number? markup?)
   "This sets the relative font size, eg.
@@ -186,7 +210,7 @@ of the #'direction layout property."
      (cdr (chain-assoc 'baseline-skip props))
      (map (lambda (x) (interpret-markup paper props x)) args))))
 
-(def-markup-command (center paper props args) (markup-list?)
+(def-markup-command (center-align paper props args) (markup-list?)
   (let* ((mols (map (lambda (x) (interpret-markup paper props x)) args))
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
     (stack-lines -1 0.0 (cdr (chain-assoc 'baseline-skip props)) mols)))

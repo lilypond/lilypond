@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 \header{
 	texidoc="@cindex Beam Neutral Direction
 When a beam falls in the middle of the staff, the beams point normally 

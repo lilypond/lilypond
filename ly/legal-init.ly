@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 % legal-init.ly
 
 hsize = 8.5 \in

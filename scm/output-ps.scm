@@ -11,9 +11,8 @@
 ;;;; TODO:
 ;;;;   * special characters, encoding.
 ;;;;   * text setting, kerning.
-;;;;   * linewidth
 ;;;;   * font properties
-;;;;   * construction/customisation of title markup
+;;;;   * customisation of title markup, piece title markup?
 ;;;;   * page layout
 ;;;;   * document output-interface
 
@@ -44,6 +43,23 @@
 ;; WIP -- stencils from markup? values of output-scopes
 (define header-stencil #f)
 
+(define BASELINE-SKIP 3)
+
+;; /lilypondpaperoutputscale 1.75729901757299 def
+;;/lily-output-units 2.83464  def  %% milimeter
+;;/output-scale lilypondpaperoutputscale lily-output-units mul def
+;;
+;; output-scale = 1.75729901757299 * 2.83464 = 4.9813100871731003736
+(define OUTPUT-SCALE 4.98)
+(define TOP-MARGIN 0)
+(define PROPS `(((font-family . roman)
+		 (word-space . 1)
+		 (baseline-skip . ,BASELINE-SKIP)
+		 (font-series . medium)
+		 (font-style . roman)
+		 (font-shape . upright)
+		 (font-size . 0))))
+
 
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
@@ -52,6 +68,35 @@
 (define (offset-add a b)
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
+
+(define LATIN1-ENCODING-ALIST
+  '(("ö" . "oumlaut")
+    ("ò" . "ograve")
+    ("ó" . "oacute")
+    ("ô" . "ocircumflex")
+    ("õ" . "otilde")
+    ("ø" . "oslash")))
+
+(define LATIN1-ENCODING-COMMANDS
+  "/oumlaut { (o) show gsave -1 0 rmoveto (\\177) show grestore } bind def
+/ograve { (o) show gsave -1 0 rmoveto (\\022) show grestore } def
+/oacute { (o) show gsave -1 0 rmoveto (\\023) show grestore } def
+/ocircumflex { (o) show gsave -1 0 rmoveto (^) show grestore } def
+/otilde { (o) show gsave -1 0 rmoveto (~) show grestore } def
+/oslash { (o) show gsave -1 0 rmoveto (\\034) show grestore } def
+")
+
+(define (ps-encoding text)
+  (let ((s (escape-parentheses text)))
+    (define (helper alist-list s)
+      (if (not (pair? alist-list))
+	  s
+	  (helper (cdr alist-list)
+		  (regexp-substitute/global
+		   #f (caar alist-list) s
+		   'pre (string-append ") show " (cdar alist-list) " (")
+		   'post))))
+    (helper LATIN1-ENCODING-ALIST s)))
 
 ;; FIXME: lily-def
 (define (ps-string-def prefix key val)
@@ -281,16 +326,13 @@
 	(string-append "/" key " {" val "} bind def\n")
 	(string-append "/" key " (" val ") def\n"))))
 
-
 (define (make-title port)
   (if header-stencil
       (let ((x-ext (ly:stencil-get-extent header-stencil Y))
 	    (y-ext (ly:stencil-get-extent header-stencil X)))
-	;;(display (start-system (interval-length x-ext) (interval-length y-ext))
 	(display (start-system
-		  ;; output-scale trouble?
-		  (/ (interval-length x-ext) 2)
-		  (/ (interval-length y-ext) 2))
+		  (/ (interval-length x-ext) OUTPUT-SCALE)
+		  (/ (interval-length y-ext) OUTPUT-SCALE))
 		 port)
 	(output-stencil port (ly:stencil-get-expr header-stencil) '(0 . 0))
 	(display (stop-system) port)))
@@ -319,16 +361,10 @@
 (define (output-scopes paper scopes fields basename)
 
   ;; FIXME: customise/generate these
-  (let ((props '(((font-family . roman)
-		  (word-space . 1)
-		  (baseline-skip . 2)
-		  (font-series . medium)
-		  (font-style . roman)
-		  (font-shape . upright)
-		  (font-size . 0))))
-	(prefix "lilypond")
-    	(stencils '())
-	(baseline-skip 2))
+  (let* ((linewidth (ly:paper-get-number paper 'linewidth))
+	 (props (cons (acons 'linewidth linewidth '()) PROPS))
+	 (prefix "lilypond")
+	 (stencils '()))
 
     (define (scope-entry->string key var)
       (let ((val (variable-ref var)))
@@ -360,7 +396,10 @@
       (apply string-append (module-map scope-entry->string scope)))
 
     (let ((s (string-append (apply string-append (map output-scope scopes)))))
-      (set! header-stencil (stack-lines DOWN 0 baseline-skip stencils))
+      (set! header-stencil (stack-lines DOWN 0 BASELINE-SKIP stencils))
+
+      ;; match systems, which are also aligned to center
+      (ly:stencil-align-to! header-stencil Y CENTER)
       
       ;; trigger font load
       (ly:stencil-get-expr header-stencil)
@@ -410,11 +449,6 @@
     (numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-(define (symmetric-x-triangle thick w h)
-  (string-append
-   (numbers->string (list h w thick))
-   " draw_symmetric_x_triangle"))
-
 (define (start-system width height)
   (string-append
    "\n" (ly:number->string height)
@@ -433,17 +467,25 @@
 (define (stop-system)
   "}\nstop-system\n")
 
+(define (symmetric-x-triangle thick w h)
+  (string-append
+   (numbers->string (list h w thick))
+   " draw_symmetric_x_triangle"))
+
 (define (text s)
-  (string-append "(" (escape-parentheses s) ") show "))
+;;  (string-append "(" (escape-parentheses s) ") show "))
+  (string-append "(" (ps-encoding s) ") show "))
 
 ;; top-of-file, wtf?
 (define (top-of-file)
-  (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
-          (strftime "%c" (localtime (current-time))))
+  (string-append
+   (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
+	   (strftime "%c" (localtime (current-time))))
+   LATIN1-ENCODING-COMMANDS
   ;;; ugh
-  (ps-string-def
-   "lilypond" 'tagline
-   (string-append "Engraved by LilyPond (" (lilypond-version) ")")))
+   (ps-string-def
+    "lilypond" 'tagline
+    (string-append "Engraved by LilyPond (" (lilypond-version) ")"))))
 
 (define (unknown) 
   "\n unknown\n")

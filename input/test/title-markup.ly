@@ -6,20 +6,6 @@
      lilypond-bin -fps title-markup.ly
      export GS_LIB=$(pwd)/mf/out:/usr/share/texmf/fonts/type1/bluesky/cm
      gs title-markup.ps
-
-
-FIXME: use conditionals in  \makeTitle:
-
-#(define (my-ly-version)
-    (list-head (ly:version) 3))
-
-#(if (not (defined? 'pieceTagLine))
-    (define pieceTagLine (string-append "Jeremie " (numbers->string (my-ly-version)) " was here")))
-
-\header{
-tagline = \pieceTagLine
-texidoc = "
-
 %}
 
 sizeTest = \markup {
@@ -58,40 +44,73 @@ spaceTest = \markup { "two space chars" }
  		  (font-shape . upright)
  		  (font-size . 2))
     
-    title = "Title String"
+    %dedication = "För my dør Lily"
+    dedication = "For my öòóôõø so dear Lily"
+    title = "Title"
     subtitle = "(and (the) subtitle)"
-    poet = "poetstring"
-    composer = "compozeur"
-    instrument = "instrum"
-    piece = "stukkie"
+    subsubtitle = "Sub sub title"
+    poet = "Poet"
+    composer = "Composer"
+    texttranslator = "Text Translator"
+    opus = "opus 0"
+    meter = "Meter (huh?)"
+    arranger = "Arranger"
+    instrument = "Instrument"
+    piece = "piece"
 
-    makeTitle = \markup {
+%{
+    makeConditionalTitle = \markup {
 	\column <
-	    { "<-LEFT" \hspace #30 "centre" \hspace #30 "RIGHT->" }
-            " "
-	    \center < { \huge \bigger \bold \title } >
-            " "
-            \center <
-                \center < { \normalsize \bold \subtitle } >
-                %" " \hspace #60 " "
-            >
-            " "
-            " "
-	    { \left-align { \smaller \upright \instrument }
-              \right-align { \upright \composer } }
-            " "
-	    { \left-align { \smaller \caps \piece }
-              \right-align { \upright \poet } }
-            " "
+            #(if (defined? 'title)
+             (markup* #:fill-line (#:huge #:bigger #:bigger #:bold title))
+             (markup* ""))
+            #(if (defined? 'subtitle)
+             (markup* #:fill-line ( #:large #:bold subtitle))
+             (markup* ""))
+            #(if (defined? 'subsubtitle)
+             (markup* #:fill-line (subsubtitle))
+             (markup* ""))
 	 >
     }
+%}
+    makeTitle = \markup {
+	\column <
+	    %\fill-line #linewidth < \huge \bigger \bold \title >
+            \override #'(baseline-skip . 4) \column <
+	        \fill-line < \dedication >
+	        \fill-line < \huge\bigger\bigger\bigger\bigger \bold \title >
+                \override #'(baseline-skip . 3) \column <
+                    \fill-line < \large\bigger\bigger \bold \subtitle >
+                    \fill-line < \bigger\bigger \bold \subsubtitle >
+                >
+                \override #'(baseline-skip . 5) \column <
+                " "
+                >
+                \override #'(baseline-skip . 2.5) \column <
+	            \fill-line < \bigger \poet
+                                 \large\bigger \caps \composer >
+		    \fill-line < \bigger \texttranslator
+				 \bigger \opus >
+		    \fill-line < \bigger \meter
+				 \bigger \arranger >
+                    " "
+		    \fill-line < \large\bigger \instrument >
+                    " "
+		    \fill-line < \large\bigger \caps \piece  " ">
+                >
+            >
+        >    
+    }
+
+%{
      foe = \sizeTest
-     bar = \spaceTest
+     baar = \spaceTest
+%}
 }
 
 \score {
     \context Staff \notes \relative c' {
-	c-\sizeTest % \markup { \center < \roman \caps "foe" > }
-        c-\spaceTest
+	c2-\sizeTest c2-\spaceTest \break
+	c2 c2
     }
 }

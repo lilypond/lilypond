@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 \header {
 texidoc = "Whole and half rests moving outside the staff should get
 ledger lines."

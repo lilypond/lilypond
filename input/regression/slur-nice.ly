@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 \header{
 texidoc="
 Slurs should look nice and symmetric.  The curvature may increase

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.26"
+\version "2.1.28"
 \header{
 texidoc="
 In addition to normal collision rules, there is support for polyphony, 

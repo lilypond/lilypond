@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 % possible rename to bar-lines-foo.  -gp
 
 \header{ texidoc = "@cindex Bar Lines Remove
