@@ -8,6 +8,7 @@
 #include "melodicstaff.hh"
 #include "rhythmstaff.hh"
 #include "lyricstaff.hh"
+#include "complexmelodicstaff.hh"
 #include "staff.hh"
 
 void
@@ -34,13 +35,18 @@ Staff*
 Input_staff::parse(Score*score_l)
 {
     Staff *p=0;
-    
-    if (type == "melodic")
+
+    if (type == "complex")
+	p = new Complex_melodic_staff;
+    else if (type == "melodic")
 	p = new Melodic_staff;
     else if (type == "rhythmic")
 	p = new Rhythmic_staff;
     else if (type == "lyric")
     	p = new Lyric_staff;
+    else
+	error("Unknown staff-type `" + type +"\'");
+    
     p->score_l_ = score_l;
     p->define_spot_str_ = define_spot_str_;
     
