@@ -1179,7 +1179,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (require 'ilisp)
   (guile "lilyguile" (LilyPond-command-expand (cadr (assoc "2Dvi" LilyPond-command-alist))
                                               (funcall 'LilyPond-get-master-file)))
-  (comint-default-send (ilisp-process) "(define-module (*anonymous-ly-1*))")
+  (comint-default-send (ilisp-process) "(define-module (*anonymous-ly-0*))")
   (comint-default-send (ilisp-process) "(set! %load-path (cons \"/usr/share/ilisp/\" %load-path))")
   (comint-default-send (ilisp-process) "(use-modules (guile-user) (guile-ilisp))")
   (comint-default-send (ilisp-process) "(newline)"))
