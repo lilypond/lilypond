@@ -2163,7 +2163,7 @@ A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block. The init file
 @file{ly/titling-init.ly} lists the default layout.
 
-@itemize @code
+@table @code
 @item bookTitleMarkup
   This is the title put over an entire @code{\book} block. Typically,
   it has the composer and the title of the piece
@@ -2192,7 +2192,7 @@ field).
 
   By default, the footer has the copyright notice on the first, and
   the tagline on the last page.
-@end itemize
+@end table
 
 
 @cindex \paper
