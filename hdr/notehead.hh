@@ -17,7 +17,8 @@ struct Notehead : public Item
     int staff_size;
     int dots;
     int balltype;
-
+    int x_dir;
+    
     /****************/
     
     void preprocess();
@@ -28,7 +29,7 @@ struct Notehead : public Item
       */
     
     void print()const;
-
+    static int compare(Notehead*&a, Notehead*&b) ;
 private:
     void brew_molecole();
 };

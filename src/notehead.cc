@@ -8,6 +8,7 @@
 
 Notehead::Notehead(int ss)
 {
+    x_dir = 0;
     staff_size=ss;
     position = 0;
     balltype = 0;
@@ -18,7 +19,8 @@ void
 Notehead::print()const
 {
 #ifndef NPRINT
-    mtor << "Head "<<balltype<<", position = "<< position << "dots " << dots;
+    mtor << "Head "<< balltype << ", position = "<< position
+	 << "dots " << dots;
     Item::print();
 #endif
 }
@@ -27,6 +29,12 @@ void
 Notehead::preprocess()
 {
     brew_molecole();
+}
+
+int
+Notehead::compare(Notehead*&a, Notehead*&b)
+{
+    return a->position - b->position;
 }
 
 void
@@ -49,6 +57,7 @@ Notehead::brew_molecole()
 	    dm.translate(Offset(0,dy));
 	output->add_right(dm);
     }
+    output->translate(Offset(x_dir * p->note_width(),0));
     bool streepjes = (position<-1)||(position > staff_size+1);
     if (streepjes) {
 	int dir = sgn(position);
