@@ -147,10 +147,10 @@ the duration of the long a. is proportionate to that of the main note.
 \key d \major;
 \time 4/4;
 <d4_"notation" a fis> r 
-{ \property Grace.stemStyle = ""
+{ \property Grace.flagStyle = ""
   \grace g16 }
 fis8 e16 fis 
-{ \property Grace.stemStyle = ""
+{ \property Grace.flagStyle = ""
   \grace a16 }
 g8 fis16 g | a4 \bar "||"; }
 \notes\relative c'' {

@@ -87,7 +87,7 @@ TODO:
 
  
 @table @samp  
-  @item @code{stemStyle}@indexcode{flagStyle} @propertytype{string}
+  @item @code{flagStyle}@indexcode{flagStyle} @propertytype{string}
     By default set to @code{"grace"} meaning that all unbeamed 
     notes with flags are typeset with a slash through the flag. 
     Setting to @code{""} gives standard flags.
@@ -120,7 +120,7 @@ c'8 \property Voice.flagStyle = "grace" c'8
     directions marked with `@code{^}' or `@code{_}' in the mudela file.
     
   @item @code{noAutoBeaming}@indexcode{beamAuto}  @propertytype{boolean}
-    If set to 1 then beams are not generated automatically.
+    If set to true then beams are not generated automatically.
 
   @item @code{beamAutoEnd}@indexcode{beamAutoEnd}  @propertytype{?}
     Specifies when automatically generated beams can end.  See

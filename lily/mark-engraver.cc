@@ -163,7 +163,7 @@ Mark_engraver::do_process_music ()
        */
       
       SCM m = mark_req_l_->get_mus_property ("label");
-      if (gh_string_p (m)) 
+      if (!gh_string_p (m)) 
 	m =  get_property ("rehearsalMark");
 ;
       
