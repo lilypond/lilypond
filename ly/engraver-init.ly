@@ -158,6 +158,8 @@ VoiceContext = \translator {
 	\consists "Text_spanner_engraver"
 	\consists "Grob_pq_engraver"
 
+	\consists "Note_head_line_engraver"
+	\consists "Glissando_engraver"
 	\consists "Ligature_bracket_engraver"
 	\consists "Breathing_sign_engraver"
  	% \consists "Rest_engraver"
@@ -209,7 +211,6 @@ ThreadContext = \translator{
 	\consists "Rest_engraver"
 
 	% why here ? 
-	\consists "Note_head_line_engraver"
 	\consists "Output_property_engraver"	
 
 }
