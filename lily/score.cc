@@ -22,6 +22,7 @@
 
 
 Score::Score()
+    : Input()
 {
   header_p_ = 0;
   music_p_ = 0;

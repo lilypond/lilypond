@@ -17,6 +17,10 @@ Mudela_item::Mudela_item (Mudela_column* mudela_column_l)
   mudela_column_l_ = mudela_column_l;
 }
 
+Mudela_item::~Mudela_item ()
+{
+}
+
 Moment
 Mudela_item::at_mom ()
 {

@@ -62,7 +62,7 @@ Midi_def::print() const
 #ifndef NPRINT
   Music_output_def::print ();
   DOUT << "Midi {";
-  DOUT << "4/min: " << Real (60) / (whole_in_seconds_mom_ * 4);
+  DOUT << "4/min: " << Moment (60) / (whole_in_seconds_mom_ * Moment (4));
   DOUT << "}\n";
 #endif
 }

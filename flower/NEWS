@@ -1,3 +1,13 @@
+pl 34.jcn2
+	- memmem optimise
+
+pl 35
+	- bf: libc-extension: memmem
+
+pl 34
+	- string.icc
+	- String_convert::precision_str: double to string with fixed precision
+
 pl 33
 	- String naming
 	- unix style paths

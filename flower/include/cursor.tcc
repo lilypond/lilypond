@@ -79,7 +79,7 @@ template<class T>
 int
 Cursor<T>::operator-(Cursor<T> rhs) const
 {
-  assert (rhs.list == list);
+  assert (&rhs.list_ == &list_);
   int dif = 0;
 
   // search from *this on further up (positive difference)

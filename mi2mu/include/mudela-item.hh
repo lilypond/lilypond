@@ -22,6 +22,7 @@ class Mudela_item
 {
 public:
     Mudela_item (Mudela_column* mudela_column_l);
+    virtual ~Mudela_item ();
     
     virtual Moment at_mom();
     virtual Moment duration_mom();
