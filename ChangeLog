@@ -1,3 +1,9 @@
+2004-09-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* input/regression/rehearsal-mark-number.ly: Reuse the existing
+	formatting routine when adding boxed numbers. Makes it easier to
+	extrapolate how to do for boxed letters.
+
 2004-09-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/lily-guile.cc (ly_symbol2string): bugfix for CVS guile. 

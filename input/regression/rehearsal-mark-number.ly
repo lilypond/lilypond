@@ -13,7 +13,7 @@ By setting @code{markFormatter} we may choose a different style of mark printing
   c1 | \mark \default
   c1 | \mark \default
     \set Score.markFormatter = #(lambda (mark  context)
-	(make-bold-markup (make-box-markup (number->string mark))))
+	(make-box-markup (format-mark-numbers mark context)))
 	
     c1 | \mark \default
     c1 | \mark \default
