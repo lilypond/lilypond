@@ -14,12 +14,12 @@ do_scores()
     for (int i=0; i < sv.sz(); i++) {
 	Score * s = sv[i]->parse();	
 	delete sv[i];
-
+	
 	s->process();
 	s->output(outfn);
 	delete s;
-
     }
+    sv.set_size(0);
 }
 
 void
