@@ -1,3 +1,7 @@
+2003-09-24  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscript/lilypond.words: fix path for drums.scm.
+
 2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/spacing-spanner.cc (note_spacing): don't make longer
