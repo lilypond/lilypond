@@ -3525,11 +3525,11 @@ The complete example is shown here:
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
     \set stanza = "B."
-    \set vocName = "Bert"
+    \set vocNam = "Bert"
     Hi, my name is bert. }
   \lyricsto "duet" \new Lyrics {
     \set stanza = "E." 
-    \set vocName = "Ernie"
+    \set vocNam = "Ernie"
     Ooooo, ch\'e -- ri, je t'aime.
     }
   >> >>

@@ -315,7 +315,9 @@ Context_def::to_alist () const
   l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted (SCM_EOL)), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("context-name"),  context_name_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
+
+  if (gh_symbol_p (translator_group_type_))
+    l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    
 
   return l;  
 }

@@ -3,8 +3,8 @@
 \translator {
     \name Global
 
-    % nothing else needed -- tweaks are ignored anyway.
     \accepts Score
+\description "Hard coded entry point for LilyPond. Cannot be tuned."
     }
 
 %

@@ -7,6 +7,7 @@
 
  */
 
+#include "context.hh"
 #include "engraver-group-engraver.hh"
 #include "protected-scm.hh"
 
@@ -57,7 +58,7 @@ Recording_group_engraver::finalize ()
   SCM proc = get_property ("recordEventSequence");
 
   if (gh_procedure_p (proc))
-    scm_call_2  (proc, self_scm(), gh_cdr (accumulator_));
+    scm_call_2  (proc, daddy_context_->self_scm(), gh_cdr (accumulator_));
 
   accumulator_ = SCM_EOL;
 }

@@ -230,10 +230,9 @@ a\> a a\!
 @tab printing lyrics
 @tab
 twinkle
-@c cheating .. 
-@c@li lypond[fragment]
-@c  \lyrics \new Lyrics { twinkle }
-@c @end lilypond
+@lilypond[fragment]
+\lyrics \new Lyrics { twinkle }
+@end lilypond
 
 @item @code{twin -- kle}
 @tab lyric hyphen 
