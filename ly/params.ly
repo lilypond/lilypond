@@ -190,8 +190,8 @@ postBreakPadding = 0.0;
 stemSpacingCorrection = 0.5*\interline;
 
 
-% relative strength of space following  time signature, 
-non_musical_space_strength = 4.0; 
+% relative strength of space following  tprefatory matter, and inline clefs.
+non_musical_space_strength = 40.0; 
 
 
 
