@@ -1,5 +1,13 @@
 2002-07-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* cygwin/GNUmakefile: 
+	* ly/GNUmakefile: 
+	* python/GNUmakefile: 
+	* make/GNUmakefile: 
+	* mf/GNUmakefile: 
+	* scm/GNUmakefile:
+	* tex/GNUmakefile: use local_package_datadir iso datadir.
+
 	* make/substitute.make (ATVARIABLES): Add local_lilypond_datadir.
 
 	* aclocal.m4: Regenerate.

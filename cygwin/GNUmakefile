@@ -46,7 +46,7 @@ INSTALLATION_FILES=$(OUT_POST_INSTALLS)
 INSTALLATION_OUT_DIR1=$(etc)/profile.d
 INSTALLATION_OUT_FILES1=$(OUT_PROFILES)
 
-INSTALLATION_OUT_DIR2=$(datadir)/tex
+INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES2=$(shell kpsewhich geometry.sty)
 
 else

@@ -21,7 +21,7 @@ README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt FAQ.txt
 IN_FILES := $(wildcard *.in)
 EXTRA_DIST_FILES = $(wildcard *.el) vimrc VERSION $(README_FILES)  $(SCRIPTS) $(IN_FILES)  emacsclient.patch lexer-gcc-3.0.patch darwin.patch .cvsignore  lexer-gcc-3.1.sh 
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
-INSTALLATION_DIR=$(datadir)
+INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(configuration) VERSION
 
 # bootstrap stepmake:
@@ -60,9 +60,9 @@ my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp
 
 
 local-install:
-	$(INSTALL) -d $(datadir)
+	$(INSTALL) -d $(local_lilypond_datadir)
 ifeq ($(KPATHSEA),0)
-	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
+	$(foreach i, 1 2 3 4 5, rm -f $(local_lilypond_datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(local_lilypond_datadir)/tfm.$(i) ; )
 endif
 
 
