@@ -105,8 +105,10 @@ class Lilydirs:
     def __init__(self):
 	try:
 	    self.topdir = os.environ['LILYPOND_SOURCEDIR'] + '/'
-	except IndexError:
-	    self.topdir = os.environ['HOME'] + 'musix/current'
+	
+	except KeyError:
+	    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
+	    sys.exit(1)
 	    
 	self.release_dir = self.topdir + '../releases/'
 	self.patch_dir = self.topdir + '../patches/'

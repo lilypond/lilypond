@@ -6,8 +6,10 @@ import os
 lilypath =''
 try:
     lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
-except IndexError:
-    lilypath = os.environ['HOME'] + 'musix/current'
+except KeyError:
+    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
+    sys.exit(1)
+
 lilypath = lilypath + '/bin/'
 sys.path.append(lilypath)
 
