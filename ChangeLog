@@ -3,6 +3,7 @@
 	* lily/ambitus-engraver.cc (create_ambitus): change name to
 	AmbitusLine. Create AmbitusAccidental and AmbitusNoteHead for
 	other ambitus parts.
+	(create_ambitus): group grobs in Ambitus grouping object. 
 
 	* lily/include/pitch-interval.hh (Pitch>): new file.
 

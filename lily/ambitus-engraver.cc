@@ -12,13 +12,13 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "note-head.hh"
-#include "staff-symbol-referencer.hh"
 #include "event.hh"
 #include "pitch.hh"
 #include "pitch-interval.hh"
 #include "protected-scm.hh"
+#include "staff-symbol-referencer.hh"
+#include "axis-group-interface.hh"
 #include "side-position-interface.hh"
-
 
 class Ambitus_engraver : public Engraver
 {
@@ -32,6 +32,7 @@ TRANSLATOR_DECLARATIONS (Ambitus_engraver);
 private:
   void create_ambitus ();
   Item *ambitus_;
+  Item *group_;
   Drul_array<Item *> heads_;
   Drul_array<Item *> accidentals_;
   Pitch_interval pitch_interval_;
@@ -44,16 +45,22 @@ void
 Ambitus_engraver::create_ambitus ()
 {
   ambitus_ = make_item ("AmbitusLine",SCM_EOL);
+  group_ = make_item ("Ambitus",SCM_EOL);
   Direction d = DOWN;
   do
     {
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
+      accidentals_[d]->set_parent (heads_[d], Y_AXIS);
       heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
+      Axis_group_interface::add_element (group_, heads_[d]);
+      Axis_group_interface::add_element (group_, accidentals_[d]);
       Side_position_interface::add_support (accidentals_[d], heads_[d]);
     }
   while (flip (&d) != DOWN);
   ambitus_->set_parent (heads_[DOWN], X_AXIS);
+  Axis_group_interface::add_element (group_, ambitus_);
+  
   is_typeset_ = false;		
 }
 
@@ -61,6 +68,9 @@ Ambitus_engraver::create_ambitus ()
 Ambitus_engraver::Ambitus_engraver ()
 {
   ambitus_ = 0;
+  heads_[LEFT] = heads_[RIGHT] = 0;
+  accidentals_[LEFT] = accidentals_[RIGHT] = 0;
+  group_ = 0;
   is_typeset_ = false;
 }
 
@@ -133,7 +143,11 @@ Ambitus_engraver::finalize ()
 					    scm_from_int (p.get_notename ())),
 				  start_key_sig_);
 
-	  int sig_alter = (handle != SCM_BOOL_F) ? ly_scm2int (ly_car (handle)) : 0;
+	  if (handle == SCM_BOOL_F)
+	    handle = scm_assoc (scm_from_int (p.get_notename ()),
+				start_key_sig_);
+	  
+	  int sig_alter = (handle != SCM_BOOL_F) ? ly_scm2int (ly_cdr (handle)) : 0;
 	  if (sig_alter == p.get_alteration ())
 	    {
 	      accidentals_[d]->suicide();
@@ -165,7 +179,7 @@ Ambitus_engraver::finalize ()
 
 ENTER_DESCRIPTION (Ambitus_engraver,
 /* descr */       "",
-/* creats*/       "Ambitus",
+/* creats*/       "Ambitus AmbitusLine AmbitusNoteHead AmbitusAccidental",
 /* accepts */ "",
 /* acks  */     "note-head-interface",
 /* reads */       "",
