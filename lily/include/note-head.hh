@@ -13,6 +13,10 @@
 
   * help lines  
 
+  Properties
+
+  style -- symbol that sets note head style
+
   */
 
 class Note_head : public Rhythmic_head

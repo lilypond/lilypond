@@ -44,8 +44,6 @@ Single_malt_grouping_item::my_width () const
       SCM elt = gh_car (s);
       if (!SMOB_IS_TYPE_B(Score_element, elt))
 	continue;
-
-      
       
       Item *il = dynamic_cast<Item*> (SMOB_TO_TYPE (Score_element, elt));
       if (pc != il->column_l ())

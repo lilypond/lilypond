@@ -16,9 +16,14 @@
 /**
   The dots to go with a notehead/rest.  A separate class, since they
   are a party in collision resolution.
+
+  properties:
+
+  dot-count -- number of dots.
+
+  
   */
-class Dots :
-  public Item
+class Dots :  public Item
 {
 protected:
   virtual Molecule do_brew_molecule () const;

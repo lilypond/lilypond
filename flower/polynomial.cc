@@ -276,7 +276,9 @@ Polynomial::solve_cubic()const
     {
       sol[i] -= sub;
 
+#ifdef PARANOID
       assert (fabs (eval (sol[i]) ) < 1e-8);
+#endif
     }
   
   return sol;

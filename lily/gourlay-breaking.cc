@@ -83,8 +83,8 @@ Gourlay_breaking::do_solve () const
 	{
 	  Link_array<Paper_column> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
-	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_broken_piece (RIGHT));
-	  line.top () =  dynamic_cast<Paper_column*>(line.top ()->find_broken_piece (LEFT));
+	  line[0]     = dynamic_cast<Paper_column*> (line[0]    ->find_prebroken_piece (RIGHT));
+	  line.top () = dynamic_cast<Paper_column*> (line.top ()->find_prebroken_piece (LEFT));
 	    
 	  Column_x_positions cp;
 	  cp.cols_ = line;

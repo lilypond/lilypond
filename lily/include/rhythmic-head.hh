@@ -12,6 +12,14 @@
 
 #include "item.hh"
 
+/*
+  Properties
+  
+  duration-log -- 2-log of the notehead duration
+
+  dot -- reference to Dots object.
+
+*/
 class Rhythmic_head : public Item
 {
 public:

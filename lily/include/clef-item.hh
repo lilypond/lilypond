@@ -16,7 +16,7 @@
 
   properties:
 
-  nondefault -- not set because of existence of a bar?
+  non-default -- not set because of existence of a bar?
 
   change -- is this a change clef (smaller size)?
 

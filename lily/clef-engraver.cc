@@ -217,21 +217,20 @@ Clef_engraver::do_pre_move_processing()
 {
   if (clef_p_)
     {
+      SCM vis;
       if(to_boolean (clef_p_->remove_elt_property("non-default")))
 	{
-	  SCM all = scm_eval (ly_symbol2scm ("all-visible"));
-	  clef_p_->set_elt_property("visibility-lambda", all);
-	  if (octavate_p_)
-	    octavate_p_->set_elt_property("visibility-lambda", all);
+	  vis = ly_symbol2scm ("all-visible");
 	}
       else
-	{
-	  SCM beg = scm_eval (ly_symbol2scm ("begin-of-line-visible"));
+	vis = ly_symbol2scm ("begin-of-line-visible");
 
-	  clef_p_->set_elt_property ("visibility-lambda", beg);
-	  if (octavate_p_)
-	    octavate_p_->set_elt_property ("visibility-lambda", beg);
-	}
+      vis = scm_eval (vis);
+      
+      clef_p_->set_elt_property("visibility-lambda", vis);
+      if (octavate_p_)
+	octavate_p_->set_elt_property("visibility-lambda", vis);
+
       typeset_element (clef_p_);
       clef_p_ =0;
 

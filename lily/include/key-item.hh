@@ -11,24 +11,26 @@
 #include "array.hh"
 
 
-/** An item which places accidentals at the start of the line
+/**
+  A group of  accidentals.
 
-    TODO: Schemify me.
+  Properties:
+
+  c0-position -- integer indicating the position of central C?
+
+  old-accidentals -- list of (pitch, accidental) pairs
+
+  new-accidentals -- list of (pitch, accidental) pairs
  */
 class Key_item :public  Item
 {
-  Array<int> pitch_arr_;
-  Array<int> acc_arr_;
-  Array<int> old_pitch_arr_;
-  Array<int> old_acc_arr_;
+  int calculate_position(SCM pair) const;
 
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Key_item ();
   void add (int pitch, int acc);
   void add_old (int pitch, int acc);
-
-  int calculate_position(int p, int a) const;
 
 protected:
   virtual Molecule do_brew_molecule() const;

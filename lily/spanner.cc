@@ -63,7 +63,7 @@ Spanner::do_break_processing ()
       Direction d = LEFT;
       do
 	{
-	  Item* bound = left->find_broken_piece (d);
+	  Item* bound = left->find_prebroken_piece (d);
 	  if (bound->line_l ())
 	    {
 	      Spanner * span_p = dynamic_cast<Spanner*>( clone ());
@@ -94,7 +94,7 @@ Spanner::do_break_processing ()
 	    {
 	      Item *&pc_l = bounds[d] ;
 	      if (!pc_l->line_l())
-		pc_l =  pc_l->find_broken_piece(- d);
+		pc_l =  pc_l->find_prebroken_piece(- d);
 	  
 	      assert (pc_l);
 	    }
@@ -122,7 +122,7 @@ Spanner::set_my_columns()
   do 
     {
       if (!spanned_drul_[i]->line_l())
-	set_bound(i,spanned_drul_[i]->find_broken_piece((Direction) -i));
+	set_bound(i,spanned_drul_[i]->find_prebroken_piece((Direction) -i));
     } 
   while (flip(&i) != LEFT);
 }       

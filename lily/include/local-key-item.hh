@@ -32,14 +32,8 @@ struct Local_key_cautionary_tuple
 /**
   Accidentals which can be different for each octave.
 
-  
-  TODO
-
-  Make an item for each accidental separately, and make a
-  Accidental_column to group them.
-  
+  TODO: schemify me!
  */
-
 class Local_key_item : public Item
 {
   Array<Local_key_cautionary_tuple> accidental_arr_;

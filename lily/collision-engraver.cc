@@ -11,6 +11,9 @@
 #include "dimension-cache.hh"
 #include "engraver.hh"
 
+/*
+  collect Note_column, and as soon as there are 2 or more, put them in
+  a collision object.  */
 class Collision_engraver : public Engraver {
   Collision* col_p_;
   Link_array<Note_column> note_column_l_arr_;

@@ -67,8 +67,8 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
     {
       Item * l = cols[i];
       Item * r = cols[i+1];
-      Item * lb = l->find_broken_piece (RIGHT);
-      Item * rb = r->find_broken_piece (LEFT);      
+      Item * lb = l->find_prebroken_piece (RIGHT);
+      Item * rb = r->find_prebroken_piece (LEFT);      
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 

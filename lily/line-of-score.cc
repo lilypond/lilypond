@@ -212,6 +212,8 @@ Line_of_score::pre_processing ()
 {
   for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->do_breakable_col_processing ();
+  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+    unsmob_element (gh_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_elt_property ("all-elements"));
   

@@ -27,6 +27,7 @@
 #include "dimension-cache.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
+
 /*
 TODO:
 
@@ -291,7 +292,9 @@ Score_element::do_add_processing()
 }
 
 
-
+/*
+  ugh.
+ */  
 Molecule 
 Score_element::do_brew_molecule() const
 {
@@ -353,18 +356,17 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	  Direction d = to_dir (criterion);
 	  if (i && i->break_status_dir () != d)
 	    {
-	      Item *br = i->find_broken_piece (d);
+	      Item *br = i->find_prebroken_piece (d);
 	      return  (br) ? br->self_scm_ : SCM_UNDEFINED;
 	    }
 	}
       else
 	{
-
 	  Line_of_score * line = dynamic_cast<Line_of_score*> (unsmob_element ( criterion));
-	 Line_of_score * dep_line = sc->line_l ();
+	  Line_of_score * dep_line = sc->line_l ();
 	  if (dep_line != line)
 	    {
-	    Score_element * br = sc->find_broken_piece (line);
+	      Score_element * br = sc->find_broken_piece (line);
 	      return  (br) ?  br->self_scm_ : SCM_UNDEFINED;
 	    }
 	  if (!dep_line)
@@ -393,7 +395,8 @@ Score_element::handle_broken_smobs (SCM src, SCM criterion)
 	    
 	    return handle_broken_smobs (cdr, criterion);
 
-	    We don't want to rely on the compiler to do this.  */
+	    We don't want to rely on the compiler to do this.  Without
+	    tail-recursion, this easily crashes with a stack overflow.  */
 	  src =  cdr;	
 	  goto again;
 	}
@@ -439,33 +442,18 @@ Score_element::handle_broken_dependencies()
       /*
 	This element is `invalid'; it has been removed from all dependencies, so
 	let's junk the element itself.
-
       */
       element_property_alist_ = SCM_EOL;
       set_extent_callback (0, Y_AXIS);
       set_extent_callback (0, X_AXIS);
     }
-
-
 }
 
-
-/*
-  TODO: cleanify.
- */
 void
 Score_element::handle_prebroken_dependencies()
 {
-  if (Item*i =dynamic_cast<Item*> (this))
-    {
-      if (original_l_)
-	{
-	  element_property_alist_
-	    = handle_broken_smobs (original_l_->element_property_alist_,
-			       gh_int2scm (i->break_status_dir ()));
-	}
-    }
 }
+
 
 bool
 Score_element::linked_b() const
@@ -625,7 +613,7 @@ Score_element::fixup_refpoint ()
 	      Direction  my_dir = i->break_status_dir () ;
 	      if (my_dir!= parenti->break_status_dir())
 		{
-		  Item *newparent =  parenti->find_broken_piece (my_dir);
+		  Item *newparent =  parenti->find_prebroken_piece (my_dir);
 		  set_parent (newparent, ax);
 		}
 	    }
@@ -638,7 +626,6 @@ Score_element::fixup_refpoint ()
 /****************************************************
   SMOB funcs
  ****************************************************/
-
 
 #include "ly-smobs.icc"
 
