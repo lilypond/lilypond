@@ -35,28 +35,29 @@ if test -z "$autoconf"; then
     exit 1
 fi
 
-if test -z "$*"; then
-  echo "WARNING: I am going to run \`configure' with no arguments."
-  echo "If you wish to pass any to it, please specify them on the"
-  echo \`$0\'" command line."
-  echo
-fi
-
-for coin in $srcdir/configure.in #`find $srcdir -name configure.in -print`
+for i in $srcdir/configure.in #`find $srcdir -name configure.in -print`
 do 
-  dr=`dirname $coin`
-  echo processing $dr
+  dir=`dirname $i`
+  echo processing $dir
   (
-      cd $dr
+      cd $dir
       echo "Running autoconf ..."
       $autoconf
   )
 done
 
 #conf_flags="--enable-maintainer-mode --enable-compile-warnings" #--enable-iso-c
-if test -z "$NOCONFIGURE"; then
-  echo Running $srcdir/configure $conf_flags "$@" ...
-  $srcdir/configure $conf_flags "$@"
-else
-  echo Skipping configure process.
+if test -n "$NOCONFIGURE"; then
+    echo Skipping configure process.
+    exit 0
 fi
+
+if test -z "$*"; then
+    echo "warning: about to run \`./configure' without arguments."
+    echo "arguments on the \`$0\'"
+    echo "command line will be passed to \`./configure'."
+    echo
+fi
+
+echo Running $srcdir/configure $conf_flags "$@" ...
+$srcdir/configure $conf_flags "$@"
