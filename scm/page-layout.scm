@@ -140,7 +140,9 @@
 				   (interval-length (ly:stencil-extent x Y)))
 			line-stencils))))
       (stretchable-lines (remove ly:paper-system-title? (cdr lines)))
-      (stretch (if (null? stretchable-lines)
+      (stretch (if (or (null? stretchable-lines)
+		       (> spc-left (/ music-height 2)))
+		   
 		   0.0
 		   (/ spc-left (length stretchable-lines))))
 
