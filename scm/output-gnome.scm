@@ -6,6 +6,17 @@
 
 
 ;;; HIP -- hack in progress
+;;;
+;;; status: hello-world
+;;;
+;;; This first working version needs rotty's g-wrap--tng
+;;; and janneke's guile-gnome patches, instructions below.
+;;;
+;;; Try it:
+;;;     lilypond-bin -fgnome input/simple-song.ly
+;;;
+
+;;; TODO: pango+feta font (wait for pango 1.6?)
 
 ;;; Note: this install information is volatile
 ;;;       you'll probably want to pull all from
@@ -44,9 +55,12 @@ cd src
 ## ugh: get janneke's stuff -- should make build-config, I guess?
 tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
 rm -rf defs
+rm -rf gtk
 rm -rf libgnomecanvas
 tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 libgnomecanvas
 tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 defs
+tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 gtk
+tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 libgnomecanvas
 
 AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
 mkdir ../=build
@@ -83,6 +97,7 @@ lilypond-bin -fgnome input/simple-song.ly
  (guile)
  (lily)
  (gnome gtk)
+ (gnome gtk gdk-event)
  (gnome gw libgnomecanvas))
 
 
@@ -143,60 +158,69 @@ lilypond-bin -fgnome input/simple-song.ly
   (display (dispatch expr) port))
 
 (define (dispatch expr)
-  (let ((keyword (car expr)))
-    (cond
-     ((eq? keyword 'some-func) "")
-     ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
-     (else
-      (if (module-defined? this-module keyword)
-	  (apply (eval keyword this-module) (cdr expr))
-	  (begin
-	    (display
-	     (string-append "undefined: " (symbol->string keyword) "\n"))
-	    ""))))))
-  
+  (if (pair? expr)
+      (let ((keyword (car expr)))
+	(cond
+	 ((eq? keyword 'some-func) "")
+	 ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
+	 (else
+	  (if (module-defined? this-module keyword)
+	      (apply (eval keyword this-module) (cdr expr))
+	      (begin
+		(display
+		 (string-append "undefined: " (symbol->string keyword) "\n"))
+		"")))))
+      expr))
 
+;; helper functions
+(define (stderr string . rest)
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+(define (item-event item event . data)
+  (case (gdk-event:type event)
+    ((enter-notify) (gobject-set-property item 'fill-color "white"))
+    ((leave-notify) (gobject-set-property item 'fill-color "black"))
+    ((2button-press) (gobject-set-property item 'fill-color "red")))
+  #t)
+    
 ;;; Global vars
 (define main-window #f)
 (define canvas-root #f)
 
-(define output-scale (* 2 2.83464566929134))
-(define system-y 0)
-(define line-thickness 0.001)
+(define system-origin '(0 . 0))
 
+(define canvas-width 400)
+(define canvas-height
+  (inexact->exact (round (* 1.42 canvas-width))))
+
+(define output-scale (* 2 2.83464566929134))
+;;(define output-scale 2.83464566929134)
+;;(define output-scale 1)
 
 (define (char font i)
-  (let ((item (make <gnome-canvas-text> #:x 0 #:y 0
-		    #:font "new century schoolbook, i bold 20"
-		    #:text (char->string i))))
-    (add canvas-root txt)))
+  ;;(text font (make-string 1 (integer->char i))))
+  (text font "a"))
 
 (define (placebox x y expr)
-  #f)
+  (let ((item expr))
+    (if item
+	(begin
+	  (move item
+		(* output-scale (+ (car system-origin) x))
+		(* output-scale (- (car system-origin) y)))
+	  (affine-relative item output-scale 0 0 output-scale 0 0)
+	  
+	  (gtype-instance-signal-connect item 'event item-event)
+	  item)
+	#f)))
 
-;; gnome_canvas_item_new (gnome_canvas_root (canvas),
-;;  gnome_canvas_rect_get_type (),
-;;  "x1", (double) x1,
-;;  "y1", (double) y1,
-;;  "x2", (double) x2,
-;;  "y2", (double) y2,
-;;  "fill_color", "black",
-;;  "outline_color", "black",
-;;  "width_units", 1.0,
-;;  NULL);
-  
 (define (round-filled-box breapth width depth height blot-diameter)
-  (let* ((x1 . ,(number->string (* output-scale (- 0 breapth))))
-	 (y1 . ,(number->string (* output-scale (- 0 height))))
-	 (x2 . ,(number->string (* output-scale width)))
-	 (y2 . ,(number->string (* output-scale height)))
-	 ;;(ry . ,(number->string (/ blot-diameter 2)))
-	 ;; FIXME: no rounded corners on rectangle
-	 (item (make <gnome-canvas-rect>
-		 #:x1 x1 #:y1 y1 #:x2 x2.0 #:y2 y2
-		 ;;#:width-unit blot-diameter
-		 )))
-    (add canvas-root item)))
+  ;; FIXME: no rounded corners on rectangle
+  (make <gnome-canvas-rect>
+    #:parent canvas-root
+    #:x1 (- breapth) #:y1 (- depth) #:x2 width #:y2 height
+    #:fill-color "black" #:width-units blot-diameter))
 
 (define (fontify font expr)
   #f)
@@ -207,35 +231,47 @@ lilypond-bin -fgnome input/simple-song.ly
 (define (header . rest)
   (let* ((window (make <gtk-window> #:type 'toplevel))
 	 (button (make <gtk-button> #:label "Exit"))
-	 (canvas (make <gnome-canvas> ))
-	 (vbox (make <gtk-vbox>)))
+	 (canvas (make <gnome-canvas>))
+	 (vbox (make <gtk-vbox> #:homogeneous #f))
+	 (scrolled (make <gtk-scrolled-window>)))
 
-    (gtk-container-add window vbox)
-    (gtk-widget-show vbox)
-    
-    (set-size-request canvas 300 300)
-    (gtk-container-add vbox canvas)
+    (add window vbox)
+    (add vbox scrolled)
+    (add scrolled canvas)
 
-    (gtk-container-add vbox button)
+    (set-size-request button canvas-width 20)
+    (add vbox button)
+    (set-child-packing vbox button #f #f 0 'end)
+
     (gtype-instance-signal-connect button 'clicked
 				   (lambda (b) (gtk-main-quit)))
     
-    (gtk-widget-show canvas)
-    (gtk-widget-show button)
-    (gtk-widget-show window)
+    ;; papersize
+    (set-size-request canvas canvas-width canvas-height)
+    (set-scroll-region canvas 0 0 2000 4000)
     
+    (show-all window)
     (set! canvas-root (root canvas))
     (set! main-window window)))
 
 (define (text font string)
-  (let ((item (make <gnome-canvas-text> #:x 0 #:y 0
-		    #:font "new century schoolbook, i bold 20"
-		    #:text string)))
-    (add canvas-root txt)))
+  (make <gnome-canvas-text>
+    #:parent canvas-root
+    #:x 0 #:y 0
+    #:size-points 12
+    #:size-set #t
+    #:font "new century schoolbook, i bold 20"
+    #:fill-color "black"
+    #:text string))
 
 (define (filledbox a b c d)
   (round-filled-box a b c d 0.001))
 
 ;; WTF is this in every backend?
-(define (horizontal-line x1 x2 th)
-  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
+(define (horizontal-line x1 x2 thickness)
+  ;;(let ((thickness 2))
+  (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
+
+(define (start-system origin . rest)
+  (set! system-origin origin))
+
