@@ -1,5 +1,39 @@
 # make/Stepmake.make
 
+# If not m (make m=m), reroute to scons if user is using that.
+ifndef m
+
+SCONS_USER = $(wildcard $(depth)/.sconsign)
+ifeq ($(SCONS_USER),)
+SCONS_USER = $(wildcard $(depth)/.sconf_temp)
+endif
+ifneq ($(SCONS_USER),)
+
+ifeq ($(strip $(depth)),..)
+here = $(notdir $(CURDIR))
+else
+ifeq ($(strip $(depth)),../..)
+# ZUCHT?
+# here = $(notdir $(dir $(CURDIR)))/$(notdir $(CURDIR))
+here = $(shell basename $$(dirname $(CURDIR)))/$(notdir $(CURDIR))
+endif
+endif
+
+MAKE_TARGETS = config deb diff dist distclean doc release po		\
+po-replace po-update all clean check default exe help install lib web	\
+web-install web-clean TAGS
+
+$(MAKE_TARGETS): scons
+
+# To make this trickery complete, we could have ./configure remove
+# traces of scons configuration.
+scons:
+	@echo "warning: $(SCONS_USER) detected, rerouting to scons"
+	cd $(depth) && scons $(here) $(MAKECMDGOALS)
+	false 
+endif
+endif
+
 include $(depth)/make/toplevel-version.make
 
 # Use alternate configurations alongside eachother:

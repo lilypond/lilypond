@@ -46,10 +46,10 @@ virtuoso that taught in Geneva.
 
 \version "2.3.4"
 
-\include "mozart-hrn3-defs.ly"
-\include "mozart-hrn3-allegro.ly"
-\include "mozart-hrn3-romanze.ly"
-\include "mozart-hrn3-rondo.ly"
+\include "mozart-hrn3-defs.ily"
+\include "mozart-hrn3-allegro.ily"
+\include "mozart-hrn3-romanze.ily"
+\include "mozart-hrn3-rondo.ily"
 
 
 

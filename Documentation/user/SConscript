@@ -7,7 +7,10 @@ Import ('env')
 telys = env['glob'] (env, '*.tely')
 pngs = env['glob'] (env, '*.png')
 
-env.Depends ('lilypond.texi', env['LILYPOND_BIN'])
+# We need lily and mf to build these.
+env.Depends ('lilypond.texi', ['#/lily', '#/mf'])
+env.Depends ('music-glossary.texi', ['#/lily', '#/mf'])
+
 env.Depends ('lilypond.texi', 'lilypond-internals.texi')
 
 epss = map (env.Png2eps, pngs)
@@ -39,22 +42,24 @@ def file_subst (file_name, find, subst):
 		h.close ()
 
 e['usersrc'] = Dir ('.').srcnode ().abspath
+e['userout'] = Dir ('.').abspath
 def url_fixup (target, source, env):
 	file_subst (str (target[0]),
 		    '../lilypond-internals', 'lilypond-internals/')
-a = ['$MAKEINFO -I$srcdir/Documenation/user -I${SOURCE.dir} --html \
---css-include=$srcdir/Documentation/texinfo.css $__verbose \
---output=${TARGET.dir} $SOURCE',
-     '$MAKEINFO -I$srcdir/Documentation/user -I${SOURCE.dir} --html \
+
+a = ['$MAKEINFO -I$usersrc -I${SOURCE.dir} --html \
+     --css-include=$srcdir/Documentation/texinfo.css $__verbose \
+     --output=${TARGET.dir} $SOURCE',
+     '$MAKEINFO -I$usersrc -I${SOURCE.dir} --html \
      --no-split --no-headers \
-     --css-include=$srcdir/Documentation/../texinfo.css $__verbose \
+     --css-include=$srcdir/Documentation/texinfo.css $__verbose \
      --output=$TARGET $SOURCE',
      url_fixup,
-     'ln -f ${SOURCE.dir}/*.png ${SOURCE.dir}/*.ly ${TARGET.dir}/']
-     
+     'ln -f ${SOURCE.dir}/*.png ${SOURCE.dir}/*.ly ${TARGET.dir}/',]
+
 e.Command ('lilypond/lilypond.html', 'lilypond.texi', a)
 e.Command ('lilypond-internals/lilypond-internals.html',
-	     'lilypond-internals.texi', a)
+	   'lilypond-internals.texi', a)
 
 #Hmm -- why not just mv ./Documentation/{*,*/*} ./doc :-)
 env.Alias ('doc', texis)

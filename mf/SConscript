@@ -2,7 +2,6 @@
 
 import os
 Import ('env')
-#sources = env['src_glob'] (env, '*.mf')
 sources = env['glob'] (env, '*.mf')
 
 fonts = reduce (lambda x, y: x + y,
@@ -13,24 +12,21 @@ fonts = reduce (lambda x, y: x + y,
 		      'feta-nummer*[0-9].mf',
 		      'parmesan[0-9]*.mf',)))
 
-env.Depends ('mf', 'mf-essential')
-stems = fonts #map (lambda x: os.path.splitext (x)[0], fonts)
+t = map (env.TFM, fonts)
+a = map (env.AFM, fonts)
+p = map (env.PFA, fonts)
 
-t = map (env.TFM, stems)
-a = map (env.AFM, stems)
-p = map (env.PFA, stems)
-
-map (lambda x: env.Depends (x + '.pfa', x + '.enc'), stems)
+map (lambda x: env.Depends (x + '.pfa', x + '.enc'), fonts)
 
 mf_essential = ['feta16', 'feta20', 'parmesan16', ]
 pfa_essential = map (env.PFA, mf_essential)
-env.Alias ('mf-essential', pfa_essential)
-
-env.Alias ('mf', 'mf-essential')
-
 env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
+env.Alias ('mf-essential', pfa_essential)
 env.Alias ('mf', 'cmr.enc')
-env.Alias ('mf', p)
+
+# build essential stuff first, that's friendlier
+#env.Depends (mf', pfa_essential)
+env.Alias ('mf', pfa_essential + p)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')

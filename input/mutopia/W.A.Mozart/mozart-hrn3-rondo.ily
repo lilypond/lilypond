@@ -1,6 +1,6 @@
 \version "2.3.4"
 
-% \include "mozart-hrn3-defs.ly"
+% \include "mozart-hrn3-defs.ily"
 
 rondotheme =  \relative c' {
 	 c'8[ c c]  c[ c c]

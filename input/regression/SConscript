@@ -1,21 +1,4 @@
 # -*-python-*-
 
 Import ('env')
-#lys = env['src_glob'] (env, '*.ly')
-lys = env['glob'] (env, '*.ly')
-
-e = env.Copy (
-	TITLE = 'LilyPond Regression Tests',
-	LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'"''',
-											__verbose = ' --verbose',
-	)
-
-tely = e.LYS2TELY ('collated-files', lys)
-texi = e.TEXI (tely)
-pdf = e.PDF (texi)
-html = e.PDF (texi)
-
-env.Alias ('doc', pdf)
-env.Alias ('doc', html)
-
-
+env['collate'] (title = 'LilyPond Regression Tests')

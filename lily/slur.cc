@@ -697,5 +697,5 @@ Slur::get_curve (Grob*me)
 
 ADD_INTERFACE (Slur,"slur-interface",
   "A slur",
-  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-function extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free");
+  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-function extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free quant-score");
 
