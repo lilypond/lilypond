@@ -19,7 +19,7 @@
  (gnome gw canvas))
 
 (define-public (output-framework outputter book scopes fields basename)
-  (gnome-main book))
+  (gnome-main book basename))
 
 (define SCROLLBAR-SIZE 20)
 (define BUTTON-HEIGHT 25)
@@ -38,6 +38,7 @@
       (stderr (cons string rest))))
       
 (define-class <gnome-outputter> ()
+  (name #:init-value "untitled" #:init-keyword #:name #:accessor name)
   (page-stencils ;;#:init-value '#()
    #:init-keyword #:page-stencils #:accessor page-stencils)
   (window #:init-value (make <gtk-window> #:type 'toplevel) #:accessor window)
@@ -48,6 +49,7 @@
   (text-items #:init-value '() #:accessor text-items)
   (grob #:init-value #f #:accessor grob)
   (item-grobs #:init-value (make-hash-table 31) #:accessor item-grobs)
+  (grob-tweaks #:init-value (make-hash-table 31) #:accessor grob-tweaks)
   (window-width #:init-keyword #:window-width #:accessor window-width)
   (window-height #:init-keyword #:window-height #:accessor window-height)
   (canvas-width #:init-keyword #:canvas-width #:accessor canvas-width)
@@ -89,7 +91,7 @@
     (add hbox button)
 
     ;; signals
-    (connect button 'clicked (lambda (b) (gtk-main-quit)))
+    (connect button 'clicked (lambda (b) (save-tweaks go) (gtk-main-quit)))
     (connect next 'clicked (lambda (b) (dump-page go (1+ (page-number go)))))
     (connect prev 'clicked (lambda (b) (dump-page go (1- (page-number go)))))
     (connect (window go) 'key-press-event
@@ -98,7 +100,7 @@
     (show-all (window go))))
 
 
-(define (gnome-main book)
+(define (gnome-main book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (hsize (ly:output-def-lookup paper 'hsize))
 	 (vsize (ly:output-def-lookup paper 'vsize))
@@ -112,6 +114,7 @@
          (desktop-height (- screen-height PANELS-HEIGHT))
 
 	 (go (make <gnome-outputter>
+	       #:name name
 	       #:page-stencils (list->vector (ly:paper-book-pages book))
 	       #:canvas-width page-width
 	       #:canvas-height page-height
@@ -216,6 +219,24 @@
 		(ly:input-location music-origin)
 		#f)))
 
+(define-method (tweak (go <gnome-outputter>) item offset)
+  (let* ((grob (hashq-ref (item-grobs go) item #f))
+	 (origin (hashq-ref (grob-tweaks go) grob '(0 . 0))))
+    (if grob
+	(hashq-set! (grob-tweaks go) grob (cons (+ (car origin) (car offset))
+						(+ (cdr origin) (cdr offset)))))
+    (move item (car offset) (cdr offset))))
+
+(define-method (save-tweaks (go <gnome-outputter>))
+  (let ;;((file (current-error-port)))
+      ((file (open-file (string-append (name go) ".twy") "w")))
+    (format file "%% TWEAKS %%\n")
+    (hash-fold
+     (lambda (key value seed)
+       (format file "~S:~S\n"
+	       (if (ly:grob? key) (ly:grob-id key) "unidentified grob") value))
+     #f (grob-tweaks go))))
+
 ;;;(define (item-event go grob item event)
 (define (item-event go item event)
   (case (gdk-event:type event)
@@ -272,7 +293,23 @@
 	      (move window x y)
 	      )))))))
     
-    ((2button-press) (gobject-set-property item 'fill-color "green")))
+    ((2button-press) (gobject-set-property item 'fill-color "green"))
+    ((key-press)
+     (let ((keyval (gdk-event-key:keyval event))
+	   (mods (gdk-event-key:modifiers event))
+	   (step (quotient (pixels-per-unit go) 2)))
+       (cond ((and (null? mods)
+		   (eq? keyval gdk:Up))
+	      (tweak go item (cons 0 (- 0 step))))
+	     ((and (null? mods)
+		   (eq? keyval gdk:Down))
+	      (tweak go item (cons 0 step)))
+	     ((and (null? mods)
+		   (eq? keyval gdk:Left))
+	      (tweak go item (cons (- 0 step) 0)))
+	     ((and (null? mods)
+		   (eq? keyval gdk:Right))
+	      (tweak go item (cons step 0)))))))
   #t)
 
 (define (scale-canvas go factor)
