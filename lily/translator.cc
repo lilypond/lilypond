@@ -88,10 +88,6 @@ Translator::do_add_processing ()
 {
 }
 
-
-
-
-
 void
 Translator::creation_processing ()
 {
@@ -120,10 +116,7 @@ Translator::removal_processing ()
     return;
   creation_processing ();
   do_removal_processing ();
-  // elegancy ...
-  // status_ = ORPHAN;
 }
-
 
 bool
 Translator::try_music (Music * r)

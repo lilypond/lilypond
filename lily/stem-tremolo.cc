@@ -34,17 +34,23 @@ Stem_tremolo::has_interface (Score_element *me)
   return me->has_interface (ly_symbol2scm ("stem-tremolo"));
 }
 
+MAKE_SCHEME_CALLBACK(Stem_tremolo,dim_callback,2);
 
-Interval
-Stem_tremolo::dim_callback (Score_element * se, Axis )
+/*
+  todo: init with cons. 
+ */
+SCM
+Stem_tremolo::dim_callback (SCM e, SCM )
 {
+  Score_element * se = unsmob_element (e);
+  
   Real space = Staff_symbol_referencer::staff_space (se);
-  return Interval (-space, space);
+  return ly_interval2scm ( Interval (-space, space));
 }
 
 
 
-MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule);
+MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {
