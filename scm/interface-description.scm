@@ -32,6 +32,12 @@
  )
 
 (ly:add-interface
+ 'ligature-bracket-interface
+ "A bracket indicating a ligature in the original edition"
+ '(width thickness height ligature-primitive-callback))
+
+
+(ly:add-interface
  'mark-interface
  "a rehearsal mark"
  '(

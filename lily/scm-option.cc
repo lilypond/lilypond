@@ -8,6 +8,7 @@
  */
 #include <stdio.h>
 
+#include "parse-scm.hh"
 #include "string.hh"
 #include "lily-guile.hh"
 #include "scm-option.hh"
@@ -56,6 +57,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
   printf ( "  help ANY-SYMBOL\n"
 	   "  internal-type-checking BOOLEAN\n"
 	   "  midi-debug BOOLEAN\n"
+	   "  parse-protect BOOLEAN\n"
 	   "  testing-level INTEGER\n");
   
   exit (0);
@@ -69,22 +71,23 @@ don't timestamp the output
 
 @item -t,--test
 Switch on any experimental features.  Not for general public use. */
-
 LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
-	    "Set a global option value.  Supported options include
-
-@table @code
-@item help
-List all options.
-@item midi-debug
-If set to true, generate human readable MIDI
-@item internal-type-checking
-Set paranoia for property assignments 
-@end table
-
-This function is useful to call from the command line: @code{lilypond -e
-\"(ly-set-option 'midi-debug #t)\"}.
-")
+	    "Set a global option value.  Supported options include\n"
+"\n"
+"@table @code\n"
+"@item help\n"
+"List all options.\n"
+"@item midi-debug\n"
+"If set to true, generate human readable MIDI\n"
+"@item internal-type-checking\n"
+"Set paranoia for property assignments\n"
+"@item parse-protect\n"
+"If protection is switched on, errors in inline scheme are caught in the parser. \n"
+"If off, GUILE will halt on errors, and give a stack trace. Default is protected evaluation. \n"
+"@end table\n"
+"\n"
+"This function is useful to call from the command line: @code{lilypond -e\n"
+"\"(ly-set-option 'midi-debug #t)\"}.\n")
 {
   if (var == ly_symbol2scm ("help"))
     {
@@ -98,6 +101,10 @@ This function is useful to call from the command line: @code{lilypond -e
   else if (var == ly_symbol2scm ("testing-level"))
     {
      testing_level_global = gh_scm2int (val); 
+    }
+  else if (var == ly_symbol2scm ("parse-protect" ))
+    {
+      parse_protect_global = to_boolean(val);
     }
   else if (var == ly_symbol2scm ("internal-type-checking"))
     {

@@ -87,7 +87,7 @@ parse_handler (void * data, SCM tag, SCM args)
    */
   ps->nchars = 1;
     
-  return SCM_EOL;
+  return SCM_UNDEFINED;
 }
 
 /*
@@ -109,20 +109,9 @@ protected_ly_parse_scm (Parse_start *ps)
 			     &catch_protected_parse_body,
 			     (void*)ps,
 			     &parse_handler, (void*)ps);
-
 }
 
-
-static bool protect = true;
-
-LY_DEFINE(set_parse_protect, "ly:set-parse-protect",
-	  1,0,0, (SCM t),
-	  "If protection is switched on, errors in inline scheme are caught.
-If off, GUILE will halt on errors, and give a stack trace. Default is protected evaluation.")
-{
-  protect =  (t == SCM_BOOL_T);
-  return SCM_UNSPECIFIED;
-}
+bool  parse_protect_global  = true; 
 
 SCM
 ly_parse_scm (char const* s, int *n, Input i)
@@ -132,9 +121,10 @@ ly_parse_scm (char const* s, int *n, Input i)
   ps.str = s;
   ps.start_location_ = i;
 
-  SCM ans = protect ? protected_ly_parse_scm (&ps)
+  SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
     : internal_ly_parse_scm (&ps);
   *n = ps.nchars;
+
   return ans;  
 }
 

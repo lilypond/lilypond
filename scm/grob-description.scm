@@ -436,12 +436,6 @@
 	(meta . ((interfaces . (key-signature-interface  font-interface  break-aligned-interface item-interface ))))
 	))
 
-    (Ligature
-     . (
-	(molecule-callback . ,Ligature_bracket::brew_molecule)
-	(meta . ((interfaces . (ligature-interface))))
-	))
-
     (LigatureBracket
      . (
 	(ligature-primitive-callback . ,Note_head::brew_molecule)

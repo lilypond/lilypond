@@ -1,3 +1,21 @@
+2002-11-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam-engraver.cc (stop_translation_timestep): reset now_stop_ev_
+
+	* lily/scm-option.cc: add parse-protect to ly:set-option
+
+	* lily/lexer.ll: set errorlevel if GUILE fails during parse.
+
+2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/ligature-bracket.hh: removed
+	* lily/ligature-bracket.cc: removed
+
+	* lilypond-mode.el (LilyPond-expand-alist): set LaTeX extension to .tex
+
+	* lily/beam.cc (set_beaming): don't change beam count on rests.
+	(brew_molecule): always set flag-width > 0.
+
 2002-11-19  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: LilyPond-imenu-generic-re: only alphabetic chars,

@@ -5,6 +5,8 @@
 #include "input.hh"
 #include "lily-guile.hh"
 
+extern bool parse_protect_global;
+
 struct Parse_start
 {
   char const* str;
