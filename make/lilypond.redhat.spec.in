@@ -2,6 +2,7 @@
 
 %define info yes
 
+
 Name: lilypond
 Version: @TOPLEVEL_VERSION@
 Release: 1
@@ -27,7 +28,7 @@ Group: Applications/Publishing
 
 %description documentation
 Documentation and example files of LilyPond. An index is available at
-%{_docdir}/web/Documentation/out-www/index.html
+%{_docdir}/lilypond/index.html
 
 %prep
 %setup
@@ -76,8 +77,8 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
 
 # again, make sure that main package installs even if doco fails
-mkdir -p web/out
-tar -C web -xzf out/web.tar.gz 
+mkdir -p $RPM_BUILD_ROOT%{_docdir}/lilypond/
+tar -C $RPM_BUILD_ROOT%{_docdir}/lilypond/ -xzf out/web.tar.gz 
 
 
 %post
@@ -143,7 +144,7 @@ chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 /etc/profile.d/lilypond.*
 
 %files documentation
-
-%doc web/
+%docdir %{_docdir}/lilypond/
+%doc  %{_docdir}/lilypond/
 
 

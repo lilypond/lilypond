@@ -1,3 +1,8 @@
+2003-01-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* make/lilypond.redhat.spec.in: set docdir to %{_docdir}/lilypond/
+	(without version number.)
+
 2003-01-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/chord-name.scm: Amy's chord patch.
