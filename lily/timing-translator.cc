@@ -21,11 +21,15 @@ Timing_translator::do_try_music (Music*r)
     {
       for (int i=0; i < timing_req_l_arr_.size (); i++)
 	{
+	  /*
+	    merge timing reqs.
+	   */
 	  if (timing_req_l_arr_[i]->equal_b(t))
 	    return true;
 	  if (String (classname (timing_req_l_arr_[i])) == classname (r))
 	    {
 	      r->warning (_ ("conflicting timing request"));
+	      timing_req_l_arr_[i]->warning (_("This is the other timing request")); 
 	      return false;
 	    }
 	}
@@ -153,7 +157,7 @@ Timing_translator::set_time_signature (int l, int o)
   Moment len = Moment (l) * one_beat;
   daddy_trans_l_->set_property ("measureLength",
 				(new Moment (len))->smobify_self ());
-  daddy_trans_l_->set_property ("beatength",
+  daddy_trans_l_->set_property ("beatLength",
 				(new Moment (one_beat))->smobify_self ());
 }
 

@@ -58,8 +58,7 @@ Vertical_align_engraver::do_removal_processing()
 bool
 Vertical_align_engraver::qualifies_b (Score_element_info i) const
 {
-  int sz = i.origin_trans_l_arr_.size()  ;
-
+  int sz = i.origin_trans_l_arr ((Translator*)this).size()  ;
 
   Axis_group_element * elt = dynamic_cast<Axis_group_element *> (i.elem_l_);
 
@@ -73,7 +72,10 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
     {
       valign_p_->add_element (i.elem_l_);
     }
-  else if (dynamic_cast<Span_bar*>(i.elem_l_) && i.origin_trans_l_arr_.size ())
+  /*
+    ? huh
+   */
+  else if (dynamic_cast<Span_bar*>(i.elem_l_) && i.origin_trans_l_arr (this).size ())
     {
       i.elem_l_->add_dependency (valign_p_);
     }  

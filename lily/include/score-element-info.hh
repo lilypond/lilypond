@@ -14,15 +14,21 @@
 #include "parray.hh"
 
 /**
-  Data container for broadcasts 
+  Data container for broadcasts.
+
+  TODO: Store this in element info! 
   */
 struct Score_element_info {
-    Score_element * elem_l_;
-    Music *req_l_;
-    Link_array<Translator> origin_trans_l_arr_;
+  Translator * origin_trans_l_;
+  friend Engraver;
+public:
+  Link_array<Translator> origin_trans_l_arr (Translator*) const; 
+  Score_element * elem_l_;
+  Music *req_l_;
 
-    Score_element_info (Score_element*, Music*);
-    Score_element_info();
+
+  Score_element_info (Score_element*, Music*);
+  Score_element_info();
 };
 
 

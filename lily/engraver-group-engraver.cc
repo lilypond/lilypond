@@ -48,7 +48,7 @@ Engraver_group_engraver::do_announces()
 	      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
 		{
 		  Engraver * eng = dynamic_cast<Engraver*> (p->car_);
-		  if (eng && eng!= info.origin_trans_l_arr_[0])
+		  if (eng && eng!= info.origin_trans_l_arr (this)[0])
 		    eng->acknowledge_element (info);
 		}		  
 	    }

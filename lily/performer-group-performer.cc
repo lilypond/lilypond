@@ -49,9 +49,9 @@ Performer_group_performer::do_announces()
 		{
 		  Performer * eng = dynamic_cast<Performer*> (p->car_);
 		  // urg, huh? core dump?
-		  //if (eng && eng!= info.origin_trans_l_arr_[0])
-		  if (eng && info.origin_trans_l_arr_.size ()
-		      && eng!= info.origin_trans_l_arr_[0])
+		  //if (eng && eng!= info.origin_trans_l_arr ()[0])
+		  if (eng && info.origin_trans_l_arr (this).size ()
+		      && eng!= info.origin_trans_l_arr (this)[0])
 		    eng->acknowledge_element (info);
 		}
 	    }
