@@ -665,8 +665,8 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(self-alignment-X . 0)
 	(direction . 1)
-	(padding . 1.5)
-	(staff-padding . 1.5)
+	(padding . 0.2)
+	(staff-padding . 0.25)
 	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
  (NoteCollision

@@ -604,11 +604,13 @@ any sort of property supported by @internalsref{font-interface} and
 (def-markup-command larger (markup?)
   bigger-markup)
 
+
 (def-markup-command (box paper props arg) (markup?)
-  "Draw a box round @var{arg}"
-  
-  (let ((th 0.1)
-        (pad 0.2)
+  "Draw a box round @var{arg}.  Looks at @code{thickness} and
+@code{box-padding} to determine line thickness and padding around the
+markup."
+  (let ((th (chain-assoc-get props 'thickness  0.1))
+        (pad (chain-assoc-get props 'box-padding 0.2))
         (m (interpret-markup paper props arg)))
     (box-stencil m th pad)))
 

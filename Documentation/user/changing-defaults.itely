@@ -1794,7 +1794,8 @@ file can be set with @code{\encoding}.
 @end example
 
 This command may be placed anywhere in the input file. The current
-encoding is passed as an extra argument to @code{\markup} commands.
+encoding is passed as an extra argument to @code{\markup} commands,
+and is passed similarly to lyric syllables.
 
 If no @code{\encoding} has been specified, then the encoding is taken
 from the @code{\paper} block (or @code{\bookpaper}, if @code{\paper}
@@ -1806,6 +1807,24 @@ set to a string or symbol specifying  the encoding, e.g.
     inputencoding = "latin1"
   } 
 @end verbatim
+
+Normal strings, are unaffected by @code{\encoding}. This means that
+the following will usually not produce ba@ss{}tuba in the title.
+
+@verbatim
+  \header {
+    title = "Grazing cow"
+    instrument = "Baßtuba"
+  }
+@end verbatim
+
+Rather, you should say
+@verbatim
+    instrument = \markup { Baßtuba }
+@end verbatim
+
+@noindent
+or set @code{inputencoding} in the @code{\bookpaper} block. 
 
 There is a special encoding, called @code{TeX}. This encoding does not
 reencode text for the font used. Rather, it tries to guess the width

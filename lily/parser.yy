@@ -2262,8 +2262,10 @@ simple_element:
 lyric_element:
 	/* FIXME: lyric flavoured markup would be better */
 	full_markup {
+		$$ = $1;
 	}
 	| LYRICS_STRING {
+		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
 	}
 	;
 

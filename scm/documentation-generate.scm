@@ -140,7 +140,11 @@
 @end ignore
 
 
-") out-port)
+"
+
+  "This is the program reference for LilyPond version " (lilypond-version)
+
+  ) out-port)
 
 (define top-node
   (make <texi-node>

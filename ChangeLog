@@ -40,6 +40,19 @@
 
 2004-08-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/documentation-generate.scm (string-append): add version.
+
+	* scm/define-markup-commands.scm (box): add box-padding and
+	thickness props for the box command.
+ 
+	* Documentation/user/changing-defaults.itely (Text encoding):
+	elucidate use of \encoding for \header strings.
+
+	* lily/parser.yy (lyric_element): use \encoding for lyrics strings.
+
+	* lily/score.cc (LY_DEFINE): check if length of music > 0. Fixes:
+	staff-change.ly
+
 	* lily/output-def.cc (assign_context_def): use set_variable().
 
 	* lily/text-item.cc (interpret_string): accept string input
