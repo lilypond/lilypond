@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \header {
   title =       "Petite Ouverture à danser"
   subtitle =	"4"
