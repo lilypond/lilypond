@@ -179,7 +179,9 @@ bassdux = \notes \relative c' {
   \paper {
     gourlay_maxmeasures =5.;
 %    castingalgorithm = \Wordwrap;
-
+    % current default for 16pt -> three pages
+    % arithmetic_multiplier = 4.8\pt;
+    arithmetic_multiplier = 4.4\pt;
   }
 
   \midi {

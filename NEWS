@@ -1,3 +1,7 @@
+pl 18.jcn1
+	- stepmake update
+	- small fixes: spacing.ly, wtk1-fugue2-ly, violino-viola duet.
+
 pl 17.jbr2
         - Documentation/README-W32: Brought my stuff up to date
         - Documentation/ntweb: updated for realease

@@ -1,7 +1,7 @@
 \header{
 filename =	 "violino-viola.ly";
 title =	 	 "Vier Duette";
-description =	 "For duets for Violino and Violoncello (Viola)";
+description =	 "Four duets for Violino and Violoncello (Viola)";
 opus =           "BWV";
 composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";

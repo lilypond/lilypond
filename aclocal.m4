@@ -1,9 +1,5 @@
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -83,7 +79,9 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     LD='$(CC)'
     AC_SUBST(LD)
 
+    CFLAGS="$CFLAGS $OPTIMIZE"
     CPPFLAGS=${CPPFLAGS:-""}
+    AC_SUBST(CFLAGS)
     AC_SUBST(CPPFLAGS)
     AC_SUBST(LDFLAGS)
     AC_SUBST(ICFLAGS)
@@ -148,6 +146,7 @@ AC_DEFUN(AC_STEPMAKE_END, [
 
 AC_DEFUN(AC_STEPMAKE_GXX, [
     # ugh autoconf
+    # urg, egcs: how to check for egcs >= 1.1?
     changequote(<<, >>)dnl
     if $CXX --version | grep '2\.8' > /dev/null ||
 	$CXX --version | grep 'egcs' > /dev/null
@@ -155,7 +154,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     then
 	    true
     else
-	    AC_STEPMAKE_WARN(can\'t find g++ 2.8 or egcs)
+	    AC_STEPMAKE_WARN(can\'t find g++ 2.8 or egcs 1.1)
     fi
 ])
 
