@@ -1,3 +1,10 @@
+;;;
+;;; slur.scm -- Slur scheme stuff
+;;;
+;;; source file of the GNU LilyPond music typesetter
+;;; 
+;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;
 
 (define (attached-to-stem slur dir)
   (let* ((note-columns (ly-get-elt-property slur 'note-columns))

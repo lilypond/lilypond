@@ -711,15 +711,10 @@
       (if (< x 0) -1 1)))
 
 (define (gulp-file name)
-  (let* ((port (open-file name "r"))
-	 (content (let loop ((text ""))
-		       (let ((line (read-line port)))
-			    (if (or (eof-object? line)
-				    (not line)) 
-				text
-				(loop (string-append text line "\n")))))))
-	(close port)
-	content))
+  (let* ((file (open-input-file name))
+	 (text (read-delimited "" file)))
+    (close file)
+    text))
 
 ;; urg: Use when standalone, do:
 ;; (define ly-gulp-file scm-gulp-file)
@@ -762,7 +757,8 @@
 (begin
   (eval-string (ly-gulp-file "interface.scm"))
   (eval-string (ly-gulp-file "slur.scm"))
-  (eval-string (ly-gulp-file "font.scm"))  
+  (eval-string (ly-gulp-file "font.scm"))
+  (eval-string (ly-gulp-file "auto-beam.scm"))  
   (eval-string (ly-gulp-file "generic-property.scm"))
   (eval-string (ly-gulp-file "basic-properties.scm"))
   (eval-string (ly-gulp-file "chord-names.scm"))

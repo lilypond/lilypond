@@ -45,6 +45,9 @@ Options:
   -v,--version       show version
 "))
 
+;;
+;; FIXME: use (separate-fields-discarding-char) and (read-delimited "")
+;;
 (define (gulp-file name)
   (let ((port (if (equal? name "-")
 		  (current-input-port)
