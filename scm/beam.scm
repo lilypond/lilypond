@@ -1,14 +1,18 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;                  BEAMS
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
+;;;; beam.scm -- Beam scheme stuff
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c) 2000--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;
 
 (define (default-beam-space-function multiplicity)
   (if (<= multiplicity 3) 0.816 0.844)
   )
 
-;
-; width in staff space.
-;
+;;
+;; width in staff space.
+;;
 (define (default-beam-flag-width-function type)
   (cond
    ((eq? type 1) 1.98) 
@@ -17,8 +21,8 @@
    ))
 
 
-; This is a mess : global namespace pollution. We should wait
-;  till guile has proper toplevel environment support.
+;; This is a mess : global namespace pollution. We should wait
+;;  till guile has proper toplevel environment support.
 
 
 ;; Beams should be prevented to conflict with the stafflines, 
@@ -34,25 +38,11 @@
 
 ;; inter seems to be a modern quirk, we don't use that
 
-  
-;; Note: quanting period is take as quants.top () - quants[0], 
-;; which should be 1 (== 1 interline)
- (define (mean a b) (* 0.5 (+ a  b)))
-(define (default-beam-dy-quants beam stafflinethick)
-  (let ((thick (ly-get-grob-property beam 'thickness)))
-    ;; amazing.  this is wrong:
-    (list 0 (mean thick stafflinethick) (+ thick stafflinethick) 1)
-    ;; it should be this: but the visual effect is even uglier,
-    ;; because dy quants are not synchronised with left y
-    ;; (list 0 (/ (- thick stafflinethick) 2) (- thick stafflinethick) 1)
-    ))
-
 ;; two popular veritcal beam quantings
 ;; see params.ly: #'beam-vertical-quants
 
-; (todo: merge these 2 funcs ? )
 
-(define (default-beam-y-quants beam multiplicity dy staff-line)
+(define (default-beam-pos-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
 	 (thick (ly-get-grob-property beam 'thickness))
 	 (beam-sit (/ (- thick staff-line) 2))
@@ -64,10 +54,10 @@
 	(set! quants (cons beam-sit quants)))
     (if (or (<= multiplicity 2) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-straddle quants)))
-    ;; period: 1 (interline)
+    ;; period: 1 (staff-space)
     (append quants (list (+ 1 (car quants))))))
 
-(define (beam-traditional-y-quants beam multiplicity dy staff-line)
+(define (beam-traditional-pos-quants beam multiplicity dy staff-line)
   (let* ((beam-straddle 0)
 	(thick (ly-get-grob-property beam 'thickness))
 	(beam-sit (/ (- thick staff-line) 2))
@@ -80,7 +70,7 @@
 	(set! quants (cons beam-sit quants)))
     (if (or (<= multiplicity 2) (>= (abs dy) (/ staff-line 2)))
 	(set! quants (cons beam-straddle quants)))
-    ;; period: 1 (interline)
+    ;; period: 1 (staff-space)
     (append quants (list (+ 1 (car quants))))))
 
 

@@ -279,6 +279,7 @@ as a real penalty.")
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
+(grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")

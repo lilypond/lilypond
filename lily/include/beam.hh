@@ -28,28 +28,26 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (end_after_line_breaking, (SCM));
 
-  /*
-    y-dy callbacks
-   */
+  /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
   DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
-  DECLARE_SCHEME_CALLBACK (quantise_dy, (SCM));
-  DECLARE_SCHEME_CALLBACK (user_override, (SCM));
-  DECLARE_SCHEME_CALLBACK (do_quantise_y, (SCM));
+  DECLARE_SCHEME_CALLBACK (quantise_position, (SCM));
 
-  static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev, Real, Real);
+  static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev,
+			      Real dydx);
 
 private:
   static Direction get_default_dir (Grob*);
   static void set_stem_directions (Grob*);
   static void consider_auto_knees (Grob*);
   static void set_stem_shorten (Grob*);
-  static Real calc_stem_y_f (Grob*, Item* s, Real y, Real dy);
-  static Real check_stem_length_f (Grob*, Real y, Real dy);
+  static Real calc_stem_y_f (Grob*, Item* s, Interval pos);
+  static Real check_stem_length_f (Grob*, Interval pos);
   static void set_stem_lengths (Grob*);
-  static Real quantise_y_f (Grob*, Real y, Real dy, int quant_dir);
+  static Interval quantise_interval (Grob*, Interval pos, Direction quant_dir);
   static int forced_stem_count (Grob*);
 };
 
