@@ -245,6 +245,7 @@ public:
 class Absolute_dynamic_req  : public Dynamic_req  {
 public:
   Loudness loudness_;
+  virtual bool do_equal_b (Request*) const;
   String loudness_str () const;
   Absolute_dynamic_req();
   REQUESTMETHODS(Absolute_dynamic_req, absdynamic);
