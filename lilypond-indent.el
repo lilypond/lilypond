@@ -378,16 +378,20 @@ slur-paren-p defaults to nil.
 ;;; Largely taken from the 'blink-matching-open' in lisp/simple.el in
 ;;; the Emacs distribution.
 
-(defun LilyPond-blink-matching-open (bracket-type)
+(defun LilyPond-blink-matching-open (bracket-type char-before-bracket-type)
   "Move cursor momentarily to the beginning of the sexp before
-point. In lilypond files this is used for closing ), } and >, whereas the
-builtin 'blink-matching-open' is used for closing ],  which is in
-the syntax table"
+point. In lilypond files this is used for closing ), ], } and >, whereas the
+builtin 'blink-matching-open' is not used. In syntax table, see
+`lilypond-font-lock.el', all brackets are punctuation characters."
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
   (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
+    (if (eq char-before-bracket-type ?\\)
+	(if (eq bracket-type ?])
+            (message "trying to match ligatures \\[ ... \\]")
+          (message "trying to match slurs \\( ... \\)")))
     (save-restriction
       (if blink-matching-paren-distance
 	  (narrow-to-region (max (point-min)
@@ -455,17 +459,17 @@ the syntax table"
     ;; the result is now in backslashed-close-char, BUT
     ;; the result should also be used  -- match also \] or \) !
     ;; Thus, update: LilyPond-parens-regexp-alist, LilyPond-blink-matching-open
-    (setq backslashed-close-char nil)
+    (setq char-before-close-char nil)
     (if (memq close-char '(?] ?\)))
       (progn 
 	(setq np 0)
 	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
-	  (setq backslashed-close-char (not backslashed-close-char)))))
+	  (setq char-before-close-char (if char-before-close-char nil ?\\)))))
     (if (and blink-matching-paren
 	     (not (LilyPond-inside-string-or-comment-p))
 	     (save-excursion (re-search-backward 
 			      (concat (mapconcat 'cdr (mapcar 'cdr LilyPond-parens-regexp-alist) "\\|") "\\|)") nil t)
 			     (eq oldpos (1- (match-end 0)))))
 	(progn (backward-char 1)
-	       (LilyPond-blink-matching-open close-char)
+	       (LilyPond-blink-matching-open close-char char-before-close-char)
 	       (forward-char 1)))))
