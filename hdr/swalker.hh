@@ -30,6 +30,8 @@ struct Staff_walker : public PCursor<Staff_column*> {
     virtual void process_requests()=0;
     virtual void do_TYPESET_command(Command*)=0;
     virtual void do_INTERPRET_command(Command*)=0 ;
+private:
+    Staff_walker(Staff_walker const&);
 };
 /**
   manage run-time info when walking staffcolumns such as: key,
