@@ -139,11 +139,11 @@ Show the warranty with which LilyPond comes. (It comes with B<NO WARRANTY>!)
 
 Set the default output file to F<FILE>.
 
-=item 	B<-h,--help>,
+=item B<-h,--help>,
 
 Show a summary of usage
 
-=item 	B<-i,--init=>F<FILE>
+=item B<-i,--init=>F<FILE>
 
 set init file to F<FILE> (default: F<symbol.ini>)
 
@@ -177,18 +177,17 @@ GNU C++ v2.7 or better, with libg++ installed.  Version 2.7.2
 or better recommended. I doubt if it will compile with AT&T CC.
 
 =item *
+Bash. Most scripts will continue to work with a stock sh, but they
+will generate (harmless) syntax errors
+
+=item *
 GNU make.
 
 =item *
-Flex (2.5.1 or better)
+Flex (2.5.1 or better). 
 
 =item *
 Bison.
-
-=item *
-The "Flower" library, which should be available from the same
-source you got this from. The version of flower lib should match the
-one which is found in the F<configure> script.
 
 =item *
 Perl.  The Makefile uses Perl for trivial operations, and you
