@@ -81,35 +81,51 @@ Entry point for the parser.
 	 (cdr mods)))
        (else (interpret-removals  chord mods))
       ))
+    (define (pitch-octavated-below p root)
+      "return P, but octavated, so it is below  ROOT"
+      (ly:make-pitch
+       (+
+	(ly:pitch-octave root)
+	(if (>= (ly:pitch-notename root)
+		(ly:pitch-notename p))
+	    0 -1))
+       (ly:pitch-notename p)
+       (ly:pitch-alteration p)))
     
     (define (process-inversion complete-chord)
       "Take out inversion from COMPLETE-CHORD, and put it at the bottom.
 Return (INVERSION . REST-OF-CHORD).
 
 Side effect: put original pitch in INVERSION.
+If INVERSION is not in COMPLETE-CHORD, it will be set as a BASS, overriding
+the bass specified.  
+
 "
       (let*
 	  (
 	   (root (car complete-chord))
 	   (inv? (lambda (y)
-		   (= (ly:pitch-notename y)
-		      (ly:pitch-notename inversion))))
+		   (and (= (ly:pitch-notename y)
+			   (ly:pitch-notename inversion))
+			(= (ly:pitch-alteration y)
+			   (ly:pitch-alteration inversion))
+			)))
+		 
 	   (rest-of-chord (filter-out-list inv? complete-chord))
 	   (inversion-candidates (filter-list inv? complete-chord))
-	   (down-inversion (ly:make-pitch
-			    (+
-			     (ly:pitch-octave root)
-			     (if (>= (ly:pitch-notename root)
-				    (ly:pitch-notename inversion))
-				 0 -1))
-			   (ly:pitch-notename inversion)
-			   (ly:pitch-alteration inversion)))
+	   (down-inversion (pitch-octavated-below inversion root))
 	   )
 
 	(if (pair? inversion-candidates)
-	    (set! inversion (car inversion-candidates)))
-	
-	(cons down-inversion rest-of-chord)
+	    (set! inversion (car inversion-candidates))
+	    (begin
+	      (set! bass inversion)
+	      (set! inversion #f))
+	    )
+	(if inversion
+	    (cons down-inversion rest-of-chord)
+	    rest-of-chord
+	    )
       ))
 
     ;; root is always one octave too low.
@@ -125,7 +141,7 @@ Side effect: put original pitch in INVERSION.
 	  (write-me "base: " base-chord)
 	  (write-me "bass: " bass)))
 
-    ;; skip the leading : , we need some of the   stuff following it.
+    ;; skip the leading : , we need some of the stuff following it.
     (if (pair? flat-mods)
 	(if (eq? (car flat-mods)  'chord-colon)
 	    (set! flat-mods (cdr flat-mods))
@@ -182,11 +198,12 @@ Side effect: put original pitch in INVERSION.
 	)
 
     (if inversion
-	(begin
-	  (set! complete-chord (process-inversion complete-chord))
-	  (make-chord (cdr complete-chord) bass duration (car complete-chord)
-		      inversion
-		      ))
+	(set! complete-chord (process-inversion complete-chord)))
+    (if bass
+	(set! bass (pitch-octavated-below bass root)))
+    (if inversion
+	(make-chord (cdr complete-chord) bass duration (car complete-chord)
+		    inversion)
 	(make-chord complete-chord bass duration #f #f))
   ))
 
