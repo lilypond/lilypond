@@ -41,7 +41,9 @@ Simple_file_storage::Simple_file_storage(String s)
     data_p_ = new char[len_i_+1];
     data_p_[len_i_] = 0;
     ret = fread(data_p_, sizeof(char), len_i_, f);
+#ifndef __CYGWIN32__ // ugh, \r\n -> \n translation
     assert (ret==len_i_);
+#endif
     fclose(f);
 }
 

@@ -194,7 +194,7 @@ Mudela_score::quantify_columns()
   for  (int i = 0; i < column_l_array_.size(); i++) 
     {
       column_l_array_ [i]->at_mom_ =
-      	s * (int) ( (column_l_array_ [i]->at_mom()) / s);
+      	s * Moment((int) ((column_l_array_ [i]->at_mom()) / s));
 
       int bar_i = (int) (column_l_array_ [i]->at_mom () / bar_mom) + 1;
       if (bar_i > current_bar_i) 
