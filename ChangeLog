@@ -1,3 +1,7 @@
+2002-09-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin: Cygwin updates.
+
 2002-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/windows/installing.texi (Top): version for python,

@@ -1,3 +1,15 @@
+lilypond (1.6.3-1) stable; urgency=low
+
+  * New upstream release.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Thu, 19 Sep 2002 11:35:34 +0200
+
+lilypond (1.6.0-1) stable; urgency=low
+
+  * New upstream release.
+
+ -- Jan Nieuwenhuizen <janneke@gnu.org>  Mon, 19 Aug 2002 16:03:02 +0200
+
 lilypond (1.5.73-1) unstable; urgency=low
 
   * New upstream release.

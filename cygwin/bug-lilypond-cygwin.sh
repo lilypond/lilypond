@@ -41,6 +41,7 @@ type -p lilypond.exe
 type -p python.exe
 
 lilypond --version
+python -V
 ly2dvi --version
 
 
