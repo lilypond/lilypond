@@ -128,7 +128,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Real dy = heads.length() + sp;
   Real x = 0.7;
 
-  Molecule mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x));
+  Molecule mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
   mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
   return mol.smobbed_copy();
 }

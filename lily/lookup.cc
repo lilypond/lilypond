@@ -154,7 +154,7 @@ Lookup::blank (Box b)
 }
 
 Molecule
-Lookup::filledbox (Box b) 
+Lookup::filled_box (Box b) 
 {
   SCM  at  = (scm_list_n (ly_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
@@ -353,8 +353,14 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
   return polygon;
 }
 
+
+/*
+  TODO: deprecate?
+
+  should use rounded corners.
+ */
 Molecule
-Lookup::frame (Box b, Real thick)
+Lookup::frame (Box b, Real thick, Real blot)
 {
   Molecule m;
   Direction d = LEFT;
@@ -368,12 +374,11 @@ Lookup::frame (Box b, Real thick)
 	  edges[o][DOWN] = b[o][DOWN] - thick/2;
 	  edges[o][UP] = b[o][UP] + thick/2;	  
 	  
-	  m.add_molecule (filledbox (edges));
+	  m.add_molecule (round_filled_box (edges, blot));
 	}
       while (flip (&d) != LEFT);
     }
   return m;
-  
 }
 
 /*
@@ -723,23 +728,24 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   return Molecule (b, slashnodot); //  http://slashnodot.org
 }
 
+
 Molecule
-Lookup::bracket (Axis a, Interval iv, Real thick, Real protude)
+Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 {
   Box b;
   Axis other = Axis((a+1)%2);
   b[a] = iv;
   b[other] = Interval(-1, 1) * thick * 0.5;
   
-  Molecule m =  filledbox (b);
+  Molecule m =  round_filled_box (b, blot);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
   Interval oi = Interval (-thick/2, thick/2 + fabs (protude)) ;
   oi *=  sign (protude);
   b[other] = oi;
-  m.add_molecule (filledbox (b));
+  m.add_molecule (round_filled_box (b, blot));
   b[a] = Interval (iv[DOWN], iv[DOWN]  +thick);
-  m.add_molecule (filledbox(b));
+  m.add_molecule (round_filled_box (b,blot));
 
   return m;
 }
@@ -778,7 +784,8 @@ LY_DEFINE(ly_bracket ,"ly:bracket",
 
   return Lookup::bracket ((Axis)gh_scm2int (a), ly_scm2interval (iv),
 			  gh_scm2double (t),
-			  gh_scm2double (p)).smobbed_copy ();
+			  gh_scm2double (p),
+			  gh_scm2double (t)).smobbed_copy ();
 }
 
 

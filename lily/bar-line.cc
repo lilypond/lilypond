@@ -130,9 +130,10 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
 }
 
 Molecule
-Bar_line::simple_barline (Grob*,Real w, Real h) 
+Bar_line::simple_barline (Grob *me,Real w, Real h) 
 {
-  return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
+  Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+  return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)), blot);
 }
 
 MAKE_SCHEME_CALLBACK (Bar_line,before_line_breaking ,1);

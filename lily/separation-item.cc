@@ -128,6 +128,41 @@ Separation_item::width (Grob *me)
 }
 
 
+/*
+  Try to find the break-aligned symbol in SEPARATION_ITEM that is
+  sticking out at direction D. The x size is put in LAST_EXT
+*/
+Grob*
+Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d,
+					    Interval * last_ext)
+{
+  Grob *col = dynamic_cast<Item*> (separation_item)->get_column ();
+  last_ext->set_empty ();
+  Grob *last_grob = 0;
+  for (SCM s = separation_item->get_grob_property ("elements");
+       gh_pair_p (s); s = gh_cdr (s))
+    {
+      Grob * break_item = unsmob_grob (gh_car (s));
+      
+      if (!gh_symbol_p (break_item->get_grob_property ("break-align-symbol")))
+	continue;
+
+      Interval ext = break_item->extent (col, X_AXIS);
+
+      if (ext.is_empty ())
+	continue;
+      if (!last_grob
+	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0) )
+	{
+	  *last_ext = ext;
+	  last_grob = break_item; 
+	}
+    }
+
+  return last_grob;  
+}
+
+
 
 
 

@@ -3,7 +3,7 @@
 
 \include "deutsch.ly"
 
-\include "paper19.ly"
+\include "paper16.ly"
 \version "2.1.1"
 
 \header {

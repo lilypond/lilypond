@@ -19,17 +19,17 @@
 struct Lookup
 {
   static Molecule dot (Offset p, Real radius);
-  static Molecule bracket (Axis a, Interval iv, Real thick, Real protude);
+  static Molecule bracket (Axis a, Interval iv, Real thick, Real protude, Real blot);
   static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
   static Molecule round_filled_polygon (Array<Offset> points, Real blotdiameter);
-  static Molecule frame (Box b, Real thick);
+  static Molecule frame (Box b, Real thick, Real blot);
   static Molecule slur (Bezier controls, Real cthick, Real thick);
   static Molecule bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
   static Molecule horizontal_slope (Real width, Real slope, Real height);
   static Molecule beam (Real slope, Real width, Real thick);
   static Molecule dashed_slur (Bezier, Real thick, Real dash);
   static Molecule blank (Box b);
-  static Molecule filledbox (Box b);
+  static Molecule filled_box (Box b);
   static Molecule round_filled_box (Box b, Real blotdiameter);
   static Molecule repeat_slash (Real w, Real slope, Real th);
   static Molecule line (Real th, Offset from, Offset to);

@@ -42,7 +42,7 @@ Measure_grouping::brew_molecule (SCM grob)
   Molecule m; 
   if (which == ly_symbol2scm ("bracket"))
     {
-      m = Lookup::bracket (X_AXIS, iv, t,-gh_scm2double (height));
+      m = Lookup::bracket (X_AXIS, iv, t,-gh_scm2double (height), t);
     }
   else if (which == ly_symbol2scm ("triangle"))
     {

@@ -191,13 +191,17 @@ enddef;
 save bulb_diam, thin, thick;
 
 bulb_diam# := 0.64 staff_space#;
-thin# := 1.2 stafflinethickness#;
+thin# := 1.4 stafflinethickness# - 0.02 staff_space#;
 thick# :=  2.2 stafflinethickness#;
 crook_thin := 0.5 stafflinethickness  + 0.08 staff_space;
 
 lower_brush := 1.5 stafflinethickness;
 
 define_pixels ( bulb_diam, thin, thick);
+
+%
+% PAT is a compact way to pass the brush shape to the routine.
+%
 
 def draw_rest_bulb(expr ycenter, ycut, pat, stretch) =
 begingroup;
@@ -264,7 +268,7 @@ def draw_eighth_rest =
 	fill pat;
 	
 
-	draw_rest_bulb(0.5 staff_space , y2r , pat , 1.0);
+	draw_rest_bulb (0.5 staff_space , y2r , pat , 1.0);
 	penlabels (1, 2);
 	labels(9);
 

@@ -944,7 +944,7 @@ Stem::calc_stem_info (Grob *me)
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
- Real minimum_y = note_start + minimum_length;
+  Real minimum_y = note_start + minimum_length;
   
   
   ideal_y *= my_dir;

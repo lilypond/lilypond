@@ -60,10 +60,9 @@ Hyphen_engraver::acknowledge_grob (Grob_info i)
     {
       current_lyric_ = i.grob_;
       if (hyphen_
-	  && !hyphen_->get_bound (RIGHT)
-	    )
+	  && !hyphen_->get_bound (RIGHT))
 	  {
-	    Hyphen_spanner (hyphen_).set_textitem (RIGHT, i.grob_);
+	    hyphen_->set_bound (RIGHT, i.grob_);
 	  }
     }
 }
@@ -102,7 +101,7 @@ Hyphen_engraver::process_acknowledged_grobs ()
       
       hyphen_ = new Spanner (get_property ("LyricHyphen"));
 
-      Hyphen_spanner (hyphen_).set_textitem (LEFT, last_lyric_);
+      hyphen_->set_bound (LEFT, last_lyric_);
       announce_grob(hyphen_, req_->self_scm());
     }
 }

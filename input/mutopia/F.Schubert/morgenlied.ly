@@ -44,7 +44,7 @@ modernAccidentals = {
 melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
     \time 6/8
     \autoBeamOff
-    s1*0^\markup { \bold \bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
+    s1*0^\markup { \bold \large\bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
   e4 c8 << { f8. g16 } \\ { f8.[ g16] } >> a8 |
@@ -60,7 +60,9 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
   e4 g8 d4 g8 e4 r8 b'16[ c d b] g[ f] |
   e4 g8 d4 a'16[ g] |
   c,4 r8 r4 r8 |
-  R2.\fermata 
+
+    % TODO : make \fermata work. 
+  R2.^\fermataMarkup 
 }
 
 
@@ -145,7 +147,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     \paper {
 	\translator {
 	    \LyricsVoiceContext
-	    minimumVerticalExtent = ##f
+	    minimumVerticalExtent = #'(-1.0 . 0)
 	    LyricText \set #'font-size = #1.0
 	}
 	\translator {

@@ -46,7 +46,7 @@
 		       (key-signature . (extra-space . 0.0))
 		       (staff-bar . (extra-space . 0.0))
 		       (time-signature . (extra-space . 0.0)) 
-		       (first-note . (extra-space . 0.0))
+		       (first-note . (fixed-space . 0.0))
 		       ))
        (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface break-aligned-interface item-interface  font-interface))))
        ))
@@ -78,7 +78,8 @@
 			(custos . (minimum-space . 2.0))
 			(clef .   (minimum-space . 1.0))
 			(key-signature . (extra-space . 1.0))
-			(first-note . (extra-space . 1.3))
+			(first-note . (fixed-space . 1.3))
+			(next-note . (semi-fixed-space . 1.3))
 			(right-edge . (extra-space . 0.0))
 			))
 
@@ -176,7 +177,7 @@
 	(auto-knee-gap . 5.5)
 
 	;; only for debugging.
-;	(font-name . "cmr10")
+	(font-name . "cmr10")
 	
 	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface spanner-interface))))
@@ -209,7 +210,7 @@
 			(key-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
-			(first-note . (minimum-space . 1.0))
+			(first-note . (fixed-space . 1.0)) ;huh? 
 			(right-edge . (extra-space . 0.1))
 			))
 	(molecule-callback . ,Text_item::brew_molecule)
@@ -231,7 +232,7 @@
 			(staff-bar . (extra-space . 0.7))
 			(key-signature . (minimum-space . 4.0))
 			(time-signature . (minimum-space . 4.2))
-			(first-note . (minimum-space . 5.0))
+			(first-note . (minimum-fixed-space . 5.0))
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			))
@@ -277,7 +278,7 @@
 	(adjust-if-on-staffline . #t)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(space-alist . (
-			(first-note . (minimum-space . 0.0))
+			(first-note . (minimum-fixed-space . 0.0))
 			(right-edge . (extra-space . 0.1))
 			))
 	(meta . ((interfaces
@@ -358,7 +359,7 @@
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space  . 0.0))
 			(clef . (extra-space . 0.85))
-			(first-note . (extra-space . 1.0))
+			(first-note . (fixed-space . 1.0))
 			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
 			))
@@ -442,7 +443,7 @@
 			(time-signature . (extra-space . 1.25))
 			(staff-bar .  (extra-space . 1.1))
 			(right-edge . (extra-space . 0.5))
-			(first-note . (extra-space . 2.5))
+			(first-note . (fixed-space . 2.5))
 			))
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(break-align-symbol . key-signature)
@@ -469,10 +470,11 @@
     (LyricHyphen
      . (
 	(thickness . 1.0)
-	(height . 0.4)
+	(height . 0.42)
+	(dash-period . 10.0)
+	(length . 0.66)
 	(minimum-length .  0.5) 
 	(maximum-length .  100)
-	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-hyphen-interface spanner-interface))))
@@ -847,7 +849,7 @@
      . ((molecule-callback . ,Text_item::brew_molecule)		
 	(font-family . roman)
 	(font-series . bold)
-	(padding . 1.5)
+	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . ,LEFT) 
 	(meta . ((interfaces . (side-position-interface text-interface font-interface item-interface ))))		
@@ -924,24 +926,18 @@
 
 	;; default stem direction for note on middle line
 	(neutral-direction . -1)
-	
-	;; [Wanske]: standard length (but no shorter than minimum).
-	;; (beamed-lengths . (3.5))
-	
+
+
+
 	;; FIXME.  3.5 yields too long beams (according to Ross and
 	;; looking at Baerenreiter examples) for a number of common
 	;; boundary cases.  Subtracting half a beam thickness fixes
 	;; this, but the bug may well be somewhere else.
-	(beamed-lengths . (3.26 3.26 1.5))
-	
-	;; [Wanske] lists three sets of minimum lengths.  One
-	;; set for the nomal case, and one set for beams with "der
-	;; Balkenendpunkt weiter uber bzw. unter die Systemgrenze
-	;; hinaus (bei Gruppen mit grossem Tonumfang)" and the extreme
-	;; case.
 
-	;; Note that Wanske lists numbers lengths starting from top of
-	;; head, so we must add half a staff space.
+	;; FIXME this should come from 'lengths
+
+	(beamed-lengths . (3.26 3.26 1.5))
+;	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
 	
 	;; We use the normal minima as minimum for the ideal lengths,
 	;; and the extreme minima as abolute minimum length.
@@ -1135,7 +1131,7 @@
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
-			(first-note . (extra-space . 2.0))
+			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
 			(staff-bar .  (minimum-space . 2.0))
 			))
