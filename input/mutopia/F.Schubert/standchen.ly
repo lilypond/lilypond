@@ -44,7 +44,7 @@ instrument = "Piano"
 
 \version "2.1.22"
 
-dynamicUp = \override DynamicLineSpanner   #'direction = #1
+dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
 
 #(set-global-staff-size 16)
@@ -66,13 +66,21 @@ vocalVerse = \notes\relative c''{
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
 	\grace {
+<<<<<<< standchen.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.31
     as'32[( bes ] 
   \revert Stem #'stroke-style }
  \times 2/3 {  as8[)(  g)] as } c4. as8 |
 	g2. |
 	\grace {
+<<<<<<< standchen.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.31
     f32[( g ] 
   \revert Stem #'stroke-style }
  \times 2/3 {  f8[)(  e)] f } as4. f8 |
@@ -81,7 +89,11 @@ vocalVerse = \notes\relative c''{
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
  	\grace {
+<<<<<<< standchen.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.31
     a'32[( b ] 
   \revert Stem #'stroke-style }
  \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
@@ -101,7 +113,11 @@ vocalThrough = \notes\relative c{
 	R2. |
 	R2. |
 	\grace {
+<<<<<<< standchen.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.31
     a32[( b ] 
   \revert Stem #'stroke-style }
  \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
@@ -193,9 +209,17 @@ trebleVerseOne = \notes\relative c{
 	r8\pp <es as c> <as c es> <es as c> <as c es> <es as c> |
 	%20
 	r8 <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> |
+<<<<<<< standchen.ly
+	\override Slur  #'attachment = #'(stem . stem)
+=======
 	\override Slur   #'attachment = #'(stem . stem)
+>>>>>>> 1.31
 	\grace {
+<<<<<<< standchen.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.31
     as'32[( bes ] 
   \revert Stem #'stroke-style }
 
@@ -256,7 +280,11 @@ trebleThrough = \notes \relative c'{
 	<a a'>4.-> <f f'>8)
 	<e e'>2. |
 	<es! es'! >2. |
+<<<<<<< standchen.ly
+	\override TextScript  #'font-shape = #'italic
+=======
 	\override TextScript   #'font-shape = #'italic
+>>>>>>> 1.31
 	<d d'>2._"decresc."
 	\revert TextScript #'font-shape
 
@@ -270,7 +298,11 @@ trebleThrough = \notes \relative c'{
 	<f g>4. <b, g'>8(-. <d g>-. <f g>)-. |
 	%80
 
+<<<<<<< standchen.ly
+	\override TextScript  #'font-shape = #'italic
+=======
 	\override TextScript   #'font-shape = #'italic
+>>>>>>> 1.31
 	<e g>2._"dim."
 	\revert TextScript #'font-shape
 
@@ -403,11 +435,20 @@ vocals = \context Voice = leise \notes {
 	R1 * 3/4 * 6
 }
 
+<<<<<<< standchen.ly
+trebleStaff =  \context Staff = treble<< 
+        \set Staff.midiInstrument =  "acoustic grand"
+=======
 trebleStaff = \context Staff = treble<< 
         \set Staff.midiInstrument = "acoustic grand"
+>>>>>>> 1.31
 	\global
 	{\clef treble
+<<<<<<< standchen.ly
+	\override autoBeamSettings  #'(begin * * * *) = #(ly:make-moment 0 1)
+=======
 	\override autoBeamSettings   #'(begin * * * *) = #(ly:make-moment 0 1)
+>>>>>>> 1.31
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje
@@ -415,8 +456,13 @@ trebleStaff = \context Staff = treble<<
 	\trebleThrough }
 >>
 
+<<<<<<< standchen.ly
+bassStaff =  \context Staff = bass<<
+        \set Staff.midiInstrument =  "acoustic grand"
+=======
 bassStaff = \context Staff = bass<<
         \set Staff.midiInstrument = "acoustic grand"
+>>>>>>> 1.31
 	\global
 	\clef bass
 	{\bassIntro 
@@ -430,7 +476,11 @@ bassStaff = \context Staff = bass<<
 \score{
     <<
 	\new Staff <<
+<<<<<<< standchen.ly
+	    \set Staff.midiInstrument =  "synth voice"
+=======
 	    \set Staff.midiInstrument = "synth voice"
+>>>>>>> 1.31
 	    %% insert \transpose if necessary, depending on voice range.
 	    \global
 	    \vocals

@@ -105,7 +105,7 @@ dux = \context Voice=two \notes \relative c''{
 
 comes = \context Voice=one \notes \relative c'' {
   \voiceOne
-  \override MultiMeasureRest   #'staff-position = #6 
+  \override MultiMeasureRest  #'staff-position = #6 
   R1 |
   R1 |
   r8 g'16 fis g8 c, es g16 fis g8 a |
@@ -192,7 +192,11 @@ bassdux = \context Voice=three \notes \relative c' {
 \score {
  
     \notes \context PianoStaff << 
+<<<<<<< wtk1-fugue2.ly
+        \override Score.TimeSignature  #'style = #'C
+=======
         \override Score.TimeSignature   #'style = #'C
+>>>>>>> 1.15
 	\context Staff = treble <<
 	    \key c \minor
 	    \dux

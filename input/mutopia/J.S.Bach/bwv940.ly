@@ -95,7 +95,7 @@ three = \notes\relative c{
 	\stemDown	\tieDown
 
 	e4 ~ e16 f e d  cis a b cis  d e f d |
-	\override TextScript   #'font-style = #'finger
+	\override TextScript  #'font-style = #'finger
 	bes2 a ~ |
 	a a |
 	d, cis' |
@@ -110,13 +110,17 @@ four = \notes\relative c{
 	\skip 1*2 |
 	\skip 4*3
 	\change Staff=upper \stemUp
-	\override NoteColumn   #'horizontal-shift = #1
+	\override NoteColumn #'horizontal-shift = #1
 	c''4 |
 	%5
 	a gis ~ gis16 gis fis e 
 	\skip 4*1
 	\change Staff=lower \stemDown
+<<<<<<< bwv940.ly
+	\override NoteColumn  #'horizontal-shift = #0
+=======
 	\override NoteColumn   #'horizontal-shift = #0
+>>>>>>> 1.7
 	\stemUp\tieUp
 	b2 a |
 	g a4. gis16 a |

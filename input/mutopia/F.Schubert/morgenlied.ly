@@ -39,9 +39,9 @@ manuscriptBreak = { \break }
     }
 
 modernAccidentals = {
-  \set Staff.extraNatural = ##f
-  \set Staff.autoAccidentals = #'(Staff (same-octave . 1) (any-octave . 0))
-  \set Staff.autoCautionaries = #'()  
+  \set Staff.extraNatural =  ##f
+  \set Staff.autoAccidentals =  #'(Staff (same-octave . 1) (any-octave . 0))
+  \set Staff.autoCautionaries =  #'()  
 }
 
 
@@ -73,12 +73,21 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
 }
 
 
+<<<<<<< morgenlied.ly
+ignoreMelisma =	\set ignoreMelismata =  ##t
+ignoreMelismaOff = \unset ignoreMelismata 
+=======
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
+>>>>>>> 1.20
 
 
 firstVerse = \lyrics {
+<<<<<<< morgenlied.ly
+    \set stanza =  "1."
+=======
     \set stanza = "1."
+>>>>>>> 1.20
     
     Sü -- ßes Licht! Aus
     \ignoreMelisma
@@ -93,7 +102,11 @@ firstVerse = \lyrics {
     }
 
 secondVerse = \lyrics {
+<<<<<<< morgenlied.ly
+    \set stanza =  "2."
+=======
     \set stanza = "2."
+>>>>>>> 1.20
     Ach, der Lie -- be sanf
     -- tes We -- hen schwellt mir |
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 
@@ -106,7 +119,11 @@ pianoRH = \notes \relative c''' \repeat volta 2 {
     g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
     r8 c'( e,) f r a |
+<<<<<<< morgenlied.ly
+    \once \override DynamicLineSpanner  #'padding =#3
+=======
     \once \override DynamicLineSpanner   #'padding =#3
+>>>>>>> 1.20
     r8_\> << { s8 s8-\! }  << { fis( g)
 			    } \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
@@ -136,7 +153,11 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     fis r4 <g b>8( |
     <f c'>4.)
 
+<<<<<<< morgenlied.ly
+    \once \override Slur  #'height-limit = #1.0
+=======
     \once \override Slur   #'height-limit = #1.0
+>>>>>>> 1.20
 
     <g c>4.( | <a c>4.) <g b,> |
     c,4 r8 g4 r8 |
@@ -155,7 +176,11 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	 \lyricsto "singer" \new Lyrics \firstVerse
 	 \lyricsto "singer" \new Lyrics \secondVerse
      \new PianoStaff << 
+<<<<<<< morgenlied.ly
+	 \set PianoStaff.instrument =  \markup {
+=======
 	 \set PianoStaff.instrument = \markup {
+>>>>>>> 1.20
 	     \bold
 	     \bigger\bigger\bigger\bigger \huge "2.  " }
 	 \new Staff \pianoRH

@@ -27,7 +27,7 @@ allegro =
 	c4.(  d16[ e]  f4  e)
 	a,( d g, c)
 	d-. d-. \grace {
-  \override Stem   #'stroke-style = #"grace"
+  \override Stem  #'stroke-style = #"grace"
    e16( 
   \revert Stem #'stroke-style }
  d8.[) c16 d8. e16]
@@ -45,7 +45,7 @@ allegro =
 	 b[( a)] a4 r8  a[ a a]
 	a4( cis e  g)
 	\grace {
-  \override Stem   #'stroke-style = #"grace"
+  \override Stem  #'stroke-style = #"grace"
    \longgrace g16( \endlonggrace 
   \revert Stem #'stroke-style }
 
@@ -68,7 +68,11 @@ allegro =
 
 	<< a1(\trill
 	  { s2 \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
     g16[ a] 
   \revert Stem #'stroke-style }
  } >>
@@ -111,7 +115,11 @@ allegro =
 	a, ( d g,  c)
 	d d 
 	    \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
    e8( 
   \revert Stem #'stroke-style }
 
@@ -125,12 +133,20 @@ allegro =
 	 c[( b)] b4 r2
 	c2 (bes  a)  a8[(b c  cis)]
 	d2( ~  d8[ e16 d] \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
    \longgrace d16( \endlonggrace 
   \revert Stem #'stroke-style }
  c8[) b16  c)]
 	\grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
    \longgrace c16 \endlonggrace 
   \revert Stem #'stroke-style }
  b8[( a16  g)] g4 r2 |
@@ -153,14 +169,22 @@ allegro =
 	
 	f4. ( d8)  f8[ ( d) f d]
 	 c[ (e]  g2) \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
    \longgrace f16(  \endlonggrace 
   \revert Stem #'stroke-style }
   e8[)( d16  c)]
 
 	<< d1\trill (
 	  { s2 \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
     c16[ d] 
   \revert Stem #'stroke-style }
  } >>
@@ -178,7 +202,11 @@ allegro =
 
 	<< d1(\trill
 	  { s2 \grace {
+<<<<<<< mozart-hrn3-allegro.ly
+  \override Stem  #'stroke-style = #"grace"
+=======
   \override Stem   #'stroke-style = #"grace"
+>>>>>>> 1.16
     c16[ d] 
   \revert Stem #'stroke-style }
  }  >>
