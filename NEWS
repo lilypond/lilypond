@@ -1,3 +1,10 @@
+pl 23.mb1
+	- bf: Position and possible SIGSEGV in Mark_engraver
+	- Added padding support in G_staff_side_item
+	- bf: Correct direction of textual scripts. 
+	- bf, lookup.cc: Fewer warnings about missing text styles. 
+	     Same units used in all .afm files.
+
 pl 22.jcn4
 	- bf's: repeat-engraver; \bar "|:", ":|" now deprecated for repeats
 	- bf: :|, |:

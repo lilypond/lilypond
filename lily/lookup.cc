@@ -101,8 +101,8 @@ Lookup::afm_find (String s, bool warn) const
     return a;
   
   a.dim_ = m.B_;
-  a.dim_[X_AXIS] *= 1 / 1000.0;
-  a.dim_[Y_AXIS] *= 1 / 1000.0;
+  //  a.dim_[X_AXIS] *= 1 / 1000.0;
+  //  a.dim_[Y_AXIS] *= 1 / 1000.0;
 
   
   a.lambda_ = gh_list (ly_symbol ("char"),
@@ -340,6 +340,10 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {"finger", "feta-nummer"},
   {"italic", "cmti"},
   {"roman", "cmr"},
+  {"large", "cmbx"},
+  {"Large", "cmbx"},
+  {"mark", "feta-nummer"},
+  {"nummer", "feta-nummer"},
   {0,0}
 };
 

@@ -20,6 +20,9 @@ two = \notes\relative c{
 \score{
 	< \global \one \two >
 	\paper {
-		\translator { \OrchestralPartStaffContext }
+		\translator { \OrchestralPartStaffContext 
+		        markScriptPadding = "4.0";
+%			markDirection = \down;
+		}
 	}
 }

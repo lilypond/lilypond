@@ -23,6 +23,7 @@ public:
   Score_element * to_position_l_;
   Direction dir_;
   Link_array<Score_element> support_l_arr_;
+  Real padding_f_;
   
   G_staff_side_item ();
   void set_victim (Score_element*);

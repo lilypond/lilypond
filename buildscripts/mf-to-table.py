@@ -112,7 +112,7 @@ class Indentable_file(File):
 
 class Afm_file (File):
     def print_f_dimen(self, f):
-	f = f * 1000
+	f = f 
     
 	dimstr = '%.2f' % f
 

@@ -973,9 +973,9 @@ files like file(init.fly) that read the user file into the middle of another
 file.  Using it in a user file will lead to an infinite loop.
         
 dit(code(\mark) var(unsigned)code(;) or code(\mark) var(string)code(;)) 
-Allowed in music only.  Prints a mark over or under (?) the staff.
-You must add code(Mark_engraver) to the Score context and it only
-seems to work if the mark appears at the beginning of a line.
+Allowed in music only.  Prints a mark over or under (depending on the
+code(markDirection) property) the staff.
+You must add code(Mark_engraver) to the Score context.
 
 dit(code(\midi) var(statementlist)) Appears in a score block to
 indicate that musical output should be produced and to set output
@@ -1300,6 +1300,13 @@ labelled.  Setting to 0 shows nothing; setting to 1 shows a number;
 setting to 2 shows a number and a bracket if there is no beam; setting
 to 3 shows a number, and if there is no beam it adds a bracket;
 setting to 4 shows both a number and a bracket unconditionally.  
+
+dit(code(markScriptPadding)) Determines the extra space added between
+the mark and the closest staff line or note.
+
+dit(code(markDirection)) Determines if marks should be printed above
+or below the staff. Set to code(\up) to print marks above the staff;
+set to code(\down) to print marks below the staff.
 
 )
 

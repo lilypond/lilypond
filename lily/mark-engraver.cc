@@ -18,6 +18,8 @@
 #include "g-staff-side.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
+#include "align-element.hh"
+#include "vertical-group-element.hh"
 
 ADD_THIS_TRANSLATOR (Mark_engraver);
 
@@ -55,7 +57,7 @@ Mark_engraver::do_process_requests ()
   text_p_->style_str_ = text_p_->text_str_.index_any_i ("0123456789") >= 0 
     ? "mark" : "Large";
 
-  Scalar prop = get_property ("markdir", 0);
+  Scalar prop = get_property ("markDirection", 0);
   if (prop.isnum_b ())
     {
       staff_side_p_->dir_ = (Direction) (int) prop;
@@ -67,11 +69,11 @@ Mark_engraver::do_process_requests ()
 
   staff_side_p_->set_victim(text_p_);
   
-  //  Scalar padding = get_property ("markScriptPadding", 0);
-  //  if (padding.length_i() && padding.isnum_b ())
-  //    {
-  //      script_p_->padding_f_ = Real(padding);
-  //    }
+  Scalar padding = get_property ("markScriptPadding", 0);
+  if (padding.length_i() && padding.isnum_b ())
+    {
+      staff_side_p_->padding_f_ = Real(padding);
+    }
   //  Scalar break_priority = get_property ("markBreakPriority", 0);
   //  if (break_priority.length_i() && break_priority.isnum_b ())
   //    {
@@ -89,7 +91,10 @@ Mark_engraver::do_pre_move_processing ()
   if (staff_side_p_) 
     {
       Staff_symbol* s_l = get_staff_info().staff_sym_l_;
-      staff_side_p_->add_support (s_l);
+      if (s_l != 0)
+	{
+	  staff_side_p_->add_support (s_l);
+	}
       typeset_element (text_p_);
       typeset_element (staff_side_p_);
       text_p_ = 0;
@@ -104,6 +109,8 @@ Mark_engraver::acknowledge_element (Score_element_info i)
   if (staff_side_p_) 
     {
       if (dynamic_cast<Stem *> (i.elem_l_) ||
+	  //	  dynamic_cast<Align_element *> (i.elem_l_) ||
+	  dynamic_cast<Vertical_group_element *> (i.elem_l_) ||
 	  dynamic_cast<Rhythmic_head *> (i.elem_l_))
 	{
 	  staff_side_p_->add_support (i.elem_l_);

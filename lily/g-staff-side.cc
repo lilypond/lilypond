@@ -27,6 +27,7 @@ G_staff_side_item::G_staff_side_item ()
   dir_ = CENTER;
   to_position_l_ = 0;
   transparent_b_ = true;
+  padding_f_ = 0;
 }
 
 void
@@ -71,11 +72,9 @@ G_staff_side_item::do_post_processing ()
       Real coord = e->relative_coordinate (common, Y_AXIS);
       dim.unite (coord + e->extent (Y_AXIS));
     }
-  if (!support_l_arr_.size ())
-    dim = Interval (0,0);
 
   Interval sym_dim = to_position_l_->extent (Y_AXIS);
-  Real off = dim_cache_[Y_AXIS].relative_coordinate (common);
+  Real off = dim_cache_[Y_AXIS].relative_coordinate (common) - padding_f_ * dir_;
   
   dim_cache_[Y_AXIS].set_offset (dim[dir_] - sym_dim[-dir_] - off);
 }
