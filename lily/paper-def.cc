@@ -51,7 +51,6 @@ Paper_def::Paper_def()
     itrans_p_ = 0;
     lookup_p_ = 0;
     real_vars_p_ = new Assoc<String,Real>;
-    outfile_str_ = "lelie.tex";
 }
 
 Paper_def::~Paper_def()
