@@ -36,7 +36,7 @@ the-script-dir=$(wildcard $(script-dir))
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND = $(builddir)/lily/$(outconfbase)/lilypond
-LILYPOND_BOOK = $(script-dir)/hw-lilypond-book.py
+LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(builddir)/mf/$(outconfbase)/  -I $(builddir)/mf/out/
 
 #texi-html for www only:

@@ -118,7 +118,7 @@ PAPER = 'paper'
 PREAMBLE = 'preamble'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
-
+PRINTFILENAME = 'printfilename'
 
 # Recognize special sequences in the input 
 #
@@ -206,8 +206,10 @@ ly_options = {
 output = {
 	HTML : {
 	AFTER: '',
+	PRINTFILENAME:'<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
 	BEFORE: '',
-	OUTPUT: r'''<img align="center" valign="center"
+	OUTPUT: r'''
+<img align="center" valign="center"
 border="0" src="%(base)s.png" alt="[picture of music]">''',
 	VERBATIM: r'''<pre>
 %(verb)s</pre>''',
@@ -215,6 +217,9 @@ border="0" src="%(base)s.png" alt="[picture of music]">''',
 	
 	LATEX :	{
 	AFTER: '',
+	PRINTFILENAME: '''\\texttt{%(filename)s}
+
+	''',
 	BEFORE: '',
 	OUTPUT: r'''{\parindent 0pt
 \catcode`\@=12
@@ -317,7 +322,7 @@ def compose_ly (code, option_string):
 			preamble_options.append (ly_options[PREAMBLE][key])
 		elif key in ly_options[PAPER].keys ():
 			paper_options.append (ly_options[PAPER][key])
-		elif key not in ('fragment', 'nofragment',
+		elif key not in ('fragment', 'nofragment', 'printfilename',
 				 'relative', 'verbatim'):
 			ly.warning (_("ignoring unknown ly option: %s") % i)
 
@@ -364,26 +369,21 @@ def split_options (option_string):
 	return re.split (format_res[format]['option-sep'], option_string)
 
 
-## make index static of Snippet?
-index = 0
-
 class Snippet:
-	## huh? index is redundant? --hwn
-	def __init__ (self, type, source, index, match):
+	def __init__ (self, type, source, match):
 		self.type = type
 		self.source = source
-		self.index = index
 		self.match = match
 		self.hash = 0
 
 	def start (self, s):
-		return self.index + self.match.start (s)
+		return self.match.start (s)
 
 	def end (self, s):
-		return self.index + self.match.end (s)
+		return self.match.end (s)
 
 	def substring (self, s):
-		return self.source[self.start (s):self.end (s)]
+		return self.match.group (s)
 
 	def ly (self):
 		s = ''
@@ -413,43 +413,78 @@ class Snippet:
 	def write_ly (self):
 		if self.type == 'lilypond_block' or self.type == 'lilypond'\
 		       or self.type == 'lilypond_file':
-			h = open (self.basename () + '.ly', 'w')
-			h.write (self.full_ly ())
+			outf = open (self.basename () + '.ly', 'w')
+			outf.write (self.full_ly ())
 
+	def replacement_text (self, format):
+		if self.type in ['lilypond_file',
+				 'lilypond_block',
+				 'lilypond']:
+			
+			func = Snippet.__dict__ ['output_' + format]
+			return func (self)
+		elif self.type == 'include':
+			return ''
+		else:
+			return self.match.group (0)
+	
 	def output_html (self):
 		base = self.basename ()
 		option_string = self.match.group ('options')
+		str = self.output_print_filename (HTML)
 		if option_string and VERBATIM in split_options (option_string)\
-		   and format == HTML:
+		       and format == HTML:
 			verb = verbatim_html (self.substring ('code'))
-			h.write (output[HTML][VERBATIM] % vars ())
-		h.write (output[HTML][BEFORE])
-		h.write (output[HTML][OUTPUT] % vars ())
-		h.write (output[HTML][AFTER])
+			str  += write (output[HTML][VERBATIM] % vars ())
+		return (str + output[HTML][BEFORE] 
+			+ (output[HTML][OUTPUT] % vars ())
+			+ output[HTML][AFTER])
 			
 	def output_latex (self):
 		option_string = self.match.group ('options')
+
+		str = self.output_print_filename (LATEX)
+			
+		base = self.basename ()
+		str +=  (output[LATEX][BEFORE]
+			 + (output[LATEX][OUTPUT] % vars ())
+			 + output[LATEX][AFTER])
+
+		
 		if option_string and VERBATIM in split_options (option_string)\
 		   and format == LATEX:
 			verb = self.substring ('code')
-			h.write (output[LATEX][VERBATIM] % vars ())
-		h.write (output[LATEX][BEFORE])
-		base = self.basename ()
-		h.write (output[LATEX][OUTPUT] % vars ())
-		h.write (output[LATEX][AFTER])
-			
+			str += (output[LATEX][VERBATIM] % vars ())
+
+		return str
+
+	def output_print_filename (self,format):
+		str = ''
+		option_string = self.substring ('options')
+		if option_string and PRINTFILENAME in split_options (option_string):
+			base = self.basename ()
+			filename = self.substring ('filename')
+			str += output[format][PRINTFILENAME] % vars ()
+
+		return str
+	
 	def output_texinfo (self):
-		option_string = self.match.group ('options')
+		str = ''
+
+		option_string = self.substring ('options')
 		if option_string and VERBATIM in split_options (option_string):
 			verb = verbatim_texinfo (self.substring ('code'))
-			h.write (output[TEXINFO][VERBATIM] % vars ())
-		h.write ('\n@tex\n')
-		self.output_latex ()
-		h.write ('\n@end tex\n')
+			str +=  (output[TEXINFO][VERBATIM] % vars ())
+
+		str += '\n@tex\n'
+		str += self.output_latex ()
+		str += ('\n@end tex\n')
 		
-		h.write ('\n@html\n')
-		self.output_html ()
-		h.write ('\n@end html\n')
+		str += ('\n@html\n')
+		str += self.output_html ()
+		str += ('\n@end html\n')
+
+		return str
 			
 	def outdated_p (self):
 		if self.type != 'lilypond_block' and self.type != 'lilypond'\
@@ -466,71 +501,12 @@ class Snippet:
 		return self
 
 	def filter_code (self):
-		global index
-		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
-		#if snippet.match.group ('code'):
-		# urg
-		if self.type == 'lilypond' or self.type == 'lilypond_block':
-			h.write (self.source[index:self.start ('code')])
-			h.write (run_filter (self.substring ('code')))
-			h.write (self.source[self.end ('code'):self.end (0)])
-		else:
-			h.write (self.source[index:self.end (0)])
-		index = self.end (0)
-
-	def compile_output (self):
-		global index
-		# Hmm, why is verbatim's group called 'code'; rename to 'verb'?
-		# if snippet.match.group ('code'):
-		# urg
-		if self.type == 'lilypond' \
-		       or self.type == 'lilypond_block'\
-		       or self.type == 'lilypond_file':
-			h.write (self.source[index:self.start (0)])
-			snippet_output = eval ("Snippet.output_" + format)
-			snippet_output (self)
-		elif self.type == 'include':
-			h.write (self.source[index:self.start ('filename')])
-			base = os.path.splitext (self.substring ('filename'))[0]
-			h.write (base + format2ext[format])
-			h.write (self.source[self.end ('filename'):self.end (0)])
-		else:
-			h.write (self.source[index:self.end (0)])
- 		index = self.end (0)
-
-
-# this isn't working - <params> are doubly used.
-# a solution is to strip P<> from the regexes,
-# and redo the match with  the original in notice_snippet
-def other_toplevel_snippets (str, types):
-	res = ['(?P<regex%s>%s)' % (t, snippet_res[format][t])
-	       for t in types]
-
-	big_re = re.compile (string.join (res, '|'))
-	snippets = []
+		pass # todo
 	
-	def notice_snippet (match, snips = snippets, types = types):
-		snip = None
-		for t in types:
-			try:
-				key = 'regex' + t
-				gr = match.group (key)
-				snip =Snippet (t, str, match.start (key), match)
-				break
-			except IndexError:
-				pass
-		if snip:
-			snips.append (snip)
-		else:
-			raise "Huh?"
-		
-		return match.group (0)
 
-	str = big_re.sub (notice_snippet, str)
 
-	return snippets
-
-def simple_toplevel_snippets (str, types):
+def find_toplevel_snippets (str, types):
+	"return: (new string, snippets)" 
 	snippets  = []
 	for t in types:
 		regex = re.compile (snippet_res[format][t])
@@ -538,42 +514,16 @@ def simple_toplevel_snippets (str, types):
 		# ugh, this can be done nicer in python 2.x
 		def notice_snippet (match, snippets = snippets,
 				    t = t, str = str):
-			s = Snippet (t, str, 0, match)
+			s = Snippet (t, str, match)
 			snippets.append (s)
-			return ''
 
-		regex.sub (notice_snippet, str)
-	return snippets
+			
+			return s.replacement_text (format)
 
-def find_toplevel_snippets (s, types):
-	res = {}
-	for i in types:
-		res[i] = ly.re.compile (snippet_res[format][i])
+		str = regex.sub (notice_snippet, str)
+	return (str, snippets)
 
-	snippets = []
-	index = 0
-	#found = {}.fromkeys (types)
-	found = dict (map (lambda x: (x,None), types))
-	while 1:
-		first = 0
-		endex = 1 << 30
-		for i in types:
-			if not found[i] or found[i].start (0) < index:
-				found[i] = 0
-				m = res[i].search (s[index:endex])
-				if m:
-					found[i] = Snippet (i, s, index, m)
-			if found[i] \
-			       and (not first \
-				    or found[i].start (0) < found[first].start (0)):
-				first = i
-				endex = found[first].start (0)
-		if not first:
-			break
-		snippets.append (found[first])
-		index = found[first].end (0)
-		
-	return snippets
+
 
 def filter_pipe (input, cmd):
 	if verbose_p:
@@ -689,6 +639,7 @@ def do_file (input_filename):
 		ih = sys.stdin
 	else:
 		ih = open (input_filename)
+
 	source = ih.read ()
 	ly.progress ('\n')
 
@@ -704,12 +655,12 @@ def do_file (input_filename):
 		'include',
 		'lilypond', )
 	
-	snippets = simple_toplevel_snippets (source, snippet_types)
+	(source, snippets) = simple_toplevel_snippets (source, snippet_types)
 	ly.progress ('\n')
 
-	global h
+	output_file = None
 	if output_name == '-' or not output_name:
-		h = sys.stdout
+		output_file = sys.stdout
 		output_filename = '-'
 	else:
 		if not os.path.isdir (output_name):
@@ -722,8 +673,10 @@ def do_file (input_filename):
 			
 		output_filename = output_name + '/' + input_base \
 				  + format2ext[format]
-		h = open (output_filename, 'w')
+		output_file = open (output_filename, 'w')
 		os.chdir (output_name)
+
+		
 
 	global default_ly_options
 	textwidth = 0
@@ -731,11 +684,8 @@ def do_file (input_filename):
 		textwidth = get_latex_textwidth (source)
 		default_ly_options[LINEWIDTH] = '''%.0f\pt''' % textwidth
 
-	global index
 	if filter_cmd:
-		index = 0
-		map (Snippet.filter_code, snippets)
-		h.write (source[index:])
+		pass # todo
 	elif process_cmd:
 		outdated = filter (lambda x:x,
 				   map (Snippet.outdated_p, snippets))
@@ -751,13 +701,9 @@ def do_file (input_filename):
 		ly.progress ('\n')
 		
 		ly.progress (_ ("Compiling %s...") % output_filename)
-		index = 0
-		map (Snippet.compile_output, snippets)
-		h.write (source[index:])
 		ly.progress ('\n')
 
-	if h != sys.stdout:
-		h.close ()
+	output_file.write (source)
 
 	def process_include (snippet):
 		os.chdir (original_dir)
@@ -820,7 +766,11 @@ def do_options ():
 	return files
 
 def main ():
+
 	files = do_options ()
+	global process_cmd
+	if process_cmd:
+		process_cmd += string.join ([(' -I %s' % p) for p in include_path])
 	ly.identify (sys.stderr)
 	ly.setup_environment ()
 	if files:
