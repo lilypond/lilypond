@@ -20,7 +20,7 @@
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
-#include "input-engraver.hh"
+#include "input-translator.hh"
 #include "score.hh"
 #include "music-list.hh"
 
@@ -47,7 +47,7 @@
     Chord * chord;
     Duration *duration;
     Identifier *id;    
-    Input_engraver * iregs;
+    Input_translator * iregs;
     Music *music;
     Music_list *musiclist;
     Score *score;
@@ -203,7 +203,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <iregs>	input_engraver_spec input_engraver_spec_body
+%type <iregs>	input_translator_spec input_translator_spec_body
 
 %left PRIORITY
 
@@ -320,27 +320,33 @@ declaration:
 
 
 
-input_engraver_spec:
-	REQUESTENGRAVER '{' input_engraver_spec_body '}'
+input_translator_spec:
+	REQUESTENGRAVER '{' input_translator_spec_body '}'
 		{ $$ = $3; }
 	;
 
-input_engraver_spec_body:
-	STRING	{ 
-		$$ = new Input_engraver; 
-		$$->type_str_ =*$1;
+input_translator_spec_body:
+	STRING STRING	{ 
+		$$ = new Input_translator; 
+		$$->base_str_ = *$1;
+		$$->type_str_ =*$2;
 		$$->set_spot ( THIS->here_input() );
 		delete $1;
+		delete $2;
 	}
-	| input_engraver_spec_body ALIAS STRING ';' {
+	| input_translator_spec_body ID STRING ';' {
+		$$-> default_id_str_ = *$3;
+		delete $3;
+	}
+	| input_translator_spec_body ALIAS STRING ';' {
 		$$-> alias_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_engraver_spec_body CONSISTS STRING ';'	{
+	| input_translator_spec_body CONSISTS STRING ';'	{
 		$$-> consists_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_engraver_spec_body CONTAINS input_engraver_spec {
+	| input_translator_spec_body CONTAINS input_translator_spec {
 		$$->add($3);
 	}
 	;
@@ -411,7 +417,7 @@ paper_body:
 	| paper_body STRING '=' REAL ';' {
 		$$->set_var(*$2, $4);
 	}
-	| paper_body input_engraver_spec	{
+	| paper_body input_translator_spec	{
 		$$->set( $2 );
 	}
 	| paper_body error {

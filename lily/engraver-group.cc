@@ -13,7 +13,8 @@
 #include "debug.hh"
 #include "p-score.hh"
 #include "score-elem.hh"
-#include "input-engraver.hh"
+#include "input-translator.hh"
+Engraver* get_engraver_p(String);
 
 Engraver_group_engraver::~Engraver_group_engraver()
 {
@@ -41,7 +42,7 @@ Engraver_group_engraver::removable_b()const
 
 Engraver_group_engraver::Engraver_group_engraver()
 {
-    igrav_l_ =0;
+    itrans_l_ =0;
 }
 
 void
@@ -199,17 +200,17 @@ Translator*
 Engraver_group_engraver::find_get_translator_l(String n,String id)
 {
     Translator * ret=0;
-    Input_engraver * igrav_l= igrav_l_-> recursive_find ( n );
-    if (igrav_l ) {
+    Input_translator * itrans_l= itrans_l_-> recursive_find ( n );
+    if (itrans_l ) {
 	ret = find_engraver_l(n,id);
 	if (!ret) {
 	    Engraver_group_engraver * group = 
-		igrav_l-> get_group_engraver_p();
+		itrans_l-> get_group_engraver_p();
 	    
 	    add(group);
 	    ret = group;
 	    
-	    if (group->igrav_l_->is_name_b( n ) )
+	    if (group->itrans_l_->is_name_b( n ) )
 		ret ->id_str_ = id;
 	    else
 		return ret->find_get_translator_l(n,id);
@@ -294,8 +295,8 @@ Engraver_group_engraver::get_default_interpreter()
     if ( is_bottom_engraver_b() )
 	return daddy_grav_l_->get_default_interpreter();
 
-    Engraver_group_engraver *grav_p= igrav_l_->
-	get_default_igrav_l()->get_group_engraver_p();
+    Engraver_group_engraver *grav_p= itrans_l_->
+	get_default_itrans_l()->get_group_engraver_p();
     add(grav_p );
     if (grav_p->is_bottom_engraver_b())
 	return grav_p;
@@ -306,5 +307,5 @@ Engraver_group_engraver::get_default_interpreter()
 bool
 Engraver_group_engraver::is_bottom_engraver_b()const
 {
-    return !igrav_l_->get_default_igrav_l();
+    return !itrans_l_->get_default_itrans_l();
 }
