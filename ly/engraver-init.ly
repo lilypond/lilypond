@@ -325,6 +325,10 @@ NoteNamesContext = \translator {
 	verticalExtent = ##f 
 
 	
+	\consists "Rest_swallow_translator" 
+	\consists "Skip_event_swallow_translator"
+	\consists "Tie_engraver"
+	\consists "Note_swallow_translator"
 	\consists "Note_name_engraver"
 	\consists "Separating_line_group_engraver"
 }
@@ -480,11 +484,11 @@ ScoreContext = \translator {
 	autoAccidentals = #'(Staff (same-octave . 0))
 	autoCautionaries = #'()  
 
-       keyAccidentalOrder = #'(
-         (6 . -1) (2  . -1) (5 . -1 ) (1  . -1) (4  . -1) (0  . -1) (3  . -1)
-	 (3  . 1) (0 . 1) (4 . 1) (1 . 1) (5 . 1) (2 . 1) (6 . 1)
-         (6 . -2) (2  . -2) (5 . -2 ) (1  . -2) (4  . -2) (0  . -2) (3 . -2)
-         (3  . 2) (0 . 2) (4 . 2) (2 . 2) (5 . 2) (2 . 2) (6 . 2)
+       keyAccidentalOrder = #`(
+         (6 . ,FLAT) (2  . ,FLAT) (5 . ,FLAT ) (1  . ,FLAT) (4  . ,FLAT) (0  . ,FLAT) (3  . ,FLAT)
+	 (3  . ,SHARP) (0 . ,SHARP) (4 . ,SHARP) (1 . ,SHARP) (5 . ,SHARP) (2 . ,SHARP) (6 . ,SHARP)
+         (6 . ,DOUBLE-FLAT) (2  . ,DOUBLE-FLAT) (5 . ,DOUBLE-FLAT ) (1  . ,DOUBLE-FLAT) (4  . ,DOUBLE-FLAT) (0  . ,DOUBLE-FLAT) (3 . ,DOUBLE-FLAT)
+         (3  . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
         )
 	breakAlignOrder = #'(
 	  instrument-name

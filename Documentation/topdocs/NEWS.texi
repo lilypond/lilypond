@@ -67,7 +67,7 @@ alongside, but figured bass mode was not  changed, i.e.:
 
 @example
   \markup @{ \center <@var{..list of markups..}> @}
-  \figure @{ <@var{figures> @}
+  \figure @{ <@var{figures}> @}
 @end example
 
 As chords the more often used than simultaneous music, this change will
@@ -115,9 +115,9 @@ This will put the fingering for the lowest note below the chord, and the
 rest to the left.
 
 @item
-The script previously known as @file{ly2dvi} has been renamed to
-@file{lilypond}. The binary itself is now installed as
-@file{lilypond-bin}.
+The script previously known as @code{ly2dvi} has been renamed to
+@code{lilypond}. The binary itself is now installed as
+@code{lilypond-bin}.
 
 @item
 Markup text (ie. general text formatting) may now be used for lyrics too. 

@@ -1,12 +1,12 @@
 
 \version "1.9.8"
 \header{
-texidoc="
-Beams should always reach the middle staff line.  The second beam
-counting from the note head side, should never be lower than the
-second staff line.  This does not hold for grace note beams.
-Override with @code{noStemExtend}.
-"
+
+texidoc=" Beams on ledgered notes should always reach the middle staff
+line.  The second beam counting from the note head side, should never
+be lower than the second staff line.  This does not hold for grace
+note beams.  Override with @code{no-stem-extend}.  "
+
 }
 
 

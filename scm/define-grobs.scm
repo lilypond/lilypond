@@ -941,9 +941,9 @@
 	(beamed-lengths . (3.26 3.26 1.5))
 	
 	;; [Wanske] lists three sets of minimum lengths.  One
-	;; set for the nomal case, and one set for beams with `der
-	;; Balkenendpunkt weiter "uber bzw. unter die Systemgrenze
-	;; hinaus (bei Gruppen mit grossem Tonumfang)' and the extreme
+	;; set for the nomal case, and one set for beams with "der
+	;; Balkenendpunkt weiter uber bzw. unter die Systemgrenze
+	;; hinaus (bei Gruppen mit grossem Tonumfang)" and the extreme
 	;; case.
 
 	;; Note that Wanske lists numbers lengths starting from top of
@@ -953,10 +953,10 @@
 	;; and the extreme minima as abolute minimum length.
 	
 	;; The 'normal' minima
-	(beamed-minimum-free-lengths . (2.5 2.0 1.0))
+	(beamed-minimum-free-lengths . (1.83 1.5 1.25))
 	
 	;; The 'extreme case' minima
-	(beamed-extreme-minimum-free-lengths . (1.83 1.5 1.25))
+	(beamed-extreme-minimum-free-lengths . (2.5 2.0 1.0))
 
 	(X-offset-callbacks . (,Stem::off_callback))
 	(X-extent-callback . ,Stem::dim_callback)	

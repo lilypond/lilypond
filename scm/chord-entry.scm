@@ -14,16 +14,14 @@ Entry point for the parser.
 
 "
   (let*
-      (
-       (flat-mods (flatten-list modifications))
+      ((flat-mods (flatten-list modifications))
        (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
        (complete-chord '())
        (bass #f)
        (inversion #f)
        (lead-mod #f)
        (explicit-11 #f)
-       (start-additions #t)
-       )
+       (start-additions #t))
 
     (define (interpret-inversion chord mods)
       "Read /FOO   part. Side effect: INVERSION is set."
