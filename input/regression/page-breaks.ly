@@ -1,5 +1,4 @@
-#(ly:set-point-and-click 'line-column)
-\version "2.4.0"
+\version "2.5.13"
 
 \header {
 

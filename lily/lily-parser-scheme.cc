@@ -21,28 +21,12 @@
 #include "book.hh"
 #include "paper-book.hh"
 
-/*
-  junkme?
- */
-bool store_locations_global;
-
 /* Do not append `!' suffix, since 1st argument is not modified. */
 LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
 	   1, 0, 0, (SCM what),
-	  "Set the options for Point-and-click source specials output. The\n"
-"argument is a symbol.  Possible options are @code{none} (no source specials), \n"
-"@code{line} and @code{line-column}")
+	   "Deprecated.")
 {
-  /* UGH. */
-  SCM val = SCM_BOOL_F;
-  if (ly_symbol2scm ("line-column") == what)
-    val = ly_lily_module_constant ("line-column-location");
-  else if (what == ly_symbol2scm ("line"))
-    val = ly_lily_module_constant ("line-location");
-
-  scm_module_define (global_lily_module, ly_symbol2scm ("point-and-click"),
-		     val);
-  store_locations_global = ly_c_procedure_p (val);
+  warning ("ly:set-point-and-click called");
   return SCM_UNSPECIFIED;
 }
 

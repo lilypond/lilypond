@@ -31,7 +31,6 @@ extern String output_backend_global;
 extern String output_name_global;
 extern bool be_safe_global;
 extern bool be_verbose_global;
-extern bool store_locations_global;
 extern bool do_internal_type_checking_global;
 extern bool is_pango_format_global;
 extern char const *prefix_directories[];

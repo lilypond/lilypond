@@ -3,6 +3,7 @@ import re
 import getopt
 import sys
 import os
+import string
 
 version = '@TOPLEVEL_VERSION@'
 
@@ -60,7 +61,12 @@ if not files:
 
 ################################################################
 
-match = re.match ('([^:]+):([^:]+):(.*)', files[0])
+
+arg = files[0]
+
+arg = re.sub ('textedit://','', arg)
+
+match = re.match ('([^:]+):([^:]+):(.*)', arg)
 if not match:
 	sys.stderr.write (_("Not in FILE:LINE:COL format: ")
 			  + files[0])
@@ -85,6 +91,8 @@ if ly_pc_editor == None:
 		ly_pc_editor = 'nc -noask +%(line)s %(file)s'
 
 command = ly_pc_editor % vars()
+
+print 'invoked with %s\ncalling %s\n' % (string.join (sys.argv),command)
 
 status = os.system (command)
 if status:
