@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--2000 Jan Nieuwenhuizen
+  (c)  1997--2002 Jan Nieuwenhuizen
 */
 
 

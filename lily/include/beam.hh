@@ -1,7 +1,10 @@
 /*
   beam.hh -- part of GNU LilyPond
 
-  (c) 1996--2002 Han-Wen Nienhuys
+  source file of the LilyPond music typesetter
+
+  (c) 1996--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef BEAM_HH

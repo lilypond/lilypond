@@ -3,9 +3,8 @@
 
   source file of the LilyPond music typesetter
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
 
 #ifndef INPUT_HH
 #define INPUT_HH

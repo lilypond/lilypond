@@ -1,5 +1,14 @@
 2002-09-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+
+	* lily/: some (c) header fixes.
+	
+	* lily/request-chord.cc: Remove.
+	
+	* lily/include/event-chord-iterator.hh:
+	* lily/include/event.hh:
+	* lily/event-chord.cc: New file.
+	
 	* lily/stem-engraver.cc (acknowledge_grob): rename evented back to
 	requested.
 

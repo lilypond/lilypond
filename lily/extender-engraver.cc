@@ -1,7 +1,9 @@
 /*
   extender-engraver.cc -- implement Extender_engraver
 
-  (c) 1999 Glen Prideaux <glenprideaux@iname.com>,
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 1999-2002 Glen Prideaux <glenprideaux@iname.com>,
   Han-Wen Nienhuys, Jan Nieuwenhuizen.
   
 */

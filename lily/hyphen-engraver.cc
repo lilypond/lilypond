@@ -1,7 +1,9 @@
 /*
   hyphen-engraver.cc -- implement Hyphen_engraver
 
-  (c) 1999 Glen Prideaux <glenprideaux@iname.com>
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1999-2002 Glen Prideaux <glenprideaux@iname.com>
 */
 
 #include "flower-proto.hh"

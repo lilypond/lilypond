@@ -84,14 +84,15 @@ Key_engraver::create_key (bool def)
 bool
 Key_engraver::try_music (Music * req)
 {
-  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
+  //  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
+  if (req->is_mus_type ("key-change-event"))
     {
       if (!keyreq_)
 	{
 	  /*
 	    do this only once, just to be on the safe side.
 	    */	    
-	  keyreq_ = kc;
+	  keyreq_ = req;
 	  read_req (keyreq_);
 	}
       
