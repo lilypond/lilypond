@@ -32,6 +32,11 @@ int vsnprintf (char *str, size_t, char const *format, va_list args);
 #endif
 
 
+#if !HAVE_ISINF			// BSD extension 
+int isinf (double x);
+
+#endif
+
 Byte *memrchr (Byte const * p, int n, char c);
 Byte *strrev (Byte* byte_l, int length_i);
 
