@@ -99,9 +99,23 @@ Staff::setup_staffcols()
     }
 
     for (PCursor<Staff_commands_at*> cc(*staff_commands_); cc.ok(); cc++) {
-	Staff_column *sc=get_col(cc->when,false);
-	for (PCursor<Command*> i(**cc); i.ok(); i++)
-	    sc->s_commands.add(i);
+	Staff_column *sc=get_col(cc->moment_.when,false);
+	sc->s_commands = cc;
+	sc->moment_ = new Moment(cc->moment_);
+    }
+
+    PCursor<Staff_commands_at*> cc(*staff_commands_);
+    for (PCursor<Staff_column*> i(cols); i.ok(); i++) {
+	while  ((cc+1).ok() && (cc+1)->when() < i->when())
+	    cc++;
+	
+	if(!i->moment_) {
+	    if (cc->moment_.when == i->when())
+		i->moment_ = new Moment(cc->moment_);
+	    else
+		i->moment_ = new Moment(
+		    i->when() - cc->when() ,&cc->moment_);
+	}
     }
 }
 
@@ -150,7 +164,7 @@ Staff::print() const
 }
 
 Staff::Staff()
-{
+{    
     staff_commands_ = 0;
     score_ =0;
     pscore_=0;    
