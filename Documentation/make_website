@@ -11,7 +11,7 @@ sub
 local $base="lilypond/";
 local @examples=("wohltemperirt");
 
-system  'make html';
+system  'pod2html';
 
 print "resetting refs.\n";
 
@@ -31,7 +31,6 @@ foreach $a (@examples) {
 	"gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif"
 }
 
-system "mkdir docxx; make -C.. docxx; ln ../docxx/* ./docxx/;"
-
-system "tar cf website.tar *.html *.gif *.png *.ps docxx/;" .
-"gzip -9 website.tar;"
+system "mkdir docxx; make -C.. docxx; ln ../docxx/* ./docxx/;" .
+	 "tar cf website.tar *.html *.gif *.png *.ps docxx/;" .
+	"gzip -9 website.tar;"
