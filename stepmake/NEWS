@@ -1,3 +1,6 @@
+pl 60
+	- small fixes.
+
 pl 59
 	- bf: package-diff (remove missing automatic)
 	- install templates, (urg) INSTALL*1,2 INSTALL_OUT*1,2
