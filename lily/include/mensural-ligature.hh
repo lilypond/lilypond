@@ -3,7 +3,8 @@
 
   source file of the GNU LilyPond music typesetter
   
-  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>,
+		 Pal Benko <benkop@freestart.hu>
 */
 
 #ifndef MENSURAL_LIGATURE_HH
@@ -15,19 +16,17 @@
 /*
  * These are all possible mensural ligature primitives.
  */
-#define MLP_BB    0x01 // flexa with left downward cauda (for Brevis-Brevis)
-#define MLP_sc    0x02 // last head of asc. sine proprietate cum perfectione
-		       // (i.e. brevis head with downward right cauda)
-#define MLP_ss    0x04 // last head of asc. sine proprietate sine perfectione
-		       // (i.e. pure brevis head)
-#define MLP_cs    0x08 // last head of asc. cum proprietate sine perfectione
-		       // (i.e. brevis head with downward left cauda)
-#define MLP_SS    0x10 // flexa with left upward cauda (for Semibr.-Semibr.)
-#define MLP_LB    0x20 // core flexa (for Longa-Brevis)
 
-#define MLP_NONE  0x00 // no output
-#define MLP_SINGLE_HEAD	(MLP_sc | MLP_ss | MLP_cs)
-#define MLP_FLEXA	(MLP_BB | MLP_SS | MLP_LB)
+#define MLP_NONE	0x00 // no output
+#define MLP_UP		0x01 // ligatura ascendens
+#define MLP_DOWN	0x02 // ligatura descendens
+#define MLP_BREVIS	0x04 // mensural brevis head
+#define MLP_LONGA	0x08 // mensural brevis head with right cauda
+#define MLP_MAXIMA	0x10 // mensural maxima head without stem
+#define MLP_FLEXA	0x20
+
+#define MLP_STEM	(MLP_UP | MLP_DOWN)
+#define MLP_SINGLE_HEAD	(MLP_BREVIS | MLP_LONGA | MLP_MAXIMA)
 #define MLP_ANY		(MLP_FLEXA | MLP_SINGLE_HEAD)
 
 struct Mensural_ligature
