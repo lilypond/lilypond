@@ -330,14 +330,14 @@ is what have collected so far, and has ascending page numbers."
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
 	 (rods (map calc-rod (iota (1- no-systems))))
-	 (page-very-empty? (> space-left (/ page-height 1.5)))
+
+	 ;; we don't set ragged based on amount space left.
+	 ;; raggedbottomlast = ##T is much more predictable
 	 (result (ly:solve-spring-rod-problem
 		  springs rods space
-		  (or page-very-empty? ragged?)))
-	 (force (car (if page-very-empty?
-			 (ly:solve-spring-rod-problem
-			  springs rods space ragged?)
-			 result)))
+		  ragged?))
+
+	 (force (car result))
 	 (positions
 	  (map (lambda (y)
 		       (+ y topskip)) 

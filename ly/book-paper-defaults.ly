@@ -54,7 +54,11 @@
 
 
     raggedbottom = ##f
-    raggedlastbottom= ##f
+
+    %
+    % looks best for shorter scores.
+    %
+    raggedlastbottom= ##t
 
     papersize = "a4"
 
