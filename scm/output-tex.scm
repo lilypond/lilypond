@@ -73,19 +73,10 @@
 
 (define (define-fonts paper font-list)
   (apply string-append
-	 (map (lambda (x)
-		(font-load-command paper x))
-	      font-list)
-	 ))
+	 (map (lambda (x) (font-load-command paper x)) font-list)))
 
-;;
-;; urg, how can exp be #unspecified?  -- in sketch output
-;;
-;; set! returns #<unspecified>  --hwn
-;;
 (define (fontify font exp)
-  (string-append "\\" (font-command font)
-		 exp))
+  (string-append "\\" (font-command font) exp))
 
 (define (unknown) 
   "%\n\\unknown\n")
