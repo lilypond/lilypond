@@ -1,3 +1,8 @@
+2003-10-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/context-specced-music-iterator.cc (construct_children): 
+	only change  translator if found. This fixes a core dump problem.
+
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/slur.scm (default-slur-extremity-rules): use equal? for
