@@ -15,14 +15,59 @@
 #include "lookup.hh"
 
 SCM
-pitch2scm (Musical_pitch p)
+to_scm (Musical_pitch p)
 {
-  return gh_cons (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_));
+  return gh_list (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_), gh_int2scm (p.octave_i_), SCM_UNDEFINED);
 }
 
-Chord_name::Chord_name (Chord const& c)
+Musical_pitch
+from_scm (SCM s)
 {
-  chord_ = c;
+  return Musical_pitch (gh_scm2int (gh_car (s)),
+			gh_scm2int (gh_cadr (s)),
+			gh_scm2int (gh_caddr (s)));
+}
+  
+template<class T>SCM
+array_to_scm (Array<T> arr)
+{
+  SCM list = SCM_EOL;
+  for (int i = arr.size (); i--;)
+    list =  gh_cons (to_scm (arr[i]), list);
+  return list;
+}
+
+/*
+  Silly templates
+  Array<T> scm_to_array (SCM s)
+ */
+template<class T>void
+scm_to_array (SCM s, Array<T>* arr)
+{
+  for (; gh_pair_p (s); s= gh_cdr (s))
+    arr->push (from_scm (gh_car (s)));
+}
+
+/*
+  ugh, move to chord-name-engraver
+
+  Hmm, why not represent complete chord as list?
+  ((tonic third fifth) (inversion bass))
+ */
+void
+Chord_name::set (Chord const& c)
+{
+  set_elt_property ("pitches", array_to_scm (c.pitch_arr_));
+  if (c.inversion_b_)
+    set_elt_property ("inversion", to_scm (c.inversion_pitch_));
+  if (c.bass_b_)
+    set_elt_property ("bass", to_scm (c.bass_pitch_));
+}
+
+SCM
+notename2scm (Musical_pitch p)
+{
+  return gh_cons (gh_int2scm (p.notename_i_), gh_int2scm (p.accidental_i_));
 }
 
 /*
@@ -70,7 +115,7 @@ Chord_name::ly_text2molecule (SCM scm) const
 Molecule
 Chord_name::pitch2molecule (Musical_pitch p) const
 {
-  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"), ly_quote_scm (pitch2scm (p)), SCM_UNDEFINED));
+  SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"), ly_quote_scm (notename2scm (p)), SCM_UNDEFINED));
 
   if (name != SCM_UNSPECIFIED)
     {
@@ -121,7 +166,7 @@ Chord_name::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) 
   Chord::rebuild_transpose (&chord_type, diff_pitch (pitch_arr[0], Musical_pitch (0)), false);
 
   for (int i= chord_type.size (); i--; )
-    chord = gh_cons (pitch2scm (chord_type[i]), chord);
+    chord = gh_cons (notename2scm (chord_type[i]), chord);
 
   SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"), ly_quote_scm (chord), SCM_UNDEFINED));
   if (gh_pair_p (name))
@@ -145,7 +190,7 @@ Chord_name::banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const
     scale.push (Musical_pitch (i));
 
   Musical_pitch tonic = pitch_arr[0];
-  chord_.rebuild_transpose (&scale, tonic, true);
+  Chord::rebuild_transpose (&scale, tonic, true);
   
   /*
     Does chord include this step?  -1 if flat
@@ -214,10 +259,16 @@ Chord_name::banter (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) const
     }
 }
 
+/*
+  TODO:
+    fix silly to-and-fro scm conversions
+ */
 Molecule*
 Chord_name::do_brew_molecule_p () const
 {
-  Musical_pitch tonic = chord_.pitch_arr_[0];
+  Array<Musical_pitch> pitch_arr;
+  scm_to_array (get_elt_property ("pitches"), &pitch_arr);
+  Musical_pitch tonic = pitch_arr[0];
   
   Chord_mol name;
   name.tonic_mol = pitch2molecule (tonic);
@@ -230,17 +281,17 @@ Chord_name::do_brew_molecule_p () const
     maybe we should check all sub-lists of pitches, not
     just full list and base triad?
    */
-  if (!user_chord_name (chord_.pitch_arr_, &name))
+  if (!user_chord_name (pitch_arr, &name))
     {
       /*
         else, check if user has listed base triad
 	use user base name and add banter for remaining part
        */
-      if ((chord_.pitch_arr_.size () > 2)
-	  && user_chord_name (chord_.pitch_arr_.slice (0, 3), &name))
+      if ((pitch_arr.size () > 2)
+	  && user_chord_name (pitch_arr.slice (0, 3), &name))
         {
 	  Array<Musical_pitch> base = Chord::base_arr (tonic);
-	  base.concat (chord_.pitch_arr_.slice (3, chord_.pitch_arr_.size ()));
+	  base.concat (pitch_arr.slice (3, pitch_arr.size ()));
 	  banter (base, &name);
 	}
       /*
@@ -248,22 +299,23 @@ Chord_name::do_brew_molecule_p () const
        */
       else
 	{
-	  banter (chord_.pitch_arr_, &name);
+	  banter (pitch_arr, &name);
 	}
     }
 
-  if (chord_.inversion_b_)
+  SCM s = get_elt_property ("inversion");
+  if (s != SCM_UNDEFINED)
     {
       name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
-      // zucht  const&
-      Molecule mol = pitch2molecule (chord_.inversion_pitch_);
+      Molecule mol = pitch2molecule (from_scm (s));
       name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
 
-  if (chord_.bass_b_)
+  s = get_elt_property ("bass");
+  if (s != SCM_UNDEFINED)
     {
       name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
-      Molecule mol = pitch2molecule (chord_.bass_pitch_);
+      Molecule mol = pitch2molecule (from_scm (s));
       name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
 
