@@ -352,15 +352,15 @@ installation instructions.
 
 @item JEdit
 
-There exists a plugin for @uref{http://www.jedit.org/,jEdit}.  Refer to
-the @uref{http://lily4jedit.sourceforge.net,plugin website} for more
-information.
+The @uref{http://www.jedit.org/,jEdit} editor has a LilyPond plugin.
+This plugin includes a DVI viewer, integrated help and viewing via
+GhostScript.  It can be installed by doing @key{Plugins > Plugin
+Manager}, and selecting @code{LilyTool} from the @key{Install} tab.
 
 @end table
 
-For both VIM and Emacs editors, there is also a facility to jump in
-the input file to the source of errors in the graphical output.  See
-@ref{Point and click}.
+All these editors can be made to jump in the input file to the source
+of a symbol in the graphical output.  See @ref{Point and click}.
 
 
 

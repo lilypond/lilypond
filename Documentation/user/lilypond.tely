@@ -84,13 +84,17 @@ PostScript} and @uref{../lilypond.pdf,PDF}.
 @end ifhtml
 
 
+@syncodeindex fn cp
+@syncodeindex ky cp
+@syncodeindex pg cp
+@syncodeindex tp cp
+@syncodeindex vr cp
+
+
 @titlepage
 @title GNU LilyPond
 @subtitle The music typesetter
-@author Han-Wen Nienhuys
-@author Jan Nieuwenhuizen
-@author J@"{u}rgen Reuter
-@author Rune Zedeler
+@author The LilyPond development team
 
 
 
@@ -111,6 +115,7 @@ Copyright @copyright{} 1999--2004 by the authors
 \score {
     \context Lyrics {
         \override Score.RehearsalMark   #'self-alignment-X = #LEFT
+        \override Score.RehearsalMark   #'font-size = #-2 
         \mark #(ly:export (string-append
              "(For LilyPond version " (lilypond-version) ")"))
         s2

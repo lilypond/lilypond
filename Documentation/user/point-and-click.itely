@@ -29,6 +29,7 @@ running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 @item an editor with a client/server interface (or a lightweight GUI
 editor):
 
+
 @cindex editor
 
 @itemize @bullet
@@ -58,6 +59,13 @@ clone.  It is available from @uref{http://www.vim.org}.
 
 @cindex GVim
 @cindex Vim
+
+
+@item jEdit. jEdit is an editor written in Java with extensive plug-in
+support. The LilyPond plugin for jEdit comes with an  DVI 
+viewer, which is preconfigured for point-and-click. 
+
+@cindex jEdit
 
 @end itemize
 @end itemize

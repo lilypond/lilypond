@@ -654,11 +654,9 @@ notation contexts are created automatically.  For more complex pieces, it
 is best to mark contexts explicitly.  This ensures that each fragment
 gets its own stave.
 
-There are several types of contexts: @code{Staff}, @code{Voice} and
-@code{Score} handle melodic notation.  Other contexts are also
-@code{Lyrics} (for setting lyric texts) and @code{ChordNames} (for
-printing chord names).
-
+There are several types of contexts.  @code{Staff}, @code{Voice} and
+@code{Score} handle melodic notation, while @code{Lyrics} sets lyric
+texts and @code{ChordNames} prints chord names.
 
 In terms of syntax, prepending @code{\new} to a music expression
 creates a bigger music expression.  In this way it resembles the minus
@@ -1009,6 +1007,8 @@ discussed in @ref{Vocal music}.
 @cindex chords
 @cindex chord names
 
+@c TODO: revise this, \chords { } is shorter and more intuitive.
+
 In popular music, it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
@@ -1020,21 +1020,21 @@ Such chords can be entered like notes,
 Now each pitch is read as the root of a chord instead of a note.
 This mode is switched on with @code{\chordmode}
 
-
 Other chords can be created by adding modifiers after a colon.  The
 following example shows a few common modifiers
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,raggedright]
   \chordmode { c2 f4:m g4:maj7 gis1:dim7 }
 @end lilypond
 
 For lead sheets, chords are not printed on staves, but as names on a
-line of themselves.  Hence, we have to override the context with
-@code{\new}, rendering the music expression in a @code{ChordNames}
-context
-
-@lilypond[quote,verbatim]
-  \chordmode { c2 f4.:m g4.:maj7 gis8:dim7 }
+line of themselves.  This is achieved by using @code{\chords} instead
+of @code{\chordmode}. This uses the same syntax as @code{\chordmode},
+but renders the notes in a @code{ChordNames} context, with the
+following result.
+ 
+@lilypond[quote,verbatim,raggedright]
+  \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
 @cindex lead sheet
@@ -1043,7 +1043,7 @@ a lead sheet, for example,
 
 @example
 <<
-  \chordmode @{ @emph{chords} @}
+  \chords @{ @emph{chords} @}
   @emph{the melody}
   \addlyrics @{ @emph{the text} @}
 >>
@@ -1052,7 +1052,7 @@ a lead sheet, for example,
 
 @lilypond[quote,raggedright]
 <<
-  \chordmode { r2 c:sus4 f } 
+  \chords { r2 c:sus4 f } 
   \relative {
     r4 c' \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
