@@ -92,20 +92,48 @@ Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
       return is_stacked_b;
 }
 
-inline int get_context_info (Item *primitive)
+/*
+ * When aligning the heads, sometimes extra space is needed, e.g. to
+ * avoid clashing with the appendix of an adjacent notehead or with an
+ * adjacent notehead itself if it has the same pitch.  Extra space is
+ * added at most once between to heads.
+ */
+bool
+need_extra_space (int prev_prefix_set, int prefix_set,
+		  int context_info, int delta_pitch)
 {
-  SCM context_info_scm = primitive->get_grob_property ("context-info");
-  if (context_info_scm != SCM_EOL)
-    {
-      return gh_scm2int (context_info_scm);
-    }
-  else
-    {
-      primitive->programming_error ("Vaticana_ligature:"
-				    "context-info undefined -> "
-				    "aborting ligature");
-      return -1;
-    }
+  if (prev_prefix_set & VIRGA)
+    /*
+     * After a virga, make a an additional small space such that the
+     * appendix on the right side of the head does not touch the
+     * following head.
+     */
+    return true;
+
+  if ((prefix_set & INCLINATUM) &&
+	   !(prev_prefix_set & INCLINATUM))
+    /*
+     * Always start a series of inclinatum heads with an extra space.
+     */
+    return true;
+
+  if ((context_info & FLEXA_LEFT) && !(context_info & PES_UPPER))
+    /*
+     * Before a flexa (but not within a torculus), make a an
+     * additional small space such that the appendix on the left side
+     * of the flexa does not touch the this head.
+     */
+    return true;
+
+  if (delta_pitch == 0)
+    /*
+     * If there are two adjacent noteheads with the same pitch, add
+     * additional small space between them, such that they do not
+     * touch each other.
+     */
+    return true;
+
+  return false;
 }
 
 Real
@@ -143,13 +171,14 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
   Real ligature_width = 0.0;
 
   Item *prev_primitive = 0;
+  int prev_prefix_set = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
-      int context_info;
-
-      if ((context_info = get_context_info (primitive)) < 0)
-	break; // programming error
+      int prefix_set =
+	gh_scm2int (primitive->get_grob_property ("prefix-set"));
+      int context_info =
+	gh_scm2int (primitive->get_grob_property ("context-info"));
 
       /*
        * Get glyph_name, delta_pitch and context_info for this head.
@@ -267,37 +296,9 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	   */
 	}
 
-      /* Sometimes, extra space is needed, e.g. to avoid clashing with
-	 the appendix of an adjacent notehead or with an adjacent
-	 notehead itself if it has the same pitch. */
-
-      if (context_info & AFTER_VIRGA)
-	{
-	  /*
-	   * After a virga, make a an additional small space such that
-	   * the appendix on the right side of the head does not touch
-	   * the following head.
-	   */
-	  ligature_width += extra_space;
-	}
-      else if ((context_info & FLEXA_LEFT) && !(context_info & PES_UPPER))
-	{
-	  /*
-	   * Before a flexa (but not within a torculus), make a an
-	   * additional small space such that the appendix on the left
-	   * side of the flexa does not touch the this head.
-	   */
-	  ligature_width += extra_space;
-	}
-      else if (delta_pitch == 0)
-	{
-	  /*
-	   * If there are two adjacent noteheads with the same pitch,
-	   * add additional small space between them, such that they
-	   * do not touch each other.
-	   */
-	  ligature_width += extra_space;
-	}
+      if (need_extra_space (prev_prefix_set, prefix_set,
+			    context_info, delta_pitch))
+	ligature_width += extra_space;
 
       /*
        * Horizontally line-up this head to form a ligature.
@@ -307,6 +308,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
       ligature_width += head_width;
 
       prev_primitive = primitive;
+      prev_prefix_set = prefix_set;
     }
 
   /*
@@ -316,6 +318,31 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
   ligature_width += extra_space;
 
   return ligature_width;
+}
+
+/*
+ * Depending on the typographical features of a particular ligature
+ * style, some prefixes may be ignored.  In particular, if a curved
+ * flexa shape is produced, any prefixes to either of the two
+ * contributing heads that would select a head other than punctum, is
+ * by definition ignored.
+ *
+ * This function prints a warning, if the given primitive is prefixed
+ * such that a head other than punctum would be chosen, if this
+ * primitive were engraved as a stand-alone head.
+ */
+void
+check_for_prefix_loss (Item *primitive)
+{
+  int prefix_set =
+    gh_scm2int (primitive->get_grob_property ("prefix-set"));
+  if (prefix_set & ~PES_OR_FLEXA)
+    {
+      String prefs = Gregorian_ligature::prefixes_to_str (primitive);
+      primitive->warning (_f ("ignored prefix(es) `%s' of this head according "
+			      "to restrictions of the selected ligature style",
+			      prefs.to_str0 ()));
+    }
 }
 
 void
@@ -498,7 +525,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     if ((context_info & FLEXA_RIGHT) && (context_info & PES_LOWER))
       {
-	glyph_name = "";
+	check_for_prefix_loss (prev_primitive);
 	prev_glyph_name = "flexa";
 	prev_primitive->set_grob_property ("flexa-height",
 					   gh_int2scm (prev_delta_pitch));
@@ -507,6 +534,10 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	bool add_cauda = !(prev_prefix_set && PES_OR_FLEXA);
 	prev_primitive->set_grob_property ("add-cauda",
 					   gh_bool2scm (add_cauda));
+	check_for_prefix_loss (primitive);
+	glyph_name = "";
+	primitive->set_grob_property ("flexa-width",
+				      gh_double2scm (flexa_width));
       }
 
     /*

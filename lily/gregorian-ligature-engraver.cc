@@ -223,10 +223,6 @@ provide_context_info (Array<Grob_info> primitives)
 	  primitive->warning ("may not apply `\\~' on heads with "
 			      "identical pitch; ignoring `\\~'");
 	}
-    if (prev_prefix_set & VIRGA)
-      {
-	context_info |= AFTER_VIRGA;
-      }
     if (prev_prefix_set & DEMINUTUM)
       {
 	context_info |= AFTER_DEMINUTUM;

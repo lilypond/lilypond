@@ -100,7 +100,7 @@ vaticana_brew_flexa (Grob *me,
     }
   else
     {
-      me->warning ("Vaticana_ligature:"
+      me->warning ("Vaticana_ligature: "
 		   "flexa-width undefined; assuming 2.0");
       width = 2.0 * staff_space;
     }
@@ -229,8 +229,8 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
   SCM glyph_name_scm = me->get_grob_property ("glyph-name");
   if (glyph_name_scm == SCM_EOL)
     {
-      programming_error ("Vaticana_ligature:"
-			 "undefined glyph-name -> ignoring grob");
+      me->programming_error ("Vaticana_ligature: "
+			     "undefined glyph-name -> ignoring grob");
       return Molecule ();
     }
 
@@ -275,9 +275,8 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
     }
   else
     {
-      programming_error (_f ("Vaticana_ligature:"
-			     "x-offset undefined; assuming 0.0",
-			     me));
+      me->programming_error ("Vaticana_ligature: "
+			     "x-offset undefined; assuming 0.0");
     }
 
   bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
@@ -302,7 +301,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 	}
       else
 	{
-	  me->warning ("Vaticana_ligature:"
+	  me->warning ("Vaticana_ligature: "
 		       "flexa-width undefined; assuming 2.0");
 	  flexa_width = 2.0 * staff_space;
 	}
