@@ -49,10 +49,11 @@ public:
     ///  return a "new"-ed copy of contents
     char *copy_array() const; //  return a "new"-ed copy of contents
 
-    const char *ptr() const;
-    const char *ptr() { return ((const String *)this)->ptr(); }
+    const char *cptr() const;
+    const char *ptr() { return ((const String *)this)->cptr(); }
+
     /// return the data. Don't use for writing the data.
-    operator const char *() const { return ptr(); }
+    operator const char *() const { return cptr(); }
     
     String operator =( const String & source ) { data = source.data; return *this; }
 
@@ -114,10 +115,6 @@ public:
     /// the length of the string
     int len() const;
 
-    /// DO NOT MAKE THIS INTO AN OPERATOR
-    bool to_bool() const;
-    /** perl -like string to bool conversion
-     */
 };
 /** 
 
