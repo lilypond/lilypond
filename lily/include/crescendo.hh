@@ -1,7 +1,7 @@
 /*
   crescendo.hh -- declare Crescendo
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -16,7 +16,6 @@
   The hairpin symbol. (cresc)
  */
 class Crescendo : public Spanner , public Staff_side {
-
 public:
     int grow_dir_i_;
     
@@ -26,10 +25,13 @@ public:
     /// if there is a dynamic at the end, make the sign smaller.
     bool left_dyn_b_;
     Crescendo();
-private:
-    Spanner* do_break_at( PCol*, PCol*) const;
-    Molecule*brew_molecule_p()const;
+protected:
+    SPANNER_CLONE(Crescendo)
+    virtual Molecule*brew_molecule_p()const;
     NAME_MEMBERS(Crescendo);
+    
+private:
+    
 };
 
 #endif // CRESCENDO_HH
