@@ -59,6 +59,13 @@ Duration::set_plet(int i, int t)
 }
 
 void
+Duration::set_plet(Duration d)
+{
+    plet_.iso_i_ = d.plet_.iso_i_; 
+    plet_.type_i_ = d.plet_.type_i_;
+}
+
+void
 Duration::set_ticks( int ticks_i )
 {
 	assert( !type_i_ );
