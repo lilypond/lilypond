@@ -1,6 +1,6 @@
 depth = ..
 
-elispdir = $(datadir)/emacs/site-lisp
+# elispdir defined in config.make
 
 INSTALLATION_DIR=$(elispdir)
 INSTALLATION_FILES=$(EL_FILES)
