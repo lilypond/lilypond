@@ -67,40 +67,15 @@ Arpeggio::brew_molecule (SCM smob)
       return SCM_EOL;
     }
   
-  SCM s = me->get_grob_property ("arpeggio-type");
-  String arpegtype = ly_scm2string (scm_symbol_to_string (s));
-  Molecule arpegbottom = ( (arpegtype=="bracket") ? 
-			   Font_interface::get_default_font (me)->find_by_name ("scripts-bracebottom") :
-			   ((arpegtype=="down") ? 
-			    Font_interface::get_default_font (me)->find_by_name ("scripts-arrowdown") :
-			    Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio"))
-			   );
-  Molecule arpegmiddle = ( (arpegtype=="bracket") ? 
-			   Font_interface::get_default_font (me)->find_by_name ("scripts-braceseg") :
-			   Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio") );
-  Molecule arpegtop = ( (arpegtype=="bracket") ? 
-			Font_interface::get_default_font (me)->find_by_name ("scripts-bracetop") :
-			((arpegtype=="up") ? 
-			 Font_interface::get_default_font (me)->find_by_name ("scripts-arrowup") :
-			 Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio"))
-			);
-  
   Molecule mol;
+  Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
+
   Real y = heads[LEFT];
-  
-  mol.add_at_edge (Y_AXIS, UP, arpegbottom, 0.0);
-  y+= arpegbottom. extent (Y_AXIS).length ();
-  
-  Grob * stem = unsmob_grob (gh_car ( me->get_grob_property ("stems") ));
-  Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
-  
-  while (y < heads[RIGHT]  -  Staff_symbol::staff_space (ss))
+  while (y < heads[RIGHT])
     {
-      mol.add_at_edge (Y_AXIS, UP, arpegmiddle, 0.0);
-      y+= arpegmiddle. extent (Y_AXIS).length ();
+      mol.add_at_edge (Y_AXIS, UP,arpeggio, 0.0);
+      y+= arpeggio. extent (Y_AXIS).length ();
     }
-  mol.add_at_edge (Y_AXIS, UP, arpegtop, 0.0);
-  
   mol.translate_axis (heads[LEFT], Y_AXIS);
 
   return mol.smobbed_copy () ;

@@ -62,7 +62,7 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> curline, Interval li
 
   /*
     this is hardcoded, but this shouldn't happen anyway.
-    used to be g et_var ("loose_column_distance");        
+    used to be get_var ("loose_column_distance");        
    */
   sp->default_space_f_ = 1.0;
 

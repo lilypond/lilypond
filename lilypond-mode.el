@@ -4,6 +4,9 @@
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+;;; 
+;;; Changed 29th Aug 2001 Heikki Junes <heikki.junes@hut.fi>
+;;;    * Add PS-compilation, PS-viewing and MIDI-play
 
 ;;; Inspired on auctex
 
@@ -132,6 +135,18 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
+(defcustom LilyPond-gv-command "gv -watch"
+  "Command used to display PS files."
+
+  :group 'LilyPond
+  :type 'string)
+
+(defcustom LilyPond-midi-command "timidity"
+  "Command used to play MIDI files."
+
+  :group 'LilyPond
+  :type 'string)
+
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
   `(
@@ -139,6 +154,7 @@ in LilyPond-include-path."
     ("TeX" . ("tex '\\nonstopmode\\input %t'" . "View"))
 
     ("2Dvi" . ("ly2dvi %s" . "View"))
+    ("2PS" . ("ly2dvi -P %s" . "View"))
 
     ("Book" . ("lilypond-book %x" . "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" . "View"))
@@ -148,6 +164,10 @@ in LilyPond-include-path."
     
     ;; refreshes when kicked USR1
     ("View" . (,(concat LilyPond-xdvi-command " %d") . "LilyPond"))
+
+    ("ViewPS" . (,(concat LilyPond-gv-command " %p") . "LilyPond"))
+
+    ("Midi" . (,(concat LilyPond-midi-command " %m") . "LilyPond"))
     )
 
   "AList of commands to execute on the current document.
@@ -180,6 +200,7 @@ LilyPond-expand-list.
     ("%p" . ".ps")
     ("%l" . ".latex")
     ("%x" . ".tely")
+    ("%m" . ".midi")
     )
     
   "Alist of expansion strings for LilyPond command names."

@@ -2,15 +2,13 @@
 # UGH UGH
 include $(make-dir)/lilypond-vars.make
 
-LY_FILES = $(wildcard *.ly)
-SCORE_LY_FILES = $(shell fgrep -l score *.ly)
+# LY_FILES is defined the LY make template.
 
-FLY_FILES = $(wildcard *.fly)
-SLY_FILES = $(wildcard *.sly)
+SCORE_LY_FILES = $(shell fgrep -l score *.ly)
 
 M4_FILES = $(wildcard *.m4)
 LYM4_FILES = $(wildcard *.lym4)
-EXTRA_DIST_FILES += $(FLY_FILES) $(SLY_FILES) $(LY_FILES) $(M4_FILES) $(LYM4_FILES)
+EXTRA_DIST_FILES +=  $(M4_FILES) $(LYM4_FILES)
 
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
 fly_examples=$(addprefix $(outdir)/, $(addsuffix .fly.txt, $(flexamples)))

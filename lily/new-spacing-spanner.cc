@@ -41,14 +41,13 @@ New_spacing_spanner::set_interface (Grob*me)
 void
 New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols) 
 {
-  Moment shortest;
-  Moment mean_shortest;
+  Moment shortest_in_measure;
 
   /*
     space as if this duration  is present. 
    */
   Moment base_shortest_duration = *unsmob_moment (me->get_grob_property ("maximum-duration-for-spacing"));
-  shortest.set_infinite (1);
+  shortest_in_measure.set_infinite (1);
 
   for (int i = cols->size(); i--;)
     {
@@ -71,12 +70,7 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 	  
 	  SCM  st = cols->elem (i)->get_grob_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
-	  shortest = shortest <? this_shortest;
-	  if (!mean_shortest.main_part_.infty_b ())
-	    {
-	      n++;
-	      mean_shortest += this_shortest;
-	    }
+	  shortest_in_measure = shortest_in_measure <? this_shortest;
 	}
     }
   
@@ -111,29 +105,62 @@ cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::r
 	  continue ; 
 	}
       
-      Real note_space = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
+      Real note_space = note_spacing (me,lc, rc, shortest_in_measure <? base_shortest_duration);
       Real hinterfleisch = note_space;
       Real headwid = gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
+
+      SCM seq  = lc->get_grob_property ("spacing-sequence");
+
+      Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
       
-      for (SCM s = lc->get_grob_property ("spacing-sequence"); gh_pair_p (s); s = gh_cdr (s))
+      /*
+	hinterfleisch = hind-meat = amount of space following a note.
+
+	
+	We adjust the space following a note only if the next note
+	happens after the current note (this is set in the grob
+	property SPACING-SEQUENCE.  */
+
+      Real stretch_distance = note_space;
+      if (shortest_in_measure <= dt)
 	{
-	  Grob *lm = unsmob_grob (gh_caar (s));
-	  Grob *rm = unsmob_grob (gh_cdar (s));
-
-	  // TODO; configgable.
-	  hinterfleisch += -headwid + Separation_item::my_width (lm)[RIGHT] -
-	    0.5 * Separation_item::my_width (rm)[LEFT];
-
-
 	  /*
-	    UGH: KLUDGE!
-	  */
-	  
-	  //	  if (delta_t > Moment (Rational (1,32)))
-	  hinterfleisch += stem_dir_correction (me, l, r);
-	}
+	    currently SPACING-SEQUENCE is set in
+	    Separating_group_spanner::find_musical_sequences (), which
+	    works neatly for one-voice-per staff, however,
 
-      Real stretch_distance = note_space - headwid;
+	    it can't find out the actual duration of the notes on a
+	    staff, so when putting tuplets and normal patterns it gets
+	    confused, (ie. believes that < { c8 c8 } { d8 d8 d8 }*2/3
+	    > contains 1/12 notes. ).
+
+	    here we kludge, by checking if the distance we're spacing
+	    for is less than the shortest note.
+
+	    TODO:
+
+	    Move SPACING-SEQUENCE detection into a voice
+	    level-engraver --or-- make sure that every column has
+	    access to the note head.
+
+	  */
+	  for (SCM s = seq; gh_pair_p (s); s = gh_cdr (s))
+	    {
+	      Grob *lm = unsmob_grob (gh_caar (s));
+	      Grob *rm = unsmob_grob (gh_cdar (s));
+
+	      // TODO; configgable.
+	      hinterfleisch += -headwid + Separation_item::my_width (lm)[RIGHT] -
+		0.5 * Separation_item::my_width (rm)[LEFT];
+
+
+	      hinterfleisch += stem_dir_correction (me, l, r);
+	    }
+
+	  // ? why.
+	  if (gh_pair_p (seq))
+	    stretch_distance -= headwid;
+	}      
       Spring s;
       s.distance_f_ = hinterfleisch;
       s.strength_f_ = 1 / stretch_distance;
@@ -311,7 +338,7 @@ New_spacing_spanner::stretch_to_regularity (Grob *me,
  */
 Real
 New_spacing_spanner::default_bar_spacing (Grob*me, Grob *lc, Grob *rc,
-				      Moment shortest) 
+					  Moment shortest) 
 {
   Real symbol_distance = lc->extent (lc,X_AXIS)[RIGHT] ;
   Real durational_distance = 0;
@@ -358,7 +385,7 @@ New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   Moment shortest_playing_len = 0;
   SCM s = lc->get_grob_property ("shortest-playing-duration");
 
-  //  SCM s = lc->get_grob_property ("mean-playing-duration");  
+
   if (unsmob_moment (s))
     shortest_playing_len = *unsmob_moment (s);
   

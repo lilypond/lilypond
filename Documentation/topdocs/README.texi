@@ -102,9 +102,8 @@ a script to do this for you is in @file{buildscripts/clean-fonts.sh}
 @section Bugs
 
 Send bug reports to @email{bug-lilypond@@gnu.org}.  For help and
-questions use @email{help-lilypond@@gnu.org} and
-@email{lilypond-discuss@@gnu.org}.  Please consult the FAQ and
-installation instructions before mailing your problems.
+questions use @email{lilypond-user@@gnu.org}.  Please consult the FAQ
+and installation instructions before mailing your problems.
 
 
 

@@ -16,8 +16,9 @@
         \def\embeddedps##1{%
                 \special{ps\string: @beginspecial @setspecial
                         \lilypondpaperoutputscale\lilySpace 
-                        \lilypondpaperoutputscale\lilySpace scale 
-                        ##1 @endspecial}%
+                        \lilypondpaperoutputscale\lilySpace
+                        % FUCKING REDHAT XDVI -- ARG!
+                        skeel ##1 @endspecial}%
         }
 }
 \def\PSsetTeXdimen#1{\expandafter\special{! /#1 (\csname #1\endcsname) set_tex_dimen}}

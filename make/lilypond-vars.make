@@ -1,3 +1,6 @@
+##
+## settings to run LilyPond
+
 
 export PATH:=$(topdir)/lily/out:$(topdir)/buildscripts/out:$(PATH)
 

@@ -52,8 +52,8 @@ All_font_metrics::find_afm (String name)
 
       if (path.empty_b ())
 	{
-	  char  * p = ly_find_afm (name.ch_C ());
-	  if (p)
+	  String p = ly_find_afm (name.ch_C ());
+	  if (p.length_i ())
 	    path = p;
 	}
 

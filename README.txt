@@ -92,7 +92,6 @@ Bugs
 ====
 
    Send bug reports to <bug-lilypond@gnu.org>.  For help and questions
-use <help-lilypond@gnu.org> and <lilypond-discuss@gnu.org>.  Please
-consult the FAQ and installation instructions before mailing your
-problems.
+use <lilypond-user@gnu.org>.  Please consult the FAQ and installation
+instructions before mailing your problems.
 

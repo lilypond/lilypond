@@ -28,7 +28,6 @@
 	       (X-offset-callbacks . (,Side_position_interface::aligned_side))
 	       (direction . -1)
 	       (staff-position . 0.0)
- 	       (arpeggio-type . plain)
 	       (meta . ,(grob-description "Arpeggio" arpeggio-interface side-position-interface font-interface))
 	       ))
 

@@ -106,7 +106,7 @@
 	 (ly-gulp-file "music-drawing-routines.ps"))
      (if (defined? 'ps-testing) "/testing true def%\n" "")
      "}"
-     "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
+     "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 
   ;; Note: this string must match the string in ly2dvi.py!!!
   (define (header creator generate) 

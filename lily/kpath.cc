@@ -26,15 +26,27 @@ extern "C" {
 #include "main.hh"
 #include "kpath.hh"
 #include "lily-version.hh"
+#include "warn.hh"
 
-
-char *
+String
 ly_find_afm (char const * name)
 {
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  return kpse_find_file (name, kpse_afm_format, true);
+  char * name_ptr =  kpse_find_file (name, kpse_afm_format, true);
+
+  if(!name_ptr)
+    {
+  /*
+    don't mutter about afms, since we try to find them first, and lots of
+    TFMs don't have AFMs. 
+   */
+      //      warning (_f("kpathsea couldn't find AFM file `%s'", name));
+    }
+  else
+    return name_ptr;
+  
 #endif
-  return 0;
+  return "";
 }
 
 String
@@ -46,7 +58,14 @@ ly_find_tfm (char const * name)
     return p;
   
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
-  return kpse_find_file (name, kpse_tfm_format, true);
+  char * name_ptr =  kpse_find_file (name, kpse_tfm_format, true);
+  if(!name_ptr)
+    {
+      warning (_f("Kpathsea couldn't find TFM file `%s'", name));
+    }
+  else
+    return name_ptr;
+  
 #endif
   return "";
 }
