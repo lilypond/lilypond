@@ -233,6 +233,7 @@
   (string-append
    "%!PS-Adobe-3.0\n"
    "%%Creator: " creator generate "\n"))
+
 (define (header-end)
   (string-append
    ;; URG: now we can't use scm output without Lily
@@ -294,4 +295,63 @@
 
 (define (unknown) 
   "\n unknown\n")
+
+;; top-of-file, wtf?
+(define (top-of-file)
+  (header (string-append "GNU LilyPond (" (lilypond-version) "), ")
+          (strftime "%c" (localtime (current-time)))))
+
+(define (output-paper-def pd)
+  (apply
+   string-append
+   (module-map
+    (lambda (sym var)
+      (let ((val (variable-ref var))
+	    (key (symbol->string sym)))
+	
+	(cond
+	 ((string? val)
+	  (ps-string-def "lilypondpaper" sym val))
+	 ((number? val)
+	  (ps-number-def "lilypondpaper" sym
+			 (if (integer? val)
+			     (number->string val)
+			     (number->string (exact->inexact val)))))
+	 (else ""))))
+      
+    (ly:output-def-scope pd))))
+
+
+(define (ps-string-def a b c)
+  (string-append "/" a (symbol->string b) " (" c ") def\n"))
+
+(define (ps-number-def a b c)
+  (string-append "/" a (symbol->string b) " " c " def\n"))
+
+(define (output-scopes scopes fields basename)
+  (define (output-scope scope)
+    (apply
+     string-append
+     (module-map
+      (lambda (sym var)
+	(let ((val (variable-ref var))
+	      (tex-key (symbol->string sym)))
+	 
+	  (if (memq sym fields)
+	      (header-to-file basename sym val))
+	  
+	  (cond
+	   ((string? val)
+	    (ps-string-def "lilypond" sym val))
+	   
+	   ((number? val)
+	    (ps-number-def "lilypond" sym
+			   (if (integer? val)
+			       (number->string val)
+			       (number->string (exact->inexact val)))))
+	   (else ""))))
+      scope)))
+  
+  (apply string-append
+   (map output-scope scopes)) )
 
