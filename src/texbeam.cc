@@ -23,7 +23,7 @@ Lookup::beam_element(int sidx, int widx, Real slope)
     args.push(widx);
     bs.tex = substitute_args(bs.tex,args);
     int w = 2 << widx;
-    Real width = convert_dimen(w,"pt");
+    Real width = w PT;
     bs.dim.x = Interval(0,width);
     bs.dim.y = Interval(0,width*slope);
     return bs;
@@ -34,7 +34,7 @@ static int
 slope_index(Real &s)
 {
     if (abs(s) > 0.5) {
-	WARN << "beam steeper than 0.5\n";
+	WARN << "beam steeper than 0.5 (" << s << ")\n";
 	s = sign(s) * 0.5;
     }
 
@@ -65,12 +65,12 @@ Lookup::beam(Real &slope, Real width)
 {        
     int sidx = slope_index(slope);
     if (!slope)
-	return rule_symbol(convert_dimen(2,"pt"), width);
-    if (width < convert_dimen(2,"pt")) {
-	WARN<<"Beam too narrow.\n";
-	width = convert_dimen(2,"pt");
+	return rule_symbol(2 PT, width);
+    if (width < 2 PT) {
+	WARN<<"Beam too narrow. (" << print_dimen(width) <<")\n";
+	width = 2 PT;
     }
-    Real elemwidth = convert_dimen(64,"pt");
+    Real elemwidth = 64 PT;
     int widx = 5;
 
     Molecule m;
