@@ -36,5 +36,5 @@ Collision_engraver::Collision_engraver()
 }
 
 IMPLEMENT_STATIC_NAME(Collision_engraver);
-IMPLEMENT_IS_TYPE_B1(Collision_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Collision_engraver,Engraver);
 ADD_THIS_ENGRAVER(Collision_engraver);

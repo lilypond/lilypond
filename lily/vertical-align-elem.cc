@@ -10,7 +10,7 @@
 #include "interval.hh"
 
 void
-Vertical_align_elem::add(Score_elem*el_l)
+Vertical_align_element::add(Score_elem*el_l)
 {
     assert( ! contains_b(el_l));
     elem_l_arr_.push(el_l);
@@ -18,7 +18,7 @@ Vertical_align_elem::add(Score_elem*el_l)
 }
 
 void
-Vertical_align_elem::do_substitute_dependency(Score_elem*o,Score_elem*n)
+Vertical_align_element::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {
     int i;
     while((i = elem_l_arr_.find_i(o))>=0) 
@@ -28,7 +28,7 @@ Vertical_align_elem::do_substitute_dependency(Score_elem*o,Score_elem*n)
 	    elem_l_arr_.del(i);
 }
 void
-Vertical_align_elem::do_post_processing()
+Vertical_align_element::do_post_processing()
 {
     Array<Interval> dims;
     for (int i=0; i < elem_l_arr_.size(); i++ ) {
@@ -47,17 +47,17 @@ Vertical_align_elem::do_post_processing()
 }
 
 bool
-Vertical_align_elem::contains_b(Score_elem const *e)const
+Vertical_align_element::contains_b(Score_elem const *e)const
 {
     return elem_l_arr_.find_l(e);
 }
 
-Vertical_align_elem::Vertical_align_elem()
+Vertical_align_element::Vertical_align_element()
 {
     transparent_b_ = true;
     empty_b_ =true;
 }
 
-IMPLEMENT_STATIC_NAME(Vertical_align_elem);
-IMPLEMENT_IS_TYPE_B1(Vertical_align_elem, Score_elem);
+IMPLEMENT_STATIC_NAME(Vertical_align_element);
+IMPLEMENT_IS_TYPE_B1(Vertical_align_element, Score_elem);
 

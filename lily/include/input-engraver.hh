@@ -17,11 +17,17 @@
 #include "string.hh"
 #include "varray.hh"
 
+struct Input_engraver_list : public Pointer_list<Input_engraver*> 
+{
+    Input_engraver_list(Input_engraver_list const &);
+    Input_engraver_list(){}
+};
+
 struct Input_engraver : Input { 
-    Pointer_list<Input_engraver*> contains_igrav_p_list_;
+    Input_engraver_list contains_igrav_p_list_;
     Array<String> consists_str_arr_;
     Array<String> alias_str_arr_;
-    String name_str_;
+    String type_str_;
 
     void add(Input_engraver *);
     bool is_name_b(String);
@@ -35,8 +41,6 @@ struct Input_engraver : Input {
 };
 
 
-void add_global_input_engraver(Input_engraver* igrav_p);
-Input_engraver*lookup_grav(String);
-Request_engraver*get_engraver_p(String s);
+Engraver*get_engraver_p(String s);
 
 #endif // INPUT_ENGRAVER_HH

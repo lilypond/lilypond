@@ -16,7 +16,7 @@
 /**
   generate meters. 
   */
-class Meter_engraver : public Request_engraver {
+class Meter_engraver : public Engraver {
 public:
     Time_description time_;
     Rhythmic_grouping  default_grouping_;

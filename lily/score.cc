@@ -5,6 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "tex-stream.hh"
 #include "score.hh"
 #include "score-column.hh"
@@ -17,11 +18,9 @@
 #include "midi-output.hh"
 #include "midi-def.hh"
 #include "p-col.hh"
-#include "score-grav.hh"
 #include "music-iterator.hh"
 #include "music.hh"
-#include "music-list.hh"
-#include "input-engraver.hh"
+#include "global-translator.hh"
 
 extern String default_out_fn;
 
@@ -34,26 +33,26 @@ Score::Score(Score const &s)
 }
 
 void
-Score::run_translator(Global_translator * acc_l)
+Score::run_translator(Global_translator * trans_l)
 {
-    acc_l->set_score (this);
+    trans_l->set_score (this);
     Music_iterator * iter = Music_iterator::static_get_iterator_p(music_p_, 
-								  acc_l);
+								  trans_l);
     iter->construct_children();
 
-    while ( iter->ok() || acc_l->moments_left_i() ) {
+    while ( iter->ok() || trans_l->moments_left_i() ) {
 	Moment w = INFTY;
 	if (iter->ok() ) {
 	    w = iter->next_moment();
 	    iter->print();
 	}
-	acc_l->modify_next( w );
-	acc_l->prepare(w);
-	iter->next( w );
-	acc_l->process();
+	trans_l->modify_next( w );
+	trans_l->prepare(w);
+	iter->process_and_next( w );
+	trans_l->process();
     }
     delete iter;
-    acc_l->finish();
+    trans_l->finish();
 }
 
 
@@ -72,10 +71,9 @@ Score::paper()
     *mlog << "\nCreating elements ..." << flush;
     pscore_p_ = new PScore(paper_p_);
     
-    Score_engraver * score_grav=  
-	(Score_engraver*)lookup_grav("Score_engraver")->get_group_engraver_p();
-    run_translator( score_grav );
-    delete score_grav;
+    Global_translator * score_trans=  paper_p_->get_global_translator_p();
+    run_translator( score_trans );
+    delete score_trans;
     
     if( errorlevel_i_){
 	// should we? hampers debugging. 

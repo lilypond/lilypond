@@ -16,17 +16,17 @@
 bool
 Input_engraver::is_name_b(String n)
 {
-    bool b = (n == name_str_);
-    for (int i=0; !b && i < alias_str_arr_.size(); i++)
-	b = b || (alias_str_arr_[i] == n);
-    return b;
+    for (int i=0; i < alias_str_arr_.size(); i++)
+	if (alias_str_arr_[i] == n)
+	    return true;
+    return false;
 }
 
 void
 Input_engraver::print() const
 {
 #ifndef NPRINT
-    mtor << "name " << name_str_;
+    mtor << "type " << type_str_;
     mtor << "Consists of ";
     for (int i=0; i< consists_str_arr_.size(); i++)
 	mtor << consists_str_arr_[i] << ',';
@@ -34,27 +34,6 @@ Input_engraver::print() const
     for (iter(contains_igrav_p_list_.top(), i); i.ok(); i++) 
 	i->print();
 #endif 
-}
-
-/*
-  UGH. Global.
- */
-Link_array<Input_engraver> igravs_p_arr;
-
-void
-add_global_input_engraver(Input_engraver *grav_p)
-{
-    igravs_p_arr.push(grav_p);
-}
-
-Input_engraver *
-lookup_grav(String nm)
-{
-    for (int i=0; i < igravs_p_arr.size(); i++)
-	if (igravs_p_arr[i]->is_name_b(nm))
-	    return igravs_p_arr[i];
-
-    error("can't find reg `" + nm + "'");
 }
 
 
@@ -66,11 +45,15 @@ Input_engraver::recursive_find(String nm)
 	return this;
 
     Input_engraver * r =0;
-    for (iter(contains_igrav_p_list_.top(), i); !r &&i.ok(); i++)
-	r = i->recursive_find(nm);
+    iter(contains_igrav_p_list_.top(), i);
+    for (; !r &&i.ok(); i++) {
+	if (i->recursive_find(nm))
+	    r = i.ptr();
+    }
 
     return r;
 }
+
 Input_engraver *
 Input_engraver::find_igrav_l(String nm)
 {
@@ -86,10 +69,8 @@ Engraver_group_engraver *
 Input_engraver::get_group_engraver_p()
 {
     Engraver_group_engraver * grav_p = (Engraver_group_engraver*)
-	get_engraver_p(name_str_);
+	get_engraver_p(type_str_);
 
-    
-     
     for (int i=0; i < consists_str_arr_.size(); i++) {
 	grav_p->add( get_engraver_p( consists_str_arr_[i]) );
     }
@@ -113,5 +94,18 @@ Input_engraver::add(Input_engraver *ip)
 Input_engraver*
 Input_engraver::get_default_igrav_l()
 {
-    return contains_igrav_p_list_.top();
+    if ( contains_igrav_p_list_.size() )
+	return contains_igrav_p_list_.top();
+    else
+	return 0;
+}
+
+
+Input_engraver_list::Input_engraver_list(Input_engraver_list const &s)
+{
+    for (PCursor<Input_engraver*> pc(s); pc.ok(); pc++) {
+	Input_engraver *q = pc;
+	Input_engraver *p=new Input_engraver(*q) ; 
+	bottom().add(p);
+    }
 }

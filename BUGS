@@ -1,0 +1,16 @@
+This file documents bugs which were "re-introduced" in various pl's
+
+pl 70 
+	* r^"simile"
+
+	* hairpin pos.
+
+pl69
+	* slurs.ly
+
+pl68:
+	* opening rests wohltemperirt
+	
+	* lyrics broken,
+
+	* midi broken

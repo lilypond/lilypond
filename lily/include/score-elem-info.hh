@@ -19,7 +19,7 @@ struct Score_elem_info {
     Score_elem * elem_l_;
     Request*req_l_;
     Voice const * voice_l_;
-    Array<Request_engraver*> origin_grav_l_arr_;
+    Array<Engraver*> origin_grav_l_arr_;
 
     /* *** */
     Score_elem_info(Score_elem*, Request*);

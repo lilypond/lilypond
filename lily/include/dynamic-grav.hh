@@ -12,7 +12,7 @@
 
 #include "engraver.hh"
 
-class Dynamic_engraver : public Request_engraver {
+class Dynamic_engraver : public Engraver {
     int dir_i_;
     Text_item * dynamic_p_;
     Crescendo * to_end_cresc_p_;

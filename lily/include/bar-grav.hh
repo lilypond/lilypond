@@ -14,7 +14,7 @@
 /**
   generate bars. Either user ("|:"), or default (new measure)
   */
-class Bar_engraver : public Request_engraver {
+class Bar_engraver : public Engraver {
     Bar_req * bar_req_l_;
     Bar * bar_p_;
 public:

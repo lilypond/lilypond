@@ -103,9 +103,9 @@ IImenuetto = \melodic{
 \score{
 	\melodic { \IImenuetto }
 	\paper{
-		width= 195.0\mm;
 		unitspace= 9.0\mm  ;% to get lily to use only three lines
 		geometric= 1.40;
+		linewidth= 195.0\mm;
 		\output "scsii-menuetto.out";
 	}
 	\midi{ 

@@ -12,7 +12,7 @@
 #include "key.hh"
 #include "parray.hh"
 
-struct Local_key_engraver : Request_engraver {
+struct Local_key_engraver : Engraver {
     Key local_key_;
     Key const *key_C_;
     Array<Note_req* > mel_l_arr_;

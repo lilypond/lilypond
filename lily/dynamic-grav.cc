@@ -117,7 +117,7 @@ Dynamic_engraver::set_feature(Feature i)
 }
 
 IMPLEMENT_STATIC_NAME(Dynamic_engraver);
-IMPLEMENT_IS_TYPE_B1(Dynamic_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Dynamic_engraver,Engraver);
 ADD_THIS_ENGRAVER(Dynamic_engraver);
 
 Dynamic_engraver::~Dynamic_engraver()

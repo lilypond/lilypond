@@ -12,7 +12,7 @@
 
 #include "engraver.hh"
 
-class Tie_engraver : public Request_engraver {
+class Tie_engraver : public Engraver {
     Tie * end_tie_p_;
     Tie * tie_p_;
     Moment end_mom_;

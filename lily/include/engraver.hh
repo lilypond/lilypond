@@ -1,5 +1,5 @@
 /*
-  engraver.hh -- declare Request_engraver
+  engraver.hh -- declare Engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -25,13 +25,13 @@
   
   */
 
-class Request_engraver {
+class Engraver {
     
     friend class Engraver_group_engraver;
     /**
-      You cannot copy a Request_engraver
+      You cannot copy a Engraver
      */
-    Request_engraver(const Request_engraver&){}
+    Engraver(const Engraver&){}
 
     enum { 
 	VIRGIN,
@@ -99,7 +99,7 @@ protected:
 
     virtual void sync_features() {}
    
-    virtual bool contains_b(Request_engraver*grav_l)const;
+    virtual bool contains_b(Engraver*grav_l)const;
     /**
       Get information on the staff. Default: ask daddy.
       */
@@ -126,13 +126,14 @@ public:
 
       */
     bool try_request(Request*);
+    bool is_bottom_engraver() const;
 
     void post_move_processing();
     
     Engraver_group_engraver * daddy_grav_l_;
 
-    Request_engraver();
-    virtual ~Request_engraver(){}
+    Engraver();
+    virtual ~Engraver(){}
     NAME_MEMBERS();
     void print() const;
 };
@@ -142,17 +143,17 @@ public:
  */
 #define ADD_THIS_ENGRAVER(c)				\
 struct c ## init {					\
-    static Request_engraver * globalctor (){		\
+    static Engraver * globalctor (){		\
 	return new c;					\
     }							\
     c ## init () {					\
-	add_request_engraver(c::static_name(), globalctor);	\
+	add_Engraver(c::static_name(), globalctor);	\
 							\
     }							\
 } _ ## c ## init;
 
-typedef Request_engraver*(*Grav_ctor)(void);
-void add_request_engraver(String s, Grav_ctor f);
+typedef Engraver*(*Grav_ctor)(void);
+void add_Engraver(String s, Grav_ctor f);
 
 #endif // ENGRAVER_HH
 

@@ -114,8 +114,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 	}
 }
-<notes,INITIAL,lyrics>
-\\include           {
+<notes,INITIAL,lyrics>\\include           {
 	yy_push_state(incl);
 }
 <incl>\"[^"]*\"   { /* got the include file name */

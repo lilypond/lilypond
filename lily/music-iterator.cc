@@ -10,7 +10,6 @@
 #include "music-iterator.hh"
 #include "translator.hh"
 #include "request.hh"
-#include "interpreter.hh"
 #include "debug.hh"
 
 IMPLEMENT_STATIC_NAME(Music_iterator);
@@ -38,7 +37,7 @@ Translator*
 Music_iterator::get_req_translator_l()
 {
     assert(report_to_l_);
-    if (report_to_l_->interpreter_l() )
+    if (report_to_l_->is_bottom_engraver_b() )
 	return report_to_l_;
 
     set_translator( report_to_l_->get_default_interpreter() );
@@ -78,7 +77,7 @@ Music_iterator::next_moment()const
 }
 
 void
-Music_iterator::next(Moment)
+Music_iterator::process_and_next(Moment)
 {
     first_b_ = false;
 }
@@ -170,18 +169,18 @@ Chord_iterator::do_print() const
 }
 
 void
-Chord_iterator::next(Moment until)
+Chord_iterator::process_and_next(Moment until)
 {
     for (iter(children_p_list_.top(), i); i.ok(); ) {
 	if  (i->next_moment() == until) {
-	    i->next(until);
+	    i->process_and_next(until);
 	}
 	if (!i->ok()) 
 	    delete i.remove_p();
 	else
 	    i++;
     }
-    Music_iterator::next(until);
+    Music_iterator::process_and_next(until);
 
 //    assert(!ok() || next_moment() > until);
 }
@@ -252,7 +251,7 @@ IMPLEMENT_STATIC_NAME(Voice_iterator);
 IMPLEMENT_IS_TYPE_B1(Voice_iterator,Music_iterator);
 
 void
-Voice_iterator::next(Moment until)
+Voice_iterator::process_and_next(Moment until)
 {
     while (ok()) {
 	Moment local_until = until - here_mom_;
@@ -260,14 +259,14 @@ Voice_iterator::next(Moment until)
 	    Moment here = iter_p_->next_moment();
 	    if (here != local_until)
 		return;
-	    iter_p_->next(local_until);
+	    iter_p_->process_and_next(local_until);
 	}
 	if (!iter_p_)
 	    iter_p_ = Music_iterator::get_iterator_p( ptr() );
 	else if (!iter_p_->ok() )
 	    next_element();
     }
-    Music_iterator::next(until);
+    Music_iterator::process_and_next(until);
     assert(!ok() || next_moment() > until);
 }
 
@@ -284,11 +283,13 @@ Voice_iterator::ok()const
 }
 
 /* ***************** */
+
 void
 Request_iterator::do_print()const
 {
     mtor << req_l_->name() ;
 }
+
 Request_iterator::Request_iterator(Request const*c)
 {
     req_l_ = (Request*)c;
@@ -296,11 +297,10 @@ Request_iterator::Request_iterator(Request const*c)
 }
 
 void
-Request_iterator::next(Moment m)
+Request_iterator::process_and_next(Moment m)
 {
-    if ( first_b_) {
-	bool gotcha = daddy_iter_l_->report_to_l_->
-	    interpreter_l()->interpret_request_b(req_l_);
+    if ( first_b_ ) {
+	bool gotcha = daddy_iter_l_->report_to_l_->try_request(req_l_);
 	if (!gotcha)
 	    req_l_->warning("Junking request: " + String(req_l_->name()));
 	first_b_ = false;
@@ -325,6 +325,7 @@ Request_iterator::ok()const
 {
     return (req_l_->duration() && !last_b_) || first_b_; // ugh
 }
+
 IMPLEMENT_STATIC_NAME(Request_iterator);
 IMPLEMENT_IS_TYPE_B1(Request_iterator, Music_iterator);
 
@@ -342,7 +343,7 @@ IMPLEMENT_IS_TYPE_B1(Change_iterator,Music_iterator);
   TODO: pop/pushgroup
  */
 void
-Change_iterator::next(Moment mom)
+Change_iterator::process_and_next(Moment mom)
 {
 #if 0
     Engraver_group_engraver *group_l =
@@ -352,7 +353,7 @@ Change_iterator::next(Moment mom)
     report_to_l_->daddy_grav_l_->remove_engraver_p(report_to_l_);
     group_l->add(report_to_l_);
 #endif
-    Music_iterator::next(mom);
+    Music_iterator::process_and_next(mom);
 }
 
 
@@ -366,16 +367,6 @@ void
 Voice_element_iterator::construct_children()
 {
     get_req_translator_l();
-/*
-    if ( daddy_iter_l_ 
-	 && daddy_iter_l_->is_type_b(Voice_iterator::static_name() )) {
-	set_translator(daddy_iter_l_-> get_req_translator_l());
-    } else if (daddy_iter_l_
-	       && daddy_iter_l_-> is_type_b( Chord_iterator::static_name() )) {
-
-	get_req_translator_l();
-    }
-    */
     Chord_iterator::construct_children();
 }
 

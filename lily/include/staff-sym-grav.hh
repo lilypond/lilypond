@@ -15,7 +15,7 @@
 /**
   Manage the staff symbol.
  */
-class Staff_sym_engraver : public Request_engraver { 
+class Staff_sym_engraver : public Engraver { 
     Staff_symbol *span_p_;
 public:
     Staff_sym_engraver();

@@ -124,5 +124,5 @@ Clef_engraver::do_removal_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Clef_engraver);
-IMPLEMENT_IS_TYPE_B1(Clef_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Clef_engraver,Engraver);
 ADD_THIS_ENGRAVER(Clef_engraver);

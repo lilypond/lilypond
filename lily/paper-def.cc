@@ -14,7 +14,9 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "dimen.hh"
-
+#include "input-engraver.hh"
+#include "engraver-group.hh"
+#include "assoc-iter.hh"
 
 void
 Paper_def::set_var(String s, Real r)
@@ -48,6 +50,7 @@ Paper_def::duration_to_dist(Moment d)
 
 Paper_def::Paper_def()
 {
+    igrav_p_ = 0;
     lookup_p_ = 0;
     real_vars_p_ = new Assoc<String,Real>;
     outfile_str_ = "lelie.tex";
@@ -55,16 +58,25 @@ Paper_def::Paper_def()
 
 Paper_def::~Paper_def()
 {
+    delete igrav_p_;
     delete real_vars_p_;
     delete lookup_p_;
 }
 
 Paper_def::Paper_def(Paper_def const&s)
 {
+    igrav_p_ = s.igrav_p_ ? new Input_engraver( *s.igrav_p_):0;
     lookup_p_ = s.lookup_p_? new Lookup(*s.lookup_p_) : 0;
     lookup_p_->paper_l_ = this;
     real_vars_p_ = new Assoc<String,Real> (*s.real_vars_p_);
     outfile_str_ = s.outfile_str_;
+}
+
+void
+Paper_def::set(Input_engraver * igrav_p)
+{
+    delete igrav_p_;
+    igrav_p_  = igrav_p;
 }
 
 void
@@ -113,12 +125,22 @@ Paper_def::print() const
     mtor << "Paper {";
     mtor << "out: " <<outfile_str_;
     lookup_p_->print();
+    for (Assoc_iter<String,Real> i(*real_vars_p_); i.ok(); i++) {
+	mtor << i.key() << "= " << i.val() << "\n";
+    }
     mtor << "}\n";
 #endif
 }
+
 Lookup const *
 Paper_def::lookup_l()
 {
     assert( lookup_p_ );
     return lookup_p_;
+}
+
+Global_translator*
+Paper_def::get_global_translator_p() const
+{
+    return  igrav_p_->get_group_engraver_p()->global_l();
 }

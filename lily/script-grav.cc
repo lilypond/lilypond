@@ -85,5 +85,5 @@ Script_engraver::do_post_move_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Script_engraver);
-IMPLEMENT_IS_TYPE_B1(Script_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Script_engraver,Engraver);
 ADD_THIS_ENGRAVER(Script_engraver);

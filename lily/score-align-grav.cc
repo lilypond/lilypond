@@ -30,7 +30,7 @@ Score_align_engraver::do_pre_move_processing()
 void
 Score_align_engraver::acknowledge_element(Score_elem_info inf)
 {
-    if (inf.elem_l_->name() == type_ch_C_ ) {
+    if (inf.elem_l_->is_type_b(type_ch_C_ )) {
 	
 	if (! align_p_ ) {
 	    align_p_ = new Horizontal_group_item;
@@ -42,4 +42,4 @@ Score_align_engraver::acknowledge_element(Score_elem_info inf)
 }
 
 IMPLEMENT_STATIC_NAME(Score_align_engraver)
-IMPLEMENT_IS_TYPE_B1(Score_align_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Score_align_engraver,Engraver);

@@ -12,7 +12,7 @@
 
 #include "engraver.hh"
 
-class Collision_engraver : public Request_engraver {
+class Collision_engraver : public Engraver {
     Collision* col_p_;
 
 protected:

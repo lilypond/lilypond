@@ -13,8 +13,8 @@ PScore			0
 Idealspacing		0
 
 # yydebug
-InitParser		1
-Parser			1
+InitParser		0
+Parser			0
 InitDeclarations	0
 Declarations		1
 # FlexLexer debug

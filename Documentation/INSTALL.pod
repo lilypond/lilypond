@@ -208,8 +208,9 @@ TeX
 
 =item *
 
-The MusixTeX fonts. (I use those found in MusixTeX T.59). Beware, the
-clef symbol has changed position in the Egler version, aka. OpusTeX)
+The MusixTeX fonts (I included those found in MusixTeX T.73). Beware,
+the clef symbol has changed position in the Egler version,
+a.k.a. OpusTeX)
 
 =back
 

@@ -45,7 +45,8 @@ struct Lookup {
     Symbol flag(int)const;
     Symbol rest(int, bool outside)const;
     Symbol clef(String)const;
-    Symbol bar(String)const;
+    Symbol bar(String, Real height)const;
+    
     Symbol dots(int)const;
     Symbol slur(int dy, Real &dx, int dir)const;
     Symbol half_slur(int dy, Real &dx, int dir, int xpart)const;

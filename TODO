@@ -6,6 +6,12 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* pushgroup/popgroup
+
+	* strict separation between visual and auditive processing.
+
+	* fix depcy/dept stuff in eg. Beam.
+
 	* whole head on ledger line
 
 	* piano staff
@@ -114,9 +120,6 @@ HKN buglist:
 
 tekst staat erg ver van notenbalken af
 
-Onduidelijk wanneer wel en geen \ voor een woord. Maak liever
-verplichte regels
-
 BUGS
 
 	* spurious Weird stem size warnings
@@ -126,8 +129,6 @@ BUGS
 	* should adjust stemlength for flag number.
 
 	* lilypond - -> crash
-
-	* scales.ly
 
 	* standchen triool beam up/down
 	

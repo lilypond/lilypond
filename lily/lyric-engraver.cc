@@ -50,5 +50,5 @@ Lyric_engraver::do_post_move_processing()
 
 
 IMPLEMENT_STATIC_NAME(Lyric_engraver);
-IMPLEMENT_IS_TYPE_B1(Lyric_engraver,Request_engraver);
+IMPLEMENT_IS_TYPE_B1(Lyric_engraver,Engraver);
 ADD_THIS_ENGRAVER(Lyric_engraver);

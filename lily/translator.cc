@@ -14,3 +14,9 @@ Translator::Translator()
 
 IMPLEMENT_STATIC_NAME(Translator);
 IMPLEMENT_IS_TYPE_B(Translator);
+
+bool
+Translator::try_request(Request*)
+{
+    return false;
+}

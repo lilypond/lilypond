@@ -9,7 +9,7 @@
 #define HEADGRAV_HH
 #include "engraver.hh"
 
-struct Note_head_engraver : Request_engraver {
+struct Note_head_engraver : Engraver {
     Note_head* note_p_;
     Rhythmic_req * note_req_l_;
     

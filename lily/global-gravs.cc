@@ -12,32 +12,32 @@
 #include "debug.hh"
 #include "engraver.hh"
 
-struct Request_engraver_table_entry {
+struct Engraver_table_entry {
     String name_str_;
     Grav_ctor ctor_l_;
-    Request_engraver_table_entry(String s, Grav_ctor f) {
+    Engraver_table_entry(String s, Grav_ctor f) {
 	name_str_ =s;
 	ctor_l_ = f;
     }
-    Request_engraver_table_entry()
+    Engraver_table_entry()
     {
 	ctor_l_ =0;
     }
 };
 
-static Array<Request_engraver_table_entry> *grav_table=0;
+static Array<Engraver_table_entry> *grav_table=0;
 
 void
-add_request_engraver(String s, Grav_ctor f)
+add_Engraver(String s, Grav_ctor f)
 {
     if (!grav_table)
-	grav_table = new Array<Request_engraver_table_entry>;
+	grav_table = new Array<Engraver_table_entry>;
     
-    grav_table->push(Request_engraver_table_entry(s, f));
+    grav_table->push(Engraver_table_entry(s, f));
 }
 
 
-Request_engraver*
+Engraver*
 get_engraver_p(String s)
 {
     for (int i=0; i < grav_table->size(); i++) {

@@ -1,5 +1,5 @@
 /*
-  global-acceptor.hh -- declare Global_acceptor
+  global-translator.hh -- declare Global_translator
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,10 +7,10 @@
 */
 
 
-#ifndef GLOBAL_ACCEPTOR_HH
-#define GLOBAL_ACCEPTOR_HH
+#ifndef GLOBAL_TRANSLATOR_HH
+#define GLOBAL_TRANSLATOR_HH
 
-#include "acceptor.hh"
+#include "translator.hh"
 #include "pqueue.hh"
 
 class Global_translator : public virtual Translator {
@@ -29,6 +29,7 @@ public:
     virtual void finish() {}
     
 protected:
+    virtual Global_translator *global_l() { return this; }
     virtual int depth_i() const;
     virtual Translator *ancestor_l(int);
 };

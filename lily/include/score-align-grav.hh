@@ -12,7 +12,7 @@
 
 #include "engraver.hh"
 
-class Score_align_engraver: public Request_engraver
+class Score_align_engraver: public Engraver
 {
     Horizontal_group_item  * align_p_;
 public:

@@ -470,11 +470,10 @@ tekstII = \lyric{
 		{ \id "Lyric" "2"; \tekstII }
 
 		\melodic < \melodie \commands >
-		\melodic <\begeleiding \commands >
-	
+		\melodic < \begeleiding \commands >
 	>
 	\paper{
-		width= 195.\mm;
+		linewidth= 195.\mm;
 
 		% on two pages...
 		unitspace= 9.\mm;

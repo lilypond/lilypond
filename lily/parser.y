@@ -217,7 +217,6 @@ mudela:	/* empty */
 	| mudela error
 	| mudela check_version { } 
 	| mudela add_notenames { }
-	| mudela input_engraver_spec { add_global_input_engraver($2); }
 	;
 
 check_version:
@@ -305,7 +304,10 @@ declaration:
 		$$ = new Real_id(*$1, new Real($3), REAL_IDENTIFIER);
 		delete $1;
 	}
-	
+	| declarable_identifier '=' int	{
+		$$ = new Int_id(*$1, new int($3), INT_IDENTIFIER);
+		delete $1;
+	}
 	| declarable_identifier '=' post_request {
 		$$ = new Request_id(*$1, $3, POST_REQUEST_IDENTIFIER);
 		delete $1;
@@ -326,7 +328,8 @@ input_engraver_spec:
 input_engraver_spec_body:
 	STRING	{ 
 		$$ = new Input_engraver; 
-		$$->name_str_ =*$1;
+		$$->type_str_ =*$1;
+		$$->set_spot ( THIS->here_input() );
 		delete $1;
 	}
 	| input_engraver_spec_body ALIAS STRING ';' {
@@ -407,6 +410,9 @@ paper_body:
 	}
 	| paper_body STRING '=' REAL ';' {
 		$$->set_var(*$2, $4);
+	}
+	| paper_body input_engraver_spec	{
+		$$->set( $2 );
 	}
 	| paper_body error {
 

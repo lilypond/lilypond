@@ -127,17 +127,18 @@
 
 \def\emptybar{}
 
-\def\thinbar{\vrule height\balkheight width 1.6\staffrulethickness} % TODO parametric.
-\def\thickbar{\vrule height\balkheight width 2\smallspace}
-\def\maatstreep{\thinbar}
-
+\def\thinbar#1{\vrule height #1 width 1.6\staffrulethickness} % TODO parametric.
+\def\thickbar#1{\vrule height #1 width 2\smallspace}
+\def\maatstreep#1{\thinbar{#1}}
+\def\defaultthinbar{\thinbar{\balkheight}}
+\def\defaultthickbar{\thickbar{\balkheight}}
 %? what-s wrong with rightalign?
-\def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
+\def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
 
-\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
-\def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
-\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
-\def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
+\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\defaultthinbar\hskip\smallspace\defaultthickbar}}
+\def\repeatstartbar{\hbox{\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
+\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\defaultthinbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthickbar\kern\smallspace\defaultthinbar\kern2\smallspace\repeatcolon}}
+\def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
 
 %compatibility
 \def\repeatbar{\repeatstopbar}

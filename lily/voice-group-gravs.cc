@@ -5,17 +5,13 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "music-list.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "musical-request.hh"
-#include "voice-gravs.hh"
 #include "voice-group-gravs.hh"
 #include "engraver.hh"
 #include "command-request.hh"
 #include "debug.hh"
-#include "input-engraver.hh"
-#include "time-description.hh"
 
 
 Voice_group_engravers::Voice_group_engravers()

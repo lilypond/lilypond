@@ -33,6 +33,7 @@ EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif
 
 default: do-doc
 	true
+
 do-doc: $(TEXTFILES)
 
 html: $(HTMLFILES)
@@ -53,10 +54,6 @@ localclean:
 
 MAN1FILES = lilypond convert-mudela mi2mu
 MAN1GROFF = $(addprefix $(outdir)/, $(addsuffix .1,$(MAN1FILES)))
-
-bla:
-	echo $(MANGROFF)
-	echo $(MANFILES)
 
 localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 	$(INSTALL) -d $(mandir)/man5

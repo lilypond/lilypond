@@ -19,7 +19,7 @@ EndMudelaHeader
 % declare melody (which will be in *one* staff ) for the lead voice
 melodie = \melodic {
 	 			% switch Lilypond in note-mode
-	\clef\violin;
+	\clef"violin";
 	\meter 2/4 ;
 	\octave  c'; 		% set the default octave
 	% the default note duratino is 4
