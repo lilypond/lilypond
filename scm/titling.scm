@@ -38,16 +38,21 @@ page:last?, page:page-number-string and page:page-number
 			     ))
 			  alist))
 		   alists))
-	     (pgnum-alist (list
-			   (cons 'page:last? last?)
-			   (cons 'page:page-number-string
-				 (number->string page-number))
-			   (cons 'page:page-number  page-number)))
+	     (tagline (ly:modules-lookup scopes 'tagline)) 
+
+	     (pgnum-alist
+	       (list
+		(cons 'header:tagline (if (markup? tagline)
+					  tagline
+					  TAGLINE)))
+		(cons 'page:last? last?)
+		(cons 'page:page-number-string
+		      (number->string page-number))
+		(cons 'page:page-number  page-number))
 	     (props (append
 		     (list pgnum-alist)
 		     prefixed-alists
-		     (page-properties layout)))
-	     )
+		     (page-properties layout))))
 
 	  (interpret-markup layout props potential-markup))
 	

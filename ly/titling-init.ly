@@ -1,4 +1,5 @@
 bookTitleMarkup = \markup {
+
   \column {
     \fill-line { \fromproperty #'header:dedication }
     \fill-line {
@@ -26,6 +27,7 @@ bookTitleMarkup = \markup {
       }
     }
   }
+
 }
 
 scoreTitleMarkup = \markup {
@@ -73,4 +75,5 @@ oddFooterMarkup = \markup {
     }
   }
 }
+
 
