@@ -19,7 +19,7 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 #include "stencil.hh"
-#include "bezier-bow.hh"
+#include "bezier.hh"
 #include "stem.hh"
 #include "note-head.hh"
 #include "tie-column.hh"

@@ -7,7 +7,6 @@
 */
 
 
-#include "slur.hh"
 #include "engraver.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
