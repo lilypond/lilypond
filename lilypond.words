@@ -370,6 +370,7 @@ StaffGroup
 StaffSymbol
 \\staffTwo
 \\start
+\\startCluster
 \\startTextSpan
 Stem
 \\stemBoth
@@ -377,6 +378,7 @@ Stem
 \\steminvert
 \\stemUp
 \\stop
+\\stopCluster
 \\stopTextSpan
 \\stopped
 \\stpaper
