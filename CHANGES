@@ -1,3 +1,15 @@
+1.3.36.jcn4
+===========
+
+* Added instrument-equaliser for MIDI output, see scm/midi.scm, and
+  properties midiMinimumVolume, midiMaximumVolume, ranges [0,1].
+
+* Changed absolute midi volume settings into factor of full scale.
+
+* Fixed another dynamic-line-spanner bug, it gets hairy.
+
+* Added warning for spanners with dubiously narrow parents.
+
 1.3.36.jcn3
 ===========
 

@@ -40,8 +40,8 @@
 	}
 	\translator { 
 		\ScoreContext 
-		%textEmptyDimension = ##t
-		textStyle = #"italic"
+		%% URG: this changes dynamics too
+		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"
 	}
 	\translator { \OrchestralScoreContext }
