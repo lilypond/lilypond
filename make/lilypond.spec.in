@@ -91,7 +91,9 @@ fi
 %doc mudela-mode.el
 
 %ifnos cygwin
-%{_prefix}/bin/abc2ly
+%{_prefix}/bin/etf2ly
+%{_prefix}/bin/musedata2ly
+%{_prefix}/bin/pmx2ly
 %{_prefix}/bin/convert-mudela
 %{_prefix}/bin/mudela-book
 %{_prefix}/bin/ly2dvi

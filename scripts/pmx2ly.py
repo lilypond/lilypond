@@ -1,6 +1,15 @@
 #!@PYTHON@
 
-# (urg! wat een pokkeformaat (pokkenformaat?))  
+#
+#
+#
+# 
+#
+#
+
+
+#fixme: block openings aren't parsed.
+
 import os
 import string
 import sys
@@ -16,14 +25,6 @@ if version == '@' + 'TOPLEVEL_VERSION' + '@':
 def encodeint (i):
 	return chr ( i  + ord ('A'))
 
-def stripcomment (l):
-	return re.sub ('[ \t]*%.*$\n', '', l)
-	
-def stripwhite (l):
-	return re.sub ('[ \n\t]+', ' ', l)
-	
-def stripeols (l):
-	return re.sub ('^ ',  '', re.sub (' $', '', l))
 	
 actab = {-2: 'eses', -1: 'es', 0 : '', 1: 'is', 2:'isis'}
 
@@ -115,6 +116,13 @@ class Barcheck :
 	def dump (self):
 		return '|\n'
 
+
+class Meter :
+	def __init__ (self,nums):
+		self.nums = nums
+	def dump (self):
+		return ' %{ FIXME: meter change %} '
+		
 class Beam:
 	def __init__ (self, ch):
 		self.char = ch
@@ -231,7 +239,6 @@ class Staff:
 			v.number = i
 			i = i+1
 	def set_clef (self, letter):
-
 		clstr = clef_table[letter]
 		self.voices[0].add_nonchord (Clef (clstr))
 		
@@ -527,26 +534,30 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 					
 		return str
 	
-	def clean (self, ls):
-		ls = map (stripcomment, ls)
-		ls = map (stripwhite, ls)
-		ls = map (stripeols, ls)
-
-
-		ls = filter (lambda x: x <> '', ls)
-		return ls
 
 	def parse_header  (self, ls):
+		while ls[0][0] == '%':
+			ls = ls[1:]
 
 		opening = ls[0]
 		ls = ls[1:]
-
-
-		opening = map (string.atoi, re.split ('[\t ]+', opening))
+		
+		opening = re.sub ('^[ \t]+', '', opening)
+		opening = re.sub ('[ \t]+$', '', opening) 		
+		opening = re.split ('[\t ]+', opening)
 
 		(no_staffs, no_instruments, timesig_num,timesig_den, ptimesig_num,
-		 ptimesig_den, pickup_beats,keysig_number) = tuple (opening)
+		 ptimesig_den, pickup_beats,keysig_number) = opening
+		(no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num, ptimesig_den, keysig_number) = tuple (map (string.atoi , [no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num, ptimesig_den, keysig_number]))
+		try: 
+			pickup_beats = string.atoi (pickup_beats)
+		except ValueError:
+			pickup_beats = string.atof (pickup_beats)
+		
 
+		while ls[0][0] == '%':
+			ls = ls[1:]
+			
 		opening = ls[0]
 		ls = ls[1:]
 
@@ -560,21 +571,25 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 			ls = ls[1:]
 
 
+		while ls[0][0] == '%':
+			ls = ls[1:]
+
 		l = ls[0]
 		ls = ls[1:]
 
-
 		self.set_staffs (no_staffs)
+
 		for s in self.staffs:
 			s.set_clef(l[0])
 			l = l[1:]
 
 		# dump path 
+		while ls[0][0] == '%':
+			ls = ls[1:]
+
 		ls = ls[1:] 
 
 		# dump more ?
-		ls = ls[2:]
-
 		return ls
 
 	def parse_ornament (self, left):
@@ -629,11 +644,42 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 		return left
 	
 	def parse_body (self, left):
-		left = re.sub ('[ \t\n]+',   ' ', left)
-
+		preamble = 1
+		
 		while left:
 			c = left[0]
-			if c in 'Gzabcdefgr':
+			if c == '%':
+				f = string.find (left, '\n')
+				if f < 0:
+					left = ''
+				left = left[f+1:]
+			elif c == 'm':
+				left = left[1:]
+				m = re.match ('([o0-9]/[o0-9]/[o0-9]/[o0-9])', left)
+				if m:
+					nums = m.group (1)
+					left = left[len (nums):]
+					nums = map (string.atoi , nums)
+					self.current_voice ().add_nonchord (Meter (nums))
+					continue
+
+				m= re.match ('([0-9o]+)', left)
+				if m:
+					nums = m.group (1)
+					self.current_voice ().add_nonchord (Meter (map (string.atoi (nums))))
+					continue
+				
+			elif left[0] in 'lh':
+				f = string.find (left, '\n')
+				if f <0 :
+					left = ''
+				else:
+					left = left[f+1:]
+					
+				f = string.find (left, '\n')
+				title = left[:f]
+				left=left[f+1:]
+			elif c in 'Gzabcdefgr':
 				left = self.parse_note (left)
 			elif c in DIGITS + 'n#-':
 				left = self.parse_basso_continuo (left)
@@ -662,9 +708,6 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 				left = left[1:]
 
-		for c in self.staffs:
-			c.calculate ()
-
 	def dump (self):
 		str = ''
 
@@ -679,10 +722,14 @@ Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 
 	def parse (self,fn):
 		ls = open (fn).readlines ()
-		ls = self.clean (ls)
 		ls = self.parse_header (ls)
 		left = string.join (ls, ' ')
+
+		print left
 		self.parse_body (left)
+		for c in self.staffs:
+			c.calculate ()
+
 		
 
 
