@@ -16,8 +16,8 @@ class PointerList : public List<void *>
  public:
     PCursor<T> top() {  return PCursor<T> (List<void*>::top()); }
     PCursor<T> bottom() { return PCursor<T> (List<void*>::bottom()); }
+    PCursor<T> find(T) const;
     void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
-//    PointerList( const T& thing ) : List<void*>( thing ) { }
     PointerList() {}
 };
 
