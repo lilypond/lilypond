@@ -1,9 +1,7 @@
 \version "1.5.68"
-
-%{
-  See scm/chord-names.scm: chord::names-alist-american
-  James Hammons <jlhamm@pacificnet.net>
-%}
+\header {
+    texidoc = "Chord names in american styles, according to one of our users."
+}
 
 \include "english.ly"
 #(set! chord::names-alist-american

@@ -1,4 +1,10 @@
+2002-10-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/{various}.ly: add \header fields and texidoc strings.
+
 2002-10-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.7.2 released
 
 	* scripts/convert-ly.py (FatalConversionError.conv): add rule for
 	(ly-make-music "Foo_bar") -> (make-music-by-name 'FooBarEvent).

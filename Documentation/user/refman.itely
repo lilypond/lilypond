@@ -1991,9 +1991,12 @@ Unbeamed eighth notes and shorter by default have a slash through the
 stem. This can be controlled with object property @code{stroke-style} of
 @internalsref{Stem}. The change in formatting is accomplished by
 inserting @code{\startGraceMusic} before handling the grace notes, and
-@code{\stopGraceMusic} after finishing the grace notes. You can add to
-these definitions to globally change grace note formatting. The
-standard definitions are in @file{ly/grace-init.ly}.
+@code{\stopGraceMusic} after finishing the grace notes.
+You can add to these definitions to globally change grace note
+formatting. The standard definitions are in @file{ly/grace-init.ly}.
+
+[TODO discuss Scheme functionality.]
+
 
 Notice how the @code{\override} is carefully matched with a @code{\revert}.
 
