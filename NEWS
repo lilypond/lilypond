@@ -1,3 +1,18 @@
+pl 67.hwn1
+	- tutorial updates
+	- \property beamAuto -> noAutoBeaming
+
+pl 67.uu1
+	- abc2ly updates
+
+pl 67.jcn1
+	- bfs: refman/parser subtract
+	- chord::find_additions_and_subtractions: termination assurance
+	- bf: refman: chord-inversion examples
+
+
+********
+
 pl 66.hwn1
 	- bf: chord mode unsigned '-' -> unsigned CHORD_MINUS (1 SR conflict).
 	- refman reedit.
@@ -1894,7 +1909,7 @@ pl 17.jbr1
  	- scripts/ly2dvi.py: Modified search paths to match the new lilypond
  	  installation tree.
  	- scripts/convert-mudela.py: Remove the an existing backup file
- 	  before renaming original.  This is a WIN32 Python requirement.
+ 	  before renaming original.  This is a WINDOWS32 Python requirement.
  	- Documentation/ntweb/index.html: Updated documentation to match
  	  new lilypond installation tree.
  	- lily/main.cc: Fixed LILYPONDPREFIX search paths.

@@ -160,8 +160,8 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
   /*
     Allow already started autobeam to end
    */
-  Scalar on = get_property ("beamAuto", 0);
-  if (!on.to_bool ())
+  Scalar on = get_property ("noAutoBeaming", 0);
+  if (on.to_bool ())
     return;
 
   if (begin_mom)
