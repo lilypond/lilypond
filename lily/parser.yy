@@ -236,7 +236,7 @@ or
 %token ACCEPTS
 %token ADDLYRICS
 %token ADDQUOTE
-%token NEWADDLYRICS
+%token LYRICSTO
 %token ALIAS
 %token ALTERNATIVE
 %token APPLY
@@ -1137,7 +1137,7 @@ re_rhythmed_music:
 	  scm_gc_unprotect_object ($2->self_scm ());
 	  $$ = l;
 	}
-	| NEWADDLYRICS string Music {
+	| LYRICSTO string Music {
 	  Music *l = MY_MAKE_MUSIC ("NewLyricCombineMusic");
 	  l->set_property ("element", $3->self_scm ());
 	  scm_gc_unprotect_object ($3->self_scm ());
