@@ -17,7 +17,6 @@
 
 
 /** 
-
   Make arpeggios that span multiple staffs.  Catch arpeggios, and span a
   Span_arpeggio over them if we find more than two arpeggios.
   */
@@ -56,20 +55,19 @@ Span_arpeggio_engraver::acknowledge_element (Score_element_info info)
 void
 Span_arpeggio_engraver::process_acknowledged ()
 {
+  /*
+    connectArpeggios is slightly brusque; we should really read a elt
+    property of the caught non-span arpeggios. That way, we can have
+
+    both non-connected and connected arps in one pianostaff.
+    
+
+  */
   if (!span_arpeggio_ && arpeggios_.size () > 1
       && to_boolean (get_property ("connectArpeggios")))
     {
-      span_arpeggio_ = new Item (get_property ("SpanArpeggio"));
-      span_arpeggio_->set_parent (arpeggios_[0], Y_AXIS);
-      Side_position::set_axis (span_arpeggio_, X_AXIS);
-      Pointer_group_interface pgi (span_arpeggio_, "arpeggios");
-      for (int i = 0; i < arpeggios_.size () ; i++)
-	{
-	  pgi.add_element (arpeggios_[i]);
-	  span_arpeggio_->add_dependency (arpeggios_[i]);
-	}
-      
-      announce_element (span_arpeggio_, 0);
+      span_arpeggio_ = new Item (get_property ("Arpeggio"));
+      announce_element (span_arpeggio_, 0);      
     }
 }
 
@@ -78,6 +76,26 @@ Span_arpeggio_engraver::do_pre_move_processing ()
 {
   if (span_arpeggio_) 
     {
+      /*
+	we do this very late, to make sure we also catch `extra'
+	side-pos support like accidentals.
+       */
+      for (int i=0; i < arpeggios_.size (); i ++)
+	{
+	  for (SCM s = arpeggios_[i]->get_elt_property ("stems");
+	       gh_pair_p (s); s = gh_cdr (s))
+	    Group_interface::add_thing (span_arpeggio_, "stems", gh_car (s));
+	  for (SCM s = arpeggios_[i]->get_elt_property ("side-support-elements");
+	       gh_pair_p (s); s = gh_cdr (s))
+	    Group_interface::add_thing (span_arpeggio_, "side-support-elements", gh_car (s));
+
+	  /*
+	    we can't kill the children, since we don't want to the
+	    previous note to bump into the span arpeggio; so we make
+	    it transparent.  */
+	  arpeggios_[i]->set_elt_property ("molecule-callback", SCM_BOOL_T);
+	}
+      
       typeset_element (span_arpeggio_);
       span_arpeggio_ = 0;
     }

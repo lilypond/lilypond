@@ -32,7 +32,6 @@ StaffContext=\translator {
 	\consists "Rest_collision_engraver";
 	\consists "Local_key_engraver";
 	\consists "Piano_pedal_engraver";
-	\consists "Arpeggio_engraver";
 
 	\consistsend "Axis_group_engraver";
 
@@ -100,8 +99,10 @@ VoiceContext = \translator {
 	Generic_property_list = #generic-voice-properties
 	
 	\consists "Output_property_engraver";	
+	\consists "Arpeggio_engraver";
 
 	\consists "Dynamic_engraver";   % must come before text_engraver.
+	\consists "Text_spanner_engraver";
 	\consists "Property_engraver";
 	
 	\consists "Breathing_sign_engraver";
@@ -439,9 +440,14 @@ ScoreContext = \translator {
 	% staffspace (distances)
 	%
 	Arpeggio = #`(
- 		(interfaces . (arpeggio-interface))
+ 		(interfaces . (arpeggio-interface side-position-interface))
+		(X-extent-callback . ,Arpeggio::width_callback)
  		(molecule-callback . ,Arpeggio::brew_molecule)
- 		(name . "arpeggio") 
+		(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+		(X-offset-callbacks . (,Side_position::aligned_side))
+		(direction . -1)
+		(staff-position . 0.0)
+ 		(name . "Arpeggio") 
  	)
 	BarLine = #`(
 		(interfaces . (bar-interface staff-bar-interface))
@@ -638,6 +644,8 @@ ScoreContext = \translator {
 	
 	Accidentals = #`(
 		(molecule-callback . ,Local_key_item::brew_molecule)
+		(X-offset-callbacks . (,Side_position::aligned_side))
+		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
 		(interfaces . (accidentals-interface))
@@ -712,11 +720,8 @@ ScoreContext = \translator {
 		(self-alignment-X . 0)
 		(text . "8")
 		(visibility-lambda . ,begin-of-line-visible)
-		(X-offset-callbacks .
-		 (,Side_position::centered_on_parent
-		  ,Side_position::aligned_on_self
-		  ,Side_position::aligned_side
-		  )) 
+		(X-offset-callbacks . (,Side_position::centered_on_parent ,Side_position::aligned_on_self))
+		(Y-offset-callbacks . (,Side_position::aligned_side))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
 		(name . "OctavateEight")
@@ -763,11 +768,6 @@ ScoreContext = \translator {
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
 		(name . "SpacingSpanner")
-	)
-	SpanArpeggio = #`(
-		(interfaces . (span-arpeggio-interface))
-		(molecule-callback . ,Span_arpeggio::brew_molecule)
-		(name . "SpanArpeggio") 
 	)
 	SpanBar = #`(
 		(interfaces . (bar-interface span-bar-interface))
@@ -827,10 +827,17 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface side-position-interface))
-		(padding . 	3.0)
+		(padding . 0.5)
 		(name . "TextScript") 
 	)
-
+	TextSpanner = #`(
+		(interfaces . (text-spanner-interface))
+		(molecule-callback . ,Text_spanner::brew_molecule)
+		(type . "line")
+		(direction . 1)
+		(text-style . "italic")
+		(name . "TextSpanner")		
+	)
 	Tie = #`(
 		(interfaces . (tie-interface))
 		(molecule-callback . ,Tie::brew_molecule)
@@ -933,7 +940,6 @@ ScoreContext = \translator {
 
 		(name . "SustainPedal")		
 	)	
-
 	UnaChordaPdeal = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
