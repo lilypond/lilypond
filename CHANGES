@@ -1,3 +1,39 @@
+1.3.77
+======
+
+* Midi2ly bugfix: handle durations longer than longa.  These can occur
+  because of lengthened notes when using --no-rests.
+
+* Midi2ly: output `new' \key syntax, and updated version number.
+
+* Midi2ly bugfix: don't correct quantised durations, don't use tuplets, 
+  double dots etc. when user doesn't want them.  It probably used to
+  work like this, a long time ago.  For some unknown reason, all
+  corrections made by Duration_convert were junked if the corrected
+  duration != exact duration.  Duh.
+
+* Midi2ly: added a new option: --no-rests.
+
+* Update of mudela-book (Tom Cato Amundsen)
+ - --read-lys option, now you can do:
+ 	mudela-book file.texi
+	convert-mudela
+	mudela-book --read-lys
+ - --outdir=DIR will put ALL output into DIR
+ - @mudela[filename="myfilename"]{c d e f g}
+ - --force-mudela-fontsize
+ - ignore mudela inside @ignore @end ignore
+
+1.3.76.gp1
+==========
+
+* Lyric_phrasing_engraver now catches lyric extenders and correctly
+  terminates them under the last note of a melisma.
+
+* Lyric word spacing code changed to fix hyphen alignment.
+
+* Other minor tidying up of Lyric_phrasing_engraver and related code.
+
 1.3.76
 ======
 

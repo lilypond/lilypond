@@ -1,20 +1,31 @@
 #!@PYTHON@
+# vim: set noexpandtab:
+import time
+t1 = time.clock()
 
-import os
-import string
-import re
-import getopt
-import sys
-import __main__
+# support bruk av convert-mudela
+#
+# option:
+# 11pt, 13pt, 16pt, 20pt, 26pt
+# singleline
+# multiline
+# fragment  (used when a comment containg \score confuses mudela-book)
+# nonfragment (probably not needed)
+# verbatim
 
+# latex only options:
+# eps
+# 
 
-initfile = ''
-program_version = '@TOPLEVEL_VERSION@'
-
-cwd = os.getcwd ()
-include_path = [cwd]
-dep_prefix = ''
-
+# command line options
+# --defalt-mudela-fontsize
+# --force-mudela-fontsize
+# --outname
+# --force-verbatim make all mudela verbatim. Maybe not that useful
+# --dependencies
+# --dep-prefix
+# --no-pictures
+# --no-lily
 # TODO: Figure out clean set of options.
 
 # BUG: does not handle \verb|\begin{verbatim}\end{verbatim}| correctly.
@@ -27,6 +38,31 @@ dep_prefix = ''
 # * convert-mudela *.ly
 # * mudela-book --read-lys *.ly
 #
+
+import os
+import stat
+import string
+import re
+import getopt
+import sys
+import __main__
+
+
+initfile = ''
+program_version = '1.3.69-very-unstable'
+
+include_path = [os.getcwd()]
+
+g_dep_prefix = ''
+g_outdir = ''
+g_force_mudela_fontsize = 0
+g_read_lys = 0
+g_do_pictures = 1
+g_num_cols = 1
+format = ''
+g_run_lilypond = 1
+g_use_hash = 1
+no_match = 'a\ba'
 
 default_music_fontsize = 16
 default_text_fontsize = 12
@@ -48,33 +84,44 @@ latex_linewidths = {
 	 'legal':{10: 167, 11: 175, 12: 190},
 	 'executive':{10: 167, 11: 175, 12: 184}}}
 
+texi_linewidths = {
+	'a4': {12: 455},
+	'a4wide': {12: 470},
+	'smallbook': {12: 361},
+	'texidefault': {12: 433}}
+
+
+def get_linewidth(cols, paper, fontsize):
+	if __main__.format == 'latex':
+		return latex_linewidths[cols][paper][fontsize]
+	elif __main__.format == 'texi':
+		return texi_linewidths[paper][fontsize]
+	raise "never here"
 
 option_definitions = [
-  ('DIM',  '', 'default-mudela-fontsize', 'default fontsize for music.  DIM is assumed to in points'),
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
+  ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to in points'),
+  ('DIM',  '', 'default-mudela-fontsize', 'deprecated, use --default-music-fontsize'),
   ('', 'h', 'help', 'print help'),
   ('DIR', 'I', 'include', 'include path'),
   ('', '', 'init', 'mudela-book initfile'),
-#  ('DIM', '', 'force-mudela-fontsize', 'force fontsize for all inline mudela. DIM is assumed to in points'),
+  ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline mudela. DIM is assumed to in points'),
+  ('DIM', '', 'force-mudela-fontsize', 'deprecated, use --force-music-fontsize'),
   ('', '', 'force-verbatim', 'make all mudela verbatim'),
   ('', 'M', 'dependencies', 'write dependencies'),
   ('', 'n', 'no-lily', 'don\'t run lilypond'),
   ('', '', 'no-pictures', "don\'t generate pictures"),
+  ('', '', 'read-lys', "don't write ly files."),
   ('FILE', 'o', 'outname', 'prefix for filenames'),
   ('', 'v', 'version', 'print version information' ),
-  ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency')
+  ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
+  ('FILE', '', 'outdir', "where to place generated files"),
   ]
-
-format = ''
-run_lilypond = 1
-use_hash = 1
-no_match = 'a\ba'
-do_pictures = 1
 
 # format specific strings, ie. regex-es for input, and % strings for output
 output_dict= {
 	'latex': {
-		'output-mudela-fragment' : r"""\begin[eps,fragment%s]{mudela}
+		'output-mudela-fragment' : r"""\begin[eps,singleline,%s]{mudela}
   \context Staff <
     \context Voice{
       %s
@@ -87,13 +134,18 @@ output_dict= {
 		'output-verbatim': r"""\begin{verbatim}%s\end{verbatim}""",
 		'output-default-post': r"""\def\postMudelaExample{}""",
 		'output-default-pre': r"""\def\preMudelaExample{}""",
-		'output-eps': '\\noindent\\parbox{\\mudelaepswidth{%s.eps}}{\includegraphics{%s.eps}}',
-		'output-tex': '\\preMudelaExample \\input %s.tex \\postMudelaExample\n'
+		'output-eps': '\\noindent\\parbox{\\mudelaepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-tex': '\\preMudelaExample \\input %(fn)s.tex \\postMudelaExample\n',
+		'pagebreak': r'\pagebreak',
 		},
 	'texi' : {'output-mudela': """@mudela[%s]
 %s
-@end mudela
+@end mudela 
 """,
+		  'output-mudela-fragment': """@mudela[%s]
+\context Staff\context Voice{ %s }
+@end mudela """,
+		  'pagebreak': None,
 		  'output-verbatim': r"""@example
 %s
 @end example
@@ -110,51 +162,62 @@ output_dict= {
 \catcode`\@=12
 \input lilyponddefs
 \def\EndLilyPondOutput{}
-\input %s.tex
+\input %(fn)s.tex
 \catcode`\@=0
 @end tex
 @html
 <p>
-<img src=%s.png>
+<img src=%(fn)s.png>
 @end html
 """,
 		}
 	}
 
-def output_verbatim (body):
+def output_verbatim (body):#ugh .format
+	if __main__.format == 'texi':
+		body = re.sub ('([@{}])', '@\\1', body)
+	return get_output ('output-verbatim') % body
+
+def output_mbverbatim (body):#ugh .format
 	if __main__.format == 'texi':
 		body = re.sub ('([@{}])', '@\\1', body)
 	return get_output ('output-verbatim') % body
 
 re_dict = {
 	'latex': {'input': '\\\\mbinput{?([^}\t \n}]*)',
-		  'include': '\\\\mbinclude{([^}]+)}',
+		  'include': '\\\\mbinclude{(?P<filename>[^}]+)}',
 		 
-		  'comma-sep' : ', *',
+		  'option-sep' : ', *',
 		  'header': r"""\\documentclass(\[.*?\])?""",
 		  'preamble-end': '\\\\begin{document}',
-		  'verbatim': r"""(?s)\\begin{verbatim}(.*?)\\end{verbatim}""",
-		  'verb': r"""\\verb(.)(.*?)\1""",
-		  'mudela-file': '\\\\mudelafile(\[[^\\]]+\])?{([^}]+)}',
-		  'mudela' : '\\\\mudela(\[.*?\])?{(.*?)}',
-		  'mudela-block': r"""(?s)\\begin(\[.*?\])?{mudela}(.*?)\\end{mudela}""",
+		  'verbatim': r"""(?s)\\begin{verbatim}(?P<code>.*?)\\end{verbatim}""",
+		  'verb': r"""\\verb(.)(?P<code>.*?)\1""",
+		  'mudela-file': r'\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)}',
+		  'mudela' : '\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
+		  'mudela-block': r"""(?s)\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
 		  'interesting-cs': '\\\\(chapter|section|twocolumn|onecolumn)',
 		  'def-post-re': r"""\\def\\postMudelaExample""",
 		  'def-pre-re': r"""\\def\\preMudelaExample""",		  
+		  'intertext': r',?\s*intertext=\".*?\"',
+		  'ignore': no_match,
+		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 	
 	'texi': {
-		 'input':  '@mbinclude[ \n\t]+([^\t \n]*)',# disabled
-		 'include': no_match,
+		 'include':  '@mbinclude[ \n\t]+(?P<filename>[^\t \n]*)',
+		 'input': no_match,
 		 'header': no_match,
 		 'preamble-end': no_match,
-		 'verbatim': r"""(?s)@example(.*?)@end example$""",
-		 'verb': r"""@code{(.*?)}""",
-		 'mudela-file': '@mudelafile(\[[^\\]]+\])?{([^}]+)}',
-		 'mudela' : '@mudela(\[.*?\])?{(.*?)}',
-		 'mudela-block': r"""(?s)@mudela(\[.*?\])?(.*?)@end mudela""",
+		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
+		 'verb': r"""@code{(?P<code>.*?)}""",
+		 'mudela-file': '@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)}',
+		 'mudela' : '@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
+		 'mudela-block': r"""(?s)@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s""",
 		 'interesting-cs': r"""[\\@](chapter|section)""",
-		  'comma-sep' : ', *',		 
+		  'option-sep' : ', *',
+		  'intertext': r',?\s*intertext=\".*?\"',
+		  'ignore': r"(?s)@ignore\s(.*?)@end ignore\s",
+		  'numcols': no_match,
 		 }
 	}
 
@@ -183,7 +246,6 @@ def get_output (name):
 def get_re (name):
 	return  re_dict[format][name]
 
-
 def bounding_box_dimensions(fname):
 	try:
 		fd = open(fname)
@@ -198,167 +260,96 @@ def bounding_box_dimensions(fname):
 		return (0,0)
 
 
-
-read_files = []
-def find_file (name):
-	f = None
-	for a in include_path:
-		try:
-			nm = os.path.join (a, name)
-			f = open (nm)
-			__main__.read_files.append (nm)
-			break
-		except IOError:
-			pass
-
-
-	if f:
-		return f.read ()
-	else:
-		error ("File not found `%s'\n" % name)
-		return ''
-
 def error (str):
 	sys.stderr.write (str + "\n  Exiting ... \n\n")
 	raise 'Exiting.'
 
 
 def compose_full_body (body, opts):
-	"Construct the text of an input file: add stuff to BODY using OPTS as options."
-	paper = 'a4'
+	"""Construct the mudela code to send to Lilypond.
+	Add stuff to BODY using OPTS as options."""
+	if __main__.format == 'texi':
+		paper = 'texidefault'
+	else:
+		paper = 'letter' # yes, latex use letter as default, at least
+		                 # my tetex distro
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
-
-	cols = 1
 	for o in opts:
 		m = re.search ('^(.*)paper$', o)
 		if m:
 			paper = m.group (1)
 		
-
-		m = re.match ('([0-9]+)pt', o)
-		if m:
-			music_size = string.atoi(m.group (1))
+		if g_force_mudela_fontsize:
+			music_size = g_force_mudela_fontsize
+		else:
+			m = re.match ('([0-9]+)pt', o)
+			if m:
+				music_size = string.atoi(m.group (1))
 
 		m = re.match ('latexfontsize=([0-9]+)pt', o)
 		if m:
 			latex_size = string.atoi (m.group (1))
 
+	if re.search ('\\\\score', body):
+		is_fragment = 0
+	else:
+		is_fragment = 1
+	if 'fragment' in opts:
+		is_fragment = 1
+	if 'nonfragment' in opts:
+		is_fragment = 0
 
-
-	if 'twocolumn' in opts:
-		cols = 2
-		
-
-	# urg: breaks on \include of full score
-	# Use nofly option if you want to \include full score.
-	if 'nofly'  not in opts and not re.search ('\\\\score', body):
-		opts.append ('fragment')
-
-	if 'fragment' in opts and 'nosingleline' not in opts:
-		opts.append ('singleline')
-
+	if is_fragment and not 'multiline' in opts:
+		opts.append('singleline')
 	if 'singleline' in opts:
 		l = -1.0;
 	else:
-		l = latex_linewidths[cols][paper][latex_size]
-
-
-	if 'relative' in opts:
-		body = '\\relative c { %s }' % body
-
+		l = get_linewidth(g_num_cols, paper, latex_size)
 	
-	if 'fragment' in opts:
+	if 'relative' in opts:#ugh only when is_fragment
+		body = '\\relative c { %s }' % body
+	
+	if is_fragment:
 		body = r"""\score { 
-  \notes { %s }
+ \notes { %s }
   \paper { }  
 }""" % body
 
-        opts = uniq (opts)
-        optstring = string.join (opts, ' ')
+	opts = uniq (opts)
+	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
 	
 	body = r"""
-%% Generated by mudela-book.py; options are %s
+%% Generated by mudela-book.py; options are %s  %%ughUGH not original options
 \include "paper%d.ly"
 \paper  { linewidth = %f \pt; } 
 """ % (optstring, music_size, l) + body
-
 	return body
-
-def find_inclusion_chunks (regex, surround, str):
-	chunks = []
-	while str:
-		m = regex.search (str)
-
-		if m == None:
-			chunks.append (('input', str))
-			str = ''
-			break
-
-		chunks.append (('input', str[: m.start (0)]))
-		chunks.append (('input', surround))
-		chunks = chunks +  read_doc_file (m.group (1))
-
-		chunks.append (('input', surround))
-
-		str = str [m.end (0):]
-	return chunks
-
-def find_include_chunks (str):
-	return find_inclusion_chunks (get_re ('include'), '\\newpage', str)
-
-def find_input_chunks (str):
-	return find_inclusion_chunks (get_re ('input'), '', str)	
-
-def read_doc_file (filename):
-	"""Read the input file, substituting for \input, \include, \mudela{} and \mudelafile"""
-	str = ''
-	str = find_file(filename)
-
-	if __main__.format == '':
-		latex =  re.search ('\\\\document', str[:200])
-		texinfo =  re.search ('@node', str[:200])
-		if (texinfo and latex) or not (texinfo or latex):
-			error("error: can't determine format, please specify")
-		if texinfo:
-			__main__.format = 'texi'
-		else:
-			__main__.format = 'latex'
-			
-	chunks = [('input', str)]
-
-	for func in (find_verbatim_chunks, find_verb_chunks, find_include_chunks, find_input_chunks):
-		newchunks = []
-		for c in chunks:
-			if c[0] == 'input':
-				newchunks = newchunks + func (c[1])
-			else:
-				newchunks.append (c)
-		chunks = newchunks
-	
-	return chunks
-
 
 
 def scan_preamble (str):
 	options = []
+	if __main__.format == 'texi':
+		x = 250
+		if string.find(str[:x], "@afourpaper") != -1:
+			options = ['a4paper']
+		elif string.find(str[:x], "@afourwide") != -1:
+			options = ['a4widepaper']
+		elif string.find(str[:x], "@smallbook") != -1:
+			options = ['smallbookpaper']
 	m = get_re ('header').search( str)
-
 	# should extract paper & fontsz.
 	if m and m.group (1):
 		options = options + re.split (',[\n \t]*', m.group(1)[1:-1])
 
 	def verbose_fontsize ( x):
-		# o ??
-		#if o.match('[0-9]+pt'):
 		if re.match('[0-9]+pt', x):
 			return 'latexfontsize=' + x
 		else:
 			return x 
 			
 	options = map (verbose_fontsize, options)
-
 	return options
 
 
@@ -382,148 +373,150 @@ def completize_preamble (str):
 
 	return preamble + str
 
-def find_verbatim_chunks (str):
-	"""Chop STR into a list of tagged chunks, ie. tuples of form
-	(TYPE_STR, CONTENT_STR), where TYPE_STR is one of 'input' and 'verbatim'
 
-	"""
-
-	chunks = []
-	while str:
-		m = get_re ('verbatim').search( str)
-		if m == None:
-			chunks.append( ('input', str))
-			str = ''
-		else:
-			chunks.append (('input', str[:m.start (0)]))
-			chunks.append (('verbatim', m.group (0)))
-		
-			str = str [m.end(0):]
-		
-	return chunks
-
-def find_verb_chunks (str):
-
-	chunks = []
-	while str:
-		m = get_re ("verb").search(str)
-		if  m == None:
-			chunks.append (('input', str))
-			str = ''
-		else:
-			chunks.append (('input', str[:m.start (0)]))
-			chunks.append (('verbatim', m.group (0)))
-			str = str [m.end(0):]
-
-	return chunks
-			
-
-
-def find_mudela_shorthand_chunks (str):
-	return [('input', find_mudela_shorthands(str))]
-	
-def find_mudela_shorthands (b):
-	def mudela_short (match):
-		"Find \mudela{}, and substitute appropriate \begin / \end blocks."
-		opts = match.group (1)
-		if opts:
-			opts = ',' + opts[1:-1]
-		else:
-			opts = ''
-		return get_output ('output-mudela-fragment')  % (opts, match.group (2))
-
-	def mudela_file (match):
-		"Find \mudelafile, and substitute appropriate \begin / \end blocks."
-		fn = match.group (2)
-		str = find_file (fn)
-		opts = match.group (1)
-		if opts:
-			opts = opts[1:-1]
-			opts = re.split (',[ \n\t]*', opts)
-		else:
-			opts = []
-
-		if re.search ('.fly$', fn):
-			opts.append ('fly')
-		elif re.search ('.sly$', fn):
-			opts = opts + [ 'fly','fragment']
-		elif re.search ('.ly$', fn):
-			opts .append ('nofly')
-			
-		str_opts = string.join (opts, ',')
-
-		str = ("%% copied from file `%s'\n" % fn) + str 
-		return get_output ('output-mudela') % (str_opts, str)
-  
-	b = get_re('mudela-file').sub (mudela_file, b)
-	b = get_re('mudela').sub (mudela_short, b)
-	return b
-	
-def find_mudela_chunks (str):
-	"""Find mudela blocks, while watching for verbatim. Returns
-	(STR,MUDS) with  substituted for the blocks in STR,
-	and the blocks themselves MUDS"""
-  
-	chunks = []
-	while str:
-		m = get_re ("mudela-block").search( str)
-		if not m:
-			chunks.append (('input', str))
-			str = ''
+read_files = []
+def find_file (name):
+	f = None
+	for a in include_path:
+		try:
+			nm = os.path.join (a, name)
+			f = open (nm)
+			__main__.read_files.append (nm)
 			break
+		except IOError:
+			pass
+	if f:
+		return f.read ()
+	else:
+		error ("File not found `%s'\n" % name)
+		return ''
 
-		chunks.append (('input', str[:m.start (0)]))
-		
-		opts = m.group (1)
-  		if opts:
-  			opts = opts[1:-1]
-  		else:
-  			opts = ''
-		optlist = get_re('comma-sep').split (opts)
-		
-		body = m.group (2)
-		chunks.append (('mudela', body, optlist))
-  
-		str = str [m.end (0):]
-  
-	return chunks
-  
-  
-  
-def advance_counters (counter, opts, str):
-	"""Advance chap/sect counters,
-	revise OPTS. Return the new counter tuple"""
+def do_ignore(match_object):
+	return []
+
+def make_verbatim(match_object):
+	return [('verbatim', match_object.group('code'))]
+
+def make_verb(match_object):
+	return [('verb', match_object.group('code'))]
+
+def do_include_file(m):
+	"m: MatchObject"
+	return [('input', get_output ('pagebreak'))] \
+	     + read_doc_file(m.group('filename')) \
+	     + [('input', get_output ('pagebreak'))] 
+
+def do_input_file(m):
+	return read_doc_file(m.group('filename'))
+
+def make_mudela(m):
+	if m.group('options'):
+		options = m.group('options')
+	else:
+		options = ''
+	return [('input', get_output('output-mudela-fragment') % 
+			(options, m.group('code')))]
+
+def make_mudela_file(m):
+	if m.group('options'):
+		options = m.group('options')
+	else:
+		options = ''
+	return [('input', get_output('output-mudela') %
+			(options, find_file(m.group('filename'))))]
+
+def make_mudela_block(m):
+	if m.group('options'):
+		options = get_re('option-sep').split (m.group('options'))
+	else:
+	    options = []
+	options = filter(lambda s: s != '', options)
+	if 'mbverbatim' in options:#ugh this is ugly and only for texi format
+		s  = m.group()
+		im = get_re('intertext').search(s)
+		if im:
+			s = s[:im.start()] + s[im.end():]
+		im = re.search('mbverbatim', s)
+		if im:
+			s = s[:im.start()] + s[im.end():]
+		if s[:9] == "@mudela[]":
+			s = "@mudela" + s[9:]
+		return [('mudela', m.group('code'), options, s)]
+	return [('mudela', m.group('code'), options)]
+
+def do_columns(m):
+	if __main__.format != 'latex':
+		return []
+	if m.group('num') == 'one':
+		return [('numcols', m.group('code'), 1)]
+	if m.group('num') == 'two':
+		return [('numcols', m.group('code'), 2)]
 	
+def chop_chunks(chunks, re_name, func):
+    newchunks = []
+    for c in chunks:
+        if c[0] == 'input':
+            str = c[1]
+            while str:
+                m = get_re (re_name).search (str)
+                if m == None:
+                    newchunks.append (('input', str))
+                    str = ''
+                else:
+                    newchunks.append (('input', str[:m.start (0)]))
+                    newchunks.extend(func(m))
+                    str = str [m.end(0):]
+        else:
+            newchunks.append(c)
+    return newchunks
+
+def read_doc_file (filename):
+	"""Read the input file, find verbatim chunks and do \input and \include
+	"""
+	str = ''
+	str = find_file(filename)
+
+	if __main__.format == '':
+		latex =  re.search ('\\\\document', str[:200])
+		texinfo =  re.search ('@node|@setfilename', str[:200])
+		if (texinfo and latex) or not (texinfo or latex):
+			error("error: can't determine format, please specify")
+		if texinfo:
+			__main__.format = 'texi'
+		else:
+			__main__.format = 'latex'
+	chunks = [('input', str)]
+	# we have to check for verbatim before doing include,
+	# because we don't want to include files that are mentioned
+	# inside a verbatim environment
+	chunks = chop_chunks(chunks, 'ignore', do_ignore)
+	chunks = chop_chunks(chunks, 'verbatim', make_verbatim)
+	chunks = chop_chunks(chunks, 'verb', make_verb)
+	#ugh fix input
+	chunks = chop_chunks(chunks, 'include', do_include_file)
+	chunks = chop_chunks(chunks, 'input', do_input_file)
+	return chunks
+
+
+def advance_counters (counter, str):
+	"""Advance chap/sect counters,
+	Return the new counter tuple
+	"""
 	(chapter, section, count) = counter
-  	done = ''
-  	while str:
+	while str:
 		m = get_re ('interesting-cs').search(str)
 		if not m:
-			done = done + str
-			str = ''
 			break
-		
-		done = done + str[:m.end (0)]
 		str = str[m.end(0):]
 		g = m.group (1)
-
-		if g == 'twocolumn':
-			opts.append ('twocolumn')
-		elif g  == 'onecolumn':
-			try:
-				opts.remove ('twocolumn')
-			except IndexError:
-				pass
-		elif g == 'chapter':
+		if g == 'chapter':#ugh use dict
 			(chapter, section, count)  = (chapter + 1, 0, 0)
 		elif g == 'section':
 			(section, count)  = (section + 1, 0)
-			
-
 	return (chapter, section, count)
 
-
-def schedule_mudela_block (base, chunk, extra_opts):
+taken_file_names = []
+def schedule_mudela_block (basename, chunk, extra_opts):
 	"""Take the body and options from CHUNK, figure out how the
 	real .ly should look, and what should be left MAIN_STR (meant
 	for the main file).  The .ly is written, and scheduled in
@@ -534,55 +527,76 @@ def schedule_mudela_block (base, chunk, extra_opts):
 	TODO has format [basename, extension, extension, ... ]
 	
 	"""
-
-	(type, body, opts) = chunk
+	if len(chunk) == 3:
+		(type, body, opts) = chunk
+		complete_body = None
+	else:# mbverbatim
+		(type, body, opts, complete_body) = chunk
 	assert type == 'mudela'
 	opts = opts +  extra_opts
-	
+	file_body = compose_full_body (body, opts)
+	if __main__.g_use_hash:
+		basename = `abs(hash (file_body))`
+	for o in opts:
+		m = re.search ('filename="(.*?)"', o)
+		if m:
+			basename = m.group (1)#ugh add check if more than
+			#one file has the same name
+			assert basename not in taken_file_names
+			taken_file_names.append(basename)
+	# writes the file if necessary, returns true if it was written
+	if not g_read_lys:
+		update_file(file_body, os.path.join(g_outdir, basename) + '.ly')
+	needed_filetypes = ['tex']
+
+	if format  == 'texi':
+		needed_filetypes.append('eps')
+		needed_filetypes.append('png')
+	if 'eps' in opts and not ('eps' in needed_filetypes):
+		needed_filetypes.append('eps')
+	outname = os.path.join(g_outdir, basename)
+	if not os.path.isfile(outname + '.tex') \
+		or os.stat(outname+'.ly')[stat.ST_MTIME] > \
+			os.stat(outname+'.tex')[stat.ST_MTIME]:
+		todo = needed_filetypes
+	else:
+		todo = []
+		
 	newbody = ''
 	if 'verbatim' in opts:
 		newbody = output_verbatim (body)
-
-	file_body = compose_full_body (body, opts)
-	basename = base
-	if __main__.use_hash:
-		basename = `abs(hash (file_body))`
-	updated = update_file (file_body, basename + '.ly')
-	todo = [basename]			# UGH.
-
-	if not os.path.isfile (basename + '.tex') or updated:
-		todo.append ('tex')
-		updated = 1
+	elif 'mbverbatim' in opts:
+		newbody = output_mbverbatim (complete_body)
 
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)
 		if m:
 			newbody = newbody  + m.group (1)
-
-	if format == 'texi':
-		opts.append ('png')
-
-	if 'png' in opts:
-		opts.append ('eps')
-
-	if 'eps' in opts and ('tex' in todo or
-			      not os.path.isfile (basename + '.eps')):
-		todo.append ('eps')
-
-	if 'png' in opts and ('eps' in todo or
-			      not os.path.isfile (basename + '.png')):
-		todo.append ('png')
-
 	if format == 'latex':
-		if 'eps' in opts :
-			newbody = newbody + get_output ('output-eps') %  (basename, basename)
+		if 'eps' in opts:
+			s = 'output-eps'
 		else:
-			newbody = newbody + get_output ('output-tex') % basename
+			s = 'output-tex'
+	else: # format == 'texi'
+		s = 'output-all'
+	newbody = newbody + get_output(s) % {'fn': basename }
+	return ('mudela', newbody, opts, todo, basename)
 
-	elif format == 'texi':
-		newbody = newbody + get_output ('output-all') % (basename, basename) 
-
-	return ('mudela', newbody, opts, todo, base)
+def process_mudela_blocks(outname, chunks, global_options):#ugh rename
+	(chap,sect,count) = (0,0,0)
+	newchunks = []
+	# Count sections/chapters.
+	for c in chunks:
+		if c[0] == 'input':
+			(chap,sect,count) = advance_counters((chap,sect,count), c[1])
+		elif c[0] == 'mudela':
+			base = '%s-%d.%d.%d' % (outname, chap, sect, count)
+			count = count + 1
+			c = schedule_mudela_block (base, c, global_options)
+		elif c[0] == 'numcols':
+			__main__.g_num_cols = c[2]
+		newchunks.append (c)
+	return newchunks
 
 
 def find_eps_dims (match):
@@ -593,71 +607,6 @@ def find_eps_dims (match):
 
 	return '%ipt' % dims[0]
 
-
-def print_chunks (ch):
-	for c in ch:
-		print '-->%s\n%s' % (c[0], c[1])
-		if len (c) > 2:
-			print '==>%s' % list (c[2:])
-	print foo
-
-
-def transform_input_file (in_filename, out_filename):
-	"""Read the input, and deliver a list of chunks
-	ready for writing.
-
-	"""
-
-	chunks = read_doc_file (in_filename)
-
-	#.  Process \mudela and \mudelafile.
-	for func in [find_mudela_shorthand_chunks,
-		     find_mudela_chunks]:
-		newchunks = []
-		for c in chunks:
-			if c[0] == 'input':
-				newchunks = newchunks + func (c[1])
-			else:
-				newchunks.append (c)
-		chunks = newchunks
-
-	opts = []
-	if chunks:
-		opts = scan_preamble (chunks[0][1]) 
-	
-	(chap,sect,count) = (0,0,0)
-	newchunks = []
-	# Count sections/chapters.
-	for c in chunks:
-		if c[0] == 'input':
-			(chap,sect,count) = advance_counters((chap,sect,count), opts, c[1])
-		elif c[0] == 'mudela':
-			base = '%s-%d.%d.%d' % (out_filename, chap, sect, count)
-			count = count + 1
-			c = schedule_mudela_block (base, c, opts)
-			
-		newchunks.append (c)
-
-	chunks = newchunks
-	newchunks = []
-
-	# Do It.
-	if __main__.run_lilypond:
-		compile_all_files (chunks)
-		
-		# finishing touch.
-		for c in chunks:
-			if c[0] == 'mudela' and 'eps' in c[2]:
-				body = re.sub (r"""\\mudelaepswidth{(.*?)}""", find_eps_dims, c[1])
-				newchunks.append (('mudela', body))
-			else:
-				newchunks.append (c)
-		chunks = newchunks
-		
-	if chunks and chunks[0][0] == 'input':
-		chunks[0] = ('input', completize_preamble (chunks[0][1]))
-
-	return chunks
 
 def system (cmd):
 	sys.stderr.write ("invoking `%s'\n" % cmd)
@@ -670,64 +619,42 @@ def compile_all_files (chunks):
 	eps = []
 	tex = []
 	png = []
-	hash_dict = {}
 
 	for c in chunks:
 		if c[0] <> 'mudela':
 			continue
-		base  = c[3][0]
-		exts = c[3][1:]
+		base  = c[4]
+		exts = c[3]
 		for e in exts:
 			if e == 'eps':
 				eps.append (base)
 			elif e == 'tex':
 				tex.append (base + '.ly')
-			elif e == 'png' and do_pictures:
+			elif e == 'png' and g_do_pictures:
 				png.append (base)
-
-		if __main__.use_hash:
-			hash_dict[c[4]] = c[3][0]
-
+	d = os.getcwd()
+	if g_outdir:
+		os.chdir(g_outdir)
 	if tex:
 		lilyopts = map (lambda x:  '-I ' + x, include_path)
 		lilyopts = string.join (lilyopts, ' ' )
 		texfiles = string.join (tex, ' ')
 		system ('lilypond %s %s' % (lilyopts, texfiles))
-
 	for e in eps:
-		if os.environ.has_key('OS') and \
-                   os.environ['OS'] == 'Windows_95':
-                    	cmd = r"""ash -c 'tex " \nonstopmode \input %s " ; dvips -E -o %s %s ' """ % \
-		      (e, e + '.eps', e)
-                else:
-                	cmd = r"""tex '\nonstopmode \input %s' ;  dvips -E -o %s %s""" % \
-		      (e, e + '.eps', e)
-		system (cmd)
-
+		system(r"tex '\nonstopmode \input %s'" % e)
+		system(r"dvips -E -o %s %s" % (e + '.eps', e))
 	for g in png:
 		cmd = r"""gs -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r90 -dNOPAUSE %s -c quit | pnmcrop | pnmtopng > %s"""
-
 		cmd = cmd % (g + '.eps', g + '.png')
 		system (cmd)
+	if g_outdir:
+		os.chdir(d)
 
-	if __main__.use_hash:
-		name = ''
-		last_name = ''
-		f = 0
-		ks = hash_dict.keys ()
-		ks.sort ()
-		for i in ks:
-			name = re.sub ("(.*)-[0-9]+\.[0-9]+\.[0-9]+", "\\1", i)
-			name = name + '.mix'
-			if name != last_name:
-				if last_name:
-					f.close ()
-				f = open (name, 'w')
-				last_name = name
-			f.write ("%s:%s\n" % (i, hash_dict[i]))
 
-	
 def update_file (body, name):
+	"""
+	write the body if it has changed
+	"""
 	same = 0
 	try:
 		f = open (name)
@@ -740,10 +667,8 @@ def update_file (body, name):
 		f = open (name , 'w')
 		f.write (body)
 		f.close ()
-
 	
 	return not same
-
 
 
 def getopt_args (opts):
@@ -813,7 +738,7 @@ Options:
 
 Report bugs to bug-gnu-music@gnu.org.
 
-Written by Tom Cato Amundsen <tomcato@xoommail.com> and
+Written by Tom Cato Amundsen <tca@gnu.org> and
 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """)
 
@@ -821,11 +746,9 @@ Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 def write_deps (fn, target):
-	sys.stdout.write('writing `%s\'\n' % fn)
-
-	f = open (fn, 'w')
-	
-	f.write ('%s%s: ' % (dep_prefix, target))
+	sys.stdout.write('writing `%s\'\n' % os.path.join(g_outdir, fn))
+	f = open (os.path.join(g_outdir, fn), 'w')
+	f.write ('%s%s: ' % (g_dep_prefix, target))
 	for d in __main__.read_files:
 		f.write ('%s ' %  d)
 	f.write ('\n')
@@ -841,6 +764,49 @@ def print_version ():
 Distributed under terms of the GNU General Public License. It comes with
 NO WARRANTY.
 """)
+
+def do_file(input_filename):
+	file_settings = {}
+	if outname:
+		my_outname = outname
+	else:
+		my_outname = os.path.basename(os.path.splitext(input_filename)[0])
+	my_depname = my_outname + '.dep'		
+
+	chunks = read_doc_file(input_filename)
+	chunks = chop_chunks(chunks, 'mudela', make_mudela)
+	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file)
+	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block)
+	chunks = chop_chunks(chunks, 'numcols', do_columns)
+	#for c in chunks: print c, "\n"
+	global_options = scan_preamble(chunks[0][1])
+	chunks = process_mudela_blocks(my_outname, chunks, global_options)
+	# Do It.
+	if __main__.g_run_lilypond:
+		compile_all_files (chunks)
+		newchunks = []
+		# finishing touch.
+		for c in chunks:
+			if c[0] == 'mudela' and 'eps' in c[2]:
+				body = re.sub (r"""\\mudelaepswidth{(.*?)}""", find_eps_dims, c[1])
+				newchunks.append (('mudela', body))
+			else:
+				newchunks.append (c)
+		chunks = newchunks
+
+	if chunks and chunks[0][0] == 'input':
+		chunks[0] = ('input', completize_preamble (chunks[0][1]))
+
+	foutn = os.path.join(g_outdir, my_outname + '.' + format)
+	sys.stderr.write ("Writing `%s'\n" % foutn)
+	fout = open (foutn, 'w')
+	for c in chunks:
+		#if c[1] is not None:
+			fout.write (c[1])
+	fout.close ()
+
+	if do_deps:
+		write_deps (my_depname, foutn)
 
 
 outname = ''
@@ -873,42 +839,44 @@ for opt in options:
 	elif o == '--help' or o == '-h':
 		help ()
 	elif o == '--no-lily' or o == '-n':
-		__main__.run_lilypond = 0
+		__main__.g_run_lilypond = 0
 	elif o == '--dependencies':
 		do_deps = 1
-	elif o == '--default-mudela-fontsize':
+	elif o == '--default-music-fontsize':
 		default_music_fontsize = string.atoi (a)
+	elif o == '--default-mudela-fontsize':
+		print "--default-mudela-fontsize is deprecated, use --default-music-fontsize"
+		default_music_fontsize = string.atoi (a)
+	elif o == '--force-music-fontsize':
+		g_force_mudela_fontsize = string.atoi(a)
+	elif o == '--force-mudela-fontsize':
+		print "--force-mudela-fontsize is deprecated, use --default-mudela-fontsize"
+		g_force_mudela_fontsize = string.atoi(a)
+
 	elif o == '--init':
 		initfile =  a
 	elif o == '--dep-prefix':
-		dep_prefix = a
+		g_dep_prefix = a
 	elif o == '--no-pictures':
-		do_pictures = 0
+		g_do_pictures = 0
+	elif o == '--read-lys':
+		g_read_lys = 1
+	elif o == '--outdir':
+		g_outdir = a
 
 identify()
-
+if g_outdir:
+	if os.path.isfile(g_outdir):
+		error ("outdir is a file: %s" % g_outdir)
+	if not os.path.exists(g_outdir):
+		os.mkdir(g_outdir)
 for input_filename in files:
-	file_settings = {}
-	if outname:
-		my_outname = outname
-	else:
-		my_outname = os.path.basename(os.path.splitext(input_filename)[0])
-	my_depname = my_outname + '.dep'		
-
-	chunks = transform_input_file (input_filename, my_outname)
-
-	foutn = my_outname + '.' + format
-	sys.stderr.write ("Writing `%s'\n" % foutn)
-	fout = open (foutn, 'w')
-	for c in chunks:
-		fout.write (c[1])
-	fout.close ()
-
-	if do_deps:
-		write_deps (my_depname, foutn)
+	do_file(input_filename)
+	
 
 
-
+t2 = time.clock()
+print "Time:", t2-t1
 #
 # Petr, ik zou willen dat ik iets zinvoller deed,
 # maar wat ik kan ik doen, het verandert toch niets?

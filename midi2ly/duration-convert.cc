@@ -12,10 +12,9 @@
 #include "warn.hh"
 
 // statics Duration_convert
-bool const Duration_convert::midi_as_plet_b_s = true;
 bool Duration_convert::no_quantify_b_s = false;
 bool Duration_convert::no_double_dots_b_s = false;
-bool Duration_convert::no_triplets_b_s = false;
+bool Duration_convert::no_tuplets_b_s = false;
 int Duration_convert::no_smaller_than_i_s = 0;
 Array<Duration> Duration_convert::dur_array_s;
 	
@@ -30,8 +29,14 @@ Duration_convert::dur2_str (Duration dur)
     str = to_str ( type2_i (dur.durlog_i_) );
   else if (dur.durlog_i_ == -1)
     str = "\\breve";
-  else if (dur.durlog_i_ == -2)
-    str = "\\longa";
+  else if (dur.durlog_i_ <= -2)
+    {
+      str = "\\longa";
+      if (dur.durlog_i_ < -2)
+	{
+	  dur.plet_.iso_i_ *= 1 << (-2 - dur.durlog_i_);
+	}
+     }
   str += to_str ('.', dur.dots_i_);
   if (dur.plet_b ())
     str += String ("*") + to_str (dur.plet_.iso_i_)
@@ -101,23 +106,8 @@ Duration_convert::mom2_dur (Rational mom)
       dur.set_plet (0,1);
       return dur;
     }
-	
 
-  Duration dur = mom2standardised_dur (mom);
-  //	if (!dur.mom () || (dur.mom () == mom))
-  if (!dur.length_mom () || (dur.length_mom () == mom))
-    return dur;
-  assert (midi_as_plet_b_s);
-
-  //	dur.set_plet (type_mom, Duration::division_1_i_s / 4); 
-
-  //	Rational as_plet_mom = mom / dur.mom ();
-  Rational as_plet_mom = mom / dur.length_mom ();
-  as_plet_mom *= dur.plet_.mom ();
-  long num = as_plet_mom.num ();
-  long den = as_plet_mom.den ();
-  dur.set_plet (num, den);
-  return dur;
+  return mom2standardised_dur (mom);
 }
 
 Duration
@@ -157,10 +147,10 @@ Duration_convert::set_array ()
 {
   dur_array_s.clear ();
 
-  Duration_iterator iter_dur;
-  assert (iter_dur);
-  while (iter_dur)
-    dur_array_s.push (iter_dur++);
+  Duration_iterator i;
+  dur_array_s.push (i.dur ());
+  while (i.ok ())
+    dur_array_s.push (i.forward_dur ());
 }
 
 
@@ -180,15 +170,7 @@ Duration
 Duration_convert::ticks2_dur (int ticks_i)
 {
   Rational mom (ticks_i, Duration::division_1_i_s);
-  if (midi_as_plet_b_s)
-    return mom2_dur (mom);
-
-  Duration dur = mom2standardised_dur (mom);
-
-  if (dur.length_mom () == mom)
-    return dur;
-		
-  return mom2_dur (mom);
+  return mom2standardised_dur (mom);
 }
 
 Duration
