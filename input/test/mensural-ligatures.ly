@@ -3,7 +3,8 @@
 % check with ancient- stuff.  rename, merge, something.  -gp
 
 \header { texidoc = "@cindex Ancient Mensural Ligatures
-LilyPond can print mensural ligatures."
+In mensural ligatures, notes with ancient durations are printed
+in a tight manner."
 }
 
 

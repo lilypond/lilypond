@@ -2,8 +2,8 @@
 \version "2.1.26"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
-You can move objects around with scheme.  This example shows how to
-move text around. " }
+Objects, like text, can be moved around by using some Scheme code.
+" }
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:grob-property grob 'text))))

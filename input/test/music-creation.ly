@@ -2,8 +2,9 @@
 
 % possible rename to scheme- something.  -gp
 \header { texidoc = "@cindex Scheme Music Creation
-You can create music expressions from Scheme.  The
-mechanism for this is rather clumsy to use, so avoid it if possible. "
+You can engrave music using just Scheme expressions. Although those 
+expressions reflect the inner mechanism of LilyPond, they are rather 
+clumsy to use, so avoid them, if possible. "
 }
 
 #(define (make-note-req p d)

@@ -3,7 +3,8 @@
 {
 texidoc ="
 
-By inserting @code{\\skip} statements into lyric lines, one can put less lyric syllables to a melody. 
+By inserting @code{\\skip} statements into lyric lines, one can attach
+less lyric syllables to a melody. 
 
 "
 }

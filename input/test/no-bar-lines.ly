@@ -3,7 +3,9 @@
 % possible rename to bar-lines-foo.  -gp
 
 \header{ texidoc = "@cindex Bar Lines Remove
-You can stop LilyPond from printing bar lines by removing the engraver. "
+Engravers can be removed one by one. Here, the time signature and bar lines 
+have been removed.
+"
 }
 
 \score {

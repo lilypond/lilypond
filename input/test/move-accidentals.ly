@@ -2,8 +2,8 @@
 
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc= "@cindex Scheme Manual Accidentals
-Positions of accidentals may be manually set. This
-involves some scheme code. " }
+The positions of accidentals may be manually set by incorporating
+some Scheme code. " }
 
 #(define (make-acc-position-checker pos)
   (lambda (elt)
