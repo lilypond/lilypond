@@ -377,7 +377,7 @@ lilypond -fgnome input/simple-song.ly
       ;; Hmm, family is bigcheese20?
       (if (string=? family "bigcheese20")
 	  (begin (debugf "BIGCHEESE\n")
-	  "LilyPond")
+	  "LilyPond, 20")
 	  family)))
   
   (define (pango-font-size font)

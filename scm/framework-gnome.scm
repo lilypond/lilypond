@@ -192,7 +192,10 @@
 	   "lilypond-feta-braces-g"
 	   "lilypond-feta-braces-h"
 	   "lilypond-feta-braces-i"
-	   "lilypond-parmesan"))
+	   "lilypond-parmesan"
+	   ;;"lilypond"
+	   ;;"bigcheese20"
+	   ))
 
     (dump-page go 0)
 
