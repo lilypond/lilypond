@@ -1371,15 +1371,17 @@ indefinitely.
 Timing can be changed by setting any of these variables explicitly.
 In the next example, the 4/4 time signature is printed, but
 @code{measureLength} is set to 5/4.  After a while, the measure is
-shortened by 1/8, by setting @code{measurePosition} to -3/8 at 2/4 in
-the measure, so the next bar line will fall at 2/4 + 3/8.
+shortened by 1/8, by setting @code{measurePosition} to 7/8 at 2/4
+in the measure, so the next bar line will fall at 2/4 + 3/8.  The
+3/8 arises because 5/4 normally has 10/8, but we have manually
+set the measure position to be 7/8 and 10/8 - 7/8 = 3/8.
 
 @lilypond[quote,raggedright,verbatim,relative,fragment]
 \set Score.measureLength = #(ly:make-moment 5 4)
 c1 c4
 c1 c4
 c4 c4
-\set Score.measurePosition = #(ly:make-moment -3 8)
+\set Score.measurePosition = #(ly:make-moment 7 8)
 b8 b b
 c4 c1
 @end lilypond
@@ -1388,8 +1390,8 @@ c4 c1
 @node Controlling formatting of prefatory matter
 @subsection Controlling formatting of prefatory matter
 
-@c  This section will be moved to somewhere else soon.
-This example demonstrates how to place prefactory matter
+@c  This section will be moved to somewhere else soon. -gp
+This example demonstrates how to place prefatory matter
 (such as the clef and key signature) at the end of a line.
 
 @lilypond[quote,verbatim]
