@@ -265,12 +265,12 @@ Slur::get_encompass_offset_arr () const
   int last = encompass_arr_.size () - 1;
 
   // prebreak
-  if (encompass_arr_[0] != spanned_drul_[LEFT])
-    first--;
-
-  // postbreak
   if (encompass_arr_.top () != spanned_drul_[RIGHT])
     last++;
+
+  // postbreak
+  if (encompass_arr_[0] != spanned_drul_[LEFT])
+    first--;
 
   Array<Offset> notes;
   notes.push (Offset (0,0));
@@ -280,7 +280,19 @@ Slur::get_encompass_offset_arr () const
       Encompass_info info (encompass_arr_[i], dir_);
       notes.push (info.o_ - left);
     }
+  Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
+  // urg:
+  Slur* urg = (Slur*)this;
+  urg->interstaff_f_ = info.interstaff_f_;
   d.y () += interstaff_f_;
+
+  // prebreak
+  if (interstaff_f_ && (encompass_arr_.top () != spanned_drul_[RIGHT]))
+    {
+      Encompass_info info (encompass_arr_[encompass_arr_.size () - 1], dir_);
+      d.y () -= info.o_.y () - interstaff_f_;
+    }
+
   notes.push (d);
 
   return notes;

@@ -20,6 +20,7 @@ struct Encompass_info
   Encompass_info (Note_column const*, Direction);
 
   Offset o_;
+  Real interstaff_f_;
 };
 
 #endif // ENCOMPASS_INFO_HH
