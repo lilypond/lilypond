@@ -1,13 +1,8 @@
-% FIXME: currently doesn't do anything useful.  fix or delete.
+\version "1.7.18"
+
 \header {
     texidoc = "Chord name scheme test -- double-plus-new-chord-name jazz"
 }
-
-\version "1.7.18"
-
-
-
-\score { \notes { c4^"fixme"}}
 
 %% This should only be necessary if your kpathsea setup is broken
 %
@@ -19,7 +14,6 @@
 %   cp $(locate msam9.tfm) $LILYPONDPREFIX/fonts/tfm
 %
 
-%{
 
 scheme = \chords {
   % major chords
@@ -31,10 +25,10 @@ scheme = \chords {
 
   % minor chords
   c:m		% m = minor triad
-  c:m.6		% m6 = minor triad with added sixth
-  c:m.7+	% m triangle = minor major seventh chord
+  c:m6		% m6 = minor triad with added sixth
+  c:m7+	% m triangle = minor major seventh chord
   c:3-.6.9^7	% m6/9 
-  c:m.7		% m7
+  c:m7		% m7
   c:3-.9	% m9
   c:3-.9^7	% madd9
 
@@ -62,7 +56,7 @@ scheme = \chords {
   c:m5-.7-	% o = diminished seventh chord
 }
 
-efull = \chordnames {
+efullmusic = \notes {
 
     %% ? what 'bout maj7?
     %% c:7 = \markup { \normal-size-super "maj7" }
@@ -71,20 +65,31 @@ efull = \chordnames {
     %% American:
     %% c:3-.5-.7- = \markup { "dim" }
     %% Jazz:
-    c:3-.5-.7- = \markup { \super " o" }
+    %% c:3-.5-.7-
+    <<c es ges bes>>-\markup { \super " o" }
 
-    %% Hmm
-
-    %% This ok?
-    c:7+ = \markup { \normal-size-super \override #'(font-family . math) "N" }
+    %% Hmm, this ok?
+    %% c:7+
+    <<c e g b>>-\markup { \normal-size-super
+			  \override #'(font-family . math) "N" }
+    %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
+    %%c:3.5.7 = \markup { \normal-size-super "maj7" }
 }
 
-epartial = \chordnames {
-    c:2^3 = \markup { \normal-size-super "2" }
-    c:3-  = \markup { "m" }
-    c:4   = \markup { \normal-size-super "sus4" }
-    c:5^3 = \markup { \normal-size-super "5" }
+efull = #(sequential-music-to-chord-exceptions efullmusic #f)
+
+epartialmusic = \notes {
+    %c:2^3 =
+    <<c d>>-\markup { \normal-size-super "2" }
+    %c:3-
+    <<c es>>-\markup { "m" }
+    %c:4
+    <<c f>>-\markup { \normal-size-super "sus4" }
+    %c:5^3
+    <<c g>>-\markup { \normal-size-super "5" }
 }
+
+epartial = #(sequential-music-to-chord-exceptions epartialmusic #f)
 
 \score {
   \notes <
@@ -105,4 +110,3 @@ epartial = \chordnames {
 }
 %% new-chords-done %%
 
-%}

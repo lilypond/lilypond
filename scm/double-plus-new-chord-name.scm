@@ -132,8 +132,8 @@ input/test/dpncnt.ly).
 	'(())))
 
   (if #f (begin  
-  (write-me "options: " options)
-  (write-me "pitches: " pitches)))
+	   (write-me "options: " options)
+	   (write-me "pitches: " pitches)))
   (let* ((full-exceptions (assoc-get 'full-exceptions options))
 	 (full-exception (full-match full-exceptions))
 	 (full-markup (cdr full-exception))
@@ -161,16 +161,16 @@ input/test/dpncnt.ly).
 	 
 
      (if #f (begin
-    (write-me "full:" full)
-    ;; (write-me "partial-pitches:" partial-pitches)
-    (write-me "full-markup:" full-markup)
-    (write-me "partial-markup:" partial-markup)
-    (write-me "all:" all)
-    (write-me "altered:" altered)
-    (write-me "missing:" missing)
-    (write-me "consecutive:" consecutive)
-    (write-me "rest:" rest)
-    (write-me "base:" base)))
+	      (write-me "full:" full)
+	      ;; (write-me "partial-pitches:" partial-pitches)
+	      (write-me "full-markup:" full-markup)
+	      (write-me "partial-markup:" partial-markup)
+	      (write-me "all:" all)
+	      (write-me "altered:" altered)
+	      (write-me "missing:" missing)
+	      (write-me "consecutive:" consecutive)
+	      (write-me "rest:" rest)
+	      (write-me "base:" base)))
 
     (case func
       ((banter)

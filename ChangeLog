@@ -1,3 +1,15 @@
+2003-06-03  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/test/dpncnt.ly: 
+	* input/test/chord-names-dpnj.ly: Resurrect.
+
+	* lily/my-lily-lexer.cc: Remove chordnames keyword.
+
+	* ly/chord-modifiers-init.ly (ignatzekExceptions): Update, tidy up.
+
+	* scm/chord-name.scm (sequential-music-to-chord-exceptions):
+	Better docstring, add parameter NON-ROOT, tidy up.
+
 2003-06-03  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: match two-char slurs \[ ... \] and \( ... \).
