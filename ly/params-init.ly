@@ -5,7 +5,7 @@
 papersizename = \papersize 
 
 % ly2dvi now uses `papersize' internally (and on cmd line)
-papersize = \papersize
+%papersize = \papersize
 
 % FIXME
 % direct PostScript line height for single line staves
