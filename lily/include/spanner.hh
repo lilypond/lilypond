@@ -50,7 +50,7 @@ public:
   
   Spanner (SCM);
   Spanner (Spanner const &);
-  bool broken_b () const;
+  bool is_broken () const;
   void do_break ();
   Real spanner_length () const;
 

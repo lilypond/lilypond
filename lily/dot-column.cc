@@ -53,7 +53,7 @@ Dot_column::side_position (SCM element_smob, SCM axis)
   if (stem
       && !Stem::get_beam (stem)
       && Stem::duration_log (stem) > 2
-      && !Stem::invisible_b (stem)
+      && !Stem::is_invisible (stem)
       )
     {
       /*

@@ -685,7 +685,7 @@ Beam::consider_auto_knees (Grob* me)
   for (int i=0; i < stems.size (); i++)
     {
       Grob* stem = stems[i];
-      if (Stem::invisible_b (stem))
+      if (Stem::is_invisible (stem))
 	continue;
 
       Interval hps = Stem::head_positions (stem);
@@ -740,7 +740,7 @@ Beam::consider_auto_knees (Grob* me)
       for (int i = 0; i < stems.size(); i++)
 	{
 	  Grob* stem = stems[i];
-	  if (Stem::invisible_b (stem))
+	  if (Stem::is_invisible (stem))
 	    continue;
 
 	  Interval hps = hps_array[j++];
@@ -775,7 +775,7 @@ Beam::set_stem_shorten (Grob *me)
   /*
     shortening looks silly for x staff beams
    */
-  if (knee_b(me))
+  if (is_knee(me))
     return ;
   
   Real forced_fraction = 1.0 * forced_stem_count (me)
@@ -926,7 +926,7 @@ Beam::least_squares (SCM smob)
       for (int i=0; i < stems.size (); i++)
 	{
 	  Grob* s = stems[i];
-	  if (Stem::invisible_b (s))
+	  if (Stem::is_invisible (s))
 	    continue;
 	  ideals.push (Offset (x_posns[i],
 			       Stem::get_stem_info (s).ideal_y_
@@ -1012,7 +1012,7 @@ Beam::shift_region_to_valid (SCM grob)
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
-      if (Stem::invisible_b (s))
+      if (Stem::is_invisible (s))
 	continue;
 
       Direction d = Stem::get_direction (s);
@@ -1069,7 +1069,7 @@ Beam::check_concave (SCM smob)
 
   for (int i = 0; i < stems.size ();)
     {
-      if (Stem::invisible_b (stems[i]))
+      if (Stem::is_invisible (stems[i]))
 	stems.del (i);
       else
 	i++;
@@ -1329,7 +1329,7 @@ Beam::set_stem_lengths (Grob *me)
   for (int i=0; i < stems.size (); i++)
     {
       Grob* s = stems[i];
-      if (Stem::invisible_b (s))
+      if (Stem::is_invisible (s))
 	continue;
 
       bool french = to_boolean (s->get_grob_property ("french-beaming"));
@@ -1376,7 +1376,7 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
 	      if (i>0
 		  && i < stems.size() -1
-		  && Stem::invisible_b (st))
+		  && Stem::is_invisible (st))
 		b = b <? beaming->infos_.elem(i).beams_i_drul_[-d];
 	      
 	      Stem::set_beaming (st, b, d);
@@ -1396,7 +1396,7 @@ Beam::forced_stem_count (Grob *me)
     {
       Grob *s = stems[i];
 
-      if (Stem::invisible_b (s))
+      if (Stem::is_invisible (s))
 	continue;
 
       /* I can imagine counting those boundaries as a half forced stem,
@@ -1419,7 +1419,7 @@ Beam::visible_stem_count (Grob *me)
   int c = 0;
   for (int i = stems.size (); i--;)
     {
-      if (!Stem::invisible_b (stems[i]))
+      if (!Stem::is_invisible (stems[i]))
         c++;
     }
   return c;
@@ -1433,7 +1433,7 @@ Beam::first_visible_stem (Grob *me)
   
   for (int i = 0; i < stems.size (); i++)
     {
-      if (!Stem::invisible_b (stems[i]))
+      if (!Stem::is_invisible (stems[i]))
         return stems[i];
     }
   return 0;
@@ -1446,7 +1446,7 @@ Beam::last_visible_stem (Grob *me)
     Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   for (int i = stems.size (); i--;)
     {
-      if (!Stem::invisible_b (stems[i]))
+      if (!Stem::is_invisible (stems[i]))
         return stems[i];
     }
   return 0;
@@ -1537,7 +1537,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 }
 
 bool
-Beam::knee_b (Grob* me)
+Beam::is_knee (Grob* me)
 {
   SCM k = me->get_grob_property ("knee");
   if (gh_boolean_p (k))

@@ -30,8 +30,8 @@ public:
   Item (SCM);
   Item (Item const &);
 
-  static bool breakable_b (Grob *);
-  bool broken_b () const;
+  static bool is_breakable (Grob *);
+  bool is_broken () const;
   
   Direction break_status_dir () const;
   

@@ -293,7 +293,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      return ;
 	    }
 	  
-	  if(Stem::invisible_b (stem))
+	  if(Stem::is_invisible (stem))
 	    {
 	      correct_stem_dirs = false;
 	      continue;

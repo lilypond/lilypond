@@ -71,7 +71,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   Spanner*sp = dynamic_cast<Spanner*> (me);  
 
   *equally_long= false;
-  if (! (b1 && (b1 == b2) && !sp->broken_b()))
+  if (! (b1 && (b1 == b2) && !sp->is_broken ()))
       return 0;
 
   Link_array<Grob> beam_stems = Pointer_group_interface__extract_grobs
@@ -438,7 +438,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
       me->suicide ();
       return SCM_UNSPECIFIED;
     }
-  if (dynamic_cast<Spanner*> (me)->broken_b ())
+  if (dynamic_cast<Spanner*> (me)->is_broken ())
     {
       me->warning (_("Killing tuplet bracket across linebreak."));
       me->suicide();
