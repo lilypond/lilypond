@@ -53,6 +53,8 @@ Bar::compound_barline (Grob*me, String str, Real h)
   Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
 
   Real staffline = me->paper_l ()->get_var ("stafflinethickness");
+  Real staffspace = me->paper_l ()->get_var ("staffspace")
+    * Staff_symbol_referencer::staff_space (me);
 
   kern *= staffline;
   thinkern *= staffline;
@@ -61,10 +63,13 @@ Bar::compound_barline (Grob*me, String str, Real h)
   
   Molecule thin = simple_barline (me, hair, h);
   Molecule thick = simple_barline (me, fatline, h);
-  Molecule colon = Font_interface::get_default_font (me)->find_by_name (
-    Staff_symbol_referencer::line_count (me) & 1 == 1 ?
-    "dots-repeatcolon" : "dots-evenrepeatcolon"
-  );
+  Molecule colon;
+  Molecule dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
+  Real dist = (2-(Staff_symbol_referencer::line_count (me) & 1))*staffspace;
+  dot.translate_axis(dist/2,Y_AXIS);
+  colon.add_molecule(dot);
+  dot.translate_axis(-dist,Y_AXIS);
+  colon.add_molecule(dot);
 
   Molecule m;
   
