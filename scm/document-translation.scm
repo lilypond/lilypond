@@ -173,6 +173,7 @@
       (
        (name-sym (cdr (assoc 'type-name context-desc)))
        (name (symbol->string name-sym))
+       (aliases (map symbol->string (cdr (assoc 'aliases context-desc))))
        (desc-handle (assoc 'description context-desc))
        (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
 		 (cdr desc-handle) "(not documented)"))
@@ -185,13 +186,15 @@
 		  ))
        (props (cdr (assoc 'property-ops context-desc)))
        (grobs  (context-grobs context-desc))
-       (grob-refs (map (lambda (x) (ref-ify x)) grobs))
-       )
+       (grob-refs (map (lambda (x) (ref-ify x)) grobs)) )
+
     (make <texi-node>
       #:name name
       #:text
       (string-append 
        desc
+       "\n\n This context is also known as: \n\n"
+       (human-listify aliases)
        "\n\nThis context creates the following grobs: \n\n"
        (human-listify (uniq-list (sort grob-refs string<? )))
        "."

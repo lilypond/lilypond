@@ -1,5 +1,8 @@
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/document-translation.scm (context-doc): add aliases to
+	automated documentation.
+
 	* make/lilypond-vars.make: remove stepmake compat glue.
 
 	* make/generic-vars.make: remove cruft.

@@ -327,6 +327,7 @@ Translator_def::to_alist () const
   
   l = gh_cons (gh_cons (ly_symbol2scm ("consists"),  consists_name_list_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  type_aliases_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("end-consists"),
 			end_consists_name_list_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  accepts_name_list_), l);
