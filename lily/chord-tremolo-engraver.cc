@@ -158,7 +158,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
       if (Stem::has_interface (info.grob_l_))
 	{
 	  Grob * s = info.grob_l_;
-	  int f = Stem::flag_i (s);
+	  int f = Stem::duration_log (s);
 	  f = (f > 2) ? f - 2 : 1;
 	  Stem::set_beaming (s, f, LEFT);
 	  Stem::set_beaming (s, f, RIGHT);
@@ -177,7 +177,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
  	  SCM d = s->get_grob_property ("direction");
 	  if (Stem::type_i (s) != 1)
 	    {
-	      int gap_i =Stem::flag_i (s) - ((Stem::type_i (s) >? 2) - 2);
+	      int gap_i =Stem::duration_log (s) - ((Stem::type_i (s) >? 2) - 2);
 	      beam_p_->set_grob_property ("gap", gh_int2scm (gap_i));
 	    }
 	  s->set_grob_property ("direction", d);

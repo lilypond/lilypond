@@ -28,6 +28,7 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 #include "side-position-interface.hh"
+#include "dot-column.hh"
 
 void
 Stem::set_beaming (Grob*me ,int i,  Direction d)
@@ -277,7 +278,7 @@ Stem::get_default_stem_end_position (Grob*me)
 	a.push (gh_scm2double (ly_car (q)));
 		
       // stem uses half-spaces
-      length_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+      length_f = a[ ((duration_log (me) - 2) >? 0) <? (a.size () - 1)] * 2;
     }
 
 
@@ -290,7 +291,7 @@ Stem::get_default_stem_end_position (Grob*me)
   // stem uses half-spaces
 
   // fixme: use scm_list_n_ref () iso. array[]
-  Real shorten_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+  Real shorten_f = a[ ((duration_log (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* On boundary: shorten only half */
   if (abs (chord_start_f (me)) == 0.5)
@@ -315,18 +316,18 @@ Stem::get_default_stem_end_position (Grob*me)
   Interval hp = head_positions (me);  
   Real st = hp[dir] + dir * length_f;
 
-
-  
+  bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
+  if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
+    st = 0.0;
 
   /*
-    Make a little room if we have a flag and there is a dot.
-
-    TODO:
-
-    maybe  we should consider moving the dot to the right?
+    Make a little room if we have a upflag and there is a dot.
+    previous approach was to lengthen the stem. This is not
+    good typesetting practice. 
+    
   */
-  if (!beam_l (me)
-      && flag_i (me))
+  if (!beam_l (me) && dir == UP
+      && duration_log (me) > 2)
     {
       Grob * closest_to_flag = extremal_heads (me)[dir];
       Grob * dots = closest_to_flag
@@ -335,25 +336,31 @@ Stem::get_default_stem_end_position (Grob*me)
       if (dots)
 	{
 	  Real dp = Staff_symbol_referencer::position_f  (dots);
-	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2; // should divide by staffspace
+	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2
+	    / Staff_symbol_referencer::staff_space (me); 
 
 	  /*
 	    Very gory: add myself to the X-support of the parent,
 	    which should be a dot-column.
 	   */
 	  if (dir * (st + flagy -  dp) < 0.5)
-	    Side_position_interface::add_support (dots->get_parent (X_AXIS), me);
+	    {
+	      Grob *par = dots->get_parent (X_AXIS);
 
-	  /*
-	    previous approach was to lengthen the stem. This is not
-	    good typesetting practice.  */
+	      if (Dot_column::has_interface (par))
+		{
+		  Side_position_interface::add_support (par, me);
+
+		  /*
+		    TODO: apply some better logic here. The flag is
+		    curved inwards, so this will typically be too
+		    much.
+		  */
+		}
+	    }
 	}
     }
 
-
-  bool no_extend_b = to_boolean (me->get_grob_property ("no-stem-extend"));
-  if (!grace_b && !no_extend_b && dir * st < 0) // junkme?
-    st = 0.0;
 
   return st;
 }
@@ -361,10 +368,11 @@ Stem::get_default_stem_end_position (Grob*me)
 
 
 /*
-  Number of hooks on the flag, ie. the log of the duration.
+  
+  the log of the duration (Number of hooks on the flag minus two)
  */
 int
-Stem::flag_i (Grob*me) 
+Stem::duration_log (Grob*me) 
 {
   SCM s = me->get_grob_property ("duration-log");
   return (gh_number_p (s)) ? gh_scm2int (s) : 2;
@@ -508,6 +516,13 @@ Stem::flag (Grob*me)
 	     looks slightly misplaced, but that will usually be the
 	     programmer's fault (e.g. when trying to attach multiple
 	     note heads to a single stem in mensural notation).  */
+
+	  /*
+	    perhaps the detection whether this correction is needed should
+	    happen in a different place  to avoid the recursion.
+	    
+	    --hwn.
+	  */
 	  Grob *first = first_head(me);
 	  int sz = Staff_symbol_referencer::line_count (me)-1;
 	  int p = (int)rint (Staff_symbol_referencer::position_f (first));
@@ -524,7 +539,7 @@ Stem::flag (Grob*me)
     }
   char c = (get_direction (me) == UP) ? 'u' : 'd';
   String index_str
-    = String ("flags-") + style + to_str (c) + staffline_offs + to_str (flag_i (me));
+    = String ("flags-") + style + to_str (c) + staffline_offs + to_str (duration_log (me));
   Molecule m
     = Font_interface::get_default_font (me)->find_by_name (index_str);
   if (!fstyle.empty_b ())
@@ -540,7 +555,7 @@ Stem::dim_callback (SCM e, SCM ax)
   assert (a == X_AXIS);
   Grob *se = unsmob_grob (e);
   Interval r (0, 0);
-  if (unsmob_grob (se->get_grob_property ("beam")) || abs (flag_i (se)) <= 2)
+  if (unsmob_grob (se->get_grob_property ("beam")) || abs (duration_log (se)) <= 2)
     ;	// TODO!
   else
     {
@@ -593,7 +608,7 @@ Stem::brew_molecule (SCM smob)
       mol.add_molecule (ss);
     }
 
-  if (!beam_l (me) && abs (flag_i (me)) > 2)
+  if (!beam_l (me) && abs (duration_log (me)) > 2)
     {
       Molecule fl = flag (me);
       fl.translate_axis (stem_y[d]*dy, Y_AXIS);

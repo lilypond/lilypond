@@ -23,23 +23,31 @@ documenting bugfixes.
 
 @section Notes and rests
 
-@lilypondfile[printfilename]{rest.ly}
-
-@lilypondfile[printfilename]{rest-ledger.ly}
-
 @lilypondfile[printfilename]{note-head-style.ly}
 
 @lilypondfile[printfilename]{mensural.ly}
 
 @lilypondfile[printfilename]{easy-notation.ly}
 
-@lilypondfile[printfilename]{dots.ly}
+@section Rests
+
+@lilypondfile[printfilename]{rest-ledger.ly}
+
+@lilypondfile[printfilename]{rest.ly}
 
 @lilypondfile[printfilename]{multi-measure-rest.ly}
 
 @lilypondfile[printfilename]{mm-rests2.ly}
 
 @lilypondfile[printfilename]{rest-pitch.ly}
+
+
+@section Dots
+
+@lilypondfile[printfilename]{dots.ly}
+
+@lilypondfile[printfilename]{dot-flag-collision.ly}
+
 
 @section Accidentals
 

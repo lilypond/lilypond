@@ -905,7 +905,7 @@ Real
 Beam::calc_stem_y (Grob *me, Grob* s, Interval pos)
 {
   int beam_multiplicity = get_multiplicity (me);
-  int stem_multiplicity = (Stem::flag_i (s) - 2) >? 0;
+  int stem_multiplicity = (Stem::duration_log (s) - 2) >? 0;
 
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real interbeam = get_interbeam (me);

@@ -223,7 +223,6 @@
      . (
 	(molecule-callback . ,Dots::brew_molecule)
 	(dot-count . 1)
-	(staff-position . 0.0)
 	(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (font-interface staff-symbol-referencer-interface dots-interface))))
 	))
