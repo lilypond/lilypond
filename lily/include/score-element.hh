@@ -74,6 +74,9 @@ public:
   void set_elt_property (String, SCM val);
   SCM remove_elt_property (String nm);
 
+  void Score_element::set_real (String, Real);
+  Real Score_element::get_real (String s) const;
+
   /*
     related classes.
    */

@@ -27,7 +27,6 @@
 #include "staff-side.hh"
 #include "item.hh"
 
-
 Score_element::Score_element()
 {
   output_p_ =0;
@@ -107,6 +106,18 @@ int
 Score_element::dependency_size () const
 {
   return dependency_arr_.size ();
+}
+
+Real
+Score_element::get_real (String s) const
+{
+  return gh_scm2double (get_elt_property (s));
+}
+
+void
+Score_element::set_real (String s, Real r)
+{
+  set_elt_property (s, gh_double2scm (r));
 }
 
 // should also have one that takes SCM arg. 

@@ -4,6 +4,7 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 1996, 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+    Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
 */
@@ -19,6 +20,7 @@
 #include "beam.hh"
 #include "rest.hh"
 #include "group-interface.hh"
+#include "cross-staff.hh"
 
 Stem::Stem ()
 {
@@ -398,3 +400,109 @@ Stem::beam_l ()const
   SCM b=  get_elt_property ("beam");
   return dynamic_cast<Beam*> (unsmob_element (b));
 }
+
+
+/*
+  stupid name: we're calculating and setting (caching??)
+  some stem length parameters for beamed stem
+*/
+void
+Stem::beamify ()
+{
+  assert (beam_l ());
+
+  SCM bd = remove_elt_property ("beam-dir");
+  Real internote_f = staff_line_leading_f ()/2;
+  
+  Direction beam_dir;
+  Real idealy_f;
+  Real interstaff_f;
+  Real maxy_f;
+  Real miny_f;
+
+  if (gh_number_p (bd))
+    {
+      beam_dir = (Direction)gh_scm2int (bd);
+    }
+  else
+    {
+      programming_error ("Beam direction not set."); 
+      beam_dir = UP;		//  GURAUGRNAGURAGU! urg !
+    }
+  
+  Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->multiplicity_i_);
+  Real beam_f = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
+         
+  idealy_f = chord_start_f ();
+
+  // for simplicity, we calculate as if dir == UP
+  idealy_f *= beam_dir;
+
+  bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
+  bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
+
+  int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
+  String type_str = grace_b ? "grace_" : "";
+  Real min_stem_f = paper_l ()->get_var (type_str + "minimum_stem_length"
+    + to_str (beam_l ()->multiplicity_i_ <? stem_max)) * internote_f;
+  Real stem_f = paper_l ()->get_var (type_str + "stem_length"
+    + to_str (beam_l ()->multiplicity_i_ <? stem_max)) * internote_f;
+
+  if (!beam_dir || (beam_dir == get_direction ()))
+    /* normal beamed stem */
+    {
+      if (beam_l ()->multiplicity_i_)
+	{
+	  idealy_f += beam_f;
+	  idealy_f += (beam_l ()->multiplicity_i_ - 1) * interbeam_f;
+	}
+      miny_f = idealy_f;
+      maxy_f = INT_MAX;
+
+      idealy_f += stem_f;
+      miny_f += min_stem_f;
+
+      /*
+	lowest beam of (UP) beam must never be lower than second staffline
+
+	Hmm, reference (Wanske?)
+
+	Although this (additional) rule is probably correct,
+	I expect that highest beam (UP) should also never be lower
+	than middle staffline, just as normal stems.
+	
+      */
+      if (!grace_b && !no_extend_b)
+	{
+	  //highest beam of (UP) beam must never be lower than middle staffline
+	  miny_f = miny_f >? 0;
+	  //lowest beam of (UP) beam must never be lower than second staffline
+	  miny_f = miny_f >? (- 2 * internote_f - beam_f
+				+ (beam_l ()->multiplicity_i_ > 0) * beam_f + interbeam_f * (beam_l ()->multiplicity_i_ - 1));
+	}
+    }
+  else
+    /* knee */
+    {
+      idealy_f -= beam_f;
+      maxy_f = idealy_f;
+      miny_f = -INT_MAX;
+
+      idealy_f -= stem_f;
+      maxy_f -= min_stem_f;
+    }
+
+  idealy_f = maxy_f <? idealy_f;
+  idealy_f = miny_f >? idealy_f;
+
+  interstaff_f = calc_interstaff_dist (this, beam_l ());
+  idealy_f += interstaff_f * beam_dir;
+  miny_f += interstaff_f * beam_dir;
+  maxy_f += interstaff_f * beam_dir;
+
+  set_elt_property ("interstaff-f", gh_double2scm (interstaff_f));
+  set_elt_property ("idealy-f", gh_double2scm (idealy_f));
+  set_elt_property ("miny-f", gh_double2scm (miny_f));
+  set_real ("maxy-f", gh_double2scm (maxy_f));
+}
+

@@ -142,7 +142,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info i)
 	  s->beams_i_drul_[LEFT] = s->flag_i_;
 	  s->beams_i_drul_[RIGHT] = s->flag_i_;
 	  
-	  abeam_p_->multiple_i_ = s->flag_i_;
+	  abeam_p_->multiplicity_i_ = s->flag_i_;
 	  /*
 	    abbrev gaps on all but half note
 	  */

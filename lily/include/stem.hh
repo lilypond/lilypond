@@ -69,6 +69,7 @@ public:
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
+  void beamify ();
 
   Real hpos_f () const;
   Real chord_start_f () const;
