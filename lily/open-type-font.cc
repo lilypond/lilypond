@@ -9,10 +9,38 @@
 
 #include <stdio.h>
 
+#include <freetype/tttables.h>
+ 
 #include "warn.hh"
 #include "open-type-font.hh"
 #include "dimensions.hh"
 
+FT_Byte *
+load_table (char const *tag_str, FT_Face face)
+{
+  FT_ULong length = 0;
+  FT_ULong tag = FT_MAKE_TAG(tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
+  
+  int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, &length);
+  if (!error_code)
+    {
+      FT_Byte*buffer = (FT_Byte*) malloc (length);
+      if (buffer == NULL)
+	error ("Not enough memory");
+
+      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, &length );
+      if (error_code)
+	{
+	  error (_f ("Could not load %s font table", tag_str));
+	}
+
+      return buffer;
+    }
+  
+  return 0 ;
+}
+
+	    
 SCM
 Open_type_font::make_otf (String str)
 {
@@ -29,8 +57,49 @@ Open_type_font::make_otf (String str)
       error ("Unknown error reading font file.");
     }
 
+
+  FT_Byte* buffer =load_table ("LILC", otf->face_);
+  if (buffer)
+    {
+      String contents ((char const*)buffer);
+      contents = "(quote " +  contents + ")";
+
+      SCM alist = scm_c_eval_string (contents.to_str0());
+      otf->lily_character_table_ = alist_to_hashq (alist);
+      free (buffer);
+    }
+
   return otf->self_scm ();
 }
+
+Open_type_font::Open_type_font()
+{
+  lily_character_table_ = SCM_EOL;
+}
+
+void
+Open_type_font::derived_mark () const
+{
+  scm_gc_mark (lily_character_table_);
+}
+
+Offset
+Open_type_font::attachment_point (String glyph_name) const
+{
+  SCM sym = ly_symbol2scm (glyph_name.to_str0 ());
+  SCM entry =  scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+
+  Offset o;
+  if  (entry == SCM_BOOL_F)
+    return o;
+
+  SCM char_alist = entry;
+
+  SCM att_scm =scm_cdr (scm_assq (char_alist, ly_symbol2scm ("attachment")));
+  
+  return ly_scm2offset (att_scm);
+}
+
 
 Open_type_font::~Open_type_font()
 {

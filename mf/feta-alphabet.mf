@@ -1,0 +1,20 @@
+
+
+test:=0;
+
+input feta-autometric;
+input feta-macros;
+
+fet_beginfont("feta-alphabet", staffheight, "fetaNumber");
+
+mode_setup;
+
+number_design_size := staffheight/2;
+dynamic_design_size := 14 staffheight / 20;
+
+
+input feta-nummer-code;
+input feta-din-code;
+
+fet_endfont("feta-nummer");
+

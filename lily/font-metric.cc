@@ -288,3 +288,9 @@ get_encoded_index (Font_metric *m, String input_coding, int code)
 		      scm_int2num (code));
   return scm_to_int (s);
 }
+
+Offset
+Font_metric::attachment_point (String str) const
+{
+  return Offset (0, 0);
+}

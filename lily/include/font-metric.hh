@@ -21,6 +21,7 @@ public:
   String file_name_;
   
   virtual int count () const;
+  virtual Offset attachment_point (String) const;
   virtual Offset get_indexed_wxwy (int) const;
   virtual Box get_indexed_char (int index) const;
   virtual Box get_ascii_char (int ascii) const;

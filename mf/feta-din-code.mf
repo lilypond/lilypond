@@ -1,3 +1,23 @@
+
+ex# :=  (dynamic_design_size / 2.4)* pt#;
+descender# := 0.5 ex#;
+ascender# := 0.72 ex#;
+staffspace# := 1.75 / 2.0 * ex#;
+
+
+%% !! synchronize with feta-params.mf
+linethickness# := 0.3 pt# + 0.04 staffspace#;
+stafflinethickness# := stafflinethickness#;
+
+horizontal_space# :=  .66 ex#;
+
+font_x_height ex#;
+font_normal_space horizontal_space#;
+
+define_pixels (staffspace, linethickness, stafflinethickness, ex, descender, ascender);
+
+
+
 %%
 %
 % TODO: blot diameter should be fixed, not scalable.

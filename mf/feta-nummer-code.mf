@@ -6,6 +6,42 @@
 % 
 % (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
+
+
+height#:= number_design_size;
+space# := number_design_size/2;
+
+font_x_height height#;
+font_normal_space space#;
+
+
+%
+% DOCME!
+%ugh. b and h are reused.
+%
+
+save b,h; 4h+b=1.15; 10h+b=1;
+fatten:=number_design_size*h+b;
+
+save b,h; 4h+b=1.05; 10h+b=1;
+widen:=number_design_size*h+b;
+
+tense=0.85;
+thick#:=7/30height#*fatten;
+thin#:=thick#/4*fatten  + max(.1 (height# / 10 - 1), 0);
+
+%% sqrt(.8 * blot_diameter#* thin#) ;
+hair#:= thin# * .8 ;
+
+
+flare#:=9/8 thick# + .75 (height# / 10 - 1);
+
+save b,h; 4h+b=1/8; 10h+b=1/6;
+kuulleke#:=thick#*number_design_size*h+b;
+foot_top#:=thick#;
+foot_width#:=9/4thick#;
+
+
 %
 % These numbers were taken from a part that that the EJE violas played
 % 1997 -- Probably Mendelssohn's ouverture Heimkehr aus der Fremde.

@@ -149,45 +149,38 @@
 	       (list (cons 'font-encoding (car x)))
 	       (cons (* factor (cadr x))
 		     (caddr x))))
-   `((fetaNumber 10
-		 #(,(delay (ly:font-load "feta-nummer4"))
-		   ,(delay (ly:font-load "feta-nummer6"))
-		   ,(delay (ly:font-load "feta-nummer8"))
-		   ,(delay (ly:font-load "feta-nummer10"))
-		   ,(delay (ly:font-load "feta-nummer12"))
-		   ,(delay (ly:font-load "feta-nummer16"))))
-     (fetaDynamic 14.0  #(,(delay (ly:font-load "feta-din6"))
-			  ,(delay (ly:font-load "feta-din8"))
-			  ,(delay (ly:font-load "feta-din10"))
-			  ,(delay (ly:font-load "feta-din12"))
-			  ,(delay (ly:font-load "feta-din14"))
-			  ,(delay (ly:font-load "feta-din17"))))
-
+   `(
+     (fetaNumber 14
+		 #(
+		  ,(delay  (ly:font-load "bigcheese11"))
+		  ,(delay  (ly:font-load "bigcheese13"))
+		  ,(delay  (ly:font-load "bigcheese14"))
+		  ,(delay  (ly:font-load "bigcheese16"))		  
+		  ,(delay  (ly:font-load "bigcheese18"))
+		  ,(delay  (ly:font-load "bigcheese20"))		  
+		  ,(delay  (ly:font-load "bigcheese23"))		  
+		  ,(delay  (ly:font-load "bigcheese26"))))
+     
+     (fetaDynamic 20.0  #(
+		  ,(delay  (ly:font-load "bigcheese11"))
+		  ,(delay  (ly:font-load "bigcheese13"))		  
+		  ,(delay  (ly:font-load "bigcheese14"))
+		  ,(delay  (ly:font-load "bigcheese16"))		  
+		  ,(delay  (ly:font-load "bigcheese18"))
+		  ,(delay  (ly:font-load "bigcheese20"))		  
+		  ,(delay  (ly:font-load "bigcheese23"))		  
+		  ,(delay  (ly:font-load "bigcheese26"))))
+			  
      (fetaMusic 20.0
-		#(,(delay (ly:make-virtual-font
-			   (ly:font-load "feta11")
-			   (ly:font-load "parmesan11")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta13")
-			   (ly:font-load "parmesan13")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta14")
-			   (ly:font-load "parmesan14")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta16")
-			   (ly:font-load "parmesan16")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta18")
-			   (ly:font-load "parmesan18")))
-;		  ,(delay (ly:make-virtual-font (ly:font-load "feta20") (ly:font-load "parmesan20")))
-		  ,(delay (ly:make-virtual-font (ly:font-load "bigcheese20")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta23")
-			   (ly:font-load "parmesan23")))
-		  ,(delay (ly:make-virtual-font
-			   (ly:font-load "feta26")
-			   (ly:font-load "parmesan26")))))
-
+		#(
+		  ,(delay  (ly:font-load "bigcheese11"))
+		  ,(delay  (ly:font-load "bigcheese13"))		  
+		  ,(delay  (ly:font-load "bigcheese14"))
+		  ,(delay  (ly:font-load "bigcheese16"))		  
+		  ,(delay  (ly:font-load "bigcheese18"))
+		  ,(delay  (ly:font-load "bigcheese20"))		  
+		  ,(delay  (ly:font-load "bigcheese23"))		  
+		  ,(delay  (ly:font-load "bigcheese26"))))
 
      (fetaBraces 15 #(,(delay
 			 (ly:make-virtual-font

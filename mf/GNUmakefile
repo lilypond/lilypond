@@ -11,13 +11,18 @@ EXTRA_DIST_FILES += README feta.tex
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
 	$(wildcard feta-braces-[a-z].mf)\
-	$(wildcard feta-din*[0-9].mf)\
-	$(wildcard feta-nummer*[0-9].mf)\
+	$(wildcard feta-alphabet*[0-9].mf)\
 	$(wildcard parmesan[0-9]*.mf)
 
+STAFF_SIZES=11 13 14 16 18 20 23 26
+
+CHEESES=$(addsuffix .otf,$(addprefix $(outdir)/bigcheese,$(STAFF_SIZES)))
+PE_SCRIPTS=$(addsuffix .pe, $(addprefix $(outdir)/bigcheese,$(STAFF_SIZES))) \
+  $(addsuffix .dep, $(addprefix $(outdir)/bigcheese,$(STAFF_SIZES))) 
+OTF_TABLES=$(addsuffix .otf-table, $(addprefix $(outdir)/feta,$(STAFF_SIZES)))
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 
-XPM_FONTS = feta20 feta-din10 feta-nummer10 feta-braces20 parmesan20
+
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
@@ -46,9 +51,22 @@ foe:
 $(outdir)/feta20.otf-table:
 	cat $(outdir)/feta20.lisp $(outdir)/parmesan20.lisp > $@
 
-$(outdir)/bigcheese20.otf: $(outdir)/bigcheese.pe $(outdir)/feta20.otf-table
-	(cd $(outdir) && fontforge -script bigcheese.pe)
+$(outdir)/%.otf: $(outdir)/%.pe
+	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
+$(outdir)/%.otf-table: $(outdir)/%.lisp
+	cat $< $(subst parmesan,feta,$<) > $@
+
+
+
+$(PE_SCRIPTS):
+	$(PYTHON) $(buildscript-dir)/gen-bigcheese-scripts.py --dir=$(outdir)
+
+include $(outdir)/bigcheese20.dep
+
+
+foo:
+	echo $(CHEESES)
 ## use separate package sauter-fonts-mftraced.
 SAUTER_FONTS = 
 
@@ -67,7 +85,7 @@ PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale $(outdir)/Fontmap.lily $(CHEESES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source

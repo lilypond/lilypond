@@ -15,13 +15,16 @@
 
 class Open_type_font : public Font_metric
 {
-  FT_Face face_; /* handle to face object */ 
+  FT_Face face_; /* handle to face object */
+  SCM lily_character_table_; 
+  Open_type_font();
 public:
   static SCM make_otf (String);
   virtual ~Open_type_font();
+  virtual Offset attachment_point (String) const;
   virtual Box get_indexed_char (int) const;
   virtual int name_to_index (String) const;
-
+  virtual void derived_mark () const;
 #if 0
   virtual int count () const;
   virtual int index_to_ascii (int) const;

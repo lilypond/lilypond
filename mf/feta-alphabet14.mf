@@ -1,0 +1,6 @@
+% part of LilyPond's pretty-but-neat music font
+
+staffheight := 14.14;
+input feta-alphabet;
+end.
+

@@ -46,8 +46,14 @@
    (equal? (substring fontname 0 2) "ec")))
 
 (define (ps-embed-cff body font-set-name version)
-  (string-append
-   (format
+  (let*
+      ((binary-data 
+	(string-append
+	 (format "/~a ~s StartData " font-set-name (string-length body))
+	 body)))
+    
+    (string-append
+     (format
     "%!PS-Adobe-3.0 Resource-FontSet
 %%DocumentNeededResources: ProcSet (FontSetInit)
 %%EndComments
@@ -57,18 +63,16 @@
 %%Version: ~s
 /FontSetInit /ProcSet findresource begin
 %%BeginData: ~s Binary Bytes
-/~a ~s StartData "
-    font-set-name font-set-name version 0 font-set-name (string-length body)
+"
+    font-set-name font-set-name version (string-length binary-data)
     )
-
-   body
-
+    binary-data
    "%%EndData
 %%EndResource
 %%EOF
 "
 
-   ))
+   )))
 
 
 (define (load-fonts paper)
@@ -82,7 +86,6 @@
 			 (cffpath (ly:find-file cffname))
 			 (apath (ly:kpathsea-find-file aname))
 			 (bpath (ly:kpathsea-find-file bname)))
-		  (display (list x cffpath))
 		    (cond
 		     (cffpath (ps-embed-cff (ly:gulp-file cffpath) x 0))
 		     (apath (ly:gulp-file apath))
@@ -91,7 +94,7 @@
 		      (ly:warn "cannot find T42/PFA/PFB font ~S" x)
 		      ""))))
 		(filter string? font-names))))
-  
+    
     (string-join pfas "\n")))
 
 (define (define-fonts paper)
