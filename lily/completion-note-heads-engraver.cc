@@ -313,7 +313,7 @@ ENTER_DESCRIPTION(Completion_heads_engraver,
 @code{Note_heads_engraver}. It plays some trickery to
 break long notes and automatically tie them into the next measure.",
 /* creats*/       "NoteHead Dots",
-/* accepts */     "general-music",
+/* accepts */     "busy-playing-event note-event",
 /* acks  */      "",
 /* reads */       "centralCPosition measurePosition measureLength",
 /* write */       "");

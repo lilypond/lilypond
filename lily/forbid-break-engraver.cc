@@ -16,7 +16,7 @@ ENTER_DESCRIPTION(Forbid_line_break_engraver,
 /* descr */       "Forbid line breaks when note heads are still playing
 at some point.",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "",
 /* reads */       "busyGrobs",
 /* write */       "");

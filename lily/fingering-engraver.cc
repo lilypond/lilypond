@@ -39,7 +39,7 @@ protected:
 bool
 Fingering_engraver::try_music (Music *m)
 {
-  if (dynamic_cast<Text_script_req*> (m))
+  if (m->is_mus_type ("text-script-event"))
     {
       if (m->get_mus_property ("text-type") != ly_symbol2scm ("finger"))
 	return false;
@@ -244,7 +244,7 @@ Fingering_engraver::Fingering_engraver()
 ENTER_DESCRIPTION(Fingering_engraver,
 /* descr */       "Create fingering-scripts",
 /* creats*/       "Fingering",
-/* accepts */     "general-music",
+/* accepts */     "text-script-event",
 /* acks  */      "rhythmic-head-interface stem-interface",
 /* reads */       "scriptHorizontal",
 /* write */       "");

@@ -211,7 +211,7 @@ up for the musicexpr called @code{one}, down for the musicexpr called
 
 ",
 /* creats*/       "TextScript",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */       "multi-measure-rest-interface
 slur-interface stem-interface tie-interface note-head-interface dynamic-interface text-interface"
 ,/* reads */       "combineParts noDirection soloADue soloText soloIIText aDueText split-interval unison solo unisilence unirhythm",

@@ -137,7 +137,7 @@ Dynamic_performer::try_music (Music* r)
 ENTER_DESCRIPTION(Dynamic_performer,
 		  /*descr*/		  "",
 		  /* creats*/ "",
-		  /* accepts */     "general-music",
+		  /* accepts */     "note-column-interface script-interface",
 		  /* acks */ "",
 		  /*reads */"dynamicAbsoluteVolumeFunction midiMaximumVolume midiMinimumVolume midiInstrument instrumentEqualizer",
 		  /*writes*/"");

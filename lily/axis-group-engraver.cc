@@ -168,7 +168,7 @@ ENTER_DESCRIPTION(Hara_kiri_engraver,
 interesting items (ie. note heads, lyric syllables and normal rests)
 ",
 /* creats*/       "HaraKiriVerticalGroup",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");
@@ -176,7 +176,7 @@ interesting items (ie. note heads, lyric syllables and normal rests)
 ENTER_DESCRIPTION(Axis_group_engraver,
 /* descr */       "Group all objects created in this context in a VerticalAxisGroup spanner.",
 /* creats*/       "VerticalAxisGroup",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "verticalExtent minimumVerticalExtent extraVerticalExtent",
 /* write */       "");

@@ -199,7 +199,7 @@ Clef_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Clef_engraver,
 /* descr */       "Determine and set reference point for pitches",
 /* creats*/       "Clef OctavateEight",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "bar-line-interface",
 /* reads */       "clefPosition clefGlyph centralCPosition clefOctavation explicitClefVisibility",
 /* write */       "");
