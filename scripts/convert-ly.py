@@ -1495,6 +1495,13 @@ def conv (str):
 conversions.append (((1,9,4), conv, 'Swap < > and << >>'))
 
 
+def conv (str):
+	str = re.sub ('HaraKiriVerticalGroup', 'RemoveEmptyVerticalGroup', str)
+
+	return str
+
+conversions.append (((1,9,5), conv, 'HaraKiriVerticalGroup -> RemoveEmptyVerticalGroup'))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

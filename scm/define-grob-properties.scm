@@ -285,7 +285,6 @@ space to add. For barline, space after a thick line.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 
 (grob-property-description 'left-position number? "position of left part of spanner.")
-(grob-property-description 'right-position number? "position of right part of spanner.")
 (grob-property-description 'left-padding ly:dimension? "space left of accs.")
 
 (grob-property-description 'length ly:dimension? "Stem length for unbeamed stems, only for user override.")
@@ -374,7 +373,10 @@ as a real penalty.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'prefix-set number? "DOCME")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
+(grob-property-description 'remove-first boolean?
+			   "Remove the first staff of a orchestral score?")
 (grob-property-description 'right-padding ly:dimension? "space right of accs.")
+(grob-property-description 'right-position number? "position of right part of spanner.")
 (grob-property-description 'right-trim-amount ly:dimension? "shortening of the lyric extender on the right.")
 (grob-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts.")
 (grob-property-description 'self-alignment-X number-or-grob? "real number: -1 =

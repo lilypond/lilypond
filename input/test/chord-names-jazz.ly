@@ -112,7 +112,7 @@ banterProperties = \sequential {
 
 \score{
     <<
-	\context ChordNames {
+	\new ChordNames {
 	    \property ChordNames.instrument = #"Ignatzek (default)"
 	    \property ChordNames.instr = #"Def"
 	    \chs }
@@ -132,7 +132,7 @@ banterProperties = \sequential {
 	    \chs
 	    }
 %}
-	\context Staff \notes \transpose c c' { \chs }
+	\new Staff \notes \transpose c c' { \chs }
     >>
     \paper{
 	indent = 3.\cm

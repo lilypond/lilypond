@@ -32,9 +32,9 @@ chExceptions = #(append
   ignatzekExceptions)
 
 theMusic =    \chords {
-      c:7sus4 c:dim7
+      c:7sus4 c:dim7/+f
       \property Current.chordNameExceptions = #chExceptions
-      c:7sus4 c:dim7 }
+      c:7sus4 c:dim7/+f }
 
   
 \score {

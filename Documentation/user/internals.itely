@@ -90,7 +90,7 @@ If no such context exists, it will be created:
 @lilypond[verbatim,singleline]
 \score {
   \notes \relative c'' {
-    c4 <d4 \context Staff = "another" e4> f
+    c4 <<d4 \context Staff = "another" e4>> f
   }
 }
 @end lilypond
@@ -626,8 +626,8 @@ manipulated using Scheme functions.
 
 Notes, rests, lyric syllables are music expressions.  Small music
 expressions may be combined to form larger ones, for example, by
-enclosing a list of expressions in @code{\sequential @{ @}} or @code{<
->}.  In the following example, a compound expression is formed out of
+enclosing a list of expressions in @code{\sequential @{ @}} or @code{<<
+>>}.  In the following example, a compound expression is formed out of
 the quarter note @code{c} and a quarter note @code{d}:
 
 @example 
@@ -637,8 +637,8 @@ the quarter note @code{c} and a quarter note @code{d}:
 @cindex Sequential music
 @cindex @code{\sequential}
 @cindex sequential music
-@cindex @code{<}
-@cindex @code{>}
+@cindex @code{<<}
+@cindex @code{>>}
 @cindex Simultaneous music
 @cindex @code{\simultaneous}
 
@@ -660,7 +660,7 @@ For both, there is a shorthand:
 for sequential and
 
 @example
-@code{<} @var{musicexprlist} @code{>}
+@code{<<} @var{musicexprlist} @code{>>}
 @end example
 
 @noindent
@@ -671,13 +671,13 @@ are expressed in two different ways:
 
 @lilypond[fragment,verbatim,center,quote]
 \notes \context Voice {
-  <a c'> <b d'> <c' e'>
-  < { a b c' } { c' d' e' } >
+  <<a c'>> <<b d'>> <<c' e'>>
+  << { a b c' } { c' d' e' } >>
 }
 @end lilypond
-However, using @code{<} and @code{>} for entering chords leads to
+However, using @code{<<} and @code{>>} for entering chords leads to
 various peculiarities. For this reason, a special syntax
-for chords was introduced in version 1.7: @code{<< >>}.
+for chords was introduced in version 1.7: @code{< >}.
 
 
 
@@ -813,15 +813,15 @@ A slightly more elaborate example is in
 Some of the input syntax is also implemented as recursive music
 functions. For example, the syntax for polyphony
 @example
-  < a \\ b>
+  << a \\ b>>
 @end example
 
 @noindent
 is actually  implemented as a recursive function that replaces the
 above by the internal equivalent of
 @example
-  < \context Voice = "1" @{ \voiceOne a @}
-    \context Voice = "2" @{ \voiceTwo b @} >
+  << \context Voice = "1" @{ \voiceOne a @}
+    \context Voice = "2" @{ \voiceTwo b @} >>
 @end example
 
 Other applications of @code{\apply} are writing out repeats

@@ -9,16 +9,29 @@ AC_INIT
 AC_CONFIG_AUX_DIR([stepmake/bin])
 # For stepmake package:
 # AC_CONFIG_AUX_DIR(bin)
+
+
+export PACKAGE_NAME=LilyPond
+export MAJOR_VERSION=1
+export MINOR_VERSION=9
+export PATCH_LEVEL=5
+export MY_PATCH_LEVEL=
+
+
 STEPMAKE_INIT
+
+AC_SUBST(PACKAGE_NAME)
+AC_SUBST(MAJOR_VERSION)
+AC_SUBST(MINOR_VERSION)
+AC_SUBST(PATCH_LEVEL)
+AC_SUBST(MY_PATCH_LEVEL)
+
 
 # List a file that identifies your package.
 AC_CONFIG_SRCDIR([lily/main.cc])
 
 # Move to aclocal.m4?
 AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
-
-# For all packages except the StepMake package itself
-AC_CONFIG_SUBDIRS(stepmake)
 
 # Uncomment the configuration options your package needs.
 

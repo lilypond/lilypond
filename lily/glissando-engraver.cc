@@ -55,8 +55,6 @@ Glissando_engraver::process_music ()
 {
   if (event_)
     {
-      last_line_ = line_;
-      
       line_ = new Spanner (get_property ("Glissando"));
       announce_grob (line_, event_->self_scm ());
     }
@@ -86,8 +84,12 @@ Glissando_engraver::stop_translation_timestep ()
       typeset_grob (last_line_);
       last_line_ =0;
     }
-
-  last_line_ = line_;
+  if (line_)
+    {
+      if ( last_line_)
+	programming_error ("Overwriting glissando.");
+      last_line_ = line_;
+    }
   line_ = 0;
   event_ = 0;
 }

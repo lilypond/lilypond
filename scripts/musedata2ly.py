@@ -232,11 +232,11 @@ class Chord:
 			str = str + pitch_to_lily_string (p) 
 		
 		if len (self.pitches) > 1:
-			str = '<<%s>>' % str
+			str = '<%s>' % str
 		elif len (self.pitches) == 0:
 			str = 'r'
 
-		str = str + sd + '-(' * len (self.slurstart) + '-)' * len (self.slurstart) 
+		str = str + sd + '(' * len (self.slurstart) + ')' * len (self.slurstart) 
 		for s in self.scripts:
 			str = str + '-' + s
 
@@ -618,7 +618,7 @@ for f in files:
 
 	found_ids = found_ids + '\\%s\n' % id
 
-found_ids = '\n\n\n\\score { < %s > } ' % found_ids 
+found_ids = '\n\n\n\\score { << %s >> } ' % found_ids 
 
 ly_head = ''
 if ref_file:

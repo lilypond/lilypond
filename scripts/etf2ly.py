@@ -595,7 +595,7 @@ class Staff:
 			stafdef = stafdef + ' \\' + i
 			
 
-		str = str + '%s = \\context Staff = %s <\n %s\n >\n' % \
+		str = str + '%s = \\context Staff = %s <<\n %s\n >>\n' % \
 		      (self.staffid (), self.staffid (), stafdef)
 		return str
 
@@ -726,7 +726,7 @@ class Chord:
 		if not self.pitches:
 			s  = 'r'
 		if len (self.pitches) > 1:
-			s = '<< %s >>' % s
+			s = '<%s>' % s
 
 		s = s + '%d%s' % (self.duration[0], '.'* self.duration[1])
 		s = self.note_prefix + s + self.note_suffix

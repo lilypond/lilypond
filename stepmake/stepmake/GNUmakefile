@@ -2,7 +2,7 @@
 
 # subdir level:
 #
-depth = ..
+depth = ../..
 #
 
 # descent order into subdirectories:

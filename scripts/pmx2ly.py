@@ -135,8 +135,8 @@ class Slur:
 		e= self.end_chord
 
 		if e and s:
-			s.note_suffix = s.note_suffix + '-('
-			e.note_prefix = e.note_suffix + '-)' 
+			s.note_suffix = s.note_suffix + '('
+			e.note_prefix = e.note_suffix + ')' 
 		else:
 			sys.stderr.write ("\nOrphaned slur")
 
@@ -283,7 +283,7 @@ class Staff:
 			str = str + v.dump()
 			refs = refs + '\\' + v.idstring ()+  ' '
 		
-		str = str + '\n\n%s = \\context Staff = %s \n  < \n %s >\n\n\n'% (self.idstring (), self.idstring (), refs)
+		str = str + '\n\n%s = \\context Staff = %s \n  << \n %s >>\n\n\n'% (self.idstring (), self.idstring (), refs)
 		return str
 
 class Tuplet:
@@ -344,7 +344,7 @@ class Chord:
 			str = str + pitch_to_lily_string (p) 
 
 		if len (self.pitches) > 1:
-			str = '<<%s>>' % str
+			str = '<%s>' % str
 		elif len (self.pitches) == 0:
 			str = 'r'
 
@@ -760,7 +760,7 @@ Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 			str = str +  s.dump ()
 			refs = '\\' + s.idstring() + refs
 
-		str = str + "\n\n\\score { <\n %s\n > }" % refs 
+		str = str + "\n\n\\score { <<\n %s\n >> }" % refs 
 		return str
 			
 

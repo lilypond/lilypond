@@ -331,7 +331,7 @@ the duration of the long a. is proportional to that of the main note.
 \time 4/4
 
 %\property Score.TextScript \set #'font-style = #'large
-<<d a fis>>4_"notation" r
+<d a fis>4_"notation" r
 { \property Voice.Stem \override #'flag-style = #'()
   \grace g16
   \property Voice.Stem \revert #'flag-style
@@ -344,7 +344,7 @@ fis8 e16 fis
 g8 fis16 g |
 \cadenzaOn a4 \bar "||" \cadenzaOff }
 \notes\relative c'' {
-<<d a fis>>4_"performance" r g16 ( fis) e fis a ( g) fis g |
+<d a fis>4_"performance" r g16 ( fis) e fis a ( g) fis g |
 \cadenzaOn a4 \bar "||" \cadenzaOff }
 @end lilypond
 
@@ -356,11 +356,11 @@ An appoggiatura may have more notes preceding the main note.
   \time 2/4
 %  \property Score.TextScript \set #'font-style = #'large
   \grace { bes16 } as8_"notation" as16 bes as8 g |
-  \grace { as16[( bes] } << c as >>4-)
-  \grace { as16[( bes] } << c as >>4-) \bar "||"
+  \grace { as16[( bes] } < c as >4-)
+  \grace { as16[( bes] } < c as >4-) \bar "||"
   \grace { bes16 } as8_"performance" as16 bes as8 g |
-  < \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
-    \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >
+  << \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
+    \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >>
   \bar "||"
 }
 @end lilypond
@@ -377,7 +377,7 @@ FI: arpeggio, murtosointu,
 N: ?.
 
 @lilypond
-\notes \context PianoStaff <
+\notes \context PianoStaff <<
   \context Staff = SA \relative c'' {
     \time 4/4
     \clef treble
@@ -385,15 +385,15 @@ N: ?.
     r8 a,16 d f a, d f r8 a,16 d f a, d f \bar "||" }
   \context Staff = SB \relative c' {
     \clef bass
-    < \context Voice = va {
+    << \context Voice = va {
         \stemUp
         r16 e8. ( e4) r16 e8. ( e4) |
         r16 d8. ( d4) r16 d8. ( d4) }
       \context Voice = vb {
         \stemDown
-        c2 c | c c } >
+        c2 c | c c } >>
   }
->
+>>
 @end lilypond
 
 @aitem{ascending interval}
@@ -590,16 +590,16 @@ for connecting piano staves, angular brackets for connecting parts in an
 orchestral or choral score.
 
 @lilypond
-\notes\context GrandStaff <
+\notes\context GrandStaff <<
   \relative c''\context Staff = SA  { \clef treble g4 e c2 }
-  \relative c \context Staff = SB { \clef bass c1 \bar "|." } >
+  \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
 
 @lilypond
-\context StaffGroup <
+\context StaffGroup <<
 %  \property StaffGroup.minVerticalAlign = #12
   \notes\relative c'' \context Staff = SA { \clef treble g4 e c2 }
-  \notes\relative c \context Staff = SB { \clef bass c1 \bar "|." } >
+  \notes\relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
 
 @aitem{brass}
@@ -777,12 +777,12 @@ chords are denoted open chords
 %\property Voice.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  <<g b d>>1 s s
-  <<g bes d>> s s
-  <<g bes des>> s s
-  <<g b dis>> s s
-  <<g b d f>> s s
-  <<g b d f a>> s s
+  <g b d>1 s s
+  <g bes d> s s
+  <g bes des> s s
+  <g b dis> s s
+  <g b d f> s s
+  <g b d f a> s s
 }
 \context Lyrics \lyrics{
   \property Lyrics . LyricText \override #'alignment = #-1
@@ -957,12 +957,12 @@ composition methods.
 
 @lilypond[11pt,noquote]
 \property Score.TimeSignature \override #'style = #'()
-\notes\context PianoStaff <
+\notes\context PianoStaff <<
   \context Staff = SA \relative c' {
     \key bes \major
     \time 4/4
     \clef treble
-    < \context Voice = rha {
+    << \context Voice = rha {
         \stemUp
         r1 | r2 r8 g'8 bes d, |
         cis4 d r8 e!16 f g8 f16 e |
@@ -972,12 +972,12 @@ composition methods.
         \stemDown
         r1 | r | r | r2 s8
       }
-    >
+    >>
   }
   \context Staff = SB \relative c' {
     \clef bass
     \key bes \major
-    < \context Voice = lha {
+    << \context Voice = lha {
         \stemUp
         r8 d es g, fis4 g | r8 a16 bes c8 bes16 a bes4 g |
         r8 a16 g f8 g16 a bes8 g e! cis' |
@@ -986,9 +986,9 @@ composition methods.
       \context Voice = lhb {
         \stemDown
         r1 | r | r | r2 s8
-      } >
+      } >>
   }
->
+>>
 @end lilypond
 
 @aitem{counter tenor}
@@ -1067,7 +1067,7 @@ of the 20th century
 
 	\property Staff.Custos \set #'style = #'hufnagel
 	c'1
-	\break << d' a' f''>>1
+	\break < d' a' f''>1
     }
     \paper {
 	\translator {
@@ -1665,7 +1665,7 @@ but equal pitch.
 %\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  gis1 s s as s s <<des g,!>> s s <<cis g!>> s s
+  gis1 s s as s s <des g,!> s s <cis g!> s s
 }
 \context Lyrics \lyrics {
   \property Lyrics . LyricText \override #'alignment = #-1
@@ -1914,8 +1914,8 @@ variants of the base chords.
 %\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
-  <<g e c >>1 << a f d >> << b g e >>
-  <<c a f >> << d b g >> << e c a >> << f d b >> }
+  <g e c >1 < a f d > < b g e >
+  <c a f > < d b g > < e c a > < f d b > }
 \context Lyrics \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" }
 @end lilypond
 
@@ -2068,13 +2068,13 @@ Sequence of chords that terminate a musical phrase or
 section.  @aref{functional harmony}.
 
 @lilypond
-\notes\context PianoStaff <
+\notes\context PianoStaff <<
   \context Staff = SA \relative c'' {
     \time 4/4
     \clef treble
     \context Voice
-    \partial 4 << c g e >>4 |
-    << c a f >> << b g d >> << c g e >>2
+    \partial 4 < c g e >4 |
+    < c a f > < b g d > < c g e >2
   }
 %  %\property Score.LyricText \set #'font-style = #'large
   \addlyrics
@@ -2086,7 +2086,7 @@ section.  @aref{functional harmony}.
   \context Lyrics \lyrics {
     T S D T
   }
->
+>>
 @end lilypond
 
 @aitem{harmony}
@@ -2109,13 +2109,13 @@ Consonances:
 \property Score.automaticBars = ##f
 %\property Score.TextScript \set #'font-style = #'large
 \context Voice \notes\relative c'' {
-  <<g g>>1_"unisone  " s
-  <<g b>>_"third  " s
-  <<g c>>_"fourth  " s
-  <<g d'>>_"fifth  " s
-  <<g e'>>_"sixth  " s
-  <<g g'>>_"octave  " s
-  <<g b'>>_"decime" s s
+  <g g>1_"unisone  " s
+  <g b>_"third  " s
+  <g c>_"fourth  " s
+  <g d'>_"fifth  " s
+  <g e'>_"sixth  " s
+  <g g'>_"octave  " s
+  <g b'>_"decime" s s
 }
 @end lilypond
 
@@ -2125,9 +2125,9 @@ Dissonances:
 \property Score.automaticBars = ##f
 %\property Score.TextScript \set #'font-style = #'large
 \context Voice  \notes\relative c'' {
-  <<g a>>1_"second  " s s
-  <<g f'>>_"seventh  " s s
-  <<g a'>>_"ninth" s s
+  <g a>1_"second  " s s
+  <g f'>_"seventh  " s s
+  <g a'>_"ninth" s s
 }
 @end lilypond
 
@@ -2170,14 +2170,14 @@ of such two forms an octave.
 %\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
-  << g g >>1 s
-  << g as >>^"minor" s
-  << g a! >> s
-  << g ais >>^"augm" s
-  << gis bes >>^"dimin" s
-  << g! bes >>^"minor" s
-  << g b! >>^"major" s
-  << g bis >>^"augm" s
+  < g g >1 s
+  < g as >^"minor" s
+  < g a! > s
+  < g ais >^"augm" s
+  < gis bes >^"dimin" s
+  < g! bes >^"minor" s
+  < g b! >^"major" s
+  < g bis >^"augm" s
 }
 \context Lyrics \lyrics {
   "unisone  " "second  " "second  " "second  "
@@ -2191,14 +2191,14 @@ of such two forms an octave.
 %\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  << g c >>^"perfect" s
-  << g cis >>^"augm"  s
-  << g d' >>^"perfect"  s
-  << g des' >> ^"dim" s
-  << gis es' >>^"dimin"  s
-  << g! es' >>^"minor"  s
-  << g e'! >>^"major"  s
-  << g eis' >>^"augm"  s
+  < g c >^"perfect" s
+  < g cis >^"augm"  s
+  < g d' >^"perfect"  s
+  < g des' > ^"dim" s
+  < gis es' >^"dimin"  s
+  < g! es' >^"minor"  s
+  < g e'! >^"major"  s
+  < g eis' >^"augm"  s
 }
 \context Lyrics \lyrics {
   "fourth  " "fourth  " "fifth  " "fifth  "
@@ -2212,14 +2212,14 @@ of such two forms an octave.
 %\property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  << gis f'! >>1^"dimin"  s
-  << g! f'! >>^"minor"  s
-  << g fis' >>^"major"  s
-  << g g' >> s
-  << g as' >>^"minor"  s
-  << g a'! >>^"major"  s
-  << g bes' >>^"minor"  s
-  << g b'! >>^"major"  s
+  < gis f'! >1^"dimin"  s
+  < g! f'! >^"minor"  s
+  < g fis' >^"major"  s
+  < g g' > s
+  < g as' >^"minor"  s
+  < g a'! >^"major"  s
+  < g bes' >^"minor"  s
+  < g b'! >^"major"  s
 }
 \context Lyrics \lyrics {
   "seventh  " "seventh  " "seventh  " "octave  "
@@ -2244,9 +2244,9 @@ The difference between an interval and an octave.
 \property Score.automaticBars = ##f
 %\property Score.TextScript \set #'font-style = #'large
 \context Staff \notes\relative c'' {
-  << g  a >>1_"second " s s << g' a, >>_"seventh " s s \bar "||"
-  << g, b >>_"third  " s s << g' b, >>_"sixth  " s s \bar "||"
-  << g, c >>_"fourth  " s s << g' c, >>_"fifth  " s s \bar "||"
+  < g  a >1_"second " s s < g' a, >_"seventh " s s \bar "||"
+  < g, b >_"third  " s s < g' b, >_"sixth  " s s \bar "||"
+  < g, c >_"fourth  " s s < g' c, >_"fifth  " s s \bar "||"
 }
 @end lilypond
 
@@ -2943,7 +2943,7 @@ note first while in the music from the preceding baroque and classic periods
 the upper note is played first.
 
 @lilypond
-<
+<<
   \context Staff = sa {
 %        \property Score.TextScript \set #'font-style = #'large
     \notes\relative c'' {
@@ -2955,14 +2955,14 @@ the upper note is played first.
     c2. c32 b c b c b c b | c1
     c2. b32 c b c \times 4/5 { b c b c b } | c1
   }
->
+>>
 @end lilypond
 
 Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @emph{prall} (inverted mordent).
 
 @lilypond
-<
+<<
   \context Staff = sa {
 %        \property Score.TextScript \set #'font-style = #'large
     \notes\relative c'' {
@@ -2976,7 +2976,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
     g4 a  b16-[ a b8] a4
     e'4 e32[ d e d ~ d8] c2
   }
->
+>>
 @end lilypond
 
 @aref{appoggiatura}.
@@ -3372,8 +3372,8 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
   c1 d e f g a b c
 }
 \context Lyrics \lyrics {
-  < { I II III IV V VI VII I }
-    { T "" ""  S  D } >
+  << { I II III IV V VI VII I }
+    { T "" ""  S  D } >>
 }
 @end lilypond
 
@@ -3965,18 +3965,18 @@ with figures designating the chief @aref{interval}s and
 @aref{chord}s to be played above the bass notes.
 
 @lilypond
-\context GrandStaff <
+\context GrandStaff <<
   \context Staff = lh \notes\relative c'' {
     \time 4/4
     \key es \major
     \clef treble
-    < \context Voice = rha {
+    << \context Voice = rha {
         \stemUp
         es4 d c bes | bes }
       \context Voice = rhb {
         \stemDown
-        << bes g >>8 as << as f >> g << g es >> f << d f >> es | << g es >>4 }
-    >
+        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
+    >>
   }
   \addlyrics
     \context Staff = rh \notes\relative c' {
@@ -3987,10 +3987,10 @@ with figures designating the chief @aref{interval}s and
   \context Lyrics \lyrics {
 %    \property Lyrics . LyricText \set #'font-style = #'Large
     \property Lyrics . VerticalAlign \override #'threshold = #'(6 . 12)
-    < { "" "6" "" "4" "" "6" "" "" "6" "4" }
-      { "" ""  "" "2" "" ""  "" "" ""  "2" } >
+    << { "" "6" "" "4" "" "6" "" "" "6" "4" }
+      { "" ""  "" "2" "" ""  "" "" ""  "2" } >>
   }
->
+>>
 @end lilypond
 
 @aitemii{tie,bind}

@@ -1,3 +1,32 @@
+2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* stepmake/GNUmakefile.in: remove nested stepmake packaging stuff.
+
+	* VERSION: remove
+
+	* scripts/*2ly.py: update <> syntax
+
+2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/chord-name-engraver.cc (process_music): add origin for
+	chord name.
+
+	* input/regression/chord-name-exceptions.ly (theMusic): add base too.
+
+	* scm/chord-ignatzek-names.scm (ignatzek-chord-names): bugfix: do
+	bass notes for exceptions too.
+
+	* scm/define-grobs.scm (all-grob-descriptions): rename
+	HaraKiriVerticalGroup to RemoveEmptyVerticalGroup
+
+	* scm/define-grob-properties.scm (remove-first): add remove-first
+	property for orchestral scores.
+
+	* Documentation/user/*.itely: switch <<>> and <> 
+
+	* lily/glissando-engraver.cc (process_music): bugfix: move line to
+	last_line only once. This fixes the two consecutive glissandi problem.
+
 2003-09-09  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/vaticana-ligature-engraver.cc: bugfix: fixed programming

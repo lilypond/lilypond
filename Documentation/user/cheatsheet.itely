@@ -149,12 +149,12 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{< \new Staff ... >}
+@item @code{<< \new Staff ... >>}
 @tab more staves
 @tab
 @lilypond[fragment]
-< \new Staff { c'1 }
-  \new Staff { c'1 } >
+<< \new Staff { c'1 }
+  \new Staff { c'1 } >>
 @end lilypond
 
   
@@ -201,11 +201,11 @@ a\> a a\!
 @end lilypond
 
 
-@item @code{<< >>}
+@item @code{< >}
 @tab chord
 @tab
 @lilypond[fragment, relative 1]
-<<c e>> 
+<c e> 
 @end lilypond
 
 
@@ -263,11 +263,11 @@ a\> a a\!
   \context ChordNames \chords { c:dim f:maj7 }
 @end lilypond 
 
-@item @code{< @dots{} \\ @dots{} >}
+@item @code{<< @dots{} \\ @dots{} >>}
 @tab polyphony
 @tab
 @lilypond[fragment,relative 1]
-\context Staff < c \\ g' >
+\context Staff << c \\ g' >>
 @end lilypond
 
 

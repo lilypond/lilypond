@@ -116,6 +116,9 @@ Hairpin::brew_molecule (SCM smob)
       endh = height;
     }
 
+  /*
+    TODO: set line style.
+   */
   Molecule mol  = Lookup::line (thick,
 				Offset (0, starth),
 				Offset (width, endh));

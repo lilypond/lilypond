@@ -1,9 +1,10 @@
 ;;;
-;;; chord-name.scm --  chord name utility functions
+;;; chord-ignatzek-names.scm --  chord name utility functions
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
 ;;; (c)  2000--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -202,7 +203,7 @@ work than classifying the pitches."
 			       alterations
 			       suffixes
 			       add-markups) sep))
-	 (base-stuff (if bass-pitch
+	 (base-stuff (if (ly:pitch? bass-pitch)
 			 (list sep (name-note bass-pitch))
 			 '()))
 	 )
@@ -213,9 +214,24 @@ work than classifying the pitches."
 		   (markup-join prefixes sep)
 		   (make-super-markup to-be-raised-stuff))
 	     base-stuff))
-      (make-line-markup       base-stuff)
+      (make-line-markup base-stuff)
 
        ))
+
+  (define (ignatzek-format-exception
+	   root
+	   exception-markup
+	   bass-pitch)
+
+      (make-line-markup
+       `(
+	,(name-root root)
+	,exception-markup
+	. 
+	,(if (ly:pitch? bass-pitch)
+	    (list (ly:get-context-property context 'chordNameSeparator)
+		  (name-note bass-pitch))
+	   '()))))
 
   (let*
       (
@@ -227,14 +243,15 @@ work than classifying the pitches."
        (suffixes '())
        (add-steps '())
        (main-name #f)
-       (bass-note #f)
+       (bass-note
+	(if (ly:pitch? inversion)
+	    inversion
+	    bass))
        (alterations '())
        )
-
-    (if
-     exception
-     (make-line-markup
-      (list (name-root root) exception))
+   
+    (if exception
+     (ignatzek-format-exception  root exception bass-note)
      
      (begin				; no exception.
        
@@ -280,13 +297,6 @@ work than classifying the pitches."
 	 (set! alterations (delq main-name alterations))
 	 (set! add-steps (delq main-name add-steps))
 
-	 (if (ly:pitch? inversion)
-	     (set! bass-note inversion)
-	     )
-	 
-	 (if (ly:pitch? bass)
-	     (set! bass-note bass)
-	     )
 
 	 ;; chords with natural (5 7 9 11 13) or leading subsequence.
 	 ;; etc. are named by the top pitch, without any further
@@ -302,8 +312,9 @@ work than classifying the pitches."
 	       (set! main-name (last alterations))
 	       (set! alterations '())
 	       ))
-	 
+
 	 (ignatzek-format-chord-name root prefixes main-name alterations add-steps suffixes bass-note)
-	 )
-       ))))
+	 )))
+       ))
+  
 

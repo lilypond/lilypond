@@ -347,7 +347,7 @@ LyricsContext = \translator {
 ChordNamesContext = \translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
-\description "    Typesets chord names."
+	\description "Typesets chord names."
 	
 	\consists "Rest_swallow_translator" 
 	\consists "Output_property_engraver"	
@@ -355,6 +355,7 @@ ChordNamesContext = \translator {
 	\consists "Chord_name_engraver"
 	\consists "Skip_event_swallow_translator"
 	\consistsend "Hara_kiri_engraver"
+	
 	minimumVerticalExtent = #'(0 . 2.5)
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 

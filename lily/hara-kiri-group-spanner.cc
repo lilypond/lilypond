@@ -30,10 +30,17 @@ Hara_kiri_group_spanner::y_extent (SCM element_smob, SCM scm_axis)
 void
 Hara_kiri_group_spanner::consider_suicide (Grob*me)
 {
+  Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM worth = me->get_grob_property ("items-worth-living");
   if (gh_pair_p (worth))
     return ;
 
+  if (!to_boolean (me->get_grob_property ("remove-first"))
+      && broken_spanner_index (sp) == 0)
+    {
+      return ;
+    }
+  
   Link_array<Grob> childs = Axis_group_interface::get_children (me);
   for (int i = 0; i < childs.size (); i++)
     childs[i]->suicide ();
@@ -98,5 +105,5 @@ ADD_INTERFACE (Hara_kiri_group_spanner,"hara-kiri-group-interface",
 we don't contain any interesting items after linebreaking, then			\
 gracefully commit suicide.  Objective: don't disgrace Lily by			\
 typesetting empty lines in orchestral scores.",					\
-  "items-worth-living");
+  "items-worth-living remove-first");
 

@@ -1,6 +1,7 @@
 
 import re
 import sys
+import getopt
 
 
 vf = 'VERSION'
@@ -11,9 +12,8 @@ f = open (vf)
 ls = f.readlines ()
 mypatch = 0
 defs = []
-for l in ls:
-	l = re.sub ('#.*','', l)
-	m  = re.search ('([^ =]*)[\t ]*=[ \t]*([^ \t]*)[ \t]*\n', l)
+for a in sys.argv[1:]
+	m  = re.search ('([^ =]*)=([^ \t]*)[ \t]*\n', a)
 	if m:
 		defs.append ((m.group(1), m.group(2)))
 
