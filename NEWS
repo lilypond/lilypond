@@ -1,3 +1,16 @@
+pl 58.uu1
+	- experimental pdftex support, courtesy Stephen Peters.
+	- --version support
+	- junked complicated loose column handling.
+	- only stretch the extra space after prefatory matter, not the
+entire width of prefatory matter.
+	- standardise(d) switches:-d for debug, -M for Make deps, -m for midi-only.
+	- bf: non_musical_space_strength  now works. Set to 8 (-> Strong! )
+	- bf: space after time_sig.
+	- bf: decrescendi.
+	- bf: barlines on voltas
+
+************
 pl 57.hwn1
 	- bf: accidentals on grace notes.
 	- \property graceAccidentalSpace

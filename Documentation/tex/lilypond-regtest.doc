@@ -130,6 +130,7 @@ Unfolded behavior:
 \mudelafile{repeat-unfold.ly}
 
 Semi (un)folded behavior.  Voltas can start on non-barline moments.
+If they don't barlines should still be shown.
 
 \mudelafile{repeat-semifold.ly}
 
