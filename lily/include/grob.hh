@@ -47,7 +47,11 @@ private:
 protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
+  
+  /* BARF */
   friend class Spanner;
+  friend SCM ly_grob_properties (SCM);
+  friend SCM ly_grob_basic_properties (SCM);
   
   void substitute_mutable_properties (SCM, SCM);
   char status_;

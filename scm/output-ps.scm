@@ -17,6 +17,8 @@
 
 (define-module (scm output-ps)
   #:re-export (quote)
+
+  ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
 	     blank
 	     dot
@@ -40,7 +42,6 @@
 	     tuplet
 	     polygon
 	     draw-line
-	     define-origin
 	     no-origin
 	     ))
 
@@ -266,4 +267,7 @@
 
 
 (define (grob-cause grob)
+  "")
+
+(define (no-origin)
   "")

@@ -1,4 +1,4 @@
-% Toplevel initialisation file. 
+%% Toplevel initialisation file. 
 
 #(define-public point-and-click #f)
 #(define-public midi-debug  #f)
@@ -15,10 +15,10 @@
 #(define $globalheader #f)
 
 \maininput
-% there is a problem at the end of the input file
+%% there is a problem at the end of the input file
 
 %%
-%% above and below message is to compensate for look ahead of the parser.
+%% Above and below comments compensate for the parser's look-ahead.
 %%
 
 #(if (and (ly:get-option 'old-relative)
@@ -27,15 +27,15 @@
   (ly:warn (string-append
 	    "\n"
 	    input-file-name ": old relative compatibility was not used."
-	)))% there is a problem at the end of the input file
+	)))%% there is a problem at the end of the input file
 
 
 #(if (pair? toplevel-scores)
-  (ly:parser-print-book parser (apply ly:make-book $defaultbookpaper $globalheader toplevel-scores)))
+  (ly:parser-print-book parser
+   (apply ly:make-book $defaultbookpaper $globalheader toplevel-scores)))
 
 #(if (ly:get-option 'verbose)
   (begin
    (gc)
-   (write (gc-stats) (current-error-port))
-   ))
+   (write (gc-stats) (current-error-port))))
 

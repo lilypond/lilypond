@@ -20,6 +20,8 @@
 
 (define-module (scm output-tex)
   #:re-export (quote)
+
+  ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
 	     blank
 	     dot
@@ -43,7 +45,6 @@
 	     tuplet
 	     polygon
 	     draw-line
-	     define-origin
 	     no-origin
 	     grob-cause
 	     ))
@@ -178,26 +179,19 @@
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
-(define (define-origin file line col)
-  "")
-
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
 (define (grob-cause grob)
   (if (procedure? point-and-click)
-  
-  (let*
-      ((cause (ly:grob-property grob 'cause))
-       (music-origin (if (ly:music? cause)
-			 (ly:music-property cause 'origin)
-			  #f))
-       (location (if (ly:input-location? music-origin)
-		     (ly:input-location music-origin)
-		     #f)))
-
-    (if (pair? location)
-	(string-append "\\special{src:" ;;; \\string ? 
-		       (apply point-and-click location) "}")
-	""))
-  ""))
+      (let* ((cause (ly:grob-property grob 'cause))
+	     (music-origin (if (ly:music? cause)
+			       (ly:music-property cause 'origin)))
+	     (location (if (ly:input-location? music-origin)
+			   (ly:input-location music-origin))))
+	(if (pair? location)
+	     ;;; \\string ? 
+	    (string-append "\\special{src:"
+			   (apply point-and-click location) "}")
+	    ""))
+      ""))

@@ -15,28 +15,21 @@ set -ex
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
 
-if [ -x /usr/bin/gcc34 ] ;then
-    export GCC=gcc34
-fi
-
-if [ -x /usr/bin/gcc-3.4 ] ;then
-    export GCC=gcc-3.4
+# Please state your love for the autotools today
+if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
+    MY_LIBTOOL=$(dpkg -l libtool | tail -1 | awk '{ print $3 }')
+    PANGO_LIBTOOL=1.5.6-1
+    if [ -x /usr/bin/gcc34 ] ;then
+	GCC34=gcc34
+    elif [ -x /usr/bin/gcc-3.4 ] ;then
+	GCC34=gcc-3.4
+    fi
 fi
 
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
 export AUTOCONF=$(which autoconf2.50)
 export AUTOHEADER=$(which autoheader2.50)
-
-MY_LIBTOOL=$(dpkg -l libtool | tail -1 | awk '{ print $3 }')
-PANGO_LIBTOOL=1.5.6-1
-
-# Please state your love for the autotools today
-if [ -z "$I_LOVE_AUTOTOOLS" ]; then
-    I_LOVE_AUTOTOOLS=no
-else
-    I_LOVE_AUTOTOOLS=yes
-fi
 
 if [ -z "$AUTOCONF" ]; then
     unset AUTOCONF
@@ -111,7 +104,7 @@ rm -rf $OPT/g-wrap
 sh autogen.sh --noconfigure
 mkdir =build
 cd =build
-../configure --prefix=$OPT/g-wrap
+../configure --prefix=$OPT/g-wrap --enable-maintainer-mode
 make install
 
 # not a good idea
@@ -135,13 +128,6 @@ cd src
 tla get guile-gnome-devel@gnu.org--2004/libgnomecanvas--dev libgnomecanvas
 
 rm -rf $OPT/guile-gnome
-if false; then
-    libtoolize --copy --force
-    $AUTOHEADER
-    $ACLOCAL
-    $AUTOMAKE --copy --force
-    $AUTOCONF
-fi
 sh autogen.sh --noconfigure
 mkdir ../=build
 cd ../=build
@@ -150,8 +136,6 @@ export GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$OPT/g-wrap/lib:$LD_LIBRARY_PATH
 PKG_CONFIG_PATH=$OPT/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
-../src/configure --prefix=$OPT/guile-gnome
-
 # Using libtool < 1.6.0 together with gcc-3.4 may trigger this problem:
 #
 #    If a tag has not been given, and we're using a compiler which is
@@ -159,8 +143,14 @@ PKG_CONFIG_PATH=$OPT/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 #    infer the compiler from the first word of the command line passed
 #    to libtool.
 #
-# Use gcc-3.3 or libtool-1.6.0
-make install CC=$GCC G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
+if [ -z "$GCC34" ]; then
+    # Use libtool-1.5.6, gcc-3.{2,3} without -O2,
+    CFLAGS='-O -g' ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
+else
+    # or use gcc-3.4 with libtool-1.6.0
+    CC=$GCC34 ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
+fi
+make install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
 
 GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
 LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH

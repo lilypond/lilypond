@@ -12,29 +12,14 @@
 (use-modules (guile) (oop goops) (lily))
 
 (use-modules
+ (srfi srfi-2)
  (ice-9 regex)
  (gnome gtk)
- (gnome gtk gdk-event))
- 
-;; the name of the module will change to canvas rsn
-(if (resolve-module '(gnome gw canvas))
-    (use-modules (gnome gw canvas))
-    (use-modules (gnome gw libgnomecanvas)))
+ (gnome gtk gdk-event)
+ (gnome gw canvas))
 
-(define-public (output-framework-gnome outputter book scopes fields basename)
-  (newline (current-error-port))
-  
-;   ;; Hmm, 
-;   (let ((port (ly:outputter-get-output-port outputter)))
-;     (remove port)
-;     (close port))
-
+(define-public (output-framework outputter book scopes fields basename)
   (gnome-main book))
-
-
-;; WTF? -- jcn
-;; Yay, I *finally* found it!
-(define-public output-framework output-framework-gnome)
 
 (define SCROLLBAR-SIZE 20)
 (define BUTTON-HEIGHT 25)
@@ -45,12 +30,13 @@
 (define-public output-scale OUTPUT-SCALE)
 
 (define (stderr string . rest)
-  ;; debugging
-  (if #f
-      (begin
-	(apply format (cons (current-error-port) (cons string rest)))
-	(force-output (current-error-port)))))
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
 
+(define (debugf string . rest)
+  (if #f
+      (stderr (cons string rest))))
+      
 (define-class <gnome-outputter> ()
   (page-stencils ;;#:init-value '#()
    #:init-keyword #:page-stencils #:accessor page-stencils)
@@ -60,8 +46,8 @@
   (page-number #:init-value 0 #:accessor page-number)
   (pixels-per-unit #:init-value PIXELS-PER-UNIT #:accessor pixels-per-unit)
   (text-items #:init-value '() #:accessor text-items)
-  (location #:init-value #f #:accessor location)
-  (item-locations #:init-value (make-hash-table 31) #:accessor item-locations)
+  (grob #:init-value #f #:accessor grob)
+  (item-grobs #:init-value (make-hash-table 31) #:accessor item-grobs)
   (window-width #:init-keyword #:window-width #:accessor window-width)
   (window-height #:init-keyword #:window-height #:accessor window-height)
   (canvas-width #:init-keyword #:canvas-width #:accessor canvas-width)
@@ -103,19 +89,14 @@
     (add hbox button)
 
     ;; signals
-    (gtype-instance-signal-connect
-     button 'clicked (lambda (b) (gtk-main-quit)))
-    (gtype-instance-signal-connect
-     next 'clicked (lambda (b) (dump-page go (1+ (page-number go)))))
-    (gtype-instance-signal-connect
-     prev 'clicked (lambda (b) (dump-page go (1- (page-number go)))))
-    (gtype-instance-signal-connect
-     (window go) 'key-press-event key-press-event)
+    (connect button 'clicked (lambda (b) (gtk-main-quit)))
+    (connect next 'clicked (lambda (b) (dump-page go (1+ (page-number go)))))
+    (connect prev 'clicked (lambda (b) (dump-page go (1- (page-number go)))))
+    (connect (window go) 'key-press-event
+	     (lambda (w e) (key-press-event go w e)))
     
     (show-all (window go))))
 
-
-(define-public global-go #f)
 
 (define (gnome-main book)
   (let* ((book-paper (ly:paper-book-book-paper book))
@@ -142,6 +123,7 @@
 		    desktop-height))))
 
     ;; ugh.  The GOOPS doc promises this is called automagically.
+    ;; possibly a goops 1.6.4 problem
     (initialize go)
 
     (map ly:pango-add-afm-decoder
@@ -152,9 +134,6 @@
 
     (dump-page go 0)
 
-    ;; ugh
-    (set! global-go go)
-    
     (gtk-main)))
 
 (define (dump-page go number)
@@ -167,12 +146,12 @@
 	(new-canvas go)
 	(set! (page-number go) number)
 	
-	;; no destroy method for gnome-canvas-text?
+	;; no destroy method for gnome-canvas-text yet.
 	;;(map destroy (gtk-container-get-children main-canvas))
 	;;(map destroy text-items)
 
 	(set! (text-items go) '())
-	(stderr "page-stencil ~S: ~S\n"
+	(debugf "page-stencil ~S: ~S\n"
 		(page-number go)		
 		(vector-ref (page-stencils go) (page-number go)))
 	
@@ -200,9 +179,9 @@
   ifs)
       
 (define (spawn-editor location)
-  (let* ((line (car location))
-	 (column (cadr location))
-	 (file-name (caddr location))
+  (let* ((file-name (car location))
+	 (line (cadr location))
+	 (column (caddr location))
 	 (template (substring (get-x-editor) 0))
 	 
 	 ;; Adhere to %l %c %f?
@@ -216,7 +195,7 @@
 		    'post)
 	   'pre (number->string line) 'post)))
     
-    (stderr "spawning: ~s\n" command)
+    (debugf "spawning: ~s\n" command)
     (if (= (primitive-fork) 0)
 	(let ((command-list (string-split command #\ )));; (get-ifs))))
 	  (apply execlp command-list)
@@ -224,34 +203,89 @@
 	  
 (define location-callback spawn-editor)
 
-;;(define (item-event item event . data)
-(define-public (item-event item event . data)
+(define (get-location grob)
+  (and-let* ((p? (procedure? point-and-click))
+	     (g grob)
+	     (cause (ly:grob-property grob 'cause))
+	     (music-origin (if (ly:music? cause)
+			       (ly:music-property cause 'origin)
+			       ;; How come #<unspecied> [and '()]
+			       ;; are #t? :-(
+			       #f)))
+	    (if (ly:input-location? music-origin)
+		(ly:input-location music-origin)
+		#f)))
+
+;;;(define (item-event go grob item event)
+(define (item-event go item event)
   (case (gdk-event:type event)
     ((enter-notify) (gobject-set-property item 'fill-color "red"))
     ((leave-notify) (gobject-set-property item 'fill-color "black"))
     ((button-press)
-     
-     ;;FIXME
-     (let ((location (hashq-ref (item-locations global-go) item #f)))
+     (let ((button (gdk-event-button:button event)))
+       (cond
+	((= button 1)
+	 (and-let* ((grob (hashq-ref (item-grobs go) item #f))
+		    (location (get-location grob)))
+		   (location-callback location)))
+	((= button 2)
 
-       (if location
-	   (location-callback location)
-	   (stderr "no location\n"))))
-    ((2button-press) (gobject-set-property item 'fill-color "red")))
+	 (and-let*
+	  ((grob (hashq-ref (item-grobs go) item #f)))
+	  
+	  (let ((properties (ly:grob-properties grob))
+		(basic-properties (ly:grob-basic-properties grob))
+		(x (inexact->exact (gdk-event-button:x-root event)))
+		(y (inexact->exact (gdk-event-button:y-root event))))
+	       
+	    (debugf "GROB: ~S\n" grob)
+	    (debugf "PROPERTIES: ~S\n" properties)
+	    (debugf "BASIC PROPERTIES: ~S\n" basic-properties)
+	    
+	    (let ((window (make <gtk-window>))
+		  (vbox (make <gtk-vbox>))
+		  (button (make <gtk-button> #:label "Ok")))
+	      
+	      (add window vbox)
+	      (connect button 'clicked (lambda (b) (destroy window)))
+	      
+	      (for-each
+	       (lambda (x)
+		 (let ((button (make <gtk-button>
+				 #:xalign 0.0
+				 #:label
+				 (string-append
+				  (symbol->string (car x))
+				  ": "
+				  (format #f "~S" (cdr x))))))
+		   (set-size-request button 150 BUTTON-HEIGHT)
+		   (add vbox button)))
+	       properties)
+	      (add vbox button)
+	      
+	      ;; FIXME: how to do window placement?
+	      ;; - no effect:
+	      (move window x y)
+	      (show-all window)
+	      ;; - shows actual movement:
+	      (move window x y)
+	      )))))))
+    
+    ((2button-press) (gobject-set-property item 'fill-color "green")))
   #t)
 
-(define (scale-canvas factor)
-  (set! pixels-per-unit (* pixels-per-unit factor))
-  (set-pixels-per-unit main-canvas pixels-per-unit)
+(define (scale-canvas go factor)
+  (set! (pixels-per-unit go) (* (pixels-per-unit go) factor))
+  (set-pixels-per-unit (canvas go) (pixels-per-unit go))
   (for-each
    (lambda (x)
      (let ((scale (gobject-get-property x 'scale))
 	   (points (gobject-get-property x 'size-points)))
        ;;(gobject-set-property x 'scale pixels-per-unit)
        (gobject-set-property x 'size-points (* points factor))))
-     text-items))
+     (text-items go)))
 
-(define (key-press-event item event . data)
+(define (key-press-event go item event)
   (let ((keyval (gdk-event-key:keyval event))
 	(mods (gdk-event-key:modifiers event)))
     (cond ((and (or (eq? keyval gdk:q)
@@ -260,18 +294,16 @@
 	   (gtk-main-quit))
 	  ((and #t ;;(null? mods)
 		(eq? keyval gdk:plus))
-	   (scale-canvas 2))
+	   (scale-canvas go 2))
 	  ((and #t ;; (null? mods)
 		(eq? keyval gdk:minus))
-	   (scale-canvas 0.5))
+	   (scale-canvas go 0.5))
 	  ((or (eq? keyval gdk:Page-Up)
 	       (eq? keyval gdk:BackSpace))
-	   ;;FIXME
-	   (dump-page global-go (1- (page-number global-go))))
+	   (dump-page go (1- (page-number go))))
 	  ((or (eq? keyval gdk:Page-Down)
 	       (eq? keyval gdk:space))
-	   ;;FIXME
-	   (dump-page global-go (1+ (page-number global-go)))))
+	   (dump-page go (1+ (page-number go)))))
     #f))
 
 (define (new-canvas go)
@@ -292,16 +324,21 @@
 	(module-define! m 'output-scale output-scale)
 	(set! output-gnome-module m)))
   output-gnome-module)
-  
+
 (define-public (gnome-output-expression go expr)
   (let* ((m (get-output-gnome-module go))
 	 (result (eval expr m)))
     (cond
-     ((and (pair? result)
-	   (eq? (car result) 'location))
-      (set! (location go) (cdr result)))
+     ((ly:grob? result) (set! (grob go) result))
      ((is-a? result <gnome-canvas-item>)
-      (gtype-instance-signal-connect result 'event item-event)
-      (if (location go)
-	  (hashq-set! (item-locations go) result (location go)))))))
+      
+      ;; AAARGH; grobs happen after stencils
+      ;; (connect result 'event (lambda (w e) (item-event go (grob go) w e)))
+      (connect result 'event (lambda (w e) (item-event go w e)))
+      (if (grob go)
+	  (hashq-set! (item-grobs go) result (grob go)))
+      (set! (grob go) #f)
+      
+      (if (is-a? result <gnome-canvas-text>)
+	  (set! (text-items go) (cons result (text-items go))))))))
 

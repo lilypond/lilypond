@@ -1,3 +1,31 @@
+2004-06-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/guile-gnome.sh: Build without gcc libtool version
+	juggling.
+
+	* scm/framework-gnome.scm: Cleanups.  Resurrect +/- canvas scaling.
+	Add popup menu with grob properties.
+
+	* lily/grob-scheme.cc (ly:grob-properties):
+	(ly:grob-basic-properties): New function.
+
+	* lily/stencil.cc (interpret_stencil_expression): Comment-out
+	"no-origin" call.  Fixes -fps output.
+
+	* scm/output-ps.scm (no-origin): Add dummy implementation.
+
+	* scm/output-gnome.scm (define-origin): Remove
+	(grob-cause): Add.
+
+	* scm/output-ps.scm (scm):
+	* scm/output-tex.scm (scm): Remove define-origin from exports list.
+	(define-origin): Remove.
+
+	* scm/output-gnome.scm (define-origin): 
+
+	* scm/lily.scm (ly:all-output-backend-commands): Remove
+	define-origin.  Add grob-cause.
+
 2004-06-21  Heikki Junes   <hjunes@cc.hut.fi>
 
         * buildscripts/lilypond-words.py: add ly/portugues.ly.
