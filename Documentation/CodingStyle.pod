@@ -34,7 +34,7 @@ in emacs:
 	Class::member()
 	Type Class::member_type_
 
-the C<type> is a Hungarian notation postfix for $C<Type>$.
+the C<type> is a Hungarian notation postfix for $C<Type>$. See below
 
 
 =head2 COMMENTS
@@ -42,25 +42,26 @@ the C<type> is a Hungarian notation postfix for $C<Type>$.
 The source is commented in the DOC++ style.  Check out doc++ at
 http://www.zib.de/Visual/software/doc++/index.html
 
-	/// short description
+	/**
+		short description.
+		Long class documentation.
+	*/
 	class Class {
-		/// short description
-		/**
-			long description
+		/** short description.
+		  long description
 		*/
 
 		Data data_member_;
-		/****************/
 
-		/// short memo
+
 		/**
-			long doco of member()
+			short memo. long doco of member()
 		*/
 		member();
+
+		/// memo only
+		boring_member();
 	};
-	/**
-		Class documentation.
-	*/
 
 Unfortunately most of the code isn't really documented that good.
 
@@ -87,13 +88,207 @@ Standard methods:
 	/// print *this (and substructures) to debugging log
 	void print() const
 
-	/// add some data to *this; 
-	add( .. )
 	/**
+	protected member. Usually invoked by non-virtual A_virtual_func()
+	*/
+	virtual do_A_virtual_func()
+
+	/**add some data to *this.
 	Presence of these methods usually imply that it is not feasible to this
 	via  a constructor
 	*/
+	add( .. )
 
 	/// replace some data of *this
 	set( .. )
+
+=head1 HUNGARIAN NOTATION NAMING CONVENTION
+
+Proposed is a naming convention derived from the so-called I<Hungarian
+Notation>.
+
+=head2 Hungarian
+
+The Hungarian Notation was conceived by
+or at least got its name from,
+the hungarian programmer x. 
+It is a naming convention with the aim 
+to make code more readable (for fellow programmers)
+and more accessible for programmers 
+that are new to a project.
+
+The essence of the Hungarian Notation 
+is that every identifier has a part
+which identifies its type 
+(for functions this is the result type).
+This is particularly useful in object oriented programming,
+where a particular object implies a specific interface
+(a set of member functions, perhaps some redefined operators),
+and for accounting heap allocated memory pointers and links.
+
+=head2 Advantages
+
+Another fun quote from Microsoft Secrets:
+
+
+	The Hungarian naming convention gives developers the ability
+	to read other people's code relatively easily, with a minmum
+	number of comments in the source code.  Jon De Vann estimated
+	that only about 1 percent of all lines in the Excel product
+	code consist of comments, but the code is still very
+	understandable due to the use of Hungarian: "if you look at
+	our source code, you also notice very few comments.  Hungarian
+	gives us the ability to go in and read code..."
+
+
+Wow! If you use Hungarian you don't have to document your software!
+Just think of the hours I have wasted documenting while this "silver bullet"
+existed. I feel so stupid and ashamed!
+
+=head2 Disadvantages
+
+=over 5
+
+=item *
+more keystrokes (disk space!)
+
+=item *
+it looks silly C<get_slu_p()>
+
+=item *
+it looks like code from micro suckers
+
+=item *
+(which) might scare away some (otherwise good?)
+progammers, or make you a paria in the free
+software community
+
+=item *
+it has ambiguities
+
+=item *
+not very useful if not used consistently
+
+=item *
+usefullness in I<very large> 
+(but how many classes is very large?)
+remains an issue.
+
+=back
+
+
+
+=head2 Proposal
+
+=over 5
+
+=item *
+learn about cut and paste / use emacs or vi
+or lean to type using ten fingers
+
+=item *
+Use emacs dabbrev-expand, with dabbrev-case-fold-search set to nil.
+
+=item *
+use no, or pick less silly, abbrvs.
+
+=item *
+use non-ambiguous postfixes C<identifier_name_type_modifier[_modifier]>
+=back
+
+Macros, C<enum>s and C<const>s are all uppercase,
+with the parts of the names separated by underscores.
+
+=head2 Types
+
+=over 5
+
+=item C<b>
+bool
+
+=item C<bi>
+bit
+
+=item C<ch>
+char
+
+=item C<f>
+float
+
+=item C<i>
+signed integer
+
+=item C<str>
+string class
+
+=item C<sz>
+Zero terminated c string
+
+=item C<u>
+unsigned integer
+
+=back
+
+=head2 User defined types
+
+
+	/** Slur blah. blah.
+	(slur)
+	*/
+	class Slur {};
+	Slur* slur_p = new Slur;
+
+=head2 Modifiers
+
+The following types modify the meaning of the prefix. 
+These are precede the prefixes:
+
+=over 5
+
+=item C<a>
+array
+
+=item C<arr>
+user built array.
+
+=item C<c>
+const
+
+=item C<l>
+temporary pointer to object (link)
+
+=item C<p>
+pointer to newed object
+
+=item C<r>
+reference
+
+=back
+
+=over 5
+
+=item C<loop_i>
+Variable loop: an integer
+
+=item C<u>
+Temporary variable: an unsigned integer
+
+=item C<test_ch>
+Variable Test: a character
+
+=item C<firstName_str>
+Variable first_name: a String class object
+
+=item C<first_name_ch_a>
+Variable first_name: a C<char> array
+
+=item C<loop_i_p>
+Variable Loop: an C<Int*> that you must delete
+
+=item C<loop_i_l>
+Variable Loop: an C<Int*> that you must not delete
+
+=back
+
+
 

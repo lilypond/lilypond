@@ -1,3 +1,31 @@
+pl 32
+	- multiple meters, see rhythm.ly
+	
+
+pl 32-2
+	- skip syntax/Skip_req
+	- command carnage
+	- score_wide_music: commands in staff now override commands in score.
+Internal:
+	- Key_register
+	- Bar_register
+	- Meter_register
+	- meters now kept in baseclass Staff_walker
+	- Score_walker (to ease MIDI output)
+Doc:
+	- Hungarian doco added to CodingStyle
+
+pl 32-1
+	- music processing speedup
+	- website added to doco
+	- clef must *inside* music
+	- fixed spurious "beam too narrow" messages.
+Internal
+	- merge musical / non-musical staff_column
+	- musical/ non-musical requests
+	- Clef_register
+	- split up request.hh, Musical_req vs. Nonmusical_req
+
 pl 31
 
 Examples
