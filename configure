@@ -12,15 +12,15 @@ ac_help=
 ac_default_prefix=/usr/local
 # Any additions from configure.in:
 ac_help="$ac_help
-  printing       set debug printing"
+  enable-printing        set debug printing"
 ac_help="$ac_help
-  checking       set runtime checks"
+  disable-checking       set runtime checks"
 ac_help="$ac_help
-  debug          set debug info"
+  disable-debug          set debug info"
 ac_help="$ac_help
-  optimise       use maximal speed optimisations"
+  enable-optimise       use maximal speed optimisations"
 ac_help="$ac_help
-  profiling      compile with gprof support"
+  enable-profiling      compile with gprof support"
 ac_help="$ac_help
   texprefix=DIR  set the tex-directory to put the lilypond subdir in."
 
@@ -457,7 +457,7 @@ echo > confdefs.h
 
 # A filename unique to this package, relative to the directory that
 # configure is in, which we can look for to find out if srcdir is correct.
-ac_unique_file=flower/lib/choleski.cc
+ac_unique_file=flower/choleski.cc
 
 # Find the source files, if location was not specified.
 if test -z "$srcdir"; then
@@ -524,6 +524,8 @@ else
 fi
 
 
+
+
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
 ac_cpp='$CXXCPP $CPPFLAGS'
@@ -542,14 +544,14 @@ fi
 # Check whether --enable-checking or --disable-checking was given.
 if test "${enable_checking+set}" = set; then
   enableval="$enable_checking"
-  :
-else
   DEFINES="$DEFINES -DNDEBUG=1"
 fi
 
 # Check whether --enable-debug or --disable-debug was given.
 if test "${enable_debug+set}" = set; then
   enableval="$enable_debug"
+  :
+else
   DEFINES="$DEFINES -g"
 fi
 
@@ -619,7 +621,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:623: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:625: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gxx=yes
 else
   ac_cv_prog_gxx=no
@@ -1021,12 +1023,12 @@ ac_compile='${CXX-g++} -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext 1>&5'
 ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
   CXXCPP="${CXX-g++} -E"
   cat > conftest.$ac_ext <<EOF
-#line 1025 "configure"
+#line 1027 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1030: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1032: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   :
@@ -1048,12 +1050,12 @@ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1052 "configure"
+#line 1054 "configure"
 #include "confdefs.h"
 #include <FlexLexer.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1057: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1059: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1407,6 +1409,8 @@ touch make/out/Site.make
 # ugr
 (cd mi2mu; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 )
+# rgu
+sed 's/TOPLEVEL_//g' <  .version >  lily/.version
 (cd lily; CXX="$ac_cv_prog_CXX" ../bin/make_version > out/version.hh
 )
  (cd flower;

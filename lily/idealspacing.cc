@@ -14,7 +14,7 @@ Idealspacing::print() const
 #endif
 }
 
-Idealspacing::Idealspacing(const PCol * l,const PCol * r)
+Idealspacing::Idealspacing(PCol const * l,PCol const * r)
 {
     space = 0.0;
     hooke = 0.0;

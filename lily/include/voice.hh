@@ -22,7 +22,7 @@ struct Voice {
     Voice();
     Voice(Voice const&);
 
-    Moment when(const Voice_element*)const;
+    Moment when(Voice_element const *)const;
     Moment last() const;
 
     void add(Voice_element*);

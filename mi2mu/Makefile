@@ -15,7 +15,8 @@ depth = ..
 
 # generic variables:
 #
-include ./$(depth)/make/Variables.make 
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
 #
 
 # identify module:
@@ -36,24 +37,11 @@ SUBDIRS = include
 VERSION_DEPENDENCY = $(mi2mu-version)
 #
 
-# list of c++ header files:
-# 
-HHFILES := $(wildcard *.hh )
-#
-
-# list of c++ source files:
-#
-CCFILES := $(wildcard *.cc )
-#
-
-# list of other source files:
-#
-EXTRA_SOURCE_FILES := $(wildcard *.y *.l )
-#
 
 # list of distribution files:
 #
-DISTFILES = Makefile .version $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
+DISTFILES = Makefile .version $(ALL_SOURCES)
+
 #
 
 # list of custom libraries:
@@ -87,7 +75,7 @@ midi-lexer.l:	$(outdir)/midi-parser.hh
 
 # list of depend files:
 #
-DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
+DEPFILES = $(wildcard $(depdir)/*.dep)
 #
 
 # auto dependencies:

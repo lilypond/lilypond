@@ -17,7 +17,7 @@
 struct Staff_elem_info {
     Staff_elem * elem_p_;
     Request*req_l_;
-    const Voice * voice_l_;
+    Voice const * voice_l_;
     Array<Request_register*> origin_reg_l_arr_;
 
     /* *** */
@@ -28,8 +28,8 @@ struct Staff_elem_info {
 struct Staff_info {
     int *c0_position_i_;
     Staff_walker *walk_l_;
-    const Time_description *time_c_l_;
-    const Rhythmic_grouping *rhythmic_c_l_;
+    Time_description const *time_c_l_;
+    Rhythmic_grouping const *rhythmic_c_l_;
     bool break_allowed_b_;
 };
 

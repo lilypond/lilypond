@@ -18,11 +18,11 @@ struct Idealspacing {
     Real hooke;
 
     /// the two columns
-    const PCol *left, *right;
+    PCol const *left, *right;
     
     void print()const;
     void OK() const ;
-    Idealspacing(const PCol *left,const PCol *right);    
+    Idealspacing(PCol const *left,PCol const *right);    
 };
 
 

@@ -3,7 +3,7 @@
 # @configure_input@
 
 INSTALL = @INSTALL@
-CXXFLAGS = @CXXFLAGS@
+USER_CXXFLAGS = @CXXFLAGS@
 #CXX = @CXX@
 
 prefix = @prefix@

@@ -2,7 +2,7 @@
 
 #include "string.hh"
 
-extern const char* lily_version_sz();
+extern char const * lily_version_sz();
 
 String 
 get_version_str()

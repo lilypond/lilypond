@@ -10,7 +10,7 @@
 /* for the keyword table */
 struct Keyword_ent
 {
-    const char   *name;
+    char const *name;
     int     tokcode;
 };
 
@@ -19,7 +19,7 @@ struct Keyword_table
     Keyword_ent *table;
     int     maxkey;
     Keyword_table(Keyword_ent *);
-    int     lookup(const char *s) const;
+    int     lookup(char const *s) const;
 };
 
 

@@ -14,19 +14,17 @@
 
 struct Input_staff {
     
-    const char * defined_ch_c_l_;
+    char const * defined_ch_c_l_;
     String type;
     
     IPointerList<Input_music*> music_;
-    Input_music * score_wide_music_p_;
     
     /* *************** */
     ~Input_staff();
     void add(Input_music*m);
     Input_staff(Input_staff const&);
     Input_staff(String);
-    void set_score_wide(Input_music*m);
-    Staff* parse(Score*, Input_music *score_wide);
+    Staff* parse(Score*);
     void print() const;
 };
 

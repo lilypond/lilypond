@@ -1,12 +1,12 @@
 %
-% 	I've got rhythm!
+% 	Ive' got rhythm!
 %
 % add any impressive examples here, please
 
-ritme = staff {
-	melodic
+ritme = \staff {
+	\melodic
 
-	music { $
+	\music { 
 	c8					|
 
 	[a8() a8. a8 a16 a16 a16] c4.		|	% watch the beams!
@@ -27,40 +27,40 @@ ritme = staff {
 %	[c16 c16 c16 c16 c16 ]			|
 %	[c16 c16 c16 c16 c16 ]			|	
 	
-	$ }
+	 }
 
 	%
-	% The commands section takes the same stuff that music { } takes;
-	% the commands issued below could have been issued inside the above
-	% music block;
+	% The \co\mmands section takes the same stuff that \music { } takes;
+	% the \co\mmands issued below could have been issued inside the above
+	% \music block;
 	%
 
-	commands {	% override "commands" section of Score.
-		partial {1*8}	% doesn't have to be here. 
-		meter{ 4*4}
+	\co\mmands {	% override "\co\mmands" section of Score.
+		\partial {1*8}	% doesnt' have to be here. 
+		\meter{ 4*4}
 	}
 }
-another = staff {
-	melodic
-	music { $
+another = \staff {
+	\melodic
+	\music { 
 		c1 c1 c1 c4 c4 c4 c4  \meter{ 4*4} c1 c1 c1
-	$ }
+	 }
 }
 
-yanother = staff {
-	melodic
-	music { $
+yanother = \staff {
+	\melodic
+	\music { 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
-	$ }
+	 }
 }
 
 score {
-	staff{ritme}
-	staff { another }
-	staff { yanother }
-	commands { meter {4*4 }}
-	paper {
-		unitspace 2cm
-		geometric 1.3
+	\staff{ritme}
+	\staff { another }
+	\staff { yanother }
+	\co\mmands { \meter {4*4 }}
+	\paper {
+		\unitspace 2\cm
+		\geometric 1.3
 	}
 }

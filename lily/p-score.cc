@@ -137,7 +137,7 @@ PScore::select_items(PStaff*ps, PCol*pc)
     assert(ps && pc);
     for (iter_top(pc->its,i); i.ok(); i++){
 	if (i->pstaff_l_ == ps)
-	    ret.push((Item*)(const Item*)i);
+	    ret.push((Item*)(Item const *)i);
     }
     return ret;
 }
@@ -204,9 +204,9 @@ PScore::postprocess()
 }
 
 PCursor<PCol *>
-PScore::find_col(const PCol *c)const
+PScore::find_col(PCol const *c)const
 {
-    const PCol*what = c;
+    PCol const *what = c;
     if (what->daddy_l_ )
 	what = what->daddy_l_;
     

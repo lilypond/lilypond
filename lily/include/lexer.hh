@@ -15,7 +15,7 @@
 #include "string.hh"
 
 int yylex();
-void yyerror(const char *s);
+void yyerror(char const *s);
 bool busy_parsing();
 void kill_lexer();
 void set_lexer();
@@ -51,7 +51,11 @@ struct My_flex_lexer : yyFlexLexer {
     char const* here_ch_c_l();
     int lookup_keyword(String);
     void lookup_notename(int &large, int &small, String s);
-    void LexerError(const char *);
+
+    void push_note_state();
+    void push_lyric_state();
+    void pop_state();
+    void LexerError(char const *);
     String spot() const;
     Identifier*lookup_identifier(String s);
     My_flex_lexer();

@@ -25,7 +25,7 @@ Cadenza_req::Cadenza_req(bool b)
 
 
 int
-Bar_req::compare(const Bar_req &c1)const
+Bar_req::compare(Bar_req const &c1)const
 {
     return type_str_ == c1.type_str_;
 }

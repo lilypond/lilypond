@@ -32,7 +32,7 @@ class Active_constraints {
     Matrix A,H;
     Array<int> active;
     Array<int> inactive;		// actually this is a set, not an array.
-    const Ineq_constrained_qp *opt;
+    Ineq_constrained_qp const *opt;
 
 public:
     String status()const;

@@ -89,7 +89,7 @@ Paper_def::print() const
     mtor << "}\n";
 #endif
 }
-const Lookup*
+Lookup const *
 Paper_def::lookup_l()
 {
     return lookup_p_;

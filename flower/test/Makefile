@@ -19,12 +19,13 @@ NAME =stringtest
 # include ./$(depth)/$(NAME)/.version
 MODULE_NAME = flower
 include ./$(depth)/flower/.version
-build = ./$(depth)/flower/test/$(outdir)/.build
+
 #
 
 # generic variables:
 #
-include ./$(depth)/make/Variables.make 
+include ./$(depth)/make/Variables.make
+include ./$(depth)/make/Files.make 
 #
 
 # descent order into subdirectories:
@@ -40,29 +41,12 @@ VERSION_DEPENDENCY = #
 # module compile settings: (not generally needed!
 #
 EXTRA_CFLAGS = -DSTRING_TEST
-EXTRA_CXXFLAGS =
-EXTRA_LDFLAGS =
 #
 
-# list of c++ header files:
-# 
-# HHFILES = $(shell ls *.hh $(ERROR_LOG))
-#
-
-# list of c++ source files:
-#
-CCFILES = $(shell ls *.cc $(ERROR_LOG))
-#
-
-# list of other source files:
-#
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
-#
 
 # list of distribution files:
 #
-DISTFILES = Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
-#
+EXTRA_DISTFILES = result 
 
 # list of custom libraries:
 #
@@ -82,9 +66,11 @@ MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
 #default: $(MAINTARGET)
 BUILDSTRINGTEST=$(MAINTARGET)
 EXECSTRINGTEST=$(EXECUTABLE)
+
 default:  $(BUILDSTRINGTEST) do-stringtest
 do-stringtest:
-	$(EXECSTRINGTEST)    # should cmp with a 'standard result'
+	$(EXECSTRINGTEST) > $(outdir)/result    # should cmp with a 'standard result'
+	cmp $(outdir)/result result
 
 dummy:
 
@@ -96,7 +82,7 @@ include ./$(depth)/make/Rules.make
 
 # list of depend files:
 #
-DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
+DEPFILES = $(wildcard $(depdir)/*.dep )
 #
 
 # auto dependencies:

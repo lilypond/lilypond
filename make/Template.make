@@ -24,13 +24,9 @@ include ./$(depth)/make/Variables.make
 #
 NAME = ...
 MODULE_NAME = 
-# include ./$(depth)/$(NAME)/.version
-MAJOR_VERSION = 0
-MINOR_VERSION = 0
-PATCH_LEVEL = 0
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = # include separator: "-1" or ".a"
-build = $(lily-dir)/$(outdir)/.build #????!
+include ./$(depth)/$(NAME)/.version
+
+build = $(outdir)/.build #????!
 #
 
 # descent order into subdirectories:
@@ -38,37 +34,17 @@ build = $(lily-dir)/$(outdir)/.build #????!
 SUBDIRS =
 #
 
-# to be remade each build:
-#
-VERSION_DEPENDENCY = $(lily-version)
-#
-
-# module compile settings: (not generally needed!
+# module compile settings: (not generally needed!)
 #
 EXTRA_CFLAGS =
 EXTRA_CXXFLAGS =
 EXTRA_LDFLAGS =
 #
+include ./$(depth)/make/Files.make
 
-# list of c++ header files:
-# 
-HHFILES = $(shell ls *.hh $(ERROR_LOG))
-#
-
-# list of c++ source files:
-#
-CCFILES = $(shell ls *.cc $(ERROR_LOG))
-#
-
-# list of other source files:
-#
-EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
-#
-
-# list of distribution files:
-#
-DISTFILES = Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
-#
+# list of extra distribution files:
+# Makefile, C++ and pod are dist'ed automatically
+EXTRA_DISTFILES = 
 
 # list of custom libraries:
 #
@@ -89,11 +65,6 @@ default: $(MAINTARGET)
 #
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
-#
-
-# list of depend files:
-#
-DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
 #
 
 # auto dependencies:

@@ -1,9 +1,8 @@
-	* remove notename.* README.pod LilyPond.pod
-
 before 0.1
+	* fix Lyric mode
 
 	* remove spurious/outdated comments in .ly, debug .ly
-	
+
 	* pushgroup, popgroup.
 
 	* basic dynamics
@@ -11,26 +10,19 @@ before 0.1
 	* basic syntax & parser/lexer cleanup.
 
 	* decent TeX page layout
-
-	* clean split for m2m of sources.
-
-	* caching of Register_group_register hierarchies.
+	
+	* avoid unnecessary confusing constructs from .ly
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 MAKE-STUFF
 
-	* fix increase build ( libflower rebuilt when making lilypond. )
-
 	* sort out headers, see m2m
 
 	* do platform stuff: configure, header(s), targets, build (out?)
-
-	* make install.
 	
 BUGS
-	* plet bugs: scales.ly
 
 	* key at clef change.
 
@@ -48,13 +40,21 @@ BUGS
 
 SEVERELY LACKING:
 
+	* hairpins
+
 	* grace notes
+
+FURTHER FOR ORCHESTRAL SCORE:
+
+	* multibar rests
+
+	* barnumbers, markers
+
+	* abbreviations c4=16
 
 INPUTLANGUAGE
 
 	* read ENV for include path 
-
-	* lose the $ and @ ?
 
 	* figured bass?
 
@@ -62,12 +62,13 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
-	* < .. > vs. { .. } syntax? ! 
-
-	* '*' vs. '/'
-
 SMALLISH PROJECTS
 
+	* use dstream feature in mi2mu
+
+        * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
+
+	* use tors feature in lily
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
@@ -101,6 +102,9 @@ SMALLISH PROJECTS
 	* Brackets
 
 	* space rest.
+	
+	* caching of Register_group_register hierarchies.
+
 
 	* use (char *) iso. String for communication between lexer and
 	parser.
@@ -150,8 +154,6 @@ FUTURE
 	* eentje/tweetje
 
 	* piano staff
-
-	* abbreviations a4*8
 
 IDEAS
 

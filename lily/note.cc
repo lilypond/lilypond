@@ -10,7 +10,7 @@
 #include "command-request.hh"
 #include "voice.hh"
 
-#include "identparent.hh"
+#include "identifier.hh"
 #include "varray.hh"
 #include "text-def.hh"
 #include "parseconstruct.hh"

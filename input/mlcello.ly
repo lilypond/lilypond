@@ -11,8 +11,8 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-cello = music { 
-	$
+cello = \music { 
+	
 \clef"bass"	\octave{`}
 	\duration{4}
 	\key{fis}
@@ -41,14 +41,14 @@ cello = music {
 %%12
 	) d g |
 %%13
-	[ d8 'd8 ] g |
+	[ d8 d'8 ] g |
 %%14=10
-	[ d8 'd8 ] g |
+	[ d8 d'8 ] g |
 %%15
 	[ c8 e8 ] [ g8 `g8 ] |
 %%16
 	\textstyle "italic"
-	[ d8 'c8 ] b_"fine"
+	[ d8 c'8 ] b_"fine"
 	\textstyle "roman" |
 % \newline
 %%17=1
@@ -92,7 +92,7 @@ cello = music {
 %%34
 	[ `g8 `g `g ] g4 |
 %%35
-	[ c8 c c ] [ c8 'c 'c ] |
+	[ c8 c c ] [ c8 c' c' ] |
 %%36
 	g4 b4 |
 %%37
@@ -178,7 +178,7 @@ cello = music {
 %%71
 	g2.  |
 %%72
-	'c r4 r4. |
+	c' r4 r4. |
 %%73
 % \meter{2/4} ||
 	g r g r |
@@ -216,5 +216,5 @@ cello = music {
 	d_"dacapo" \key{fis} |
 	\textstyle "roman"
 % \key\`g ||
-	$
+	
 }

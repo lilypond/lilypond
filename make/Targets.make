@@ -38,7 +38,7 @@ $(EXECUTABLE): $(build) $(OFILES) $(CUSTOMLIBES)
 exe: $(EXECUTABLE)
 #
 
-$(build):
+$(build): $(depth)/.version
 	echo 0 > $@
 
 # dependency list of library:
@@ -112,6 +112,8 @@ doc++: $(progdocs)
 dist:
 	-mkdir $(distdir)
 	$(MAKE) localdist
+	chmod -Rf a+rX $(distdir)
+
 	(cd ./$(depth); tar cfz $(DIST_NAME).tar.gz $(DIST_NAME))
 	rm -rf $(distdir)/  # should be trapped
 
@@ -119,8 +121,8 @@ localdist: $(DISTFILES)
 	if [ -d out ]; then mkdir $(distdir)/$(localdir)/out; fi
 	ln $(DISTFILES) $(distdir)/$(localdir)
 ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; done
-	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
+	set -e; for i in $(SUBDIRS); do mkdir $(distdir)/$(localdir)/$$i; \
+		$(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
 endif
 
 moduledist:
@@ -141,9 +143,10 @@ ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all-tags; done
 endif
 
-TAGS: $(allcc)
-	etags -CT $(allcc) 
-
+TAGS: $(all-tag-sources)
+ifdef all-tag-sources
+	-etags -CT $(all-tag-sources) /dev/null
+endif
 
 # version stuff:
 #

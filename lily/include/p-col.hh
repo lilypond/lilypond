@@ -21,8 +21,8 @@
   */
 
 struct PCol { 
-    PointerList<const Item*> its;
-    PointerList<const Spanner*> stoppers, starters;
+    PointerList<Item const *> its;
+    PointerList<Spanner const *> stoppers, starters;
     
 
 
@@ -40,7 +40,7 @@ struct PCol {
     PCol *daddy_l_;
     
     /// if lines are broken then this column is in #line#
-    const Line_of_score *line_l_;
+    Line_of_score const *line_l_;
 
     /// if lines are broken then this column x-coord #hpos#
     Real hpos;

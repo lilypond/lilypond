@@ -1,7 +1,7 @@
 #include <strstream.h>
 
 #include "interval.hh"
-#include "identparent.hh"
+#include "identifier.hh"
 #include "assoc-iter.hh"
 #include "lexer.hh"
 #include "input-file.hh"
@@ -26,6 +26,7 @@ static Keyword_ent the_key_tab[]={
     "geometric", GEOMETRIC,
     "goto", GOTO,
     "in", IN_T,
+    "lyrics", LYRICS,
     "key", KEY,
     "melodic" , MELODIC,
     "meter", METER,
@@ -119,7 +120,7 @@ My_flex_lexer::spot()const
 }
 
 void
-My_flex_lexer::LexerError(const char *s)
+My_flex_lexer::LexerError(char const *s)
 {
     if (lexer->include_stack_.empty()) {
 	*mlog << "error at EOF" << s << '\n';

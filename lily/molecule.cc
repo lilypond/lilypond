@@ -71,7 +71,7 @@ Molecule::translate(Offset o)
 }
 
 void
-Molecule::add(const Molecule &m)
+Molecule::add(Molecule const &m)
 {
     for (iter_top(m.ats,c); c.ok(); c++) {
 	add(**c);
@@ -79,7 +79,7 @@ Molecule::add(const Molecule &m)
 }
 
 void
-Molecule::add_right(const Molecule &m)
+Molecule::add_right(Molecule const &m)
 {
      if (!ats.size()) {
 	add(m);
@@ -92,7 +92,7 @@ Molecule::add_right(const Molecule &m)
 }
 
 void
-Molecule::add_left(const Molecule &m)
+Molecule::add_left(Molecule const &m)
 {
     if (!ats.size()) {
 	add(m);
@@ -106,7 +106,7 @@ Molecule::add_left(const Molecule &m)
 
 
 void
-Molecule::add_top(const Molecule &m)
+Molecule::add_top(Molecule const &m)
 {
       if (!ats.size()) {
 	add(m);
@@ -119,7 +119,7 @@ Molecule::add_top(const Molecule &m)
 }
 
 void
-Molecule::add_bottom(const Molecule &m)
+Molecule::add_bottom(Molecule const &m)
 {
     if (!ats.size()) {
 	add(m);
@@ -132,12 +132,12 @@ Molecule::add_bottom(const Molecule &m)
 }
 
 void
-Molecule::operator = (const Molecule&)
+Molecule::operator = (Molecule const &)
 {
     assert(false);
 }
 
-Molecule::Molecule(const Molecule&s)
+Molecule::Molecule(Molecule const &s)
 {
     add(s);
 }

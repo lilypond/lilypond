@@ -11,8 +11,8 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-alto = music { 
-	$
+alto = \music { 
+	
 	\duration{16}
 	\clef\alto
 	\octave{}
@@ -84,7 +84,7 @@ alto = music {
 %30
 	[ a8 `a8 ] a4 |
 %31
-	[ b8 'cis8 ] [ 'd8 a8 ] |
+	[ b8 cis'8 ] [ d'8 a8 ] |
 %32
 	[ g e cis `a ] d4 |
 %variant a
@@ -210,5 +210,5 @@ alto = music {
 	\textstyle "roman"
 %\scoreverb{\mulooseness=1}
 %	\key\G ||
-	$
+	
 }

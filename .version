@@ -4,5 +4,5 @@ TOPLEVEL_PATCH_LEVEL = 42
 # use to send patches, always empty for released version:
 # include separator: ".postfix", "-pl" makes rpm barf
 
-TOPLEVEL_MY_PATCH_LEVEL =
+TOPLEVEL_MY_PATCH_LEVEL =.3
 #

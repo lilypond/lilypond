@@ -42,8 +42,6 @@ Input_score::Input_score(Input_score const&s)
     midi_p_ = (s.midi_p_)? new Midi_def(*s.midi_p_) : 0;
     defined_ch_c_l_ = s.defined_ch_c_l_;
     errorlevel_i_ = s.errorlevel_i_;
-    score_wide_music_p_ = (s.score_wide_music_p_) ?
-	s.score_wide_music_p_->clone():0;
 }
 
 Score*
@@ -55,34 +53,25 @@ Input_score::parse()
     if (midi_p_)
 	s_p->set(new Midi_def(*midi_p_));
     if (paper_p_)
-	s_p->set(    new Paper_def(*paper_p_));
+	s_p->set(new Paper_def(*paper_p_));
 
     for (iter_top(staffs_,i); i.ok(); i++) {
-	Staff* staf_p=i->parse(s_p, score_wide_music_p_);
+	Staff* staf_p=i->parse(s_p);
 	s_p->add(staf_p);
     }
 
     return s_p;
 }
 
-void
-Input_score::set(Input_music *m_p)
-{
-    delete score_wide_music_p_;
-    score_wide_music_p_ =m_p;    
-}
-
 
 Input_score::~Input_score()
 {
     delete paper_p_;
-    delete score_wide_music_p_;
     delete midi_p_;
 }
 
 Input_score::Input_score()
 {
-    score_wide_music_p_ =0;
     defined_ch_c_l_=0;
     paper_p_= 0;
     midi_p_ = 0;

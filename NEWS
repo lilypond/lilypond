@@ -1,3 +1,20 @@
+pl 42.3
+	- const naming change (T const <-> const T)
+	- Mudela 0.1
+
+pl 42.2
+	- new lilyinput (Mudela 0.1) doc.
+Examples
+	- new-twinkle.ly (in Mudela 0.1, hopefully)
+
+pl 42.1
+	- further Makefile revamping.
+	- moved flowerlib
+
+*******
+pl 42
+
+
 pl 41.hwn3
 	- struct Lexer_prefs
 	- parser bug

@@ -11,7 +11,7 @@
 #include "input-score.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
-#include "identparent.hh"
+#include "identifier.hh"
 
 #define start_quote()	\
 	yy_push_state(quote);\
@@ -49,22 +49,27 @@ ALPHAWORD	{A}+
 INT		-?{N}+
 REAL		{INT}?(\.{N}*)?
 
-OPTSIGN		!?
-PITCHMOD	['`]*{OPTSIGN}
 RESTNAME	r|s|p
 NOTECOMMAND	\\{WORD}
 DOTS		\.+
 LYRICS		{TEX}+
-COMMENT		[%#].*\n
+COMMENT		%.*\n
 
 %%
 
-\$		{
-	yy_push_state(notes); 
-}
 
-\@		{
-	yy_push_state(lyrics); 
+
+
+include           {
+	yy_push_state(incl);
+}
+<incl>[ \t]*      { /* eat the whitespace */ }
+<incl>\"[^"]*\"+   { /* got the include file name */
+   String s (YYText()+1);
+   s = s.left_str(s.length_i()-1);
+   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
+   new_input(s);
+   yy_pop_state();
 }
 
 <notes>{RESTNAME} 	{
@@ -73,9 +78,9 @@ COMMENT		[%#].*\n
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
-<notes>{ALPHAWORD}	{
+<notes,INITIAL>{ALPHAWORD}	{
 	String str = YYText();
-	mtor << "word: " << str<< eol;
+	mtor << "word: `" << str<< "'\n";
 	Identifier * id = lookup_identifier(str);
 	if (id) {		
 		yylval.id = id;
@@ -85,17 +90,13 @@ COMMENT		[%#].*\n
 	yylval.string=new String( str );
 	return STRING;
 }
-<notes>{NOTECOMMAND}	{
+<notes,INITIAL>{NOTECOMMAND}	{
 	String c = YYText() +1;
-	mtor << "\\word: " << YYText()+1<<eol;
+	mtor << "\\word: `" << YYText()+1<<"'\n";
 	int l = lookup_keyword(c);
 	if (l != -1)
 		return l;
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return id->token_code_i_;
-	}
+	
 	String *sp = new String( c);
 	yylval.string=sp;
 	return STRING;
@@ -114,8 +115,8 @@ COMMENT		[%#].*\n
 <notes>[ \t\n]+		{
 
 }
-<notes>\$	{
-	yy_pop_state();
+<notes>\+\+		{
+	return CONCAT;
 }
 <notes>\" {
 	start_quote();
@@ -150,7 +151,7 @@ COMMENT		[%#].*\n
 }
 <lyrics>{NOTECOMMAND}	{
 	String c = YYText() +1;
-	mtor << "\\word: " << YYText()+1<<eol;
+	mtor << "\\word: `" << YYText()+1<<"'\n";
 	int l = lookup_keyword(c);
 	if (l != -1)
 		return l;
@@ -203,9 +204,6 @@ COMMENT		[%#].*\n
 }
 <lyrics>[ \t\n]+		{
 }
-<lyrics>@	{
-	yy_pop_state();
-}
 
 <<EOF>> {
 	mtor << "<<EOF>>";
@@ -213,38 +211,6 @@ COMMENT		[%#].*\n
 	if (! close_input())
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 }
-
-
-include           {
-	yy_push_state(incl);
-}
-<incl>[ \t]*      { /* eat the whitespace */ }
-<incl>\"[^"]*\"+   { /* got the include file name */
-   String s (YYText()+1);
-   s = s.left_str(s.length_i()-1);
-   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
-   new_input(s);
-   yy_pop_state();
-}
-
-
-{WORD}		{
-	mtor << "word: " << YYText()<<eol;
-	String c = YYText();
-	int l = lookup_keyword(c);
-	if (l != -1)
-		return l;
-	Identifier * id = lookup_identifier(c);
-	if (id) {		
-		yylval.id = id;
-		return IDENTIFIER;
-	}
-	String *sp = new String( c);
-	mtor << "new id: " << *sp << eol;
-	yylval.string=sp;
-	return STRING;
-}
-
 {REAL}		{
 	Real r;
 	int cnv=sscanf (YYText(), "%lf", &r);
@@ -278,3 +244,19 @@ include           {
 
 %%
 
+void
+My_flex_lexer::push_note_state()
+{
+	yy_push_state(notes);
+}
+
+void
+My_flex_lexer::push_lyric_state()
+{
+	yy_push_state(lyrics);
+}
+void
+My_flex_lexer::pop_state()
+{
+	yy_pop_state();
+}

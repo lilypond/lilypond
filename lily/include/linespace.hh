@@ -9,8 +9,8 @@
 
 /// helper struct for #Spacing_problem#
 struct Colinfo {
-    const PCol *pcol_;
-    const Real* fixpos;
+    PCol const *pcol_;
+    Real const * fixpos;
     Interval width;
     
     /* *************** */
@@ -18,7 +18,7 @@ struct Colinfo {
     void operator=(Colinfo const&);
     Colinfo(Colinfo const&);
     ~Colinfo();
-    Colinfo(const PCol*,const Real*);
+    Colinfo(PCol const *,Real const *);
     void print() const;
     bool fixed() const { return fixpos;}
     Real fixed_position()const { return *fixpos; }
@@ -47,11 +47,11 @@ struct Colinfo {
     springs. The lower the energy, the better the configuration.
 */
 class Spacing_problem {
-    Array<const Idealspacing*> ideals;
+    Array<Idealspacing const *> ideals;
     Array<Colinfo> cols;
 
     /// the index of #c# in #cols#
-    int col_id(const PCol *c) const;
+    int col_id(PCol const *c) const;
 
     /// generate an (nonoptimal) solution
     Vector find_initial_solution() const;
@@ -60,7 +60,7 @@ class Spacing_problem {
     bool check_feasible() const;
 
     /// does #this# contain the column #w#? 
-    bool contains(const PCol *w);
+    bool contains(PCol const *w);
 
     /// make the energy function
     void make_matrices(Matrix &quad, Vector &lin,Real&) const;
@@ -84,13 +84,13 @@ public:
     since they can be "summed" if the columns to which #i# refers are
     not in this problem, the spacing is ignored.
     */
-    void add_ideal(const Idealspacing *i);
+    void add_ideal(Idealspacing const *i);
     
     
     /** add a col to the problem. columns have to be added left to right. The column contains
       info on it's minimum width.
     */
-    void add_column(const PCol *, bool fixed=false, Real fixpos=0.0);
+    void add_column(PCol const *, bool fixed=false, Real fixpos=0.0);
  
 
 
@@ -99,7 +99,7 @@ public:
     Vector try_initial_solution() const;
     void OK() const;
     void print() const;
-    void print_ideal(const Idealspacing*)const;
+    void print_ideal(Idealspacing const *)const;
 };
 
 
