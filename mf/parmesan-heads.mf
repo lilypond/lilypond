@@ -5,6 +5,9 @@
 % 
 % (c) 2001--2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
+% Neo-mensural heads originally by
+% Christian Mondrup and Mats Bengtsson
+% 
 
 save black_notehead_width;
 numeric black_notehead_width;

@@ -1,3 +1,14 @@
+2003-04-08  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: Section Custodes: added more
+	example code
+
+	* mf/feta-eindelijk.mf, mf/parmesan-rests.mf: cleanup: moved
+	neo-mensural rests to parmesan font
+
+	* mf/parmesan-heads.mf, mf/parmesan-timesig.mf: updated file
+	header
+
 2003-04-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/macros.itexi: @fileref macro.
