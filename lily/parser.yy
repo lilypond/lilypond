@@ -651,6 +651,7 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
+		$$->bookpaper_ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ();
 		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
 	}
 	| book_body book_paper_block {
