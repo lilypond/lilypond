@@ -41,13 +41,12 @@ Script_engraver::do_process_requests()
     {
       Articulation_req* l=script_req_l_arr_[i];
 
-
       SCM list = ly_ch_C_eval_scm (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
       
       if (list == SCM_BOOL_F)
 	{
-	  l->warning(_f("don't know how to interpret articulation `%s'\n",
-			l->articulation_str_.ch_C()));
+	  l->warning (_f ("Don't know how to interpret articulation `%s'",
+			l->articulation_str_.ch_C ()));
 	  continue;
 	}
       Script *p =new Script;
@@ -85,14 +84,13 @@ Script_engraver::do_process_requests()
 	  padding = (Real)paddingprop;
 	}
 
-
       Scalar axisprop = get_property ("scriptHorizontal",0);
       if (axisprop.to_bool ())
 	ss->axis_ = X_AXIS;
 
       if (follow_staff && !axisprop.to_bool ())
 	ss->set_elt_property (no_staff_support_scm_sym, SCM_BOOL_T);
-      
+
       p->set_staff_side (ss);
       ss->set_elt_property (script_priority_scm_sym, priority);
       if (padding)
@@ -127,6 +125,10 @@ Script_engraver::acknowledge_element (Score_element_info inf)
 	    {
 	      ss->set_parent (inf.elem_l_, X_AXIS);
 	    }
+	  if (ss->axis_ == X_AXIS
+	      && !ss->parent_l (Y_AXIS))
+	    ss->set_parent (rh, Y_AXIS);
+	  
 	  ss->add_support (rh);
 	}
     }  
