@@ -1,7 +1,8 @@
 #include "pstaff.hh"
 
-PStaff::PStaff()
+PStaff::PStaff(PScore*ps)
 {
+    pscore_=ps;
     stafsym = 0;
 }
 
