@@ -18,6 +18,9 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item There is now a Scheme macro for defining markup
+commands. Special mark-up commands can be defined in  user-files too.
+
 @item Many fixes for dimension scaling have been made,
 resulting in correct results for scores that mix staves in different
 sizes.

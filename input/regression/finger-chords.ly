@@ -25,6 +25,9 @@ easier to process."
 	\property Voice.fingeringOrientations = #'(down left up)
 	< c-1  e-2 g-3 b-5 > 4
 
+	\once \property Voice.Fingering \set #'staff-padding = #'()
+	< c-1  e-2 g-3 b-5 > 4
+
 	\property Voice.fingeringOrientations = #'(up left)
 	< c-1  e-2 g-3 b-5 > 4
 
