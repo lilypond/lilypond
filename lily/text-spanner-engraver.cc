@@ -7,7 +7,7 @@
 */
 
 #include "dimensions.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
 #include "item.hh"
@@ -34,8 +34,8 @@ protected:
 private:
   Spanner *span_;
   Spanner *finished_;
-  Span_req *current_req_;
-  Drul_array<Span_req*> req_drul_;
+  Music *current_req_;
+  Drul_array<Music*> req_drul_;
   void typeset_all ();
 };
 
@@ -59,23 +59,22 @@ Text_spanner_engraver::start_translation_timestep ()
 bool
 Text_spanner_engraver::try_music (Music *m)
 {
-  if (Span_req *s =  dynamic_cast <Span_req*> (m))
+  if (m->is_mus_type ("text-span-event"))
     {
-      String t =  ly_scm2string (s->get_mus_property ("span-type"));            
-      if (t == "abort")
-	{
-	  req_drul_[LEFT] = 0;
-	  req_drul_[RIGHT] = 0;
-	  if (span_)
-	    span_->suicide ();
-	  span_ = 0;
-	}
-      else if (t == "text")
-	{
-	  req_drul_[s->get_span_dir ()] = s;
-	  return true;
-	}
+
+      Direction d = to_dir (m->get_mus_property ("span-direction"));
+      req_drul_[d] = m;
+      return true;
     }
+  else if (m->is_mus_type ("abort-event"))
+    {
+      req_drul_[LEFT] = 0;
+      req_drul_[RIGHT] = 0;
+      if (span_)
+	span_->suicide ();
+      span_ = 0;
+    }
+
   return false;
 }
 
@@ -175,9 +174,9 @@ Text_spanner_engraver::finalize ()
 }
 
 ENTER_DESCRIPTION(Text_spanner_engraver,
-/* descr */       "Create text spanner from a Span_req.",
+/* descr */       "Create text spanner from a Music.",
 /* creats*/       "TextSpanner",
-/* accepts */     "general-music",
+/* accepts */     "text-span-event",
 /* acks  */      "note-column-interface",
 /* reads */       "",
 /* write */       "");

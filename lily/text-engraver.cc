@@ -11,7 +11,7 @@
 #include "engraver.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 
@@ -21,7 +21,7 @@
  */
 class Text_engraver : public Engraver
 {
-  Link_array<Text_script_req> reqs_;
+  Link_array<Music> reqs_;
   Link_array<Item> texts_;
 public:
   TRANSLATOR_DECLARATIONS(Text_engraver);
@@ -36,11 +36,9 @@ protected:
 bool
 Text_engraver::try_music (Music *m)
 {
-  if (dynamic_cast<Text_script_req*> (m)
-      && m->get_mus_property ("text-type") != ly_symbol2scm ("finger")
-      && m->get_mus_property ("text-type") != ly_symbol2scm ("dynamic"))
+  if (m->is_mus_type ("text-script-event"))
     {
-      reqs_.push (dynamic_cast<Text_script_req*> (m));
+      reqs_.push (m);
       return true;
     }
   return false;
@@ -84,7 +82,7 @@ Text_engraver::process_acknowledged_grobs ()
     return;
   for (int i=0; i < reqs_.size (); i++)
     {
-      Text_script_req * r = reqs_[i];
+      Music * r = reqs_[i];
       
       // URG: Text vs TextScript
       String basic = "TextScript";
@@ -110,8 +108,9 @@ Text_engraver::process_acknowledged_grobs ()
       
       text->set_grob_property ("script-priority", gh_int2scm (priority));
 
-      if (r->get_direction ())
-	Side_position_interface::set_direction (text, r->get_direction ());
+      Direction dir = to_dir (r->get_mus_property ("direction"));
+      if (dir)
+	Side_position_interface::set_direction (text, dir);
       
       text->set_grob_property ("text", r->get_mus_property ("text"));
       announce_grob (text, r->self_scm ());
@@ -144,7 +143,7 @@ Text_engraver::Text_engraver(){}
 ENTER_DESCRIPTION(Text_engraver,
 /* descr */       "Create text-scripts",
 /* creats*/       "TextScript",
-/* accepts */     "general-music",
+/* accepts */     "text-script-event",
 /* acks  */      "rhythmic-head-interface stem-interface",
 /* reads */       "scriptHorizontal",
 /* write */       "");

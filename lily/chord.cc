@@ -7,11 +7,11 @@
 */
 
 #include "chord.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "warn.hh"
 
 #include "music-list.hh"
-#include "musical-request.hh"
+#include "request.hh"
 
 
 SCM

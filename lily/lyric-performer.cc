@@ -6,7 +6,7 @@
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "musical-request.hh"
+#include "request.hh"
 #include "audio-item.hh"
 #include "lily-proto.hh"
 #include "performer.hh"
@@ -22,7 +22,7 @@ protected:
   virtual void create_audio_elements ();
 
 private:
-  Link_array<Lyric_req> lreqs_;
+  Link_array<Music> lreqs_;
   Audio_text* audio_;
 };
 
@@ -65,12 +65,12 @@ Lyric_performer::stop_translation_timestep ()
 bool
 Lyric_performer::try_music (Music* req)
 {
-  if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req))
+  if (req->is_mus_type ("lyric-event"))
     {
-      lreqs_.push (lr);
+      lreqs_.push (req);
       return true;
     }
   return false;
 }
 
-ENTER_DESCRIPTION(Lyric_performer,"","","general-music","","","");
+ENTER_DESCRIPTION(Lyric_performer,"","","lyric-event","","","");

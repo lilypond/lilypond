@@ -8,7 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "translator-group.hh"
 
 class Thread_devnull_engraver : public Engraver
@@ -58,7 +58,7 @@ identical, it tells the @code{Thread_devnull_engraver} to discard
 everything in the second thread.
 ",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

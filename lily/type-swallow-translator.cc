@@ -7,7 +7,7 @@
 */
 
 #include "translator.hh"
-#include "musical-request.hh"
+#include "request.hh"
 
 class Skip_req_swallow_translator : public virtual Translator
 {

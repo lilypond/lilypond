@@ -14,7 +14,7 @@
 #include "warn.hh"
 #include "font-interface.hh"
 #include "molecule.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"

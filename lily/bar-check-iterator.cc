@@ -9,7 +9,7 @@
  */
 
 #include "simple-music-iterator.hh"
-#include "command-request.hh"
+#include "request.hh"
 #include "translator-group.hh"
 
 /*

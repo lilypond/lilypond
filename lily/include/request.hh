@@ -15,62 +15,41 @@
 #include "virtual-methods.hh"
 #include "input.hh"
 #include "music.hh"
-#include "direction.hh"
-
+#include "duration.hh"
+#include "pitch.hh"
 
 /** An atom of musical information.  This is an abstract class for any
   piece of music that does not contain other Music.
   
-  Hungarian postfix: req
 
  */
 class Request : public Music {
 public:
   Request ();
   VIRTUAL_COPY_CONS (Music);
-  bool equal_b (Request const*) const;
-protected:
-  virtual bool do_equal_b (Request const*) const;
-
+  virtual void compress (Moment);
+  virtual void transpose (Pitch);
+  virtual Moment length_mom () const;
+  virtual Pitch to_relative_octave (Pitch);
 };
 
 
-
-class Script_req : public virtual Request
+/**
+    Handle key changes.
+*/
+class Key_change_req  : public Request
 {
 public:
-  void set_direction (Direction d);
-  Direction get_direction () const;
-  VIRTUAL_COPY_CONS (Music);
-  Script_req ();
-};
-
-
-/**
-  Requests to start or stop something.
- This type of request typically results in the creation of a #Spanner#
-*/
-class Span_req  : public virtual Request  {
-public:
-  String get_span_type_string () const;
-  void set_span_type_string (String);
-  void set_span_dir (Direction d);
-  Direction get_span_dir () const;  
+  SCM pitch_alist ();
   
-  Span_req ();
 protected:
-  
-  virtual bool do_equal_b (Request const*) const;
-
   VIRTUAL_COPY_CONS (Music);
+  bool do_equal_b (Request const * ) const;
+  void transpose (Pitch  d);
 };
 
-/**
-  Start a tie at this note, end it at the next
- */
-class Tie_req : public Request {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
+SCM transpose_key_alist (SCM,SCM);
+
+
 
 #endif

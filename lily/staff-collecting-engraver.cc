@@ -40,7 +40,7 @@ ENTER_DESCRIPTION(Staff_collecting_engraver,
 /* descr */       "Maintain the stavesFound variable",
 
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "staff-symbol-interface",
 /* reads */       "stavesFound",
 /* write */       "stavesFound");

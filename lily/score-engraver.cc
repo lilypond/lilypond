@@ -15,7 +15,7 @@
 #include "score-engraver.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
-#include "command-request.hh"
+
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
 #include "translator-def.hh"

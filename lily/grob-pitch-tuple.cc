@@ -8,7 +8,7 @@ source file of the GNU LilyPond music typesetter
  */
 #include "grob-pitch-tuple.hh"
 #include "pitch.hh"
-#include "musical-request.hh"
+#include "request.hh"
 
 
 int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)

@@ -8,7 +8,7 @@
 
 #include "mensural-ligature.hh"
 #include "ligature-engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "warn.hh"
 #include "item.hh"
 #include "spanner.hh"

@@ -37,8 +37,8 @@ this.
 #include "file-path.hh"
 #include "warn.hh"
 #include "dimensions.hh"
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "my-lily-parser.hh"
 #include "context-specced-music.hh"
 #include "score.hh"
@@ -106,6 +106,16 @@ set_property_music (SCM sym, SCM value)
 	return p;
 }
 
+Music*
+make_span_req (SCM name)
+{
+  static SCM proc;
+  if (!proc)
+    proc = scm_c_eval_string ("old-span-request->event");
+  SCM m = scm_call_1 (proc, name);
+  scm_gc_protect_object (m);
+  return unsmob_music (m);
+}
 
 // needed for bison.simple's malloc () and free ()
 
@@ -1315,10 +1325,9 @@ shorthand_command_req:
 	;
 
 verbose_command_req:
-	COMMANDSPANREQUEST bare_int STRING { /*TODO: junkme */
-		Music * sp = MY_MAKE_MUSIC("SpanEvent");
+	COMMANDSPANREQUEST bare_int STRING {
+		Music *sp = make_span_req ($3);
 		sp->set_mus_property ("span-direction", gh_int2scm (Direction ($2)));
-		sp->set_mus_property ("span-type",$3);
 		sp->set_spot (THIS->here_input ());
 		$$ = sp;
 	}
@@ -1428,9 +1437,9 @@ verbose_request:
 		$$ = d;
 	}
 	| SPANREQUEST bare_int STRING {
-		Music * sp = MY_MAKE_MUSIC("SpanEvent");
+
+ 		Music * sp = make_span_req ($3);
 		sp->set_mus_property ("span-direction", gh_int2scm ( $2));
-		sp->set_mus_property ("span-type", $3);
 		sp->set_spot (THIS->here_input ());
 		$$ = sp;
 	}
@@ -1576,15 +1585,13 @@ close_request:
  
 close_request_parens:
 	'('	{
-		Music * s= MY_MAKE_MUSIC("SpanEvent");
+		Music * s= MY_MAKE_MUSIC("SlurEvent");
 		$$ = s;
-		s->set_mus_property ("span-type", scm_makfrom0str ( "slur"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_OPEN	{
-		Music * s= MY_MAKE_MUSIC("SpanEvent");
+		Music * s= MY_MAKE_MUSIC("PhrasingSlurEvent");
 		$$ = s;
-		s->set_mus_property ("span-type", scm_makfrom0str ( "phrasing-slur"));
 		s->set_spot (THIS->here_input());
 	}
 	| E_SMALLER {
@@ -1616,14 +1623,13 @@ open_request_parens:
 		$$ = s;
 	}
 	| ')'	{
-		Music * s= MY_MAKE_MUSIC("SpanEvent");
+		Music * s= MY_MAKE_MUSIC("SlurEvent");
 		$$ = s;
-		s->set_mus_property ("span-type", scm_makfrom0str ( "slur"));
 		s->set_spot (THIS->here_input());
 
 	}
 	| E_CLOSE	{
-		Music * s= MY_MAKE_MUSIC("SpanEvent");
+		Music * s= MY_MAKE_MUSIC("PhrasingSlurEvent");
 		$$ = s;
 		s->set_mus_property ("span-type", scm_makfrom0str ( "phrasing-slur"));
 		s->set_spot (THIS->here_input());
@@ -1934,16 +1940,12 @@ simple_element:
 
 		Music * sk = MY_MAKE_MUSIC("SkipEvent");
 		sk->set_mus_property ("duration", $2);
-		Music *sp1 = MY_MAKE_MUSIC("SpanEvent");
-		Music *sp2 = MY_MAKE_MUSIC("SpanEvent");
+		Music *sp1 = MY_MAKE_MUSIC("MultiMeasureRestEvent");
+		Music *sp2 = MY_MAKE_MUSIC("MultiMeasureRestEvent");
 		sp1-> set_mus_property ("span-direction", gh_int2scm (START))
 ;
 		sp2-> set_mus_property ("span-direction", gh_int2scm (STOP))
 ;
-		SCM r = scm_makfrom0str ("rest");
-		sp1->set_mus_property ("span-type", r);
-		sp2->set_mus_property ("span-type", r);
-
 		Music *rqc1 = MY_MAKE_MUSIC("RequestChord");
 		rqc1->set_mus_property ("elements", scm_list_n (sp1->self_scm (), SCM_UNDEFINED));
 		Music *rqc2 = MY_MAKE_MUSIC("RequestChord");

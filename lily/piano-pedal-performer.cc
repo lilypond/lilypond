@@ -7,8 +7,8 @@
 */
 
 #include "performer.hh"
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "audio-item.hh"
 
 /**
@@ -19,8 +19,8 @@ class Piano_pedal_performer : public Performer
   struct Pedal_info
   {
     char const *name_;
-    Span_req* start_req_;
-    Drul_array<Span_req*> req_l_drul_;
+    Music* start_req_;
+    Drul_array<Music*> req_l_drul_;
   };
 
 public:
@@ -125,14 +125,16 @@ Piano_pedal_performer::start_translation_timestep ()
 bool
 Piano_pedal_performer::try_music (Music* r)
 {
-  if (Span_req * s = dynamic_cast<Span_req*> (r))
+ if  (r->is_mus_type ("pedal-event"))
     {
       for (Pedal_info*p = info_alist_; p->name_; p ++)
 	{
-	  if (scm_equal_p (s->get_mus_property ("span-type"),
-			   scm_makfrom0str (p->name_)) == SCM_BOOL_T)
+	  String nm = p->name_ + String ("Event");
+	  if (gh_equal_p (r->get_mus_property ("name") ,
+			  scm_makfrom0str (nm.to_str0())))
 	    {
-	      p->req_l_drul_[s->get_span_dir ()] = s;
+	      Direction d = to_dir (r->get_mus_property ("span-direction"));
+	      p->req_l_drul_[d] = r;
 	      return true;
 	    }
 	}
@@ -141,5 +143,5 @@ Piano_pedal_performer::try_music (Music* r)
 }
 
 ENTER_DESCRIPTION (Piano_pedal_performer, "","",
-		   "general-music",
+		   "pedal-event",
 		   "","","" );

@@ -9,7 +9,7 @@
 
 #include "warn.hh"
 #include "timing-translator.hh"
-#include "command-request.hh"
+
 #include "translator-group.hh"
 #include "global-translator.hh"
 #include "multi-measure-rest.hh"
@@ -152,4 +152,4 @@ Timing_translator::start_translation_timestep ()
   daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
-ENTER_DESCRIPTION(Timing_translator,"","","general-music","","","");
+ENTER_DESCRIPTION(Timing_translator,"","","","","","");

@@ -8,7 +8,7 @@
 
 #include "engraver.hh"
 #include "item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "translator-group.hh"
 
 class Voice_devnull_engraver : public Engraver
@@ -22,7 +22,14 @@ protected:
 };
 
 
+/*
 
+ARGH .
+
+
+This really sucks.
+
+ */
 static char const *eat_spanners[] = {
   "beam",
   "crescendo",
@@ -49,9 +56,9 @@ Voice_devnull_engraver::try_music (Music *m)
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
     {
-      if (Span_req *s = dynamic_cast <Span_req *> (m))
+      if (m->is_mus_type ("span-event"))
 	{
-	  SCM t = s->get_mus_property ("span-type");
+	  SCM t = m->get_mus_property ("span-type");
         
 	  for (char const **p = eat_spanners; *p; p++)
 	    {
@@ -123,7 +130,7 @@ Voice_devnull_engraver::Voice_devnull_engraver(){}
 ENTER_DESCRIPTION(Voice_devnull_engraver,
 /* descr */       "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set.",
 /* creats*/       "",
-/* accepts */     "general-music tie-event",
+/* accepts */     "general-music", /*UGH.*/
 /* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

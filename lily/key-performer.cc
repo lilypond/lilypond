@@ -7,7 +7,7 @@
 */
 
 #include "lily-guile.hh"
-#include "command-request.hh"
+
 #include "audio-item.hh"
 #include "performer.hh"
 #include "warn.hh"

@@ -4,7 +4,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "musical-request.hh"
+#include "request.hh"
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
@@ -17,8 +17,8 @@
  */
 class Slur_engraver : public Engraver
 {
-  Link_array<Span_req> requests_;
-  Link_array<Span_req> new_slur_reqs_;
+  Link_array<Music> requests_;
+  Link_array<Music> new_slur_reqs_;
   Link_array<Grob> slur_stack_;
   Link_array<Grob> end_slurs_;
   Moment last_start_;
@@ -45,56 +45,57 @@ Slur_engraver::Slur_engraver ()
 bool
 Slur_engraver::try_music (Music *req)
 {
-  if (Span_req *sl = dynamic_cast <Span_req *> (req))
+  if (req->is_mus_type ("abort-event"))
     {
-      String t =  ly_scm2string (sl->get_mus_property ("span-type"));
-      if (t == "abort")
+      for (int i = 0; i < slur_stack_.size (); i++)
 	{
-	  for (int i = 0; i < slur_stack_.size (); i++)
-	    {
-	      slur_stack_[i]->suicide ();
-	    }
-	  slur_stack_.clear ();
-	  for (int i = 0; i < end_slurs_.size (); i++)
-	    {
-	      end_slurs_[i]->suicide ();
-	    }
-	  end_slurs_.clear ();
-	  requests_.clear ();
-	  new_slur_reqs_.clear ();
+	  slur_stack_[i]->suicide ();
 	}
-      else if (t == "slur")
+      slur_stack_.clear ();
+      for (int i = 0; i < end_slurs_.size (); i++)
+	{
+	  end_slurs_[i]->suicide ();
+	}
+      end_slurs_.clear ();
+      requests_.clear ();
+      new_slur_reqs_.clear ();
+    }
+  else if (req->is_mus_type ("slur-event"))
+    {
+      /*
+	Let's not start more than one slur per moment.
+      */
+      Direction d = to_dir (req->get_mus_property ("span-direction"));
+      if (d == START)
+	{
+	  if (now_mom () > last_start_)
+	    {
+	      new_slur_reqs_.push (req);
+	      last_start_ = now_mom ();
+	    }
+
+	  /*
+	    But we swallow other slur requests.
+	  */
+	      
+	  return true;
+
+	}
+      else if (d == STOP)
 	{
 	  /*
-	    Let's not start more than one slur per moment.
-	   */
-	  if (sl->get_span_dir () == START)
+	    Swallow other requests.
+	  */
+	  for (int j = new_slur_reqs_.size(); j--;)
 	    {
-	      if (now_mom () > last_start_)
-	        {
-	          new_slur_reqs_.push (sl);
-		  last_start_ = now_mom ();
-		}
-
-	      /*
-		But we swallow other slur requests.
-	      */
+	      Direction nd = to_dir (new_slur_reqs_[j]->get_mus_property ("span-direction"));
 	      
-	      return true;
-
+	      if (nd == STOP)
+		return true;
 	    }
-	  else if (sl->get_span_dir () == STOP)
-	    {
-	      /*
-		Swallow other requests.
-	       */
-	      for (int j = new_slur_reqs_.size(); j--;)
-		if (new_slur_reqs_[j]->get_span_dir() == STOP)
-		  return true;
 	      
-	      new_slur_reqs_.push (sl);
-	      return true;
-	    }
+	  new_slur_reqs_.push (req);
+	  return true;
 	}
     }
   return false;
@@ -147,9 +148,10 @@ Slur_engraver::process_acknowledged_grobs ()
   Link_array<Grob> start_slurs;
   for (int i=0; i< new_slur_reqs_.size (); i++)
     {
-      Span_req* slur_req = new_slur_reqs_[i];
+      Music* slur_req = new_slur_reqs_[i];
       // end slur: move the slur to other array
-      if (slur_req->get_span_dir () == STOP)
+      Direction d = to_dir (slur_req->get_mus_property ("span-direction"));
+   if (d== STOP)
 	{
 	  if (slur_stack_.empty ())
 	    /* How to shut up this warning, when Voice_devnull_engraver has
@@ -163,7 +165,7 @@ Slur_engraver::process_acknowledged_grobs ()
 	      requests_.pop ();
 	    }
 	}
-      else  if (slur_req->get_span_dir () == START)
+      else  if (d == START)
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
@@ -205,7 +207,7 @@ Slur_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs from Slur_reqs",
 /* creats*/       "Slur",
-/* accepts */     "general-music",
+/* accepts */     "slur-event",
 /* acks  */      "note-column-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

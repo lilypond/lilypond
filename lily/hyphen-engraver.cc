@@ -5,7 +5,7 @@
 */
 
 #include "flower-proto.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "hyphen-spanner.hh"
 #include "paper-column.hh"
 #include "item.hh"

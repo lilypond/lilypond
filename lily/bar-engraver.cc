@@ -9,7 +9,7 @@
 
 #include "bar-line.hh"
 #include "score-engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "item.hh"

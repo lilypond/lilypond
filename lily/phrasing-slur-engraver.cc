@@ -4,7 +4,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "musical-request.hh"
+#include "request.hh"
 #include "slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
@@ -14,8 +14,8 @@
 
 class Phrasing_slur_engraver : public Engraver
 {
-  Link_array<Span_req> requestses_;
-  Link_array<Span_req> new_phrasing_slur_reqs_;
+  Link_array<Music> requestses_;
+  Link_array<Music> new_phrasing_slur_reqs_;
   Link_array<Grob> phrasing_slur_l_stack_;
   Link_array<Grob> end_phrasing_slurs_;
   Moment last_start_;
@@ -41,11 +41,8 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
 bool
 Phrasing_slur_engraver::try_music (Music *req)
 {
-  if (Span_req *sl = dynamic_cast <Span_req *> (req))
+  if (req->is_mus_type ("abort-event"))
     {
-      String t =  ly_scm2string (sl->get_mus_property ("span-type"));
-      if (t == "abort")
-	{
 	  for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
 	    {
 	      phrasing_slur_l_stack_[i]->suicide ();
@@ -58,26 +55,28 @@ Phrasing_slur_engraver::try_music (Music *req)
 	  end_phrasing_slurs_.clear ();
 	  requestses_.clear ();
 	  new_phrasing_slur_reqs_.clear ();
-	}
-      else if (t == "phrasing-slur")
+    }
+  else if (req->is_mus_type ("phrasing-slur-event"))
+    {
+      /*
+	Let's not start more than one phrasing slur per moment.
+      */
+      
+    Direction d = to_dir (req->get_mus_property ("span-direction"));
+ 	  
+      if (d == START)
 	{
-	  /*
-	    Let's not start more than one phrasing slur per moment.
-	   */
-	  if (sl->get_span_dir () == START)
+	  if (now_mom () > last_start_)
 	    {
-	      if (now_mom () > last_start_)
-	        {
-	          new_phrasing_slur_reqs_.push (sl);
-		  last_start_ = now_mom ();
-	          return true;
-		}
-	    }
-	  else
-	    {
-	      new_phrasing_slur_reqs_.push (sl);
+	      new_phrasing_slur_reqs_.push (req);
+	      last_start_ = now_mom ();
 	      return true;
 	    }
+	}
+      else
+	{
+	  new_phrasing_slur_reqs_.push (req);
+	  return true;
 	}
     }
   return false;
@@ -124,9 +123,12 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
   Link_array<Grob> start_phrasing_slurs;
   for (int i=0; i< new_phrasing_slur_reqs_.size (); i++)
     {
-      Span_req* phrasing_slur_req = new_phrasing_slur_reqs_[i];
+      Music* phrasing_slur_req = new_phrasing_slur_reqs_[i];
       // end phrasing slur: move the phrasing slur to other array
-      if (phrasing_slur_req->get_span_dir () == STOP)
+
+      Direction d = to_dir (phrasing_slur_req->get_mus_property ("span-direction"));
+      
+      if (d == STOP)
 	{
 	  if (phrasing_slur_l_stack_.empty ())
 	    phrasing_slur_req->origin ()->warning (_f ("can't find start of phrasing slur"));
@@ -137,7 +139,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	      requestses_.pop ();
 	    }
 	}
-      else  if (phrasing_slur_req->get_span_dir () == START)
+      else if (d == START)
 	{
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
@@ -174,7 +176,7 @@ Phrasing_slur_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to Slur_engraver",
 /* creats*/       "PhrasingSlur",
-/* accepts */     "general-music",
-/* acks  */      "note-column-interface",
+/* accepts */     "phrasing-slur-event",
+/* acks  */       "note-column-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

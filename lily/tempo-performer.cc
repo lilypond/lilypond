@@ -6,7 +6,7 @@
   (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "command-request.hh"
+
 #include "audio-item.hh"
 #include "performer.hh"
 

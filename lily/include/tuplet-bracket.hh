@@ -8,6 +8,7 @@
 #define Tuplet_bracket_HH
 
 #include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /*
 

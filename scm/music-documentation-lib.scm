@@ -1,6 +1,4 @@
 
-
-
 (define (music-props-doc)
   (make <texi-node>
     #:name "Music properties"
@@ -20,7 +18,7 @@
 (map (lambda (entry)
        (let*
 	   (
-	    (types (assoc 'types (cdr entry) ))
+	    (types (cdr (assoc 'types (cdr entry) )))
 	    )
 	 (map (lambda (type)
 		(hashq-set! music-types->names type
@@ -37,7 +35,6 @@
   "Convert table t to list"
   (apply append
 	 (vector->list t)
-  
   ))
 
 (define (strip-description x)
@@ -56,6 +53,13 @@
       (sort
        (map (lambda (x) (ref-ify (symbol->string x)))
 	     (cdr entry)) string<?))
+
+     "\n\nAccepted by: "
+     (human-listify
+      (map ref-ify
+      (map ly-translator-name
+	   (filter-list
+	    (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list))))
      "\n\n"
      )))
 
@@ -68,18 +72,39 @@
 	  (hash-table->alist music-types->names) alist<?))
     ))
 
-(define (music-object-doc obj)
-  (make <texi-node>
-    #:name (symbol->string (car obj))
-    #:text (string-append
-     (object-property (car obj) 'music-description)
+(define (music-doc-str obj)
+  (let*
+      (
+       (namesym  (car obj))
+       (props (cdr obj))
+       (types (cdr (assoc  'types props)))
+       )
+    
+    (string-append
+     (object-property namesym 'music-description)
+     "\n\nMusic types:\n"
+     (human-listify (map ref-ify (map symbol->string types)))
+     "\n\n"
+     "\n\nAccepted by: "
+     (human-listify
+      (map ref-ify
+      (map ly-translator-name
+	   (filter-list
+	    (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list))))
      "\n\nProperties: \n"
      (description-list->texi
       (map
-       (lambda (x) (document-property x 'music (cdr obj)))
-       (map car (cdr obj))))
-     ))
-)
+       (lambda (x) (document-property x 'music props))
+       (map car props)))
+     
+     )
+    ))
+
+(define (music-object-doc obj)
+  (make <texi-node>
+    #:name (symbol->string (car obj))
+    #:text (music-doc-str obj)
+    ))
 
 (define (music-expressions-doc)
   (make <texi-node>
@@ -89,7 +114,6 @@
      (map music-object-doc music-descriptions)
   ))
   
-
 (define (music-doc-node)
   (make <texi-node>
     #:name "Music definitions"

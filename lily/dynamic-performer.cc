@@ -7,8 +7,8 @@
 */
 
 #include "performer.hh"
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "audio-item.hh"
 
 /*
@@ -124,8 +124,7 @@ Dynamic_performer::try_music (Music* r)
 {
   if (!script_req_)
     {
-      if (dynamic_cast <Text_script_req*> (r)
-	  && r->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
+      if (r->is_mus_type ("dynamic-event")) // fixme.
 	{
 	  script_req_ = r;
 	  return true;

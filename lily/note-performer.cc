@@ -7,7 +7,7 @@
  */
 
 #include "performer.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-translator.hh"
@@ -125,7 +125,7 @@ Note_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION(Note_performer,"","","general-music","","","");
+ENTER_DESCRIPTION(Note_performer,"","","note-event","","","");
 
 Note_performer::Note_performer()
 {

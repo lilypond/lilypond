@@ -7,10 +7,23 @@
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 
+(define (engraver-makes-grob? name-symbol grav)
+  (memq name-symbol (assoc 'grobs-created (ly-translator-description grav)))
+  )
 
+(define (engraver-accepts-music-type? name-symbol grav)
+  (memq name-symbol (assoc 'events-accepted (ly-translator-description grav)))
 
-;; First level Engraver description and
-;; second level Context description
+  )
+
+(define (engraver-accepts-music-types? types grav)
+  (if (null? types)
+      #f
+      (or
+       (engraver-accepts-music-type? (car types) grav)
+       (engraver-accepts-music-types? (cdr types) grav)))
+  )
+
 (define (engraver-doc-string engraver)
   (let* (
 	 (propsr (cdr (assoc 'properties-read (ly-translator-description engraver))))

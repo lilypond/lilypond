@@ -8,7 +8,7 @@
  */
 
 
-#include "command-request.hh"
+
 #include "tuplet-bracket.hh"
 #include "note-column.hh"
 #include "time-scaled-music.hh"
@@ -23,7 +23,7 @@ public:
   TRANSLATOR_DECLARATIONS(Tuplet_engraver);
 
 protected:
-  Link_array<Time_scaled_music> time_scaled_musics_;
+  Link_array<Music> time_scaled_musics_;
   /// when does the scaled music stop? Array order is synced with time_scaled_musics_
   Array<Rational> stop_moments_;
   /// when does the current spanner stop? Array order is synced with time_scaled_musics_
@@ -40,18 +40,12 @@ protected:
 };
 
 bool
-Tuplet_engraver::try_music (Music *r)
+Tuplet_engraver::try_music (Music *c)
 {
-#if 1
-  if (Time_scaled_music * c = dynamic_cast<Time_scaled_music *> (r))
-    {
-      Music *el = c->element ();
-#else    
-  if (r->is_mus_type ("time-scaled-music"))
+  if (c->is_mus_type ("time-scaled-music"))
     {
       Music *el = unsmob_music (c->get_mus_property ("element"));
-#endif
-      if (!dynamic_cast<Request_chord*> (el))
+      if (el && !el->is_mus_type ("request-chord"))
 	{
 	  time_scaled_musics_.push (c);
 	  Rational m = now_mom ().main_part_ + c->length_mom ().main_part_;
