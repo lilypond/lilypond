@@ -30,6 +30,12 @@ String::String ()
 {
 }
 
+INLINE
+String::String (char const* source)
+{   
+  assert (source);    
+  strh_ = source;    
+}
 
 
 #endif /* STRING_ICC */

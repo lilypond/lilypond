@@ -113,7 +113,7 @@
 (map (lambda (x) (eval-string (ly-gulp-file x)))
      '("output-lib.scm"
        "tex.scm"
-       "ps.scm"
+       "ps.scm" "sketch.scm"
        "pdf.scm"
        "pdftex.scm"
        "ascii-script.scm"

@@ -28,6 +28,10 @@ enum Grob_status {
 
 typedef void (Grob::*Grob_method_pointer) (void);
 
+
+#define get_grob_property(x) internal_get_grob_property(ly_symbol2scm(x))
+#define set_grob_property(x,y) internal_set_grob_property(ly_symbol2scm(x),y)
+
 /*
    Basic output object.
 */
@@ -62,12 +66,14 @@ public:
   /*
     properties
    */
-  SCM get_grob_property (const char*) const;
-  SCM get_grob_property (SCM) const;
-  void set_grob_property (const char * , SCM val);
+  SCM internal_get_grob_property (SCM) const;
+  void internal_set_grob_property (SCM, SCM val);
+  
+#if 0
   void set_immutable_grob_property (const char * , SCM val);
-  void set_immutable_grob_property (SCM key, SCM val);  
-  void set_grob_property (SCM , SCM val);  
+  void set_immutable_grob_property (SCM key, SCM val);
+#endif
+  
   void set_elt_pointer (const char*, SCM val);
   friend class Property_engraver; //  UGHUGHUGH.
   SCM remove_grob_property (const char* nm);
@@ -170,7 +176,7 @@ public:
    */
   void set_parent (Grob* e, Axis);
   
-  Grob *parent_l (Axis a) const;
+  Grob *parent_l (Axis a) const {   return  dim_cache_[a].parent_l_; }
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 

@@ -62,11 +62,6 @@ String::operator = (String const&source)
   return *this;
 }
 
-String::String (char const* source)
-{   
-  assert (source);    
-  strh_ = source;    
-}
 
 String::String (Byte const* byte_l, int length_i)
 {   
