@@ -5,5 +5,7 @@
 
 
 $(outdir)/%.latex: %.doc
-	$(PYTHON) $(depth)/scripts/mudela-book.py -I $(depth)/input/test/ --outdir=$(outdir)/ --dependencies --outname=$(notdir $(basename $@)) $<
-
+	cd $(outdir);  $(PYTHON) $(depth)/../scripts/mudela-book.py -I .. -I $(depth)/../input/test/ --dependencies ../$< 
+	sed 's! \.\./! !g'<  $(basename $@).dep > $(outdir)/temp.dep 
+	sed 's!^\(.*\):!'$(outdir)'/\1:!g' < $(outdir)/temp.dep > $(basename $@).dep 
+	rm $(outdir)/temp.dep
