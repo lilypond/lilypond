@@ -41,8 +41,11 @@ $(outdir)/%.info: $(outdir)/%.nexi
 #$(outdir)/%.nfo: $(outdir)/%.nexi
 #	$(MAKEINFO) --output=$(outdir)/$(*F).info $<
 
-$(outdir)/%.tex: $(outdir)/%.ly
-	$(LILYPOND) $(LILYPOND_BOOK_INCLUDES) -o $@ $< 
+#
+# let's not do this: this interferes with the lilypond-book dependency mechanism.
+#
+##$(outdir)/%.tex: $(outdir)/%.ly
+##	$(LILYPOND) $(LILYPOND_BOOK_INCLUDES) -o $@ $< 
 
 #
 # Timothy's booklet
@@ -55,3 +58,22 @@ $(outdir)/%.pdf: $(outdir)/%.dvi
 	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
 	ps2pdf $@.pdfps $@
 
+
+$(outdir)/%.html.omf: %.tely
+	$(call GENERATE_OMF,html)
+
+$(outdir)/%.pdf.omf: %.tely
+	$(call GENERATE_OMF,pdf)
+
+$(outdir)/%.ps.gz.omf: %.tely
+	$(call GENERATE_OMF,ps.gz) 
+
+
+$(outdir)/%.html.omf: $(outdir)/%.texi
+	$(call GENERATE_OMF,html)
+
+$(outdir)/%.pdf.omf: $(outdir)/%.texi
+	$(call GENERATE_OMF,pdf)
+
+$(outdir)/%.ps.gz.omf: $(outdir)/%.texi
+	$(call GENERATE_OMF,ps.gz) 

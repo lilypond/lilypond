@@ -10,13 +10,14 @@ $(outdir)/%.html: $(outdir)/%.texi
 	$(footify) $@
 
 
-$(outdir)/%.html.omf: $(outdir)/%.texi
-	$(GENERATE_OMF) --format html --location $(local_package_docdir)/$(current-relative-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
-$(outdir)/%.pdf.omf: $(outdir)/%.texi
-	$(GENERATE_OMF) --format pdf --location $(local_package_docdir)/$(current-relative-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
+$(outdir)/%.html.omf: %.texi
+	$(call GENERATE_OMF,html)
 
-$(outdir)/%.ps.gz.omf: $(outdir)/%.texi
-	$(GENERATE_OMF) --format ps.gz --location $(local_package_docdir)/$(current-relative-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
+$(outdir)/%.pdf.omf: %.texi
+	$(call GENERATE_OMF,pdf)
+
+$(outdir)/%.ps.gz.omf: %.texi
+	$(call GENERATE_OMF,ps.gz) 
 
 # Generic rule not possible?
 $(outdir)/%/%.html: $(outdir)/%.texi

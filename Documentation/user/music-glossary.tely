@@ -25,8 +25,9 @@ Copyright @copyright{} 1999--2002 by the authors
 @ignore
 @omfcreator Christian Mondrup
 @omfdescription Glossary of musical terms with translations
-@omftype user manual
-@omfcategory Music 
+@omftype user's guide
+@omfcategory Music
+@omflanguage English
 @end ignore
 
 @ifnottex

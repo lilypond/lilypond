@@ -1340,24 +1340,13 @@ def write_deps (fn, target, chunks):
 	f.write ('%s%s: ' % (g_dep_prefix, target))
 	for d in read_files:
 		f.write ('%s ' %  d)
-	basenames=[]
-        for c in chunks:
-	        if c[0] == 'lilypond':
-			(type, body, opts, todo, basename) = c;
-			basenames.append (basename)
-	for d in basenames:
-		if g_outdir:
-			d=g_outdir + '/' + d
-		if g_dep_prefix:
-			#if not os.isfile (d): # thinko?
-			if not re.search ('/', d):
-				d = g_dep_prefix + d
-		f.write ('%s.tex ' %  d)
-	f.write ('\n')
-	#if len (basenames):
-	#	for d in basenames:
-	#		f.write ('%s.ly ' %  d)
-	#	f.write (' : %s' % target)
+
+
+	## There used to be code to write .tex dependencies, but
+	## that is silly: lilypond-book has its own dependency scheme
+	## to ensure that all lily-XXX.tex files are there
+		
+
 	f.write ('\n')
 	f.close ()
 	read_files = []

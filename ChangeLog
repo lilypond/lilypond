@@ -1,5 +1,18 @@
 2003-03-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/lilypond.tely: omf updates.
+
+	* buildscripts/texi2omf.py (omf_vars): include version.date
+
+	* make/lilypond.redhat.spec.in: fixes for spec file. 
+
+	* stepmake/stepmake/texinfo-vars.make (GENERATE_OMF):  replace var
+	by function definition: lily now requires a recent GNU Make.
+
+	* scripts/lilypond-book.py (write_deps): remove .tex dependency writing.
+
+	* make/ly-rules.make: remove .ly -> .tex rule
+
 	* Documentation/user/refman.itely (Figured bass): revised figured
 	bass example.
 
