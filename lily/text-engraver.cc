@@ -87,6 +87,12 @@ Text_engraver::do_process_requests ()
 	text->style_str_ = p;
       text->text_str_ = t->text_str_;
 
+      Scalar padding = get_property ("textScriptPadding", 0);
+      if (padding.length_i() && padding.isnum_b ())
+	{
+	  ss->padding_f_ = Real(padding);
+	}
+
       announce_element (Score_element_info (text, r));
       announce_element (Score_element_info (ss, r));
 
