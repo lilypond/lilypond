@@ -124,7 +124,7 @@ code(\interline / 5) by default.
 slur_x_gap = \interline / 5.0;
 slur_y_gap = 0.25 * \interline;
 slur_y_free = 0.75 * \interline;
-slur_x_minimum = 3.0 * \interline;
+slur_x_minimum = 1.5 * \interline;
 
 %{
 Like beams, slurs often aren't as steep as the notes they encompass.
@@ -145,7 +145,7 @@ slur_interstaff_snap_max_slope_change = 0.5;
 
 
 
-tie_x_minimum = \slur_x_minimum;
+tie_x_minimum = \interline + \slur_x_minimum;
 % OSU: tie gap == slur gap
 tie_x_gap = \slur_x_gap;
 tie_y_gap = 0.25 * \interline;
@@ -187,6 +187,15 @@ Maximum number of measures per line to try when using Gourlay
 method. Decreasing this greatly reduces computation time.  
 %}
 gourlay_maxmeasures = 10.;
+
+%{
+Gourlay is a better, TeX like algorithm for breaking lines.  Wordwrap is faster, but leaves
+really                      spaced                out                lines at the end
+%}
+
+Gourlay = 1.0;
+Wordwrap = 0.0;
+
 castingalgorithm = \Gourlay;
 
 %{ Ross. page 151 lists these values, but we think that thick lines
@@ -241,15 +250,37 @@ postBreakPadding = 0.0;
 stemSpacingCorrection = 0.5*\interline;
 
 
-% relative strength of space following  tprefatory matter, and inline clefs.
-non_musical_space_strength = 8.0; 
+%{
+ relative strength of space following breakable columns (eg. prefatory matter)
+ %}
+breakable_column_space_strength = 8.0; 
 
+% space after inline clefs and such get this much stretched
+decrease_nonmus_spacing_factor = 1.0 ;
 
-%If columns do not have spacing information set, set it to this much
+%{
+ space before musical columns (eg. taken by accidentals) get this much
+ stretched when they follow a musical column, in absence of grace notes.
+
+ 0.0 means no extra space (accidentals are ignored)
+%}
+musical_to_musical_left_spacing_factor = 0.4;
+
+%{
+ stretch space this much if there are grace notes before the column
+%}
+before_grace_spacing_factor = 1.2;
+
+%{
+If columns do not have spacing information set, set it to this much
+%}
 loose_column_distance = 2.0 * \interline;
 
 % if stem is on middle line, choose this direction.
 stem_default_neutral_direction = 1.0;
+
+% in interline
+articulation_script_padding_default = 1.0;
 
 \include "engraver.ly";
 
