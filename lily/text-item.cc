@@ -275,3 +275,15 @@ new_markup_brewer ()
 
   return proc;
 }
+
+
+Molecule
+Text_item::interpret_new_markup (SCM grob, SCM achain,
+				 SCM markup)
+{
+  static SCM proc;
+  if (!proc)
+    proc = scm_c_eval_string ("interpret-markup");
+  
+  return *unsmob_molecule (scm_call_3 (proc, grob, achain, markup));
+}

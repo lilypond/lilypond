@@ -107,7 +107,7 @@ rondo = \notes 	\relative c'
 	a4 ( c8-) f4 ( b,8-)
 	d4. ( c8-) r r
 	R2.*3| 
-	r4 r8 r4 c'8
+	r4 r8 r4 c8
 	b4( c8-) b4( c8-)
 	bes4. ~ bes4 g8
 	a4 c8  f-[ ( d-) b!]
@@ -115,8 +115,8 @@ rondo = \notes 	\relative c'
 	\mark "E"
 	R2.*9  |
 	\lipbreaker 
-	 c8-[ c' c] c4.~
-	 c8-[ c d]  e-[ e fis] 
+	c8-[ c' c] c4.~
+	c8-[ c d]  e-[ e fis] 
 	g4 r8 r4 r8
 	R2.
 	r8  g,-[ g]  g-[ g g] |
@@ -180,10 +180,6 @@ rondo = \notes 	\relative c'
 	% upstep, but both eulenburg and EB do this as well.
 	c4 r8 r4 r8 \bar "|."		
 }
-
-
- 
-
 
 \score
 {

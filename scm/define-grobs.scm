@@ -1156,6 +1156,7 @@
 	(molecule-callback . ,Tuplet_bracket::brew_molecule)
 	(font-family . roman)
 	(font-shape . italic)
+	(font-series . bold)
 
 	(font-relative-size . -1)
 	(meta .  ((interfaces . (text-interface tuplet-bracket-interface font-interface spanner-interface))))

@@ -1,9 +1,25 @@
+2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/tutorial.itely (An orchestral part): new
+	section on orchestral stuff and identifiers.
+
 2003-07-14  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: comment-out paren-highlighting, it still causes
 	some interference to other modes.
 
 2003-07-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/spacing-spanner.cc (musical_column_spacing): use average,
+	not maximum of spacing wishes in polyphonic situations.
+
+	* scm/define-grobs.scm (all-grob-descriptions): bold tuplet
+	number
+
+	* lilypond-indent.el: remove paren matching. 
+
+	* lily/text-item.cc (interpret_new_markup): new function
+	use iso. text2molecule.
 
 	* lily/main.cc (notice): change FSF address 
 

@@ -106,7 +106,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   SCM text = me->get_grob_property ("text");
   SCM properties = me->get_property_alist_chain (SCM_EOL);
 
-  Molecule num = Text_item::text2molecule (me, text, properties);
+  Molecule num = Text_item::interpret_new_markup (smob, properties, text);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
 		   - 1.0, 0);

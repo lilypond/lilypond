@@ -100,7 +100,8 @@ Text_spanner::brew_molecule (SCM smob)
 	  /*
 	    TODO: use markup.
 	   */
-	  edge[d] = Text_item::text2molecule (me, text, properties);
+	  
+	  edge[d] = Text_item::interpret_new_markup (smob, properties, text);
 	  if (!edge[d].empty_b ())
 	    edge[d].align_to (Y_AXIS, CENTER);
 	}
@@ -249,7 +250,9 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
 	      SCM text  =  textbit->get_grob_property("text"); 
 	      if (gh_string_p (text)) {
 		SCM properties = Font_interface::font_alist_chain (me);
-		Molecule mol = Text_item::text2molecule (me, text, properties);
+		
+		Molecule mol = Text_item::interpret_new_markup (me->self_scm (),
+								properties, text);
 		extra_short += mol.extent(X_AXIS).length() / 2;
 	      }
 	    }

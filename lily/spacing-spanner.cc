@@ -553,9 +553,10 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   bool expand_only = false;
   Real base_note_space = note_spacing (me, lc, rc, shortest, &expand_only);
 
-  Real max_note_space = -infinity_f;
-  Real max_fixed_note_space = -infinity_f;
-
+  Real compound_note_space = 0.0;
+  Real compound_fixed_note_space = 0.0;
+  int wish_count = 0;
+  
   SCM seq  = lc->get_grob_property ("right-neighbors");
 
   /*
@@ -581,8 +582,12 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 	  Real fixed =0.0;
 	  
 	  Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
-	  max_note_space = max_note_space >? space;
-	  max_fixed_note_space = max_fixed_note_space >? fixed;
+
+	  
+	  compound_note_space = compound_note_space + space;
+	  compound_fixed_note_space = compound_fixed_note_space + fixed;
+	  wish_count ++;
+	  
 	}
     }
 
@@ -592,13 +597,18 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
       /*
 	Ugh. 0.8 is arbitrary.
        */
-      max_note_space *= 0.8; 
+      compound_note_space *= 0.8; 
     }
   
-  if (max_note_space < 0)
+  if (compound_note_space < 0 || wish_count == 0)
     {
-      max_note_space = base_note_space;
-      max_fixed_note_space =  increment;
+      compound_note_space = base_note_space;
+      compound_fixed_note_space =  increment;
+    }
+  else
+    {
+      compound_note_space /= wish_count;
+      compound_fixed_note_space /= wish_count;
     }
 
   /*
@@ -608,7 +618,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
     TODO: this criterion is discontinuous in the derivative.
     Maybe it should be continuous?
   */
-  max_fixed_note_space = max_fixed_note_space <? max_note_space;
+  compound_fixed_note_space = compound_fixed_note_space <? compound_note_space;
 
   bool packed = to_boolean (me->get_paper ()->get_scmvar ("packed"));
   Real strength, distance;
@@ -628,12 +638,12 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 	line will then be stretched to fill the whole linewidth.
       */
       strength = 1.0;
-      distance = max_fixed_note_space;
+      distance = compound_fixed_note_space;
     }
   else
     {
-      strength = 1 / (max_note_space - max_fixed_note_space);
-      distance = max_note_space;
+      strength = 1 / (compound_note_space - compound_fixed_note_space);
+      distance = compound_note_space;
     }
 
   //  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
