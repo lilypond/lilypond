@@ -2,9 +2,6 @@ COMMENT(-*-text-*-)
 
 redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
-def(mycode)(1)(tt(ARG1))
-
-
 
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
@@ -52,7 +49,10 @@ latexcommand(\def\texttt#1{\tt #1})
 latexcommand(\def\textbf#1{\bf #1})
 )
 
+COMMENT(urg, texinfo include breaks)
+whenhtml(
 includefile(html-disclaimer.yo-urg)
+)
 
 bf(This document is not up to date).  All rendered examples of course
 are current, but the rest probably isn't.  Adjusting the tutorial was
@@ -849,6 +849,17 @@ The argument var(pitch) is
 the starting pitch for this comparision.  In the case of chords, the
 first note of a chord is used as the base for the pitches in the next
 chord.  
+
+Because transposing changes both note names and octaves relativizing
+transposed music doesn't make any sense.  If you want to transpose
+relative music, do code(\transpose var(pitch) \relative var(pitch)
+var(music)), i.e., first enter the music in relative mode, and then
+transpose it by prepending the code(\transpose) keyword.
+code(\relative var(pitch) \transpose var(pitch)) has no effect.
+
+For the same reason the first code(\relative) in code(\relative
+var(pitch1) \relative var(pitch2) var(music)) has no effect.
+
 
 dit(code(\score) var(statementlist)) Define music.
 
