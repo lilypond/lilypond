@@ -132,11 +132,6 @@ sarabandeA =  \context Voice \notes \relative c {
 }
 
 
-sarabande =  \context Staff \notes<
-  \apply #voicify-music \sarabandeA
-  
->
-
 sarabandeCelloGlobal =  \notes{
   \time 3/4
   \key f \major
@@ -157,7 +152,7 @@ sarabandeCelloStaff =  \context Staff <
   %%\notes c4*0-#(warn "FIXME: Setting beamed lengths")
   \property Staff.Stem \set #'beamed-lengths = #'(3.26)
   
-  \sarabande
+  \sarabandeA
   \sarabandeCelloGlobal
   \sarabandeCelloScripts
 >
