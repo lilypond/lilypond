@@ -118,8 +118,9 @@ melismata, and align lyrics accordingly.
 
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
-(translator-property-description 'barCheckNoSynchronize boolean? "If set, don't reset measurePosition when finding a bbarcheck. This
-makes bar-checks for polyphonic music easier.")
+(translator-property-description 'barCheckSynchronize boolean? "If
+true then reset measurePosition when finding a barcheck. Turn off when
+using barchecks in polyphonic music.")
 (translator-property-description 'barNonAuto boolean? " If set to true then bar lines will not be printed
     automatically; they must be explicitly created with @code{bar}
     keywords.  Unlike with the @code{cadenza} keyword, measures are
