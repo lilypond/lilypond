@@ -1,6 +1,6 @@
 % the space after clef/key is stretched too much.
 
-foo = \notes\relative c''   {   \key as \major; dis4 dis dis! dis? }
+foo = \notes\relative c''   {   \key as \major; d }
 
 \score {
 
