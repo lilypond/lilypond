@@ -14,21 +14,21 @@
 #include "warn.hh"
 
 /**
-Convert reqs to audio notes.
+Convert evs to audio notes.
 */
 class Note_performer : public Performer {
 public:
   TRANSLATOR_DECLARATIONS(Note_performer);
   
 protected:
-  virtual bool try_music (Music *req) ;
+  virtual bool try_music (Music *ev) ;
 
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
   Global_translator* get_global_translator ();
 
 private:
-  Link_array<Music> note_reqs_;
+  Link_array<Music> note_evs_;
   Link_array<Audio_note> notes_;
   Link_array<Audio_note> delayeds_;
 };
@@ -36,7 +36,7 @@ private:
 void 
 Note_performer::create_audio_elements ()
 {
-  if (note_reqs_.size ())
+  if (note_evs_.size ())
     {
       int transposing_i = 0;
       //urg
@@ -44,16 +44,16 @@ Note_performer::create_audio_elements ()
       if (gh_number_p (prop)) 
 	transposing_i = gh_scm2int (prop);
 
-      while (note_reqs_.size ())
+      while (note_evs_.size ())
 	{
-	  Music* n = note_reqs_.pop ();
+	  Music* n = note_evs_.pop ();
 	  Pitch pit =  * unsmob_pitch (n->get_mus_property ("pitch"));
 	  Audio_note* p = new Audio_note (pit,  n->get_length (), transposing_i);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
 	  notes_.push (p);
 	}
-      note_reqs_.clear ();
+      note_evs_.clear ();
     }
 }
 
@@ -100,7 +100,7 @@ Note_performer::stop_translation_timestep ()
       play_element (notes_[i]);
     }
   notes_.clear ();
-  note_reqs_.clear ();
+  note_evs_.clear ();
   for (int i=0; i < delayeds_.size (); i++)
     {
       Audio_note* n = delayeds_[i];
@@ -115,17 +115,21 @@ Note_performer::stop_translation_timestep ()
 }
  
 bool
-Note_performer::try_music (Music* req)
+Note_performer::try_music (Music* ev)
 {
-  if (req->is_mus_type ("note-event"))
+  if (ev->is_mus_type ("note-event"))
     {
-      note_reqs_.push (req);
+      note_evs_.push (ev);
       return true;
     }
+  else if (ev->is_mus_type ("busy-playing-event"))
+    return note_evs_.size ();
+  
   return false;
 }
 
-ENTER_DESCRIPTION(Note_performer,"","","note-event","","","");
+ENTER_DESCRIPTION(Note_performer,"","",
+		  "note-event busy-playing-event","","","");
 
 Note_performer::Note_performer()
 {
