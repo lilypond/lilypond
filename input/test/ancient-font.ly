@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.2"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -19,49 +19,49 @@ upperStaff = \context GregorianStaff = "upperStaff" <<
      \transpose c c {
 	\override Staff.KeySignature  #'style = #'vaticana
 	\override Staff.Accidental  #'style = #'vaticana
-	\override NoteHead  #'style = #'vaticana-punctum
+	\override NoteHead  #'style = #'vaticana.punctum
 	\key es \major
 	\clef "vaticana-fa2"
 	c!1 des! e! f! ges!
 
-	\override NoteHead  #'style = #'vaticana-inclinatum
+	\override NoteHead  #'style = #'vaticana.inclinatum
 	a! b! ces'
 	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 1 (8*1)
 
-	\override NoteHead  #'style = #'vaticana-quilisma
+	\override NoteHead  #'style = #'vaticana.quilisma
 	b! des'! ges! fes!
 	\breathe
 	\clef "vaticana-fa1"
-	\override NoteHead  #'style = #'vaticana-plica
+	\override NoteHead  #'style = #'vaticana.plica
 	es d
-	\override NoteHead  #'style = #'vaticana-reverse-plica
+	\override NoteHead  #'style = #'vaticana.reverse.plica
 	c d
 	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break %2 (8*1)
 
-	\override NoteHead  #'style = #'vaticana-punctum-cavum
+	\override NoteHead  #'style = #'vaticana.punctum.cavum
 	es f
-	\override NoteHead  #'style = #'vaticana-lpes
+	\override NoteHead  #'style = #'vaticana.lpes
 	g as
-	\override NoteHead  #'style = #'vaticana-upes
+	\override NoteHead  #'style = #'vaticana.upes
 	bes as
-	\override NoteHead  #'style = #'vaticana-vupes
+	\override NoteHead  #'style = #'vaticana.vupes
 	g f
-	\override NoteHead  #'style = #'vaticana-linea-punctum
+	\override NoteHead  #'style = #'vaticana.linea.punctum
 	\override Staff.BarLine  #'bar-size = #2.0 \bar "|"
 %	\break % 3 (8*1)
 
 	es d
-	\override NoteHead  #'style = #'vaticana-epiphonus
+	\override NoteHead  #'style = #'vaticana.epiphonus
 	c d
-	\override NoteHead  #'style = #'vaticana-cephalicus
+	\override NoteHead  #'style = #'vaticana.cephalicus
 	es f
 
 	\override Staff.KeySignature  #'style = #'medicaea
 	\override Staff.Accidental  #'style = #'medicaea
 	\override Staff.Custos  #'style = #'medicaea
-	\override NoteHead  #'style = #'medicaea-punctum
+	\override NoteHead  #'style = #'medicaea.punctum
 	\clef "medicaea-fa2"
 	ces! des!
 	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
@@ -69,39 +69,39 @@ upperStaff = \context GregorianStaff = "upperStaff" <<
 
 	e! f! ges!
 	\clef "medicaea-do2"
-	\override NoteHead  #'style = #'medicaea-inclinatum
+	\override NoteHead  #'style = #'medicaea.inclinatum
 	a! b! ces'!
-	\override NoteHead  #'style = #'medicaea-virga
+	\override NoteHead  #'style = #'medicaea.virga
 	b! a!
 	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 5 (8*1)
 
 	ges! fes!
 	\clef "medicaea-fa1"
-	\override NoteHead  #'style = #'medicaea-rvirga
+	\override NoteHead  #'style = #'medicaea.rvirga
 	e! des! ces!
 
 	\override Staff.KeySignature  #'style = #'hufnagel
 	\override Staff.Accidental  #'style = #'hufnagel
 	\override Staff.Custos  #'style = #'hufnagel
-	\override NoteHead  #'style = #'hufnagel-punctum
+	\override NoteHead  #'style = #'hufnagel.punctum
 	\clef "hufnagel-fa2"
 	ces! des! es!
-	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
+	\override Staff.BarLine  #'bar.size = #3.0 \bar "|"
 %	\break % 6 (8*1)
 
 	fes! ges!
 	\clef "hufnagel-do2"
-	\override NoteHead  #'style = #'hufnagel-lpes
+	\override NoteHead  #'style = #'hufnagel.lpes
 	as! bes! ces'!
-	\override NoteHead  #'style = #'hufnagel-virga
+	\override NoteHead  #'style = #'hufnagel.virga
 	bes! as!
 	\override Staff.BarLine  #'bar-size = #3.0 \bar "|"
 %	\break % 7 (8*1)
 
 	ges! fes!
-	\clef "hufnagel-do-fa"
-	\override NoteHead  #'style = #'hufnagel-punctum
+	\clef "hufnagel.do.fa"
+	\override NoteHead  #'style = #'hufnagel.punctum
 	es! des! ces! des! es! fes!
 	\bar "||"
 %	\break % 8 (8*1)
@@ -248,7 +248,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
 %	    \consists Gregorian_ligature_engraver %%%%%%%% TODO: not yet implemented
-	    \override NoteHead #'style = #'vaticana-punctum
+	    \override NoteHead #'style = #'vaticana.punctum
 	    autoBeaming = ##f
 	}
 	\context {
@@ -263,7 +263,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
 	    \override Custos #'neutral-direction = #-1
-	    clefGlyph = #"clefs-petrucci-c2"
+	    clefGlyph = #"clefs.petrucci-c2"
 	    clefPosition = #-2
 	    clefOctavation = #0 
 	}
@@ -281,7 +281,7 @@ lowerStaff = \context MensuralStaff = "lowerStaff" <<
 	    \override Custos #'style = #'vaticana
 	    \override Custos #'neutral-position = #4
 	    \override Custos #'neutral-direction = #-1
-	    clefGlyph = #"clefs-vaticana-do"
+	    clefGlyph = #"clefs.vaticana-do"
 	    clefPosition = #1
 	    clefOctavation = #0 
 	}

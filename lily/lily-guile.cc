@@ -195,7 +195,7 @@ LY_DEFINE (ly_warn, "ly:warn",
   progress_indication ("\n");
 
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  warning ("lily-guile: " + ly_scm2string (str));
+  warning (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
