@@ -93,8 +93,6 @@ Bar_engraver::do_creation_processing ()
 {
   create_bar ();
   bar_p_->type_str_ = "";
-  Scalar prop = get_property ("barAuto", 0);
-  auto_create_bar_b_ = prop.to_bool ();
 }
 
 void
@@ -123,13 +121,12 @@ Bar_engraver::do_process_requests()
     }
   else 
     {
-      Scalar always = get_property ("barAlways", 0);
-      if ((time && !time->whole_in_measure_) || always.to_bool ())
+      Scalar nonauto = get_property ("barNonAuto", 0);
+      if (!nonauto.to_bool ())
 	{
-	  if (auto_create_bar_b_)
+	  Scalar always = get_property ("barAlways", 0);
+	  if ((time && !time->whole_in_measure_) || always.to_bool ())
 	    create_bar ();
-	  Scalar prop = get_property ("barAuto", 0);
-	  auto_create_bar_b_ = prop.to_bool ();
 	}
     }
   

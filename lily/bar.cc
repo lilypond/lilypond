@@ -25,7 +25,7 @@ void
 Bar::do_print () const
 {
 #ifndef NPRINT
-  DOUT << type_str_;
+    //  DOUT << type_str_; "{[" confuse  indenter.
 #endif
 }
 

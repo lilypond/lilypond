@@ -11,11 +11,6 @@
 #include "multi-measure-rest-engraver.hh"
 #include "score-column.hh"
 #include "time-description.hh"
-//#include "paper-score.hh"
-//#include "p-score.hh"
-//#include "paper-def.hh"
-//#include "main.hh"
-//#include "global-translator.hh"
 #include "bar.hh"
 
 

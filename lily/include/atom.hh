@@ -15,7 +15,8 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-#if 0
+#ifdef ATOM_SMOB
+
 /// a symbol which can be translated, and freely copied
 class Atom {
   static long smob_tag_;
@@ -23,10 +24,10 @@ class Atom {
   static SCM smob_mark (SCM);
   static scm_sizet smob_free (SCM);
   static int smob_display (SCM, SCM, scm_print_state*);
-  Atom (SCM s);
   SCM make_smob () const;
 public:
   Offset off_;
+  Atom (SCM s);
 
   static SCM make_atom (SCM outputfunc);
   SCM copy_self () const;

@@ -3,14 +3,15 @@ Converted from star.mup with the aid of mup-to-ly.py
 http://www.Arkkra.com/doc/star.html
 http://www.Arkkra.com/doc/star.ps
 %}
+
 \header{
-title="The Star Spangled Banner";
-subtitle="(The United States National Anthem)";
-poet="Text by Francis Scott Key";
-composer="J. S. Smith";
-arranger="Arranged by William J. Krauss";
-enteredby="jcn";
-copyright="public domain";
+	title="The Star Spangled Banner";
+	subtitle="The United States National Anthem";
+	poet="Text by Francis Scott Key";
+	composer="J. S. Smith";
+	arranger="Arranged by William J. Krauss";
+	enteredby="jcn";
+	copyright="public domain";
 }
 
 $staff1_voice_1 = \notes {
@@ -56,14 +57,16 @@ $staff2_voice_2 = \notes {
   g8. g16 fis4.~a,8 d8 e8 fis2 b8 b8 a4. a8 a,4 d2 s4 
 }
 
-$text = \lyrics{
-  Oh4 __ \repeat 2 { }
+text = \lyrics
+\type LyricVoice { Oh4 __ \repeat 2 { }
   \alternative < 
-  { say. can you see,2 by8. the16 dawn's4 ear- ly light2 What8
-  so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
-  ing. Whose8. broad16 }
-  { stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
-  O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly }
+     { say. can you see,2 by8. the16 dawn's4 ear- ly light2 What8
+    so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
+    ing. Whose8. broad16 }
+
+    \type LyricVoice = LVB
+    { stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
+    O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly }
   >
   stream-4 ing. And8. the16 rock-4 ets' red glare,2 the8 bombs8
   burst-4 ing in air,2 gave4 proof4. through8 the4 night2 that8.
@@ -92,9 +95,7 @@ global = \notes {
 			\notes \transpose c'' {\voiceone \$staff1_voice_1 } 
 			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
-		\type Lyrics = one \lyrics <
-			\$text
-		>
+		\type Lyrics = one \text
 		\type Staff=staffB < 
 			\global
 			\clef bass;

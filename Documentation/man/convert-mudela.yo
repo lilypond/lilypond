@@ -29,7 +29,7 @@ manpagesynopsis()
 manpageoptions()
 description(
 dit(--output)
-    The output file to write
+    The output file to write [FIXME, doesn't work]
 dit(--edit)
     Do an inline edit of the input file. override @samp{--output}
 dit(--show-rules)
@@ -39,7 +39,7 @@ dit(--from=FROM_PATCHLEVEL)
     guess this, on the basis of code(\version) strings in the file
 dit(--to=TO_PATCHLEVEL)
     Set the goal version of the conversion. It defaults to the latest
-    available version.  
+    available version.
 )
 
 manpagesection(BUGS)

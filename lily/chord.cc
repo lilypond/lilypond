@@ -72,17 +72,12 @@ trap_i (Musical_pitch tonic, Musical_pitch p)
 static Array<Musical_pitch>
 missing_triads_pitch_arr (Array<Musical_pitch>const* pitch_arr_p)
 {
-  Musical_pitch third (2);
-  Musical_pitch mthird (2, -1);
-
   Array<Musical_pitch> triads;
-  triads.push (third);   // c e 
-  triads.push (mthird);  // d f 
-  triads.push (mthird);  // e g 
-  triads.push (third);   // f a 
-  triads.push (third);   // g b 
-  triads.push (mthird);  // a c 
-  triads.push (mthird);  // b d 
+
+  /* is the third c-e, d-f, etc. small or large? */
+  int minormajor_a[] = {0, -1, -1, 0,0,-1,-1};
+  for (int i=0; i < 7; i++)
+    triads.push (Musical_pitch( 2, minormajor_a[i]));
 
   Musical_pitch tonic = (*pitch_arr_p)[0];
   Musical_pitch last = tonic;
@@ -278,14 +273,11 @@ Chord::banter_str (Musical_pitch* inversion) const
   Array<Musical_pitch> sub_arr;
   find_additions_and_subtractions (&add_arr, &sub_arr);
 			   
+
   Array<Musical_pitch> scale;
-  scale.push (Musical_pitch (0)); // c
-  scale.push (Musical_pitch (1)); // d
-  scale.push (Musical_pitch (2)); // e
-  scale.push (Musical_pitch (3)); // f
-  scale.push (Musical_pitch (4)); // g
-  scale.push (Musical_pitch (5)); // a
-  scale.push (Musical_pitch (6)); // b
+  for (int i=0; i < 7; i++)
+    scale.push (Musical_pitch (i));
+
   // 7 always means 7-...
   //  scale.push (Musical_pitch (6, -1)); // b
 

@@ -180,8 +180,10 @@
     (define minht (* 2 mudelapaperstaffheight))
     (define maxht (* 7 minht))
     (string-append
-     "{\\bracefont " (char  (/  (- (min y (- maxht step)) minht)   step)) "}"))
-  
+     "{\\bracefont " (char (max
+			    0
+			    (/  (- (min y (- maxht step)) minht) step))) "}"))
+
 
 
   (define (rulesym h w) 

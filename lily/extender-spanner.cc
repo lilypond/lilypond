@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 
@@ -14,7 +14,6 @@
 #include "p-col.hh"
 #include "paper-def.hh"
 #include "extender-spanner.hh"
-#include "text-def.hh"
 
 Extender_spanner::Extender_spanner ()
   : Directional_spanner ()

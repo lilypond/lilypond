@@ -126,6 +126,9 @@ Auto_beam_engraver::consider_end_and_begin ()
 	begin_mom = begin_mult.to_rat ();
     }
 
+  /* UGH
+     Rational != Float
+  */
   Real f;
   if (end_mom)
     f = fmod (time->whole_in_measure_, end_mom);

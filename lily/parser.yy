@@ -91,6 +91,7 @@ Paper_def* current_paper = 0;
 %union {
     Array<Interval>* intarr;
     Array<Musical_pitch> *pitch_arr;
+    Link_array<Request> *reqvec;
     Array<String> * strvec;
     Array<int> *intvec;
     Notename_table *chordmodifiertab;
@@ -222,7 +223,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <outputdef> output_def
 %type <scope> 	mudela_header mudela_header_body
-%type <i>	open_request_parens close_request_parens
+%type <request>	open_request_parens close_request_parens open_request close_request
 %type <i>	sub_quotes sup_quotes
 %type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
@@ -234,6 +235,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <intvec>	intastint_list int_list
+%type <reqvec>  pre_requests post_requests
 
 %type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
 %type <pitch>   steno_tonic_pitch
@@ -866,8 +868,13 @@ scalar:
 
 request_chord:
 	pre_requests simple_element post_requests	{
-	 	THIS->add_requests ((Simultaneous_music*)$2);//ugh
+		Music_sequence *l = dynamic_cast<Music_sequence*>($2);
+		for (int i=0; i < $1->size(); i++)
+			l->add_music ($1->elem(i));
+		for (int i=0; i < $3->size(); i++)
+			l->add_music ($3->elem(i));
  		$$ = $2;
+		
 	}
 	| command_element
 	;
@@ -887,7 +894,10 @@ command_req:
 	;
 
 abbrev_command_req:
-	'|'				{
+	extender_req {
+		$$ = $1;
+	}
+	| '|'				{
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
@@ -975,23 +985,14 @@ verbose_command_req:
 
 post_requests:
 	{
-		/* something silly happened.  Junk this stuff*/
-		if (!THIS->post_reqs.empty ())
-		{
-			warning ("Junking post-requests");
-			THIS->post_reqs.clear ();
-		}
+		$$ = new Link_array<Request>;
 	}
 	| post_requests structured_post_request {
 		$2->set_spot (THIS->here_input ());
-		THIS->post_reqs.push ($2);
+		$$->push ($2);
 	}
-	| post_requests close_request_parens	{
-		Link_array<Request> *r = THIS->get_parens_request ($2);
-		for (int i = 0; i < r->size (); i++ )
-			r->elem (i)->set_spot (THIS->here_input ());
-		THIS->post_reqs.concat (*r);
-		delete r;
+	| post_requests close_request	{
+		$$->push ($2);
 	}
 	;
 
@@ -1012,9 +1013,7 @@ post_request:
 		a->type_i_ = $1;
 		$$ = a;
 	}
-	| extender_req {
-		$$ = $1;
-	}
+
 	;
 
 optional_modality:
@@ -1034,6 +1033,7 @@ sup_quotes:
 		$$ ++;
 	}
 	;
+
 sub_quotes:
 	',' {
 		$$ = 1;
@@ -1122,11 +1122,9 @@ extender_req:
 	EXTENDER {
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
-		Extender_req * e_p = new Extender_req;
-		e_p->spantype_ = START;
-		$$ = e_p;
-		THIS->extender_req = e_p;
-	};
+		$$ = new Extender_req;
+	}
+	;
 
 dynamic_req:
 	ABSDYNAMIC '{' STRING '}'	{
@@ -1137,34 +1135,52 @@ dynamic_req:
 	}
 	| SPANDYNAMIC '{' int int '}' {
 		Span_dynamic_req * sp_p = new Span_dynamic_req;
-		sp_p->spantype_ = (Direction)$4;
-		sp_p-> dynamic_dir_  = (Direction)$3;
+		sp_p-> dynamic_dir_  = Direction($3);
+		sp_p->spantype_ = Direction($4);
 		$$ = sp_p;
 	}
 	;
 
 
-
+close_request:
+	close_request_parens {
+		$$ = $1;
+		dynamic_cast<Span_req*> ($$)->spantype_ = START;
+	}
+	
 close_request_parens:
 	'('	{
-		$$='(';
+		$$= new Slur_req;
 	}
 	| E_SMALLER {
-		$$ = '<';
+		Span_dynamic_req*s =new Span_dynamic_req;
+		$$ = s;
+		s->dynamic_dir_ = SMALLER;
 	}
 	| E_BIGGER {
-		$$ = '>';
+		Span_dynamic_req*s =new Span_dynamic_req;
+		$$ = s;
+		s->dynamic_dir_ = BIGGER;
 	}
 	;
 
 
+open_request:
+	open_request_parens {
+		$$ = $1;
+		dynamic_cast<Span_req*> ($$)->spantype_ = STOP;
+	}
+	;
 
 open_request_parens:
 	E_EXCLAMATION 	{
-		$$ = '!';
+		Span_dynamic_req *s =  new Span_dynamic_req;
+		s->dynamic_dir_ = SMALLER;
+		$$ = s;
+		
 	}
 	| ')'	{
-		$$=')';
+		$$= new Slur_req
 	}
 	;
 
@@ -1258,21 +1274,10 @@ script_dir:
 
 pre_requests:
 	{
-		if (THIS->extender_req)
-		  {
-		    Extender_req * e_p = new Extender_req;
-		    e_p->spantype_ = STOP;
-		    THIS->pre_reqs.push (e_p);
-		    THIS->extender_req = 0;
-		  }
-			
+		$$ = new Link_array<Request>;
 	}
-	| pre_requests open_request_parens {
-		Link_array<Request>* r = THIS->get_parens_request ($2);
-		for (int i = 0; i < r->size (); i++ )
-			r->elem (i)->set_spot (THIS->here_input ());
-		THIS->pre_reqs.concat (*r);
-		delete r;
+	| pre_requests open_request {
+		$$->push ($2);
 	}
 	;
 

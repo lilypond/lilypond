@@ -36,6 +36,8 @@ Tie_engraver::acknowledge_element (Score_element_info i)
   if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
     {
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
+      if (!m)
+	return;
       now_heads_.push (CHead_melodic_tuple (nh, m, now_mom()+ m->length_mom ()));
     }
 }
@@ -52,7 +54,6 @@ Tie_engraver::do_process_requests ()
       while (past_notes_pq_.size ()
 	     && past_notes_pq_.front ().end_ == now)
 	stopped_heads_.push (past_notes_pq_.get ());
-
     }
 }
 

@@ -4,31 +4,29 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1998,1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "hara-kiri-vertical-group-spanner.hh"
 #include "debug.hh"
-#include "note-head.hh"
-#include "bar.hh"
-
-
+#include "item.hh"
 
 Hara_kiri_vertical_group_spanner::Hara_kiri_vertical_group_spanner()
 {
 }
 
 void 
-Hara_kiri_vertical_group_spanner::add_note (Note_head* n)
+Hara_kiri_vertical_group_spanner::add_interesting_item (Item* n)
 {
   add_dependency (n);
-  head_l_arr_.push (n);
+  interesting_items_.push (n);
 }
 
 void 
 Hara_kiri_vertical_group_spanner::do_post_processing ()
 {
-  if (!head_l_arr_.empty ())
+  if (!interesting_items_.empty ())
     return;
 
   Link_array<Score_element> childs = get_children ();
@@ -43,9 +41,8 @@ Hara_kiri_vertical_group_spanner::do_post_processing ()
 void
 Hara_kiri_vertical_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  if (dynamic_cast<Note_head *> (o))
-    head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
-      (n)? dynamic_cast<Note_head *> (n) : 0);
+  if (Item *it = dynamic_cast<Item *> (o))
+    interesting_items_.substitute (it, dynamic_cast<Item *> (n));
 }
 
 

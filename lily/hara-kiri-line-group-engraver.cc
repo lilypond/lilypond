@@ -3,12 +3,10 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1998 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998, 1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "staff-sym.hh"
-#include "command-request.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "hara-kiri-vertical-group-spanner.hh"
 #include "hara-kiri-line-group-engraver.hh"
 
@@ -24,10 +22,10 @@ Hara_kiri_line_group_engraver::create_line_spanner ()
 void
 Hara_kiri_line_group_engraver::typeset_element(Score_element * e)
 {
-  if (Note_head *h = dynamic_cast<Note_head *> (e))
+  if (Rhythmic_head *h = dynamic_cast<Rhythmic_head *> (e))
     {
       dynamic_cast<Hara_kiri_vertical_group_spanner*> (staffline_p_)
-	->add_note  (h);
+	->add_interesting_item (h);
     }
   Line_group_engraver_group::typeset_element (e);
 }

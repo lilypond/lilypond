@@ -10,9 +10,53 @@ grep for TODO and ugh/ugr/urg
 
 .* BUGS
 . * .ly files
+.  * input/star-spangled-banner
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * input/test/grace
-.  * fix: text on rests: rediculous dims
+.  * fix: text on rests: ridiculous dims
+. * m=\notes\relative c''{
+
+c1 | \break
+R1*5 |
+r2 r4 \bar "||"; \break r |
+c2 c |
+}
+
+\score{
+  \type StaffGroup <
+      \type Staff = staffi {\m}
+      \type Staff = staffii {\m}
+    >
+}
+. * m=\notes\relative c'''{
+  \time 2/4;
+
+  R2*4 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | \break
+  <{R2*10}{s2 \mark "A"; }> | % Too narrow space for the first rest in
+1.1.29
+  r4 r8 [g16 \p ( a ] |
+[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
+[ ) f8-. e16 ( f ][ ) e8-. es16 ( f ] |
+[ ) es8 \f c16 ( d][es8 d16 c ] |
+) d4 r8 [g16 \p ( a ] |
+[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] | \break
+) c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 | c2 |
+}
+
+\score{
+  \m
+  \paper{
+    \translator{
+      \ScoreContext
+      SkipBars = 1;
+    }
+    \translator {
+      \OrchestralPartStaffContext
+    }
+  }
+}
+. * - Look at input/test/span-bars.ly. The staff lines extend too far
+  to the left on the note systems including the GrandStaff.
 . * fix midi output:
 .  * default duration?  d
      duration must be not entered explicitely on first note.
@@ -28,21 +72,7 @@ grep for TODO and ugh/ugr/urg
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * fix "I've been drinking too much"
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
-. * remove old preformats in RPM
 . * minVerticalAlign for StaffGroups.
-. * I have tried the barAuto property to get barlines when
-typesetting rhythms. Lily prints all barlines except 
-between first and second bar. Where is my mistake??
-
-\score{
-  \type RhythmicStaff<
-    \property RhythmicStaff.barAuto=1
-    \notes{ 
-      \time 3/4;
-        c4 c c | c c c | c c c
-    }
-  > 
-}
 . * declaring \score	
 . * is \break broken? input/test/hara-kiri.ly
 . * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
@@ -55,19 +85,17 @@ specify the third.  Should there be?
 
 .* TODO before 1.2
 . * Check gcc 2.8.1 compatibility
+. * make "in-between" engraver (Tie, Extender)
 . * use Drul_array for Interval.
 . * ties to tie only notes of the same pitch, so that
-> 	< a~  a,>  a
-> works as you'd expect it to.
+ 	< a~  a,>  a
+works as you'd expect it to.
 . * 1. Can Lily be told where to start numbering?
-. * The timpani part has rests the full first line. Is it possible
-   to force lilypond to print all parts on the first page of the score
-   but use the hara-kiri mechanism on the remaining pages?
 . * do scaled fonts.
 . * profile atom smobs
 . * Try to use Killing_cons iso. Pointer_list
 . * make dependencies () a virtual function.
-. * fix Repeated_music_iterator::ok() (constness.)
+. * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
 . * Don't use boolean properties (0,1), instead check existence
 of property.
@@ -98,30 +126,6 @@ general length.  Of course, in the example above I can use \breve.
 But what if I want a chord that lasts for 3 whole notes?  Or what
 about 2.5 whole notes?  Is there a mechanism for getting this kind of
 length?  
-
-
-Why does my second extender request get junked in the following:
-
-\score{
-< \notes \relative c''{ 
-     a4()b()c()d c()d()b()a }
-   \type Lyrics \lyrics {
-     foo1 __  bar2. __ _4 }
-> }
-
-It seems that \cr and \decr don't work any more.  
-
-\score{
-  \notes{
-    a \cr b \rc c }
-  \paper{linewidth=-1.;}
-}
-
-Gives me 
-
-qq.ly:3:9: warning: can't find (de)crescendo to end:
-    a \cr
-          b \rc c }
 
 
 
