@@ -1,6 +1,8 @@
 2004-09-13  Graham Percival  <gperlist@shaw.ca>
 
-	* scm/scripts.scm: change behaviour of slur and accent.
+	* scm/script.scm: change behaviour of slur and accent.
+
+	* Documentation/user/music-glossary.tely: de-gender a few entires.
 
 2004-09-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
