@@ -221,9 +221,35 @@ sub copy_txt_file
     if (! $f =~ /.txt$/) {
 	$d = "$f.txt";
     }
-    print $f, $d;
+    print, $d;
 }
     
+sub top_of_NEWS
+{
+    open NEWS, "NEWS.txt";
+    input_record_separator NEWS "****";
+    $desc = <NEWS>;
+    chop ($desc);
+    close NEWS;
+
+    return $desc;
+}
+
+sub edit_index
+{
+    $ton = top_of_NEWS();
+    $ton = "\n<XMP>\n$ton\n</XMP>\n";
+    open INDEX, "index.html";
+    input_record_separator NEWS undef;
+    $index = <INDEX>;
+    close INDEX;
+    $index =~ s/top_of_NEWS/$ton/;
+    open INDEX, ">index.html";
+    print INDEX $index;
+    close INDEX;
+}
+
+
 sub copy_files
 {  
     print "copying files\n";
@@ -302,6 +328,7 @@ sub main
 
     gen_html;
     copy_files;
+
     if (! $opt_noexamples) {
 	gen_examples;
 	gen_list;
@@ -310,6 +337,7 @@ sub main
     set_images;
 
     edit_html;
+    edit_index;
     docxx_update;
     do_tar;
 }
