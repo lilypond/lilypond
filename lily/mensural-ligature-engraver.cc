@@ -341,8 +341,15 @@ Mensural_ligature_engraver::transform_heads ()
     Grob_info info = primitives_[i];
     int duration_log =
       Note_head::get_balltype (dynamic_cast<Item*> (info.grob_));
-    Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
-    if (!nr)
+
+    Music * nr = info.music_cause ();
+    
+
+    /*
+
+    ugh. why not simply check for pitch? 
+     */
+    if (!nr->is_mus_type ("note-event"))
       {
 	info.music_cause ()->origin ()->warning (_f ("can not determine pitch of ligature primitive -> skipping"));
 	i++;
@@ -395,10 +402,8 @@ Mensural_ligature_engraver::transform_heads ()
 
 void set_delta_pitch (Item *primitive, Grob_info info1, Grob_info info2)
 {
-  Note_req *nr1 = dynamic_cast<Note_req*> (info1.music_cause ());
-  Note_req *nr2 = dynamic_cast<Note_req*> (info2.music_cause ());
-  Pitch pitch1 = *unsmob_pitch (nr1->get_mus_property ("pitch"));
-  Pitch pitch2 = *unsmob_pitch (nr2->get_mus_property ("pitch"));
+  Pitch pitch1 = *unsmob_pitch (info1.music_cause ()->get_mus_property ("pitch"));
+  Pitch pitch2 = *unsmob_pitch (info2.music_cause ()->get_mus_property ("pitch"));
   int delta_pitch = (pitch2.steps () - pitch1.steps ());
   primitive->set_grob_property ("delta-pitch", gh_int2scm (delta_pitch));
 }
@@ -510,8 +515,7 @@ Mensural_ligature_engraver::join_primitives ()
   for (int i = 0; i < primitives_.size (); i++)
     {
       Grob_info info = primitives_[i];
-      Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
-      Pitch pitch = *unsmob_pitch (nr->get_mus_property ("pitch"));
+      Pitch pitch = *unsmob_pitch (info.music_cause ()->get_mus_property ("pitch"));
       if (i > 0)
         {
 	  Item *primitive = dynamic_cast<Item*> (info.grob_);

@@ -20,7 +20,7 @@ struct Grob_pitch_tuple {
   Moment end_;
 
   Grob_pitch_tuple ();
-  Grob_pitch_tuple (Grob*, Melodic_req*, Moment);
+  Grob_pitch_tuple (Grob*, Music*, Moment);
   static int pitch_compare (Grob_pitch_tuple const &, Grob_pitch_tuple const &);
   static int time_compare (Grob_pitch_tuple const &, Grob_pitch_tuple const &);  
 };

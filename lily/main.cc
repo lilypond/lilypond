@@ -340,10 +340,10 @@ main_prog (void *, int, char **)
     dirinfo (stderr);
   
   ly_init_guile ();
+  call_constructors ();
 
   progress_indication ("\n");
 
-  call_constructors ();
   all_fonts_global = new All_font_metrics (global_path.string ());
 
   init_scheme_code_string += ")";

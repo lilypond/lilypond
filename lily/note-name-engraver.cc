@@ -16,7 +16,7 @@ class Note_name_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS(Note_name_engraver);
 
-  Link_array<Note_req> reqs_;
+  Link_array<Music> reqs_;
   Link_array<Item> texts_;
   virtual bool  try_music (Music*m);
   virtual void process_acknowledged_grobs ();
@@ -26,9 +26,9 @@ public:
 bool
 Note_name_engraver::try_music (Music *m)
 {
-  if (Note_req *r = dynamic_cast<Note_req* > (m))
+  if (m->is_mus_type ("note-event"))
     {
-      reqs_.push (r);
+      reqs_.push (m);
       return true;
     }
   return false;

@@ -92,12 +92,11 @@ Porrectus_engraver::acknowledge_grob (Grob_info info_)
 {
   if (Rhythmic_head::has_interface (info_.grob_))
     {
-      Note_req *note_req_ = dynamic_cast <Note_req *> (info_.music_cause ());
-      if (!note_req_)
-	return;
-      right_heads_.push (Grob_pitch_tuple (info_.grob_, note_req_,
-					      now_mom () +
-					      note_req_->length_mom ()));
+      Music * m = info_.music_cause ();
+      if (m->is_mus_type ("note-event"))
+	right_heads_.push (Grob_pitch_tuple (info_.grob_, m,
+					     now_mom () +
+					     m->length_mom ()));
     }
 }
 

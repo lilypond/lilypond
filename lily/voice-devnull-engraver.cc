@@ -60,7 +60,7 @@ Voice_devnull_engraver::try_music (Music *m)
 	    }
 	}
       /* Ugh.  Should eat other requests, script etc. too. */  
-      else if (dynamic_cast<Tie_req*> (m))
+      else if (m->is_mus_type ("tie-event"))
 	return true;
     }
   return false;
@@ -123,7 +123,7 @@ Voice_devnull_engraver::Voice_devnull_engraver(){}
 ENTER_DESCRIPTION(Voice_devnull_engraver,
 /* descr */       "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set.",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "general-music tie-event",
 /* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

@@ -14,6 +14,7 @@
 #include "scm-hash.hh"
 #include "translator-def.hh"
 #include "main.hh"
+#include "music.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator (s)
@@ -160,18 +161,6 @@ Translator_group::find_create_translator (String n, String id)
       ret =0;
     }
   return ret;
-}
-
-bool
-Translator_group::try_music_on_nongroup_children (Music *m)
-{
-  bool hebbes_b =false;
-  
-  for (SCM p = simple_trans_list_; !hebbes_b && gh_pair_p (p); p = ly_cdr (p))
-    {
-      hebbes_b = unsmob_translator (ly_car (p))->try_music (m);
-    }
-  return hebbes_b;
 }
 
 bool
@@ -399,6 +388,8 @@ Translator_group::do_announces ()
 void
 Translator_group::initialize ()
 {
+  SCM tab = scm_make_vector (gh_int2scm (19), SCM_BOOL_F);
+  set_property ("acceptHashTable", tab);
   each (&Translator::initialize);
 }
 
@@ -408,31 +399,57 @@ Translator_group::finalize ()
   each (&Translator::removal_processing);
 }
 
-LY_DEFINE(ly_get_context_property,
-	  "ly-get-context-property", 2, 0, 0,
-	  (SCM context, SCM name),
-	  "retrieve the value of @var{sym} from context @var{tr}")
-{
-  Translator *t = unsmob_translator (context);
-  Translator_group* tr=   dynamic_cast<Translator_group*> (t);
-  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Translator group");
-  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
-  return tr->internal_get_property (name);
-  
+
+bool translator_accepts_any_of (Translator*tr, SCM ifaces)
+{
+  SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
+			   tr->translator_description());
+  ack_ifs = gh_cdr (ack_ifs);
+  for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
+    if (scm_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)
+      return true;
+  return false;
 }
 
-LY_DEFINE(ly_set_context_property,
-	  "ly-set-context-property", 3, 0, 0,
-	  (SCM context, SCM name, SCM val),
-	  "set value of property @var{sym} in context @var{tr} to @var{val}.
-")
+SCM
+find_accept_translators (SCM gravlist, SCM ifaces)
 {
-  Translator *t = unsmob_translator (context);
-  Translator_group* tr=   dynamic_cast<Translator_group*> (t);
+  SCM l = SCM_EOL;
+  for (SCM s = gravlist; ly_pair_p (s);  s = ly_cdr (s))
+    {
+      Translator* tr = unsmob_translator (ly_car (s));
+      if (translator_accepts_any_of (tr, ifaces))
+	l = scm_cons (tr->self_scm (), l); 
+    }
+  l = scm_reverse_x (l, SCM_EOL);
 
-  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
-  tr->internal_set_property (name, val);
+  return l;
+}
 
-  return SCM_UNSPECIFIED;
+bool
+Translator_group::try_music_on_nongroup_children (Music *m )
+{
+  SCM tab = get_property ("acceptHashTable");
+  SCM name = scm_assq ( ly_symbol2scm ("name"), m->get_property_alist (false));
+
+  if (!gh_pair_p (name))
+    return false;
+
+  name = gh_car (name);
+  SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
+  if (accept_list == SCM_BOOL_F)
+    {
+      accept_list = find_accept_translators (simple_trans_list_,
+					     m->get_mus_property ("types"));
+      scm_hashq_set_x (tab, name, accept_list);
+    }
+
+  for (SCM p = accept_list; gh_pair_p (p); p = ly_cdr (p))
+    {
+      Translator * t = unsmob_translator (ly_car (p));
+      if (t && t->try_music (m))
+	return true;
+    }
+  return false;
 }

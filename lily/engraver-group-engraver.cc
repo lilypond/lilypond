@@ -65,6 +65,8 @@ acks.
 
 */
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
+SCM find_accept_engravers (SCM gravlist, SCM music_descr);
+
 void
 Engraver_group_engraver::acknowledge_grobs ()
 {
@@ -163,7 +165,11 @@ Engraver_group_engraver::process_music ()
 void
 Engraver_group_engraver::initialize ()
 {
-  SCM tab = scm_make_vector (gh_int2scm (61), SCM_BOOL_F); // magic ->
+  /*
+    docme: why bool_f.
+    
+   */
+  SCM tab = scm_make_vector (gh_int2scm (61), SCM_BOOL_F);
   set_property ("acknowledgeHashTable", tab);
 
   Translator_group::initialize ();
@@ -195,6 +201,7 @@ bool engraver_valid (Translator*tr, SCM ifaces)
 }
 
 
+
 SCM
 find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
 {
@@ -211,3 +218,5 @@ find_acknowledge_engravers (SCM gravlist, SCM meta_alist)
 
   return l;
 }
+
+

@@ -348,7 +348,7 @@ be printed with flags instead of beams. Only engraves beams when we
 are at grace points in time.
 ",
 /* creats*/       "Beam",
-/* accepts */     "general-music",
+/* accepts */     "beam-event abort-event",
 /* acks  */      "stem-interface rest-interface",
 /* reads */       "beamMelismaBusy beatLength subdivideBeams",
 /* write */       "");

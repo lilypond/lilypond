@@ -13,14 +13,9 @@ Request_chord::to_relative_octave (Pitch last)
   for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
     {
       Music * mus = unsmob_music (ly_car (s));
-      Melodic_req *m= dynamic_cast <Melodic_req *> (mus);
 
-      /*
-	kLudge: rests have pitches now as well.
-       */
-      Rest_req *r = dynamic_cast<Rest_req*> (mus);
-      
-      if (r || m)
+      if (mus->is_mus_type ("melodic-event")
+	  || mus->is_mus_type ("rest-event"))
 	{
 	  Pitch *old_pit = unsmob_pitch (mus->get_mus_property ("pitch"));
 	  if (!old_pit)

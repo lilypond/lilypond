@@ -375,9 +375,8 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
   if (Stem::has_interface (info.grob_))
     {
       Item* stem = dynamic_cast<Item *> (info.grob_);
-				       
-      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
-      if (!rhythmic_req)
+      Music* m = info.music_cause ();
+      if (!m->is_mus_type ("rhythmic-event"))
 	{
 	  programming_error ("Stem must have rhythmic structure");
 	  return;
@@ -400,7 +399,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	  return ;
 	}
 	      
-      int durlog  = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->duration_log ();
+      int durlog  = unsmob_duration (m->get_mus_property ("duration"))->duration_log ();
       
       if (durlog <= 2)
 	{
@@ -417,7 +416,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	return ;
 	
       
-      Moment dur = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
+      Moment dur = unsmob_duration (m->get_mus_property ("duration"))->length_mom ();
       /* FIXME:
 
 	This comment has been here since long:
@@ -453,7 +452,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 			     durlog - 2);
       stems_->push (stem);
       last_add_mom_ = now;
-      extend_mom_ = (extend_mom_ >? now) + rhythmic_req->length_mom ();
+      extend_mom_ = (extend_mom_ >? now) + m->length_mom ();
     }
 }
 

@@ -6,16 +6,26 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "type-swallow-translator.hh"
+#include "translator.hh"
 #include "musical-request.hh"
 
-
-bool
-Type_swallow_translator::try_music (Music*r)
+class Skip_req_swallow_translator : public virtual Translator
 {
-  if (classname (r) == swallow_string_)
-      return true;
-  return false;
-}
+protected:
+  virtual bool try_music (Music*) { return true; }
 
-DECLARE_REQUEST_SWALLOWER(Skip_req);
+public:  
+  TRANSLATOR_DECLARATIONS(Skip_req_swallow_translator);
+};
+
+
+Skip_req_swallow_translator::Skip_req_swallow_translator(){}
+
+ENTER_DESCRIPTION(Skip_req_swallow_translator,
+		  "Swallow \\skip.",
+		  "",
+		  "skip-event",
+		  "",
+		  "",
+		  "");
+		  

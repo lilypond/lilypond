@@ -136,8 +136,8 @@ Ambitus_engraver::acknowledge_grob (Grob_info info)
     {
       if (Note_head::has_interface (info.grob_))
 	{
-	  Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
-	  if (nr)
+	  Music *nr = info.music_cause ();
+	  if (nr && nr->is_mus_type ("note-event"))
 	    {
 	      Pitch pitch = *unsmob_pitch (nr->get_mus_property ("pitch"));
 	      if (Pitch::compare (pitch_min, pitch_max) > 0) // already init'd?

@@ -102,12 +102,10 @@ Mark_req::do_equal_b (Request const * r) const
 			       get_mus_property ("label")) == SCM_BOOL_T;
 }
 
-ADD_MUSIC(Bass_figure_req);
 ADD_MUSIC (Arpeggio_req);
 ADD_MUSIC (Articulation_req);
 ADD_MUSIC (Break_req);
 ADD_MUSIC (Breathing_sign_req);
-ADD_MUSIC (Busy_playing_req);
 ADD_MUSIC (Extender_req);
 ADD_MUSIC (Glissando_req);
 ADD_MUSIC (Hyphen_req);
@@ -116,15 +114,11 @@ ADD_MUSIC (Lyric_req);
 ADD_MUSIC (Mark_req);
 ADD_MUSIC (Melisma_playing_req);
 ADD_MUSIC (Melisma_req);
-ADD_MUSIC (Melodic_req);
-ADD_MUSIC (Note_req);
 ADD_MUSIC (Porrectus_req);
-ADD_MUSIC (Rest_req);
 ADD_MUSIC (Rhythmic_req);
 ADD_MUSIC (Script_req);
 ADD_MUSIC (Skip_req);
 ADD_MUSIC (Span_req);
 ADD_MUSIC (Tempo_req);
 ADD_MUSIC (Text_script_req);
-ADD_MUSIC (Tie_req);
 ADD_MUSIC (Tremolo_req);

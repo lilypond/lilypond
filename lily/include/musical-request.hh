@@ -21,7 +21,6 @@
  */
 class Rhythmic_req  : public virtual Request  {
 public:
-  bool do_equal_b (Request const*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
@@ -41,7 +40,6 @@ struct Tremolo_req : public Request {
 
 struct Chord_tremolo_notify_req : public Request
 {
-
   Rational factor_;
   VIRTUAL_COPY_CONS(Chord_tremolo_notify_req);
   Chord_tremolo_notify_req();
@@ -64,7 +62,6 @@ public:
   String get_articulation_string ();
 protected:
   virtual bool do_equal_b (Request const*) const;
-
   VIRTUAL_COPY_CONS (Music);
 };
 
@@ -93,24 +90,6 @@ protected:
   VIRTUAL_COPY_CONS (Music);
 };
 
-/*
-   Put a note of specified type, height, and with accidental on the staff.
-    /// force/supress printing of accidental.
-  bool forceacc_b_;
-  /// Cautionary, i.e. parenthesized accidental.
-  bool cautionary_b_;
-
- */
-class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
-public:
-    
-  Note_req ();
-protected:
-
-  bool do_equal_b (Request const*) const;
-  VIRTUAL_COPY_CONS (Music);
-};
-
 /**
 Put a rest on the staff. Why a request? It might be a good idea to not typeset the rest, if the paper is too crowded.
 */
@@ -128,15 +107,6 @@ public:
 
 /// a centred hyphen
 class Hyphen_req : public Request  {
-public:
-  VIRTUAL_COPY_CONS (Music);
-};
-
-/** is anyone  playing a note?
-    Used for communication between Music & Lyrics
- */
-class Busy_playing_req : public Request
-{
 public:
   VIRTUAL_COPY_CONS (Music);
 };
@@ -173,10 +143,5 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
-class Bass_figure_req:  public Rhythmic_req
-{
-public:
-  VIRTUAL_COPY_CONS(Music);
-};
 
 #endif // MUSICALREQUESTS_HH

@@ -21,7 +21,7 @@
 
 /**
    Manufacture ties.  Acknowledge noteheads, and put them into a
-   priority queue. If we have a Tie_req, connect the notes that finish
+   priority queue. If we have a TieEvent, connect the notes that finish
    just at this time, and note that start at this time.
 
    TODO: Remove the dependency on musical info. We should tie on the
@@ -33,7 +33,7 @@ class Tie_engraver : public Engraver
   Moment end_mom_;
   Moment next_end_mom_;
 
-  Tie_req *req_;
+  Music *req_;
   Link_array<Grob> now_heads_;
   Link_array<Grob> stopped_heads_;
   Link_array<Grob> ties_;
@@ -63,23 +63,16 @@ Tie_engraver::Tie_engraver ()
 
 
 bool
-Tie_engraver::try_music (Music *m)
+Tie_engraver::try_music (Music *mus)
 {
-  if (Tie_req * c = dynamic_cast<Tie_req*> (m))
+  req_ = mus;
+  SCM m = get_property ("automaticMelismata");
+  bool am = gh_boolean_p (m) &&gh_scm2bool (m);
+  if (am)
     {
-      /*      if (end_mom_ > now_mom ())
-       return false;
-      */
-      req_ = c;
-      SCM m = get_property ("automaticMelismata");
-      bool am = gh_boolean_p (m) &&gh_scm2bool (m);
-      if (am)
-	{
-	  set_melisma (true);
-	}
-      return true;
+      set_melisma (true);
     }
-  return false;
+  return true;
 }
 
 void
@@ -281,7 +274,7 @@ Tie_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",
-/* accepts */     "general-music",
+/* accepts */     "tie-event",
 /* acks  */      "rhythmic-head-interface",
 /* reads */       "sparseTies tieMelismaBusy",
 /* write */       "");
