@@ -2,27 +2,26 @@
 \include "paper16.ly"
  
 viola = \notes \relative c'  \context Voice = viola {
-    <c4-\f-\arpeggio g' c>
-    \stemDown
+    <c4-\arpeggio g' c>
+    \voiceTwo
     g'8. b,16
     s1 s2. r4
     g
 }
 
 oboes = \notes \relative c'' \context Voice = oboes {
-    \stemUp
-    s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-    \grace <e8( g> <d4 f> <c2 e>
-    \times 2/3 { <d8 \< f> <e g> <f a> }
+    \voiceOne
+    s4  g8. b,16 c8 r <e'8. g> <f16 a>
+    \grace <e8( g> <d4 )f> <c2 e>
+    \times 2/3 { <d8  f> <e g> <f a> }
     <
-        { \stemUp \times 2/3 { a8 g c } \! c2 }
-        \context Voice = second { \stemDown
-            \grace {
+        { \times 2/3 { a8 g c }  c2 }
+	\\
+        { \grace {
                 \stemDown
                 [f,16 g]
 		\stemBoth }
-                f8 e e2
-            }
+                f8 e e2 }  
     >
 
     \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 

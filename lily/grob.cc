@@ -212,7 +212,6 @@ Grob::molecule_extent (SCM element_smob, SCM scm_axis)
 }
 
 MAKE_SCHEME_CALLBACK (Grob,preset_extent,2);
-
 SCM
 Grob::preset_extent (SCM element_smob, SCM scm_axis)
 {
@@ -368,114 +367,6 @@ Grob::add_dependency (Grob*e)
 
 
 
-
-/**
-      Do break substitution in S, using CRITERION. Return new value.
-      CRITERION is either a SMOB pointer to the desired line, or a number
-      representing the break direction. Do not modify SRC.
-
-      It is rather tightly coded, since it takes a lot of time; it is
-      one of the top functions in the profile.
-
-      We don't pass break_criterion as a parameter, since it is
-      `constant', but takes up stack space.
-
-*/
-
-
-static SCM break_criterion; 
-void
-set_break_subsititution (SCM criterion)
-{
-  break_criterion = criterion;
-}
-
-
-/*
-  TODO: check wether we can do this in-place; now we generate a lot of
-  garbage.
- */
-SCM
-do_break_substitution (SCM src)
-{
- again:
- 
-  if (Grob *sc = unsmob_grob (src))
-    {
-      if (SCM_INUMP (break_criterion))
-	{
-	  Item * i = dynamic_cast<Item*> (sc);
-	  Direction d = to_dir (break_criterion);
-	  if (i && i->break_status_dir () != d)
-	    {
-	      Item *br = i->find_prebroken_piece (d);
-	      return (br) ? br->self_scm () : SCM_UNDEFINED;
-	    }
-	}
-      else
-	{
-	  System * line
-	    = dynamic_cast<System*> (unsmob_grob (break_criterion));
-	  if (sc->line_l () != line)
-	    {
-	      sc = sc->find_broken_piece (line);
-
-	    }
-
-	  /* now: !sc || (sc && sc->line_l () == line) */
-	  if (!sc)
-	    return SCM_UNDEFINED;
-
-	  /* now: sc && sc->line_l () == line */
-	  if (!line)
-	    return sc->self_scm();
-	  /*
-	    This was introduced in 1.3.49 as a measure to prevent
-	    programming errors. It looks expensive (?).
-
-	    TODO:
-		
-	    benchmark , document when (what kind of programming
-	    errors) this happens.
-	  */
-	  if (sc->common_refpoint (line, X_AXIS)
-	       && sc->common_refpoint (line, Y_AXIS))
-	    {
-	      return sc->self_scm ();
-	    }
-	  return SCM_UNDEFINED;
-	}
-    }
-  else if (ly_pair_p (src)) 
-    {
-      /*
-	UGH! breaks on circular lists.
-      */
-      SCM newcar = do_break_substitution (ly_car (src));
-      SCM oldcdr = ly_cdr (src);
-      
-      if (newcar == SCM_UNDEFINED
-	  && (gh_pair_p (oldcdr) || oldcdr == SCM_EOL))
-	{
-	  /*
-	    This is tail-recursion, ie. 
-	    
-	    return do_break_substution (cdr);
-
-	    We don't want to rely on the compiler to do this.  Without
-	    tail-recursion, this easily crashes with a stack overflow.  */
-	  src =  oldcdr;
-	  goto again;
-	}
-
-      return scm_cons (newcar, do_break_substitution (oldcdr));
-    }
-  else
-    return src;
-
-  return src;
-}
-
 void
 Grob::handle_broken_dependencies ()
 {
@@ -492,7 +383,7 @@ Grob::handle_broken_dependencies ()
 
 	  set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 	  sc->mutable_property_alist_ =
-	    do_break_substitution (mutable_property_alist_);
+	    substitute_mutable_properties (mutable_property_alist_);
 
 	}
     }
@@ -503,12 +394,12 @@ Grob::handle_broken_dependencies ()
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
       set_break_subsititution (line ? line->self_scm () : SCM_UNDEFINED);
-      mutable_property_alist_ = do_break_substitution (mutable_property_alist_);
+      mutable_property_alist_ = substitute_mutable_properties (mutable_property_alist_);
     }
   else if (dynamic_cast <System*> (this))
     {
       set_break_subsititution (SCM_UNDEFINED);
-      mutable_property_alist_ = do_break_substitution (mutable_property_alist_);
+      mutable_property_alist_ = substitute_mutable_properties (mutable_property_alist_);
     }
   else
     {
@@ -516,9 +407,10 @@ Grob::handle_broken_dependencies ()
 	This element is `invalid'; it has been removed from all
 	dependencies, so let's junk the element itself.
 
-	do not do this for System, since that would remove
-	references to the originals of score-grobs, which get then GC'd
- (a bad thing.)
+	do not do this for System, since that would remove references
+	to the originals of score-grobs, which get then GC'd (a bad
+	thing.)
+ 
       */
       suicide ();
     }
@@ -870,7 +762,7 @@ Grob::mark_smob (SCM ses)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
-      Grob *p = s->get_parent (Y_AXIS);
+      Grob *p = s->get_parent (Axis (a));
       if (p)
 	scm_gc_mark (p->self_scm ());
     }
@@ -902,93 +794,12 @@ Grob::do_derived_mark ()
   return SCM_EOL;
 }
 
-LY_DEFINE(ly_set_grob_property,"ly-set-grob-property", 3, 0, 0,
-(SCM grob, SCM sym, SCM val),
-"
-Set @var{sym} in grob @var{grob} to value @var{val}")
-{
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
-
-  if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
-    error ("typecheck failed");
-      
-  sc->internal_set_grob_property (sym, val);
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE(ly_get_grob_property,
-	  "ly-get-grob-property", 2, 0, 0, (SCM grob, SCM sym),
-	  "  Get the value of a value in grob @var{g} of property @var{sym}. It
-will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
-")
-{
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
-
-  return sc->internal_get_grob_property (sym);
-}
 
 
 void
 Grob::discretionary_processing ()
 {
 }
-
-
-LY_DEFINE(spanner_get_bound, "ly-get-spanner-bound", 2 , 0, 0,
-	  (SCM slur, SCM dir),
-	  "Get one of the bounds of @var{spanner}. @var{dir} may be @code{-1} for
-left, and @code{1} for right.
-")
-{
-  Spanner * sl = dynamic_cast<Spanner*> (unsmob_grob (slur));
-  SCM_ASSERT_TYPE(sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
-  SCM_ASSERT_TYPE(ly_dir_p (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
-  return sl->get_bound (to_dir (dir))->self_scm ();
-}
-
-LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
-  (SCM grob, SCM sym),
-  "Get a variable from the \\paper block.")
-{
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
-
-  return sc->paper_l() ->get_scmvar_scm (sym);
-}
-
-
-
-LY_DEFINE(ly_get_extent, "ly-get-extent", 3, 0, 0,
-	  (SCM grob, SCM refp, SCM axis),
-	  "Get the extent in @var{axis} direction of @var{grob} relative to the
-grob @var{refp}")
-{
-  Grob * sc = unsmob_grob (grob);
-  Grob * ref = unsmob_grob (refp);
-  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(ref, refp, SCM_ARG2, __FUNCTION__, "grob");
-  
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG3, __FUNCTION__, "axis");
-
-  return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
-}
-
-LY_DEFINE (ly_get_parent,   "ly-get-parent", 2, 0, 0, (SCM grob, SCM axis),
-	   "Get the parent of @var{grob}.  @var{axis} can be 0 for the X-axis, 1
-for the Y-axis.")
-{
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-
-  return sc->get_parent (Axis (gh_scm2int (axis)))->self_scm();
-}
-
 
 bool
 Grob::internal_has_interface (SCM k)

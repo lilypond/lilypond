@@ -843,10 +843,11 @@ enter the following input, and save the file as @file{test.ly}:
 @c (therefore name change proposal) 
 
 LilyPond is the program that computes the sheet music. All other
-things, such as titles and page layout, are done by a small wrapper
-program called @code{ly2dvi}. @code{ly2dvi} calls lilypond to render
-the music, and then adds the titling and page layout instructions.  To
-process @file{test.ly} with ly2dvi, proceed as follows:
+things, such as adding titles, page breaking and other page layout,
+are done by a small wrapper program called
+@code{ly2dvi}. @code{ly2dvi} calls lilypond to render the music, and
+then adds the titling and page layout instructions.  To process
+@file{test.ly} with ly2dvi, proceed as follows:
 
 @quotation
 @example
@@ -1906,74 +1907,7 @@ input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini.  It was composed around 1740.  It's in the source
 package under the name @file{sammartini.ly}.
 
-@lilypond[verbatim]
-\include "paper16.ly"
-
-stemDown = \property Voice.Stem \override #'direction = #-1
-stemUp = \property Voice.Stem \override #'direction = #1
-stemBoth = \property Voice.Stem \revert #'direction  
-
-viola = \notes \relative c' \context Voice = viola {
-    <c4-\f-\arpeggio g' c>
-    \stemDown g'8. b,16
-    s1 s2. r4
-    g
-}
-
-oboes = \notes \relative c'' \context Voice = oboe {
-    \stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-    \grace <e8( g> <d4 )f> <c2 e>
-    \times 2/3 { <d8 \< f> <e g> <f a> }
-    <
-        { \times 2/3 { a8 g c } \! c2 }
-        \context Voice = oboeTwo {
-            \stemDown
-            \grace {
-                \property Voice.Stem \override #'direction = #-1
-                [f,16 g] 
-                \property Voice.Stem \revert #'direction
-	    }
-            f8 e e2
-        }
-    >
-    \stemBoth
-    \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
-    [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
-    [<c16( e>  < )e8. g>] <c8 e,>
-}
-
-hoomPah = \repeat unfold 8 \notes
-    \transpose c' { \stemUp c8 \stemBoth \stemDown g'8 \stemBoth }
-
-bassvoices = \notes \relative c' {
-    c4 g8. b,16
-    \autochange Staff \context Voice \hoomPah
-    \translator Staff = down
-    \stemDown [c8 c'8] r4
-    <g d'> r4
-    < {\stemUp r2 <e4 c'> <c8 g'> }
-        \context Voice = reallyLow  {\stemDown g2 ~ | g4 c8 } >
-}
-
-\score {
-    \context PianoStaff \notes <
-        \context Staff = up < \time 2/2
-            \viola
-            \oboes
-        >
-        \context Staff = down < \time 2/2 \clef bass
-            \bassvoices
-        >
-    >
-    \midi { }
-    \paper {
-        indent = 0.0
-        linewidth = 15.0 \cm }
-}
-@end lilypond
-
-If this looks like incomprehensible gibberish to you, you are right.
-This example has been doctored to have as many quirks as possible.
+@lilypondfile[verbatim]{sammartini.ly}
 
 As you can see, this example features multiple voices on one staff.  To
 make room for those voices, their notes have to be stemmed in opposite

@@ -160,7 +160,8 @@ Grob*common_refpoint_of_list (SCM elt_list, Grob * , Axis a);
 Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
 
 void set_break_subsititution (SCM criterion);
-SCM do_break_substitution (SCM);
+SCM substitute_mutable_properties (SCM alist);
+
 
 #endif // STAFFELEM_HH
 

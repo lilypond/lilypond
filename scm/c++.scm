@@ -13,7 +13,10 @@
 (define (number-or-grob? x)
   (or (ly-grob? x) (number? x))
   )
-	 
+
+(define (grob-list? x)
+  (list? x))
+
 (define (moment-pair?  x)
   (and (pair? x)
        (moment? (car x)) (moment? (cdr x))))
@@ -39,6 +42,7 @@
    (,number-pair? . "pair of numbers")
    (,ly-input-location? . "input location")   
    (,ly-grob? . "grob (GRaphical OBject)")
+   (,grob-list? . "list of grobs")
    (,duration? . "duration")
    (,pair? . "pair")
    (,integer? . "integer")
