@@ -46,9 +46,7 @@ internal_ly_parse_scm (Parse_start *ps)
 	  answer = scm_eval (form, module);
 	}
       else
-	{
-	  answer = scm_primitive_eval (form);
-	}
+	answer = scm_primitive_eval (form);
     }
 
   /* Reset read_buf for scm_ftell.
