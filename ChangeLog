@@ -1,3 +1,7 @@
+2005-03-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* GNUmakefile.in: create .htaccess.
+
 2005-03-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.tely (Top): Fix text example.
