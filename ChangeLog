@@ -2,8 +2,6 @@
 
 	* lily/*.cc: use robust_scm2moment() where appropriate.
 
-	* lily/tuplet-engraver.cc (try_music): 
-
 	* lily/moment.cc (robust_scm2moment): new function.
 
 	* scm/titling.scm (default-score-title): remove caps for piece.
