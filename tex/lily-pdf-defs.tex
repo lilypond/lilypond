@@ -1,7 +1,7 @@
-% lily-pdf-defs.tex
-%
-% Define an \embeddedpdf command so that we can do the right thing.
-%
+%% lily-pdf-defs.tex
+%%
+%% Define an \embeddedpdf command so that we can do the right thing.
+%%
 \edef\lilypdfdefsELC{\the\endlinechar}%
 \endlinechar -1\relax
 
@@ -16,12 +16,9 @@
         \lilypondpaperoutputscale\lilypondspace 0 0 cm %
         \lilyoutputscalefactor\lilypondspace 0 0 %
         \lilyoutputscalefactor\lilypondspace 0 0 cm %
-      ##1 Q
-    }
-  }
-}
-
-\gdef\lilypondexperimentalfeatures{}
+      ##1 Q}}}
 
 \endlinechar \lilypdfdefsELC
 \endinput
+
+%% end lily-pdf-defs.tex
