@@ -1,5 +1,14 @@
 \header{
 filename =	 "standchen.ly";
+%
+% From the album:
+% Schubert-Lieder
+% Edition Schott No. 608
+% Without date, but makes mention of
+% ``Jubil"aums-Ausgabe zum 100. Todestage'' ie, 1928
+%
+% page 60
+%
 title    = "St\\\"andchen";
 subtitle = "(Serenade)\\\\``Leise flehen meine Lieder''";
 opus =	 "D. 957 No. 4";
@@ -8,6 +17,22 @@ composer =	 "Franz Schubert (1797-1828)";
 poet=	 "Text by Ludwig Rellstab (1799-1860)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
+
+  % mutopia headers.
+  mutopiatitle = "St\\\"andchen";
+  mutopiasubtitle = "(Serenade)\\\\``Leise flehen meine Lieder''";
+  mutopiacomposer = "Franz Schubert (1797-1828)";
+  mutopiapoet = "Ludwig Rellstab (1799-1860)";
+  mutopiaopus = "D. 957 No. 4";
+  mutopiainstrument = "Piano";
+  style = "Romantic";
+  copyright = "Public Domain";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwater
+loo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Jan Nieuwenhuizen.\\\\Unrestricted modification and redistribution is permitted and enc
+ouraged - copy this music and share it!";
+  maintainer = "janneke@gnu.org";
+  lastupdated = "1999/Oct/17";
+
 } 
 
 %{

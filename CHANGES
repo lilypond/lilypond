@@ -1,3 +1,8 @@
+14.jcn1
+	- bf: don't fail on error in doco package
+	- doco package: noarch
+	- bf: standchen: mutopia prep
+
 13.jcn2,3
 	- mutopia/J.S.Bach/Petites-Preludes: bf's and mutopia preraration
 	- separate documentation package
