@@ -95,7 +95,7 @@
      ly:paper-def?
      ly:paper-get-font
      ly:paper-get-number
-     ly:paper-line-break-score
+     ly:paper-line-break-penalty
      ly:paper-line-extent
      ly:paper-line-number
      ly:paper-line-stencil

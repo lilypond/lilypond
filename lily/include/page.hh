@@ -40,7 +40,7 @@ public:
   Real top_margin_;
   Real bottom_margin_;
 
-  Page (Output_def*, int);
+  Page (SCM, Output_def*, int);
 
   /* available area for text.  */
   Real text_height () const;

@@ -18,13 +18,16 @@
 
 Real Page::MIN_COVERAGE_ = 0.66;
 
-Page::Page (Output_def *paper, int number)
+Page::Page (SCM lines, Output_def *paper, int number)
 {
   copyright_ = SCM_EOL;
   footer_ = SCM_EOL;
   header_ = SCM_EOL;
   lines_ = SCM_EOL;
   tagline_ = SCM_EOL;
+
+  smobify_self ();
+
   
   paper_ = paper;
   number_ = number;
@@ -44,7 +47,13 @@ Page::Page (Output_def *paper, int number)
   if (unsmob_stencil (footer_))
     unsmob_stencil (footer_)->align_to (Y_AXIS, UP);
 
-  smobify_self ();
+  lines_ = lines;
+  for (SCM s = lines; ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      height_ += unsmob_paper_line (ly_car (s))->dim()[Y_AXIS];
+      line_count_ ++;
+    }
+  
 }
 
 Page::~Page ()

@@ -511,6 +511,10 @@ instead.
 
 @seealso
 
+User manual: @ref{Changing context properties on the fly} for the
+@code{\set} command.
+
+
 Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
 Examples: @inputfileref{input/regression,tuplet-nest.ly}.
@@ -603,7 +607,7 @@ to determine the first note of the next chord
 @cindex @code{\notes}
 
 The pitch after the @code{\relative} contains a note name.  To parse
-the note name as a pitch, it must surrounded by @code{\notes}
+the note name as a pitch, it must be surrounded by @code{\notes}
 
 The relative conversion will not affect @code{\transpose},
 @code{\chords} or @code{\relative} sections in its argument.  If you
@@ -629,13 +633,14 @@ following notes.
 
 
 
-There is also a syntax that is separate from the notes.
+There is also a syntax that is separate from the notes. The syntax
+
 @example
 \octave @var{pitch}
 @end example
 
-This checks that @var{pitch} (without octave) yields @var{pitch} (with
-octave) in \relative mode. If not, a warning is printed, and the
+This checks that @var{pitch} (without quotes) yields @var{pitch} (with
+quotes) in \relative mode. If not, a warning is printed, and the
 octave is corrected, for example, the first check is passed
 successfully.  The second check fails with an error message.  The
 octave is adjusted so the following notes are in the correct octave
@@ -1427,6 +1432,11 @@ behavior can be changed by setting @code{allowBeamBreak}.
 @cindex kneed beams
 @cindex auto-knee-gap
 
+
+@seealso
+
+User manual: @ref{Changing context properties on the fly} for the
+@code{\set} command
 
 
 @refbugs

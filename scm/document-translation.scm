@@ -287,6 +287,7 @@
   (make <texi-node>
     #:name "Engravers"
     #:desc "All separate engravers"
+    #:text "See @usermanref{Modifying context plug-ins}."
     #:children
     (map engraver-doc all-engravers-list)))
 
