@@ -101,23 +101,38 @@ Axis_group_engraver::acknowledge_grob (Grob_info i)
 void
 Axis_group_engraver::process_acknowledged_grobs ()
 {
-  /* UGH UGH UGH */
+  if (!staffline_) 
+    return ;
+  
   for (int i=0; i < elts_.size (); i++)
     {
       Grob *par = elts_[i]->get_parent (Y_AXIS);
 
       if (!par || !Axis_group_interface::has_interface (par))
-	if (elts_[i]->is_empty (Y_AXIS))
-	  {
-	    /*
-	      We have to do _something_, otherwise staff objects will
-	      end up with System as parent.  
+	{
+	  if (staffline_->get_parent (Y_AXIS)
+	      && staffline_->get_parent (Y_AXIS) == elts_[i])
+	    {
+	      String msg = _("Axis_group_engraver: vertical group already has a parent.\n"
+			     "Do you have two Axis_group_engravers?\n"
+			     "Killing this vertical group.");
+	      staffline_->warning (msg);
+	      staffline_->suicide ();
+	      staffline_ = 0;
+	      break ;
+	    }
+	  else if (elts_[i]->is_empty (Y_AXIS))
+	    {
+	      /*
+		We have to do _something_, otherwise staff objects will
+		end up with System as parent.  
 	      
-	     */
-	    elts_[i]->set_parent (staffline_, Y_AXIS);
-	  }
-	else
-	  add_element (elts_[i]);
+	      */
+	      elts_[i]->set_parent (staffline_, Y_AXIS);
+	    }
+	  else
+	    add_element (elts_[i]);
+	}
     }
   elts_.clear ();
 }
@@ -169,8 +184,9 @@ void
 Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface"))
-      || i.grob_->internal_has_interface (ly_symbol2scm ("lyric-interface"))
+  if (staffline_
+      && (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface"))
+	  || i.grob_->internal_has_interface (ly_symbol2scm ("lyric-interface")))
       )
     {
       Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
