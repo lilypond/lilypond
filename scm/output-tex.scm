@@ -42,13 +42,11 @@
 	     tuplet
 	     polygon
 	     draw-line
-	     between-system-string
 	     define-origin
 	     no-origin
 	     start-page
 	     stop-page
-	     )
-  )
+	     ))
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
@@ -82,14 +80,24 @@
   (regexp-substitute/global
    #f "_" (output-tex-string (symbol->string sym)) 'pre "X" 'post) )
 
+(define (string->param string)
+  (string-append "{" string "}"))
+
+(define (number->param number)
+  (string->param (ly:number->string number)))
+
+(define (number-pair->param o)
+  (string-append (number->param (car o)) (number->param (cdr o))))
+
 (define (tex-string-def prefix key str)
   (if (equal? "" (sans-surrounding-whitespace (output-tex-string str)))
       (string-append "\\let\\" prefix (symbol->tex-key key) "\\undefined%\n")
-      (string-append "\\def\\" prefix (symbol->tex-key key) "{"  (output-tex-string str) "}%\n")
-      ))
+      (string-append "\\def\\" prefix (symbol->tex-key key)
+		     "{" (output-tex-string str) "}%\n")))
 
 (define (tex-number-def prefix key number)
-  (string-append "\\def\\" prefix (symbol->tex-key key) "{" number "}%\n"))
+  (string-append
+   "\\def\\" prefix (symbol->tex-key key) (string->param number) "%\n"))
 
 (define (output-paper-def pd)
   (apply
@@ -270,28 +278,23 @@
    (ly:number->string x) " \\outputscale "))
 
 (define (placebox x y s) 
-  (string-append "\\lyitem{"
-		 (ly:number->string y) "}{"
-		 (ly:number->string x) "}{"
-		 s "}%\n"))
+  (string-append
+   "\\lyitem" (number->param x) (number->param y) (string->param s) "%\n"))
 
 (define (bezier-sandwich l thick)
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
-(define (start-system wd ht)
-  (string-append "\\leavevmode\n"
-		 "\\scoreshift = " (number->dim (* ht 0.5)) "\n"
-		 "\\lilypondifundefined{lilypondscoreshift}%\n"
-		 "  {}%\n"
-		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
-		 "\\lybox{"
-		 (ly:number->string wd) "}{"
-		 (ly:number->string ht) "}{%\n"))
+(define (start-system origin dim)
+  (string-append
+   "\\leavevmode\n"
+   "\\lybox" (number-pair->param origin) (number-pair->param dim)
+  "{%\n"))
 
-(define (stop-system) 
-  "}%\n%\n\\interscoreline\n%\n")
-(define (stop-last-system)
-  "}%\n")
+(define (stop-system last?)
+  (if last?
+      "}%\n"
+      ;; FIXME: still used by lilypond.py for --preview
+      "}%\n%\n\\interscoreline\n%\n"))
 
 (define (horizontal-line x1 x2 th)
   (filledbox (- x1)  (- x2 x1) (* .5 th)  (* .5 th )))
@@ -314,11 +317,11 @@
   (let*
       ((mapping #f))
 
-      ;; TODO: we'd better do this for PS only
-      ;; LaTeX gets in the way, and we need to remap
-      ;; nonprintable chars.
-
-       ; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
+    ;; TODO: we'd better do this for PS only
+    ;; LaTeX gets in the way, and we need to remap
+    ;; nonprintable chars.
+    
+    ;; (assoc-get  'char-mapping (ly:font-encoding-alist font))))
 
     (string-append "\\hbox{\\" (font-command font) "{}"
 		   (output-tex-string
@@ -337,10 +340,6 @@
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
-;; TODO: this should be a default, which is overriden in PS
-(define (between-system-string string)
-  string
-  )
 (define (define-origin file line col)
   (if (procedure? point-and-click)
       (string-append "\\special{src:" ;;; \\string ? 
@@ -352,9 +351,9 @@
 (define (no-origin) "")
 
 (define (start-page)
-  "\n%\\vbox{\n")
+  "\n\\vbox to 0pt{\n")
 
 (define (stop-page last?)
   (if last?
-      "\n%}\n"
-      "\n%}\n\\newpage\n"))
+      "\\vss\n}\n\\vfill\n"
+      "\\vss\n}\n\\vfill\\newpage\n"))

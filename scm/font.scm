@@ -203,7 +203,7 @@
   (add-font
    node
    '((font-encoding . math))
-   `((* factor 10) . #(,(delay (ly:font-load "msam10")))))
+   `(,(* factor 10) . #(,(delay (ly:font-load "msam10")))))
   
   (for-each
    (lambda (x)

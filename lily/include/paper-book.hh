@@ -14,10 +14,10 @@
 #include "protected-scm.hh"
 #include "smobs.hh"
 
-#define PAGE_LAYOUT "ps"
-
 class Paper_book
 {
+  DECLARE_SMOBS (Paper_book, )
+
 public:
   Array<SCM> headers_;
   Array<SCM> global_headers_;
@@ -35,7 +35,6 @@ public:
   Stencil* title (int);
   void output (String);
   void classic_output (String);
-  DECLARE_SMOBS (Paper_book, )
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

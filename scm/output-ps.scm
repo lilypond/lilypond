@@ -50,7 +50,6 @@
 	     tuplet
 	     polygon
 	     draw-line
-	     between-system-string
 	     define-origin
 	     no-origin
 	     start-page
@@ -384,7 +383,7 @@
     (ly:numbers->string
      (list x y width height blotdiam)) " draw_round_box"))
 
-(define (new-start-system origin dim)
+(define (start-system origin dim)
   (string-append
    "\n" (ly:number-pair->string origin) " start-system\n"
    "{\n"
@@ -395,10 +394,8 @@
    (ly:numbers->string (list breapth width depth height))
    " draw_box" ))
 
-(define (stop-system)
+(define (stop-system last?)
   "} stop-system\n")
-
-(define stop-last-system stop-system)
 
 (define (symmetric-x-triangle thick w h)
   (string-append

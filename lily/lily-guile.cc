@@ -634,6 +634,45 @@ ly_unique (SCM list)
   return scm_reverse_x (unique, SCM_EOL);
 }
 
+
+static int
+scm_default_compare (void const *a, void const *b)
+{
+  SCM pa = *(SCM*) a;
+  SCM pb = *(SCM*) b;
+  if (pa == pb)
+    return 0;
+  return pa < pb ? -1 : 1;
+}
+
+/*  Modify LST in place: qsort it.  */
+SCM
+ly_list_qsort_uniq_x (SCM lst)
+{
+  int len = scm_ilength (lst);
+  SCM *arr = new SCM[len];
+  int k = 0;
+  for (SCM s = lst; SCM_NNULLP (s); s = SCM_CDR (s))
+    arr[k++] = SCM_CAR (s);
+
+  assert (k == len);
+  qsort (arr, len, sizeof (SCM), &scm_default_compare);
+
+  SCM *tail = &lst;
+  for (int i = 0; i < len; i++)
+    if (!i || arr[i] != arr[i - 1])
+      {
+	SCM_SETCAR (*tail, arr[i]);
+	tail = SCM_CDRLOC (*tail);
+      }
+
+  *tail = SCM_EOL;
+  delete[] arr;
+
+  return lst; 
+}
+
+
 /* tail add */
 SCM
 ly_snoc (SCM s, SCM list)

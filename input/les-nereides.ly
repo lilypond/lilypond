@@ -262,8 +262,7 @@ middleDynamics = \notes{
     s8\!
 }
 
-
-\score{
+theScore = \score{
     \context PianoStaff <<
         \context Staff=treble <<
 	    \treble
@@ -309,7 +308,11 @@ middleDynamics = \notes{
         }
     }
 }
-
+			   
+\book{
+    \score { \theScore }
+}
+    
 %%% Local variables:
 %%% LilyPond-indent-level:4
 %%% End:

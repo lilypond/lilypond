@@ -256,8 +256,9 @@ SCM index_get_cell (SCM cell, Direction d);
 SCM index_set_cell (SCM cell, Direction d, SCM val);
 
 SCM ly_snoc (SCM s, SCM list);
-SCM ly_split_list (SCM s, SCM list);
-SCM ly_unique (SCM list);
+SCM ly_split_list (SCM s, SCM lst);
+SCM ly_unique (SCM lst);
+SCM ly_list_qsort_uniq_x (SCM lst);
 
 
 

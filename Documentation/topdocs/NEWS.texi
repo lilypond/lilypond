@@ -4,9 +4,31 @@
 
 @node Top, , , 
 @top
-@unnumbered New features in 2.2 since 2.0
+@unnumbered New features in 2.3 since 2.2
 
 @itemize @bullet
+
+@item The toplevel block @code{book} introduces page layout.
+A @code{book} groups @code{score} blocks into one page layout entity.
+Page layout consists of markup titles, headers and footers, and page
+breaking.  Two page breaking algorithms are available, the classic
+ragged pages (the default), and optimal page breaking
+
+@example
+\paper @{
+    %% Select page breaking function.
+    %% #(define page-breaking ly:ragged-page-breaks)
+    #(define page-breaking ly:optimal-page-breaks)
+@}
+\book @{
+     \score @{ ... @}
+     \score @{ ... @}
+@}
+@end example
+
+The @code{lilypond} program does not generate La@TeX{} titles or page
+layout.  If you need La@TeX{} titles, you can use the
+@code{lilypond-book} program.
 
 @item The meaning of the @code{|} in the input can be redefined, by
  assigning a music expression to @code{pipeSymbol}.

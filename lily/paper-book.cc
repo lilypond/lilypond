@@ -258,13 +258,10 @@ Paper_book::output (String outname)
 
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
 
-  /*
-    Ugh
-   */
-  for (int i =pages->size (); i--;)
-    delete pages->elem(i);
+  /* Ugh.  */
+  for (int i = pages->size (); i--;)
+    delete pages->elem (i);
   delete pages;
-
   
   progress_indication ("\n");
 }
@@ -313,10 +310,11 @@ Paper_book::classic_output (String outname)
   Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
   out->output_header (papers_.top (), scopes (count - 1), 0);
 
+  Offset o (0, 0);
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)
     out->output_line (scm_vector_ref ((SCM) scores_.top (), scm_int2num (i)),
-		      0, i == line_count - 1);
+		      &o, i == line_count - 1);
   
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
   progress_indication ("\n");

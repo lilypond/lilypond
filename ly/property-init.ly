@@ -80,10 +80,10 @@ cadenzaOff = {
 newpage = \notes
 {
   \break
-  % urg, only works for TeX output
-  \context Score \applyoutput
-  #(outputproperty-compatibility (make-type-checker 'paper-column-interface)
-    'between-system-string "\\newpage")
+  %% FIXME: page break penalty should tickle into Paper_line
+  %% \context Score \applyoutput
+  %%#(outputproperty-compatibility (make-type-checker 'paper-column-interface)
+  %%  'between-system-string "\\newpage")
 }
 
 % dynamic ly:dir?  text script, articulation script ly:dir?	

@@ -30,25 +30,21 @@
 
 Paper_def::Paper_def ()
 {
+  /* Do not remove this statement, scm_make_hash_table may trigger GC.  */
   scaled_fonts_ = SCM_EOL;
-  /*
-    don't remove above statement,  scm_make_hash_table may trigger GC.
-   */
   scaled_fonts_ = scm_c_make_hash_table (11);
-}
-
-Paper_def::~Paper_def ()
-{
 }
 
 Paper_def::Paper_def (Paper_def const&src)
   : Music_output_def (src)
 {
+  /* Do not remove this statement, scm_make_hash_table may trigger GC.  */
   scaled_fonts_ = SCM_EOL;
-  /*
-    don't remove above statement,  scm_make_hash_table may trigger GC.
-   */
   scaled_fonts_ = scm_c_make_hash_table (11);
+}
+
+Paper_def::~Paper_def ()
+{
 }
 
 void
@@ -67,10 +63,8 @@ Paper_def::get_dimension (SCM s) const
   return ly_scm2double (val) / sc;
 }
 
-/*
-  FIXME. This is broken until we have a generic way of
-  putting lists inside the \paper block.
- */
+/* FIXME.  This is broken until we have a generic way of
+   putting lists inside the \paper block.  */
 Interval
 Paper_def::line_dimensions_int (int n) const
 {
@@ -80,16 +74,11 @@ Paper_def::line_dimensions_int (int n) const
   return Interval (ind, lw);
 }
 
-
-
-
 Paper_outputter*
-Paper_def::get_paper_outputter (String outname)  const
+Paper_def::get_paper_outputter (String outname) const
 {
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
-  progress_indication("\n");
-
   global_input_file->target_strings_.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
@@ -98,9 +87,7 @@ Paper_def::get_paper_outputter (String outname)  const
   return po;
 }
 
-
-
-Font_metric *
+Font_metric*
 Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 {
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
@@ -111,40 +98,32 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 	return unsmob_metrics (ly_cdr (met));
     }
   else
-    {
-      sizes = SCM_EOL;
-    }
+    sizes = SCM_EOL;
   
-
-  /*
-    Hmm. We're chaining font - metrics. Should consider wether to merge
-    virtual-font and scaled_font.
-  */
+  /* Hmm. We're chaining font - metrics.  Should consider whether to
+     merge virtual-font and scaled_font.  */
   SCM val = SCM_EOL;
   if (Virtual_font_metric * vf = dynamic_cast<Virtual_font_metric*> (f))
     {
-      /*
-	For fontify_atom (), the magnification and name must be known
-	at the same time. That's impossible for
+      /* For fontify_atom (), the magnification and name must be known
+	 at the same time. That's impossible for
 
 	  Scaled (Virtual_font (Font1,Font2))
 
 	so we replace by
 
-	  Virtual_font (Scaled (Font1), Scaled (Font2))
-	
-       */
-      SCM l = SCM_EOL;
-      SCM *t =  &l;
+	  Virtual_font (Scaled (Font1), Scaled (Font2))  */
+      SCM lst = SCM_EOL;
+      SCM *t = &lst;
       for (SCM s = vf->get_font_list (); is_pair (s); s = ly_cdr (s))
 	{
-	  Font_metric*scaled
-	    = find_scaled_font (unsmob_metrics (ly_car (s)), m, input_enc_name);
+	  Font_metric *scaled = find_scaled_font (unsmob_metrics (ly_car (s)),
+						  m, input_enc_name);
 	  *t = scm_cons (scaled->self_scm (), SCM_EOL);
 	  t = SCM_CDRLOC(*t);
 	}
 
-      vf = new Virtual_font_metric (l);
+      vf = new Virtual_font_metric (lst);
       val = vf->self_scm ();
     }
   else
@@ -157,22 +136,19 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 	  input_enc_name = scm_variable_ref (var);
 	}
       m /= ly_scm2double (scm_variable_ref (scale_var));
-      val = Modified_font_metric::make_scaled_font_metric (input_enc_name, f, m);
+      val = Modified_font_metric::make_scaled_font_metric (input_enc_name,
+							   f, m);
     }
 
   sizes = scm_acons (scm_make_real (m), val, sizes);
   scm_gc_unprotect_object (val);
-
   scm_hashq_set_x (scaled_fonts_, f->self_scm (), sizes);
-  
   return unsmob_metrics (val);
 }
 
 
-
-/*
-  Return alist to translate internally used fonts back to real-world
-  coordinates.  */
+/* Return alist to translate internally used fonts back to real-world
+   coordinates.  */
 SCM
 Paper_def::font_descriptions () const
 {
@@ -201,7 +177,7 @@ unsmob_paper (SCM x)
   
 
 LY_DEFINE (ly_paper_def_p, "ly:paper-def?",
-	   1, 0,0, (SCM def),
+	   1, 0, 0, (SCM def),
 	   "Is @var{def} a paper definition?")
 {
   Paper_def *op = dynamic_cast<Paper_def*> (unsmob_music_output_def (def));

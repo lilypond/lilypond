@@ -35,8 +35,7 @@ internal_ly_parse_scm (Parse_start * ps, bool safe)
 	  if (!safe_module)
 	    {
 	      safe_module = scm_primitive_eval (ly_symbol2scm ("safe-module"));
-	      if (output_format_global == PAGE_LAYOUT)
-		ly_import_module (safe_module, scm_c_resolve_module ("lily"));
+	      ly_import_module (safe_module, scm_c_resolve_module ("lily"));
 	    }
 	  answer = scm_eval (form, safe_module);
 	}
