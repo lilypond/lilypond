@@ -1,3 +1,45 @@
+2005-01-11  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* lily/include/input.hh (class Input): new `end_' slot for end of
+	input. Renamed defined_str0_ to start_.
+
+	* lily/input.cc (Input): Add Input::Input (Input const &) and
+	remove Input::Input (Source_file*, char const *). Use the new
+	slots.
+	(set_location): method used by bison to propagate input
+	locations (YYLLOC_DEFAULT).
+	(end_line_number, end_column_number, step_forward): new methods
+	
+	* lily/input-scheme.cc (ly:input-both-locations): new function,
+	similar to ly:input-location, but also return the end line and
+	column.
+
+	* lily/include/includable-lexer.hh: 
+	* lily/includable-lexer.cc: 
+	* lily/include/lily-lexer.hh (class Lily_lexer): 
+	* lily/lily-lexer.cc (add_lexed_char): Move add_lexed_char from
+	Includable_lexer to Lily_lexer, in order to update lexloc (the
+	yylloc), a new slot of Lily_lexer.
+	(here_input, LexerError): simplify by using the lexloc slot (aka
+	yylloc)
+
+	* lily/lexer.ll: #define yylloc to use input locations (it may
+	be useless here?). Fixed the #embedded_scm rule (step the location
+	forward in order to skip the sharp sign before parsing the scheme
+	expression)
+
+	* lily/include/lily-parser.hh (class Lily_parser): 
+	* lily/lily-parser.cc: Remove push_spot(), pop_spot() and
+	here_input()
+	(parser_error): overload for more precise locations of errors.
+
+	* lily/parser.yy (YYLTYPE): set location type to Input
+	(YYLLOC_DEFAULT): use Input::set_location()
+	(yylex): add the YYLTYPE* location parameter.
+	Clean push_spot()/pop_spot()/here_input(), and use @$, @1, etc.
+	Give an Input parameter to THIS->parser-error() for more accurate
+	messages.
+
 2005-01-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/aclocal.m4: do NDEBUG for optimizing builds.

@@ -16,7 +16,8 @@
  */
 class Input {
 public:
-  char const *defined_str0_ ;
+  char const *start_;
+  char const *end_;
   Source_file * source_file_;
     
   void warning (String) const; // should use member func?
@@ -24,6 +25,8 @@ public:
   void error (String) const;
   void message (String) const;
   void set_spot (Input const &);
+  void step_forward ();
+  void set_location (Input const &, Input const &);
   Input spot () const;
   String location_string () const;
   String line_number_string () const;
@@ -32,9 +35,11 @@ public:
   String file_string ()const;
   int line_number ()const;
   int column_number ()const;
+  int end_line_number ()const;
+  int end_column_number ()const;
 
   
-  Input (Source_file*, char const*);
+  Input (Input const &i);
   Input ();
 };
 

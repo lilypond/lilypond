@@ -34,9 +34,11 @@ private:
   char escaped_char (char) const;
 
   Keyword_table *keytable_;
+
 public:
   String main_input_name_;
   void *lexval;
+  Input *lexloc;
   bool main_input_b_;
   
   Sources *sources_; 
@@ -51,6 +53,8 @@ public:
   Lily_lexer (Sources*);
   Lily_lexer (Lily_lexer const&);
   int yylex ();
+
+  void add_lexed_char (int);
 
   void prepare_for_next_token ();
   int try_special_identifiers (SCM* ,SCM);

@@ -76,6 +76,9 @@ bool is_valid_version (String s);
 #define yylval \
 	(*(YYSTYPE*)lexval)
 
+#define yylloc \
+	(*(YYLTYPE*)lexloc)
+
 #define YY_USER_ACTION	add_lexed_char (YYLeng ());
 /*
 
@@ -272,10 +275,10 @@ HYPHEN		--
 	return MULTI_MEASURE_REST;
 }
 <INITIAL,markup,chords,lyrics,notes,figures>#	{ //embedded scm
-	//char const* s = YYText () + 1;
-	char const* s = here_str0 ();
 	int n = 0;
-	SCM sval = ly_parse_scm (s, &n, here_input (),
+	Input hi = here_input();
+	hi.step_forward ();
+	SCM sval = ly_parse_scm (hi.start_, &n, hi,
 		be_safe_global && main_input_b_);
 
 	if (sval == SCM_UNDEFINED)

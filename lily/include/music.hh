@@ -36,7 +36,7 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
 
   Input *origin () const; 
-  void set_spot (Input);  
+  void set_spot (Input);
 
   SCM internal_get_property (SCM) const;
   void internal_set_property (SCM , SCM val);
