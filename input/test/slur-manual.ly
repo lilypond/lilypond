@@ -22,7 +22,7 @@
 	    {
 	    \clef bass
 	    r4 r8
-	    \once\override Slur  #'extra-offset = #'(0 . -8)
+	    \once\override Slur  #'extra-offset = #'(0 . 6)
 	    \once\override Slur  #'control-points =
 	    #'((0 . -4) (2 . 0) (60 . 0) (63 . 4))
 	    c8( as' f c' as
@@ -38,6 +38,6 @@
 	    f' c as' f c'4)
 	}>>
     >>
-    \paper { raggedright = ##t }
+    \paper {  }
 }
 

@@ -1,5 +1,12 @@
 2004-08-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/slur-beautiful.ly (Module): remove
+
+	* input/test/slur-attachment-override.ly (Module): remove
+
+	* lily/slur-quanting.cc (after_line_breaking): only do scoring
+	when less than 4 control-points.
+
 	* lily/key-signature-interface.cc: add style.
 
 	* Documentation/user/notation.itely (Automatic staff changes):

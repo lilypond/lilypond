@@ -380,7 +380,8 @@ New_slur::after_line_breaking (SCM smob)
   if (!get_grob_direction (me))
     set_grob_direction (me, get_default_dir (me));
 
-  set_end_points (me);
+  if (scm_ilength (me->get_property ("control-points")) < 4)
+    set_end_points (me);
 
   return SCM_UNSPECIFIED;
 }
@@ -431,6 +432,9 @@ get_bound_info (Spanner* me, Grob **common)
 void
 set_end_points (Grob *me)
 {
+
+  
+  
   Link_array<Grob> columns
     = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
 
@@ -1194,7 +1198,10 @@ get_bezier (Grob *me,
 	continue;
 
       Encompass_info inf (get_encompass_info (me, encompasses[i], common));
-      avoid.push (Offset (inf.x_, inf.head_ +  dir * score_param->free_head_distance_));
+
+      Real y = dir*((dir * inf.head_) >? (dir *inf.stem_));
+      
+      avoid.push (Offset (inf.x_,  y + dir * score_param->free_head_distance_));
     }
   
   Offset dz = attachments[RIGHT]- attachments[LEFT];;
@@ -1239,8 +1246,6 @@ get_bezier (Grob *me,
   curve.control_[1] = attachments[LEFT] + dz_perp * height * dir + dz_unit * x1;
   curve.control_[2] = attachments[RIGHT] + dz_perp * height * dir + dz_unit * x2;
   curve.control_[3] = attachments[RIGHT];
-
-  
   
   return curve;
 }
