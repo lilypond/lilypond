@@ -1,5 +1,6 @@
 #include "varray.hh"
 
+#include "proto.hh"
 #include "dimen.hh"
 #include "beam.hh"
 #include "misc.hh"
@@ -7,7 +8,7 @@
 #include "symbol.hh"
 #include "molecule.hh"
 #include "leastsquares.hh"
-#include "pcol.hh"
+#include "p-col.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
