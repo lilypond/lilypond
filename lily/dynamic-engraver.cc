@@ -238,7 +238,7 @@ Dynamic_engraver::create_grobs ()
 	    ugh. Use push/pop?
 	   */
 	  SCM s = get_property ((start_type + "Spanner").ch_C());
-	  if (!gh_string_p (s) || ly_scm2string (s) == "hairpin")
+	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
 	      cresc_p_  = new Spanner (get_property ("Crescendo"));
 	      cresc_p_->set_grob_property ("grow-direction",

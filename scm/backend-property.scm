@@ -299,7 +299,7 @@ bracket. Setting the property to #'if-no-beam will make it
 print only if there is no beam associated with this tuplet bracket.")
 (elt-property-description 'tuplet-number-visibility boolean-or-symbol? "
 Like @code{tuplet-bracket-visibility}, but for the number.")
-(elt-property-description 'type string? "one of: line, dashed-line or dotted-line")
+(elt-property-description 'type symbol? "one of: line, dashed-line or dotted-line")
 (elt-property-description 'vertical-position-quant-function procedure? "
 function of type (beam multiplicity dy staff-line-thickness) -> real.  Default value: default-beam-y-quants, also available: beam-traditional-y-quants.
 ")

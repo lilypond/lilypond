@@ -9,6 +9,7 @@
 #include "molecule.hh"
 #include "text-item.hh"
 #include "text-spanner.hh"
+#include "line-spanner.hh"
 #include "spanner.hh"
 #include "font-interface.hh"
 #include "dimensions.hh"
@@ -35,26 +36,19 @@ Text_spanner::brew_molecule (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real thickness = me->paper_l ()->get_var ("stafflinethickness");  
   
-
   Drul_array<bool> broken;
   Direction d = LEFT;
   do
     {
       Paper_column* s = dynamic_cast<Paper_column*>(spanner->get_bound (d)); // UGH
-      broken[d] = (!s->musical_b ());
+      if (s && s->musical_b ())
+	broken[d] = false;
+      else
+	broken[d] = true;
     }
   while (flip (&d) != LEFT);
   
-#if 0
-  SCM s = me->get_grob_property ("text-style");
-
-  String text_style = "italic";
-  if (gh_string_p (s))
-    text_style = ly_scm2string (s);
-#endif
-
   SCM properties = Font_interface::font_alist_chain (me);
 
   SCM edge_text = me->get_grob_property ("edge-text");
@@ -98,83 +92,40 @@ Text_spanner::brew_molecule (SCM smob)
       width = 0;
     }
 
-
-  String type = "dashed-line";
-  s = me->get_grob_property ("type");
-  if (gh_string_p (s))
-    type = ly_scm2string (s);
-
-  Molecule line;
-  Drul_array<Molecule> edge_line;
-  if (type == "line"
-      || type == "dashed-line"
-      || type == "dotted-line")
-    {
-      Real thick = thickness;
-      s = me->get_grob_property ("line-thickness");
-      if (gh_number_p (s))
-	thick *= gh_scm2double (s);
+  /* ugh */
+  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
   
-      // maybe these should be in line-thickness?
-      Real length = staff_space;
-      s = me->get_grob_property ("dash-length");
-      if (gh_number_p (s))
-	length = gh_scm2double (s) * staff_space;
-
-      Real period = 2 * length + thick;
-      s = me->get_grob_property ("dash-period");
-      if (gh_number_p (s))
-	period = gh_scm2double (s) * staff_space;
+  Molecule line;
+  SCM list = Line_spanner::line_atom (me, width, 0);
+  if (list != SCM_EOL)
+    {
       
-      if (type == "dotted-line")
-	length = thick;
-	
-      if (type == "line")
-	length = period + thick;
-
-      Real on = length - thick;
-      Real off = period - on;
-
-      SCM list = gh_list (ly_symbol2scm ("dashed-line"),
-			  gh_double2scm (thick),
-			  gh_double2scm (on),
-			  gh_double2scm (off),
-			  gh_double2scm (width),
-			  gh_double2scm (0),
-			  SCM_UNDEFINED);
-
       Box b (Interval (0, width), Interval (-thick / 2, thick / 2));
       line = Molecule (b, list);
-
-      s = me->get_grob_property ("edge-height");
-      if (gh_pair_p (s))
-	{
-	  Direction d = LEFT;
-	  int dir = to_dir (me->get_grob_property ("direction"));
-	  do
-	    {
-	      Real dy = gh_scm2double (index_cell (s, d)) * - dir;
-	      if (dy)
-		{
-		  SCM list = gh_list (ly_symbol2scm ("dashed-line"),
-				      gh_double2scm (thick),
-				      gh_double2scm (on),
-				      gh_double2scm (off),
-				      gh_double2scm (0),
-				      gh_double2scm (dy),
-				      SCM_UNDEFINED);
-		  
-		  Box b (Interval (0, thick),
-			 dy > 0
-			 ? Interval (0, dy)
-			 : Interval (dy, 0));
-		  edge_line[d] = Molecule (b, list);
-		}
-	    }
-	  while (flip (&d) != LEFT);
-	}
     }
-
+  
+  Drul_array<Molecule> edge_line;
+  s = me->get_grob_property ("edge-height");
+  if (gh_pair_p (s))
+    {
+      Direction d = LEFT;
+      int dir = to_dir (me->get_grob_property ("direction"));
+      do
+	{
+	  Real dy = gh_scm2double (index_cell (s, d)) * - dir;
+	  if (dy)
+	    {
+	      SCM list = Line_spanner::line_atom (me, 0, dy);
+	      Box b (Interval (0, thick),
+		     dy > 0
+		     ? Interval (0, dy)
+		     : Interval (dy, 0));
+	      edge_line[d] = Molecule (b, list);
+	    }
+	}
+      while (flip (&d) != LEFT);
+    }
+  
   Molecule m;
   if (!edge[LEFT].empty_b ())
     m = edge[LEFT];

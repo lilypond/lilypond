@@ -24,6 +24,12 @@
 #include "interval.hh"
 
 SCM
+ly_last (SCM list)
+{
+  return gh_car (scm_last_pair (list));
+}
+
+SCM
 ly_str02scm (char const*c)
 {
   // this all really sucks, guile should take char const* arguments!
@@ -41,7 +47,7 @@ ly_str02scm (char const*c)
 SCM
 ly_parse_scm (char const* s, int* n)
 {
-  SCM str = gh_str02scm ((char*)s);
+  SCM str = ly_str02scm (s);
   SCM port = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
                             "ly_eval_scm_0str");
   SCM from = scm_ftell (port);
@@ -365,7 +371,7 @@ ly_number2string (SCM s)
       sprintf (str, "%d ", gh_scm2int (s));
     }
 
-  return gh_str02scm (str);
+  return ly_str02scm (str);
 }
 
 /*

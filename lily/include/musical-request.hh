@@ -158,4 +158,9 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
+class Glissando_req : public Request
+{
+  VIRTUAL_COPY_CONS (Music);
+};
+
 #endif // MUSICALREQUESTS_HH

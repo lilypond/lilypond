@@ -286,6 +286,13 @@
 			rhythmic-head-interface font-interface 
 			note-head-interface ))
 	))
+	(NoteHeadLine . (
+			 (type . line)
+			 (gap . 0.5)
+			 (molecule-callback . ,Line_spanner::brew_molecule)
+			 (meta . ,(element-description "NoteHeadLine"
+						       line-spanner-interface))
+			 ))
 
 	(NoteName . (
 		(molecule-callback . ,Text_item::brew_molecule)

@@ -57,6 +57,7 @@ class Folded_repeat_iterator;
 class Font_metric;
 class Font_size_engraver;
 class Global_translator;
+class Glissando_req;
 class Gourlay_breaking;
 class Grace_engraver_group;
 class Grace_iterator;

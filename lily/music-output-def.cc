@@ -67,7 +67,7 @@ Music_output_def::find_translator_l (SCM name) const
 Global_translator *
 Music_output_def::get_global_translator_p () 
 {
-  Translator_def * t = unsmob_translator_def (find_translator_l (gh_str02scm ("Score")));
+  Translator_def * t = unsmob_translator_def (find_translator_l (ly_str02scm ("Score")));
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
 

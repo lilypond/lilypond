@@ -472,6 +472,18 @@ font-point-size font-relative-size)
 
     )))
 
+(define line-spanner-interface
+  (lily-interface
+   'line-spanner-interface
+   "generic line spanner"
+   '(
+    dash-period 
+    dash-length 
+    line-thickness 
+    type 
+    )
+   ))
+
 (define lyric-hyphen-interface
   (lily-interface
    'lyric-hyphen-interface

@@ -46,12 +46,6 @@ ly_remove_member (SCM s, SCM list)
   return gh_reverse (removed);
 }
 
-SCM
-ly_last (SCM list)
-{
-  return gh_car (scm_last_pair (list));
-}
-
 /* tail add */
 SCM
 ly_snoc (SCM s, SCM list)
