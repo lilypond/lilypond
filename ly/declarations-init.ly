@@ -25,7 +25,7 @@ should also set allowBeamBreak, but how to do it "portably"? (ie. also
 working with lyric sections)
 
 %}
-break =#(ly:export make-event-chord (list (make-penalty-music -10001)))
+break =#(make-event-chord (list (make-penalty-music -10001)))
 noBreak =  #(make-event-chord (list (make-penalty-music 10001)))
 
 \include "scale-definitions-init.ly"

@@ -16,9 +16,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 Buildrequires: t1utils bison flex mftrace ImageMagick
 Buildrequires: texinfo >= 4.6
-Buildrequires: guile-devel >= 1.6.4-7
+Buildrequires: guile-devel >= 1.6.4-8
 Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
-Requires: guile >= 1.6.4-7
+Requires: guile >= 1.6.4-8
 
 %description
 LilyPond lets you create music notation.  It produces

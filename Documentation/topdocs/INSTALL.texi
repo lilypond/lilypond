@@ -197,38 +197,25 @@ make pfa-fonts
 make MAKE_PFA_FILES=1 install
 texhash
 @end example 
+
 PFA versions of the fonts for the latest LilyPond version can also be
-obtained from the web site using
+obtained from the internet: download the .deb file that corresponds to
+your version, eg.  
+
 @example
-@ignore
-# old stuff
-mkdir /tmp/newfonts
-cd /tmp/newfonts/
-wget -l 1 -nd -r -A pfa,map http://lilypond.org/stable/mf/out/
-mv *.pfa $LILYPONDSHARE/fonts/type1/
-mv *.map $LILYPONDSHARE/dvips/
+wget http://ftp.us.debian.org/debian/pool/main/l/lilypond/lilypond_1.8.0-1_i386.deb
+ar x lilypond_1.8.0.-1_i386.deb
+tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/fonts/type1/
+tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/dvips/
 texhash
-@end ignore
-@c this matches the current type1-1.8.0.tar.gz tarball at lilypond.org
-@c better not change this before 1.8.1?
-wget -P/tmp ftp://ftp.lilypond.org/pub/LilyPond/v1.8/type1-1.8.0.tar.gz
-tar -C /usr/share/lilypond/1.8.0/fonts -xf /tmp/type1-1.8.0.tar.gz
-mv /usr/share/lilypond/1.8.0/ && mv fonts/type1/*.map /usr/share/lilypond/1.8.0/dvips
-texhash
-@end example 
-@ignore
-@c this matches new font tarbal layout and should work for 1.8.1.
-wget -P/tmp ftp://ftp.lilypond.org/pub/LilyPond/v1.8/type1-1.8.1.tar.gz
-tar -C /usr/share/lilypond/1.8.1 -xf /tmp/type1-1.8.1.tar.gz
-texhash
-@end ignore
-where @code{$LILYPONDSHARE} denotes @code{/usr/share/lilypond/1.8.0/} or
-wherever LilyPond is installed on your system.
+@end example
+
+If you are installing LilyPond somewhere else, unpack the appropriate
+files as shown, and move them to the appropriate paths.
 
 If you are doing an upgrade, you should remove all @file{feta}
 @code{.pk} and @code{.tfm} files.  A script has been provided to do the
 work for you, see @file{buildscripts/clean-fonts.sh}.
-
 
 If you are not root, you should choose a @code{--prefix} argument that
 points into your home directory, e.g.:
