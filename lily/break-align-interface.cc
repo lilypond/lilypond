@@ -102,8 +102,7 @@ Break_align_interface::do_alignment (Grob *me)
     {
       int next_idx = idx+1;
       while (next_idx < elems.size() &&
-	     extents[next_idx].is_empty ()
-	    )
+	     extents[next_idx].is_empty () )
 	next_idx++;
       
       Grob *l = elems[idx];
@@ -188,7 +187,9 @@ Break_align_interface::do_alignment (Grob *me)
       if (r)
 	{
 	  if (type == ly_symbol2scm ("extra-space"))
-	    offsets[next_idx] = extents[idx][RIGHT] + distance;
+	    offsets[next_idx] = extents[idx][RIGHT] + distance
+	      - extents[next_idx][LEFT];
+	  /* should probably junk minimum-space */
 	  else if (type == ly_symbol2scm("minimum-space"))
 	    offsets[next_idx] = extents[idx][RIGHT] >? distance;
 	}

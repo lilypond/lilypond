@@ -548,8 +548,12 @@ Slur::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
-  Real thick = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) *
-    gh_scm2double (me->get_grob_property ("thickness"));
+  Real base_thick = gh_scm2double (me->get_grob_property ("thickness"));
+
+  Real thick = base_thick *
+    me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+
+  Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);
 
   // get_curve may suicide
@@ -561,7 +565,8 @@ Slur::brew_molecule (SCM smob)
   if (gh_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = Lookup::slur (one, get_grob_direction (me) * thick, thick);
+    a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
+		      thick);
 
   return a.smobbed_copy ();
 }

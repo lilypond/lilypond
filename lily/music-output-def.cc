@@ -74,6 +74,11 @@ Music_output_def::assign_translator (SCM transdef)
   assert (tp);
 
   translator_tab_->set (tp->type_name_, transdef);
+  
+  String nm = ly_symbol2string (tp->type_name_) + "Context";
+
+
+  scm_module_define (scope_, ly_symbol2scm (nm.to_str0()), transdef);
 }
 
 /*

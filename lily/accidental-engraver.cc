@@ -117,7 +117,7 @@ calculates the number of accidentals on basis of the current local key sig
 
 */
 static int
-number_accidentals (SCM sig, Music *, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+number_accidentals_from_sig (SCM sig, Music *, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
   int n = pitch->get_notename ();
@@ -171,13 +171,14 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
 		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
-  while (gh_pair_p (accidentals) && origin)
+  for (; gh_pair_p (accidentals) && origin; accidentals = gh_cdr (accidentals))
     {
       // If pair then it is a new accidentals typesetting rule to be checked
-      if (gh_pair_p (ly_car (accidentals)))
+      SCM rule = gh_car (accidentals);
+      if (gh_pair_p (rule))
 	{
-	  SCM type = gh_caar (accidentals);
-	  SCM lazyness = gh_cdar (accidentals);
+	  SCM type = gh_car (rule);
+	  SCM lazyness = gh_cdr (rule);
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 
@@ -187,7 +188,7 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
 
 	  if (same_octave_b || any_octave_b)
 	    {
-	      int n = number_accidentals
+	      int n = number_accidentals_from_sig
 		(localsig, note, pitch, curbarnum, lazyness, any_octave_b);
 	      diff = diff || (n < 0);
 	      number = max (number, abs (n));     
@@ -201,21 +202,19 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
       /*
 	if symbol then it is a context name. Scan parent contexts to find it.
       */
-      else if (gh_symbol_p (ly_car (accidentals)))
+      else if (gh_symbol_p (rule))
 	{
-	  SCM context =ly_car (accidentals);
-	  while (origin && !origin->is_alias (context))
-	    origin = origin->daddy_trans_;
+	  Translator_group * dad = origin;
+	  while (dad && !dad->is_alias (rule))
+	    dad = dad->daddy_trans_;
       
-	  if (!origin)
-	    warning (_f ("Symbol is not a parent context: %s. Ignored", 
-			 ly_symbol2string (context).to_str0 ()));
+	  if (dad)
+	    origin = dad;
 	}
-      else warning (_f ("Accidental typesetting must be pair or context-name: %s", 
-			ly_scm2string (ly_car (accidentals)).to_str0 ()));
-      
-      accidentals = ly_cdr (accidentals);
+      else warning (_f ("Accidental rule must be pair or context-name; Found %s", 
+			ly_scm2string (rule).to_str0 ()));
     }
+
   return diff ? -number : number;
 }
 
