@@ -24,7 +24,7 @@ Axis_group_item::OK() const
 void
 Axis_group_item::do_breakable_col_processing()
 {
-  if (!breakable_b_)
+  if (!breakable_b_ || !column_l ()->breakable_b_) // ugh should merge with Item code
     return;
   
   OK();
