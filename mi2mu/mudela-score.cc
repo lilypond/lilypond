@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include "moment.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
@@ -13,12 +14,21 @@
 #include "mudela-staff.hh"
 #include "mudela-stream.hh"
 
+//static Mudela_key key_c (0, 0);
+static Mudela_meter meter_4 (4, 2, 24, 8);
+// useconds per 4: 250000 === 60 4 per minute
+static Mudela_tempo tempo_60 (1000000);
+
 Mudela_score::Mudela_score (int format_i, int tracks_i, int tempo_i)
 {
   format_i_ = format_i;
   tracks_i_ = tracks_i;
   tempo_i_ = tempo_i;
-  mudela_column_p_list_.bottom().add (new Mudela_column (this, Moment (0)));
+  column_l_array_.push (new Mudela_column (this, Moment (0)));
+//  mudela_key_l_ = &key_c;
+  mudela_key_l_ = 0;
+  mudela_meter_l_ = &meter_4;
+  mudela_tempo_l_ = &tempo_60;
 }
 
 Mudela_score::~Mudela_score()
@@ -38,23 +48,54 @@ Mudela_score::add_staff (Mudela_staff* mudela_staff_p)
 }
 
 Mudela_column*
-Mudela_score::mudela_column_l (Moment mom)
+Mudela_score::find_column_l (Moment mom)
 {
-  for  (PCursor<Mudela_column*> i (mudela_column_p_list_); i.ok(); i++) 
+#if 0
+  // should do binary search
+  for (int i = 0; i < column_l_array_.size (); i++ )
+    if ( column_l_array_[i]->at_mom () == mom )
+        return column_l_array_[i];
+  return 0;
+#else
+  int upper_i = max (0, column_l_array_.size () - 1);
+  int lower_i = 0;
+  int i = 0; //upper_i;
+  while (1) 
     {
-	if  (i->at_mom() > mom) 
-	  {
-	    Mudela_column* p = new Mudela_column (this, mom);
-	    i.insert (p);
-	    return p;
-	  }
-	if  (i->at_mom() == mom)
-	    return *i;
+      Moment i_mom = column_l_array_ [i]->at_mom ();
+      if (i_mom == mom)
+	return column_l_array_ [i];
+      if (mom < i_mom)
+	upper_i = i;
+      else
+	lower_i = i;
+      if ((upper_i == lower_i) || (i == column_l_array_.size () - 1)) 
+	{
+	  // we don't do inserts
+	  assert (0);
+	  Mudela_column* col_p = new Mudela_column (this, mom);
+	  column_l_array_.push (col_p);
+	  return col_p;
+        }
+      i = (upper_i + lower_i + 1 ) / 2;
     }
+  assert (0);
+  return 0;
+#endif
+}
 
-  Mudela_column* p = new Mudela_column (this, mom);
-  mudela_column_p_list_.bottom().add (p);
-  return p;
+Mudela_column*
+Mudela_score::get_column_l (Moment mom)
+{
+  if ( column_l_array_ [column_l_array_.size() - 1]->at_mom () > mom )
+    {
+      error ("ugh");
+      exit (1);
+    }
+  if ( column_l_array_[column_l_array_.size() - 1]->at_mom () < mom )
+    column_l_array_.push (new Mudela_column (this, mom));
+
+  return column_l_array_ [column_l_array_.size() - 1];
 }
 
 void
@@ -93,7 +134,7 @@ Mudela_score::output (String filename_str)
 
   mudela_stream << "\\paper{}\n";
 
-  mudela_stream << "\\midi{ ";
+  mudela_stream << "\\midi{\n";
 	// let's not use silly 0 track
 	mudela_staff_p_list_.bottom()->mudela_tempo_p_->output (mudela_stream);
   mudela_stream << "}\n";
@@ -107,8 +148,8 @@ Mudela_score::process()
   LOGOUT(NORMAL_ver) << "\nProcessing..." << endl;
 	
   LOGOUT(DEBUG_ver) << "columns\n";
-  for  (PCursor<Mudela_column*> i (mudela_column_p_list_); i.ok(); i++)
-	LOGOUT(DEBUG_ver) << "At: " << i->at_mom() << "\n";
+//  for  (PCursor<Mudela_column*> i (mudela_column_p_list_); i.ok(); i++)
+//	LOGOUT(DEBUG_ver) << "At: " << i->at_mom() << "\n";
 
   settle_columns();
   filter_tempo();
@@ -143,17 +184,24 @@ Mudela_score::quantify_columns()
 
   LOGOUT(NORMAL_ver) << "\nQuantifying columns..." << endl;
 
+  int current_bar_i = 0;
+  Moment bar_mom = mudela_meter_l_->bar_mom();
+
   int n = 5 >? Duration_convert::no_smaller_than_i_s;
+  n = Duration_convert::type2_i (n);
   Moment s = Moment (1, n);
   Moment sh = Moment (1, 2 * n);
   for  (int i = 0; i < column_l_array_.size(); i++) 
     {
-//	Moment mom = column_l_array_[ i ]->at_mom();
-//	column_l_array_[ i ]->at_mom_ = Duration_convert::dur2_mom (dur);
-	column_l_array_[ i ]->at_mom_ =
-//	    s * (int) ( (sh + column_l_array_[ i ]->at_mom()) / s);
-	    s * (int) ( (column_l_array_[ i ]->at_mom()) / s);
-	LOGOUT(NORMAL_ver) << '.';
+      column_l_array_ [i]->at_mom_ =
+      	s * (int) ( (column_l_array_ [i]->at_mom()) / s);
+
+      int bar_i = (int) (column_l_array_ [i]->at_mom () / bar_mom) + 1;
+      if (bar_i > current_bar_i) 
+	{
+	  LOGOUT (NORMAL_ver) << '[' << bar_i << ']' << flush; 
+	  current_bar_i = bar_i;
+	}
     }
   LOGOUT(NORMAL_ver) << endl;
 }
@@ -171,12 +219,16 @@ Mudela_score::settle_columns()
 //    return;
   LOGOUT(NORMAL_ver) << "\nSettling columns..." << endl;
 
+#if 0
   assert (!column_l_array_.size());
   int n = mudela_column_p_list_.size();
 // huh?
 //    column_l_array_.set_size (n);
   for  (PCursor<Mudela_column*> i (mudela_column_p_list_); i.ok(); i++)
 	column_l_array_.push (*i);
+#endif
+
+  int n = column_l_array_.size();
 
   int start_i = 0;
   int end_i = 0;
@@ -190,18 +242,18 @@ Mudela_score::settle_columns()
 	if  (!start_i) 
 	  {
 	    start_i = end_i = i;
-	    start_mom = column_l_array_[ i ]->at_mom();
+	    start_mom = column_l_array_ [i]->at_mom();
 	    continue;
 	  }
 
 	// find all columns within noise's distance
 	while  ( (i < n)
-	    &&  (column_l_array_[ i ]->at_mom() - start_mom < noise_mom))
+	    &&  (column_l_array_ [i]->at_mom() - start_mom < noise_mom))
 	    end_i = ++i;
 
 	// bluntly set all to time of first in group
 	for  (int j = start_i; j < end_i; j++)
-	    column_l_array_[ j ]->at_mom_ = start_mom;
+	    column_l_array_ [j]->at_mom_ = start_mom;
 
 	start_i = end_i = 0;
     }

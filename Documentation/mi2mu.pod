@@ -31,6 +31,11 @@ Show a summary of usage.
 
 Add DIR to search path.
 
+=item B<-k, --key>=ACC[:MINOR],
+
+Set default key.  ACC > 0 sets number of sharps; ACC < 0 sets number 
+of flats.  A minor key is indicated by ":1".
+
 =item B<-n, --no-silly>,
 
 Assume no plets or double dots, assume smallest (reciprocal) duration 16.

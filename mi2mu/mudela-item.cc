@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include "mi2mu-global.hh"
 #include "string-convert.hh"
 #include "duration-convert.hh"
@@ -17,13 +18,13 @@ Mudela_item::Mudela_item (Mudela_column* mudela_column_l)
 }
 
 Moment
-Mudela_item::at_mom()
+Mudela_item::at_mom ()
 {
-  return mudela_column_l_->at_mom();
+  return mudela_column_l_->at_mom ();
 }
 
 Moment
-Mudela_item::duration_mom()
+Mudela_item::duration_mom ()
 {
   return Moment (0);
 }
@@ -31,7 +32,7 @@ Mudela_item::duration_mom()
 void
 Mudela_item::output (Mudela_stream& mudela_stream_r)
 {
-  mudela_stream_r << str() << String (" ");
+  mudela_stream_r << str () << String (" ");
 }
 
 Mudela_key::Mudela_key (int accidentals_i, int minor_i)
@@ -39,22 +40,23 @@ Mudela_key::Mudela_key (int accidentals_i, int minor_i)
 {
   accidentals_i_ = accidentals_i;
   minor_i_ = minor_i;
-  if  (accidentals_i >= 0)
-	key_i_ =   ((accidentals_i % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
-  else
-	key_i_ =   ((-accidentals_i % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
 }
 
 String
-Mudela_key::str()
+Mudela_key::str ()
 {
+  int key_i = 0;
+  if (accidentals_i_ >= 0)
+	key_i =   ((accidentals_i_ % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
+  else
+	key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
   String str = "\\key ";
-  if  (!minor_i_) 
-	str += String ((char)  ((key_i_ + 2) % 7 + 'A'));
+  if (!minor_i_) 
+	str += String ((char)  ((key_i + 2) % 7 + 'A'));
   else // heu, -2: should be - 1 1/2: A -> fis
-	str += String ((char)  ((key_i_ + 2 - 2) % 7 + 'a'));
+	str += String ((char)  ((key_i + 2 - 2) % 7 + 'a'));
   str = String ("% \"") + str
-	+ String('"') + "; % not supported yet\n"; 
+	+ String ('"') + "; % not supported yet\n"; 
   return str;
 }
 
@@ -71,7 +73,7 @@ Mudela_key::notename_str (int pitch_i)
   
   static int accidentals_i_a[ 12 ] = { 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0 };
   int accidental_i = accidentals_i_a[ minor_i_ * 5 + pitch_i % 12 ];
-  if  (accidental_i &&  (accidentals_i_ < 0)) 
+  if (accidental_i &&  (accidentals_i_ < 0)) 
     {
 	accidental_i = - accidental_i;
 	notename_i =  (notename_i + 1) % 7;
@@ -96,9 +98,9 @@ Mudela_key::notename_str (int pitch_i)
 Mudela_meter::Mudela_meter (int num_i, int den_i, int clocks_4_i, int count_32_i)
    : Mudela_item (0)
 {
-  sync_dur_.durlog_i_ = 3 ;
+  sync_dur_.durlog_i_ = 3;
   sync_f_ = 1.0;
-  if  (count_32_i != 8)
+  if (count_32_i != 8)
 	warning (String ("#32 in quarter: ") + String (count_32_i));
   num_i_ = num_i;
   den_i_ = den_i;
@@ -106,33 +108,33 @@ Mudela_meter::Mudela_meter (int num_i, int den_i, int clocks_4_i, int count_32_i
 }
 
 Moment
-Mudela_meter::bar_mom()
+Mudela_meter::bar_mom ()
 {
   Duration d;
-  d.durlog_i_ =   den_i_;
+  d.durlog_i_ = den_i_;
   return Moment (num_i_) * Duration_convert::dur2_mom (d);
 }
 
 int
-Mudela_meter::clocks_1_i()
+Mudela_meter::clocks_1_i ()
 {
   return clocks_1_i_;
 }
 
 int
-Mudela_meter::den_i()
+Mudela_meter::den_i ()
 {
   return den_i_;
 }
 
 int
-Mudela_meter::num_i()
+Mudela_meter::num_i ()
 {
   return num_i_;
 }
 
 String
-Mudela_meter::str()
+Mudela_meter::str ()
 {
   String str = "\\meter "
 	+ String (num_i_) + "/" + String (1 << den_i_) 
@@ -160,22 +162,38 @@ Mudela_note::Mudela_note (Mudela_column* mudela_column_l, int channel_i, int pit
   end_column_l_ = 0;
 }
 
-String
-Mudela_note::str()
+Duration
+Mudela_note::duration ()
 {
-  Duration dur = duration();
-  if  (dur.durlog_i_ < -10)
+  assert (end_column_l_);
+  Moment mom = end_column_l_->at_mom () - at_mom ();
+  return Duration_convert::mom2_dur (mom);
+}
+
+Moment
+Mudela_note::duration_mom ()
+{
+// ugh
+//    return Duration_convert::dur2_mom (duration ());
+  return end_column_l_->at_mom () - at_mom ();
+}
+
+String
+Mudela_note::str ()
+{
+  Duration dur = duration ();
+  if (dur.durlog_i_ < -10)
 	return "";
 
   String name_str 
     = mudela_column_l_->mudela_score_l_->mudela_key_l_->notename_str (pitch_i_);
 
-  if  (simple_plet_b_s)
+  if (simple_plet_b_s)
 	return name_str + Duration_convert::dur2_str (dur) + " ";
 
   //ugh
   String str;
-  if  (dur.plet_b())
+  if (dur.plet_b ())
 	str += String ("\\plet ")
 	    + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
 	    + "/"
@@ -188,26 +206,10 @@ Mudela_note::str()
   tmp.set_plet (1,1);
   str += Duration_convert::dur2_str (tmp);
 
-  if  (dur.plet_b())
+  if (dur.plet_b ())
 	str += String (" \\plet 1/1;");
 
   return str + " ";
-}
-
-Duration
-Mudela_note::duration()
-{
-  assert (end_column_l_);
-  Moment mom = end_column_l_->at_mom() - at_mom();
-  return Duration_convert::mom2_dur (mom);
-}
-
-Moment
-Mudela_note::duration_mom()
-{
-// ugh
-//    return Duration_convert::dur2_mom (duration());
-  return end_column_l_->at_mom() - at_mom();
 }
 
 Mudela_skip::Mudela_skip (Mudela_column* mudela_column_l, Moment skip_mom)
@@ -217,25 +219,25 @@ Mudela_skip::Mudela_skip (Mudela_column* mudela_column_l, Moment skip_mom)
 }
 
 Duration
-Mudela_skip::duration()
+Mudela_skip::duration ()
 {
 	return Duration_convert::mom2_dur (mom_);
 }
 
 Moment
-Mudela_skip::duration_mom()
+Mudela_skip::duration_mom ()
 {
-  return Duration_convert::dur2_mom (duration());
+  return Duration_convert::dur2_mom (duration ());
 }
 
 String
-Mudela_skip::str()
+Mudela_skip::str ()
 {
-  if  (!mom_)
+  if (!mom_)
 	return String ("");
 
-  Duration dur = duration();
-  if  (dur.durlog_i_<-10)
+  Duration dur = duration ();
+  if (dur.durlog_i_<-10)
 	return "";
 
   String str = "\\skip ";
@@ -252,7 +254,7 @@ Mudela_tempo::Mudela_tempo (int useconds_per_4_i)
 }
 
 String
-Mudela_tempo::str()
+Mudela_tempo::str ()
 {
   String str = "\\tempo 4=";
   str += String (get_tempo_i (Moment (1, 4)));
@@ -261,7 +263,7 @@ Mudela_tempo::str()
 }
 
 int 
-Mudela_tempo::useconds_per_4_i()
+Mudela_tempo::useconds_per_4_i ()
 {
   return useconds_per_4_i_;
 }
@@ -280,10 +282,10 @@ Mudela_text::Mudela_text (Mudela_text::Type type, String text_str)
 }
 
 String
-Mudela_text::str()
+Mudela_text::str ()
 {
-  if  (!text_str_.length_i() 
-	||  (text_str_.length_i() != (int)strlen (text_str_.ch_C())))
+  if (!text_str_.length_i () 
+	||  (text_str_.length_i () != (int)strlen (text_str_.ch_C ())))
 	return "";
 
   return "% " + text_str_ + "\n";

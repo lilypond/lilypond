@@ -4,6 +4,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
 
+#include <assert.h>
 #include "string-convert.hh"
 #include "lgetopt.hh"
 #include "path.hh"
@@ -11,12 +12,18 @@
 #include "source.hh"
 
 #include "mi2mu-global.hh"
-#include "my-midi-parser.hh"
+#include "midi-score-parser.hh"
+#include "mudela-item.hh"
 #include "mudela-score.hh"
 #include "version.hh"
 
+// ugh
+String filename_str_g;
+
+// ugh
+Mudela_score* mudela_score_l_g = 0;
+
 Sources source;
-Sources* source_l_g = &source;
 
 static File_path path;
 
@@ -37,6 +44,7 @@ usage()
   "  -d, --debug            print lots of debugging stuff\n"
   "  -h, --help             this help\n"
   "  -I, --include=DIR      add DIR to search path\n"
+  "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
   "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
   "  -o, --output=FILE      set FILE as default output\n"
   "  -p, --no-plets         assume no plets\n"
@@ -82,6 +90,7 @@ notice()
 int
 main (int argc_i, char* argv_sz_a[])
 {
+  Mudela_key key (0, 0);
   rat_printer = print_rat;	
 
   Long_option_init long_option_init_a[] = 
@@ -89,6 +98,7 @@ main (int argc_i, char* argv_sz_a[])
 	{0, "no-quantify", 'b'},
 	{0, "debug", 'd'},
 	{0, "help", 'h'},
+	{1, "key", 'k'},
 	{0, "no-silly", 'n'},
 	{1, "output", 'o'},
 	{0, "no-plets", 'p'},
@@ -102,8 +112,8 @@ main (int argc_i, char* argv_sz_a[])
   Getopt_long getopt_long (argc_i, argv_sz_a, long_option_init_a);
 
   String output_str;
-  while  (Long_option_init const* long_option_init_p = getopt_long())
-	switch  (long_option_init_p->shortname) 
+  while (Long_option_init const* long_option_init_p = getopt_long())
+	switch (long_option_init_p->shortname) 
 	  {
 	case 'b':
 	    Duration_convert::no_quantify_b_s = true;
@@ -119,6 +129,15 @@ main (int argc_i, char* argv_sz_a[])
 //	case 'I':
 //	    path->push (getopt_long.optional_argument_ch_C_);
 //	    break;
+	case 'k':
+	  { 
+	    String str = getopt_long.optional_argument_ch_C_;
+	    int i = str.index_i (':');
+	    i = (i >=0 ? i : str.length_i ());
+	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.mid_str (i,1));
+	    break;
+	  }
 	case 'n':
 	    Duration_convert::no_double_dots_b_s = true;
 	    Duration_convert::no_triplets_b_s = true;
@@ -136,7 +155,7 @@ main (int argc_i, char* argv_sz_a[])
 	case 's': 
 	  {
 		int i = String_convert::dec2_i (getopt_long.optional_argument_ch_C_);
-		if  (!i) 
+		if (!i) 
 		  {
 		    identify();
 		    usage();
@@ -166,32 +185,33 @@ main (int argc_i, char* argv_sz_a[])
   identify();
 
   path.add ("");
-  source_l_g->set_path (&path);
+  source.set_binary (true);
+  source.set_path (&path);
 
   char const* arg_sz = 0;
-  while  ( (arg_sz = getopt_long.get_next_arg())) 
+  while ( (arg_sz = getopt_long.get_next_arg ())) 
     {
-	My_midi_parser midi_parser (arg_sz, & source);
-	midi_parser_l_g = &midi_parser;
+	filename_str_g = arg_sz;
+	Midi_score_parser midi_parser;
+	Mudela_score* score_p = midi_parser.parse (arg_sz, &source);
 
-	int error_i = midi_parser.parse();
-	if  (error_i)
-	    return error_i;
+	if (!score_p)
+	  return 1;
 
-	if  (!output_str.length_i()) 
+	if (!score_p->mudela_key_l_)
+	  score_p->mudela_key_l_ = &key;
+	mudela_score_l_g = score_p;
+	score_p->process();
+
+	if (!output_str.length_i ()) 
 	  {
 	    String d, dir, base, ext;
-
 	    split_path (arg_sz, d, dir, base, ext);
-	    
 	    output_str = base + ext + ".ly";
 	  }
 
-	assert (midi_parser.mudela_score_p_);
-	midi_parser.mudela_score_p_->process();
-	midi_parser.mudela_score_p_->output (output_str);
-
-	midi_parser_l_g = 0;
+	score_p->output (output_str);
+	delete score_p;
     }
   return 0;
 }

@@ -39,10 +39,9 @@ public:
     String notename_str (int pitch_i);
     virtual String str();
 
-private:
+//private:
     int accidentals_i_;
     int minor_i_;
-    int key_i_;
 };
 
 class Mudela_meter : public Mudela_item 
@@ -121,7 +120,7 @@ public:
     Mudela_text (Mudela_text::Type type,  String str);
     virtual String str();
 
-private:
+//private:
     Type type_;
     String text_str_;
 };

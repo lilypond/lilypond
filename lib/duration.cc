@@ -7,6 +7,7 @@
            Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include <assert.h>
 #include "proto.hh"
 #include "plist.hh"
 #include "string.hh"
@@ -24,13 +25,6 @@ Duration::Duration()
 {
   durlog_i_ = 0;
   dots_i_ = 0;
-  ticks_i_ = 0;
-}
-
-Duration::Duration( int type_i, int dots_i = 0 )
-{
-  durlog_i_ = type_i;
-  dots_i_ = dots_i;
   ticks_i_ = 0;
 }
 
