@@ -1,30 +1,53 @@
-PODS=README.pod CodingStyle.pod lilygut.pod lilyinput.pod error.pod\
-	faq.pod index.pod language.pod
-TXTS=$(PODS:.pod=.txt)
-MANS=$(PODS:.pod=.1)
-HTMLS=$(PODS:.pod=.html)
-DISTFILES=$(PODS) Makefile lelie_logo.png make_website
+# Documentation/Makefile
 
+# subdir level:
+#
+depth = ..
+#
 
-default:
-	$(MAKE) -C .. doc
+# identify module:
+#
+NAME = Documentation
+MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
+MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
+PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
+# use to send patches, always empty for released version:
+MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
+build = ./$(depth)/lily/.build
+#
 
-doc: $(TXTS)
+# generic variables:
+#
+include ./$(depth)/make/Variables.make 
+#
 
-dist:
-	ln $(DISTFILES) $(DDIR)/$(SUBDIR)
-clean:
-	rm -f $(TXTS) $(MANS)
+# list of source files:
+#
+PODFILES = $(shell ls *.pod)
+OUTPODFILES = $(patsubst %,$(outdir)/%,$(PODFILES))
+TEXTFILES = $(OUTPODFILES:.pod=.text)
+MANFILES = $(OUTPODFILES:.pod=.1)
+HTMLFILES = $(OUTPODFILES:.pod=.html)
+#
 
-%.txt: %.1
-	groff -man -Tascii $< > $@
+# list of distribution files:
+#
+DISTFILES = $(PODFILES) Makefile lelie_logo.png
+#
 
-%.1: %.pod
-	pod2man --center="LilyPond documentation" --section="0"\
-		--release="LilyPond $(MAJVER).$(MINVER).$(PATCHLEVEL)" $< > $@
+default: do-doc
+
+do-doc: $(TEXTFILES)
 
 html: $(pod)
 	pod2html
 
 htmldist: html
-	make_website
+	./$(bindir)/make_website
+
+# generic targets and rules:
+#
+include ./$(depth)/make/Targets.make
+include ./$(depth)/make/Rules.make
+#
+

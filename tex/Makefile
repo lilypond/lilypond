@@ -1,4 +1,4 @@
-# input/Makefile
+# tex/Makefile
 
 # subdir level:
 #
@@ -14,8 +14,7 @@ include ./$(depth)/make/Stuff.make
 
 # list of distribution files:
 # 
-LYFILES = $(shell ls *.ly)
 TEXFILES = $(shell ls *.tex)
-DISTFILES = Makefile $(LYFILES) $(TEXFILES)
+DISTFILES = Makefile $(TEXFILES)
 #
 
