@@ -1629,7 +1629,7 @@ titles.
 * Multiple movements::          
 * Creating titles::             
 * Page breaking::               
-* paper size::                  
+* Paper size::                  
 * Page layout::                 
 @end menu
 
@@ -2065,6 +2065,8 @@ The header block for a book supports the following
     The title of the music. Centered on top of the first page.
 @item subtitle
     Subtitle, centered below the title.
+@item subsubtitle
+    Subsubtitle, centered below the subtitle.
 @item poet
     Name of the poet, left flushed below the subtitle.
 @item composer
@@ -2088,9 +2090,9 @@ This is a demonstration of the fields available,
 @lilypond[verbatim]
 \book {
   \header {
-    title = "Title"
-    subtitle = "and the subtitle"
-    subsubtitle = "Sub sub title"
+    title = "Title,"
+    subtitle = "the subtitle,"
+    subsubtitle = "and the sub sub title"
     poet = "Poet"
     composer = "Composer"
     texttranslator = "Text Translator"
@@ -2167,21 +2169,22 @@ Page breaks are computed by the @code{page-breaking} function in the
 @cindex  @code{\noPageBreak} 
 @code{\noPageBreak} 
 
-@node paper size
-@subsection paper size
+@node Paper size
+@subsection Paper size
 
 @cindex paper size
 @cindex page size
 @cindex @code{papersize}
 
-To change the paper size, there are two commands,
+To change the paper size, there are two equal commands,
 @example
-        #(set-default-paper-size "a4")
-        \layout@{
-           #(set-paper-size "a4")
-        @}
+  #(set-default-paper-size "a4")
+  \layout@{
+    #(set-paper-size "a4")
+  @}
 @end example
-The second one sets the size of the @code{\layout} block that it is in.
+
+The first command sets the size of all pages.  The second command sets the size of the pages that the @code{\layout} block applies to -- if the @code{\layout} block is at the top of the file, then it will apply to all pages.  If the @code{\layout} block is inside a @code{\score}, then the paper size will only apply to that score.
 
 The following paper sizes are supported.
 

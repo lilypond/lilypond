@@ -1,3 +1,11 @@
+2004-10-30  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: add warning about bar numbers
+	in multistaff music, add warning about quoting grace notes.
+
+	* Documentation/user/changing-defaults.itely: clarify paper size commands,
+	add missing subsubtitle entry to Creating titles.
+
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py (conv): fixed \context Foo = mixedCaps
@@ -52,6 +60,7 @@
 	* scm/lily.scm (ly:system): new function. Catches uninstalled
 	ps2png.
 
+>>>>>>> 1.2778
 2004-10-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/notation.itely: remove

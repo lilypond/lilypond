@@ -5065,6 +5065,18 @@ whose source is available as
 
 @lilypondfile[raggedright,quote]{bar-number-regular-interval.ly}
 
+Bar numbers can be manually changed by setting the
+@code{Staff.currentBarNumber} property
+
+@c fragproblem?  -gp
+@lilypond[raggedright,quote]
+\relative c' {
+  \repeat unfold 4 {c4 c c c} \break
+  \set Score.currentBarNumber = #50
+  \repeat unfold 4 {c4 c c c}
+}
+@end lilypond
+
 @seealso
 
 Program reference: @internalsref{BarNumber}.
@@ -5621,6 +5633,7 @@ Only the contents of the first @internalsref{Voice} occurring in an
 @var{music} can not contain @code{\new} and @code{\context Voice}
 statements that would switch to a different Voice.
 
+Quoting grace notes is broken and can even cause LilyPond to crash.
 
 @seealso
 
