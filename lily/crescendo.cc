@@ -48,7 +48,7 @@ Crescendo::brew_molecule_p() const return m_p ;
     }
     Symbol s( paper()->lookup_l()->hairpin(w_dim, grow_dir_i_ < 0) );
     m_p->add(Atom(s));
-    int pos = get_position_i();
+    int pos = get_position_i(s.dim.y);
     m_p->translate(Offset(x_off_dim,pos * paper()->internote()));
 }
 

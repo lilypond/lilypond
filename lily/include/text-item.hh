@@ -24,13 +24,14 @@ public:
         
     /* ***************/
 
-    NAME_MEMBERS(Text_item);
-    virtual void set_default_index();
-    Molecule* brew_molecule_p() const;
-    void do_pre_processing();
     Text_item(Text_def*);
     Text_item(Text_req*);
     ~Text_item();
+    NAME_MEMBERS(Text_item);
+protected:
+    virtual void set_default_index();
+    Molecule* brew_molecule_p() const;
+    virtual void do_post_processing();
 };
 
 
