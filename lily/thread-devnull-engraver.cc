@@ -49,14 +49,14 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 Thread_devnull_engraver::Thread_devnull_engraver(){}
 
 ENTER_DESCRIPTION(Thread_devnull_engraver,
-/* descr */       "Kill elements whenever we are Voice called `two' and either
-unison, unisilence or soloADue is set.@footnote{On unix systems, the
-file @file{/dev/null} is special device: anything written to it is
-discarded.}. This engraver works closely together with the part
-combiner.  When the part combiner notices that two threads are
-identical, it tells the @code{Thread_devnull_engraver} to discard
-everything in the second thread.
-",
+/* descr */       "Kill elements whenever we are Voice called `two' and either "
+"unison, unisilence or soloADue is set.@footnote{On unix systems, the "
+"file @file{/dev/null} is special device: anything written to it is "
+"discarded.}. This engraver works closely together with the part "
+"combiner.  When the part combiner notices that two threads are "
+"identical, it tells the @code{Thread_devnull_engraver} to discard " 
+"everything in the second thread. "
+,
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "grob-interface",

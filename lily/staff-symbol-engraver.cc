@@ -71,8 +71,8 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 
 
 ENTER_DESCRIPTION(Staff_symbol_engraver,
-/* descr */       "create the constellation of five (default)
-staff lines.",
+/* descr */       "create the constellation of five (default) "
+"staff lines.",
 /* creats*/       "StaffSymbol",
 /* accepts */     "",
 /* acks  */      "grob-interface",

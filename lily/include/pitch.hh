@@ -13,16 +13,26 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
-/** A "tonal" pitch. This is a pitch as it figures in diatonal western
-   music (12 semitones in an octave), as opposed to a frequence in Hz
+/** A "tonal" pitch. This is a pitch used in diatonal western
+   music (12 semitones in an octave), as opposed to a frequency in Hz
    or a integer number of semitones.
-   
+
+  Pitch is lexicographically ordered by (octave, notename,
+    alteration).    
+  
+
+   TODO:
+
+   - add indeterminate octaves, so it can be used as a key in keySigature
+
+   - abstract out the representation of alteration_, so we can
+   put micropitches (quartertones, etc.) in the Pitch object
 */
 class Pitch
 {
-public:				// fixme
+private:				// fixme
   /*
-    TODO: use SCM -- (make private?)
+    TODO: use SCM
    */
 
     /// 0 is c, 6 is b
@@ -33,28 +43,23 @@ public:				// fixme
 
   /// 0 is central c
   int octave_;
-  /*
-    mutators, so JUNKME.
-   */
+ 
   void transpose (Pitch);
   void up_to (int);
   void down_to (int);
+  void normalise ();
 
 public:
-
+  
   int get_octave () const;
   int get_notename () const;
   int get_alteration () const;
 
-  void normalise ();
-  /*
-    Pitch is lexicographically ordered by (octave, notename,
-    alteration).    
-   */
   Pitch (int octave, int notename,int accidental);
   Pitch ();
 
-  Pitch to_relative_octave (Pitch);
+  Pitch transposed (Pitch) const;
+  Pitch to_relative_octave (Pitch) const;
 
   static int compare (Pitch const&,Pitch const&);
   /// return large part of interval from central c

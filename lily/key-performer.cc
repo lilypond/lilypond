@@ -25,7 +25,7 @@ protected:
   virtual void stop_translation_timestep ();
 
 private:
-  Key_change_req* key_req_;
+  Key_change_ev* key_req_;
   Audio_key* audio_;
 };
 
@@ -61,8 +61,8 @@ Key_performer::create_audio_elements ()
 		   (7 - gh_scm2int (ly_caar (pitchlist))) % 7,
 		   -gh_scm2int (ly_cdar (pitchlist)));
 
-      my_do.transpose (to_c);
-      to_c.alteration_ -= my_do.alteration_;
+      my_do = my_do.transposed (to_c);
+      to_c = my_do.transposed (Pitch(0,0,- my_do.get_alteration ()));
 
       SCM c_pitchlist = transpose_key_alist (pitchlist, to_c.smobbed_copy());
       SCM major = gh_call1 (proc, c_pitchlist);
@@ -87,7 +87,7 @@ Key_performer::stop_translation_timestep ()
 bool
 Key_performer::try_music (Music* req)
 {
-  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
+  if (Key_change_ev *kc = dynamic_cast <Key_change_ev *> (req))
     {
       if (key_req_)
 	warning (_ ("FIXME: key change merge"));

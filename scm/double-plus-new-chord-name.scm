@@ -81,18 +81,18 @@
 
 
 ;; Generic PITCH/MARKUP functions
-(define (ly:pitch-diff pitch tonic)
-  "Return pitch with value PITCH - TONIC, ie,
-TONIC == (ly:pitch-transpose tonic delta)."
-  (let ((simple-octave (- (ly:pitch-octave pitch) (ly:pitch-octave tonic)))
+(define (ly:pitch-diff pitch root)
+  "Return pitch with value PITCH - ROOT, ie,
+ROOT == (ly:pitch-transpose root delta)."
+  (let ((simple-octave (- (ly:pitch-octave pitch) (ly:pitch-octave root)))
 	(simple-notename
-	 (- (ly:pitch-notename pitch) (ly:pitch-notename tonic))))
+	 (- (ly:pitch-notename pitch) (ly:pitch-notename root))))
     (let ((octave (+ simple-octave (quotient simple-notename 7)
 		     (if (< simple-notename 0) -1 0)))
 	  (notename (modulo simple-notename 7)))
       (let ((alteration
 	     (- (ly:pitch-semitones pitch)
-		(ly:pitch-semitones tonic) 
+		(ly:pitch-semitones root) 
 		(ly:pitch-semitones (ly:make-pitch octave notename 0)))))
 	(ly:make-pitch octave notename alteration)))))
 
@@ -122,7 +122,7 @@ TONIC == (ly:pitch-transpose tonic delta)."
 ;; FIXME: if/when double-plus-new-chord->markup get installed
 ;; setting and calling can be done a bit handier.
 (define-public (double-plus-new-chord->markup
-		func pitches bass inversion options)
+		func root-markup pitches bass inversion options)
   "Entry point for New_chord_name_engraver.  See
 double-plus-new-chord-name.scm for the signature of FUNC.  PITCHES,
 BASS and INVERSION are lily pitches.  OPTIONS is an alist-alist (see
@@ -133,9 +133,9 @@ input/test/dpncnt.ly).
   (define (step-nr pitch)
     (let* ((pitch-nr (+ (* 7 (ly:pitch-octave pitch))
 			(ly:pitch-notename pitch)))
-	   (tonic-nr (+ (* 7 (ly:pitch-octave (car pitches)))
+	   (root-nr (+ (* 7 (ly:pitch-octave (car pitches)))
 			(ly:pitch-notename (car pitches)))))
-      (+ 1 (- pitch-nr tonic-nr))))
+      (+ 1 (- pitch-nr root-nr))))
     
   (define (next-third pitch)
     (ly:pitch-transpose pitch
@@ -232,8 +232,8 @@ input/test/dpncnt.ly).
 	 (partial-pitches (car partial-exception))
 	 (partial-markup (markup-or-empty-markup (cdr partial-exception)))
 
-	 (tonic (car pitches))
-	 (full (get-full-list tonic))
+	 (root (car pitches))
+	 (full (get-full-list root))
 	 ;; kludge alert: replace partial matched lower part of all with
 	 ;; 'normal' pitches from full
 	 ;; (all pitches)
@@ -262,12 +262,12 @@ input/test/dpncnt.ly).
 
     (case func
       ((banter)
-       ;;    tonic
+       ;;    root
        ;;    + steps:altered + (highest all -- if not altered)
        ;;    + subs:missing
        
-       (let* ((tonic->markup (assoc-get-default
-			      'tonic->markup options pitch->markup))
+       (let* ((root->markup (assoc-get-default
+			      'root->markup options pitch->markup))
 	      (step->markup (assoc-get-default
 			     'step->markup options step->markup-plusminus))
 	      (sub->markup (assoc-get-default
@@ -279,11 +279,11 @@ input/test/dpncnt.ly).
 	 
 	 (if
 	  (pair? full-markup)
-	  (make-line-markup (list (tonic->markup tonic) full-markup))
+	  (make-line-markup (list (root->markup root) full-markup))
 	    
 	  (make-line-markup
 	   (list
-	    (tonic->markup tonic)
+	    (root->markup root)
 	    partial-markup
 	    (make-normal-size-super-markup
 	     (markup-join
@@ -300,12 +300,12 @@ input/test/dpncnt.ly).
        
       
       ((jazz)
-       ;;    tonic
+       ;;    root
        ;;    + steps:(highest base) + cons-alt
        ;;    + 'add'
        ;;    + steps:rest
-       (let* ((tonic->markup (assoc-get-default
-			      'tonic->markup options pitch->markup))
+       (let* ((root->markup (assoc-get-default
+			      'root->markup options pitch->markup))
 	      (step->markup (assoc-get-default
 			     'step->markup options step->markup-accidental))
 	      (sep (assoc-get-default
@@ -315,11 +315,11 @@ input/test/dpncnt.ly).
 	 
 	 (if
 	  (pair? full-markup)
-	  (make-line-markup (list (tonic->markup tonic) full-markup))
+	  (make-line-markup (list (root->markup root) full-markup))
 	  
 	  (make-line-markup
 	   (list
-	    (tonic->markup tonic)
+	    (root->markup root)
 	    partial-markup
 	    (make-normal-size-super-markup
 	     (make-line-markup

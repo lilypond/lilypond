@@ -212,8 +212,11 @@ Overrides all other font-X qualifiers.")
 (grob-property-description 'font-design-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size.")
 (grob-property-description 'font-magnification number? "Magnification
   of the font. If undefined, the default is @code{1.0}.")
-(grob-property-description 'font-relative-size number? "partial font definition: the relative size compared the `normal' size.
- 0 is style-sheet's normal size, -1 is smaller, +1 is bigger, -1 is smaller.")
+
+(grob-property-description 'font-relative-size number? "partial font
+definition: the relative size compared the `normal' size.  0 is
+style-sheet's normal size, -1 is smaller, +1 is bigger.")
+
 (grob-property-description 'font-series symbol? "partial font definition: medium, bold.")
 (grob-property-description 'font-shape symbol? "partial font definition: upright or italic.")
 

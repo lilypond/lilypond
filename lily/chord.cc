@@ -81,8 +81,8 @@ Chord::member_notename (SCM p, SCM pitches)
 	    Urg, eindelijk gevonden: () != #f, kan maar niet aan wennen.
 	    Anders kon iets korter...
 	   */
-	  if (unsmob_pitch (p)->notename_
-	      == unsmob_pitch (ly_car (i))->notename_)
+	  if (unsmob_pitch (p)->get_notename ()
+	      == unsmob_pitch (ly_car (i))->get_notename ())
 	    {
 	      member = ly_car (i);
 	      break;
@@ -104,10 +104,10 @@ Chord::member_pitch (SCM p, SCM pitches)
     {
       for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
 	{
-	  if (unsmob_pitch (p)->notename_
-	      == unsmob_pitch (ly_car (i))->notename_
-	      && unsmob_pitch (p)->alteration_
-	      == unsmob_pitch (ly_car (i))->alteration_)
+	  if (unsmob_pitch (p)->get_notename ()
+	      == unsmob_pitch (ly_car (i))->get_notename ()
+	      && unsmob_pitch (p)->get_alteration()
+	      == unsmob_pitch (ly_car (i))->get_alteration())
 	    {
 	      member = ly_car (i);
 	      break;
@@ -123,10 +123,10 @@ SCM
 Chord::step_scm (SCM tonic, SCM p)
 {
   /* De Pitch intervaas is nog beetje sleutelgat? */
-  int i = unsmob_pitch (p)->notename_
-    - unsmob_pitch (tonic)->notename_
-    + (unsmob_pitch (p)->octave_
-       - unsmob_pitch (tonic)->octave_) * 7;
+  int i = unsmob_pitch (p)->get_notename ()
+    - unsmob_pitch (tonic)->get_notename ()
+    + (unsmob_pitch (p)->get_octave ()
+       - unsmob_pitch (tonic)->get_octave ()) * 7;
   while (i < 0)
     i += 7;
   i++;
@@ -165,10 +165,10 @@ Chord::missing_thirds (SCM pitches)
       SCM p = ly_car (i);
       int step = gh_scm2int (step_scm (tonic, p));
       
-      if (unsmob_pitch (last)->notename_ == unsmob_pitch (p)->notename_)
+      if (unsmob_pitch (last)->get_notename () == unsmob_pitch (p)->get_notename ())
 	{
-	  int third = (unsmob_pitch (last)->notename_
-		       - unsmob_pitch (tonic)-> notename_ + 7) % 7;
+	  int third = (unsmob_pitch (last)->get_notename ()
+		       - unsmob_pitch (tonic)-> get_notename () + 7) % 7;
 	  last = ly_pitch_transpose (last, scm_vector_ref (thirds, scm_int2num (third)));
 	}
       
@@ -177,8 +177,8 @@ Chord::missing_thirds (SCM pitches)
 	  while (step > gh_scm2int (step_scm (tonic, last)))
 	    {
 	      missing = gh_cons (last, missing);
-	      int third = (unsmob_pitch (last)->notename_
-			   - unsmob_pitch (tonic)->notename_ + 7) % 7;
+	      int third = (unsmob_pitch (last)->get_notename ()
+			   - unsmob_pitch (tonic)->get_notename () + 7) % 7;
 	      last = ly_pitch_transpose (last, scm_vector_ref (thirds,
 						      scm_int2num (third)));
 	    }
@@ -241,10 +241,13 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
       */
       if (p->get_octave ()  == -100)
         {
-          p->octave_ = 0;
+	  dim_b = true;
+	  Pitch t (0, p->get_notename(), p->get_alteration());
+	  gh_set_car_x (i, t.smobbed_copy());
 	  dim_b = true;
 	}
     }
+  
   add = transpose_pitches (tonic, add);
   add = lower_step (tonic, add, scm_int2num (7));
   add = scm_sort_list (add, Pitch::less_p_proc);

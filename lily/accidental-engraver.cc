@@ -124,9 +124,9 @@ static int
 number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
-  int n = pitch->notename_;
-  int o = pitch->octave_;
-  int a = pitch->alteration_;
+  int n = pitch->get_notename ();
+  int o = pitch->get_octave();
+  int a = pitch->get_alteration ();
   int curbarnum_i = gh_scm2int (curbarnum);
   int accbarnum_i = 0;
 
@@ -300,7 +300,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      announce_grob (a, SCM_EOL);
 
 	      
-	      SCM accs = gh_cons (scm_int2num (pitch->alteration_), SCM_EOL);
+	      SCM accs = gh_cons (scm_int2num (pitch->get_alteration ()), SCM_EOL);
 	      if (num == 2 && extra_natural_b)
 		accs = gh_cons (scm_int2num (0), accs);
 
@@ -346,9 +346,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  */
 	  
 
-	  int n = pitch->notename_;
-	  int o = pitch->octave_;
-	  int a = pitch->alteration_;
+	  int n = pitch->get_notename ();
+	  int o = pitch->get_octave ();
+	  int a = pitch->get_alteration ();
 	  SCM on_s = gh_cons (scm_int2num (o), scm_int2num (n));
 
 	  /*

@@ -1,3 +1,12 @@
+2003-01-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/ambitus.ly:  move file.	
+
+	* lily/include/pitch.hh (class Pitch): make Pitch objects immutable.
+
+	* lily/event.cc (transpose): add tonic property to Key_change_req
+	and to Key_engraver.
+
 2003-01-17  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/refman.itely: fix typo.

@@ -196,7 +196,7 @@ Note_head::brew_ez_molecule (SCM smob)
   Pitch* pit =  unsmob_pitch (spitch);
 
   char s[2] = "a";
-  s[0] = (pit->notename_ + 2)%7 + 'a';
+  s[0] = (pit->get_notename () + 2)%7 + 'a';
   s[0] = toupper (s[0]);
   
   SCM charstr = scm_makfrom0str (s);

@@ -42,12 +42,13 @@ TODO:
 * The rules for who is protecting what are very shady. Uniformise
   this.
 
-* There are too many lexical modes. 
+* There are too many lexical modes?
 
 
 */
 
 #include <ctype.h>
+#include <stdlib.h>
 
 #include "translator-def.hh"
 #include "lily-guile.hh"
@@ -72,6 +73,26 @@ TODO:
 #include "input-smob.hh"
 #include "event.hh"
 #include "text-item.hh"
+
+
+
+#define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
+
+
+
+#define YYERROR_VERBOSE 1
+
+My_lily_parser* my_lily_parser;
+#define YYPARSE_PARAM my_lily_parser
+#define YYLEX_PARAM my_lily_parser
+#define THIS\
+	((My_lily_parser *) my_lily_parser)
+
+#define yyerror THIS->parser_error
+
+
+
+
 
 bool
 regular_identifier_b (SCM id)
@@ -116,8 +137,6 @@ set_music_properties (Music *p, SCM a)
 
 
 
-#define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
-
 Music* 
 set_property_music (SCM sym, SCM value)
 {
@@ -126,24 +145,6 @@ set_property_music (SCM sym, SCM value)
 	p->set_mus_property ("value", value);
 	return p;
 }
-
-
-// needed for bison.simple's malloc () and free ()
-
-// #include <malloc.h>
-#include <stdlib.h>
-
-
-
-#define YYERROR_VERBOSE 1
-
-My_lily_parser* my_lily_parser;
-#define YYPARSE_PARAM my_lily_parser
-#define YYLEX_PARAM my_lily_parser
-#define THIS\
-	((My_lily_parser *) my_lily_parser)
-
-#define yyerror THIS->parser_error
 
 %}
 
@@ -1405,8 +1406,10 @@ verbose_command_req:
 		Music *key= MY_MAKE_MUSIC("KeyChangeEvent");
 		
 		key->set_mus_property ("pitch-alist", $3);
+		key->set_mus_property ("tonic", Pitch (0,0,0).smobbed_copy());
  		((Music*)key)->transpose (* unsmob_pitch ($2));
-		$$ = key; 
+
+		$$ = key;
 	}
 	;
 
@@ -1513,15 +1516,13 @@ steno_pitch:
 	}
 	| NOTENAME_PITCH sup_quotes 	{
 		Pitch p = *unsmob_pitch ($1);
-		p.octave_ +=  $2;
+		p = p.transposed (Pitch ($2,0,0));
 		$$ = p.smobbed_copy ();
 	}
 	| NOTENAME_PITCH sub_quotes	 {
 		Pitch p =* unsmob_pitch ($1);
-
-		p.octave_ +=  -$2;
+		p = p.transposed (Pitch (-$2,0,0));
 		$$ = p.smobbed_copy ();
-
 	}
 	;
 
@@ -1535,15 +1536,14 @@ steno_tonic_pitch:
 	}
 	| TONICNAME_PITCH sup_quotes 	{
 		Pitch p = *unsmob_pitch ($1);
-		p.octave_ +=  $2;
+		p = p.transposed (Pitch ($2,0,0));
 		$$ = p.smobbed_copy ();
 	}
 	| TONICNAME_PITCH sub_quotes	 {
 		Pitch p =* unsmob_pitch ($1);
 
-		p.octave_ +=  -$2;
+		p = p.transposed (Pitch (-$2,0,0));
 		$$ = p.smobbed_copy ();
-
 	}
 	;
 
@@ -2067,27 +2067,17 @@ chord_step:
 
 chord_note:
 	bare_unsigned {
-		 Pitch m;
-		m.notename_ = ($1 - 1) % 7;
-		m.octave_ = $1 > 7 ? 1 : 0;
-		m.alteration_ = 0;
+		Pitch m($1 > 7 ? 1 : 0, ($1 - 1) % 7, 0);
 
 		$$ = m.smobbed_copy ();
         } 
 	| bare_unsigned '+' {
-		Pitch m;
-		m.notename_ = ($1 - 1) % 7;
-		m.octave_ = $1 > 7 ? 1 : 0;
-		m.alteration_ = 1;
-
+		Pitch m(  $1 > 7 ? 1 : 0,($1 - 1) % 7, 1);
 
 		$$ = m.smobbed_copy ();
 	}
 	| bare_unsigned CHORD_MINUS {
-		Pitch m;
-		m.notename_ = ($1 - 1) % 7;
-		m.octave_ = $1 > 7 ? 1 : 0;
-		m.alteration_ = -1;
+		Pitch m(  $1 > 7 ? 1 : 0,($1 - 1) % 7, -1);
 
 		$$ = m.smobbed_copy ();
 	}

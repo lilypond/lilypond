@@ -169,6 +169,8 @@ New_fingering_engraver::position_scripts ()
     {      
       fingerings_[i].position_ = gh_scm2int (fingerings_[i].head_ -> get_grob_property( "staff-position"));
     }
+
+  SCM fhd = get_property ("fingerHorizontalDirection");
   
   Array<Finger_tuple> up, down, horiz;
   for (int i = fingerings_.size(); i--;)
@@ -187,15 +189,18 @@ New_fingering_engraver::position_scripts ()
     }
   
   fingerings_.sort (&Finger_tuple::compare);
-  SCM fhd = get_property ("fingerHorizontalDirection");
   
   if (ly_dir_p (fhd))
     {
-      up.push (fingerings_.pop());
-      down.push (fingerings_[0]);
-      fingerings_.del(0);
+      if (!up.size())
+	up.push (fingerings_.pop());
+      if (!down.size())
+	{
+	  down.push (fingerings_[0]);
+	  fingerings_.del(0);
+	}
 
-      horiz = fingerings_;
+      horiz.concat (fingerings_);
     }
   else
     {

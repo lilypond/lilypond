@@ -40,25 +40,29 @@
  */
 
 /**
- * Given a pitch and a key_signature, decide what accidentals to show.
- *
- * Possible return values:
- *
- * 0: do not show any accidental
- * 1: show pitch->alteration_ only
- * 2: show pitch->alteration_, preceded by a natural sign
+  Given a pitch and a key_signature, decide what accidentals to show.
+ 
+  Possible return values:
+ 
+  0: do not show any accidental
+  1: show pitch->alteration_ only
+  2: show pitch->get_alteration, preceded by a natural sign
+
+  UGH: code duplication! See accidental-engraver.
+ 
  */
 static int
 number_accidentals (SCM key_signature, Pitch *pitch,
 		    bool ignore_octave_b, bool force_accidental)
 {
-  int notename = pitch->notename_;
-  int octave = pitch->octave_;
-  int alteration = pitch->alteration_;
+  int notename = pitch->get_notename ();
+  int octave = pitch->get_octave();
+  int alteration = pitch->get_alteration();
 
   if (force_accidental) // ignore key signature
     return 1;
 
+  
 #if DEBUG_AMBITUS
   scm_display (key_signature, scm_current_output_port ());
 #endif
@@ -101,12 +105,12 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
 {
   if (!num_acc)
     return;
-  if (pitch->alteration_)
+  if (pitch->get_alteration())
     {
       Molecule accidental (Font_interface::get_default_font (me)->
 			   find_by_name (String ("accidentals-") +
 					 accidentals_style +
-					 to_string (pitch->alteration_)));
+					 to_string (pitch->get_alteration())));
       accidental.translate_axis (yoffs, Y_AXIS);
       head->add_at_edge (X_AXIS,  LEFT, accidental, 0.1, 0);
     }
