@@ -22,12 +22,12 @@ extern ostream &warnout ;
 extern ostream *mlog;
 
 // debugging
-extern Dstream monitor; // monitor
+extern Dstream *monitor; // monitor
 
 #ifdef NPRINT
-#define mtor if (0) monitor	// clever hack 
+#define mtor if (0) *monitor	// clever hack 
 #else
-#define mtor if (check_debug) monitor.identify_as(__PRETTY_FUNCTION__)
+#define mtor if (check_debug) monitor->identify_as(__PRETTY_FUNCTION__)
 #endif
 
 extern bool check_debug;
