@@ -1,17 +1,20 @@
-hdr=    qlp.hh       \
-	linespace.hh   qlpsolve.hh\
-	pcol.hh   proto.hh pstaff.hh  line.hh\
+# -*- Makefile-*-
+# sourcefiles to be shipped. Also for depedencies
+
+hdr=    qlp.hh linespace.hh qlpsolve.hh\
+	pcol.hh proto.hh pstaff.hh  line.hh\
 	const.hh glob.hh molecule.hh  boxes.hh pscore.hh item.hh tex.hh\
 	request.hh voice.hh command.hh staff.hh  linestaff.hh \
-	tstream.hh   rhythmstaf.hh\
+	tstream.hh rhythmstaff.hh\
 	parseconstruct.hh  debug.hh globvars.hh keyword.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookupsyms.hh\
-	sccol.hh stcol.hh scommands.hh
+	sccol.hh stcol.hh scommands.hh melodicstaff.hh\
+	identifier.hh simplestaff.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc line.cc\
-	pscore.cc tex.cc item.cc pcol.cc staff.cc rhythmstaf.cc\
+	pscore.cc tex.cc item.cc pcol.cc staff.cc rhythmstaff.cc\
 	score.cc note.cc  main.cc misc.cc \
 	symbol.cc request.cc notename.cc  voice.cc\
 	keyword.cc linestaff.cc table.cc command.cc\
@@ -19,5 +22,6 @@ mycc=   qlp.cc qlpsolve.cc \
 	pstaff.cc  tstream.cc version.cc\
 	calcideal.cc scores.cc identifier.cc \
 	dimen.cc paper.cc lookupsyms.cc scommands.cc\
-	sccol.cc stcol.cc getcommands.cc\
+	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
+	melodicstaff.cc simpleprint.cc\
 	template1.cc template2.cc template3.cc
