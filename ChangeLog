@@ -1,5 +1,7 @@
 2004-03-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/font-interface.cc: add font-encoding property.
+
 	* scm/lily.scm (chain-assoc-get): bugfix.
 
 	* lily/paper-book.cc (stencil2line): don't make static SCMs to
