@@ -1,15 +1,26 @@
 \version "1.7.6"
 \header {
-    texidoc = "Chord names in american styles, according to one of our users."
+    texidoc = "Chord names in american styles, according to one of our users.
+
+
+FIXME
+
+"
 }
 
 \include "english.ly"
-#(set! chord::names-alist-american
-      (append 
-      '(
-	 ;; any changes here, see scm/chord-name.scm
-	)
-      chord::names-alist-american))
+
+
+%%FIXME:
+
+% DON'T  do this in the test file, it messes up all other files in the directory.
+
+% #(set! chord::names-alist-american
+%     (append 
+%     '(
+%	 ;; any changes here, see scm/chord-name.scm
+%	)
+%      chord::names-alist-american))
 
 scheme = \chords {
   c         % Major triad

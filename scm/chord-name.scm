@@ -20,20 +20,15 @@
 
 
 "
-
 TODO:
 
 - Use lilypond Pitch objects -- SCM pitch objects lead to
 duplication. LilyPond pitch objects force meaningful names
 (i.e. (ly:pitch-octave PITCH)  )
 
-
 - Pitches are musical objects. The pitches -> markup step should
 happen earlier (during interpreting), brew-molecule () should only
-dump reinterpret the markup as a molecule.
-
-
-"
+dump reinterpret the markup as a molecule. " ; "
 
 
 ;; pitch = (octave notename alteration)
@@ -60,9 +55,7 @@ dump reinterpret the markup as a molecule.
 ;;
 ;; * doc strings
 
-(define-public chord::names-alist-banter '())
-(set! chord::names-alist-banter
-      (append 
+(define chord::names-alist-banter
        `(
 	; C iso C.no3.no5
 	(((0 . 0)) . ,empty-markup)
@@ -89,8 +82,7 @@ dump reinterpret the markup as a molecule.
 	 . (,line-markup ((,simple-markup "dim")
 			  (,super-markup (,simple-markup "11 ")))))
 	
-	)
-      chord::names-alist-banter))
+	))
 
 ;;;;;;;;;;
 
@@ -345,7 +337,7 @@ dump reinterpret the markup as a molecule.
       (list (ly:pitch-octave p) (ly:pitch-notename p) (ly:pitch-alteration p))
       #f))
 
-(define-public (chord::name-banter tonic exception-part unmatched-steps
+(define (chord::name-banter tonic exception-part unmatched-steps
 			    bass-and-inversion steps)
    (let ((additions (chord::additions unmatched-steps))
 	 (subtractions (chord::subtractions unmatched-steps)))
@@ -354,12 +346,15 @@ dump reinterpret the markup as a molecule.
 			       bass-and-inversion steps)))
 
 
+(define chord-module (current-module))
 (define (chord::restyle name style)
-  (primitive-eval ;;   "UGGHGUGHUGHG"
-
+  ;;   "UGGHGUGHUGHG"
+  (eval
    (string->symbol
     (string-append (symbol->string name)
-		   (symbol->string style)))))
+		   (symbol->string style)))
+   chord-module
+   ))
 
 
 ;; this is unintelligible.
@@ -478,10 +473,9 @@ dump reinterpret the markup as a molecule.
 
 ;; DONT use non-ascii characters, even if ``it works'' in Windows
 
-(define-public chord::names-alist-american '())
 
-(set! chord::names-alist-american
-      (append 
+(define chord::names-alist-american
+      
        `(
 	 (((0 . 0)) . ,empty-markup)
 	 (((0 . 0) (2 . 0)) . ,empty-markup)
@@ -535,8 +529,7 @@ dump reinterpret the markup as a molecule.
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . 0)) . (,simple-markup "9"))
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . (,simple-markup "m9"))
 
-	 )
-      chord::names-alist-american))
+	 ))
 
 ;; American style chordnames use no "no",
 ;; but otherwise very similar to banter for now
@@ -583,9 +576,8 @@ dump reinterpret the markup as a molecule.
 
   `(line-markup ,(map  do-one arg-list)))
 
-(define-public chord::names-alist-jazz '())
-(set! chord::names-alist-jazz
-      (append 
+(define chord::names-alist-jazz 
+  (append 
       '(
 	;; major chords
 	; major sixth chord = 6

@@ -261,12 +261,6 @@
 
 
 
-(define my-eval-in-module eval)
-
-(if (or (equal? (minor-version) "4.1")
-	(equal? (minor-version) "4")
-	(equal? (minor-version) "3.4"))
-    (set! my-eval-in-module eval-in-module))
 
 (define-public (pdftex-output-expression expr port)
-  (display (my-eval-in-module expr this-module) port) )
+  (display (eval expr this-module) port) )
