@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.50"
+#define MUDELA_VERSION "0.0.52"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -106,6 +106,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GROUPING
 %token GROUP
 %token INPUT_REGS
+%token HSHIFT
 %token IN_T
 %token LYRIC
 %token KEY
@@ -183,7 +184,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <moment>	duration_length
 %type <music>	init_music
 %type <mvoice>	 transposed_music_voice init_lyrics_voice
-%type <mvoice>	music_voice_body music_voice  init_music_voice 
+%type <mvoice>	music_voice_body music_voice  init_music_voice  concat_body
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
@@ -525,9 +526,19 @@ transposed_music_voice:
 	}
 	;
 
-music_voice:  '{' music_voice_body '}'	{ $$ = $2; }
+music_voice:  '{' concat_body '}'	{ $$ = $2; }
 	| TRANSPOSE '{' transposed_music_voice '}' {
 		$$ = $3;
+	}
+	;
+
+
+concat_body:
+	music_voice_body 			{
+		$$ = $1;
+	}
+	| concat_body CONCAT music_voice_body	{
+		$$->add($3);/* niet echt */
 	}
 	;
 
@@ -545,9 +556,6 @@ music_voice_body:
 	}
 	| music_voice_body music_chord	{
 		$$->add($2);
-	}
-	| music_voice_body CONCAT music_voice	{
-		$$->add($3);/* niet echt */
 	}
 	| music_voice_body error {
 	}
@@ -653,6 +661,9 @@ verbose_command_req:
 	}
 	| STEM int 	{
 		$$ = get_stemdir_req($2);
+	}
+	| HSHIFT int	{
+		$$ = get_hshift_req($2);
 	}
 	| CLEF STRING {
 		$$ = new Clef_change_req(*$2);
