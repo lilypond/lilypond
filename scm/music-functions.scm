@@ -307,20 +307,16 @@ a property set for MultiMeasureRestNumber."
   (define (ottava-modify context)
     "Either reset centralCPosition to the stored original,
 or remember old centralCPosition, add OCTAVATION to centralCPosition,
-and set OTTAVATION to `8va', or whatever appropriate.  
-"
+and set OTTAVATION to `8va', or whatever appropriate."
     (if (= octavation 0)
 	(let*
 	    ((where (ly:context-property-where-defined context 'centralCPosition))
-	     (oc0 (ly:get-context-property context 'originalCentralCPosition))
-
-	     )
+	     (oc0 (ly:get-context-property context 'originalCentralCPosition)) )
 
 	  (ly:set-context-property context 'centralCPosition oc0)
 	  (ly:unset-context-property where 'originalCentralCPosition)
-	  (ly:unset-context-property where 'ottavation)
-	  )
-	
+	  (ly:unset-context-property where 'ottavation))
+
 	(let*
 	    ((where (ly:context-property-where-defined context 'centralCPosition))
 	     (c0 (ly:get-context-property context 'centralCPosition))
@@ -330,8 +326,7 @@ and set OTTAVATION to `8va', or whatever appropriate.
 					  (1 . "8va")
 					  (0 . #f)
 					  (-1 . "8va bassa")
-					  (-2 . "15ma bassa")))))
-	     )
+					  (-2 . "15ma bassa"))))))
 
 	  (ly:set-context-property context 'centralCPosition new-c0)
 	  (ly:set-context-property context 'originalCentralCPosition c0)
@@ -340,7 +335,7 @@ and set OTTAVATION to `8va', or whatever appropriate.
 	  )))
 
   (ly:set-mus-property! m 'procedure  ottava-modify)
-  (context-spec-music m "Staff" )
+  (context-spec-music m "Staff")
   ))
 
 (define-public (set-octavation ottavation)
@@ -362,16 +357,13 @@ Rest can contain a list of beat groupings
        (set4 (make-property-set 'beatGrouping (if (pair? rest)
 						  (car rest)
 						  '())))
-       (basic  (list set1 set2 set3 set4))
-       
-       )
+       (basic  (list set1 set2 set3 set4)))
 
     (context-spec-music
      (make-sequential-music basic) "Timing")))
 
 (define-public (set-time-signature num den . rest)
-  (ly:export (apply make-time-signature-set `(,num ,den . ,rest)))
-  )
+  (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
 (define-public (make-penalty-music pen)
  (let
