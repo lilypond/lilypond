@@ -17,6 +17,17 @@ LilyPond identifiers.
 and converted to Scheme data structures.  The representation may be
 exported as XML.
 
+** A new uniform postfix syntax for articulation has been introduced.
+A beamed slurred pair of eighth notes can be entered as
+
+	c8-[-( d8-]-) 
+
+In version 2.0, postfix syntax will be the only syntax
+available, and the dashes will become optional.
+
+This will simplify the language: all articulations can be entered as
+postfix, in any order.
+
 ** A new syntax has been added for chords:
 
 	<< PITCHES >>
@@ -34,13 +45,17 @@ and
 To convert your files from <PITCHES> to <<PITCHES>>, use the script
 included in buildscripts/convert-new-chords.py
 
-** A new uniform postfix syntax for articulation has been introduced.
-A beamed slurred pair of eighth notes can be entered as
+This change was introduced for the following reasons
 
-	c8-[-( d8-]-) 
+ * It solves the "start score with chord" problem, where you have to
+   state \context Voice explicitly when a chord was the start of a
+   Staff or Score.
 
-In version 2.0, postfix syntax will be the only syntax
-available, and the dashes will become optional.
+ * With the new syntax, it is possible to distinguish between
+   articulations (or fingerings) which are for a single chord note,
+   and which are for the entire chord. This allows for per-note
+   fingerings, and is more logical on the whole.
+
 
 ** User code may now be executed during interpreting.  The syntax for
 this code is

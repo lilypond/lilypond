@@ -17,8 +17,9 @@ easier to process."
 	<<e,^6>> 4
 	<<f,_1>> 4
  	<< c-1 e-3>> 4
-	<< c-1  e-3 g-5 >> 4
-	<< c-1  e-2 g-3 b-5 >> 4
+	<<c-1 e-3 g-5 >> 4
+	<<c-1 e-2 g-3 b-5 >> 4
+	<<c-1 e-2 g-3 b-5 d-6 f-7 a-8 c-9 >> 4	
 	\property Voice.fingerHorizontalDirection = #LEFT
 	<< c-1  es-3 g-5 >> 4
 	\property Voice.fingerHorizontalDirection = #RIGHT

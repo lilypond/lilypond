@@ -858,14 +858,14 @@ Simple_music:
 	event_chord		{ $$ = $1; }
 	| APPLYOUTPUT embedded_scm {
 		if (!ly_input_procedure_p ($2))
-			THIS->parser_error (_ ("\applycontext takes function argument"));
+			THIS->parser_error (_ ("\\applycontext takes function argument"));
 		$$ = MY_MAKE_MUSIC ("ApplyOutputEvent");
 		$$->set_mus_property ("procedure", $2);
 		$$->set_spot (THIS->here_input());
 	}
 	| APPLYCONTEXT embedded_scm {
 		if (!ly_input_procedure_p ($2))
-			THIS->parser_error (_ ("\applycontext takes function argument"));
+			THIS->parser_error (_ ("\\applycontext takes function argument"));
 		$$ = MY_MAKE_MUSIC ("ApplyContext");
 		$$->set_mus_property ("procedure", $2);
 		$$->set_spot (THIS->here_input());
@@ -1006,7 +1006,7 @@ Composite_music:
 	}
 	| APPLY embedded_scm Music  {
 		if (!ly_input_procedure_p ($2))
-			THIS->parser_error (_ ("\apply takes function argument"));
+			THIS->parser_error (_ ("\\apply takes function argument"));
 		
 		SCM ret = gh_call1 ($2, $3->self_scm ());
 		Music *m = unsmob_music (ret);
@@ -2326,8 +2326,11 @@ markup_p (SCM x)
 	return gh_pair_p (x)
 		&& SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature"));
 }
+
+
 /*
-It is a little strange, to have this function in this file, but
+
+It is a little strange to have this function in this file, but
 otherwise, we have to import music classes into the lexer.
 
 */

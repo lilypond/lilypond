@@ -45,6 +45,9 @@ q@c Note: -*-texinfo-*-
 @section Note entry
 @cindex Note entry
 
+This chapter describes all the different types of notation supported
+by LilyPond. It is intended as a reference for users that are already
+somewhat familiar with using LilyPond.
 
 
 @menu
@@ -100,13 +103,12 @@ letters span the octave above that C.
 
 @cindex note names, Dutch
 
-A sharp is formed by adding @code{-is} to the end of a pitch
-name and a flat is formed by adding @code{-es}.  Double sharps and
-double flats are obtained by adding @code{-isis} or @code{-eses}.
-
-These default names are the Dutch note names.  In Dutch, @code{aes} is
-contracted to @code{as} in Dutch, but both forms are
-accepted. Similarly, both @code{es} and @code{ees} are accepted.
+A sharp is formed by adding @code{-is} to the end of a pitch name and
+a flat is formed by adding @code{-es}.  Double sharps and double flats
+are obtained by adding @code{-isis} or @code{-eses}.  These
+names are the Dutch note names.  In Dutch, @code{aes} is contracted to
+@code{as} in Dutch, but both forms are accepted. Similarly, both
+@code{es} and @code{ees} are accepted.
 
 There are predefined sets of note names for various other languages.
 To use them,  include the language specific init file.  For
@@ -143,8 +145,9 @@ octave; each @code{,} lowers the pitch by an octave.
 @end lilypond
 
 
-The verbose syntax for pitch specification is
+There is also a verbose syntax for pitch specification.
 
+@c TODO: junk this? 
 @cindex @code{\pitch}
 @example
   \pitch @var{scmpitch}
@@ -155,27 +158,17 @@ where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
 
 @refcommands
 
-Dots are normally moved up to avoid staff lines, except in polyphonic
-situations. The following commands may be used to force a particular
-direction manually.
-
-@cindex @code{\dotsUp }
-@code{\dotsUp}, 
-@cindex @code{\dotsDown }
-@code{\dotsDown}, 
-@cindex @code{\dotsBoth}
-@code{\dotsBoth}, 
-
 Notes can be hidden and unhidden with the following commands.
 
 @cindex @code{\hideNotes }
 @code{\hideNotes}, 
 @cindex @code{\unHideNotes }
-@code{\unHideNotes}, 
+@code{\unHideNotes}.
 
 
 @seealso
 
+@noindent
 @internalsref{NoteEvent}, @internalsref{NoteHead}
 
 @node Chromatic alterations
@@ -207,14 +200,6 @@ A chord is formed by a enclosing a set of pitches in @code{<<} and
 @code{>>}. A chord may be followed by  a duration, and a set of
 articulations, just like simple notes.
 
-Additionally, fingerings and articulations may be attached to
-individual pitches of the chord:
-
-@lilypond[singleline,verbatim,relative 1]
-  <<f-1 a-^ c-5>>
-@end lilypond
-
-
 
 @node  Rests
 @subsection Rests
@@ -229,13 +214,15 @@ Rests are entered like notes, with the note name @code{r}.
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests, centered in middle of the bar, are specified using
-@code{R} (capital R); see @ref{Multi measure rests}.  See also
-@seeinternals{Rest}.
+Whole bar rests, centered in middle of the bar,
+must be done  with multi measure rests. They are discussed in
+@ref{Multi measure rests}.
 
-For some music, you may wish to explicitly specify the rest's vertical
-position.  This can be achieved by entering a note with the @code{\rest}
-keyword appended. Rest collision testing will leave these rests alone.
+
+A rest's vertical position may be explicitly specified by entering a
+note with the @code{\rest} keyword appended. This makes manual
+formatting in polyphonic music easier.  Rest collision testing will
+leave these rests alone.
 
 @lilypond[singleline,verbatim]
 a'4\rest d'4\rest
@@ -260,9 +247,8 @@ with note name `@code{s}' or with @code{\skip @var{duration}}:
 a2 s4 a4 \skip 1 a4 
 @end lilypond
 
- The @code{s} syntax is only available in Note mode and Chord
-mode.  In other situations, you should use the @code{\skip} command,
-which will work outside of those two modes:
+The @code{s} syntax is only available in Note mode and Chord mode.  In
+other situations, you should use the @code{\skip} command.
 
 @lilypond[singleline,verbatim]
 \score {
@@ -328,7 +314,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 
 
 If the duration is omitted then it is set to the previously entered
-duration. Default for the first note is a quarter note.  The duration
+duration. The default for the first note is a quarter note.  The duration
 can be followed by dots (`@code{.}') in order to obtain dotted note
 lengths:
 @cindex @code{.}
@@ -342,23 +328,42 @@ lengths:
 You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
 will not affect the appearance of the notes or rests produced.
-
-@lilypond[fragment,verbatim]
-  a'2*2 b'4*2 a'8*4 a'4*3/2 gis'4*3/2 a'4*3/2 a'4
+In the following example, the first three notes take up exactly two
+beats.
+@lilypond[fragment,relative 2,verbatim]
+  \time 2/4
+   a4*2/3 gis4*2/3 a4*2/3
+   a4
 @end lilypond
 
-Durations can also be produced through GUILE extension mechanism. 
+Durations can also be produced using the verbose syntax
+@code{\duration @var{Scheme object}}. 
 @lilypond[verbatim,fragment]
- c'\duration #(ly:make-duration 2 1)
+ c'\duration #(ly:make-duration 4 1)
 @end lilypond
 
+
+
+@refcommands
+
+Dots are normally moved up to avoid staff lines, except in polyphonic
+situations. The following commands may be used to force a particular
+direction manually.
+
+@cindex @code{\dotsUp }
+@code{\dotsUp}, 
+@cindex @code{\dotsDown }
+@code{\dotsDown}, 
+@cindex @code{\dotsBoth}
+@code{\dotsBoth}.
+
+@seealso
+
+@internalsref{Dots}, @internalsref{DotColumn}. 
 
 @refbugs
 
-Dot placement for chords is not perfect.  In some cases, dots overlap:
-@lilypond[]
- <<f, c'' d e f>>4.
-@end lilypond
+In dense chords, dots can overlap.
 
 @node Stems
 @subsection Stems
@@ -404,7 +409,7 @@ exactly the same concept.
 @lilypond[fragment, singleline,quote]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
-If you need to tie notes over bars, it may be easier to use automatic
+If you need to tie a lot of  notes over bars, it may be easier to use automatic
 note splitting (See @ref{Automatic note splitting}).
 
 @refcommands
@@ -436,11 +441,10 @@ supported in a simple way.  It can be achieved by moving the
 tie-engraver into the @internalsref{Thread} context and turning on and
 off ties per @internalsref{Thread}.
 
-Switching staves when a tie is active, will produce a horizontal tie
-on the first note.
+Switching staves when a tie is active, will not produce a slanted tie.
 
 Formatting of ties is a difficult subject. The results are often not
-optimal results.
+optimal.
 
 
 
@@ -469,9 +473,11 @@ of their written length:
   g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @end lilypond
 
-The property @code{tupletSpannerDuration} specifies how long each bracket
-should last.  With this, you can make lots of tuplets while typing
-@code{\times} only once, saving lots of typing.
+The property @code{tupletSpannerDuration} specifies how long each
+bracket should last.  With this, you can make lots of tuplets while
+typing @code{\times} only once, saving lots of typing. In the next
+example, there are two triplets shown, while @code{\times} was only
+used once.
 
 @lilypond[fragment,  relative, singleline, verbatim]
 \property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
@@ -500,7 +506,7 @@ instead.
 
 @seealso
 
-@seeinternals{TupletBracket}, @seeinternals{TimeScaledMusic}.
+@internalsref{TupletBracket}, @internalsref{TimeScaledMusic}.
 
 @refbugs
 
@@ -528,8 +534,8 @@ context.  You probably will want to print it with magnification or a
 large font size to make it more readable.  To print with
 magnification, you must create a DVI file (with @file{ly2dvi}) and
 then enlarge it with something like @file{dvips -x 2000 file.dvi}.
-See @file{man dvips} for details.  To print with a larger font, see
-@ref{Font Size}.
+See the @code{dvips} documentation for more details.  To print with a
+larger font, see @ref{Font Size}.
 
 
 @cindex Xdvi
@@ -546,13 +552,9 @@ produce the correct result.
 
 When entering music it is easy to introduce errors. This section deals
 with tricks and features of the input language that help when entering
-music, and find and correct mistakes.
-
-Some features of the input language ease entering music, for example
-the use of variables (for splitting up large pieces of music), and
-unfolded repeats for writing repetitive parts. They are described in
-other sections (see @ref{Repeats} and @ref{Assignments}), since they
-are not especially aimed at easing entry
+music, and find and correct mistakes.  Some features of the input
+language ease entering music, but also have other applications. They
+are not described in this section.
 
 It is also possible to use external programs, for example GUI
 interfaces, or MIDI transcription programs, to enter or edit
@@ -579,7 +581,8 @@ shown on screen. See @ref{Point and click} for more information.
 Octaves are specified by adding @code{'} and @code{,} to pitch names.
 When you copy existing music, it is easy to accidentally put a pitch
 in the wrong octave and hard to find such an error. The relative
-octave mode prevents these errors
+octave mode prevents these errors: a single error puts the rest of the
+piece off by one octave.
 
 @cindex @code{\relative}
 @example
@@ -593,28 +596,26 @@ between this and the last note is always taken to be a fourth or less
 @code{fisis} following a @code{ceses} will be put above the
 @code{ceses})
 
-The octave changing marks @code{'} and @code{,} can be added to raise or
-lower the pitch by an extra octave.  Upon entering relative mode, an
-absolute starting pitch must be specified that will act as the
+The octave changing marks @code{'} and @code{,} can be added to raise
+or lower the pitch by an extra octave.  Upon entering relative mode,
+an absolute starting pitch must be specified that will act as the
 predecessor of the first note of @var{musicexpr}.
 
-Entering music that changes octave frequently  is easy in relative mode.
+Here is the relative mode shown in action:
 @lilypond[fragment,singleline,verbatim,center]
   \relative c'' {
     b c d c b c bes a 
   }
 @end lilypond
 
-And octave changing marks are used for intervals greater than a fourth.
+Octave changing marks are used for intervals greater than a fourth.
 @lilypond[fragment,verbatim,center]
   \relative c'' {
     c g c f, c' a, e'' }
 @end lilypond
 
 If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord. However, other notes
-within the second chord are determined by looking at the immediately
-preceding note.
+to determine the first note of the next chord.
 
 @lilypond[fragment,verbatim,center]
   \relative c' {
@@ -644,15 +645,16 @@ additional @code{\relative} inside the @code{\transpose}.
 @cindex @code{barCheckSynchronize}
 @cindex @code{|}
 
-
-Whenever a bar check is encountered during interpretation, a warning
-message is issued if it does not fall at a measure boundary.  This can
-help find errors in the input.  Depending on the value of
+Bar checks help detect errors in the durations.  A bar check is
+entered using the bar symbol, `@code{|}'.  Whenever it is encountered
+during interpretation, it should fall on a measure boundary.  If it
+does not, a warning is printed.  Depending on the value of
 @code{barCheckSynchronize}, the beginning of the measure will be
-relocated. A bar check is entered using the bar symbol, `@code{|}'.
+relocated.
 
+In the next example, the second bar check will signal an error. 
 @example
-  \time 3/4 c2 e4 | g2.
+  \time 3/4 c2 e4 | g2 | 
 @end example
 
 
@@ -734,7 +736,7 @@ represented exactly; the engraver will not insert tuplets.
 @node Staff notation
 @section Staff notation
 
-This section describes with music notation that occurs on staff level,
+This section describes music notation that occurs on staff level,
 such as keys, clefs and time signatures.
 
 @cindex Staff notation
@@ -745,6 +747,7 @@ such as keys, clefs and time signatures.
 * Clef::                        
 * Ottava brackets::             
 * Time signature::              
+* Partial measures::            
 * Unmetered music::             
 * Bar lines::                   
 @end menu
@@ -816,8 +819,8 @@ can be specified by setting this property directly.
 
 @refbugs
 
-The ordering of a key restoration (alterations that change back to
-natural) is wrong when combined with a repeat barline.
+The ordering of a key cancellation is wrong when it is combined with
+repeat bar lines. The cancellation is also printed after a line break.
 
 @seealso
 
@@ -906,8 +909,8 @@ the staff. They are created by invoking the function
   a b }
 @end lilypond
 
-Internally the @code{set-octavation} sets @code{ottavation} (eg. to
-@code{"8va"}) and @code{centralCPosition} properties.
+Internally the @code{set-octavation} function sets the properties
+@code{ottavation} (eg. to @code{"8va"}) and @code{centralCPosition}.
 
 @seealso
 
@@ -936,19 +939,19 @@ command.
  \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
 
-The actual symbol that is printed can be customized with the
-@code{style} property. Setting it to @code{#'()} uses fraction style
-for 4/4 and 2/2 time.  There are many more options for its layout.
-See @inputfileref{input/test,time.ly} for more examples.
+The symbol that is printed can be customized with the @code{style}
+property. Setting it to @code{#'()} uses fraction style for 4/4 and
+2/2 time.  There are many more options for its layout.  See
+@inputfileref{input/test,time.ly} for more examples.
 
 
 This command sets the property @code{timeSignatureFraction},
 @code{beatLength} and @code{measureLength} in the @code{Timing}
 context, which is normally aliased to @internalsref{Score}.  The
-property @code{timeSignatureFraction} determines where bar lines
-should be inserted, and how automatic beams should be generated.
-Changing the value of @code{timeSignatureFraction} also causes the
-symbol to be printed.
+property @code{measureLength} determines where bar lines should be
+inserted, and how automatic beams should be generated.  Changing the
+value of @code{timeSignatureFraction} also causes the symbol to be
+printed.
 
 More options are available through the Scheme function
 @code{set-time-signature}. In combination with the
@@ -982,20 +985,19 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 Automatic beaming does not use measure grouping specified with
 @code{set-time-signature}.
 
-
-@subsection Partial
+@node Partial measures
+@subsection Partial measures
 @cindex Partial
 @cindex anacrusis
-@cindex upbeat
 @cindex partial measure
 @cindex measure, partial
 @cindex shorten measures
 @cindex @code{\partial}
 
-Partial measures, for example in upbeats, are entered using the
+Partial measures, for example in upsteps, are entered using the
 @code{\partial} command:
 @lilypond[fragment,verbatim]
-\partial 16*5  c'16 c4 f16 a'2. ~ a'8. a'16 | g'1
+\partial 16*5  c'16 c4 |   a'2. ~ a'8. a'16 | g'1
 @end lilypond
 
 The syntax for this command is 
@@ -1035,12 +1037,13 @@ off.
 @cindex repeat bars
 
 
-Bar lines delimit measures, but are also used to indicate
-repeats. Line breaks may only happen on barlines.
+Bar lines delimit measures, but are also used to indicate repeats.
+Normally, tehy are inserted automatically.  Line breaks may only
+happen on barlines.
 
 @syntax
 
-Bar lines are inserted automatically.  Special types
+ Special types
 of barlines can be forced with the @code{\bar} command:
 @lilypond[relative=1,fragment,verbatim]
    c4 \bar "|:" c4
@@ -1059,9 +1062,10 @@ c4
 \bar "|." 
 @end lilypond
 
-In scores with many staves, the barlines are automatically placed at
-top level, and they are connected between different staves of a
-@internalsref{StaffGroup}:
+In scores with many staves, a @code{\bar} command in one staff is
+automatically applied to all staffs. The resulting bar lines are
+connected between different staves of a @internalsref{StaffGroup}:
+@c
 @lilypond[fragment, verbatim]
 < \context StaffGroup <
   \context Staff = up { e'4 d'
@@ -1072,12 +1076,12 @@ top level, and they are connected between different staves of a
 @end lilypond
 
 
-The command @code{\bar @var{bartype}} is a short cut for
-doing  @code{\property Score.whichBar = @var{bartype}}
-Whenever @code{whichBar} is set to a string, a bar line of that type is
-created.  @code{whichBar} is usually set automatically: at the start of
-a measure it is set to @code{defaultBarType}. The contents of
-@code{repeatCommands} is used to override default measure bars.
+The command @code{\bar @var{bartype}} is a short cut for doing
+@code{\property Score.whichBar = @var{bartype}} Whenever
+@code{whichBar} is set to a string, a bar line of that type is
+created.  At the start of a measure it is set to
+@code{defaultBarType}. The contents of @code{repeatCommands} are used
+to override default measure bars.
 
 @code{whichBar} can also be set directly, using @code{\property} or
 @code{\bar}.  These settings take precedence over the automatic
@@ -1112,13 +1116,14 @@ small, short-lived voices or for single chords:
 
 @lilypond[verbatim,fragment]
 \context Voice = VA \relative c'' {
- c4 < { f d e  } \\ { b c2 } > c4 < g' \\ b, \\  f' \\ d' >
+ c4 < { f d e  } \\ { b c2 } > c4 < g' \\ b, \\  f' \\ d >
 }
 @end lilypond
 
-The separator causes @internalsref{Voice} contexts to be instantiated,
-bearing the names @code{"1"}, @code{"2"}, etc. In each of these
-contexts, vertical direction of slurs, stems, etc. are set
+The separator causes @internalsref{Voice} contexts to be
+instantiated. They 
+bear the names @code{"1"}, @code{"2"}, etc. In each of these
+contexts, vertical direction of slurs, stems, etc. is set
 appropriately.
 
 This can also be done by instantiating @internalsref{Voice} contexts
@@ -1186,11 +1191,11 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 
 @cindex @code{\shiftOn}
 @code{\shiftOn}, 
-@cindex @code{\shiftOnn  }
+@cindex @code{\shiftOnn}
 @code{\shiftOnn}, 
-@cindex @code{\shiftOnnn  }
+@cindex @code{\shiftOnnn}
 @code{\shiftOnnn}, 
-@cindex @code{\shiftOff  }
+@cindex @code{\shiftOff}
 @code{\shiftOff}, 
 
 
@@ -1213,6 +1218,8 @@ are handled. When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
 be used to override typesetting decisions.
 
+When using @code{merge-differently-headed} with upstem 8th or shorter
+note, and a downstem half note, the 8th note gets the wrong offset.
 
 @node Beaming
 @section Beaming
@@ -1240,9 +1247,9 @@ that differ from the defaults.
 @cindex @code{[}
 
 In some cases it may be necessary to override the automatic beaming
-algorithm.  For example, the auto beamer will not beam over rests or
-bar lines, If you want that, specify the begin and end point manually
-using @code{[} and @code{]}.
+algorithm.  For example, the auto beamer will not put beams over rests
+or bar lines. Such beams are specified by manually: the begin and end
+point are marked with @code{[} and @code{]}.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
@@ -1268,9 +1275,10 @@ is set, its value will be used only once, and then it is erased.
 
 
 The property @code{subdivideBeams} can be set in order to subdivide
-all 16th or shorter beams at beat positions.  This accomplishes the
-same effect as twiddling with @code{stemLeftBeamCount} and
-@code{stemRightBeamCount}, but it take less typing.
+all 16th or shorter beams at beat positions, as defined by the
+@code{beatLength} property .  This accomplishes the same effect as
+twiddling with @code{stemLeftBeamCount} and @code{stemRightBeamCount},
+but it take less typing.
 
 
 @lilypond[relative=1,verbatim,noindent]
@@ -1341,7 +1349,7 @@ or at durations specified by the properties in
 are defined in @file{scm/auto-beam.scm}.
 
 The value of @code{autoBeamSettings} is changed using
-@code{\override} and unset using @code{\revert}:
+@code{\override} and restored with @code{\revert}:
 @example
 \property Voice.autoBeamSettings \override #'(@var{BE} @var{P} @var{Q} @var{N} @var{M}) = @var{dur}
 \property Voice.autoBeamSettings \revert #'(@var{BE} @var{P} @var{Q} @var{N} @var{M})
@@ -1426,8 +1434,8 @@ automatic beaming in irregular meters such as @code{5/8}.
 @section Accidentals
 @cindex Accidentals
 
-This section describes how to change the way that LilyPond automatically
-inserts accidentals before the running notes.
+This section describes how to change the way that accidentals are
+inserted automatically before the running notes.
 
 
 @menu
@@ -1443,7 +1451,7 @@ quite hairy, so non-experts should stick to the variables
 defined in @file{ly/property-init.ly}.
 @cindex @file{property-init.ly}
 
-The variables set properties in the ``Current'' context (see
+The variables set properties in the ``@code{Current}'' context (see
 @ref{Context properties}). This means that the variables should
 normally be added right after the creation of the context in which the
 accidental typesetting described by the variable is to take
@@ -1534,8 +1542,8 @@ instead.
       @cindex @code{\modernCautionaries}
      This rule is similar to @code{\modernAccidentals}, but the
      ``extra'' accidentals (the ones not typeset by
-     @code{\defaultAccidentals}) are typeset as cautionary accidentals
-     (i.e. in reduced size):
+     @code{\defaultAccidentals}) are typeset as cautionary accidentals.
+     They are printed in reduced size or with parentheses.
 @lilypond[singleline,fragment,verbatim]
       \modernCautionaries
       cis' c'' cis'2 | c'' c'
@@ -2025,6 +2033,7 @@ played with your thumb (used in cello music):
 
 Fingering for chords can be notated like this:
 
+@c TODO: confusing example. 
 @lilypond[verbatim,singleline,fragment,relative=1]
         << c-1  e-2 g-3 b-5 >> 4
 	\property Voice.fingerHorizontalDirection = #LEFT
@@ -2061,10 +2070,9 @@ will be taken into account.
 c4^"longtext" \fatText c4_"longlongtext" c4 }
 @end lilypond
 
-It is possible to use @TeX{} commands in the strings, but this should be
-avoided because it makes it impossible for LilyPond to compute the
-exact length of the string, which may lead to collisions.  Also, @TeX{}
-commands will not work with direct PostScript output.
+It is possible to use @TeX{} commands in the strings, but this should
+be avoided because the exact dimensions of the string can then no
+longer be computed.
 
 
 @seealso
@@ -2102,17 +2110,18 @@ example is shown here with timing tuples.
   c4^"(0,0)"  \grace c16_" "_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
   c16_"(2/4,-1/8)"-[  d16^"(2/4,-1/16)" ] } c4_" "_"(2/4,0)"
   }
-\paper {  linewidth = 8.\cm }
+\paper {  linewidth = 12.\cm }
 }
 @end lilypond
 
 
-The placement of these grace notes is synchronized between different
-staves.
+The placement of grace notes is synchronized between different staves.
+In the following example, there are two sixteenth graces notes for
+every eighth grace note.
 
 @lilypond[relative=2,verbatim,fragment] 
 < \context Staff = SA { e4 \grace { c16-[ d e f-] } e4 }
-  \context Staff = SB { c'4 \grace { g8 b } c4 } >
+  \context Staff = SB { c'4 \grace { g8-[ b-] } c4 } >
 @end lilypond
 
 
@@ -2151,6 +2160,8 @@ is to put the grace notes before a phantom ``space note'', e.g.
    )c4
 }
 @end lilypond
+
+@noindent
 By adjusting the duration of the skip note (here it is a half-note),
 the space between the main-note and the grace is adjusted.
 
@@ -2181,7 +2192,7 @@ second bars in this example:
 
 @seealso
 
-@internalsref{GraceMusic}.
+@internalsref{GraceMusic},
 
 @refbugs
 
@@ -2193,7 +2204,7 @@ note end up on different staffs.
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
-care when you mix staves with grace notes and staves without.
+care when you mix staves with grace notes and staves without, for example:
 
 @lilypond[relative=2,verbatim,fragment]
 < \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
@@ -2201,12 +2212,12 @@ care when you mix staves with grace notes and staves without.
 @end lilypond
 
 Grace sections should only be used within sequential music
-expressions.  Nesting, juxtaposing, or ending sequential music with a
-grace section is not supported, and might produce crashes or other
-errors.
+expressions.  Nesting or juxtaposing grace sections is not supported,
+and might produce crashes or other errors.
 
-Overriding settings for grace music using @code{add-to-grace-init}
-cannot be done in a modular way.
+Overriding settings for grace music globally cannot be done in a
+modular way. A kludge (@code{add-to-grace-init}) is defined in
+@file{ly/grace-init.ly}.
 
 
 @node Glissando 
@@ -2234,8 +2245,7 @@ a note:
 
 @refbugs
 
-Printing of an additional text (such as @emph{gliss.}) must be done
-manually.
+Additional texts (such as @emph{gliss.}) is not supported.
 
 
 @node Dynamics
@@ -2283,13 +2293,10 @@ note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 
 
 
-A crescendo mark is started with @code{\cr} and terminated with
-@code{\endcr}, and decrescendi similarly with @code{\decr} and
-@code{\enddecr}.  There are also shorthands for these marks.  A
-crescendo can be started with @code{\<} and a decrescendo can be
-started with @code{\>}.  Either one can be terminated with @code{\!}.
-Because these marks are bound to notes, if you must use spacer notes
-if multiple marks during one note are needed.
+A crescendo mark is started with @code{\<} and terminated with
+@code{\!}. A decrescendo is started with @code{\>} and also terminated
+with @code{\!}.  Because these marks are bound to notes, if you must
+use spacer notes if multiple marks during one note are needed.
 
 @lilypond[fragment,verbatim,center,quote]
   c''-\< c''-\!   d''-\decr e''-\rced 
@@ -2307,9 +2314,8 @@ You can also use a text saying @emph{cresc.} instead of hairpins. Here
 is an example how to do it:
 
 @lilypond[fragment,relative=2,verbatim]
-  c4 \cresc c4 \endcresc c4
+  c4 \cresc c4 c c c \endcresc c4
 @end lilypond
-
 
 @cindex crescendo
 @cindex decrescendo
@@ -2317,7 +2323,7 @@ is an example how to do it:
 You can also supply your own texts:
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-    \property Voice.crescendoText = "cresc. poco"
+    \property Voice.crescendoText = \markup { \italic "cresc. poco" }
     \property Voice.crescendoSpanner = #'dashed-line
     a'2-\mf-\< a a a-\!
   }

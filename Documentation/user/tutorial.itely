@@ -669,10 +669,10 @@ The notation manual discusses ties in @ref{Ties}.
 @node Combining music into compound expressions
 @section Combining music into compound expressions
 
-To print more than one staff, each piece of music that makes up a staff
-is marked by adding @code{\context Staff} before it.  These
-@code{Staff}'s are then grouped inside @code{\simultaneous @{} and @code{@}}, as is
-demonstrated here:
+To print more than one staff, each piece of music that makes up a
+staff is marked by adding @code{\context Staff} before it.  These
+@code{Staff}'s are then grouped inside @code{\simultaneous @{} and
+@code{@}}, as is demonstrated here:
 
 @quotation
 @lilypond[fragment,verbatim]
@@ -683,14 +683,32 @@ demonstrated here:
 @end lilypond
 @end quotation
 
-In this example, @code{staffA} and @code{staffB} are names that are
-given to the staves.  It does not matter what names you give, as long
-as each staff has a different name. If you give them the same name,
-they are assumed to belong on the same staff, and will be printed like
-that. @code{\simultaneous } indicates that both fragments happen at
-the same time, and must be printed stacked vertically.  The notation
-@code{< .. >} can also be used as a shorthand for @code{\simultaneous
-@{ .. @}}.
+
+In this example, @code{\simultaneous } indicates that both music
+fragments happen at the same time, and must be printed stacked
+vertically.  The notation @code{< .. >} can also be used as a
+shorthand for @code{\simultaneous @{ .. @}}.
+
+@code{\context} introduces a ``notation context''.  To understand this
+concept, imagine that you are performing a piece of music. When you
+perform the music, you combine the symbols printed at a certain point
+with contextual information. For example, without knowing the current
+clef, and the accidentals in the last measure, it would be impossible
+to determine the pitch of a note. In other words, this information
+forms context that helps you decipher a score. LilyPond produces
+notation from music, so in effect, it does the inverse of reading
+scores. Therefore, it also needs to keep track of contextual
+information. This information is maintained in ``notation contexts.''
+There are several types of contexts, e.g. @code{Staff}, @code{Voice}
+and @code{Score}, but also @code{Lyrics} and
+@code{ChordNames}. Prepending @code{\context} to a chunk of music
+indicates what kind of context to use for interpreting it.
+
+By specifying different names (in this case @code{staffA} and
+@code{staffB}), two different contexts are created, leading to two
+staves. It does not matter which names they are given, as long as they
+are different. If they get the same name, the chunks of music are
+assumed to belong on the same staff, and will be printed like that.
 
 @separate
 
@@ -743,7 +761,18 @@ the next one.  The simplest expressions are numbers and operators
 LilyPond input, a similar mechanism is used. Here, the simplest
 expressions are notes and rests.  By enclosing expressions in @code{<
 >} and @code{@{ @}}, more complex music is formed. The @code{\context}
-also forms new expressions; it is prepended to a music expression.
+also forms new expressions; prepending it to a music expression yields
+a new expression.
+
+Like mathematical expressions, music expressions can be nested
+arbitrarily deep, e.g.
+@lilypond[verbatim,relative 1] 
+  { c <c e>
+      < { e f } { c <b d> }
+      >
+  }
+@end lilypond 
+
 
 @cindex indent
 When spreading expressions over multiple lines, it is customary to use
@@ -763,6 +792,9 @@ braces at the end of an expression. For example
 @}
 @end example
 
+
+
+
 @node Adding articulation marks to notes 
 @section Adding articulation marks to notes
 
@@ -770,17 +802,19 @@ braces at the end of an expression. For example
 @cindex accents
 @cindex staccato
 
-Common accents can be added to a note using @code{-.}, @code{--}, @code{->}:
+Common accents can be added to a note using a dash (`@code{-}') and a
+single character:
 @quotation
 @lilypond[verbatim,relative 1]
-c-. c-- c->
+c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 @end quotation
 @separate
 
 @cindex fingering
-Similarly, fingering indications can be added to a note using @code{-}
-and the digit to be printed.
+Similarly, fingering indications can be added to a note using a dash
+(`@code{-}') and the digit to be printed.
+@c
 @lilypond[verbatim,relative 1]
   c-3 e-5 b-2 a-1
 @end lilypond
@@ -836,9 +870,12 @@ If you need two slurs at the same time (one for articulation, one for
 phrasing), you can also make a phrasing slur with @code{\(} and
 @code{\)}.
 
+More information on fingering, articulation, slurs, phrasing slurs,
+and dynamics can be found in @ref{Fingering instructions},
+@ref{Articulations}, @ref{Slurs}, @ref{Phrasing slurs} @ref{Dynamics}
+respectively.
 
-
-@node Combining notes into  chords
+@node Combining notes into chords
 @section Combining notes into chords
 
 @cindex chords
@@ -915,7 +952,9 @@ a keyword. In this case, the keyword is @code{\grace}.
 @end lilypond
 
 @noindent
-More information on the use of grace notes is in @ref{Grace notes}.
+More information on grace notes, tuplets and upsteps are in @ref{Grace
+notes}, @ref{Tuplets} and @ref{Partial measures}.
+
 
 
 @node Commenting input files
@@ -925,7 +964,7 @@ More information on the use of grace notes is in @ref{Grace notes}.
 @cindex line comment
 @cindex block comment
 Comments are pieces of the input that are ignored.  There are two
-types of comments. A line comments are introduced by @code{%}: after
+types of comments. A line comments is introduced by @code{%}: after
 that, the rest of that line is ignored.  Block comments span larger
 sections of input.  Anything that is enclosed in @code{%@{} and
 @code{%@}} is ignored too. The following fragment shows possible uses
@@ -1018,7 +1057,7 @@ line}. It is entered as two  underscores, i.e.,
 
      %% ugh, this is to deal with bugs in the extender implementation
      \hideNotes
-     c8
+     c32
    }
    \context Lyrics  \lyrics { I want to break free __ }
  }
@@ -1045,9 +1084,6 @@ resulting in a centered hyphen between two syllables.
 More options, like putting multiple lines of lyrics below a melody are
 discussed in @ref{Vocal music}.
 
-
-
-TODO: discuss contexts.
 
 
 @node A lead sheet
@@ -1088,9 +1124,6 @@ before the chords thus entered:
  \context ChordNames \chords \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
-A complete list of modifiers, and other options for layout are in the
-reference manual section @ref{Chords}.
-
 @cindex lead sheet 
 When put together,  chord names, lyrics and a melody form
 a lead sheet, for example,
@@ -1122,6 +1155,9 @@ a lead sheet, for example,
 @end lilypond
 
 
+A complete list of modifiers, and other options for layout are in the
+reference manual section @ref{Chords}.
+
 @node Listening to output
 @section Listening to output
 
@@ -1152,12 +1188,13 @@ information on auditory output is in the @ref{Sound} section in the
 notation manual.
 
 
+
 @node Titling 
 @section Titling
 
 Bibliographic information is entered in a separate block, the
 @code{\header} block. The name of the piece, its composer, etc. are
-entered as assignment within @code{\header @{ @dots{} @}}. For
+entered as assignment, within @code{\header @{ @dots{} @}}. For
 example,
 @example 
   \header @{
@@ -1223,7 +1260,7 @@ and beams, and the top voice has the stems up, while the bottom voice
 has stems down.
 
 Entering such parts is done by entering each voice as a sequence (with
-@code{@{ .. @}}), and combing those simultaneously, separating the
+@code{@{ .. @}}), and combining those simultaneously, separating the
 voices with @code{\\}:
 
 @example
@@ -1235,7 +1272,7 @@ voices with @code{\\}:
     { r4 g4 f2 f4 } >
 @end lilypond
 
-For polyphonic typesetting spacer rests can also be convenient: these
+For polyphonic music typesetting, spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play:
 @example
@@ -1246,6 +1283,22 @@ temporarily do not play:
 \context Staff  < { a4 g2 f4-~ f4 } \\
     { s4 g4 f2 f4 } >
 @end lilypond
+
+Again, these expressions can be nested arbitrarily.
+
+@lilypond[fragment]
+<
+ \context Staff = staffA 
+  \relative c''
+    < { a4 g2 f4-~ f4 } \\
+      { s4 g4 f2 f4 } >
+ \context Staff = staffB 
+  <  { \clef bass <<c g>>1  } \\
+     { f4 d e2 }
+  >
+>
+@end lilypond
+
 
 More features of polyphonic typesetting are in the notation manual
 in @ref{Polyphony}.
@@ -1275,7 +1328,7 @@ Here is a full-fledged example:
 
 @lilypond[relative 0,fragment]
 \context PianoStaff
- < \context Staff = up {
+ < \context Staff = up { \time 2/4
      c4 c g' g  }
    \context Staff = down {
      \clef bass c,, c' e c }
@@ -1292,12 +1345,12 @@ from left-to-right order, similar to what happens when we read
 music. During this step, context-sensitive information, such as the
 accidentals to print, and where barlines must be placed, are stored in
 variables. These variables are called @emph{translation properties}.
-The properties can also be manipulated from input files: for example,
+The properties can also be manipulated from input files. Consider this input:
 @example
 \property Staff.autoBeaming = ##f
 @end example 
-sets the property named @code{autoBeaming} in the current staff to
-@code{##f} which means `false'. This property controls whether beams
+It sets the property named @code{autoBeaming} in the current staff to
+@code{##f}, which means `false'. This property controls whether beams
 are printed automatically:
 @lilypond[relative 1,fragment,verbatim]
   c8 c c c
@@ -1348,7 +1401,7 @@ The following statements set properties to the pairs (-7.5, 6)  and
 
 There are many different properties, and not all of them are listed in
 this manual. However, the internal documentation lists them all in the
-@internalsref{All translation properties}, and almost all properties
+@internalsref{All translation properties}, and most properties
 are demonstrated in one of the
 @ifhtml
 @uref{../../../input/test/out-www/collated-files.html,tips-and-tricks}
@@ -1382,7 +1435,7 @@ Voice.  As a result, the notes following @code{\property} have thicker
 stems.
 
 In most cases of manual overrides, only a single object must be
-changed. This can be achieved by prefix @code{\once} to the
+changed. This can be achieved by prefixing @code{\once} to the
 @code{\property} statement, i.e.,
 
 @example
@@ -1398,8 +1451,12 @@ changed. This can be achieved by prefix @code{\once} to the
 @noindent
 Some overrides are so common that predefined commands are provided as
 a short cut.  For example, @code{\slurUp} and @code{\stemDown}. These
-commands are described in the @ref{Notation manual}, under the
-sections for slurs and stems respectively.
+commands are described in
+@ifhtml
+the
+@end ifhtml
+@ref{Notation manual}, under the sections for slurs and stems
+respectively.
 
 The exact tuning possibilities for each type of layout object are
 documented in the internal documentation of the respective
@@ -1408,13 +1465,14 @@ used to apply generic tweaks.  We mention a couple of these:
 
 @itemize @bullet
 @cindex @code{extra-offset}
-@item The @code{extra-offset} property
-moves around objects in the printout.  The unit of these offsets are
-staff-spaces.  The first number controls left-right movement; a
-positive number will move the object to the right.  The second number
-controls up-down movement; a positive number will move it higher.  The
-@code{extra-offset} is a low-level feature: the formatting engine is
-completely oblivious to these offsets.
+@item The @code{extra-offset} property, which
+has a pair of numbers as value, moves around objects in the printout.
+The first number controls left-right movement; a positive number will
+move the object to the right.  The second number controls up-down
+movement; a positive number will move it higher.  The unit of these
+offsets are staff-spaces.  The @code{extra-offset} property is a
+low-level feature: the formatting engine is completely oblivious to
+these offsets.
 
 In the following example example, the second fingering is moved a
 little to the left, and 1.8 staff space downwards.
@@ -1430,10 +1488,10 @@ f-5
 @end lilypond
 
 @item
-Setting the @code{transparent} property will make an object be
-printed in `invisible ink': the object is not printed, but all its
-other behavior is retained. The object still takes space, takes part
-in collisions, and slurs, ties and beams can be attached to it.
+Setting the @code{transparent} property will make an object be printed
+in `invisible ink': the object is not printed, but all its other
+behavior is retained. The object still takes space, it takes part in
+collisions, and slurs, ties and beams can be attached to it.
 
 @cindex transparent objects
 @cindex removing objects
@@ -1443,7 +1501,7 @@ using ties. Normally ties only happen between notes of the same
 voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices.
 
-@lilypond[fragment,relative 1]
+@lilypond[fragment,relative 1,verbatim]
 \context Staff < {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8
@@ -1455,8 +1513,15 @@ in that voice, the tie appears to cross voices.
 @item
 The @code{padding} property for objects with
 @code{side-position-interface} can be set to increase distance between
-symbols that are printed above or below notes. An example of the use
-of padding is in @ref{Constructing a tweak}.
+symbols that are printed above or below notes. We only give an
+example; a more elaborate explanation is in @ref{Constructing a
+tweak}.
+@lilypond[relative 1]
+  c2-\fermata
+  \property Voice.Script \set #'padding = #3
+  b2-\fermata
+@end lilypond
+
 @end itemize
 
 More specific overrides are also possible.  The notation manual
@@ -1480,14 +1545,15 @@ An identifier is assigned as follows
 
 The contents of the music expression @code{namedMusic}, can be used
 later by preceding the name with a backslash, i.e. @code{\namedMusic}.
-For example
+In the next example, a two note motive is repeated thrice by using
+variable substitution:
 
 @lilypond[singleline,verbatim]
 seufzer  = \notes {
   dis'8 e'8
 }
 \score { \notes {
-  \seufzer \seufzer
+  \seufzer \seufzer \seufzer
 } }
 @end lilypond
 
@@ -1498,9 +1564,9 @@ outside of the @code{\score} block.
 It is possible to use variables for many other types of objects in the
 input.  For example,
 @example
-  width = 1.5\cm
+  width = 4.5\cm
   name = "Wendy"
-  aFivePaper = \paper @{ paperheight = 22.7 \cm @}
+  aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 Depending on its contents, the identifier can be used in different
 places. The following example uses the above variables:
@@ -1522,13 +1588,14 @@ technical manual, in @ref{Scheme datatypes}.
 @section An orchestral part
 
 In orchestral music, all notes are printed twice: both in a part for
-the musicians, and in a full score for the which is printed both in
-parts as in full score. Identifiers can be used to avoid double work:
-the music is entered once, and stored in an variables. The contents of
-that variable is then used to generate both the part and the score.
+the musicians, and in a full score for the conductor. Identifiers can
+be used to avoid double work: the music is entered once, and stored in
+variable. The contents of that variable is then used to generate
+both the part and the score.
 
-It is convenient to define the notes in a special file, for example,
-suppose that the following is in @file{horn-music.ly}:
+It is convenient  to define the notes in a  special file, for example,
+suppose that the @file{horn-music.ly} contains the following part of a
+horn/bassoon duo.
 @example
 hornNotes = \notes \relative c @{
   \time 2/4
@@ -1550,7 +1617,7 @@ The @code{\include} command substitutes the contents of the file at
 this position in the file, so that @code{hornNotes} is defined
 afterwards.  Since the horn is tuned in F, the @code{\transpose}
 command is used. The code @code{\transpose c' f} indicates that the
-argument, being @code{\hornNotes} should be transposed by a fifth
+argument, being @code{\hornNotes}, should be transposed by a fifth
 downwards: the @code{c'} becomes a @code{f}. The transposition can be
 seen in the following output:
 
@@ -1579,8 +1646,8 @@ rests.
 @example
   \property Score.skipBars = ##t
 @end example
-
-The result would look like
+Prepending the rest and the property setting above, leads to the
+following result.
 
 @lilypond[singleline]
 \score {\notes { \transpose c' f \relative c' { \time 2/4
@@ -1589,21 +1656,21 @@ The result would look like
     r4 f8 a cis4 f e d } }}
 @end lilypond
 
-The score is made by combining all of the music in  a @code{\score}
-block, assuming that the other voice is in @code{hornNotes}, in the
-file @file{horn-music.ly}:
+The score is made by combining all of the music in a @code{\score}
+block, assuming that the other voice is in @code{bassoonNotes}, in the
+file @file{bassoon-music.ly}:
 @example
-\include "fagot-music.ly"
+\include "bassoon-music.ly"
 \include "horn-music.ly"
 
 \score @{
   \simultaneous @{
     \context Staff = hornStaff \hornNotes
-    \context Staff = fagStaff \fagottoNotes
+    \context Staff = bsnStaff \bassoonNotes
   @} @}
 @end example
 
-This would lead to the following output:
+This would lead to the simple score depicted below.
 
 @lilypond[singleline]
 \score {
@@ -1617,14 +1684,12 @@ This would lead to the following output:
   } }
 @end lilypond 
 
-More in depth information is in the notation manual, in
-@ref{Orchestral music}. 
+More in-depth information on preparing parts and scores is in the
+notation manual, in @ref{Orchestral music}.
 
 
 @node Integrating text and music
 @section Integrating text and music
-
-TODO: shorten. 
 
 @cindex La@TeX{}, music in
 @cindex HTML, music in
@@ -1667,26 +1732,16 @@ If you have no \verb+\score+ block in the fragment,
 
 In the example you see here, two things happened: a
 \verb+\score+ block was added, and the line width was set to natural
-length. You can specify many more options using  \LaTeX style options
-in brackets:
+length. You can specify  options by putting them in brackets:
 
-\begin[verbatim,11pt,singleline,
-  fragment,relative,intertext="hi there!"]@{lilypond@}
-  c'4 f bes es
+\begin[26pt,verbatim]@{lilypond@}
+  c'4 f16
 \end@{lilypond@}
 
-The option \texttt@{verbatim@} prints the LilyPond code in addition to
-the graphical score, \texttt@{11pt@} selects the default music size,
-\texttt@{fragment@} adds a score block, \texttt@{relative@} uses
-relative mode for the fragment, and \texttt@{intertext@} specifies
-what to print between the \texttt@{verbatim@} code and the music.
+If you want to include large examples into the text, it is more
+convenient to put it in a separate file:
 
-If you want to include large examples into the text, it may be more
-convenient to put the example in a separate file:
-
-\lilypondfile[printfilename]@{screech-boink.ly@}
-
-The \texttt@{printfilename@} option adds the file name to the output.
+\lilypondfile@{screech-boink.ly@}
 
 \end@{document@}
 @end example
@@ -1739,26 +1794,15 @@ If you have no @code{\score} block in the fragment,
   c'4
 @end lilypond
 
-In the example you see here, a number of things happened: a
-@code{\score} block was added, and the line width was set to natural
-length. You can specify many more options using  La@TeX{} style options
-in brackets:
+In the example you see here, two things happened: a
+@code{score} block was added, and the line width was set to natural
+length. You can specify  options by putting them in brackets:
 
-@lilypond[verbatim,11pt,singleline,
-  fragment,relative,intertext="hi there!"]
-  c'4 f bes es
+@lilypond[26pt,verbatim]
+  c'4 f16
 @end lilypond
 
-The option @code{verbatim} also shows the LilyPond code, @code{11pt} selects
-the default music size, @code{fragment} adds a score block,
-@code{relative} uses relative mode for the fragment, and
-@code{intertext} specifies what to print between the
-@code{verbatim} code and the music.
+If you want to include large examples into the text, it is more
+convenient to put it in a separate file:
 
-If you include large examples into the text, it may be more convenient
-to put the example in a separate file:
-
-@lilypondfile[printfilename]{screech-boink.ly}
-
-The @code{printfilename} option adds the file name to the output.
-
+@lilypondfile{screech-boink.ly}
