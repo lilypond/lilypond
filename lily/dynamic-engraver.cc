@@ -16,7 +16,7 @@
 #include "hairpin.hh"
 #include "interval.hh"
 #include "item.hh"
-#include "new-slur.hh"
+#include "slur.hh"
 #include "note-column.hh"
 #include "paper-column.hh"
 #include "script-interface.hh"
@@ -414,6 +414,6 @@ ENTER_DESCRIPTION (Dynamic_engraver,
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 /* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",
-/* acks  */      "note-column-interface script-interface new-slur-interface",
+/* acks  */      "note-column-interface script-interface slur-interface",
 /* reads */       "",
 /* write */       "");

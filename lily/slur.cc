@@ -10,29 +10,29 @@
 
 #include <math.h>
 
+#include "beam.hh"
 #include "bezier.hh"
-#include "new-slur.hh"
-#include "main.hh"
-#include "font-interface.hh"
-#include "text-item.hh"
 #include "directional-element-interface.hh"
+#include "font-interface.hh"
 #include "group-interface.hh"
 #include "lily-guile.hh"
 #include "lookup.hh"
+#include "main.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "rod.hh"
+#include "slur.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
 #include "stencil.hh"
+#include "text-item.hh"
 #include "warn.hh"
-#include "beam.hh"
 
-MAKE_SCHEME_CALLBACK (New_slur, height, 2);
+MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
-New_slur::height (SCM smob, SCM ax)
+Slur::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)ly_scm2int (ax);
   Grob *me = unsmob_grob (smob);
@@ -48,9 +48,9 @@ New_slur::height (SCM smob, SCM ax)
 /*
   Ugh should have dash-length + dash-period
 */
-MAKE_SCHEME_CALLBACK (New_slur, print,1);
+MAKE_SCHEME_CALLBACK (Slur, print,1);
 SCM
-New_slur::print (SCM smob)
+Slur::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   if (!scm_ilength (me->get_property ("note-columns")))
@@ -99,7 +99,7 @@ New_slur::print (SCM smob)
 
 
 Bezier
-New_slur::get_curve (Grob*me)
+Slur::get_curve (Grob*me)
 {
   Bezier b;
   int i = 0;
@@ -111,7 +111,7 @@ New_slur::get_curve (Grob*me)
 }
 
 void
-New_slur::add_column (Grob*me, Grob*n)
+Slur::add_column (Grob*me, Grob*n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (n));
@@ -119,16 +119,16 @@ New_slur::add_column (Grob*me, Grob*n)
 
 
 void
-New_slur::add_extra_encompass (Grob*me, Grob*n)
+Slur::add_extra_encompass (Grob*me, Grob*n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
 }
 
 
 
-MAKE_SCHEME_CALLBACK (New_slur, outside_slur_callback, 2);
+MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);
 SCM
-New_slur::outside_slur_callback (SCM grob, SCM axis)
+Slur::outside_slur_callback (SCM grob, SCM axis)
 {
   Grob *script = unsmob_grob (grob);
   Axis a = Axis (ly_scm2int (axis));
@@ -142,7 +142,7 @@ New_slur::outside_slur_callback (SCM grob, SCM axis)
   Grob *cx = script->common_refpoint (slur, X_AXIS);
   Grob *cy = script->common_refpoint (slur, Y_AXIS);
 
-  Bezier curve = New_slur::get_curve (slur);
+  Bezier curve = Slur::get_curve (slur);
 
   curve.translate (Offset (slur->relative_coordinate (cx, X_AXIS),
 			   slur->relative_coordinate (cy, Y_AXIS)));
@@ -177,7 +177,7 @@ New_slur::outside_slur_callback (SCM grob, SCM axis)
 }
 
 
-ADD_INTERFACE (New_slur, "new-slur-interface",
+ADD_INTERFACE (Slur, "slur-interface",
 	       "A slur",
-	       "excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
+	       "quant-score excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
 

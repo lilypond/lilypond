@@ -775,15 +775,15 @@
 
     (PhrasingSlur
      . ((slur-details . ,default-slur-details)
-	(print-function . ,New_slur::print)
+	(print-function . ,Slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
-	(after-line-breaking-callback . ,New_slur::after_line_breaking)
-	(Y-extent-callback . ,New_slur::height)
+	(after-line-breaking-callback . ,Slur::after_line_breaking)
+	(Y-extent-callback . ,Slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.333)
-	(meta . ((interfaces . (slur-interface new-slur-interface spanner-interface))))
+	(meta . ((interfaces . (slur-interface spanner-interface))))
 	))
 
     (NonMusicalPaperColumn
@@ -887,16 +887,16 @@
 
     (Slur
      . ((slur-details . ,default-slur-details)
-	(print-function . ,New_slur::print)
+	(print-function . ,Slur::print)
 	(thickness . 1.2)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
-	(after-line-breaking-callback . ,New_slur::after_line_breaking)
-	(Y-extent-callback . ,New_slur::height)
+	(after-line-breaking-callback . ,Slur::after_line_breaking)
+	(Y-extent-callback . ,Slur::height)
 					; Slur::height)
 	(height-limit . 2.0)
 	(ratio . 0.25)
-	(meta . ((interfaces . (slur-interface new-slur-interface spanner-interface))))
+	(meta . ((interfaces . (slur-interface spanner-interface))))
 	))
 
     (SpacingSpanner

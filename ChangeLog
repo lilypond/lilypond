@@ -1,3 +1,13 @@
+2004-08-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/slur-stem-broken.ly: remove.
+
+	* lily/slur.cc: add quant-score.
+
+	* input/regression/slur-staccato.ly (texidoc): remove
+
+	* make/lilypond.redhat.spec.in (Group): remove musedata2ly
+
 2004-08-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/include/bezier-bow.hh: remove.
@@ -64,8 +74,9 @@
 
 2004-08-27  Graham Percival  <gperlist@shaw.ca>
 
-	* Documentation/user/introduction.itely: add note about the "example templates"
-	section of the manual, and remove link to input/template/
+	* Documentation/user/introduction.itely: add note about the
+	"example templates" section of the manual, and remove link to
+	input/template/
 
 2004-08-27  Juergen Reuter   <reuter@ipd.uka.de>
 
