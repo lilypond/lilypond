@@ -184,10 +184,14 @@ Music::set_mus_property (SCM s, SCM v)
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
+#include "main.hh"
 void
 Music::set_spot (Input ip)
 {
-   set_mus_property ("origin", make_input (ip));
+  /* misuse midi-debug flag: don't store origin */
+  if (midi_debug_global_b)
+    return;
+  set_mus_property ("origin", make_input (ip));
 }
 
 
@@ -272,11 +276,27 @@ ly_make_music (SCM type)
     }
 }
 
+SCM
+ly_music_name (SCM mus)
+{
+  Music * m = unsmob_music (mus);
+  const char *nm ="";
+  if (!m)
+    {
+      warning (_ ("ly_music_name (): Not a music expression"));
+      scm_write (mus, scm_current_error_port ());      
+    }
+   else
+     nm = classname (m);
+   return ly_str02scm (nm);
+}
+
 static void
 init_functions ()
 {
   scm_make_gsubr ("ly-get-mus-property", 2, 0, 0, (Scheme_function_unknown)ly_get_mus_property);
   scm_make_gsubr ("ly-set-mus-property", 3, 0, 0, (Scheme_function_unknown)ly_set_mus_property);
-  scm_make_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);  
+  scm_make_gsubr ("ly-make-music", 1, 0, 0, (Scheme_function_unknown)ly_make_music);
+  scm_make_gsubr ("ly-music-name", 1, 0, 0, (Scheme_function_unknown)ly_music_name);    
 }
 ADD_SCM_INIT_FUNC (musicscm,init_functions);

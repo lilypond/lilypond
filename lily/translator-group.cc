@@ -294,11 +294,22 @@ Translator_group::set_property (String id, SCM val)
   set_property (ly_symbol2scm (id.ch_C ()), val);
 }
 
+
 void
 Translator_group::set_property (SCM sym, SCM val)
 {
   properties_dict ()->set (sym, val);
 }
+
+/*
+  TODO: look up to check whether we have inherited var? 
+ */
+void
+Translator_group::unset_property (SCM sym)
+{
+  properties_dict ()->remove (sym);
+}
+
 
 /*
   Push or pop (depending on value of VAL) a single entry (ELTPROP . VAL)

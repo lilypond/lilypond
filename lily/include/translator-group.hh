@@ -31,7 +31,6 @@ class Translator_group : public virtual Translator {
   Scheme_hash_table *properties_dict () const;
   int iterator_count_;
 
-
   friend class Interpretation_context_handle;
 protected:
   ~Translator_group ();
@@ -40,6 +39,7 @@ public:
   void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM get_property (SCM name_sym) const;
   void set_property (String var_name, SCM value);
+  void unset_property (SCM var_sym);
   void set_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;
 

@@ -1,0 +1,200 @@
+@node Refman appendix
+@appendix Refman appendix
+
+@menu
+* Lyrics mode definition::      
+* American Chords ::            
+* Jazz chords::                 
+* MIDI instruments::            
+@end menu
+
+@node Lyrics mode definition
+@section Lyrics mode definition
+
+A word in Lyrics mode begins with: an alphabetic character, @code{_},
+@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
+through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
+any 8-bit character with ASCII code over 127, or a two-character
+combination of a backslash followed by one of @code{`}, @code{'},
+@code{"}, or @code{^}.
+
+Subsequent characters of a word can be any character that is not a digit
+and not white space.  One important consequence of this is that a word
+can end with `@code{@}}', which may be confusing. However, LilyPond will
+issue a warning.  Any @code{_} character which appears in an unquoted
+word is converted to a space.  This provides a mechanism for introducing
+spaces into words without using quotes.  Quoted words can also be used
+in Lyrics mode to specify words that cannot be written with the above
+rules.
+
+
+@node American Chords 
+@section American Chords
+
+
+@quotation
+@lilypond[verbatim]
+\include "english.ly"
+
+scheme = \chords {
+  c         % Major triad
+  cs:m      % Minor triad
+  df:m5-    % Diminished triad
+  c:5^3     % Root-fifth chord
+  c:4^3     % Suspended fourth triad
+  c:5+      % Augmented triad
+  c:2^3     % "2" chord
+  c:m5-.7-  % Diminished seventh
+  c:7+      % Major seventh
+  c:7.4^3   % Dominant seventh suspended fourth
+  c:5+.7    % Augmented dominant seventh
+  c:m5-.7   % "Half" diminished seventh
+  c:5-.7    % Dominant seventh flat fifth
+  c:5-.7+   % Major seventh flat fifth
+  c:m7+     % Minor-major seventh
+  c:m7      % Minor seventh
+  c:7       % Dominant seventh
+  c:6       % Major sixth
+  c:m6      % Minor sixth
+  c:9^7     % Major triad w/added ninth
+  c:6.9^7   % Six/Nine chord
+  c:9       % Dominant ninth 
+  c:7+.9    % Major ninth
+  c:m7.9    % Minor ninth
+}
+
+\score {
+  \notes <
+    \context ChordNames \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper {
+    \translator { 
+      \ChordNamesContext
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'american
+    }
+  }
+}
+@end lilypond
+@end quotation
+
+@node Jazz chords
+@section Jazz chords
+
+Similarly, Jazz style chord names are implemented as a variation on
+American style names:
+@quotation
+@lilypond[verbatim]
+scheme = \chords {
+  % major chords
+  c
+  c:6		% 6 = major triad with added sixth
+  c:maj		% triangle = maj
+  c:6.9^7	% 6/9 
+  c:9^7		% add9
+
+  % minor chords
+  c:m		% m = minor triad
+  c:m.6		% m6 = minor triad with added sixth
+  c:m.7+	% m triangle = minor major seventh chord
+  c:3-.6.9^7	% m6/9 
+  c:m.7		% m7
+  c:3-.9	% m9
+  c:3-.9^7	% madd9
+
+  % dominant chords
+  c:7		% 7 = dominant
+  c:7.5+	% +7 = augmented dominant
+  c:7.5-	% 7b5 = hard diminished dominant
+  c:9		% 7(9)
+  c:9-		% 7(b9)
+  c:9+		% 7(#9)
+  c:13^9.11 	% 7(13)
+  c:13-^9.11 	% 7(b13)
+  c:13^11	% 7(9,13)
+  c:13.9-^11	% 7(b9,13)
+  c:13.9+^11	% 7(#9,13)
+  c:13-^11	% 7(9,b13)
+  c:13-.9-^11	% 7(b9,b13)
+  c:13-.9+^11	% 7(#9,b13)
+
+  % half diminished chords
+  c:m5-.7		% slashed o = m7b5
+  c:9.3-.5-	% o/7(pure 9)
+
+  % diminished chords
+  c:m5-.7-	% o = diminished seventh chord
+}
+
+\score {
+  \notes <
+    \context ChordNames \scheme
+    \context Staff \transpose c'' \scheme
+  >
+  \paper {
+    \translator { 
+      \ChordNamesContext
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'jazz
+    }
+  }
+}
+@end lilypond
+@end quotation
+
+
+[barnumbers look silly, fixme.]
+
+
+
+@node MIDI instruments
+@section MIDI instruments
+
+[todo: make nicely formatted table]
+
+@example 
+"acoustic grand"            "contrabass"           "lead 7 (fifths)"
+"bright acoustic"           "tremolo strings"      "lead 8 (bass+lead)"
+"electric grand"            "pizzicato strings"    "pad 1 (new age)"
+"honky-tonk"                "orchestral strings"   "pad 2 (warm)"
+"electric piano 1"          "timpani"              "pad 3 (polysynth)"
+"electric piano 2"          "string ensemble 1"    "pad 4 (choir)"
+"harpsichord"               "string ensemble 2"    "pad 5 (bowed)"
+"clav"                      "synthstrings 1"       "pad 6 (metallic)"
+"celesta"                   "synthstrings 2"       "pad 7 (halo)"
+"glockenspiel"              "choir aahs"           "pad 8 (sweep)"
+"music box"                 "voice oohs"           "fx 1 (rain)"
+"vibraphone"                "synth voice"          "fx 2 (soundtrack)"
+"marimba"                   "orchestra hit"        "fx 3 (crystal)"
+"xylophone"                 "trumpet"              "fx 4 (atmosphere)"
+"tubular bells"             "trombone"             "fx 5 (brightness)"
+"dulcimer"                  "tuba"                 "fx 6 (goblins)"
+"drawbar organ"             "muted trumpet"        "fx 7 (echoes)"
+"percussive organ"          "french horn"          "fx 8 (sci-fi)"
+"rock organ"                "brass section"        "sitar"
+"church organ"              "synthbrass 1"         "banjo"
+"reed organ"                "synthbrass 2"         "shamisen"
+"accordion"                 "soprano sax"          "koto"
+"harmonica"                 "alto sax"             "kalimba"
+"concertina"                "tenor sax"            "bagpipe"
+"acoustic guitar (nylon)"   "baritone sax"         "fiddle"
+"acoustic guitar (steel)"   "oboe"                 "shanai"
+"electric guitar (jazz)"    "english horn"         "tinkle bell"
+"electric guitar (clean)"   "bassoon"              "agogo"
+"electric guitar (muted)"   "clarinet"             "steel drums"
+"overdriven guitar"         "piccolo"              "woodblock"
+"distorted guitar"          "flute"                "taiko drum"
+"guitar harmonics"          "recorder"             "melodic tom"
+"acoustic bass"             "pan flute"            "synth drum"
+"electric bass (finger)"    "blown bottle"         "reverse cymbal"
+"electric bass (pick)"      "skakuhachi"           "guitar fret noise"
+"fretless bass"             "whistle"              "breath noise"
+"slap bass 1"               "ocarina"              "seashore"
+"slap bass 2"               "lead 1 (square)"      "bird tweet"
+"synth bass 1"              "lead 2 (sawtooth)"    "telephone ring"
+"synth bass 2"              "lead 3 (calliope)"    "helicopter"
+"violin"                    "lead 4 (chiff)"       "applause"
+"viola"                     "lead 5 (charang)"     "gunshot"
+"cello"                     "lead 6 (voice)" 
+@end example 

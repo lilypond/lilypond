@@ -42,7 +42,7 @@
 #include "part-combine-music.hh"
 #include "scm-hash.hh"
 #include "auto-change-iterator.hh"
-
+#include "un-relativable-music.hh"
 #include "chord.hh"
 
 bool
@@ -136,6 +136,7 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 %token AUTOCHANGE
+%token ALIAS
 %token APPLY
 %token ARPEGGIO
 %token DYNAMICSCRIPT
@@ -200,6 +201,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TRANSLATOR
 %token TRANSPOSE
 %token TYPE
+%token UNSET
 %token CONTEXT
 
 /* escaped */
@@ -479,6 +481,10 @@ translator_spec_body:
 	}
 	| translator_spec_body CONSISTS STRING semicolon {
 		unsmob_translator_def ($$)->add_element ($3);
+	}
+	| translator_spec_body ALIAS STRING semicolon {
+		Translator_def*td = unsmob_translator_def ($$);
+		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
 	}
 	| translator_spec_body ELEMENTDESCRIPTIONS embedded_scm {
 		for (SCM p = $3; gh_pair_p (p); p = gh_cdr (p))
@@ -860,7 +866,10 @@ Composite_music:
 		{ THIS->lexer_p_->push_chord_state (); }
 	Music
 		{
-		  $$ = $3;
+		  Music * chm = new Un_relativable_music ;
+		  chm->set_mus_property ("element", $3->self_scm ());
+		  $$ = chm;
+
 		  THIS->lexer_p_->pop_state ();
 	}
 	| LYRICS
@@ -940,6 +949,22 @@ property_def:
 
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 
+		csm->set_mus_property ("element", t->self_scm ());
+		scm_unprotect_object (t->self_scm ());
+
+		$$ = csm;
+		$$->set_spot (THIS->here_input ());
+
+		csm-> set_mus_property ("context-type", $2);
+	}
+	| PROPERTY STRING '.' STRING UNSET {
+		Music *t = new Music (SCM_EOL);
+
+		t->set_mus_property ("iterator-ctor",
+			Property_unset_iterator::constructor_cxx_function);
+		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
+
+		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", t->self_scm ());
 		scm_unprotect_object (t->self_scm ());
 
