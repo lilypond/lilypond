@@ -22,13 +22,18 @@ public:
   Array<String> inclusion_names_;
   Array<String> target_strings_;
   Link_array<Score> scores_;
+  /* Global? prefix is bit confusing */
   Scheme_hash_table * global_header_;
 
-  void do_deps( );
-  void do_scores();
+  void do_deps ();
+  void do_scores ();
 
-  Input_file_settings (String file,String init);
-  ~Input_file_settings();
+  Input_file_settings (String file, String init);
+  ~Input_file_settings ();
+  
+private:
+  /* Make sure we never get an implicit constructor.*/
+  Input_file_settings ();
 };
 
 extern Input_file_settings* global_input_file;

@@ -157,6 +157,7 @@ Input_file_settings* global_input_file;
 
 Input_file_settings::Input_file_settings (String init_string, String file_string)
 {
+  global_header_ = 0;
   global_input_file = this;
   ly_set_point_and_click_x (SCM_BOOL_F);
   
