@@ -41,7 +41,9 @@ svec<int>
 Key::read(svec<String> s)
 {
     svec<int> newkey;
-    
+    for (int j = 0; j < 7; j++)
+     accidentals[j] = 0;
+   
     for (int i=0; i < s.sz(); i++) {
 	int large, small;
 	lookup_notename(large, small, s[i]);
