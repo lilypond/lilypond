@@ -23,6 +23,7 @@
 #include "debug.hh"
 #include "ps-lookup.hh"
 #include "tex-lookup.hh"
+#include "lily-guile.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -185,9 +186,19 @@ identify ()
   *mlog << get_version_str () << endl;
 }
 
-int
-main (int argc, char **argv)
+void 
+guile_init ()
 {
+#ifdef   HAVE_LIBGUILE
+   gh_eval_str ("(define (add-column p) (display \"adding column (in guile): \") (display p) (newline))");
+#endif
+}
+
+int
+main_prog (int argc, char **argv)
+{
+  guile_init ();
+  
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
   String prefix_directory;
@@ -226,9 +237,8 @@ main (int argc, char **argv)
       global_path.add (prefix_directory + "/share/lilypond");
     }
 
-  global_path.add (String (DIR_DATADIR) + "/init/");
-
-  global_path.push (DIR_DATADIR);
+  global_path.add (String (DIR_DATADIR) + "/ly/");
+  global_path.add (String (DIR_DATADIR) + "/afm/");  
 
   Getopt_long oparser (argc, argv,theopts);
   String init_str;
@@ -367,3 +377,19 @@ distill_inname_str (String name_str, String& ext_r)
   return str;
 }
 
+
+#ifdef HAVE_LIBGUILE
+int
+main (int argc, char **argv)
+{
+  gh_enter (argc, argv, (void(*)())main_prog);
+  return exit_status_i_;
+}
+
+#else
+int main (int argc, char **argv)
+{
+  return main_prog (argc, argv);
+}
+
+#endif
