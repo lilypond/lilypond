@@ -1,0 +1,16 @@
+#!/usr/bin/env fontforge
+New();
+
+// TODO: set version
+// TODO: GPL?
+SetFontNames("Feta", "LilyPond", "", "", "This font is in the public domain.", "");
+
+MergeFonts("feta20.pfa");
+MergeFonts("parmesan20.pfa");
+MergeFonts("feta-nummer10.pfa");
+MergeFonts("feta-din14.pfa");
+MergeKern("feta-din14.tfm");
+LoadTableFromFile("LILC", "feta20.otf-table")
+Generate("feta20.otf");
+Generate("feta20.t42");
+

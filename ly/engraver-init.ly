@@ -76,7 +76,7 @@
     \denies Voice
     \accepts DrumVoice
 
-    clefGlyph = #"clefs-percussion"
+    clefGlyph = #"clefs.percussion"
     clefPosition = #0
     \override Script #'staff-padding = #0.75 
 }
@@ -446,7 +446,7 @@ AncientRemoveEmptyStaffContext = \context {
     
     melismaBusyProperties = #default-melisma-properties
     
-    clefGlyph = #"clefs-G"
+    clefGlyph = #"clefs.G"
     clefPosition = #-2
     middleCPosition = #-6
     
@@ -519,7 +519,7 @@ AncientRemoveEmptyStaffContext = \context {
     chordNameExceptionsPartial = #partialJazzExceptions
     
 
-    bassStaffProperties = #'((assign clefGlyph "clefs-F")
+    bassStaffProperties = #'((assign clefGlyph "clefs.F")
       (assign clefPosition 2)
       (assign middleCPosition 6))
     %% tablature:
@@ -643,7 +643,7 @@ EasyNotation = \context {	% TODO: why \context override?
       \remove "Key_engraver"
       \remove "String_number_engraver"
       % Special "TAB" clef
-      clefGlyph = #"clefs-tab"
+      clefGlyph = #"clefs.tab"
       clefPosition = #0
 }
 
@@ -718,7 +718,7 @@ EasyNotation = \context {	% TODO: why \context override?
   % \override StaffSymbol #'width = #60.0
 
   % Choose vaticana do clef on 3rd line as default.
-  clefGlyph = #"clefs-vaticana-do"
+  clefGlyph = #"clefs.vaticana.do"
   middleCPosition = #1
   clefPosition = #1
   clefOctavation = #0
@@ -819,7 +819,7 @@ EasyNotation = \context {	% TODO: why \context override?
   % \override StaffSymbol #'width = #60.0
 
   % Choose petrucci g clef on 2nd line as default.
-  clefGlyph = #"clefs-petrucci-g"
+  clefGlyph = #"clefs.petrucci.g"
   middleCPosition = #-6
   clefPosition = #-2
   clefOctavation = #0

@@ -48,7 +48,7 @@ Adobe_font_metric::make_afm (AFM_Font_info *fi,
 {
   Adobe_font_metric *fm = new Adobe_font_metric (fi);
   fm->checksum_ = checksum;
-  fm->design_size_ = design_size;
+  fm->design_size_ = design_size; 
   return fm->self_scm ();    
 }
 

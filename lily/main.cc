@@ -312,7 +312,6 @@ main_with_guile (void *, int, char **)
 
   ly_c_init_guile ();
   call_constructors ();
-  
   init_global_tweak_registry ();
   
   determine_output_options ();  

@@ -1,3 +1,17 @@
+2004-12-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/merge.pe: new file.
+
+	* lily/freetype.cc: new file.
+
+	* lily/include/open-type-font.hh (class Open_type_font): new file.
+
+	* lily/include/freetype.hh: new file.
+
+	* lily/open-type-font.cc: new file.
+
+	* lily/all-font-metrics.cc (find_otf): new function.
+
 2004-12-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* configure.in (PKG_CONFIG_PATH): Remove stray `i'.  Check for

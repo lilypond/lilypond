@@ -8,6 +8,7 @@
 
 #include "all-font-metrics.hh"
 
+#include "open-type-font.hh"
 #include "config.hh"
 #include "main.hh"
 #include "warn.hh"
@@ -22,6 +23,7 @@ All_font_metrics::All_font_metrics (String path)
 {
   afm_p_dict_ = new Scheme_hash_table;
   tfm_p_dict_ = new Scheme_hash_table;
+  otf_p_dict_ = new Scheme_hash_table;
   
   search_path_.parse_path (path);
 }
@@ -30,6 +32,11 @@ All_font_metrics::~All_font_metrics ()
 {
   scm_gc_unprotect_object (afm_p_dict_->self_scm ());
   scm_gc_unprotect_object (tfm_p_dict_->self_scm ());
+  scm_gc_unprotect_object (otf_p_dict_->self_scm ());
+}
+
+All_font_metrics::All_font_metrics (All_font_metrics const&)
+{
 }
 
 /*
@@ -114,6 +121,40 @@ All_font_metrics::find_afm (String name)
 }
 
 
+Open_type_font*
+All_font_metrics::find_otf (String name)
+{
+  SCM sname = ly_symbol2scm (name.to_str0 ());
+  SCM name_string = scm_makfrom0str (name.to_str0 ());
+  SCM val;
+  if (!otf_p_dict_->try_retrieve (sname, &val))
+    {
+      String file_name;
+      
+      if (file_name.is_empty ())
+	file_name = search_path_.find (name  + ".otf");
+      if (file_name.is_empty ())
+	return 0;
+
+      if (verbose_global_b)
+	progress_indication ("[" + file_name);
+      
+      val = Open_type_font::make_otf (file_name);
+
+      if (verbose_global_b)
+	progress_indication ("]");
+
+      unsmob_metrics (val)->file_name_ = file_name;
+      unsmob_metrics (val)->description_ = scm_cons (name_string,
+						     scm_make_real (1.0));
+      otf_p_dict_->set (sname, val);
+      scm_gc_unprotect_object (val);
+    }
+
+  return dynamic_cast<Open_type_font*> (unsmob_metrics (val));
+}
+
+
 Tex_font_metric*
 All_font_metrics::find_tfm (String name)
 {
@@ -159,8 +200,11 @@ All_font_metrics::find_tfm (String name)
 Font_metric*
 All_font_metrics::find_font (String name)
 {
-  Font_metric *f = 0;
-  if ((name.left_string (4) == "feta")
+  Font_metric *f = find_otf (name);
+
+  
+  if (!f &&
+      (name.left_string (4) == "feta")
       || (name.left_string (8) == "parmesan")
       || (name.left_string (2) == "lm"))
     {
@@ -168,7 +212,7 @@ All_font_metrics::find_font (String name)
       if (!f)
 	f = find_tfm (name);
     }
-  else
+  else if (!f)
     {
       f = find_tfm (name);
       if (!f)
