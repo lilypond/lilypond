@@ -1182,9 +1182,20 @@ if 1:
 		return str
 	
 	conversions.append (((1,7,18), conv,
-			     """"groupOpen/Close  -> start/stopGroup,
+			     """groupOpen/Close  -> start/stopGroup,
 			     #'outer  -> #'enclose-bounds
 			     """))
+
+if 1:
+	def conv(str):
+		if re.search( r'\\GraceContext'):
+			sys.stderr.write ("GraceContext has been removed")
+			sys.stderr.write ("please use #(add-to-grace-init .. )")
+			raise FatalConversionError()
+			
+		return str
+	
+	conversions.append (((1,7,19), conv,"remove GraceContext"))
 
 
 

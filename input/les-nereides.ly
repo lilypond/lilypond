@@ -339,10 +339,6 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    \accepts Dynamics
 	    VerticalAlignment \override #'forced-distance = #7
         }
-	\translator {
-	    \GraceContext
-	    Stem \override #'stroke-style = #""
-        }
     }
 }
 
