@@ -5,9 +5,6 @@ import os
 Import ('env')
 sources = env['src_glob'] (env, '*.py')
 gen_files = map (lambda x: os.path.splitext (x)[0], sources)
-gens = map (env.AT, sources)
+gens = map (env.AT_COPY, sources)
 dir = env['bindir']
 env.Install (dir, gen_files)
-#env.Install (dir, sources)
-#env.Install (dir, gens)
-#env.Alias ('install', dir)

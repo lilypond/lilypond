@@ -3,14 +3,16 @@
 Import ('env')
 sources = env['src_glob'] (env, '*.cc') + ['parser.yy', 'lexer.ll']
 includes = env['src_glob'] (env, 'include/*.hh')
-outdir = Dir ('.').path
+outdir = Dir ('.').abspath
 
 e = env.Copy ()
 e.Append (YACCFLAGS = '-d')
 e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
 e.Depends ('lexer.cc', 'parser.cc')
+
 e.Depends ('my-lily-lexer.o', 'parser.cc')
 e.Depends ('my-lily-parser.o', 'parser.cc')
+
 map (e.Precious, ['parser.cc', 'lexer.cc', 'parser.hh'])
 
 e.Append (LIBS = ['flower'])

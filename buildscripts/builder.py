@@ -19,14 +19,23 @@ def join_path (path, infix=os.pathsep, prefix = ''):
 env['MAKEINFO_INCLUDES'] = join_path (env['MAKEINFO_PATH'], '', ' -I')
 a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --no-split --no-headers \
 --output=$TARGET $SOURCE'
-texi2txt = Builder (action = a, suffix = '.txt', src_suffix = '.texi')
-env.Append (BUILDERS = {'Texi2txt': texi2txt})
+TXT = Builder (action = a, suffix = '.txt', src_suffix = '.texi')
+env.Append (BUILDERS = {'TXT': TXT})
+
+a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --output=$TARGET $SOURCE'
+INFO = Builder (action = a, suffix = '.info', src_suffix = '.texi')
+env.Append (BUILDERS = {'INFO': INFO})
+
+a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES  --html --no-split --no-headers \
+--css-include=#/Documentation/texinfo.css --output=$TARGET $SOURCE'
+HTML = Builder (action = a, suffix = '.html', src_suffix = '.texi')
+env.Append (BUILDERS = {'HTML': HTML})
+
 
 env['LILYPOND_BOOK_INCLUDES'] = join_path (env['LILYPOND_BOOK_PATH'], '',
 					   ' --include=')
 
 # UGHR, lilypond.py uses lilypond-bin from PATH
-#env.Append (ENV = {'PATH' : os.environ['PATH']})
 env.PrependENVPath ('PATH',
 		    os.path.join (env['absbuild'], env['out'], 'usr/bin'))
 
@@ -55,8 +64,8 @@ a = ['rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
      --output=${TARGET.dir} --format=$LILYPOND_BOOK_FORMAT \
      $LILYPOND_BOOK_FLAGS \
      $SOURCE']
-tely2texi = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
-env.Append (BUILDERS = {'Tely2texi': tely2texi})
+TELY = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
+env.Append (BUILDERS = {'TELY': TELY})
 
 a = 'cd ${TARGET.dir} \
 && texi2dvi --batch $TEXINFO_PAPERSIZE_OPTION ${SOURCE.file}'
@@ -79,7 +88,8 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-a = ' LILYPONDPREFIX=$LILYPONDPREFIX \
+debug = 'echo "PATH=$$PATH";'
+a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX \
 $PYTHON $LILYPOND_PY $__verbose \
 --include=${TARGET.dir} \
 --output=${TARGET.base}  $SOURCE'
@@ -89,10 +99,10 @@ env.Append (BUILDERS = {'LilyPond': lilypond})
 
 #verbose = verbose_opt (env, ' --verbose')
 verbose = ''
-a = 'LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
+a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
 --strict --output=${TARGET.base} $SOURCE'
-abc2ly = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
-env.Append (BUILDERS = {'Abc2ly': abc2ly})
+ABC = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
+env.Append (BUILDERS = {'ABC': ABC})
 
 def add_log_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
@@ -159,6 +169,10 @@ def src_glob (env, s):
 	return result
 env['src_glob'] = src_glob
 
+def base_glob (env, s):
+	return map (lambda x: os.path.splitext (x)[0], src_glob (env, s))
+env['base_glob'] = src_glob
+
 atvars = [
 'BASH',
 'DATE',
@@ -185,23 +199,18 @@ atvars = [
 'step-bindir',
 ]
 
-#compat
-env['lilypond_datadir'] = env['sharedir_package']
-env['local_lilypond_datadir'] = env['sharedir_package_version']
-env['TOPLEVEL_VERSION'] = env['version']
-env['SHELL'] = '/bin/sh'
-env['BASH'] = '/bin/bash'
-
-def at (target, source, env):
+# naming
+def at_copy (target, source, env):
     s = open (str (source[0])).read ()
     for i in atvars:
 	    if env.has_key (i):
 		    s = string.replace (s, '@%s@'% i, env[i])
     t = str (target[0])
     open (t, 'w').write (s)
-    # ugh
-    os.chmod (t, 0755)
+    # wugh
+    if os.basename (os.dirname (str (target[0]))) == 'bin':
+	    os.chmod (t, 0755)
 
-at = Builder (action = at)
-env.Append (BUILDERS = {'AT': at})
+AT_COPY = Builder (action = at_copy)
+env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
