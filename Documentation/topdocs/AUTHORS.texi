@@ -29,6 +29,8 @@ list is alphabetically ordered.
     TeX titling and lytodvi.sh
 @item @email{foka@@debian.org, Anthony Fok}, 
     debian package: debian/*
+@item @email{jlhamm@@pacificnet.net, James Hammons},
+    american chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
     german glossary stuff.
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}. 

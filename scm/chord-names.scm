@@ -67,47 +67,50 @@
       chord::names-alist-banter))
 
 
+;; NOTE: Duplicates of chord names defined elsewhere occur in this list
+;; in order to prevent spurious superscripting of various chord names,
+;; such as maj7, maj9, etc.
+;;
+;; See input/test/american-chords.ly
+;;
+;; James Hammons, <jlhamm@pacificnet.net>
+
 (define chord::names-alist-american '())
 (set! chord::names-alist-american
       (append 
        '(
 	 (((0 . 0)) . #f)
 	 (((0 . 0) (2 . 0)) . #f)
+	 ;; Root-fifth chord
+	 (((0 . 0) (4 . 0)) . ("5"))
+	 ;; Common triads
 	 (((0 . 0) (2 . -1)) . ("m"))
-	 (((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
-	 (((0 . 0) (4 . 0)) . (("5" (type . "super"))))
 	 (((0 . 0) (3 . 0) (4 . 0)) . ("sus"))
-	 (((0 . 0) (2 . -1) (4 . -1)) . (("o" (type . "super"))))
-
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o7" (type . "super"))))
+	 (((0 . 0) (2 . -1) (4 . -1)) . ("dim"))
+;Alternate:	 (((0 . 0) (2 . -1) (4 . -1)) . (("o" (type . "super"))))
+	 (((0 . 0) (2 . 0) (4 . 1)) . ("aug"))
+;Alternate:	 (((0 . 0) (2 . 0) (4 . 1)) . ("+"))
+	 (((0 . 0) (1 . 0) (4 . 0)) . ("2"))
+	 ;; Common seventh chords
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o" (type . "super")) "7"))
+	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) . ("maj7"))
+	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . ("m7"))
+	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . ("7"))
+	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (("N" (type . "super") (style . "msam") (size . -3))))
-
-	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("x7" (type . "super"))))
-	 ; slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("o" (type . "super")) ("/" (size . -2) (offset . (-0.58 . 0.5))) ("7" (type . "super"))))
-
-	 (((0 . 0) (2 . 0) (4 . 1)) . ("aug"))
-	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . (("aug" ("7" (type . "super")))))
-
-	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (("maj7" (type . "super")) ("accidentals--1" (font . "feta") (type . "super")) ("5" (type . "super"))))
-	  
-	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . (("7sus4" (type . "super"))))
-
-	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . (("maj6" (type . "super"))))
-	 ;; dont need this?
-	 ;(((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . ("m6" . ""))
-
-	 ;; c = 0, d = 1
-	 ;;(((0 . 0) (2 . 0) (4 . 0) (8 . 0)) . ("add9" . ""))
-	 ;;(((0 . 0) (2 . 0) (4 . 0) (1 . 0)) . ("" . (("script" . "add9"))))
-
-	 ;; we don't want the '/no7'
-	 ;;(((0 . 0) (2 . 0) (4 . 0) (5 . 0) (8 . 0)) . ("6/9" . ""))
-	 ;;(((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . (("script" . "6/9"))))
-
-	 ;;already have this?
-	 ;;(((0 . 0) (2 . 0) (4 . 0) (6 . 0) (1 . 0)) . ("maj9" . ""))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("o" (type . "super")) ("/" (size . -2) (offset . (-0.58 . 0.5))) "7")) ; slashed o
+	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (("maj7") ("accidentals--1" (font . "feta") (type . "super")) ("5")))
+	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . ("7sus4"))
+	 ;; Common ninth chords
+	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . ("6/9")) ;; we don't want the '/no7'
+	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . ("maj6"))
+	 (((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . ("m6"))
+	 (((0 . 0) (2 . 0) (4 . 0) (1 . 0)) . ("add9"))
+	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0) (1 . 0)) . ("maj9"))
+	 (((0 . 0) (2 . 0) (4 . 0) (6 . -1) (1 . 0)) . ("9"))
+	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . ("m9"))
 
 	 )
       chord::names-alist-american))
@@ -125,7 +128,8 @@
       '()
       (list (list (string-append "accidentals-" 
 				 (number->string (caddr pitch)))
-		  '(font . "feta"))))))
+				   ;; Keep accidentals from being too large
+		  '(font . "feta") '(type . "super") )))))
 
 (define (step->text pitch)
   (string-append
