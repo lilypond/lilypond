@@ -534,7 +534,7 @@ AncientRemoveEmptyStaffContext = \context {
 	;; c&p from define-grobs.scm
 	
 	(Voice Stem lengths ,(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0)))
-	(Voice Stem stem-shorten (0.4 0))
+	(Voice Stem stem-shorten (0.4 0.4))
 	(Voice Stem  font-size -3)
 	(Voice NoteHead  font-size -3)
 	(Voice Dots  font-size -3)

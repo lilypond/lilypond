@@ -1,9 +1,13 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/beam-quanting.cc (score_forbidden_quants): remove
+	interquant check. The penalty of 1000 is much too harsh, and the
+	inter case should be caught by check-staff-line-in-gap check.
+
 	* lily/scm-option.cc: move debug-beam to \paper.
 
 	* scripts/lilypond-book.py (Lilypond_snippet.write_ly): create
-	.txt files to appease makeinfobm.
+	.txt files to appease makeinfo.
 
 	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly:
 	remove texttagline.
