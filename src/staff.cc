@@ -6,6 +6,22 @@
 #include "sccol.hh"
 #include "staffcommands.hh"
 #include "debug.hh"
+#include "inputcommands.hh"
+#include "inputcommand.hh"
+#include "request.hh"
+
+void
+Staff::do_commands(PointerList<Input_command*> score_wide,
+		   PointerList<Input_command*> staff_wide)
+{
+    Input_commands commands;
+    for (iter_top(score_wide,i); i.ok(); i++) 
+	commands.add(**i, score_l_->markers_assoc_);
+    for (iter_top(staff_wide,i); i.ok(); i++) 
+	commands.add(**i,score_l_->markers_assoc_);
+
+    commands.parse(this);
+}
 
 void
 Staff::add(PointerList<Voice*> &l)
@@ -19,7 +35,9 @@ Staff::truncate_cols(Moment l)
 {
     iter_bot(cols, i);
     for (; i->when() > l; i=cols.bottom()) {
-	i.del();
+	Staff_column * col_p = i.get();
+	assert(col_p->when() > l);
+	delete col_p;
     }
 }
 
@@ -35,7 +53,7 @@ Staff::clean_cols()
     iter_top(cols,i);
     for(; i.ok(); ){
 	if (!i->score_column_l_->used())
-	    i.del();
+	    delete i.get();
 	else
 	    i++;
     }
@@ -80,8 +98,22 @@ Staff::get_col(Moment w, bool mus)
     return newst;
 }
 
-
-
+void
+Staff::get_marks(Array<String>&s_arr, Array<Moment>&m_arr)
+{
+     for (iter_top(voices,i); i.ok(); i++) {
+	Moment now = i->start;
+	for (iter_top(i->elts,j); j.ok(); j++) {
+	    for (iter_top(j->reqs, k); k.ok(); k++) {
+		if (k->mark()) { // ugh. 4 levels
+		    s_arr.add(k->mark()->mark_str_);
+		    m_arr.add(now);
+		}
+	    }
+	    now += j->duration;	    
+	}
+     }
+}
 /*
     put all stuff grouped vertically in the Staff_cols
     */
@@ -90,11 +122,11 @@ Staff::setup_staffcols()
 {    
     for (iter_top(voices,i); i.ok(); i++) {
 	Moment now = i->start;
-	for (iter_top(i->elts,ve); ve.ok(); ve++) {
+	for (iter_top(i->elts,j); j.ok(); j++) {
 
-	    Staff_column *sc=get_col(now,true);
-	    sc->add(ve);
-	    now += ve->duration;	    
+	    Staff_column *s_l=get_col(now,true);
+	    s_l->add(j);
+	    now += j->duration;	    
 	}	
     }
     set_time_descriptions();
