@@ -2617,4 +2617,67 @@ provide shorthands for some settings.  Most of them are in
 
 @node  Grobs, , , Reference Manual
 
+This section is about Grobs (short for Graphical Objects), which are
+formatting objects used to create  the final output. This material is
+normally the domain of LilyPond gurus, but occasionally,  a normal user
+also has to deal with grobs.
 
+The most simple interaction with Grobs are when you use
+@code{\override}:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This piece of lily input causes all stem objects to be stem-up
+henceforth.  In effect, you are telling lilypond to extend the defintion
+of the "Stem" grob with the setting @code{direction := 1}.  Of course
+there are many more ways of customizing Lily output, and since most of
+them involve Grobs in some form, this section explains some details of
+how grobs work.
+
+Types of grob?
+
+What is a grob?
+
+Where do they come from?
+
+How can you override?
+
+Items and Spanners?
+
+X and Y parents, offsets and extents.
+
+
+@node Molecule, , , Reference Manual
+
+The objective of any typesetting system is to put ink on paper in the
+right places. For LilyPond, this final stage is left to the TeX and the
+printer subsystem. For lily, the last stage in processing a score is
+outputting a description of what to put where.  This description roughly
+looks like
+
+@example
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y) 
+@end example
+
+you merely have to look at the tex output of lily to see this.
+Internally these instructions are encoded in Molecules:@footnote{At some
+point LilyPond also contained Atom-objects, but they have been replaced
+by Scheme expressions.}.  A molecule is an object that combines
+dimension information (how large is this ?) with what-to-print-where.
+
+Conceptually, Molecules can be constructed from Scheme code, by
+translating a Molecule and by combining two molecules. In BNF notation:
+
+@example
+ Molecule = COMBINE Molecule Molecule
+           | TRANSLATE Offset Molecule
+	   | GLYPH-DESCRIPTION
+	   ;
+@end example
+
+(refer to the C++ code for more details). All visible,
+ie. non-transparent, grobs have a function to create Molecule.

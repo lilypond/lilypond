@@ -348,7 +348,7 @@ for example
 Offset callbacks can be stacked. The callbacks will be executed in the
 order that they were added.
 
-Width and height are similarly implemted using extent callbacks. There
+Width and height are similarly implemented using extent callbacks. There
 can be only one callback for each axis. No callback (the 0 ptr) means:
 "empty in this direction".
 
