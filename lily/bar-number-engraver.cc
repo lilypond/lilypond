@@ -38,10 +38,6 @@ protected:
 };
 
 
-/*
-  TODO: more advanced formatting via SCM function, perhaps barnumbers
-  every 5 measures?  */
-
 void
 Bar_number_engraver::process_music ()
 {
