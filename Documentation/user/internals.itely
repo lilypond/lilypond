@@ -689,7 +689,7 @@ A final example is a function that reverses a piece of music in time:
          (reversed (reverse elements))
          (span-dir (ly:get-mus-property music 'span-direction)))
     (ly:set-mus-property! music 'elements reversed)
-    (if (dir? span-dir)
+    (if (ly:dir? span-dir)
         (ly:set-mus-property! music 'span-direction (- span-dir)))
     (map reverse-music reversed)
     music))
