@@ -16,15 +16,6 @@ of interest to LilyPond users.
 LilyPond is part of the GNU Project started by the Free Software
 Foundation to create a system of free software for the world-community
 
-=item http://www.ssc.com/linux/
-
-The Number One Free OS-Kernel: Linux 
-
-=item http:// /linux_soundapps.html
-
-Dave Philips' Linux sound applications page
-
-
 =back
 
 =head2 Ftp 
@@ -104,10 +95,30 @@ For discussions concerning the GNU Music project, to subscribe: send
 mail with subject "subscribe" to
 gnu-music-discuss-request@vuse.vanderbilt.edu,
 
-
 =back
 
 Announces of new versions will be sent to info-gnu-music and
 gnu-music-discuss.
 
 
+=head2 Backlinks
+
+=over 4
+
+=item http://www.ssc.com/linux/
+
+The Number One Free OS-Kernel: Linux 
+
+=item http://www.bright.net/~dlphilp/linux_soundapps.html
+
+Dave Philips' Linux sound applications page
+
+=item http://www.medieval.org/emfaq/scores/software.html
+
+More software for (early) music.
+
+=item http://www.emry.net/
+
+Linux webwatcher.
+
+=back
