@@ -309,7 +309,7 @@ def find_tex_files_for_base (base, extra):
 	headerfiles = {}
 	for f in layout_fields:
 		fn = base + '.' + f
-		if os.path.exists (fn)
+		if os.path.exists (fn):
 			headerfiles[f] = fn
 
 	if os.path.exists (base  +'.dep'):
