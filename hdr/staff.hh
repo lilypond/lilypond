@@ -15,7 +15,9 @@ struct Staff {
     Score *score_l_;
     PScore *pscore_l_;
     String define_spot_str_;
+
     /****************************************************************/
+
     void add(PointerList<Voice*> &s);
     void do_commands(PointerList<Input_command*> score_wide,
 		     PointerList<Input_command*> staff_wide);
