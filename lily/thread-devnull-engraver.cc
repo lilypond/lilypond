@@ -14,13 +14,13 @@
 class Thread_devnull_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Thread_devnull_engraver);
   
 protected:
   virtual void acknowledge_grob (Grob_info);
 };
 
-ADD_THIS_TRANSLATOR (Thread_devnull_engraver);
+
 
 void
 Thread_devnull_engraver::acknowledge_grob (Grob_info i)
@@ -40,6 +40,21 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && to_boolean (get_property ("soloADue"))))
     {
       /* Ugh, we can suicide them, but they remain living */
-      i.elem_l_->suicide ();
+      i.grob_l_->suicide ();
     }
 }
+Thread_devnull_engraver::Thread_devnull_engraver(){}
+
+ENTER_DESCRIPTION(Thread_devnull_engraver,
+/* descr */       "Kill elements whenever we are Voice called `two' and either
+unison, unisilence or soloADue is set.@footnote{On unix systems, the
+file @file{/dev/null} is special device: anything written to it is
+discarded.}. This engraver works closely together with the part
+combiner.  When the part combiner notices that two threads are
+identical, it tells the @code{Thread_devnull_engraver} to discard
+everything in the second thread.
+",
+/* creats*/       "",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

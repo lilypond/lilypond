@@ -14,9 +14,7 @@
 
 class Lyric_performer : public Performer {
 public:
-  VIRTUAL_COPY_CONS (Translator);
- Lyric_performer ();
-
+  TRANSLATOR_DECLARATIONS(Lyric_performer);
 protected:
 
   virtual bool try_music (Music* req_l);
@@ -28,7 +26,8 @@ private:
   Audio_text* audio_p_;
 };
 
-ADD_THIS_TRANSLATOR (Lyric_performer);
+
+
 
 Lyric_performer::Lyric_performer ()
 {
@@ -74,3 +73,4 @@ Lyric_performer::try_music (Music* req_l)
   return false;
 }
 
+ENTER_DESCRIPTION(Lyric_performer,"","","","","");

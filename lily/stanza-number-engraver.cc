@@ -10,26 +10,22 @@
 
 #include "engraver.hh"
 #include "item.hh"
-//#include "system-start-delimiter.hh"
-//#include "side-position-interface.hh"
-//#include "staff-symbol-referencer.hh"
 #include "bar.hh"
 
 class Stanza_number_engraver : public Engraver
 {
   Item *text_;
-  bool bar_b_;;
+  bool bar_b_;
 
   void create_text (SCM s);
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Stanza_number_engraver ();
+  TRANSLATOR_DECLARATIONS(Stanza_number_engraver);
 
-  virtual void acknowledge_grob (Grob_info);
+  virtual void process_music ();
   virtual void stop_translation_timestep ();
 };
 
-ADD_THIS_TRANSLATOR (Stanza_number_engraver);
+
 
 Stanza_number_engraver::Stanza_number_engraver ()
 {
@@ -38,7 +34,7 @@ Stanza_number_engraver::Stanza_number_engraver ()
 }
 
 void
-Stanza_number_engraver::acknowledge_grob (Grob_info i)
+Stanza_number_engraver::process_music ()
 {
   if (gh_string_p (get_property ("whichBar")))
     {
@@ -50,10 +46,9 @@ Stanza_number_engraver::acknowledge_grob (Grob_info i)
 
       // TODO
       if (gh_string_p (s))
-	
 
 	/*
-	  if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
+	  if (i.grob_l_->has_interface (symbol ("lyric-syllable-interface")))
 
 	  Tried catching lyric items to generate stanza numbers, but it
 	  spoils lyric spacing.
@@ -96,3 +91,9 @@ Stanza_number_engraver::create_text (SCM txt)
 
 
 
+ENTER_DESCRIPTION(Stanza_number_engraver,
+/* descr */       "",
+/* creats*/       "StanzaNumber",
+/* acks  */       "",
+/* reads */       "stz stanza",
+/* write */       "");

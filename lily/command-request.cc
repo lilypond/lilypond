@@ -29,8 +29,8 @@ Key_change_req::transpose (Pitch p)
   SCM pa = get_mus_property ("pitch-alist");
   for (SCM s = pa; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM key = gh_caar (s);
-      SCM alter = gh_cdar (s);
+      SCM key = ly_caar (s);
+      SCM alter = ly_cdar (s);
       if (gh_pair_p (key))
 	{
 	  Pitch orig (gh_scm2int (ly_car (key)),
@@ -66,8 +66,8 @@ alist_equal_p (SCM a, SCM b)
   for (SCM s = a;
        gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM key = gh_caar (s);
-      SCM val = gh_cdar (s);
+      SCM key = ly_caar (s);
+      SCM val = ly_cdar (s);
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F

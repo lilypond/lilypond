@@ -31,8 +31,9 @@ protected:
   
   
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Engraver_group_engraver);
 
+  virtual void initialize ();
   virtual void do_announces ();
   virtual void announce_grob (Grob_info);
   virtual void process_music ();

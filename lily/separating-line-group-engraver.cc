@@ -27,8 +27,7 @@ protected:
   virtual void finalize ();
   virtual void stop_translation_timestep ();
 public:
-  Separating_line_group_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Separating_line_group_engraver);
 };
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
@@ -58,7 +57,7 @@ Separating_line_group_engraver::finalize ()
 void
 Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 {
-  Item * it = dynamic_cast <Item *> (i.elem_l_);
+  Item * it = dynamic_cast <Item *> (i.grob_l_);
   if (!it)
     return;
   if (it->parent_l (X_AXIS)
@@ -105,5 +104,11 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
 
 
-ADD_THIS_TRANSLATOR (Separating_line_group_engraver);
 
+
+ENTER_DESCRIPTION(Separating_line_group_engraver,
+/* descr */       "Generates objects for computing spacing parameters.",
+/* creats*/       "SeparationItem SeparatingGroupSpanner",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

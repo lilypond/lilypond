@@ -36,8 +36,7 @@ class Percent_repeat_engraver : public Engraver
 {
   void typeset_perc ();
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Percent_repeat_engraver ();
+  TRANSLATOR_DECLARATIONS(Percent_repeat_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -244,6 +243,12 @@ Percent_repeat_engraver::stop_translation_timestep ()
   typeset_perc ();
 }
 
-ADD_THIS_TRANSLATOR (Percent_repeat_engraver);
 
 
+
+ENTER_DESCRIPTION(Percent_repeat_engraver,
+/* descr */       "Make beat, whole bar and double bar repeats.",
+/* creats*/       "PercentRepeat RepeatSlash DoublePercentRepeat",
+/* acks  */       "",
+/* reads */       "measureLength currentCommandColumn",
+/* write */       "");

@@ -247,22 +247,22 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
 							   SCM_UNDEFINED));
-	  expr = gh_cadr (expr);
+	  expr = ly_cadr (expr);
 	}
       else  if (head ==  no_origin_sym)
 	{
 	  pscore_l_->outputter_l_->output_scheme (scm_list_n (no_origin_sym, SCM_UNDEFINED));
-	  expr = gh_cadr (expr);
+	  expr = ly_cadr (expr);
 	}
       else if (head == offset_sym)
 	{
-	  o += ly_scm2offset (gh_cadr (expr));
-	  expr = gh_caddr (expr);
+	  o += ly_scm2offset (ly_cadr (expr));
+	  expr = ly_caddr (expr);
 	}
       else if (head == combine_sym)
 	{
-	  output_molecule (gh_cadr (expr), o);
-	  expr = gh_caddr (expr);
+	  output_molecule (ly_cadr (expr), o);
+	  expr = ly_caddr (expr);
 	}
       else
 	{

@@ -1,5 +1,5 @@
 
-;;; engraver-documentation-lib.scm -- Functions for engraver documentation
+;;; engraver-doumentation-lib.scm -- Functions for engraver documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
 ;;; 
@@ -19,31 +19,39 @@
 
 ;; First level Engraver description and
 ;; second level Context description
-(define (document-engraver where engraver-descr)
+(define (document-engraver where engraver)
+
   (let* (
 	 (level (if (eq? where 'context) 3 2))
-	 (props (car (cdddr engraver-descr)))
-	 (name (car engraver-descr))
+	 (propsr (cdr (assoc 'properties-read (Translator::description engraver))))
+	 (propsw (cdr (assoc 'properties-written (Translator::description engraver))))	 
+	 (name (Translator::name engraver))
 	 (name-sym (string->symbol name))
-	 (desc (cadr engraver-descr))
-	 (objs (map symbol->string (caddr engraver-descr)))
+	 (desc (cdr (assoc 'description (Translator::description engraver))))
+	 (grobs (cdr (assoc 'grobs-created (Translator::description engraver))))
 	 )
 
     (string-append
      (texi-section level (engraver-name name) (eq? where 'context))
      desc
      "\n\n"
-     (if (null? props)
+     (if (null? propsr)
 	 ""
 	 (string-append
-	  (texi-section (+ level 1) "Properties" #f)
+	  (texi-section (+ level 1) "Properties (read)" #f)
 	  (description-list->texi
-	   (map (lambda (x) (document-translator-property x)) props))))
-     (if  (null? objs)
+	   (map (lambda (x) (document-translator-property x)) propsr))))
+     (if (null? propsw)
+	 ""
+	 (string-append
+	  (texi-section (+ level 1) "Properties (write)" #f)
+	  (description-list->texi
+	   (map (lambda (x) (document-translator-property x)) propsw))))
+     (if  (null? grobs)
 	  ""
 	  (string-append
 	   "This engraver creates the following grobs: \n "
-	   (human-listify (map ref-ify (uniq-list (sort  objs string<? ))))
+	   (human-listify (map ref-ify (uniq-list (sort  grobs string<? ))))
 	   ".")
 	  )
 
@@ -70,23 +78,30 @@
 
 
 ;; First level Engraver description
-(define (document-separate-engraver top description)
-  (let ((name (car description)))
+(define (document-separate-engraver top grav)
+  (let ((name (Translator::name grav)))
     (processing name)
     (string-append
      (node (engraver-name name))
-     (document-engraver 'self description))))
+     (document-engraver 'self grav))))
 
 ;; Second level, part of Context description
+(define (find-engraver-by-name name list)
+  (if (null? list)
+      #f
+      (if (equal? name (Translator::name (car list)))
+	  (car list)
+	  (find-engraver-by-name name (cdr list)))))
+
 (define (document-engraver-by-name name)
   (let*
       (
-       (eg (assoc (string->symbol name) engraver-description-alist))
+       (eg (find-engraver-by-name name all-engravers-list))
        )
 
     (if (eq? eg #f)
 	(string-append "Engraver " name ", not documented.\n")
-	(document-engraver 'context (cdr eg))
+	(document-engraver 'context eg)
  	)
     ))
 
@@ -128,12 +143,12 @@
 
 (define (engraver-grobs  name)
   (let* (
-	 (eg (assoc (string->symbol name) engraver-description-alist))
+	 (eg (find-engraver-by-name name all-engravers-list))
       )
 
     (if (eq? eg #f)
 	'()
-	(map symbol->string (caddr (cdr eg)))
+	(cdr (assoc 'grobs-created (Translator::description eg)))
  	)
   ))
 
@@ -179,12 +194,13 @@
 			       names))
      doc)))
 
+(define all-engravers-list  (ly-get-all-translators))
 (define (document-all-engravers name)
-  (let* ((descs (map cdr engraver-description-alist))
-	 (names (map symbol->string (map car engraver-description-alist)))
+  (let* ((gravs all-engravers-list)
+	 (names (map Translator::name gravs))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-separate-engraver name x))
-			  descs))))
+			  gravs))))
     (string-append
      (texi-node-menu name (map (lambda (x) (cons (engraver-name x) ""))
 			       names))

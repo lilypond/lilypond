@@ -321,7 +321,6 @@ ScoreContext = \translator {
 	\type Score_engraver
 	\name Score
 	
-
 	\consists "Repeat_acknowledge_engraver"
 	\consists "Timing_engraver"
 	\consists "Output_property_engraver"
@@ -330,7 +329,6 @@ ScoreContext = \translator {
 	\consists "Break_align_engraver"
 	\consists "Spacing_engraver"
 	\consists "Vertical_align_engraver"
-
 	\consists "Lyric_phrasing_engraver"
 	\consists "Bar_number_engraver"
 	\consists "Span_arpeggio_engraver"
@@ -369,7 +367,8 @@ ScoreContext = \translator {
 
 	explicitClefVisibility = #all-visible
 	explicitKeySignatureVisibility = #all-visible
-	
+	autoBeamSettings = #auto-beam-settings
+
 	scriptDefinitions = #default-script-alist
 
 	verticalAlignmentChildCallback = #Align_interface::alignment_callback
@@ -399,7 +398,7 @@ ScoreContext = \translator {
 	)
 
 
-	\elementdescriptions #all-grob-descriptions
+	\grobdescriptions #all-grob-descriptions
 }
 
 OrchestralScoreContext= \translator {

@@ -103,8 +103,8 @@ Key_item::brew_molecule (SCM smob)
 
   for (SCM s = newas; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM what = gh_caar (s);
-      int alter = gh_scm2int (gh_cdar (s));
+      SCM what = ly_caar (s);
+      int alter = gh_scm2int (ly_cdar (s));
       int pos = alteration_pos (what, alter, c0p);
       
       Molecule m = Font_interface::get_default_font (me)->
@@ -135,11 +135,11 @@ Key_item::brew_molecule (SCM smob)
       
       for (; gh_pair_p (old); old = ly_cdr (old))
         {
-	  SCM found = scm_assoc (gh_caar (old), newas);
+	  SCM found = scm_assoc (ly_caar (old), newas);
 	  if (found == SCM_BOOL_F
-	      || ly_cdr (found) != gh_cdar (old))
+	      || ly_cdr (found) != ly_cdar (old))
 	    {
-	      SCM what = gh_caar (old);
+	      SCM what = ly_caar (old);
 	      int alter = 0;
 	      int pos = alteration_pos (what, alter, c0p);
 

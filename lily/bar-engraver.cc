@@ -22,8 +22,7 @@
 class Bar_engraver : public Engraver
 {
 public:
-  Bar_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(  Bar_engraver );
   void request_bar (String type_str);
     
 protected:
@@ -111,4 +110,11 @@ Bar_engraver::stop_translation_timestep ()
     typeset_bar ();
 }
 
-ADD_THIS_TRANSLATOR (Bar_engraver);
+
+ENTER_DESCRIPTION(Bar_engraver,
+/* descr */       "Create barlines. This engraver is controlled through the
+@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
+/* creats*/       "BarLine",
+/* acks  */       "",
+/* reads */       "whichBar stavesFound",
+/* write */       "");

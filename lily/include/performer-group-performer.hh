@@ -19,8 +19,8 @@
 
 class Performer_group_performer : public Performer, public virtual Translator_group {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-
+  TRANSLATOR_DECLARATIONS(Performer_group_performer);
+  
   virtual void do_announces ();
   virtual void announce_element (Audio_element_info);
 protected:

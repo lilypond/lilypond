@@ -27,7 +27,7 @@ ly_unique (SCM list)
   for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
     {
       if (!gh_pair_p (ly_cdr (i))
-	  || !gh_equal_p (ly_car (i), gh_cadr (i)))
+	  || !gh_equal_p (ly_car (i), ly_cadr (i)))
 	unique = gh_cons (ly_car (i), unique);
     }
   return gh_reverse (unique);
@@ -341,7 +341,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
     missing = lower_step (tonic, missing, gh_int2scm (0));
   
   /* if additions include any 3, don't add third */
-  SCM third = gh_cadr (base_pitches (tonic));
+  SCM third = ly_cadr (base_pitches (tonic));
   if (member_notename (third, add) != SCM_BOOL_F)
     missing = scm_delete (third, missing);
 

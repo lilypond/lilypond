@@ -101,7 +101,7 @@ set_music_properties (Music *p, SCM a)
 {
   for (SCM k = a; gh_pair_p (k); k = ly_cdr (k))
 	{
-	p->set_mus_property (gh_caar (k), gh_cdar (k));
+	p->set_mus_property (ly_caar (k), ly_cdar (k));
 	}
 }
 
@@ -188,7 +188,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CONSISTS
 %token DURATION
 %token SEQUENTIAL
-%token ELEMENTDESCRIPTIONS
+%token GROBDESCRIPTIONS
 %token SIMULTANEOUS
 %token CONSISTSEND
 %token DENIES
@@ -383,11 +383,11 @@ notenames_body:
 
 	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
 	  for (SCM s = $1; gh_pair_p (s); s = ly_cdr (s)) {
-		SCM pt = gh_cdar (s);
+		SCM pt = ly_cdar (s);
 		if (!unsmob_pitch (pt))
 			THIS->parser_error ("Need pitch object.");
 		else
-			scm_hashq_set_x (tab, gh_caar (s), pt);
+			scm_hashq_set_x (tab, ly_caar (s), pt);
 	  }
 
 	  $$ = tab;
@@ -520,11 +520,11 @@ translator_spec_body:
 		Translator_def*td = unsmob_translator_def ($$);
 		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
 	}
-	| translator_spec_body ELEMENTDESCRIPTIONS embedded_scm {
+	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
+		Translator_def*td = unsmob_translator_def($$);
+		// td->add_property_assign (ly_symbol2scm ("allGrobDescriptions"), $3);
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p))
-			unsmob_translator_def ($$)
-			->add_property_assign (scm_symbol_to_string (gh_caar (p)), gh_cdar (p));
-
+			td->add_property_assign (scm_symbol_to_string (ly_caar (p)), ly_cdar (p));
 	}
 	| translator_spec_body CONSISTSEND STRING  {
 		unsmob_translator_def ($$)->add_last_element ( $3);

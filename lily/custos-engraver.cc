@@ -23,13 +23,13 @@
 class Custos_engraver : public Engraver
 {
 public:
-  Custos_engraver ();
+TRANSLATOR_DECLARATIONS(  Custos_engraver);
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
   virtual void finalize ();
-  VIRTUAL_COPY_CONS (Translator);
+
 
 private:
   Item * create_custos ();
@@ -69,12 +69,12 @@ Custos_engraver::start_translation_timestep ()
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *> (info.elem_l_);
+  Item *item = dynamic_cast <Item *> (info.grob_l_);
   if (item)
     {
-      if (Bar::has_interface (info.elem_l_))
+      if (Bar::has_interface (info.grob_l_))
 	custos_permitted = true;
-      else if (Note_head::has_interface (info.elem_l_))
+      else if (Note_head::has_interface (info.grob_l_))
 	{
 
 	  /*
@@ -142,5 +142,11 @@ Custos_engraver::finalize ()
   custos_arr_.clear ();
 }
 
-ADD_THIS_TRANSLATOR (Custos_engraver);
 
+
+ENTER_DESCRIPTION(Custos_engraver,
+/* descr */       "",
+/* creats*/       "Custos",
+/* acks  */       "bar-line-interface note-head-interface",
+/* reads */       "",
+/* write */       "");

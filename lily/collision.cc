@@ -216,16 +216,16 @@ Collision::do_shifts (Grob* me)
   
   for (; gh_pair_p (hand); hand =ly_cdr (hand))
     {
-      Grob * s = unsmob_grob (gh_caar (hand));
-      Real amount = gh_scm2double (gh_cdar (hand));
+      Grob * s = unsmob_grob (ly_caar (hand));
+      Real amount = gh_scm2double (ly_cdar (hand));
       
       s->translate_axis (amount *wid, X_AXIS);
       done.push (s);
     }
   for (; gh_pair_p (autos); autos =ly_cdr (autos))
     {
-      Grob * s = unsmob_grob (gh_caar (autos));
-      Real amount = gh_scm2double (gh_cdar (autos));
+      Grob * s = unsmob_grob (ly_caar (autos));
+      Real amount = gh_scm2double (ly_cdar (autos));
       
       if (!done.find_l (s))
 	s->translate_axis (amount * wid, X_AXIS);

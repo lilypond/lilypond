@@ -5,10 +5,8 @@
 
 class Figured_bass_engraver : public Engraver
 {
-public:
-  VIRTUAL_COPY_CONS(Translator);
-  Figured_bass_engraver();
-
+  
+  TRANSLATOR_DECLARATIONS(Figured_bass_engraver);
 protected:
   Link_array<Note_req> figures_;
   Rest_req * rest_req_;
@@ -101,4 +99,9 @@ Figured_bass_engraver::process_music ()
 }
 
   
-ADD_THIS_TRANSLATOR(Figured_bass_engraver);
+ENTER_DESCRIPTION(Figured_bass_engraver,
+/* descr */       "Make volta brackets",
+/* creats*/       "BassFigure",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

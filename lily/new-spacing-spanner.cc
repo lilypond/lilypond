@@ -55,7 +55,7 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 	cols->del (i);
     }
   
-  int n = 0;
+
   for (int i =0 ; i < cols->size (); i++)  
     {
       if (Paper_column::musical_b (cols->elem (i)))
@@ -146,8 +146,8 @@ cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::r
 	  */
 	  for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
 	    {
-	      Grob *lm = unsmob_grob (gh_caar (s));
-	      Grob *rm = unsmob_grob (gh_cdar (s));
+	      Grob *lm = unsmob_grob (ly_caar (s));
+	      Grob *rm = unsmob_grob (ly_cdar (s));
 
 	      // TODO; configgable.
 	      hinterfleisch += -headwid + Separation_item::my_width (lm)[RIGHT] -

@@ -1346,10 +1346,6 @@ The syntax is as follows.
   \grace @var{musicexpr}
 @end example
 
-When grace music is interpreted, a score-within-a-score is set up:
-@var{musicexpr} has its own time bookkeeping, and you could (for
-example) have a separate time signature within the grace notes.  While in
-this score-within-a-score, you can create notes, beams, slurs, etc.
 Unbeamed eighth notes and shorter by default have a slash through the
 stem.
 
@@ -1364,17 +1360,14 @@ stem.
 }
 @end lilypond
 
-
 A grace note expression has duration 0; the next real note is assumed to
 be the main note. If you want the note to appear after the main note,
 set @code{Voice.graceAlignPosition} to @code{1}.
 
 @refbugs
 
-At present, slurs or ties from the grace notes to the following notes
-are not supported. Also, nesting @code{\grace} notes is not
-supported. The following may cause run-time errors:
-@example
+Nesting @code{\grace} notes is not supported. The following may cause
+run-time errors: @example
   @code{\grace @{ \grace c32 c16 @} c4}
 @end example
 Since the meaning of such a construct is unclear, we don't consider this
@@ -1382,10 +1375,6 @@ a loss.  Similarly, juxtaposing two @code{\grace} sections is
 syntactically valid, but makes no sense and may cause runtime errors.
 Ending a staff or score with grace notes may also generate a run-time
 error, since there will be no main note to attach the grace notes to.
-
-The present implementation of grace notes is not robust and generally
-kludgey. We expect it to change after LilyPond 1.4. Syntax changes might
-also be implemented.
 
 @menu
 * Glissando ::                  

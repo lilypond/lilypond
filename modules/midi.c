@@ -23,6 +23,8 @@ midi.parse (s)
 /* urg */
 #if HAVE_PYTHON2_PYTHON_H
 #include <python2/Python.h>
+#elif HAVE_PYTHON2_0_PYTHON_H
+#include <python2.0/Python.h>
 #elif HAVE_PYTHON1_5_PYTHON_H
 #include <python1.5/Python.h>
 #elif HAVE_PYTHON_PYTHON_H

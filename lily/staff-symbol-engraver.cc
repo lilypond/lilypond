@@ -20,8 +20,7 @@
 class Staff_symbol_engraver : public Engraver { 
   Spanner *span_p_;
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Staff_symbol_engraver ();
+  TRANSLATOR_DECLARATIONS(Staff_symbol_engraver);
   
 protected:
   virtual ~Staff_symbol_engraver ();
@@ -62,12 +61,19 @@ Staff_symbol_engraver::finalize ()
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  s.elem_l_->set_grob_property ("staff-symbol", span_p_->self_scm ());
+  s.grob_l_->set_grob_property ("staff-symbol", span_p_->self_scm ());
 
   // remove this. probly not necessary?
-  s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH
+  s.grob_l_->add_dependency (span_p_); // UGH. UGH. UGH
 }
 
 
-ADD_THIS_TRANSLATOR (Staff_symbol_engraver);
 
+
+ENTER_DESCRIPTION(Staff_symbol_engraver,
+/* descr */       "create the constellation of five (default)
+staff lines.",
+/* creats*/       "StaffSymbol",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

@@ -29,8 +29,7 @@
 class Note_head_line_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Note_head_line_engraver ();
+  TRANSLATOR_DECLARATIONS(Note_head_line_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -76,9 +75,9 @@ Note_head_line_engraver::try_music (Music* m)
 void
 Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.elem_l_))
+  if (Rhythmic_head::has_interface (info.grob_l_))
     {
-      head_ = info.elem_l_;
+      head_ = info.grob_l_;
       if (to_boolean (get_property ("followVoice")))
 	{
 	  Translator_group  * tr = daddy_trans_l_;
@@ -148,5 +147,12 @@ Note_head_line_engraver::stop_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Note_head_line_engraver);
 
+
+ENTER_DESCRIPTION(Note_head_line_engraver,
+/* descr */       "Engrave a line between two note heads, for example a glissando.
+If followVoice is set, staff switches also generate a line.",
+/* creats*/       "Glissando VoiceFollower",
+/* acks  */       "rhythmic-head-interface",
+/* reads */       "followVoice",
+/* write */       "");

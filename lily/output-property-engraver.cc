@@ -13,8 +13,7 @@
 
 class Output_property_engraver : public Engraver
 {
-public:
-  VIRTUAL_COPY_CONS (Translator);
+TRANSLATOR_DECLARATIONS(Output_property_engraver);
 protected:
 
   /*
@@ -61,12 +60,12 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	should typecheck pred. 
        */
       SCM result=gh_apply (pred,
-			   scm_list_n (inf.elem_l_->self_scm (), SCM_UNDEFINED));
+			   scm_list_n (inf.grob_l_->self_scm (), SCM_UNDEFINED));
       if (to_boolean (result))
 	{
 	  SCM sym = o->get_mus_property ("grob-property");
 	  SCM val = o->get_mus_property ("grob-value");
-	  inf.elem_l_->set_grob_property (sym, val);
+	  inf.grob_l_->set_grob_property (sym, val);
 	}
     }
 }
@@ -77,4 +76,14 @@ Output_property_engraver::stop_translation_timestep ()
   props_.clear ();
 }
 
-ADD_THIS_TRANSLATOR (Output_property_engraver);
+Output_property_engraver::Output_property_engraver()
+{
+}
+
+ENTER_DESCRIPTION(Output_property_engraver,
+/* descr */       "Interpret Music of Output_property type, and apply a function
+to any Graphic objects that satisfies the predicate.",
+/* creats*/       "",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

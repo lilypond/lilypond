@@ -16,16 +16,14 @@
 #include "translator-group.hh"
 #include "engraver.hh"
 
+
+
 /**
   Make stems upon receiving noteheads.
  */
 class Stem_engraver : public Engraver
 {
-
-public:
-  VIRTUAL_COPY_CONS (Translator);
-  Stem_engraver ();
-  
+  TRANSLATOR_DECLARATIONS(Stem_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -37,8 +35,6 @@ private:
   Rhythmic_req *rhythmic_req_l_;
   Tremolo_req* tremolo_req_l_;
 };
-
-ADD_THIS_TRANSLATOR (Stem_engraver);
 
 Stem_engraver::Stem_engraver ()
 {
@@ -52,7 +48,7 @@ Stem_engraver::Stem_engraver ()
 void
 Stem_engraver::acknowledge_grob (Grob_info i)
 {
-  Grob* h = i.elem_l_;
+  Grob* h = i.grob_l_;
   if (Rhythmic_head::has_interface (h))
     {
       if (Rhythmic_head::stem_l (h))
@@ -175,3 +171,10 @@ Stem_engraver::try_music (Music* r)
   return false;
 }
 
+ENTER_DESCRIPTION(Stem_engraver,
+/* descr */       "Create stems and single-stem tremolos.  It also works together with
+the beam engraver for overriding beaming.",
+/* creats*/       "Stem StemTremolo",
+/* acks  */       "rhythmic-head-interface",
+/* reads */       "tremoloFlags stemLeftBeamCount stemRightBeamCount",
+/* write */       "");

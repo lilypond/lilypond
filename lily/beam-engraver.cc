@@ -51,8 +51,7 @@ protected:
   virtual void process_music ();
 
 public:
-  Beam_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(  Beam_engraver );
 };
 
 
@@ -234,18 +233,18 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_p_)
     {
-      if (Rest::has_interface (info.elem_l_))
+      if (Rest::has_interface (info.grob_l_))
 	{
-	  info.elem_l_->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+	  info.grob_l_->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
 	}
-      else if (Stem::has_interface (info.elem_l_))
+      else if (Stem::has_interface (info.grob_l_))
 	{
 	  Moment now = now_mom();
 
 	  if(bool (now.grace_part_ ) != bool (beam_start_mom_.grace_part_))
 	    return ;
 	  
-	  Item *stem_l = dynamic_cast<Item*> (info.elem_l_);
+	  Item *stem_l = dynamic_cast<Item*> (info.grob_l_);
 	  if (Stem::beam_l (stem_l))
 	    return;
 
@@ -285,5 +284,12 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 
-ADD_THIS_TRANSLATOR (Beam_engraver);
 
+
+ENTER_DESCRIPTION(Beam_engraver,
+/* descr */       "Handles Beam_requests by engraving Beams.    If omitted, then notes will be
+printed with flags instead of beams.",
+/* creats*/       "Beam",
+/* acks  */       "stem-interface rest-interface",
+/* reads */       "beamMelismaBusy",
+/* write */       "");

@@ -12,9 +12,8 @@
 
 class Font_size_engraver : public Engraver
 {
-public:
-  VIRTUAL_COPY_CONS(Translator);
-  Font_size_engraver ();
+  
+  TRANSLATOR_DECLARATIONS(Font_size_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info gi);
 private:
@@ -33,10 +32,17 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
 
   if (gh_number_p (sz)
       && gh_scm2int (sz)
-      && !gh_number_p (gi.elem_l_->get_grob_property ("font-relative-size")))
+      && !gh_number_p (gi.grob_l_->get_grob_property ("font-relative-size")))
     {
-      gi.elem_l_->set_grob_property ("font-relative-size", sz);
+      gi.grob_l_->set_grob_property ("font-relative-size", sz);
     }
 }
 
-ADD_THIS_TRANSLATOR(Font_size_engraver);
+
+
+ENTER_DESCRIPTION(Font_size_engraver,
+/* descr */       "Puts fontSize into font-relative-size grob property.",
+/* creats*/       "",
+/* acks  */       "grob-interface",
+/* reads */       "fontSize",
+/* write */       "");

@@ -140,7 +140,7 @@ Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
   if (m && ly_axis_p (axis) && ly_number_pair_p (np))
     {
       Interval iv = ly_scm2interval (np);
-      m->dim_[Axis (gh_scm2int (axis))] = ly_scm2interval (np);
+      m->dim_[Axis (gh_scm2int (axis))] = iv;
     }
   else
     warning ("ly-set-molecule-extent!: invalid arguments");
@@ -245,11 +245,13 @@ IMPLEMENT_SIMPLE_SMOBS (Molecule);
 int
 Molecule::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Molecule  *r = (Molecule *) ly_cdr (s);
      
   scm_puts ("#<Molecule ", port);
-  /*  String str (r->str ());
-  scm_puts ((char *)str.ch_C (), port);*/
+#if 0
+  Molecule  *r = (Molecule *) ly_cdr (s);
+  String str (r->str ());
+  scm_puts ((char *)str.ch_C (), port);
+#endif
   scm_puts (" >", port);
   
   return 1;

@@ -56,9 +56,7 @@ class Dynamic_engraver : public Engraver
   
   void typeset_all ();
 
-public:
-  VIRTUAL_COPY_CONS (Translator);
-  Dynamic_engraver ();
+TRANSLATOR_DECLARATIONS(Dynamic_engraver );
   
 protected:
   virtual void finalize ();
@@ -69,7 +67,7 @@ protected:
   virtual void start_translation_timestep ();
 };
 
-ADD_THIS_TRANSLATOR (Dynamic_engraver);
+
 
 
 Dynamic_engraver::Dynamic_engraver ()
@@ -399,14 +397,20 @@ Dynamic_engraver::typeset_all ()
 void
 Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.elem_l_))
+  if (Note_column::has_interface (i.grob_l_))
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
 	  && line_spanner_->immutable_property_alist_ != SCM_EOL)
 	{
-	  Side_position_interface::add_support (line_spanner_,i.elem_l_);
-	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.elem_l_));
+	  Side_position_interface::add_support (line_spanner_,i.grob_l_);
+	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_l_));
 	}
     }
 }
+ENTER_DESCRIPTION(Dynamic_engraver,
+/* descr */       "",
+/* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
+/* acks  */       "note-column-interface",
+/* reads */       "",
+/* write */       "");

@@ -56,3 +56,11 @@ Engraver::process_music ()
 {
   
 }
+
+Engraver::Engraver()
+{
+}
+
+
+ENTER_DESCRIPTION(Engraver,
+		   "", "", "", "", "");

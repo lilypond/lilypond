@@ -7,6 +7,16 @@
 
 * guile-1.4 compile fix.
 
+1.5.12.hwn1
+===========
+
+* Move engraver descriptions into the C code.  They are accessible
+from Scheme. Grand rehacking to make stuff work again.
+
+* Precompute which engravers are eligible to acknowledge a certain
+type of grob. Speedup: approx 10 % on interpretation phase.
+
+
 1.5.12
 ======
 

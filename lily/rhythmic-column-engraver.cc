@@ -22,15 +22,14 @@ class Rhythmic_column_engraver :public Engraver
   Grob * stem_l_;
   Grob *ncol_p_;
   Grob *dotcol_l_;
-
+  
+  TRANSLATOR_DECLARATIONS(Rhythmic_column_engraver);
 protected:
-  VIRTUAL_COPY_CONS (Translator);
+
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-public:
-  Rhythmic_column_engraver ();
   
 };
 
@@ -86,7 +85,7 @@ Rhythmic_column_engraver::create_grobs ()
 void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
-  Item * item =  dynamic_cast <Item *> (i.elem_l_);
+  Item * item =  dynamic_cast <Item *> (i.grob_l_);
   if (item && Stem::has_interface (item))
     {
       stem_l_ = item;
@@ -118,5 +117,11 @@ Rhythmic_column_engraver::start_translation_timestep ()
   stem_l_ =0;
 }
 
-ADD_THIS_TRANSLATOR (Rhythmic_column_engraver);
 
+
+ENTER_DESCRIPTION(Rhythmic_column_engraver,
+/* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
+/* creats*/       "NoteColumn",
+/* acks  */       "stem-interface note-head-interface dot-column-interface",
+/* reads */       "",
+/* write */       "");

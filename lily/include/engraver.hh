@@ -49,12 +49,11 @@ protected:
   virtual void announce_grob (Grob_info);
   virtual void process_music ();
 public:
-  VIRTUAL_COPY_CONS (Translator);
   Engraver_group_engraver * daddy_grav_l () const;
   /**
     override other ctor
    */
-  Engraver () {}
+  TRANSLATOR_DECLARATIONS(Engraver);
 };
 
 

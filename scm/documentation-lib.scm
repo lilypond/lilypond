@@ -130,6 +130,7 @@ Add a ref if REF is set
    "\n@contents"
    ))
 
+
 (define (context-name name)
   name)
 
@@ -137,7 +138,9 @@ Add a ref if REF is set
   name)
 
 (define (grob-name name)
-  name)
+  (if (symbol? name)
+      (symbol->string name)
+      name))
 
 (define (interface-name name)
   name)

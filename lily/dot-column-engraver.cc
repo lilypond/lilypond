@@ -20,8 +20,8 @@ class Dot_column_engraver : public Engraver
   Grob * stem_;
   Link_array<Item> head_l_arr_;
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Dot_column_engraver ();
+  TRANSLATOR_DECLARATIONS(
+  Dot_column_engraver );
   
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -59,25 +59,31 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *d = unsmob_grob (info.elem_l_->get_grob_property ("dot"));
+  Grob *d = unsmob_grob (info.grob_l_->get_grob_property ("dot"));
   if (d)
     {
       if (!dotcol_)
 	{
 	  dotcol_ = new Item (get_property ("DotColumn"));
-
-	  Dot_column::set_interface (dotcol_);
 	  announce_grob (dotcol_, 0);
 	}
 
-      Dot_column::add_head (dotcol_, info.elem_l_);
+      Dot_column::add_head (dotcol_, info.grob_l_);
     }
-  else if (Stem::has_interface (info.elem_l_))
+  else if (Stem::has_interface (info.grob_l_))
     {
-      stem_ = info.elem_l_;
+      stem_ = info.grob_l_;
     }
 }
 
 
-ADD_THIS_TRANSLATOR (Dot_column_engraver);
 
+
+ENTER_DESCRIPTION(Dot_column_engraver,
+/* descr */       " Engraves dots on dotted notes shifted to the right of the note.
+If omitted, then dots appear on top of the notes.
+",
+/* creats*/       "DotColumn",
+/* acks  */       "dot-column-interface stem-interface",
+/* reads */       "",
+/* write */       "");

@@ -17,15 +17,17 @@
 /**
   generate time_signatures. 
   */
-class Time_signature_engraver : public Engraver {
+class Time_signature_engraver : public Engraver
+{
+  Item * time_signature_p_;
+  SCM last_time_fraction_;
+
 protected:
   virtual void stop_translation_timestep ();
   virtual void create_grobs ();
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Item * time_signature_p_;
-  SCM last_time_fraction_;
-  Time_signature_engraver ();
+  TRANSLATOR_DECLARATIONS(Time_signature_engraver);
+
 };
 
 
@@ -67,6 +69,12 @@ Time_signature_engraver::stop_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Time_signature_engraver);
+
  
 
+ENTER_DESCRIPTION(Time_signature_engraver,
+/* descr */       "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
+/* creats*/       "TimeSignature",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

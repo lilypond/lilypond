@@ -24,7 +24,7 @@ class Text_engraver : public Engraver
   Link_array<Text_script_req> reqs_;
   Link_array<Item> texts_;
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Text_engraver);
 protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
@@ -48,30 +48,30 @@ Text_engraver::try_music (Music *m)
 void
 Text_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.elem_l_))
+  if (Rhythmic_head::has_interface (inf.grob_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
 	  Grob*t = texts_[i];
-	  Side_position_interface::add_support (t,inf.elem_l_);
+	  Side_position_interface::add_support (t,inf.grob_l_);
 
 	  /*
 	    ugh.
 	   */
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->parent_l (Y_AXIS))
-	    t->set_parent (inf.elem_l_, Y_AXIS);
+	    t->set_parent (inf.grob_l_, Y_AXIS);
 	  else if (Side_position_interface::get_axis (t) == Y_AXIS
 	      && !t->parent_l (X_AXIS))
-	    t->set_parent (inf.elem_l_, X_AXIS);
+	    t->set_parent (inf.grob_l_, X_AXIS);
 	}
     }
   
-  if (Stem::has_interface (inf.elem_l_))
+  if (Stem::has_interface (inf.grob_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position_interface::add_support (texts_[i],inf.elem_l_);
+	  Side_position_interface::add_support (texts_[i],inf.grob_l_);
 	}
     }
 }
@@ -157,5 +157,12 @@ Text_engraver::start_translation_timestep ()
   reqs_.clear ();
 }
 
-ADD_THIS_TRANSLATOR (Text_engraver);
 
+Text_engraver::Text_engraver(){}
+
+ENTER_DESCRIPTION(Text_engraver,
+/* descr */       "Create text-scripts",
+/* creats*/       "TextScript",
+/* acks  */       "rhythmic-head-interface stem-interface",
+/* reads */       "scriptHorizontal textNonEmpty",
+/* write */       "");

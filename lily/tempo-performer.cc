@@ -13,9 +13,7 @@
 class Tempo_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Tempo_performer ();
+  TRANSLATOR_DECLARATIONS(Tempo_performer);
   ~Tempo_performer ();
 
 protected:
@@ -29,7 +27,8 @@ private:
   Audio_tempo* audio_p_;
 };
 
-ADD_THIS_TRANSLATOR (Tempo_performer);
+ENTER_DESCRIPTION (Tempo_performer, "","","","","" );
+
 
 Tempo_performer::Tempo_performer ()
 {

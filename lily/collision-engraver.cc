@@ -24,8 +24,7 @@ protected:
   virtual void create_grobs ();
   virtual void stop_translation_timestep ();
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Collision_engraver ();
+  TRANSLATOR_DECLARATIONS(Collision_engraver);
 };
 
 
@@ -50,13 +49,13 @@ Collision_engraver::create_grobs ()
 void
 Collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.elem_l_))
+  if (Note_column::has_interface (i.grob_l_))
     {
       /*should check Y axis? */
-      if (Note_column::rest_b (i.elem_l_) || i.elem_l_->parent_l (X_AXIS))
+      if (Note_column::rest_b (i.grob_l_) || i.grob_l_->parent_l (X_AXIS))
 	return ;
 
-      note_column_l_arr_.push (i.elem_l_);
+      note_column_l_arr_.push (i.grob_l_);
     }
 }
 
@@ -78,4 +77,10 @@ Collision_engraver::Collision_engraver ()
 
 
 
-ADD_THIS_TRANSLATOR (Collision_engraver);
+
+ENTER_DESCRIPTION(Collision_engraver,
+/* descr */       "",
+/* creats*/       "NoteCollision",
+/* acks  */       "note-column-interface",
+/* reads */       "",
+/* write */       "");

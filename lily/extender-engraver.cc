@@ -33,8 +33,7 @@ class Extender_engraver : public Engraver
   Extender_req* req_l_;
   Spanner* extender_p_;
 public:
-  Extender_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Extender_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -48,7 +47,7 @@ private:
 };
 
 
-ADD_THIS_TRANSLATOR (Extender_engraver);
+
 
 Extender_engraver::Extender_engraver ()
 {
@@ -62,14 +61,14 @@ void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text_item
-  if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_l_ = i.elem_l_;
+      current_lyric_l_ = i.grob_l_;
       if (extender_p_
 	  && !extender_p_->get_bound (RIGHT)
 	    )
 	  {
-	    Lyric_extender::set_textitem (extender_p_, RIGHT, dynamic_cast<Item*> (i.elem_l_));
+	    Lyric_extender::set_textitem (extender_p_, RIGHT, dynamic_cast<Item*> (i.grob_l_));
 	  }
     }
 }
@@ -142,3 +141,9 @@ Extender_engraver::start_translation_timestep ()
 }
 
 
+ENTER_DESCRIPTION(Extender_engraver,
+/* descr */       "Create lyric extenders",
+/* creats*/       "LyricExtender",
+/* acks  */       "lyric-syllable-interface",
+/* reads */       "",
+/* write */       "");

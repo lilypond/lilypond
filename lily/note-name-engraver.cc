@@ -14,7 +14,8 @@
 class Note_name_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Note_name_engraver);
+
   Link_array<Note_req> req_l_arr_;
   Link_array<Item> texts_;
   virtual bool  try_music (Music*m);
@@ -65,4 +66,14 @@ Note_name_engraver::stop_translation_timestep ()
   req_l_arr_.clear ();
 }
 
-ADD_THIS_TRANSLATOR (Note_name_engraver);
+
+Note_name_engraver::Note_name_engraver()
+{
+}
+
+ENTER_DESCRIPTION(Note_name_engraver,
+/* descr */       "",
+/* creats*/       "NoteName",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

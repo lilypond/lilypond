@@ -49,7 +49,6 @@ public:
   Translator_group (Translator_group const &);
   Translator_group ();
   void add_group_translator (Translator *trans_p);
-
   
   /// Score_register = 0, Staff_registers = 1, etc)
   Translator_group* ancestor_l (int l=1);
@@ -63,9 +62,8 @@ public:
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
   Link_array<Translator_group> path_to_acceptable_translator (String alias, Music_output_def*) const;
-
   Translator_group*get_default_interpreter ();
-  
+
 public:
   bool try_music_on_nongroup_children (Music *m);
   
@@ -76,7 +74,6 @@ public:
   virtual void initialize ();
   virtual void finalize ();
   virtual void each (Method_pointer);
-
 };
 
 #endif // TRANSLATOR_GROUP_HH

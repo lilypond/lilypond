@@ -20,9 +20,7 @@
 class Arpeggio_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Arpeggio_engraver ();
-
+  TRANSLATOR_DECLARATIONS(Arpeggio_engraver); 
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void create_grobs ();
@@ -61,18 +59,18 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
   if (arpeggio_req_)
     {
-      if (Stem::has_interface (info.elem_l_))
+      if (Stem::has_interface (info.grob_l_))
 	{
-	  stems_.push (info.elem_l_);
+	  stems_.push (info.grob_l_);
 	}
       
       /*
 	We can't catch local key items (accidentals) from Voice context,
 	see Local_key_engraver
       */
-      else if (Rhythmic_head::has_interface (info.elem_l_))
+      else if (Rhythmic_head::has_interface (info.grob_l_))
 	{
-	  supports_.push (info.elem_l_);
+	  supports_.push (info.grob_l_);
 	}
     }
 }
@@ -111,5 +109,11 @@ Arpeggio_engraver::stop_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Arpeggio_engraver);
 
+
+ENTER_DESCRIPTION(Arpeggio_engraver,
+/* descr */       "Generate an Arpeggio from a Arpeggio_req",
+/* creats*/       "Arpeggio",
+/* acks  */       "stem-interface rhythmic-head-interface",
+/* reads */       "",
+/* write */       "");

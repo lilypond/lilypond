@@ -1,3 +1,4 @@
+
 ;;;; grob-description.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
@@ -18,6 +19,7 @@
     ))
 
 
+;;; WARNING: the meta field should be the last one. 
 (define all-grob-descriptions
   `(
     (Accidentals . (
@@ -27,7 +29,7 @@
 		(direction . -1)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
-		(meta . ,(grob-description "Accidentals"  accidentals-interface font-interface side-position-interface))
+		(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
 	))
 
     (Arpeggio . (
@@ -38,10 +40,8 @@
 	       (X-offset-callbacks . (,Side_position_interface::aligned_side))
 	       (direction . -1)
 	       (staff-position . 0.0)
-	       (meta . ,(grob-description "Arpeggio" arpeggio-interface side-position-interface font-interface))
+	       (meta . ,(grob-description arpeggio-interface side-position-interface font-interface))
 	       ))
-
-    (autoBeamSettings . ,auto-beam-settings)
 
     (BarLine . (
 		(break-align-symbol . Staff_bar)
@@ -59,7 +59,7 @@
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-		(meta . ,(grob-description  "BarLine" bar-line-interface font-interface))
+		(meta . ,(grob-description bar-line-interface font-interface))
 	))
 
 	(BarNumber . (
@@ -71,7 +71,7 @@
                 (font-family . roman)
 		(font-relative-size . -1)
 		(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-		(meta . ,(grob-description "BarNumber"
+		(meta . ,(grob-description
 					   side-position-interface
 			text-interface  font-interface break-aligned-interface))
 	))
@@ -83,7 +83,7 @@
 		       (accidental-alist . ,default-alteration-alist)
 		       (font-family . number)
 		       (font-relative-size . -1)
-		       (meta . ,(grob-description "BassFigure" text-interface font-interface ))
+		       (meta . ,(grob-description text-interface font-interface ))
 	))
 	(Beam . (
 		 ;; todo: clean this up a bit: the list is getting
@@ -110,7 +110,7 @@
 		 (space-function . ,default-beam-space-function)
 		 (damping . 1)
 		 (auto-knee-gap . 7)
-		 (meta . ,(grob-description "Beam" beam-interface))
+		 (meta . ,(grob-description beam-interface))
 		 ))
 	 
 	(BreakAlignment . (
@@ -118,7 +118,7 @@
 		(stacking-dir . 1)
 		(axes 0)
 		(space-alist . ,default-break-align-space-alist) 
-		(meta . ,(grob-description "BreakAlignment"
+		(meta . ,(grob-description
 			axis-group-interface align-interface
 			)
 		)
@@ -128,7 +128,7 @@
 		(axes  . (0))
 		(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 		
-		(meta . ,(grob-description "BreakAlignGroup" axis-group-interface))
+		(meta . ,(grob-description axis-group-interface))
 	))
 
 	(BreathingSign . (
@@ -137,7 +137,7 @@
 		(molecule-callback . ,Breathing_sign::brew_molecule)
 		(Y-offset-callbacks . (,Breathing_sign::offset_callback))
 		(visibility-lambda . ,begin-of-line-invisible)
-		(meta . ,(grob-description "BreathingSign"  break-aligned-interface))
+		(meta . ,(grob-description  break-aligned-interface))
 	))
 
 	(Clef . (
@@ -148,7 +148,7 @@
 	   (break-align-symbol . Clef_item)
 	   (visibility-lambda . ,begin-of-line-visible)
 	   (Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
-	   (meta . ,(grob-description "Clef" clef-interface font-interface break-aligned-interface ))
+	   (meta . ,(grob-description clef-interface font-interface break-aligned-interface ))
 	))
 
 	(ChordName . (
@@ -156,7 +156,7 @@
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
 		(font-family . roman)
-		(meta . ,(grob-description "ChordName"  font-interface text-interface chord-name-interface))
+		(meta . ,(grob-description  font-interface text-interface chord-name-interface))
 	))
 
        (Custos . (
@@ -166,7 +166,7 @@
                (visibility-lambda . ,end-of-line-visible)
 	       (style .  vaticana)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
-               (meta . ,(grob-description "Custos" custos-interface staff-symbol-referencer-interface break-aligned-interface) )
+               (meta . ,(grob-description custos-interface staff-symbol-referencer-interface break-aligned-interface) )
        ))
 	
 
@@ -176,7 +176,7 @@
 		(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 		
 		(X-offset-callbacks . (,Dot_column::side_position))
-		(meta . ,(grob-description "DotColumn" dot-column-interface  axis-group-interface))
+		(meta . ,(grob-description dot-column-interface axis-group-interface))
 	))
 
 	(Dots . (
@@ -184,7 +184,7 @@
 		(dot-count . 1)
 		(staff-position . 0.0)
 		(Y-offset-callbacks  . (,Dots::quantised_position_callback ,Staff_symbol_referencer::callback))
-		(meta . ,(grob-description "Dots"  font-interface dots-interface ))
+		(meta . ,(grob-description  font-interface dots-interface ))
 	))
 	(DoublePercentRepeat
 	 . ((molecule-callback . ,Percent_repeat_item_interface::double_percent)
@@ -195,7 +195,7 @@
 	    (thickness . 0.48)
 	    (break-align-symbol . Staff_bar)
 	    (visibility-lambda . ,begin-of-line-invisible)
-	    (meta . ,(grob-description "DoublePercentRepeat" font-interface percent-repeat-interface))
+	    (meta . ,(grob-description font-interface percent-repeat-interface))
 	    ))
 	
 	(DynamicText . (
@@ -210,7 +210,7 @@
 		(font-family . dynamic)
 		(font-shape . italic)
 		(self-alignment-Y . 0)
-		(meta . ,(grob-description "DynamicText" font-interface text-interface dynamic-interface))
+		(meta . ,(grob-description font-interface text-interface dynamic-interface))
 	))
 	
 	(DynamicLineSpanner . (
@@ -218,14 +218,14 @@
 		(padding . 0.6)
 		(minimum-space . 1.2)
 		(direction . -1)
-		(meta . ,(grob-description "DynamicLineSpanner" dynamic-interface axis-group-interface side-position-interface))
+		(meta . ,(grob-description dynamic-interface axis-group-interface side-position-interface))
 	))
 	
 	(LeftEdge . (
 		(break-align-symbol . Left_edge_item)
 		(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 		(breakable . #t)
-		(meta . ,(grob-description "LeftEdge" break-aligned-interface))
+		(meta . ,(grob-description break-aligned-interface))
 	))
 	
 	(Fingering . (
@@ -237,7 +237,7 @@
 		(font-family . number)
 		(font-relative-size . -3)
 		(font-shape . upright)
-		(meta . ,(grob-description "Fingering" finger-interface  font-interface text-script-interface text-interface side-position-interface))
+		(meta . ,(grob-description finger-interface  font-interface text-script-interface text-interface side-position-interface))
 	))
 
 	
@@ -245,7 +245,7 @@
 		(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
 		(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
 		(axes 1)
-		(meta . ,(grob-description "HaraKiriVerticalGroup" axis-group-interface hara-kiri-group-interface))
+		(meta . ,(grob-description axis-group-interface hara-kiri-group-interface))
 	))
 	(Hairpin . (
 		(molecule-callback . ,Hairpin::brew_molecule)
@@ -260,7 +260,7 @@
 		(dash-length . 4.0)
 		(self-alignment-Y . 0)
 		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
-		(meta . ,(grob-description "Hairpin" hairpin-interface dynamic-interface))
+		(meta . ,(grob-description hairpin-interface dynamic-interface))
 	))
 	
 	(InstrumentName . (
@@ -275,7 +275,7 @@
 		(visibility-lambda . ,begin-of-line-visible)
 		(baseline-skip . 2)
  		(font-family . roman)
-		(meta . ,(grob-description "InstrumentName"  font-interface  text-interface break-aligned-interface))
+		(meta . ,(grob-description  font-interface  text-interface break-aligned-interface))
 	))
 	
 	(KeySignature . (
@@ -283,7 +283,7 @@
 	  (break-align-symbol . Key_item)
 	  (visibility-lambda . ,begin-of-line-visible)
 	  (breakable . #t)
-	  (meta . ,(grob-description "KeySignature" key-signature-interface  font-interface  break-aligned-interface))
+	  (meta . ,(grob-description key-signature-interface  font-interface  break-aligned-interface))
 	))
 	
 
@@ -294,12 +294,12 @@
 		(maximum-length .  100)
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
 		(Y-extent-callback . ,Grob::point_dimension_callback)
-		(meta . ,(grob-description "LyricHyphen" lyric-hyphen-interface ))
+		(meta . ,(grob-description lyric-hyphen-interface ))
 	))
 	
 	(LineOfScore . (
 		(axes . (0 1))
-		(meta . ,(grob-description "LineOfScore"  line-of-score-interface axis-group-interface))
+		(meta . ,(grob-description  line-of-score-interface axis-group-interface))
 	))
 	
 	(LyricExtender . (
@@ -307,7 +307,7 @@
 		(height . 0.8) ; stafflinethickness;
 		(right-trim-amount . 0.5)
 		(Y-extent-callback . ,Grob::point_dimension_callback)
-		(meta . ,(grob-description "LyricExtender"  lyric-extender-interface))
+		(meta . ,(grob-description  lyric-extender-interface))
 	))
 	
 	(LyricText . (
@@ -318,7 +318,7 @@
 		(word-space . 0.6)
 		(font-family . roman)
 		(font-shape . upright)
-		(meta . ,(grob-description "LyricText" lyric-syllable-interface text-interface font-interface ))
+		(meta . ,(grob-description lyric-syllable-interface text-interface font-interface ))
 	))
 	
 	(Porrectus . (
@@ -330,7 +330,7 @@
 		(add-stem . #t)
 		(stem-direction . 1)
 		(molecule-callback . ,Porrectus::brew_molecule)
-		(meta . ,(grob-description "Porrectus"
+		(meta . ,(grob-description
 					   porrectus-interface))
 	))
 
@@ -346,7 +346,7 @@
 		(font-relative-size . 1)
 		(visibility-lambda . ,end-of-line-invisible)
 		(padding . 0.8)
-		(meta . ,(grob-description "RehearsalMark"  mark-interface side-position-interface))
+		(meta . ,(grob-description  mark-interface side-position-interface))
 	))
 	
 	(MultiMeasureRest . (
@@ -359,31 +359,28 @@
 		(minimum-width . 12.5) ; staffspace
 		(font-family . number)
 		(font-relative-size . 1)
-		(meta . ,(grob-description "MultiMeasureRest" multi-measure-rest-interface rest-interface font-interface ))
+		(meta . ,(grob-description multi-measure-rest-interface rest-interface font-interface ))
 	))
 	(NoteCollision . (
 		(axes 0 1)
 		;; Ugh, should not be hard-coded. 
 		(note-width . 1.321)
-		(meta . ,(grob-description "NoteCollision"
+		(meta . ,(grob-description
 		   note-collision-interface axis-group-interface
 		))
 	))
 	
 	(NoteColumn . (
 		(axes . (0 1))
-		(meta . ,(grob-description "NoteColumn"  axis-group-interface note-column-interface))
+		(meta . ,(grob-description axis-group-interface note-column-interface))
 	))
 
 	(NoteHead . (
 		(style . default)
 		(molecule-callback . ,Note_head::brew_molecule)
 		(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-		(stem-attachment-function
-		 . ,note-head-style->attachment-coordinates)
-		(meta . ,(grob-description  "NoteHead"
-			rhythmic-head-interface font-interface 
-			note-head-interface ))
+		(stem-attachment-function . ,note-head-style->attachment-coordinates)
+		(meta . ,(grob-description rhythmic-head-interface font-interface note-head-interface))
 	))
 	(Glissando . (
 			 (type . line)
@@ -392,8 +389,7 @@
 			 (X-extent-callback . #f)
 			 (Y-extent-callback . #f)			 
 			 (molecule-callback . ,Line_spanner::brew_molecule)
-			 (meta . ,(grob-description "Glissando"
-						       line-spanner-interface))
+			 (meta . ,(grob-description line-spanner-interface))
 			 ))
 	(VoiceFollower . (
 			 (type . line)
@@ -402,16 +398,13 @@
 			 (X-extent-callback . #f)
 			 (Y-extent-callback . #f)			 
 			 (molecule-callback . ,Line_spanner::brew_molecule)
-			 (meta . ,(grob-description "VoiceFollower"
-						       line-spanner-interface))
+			 (meta . ,(grob-description line-spanner-interface))
 			 ))
 
 	(NoteName . (
 		(molecule-callback . ,Text_item::brew_molecule)
 		(font-family . roman)
-		(meta . ,(grob-description  "NoteName"
-					       note-name-interface font-interface
-					       ))
+		(meta . ,(grob-description note-name-interface font-interface))
 		))
 
 	(OctavateEight . (
@@ -423,14 +416,14 @@
 		(molecule-callback . ,Text_item::brew_molecule)
                 (font-shape . italic)
 		(font-family . roman)
-		(meta . ,(grob-description "OctavateEight" text-interface font-interface ))
+		(meta . ,(grob-description text-interface font-interface ))
 	))
 	
 	(PaperColumn . (
 		(axes 0)
 		(before-grace-spacing-factor . 1.2)
                 (before-musical-spacing-factor . 0.4)
- 		(meta . ,(grob-description "PaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
+ 		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
 	))
 	(PhrasingSlur . (
 		 (molecule-callback . ,Slur::brew_molecule)
@@ -451,14 +444,14 @@
 		 (attachment . (#f . #f))
 		 (attachment-offset . ((0 . 0) . (0 . 0)))
 		 (slope-limit . 0.8)
-		 (meta . ,(grob-description "PhrasingSlur" slur-interface))
+		 (meta . ,(grob-description slur-interface))
 		 ))
 	
 	(NonMusicalPaperColumn . (
                 (axes 0)
                 (before-musical-spacing-factor . 1.0)
 		(column-space-strength . 2.0)
- 		(meta . ,(grob-description "NonMusicalPaperColumn" paper-column-interface axis-group-interface spaceable-element-interface))
+ 		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
         ))
 
 	(PercentRepeat . (
@@ -468,7 +461,7 @@
 		(thickness . 0.48)
 		(minimum-width . 12.5) ; staffspace
 		(font-family . music)
-		(meta . ,(grob-description "PercentRepeat" multi-measure-rest-interface  font-interface percent-repeat-interface))
+		(meta . ,(grob-description multi-measure-rest-interface  font-interface percent-repeat-interface))
 	))
 
 	
@@ -476,7 +469,7 @@
 			(molecule-callback . , Percent_repeat_item_interface::beat_slash)
 			(thickness . 0.48)
 			(slope . 1.7)
-			(meta . ,(grob-description "RepeatSlash" percent-repeat-interface))
+			(meta . ,(grob-description percent-repeat-interface))
 			))
 	(Rest . (
 		(after-line-breaking-callback . ,Rest::after_line_breaking)
@@ -485,14 +478,14 @@
 		(molecule-callback . ,Rest::brew_molecule)
 		(Y-offset-callbacks . (,Staff_symbol_referencer::callback)) 
 		(minimum-beam-collision-distance . 1.5)
-		(meta . ,(grob-description  "Rest"
+		(meta . ,(grob-description  
 			rhythmic-head-interface
 			staff-symbol-referencer-interface
 			rest-interface))
 	))
 	(RestCollision . (
 		(minimum-distance . 0.75)
-		(meta . ,(grob-description "RestCollision" rest-collision-interface ))
+		(meta . ,(grob-description rest-collision-interface ))
 	))
 
 	(Script . (
@@ -501,12 +494,12 @@
 		(padding . 0.29) 
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(before-line-breaking-callback . ,Script::before_line_breaking)
-		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
+		(meta . ,(grob-description script-interface side-position-interface font-interface))
 	))
 	
 	(ScriptColumn . (
 		(before-line-breaking-callback . ,Script_column::before_line_breaking)
-		(meta . ,(grob-description "ScriptColumn" script-column-interface))
+		(meta . ,(grob-description script-column-interface))
 	))
 	
 	(Slur . (
@@ -528,7 +521,7 @@
 		 (attachment . (#f . #f))
 		 (attachment-offset . ((0 . 0) . (0 . 0)))
 		 (slope-limit . 0.8)
-		 (meta . ,(grob-description "Slur" slur-interface))
+		 (meta . ,(grob-description slur-interface))
 		 ))
 	      
 	(SpacingSpanner . (
@@ -541,7 +534,7 @@
 		(arithmetic-multiplier . ,(* 0.9 1.32))
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
-		(meta . ,(grob-description "SpacingSpanner"  spacing-spanner-interface))
+		(meta . ,(grob-description  spacing-spanner-interface))
 	))
 	(SpanBar . (
 		(break-align-symbol . Staff_bar)
@@ -561,7 +554,7 @@
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-		(meta . ,(grob-description "SpanBar" span-bar-interface bar-line-interface ))
+		(meta . ,(grob-description span-bar-interface bar-line-interface ))
 	))
 
 	(StanzaNumber . (
@@ -570,7 +563,7 @@
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
 		(font-family . roman)
-		(meta . ,(grob-description "StanzaNumber" break-aligned-interface text-interface font-interface))
+		(meta . ,(grob-description break-aligned-interface text-interface font-interface))
 	))
 
 	(StaffSymbol . (
@@ -578,7 +571,7 @@
 		(staff-space . 1.0)
 		(line-count . 5)
 		(layer . 0)
-		(meta . ,(grob-description "StaffSymbol" staff-symbol-interface ))
+		(meta . ,(grob-description staff-symbol-interface ))
 	))
 	(SostenutoPedal . (
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -590,7 +583,7 @@
 		(no-spacing-rods . #t)
                 (font-shape . italic)
 		(self-alignment-X . 0)
-		(meta . ,(grob-description "SostenutoPedal" text-interface  font-interface))
+		(meta . ,(grob-description text-interface  font-interface))
 	))
 
 	(Stem . (
@@ -611,7 +604,7 @@
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
 		(Y-extent-callback . ,Stem::height)
-		(meta . ,(grob-description  "Stem" stem-interface  font-interface))
+		(meta . ,(grob-description stem-interface  font-interface))
 	))
 
 	(StemTremolo . (
@@ -622,15 +615,15 @@
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
 		(beam-space-function . ,default-beam-space-function)
-		(meta . ,(grob-description "StemTremolo" stem-tremolo-interface ))
+		(meta . ,(grob-description stem-tremolo-interface ))
 	))
 
 	(SeparationItem . (
-		(meta . ,(grob-description "SeparationItem" separation-item-interface ))
+		(meta . ,(grob-description separation-item-interface ))
 	))
 	(SeparatingGroupSpanner . (
 		(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
-		(meta . ,(grob-description "SeparatingGroupSpanner" separation-spanner-interface))
+		(meta . ,(grob-description separation-spanner-interface))
 	))
 
 	(SustainPedal . (
@@ -643,7 +636,7 @@
 				    (,Side_position_interface::aligned_side
 				     ,Side_position_interface::centered_on_parent))
 
-		(meta . ,(grob-description "SustainPedal" sustain-pedal-interface side-position-interface font-interface))
+		(meta . ,(grob-description sustain-pedal-interface side-position-interface font-interface))
 	))
 
 	;; TODO: should split in 3
@@ -653,7 +646,7 @@
 		(collapse-height . 5.0)
 		(font-family . braces)
 		(Y-extent-callback . #f)
-		(meta . ,(grob-description "SystemStartBrace" system-start-delimiter-interface font-interface))
+		(meta . ,(grob-description system-start-delimiter-interface font-interface))
 		))
 	(SystemStartBracket . (
 		(Y-extent-callback . #f)
@@ -663,9 +656,9 @@
 		(arch-angle . 50.0)
 		(arch-thick . 0.25)
 		(arch-width . 1.5)
-		(thickness . 0.25)
-		(meta . ,(grob-description "SystemStartBracket" system-start-delimiter-interface ))
 		(bracket-collapse-height . 1)
+		(thickness . 0.25)
+		(meta . ,(grob-description system-start-delimiter-interface ))
 	))
 	(SystemStartBar . (
 		(Y-extent-callback . #f)
@@ -673,7 +666,7 @@
 		(glyph . bar-line)
 		(thickness . 1.6)
 		(after-line-breaking-callback . ,System_start_delimiter::after_line_breaking)
-		(meta . ,(grob-description "SystemStartBar" system-start-delimiter-interface ))
+		(meta . ,(grob-description system-start-delimiter-interface ))
 	))
 
 	(TextScript . (
@@ -684,7 +677,7 @@
 ;; todo: add X self alignment?
 		(baseline-skip . 2)
 		(font-family . roman)
-		(meta . ,(grob-description "TextScript" text-script-interface text-interface side-position-interface font-interface ))
+		(meta . ,(grob-description text-script-interface text-interface side-position-interface font-interface ))
 	))
 	(TextSpanner . (
 		(molecule-callback . ,Text_spanner::brew_molecule)
@@ -696,7 +689,7 @@
 		(width-correct . -1)
 		
 		(direction . 1)
-		(meta . ,(grob-description "TextSpanner" text-spanner-interface  font-interface))		
+		(meta . ,(grob-description text-spanner-interface  font-interface))		
 	))
 	(Tie . (
 		(molecule-callback . ,Tie::brew_molecule)
@@ -707,12 +700,12 @@
 		(x-gap . 0.2)
 		(y-offset . 0.6)
 		(minimum-length  . 2.5)
-		(meta . ,(grob-description "Tie" tie-interface ))
+		(meta . ,(grob-description tie-interface ))
 	))
 
 	(TieColumn . (
 		(after-line-breaking-callback . ,Tie_column::after_line_breaking)
-		(meta . ,(grob-description "TieColumn" tie-column-interface ))
+		(meta . ,(grob-description tie-column-interface ))
 	))
 
 	(TimeSignature . (
@@ -722,7 +715,7 @@
 		(breakable . #t)
 		(style . C)
                 (font-family . number)
-                (meta . ,(grob-description "TimeSignature" time-signature-interface  font-interface))
+                (meta . ,(grob-description time-signature-interface  font-interface))
 	))
 
 	(TupletBracket . (
@@ -733,7 +726,7 @@
 		(font-family . roman)
 		(font-shape . italic)
 		(font-relative-size . -1)
-		(meta .  ,(grob-description "TupletBracket" text-interface
+		(meta .  ,(grob-description text-interface
 			   tuplet-bracket-interface font-interface))
 	))
 
@@ -748,7 +741,7 @@
 		(Y-offset-callbacks .
 		 (,Side_position_interface::aligned_side
 		  ,Side_position_interface::centered_on_parent))
-		(meta . ,(grob-description "UnaCordaPedal" text-interface font-interface))
+		(meta . ,(grob-description text-interface font-interface))
 	))
 
 	(VoltaBracket . (
@@ -763,25 +756,38 @@
 		(minimum-space . 5)
  		(font-family . number)
  		(font-relative-size . -2)
-		(meta . ,(grob-description "VoltaBracket" volta-bracket-interface side-position-interface font-interface))
+		(meta . ,(grob-description volta-bracket-interface side-position-interface font-interface))
 	))
-
 	(VerticalAlignment . (
 		(axes 1)
 		(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 		(X-extent-callback . #f)
 
 		(stacking-dir . -1)
-		(meta . ,(grob-description "VerticalAlignment" align-interface axis-group-interface))
+		(meta . ,(grob-description align-interface axis-group-interface))
 	))
-
 	(VerticalAxisGroup . (
 		(axes 1)
-		(meta . ,(grob-description "VerticalAxisGroup" axis-group-interface))
+		(meta . ,(grob-description axis-group-interface))
 	))
 ))
 
 
+
+
+(define (completize-grob-entry x)
+  "transplant assoc key into 'name entry of 'meta of X
+"
+  (let* ((name-sym  (car x))
+	 (entry (cdr x))
+	 (metaentry (cdr (assoc 'meta entry)))
+	 (new-metaentry (assoc-set! metaentry 'name name-sym))
+	 )
+
+    (cons name-sym (assoc-set! entry 'meta new-metaentry))
+    ))
+
+(set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
 
 ;  (display  (map pair? all-grob-descriptions))
 

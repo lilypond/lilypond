@@ -15,9 +15,17 @@
 
 
 
+(translator-property-description 'ExtraVerticalExtent
+				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
+(translator-property-description 'Generic_property_list list? "description of the conversion.
+
+Defines names and types for generic properties. These are properties
+than can be plugged into the backend directly. See the init file
+@file{generic-property.scm} for details.  For internal use only,
+deprecated.
+")
 (translator-property-description 'MinimumVerticalExtent number-pair?
 				 "minimum vertical extent, same format as VerticalExtent")
-
 (translator-property-description 'VerticalExtent number-pair?
 				 "hard coded vertical extent.
 The format is a pair of dimensions, for example, this sets the sizes
@@ -36,16 +44,7 @@ and therefore only work in contexts which contain an
 @code{Axis_group_engraver}.
 ")
 
-(translator-property-description 'ExtraVerticalExtent
-				 number-pair? "extra vertical extent, same format as  MinimumVerticalExtent")
 
-(translator-property-description 'Generic_property_list list? "description of the conversion.
-
-Defines names and types for generic properties. These are properties
-than can be plugged into the backend directly. See the init file
-@file{generic-property.scm} for details.  For internal use only,
-deprecated.
-")
 (translator-property-description 'aDueText string? "text for begin of a due")
 (translator-property-description 'associatedVoice string? "Name of the Voice that has the melody for this LyricsVoice.")
 (translator-property-description 'autoBeamSettings list? "
@@ -248,6 +247,7 @@ this is done with the pedal.")
 
 (translator-property-description 'phrasingPunctuation string? "")
 (translator-property-description 'rehearsalMark number-or-string? "")
+(translator-property-description 'regularSpacingDelta moment? "TODO")
 (translator-property-description 'repeatCommands list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
 (translator-property-description 'scriptDefinitions list? "
 Description of scripts. This is used by Script_engraver for typesetting note-super/subscripts. See @file{scm/script.scm} for more information

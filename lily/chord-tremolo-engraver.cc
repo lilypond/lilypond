@@ -40,9 +40,7 @@
 class Chord_tremolo_engraver : public Engraver
 {
   void typeset_beam ();
-public:
-  VIRTUAL_COPY_CONS (Translator);
-  Chord_tremolo_engraver ();
+TRANSLATOR_DECLARATIONS(Chord_tremolo_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -159,9 +157,9 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_p_)
     {
-      if (Stem::has_interface (info.elem_l_))
+      if (Stem::has_interface (info.grob_l_))
 	{
-	  Grob * s = info.elem_l_;
+	  Grob * s = info.grob_l_;
 	  int f = Stem::flag_i (s);
 	  f = (f > 2) ? f - 2 : 1;
 	  Stem::set_beaming (s, f, LEFT);
@@ -200,17 +198,17 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	    }
 	}
     }
-  else if (stem_tremolo_ && Stem::has_interface (info.elem_l_))
+  else if (stem_tremolo_ && Stem::has_interface (info.grob_l_))
     {
-       Stem_tremolo::set_stem (stem_tremolo_, info.elem_l_);
+       Stem_tremolo::set_stem (stem_tremolo_, info.grob_l_);
 
-       info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+       info.grob_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
     }
 
   
-  if (repeat_ && Note_head::has_interface (info.elem_l_))
+  if (repeat_ && Note_head::has_interface (info.grob_l_))
     {
-      info.elem_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
+      info.grob_l_->set_grob_property ("duration-log", gh_int2scm (intlog2 (note_head_i_)));
     }
 }
 
@@ -241,5 +239,11 @@ Chord_tremolo_engraver::stop_translation_timestep ()
   
 }
 
-ADD_THIS_TRANSLATOR (Chord_tremolo_engraver);
 
+
+ENTER_DESCRIPTION(Chord_tremolo_engraver,
+/* descr */       "Generates beams for  tremolo repeats.",
+/* creats*/       "Beam",
+/* acks  */       "stem-interface note-head-interface",
+/* reads */       "",
+/* write */       "");

@@ -61,8 +61,10 @@ Line_group_engraver_group::create_line_spanner ()
   Axis_group_interface::set_axes (staffline_p_, Y_AXIS,Y_AXIS);
 }
 
-
-
-
-ADD_THIS_TRANSLATOR (Line_group_engraver_group);
+ENTER_DESCRIPTION(Line_group_engraver_group,
+		  "",
+		  "",
+		  "",
+		  "",
+		  "");
 

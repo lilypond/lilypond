@@ -14,9 +14,7 @@
 class Time_signature_performer : public Performer
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-  Time_signature_performer ();
+  TRANSLATOR_DECLARATIONS(Time_signature_performer);
   ~Time_signature_performer ();
 
 protected:
@@ -68,5 +66,5 @@ Time_signature_performer::stop_translation_timestep ()
       audio_p_ = 0;
     }
 }
-ADD_THIS_TRANSLATOR (Time_signature_performer);
 
+ENTER_DESCRIPTION (Time_signature_performer, "","","","","" );

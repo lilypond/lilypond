@@ -28,8 +28,7 @@
 class Mark_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Mark_engraver ();
+  TRANSLATOR_DECLARATIONS(Mark_engraver);
 protected:
   Item* text_p_;
   
@@ -47,7 +46,7 @@ private:
 };
 
 
-ADD_THIS_TRANSLATOR (Mark_engraver);
+
 
 
 Mark_engraver::Mark_engraver ()
@@ -63,15 +62,23 @@ Mark_engraver::initialize ()
 }
 
 
+
+
+/*
+
+which grobs carry INVISIBLE-STAFF ?
+
+*/
+
 void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob * s = inf.elem_l_;
+  Grob * s = inf.grob_l_;
   if (Staff_symbol::has_interface (s)
       || to_boolean (s->get_grob_property ("invisible-staff")))
     {
       SCM sts = get_property ("stavesFound");
-      SCM thisstaff = inf.elem_l_->self_scm ();
+      SCM thisstaff = inf.grob_l_->self_scm ();
       if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
 	daddy_trans_l_->set_property ("stavesFound", gh_cons (thisstaff, sts));
     }
@@ -208,3 +215,9 @@ Mark_engraver::process_music ()
     }
 }
 
+ENTER_DESCRIPTION(Mark_engraver,
+/* descr */       "",
+/* creats*/       "RehearsalMark",
+/* acks  */       "grob-interface", 
+/* reads */       "rehearsalMark stavesFound",
+/* write */       "");

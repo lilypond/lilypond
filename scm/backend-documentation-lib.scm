@@ -84,25 +84,22 @@
      (node (grob-name name))
      (texi-section 2 (grob-name name) #f)
      "\n"
-
      (let* ((grob (string->symbol name))
-	    (engravers
-	     (apply append
-		    (map (lambda (x)
-			   (let ((engraver (car x))
-				 (objs (cadddr x)))
-			     (if (member grob objs)
-				 (list engraver)
-				 '())))
-			 engraver-description-alist))))
+	    (engravers (filter-list
+			(lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
+	    (engraver-names (map Translator::name engravers))
+	    )
+
        (string-append
 	name " grobs are created by: "
 	(human-listify (map ref-ify
-			    (map engraver-name
-				 (map symbol->string engravers))))))
+			    (map engraver-name engraver-names)))))
 
-     (apply string-append ifacedoc))))
+	    (apply string-append ifacedoc))))
      
+(define (engraver-makes-grob? name grav)
+  (memq name (assoc 'grobs-created (Translator::description grav)))
+  )
 
 (define (document-all-grobs name)
   (let* ((doc (apply string-append

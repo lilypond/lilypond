@@ -778,6 +778,8 @@ if files and files[0] != '-':
 		os.chdir (outdir)
 		cp_to_dir (PK_PATTERN, tmpdir)
 
+	# to be sure, add tmpdir *in front* of inclusion path.
+	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
 	os.chdir (tmpdir)
 	
 	if lily_p:

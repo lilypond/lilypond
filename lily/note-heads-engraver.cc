@@ -26,7 +26,7 @@ class Note_heads_engraver : public Engraver
   Link_array<Note_req> note_req_l_arr_;
   Moment note_end_mom_;
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Note_heads_engraver);
 
 protected:
   virtual void start_translation_timestep ();
@@ -151,7 +151,12 @@ Note_heads_engraver::start_translation_timestep ()
     }
 }
 
+Note_heads_engraver::Note_heads_engraver()
+{}
 
-
-ADD_THIS_TRANSLATOR (Note_heads_engraver);
-
+ENTER_DESCRIPTION(Note_heads_engraver,
+/* descr */       "Generate one or more noteheads from Music of type Note_req.",
+/* creats*/       "NoteHead Dots",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

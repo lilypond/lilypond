@@ -14,14 +14,14 @@
 class Voice_devnull_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Voice_devnull_engraver);
   
 protected:
   virtual bool try_music (Music *m);
   virtual void acknowledge_grob (Grob_info);
 };
 
-ADD_THIS_TRANSLATOR (Voice_devnull_engraver);
+
 
 static char const *eat_spanners[] = {
   "beam",
@@ -95,19 +95,26 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
     for (char const **p = junk_interfaces; *p; p++)
-      if (i.elem_l_->has_interface (ly_symbol2scm (*p)))
+      if (i.grob_l_->has_interface (ly_symbol2scm (*p)))
 	{
 #if 0
 	  /* Ugh: virtual mmrest::suicide () ? */
-	  if (i.elem_l_->has_interface (ly_symbol2scm ("multi-measure-rest-interface")))
-	    i.elem_l_->set_grob_property ("skip-timestep", SCM_BOOL_T);
+	  if (i.grob_l_->has_interface (ly_symbol2scm ("multi-measure-rest-interface")))
+	    i.grob_l_->set_grob_property ("skip-timestep", SCM_BOOL_T);
 	  else
 	    ;
 #endif	  
 	  /* Ugh, we can suicide them, but they remain living */
-	  i.elem_l_->suicide ();
+	  i.grob_l_->suicide ();
 	  return;
 	}
 }
  
+Voice_devnull_engraver::Voice_devnull_engraver(){}
   
+ENTER_DESCRIPTION(Voice_devnull_engraver,
+/* descr */       "Kill off certain items and spanners if we're Voice `two' and unison or unisilence is set.",
+/* creats*/       "",
+/* acks  */       "grob-interface",
+/* reads */       "",
+/* write */       "");

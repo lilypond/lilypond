@@ -32,8 +32,7 @@ protected:
   virtual void finalize ();
 public:
   ~Property_engraver ();
-  Property_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Property_engraver);
 };
 
 
@@ -70,19 +69,19 @@ Property_engraver::initialize ()
 void
 Property_engraver::acknowledge_grob (Grob_info i)
 {
- SCM ifs = i.elem_l_->get_grob_property ("interfaces");
+ SCM ifs = i.grob_l_->get_grob_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = ly_cdr (ifs))
     {      
       if (prop_dict_->try_retrieve (ly_car (ifs), &props))
 	{
-	  apply_properties (props,i.elem_l_, i.origin_trans_l_->daddy_trans_l_);
+	  apply_properties (props,i.grob_l_, i.origin_trans_l_->daddy_trans_l_);
 	}
     }
 
   if (prop_dict_->try_retrieve (ly_symbol2scm ("all"), &props))
     {
-      apply_properties (props, i.elem_l_, i.origin_trans_l_->daddy_trans_l_);
+      apply_properties (props, i.grob_l_, i.origin_trans_l_->daddy_trans_l_);
     }
 }
 
@@ -100,8 +99,8 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
       
       SCM entry = ly_car (p);
       SCM prop_sym = ly_car (entry);
-      SCM type_p   = gh_cadr (entry);
-      SCM elt_prop_sym = gh_caddr (entry);
+      SCM type_p   = ly_cadr (entry);
+      SCM elt_prop_sym = ly_caddr (entry);
 
       SCM preset = scm_assq (elt_prop_sym, e->mutable_property_alist_);
       if (preset != SCM_BOOL_F)
@@ -152,4 +151,14 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
     }
 }
 
-ADD_THIS_TRANSLATOR (Property_engraver);
+
+ENTER_DESCRIPTION(Property_engraver,
+/* descr */       "This is a engraver that converts property settings into
+back-end grob-property settings. Example: Voice.stemLength will set
+#'length in all Stem objects.
+
+Due to CPU and memory requirements, the use of this engraver is deprecated.",
+/* creats*/       "",
+/* acks  */       "grob-interface",
+/* reads */       "Generic_property_list",
+/* write */       "");

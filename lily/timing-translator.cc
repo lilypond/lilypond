@@ -80,8 +80,6 @@ Timing_translator::stop_translation_timestep ()
 }
 
 
-ADD_THIS_TRANSLATOR (Timing_translator);
-
 void
 Timing_translator::initialize ()
 {

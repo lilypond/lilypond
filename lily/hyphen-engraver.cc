@@ -27,8 +27,7 @@ class Hyphen_engraver : public Engraver
   Hyphen_req* req_l_;
   Spanner* hyphen_p_;
 public:
-  Hyphen_engraver ();
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Hyphen_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -41,7 +40,7 @@ private:
 
 };
 
-ADD_THIS_TRANSLATOR (Hyphen_engraver);
+
 
 Hyphen_engraver::Hyphen_engraver ()
 {
@@ -55,14 +54,14 @@ void
 Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text-item
-  if (i.elem_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_l_ = i.elem_l_;
+      current_lyric_l_ = i.grob_l_;
       if (hyphen_p_
 	  && !hyphen_p_->get_bound (RIGHT)
 	    )
 	  {
-	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, i.elem_l_);
+	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, i.grob_l_);
 	  }
     }
 }
@@ -134,3 +133,9 @@ Hyphen_engraver::start_translation_timestep ()
 }
 
 
+ENTER_DESCRIPTION(Hyphen_engraver,
+/* descr */       "Create lyric hyphens",
+/* creats*/       "LyricHyphen",
+/* acks  */       "lyric-syllable-interface",
+/* reads */       "",
+/* write */       "");

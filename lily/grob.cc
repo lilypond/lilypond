@@ -387,6 +387,12 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 
 	  /* now: sc && sc->line_l () == line */
 	  if (!line
+	      /*
+		This was introduced in 1.3.49 as a measure to prevent
+		programming errors. It looks expensive (?). TODO:
+		benchmark , document when (what kind of programming
+		errors) this happens.
+	       */
 	      || (sc->common_refpoint (line, X_AXIS)
 		  && sc->common_refpoint (line, Y_AXIS)))
 	    {
@@ -672,7 +678,7 @@ Grob::name () const
   SCM meta = get_grob_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
   nm = (gh_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
-  return  gh_string_p (nm) ?ly_scm2string (nm) :  classname (this);  
+  return  gh_symbol_p (nm) ? ly_symbol2string (nm) :  classname (this);  
 }
 
 void

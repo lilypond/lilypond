@@ -20,10 +20,7 @@
 class Staff_performer : public Performer_group_performer 
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  
-
-  Staff_performer ();
+  TRANSLATOR_DECLARATIONS(Staff_performer);
   ~Staff_performer ();
 
   String new_instrument_str ();
@@ -44,7 +41,7 @@ private:
   Audio_tempo* tempo_p_;
 };
 
-ADD_THIS_TRANSLATOR (Staff_performer);
+ENTER_DESCRIPTION (Staff_performer, "","","","","" );
 
 Staff_performer::Staff_performer ()
 {

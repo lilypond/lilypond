@@ -270,14 +270,14 @@ Translator_def::apply_property_operations (Translator_group*tg)
       
       if (type == push_sym)
 	{
-	  SCM val = gh_cddr (entry);
+	  SCM val = ly_cddr (entry);
 	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
-	  apply_pushpop_property (tg, ly_car (entry), gh_cadr (entry), val);
+	  apply_pushpop_property (tg, ly_car (entry), ly_cadr (entry), val);
 	}
       else if (type == assign_sym)
 	{
-	  tg->set_property (ly_car (entry), gh_cadr (entry));
+	  tg->set_property (ly_car (entry), ly_cadr (entry));
 	}
     }
 }

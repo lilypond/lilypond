@@ -20,7 +20,7 @@ class Dot_column		// interface
 public:
   static int compare (Grob * const&,Grob * const&);
   static void add_head (Grob * dotcol, Grob* rh );
-  static void set_interface (Grob*);
+
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM ,SCM));
   DECLARE_SCHEME_CALLBACK (side_position, (SCM ,SCM));  

@@ -119,7 +119,7 @@ ifneq ($(CROSS),yes)
 # however, this triggers compilation during install, which  is a bad thing (tm).
 
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(depth)/$(builddir)/lily/$(outconfbase)/lilypond
-	cd $(outdir) && ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-documentation
+	cd $(outdir) && GUILE_LOAD_PATH=$(topdir)/scm/ ../$(depth)/$(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 

@@ -15,12 +15,12 @@
 class Swallow_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Swallow_engraver);
 protected:
   bool try_music (Music*) ;
 };
 
-ADD_THIS_TRANSLATOR (Swallow_engraver);
+
 
 bool
 Swallow_engraver::try_music (Music*) 

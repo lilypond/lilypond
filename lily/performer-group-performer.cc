@@ -13,7 +13,13 @@
 #include "debug.hh"
 
 
-ADD_THIS_TRANSLATOR (Performer_group_performer);
+ENTER_DESCRIPTION(Performer_group_performer,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");
+
 
 
 void
@@ -82,3 +88,5 @@ Performer_group_performer::do_announces ()
       announce_info_arr_.clear ();
     }
 }
+
+Performer_group_performer::Performer_group_performer(){}

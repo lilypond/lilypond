@@ -65,8 +65,7 @@ protected:
   virtual void create_grobs ();
   void typeset_tie (Grob*);
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Tie_engraver ();
+  TRANSLATOR_DECLARATIONS(Tie_engraver);
 };
 
 
@@ -107,12 +106,12 @@ Tie_engraver::set_melisma (bool m)
 void
 Tie_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Rhythmic_head::has_interface (i.elem_l_))
+  if (Rhythmic_head::has_interface (i.grob_l_))
     {
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
 	return;
-      now_heads_.push (CHead_melodic_tuple (i.elem_l_, m, now_mom ()+ m->length_mom ()));
+      now_heads_.push (CHead_melodic_tuple (i.grob_l_, m, now_mom ()+ m->length_mom ()));
     }
 }
 
@@ -180,8 +179,8 @@ Tie_engraver::create_grobs ()
 	  Grob * p = new Spanner (basic);
 	  Tie::set_interface (p);
 	  
-	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_grob (gh_caar (s))));
-	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (gh_cdar (s))));
+	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_grob (ly_caar (s))));
+	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
 	  
 	  tie_p_arr_.push (p);
 	  announce_grob (p, req_l_);
@@ -275,7 +274,7 @@ Tie_engraver::start_translation_timestep ()
 
 }
 
-ADD_THIS_TRANSLATOR (Tie_engraver);
+
 
 
 CHead_melodic_tuple::CHead_melodic_tuple ()
@@ -312,3 +311,9 @@ CHead_melodic_tuple::time_compare (CHead_melodic_tuple const&h1,
 {
   return Moment::compare(h1.end_,  h2.end_);
 }
+ENTER_DESCRIPTION(Tie_engraver,
+/* descr */       "Generate ties between noteheads of equal pitch.",
+/* creats*/       "Tie TieColumn",
+/* acks  */       "rhythmic-head-interface",
+/* reads */       "sparseTies tieMelismaBusy",
+/* write */       "");

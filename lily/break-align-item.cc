@@ -140,7 +140,7 @@ Break_align_interface::do_alignment (Grob *me)
 	}
 
       SCM symbol = ly_car (extra_space);
-      Real spc = gh_scm2double (gh_cadr (extra_space));
+      Real spc = gh_scm2double (ly_cadr (extra_space));
 
       dists.push (spc);
       symbol_list = gh_cons (symbol, symbol_list);

@@ -31,11 +31,11 @@ class Score_engraver :
   void typeset_all ();
     
 public:
-  VIRTUAL_COPY_CONS (Translator);
+  TRANSLATOR_DECLARATIONS(Score_engraver);
   Paper_score * pscore_p_;
   
   void forbid_breaks ();
-  Score_engraver ();
+
   virtual Music_output *get_output_p ();  
 protected:   
   virtual void prepare (Moment);

@@ -6,8 +6,22 @@
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "swallow-perf.hh"
+#include "performer.hh"
 
+class Swallow_performer : public Performer
+{
+public:
+  TRANSLATOR_DECLARATIONS(Swallow_performer);
+protected:
+  virtual bool try_music (Music*) { return true; }
+};
 
+Swallow_performer::Swallow_performer()
+{}
 
-ADD_THIS_TRANSLATOR (Swallow_performer);
+ENTER_DESCRIPTION(Swallow_performer,
+/* descr */       "",
+/* creats*/       "",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

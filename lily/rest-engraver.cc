@@ -26,8 +26,7 @@ protected:
 
 public:
   
-  VIRTUAL_COPY_CONS (Translator);
-  Rest_engraver ();
+  TRANSLATOR_DECLARATIONS(Rest_engraver);
 };
 
 
@@ -104,4 +103,10 @@ Rest_engraver::try_music (Music *m)
 }
 
 
-ADD_THIS_TRANSLATOR (Rest_engraver);
+
+ENTER_DESCRIPTION(Rest_engraver,
+/* descr */       "",
+/* creats*/       "Rest Dots",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");

@@ -131,7 +131,7 @@ void
 Score_engraver::announce_grob (Grob_info info)
 {
   announce_info_arr_.push (info);
-  pscore_p_->line_l_->typeset_grob (info.elem_l_);
+  pscore_p_->line_l_->typeset_grob (info.grob_l_);
 }
 
 /* All elements are propagated to the top upon announcement. If
@@ -145,9 +145,7 @@ Score_engraver::announce_grob (Grob_info info)
 void
 Score_engraver::do_announces ()
 {
-  //////  do
-    Engraver_group_engraver::do_announces ();
-    //////while (announce_info_arr_.size ());
+  Engraver_group_engraver::do_announces ();
 }
 
 
@@ -295,6 +293,23 @@ Score_engraver::forbid_breaks ()
   command_column_l_->remove_grob_property ("breakable");
 }
 
-ADD_THIS_TRANSLATOR (Score_engraver);
 
 
+
+ENTER_DESCRIPTION(Score_engraver,
+/* descr */       "Top level engraver. Takes care of generating columns and the complete  system (ie. LineOfScore)
+
+
+This engraver decides whether a column is breakable. The default is
+that a column is always breakable. However, when every Bar_engraver
+that does not have a barline at a certain point will call
+Score_engraver::forbid_breaks to stop linebreaks.  In practice, this
+means that you can make a breakpoint by creating a barline (assuming
+that there are no beams or notes that prevent a breakpoint.)
+
+
+",
+/* creats*/       "LineOfScore PaperColumn NonMusicalPaperColumn",
+/* acks  */       "grob-interface",
+/* reads */       "currentMusicalColumn currentCommandColumn",
+/* write */       "");

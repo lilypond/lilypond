@@ -22,9 +22,7 @@
 class Text_spanner_engraver : public Engraver
 {
 public:
-  VIRTUAL_COPY_CONS (Translator);
-  Text_spanner_engraver ();
-  
+  TRANSLATOR_DECLARATIONS(Text_spanner_engraver);  
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
@@ -41,7 +39,7 @@ private:
   void typeset_all ();
 };
 
-ADD_THIS_TRANSLATOR (Text_spanner_engraver);
+
 
 
 Text_spanner_engraver::Text_spanner_engraver ()
@@ -136,10 +134,10 @@ Text_spanner_engraver::create_grobs ()
 void
 Text_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  if (span_ && Note_column::has_interface (info.elem_l_))
+  if (span_ && Note_column::has_interface (info.grob_l_))
     {
-      Side_position_interface::add_support (span_, info.elem_l_);
-      add_bound_item (span_, dynamic_cast<Item*> (info.elem_l_));
+      Side_position_interface::add_support (span_, info.grob_l_);
+      add_bound_item (span_, dynamic_cast<Item*> (info.grob_l_));
     }
 }
 
@@ -172,3 +170,9 @@ Text_spanner_engraver::finalize ()
     }
 }
 
+ENTER_DESCRIPTION(Text_spanner_engraver,
+/* descr */       "Create text spanner from a  Span_req ",
+/* creats*/       "TextSpanner",
+/* acks  */       "note-column-interface",
+/* reads */       "",
+/* write */       "");
