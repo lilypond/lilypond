@@ -16,6 +16,7 @@ import shutil
 import string
 import sys
 import tempfile
+import glob
 
 ################################################################
 # Users of python modules should include this snippet
@@ -431,11 +432,14 @@ def make_ps_images (ps_name, resolution = 90):
 		cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
 		      (x, y, output_file, resolution, trans_ps, ps_name)
 
-		rmfile = base + '-page*.png'
+		rms = glob.glob (base + '-page*.png')
+		map (os.unlink, rms)
 	else:
 		output_file = re.sub (r'\.e?ps', '-page%d.png', ps_name)
 		rmfile = base + '.png'
-
+		if os.path.isfile (rmfile):
+			os.unlink (rmfile)
+		
 		cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
 																      resolution, ps_name)
 	
@@ -443,9 +447,6 @@ def make_ps_images (ps_name, resolution = 90):
 	signal = 0xf & status
 	exit_status = status >> 8
 
-	rms = glob.glob (rmfile)
-	print 'removing ', rms
-	map (os.unlink, rms)
 	
 	if status:
 		os.unlink (png)

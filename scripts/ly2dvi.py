@@ -916,7 +916,7 @@ if 1:
 				ly.warning (_("Running LaTeX falied. Rerun with --verbose for a trace."))
 				
 	if page_images_p:
-		ly.make_ps_images (outbase)
+		ly.make_ps_images (outbase + '.ps' )
 
 	# add DEP to targets?
 	if track_dependencies_p:
