@@ -10,27 +10,23 @@ explicitly, but can be faked by overriding formatting routines. "
 #(define (brew-double-time-sig grob)
   (define (frac-to-mol font frac)
     (let*
-	(
-	 (d (fontify-text font (number->string (cdr frac))))
+	((d (fontify-text font (number->string (cdr frac))))
 	 (n (fontify-text font (number->string (car frac))))
-	 (c (ly:molecule-combine-at-edge d Y UP n 0.0))
-	 )
+	 (c (ly:molecule-combine-at-edge d Y UP n 0.0)) )
       (ly:molecule-align-to! c Y CENTER)
       c
     ))
   
   (let*
       
-    (
-     (chain (Font_interface::get_property_alist_chain grob))
-     (font (ly:get-font grob chain))
+    ((chain (Font_interface::get_property_alist_chain grob))
+     (font (ly:paper-get-font (ly:grob-get-paper grob) chain))
      (f1 '(6 . 4))
-     (musfont (ly:get-font grob (cons (list '(font-relative-size . 2) '(font-family . music)) chain)))
+     (musfont (ly:paper-get-font (ly:grob-get-paper grob) (cons (list '(font-relative-size . 2) '(font-family . music)) chain)))
      (plus (ly:molecule-translate-axis (ly:find-glyph-by-name musfont "scripts-stopped") 0.1 Y))
      (f2 '(3 . 2))
      (m1 (frac-to-mol font f1))
-     (m2 (frac-to-mol font f2))
-     )
+     (m2 (frac-to-mol font f2)) )
      
     
     (ly:molecule-combine-at-edge

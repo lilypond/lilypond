@@ -76,6 +76,19 @@ LY_DEFINE (ly_get_paper_var,"ly:get-paper-variable", 2, 0, 0,
   return sc->get_paper () ->lookup_variable (sym);
 }
 
+/* TODO: make difference between scaled and unscalead variable in
+   calling (i.e different funcs.) */
+LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
+  (SCM grob),
+  "Get \\paper definition from a grob.")
+{
+  Grob * sc = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  return sc->get_paper ()->self_scm ();
+}
+
+
 
 
 LY_DEFINE (ly_get_extent, "ly:get-extent", 3, 0, 0,

@@ -111,7 +111,7 @@ def draw_vaticana_fa_clef(expr exact_center, reduction) =
 	draw zd -- ze;
 
 	%right-handed puncta as in do clef
-	draw_vaticana_do_clef(exact_center + (0.55reduced_il, 0), reduction);
+	draw_vaticana_do_clef(exact_center + (0.55reduced_il#, 0), reduction);
 
 	set_char_box(0 - xpart exact_center,
 		     1.05reduced_il# + xpart exact_center,
@@ -228,7 +228,7 @@ def draw_medicaea_fa_clef(expr exact_center, reduction) =
 	draw zc -- zd;
 
 	%right-handed puncta as in do clef
-	draw_medicaea_do_clef(exact_center + (0.7reduced_il, 0), reduction);
+	draw_medicaea_do_clef(exact_center + (0.7reduced_il#, 0), reduction);
 
 	set_char_box(0 - xpart exact_center,
 		     1.7reduced_il# + xpart exact_center,
@@ -936,7 +936,7 @@ fet_endchar;
 
 def draw_hufnagel_do_fa_clef(expr exact_center, reduction) =
 	draw_hufnagel_do_clef(exact_center, reduction);
-	draw_hufnagel_fa_clef(exact_center + (0, -2staff_space), reduction);
+	draw_hufnagel_fa_clef(exact_center + (0, -2staff_space#), reduction);
 	set_char_box(0 - xpart exact_center,
 		     1.20reduced_il# + xpart exact_center,
 		     1.15reduced_il# + 2staff_space# - ypart exact_center,

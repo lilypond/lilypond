@@ -64,7 +64,7 @@ Font_interface::get_default_font (Grob*me)
   if (fm)
     return fm;
 
-  fm = get_font (me,  font_alist_chain (me));
+  fm = get_font (me->get_paper (),  font_alist_chain (me));
   me->set_grob_property ("font", fm->self_scm ());
   return fm;
 }
@@ -80,40 +80,16 @@ LY_DEFINE(ly_font_interface_get_default_font,
   return Font_interface::get_default_font (gr)->self_scm ();
 }
 
-LY_DEFINE(ly_font_interface_get_font,"ly:get-font", 2, 0, 0,
-	  (SCM grob, SCM chain),
-	  "Return a font metric satisfying the font-qualifiers in the alist chain @var{chain}.\n"
-"\n"
-"The font object represents the metric information of a font. Every font\n"
-"that is loaded into LilyPond can be accessed via Scheme. \n"
-"\n"
-"LilyPond only needs to know the dimension of glyph to be able to process\n"
-"them. This information is stored in font metric files. LilyPond can read\n"
-"two types of font-metrics: @TeX{} Font Metric files (TFM files) and\n"
-"Adobe Font Metric files (AFM files).  LilyPond will always try to load\n"
-"AFM files first since they are more versatile.\n"
-"\n"
-"An alist chain is a list of alists.\n")
-{
-  Grob * gr  = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "grob");
-
-  Font_metric*fm = Font_interface::get_font (gr, chain);
-  return fm->self_scm();
-}
-
 
 Font_metric *
-Font_interface::get_font (Grob *me, SCM chain)
+Font_interface::get_font (Paper_def *paper, SCM chain)
 {
   SCM name = ly_assoc_chain (ly_symbol2scm  ("font-name"), chain);
   
   if (!gh_pair_p (name) || !gh_string_p (gh_cdr (name)))
     {
-      Paper_def * p =  me->get_paper ();
-
-      SCM proc = p->lookup_variable (ly_symbol2scm ("properties-to-font"));
-      SCM fonts = p->lookup_variable (ly_symbol2scm ("fonts"));
+      SCM proc = paper->lookup_variable (ly_symbol2scm ("properties-to-font"));
+      SCM fonts = paper->lookup_variable (ly_symbol2scm ("fonts"));
 
       assert (gh_procedure_p (proc));
       name = gh_call2 (proc, fonts, chain);
@@ -126,7 +102,7 @@ Font_interface::get_font (Grob *me, SCM chain)
   Real rmag = gh_pair_p (mag) && gh_number_p (gh_cdr (mag))
     ? gh_scm2double (gh_cdr (mag)) : 1.0;
   
-  Font_metric *fm = me->get_paper ()->find_font (name, rmag);
+  Font_metric *fm = paper->find_font (name, rmag);
   return fm;
 }
 

@@ -22,7 +22,6 @@
 #include "paper-outputter.hh"
 #include "ly-modules.hh"
 
-
 /*
   This is an almost empty thing. The only substantial thing this class
   handles, is scaling up and down to real-world dimensions (internally
@@ -153,3 +152,39 @@ Paper_def::font_descriptions ()const
     }
   return l;
 }
+
+/*
+  Font_interface should be reorganised?
+*/
+#include "font-interface.hh"
+
+
+LY_DEFINE(ly_paper_get_font,"ly:paper-get-font", 2, 0, 0,
+	  (SCM paper, SCM chain),
+	  "Return a font metric satisfying the font-qualifiers in the alist chain @var{chain}.\n"
+"\n"
+"The font object represents the metric information of a font. Every font\n"
+"that is loaded into LilyPond can be accessed via Scheme. \n"
+"\n"
+"LilyPond only needs to know the dimension of glyph to be able to process\n"
+"them. This information is stored in font metric files. LilyPond can read\n"
+"two types of font-metrics: @TeX{} Font Metric files (TFM files) and\n"
+"Adobe Font Metric files (AFM files).  LilyPond will always try to load\n"
+"AFM files first since they are more versatile.\n"
+"\n"
+"An alist chain is a list of alists, containing grob properties.\n")
+{
+  Paper_def *pap = unsmob_paper (paper);
+  SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
+  
+  Font_metric*fm = Font_interface::get_font (pap, chain);
+  return fm->self_scm();
+}
+
+Paper_def* 
+unsmob_paper (SCM x)
+{
+  return dynamic_cast<Paper_def*> (unsmob_music_output_def (x));
+}
+
+  
