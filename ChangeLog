@@ -2,6 +2,8 @@
 
 	* lilypond-mode.el (LilyPond-autocompletion): deletes end-of-word,
 	inserts try-completion and shows all-completions.
+
+	* lilypond.words: '\' -> '\\'
 	
 2002-11-22  Heikki Junes <hjunes@cc.hut.fi>
 
