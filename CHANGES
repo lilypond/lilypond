@@ -1,5 +1,34 @@
+1.3.128.jcn2
+============
+
+* Small doco fixes.
+
+* Removed duplicated engraver hierarchies from coriolan and orchestral
+examples.
+
+* Added user control for devnull engravers. Default: switched off 
+
+* Small doco fixes.
+
+1.3.128.hwn1
+============
+
+* Doco fixes
+
+* Glissando fix (Rune Zedeler)
+
+1.3.128.mb2
+===========
+
+* Made the percussion clef somewhat fatter, thanks to Rune Zedeler. 
+Note: font updated! Added this clef to input/regression/clefs.ly.
+
+* updated \endincipit macro and the examples input/test/incipit.ly and
+input/regression/clefs.ly
+
 1.3.127.jcn3
 ============
+
 * Mutopia preparations and Coriolan fixes.
 
 * Small beam cleanup, changed y-position-hs,height-hs user overrides to
