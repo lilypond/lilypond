@@ -15,10 +15,34 @@
 #include "score-elem.hh"
 #include "input-register.hh"
 
+Register_group_register::~Register_group_register()
+{
+    assert(removable_b());
+}
+
+void
+Register_group_register::check_removal()
+{
+    for (int i =0; i < group_l_arr_.size(); ) {
+	group_l_arr_[i]->check_removal();
+	if (group_l_arr_[i]->removable_b())
+	    terminate_register(group_l_arr_[i]);
+	else 
+	    i++;
+    }
+    
+}
+
+bool
+Register_group_register::removable_b()const
+{
+    return !iterator_count_&& !group_l_arr_.size() ;
+}
 
 Register_group_register::Register_group_register()
 {
     ireg_l_ =0;
+    iterator_count_ =0;
 }
 
 void
@@ -131,8 +155,10 @@ Register_group_register::remove_register_p(Request_register*reg_l)
 void
 Register_group_register::terminate_register(Request_register*r_l)
 {
+    mtor << "Removing " << r_l->name() << " at " << get_staff_info().when() << "\n";
+    r_l->do_removal_processing();
     Request_register * reg_p =remove_register_p(r_l);
-    reg_p->do_removal_processing();
+    
     delete reg_p;
 }
 
@@ -217,7 +243,6 @@ Register_group_register::do_announces()
  
     for (int j =0; j < announce_info_arr_.size(); j++){
        Score_elem_info info = announce_info_arr_[j];
-       mtor << "Announcing " << info.elem_l_->name()<<"\n";
        
        if (!info.req_l_)
 	    info.req_l_ = &dummy_req;
