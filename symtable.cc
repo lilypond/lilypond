@@ -13,9 +13,7 @@ Symtable::lookup(String s) const
     if (elt_query(s))
 	return (*this)[s];
     else {
-	 Symbol unknown;
-	WARN<<"Unknown symbol " << s <<'\n';
-	return unknown;
+	error( "Unknown symbol " +s+'\n');
     }
 }
 
