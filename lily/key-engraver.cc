@@ -43,39 +43,20 @@ Key_engraver::create_key (bool def)
       item_p_->set_elt_property ("c0-position", gh_int2scm (0));
 
       // todo: put this in basic props.
-      item_p_->set_elt_property ("old-accidentals", SCM_EOL);
-      item_p_->set_elt_property ("new-accidentals", SCM_EOL);
+      item_p_->set_elt_property ("old-accidentals", old_accs_);
+      item_p_->set_elt_property ("new-accidentals", new_accs_);
 
       Staff_symbol_referencer_interface st (item_p_);
       st.set_interface ();
+
+      SCM prop = get_property ("keyOctaviation");
+      bool multi = to_boolean (prop);
       
-      if (key_.multi_octave_b_)
-	item_p_->set_elt_property ("multi-octave", gh_bool2scm (key_.multi_octave_b_));
+      if (multi)
+	item_p_->set_elt_property ("multi-octave", gh_bool2scm (multi));
       
       announce_element (Score_element_info (item_p_,keyreq_l_));
-      
-
-      for (int i = 0; i < accidental_idx_arr_.size(); i++) 
-	{
-	  Musical_pitch m_l =accidental_idx_arr_[i];
-	  int a =m_l.accidental_i_;      
-	  if (key_.multi_octave_b_)
-	    item_p_->add (m_l.steps (), a);
-	  else
-	    item_p_->add (m_l.notename_i_, a);
-	}
-
-      for (int i = 0 ; i < old_accidental_idx_arr_.size(); i++) 
-	{
-	  Musical_pitch m_l =old_accidental_idx_arr_[i];
-	  int a =m_l.accidental_i_;
-	  if (key_.multi_octave_b_)
-	    item_p_->add_old (m_l.steps  (), a);
-	  else
-	    item_p_->add_old (m_l.notename_i_, a);
-	}
     }
-
 
   if (!def)
     item_p_->set_elt_property ("visibility-lambda",
@@ -111,7 +92,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
 	}
     }
   else if (dynamic_cast<Bar *> (info.elem_l_)
-	   && accidental_idx_arr_.size ()) 
+	   && gh_pair_p (new_accs_))
     {
       create_key (true);
     }
@@ -147,13 +128,11 @@ Key_engraver::read_req (Key_change_req const * r)
   if (!r->key_)
     return;
   
-  old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
   SCM prop = get_property ("keyOctaviation");
+  bool multi = to_boolean (prop);
 
-  key_.multi_octave_b_ = to_boolean (prop);
-  
-  accidental_idx_arr_.clear ();
+  SCM n = SCM_EOL;
 
   if (r->key_->ordinary_key_b_) 
     {
@@ -168,12 +147,14 @@ Key_engraver::read_req (Key_change_req const * r)
 	      Musical_pitch m;
 	      m.accidental_i_ = -1;
 	      m.notename_i_ = accidental;
-	      if (key_.multi_octave_b_)
-		key_.set (m);
+	      if (multi)
+		key_.set (m.octave_i_, m.notename_i_, m.accidental_i_);
 	      else
 		key_.set (m.notename_i_, m.accidental_i_);
-	      accidental_idx_arr_.push (m);
-	      
+
+	      SCM pair = gh_cons (gh_int2scm (m.notename_i_),
+				  gh_int2scm (m.accidental_i_));
+	      n = gh_cons (pair, n) ;
 	      accidental = (accidental + 3) % 7 ;
 	    }
 	}
@@ -185,11 +166,14 @@ Key_engraver::read_req (Key_change_req const * r)
 	      Musical_pitch m;
 	      m.accidental_i_ = 1;
 	      m.notename_i_ = accidental;
-	      if (key_.multi_octave_b_)
-		key_.set (m);
+	      if (multi)
+		key_.set (m.octave_i_, m.notename_i_, m.accidental_i_);
 	      else
 		key_.set (m.notename_i_, m.accidental_i_);
-	      accidental_idx_arr_.push (m);
+
+	      SCM pair = gh_cons (gh_int2scm (m.notename_i_),
+				  gh_int2scm (m.accidental_i_));
+	      n = gh_cons (pair, n);
 	      
 	      accidental = (accidental + 4) % 7 ;
 	    }
@@ -200,21 +184,27 @@ Key_engraver::read_req (Key_change_req const * r)
       for (int i = 0; i < r->key_->pitch_arr_.size (); i ++) 
 	{
 	  Musical_pitch m_l =r->key_->pitch_arr_[i];
-	  if (key_.multi_octave_b_)
-	    key_.set (m_l);
+	  if (multi)
+	    key_.set (m_l.octave_i_, m_l.notename_i_, m_l.accidental_i_);
 	  else
 	    key_.set (m_l.notename_i_, m_l.accidental_i_);
-	  
-	  accidental_idx_arr_.push (m_l);
+
+	  SCM pair = gh_cons (gh_int2scm (m_l.notename_i_),
+			      gh_int2scm (m_l.accidental_i_));
+	  n = gh_cons (pair, n);
 	}
     }
+
+  old_accs_ = new_accs_;
+  new_accs_ = n;
+  
 }
 
 void
 Key_engraver::do_post_move_processing ()
 {
   keyreq_l_ = 0;
-  old_accidental_idx_arr_.clear ();
+  old_accs_ = SCM_EOL;
 }
 
 ADD_THIS_TRANSLATOR (Key_engraver);

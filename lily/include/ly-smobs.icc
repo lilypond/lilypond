@@ -10,6 +10,8 @@
 #ifndef LY_SMOBS_ICC
 #define LY_SMOBS_ICC
 
+
+
 #define IMPLEMENT_UNSMOB(CL, name)		\
 CL *						\
 unsmob_ ## name ( SCM s)			\
@@ -25,8 +27,8 @@ SCM smobify (CL *cl)\
 									\
   SCM_NEWCELL(s);							\
   SCM_SETCAR(s,CL::smob_tag_);						\
-  void * me_p = cl; 							\
-  SCM_SETCDR(s,me_p);							\
+  SCM me_s = SCM_PACK(cl);							\
+  SCM_SETCDR (s, me_s); \
 return s;\
 }\
 
@@ -53,8 +55,8 @@ CL::unsmobify_self ()							 \
   SCM s = self_scm_;							 \
   scm_unprotect_object (s);						 \
   									 \
-  SCM_CAR(self_scm_) = SCM_EOL;	 \
-  SCM_CDR(self_scm_) = SCM_EOL;						 \
+  SCM_SETCAR (self_scm_, SCM_EOL); \
+  SCM_SETCDR (self_scm_, SCM_EOL); \
   self_scm_ = SCM_EOL;							 \
 \
   scm_done_malloc ( - sizeof (CL));\
@@ -88,7 +90,7 @@ CL::free_smob (SCM ses)				\
 \
  /* no need to call scm_unprotect_object, since this call \
     implies that the object is not protected. */ \
-  SCM_CAR(ses) = SCM_EOL;\
+  SCM_SETCAR (ses, SCM_EOL); \
   delete s;\
   return sizeof (CL);\
 } \

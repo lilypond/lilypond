@@ -23,6 +23,7 @@ paper_sixteen = \paper {
 	font_timesig = 8.;
 	font_dynamic = 10.;
 	font_mark = 10.;
+	font_msam = 8.;
 
 	0 = \font "feta16" 
 	-1 = \font "feta13"

@@ -1,3 +1,25 @@
+1.3.57.jcn2
+===========
+
+* Cleaned-up scheme list to text conversion for Chord_name and 
+fixed horizontal kerning.
+
+* Added examples for american (slashed o) and jazz (black triangle),
+  see input/test/{american-chords.ly,jazz-chords.ly}
+
+* Made guile-1.3.5 compile fixes
+
+1.3.57.uu1
+==========
+
+* Fixed typo in Dots::do_brew_molecule (); this fixes the disappearing
+dots problem.
+
+* Rewrote key signature administration; now Scheme is used; Octave and
+Key have been junked in favor of Newkey.
+
+* japanese .po file included (thanks, Japanese team!)
+
 1.3.57
 ======
 

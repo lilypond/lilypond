@@ -171,6 +171,7 @@
     ("feta-2" . "feta") 
     ("typewriter" . "cmtt") 
     ("italic" . "cmti") 
+    ("msam" . "msam") 
     ("roman" . "cmr") 
     ("script" . "cmr") 
     ("large" . "cmbx") 

@@ -15,6 +15,11 @@
 #include <libguile.h>
 #include "direction.hh"
 
+#ifndef SCM_PACK
+#define SCM_PACK(x) ((SCM) x)
+#endif
+
+
 /*
   conversion functions follow the GUILE naming convention, i.e.
 
