@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# postinst script for the Debian GNU/Linux lilypond-doc package
+#   by Anthony Fok <foka@debian.org>
+
+set -e
+
+/usr/sbin/install-info --quiet \
+	--section "Music" "Music" \
+	--description='LilyPond, the GNU Project music typesetter' \
+	/usr/share/info/lilypond.info.gz
+
+#DEBHELPER#
