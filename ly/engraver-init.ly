@@ -468,7 +468,7 @@ ScoreContext = \translator {
 	pedalSostenutoStrings = #'("Sost. Ped." "*Sost. Ped." "*") 
 	pedalSostenutoStyle = #'mixed
 
-	
+	fingeringOrientations = #'(up down)
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
 	
 	subdivideBeams = ##f
@@ -495,7 +495,7 @@ ScoreContext = \translator {
 	  custos
 	)
 	barCheckSynchronize = ##t
-
+	
 	%% chord names:
 	chordNameFunction = #ignatzek-chord-names
 	majorSevenSymbol = #whiteTriangleMarkup

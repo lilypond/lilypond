@@ -2114,14 +2114,14 @@ of the chord by adding them after the pitches:
         << c-1  e-2 g-3 b-5 >> 4
 @end lilypond
 
-Setting @code{fingerHorizontalDirection} will put the fingerings next
-to the note head:
+Setting @code{fingeringOrientations} will put  fingerings next
+to note heads:
 
 @lilypond[verbatim,singleline,fragment,relative=1]
-	\property Voice.fingerHorizontalDirection = #LEFT
-	<< c-1  es-2 g-4 bes-5 >> 4
-	\property Voice.fingerHorizontalDirection = #RIGHT
-	<< c-1  es-2 g-4 bes-5 >> 4
+	\property Voice.fingeringOrientations = #'(left down)
+	<<c-1 es-2 g-4 bes-5 >> 4
+	\property Voice.fingeringOrientations = #'(up right down)
+	<<c-1 es-2 g-4 bes-5 >> 4
 @end lilypond
         
 @seealso
