@@ -24,6 +24,18 @@
 /* define if you have isinf */
 #define HAVE_ISINF 0
 
+/* define if you want KPATHSEA */
+#define KPATHSEA @KPATHSEA@
+
+/* define if you have kpatsea header */
+#define HAVE_KPATHSEA_KPATHSEA_H 0
+
+/* define if you have kpse_find_file */
+#define HAVE_KPSE_FIND_FILE 0
+
+/* define if you have kpse_find_tfm */
+#define HAVE_KPSE_FIND_TFM 0
+
 /* define if explicit instantiation is needed */
 #undef NEED_EXPLICIT_INSTANTIATION
 
@@ -31,5 +43,5 @@
 #define DIRSEP '@DIRSEP@'
 #define PATHSEP '@PATHSEP@'
 
-/* define if no assert */
+/* define if you have assert */
 #define HAVE_ASSERT_H 1
