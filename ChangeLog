@@ -1,5 +1,11 @@
 2002-09-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/lexer.ll: scan E_DIGIT
+
+	* lily/parser.yy (string_request): use E_DIGIT for string requests
+
+	* lily/beam.cc (get_thickness): new function
+
 	* ly/performer-init.ly (ScoreContext): add Timing alias
 
 	* lily/translator-def.cc (Translator_def): copy alias list too.
