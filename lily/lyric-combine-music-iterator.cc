@@ -107,23 +107,19 @@ Lyric_combine_music_iterator::derived_substitute (Context *f,Context * t)
     lyric_iter_->substitute_outlet (f,t);
 }
 
-
-
 Music*
 Lyric_combine_music_iterator::get_combine_music () const
 {
-  SCM l = get_music()->get_property ("elements");
+  SCM l = get_music ()->get_property ("elements");
   if (!scm_is_pair (l))
     return 0;
   return unsmob_music (scm_car (l));
 }
 
-
-
 Music*
 Lyric_combine_music_iterator::get_combine_lyrics () const
 {
-  SCM l = get_music()->get_property ("elements");
+  SCM l = get_music ()->get_property ("elements");
   if (!scm_is_pair (l))
     return 0;
   l = scm_cdr (l);
@@ -136,8 +132,8 @@ Lyric_combine_music_iterator::get_combine_lyrics () const
 void
 Lyric_combine_music_iterator::construct_children ()
 {
-  music_iter_ = unsmob_iterator (get_iterator (get_music ()->get_combine_music ()));
-  lyric_iter_ = unsmob_iterator (get_iterator (get_music ()->get_combine_lyrics ()));
+  music_iter_ = unsmob_iterator (get_iterator (get_combine_music ()));
+  lyric_iter_ = unsmob_iterator (get_iterator (get_combine_lyrics ()));
 }
 
 bool

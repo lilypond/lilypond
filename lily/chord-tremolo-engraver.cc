@@ -88,12 +88,12 @@ Chord_tremolo_engraver::try_music (Music * m)
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;
 
-      Sequential_music * seq = dynamic_cast<Sequential_music*> (rp->body ());
-      sequential_body_b_ = seq;
+      
+      sequential_body_b_ = rp->body()->is_mus_type ("sequential-music");
 
-      int elt_count = seq ? scm_ilength (seq-> music_list ()) : 1;
+      int elt_count = sequential_body_b_ ? scm_ilength (rp->body()->get_property ("elements")) : 1;
 
-      if (seq && elt_count != 2)
+      if (sequential_body_b_ && elt_count != 2)
 	{
 	  rp->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
 	}
