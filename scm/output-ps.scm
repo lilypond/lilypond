@@ -16,6 +16,8 @@
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
+;;(if (not safe-mode?)
+;;    (debug-enable 'backtrace))
 (debug-enable 'backtrace)
 
 (define-module (scm output-ps))
@@ -27,17 +29,18 @@
  (srfi srfi-13)
  (lily))
 
-
-
-
-;;; Lily output interface, PostScript implementation --- cleanup and docme
+(define (expression->string expr)
+  (eval expr this-module))
 
 ;;; Output interface entry
-(define-public (ps-output-expression expr port)
+(define (output-expression expr port)
   (display (expression->string expr) port))
+
 
 ;;; Global vars
 ;; alist containing fontname -> fontcommand assoc (both strings)
+(define page-count 0)
+(define page-number 0)
 (define font-name-alist '())
 
 ;; /lilypondpaperoutputscale 1.75729901757299 def
@@ -79,6 +82,11 @@
 
 (define (tex-font? fontname)
   (equal? (substring fontname 0 2) "cm"))
+
+
+;;;
+;;; Lily output interface, PostScript implementation --- cleanup and docme
+;;;
 
 ;;; Output-interface functions
 (define (beam width slope thick blot)
@@ -239,9 +247,6 @@
 (define (end-output)
   "\nend-lilypond-output\n")
 
-(define (expression->string expr)
-  (eval expr this-module))
-
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
@@ -267,10 +272,14 @@
   
   (string-append (select-font name-mag-pair) exp))
 
-(define (header creator time-stamp)
+(define (header creator time-stamp page-count-)
+  (set! page-count page-count-)
+  (set! page-number 0)
   (string-append
    "%!PS-Adobe-3.0\n"
    "%%Creator: " creator " " time-stamp "\n"
+   "%%Pages: " (number->string page-count) "\n"
+   "%%PageOrder: Ascend\n"
    ;;(string-append "GNU LilyPond (" (lilypond-version) "), ")
    ;;	   (strftime "%c" (localtime (current-time))))
    ;; FIXME: duplicated in every backend
@@ -422,7 +431,10 @@
     " draw_zigzag_line "))
 
 (define (start-page)
-  "\nstart-page\n")
+  (set! page-number (+ page-number 1))
+  (string-append
+   "%%Page: " (number->string page-number) " " (number->string page-count) "\n"
+  "start-page\n"))
 
 (define (stop-page last?)
   (if last?

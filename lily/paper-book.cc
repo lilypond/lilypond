@@ -217,8 +217,7 @@ Paper_book::output (String outname)
 
   Paper_def *paper = papers_[0];
   Paper_outputter *out = paper->get_paper_outputter (outname);
-  out->output_metadata (get_scopes (0), paper);
-  out->output_header (paper);
+  out->output_header (paper, get_scopes (0), pages->size ());
 
   int page_count = pages->size ();
   for (int i = 0; i < page_count; i++)
@@ -437,11 +436,9 @@ Paper_book::fill_pages (Page *page, int page_count, Real fudge)
 void
 Paper_book::classic_output (String outname)
 {
-  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
   int count = scores_.size ();
-  
-  out->output_metadata (get_scopes (count - 1), papers_.top ());
-  out->output_header (papers_.top ());
+  Paper_outputter *out = papers_.top ()->get_paper_outputter (outname);
+  out->output_header (papers_.top (), get_scopes (count - 1), 0);
 
   int line_count = SCM_VECTOR_LENGTH ((SCM) scores_.top ());
   for (int i = 0; i < line_count; i++)

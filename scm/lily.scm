@@ -371,7 +371,6 @@ L1 is copied, L2 not.
 (define output-alist
   `(
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
-    ("ps" . ("Direct postscript. Requires setting GS_LIB and GS_FONTPATH" ,ps-output-expression))
     ("scm" . ("Scheme dump: debug scheme stencil expressions" ,write))
     ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
     ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))
@@ -386,12 +385,15 @@ L1 is copied, L2 not.
      output-alist)
    ))
 
-(define-public (find-dumper format )
-  (let* ((d (assoc format output-alist)))
-    
+(define-public (find-dumper format)
+  (let ((d (assoc format output-alist)))
     (if (pair? d)
 	(caddr d)
 	(scm-error "Could not find dumper for format ~s" format))))
+
+(define-public (get-output-module output-format)
+  (resolve-module `(scm ,(string->symbol
+			  (string-append "output-" output-format)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.

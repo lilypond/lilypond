@@ -1,3 +1,21 @@
+2004-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/lily.scm (get-output-module): New function.
+	(output-alist): Remove ,ps-output-expression.
+
+	* scm/output-tex.scm (ps-output-expression): New function.
+
+	* scm/output-ps.scm (ps-output-expression): Remove.
+	(header, start-page): Output page metadata.
+
+	* lily/paper-outputter.cc (Paper_outputter)[PAGE_LAYOUT]:
+	initialise output_module_.  Do not write part of header.
+	(output_scheme)[PAGE_LAYOUT]: Output through output_module_.
+	(output_header): Output full header.
+
+	* scm/define-markup-commands.scm (bigger, smaller): Avoid crash.
+	FIXME.
+
 2004-03-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/new-font.scm: new file. Tree based font lookup.

@@ -165,6 +165,7 @@ void
 My_lily_lexer::start_main_input ()
 {  
   new_input (main_input_name_, &global_input_file->sources_);
+  /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && ! safe_global_b;
 
   scm_module_define (gh_car (scopes_),

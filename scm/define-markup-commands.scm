@@ -518,14 +518,18 @@ any sort of property supported by @internalsref{font-interface} and
 (def-markup-command (smaller paper props arg) (markup?)
   "Decrease the font size relative to current setting"
   (let* ((fs (chain-assoc-get 'font-size props 0))
-         (entry (cons 'font-size (- fs 1))))
+	 ;; FIXME: crasher fix
+         ;; (entry (cons 'font-size (- fs 1))))
+         (entry (cons 'font-size (if (number? fs) (- fs 1) 0))))
     (interpret-markup paper (cons (list entry) props) arg)))
 
 
 (def-markup-command (bigger paper props arg) (markup?)
   "Increase the font size relative to current setting"
   (let* ((fs (chain-assoc-get 'font-size props 0))
-         (entry (cons 'font-size (+ fs 1))))
+	 ;; FIXME: crasher fix
+         ;; (entry (cons 'font-size (+ fs 1))))
+         (entry (cons 'font-size (if (number? fs) (+ fs 1) 0))))
     (interpret-markup paper (cons (list entry) props) arg)))
 
 (def-markup-command larger (markup?)
