@@ -436,7 +436,7 @@ Translator_group::get_property (SCM sym, Translator_group **where_l) const
     {
       if (where_l)
 	*where_l = (Translator_group*) this; // ugh
-      return properties_dict_[sym];
+      return properties_dict_.get (sym);
     }
 
   if (daddy_trans_l_)
@@ -451,5 +451,5 @@ Translator_group::get_property (SCM sym, Translator_group **where_l) const
 void
 Translator_group::set_property (String id, SCM val)
 {
-  properties_dict_[ly_symbol2scm (id.ch_C())] = val;
+  properties_dict_.set (ly_symbol2scm (id.ch_C()), val);
 }

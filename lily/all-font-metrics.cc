@@ -39,11 +39,10 @@ All_font_metrics::find_afm (String name)
       afm_p->name_ = ly_symbol2scm (name.ch_C ());
       progress_indication ("]");
 
-      afm_p_dict_[sname] = afm_p->self_scm_;
-      scm_unprotect_object (afm_p->self_scm_);
+      afm_p_dict_.set (sname,afm_p->self_scm_);
     }
   
-  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_[sname]));
+  return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (afm_p_dict_.get (sname)));
 }
 
 Scaled_font_metric * 
@@ -58,12 +57,11 @@ All_font_metrics::find_scaled (String nm, int m)
     {
       Font_metric *f = find_font (nm);
       s = new Scaled_font_metric (f, m);
-      scaled_p_dict_[sname] = s->self_scm_;
+      scaled_p_dict_.set (sname, s->self_scm_);
       fm =  s;
-      scm_unprotect_object (s->self_scm_);
     }
   else
-    fm = unsmob_metrics (scaled_p_dict_[sname]);
+    fm = unsmob_metrics (scaled_p_dict_.get (sname));
 
   return dynamic_cast<Scaled_font_metric*> (fm);
 }
@@ -83,12 +81,11 @@ All_font_metrics::find_tfm (String name)
       tfm_p->name_ = ly_symbol2scm (name.ch_C( ));
       progress_indication ("]");
 
-      tfm_p_dict_[sname] = tfm_p->self_scm_;
-      scm_unprotect_object (tfm_p->self_scm_);      
+      tfm_p_dict_.set (sname, tfm_p->self_scm_);
     }
     
   return
-    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_[sname]));
+    dynamic_cast<Tex_font_metric*> (unsmob_metrics (tfm_p_dict_.get(sname)));
 }
 
 

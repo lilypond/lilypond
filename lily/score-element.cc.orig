@@ -164,11 +164,7 @@ Score_element::molecule_extent(Dimension_cache const *c)
 {
   Score_element *s = dynamic_cast<Score_element*>(c->element_l());
   Molecule*m = s->do_brew_molecule_p();
-  
-  Interval iv =  m->extent()[c->axis ()];
-
-  delete m;
-  return iv;
+  return  m->extent()[c->axis ()];
 }
 
 

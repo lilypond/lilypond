@@ -6,6 +6,8 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <iostream.h>
+
 #include "score.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
@@ -22,7 +24,7 @@
 
 
 Score::Score()
-    : Input()
+  : Input()
 {
   header_p_ = 0;
   music_p_ = 0;
@@ -50,6 +52,11 @@ void
 Score::run_translator (Music_output_def *odef_l)
 {
   Cpu_timer timer;
+  scm_gc();
+  cout << "\nCells in use: " <<  scm_cells_allocated << endl;
+  cout <<    "protects: " << scm_ilength (scm_protects) << endl;
+
+  
   Global_translator * trans_p = odef_l->get_global_translator_p();
   if (!trans_p)
     {
@@ -94,6 +101,12 @@ Score::run_translator (Music_output_def *odef_l)
   progress_indication ("\n");
   output->process();
   delete output ;
+
+  // force GC
+  scm_gc();
+  cout << "\nCells in use: " <<  scm_cells_allocated <<endl;
+  cout <<    "protects " << scm_ilength (scm_protects) << endl;
+
 }
 
 void
