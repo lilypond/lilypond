@@ -1,9 +1,15 @@
+2004-02-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-ps.scm (stencil->string): Rewrite.
+
 2004-02-27  Heikki Junes <hjunes@cc.hut.fi>
 
 	* input/test/[+c-i]*.ly: refresh descriptions -- maintain
 	impersonal style.
 
 2004-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/input-smob.cc (ly_input_location: New function.
 
 	* scm/define-markup-commands.scm (upright): New markup command.
 
