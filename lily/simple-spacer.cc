@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
   TODO:
   - add support for different stretch/shrink constants?

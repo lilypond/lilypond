@@ -208,8 +208,17 @@ Dynamic_engraver::do_process_music ()
       text_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
       text_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
 	(Side_position_interface::aligned_on_self);
-      //text_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
-      //  (Side_position_interface::aligned_side);
+      /*
+	Don't crash into staff
+      */
+#if 0
+      // nogo
+      text_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
+        (Side_position_interface::aligned_side);
+#else
+      // doet't ook niet, maar breekt wel alignment op line-spanner
+      //side_position (text_p_).set_axis (Y_AXIS);
+#endif
       announce_element (Score_element_info (text_p_, text_req_l_));
     }
 
@@ -296,8 +305,17 @@ Dynamic_engraver::do_process_music ()
 	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
 	  cresc_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
 	    (Side_position_interface::aligned_on_self);
-	  //cresc_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
-	  // (Side_position_interface::aligned_side);
+	  /*
+	    Don't crash into staff
+	  */
+#if 0
+	  // nogo
+	  cresc_p_->dim_cache_[Y_AXIS]->off_callbacks_.push
+	   (Side_position_interface::aligned_side);
+#else
+	  // doet't ook niet, maar breekt wel alignment op line-spanner
+	  //side_position (cresc_p_).set_axis (Y_AXIS);
+#endif
 	  announce_element (Score_element_info (cresc_p_, span_req_l_drul_[START]));
 	}
     }

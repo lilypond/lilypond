@@ -79,47 +79,26 @@ violoncello = \notes \relative c' {
       \context Staff ="oboi" \oboi
       \context Staff ="clarinetti" \clarinetti 
       \context Staff ="fagotti" \fagotti 
-    { %%urg
-      \skip 1; 
-      \context Staff="flauti" \property Staff.marginScriptPadding = #25
-      \context Staff ="oboi" \property Staff.marginScriptPadding = #25
-      \context Staff ="clarinetti" \property Staff.marginScriptPadding = #25
-      \context Staff ="fagotti" \property Staff.marginScriptPadding = #25
-    }
     >
     \context StaffGroup ="ottoni" <
       \context Staff ="corni" \corni
       \context Staff ="trombe" \trombe
-    { %%urg
-      \skip 1; 
-      \context Staff="corni" \property Staff.marginScriptPadding = #25
-      \context Staff ="trome" \property Staff.marginScriptPadding = #25
-    }
     >
     \context StaffGroup ="timpani" <
       \context Staff ="timpani" \timpani
-    { %%urg
-      \skip 1; 
-      \context Staff="timpani" \property Staff.marginScriptPadding = #25
-    }
+     { 
+       \skip 1; 
+       % Hmm: this forces a staff-bracket, that's good!
+       % However, I can't find where is decided on staff-bracket yes/no
+     }
     >
     \context StaffGroup ="archi" <
       \context GrandStaff ="violini" <
         \context Staff ="violino1" \violino1
         \context Staff ="violino2" \violino2
-    { %%urg
-      \skip 1; 
-      \context Staff="violino1" \property Staff.marginScriptPadding = #25
-      \context Staff="violino2" \property Staff.marginScriptPadding = #25
-    }
       >
       \context Staff ="viola" \viola
       \context Staff ="violoncello" \violoncello
-    { %%urg
-      \skip 1; 
-      \context Staff="viola" \property Staff.marginScriptPadding = #25
-      \context Staff="violoncello" \property Staff.marginScriptPadding = #25
-    }
     >
   >
  \header{
@@ -137,7 +116,11 @@ violoncello = \notes \relative c' {
   	linewidth=150.0\mm;
     \translator {
       \HaraKiriStaffContext
-      marginScriptPadding = #55  %% urg, this is in pt
+    }
+    \translator {
+      \ScoreContext
+      instrumentScriptPadding = #55  %% urg, this is in pt
+      instrScriptPadding = #25
     }
   }
 }

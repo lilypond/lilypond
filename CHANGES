@@ -1,3 +1,15 @@
+1.3.33.jcn3
+===========
+
+* Added helpful properties instrumentScriptPadding/instrScriptPadding for
+  Staff_margin_engraver.
+
+* Removed some empty files, substituted (c) 1999 occurrences.
+
+* Added \property maximumRestCount.  It will prevent showing (or actually:
+  moving in case of a collision) more than maximumRestCount similar rests.
+  WIP!
+
 1.3.33.jcn1
 ===========
 

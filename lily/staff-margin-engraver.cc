@@ -108,7 +108,17 @@ Staff_margin_engraver::create_text (SCM text)
 
       announce_element (Score_element_info (t, 0));
 
-      SCM s = get_property (type_ + "ScriptPadding");
+      /*
+	Hmm.
+	In almost every score that uses "instrument" and "instr"
+	we need two different paddings.
+	Let's try one of those first:
+	   instrumentScriptPadding/instrScriptPadding
+       */
+      SCM s = get_property (String (now_mom () ? "instr" : "instrument")
+			    + "ScriptPadding");
+      if (!gh_number_p (s))
+	s = get_property (type_ + "ScriptPadding");
       if (gh_number_p (s))
 	{
 	  //t->set_elt_property ("padding", s);
@@ -126,6 +136,11 @@ Staff_margin_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
+      /*
+	Let's not allow user settings for visibility function (yet).
+	Although end-of-line would work, to some extent, we should
+	make a properly ordered Right_edge_item, if that need arises.
+       */
       text_p_->set_elt_property("visibility-lambda",
       			      ly_eval_str ("begin-of-line-visible"));
       typeset_element (text_p_);

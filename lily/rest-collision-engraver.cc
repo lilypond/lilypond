@@ -28,6 +28,7 @@ Rest_collision_engraver::process_acknowledged ()
     return;
 
   rest_collision_p_ = new Rest_collision;
+  
   announce_element (Score_element_info (rest_collision_p_, 0));
   for (int i=0; i< note_column_l_arr_.size (); i++)
     rest_collision_p_->add_column (note_column_l_arr_[i]);

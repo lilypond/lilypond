@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2000 Jan Nieuwenhuizen <janneke@gnu.org>
   
 
   some code shamelessly copied from GNU fontutils-0.6/tfm/tfm_input.c
