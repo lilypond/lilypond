@@ -1,14 +1,4 @@
 
-;;;  als aan echte stok
-;;;      if ((note_column_drul[d] == get_bound (d))
-;;;	  && note_column_drul[d]->first_head ()
-;;;	  && (note_column_drul[d]->stem_l ()))
-;;;
-;;;  *Need: Score_elment::pointer_alist_
-;;;         Score_elment::property_alist_
-;;;         Spanner::Drul_array<Item*> spanned_drul_;
-;;;         spanner:: (cons get_bound (LEFT) get_bound (RIGHT))
-
 (define (attached-to-stem slur dir)
   (let* ((note-columns (get-pointer slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
@@ -50,11 +40,6 @@
 
     ;; default case, attach to head
     ((lambda (x y) #t) . head)
-    
-    ;; silly rule, just to check
-    ((lambda (slur dir)
-       (and (attached-to-stem slur dir) 
-	    (= (get-property slur 'direction) dir))) . stem)
     ))
 
 

@@ -11,7 +11,9 @@
   [TODO]
     * begin and end should be treated as a/acknowledge Scripts.
     * broken slur should have uniform trend
-    * smart changing of endings and offsets to avoid ugly beziers.
+    * smart changing of endings
+    * smart changing of (Y-?)offsets to avoid ugly beziers
+       (along-side-stem)
  */
 
 #include "directional-element-interface.hh"
@@ -235,6 +237,7 @@ Slur::get_attachment (Direction dir) const
 {
   SCM s = get_elt_property ("attachment");
   SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
+  String str = ly_symbol2string (a);
   Real ss = Staff_symbol_referencer_interface (this).staff_space ();
   Real hs = ss / 2.0;
   Offset o;
@@ -242,7 +245,6 @@ Slur::get_attachment (Direction dir) const
     {
       if (Stem* st = dynamic_cast<Stem*> (n->stem_l ()))
 	{
-	  String str = ly_symbol2string (a);
 	  if (str == "head")
 	    {
 	      o = Offset (0, st->chord_start_f ());
@@ -297,7 +299,20 @@ Slur::get_attachment (Direction dir) const
 	    }
 	}
     }
-  
+
+
+  /*
+    URG
+   */
+
+  if (str != "loose-end")
+    {
+      Link_array<Note_column> encompass_arr =
+	Pointer_group_interface__extract_elements (this, (Note_column*)0,
+						   "note-columns");
+      o -= Offset (0, calc_interstaff_dist (dir == LEFT ? encompass_arr[0]
+					    : encompass_arr.top (), this));
+    }
   return o;
 }
 
@@ -337,11 +352,15 @@ Slur::get_encompass_offset_arr () const
     left is broken edge
   */
   int cross_count  = cross_staff_count ();
+
+  /*
+    URG
+  */
   bool cross_b = cross_count && cross_count < encompass_arr.size ();
   if (encompass_arr[0] != get_bound (LEFT))
     {
       first--;
-      Real is   = calc_interstaff_dist (encompass_arr[0], this);
+      Real is = calc_interstaff_dist (encompass_arr[0], this);
       if (cross_b)
 	offset_arr[0][Y_AXIS] += is;
     }
@@ -452,7 +471,9 @@ Slur::get_curve () const
   Bezier b;
   int i = 0;
 
-  if (!directional_element (this).get ())
+  // URGURG?
+  if (!directional_element (this).get ()
+      || ! gh_symbol_p (index_cell (get_elt_property ("attachment"), LEFT)))
     ((Slur*)this)->set_extremities ();
   
   if (!gh_pair_p (get_elt_property ("control-points")))
