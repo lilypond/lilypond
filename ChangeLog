@@ -1,3 +1,55 @@
+2004-12-05  Christian Hitz  <chhitz@gmx.net>
+
+	* configure.in:
+	* lily/accidental-placement.cc:
+	* lily/bar-line.cc:
+	* lily/beam-concave.cc:
+	* lily/beam-quanting.cc:
+	* lily/beam.cc:
+	* lily/bezier-bow.cc:
+	* lily/bezier.cc:
+	* lily/break-align-interface.cc:
+	* lily/custos.cc:
+	* lily/dimension-cache.cc:
+	* lily/dot-column.cc:
+	* lily/font-metric.cc:
+	* lily/font-select.cc:
+	* lily/gourlay-breaking.cc:
+	* lily/grob-property.cc:
+	* lily/grob.cc:
+	* lily/lily-guile.cc:
+	* lily/line-spanner.cc:
+	* lily/lookup.cc:
+	* lily/lyric-extender.cc:
+	* lily/lyric-hyphen.cc:
+	* lily/mensural-ligature.cc:
+	* lily/midi-def.cc:
+	* lily/misc.cc:
+	* lily/note-collision.cc:
+	* lily/note-column.cc:
+	* lily/note-head.cc:
+	* lily/paper-outputter.cc:
+	* lily/percent-repeat-item.cc:
+	* lily/rest-collision.cc:
+	* lily/side-position-interface.cc:
+	* lily/simple-spacer.cc:
+	* lily/slur-configuration.cc:
+	* lily/slur-scoring.cc:
+	* lily/slur.cc:
+	* lily/spaceable-grob.cc:
+	* lily/spacing-spanner.cc:
+	* lily/spanner.cc:
+	* lily/staff-symbol-referencer.cc:
+	* lily/stem.cc:
+	* lily/stencil.cc:
+	* lily/system-start-delimiter.cc:
+	* lily/system.cc:
+	* lily/text-item.cc:
+	* lily/tie.cc:
+	* lily/tuplet-bracket.cc:
+	* lily/vaticana-ligature.cc: Fix for MacOS X: use <math.h> instead of
+	<cmath> beacause isinf/isnan is undefined in <cmath>
+
 2004-12-03  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* cygwin/lily-wins.py (stat): remove old flag -p when calling lilypond.

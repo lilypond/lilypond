@@ -9,7 +9,7 @@
 #include "dot-column.hh"
 
 #include <cstdio>
-#include <cmath>
+#include <math.h>
 #include <map>
 
 #include "dots.hh"

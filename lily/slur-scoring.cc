@@ -9,7 +9,7 @@
 
 #include "slur-scoring.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "libc-extension.hh"
 #include "slur-configuration.hh"

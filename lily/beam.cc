@@ -27,7 +27,7 @@ Notes:
 
 
 
-#include <cmath> // tanh.
+#include <math.h> // tanh.
 
 #include "beam.hh"
 #include "interval-set.hh"

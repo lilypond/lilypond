@@ -9,7 +9,7 @@
 
 #include "side-position-interface.hh"
 
-#include <cmath>		// ceil.
+#include <math.h>		// ceil.
 
 #include "note-head.hh"
 #include "warn.hh"

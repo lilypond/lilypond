@@ -6,7 +6,7 @@
   (c) 1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <cmath>
+#include <math.h>
 
 #include "misc.hh"
 #include "bezier.hh"

@@ -8,7 +8,7 @@
 
 #include "tie.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "spanner.hh"
 #include "lookup.hh"

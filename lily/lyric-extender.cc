@@ -8,7 +8,7 @@
 
 #include "lyric-extender.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "warn.hh"
 #include "lookup.hh"

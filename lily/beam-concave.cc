@@ -2,7 +2,7 @@
    Determine whether a beam is concave.
  */
 
-#include <cmath>
+#include <math.h>
 
 #include "group-interface.hh"
 #include "array.hh"

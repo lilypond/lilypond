@@ -15,7 +15,7 @@
 */
 
 #include <cstdio>
-#include <cmath> // rint
+#include <math.h> // rint
 
 #include "custos.hh"
 #include "direction.hh"

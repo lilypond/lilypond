@@ -8,7 +8,7 @@
 
 #include "vaticana-ligature.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "item.hh"
 #include "font-interface.hh"

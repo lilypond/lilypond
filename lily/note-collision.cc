@@ -8,7 +8,7 @@
 
 #include "note-collision.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "warn.hh"
 #include "note-column.hh"

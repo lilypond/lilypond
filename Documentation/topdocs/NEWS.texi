@@ -8,6 +8,10 @@
 
 @itemize @bullet
 @item
+A new script, @code{\espressivo} has been added, for a combination of
+crescendo and decrescendo on a single note.
+
+@item
 In markups, expressions stacked with @code{\column},
 @code{\center-align}, etc, are not grouped with @code{< ... >} anymore,
 but with @code{@{ ... @}}, eg:

@@ -8,7 +8,7 @@
 
 #include "staff-symbol-referencer.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "staff-symbol.hh"
 #include "output-def.hh"

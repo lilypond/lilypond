@@ -6,7 +6,7 @@
   (c) 2003--2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <cmath>
+#include <math.h>
 
 #include "all-font-metrics.hh"
 #include "output-def.hh"

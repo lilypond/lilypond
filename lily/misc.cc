@@ -9,7 +9,7 @@
 
 #include "misc.hh"
 
-#include <cmath>
+#include <math.h>
 
 /*
   Return the 2-log, rounded down 

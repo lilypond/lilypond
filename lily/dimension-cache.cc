@@ -7,7 +7,7 @@
  */
 
 
-#include <cmath>
+#include <math.h>
 
 #include "dimension-cache.hh"
 #include "warn.hh"

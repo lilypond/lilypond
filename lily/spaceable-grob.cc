@@ -10,7 +10,7 @@
 #include "spaceable-grob.hh"
 
 #include <cstdio> 
-#include <cmath>
+#include <math.h>
 
 #include "warn.hh"
 #include "spring.hh"

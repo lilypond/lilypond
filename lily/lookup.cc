@@ -10,7 +10,7 @@
 
 #include "lookup.hh"
 
-#include <cmath>
+#include <math.h>
 #include <cctype>
 
 #include "line-interface.hh"

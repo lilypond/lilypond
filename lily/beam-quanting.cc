@@ -12,7 +12,7 @@
 
 
 
-#include <cmath>
+#include <math.h>
 
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"

@@ -7,7 +7,7 @@
 */
 
 
-#include <cmath>
+#include <math.h>
 
 #include "bezier.hh"
 #include "warn.hh"

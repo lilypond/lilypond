@@ -15,7 +15,7 @@
 
 #include "stem.hh"
 
-#include <cmath>		// rint
+#include <math.h>		// rint
 
 #include "lookup.hh"
 #include "directional-element-interface.hh"

@@ -7,7 +7,7 @@
 
 */
 
-#include <cmath>
+#include <math.h>
 
 #include "misc.hh"
 #include "output-def.hh"
