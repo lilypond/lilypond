@@ -1,3 +1,14 @@
+2003-08-10  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/topdocs/NEWS.texi, DEDICATION,
+	stepmake/bin/add-html-footer.py
+	input/mutopia/J.S.Bach/baerenreiter-sarabande.ly
+	input/mutopia/J.S.Bach/wtk1-fugue1.ly
+	input/mutopia/J.S.Bach/wtk1-prelude1.ly
+	Documentation/topdocs/INSTALL.texi: `bug'fix: a colon `:' is 
+	added (only) after a sentence which is complete; if the sentence is 
+	not ended a comma `,' or nothing is used. fix also spaces.
+
 2003-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): change GUILE

@@ -7,7 +7,7 @@ enteredby = 	 "Shay Rojansky"
 
   % mutopia headers.
   mutopiatitle = "Das Wohltemperierte Clavier I, Fuga 1 (c-major)"
-  mutopiacomposer = "J.S.Bach"
+  mutopiacomposer = "J.S. Bach"
   mutopiaopus = "BWV846"
   style = "baroque"
   copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"

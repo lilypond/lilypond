@@ -23,7 +23,7 @@ forcedLastBreak = \notes { \break }
 \header {
   title = "Solo Cello Suite II"
   piece ="Sarabande"
-  composer = "J.S.Bach"
+  composer = "J.S. Bach"
   editor = "August Wenzinger"
   source= "B\\\"arenreiter Urtext"
 
