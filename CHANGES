@@ -1,3 +1,26 @@
+1.5.13.hwn2
+===========
+
+* Bugfix: revert font-relative-size for grace Accidentals
+
+* Bugfix: hara kiri'd piano staffs doesn't take space anymore.
+
+* Bugfix: reinstate rest-collisions.
+
+* Bugfix: key items have the c0 position again.
+
+* Make \property Voice.GrobName = \turnOff work again.
+
+* More intelligent symbol-cache, in less code. Turned off by default, doesn't
+work with -O2 yet.
+
+* Documentation fixes: change documentation of Moment and make-moment,
+add Translator::{name,description}
+
+* Junk STL implementation of Scheme_hash_table in favor of GUILE
+hashtables with automatic resizing. 
+
+
 1.5.12.jcn2
 ===========
 
