@@ -8,7 +8,7 @@
 ; Tablature functions, by Jiba (jiba@tuxfamily.org)
 
 ; The TabNoteHead stem attachment function.
-(define (tablature-stem-attachment-function style)
+(define (tablature-stem-attachment-function style duration)
   (cons 0.0 1.0)
 )
 
