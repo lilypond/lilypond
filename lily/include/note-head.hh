@@ -21,7 +21,6 @@ class Note_head
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
-  static Interval head_extent (Grob*, Axis);
   DECLARE_SCHEME_CALLBACK (brew_ez_stencil, (SCM));
   DECLARE_SCHEME_CALLBACK (extent, (SCM,SCM));
   static bool has_interface (Grob*);
