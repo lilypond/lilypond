@@ -1991,7 +1991,7 @@ then you could set
 @end example
 
 @noindent
-This sets the vertical size of the current staff to 4 staff spaces on
+This sets the vertical size of the current staff to 3 staff spaces on
 either side of the center staff line.  The argument of
 @code{minimumVerticalExtent} is interpreted as an interval, where the
 center line is the 0, so the first number is generally negative.  The

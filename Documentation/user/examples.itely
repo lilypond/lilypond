@@ -670,7 +670,7 @@ bassWords = \lyricmode {
 @end lilypond
 
 
-@subsection SATB vocal score and piano reduction
+@subsection SATB vocal score and automatic piano reduction
 
 This template adds an automatic piano reduction to the SATB vocal
 score.  This demonstrates one of the strengths of LilyPond -- you
@@ -745,13 +745,6 @@ bassWords = \lyricmode {
     \context Lyrics = altos \lyricsto altos \altoWords
     \context Lyrics = tenors \lyricsto tenors \tenorWords
     \context Lyrics = basses \lyricsto basses \bassWords
-  >>
-  \new PianoStaff
-  <<
-    \new Staff <<
-    \context Lyrics = tenors \lyricsto tenors \tenorWords
-    \context Lyrics = basses \lyricsto basses \bassWords
-    >>
   >>
   \new PianoStaff
   <<

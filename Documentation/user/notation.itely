@@ -1457,7 +1457,21 @@ voices are sometimes called ``layers'' in other notation packages}
 @cindex layers
 to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc., is set
-appropriately.
+appropriately.  Specifically,
+
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+is equivalent to
+
+@example
+<<
+  \context Voice = "1" @{ \voiceOne \upper @}
+  \context Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
 
 @cindex @code{\voiceOne}
 @cindex @code{\voiceFour}
@@ -3820,6 +3834,10 @@ is the same as
 \context Voice = blah @{ music @}
 \lyricsto "blah" \new lyrics @{ LYRICS @}
 @end example
+
+@refbugs
+
+@code{\addlyrics} cannot handle polyphony.
 
 
 @node Entering lyrics
