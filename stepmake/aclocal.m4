@@ -501,6 +501,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
 
 AC_DEFUN(AC_STEPMAKE_TEXMF, [
     # urg, never know what names these teTeX guys will think up
+
     AC_CHECK_PROGS(METAFONT, mf, no)
     if test "x$METAFONT" = "xno"; then
 	AC_CHECK_PROGS(MFONT, mfont, -echo no mf or mfont)
@@ -513,8 +514,22 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
 	METAPOST=$MPOST
     fi
 
+    AC_CHECK_PROGS(INIMETAFONT, inimf, no)
+    if test "x$INIMETAFONT" = "xno"; then
+	AC_CHECK_PROGS(INIMFONT, inimfont, -echo no inimf or inimfont)
+	INIMETAFONT=$INIMFONT
+    fi
+
+    AC_CHECK_PROGS(INIMETAPOST, inimp, no)
+    if test "x$INIMETAPOST" = "xno"; then
+	AC_CHECK_PROGS(INIMPOST, inimpost, -echo no inimp or inimpost)
+	INIMETAPOST=$INIMPOST
+    fi
+
     AC_SUBST(METAFONT)
     AC_SUBST(METAPOST)
+    AC_SUBST(INIMETAFONT)
+    AC_SUBST(INIMETAPOST)
 ])
 
 AC_DEFUN(AC_STEPMAKE_WARN, [

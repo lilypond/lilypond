@@ -439,12 +439,12 @@ with a broadcast/acknowledge process.
 
 So the best way of handling this, is
 
-* supporting dynamic settings in Audio_note
+- supporting dynamic settings in Audio_note
 
-* mimicking the broadcast/acknowledge mechanism of the Engravers in
+- mimicking the broadcast/acknowledge mechanism of the Engravers in
   the Performers
 
-* using that mechanism to write a Dynamics_performer that will modify
+- using that mechanism to write a Dynamics_performer that will modify
   any notes it finds to set appropriate strengths.
 
 You could also kludge this by deriving from Performer_group_performer
