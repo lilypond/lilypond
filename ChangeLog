@@ -12,6 +12,8 @@
 	* input/test/knee-sym.ly: moved to
 	../regression/beam-knee-symmetry.ly.
 
+	* input/test/hymn.ly: change comments.
+
 2003-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/mutopia/J.S.Bach/Petites-Preludes/*.ly (opus): update
