@@ -30,7 +30,7 @@
 	eisis 	= \melodic_request { -1 2 2 }
 	feses 	= \melodic_request { -1 3 -2 }
 	fes 	= \melodic_request { -1 3 -1 }
-	"f" 	= \melodic_request { -1 3 0 }
+	f 	= \melodic_request { -1 3 0 }
 	fis 	= \melodic_request { -1 3 1 }
 	fisis 	= \melodic_request { -1 3 2 }
 	geses 	= \melodic_request { -1 4 -2 }
@@ -97,3 +97,7 @@
 
 
 }
+
+
+
+keyCminor =  \key \bes \es \as;

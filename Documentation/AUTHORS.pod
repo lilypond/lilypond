@@ -36,7 +36,7 @@ and corresponding header files.
 =item *
 
 Mats Bengtsson <matsb@s3.kth.se>, parts of clef-reg.cc, clef-item.cc
-testing, general comments.
+swedish notenames, testing, general comments.
 
 =item *
 
@@ -45,12 +45,14 @@ Beam and Stem code.
 
 =item *
 
-Alexandre Oliva <oliva@dcc.unicamp.br>
+Alexandre Oliva <oliva@dcc.unicamp.br>, testing
+
+=item *
+
+Anthony Fok <foka@gpu.srv.ualberta.ca>, debian package: make/debian/*
 
 =back
 
 Your name could be here! If you want to help, then take a look at the
 SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
 coding C++
-
-
