@@ -196,11 +196,16 @@ fugaIIPedal =  \notes \relative c {
 
   %13
   r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
-  fis4.-\rtoe fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 
+% tie accs: 2nd should get no acc
+f4-\rtoe~ f8
+fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 
   dis,4-\ltoe gis-\rtoe [cis,8-\ltoe
     (
-     b!-\lheel ais-\rtoe gis-\ltoe ~ ] |
-      gis8  r4.
+     b!-\lheel ais-\rtoe g-\ltoe ~ ] |
+
+% tie should generate acc.
+\break
+      g  r4.
     )
       c2^^^-^\f 
  \time 3/4;

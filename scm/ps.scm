@@ -191,6 +191,26 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
   (define (unknown) 
     "\n unknown\n")
 
+;; note heads with letters.
+  (define (ez-ball ch letter-col ball-col)
+    (string-append "
+/Helvetica-Bold findfont
+0.7 scalefont 
+setfont 
+0.1 setlinewidth  
+ 0 0 moveto
+0 setgray
+0.5 0 0.5 0 360  arc
+closepath "
+		   (if (equal? ball-col 0) " fill " " stroke ")
+		   (number->string letter-col)
+		   "
+setgray
+% 0.25 is empiric centering. Change to taste
+0.25 -0.25 moveto
+ (" ch ") show
+showpage ")
+    )
 
   (define (define-origin a b c ) "")
   (define (no-origin) "")
@@ -228,6 +248,7 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
 	    (define text ,text)
 	    (define no-origin ,no-origin)
 	    (define define-origin ,define-origin)
+	    (define ez-ball ,ez-ball)
 	    ))
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'beam) beam)
@@ -240,6 +261,7 @@ lilypondpaperoutputscale lilypondpaperoutputscale scale
 	((eq? action-name 'decrescendo) decrescendo)
 	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'filledbox) filledbox)
+	((eq? action-name 'ez-ball) ez-ball)	
 	((eq? action-name 'select-font) select-font)
 	((eq? action-name 'volta) volta)
 	(else (error "unknown tag -- PS-SCM " action-name))

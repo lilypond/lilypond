@@ -51,7 +51,7 @@ public:
   Link_array<Note_req> mel_l_arr_;
   Link_array<Grob> support_l_arr_;
   Link_array<Item> forced_l_arr_;
-  Link_array<Grob> tied_l_arr_;
+  Link_array<Grob> tie_l_arr_;
   Local_key_engraver();
 
   Item * grace_align_l_;
@@ -98,9 +98,30 @@ Local_key_engraver::create_grobs ()
 	  bool different = !gh_equal_p(prev_acc , gh_int2scm(a));
 	  int p = gh_number_p(prev_acc) ? gh_scm2int(prev_acc) : 0;
 
-	  bool tie_changes = tied_l_arr_.find_l (support_l) && different;
-	  if ((to_boolean (note_l->get_mus_property ("force-accidental"))
-	      || different) && !tie_changes)
+	  Grob *tie_break_cautionary = 0;
+	  bool tie_changes = false;
+	  for (int i=0; i < tie_l_arr_.size (); i++)
+	    if (support_l == Tie::head (tie_l_arr_[i], RIGHT))
+	      {
+		tie_changes = different;
+#if 1
+		/* Enable accidentals for broken tie */
+		tie_break_cautionary = tie_l_arr_[i];
+#endif
+		break;
+	      }
+
+	  /* When do we want accidentals:
+
+	     1. when property force-accidental is set, and not
+	     tie_changes
+	     2. when different and not tie-changes
+	     3. maybe when at end of a tie: we must later see if
+	     we're after a line break */
+	  if (((to_boolean (note_l->get_mus_property ("force-accidental"))
+		|| different)
+	       && !tie_changes)
+	      || tie_break_cautionary)
 	    {
 	      if (!key_item_p_) 
 		{
@@ -120,7 +141,8 @@ Local_key_engraver::create_grobs ()
 
 	      Local_key_item::add_pitch (key_item_p_, *unsmob_pitch (note_l->get_mus_property ("pitch")),
 					 to_boolean (note_l->get_mus_property ("cautionary")),
-					 extra_natural);
+					 extra_natural,
+					 tie_break_cautionary);
 	      Side_position::add_support (key_item_p_,support_l);
 	    }
 	  
@@ -138,6 +160,7 @@ Local_key_engraver::create_grobs ()
 	      /*
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
+
 	       */
 	      localsig = scm_assoc_set_x (localsig, gh_cons (gh_int2scm (o),
 							     gh_int2scm (n)),
@@ -206,7 +229,7 @@ Local_key_engraver::stop_translation_timestep()
   grace_align_l_ = 0;
   mel_l_arr_.clear();
   arpeggios_.clear ();
-  tied_l_arr_.clear();
+  tie_l_arr_.clear ();
   support_l_arr_.clear();
   forced_l_arr_.clear();	
 }
@@ -236,7 +259,7 @@ Local_key_engraver::acknowledge_grob (Grob_info info)
     }
   else if (Tie::has_interface (info.elem_l_))
     {
-      tied_l_arr_.push (Tie::head (info.elem_l_, RIGHT));
+      tie_l_arr_.push (info.elem_l_);
     }
   else if (Arpeggio::has_interface (info.elem_l_))
     {

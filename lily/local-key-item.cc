@@ -13,6 +13,8 @@
 #include "musical-request.hh"
 #include "rhythmic-head.hh"
 #include "misc.hh"
+#include "spanner.hh"
+#include "tie.hh"
 #include "lookup.hh"
 
 static SCM
@@ -33,7 +35,8 @@ ADD_SCM_INIT_FUNC(lkpitch,init_pitch_funcs);
 
 
 void
-Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural)
+Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
+			   Grob* tie_break_cautionary)
 {
   SCM acs = me->get_grob_property ("accidentals");
   SCM pitch = p.smobbed_copy ();
@@ -42,6 +45,12 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural)
     opts = gh_cons (ly_symbol2scm ("cautionary"), opts);
   if (natural)
     opts = gh_cons (ly_symbol2scm ("natural"), opts);
+  if (tie_break_cautionary)
+    {
+      /* Ugh, these 'options' can't have a value, faking... */
+      opts = gh_cons (tie_break_cautionary->self_scm (), opts);
+      opts = gh_cons (ly_symbol2scm ("tie-break-cautionary"), opts);
+    }
 
   pitch = gh_cons (pitch, opts);
   acs = scm_merge_x (acs, gh_cons (pitch, SCM_EOL), pitch_less_proc);
@@ -58,6 +67,42 @@ Local_key_item::parenthesize (Grob*me, Molecule m)
   m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
 
   return m;
+}
+
+/*
+  HW says: move to tie.cc
+
+  Ugh: this doesn't work: brew_molecule is called before line-breaking
+ */ 
+MAKE_SCHEME_CALLBACK (Local_key_item, after_line_breaking, 1);
+SCM
+Local_key_item::after_line_breaking (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  SCM accs = me->get_grob_property ("accidentals");
+  for  (SCM s = accs;
+	gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM opts = gh_cdar (s);
+
+      SCM t = scm_memq (ly_symbol2scm ("tie-break-cautionary"), opts);
+      if (t != SCM_BOOL_F)
+	{
+	  Grob *tie = unsmob_grob (gh_cadr (t));
+	  Spanner *sp = dynamic_cast<Spanner*> (tie);
+	  if (!sp->original_l_)
+	    {
+	      /* there should be a better way to delete me */
+	      scm_set_car_x (s, gh_list (gh_caar (s),
+					 ly_symbol2scm ("deleted"),
+					 SCM_UNDEFINED));
+	      me->set_grob_property ("molecule", SCM_EOL);
+	    }
+	}
+    }
+  
+  return SCM_UNSPECIFIED;
 }
 
 /*
@@ -84,6 +129,9 @@ Local_key_item::brew_molecule (SCM smob)
     {
       Pitch p (*unsmob_pitch (gh_caar (s)));
       SCM opts = gh_cdar (s);
+      
+      if (scm_memq (ly_symbol2scm ("deleted"), opts) != SCM_BOOL_F)
+	continue;
       
       // do one octave
       if (p.octave_i ()  != lastoct) 
