@@ -1,3 +1,7 @@
+2002-06-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* VERSION (PACKAGE_NAME): Typo fix.
+
 2002-06-23  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/tutorial/brahms-*.ly: new tutorial files.
