@@ -35,7 +35,7 @@ public:
   Request_chord_iterator ();
   Request_chord_iterator (Request_chord_iterator const&);
 
-  virtual SCM get_music (Moment) const;
+  virtual SCM get_pending_events (Moment) const;
 protected:
   virtual void process (Moment);
   virtual void construct_children ();

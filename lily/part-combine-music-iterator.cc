@@ -126,7 +126,7 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 {
   if (iter->ok ())
     {
-      for (SCM i = iter->get_music (m); gh_pair_p (i); i = ly_cdr (i))
+      for (SCM i = iter->get_pending_events (m); gh_pair_p (i); i = ly_cdr (i))
 	{
 	  Music *m = unsmob_music (ly_car (i));
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
@@ -438,13 +438,13 @@ Part_combine_music_iterator::try_music_in_children (Music *m) const
 
 
 SCM
-Part_combine_music_iterator::get_music (Moment m)const
+Part_combine_music_iterator::get_pending_events (Moment m)const
 {
   SCM s = SCM_EOL;
   if (first_iter_p_)
-    s = gh_append2 (s,first_iter_p_->get_music (m));
+    s = gh_append2 (s,first_iter_p_->get_pending_events (m));
   if (second_iter_p_)
-    s = gh_append2 (second_iter_p_->get_music (m),s);
+    s = gh_append2 (second_iter_p_->get_pending_events (m),s);
   return s;
 }
 

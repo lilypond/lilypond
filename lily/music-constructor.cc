@@ -33,7 +33,7 @@ get_music_ctor (String s)
 }
 
 Music* 
-get_music (String s)
+make_music (String s)
 {
   return (*get_music_ctor (s)) () ;
 }

@@ -24,14 +24,14 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 /*
 
   TODO: the grace note handling hasn't been done for skip() and
-  get_music(), meaning that staff-switching and partcombining will be
+  get_pending_events(), meaning that staff-switching and partcombining will be
   broken with grace notes.
   
  */
 /*
 
   TODO: the grace note handling hasn't been done for skip() and
-  get_music(), meaning that staff-switching and partcombining will be
+  get_pending_events(), meaning that staff-switching and partcombining will be
   broken with grace notes.
   
  */
@@ -232,7 +232,7 @@ Sequential_iterator::descend_to_child ()
 */
 
 SCM
-Sequential_iterator::get_music (Moment until)const
+Sequential_iterator::get_pending_events (Moment until)const
 {
   SCM s = SCM_EOL;
   if (until <  pending_moment ())
@@ -242,7 +242,7 @@ Sequential_iterator::get_music (Moment until)const
     dynamic_cast<Sequential_iterator*> (clone ());
   while (me->ok ())
     {
-      SCM nm = me->iter_p_->get_music (until - me->here_mom_);
+      SCM nm = me->iter_p_->get_pending_events (until - me->here_mom_);
       s = gh_append2 (nm, s);
       
       Moment m = 0;

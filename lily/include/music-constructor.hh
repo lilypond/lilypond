@@ -25,7 +25,7 @@ static void  _ ## type ## _adder () {\
 ADD_GLOBAL_CTOR (_ ## type ## _adder);
 
 void add_music_ctor (String, Music* (*) ());
-Music*get_music (String);
+Music*make_music (String);
 
 
 

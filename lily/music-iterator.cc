@@ -77,7 +77,7 @@ Music_iterator::skip (Moment)
 }
 
 SCM
-Music_iterator::get_music (Moment)const
+Music_iterator::get_pending_events (Moment)const
 {
   return SCM_EOL;
 }

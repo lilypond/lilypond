@@ -84,7 +84,7 @@ Auto_change_iterator::pending_pitch (Moment m) const
   Array<Pitch> ps;
   while (1)
     {
-      SCM muses = iter->get_music (m);
+      SCM muses = iter->get_pending_events (m);
       for (SCM s = muses; gh_pair_p (s); s=ly_cdr (s))
 	if (Note_req* nr = dynamic_cast<Note_req*> (unsmob_music (ly_car (s))))
 	  {

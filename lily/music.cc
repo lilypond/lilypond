@@ -260,8 +260,7 @@ type does not yet offer many manipulations.
 {
   SCM_ASSERT_TYPE(gh_string_p(type), type, SCM_ARG1, __FUNCTION__, "string");
   
-  
-  SCM s = get_music (ly_scm2string (type))->self_scm ();
+  SCM s = make_music (ly_scm2string (type))->self_scm ();
   scm_gc_unprotect_object (s);
 
   return s;

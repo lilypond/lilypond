@@ -46,7 +46,7 @@ Request_chord_iterator::elt_l () const
 }
 
 SCM
-Request_chord_iterator::get_music (Moment) const
+Request_chord_iterator::get_pending_events (Moment) const
 {
   SCM s = SCM_EOL;
   if (last_processed_mom_ < Moment (0))
