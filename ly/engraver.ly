@@ -154,6 +154,12 @@ VoiceContext = \translator {
 	startUnaChorda = #"una chorda"
 	stopUnaChorda = #"tre chorde"
 
+	soloText = #"Solo"
+	soloIIText = #"Solo II"
+	aDueText = #"\\`a2"
+	soloADue = ##t
+	splitInterval = #'(0 . 1)
+
 	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";

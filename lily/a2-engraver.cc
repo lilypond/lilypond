@@ -28,7 +28,7 @@ protected:
 
 private:
   Item* text_p_;
-  enum State { NORMAL, UNISON, SOLO } state_;
+  enum State { NORMAL, SOLO, SPLIT_INTERVAL, UNISON } state_;
 };
 
 ADD_THIS_TRANSLATOR (A2_engraver);
@@ -42,58 +42,58 @@ A2_engraver::A2_engraver ()
 void
 A2_engraver::do_process_music ()
 {
-}
-
-
-void
-A2_engraver::acknowledge_element (Score_element_info i)
-{
   if (!text_p_)
     {
       SCM unison = get_property ("unison");
+      SCM unirhythm = get_property ("unirhythm");
       SCM solo = get_property ("solo");
+      SCM split_interval = get_property ("split-interval");
+      SCM solo_adue = get_property ("soloADue");
 
-      if ((solo == SCM_BOOL_T && state_ != SOLO)
-	  || (unison == SCM_BOOL_T && state_ != UNISON))
+      if (solo_adue == SCM_BOOL_T
+	  && ((solo == SCM_BOOL_T && state_ != SOLO)
+	      || (unison == SCM_BOOL_T && state_ != UNISON
+		  && daddy_trans_l_->id_str_ == "one")))
 	{
 	  text_p_ = new Item (get_property ("basicTextScriptProperties"));
 	  Side_position::set_axis (text_p_, Y_AXIS);
 	  announce_element (text_p_, 0);
       
-	  /*
-	    Urg, read prop
-	  */
-	  SCM text;
 	  Direction dir = UP;
+	  SCM text;
 	  if (solo == SCM_BOOL_T)
 	    {
 	      state_ = SOLO;
 	      if (daddy_trans_l_->id_str_ == "one")
-		text = ly_str02scm ("Solo");
+		{
+		  text = get_property ("soloText");
+		}
 	      else
 		{
-		  text = ly_str02scm ("Solo II");
+		  text = get_property ("soloIIText");
 		  dir = DOWN;
 		}
 	    }
 	  else if (unison == SCM_BOOL_T)
 	    {
-	      text = ly_str02scm ("\\`a 2");
 	      state_ = UNISON;
+	      if (daddy_trans_l_->id_str_ == "one")
+		text = get_property ("aDueText");
 	    }
 	  
 	  Side_position::set_direction (text_p_, dir);
 	  text_p_->set_elt_property ("text", text);
-
 	}
+      else if (unison == SCM_BOOL_T)
+	state_ = UNISON;
+      else if (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T)
+	state_ = SPLIT_INTERVAL;
     }
-#if 0
 }
 
 void
 A2_engraver::acknowledge_element (Score_element_info i)
 {
-#endif
   if (text_p_)
     {
       if (Note_head::has_interface (i.elem_l_))
@@ -115,26 +115,22 @@ A2_engraver::acknowledge_element (Score_element_info i)
     {
       Item *stem_l = dynamic_cast<Item*> (i.elem_l_);
 
-      SCM unirhythm = get_property ("unirhythm");
       SCM unison = get_property ("unison");
+      SCM unirhythm = get_property ("unirhythm");
       SCM solo = get_property ("solo");
-      SCM interval = get_property ("interval");
+      SCM split_interval = get_property ("split-interval");
+      SCM solo_adue = get_property ("soloADue");
 
-      /*
-	This still needs some work.
-       */
       if ((unirhythm != SCM_BOOL_T && solo != SCM_BOOL_T)
-	  || (unirhythm == SCM_BOOL_T
-	      && gh_number_p (interval) && gh_scm2int (interval) < 3))
+	  || (unirhythm == SCM_BOOL_T && split_interval == SCM_BOOL_T
+	      && (unison != SCM_BOOL_T || solo_adue != SCM_BOOL_T)))
 	{
 	  if (daddy_trans_l_->id_str_ == "one")
 	    {
-	      //Directional_element_interface (stem_l).set (UP);
 	      stem_l->set_elt_property ("direction", gh_int2scm (1));
 	    }
 	  else if (daddy_trans_l_->id_str_ == "two")
 	    {
-	      //Directional_element_interface (stem_l).set (DOWN);
 	      stem_l->set_elt_property ("direction", gh_int2scm (-1));
 	    }
 	}
