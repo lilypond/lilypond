@@ -15,7 +15,7 @@ covered under the GNU General Public License and all of the source is
 available on the official
 @uref{http://www.cs.ruu.nl/people/hanwen/lilypond/index.html,LilyPond
 Homepage}.  A full set of
-@uref{http://www.cs.ruu.nl/people/hanwen/lilypond/Documentation/tex/out-www/index.html,documentation}
+@uref{http://www.cs.ruu.nl/people/hanwen/lilypond/Documentation/out-www/index.html,documentation}
 in various formats is also available.
 
 
@@ -29,13 +29,10 @@ the GNU Project.
  @item BUG FIXES
   @itemize @bullet
    @item
-      @code{os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)  
-        os.error: (2, 'No such file or directory')}
-        This problem was reported by many and thoroughly debugged by
-	Wolf Lother.  We have abandoned the use of @code{os.getpid()}, which
-	for one reason or another resulted in negative numbers on
-	windows 95, in favor of the tempfile module.  We have also
-        attempted to use only one '.' in naming temporary files.
+        After a long absence and many enhancements and bug
+        fixes by the LilyPond team, that are too numerous to list, the
+        Windows NT 4.0/95 precompiled preformatted release 1.3.39 is
+        available.
   @end itemize
 @end table
 
@@ -130,7 +127,7 @@ LilyPond.
 
 @itemize @bullet
     @item 
-        @uref{http://www.snafu.de/~cschenk/miktex/,MiKTeX}. Versions
+        @uref{http://www.miktex.de/,MiKTeX}. Versions
         1.10b, 1.11, and 1.20b are known to work.
     @item 
         @uref{http://www.python.org,Python}. Version 1.5.1 and
@@ -147,6 +144,10 @@ LilyPond.
         @uref{lilypond-TOPLEVEL_VERSION-95.exe,lilypond-TOPLEVEL_VERSION-95}
     @item Windows NT 4.0
         @uref{lilypond-TOPLEVEL_VERSION-nt.exe,lilypond-TOPLEVEL_VERSION-nt}
+    @item Windows 95 (Latest Stable Release)
+        @uref{lilypond-1.2.0-95.exe,lilypond-1.2.0-95}
+    @item Windows NT 4.0 (Latest Stable Release)
+        @uref{lilypond-1.2.0-nt.exe,lilypond-1.2.0-nt}
 @end itemize
 
 @section Installation
@@ -204,7 +205,7 @@ LilyPond.
   @item 
         @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,LilyPond Ftp Site}
   @item 
-        @uref{http://jab.org/mail/gnu-music-discuss@@gnu.org/,gnu-music-discuss mail archive}
+        @uref{http://www.mail-archive.com/help-gnu-music@@gnu.org,gnu-music-discuss mail archive}
   @item Please feel free to mail us at @uref{mailto:gnu-music-discuss@@gnu.org,gnu-music-discuss}
 @end itemize
 

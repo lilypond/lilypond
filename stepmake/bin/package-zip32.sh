@@ -51,17 +51,17 @@ if ! make ; then
 fi
 
 # failure allowed
-make -C Documentation info
+#make -C Documentation info
 
 if ! make install ; then
     echo "make install failed"
     exit 1
 fi
 
-if ! make -C Documentation/man WWW ; then
-    echo "make -C documentation/man WWW failed"
-    exit 1
-fi
+#if ! make -C Documentation/man WWW ; then
+#    echo "make -C documentation/man WWW failed"
+#    exit 1
+#fi
 
 if ! make -C Documentation/ntweb WWW ; then
     echo "make -C documentation/ntweb WWW failed"
@@ -115,14 +115,14 @@ mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 #
 # copy man documentation to doc directory
 #
-mkdir $distdir/doc
-cp Documentation/man/out/*.html $distdir/doc
+#mkdir $distdir/doc
+#cp Documentation/man/out/*.html $distdir/doc
 
 #
 # copy web documentation to web directory
 #
 mkdir $distdir/web
-for i in index.html guile.patch angels.ly
+for i in index.html guile-1.3.4-gnu-windows.patch angels.ly
 do
   cp Documentation/ntweb/out/$i $distdir/web || exit 1
 done
