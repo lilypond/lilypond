@@ -26,25 +26,81 @@ Align_interface::alignment_callback (SCM element_smob, SCM axis)
   Grob * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_grob_property ("alignment-done")))
     {
-      Align_interface::do_side_processing (par, ax);
+      Align_interface::align_to_extents (par, ax);
     }
   return gh_double2scm (0.0);
 }
 
+MAKE_SCHEME_CALLBACK(Align_interface,fixed_distance_alignment_callback,2);
+SCM
+Align_interface::fixed_distance_alignment_callback (SCM element_smob, SCM axis)
+{
+  Grob * me = unsmob_grob (element_smob);
+  Axis ax = (Axis )gh_scm2int (axis);
+  Grob * par = me->parent_l (ax);
+  if (par && !to_boolean (par->get_grob_property ("alignment-done")))
+    {
+      Align_interface::align_to_fixed_distance (par, ax);
+    }
+  return gh_double2scm (0.0);
+}
+
+void
+Align_interface::align_to_fixed_distance (Grob *me , Axis a)
+{
+  me->set_grob_property ("alignment-done", SCM_BOOL_T);
+  
+  SCM d =   me->get_grob_property ("stacking-dir");
+
+  
+  Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
+  if (!stacking_dir)
+    stacking_dir = DOWN;
+
+
+  SCM force = me->get_grob_property ("forced-distance");
+
+  Real dy = 0.0;
+  if (gh_number_p (force))
+    {
+      dy = gh_scm2double (force);
+    }
+  
+  Link_array<Grob> elems
+    = Pointer_group_interface__extract_elements (  me, (Grob*) 0, "elements");
+  Real where_f=0;
+  for (int j=0 ;  j < elems.size(); j++) 
+    {
+      where_f += stacking_dir * dy;
+      elems[j]->translate_axis (where_f, a);
+    }
+}
 
 /*
   Hairy function to put elements where they should be. Can be tweaked
   from the outside by setting minimum-space and extra-space in its
   children */
 void
-Align_interface::do_side_processing (Grob * me, Axis a)
+Align_interface::align_to_extents (Grob * me, Axis a)
 {
   me->set_grob_property ("alignment-done", SCM_BOOL_T);
   
   SCM d =   me->get_grob_property ("stacking-dir");
+
+  
   Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
+
+
+  
+  Interval threshold = Interval (0, Interval::infinity ());
+  SCM thr = me->get_grob_property ("threshold");
+  if (gh_pair_p (thr))
+    {
+      threshold[SMALLER] = gh_scm2double (gh_car (thr));
+      threshold[BIGGER] = gh_scm2double (gh_cdr (thr));      
+    }
 
   
   Array<Interval> dims;
@@ -82,24 +138,16 @@ Align_interface::do_side_processing (Grob * me, Axis a)
 	  dims.push (y);	  
 	}
     }
-
   
-  Interval threshold = Interval (0, Interval::infinity ());
-  SCM thr = me->get_grob_property ("threshold");
-  if (gh_pair_p (thr))
-    {
-      Real ss = 1.0;
-      threshold[SMALLER] = ss *gh_scm2double (gh_car (thr));
-      threshold[BIGGER] = ss * gh_scm2double (gh_cdr (thr));      
-    }
-
+ 
   Real where_f=0;
   for (int j=0 ;  j < elems.size(); j++) 
     {
-      Real dy = - stacking_dir * dims[j][-stacking_dir];
+      Real dy = 0.0;
+      dy = - stacking_dir * dims[j][-stacking_dir];
       if (j)
 	dy += stacking_dir * dims[j-1][stacking_dir];
-
+      
       if (j)
 	{
 	  dy = (dy >? threshold[SMALLER] )
@@ -138,9 +186,9 @@ Align_interface::get_count (Grob*me,Grob*s)
 }
 
 void
-Align_interface::add_element (Grob*me,Grob* s)
+Align_interface::add_element (Grob*me,Grob* s, SCM cb)
 {
-  s->add_offset_callback (Align_interface::alignment_callback_proc, Align_interface::axis (me));
+  s->add_offset_callback (cb, Align_interface::axis (me));
   Axis_group_interface::add_element (me, s);
 }
 

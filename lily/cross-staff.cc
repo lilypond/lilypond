@@ -4,6 +4,8 @@
 #include "spanner.hh"
 #include "warn.hh"
 #include "paper-def.hh"
+
+
 /*
   JUNKME
  */
@@ -16,16 +18,12 @@ calc_interstaff_dist (Item  *item, Spanner  *span)
 
   if (Align_interface::has_interface (common) && Align_interface::axis(common) == Y_AXIS)
     {
-      SCM threshold = common->get_grob_property ("threshold");
-      if (!gh_pair_p (threshold)
-	  || !scm_equal_p (gh_car (threshold), gh_cdr (threshold)))
-	warning (_ ("minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"));
-
-
-      
+      SCM threshold = common->get_grob_property ("forced-distance");
       interstaff = 1.0;
-      if (gh_pair_p (threshold))
-	interstaff =  gh_scm2double (gh_car (threshold)) * interstaff;
+      if (!gh_number_p (threshold))
+	warning (_ ("not a forced distance; cross-staff spanners may be broken"));
+      else
+	interstaff *= gh_scm2double (threshold);
 
       Grob  * span_refpoint = span;
       while (span_refpoint->parent_l  (Y_AXIS) != common)

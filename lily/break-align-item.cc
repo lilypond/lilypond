@@ -169,7 +169,7 @@ Break_align_interface::do_alignment (Grob *me)
   /*
     Force callbacks for alignment to be called   
   */
-  Align_interface::do_side_processing (me, X_AXIS);
+  Align_interface::align_to_extents (me, X_AXIS);
 
   Real pre_space = elems[0]->relative_coordinate (column, X_AXIS);
 
