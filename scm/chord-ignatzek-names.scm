@@ -238,7 +238,7 @@ work than classifying the pitches."
        (root (car in-pitches))
        (pitches (map (lambda (x) (ly:pitch-diff x root)) (cdr in-pitches)))
        (exceptions (ly:context-property context 'chordNameExceptions))
-       (exception (assoc-get-default pitches exceptions #f))
+       (exception (assoc-get pitches exceptions))
        (prefixes '())
        (suffixes '())
        (add-steps '())

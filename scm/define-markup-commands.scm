@@ -265,10 +265,7 @@ accordingly."
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 "
   (ly:find-glyph-by-name
-   (ly:paper-get-font paper (cons '((font-name . ())
-                                    (font-shape . *)
-                                    (font-series . *)
-                                    (font-family . music))
+   (ly:paper-get-font paper (cons '((font-encoding . music))
                                   props))
    glyph-name))
 
@@ -330,7 +327,7 @@ and/or @code{extra-offset} properties. "
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
   
-  (let* ((font (ly:paper-get-font paper (cons '((font-family .  music)) props)))
+  (let* ((font (ly:paper-get-font paper (cons '((font-encoding . music)) props)))
          (stemlen (max 3 (- log 1)))
          (headgl (ly:find-glyph-by-name
                   font

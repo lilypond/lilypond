@@ -54,4 +54,4 @@ ADD_INTERFACE (Font_interface, "font-interface",
 	       "Any symbol that is typeset through fixed sets of glyphs, "
 	       " (ie. fonts)",
 	       "font-magnification font font-series font-shape "
-	       "font-family font-name font-size");
+	       "font-family font-encoding font-name font-size");
