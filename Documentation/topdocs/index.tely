@@ -9,11 +9,13 @@
 
 @unnumbered LilyPond -- The @uref{http://www.fsf.org/gnu/gnu-history.html,GNU Project} Music Typesetter
 
+@center
 @quotation
 @mudela[fragment]
 	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 @end mudela 
 @end quotation
+@end center
 
 @c include BLURB?
 
@@ -25,7 +27,7 @@ the GNU Project.
 
 
 
-@unnumberedsec View sheet music
+@unnumberedsec Sheet music
     
 
 @itemize @bullet
