@@ -1,5 +1,9 @@
 2004-01-06  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* lily/include/scm-hash.hh (class Scheme_hash_table): idem.
+
+	* flower/include/interval.hh: rename elem_b to contains 
+
 	* lily/tie.cc: change 'heads to 'head-pair.
 
 	* lily/lyric-phrasing-engraver.cc (process_acknowledged_grobs):

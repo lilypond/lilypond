@@ -457,7 +457,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  gap.add_point (gap1);
 	  gap.add_point (gap2);
 
-	  if (gap.elem_b (radius))
+	  if (gap.contains (radius))
 	    dem += extra_demerit;
 	}
       while ((flip (&d))!= LEFT); 
