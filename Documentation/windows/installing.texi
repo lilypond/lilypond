@@ -63,29 +63,37 @@ Options:
 @end quotation
 
 Then, prepare a file called @file{foo.ly}, by issuing
+@quotation
 @example
 notepad foo.ly
 @end example
+@end quotation
 Enter the following into the file
+@quotation
 @example
 
 \score @{ \notes @{ c4 ( ) c4 @} @}
 
 @end example
+@end quotation
 Close the file and save it. Run the following command a few times (at
 least three times) until it says @code{PS output to `foo.ps', DVI output
 to `foo.dvi'}.
+@quotation
 @example
 
 ly2dvi -P foo
 
 @end example
+@end quotation
 You can now view the file using the following command
+@quotation
 @example
 
 gsview32 foo.ps
 
 @end example
+@end quotation
 
 If this works, then you can head to the
 @uref{../../user/out-www/lilypond/Tutorial.html,Tutorial} to start using
@@ -123,17 +131,21 @@ bugreport. A bugreport includes
 system)
 @item All version numbers of relevant software you run.  Specifically, we
 want to see the output of the  following commands: 
+@quotation
 @example
   python --version
   lilypond --version
   ly2dvi --version
-  gswin32  --version
+  gswin32c  --version
 @end example
+@end quotation
 @item If ly2dvi fails, then please run it as follows and include the
   output in the 
+@quotation
 @example
   ly2dvi --verbose MY-FILE
 @end example
+@end quotation
 @end itemize
 
 You can also check out

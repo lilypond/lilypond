@@ -1,3 +1,8 @@
+2002-04-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: Suggest gswin32c (console
+	program) for getting the version.  Layout fixes.
+
 2002-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/tutorial.itely (Running LilyPond):  Separate
