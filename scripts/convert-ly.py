@@ -35,7 +35,7 @@ add_version = 1
 
 
 def program_id ():
-	return '%s (GNU LilyPond) %s' %(program_name,  version);
+	return '%s (GNU LilyPond) %s' % (program_name, version)
 
 def identify ():
 	sys.stderr.write (program_id () + '\n')
@@ -49,9 +49,9 @@ input is guessed by default from \version directive.
 Options:
   -h, --help             print this help
   -e, --edit             edit in place
-  -f, --from=VERSION     start from version; overrides \version found in file
+  -f, --from=VERSION     start from version [default: \version found in file]
   -s, --show-rules       print all rules
-  -t, --to=VERSION       show target version
+  -t, --to=VERSION       end at version [default: @TOPLEVEL_VERSION@]
   -n, --no-version       don't add new version stamp
       --version          print program version
 
@@ -71,37 +71,22 @@ License, and you are welcome to change it and/or distribute copies of
 it under certain conditions.  invoke as `%s --warranty' for more
 information.
 
-""" % (program_id() , program_name))
+""" % (program_id (), program_name))
 	
-def gulp_file(f):
-	try:
-		i = open(f)
-		i.seek (0, 2)
-		n = i.tell ()
-		i.seek (0,0)
-	except:
-		print 'can\'t open file: ' + f + '\n'
-		return ''
-	s = i.read (n)
-	if len (s) <= 0:
-		print 'gulped empty file: ' + f + '\n'
-	i.close ()
-	return s
-
 def str_to_tuple (s):
-	return tuple (map (string.atoi, string.split (s,'.')))
+	return tuple (map (string.atoi, string.split (s, '.')))
 
 def tup_to_str (t):
 	return string.join (map (lambda x: '%s' % x, list (t)), '.')
 
 def version_cmp (t1, t2):
-	for x in [0,1,2]:
+	for x in [0, 1, 2]:
 		if t1[x] - t2[x]:
 			return t1[x] - t2[x]
 	return 0
 
 def guess_lilypond_version (filename):
-	s = gulp_file (filename)
+	s = open (filename).read ()
 	m = lilypond_version_re.search (s)
 	if m:
 		return m.group (2)
@@ -115,7 +100,9 @@ conversions = []
 
 def show_rules (file):
 	for x in conversions:
-		file.write  ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
+		if (not from_version or x[0] > from_version) \
+		   and (not to_version or x[0] <= to_version):
+			file.write  ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
 
 ############################
 		
@@ -2080,7 +2067,7 @@ conversions.append (((2,1, 36), conv,
 def conv (str):
 	return str
 
-conversions.append (((2,2, 0), conv,
+conversions.append (((2, 2, 0), conv,
 		     '''clean up version. '''))
 
 def conv (str):
@@ -2248,7 +2235,7 @@ def do_conversion (infile, from_version, outfile, to_version):
 	last_conversion = ()
 	try:
 		for x in conv_list:
-			sys.stderr.write (tup_to_str (x[0])  + ', ')
+			sys.stderr.write (tup_to_str (x[0]) + ', ')
 			str = x[1] (str)
 			last_conversion = x[0]
 
@@ -2260,11 +2247,11 @@ def do_conversion (infile, from_version, outfile, to_version):
 		new_ver =  '\\version \"%s\"' % tup_to_str (last_conversion)
 
 		if re.search (lilypond_version_re_str, str):
-			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
+			str = re.sub (lilypond_version_re_str,'\\'+new_ver, str)
 		elif add_version:
 			str = new_ver + '\n' + str
 
-		outfile.write(str)
+		outfile.write (str)
 
 	return last_conversion
 	
@@ -2284,7 +2271,7 @@ def do_one_file (infile_name):
 	else:
 		guess = guess_lilypond_version (infile_name)
 		if not guess:
-			raise UnknownVersion()
+			raise UnknownVersion ()
 		from_version = str_to_tuple (guess)
 
 	if __main__.to_version:
@@ -2327,17 +2314,20 @@ assume_old = 0
 to_version = ()
 from_version = ()
 outfile_name = ''
+show_rules_p = 0
 
-(options, files) = getopt.getopt (
-	sys.argv[1:], 'ao:f:t:senh', ['no-version', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
+(options, files) = getopt.getopt (sys.argv[1:], 'ao:f:t:senh',
+				  ['no-version', 'version', 'output',
+				  'show-rules', 'help', 'edit',
+				  'from=', 'to='])
 
 for opt in options:
 	o = opt[0]
 	a = opt[1]
-	if o== '--help' or o == '-h':
+	if o == '--help' or o == '-h':
 		usage ()
 		sys.exit (0)
-	if o == '--version' or o == '-v':
+	elif o == '--version' or o == '-v':
 		print_version ()
 		sys.exit (0)
 	elif o== '--from' or o=='-f':
@@ -2347,8 +2337,7 @@ for opt in options:
 	elif o== '--edit' or o == '-e':
 		edit = 1
 	elif o== '--show-rules' or o == '-s':
-		show_rules (sys.stdout)
-		sys.exit(0)
+		show_rules_p = 1
 	elif o == '--output' or o == '-o':
 		outfile_name = a
 	elif o == '--no-version' or o == '-n':
@@ -2357,6 +2346,11 @@ for opt in options:
 		print o
 		raise getopt.error
 
+# should parse files[] to read \version?
+if show_rules_p:
+	show_rules (sys.stdout)
+	sys.exit (0)
+		
 identify ()
 for f in files:
 	if f == '-':
@@ -2371,7 +2365,7 @@ for f in files:
 		sys.stderr.write ('\n')
 		if assume_old:
 			fv = from_version
-			from_version = (0,0,0)
+			from_version = (0, 0, 0)
 			do_one_file (f)
 			from_version = fv
 		else:

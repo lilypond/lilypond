@@ -1,3 +1,8 @@
+2004-10-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/convert-ly.py (usage): Fix --help description.  Apply
+	range also for --show-rules.
+
 2004-10-18  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.py (Snippet, Include_snippet)
