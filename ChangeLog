@@ -1,5 +1,7 @@
 2004-07-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/*.scm: adapt ly:warn calls.
+
 	* lily/lily-guile.cc (LY_DEFINE): use format on ly:warn arguments.
 
 	* lily/repeat-acknowledge-engraver.cc (process_music): look at
