@@ -22,8 +22,8 @@
 ;;; You need:
 ;;;
 ;;;   * Rotty's g-wrap >= 1.9.1 (or TLA)
-;;;   * guile-gnome-platform >= 2.5.990 (or TLA)
-;;;   * pango >= 1.5.1 (or CVS)
+;;;   * guile-gnome-platform >= 2.5.992 (or TLA)
+;;;   * pango >= 1.5.2 (or CVS)
 ;;;
 ;;; See also: guile-gtk-general@gnu.org
 
@@ -159,9 +159,7 @@ lilypond-bin -fgnome input/simple-song.ly
 	  (move item
 		(* output-scale (+ (car system-origin) x))
 		(* output-scale (- (car system-origin) y)))
-	  ;; UGH latest guile-gnome is broken
-	  (if (defined? 'affine-relative)
-	      (affine-relative item output-scale 0 0 output-scale 0 0))
+	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  item)
 	#f)))
 
@@ -219,15 +217,9 @@ lilypond-bin -fgnome input/simple-song.ly
   
   (make <gnome-canvas-text>
     #:parent (canvas-root)
-    
-    ;; experimental text placement corrections.
-    ;; UGHR?  What happened to tex offsets?  south-west?
-    ;; is pango doing something 'smart' wrt baseline ?
-    #:anchor 'south-west
-    #:x 0.003 #:y 0.123
-    
-    ;;#:anchor 'west
-    ;;#:x 0.015 #:y -3.71
+
+    #:anchor 'west
+    #:x 0.0 #:y 0.0
     
     #:font (pango-font-name font)
     
