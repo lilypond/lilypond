@@ -15,7 +15,7 @@ EndMudelaHeader
 % scales with accents.
 %
 
-\version "0.1.0";
+\version "0.1.1";
 blah = 	\melodic {
 		\meter 6/8;	
 		\octave  'c ;

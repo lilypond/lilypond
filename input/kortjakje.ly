@@ -5,12 +5,12 @@
  description:  bare bones version. (written down from memory :-)
  composers: Mozart, KV 265
  entered-by: HWN
- copyright: none
+ copyright: PD
 
  Tested Features: example file with comments
 EndMudelaHeader
 %}
-\version "0.1.0";
+\version "0.1.1";
 
 
 % the % is a comment.
