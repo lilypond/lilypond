@@ -88,12 +88,7 @@ write_dependency_file (String fn,
       String dep = deps[i];
       if (!dependency_prefix_global.empty_b ())
 	{
-#if 0//thinko?
-	  if (stat (dep.to_str0 (), &stat_buf) == -1 && errno == ENOENT)
-	    ; //make emacs happy
-#else
 	  if (dep.index ('/') < 0)
-#endif
 	    dep = dependency_prefix_global + dep;
 	}
       out  += " " +  dep;

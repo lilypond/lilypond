@@ -125,14 +125,10 @@ Slur_engraver::finalize ()
 {
   for (int i = 0; i < slur_stack_.size (); i++)
     {
-#if 0
-      typeset_grob (slur_stack_[i]);
-#else
       /*
 	Let's not typeset unterminated stuff
        */
       slur_stack_[i]->suicide ();
-#endif     
     }
   slur_stack_.clear ();
 

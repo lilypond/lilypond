@@ -186,9 +186,6 @@ Ambitus_engraver::finalize ()
 	   * most probably arises from an empty voice, such as shared
 	   * global timesig/clef definitions.
 	   */
-#if 0
-	  ambitus_->warning("empty ambitus range [ignored]");
-#endif
 	  ambitus_->suicide();
 	}
     }

@@ -188,12 +188,6 @@ Moment::operator /= (Moment const &src)
 }
 
 
-#if 0
-Moment::operator Rational()
-{
-  return main_part_;
-}
-#endif
 
 int
 Moment::den () const { return main_part_.den (); }

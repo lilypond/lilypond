@@ -561,6 +561,8 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 
     TODO: deprecate the use of \override and \revert for
     autoBeamSettings?
+
+    or use a symbol autoBeamSettingS?  
    */
   return true; 
 #endif

@@ -155,15 +155,10 @@ LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 
   Molecule m =  fm->find_by_name (ly_scm2string (name));
 
-#if 0
   /*
-    should add to calling interface.
+    TODO: make optional argument for default if not found.
+    
    */
-  if (m.get_expr () != SCM_EOL)
-    return m.smobbed_copy ();
-  else
-    return SCM_BOOL_F;
-#endif
   return m.smobbed_copy ();
 }
 

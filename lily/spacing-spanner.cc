@@ -826,9 +826,6 @@ Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool 
        */
       Rational ratio = d.main_part_ / shortest;
 
-#if 0
-      *expand_only = true;
-#endif
       return ((k-1) + double (ratio)) * incr;
     }
   else

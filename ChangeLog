@@ -1,5 +1,7 @@
 2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/*.cc: remove #if 0'd code in couple of places.
+
 	* lily/midi-stream.cc (operator <<): rewrite.
 
 	* lily/note-head.cc (internal_brew_molecule): 

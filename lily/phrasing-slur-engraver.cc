@@ -107,14 +107,10 @@ Phrasing_slur_engraver::finalize ()
 {
   for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
     {
-#if 0
-      typeset_grob (phrasing_slur_l_stack_[i]);
-#else
       /*
 	Let's not typeset unterminated stuff
       */
       phrasing_slur_l_stack_[i]->suicide ();
-#endif     
     }
   phrasing_slur_l_stack_.clear ();
 

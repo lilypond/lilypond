@@ -30,11 +30,7 @@
 Molecule
 brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_points)
 {
-#if 0
-  Real blotdiameter = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
-#else
   Real blotdiameter = Staff_symbol_referencer::staff_space (me)/2;
-#endif
 
   Real padding;
   SCM padding_scm = me->get_grob_property ("padding");

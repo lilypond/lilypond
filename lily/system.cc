@@ -201,31 +201,6 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	}
       while (1);
       
-    
-#if 0
-      Real rx = right->relative_coordinate (right->get_parent (X_AXIS), X_AXIS);
-      Real lx = left->relative_coordinate (left->get_parent (X_AXIS), X_AXIS);
-
-      /*
-	divide space equally over loose columns.
-       */
-      int j = 1;
-      loose = col;
-      while (1)
-	{
-	  SCM between = loose->get_grob_property ("between-cols");
-	  if (!gh_pair_p (between))
-	    break;
-
-	  Paper_column *thiscol = dynamic_cast<Paper_column*> (loose);
-
-	  thiscol->system_ = which;
-	  thiscol->translate_axis (lx + j*(rx - lx)/divide_over, X_AXIS);
-
-	  j ++;	
-	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
-	}
-#else
       /*
 	We divide the remaining space of the column over the left and
 	right side. At the moment, we  
@@ -263,7 +238,6 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 
       col->system_ = which;
       col->translate_axis (lx + dx - cval[LEFT], X_AXIS); 
-#endif
     }
 }
 
