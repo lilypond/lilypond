@@ -145,14 +145,11 @@
 
 (define (dashed-line thick on off dx dy)
   (string-append 
-   (ly:number->string dx)
-   " "
-   (ly:number->string dy)
-   " "
+   (ly:number->string dx) " "
+   (ly:number->string dy) " "
    (ly:number->string thick)
    " [ "
-   (ly:number->string on)
-   " "
+   (ly:number->string on) " "
    (ly:number->string off)
    " ] 0 draw_dashed_line"))
 
@@ -393,9 +390,8 @@
 
 (define (polygon points blotdiameter)
   (string-append
-   " "
-   (ly:numbers->string points)
-   (ly:number->string (/ (length points) 2))
+   (ly:numbers->string points) " "
+   (ly:number->string (/ (length points) 2)) " "
    (ly:number->string blotdiameter)
    " draw_polygon"))
 
@@ -439,16 +435,12 @@
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (string-append
-    (if centre? "true" "false")
-    " "
-    (ly:number->string zzw)
-    " "
-    (ly:number->string zzh)
-    " "
-    (ly:number->string thick)
-    " 0 0 "
-    (ly:number->string dx)
-    " "
+    (if centre? "true" "false") " "
+    (ly:number->string zzw) " "
+    (ly:number->string zzh) " "
+    (ly:number->string thick) " "
+    "0 0 "
+    (ly:number->string dx) " "
     (ly:number->string dy)
     " draw_zigzag_line"))
 
