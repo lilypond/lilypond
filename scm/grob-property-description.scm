@@ -143,6 +143,7 @@ mean centre distance weighted per note
 (grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
 (grob-property-description 'dy number? "set by beam: vertical travel height")
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height).")
+(grob-property-description 'edge-width pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
 (grob-property-description 'elements list? "list of grobs, type depending on the Grob where this is set in.")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
@@ -272,6 +273,7 @@ more than this (in staffspace).")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket .")
 (grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
+(grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed")
 (grob-property-description 'penalty number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions
@@ -279,6 +281,7 @@ as a real penalty.")
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
+(grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")
@@ -292,6 +295,8 @@ reference point.
 
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
+(grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")
+
 (grob-property-description 'shortest-playing-duration moment? "duration of the shortest playing in that column.")
 (grob-property-description 'shortest-starter-duration moment? "duration of the shortest notes that starts exactly in this column.")
 (grob-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
