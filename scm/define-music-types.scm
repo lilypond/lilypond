@@ -556,7 +556,7 @@ Syntax @code{\\outputproperty @var{predicate} @var{prop}
 Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
-	(internal-class-name . "Time_scaled_music")
+	(internal-class-name . "Music_wrapper")
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))

@@ -516,6 +516,11 @@ Stem::height (SCM smob, SCM ax)
   if (Grob *b = get_beam (me))
     {
       Direction d = get_direction (me);
+      if (d == CENTER)
+	{
+	  programming_error ("No stem direction");
+	  d = UP;
+	}
       iv[d] += d * Beam::get_thickness (b) * 0.5 ;
     }
 

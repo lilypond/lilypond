@@ -98,7 +98,7 @@ Music::get_length () const
       return *unsmob_moment (res);
     }
 
-  return *unsmob_moment (scm_call_1 (length_callback_, self_scm ()));
+  return Moment(0);
 }
 
 Moment
