@@ -7,7 +7,6 @@
 */
 
 #include "event.hh"
-
 #include "warn.hh"
 
 Moment
