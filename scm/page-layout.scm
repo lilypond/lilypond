@@ -36,9 +36,14 @@
 (define-public (plain-header paper scopes page-number last?)
   "Standard header for a part: page number --outside--  and instrument--centered."
 
-  (let* ((props (page-properties paper) )
-	 (pnum (markup #:bold (number->string page-number)))
+  (let* ((props (page-properties paper))
+	 (pnum
+	  (if (ly:output-def-lookup paper 'printpagenumber)
+	      (markup #:bold (number->string page-number))
+	      ""
+	      ))
 	 (instr (ly:modules-lookup scopes 'instrument))
+	 
 	 (line (list "" (if (markup? instr) instr "") pnum)))
 
     (if (even? page-number)

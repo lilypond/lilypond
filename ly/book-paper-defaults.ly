@@ -8,7 +8,7 @@
     cm = #(* 10 mm)
 
     inputencoding = #"TeX"
-    
+    printpagenumber = ##t
    %
    % 20pt staff, 5 pt = 1.75 mm
    %

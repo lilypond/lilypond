@@ -2218,6 +2218,9 @@ The default layout responds to the following settings in the
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
 
+
+
+
 @cindex copyright
 @cindex tagline
 
@@ -2229,6 +2232,15 @@ tagline is ``Engraved by LilyPond (@var{version})''.
 The header and footer are created by the functions @code{make-footer}
 and @code{make-header}, defined in @code{\bookpaper}. The default
 implementations are in @file{scm/page-layout.scm}.
+
+The following settings influence the header and footer layout.
+
+@table @code
+@item printpagenumber
+  this boolean controls whether a pagenumber is printed. 
+@end table
+
+
 
 The page layout itself is done by two functions:
 @code{page-music-height} and @code{page-make-stencil}. The former
