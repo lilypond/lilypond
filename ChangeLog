@@ -10,6 +10,8 @@
 	Documentation/user/music-glossary.tely: changed copyright
 	date to 2005 instead of 2004.
 
+	* input/test/volta-chord-names.ly: added old example back.
+
 2005-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/feta-beugel.mf: use design size 20 (not 15).
