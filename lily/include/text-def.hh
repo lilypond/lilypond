@@ -15,27 +15,27 @@
 class Text_def : public General_script_def 
 {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    VIRTUAL_COPY_CONS(Text_def,General_script_def);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  VIRTUAL_COPY_CONS(Text_def,General_script_def);
 
-    /**
-      centered , or aligned?
+  /**
+     centered , or aligned?
 
-      -1 = raggedright, 0 = center, 1 = raggedleft
-     */
-    Direction align_i_;
+     -1 = raggedright, 0 = center, 1 = raggedleft
+  */
+  Direction align_i_;
 
-    String text_str_;
-    String style_str_;
+  String text_str_;
+  String style_str_;
     
-    virtual void do_print() const;
-    virtual Direction staff_dir() const;
-    virtual Atom get_atom (Paper_def* p, Direction dir_) const;
-    virtual ~Text_def() {};
-    virtual bool do_equal_b (const General_script_def*) const;
-    Text_def();
-    virtual void print() const;
-    Interval width (Paper_def*) const;
+  virtual void do_print() const;
+  virtual Direction staff_dir() const;
+  virtual Atom get_atom (Paper_def* p, Direction dir_) const;
+  virtual ~Text_def() {};
+  virtual bool do_equal_b (const General_script_def*) const;
+  Text_def();
+  virtual void print() const;
+  virtual Interval width (Paper_def*) const;
 };
 
 #endif // TEXT_DEF_HH

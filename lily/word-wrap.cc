@@ -41,6 +41,7 @@ Word_wrap::do_solve() const
       // do  another line
       line_no_i ++;
       Paper_column *post = breakpoints[break_idx_i]->postbreak_l();
+      int start_break_idx = break_idx_i;
       current.add (post);
       curcol++;		// skip the breakable.
       break_idx_i++;
@@ -75,7 +76,6 @@ Word_wrap::do_solve() const
 	    }
 	  else
 	    {
-
 	      current.solve_line();
 	      current.print();
 	    }
@@ -83,7 +83,13 @@ Word_wrap::do_solve() const
 	  delete current.spacer_l_;
 	  current.spacer_l_ =0;
 
-	  // update minimum, or backup.
+	  if (!current.satisfies_constraints_b_ && start_break_idx == break_idx_i - 1)
+	    {
+	      warning ( _ ("I don't fit.  Put me on Montignac"));
+	      minimum = current;
+	      break;
+	    }
+
 	  if (current.energy_f_ < minimum.energy_f_ || current.energy_f_ < 0)
 	    {
 	      minimum = current;

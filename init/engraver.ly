@@ -14,7 +14,9 @@ Staff = \translator {
 	  \consists "Staff_sym_engraver";
 	  \consists "Collision_engraver";
 	  \consists "Rest_collision_engraver";
+	\consists "Separating_line_group_engraver";
 	  \consists "Line_group_engraver";
+	  
 	  \accepts "Voice";
 }
 
@@ -78,6 +80,7 @@ Lyric_voice =
 \translator{
 	\type "Engraver_group_engraver";
 
+	\consists "Separating_line_group_engraver";
 	\consists "Lyric_engraver";
 	\consists "Line_group_engraver";
 	\consists "Beam_req_swallow_translator";
