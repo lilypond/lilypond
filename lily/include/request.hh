@@ -53,12 +53,13 @@ public:
 */
 class Span_req  : public virtual Request  {
 public:
-  /// should the spanner start or stop, or is it unwanted?
-  Direction span_dir_;
   String span_type_str_;
+  void set_span_dir (Direction d);
+  Direction get_span_dir () const;  
   
   Span_req();
 protected:
+  
   virtual bool do_equal_b (Request const*) const;
 
   VIRTUAL_COPY_CONS(Music);

@@ -134,7 +134,7 @@ Piano_pedal_performer::do_try_music (Music* r)
 	{
 	  if (s->span_type_str_ == String (p->name_))
 	    {
-	      p->req_l_drul_[s->span_dir_] = s;
+	      p->req_l_drul_[s->get_span_dir()] = s;
 	      return true;
 	    }
 	}

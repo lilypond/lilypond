@@ -29,8 +29,8 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
       melisma_stop_req = new Melisma_req;
       melisma_start_req = new Melisma_req;      
     }
-  melisma_start_req->span_dir_ = START;
-  melisma_stop_req->span_dir_ = STOP;
+  melisma_start_req->set_span_dir (START);
+  melisma_stop_req->set_span_dir (STOP);
   
   music_iter_p_ =0;
   lyric_iter_p_ =0;

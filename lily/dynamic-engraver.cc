@@ -112,7 +112,7 @@ Dynamic_engraver::do_try_music (Music * m)
       else if ((s->span_type_str_ == "crescendo"
 	   || s->span_type_str_ == "decrescendo"))
 	{
-	  accepted_spanreqs_drul_[s->span_dir_] = s;
+	  accepted_spanreqs_drul_[s->get_span_dir()] = s;
 	  return true;
 	}
     }
@@ -219,7 +219,7 @@ Dynamic_engraver::do_process_music ()
       if (current_cresc_req_)
 	{
 	  accepted_spanreqs_drul_[START]->origin ()->warning
-	    (current_cresc_req_->span_dir_ == 1
+	    (current_cresc_req_->get_span_dir() == 1
 	     ? _ ("already have a crescendo")
 	     : _ ("already have a decrescendo"));
 	}

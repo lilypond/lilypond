@@ -75,11 +75,11 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
     {
       if (sp->span_type_str_ == "rest")
 	{
-	  if (sp->span_dir_ == STOP)
+	  if (sp->get_span_dir() == STOP)
 	    {
 	      stop_req_l_ = sp;
 	    }
-	  else if (sp->span_dir_ == START && !new_req_l_)
+	  else if (sp->get_span_dir() == START && !new_req_l_)
 	    {
 	      new_req_l_ = sp;
 	    }
