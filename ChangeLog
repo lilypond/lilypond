@@ -1,3 +1,8 @@
+2003-01-12  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: propose recompiling midi while invoking playing,
+	not while stopping playing.
+
 2003-01-11  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond.words: add one.
