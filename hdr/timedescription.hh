@@ -7,32 +7,32 @@
 #ifndef tdes_HH
 #define tdes_HH
 
-#include "real.hh"
 #include "moment.hh"
 
 /// full info on where we are
 struct Time_description {
-    Moment when;
+    Moment when_;
 
     /// if true, no bars needed, no reduction of whole_in_measure
     bool cadenza_b_;
     
     /// current measure info
-    Moment whole_per_measure;
+    Moment whole_per_measure_;
 
     /// where am i 
-    Moment whole_in_measure;
+    Moment whole_in_measure_;
 
     /// how long is one beat?
-    Moment one_beat;
+    Moment one_beat_;
 
     /// idem
-    int bars;
+    int bars_i_;
 
     /* *************** */
     void set_cadenza(bool);
     void OK() const;
-    Time_description(Moment, const Time_description*);
+    Time_description();
+    void add(Moment dt);
     String str()const;
     void print() const;
     void setpartial(Moment p);
