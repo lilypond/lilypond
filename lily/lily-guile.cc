@@ -832,23 +832,6 @@ LY_DEFINE (ly_protects, "ly:protects",
   return scm_protects;
 }
 
-
-#if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
-
-#include "pangofc-afm-decoder.hh"
-
-LY_DEFINE (ly_pango_add_afm_decoder, "ly:pango-add-afm-decoder",
-	   1, 0, 0, (SCM font_family),
-	   "Add pango afm decoder for FONT-FAMILY.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (font_family), font_family, SCM_ARG1,
-		   __FUNCTION__, "font_family");
-  pango_fc_afm_add_decoder (ly_scm2newstr (font_family, 0));
-  return SCM_UNSPECIFIED;
-}
-
-#endif
-
 LY_DEFINE (ly_gettext, "ly:gettext",
 	   1, 0, 0, (SCM string),
 	   "Gettext wrapper.")
