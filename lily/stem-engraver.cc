@@ -149,6 +149,12 @@ Stem_engraver::stop_translation_timestep ()
 	 aargh: I don't get it.  direction is being set (and then set
 	 to forced), if we have a Chord_tremolo.
        */
+
+      /*
+	Why the separate check for forced directions? --hwn.
+
+	(docme)
+       */
       SCM dir = stem_p_->get_grob_property ("direction");
       if (gh_number_p (dir) && to_dir (dir))
 	{

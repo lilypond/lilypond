@@ -182,7 +182,7 @@ Porrectus::brew_molecule (SCM smob)
       line_thickness = 1.0;
     }
   Real thickness =
-    line_thickness * me->paper_l ()->get_var ("stafflinethickness");
+    line_thickness * me->paper_l ()->get_var ("linethickness");
 
   SCM porrectus_width_scm = me->get_grob_property ("width");
   Real porrectus_width;

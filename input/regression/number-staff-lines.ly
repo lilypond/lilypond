@@ -8,7 +8,7 @@ adjusted.  "
 
 \score { 
 \context Voice \notes\relative c {
-	c' c c c | g' g g g 	
+	c' c c c | g' g g g 	\bar ":|"
   }
   \paper {
 

@@ -197,7 +197,6 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
-(grob-property-description 'invisible-staff boolean? "is staff invisible?")
 (grob-property-description 'items-worth-living list? "list of interesting items. If empty in a particular system, clear that system.")
 (grob-property-description 'kern number? "amount of extra white space to add.
 

@@ -294,7 +294,7 @@ Tie::brew_molecule (SCM smob)
   
   Real thick =
     gh_scm2double (me->get_grob_property ("thickness"))
-    * me->paper_l ()->get_var ("stafflinethickness");
+    * me->paper_l ()->get_var ("linethickness");
 
   Bezier b;
   int i = 0;

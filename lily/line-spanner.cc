@@ -244,7 +244,7 @@ Line_spanner::brew_molecule (SCM smob)
       
       }
 
-  Real thick = me->paper_l ()->get_var ("stafflinethickness");  
+  Real thick = me->paper_l ()->get_var ("linethickness");  
 
   SCM s = me->get_grob_property ("thickness");
   if (gh_number_p (s))

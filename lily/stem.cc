@@ -586,7 +586,7 @@ Stem::brew_molecule (SCM smob)
     {
       Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
 	// URG
-	* me->paper_l ()->get_var ("stafflinethickness");
+	* me->paper_l ()->get_var ("linethickness");
       
       Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
 					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
@@ -633,7 +633,7 @@ Stem::off_callback (SCM element_smob, SCM)
 	{
 	  Real rule_thick
 	    = gh_scm2double (me->get_grob_property ("thickness"))
-	    * me->paper_l ()->get_var ("stafflinethickness");
+	    * me->paper_l ()->get_var ("linethickness");
 
 	  
 	  r += - d * rule_thick * 0.5;

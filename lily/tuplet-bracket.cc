@@ -32,8 +32,6 @@
   follow beam precisely for determining tuplet number location.
   
  */
-
-
 MAKE_SCHEME_CALLBACK (Tuplet_bracket,brew_molecule,1);
 SCM
 Tuplet_bracket::brew_molecule (SCM smob) 
@@ -101,7 +99,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       
   if (bracket_visibility)      
     {
-      Real  lt =  me->paper_l ()->get_var ("stafflinethickness");
+      Real  lt =  me->paper_l ()->get_var ("linethickness");
 	  
       SCM thick = me->get_grob_property ("thick");
       SCM gap = me->get_grob_property ("number-gap");
@@ -260,15 +258,6 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Direction d = UP;
-  SCM dir_sym =me->get_grob_property ("dir-forced");
-  if (ly_dir_p (dir_sym))
-    {
-      d= to_dir (dir_sym);
-      if (d != CENTER)
-	return d;
-    }
-
-  d = UP ;
   for (SCM s = me->get_grob_property ("columns"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));

@@ -237,6 +237,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{number-staff-lines.ly}
 
+@lilypondfile[printfilename]{staff-tweak.ly}
 
 
 @section Spacing

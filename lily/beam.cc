@@ -74,7 +74,7 @@ Beam::add_stem (Grob *me, Grob *s)
 Real
 Beam::get_interbeam (Grob *me)
 {
-  Real slt = me->paper_l ()->get_var ("stafflinethickness");
+  Real slt = me->paper_l ()->get_var ("linethickness");
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
     * ss;
@@ -378,7 +378,7 @@ Beam::quanting (SCM smob)
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thickness = gh_scm2double (me->get_grob_property ("thickness")) / ss;
-  Real slt = me->paper_l ()->get_var ("stafflinethickness") / ss;
+  Real slt = me->paper_l ()->get_var ("linethickness") / ss;
 
 
   SCM sdy = me->get_grob_property ("least-squares-dy");
@@ -1064,7 +1064,7 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
 	- prev->relative_coordinate (0, X_AXIS);
       Real stem_w = gh_scm2double (prev->get_grob_property ("thickness"))
 	// URG
-	* me->paper_l ()->get_var ("stafflinethickness");
+	* me->paper_l ()->get_var ("linethickness");
 
       w = w/2 <? nw_f;
       Molecule a;
@@ -1092,7 +1092,7 @@ Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
 
       Real stem_w = gh_scm2double (next->get_grob_property ("thickness"))
 	// URG
-	* me->paper_l ()->get_var ("stafflinethickness");
+	* me->paper_l ()->get_var ("linethickness");
 
       Molecule a = Lookup::beam (dydx, w + stem_w, thick);
       a.translate_axis (- stem_w/2, X_AXIS);

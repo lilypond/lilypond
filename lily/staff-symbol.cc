@@ -46,7 +46,11 @@ Staff_symbol::brew_molecule (SCM smob)
 	;
     }
 
-  Real t = me->paper_l ()->get_var ("stafflinethickness");
+  Real t = me->paper_l ()->get_var ("linethickness");
+  SCM my_thick = me->get_grob_property("thickness");
+  if (gh_number_p(my_thick))
+    t *= gh_scm2double (my_thick);
+  
   int l = Staff_symbol::line_count (me);
   
   Real height = (l-1) * staff_space (me) /2;
@@ -100,7 +104,8 @@ Staff_symbol::has_interface (Grob*m)
 
 
 ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
-  "This spanner draws the lines of a staff.  The middle line is
-position 0.",
-  "staff-space line-count invisible-staff");
+  "This spanner draws the lines of a staff.  The center (i.e. middle line
+or space) is position 0.",
+	       
+  "staff-space thickness line-count");
 
