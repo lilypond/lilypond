@@ -177,9 +177,8 @@ public:
      REQUESTMETHODS(Plet_req,plet);
 };
 
-/** Start / stop a beam at this note.  if #nplet# is set, the staff will try to put an
-appropriate number over the beam
-    */
+/** Start / stop a beam at this note.  if #nplet# is set, the staff
+will try to put an appropriate number over the beam */
 class Beam_req  : public Span_req  {
 public:
     int nplet;
