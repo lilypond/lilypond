@@ -18,7 +18,7 @@ void
 Rest::do_add_processing ()
 {
   if (balltype_i_ == 0)
-    position_i_ += 6;
+    position_i_ += 4;
   else if (balltype_i_ == 1)
     position_i_ += 4;
   Rhythmic_head::do_add_processing ();

@@ -4,8 +4,9 @@
 
 #include <stdlib.h>
 
-#include "my-lily-lexer.hh"
+
 #include "keyword.hh"
+
 
 /* for qsort */
 int
@@ -32,10 +33,10 @@ Keyword_table::Keyword_table (Keyword_ent *tab)
 int
 Keyword_table::lookup (char const *s) const
 {
-  int     lo,
-          hi,
-          cmp,
-          result;
+  int lo;
+  int hi;
+  int cmp;
+  int result;
   lo = 0;
   hi = maxkey;
 

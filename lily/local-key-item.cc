@@ -5,7 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-
+#include "dimen.hh"
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "scalar.hh"
@@ -58,40 +58,48 @@ Local_key_item::do_pre_processing()
 Molecule*
 Local_key_item::brew_molecule_p() const
 {
-  Molecule* output = new Molecule;
-  Molecule*octmol = 0;
+  Molecule*output = new Molecule;
+
+  Molecule *octave_mol_p = 0;
   int lastoct = -100;
   for  (int i = 0; i <  accs.size(); i++) 
     {
       // do one octave
       if (accs[i].octave_i_ != lastoct) 
 	{
-	  if (octmol)
+	  if (octave_mol_p)
 	    {
 	      Real dy =lastoct*7*paper()->internote_f ();
-	      octmol->translate (dy, Y_AXIS);
-	      output->add (*octmol);
-	      delete octmol;
+	      octave_mol_p->translate (dy, Y_AXIS);
+	      output->add (*octave_mol_p);
+	      delete octave_mol_p;
 	    }
-	  octmol= new Molecule;
+	  octave_mol_p= new Molecule;
 	}
       lastoct = accs[i].octave_i_;
       
       Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
       Atom a (paper()->lookup_l ()->accidental (accs[i].accidental_i_));
+      a.dim_[X_AXIS] += 1 PT; // todo
       a.translate (dy, Y_AXIS);
       Molecule m(a);
-      octmol->add_at_edge (X_AXIS, RIGHT, m);
+      octave_mol_p->add_at_edge (X_AXIS, RIGHT, m);
     }
 
-  if (octmol)
+  if (octave_mol_p)
     {
       Real dy =lastoct*7*paper()->internote_f ();
-      octmol->translate (dy, Y_AXIS);
-      output->add (*octmol);
-      delete octmol;
+      octave_mol_p->translate (dy, Y_AXIS);
+      output->add (*octave_mol_p);
+      delete octave_mol_p;
     }
-
+  
+ if (accs.size()) 
+    {
+      Box b(Interval (0, paper()->internote_f ()), Interval (0,0));
+      Molecule m (paper()->lookup_l ()->fill (b));
+      output->add_at_edge (X_AXIS, RIGHT, m);
+    }
   Interval head_width=itemlist_width (support_items_);
   output->translate (-output->extent().x ().right + head_width.left , X_AXIS);
   

@@ -11,18 +11,18 @@ table_sixteen=
    % index TeXstring, 	xmin xmax ymin ymax
 
     "scripts" = \table {
-	"fermata" "\fermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
-	"-fermata" "\ifermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
+	"fermata" "\ufermata"		0.0\pt 0.0\pt	0.0\pt 6.0\pt
+	"-fermata" "\dfermata"		0.0\pt 0.0\pt	-6.0\pt 0.0\pt
 	"portato" "\portato"		0.0\pt 4.0\pt	0.0\pt	2.0\pt
 	"-portato" "\iportato"		0.0\pt 4.0\pt	-2.0\pt	0.0\pt
-	"tenuto" "\tenuto"			0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"-tenuto" "\itenuto"		0.0\pt 4.0\pt	-1.0\pt	1.0\pt
-	"sforzato" "\sforzato"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
-	"marcato" "\marcato"		0.0\pt 4.0\pt	0.0\pt	4.0\pt
-	"-marcato" "\imarcato"		0.0\pt 4.0\pt	-4.0\pt	0.0\pt
+	"tenuto" "\utenuto"			0.0\pt 4.0\pt	-1.0\pt	1.0\pt
+	"-tenuto" "\dtenuto"		0.0\pt 4.0\pt	-1.0\pt	1.0\pt
+	"sforzato" "\accent"		-0.8\pt 4.0\pt	-1.92\pt 1.92\pt
+	"marcato" "\umarcato"		0.0\pt 4.0\pt	0.0\pt	4.0\pt
+	"-marcato" "\dmarcato"		0.0\pt 4.0\pt	-4.0\pt	0.0\pt
 	"staccato" "\staccato"		0.0\pt	0.0\pt 	-1.1\pt 1.1\pt
-	"staccatissimo" "\staccatissimo"	0.0\pt	0.0\pt	0.0\pt	1.0\pt
-	"-staccatissimo" "\istaccatissimo"	0.0\pt	0.0\pt 	0.0\pt	1.0\pt
+	"staccatissimo" "\ustaccatissimo"	0.0\pt	0.0\pt	0.0\pt	1.0\pt
+	"-staccatissimo" "\dstaccatissimo"	0.0\pt	0.0\pt 	0.0\pt	1.0\pt
 	"upbow" "\upbow"			-1.0\pt	6.0\pt	0.0\pt	5.0\pt
 	"downbow" "\downbow"		0.0\pt	5.0\pt	0.0\pt 7.5\pt
 	"back" "\backorfront"		0.0\pt	6.0\pt	0.0\pt	3.0\pt

@@ -41,7 +41,7 @@ $(outdir)/%.log: %.mf
 	rm $(basename $< ).*gf
 
 $(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
-	mf-to-table -l $(lyout)/$(<F:.log=.ly) -t $(texout)/$(<F:.log=.tex) $<
+	mf-to-table --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 localinstall:
 	$(INSTALL) -d $(MFDIR)/lilypond
@@ -54,7 +54,7 @@ localuninstall:
 $(outdir)/mfdeps: $(FONT_FILES)
 # do something silly to avoid barfs if python not installed.
 	echo > $@
-	mf-deps  $^ >> $@
+	$(depth)/bin/$(outdir)/mf-deps  $^ >> $@
 
 # dependencies:
 #

@@ -134,12 +134,7 @@ Lookup::clef (String s) const
 Atom
 Lookup::dots (int j) const
 {
-  if (j>3) 
-    {
-      j = 3;
-      warning ("max 3 dots");	// todo
-    }
-  return (*symtables_)("dots")->lookup (j);
+  return (*symtables_)("dots")->lookup ("dot");
 }
 
 Atom

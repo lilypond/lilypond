@@ -1,0 +1,13 @@
+fet_begingroup("dots");
+
+fet_beginchar("duration dot","dot", "dot")
+	save dot_diam;
+	2 dot_diam# = interline# - stafflinethickness#;
+	define_pixels(dot_diam)
+	pickup pencircle scaled dot_diam;
+	draw (dot_diam/2,0);
+	set_char_box(0, dot_diam#, dot_diam#/2, dot_diam#/2);
+fet_endchar;
+
+
+fet_endgroup("dots");

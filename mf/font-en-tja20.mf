@@ -6,8 +6,6 @@ mode_setup;
 input autometric;
 fet_beginfont("font-en-tja", 20);
 
-test:=0;
-
 staffsize#:=20pt#;
 stafflines:=5;
 stafflinethickness#:=0.4pt#;

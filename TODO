@@ -6,12 +6,14 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* adapt Script for new font conventions
+
+	* AFM for font input.
+
 	* Make general "spanning"-elements and "placer"-elements
 
-	- naming Mozarella, Madeira, Muella, Fontaigna?
-
+	- naming Mozarella, Madeira, Muella, Fontaigna, Feta?
 	- bf: abbrevs over whole note
-
 	- scoping for properties
 
 	{	c4
@@ -109,7 +111,6 @@ languages:
 	- check write errors
 	- check read errors
 	
-
 	* placement of bar-numbers
 
 ******************
@@ -186,9 +187,6 @@ languages:
 
 	* Redo fonts
 	- adapt for multiple font sizes.
-
-	* Font support:
-	- mixed fontsizes
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines

@@ -1,83 +1,72 @@
 % bolletjes.mf
 % part of LilyPond's pretty-but-neat music font
-% third try at bolletjes
-% most beautiful bolletjes are pronounced, not circular, 
+
+% most beautiful noteheads are pronounced, not circular, 
 % and not even symmetric.
+% These examples are inspired by [Wanske] [see literature list]
 
 %noteheight#:=interline#;
+
 % even more pronounced (almost overdone), just like the original
 noteheight#:=interline#+1.5stafflinethickness#;
 
-def test_grid =
-if test>1:
-	proofrulethickness 1pt#;
-	makegrid(0pt,0pt for i:=-5pt step 1pt until 5pt: ,i endfor)
-		(0pt,0pt for i:=-5pt step 1pt until 5pt: ,i endfor);
-	proofrulethickness .1pt#;
-	makegrid(0pt,0pt for i:=-4.8pt step .2pt until 4.8pt: ,i endfor)
-		(0pt,0pt for i:=-4.8pt step .2pt until 4.8pt: ,i endfor);
-fi
-	enddef;
 
-% a: x diameter
-% b: y diameter
-% err_x: drift of y axis at top
-% err_y: drift of x axis at right
-def distorted_ellipse(expr a,b,err_y,err_x,super) =
-	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
-	enddef;
-
-def begin_notehead =
-	begingroup;
-	save a_b,err_y_a,alpha,super;
-	save ai_a,ai_bi,err_y_ai,err_x_bi,alphai,superi;
+% setup user vars
+def setup_notehead_vars =
+	save a_b,err_y_a,tilt,superness;
+	save ai_a,ai_bi,err_y_ai,err_x_bi,inner_tilt,inner_superness;
 	save b_h,a_w;
 	enddef;
 
-def end_notehead(expr code,height,name,id,texstr) =
-	save a,b,h,w,ai,bi;
-	h#=height;
-	2b#=h#*b_h;
-	a#=b#*a_b;
-	w#=2a#/a_w;
-	ai#=a#*ai_a;
-	bi#=ai#/ai_bi;
-	define_pixels(a,b);
-	define_pixels(w,h);
+% setup addititional vars and calc them
+def notehead_calc =
+	save a,beta,ai,bi, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	ai# = a# * ai_a;
+	bi# = ai#/ai_bi;
+	define_pixels(a,beta);
 	define_pixels(ai,bi);
- 	fet_beginchar(code,w#,h#,0,0,name,id,texstr);
-		path black,white;
-		black=distorted_ellipse(a,b,a*err_y_a,0,super);
-		white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,superi);
-if test>0:
+	set_char_box(0, wd#, .5 ht#, .5 ht#);
+	enddef;
+
+
+% draw the outer and inner ellipse.
+def notehead_draw =
+	path black,white;
+	black=distorted_ellipse(a,beta,a*err_y_a,0,superness);
+	white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,inner_superness);
+if test>1: %fixme
 		save x;
 		x1=-x3=a; x2=x4=0; y1=y3=0; y2=-y4=b;
 		penlabels(1,2,3,4);
 		test_grid;
 else:
-		black:=black rotated alpha;
-%		black:=black shifted (w/2,h/2);
+		black:=black rotated tilt;
 		black:=black shifted (w/2,0);
-		white:=white rotated alphai;
-%		white:=white shifted (w/2,h/2);
+		white:=white rotated inner_tilt;
 		white:=white shifted (w/2,0);
 fi
 		fill black;
 		unfill white;
-		endchar;
-		endgroup;
-	enddef;
+
 		
-% fet_begingroup("noteheads");
+	enddef;
+
+
 fet_begingroup("balls");
+
 % whole note
 % Wanske, p.38
-% begin_notehead(incr code,interline#,"Whole notehead");
-begin_notehead;
+fet_beginchar("Whole notehead", "0", "wholeball")
+	setup_notehead_vars;
+	
 	a_b:=1.80;
 	err_y_a:=0; % no slant
-	alpha:=0;
-	super:=0.707;
+	tilt:=0;
+	superness:=0.707;
 	ai_a:=0.508;
 	% ai_bi:=1.23;
 	ai_bi:=1.30; % jcn
@@ -85,62 +74,70 @@ begin_notehead;
 	% err_x_bi:=0;
 	err_y_ai:=0;
 	err_x_bi:=0.115;
-	% alphai:=135;
-	alphai:=125; % jcn
-	% superi:=0.69;
-	superi:=0.68; % jcn
+	% inner_tilt:=135;
+	inner_tilt:=125; % jcn
+	% inner_superness:=0.69;
+	inner_superness:=0.68; % jcn
 	b_h:=1; %no rotate-> no height correction
 	a_w:=1; % no rotate-> no width correction
-	end_notehead(incr code,noteheight#,"Whole notehead","0","wholeball");
+
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
+
 
 % half note
 % Wanske, p.39
-begin_notehead;
-	% a_b:=1.49; % after text
+fet_beginchar("Half notehead", "1", 
+	"halfball")
+	setup_notehead_vars;
+		% a_b:=1.49; % after text
 	a_b:=1.50; % after drawing
 	err_y_a:=0.157;
-	alpha:=34;
-	% super:=0.66;
-	super:=0.67; % jcn
+	tilt:=34;
+	% superness:=0.66;
+	superness:=0.67; % jcn
 	% ai_a:=0.863;
 	ai_a:=0.850; % jcn
 	% ai_bi:=3.14;
 	ai_bi:=3.30; % jcn
 	err_y_ai:=0;
 	err_x_bi:=-0.12;
-	alphai:=alpha;
-	superi:=0.80;
+	inner_tilt:=tilt;
+	inner_superness:=0.80;
 	b_h:=0.935;
 	a_w:=1.12;
-	end_notehead(incr code,noteheight#,"Half notehead","1","halfball");
+
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
+
 
 % quarter note
 % Wanske p.38
-begin_notehead;
+fet_beginchar("Quart notehead", "2", "quartball")
+	setup_notehead_vars;
 	% a_b:=1.57; % after text
 	a_b:=1.54; % after drawing
 	err_y_a:=0.044;
-	alpha:=32;
-	super:=0.707;
+	tilt:=32;
+	superness:=0.707;
 	ai_a:=0;
 	ai_bi:=1;
 	err_y_ai:=0;
 	err_x_bi:=0;
-	alphai:=0;
-	superi:=0.707;
+	inner_tilt:=0;
+	inner_superness:=0.707;
 	b_h:=0.85;
 	a_w:=1.09;
-	end_notehead(incr code,noteheight#,"Quarter notehead","2","quartball");
 
-% from MO*gen.mf
-lthick:=.4pt;
-pen line_pen;
-line_pen:= pencircle scaled lthick;
+	notehead_calc;
+	notehead_draw;
+fet_endchar;
 
-picture save_pic;
-def callpic = currentpicture:= save_pic enddef;
-def savepic = save_pic:= currentpicture enddef;
 
+
+% from MO*gen.mf; (pass the barfbag?)
 def add_mirror (expr pone, ptwo) =
   addto currentpicture also currentpicture
         reflectedabout (round(pone), round(ptwo))
@@ -155,20 +152,22 @@ nhh#:=interline#;
 nhw#:=6/5interline#;
 define_pixels(nhh,nhw);
 
-fet_beginchar(incr code,2interline#,interline#,0,0,"Brevis notehead","-1","breveball");
+fet_beginchar("Brevis notehead","-1","breveball"); 
+	set_char_box(0, 2interline#,.5 interline#, .5interline#);
 	fill_square (5/4nhw, .25nhh, (0,.25nhh));
 	add_mirror (origin, right);
 	x1=x2=0; x3=x4=5/4nhw; y1=-y2=y3=-y4=.7nhh;
-	pickup line_pen;
+	pickup pencircle scaled stafflinethickness;
 	draw z1--z2; draw z3--z4;
-	savepic;
-	endchar;
+ 	push_picture(currentpicture);
+fet_endchar;
 
-fet_beginchar(incr code,2interline#,interline#,0,0,"Longa notehead","-2","longaball");
-	callpic;
-	pickup line_pen;
+fet_beginchar("Longa notehead","-2","longaball");
+	set_char_box(0, 2 interline#,.5interline#, .5interline# );
+	currentpicture := pop_picture;
+	pickup pencircle scaled stafflinethickness;
 	draw (5/4nhw,-.7nhh)--(5/4nhw,-1.7nhh);
-	endchar;
+fet_endchar;
 
 % fet_endgroup("noteheads");
 fet_endgroup("balls");

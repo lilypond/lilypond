@@ -1,0 +1,45 @@
+
+% implement clefs 
+fet_begingroup("foobars")
+
+
+fet_beginchar(incr code, "F clef", "bassclef", "bassclef");
+	
+fet_endchar;
+fet_beginchar(incr code, "G clef", "evolinclef", "evolinclef");
+	save tilt;
+	tilt = 15;
+
+	inner_fatness = 5 stafflinethickness;
+	upstroke_fatness = 7 stafflinethickness;
+	top_curl_fatness = 4 stafflinethickness;
+	inner_thinness = 2 stafflinethickness;	
+	downstroke_thinness = 1.5 stafflinethickness;
+
+	z1 = 6/10 interline * dir(-135);
+	z3 = (0, interline - inner_fatness/2);
+	x5 = x1;
+	y5 = -interline;
+	z7 = (-1.25 interline, -.5 interline);
+	z9 = whatever * dir (90 + tilt);
+	y9 = 2.1 interline;
+	y12 + top_curl_fatness = 4 interline;
+	x12 = 0;
+	z13 = z9;
+	z15 = 1.5 interline * dir (tilt -90);
+	
+
+	penpos1(blot_diameter, 45);
+	penpos3(inner_fatness, -90);
+	penpos5(inner_thinness, 90);
+	penpos7(inner_thinness, 45);
+	penpos9(upstroke_fatness, tilt -90);
+	penpos12(top_curl_fatness, 90);
+	penpos13(downstroke_thinness, tilt-90);
+	penpos15(downstroke_thinness, tilt-90);
+	set_char_box(0,0,0,0);
+
+%	penstroke z1e{dir 135} .. z3e ..  {left}z5e .. z7e ..  tension 1.2 .. z9e;% & z9e..  z12e .. z13e .. z15e;
+%	penlabels(1,3,5,7, 9,12,13,15);
+fet_endchar;
+fet_endgroup("foobars");

@@ -1,13 +1,21 @@
 
-	- move to OpusTeX fonts
-	- make own font-en-tja{10,11,13,16,20} files
-	- opustex/lilypond fonts from the same generic driver files
-	- LilyPond fonts should generate TFM spacing info
-	- include important spacing dims in TFM
+	- y-refpoint for rests should be the 4th staffline (gclef: b')
+	- more symbols
+	  * flags
+	  * clefs
+	  * some scripts:
+	    - {up, down}bow
+	    - toe/heel
+	    - piano pedals,
+	    - braces.
+	    - trills
+	  * coda signs.
+	  * 0 - 9
+
+	- move to OpusTeX fonts ?  (no!)
+	- include important spacing dims in TFM? 
 	- lilyrules.mf for different rules (lines) ?
 	- check out Adobe Sonata/Petrucci font layout.  They are the
 standard for Music fonts
-	- rewrite : make a metafont iso font
-	- perl script to generate dependencies for mf 
-l
+	- hack up GS to do round pixels iso. square pixels.
 

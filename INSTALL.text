@@ -25,9 +25,8 @@ AAAABBBBSSSSTTTTRRRRAAAACCCCTTTT
 PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
        For compilation you need.
 
-       +o    A Unix system with GNU tools. GNU LilyPond is known
-            to run on these unices: Linux, AIX, Digital Unix and
-            Solaris.
+       +o    A GNU system: GNU LilyPond is known to run on these
+            GNU systems: Linux, AIX, Digital Unix and Solaris.
 
             If you have the Cygnus WINDOWS32 port of the GNU
             utils, it will even work in Windows NT/95, but we
@@ -57,11 +56,12 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
        ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
 
+       ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
 
 
 
 
-26/Sep/97                LilyPond 0.1.18                        1
+7/Oct/97                 LilyPond 0.1.19                        1
 
 
 
@@ -69,8 +69,6 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
-
-       ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
 
        ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
 
@@ -124,10 +122,12 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
        The TeX include directory is detected dynamically, but it
        can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
+       ddddiiiirrrr. The above assumes that you are root and have the GNU
+       development tools, and your make is GNU make.  If this is
 
 
 
-26/Sep/97                LilyPond 0.1.18                        2
+7/Oct/97                 LilyPond 0.1.19                        2
 
 
 
@@ -136,8 +136,6 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       ddddiiiirrrr. The above assumes that you are root and have the GNU
-       development tools, and your make is GNU make.  If this is
        not the case, you can adjust your environment variables to
        your taste:
 
@@ -190,10 +188,12 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                 Set then directory TeX input is in (detected as a
                 subdir of tex-prefix)
 
+       --enable-mf-dir
+                Set the directory mf input is in (idem)
 
 
 
-26/Sep/97                LilyPond 0.1.18                        3
+7/Oct/97                 LilyPond 0.1.19                        3
 
 
 
@@ -202,8 +202,6 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       --enable-mf-dir
-                Set the directory mf input is in (idem)
                 [obsolete]
 
        --enable-out-dir
@@ -256,10 +254,12 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
                make install
 
+       should do the trick.
 
 
 
-26/Sep/97                LilyPond 0.1.18                        4
+
+7/Oct/97                 LilyPond 0.1.19                        4
 
 
 
@@ -267,8 +267,6 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
-
-       should do the trick.
 
        Install the musixtex fonts in a directory which TeX and MF
        knows (if you are root, look for a directory which
@@ -322,10 +320,12 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        file is in _m_a_k_e_/_o_u_t_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
        create an rpm as a normal user. Be sure you have a
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e. (If you
+       create the RPM as a normal user the permissions will not
+       be set correctly, unfortunately)
 
 
 
-26/Sep/97                LilyPond 0.1.18                        5
+7/Oct/97                 LilyPond 0.1.19                        5
 
 
 
@@ -333,9 +333,6 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
-
-       create the RPM as a normal user the permissions will not
-       be set correctly, unfortunately)
 
 DDDDEEEEBBBBIIIIAAAANNNN GGGGNNNNUUUU////LLLLIIIINNNNUUUUXXXX
        A Debian package is in the works
@@ -391,6 +388,9 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-26/Sep/97                LilyPond 0.1.18                        6
+
+
+
+7/Oct/97                 LilyPond 0.1.19                        6
 
 
