@@ -103,11 +103,11 @@ static Getopt_long *oparser_p_static = 0;
        follow regular localisation guidelines).
  */
 static Long_option_init options_static[] = {
-  /* print example usage:  lilypond -e "" ? */
-  {_i ("EXPR"), "evaluate", 'e',_i ("Scheme options: try -e \"(set-lily-option 'help 0)\" for more help.")},
+  {_i ("EXPR"), "evaluate", 'e',
+   _i ("set options, use -e '(ly-option-usage)' for help")},
   /* another bug in option parser: --output=foe is taken as an abbreviation
      for --output-format */
-  {_i ("EXT"), "format", 'f',  _i ("use output format EXT")},
+  {_i ("EXT"), "format", 'f', _i ("use output format EXT")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -354,7 +354,8 @@ main_prog (void *, int, char **)
   const char *arg  = oparser_p_static->get_next_arg ();
 
   /* Only exit until after running init_scheme_code, for
-     (set-lily-option 'help) */
+     (ly-option-usage) or
+     -e "(ly-set-option 'help #t)" */
   if (!arg)
     {
       usage ();

@@ -38,6 +38,30 @@ int testing_level_global;
  */
 bool internal_type_checking_global_b;
 
+LY_DEFINE (ly_option_usage, "ly-option-usage", 0, 0, 0, (SCM),
+		  "Print ly-set-option usage")
+{  
+  printf ( _("lilypond -e EXPR means:").to_str0 ());
+  puts ("");
+  printf (_ ("  Evalute the Scheme EXPR before parsing any .ly files.").to_str0 ());
+  puts ("");
+  printf (_ ("  Multiple -e options may be given, they will be evaluated sequentially.").to_str0 ());
+  puts ("");
+  printf (_("  The function ly-set-option allows for access to some internal variables.").to_str0 ());
+  puts ("\n");
+  printf (_ ("Usage: lilypond -e \"(ly-set-option SYMBOL VAL)\"").to_str0 ());
+  puts ("\n");
+  printf (_ ("Where SYMBOL VAL pair is any of:").to_str0 ());
+  puts ("");
+  printf ( "  help ANY-SYMBOL\n"
+	   "  internal-type-checking BOOLEAN\n"
+	   "  midi-debug BOOLEAN\n"
+	   "  testing-level INTEGER\n");
+  
+  exit (0);
+  return SCM_UNSPECIFIED;
+}
+
 /* Add these as well:
 
 @item -T,--no-timestamps
@@ -46,43 +70,26 @@ don't timestamp the output
 @item -t,--test
 Switch on any experimental features.  Not for general public use. */
 
-LY_DEFINE(set_lily_option,"set-lily-option", 2, 0, 0,  (SCM var, SCM val),
-	  "Set a global option for the program. Supported options  include
-
+LY_DEFINE (ly_set_option, "ly-set-option", 2, 0, 0, (SCM var, SCM val),
+	    "Set a global option value.  Supported options include
 
 @table @code
 @item help
 List all options.
 @item midi-debug
-If set to true, generate human  readable MIDI
+If set to true, generate human readable MIDI
 @item internal-type-checking
 Set paranoia for property assignments 
 @end table
 
 This function is useful to call from the command line: @code{lilypond -e
-\"(set-lily-option 'midi-debug #t)\"}.
+\"(ly-set-option 'midi-debug #t)\"}.
 ")
 {
-  /* Scheme option usage:
-    lilypond -e "(set-lily-option 'help 0)" */
   if (var == ly_symbol2scm ("help"))
     {
-      printf ( _("lilypond -e EXPR means
-
-evalute EXPR as Scheme after init.scm has been read.  In particular,
-the function set-lily-option allows for access to some internal
-variables. Usage:
-
-  (set-lily-option SYMBOL VAL)
-
-possible options for SYMBOL are :
-").to_str0 ());
-      printf ( "  help (any-symbol)\n"
-	       "  internal-type-checking (boolean)\n"
-	       "  midi-debug (boolean)\n"
-	       "  testing-level (int)\n");
-	       
-      exit (0);
+      /* lilypond -e "(ly-set-option 'help #t)" */
+      ly_option_usage (SCM_EOL);
     }
   else if (var == ly_symbol2scm ("midi-debug"))
     {
