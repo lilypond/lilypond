@@ -11,10 +11,11 @@
 #include "moment.hh"
 
 /// the rule attached to the ball
-struct Stem : public Item {
+struct Stem : Item {
+/*
     /// rhythmical length
     Moment note_length;
-    
+    */  
     // heads the stem encompasses (positions)
     int minnote, maxnote;
 
@@ -49,20 +50,19 @@ struct Stem : public Item {
     Array<Notehead*> heads;
 
     /****************/
-    Stem(int center, Moment duration);
+    Stem(int center); //, Moment duration);
     
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Notehead*n);
+    const char * name() const;
 
     Real hpos()const;
-    void print() const;
+    void do_print() const;
     void set_stemend(Real);
     void set_default_dir();
     void set_default_stemlen();
     void set_default_extents();
     void set_noteheads();
-    
-
     void do_pre_processing();
 
     Interval width() const;
