@@ -10,7 +10,7 @@ Input_command::Input_command()
 Input_command::operator Command()
 {
     Command c;
-    if (!args.sz())
+    if (!args.size())
 	return c;
     
     c.code = INTERPRET;
@@ -45,22 +45,22 @@ get_partial_command(Moment u)
 }
 
 Input_command*
-get_grouping_command(svec<int>a ) 
+get_grouping_command(Array<int>a ) 
 {
     Input_command*c = new Input_command;
     c->args.add("GROUPING");    
-    for (int i=0; i < a.sz(); i ++)
+    for (int i=0; i < a.size(); i ++)
 	c->args.add(a[i]);
 
     return c;
 }
 
 Input_command*
-get_key_interpret_command(svec<int >a ) 
+get_key_interpret_command(Array<int >a ) 
 {
     Input_command*c = new Input_command;
     c->args.add("KEY");
-    for (int i=0; i < a.sz(); i ++) {
+    for (int i=0; i < a.size(); i ++) {
 	c->args.add(a[i]);
     }
     return c;
@@ -87,12 +87,11 @@ get_meterchange_command(int n, int m)
 }
 
 Input_command *
-get_bar_command()
+get_newmeasure_command()
 {
     Input_command*c = new Input_command;
 
-    c->args.add( "BAR");
-    c->args.add( "|");
+    c->args.add( "NEWMEASURE");
 
     return c;
 }
@@ -114,9 +113,9 @@ void
 Input_command::print()const
 {
     mtor << "{ ";
-    if (args.sz()) {
+    if (args.size()) {
 	mtor<< " args: ";
-	for (int i = 0; i<args.sz(); i++)
+	for (int i = 0; i<args.size(); i++)
 	    mtor << "`"<<args[i] <<"',";
     }
     mtor << "}\n";
@@ -131,10 +130,19 @@ get_clef_interpret_command(String w)
     return c;
 }
 
-svec<int>
+Input_command*
+get_bar_command(String w)
+{
+    Input_command*c = new Input_command;
+    c->args.add("BAR");
+    c->args.add(w);
+    return c;
+}
+
+Array<int>
 get_default_grouping(int count)
 {
-    svec<int> s;
+    Array<int> s;
     if (!(count % 3 )) {
 	for (int i=0; i < count/3; i++)
 	    s.add(3);
