@@ -40,12 +40,12 @@
 ;  (let ((keyword (car expr))) 
 ;    (cond
 ; ((eq? keyword 'beam x y width slope thick)
-; ((eq? keyword 'bezier-sandwich x y l thick)
+; ((eq? keyword 'bezier-sandwich x y lst thick)
 ; ((eq? keyword 'bracket arch_angle arch_width arch_height  height arch_thick thick)
 ; ((eq? keyword 'char x y i)
 ; ((eq? keyword 'comment s)
 ; ((eq? keyword 'dashed-line thick on off dx dy)
-; ((eq? keyword 'dashed-slur thick dash l)
+; ((eq? keyword 'dashed-slur thick dash lst)
 ; ((eq? keyword 'define-origin a b c ) "")
 ; ((eq? keyword 'experimental-on) "")
 ; ((eq? keyword 'ez-ball ch letter-col ball-col)
@@ -95,12 +95,12 @@
   (cons (car c) (* -1 (cdr c))))
 
 ;;; urg.
-(define (sketch-numbers->string l)
+(define (sketch-numbers->string lst)
   (string-append
-   (ly:number->string (car l))
-   (if (null? (cdr l))
+   (ly:number->string (car lst))
+   (if (null? (cdr lst))
        ""
-       (string-append ","  (sketch-numbers->string (cdr l))))))
+       (string-append ","  (sketch-numbers->string (cdr lst))))))
 
 ;;;\def\scaletounit{ 2.83464566929134 mul }%
 
@@ -124,9 +124,9 @@
    ")\n"))
 
 
-(define (sketch-bezier x y l)
-  (let* ((c0 (car (list-tail l 3)))
-	 (c123 (list-head l 3))
+(define (sketch-bezier x y lst)
+  (let* ((c0 (car (list-tail lst 3)))
+	 (c123 (list-head lst 3))
 	 (start (control->list x y c0))
 	 (control (apply append
 			 (map (lambda (c) (control->list x y c)) c123))))
@@ -136,9 +136,9 @@
   
 
 
-(define (sketch-beziers x y l thick)
-  (let* ((first (list-tail l 4))
-	 (second (list-head l 4)))
+(define (sketch-beziers x y lst thick)
+  (let* ((first (list-tail lst 4))
+	 (second (list-head lst 4)))
     (string-append
      "fp((0,0,0))\n"
      "lw(0.1)\n"
@@ -217,9 +217,9 @@
 
 
 ;; what the heck is this interface ?
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick dash lst)
   (string-append 
-   (string-join (map ly:number-pair->string l) " ")
+   (string-join (map ly:number-pair->string lst) " ")
    " "
    (ly:number->string thick) 
    " [ "
@@ -278,9 +278,9 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (invoke-char s i)
   "")
 
-(define (bezier-sandwich x y l thick)
+(define (bezier-sandwich x y lst thick)
   (apply
-   sketch-beziers (list x y (primitive-eval l) thick)))
+   sketch-beziers (list x y (primitive-eval lst) thick)))
 
 (define (start-system width height)
   (set! current-y (- current-y height))

@@ -299,8 +299,8 @@
       (header-end)))
 
     (for-each
-     (lambda (l)
-       (dump-line outputter l (not (ly:paper-system-title? l))))
+     (lambda (lst)
+       (dump-line outputter lst (not (ly:paper-system-title? lst))))
      (take lines (1+ first-notes-index)))
     (ly:outputter-dump-string outputter "\\lilypondend\n")))
 

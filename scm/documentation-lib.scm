@@ -147,14 +147,14 @@
   "Add ref to X"
   (string-append "@ref{" x "}"))
 
-(define (human-listify l)
-  "Produce a textual enumeration from L, a list of strings"
+(define (human-listify lst)
+  "Produce a textual enumeration from LST, a list of strings"
   
   (cond
-   ((null? l) "none")
-   ((null? (cdr l)) (car l))
-   ((null? (cddr l)) (string-append (car l) " and " (cadr l)))
-   (else (string-append (car l) ", " (human-listify (cdr l))))))
+   ((null? lst) "none")
+   ((null? (cdr lst)) (car lst))
+   ((null? (cddr lst)) (string-append (car lst) " and " (cadr lst)))
+   (else (string-append (car lst) ", " (human-listify (cdr lst))))))
 
 (define (writing-wip x)
   (display (string-append "\nWriting " x " ... ") (current-error-port)))

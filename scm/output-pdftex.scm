@@ -45,8 +45,8 @@
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-pdf (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
-(define (dashed-slur thick dash l)
-  (embedded-pdf (list 'dashed-slur   thick dash l)))
+(define (dashed-slur thick dash lst)
+  (embedded-pdf (list 'dashed-slur thick dash lst)))
 
 (define (char i)
   (string-append "\\char" (ly:inexact->string i 10) " "))
@@ -62,8 +62,8 @@
    (ly:number->string (inexact->exact (* 1000 (cdr name-mag))))
    "\n"))
 
-(define (ez-ball c l b)
-  (embedded-pdf (list 'ez-ball  c  l b)))
+(define (ez-ball c lst b)
+  (embedded-pdf (list 'ez-ball  c  lst b)))
 
 (define (header-to-file fn key val)
   (set! key (symbol->string key))
@@ -171,8 +171,8 @@
 		 (ly:number->string x) "}{"
 		 s "}%\n"))
 
-(define (bezier-sandwich l thick)
-  (embedded-pdf (list 'bezier-sandwich  `(quote ,l) thick)))
+(define (bezier-sandwich lst thick)
+  (embedded-pdf (list 'bezier-sandwich `(quote ,lst) thick)))
 
 (define (start-system wd ht)
   (string-append "\\leavevmode\n"

@@ -642,7 +642,6 @@ any sort of property supported by @internalsref{font-interface} and
 (def-markup-command larger (markup?)
   bigger-markup)
 
-
 (def-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness} and
 @code{box-padding} properties to determine line thickness and padding
@@ -652,7 +651,7 @@ around the markup."
         (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
 
-					;FIXME: is this working? 
+;;FIXME: is this working? 
 (def-markup-command (strut layout props) ()
   
   "Create a box of the same height as the space in the current font."
@@ -673,11 +672,11 @@ around the markup."
 
 (define (number->markletter-string n)
   "Double letters for big marks."
-  (let* ((l (vector-length number->mark-letter-vector)))
+  (let* ((lst (vector-length number->mark-letter-vector)))
     
-    (if (>= n l)
-	(string-append (number->markletter-string (1- (quotient n l)))
-		       (number->markletter-string (remainder n l)))
+    (if (>= n lst)
+	(string-append (number->markletter-string (1- (quotient n lst)))
+		       (number->markletter-string (remainder n lst)))
 	(make-string 1 (vector-ref number->mark-letter-vector n)))))
 
 
@@ -693,8 +692,8 @@ around the markup."
   "Make a column of the markups in @var{args}, putting brackets around
 the elements marked in @var{indices}, which is a list of numbers."
 
-  (define (sublist l start stop)
-    (take (drop l start)  (- (1+ stop) start)) )
+  (define (sublist lst start stop)
+    (take (drop lst start) (- (1+ stop) start)) )
 
   (define (stencil-list-extent ss axis)
     (cons

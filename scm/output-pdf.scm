@@ -34,7 +34,7 @@
   (moveto (+ x (car currentpoint)) (+ y (cdr currentpoint))))
 (define (lineto x y)
   (set! currentpoint (cons x y))
-  (string-append (showcp) "l "))
+  (string-append (showcp) "lst "))
 (define (lineto-pair pair)
   (lineto (car pair) (cdr pair)))
 (define (rlineto x y)
@@ -101,13 +101,13 @@
   (invoke-char " show" i))
 
 
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick dash lst)
   (string-append (setlineparams)
 		 "[ " (ly:number->string dash) " "
 		 (ly:number->string (* 10 thick)) " ] 0 d "
 		 (setlinewidth thick)
-		 (moveto-pair (car l))
-		 (apply curveto (cdr l))
+		 (moveto-pair (car lst))
+		 (apply curveto (cdr lst))
 		 (closestroke)))
 
 (define (dashed-line thick on off dx dy)
@@ -188,19 +188,19 @@
 
 (define (placebox x y s) "")
 
-(define (bezier-sandwich l thick)
+(define (bezier-sandwich lst thick)
   (string-append (setlinewidth thick)
-		 (moveto-pair (list-ref l 7))
-		 (curveto-pairs (list-ref l 4)
-				(list-ref l 5)
-				(list-ref l 6))
-		 (lineto-pair (list-ref l 3))
-		 (curveto-pairs (list-ref l 0)
-				(list-ref l 1)
-				(list-ref l 2))
+		 (moveto-pair (list-ref lst 7))
+		 (curveto-pairs (list-ref lst 4)
+				(list-ref lst 5)
+				(list-ref lst 6))
+		 (lineto-pair (list-ref lst 3))
+		 (curveto-pairs (list-ref lst 0)
+				(list-ref lst 1)
+				(list-ref lst 2))
 		 "B "
-		 (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
-		 (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
+		 (bezier-ending (list-ref lst 3) (list-ref lst 0) (list-ref lst 5))
+		 (bezier-ending (list-ref lst 7) (list-ref lst 0) (list-ref lst 5))))
 
 (define (bezier-ending z0 z1 z2)
   (let ((x0 (car z0))

@@ -356,9 +356,9 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
   (not (not (markup-command-signature x))))
 
 (define (markup-list? arg)
-  (define (markup-list-inner? l)
-    (or (null? l)
-        (and (markup? (car l)) (markup-list-inner? (cdr l)))))
+  (define (markup-list-inner? lst)
+    (or (null? lst)
+        (and (markup? (car lst)) (markup-list-inner? (cdr lst)))))
   (and (list? arg) (markup-list-inner? arg)))
 
 (define (markup-argument-list? signature arguments)

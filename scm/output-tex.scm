@@ -90,8 +90,8 @@
 (define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
 
-(define (dashed-slur thick dash l)
-  (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
+(define (dashed-slur thick dash lst)
+  (embedded-ps (list 'dashed-slur thick dash `(quote ,lst))))
 
 (define (named-glyph font name)
   (let* ((info (ly:otf-font-glyph-info font name))
@@ -116,8 +116,8 @@
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
 
-(define (ez-ball c l b)
-  (embedded-ps (list 'ez-ball c l b)))
+(define (ez-ball c lst b)
+  (embedded-ps (list 'ez-ball c lst b)))
 
 (define (embedded-ps expr)
   (let ((ps-string
@@ -137,8 +137,8 @@
   (string-append
    "\\lyitem{" (ly:number->string x) "}{" (ly:number->string y) "}{" s "}%\n"))
 
-(define (bezier-sandwich l thick)
-  (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
+(define (bezier-sandwich lst thick)
+  (embedded-ps (list 'bezier-sandwich `(quote ,lst) thick)))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
