@@ -138,14 +138,14 @@ Translator_def::add_last_element (SCM s)
 void
 Translator_def::add_push_property (SCM props, SCM syms,  SCM vals)
 {
-  this->property_ops_ = gh_cons (gh_list (push_sym, props, syms, vals, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, vals, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
 void
 Translator_def::add_pop_property (SCM props, SCM syms)
 {
-  this->property_ops_ = gh_cons (gh_list (push_sym, props, syms, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
@@ -158,8 +158,8 @@ Translator_def::apply_pushpop_property (Translator_group* me,SCM syms, SCM eprop
 {
   if (gh_symbol_p (syms))
     dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (syms, eprop, val);
-  else for (SCM s = syms; gh_pair_p (s); s = gh_cdr (s))
-    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (gh_car (s), eprop, val);
+  else for (SCM s = syms; gh_pair_p (s); s = ly_cdr (s))
+    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (ly_car (s), eprop, val);
 }
 
 
@@ -170,9 +170,9 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
   assert (gh_string_p (type_str));
   
   Link_array<Translator_def> accepted_arr;
-  for (SCM s = accepts_name_list_; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = accepts_name_list_; gh_pair_p (s); s = ly_cdr (s))
     {
-      Translator_def *t = unsmob_translator_def (odef->find_translator_l (gh_car (s)));
+      Translator_def *t = unsmob_translator_def (odef->find_translator_l (ly_car (s)));
       if (!t)
 	continue;
       accepted_arr.push (t);
@@ -217,9 +217,9 @@ static SCM
 trans_list (SCM namelist, Translator_group*tg)
 {
   SCM l = SCM_EOL;
-  for (SCM s = namelist; gh_pair_p (s) ; s = gh_cdr (s))
+  for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
     {
-      Translator * t = get_translator_l (ly_scm2string (gh_car (s)));
+      Translator * t = get_translator_l (ly_scm2string (ly_car (s)));
       if (!t)
 	warning (_f ("can't find: `%s'", s));
       else
@@ -262,22 +262,22 @@ void
 Translator_def::apply_property_operations (Translator_group*tg)
 {
   SCM correct_order = scm_reverse (property_ops_); // pity of the mem.
-  for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = correct_order; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM entry = gh_car (s);
-      SCM type = gh_car (entry);
-      entry = gh_cdr (entry); 
+      SCM entry = ly_car (s);
+      SCM type = ly_car (entry);
+      entry = ly_cdr (entry); 
       
       if (type == push_sym)
 	{
 	  SCM val = gh_cddr (entry);
-	  val = gh_pair_p (val) ? gh_car (val) : SCM_UNDEFINED;
+	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
 
-	  apply_pushpop_property (tg, gh_car (entry), gh_cadr (entry), val);
+	  apply_pushpop_property (tg, ly_car (entry), gh_cadr (entry), val);
 	}
       else if (type == assign_sym)
 	{
-	  tg->set_property (gh_car (entry), gh_cadr (entry));
+	  tg->set_property (ly_car (entry), gh_cadr (entry));
 	}
     }
 }
@@ -299,7 +299,7 @@ Translator_def::make_scm ()
 void
 Translator_def::add_property_assign (SCM nm, SCM val)
 {
-  this->property_ops_ = gh_cons (gh_list (assign_sym, scm_string_to_symbol (nm), val, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (assign_sym, scm_string_to_symbol (nm), val, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
@@ -311,7 +311,7 @@ SCM
 Translator_def::default_child_context_name ()
 {
   SCM d = accepts_name_list_;
-  return gh_pair_p (d) ? gh_car (scm_last_pair (d)) : SCM_EOL;
+  return gh_pair_p (d) ? ly_car (scm_last_pair (d)) : SCM_EOL;
 }
 
 SCM

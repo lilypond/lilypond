@@ -61,7 +61,7 @@ Molecule::translate (Offset o)
       incr (a);
     }
 
-  expr_ = gh_list (ly_symbol2scm ("translate-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("translate-molecule"),
 		   ly_offset2scm (o),
 		   expr_, SCM_UNDEFINED);
   if (!empty_b ())
@@ -82,7 +82,7 @@ Molecule::translate_axis (Real x,Axis a)
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  expr_ = gh_list (ly_symbol2scm ("combine-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("combine-molecule"),
 		   m.expr_,
 		   expr_, SCM_UNDEFINED);
   dim_.unite (m.dim_);
@@ -222,7 +222,7 @@ fontify_atom (Font_metric * met, SCM f)
   if (f == SCM_EOL)
     return f;
   else
-    return  gh_list (ly_symbol2scm ("fontify"),
+    return  scm_list_n (ly_symbol2scm ("fontify"),
 		     ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
@@ -245,7 +245,7 @@ IMPLEMENT_SIMPLE_SMOBS (Molecule);
 int
 Molecule::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Molecule  *r = (Molecule *) gh_cdr (s);
+  Molecule  *r = (Molecule *) ly_cdr (s);
      
   scm_puts ("#<Molecule ", port);
   /*  String str (r->str ());
@@ -259,7 +259,7 @@ Molecule::print_smob (SCM s, SCM port, scm_print_state *)
 SCM
 Molecule::mark_smob (SCM s)
 {
-  Molecule  *r = (Molecule *) gh_cdr (s);
+  Molecule  *r = (Molecule *) ly_cdr (s);
   
   return r->expr_;
 }

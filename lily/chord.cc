@@ -24,11 +24,11 @@ SCM
 ly_unique (SCM list)
 {
   SCM unique = SCM_EOL;
-  for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
     {
-      if (!gh_pair_p (gh_cdr (i))
-	  || !gh_equal_p (gh_car (i), gh_cadr (i)))
-	unique = gh_cons (gh_car (i), unique);
+      if (!gh_pair_p (ly_cdr (i))
+	  || !gh_equal_p (ly_car (i), gh_cadr (i)))
+	unique = gh_cons (ly_car (i), unique);
     }
   return gh_reverse (unique);
 }
@@ -38,10 +38,10 @@ SCM
 ly_remove_member (SCM s, SCM list)
 {
   SCM removed = SCM_EOL;
-  for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
     {
-      if (!gh_equal_p (gh_car (i), s))
-	removed = gh_cons (gh_car (i), removed);
+      if (!gh_equal_p (ly_car (i), s))
+	removed = gh_cons (ly_car (i), removed);
     }
   return gh_reverse (removed);
 }
@@ -50,7 +50,7 @@ ly_remove_member (SCM s, SCM list)
 SCM
 ly_snoc (SCM s, SCM list)
 {
-  return gh_append2 (list, gh_list (s, SCM_UNDEFINED));
+  return gh_append2 (list, scm_list_n (s, SCM_UNDEFINED));
 }
 
 
@@ -63,8 +63,8 @@ ly_split_list (SCM s, SCM list)
   SCM after = list;
   for (; gh_pair_p (after);)
     {
-      SCM i = gh_car (after);
-      after = gh_cdr (after);
+      SCM i = ly_car (after);
+      after = ly_cdr (after);
       if (gh_equal_p (i, s))
 	break;
       before = gh_cons (i, before);
@@ -86,8 +86,8 @@ Chord::base_pitches (SCM tonic)
   SCM minor = Pitch (0, 2, -1).smobbed_copy ();
 
   base = gh_cons (tonic, base);
-  base = gh_cons (Pitch::transpose (gh_car (base), major), base);
-  base = gh_cons (Pitch::transpose (gh_car (base), minor), base);
+  base = gh_cons (Pitch::transpose (ly_car (base), major), base);
+  base = gh_cons (Pitch::transpose (ly_car (base), minor), base);
 
   return gh_reverse (base);
 }
@@ -99,9 +99,9 @@ Chord::transpose_pitches (SCM tonic, SCM pitches)
      hoe doe je lambda in C?
   */
   SCM transposed = SCM_EOL;
-  for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
-      transposed = gh_cons (Pitch::transpose (tonic, gh_car (i)),
+      transposed = gh_cons (Pitch::transpose (tonic, ly_car (i)),
 			    transposed);
     }
   return gh_reverse (transposed);
@@ -117,10 +117,10 @@ SCM
 Chord::lower_step (SCM tonic, SCM pitches, SCM step)
 {
   SCM lowered = SCM_EOL;
-  for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
-      SCM p = gh_car (i);
-      if (gh_equal_p (step_scm (tonic, gh_car (i)), step)
+      SCM p = ly_car (i);
+      if (gh_equal_p (step_scm (tonic, ly_car (i)), step)
 	  || gh_scm2int (step) == 0)
 	{
 	  p = Pitch::transpose (p, Pitch (0, 0, -1).smobbed_copy ());
@@ -138,22 +138,22 @@ Chord::member_notename (SCM p, SCM pitches)
   SCM member = gh_member (p, pitches);
   if (member == SCM_BOOL_F)
     {
-      for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+      for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
 	{
 	  /*
 	    Urg, eindelijk gevonden: () != #f, kan maar niet aan wennen.
 	    Anders kon iets korter...
 	   */
 	  if (unsmob_pitch (p)->notename_i_
-	      == unsmob_pitch (gh_car (i))->notename_i_)
+	      == unsmob_pitch (ly_car (i))->notename_i_)
 	    {
-	      member = gh_car (i);
+	      member = ly_car (i);
 	      break;
 	    }
 	}
     }
   else
-    member = gh_car (member);
+    member = ly_car (member);
   return member;
 }
 
@@ -165,20 +165,20 @@ Chord::member_pitch (SCM p, SCM pitches)
   SCM member = gh_member (p, pitches);
   if (member == SCM_BOOL_F)
     {
-      for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+      for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
 	{
 	  if (unsmob_pitch (p)->notename_i_
-	      == unsmob_pitch (gh_car (i))->notename_i_
+	      == unsmob_pitch (ly_car (i))->notename_i_
 	      && unsmob_pitch (p)->alteration_i_
-	      == unsmob_pitch (gh_car (i))->alteration_i_)
+	      == unsmob_pitch (ly_car (i))->alteration_i_)
 	    {
-	      member = gh_car (i);
+	      member = ly_car (i);
 	      break;
 	    }
 	}
     }
   else
-    member = gh_car (member);
+    member = ly_car (member);
   return member;
 }
 
@@ -219,13 +219,13 @@ Chord::missing_thirds (SCM pitches)
 		      thirds);
   thirds = scm_vector (gh_reverse (thirds));
   
-  SCM tonic = gh_car (pitches);
+  SCM tonic = ly_car (pitches);
   SCM last = tonic;
   SCM missing = SCM_EOL;
 
   for (SCM i = pitches; gh_pair_p (i);)
     {
-      SCM p = gh_car (i);
+      SCM p = ly_car (i);
       int step = gh_scm2int (step_scm (tonic, p));
       
       if (unsmob_pitch (last)->notename_i_ == unsmob_pitch (p)->notename_i_)
@@ -248,7 +248,7 @@ Chord::missing_thirds (SCM pitches)
 	}
       else
 	{
-	  i = gh_cdr (i);
+	  i = ly_cdr (i);
 	}
     }
   
@@ -261,7 +261,7 @@ Chord::add_above_tonic (SCM pitch, SCM pitches)
 {
   /* Should we maybe first make sure that PITCH is below tonic? */
   if (pitches != SCM_EOL)
-    while (Pitch::less_p (pitch, gh_car (pitches)) == SCM_BOOL_T)
+    while (Pitch::less_p (pitch, ly_car (pitches)) == SCM_BOOL_T)
       pitch = Pitch::transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
    
   pitches = gh_cons (pitch, pitches);
@@ -273,7 +273,7 @@ SCM
 Chord::add_below_tonic (SCM pitch, SCM pitches)
 {
   if (pitches != SCM_EOL)
-    while (Pitch::less_p (gh_car (pitches), pitch) == SCM_BOOL_T)
+    while (Pitch::less_p (ly_car (pitches), pitch) == SCM_BOOL_T)
       pitch = Pitch::transpose (pitch, Pitch (-1, 0, 0).smobbed_copy ());
   return gh_cons (pitch, pitches);
 }
@@ -295,9 +295,9 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 {
   /* urg: catch dim modifier: 3rd, 5th, 7th, .. should be lowered */
   bool dim_b = false;
-  for (SCM i = add; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = add; gh_pair_p (i); i = ly_cdr (i))
     {
-      Pitch* p = unsmob_pitch (gh_car (i));
+      Pitch* p = unsmob_pitch (ly_car (i));
       /* Ugr
 	This chord modifier stuff should really be fixed
        Cmaj7 yields C 7/7-
@@ -361,9 +361,9 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   
   SCM pitches = SCM_EOL;
   /* Add all that aren't subtracted */
-  for (SCM i = add; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = add; gh_pair_p (i); i = ly_cdr (i))
     {
-      SCM p = gh_car (i);
+      SCM p = ly_car (i);
       SCM s = member_notename (p, sub);
       if (s != SCM_BOOL_F)
 	sub = scm_delete (s, sub);
@@ -372,9 +372,9 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
     }
   pitches = scm_sort_list (pitches, Pitch::less_p_proc);
   
-  for (SCM i = sub; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = sub; gh_pair_p (i); i = ly_cdr (i))
     warning (_f ("invalid subtraction: not part of chord: %s",
-		 unsmob_pitch (gh_car (i))->str ()));
+		 unsmob_pitch (ly_car (i))->str ()));
 
   return pitches;
 }
@@ -395,7 +395,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	  /* Then, delete and add as base note, ie: the inversion */
 	  pitches = scm_delete (s, pitches);
 	  Note_req* n = new Note_req;
-	  n->set_mus_property ("pitch", gh_car (add_below_tonic (s, pitches)));
+	  n->set_mus_property ("pitch", ly_car (add_below_tonic (s, pitches)));
 	  n->set_mus_property ("duration", dur);
 	  n->set_mus_property ("inversion", SCM_BOOL_T);
 	  list = gh_cons (n->self_scm (), list);
@@ -410,17 +410,17 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
   if (bass != SCM_EOL)
     {
       Note_req* n = new Note_req;
-      n->set_mus_property ("pitch", gh_car (add_below_tonic (bass, pitches)));
+      n->set_mus_property ("pitch", ly_car (add_below_tonic (bass, pitches)));
       n->set_mus_property ("duration", dur);
       n->set_mus_property ("bass", SCM_BOOL_T);
       list = gh_cons (n->self_scm (), list);
       scm_gc_unprotect_object (n->self_scm ());
     }
   
-  for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+  for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
     {
       Note_req* n = new Note_req;
-      n->set_mus_property ("pitch", gh_car (i));
+      n->set_mus_property ("pitch", ly_car (i));
       n->set_mus_property ("duration", dur);
       list = gh_cons (n->self_scm (), list);
       scm_gc_unprotect_object (n->self_scm ());

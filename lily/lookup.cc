@@ -37,7 +37,7 @@ Lookup::beam (Real slope, Real width, Real thick)
 	 Interval (min_y, max_y));
 
   
-  SCM at = gh_list (ly_symbol2scm ("beam"),
+  SCM at = scm_list_n (ly_symbol2scm ("beam"),
 		    gh_double2scm (width),
 		    gh_double2scm (slope),
 		    gh_double2scm (thick),
@@ -57,7 +57,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash)
       l = gh_cons (ly_offset2scm (b.control_[i]), l);
     }
 
-  SCM at = (gh_list (ly_symbol2scm ("dashed-slur"),
+  SCM at = (scm_list_n (ly_symbol2scm ("dashed-slur"),
 			       gh_double2scm (thick), 
 			       gh_double2scm (dash),
 			       ly_quote_scm (l),
@@ -80,7 +80,7 @@ Lookup::blank (Box b)
 Molecule
 Lookup::filledbox (Box b) 
 {
-  SCM  at  = (gh_list (ly_symbol2scm ("filledbox"),
+  SCM  at  = (scm_list_n (ly_symbol2scm ("filledbox"),
 		     gh_double2scm (-b[X_AXIS][LEFT]),
 		     gh_double2scm (b[X_AXIS][RIGHT]),		       
 		     gh_double2scm (-b[Y_AXIS][DOWN]),
@@ -148,7 +148,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
     }
   
   
-  SCM at = (gh_list (ly_symbol2scm ("bezier-sandwich"),
+  SCM at = (scm_list_n (ly_symbol2scm ("bezier-sandwich"),
 		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
@@ -161,8 +161,8 @@ Molecule
 Lookup::accordion (SCM s, Real staff_space, Font_metric *fm) 
 {
   Molecule m;
-  String sym = ly_scm2string (gh_car (s));
-  String reg = ly_scm2string (gh_car (gh_cdr (s)));
+  String sym = ly_scm2string (ly_car (s));
+  String reg = ly_scm2string (ly_car (ly_cdr (s)));
 
   if (sym == "Discant")
     {
@@ -365,7 +365,7 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   SCM wid = gh_double2scm (w);
   SCM sl = gh_double2scm (s);
   SCM thick = gh_double2scm (t);
-  SCM slashnodot = gh_list (ly_symbol2scm ("repeat-slash"),
+  SCM slashnodot = scm_list_n (ly_symbol2scm ("repeat-slash"),
 			    wid, sl, thick, SCM_UNDEFINED);
 
   Box b (Interval (0, w + sqrt (sqr(t/s) + sqr (t))),

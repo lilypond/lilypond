@@ -41,9 +41,9 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
   else if (gh_pair_p (text))
     {
       /* urg, why not just do  this in markup_text2molecule ? */
-      if (gh_string_p (gh_car (text)))
+      if (gh_string_p (ly_car (text)))
 	return markup_text2molecule (me,
-				     gh_append2 (gh_list (SCM_EOL,
+				     gh_append2 (scm_list_n (SCM_EOL,
 							 SCM_UNDEFINED),
 						 text),
 				     alist_chain);
@@ -52,7 +52,7 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
 	#'(("foo"))
        */
       else if (scm_ilength (text) <= 1)
-	return text2molecule (me, gh_car (text), alist_chain);
+	return text2molecule (me, ly_car (text), alist_chain);
       else
 	return markup_text2molecule (me, text, alist_chain);
     }
@@ -64,15 +64,15 @@ Text_item::string2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   SCM style = ly_assoc_chain (ly_symbol2scm ("font-style"),
 			      alist_chain);
-  if (gh_pair_p (style) && gh_symbol_p (gh_cdr (style)))
-    alist_chain = Font_interface::add_style (me, gh_cdr (style), alist_chain);
+  if (gh_pair_p (style) && gh_symbol_p (ly_cdr (style)))
+    alist_chain = Font_interface::add_style (me, ly_cdr (style), alist_chain);
 
   Font_metric *fm = Font_interface::get_font (me, alist_chain);
   
   SCM lookup = ly_assoc_chain (ly_symbol2scm ("lookup"), alist_chain);
     
   Molecule mol;
-  if (gh_pair_p (lookup) && gh_cdr (lookup) ==ly_symbol2scm ("name"))
+  if (gh_pair_p (lookup) && ly_cdr (lookup) ==ly_symbol2scm ("name"))
     mol = lookup_character (me, fm, text);
   else
     mol = lookup_text (me, fm, text);
@@ -116,7 +116,7 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 #endif
   
 
-  SCM list = gh_list (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
+  SCM list = scm_list_n (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (fm, list);
   
   return Molecule (fm->text_dimension (ly_scm2string (text)), list);
@@ -127,10 +127,10 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 			       SCM alist_chain)
 {
   SCM sheet = me->paper_l ()->style_sheet_;
-  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
+  SCM f = ly_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   
-  SCM markup = gh_car (markup_text);
-  SCM text = gh_cdr (markup_text);
+  SCM markup = ly_car (markup_text);
+  SCM text = ly_cdr (markup_text);
 
   SCM p = gh_cons (gh_call2 (f, sheet, markup), alist_chain);
 
@@ -142,29 +142,29 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   Axis axis = X_AXIS;
 
   SCM a = ly_assoc_chain (ly_symbol2scm ("axis"), p);
-  if (gh_pair_p (a) && isaxis_b (gh_cdr (a)))
-    axis = (Axis)gh_scm2int (gh_cdr (a));
+  if (gh_pair_p (a) && isaxis_b (ly_cdr (a)))
+    axis = (Axis)gh_scm2int (ly_cdr (a));
 
   Real baseline_skip = 0;
   SCM b = ly_assoc_chain (ly_symbol2scm ("baseline-skip"), p);
-  if (gh_pair_p (b) && gh_number_p (gh_cdr (b)))
-    baseline_skip = gh_scm2double (gh_cdr (b)) * staff_space;
+  if (gh_pair_p (b) && gh_number_p (ly_cdr (b)))
+    baseline_skip = gh_scm2double (ly_cdr (b)) * staff_space;
   
   Real kern[2] = {0,0};
 
   SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
-  if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
-    kern[axis] = gh_scm2double (gh_cdr (k)) * staff_space;
+  if (gh_pair_p (k) && gh_number_p (ly_cdr (k)))
+    kern[axis] = gh_scm2double (ly_cdr (k)) * staff_space;
 			     
   Real raise = 0;
   SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
-  if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
-    raise = gh_scm2double (gh_cdr (r)) * staff_space;
+  if (gh_pair_p (r) && gh_number_p (ly_cdr (r)))
+    raise = gh_scm2double (ly_cdr (r)) * staff_space;
 
   Interval extent;
   bool extent_b = false;
   SCM e = ly_assoc_chain (ly_symbol2scm ("extent"), p);
-  if (gh_pair_p (e) && ly_number_pair_p (gh_cdr (e)))
+  if (gh_pair_p (e) && ly_number_pair_p (ly_cdr (e)))
     {
       extent = Interval (gh_scm2double (gh_cadr (e)) * staff_space,
 		       gh_scm2double (gh_cddr (e)) * staff_space);
@@ -177,7 +177,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   while (gh_pair_p (text))
     {
    
-      Molecule m = text2molecule (me, gh_car (text), p);
+      Molecule m = text2molecule (me, ly_car (text), p);
 
       /*
 	TODO: look at padding?
@@ -200,17 +200,17 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       */
 	
       SCM next_p = SCM_EOL;
-      if (gh_pair_p (gh_car (text)))
-	next_p = gh_list (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
+      if (gh_pair_p (ly_car (text)))
+	next_p = scm_list_n (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
       SCM next_k = ly_assoc_chain (ly_symbol2scm ("kern"), next_p);
       Real next_kern = kern[axis];
-      if (gh_pair_p (next_k) && gh_number_p (gh_cdr (next_k)))
-	next_kern = gh_scm2double (gh_cdr (next_k)) * staff_space;
+      if (gh_pair_p (next_k) && gh_number_p (ly_cdr (next_k)))
+	next_kern = gh_scm2double (ly_cdr (next_k)) * staff_space;
 
       SCM next_r = ly_assoc_chain (ly_symbol2scm ("raise"), next_p);
       Real next_raise = 0;
-      if (gh_pair_p (next_r) && gh_number_p (gh_cdr (next_r)))
-	next_raise = gh_scm2double (gh_cdr (next_r)) * staff_space;
+      if (gh_pair_p (next_r) && gh_number_p (ly_cdr (next_r)))
+	next_raise = gh_scm2double (ly_cdr (next_r)) * staff_space;
 
       o[Y_AXIS] = next_raise;
 
@@ -226,7 +226,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 	      mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, next_kern);
 	    }
 	}
-      text = gh_cdr (text);
+      text = ly_cdr (text);
     }
   
   if (extent_b)
@@ -235,7 +235,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
       /* Hmm, we're not allowed to change a Molecule's extent? */
       mol.dim_[axis] = extent;
       Molecule::ly_set_molecule_extent_x (mol.self_scm (), gh_int2scm (axis),
-					  gh_cdr (e));
+					  ly_cdr (e));
 #else
       // burp: unpredictable names, these...
       Box b = mol.extent_box ();

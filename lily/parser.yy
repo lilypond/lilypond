@@ -99,7 +99,7 @@ is_duration_b (int t)
 void
 set_music_properties (Music *p, SCM a)
 {
-  for (SCM k = a; gh_pair_p (k); k = gh_cdr (k))
+  for (SCM k = a; gh_pair_p (k); k = ly_cdr (k))
 	{
 	p->set_mus_property (gh_caar (k), gh_cdar (k));
 	}
@@ -382,7 +382,7 @@ notenames_body:
 	  int i = scm_ilength ($1);
 
 	  SCM tab = scm_make_vector (gh_int2scm (i), SCM_EOL);
-	  for (SCM s = $1; gh_pair_p (s); s = gh_cdr (s)) {
+	  for (SCM s = $1; gh_pair_p (s); s = ly_cdr (s)) {
 		SCM pt = gh_cdar (s);
 		if (!unsmob_pitch (pt))
 			THIS->parser_error ("Need pitch object.");
@@ -521,7 +521,7 @@ translator_spec_body:
 		td->type_aliases_ = gh_cons ($3, td->type_aliases_);
 	}
 	| translator_spec_body ELEMENTDESCRIPTIONS embedded_scm {
-		for (SCM p = $3; gh_pair_p (p); p = gh_cdr (p))
+		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p))
 			unsmob_translator_def ($$)
 			->add_property_assign (scm_symbol_to_string (gh_caar (p)), gh_cdar (p));
 
@@ -670,8 +670,8 @@ Music_list: /* empty */ {
 		SCM s = $$;
 		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
-		if (gh_pair_p (gh_cdr (s)))
-			gh_set_cdr_x (gh_cdr (s), c); /* append */
+		if (gh_pair_p (ly_cdr (s)))
+			gh_set_cdr_x (ly_cdr (s), c); /* append */
 		else
 			gh_set_car_x (s, c); /* set first cons */
 		gh_set_cdr_x (s, c) ;  /* remember last cell */ 
@@ -735,30 +735,30 @@ Repeated_music:
 
 Music_sequence: '{' Music_list '}'	{
 		$$ = new Music_sequence (SCM_EOL);
-		$$->set_mus_property ("elements", gh_car ($2));
+		$$->set_mus_property ("elements", ly_car ($2));
 	}
 	;
 
 Sequential_music:
 	SEQUENTIAL '{' Music_list '}'		{
 		$$ = new Sequential_music (SCM_EOL);
-		$$->set_mus_property ("elements", gh_car ($3));
+		$$->set_mus_property ("elements", ly_car ($3));
 	}
 	| '{' Music_list '}'		{
 		$$ = new Sequential_music (SCM_EOL);
-		$$->set_mus_property ("elements", gh_car ($2));
+		$$->set_mus_property ("elements", ly_car ($2));
 	}
 	;
 
 Simultaneous_music:
 	SIMULTANEOUS '{' Music_list '}'{
 		$$ = new Simultaneous_music (SCM_EOL);
-		$$->set_mus_property ("elements", gh_car ($3));
+		$$->set_mus_property ("elements", ly_car ($3));
 
 	}
 	| '<' Music_list '>'	{
 		$$ = new Simultaneous_music (SCM_EOL);
-		$$->set_mus_property ("elements", gh_car ($2));
+		$$->set_mus_property ("elements", ly_car ($2));
 	}
 	;
 
@@ -872,7 +872,7 @@ Composite_music:
 		fraction Music 	
 
 	{
-		int n = gh_scm2int (gh_car ($3)); int d = gh_scm2int (gh_cdr ($3));
+		int n = gh_scm2int (ly_car ($3)); int d = gh_scm2int (ly_cdr ($3));
 		Music *mp = $4;
 		$$ = new Time_scaled_music (SCM_EOL);
 		$$->set_spot (THIS->pop_spot ());
@@ -1148,9 +1148,9 @@ command_element:
 		SCM result = gh_call1 (func, $2);
 
 		SCM l = SCM_EOL;
-		for (SCM s = result ; gh_pair_p (s); s = gh_cdr (s)) {
+		for (SCM s = result ; gh_pair_p (s); s = ly_cdr (s)) {
 			Music * p = new Music (SCM_EOL);
-			set_music_properties (p, gh_car (s));
+			set_music_properties (p, ly_car (s));
 			l = gh_cons (p->self_scm (), l);
 			scm_gc_unprotect_object (p->self_scm ());
 		}
@@ -1167,8 +1167,8 @@ command_element:
 	| TIME_T fraction  {
 		Music * p1 = set_property_music (ly_symbol2scm ( "timeSignatureFraction"), $2);
 
-  int l = gh_scm2int (gh_car ($2));
-  int o = gh_scm2int (gh_cdr ($2));
+  int l = gh_scm2int (ly_car ($2));
+  int o = gh_scm2int (ly_cdr ($2));
   
   Moment one_beat = Moment (1)/Moment (o);
   Moment len = Moment (l) * one_beat;
@@ -1177,7 +1177,7 @@ command_element:
 		Music *p2 = set_property_music (ly_symbol2scm ("measureLength"), len.smobbed_copy ());
 		Music *p3 = set_property_music (ly_symbol2scm ("beatLength"), one_beat.smobbed_copy ());
 
-		SCM list = gh_list (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
+		SCM list = scm_list_n (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
 		Sequential_music *seq = new Sequential_music (SCM_EOL);
 		seq->set_mus_property ("elements", list);
 		
@@ -1661,7 +1661,7 @@ multiplied_duration:
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
 	| multiplied_duration '*' FRACTION {
-		Rational  m (gh_scm2int (gh_car ($3)), gh_scm2int (gh_cdr ($3)));
+		Rational  m (gh_scm2int (ly_car ($3)), gh_scm2int (ly_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();
 	}
@@ -1764,7 +1764,7 @@ simple_element:
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
 		Simultaneous_music*v = new Request_chord (SCM_EOL);
-		v->set_mus_property ("elements", gh_list (n->self_scm (), SCM_UNDEFINED));
+		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
 		
 		v->set_spot (i);
 		n->set_spot (i);
@@ -1774,9 +1774,9 @@ simple_element:
 		Music * m = unsmob_music ($1);
 		Input i = THIS->pop_spot (); 
 		m->set_spot (i);
-		for (SCM s = m->get_mus_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+		for (SCM s = m->get_mus_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
 			{
-				unsmob_music (gh_car (s))->set_mus_property ("duration", $2);
+				unsmob_music (ly_car (s))->set_mus_property ("duration", $2);
 			}
 		$$ = m;
 	}	
@@ -1798,7 +1798,7 @@ simple_element:
 			e = rest_req_p->self_scm ();
 		    }
  		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p-> set_mus_property ("elements", gh_list (e,SCM_UNDEFINED));
+		velt_p-> set_mus_property ("elements", scm_list_n (e,SCM_UNDEFINED));
 		velt_p->set_spot (i);
 
  		$$ = velt_p;
@@ -1817,13 +1817,13 @@ simple_element:
 		sp2->set_mus_property ("span-type", r);
 
 		Request_chord * rqc1 = new Request_chord (SCM_EOL);
-		rqc1->set_mus_property ("elements", gh_list (sp1->self_scm (), SCM_UNDEFINED));
+		rqc1->set_mus_property ("elements", scm_list_n (sp1->self_scm (), SCM_UNDEFINED));
 		Request_chord * rqc2 = new Request_chord (SCM_EOL);
-		rqc2->set_mus_property ("elements", gh_list (sk->self_scm (), SCM_UNDEFINED));;
+		rqc2->set_mus_property ("elements", scm_list_n (sk->self_scm (), SCM_UNDEFINED));;
 		Request_chord * rqc3 = new Request_chord (SCM_EOL);
-		rqc3->set_mus_property ("elements", gh_list (sp2->self_scm (), SCM_UNDEFINED));;
+		rqc3->set_mus_property ("elements", scm_list_n (sp2->self_scm (), SCM_UNDEFINED));;
 
-		SCM ms = gh_list (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
+		SCM ms = scm_list_n (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
 
 		$$ = new Sequential_music (SCM_EOL);
 		$$->set_mus_property ("elements", ms);
@@ -1836,7 +1836,7 @@ simple_element:
 		lreq_p->set_mus_property ("duration",$2);
 		lreq_p->set_spot (i);
 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p->set_mus_property ("elements", gh_list (lreq_p->self_scm (), SCM_UNDEFINED));
+		velt_p->set_mus_property ("elements", scm_list_n (lreq_p->self_scm (), SCM_UNDEFINED));
 
 		$$= velt_p;
 	}
@@ -1910,7 +1910,7 @@ chord_step:
 		$$ = gh_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
-		$$ = gh_list (unsmob_pitch ($1)->smobbed_copy (),
+		$$ = scm_list_n (unsmob_pitch ($1)->smobbed_copy (),
 			$2, SCM_UNDEFINED);
 	}
 	;

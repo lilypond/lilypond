@@ -432,7 +432,7 @@ Porrectus::brew_horizontal_slope(Real width, Real slope, Real thickness)
   SCM width_scm = gh_double2scm (width);
   SCM slope_scm = gh_double2scm (slope);
   SCM thickness_scm = gh_double2scm (thickness);
-  SCM horizontal_slope = gh_list (ly_symbol2scm ("beam"),
+  SCM horizontal_slope = scm_list_n (ly_symbol2scm ("beam"),
 				  width_scm, slope_scm,
 				  thickness_scm, SCM_UNDEFINED);
   Box b (Interval (0, width),

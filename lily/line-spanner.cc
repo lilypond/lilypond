@@ -48,7 +48,7 @@ Line_spanner::line_atom (Grob* me, Real dx, Real dy)
   Real on = length - thick;
   Real off = period - on;
 
-  SCM list = gh_list (ly_symbol2scm ("dashed-line"),
+  SCM list = scm_list_n (ly_symbol2scm ("dashed-line"),
 		      gh_double2scm (thick),
 		      gh_double2scm (on),
 		      gh_double2scm (off),
@@ -77,12 +77,12 @@ Line_spanner::line_molecule (Grob* me, Real dx, Real dy)
 	   && type == ly_symbol2scm ("trill"))
     {
       SCM alist_chain = Font_interface::font_alist_chain (me);
-      SCM style_chain = gh_list (gh_cons (ly_symbol2scm ("font-family"),
+      SCM style_chain = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
 					  ly_symbol2scm ("music")),
 				 SCM_UNDEFINED);
       
       Font_metric *fm = Font_interface::get_font (me,
-						  gh_list (style_chain,
+						  scm_list_n (style_chain,
 							   alist_chain,
 							   SCM_UNDEFINED));
       Molecule m = fm->find_by_name ("scripts-trill-element");

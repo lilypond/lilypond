@@ -117,12 +117,12 @@ Paper_score::process ()
   if (paper_l_->scope_p_)
     outputter_l_->output_scope (paper_l_->scope_p_, "lilypondpaper");
 
-  SCM scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
+  SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
   line_l_->output_lines ();
 
-  scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
+  scm = scm_list_n (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
   progress_indication ("\n");

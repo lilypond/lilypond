@@ -85,7 +85,7 @@ Tuplet_engraver::create_grobs ()
       SCM proc = get_property ("tupletNumberFormatFunction");
       if (gh_procedure_p (proc))
 	{
-	  SCM t = gh_apply (proc, gh_list (time_scaled_music_arr_[i]->self_scm (), SCM_UNDEFINED));
+	  SCM t = gh_apply (proc, scm_list_n (time_scaled_music_arr_[i]->self_scm (), SCM_UNDEFINED));
 	  glep->set_grob_property ("text", t);
 	}
       

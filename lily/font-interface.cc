@@ -35,10 +35,10 @@ scaling)
 SCM
 Font_interface::font_alist_chain (Grob *me)
 {
-  SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
+  SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
 				    me->paper_l ()->style_sheet_));
 
-  SCM ch = gh_list (me->mutable_property_alist_,
+  SCM ch = scm_list_n (me->mutable_property_alist_,
 		    me->immutable_property_alist_,
 		    defaults,
 		    SCM_UNDEFINED);
@@ -82,10 +82,10 @@ Font_interface::get_font (Grob *me, SCM chain)
   
   SCM ss = me->paper_l ()->style_sheet_;
 
-  SCM proc = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
+  SCM proc = ly_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
 				ss));
 
-  SCM fonts = gh_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
+  SCM fonts = ly_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
 
   assert (gh_procedure_p (proc));
   SCM font_name = gh_call2 (proc, fonts, chain);
@@ -101,11 +101,11 @@ Font_interface::add_style (Grob* me, SCM style, SCM chain)
   
   SCM sheet = me->paper_l ()->style_sheet_;
       
-  SCM style_alist = gh_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
+  SCM style_alist = ly_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
   SCM entry = scm_assoc (style, style_alist);
   if (gh_pair_p (entry))
     {
-      chain = gh_cons (gh_cdr (entry), chain);
+      chain = gh_cons (ly_cdr (entry), chain);
     }
   return chain;
 }
@@ -179,26 +179,26 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
        series = ly_assoc_chain (series_sym, alist_chain);
 
        if (gh_pair_p (shape))
-	 shape = gh_cdr (shape);
+	 shape = ly_cdr (shape);
        if (gh_pair_p (family))
-	 family = gh_cdr (family);
+	 family = ly_cdr (family);
        if (gh_pair_p (series))
-	 series = gh_cdr (series);
+	 series = ly_cdr (series);
     }
   else
-    name = gh_cdr (name);
+    name = ly_cdr (name);
 
 
   if (gh_pair_p (point_sz))
-    point_sz = gh_cdr (point_sz);
+    point_sz = ly_cdr (point_sz);
   else
     {
       rel_sz = ly_assoc_chain (rel_sz_sym, alist_chain);
       if (gh_pair_p (rel_sz))
-	rel_sz = gh_cdr (rel_sz);
+	rel_sz = ly_cdr (rel_sz);
     }
 
-  for (SCM s = fonts ; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = fonts ; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM qlist = gh_caar (s);
 
@@ -226,7 +226,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
 	}
       else
 	{
-	  if (!wild_compare (gh_car (qlist), rel_sz))
+	  if (!wild_compare (ly_car (qlist), rel_sz))
 	    continue;
 	}
 
@@ -236,7 +236,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     }
 
   warning (_ ("couldn't find any font satisfying "));
-  scm_write (gh_list (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
+  scm_write (scm_list_n (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return ly_str02scm ("cmr10");

@@ -9,8 +9,15 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
-#include <guile/gh.h>
 #include <libguile.h>
+
+/*
+  TODO: the  GH interface is deprecated as of GUILE 1.6
+
+  Remove all gh_XXX functions.
+ */
+#include <guile/gh.h>
+
 #include "config.h"
 
 /* Guile 1.3.4 compatibility */
@@ -79,6 +86,57 @@ SCM ly_quote_scm (SCM s);
 SCM ly_type (SCM);
 bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;
 SCM ly_number2string (SCM s);
+
+inline SCM
+ly_cdr (SCM x)
+{
+  return SCM_CDR (x);
+}
+inline SCM
+ly_car (SCM x)
+{
+  return SCM_CAR (x);
+} 
+inline SCM
+ly_caar (SCM x)
+{
+  return SCM_CAAR (x);
+}
+inline SCM
+ly_cdar (SCM x)
+{
+  return SCM_CDAR (x);
+}
+inline SCM
+ly_cadr (SCM x)
+{
+  return SCM_CADR (x);
+}
+inline SCM
+ly_cddr (SCM x)
+{
+  return SCM_CDDR (x);
+}
+inline SCM
+ly_pair_p (SCM x)
+{
+  return scm_pair_p (x);
+}
+inline bool
+ly_symbol_p (SCM x)
+{
+  return SCM_SYMBOLP (x);
+}
+inline bool
+ly_number_p (SCM x)
+{
+  return SCM_NUMBERP (x);
+}
+inline bool
+ly_procedure_p (SCM x)
+{
+  return SCM_NFALSEP (scm_procedure_p(x));
+}
 
 /*
   display and print newline.

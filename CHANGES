@@ -1,3 +1,28 @@
+1.5.11.jcn1
+===========
+
+* Add -p flag to package-diff.py's diff invocation, to show changed function.
+
+* Add configure checks for python headers.
+
+* Make midi module.
+
+1.5.11.hwn1
+===========
+
+* Allow breaks at measures starting with grace notes.
+
+* Bugfix: don't give up when there is one entirely unspaceable
+measure/line.
+
+* Midi module: many bugfixes.
+
+* midi2ly python blurble.
+
+
+1.5.11
+======
+
 1.5.10.jcn3
 ===========
 

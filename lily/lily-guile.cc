@@ -26,7 +26,7 @@
 SCM
 ly_last (SCM list)
 {
-  return gh_car (scm_last_pair (list));
+  return ly_car (scm_last_pair (list));
 }
 
 SCM
@@ -111,7 +111,7 @@ ly_parse_scm (char const* s, int* n)
 SCM
 ly_quote_scm (SCM s)
 {
-  return gh_list (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
+  return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
 }
 
 
@@ -166,7 +166,7 @@ ly_gulp_file (SCM fn)
 void
 read_lily_scm_file (String fn)
 {
-  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C ());
+  scm_c_eval_string ((char *) gulp_file_to_string (fn).ch_C ());
 }
 
 extern "C" {
@@ -197,7 +197,7 @@ SCM
 index_cell (SCM s, Direction d)
 {
   assert (d);
-  return (d == LEFT) ? gh_car (s) : gh_cdr (s);
+  return (d == LEFT) ? ly_car (s) : ly_cdr (s);
 }
 
 SCM
@@ -232,7 +232,7 @@ ly_isdir_p (SCM s)
 bool
 ly_number_pair_p (SCM p)
 {
-  return gh_pair_p (p) && gh_number_p (gh_car (p)) && gh_number_p (gh_cdr (p));
+  return gh_pair_p (p) && gh_number_p (ly_car (p)) && gh_number_p (ly_cdr (p));
 }
 
 bool
@@ -301,8 +301,8 @@ to_dir (SCM s)
 Interval
 ly_scm2interval (SCM p)
 {
-  return  Interval (gh_scm2double (gh_car (p)),
-		    gh_scm2double (gh_cdr (p)));
+  return  Interval (gh_scm2double (ly_car (p)),
+		    gh_scm2double (ly_cdr (p)));
 }
 
 SCM
@@ -339,7 +339,7 @@ appendable_list_append (SCM l, SCM elt)
 {
   SCM newcons = gh_cons (elt, SCM_EOL);
   
-  gh_set_cdr_x (gh_car (l), newcons);      
+  gh_set_cdr_x (ly_car (l), newcons);      
   gh_set_car_x (l, newcons);
 }
 
@@ -353,8 +353,8 @@ ly_offset2scm (Offset o)
 Offset
 ly_scm2offset (SCM s)
 {
-  return Offset (gh_scm2double (gh_car (s)),
-		 gh_scm2double (gh_cdr (s)));
+  return Offset (gh_scm2double (ly_car (s)),
+		 gh_scm2double (ly_cdr (s)));
 }
 
 SCM
@@ -445,9 +445,8 @@ SCM
 ly_version ()
 {
   char const* vs =  "\' (" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
-
   
-  return gh_eval_str ((char*)vs);
+  return scm_c_eval_string ((char*)vs);
 }
 
 static void
@@ -477,7 +476,7 @@ ly_deep_copy (SCM l)
 {
   if (gh_pair_p (l))
     {
-      return gh_cons (ly_deep_copy (gh_car (l)), ly_deep_copy (gh_cdr (l)));
+      return gh_cons (ly_deep_copy (ly_car (l)), ly_deep_copy (ly_cdr (l)));
     }
   else
     return l;
@@ -491,11 +490,11 @@ ly_assoc_chain (SCM key, SCM achain)
 {
   if (gh_pair_p (achain))
     {
-      SCM handle = scm_assoc (key, gh_car (achain));
+      SCM handle = scm_assoc (key, ly_car (achain));
       if (gh_pair_p (handle))
 	return handle;
       else
-	return ly_assoc_chain (key, gh_cdr (achain));
+	return ly_assoc_chain (key, ly_cdr (achain));
     }
   else
     return SCM_BOOL_F;

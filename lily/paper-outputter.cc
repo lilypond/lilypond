@@ -74,7 +74,7 @@ Paper_outputter::output_header ()
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
 
-  SCM exp = gh_list (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
+  SCM exp = scm_list_n (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
   exp = scm_primitive_eval (exp);
@@ -93,7 +93,7 @@ Paper_outputter::output_header ()
   generate = generate + to_str (' ' * (120 - generate.length_i ())>? 0)  ;
   
   SCM args_scm = 
-    gh_list (ly_str02scm (creator.ch_l ()),
+    scm_list_n (ly_str02scm (creator.ch_l ()),
 	     ly_str02scm (generate.ch_l ()), SCM_UNDEFINED);
 
 
@@ -106,7 +106,7 @@ Paper_outputter::output_header ()
 void
 Paper_outputter::output_comment (String str)
 {
-  output_scheme (gh_list (ly_symbol2scm ("comment"),
+  output_scheme (scm_list_n (ly_symbol2scm ("comment"),
 			  ly_str02scm ((char*)str.ch_C ()),
 			  SCM_UNDEFINED)
 		 );
@@ -151,7 +151,7 @@ void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
   SCM al = scope->to_alist ();
-  for (SCM s = al ; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM k = gh_caar (s);
       SCM v = gh_cdar (s);
@@ -190,7 +190,7 @@ void
 Paper_outputter::output_Real_def (String k, Real v)
 {
   
-  SCM scm = gh_list (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
@@ -201,7 +201,7 @@ void
 Paper_outputter::output_String_def (String k, String v)
 {
   
-  SCM scm = gh_list (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (v.ch_l ()),
 		     SCM_UNDEFINED);
@@ -211,7 +211,7 @@ Paper_outputter::output_String_def (String k, String v)
 void
 Paper_outputter::output_int_def (String k, int v)
 {
-  SCM scm = gh_list (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
@@ -253,7 +253,7 @@ Paper_outputter::write_header_fields_to_file (Scope * header)
 	  /* Only write header field to file if it exists */
 	  if (gh_pair_p (val))
 	    {
-	      s = ly_scm2string (gh_cdr (val));
+	      s = ly_scm2string (ly_cdr (val));
 	      /* Always write header field file, even if string is empty ... */
 	      write_header_field_to_file (basename_, key, s);
 	    }

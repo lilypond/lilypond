@@ -52,9 +52,9 @@ int
 Beam::get_multiplicity (Grob*me) 
 {
   int m = 0;
-  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * sc = unsmob_grob (gh_car (s));
+      Grob * sc = unsmob_grob (ly_car (s));
 
       if (Stem::has_interface (sc))
 	m = m >? Stem::beam_count (sc,LEFT) >? Stem::beam_count (sc,RIGHT);
@@ -299,8 +299,8 @@ Beam::after_line_breaking (SCM smob)
     somewhere (?), I guess, not by looping here. */
   
   SCM list = me->get_grob_property ("y-dy-callbacks");
-  for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
-    gh_call1 (gh_car (i), smob);
+  for (SCM i = list; gh_pair_p (i); i = ly_cdr (i))
+    gh_call1 (ly_car (i), smob);
 
   // UGH. Y is not in staff position unit?
   // Ik dacht datwe daar juist van weg wilden?
@@ -458,8 +458,8 @@ Beam::quantise_dy (SCM smob)
 			 gh_double2scm (me->paper_l ()->get_var ("stafflinethickness")
 					/ 1.0));
   
-  for (SCM s = quants; gh_pair_p (s); s = gh_cdr (s))
-    a.push (gh_scm2double (gh_car (s)));
+  for (SCM s = quants; gh_pair_p (s); s = ly_cdr (s))
+    a.push (gh_scm2double (ly_car (s)));
   
   if (a.size () > 1)
     {
@@ -703,15 +703,15 @@ Beam::quantise_y_f (Grob*me,Real y, Real dy, int quant_dir)
   SCM proc = me->get_grob_property ("vertical-position-quant-function");
   SCM quants = scm_apply (proc,
 			  me->self_scm (),
-			  gh_list (gh_int2scm (multiplicity),
+			  scm_list_n (gh_int2scm (multiplicity),
 				   gh_double2scm (dy/staff_space),
 				   gh_double2scm (thick/staff_space),
 				   SCM_EOL, SCM_UNDEFINED));
   
   Array<Real> a;
 
-  for (; gh_pair_p (quants); quants = gh_cdr (quants))
-    a.push (gh_scm2double (gh_car (quants)));
+  for (; gh_pair_p (quants); quants = ly_cdr (quants))
+    a.push (gh_scm2double (ly_car (quants)));
 
   if (a.size () <= 1)
     return y;

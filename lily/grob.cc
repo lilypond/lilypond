@@ -94,7 +94,7 @@ Grob::Grob (SCM basicprops)
   SCM meta = get_grob_property ("meta");
   SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
   
-  set_grob_property ("interfaces",gh_cdr (ifs));
+  set_grob_property ("interfaces",ly_cdr (ifs));
 }
 
 
@@ -131,10 +131,10 @@ Grob::get_grob_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
-    return gh_cdr (s);
+    return ly_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_EOL : gh_cdr (s); 
+  return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
 /*
@@ -211,8 +211,8 @@ Grob::preset_extent (SCM element_smob, SCM scm_axis)
   
   if (gh_pair_p (ext))
     {
-      Real l = gh_scm2double (gh_car (ext));
-      Real r = gh_scm2double (gh_cdr (ext));
+      Real l = gh_scm2double (ly_car (ext));
+      Real r = gh_scm2double (ly_cdr (ext));
       return ly_interval2scm (Interval (l, r));
     }
   
@@ -241,9 +241,9 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   
   status_c_= busy;
 
-  for (SCM d=  get_grob_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
+  for (SCM d=  get_grob_property ("dependencies"); gh_pair_p (d); d = ly_cdr (d))
     {
-      unsmob_grob (gh_car (d))
+      unsmob_grob (ly_car (d))
 	->calculate_dependencies (final, busy, funcname);
     }
 
@@ -278,7 +278,7 @@ Grob::get_uncached_molecule ()const
 
   SCM  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
-    mol = gh_apply (proc, gh_list (this->self_scm (), SCM_UNDEFINED));
+    mol = gh_apply (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
 
   
   Molecule *m = unsmob_molecule (mol);
@@ -296,7 +296,7 @@ Grob::get_uncached_molecule ()const
       // ugr.
       
       mol = Molecule (m->extent_box (),
-		      gh_list (origin, m->get_expr (), SCM_UNDEFINED)
+		      scm_list_n (origin, m->get_expr (), SCM_UNDEFINED)
 		      ). smobbed_copy ();
 
       m = unsmob_molecule (mol);
@@ -397,12 +397,12 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
     }
   else if (gh_pair_p (src))
     {
-      SCM oldcar =gh_car (src);
+      SCM oldcar =ly_car (src);
       /*
 	UGH! breaks on circular lists.
       */
       SCM newcar = handle_broken_grobs (oldcar, criterion);
-      SCM oldcdr = gh_cdr (src);
+      SCM oldcdr = ly_cdr (src);
       
       if (newcar == SCM_UNDEFINED
 	  && (gh_pair_p (oldcdr) || oldcdr == SCM_EOL))
@@ -611,8 +611,8 @@ Grob::extent (Grob * refp, Axis a) const
    */
   if (gh_pair_p (extra))
     {
-      ext[BIGGER] +=  gh_scm2double (gh_cdr (extra));
-      ext[SMALLER] +=   gh_scm2double (gh_car (extra));
+      ext[BIGGER] +=  gh_scm2double (ly_cdr (extra));
+      ext[SMALLER] +=   gh_scm2double (ly_car (extra));
     }
   
   extra = get_grob_property (a == X_AXIS
@@ -620,8 +620,8 @@ Grob::extent (Grob * refp, Axis a) const
 				: "minimum-extent-Y");
   if (gh_pair_p (extra))
     {
-      ext.unite (Interval (gh_scm2double (gh_car (extra)),
-			   gh_scm2double (gh_cdr (extra))));
+      ext.unite (Interval (gh_scm2double (ly_car (extra)),
+			   gh_scm2double (ly_cdr (extra))));
     }
 
   ext.translate (x);
@@ -656,9 +656,9 @@ Grob *
 Grob::common_refpoint (SCM elist, Axis a) const
 {
   Grob * common = (Grob*) this;
-  for (; gh_pair_p (elist); elist = gh_cdr (elist))
+  for (; gh_pair_p (elist); elist = ly_cdr (elist))
     {
-      Grob * s = unsmob_grob (gh_car (elist));
+      Grob * s = unsmob_grob (ly_car (elist));
       if (s)
 	common = common->common_refpoint (s, a);
     }
@@ -671,7 +671,7 @@ Grob::name () const
 {
   SCM meta = get_grob_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
-  nm = (gh_pair_p (nm)) ? gh_cdr (nm) : SCM_EOL;
+  nm = (gh_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
   return  gh_string_p (nm) ?ly_scm2string (nm) :  classname (this);  
 }
 
@@ -790,7 +790,7 @@ Grob::mark_smob (SCM ses)
 int
 Grob::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Grob *sc = (Grob *) gh_cdr (s);
+  Grob *sc = (Grob *) ly_cdr (s);
      
   scm_puts ("#<Grob ", port);
   scm_puts ((char *)sc->name ().ch_C (), port);

@@ -113,7 +113,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       SCM thick = me->get_grob_property ("thick");
       SCM gap = me->get_grob_property ("number-gap");
 	  
-      SCM at =gh_list (ly_symbol2scm ("tuplet"),
+      SCM at =scm_list_n (ly_symbol2scm ("tuplet"),
 		       gh_double2scm (1.0),
 		       gap,
 		       gh_double2scm (w),
@@ -276,9 +276,9 @@ Tuplet_bracket::get_default_dir (Grob*me)
     }
 
   d = UP ;
-  for (SCM s = me->get_grob_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("columns"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * nc = unsmob_grob (gh_car (s));
+      Grob * nc = unsmob_grob (ly_car (s));
       if (Note_column::dir (nc) < 0) 
 	{
 	  d = DOWN;

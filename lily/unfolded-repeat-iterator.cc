@@ -145,7 +145,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
      
       if (gh_pair_p (alternative_cons_))
 	{
-	  current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
+	  current_iter_p_ = get_iterator_p (unsmob_music (ly_car (alternative_cons_)));
 	  do_main_b_ = false;
 
 	  if (volta_b_)
@@ -165,7 +165,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 		}		  
 	      
 	      if (do_repcommands)
-		add_repeat_command (gh_list (ly_symbol2scm ("volta"),
+		add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
 					     ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	    }	  
 	}
@@ -192,14 +192,14 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
        */
       if (alternative_cons_)
 	{
-	  here_mom_ += unsmob_music (gh_car (alternative_cons_))->length_mom ();
+	  here_mom_ += unsmob_music (ly_car (alternative_cons_))->length_mom ();
 
 	  if (volta_b_ || 
 	      repmus->repeat_count () - done_count_  < alternative_count_i_)
-	    alternative_cons_ = gh_cdr (alternative_cons_);
+	    alternative_cons_ = ly_cdr (alternative_cons_);
 	  
 	  if (do_repcommands)
-	    add_repeat_command (gh_list (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
+	    add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
 
 	  
 	  
@@ -223,14 +223,14 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	  if (do_repcommands)
 	    {
 	      String repstr = to_str (done_count_ + 1) + ".";
-	      add_repeat_command (gh_list (ly_symbol2scm ("volta"),
+	      add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
 					   ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	      add_repeat_command (ly_symbol2scm ("end-repeat"));
 	    }
 
 	  
 	  if (volta_b_)
-	    current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
+	    current_iter_p_ = get_iterator_p (unsmob_music (ly_car (alternative_cons_)));
 	  else
 	    {
 	      current_iter_p_ = get_iterator_p (repmus->body ());
@@ -262,7 +262,7 @@ Unfolded_repeat_iterator::construct_children ()
     ? mus->alternatives ()->music_list ()
     : SCM_EOL;
 
-  for (SCM p = alternative_cons_; gh_pair_p (p); p = gh_cdr (p))
+  for (SCM p = alternative_cons_; gh_pair_p (p); p = ly_cdr (p))
     alternative_count_i_ ++;
 
   if (mus->body ())
@@ -272,7 +272,7 @@ Unfolded_repeat_iterator::construct_children ()
     }
   else if (gh_pair_p (alternative_cons_))
     {
-      current_iter_p_ = get_iterator_p (unsmob_music (gh_car (alternative_cons_)));
+      current_iter_p_ = get_iterator_p (unsmob_music (ly_car (alternative_cons_)));
       do_main_b_ = false;
     }
 
@@ -360,8 +360,8 @@ Unfolded_repeat_iterator::get_music (Moment until)const
       s = gh_append2 (nm, s);
       
       Moment m = 0;
-      for (SCM i = nm; gh_pair_p (i); i = gh_cdr (i))
-	m = m >? unsmob_music (gh_car (i))->length_mom ();
+      for (SCM i = nm; gh_pair_p (i); i = ly_cdr (i))
+	m = m >? unsmob_music (ly_car (i))->length_mom ();
 
       if (m > Moment (0))
 	break ;

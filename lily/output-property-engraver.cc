@@ -61,7 +61,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	should typecheck pred. 
        */
       SCM result=gh_apply (pred,
-			   gh_list (inf.elem_l_->self_scm (), SCM_UNDEFINED));
+			   scm_list_n (inf.elem_l_->self_scm (), SCM_UNDEFINED));
       if (to_boolean (result))
 	{
 	  SCM sym = o->get_mus_property ("grob-property");

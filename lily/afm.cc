@@ -159,7 +159,7 @@ Adobe_font_metric::find_by_name (String s) const
       return m;
     }
   
-  SCM at = (gh_list (ly_symbol2scm ("char"),
+  SCM at = (scm_list_n (ly_symbol2scm ("char"),
 		      gh_int2scm (cm->code),
 		      SCM_UNDEFINED));
   

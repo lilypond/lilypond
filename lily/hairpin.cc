@@ -116,7 +116,7 @@ Hairpin::brew_molecule (SCM smob)
 
     Lookup::line  (XY1, XY2).
   */
-  SCM hairpin = gh_list (ly_symbol2scm ("hairpin"),
+  SCM hairpin = scm_list_n (ly_symbol2scm ("hairpin"),
 			 gh_double2scm (thick),
 			 gh_double2scm (width),
 			 gh_double2scm (starth),

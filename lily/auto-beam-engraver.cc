@@ -109,19 +109,19 @@ Auto_beam_engraver::Auto_beam_engraver ()
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 {
-  SCM wild = gh_list (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
+  SCM wild = scm_list_n (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
   SCM function;
   if (dir == START)
-    function = gh_list (ly_symbol2scm ("begin"), SCM_UNDEFINED);
+    function = scm_list_n (ly_symbol2scm ("begin"), SCM_UNDEFINED);
   else
-    function = gh_list (ly_symbol2scm ("end"), SCM_UNDEFINED);
+    function = scm_list_n (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
   Moment one_beat = *unsmob_moment (get_property ("beatLength"));
   int num = int ((*unsmob_moment (get_property ("measureLength")) / one_beat).main_part_);
   int den = one_beat.den ();
-  SCM time = gh_list (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
+  SCM time = scm_list_n (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
 
-  SCM type = gh_list (gh_int2scm (test_mom.num ()),
+  SCM type = scm_list_n (gh_int2scm (test_mom.num ()),
 		      gh_int2scm (test_mom.den ()), SCM_UNDEFINED);
 
   SCM settings = get_property ("autoBeamSettings");
@@ -144,23 +144,23 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   /* second guess: property generic time exception */
   SCM m = gh_assoc (gh_append3 (function, wild, time), settings);
   
-  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
-    moment = * unsmob_moment (gh_cdr (m));
+  if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
+    moment = * unsmob_moment (ly_cdr (m));
 
   /* third guess: property time exception, specific for duration type */
   m = gh_assoc (gh_append3 (function, type, time), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
-    moment = * unsmob_moment (gh_cdr (m));
+  if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
+    moment = * unsmob_moment (ly_cdr (m));
 
   /* fourth guess [user override]: property plain generic */
   m = gh_assoc (gh_append3 (function, wild, wild), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
-    moment = * unsmob_moment (gh_cdr (m));
+  if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
+    moment = * unsmob_moment (ly_cdr (m));
 
   /* fifth guess [user override]: property plain, specific for duration type */
   m = gh_assoc (gh_append3 (function, type, wild), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (gh_cdr (m)))
-    moment = * unsmob_moment (gh_cdr (m));
+  if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
+    moment = * unsmob_moment (ly_cdr (m));
   
   Rational r;
   if (moment.to_bool ())

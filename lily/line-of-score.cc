@@ -25,9 +25,9 @@
 void
 fixup_refpoints (SCM s)
 {
-  for (; gh_pair_p (s); s = gh_cdr (s))
+  for (; gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob::fixup_refpoint (gh_car (s));
+      Grob::fixup_refpoint (ly_car (s));
     }
 }
 
@@ -59,9 +59,9 @@ void
 Line_of_score::output_lines ()
 {
   for (SCM s = get_grob_property ("all-elements");
-       gh_pair_p (s); s = gh_cdr (s))
+       gh_pair_p (s); s = ly_cdr (s))
     {
-      unsmob_grob (gh_car (s))->do_break_processing ();
+      unsmob_grob (ly_car (s))->do_break_processing ();
     }
   /*
     fixups must be done in broken line_of_scores, because new elements
@@ -71,9 +71,9 @@ Line_of_score::output_lines ()
     {
       Grob *se = broken_into_l_arr_[i];
       SCM all = se->get_grob_property ("all-elements");
-      for (SCM s = all; gh_pair_p (s); s = gh_cdr (s))
+      for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
 	{
-	  fixup_refpoint (gh_car (s));
+	  fixup_refpoint (ly_car (s));
 	}
       count += scm_ilength (all);
     }
@@ -86,9 +86,9 @@ Line_of_score::output_lines ()
 
   
   for (SCM s = get_grob_property ("all-elements");
-       gh_pair_p (s); s = gh_cdr (s))
+       gh_pair_p (s); s = ly_cdr (s))
     {
-      unsmob_grob (gh_car (s))->handle_broken_dependencies ();
+      unsmob_grob (ly_car (s))->handle_broken_dependencies ();
     }
   handle_broken_dependencies ();
 
@@ -112,7 +112,7 @@ Line_of_score::output_lines ()
 
       if (i < broken_into_l_arr_.size () - 1)
 	{
-	  SCM lastcol =  gh_car (line_l->get_grob_property ("columns"));
+	  SCM lastcol =  ly_car (line_l->get_grob_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
 	  SCM inter = e->get_grob_property ("between-system-string");
 	  if (gh_string_p (inter))
@@ -150,11 +150,11 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 
 	  if (!left)
 	    {
-	      left = dynamic_cast<Item*> (unsmob_grob (gh_car (between)));
+	      left = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
 	      left = left->column_l ();
 	    }
 	  divide_over ++;	
-	  loose = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
+	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 	  loose = loose->column_l ();
 	}
 
@@ -177,7 +177,7 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 	  thiscol->translate_axis (lx + j*(rx - lx)/divide_over, X_AXIS);
 
 	  j ++;	
-	  loose = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
+	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 	}
       
     }
@@ -236,13 +236,13 @@ Line_of_score::output_molecule (SCM expr, Offset o)
       if (!gh_pair_p (expr))
 	return;
   
-      SCM head =gh_car (expr);
+      SCM head =ly_car (expr);
       if (unsmob_input (head))
 	{
 	  Input * ip = unsmob_input (head);
       
 
-	  pscore_l_->outputter_l_->output_scheme (gh_list (define_origin_sym,
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (define_origin_sym,
 							   ly_str02scm (ip->file_str ().ch_C ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
@@ -251,7 +251,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 	}
       else  if (head ==  no_origin_sym)
 	{
-	  pscore_l_->outputter_l_->output_scheme (gh_list (no_origin_sym, SCM_UNDEFINED));
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (no_origin_sym, SCM_UNDEFINED));
 	  expr = gh_cadr (expr);
 	}
       else if (head == offset_sym)
@@ -267,7 +267,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
       else
 	{
 	  pscore_l_->outputter_l_->
-	    output_scheme (gh_list (placebox_sym,
+	    output_scheme (scm_list_n (placebox_sym,
 				    gh_double2scm (o[X_AXIS]),
 				    gh_double2scm (o[Y_AXIS]),
 				    expr,
@@ -289,7 +289,7 @@ Line_of_score::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_grob_property ("columns");
-  Grob * prev =  gh_pair_p (cs) ? unsmob_grob (gh_car (cs)) : 0;
+  Grob * prev =  gh_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
 
   p->rank_i_ = prev ? Paper_column::rank_i (prev) + 1 : 0; 
 
@@ -306,28 +306,28 @@ Line_of_score::add_column (Paper_column*p)
 void
 Line_of_score::pre_processing ()
 {
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_grob (gh_car (s))->discretionary_processing ();
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+    unsmob_grob (ly_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
     progress_indication (_f ("Element count %d ",  element_count ()));
 
   
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
-    unsmob_grob (gh_car (s))->handle_prebroken_dependencies ();
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
+    unsmob_grob (ly_car (s))->handle_prebroken_dependencies ();
   
   fixup_refpoints (get_grob_property ("all-elements"));
   
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob* sc = unsmob_grob (gh_car (s));
+      Grob* sc = unsmob_grob (ly_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " ");
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * e = unsmob_grob (gh_car (s));
+      Grob * e = unsmob_grob (ly_car (s));
       SCM proc = e->get_grob_property ("spacing-procedure");
       if (gh_procedure_p (proc))
 	gh_call1 (proc, e->self_scm ());
@@ -338,9 +338,9 @@ void
 Line_of_score::post_processing (bool last_line)
 {
   for (SCM s = get_grob_property ("all-elements");
-       gh_pair_p (s); s = gh_cdr (s))
+       gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob* sc = unsmob_grob (gh_car (s));
+      Grob* sc = unsmob_grob (ly_car (s));
       sc->calculate_dependencies (POSTCALCED, POSTCALCING,
 				  ly_symbol2scm ("after-line-breaking-callback"));
     }
@@ -362,22 +362,22 @@ Line_of_score::post_processing (bool last_line)
     generate all molecules  to trigger all font loads.
 
  (ugh. This is not very memory efficient.)  */
-  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      unsmob_grob (gh_car (s))->get_molecule ();
+      unsmob_grob (ly_car (s))->get_molecule ();
     }
   /*
     font defs;
    */
   SCM font_names = ly_quote_scm (paper_l ()->font_descriptions ());  
-  output_scheme (gh_list (ly_symbol2scm ("define-fonts"),
+  output_scheme (scm_list_n (ly_symbol2scm ("define-fonts"),
 					font_names,
 					SCM_UNDEFINED));
 
   /*
     line preamble.
    */
-  output_scheme (gh_list (ly_symbol2scm ("start-line"),
+  output_scheme (scm_list_n (ly_symbol2scm ("start-line"),
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
@@ -385,9 +385,9 @@ Line_of_score::post_processing (bool last_line)
      The default layer is 1. */
   for (int i = 0; i < 3; i++)
     for (SCM s = get_grob_property ("all-elements"); gh_pair_p (s);
-	 s = gh_cdr (s))
+	 s = ly_cdr (s))
       {
-	Grob *sc = unsmob_grob (gh_car (s));
+	Grob *sc = unsmob_grob (ly_car (s));
 	Molecule *m = sc->get_molecule ();
 	if (!m)
 	  continue;
@@ -403,8 +403,8 @@ Line_of_score::post_processing (bool last_line)
 	SCM e = sc->get_grob_property ("extra-offset");
 	if (gh_pair_p (e))
 	  {
-	    o[X_AXIS] += gh_scm2double (gh_car (e));
-	    o[Y_AXIS] += gh_scm2double (gh_cdr (e));      
+	    o[X_AXIS] += gh_scm2double (ly_car (e));
+	    o[Y_AXIS] += gh_scm2double (ly_cdr (e));      
 	  }
 	
 	output_molecule (m->get_expr (), o);
@@ -412,11 +412,11 @@ Line_of_score::post_processing (bool last_line)
   
   if (last_line)
     {
-      output_scheme (gh_list (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
     }
   else
     {
-      output_scheme (gh_list (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
     }
 }
 
@@ -430,19 +430,19 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   r = r->column_l ();
   SCM s = get_grob_property ("columns");
 
-  while (gh_pair_p (s) && gh_car (s) != r->self_scm ())
-    s = gh_cdr (s);
+  while (gh_pair_p (s) && ly_car (s) != r->self_scm ())
+    s = ly_cdr (s);
     
   if (gh_pair_p (s))
-    s = gh_cdr (s);
+    s = ly_cdr (s);
   
-  while (gh_pair_p (s) && gh_car (s) != l->self_scm ())
+  while (gh_pair_p (s) && ly_car (s) != l->self_scm ())
     {
-      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (gh_car (s)));
+      Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
       if (Item::breakable_b (c) && !c->line_l_)
 	ret.push (c);
 
-      s = gh_cdr (s);
+      s = ly_cdr (s);
     }
 
   ret.reverse ();

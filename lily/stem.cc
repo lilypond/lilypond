@@ -140,7 +140,7 @@ Stem::support_head (Grob*me)
 	UGH.
        */
       
-      return unsmob_grob (gh_car (me->get_grob_property ("heads")));
+      return unsmob_grob (ly_car (me->get_grob_property ("heads")));
     }
   else
     return first_head (me);
@@ -176,9 +176,9 @@ Stem::extremal_heads (Grob*me)
   Drul_array<Grob *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
-  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * n = unsmob_grob (gh_car (s));
+      Grob * n = unsmob_grob (ly_car (s));
 
       
       int p = int (Staff_symbol_referencer::position_f (n));
@@ -206,9 +206,9 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
-  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * n = unsmob_grob (gh_car (s));
+      Grob * n = unsmob_grob (ly_car (s));
       int p = int (Staff_symbol_referencer::position_f (n));
 
       ps.push (p);
@@ -277,8 +277,8 @@ Stem::get_default_stem_end_position (Grob*me)
   else
     {
       s = me->get_grob_property ("lengths");
-      for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
-	a.push (gh_scm2double (gh_car (q)));
+      for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
+	a.push (gh_scm2double (ly_car (q)));
 		
       // stem uses half-spaces
       length_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
@@ -287,13 +287,13 @@ Stem::get_default_stem_end_position (Grob*me)
 
   a.clear ();
   s = me->get_grob_property ("stem-shorten");
-  for (SCM q = s; gh_pair_p (q); q = gh_cdr (q))
-    a.push (gh_scm2double (gh_car (q)));
+  for (SCM q = s; gh_pair_p (q); q = ly_cdr (q))
+    a.push (gh_scm2double (ly_car (q)));
 
 
   // stem uses half-spaces
 
-  // fixme: use gh_list_ref () iso. array[]
+  // fixme: use scm_list_n_ref () iso. array[]
   Real shorten_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG
@@ -707,16 +707,16 @@ Stem::calc_stem_info (Grob*me)
   
   s = me->get_grob_property ("beamed-minimum-lengths");
   a.clear ();
-  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
-    a.push (gh_scm2double (gh_car (q)));
+  for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
+    a.push (gh_scm2double (ly_car (q)));
 
 
   Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
   s = me->get_grob_property ("beamed-lengths");
 
   a.clear ();
-  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
-    a.push (gh_scm2double (gh_car (q)));
+  for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
+    a.push (gh_scm2double (ly_car (q)));
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 

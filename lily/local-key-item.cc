@@ -20,7 +20,7 @@
 static SCM
 pitch_less (SCM p1, SCM p2)
 {
-  return Pitch::less_p (gh_car (p1),  gh_car (p2));
+  return Pitch::less_p (ly_car (p1),  ly_car (p2));
 }
 
 static SCM pitch_less_proc;
@@ -85,7 +85,7 @@ Local_key_item::after_line_breaking (SCM smob)
 
   SCM accs = me->get_grob_property ("accidentals");
   for (SCM s = accs;
-	gh_pair_p (s); s = gh_cdr (s))
+	gh_pair_p (s); s = ly_cdr (s))
     {
       SCM opts = gh_cdar (s);
 
@@ -97,7 +97,7 @@ Local_key_item::after_line_breaking (SCM smob)
 	  if (!sp->original_l_)
 	    {
 	      /* there should be a better way to delete part of me */
-	      scm_set_car_x (s, gh_list (gh_caar (s),
+	      scm_set_car_x (s, scm_list_n (gh_caar (s),
 					 ly_symbol2scm ("deleted"),
 					 SCM_UNDEFINED));
 	      me->set_grob_property ("molecule", SCM_EOL);
@@ -142,7 +142,7 @@ Local_key_item::brew_molecule (SCM smob)
 
   SCM accs = me->get_grob_property ("accidentals");
   for (SCM s = accs;
-	gh_pair_p (s); s = gh_cdr (s))
+	gh_pair_p (s); s = ly_cdr (s))
     {
       Pitch p (*unsmob_pitch (gh_caar (s)));
       SCM opts = gh_cdar (s);
