@@ -6,6 +6,10 @@
 % 
 % (c) 1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 
+%
+% These numbers were taken from a part that that the EJE violas played
+% 1997 -- Probably Mendelssohn's ouverture Heimkehr aus der Fremde.
+%
 
 %
 % TODO all the invocation of flare_path are weird -- 

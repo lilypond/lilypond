@@ -158,7 +158,9 @@ with the @TeX{} distribution.
 
 @item kpathsea, a library for searching (@TeX{}) files.  @code{kpathsea} is
 usually included with your installation of @TeX{}.  You may need to install
-a tetex-devel or tetex-dev package too.
+a tetex-devel or tetex-dev package too. If kpathsea is not installed in
+a directory where the compiler normaly looks, read the hints for
+Slackware below.
 
 In the very unlikely case that kpathsea is not available for your
 platform (ie, you're not running GNU/Linux, Windows, or any recent
@@ -374,6 +376,16 @@ No precompiled packages for Slackware are available.
 Problems have been reported with Slackware 7.0; apparently, it ships
 with a faulty compiler. Do not compile LilyPond with -O2 on this
 platform.
+
+At least on Slackware 8.0, you have to manually specify the paths to the
+Kpathsea library, using
+@itemize
+@item @code{rm config.cache}
+@item @code{export LDFLAGS=-L/usr/share/texmf/lib}
+@item @code{export CPPFLAGS=-I/usr/share/texmf/include}
+@item @code{./configure}
+@end itemize
+
 
 @subsection Mandrake
 
