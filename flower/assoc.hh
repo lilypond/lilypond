@@ -4,6 +4,9 @@
 #include "varray.hh"
 #include <assert.h>
 
+/**
+  A helper for Assoc
+ */
 template<class K, class V>
 struct Assoc_ent_ {
     bool free;
@@ -12,7 +15,8 @@ struct Assoc_ent_ {
 };
 
 
-/** mindblowingly stupid Associative array implementation.Hungarian: map
+/** mindblowingly stupid Associative array implementation.
+  Hungarian: map
  */
 template<class K, class V>
 struct Assoc {
@@ -62,9 +66,6 @@ public:
 	int i = find_creat(key);
 	arr[i].val = val;
     }
-    /*
-    should create "set" template
-    */
     V& operator[](K key) {
 	return arr[find_creat(key)].val;
     }

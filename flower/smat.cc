@@ -19,16 +19,6 @@ Full_storage::OK() const
     assert(maxh >= h && maxw >= w);
     assert(h >= 0 && w >= 0);
     assert(els||!maxh);
-    if (maxh>0) {		// access outer elts.
-	Real *r = els[maxh -1];
-	#if 0
-	if (maxw>0) {
-	    assert(r);
-	    Real s = r[maxw -1]; // accessing unitialised memory.
-	    s = sin(s);
-	}
-	#endif
-    }
 #endif
 }
 void
@@ -59,7 +49,7 @@ Full_storage::resize_rows(int neww)
 	return;
     }
     for (int i=0; i < maxh ; i++) {
-	Real* newa=new Real[neww];
+	Real* newa = new Real[neww];
 	for (int k=0; k < w; k++)
 	    newa[k] = els[i][k];
 

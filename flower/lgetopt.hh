@@ -6,7 +6,10 @@
 
 class ostream;
 
-struct long_option_init {
+/**
+  a struct this for initialising the commandline options.
+ */
+struct Long_option_init {
     bool take_arg;
     const char* longname;
     char        shortname;
@@ -29,34 +32,31 @@ public:
 private:
 
     /// the option info.
-    long_option_init *the_opts;
+    Long_option_init *the_opts;
     int table_len;
     
     /// if doing short option, argv[optind][optindind] is processed next.
     int optindind;
 
     /// the option found
-    long_option_init *beet;
+    Long_option_init *beet;
 
     /// get ready for processing next error.
     bool next();
-    long_option_init *parselong();
-    long_option_init *parseshort();
+    Long_option_init *parselong();
+    Long_option_init *parseshort();
     
     ostream *errorout;
 
     /// report an error and abort
     void report(Errorcod c);
 public:
-    /**  what to do with  errors. 
-       report messages on  #*os#, and abort.
-       if #os# is null, then do not report nor abort, just set #error#
-      */
-       
-    void seterror(ostream *os);
+
     /// argument. Set to 0 if not present
     char* optarg;
 
+    /// current error status
+    Errorcod error;
 
     /// return an integer (with err. detect)
     long intarg();
@@ -69,17 +69,26 @@ public:
     /// the arg. count
     int argc;
     
+    /* *************** */
+    
+    /**
+      What to do with  errors. 
+       report messages on  #*os#, and abort.
+       if #os# is null, then do not report nor abort, just set #error#
+      */
+       
+    void seterror(ostream *os);
+
     /// construct: pass arguments and option info.
-    Getopt_long(int c,  char **v, long_option_init *lo);
+    Getopt_long(int c,  char **v, Long_option_init *lo);
 
     /**  get the next option. 
       @return pointer to next option found.
       0 if error occurred, or next argument is no option.
       */
-    long_option_init *operator()();
+    Long_option_init *operator()();
 
     char *current_arg();
     char * get_next_arg();
-    Errorcod error;
 };
 #endif

@@ -2,6 +2,7 @@
 #include "matrix.hh"
 
 static Dstream *dout = 0;
+
 /**
   Set the debugging output. Will not delete/swallow argument.
  */

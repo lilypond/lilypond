@@ -17,13 +17,18 @@ inline void arrcpy(T*dest, T*src, int count) {
 
 
 /**
-  scaleable array/stack template, for T with def ctor.
+  Scaleable array/stack template, for a type T with default constructor.
+  
+  
   This template implements a scaleable vector. With (or without) range
   checking. It may be flaky for objects with complicated con- and
   destructors. The type T should have a default constructor. It is
-  best suited for simple types, such as int, double or String
+  best suited for simple types, such as int, double or String, it
+  provides a paranoidly safe replacement for the new T[int] construct.
 
   It uses stack terminology, (push, pop, top), and  can be used as a stack.
+
+  
   */
 template<class T>
 class Array {
@@ -146,7 +151,7 @@ public:
 	size_--;
     }
     // quicksort.
-    void sort (int (*compare)(T& , T& ),
+    void sort (int (*compare)( T const&,T const&),
 	       int lower = -1, int upper = -1 ) {
 	if (lower < 0) {
 	    lower = 0 ;

@@ -15,7 +15,7 @@
 #include <iostream.h>
 #include <Rational.h>
 
-#include "stringhandle.hh"
+#include "string-handle.hh"
 
 /** 
  
@@ -24,15 +24,12 @@
 \item
   ref counting through #String_handle#
 \item
-
-  conversion from bool, int, double, char* , char.
+  conversion from bool, int, double, char* , char.  
 \item
-
   to be moved to String_convert:
   conversion to int, upcase, downcase 
 
 \item
-
   printable. 
 
 \item
@@ -51,34 +48,33 @@
   No operator[] is provided, since this would be enormously  slow. If needed,
   convert to char const* .
 \end{itemize}
+
 */
 class String
 {
 protected:
-    String_handle strh_; // should derive String from String_handle?
+    String_handle strh_; 
 
+    bool null_terminated();
+    
 public:
 
-    /**   init to "". needed because other constructors are provided.*/
+    /** init to empty string. This is needed because other
+      constructors are provided.*/
     String() {  }                  
     String(Rational);
+
     /// String s = "abc";
     String( char const* source ); 
-
     String( Byte const* byte_c_l, int length_i ); 
     
     /// "ccccc"
     String( char c, int n = 1 );
 
-    /// String s( 10 );
-    String( int i );
-
+    String( int i , char const *fmt=0);
+    String ( double f , char const* fmt =0);
     /// 'true' or 'false'
     String(bool );
-
-    /// String s( 3.14, 6, '#' );
-    String ( double f , char const* fmt =0);
-    String(  int i,  int n,  char c = ' ' );
 
     ///  return a "new"-ed copy of contents
     Byte* copy_byte_p() const; //  return a "new"-ed copy of contents
@@ -91,11 +87,14 @@ public:
     /// deprecated; use ch_c_l()
     operator char const* () const { return ch_c_l(); }
     
-    String operator =( const String & source ) { strh_ = source.strh_; return *this; }
+    String &operator =( const String & source );
 
     /// concatenate s
     void operator += (char const* s) { strh_ += s; }
     void operator += (String s);
+
+    void append(String);
+    void prepend(String);
 
     char operator []( int n ) const { return strh_[n]; }
 
@@ -130,17 +129,12 @@ public:
     /// index of rightmost element of string 
     int index_last_i( char const* string ) const;
 
-    /**
-      index of leftmost c.
-      
-    @return
-    -1 if not found, else index
-    */
     int index_i(char c ) const;
-    int index_i(char const* string ) const;
-    int index_any_i(char const* string ) const;
+    int index_i(String ) const;
+    int index_any_i(String ) const;
 
-
+    void to_upper();
+    void to_lower();
     /// provide Stream output
     void print_on(ostream& os) const;
 
@@ -157,7 +151,6 @@ public:
 
     /// convert to a double
     double value_f() const;
-    // *****     
 };
 
 #include "compare.hh"
@@ -196,7 +189,5 @@ operator << ( ostream& os, String d )
 
 
 // String quoteString(String message, String quote);
-
-#include "string-convert.hh"
 
 #endif

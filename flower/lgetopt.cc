@@ -1,7 +1,6 @@
 /*
    process command line, GNU style.
 
-
    this is (Copyleft) 1996, Han-Wen Nienhuys, <hanwen@stack.nl>
  */
 #include <stdio.h>
@@ -10,15 +9,18 @@
 #include "lgetopt.hh"
 
 long
-Getopt_long::intarg() {
+Getopt_long::intarg()
+{
     long l;
     if (sscanf(optarg, "%ld", &l) != 1)
 	report(E_ILLEGALARG);
     
     return l;
 }
-long_option_init *
-Getopt_long::parselong() {
+
+Long_option_init *
+Getopt_long::parselong()
+{
     const char *optnm = argv[optind] + 2 ;
     assert(*optnm);
     
@@ -64,7 +66,7 @@ Getopt_long::parselong() {
 
 
 ostream &
-long_option_init::printon(ostream &errorout)
+Long_option_init::printon(ostream &errorout)
 {
     if (shortname)	
 	errorout <<"-" << shortname;
@@ -91,7 +93,8 @@ Getopt_long::report(Errorcod c)
 	*errorout << "requires an argument"<<endl;
 	break;
     case  E_NOARGEXPECT:
-	*errorout << "option `--" << beet->longname << "' does not allow an argument"<<endl;
+	*errorout << "option `--" <<
+	    beet->longname << "' does not allow an argument"<<endl;
 	break;
 	
     case E_UNKNOWNOPTION:
@@ -112,8 +115,9 @@ Getopt_long::report(Errorcod c)
     exit(2); 
 }
     
-long_option_init *
-Getopt_long::parseshort() {
+Long_option_init *
+Getopt_long::parseshort()
+{
     char c=argv[optind][optindind];
     beet=0;
     assert(c);
@@ -150,7 +154,7 @@ Getopt_long::parseshort() {
     return beet;
 }
 
-long_option_init *
+Long_option_init *
 Getopt_long::operator()() {
     if (!next())
 	return 0;
@@ -169,7 +173,8 @@ Getopt_long::operator()() {
     }
 }
 
-Getopt_long::Getopt_long(int c, char **v, long_option_init *lo) {
+Getopt_long::Getopt_long(int c, char **v, Long_option_init *lo)
+{
     the_opts = lo;
     errorout = &cerr;
     argv = v;
@@ -184,7 +189,10 @@ Getopt_long::Getopt_long(int c, char **v, long_option_init *lo) {
     table_len = i;
 }
 
-bool Getopt_long::next() {
+bool
+Getopt_long::next()
+{
+
     error = E_NOERROR;
     while (optind < argc && !argv[optind][optindind]) {
 	optind++;

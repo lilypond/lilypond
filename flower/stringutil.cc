@@ -27,7 +27,7 @@ mymemmove( void* dest, void const* src, size_t n )
 
 #define INLINE
 
-#include "stringhandle.hh"
-#include "stringdata.hh"
-#include "stringdata.inl"
-#include "stringhandle.inl"
+#include "string-handle.hh"
+#include "string-data.hh"
+#include "string-data.inl"
+#include "string-handle.inl"

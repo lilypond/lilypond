@@ -59,7 +59,7 @@ Choleski_decomposition::Choleski_decomposition(Matrix P)
     assert((original()-P).norm() / P.norm() < EPS);
 #endif
 }
-     
+
 Matrix
 Choleski_decomposition::original() const
 {

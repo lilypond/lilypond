@@ -16,25 +16,25 @@ template<class T> struct IPointerList;
 template<class T> struct Cursor;
 template<class T> struct PCursor;
 template<class T> struct Link;
-template<class T> struct Handle ;
-template<class T>struct Interval_t ;
+template<class T> struct Handle;
+template<class T>struct Interval_t;
 #include "real.hh"
 
 typedef Interval_t<Real> Interval;
 
-struct Choleski_decomposition ;
+struct Choleski_decomposition;
 
-struct long_option_init ;
-struct Getopt_long ;
-struct Matrix ;
-struct String_data ;
-struct String_handle ;
+struct Long_option_init;
+struct Getopt_long;
+struct Matrix;
+struct String_data;
+struct String_handle;
 struct String_convert;
 struct String;
-struct virtual_smat ;
-struct Vector  ;
-class Text_stream;
-class Data_file ;
+struct virtual_smat;
+struct Vector ;
+struct Text_stream;
+struct Data_file;
 struct Text_db;
 struct Scalar;
 typedef unsigned char Byte;
