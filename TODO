@@ -1,21 +1,114 @@
 Features you cannot find in the doco as working, should be mentioned here.
 
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
+       * fix plain tex footer line.
 
-0.2:
+      * portable libs for flowerlib/lilylib
+
+       * install TeX stuff into tex/generic directory.
+
+
+	* make GNU style webpages.
+
+	* There seems to be an install error in lilypond-1.0.0.  Most of the
+	files in the "init" directory don't get installed in the
+	/usr/local/share/lilypond directory.  The files installed are of
+	the form feta*.ly.  In particular init.ly doesn't get installed.
+	I installed the files by hand and then the system seems to work.
+
+	* I things it's more than appropriate for an GNU project to ship Info
+	files (and manpages) with the source package.  The "Standard" tells to
+	do so (ftp://ftp.gnu.org/pub/gnu/standards/standards.text):
+
+
+	* a `make check' target (without installing stuff!)
+
+	* midi_instrument -> midiInstrument
+
+	* horizontal centering of dynamics 
+
+	* \font\fontA=feta20.afm (.afm?)
+
+	* gzip RH manpage
+
+	* stable make/config stuff
+
+	* stemup/stemdown; see test/updown.fly
+	  - check examples; add \type Staff hither and thether
+
+	* $DEPENDENCIES_OUTPUT support
+
+	* use a fake-yodl.sh to mimick yodl when yodl is not installed
+
+	* fix BUGs
+
+	* fix weird behaviour when .AFMs not found.
+
+	* Xdvi zooming ?!
+		gs: Error: /undefined in draw_beam
+		gs: Operand stack:
+
+	* run texhash after installing .tex
+
+	* fix vertical alignment and stafflines
+
+	*GrandStaff needs more work -- I want a single word `harpsichord' to the
+	   left of the grandstaff, not one on each stave.
+	   (Organ staff -- with separate pedal -- but common properties may be
+	   something to think about.  Of course for organ you want to be able
+	   to give stop indications on the way through, so the \property
+	   Voice.Instrument would be a stop, and \property
+	   GrandStaff.instrument would be PipeOrgan...)
+
+
+	* make Tie_req a "command" { <c g> ~ <c g> }
+
+	* bib ep1988
+
+	* mix engraver hacking with music ?
+
+	* revise the Score_priority_align_engraver concept.  It sucks. 
+
+	* ly2xdvi
+
+	* make new VoiceOne, VoiceTwo, VoiceThree contexts with
+ydirection and hshift preset
+
+	* StepMake install
+	  - /usr/bin/make-patch?
+
+	* *.yo: fix pod manpage layout legacy
+
+	* text-items clash with stems/beams
+
+	* --include, -I option for ly2dvi (pass on to lily)
+
+	* fix placement of beam-less abbrev
+
+	* \meter 3/4;
+	<{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
+	 {\voicetwo cis,4 r r | r2. | r1 }> |
+	}
+
+	* try to use template<Type> iso MACRO(Type)
+
+	- NEWS: ... Musical_pitch (analogous to Duration and Rhythmic_req)
+	  think about, analogous to pitch: 
+	   * { a4 a16 } c <-- duration of c?
+	   * <a4 b8> c <-- duration of c?
+
+	* \tempo 4. = 90;
+
+	* fix audio-items (don't use (input) requests, but copy data)
+
 	* junk My_lily_parser::abbrev_beam_type_i_ 
 
-	* w32 blurb
-
 	* make sure all ex's have a mudela-version
-
-	* notes almost touch barline: whitespace at the begin of the bar 
-	 should be at fixed at at least (about) one interline.
-	 hack at spring-spacer.cc:662 doesn't work anymore
 
 	* do rest-collisions for Multi_measure_rests as well.
 
@@ -25,10 +118,6 @@ grep for TODO and ugh/ugr/urg
 	Junk global duration settings. 
  
 	* deps for ly2dvi
-
-	* fix .txt rules / make dist from freshly configured tar-ball
-
-	* document use of ly2dvi more prominently
 
 	* clean up abbrev/plet/beam/abbrevbeam/duration mess in parser.
 
@@ -43,35 +132,41 @@ grep for TODO and ugh/ugr/urg
 
 	* fix variable define/lookup parser global<->paper
 
- 	* fix position of bar number
-
-	* fix position of brace in conjunction with bracket
-
 	* fix title/instrument placements; see input/test/title.ly
 
 	* <\voiceone c4. \voicetwo c4>
 
 	* add full cello suites to web site (kom op, Maarten!)
 
+	* Rethink Time_description
+	  * \cadenza , \meter, \grouping should all be \properties
+
 	* rename
 	  - plet -> tuplet
-	  - grav -> engraver
 	  - measure -> bar
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
 
 	* libtoolize flowerlib
+
 	* shared lib
 
 	* robustify Beam (in case of no stems, 32nd notes)
 
+	* decentralised spring factory
+
+	* move paper vars into engraver properties
+
 	* check for groff / troff/ nroff et
+
+	* more intelligent file searching
+	- use kpsepath
+	- make LilyPond fully relocatable
 
 	* use kpsepath to find all TeX dirs
 	- configure.in 
 	- clean-fonts.sh
 
 	* nicen examples:
-	- remove all \multi
 	- break-up heavily-nested score blocks
 
 	* disable spaces in TeX stuff
@@ -80,15 +175,11 @@ grep for TODO and ugh/ugr/urg
 
 	* dots & rest collisions.
 
-	* add a screenshot to the website. :)
-
 	* documentation
 	- introduction?
 	- info?
 	- LaTeX?
 	- more manpages?
-
-	* naming Mozarella, Madeira, Muella?
 
 	* versioning for Feta
 
@@ -98,32 +189,16 @@ grep for TODO and ugh/ugr/urg
 	* The `3' in the meter key is a one or two pixels too thin (at 600dpi)
 	in the middle:
 
-	* the tenuto script is too long and too thin
-
 	* the bracket is ugly (wings are too parabolic, should be more circular)
+
 	* better hshift (dots, distance, head dependent)
-
-	* stem len adjustable
-
-STUFF
- 	* convert-mudela:
-	- automatically add  a \version if not present.
-	- better parsing
-	- make smarter
-	- fix convert-mudela -e *.ly ;
-	- convert-mudela -e empty.ly
-	- redo in python.
 
         * clefs (AG): The "8" should appear closer to the actual clef,
           touching it.
 
 	* give Items/Spanners access to unbroken originals	
 
-	* generalised scopes for Parser/identifiers.
-
-	* speed up PS code.
-
-	* scoping for properties
+	* scoping for properties?
 
 	{	c4
 		\multi 2  < { \stemup .. } { \stemdown .. } >
@@ -132,41 +207,52 @@ STUFF
 
 	this modifies \stem for the c2
 
-	* emacs mudela-mode
-	-  should handle block comments too.
-	-  handle lexer modes (\header, \melodic, \lyric) etc.
-	-  indentation
-	-  notenames?
-	-  fontlock: \melodic \melodic
- 
-
-	* use properties for:
-	- Text_style
-	- default_octave
-	- plet?
-	- default_duration?
-	- default abbreviation
-	- Staff_sym size
-	- default tempo.
-	- font size
-	- bartypes (get rid of derived Span_bar_engravers)
-	- cadenza mode? 
-	- MIDI instrument
-	- staff title
-
-	* page handling:
-	- PS output
-	- optimal pagebreaking.
-
 	* put errorlevel in Input class
 
-	* AFM for font input?
+	* junk nesting slurs
+
+	* integrate midi-elts from mi2mu and lily?
+
+	* cautionary accidental
+
+	* score-bar-scripts
+	FMR: Free memory read:
+	  * This is occurring while in:
+		Bar_column::do_substitute_dependency(Score_element*,Score_element*) [bar
+	-column.cc:29]
+		Score_element::unlink() [score-elem.cc:383]
+		Paper_score::set_breaking(const Array<Column_x_positions>&) [p-score.cc:
+	150]
+		Paper_score::calc_breaking() [p-score.cc:189]
+		Paper_score::process() [p-score.cc:203]
+		Score::run_translator(Music_output_def*) [score.cc:117]
+	  * Reading 4 bytes from 0x65d3a0 in the heap.
+	  * Address 0x65d3a0 is 160 bytes into a freed  block at 0x65d300 of 208 bytes.
+	  * This block was allocated from:
+		malloc         [rtlib.o]
+		__builtin_new  [libgcc.a]
+		Span_score_bar::clone()const [span-score-bar.hh:20]
+		Item::copy_breakable_items() [item.cc:69]
+		Item::do_breakable_col_processing() [item.cc:89]
+		Score_element::calcalute_dependencies(int,int,void(Score_element::*)()*)
+	 [score-elem.cc:171]
+	  * There have been 22 frees since this block was freed from:
+		free           [rtlib.o]
+		__builtin_delete [libgcc.a]
+		Span_score_bar::~Span_score_bar() [span-score-bar.hh:18]
+		Paper_score::set_breaking(const Array<Column_x_positions>&) [p-score.cc:
+	156]
+		Paper_score::calc_breaking() [p-score.cc:189]
+		Paper_score::process() [p-score.cc:203]
+	Postprocessing elements... 
+	TeX output to score-bar-scripts.tex...
 
 
 3RD PARTY BUGS:
 
-	* tried egcs 1.0.2: failed on lily/stem.cc -> flower/include/interval.hh
-	  should narrow down and send bug report
+	* redhat (v?) graphical install bomb-out?
+
+	* egcs-1.03 ice: stem.cc:327; should localize bug (mine's still 10K)
 
 	* gcc 2.8.1: see ice and RESIZE_ICE
 
@@ -181,9 +267,65 @@ STUFF
 	  without a trace of failure (create .rej file, print error or 
 	  dump core) and just ignore any further diffs.
 
+	* glibc 2.0:
+
+	  f = fopen ("/dev/null", "r")
+	  assert (feof (f))
+
+3RD PARTY PROJECTS:
+
+	* GNU indent: handle C++
+
+	* GNU make: move hardcoded builtin rules to runtime ?
+
+	* GNU patch 
+	  - rewrite ? -> check out GNU patch 2.5
+	  - 'double-fix' mode: ignore identical fix, rather than suggest 
+	    to revert patch direction when (more or less? exactly) the same 
+	    thing is fixed
+
 PROJECTS
 
-	* Unicode support?
+	* Scripts:
+ 	- fix position of bar number
+	- stack scripts in chords:
+	  % fingering:        footing:
+	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
+	- script-spacing
+	- slur parts as a script
+	- stack parameterised scripts for fingering and footing:
+
+ 	* convert-mudela:
+	- automatically add  a \version if not present.
+	- better parsing
+	- make smarter
+	- convert-mudela -e empty.ly
+
+	* emacs mudela-mode
+	-  should handle block comments too.
+	-  handle lexer modes (\header, \melodic, \lyric) etc.
+	-  indentation
+	-  notenames?
+	-  fontlock: \melodic \melodic
+ 
+
+	* use properties for:
+	- Text_style
+	- default_octave
+	- plet?
+	- Staff_sym size
+	- default tempo.
+	- font size
+	- bartypes (get rid of derived Span_bar_engravers)
+	- cadenza mode? 
+	- MIDI instrument
+	- staff title
+
+	* page handling:
+	- PS output
+	- optimal pagebreaking.
+
+	* Unicode support? -> man 7 unicode
 	- 16 bit Strings
 	- -u switch
 	- detect of 16/8 bit files
@@ -198,10 +340,10 @@ PROJECTS
 	* \header
 	- output header info to MIDI too.
 
-	* Add mudela-output to Rosegarden.
+	* Add mudela-output to Rosegarden. (contact Derek Wyatt)
 
 	* a musical dictionary. See Documentation/vocabulary-*, other
-languages:
+	languages:
 	- explanation
 	- italian
 	- german
@@ -216,8 +358,6 @@ languages:
 	- Syntax/parser
 	- MIDI output?
 	- typesetting
-
-	* integrate midi-elts from mi2mu and lily?
 
 	* Debug logs:
 	- derive lily_stream, Dstream, texstream from ostream?
@@ -262,7 +402,11 @@ languages:
 	- text
 	- slur start/end
 
-	* cautionary accidental
+	* PS 
+	- speed up PS code.
+	- PS lines to .eps files
+	- write custom prolog
+
 
 	* Output an output format independent (ofi) typeset file; and 
 	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
@@ -272,13 +416,15 @@ languages:
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
 	- Move all Score_elems, into libmutype.a
+	- SGML
+
  
 	* Documentation
 	- Doc (C) stuff of sheet music
 	- a better format?  SGML?  TeX?  Info?
 	- a tutorial
 
-	* TeX spanners , use texbeam.cc as an example (smallish)
+	* more spanners (smallish)
 	- Glissando
 	- trill
 
@@ -289,9 +435,10 @@ languages:
 	- use plet grouping
 	- separate visual from rhythmic info even more
 	- beams over bars
+	- endbeam req should be *after* the duration, so you can do
+	< { [c4]    }
+	  { c8. c16 } >
 
-	* Redo fonts
-	- adapt for multiple font sizes.
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
@@ -304,11 +451,7 @@ languages:
 
 	* Keys:
 	- merge key{item} & localkey{item}?
-	- do conventional keys (C G A, F B E, a e fis, d as des, etc ), 
-	  besides lists of flats/sharps, possibly via declaration
-	- key transposition. 
-	- key undo: \key bes; .. . \key; should print natural	
-	- special key: \key bes 'b bis';
+	- Major/Minor
 	- spacing, national styles?
 
 	* Support for TAB
@@ -320,10 +463,7 @@ languages:
 	* breaking:
 	- caching breakpoints
 	- saving them
-	- penalties
 	- specify number of lines
-
-	* Rhythmic staff.
 
 	* markers
 
@@ -348,21 +488,25 @@ INPUTLANGUAGE
 
 	* relative mode for pitch entering
 
-	* bracket (bracketplets)
+	* bracket: volta 1,2
 
 	* configure pitch_byte
 
 	* rest name configurable
 
-	* Raw request syntax
-
 SMALLISH PROJECTS
+
+	* limit memory usage; the full coriolan takes up too much resources.
+
+	* fix confusing naming in Engraver vs Engraver_group_engraver (context)
 
 	* progress when creating MIDI elts.
 
 	* A range for context errors (eg. mark both { and }. )
 
 	* lyric in staff  (sharpsharp in staff, text below)
+
+	* half sharps/flats
 
 	* write Dynamic_line (to group dynamics horizontally)
 
@@ -374,8 +518,6 @@ SMALLISH PROJECTS
 	* adaptive accidental spacing.
 
 	* handle EOF graciously in error messages.
-oo
-	* caching Item/spanner dimensions.
 
 	* centered whole rest
 
@@ -395,10 +537,6 @@ oo
 
 	* stafftypes: voice names/ instrument names.
 
-	* TeX stuff:	
-	- Decent TeX titledefs (\tempo, \metron, etc. )
-	- decent TeX page layout
-
 	* lily \tempo
 
 	* C meter iso 4/4, idem for alla breve, etc.
@@ -407,13 +545,6 @@ oo
 
 	* Brackets
 	
-	* Scripts:
-	- stack scripts in chords:
-	  % fingering:        footing:
-	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
-	- script-spacing
-	- slur parts as a script
-	- stack parameterised scripts for fingering and footing:
 
             % toe to bheel   four to five
 	    %   ^_u            4_5  
@@ -435,6 +566,7 @@ oo
 
 IDEAS
 
+
 	* Output data structures of Mudela in XML/SGML.
 
 	* create libmudela, or liblily_frontend
@@ -444,17 +576,13 @@ IDEAS
 	* use an embedded language: Python, Scheme
 	for: 
 		- Score_elems
-		- Engraver
 		- Translators
-		- Complex mudela?
 
 	* y -dims in internote? Staff-space? X-dimensions?
 
 	* Spacing_request for manually adjusting spacing
 
 	* caching breakpoints
-
-	* #c <-> cis
 
 	* breath marks 
 
@@ -466,24 +594,14 @@ IDEAS
 	- design meta-language like TeX and Metafont
 	- programming/macros input
 
-	* Global type registration.
-
-		My_class * p = create_object( My_class )
-		Type t = get_type ( *p );
-		if ( t <= get_type( q ))
-			..
-
 	* versioning stuff (cvt mudela, mudela, etc.)
 
-
-	* dots into separate item.
+	* padded vertical alignment (rods for vertical placement)
 
 	* use String iso Text_def for lyrics.
 
 	* Klavarskribo?
 
 	* lyrics in chords still fuck up.
-
-	* pushgroup/popgroup
 
 	* Use hooks/dependency graphs for properties
