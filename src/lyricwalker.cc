@@ -6,8 +6,6 @@
 //  or should we first devide lily/src up ?
 // HWN: huh?
 
-#include "textspanner.hh"
-#include "script.hh"
 #include "request.hh"
 #include "voice.hh"
 #include "pscore.hh"
@@ -56,7 +54,7 @@ Lyric_walker::Lyric_walker(Lyric_staff* lstaff_l)
 Lyric_staff*
 Lyric_walker::lstaff_l()
 {
-    return (Lyric_staff*)staff_;
+    return (Lyric_staff*)staff_l_;
 }
 
 Lyric_column*
