@@ -134,7 +134,7 @@ Key_signature_interface::brew_molecule (SCM smob)
 	Accidental_interface::get_fontcharname (style, alteration);
       Molecule acc (fm->find_by_name ("accidentals-" + font_char));
 
-      if (acc.empty_b())
+      if (acc.is_empty ())
 	{
 	  me->warning (_f ("accidental `%s' not found", font_char));
 	}

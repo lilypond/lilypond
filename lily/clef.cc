@@ -59,7 +59,7 @@ Clef::brew_molecule (SCM smob)
   String glyph = String (ly_scm2string (glyph_scm));
   Font_metric *fm = Font_interface::get_default_font (me);
   Molecule out = fm->find_by_name (glyph);
-  if (out.empty_b())
+  if (out.is_empty ())
     {
       me->warning (_f ("clef `%s' not found", glyph.to_str0 ()));
     }

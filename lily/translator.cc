@@ -48,7 +48,7 @@ Translator::Translator (Translator const &s)
 }
 
 bool
-Translator::is_alias_b (SCM sym) const
+Translator::is_alias (SCM sym) const
 {
   Translator_def * td = unsmob_translator_def (definition_);
   bool b  = (sym == td->type_name_);

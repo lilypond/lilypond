@@ -1,17 +1,18 @@
-\version "1.9.8"
+\version "2.1.4"
+
 \header {
-texidoc = "Stanza numbers may differ for the first and following systems."
+texidoc = "Stanza numbers are put left of their lyric."
 }
 
 \score {
 <<
+    \notes { r4 r4 c4  c4 }
     \context LyricsVoice
     \lyrics {
-	\property LyricsVoice . stanza = "first"
-	\property LyricsVoice . stz =  \markup { "32" \super "nd"  }
-	Foo1 Bar1
+	\skip 2
+	\property LyricsVoice . stanza = "1."
+	Foo8 Bar8
     }
-    \notes { c''1 \break c''1 }
 >>
 
 \paper { raggedright = ##t } 

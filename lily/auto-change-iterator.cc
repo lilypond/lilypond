@@ -31,7 +31,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && !current->is_alias_b (to_type_sym))
+  while (current && !current->is_alias (to_type_sym))
     {
       last = current;
       current = current->daddy_trans_;

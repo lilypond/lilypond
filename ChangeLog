@@ -1,3 +1,30 @@
+2003-12-31  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
+
+	* lily/melisma-engraver.cc (try_music): use melisma_busy()
+
+	* lily/lyric-engraver.cc (process_music): remove alignment kludge 
+
+	* lily/lyric-combine-music-iterator.cc (melisma_busy): new function.
+
+	* lily/stanza-number-engraver.cc (acknowledge_grob): rewrite
+
+	* scm/define-grobs.scm (all-grob-descriptions): change
+	StanzaNumber description: make side support, i.s.o. breakable.
+	use Instrument_name_engraver for texts in the margin.
+
+	* scm/define-translator-properties.scm: remove
+	melismaEngraverBusy, stz property.
+
+	* *.cc: naming: change empty_b () into is_empty ()
+
+	* lily/self-aligment-interface.cc (aligned_on_parent): new function.
+
+	* input/regression/lyric-phrasing-new.ly: new file.
+
+	* lily/new-phrasing-engraver.cc (process_acknowledged_grobs): new
+	engraver, redo lyric phrasing, but cleaner and simpler.  Lyrics on
+	melismata are now left-aligned.
+
 2003-12-30  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
 	* input/mutopia/F.Schubert/GNUmakefile: add morgenlied.ly

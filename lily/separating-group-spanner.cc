@@ -24,7 +24,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
     most cases, the interesting L will just be the first entry of
     NEXT, making it linear in most of the cases.
   */
-  if (Separation_item::width (r).empty_b ())
+  if (Separation_item::width (r).is_empty ())
     return; 
   
   for(; gh_pair_p (next); next = ly_cdr (next))
@@ -36,7 +36,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	{
 	  Interval li (Separation_item::width (lb));
 	  Interval ri (Separation_item::conditional_width (r, lb));
-	  if (!li.empty_b () && !ri.empty_b())
+	  if (!li.is_empty () && !ri.is_empty ())
 	    {
 	      Rod rod;
 
@@ -50,7 +50,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 
       Interval li (Separation_item::width (l));
       Interval ri (Separation_item::conditional_width (r, l));
-      if (!li.empty_b () && !ri.empty_b())
+      if (!li.is_empty () && !ri.is_empty ())
 	{
 	  Rod rod;
 

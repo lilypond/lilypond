@@ -259,7 +259,7 @@ Stem::get_default_dir (Grob*me)
 {
   int staff_center = 0;
   Interval hp = head_positions (me);
-  if (hp.empty_b())
+  if (hp.is_empty ())
     {
       return CENTER;
     }
@@ -356,7 +356,7 @@ Stem::get_default_stem_end_position (Grob*me)
       if (durlog >= 3)
 	{
 	  Interval flag_ext = flag (me).extent (Y_AXIS) ;
-	  if (!flag_ext.empty_b())
+	  if (!flag_ext.is_empty ())
 	    minlen += 2 * flag_ext.length () / ss ;
 
 	  /*
@@ -646,7 +646,7 @@ Stem::flag (Grob*me)
     flag_style + to_string (dir) + staffline_offs + to_string (duration_log (me));
   Font_metric *fm = Font_interface::get_default_font (me);
   Molecule flag = fm->find_by_name ("flags-" + font_char);
-  if (flag.empty_b ())
+  if (flag.is_empty ())
     {
       me->warning (_f ("flag `%s' not found", font_char));
     }
@@ -655,11 +655,11 @@ Stem::flag (Grob*me)
   if (gh_string_p (stroke_style_scm))
     {
       String stroke_style = ly_scm2string (stroke_style_scm);
-      if (!stroke_style.empty_b ())
+      if (!stroke_style.is_empty ())
 	{
 	  String font_char = to_string (dir) + stroke_style;
 	  Molecule stroke = fm->find_by_name ("flags-" + font_char);
-	  if (stroke.empty_b ())
+	  if (stroke.is_empty ())
 	    {
 	      me->warning (_f ("flag stroke `%s' not found", font_char));
 	    }

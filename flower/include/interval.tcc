@@ -129,7 +129,7 @@ template<class T>
 String
 Interval_t<T>::to_string () const
 {
-  if (empty_b ())
+  if (is_empty ())
     return "[empty]";
   String s ("[");
  

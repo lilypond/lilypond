@@ -488,10 +488,8 @@
 	))
 
     (LyricText
-     . (
-	(molecule-callback . ,Text_item::brew_molecule)
-	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
-			       ,Self_alignment_interface::aligned_on_self))
+     . ((molecule-callback . ,Text_item::brew_molecule)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_parent))
 	(self-alignment-X . 0)
 	(word-space . 0.6)
 	(ignore-length-mismatch . #f)
@@ -850,13 +848,13 @@
 	))
 
     (StanzaNumber
-     . (
-	(breakable . #t)
-	(molecule-callback . ,Text_item::brew_molecule)		
-	(break-align-symbol . clef)
-	(break-visibility . ,begin-of-line-visible)
+     . ((molecule-callback . ,Text_item::brew_molecule)		
 	(font-family . roman)
-	(meta . ((interfaces . (break-aligned-interface text-interface font-interface item-interface ))))		
+	(font-series . bold)
+	(padding . 1.5)
+	(X-offset-callbacks . (,Side_position_interface::aligned_side))
+	(direction . ,LEFT) 
+	(meta . ((interfaces . (text-interface font-interface item-interface ))))		
 	))
 
     (StaffSpacing

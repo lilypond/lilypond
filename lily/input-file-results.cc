@@ -88,7 +88,7 @@ write_dependency_file (String fn,
 	  out = "  ";
 	}
       String dep = deps[i];
-      if (!dependency_prefix_global.empty_b ())
+      if (!dependency_prefix_global.is_empty ())
 	{
 	  if (dep.index ('/') < 0)
 	    dep = dependency_prefix_global + dep;
@@ -154,14 +154,14 @@ Input_file_results::Input_file_results (String init, String in_file, String out_
 void
 do_one_file (String init, String in_file, String out_file) 
 {
-  if (init.length () && global_path.find (init).empty_b ())
+  if (init.length () && global_path.find (init).is_empty ())
     {
       warning (_f ("can't find file: `%s'", init));
       warning (_f ("(search path: `%s')", global_path.to_string ().to_str0 ()));
       return;
     }
 
-  if ((in_file != "-") && global_path.find (in_file).empty_b ())
+  if ((in_file != "-") && global_path.find (in_file).is_empty ())
     {
       warning (_f ("can't find file: `%s'", in_file));
       return;

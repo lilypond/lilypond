@@ -113,7 +113,7 @@ LY_DEFINE(ly_translator_find,
   
   while (tr)
     {
-      if (tr->is_alias_b (name))
+      if (tr->is_alias (name))
 	return tr->self_scm();
       tr =  tr->daddy_trans_ ;
     }

@@ -272,7 +272,7 @@ number_accidentals (Music * note, Pitch *pitch, Translator_group * origin,
 	{
 	  SCM context = ly_car (accidentals);
 	  
-	  while (origin && !origin->is_alias_b (context))
+	  while (origin && !origin->is_alias (context))
 	    origin = origin->daddy_trans_;
       
 	  if (!origin)

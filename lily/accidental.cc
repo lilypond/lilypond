@@ -209,7 +209,7 @@ Accidental_interface::brew_molecule (SCM smob)
       String font_char = get_fontcharname (style, alteration);
       Molecule acc (fm->find_by_name ("accidentals-" + font_char));
 
-      if (acc.empty_b())
+      if (acc.is_empty ())
 	{
 	  me->warning (_f ("accidental `%s' not found", font_char));
 	}

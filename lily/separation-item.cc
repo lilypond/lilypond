@@ -108,7 +108,7 @@ Separation_item::width (Grob *me)
 	}
 
       Interval iv (il->extent (pc, X_AXIS));
-      if (!iv.empty_b ())
+      if (!iv.is_empty ())
 	{
 	  w.unite (iv);
 	}

@@ -53,17 +53,17 @@ All_font_metrics::find_afm (String name)
     {
       String path;
 
-      if (path.empty_b ())
+      if (path.is_empty ())
 	path = search_path_.find (name  + ".afm");
 
-      if (path.empty_b ())
+      if (path.is_empty ())
 	{
 	  String p = kpathsea_find_afm (name.to_str0 ());
 	  if (p.length ())
 	    path = p;
 	}
 
-      if (path.empty_b ())
+      if (path.is_empty ())
 	return 0;
       
       if (verbose_global_b)
@@ -127,16 +127,16 @@ All_font_metrics::find_tfm (String name)
     {
       String path;
       
-      if (path.empty_b ())
+      if (path.is_empty ())
 	{
 	  String p = kpathsea_find_tfm (name.to_str0 ());
 	  if (p.length ())
 	    path = p;
 	}
 
-      if (path.empty_b ())
+      if (path.is_empty ())
 	path = search_path_.find (name  + ".tfm");
-      if (path.empty_b ())
+      if (path.is_empty ())
 	return 0;
 
       if (verbose_global_b)

@@ -51,7 +51,7 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 			    Direction d)
 {
   Interval extent = b[line_axis];
-  if (extent.empty_b())
+  if (extent.is_empty ())
     return;
   
   Real stick_out = b[other_axis (line_axis)][d];
@@ -69,19 +69,19 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
       
       Real my_height = line->elem(i).height_;
 
-      if (!w.empty_b () &&
+      if (!w.is_empty () &&
 	  w.length() > EPS
 	  && d* (my_height - stick_out) < 0)
 	{
 	  Interval e1 (line->elem(i).width_[LEFT], extent[LEFT]);
 	  Interval e3 (extent[RIGHT], line->elem(i).width_[RIGHT]);
 
-	  if (!e3.empty_b () && e3.length() > EPS)
+	  if (!e3.is_empty () && e3.length() > EPS)
 	    line->insert (Skyline_entry (e3, my_height), i+1);
 
 	  line->elem_ref(i).height_ = stick_out;
 	  line->elem_ref(i).width_ = w;
-	  if (!e1.empty_b () && e1.length() > EPS)
+	  if (!e1.is_empty () && e1.length() > EPS)
 	    line->insert (Skyline_entry (e1, my_height), i );
 	}
 
@@ -162,7 +162,7 @@ skyline_meshing_distance (Array<Skyline_entry> const &buildings,
       Interval w = buildings[i].width_;
       w.intersect(clouds[j].width_);
       
-      if (!w.empty_b())
+      if (!w.is_empty ())
 	distance = distance >? (buildings[i].height_ - clouds[j].height_);
 
       if (i>0 && buildings[i].width_[LEFT] >=  clouds[j].width_[LEFT])

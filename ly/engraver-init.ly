@@ -311,6 +311,7 @@ LyricsVoiceContext= \translator{
 	\consists "Extender_engraver"
 	\consists "Hyphen_engraver"
 	\consists "Stanza_number_engraver"
+	\consists "Instrument_name_engraver"
 	\consists "Skip_event_swallow_translator"
 	phrasingPunctuation = #".,:!?\""
 	SeparationItem \set #'padding = #0.5

@@ -32,7 +32,7 @@ Measure_grouping::brew_molecule (SCM grob)
   Interval rext = me->get_bound (RIGHT)->extent (common, X_AXIS);
   
   
-  Real w =(rext.empty_b()
+  Real w =(rext.is_empty ()
 	   ? me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS)
 	   : rext[RIGHT])
     - me->get_bound (LEFT)->relative_coordinate (common, X_AXIS);

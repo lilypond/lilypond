@@ -82,12 +82,12 @@ Break_align_interface::do_alignment (Grob *me)
     {
       Interval y = elems[i]->extent (elems[i], X_AXIS);
       extents.push (y);
-      if (!y.empty_b())
+      if (!y.is_empty ())
 	last_nonempty = i; 
     }
 
   int idx  = 0;
-  while (idx < extents.size  () && extents[idx].empty_b ())
+  while (idx < extents.size  () && extents[idx].is_empty ())
     idx++;
   
   Array<Real> offsets;
@@ -102,7 +102,7 @@ Break_align_interface::do_alignment (Grob *me)
     {
       int next_idx = idx+1;
       while (next_idx < elems.size() &&
-	     extents[next_idx].empty_b()
+	     extents[next_idx].is_empty ()
 	    )
 	next_idx++;
       

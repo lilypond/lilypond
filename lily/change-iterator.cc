@@ -49,7 +49,7 @@ Change_iterator::process (Moment m)
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && !current->is_alias_b (to_type))
+  while (current && !current->is_alias (to_type))
     {
       last = current;
       current = current->daddy_trans_;

@@ -143,7 +143,7 @@ Ambitus::brew_molecule (SCM smob)
     {
       note_head_style = String ("noteheads-2");
     }
-  if (Font_interface::get_default_font (me)->find_by_name (note_head_style).empty_b ())
+  if (Font_interface::get_default_font (me)->find_by_name (note_head_style).is_empty ())
     {
       String message = "Ambitus: no such note head: `" + note_head_style + "'";
       me->warning (_ (message.to_str0 ()));

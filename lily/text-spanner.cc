@@ -89,7 +89,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  if (Text_item::markup_p (text)) 
 	    edge[d] = *unsmob_molecule (Text_item::interpret_markup (paper->self_scm (), properties, text));
 	  
-	  if (!edge[d].empty_b ())
+	  if (!edge[d].is_empty ())
 	    edge[d].align_to (Y_AXIS, CENTER);
 	}
       while (flip (&d) != LEFT);
@@ -152,7 +152,7 @@ Text_spanner::brew_molecule (SCM smob)
       m.add_molecule (edge[d]);
       edge_line[d].translate_axis (span_points[d], X_AXIS);
       m.add_molecule (edge_line[d]);
-      if (!ext.empty_b ())
+      if (!ext.is_empty ())
 	span_points[d] += -d *  ext[-d];
     }
   while (flip (&d) != LEFT);

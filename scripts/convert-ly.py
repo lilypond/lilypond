@@ -1620,6 +1620,12 @@ def conv (str):
 
 conversions.append (((2,1,2), conv, """ly:get-music-length -> ly:music-length"""))
 
+def conv (str):
+	str =re.sub (r"\.\s+stz=", ". instr ", str)
+	return str
+
+conversions.append (((2,1,2), conv, """ly:get-music-length -> ly:music-length"""))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -24,21 +24,12 @@ public:
 
 
 bool
-Melisma_engraver::try_music (Music *m) 
+Melisma_engraver::try_music (Music *) 
 {
-  SCM melisma_properties = get_property ("melismaBusyProperties");
-  bool busy = false;
-
-  for (; gh_pair_p (melisma_properties);
-       melisma_properties = gh_cdr (melisma_properties))
-
-    busy = busy || to_boolean (internal_get_property (gh_car (melisma_properties)));
-
   /*
-    for the phrasing engraver we also need this.
+    This can only be melisma-playing-event.
    */
-  daddy_trans_->set_property ("melismaEngraverBusy",gh_bool2scm (busy));
-  return busy;
+  return  melisma_busy (this);
 }
 
 Melisma_engraver::Melisma_engraver()
@@ -46,9 +37,9 @@ Melisma_engraver::Melisma_engraver()
 }
 
 ENTER_DESCRIPTION(Melisma_engraver,
-/* descr */       "",
+/* descr */       "This engraver collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
 /* creats*/       "",
 /* accepts */     "melisma-playing-event",
 /* acks  */      "",
 /* reads */       "melismaBusy melismaBusyProperties slurMelismaBusy tieMelismaBusy beamMelismaBusy",
-/* write */       "melismaEngraverBusy");
+/* write */       "");

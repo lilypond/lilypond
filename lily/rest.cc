@@ -134,7 +134,7 @@ Rest::brew_internal_molecule (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
   String font_char = glyph_name (me, balltype, style);
   Molecule out = fm->find_by_name (font_char);
-  if (out.empty_b())
+  if (out.is_empty ())
     {
       me->warning (_f ("rest `%s' not found, ", font_char.to_str0 ()));
     }

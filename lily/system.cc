@@ -379,7 +379,7 @@ System::post_processing (bool last_line)
     }
 
   Interval i (extent (this, Y_AXIS));
-  if (i.empty_b ())
+  if (i.is_empty ())
     programming_error ("Huh?  Empty System?");
   else
     translate_axis (- i[MAX], Y_AXIS);

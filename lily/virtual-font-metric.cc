@@ -54,7 +54,7 @@ Molecule
 Virtual_font_metric::find_by_name (String glyph) const
 {
   Molecule m;  
-  for (SCM s = font_list_; m.empty_b () && gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && gh_pair_p (s); s = gh_cdr (s))
     {
       m = unsmob_metrics (gh_car (s))->find_by_name (glyph);
     }
@@ -121,7 +121,7 @@ Virtual_font_metric::name_to_index (String glyph) const
 {
   Molecule m;
   int total = 0; 
-  for (SCM s = font_list_; m.empty_b () && gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = font_list_; m.is_empty () && gh_pair_p (s); s = gh_cdr (s))
     {
       Font_metric *m =unsmob_metrics (gh_car (s));
       int k = m->name_to_index (glyph);

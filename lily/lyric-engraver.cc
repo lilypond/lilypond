@@ -63,16 +63,6 @@ Lyric_engraver::process_music ()
       text_=  new Item (get_property ("LyricText"));
       
       text_->set_grob_property ("text", req_->get_mus_property ("text"));
-
-      /*
-	We can't reach the notehead where we're centered from here. So
-	we kludge.
-
-	(UGH UGH, pulled amount of space out of thin air)
-      */
-      
-      text_->translate_axis (0.66, X_AXIS);
-      
       announce_grob (text_, req_->self_scm());
     }
 }

@@ -108,7 +108,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, SCM to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && !current->is_alias_b (to_type))
+  while (current && !current->is_alias (to_type))
     {
       last = current;
       current = current->daddy_trans_;
@@ -355,7 +355,7 @@ s      Consider thread switching: threads "one", "two" and "both".
       thread level!
    */
  
-  if (suffix_.empty_b ())
+  if (suffix_.is_empty ())
     suffix_ = first_iter_->report_to ()
       ->daddy_trans_->id_string_.cut_string (3, INT_MAX);
 

@@ -79,15 +79,15 @@ Span_bar::brew_molecule (SCM smobbed_me)
       SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
       Interval ext = staff_bar->extent (refp, Y_AXIS);
-      if (ext.empty_b ())
+      if (ext.is_empty ())
 	continue; 
       
-      if (!prev_extent.empty_b ())
+      if (!prev_extent.is_empty ())
 	{
 	  Interval l (prev_extent [UP],
 		     ext[DOWN]);
 
-	  if (l.empty_b ())
+	  if (l.is_empty ())
 	    {
 	      /* There is overlap between the bar lines.  Do nothing. */
 	    }
@@ -152,7 +152,7 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   /* Bar_line::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
      we have to translate ourselves to be in the center of the 
      interval that we span. */
-  if (i.empty_b ())
+  if (i.is_empty ())
     {
       me->suicide ();
       return gh_double2scm (0.0);
@@ -229,7 +229,7 @@ Span_bar::get_bar_size (SCM smob)
 {
   Grob* me =  unsmob_grob (smob);
   Interval iv (get_spanned_interval (me));
-  if (iv.empty_b ())
+  if (iv.is_empty ())
     {
       /* This happens if the bars are hara-kiried from under us. */
       me->suicide ();

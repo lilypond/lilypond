@@ -13,7 +13,7 @@ void check_prefix (String name, int mask, int prefix_set, String *str)
 {
   if (prefix_set & mask)
     {
-      if (!str->empty_b ())
+      if (!str->is_empty ())
 	*str += ", ";
       *str += name;
     }

@@ -87,7 +87,7 @@ Custos::brew_molecule (SCM smob)
 
   Molecule molecule
     = Font_interface::get_default_font (me)->find_by_name (font_char);
-  if (molecule.empty_b ())
+  if (molecule.is_empty ())
     {
       me->warning (_f ("custos `%s' not found", font_char));
       return SCM_EOL;

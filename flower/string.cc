@@ -153,7 +153,7 @@ String::get_str0 ()
 }
 
 bool 
-String::empty_b () const
+String::is_empty () const
 {
   return !length ();
 }

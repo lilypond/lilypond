@@ -112,7 +112,9 @@ Beam_engraver::try_music (Music *m)
 	return false;
 
       if (d == START)
-	evs_drul_[d] = m;
+	{
+	  evs_drul_[d] = m;
+	}
       else if (d==STOP)
 	{
 	  now_stop_ev_ = m;
@@ -123,9 +125,13 @@ Beam_engraver::try_music (Music *m)
 }
 
 void
-Beam_engraver::set_melisma (bool m)
+Beam_engraver::set_melisma (bool ml)
 {
-  daddy_trans_->set_property ("beamMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
+  SCM m = get_property ("automaticMelismata");
+  SCM b = get_property ("autoBeaming");
+  
+  if (to_boolean (m) && !to_boolean (b))
+    daddy_trans_->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
@@ -154,6 +160,7 @@ Beam_engraver::process_music ()
 	  return;
 	}
 
+      set_melisma (true);
       prev_start_ev_ = evs_drul_[START];
       beam_ = new Spanner (get_property ("Beam"));
       SCM smp = get_property ("measurePosition");
@@ -194,12 +201,8 @@ Beam_engraver::start_translation_timestep ()
   
   if (beam_)
     {
-      SCM m = get_property ("automaticMelismata");
-      SCM b = get_property ("autoBeaming");
-      if (to_boolean (m) && !to_boolean (b))
-	{
-	  set_melisma (true);
-	}
+      set_melisma (true);
+      
       subdivide_beams_ = to_boolean(get_property("subdivideBeams"));
       beat_length_ = *unsmob_moment (get_property ("beatLength"));
     }
@@ -218,12 +221,7 @@ Beam_engraver::stop_translation_timestep ()
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam();
-
-      if (to_boolean (get_property ("automaticMelismata"))
-	  && !to_boolean (get_property ("autoBeaming")))
-	{
 	  set_melisma (false);
-	}
     }
 }
 

@@ -92,7 +92,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	    }
 	}
 
-      if (extents[d].empty_b ())
+      if (extents[d].is_empty ())
 	extents[d] = Interval (0,0);
     }
   while (flip (&d) != LEFT);
@@ -108,7 +108,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     FIXED also includes the left part of the right object.
   */
   *fixed =
-    (left_head_wid.empty_b () ? increment :
+    (left_head_wid.is_empty () ? increment :
      /*
        Size of the head:
       */
@@ -122,7 +122,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     /*
       What is sticking out of the right note:
      */
-    + (extents[RIGHT].empty_b() ?  0.0 : - extents[RIGHT][LEFT] / 2);
+    + (extents[RIGHT].is_empty () ?  0.0 : - extents[RIGHT][LEFT] / 2);
 
   /*
     We don't do complicated stuff: (base_space - increment) is the
@@ -327,7 +327,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
   Real correction = 0.0;
 
-  if (!bar_yextent.empty_b())
+  if (!bar_yextent.is_empty ())
     {
       stem_dirs[RIGHT] = - stem_dirs[LEFT];
       stem_posns[RIGHT] = bar_yextent;
@@ -350,7 +350,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    {
 	      head_extent = head->extent (rcolumn, X_AXIS);
 
-	      if (!head_extent.empty_b())
+	      if (!head_extent.is_empty ())
 		note_head_width = head_extent[RIGHT];
 
 	      if (st)
@@ -370,7 +370,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	{
 	  intersect = stem_posns[LEFT];  
 	  intersect.intersect(stem_posns[RIGHT]);
-	  correct_stem_dirs = correct_stem_dirs && !intersect.empty_b ();
+	  correct_stem_dirs = correct_stem_dirs && !intersect.is_empty ();
 
 	  if (correct_stem_dirs)
 	    {
@@ -386,7 +386,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 		gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
 	    }
 	  
-	  if (!bar_yextent.empty_b())
+	  if (!bar_yextent.is_empty ())
 	    {
 	      correction *= 0.5;
 	    }
@@ -416,7 +416,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
       
       Interval hp = head_posns[LEFT];
       hp.intersect  (head_posns[RIGHT]);
-      if (!hp.empty_b())
+      if (!hp.is_empty ())
 	return ;
 
       Direction lowest =

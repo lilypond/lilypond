@@ -35,7 +35,7 @@ Translator_group::properties_dict () const
 Translator_group::~Translator_group ()
 {
   
-  //assert (removable_b ());
+  //assert (is_removable ());
 }
 
 
@@ -59,7 +59,7 @@ Translator_group::check_removal ()
       Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
 
       trg->check_removal ();
-      if (trg->removable_b ())
+      if (trg->is_removable ())
 	terminate_translator (trg);
     }
 }
@@ -99,7 +99,7 @@ Translator_group::add_fresh_group_translator (Translator*t)
 
 
 bool
-Translator_group::removable_b () const
+Translator_group::is_removable () const
 {
   return trans_group_list_ == SCM_EOL && ! iterator_count_;
 }
@@ -107,7 +107,7 @@ Translator_group::removable_b () const
 Translator_group *
 Translator_group::find_existing_translator (SCM n, String id)
 {
-  if ((is_alias_b (n) && (id_string_ == id || id.empty_b ())) || n == ly_symbol2scm ("Current"))
+  if ((is_alias (n) && (id_string_ == id || id.is_empty ())) || n == ly_symbol2scm ("Current"))
     return this;
 
   Translator_group* r = 0;

@@ -71,7 +71,7 @@ public:
      codify THIS into a Scheme expression.
    */
   SCM create_scheme () const;
-  bool empty_b () const;
+  bool is_empty () const;
 
 
   static SCM ly_get_molecule_extent (SCM mol, SCM axis);
