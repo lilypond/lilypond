@@ -270,6 +270,11 @@
 	 (ly:get-option 'resolution))
      (string-append (basename name ".tex") ".ps"))))
 
+
+;;
+;; ugh  -   double check this. We are leaking
+;; untrusted (user-settable) info to a command-line 
+;;
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
@@ -286,15 +291,9 @@
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
 			     base
 
-			     (if (ly:get-option 'verbose)
-				 " "
-				 " 2>&1 1>& /dev/null "))))
+			     )))
 
-    (if (ly:get-option 'verbose)
-	(begin 
-	  (newline (current-error-port))
-	  (format (current-error-port) (_ "Invoking ~S") cmd)
-	  (newline (current-error-port)))
+    (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
 	  (newline (current-error-port))))
@@ -310,15 +309,9 @@
 	 (base (basename name ".tex"))
 	 (cmd (string-append
 	       "latex \\\\nonstopmode \\\\input " name
-	       (if (ly:get-option 'verbose)
-		   " "
-		   " 2>&1 1>& /dev/null "))))
+	       )))
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
-    (if (ly:get-option 'verbose)
-	(begin 
-	  (newline (current-error-port))
-	  (format (current-error-port) (_ "Invoking ~S") cmd)
-	  (newline (current-error-port)))
+    (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.dvi'...") base)
 	  (newline (current-error-port))))
