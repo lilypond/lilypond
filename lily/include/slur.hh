@@ -18,13 +18,12 @@
 class Slur : public Bow
 {
 public:
-  Link_array<Note_column> encompass_arr_;
-  void add_column (Note_column*);
-
   Slur ();
-
   VIRTUAL_COPY_CONS(Score_element);
+
+  void add_column (Note_column*);
   
+  Link_array<Note_column> encompass_arr_;
 
 protected:
   virtual Array<Offset> get_encompass_offset_arr () const;

@@ -30,7 +30,6 @@
 #include "main.hh"
 
 
-
 Slur::Slur ()
 {
 }
@@ -41,6 +40,7 @@ Slur::add_column (Note_column*n)
   if (!n->head_l_arr_.size ())
     warning (_ ("Putting slur over rest."));
   encompass_arr_.push (n);
+  n->stem_l_->slur_l_ = this;
   add_dependency (n);
 }
 
@@ -280,6 +280,7 @@ Slur::get_encompass_offset_arr () const
       Encompass_info info (encompass_arr_[i], dir_);
       notes.push (info.o_ - left);
     }
+  d.y () += interstaff_f_;
   notes.push (d);
 
   return notes;

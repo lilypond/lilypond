@@ -26,6 +26,8 @@ public:
   
 
   int dash_i_;
+  Real interstaff_f_;
+  Drul_array<Real> vertical_align_drul_;
 
 protected:
   virtual Molecule* do_brew_molecule_p () const;

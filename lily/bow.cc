@@ -22,6 +22,9 @@ Bow::Bow ()
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
   dash_i_ = 0;
+  interstaff_f_ = 0;
+  vertical_align_drul_[MIN] = 0;
+  vertical_align_drul_[MAX] = -1;
 }
 
 Molecule*
@@ -54,6 +57,7 @@ Bow::do_brew_molecule_p () const
 
   Molecule* mol_p = new Molecule;
   mol_p->add_atom (a);
+  mol_p->translate_axis (-interstaff_f_, Y_AXIS);
 
   return mol_p;
 }

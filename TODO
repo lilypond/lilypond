@@ -7,6 +7,9 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+
+	* decimal point in \paper {}
+
 	> I have changed Mark_engraver to use the G_... classes.
 	> My implementation has the following shortcomings at the
 	> moment.
@@ -47,9 +50,15 @@ BUGS:
 
 	* fix:  cello suites
 
+	* fix:  petites preludes (rediculous dims)
+
 	* fix extender
 
+	* fix fingering 'a-5': font direction broken *again*
+
 	* fix braces
+
+	* multibar rests: SkipBars=0
 
 	* ly2dvi barfs on linewidth = -1.
 
@@ -584,10 +593,6 @@ SMALLISH PROJECTS
 	* adaptive accidental spacing.
 
 	* handle EOF graciously in error messages.
-
-	* really centered whole rest
-
-	* centered multi-bar-rest
 
 	* declare notenametab?
 

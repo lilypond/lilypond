@@ -63,6 +63,9 @@ public:
    */
   Beam* beam_l_;
 
+  /// our slur (urg)
+  Slur* slur_l_;
+
   Drul_array<int> beams_i_drul_;
 
   /// maximum number of beams
