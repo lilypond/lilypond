@@ -9,6 +9,7 @@
 #include "rhythmstaff.hh"
 #include "sccol.hh" 
 #include "localkeyitem.hh"
+#include "request.hh"
 
 const int NO_LINES=5;
 
@@ -60,7 +61,14 @@ get_new_melodicstaff()
     return new Melodic_staff;
 }
 
-
+Rest*
+Melodic_staff::get_rest(Rest_req*rq)
+{
+    Rest*r = Simple_staff::get_rest(rq);
+    if (rq->balltype <= 2)
+	r->translate(Offset(0, NO_LINES * paper()->internote()));
+    return r;
+}
 
 Melodic_staff*
 Melodic_staff::clone()const
