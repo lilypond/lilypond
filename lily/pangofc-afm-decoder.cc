@@ -56,9 +56,12 @@ static void pango_fc_afm_decoder_init (PangoFcAfmDecoder *fontmap);
 static void pango_fc_afm_decoder_class_init (PangoFcAfmDecoderClass *clss);
 static void pango_fc_afm_decoder_finalize (GObject *object);
 
-static FcCharSet *pango_fc_afm_get_charset (PangoFcFont *fcfont);
-static PangoGlyph pango_fc_afm_get_glyph (PangoFcFont *fcfont, guint32 wc);
-static void pango_fc_afm_decoder_set_file_name (PangoFcAfmDecoder *self, char const *file_name);
+static FcCharSet *pango_fc_afm_get_charset (PangoFcDecoder *decoder,
+					    PangoFcFont *fcfont);
+static PangoGlyph pango_fc_afm_get_glyph (PangoFcDecoder *decoder,
+					  PangoFcFont *fcfont, guint32 wc);
+static void pango_fc_afm_decoder_set_file_name (PangoFcAfmDecoder *self,
+						char const *file_name);
 
 static PangoFcDecoderClass *parent_class;
 
@@ -136,8 +139,9 @@ pango_fc_afm_decoder_finalize (GObject *object)
 }
 
 static FcCharSet *
-pango_fc_afm_get_charset (PangoFcFont *fcfont)
+pango_fc_afm_get_charset (PangoFcDecoder *decoder, PangoFcFont *fcfont)
 {
+  (void) decoder;
   //dprintf ("get charset: %s\n", fcfont->font_pattern);
   dprintf ("get charset: \n");
 #if 0  
@@ -161,8 +165,10 @@ pango_fc_afm_get_charset (PangoFcFont *fcfont)
 }
 
 static PangoGlyph
-pango_fc_afm_get_glyph (PangoFcFont *fcfont, guint32 wc)
+pango_fc_afm_get_glyph (PangoFcDecoder *decoder, PangoFcFont *fcfont,
+			guint32 wc)
 {
+  (void) decoder;
 #if 0
   XftFont *xft_font;
   xft_font = XftFontOpenPattern (GDK_DISPLAY (),
