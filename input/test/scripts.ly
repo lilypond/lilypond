@@ -45,20 +45,20 @@ blah =  	\notes{ \transpose c c' {
 	b,---. c---. d---. e---. f---. g---. a---. b---. c'---.
 	\stemBoth
       \time 4/4
-	[c8 \< d e \! f][d' \> e' f' \! g'] 
-	[c-> \< d-> e-> \! f->][d'-> \> e'-> f'-> \! g'->] 
-	[c-^ \< d-^ e-^ \! f-^][d'-^ \> e'-^ f'-^ \! g'-^] 
-	[c-. \< d-. e-. \! f-.][d'-. \> e'-. f'-. \! g'-.]
-	[c-- \< d-- e-- \! f--][d'-- \> e'-- f'-- \! g'--] 
-	[c-\tenuto \< d-\tenuto e-\tenuto \! f-\tenuto]
-		[d'-\tenuto \> e'-\tenuto f'-\tenuto \! g'-\tenuto]
-	[c-\upbow \< d-\upbow e-\upbow \! f-\upbow]
-		[d'-\upbow \> e'-\upbow f'-\upbow \! g'-\upbow] 
-	[c-| \< d-| e-| \! f-|][d'-| \> e'-| f'-| \! g'-|]
-	[c-\fermata \< d-\fermata e-\fermata \! f-\fermata]
-		[d'-\fermata \> e'-\fermata f'-\fermata \! g'-\fermata] 
-	[c-\lheel \< d-\lheel e-\lheel \! f-\lheel]
-		[d'-\lheel \> e'-\lheel f'-\lheel \! g'-\lheel]
+	 c8-[ \< d e \! f] d'-[ \> e' f' \! g'] 
+	 c-[-> \< d-> e-> \! f->] d'-[-> \> e'-> f'-> \! g'->] 
+	 c-[-^ \< d-^ e-^ \! f-^] d'-[-^ \> e'-^ f'-^ \! g'-^] 
+	 c-[-. \< d-. e-. \! f-.] d'-[-. \> e'-. f'-. \! g'-.]
+	 c-[-- \< d-- e-- \! f--] d'-[-- \> e'-- f'-- \! g'--] 
+	 c-[-\tenuto \< d-\tenuto e-\tenuto \! f-\tenuto]
+		 d'-[-\tenuto \> e'-\tenuto f'-\tenuto \! g'-\tenuto]
+	 c-[-\upbow \< d-\upbow e-\upbow \! f-\upbow]
+		 d'-[-\upbow \> e'-\upbow f'-\upbow \! g'-\upbow] 
+	 c-[-| \< d-| e-| \! f-|] d'-[-| \> e'-| f'-| \! g'-|]
+	 c-[-\fermata \< d-\fermata e-\fermata \! f-\fermata]
+		 d'-[-\fermata \> e'-\fermata f'-\fermata \! g'-\fermata] 
+	 c-[-\lheel \< d-\lheel e-\lheel \! f-\lheel]
+		 d'-[-\lheel \> e'-\lheel f'-\lheel \! g'-\lheel]
 
 }}
 

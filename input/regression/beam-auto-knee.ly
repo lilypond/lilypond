@@ -8,8 +8,8 @@ threshold.
 
 \score {
   \context Staff \notes\relative c''{ 
-    [c'8 c,,] [c8 e']
-    [c,16 e g c e g c c,,] 
+     c'8-[ c,,]  c8-[ e']
+     c,16-[ e g c e g c c,,] 
   }
   \paper{
     linewidth = 40*\staffspace

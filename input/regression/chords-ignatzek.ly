@@ -2,7 +2,7 @@
 
 texidoc = " Chord names are generated from a list pitches.  The
 functions constructing the names are customisable. This file shows
-Jazz chords, following [Ignatzek1995], page 17 and 18."
+Jazz chords, following Ignatzek (1995), page 17 and 18."
 
 }
 

@@ -76,6 +76,10 @@ Property_iterator::do_quit ()
 
 SCM list_p = 0;
 
+/*
+  This is a rather crude check: we merely check if the translator
+  property is a list.
+ */
 bool
 check_grob(Music *mus, SCM sym)
 {

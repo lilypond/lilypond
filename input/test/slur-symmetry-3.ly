@@ -1,18 +1,21 @@
 \version "1.7.16"
 
 \header{
-% should look the same
-title="symmetry"
+title="symmetry.
+
+Both slurs should look the same.
+
+"
 }
+
 \score{
 	\notes\relative c'{
-		[g'8( e )c' g,] r2
+		[g'8( e  c'-) g,] r2
 		\break
-		[d''8( f )a, d'] r2
+		[d''8( f  a,-) d'] r2
 	}
 	\paper{
-
-		linewidth = 50.0\mm
+	raggedright = ##t
 	}
 }
 %% new-chords-done %%

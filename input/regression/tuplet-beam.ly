@@ -8,8 +8,8 @@ the bracket."
 }
 
 \score { \notes \context Voice\relative c'' {
-\times 2/3 { r [c8 c8] }
-\times 2/3 { [c8 c c] }
-\times 2/3 { [c16 c16] [c8 c8] }
+\times 2/3 { r  c8-[ c8] }
+\times 2/3 {  c8-[ c c] }
+\times 2/3 {  c16-[ c16]  c8-[ c8] }
 }}
 %% new-chords-done %%

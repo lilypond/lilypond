@@ -10,8 +10,8 @@
 melody = \notes \relative c' {
         \partial 8
         g8 |
-        c4 c8 d es-[ ( d-]-) c4 | f4 f8 g es-(-[ d-)-] c g |
-        c4 c8 d es-[ ( d-]-) c4 | d4 es8 d c4.
+        c4 c8 d es-[-( d-]-) c4 | f4 f8 g es-(-[ d-)-] c g |
+        c4 c8 d es-[-( d-]-) c4 | d4 es8 d c4.
         \bar "|."
 }
 
@@ -22,8 +22,8 @@ text = \lyrics {
 
 accompaniment =\chords {
         r8
-        c2:3- f:3-.7 d:m es4 c8:m r8
-        c2:m f:m7 g:7^3.5 c:m }
+        c2:m f:m7 d:m es4 c8:m r8
+        c2:m f:m7 g:7 c:m }
 
 \score {
         \simultaneous {
@@ -33,7 +33,6 @@ accompaniment =\chords {
           \addlyrics
              \context Staff = mel
              {	\property Staff.autoBeaming = ##f
-		\property Staff.automaticMelismata = ##t
           	\melody }
              \context Lyrics \text
         }

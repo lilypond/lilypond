@@ -9,22 +9,22 @@ hidden just as with breakable bar lines.
 }
 
 \score { \context Staff \notes \relative c''  {
-	[c8. c16]
-	[c8. c16 c8.  c16]
-	[c16 c8.] |
-	[c8. c16  c16  c8.]
-	[c8. c32  c32]
-	[c8 c8] |
-	[c16 c16]
-	[c32 c32]
-	[c64 c64]	
+	 c8.-[ c16]
+	 c8.-[ c16 c8.  c16]
+	 c16-[ c8.] |
+	 c8.-[ c16  c16  c8.]
+	 c8.-[ c32  c32]
+	 c8-[ c8] |
+	 c16-[ c16]
+	 c32-[ c32]
+	 c64-[ c64]	
 	c32
 	c2
 
-	[c8 c c] c8 % over barline
-	[c16 c8 c16]
-	[c32 c16 c16 c16 c32]
-	[c32 c16 c8 c32]		 % hmm ?
+	 c8-[ c c] c8 % over barline
+	 c16-[ c8 c16]
+	 c32-[ c16 c16 c16 c32]
+	 c32-[ c16 c8 c32]		 % hmm ?
 	
 		}}
 

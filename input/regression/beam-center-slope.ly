@@ -11,28 +11,28 @@
 \score{
     \notes\relative c'{
 	%%\property Staff.Stem \set #'beamed-lengths = #'(3.50)
-	%% [c8 d]
-	%% [d c]
+	%%  c8-[ d]
+	%%  d-[ c]
 	%% r2
 	%% \property Staff.Stem \set #'beamed-lengths = #'(3.26)
 
-        [a8^"small slope" b]
-        [b a]
+         a8-[^"small slope" b]
+         b-[ a]
 
-	[c'' b]
-	[b c]
+	 c''-[ b]
+	 b-[ c]
 	
-	[c,, d]
-	[d c]
+	 c,,-[ d]
+	 d-[ c]
 	
-	[a'' g]
-	[g a]
+	 a''-[ g]
+	 g-[ a]
 
-	[c,,^"bigger slope" e]
-	[e c]
+	 c,,-[^"bigger slope" e]
+	 e-[ c]
 	
-	[a'' f]
-	[f a]
+	 a''-[ f]
+	 f-[ a]
     }
     \paper{
 	linewidth = 0.0

@@ -5,7 +5,7 @@
 }
 
 \score {\notes \relative c'' {
-	[c8 c4 c8] % should warn here!
+	 c8-[ c4 c8] % should warn here!
 }
 \paper { raggedright = ##t} 
 }

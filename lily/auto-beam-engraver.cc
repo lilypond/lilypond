@@ -153,23 +153,23 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
     }
 
   /* second guess: property generic time exception */
-  SCM m = gh_assoc (gh_append3 (function, wild, time), settings);
+  SCM m = scm_assoc (gh_append3 (function, wild, time), settings);
   
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* third guess: property time exception, specific for duration type */
-  m = gh_assoc (gh_append3 (function, type, time), settings);
+  m = scm_assoc (gh_append3 (function, type, time), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* fourth guess [user override]: property plain generic */
-  m = gh_assoc (gh_append3 (function, wild, wild), settings);
+  m = scm_assoc (gh_append3 (function, wild, wild), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
 
   /* fifth guess [user override]: property plain, specific for duration type */
-  m = gh_assoc (gh_append3 (function, type, wild), settings);
+  m = scm_assoc (gh_append3 (function, type, wild), settings);
   if (m != SCM_BOOL_F && unsmob_moment (ly_cdr (m)))
     moment = * unsmob_moment (ly_cdr (m));
   

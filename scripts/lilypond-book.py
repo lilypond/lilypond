@@ -660,7 +660,7 @@ def compose_full_body (body, opts):
 	if is_fragment and not 'multiline' in opts:
 		opts.append ('singleline')
 
-	if 'singleline' in opts:
+	if 'raggedright' in opts or  'singleline' in opts:
 		if not linewidth:
 			linewidth = 'raggedright = ##t'
 		if not indent:

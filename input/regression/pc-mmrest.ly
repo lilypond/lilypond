@@ -9,7 +9,7 @@ one = \notes\relative c'' {
 
 	f4 \!e-.-\f r2|
 	R1|
-	f2-\p()es|
+	f2-\p-(es -)|
 	\property Voice.crescendoText = #'(lines " " "cresc." " ")
 	\property Voice.crescendoSpanner = #'dashed-line
 	d1\<|

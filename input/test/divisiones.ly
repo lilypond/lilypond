@@ -19,26 +19,26 @@ Choices are @code{divisioMinima}, @code{divisioMaior}
 	    \property Voice.TextScript \set #'padding = #3
 	    \property Staff.BarLine \override #'transparent = ##t
 	    \property Voice.Stem \override #'transparent = ##t
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
             ^\markup { "divisio minima" }
 	    \divisioMinima
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
             ^\markup { "divisio maior" }
 	    \divisioMaior
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
             ^\markup { "divisio maxima" }
 	    \divisioMaxima
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
             ^\markup { "finalis" }
 	    \finalis
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
 
             ^\markup { "virgula" }
 	    \virgula
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
             ^\markup { "caesura" }
 	    \caesura
-            g4( )a g e( )f e
+            g4( a-) g e( f-) e
 	}
 	\context Lyrics = lyrics \lyrics {
 	    Blah blub, blah blam.

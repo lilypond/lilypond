@@ -23,7 +23,7 @@ class Lyric_engraver : public Engraver
 protected:
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
-  virtual void process_acknowledged_grobs ();
+  virtual void process_music ();
   virtual void start_translation_timestep ();
   
 public:
@@ -56,7 +56,7 @@ Lyric_engraver::try_music (Music*r)
 }
 
 void
-Lyric_engraver::process_acknowledged_grobs ()
+Lyric_engraver::process_music ()
 {
   if (req_)
     {
@@ -68,13 +68,12 @@ Lyric_engraver::process_acknowledged_grobs ()
 	We can't reach the notehead where we're centered from here. So
 	we kludge.
 
- (UGH UGH, pulled amount of space out of thin air)
+	(UGH UGH, pulled amount of space out of thin air)
       */
       
       text_->translate_axis (0.66, X_AXIS);
       
-      announce_grob(text_, req_->self_scm());
-      req_ = 0;
+      announce_grob (text_, req_->self_scm());
     }
 }
 

@@ -7,8 +7,8 @@ directly@code{neutral-direction}
 
 \paper { raggedright = ##t}
 \score {\notes \relative c {
-  [b''8 b]
+   b''8-[ b]
   \property Voice.Beam \set #'neutral-direction = #-1
-  [b b]
+   b-[ b]
 }}
 %% new-chords-done %%

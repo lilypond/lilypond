@@ -22,7 +22,7 @@ ex = \notes \relative c' {
     \times 2/3 {c b bes} \times 2/3 {a aes g}
     \times 2/3 {fis f e} \times 2/3 {ees d des} |
     \times 2/3 {c b bes} \times 2/3 {a aes g}
-    \times 2/3 {fis f e} \times 2/3 {ees d )des}
+    \times 2/3 {fis f e} \times 2/3 {ees d  des-)}
   }
   c1 
 }

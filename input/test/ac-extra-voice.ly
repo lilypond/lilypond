@@ -19,7 +19,7 @@ melody =  \notes\relative c''{
 }
 
 basloopje =  \notes\relative c{
-	d,8(	a' d f a d f d a f d	)a
+	d,8(	a' d f a d f d a f d	a-)
 }
 
 accompany =  \notes \relative c{

@@ -9,7 +9,7 @@ beams even if they're auto generated."
   \property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
   \property Voice.TupletBracket \override #'bracket-visibility = #'if-no-beam
   \times 2/3 {
-	[f8 f f ][f8 f f ] f f f f f f 
+	 f8-[ f f ] f8-[ f f ] f f f f f f 
  }
 }}
 %% new-chords-done %%

@@ -15,7 +15,7 @@ voiceB =  \notes {
      \property Staff.instr = "B"
      \key f \minor 
      \time 4/4  
-    f,2 (   ) f,8    r8   f8    e8    
+    f,2 (    f,8-)    r8   f8    e8    
     \repeat  volta 2
     {
          d8.    d16    e8.    f16    f8    c8    c16    c8.    \break
@@ -23,11 +23,11 @@ voiceB =  \notes {
     \alternative
     {
         { 	
-	    f,2 (   ) f,8    r8   f8    e8 
-	    f,2 (   ) f,8    r8   f8    e8 
+	    f,2 (    f,8-)    r8   f8    e8 
+	    f,2 (    f,8-)    r8   f8    e8 
 	    g1 \break   
-	    f,2 (   ) f,8    r8   f8    e8 
-	    f,2 (   ) f,8    r8   f8    e8 
+	    f,2 (    f,8-)    r8   f8    e8 
+	    f,2 (    f,8-)    r8   f8    e8 
 	    g1 \break   
 	}
         {   
@@ -44,7 +44,7 @@ voiceC =  \notes {
     }
     \alternative
     {
-        {	a2 (   ) a8    r8   a8    bes8    }
+        {	a2 (    a8-)    r8   a8    bes8    }
         {	a2.    r8   g16    f16      |
      	d'8.   c'16   c'8.   d'16   c'8   c'8   c'16    c'8.    |
         }

@@ -3,7 +3,7 @@
 
 fragment = \notes {
   \property Voice.Beam \set #'positions = #'(4 . 0)
-  [c'8 c]
+   c'8-[ c]
 }
 
 \paper { raggedright = ##t} 

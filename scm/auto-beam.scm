@@ -28,7 +28,7 @@
 ;;;   end beams with 16th notes each 1 4 note
 ;;;   end beams with 32th notes each 1 8 note
 
-(define-public auto-beam-settings
+(define-public default-auto-beam-settings
    `(
      ((end * * 3 2) . ,(ly:make-moment 1 2))
      ((end 1 16 3 2) . ,(ly:make-moment 1 4))
@@ -82,3 +82,60 @@
      ((end 1 16 12 8) . ,(ly:make-moment 3 8))
      ((end 1 32 12 8) . ,(ly:make-moment 1 8))
      ))
+
+
+(define (override-property-setting context context-prop setting value)
+  "Like the C++ code that executes \override, but without type
+checking. "
+
+  (ly:set-context-property context context-prop
+			   (cons (cons setting value)
+				 (ly:get-context-property context context-prop)
+				 )
+			   )
+  )
+
+(define (revert-property-setting context setting)
+  "Like the C++ code that executes \revert, but without type
+checking. "
+  
+  (define (revert-assoc alist key)
+    "Return ALIST, with KEY removed. ALIST is not modified, instead
+a fresh copy of the  list-head is made."
+    (cond
+     ((null? alist) '())
+     ((equal? (caar alist) key) (cdr alist))
+     (else (cons (car alist) (revert-assoc alist key)))
+     ))
+
+  
+  
+    (ly:set-context-property
+     context context-prop
+     (revert-assoc (ly:get-context-property context context-prop)
+		   setting))
+  )
+
+(define-public (override-auto-beam-setting setting num den)
+  (ly:export
+   (context-spec-music
+    (make-apply-context (lambda (c)
+			  (override-property-setting
+			   c 'autoBeamSettings
+			   setting (ly:make-moment num den))
+			  ))
+    "Voice")
+  ))
+
+(define-public (revert-auto-beam-setting setting)
+  (ly:export
+   (context-spec-music
+    (make-apply-context (lambda (c)
+			  (revert-property-setting
+			   c 'autoBeamSettings
+			   setting)))
+    
+    "Voice")))
+  
+
+

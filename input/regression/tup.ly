@@ -18,7 +18,7 @@ direction as the
 \score{
 	\notes \context Voice \relative c'' {
 		 \times 2/3 { \times 2/3 { a8 b c}  c }
-		 \times 2/3 { r8 [b f] }
+		 \times 2/3 { r8  b-[ f] }
 		 \times 2/3 { r8 b r8 }
 		 c4 |
 		 

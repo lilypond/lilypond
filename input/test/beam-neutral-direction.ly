@@ -2,9 +2,9 @@
 
 
 fragment = \notes {
-  [b''8 b]
+   b''8-[ b]
   \property Voice.Beam \set #'neutral-direction = #-1
-  [b b]
+   b-[ b]
 }
 
 \paper { raggedright = ##t} 

@@ -90,7 +90,7 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 /sbin/install-info %{_infodir}/lilypond.info.gz %{_infodir}/dir 
 %endif
 
-chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+# chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 echo 'Please logout first before using LilyPond.'
 
@@ -103,7 +103,7 @@ if [ $1 = 0 ]; then
 fi
 %endif
 
-chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+# chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
 
 %post documentation

@@ -33,7 +33,7 @@ Distributions will want to install lilypond.info doing:
 @omfcreator Han-Wen Nienhuys and Jan Nieuwenhuizen
 @omfdescription User manual  of the LilyPond music engraving system
 @omftype user manual
-@omfcategory Music
+@omfcategory Applications|Publishing
 @omflanguage English
 @end ignore
 
@@ -122,8 +122,9 @@ this and other documentation.
 @menu
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
-* Tutorial::                       A tutorial introduction to LilyPond.
-* Reference Manual::               Reference Manual.
+* Tutorial::                       A tutorial introduction.
+* Notation manual::                All notation supported, and how to
+                                   produce it 
 * Advanced Topics::                How it all works.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.

@@ -5,10 +5,11 @@ of dots here, to make problems more visible."
 }
 \score {
   \notes\relative c'' {
-    c4.............()c
+    c4.............-( c-)
   }
   \paper {
     raggedright = ##t
   }
-} 
+}
+
 %% new-chords-done %%

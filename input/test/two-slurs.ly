@@ -8,11 +8,11 @@
 	\context Staff <
 		\context Voice=v \notes\relative c''{
 			\stemUp
-			a4 c4.()g8 a4
+			a4 c4.(g8-) a4
 		}
 		\context Voice=u \notes\relative c''{
 			\stemDown
-			g4 e4.()d8 c4
+			g4 e4.(d8-) c4
 		}
 	>
 	\paper{

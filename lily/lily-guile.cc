@@ -556,11 +556,20 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
   if (val == SCM_EOL || val == SCM_BOOL_F)
     return ok;
 
-  
-  SCM type = SCM_EOL;
+  if (!gh_symbol_p (sym))
+#if 0
+    return false;
+#else
+  /*
+    This is used for autoBeamSettings.
 
-  if (gh_symbol_p (sym))
-    type = scm_object_property (sym, type_symbol);
+    TODO: deprecate the use of \override and \revert for
+    autoBeamSettings?
+   */
+  return true; 
+#endif
+  
+  SCM type = scm_object_property (sym, type_symbol);
 
   if (type != SCM_EOL && !gh_procedure_p (type))
       {

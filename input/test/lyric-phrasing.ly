@@ -13,7 +13,7 @@ copyright = 	 "public domain"
 m = \notes  \relative c'' {
 	\property Staff.automaticMelismata = ##t
 	\autoBeamOff
-	g4  r8 \times 2/3 { g'8( f )e } r8 \grace { [d16 c b] } e4
+	g4  r8 \times 2/3 { g'8( f e-) } r8 \grace {  d16-[ c b] } e4
 	\emptyText
 	d8.^"melisma" 	\melisma c16
 	\melismaEnd

@@ -2,7 +2,7 @@
 
 \score { 
   \context Voice \notes\relative c {
-    [b''16 a]
+     b''16-[ a]
 	
   }
   \paper { }  

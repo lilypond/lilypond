@@ -13,7 +13,7 @@ don't cause extreme slopes"
             f16( \> d \! b \translator Staff = down \stemUp
             \clef treble g ~ << g e>>8-)
 	    
-	    [e \translator Staff = up
+	     e-[ \translator Staff = up
 	    \stemDown
 	    e e]
 	    \translator Staff = down

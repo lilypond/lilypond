@@ -4,7 +4,7 @@
 }
 	
 \score {
- \notes \context Voice \relative c'' { \grace { [c16 d] } c4 }
+ \notes \context Voice \relative c'' { \grace {  c16-[ d] } c4 }
   \paper { raggedright = ##t}
 
 }

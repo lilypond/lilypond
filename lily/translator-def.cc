@@ -151,6 +151,8 @@ Translator_def::add_pop_property (SCM props, SCM syms)
 				 this->property_ops_);
 }
 
+
+
 /*
   Do it. SYM is single symbol. VAL is SCM_UNDEFINED in case of a pop
 */

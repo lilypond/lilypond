@@ -15,7 +15,7 @@ are two options: using StaffContainer and override/revert, or
 	\dynamicUp\stemDown
 
 	%\key gis \major
-	c8 d [e f g a] b c -\ff
+	c8 d  e-[ f g a] b c -\ff
   }
 
 \context Staff = SB { \dynamicDown c,,4 -\ff c c c  }

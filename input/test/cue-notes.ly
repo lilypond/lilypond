@@ -29,7 +29,7 @@ usually not restored explicitly."
 	\property Voice.Beam \override #'space-function =
 	   #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
 
-	r8^"Bsn." c'8 [f'8 f'8]
+	r8^"Bsn." c'8  f'8-[ f'8]
        \property Staff.fontSize\unset
        \property Staff . Clef = \turnOff
        \clef treble

@@ -198,6 +198,16 @@ i.e.  this is not an override"
     cm
   ))
 
+(define-public (make-apply-context func)
+  (let*
+      (
+       (m (make-music-by-name 'ApplyContext))
+       )
+
+    (ly:set-mus-property! m 'procedure func)
+    m
+  ))
+
 (define-public (make-sequential-music elts)
   (let*  ((m (make-music-by-name 'SequentialMusic)))
     (ly:set-mus-property! m 'elements elts)

@@ -12,16 +12,16 @@ to the last beam.
 	 \context PianoStaff \relative c' <
 	     \context Staff = SA {
 		 \stemDown
-		 [c8 c16 \translator Staff = SB \stemUp c16 ]
+		  c8-[ c16 \translator Staff = SB \stemUp c16 ]
 		 \stemBoth
-		 [f g \translator Staff = SA a c] 
+		  f-[ g \translator Staff = SA a c] 
 			       }
 	     \context Staff = SB \relative c' {
 \clef bass
-		 [b8 b16 \stemUp b,,16 ]
+		  b8-[ b16 \stemUp b,,16 ]
 
 		 g'4\rest
-		 [b,8 b16 \stemDown b''16 b ]
+		  b,8-[ b16 \stemDown b''16 b ]
 	     }	     
 	     
 	     >

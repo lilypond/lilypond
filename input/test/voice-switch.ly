@@ -10,8 +10,8 @@
 				c2 c2
 			}
 			\context Thread=two \notes\relative c'' {
-				b2 a4 () a
-				a2 a4 () a
+				b2 a4 (a-)
+				a2 a4 (a-)
 				
 			}
 	>

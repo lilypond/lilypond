@@ -66,9 +66,9 @@ endHorizScript = {
 %}
 	\endHorizScript
         \time  2/2 \slurDown
-	<{c2}{s4 \invisible d1*1/4 ( \visible }> ) e2
-	<{a,2}{s4 \invisible b1*1/4 ( \visible }> ) d2
-	<{a2}{s4 \invisible b1*1/4 ( \visible }> ) d2
+	<{c2}{s4 \invisible d1*1/4 ( \visible }>  e2-)
+	<{a,2}{s4 \invisible b1*1/4 ( \visible }>  d2-)
+	<{a2}{s4 \invisible b1*1/4 ( \visible }>  d2-)
 	\time 3/4
 	d2^\prallup e4
       }
@@ -106,7 +106,7 @@ endHorizScript = {
 	d8~[\repeat unfold 4 { d32 c }]
 	d32 c b c \repeat unfold 4 { d32 c }
 	b32 c d c \repeat unfold 4 { d32 c }
-	[c32( b a16 b )c] [b32 c d c \repeat unfold 4 { d32 c }]
+	 c32-[( b a16 b  c-)]  b32-[ c d c \repeat unfold 4 { d32 c }]
       }
     >
   >

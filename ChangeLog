@@ -1,3 +1,23 @@
+2003-04-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/{regression,test}/: use postfix for slur endings and beam
+	begins.
+
+	* lily/beam-engraver.cc (acknowledge_grob): set melismata for new
+	style beams too. 
+
+	* input/regression/lyrics-melisma-beam.ly: new file.
+
+	* lily/lyric-engraver.cc (process_music): change from
+	process_acknowledged_grobs()
+
+	* scm/auto-beam.scm (override-auto-beam-setting): write Scheme
+	functions to set and revert auto-beam settings.
+
+2003-04-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/*.cc (number_accidentals): gh_assoc -> scm_assoc.
+
 2003-04-24  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* ChangeLog, Documentation/topdocs/AUTHORS.texi,
@@ -92,6 +112,8 @@
 
 2003-04-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.17 released
+	
 	* Documentation/user/GNUmakefile
 	($(outdir)/lilypond-internals/lilypond-internals.html): copy ly
 	files too.

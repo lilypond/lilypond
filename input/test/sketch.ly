@@ -6,11 +6,11 @@ texidoc="sketch output supported features"
   \notes\relative c''' {
 % doesn't work yet  
 %    \time 3/4
-    a4( a a a )a
+    a4( a a a a-)
     \stemDown
-    a,8( b c )d
+    a,8( b c d-)
     \stemUp
-    \slurDown d16( c b )a
+    \slurDown d16( c b a-)
   }
 }
 %% new-chords-done %%

@@ -16,7 +16,7 @@ Brackets work  across line breaks.
 
 c4 d e f g 
 -\sustainDown b c c, |
-  [d16  c  c c] [e e -\sustainUp -\sustainDown e e ] f4 -\sustainUp
+   d16-[  c  c c]  e-[ e -\sustainUp -\sustainDown e e ] f4 -\sustainUp
     g-\sustainDown |
   b -\sustainUp c 
   \property Staff.pedalSustainStrings = #'("-" "-P" "P")
@@ -32,7 +32,7 @@ c4 d e f g
 
 \property Staff.SustainPedal \override #'pedal-type = #'bracket
 
-c4 d e -\sustainDown b c c, -\sustainUp -\sustainDown [d8 c] [e8 e -\sustainUp -\sustainDown] f4 d
+c4 d e -\sustainDown b c c, -\sustainUp -\sustainDown  d8-[ c]  e8-[ e -\sustainUp -\sustainDown] f4 d
 -\sustainUp g -\sustainDown b b, -\sustainUp c'
 c4 
 

@@ -7,9 +7,9 @@
 	 \grace  c8
   c4 c4 }
 		\context Staff = SB { c2 \clef bass
- \grace { [dis8 ( d8] \key es\major  }
+ \grace {  dis8-[ ( d8] \key es\major  }
 
-  ) c4 c4 }
+    c4-) c4 }
 		\context Staff = SC { c2 c4 c4 \bar "|." }
 		>
 		\paper { raggedright = ##t}
