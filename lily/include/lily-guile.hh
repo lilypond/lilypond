@@ -267,10 +267,18 @@ typedef SCM (*Scheme_function_2) (...);
 typedef SCM (*Scheme_function_3) (...);
 #endif
 
+
+/*
+  Adds the NAME as a Scheme function, and a variable to store the SCM
+  version of the function.
+ */
 #define DECLARE_SCHEME_CALLBACK(NAME,ARGS) \
 	static SCM NAME ARGS; \
 	static SCM NAME ## _proc
 
+/*
+  Make TYPE::FUNC available as a Scheme function. 
+ */
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT) \
 SCM TYPE :: FUNC ## _proc;\
 void								\

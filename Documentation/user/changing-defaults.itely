@@ -266,8 +266,9 @@ Translation @arrow{} Context.
 * Creating contexts::           
 * Changing context properties on the fly ::  
 * Modifying context plug-ins::  
+* Layout tunings within contexts::  
 * Defining context defaults ::  
-* which properties to change::  
+* Which properties to change::  
 @end menu
 
 @node Creating contexts
@@ -556,6 +557,91 @@ have score where each staff has its own time signature.
 @end lilypond
 
 
+@node Layout tunings within contexts
+@subsection Layout tunings within contexts
+
+Each context is responsible for creating certain types of graphical
+objects. The settings used for printing these objects are also stored by
+context. By changing these settings, the appearance of objects can be
+altered.
+ 
+The syntax for this is
+
+@example
+  \override @var{context}.@var{name}@code{ #'}@var{property} = #@var{value}
+@end example
+
+Here @var{name} is the name of a graphical object, like @code{Stem} or
+@code{NoteHead}.  @var{property} is an internal variable of the
+formatting system (`grob property' or `layout property'). It is a
+symbol, so it must be quoted. The subsection refTODO explains what to
+fill in for @var{name}, @var{property} and @var{value}. Here we only
+discuss functionality of this command.
+
+The command
+
+@verbatim
+  \override Staff.Stem #'thickness = #4.0 
+@end verbatim
+
+@noindent
+makes stems thicker (the default is 1.3, with staff line thickness as a
+unit). Since the command specifies @context{Staff} as context, it only
+applies to the current staff. Other staves will keep their normal
+appearance.  Here we see the command in action:
+
+@lilypond[verbatim,relative=2]
+  c4
+  \override Staff.Stem #'thickness = #4.0 
+  c4
+  c4
+  c4
+@end lilypond
+
+The @code{\override} command is executed during the interpreting phase,
+and changes the definition of the @code{Stem} within
+@context{Staff}. After the command all stems are thickened.
+
+Analogous to @code{\set}, the @var{context} argument may be left out,
+causing it to default to @context{Voice} and adding @code{\once} applies
+the change during only one timestep
+
+@lilypond[verbatim,relative=2]
+  c4
+  \once \override Stem #'thickness = #4.0 
+  c4
+  c4 
+@end lilypond
+
+The @code{\override} must be done before the object is
+started. Therefore, when altering @emph{Spanner} objects, like slurs or
+beams, the @code{\override} command must be executed at the moment that
+the object is created. In this example,
+
+
+
+@lilypond[verbatim,relative=2]
+  \override Slur #'thickness = #2.0
+  c8[( c
+  \override Beam #'thickness = #0.6
+  c8 c]) 
+@end lilypond
+
+@noindent
+the slur is fatter and the beam is not. This is because the command for
+@code{Beam} comes after the Beam is started. Therefore it has no effect.
+
+Analogous to @code{\unset}, the @code{\revert} command for a context
+undoes a @code{\override} command; like with @code{\unset}, it only
+affects settings that were made in the same context. In other words, the
+@code{\revert} in the next example does not do anything.
+
+@verbatim
+  \override Voice.Stem #'thickness = #4.0
+  \revert Staff.Stem #'thickness
+@end verbatim
+
+
 @node Defining context defaults 
 @subsection Defining context defaults
 
@@ -574,11 +660,8 @@ Context properties can be set as defaults, within the
 @noindent
 will set skipBars default 
 
-When This    score-wide
-
-
-@node which properties to change
-@subsection which properties to change
+@node Which properties to change
+@subsection Which properties to change
 
 
 There are many different properties.  Not all of them are listed in

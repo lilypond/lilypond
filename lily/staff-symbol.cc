@@ -63,7 +63,7 @@ Staff_symbol::print (SCM smob)
     }
 
   Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  t *= robust_scm2double ( me->get_property ("thickness"), 1.0);
+  t *= robust_scm2double (me->get_property ("thickness"), 1.0);
   
   int l = Staff_symbol::line_count (me);
   

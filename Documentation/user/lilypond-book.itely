@@ -281,7 +281,7 @@ Sets the staff height to @var{ht}, which is measured in points.
 produces naturally spaced lines (i.e., @code{raggedright = ##t}); this
 works well for small music fragments.
 
-@item linewidth=@var{size}\\@var{unit}
+@item linewidth=@var{size}\@var{unit}
 sets linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
 This option affects LilyPond output, not the text layout.
 
@@ -293,7 +293,7 @@ prevents printing time signature.
 overrides @command{lilypond-book} auto detection of what type of code is
 in the LilyPond block, voice contents, or complete code.
 
-@item indent=@var{size}\\@var{unit}
+@item indent=@var{size}\@var{unit}
 sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
 not the text layout.  For single-line fragments, the default is to
@@ -301,7 +301,7 @@ use no indentation.
 
 For example
 @example
-  \begin[indent=\\5cm,raggedright]@{lilypond@}
+  \begin[indent=5\cm,raggedright]@{lilypond@}
   ...
   \end@{lilypond@}
 @end example
