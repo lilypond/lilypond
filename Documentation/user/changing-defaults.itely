@@ -1965,13 +1965,14 @@ The predefined command @code{\newpage} also does this.
 @cindex page size
 @cindex @code{papersize}
 
-To change the paper size, use the following Scheme code:
+To change the paper size, there are two commands,
 @example
+        #(set-default-paper-size "a4")
         \paper@{
            #(set-paper-size "a4")
         @}
 @end example
-
+The second one sets the size of the @code{\paper} block that it's in.
 
 @refcommands
 

@@ -150,9 +150,10 @@ index_set_cell (SCM s, Direction d, SCM v)
 }
   
 LY_DEFINE (ly_warning,"ly:warn", 1, 0, 0,
-  (SCM str),"Scheme callable function to issue the warning @code{msg}.")
+  (SCM str), "Scheme callable function to issue the warning @code{msg}.")
 {
   SCM_ASSERT_TYPE (gh_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
+  progress_indication ("\n");
   warning ("lily-guile: " + ly_scm2string (str));
   return SCM_BOOL_T;
 }

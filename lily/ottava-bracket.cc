@@ -131,11 +131,12 @@ Ottava_bracket::print (SCM smob)
     edge_height[RIGHT] = 0.0;
   
   Stencil b;
+  Interval empty;
   if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
     b = Tuplet_bracket::make_bracket (me,
 				      Y_AXIS, Offset (bracket_span_points.length (), 0),
 				       edge_height,
-				      0.0,
+				      empty,
 				      flare, shorten);
 
   /*

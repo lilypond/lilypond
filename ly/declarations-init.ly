@@ -51,6 +51,10 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
 
+    raggedright = ##f
+    packed = ##f
+    #(define $is-paper #t)
+    
     #(define font-defaults
       '((font-encoding . music))
       )
@@ -67,7 +71,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     \include "engraver-init.ly"
 }
 
-#(set-paper-size "a4")
+#(set-default-paper-size "a4")
 
 
 %{
@@ -80,7 +84,6 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 for the format of myfonts, see font.scm
 
 %}
-
 
 paperEleven = \paper {
     #(paper-set-staff-size (* 11.0 pt))

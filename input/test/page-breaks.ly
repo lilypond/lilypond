@@ -17,6 +17,7 @@
     piece = "Piece"
 }
 
+
 \score {
     \context Staff \notes \relative c' {
 	%% 16: ideally cramped
@@ -24,10 +25,7 @@
 	\repeat unfold 17 { a b c d \break }
     }
     \paper {
-	%% #(set-paper-size "a6")
-	linewidth = 80\mm
-	vsize = 150 \mm
-	hsize = 105 \mm
+	#(set-paper-size "a6")
 	#(define page-breaking ly:optimal-page-breaks)
     }
 }

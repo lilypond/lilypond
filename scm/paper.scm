@@ -30,8 +30,12 @@
   "Set the default staff size, where SZ is thought to be in PT."
   (let* ((old-mod (current-module))
 	 (pap (eval '$defaultpaper old-mod))
+
+
+	 ;; Huh? Why is it necessary to clone object? 
 	 (new-paper (ly:output-def-clone pap))
 	 (new-scope (ly:output-def-scope new-paper)))
+    
     (set-current-module new-scope)
     (paper-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
@@ -54,8 +58,6 @@
     (module-define! m 'hsize w)
     (module-define! m 'vsize h)
     (module-define! m 'linewidth (- w (* 20 mm)))
-    (module-define! m 'raggedright #f)
-    (module-define! m 'packed #f)
     (module-define! m 'indent (/ w 14))
 
     ;; page layout - what to do with (printer specific!) margin settings?
@@ -64,19 +66,36 @@
     (module-define! m 'head-sep (* 4 mm))
     (module-define! m 'foot-sep (* 4 mm))))
 
-(define-public (set-paper-size name)
+
+
+(define (internal-set-paper-size module name)
   (let* ((entry (assoc name paper-alist))
-	 (pap (eval '$defaultpaper (current-module)))
-	 (new-paper (ly:output-def-clone pap))
-	 (m (ly:output-def-scope new-paper))
-	 (mm (eval 'mm m)))
+	 (is-paper? (module-defined? module '$is-paper))
+	 (mm (eval 'mm module)))
     
-    (if (pair? entry)
-	(begin
-	  (set! entry (eval  (cdr entry) m))
-	  (set-paper-dimensions m (car entry) (cdr entry))
-	  (module-define! m 'papersize name)
-	  (module-define! m 'papersizename name)
-	  (set-paper-dimensions m (car entry) (cdr entry))
-	  (module-define! (current-module) '$defaultpaper new-paper))
-	(ly:warning (string-append "Unknown papersize: " name)))))
+    (cond
+     ((not is-paper?)
+      (ly:warning "This is not a \\paper {} object:")
+      (display module))
+     ((pair? entry)
+      (set! entry (eval  (cdr entry) module))
+	  (set-paper-dimensions module (car entry) (cdr entry))
+	  (module-define! module 'papersize name)
+	  (module-define! module 'papersizename name)
+	  (set-paper-dimensions module (car entry) (cdr entry)))
+     (else
+      (ly:warn (string-append "Unknown papersize: " name))))
+
+    ))
+
+(define-public (set-default-paper-size name)
+  (internal-set-paper-size (ly:output-def-scope (eval '$defaultpaper (current-module)))
+			   name))
+
+(define-public (set-paper-size name)
+  (if (module-defined? (current-module) '$is-paper)
+      (internal-set-paper-size (current-module) name)
+
+      ;;; TODO: should raise (generic) exception with throw, and catch
+      ;;; that in parse-scm.cc
+      (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))

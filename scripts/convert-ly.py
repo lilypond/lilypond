@@ -2031,6 +2031,14 @@ def conv (str):
 conversions.append (((2,1,33), conv,
 		     '''breakAlignOrder -> break-align-orders.'''))
 
+def conv (str):
+	str = re.sub (r"\(set-paper-size",
+		      "(set-default-paper-size",str)
+	return str
+
+conversions.append (((2,1,34), conv,
+		     '''set-paper-size -> set-default-paper-size.'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

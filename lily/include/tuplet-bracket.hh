@@ -33,7 +33,7 @@ public:
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
   static Stencil make_bracket (Grob *me,  Axis protusion_axis,
 				Offset dz,  Drul_array<Real> height,
-				Real gap, Drul_array<Real> widen,
+				Interval gap, Drul_array<Real> widen,
 				Drul_array<Real> shorten);
   static Direction get_default_dir (Grob*);
 };
