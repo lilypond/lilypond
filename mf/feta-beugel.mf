@@ -4,7 +4,7 @@ input feta-params;
 
 font_coding_scheme "feta braces";
 
-fet_beginfont("feta-braces", font_count * 10 );
+fet_beginfont("feta-braces", font_count);
 mode_setup;
 
 

@@ -246,6 +246,9 @@
 (define (stop-last-system)
   "}%\n")
 
+(define (horizontal-line x1 x2 th)
+  (filledbox (- x1)  (- x2 x1) (* .5 th)  (* .5 th )))
+
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))
       (embedded-ps
@@ -272,6 +275,7 @@
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
+;; TODO: this should be a default, which is overriden in PS
 (define (between-system-string string)
   string
   )

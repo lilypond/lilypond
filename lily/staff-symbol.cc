@@ -74,8 +74,7 @@ Staff_symbol::brew_molecule (SCM smob)
   for (int i=0; i < l; i++)
     {
       Molecule a =
-	Lookup::filledbox (Box (Interval (0,width),
-					 Interval (-t/2, t/2)));
+	Lookup::horizontal_line (Interval (0,width), t);
 
       a.translate_axis (height - i * staff_space (me), Y_AXIS);
       m.add_molecule (a);
