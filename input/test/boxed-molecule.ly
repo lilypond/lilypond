@@ -1,12 +1,12 @@
 \version "1.7.18"
+% TODO: check that this file actually works.
 \header {
 texidoc = "@cindex Boxed Molecule
 You can override the molecule callback to draw a box around
 arbitrary grobs.
 
-TODO:  circled molecules."
-% TODO: check that this one actually works.
-}
+TODO:  circled molecules.
+" }
 
 
  \score { \notes \relative c''  {

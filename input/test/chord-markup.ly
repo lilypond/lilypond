@@ -1,7 +1,8 @@
 \version "1.7.18"
 \header{
-    texidoc = "chord/markup test"
-}
+    texidoc = "@cindex Chord Markup
+chord/markup test.
+" }
 
 \paper{ raggedright = ##t }
 

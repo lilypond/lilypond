@@ -1,11 +1,9 @@
-
 \version "1.7.18"
 \header  {
-
-    texidoc = "By setting @code{ChordNames.chordRootNamer}, the root
-of the chord may be named with a different function."
-
-}
+    texidoc = "@cindex Chord Names German
+By setting @code{ChordNames.chordRootNamer}, the root
+of the chord may be named with a different function.
+" }
 
 scm = \chords { c4/c cis/cis cisis/cisis ces/ces ceses/ceses b/b bis/bis bes/bes beses/beses } 
 \score {

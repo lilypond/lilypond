@@ -1,7 +1,10 @@
 \version "1.7.18"
-% TODO: merge with ancient font?
+% TODO: move stuff from ancient-font into here?  See comment
+% for ancient-font.ly
 \header {
-texidoc="Should use old style."
+texidoc="@cindex Ancient Time Signatures
+Should use old style.
+"
 }
 
 \score {

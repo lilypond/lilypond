@@ -1,11 +1,11 @@
 \version "1.7.18"
 \header{
     
-    texidoc="Display the number of systems, or the system number of a
-    Grob.  This can be most useful to assertain that a piece uses a
-    specified number of lines."
-    
-}
+    texidoc="@cindex Count Systems
+Display the number of systems, or the system number of a
+Grob.  This can be most useful to assertain that a piece uses a
+specified number of lines.
+" }
 
 #(define (display-systemno smob)
   (let* ((this-system (ly:get-system smob))

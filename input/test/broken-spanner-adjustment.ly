@@ -4,9 +4,7 @@
 	 texidoc = "@cindex Broken Spanner Adjustment
 Broken spanners can be adjusted individually, but
 this requires complicated scheme code.
-  "
-
-}
+" }
 
 #(define (my-callback grob)
   (let* (

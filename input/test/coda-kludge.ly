@@ -1,8 +1,9 @@
 \version "1.7.18"
-% The volta texts should read: 1-4  and  5
-% Not 1 and 2
-% (see 1.2.17)
-
+% TODO: rethink name and whole file -- possible deletion or major
+% changes.
+\header{
+	texinfo="@cindex Coda Kludge"
+}
 %{
 Hi,
 	I want to write some music that has the structure:

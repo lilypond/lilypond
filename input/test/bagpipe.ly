@@ -3,7 +3,8 @@
 \header {
  title="Flower of Scotland"
  texidoc = "@cindex Bagpipe Music
-bagpipe music"
+Here's an example of bagpipe music.
+"
 }
 
 #(add-to-grace-init "Voice" 'Stem 'length 6)

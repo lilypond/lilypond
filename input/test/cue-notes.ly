@@ -1,10 +1,12 @@
 \version "1.7.18"
+% TODO: check to see if this example can be simplified using \small
+% or \tiny.
 \header {
 
-    texidoc = "Cue notes should be set in smaller type. Cue clefs are
-usually not restored explicitly."
-
-}
+    texidoc = "@cindex Cue Notes
+Cue notes should be set in smaller type.  Cue clefs are
+usually not restored explicitly.
+"  }
 
 
 \score {

@@ -2,8 +2,8 @@
 \header{
 	texidoc="@cindex Beam Count
 You can alter the number of stems in a beam.  Here we see
-two sets of four 32nds joined as if they were 8th notes."
-}
+two sets of four 32nds joined as if they were 8th notes.
+" }
 
 fragment = \notes {
   f'32 g a b b a g f

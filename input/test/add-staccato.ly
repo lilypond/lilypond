@@ -2,7 +2,8 @@
 % TODO: doesn't work with 1.7.19.  Check with more recent version.
 \header {
 
-texidoc= "Using make-music, you can add various stuff to notes. Here
+texidoc= "@cindex Add Stacato
+Using make-music, you can add various stuff to notes. Here
 is an example how to add staccato dots.  Note: for this simple case
 one would not use scm constructs.  See separate-staccato.ly first."
 

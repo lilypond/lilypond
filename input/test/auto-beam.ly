@@ -1,7 +1,8 @@
 \version "1.7.18"
 \header{
 	texidoc = "@cindex Beaming Presets
-The auto-beam engraver has presets for common time signatures."
+The auto-beam engraver has presets for common time signatures.
+"
 }
 \score{
     \notes \relative c''{

@@ -2,8 +2,8 @@
 
 \header{
 texidoc="@cindex Beam Over Rests
-Beams over rests."
-}
+Beams over rests.
+" }
 
 \score{
         \context Staff=one \notes\relative c''{

@@ -1,3 +1,4 @@
+% FIXME: currently doesn't do anything useful.  fix or delete.
 \header {
     texidoc = "Chord name scheme test -- double-plus-new-chord-name jazz"
 }

@@ -1,4 +1,4 @@
-
+% FIXME: doesn't display anything useful.
 \version "1.7.18"
 \score { \notes { c4^"fixme"}}
 

@@ -3,8 +3,8 @@
 % for greater clarity
 \header{
     texidoc="@cindex Bar Number Show All
-Second line has bar numbers on start of every measure."
-}
+Second line has bar numbers on start of every measure.
+" }
 
 \score{
     \notes\relative c'{
