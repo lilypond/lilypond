@@ -2399,6 +2399,7 @@ property_op_to_music (SCM op)
 		}
 
 	m->set_mus_property ("symbol", symbol);
+
 	if (val != SCM_UNDEFINED)
 		m->set_mus_property ("value", val);
 	if (grob_val != SCM_UNDEFINED)
@@ -2413,7 +2414,8 @@ property_op_to_music (SCM op)
 		m->set_mus_property ("grob-property", grob_sym);
 		if (autobeam)
 			internal_type_checking_global_b = itc;
-		}	
+		}
+
 	if (op == ly_symbol2scm ("poppush"))
 		m->set_mus_property ("pop-first", SCM_BOOL_T); 
 
@@ -2431,7 +2433,9 @@ context_spec_music (SCM type, SCM id, Music * m, SCM ops)
 
 	csm->set_mus_property ("context-type", scm_string_to_symbol (type));
 	csm->set_mus_property ("property-operations", ops);
-	csm->set_mus_property ("context-id", id);
+
+	if (gh_string_p (id))
+		csm->set_mus_property ("context-id", id);
 	return csm;
 }
-	
+

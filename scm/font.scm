@@ -29,7 +29,8 @@ or
 
 "
 
-(define-public magstep (exp (* (/ 1 6) (log 2))))
+(define-public (magstep x)
+  (exp (* (/ x 6) (log 2))))
 
 
 (define-public paper20-font-vector

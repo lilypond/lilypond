@@ -3,16 +3,16 @@
 
 \header { texidoc = "@cindex Staff Size
 
-Setting staff sizes is a little clumsy.  There are two options: using
+For setting staff sizes there are two options: using
 @code{StaffContainer} and override/revert, or
-@code{\applyoutput}. Both methods are shown in this example."
+@code{\with}. Both methods are shown in this example."
 
 }
 
 \score {
   \notes \relative c' <<
       \new StaffContainer {
-	  \property StaffContainer.StaffSymbol \set #'staff-space = #(/ (* magstep magstep))
+	  \property StaffContainer.StaffSymbol \set #'staff-space = #(magstep -2)
 	  \property Staff.fontSize = #-2
 	
 	  \dynamicUp\stemDown
@@ -26,7 +26,7 @@ Setting staff sizes is a little clumsy.  There are two options: using
       }
       \new Staff \with {
 	  fontSize = #-1
-	  StaffSymbol \set #'staff-space = #(/ magstep)
+	  StaffSymbol \set #'staff-space = #(magstep -1)
       } {
 	  \clef bass
 	  c8 c c c  c c c c
