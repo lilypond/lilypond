@@ -18,6 +18,8 @@
 class Note_head : public Rhythmic_head {
 public:
   
+  String note_head_type_str_;
+
   /// position of top line (5 linestaff: 8)
   int position_i_;
 

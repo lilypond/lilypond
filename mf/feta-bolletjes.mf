@@ -241,8 +241,8 @@ fet_endchar;
 
 
 
-if test = 0:
-else:
+%if test = 0:
+%else:
 def draw_harmonic_notehead(expr harmwid) =
 	save beamheight, head_width, head_char_width;
 	save holeheight, stem_width;
@@ -269,8 +269,8 @@ def draw_harmonic_notehead(expr harmwid) =
 %	ht# = noteheight#;
 	head_char_width = 1.54 noteheight;
 	head_char_width# := 1.54 ht#;
-	schuif_op = head_char_width - head_width; %ugh
-	schuif_op# := head_char_width# - head_width#;
+	%schuif_op = head_char_width - head_width; %ugh
+	%schuif_op# := head_char_width# - head_width#;
 %	set_char_box(0, head_char_width#, noteheight#/2, noteheight#/2); 
 	set_char_box(0, head_width#, head_width#/2, head_width#/2);
 %	2 beamheight + holeheight = noteheight;
@@ -288,15 +288,15 @@ def draw_harmonic_notehead(expr harmwid) =
 	penpos8(thick, 225);
 
 %	1.5 noteheight = head_width;
-	z1l = (schuif_op, 0);
+	z1l = (0, 0);
 	z2l = z1l;
-%	z3l = (schuif_op + head_width/2,-head_width/2);
-	z3l = (schuif_op + head_width/2, -noteheight/2);
+%	z3l = (head_width/2,-head_width/2);
+	z3l = (head_width/2, -noteheight/2);
 	z4l = z3l;
-	z5l = (schuif_op + head_width, 0);
+	z5l = (head_width, 0);
 	z6l = z5l;
-%	z7l = (schuif_op + head_width/2, head_width/2);
-	z7l = (schuif_op + head_width/2, noteheight/2);
+%	z7l = (head_width/2, head_width/2);
+	z7l = (head_width/2, noteheight/2);
 	z8l = z7l;
 	
 	pickup pencircle; %scaled stemthick;
@@ -319,7 +319,7 @@ fet_endchar;
 fet_beginchar("Harmonic ledger", "harmonicl", "harmonicledger")
         draw_ledger(harmonic_wid#);
 fet_endchar;
-fi
+%fi
 
 fet_endgroup("balls");
 

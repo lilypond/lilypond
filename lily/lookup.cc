@@ -80,11 +80,8 @@ Lookup::afm_find (String s, bool warn) const
   Atom a;
   if (m.code () < 0)
     return a;
-  
-  a.dim_ = m.B_;
-  a.dim_[X_AXIS] *= 1 / 1000.0;
-  a.dim_[Y_AXIS] *= 1 / 1000.0;
-
+    
+  a.dim_ = m.dimensions();
   
   a.lambda_ = gh_list (ly_symbol ("char"),
 		       gh_int2scm (m.code ()),
@@ -170,10 +167,8 @@ Lookup::bar (String str, Real h) const
   else if (str == ":|:")
     {
       m.add_at_edge (X_AXIS, LEFT, thick,kern/2);
-      m.add_at_edge (X_AXIS, LEFT, thin,kern);
       m.add_at_edge (X_AXIS, LEFT, colon,kern);      
       m.add_at_edge (X_AXIS, RIGHT, thick,kern);
-      m.add_at_edge (X_AXIS, RIGHT, thin,kern);
       m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
     }
   else if (str == "||")
@@ -406,7 +401,11 @@ Lookup::text (String style, String text) const
     {
       style = String (cmr_dict [style]) + to_str  ((int)font_h); // ugh
     }
+
   Real w = 0;
+  Real h = 0;
+  Real d = 0;
+
   Font_metric* afm_l = all_fonts_global_p->find_font (style);
   DOUT << "\nChars: ";
   
@@ -419,11 +418,14 @@ Lookup::text (String style, String text) const
 	{
 	  Character_metric *c = afm_l->get_char (text[i],false);
 	  w += c->dimensions()[X_AXIS].length ();
+ 	  h = h >? c->dimensions()[Y_AXIS].max ();
+	  d = d <? c->dimensions()[Y_AXIS].min ();
 	}
     }
 
   DOUT << "\n" << to_str (w) << "\n";
   a.dim_.x () = Interval (0, w);
+  a.dim_.y () = Interval (d, h);
   a.font_ = font_name_;
   return a;
 }
@@ -544,3 +546,12 @@ Lookup::volta (Real w, bool last_b) const
   return a;
 }
 
+
+Atom
+Lookup::special_ball (int j, String kind_of_ball) const
+{
+  if (j > 2)
+    j = 2;
+
+  return afm_find (String ("balls") + String ("-") + kind_of_ball);
+}

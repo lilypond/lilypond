@@ -1,4 +1,45 @@
+
+pl 23.ms2
+	- property noteheadStyle
+	- first attempt to make harmonics : see input/test/harmonics.fly
+
+pl 23.ms1
+	- sinfonia.ly: several fixes
+  	- dynamics
+	 * increased range pppppp to ffffff
+         * added sp, spp, sff, rfz
+         * example see input/test/tchaikovsky.ly
+         * updated dynamics in refman
+
+
+pl 24.jcn2
+	- website fixes
+	- bf's: chords:
+  	  * reverted c1*2, collides with \times {}
+	  * should use: c\breve, c\longa for long chords
+	  * addition: c-9, subtraction: c^5
+	  * multiple -add, ^sub: c-7+.9-^3.5
+	- bf: lyric chord
+	- bf: lookup text height
+	- bf's: autobeamer
+
+ pl 24.jcn1
+	- bf: rest collisions
+	- separate tfm-reader
+	- bf: :|: should not have thin lines
+
+
+pl 24.mb1
+        - bf: Correct units now used in the .afm files.
+
+******
+
 pl 24, Hacking Apart Together (Jan 25)
+
+pl 23.jcn9
+	- bf's: preludes-* (found a \meter and \transpose c`` there!)
+	- bf: ly2dvi: don't barf on 'linewidth = -1.;'
+	- bf: lily-version
 
 pl 23.jbr1
         - scripts/ly2dvi.py: Windows 95 shell does not support redivrection 

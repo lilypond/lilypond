@@ -65,9 +65,23 @@ Note_head::do_brew_molecule_p() const
     ? 0
     : (abs(position_i_) - staff_size_i_/2) /2;
   
-  Atom  s = lookup_l()->ball (balltype_i_);
+  //Atom  s = lookup_l()->ball (balltype_i_);
+  
+  Atom  s; // = lookup_l()->ball (balltype_i_);
+
+  if (note_head_type_str_.length_i ()) {
+    if (note_head_type_str_ == "normal")
+      note_head_type_str_ = "";
+    s = lookup_l()->special_ball (balltype_i_, note_head_type_str_);
+    }
+  else
+    s = lookup_l()->ball (balltype_i_);
   out = new Molecule (Atom (s));
   out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
+
+
+  //out = new Molecule (Atom (s));
+  //out->translate_axis (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
 
   if (streepjes_i) 
     {

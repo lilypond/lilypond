@@ -24,7 +24,10 @@ class Lookup
 public:
   Lookup ();
   Lookup (Lookup const&);
+
+
   
+  Atom special_ball (int, String) const;
   Atom simple_bar (String s, Real w) const;
   Molecule accidental (int, bool cautionary) const;
   Atom afm_find (String, bool warn=true) const;
