@@ -36,6 +36,7 @@
 
 (define encoding-alist '())
 
+;; TODO: run this once and 'cache' output of (write lst) in <coding>.scm ?
 (define (read-coding-file coding)
   (let* ((raw (ly:gulp-file (assoc-get coding coding-file-alist)))
 	 ;;(raw (ly:gulp-file "f7b6d320.enc"))
