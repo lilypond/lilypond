@@ -8,7 +8,7 @@ There is a way to enforce enharmonic modifications for notes in order
 to have the minimum number of accidentals. In that case, ``Double 
 accidentals should be removed, as well as E-sharp (-> F), bC (-> B),
 bF (-> E), B-sharp (-> C).'', as proposed by a request for a new feature.
-In that manner, the most natural enharmonic notes are chosen in this example.
+In this manner, the most natural enharmonic notes are chosen in this example.
 
 "
 }
