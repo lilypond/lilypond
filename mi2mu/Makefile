@@ -1,7 +1,7 @@
 #
 # project  LilyPond -- the musical typesetter
-# title	   makefile for lilypond
-# file	   lily/Makefile 
+# title	   makefile for mi2mu
+# file	   mi2mu/Makefile 
 #
 # Copyright (c) 1997 by
 #   	Jan Nieuwenhuizen <jan@digicash.com>
@@ -20,13 +20,10 @@ include ./$(depth)/make/Variables.make
 
 # identify module:
 #
-NAME = lilypond
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = $(lily-dir)/.build
+NAME = mi2mu
+MODULE_NAME = mi2mu
+include $(mi2mu-dir)/.version
+build = $(mi2mu-dir)/.build
 #
 
 # descent order into subdirectories:
@@ -36,7 +33,7 @@ SUBDIRS = include
 
 # to be remade each build:
 #
-VERSION_DEPENDENCY = $(lily-version)
+VERSION_DEPENDENCY = $(mi2mu-version)
 #
 
 # list of c++ header files:
@@ -56,14 +53,14 @@ EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
 
 # list of distribution files:
 #
-DISTFILES = Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
+DISTFILES = Makefile .version $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
 #
 
 # list of custom libraries:
 #
 # yes, i know about the -L and -l options,
 # but these libraries get rebuild when needed.
-CUSTOMLIBES = $(LIBLILY) $(LIBFLOWER)
+CUSTOMLIBES = $(LIBLILY) $(LIBFLOWER) 
 
 LOADLIBES +=
 #
@@ -86,10 +83,15 @@ include ./$(depth)/make/Rules.make
 
 # explicit dependencies: (how to do auto?)
 #
-# ugh
-$(outdir)/version.cc: check-flower-version $(lily-version)
-mylexer.cc: $(outdir)/parser.hh # sic
-lexer.l: $(outdir)/parser.hh
+midi-lexer.l:	$(outdir)/midi-parser.hh
+version.cc:	check-flower-version $(mi2mu-version)
+#
+
+# version:
+#
+mi2mu-version: $(mi2mu-dir)/$(genout) $(mi2mu-version)
+$(mi2mu-version): $(mi2mu-dir)/$(genout) $(mi2mu-dir)/.version ./$(bindir)/make_version $(build)
+	./$(bindir)/make_version "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
 #
 
 # list of depend files:

@@ -31,18 +31,8 @@ include ./$(depth)/make/Variables.make
 
 # ugh
 # initdefault: $(CCDIR)/parser.cc $(CCDIR)/lexer.cc hdr/version.hh alldeps
-initdefault: check-flower-version $(lily-version) dummydep
+initdefault: check-flower-version $(lily-version) check-mi2mu-version dummydep
 #	$(MAKE) -C ./$(depth)/lily $(outdir)/parser.cc
-
-# ugh!
-dummydep: 
-	touch ./$(depth)/flower/lib/$(depdir)/dummy.dep
-	touch ./$(depth)/lib/$(depdir)/dummy.dep
-	touch ./$(depth)/lily/$(depdir)/dummy.dep
-	touch ./$(depth)/m2m/$(depdir)/dummy.dep
-
-#$(DEPDIR)/%.dep:  $(CCDIR)/%.cc
-#	$(DODEP) $(CXX) -E  $(CXXFLAGS) $^ > /dev/null
 
 # generic targets and rules:
 #
