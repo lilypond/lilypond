@@ -1,3 +1,6 @@
+pl 32.jcn1
+	- set-lily: set weird locale links for $LILYPONDPREFIX
+
 pl 31.hwn2
 	- be somewhat lazy in break/object multiplication.
 	- print # elements for memory usage impression (try  -t)
