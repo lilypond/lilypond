@@ -49,7 +49,8 @@ Source_file::istream_l ()
       else
 	{
 	  istream_p_ = new istrstream ("", 0);
-	  istream_p_->set (ios::eofbit);
+	  istream_p_->setstate (ios::eofbit);
+	  //	  istream_p_->set (ios::eofbit);
 	}
     }
   return istream_p_;

@@ -15,7 +15,7 @@
 #define classname(class_ptr)   demangle_classname (typeid (* (class_ptr)))
 
 const char *
-demangle_classname (type_info const &);
+demangle_classname (std::type_info const &);
 
 /**
 

@@ -208,13 +208,10 @@
     (properties-to-font .
 			,Font_interface::properties_to_font_name)
 
-    ;; FIXME: this is a not-so-cool idea to use ALIGN
-    ;; RAISE, LOOKUP, since they are not proper elt-properties,
-    ;; and might interfere with them.
     (markup-to-properties . ,markup-to-properties)
     (abbreviation-alist
-     . ((rows . ((align . 0)))
-	(lines . ((align . 1)))
+     . ((columns . ((axis . 0)))
+	(lines . ((axis . 1)))
 	(roman . ((font-family . roman)))
 	(music . ((font-family . music) (lookup . name)))
 	(finger . ((font-style . finger)))
@@ -222,8 +219,9 @@
 	(upright . ((font-shape . upright)))
 	(italic . ((font-shape . italic)))
 	(named . ((lookup . name)))
-	(super . ((raise . 1) (font-relative-size . -1)))
-	(sub . ((raise . -1) (font-relative-size . -1)))
+	(overstrike . ((extent . (0 . 0))))
+	(super . ((raise . 1) (font-relative-size . -1) (extent . (0 . 0))))
+	(sub . ((raise . -1) (font-relative-size . -1) (extent . (0 . 0))))
 	(text . ((lookup . value)))
 	)
      )
@@ -330,7 +328,14 @@ and warn if the selected font is not unique.
   ;; (display "'\n")
   
   (if (pair? markup)
-      (if (and (symbol? (car markup)) (not (pair? (cdr markup))))
+      ;; This is hairy.  We want to allow:
+      ;;    ((foo bar) "text")
+      ;;    ((foo (bar . 1)) "text")
+      ;;    ((foo . (0 . 1))) 
+      
+      (if (and (symbol? (car markup))
+	       (or (not (pair? (cdr markup)))
+		   (number? (cadr markup))))
 	  (if (equal? '() (cdr markup))
 	      (markup-to-properties sheet (car markup))
 	      (list markup))

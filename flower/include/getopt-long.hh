@@ -1,9 +1,8 @@
 #ifndef GETOPT_LONG_HH
 #define GETOPT_LONG_HH
 
+#include <ostream.h> /* gcc 3.0 */
 #include "string.hh"
-
-class ostream;
 
 /**
   a struct this for initialising the commandline options.

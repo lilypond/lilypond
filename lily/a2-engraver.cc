@@ -59,7 +59,7 @@ A2_engraver::create_grobs ()
 	  announce_grob (text_p_, 0);
       
 	  Direction dir = UP;
-	  SCM text;
+	  SCM text = SCM_EOL;
 	  if (solo == SCM_BOOL_T)
 	    {
 	      state_ = SOLO;

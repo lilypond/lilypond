@@ -286,21 +286,21 @@ text: string | (head? text+)
 head: markup | (markup+)
 markup-item: property | abbrev
 property: (@var{key} . @var{value})
-abbrev: @code{rows lines roman music bold italic named super sub text}
+abbrev: @code{columns lines roman music bold italic named super sub overstrike text}
         @code{finger volta timesig mmrest mark script large Large dynamic}
 @end example
 
 
 The following abbreviations are currently defined:
 @table @samp
-@item rows
-horizontal mode: set all text on one line (default)
+@item columns
+ horizontal mode: set all text on one line (default)
 @item lines
  vertical mode: set every text on new line
 @item roman
  select roman font
 @item music
- select feta font
+ select feta font, and lookup by character name
 @item bold
  select bold series
 @item italic
@@ -313,6 +313,8 @@ horizontal mode: set all text on one line (default)
  superscript
 @item sub
  subscript
+@item overstrike
+ the next text or character overstrikes this one
 @item finger
  select fingering number fontstyle
 @item volta

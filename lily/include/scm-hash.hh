@@ -25,7 +25,7 @@ struct SCM_less
   }
 };
 
-typedef map<SCM,SCM, SCM_less> Scm_stl_map;
+typedef std::map<SCM,SCM, SCM_less> Scm_stl_map;
 
 /**
    auto resizing hash table. 

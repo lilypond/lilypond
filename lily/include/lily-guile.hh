@@ -65,6 +65,9 @@ void init_lily_guile ();
 
 bool isdir_b (SCM s);
 bool isaxis_b (SCM s);
+bool ly_number_pair_p (SCM);
+bool ly_axis_p (SCM);
+
 /*
   these conversion functions also do a typecheck on the argument, and
   return a default value if S has the wrong type.
@@ -88,7 +91,7 @@ void add_scm_init_func (void (*) ());
 
 typedef SCM (*Scheme_function_unknown) ();
 
-#if __GNUC_MINOR__ >= 96
+#if __GNUC__ > 2 || __GNUC_MINOR__ >= 96
 typedef SCM (*Scheme_function_0) ();
 typedef SCM (*Scheme_function_1) (SCM);
 typedef SCM (*Scheme_function_2) (SCM,SCM);	 

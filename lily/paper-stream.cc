@@ -22,12 +22,17 @@
 
 const int MAXLINELEN = 200;
 
+#if __GNUC__ > 2
+ostream *
+open_file_stream (String filename, std::ios_base::openmode mode)
+#else
 ostream *
 open_file_stream (String filename, int mode)
+#endif
 {
   ostream *os;
   if ((filename == "-"))
-    os = new ostream (cout._strbuf);
+    os = &cout;
   else
     {
       Path p = split_path (filename);
@@ -50,7 +55,8 @@ close_file_stream (ostream *os)
       warning (_ ("Error syncing file (disk full?)"));
       exit_status_global = 1;
     }
-  delete os;
+  if (os != &cout)
+    delete os;
   os = 0;
 }  
 

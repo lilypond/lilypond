@@ -818,6 +818,13 @@ if 1:
 		return str
 	conversions.append (((1,3,147), conv, 'default-neutral-direction -> neutral-direction'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('\(align', '(axis', str)
+		str = re.sub ('\(row', '(columns', str)
+		return str
+	conversions.append (((1,3,148), conv, '(align -> (axis, (row -> columns'))
+
 
 ################################
 #	END OF CONVERSIONS	

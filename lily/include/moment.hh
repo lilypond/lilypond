@@ -35,14 +35,14 @@ public:
 
 Moment * unsmob_moment (SCM);
 
+#if 0
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
-IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, % );
-
 INSTANTIATE_COMPARE (Moment const&, Rational::compare);
-
+#endif
 
 #endif /* MOMENT_HH */
 

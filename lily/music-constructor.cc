@@ -11,13 +11,13 @@
 #include "music-constructor.hh"
 typedef Music* (*Music_ctor) ();
 
-static map<String,Music_ctor> *ctors_map_;
+static std::map<String,Music_ctor> *ctors_map_;
 
 void
 add_music_ctor (String s,  Music_ctor c)
 {
   if (!ctors_map_)
-    ctors_map_ = new map<String, Music_ctor>;
+    ctors_map_ = new std::map<String, Music_ctor>;
   
  (*ctors_map_)[s] = c;
 }

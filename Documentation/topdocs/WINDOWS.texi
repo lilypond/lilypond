@@ -151,9 +151,41 @@ emacs-on-cygwin setup.
 
 * GUILE errors, simple guile test
 
-* TEX errors, simple tex test
+* (La)TEX errors, simple tex test
+
 
 ]
+@ignore 
 
+  guile -v
+  Guile 1.4.1
+
+  guile -e %load-path
+  ERROR: Wrong type to apply: ("/usr/share/guile/site" /usr/share/guile/1.4.1")
+  
+
+  
+Mats?
+
+Let's take this step by step.
+
+It should not be critical which MikTeX version you use.
+Let's first verify that your MikTeX works as it should.
+Open a DOS window. Run the commands
+>> latex sample2e
+ Should produce some lines of output
+>> yap sample2e
+ Should display a three page document.
+
+Next step; verify that the geometry package is in place. 
+Save the attached file to the directory where you run 
+your DOS window. Run the commands
+>> latex geometrytest
+>> yap geometrytest
+This one you should get a single page document with some text
+in each corner.
+]
+
+@end ignore
 
 

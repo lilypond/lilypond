@@ -38,15 +38,21 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
 {
   if (gh_string_p (text))
     return string2molecule (me, text, alist_chain);
-
-  /*
-    ugh: gh_list_p () is linear.
-   */
-  
-  else if (gh_list_p (text) && text != SCM_EOL && text != SCM_UNDEFINED)
+  else if (gh_pair_p (text))
     {
+      /* urg, why not just do  this in markup_text2molecule ? */
       if (gh_string_p (gh_car (text)))
-	return string2molecule (me, gh_car (text), alist_chain);
+	return markup_text2molecule (me,
+				     gh_append2 (gh_list (SCM_EOL,
+							 SCM_UNDEFINED),
+						 text),
+				     alist_chain);
+      /*
+	Allow (faulty) texts that are in an extra list:
+	#'(("foo"))
+       */
+      else if (scm_ilength (text) <= 1)
+	return text2molecule (me, gh_car (text), alist_chain);
       else
 	return markup_text2molecule (me, text, alist_chain);
     }
@@ -130,12 +136,12 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
+  /*
+    Line mode is default.
+   */
   Axis axis = X_AXIS;
 
-  /*
-    TODO:  change ALIGN into AXIS.
-   */
-  SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
+  SCM a = ly_assoc_chain (ly_symbol2scm ("axis"), p);
   if (gh_pair_p (a) && isaxis_b (gh_cdr (a)))
     axis = (Axis)gh_scm2int (gh_cdr (a));
 
@@ -155,29 +161,85 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
-  Offset o (0, (axis == Y_AXIS ? - kern[axis] : 0) + raise);
-   
+  Interval extent;
+  bool extent_b = false;
+  SCM e = ly_assoc_chain (ly_symbol2scm ("extent"), p);
+  if (gh_pair_p (e) && ly_number_pair_p (gh_cdr (e)))
+    {
+      extent = Interval (gh_scm2double (gh_cadr (e)) * staff_space,
+		       gh_scm2double (gh_cddr (e)) * staff_space);
+      extent_b = true;
+    }
+
+  Offset o (0, (axis == Y_AXIS ? - kern[axis] : 0));
+
   Molecule mol;
   while (gh_pair_p (text))
     {
+   
       Molecule m = text2molecule (me, gh_car (text), p);
-      SCM m_p = SCM_EOL;
+
+      /*
+	TODO: look at padding?
+	
+	Look ahead here for kern and raise.
+
+	(cols "foo" ((raise . 1) "bar"))
+	(cols "foo" ((bold (raise . 1)) "bar"))
+
+	When constructing the molecule for bar, all normal extra
+	properties found, such as bold, are used for the construction
+	of bar's molecule.  But for kern or raise, it seems that we're
+	too late then, translating bar's molecule has no effect (or
+	maybe the effect of translating gets nullified when bar's
+	molecule is `added_to_edge' of the molecule for foo?)
+
+	So, while constructing foo's molecule, we look ahead for the
+	raise of bar.  The HEAD of the description of bar may be a
+	single property, or a list, so we must check that too.
+      */
+	
+      SCM next_p = SCM_EOL;
       if (gh_pair_p (gh_car (text)))
-	m_p = gh_cons (gh_call2 (f, sheet, gh_caar (text)), alist_chain);
-      SCM m_k = ly_assoc_chain (ly_symbol2scm ("kern"), m_p);
-      Real m_kern = kern[axis];
-      if (gh_pair_p (m_k) && gh_number_p (gh_cdr (m_k)))
-	m_kern = gh_scm2double (gh_cdr (m_k)) * staff_space;
+	next_p = gh_list (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
+      SCM next_k = ly_assoc_chain (ly_symbol2scm ("kern"), next_p);
+      Real next_kern = kern[axis];
+      if (gh_pair_p (next_k) && gh_number_p (gh_cdr (next_k)))
+	next_kern = gh_scm2double (gh_cdr (next_k)) * staff_space;
+
+      SCM next_r = ly_assoc_chain (ly_symbol2scm ("raise"), next_p);
+      Real next_raise = 0;
+      if (gh_pair_p (next_r) && gh_number_p (gh_cdr (next_r)))
+	next_raise = gh_scm2double (gh_cdr (next_r)) * staff_space;
+
+      o[Y_AXIS] = next_raise;
 
       if (!m.empty_b ())
 	{
 	  m.translate (o);
 	  if (axis == Y_AXIS && baseline_skip)
-	    m_kern += baseline_skip - m.extent (Y_AXIS)[UP];
-	  mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, m_kern);
+	    next_kern += baseline_skip - m.extent (Y_AXIS)[UP];
+	  mol.add_at_edge (axis, axis == X_AXIS ? RIGHT : DOWN, m, next_kern);
 	}
       text = gh_cdr (text);
     }
+  
+  if (extent_b)
+    {
+#if 0
+      /* Hmm, we're not allowed to change a Molecule's extent? */
+      mol.dim_[axis] = extent;
+      Molecule::ly_set_molecule_extent_x (mol.self_scm (), gh_int2scm (axis),
+					  gh_cdr (e));
+#else
+      // burp: unpredictable names, these...
+      Box b = mol.extent_box ();
+      SCM expr = mol.get_expr ();
+
+      b[axis] = extent;
+      mol = Molecule (b, expr);
+#endif
+	}  
   return mol;
 }
 

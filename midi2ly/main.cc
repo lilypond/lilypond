@@ -23,6 +23,7 @@
 #include <libintl.h>
 #endif
 
+bool testing_level_global;
 
 // ugh
 String filename_str_g;

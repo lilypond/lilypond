@@ -23,11 +23,17 @@
 
 ;; TODO
 ;;
+;; * easier tweakability:
+;;    - split chord::names-alists up into logical bits,
+;;      such as chord::exceptions-delta, exceptions-oslash
+;;    - iso just the 'style parameter, use a list, eg:
+;;      \property ChordNames.ChordName \set
+;;        #'style = #'(jazz delta oslash german-tonic german-Bb)
+;;
 ;; * fix FIXMEs
+;;
 ;; * clean split/merge of bass/banter/american stuff
-;; * handy, documented hooks for user-override of:
-;;    - tonic (chord) name
-;;    - 
+;;
 ;; * doc strings
 
 (define chord::names-alist-banter '())
@@ -55,46 +61,30 @@
       chord::names-alist-banter))
 
 ;;;;;;;;;;
+(define simple-super
+;; duh, no docstrings for 
+;;  "No real superscript, just raised and small"
+  '((raise . 1) (font-relative-size . -1)))
 
-
-;; FIXME
-(define (accidental->text acc)
+(define (accidental->textp acc pos)
   (if (= acc 0)
       '()
-       (list '(music (font-relative-size . -2))
-	     (string-append "accidentals-" (number->string acc)))))
+      (list '(music (font-relative-size . -2))
+		   (list pos (string-append "accidentals-" (number->string acc))))))
 
+(define (accidental->text acc) (accidental->textp acc 'columns))
 (define (accidental->text-super acc)
-  (if (= acc 0)
-      '()
-      (cons 'super (list (accidental->text acc)))))
-
-(define (accidental->text-sub acc)
-  (if (= acc 0)
-      '()
-      (cons sub (list accidental->text acc))))
-
-
-;; these look nice, but don't work together with current inner-name-jazz
-;; (inner-name-jazz is a bit broken: apply append etc)
-(define (xaccidental->textp acc pos)
-  (if (= acc 0)
-      '()
-       (list (list '(music (font-relative-size . -2))
-	     (list pos (string-append "accidentals-" (number->string acc))))))
-)
-
-(define (xaccidental->text acc) (accidental->textp acc 'rows))
-(define (xaccidental->text-super acc) (accidental->textp acc 'super))
-(define (xaccidental->text-sub acc) (accidental->textp acc 'sub))
+  (accidental->textp acc '((raise . 0.6) (font-relative-size . -1))))
+(define (accidental->text-sub acc) (accidental->textp acc 'sub))
 
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
 
-;; FIXME: see german-chords.ly
 (define (pitch->text pitch)
-  (cons
-   (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65)))
+  (text-append
+   (list
+    '(font-relative-size . 2)
+    (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65))))
    (accidental->text-super (caddr pitch))))
 
 
@@ -185,13 +175,15 @@
 	  dirty
 	  '())))
 
-(define (chord::text-append l . r)
+(define (text-append l . r)
   (if (not (chord::text? r))
       l
       (if (not (chord::text? l))
 	  r
-	  (cons l r))))
-  
+	  (if (empty? (cdr r))
+	      (list 'columns l (car r))
+	      (text-append (list 'columns l (car r)) (cdr r))))))
+	   
 (define (chord::step tonic pitch)
  (- (pitch::note-pitch pitch) (pitch::note-pitch tonic)))
 
@@ -216,13 +208,13 @@
 		(modulo (+ i 6) 7)))))))))
 
 (define (chord::additions steps)
-  " Return:
+" Return:
    * any even step (2, 4, 6)
    * any uneven step that is chromatically altered,
      (where 7-- == -1, 7- == 0, 7 == +1)
    * highest step
 
-and you need also:
+?and jazz needs also:
 
    * TODO: any uneven step that's lower than an uneven step which is
      chromatically altered
@@ -277,25 +269,25 @@ and you need also:
 
 (define (chord::additions->text-banter additions subtractions)
   (if (pair? additions)
-      (cons (apply append
-		   (chord::text-cleanup
-		    (list
-		     (cons 'super (step->text-banter (car additions)))
-		     (if (or (pair? (cdr additions))
-			     (pair? subtractions))
-			 '(super "/")))))
-	    (chord::additions->text-banter (cdr additions) subtractions))))
+      (text-append
+       (let ((step (step->text-banter (car additions))))
+	 (if (or (pair? (cdr additions))
+		 (pair? subtractions))
+	     (text-append step "/")
+	     step))
+      (chord::additions->text-banter (cdr additions) subtractions))
+  '()))
 
 (define (chord::subtractions->text-banter subtractions)	 
   (if (pair? subtractions)
-      (cons (apply append
-		   (chord::text-cleanup
-		    (list
-		     '(super "no")
-		     (cons 'super (step->text-banter (car subtractions)))
-		     (if (pair? (cdr subtractions))
-			 '(super "/")))))
-	    (chord::subtractions->text-banter (cdr subtractions)))))
+      (text-append
+       '("no")
+       (let ((step (step->text-jazz (car subtractions))))
+	 (if (pair? (cdr subtractions))
+			(text-append step "/")
+			step))
+       (chord::subtractions->text-banter (cdr subtractions)))
+      '()))
 
 (define (chord::bass-and-inversion->text-banter bass-and-inversion)
   (if (and (pair? bass-and-inversion)
@@ -322,15 +314,14 @@ and you need also:
 	(sep-text (if (and (string-match "super" (format "~s" exception-part))
 			    (or (pair? additions)
 				(pair? subtractions)))
-		       '((super "/"))))
+		       (list simple-super "/")))
 	(adds-text (chord::additions->text-banter additions subtractions))
 	(subs-text (chord::subtractions->text-banter subtractions))
 	(b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
-    (apply append
-	   (map chord::text-cleanup
-		(list
-		 '(rows) tonic-text except-text sep-text adds-text subs-text
-		 b+i-text)))))
+    (text-append
+     tonic-text except-text sep-text
+     (list (list simple-super) adds-text subs-text)
+     b+i-text)))
 
 (define (chord::name-banter tonic exception-part unmatched-steps
 			    bass-and-inversion steps)
@@ -432,8 +423,6 @@ and you need also:
 		    '())))
     (chord::name->text style (car pitches) steps bass-and-inversion)))
 
-
-
 ;;;
 ;;; American style
 ;;;
@@ -476,13 +465,12 @@ and you need also:
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . ("m(maj7)"))
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N"))
-	 ;; ugh, kludge slashed o
-	 ;; (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((kern . -0.85) ((raise . 0.57) ((font-relative-size . -3) "/"))) "7")) ; slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") (((kern . -0.85) (raise . 1.1) (font-relative-size . -2)) "/") "7")) ; slashed o
+	 ;; slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") "7"))
 
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
-	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
-	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows "7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (columns "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (columns "7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
 	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . ("7sus4"))
 	 ;; Common ninth chords
 	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . ("6/9")) ;; we don't want the '/no7'
@@ -524,7 +512,7 @@ and you need also:
 ;;
 ;; This is getting out-of hand?  Only exceptional chord names that
 ;; cannot be generated should be here.
-;; Maybe we should have inner-jazz-name and inner-american-name functions;
+;; Maybe we should have inner-name-jazz and inner-name-american functions;
 ;; 
 ;;       
 ;;
@@ -548,31 +536,31 @@ and you need also:
 
 	;; minor chords
 	; minor sixth chord = m6
- 	(((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . (rows("m")((raise . 0.5) "6")))
+ 	(((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . (columns("m")((raise . 0.5) "6")))
 	;; minor major seventh chord = m triangle
 	;; shouldn't this be a filled black triange, like this:  ? --jcn
-	;;(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . math) "N"))))
-	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (rows ("m") ((raise . 0.5)((font-family . math) "M"))))
+	;;(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (columns ("m") ((raise . 0.5)((font-family . math) "N"))))
+	(((0 . 0) (2 . -1) (4 . 0) (6 . 0)) . (columns ("m") ((raise . 0.5)((font-family . math) "M"))))
 	; minor seventh chord = m7
-	(((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . (rows("m")((raise . 0.5) "7")))
+	(((0 . 0) (2 . -1) (4 . 0) (6 . -1)) . (columns("m")((raise . 0.5) "7")))
 	; minor sixth nine chord = m6/9
-	(((0 . 0) (2 . -1) (4 . 0) (5 . 0) (1 . 0)) . (rows("m")((raise . 0.5) "6/9")))
+	(((0 . 0) (2 . -1) (4 . 0) (5 . 0) (1 . 0)) . (columns("m")((raise . 0.5) "6/9")))
 	; minor with added nine chord = madd9
-	(((0 . 0) (2 . -1) (4 . 0) (1 . 0)) . (rows("m")((raise . 0.5) "add9")))
+	(((0 . 0) (2 . -1) (4 . 0) (1 . 0)) . (columns("m")((raise . 0.5) "add9")))
 	; minor ninth chord = m9
-	(((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . (rows("m")((raise . 0.5) "9")))
+	(((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . (columns("m")((raise . 0.5) "9")))
 
 	;; dominant chords
 	; dominant seventh = 7
 	(((0 . 0) (2 . 0) (4 . 0) (6 . -1)) . (((raise . 0.5) "7")))
 	; augmented dominant = +7
 	;(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (((raise . 0.5) "+7"))) ; +7 with both raised
-	(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (rows("+")((raise . 0.5) "7"))) ; +7 with 7 raised
-	;(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (rows((raise . 0.5) "7(")
+	(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (columns("+")((raise . 0.5) "7"))) ; +7 with 7 raised
+	;(((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (columns((raise . 0.5) "7(")
 	;	((raise . 0.3)(music (named ("accidentals-1"))))
 	;	((raise . 0.5) "5)"))); 7(#5)
 	; dominant flat 5 = 7(b5)
-	(((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows((raise . 0.5) "7(")
+	(((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (columns((raise . 0.5) "7(")
 		((raise . 0.3)(music (named ("accidentals--1"))))
 		((raise . 0.5) "5)")))
 	; dominant 9 = 7(9)
@@ -638,7 +626,7 @@ and you need also:
 	;; half diminshed chords
 	;; half diminished seventh chord = slashed o
 	;; (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (((raise . 0.8) "/o")))
-        (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") (((kern . -0.85) (raise . 1.1) (font-relative-size . -2)) "/") "7")) ; slashed o
+        (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (columns (super (overstrike "o") "/") "7")) ; slashed o
 
 	; half diminished seventh chord  with major 9 = slashed o cancelation 9
 	(((0 . 0) (2 . -1) (4 . -1) (6 . -1) (1 . 0)) . (
@@ -652,44 +640,135 @@ and you need also:
       chord::names-alist-american))
 
 (define (step->text-alternate-jazz pitch)
-  (cons
+  (text-append
    (accidental->text (caddr pitch))
-   (list (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8))))))
+   (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))
 
 (define (step->text-jazz pitch)
   (if (= (cadr pitch) 6)
       (case (caddr pitch)
 	;; sharp 7 only included for completeness?
-	((-2) (cons (accidental->text -1) '("7")))
+	((-2) (text-append (accidental->text -1) '("7")))
 	((-1) '("7"))
 	((0) '("maj7"))
-	((1) (cons (accidental->text-super 1) '("7")))
-	((2) (cons (accidental->text-super 2) '("7"))))
+	((1) (text-append (accidental->text-super 1) '("7")))
+	((2) (text-append (accidental->text-super 2) '("7"))))
       (step->text-alternate-jazz pitch)))
 
-(define (chord::additions->text-jazz additions subtractions)
+(define (xchord::additions->text-jazz additions subtractions)
   (if (pair? additions)
-      (cons (apply append
-		   (chord::text-cleanup
-		    (list
-		     (cons 'super (step->text-jazz (car additions)))
-		     (if (or (pair? (cdr additions))
-			     (pair? subtractions))
-			 '(super "/")))))
-	    (chord::additions->text-jazz (cdr additions) subtractions))
-      '()))
+      (text-append
+       (let ((step (step->text-jazz (car additions))))
+	 (if (or (pair? (cdr additions))
+		 (pair? subtractions))
+	     (text-append step "/")
+	     step))
+      (chord::additions->text-jazz (cdr additions) subtractions))
+  '()))
 
+(define (chord::>5? x)
+  (or (> (car x) 0)
+      (> (cadr x) 4)))
+
+
+;; FIXME:
+;; Perhaps all logic like this should be done earlier,
+;; so that in this text-construction printing phase
+;; we can just blindly create text from all additions.
+;;
+;; This depends maybe on the fact of code sharing,
+;; in this layout, we can share the functions chord::additions
+;; and chord::subtractions with banter.
+(define (chord::additions->text-jazz additions subtractions)
+  (text-append
+   (chord::additions<=5->text-jazz (filter-out-list chord::>5? additions)
+				   (filter-out-list chord::>5? subtractions))
+   (chord::additions>5->text-jazz (filter-list chord::>5? additions)
+				  (filter-list chord::>5? subtractions))))
+
+;; FIXME
+(define (chord::additions<=5->text-jazz additions subtractions)
+  (let ((sus (chord::sus-four-jazz additions)))
+    (if (pair? sus)
+	(text-append '("sus") (step->text-jazz (car sus)))
+	'())))
+
+(define (chord::additions>5->text-jazz additions subtractions)
+  "
+Compose text of all additions
+
+  * if there's a subtraction:
+    - add `add'
+    - list all up to highest
+  * list all steps that are below an chromatically altered step
+  "
+  (text-append
+   (if (not (empty? subtractions)) "add" '())
+   (let ((radds (reverse additions)))
+     (reverse (chord::additions>5->text-jazz-helper
+	       radds
+	       subtractions
+	       (if (or (empty? subtractions) (empty? radds))
+		   #f (car radds)))))))
+
+(define (chord::additions>5->text-jazz-helper additions subtractions list-step)
+  "
+Create texts for all additions
+If list-step != #f, list all steps down to 5
+If we encounter a chromatically altered step, turn on list-step
+"
+
+  (if list-step
+      (if (not (member list-step subtractions))
+	  (if (> 5 (cadr list-step))
+	      (cons (step->text-jazz list-step)
+		    (chord::additions>5->text-jazz-helper
+		     additions
+		     subtractions
+		     (chord::get-create-step additions
+					     (- (cadr list-step) 2))))
+	      (step->text-jazz list-step))
+	  (chord::get-create-step additions (- (cadr list-step) 2)))
+      (if (pair? additions)
+	  (let ((step (car additions)))
+	    (cons (step->text-jazz step)
+		  (chord::additions>5->text-jazz-helper
+		   (cdr additions)
+		   subtractions
+		   (if (or (and (!= 6 (cadr step)) (!= 0 (caddr step)))
+			   (and (= 6 (cadr step)) (!= -1 (caddr step))))
+		       (chord::get-create-step additions (- (cadr step) 2))
+		       #f))))
+	  '())))
+
+(define (chord::sus-four-jazz chord-pitches)
+  "List of pitches that are step 2 or step 4"
+  (filter-list (lambda (x)
+		 (and (= 0 (car x))
+		      (or (= 1 (cadr x)) (= 3 (cadr x))))) chord-pitches))
+
+(define (chord::get-create-step steps n)
+  (let* ((i (if (< n 0) (+ n 7) n))
+	 (found (filter-list (lambda (x) (= i (cadr x))) steps)))
+    (if (empty? found)
+	(if (!= i 6)
+	    (list 0 i 0)
+	    (list 0 6 -1))
+	(car found))))
+  
 (define (chord::subtractions->text-jazz subtractions)	 
   (if (pair? subtractions)
-      (cons (apply append
-		   (chord::text-cleanup
-		    (list
-		     '(super "omit")
-		     (cons 'super (step->text-jazz (car subtractions)))
-		     (if (pair? (cdr subtractions))
-			 '(super "/")))))
-	    (chord::subtractions->text-jazz (cdr subtractions)))
-	'()))
+      (text-append
+       (if (= 5 (cadr (car subtractions)))
+	   (text-append
+	    '("omit")
+	    (let ((step (step->text-jazz (car subtractions))))
+	      (if (pair? (cdr subtractions))
+		  (text-append step "/")
+		  step)))
+	   '())
+       (chord::subtractions->text-jazz (cdr subtractions)))
+      '()))
 
 
 ;; TODO: maybe merge with inner-name-banter
@@ -697,23 +776,19 @@ and you need also:
 ;; additions, subtractions and bass or inversion into chord name
 (define (chord::inner-name-jazz tonic exception-part additions subtractions
 				  bass-and-inversion steps)
-
-  ;; ugh
-  (apply
-   append
-   
-   (chord::text-cleanup
-    (list '(rows)
-	  (pitch->chord-name-text-banter tonic steps)
-	  exception-part
-	  ;; why does list->string not work, format seems only hope...
-	  (if (and (string-match "super" (format "~s" exception-part))
-		   (or (pair? additions)
-		       (pair? subtractions)))
-	      '((super "/")))
-	  (chord::additions->text-jazz additions subtractions)
-	  (chord::subtractions->text-jazz subtractions)
-	  (chord::bass-and-inversion->text-banter bass-and-inversion)))))
+    (text-append
+     (pitch->chord-name-text-banter tonic steps)
+     exception-part
+     ;; why does list->string not work, format seems only hope...
+     (if (and (string-match "super" (format "~s" exception-part))
+	      (or (pair? additions)
+		  (pair? subtractions)))
+	 (list simple-super "/"))
+     
+     (list `(,simple-super)
+	   (chord::additions->text-jazz additions subtractions)
+	   (chord::subtractions->text-jazz subtractions))
+     (chord::bass-and-inversion->text-banter bass-and-inversion)))
 
 ;; Jazz style--basically similar to american with minor changes
 ;;
