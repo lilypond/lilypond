@@ -104,13 +104,6 @@ Molecule::set_empty (bool e)
     }
 }
 
-void
-Molecule::print () const
-{
-#ifndef NPRINT
-  gh_display (expr_);
-#endif
-}
 
 void
 Molecule::align_to (Axis a, Direction d)

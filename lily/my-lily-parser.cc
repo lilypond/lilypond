@@ -28,7 +28,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   first_b_ = true;
   source_l_ = source_l;
   lexer_p_ = 0;
-  abbrev_beam_type_i_ = 0;
+  chord_tremolo_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
   error_level_i_ = 0;
 
@@ -102,9 +102,9 @@ My_lily_parser::set_last_duration (Duration const *d)
 }
 
 void
-My_lily_parser::set_abbrev_beam (int type_i)
+My_lily_parser::set_chord_tremolo (int type_i)
 {
-  abbrev_beam_type_i_ = type_i;
+  chord_tremolo_type_i_ = type_i;
 }
 
 

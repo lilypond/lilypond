@@ -38,5 +38,7 @@ public:
   SCM font_descriptions () const;
 };
 
+Font_metric * find_font (String name);
+
 #endif /* ALL_FONTS_HH */
 

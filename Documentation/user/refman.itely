@@ -1282,13 +1282,13 @@ The slur syntax with parentheses is a shorthand for this.
 
 @cindex tremolo marks
 
-@node tremolo, , ,  Reference Manual
+@node stem tremolo, , ,  Reference Manual
 
 Tremolo marks can be printed on a single note by adding
 `@code{:}[@var{length}]' after the note.  The length must be at
 least 8.  A @var{length} value of 8 gives one line across
 the note stem.  If the length is omitted, then the last value is
-used, or the value of the @code{abbrev}@indexcode{abbrev} property if there was
+used, or the value of the @code{tremoloFlags}@indexcode{tremoloFlags} property if there was
 no last value.
 
 @mudela[verbatim,fragment,center]

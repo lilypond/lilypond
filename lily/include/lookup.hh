@@ -30,20 +30,16 @@ public:
   Lookup ();
   Lookup (Lookup const&);
 
-  Molecule simple_bar (String s, Real w, Paper_def*) const;
   Molecule afm_find (String, bool warn=true) const;
-  Molecule bar (String, Real height, Paper_def*) const;
   Molecule accordion (SCM arg, Real interline_f) const;
 
   static Molecule frame (Box b, Real thick);
   static Molecule slur (Bezier controls, Real cthick, Real thick) ;
   static Molecule beam (Real, Real, Real) ;
   static Molecule dashed_slur (Bezier, Real thick, Real dash) ;
-  static Molecule fill (Box b) ;
+  static Molecule blank (Box b) ;
   static Molecule filledbox (Box b) ;  
   static Molecule text (String style, String text, Paper_def*) ;
-  static Molecule staff_brace (Real dy, int) ;
-  static Molecule staff_bracket (Real height, Paper_def* paper_l) ;
 };
 
 #endif // LOOKUP_HH

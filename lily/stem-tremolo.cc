@@ -1,5 +1,5 @@
 /*   
-  abbrev.cc --  implement Stem_tremolo
+  stem-tremolo.cc --  implement Stem_tremolo
   
   source file of the GNU LilyPond music typesetter
   
@@ -17,6 +17,11 @@
 #include "dimension-cache.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
+
+/*
+  TODO:
+    lengthen stem if necessary
+ */
 
 Stem_tremolo::Stem_tremolo ()
 {
@@ -45,86 +50,79 @@ Stem_tremolo::dim_callback (Dimension_cache const *c)
 Molecule 
 Stem_tremolo::do_brew_molecule () const
 {
-  Stem * st = stem_l ();
-  int mult =0;
-  if (Beam * b = st->beam_l ())
-    {
-      mult = b->get_multiplicity ();
-    }
+  Stem * stem = stem_l ();
+  Beam * beam = stem->beam_l ();
   
-  Real interbeam_f = paper_l ()->interbeam_f (mult);
-  Real w  = gh_scm2double (get_elt_property ("beam-width"));
-  Real space = Staff_symbol_referencer_interface (st).staff_space ();
-  Real half_staff_space = space / 2;
-  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
-
-  int beams_i = 0;
-  Real dydx = 0.25;
-  
-  if (st && st->beam_l ())
+  Real dydx;
+  if (beam)
     {
       Real dy = 0;
-      SCM s = st->beam_l ()->get_elt_property ("height");
+      SCM s = beam->get_elt_property ("height");
       if (gh_number_p (s))
 	dy = gh_scm2double (s);
-      Real dx = st->beam_l ()->last_visible_stem ()->hpos_f ()
-	- st->beam_l ()->first_visible_stem ()->hpos_f ();
-      dydx = dy/dx;
-  
-      // ugh, rather calc from Stem_tremolo_req
-      beams_i = st->beam_count(RIGHT) >? st->beam_count (LEFT);
-    } 
+      Real dx = beam->last_visible_stem ()->hpos_f ()
+	- beam->first_visible_stem ()->hpos_f ();
+      dydx = dx ? dy/dx : 0;
+    }
+  else
+    // urg
+    dydx = 0.25;
 
-  Molecule a (lookup_l ()->beam (dydx, w, beam_f));
-  a.translate (Offset (-w/2, w / 2 * dydx));
+  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
+  Real width = gh_scm2double (get_elt_property ("beam-width"));
+  Molecule a (lookup_l ()->beam (dydx, width, thick));
+  a.translate (Offset (-width/2, width / 2 * dydx));
   
-  int abbrev_flags = 1;
-  {
-    SCM a = get_elt_property ("abbrev-flags");
-    if (gh_number_p (a))
-      abbrev_flags = gh_scm2int (a);
-  }
+  int tremolo_flags;
+  SCM s = get_elt_property ("tremolo-flags");
+  if (gh_number_p (s))
+    tremolo_flags = gh_scm2int (s);
+  else
+    // huh?
+    tremolo_flags = 1;
 
+  int mult = beam ? beam->get_multiplicity () : 0;
+  Real interbeam_f = paper_l ()->interbeam_f (mult);
   Molecule mol; 
-  for (int i = 0; i < abbrev_flags; i++)
+  for (int i = 0; i < tremolo_flags; i++)
     {
       Molecule b (a);
       b.translate_axis (interbeam_f * i, Y_AXIS);
       mol.add_molecule (b);
     }
-  mol.translate_axis (-mol.extent ()[Y_AXIS].center (), Y_AXIS);
+  if (tremolo_flags)
+    mol.translate_axis (-mol.extent ()[Y_AXIS].center (), Y_AXIS);
 
-  if (st)
-    { 
-      if (st->beam_l ())
-        {
-	  mol.translate (Offset(st->hpos_f () - hpos_f (),
-	    st->stem_end_position () * half_staff_space - 
-	    directional_element (st->beam_l ()).get () * beams_i * interbeam_f));
-	}
-      else
-	{  
-	  /*
-	    Beams should intersect one beamthickness below staff end
-	   */
-	  Real dy = - mol.extent ()[Y_AXIS].length () / 2 * st->get_direction ();
-
-	  /*
-	    uhg.  Should use relative coords and placement
-	  */
-	  Real whole_note_correction = (st && st->invisible_b( ))
-	    ? 0.0 //  -st->get_direction () * st->note_delta_f ()/2
-	    : 0.0;
-	 
-	  dy += st->stem_end_position ();
-	  mol.translate (Offset(st->hpos_f () - hpos_f ()+
-				   whole_note_correction, dy));
-	}
+  Real half_space = Staff_symbol_referencer_interface (stem).staff_space ()
+    / 2;
+  if (beam)
+    {
+      // ugh, rather calc from Stem_tremolo_req
+      int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
+      mol.translate (Offset(stem->hpos_f () - hpos_f (),
+			    stem->stem_end_position () * half_space - 
+			    directional_element (beam).get () * beams_i * interbeam_f));
+    }
+  else
+    {  
+      /*
+	Beams should intersect one beamthickness below stem end
+      */
+      Real dy = stem->stem_end_position () * half_space;
+      dy -= mol.extent ()[Y_AXIS].length () / 2 *  stem->get_direction ();
 
       /*
-	there used to be half a page of code that was long commented out.
-	Removed in 1.1.35
-       */
+	uhg.  Should use relative coords and placement
+      */
+      Real whole_note_correction;
+      if (stem->invisible_b ())
+	whole_note_correction = -stem->get_direction ()
+	  * stem->support_head ()->extent (X_AXIS).length () / 2;
+      else
+	whole_note_correction = 0;
+	 
+      mol.translate (Offset (stem->hpos_f () - hpos_f () +
+			     whole_note_correction, dy));
     }
   
   return mol;

@@ -64,7 +64,6 @@ struct Change_translator;
 struct Chord;
 struct Chord_name;
 struct Chord_name_engraver;
-struct Chord_tremolo; 
 struct Chord_tremolo_engraver;
 struct Chord_tremolo_req;
 struct Clef_change_req;

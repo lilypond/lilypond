@@ -7,7 +7,6 @@
 */
 
 #include "staff-symbol-referencer.hh"
-#include "stem-engraver.hh"
 #include "note-head.hh"
 #include "stem.hh"
 #include "musical-request.hh"
@@ -15,23 +14,53 @@
 #include "stem-tremolo.hh"
 #include "staff-info.hh"
 #include "translator-group.hh"
+#include "engraver.hh"
 
-Stem_engraver::Stem_engraver()
+/**
+  Make stems upon receiving noteheads.
+ */
+class Stem_engraver : public Engraver
 {
-  abbrev_req_l_ = 0;
+
+public:
+  VIRTUAL_COPY_CONS (Translator);
+  Stem_engraver();
+  
+protected:
+  virtual void do_creation_processing ();
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_pre_move_processing ();
+  virtual bool do_try_music (Music*);
+  
+private:
+  int default_tremolo_type_i_;
+  Stem *stem_p_;
+  Stem_tremolo *tremolo_p_;
+  Rhythmic_req *rhythmic_req_l_;
+  Tremolo_req* tremolo_req_l_;
+};
+
+ADD_THIS_TRANSLATOR (Stem_engraver);
+
+Stem_engraver::Stem_engraver ()
+{
+  tremolo_req_l_ = 0;
   stem_p_ = 0;
-  abbrev_p_ = 0;
-  default_abbrev_i_ = 16;
+  tremolo_p_ = 0;
+  default_tremolo_type_i_ = 16;
   rhythmic_req_l_ =0;
 }
 
 void
 Stem_engraver::do_creation_processing ()
 {
-  SCM prop = get_property ("abbrev");
+  /*
+    huh, why only at creation time?
+  */
+  SCM prop = get_property ("tremoloFlags");
   if (gh_number_p(prop)) 
     {
-      default_abbrev_i_  = gh_scm2int (prop);
+      default_tremolo_type_i_  = gh_scm2int (prop);
     }
 }
 
@@ -53,28 +82,40 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  
 	  stem_p_->set_elt_property ("duration-log", gh_int2scm (duration_log));
 
-	  if (abbrev_req_l_)
+	  if (tremolo_req_l_)
 	    {
 	      /*
-		suggests typing of:
-		c8:16 c: c: c:
-	        hmm, which isn't so bad?
-	      */
-	      int t = abbrev_req_l_->type_i_;
-	      if (!t)
-		t = default_abbrev_i_;
-	      else
-		default_abbrev_i_ = t;
+		Stem tremolo is never applied to a note by default,
+		is must me requested.  But there is a default for the
+		tremolo value:
 
-	      if (t)
+		   c4:8 c c:
+
+		the first and last (quarter) note bothe get one tremolo flag.
+	       */
+	      int requested_type = tremolo_req_l_->type_i_;
+	      if (!requested_type)
+		requested_type = default_tremolo_type_i_;
+	      else
+		default_tremolo_type_i_ = requested_type;
+
+	      if (requested_type)
 		{
-		  abbrev_p_ = new Stem_tremolo;
-		  announce_element (Score_element_info (abbrev_p_, abbrev_req_l_));
-		  abbrev_p_->set_elt_property ("tremolo-flags", gh_int2scm (intlog2 (t) - (duration_log>? 2)));
+		  tremolo_p_ = new Stem_tremolo;
+		  announce_element (Score_element_info (tremolo_p_, tremolo_req_l_));
+		  /*
+		    The number of tremolo flags is the number of flags of
+		    the tremolo-type minus the number of flags of the note
+		    itself.
+		   */
+		  int tremolo_flags = intlog2 (requested_type) - 2
+		    - (duration_log > 2 ? duration_log - 2 : 0);
+		  if (tremolo_flags < 0)
+		    tremolo_flags = 0;
+		  tremolo_p_->set_elt_property ("tremolo-flags",
+						gh_int2scm (tremolo_flags));
 		}
 	    }
-
-	  // must give the request, to preserve the rhythmic info.
 	  announce_element (Score_element_info (stem_p_, r));
 	}
 
@@ -90,11 +131,11 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 void
 Stem_engraver::do_pre_move_processing()
 {
-  if (abbrev_p_)
+  if (tremolo_p_)
     {
-      abbrev_p_->set_stem (stem_p_);
-      typeset_element (abbrev_p_);
-      abbrev_p_ = 0;
+      tremolo_p_->set_stem (stem_p_);
+      typeset_element (tremolo_p_);
+      tremolo_p_ = 0;
     }
 
   if (stem_p_)
@@ -112,18 +153,25 @@ Stem_engraver::do_pre_move_processing()
 	  daddy_trans_l_->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
 
+      
       // UGH. Should mark non-forced instead.
+
+      /*
+	 aargh: I don't get it.  direction is being set (and then set
+	 to forced), if we have a Chord_tremolo.
+       */
       SCM dir = stem_p_->get_elt_property ("direction");
       if (gh_number_p (dir) && to_dir(dir))
 	{
 	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);	  
 	}
 
-
       typeset_element(stem_p_);
       stem_p_ = 0;
     }
-  abbrev_req_l_ = 0;
+
+
+  tremolo_req_l_ = 0;
 }
 
 bool
@@ -131,12 +179,9 @@ Stem_engraver::do_try_music (Music* r)
 {
   if (Tremolo_req* a = dynamic_cast <Tremolo_req *> (r))
     {
-      abbrev_req_l_ = a;
+      tremolo_req_l_ = a;
       return true;
     }
   return false;
 }
-
-
-ADD_THIS_TRANSLATOR(Stem_engraver);
 

@@ -73,9 +73,14 @@ public:
   Box extent() const;
   Interval extent (Axis) const;
   bool empty_b() const;
-  void print ()const;
+
+
+  /*******/
 };
 
 SCM fontify_atom (Font_metric*, SCM atom);
+
+
+
 
 #endif

@@ -130,7 +130,7 @@ Key_item::do_brew_molecule() const
       Interval x(0, inter);
       Interval y(0,0);
 
-      mol.add_at_edge (X_AXIS, RIGHT, lookup_l()->fill (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, RIGHT, lookup_l()->blank (Box(x,y)),0);
     }
  
   for (int i =0; i < pitch_arr_.size(); i++) 
