@@ -24,7 +24,7 @@ page:last?, page:page-number-string and page:page-number
 
   (define (interpret-in-page-env potential-markup)
     (if (markup? potential-markup)
-	(let* ((alists  (map ly:module->alist scopes))
+	(let* ((alists (map ly:module->alist scopes))
 	       (prefixed-alists
 		(map (lambda (alist)
 		       (map (lambda (entry)
@@ -46,14 +46,14 @@ page:last?, page:page-number-string and page:page-number
 		 (cons 'page:last? last?)
 		 (cons 'page:page-number-string
 		       (number->string page-number))
-		 (cons 'page:page-number  page-number)))
+		 (cons 'page:page-number page-number)))
 	       (props (append
 		       (list pgnum-alist)
 		       prefixed-alists
 		       (page-properties layout))))
 
 	  (interpret-markup layout props potential-markup))
-	
+
 	empty-stencil))
 
   (interpret-in-page-env
@@ -72,7 +72,7 @@ PROPS argument will include variables set in SCOPES (prefixed with
     (let ((x (ly:modules-lookup scopes sym)))
       (if (markup? x) x #f)))
 
-  (let* ((alists  (map ly:module->alist scopes))
+  (let* ((alists (map ly:module->alist scopes))
 	 (prefixed-alist
 	  (map (lambda (alist)
 		 (map (lambda (entry)
