@@ -11,6 +11,7 @@
 #include "tie.hh"
 #include "context.hh"
 
+#include "protected-scm.hh"
 #include "spanner.hh"
 #include "tie-column.hh"
 #include "engraver.hh"
@@ -35,6 +36,7 @@ class Tie_engraver : public Engraver
   Link_array<Grob> now_heads_;
   Link_array<Grob> heads_to_tie_;
   Link_array<Grob> ties_;
+  Protected_scm tie_start_definition_;
   
   Spanner * tie_column_;
   
@@ -74,7 +76,9 @@ void
 Tie_engraver::process_music ()
 {
   if (event_)
-    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    {
+      context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    }
 }
 
 void
@@ -97,7 +101,8 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
-	      Grob * p = make_spanner ("Tie", last_event_->self_scm ());
+	      Grob * p = new Spanner  (tie_start_definition_);
+	      announce_grob (p, last_event_->self_scm ());
 	      Tie::set_interface (p); // cannot remove yet!
 	  
 	      Tie::set_head (p, LEFT, th);
@@ -145,6 +150,7 @@ Tie_engraver::stop_translation_timestep ()
   
   if (event_)
     {
+      tie_start_definition_ = updated_grob_properties (context (), ly_symbol2scm ("Tie"));
       heads_to_tie_ = now_heads_;
       last_event_ = event_;
     }
