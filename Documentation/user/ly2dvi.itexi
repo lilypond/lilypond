@@ -141,6 +141,12 @@ the @code{\paper} block.
 
 @item pagenumber
    If set to @code{no}, no page numbers will be printed.
+
+
+  
+  @item fontenc
+     The font encoding, should be set identical to the @code{font-encoding}
+     property in the score.
 @end table
 
 @unnumberedsubsec Environment variables
