@@ -86,7 +86,7 @@ usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET|DIR]..
 
 TARGETS: clean, config, doc, dist, install, mf-essential, po-update,
-         realclean, release, tar, TAGS
+         realclean, release, sconsclean, tar, TAGS
 
 '''
       
@@ -561,6 +561,13 @@ if 'clean' in COMMAND_LINE_TARGETS:
 		os.unlink (config_cache)
 	Exit (s)
 
+if 'sconsclean' in COMMAND_LINE_TARGETS:
+	command = 'rm -rf scons.cache $(find . -name ".scon*")'
+	s = os.system (command)
+	if os.path.exists (config_cache):
+		os.unlink (config_cache)
+	Exit (s)
+	
 if 'realclean' in COMMAND_LINE_TARGETS:
 	command = 'rm -rf $(find . -name "out-scons" -o -name ".scon*")'
 	sys.stdout.write ('Running %s ... ' % command)
@@ -717,7 +724,15 @@ def flatten (tree, lst):
 				lst.append (i)
 	return lst
 
-subdirs = flatten (cvs_dirs ('.'), [])
+if GO_FAST_BUTTON\
+   and 'all' not in COMMAND_LINE_TARGETS\
+   and 'doc' not in COMMAND_LINE_TARGETS\
+   and 'web' not in COMMAND_LINE_TARGETS\
+   and 'install' not in COMMAND_LINE_TARGETS\
+   and 'clean' not in COMMAND_LINE_TARGETS:
+	subdirs = ['lily','flower', 'mf']
+else:
+	subdirs = flatten (cvs_dirs ('.'), [])
 readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
 foo = map (lambda x: env.TXT (x + '.txt',
 			      os.path.join ('Documentation/topdocs', x)),
