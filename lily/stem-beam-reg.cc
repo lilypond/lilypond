@@ -28,26 +28,37 @@ Stem_beam_register::Stem_beam_register()
 bool
 Stem_beam_register::try_request(Request*req_l)
 {
-    if ( req_l->beam() ) {
-	if (bool(beam_p_ ) == bool(req_l->beam()->spantype == Span_req::START))
+    
+    Musical_req* mus_l = req_l->musical();
+    /* Debiele puntkomma's. Laat je er eentje per ongeluk achter een
+      if(..) staan, lijkt het net op een luis in gcc.
+
+      (ofwel Python rules)
+      */
+    if (!mus_l)
+	return false;
+
+
+    if ( mus_l->beam() ) {
+	if (bool(beam_p_ ) == bool(mus_l->beam()->spantype == Span_req::START))
 	    return false;
 	
-	if (beam_req_l_ && Beam_req::compare(*beam_req_l_ , *req_l->beam()))
+	if (beam_req_l_ && Beam_req::compare(*beam_req_l_ , *mus_l->beam()))
 	    return false;
 	
-	beam_req_l_ = req_l->beam();
+	beam_req_l_ = mus_l->beam();
 	return true;
     }
     
-    if ( req_l->stem() ) {
+    if ( mus_l->stem() ) {
 	if (current_grouping && !current_grouping->child_fit_b(
 	    get_staff_info().time_C_->whole_in_measure_))
 	    return false;
 
-	if (stem_req_l_ && Stem_req::compare(*stem_req_l_, *req_l->stem()))
+	if (stem_req_l_ && Stem_req::compare(*stem_req_l_, *mus_l->stem()))
 	    return false;
 
-	stem_req_l_ = req_l->stem();
+	stem_req_l_ = mus_l->stem();
 	return true;
     }
     return false;
@@ -67,10 +78,12 @@ Stem_beam_register::process_requests()
 	    current_grouping = new Rhythmic_grouping;
 	    if (beam_req_l_->nplet) {
 		Text_spanner* t = new Text_spanner();
+		Text_def *defp = new Text_def;
 		t->set_support(beam_p_);
-		t->spec.align_i_ = 0;
-		t->spec.text_str_ = beam_req_l_->nplet;
-		t->spec.style_str_="italic";
+		defp->align_i_ = 0;
+		defp->text_str_ = beam_req_l_->nplet;
+		defp->style_str_="italic";
+		t->spec_p_  = defp;
 		typeset_element(t);
 	    }
 	     
@@ -107,7 +120,8 @@ Stem_beam_register::acknowledge_element(Score_elem_info info)
 	return;
 
     if (info.elem_l_->name() == Note_head::static_name() &&
-	stem_req_l_->duration() == info.req_l_->rhythmic()->duration()){
+	stem_req_l_->duration() 
+	== info.req_l_->musical()->rhythmic()->duration()){
 	Note_head * n_l= (Note_head*)info.elem_l_->item();
 	stem_p_->add(n_l);
     }
