@@ -1,6 +1,11 @@
-\header
-{
-    texidoc = "Bar numbers can also be printed at regular intervals."
+\header {
+    texidoc = "Bar numbers can also be printed at regular intervals.
+
+
+
+"
+
+
 }
 \version "1.7.16"
 

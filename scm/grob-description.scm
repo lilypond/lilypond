@@ -565,6 +565,7 @@
 	(staff-position . 0)
 	(expand-limit . 10)
 	(thick-thickness . 6.6)
+	(use-breve-rest . #t)
 	(hair-thickness . 2.0)
 	(padding . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))

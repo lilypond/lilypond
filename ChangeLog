@@ -2,6 +2,11 @@
 
 	* Documentation/user/refman.itely: lots of updates.
 
+	* input/regression/chord-name-exceptions.ly (chExceptionMusic):
+	new file
+
+	* input/test/bar-number-every-5-reset.ly: new file.
+
 2003-04-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/chord-name-major7.ly: new file
