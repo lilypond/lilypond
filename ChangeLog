@@ -1,7 +1,10 @@
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* mf/GNUmakefile (SAUTER_FONTS): remove ecb10. This is  provided
-	by the latest ec-fonts-mftraced package.
+	* make/lilypond.redhat.spec.in (Requires): bump requirement for
+	ec-fonts-mftraced
+
+	* mf/GNUmakefile (SAUTER_FONTS): remove ecb10. This is provided by
+	the latest ec-fonts-mftraced package.
 
 	* scm/define-context-properties.scm
 	(all-internal-translation-properties): add property. Remove
