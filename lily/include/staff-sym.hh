@@ -17,19 +17,16 @@
   */
 class Staff_symbol : public Spanner
 {
-    /// this many lines.
-    int no_lines_i_;
+  /// this many lines.
+  int no_lines_i_;
 public:
-
-
-    void set_extent (PCol* p1, PCol* p2);
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Staff_symbol (int lines);
-    Real inter_note_f()const;
-    int steps_i()const;
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Staff_symbol (int lines);
+  Real inter_note_f() const;
+  int steps_i() const;
 protected:
-    SCORE_ELEM_CLONE(Staff_symbol);
-    virtual Molecule* brew_molecule_p() const;
-    virtual void do_print()const;
+  SCORE_ELEM_CLONE(Staff_symbol);
+  virtual Molecule* brew_molecule_p() const;
+  virtual void do_print() const;
 };
 #endif // STAFFSYM_HH
