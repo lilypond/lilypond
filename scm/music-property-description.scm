@@ -61,7 +61,8 @@ TODO: consider making type into symbol ")
 (music-property-description 'pitch ly:pitch? "the pitch of this note")
 (music-property-description 'pitch-alist list? "list of pitches jointly forming the scale of a key signature")
 (music-property-description 'pop-first boolean? "Do a revert before we try to do a override on some grob property.")
-
+(music-property-description 'procedure procedure?
+			    "The function to run with \\applycontext. It must take a single argument, being the context.")
 (music-property-description 'predicate procedure? "the predicate of a \outputproperty")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
 (music-property-description 'types list? "The types of this music object. Determines iteration in some cases.")

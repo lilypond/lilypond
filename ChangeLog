@@ -1,3 +1,28 @@
+2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/apply-context.ly (texidoc): new file
+
+	* lily/parser.yy (Simple_music): \applycontext #FUNCTION allows
+	code to be executed during interpretation. Possible applications:
+	smart octavation, more advanced bar checks. 
+
+	* lily/apply-context-iterator.cc: new file.
+
+2002-11-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/new-markup.ly: new file.
+
+	* lily/text-item.cc (text_to_molecule): new function
+
+	* scm/new-markup.scm (lambda): new file
+
+	* lily/function-documentation.cc (ly_add_function_documentation):
+	add proc property as well
+
+2002-11-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/music-glossary.tely (Top): add custos.
+
 2002-11-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.texi: advise how to include source
