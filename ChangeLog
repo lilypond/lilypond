@@ -2,6 +2,8 @@
 
 	* Documentation/user/notation.itely: more small fixes.
 
+	* Documentation/user/examples.itely: make new sections.
+
 2004-10-01  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lilypondECencoding): New command to handle

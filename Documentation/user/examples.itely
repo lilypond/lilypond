@@ -6,11 +6,14 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
+@c  bad node name for ancient notation to avoid confict
 @menu
 * Suggestions for writing LilyPond files::
 * Single staff::
 * Piano templates::
 * Small ensembles::
+* Vocal ensembles::
+* Ancient notation templates::
 * Jazz combo::
 * Other templates::
 @end menu
@@ -393,6 +396,57 @@ pedal =  {
 
 @node Small ensembles
 @section Small ensembles
+@subsection String quartet
+
+This template demonstrates a string quartet.  It also uses a @code{\global}
+section for time and key signatures.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.16"
+global = {
+   \time 4/4
+   \key c \major
+}
+violinOne = \relative c''{
+   \set Staff.instrument = "Violin 1  "
+   c2 d
+   e1
+}
+violinTwo = \relative c''{
+   \set Staff.instrument = "Violin 2  "
+   g2 g
+   g1
+}
+viola = \relative c'{
+   \set Staff.instrument = "Viola  "
+   \clef alto
+   e2 d
+   c1
+}
+cello = \relative c'{
+   \set Staff.instrument = "Cello  "
+   \clef bass
+   c2 g
+   c,1
+}
+\score {
+   \new StaffGroup <<
+      \new Staff << \global \violinOne >>
+      \new Staff << \global \violinTwo >>
+      \new Staff << \global \viola >>
+      \new Staff << \global \cello >>
+   >>
+   \paper { }
+   \midi { \tempo 4=60}
+}
+
+@end lilypond
+
+
+@node Vocal ensembles
+@section Vocal ensembles
+
 @subsection SATB vocal score
 
 Here is a standard four-part SATB vocal score.  With larger ensembles,
@@ -466,6 +520,11 @@ bassWords = \lyricmode {
 }
 
 @end lilypond
+
+
+@c  bad node name to avoid node name confict
+@node Ancient notation templates
+@section Ancient notation templates
 
 @subsection Transcription of mensural music
 
@@ -691,52 +750,7 @@ bassusLyrics = \lyricmode {
 
 @end lilypond
 
-@subsection String quartet
 
-This template demonstrates a string quartet.  It also uses a @code{\global}
-section for time and key signatures.
-
-@lilypond[verbatim,raggedright]
-
-\version "2.3.16"
-global = {
-   \time 4/4
-   \key c \major
-}
-violinOne = \relative c''{
-   \set Staff.instrument = "Violin 1  "
-   c2 d
-   e1
-}
-violinTwo = \relative c''{
-   \set Staff.instrument = "Violin 2  "
-   g2 g
-   g1
-}
-viola = \relative c'{
-   \set Staff.instrument = "Viola  "
-   \clef alto
-   e2 d
-   c1
-}
-cello = \relative c'{
-   \set Staff.instrument = "Cello  "
-   \clef bass
-   c2 g
-   c,1
-}
-\score {
-   \new StaffGroup <<
-      \new Staff << \global \violinOne >>
-      \new Staff << \global \violinTwo >>
-      \new Staff << \global \viola >>
-      \new Staff << \global \cello >>
-   >>
-   \paper { }
-   \midi { \tempo 4=60}
-}
-
-@end lilypond
 
 @node Jazz combo
 @section Jazz combo
