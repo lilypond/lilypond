@@ -67,6 +67,7 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
   Array<Spring> meas_springs;
 
+  Real non_musical_space_strength = paper_l ()->get_var ("non_musical_space_strength");
   for (int i= col1; i < col2; i++)
     {
       Item * l = scol(i);
@@ -101,7 +102,7 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  else if (!lc->musical_b() && i+1 < col_count())
 	    {
 	      s.distance_f_ = default_bar_spacing (lc,rc,shortest);
-	      s.strength_f_ = 2.0;
+	      s.strength_f_ = non_musical_space_strength; // fixed after complaints by michael krause
 	    }
 	  else if (lc->musical_b())
 	    {
@@ -127,7 +128,15 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
 	      s.distance_f_ += correction;
 	    }
-	  
+
+	  if (s.distance_f_ <=0)
+	    {
+	      /*
+		\bar "".  We give it 0 space, with high strength. 
+	       */
+	      s.distance_f_ = 0.0 PT;
+	      s.strength_f_ = 20.0; 
+	    }
 	  meas_springs.push (s);	
 	}
     }

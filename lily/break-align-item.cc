@@ -25,7 +25,11 @@
 void
 Break_align_item::do_pre_processing()
 {
-  align_dir_ = break_status_dir();
+  if (break_status_dir() == LEFT)
+    align_dir_ = LEFT;
+  else
+    align_dir_ = RIGHT;
+  
   flip (&align_dir_);
   sort_elements ();
   Real interline= paper_l ()->get_realvar (interline_scm_sym);	
@@ -37,8 +41,6 @@ Break_align_item::do_pre_processing()
       if (!y.empty_b())
 	elems.push (dynamic_cast<Score_element*> (elem_l_arr_[i]));
     }
-  
-
   
   if (!elems.size ())
     return;

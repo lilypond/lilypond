@@ -4,7 +4,7 @@
 c' d e f |
 \repeat semi 2 { g a b c }
 \alternative { { c b a g a g a g} { f e d c } } \break
-c, d e f |  % Assertion failure if this line is removed!!
+%c, d e f |  % Assertion failure if this line is removed!!
 \repeat semi 2 { g a b c }
 \alternative { { c b a g \break a g a g} { f e d c } } \break
 c, d e f |
