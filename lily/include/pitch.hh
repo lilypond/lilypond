@@ -26,13 +26,13 @@ public:				// fixme
    */
 
     /// 0 is c, 6 is b
-  int notename_i_;
+  int notename_;
   
   /// 0 natural, 1 sharp, etc
-  int alteration_i_;
+  int alteration_;
 
   /// 0 is central c
-  int octave_i_;
+  int octave_;
   /*
     mutators, so JUNKME.
    */
@@ -42,9 +42,9 @@ public:				// fixme
 
 public:
 
-  int octave_i () const;
-  int notename_i () const;
-  int alteration_i () const;
+  int get_octave () const;
+  int get_notename () const;
+  int get_alteration () const;
 
   void normalise ();
   /*
@@ -61,7 +61,7 @@ public:
   int steps () const;
   /// return pitch from central c (in halfnotes)
   int semitone_pitch () const; 
-  String str () const;
+  String string () const;
   
 
 

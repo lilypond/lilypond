@@ -49,30 +49,30 @@ Text_engraver::try_music (Music *m)
 void
 Text_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.grob_l_))
+  if (Rhythmic_head::has_interface (inf.grob_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
 	  Grob*t = texts_[i];
-	  Side_position_interface::add_support (t,inf.grob_l_);
+	  Side_position_interface::add_support (t,inf.grob_);
 
 	  /*
 	    ugh.
 	   */
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (inf.grob_l_, Y_AXIS);
+	    t->set_parent (inf.grob_, Y_AXIS);
 	  else if (Side_position_interface::get_axis (t) == Y_AXIS
 	      && !t->get_parent (X_AXIS))
-	    t->set_parent (inf.grob_l_, X_AXIS);
+	    t->set_parent (inf.grob_, X_AXIS);
 	}
     }
   
-  if (Stem::has_interface (inf.grob_l_))
+  if (Stem::has_interface (inf.grob_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
-	  Side_position_interface::add_support (texts_[i],inf.grob_l_);
+	  Side_position_interface::add_support (texts_[i],inf.grob_);
 	}
     }
 }
@@ -89,7 +89,7 @@ Text_engraver::process_acknowledged_grobs ()
       // URG: Text vs TextScript
       String basic = "TextScript";
 
-      Item *text = new Item (get_property (basic.ch_C ()));
+      Item *text = new Item (get_property (basic.to_str0 ()));
 
       /*
 	FIXME -> need to use basic props.

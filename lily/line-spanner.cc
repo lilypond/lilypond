@@ -114,9 +114,9 @@ Line_spanner::get_broken_offset (Grob *me, Direction dir)
   if (!bound->break_status_dir ())
     {
       Grob *common[] = {
-	bound->common_refpoint (Staff_symbol_referencer::staff_symbol_l (me),
+	bound->common_refpoint (Staff_symbol_referencer::get_staff_symbol (me),
 				X_AXIS),
-	bound->common_refpoint (Staff_symbol_referencer::staff_symbol_l (me),
+	bound->common_refpoint (Staff_symbol_referencer::get_staff_symbol (me),
 				Y_AXIS)
       };
   
@@ -133,15 +133,15 @@ Line_spanner::broken_trend_offset (Grob *me, Direction dir)
      the unbroken line-spanner would have had.
      From slur */
   Offset o;
-  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_l_))
+  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
     {
-      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size () - 1;
-	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i > 0;
+      for (int i = dir == LEFT ? 0 : mother->broken_intos_.size () - 1;
+	   dir == LEFT ? i < mother->broken_intos_.size () : i > 0;
 	   dir == LEFT ? i++ : i--)
 	{
-	  if (mother->broken_into_l_arr_[i - dir] == me)
+	  if (mother->broken_intos_[i - dir] == me)
 	    {
-	      Grob *neighbour = mother->broken_into_l_arr_[i];
+	      Grob *neighbour = mother->broken_intos_[i];
 	      Offset neighbour_o = get_broken_offset (neighbour, dir);
 	      Offset me_o = get_broken_offset (me, -dir);
 	      // Hmm, why not return me_o[X], but recalc in brew_mol?
@@ -244,7 +244,7 @@ Line_spanner::brew_molecule (SCM smob)
       
       }
 
-  Real thick = me->paper_l ()->get_var ("linethickness");  
+  Real thick = me->get_paper ()->get_var ("linethickness");  
 
   SCM s = me->get_grob_property ("thickness");
   if (gh_number_p (s))

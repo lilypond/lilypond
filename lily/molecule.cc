@@ -146,7 +146,7 @@ smaller than @code{B}, and is often negative.
 {
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE (ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   SCM_ASSERT_TYPE (ly_number_pair_p (np), np, SCM_ARG3, __FUNCTION__, "number pair");
 
   Interval iv = ly_scm2interval (np);
@@ -163,7 +163,7 @@ LY_DEFINE(ly_get_molecule_extent,
 {
   Molecule *m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE (ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
  
   return ly_interval2scm (m->extent (Axis (gh_scm2int (axis))));
 }
@@ -184,9 +184,9 @@ space to add in between measured in global staff space.")
   Molecule result;
 
 
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   SCM_ASSERT_TYPE(ly_dir_p (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
-  SCM_ASSERT_TYPE(gh_number_p(padding), padding, SCM_ARG4, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p (padding), padding, SCM_ARG4, __FUNCTION__, "number");
 
   if (m1)
     result = *m1;
@@ -283,7 +283,7 @@ LY_DEFINE(ly_align_to_x,"ly-align-to!", 3, 0, 0,  (SCM mol, SCM axis, SCM dir),
 	  "Align @var{mol} using its own extents.")
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   SCM_ASSERT_TYPE(ly_dir_p (dir), dir, SCM_ARG3, __FUNCTION__, "dir");
 
   unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis), Direction (gh_scm2int (dir)));
@@ -325,8 +325,8 @@ Molecule::print_smob (SCM , SCM port, scm_print_state *)
   scm_puts ("#<Molecule ", port);
 #if 0
   Molecule  *r = (Molecule *) ly_cdr (s);
-  String str (r->str ());
-  scm_puts ((char *)str.ch_C (), port);
+  String string (r->string ());
+  scm_puts ((char *)str.to_str0 (), port);
 #endif
   scm_puts (" >", port);
   

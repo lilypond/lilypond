@@ -13,7 +13,7 @@
 Column_x_positions::Column_x_positions ()
 {
   satisfies_constraints_b_ = false;
-  force_f_ = 0;
+  force_ = 0;
 }
 
 

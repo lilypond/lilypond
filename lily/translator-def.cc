@@ -83,7 +83,7 @@ SCM
 Translator_def::modify_definition (SCM list, SCM str, bool add)
 {
   String s = ly_scm2string (str);
-  if (!get_translator_l (s))
+  if (!get_translator (s))
     error (_ ("Program has no such type"));
 
   if (add)
@@ -150,40 +150,40 @@ Translator_def::apply_pushpop_property (Translator_group* me,SCM sym, SCM eprop,
 
 
 Link_array<Translator_def>
-Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* odef) const
+Translator_def::path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const
 {
-  assert (gh_string_p (type_str));
+  assert (gh_string_p (type_string));
   
-  Link_array<Translator_def> accepted_arr;
+  Link_array<Translator_def> accepteds;
   for (SCM s = accepts_name_list_; gh_pair_p (s); s = ly_cdr (s))
     {
-      Translator_def *t = unsmob_translator_def (odef->find_translator_l (ly_car (s)));
+      Translator_def *t = unsmob_translator_def (odef->find_translator (ly_car (s)));
       if (!t)
 	continue;
-      accepted_arr.push (t);
+      accepteds.push (t);
     }
 
   Link_array<Translator_def> best_result;
-  for (int i=0; i < accepted_arr.size (); i++)
+  for (int i=0; i < accepteds.size (); i++)
     {
 
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
-      if (gh_equal_p (accepted_arr[i]->type_name_, type_str))
+      if (gh_equal_p (accepteds[i]->type_name_, type_string))
 	{
-	  best_result.push (accepted_arr[i]);
+	  best_result.push (accepteds[i]);
 	  return best_result;
 	}
     }
       
   int best_depth= INT_MAX;
-  for (int i=0; i < accepted_arr.size (); i++)
+  for (int i=0; i < accepteds.size (); i++)
     {
-      Translator_def * g = accepted_arr[i];
+      Translator_def * g = accepteds[i];
 
       Link_array<Translator_def> result
-	= g->path_to_acceptable_translator (type_str, odef);
+	= g->path_to_acceptable_translator (type_string, odef);
       if (result.size () && result.size () < best_depth)
 	{
 	  result.insert (g,0);
@@ -204,7 +204,7 @@ trans_list (SCM namelist, Translator_group*tg)
   SCM l = SCM_EOL;
   for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
     {
-      Translator * t = get_translator_l (ly_scm2string (ly_car (s)));
+      Translator * t = get_translator (ly_scm2string (ly_car (s)));
       if (!t)
 	warning (_f ("can't find: `%s'", s));
       else
@@ -213,8 +213,8 @@ trans_list (SCM namelist, Translator_group*tg)
 	  SCM str = tr->self_scm ();
 	  l = gh_cons (str, l);
 
-	  tr->daddy_trans_l_ = tg;
-	  tr->output_def_l_  = tg->output_def_l_;
+	  tr->daddy_trans_ = tg;
+	  tr->output_def_  = tg->output_def_;
 
 	  scm_gc_unprotect_object (str);
 	}
@@ -226,13 +226,13 @@ trans_list (SCM namelist, Translator_group*tg)
 Translator_group *
 Translator_def::instantiate (Music_output_def* md)
 {
-  Translator * g = get_translator_l (ly_scm2string (translator_group_type_));
+  Translator * g = get_translator (ly_scm2string (translator_group_type_));
   g = g->clone (); 
 
   Translator_group *tg = dynamic_cast<Translator_group*> (g);
-  tg->output_def_l_ = md;
+  tg->output_def_ = md;
   tg->definition_ = self_scm ();
-  tg->type_str_ = ly_scm2string (type_name_);
+  tg->type_string_ = ly_scm2string (type_name_);
 
   /*
     TODO: ugh. we're reversing CONSISTS_NAME_LIST_ here

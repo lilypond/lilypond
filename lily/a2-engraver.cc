@@ -26,7 +26,7 @@ protected:
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 private:
-  Item* text_p_;
+  Item* text_;
   enum State { SOLO, SPLIT_INTERVAL, UNIRHYTHM, UNISILENCE, UNISON } state_;
 };
 
@@ -34,7 +34,7 @@ private:
 
 A2_engraver::A2_engraver ()
 {
-  text_p_ = 0;
+  text_ = 0;
   state_ = UNISILENCE;
 }
 
@@ -43,7 +43,7 @@ A2_engraver::process_acknowledged_grobs ()
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;
-  if (!text_p_)
+  if (!text_)
     {
       SCM unison = get_property ("unison");
       SCM solo = get_property ("solo");
@@ -52,18 +52,18 @@ A2_engraver::process_acknowledged_grobs ()
       if (solo_adue == SCM_BOOL_T
 	  && ((solo == SCM_BOOL_T && state_ != SOLO)
 	      || (unison == SCM_BOOL_T && state_ != UNISON
-		  && daddy_trans_l_->id_str_.left_str (3) == "one")))
+		  && daddy_trans_->id_string_.left_string (3) == "one")))
 	{
-	  text_p_ = new Item (get_property ("TextScript"));
-	  Side_position_interface::set_axis (text_p_, Y_AXIS);
-	  announce_grob(text_p_, SCM_EOL);
+	  text_ = new Item (get_property ("TextScript"));
+	  Side_position_interface::set_axis (text_, Y_AXIS);
+	  announce_grob(text_, SCM_EOL);
       
 	  Direction dir = UP;
 	  SCM text = SCM_EOL;
 	  if (solo == SCM_BOOL_T)
 	    {
 	      state_ = SOLO;
-	      if (daddy_trans_l_->id_str_.left_str (3) == "one")
+	      if (daddy_trans_->id_string_.left_string (3) == "one")
 		{
 		  text = get_property ("soloText");
 		}
@@ -76,12 +76,12 @@ A2_engraver::process_acknowledged_grobs ()
 	  else if (unison == SCM_BOOL_T)
 	    {
 	      state_ = UNISON;
-	      if (daddy_trans_l_->id_str_.left_str (3) == "one")
+	      if (daddy_trans_->id_string_.left_string (3) == "one")
 		text = get_property ("aDueText");
 	    }
 	  
-	  Side_position_interface::set_direction (text_p_, dir);
-	  text_p_->set_grob_property ("text", text);
+	  Side_position_interface::set_direction (text_, dir);
+	  text_->set_grob_property ("text", text);
 	}
     }
 }
@@ -92,19 +92,19 @@ A2_engraver::acknowledge_grob (Grob_info i)
   if (!to_boolean (get_property ("combineParts")))
     return ;
   
-  if (text_p_)
+  if (text_)
     {
-      if (Note_head::has_interface (i.grob_l_))
+      if (Note_head::has_interface (i.grob_))
 	{
-	  Grob*t = text_p_;
-	  Side_position_interface::add_support (t, i.grob_l_);
+	  Grob*t = text_;
+	  Side_position_interface::add_support (t, i.grob_);
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (i.grob_l_, Y_AXIS);
+	    t->set_parent (i.grob_, Y_AXIS);
 	}
-      if (Stem::has_interface (i.grob_l_))
+      if (Stem::has_interface (i.grob_))
 	{
-	  Side_position_interface::add_support (text_p_, i.grob_l_);
+	  Side_position_interface::add_support (text_, i.grob_);
 	}
     }
 	  
@@ -131,27 +131,27 @@ A2_engraver::acknowledge_grob (Grob_info i)
     state_ = UNIRHYTHM;
 
   Direction d = CENTER;
-  if (daddy_trans_l_->id_str_.left_str (3) == "one")
+  if (daddy_trans_->id_string_.left_string (3) == "one")
     d =  UP;
-  else if (daddy_trans_l_->id_str_.left_str (3) == "two")
+  else if (daddy_trans_->id_string_.left_string (3) == "two")
     d = DOWN;
 
   /* Must only set direction for VoiceCombines, not for StaffCombines:
      we can't detect that here, so we use yet another property */
   if (!to_boolean (get_property ("noDirection"))
-      && (Stem::has_interface (i.grob_l_)
-	  || Slur::has_interface (i.grob_l_)
-	  || Tie::has_interface (i.grob_l_)
+      && (Stem::has_interface (i.grob_)
+	  || Slur::has_interface (i.grob_)
+	  || Tie::has_interface (i.grob_)
 	  /* Usually, dynamics are removed by *_devnull_engravers for
 	     the second voice.  On the one hand, we don't want all
 	     dynamics for the first voice to be placed above the
 	     staff.  On the other hand, colliding of scripts may be
 	     worse.  So, we don't set directions for these when we're
 	     playing solo. */
-	  || (i.grob_l_->internal_has_interface (ly_symbol2scm
+	  || (i.grob_->internal_has_interface (ly_symbol2scm
 						 ("dynamic-interface"))
 	      && state_ != SOLO)
-	  || (i.grob_l_->internal_has_interface (ly_symbol2scm
+	  || (i.grob_->internal_has_interface (ly_symbol2scm
 						 ("text-interface"))
 	      && state_ != SOLO)
 	  ))
@@ -174,28 +174,28 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	{
 	
 	  /* Blunt axe method: every grob gets a propertysetting. */
-	  i.grob_l_->set_grob_property ("direction", gh_int2scm (d));
+	  i.grob_->set_grob_property ("direction", gh_int2scm (d));
 	}
     }
 
   /* Should we have separate state variable for being "rest
      while other has solo?"  */
-  if (Multi_measure_rest::has_interface (i.grob_l_) && d)
+  if (Multi_measure_rest::has_interface (i.grob_) && d)
     if (state_ == UNIRHYTHM
 	&& unisilence != SCM_BOOL_T)
     {
-      i.grob_l_->set_grob_property ("staff-position", gh_int2scm (d * 6));
+      i.grob_->set_grob_property ("staff-position", gh_int2scm (d * 6));
     }
 }
 
 void 
 A2_engraver::stop_translation_timestep ()
 {
-  if (text_p_)
+  if (text_)
     {
-      Side_position_interface::add_staff_support (text_p_);
-      typeset_grob (text_p_);
-      text_p_ = 0;
+      Side_position_interface::add_staff_support (text_);
+      typeset_grob (text_);
+      text_ = 0;
     }
 }
 

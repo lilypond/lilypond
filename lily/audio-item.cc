@@ -10,14 +10,14 @@
 #include "midi-item.hh"
 #include "audio-column.hh"
 
-Audio_instrument::Audio_instrument (String instrument_str)
+Audio_instrument::Audio_instrument (String instrument_string)
 {
-  str_ = instrument_str;
+  str_ = instrument_string;
 }
 
 Audio_item::Audio_item ()
 {
-  audio_column_l_ = 0;
+  audio_column_ = 0;
 }
 
 Audio_note::Audio_note (Pitch p, Moment m, int transposing_i)
@@ -25,7 +25,7 @@ Audio_note::Audio_note (Pitch p, Moment m, int transposing_i)
   pitch_ = p;
   length_mom_ = m;
   tied_ = 0;
-  transposing_i_ = transposing_i;
+  transposing_ = transposing_i;
 }
 
 void
@@ -53,18 +53,18 @@ Audio_dynamic::Audio_dynamic (Real volume)
 
 Audio_tempo::Audio_tempo (int per_minute_4_i)
 {
-  per_minute_4_i_ = per_minute_4_i;
+  per_minute_4_ = per_minute_4_i;
 }
 
 Audio_time_signature::Audio_time_signature (int beats, int one_beat)
 {
-  beats_i_ = beats;
-  one_beat_i_ = one_beat;
+  beats_ = beats;
+  one_beat_ = one_beat;
 }
 
-Audio_text::Audio_text (Audio_text::Type type, String text_str)
+Audio_text::Audio_text (Audio_text::Type type, String text_string)
 {
-  text_str_ = text_str;
+  text_string_ = text_string;
   type_ = type;
 }
 
@@ -75,13 +75,13 @@ Audio_tie::Audio_tie ()
 }
 
 void
-Audio_tie::set_note (Direction d, Audio_note* note_l)
+Audio_tie::set_note (Direction d, Audio_note* note)
 {
   assert (!note_l_drul_[d]);
-  note_l_drul_[d] = note_l;
-  //set_bound (d, head_l);
+  note_l_drul_[d] = note;
+  //set_bound (d, head);
 
-  //  add_dependency (head_l);
+  //  add_dependency (head);
 }
 
 

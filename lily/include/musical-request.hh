@@ -61,7 +61,7 @@ protected:
 class Articulation_req : public Script_req
 {
 public:
-  String get_articulation_str ();
+  String get_articulation_string ();
 protected:
   virtual bool do_equal_b (Request const*) const;
 

@@ -45,7 +45,7 @@ static String
 dos_to_posix (String path)
 {
   char buf[PATH_MAX];
-  char *filename = path.copy_ch_p ();
+  char *filename = path.get_copy_str0 ();
   /* urg, wtf? char const* argument gets modified! */
   cygwin_conv_to_posix_path (filename, buf);
   delete filename;
@@ -55,7 +55,7 @@ dos_to_posix (String path)
 static String
 dos_to_posix_list (String path)
 {
-  char *filename = path.copy_ch_p ();
+  char *filename = path.get_copy_str0 ();
   int len = cygwin_win32_to_posix_path_list_buf_size (filename);
   if (len < PATH_MAX)
     len = PATH_MAX;
@@ -72,16 +72,16 @@ dos_to_posix_list (String path)
 
 /* Join components to full path. */
 String
-Path::str () const
+Path::string () const
 {
   String s;
   if (!root.empty_b ())
-    s = root + to_str (ROOTSEP);
+    s = root + to_string (ROOTSEP);
   if (!dir.empty_b ())
-    s += dir + to_str (DIRSEP);
+    s += dir + to_string (DIRSEP);
   s += base;
   if (!ext.empty_b ())
-    s += to_str (EXTSEP) + ext;
+    s += to_string (EXTSEP) + ext;
   return s;
 }
 
@@ -101,25 +101,25 @@ split_path (String path)
 #endif
 
   Path p;
-  int i = path.index_i (ROOTSEP);
+  int i = path.index (ROOTSEP);
   if (i >= 0)
     {
-      p.root = path.left_str (i);
-      path = path.right_str (path.length_i () - i - 1);
+      p.root = path.left_string (i);
+      path = path.right_string (path.length () - i - 1);
     }
 
-  i = path.index_last_i (DIRSEP);
+  i = path.index_last (DIRSEP);
   if (i >= 0)
     {
-      p.dir = path.left_str (i);
-      path = path.right_str (path.length_i () - i - 1);
+      p.dir = path.left_string (i);
+      path = path.right_string (path.length () - i - 1);
     }
 
-  i = path.index_last_i ('.');
+  i = path.index_last ('.');
   if (i >= 0)
     {
-      p.base = path.left_str (i);
-      p.ext = path.right_str (path.length_i () - i - 1);
+      p.base = path.left_string (i);
+      p.ext = path.right_string (path.length () - i - 1);
     }
   else
     p.base = path;
@@ -136,13 +136,13 @@ File_path::parse_path (String p)
 
   int l;
   
-  while ((l = p.length_i ()) )
+  while ((l = p.length ()) )
     {
-      int i = p.index_i (PATHSEP);
+      int i = p.index (PATHSEP);
       if (i <0) 
 	i = l;
-      add (p.left_str (i));
-      p = p.right_str (l- i - 1);
+      add (p.left_string (i));
+      p = p.right_string (l- i - 1);
     }
 }
 
@@ -159,15 +159,15 @@ File_path::parse_path (String p)
 String
 File_path::find (String nm) const
 {
-  if (!nm.length_i () || (nm == "-") )
+  if (!nm.length () || (nm == "-") )
     return nm;
   for (int i=0; i < size (); i++)
     {
       String path  = elem (i);
-      String sep = to_str (DIRSEP);
-      String right (path.right_str (1));
-      if (path.length_i () && right != sep)
-	path += to_str (DIRSEP);
+      String sep = to_string (DIRSEP);
+      String right (path.right_string (1));
+      if (path.length () && right != sep)
+	path += to_string (DIRSEP);
 
       path += nm;
 
@@ -177,7 +177,7 @@ File_path::find (String nm) const
 	Check if directory. TODO: encapsulate for autoconf
        */
       struct stat sbuf;
-      if (stat (path.ch_C (), &sbuf) == ENOENT)
+      if (stat (path.to_str0 (), &sbuf) == ENOENT)
 	continue;
       
       if (! (sbuf.st_mode & __S_IFREG))
@@ -185,14 +185,14 @@ File_path::find (String nm) const
 #endif
 #if !STAT_MACROS_BROKEN
       struct stat sbuf;
-      if (stat (path.ch_C (), &sbuf) == ENOENT)
+      if (stat (path.to_str0 (), &sbuf) == ENOENT)
 	continue;
       
       if (S_ISDIR (sbuf.st_mode))
 	continue;
 #endif
 
-      FILE *f = fopen (path.ch_C (), "r"); // ugh!
+      FILE *f = fopen (path.to_str0 (), "r"); // ugh!
       if (f)
 	{
 	  fclose (f);
@@ -210,7 +210,7 @@ File_path::try_add (String s)
 {
   if (s == "")
     s =  ".";
-  FILE  * f = fopen (s.ch_C (), "r");
+  FILE  * f = fopen (s.to_str0 (), "r");
   if (!f)
     return false;
   fclose (f);
@@ -231,7 +231,7 @@ File_path::add (String s)
 }
 
 String
-File_path::str () const
+File_path::string () const
 {
   String s;
   for (int i=0; i< size (); i++)

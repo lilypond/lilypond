@@ -18,7 +18,7 @@
   Manage the staff symbol.
  */
 class Staff_symbol_engraver : public Engraver { 
-  Spanner *span_p_;
+  Spanner *span_;
 public:
   TRANSLATOR_DECLARATIONS(Staff_symbol_engraver);
   
@@ -32,39 +32,39 @@ protected:
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
-  assert (!span_p_);
+  assert (!span_);
 }
 
 Staff_symbol_engraver::Staff_symbol_engraver ()
 {
-  span_p_ = 0;
+  span_ = 0;
 }
 
 void
 Staff_symbol_engraver::initialize ()
 {
-  span_p_ = new Spanner (get_property ("StaffSymbol"));
+  span_ = new Spanner (get_property ("StaffSymbol"));
   
-  span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+  span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 
-  announce_grob(span_p_, SCM_EOL);
+  announce_grob(span_, SCM_EOL);
 }
 
 void
 Staff_symbol_engraver::finalize ()
 {
-  span_p_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
-  typeset_grob (span_p_);
-  span_p_ =0;
+  span_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
+  typeset_grob (span_);
+  span_ =0;
 }
 
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  s.grob_l_->set_grob_property ("staff-symbol", span_p_->self_scm ());
+  s.grob_->set_grob_property ("staff-symbol", span_->self_scm ());
 
   // remove this. probly not necessary?
-  s.grob_l_->add_dependency (span_p_); // UGH. UGH. UGH
+  s.grob_->add_dependency (span_); // UGH. UGH. UGH
 }
 
 

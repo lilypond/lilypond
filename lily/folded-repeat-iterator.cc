@@ -21,47 +21,47 @@
 
 Folded_repeat_iterator::Folded_repeat_iterator ()
 {
-  main_iter_p_ = 0;
-  alternative_iter_p_ = 0;
+  main_iter_ = 0;
+  alternative_iter_ = 0;
 }
 
 bool
 Folded_repeat_iterator::ok () const
 {
-  return main_iter_p_ || alternative_iter_p_;
+  return main_iter_ || alternative_iter_;
 }
 
 Folded_repeat_iterator::~Folded_repeat_iterator ()
 {
-  delete main_iter_p_;
-  delete alternative_iter_p_;
+  delete main_iter_;
+  delete alternative_iter_;
 }
 
 Folded_repeat_iterator::Folded_repeat_iterator (Folded_repeat_iterator const &src)
   : Music_iterator (src)
 {
-  main_iter_p_ = src.main_iter_p_ ? src.main_iter_p_->clone () : 0;
-  alternative_iter_p_ = src.alternative_iter_p_ ? src.alternative_iter_p_->clone () : 0;
+  main_iter_ = src.main_iter_ ? src.main_iter_->clone () : 0;
+  alternative_iter_ = src.alternative_iter_ ? src.alternative_iter_->clone () : 0;
   main_length_mom_ = src.main_length_mom_;
 }
 
 Moment
 Folded_repeat_iterator::pending_moment () const
 {
-  if (main_iter_p_)
+  if (main_iter_)
     {
-      return main_iter_p_->pending_moment ();
+      return main_iter_->pending_moment ();
     }
   else
-    return main_length_mom_ + alternative_iter_p_->pending_moment ();
+    return main_length_mom_ + alternative_iter_->pending_moment ();
 }
 
 void
 Folded_repeat_iterator::construct_children ()
 {
-  Repeated_music  *  mus = dynamic_cast<Repeated_music*> (music_l ());
-  main_iter_p_ = get_iterator_p (mus->body ());
-  if (!main_iter_p_->ok ())
+  Repeated_music  *  mus = dynamic_cast<Repeated_music*> (get_music ());
+  main_iter_ = get_iterator (mus->body ());
+  if (!main_iter_->ok ())
     {
      leave_body ();
       enter_alternative ();
@@ -73,30 +73,30 @@ Folded_repeat_iterator::process (Moment m)
 {
   if (!m.to_bool () )
     {
-      bool success = try_music (music_l ());
+      bool success = try_music (get_music ());
       if (!success)
-	music_l ()->origin ()->warning (_ ("no one to print a repeat brace"));
+	get_music ()->origin ()->warning (_ ("no one to print a repeat brace"));
     }
   
-  if (main_iter_p_)
+  if (main_iter_)
     {
-      main_iter_p_->process (m);
-      if (!main_iter_p_->ok ())
+      main_iter_->process (m);
+      if (!main_iter_->ok ())
 	leave_body ();
     }
 
-  if (!main_iter_p_ && !alternative_iter_p_)
+  if (!main_iter_ && !alternative_iter_)
     {
       enter_alternative ();
     }
   
-  if (alternative_iter_p_)
+  if (alternative_iter_)
     {
-      alternative_iter_p_->process (m - main_length_mom_);
-      if (!alternative_iter_p_->ok ())
+      alternative_iter_->process (m - main_length_mom_);
+      if (!alternative_iter_->ok ())
 	{
-	  delete alternative_iter_p_;
-	  alternative_iter_p_ =0;
+	  delete alternative_iter_;
+	  alternative_iter_ =0;
 	}
     }
 }
@@ -104,24 +104,24 @@ Folded_repeat_iterator::process (Moment m)
 void
 Folded_repeat_iterator::leave_body ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l ());
-  delete main_iter_p_;
-  main_iter_p_ = 0;
+  Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());
+  delete main_iter_;
+  main_iter_ = 0;
   main_length_mom_ +=  mus->body ()->length_mom ();
 }
 
 void
 Folded_repeat_iterator::enter_alternative ()
 {
-  Repeated_music *  mus = dynamic_cast<Repeated_music *> (music_l ());  
+  Repeated_music *  mus = dynamic_cast<Repeated_music *> (get_music ());  
   if (mus->alternatives ())
     {
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
       s->separate_contexts_b_ = true;
-      s->init_translator (mus, report_to_l ());
+      s->init_translator (mus, report_to ());
       
-      alternative_iter_p_ = s;
-      alternative_iter_p_->construct_children ();
+      alternative_iter_ = s;
+      alternative_iter_->construct_children ();
     }
 }
 
@@ -129,12 +129,12 @@ Folded_repeat_iterator::enter_alternative ()
 Music_iterator*
 Folded_repeat_iterator::try_music_in_children (Music * m) const
 {
-  if (main_iter_p_)
+  if (main_iter_)
     {
-      return main_iter_p_->try_music (m);
+      return main_iter_->try_music (m);
     }
-  if (alternative_iter_p_)
-    return alternative_iter_p_->try_music (m);
+  if (alternative_iter_)
+    return alternative_iter_->try_music (m);
   return 0;
 }
 

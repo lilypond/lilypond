@@ -39,7 +39,7 @@ Font_interface::font_alist_chain (Grob *me)
     Ugh: why the defaults?
    */
   SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
-				    me->paper_l ()->style_sheet_));
+				    me->get_paper ()->style_sheet_));
 
   SCM ch = me->get_property_alist_chain (defaults);
   
@@ -107,7 +107,7 @@ Font_interface::get_font (Grob *me, SCM chain)
   
   if (!gh_string_p (name))
     {
-      SCM ss = me->paper_l ()->style_sheet_;
+      SCM ss = me->get_paper ()->style_sheet_;
 
       SCM proc = ly_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
 				    ss));
@@ -121,7 +121,7 @@ Font_interface::get_font (Grob *me, SCM chain)
   SCM mag = me->get_grob_property ("font-magnification");
   Real rmag = gh_number_p (mag) ? gh_scm2double (mag) : 1.0;
   
-  Font_metric *fm = me->paper_l ()->find_font (name, rmag);
+  Font_metric *fm = me->get_paper ()->find_font (name, rmag);
   return fm;
 }
 
@@ -130,7 +130,7 @@ Font_interface::add_style (Grob* me, SCM style, SCM chain)
 {
   assert (gh_symbol_p (style));
   
-  SCM sheet = me->paper_l ()->style_sheet_;
+  SCM sheet = me->get_paper ()->style_sheet_;
       
   SCM style_alist = ly_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
   SCM entry = scm_assoc (style, style_alist);
@@ -161,7 +161,7 @@ so a 14% speedup.
 
 */
 
-static SCM shape_sym, family_sym, series_sym, rel_sz_sym, design_sz_sym, wild_sym;
+static SCM shape_sym, family_sym, series_sym, rel_str0_sym, design_str0_sym, wild_sym;
 
 
 static void
@@ -170,8 +170,8 @@ init_syms ()
   shape_sym  = scm_permanent_object (ly_symbol2scm ("font-shape"));
   family_sym = scm_permanent_object (ly_symbol2scm ("font-family"));
   series_sym = scm_permanent_object (ly_symbol2scm ("font-series"));
-  rel_sz_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
-  design_sz_sym = scm_permanent_object (ly_symbol2scm ("font-design-size"));
+  rel_str0_sym = scm_permanent_object (ly_symbol2scm ("font-relative-size"));
+  design_str0_sym = scm_permanent_object (ly_symbol2scm ("font-design-size"));
   wild_sym = scm_permanent_object (ly_symbol2scm ("*"));
 }
 
@@ -193,8 +193,8 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
   SCM series = SCM_BOOL_F;
 
   
-  SCM point_sz = ly_assoc_chain (design_sz_sym, alist_chain);
-  SCM rel_sz = SCM_BOOL_F;
+  SCM point_str0 = ly_assoc_chain (design_str0_sym, alist_chain);
+  SCM rel_str0 = SCM_BOOL_F;
 
   shape = ly_assoc_chain (shape_sym, alist_chain);
   family = ly_assoc_chain (family_sym, alist_chain);
@@ -208,13 +208,13 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     series = ly_cdr (series);
 
 
-  if (gh_pair_p (point_sz))
-    point_sz = ly_cdr (point_sz);
+  if (gh_pair_p (point_str0))
+    point_str0 = ly_cdr (point_str0);
   else
     {
-      rel_sz = ly_assoc_chain (rel_sz_sym, alist_chain);
-      if (gh_pair_p (rel_sz))
-	rel_sz = ly_cdr (rel_sz);
+      rel_str0 = ly_assoc_chain (rel_str0_sym, alist_chain);
+      if (gh_pair_p (rel_str0))
+	rel_str0 = ly_cdr (rel_str0);
     }
 
   for (SCM s = fonts ; gh_pair_p (s); s = ly_cdr (s))
@@ -228,7 +228,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
       if (!wild_compare (scm_list_ref (qlist, gh_int2scm (3)), family))
 	continue;
   
-      if (point_sz == SCM_BOOL_F && !wild_compare (ly_car (qlist), rel_sz))
+      if (point_str0 == SCM_BOOL_F && !wild_compare (ly_car (qlist), rel_str0))
 	continue;
           
       SCM qname = ly_cdar (s);
@@ -236,7 +236,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     }
 
   warning (_ ("couldn't find any font satisfying "));
-  scm_write (scm_list_n (point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
+  scm_write (scm_list_n (point_str0, shape, series , family, rel_str0, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return ly_str02scm ("cmr10");

@@ -13,7 +13,7 @@
 bool
 Type_swallow_translator::try_music (Music*r)
 {
-  if (classname (r) == swallow_str_)
+  if (classname (r) == swallow_string_)
       return true;
   return false;
 }

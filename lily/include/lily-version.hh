@@ -12,9 +12,9 @@
 
 #include "string.hh"
 
-String version_str ();
-String gnu_lilypond_str ();
-String gnu_lilypond_version_str ();
+String version_string ();
+String gnu_lilypond_string ();
+String gnu_lilypond_version_string ();
 
 #endif // LILY_VERSION_HH
 

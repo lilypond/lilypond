@@ -28,7 +28,7 @@ ENTER_DESCRIPTION(Score_performer,
 
 Score_performer::Score_performer ()
 {
-  performance_p_ = 0;
+  performance_ = 0;
 }
 
 
@@ -41,23 +41,23 @@ Score_performer::play_element (Audio_element * p)
 {
   if (Audio_item * i=dynamic_cast<Audio_item *> (p)) 
     {
-      audio_column_l_->add_audio_item (i);
+      audio_column_->add_audio_item (i);
     }
-  performance_p_->add_element (p);
+  performance_->add_element (p);
 }
 
 void
 Score_performer::announce_element (Audio_element_info info)
 {
-  announce_info_arr_.push (info);
+  announce_infos_.push (info);
 
 
   /*
     huh?
     copied from score-engraver, but
     this way staff gets in list twice
-  if (Audio_item* i = dynamic_cast<Audio_item*> (info.elem_l_))
-    performance_p_->add_element (i);
+  if (Audio_item* i = dynamic_cast<Audio_item*> (info.elem_))
+    performance_->add_element (i);
   */
 }
 
@@ -65,8 +65,8 @@ void
 Score_performer::prepare (Moment m)
 {
   Global_translator::prepare (m);
-  audio_column_l_ = new Audio_column (m);
-  play_element (audio_column_l_);
+  audio_column_ = new Audio_column (m);
+  play_element (audio_column_);
   start_translation_timestep ();
 }
 
@@ -88,9 +88,9 @@ Score_performer::start ()
 
 
 int
-Score_performer::get_tempo_i () const
+Score_performer::get_tempo () const
 {
-  return performance_p_->midi_l_->get_tempo_i (Moment (Rational (1, 4)));
+  return performance_->midi_->get_tempo (Moment (Rational (1, 4)));
 }
 
 void
@@ -101,10 +101,10 @@ Score_performer::finish ()
 }
 
 Music_output *
-Score_performer::get_output_p ()
+Score_performer::get_output ()
 {
-  Music_output * o = performance_p_;
-  performance_p_ =0;
+  Music_output * o = performance_;
+  performance_ =0;
   return o;
 }
 
@@ -112,9 +112,9 @@ void
 Score_performer::initialize ()
 {
   unsmob_translator_def (definition_)->apply_property_operations (this);
-  assert (dynamic_cast<Midi_def *> (output_def_l_));
-  performance_p_ = new Performance;
-  performance_p_->midi_l_ = dynamic_cast<Midi_def*> (output_def_l_);
+  assert (dynamic_cast<Midi_def *> (output_def_));
+  performance_ = new Performance;
+  performance_->midi_ = dynamic_cast<Midi_def*> (output_def_);
 
   Translator_group::initialize ();
 }

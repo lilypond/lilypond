@@ -8,18 +8,18 @@
   a struct this for initialising the commandline options.
  */
 struct Long_option_init {
-  char const * take_arg_sz_;
-  char const * longname_sz_;
-  char        shortname_ch_;
+  char const * take_arg_str0_;
+  char const * longname_str0_;
+  char        shortname_char_;
 
-  char const * help_sz_;
+  char const * help_str0_;
   
-  String str () const;
+  String string () const;
   String str_for_help () const;
   //   NO constructor!
 
   static int compare (Long_option_init const&,Long_option_init const&);
-  static String table_str (Long_option_init *); 
+  static String table_string (Long_option_init *); 
 };
 
 
@@ -36,13 +36,13 @@ class Getopt_long {
 
   /// the option info.
   const Long_option_init *option_a_;
-  int table_len_i_;
+  int table_len_;
     
-  /// if doing short option, arg_value_ch_a_a_[optind][optindind] is processed next.
-  int argument_index_i_;
+  /// if doing short option, arg_value_char_a_a_[optind][optindind] is processed next.
+  int argument_index_;
 
   /// the option found
-  const Long_option_init *found_option_l_;
+  const Long_option_init *found_option_;
 
 
 public: 
@@ -52,19 +52,19 @@ public:
 		  E_ILLEGALARG } ;
 
   /// argument. Set to 0 if not present
-  char const * optional_argument_ch_C_;
+  char const * optional_argument_str0_;
 
   /// current error status
   Errorcod error_;
 
-  /// arg_value_ch_a_a_[array_index_i_] will be processed next.
-  int array_index_i_;
+  /// arg_value_char_a_a_[array_index_] will be processed next.
+  int array_index_;
 
   /// the arguments
-  char **arg_value_ch_a_a_;
+  char **arg_value_char_a_a_;
 
   /// the arg. count
-  int argument_count_i_;
+  int argument_count_;
 
   FILE *error_out_;
 
@@ -81,7 +81,7 @@ public:
 
 
   /// return an integer (with err. detect)
-  long argument_to_i ();
+  long get_argument_index ();
  
     
   /**

@@ -17,13 +17,13 @@ struct Lilypond_version
   Lilypond_version (int major, int minor, int patch);
   Lilypond_version (String str);
 
-  String str () const;
+  String string () const;
   operator int () const;
 
-  int major_i_;
-  int minor_i_;
-  int patch_i_;
-  String extra_patch_str_;
+  int major_;
+  int minor_;
+  int patch_;
+  String extra_patch_string_;
 };
 
 extern Lilypond_version oldest_version;

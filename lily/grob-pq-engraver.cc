@@ -50,7 +50,7 @@ Grob_pq_engraver::Grob_pq_engraver()
 void
 Grob_pq_engraver::initialize ()
 {
-  daddy_trans_l_->set_property ("busyGrobs", SCM_EOL); 
+  daddy_trans_->set_property ("busyGrobs", SCM_EOL); 
 }
 
 void
@@ -72,7 +72,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 	  l.main_part_ = 0;
 	}
 
-      current_grobs_.push (Grob_mom (gi.grob_l_, n + l));
+      current_grobs_.push (Grob_mom (gi.grob_, n + l));
     }
 }
 
@@ -128,7 +128,7 @@ Grob_pq_engraver::stop_translation_timestep ()
     }
 
   current_grobs_.clear ();
-  daddy_trans_l_->set_property ("busyGrobs", start);
+  daddy_trans_->set_property ("busyGrobs", start);
 }
 
 void
@@ -146,7 +146,7 @@ Grob_pq_engraver::start_translation_timestep ()
     }
 
   if (start_busy != busy)
-    daddy_trans_l_->set_property ("busyGrobs", busy);
+    daddy_trans_->set_property ("busyGrobs", busy);
 
 }
 

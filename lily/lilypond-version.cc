@@ -13,35 +13,35 @@
 
 Lilypond_version::Lilypond_version (int major, int minor, int patch)
 {
-  major_i_ = major;
-  minor_i_ = minor;
-  patch_i_ = patch;
+  major_ = major;
+  minor_ = minor;
+  patch_ = patch;
 }
 
 Lilypond_version::Lilypond_version (String str)
 {
   Array<String> version;
-  version = String_convert::split_arr (str, '.');
+  version = String_convert::split (str, '.');
   
-  major_i_ = version[0].value_i ();
-  minor_i_ = version[1].value_i ();
-  patch_i_ = 0;
+  major_ = version[0].to_int ();
+  minor_ = version[1].to_int ();
+  patch_ = 0;
   if (version.size () >= 3)
-    patch_i_ = version[2].value_i ();
+    patch_ = version[2].to_int ();
 
   if (version.size () >= 4)
-    extra_patch_str_ = version[3];
+    extra_patch_string_ = version[3];
 }
 
 String
-Lilypond_version::str () const
+Lilypond_version::string () const
 {
-  return to_str (major_i_) + "." + to_str (minor_i_) + "." + to_str (patch_i_);
+  return to_string (major_) + "." + to_string (minor_) + "." + to_string (patch_);
 }
 
 Lilypond_version::operator int () const
 {
     // ugh
-  return 100000 * major_i_ + 1000 * minor_i_ + patch_i_;
+  return 100000 * major_ + 1000 * minor_ + patch_;
 }
 

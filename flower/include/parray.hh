@@ -87,21 +87,21 @@ public:
     {
       return (T*&) Array<void*>::top (i);
     }
-  void substitute (T *old, T*new_l)
+  void substitute (T *old, T*new_p)
     {
       int i;
-      while ((i = find_i (old)) >=0) 
-	if (new_l)
-	  elem_ref (i) =new_l;
+      while ((i = find_index (old)) >=0) 
+	if (new_p)
+	  elem_ref (i) =new_p;
 	else
 	  del (i);
     }
-  void unordered_substitute (T* old, T * new_l)
+  void unordered_substitute (T* old, T * new_p)
     {
       int i;
-      while ((i = find_i (old)) >=0) 
-	if (new_l)
-	  elem_ref (i) =new_l;
+      while ((i = find_index (old)) >=0) 
+	if (new_p)
+	  elem_ref (i) =new_p;
 	else {
 	  unordered_del (i);
 	}
@@ -115,11 +115,11 @@ public:
 	     int lower = -1, int upper = -1);
   
   void uniq () {
-    Link_array<T> l_arr;
+    Link_array<T> ls;
     for (int i=0; i < size (); i++) 
       if (!i || elem (i-1) != elem (i))
-	l_arr.push (elem (i)); 
-    *this = l_arr;
+	ls.push (elem (i)); 
+    *this = ls;
   }
   Array<void*>::del;
   Array<void*>::unordered_del;  
@@ -148,9 +148,9 @@ public:
   }
 
   
-  T ** access_array () const
+  T ** accesses () const
     {
-      return (T**) Array<void*>::access_array ();
+      return (T**) Array<void*>::accesses ();
     }
   T * get (int i)
     {
@@ -165,15 +165,15 @@ public:
     {
       Array<void*>::concat (a2);
     }
-  int find_i (T const * t) const {
+  int find_index (T const * t) const {
     for (int i=0; i < size (); i++)
       if (elem (i) == t)
 	return i;
     return -1;
   }
-  T *find_l (T const *t) const
+  T *find (T const *t) const
     {
-      int i = find_i (t);
+      int i = find_index (t);
       if (i >= 0)
 	return elem (i);
       else
@@ -184,7 +184,7 @@ public:
 
 template<class T, class V>
 Link_array<T>
-typecast_array (Link_array<V> const &a, T * /* dummy */ )
+typecasts (Link_array<V> const &a, T * /* dummy */ )
 {
   Link_array<T> ret;
   for (int i=a.size (); i-- ; )
@@ -216,7 +216,7 @@ Link_array<T>::sort (int (*compare)(T *const&,T *const&), int lower, int upper)
 
 template<class T>
 void
-junk_pointer_array (Link_array<T> &a)
+junk_pointers (Link_array<T> &a)
 {
   for (int i=0; i < a.size ();  i++)
     {
@@ -232,7 +232,7 @@ junk_pointer_array (Link_array<T> &a)
 */
 template<class T>
 int
-binsearch_array (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
+binsearchs (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
 {
   int lo;
   int hi;
@@ -263,7 +263,7 @@ binsearch_array (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
 
 template<class T>
 int
-binsearch_link_array (Link_array<T> const &arr, T *t,
+binsearch_links (Link_array<T> const &arr, T *t,
 		      int (*compare) (T *const&,T *const&),
 		      int lo = 0, int hi = -1 )
 {

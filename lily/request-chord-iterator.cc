@@ -22,27 +22,27 @@ Request_chord_iterator::Request_chord_iterator (Request_chord_iterator const &sr
 }
 
 Translator_group*
-Request_chord_iterator::get_req_translator_l ()
+Request_chord_iterator::get_req_translator ()
 {
-  assert (report_to_l ());
-  if (report_to_l ()->is_bottom_translator_b ())
-    return report_to_l ();
+  assert (report_to ());
+  if (report_to ()->is_bottom_translator_b ())
+    return report_to ();
 
-  set_translator (report_to_l ()->get_default_interpreter ());
-  return report_to_l ();
+  set_translator (report_to ()->get_default_interpreter ());
+  return report_to ();
 }
 
 void
 Request_chord_iterator::construct_children ()
 {
   Simple_music_iterator::construct_children ();
-  get_req_translator_l ();
+  get_req_translator ();
 }
 
 Request_chord*
-Request_chord_iterator::elt_l () const
+Request_chord_iterator::get_elt () const
 {
-  return (Request_chord*) music_l ();
+  return (Request_chord*) get_music ();
 }
 
 SCM
@@ -51,7 +51,7 @@ Request_chord_iterator::get_pending_events (Moment) const
   SCM s = SCM_EOL;
   if (last_processed_mom_ < Moment (0))
     {
-      Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l ());
+      Music_sequence * ms = dynamic_cast<Music_sequence*> (get_music ());
      
       for (SCM m = ms->music_list (); gh_pair_p (m); m = ly_cdr (m))
 	{
@@ -66,7 +66,7 @@ Request_chord_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
-      for (SCM s = dynamic_cast<Music_sequence *> (music_l ())->music_list ();
+      for (SCM s = dynamic_cast<Music_sequence *> (get_music ())->music_list ();
 	   gh_pair_p (s);  s = ly_cdr (s))
 	{
 	  Music *mus = unsmob_music (ly_car (s));

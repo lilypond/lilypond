@@ -21,12 +21,12 @@ class Audio_column : public Audio_element  {
 public:
   Audio_column (Moment at_mom);
 
-  void add_audio_item (Audio_item* i_l);
+  void add_audio_item (Audio_item* i);
   Moment at_mom () const;
   void print () const;
 
-  Link_array<Audio_item> audio_item_l_arr_;
-  Performance * performance_l_;
+  Link_array<Audio_item> audio_items_;
+  Performance * performance_;
 
 private:
   Audio_column (Audio_column const&);

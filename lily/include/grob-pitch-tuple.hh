@@ -16,7 +16,7 @@ source file of the GNU LilyPond music typesetter
 
 struct Grob_pitch_tuple {
   Pitch pitch_;
-  Grob *head_l_;
+  Grob *head_;
   Moment end_;
 
   Grob_pitch_tuple ();

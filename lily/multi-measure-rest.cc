@@ -37,7 +37,7 @@ Multi_measure_rest::percent (SCM smob)
   Direction d = LEFT;
   do
     {
-      Item * col = sp->get_bound (d)->column_l ();
+      Item * col = sp->get_bound (d)->get_column ();
 
       Interval coldim = col->extent (0, X_AXIS);
 
@@ -84,7 +84,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   Grob *common = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   do
     {
-      Item * col = sp->get_bound (d)->column_l ();
+      Item * col = sp->get_bound (d)->get_column ();
 
       Interval coldim = col->extent (common, X_AXIS);
 
@@ -116,7 +116,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   if (measures > gh_scm2int (s))
     {
       Molecule s = Text_item::text2molecule (me,
-					     ly_str02scm (to_str (measures).ch_C ()),
+					     ly_str02scm (to_string (measures).to_str0 ()),
 					     alist_chain);
 
       s.align_to (X_AXIS, CENTER);
@@ -170,7 +170,7 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
       /*
 	ugh.
        */
-      if (Staff_symbol_referencer::position_f (me) == 0.0)
+      if (Staff_symbol_referencer::get_position (me) == 0.0)
 	s.translate_axis (staff_space, Y_AXIS);
 
       s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
@@ -191,7 +191,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real ss = Staff_symbol_referencer::staff_space (me);
   
-  Real slt = me->paper_l ()->get_var ("linethickness");
+  Real slt = me->get_paper ()->get_var ("linethickness");
   Real y = slt * thick/2 * ss;
   Box b(Interval (0, width), Interval (-y, y));
   Real ythick = slt * ss;
@@ -241,7 +241,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	  l --;
 	}
 
-      Molecule r (musfont->find_by_name ("rests-" + to_str (k)));
+      Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
       if (k == 0)
 	{
 	  Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -295,8 +295,8 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       return SCM_UNSPECIFIED;
     }
 
-  Item * l = sp->get_bound (LEFT)->column_l ();
-  Item * r = sp->get_bound (RIGHT)->column_l ();
+  Item * l = sp->get_bound (LEFT)->get_column ();
+  Item * r = sp->get_bound (RIGHT)->get_column ();
   Item * lb = l->find_prebroken_piece (RIGHT);
   Item * rb = r->find_prebroken_piece (LEFT);      
   
@@ -317,7 +317,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.item_l_drul_[RIGHT] = r;
 
       
-      rod.distance_f_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
+      rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
       rod.add_to_cols ();

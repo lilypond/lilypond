@@ -21,32 +21,32 @@ Part_combine_music::Part_combine_music (SCM l)
 void
 Part_combine_music::transpose (Pitch p)
 {
-  first_l ()->transpose (p);
-  second_l () ->transpose (p);
+  get_first ()->transpose (p);
+  get_second () ->transpose (p);
 }
 
 Moment
 Part_combine_music::length_mom () const
 {
-  return first_l ()->length_mom ();
+  return get_first ()->length_mom ();
 }
 
 Pitch
 Part_combine_music::to_relative_octave (Pitch p)
 {
-  p = first_l ()->to_relative_octave (p);
-  return second_l ()->to_relative_octave (p);
+  p = get_first ()->to_relative_octave (p);
+  return get_second ()->to_relative_octave (p);
 }
 
 void
 Part_combine_music::compress (Moment m)
 {
-  first_l ()->compress (m);
-  second_l ()->compress (m);
+  get_first ()->compress (m);
+  get_second ()->compress (m);
 }
 
 Music*
-Part_combine_music::first_l () const
+Part_combine_music::get_first () const
 {
   SCM l = get_mus_property ("elements");
   if (!gh_pair_p (l))
@@ -56,7 +56,7 @@ Part_combine_music::first_l () const
 
 
 Music*
-Part_combine_music::second_l () const
+Part_combine_music::get_second () const
 {
   SCM l = get_mus_property ("elements");
   if (!gh_pair_p (l))

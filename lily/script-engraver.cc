@@ -14,8 +14,8 @@
 
 class Script_engraver : public Engraver
 {
-  Link_array<Grob> script_p_arr_;
-  Link_array<Articulation_req> script_req_l_arr_;
+  Link_array<Grob> scripts_;
+  Link_array<Articulation_req> script_reqs_;
 
 public:
   TRANSLATOR_DECLARATIONS(Script_engraver);
@@ -31,20 +31,20 @@ protected:
 void
 Script_engraver::initialize ()
 {
-  script_req_l_arr_.clear ();
+  script_reqs_.clear ();
 }
 
 bool
-Script_engraver::try_music (Music *r_l)
+Script_engraver::try_music (Music *r)
 {
-  if (Articulation_req *mr = dynamic_cast <Articulation_req *> (r_l))
+  if (Articulation_req *mr = dynamic_cast <Articulation_req *> (r))
     {
-      for (int i=0; i < script_req_l_arr_.size (); i++) 
+      for (int i=0; i < script_reqs_.size (); i++) 
 	{
-	  if (script_req_l_arr_[i]->equal_b (mr))
+	  if (script_reqs_[i]->equal_b (mr))
 	    return true;
 	}
-      script_req_l_arr_.push (mr);
+      script_reqs_.push (mr);
       return true;
     }
   return false;
@@ -53,9 +53,9 @@ Script_engraver::try_music (Music *r_l)
 void
 Script_engraver::process_music ()
 {
-  for (int i=0; i < script_req_l_arr_.size (); i++)
+  for (int i=0; i < script_reqs_.size (); i++)
     {
-      Articulation_req* l=script_req_l_arr_[i];
+      Articulation_req* l=script_reqs_[i];
 
       SCM alist = get_property ("scriptDefinitions");
       SCM art = scm_assoc (l->get_mus_property ("articulation-type"), alist);
@@ -63,7 +63,7 @@ Script_engraver::process_music ()
       if (art == SCM_BOOL_F)
 	{
 	  String a = ly_scm2string (l->get_mus_property ("articulation-type"));
-	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.ch_C ()));
+	  l->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.to_str0 ()));
 			
 	  continue;
 	}
@@ -114,7 +114,7 @@ Script_engraver::process_music ()
       
       p->set_grob_property ("script-priority", gh_int2scm (priority));
   
-      script_p_arr_.push (p);
+      scripts_.push (p);
       
       announce_grob (p, l->self_scm());
     }
@@ -123,33 +123,33 @@ Script_engraver::process_music ()
 void
 Script_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Stem::has_interface (inf.grob_l_))
+  if (Stem::has_interface (inf.grob_))
     {
-      for (int i=0; i < script_p_arr_.size (); i++)
+      for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob*e = script_p_arr_[i];
+	  Grob*e = scripts_[i];
 
-	  e->set_grob_property ("direction-source", inf.grob_l_->self_scm ());
-	  e->add_dependency (inf.grob_l_);
-	  Side_position_interface::add_support (e, inf.grob_l_);
+	  e->set_grob_property ("direction-source", inf.grob_->self_scm ());
+	  e->add_dependency (inf.grob_);
+	  Side_position_interface::add_support (e, inf.grob_);
 	}
     }
-  else if (Rhythmic_head::has_interface (inf.grob_l_))
+  else if (Rhythmic_head::has_interface (inf.grob_))
     {
-      for (int i=0; i < script_p_arr_.size (); i++)
+      for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob *e = script_p_arr_[i];
+	  Grob *e = scripts_[i];
 	  
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->get_parent (Y_AXIS))
 	    {
-	      e->set_parent (inf.grob_l_, Y_AXIS);
-	      e->add_dependency (inf.grob_l_); // ??
+	      e->set_parent (inf.grob_, Y_AXIS);
+	      e->add_dependency (inf.grob_); // ??
 	    }
-	  Side_position_interface::add_support (e,inf.grob_l_);
+	  Side_position_interface::add_support (e,inf.grob_);
 	}
     }
-  else if (Note_column::has_interface (inf.grob_l_))
+  else if (Note_column::has_interface (inf.grob_))
     {
 
       /*
@@ -160,14 +160,14 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	Script_interface::before_line_breaking ().
  
        */
-      for (int i=0; i < script_p_arr_.size (); i++)
+      for (int i=0; i < scripts_.size (); i++)
 	{
-	  Grob *e = script_p_arr_[i];
+	  Grob *e = scripts_[i];
 	  
 	  if (!e->get_parent (X_AXIS) &&
 	      Side_position_interface::get_axis (e) == Y_AXIS)
 	    {
-	      e->set_parent (inf.grob_l_, X_AXIS);
+	      e->set_parent (inf.grob_, X_AXIS);
 	    }
 	}
     }
@@ -176,26 +176,26 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 void
 Script_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < script_p_arr_.size (); i++) 
+  for (int i=0; i < scripts_.size (); i++) 
     {
 
       /*
 	TODO: junk staff-support.
        */
-      Grob * sc = script_p_arr_[i];
+      Grob * sc = scripts_[i];
       if (to_boolean (sc->get_grob_property ("staff-support")))
 	{
 	  Side_position_interface::add_staff_support (sc);
 	}
       typeset_grob (sc);
     }
-  script_p_arr_.clear ();
+  scripts_.clear ();
 }
 
 void
 Script_engraver::start_translation_timestep ()
 {
-  script_req_l_arr_.clear ();
+  script_reqs_.clear ();
 }
 
 

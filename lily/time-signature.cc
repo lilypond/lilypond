@@ -68,7 +68,7 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
   /*
     First guess: s contains only the signature style, append fraction.
   */
-  String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
+  String symbolname = "timesig-" + s + to_string (n) + "/" + to_string (d);
   
   Molecule m = feta->find_by_name (symbolname);
   if (!m.empty_b ())
@@ -96,10 +96,10 @@ Time_signature::time_signature (Grob*me,int num, int den)
   SCM chain = Font_interface::font_alist_chain (me);
 
   Molecule n = Text_item::text2molecule (me,
-					 ly_str02scm (to_str (num).ch_C ()),
+					 ly_str02scm (to_string (num).to_str0 ()),
 					 chain);
   Molecule d = Text_item::text2molecule (me,
-					 ly_str02scm (to_str (den).ch_C ()),
+					 ly_str02scm (to_string (den).to_str0 ()),
 					 chain);
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);

@@ -23,7 +23,7 @@ struct Interval_t : public Drul_array<T> {
   /* ************** */
     
   static T infinity () ;
-  static String T_to_str (T arg);
+  static String T_to_string (T arg);
   T center () const {
     assert (!empty_b ());
     return (elem (LEFT) + elem (RIGHT)) / T (2);
@@ -86,7 +86,7 @@ struct Interval_t : public Drul_array<T> {
   Real linear_combination (Real x) const {
     return ((1.0 - x) * Real (elem (LEFT))  + (x + 1.0) * Real (elem (RIGHT))) * 0.5;
   }
-  String str () const;    
+  String string () const;    
 
   bool elem_b (T r);
   void negate () {

@@ -52,8 +52,8 @@ check_meshing_chords (Grob*me,
   Grob *cu =clash_groups[UP][0];
   Grob *cd =clash_groups[DOWN][0];
 
-  Grob * nu_l= Note_column::first_head (cu);
-  Grob * nd_l = Note_column::first_head (cd);
+  Grob * nu= Note_column::first_head (cu);
+  Grob * nd = Note_column::first_head (cd);
       
      
 
@@ -83,8 +83,8 @@ check_meshing_chords (Grob*me,
   /*
     Let's not crash. 
    */
-  if (!Note_column::stem_l (cu)
-      || !Note_column::stem_l (cd))
+  if (!Note_column::get_stem (cu)
+      || !Note_column::get_stem (cd))
     return ;
   
   
@@ -101,8 +101,8 @@ check_meshing_chords (Grob*me,
 
     
    */
-  Array<int> ups = Stem::note_head_positions (Note_column::stem_l (cu));
-  Array<int> dps = Stem::note_head_positions (Note_column::stem_l (cd));
+  Array<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
+  Array<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
 
   /*
     they're too far apart to collide. 
@@ -120,13 +120,13 @@ check_meshing_chords (Grob*me,
     don't merge whole notes (or longer, like breve, longa, maxima) 
    */
 
-  int upball_type = Note_head::balltype_i (nu_l);
-  int dnball_type = Note_head::balltype_i (nd_l);
+  int upball_type = Note_head::get_balltype (nu);
+  int dnball_type = Note_head::get_balltype (nd);
   
   merge_possible = merge_possible && (upball_type > 0);
 
   if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
-    merge_possible = merge_possible && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
+    merge_possible = merge_possible && Rhythmic_head::dot_count (nu) == Rhythmic_head::dot_count (nd);
 
   
   if (!to_boolean (me->get_grob_property ("merge-differently-headed")))
@@ -137,10 +137,10 @@ check_meshing_chords (Grob*me,
       Can't merge quarter and half notes.
      */
     merge_possible = merge_possible &&
-      !((Rhythmic_head::duration_log (nu_l) == 1
-	 && Rhythmic_head::duration_log (nd_l) == 2)
-	||(Rhythmic_head::duration_log (nu_l) == 2
-	   && Rhythmic_head::duration_log (nd_l) == 1));
+      !((Rhythmic_head::duration_log (nu) == 1
+	 && Rhythmic_head::duration_log (nd) == 2)
+	||(Rhythmic_head::duration_log (nu) == 2
+	   && Rhythmic_head::duration_log (nd) == 1));
 
   int i = 0, j=0;
   while (i < ups.size () && j < dps.size ())
@@ -185,7 +185,7 @@ check_meshing_chords (Grob*me,
     for full collisions, the right hand head may obscure dots, so
     make sure the dotted heads go to the right.
    */
-  if ((Rhythmic_head::dot_count (nu_l) > Rhythmic_head::dot_count (nd_l)
+  if ((Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd)
        && full_collide))
     shift_amount = 1;
 
@@ -199,9 +199,9 @@ check_meshing_chords (Grob*me,
       Grob *wipe_ball = 0;
       
       if (upball_type  <  dnball_type)
-	wipe_ball = nd_l;
+	wipe_ball = nd;
       else if (upball_type > dnball_type)
-	wipe_ball = nu_l;
+	wipe_ball = nu;
 
       if (wipe_ball)
 	{
@@ -219,7 +219,7 @@ check_meshing_chords (Grob*me,
   /*
     we're meshing.
   */
-  else if (Rhythmic_head::dot_count (nu_l) || Rhythmic_head::dot_count (nd_l))
+  else if (Rhythmic_head::dot_count (nu) || Rhythmic_head::dot_count (nd))
     shift_amount *= 0.1;
   else
     shift_amount *= 0.25;
@@ -271,7 +271,7 @@ Note_collision_interface::do_shifts (Grob* me)
       Grob * s = unsmob_grob (ly_caar (autos));
       Real amount = gh_scm2double (ly_cdar (autos));
       
-      if (!done.find_l (s))
+      if (!done.find (s))
 	s->translate_axis (amount * wid, X_AXIS);
     }
 }
@@ -422,11 +422,11 @@ Note_collision_interface::forced_shift (Grob *me)
 }
 
 void
-Note_collision_interface::add_column (Grob*me,Grob* ncol_l)
+Note_collision_interface::add_column (Grob*me,Grob* ncol)
 {
-  ncol_l->add_offset_callback (Note_collision_interface::force_shift_callback_proc, X_AXIS);
-  Axis_group_interface::add_element (me, ncol_l);
-  me->add_dependency (ncol_l);
+  ncol->add_offset_callback (Note_collision_interface::force_shift_callback_proc, X_AXIS);
+  Axis_group_interface::add_element (me, ncol);
+  me->add_dependency (ncol);
 }
 
 

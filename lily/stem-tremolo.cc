@@ -61,7 +61,7 @@ Stem_tremolo::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
   Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
-  Grob * beam = Stem::beam_l (stem);
+  Grob * beam = Stem::get_beam (stem);
   
   Real dydx;
   if (beam)

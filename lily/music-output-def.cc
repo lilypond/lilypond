@@ -92,7 +92,7 @@ Music_output_def::assign_translator (SCM transdef)
   find the translator for NAME. NAME may be a string or a symbol.
  */
 SCM
-Music_output_def::find_translator_l (SCM name) const
+Music_output_def::find_translator (SCM name) const
 {  
   if (gh_string_p (name))
     name = scm_string_to_symbol (name);
@@ -104,10 +104,10 @@ Music_output_def::find_translator_l (SCM name) const
 
 
 Global_translator *
-Music_output_def::get_global_translator_p () 
+Music_output_def::get_global_translator () 
 {
   SCM key = ly_symbol2scm ("Score");
-  Translator_def * t = unsmob_translator_def (find_translator_l (key));
+  Translator_def * t = unsmob_translator_def (find_translator (key));
 
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
@@ -137,15 +137,15 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
   ugh: should move into Music_output_def (complication: .midi and .tex
   need separate counts.)  */
 String
-Music_output_def::outname_str () 
+Music_output_def::outname_string () 
 {
   String out = output_name_global;
   int def = get_next_score_count ();
   if (def && out != "-")
     {
       Path p = split_path (out);
-      p.base += "-" + to_str (def);
-      out = p.str ();
+      p.base += "-" + to_string (def);
+      out = p.string ();
     }
   return out;
 }

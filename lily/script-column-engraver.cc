@@ -17,8 +17,8 @@
    Script_column, that will fix the collisions.  */
 class Script_column_engraver : public Engraver
 {
-  Grob *scol_p_;
-  Link_array<Item> script_l_arr_;
+  Grob *scol_;
+  Link_array<Item> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS(Script_column_engraver);
@@ -32,36 +32,36 @@ protected:
 
 Script_column_engraver::Script_column_engraver ()
 {
-  scol_p_ =0;
+  scol_ =0;
 }
 
 void
 Script_column_engraver::stop_translation_timestep ()
 {
-  if (scol_p_)
+  if (scol_)
     {
-      typeset_grob (scol_p_);
-      scol_p_ =0;
+      typeset_grob (scol_);
+      scol_ =0;
     }
 }
 
 void
 Script_column_engraver::start_translation_timestep ()
 {
-  script_l_arr_.clear ();
+  scripts_.clear ();
 
 }
 
 void
 Script_column_engraver::acknowledge_grob (Grob_info inf) 
 {
-  Item *thing = dynamic_cast<Item*> (inf.grob_l_);
-  if (thing && Side_position_interface::has_interface (inf.grob_l_)) // ugh FIXME
+  Item *thing = dynamic_cast<Item*> (inf.grob_);
+  if (thing && Side_position_interface::has_interface (inf.grob_)) // ugh FIXME
     {
       if (!Item::breakable_b (thing)
-	  && Side_position_interface::get_axis (inf.grob_l_) == Y_AXIS)
+	  && Side_position_interface::get_axis (inf.grob_) == Y_AXIS)
 	{
-	  script_l_arr_.push (thing);
+	  scripts_.push (thing);
 	}
     }
 }
@@ -69,17 +69,17 @@ Script_column_engraver::acknowledge_grob (Grob_info inf)
 void
 Script_column_engraver::process_acknowledged_grobs ()
 {
-  if (!scol_p_ && script_l_arr_.size () > 1)
+  if (!scol_ && scripts_.size () > 1)
     {
-      scol_p_ = new Item (get_property ("ScriptColumn"));
-      announce_grob(scol_p_, SCM_EOL);
+      scol_ = new Item (get_property ("ScriptColumn"));
+      announce_grob(scol_, SCM_EOL);
     }
 
-  if (scol_p_)
+  if (scol_)
     {
-      for (int i=0; i < script_l_arr_.size (); i++)
-	Script_column::add_staff_sided (scol_p_, script_l_arr_[i]);
-      script_l_arr_.clear ();
+      for (int i=0; i < scripts_.size (); i++)
+	Script_column::add_staff_sided (scol_, scripts_[i]);
+      scripts_.clear ();
     }
 
 }

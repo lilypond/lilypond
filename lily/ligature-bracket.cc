@@ -43,10 +43,10 @@ Ligature_bracket::brew_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
-  Real blotdiameter = me->paper_l ()->get_var ("blotdiameter");
+  Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real thickness = me->paper_l ()->get_var ("linethickness");  
+  Real thickness = me->get_paper ()->get_var ("linethickness");  
   SCM grob_thickness = me->get_grob_property ("thickness");
   if (gh_number_p (grob_thickness))
     thickness *= gh_scm2double (grob_thickness);
@@ -109,7 +109,7 @@ Ligature_bracket::brew_molecule (SCM smob)
     {
       Molecule right_edge =
 	brew_edge (RIGHT, thickness, edge_width, edge_height, blotdiameter);
-      Grob *staff_symbol = Staff_symbol_referencer::staff_symbol_l (me);
+      Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
       Grob *right_common_bound_x =
 	right_bound->common_refpoint (staff_symbol, X_AXIS);
 

@@ -135,10 +135,10 @@ struct Tex_font_char_metric
   Char_code code_;
   Real width_, height_, depth_, italic_correction_;
   Fix width_fix_, height_fix_, depth_fix_, italic_correction_fix_;
-  Array<Tfm_kern> kern_arr_;
-  Array<Tfm_ligature> ligature_arr_;
+  Array<Tfm_kern> kerns_;
+  Array<Tfm_ligature> ligatures_;
 
-  String str () const;
+  String string () const;
   Tex_font_char_metric ();
 
   Box dimensions () const; 
@@ -154,7 +154,7 @@ public:
   virtual Box get_char (int) const;
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
-  String str () const;
+  String string () const;
 
 
   

@@ -167,7 +167,7 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
 
   if (Staff_symbol_referencer::has_interface (me))
     {
-      Real p = Staff_symbol_referencer::position_f (me);
+      Real p = Staff_symbol_referencer::get_position (me);
       Real rp = directed_round (p, d);
       Real rad = Staff_symbol_referencer::staff_radius (me) *2 ;
       int ip = int (rp);
@@ -218,7 +218,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 void
 Side_position_interface::add_staff_support (Grob*me)
 {
-  Grob* st = Staff_symbol_referencer::staff_symbol_l (me);
+  Grob* st = Staff_symbol_referencer::get_staff_symbol (me);
   if (st && get_axis (me) == Y_AXIS)
     {
       add_support (me,st);

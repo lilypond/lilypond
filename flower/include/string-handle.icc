@@ -59,29 +59,29 @@ String_handle::String_handle (String_handle const & src)
 }
 
 INLINE Byte* 
-String_handle::byte_l () 
+String_handle::get_bytes () 
 {
   copy ();
-  return data->byte_l ();
+  return data->get_bytes ();
 }
 
 INLINE char* 
-String_handle::ch_l () 
+String_handle::get_str0 () 
 {
   copy ();
-  return (char*)data->byte_l ();
+  return (char*)data->get_bytes ();
 }
 
 INLINE Byte 
-const* String_handle::byte_C () const 
+const* String_handle::to_bytes () const 
 {
-  return data->byte_C ();
+  return data->to_bytes ();
 }
 
 INLINE char const* 
-String_handle::ch_C () const 
+String_handle::to_str0 () const 
 {
-  return (char const*)data->byte_C ();
+  return (char const*)data->to_bytes ();
 }
 
 INLINE void 
@@ -108,26 +108,26 @@ String_handle::operator[] (int j) const
 }
 
 // !NOT SAFE!
-// don't use this for loops. Use byte_C ()
+// don't use this for loops. Use to_bytes ()
 INLINE Byte &
 String_handle::operator[] (int j) 
 {
   copy (); 	// hmm. Not efficient
-  return data->byte_l ()[j];
+  return data->get_bytes ()[j];
 }
 
 INLINE void 
-String_handle::append (Byte const* byte_C, int length_i) 
+String_handle::append (Byte const* byte, int length_i) 
 {
   copy ();
-  data->append (byte_C, length_i);
+  data->append (byte, length_i);
 }
 			   
 INLINE void 
-String_handle::set (Byte const* byte_C, int length_i) 
+String_handle::set (Byte const* byte, int length_i) 
 {
   copy ();
-  data->set (byte_C, length_i);
+  data->set (byte, length_i);
 }
 			   
 INLINE void 
@@ -144,9 +144,9 @@ String_handle::trunc (int j)
 }
 
 INLINE int 
-String_handle::length_i () const 
+String_handle::length () const 
 { 
-  return data->length_i_; 
+  return data->length_; 
 }
 
 INLINE bool

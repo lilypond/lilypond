@@ -43,18 +43,18 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
       return;
     }
   
-  Source_file * sl = global_sources->get_file_l (s);
+  Source_file * sl = global_sources->get_file (s);
   if (!sl)
     {
       String msg = _f ("can't find file: `%s'", s);
       msg += "\n";
-      msg += _f ("(search path: `%s')", global_sources->path_C_->str ().ch_C ());
+      msg += _f ("(search path: `%s')", global_sources->path_C_->string ().to_str0 ());
       msg += "\n";
-      LexerError (msg.ch_C ());
+      LexerError (msg.to_str0 ());
 
       return;
     }
-  filename_str_arr_.push (sl->name_str ());
+  filename_strings_.push (sl->name_string ());
 
   char_count_stack_.push (0);
   if (yy_current_buffer)
@@ -72,7 +72,7 @@ Includable_lexer::new_input (String s, Sources  * global_sources)
     filelength but a BUFFERSIZE. Maybe this is why reading stdin fucks up.
 
   */
-  yy_switch_to_buffer (yy_create_buffer (sl->istream_l (), YY_BUF_SIZE));
+  yy_switch_to_buffer (yy_create_buffer (sl->get_istream (), YY_BUF_SIZE));
 
 }
 void
@@ -80,7 +80,7 @@ Includable_lexer::new_input (String name, String data, Sources* sources)
 {
   Source_file* file = new Source_file (name, data);
   sources->add (file);
-  filename_str_arr_.push (name);
+  filename_strings_.push (name);
 
   char_count_stack_.push (0);
   if (yy_current_buffer)
@@ -90,7 +90,7 @@ Includable_lexer::new_input (String name, String data, Sources* sources)
     progress_indication (String ("[") + name);
   include_stack_.push (file);
 
-  yy_switch_to_buffer (yy_create_buffer (file->istream_l (), YY_BUF_SIZE));
+  yy_switch_to_buffer (yy_create_buffer (file->get_istream (), YY_BUF_SIZE));
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
@@ -117,11 +117,11 @@ Includable_lexer::close_input ()
 }
 
 char const*
-Includable_lexer::here_ch_C () const
+Includable_lexer::here_str0 () const
 {
   if (include_stack_.empty ())
     return 0;
-  return include_stack_.top ()->ch_C () + char_count_stack_.top ();
+  return include_stack_.top ()->to_str0 () + char_count_stack_.top ();
 }
 
 Includable_lexer::~Includable_lexer ()
@@ -142,7 +142,7 @@ Includable_lexer::add_lexed_char (int count)
 }
 
 Source_file*
-Includable_lexer::source_file_l () const
+Includable_lexer::get_source_file () const
 {
   if (include_stack_.empty ())
     return 0;

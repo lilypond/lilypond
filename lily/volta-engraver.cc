@@ -34,17 +34,17 @@ protected:
   virtual void process_acknowledged_grobs ();
   
   Moment started_mom_;
-  Spanner *volta_span_p_;
-  Spanner *end_volta_span_p_;
+  Spanner *volta_span_;
+  Spanner *end_volta_span_;
   SCM staff_;
-  SCM start_str_;
+  SCM start_string_;
 };
 
 Volta_engraver::Volta_engraver ()
 {
   staff_ = SCM_EOL;
-  volta_span_p_ = 0;
-  end_volta_span_p_ = 0;
+  volta_span_ = 0;
+  end_volta_span_ = 0;
 }
 
 
@@ -77,7 +77,7 @@ Volta_engraver::process_music ()
   SCM cs = get_property ("repeatCommands");
 
   bool  end = false;
-  start_str_ = SCM_EOL;
+  start_string_ = SCM_EOL;
   while (gh_pair_p (cs))
     {
       SCM c = ly_car (cs);
@@ -88,13 +88,13 @@ Volta_engraver::process_music ()
 	  if (ly_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
 	  else
-	    start_str_ = ly_cadr (c);
+	    start_string_ = ly_cadr (c);
 	}
       
       cs = ly_cdr (cs);
     }
 
-  if (volta_span_p_)
+  if (volta_span_)
     {
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
@@ -106,28 +106,28 @@ Volta_engraver::process_music ()
     }
 
   
-  if (end && !volta_span_p_)
+  if (end && !volta_span_)
     {
       warning (_ ("No volta spanner to end")); // fixme: be more verbose.
     }
   else if (end)
     {
-      end_volta_span_p_ = volta_span_p_;
-      volta_span_p_ =0;
+      end_volta_span_ = volta_span_;
+      volta_span_ =0;
     }
 
-  if (gh_string_p (start_str_) && volta_span_p_)
+  if (gh_string_p (start_string_) && volta_span_)
     {
       warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
       
-      if (end_volta_span_p_)
+      if (end_volta_span_)
 	{
 	  warning (_ ("Also have a stopped spanner.  Giving up."));
 	  return ;
 	}
 
-      end_volta_span_p_ = volta_span_p_;
-      volta_span_p_ = 0;
+      end_volta_span_ = volta_span_;
+      volta_span_ = 0;
     }
 }
 
@@ -137,36 +137,36 @@ Volta_engraver::process_music ()
 void
 Volta_engraver::process_acknowledged_grobs ()
 {
-  if (!volta_span_p_ && gh_string_p (start_str_))
+  if (!volta_span_ && gh_string_p (start_string_))
     {
       started_mom_ = now_mom () ;
 
-      volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
+      volta_span_ = new Spanner (get_property ("VoltaBracket"));
 
-      announce_grob (volta_span_p_, SCM_EOL);
-      volta_span_p_->set_grob_property ("text", start_str_);
+      announce_grob (volta_span_, SCM_EOL);
+      volta_span_->set_grob_property ("text", start_string_);
     }
 }
 
 void
 Volta_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Item* item = dynamic_cast<Item*> (i.grob_l_))
+  if (Item* item = dynamic_cast<Item*> (i.grob_))
     {
       if (Note_column::has_interface (item))
 	{
-	  if (volta_span_p_)
-	    Volta_bracket_interface::add_column (volta_span_p_,item);
+	  if (volta_span_)
+	    Volta_bracket_interface::add_column (volta_span_,item);
 	}
       if (Bar_line::has_interface (item))
 	{
-	  if (volta_span_p_)
-	    Volta_bracket_interface::add_bar (volta_span_p_, item);
-	  if (end_volta_span_p_)
-	    Volta_bracket_interface::add_bar (end_volta_span_p_ , item);
+	  if (volta_span_)
+	    Volta_bracket_interface::add_bar (volta_span_, item);
+	  if (end_volta_span_)
+	    Volta_bracket_interface::add_bar (end_volta_span_ , item);
 	}
     }
-  else if (Staff_symbol::has_interface (i.grob_l_))
+  else if (Staff_symbol::has_interface (i.grob_))
     {
       /*
 	We only want to know about a single staff: then we add to the
@@ -175,20 +175,20 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	staff_ = SCM_UNDEFINED;
 
       if (staff_ != SCM_UNDEFINED)
-	staff_ = i.grob_l_->self_scm();
+	staff_ = i.grob_->self_scm();
     }
 }
 
 void
 Volta_engraver::finalize ()
 {
-  if (volta_span_p_)
+  if (volta_span_)
     {
-      typeset_grob (volta_span_p_);
+      typeset_grob (volta_span_);
     }
-  if (end_volta_span_p_)
+  if (end_volta_span_)
     {
-      typeset_grob (end_volta_span_p_);
+      typeset_grob (end_volta_span_);
     }
 }
 
@@ -197,10 +197,10 @@ Volta_engraver::finalize ()
 void 
 Volta_engraver::stop_translation_timestep ()
 {
-  if (end_volta_span_p_)
+  if (end_volta_span_)
     {
-      typeset_grob (end_volta_span_p_);
-      end_volta_span_p_ =0;
+      typeset_grob (end_volta_span_);
+      end_volta_span_ =0;
     }
 }
 

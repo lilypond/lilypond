@@ -150,7 +150,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       else
 	{
 	  programming_error (_f ("Mensural_ligature: thickness undefined on flexa %d; assuming 1.4", primitive));
-	  thickness = 1.4 * me->paper_l ()->get_var ("linethickness");
+	  thickness = 1.4 * me->get_paper ()->get_var ("linethickness");
 	}
     }
 
@@ -215,7 +215,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       int join_left = gh_scm2int (join_left_scm);
       if (!join_left)
 	programming_error (_f ("Menusral_ligature: (join_left == 0)"));
-      Real blotdiameter = (me->paper_l ()->get_var ("blotdiameter"));
+      Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
       Interval x_extent = Interval (0, thickness);
       Interval y_extent = (join_left > 0) ?
 	Interval (-join_left * 0.5 * staff_space, 0) :
@@ -227,7 +227,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       out.add_molecule (stem);
     }
 
-  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   add_ledger_lines(me, &out, pos, 0, ledger_take_space);
   if (primitive & MLP_FLEXA)
     {

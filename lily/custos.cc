@@ -61,7 +61,7 @@ Custos::brew_molecule (SCM smob)
       Direction neutral_direction =
 	to_dir (me->get_grob_property ("neutral-direction"));
 
-      int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+      int pos = (int)rint (Staff_symbol_referencer::get_position (me));
       int sz = Staff_symbol_referencer::line_count (me)-1;
 
       if (pos < neutral_pos)
@@ -89,13 +89,13 @@ Custos::brew_molecule (SCM smob)
       if (molecule.empty_b ())
         {
 	  String message = "no such custos: `" + idx + "'";
-	  warning (_ (message.ch_C ()));
+	  warning (_ (message.to_str0 ()));
 	  return SCM_EOL;
 	}
       else
         {
 	  // add ledger lines
-	  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+	  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
 	  int interspaces = Staff_symbol_referencer::line_count (me)-1;
 	  if (abs (pos) - interspaces > 1)
 	    {

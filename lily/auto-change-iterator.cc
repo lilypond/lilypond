@@ -18,7 +18,7 @@ void
 Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 				 String to_id)
 {
-  Translator_group * current = it->report_to_l ();
+  Translator_group * current = it->report_to ();
   Translator_group * last = 0;
 
   /*
@@ -31,13 +31,13 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && current->type_str_ != to_type)
+  while (current && current->type_string_ != to_type)
     {
       last = current;
-      current = current->daddy_trans_l_;
+      current = current->daddy_trans_;
     }
 
-  if (current && current->id_str_ == to_id)
+  if (current && current->id_string_ == to_id)
     {
       String msg;
       msg += _ ("Can't switch translators, I'm there already");
@@ -47,8 +47,8 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to_l ()->find_create_translator_l (to_type, to_id);
-	current->remove_translator_p (last);
+	  it->report_to ()->find_create_translator (to_type, to_id);
+	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }
     else
@@ -57,7 +57,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 	  We could change the current translator's id, but that would make 
 	  errors hard to catch
 	  
-	   last->translator_id_str_  = change_l ()->change_to_id_str_;
+	   last->translator_id_string_  = get_change ()->change_to_id_string_;
 	*/
 	//	error (_ ("I'm one myself"));
       }
@@ -80,7 +80,7 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 Array<Pitch>
 Auto_change_iterator::pending_pitch (Moment m) const
 {
-  Music_iterator * iter = child_iter_p_ ->clone ();
+  Music_iterator * iter = child_iter_ ->clone ();
   Array<Pitch> ps;
   while (1)
     {
@@ -130,8 +130,8 @@ Auto_change_iterator::process (Moment m)
 	{
 	  where_dir_ = s;
 	  String to_id = (s >= 0) ?  "up" : "down";
-	  String wh = ly_scm2string (music_l ()->get_mus_property ("what"));
-	  change_to (child_iter_p_, wh, to_id);	  
+	  String wh = ly_scm2string (get_music ()->get_mus_property ("what"));
+	  change_to (child_iter_, wh, to_id);	  
 	}
     }
 }

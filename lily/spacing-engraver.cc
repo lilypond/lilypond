@@ -44,7 +44,7 @@ class Spacing_engraver : public Engraver
   Array<Rhythmic_tuple> now_durations_;
   Array<Rhythmic_tuple> stopped_durations_;
   Moment now_;
-  Spanner * spacing_p_;
+  Spanner * spacing_;
   
   TRANSLATOR_DECLARATIONS(Spacing_engraver);
 protected:
@@ -70,35 +70,35 @@ Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
 
 Spacing_engraver::Spacing_engraver ()
 {
-  spacing_p_ = 0;
+  spacing_ = 0;
 }
 
 void
 Spacing_engraver::initialize ()
 {
-  spacing_p_  =new Spanner (get_property ("SpacingSpanner"));
-  spacing_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
-  announce_grob(spacing_p_, SCM_EOL);
+  spacing_  =new Spanner (get_property ("SpacingSpanner"));
+  spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
+  announce_grob(spacing_, SCM_EOL);
 }
 
 void
 Spacing_engraver::finalize ()
 {
   Grob * p = unsmob_grob (get_property ("currentCommandColumn"));
-  spacing_p_->set_bound (RIGHT, p);
-  typeset_grob (spacing_p_);
-  spacing_p_ =0;
+  spacing_->set_bound (RIGHT, p);
+  typeset_grob (spacing_);
+  spacing_ =0;
 }
 
 void
 Spacing_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_spacing::has_interface (i.grob_l_) || Staff_spacing::has_interface (i.grob_l_))
+  if (Note_spacing::has_interface (i.grob_) || Staff_spacing::has_interface (i.grob_))
     {
-      Pointer_group_interface::add_grob (spacing_p_, ly_symbol2scm  ("wishes"), i.grob_l_);
+      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm  ("wishes"), i.grob_);
     }
   
-  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     return;
 
   /*

@@ -25,14 +25,14 @@ protected:
   SCM prev_fraction_;
 private:
 
-  Audio_time_signature* audio_p_;
+  Audio_time_signature* audio_;
 };
 
 
 Time_signature_performer::Time_signature_performer ()
 {
   prev_fraction_ = SCM_BOOL_F;
-  audio_p_ = 0;
+  audio_ = 0;
 }
 
 Time_signature_performer::~Time_signature_performer ()
@@ -50,8 +50,8 @@ Time_signature_performer::create_audio_elements ()
       int b = gh_scm2int (ly_car (fr));
       int o = gh_scm2int (ly_cdr (fr));
       
-      audio_p_ = new Audio_time_signature (b,o);
-      Audio_element_info info (audio_p_, 0);
+      audio_ = new Audio_time_signature (b,o);
+      Audio_element_info info (audio_, 0);
       announce_element (info);
 
     }
@@ -60,10 +60,10 @@ Time_signature_performer::create_audio_elements ()
 void
 Time_signature_performer::stop_translation_timestep ()
 {
-  if (audio_p_)
+  if (audio_)
     {
-      play_element (audio_p_);
-      audio_p_ = 0;
+      play_element (audio_);
+      audio_ = 0;
     }
 }
 

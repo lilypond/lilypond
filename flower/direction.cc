@@ -11,7 +11,7 @@
 #include "string.hh"
 
 String
-direction_str (Direction d, Axis a)
+direction_string (Direction d, Axis a)
 {
   String s ("center");
   if (a == Y_AXIS)

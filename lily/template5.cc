@@ -22,9 +22,9 @@ Interval_t<Rational>::infinity ()
 }
 
 String
-Interval_t<Rational>::T_to_str (Rational a)
+Interval_t<Rational>::T_to_string (Rational a)
 {
-  return a.str ();
+  return a.string ();
 }
 
 

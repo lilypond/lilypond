@@ -45,16 +45,16 @@
  * Possible return values:
  *
  * 0: do not show any accidental
- * 1: show pitch->alteration_i_ only
- * 2: show pitch->alteration_i_, preceded by a natural sign
+ * 1: show pitch->alteration_ only
+ * 2: show pitch->alteration_, preceded by a natural sign
  */
 static int
 number_accidentals (SCM key_signature, Pitch *pitch,
 		    bool ignore_octave_b, bool force_accidental)
 {
-  int notename = pitch->notename_i_;
-  int octave = pitch->octave_i_;
-  int alteration = pitch->alteration_i_;
+  int notename = pitch->notename_;
+  int octave = pitch->octave_;
+  int alteration = pitch->alteration_;
 
   if (force_accidental) // ignore key signature
     return 1;
@@ -101,12 +101,12 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
 {
   if (!num_acc)
     return;
-  if (pitch->alteration_i_)
+  if (pitch->alteration_)
     {
       Molecule accidental (Font_interface::get_default_font (me)->
 			   find_by_name (String ("accidentals-") +
 					 accidentals_style +
-					 to_str (pitch->alteration_i_)));
+					 to_string (pitch->alteration_)));
       accidental.translate_axis (yoffs, Y_AXIS);
       head->add_at_edge (X_AXIS,  LEFT, accidental, 0.1);
     }
@@ -115,7 +115,7 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
       Molecule natural (Font_interface::get_default_font (me)->
 			find_by_name (String ("accidentals-") +
 				      accidentals_style +
-				      to_str ("0")));
+				      to_string ("0")));
       natural.translate_axis (yoffs, Y_AXIS);
       head->add_at_edge (X_AXIS,  LEFT, natural, 0.1);
     }
@@ -142,7 +142,7 @@ Ambitus::brew_molecule (SCM smob)
   if (Font_interface::get_default_font (me)->find_by_name (note_head_style).empty_b ())
     {
       String message = "Ambitus: no such note head: `" + note_head_style + "'";
-      me->warning (_ (message.ch_C ()));
+      me->warning (_ (message.to_str0 ()));
       return SCM_EOL;
     }
 
@@ -191,8 +191,8 @@ Ambitus::brew_molecule (SCM smob)
   if (to_boolean (me->get_grob_property ("join-heads")) &&
       ((p_max - p_min) >= 3))
     {
-      Real linethickness = me->paper_l ()->get_var ("linethickness");
-      Real blotdiameter = me->paper_l ()->get_var ("blotdiameter");
+      Real linethickness = me->get_paper ()->get_var ("linethickness");
+      Real blotdiameter = me->get_paper ()->get_var ("blotdiameter");
       Interval x_extent = 0.5 * Interval (-linethickness, +linethickness);
       Interval y_extent = 0.5 * Interval (p_min + 1.35, p_max - 1.35);
       Box line_box (x_extent, y_extent);

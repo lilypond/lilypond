@@ -22,8 +22,8 @@ void add_interface (const char * symbol,
 LY_DEFINE(ly_add_interface, "ly-add-interface", 3,0,0, (SCM a, SCM b, SCM c),
 	  "Add an interface description.")
 {
-  SCM_ASSERT_TYPE (gh_symbol_p(a), a, SCM_ARG1, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (gh_string_p(b), b, SCM_ARG2, __FUNCTION__, "string");  
+  SCM_ASSERT_TYPE (gh_symbol_p (a), a, SCM_ARG1, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (gh_string_p (b), b, SCM_ARG2, __FUNCTION__, "string");  
   SCM_ASSERT_TYPE (gh_list_p(c), c,  SCM_ARG3, __FUNCTION__, "list of syms");    
   if (!gh_vector_p (all_ifaces))
     {
@@ -66,8 +66,8 @@ check_interfaces_for_property (Grob const *me, SCM sym)
       SCM iface = scm_hashq_ref (all_ifaces , gh_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)
 	{
-	  String msg = to_str ("Unknown interface `%s'",
-			       ly_scm2string (scm_symbol_to_string (gh_car(ifs))).ch_C());
+	  String msg = to_string ("Unknown interface `%s'",
+			       ly_scm2string (scm_symbol_to_string (gh_car(ifs))).to_str0 ());
 	  programming_error (msg);
 	  continue;
 	}
@@ -77,9 +77,9 @@ check_interfaces_for_property (Grob const *me, SCM sym)
 
   if (!found)
     {
-     String str = to_str("Grob %s has no interface for property %s",
-			 me->name ().ch_C(),
-			 ly_symbol2string(sym).ch_C());
+     String str = to_string ("Grob %s has no interface for property %s",
+			 me->name ().to_str0 (),
+			 ly_symbol2string(sym).to_str0 ());
      programming_error (str);
     }
 }

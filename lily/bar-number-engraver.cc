@@ -28,7 +28,7 @@ staff-group, add padding to the bar number.
 class Bar_number_engraver : public Engraver
 {
 protected:
-  Item* text_p_;
+  Item* text_;
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
@@ -62,8 +62,8 @@ Bar_number_engraver::process_music ()
 	  create_items ();
 	  
 	  // guh.
-	  text_p_->set_grob_property ("text",
-				      ly_str02scm (to_str (gh_scm2int (bn)).ch_C ()));
+	  text_->set_grob_property ("text",
+				      ly_str02scm (to_string (gh_scm2int (bn)).to_str0 ()));
 	}
     }
 
@@ -73,33 +73,33 @@ Bar_number_engraver::process_music ()
 
 Bar_number_engraver::Bar_number_engraver ()
 {
-  text_p_ =0;
+  text_ =0;
 }
 
 					       
 void
 Bar_number_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob * s = inf.grob_l_;
-  if (text_p_
+  Grob * s = inf.grob_;
+  if (text_
       && dynamic_cast<Item*> (s)
       && s->get_grob_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))
     {
       /*
 	By default this would land on the Paper_column -- so why
 	doesn't it work when you leave this out?  */
-      text_p_->set_parent (s, X_AXIS);
+      text_->set_parent (s, X_AXIS);
     }
 }
 
 void 
 Bar_number_engraver::stop_translation_timestep ()
 {
-  if (text_p_)
+  if (text_)
     {
-      text_p_->set_grob_property ("side-support-elements", get_property ("stavesFound"));
-      typeset_grob (text_p_);
-      text_p_ =0;
+      text_->set_grob_property ("side-support-elements", get_property ("stavesFound"));
+      typeset_grob (text_);
+      text_ =0;
     }
 }
 
@@ -107,14 +107,14 @@ Bar_number_engraver::stop_translation_timestep ()
 void
 Bar_number_engraver::create_items ()
 {
-  if (text_p_)
+  if (text_)
     return;
 
   SCM b = get_property ("BarNumber");
-  text_p_ = new Item (b);
-  Side_position_interface::set_axis (text_p_,Y_AXIS);
+  text_ = new Item (b);
+  Side_position_interface::set_axis (text_,Y_AXIS);
 
-  announce_grob(text_p_, SCM_EOL);
+  announce_grob(text_, SCM_EOL);
 }
 
 ENTER_DESCRIPTION(Bar_number_engraver,

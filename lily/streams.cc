@@ -30,9 +30,9 @@ open_file_stream (String filename, int mode)
     {
       Path p = split_path (filename);
       if (!p.dir.empty_b ())
-        if (mkdir (p.dir.ch_C (), 0777) == -1 && errno != EEXIST)
+        if (mkdir (p.dir.to_str0 (), 0777) == -1 && errno != EEXIST)
           error (_f ("can't create directory: `%s'", p.dir));
-      os = new std::ofstream (filename.ch_C (), mode);
+      os = new std::ofstream (filename.to_str0 (), mode);
     }
   if (!*os)
     error (_f ("can't open file: `%s'", filename));

@@ -22,10 +22,10 @@
   then.  */
 class Hyphen_engraver : public Engraver
 {
-  Grob *last_lyric_l_;
-  Grob *current_lyric_l_;
-  Hyphen_req* req_l_;
-  Spanner* hyphen_p_;
+  Grob *last_lyric_;
+  Grob *current_lyric_;
+  Hyphen_req* req_;
+  Spanner* hyphen_;
 public:
   TRANSLATOR_DECLARATIONS(Hyphen_engraver);
 
@@ -44,24 +44,24 @@ private:
 
 Hyphen_engraver::Hyphen_engraver ()
 {
-  current_lyric_l_ = 0;
-  last_lyric_l_ = 0;
-  hyphen_p_ = 0;
-  req_l_ = 0;
+  current_lyric_ = 0;
+  last_lyric_ = 0;
+  hyphen_ = 0;
+  req_ = 0;
 }
 
 void
 Hyphen_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text-item
-  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_l_ = i.grob_l_;
-      if (hyphen_p_
-	  && !hyphen_p_->get_bound (RIGHT)
+      current_lyric_ = i.grob_;
+      if (hyphen_
+	  && !hyphen_->get_bound (RIGHT)
 	    )
 	  {
-	    Hyphen_spanner (hyphen_p_).set_textitem (RIGHT, i.grob_l_);
+	    Hyphen_spanner (hyphen_).set_textitem (RIGHT, i.grob_);
 	  }
     }
 }
@@ -72,10 +72,10 @@ Hyphen_engraver::try_music (Music* r)
 {
   if (Hyphen_req* p = dynamic_cast <Hyphen_req *> (r))
     {
-      if (req_l_)
+      if (req_)
 	return false;
 
-      req_l_ = p;
+      req_ = p;
       return true;
     }
   return false;
@@ -84,28 +84,28 @@ Hyphen_engraver::try_music (Music* r)
 void
 Hyphen_engraver::finalize ()
 {
-  if (hyphen_p_)
+  if (hyphen_)
     {
-      req_l_->origin ()->warning (_ ("unterminated hyphen"));
-      hyphen_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      req_->origin ()->warning (_ ("unterminated hyphen"));
+      hyphen_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
 void
 Hyphen_engraver::process_acknowledged_grobs ()
 {
-  if (req_l_ &&! hyphen_p_)
+  if (req_ &&! hyphen_)
     {
-      if (!last_lyric_l_)
+      if (!last_lyric_)
 	{
-	  req_l_->origin ()->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen request."));
+	  req_->origin ()->warning (_ ("Nothing to connect hyphen to on the left.  Ignoring hyphen request."));
 	  return;
 	}
       
-      hyphen_p_ = new Spanner (get_property ("LyricHyphen"));
+      hyphen_ = new Spanner (get_property ("LyricHyphen"));
 
-      Hyphen_spanner (hyphen_p_).set_textitem (LEFT, last_lyric_l_);
-      announce_grob(hyphen_p_, req_l_->self_scm());
+      Hyphen_spanner (hyphen_).set_textitem (LEFT, last_lyric_);
+      announce_grob(hyphen_, req_->self_scm());
     }
 }
 
@@ -113,23 +113,23 @@ Hyphen_engraver::process_acknowledged_grobs ()
 void
 Hyphen_engraver::stop_translation_timestep ()
 {
-  if (hyphen_p_)
+  if (hyphen_)
     {
-      typeset_grob (hyphen_p_);
-      hyphen_p_ = 0;
+      typeset_grob (hyphen_);
+      hyphen_ = 0;
     }
 
-  if (current_lyric_l_)
+  if (current_lyric_)
     {
-      last_lyric_l_ = current_lyric_l_;
-      current_lyric_l_ =0;
+      last_lyric_ = current_lyric_;
+      current_lyric_ =0;
     }
 }
 
 void
 Hyphen_engraver::start_translation_timestep ()
 {
-  req_l_ = 0;
+  req_ = 0;
 }
 
 

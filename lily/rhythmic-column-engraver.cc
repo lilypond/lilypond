@@ -47,10 +47,10 @@
 
 class Rhythmic_column_engraver :public Engraver
 {
-  Link_array<Grob> rhead_l_arr_;
-  Grob * stem_l_;
+  Link_array<Grob> rheads_;
+  Grob * stem_;
   Grob * note_column_;
-  Grob * dotcol_l_;
+  Grob * dotcol_;
 
   Grob * last_spacing_;
   Grob * spacing_;
@@ -71,16 +71,16 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
   spacing_ =0 ;
   last_spacing_ = 0;
   
-  stem_l_ =0;
+  stem_ =0;
   note_column_=0;
-  dotcol_l_ =0;
+  dotcol_ =0;
 }
 
 
 void
 Rhythmic_column_engraver::process_acknowledged_grobs ()
 {
-  if (rhead_l_arr_.size ())
+  if (rheads_.size ())
     {
       if (!note_column_)
 	{
@@ -101,28 +101,28 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 
 	}
 
-      for (int i=0; i < rhead_l_arr_.size (); i++)
+      for (int i=0; i < rheads_.size (); i++)
 	{
-	  if (!rhead_l_arr_[i]->get_parent (X_AXIS))
-	    Note_column::add_head (note_column_, rhead_l_arr_[i]);
+	  if (!rheads_[i]->get_parent (X_AXIS))
+	    Note_column::add_head (note_column_, rheads_[i]);
 	}
-      rhead_l_arr_.set_size (0);
+      rheads_.set_size (0);
     }
 
   
   if (note_column_)
     {
-      if (dotcol_l_
-	  && !dotcol_l_->get_parent (X_AXIS))
+      if (dotcol_
+	  && !dotcol_->get_parent (X_AXIS))
 	{
-	  Note_column::set_dotcol (note_column_, dotcol_l_);
+	  Note_column::set_dotcol (note_column_, dotcol_);
 	}
 
-      if (stem_l_
-	  && !stem_l_->get_parent (X_AXIS))
+      if (stem_
+	  && !stem_->get_parent (X_AXIS))
 	{
-	  Note_column::set_stem (note_column_, stem_l_);
-	  stem_l_ = 0;
+	  Note_column::set_stem (note_column_, stem_);
+	  stem_ = 0;
 	}
 
     }
@@ -131,20 +131,20 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
-  Item * item =  dynamic_cast <Item *> (i.grob_l_);
+  Item * item =  dynamic_cast <Item *> (i.grob_);
   if (!item || item->get_parent (X_AXIS))
     return ; 
   if (Stem::has_interface (item))
     {
-      stem_l_ = item;
+      stem_ = item;
     }
   else if (Rhythmic_head::has_interface (item))
     {
-      rhead_l_arr_.push (item);
+      rheads_.push (item);
     }
   else if (Dot_column::has_interface (item))
     {
-      dotcol_l_ = item;
+      dotcol_ = item;
     }
 }
 
@@ -168,8 +168,8 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 void
 Rhythmic_column_engraver::start_translation_timestep ()
 {
-  dotcol_l_ =0;
-  stem_l_ =0;
+  dotcol_ =0;
+  stem_ =0;
 }
 
 

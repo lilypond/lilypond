@@ -19,13 +19,13 @@ Group_interface::add_thing (Grob*me, SCM sym, SCM thing)
 void
 Group_interface::add_thing (Grob*me, String name, SCM thing)
 {
-  add_thing (me, ly_symbol2scm (name.ch_C()), thing);
+  add_thing (me, ly_symbol2scm (name.to_str0 ()), thing);
 }
 
 int
 Group_interface::count (Grob *me, String name)
 {
-  return scm_ilength (me->get_grob_property (name.ch_C ()));
+  return scm_ilength (me->get_grob_property (name.to_str0 ()));
 }
 
 

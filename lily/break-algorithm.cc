@@ -21,14 +21,14 @@
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Grob> all = pscore_l_->system_->column_l_arr ();
+  Link_array<Grob> all = pscore_->system_->columns ();
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
     if (Item::breakable_b (all[i]))
       retval.push (i);
 
-  if (linewidth_f_ <=0)
+  if (linewidth_ <=0)
     while (retval.size () >2)
       retval.del (1);
 
@@ -39,14 +39,14 @@ Break_algorithm::find_break_indices () const
 Link_array<Grob>
 Break_algorithm::find_breaks () const
 {
-  Link_array<Grob> all = pscore_l_->system_->column_l_arr ();
+  Link_array<Grob> all = pscore_->system_->columns ();
   Link_array<Grob> retval;
 
   for (int i=0; i < all.size (); i++)
     if (Item::breakable_b (all[i]))
       retval.push (all[i]);
 
-  if (linewidth_f_ <=0)
+  if (linewidth_ <=0)
     while (retval.size () >2)
       retval.del (1);
 
@@ -64,20 +64,20 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
     this is hardcoded, but this shouldn't happen anyway.
     used to be get_var ("loose_column_distance");        
    */
-  sp->default_space_f_ = 1.0;
+  sp->default_space_ = 1.0;
 
 
-  sp->indent_f_ = line[LEFT];
+  sp->indent_ = line[LEFT];
 
   /*
     sort out how interfacing this should work;
    */
   if (line.empty_b ())
     {
-     sp->line_len_f_ = -1;
+     sp->line_len_ = -1;
     }
   else
-    sp->line_len_f_ = line.length ();
+    sp->line_len_ = line.length ();
   
   sp->add_columns (curline);
 
@@ -87,15 +87,15 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
 
 Break_algorithm::Break_algorithm ()
 {
-  pscore_l_ = 0;
-  linewidth_f_ = 0;
+  pscore_ = 0;
+  linewidth_ = 0;
 }
 
 void
 Break_algorithm::set_pscore (Paper_score*s)
 {
-  pscore_l_ = s;
-  linewidth_f_ = s->paper_l_->get_var ("linewidth");
+  pscore_ = s;
+  linewidth_ = s->paper_->get_var ("linewidth");
 }
 
 Array<Column_x_positions>

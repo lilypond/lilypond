@@ -36,17 +36,17 @@ SCM
 Volta_bracket_interface::brew_molecule (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Item> bar_arr
+  Link_array<Item> bars
     = Pointer_group_interface__extract_grobs (me, (Item*)0, "bars");
 
-  if (!bar_arr.size ())
+  if (!bars.size ())
     return SCM_EOL;
 
-  Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_l_);
+  Spanner *orig_span =  dynamic_cast<Spanner*> (me->original_);
 
-  bool first_bracket = orig_span && (orig_span->broken_into_l_arr_[0] == (Spanner*)me);
+  bool first_bracket = orig_span && (orig_span->broken_intos_[0] == (Spanner*)me);
   
-  bool last_bracket = orig_span && (orig_span->broken_into_l_arr_.top () == (Spanner*)me);
+  bool last_bracket = orig_span && (orig_span->broken_intos_.top () == (Spanner*)me);
 
   bool no_vertical_start = orig_span && !first_bracket;
   bool no_vertical_end = orig_span && !last_bracket;
@@ -60,12 +60,12 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   else
     return SCM_EOL;
   
-  const char* cs = str.ch_C();
+  const char* cs = str.to_str0 ();
   no_vertical_end |=
     (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
      && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
 
-  Real staff_thick = me->paper_l ()->get_var ("linethickness");  
+  Real staff_thick = me->get_paper ()->get_var ("linethickness");  
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
@@ -76,7 +76,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   Real left =0.;  
   if (bound->break_status_dir () == RIGHT)
   {
-    Paper_column *pc = bound->column_l ();
+    Paper_column *pc = bound->get_column ();
     left = pc->extent (pc, X_AXIS)[RIGHT]   - bound->relative_coordinate (pc, X_AXIS);
   }
   else

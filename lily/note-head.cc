@@ -73,9 +73,9 @@ Note_head::brew_ledger_lines (Grob *me,
   if (lines_i)
     {
       Real ledgerlinethickness =
-	(me->paper_l ()->get_var ("ledgerlinethickness"));
+	(me->get_paper ()->get_var ("ledgerlinethickness"));
       Real blotdiameter = ledgerlinethickness;
-      //	(me->paper_l ()->get_var ("blotdiameter"));
+      //	(me->get_paper ()->get_var ("blotdiameter"));
       Interval y_extent =
 	Interval (-0.5*(ledgerlinethickness),
 		  +0.5*(ledgerlinethickness));
@@ -116,7 +116,7 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
 
     UGH: use grob-property.
   */
-  SCM log = gh_int2scm (Note_head::balltype_i (me));
+  SCM log = gh_int2scm (Note_head::get_balltype (me));
   SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
 			ly_quote_scm (style),
 			SCM_UNDEFINED);
@@ -124,11 +124,11 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
   if (out.empty_b())
     {
-      warning (_f("Symbol not found, ", name.ch_C()));
+      warning (_f("Symbol not found, ", name.to_str0 ()));
     }
   
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   if (abs (pos) - interspaces > 1)
     {
       Interval hd = out.extent (X_AXIS);
@@ -190,7 +190,7 @@ SCM
 Note_head::brew_ez_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int l = Note_head::balltype_i (me);
+  int l = Note_head::get_balltype (me);
 
   int b = (l >= 2);
 
@@ -199,7 +199,7 @@ Note_head::brew_ez_molecule (SCM smob)
   Pitch* pit =  unsmob_pitch (spitch);
 
   char s[2] = "a";
-  s[0] = (pit->notename_i_ + 2)%7 + 'a';
+  s[0] = (pit->notename_ + 2)%7 + 'a';
   s[0] = toupper (s[0]);
   
   SCM charstr = ly_str02scm (s);
@@ -212,7 +212,7 @@ Note_head::brew_ez_molecule (SCM smob)
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Molecule m (bx, at);
 
-  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   if (abs (pos) - interspaces > 1)
     {
@@ -247,7 +247,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 
 
 int
-Note_head::balltype_i (Grob*me) 
+Note_head::get_balltype (Grob*me) 
 {
   SCM s = me->get_grob_property ("duration-log");
   return gh_number_p (s) ? gh_scm2int (s) <? 2 : 0;

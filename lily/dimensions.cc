@@ -7,8 +7,8 @@
 String
 print_dimen (Real r)
 {
-  String s = to_str (r, "%.3f");
-  if (s.index_i ("NaN") != -1)
+  String s = to_string (r, "%.3f");
+  if (s.index ("NaN") != -1)
     {
       warning (_ ("NaN"));
       s = "0.0";

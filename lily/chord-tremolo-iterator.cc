@@ -20,22 +20,22 @@
 void
 Chord_tremolo_iterator::construct_children ()
 {
-  Repeated_music * rep = dynamic_cast<Repeated_music*> (music_l ());
+  Repeated_music * rep = dynamic_cast<Repeated_music*> (get_music ());
   factor_  = Moment (Rational(1, 1));
-  child_iter_p_ = get_iterator_p (rep->body ());
+  child_iter_ = get_iterator (rep->body ());
 }
 
 Chord_tremolo_iterator::Chord_tremolo_iterator ()
 {
   factor_ = 1;
-  child_iter_p_ = 0;
+  child_iter_ = 0;
 }
 
 Chord_tremolo_iterator::Chord_tremolo_iterator (Chord_tremolo_iterator const &src)
   : Music_iterator (src)
 {
   factor_ = src.factor_;
-  child_iter_p_ = src.child_iter_p_ ? src.child_iter_p_->clone () : 0; 
+  child_iter_ = src.child_iter_ ? src.child_iter_->clone () : 0; 
 }
 
 void
@@ -43,37 +43,37 @@ Chord_tremolo_iterator::process (Moment m)
 {
   if (!m.to_bool () )
     {
-      Music_iterator *yeah = try_music (music_l ());
+      Music_iterator *yeah = try_music (get_music ());
       if (yeah)
-	set_translator (yeah->report_to_l ());
+	set_translator (yeah->report_to ());
       else
-	music_l ()->origin ()->warning (_ ("no one to print a tremolos"));
+	get_music ()->origin ()->warning (_ ("no one to print a tremolos"));
     }
 
-  child_iter_p_->process (factor_ * m);
+  child_iter_->process (factor_ * m);
 }
 
 Moment
 Chord_tremolo_iterator::pending_moment () const
 {
-  return child_iter_p_->pending_moment () / factor_;
+  return child_iter_->pending_moment () / factor_;
 }
 
 bool
 Chord_tremolo_iterator::ok () const
 {
-  return child_iter_p_ && child_iter_p_->ok ();
+  return child_iter_ && child_iter_->ok ();
 }
 
 Chord_tremolo_iterator::~Chord_tremolo_iterator ()
 {
-  delete child_iter_p_;
+  delete child_iter_;
 }
 
 Music_iterator*
 Chord_tremolo_iterator::try_music_in_children (Music  *m) const
 {
-  return child_iter_p_->try_music (m);
+  return child_iter_->try_music (m);
 }
 
 

@@ -128,7 +128,7 @@ Porrectus::brew_molecule (SCM smob)
   if (auto_properties)
       // determine add_stem and stem_direction automatically from durations
     {
-      if (String::compare_i (style, "mensural") != 0)
+      if (String::compare (style, "mensural") != 0)
 	me->warning (String("auto-property should be used for\r\n") +
 		 String("mensural style porrectus only; trying anyway"));
 
@@ -165,8 +165,8 @@ Porrectus::brew_molecule (SCM smob)
 	}
     }
 
-  Real left_position_f = Staff_symbol_referencer::position_f (left_head);
-  Real right_position_f = Staff_symbol_referencer::position_f (right_head);
+  Real left_position_f = Staff_symbol_referencer::get_position (left_head);
+  Real right_position_f = Staff_symbol_referencer::get_position (right_head);
   Real interval = right_position_f - left_position_f;
 
   Molecule molecule;
@@ -182,7 +182,7 @@ Porrectus::brew_molecule (SCM smob)
       line_thickness = 1.0;
     }
   Real thickness =
-    line_thickness * me->paper_l ()->get_var ("linethickness");
+    line_thickness * me->get_paper ()->get_var ("linethickness");
 
   SCM porrectus_width_scm = me->get_grob_property ("width");
   Real porrectus_width;
@@ -196,11 +196,11 @@ Porrectus::brew_molecule (SCM smob)
     }
   Real width = porrectus_width * Staff_symbol_referencer::staff_space (me);
 
-  if (String::compare_i (style, "vaticana") == 0)
+  if (String::compare (style, "vaticana") == 0)
     molecule = brew_vaticana_molecule (me, interval,
 				       solid, width, thickness,
 				       add_stem, stem_direction);
-  else if (String::compare_i (style, "mensural") == 0)
+  else if (String::compare (style, "mensural") == 0)
     molecule = brew_mensural_molecule (me, interval,
 				       solid, width, thickness,
 				       add_stem, stem_direction);

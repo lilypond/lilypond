@@ -18,8 +18,8 @@ class Rhythmic_head
 public:
   static int duration_log (Grob*);
   static void set_dots (Grob*,Item *);
-  static Item * stem_l (Grob*) ;
-  static Item * dots_l (Grob*) ;
+  static Item * get_stem (Grob*) ;
+  static Item * get_dots (Grob*) ;
   static int dot_count (Grob*) ;
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
   static bool has_interface (Grob*);

@@ -33,7 +33,7 @@ Staff_spacing::next_note_correction (Grob * me,
   if (!g || !Note_column::has_interface (g))
     return 0.0;
 
-  Item *col =dynamic_cast<Item*> (g)->column_l ();
+  Item *col =dynamic_cast<Item*> (g)->get_column ();
   Real max_corr = 0. >? (- g->extent (col, X_AXIS)[LEFT]);
 
   /*
@@ -64,7 +64,7 @@ Staff_spacing::next_note_correction (Grob * me,
     max_corr *= 0.75;
   
   if (!bar_size.empty_b())
-    if (Grob *stem = Note_column::stem_l  (g))
+    if (Grob *stem = Note_column::get_stem (g))
       {
 	Direction d = Stem::get_direction (stem);
 	if (d == DOWN)
@@ -101,8 +101,8 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
     {
       SCM glyph = bar_grob->get_grob_property ("glyph");
       
-      String glyph_str = gh_string_p (glyph) ? ly_scm2string (glyph) : "";
-      if (glyph_str.left_str (1) == "|" || glyph_str.left_str (1) == ".")
+      String glyph_string = gh_string_p (glyph) ? ly_scm2string (glyph) : "";
+      if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm());
 	  bar_size = Interval (-1,1);
@@ -147,7 +147,7 @@ Grob*
 Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
 				   Interval * last_ext)
 {
-  Grob *left_col = dynamic_cast<Item*> (separation_item)->column_l ();
+  Grob *left_col = dynamic_cast<Item*> (separation_item)->get_column ();
   last_ext->set_empty ();
   Grob *last_grob = 0;
   for (SCM s = separation_item->get_grob_property ("elements");
@@ -190,7 +190,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 	separation_item = cand ;
     }
 
-  //  printf ("doing col %d\n" , Paper_column::rank_i(left_col));
+  //  printf ("doing col %d\n" , Paper_column::get_rank (left_col));
 
   if (!separation_item)
     {

@@ -23,14 +23,14 @@ Font_metric::text_dimension (String text) const
   Interval ydims;
   Real w=0.0;
   
-  for (int i = 0; i < text.length_i (); i++) 
+  for (int i = 0; i < text.length (); i++) 
     {
       
       switch (text[i]) 
 	{
 	case '\\':
   // accent marks use width of base letter
-         if (i +1 < text.length_i ())
+         if (i +1 < text.length ())
 	   {
 	     if (text[i+1]=='\'' || text[i+1]=='`' || text[i+1]=='"' ||
 		 text[i+1]=='^')
@@ -45,7 +45,7 @@ Font_metric::text_dimension (String text) const
 	       }
 	   }
 	  
-	  for (i++; (i < text.length_i ()) && !isspace (text[i]) 
+	  for (i++; (i < text.length ()) && !isspace (text[i]) 
 		 && text[i]!='{' && text[i]!='}'; i++)
 	    ;
 	  // ugh.

@@ -11,36 +11,36 @@
 #include "music.hh"
 #include "translator-group.hh"
 
-Grob_info::Grob_info (Grob*s_l)
+Grob_info::Grob_info (Grob*s)
 {
-  grob_l_ = s_l;
-  origin_trans_l_ = 0;  
+  grob_ = s;
+  origin_trans_ = 0;  
 }
 
 
 Grob_info::Grob_info ()
 {
-  grob_l_ = 0;
-  origin_trans_l_ = 0;
+  grob_ = 0;
+  origin_trans_ = 0;
 }
 
 Music*
 Grob_info::music_cause ()
   
 {
-  SCM cause = grob_l_->get_grob_property ("cause"); 
+  SCM cause = grob_->get_grob_property ("cause"); 
   return unsmob_music (cause);
 }
 
 Link_array<Translator>
-Grob_info::origin_trans_l_arr (Translator* end) const
+Grob_info::origin_transes (Translator* end) const
 {
-  Translator * t = origin_trans_l_;
+  Translator * t = origin_trans_;
   Link_array<Translator> r;
   do {
     r.push (t);
-    t = t->daddy_trans_l_;
-  } while (t && t != end->daddy_trans_l_);
+    t = t->daddy_trans_;
+  } while (t && t != end->daddy_trans_);
   
   return r;
 }

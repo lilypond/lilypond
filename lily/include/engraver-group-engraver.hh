@@ -26,7 +26,7 @@ class Engraver_group_engraver : public Engraver,
 				public virtual Translator_group
 {
 protected:
-  Array<Grob_info> announce_info_arr_;
+  Array<Grob_info> announce_infos_;
 
   
   

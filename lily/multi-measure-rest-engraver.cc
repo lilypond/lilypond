@@ -32,30 +32,30 @@ protected:
   virtual void finalize ();
 
 private:
-  Span_req * new_req_l_;
-  Span_req * busy_span_req_l_;
-  Span_req * stop_req_l_;
-  int start_measure_i_;
+  Span_req * new_req_;
+  Span_req * busy_span_req_;
+  Span_req * stop_req_;
+  int start_measure_;
   Moment start_moment_;
   
-  Spanner *mmrest_p_;
-  Spanner *lastrest_p_;
+  Spanner *mmrest_;
+  Spanner *lastrest_;
 };
 
 
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
-  start_measure_i_ = 0;
-  mmrest_p_  = lastrest_p_ =0;
-  new_req_l_ = busy_span_req_l_ = stop_req_l_ =0;
+  start_measure_ = 0;
+  mmrest_  = lastrest_ =0;
+  new_req_ = busy_span_req_ = stop_req_ =0;
 }
 
 
 bool
-Multi_measure_rest_engraver::try_music (Music* req_l)
+Multi_measure_rest_engraver::try_music (Music* req)
 {
-  if (Span_req * sp = dynamic_cast<Span_req*> (req_l))
+  if (Span_req * sp = dynamic_cast<Span_req*> (req))
     {
       
       if (scm_equal_p (sp->get_mus_property ("span-type"),
@@ -63,11 +63,11 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 	{
 	  if (sp->get_span_dir () == STOP)
 	    {
-	      stop_req_l_ = sp;
+	      stop_req_ = sp;
 	    }
-	  else if (sp->get_span_dir () == START && !new_req_l_)
+	  else if (sp->get_span_dir () == START && !new_req_)
 	    {
-	      new_req_l_ = sp;
+	      new_req_ = sp;
 	    }
 	  return true;
 	}
@@ -78,30 +78,30 @@ Multi_measure_rest_engraver::try_music (Music* req_l)
 void
 Multi_measure_rest_engraver::process_music ()
 {
-  if (new_req_l_ && stop_req_l_)
-    stop_req_l_ = 0;
+  if (new_req_ && stop_req_)
+    stop_req_ = 0;
 
-  if (new_req_l_)
+  if (new_req_)
     start_moment_ = now_mom ();
 
-  if (stop_req_l_)
+  if (stop_req_)
     {
-      busy_span_req_l_ =0;
-      stop_req_l_ = 0;
+      busy_span_req_ =0;
+      stop_req_ = 0;
     }
   
-  if (new_req_l_)
+  if (new_req_)
     {
-      busy_span_req_l_ = new_req_l_;
-      new_req_l_ =0;
+      busy_span_req_ = new_req_;
+      new_req_ =0;
     }
 
-  if (busy_span_req_l_ && !mmrest_p_)
+  if (busy_span_req_ && !mmrest_)
     {
-      mmrest_p_ = new Spanner (get_property ("MultiMeasureRest"));
+      mmrest_ = new Spanner (get_property ("MultiMeasureRest"));
 
-      announce_grob(mmrest_p_, busy_span_req_l_->self_scm());
-      start_measure_i_
+      announce_grob(mmrest_, busy_span_req_->self_scm());
+      start_measure_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
 
@@ -109,10 +109,10 @@ Multi_measure_rest_engraver::process_music ()
     {
       Grob *cmc = unsmob_grob (get_property( "currentCommandColumn"));
       Item *it = dynamic_cast<Item*> (cmc);
-      if (mmrest_p_)
-	add_bound_item (mmrest_p_, it);
-      if (lastrest_p_)
-	add_bound_item (lastrest_p_,it);
+      if (mmrest_)
+	add_bound_item (mmrest_, it);
+      if (lastrest_)
+	add_bound_item (lastrest_,it);
     }
 }
 
@@ -122,30 +122,30 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
-  if (mmrest_p_ && (now_mom () >= start_moment_) 
+  if (mmrest_ && (now_mom () >= start_moment_) 
       && !mp.to_bool ()
-      && mmrest_p_->get_bound (LEFT) && mmrest_p_->get_bound (RIGHT))
+      && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
     {
-      typeset_grob (mmrest_p_);
+      typeset_grob (mmrest_);
       /*
-	we must keep mmrest_p_ around to set measure-count, so
-	no mmrest_p_ = 0 here. 
+	we must keep mmrest_ around to set measure-count, so
+	no mmrest_ = 0 here. 
        */
     }
 
-  if (lastrest_p_)
+  if (lastrest_)
     {
       /* sanity check */
-      if (lastrest_p_->get_bound (LEFT) && lastrest_p_->get_bound (RIGHT)
-	  && lastrest_p_->get_bound (LEFT) != lastrest_p_->get_bound (RIGHT))
-	typeset_grob (lastrest_p_);
-      lastrest_p_ = 0;
+      if (lastrest_->get_bound (LEFT) && lastrest_->get_bound (RIGHT)
+	  && lastrest_->get_bound (LEFT) != lastrest_->get_bound (RIGHT))
+	typeset_grob (lastrest_);
+      lastrest_ = 0;
     }
 
-  if (new_req_l_)
+  if (new_req_)
     {
-      busy_span_req_l_ = new_req_l_;
-      new_req_l_ =0;
+      busy_span_req_ = new_req_;
+      new_req_ =0;
     }
   
 }
@@ -156,13 +156,13 @@ Multi_measure_rest_engraver::start_translation_timestep ()
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   
-  if (mmrest_p_ && !mp.to_bool ())
+  if (mmrest_ && !mp.to_bool ())
     {
-      lastrest_p_ = mmrest_p_;
+      lastrest_ = mmrest_;
       int cur = gh_scm2int (get_property ("currentBarNumber"));
-      lastrest_p_->set_grob_property ("measure-count",
-				     gh_int2scm (cur - start_measure_i_));
-      mmrest_p_ = 0;
+      lastrest_->set_grob_property ("measure-count",
+				     gh_int2scm (cur - start_measure_));
+      mmrest_ = 0;
     }
 }
 
@@ -170,10 +170,10 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 void
 Multi_measure_rest_engraver::finalize ()
 {
-  if (mmrest_p_)
-    typeset_grob (mmrest_p_);
-  if (lastrest_p_)
-    typeset_grob (lastrest_p_);
+  if (mmrest_)
+    typeset_grob (mmrest_);
+  if (lastrest_)
+    typeset_grob (lastrest_);
 }
 
 ENTER_DESCRIPTION(Multi_measure_rest_engraver,

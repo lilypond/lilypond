@@ -42,7 +42,7 @@ Global_translator::sneaky_insert_extra_moment (Moment w)
 }
 
 int
-Global_translator::moments_left_i () const
+Global_translator::get_moments_left () const
 {
   return extra_mom_pq_.size ();
 }
@@ -63,7 +63,7 @@ Global_translator::now_mom () const
 
 
 Music_output*
-Global_translator::get_output_p ()
+Global_translator::get_output ()
 {
   return 0;
 }
@@ -88,7 +88,7 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
     prev_mom_ = now_mom_ = iter->pending_moment ();
 
   bool first = true;
-  while (iter->ok () || moments_left_i ())
+  while (iter->ok () || get_moments_left ())
     {
       Moment w;
       w.set_infinite (1);
@@ -99,7 +99,7 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 
       w = sneaky_insert_extra_moment (w);
       
-      //      printf ("proccing %s\n ",       w.str().ch_C());
+      //      printf ("proccing %s\n ",       w.string ().to_str0 ());
 
 
       

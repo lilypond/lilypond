@@ -32,17 +32,17 @@ protected:
 void
 System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Staff_symbol::has_interface (inf.grob_l_))
+  if (Staff_symbol::has_interface (inf.grob_))
     {
       /*
 	don't add as Axis_group_interface::add_element (delim_,),
 	because that would set the parent as well */
 	  
-      Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"),  inf.grob_l_);
+      Pointer_group_interface::add_grob (delim_, ly_symbol2scm ("elements"),  inf.grob_);
     }
-  else if (System_start_delimiter::has_interface (inf.grob_l_))
+  else if (System_start_delimiter::has_interface (inf.grob_))
     {
-      SCM gl = inf.grob_l_->get_grob_property ("glyph");
+      SCM gl = inf.grob_->get_grob_property ("glyph");
       SCM my_gl = delim_->get_grob_property ("glyph");
 
       /*
@@ -50,13 +50,13 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
        */
       if (gh_string_p (gl) && gh_equal_p (gl, ly_str02scm  ("brace"))
 	  && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_str02scm  ("bracket")))
-	inf.grob_l_->translate_axis (-0.8, X_AXIS); // ugh
+	inf.grob_->translate_axis (-0.8, X_AXIS); // ugh
       else if (gh_string_p (gl) && gh_equal_p (gl, ly_str02scm  ("bracket"))
 	       && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_str02scm  ("bracket")))
        {
-         inf.grob_l_->translate_axis ( -0.8, X_AXIS); // ugh
-         inf.grob_l_->set_grob_property ("arch-height",
-           gh_double2scm(gh_scm2double(inf.grob_l_->get_grob_property
+         inf.grob_->translate_axis ( -0.8, X_AXIS); // ugh
+         inf.grob_->set_grob_property ("arch-height",
+           gh_double2scm(gh_scm2double(inf.grob_->get_grob_property
                                        ("arch-height"))+0.5));
        }
     }

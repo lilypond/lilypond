@@ -48,13 +48,13 @@ protected:
   /// moment (global time) where beam started.
   Moment start_mom_;
   Moment stop_mom_;
-  int flags_i_ ;
+  int flags_ ;
   /// location  within measure where beam started.
   Moment beam_start_location_;
 
   bool sequential_body_b_;
-  Spanner * beam_p_;
-  Spanner * finished_beam_p_;
+  Spanner * beam_;
+  Spanner * finished_beam_;
   Item * stem_tremolo_;
 protected:
   virtual void finalize ();
@@ -67,9 +67,9 @@ protected:
 
 Chord_tremolo_engraver::Chord_tremolo_engraver ()
 {
-  beam_p_  = finished_beam_p_ = 0;
+  beam_  = finished_beam_ = 0;
   repeat_ =0;
-  flags_i_ = 0;
+  flags_ = 0;
   stem_tremolo_ = 0;
   sequential_body_b_ = false;
 }
@@ -90,7 +90,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 
       Rational total_dur = l.main_part_;
       Rational note_dur = (total_dur / Rational (repeat_->repeat_count ()));
-       flags_i_ = intlog2 ((total_dur / note_dur).num ());
+       flags_ = intlog2 ((total_dur / note_dur).num ());
       
       return true;
     }
@@ -103,26 +103,26 @@ Chord_tremolo_engraver::process_music ()
 {
   if (repeat_)
     {
-      if (sequential_body_b_ && !beam_p_)
+      if (sequential_body_b_ && !beam_)
 	{
-	  beam_p_ = new Spanner (get_property ("Beam"));
-	  beam_p_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
+	  beam_ = new Spanner (get_property ("Beam"));
+	  beam_->set_grob_property ("chord-tremolo", SCM_BOOL_T);
 
 	  SCM smp = get_property ("measurePosition");
 	  Moment mp
 	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 	  beam_start_location_ = mp;
-	  announce_grob(beam_p_, repeat_->self_scm());
+	  announce_grob(beam_, repeat_->self_scm());
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
 
-	  if (flags_i_)
+	  if (flags_)
 	    {
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("flag-count",
-						gh_int2scm (flags_i_));
+						gh_int2scm (flags_));
 
 	    }
 	}
@@ -132,20 +132,20 @@ void
 Chord_tremolo_engraver::finalize ()
 {
   typeset_beam ();
-  if (beam_p_)
+  if (beam_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
-      beam_p_->suicide ();
+      beam_->suicide ();
     }
 }
 
 void
 Chord_tremolo_engraver::typeset_beam ()
 {
-  if (finished_beam_p_)
+  if (finished_beam_)
     {
-      typeset_grob (finished_beam_p_);
-      finished_beam_p_ = 0;
+      typeset_grob (finished_beam_);
+      finished_beam_ = 0;
     }
 }
 
@@ -153,22 +153,22 @@ Chord_tremolo_engraver::typeset_beam ()
 void
 Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
-  if (beam_p_ && Stem::has_interface (info.grob_l_))
+  if (beam_ && Stem::has_interface (info.grob_))
     {
-      Grob * s = info.grob_l_;
-      Stem::set_beaming (s, flags_i_, LEFT);
-      Stem::set_beaming (s, flags_i_, RIGHT);
+      Grob * s = info.grob_;
+      Stem::set_beaming (s, flags_, LEFT);
+      Stem::set_beaming (s, flags_, RIGHT);
 	  
       SCM d = s->get_grob_property ("direction");
       if (Stem::duration_log (s) != 1)
 	{
-	  beam_p_->set_grob_property ("gap", gh_double2scm (0.8));
+	  beam_->set_grob_property ("gap", gh_double2scm (0.8));
 	}
       s->set_grob_property ("direction", d);
 
       if (dynamic_cast <Rhythmic_req *> (info.music_cause ()))
 	{
-	  Beam::add_stem (beam_p_, s);
+	  Beam::add_stem (beam_, s);
 	}
       else
 	{
@@ -179,10 +179,10 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	    ::warning (s);
 	}
     }
-  else if (stem_tremolo_ && Stem::has_interface (info.grob_l_))
+  else if (stem_tremolo_ && Stem::has_interface (info.grob_))
     {
-       Stem_tremolo::set_stem (stem_tremolo_, info.grob_l_);
-       stem_tremolo_->set_parent (info.grob_l_,X_AXIS);
+       Stem_tremolo::set_stem (stem_tremolo_, info.grob_);
+       stem_tremolo_->set_parent (info.grob_,X_AXIS);
     }
 }
 
@@ -190,12 +190,12 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 void
 Chord_tremolo_engraver::start_translation_timestep ()
 {
-  if (beam_p_ && stop_mom_ == now_mom ())
+  if (beam_ && stop_mom_ == now_mom ())
     {
-      finished_beam_p_ = beam_p_;
+      finished_beam_ = beam_;
 
       repeat_ = 0;
-      beam_p_ = 0;
+      beam_ = 0;
     }
 }
 

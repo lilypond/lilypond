@@ -30,7 +30,7 @@ public:
   String base;
   String ext;
 
-  String str () const;
+  String string () const;
 };
 
 class File_path : private Array<String>
@@ -39,7 +39,7 @@ public:
   String find (String nm) const;
 
   Array<String>::push;
-  String str ()const;
+  String string ()const;
   bool try_add (String str);
   void add (String);
   void parse_path (String);

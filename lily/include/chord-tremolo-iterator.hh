@@ -29,7 +29,7 @@ protected:
 
 private:
   Moment factor_;
-  Music_iterator * child_iter_p_;
+  Music_iterator * child_iter_;
 };
 
 

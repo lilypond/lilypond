@@ -15,8 +15,8 @@
 #include <cstddef>
 #include <stdarg.h>
 
-char* strnlwr (char* start_l ,int n);
-char* strnupr (char* start_l, int n);
+char* strnlwr (char* start ,int n);
+char* strnupr (char* start, int n);
 
 #if !HAVE_MEMMEM		// GNU extension.
 void *memmem (void const * haystack, int haystack_len,
@@ -38,7 +38,7 @@ int isinf (double x);
 #endif
 
 Byte *memrchr (Byte const * p, int n, char c);
-Byte *strrev (Byte* byte_l, int length_i);
+Byte *strrev (Byte* byte, int length_i);
 
 
 #endif // LIBC_EXTENSION_HH

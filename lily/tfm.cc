@@ -49,10 +49,10 @@ Tex_font_char_metric::Tex_font_char_metric ()
   italic_correction_fix_ = 0;
 }
 
-#define APPEND_CHAR_METRIC_ELT(k)  outstr += to_str (#k) + " "  + to_str (k ## _)  + "; "
+#define APPEND_CHAR_METRIC_ELT(k)  outstr += to_string (#k) + " "  + to_string (k ## _)  + "; "
 
 String
-Tex_font_char_metric::str () const
+Tex_font_char_metric::string () const
 {
   String outstr ;
 
@@ -109,11 +109,11 @@ Tex_font_metric::get_char (int a) const
 
 
 String
-Tex_font_metric::str () const
+Tex_font_metric::string () const
 {
   String outstr;
   for (int i=0; i < char_metrics_.size (); i++)
-    outstr += char_metrics_[i].str ();
+    outstr += char_metrics_[i].string ();
   
   return outstr;
 }
@@ -124,13 +124,13 @@ Tex_font_metric::str () const
 SCM
 Tex_font_metric::make_tfm (String fn)
 {
-  Tex_font_metric * tfm_p = new Tex_font_metric;
+  Tex_font_metric * tfm = new Tex_font_metric;
   Tex_font_metric_reader reader (fn);
 
-  tfm_p->info_ = reader.info_;
-  tfm_p->header_ = reader.header_;
-  tfm_p->char_metrics_ = reader.char_metrics_;
-  tfm_p->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
+  tfm->info_ = reader.info_;
+  tfm->header_ = reader.header_;
+  tfm->char_metrics_ = reader.char_metrics_;
+  tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
   
-  return tfm_p->self_scm ();
+  return tfm->self_scm ();
 }

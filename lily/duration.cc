@@ -27,15 +27,15 @@ Duration::compare (Duration const &left, Duration const &right)
 
 Duration::Duration ()
 {
-  durlog_i_ = 0;
-  dots_i_ = 0;
+  durlog_ = 0;
+  dots_ = 0;
   factor_ = Rational (1,1);
 }
 
 Duration::Duration (int l, int d)
 {
-  durlog_i_ = l;
-  dots_i_ = d;
+  durlog_ = l;
+  dots_ = d;
   factor_ = Rational (1,1);
 }
 
@@ -50,14 +50,14 @@ Duration::compressed (Rational m) const
 Rational
 Duration::length_mom () const
 {
-  Rational mom (1 << abs (durlog_i_));
+  Rational mom (1 << abs (durlog_));
 
-  if (durlog_i_> 0)
+  if (durlog_> 0)
     mom = Rational (1)/mom;
 
   Rational delta = mom;
 
-  for (int d = dots_i_; d; d--)
+  for (int d = dots_; d; d--)
     {
       delta /= Rational (2);
       mom += delta;
@@ -69,19 +69,19 @@ Duration::length_mom () const
 
 
 String
-Duration::str () const
+Duration::string () const
 {
   String s;
 
-  if (durlog_i_ < 0  )
-    s = "log = "  + to_str (durlog_i_);
+  if (durlog_ < 0  )
+    s = "log = "  + to_string (durlog_);
   else
-    s = to_str (1 << durlog_i_);
+    s = to_string (1 << durlog_);
   
-  s += to_str ('.', dots_i_);
+  s += to_string ('.', dots_);
   if (factor_ != Moment (Rational (1,1)))
     {
-      s += "*" + factor_.str ();
+      s += "*" + factor_.string ();
     }
   return s;
 }
@@ -102,7 +102,7 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
   Duration  *r = (Duration *) ly_cdr (s);
      
   scm_puts ("#<Duration ", port);
-  scm_display (ly_str02scm (r->str ().ch_C ()), port);
+  scm_display (ly_str02scm (r->string ().to_str0 ()), port);
   scm_puts (" >", port);
   
   return 1;
@@ -114,8 +114,8 @@ Duration::equal_p (SCM a , SCM b)
   Duration  *p = (Duration *) ly_cdr (a);
   Duration  *q = (Duration *) ly_cdr (b);  
 
-  bool eq = p->dots_i_ == q->dots_i_
-    && p->durlog_i_ == q->durlog_i_
+  bool eq = p->dots_ == q->dots_
+    && p->durlog_ == q->durlog_
     && p->factor_ == q->factor_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
@@ -151,20 +151,20 @@ dots.
 
 ")
 {
-  SCM_ASSERT_TYPE(gh_number_p(length), length, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE(gh_number_p(dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(gh_number_p (length), length, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE(gh_number_p (dotcount), dotcount, SCM_ARG2, __FUNCTION__, "integer");
 
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE(gh_number_p(num), length, SCM_ARG3, __FUNCTION__, "integer");
+      SCM_ASSERT_TYPE(gh_number_p (num), length, SCM_ARG3, __FUNCTION__, "integer");
       compress = true;
     }
   else
     num = gh_int2scm (1);
   
   if (den != SCM_UNDEFINED)
-    SCM_ASSERT_TYPE(gh_number_p(den), length, SCM_ARG4, __FUNCTION__, "integer");
+    SCM_ASSERT_TYPE(gh_number_p (den), length, SCM_ARG4, __FUNCTION__, "integer");
   else
     den = gh_int2scm (1);
   
@@ -236,12 +236,12 @@ Duration::smobbed_copy ()const
 int
 Duration::duration_log () const
 {
-  return durlog_i_;
+  return durlog_;
 }
 
 int
 Duration::dot_count () const
 {
-  return dots_i_;
+  return dots_;
 }
 

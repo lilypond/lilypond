@@ -30,7 +30,7 @@ protected:
 private:
   void add_note (Note_req *);
   
-  Item* chord_name_p_;
+  Item* chord_name_;
 
   Protected_scm chord_;
   Protected_scm last_chord_;
@@ -40,7 +40,7 @@ private:
 
 Chord_name_engraver::Chord_name_engraver ()
 {
-  chord_name_p_ = 0;
+  chord_name_ = 0;
   chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
   last_chord_ = chord_;
 }
@@ -79,24 +79,24 @@ Chord_name_engraver::process_music ()
 {
   if (ly_car (chord_) != SCM_EOL)
     {
-      chord_name_p_ = new Item (get_property ("ChordName"));
-      chord_name_p_->set_grob_property ("chord", chord_);
-      announce_grob(chord_name_p_, SCM_EOL);
+      chord_name_ = new Item (get_property ("ChordName"));
+      chord_name_->set_grob_property ("chord", chord_);
+      announce_grob(chord_name_, SCM_EOL);
       SCM s = get_property ("chordChanges");
       if (to_boolean (s) && ly_car (last_chord_) != SCM_EOL
 	  	  && gh_equal_p (chord_, last_chord_))
-	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
+	chord_name_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
 }
 
 void
 Chord_name_engraver::stop_translation_timestep ()
 {
-  if (chord_name_p_)
+  if (chord_name_)
     {
-      typeset_grob (chord_name_p_);
+      typeset_grob (chord_name_);
     }
-  chord_name_p_ = 0;
+  chord_name_ = 0;
 
   if (ly_car (chord_) != SCM_EOL)
     last_chord_ = chord_;

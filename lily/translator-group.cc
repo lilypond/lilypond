@@ -70,8 +70,8 @@ Translator_group::add_translator (SCM list, Translator *t)
     Must append, since list ordering must be preserved.
    */
   list = gh_append2 (list, gh_cons (t->self_scm (), SCM_EOL));
-  t->daddy_trans_l_ = this;
-  t->output_def_l_ = output_def_l_;
+  t->daddy_trans_ = this;
+  t->output_def_ = output_def_;
 
   return list;
 }
@@ -104,9 +104,9 @@ Translator_group::removable_b () const
 }
 
 Translator_group *
-Translator_group::find_existing_translator_l (String n, String id)
+Translator_group::find_existing_translator (String n, String id)
 {
-  if (is_alias_b (n) && (id_str_ == id || id.empty_b ()))
+  if (is_alias_b (n) && (id_string_ == id || id.empty_b ()))
     return this;
 
   Translator_group* r = 0;
@@ -114,7 +114,7 @@ Translator_group::find_existing_translator_l (String n, String id)
     {
       Translator *  t = unsmob_translator (ly_car (p));
       
-      r = dynamic_cast<Translator_group*> (t)->find_existing_translator_l (n, id);
+      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);
     }
 
   return r;
@@ -124,14 +124,14 @@ Translator_group::find_existing_translator_l (String n, String id)
 
 
 Translator_group*
-Translator_group::find_create_translator_l (String n, String id)
+Translator_group::find_create_translator (String n, String id)
 {
-  Translator_group * existing = find_existing_translator_l (n,id);
+  Translator_group * existing = find_existing_translator (n,id);
   if (existing)
     return existing;
 
   Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.ch_C ()), output_def_l ());
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (ly_str02scm ((char*)n.to_str0 ()), get_output_def ());
 
   if (path.size ())
     {
@@ -140,10 +140,10 @@ Translator_group::find_create_translator_l (String n, String id)
       // start at 1.  The first one (index 0) will be us.
       for (int i=0; i < path.size (); i++)
 	{
-	  Translator_group * new_group = path[i]->instantiate (output_def_l_);
+	  Translator_group * new_group = path[i]->instantiate (output_def_);
 
 	  if (i == path.size () -1)
-	    new_group->id_str_ = id;	  
+	    new_group->id_string_ = id;	  
 	  current->add_fresh_group_translator (new_group);
 	  current = new_group;
 	}
@@ -152,8 +152,8 @@ Translator_group::find_create_translator_l (String n, String id)
     }
 
   Translator_group *ret = 0;
-  if (daddy_trans_l_)
-    ret = daddy_trans_l_->find_create_translator_l (n,id);
+  if (daddy_trans_)
+    ret = daddy_trans_->find_create_translator (n,id);
   else
     {
       warning (_f ("can't find or create `%s' called `%s'", n, id));
@@ -179,34 +179,34 @@ Translator_group::try_music (Music* m)
 {
   bool hebbes_b = try_music_on_nongroup_children (m);
   
-  if (!hebbes_b && daddy_trans_l_)
-    hebbes_b = daddy_trans_l_->try_music (m);
+  if (!hebbes_b && daddy_trans_)
+    hebbes_b = daddy_trans_->try_music (m);
   return hebbes_b ;
 }
 
 int
-Translator_group::depth_i () const
+Translator_group::get_depth () const
 {
-  return (daddy_trans_l_) ? daddy_trans_l_->depth_i ()  + 1 : 0;
+  return (daddy_trans_) ? daddy_trans_->get_depth ()  + 1 : 0;
 }
 
 Translator_group*
-Translator_group::ancestor_l (int level)
+Translator_group::get_ancestor (int level)
 {
-  if (!level || !daddy_trans_l_)
+  if (!level || !daddy_trans_)
     return this;
 
-  return daddy_trans_l_->ancestor_l (level-1);
+  return daddy_trans_->get_ancestor (level-1);
 }
 
 void
-Translator_group::terminate_translator (Translator*r_l)
+Translator_group::terminate_translator (Translator*r)
 {
-  r_l->removal_processing ();
+  r->removal_processing ();
   /*
     Return value ignored. GC does the rest.
    */
-  remove_translator_p (r_l);
+  remove_translator (r);
 }
 
 
@@ -214,13 +214,13 @@ Translator_group::terminate_translator (Translator*r_l)
    Remove a translator from the hierarchy.
  */
 Translator *
-Translator_group::remove_translator_p (Translator*trans_l)
+Translator_group::remove_translator (Translator*trans)
 {
-  assert (trans_l);
+  assert (trans);
 
-  trans_group_list_ = scm_delq_x (trans_l->self_scm (), trans_group_list_);
-  trans_l->daddy_trans_l_ = 0;
-  return trans_l;
+  trans_group_list_ = scm_delq_x (trans->self_scm (), trans_group_list_);
+  trans->daddy_trans_ = 0;
+  return trans;
 }
 
 bool
@@ -236,15 +236,15 @@ Translator_group::get_default_interpreter ()
   if (!is_bottom_translator_b ())
     {
       SCM nm = unsmob_translator_def (definition_)->default_child_context_name ();
-      SCM st = output_def_l ()->find_translator_l (nm);
+      SCM st = get_output_def ()->find_translator (nm);
 
       Translator_def *t = unsmob_translator_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).ch_C ()));
+	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).to_str0 ()));
 	  t = unsmob_translator_def (this->definition_);
 	}
-      Translator_group *tg = t->instantiate (output_def_l_);
+      Translator_group *tg = t->instantiate (output_def_);
       add_fresh_group_translator (tg);
 
       if (!tg->is_bottom_translator_b ())
@@ -282,7 +282,7 @@ Translator_group::where_defined (SCM sym) const
       return (Translator_group*)this;
     }
 
-  return (daddy_trans_l_) ? daddy_trans_l_->where_defined (sym) : 0;
+  return (daddy_trans_) ? daddy_trans_->where_defined (sym) : 0;
 }
 
 /*
@@ -295,8 +295,8 @@ Translator_group::internal_get_property (SCM sym) const
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
 
-  if (daddy_trans_l_)
-    return daddy_trans_l_->internal_get_property (sym);
+  if (daddy_trans_)
+    return daddy_trans_->internal_get_property (sym);
   
   return val;
 }
@@ -416,7 +416,7 @@ LY_DEFINE(ly_get_context_property,
   Translator *t = unsmob_translator (context);
   Translator_group* tr=   dynamic_cast<Translator_group*> (t);
   SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Translator group");
-  SCM_ASSERT_TYPE(gh_symbol_p(name), name, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   return tr->internal_get_property (name);
   

@@ -71,7 +71,7 @@ protected:
 
 protected:
   Moment here_mom_;
-  Music_iterator * iter_p_;
+  Music_iterator * iter_;
   Protected_scm  list_;
   SCM cursor_;
   

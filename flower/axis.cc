@@ -11,9 +11,9 @@
 #include "string.hh"
 
 String
-axis_name_str (Axis a)
+axis_name_string (Axis a)
 {
-  return to_str (char (a + 'x'));
+  return to_string (char (a + 'x'));
 }
 
 

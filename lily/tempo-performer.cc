@@ -18,13 +18,13 @@ public:
 
 protected:
 
-  virtual bool try_music (Music* req_l);
+  virtual bool try_music (Music* req);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Tempo_req* tempo_req_l_;
-  Audio_tempo* audio_p_;
+  Tempo_req* tempo_req_;
+  Audio_tempo* audio_;
 };
 
 ENTER_DESCRIPTION (Tempo_performer, "","","","","" );
@@ -32,8 +32,8 @@ ENTER_DESCRIPTION (Tempo_performer, "","","","","" );
 
 Tempo_performer::Tempo_performer ()
 {
-  tempo_req_l_ = 0;
-  audio_p_ = 0;
+  tempo_req_ = 0;
+  audio_ = 0;
 }
 
 Tempo_performer::~Tempo_performer ()
@@ -44,42 +44,42 @@ Tempo_performer::~Tempo_performer ()
 void
 Tempo_performer::create_audio_elements ()
 {
-  if (tempo_req_l_)
+  if (tempo_req_)
     {
 
-      SCM met = tempo_req_l_->get_mus_property ("metronome-count");
-      Duration *d = unsmob_duration (tempo_req_l_->get_mus_property ("duration"));
+      SCM met = tempo_req_->get_mus_property ("metronome-count");
+      Duration *d = unsmob_duration (tempo_req_->get_mus_property ("duration"));
       
       Rational r =  (d->length_mom () / Moment (Rational (1, 4)) * Moment (gh_scm2int (met))).main_part_;
       
-      audio_p_ = new Audio_tempo (int (r));
+      audio_ = new Audio_tempo (int (r));
 
-      Audio_element_info info (audio_p_, tempo_req_l_);
+      Audio_element_info info (audio_, tempo_req_);
       announce_element (info);
-      tempo_req_l_ = 0;
+      tempo_req_ = 0;
     }
 }
 
 void
 Tempo_performer::stop_translation_timestep ()
 {
-  if (audio_p_)
+  if (audio_)
     {
-      play_element (audio_p_);
-      audio_p_ = 0;
+      play_element (audio_);
+      audio_ = 0;
     }
 }
 
 bool
-Tempo_performer::try_music (Music* req_l)
+Tempo_performer::try_music (Music* req)
 {
-  if (tempo_req_l_)
+  if (tempo_req_)
     return false;
 
   if (Tempo_req *t =
-      dynamic_cast <Tempo_req *> (req_l))
+      dynamic_cast <Tempo_req *> (req))
     {
-      tempo_req_l_ = t;
+      tempo_req_ = t;
       return true;
     }
 

@@ -57,25 +57,25 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
   if (arpeggio_)
     {
-      if (Stem::has_interface (info.grob_l_))
+      if (Stem::has_interface (info.grob_))
 	{
 	  if (!arpeggio_->get_parent  (Y_AXIS))
-	    arpeggio_->set_parent (info.grob_l_, Y_AXIS);
+	    arpeggio_->set_parent (info.grob_, Y_AXIS);
       
-	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), info.grob_l_);
+	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), info.grob_);
 	}
       
       /*
 	We can't catch local key items (accidentals) from Voice context,
 	see Local_key_engraver
       */
-      else if (Rhythmic_head::has_interface (info.grob_l_))
+      else if (Rhythmic_head::has_interface (info.grob_))
 	{
-	  Side_position_interface::add_support (arpeggio_, info.grob_l_);
+	  Side_position_interface::add_support (arpeggio_, info.grob_);
 	}
-      else if (Note_column::has_interface (info.grob_l_ ))
+      else if (Note_column::has_interface (info.grob_ ))
 	{
-	  info.grob_l_->set_grob_property ("arpeggio", arpeggio_->self_scm ());
+	  info.grob_->set_grob_property ("arpeggio", arpeggio_->self_scm ());
 	}
     }
 }

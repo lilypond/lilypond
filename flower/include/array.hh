@@ -39,17 +39,17 @@ protected:
   int max_;
 
   /// the data itself
-  T *array_p_;
+  T *array_;
 
   /// stretch or shrink  array.
   void remax (int newmax) 
     {	 
       T* newarr = new T[newmax];
       size_ = (newmax < size_) ? newmax : size_;
-      arrcpy (newarr, array_p_, size_);
+      arrcpy (newarr, array_, size_);
 	
-      delete[] array_p_;
-      array_p_ = newarr;
+      delete[] array_;
+      array_ = newarr;
       max_ = newmax;
     }
   int size_;
@@ -75,19 +75,19 @@ public:
 
   Array (T *tp, int n)
     {
-      array_p_ = new T[n];
+      array_ = new T[n];
       max_ =size_ = n;
-      arrcpy (array_p_, tp, n);      
+      arrcpy (array_, tp, n);      
     }
   
   Array () 
-    { array_p_ = 0; max_ =0; size_ =0; }
+    { array_ = 0; max_ =0; size_ =0; }
 
   // ugh, get around gcc 2.8.1 ice; see bezier.cc
   Array (int i) 
     { 
       max_ = size_ = i; 
-      array_p_ = new T[i];
+      array_ = new T[i];
     }
 
 
@@ -101,28 +101,28 @@ public:
     }
     
   ~Array () 
-    { delete[] array_p_; }
+    { delete[] array_; }
 
   /// return a  "new"ed copy of array 
-  T* copy_array () const 
+  T* copys () const 
     {
       T* Tarray = new T[size_];
-      arrcpy (Tarray, array_p_, size_);
+      arrcpy (Tarray, array_, size_);
       return Tarray;
     }
 
-  T const *access_array () const
+  T const *accesses () const
     {
-      return array_p_;
+      return array_;
     }
   void operator= (Array const & src) 
     {
       set_size (src.size_);
-      arrcpy (array_p_,src.array_p_, size_);
+      arrcpy (array_,src.array_, size_);
     }
   Array (Array const & src) 
     {
-      array_p_ = src.copy_array ();
+      array_ = src.copys ();
       max_ = size_ = src.size_;	
     }
 
@@ -131,7 +131,7 @@ public:
     remax (size_);
   }
     
-  T * remove_array_p ();
+  T * remove_array ();
 
   /// access element
   T &operator[] (int i)  
@@ -147,7 +147,7 @@ public:
   T &elem_ref (int i) const 
     {
       assert (i >=0&&i<size_);
-      return ((T*)array_p_)[i];	
+      return ((T*)array_)[i];	
     }
   /// access element
   T elem (int i) const 
@@ -163,7 +163,7 @@ public:
 
       // T::operator= (T &) is called here. Safe to use with automatic
       // vars
-      array_p_[size_++] = x;
+      array_[size_++] = x;
     }
   /// remove and return last entry 
   T pop () 
@@ -229,7 +229,7 @@ public:
   void del (int i) 
     {
       assert (i >=0&& i < size_);
-      arrcpy (array_p_+i, array_p_+i+1, size_-i-1);
+      arrcpy (array_+i, array_+i+1, size_-i-1);
       size_--;
     }
   // quicksort.
@@ -239,7 +239,7 @@ public:
     {
       int s = size_;
       set_size (size_ + src.size_);
-      arrcpy (array_p_+s,src.array_p_, src.size_);	
+      arrcpy (array_+s,src.array_, src.size_);	
     }
   Array<T> slice (int lower, int upper) const; 
   void reverse ();

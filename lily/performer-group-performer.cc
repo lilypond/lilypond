@@ -25,7 +25,7 @@ ENTER_DESCRIPTION(Performer_group_performer,
 void
 Performer_group_performer::announce_element (Audio_element_info info)
 {
-  announce_info_arr_.push (info);
+  announce_infos_.push (info);
   Performer::announce_element (info);
 }
 
@@ -46,15 +46,15 @@ Performer_group_performer::create_audio_elements ()
 void
 Performer_group_performer::acknowledge_audio_elements ()
 {
-  for (int j =0; j < announce_info_arr_.size (); j++)
+  for (int j =0; j < announce_infos_.size (); j++)
     {
-      Audio_element_info info = announce_info_arr_[j];
+      Audio_element_info info = announce_infos_[j];
 
       for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
 	{
 	  Translator * t = unsmob_translator (ly_car (p));
 	  Performer * eng = dynamic_cast<Performer*> (t);
-	  if (eng && eng!= info.origin_trans_l_)
+	  if (eng && eng!= info.origin_trans_)
 	    eng->acknowledge_audio_element (info);
 	}
     }
@@ -72,20 +72,20 @@ Performer_group_performer::do_announces ()
   
   create_audio_elements ();
     
-  while (announce_info_arr_.size ())
+  while (announce_infos_.size ())
     {
       acknowledge_audio_elements ();
-      announce_info_arr_.clear ();
+      announce_infos_.clear ();
       create_audio_elements ();
     }
 
-  if (announce_info_arr_.size ())
+  if (announce_infos_.size ())
     {
 #if 0  //printf?  -> include <stdio.h>     
       printf ("do_announces: elt: %s\n",
-	      classname (announce_info_arr_[0].elem_l_));
+	      classname (announce_infos_[0].elem_));
 #endif      
-      announce_info_arr_.clear ();
+      announce_infos_.clear ();
     }
 }
 

@@ -15,8 +15,8 @@
 class Lyric_combine_music : public Music
 {
 public:
-  Music * music_l () const;
-  Music * lyrics_l () const;
+  Music * get_music () const;
+  Music * get_lyrics () const;
   
   Lyric_combine_music ();
   Lyric_combine_music (SCM);

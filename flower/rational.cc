@@ -21,7 +21,7 @@ Rational::operator double () const
 ostream &
 operator << (ostream &o, Rational r)
 {
-  o <<  r.str ();
+  o <<  r.string ();
   return o;
 }
 #endif
@@ -275,16 +275,16 @@ Rational::operator -= (Rational r)
 }
 
 String
-Rational::str () const
+Rational::string () const
 {
   if (infty_b ())
     {
       String s (sign_ > 0 ? "" : "-" );
       return String (s + "infinity");
     }
-  String s = to_str (num ());
+  String s = to_string (num ());
   if (den () != 1 && num ())
-    s += "/" + to_str (den ());
+    s += "/" + to_string (den ());
   return s;
 }
 

@@ -16,7 +16,7 @@
 
 class Break_align_engraver : public Engraver
 {
-  Item *align_l_;
+  Item *align_;
   Protected_scm column_alist_;
   void add_to_group (SCM,Item*);
 protected:
@@ -33,7 +33,7 @@ void
 Break_align_engraver::add_column (SCM smob)
 {
   Grob * e = unsmob_grob (smob);
-  Break_align_interface::add_element (align_l_,e);
+  Break_align_interface::add_element (align_,e);
   typeset_grob (e);
 }
 
@@ -66,10 +66,10 @@ Break_align_engraver::stop_translation_timestep ()
   
   column_alist_ = SCM_EOL;
 
-  if (align_l_)
+  if (align_)
     {
-      typeset_grob (align_l_);
-      align_l_ = 0;
+      typeset_grob (align_);
+      align_ = 0;
     }
 }
 
@@ -77,43 +77,43 @@ Break_align_engraver::stop_translation_timestep ()
 Break_align_engraver::Break_align_engraver ()
 {
   column_alist_ = SCM_EOL;
-  align_l_ =0;
+  align_ =0;
 }
 
 void
 Break_align_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Item * item_l = dynamic_cast <Item *> (inf.grob_l_))
+  if (Item * item = dynamic_cast <Item *> (inf.grob_))
     {
-      if (item_l->empty_b (X_AXIS) || item_l->get_parent (X_AXIS))
+      if (item->empty_b (X_AXIS) || item->get_parent (X_AXIS))
 	return;
 
-      SCM bp=item_l->get_grob_property ("breakable");
+      SCM bp=item->get_grob_property ("breakable");
       bool breakable = (to_boolean (bp));
       if (!breakable)
 	return ;
 
-      SCM align_name = item_l->get_grob_property ("break-align-symbol");
+      SCM align_name = item->get_grob_property ("break-align-symbol");
       if (!gh_symbol_p (align_name))
 	return ;
 
-      if (!align_l_)
+      if (!align_)
 	{
-	  align_l_ = new Item (get_property ("BreakAlignment"));
+	  align_ = new Item (get_property ("BreakAlignment"));
 
-	  announce_grob (align_l_, SCM_EOL);
+	  announce_grob (align_, SCM_EOL);
 
 	  Item * edge = new Item (get_property ("LeftEdge"));
 	  add_to_group (edge->get_grob_property ("break-align-symbol"), edge);
 	  announce_grob(edge, SCM_EOL);
 	}
       
-      add_to_group (align_name, item_l);
+      add_to_group (align_name, item);
     }
 }
 
 void
-Break_align_engraver::add_to_group(SCM align_name, Item*item_l)
+Break_align_engraver::add_to_group(SCM align_name, Item*item)
 {
   SCM s = scm_assoc (align_name, column_alist_);
   Item * group = 0;
@@ -128,13 +128,13 @@ Break_align_engraver::add_to_group(SCM align_name, Item*item_l)
       group = new Item (get_property ("BreakAlignGroup"));
 
       group->set_grob_property ("break-align-symbol", align_name);
-      group->set_parent (align_l_, Y_AXIS);
-      announce_grob(group, item_l->self_scm());
+      group->set_parent (align_, Y_AXIS);
+      announce_grob(group, item->self_scm());
 	  
       column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
 
     }
-  Axis_group_interface::add_element (group, item_l);
+  Axis_group_interface::add_element (group, item);
 }
 
 ENTER_DESCRIPTION(Break_align_engraver,

@@ -33,12 +33,12 @@ class Tie_engraver : public Engraver
   Moment end_mom_;
   Moment next_end_mom_;
 
-  Tie_req *req_l_;
+  Tie_req *req_;
   Link_array<Grob> now_heads_;
   Link_array<Grob> stopped_heads_;
-  Link_array<Grob> tie_p_arr_;
+  Link_array<Grob> ties_;
 
-  Spanner * tie_column_p_;
+  Spanner * tie_column_;
   
   void set_melisma (bool);
   
@@ -57,8 +57,8 @@ public:
 
 Tie_engraver::Tie_engraver ()
 {
-  req_l_ = 0;
-  tie_column_p_ = 0;
+  req_ = 0;
+  tie_column_ = 0;
 }
 
 
@@ -70,7 +70,7 @@ Tie_engraver::try_music (Music *m)
       /*      if (end_mom_ > now_mom ())
        return false;
       */
-      req_l_ = c;
+      req_ = c;
       SCM m = get_property ("automaticMelismata");
       bool am = gh_boolean_p (m) &&gh_scm2bool (m);
       if (am)
@@ -85,15 +85,15 @@ Tie_engraver::try_music (Music *m)
 void
 Tie_engraver::set_melisma (bool m)
 {
-  daddy_trans_l_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
+  daddy_trans_->set_property ("tieMelismaBusy", m ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
 Tie_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_head::has_interface (i.grob_l_))
+  if (Note_head::has_interface (i.grob_))
     {
-      now_heads_.push (i.grob_l_);
+      now_heads_.push (i.grob_);
     }
 }
 
@@ -110,7 +110,7 @@ head_pitch_compare (Grob  *const&a,Grob  *const&b)
 void
 Tie_engraver::process_acknowledged_grobs ()
 {
-  if (req_l_)
+  if (req_)
     {
       now_heads_.sort (&head_pitch_compare);
       /*
@@ -159,8 +159,8 @@ Tie_engraver::process_acknowledged_grobs ()
 	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_grob (ly_car (pair))));
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdr (pair))));
 	  
-	  tie_p_arr_.push (p);
-	  announce_grob(p, req_l_->self_scm());
+	  ties_.push (p);
+	  announce_grob(p, req_->self_scm());
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = ly_cdr (s))
 	{
@@ -170,17 +170,17 @@ Tie_engraver::process_acknowledged_grobs ()
 	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_grob (ly_caar (s))));
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
 	  
-	  tie_p_arr_.push (p);
-	  announce_grob(p, req_l_->self_scm());
+	  ties_.push (p);
+	  announce_grob(p, req_->self_scm());
 	}
 
-      if (tie_p_arr_.size () > 1 && !tie_column_p_)
+      if (ties_.size () > 1 && !tie_column_)
 	{
-	  tie_column_p_ = new Spanner (get_property ("TieColumn"));
+	  tie_column_ = new Spanner (get_property ("TieColumn"));
 
-	  for (int i = tie_p_arr_.size (); i--;)
-	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
-	  announce_grob(tie_column_p_, SCM_EOL);
+	  for (int i = ties_.size (); i--;)
+	    Tie_column::add_tie (tie_column_,ties_ [i]);
+	  announce_grob(tie_column_, SCM_EOL);
 	}
     }
 }
@@ -189,7 +189,7 @@ Tie_engraver::process_acknowledged_grobs ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
-  req_l_ = 0;
+  req_ = 0;
 
   now_heads_.clear ();
 
@@ -197,15 +197,15 @@ Tie_engraver::stop_translation_timestep ()
     we don't warn for no ties, since this happens naturally when you
     use skipTypesetting.  */
   
-  for (int i=0; i<  tie_p_arr_.size (); i++)
+  for (int i=0; i<  ties_.size (); i++)
    {
-      typeset_tie (tie_p_arr_[i]);
+      typeset_tie (ties_[i]);
     }
-  tie_p_arr_.clear ();
-  if (tie_column_p_)
+  ties_.clear ();
+  if (tie_column_)
     {
-      typeset_grob (tie_column_p_);
-      tie_column_p_ =0;
+      typeset_grob (tie_column_);
+      tie_column_ =0;
     }
 }
 

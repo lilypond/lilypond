@@ -28,7 +28,7 @@ Arpeggio::brew_molecule (SCM smob)
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * stem =  unsmob_grob (ly_car (s));
-      common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
+      common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
 				 Y_AXIS);
     }
 
@@ -46,7 +46,7 @@ Arpeggio::brew_molecule (SCM smob)
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * stem = unsmob_grob (ly_car (s));
-      Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
+      Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv =Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;
       
@@ -84,7 +84,7 @@ Arpeggio::brew_molecule (SCM smob)
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)
     mol.add_at_edge (Y_AXIS, dir,
-		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_str (dir)), 0.0);
+		     fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir)), 0.0);
   
   return mol.smobbed_copy () ;
 }
@@ -102,7 +102,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * stem =  unsmob_grob (ly_car (s));
-      common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
+      common =  common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
 				 Y_AXIS);
     }
 
@@ -112,13 +112,13 @@ Arpeggio::brew_chord_bracket (SCM smob)
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * stem = unsmob_grob (ly_car (s));
-      Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
+      Grob * ss = Staff_symbol_referencer::get_staff_symbol (stem);
       Interval iv = Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;      
       heads.unite (iv  +  ss->relative_coordinate (common, Y_AXIS)  -  my_y);
     }
 
-  Real lt =  me->paper_l ()->get_var ("linethickness");
+  Real lt =  me->get_paper ()->get_var ("linethickness");
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length() + sp;
   Real x = 0.7;

@@ -98,7 +98,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
   if (!l_neighbor || !r_neighbor)
     return false;
 
-  l_neighbor = l_neighbor->column_l();
+  l_neighbor = l_neighbor->get_column ();
   r_neighbor = dynamic_cast<Item*> (Note_spacing::right_column  (r_neighbor));
 
   if (l == l_neighbor && r == r_neighbor)
@@ -238,7 +238,7 @@ Spacing_spanner::prune_loose_colunms (Grob*me,Link_array<Grob> *cols, Rational s
 	  while (flip (&d) != LEFT);
 
 	  Rod r;
-	  r.distance_f_ = dists[LEFT] + dists[RIGHT];
+	  r.distance_ = dists[LEFT] + dists[RIGHT];
 	  r.item_l_drul_[LEFT] = dynamic_cast<Item*> (cols->elem(i-1));
 	  r.item_l_drul_[RIGHT] = dynamic_cast<Item*> (cols->elem (i+1));
 
@@ -270,7 +270,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	{
 	  Item * wish = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
 
-	  Item * lc = wish->column_l ();
+	  Item * lc = wish->get_column ();
 	  Grob * right = Note_spacing::right_column (wish);
 
 	  if (!right)
@@ -278,8 +278,8 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 
 	  Item * rc = dynamic_cast<Item*> (right);
 
-	  int right_rank = Paper_column::rank_i (rc);
-	  int left_rank = Paper_column::rank_i (lc);	  
+	  int right_rank = Paper_column::get_rank (rc);
+	  int left_rank = Paper_column::get_rank (lc);	  
 
 	  /*
 	    update the left column.
@@ -302,7 +302,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 	      && unsmob_grob (gh_car (left_neighs)))
 	    {
 	      Item * it = dynamic_cast<Item*> (unsmob_grob (gh_car (left_neighs)));
-	      maxrank = Paper_column::rank_i (it->column_l());
+	      maxrank = Paper_column::get_rank (it->get_column ());
 	    }
 
 	  if (left_rank >= maxrank)
@@ -361,7 +361,7 @@ Spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Link_array<Grob> all (me->pscore_l_->system_->column_l_arr ()) ;
+  Link_array<Grob> all (me->pscore_->system_->columns ()) ;
 
   set_explicit_neighbor_columns (all);
 
@@ -376,7 +376,7 @@ Spacing_spanner::set_springs (SCM smob)
       global_shortest = find_shortest (me, all);
       if (verbose_global_b)
 	{
-	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.str())); 
+	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.string ())); 
 	}
     }
   prune_loose_colunms (me, &all, global_shortest);
@@ -569,7 +569,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
 
       Item *wish_rcol = Note_spacing::right_column (wish);
       if (Note_spacing::left_column (wish) != lc
-	  || (wish_rcol != rc && wish_rcol != rc->original_l_))
+	  || (wish_rcol != rc && wish_rcol != rc->original_))
 	continue;
 
       /*
@@ -592,7 +592,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
       max_fixed_note_space =  increment;
     }
 
-  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  bool ragged = to_boolean (me->get_paper ()->get_scmvar ("raggedright"));
 
   /*
     Whatever we do, the fixed space is smaller than the real
@@ -704,7 +704,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 	pointer munging.
 
       */
-      assert (spacing_grob-> column_l () == l);
+      assert (spacing_grob-> get_column () == l);
 
       Staff_spacing::get_spacing_params (spacing_grob,
 					 &space, &fixed_space);  
@@ -749,7 +749,7 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
     works on all architectures.
    */
   
-  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  bool ragged = to_boolean (me->get_paper ()->get_scmvar ("raggedright"));
   Real strength = (ragged) ? 1.0 : 1 / (max_space - max_fixed);
   Real distance = (ragged) ? max_fixed : max_space;
   Spaceable_grob::add_spring (l, r, distance, strength, false);
@@ -818,7 +818,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   
   if (! shortest_playing_len.to_bool ())
     {
-      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).str ());
+      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).string ());
       shortest_playing_len = 1;
     }
 

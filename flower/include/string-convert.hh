@@ -15,36 +15,36 @@
 /** The functor String_convert handles all conversions to/from String
  (some time, anyway).  The class is quite empty from data view.  */
 class String_convert {
-  static int hex2bin_i (String hex_str, String& bin_str_r);
-  static int hex2nibble_i (Byte byte);
+  static int hex2bin (String hex_string, String& bin_string_r);
+  static int hex2nibble (Byte byte);
   static Byte nibble2hex_byte (Byte byte);
 public:
   static String pad_to (String s, int length);
-  static String bool_str (bool b);
-  static String bin2dec_str (String bin_str);
-  static String bin2hex_str (String bin_str);
-  static String dec2bin_str (String str);
-  static int bin2_i (String bin_str);
-  static unsigned bin2_u (String bin_str);
-  static String char_str (char c, int n);
-  static int dec2_i (String dec_str);
-  static double dec2_f (String dec_str);
-  static String double_str (double f, char const* fmt=0);
-  static String form_str (char const* format, ...);
-  static String vform_str (char const* format, va_list args);
-  static int hex2_i (String str);
-  static unsigned hex2_u (String str);
-  static String hex2bin_str (String str);
-  static String int_str (int i, char const *fmt=0 );
-  static String long_str (long);
-  static String i2hex_str (int i, int length_i, char ch);
-  static String u2hex_str (unsigned u, int length_i, char ch);
-  static String i2dec_str (int i, int length_i, char ch);
-  static String rational_str (Rational);
-  static String pointer_str (void const *);
-  static String precision_str (double x, int n);
-  static Array<String> split_arr (String str, char c);
-  static String i64_str (I64, char const * fmt = 0);
+  static String bool_string (bool b);
+  static String bin2dec (String bin_string);
+  static String bin2hex (String bin_string);
+  static String dec2bin (String str);
+  static int bin2int (String bin_string);
+  static unsigned bin2unsigned (String bin_string);
+  static String char_string (char c, int n);
+  static int dec2int (String dec_string);
+  static double dec2double (String dec_string);
+  static String double_string (double f, char const* fmt=0);
+  static String form_string (char const* format, ...);
+  static String vform_string (char const* format, va_list args);
+  static int hex2int (String str);
+  static unsigned hex2unsigned (String str);
+  static String hex2bin (String str);
+  static String int_string (int i, char const *fmt=0 );
+  static String long_string (long);
+  static String int2hex (int i, int length_i, char ch);
+  static String unsigned2hex (unsigned u, int length_i, char ch);
+  static String int2dec (int i, int length_i, char ch);
+  static String rational_string (Rational);
+  static String pointer_string (void const *);
+  static String precision_string (double x, int n);
+  static Array<String> split (String str, char c);
+  static String i64_string (I64, char const * fmt = 0);
 };
 
 #endif // __STRING_CONVERT_HH //

@@ -44,10 +44,10 @@
 static Grob*
 get_x_bound_grob (Grob *g, Direction my_dir)
 {
-  if (Note_column::stem_l (g)
+  if (Note_column::get_stem (g)
       && Note_column::dir (g) == my_dir)
     {
-      g = Note_column::stem_l (g);
+      g = Note_column::get_stem (g);
     }
   return g;
 }
@@ -60,11 +60,11 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   /*
     ugh: code dup. 
   */
-  Grob *s1 = Note_column::stem_l (cols[0]); 
-  Grob *s2 = Note_column::stem_l (cols.top());    
+  Grob *s1 = Note_column::get_stem (cols[0]); 
+  Grob *s2 = Note_column::get_stem (cols.top());    
 
-  Grob*b1 = s1 ? Stem::beam_l (s1) : 0;
-  Grob*b2 = s2 ? Stem::beam_l (s2) : 0;
+  Grob*b1 = s1 ? Stem::get_beam (s1) : 0;
+  Grob*b2 = s2 ? Stem::get_beam (s2) : 0;
   
   Spanner*sp = dynamic_cast<Spanner*> (me);  
 
@@ -100,14 +100,14 @@ Tuplet_bracket::brew_molecule (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
   Molecule  mol;
-  Link_array<Grob> column_arr=
+  Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
-  if (!column_arr.size ())
+  if (!columns.size ())
     return mol.smobbed_copy ();
 
   bool equally_long = false;
-  Grob * par_beam = parallel_beam (me, column_arr, &equally_long);
+  Grob * par_beam = parallel_beam (me, columns, &equally_long);
 
   Spanner*sp = dynamic_cast<Spanner*> (me);  
 
@@ -133,11 +133,11 @@ Tuplet_bracket::brew_molecule (SCM smob)
   else if (numb == ly_symbol2scm ("if-no-beam"))
     number_visibility = !par_beam;
 	
-  Grob * commonx = column_arr[0]->common_refpoint (column_arr.top (),X_AXIS);
+  Grob * commonx = columns[0]->common_refpoint (columns.top (),X_AXIS);
   Direction dir = Directional_element_interface::get (me);
 
-  Grob * lgr = get_x_bound_grob (column_arr[0], dir);
-  Grob * rgr = get_x_bound_grob (column_arr.top(), dir);  
+  Grob * lgr = get_x_bound_grob (columns[0], dir);
+  Grob * rgr = get_x_bound_grob (columns.top(), dir);  
   Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
@@ -162,7 +162,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       
   if (bracket_visibility)      
     {
-      Real  lt =  me->paper_l ()->get_var ("linethickness");
+      Real  lt =  me->get_paper ()->get_var ("linethickness");
   
       SCM thick = me->get_grob_property ("thickness");
       if (gh_number_p (thick))
@@ -256,7 +256,7 @@ Tuplet_bracket::make_bracket (Axis protusion_axis,
 void
 Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy) 
 {
-  Link_array<Grob> column_arr=
+  Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
@@ -270,17 +270,17 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     Use outer non-rest columns to determine slope
    */
   int l = 0;
-  while (l <column_arr.size () && Note_column::rest_b (column_arr[l]))
+  while (l <columns.size () && Note_column::rest_b (columns[l]))
     l ++;
 
-  int r = column_arr.size ()- 1;
-  while (r >= l && Note_column::rest_b (column_arr[r]))
+  int r = columns.size ()- 1;
+  while (r >= l && Note_column::rest_b (columns[r]))
     r--;
   
   if (l < r)
     {
-      *dy = column_arr[r]->extent (commony, Y_AXIS) [dir]
-	- column_arr[l]->extent (commony, Y_AXIS) [dir] ;
+      *dy = columns[r]->extent (commony, Y_AXIS) [dir]
+	- columns[l]->extent (commony, Y_AXIS) [dir] ;
     }
   else
     * dy = 0;
@@ -288,13 +288,13 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
 
   *offset = - dir * infinity_f;
 
-  if (!column_arr.size ())
+  if (!columns.size ())
     return;
 
 
   
-  Grob * lgr = get_x_bound_grob (column_arr[0], dir);
-  Grob * rgr = get_x_bound_grob (column_arr.top(), dir);  
+  Grob * lgr = get_x_bound_grob (columns[0], dir);
+  Grob * rgr = get_x_bound_grob (columns.top(), dir);  
   Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
   Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
 
@@ -302,14 +302,14 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
     /*
       Slope.
     */
-  Real factor = column_arr.size () > 1 ? 1/ (x1 - x0) : 1.0;
+  Real factor = columns.size () > 1 ? 1/ (x1 - x0) : 1.0;
   
-  for (int i = 0; i < column_arr.size ();  i++)
+  for (int i = 0; i < columns.size ();  i++)
     {
-      Real notey = column_arr[i]->extent (commony, Y_AXIS)[dir] 
+      Real notey = columns[i]->extent (commony, Y_AXIS)[dir] 
 	- me->relative_coordinate (commony, Y_AXIS);
 
-      Real x = column_arr[i]->relative_coordinate (commonx, X_AXIS) - x0;
+      Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
       Real tuplety =  *dy * x * factor;
 
       if (notey * dir > (*offset + tuplety) * dir)
@@ -344,15 +344,15 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
 void
 Tuplet_bracket::calc_dy (Grob*me,Real * dy)
 {
-  Link_array<Grob> column_arr=
+  Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
   /*
     ugh. refps.
    */
   Direction d = Directional_element_interface::get (me);
-  *dy = column_arr.top ()->extent (column_arr.top (), Y_AXIS) [d]
-    - column_arr[0]->extent (column_arr[0], Y_AXIS) [d];
+  *dy = columns.top ()->extent (columns.top (), Y_AXIS) [d]
+    - columns[0]->extent (columns[0], Y_AXIS) [d];
 }
 
 
@@ -364,14 +364,14 @@ SCM
 Tuplet_bracket::before_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Grob> column_arr=
+  Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
 
-  for (int i = column_arr.size(); i--;)
+  for (int i = columns.size(); i--;)
     {
-      Grob * s =Note_column::stem_l (column_arr[i]);
-      Grob * b = s ? Stem::beam_l (s): 0;
+      Grob * s =Note_column::get_stem (columns[i]);
+      Grob * b = s ? Stem::get_beam (s): 0;
       if (b)
 	me->add_dependency (b);
     }
@@ -384,10 +384,10 @@ SCM
 Tuplet_bracket::after_line_breaking (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
-  Link_array<Grob> column_arr=
+  Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
-  if (!column_arr.size ())
+  if (!columns.size ())
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
@@ -407,7 +407,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     }
   
   bool equally_long = false;
-  Grob * par_beam = parallel_beam (me, column_arr, &equally_long);
+  Grob * par_beam = parallel_beam (me, columns, &equally_long);
 
   /*
     We follow the beam only if there is one, and we are next to it.

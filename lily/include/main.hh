@@ -36,10 +36,10 @@ extern bool internal_type_checking_global_b;
 
 
 /* misc */
-extern All_font_metrics *all_fonts_global_p;
+extern All_font_metrics *all_fonts_global;
 extern int exit_status_global;
 extern File_path global_path;
 extern int score_count_global;
-extern Sources* source_global_l;
+extern Sources* source_global;
 
 #endif /* MAIN_HH */

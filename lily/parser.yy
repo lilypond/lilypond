@@ -66,7 +66,7 @@ bool
 regular_identifier_b (SCM id)
 {
   String str = ly_scm2string (id);
-  char const *s = str.ch_C() ;
+  char const *s = str.to_str0 () ;
 
   bool v = true;
   while (*s && v)
@@ -120,10 +120,10 @@ set_music_properties (Music *p, SCM a)
 
 #define YYERROR_VERBOSE 1
 
-#define YYPARSE_PARAM my_lily_parser_l
-#define YYLEX_PARAM my_lily_parser_l
+#define YYPARSE_PARAM my_lily_parser
+#define YYLEX_PARAM my_lily_parser
 #define THIS\
-	((My_lily_parser *) my_lily_parser_l)
+	((My_lily_parser *) my_lily_parser)
 
 #define yyerror THIS->parser_error
 #define ARRAY_SIZE(a,s)   if (a.size () != s) THIS->parser_error (_f ("Expecting %d arguments", s))
@@ -155,13 +155,13 @@ of the parse stack onto the heap. */
 %{
 
 int
-yylex (YYSTYPE *s,  void * v_l)
+yylex (YYSTYPE *s,  void * v)
 {
-	My_lily_parser	 *pars_l = (My_lily_parser*) v_l;
-	My_lily_lexer * lex_l = pars_l->lexer_p_;
+	My_lily_parser	 *pars = (My_lily_parser*) v;
+	My_lily_lexer * lex = pars->lexer_;
 
-	lex_l->lexval_l = (void*) s;
-	return lex_l->yylex ();
+	lex->lexval = (void*) s;
+	return lex->yylex ();
 }
 
 
@@ -336,33 +336,33 @@ lilypond:	/* empty */
 	| lilypond toplevel_expression {}
 	| lilypond assignment  { }
 	| lilypond error {
-		THIS->error_level_i_  = 1;
+		THIS->error_level_  = 1;
 	}
 	| lilypond INVALID	{
-		THIS->error_level_i_  = 1;
+		THIS->error_level_  = 1;
 	}
 	;
 
 toplevel_expression:
 	notenames_block			{
-		THIS->lexer_p_->pitchname_tab_ =  $1;
+		THIS->lexer_->pitchname_tab_ =  $1;
 	}
 	| chordmodifiers_block			{
-		THIS->lexer_p_->chordmodifier_tab_  = $1;
+		THIS->lexer_->chordmodifier_tab_  = $1;
 	}
 	| lilypond_header {
-		if (global_header_p)
-			scm_gc_unprotect_object (global_header_p->self_scm ());
-		global_header_p = $1;
+		if (global_header)
+			scm_gc_unprotect_object (global_header->self_scm ());
+		global_header = $1;
 	}
 	| score_block {
-		score_global_array.push ($1);
+		score_globals.push ($1);
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_p_->set_identifier (gh_str02scm ("$defaultpaper"), $1->self_scm ());
+			THIS->lexer_->set_identifier (gh_str02scm ("$defaultpaper"), $1->self_scm ());
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_p_->set_identifier (gh_str02scm ("$defaultmidi"), $1->self_scm ());
+			THIS->lexer_->set_identifier (gh_str02scm ("$defaultmidi"), $1->self_scm ());
 	}
 	| embedded_scm {
 		// junk value
@@ -403,7 +403,7 @@ notenames_body:
 lilypond_header_body:
 	{
 		$$ = new Scheme_hash_table;
-		THIS->lexer_p_-> scope_l_arr_.push ($$);
+		THIS->lexer_-> scopes_.push ($$);
 	}
 	| lilypond_header_body assignment  { 
 
@@ -413,7 +413,7 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
-		THIS->lexer_p_->scope_l_arr_.pop ();
+		THIS->lexer_->scopes_.pop ();
 	}
 	;
 
@@ -437,7 +437,7 @@ assignment:
 			ip.warning (_ ("Identifier should have  alphabetic characters only"));
 		}
 
-	        THIS->lexer_p_->set_identifier ($1, $4);
+	        THIS->lexer_->set_identifier ($1, $4);
 
 /*
  TODO: devise standard for protection in parser.
@@ -558,10 +558,10 @@ score_block:
 	/*cont*/ '{' score_body '}' 	{
 		THIS->pop_spot ();
 		$$ = $4;
-		if (!$$->def_p_arr_.size ())
+		if (!$$->defs_.size ())
 		{
 		  Music_output_def *id =
-			unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
+			unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
 		  $$->add_output (id ? id->clone () :  new Paper_def );
 		}
 	}
@@ -590,7 +590,7 @@ score_body:
 	}
 	| score_body lilypond_header 	{
 		scm_gc_unprotect_object ($2->self_scm ()); 
-		$$->header_p_ = $2;
+		$$->header_ = $2;
 	}
 	| score_body output_def {
 		$$->add_output ($2);
@@ -607,13 +607,13 @@ score_body:
 output_def:
 	music_output_def_body '}' {
 		$$ = $1;
-		THIS-> lexer_p_-> scope_l_arr_.pop ();
+		THIS-> lexer_-> scopes_.pop ();
 	}
 	;
 
 music_output_def_body:
 	MIDI '{'    {
-	   Music_output_def *id = unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultmidi"));
+	   Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultmidi"));
 
 		
 	 Midi_def* p =0;
@@ -623,29 +623,29 @@ music_output_def_body:
 		p = new Midi_def;
 
 	 $$ = p;
-	 THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
+	 THIS->lexer_->scopes_.push (p->variable_tab_);
 	}
 	| PAPER '{' 	{
-		Music_output_def *id = unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
+		Music_output_def *id = unsmob_music_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"));
 		  Paper_def *p = 0;
 		if (id)
 			p = dynamic_cast<Paper_def*> (id->clone ());
 		else
 			p = new Paper_def;
-		THIS-> lexer_p_-> scope_l_arr_.push (p->variable_tab_);
+		THIS-> lexer_-> scopes_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
-		THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
+		THIS->lexer_->scopes_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
 
-		THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
+		THIS->lexer_->scopes_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| music_output_def_body assignment  {
@@ -854,8 +854,8 @@ Composite_music:
 		Sequential_music_iterator in combination with grace notes.
 	*/
 
-		SCM start = THIS->lexer_p_->lookup_identifier ("startGraceMusic");
-		SCM stop = THIS->lexer_p_->lookup_identifier ("stopGraceMusic");
+		SCM start = THIS->lexer_->lookup_identifier ("startGraceMusic");
+		SCM stop = THIS->lexer_->lookup_identifier ("stopGraceMusic");
 		Music *startm = unsmob_music (start);
 		Music *stopm = unsmob_music (stop);
 
@@ -947,13 +947,13 @@ Composite_music:
 		$$ = m;
 	}
 	| NOTES
-		{ THIS->lexer_p_->push_note_state (); }
+		{ THIS->lexer_->push_note_state (); }
 	Music
 		{ $$ = $3;
-		  THIS->lexer_p_->pop_state ();
+		  THIS->lexer_->pop_state ();
 		}
 	| FIGURES
-		{ THIS->lexer_p_->push_figuredbass_state (); }
+		{ THIS->lexer_->push_figuredbass_state (); }
 	Music
 		{
 		  Music * chm = new Untransposable_music () ;
@@ -961,10 +961,10 @@ Composite_music:
 		  $$ = chm;
 		  scm_gc_unprotect_object ($3->self_scm());
 
-		  THIS->lexer_p_->pop_state ();
+		  THIS->lexer_->pop_state ();
 	}
 	| CHORDS
-		{ THIS->lexer_p_->push_chord_state (); }
+		{ THIS->lexer_->push_chord_state (); }
 	Music
 		{
 		  Music * chm = new Un_relativable_music ;
@@ -972,14 +972,14 @@ Composite_music:
 		  scm_gc_unprotect_object ($3->self_scm());
 		  $$ = chm;
 
-		  THIS->lexer_p_->pop_state ();
+		  THIS->lexer_->pop_state ();
 	}
 	| LYRICS
-		{ THIS->lexer_p_->push_lyric_state (); }
+		{ THIS->lexer_->push_lyric_state (); }
 	Music
 		{
 		  $$ = $3;
-		  THIS->lexer_p_->pop_state ();
+		  THIS->lexer_->pop_state ();
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; } 
@@ -1308,11 +1308,11 @@ shorthand_command_req:
 
 verbose_command_req:
 	COMMANDSPANREQUEST bare_int STRING { /*TODO: junkme */
-		Span_req * sp_p = new Span_req;
-		sp_p-> set_span_dir ( Direction ($2));
-		sp_p->set_mus_property ("span-type",$3);
-		sp_p->set_spot (THIS->here_input ());
-		$$ = sp_p;
+		Span_req * sp = new Span_req;
+		sp-> set_span_dir ( Direction ($2));
+		sp->set_mus_property ("span-type",$3);
+		sp->set_spot (THIS->here_input ());
+		$$ = sp;
 	}
 	| MARK DEFAULT  {
 		Mark_req * m = new Mark_req;
@@ -1334,24 +1334,24 @@ verbose_command_req:
 		$$ = b;
 	}
 	| SKIP duration_length {
-		Skip_req * skip_p = new Skip_req;
-		skip_p->set_mus_property ("duration", $2);
+		Skip_req * skip = new Skip_req;
+		skip->set_mus_property ("duration", $2);
 
-		$$ = skip_p;
+		$$ = skip;
 	}
 	| tempo_request {
 		$$ = $1;
 	}
 	| KEY DEFAULT {
-		Key_change_req *key_p= new Key_change_req;
-		$$ = key_p;
+		Key_change_req *key= new Key_change_req;
+		$$ = key;
 	}
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
-		Key_change_req *key_p= new Key_change_req;
+		Key_change_req *key= new Key_change_req;
 		
-		key_p->set_mus_property ("pitch-alist", $3);
- 		((Music*)key_p)->transpose (* unsmob_pitch ($2));
-		$$ = key_p; 
+		key->set_mus_property ("pitch-alist", $3);
+ 		((Music*)key)->transpose (* unsmob_pitch ($2));
+		$$ = key; 
 	}
 	;
 
@@ -1376,7 +1376,7 @@ request_that_take_dir:
 	gen_text_def
 	| verbose_request
 	| script_abbreviation {
-		SCM s = THIS->lexer_p_->lookup_identifier ("dash" + ly_scm2string ($1));
+		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Articulation_req *a = new Articulation_req;
 		if (gh_string_p (s))
 			a->set_mus_property ("articulation-type", s);
@@ -1412,11 +1412,11 @@ verbose_request:
 		$$ = d;
 	}
 	| SPANREQUEST bare_int STRING {
-		Span_req * sp_p = new Span_req;
-		sp_p->set_span_dir ( Direction ($2));
-		sp_p->set_mus_property ("span-type", $3);
-		sp_p->set_spot (THIS->here_input ());
-		$$ = sp_p;
+		Span_req * sp = new Span_req;
+		sp->set_span_dir ( Direction ($2));
+		sp->set_mus_property ("span-type", $3);
+		sp->set_spot (THIS->here_input ());
+		$$ = sp;
 	}
 	| tremolo_type  {
                Tremolo_req* a = new Tremolo_req;
@@ -1469,13 +1469,13 @@ steno_pitch:
 	}
 	| NOTENAME_PITCH sup_quotes 	{
 		Pitch p = *unsmob_pitch ($1);
-		p.octave_i_ +=  $2;
+		p.octave_ +=  $2;
 		$$ = p.smobbed_copy ();
 	}
 	| NOTENAME_PITCH sub_quotes	 {
 		Pitch p =* unsmob_pitch ($1);
 
-		p.octave_i_ +=  -$2;
+		p.octave_ +=  -$2;
 		$$ = p.smobbed_copy ();
 
 	}
@@ -1491,13 +1491,13 @@ steno_tonic_pitch:
 	}
 	| TONICNAME_PITCH sup_quotes 	{
 		Pitch p = *unsmob_pitch ($1);
-		p.octave_i_ +=  $2;
+		p.octave_ +=  $2;
 		$$ = p.smobbed_copy ();
 	}
 	| TONICNAME_PITCH sub_quotes	 {
 		Pitch p =* unsmob_pitch ($1);
 
-		p.octave_i_ +=  -$2;
+		p.octave_ +=  -$2;
 		$$ = p.smobbed_copy ();
 
 	}
@@ -1535,7 +1535,7 @@ verbose_duration:
 
 extender_req:
 	EXTENDER {
-		if (!THIS->lexer_p_->lyric_state_b ())
+		if (!THIS->lexer_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 		$$ = new Extender_req;
 	}
@@ -1543,7 +1543,7 @@ extender_req:
 
 hyphen_req:
 	HYPHEN {
-		if (!THIS->lexer_p_->lyric_state_b ())
+		if (!THIS->lexer_->lyric_state_b ())
 			THIS->parser_error (_ ("Have to be in Lyric mode for lyrics"));
 		$$ = new Hyphen_req;
 	}
@@ -1628,10 +1628,10 @@ gen_text_def:
 		$$ = t;
 	}
 	| DIGIT {
-		String ds = to_str ($1);
+		String ds = to_string ($1);
 		Text_script_req* t = new Text_script_req;
 		SCM finger = ly_symbol2scm ("finger");
-		t->set_mus_property ("text",  ly_str02scm (ds.ch_C ()));
+		t->set_mus_property ("text",  ly_str02scm (ds.to_str0 ()));
 		t->set_mus_property ("text-type" , finger);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
@@ -1800,7 +1800,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter =m->get_mus_property ("alteration");
-			int alter = gh_number_p( salter) ? gh_scm2int (salter) : 0;
+			int alter = gh_number_p ( salter) ? gh_scm2int (salter) : 0;
 			m->set_mus_property ("alteration",
 				gh_int2scm (alter + $2));
 		} else {
@@ -1851,7 +1851,7 @@ simple_element:
 	pitch exclamations questions optional_notemode_duration optional_rest {
 
 		Input i = THIS->pop_spot ();
-		if (!THIS->lexer_p_->note_state_b ())
+		if (!THIS->lexer_->note_state_b ())
 			THIS->parser_error (_ ("Have to be in Note mode for notes"));
 
 		Music *n = 0;
@@ -1893,22 +1893,22 @@ simple_element:
  		SCM e = SCM_UNDEFINED;
  		if (ly_scm2string ($1) =="s") {
 			/* Space */
-			Skip_req * skip_p = new Skip_req;
-			skip_p->set_mus_property ("duration" ,$2);
-			skip_p->set_spot (i);
-			e = skip_p->self_scm ();
+			Skip_req * skip = new Skip_req;
+			skip->set_mus_property ("duration" ,$2);
+			skip->set_spot (i);
+			e = skip->self_scm ();
 		  }
 		  else {
- 			Rest_req * rest_req_p = new Rest_req;
-		      	rest_req_p->set_mus_property ("duration", $2);
-		      	rest_req_p->set_spot (i);
-			e = rest_req_p->self_scm ();
+ 			Rest_req * rest_req = new Rest_req;
+		      	rest_req->set_mus_property ("duration", $2);
+		      	rest_req->set_spot (i);
+			e = rest_req->self_scm ();
 		    }
- 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p-> set_mus_property ("elements", scm_list_n (e,SCM_UNDEFINED));
-		velt_p->set_spot (i);
+ 		Simultaneous_music* velt = new Request_chord (SCM_EOL);
+		velt-> set_mus_property ("elements", scm_list_n (e,SCM_UNDEFINED));
+		velt->set_spot (i);
 
- 		$$ = velt_p;
+ 		$$ = velt;
 	}
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		Input i = THIS->pop_spot ();
@@ -1938,19 +1938,19 @@ simple_element:
 	| STRING optional_notemode_duration 	{
 		Input i = THIS->pop_spot ();
 
-		Lyric_req* lreq_p = new Lyric_req;
-                lreq_p->set_mus_property ("text", $1);
-		lreq_p->set_mus_property ("duration",$2);
-		lreq_p->set_spot (i);
-		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p->set_mus_property ("elements", scm_list_n (lreq_p->self_scm (), SCM_UNDEFINED));
+		Lyric_req* lreq = new Lyric_req;
+                lreq->set_mus_property ("text", $1);
+		lreq->set_mus_property ("duration",$2);
+		lreq->set_spot (i);
+		Simultaneous_music* velt = new Request_chord (SCM_EOL);
+		velt->set_mus_property ("elements", scm_list_n (lreq->self_scm (), SCM_UNDEFINED));
 
-		$$= velt_p;
+		$$= velt;
 	}
 	| chord {
 		Input i = THIS->pop_spot ();
 
-		if (!THIS->lexer_p_->chord_state_b ())
+		if (!THIS->lexer_->chord_state_b ())
 			THIS->parser_error (_ ("Have to be in Chord mode for chords"));
 		$$ = $1;
 	}
@@ -2025,26 +2025,26 @@ chord_step:
 chord_note:
 	bare_unsigned {
 		 Pitch m;
-		m.notename_i_ = ($1 - 1) % 7;
-		m.octave_i_ = $1 > 7 ? 1 : 0;
-		m.alteration_i_ = 0;
+		m.notename_ = ($1 - 1) % 7;
+		m.octave_ = $1 > 7 ? 1 : 0;
+		m.alteration_ = 0;
 
 		$$ = m.smobbed_copy ();
         } 
 	| bare_unsigned '+' {
 		Pitch m;
-		m.notename_i_ = ($1 - 1) % 7;
-		m.octave_i_ = $1 > 7 ? 1 : 0;
-		m.alteration_i_ = 1;
+		m.notename_ = ($1 - 1) % 7;
+		m.octave_ = $1 > 7 ? 1 : 0;
+		m.alteration_ = 1;
 
 
 		$$ = m.smobbed_copy ();
 	}
 	| bare_unsigned CHORD_MINUS {
 		Pitch m;
-		m.notename_i_ = ($1 - 1) % 7;
-		m.octave_i_ = $1 > 7 ? 1 : 0;
-		m.alteration_i_ = -1;
+		m.notename_ = ($1 - 1) % 7;
+		m.octave_ = $1 > 7 ? 1 : 0;
+		m.alteration_ = -1;
 
 		$$ = m.smobbed_copy ();
 	}

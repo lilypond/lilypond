@@ -29,10 +29,10 @@
 Score_engraver::Score_engraver ()
 {
   system_ =0;
-  command_column_l_ =0;
-  musical_column_l_ =0;
-  breaks_i_ =0;
-  pscore_p_ = 0;
+  command_column_ =0;
+  musical_column_ =0;
+  breaks_ =0;
+  pscore_ = 0;
 }
 
 void
@@ -41,19 +41,19 @@ Score_engraver::make_columns ()
   /*
     ugh.
    */
-  if (!command_column_l_)
+  if (!command_column_)
     {
       set_columns (new Paper_column (get_property ("NonMusicalPaperColumn")),
 		   new Paper_column (get_property ("PaperColumn")));
   
-      command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
+      command_column_->set_grob_property ("breakable", SCM_BOOL_T);
 
 
-      Grob_info i1 (command_column_l_);
-      i1.origin_trans_l_ = this;
+      Grob_info i1 (command_column_);
+      i1.origin_trans_ = this;
   
-      Grob_info i2 (musical_column_l_);
-      i2.origin_trans_l_ = this;
+      Grob_info i2 (musical_column_);
+      i2.origin_trans_ = this;
 
   
       announce_grob (i1);
@@ -73,8 +73,8 @@ Score_engraver::prepare (Moment w)
    */
   make_columns ();
   
-  command_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
-  musical_column_l_->set_grob_property ("when", now_mom_.smobbed_copy ());
+  command_column_->set_grob_property ("when", now_mom_.smobbed_copy ());
+  musical_column_->set_grob_property ("when", now_mom_.smobbed_copy ());
 
   
   Translator_group::start_translation_timestep();
@@ -83,8 +83,8 @@ Score_engraver::prepare (Moment w)
 void
 Score_engraver::finish ()
 {
-  if ((breaks_i_%8))
-    progress_indication ("[" + to_str (breaks_i_) + "]");
+  if ((breaks_%8))
+    progress_indication ("[" + to_string (breaks_) + "]");
    
   check_removal ();
   removal_processing ();
@@ -98,25 +98,25 @@ void
 Score_engraver::initialize ()
 {
   Font_metric *fm =
-    all_fonts_global_p->find_afm("feta20");
+    all_fonts_global->find_afm("feta20");
   if (!fm)
     error (_("Could not find feta20.afm. Fonts have not been installed properly; Aborting"));
    
   unsmob_translator_def (definition_)->apply_property_operations (this);
 
-  assert (dynamic_cast<Paper_def *> (output_def_l_));
-  assert (!daddy_trans_l_);
-  pscore_p_ = new Paper_score;
-  pscore_p_->paper_l_ = dynamic_cast<Paper_def*> (output_def_l_);
+  assert (dynamic_cast<Paper_def *> (output_def_));
+  assert (!daddy_trans_);
+  pscore_ = new Paper_score;
+  pscore_->paper_ = dynamic_cast<Paper_def*> (output_def_);
 
   SCM props = get_property ("System");
 
-  pscore_p_->typeset_line (new System (props));
+  pscore_->typeset_line (new System (props));
   
   make_columns ();
-  system_ = pscore_p_->system_;
-  system_->set_bound (LEFT, command_column_l_);
-  command_column_l_->set_grob_property ("breakable", SCM_BOOL_T);
+  system_ = pscore_->system_;
+  system_->set_bound (LEFT, command_column_);
+  command_column_->set_grob_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::initialize ();
 }
@@ -148,9 +148,9 @@ Score_engraver::one_time_step ()
   check_removal ();
 
 
-  for (int i = announce_info_arr_.size(); i--;)
+  for (int i = announce_infos_.size(); i--;)
     {
-      Grob *g = announce_info_arr_[i].grob_l_;
+      Grob *g = announce_infos_[i].grob_;
       if (!dynamic_cast<Paper_column*> (g)) // ugh.
 	{
       
@@ -160,34 +160,34 @@ Score_engraver::one_time_step ()
 	  g->programming_error (msg);
 	}
     }
-  announce_info_arr_.clear ();
+  announce_infos_.clear ();
 }
 
 void
 Score_engraver::announce_grob (Grob_info info)
 {
-  announce_info_arr_.push (info);
-  pscore_p_->system_->typeset_grob (info.grob_l_);
+  announce_infos_.push (info);
+  pscore_->system_->typeset_grob (info.grob_);
 }
 
 void
-Score_engraver::typeset_grob (Grob *elem_p)
+Score_engraver::typeset_grob (Grob *elem)
 {
-  if (!elem_p)
+  if (!elem)
     programming_error ("Score_engraver: empty elt\n");
   else
 
-    elem_p_arr_.push (elem_p);
+    elems_.push (elem);
 }
 
 void
 Score_engraver::typeset_all ()
 {
-  for (int i =0; i < elem_p_arr_.size (); i++) 
+  for (int i =0; i < elems_.size (); i++) 
     {
-      Grob * elem_p = elem_p_arr_[i];
+      Grob * elem = elems_[i];
       
-      if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
+      if (Spanner *s = dynamic_cast <Spanner *> (elem))
 	{
 	  /*
 	    do something sensible if spanner not 
@@ -197,14 +197,14 @@ Score_engraver::typeset_all ()
 	  do {
 	    if (!s->get_bound (d))
 	      {
-		s->set_bound (d, command_column_l_);
+		s->set_bound (d, command_column_);
 		/* don't warn for empty/suicided spanners,
 		   it makes real warningsinvisible.
 		   maybe should be junked earlier? */
-		if (!elem_p->live())
+		if (!elem->live())
 		  ; // gdb hook
 		else
-		  elem_p->warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
+		  elem->warning (_f ("unbound spanner `%s'", s->name ().to_str0 ()));
 	      }
 	  }
 	  while (flip (&d) != LEFT);
@@ -214,17 +214,17 @@ Score_engraver::typeset_all ()
 	}
       else 
 	{
-	  if (!elem_p->get_parent (X_AXIS))
+	  if (!elem->get_parent (X_AXIS))
 	    {
-	      bool br = to_boolean (elem_p->get_grob_property ("breakable"));
-	      Axis_group_interface::add_element (br ? command_column_l_ : musical_column_l_, elem_p);
+	      bool br = to_boolean (elem->get_grob_property ("breakable"));
+	      Axis_group_interface::add_element (br ? command_column_ : musical_column_, elem);
 
 	    }
 	}
-      if (!elem_p->get_parent (Y_AXIS))
-	Axis_group_interface::add_element (system_, elem_p);
+      if (!elem->get_parent (Y_AXIS))
+	Axis_group_interface::add_element (system_, elem);
     }
-  elem_p_arr_.clear ();
+  elems_.clear ();
 }
 
 void
@@ -234,45 +234,45 @@ Score_engraver::stop_translation_timestep ()
   Engraver_group_engraver::stop_translation_timestep ();
   
   typeset_all ();
-  if (to_boolean (command_column_l_->get_grob_property ("breakable")))
+  if (to_boolean (command_column_->get_grob_property ("breakable")))
     {
-      breaks_i_ ++;
-      if (! (breaks_i_%8))
-	progress_indication ("[" + to_str (breaks_i_) + "]");
+      breaks_ ++;
+      if (! (breaks_%8))
+	progress_indication ("[" + to_string (breaks_) + "]");
     }
 
 
-  system_->add_column (command_column_l_);
-  system_->add_column (musical_column_l_);
+  system_->add_column (command_column_);
+  system_->add_column (musical_column_);
   
-  command_column_l_ = 0;
-  musical_column_l_ = 0;
+  command_column_ = 0;
+  musical_column_ = 0;
 }
 
 void
-Score_engraver::set_columns (Paper_column *new_command_l, 
-			     Paper_column *new_musical_l)
+Score_engraver::set_columns (Paper_column *new_command, 
+			     Paper_column *new_musical)
 {
-  assert (!command_column_l_ && !musical_column_l_);
+  assert (!command_column_ && !musical_column_);
 
-  command_column_l_ = new_command_l;
-  musical_column_l_ = new_musical_l;
-  if (new_command_l)
+  command_column_ = new_command;
+  musical_column_ = new_musical;
+  if (new_command)
     {
-      set_property ("currentCommandColumn", new_command_l->self_scm ());  
+      set_property ("currentCommandColumn", new_command->self_scm ());  
     }
   
-  if (new_musical_l)
+  if (new_musical)
     {
-      set_property ("currentMusicalColumn", new_musical_l->self_scm ());
+      set_property ("currentMusicalColumn", new_musical->self_scm ());
     }
 }
 
 Music_output*
-Score_engraver::get_output_p ()
+Score_engraver::get_output ()
 {
-  Music_output * o = pscore_p_;
-  pscore_p_=0;
+  Music_output * o = pscore_;
+  pscore_=0;
   return o;
 }
 
@@ -288,7 +288,7 @@ Score_engraver::try_music (Music*r)
 	  gotcha = true;
 
 
-	  SCM pen = command_column_l_->get_grob_property ("penalty");
+	  SCM pen = command_column_->get_grob_property ("penalty");
 	  Real total_penalty = gh_number_p (pen)
 	    ? gh_scm2double (pen)
 	    : 0.0;
@@ -300,7 +300,7 @@ Score_engraver::try_music (Music*r)
 	  if (total_penalty > 10000.0) //  ugh. arbitrary.
 	    forbid_breaks ();
 
-	  command_column_l_->set_grob_property ("penalty",
+	  command_column_->set_grob_property ("penalty",
 					       gh_double2scm (total_penalty));
 	}
     }
@@ -316,24 +316,24 @@ Score_engraver::forbid_breaks ()
   /*
     result is junked.
    */
-  if (command_column_l_)
-    command_column_l_->remove_grob_property ("breakable");
+  if (command_column_)
+    command_column_->remove_grob_property ("breakable");
 }
   
 void
 Score_engraver::acknowledge_grob (Grob_info gi)
 {
-  if (Staff_spacing::has_interface (gi.grob_l_))
+  if (Staff_spacing::has_interface (gi.grob_))
     {
-      Pointer_group_interface::add_grob (command_column_l_,
+      Pointer_group_interface::add_grob (command_column_,
 					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob_l_);
+					 gi.grob_);
     }
-  if (Note_spacing::has_interface (gi.grob_l_))
+  if (Note_spacing::has_interface (gi.grob_))
     {
-      Pointer_group_interface::add_grob (musical_column_l_,
+      Pointer_group_interface::add_grob (musical_column_,
 					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob_l_);
+					 gi.grob_);
     }
 }
 

@@ -31,8 +31,8 @@ protected:
 
 private:
   bool get_busy_status ()const ;
-  Music_iterator * music_iter_p_;
-  Music_iterator * lyric_iter_p_;
+  Music_iterator * music_iter_;
+  Music_iterator * lyric_iter_;
 };
 #endif /* LYRIC_COMBINE_MUSIC_ITERATOR_HH */
 

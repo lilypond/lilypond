@@ -13,8 +13,8 @@
 
 Spring_smob::Spring_smob()
 {
-  distance_f_ =0.;
-  strength_f_ =1.0;
+  distance_ =0.;
+  strength_ =1.0;
   expand_only_b_ = false;
   other_ = 0;
 }
@@ -29,7 +29,7 @@ int
 Spring_smob::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Spring_smob *ss = unsmob_spring (s);
-  scm_puts (_f("#<spring smob d= %f>", ss->distance_f_).ch_C(), p);
+  scm_puts (_f("#<spring smob d= %f>", ss->distance_).to_str0 (), p);
   return 1;
 }
 

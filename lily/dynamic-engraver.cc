@@ -39,11 +39,11 @@
  */
 class Dynamic_engraver : public Engraver
 {
-  Item * script_p_;
-  Spanner * finished_cresc_p_;
-  Spanner * cresc_p_;
+  Item * script_;
+  Spanner * finished_cresc_;
+  Spanner * cresc_;
 
-  Text_script_req* script_req_l_;
+  Text_script_req* script_req_;
   
   Span_req * current_cresc_req_;
   Drul_array<Span_req*> accepted_spanreqs_drul_;
@@ -51,8 +51,8 @@ class Dynamic_engraver : public Engraver
   Spanner* line_spanner_;
   Spanner* finished_line_spanner_;
 
-  Link_array<Note_column> pending_column_arr_;
-  Link_array<Grob> pending_element_arr_;
+  Link_array<Note_column> pending_columns_;
+  Link_array<Grob> pending_elements_;
   
   void typeset_all ();
 
@@ -61,7 +61,7 @@ TRANSLATOR_DECLARATIONS(Dynamic_engraver );
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info);
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void process_music ();  
   virtual void start_translation_timestep ();
@@ -72,14 +72,14 @@ protected:
 
 Dynamic_engraver::Dynamic_engraver ()
 {
-  script_p_ = 0;
-  finished_cresc_p_ = 0;
+  script_ = 0;
+  finished_cresc_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
   current_cresc_req_ = 0;
-  cresc_p_ =0;
+  cresc_ =0;
 
-  script_req_l_ = 0;
+  script_req_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -87,7 +87,7 @@ Dynamic_engraver::Dynamic_engraver ()
 void
 Dynamic_engraver::start_translation_timestep ()
 {
-  script_req_l_ = 0;
+  script_req_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
 }
@@ -98,7 +98,7 @@ Dynamic_engraver::try_music (Music * m)
   if (dynamic_cast <Text_script_req*> (m)
       && m->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
     {
-      script_req_l_ = dynamic_cast<Text_script_req*> (m);
+      script_req_ = dynamic_cast<Text_script_req*> (m);
       return true;
     }
   else if (Span_req* s =  dynamic_cast <Span_req*> (m))
@@ -115,9 +115,9 @@ Dynamic_engraver::try_music (Music * m)
 	    It will disappear by itself when stop_translation_timestep
  () finds that there is nothing to support anymore.  */
 	  
-	  if (cresc_p_)
-	    cresc_p_->suicide ();
-	  cresc_p_ = 0;
+	  if (cresc_)
+	    cresc_->suicide ();
+	  cresc_ = 0;
 	}
       else if (t == "crescendo"
 	   || t == "decrescendo")
@@ -132,15 +132,15 @@ Dynamic_engraver::try_music (Music * m)
 void
 Dynamic_engraver::process_music ()
 {
-  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
+  if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_)
     {
       if (!line_spanner_)
 	{
 	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
 
 	  Music * rq = accepted_spanreqs_drul_[START];
-	  if (script_req_l_)
-	    rq =  script_req_l_ ;
+	  if (script_req_)
+	    rq =  script_req_ ;
 	  announce_grob(line_spanner_, rq ? rq->self_scm(): SCM_EOL);
 	}
     }
@@ -160,18 +160,18 @@ Dynamic_engraver::process_music ()
     maybe we should leave dynamic texts to the text-engraver and
     simply acknowledge them?
   */
-  if (script_req_l_)
+  if (script_req_)
     {
-      script_p_ = new Item (get_property ("DynamicText"));
-      script_p_->set_grob_property ("text",
-				   script_req_l_->get_mus_property ("text"));
+      script_ = new Item (get_property ("DynamicText"));
+      script_->set_grob_property ("text",
+				   script_req_->get_mus_property ("text"));
       
-      if (Direction d = script_req_l_->get_direction ())
+      if (Direction d = script_req_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
-      Axis_group_interface::add_element (line_spanner_, script_p_);
+      Axis_group_interface::add_element (line_spanner_, script_);
 
-      announce_grob(script_p_, script_req_l_->self_scm());
+      announce_grob(script_, script_req_->self_scm());
     }
 
   if (accepted_spanreqs_drul_[STOP])
@@ -181,7 +181,7 @@ Dynamic_engraver::process_music ()
 	there are no new dynamics.
        */
  
-      if (!cresc_p_)
+      if (!cresc_)
 	{
 	  accepted_spanreqs_drul_[STOP]->origin ()->warning
  (_ ("can't find start of (de)crescendo"));
@@ -189,16 +189,16 @@ Dynamic_engraver::process_music ()
 	}
       else
 	{
-	  assert (!finished_cresc_p_ && cresc_p_);
+	  assert (!finished_cresc_ && cresc_);
 
-	  cresc_p_->set_bound (RIGHT, script_p_
-			       ? script_p_
+	  cresc_->set_bound (RIGHT, script_
+			       ? script_
 			       : unsmob_grob (get_property ("currentMusicalColumn")));
-	  add_bound_item (line_spanner_, cresc_p_->get_bound (RIGHT));
+	  add_bound_item (line_spanner_, cresc_->get_bound (RIGHT));
 	  
 
-	  finished_cresc_p_ = cresc_p_;
-	  cresc_p_ = 0;
+	  finished_cresc_ = cresc_;
+	  cresc_ = 0;
 	  current_cresc_req_ = 0;
 	}
     }
@@ -227,11 +227,11 @@ Dynamic_engraver::process_music ()
 	  /*
 	    ugh. Use push/pop?
 	  */
-	  SCM s = get_property ((start_type + "Spanner").ch_C ());
+	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!gh_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_p_  = new Spanner (get_property ("Hairpin"));
-	      cresc_p_->set_grob_property ("grow-direction",
+	      cresc_  = new Spanner (get_property ("Hairpin"));
+	      cresc_->set_grob_property ("grow-direction",
 					   gh_int2scm ((start_type == "crescendo")
 						       ? BIGGER : SMALLER));
 	      
@@ -243,32 +243,32 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
-	      cresc_p_->set_grob_property ("type", s);
-	      daddy_trans_l_->set_property ((start_type
-					    + "Spanner").ch_C(), SCM_UNDEFINED);
-	      s = get_property ((start_type + "Text").ch_C ());
+	      cresc_  = new Spanner (get_property ("TextSpanner"));
+	      cresc_->set_grob_property ("type", s);
+	      daddy_trans_->set_property ((start_type
+					    + "Spanner").to_str0 (), SCM_UNDEFINED);
+	      s = get_property ((start_type + "Text").to_str0 ());
 	      /*
-		FIXME: use markup_p () to check type.
+		FIXME: use get_markup () to check type.
 	      */
 	      if (gh_string_p (s) || gh_pair_p (s))
 		{
-		  cresc_p_->set_grob_property ("edge-text",
+		  cresc_->set_grob_property ("edge-text",
 					       gh_cons (s, ly_str02scm ("")));
-		  daddy_trans_l_->set_property ((start_type + "Text").ch_C(),
+		  daddy_trans_->set_property ((start_type + "Text").to_str0 (),
 						SCM_EOL);
 		}
 	    }
 
-	  cresc_p_->set_bound (LEFT, script_p_
-			       ? script_p_
+	  cresc_->set_bound (LEFT, script_
+			       ? script_
 			       : unsmob_grob (get_property ("currentMusicalColumn")));
 
-	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
+	  Axis_group_interface::add_element (line_spanner_, cresc_);
 
-	  add_bound_item (line_spanner_, cresc_p_->get_bound (LEFT));
+	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	  
-	  announce_grob(cresc_p_, accepted_spanreqs_drul_[START]->self_scm());
+	  announce_grob(cresc_, accepted_spanreqs_drul_[START]->self_scm());
 	}
     }
 }
@@ -299,14 +299,14 @@ Dynamic_engraver::finalize ()
       typeset_all ();
     }
 
-  if (cresc_p_
-      && !cresc_p_->live())
-    cresc_p_ = 0;
-  if (cresc_p_)
+  if (cresc_
+      && !cresc_->live())
+    cresc_ = 0;
+  if (cresc_)
     {
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
-      cresc_p_->suicide ();
-      cresc_p_ = 0;
+      cresc_->suicide ();
+      cresc_ = 0;
     }
 }
 
@@ -319,33 +319,33 @@ Dynamic_engraver::typeset_all ()
     Hmm, how to do this, cleanly?
     Maybe just check at typeset_grob ()?
   */
-  if (finished_cresc_p_
-      && !finished_cresc_p_->live())
-    finished_cresc_p_ = 0;
+  if (finished_cresc_
+      && !finished_cresc_->live())
+    finished_cresc_ = 0;
   if (finished_line_spanner_
       && !finished_line_spanner_->live())
     finished_line_spanner_ = 0;
 
-  if (finished_cresc_p_)
+  if (finished_cresc_)
     {
-      if (!finished_cresc_p_->get_bound (RIGHT))
+      if (!finished_cresc_->get_bound (RIGHT))
 	{
-	  finished_cresc_p_->set_bound (RIGHT, script_p_
-					? script_p_
+	  finished_cresc_->set_bound (RIGHT, script_
+					? script_
 					: unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  if (finished_line_spanner_)
 	    add_bound_item (finished_line_spanner_,
-			    finished_cresc_p_->get_bound (RIGHT));
+			    finished_cresc_->get_bound (RIGHT));
 	}
-      typeset_grob (finished_cresc_p_);
-      finished_cresc_p_ =0;
+      typeset_grob (finished_cresc_);
+      finished_cresc_ =0;
     }
   
-  if (script_p_)
+  if (script_)
     {
-      typeset_grob (script_p_);
-      script_p_ = 0;
+      typeset_grob (script_);
+      script_ = 0;
     }
   if (finished_line_spanner_)
     {
@@ -392,30 +392,30 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
   if (!line_spanner_)
     return ;
   
-  if (Note_column::has_interface (i.grob_l_))
+  if (Note_column::has_interface (i.grob_))
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
 	  && line_spanner_->live())
 	{
-	  Side_position_interface::add_support (line_spanner_,i.grob_l_);
-	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_l_));
+	  Side_position_interface::add_support (line_spanner_,i.grob_);
+	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_));
 	}
 
-      if (script_p_ && !script_p_->get_parent (X_AXIS))
+      if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  script_p_->set_parent (i.grob_l_,  X_AXIS);
+	  script_->set_parent (i.grob_,  X_AXIS);
 	}
       
     }
-  else if (Script_interface::has_interface (i.grob_l_) && script_p_)
+  else if (Script_interface::has_interface (i.grob_) && script_)
     {
-      SCM p = i.grob_l_->get_grob_property ("script-priority");
+      SCM p = i.grob_->get_grob_property ("script-priority");
 
       if (gh_number_p (p)
-	  && gh_scm2int (p) < gh_scm2int (script_p_->get_grob_property ("script-priority")))
+	  && gh_scm2int (p) < gh_scm2int (script_->get_grob_property ("script-priority")))
 	{
-	  Side_position_interface::add_support (line_spanner_, i.grob_l_);
+	  Side_position_interface::add_support (line_spanner_, i.grob_);
 
 	}	  
     }

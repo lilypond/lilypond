@@ -33,11 +33,11 @@ compare (Midi_note_event const& left, Midi_note_event const& right)
     return 0;
 }
 
-Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
+Midi_walker::Midi_walker (Audio_staff* audio_staff, Midi_track* track)
 {
-  track_l_ = track_l;
+  track_ = track;
   index_= 0;
-  item_l_arr_l_ = &audio_staff_l->audio_item_l_arr_;
+  items_ = &audio_staff->audio_items_;
 
   last_mom_ = 0;
 }
@@ -52,16 +52,16 @@ Midi_walker::~Midi_walker ()
   Find out if start_note event is needed, and do it if needed.
  */
 void 
-Midi_walker::do_start_note (Midi_note* note_p)
+Midi_walker::do_start_note (Midi_note* note)
 {
-  Audio_item* ptr = (*item_l_arr_l_)[index_];
-  Moment stop_mom = note_p->length_mom () + ptr->audio_column_l_->at_mom ();
+  Audio_item* ptr = (*items_)[index_];
+  Moment stop_mom = note->length_mom () + ptr->audio_column_->at_mom ();
 
   bool play_start = true;
   for (int i=0; i < stop_note_queue.size (); i++) 
     {
       /* if this pith already in queue */
-      if (stop_note_queue[i].val->pitch_i () == note_p->pitch_i ()) 
+      if (stop_note_queue[i].val->get_pitch () == note->get_pitch ()) 
 	{
 	  if (stop_note_queue[i].key < stop_mom)
 	    {
@@ -76,22 +76,22 @@ Midi_walker::do_start_note (Midi_note* note_p)
 	    {
 	      /* skip this stopnote,
 		 don't play the start note */
-	      delete note_p;
-	      note_p = 0;
+	      delete note;
+	      note = 0;
 	      break;
 	  }
 	}
     }
 
-  if (note_p)
+  if (note)
     {
       Midi_note_event e;
-      e.val = new Midi_note_off (note_p);
+      e.val = new Midi_note_off (note);
       e.key = stop_mom;
       stop_note_queue.insert (e);
 
       if (play_start)
-	output_event (ptr->audio_column_l_->at_mom (), note_p);
+	output_event (ptr->audio_column_->at_mom (), note);
     }
 }
 
@@ -111,9 +111,9 @@ Midi_walker::do_stop_notes (Moment max_mom)
 	}
       
       Moment stop_mom = e.key;
-      Midi_note* note_p = e.val;
+      Midi_note* note = e.val;
 	
-      output_event (stop_mom, note_p);
+      output_event (stop_mom, note);
     }
 }
 
@@ -136,33 +136,33 @@ Midi_walker::output_event (Moment now_mom, Midi_item* l)
     }
 
   
-  track_l_->add (delta_t, l);
+  track_->add (delta_t, l);
 }
 
 void
 Midi_walker::process ()
 {
-  Audio_item* audio_p = (*item_l_arr_l_)[index_];
-  do_stop_notes (audio_p->audio_column_l_->at_mom ());
+  Audio_item* audio = (*items_)[index_];
+  do_stop_notes (audio->audio_column_->at_mom ());
 
-  if (Midi_item* midi_p = Midi_item::midi_p (audio_p))
+  if (Midi_item* midi = Midi_item::get_midi (audio))
     {
-      midi_p->channel_i_ = track_l_->channel_i_;
-      //midi_p->channel_i_ = track_l_->number_i_;
-      if (Midi_note* note_p = dynamic_cast<Midi_note*> (midi_p))
+      midi->channel_ = track_->channel_;
+      //midi->channel_ = track_->number_;
+      if (Midi_note* note = dynamic_cast<Midi_note*> (midi))
 	{
-	  if (note_p->length_mom ().to_bool ())
-	    do_start_note (note_p);
+	  if (note->length_mom ().to_bool ())
+	    do_start_note (note);
 	}
       else
-	output_event (audio_p->audio_column_l_->at_mom (), midi_p);
+	output_event (audio->audio_column_->at_mom (), midi);
     }
 }
 
 bool
 Midi_walker::ok () const
 {
-  return index_ <item_l_arr_l_->size ();
+  return index_ <items_->size ();
 }
 
 void

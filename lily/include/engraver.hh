@@ -28,7 +28,7 @@ protected:
   /*
     Call this when you're finished with ELEM_P.
    */
-  virtual void typeset_grob (Grob*elem_p);
+  virtual void typeset_grob (Grob*elem);
   /*
     take note of item/spanner
     put item in spanner. Adjust local key; etc.
@@ -51,7 +51,7 @@ protected:
 
   Score_engraver * top_engraver () const;
 public:
-  Engraver_group_engraver * daddy_grav_l () const;
+  Engraver_group_engraver * get_daddy_grav () const;
   /**
     override other ctor
    */

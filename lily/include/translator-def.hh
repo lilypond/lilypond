@@ -45,7 +45,7 @@ public:
   void add_push_property (SCM,SCM,SCM);
   void add_pop_property (SCM,SCM);
   void add_property_assign (SCM, SCM);
-  Link_array<Translator_def> path_to_acceptable_translator (SCM type_str, Music_output_def* odef) const;
+  Link_array<Translator_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
   Translator_group * instantiate (Music_output_def*);
 
   SCM to_alist () const;

@@ -55,6 +55,6 @@ flip (Direction *i) {
  */
 template<class T> T minmax (Direction d, T, T);
 
-// String direction_str (Direction, Axis);
+// String direction_string (Direction, Axis);
 
 #endif // DIRECTION_HH

@@ -133,7 +133,7 @@ Text_spanner::brew_molecule (SCM smob)
 
   /* ugh */
   
-  Real thick = me->paper_l ()->get_var ("linethickness");  
+  Real thick = me->get_paper ()->get_var ("linethickness");  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
     {
@@ -195,7 +195,7 @@ void
 Text_spanner::setup_pedal_bracket(Spanner *me)
 {
 
-  Real thick = me->paper_l ()->get_var ("linethickness");  
+  Real thick = me->get_paper ()->get_var ("linethickness");  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
     {

@@ -54,7 +54,7 @@ ly_find_tfm (char const * name)
 {
   String p = global_path.find (String (name) + ".tfm");
 
-  if (p.length_i ())
+  if (p.length ())
     return p;
   
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)

@@ -24,12 +24,12 @@ public:
   Moment now_mom_;
   Global_translator ();
 
-  int moments_left_i () const;
+  int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
   void run_iterator_on_me (Music_iterator*);
   
-  virtual Music_output *get_output_p ();     
+  virtual Music_output *get_output ();     
   virtual void prepare (Moment);
   virtual void one_time_step ();
   virtual void finish ();

@@ -24,27 +24,27 @@ class Dynamic_performer : public Performer
 public:
   TRANSLATOR_DECLARATIONS(Dynamic_performer);
 protected:
-  virtual bool try_music (Music* req_l);
+  virtual bool try_music (Music* req);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Music* script_req_l_;
-  Audio_dynamic* audio_p_;
+  Music* script_req_;
+  Audio_dynamic* audio_;
 };
 
 
 
 Dynamic_performer::Dynamic_performer ()
 {
-  script_req_l_ = 0;
-  audio_p_ = 0;
+  script_req_ = 0;
+  audio_ = 0;
 }
 
 void
 Dynamic_performer::create_audio_elements ()
 {
-  if (script_req_l_)
+  if (script_req_)
     {
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
@@ -52,7 +52,7 @@ Dynamic_performer::create_audio_elements ()
       if (gh_procedure_p (proc))
 	{
 	  // urg
-	  svolume = gh_call1 (proc, script_req_l_->get_mus_property ("text"));
+	  svolume = gh_call1 (proc, script_req_->get_mus_property ("text"));
 	}
 
       Real volume = 0.5; 
@@ -102,32 +102,32 @@ Dynamic_performer::create_audio_elements ()
 	    }
 	}
       
-      audio_p_ = new Audio_dynamic (volume);
-      Audio_element_info info (audio_p_, script_req_l_);
+      audio_ = new Audio_dynamic (volume);
+      Audio_element_info info (audio_, script_req_);
       announce_element (info);
-      script_req_l_ = 0;
+      script_req_ = 0;
     }
 }
 
 void
 Dynamic_performer::stop_translation_timestep ()
 {
-  if (audio_p_)
+  if (audio_)
     {
-      play_element (audio_p_);
-      audio_p_ = 0;
+      play_element (audio_);
+      audio_ = 0;
     }
 }
 
 bool
 Dynamic_performer::try_music (Music* r)
 {
-  if (!script_req_l_)
+  if (!script_req_)
     {
       if (dynamic_cast <Text_script_req*> (r)
 	  && r->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
 	{
-	  script_req_l_ = r;
+	  script_req_ = r;
 	  return true;
 	}
     }

@@ -38,7 +38,7 @@ private:
   bool test_moment (Direction, Moment);
   void consider_begin (Moment);
   void consider_end (Moment);
-  Spanner* create_beam_p ();
+  Spanner* create_beam ();
   void begin_beam ();
   void end_beam ();
   void junk_beam ();
@@ -49,11 +49,11 @@ private:
     shortest_mom is the shortest note in the beam.
    */
   Moment shortest_mom_;
-  Spanner *finished_beam_p_;
-  Link_array<Item>* stem_l_arr_p_;
+  Spanner *finished_beam_;
+  Link_array<Item>* stems_;
 
 
-  int count_i_;
+  int count_;
   Moment last_add_mom_;
   /*
     Projected ending of the  beam we're working on.
@@ -66,22 +66,22 @@ private:
   Moment beat_length_;
   
   // We act as if beam were created, and start a grouping anyway.
-  Beaming_info_list*grouping_p_;
+  Beaming_info_list*grouping_;
   SCM beam_settings_ ;		// ugh. should protect ? 
   
-  Beaming_info_list*finished_grouping_p_;
+  Beaming_info_list*finished_grouping_;
 };
 
 
 
 Auto_beam_engraver::Auto_beam_engraver ()
 {
-  count_i_ = 0;
-  stem_l_arr_p_ = 0;
+  count_ = 0;
+  stems_ = 0;
   shortest_mom_ = Moment (Rational (1, 8));
-  finished_beam_p_ = 0;
-  finished_grouping_p_ = 0;
-  grouping_p_ = 0;
+  finished_beam_ = 0;
+  finished_grouping_ = 0;
+  grouping_ = 0;
   beam_settings_ = SCM_EOL;  
 }
 
@@ -204,7 +204,7 @@ void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {
   bool on = to_boolean (get_property ("autoBeaming"));
-  if (!stem_l_arr_p_ && on)
+  if (!stems_ && on)
     {
       bool b = test_moment (START, test_mom);
       if (b)
@@ -215,7 +215,7 @@ Auto_beam_engraver::consider_begin (Moment test_mom)
 void
 Auto_beam_engraver::consider_end (Moment test_mom)
 {
-  if (stem_l_arr_p_)
+  if (stems_)
     {
       /* Allow already started autobeam to end:
 	 don't check for autoBeaming */
@@ -226,39 +226,39 @@ Auto_beam_engraver::consider_end (Moment test_mom)
 }
 
 Spanner*
-Auto_beam_engraver::create_beam_p ()
+Auto_beam_engraver::create_beam ()
 {
   if (to_boolean (get_property ("skipTypesetting")))
     {
      return 0;
     }
   
-  Spanner* beam_p = new Spanner (beam_settings_);
-  for (int i = 0; i < stem_l_arr_p_->size (); i++)
+  Spanner* beam = new Spanner (beam_settings_);
+  for (int i = 0; i < stems_->size (); i++)
     {
       /*
 	watch out for stem tremolos and abbreviation beams
        */
-      if (Stem::beam_l ((*stem_l_arr_p_)[i]))
+      if (Stem::get_beam ((*stems_)[i]))
 	{
-	  scm_gc_unprotect_object (beam_p->self_scm ());
+	  scm_gc_unprotect_object (beam->self_scm ());
 	  return 0;
 	}
-      Beam::add_stem (beam_p, (*stem_l_arr_p_)[i]);
+      Beam::add_stem (beam, (*stems_)[i]);
     }
   
-  announce_grob(beam_p, SCM_EOL);
+  announce_grob(beam, SCM_EOL);
 
-  return beam_p;
+  return beam;
 }
 
 void
 Auto_beam_engraver::begin_beam ()
 {
-  assert (!stem_l_arr_p_);
-  stem_l_arr_p_ = new Link_array<Item>;
-  assert (!grouping_p_);
-  grouping_p_ = new Beaming_info_list;
+  assert (!stems_);
+  stems_ = new Link_array<Item>;
+  assert (!grouping_);
+  grouping_ = new Beaming_info_list;
   beam_settings_ = get_property ("Beam");
   
   beam_start_moment_ = now_mom ();
@@ -271,12 +271,12 @@ Auto_beam_engraver::begin_beam ()
 void
 Auto_beam_engraver::junk_beam () 
 {
-  assert (stem_l_arr_p_);
+  assert (stems_);
   
-  delete stem_l_arr_p_;
-  stem_l_arr_p_ = 0;
-  delete grouping_p_;
-  grouping_p_ = 0;
+  delete stems_;
+  stems_ = 0;
+  delete grouping_;
+  grouping_ = 0;
   beam_settings_ = SCM_EOL;
   
   shortest_mom_ = Moment (Rational (1, 8));
@@ -285,19 +285,19 @@ Auto_beam_engraver::junk_beam ()
 void
 Auto_beam_engraver::end_beam ()
 {
-  if (stem_l_arr_p_->size () < 2)
+  if (stems_->size () < 2)
     {
       junk_beam ();
     }
   else
     
     {
-      finished_beam_p_ = create_beam_p ();
-      if (finished_beam_p_)
-	finished_grouping_p_ = grouping_p_;
-      delete stem_l_arr_p_;
-      stem_l_arr_p_ = 0;
-      grouping_p_ = 0;
+      finished_beam_ = create_beam ();
+      if (finished_beam_)
+	finished_grouping_ = grouping_;
+      delete stems_;
+      stems_ = 0;
+      grouping_ = 0;
       beam_settings_ = SCM_EOL;
     }
 
@@ -307,26 +307,26 @@ Auto_beam_engraver::end_beam ()
 void
 Auto_beam_engraver::typeset_beam ()
 {
-  if (finished_beam_p_)
+  if (finished_beam_)
     {
-      finished_grouping_p_->beamify(beat_length_, subdivide_beams_);
-      Beam::set_beaming (finished_beam_p_, finished_grouping_p_);
-      typeset_grob (finished_beam_p_);
-      finished_beam_p_ = 0;
+      finished_grouping_->beamify(beat_length_, subdivide_beams_);
+      Beam::set_beaming (finished_beam_, finished_grouping_);
+      typeset_grob (finished_beam_);
+      finished_beam_ = 0;
     
-      delete finished_grouping_p_;
-      finished_grouping_p_= 0;
+      delete finished_grouping_;
+      finished_grouping_= 0;
     }
 }
 
 void
 Auto_beam_engraver::start_translation_timestep ()
 {
-  count_i_ = 0;
+  count_ = 0;
   /*
     don't beam over skips
    */
-  if (stem_l_arr_p_)
+  if (stems_)
     {
       Moment now = now_mom ();
       if (extend_mom_ < now)
@@ -348,7 +348,7 @@ Auto_beam_engraver::finalize ()
   /* finished beams may be typeset */
   typeset_beam ();
   /* but unfinished may need another announce/acknowledge pass */
-  if (stem_l_arr_p_)
+  if (stems_)
     junk_beam ();
 }
 
@@ -356,25 +356,25 @@ Auto_beam_engraver::finalize ()
 void
 Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
-  if (stem_l_arr_p_)
+  if (stems_)
     {
-      if (Beam::has_interface (info.grob_l_))
+      if (Beam::has_interface (info.grob_))
 	{
 	  end_beam ();
 	}
-      else if (Bar_line::has_interface (info.grob_l_))
+      else if (Bar_line::has_interface (info.grob_))
 	{
 	  end_beam ();
 	}
-      else if (Rest::has_interface (info.grob_l_))
+      else if (Rest::has_interface (info.grob_))
 	{
 	  end_beam ();
 	}
     }
   
-  if (Stem::has_interface (info.grob_l_))
+  if (Stem::has_interface (info.grob_))
     {
-      Item* stem_l = dynamic_cast<Item *> (info.grob_l_);
+      Item* stem = dynamic_cast<Item *> (info.grob_);
 				       
       Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
       if (!rhythmic_req)
@@ -386,16 +386,16 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       /*
 	Don't (start) auto-beam over empty stems; skips or rests
 	*/
-      if (!Stem::head_count (stem_l))
+      if (!Stem::head_count (stem))
 	{
-	  if (stem_l_arr_p_)
+	  if (stems_)
 	    end_beam ();
 	  return;
 	}
 
-      if (Stem::beam_l (stem_l))
+      if (Stem::get_beam (stem))
 	{
-	  if (stem_l_arr_p_)
+	  if (stems_)
 	    junk_beam ();
 	  return ;
 	}
@@ -404,7 +404,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       
       if (durlog <= 2)
 	{
-	  if (stem_l_arr_p_)
+	  if (stems_)
 	    end_beam ();
 	  return;
 	}
@@ -444,14 +444,14 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       consider_begin (shortest_mom_);
 #endif
 
-      if (!stem_l_arr_p_)
+      if (!stems_)
 	return;
       
       Moment now = now_mom ();
       
-      grouping_p_->add_stem (now - beam_start_moment_ + beam_start_location_,
+      grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
 			     durlog - 2);
-      stem_l_arr_p_->push (stem_l);
+      stems_->push (stem);
       last_add_mom_ = now;
       extend_mom_ = (extend_mom_ >? now) + rhythmic_req->length_mom ();
     }
@@ -460,14 +460,14 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 void
 Auto_beam_engraver::process_acknowledged_grobs ()
 {
-  if (!count_i_)
+  if (!count_)
     {
       consider_end (shortest_mom_);
       consider_begin (shortest_mom_);
     }
-  else if (count_i_ > 1)
+  else if (count_ > 1)
     {
-      if (stem_l_arr_p_)
+      if (stems_)
 	{
 	  Moment now = now_mom ();
 	  if ((extend_mom_ < now)
@@ -475,7 +475,7 @@ Auto_beam_engraver::process_acknowledged_grobs ()
 	    {
 	      end_beam ();
 	    }
-	  else if (!stem_l_arr_p_->size ())
+	  else if (!stems_->size ())
 	    {
 	      junk_beam ();
 	    }
@@ -483,10 +483,10 @@ Auto_beam_engraver::process_acknowledged_grobs ()
     }
 
   /*
-    count_i_++ -> 
+    count_++ -> 
 
         auto-beam-engraver.cc:459: warning: value computed is not used (gcc: 2.96) */
-  count_i_ = count_i_ + 1;
+  count_ = count_ + 1;
 }
 ENTER_DESCRIPTION(Auto_beam_engraver,
 /* descr */       "Generate beams based on measure characteristics and observed

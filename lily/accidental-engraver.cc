@@ -79,9 +79,9 @@ public:
   /*
     The next 
    */
-  Array<Accidental_entry> accidental_arr_;
+  Array<Accidental_entry> accidentals_;
   
-  Link_array<Grob> tie_arr_;
+  Link_array<Grob> ties_;
 
 
 };
@@ -107,13 +107,13 @@ Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
 
-  Translator_group * trans_ = daddy_trans_l_;
+  Translator_group * trans_ = daddy_trans_;
   while (trans_)
     {
       trans_ -> set_property ("localKeySignature",  ly_deep_copy (last_keysig_));
-      trans_ = trans_->daddy_trans_l_;
+      trans_ = trans_->daddy_trans_;
     }
-  set_property_on_children (daddy_trans_l_,"localKeySignature", last_keysig_);
+  set_property_on_children (daddy_trans_,"localKeySignature", last_keysig_);
 }
 
 /*
@@ -125,12 +125,12 @@ calculates the number of accidentals on basis of the current local key sig
 
 */
 static int
-number_accidentals (SCM sig, Note_req * note_l, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+number_accidentals (SCM sig, Note_req * note, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
-  int n = pitch->notename_i_;
-  int o = pitch->octave_i_;
-  int a = pitch->alteration_i_;
+  int n = pitch->notename_;
+  int o = pitch->octave_;
+  int a = pitch->alteration_;
   int curbarnum_i = gh_scm2int (curbarnum);
   int accbarnum_i = 0;
 
@@ -159,7 +159,7 @@ number_accidentals (SCM sig, Note_req * note_l, Pitch *pitch, SCM curbarnum, SCM
 
   int num;
   if (a == p
-      && !to_boolean (note_l->get_mus_property ("force-accidental"))
+      && !to_boolean (note->get_mus_property ("force-accidental"))
       && gh_number_p (prev_acc))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
@@ -171,7 +171,7 @@ number_accidentals (SCM sig, Note_req * note_l, Pitch *pitch, SCM curbarnum, SCM
 }
 
 static int
-number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l, 
+number_accidentals (Note_req * note, Pitch *pitch, Translator_group * origin, 
 		    SCM accidentals, SCM curbarnum)
 {
   int number = 0;
@@ -179,16 +179,16 @@ number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l
   bool diff = false;
   if (gh_pair_p (accidentals) && !gh_symbol_p (ly_car (accidentals)))
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
-		 ly_scm2string (ly_car (accidentals)).ch_C ()));
+		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
-  while (gh_pair_p (accidentals) && origin_l)
+  while (gh_pair_p (accidentals) && origin)
     {
       // If pair then it is a new accidentals typesetting rule to be checked
       if (gh_pair_p (ly_car (accidentals)))
 	{
 	  SCM type = gh_caar (accidentals);
 	  SCM lazyness = gh_cdar (accidentals);
-	  SCM localsig = origin_l->get_property ("localKeySignature");
+	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 
 	    gh_eq_p (ly_symbol2scm ("same-octave"), type);
@@ -198,13 +198,13 @@ number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l
 	  if (same_octave_b || any_octave_b)
 	    {
 	      int n = number_accidentals
-		(localsig, note_l, pitch, curbarnum, lazyness, any_octave_b);
+		(localsig, note, pitch, curbarnum, lazyness, any_octave_b);
 	      diff = diff || (n < 0);
 	      number = max (number, abs (n));     
 	    }
 	  else
 	    warning (_f ("unknown accidental typesetting: %s. Ignored", 
-			 ly_symbol2string (type).ch_C ()));
+			 ly_symbol2string (type).to_str0 ()));
 	}
       
 
@@ -215,15 +215,15 @@ number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l
 	{
 	  String context = ly_symbol2string (ly_car (accidentals));
 	  
-	  while (origin_l && !origin_l->is_alias_b (context))
-	    origin_l = origin_l->daddy_trans_l_;
+	  while (origin && !origin->is_alias_b (context))
+	    origin = origin->daddy_trans_;
       
-	  if (!origin_l)
+	  if (!origin)
 	    warning (_f ("Symbol is not a parent context: %s. Ignored", 
-			 context.ch_C ()));
+			 context.to_str0 ()));
 	}
       else warning (_f ("Accidental typesetting must be pair or context-name: %s", 
-			ly_scm2string (ly_car (accidentals)).ch_C ()));
+			ly_scm2string (ly_car (accidentals)).to_str0 ()));
       
       accidentals = ly_cdr (accidentals);
     }
@@ -233,7 +233,7 @@ number_accidentals (Note_req * note_l, Pitch *pitch, Translator_group * origin_l
 void
 Accidental_engraver::process_acknowledged_grobs ()
 {
-  if (accidental_arr_.size () && !accidental_arr_.top().done_)
+  if (accidentals_.size () && !accidentals_.top().done_)
     {
       //SCM localsig = get_property ("localKeySignature");
       SCM accidentals =  get_property ("autoAccidentals");
@@ -241,19 +241,19 @@ Accidental_engraver::process_acknowledged_grobs ()
       SCM barnum = get_property ("currentBarNumber");
 
       bool extra_natural_b = get_property ("extraNatural") == SCM_BOOL_T;
-      for (int i = 0; i  < accidental_arr_.size (); i++) 
+      for (int i = 0; i  < accidentals_.size (); i++) 
 	{
-	  if (accidental_arr_[i].done_ )
+	  if (accidentals_[i].done_ )
 	    continue;
-	  accidental_arr_[i].done_  = true;
-	  Grob * support_l = accidental_arr_[i].head_;
-	  Note_req * note_l = accidental_arr_[i].melodic_;
-	  Translator_group * origin_l = accidental_arr_[i].origin_;
+	  accidentals_[i].done_  = true;
+	  Grob * support = accidentals_[i].head_;
+	  Note_req * note = accidentals_[i].melodic_;
+	  Translator_group * origin = accidentals_[i].origin_;
 
-	  Pitch * pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
-	  int num = number_accidentals (note_l, pitch, origin_l, accidentals, barnum);
-	  int num_caut = number_accidentals (note_l, pitch, origin_l, cautionaries, barnum);
-	  bool cautionary = to_boolean (note_l->get_mus_property ("cautionary"));
+	  Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
+	  int num = number_accidentals (note, pitch, origin, accidentals, barnum);
+	  int num_caut = number_accidentals (note, pitch, origin, cautionaries, barnum);
+	  bool cautionary = to_boolean (note->get_mus_property ("cautionary"));
 	  
 	  if (abs (num_caut) > abs (num))
 	    {
@@ -270,8 +270,8 @@ Accidental_engraver::process_acknowledged_grobs ()
 
 	  Grob *tie_break_reminder = 0;
 	  bool tie_changes = false;
-	  for (int j = 0; j < tie_arr_.size (); j++)
-	    if (support_l == Tie::head (tie_arr_[j], RIGHT))
+	  for (int j = 0; j < ties_.size (); j++)
+	    if (support == Tie::head (ties_[j], RIGHT))
 	      {
 		tie_changes = different;
 
@@ -282,14 +282,14 @@ Accidental_engraver::process_acknowledged_grobs ()
 		   
 		Maybe check property noTieBreakForceAccidental? */
 		if (different)
-		  tie_break_reminder = tie_arr_[j];
+		  tie_break_reminder = ties_[j];
 		break;
 	      }
 
 	  if (num)
 	    {
 	      Grob * a = new Item (get_property ("Accidental"));
-	      a->set_parent (support_l, Y_AXIS);
+	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)
 		{
@@ -301,7 +301,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      announce_grob (a, SCM_EOL);
 
 	      
-	      SCM accs = gh_cons (gh_int2scm (pitch->alteration_i_), SCM_EOL);
+	      SCM accs = gh_cons (gh_int2scm (pitch->alteration_), SCM_EOL);
 	      if (num == 2 && extra_natural_b)
 		accs = gh_cons (gh_int2scm (0), accs);
 
@@ -322,10 +322,10 @@ Accidental_engraver::process_acknowledged_grobs ()
 		}
 	      
 	      
-	      support_l->set_grob_property ("accidental-grob", a->self_scm ());
+	      support->set_grob_property ("accidental-grob", a->self_scm ());
 
 	      a->set_grob_property ("accidentals", accs);
-	      accidental_arr_[i].accidental_ = a;
+	      accidentals_[i].accidental_ = a;
  /*
 	We add the accidentals to the support of the arpeggio, so it is put left of the
 	accidentals. 
@@ -345,9 +345,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  */
 	  
 
-	  int n = pitch->notename_i_;
-	  int o = pitch->octave_i_;
-	  int a = pitch->alteration_i_;
+	  int n = pitch->notename_;
+	  int o = pitch->octave_;
+	  int a = pitch->alteration_;
 	  SCM on_s = gh_cons (gh_int2scm (o), gh_int2scm (n));
 
 	  /*
@@ -368,9 +368,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	    
 	  */
 
-	  while (origin_l)
+	  while (origin)
 	    {
-	      SCM localsig = origin_l->get_property ("localKeySignature");
+	      SCM localsig = origin->get_property ("localKeySignature");
 	      if (tie_changes)
 		{
 		  /*
@@ -389,8 +389,8 @@ Accidental_engraver::process_acknowledged_grobs ()
 		  localsig = ly_assoc_front_x
 		    (localsig, on_s, gh_cons (gh_int2scm (a), barnum)); 
 		}
-	      origin_l->set_property ("localKeySignature",  localsig);
-	      origin_l = origin_l->daddy_trans_l_;
+	      origin->set_property ("localKeySignature",  localsig);
+	      origin = origin->daddy_trans_;
 	    }
 	}
     }
@@ -405,9 +405,9 @@ Accidental_engraver::finalize ()
 void
 Accidental_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < accidental_arr_.size(); i++)
+  for (int i = 0; i < accidentals_.size(); i++)
     {
-      Grob *a = accidental_arr_[i].accidental_;
+      Grob *a = accidentals_[i].accidental_;
       if (a)
 	{
 	  typeset_grob (a);
@@ -418,32 +418,32 @@ Accidental_engraver::stop_translation_timestep ()
     typeset_grob(accidental_placement_);
   accidental_placement_ = 00;
   
-  accidental_arr_.clear();
+  accidentals_.clear();
   arpeggios_.clear ();
-  tie_arr_.clear ();
+  ties_.clear ();
 }
 
 void
 Accidental_engraver::acknowledge_grob (Grob_info info)
 {
-  Note_req * note_l =  dynamic_cast <Note_req *> (info.music_cause ());
+  Note_req * note =  dynamic_cast <Note_req *> (info.music_cause ());
 
-  if (note_l && Rhythmic_head::has_interface (info.grob_l_))
+  if (note && Rhythmic_head::has_interface (info.grob_))
     {
       Accidental_entry entry ;
-      entry.head_ = info.grob_l_;
-      entry.origin_ = info.origin_trans_l_->daddy_trans_l_;
-      entry.melodic_ = note_l;
+      entry.head_ = info.grob_;
+      entry.origin_ = info.origin_trans_->daddy_trans_;
+      entry.melodic_ = note;
 
-      accidental_arr_.push (entry);
+      accidentals_.push (entry);
     }
-  else if (Tie::has_interface (info.grob_l_))
+  else if (Tie::has_interface (info.grob_))
     {
-      tie_arr_.push (info.grob_l_);
+      ties_.push (info.grob_);
     }
-  else if (Arpeggio::has_interface (info.grob_l_))
+  else if (Arpeggio::has_interface (info.grob_))
     {
-      arpeggios_.push (info.grob_l_); 
+      arpeggios_.push (info.grob_); 
     }
   
 }
@@ -458,13 +458,13 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Translator_group * trans_ = daddy_trans_l_;
+      Translator_group * trans_ = daddy_trans_;
       while (trans_)
 	{
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
-	  trans_ = trans_->daddy_trans_l_;
+	  trans_ = trans_->daddy_trans_;
 	}
-      set_property_on_children(daddy_trans_l_,"localKeySignature", sig);
+      set_property_on_children(daddy_trans_,"localKeySignature", sig);
 
       last_keysig_ = sig;
     }

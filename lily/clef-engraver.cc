@@ -34,8 +34,8 @@ protected:
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 private:
-  Item * clef_p_;
-  Item * octavate_p_;
+  Item * clef_;
+  Item * octavate_;
 
   SCM prev_glyph_;
   SCM prev_cpos_;
@@ -47,9 +47,9 @@ private:
 
 Clef_engraver::Clef_engraver ()
 {
-  clef_p_ = 0;
+  clef_ = 0;
   octave_dir_ = CENTER;
-  octavate_p_ = 0;
+  octavate_ = 0;
 
   /*
     will trigger a clef at the start since #f != ' ()
@@ -65,8 +65,8 @@ Clef_engraver::set_glyph ()
 
   SCM basic = ly_symbol2scm ("Clef");
   
-  daddy_trans_l_->execute_single_pushpop_property (basic, glyph_sym, SCM_UNDEFINED);
-  daddy_trans_l_->execute_single_pushpop_property (basic, glyph_sym, glyph);
+  daddy_trans_->execute_single_pushpop_property (basic, glyph_sym, SCM_UNDEFINED);
+  daddy_trans_->execute_single_pushpop_property (basic, glyph_sym, glyph);
 }
 
 /** 
@@ -76,10 +76,10 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_grob (Grob_info info)
 {
-  Item * item =dynamic_cast <Item *> (info.grob_l_);
+  Item * item =dynamic_cast <Item *> (info.grob_);
   if (item)
     {
-      if (Bar_line::has_interface (info.grob_l_)
+      if (Bar_line::has_interface (info.grob_)
 	  && gh_string_p (get_property ("clefGlyph")))
 	create_clef ();
 
@@ -89,31 +89,31 @@ Clef_engraver::acknowledge_grob (Grob_info info)
 void
 Clef_engraver::create_clef ()
 {
-  if (!clef_p_)
+  if (!clef_)
     {
       Item *c= new Item (get_property ("Clef"));
       announce_grob(c, SCM_EOL);
 
-      clef_p_ = c;
+      clef_ = c;
     }
   SCM cpos = get_property ("clefPosition");
 
   if (gh_number_p (cpos))
-    Staff_symbol_referencer::set_position (clef_p_, gh_scm2int (cpos));
+    Staff_symbol_referencer::set_position (clef_, gh_scm2int (cpos));
 
   SCM oct =  get_property ("clefOctavation");
   if (gh_number_p (oct) && gh_scm2int (oct))
     {
       Item * g = new Item (get_property ("OctavateEight"));
 
-      Side_position_interface::add_support (g,clef_p_);      
+      Side_position_interface::add_support (g,clef_);      
 
-      g->set_parent (clef_p_, Y_AXIS);
-      g->set_parent (clef_p_, X_AXIS);
+      g->set_parent (clef_, Y_AXIS);
+      g->set_parent (clef_, X_AXIS);
 
       g->set_grob_property ("direction", gh_int2scm (sign (gh_scm2int (oct))));
-      octavate_p_ = g;
-      announce_grob(octavate_p_, SCM_EOL);
+      octavate_ = g;
+      announce_grob(octavate_, SCM_EOL);
     }
 }
 
@@ -141,7 +141,7 @@ Clef_engraver::inspect_clef_properties ()
       set_glyph ();
       create_clef ();
 
-      clef_p_->set_grob_property ("non-default", SCM_BOOL_T);
+      clef_->set_grob_property ("non-default", SCM_BOOL_T);
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;
@@ -150,7 +150,7 @@ Clef_engraver::inspect_clef_properties ()
 
   if (to_boolean (force_clef))
     {
-      Translator_group * w = daddy_trans_l_->where_defined (ly_symbol2scm ("forceClef"));
+      Translator_group * w = daddy_trans_->where_defined (ly_symbol2scm ("forceClef"));
       w->set_property ("forceClef", SCM_EOL);
     }
 }
@@ -159,34 +159,34 @@ Clef_engraver::inspect_clef_properties ()
 void
 Clef_engraver::stop_translation_timestep ()
 {
-  if (clef_p_)
+  if (clef_)
     {
       SCM vis = 0; 
-      if (to_boolean (clef_p_->get_grob_property ("non-default")))
+      if (to_boolean (clef_->get_grob_property ("non-default")))
 	{
 	  vis = get_property ("explicitClefVisibility");
 	}
 
       if (vis)
 	{
-	  clef_p_->set_grob_property ("break-visibility", vis);
-	  if (octavate_p_)
+	  clef_->set_grob_property ("break-visibility", vis);
+	  if (octavate_)
 	    {
-	      octavate_p_->set_grob_property ("break-visibility", vis);
+	      octavate_->set_grob_property ("break-visibility", vis);
 
 	    }
 	}
       
-      typeset_grob (clef_p_);
-      clef_p_ =0;
+      typeset_grob (clef_);
+      clef_ =0;
 
-      if (octavate_p_)
+      if (octavate_)
 	{
-	  Side_position_interface::add_staff_support (octavate_p_);	  
-	  typeset_grob (octavate_p_);
+	  Side_position_interface::add_staff_support (octavate_);	  
+	  typeset_grob (octavate_);
 	}
 
-      octavate_p_ = 0;
+      octavate_ = 0;
     }
 }
 

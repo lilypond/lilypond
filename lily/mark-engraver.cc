@@ -29,18 +29,18 @@ class Mark_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS(Mark_engraver);
 protected:
-  Item* text_p_;
+  Item* text_;
   
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   void create_items (Request*);
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void start_translation_timestep ();
   virtual void process_music ();
   
 private:
-  Mark_req * mark_req_l_;
+  Mark_req * mark_req_;
 };
 
 
@@ -49,32 +49,32 @@ private:
 
 Mark_engraver::Mark_engraver ()
 {
-  text_p_ =0;
-  mark_req_l_ = 0;
+  text_ =0;
+  mark_req_ = 0;
 }
 
 void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob * s = inf.grob_l_;
-  if (text_p_ && Bar_line::has_interface (s))
+  Grob * s = inf.grob_;
+  if (text_ && Bar_line::has_interface (s))
     {
       /*
 	Ugh. Figure out how to do this right at beginning of line, (without
 	creating class Bar_script : public Item).
       */
-      text_p_->set_parent (s, X_AXIS);
+      text_->set_parent (s, X_AXIS);
     }
 }
 
 void 
 Mark_engraver::stop_translation_timestep ()
 {
-  if (text_p_)
+  if (text_)
     {
-      text_p_->set_grob_property ("side-support-elements" , get_property ("stavesFound"));
-      typeset_grob (text_p_);
-      text_p_ =0;
+      text_->set_grob_property ("side-support-elements" , get_property ("stavesFound"));
+      typeset_grob (text_);
+      text_ =0;
     }
 }
 
@@ -82,34 +82,34 @@ Mark_engraver::stop_translation_timestep ()
 void
 Mark_engraver::create_items (Request *rq)
 {
-  if (text_p_)
+  if (text_)
     return;
 
   SCM s = get_property ("RehearsalMark");
-  text_p_ = new Item (s);
+  text_ = new Item (s);
 
 
-  announce_grob(text_p_, rq->self_scm());
+  announce_grob(text_, rq->self_scm());
 }
 
 
 void
 Mark_engraver::start_translation_timestep ()
 {
-  mark_req_l_ = 0;
+  mark_req_ = 0;
 }
 
 
 bool
-Mark_engraver::try_music (Music* r_l)
+Mark_engraver::try_music (Music* r)
 {
-  if (Mark_req *mr = dynamic_cast <Mark_req *> (r_l))
+  if (Mark_req *mr = dynamic_cast <Mark_req *> (r))
     {
-      if (mark_req_l_ && mr->equal_b (mark_req_l_))
+      if (mark_req_ && mr->equal_b (mark_req_))
 	return true;
-      if (mark_req_l_)
+      if (mark_req_)
 	return false;
-      mark_req_l_ = mr;
+      mark_req_ = mr;
       return true;
     }
   return false;
@@ -124,9 +124,9 @@ Mark_engraver::try_music (Music* r_l)
 void
 Mark_engraver::process_music ()
 {
-  if (mark_req_l_)
+  if (mark_req_)
     {
-      create_items (mark_req_l_);
+      create_items (mark_req_);
 
       String t;
 
@@ -134,9 +134,9 @@ Mark_engraver::process_music ()
 	automatic marks.
        */
       
-      SCM m = mark_req_l_->get_mus_property ("label");
+      SCM m = mark_req_->get_mus_property ("label");
       if (gh_pair_p (m)) // markup text
-	text_p_->set_grob_property ("text",m);
+	text_->set_grob_property ("text",m);
       else 
 	{
 	  if (!gh_string_p (m) && !gh_number_p (m)) 
@@ -145,7 +145,7 @@ Mark_engraver::process_music ()
 	  if (gh_number_p (m))
 	    {
 	      int mark_count = gh_scm2int (m);
-	      t = to_str (mark_count);
+	      t = to_string (mark_count);
 	      mark_count ++;
 	      m = gh_int2scm (mark_count);
 	    }
@@ -153,26 +153,26 @@ Mark_engraver::process_music ()
 	    {
 	      t = ly_scm2string (m);
 	      String next;
-	      if (t.length_i ())
+	      if (t.length ())
 		{
 		  char c = t[0];
 		  c++;
-		  next = to_str (c);
+		  next = to_string (c);
 		}
-	      m = ly_str02scm (next.ch_C ());
+	      m = ly_str02scm (next.to_str0 ());
 	    }
 	  else
 	    {
 	      m = gh_int2scm (1);
 	    }
 	  
-	  daddy_trans_l_->set_property ("rehearsalMark", m);
+	  daddy_trans_->set_property ("rehearsalMark", m);
 	  
-	  text_p_->set_grob_property ("text",
-				      ly_str02scm (t.ch_C ()));
+	  text_->set_grob_property ("text",
+				      ly_str02scm (t.to_str0 ()));
 
 	  String style = "mark-number";
-	  for (int i=0; i < t.length_i (); i++)
+	  for (int i=0; i < t.length (); i++)
 	    {
 	      if (!isdigit (t[i])) 
 		{
@@ -180,8 +180,8 @@ Mark_engraver::process_music ()
 		  break;
 		}
 	    }
-	  SCM st = ly_symbol2scm (style.ch_C ());
-	  text_p_->set_grob_property ("font-style",  st);
+	  SCM st = ly_symbol2scm (style.to_str0 ());
+	  text_->set_grob_property ("font-style",  st);
 	}
 
     }

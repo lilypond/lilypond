@@ -79,7 +79,7 @@ String trim_suffix (String &id);
 Lyric_phrasing_engraver::Lyric_phrasing_engraver ()
 {
   voice_alist_ = SCM_EOL;
-  any_notehead_l_ = 0;
+  any_notehead_ = 0;
 }
 
 Lyric_phrasing_engraver::~Lyric_phrasing_engraver ()
@@ -103,7 +103,7 @@ Lyric_phrasing_engraver::finalize ()
 Syllable_group * 
 Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
 {
-  SCM key = ly_str02scm (context_id.ch_C ());
+  SCM key = ly_str02scm (context_id.to_str0 ());
   if (! gh_null_p (voice_alist_))
     {
       SCM s = scm_assoc (key, voice_alist_);
@@ -138,8 +138,8 @@ Lyric_phrasing_engraver::record_notehead (const String &context_id,
 {
   Syllable_group * v = lookup_context_id (context_id);
   v->set_notehead (notehead);
-  if (!any_notehead_l_)
-    any_notehead_l_ = notehead;
+  if (!any_notehead_)
+    any_notehead_ = notehead;
 }
   
 void 
@@ -152,7 +152,7 @@ Lyric_phrasing_engraver::record_lyric (const String &context_id, Grob * lyric)
 void 
 Lyric_phrasing_engraver::record_extender (const String &context_id, Grob * extender)
 {
-  SCM key = ly_str02scm (context_id.ch_C ());
+  SCM key = ly_str02scm (context_id.to_str0 ());
   if (! gh_null_p (voice_alist_))
     {
       SCM s = scm_assoc (key, voice_alist_);
@@ -185,18 +185,18 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
     return;
 
 
-  Grob *h = i.grob_l_;
+  Grob *h = i.grob_;
 
   if (Note_head::has_interface (h))
     {
       /* caught a note head ... do something with it */
 
       /* what's its Voice context name? */
-      String voice_context_id = get_context_id (i.origin_trans_l_->daddy_trans_l_, "Voice");
+      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "Voice");
       record_notehead (voice_context_id, h);
 
       /* is it in a melisma ? */
-      if (to_boolean (i.origin_trans_l_->get_property ("melismaEngraverBusy")))
+      if (to_boolean (i.origin_trans_->get_property ("melismaEngraverBusy")))
 	{
 	  record_melisma (voice_context_id);
 	}
@@ -209,13 +209,13 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 
       /* what's its LyricsVoice context name? */
       String voice_context_id;
-      SCM voice_context_scm = i.origin_trans_l_->get_property ("associatedVoice");
+      SCM voice_context_scm = i.origin_trans_->get_property ("associatedVoice");
       if (gh_string_p (voice_context_scm))
 	{
 	  voice_context_id = ly_scm2string (voice_context_scm);
 	}
       else {
-	voice_context_id = get_context_id (i.origin_trans_l_->daddy_trans_l_, "LyricsVoice");
+	voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
 	voice_context_id = trim_suffix (voice_context_id);
       }
       record_lyric (voice_context_id, h);
@@ -237,7 +237,7 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
   */
   if (h->internal_has_interface (ly_symbol2scm ("lyric-extender-interface")))
     {
-      String voice_context_id = get_context_id (i.origin_trans_l_->daddy_trans_l_, "LyricsVoice");
+      String voice_context_id = get_context_id (i.origin_trans_->daddy_trans_, "LyricsVoice");
       record_extender (trim_suffix (voice_context_id), h);
       return;
     }
@@ -246,14 +246,14 @@ Lyric_phrasing_engraver::acknowledge_grob (Grob_info i)
 String 
 get_context_id (Translator_group * ancestor, const char *type)
 {
-  while (ancestor != 0 && ancestor->type_str_ != type)
+  while (ancestor != 0 && ancestor->type_string_ != type)
     {
-      ancestor = ancestor->daddy_trans_l_;
+      ancestor = ancestor->daddy_trans_;
     }
 
   if (ancestor != 0)
     {
-      return ancestor->id_str_;
+      return ancestor->id_string_;
     }
 
   return "";
@@ -262,10 +262,10 @@ get_context_id (Translator_group * ancestor, const char *type)
 String 
 trim_suffix (String &id)
 {
-  int index = id.index_i ('-');
+  int index = id.index ('-');
   if (index >= 0)
     {
-      return id.left_str (index);
+      return id.left_string (index);
     }
   return id;
 }
@@ -297,7 +297,7 @@ Lyric_phrasing_engraver::process_acknowledged_grobs ()
 	  /*
 	    TODO: give context for warning.
 	  */
-	  if (! entry->set_lyric_align (punc.ch_C (), any_notehead_l_))
+	  if (! entry->set_lyric_align (punc.to_str0 (), any_notehead_))
 	    warning (_ ("lyrics found without any matching notehead"));
 
 	  // is this note melismatic? If so adjust alignment of previous one.
@@ -338,7 +338,7 @@ Lyric_phrasing_engraver::stop_translation_timestep ()
 	}
       entry->next_lyric ();
     }
-  any_notehead_l_ = 0;
+  any_notehead_ = 0;
 }
 
 

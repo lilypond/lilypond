@@ -18,13 +18,13 @@
 void
 Sequential_music_iterator::descend_to_child ()
 {
-  Translator_group  * child_report = child_report = iter_p_->report_to_l ();
-  Translator_group * me_report = report_to_l ();
+  Translator_group  * child_report = child_report = iter_->report_to ();
+  Translator_group * me_report = report_to ();
 
   Translator_group * c = child_report;
   while (c && c != me_report)
     {
-      c= c->daddy_trans_l_;
+      c= c->daddy_trans_;
     }
   
   if (c == me_report)
@@ -37,5 +37,5 @@ IMPLEMENT_CTOR_CALLBACK (Sequential_music_iterator);
 SCM
 Sequential_music_iterator::get_music_list()const
 {
-  return  dynamic_cast<Music_sequence const*> (music_l ())->music_list ();
+  return  dynamic_cast<Music_sequence const*> (get_music ())->music_list ();
 }

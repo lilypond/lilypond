@@ -95,29 +95,29 @@ static Keyword_ent the_key_tab[]={
 
 My_lily_lexer::My_lily_lexer ()
 {
-  keytable_p_ = new Keyword_table (the_key_tab);
+  keytable_ = new Keyword_table (the_key_tab);
   toplevel_variable_tab_ = new Scheme_hash_table ;
-  scope_l_arr_.push (toplevel_variable_tab_);
+  scopes_.push (toplevel_variable_tab_);
   
-  errorlevel_i_ = 0;
+  errorlevel_ = 0;
   main_input_b_ = false;
 }
 
 int
 My_lily_lexer::lookup_keyword (String s)
 {
-  return keytable_p_->lookup (s.ch_C ());
+  return keytable_->lookup (s.to_str0 ());
 }
 
 SCM
 My_lily_lexer::lookup_identifier (String s)
 {
-  SCM sym = ly_symbol2scm (s.ch_C ());
+  SCM sym = ly_symbol2scm (s.to_str0 ());
   
-  for (int i = scope_l_arr_.size (); i--;)
+  for (int i = scopes_.size (); i--;)
     {
       SCM val = SCM_UNSPECIFIED;
-      if (scope_l_arr_[i]->try_retrieve (sym, &val))
+      if (scopes_[i]->try_retrieve (sym, &val))
 	return val;
     }
   return SCM_UNSPECIFIED;
@@ -126,7 +126,7 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  new_input (main_input_str_, source_global_l);
+  new_input (main_input_string_, source_global);
   allow_includes_b_ = allow_includes_b_ &&  ! (safe_global_b);
 }
 
@@ -143,12 +143,12 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
       free  (str);
     }
   
-  scope_l_arr_.top ()->set (scm_string_to_symbol (name), s);
+  scopes_.top ()->set (scm_string_to_symbol (name), s);
 }
 
 My_lily_lexer::~My_lily_lexer ()
 {
-  delete keytable_p_;
+  delete keytable_;
   scm_gc_unprotect_object (toplevel_variable_tab_->self_scm ());
 }
 
@@ -163,8 +163,8 @@ My_lily_lexer::LexerError (char const *s)
     }
   else
     {
-      errorlevel_i_ |= 1;
-      Input spot (source_file_l (),here_ch_C ());
+      errorlevel_ |= 1;
+      Input spot (get_source_file (),here_str0 ());
       spot.error (s);
     }
 }
@@ -190,6 +190,6 @@ My_lily_lexer::escaped_char (char c) const
 Input
 My_lily_lexer::here_input () const
 {
-  Source_file * f_l= source_file_l ();
-  return Input (f_l, (char*)here_ch_C ());
+  Source_file * f= get_source_file ();
+  return Input (f, (char*)here_str0 ());
 }

@@ -14,7 +14,7 @@
 #include "warn.hh"
 #include "warn.hh"
 
-#define format_str String_convert::form_str
+#define format_string String_convert::form_string
 #define FIX_UNITY \
  (1 << 20)
 static const Real fix_to_real (Fix f);
@@ -43,7 +43,7 @@ fix_to_real (Fix f)
 /* Most quantities are fixed-point fractions.  */
 
 Real
-Tex_font_metric_reader::get_U32_fix_f ()
+Tex_font_metric_reader::get_U32_fix ()
 {
   return fix_to_real (input_.get_U32 ());
 }
@@ -51,16 +51,16 @@ Tex_font_metric_reader::get_U32_fix_f ()
 /* Dimensions are a `Fix' scaled by the design size.  */
 
 Real
-Tex_font_metric_reader::get_U32_fix_scaled_f ()
+Tex_font_metric_reader::get_U32_fix_scaled ()
 {
-  return get_U32_fix_f () * info_.design_size;
+  return get_U32_fix () * info_.design_size;
 }
 
 String
-Tex_font_metric_reader::get_bcpl_str ()
+Tex_font_metric_reader::get_bcpl_string ()
 {
   U8 length_u8 = input_.get_U8 ();
-  String str = input_.get_str (length_u8);
+  String str = input_.get_string (length_u8);
   return str;
 }
 
@@ -104,15 +104,15 @@ Tex_font_metric_reader::read_header ()
 
   if (header_length < 2)
     error (_f ("TFM header of `%s' has only %u word (s)",
-	       input_.name_str ().ch_C (), header_length));
+	       input_.name_string ().to_str0 (), header_length));
 
   info_.checksum = input_.get_U32 ();
-  info_.design_size = get_U32_fix_f ();
+  info_.design_size = get_U32_fix ();
 
   /* Although the coding scheme might be interesting to the caller, the
      font family and face byte probably aren't.  So we don't read them.  */
   info_.coding_scheme = header_length > 2
-    ? get_bcpl_str () : "unspecified";
+    ? get_bcpl_string () : "unspecified";
 
 }
 
@@ -131,14 +131,14 @@ Tex_font_metric_reader::read_params ()
 
   //brrr
   /* Move to the beginning of the parameter table in the file.  */
-  input_.seek_ch_C (-4 * header_.param_word_count);
+  input_.seek_str0 (-4 * header_.param_word_count);
 
   /* It's unlikely but possible that this TFM file has more fontdimens
      than we can deal with.  */
   if (header_.param_word_count > TFM_MAX_FONTDIMENS)
     {
       warning (_f ("%s: TFM file has %u parameters, which is more than the %u I can handle",
-		   input_.name_str ().ch_C (),
+		   input_.name_string ().to_str0 (),
 		   header_.param_word_count,
 		   TFM_MAX_FONTDIMENS));
       header_.param_word_count = TFM_MAX_FONTDIMENS;
@@ -146,10 +146,10 @@ Tex_font_metric_reader::read_params ()
 
   /* The first parameter is different than all the rest, because it
      isn't scaled by the design size.  */
-  info_.parameters[ (TFM_SLANT_PARAMETER) - 1] = get_U32_fix_f ();
+  info_.parameters[ (TFM_SLANT_PARAMETER) - 1] = get_U32_fix ();
 
   for (Char_code i = 2; i <= header_.param_word_count; i++)
-    info_.parameters[i - 1] = get_U32_fix_scaled_f ();
+    info_.parameters[i - 1] = get_U32_fix_scaled ();
 
 }
 
@@ -184,7 +184,7 @@ Tex_font_metric_reader::read_char_metric (Char_code code)
   
   //brr
   /* Move to the appropriate place in the `char_info' array.  */
-  input_.seek_ch_C (header_.char_info_pos + (code - info_.first_charcode) * 4);
+  input_.seek_str0 (header_.char_info_pos + (code - info_.first_charcode) * 4);
 
   /* Read the character.  */
   tfm_char = read_char ();
@@ -222,7 +222,7 @@ Tex_font_metric_reader::read_char ()
 #define GET_CHAR_DIMEN(d) \
    if (d##_index != 0) \
      { \
-       input_.seek_ch_C (header_. d##_pos + d##_index*4); \
+       input_.seek_str0 (header_. d##_pos + d##_index*4); \
        tfm_char.d##_fix_ = input_.get_U32 (); \
        tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_) \
                       * info_.design_size; \
@@ -241,8 +241,8 @@ Tex_font_metric_reader::read_char ()
 
   if (tag == 1)
     {
-      input_.seek_ch_C (header_.lig_kern_pos + remainder * 4);
-      read_lig_kern_program (&tfm_char.ligature_arr_, &tfm_char.kern_arr_);
+      input_.seek_str0 (header_.lig_kern_pos + remainder * 4);
+      read_lig_kern_program (&tfm_char.ligatures_, &tfm_char.kerns_);
     }
 
   /* We don't handle the other tags.  */
@@ -257,7 +257,7 @@ Tex_font_metric_reader::read_char ()
 #define KERN_FLAG 128
 
 void
-Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p)
+Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligatures, Array <Tfm_kern>* kerns)
 {
   bool end_b;
 
@@ -275,12 +275,12 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  Tfm_kern kern_element;
 	  kern_element.character = next_char;
 
-	  char const* old_pos = input_.pos_ch_C ();
-	  input_.seek_ch_C (header_.kern_pos + remainder * 4);
-	  kern_element.kern = get_U32_fix_scaled_f ();
+	  char const* old_pos = input_.pos_str0 ();
+	  input_.seek_str0 (header_.kern_pos + remainder * 4);
+	  kern_element.kern = get_U32_fix_scaled ();
 	  input_.set_pos (old_pos);
 
-	  kern_arr_p->push (kern_element);
+	  kerns->push (kern_element);
 
 	}
       else
@@ -288,7 +288,7 @@ Tex_font_metric_reader::read_lig_kern_program (Array <Tfm_ligature>* ligature_ar
 	  Tfm_ligature ligature_element;
 	  ligature_element.character = next_char;
 	  ligature_element.ligature = remainder;
-	  ligature_arr_p->push (ligature_element);
+	  ligatures->push (ligature_element);
 
 	}
   } while (!end_b);

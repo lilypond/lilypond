@@ -134,10 +134,10 @@ Text_spanner_engraver::process_acknowledged_grobs ()
 void
 Text_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  if (span_ && Note_column::has_interface (info.grob_l_))
+  if (span_ && Note_column::has_interface (info.grob_))
     {
-      Side_position_interface::add_support (span_, info.grob_l_);
-      add_bound_item (span_, dynamic_cast<Item*> (info.grob_l_));
+      Side_position_interface::add_support (span_, info.grob_);
+      add_bound_item (span_, dynamic_cast<Item*> (info.grob_));
     }
 }
 

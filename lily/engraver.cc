@@ -17,7 +17,7 @@
 void
 Engraver::announce_grob (Grob_info inf)
 {
-  daddy_grav_l ()->announce_grob (inf);
+  get_daddy_grav ()->announce_grob (inf);
 }
 
 void
@@ -32,9 +32,9 @@ Engraver::announce_grob (Grob* e, SCM cause)
     e->set_grob_property ("cause", cause);
 
   Grob_info i (e);
-  if (!i.origin_trans_l_)
-    i.origin_trans_l_ = this;
-  daddy_grav_l ()->announce_grob (i);
+  if (!i.origin_trans_)
+    i.origin_trans_ = this;
+  get_daddy_grav ()->announce_grob (i);
 }
 
 
@@ -42,15 +42,15 @@ Engraver::announce_grob (Grob* e, SCM cause)
 void
 Engraver::typeset_grob (Grob*p)
 {
-  daddy_grav_l ()->typeset_grob (p);
+  get_daddy_grav ()->typeset_grob (p);
 }
 
 
 Engraver_group_engraver*
-Engraver::daddy_grav_l () const
+Engraver::get_daddy_grav () const
 {
-  return (daddy_trans_l_)
-       ? dynamic_cast<Engraver_group_engraver *> (daddy_trans_l_)
+  return (daddy_trans_)
+       ? dynamic_cast<Engraver_group_engraver *> (daddy_trans_)
        : 0;
 }
 
@@ -74,8 +74,8 @@ Engraver::top_engraver () const
   if (dynamic_cast<Score_engraver*>((Engraver*)this))
     return dynamic_cast<Score_engraver*> ((Engraver*)this);
 
-  if (daddy_trans_l_)
-    return dynamic_cast<Engraver*> (daddy_trans_l_)->top_engraver ();
+  if (daddy_trans_)
+    return dynamic_cast<Engraver*> (daddy_trans_)->top_engraver ();
 
   programming_error ("No score engraver!");
   return 0;

@@ -41,7 +41,7 @@ public:
   static bool rest_b (Grob*me);
   static bool has_interface (Grob*);
   
-  static Item *stem_l (Grob*);
+  static Item *get_stem (Grob*);
 };
 
 #endif // NOTE_COLUMN_HH

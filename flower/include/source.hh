@@ -20,10 +20,10 @@ public:
   Sources ();
   ~Sources ();
 
-  Source_file * get_file_l (String &filename );
-  Source_file* sourcefile_l (char const* ch_C );
-  void add (Source_file* sourcefile_p );
-  void set_path (File_path*p_C);
+  Source_file * get_file (String &filename );
+  Source_file* get_sourcefile (char const* str0 );
+  void add (Source_file* sourcefile );
+  void set_path (File_path*p);
   void set_binary (bool);
 
   const File_path * path_C_;

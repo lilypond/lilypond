@@ -65,8 +65,8 @@ Stem::head_positions (Grob*me)
 
   Drul_array<Grob*> e (extremal_heads (me));
 
-  return Interval (Staff_symbol_referencer::position_f (e[DOWN]),
-		   Staff_symbol_referencer::position_f (e[UP]));
+  return Interval (Staff_symbol_referencer::get_position (e[DOWN]),
+		   Staff_symbol_referencer::get_position (e[UP]));
 }
 
 
@@ -193,7 +193,7 @@ Stem::extremal_heads (Grob*me)
       Grob * n = unsmob_grob (ly_car (s));
 
       
-      int p = int (Staff_symbol_referencer::position_f (n));
+      int p = int (Staff_symbol_referencer::get_position (n));
 
       Direction d = LEFT;
       do {
@@ -221,7 +221,7 @@ Stem::note_head_positions (Grob *me)
   for (SCM s = me->get_grob_property ("note-heads"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
-      int p = int (Staff_symbol_referencer::position_f (n));
+      int p = int (Staff_symbol_referencer::get_position (n));
 
       ps.push (p);
     }
@@ -246,7 +246,7 @@ Stem::add_head (Grob*me, Grob *n)
 bool
 Stem::invisible_b (Grob*me)
 {
-  return ! (head_count (me) && Note_head::balltype_i (support_head (me)) >= 1);
+  return ! (head_count (me) && Note_head::get_balltype (support_head (me)) >= 1);
 }
 
 Direction
@@ -342,16 +342,16 @@ Stem::get_default_stem_end_position (Grob*me)
     good typesetting practice. 
     
   */
-  if (!beam_l (me) && dir == UP
+  if (!get_beam (me) && dir == UP
       && duration_log (me) > 2)
     {
       Grob * closest_to_flag = extremal_heads (me)[dir];
       Grob * dots = closest_to_flag
-	? Rhythmic_head::dots_l (closest_to_flag ) : 0;
+	? Rhythmic_head::get_dots (closest_to_flag ) : 0;
 
       if (dots)
 	{
-	  Real dp = Staff_symbol_referencer::position_f  (dots);
+	  Real dp = Staff_symbol_referencer::get_position (dots);
 	  Real flagy =  flag (me).extent (Y_AXIS)[-dir] * 2
 	    / Staff_symbol_referencer::staff_space (me); 
 
@@ -414,7 +414,7 @@ Stem::position_noteheads (Grob*me)
   Real thick = 0.0;
   if (invisible)
         thick = gh_scm2double (me->get_grob_property ("thickness"))
-	  * me->paper_l ()->get_var ("linethickness");
+	  * me->get_paper ()->get_var ("linethickness");
       
 
   Grob *hed = support_head (me);
@@ -426,10 +426,10 @@ Stem::position_noteheads (Grob*me)
     }
   
   bool parity= true;		// todo: make me settable.
-  int lastpos = int (Staff_symbol_referencer::position_f (heads[0]));
+  int lastpos = int (Staff_symbol_referencer::get_position (heads[0]));
   for (int i=1; i < heads.size (); i ++)
     {
-      Real p = Staff_symbol_referencer::position_f (heads[i]);
+      Real p = Staff_symbol_referencer::get_position (heads[i]);
       int dy =abs (lastpos- (int)p);
 
       if (dy <= 1)
@@ -538,7 +538,7 @@ Stem::flag (Grob*me)
     }
   bool adjust = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
 
-  if (String::compare_i (style, "mensural") == 0)
+  if (String::compare (style, "mensural") == 0)
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
        flags are always vertically aligned with the staff lines,
@@ -574,7 +574,7 @@ Stem::flag (Grob*me)
 	  */
 	  Grob *first = first_head(me);
 	  int sz = Staff_symbol_referencer::line_count (me)-1;
-	  int p = (int)rint (Staff_symbol_referencer::position_f (first));
+	  int p = (int)rint (Staff_symbol_referencer::get_position (first));
 	  staffline_offs = (((p ^ sz) & 0x1) == 0) ? "1" : "0";
 	}
       else
@@ -587,12 +587,12 @@ Stem::flag (Grob*me)
       staffline_offs = "";
     }
   char c = (get_direction (me) == UP) ? 'u' : 'd';
-  String index_str
-    = String ("flags-") + style + to_str (c) + staffline_offs + to_str (duration_log (me));
+  String index_string
+    = String ("flags-") + style + to_string (c) + staffline_offs + to_string (duration_log (me));
   Molecule m
-    = Font_interface::get_default_font (me)->find_by_name (index_str);
+    = Font_interface::get_default_font (me)->find_by_name (index_string);
   if (!fstyle.empty_b ())
-    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + fstyle));
+    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_string (c) + fstyle));
   return m;
 }
 
@@ -644,14 +644,14 @@ Stem::brew_molecule (SCM smob)
       Grob * lh = last_head (me);
       if (!lh)
 	return SCM_EOL;
-      y1 = Staff_symbol_referencer::position_f (lh);
+      y1 = Staff_symbol_referencer::get_position (lh);
     }
   else
     {
       Grob * lh = first_head (me);
       if (!lh)
 	return SCM_EOL;
-      y1 = Staff_symbol_referencer::position_f (lh);
+      y1 = Staff_symbol_referencer::get_position (lh);
     }
   
   Real y2 = stem_end_position (me);
@@ -678,14 +678,14 @@ Stem::brew_molecule (SCM smob)
     {
       Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
 	// URG
-	* me->paper_l ()->get_var ("linethickness");
+	* me->get_paper ()->get_var ("linethickness");
       
       Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
 					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol.add_molecule (ss);
     }
 
-  if (!beam_l (me) && abs (duration_log (me)) > 2)
+  if (!get_beam (me) && abs (duration_log (me)) > 2)
     {
       Molecule fl = flag (me);
       fl.translate_axis (stem_y[d]*dy, Y_AXIS);
@@ -738,7 +738,7 @@ Stem::off_callback (SCM element_smob, SCM)
 	{
 	  Real rule_thick
 	    = gh_scm2double (me->get_grob_property ("thickness"))
-	    * me->paper_l ()->get_var ("linethickness");
+	    * me->get_paper ()->get_var ("linethickness");
 
 	  
 	  r += - d * rule_thick * 0.5;
@@ -750,7 +750,7 @@ Stem::off_callback (SCM element_smob, SCM)
 
 
 Grob*
-Stem::beam_l (Grob*me)
+Stem::get_beam (Grob*me)
 {
   SCM b=  me->get_grob_property ("beam");
   return unsmob_grob (b);
@@ -798,7 +798,7 @@ Stem::calc_stem_info (Grob*me)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
 
-  Grob * beam = beam_l (me);
+  Grob * beam = get_beam (me);
   int beam_count = beam_multiplicity(me).length()+1;
   Real beam_translation= Beam::get_beam_translation (beam);
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));

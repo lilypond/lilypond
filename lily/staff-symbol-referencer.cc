@@ -22,14 +22,14 @@ Staff_symbol_referencer::has_interface (Grob*e)
 int
 Staff_symbol_referencer::line_count (Grob*me) 
 {
-  Grob *st = staff_symbol_l (me);
+  Grob *st = get_staff_symbol (me);
   return st  ?  Staff_symbol::line_count (st) : 0;
 }
 
 bool
 Staff_symbol_referencer::on_staffline (Grob*me)
 {
-  return on_staffline (me, (int) rint (position_f (me)));
+  return on_staffline (me, (int) rint (get_position (me)));
 }
 
 bool
@@ -40,7 +40,7 @@ Staff_symbol_referencer::on_staffline (Grob*me, int pos)
 }
 
 Grob*
-Staff_symbol_referencer::staff_symbol_l (Grob*me) 
+Staff_symbol_referencer::get_staff_symbol (Grob*me) 
 {
   SCM st = me->get_grob_property ("staff-symbol");
   return unsmob_grob (st);
@@ -49,7 +49,7 @@ Staff_symbol_referencer::staff_symbol_l (Grob*me)
 Real
 Staff_symbol_referencer::staff_space (Grob*me) 
 {
-  Grob * st = staff_symbol_l (me);
+  Grob * st = get_staff_symbol (me);
   if (st)
     return Staff_symbol::staff_space (st);
 
@@ -57,10 +57,10 @@ Staff_symbol_referencer::staff_space (Grob*me)
 }
 
 Real
-Staff_symbol_referencer::position_f (Grob*me) 
+Staff_symbol_referencer::get_position (Grob*me) 
 {
   Real p =0.0;
-  Grob * st = staff_symbol_l (me);
+  Grob * st = get_staff_symbol (me);
   Grob * c = st ? me->common_refpoint (st, Y_AXIS) : 0;
   if (st && c)
     {
@@ -121,10 +121,10 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
 void
 Staff_symbol_referencer::set_position (Grob*me,Real p)
 {
-  Grob * st = staff_symbol_l (me);
+  Grob * st = get_staff_symbol (me);
   if (st && me->common_refpoint (st, Y_AXIS))
     {
-      Real oldpos = position_f (me);
+      Real oldpos = get_position (me);
       me->set_grob_property ("staff-position", gh_double2scm (p - oldpos));
     }
   else
@@ -153,8 +153,8 @@ Staff_symbol_referencer::staff_radius (Grob*me)
 int
 compare_position (Grob *const  &a, Grob * const &b)
 {
-  return sign (Staff_symbol_referencer::position_f ((Grob*)a) - 
-    Staff_symbol_referencer::position_f ((Grob*)b));
+  return sign (Staff_symbol_referencer::get_position ((Grob*)a) - 
+    Staff_symbol_referencer::get_position ((Grob*)b));
 }
 
 

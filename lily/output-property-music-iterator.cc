@@ -15,10 +15,10 @@ Output_property_music_iterator::process (Moment m)
 {
   if (last_processed_mom_ < Moment (0))
     {
-      bool accepted = try_music (music_l ());
+      bool accepted = try_music (get_music ());
       if (!accepted)
-	music_l ()->origin ()->warning (_f ("Junking request: `%s'",
-					  classname (music_l ())));
+	get_music ()->origin ()->warning (_f ("Junking request: `%s'",
+					  classname (get_music ())));
     }
 
   skip (m);

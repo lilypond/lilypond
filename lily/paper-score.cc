@@ -24,8 +24,8 @@
 
 Paper_score::Paper_score ()
 {
-  paper_l_ =0;
-  outputter_l_ =0;
+  paper_ =0;
+  outputter_ =0;
   system_ = 0;
   main_smob_ = SCM_EOL;
 }
@@ -38,7 +38,7 @@ Paper_score::typeset_line (System *l)
       system_ = l;		// ugh.
     }
   main_smob_ = gh_cons (l->self_scm (), main_smob_);
-  l->pscore_l_ = this;
+  l->pscore_ = this;
 
   /*
     We don't unprotect l->self_scm (), we haven't got any place else to
@@ -55,13 +55,13 @@ Paper_score::Paper_score (Paper_score const &s)
 Array<Column_x_positions>
 Paper_score::calc_breaking ()
 {
-  Break_algorithm *algorithm_p=0;
+  Break_algorithm *algorithm=0;
   Array<Column_x_positions> sol;
 
-  algorithm_p = new Gourlay_breaking ;
-  algorithm_p->set_pscore (this);
-  sol = algorithm_p->solve ();
-  delete algorithm_p;
+  algorithm = new Gourlay_breaking ;
+  algorithm->set_pscore (this);
+  sol = algorithm->solve ();
+  delete algorithm;
 
   return sol;
 }
@@ -81,7 +81,7 @@ Paper_score::process ()
   /*
     Be sure to set breakability on first & last column.
    */
-  Link_array<Grob> pc (system_->column_l_arr ());
+  Link_array<Grob> pc (system_->columns ());
   
   pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
   pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
@@ -91,44 +91,44 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   
-  outputter_l_ = paper_l_->paper_outputter_p ();
+  outputter_ = paper_->get_paper_outputter ();
 ;
-  outputter_l_->output_header ();
-  outputter_l_->output_version ();
+  outputter_->output_header ();
+  outputter_->output_version ();
 
   progress_indication ("\n");
 
-  if (global_header_p)
+  if (global_header)
     {
 
-      outputter_l_->output_scope (global_header_p, "lilypond");
-      outputter_l_->write_header_fields_to_file (global_header_p);
+      outputter_->output_scope (global_header, "lilypond");
+      outputter_->write_header_fields_to_file (global_header);
     }
-  if (header_l_)
+  if (header_)
     {
-      outputter_l_->output_scope (header_l_, "lilypond");
-      outputter_l_->write_header_fields_to_file (header_l_);
+      outputter_->output_scope (header_, "lilypond");
+      outputter_->write_header_fields_to_file (header_);
     }
   
-  outputter_l_->output_comment (_ ("Outputting Score, defined at: "));
-  outputter_l_->output_comment (origin_str_);
+  outputter_->output_comment (_ ("Outputting Score, defined at: "));
+  outputter_->output_comment (origin_string_);
 
-  if (paper_l_->variable_tab_)
-    outputter_l_->output_scope (paper_l_->variable_tab_, "lilypondpaper");
+  if (paper_->variable_tab_)
+    outputter_->output_scope (paper_->variable_tab_, "lilypondpaper");
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
-  outputter_l_->output_scheme (scm);
+  outputter_->output_scheme (scm);
 
   system_->output_lines ();
 
   scm = scm_list_n (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
-  outputter_l_->output_scheme (scm);
+  outputter_->output_scheme (scm);
 
   progress_indication ("\n");
 
   // huh?
-  delete outputter_l_;
-  outputter_l_ = 0;
+  delete outputter_;
+  outputter_ = 0;
   
   if (verbose_global_b)
     ly_display_scm (scm_gc_stats ()); 

@@ -20,8 +20,8 @@ class String_data {
 friend class String_handle;
     int maxlen;	// maxlen is arraysize-1
     
-    int length_i_;
-    Byte* data_byte_p_;
+    int length_;
+    Byte* data_byte_;
     int references;
 
     /// init to ""
@@ -33,13 +33,13 @@ friend class String_handle;
     ~String_data ();
 
     /** POST: maxlen >= j.
-      @param j, maximum stringlength_i_.    
+      @param j, maximum stringlength_.    
       contents thrown away.
     */
     void setmax (int j);
     
     /** POST: maxlen >= j.
-      @param j, maximum stringlength_i_.
+      @param j, maximum stringlength_.
       contents are kept if it grows.
       */
     void remax (int j);
@@ -54,27 +54,27 @@ friend class String_handle;
     void tighten ();
 
     // assignment.
-    void set (Byte const* byte_C, int length_i);
+    void set (Byte const* byte, int length_i);
 
-    void set (char const* ch_C);
+    void set (char const* str0);
     
     /// concatenation.
-    void append (Byte const* byte_C, int length_i);
+    void append (Byte const* byte, int length_i);
 
-    void operator += (char const* ch_C);
+    void operator += (char const* str0);
 
-    char const* ch_C () const; 
+    char const* to_str0 () const; 
 
-    char* ch_l ();
+    char* get_str0 ();
 
-    Byte const* byte_C () const;
+    Byte const* to_bytes () const;
 
     // idem, non const
-    Byte* byte_l ();
+    Byte* get_bytes ();
 
     void trunc (int j);
 
-    /** access element. not really safe. Can alter length_i_ without
+    /** access element. not really safe. Can alter length_ without
       #String_data# knowing it.  */
     Byte &operator [] (int j);
     Byte operator [] (int j) const;

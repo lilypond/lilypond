@@ -27,7 +27,7 @@ class Audio_item : public Audio_element
 public:
   Audio_item ();
 
-  Audio_column* audio_column_l_;
+  Audio_column* audio_column_;
 
   
 private:
@@ -55,7 +55,7 @@ public:
 class Audio_instrument : public Audio_item
 {
 public:
-  Audio_instrument (String instrument_str);
+  Audio_instrument (String instrument_string);
 
   String str_;
 };
@@ -71,14 +71,14 @@ public:
   Moment length_mom_;
   Moment delayed_mom_;
   Moment delayed_until_mom_;
-  int transposing_i_;
+  int transposing_;
   Audio_note* tied_;
 };
 
 class Audio_piano_pedal : public Audio_item
 {
 public:
-  String type_str_;
+  String type_string_;
   Direction dir_;
 };
 
@@ -90,10 +90,10 @@ public:
     MARKER, CUE_POINT
   };
   
-  Audio_text (Audio_text::Type type, String text_str);
+  Audio_text (Audio_text::Type type, String text_string);
 
   Type type_;
-  String text_str_;
+  String text_string_;
 };
 
 class Audio_tempo : public Audio_item
@@ -101,7 +101,7 @@ class Audio_tempo : public Audio_item
 public:
   Audio_tempo (int per_minute_4_i);
 
-  int per_minute_4_i_;
+  int per_minute_4_;
 };
 
 class Audio_tie : public Audio_item
@@ -117,8 +117,8 @@ class Audio_time_signature : public Audio_item
 public:
   Audio_time_signature (int beats, int one_beat);
 
-  int beats_i_;
-  int one_beat_i_;
+  int beats_;
+  int one_beat_;
 };
 
 #endif // AUDIO_ITEM_HH

@@ -29,20 +29,20 @@ struct Break_node {
     considered: this path has infinite energy
     
     */
-  int prev_break_i_;
+  int prev_break_;
   /**
      Which system number so far?
    */
-  int line_i_;
+  int line_;
 
-  Real demerits_f_;
+  Real demerits_;
   Column_x_positions line_config_;
   
   Break_node () 
   {
-    prev_break_i_ = -1;
-    line_i_ = 0;
-    demerits_f_ = 0;
+    prev_break_ = -1;
+    line_ = 0;
+    demerits_ = 0;
   }
 };
 
@@ -57,7 +57,7 @@ Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
   Link_array<Grob> all =
-    pscore_l_->system_->column_l_arr ();
+    pscore_->system_->columns ();
   
   Array<int> breaks = find_break_indices ();
   
@@ -78,7 +78,7 @@ Gourlay_breaking::do_solve () const
       
       Real minimal_demerits = infinity_f;
 
-      bool ragged = to_boolean (pscore_l_->paper_l_->get_scmvar ("raggedright"));
+      bool ragged = to_boolean (pscore_->paper_->get_scmvar ("raggedright"));
 
       for (int start_idx = break_idx; start_idx--;)
 	{
@@ -91,13 +91,13 @@ Gourlay_breaking::do_solve () const
 	  cp.cols_ = line;
 
 	  Interval line_dims
-	    = pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_);
+	    = pscore_->paper_->line_dimensions_int (optimal_paths[start_idx].line_);
 	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
 	  sp->solve (&cp, ragged);
 	  delete sp;
 
-	  if (fabs (cp.force_f_) > worst_force)
-	    worst_force = fabs (cp.force_f_);
+	  if (fabs (cp.force_) > worst_force)
+	    worst_force = fabs (cp.force_);
 
 	  /*
 	    We remember this solution as a "should always work
@@ -107,11 +107,11 @@ Gourlay_breaking::do_solve () const
 	 	  
 	  Real this_demerits;
 
-	  if (optimal_paths[start_idx].demerits_f_ >= infinity_f)
+	  if (optimal_paths[start_idx].demerits_ >= infinity_f)
 	    this_demerits = infinity_f;
 	  else
 	    this_demerits = combine_demerits (optimal_paths[start_idx].line_config_, cp)
-	      + optimal_paths[start_idx].demerits_f_;
+	      + optimal_paths[start_idx].demerits_;
 
 	  if (this_demerits < minimal_demerits) 
 	    {
@@ -132,26 +132,26 @@ Gourlay_breaking::do_solve () const
       Break_node bnod;
       if (minimal_start_idx < 0) 
 	{
-	  bnod.demerits_f_ = infinity_f;
+	  bnod.demerits_ = infinity_f;
 	  bnod.line_config_ = backup_sol;
-	  bnod.prev_break_i_ = break_idx - 1;	  
+	  bnod.prev_break_ = break_idx - 1;	  
 	}
       else 
 	{
-	  bnod.prev_break_i_ = minimal_start_idx;
-	  bnod.demerits_f_ = minimal_demerits;
+	  bnod.prev_break_ = minimal_start_idx;
+	  bnod.demerits_ = minimal_demerits;
 	  bnod.line_config_ = minimal_sol;
 	}
-      bnod.line_i_ = optimal_paths[bnod.prev_break_i_].line_i_ + 1;
+      bnod.line_ = optimal_paths[bnod.prev_break_].line_ + 1;
       optimal_paths.push (bnod);
       
       if (! (break_idx % HAPPY_DOTS_I))
-	progress_indication (String ("[") + to_str (break_idx) + "]");
+	progress_indication (String ("[") + to_string (break_idx) + "]");
     }
 
   /* do the last one */
   if (breaks.size () % HAPPY_DOTS_I)
-    progress_indication (String ("[") + to_str (breaks.size()) + "]");    
+    progress_indication (String ("[") + to_string (breaks.size()) + "]");    
 
 
   progress_indication ("\n");
@@ -163,15 +163,15 @@ Gourlay_breaking::do_solve () const
   for (int i = optimal_paths.size ()-1; i> 0;) 
     {
       final_breaks.push (i);
-      int prev = optimal_paths[i].prev_break_i_;
+      int prev = optimal_paths[i].prev_break_;
       assert (i > prev);
       i = prev;
     }
 
   if (verbose_global_b)
-    printf ("Optimal demerits: %f\n", optimal_paths.top ().demerits_f_); 
+    printf ("Optimal demerits: %f\n", optimal_paths.top ().demerits_); 
   
-  if (optimal_paths.top ().demerits_f_ >= infinity_f)
+  if (optimal_paths.top ().demerits_ >= infinity_f)
     warning (_ ("No feasible line breaking found"));
   
   for (int i= final_breaks.size (); i--;)
@@ -205,7 +205,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 {
   Real break_penalties = 0.0;
   Grob * pc = this_one.cols_.top ();
-  if (pc->original_l_)
+  if (pc->original_)
     {
       SCM pen = pc->get_grob_property ("penalty");
       if (gh_number_p (pen) && fabs (gh_scm2double (pen)) < 10000)
@@ -218,10 +218,10 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
   /*
     Q: do want globally non-cramped lines, or locally equally cramped lines. 
    */
-  Real demerit = abs (this_one.force_f_) + 0.1 *abs (prev.force_f_ - this_one.force_f_)
+  Real demerit = abs (this_one.force_) + 0.1 *abs (prev.force_ - this_one.force_)
     + break_penalties;
 #else
-  Real demerit = abs (this_one.force_f_) + break_penalties;
+  Real demerit = abs (this_one.force_) + break_penalties;
 #endif
 
    if (!this_one.satisfies_constraints_b_)

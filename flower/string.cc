@@ -29,18 +29,18 @@ void* mymemmove (void* dest, void const* src, size_t n);
 
 // return array, alloced with new.
 Byte*
-String::copy_byte_p () const
+String::get_copy_byte () const
 {
-  Byte const* src = strh_.byte_C ();
-  Byte* dest = new Byte[strh_.length_i () + 1];
-  memcpy (dest, src, strh_.length_i () + 1);
+  Byte const* src = strh_.to_bytes ();
+  Byte* dest = new Byte[strh_.length () + 1];
+  memcpy (dest, src, strh_.length () + 1);
   return dest;    
 }
 
 char*
-String::copy_ch_p () const
+String::get_copy_str0 () const
 {
-  return (char*)copy_byte_p ();
+  return (char*)get_copy_byte ();
 }
 
 
@@ -55,9 +55,9 @@ String::operator = (String const&source)
 }
 
 
-String::String (Byte const* byte_l, int len_i)
+String::String (Byte const* byte, int len_i)
 {   
-  strh_.set (byte_l, len_i);
+  strh_.set (byte, len_i);
 }
 
 /**
@@ -65,40 +65,40 @@ String::String (Byte const* byte_l, int len_i)
   String_convert::
  */
 String
-to_str (char c, int n)
+to_string (char c, int n)
 {
-  return String_convert::char_str (c, n);
+  return String_convert::char_string (c, n);
 }
 
 String
-to_str (double f, char const* format)
+to_string (double f, char const* format)
 {
-  return String_convert::double_str (f, format);
+  return String_convert::double_string (f, format);
 }
 
 String
-to_str (int i, char const * format)
+to_string (int i, char const * format)
 {
-  return String_convert::int_str (i, format);
+  return String_convert::int_string (i, format);
 }
 
 String
-to_str (bool b)
+to_string (bool b)
 {
-  return String_convert::bool_str (b);
+  return String_convert::bool_string (b);
 }
 String
-to_str (long b)
+to_string (long b)
 {
-  return String_convert::long_str (b);
+  return String_convert::long_string (b);
 }
 
 String 
-to_str (char const* format, ... )
+to_string (char const* format, ... )
 {
   va_list args;
   va_start (args, format);
-  String str = String_convert::vform_str (format, args);
+  String str = String_convert::vform_string (format, args);
   va_end (args);
   return str;
 }
@@ -107,7 +107,7 @@ to_str (char const* format, ... )
 void
 String::append (String s)
 {
-  strh_.append (s.byte_C (), s.length_i ());
+  strh_.append (s.to_bytes (), s.length ());
 }
 void
 String::operator += (String s)
@@ -123,55 +123,55 @@ String::prepend (String s)
 }
 
 int
-String::length_i () const
+String::length () const
 {
-  return strh_.length_i ();
+  return strh_.length ();
 }
 
 Byte const*
-String::byte_C () const
+String::to_bytes () const
 {
-  return strh_.byte_C ();
+  return strh_.to_bytes ();
 }
 
 char const*
-String::ch_C () const
+String::to_str0 () const
 {
-  return strh_.ch_C ();
+  return strh_.to_str0 ();
 }
 
 Byte*
-String::byte_l ()
+String::get_bytes ()
 {
-  return strh_.byte_l ();
+  return strh_.get_bytes ();
 }
 
 char*
-String::ch_l ()
+String::get_str0 ()
 {
-  return strh_.ch_l ();
+  return strh_.get_str0 ();
 }
 
 bool 
 String::empty_b () const
 {
-  return !length_i ();
+  return !length ();
 }
 /**
   Do a signed comparison,  analogous to memcmp;
  */
 int
-String::compare_i (String const& s1, String const& s2) 
+String::compare (String const& s1, String const& s2) 
 {
-  Byte const* p1 = s1.byte_C ();
-  Byte const* p2 = s2.byte_C ();
+  Byte const* p1 = s1.to_bytes ();
+  Byte const* p2 = s2.to_bytes ();
   if (p1 == p2)
     return 0;
 
   /*
     don't forget the terminating '\0'
    */
-  int f = (s1.length_i () <? s2.length_i ());
+  int f = (s1.length () <? s2.length ());
   int cmp_length = 1+ f;
   int i = memcmp (p1, p2, cmp_length);
   return i;
@@ -179,27 +179,27 @@ String::compare_i (String const& s1, String const& s2)
 
 
 int
-String::index_last_i (char const c) const
+String::index_last (char const c) const
 {
-  if (!length_i ()) 
+  if (!length ()) 
     return -1;
 
-  char const* me = strh_.ch_C ();
-  char const* p = (char const*)memrchr ((Byte*)me, length_i (), c);
+  char const* me = strh_.to_str0 ();
+  char const* p = (char const*)memrchr ((Byte*)me, length (), c);
   if (p)
     return p - me;
   return -1;
 }
 
 int
-String::index_last_i (char const* string) const // UGK!
+String::index_last (char const* string) const // UGK!
 {
   assert (false);		// broken
   int len = strlen (string); // ugrh
-  if (!length_i () || !len) 
+  if (!length () || !len) 
     return -1;
   
-  int next_i = index_i (string);
+  int next_i = index (string);
   if (next_i == -1)
     return -1;
   
@@ -207,7 +207,7 @@ String::index_last_i (char const* string) const // UGK!
   while (next_i >= 0) 
     {
       index_i += next_i;
-      next_i = right_str (length_i () - index_i - len).index_i (string );
+      next_i = right_string (length () - index_i - len).index (string );
     }
   return index_i;
 }
@@ -215,16 +215,16 @@ String::index_last_i (char const* string) const // UGK!
 /** find  a character.
 
   @return
-  the index of the leftmost character #c# (0 <= return < length_i ()),
+  the index of the leftmost character #c# (0 <= return < length ()),
   or   -1 if not found. 
 
-  ? should return length_i ()?, as in string.left_str (index_i (delimiter))
+  ? should return length ()?, as in string.left_string (index (delimiter))
 */
 int
-String::index_i (char c) const
+String::index (char c) const
 {
-  char const* me = strh_.ch_C ();
-  char const* p = (char const *) memchr (me,c,  length_i ());
+  char const* me = strh_.to_str0 ();
+  char const* p = (char const *) memchr (me,c,  length ());
   if (p)
     return p - me;
   return -1;
@@ -237,12 +237,12 @@ String::index_i (char c) const
 1  index of leftmost occurrence of #searchfor#
  */
 int
-String::index_i (String searchfor) const
+String::index (String searchfor) const
 {
-  char const* me = strh_.ch_C ();
+  char const* me = strh_.to_str0 ();
 
   char const* p = (char const *) 
-    memmem (me, length_i (), searchfor.ch_C (), searchfor.length_i ());
+    memmem (me, length (), searchfor.to_str0 (), searchfor.length ());
   
   if (p)
     return p - me;
@@ -260,28 +260,28 @@ String::index_i (String searchfor) const
 
 */
 int
-String::index_any_i (String set) const
+String::index_any (String set) const
 {
-  int n = length_i ();
+  int n = length ();
   if (!n)
     return -1;
 
-  void const * me_l = (void const *) strh_.ch_C ();
-  for (int i=0; i  < set.length_i (); i++) 
+  void const * me = (void const *) strh_.to_str0 ();
+  for (int i=0; i  < set.length (); i++) 
     {
-      char * found= (char*) memchr (me_l, set[i], n );
+      char * found= (char*) memchr (me, set[i], n );
       if (found) 
 	{
-	  return found - (char const*)me_l;
+	  return found - (char const*)me;
 	}
     }
   return -1;
 }
 
 String
-String::left_str (int n) const
+String::left_string (int n) const
 {
-  if (n >= length_i ())
+  if (n >= length ())
     return *this;
 
   String retval;    	
@@ -294,20 +294,20 @@ String::left_str (int n) const
 }
 
 String
-String::right_str (int n) const
+String::right_string (int n) const
 {
-  if (n > length_i ())
+  if (n > length ())
     return *this;
   
   if (n < 1)
     return "";
   
-  return String (strh_.byte_C () + length_i () - n, n); 
+  return String (strh_.to_bytes () + length () - n, n); 
 }
 
 
 String
-String::nomid_str (int index_i, int n) const
+String::nomid_string (int index_i, int n) const
 {
   if (index_i < 0) 
     {
@@ -318,12 +318,12 @@ String::nomid_str (int index_i, int n) const
     return *this;
   
   return
-    left_str (index_i)   +
-    right_str (length_i () - index_i - n) ;
+    left_string (index_i)   +
+    right_string (length () - index_i - n) ;
 }
 
 String
-String::cut_str (int index_i, int n) const
+String::cut_string (int index_i, int n) const
 {
   if (index_i <0) 
     {
@@ -331,17 +331,17 @@ String::cut_str (int index_i, int n) const
       index_i=0;
     }
   
-  if (!length_i () || (index_i < 0) || (index_i >= length_i () ) || (n < 1 ) )
+  if (!length () || (index_i < 0) || (index_i >= length () ) || (n < 1 ) )
     return String ();
 
-  if ((n > length_i ()) || (index_i + n > length_i () ) )
-    n = length_i () - index_i;
+  if ((n > length ()) || (index_i + n > length () ) )
+    n = length () - index_i;
 
-  return String (byte_C () + index_i, n);
+  return String (to_bytes () + index_i, n);
 }
 
 String
-String::upper_str () const
+String::upper_string () const
 {
   String str = *this;
   str.to_upper ();
@@ -350,43 +350,43 @@ String::upper_str () const
 void
 String::to_upper ()
 {
-  char *s = (char*)strh_.byte_l ();
-  strnupr (s ,length_i ());
+  char *s = (char*)strh_.get_bytes ();
+  strnupr (s ,length ());
 }
 
 void
 String::to_lower ()
 {
-  char* s = strh_.ch_l ();
-  strnlwr (s,length_i ());    
+  char* s = strh_.get_str0 ();
+  strnlwr (s,length ());    
 }
 
 
 String 
-String::lower_str () const
+String::lower_string () const
 {
   String str = *this;
   str.to_lower ();
   return str;
 }
 String 
-String::reversed_str () const
+String::reversed_string () const
 {
   String str = *this;
-  strrev (str.byte_l (), str.length_i ());
+  strrev (str.get_bytes (), str.length ());
   return str;    
 }
 
 int
-String::value_i () const
+String::to_int () const
 {
-  return String_convert::dec2_i (*this);
+  return String_convert::dec2int (*this);
 }
 
 double
-String::value_f () const
+String::to_double () const
 {
-  return String_convert::dec2_f (*this);
+  return String_convert::dec2double (*this);
 }
 
 #ifdef STREAM_SUPPORT
@@ -402,9 +402,9 @@ void
 String::print_on (ostream& os) const
 {
   if (!strh_.is_binary_bo ())
-    os << ch_C ();
+    os << to_str0 ();
   else
-    for (int i = 0; i < length_i (); i++)
+    for (int i = 0; i < length (); i++)
       os << (Byte) (*this)[ i ];
 }
 #endif

@@ -69,7 +69,7 @@
  * implemented, such as a Vaticana_ligature_engraver.  There will be
  * redundant code between these engravers and the
  * Mensural_ligature_engraver.  In particular these are functions
- * set_column_l_, fold_up_primitives, join_primitives, and
+ * set_column_, fold_up_primitives, join_primitives, and
  * ackowledge_grob; further the code for handling accidentals.  It is
  * not appropriate to put these things into Ligature_engraver, since,
  * for example, Ligature_bracket_engraver does not share any of this
@@ -80,8 +80,8 @@
  */
 class Mensural_ligature_engraver : public Ligature_engraver
 {
-  Real distance_f_;
-  Array<Grob_info> primitives_arr_;
+  Real distance_;
+  Array<Grob_info> primitives_;
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -97,19 +97,19 @@ private:
   void propagate_properties ();
   void fold_up_primitives ();
   void join_primitives ();
-  void set_column_l (Item *item, Paper_column *new_col);
+  void get_set_column (Item *item, Paper_column *new_col);
 };
 
 
 Mensural_ligature_engraver::Mensural_ligature_engraver ()
 {
-  distance_f_ = 0;
+  distance_ = 0;
 }
 
 Spanner *
 Mensural_ligature_engraver::create_ligature_spanner ()
 {
-  distance_f_ = 0;
+  distance_ = 0;
   return new Spanner (get_property ("MensuralLigature"));
 }
 
@@ -117,7 +117,7 @@ Mensural_ligature_engraver::create_ligature_spanner ()
  * TODO: move this function to class Item?
  */
 void
-Mensural_ligature_engraver::set_column_l (Item *item, Paper_column *column)
+Mensural_ligature_engraver::get_set_column (Item *item, Paper_column *column)
 {
   Item *parent = dynamic_cast<Item*> (item->get_parent (X_AXIS));
   if (!parent)
@@ -127,18 +127,18 @@ Mensural_ligature_engraver::set_column_l (Item *item, Paper_column *column)
     }
 
   String name = parent->name ();
-  if (!String::compare_i (name, "PaperColumn"))
+  if (!String::compare (name, "PaperColumn"))
     {
       // Change column not only for targeted item (NoteColumn), but
       // also for all associated grobs (NoteSpacing, SeparationItem).
-      Grob *sl = Staff_symbol_referencer::staff_symbol_l (item);
+      Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
       for (SCM tail = parent->get_grob_property ("elements");
 	   gh_pair_p (tail);
 	   tail = ly_cdr (tail))
 	{
 	  Item *sibling = unsmob_item (ly_car (tail));
 	  if ((sibling) &&
-	      (Staff_symbol_referencer::staff_symbol_l (sibling) == sl))
+	      (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
 	    {
 	      sibling->set_parent (column, X_AXIS);
 	    }
@@ -146,7 +146,7 @@ Mensural_ligature_engraver::set_column_l (Item *item, Paper_column *column)
     }
   else
     {
-      set_column_l (parent, column);
+      get_set_column (parent, column);
     }
 }
 
@@ -265,11 +265,11 @@ Mensural_ligature_engraver::apply_transition (int state, int input, int i)
 {
   int output = transition_output[state][input];
   Item *last_last_primitive = (i > 1) ?
-    dynamic_cast<Item*> (primitives_arr_[i-2].grob_l_) : 0;
+    dynamic_cast<Item*> (primitives_[i-2].grob_) : 0;
   Item *last_primitive = (i > 0) ?
-    dynamic_cast<Item*> (primitives_arr_[i-1].grob_l_) : 0;
-  Item *primitive = (i < primitives_arr_.size ()) ?
-    dynamic_cast<Item*> (primitives_arr_[i].grob_l_) : 0;
+    dynamic_cast<Item*> (primitives_[i-1].grob_) : 0;
+  Item *primitive = (i < primitives_.size ()) ?
+    dynamic_cast<Item*> (primitives_[i].grob_) : 0;
   switch (output)
     {
       case MLP_NONE:
@@ -327,7 +327,7 @@ Mensural_ligature_engraver::apply_transition (int state, int input, int i)
 void
 Mensural_ligature_engraver::transform_heads ()
 {
-  if (primitives_arr_.size () < 2)
+  if (primitives_.size () < 2)
     {
       warning (_f ("ligature with less than 2 heads -> skipping"));
       return;
@@ -335,12 +335,12 @@ Mensural_ligature_engraver::transform_heads ()
   int state = STATE_START;
   Pitch last_pitch, pitch;
   bool have_last_pitch = 0, have_pitch = 0;
-  for (int i = 0; i < primitives_arr_.size (); i++) {
+  for (int i = 0; i < primitives_.size (); i++) {
     last_pitch = pitch;
     have_last_pitch = have_pitch;
-    Grob_info info = primitives_arr_[i];
+    Grob_info info = primitives_[i];
     int duration_log =
-      Note_head::balltype_i (dynamic_cast<Item*> (info.grob_l_));
+      Note_head::get_balltype (dynamic_cast<Item*> (info.grob_));
     Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
     if (!nr)
       {
@@ -389,7 +389,7 @@ Mensural_ligature_engraver::transform_heads ()
     // TODO: if (state == STATE_ERROR) { ... }
   }
 
-  state = apply_transition (state, INPUT_AE, primitives_arr_.size ());
+  state = apply_transition (state, INPUT_AE, primitives_.size ());
   // TODO: if (state == STATE_ERROR) { ... }
 }
 
@@ -421,23 +421,23 @@ void
 Mensural_ligature_engraver::propagate_properties ()
 {
   SCM thickness_scm =
-    finished_ligature_p_->get_grob_property ("thickness");
+    finished_ligature_->get_grob_property ("thickness");
   Real thickness = (thickness_scm != SCM_EOL) ?
     gh_scm2double (thickness_scm) : 1.4;
-  thickness *= finished_ligature_p_->paper_l ()->get_var ("linethickness");
+  thickness *= finished_ligature_->get_paper ()->get_var ("linethickness");
 
   /*
    * FIXME: Since character "noteheads--1mensural" is defined in
    * parmesan font only, the right-hand expression in the
    * following assignment evaluates to a width of 0.0, in case
-   * font-family of finished_ligature_p_ is _not_ set to "ancient"
+   * font-family of finished_ligature_ is _not_ set to "ancient"
    * (by default, it is; see grob properties of MensuralLigature
    * in scm/grob-description.scm).  This may arise severe problems
    * in the future when switching between fonts (e.g. mensural
    * versus neo-mensural).
    */
   Real head_width =
-    Font_interface::get_default_font (finished_ligature_p_)->
+    Font_interface::get_default_font (finished_ligature_)->
     find_by_name ("noteheads--1mensural").extent (X_AXIS).length ();
   if (head_width == 0.0)
     {
@@ -445,16 +445,16 @@ Mensural_ligature_engraver::propagate_properties ()
     }
 
   SCM flexa_width_scm =
-    finished_ligature_p_->get_grob_property ("flexa-width");
+    finished_ligature_->get_grob_property ("flexa-width");
   Real flexa_width = (flexa_width_scm != SCM_EOL) ?
     gh_scm2double (flexa_width_scm) : 2.0;
-  flexa_width *= Staff_symbol_referencer::staff_space (finished_ligature_p_);
+  flexa_width *= Staff_symbol_referencer::staff_space (finished_ligature_);
 
   Real half_flexa_width = 0.5 * (flexa_width + thickness);
 
-  for (int i = 0; i < primitives_arr_.size (); i++)
+  for (int i = 0; i < primitives_.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item*> (primitives_arr_[i].grob_l_);
+      Item *primitive = dynamic_cast<Item*> (primitives_[i].grob_);
       int output = gh_scm2int (primitive->get_grob_property ("primitive"));
       primitive->set_grob_property ("thickness",
 				    gh_double2scm (thickness));
@@ -477,7 +477,7 @@ Mensural_ligature_engraver::propagate_properties ()
 	  primitive->set_grob_property ("flexa-width",
 					gh_double2scm (flexa_width));
 	  set_delta_pitch (primitive,
-			   primitives_arr_[i], primitives_arr_[i+1]);
+			   primitives_[i], primitives_[i+1]);
 	  break;
 	default:
 	  programming_error (_f ("unexpected case fall-through"));
@@ -490,29 +490,29 @@ void
 Mensural_ligature_engraver::fold_up_primitives ()
 {
   Item *first = 0;
-  for (int i = 0; i < primitives_arr_.size (); i++)
+  for (int i = 0; i < primitives_.size (); i++)
     {
-      Item *current = dynamic_cast<Item*> (primitives_arr_[i].grob_l_);
+      Item *current = dynamic_cast<Item*> (primitives_[i].grob_);
       if (i == 0)
 	{
 	  first = current;
 	}
 
-      set_column_l (current, first->column_l ());
+      get_set_column (current, first->get_column ());
 
       if (i > 0)
 	{
 #if 0
 	  Rod r;
-	  r.distance_f_ = distance_f_;
+	  r.distance_ = distance_;
 	  r.item_l_drul_[LEFT] = first;
 	  r.item_l_drul_[RIGHT] = current;
 	  r.add_to_cols ();
 #endif
-	  current->translate_axis (distance_f_, X_AXIS);
+	  current->translate_axis (distance_, X_AXIS);
 	}
 
-      distance_f_ +=
+      distance_ +=
 	gh_scm2double (current->get_grob_property ("head-width")) -
 	gh_scm2double (current->get_grob_property ("thickness"));
     }
@@ -522,14 +522,14 @@ void
 Mensural_ligature_engraver::join_primitives ()
 {
   Pitch last_pitch;
-  for (int i = 0; i < primitives_arr_.size (); i++)
+  for (int i = 0; i < primitives_.size (); i++)
     {
-      Grob_info info = primitives_arr_[i];
+      Grob_info info = primitives_[i];
       Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
       Pitch pitch = *unsmob_pitch (nr->get_mus_property ("pitch"));
       if (i > 0)
         {
-	  Item *primitive = dynamic_cast<Item*> (info.grob_l_);
+	  Item *primitive = dynamic_cast<Item*> (info.grob_);
 	  int output = gh_scm2int (primitive->get_grob_property ("primitive"));
 	  if (output & MLP_ANY)
 	    {
@@ -545,20 +545,20 @@ Mensural_ligature_engraver::join_primitives ()
 void
 Mensural_ligature_engraver::try_stop_ligature ()
 {
-  if (finished_ligature_p_)
+  if (finished_ligature_)
     {
       transform_heads ();
       propagate_properties ();
       fold_up_primitives ();
       join_primitives ();
 
-      for (int i = 0; i < primitives_arr_.size (); i++)
+      for (int i = 0; i < primitives_.size (); i++)
 	{
-	  typeset_grob (primitives_arr_[i].grob_l_);
+	  typeset_grob (primitives_[i].grob_);
 	}
 
-      primitives_arr_.clear ();
-      finished_ligature_p_ = 0;
+      primitives_.clear ();
+      finished_ligature_ = 0;
     }
 }
 
@@ -566,11 +566,11 @@ void
 Mensural_ligature_engraver::acknowledge_grob (Grob_info info)
 {
   Ligature_engraver::acknowledge_grob (info);
-  if (ligature_p_)
+  if (ligature_)
     {
-      if (Note_head::has_interface (info.grob_l_))
+      if (Note_head::has_interface (info.grob_))
 	{
-	  primitives_arr_.push (info);
+	  primitives_.push (info);
 	}
     }
 }

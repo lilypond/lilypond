@@ -20,7 +20,7 @@ Midi_def::Midi_def ()
 }
 
 int
-Midi_def::get_tempo_i (Moment one_beat_mom)
+Midi_def::get_tempo (Moment one_beat_mom)
 {
   SCM wis  = ly_symbol2scm ("whole-in-seconds");
   Moment *w = unsmob_moment (variable_tab_->get (wis));
@@ -50,16 +50,16 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
 }
 
 
-int Midi_def::score_count_i_=0;
+int Midi_def::score_count_=0;
 
 int
 Midi_def::get_next_score_count () const
 {
-  return score_count_i_++;
+  return score_count_++;
 }
 
 void
 Midi_def::reset_score_count ()
 {
-  score_count_i_ = 0;
+  score_count_ = 0;
 }

@@ -19,15 +19,15 @@
 class Tex_font_metric_reader
 {
 private:
-  Real get_U32_fix_f ();
-  Real get_U32_fix_scaled_f ();
-  String get_bcpl_str ();
+  Real get_U32_fix ();
+  Real get_U32_fix_scaled ();
+  String get_bcpl_string ();
   void read_header ();
   void read_params ();
   void read_char_metrics ();
   Tex_font_char_metric read_char_metric (Char_code code);
   Tex_font_char_metric read_char ();
-  void read_lig_kern_program (Array<Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p);
+  void read_lig_kern_program (Array<Tfm_ligature>* ligatures, Array <Tfm_kern>* kerns);
 
 
   Binary_source_file input_;

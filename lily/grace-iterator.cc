@@ -17,7 +17,7 @@
 
 Grace_iterator::~Grace_iterator () 
 {
-  //  child_iter_p_ = 0;
+  //  child_iter_ = 0;
 }
 
 

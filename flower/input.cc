@@ -16,14 +16,14 @@
 
 Input::Input (Source_file*s, char const *cl)
 {
-  source_file_l_=s;
-  defined_ch_C_=cl;
+  source_file_=s;
+  defined_str0_=cl;
 }
 
 Input::Input ()
 {
-  source_file_l_ = 0;
-  defined_ch_C_ = 0;
+  source_file_ = 0;
+  defined_str0_ = 0;
 }
 
 Input
@@ -48,7 +48,7 @@ Input::set_spot (Input const &i)
 
  */
 void
-Input::message (String message_str) const
+Input::message (String message_string) const
 {
   String str;
   
@@ -69,22 +69,22 @@ Input::message (String message_str) const
   if (col > 0)
     str += "\n";
   
-  if (source_file_l_)
-    str += location_str () + String (": ");
+  if (source_file_)
+    str += location_string () + String (": ");
 
-  str += message_str;
-  if (source_file_l_)
+  str += message_string;
+  if (source_file_)
    {
     str += ":\n";
-    str += source_file_l_->error_str (defined_ch_C_);
+    str += source_file_->error_string (defined_str0_);
    }
-  fprintf (stderr, "%s\n", str.ch_C());
+  fprintf (stderr, "%s\n", str.to_str0 ());
 }
 
 void
-Input::warning (String message_str) const
+Input::warning (String message_string) const
 {
-  message (_ ("warning: ") + message_str);
+  message (_ ("warning: ") + message_string);
 }
 void
 Input::error (String s) const
@@ -98,28 +98,28 @@ Input::non_fatal_error (String s) const
   message (_ ("non fatal error: ") + s);
 }
 String
-Input::location_str () const
+Input::location_string () const
 {
-  if (source_file_l_)
-    return source_file_l_->file_line_column_str (defined_ch_C_);
+  if (source_file_)
+    return source_file_->file_line_column_string (defined_str0_);
   else
     return " (" + _ ("position unknown") + ")";
 }
 
 String
-Input::line_number_str () const
+Input::line_number_string () const
 {
-  if (source_file_l_)
-    return to_str (source_file_l_->line_i (defined_ch_C_));
+  if (source_file_)
+    return to_string (source_file_->get_line (defined_str0_));
   else
     return "?";
 }
 
 String
-Input::file_str () const
+Input::file_string () const
 {
-  if (source_file_l_)
-    return source_file_l_->name_str ();
+  if (source_file_)
+    return source_file_->name_string ();
   else
     return "";
 }
@@ -128,8 +128,8 @@ Input::file_str () const
 int
 Input::line_number () const
 {
-  if (source_file_l_)
-    return source_file_l_->line_i (defined_ch_C_);
+  if (source_file_)
+    return source_file_->get_line (defined_str0_);
   else
     return 0;
 
@@ -138,8 +138,8 @@ Input::line_number () const
 int
 Input::column_number () const
 {
-  if (source_file_l_)
-    return source_file_l_->column_i (defined_ch_C_);
+  if (source_file_)
+    return source_file_->get_column (defined_str0_);
   else
     return 0;
 

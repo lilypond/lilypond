@@ -237,8 +237,8 @@ Polynomial::solve_cubic ()const
 
   /* use Cardano's formula */
 
-  Real cb_p = p * p * p;
-  Real D = q * q + cb_p;
+  Real cb = p * p * p;
+  Real D = q * q + cb;
 
   if (iszero (D)) {
     if (iszero (q)) {	/* one triple solution */
@@ -252,7 +252,7 @@ Polynomial::solve_cubic ()const
       sol.push (-u);
     }
   } else if (D < 0) {		/* Casus irreducibilis: three real solutions */
-    Real phi = 1.0 / 3 * acos (-q / sqrt (-cb_p));
+    Real phi = 1.0 / 3 * acos (-q / sqrt (-cb));
     Real t = 2 * sqrt (-p);
 
     sol.push (t * cos (phi));

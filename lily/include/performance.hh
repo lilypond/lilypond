@@ -29,9 +29,9 @@ public:
   void print () const;
   void process ();
 
-  Link_array<Audio_staff> audio_staff_l_arr_;
+  Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_elem_p_list_;
-  Midi_def  * midi_l_;
+  Midi_def  * midi_;
 };
 
 #endif // PERFORMANCE_HH

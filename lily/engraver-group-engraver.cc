@@ -16,7 +16,7 @@
 void
 Engraver_group_engraver::announce_grob (Grob_info info)
 {
-  announce_info_arr_.push (info);
+  announce_infos_.push (info);
   Engraver::announce_grob (info);
 }
 
@@ -68,7 +68,7 @@ SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
 void
 Engraver_group_engraver::acknowledge_grobs ()
 {
-  if (!announce_info_arr_.size ())
+  if (!announce_infos_.size ())
     return ;
   
   SCM tab = get_property ("acknowledgeHashTable");
@@ -76,11 +76,11 @@ Engraver_group_engraver::acknowledge_grobs ()
   SCM meta_sym = ly_symbol2scm ("meta");  
 
   
-  for (int j =0; j < announce_info_arr_.size (); j++)
+  for (int j =0; j < announce_infos_.size (); j++)
     {
-      Grob_info info = announce_info_arr_[j];
+      Grob_info info = announce_infos_[j];
       
-      SCM meta = info.grob_l_->internal_get_grob_property (meta_sym);
+      SCM meta = info.grob_->internal_get_grob_property (meta_sym);
       SCM nm = scm_assoc (name_sym, meta);
       if (gh_pair_p (nm))
 	nm = ly_cdr (nm);
@@ -109,7 +109,7 @@ Engraver_group_engraver::acknowledge_grobs ()
 	{
 	  Translator * t = unsmob_translator (ly_car (p));
 	  Engraver * eng = dynamic_cast<Engraver*> (t);
-	  if (eng && eng!= info.origin_trans_l_)
+	  if (eng && eng!= info.origin_trans_)
 	    eng->acknowledge_grob (info);
 	}
     }
@@ -129,10 +129,10 @@ Engraver_group_engraver::do_announces ()
    do
     {
       acknowledge_grobs ();
-      announce_info_arr_.clear ();
+      announce_infos_.clear ();
       process_acknowledged_grobs_in_simple_children ();
     }
-   while (announce_info_arr_.size ());
+   while (announce_infos_.size ());
 }
 
 

@@ -33,8 +33,8 @@
  */
 Ligature_engraver::Ligature_engraver ()
 {
-  ligature_p_ = 0;
-  finished_ligature_p_ = 0;
+  ligature_ = 0;
+  finished_ligature_ = 0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
   prev_start_req_ = 0;
   last_bound = 0;
@@ -51,9 +51,9 @@ Ligature_engraver::try_music (Music *m)
 	{
 	  reqs_drul_[START] = 0;
 	  reqs_drul_[STOP] = 0;
-	  if (ligature_p_)
-	    ligature_p_->suicide ();
-	  ligature_p_ = 0;
+	  if (ligature_)
+	    ligature_->suicide ();
+	  ligature_ = 0;
 	}
       else if (scm_equal_p (req_->get_mus_property ("span-type"),
 			    ly_str02scm ("ligature")) == SCM_BOOL_T)
@@ -77,7 +77,7 @@ Ligature_engraver::process_music ()
 {
   if (reqs_drul_[STOP])
     {
-      if (!ligature_p_)
+      if (!ligature_)
 	reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
       else
 	{
@@ -87,32 +87,32 @@ Ligature_engraver::process_music ()
 	    }
 	  else
 	    {
-	      ligature_p_->set_bound (RIGHT, last_bound);
+	      ligature_->set_bound (RIGHT, last_bound);
 	    }
 	}
       prev_start_req_ = 0;
-      finished_ligature_p_ = ligature_p_;
-      ligature_p_ = 0;
+      finished_ligature_ = ligature_;
+      ligature_ = 0;
     }
   last_bound = unsmob_grob (get_property ("currentMusicalColumn"));
 
-  if (ligature_p_)
+  if (ligature_)
     {
       // TODO: maybe forbid breaks only if not transcribing
       top_engraver ()->forbid_breaks ();
     }
   if (reqs_drul_[START])
     {
-      if (ligature_p_)
+      if (ligature_)
 	{
 	  reqs_drul_[START]->origin ()->warning (_ ("already have a ligature"));
 	  return;
 	}
 
       prev_start_req_ = reqs_drul_[START];
-      ligature_p_ = create_ligature_spanner ();
+      ligature_ = create_ligature_spanner ();
       brew_ligature_primitive_proc =
-	ligature_p_->get_grob_property ("ligature-primitive-callback");
+	ligature_->get_grob_property ("ligature-primitive-callback");
       if (brew_ligature_primitive_proc == SCM_EOL)
 	{
 	  warning ("Ligature_engraver: ligature-primitive-callback undefined");
@@ -125,12 +125,12 @@ Ligature_engraver::process_music ()
 	}
       else
 	{
-	  ligature_p_->set_bound (LEFT, bound);
+	  ligature_->set_bound (LEFT, bound);
 	}
 
       ligature_start_mom_ = now_mom ();
       
-      announce_grob(ligature_p_, reqs_drul_[START]->self_scm());
+      announce_grob(ligature_, reqs_drul_[START]->self_scm());
     }
 }
 
@@ -144,10 +144,10 @@ Ligature_engraver::start_translation_timestep ()
 void
 Ligature_engraver::try_stop_ligature ()
 {
-  if (finished_ligature_p_)
+  if (finished_ligature_)
     {
-      typeset_grob (finished_ligature_p_);
-      finished_ligature_p_ = 0;
+      typeset_grob (finished_ligature_);
+      finished_ligature_ = 0;
     }
 }
 
@@ -161,24 +161,24 @@ void
 Ligature_engraver::finalize ()
 {
   try_stop_ligature ();
-  if (ligature_p_)
+  if (ligature_)
     {
       prev_start_req_->origin ()->warning (_ ("unterminated ligature"));
-      ligature_p_->suicide ();
+      ligature_->suicide ();
     }
 }
 
 void
 Ligature_engraver::acknowledge_grob (Grob_info info)
 {
-  if (ligature_p_)
+  if (ligature_)
     {
-      if (Ligature_head::has_interface (info.grob_l_))
+      if (Ligature_head::has_interface (info.grob_))
 	{
-	  info.grob_l_->set_grob_property ("ligature-primitive-callback",
+	  info.grob_->set_grob_property ("ligature-primitive-callback",
 					   brew_ligature_primitive_proc);
 	}
-      else if (Rest::has_interface (info.grob_l_))
+      else if (Rest::has_interface (info.grob_))
 	{
 	  info.music_cause ()->origin ()->warning (_ ("ligature may not contain rest; ignoring rest"));
 	  prev_start_req_->origin ()->warning (_ ("ligature was started here"));

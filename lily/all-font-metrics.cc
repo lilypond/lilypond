@@ -18,7 +18,7 @@
 #include "scm-hash.hh"
 #include "kpath.hh"
 
-static const char * default_font_sz_ = "cmr10";
+static const char * default_font_str0_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)
 {
@@ -37,9 +37,9 @@ All_font_metrics::~All_font_metrics ()
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
-  SCM sname = ly_symbol2scm (name.ch_C ());
+  SCM sname = ly_symbol2scm (name.to_str0 ());
 
-  SCM name_str = ly_str02scm (name.ch_C ());
+  SCM name_string = ly_str02scm (name.to_str0 ());
 
   SCM val;
   
@@ -52,8 +52,8 @@ All_font_metrics::find_afm (String name)
 
       if (path.empty_b ())
 	{
-	  String p = ly_find_afm (name.ch_C ());
-	  if (p.length_i ())
+	  String p = ly_find_afm (name.to_str0 ());
+	  if (p.length ())
 	    path = p;
 	}
 
@@ -65,7 +65,7 @@ All_font_metrics::find_afm (String name)
       val = read_afm_file (path);
       unsmob_metrics (val)->path_ = path;
       
-      unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
+      unsmob_metrics (val)->description_ = gh_cons (name_string, gh_double2scm (1.0));
 
       if (verbose_global_b)
 	progress_indication ("]");
@@ -93,11 +93,11 @@ All_font_metrics::find_afm (String name)
 	  if (tfm && tfm->info_.checksum != afm->checksum_)
 	    {
 	      String s = _f ("checksum mismatch for font file: `%s'",
-			     path.ch_C ());
-	      s += " " + _f ("does not match: `%s'", tfm->path_.ch_C ()); // FIXME
+			     path.to_str0 ());
+	      s += " " + _f ("does not match: `%s'", tfm->path_.to_str0 ()); // FIXME
 	      s += "\n";
-	      s += " TFM: " + to_str ((int) tfm->info_.checksum);
-	      s += " AFM: " + to_str ((int) afm->checksum_);
+	      s += " TFM: " + to_string ((int) tfm->info_.checksum);
+	      s += " AFM: " + to_string ((int) afm->checksum_);
 	      s += "\n";
 	      s += _ (" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
 	      
@@ -113,8 +113,8 @@ All_font_metrics::find_afm (String name)
 Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
-  SCM sname = ly_symbol2scm (name.ch_C ());
-  SCM name_str = ly_str02scm (name.ch_C ());
+  SCM sname = ly_symbol2scm (name.to_str0 ());
+  SCM name_string = ly_str02scm (name.to_str0 ());
 
   SCM val;
   if (!tfm_p_dict_->try_retrieve (sname, &val))
@@ -123,8 +123,8 @@ All_font_metrics::find_tfm (String name)
       
       if (path.empty_b ())
 	{
-	  String p = ly_find_tfm (name.ch_C ());
-	  if (p.length_i ())
+	  String p = ly_find_tfm (name.to_str0 ());
+	  if (p.length ())
 	    path = p;
 	}
 
@@ -142,7 +142,7 @@ All_font_metrics::find_tfm (String name)
 	progress_indication ("]");
 
       unsmob_metrics (val)->path_ = path;
-      unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
+      unsmob_metrics (val)->description_ = gh_cons (name_string, gh_double2scm (1.0));
       tfm_p_dict_->set (sname, val);
 
       scm_gc_unprotect_object (val);
@@ -164,10 +164,10 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  warning (_f ("can't find font: `%s'", name.ch_C ()));
+  warning (_f ("can't find font: `%s'", name.to_str0 ()));
   warning (_ ("Loading default font"));
   
-  String def_name = default_font_sz_;
+  String def_name = default_font_str0_;
 
   /*
     we're in emergency recovery mode here anyway, so don't try to do
@@ -180,8 +180,8 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  error (_f ("can't find default font: `%s'", def_name.ch_C ()));
-  error (_f ("(search path: `%s')", search_path_.str ()));
+  error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
+  error (_f ("(search path: `%s')", search_path_.string ()));
   error (_ ("Giving up"));
 
   return 0;

@@ -33,11 +33,11 @@ public:
   */
  
   static Real staff_space (Grob*);
-  static Grob * staff_symbol_l (Grob*);
+  static Grob * get_staff_symbol (Grob*);
   static bool on_staffline (Grob*);
   static bool on_staffline (Grob*,int);
   static int line_count (Grob*);
-  static Real position_f (Grob*);
+  static Real get_position (Grob*);
   static Real staff_radius (Grob*);
 };
 

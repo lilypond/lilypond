@@ -23,8 +23,8 @@ SCM mark_smob (SCM)
 static int
 print_smob (SCM s, SCM port, scm_print_state *)
 {
-  String str = "#<location " +  unsmob_input (s)->location_str () + ">";
-  scm_puts (str.ch_C (), port);
+  String str = "#<location " +  unsmob_input (s)->location_string () + ">";
+  scm_puts (str.to_str0 (), port);
   return 1;
 }
 
@@ -39,7 +39,7 @@ free_smob (SCM s)
   We don't use IMPLEMENT_TYPE_P, since the smobification part is
   implemented separately from the class.
  */
-LY_DEFINE(ly_input_p, "ly-input-location?", 1, 0, 0,
+LY_DEFINE(ly_input, "ly-input-location?", 1, 0, 0,
 	  (SCM x),
 	  "Return whether @var{x} is an input location")
 {
@@ -53,7 +53,7 @@ location in @var{sip}.")
   Input *ip  = unsmob_input(sip);
   
   SCM_ASSERT_TYPE(ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  SCM_ASSERT_TYPE(gh_string_p(msg), msg, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE(gh_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
 
   String m = ly_scm2string (msg);
 

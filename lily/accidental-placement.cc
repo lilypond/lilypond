@@ -54,7 +54,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 
   Pitch *p= unsmob_pitch (mcause->get_mus_property ("pitch"));
 
-  int n = p->notename_i_;
+  int n = p->notename_;
 
   SCM accs = me->get_grob_property ("accidental-grobs");
   SCM key = gh_int2scm (n);

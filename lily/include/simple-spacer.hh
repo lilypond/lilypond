@@ -16,11 +16,11 @@
 
 struct Spring_description
 {
-  Real ideal_f_;
-  Real hooke_f_;
+  Real ideal_;
+  Real hooke_;
   bool active_b_;
 
-  Real block_force_f_;
+  Real block_force_;
 
   Real length (Real force) const;
   Spring_description ();
@@ -33,10 +33,10 @@ struct Simple_spacer
   Array<Spring_description> springs_;
   Link_array<Grob> spaced_cols_;
   Link_array<Grob> loose_cols_;
-  Real force_f_;
-  Real indent_f_;
-  Real line_len_f_;
-  Real default_space_f_;
+  Real force_;
+  Real indent_;
+  Real line_len_;
+  Real default_space_;
   int active_count_;
   bool compression_penalty_b_;
   

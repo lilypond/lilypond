@@ -20,17 +20,17 @@
  */
 class Note_heads_engraver : public Engraver
 {
-  Link_array<Item> note_p_arr_;
+  Link_array<Item> notes_;
   
-  Link_array<Item> dot_p_arr_;
-  Link_array<Note_req> note_req_l_arr_;
+  Link_array<Item> dots_;
+  Link_array<Note_req> note_reqs_;
 
 public:
   TRANSLATOR_DECLARATIONS(Note_heads_engraver);
 
 protected:
   virtual void start_translation_timestep ();
-  virtual bool try_music (Music *req_l) ;
+  virtual bool try_music (Music *req) ;
   virtual void process_music ();
 
   virtual void stop_translation_timestep ();
@@ -49,12 +49,12 @@ Note_heads_engraver::try_music (Music *m)
 {
   if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
-      note_req_l_arr_.push (n);
+      note_reqs_.push (n);
       return true;
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
     {
-      return note_req_l_arr_.size ();
+      return note_reqs_.size ();
     }
   else if (Span_req *req_ = dynamic_cast<Span_req*> (m))
     {
@@ -77,29 +77,29 @@ Note_heads_engraver::try_music (Music *m)
 void
 Note_heads_engraver::process_music ()
 {
-  for (int i=0; i < note_req_l_arr_.size (); i++)
+  for (int i=0; i < note_reqs_.size (); i++)
     {
-      Item *note_p =
+      Item *note =
 	new Item (get_property ((in_ligature) ? "LigatureHead" : "NoteHead"));
 
-      Music * req = note_req_l_arr_[i];
+      Music * req = note_reqs_[i];
       
       Duration dur = *unsmob_duration (req->get_mus_property ("duration"));
 
-      note_p->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
+      note->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
 	  Item * d = new Item (get_property ("Dots"));
-	  Rhythmic_head::set_dots (note_p, d);
+	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
 	      != gh_scm2int (d->get_grob_property ("dot-count")))
 	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
-	  d->set_parent (note_p, Y_AXIS);
+	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
-	  dot_p_arr_.push (d);
+	  dots_.push (d);
 	}
 
       Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
@@ -109,28 +109,28 @@ Note_heads_engraver::process_music ()
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
 
-      note_p->set_grob_property ("staff-position",   gh_int2scm (pos));
-      announce_grob (note_p,req->self_scm());
-      note_p_arr_.push (note_p);
+      note->set_grob_property ("staff-position",   gh_int2scm (pos));
+      announce_grob (note,req->self_scm());
+      notes_.push (note);
     }
 }
 
 void
 Note_heads_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < note_p_arr_.size (); i++)
+  for (int i=0; i < notes_.size (); i++)
     {
-      typeset_grob (note_p_arr_[i]);
+      typeset_grob (notes_[i]);
     }
 
-  note_p_arr_.clear ();
-  for (int i=0; i < dot_p_arr_.size (); i++)
+  notes_.clear ();
+  for (int i=0; i < dots_.size (); i++)
     {
-      typeset_grob (dot_p_arr_[i]);
+      typeset_grob (dots_[i]);
     }
-  dot_p_arr_.clear ();
+  dots_.clear ();
   
-  note_req_l_arr_.clear ();
+  note_reqs_.clear ();
 }
 
 void

@@ -16,8 +16,8 @@
   Base class for anything that records its poisition in the parse file.
  */
 class Input {
-  char const *defined_ch_C_ ;
-  Source_file * source_file_l_;
+  char const *defined_str0_ ;
+  Source_file * source_file_;
 public:
     
   void warning (String) const; // should use member func?
@@ -26,11 +26,11 @@ public:
   void message (String) const;
   void set_spot (Input const &);
   Input spot () const;
-  String location_str () const;
-  String line_number_str () const;
+  String location_string () const;
+  String line_number_string () const;
 
 
-  String file_str ()const;
+  String file_string ()const;
   int line_number ()const;
   int column_number ()const;
 

@@ -83,7 +83,7 @@ Slur_bezier_bow::blow_fit ()
 
 
 Real
-Slur_bezier_bow::enclosed_area_f () const
+Slur_bezier_bow::get_enclosed_area () const
 {
   Real a = 0;
   for (int i=0; i < encompass_.size (); i++)
@@ -124,7 +124,7 @@ Slur_bezier_bow::enclosed_area_f () const
 }
 
 Array<Real>
-Slur_bezier_bow::area_x_gradients_array (Real area)
+Slur_bezier_bow::area_x_gradientses (Real area)
 {
   Real len = curve_.control_[3][X_AXIS]; 
   Real grow = len / 10.0;
@@ -133,7 +133,7 @@ Slur_bezier_bow::area_x_gradients_array (Real area)
     {
       Real r = curve_.control_[i+1][X_AXIS];
       curve_.control_[i+1][X_AXIS] += grow;
-      da[i] = (enclosed_area_f () - area) / grow;
+      da[i] = (get_enclosed_area () - area) / grow;
       curve_.control_[i+1][X_AXIS] = r; 
     }
   return da;
@@ -162,11 +162,11 @@ Slur_bezier_bow::minimise_enclosed_area (Real beauty,
 
   for (int i=0; i < steps; i++)
     {
-      Real area = enclosed_area_f ();
+      Real area = get_enclosed_area ();
       if (area <= beautiful)
 	break;
 
-      Array<Real> da = area_x_gradients_array (area);
+      Array<Real> da = area_x_gradientses (area);
 
       // urg
       Real pct = pct_c0 + pct_c3 * length * length * length;

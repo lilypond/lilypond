@@ -28,10 +28,10 @@
   then.  */
 class Extender_engraver : public Engraver
 {
-  Grob *last_lyric_l_;
-  Grob *current_lyric_l_;
-  Extender_req* req_l_;
-  Spanner* extender_p_;
+  Grob *last_lyric_;
+  Grob *current_lyric_;
+  Extender_req* req_;
+  Spanner* extender_;
 public:
   TRANSLATOR_DECLARATIONS(Extender_engraver);
 
@@ -51,24 +51,24 @@ private:
 
 Extender_engraver::Extender_engraver ()
 {
-  current_lyric_l_ = 0;
-  last_lyric_l_ = 0;
-  extender_p_ = 0;
-  req_l_ = 0;
+  current_lyric_ = 0;
+  last_lyric_ = 0;
+  extender_ = 0;
+  req_ = 0;
 }
 
 void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text_item
-  if (i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      current_lyric_l_ = i.grob_l_;
-      if (extender_p_
-	  && !extender_p_->get_bound (RIGHT)
+      current_lyric_ = i.grob_;
+      if (extender_
+	  && !extender_->get_bound (RIGHT)
 	    )
 	  {
-	    Lyric_extender::set_textitem (extender_p_, RIGHT, dynamic_cast<Item*> (i.grob_l_));
+	    Lyric_extender::set_textitem (extender_, RIGHT, dynamic_cast<Item*> (i.grob_));
 	  }
     }
 }
@@ -79,10 +79,10 @@ Extender_engraver::try_music (Music* r)
 {
   if (Extender_req* p = dynamic_cast <Extender_req *> (r))
     {
-      if (req_l_)
+      if (req_)
 	return false;
 
-      req_l_ = p;
+      req_ = p;
       return true;
     }
   return false;
@@ -91,29 +91,29 @@ Extender_engraver::try_music (Music* r)
 void
 Extender_engraver::finalize ()
 {
-  if (extender_p_)
+  if (extender_)
     {
-      req_l_->origin ()->warning (_ ("unterminated extender"));
-      extender_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+      req_->origin ()->warning (_ ("unterminated extender"));
+      extender_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
     }
 }
 
 void
 Extender_engraver::process_music ()
 {
-  if (req_l_ && ! extender_p_)
+  if (req_ && ! extender_)
     {
-      if (!last_lyric_l_)
+      if (!last_lyric_)
 	{
-	  req_l_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
+	  req_->origin ()->warning (_ ("Nothing to connect extender to on the left.  Ignoring extender request."));
 	  return;
 	}
       
-      extender_p_ = new Spanner (get_property ("LyricExtender"));
+      extender_ = new Spanner (get_property ("LyricExtender"));
 
 
-      Lyric_extender::set_textitem (extender_p_, LEFT, last_lyric_l_);
-      announce_grob(extender_p_, req_l_->self_scm());
+      Lyric_extender::set_textitem (extender_, LEFT, last_lyric_);
+      announce_grob(extender_, req_->self_scm());
     }
 }
 
@@ -121,23 +121,23 @@ Extender_engraver::process_music ()
 void
 Extender_engraver::stop_translation_timestep ()
 {
-  if (extender_p_)
+  if (extender_)
     {
-      typeset_grob (extender_p_);
-      extender_p_ = 0;
+      typeset_grob (extender_);
+      extender_ = 0;
     }
 
-  if (current_lyric_l_)
+  if (current_lyric_)
     {
-      last_lyric_l_ = current_lyric_l_;
-      current_lyric_l_ =0;
+      last_lyric_ = current_lyric_;
+      current_lyric_ =0;
     }
 }
 
 void
 Extender_engraver::start_translation_timestep ()
 {
-  req_l_ = 0;
+  req_ = 0;
 }
 
 

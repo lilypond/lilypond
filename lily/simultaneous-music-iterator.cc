@@ -50,22 +50,22 @@ Simultaneous_music_iterator::construct_children ()
 {
   int j = 0;
 
-  SCM i = music_l ()->get_mus_property ("elements");
+  SCM i = get_music ()->get_mus_property ("elements");
   for (; gh_pair_p (i); i = ly_cdr (i), j++)
     {
       Music *mus = unsmob_music (ly_car (i));
-      Music_iterator * mi = static_get_iterator_p (mus);
+      Music_iterator * mi = get_static_get_iterator (mus);
 
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
       
       Translator_group * t = (j && separate_contexts_b_)
-	? report_to_l ()->find_create_translator_l (report_to_l ()->type_str_,
-						    to_str (j))
-	: report_to_l ();
+	? report_to ()->find_create_translator (report_to ()->type_string_,
+						    to_string (j))
+	: report_to ();
 
       if (!t)
-	t = report_to_l ();
+	t = report_to ();
 
       mi->init_translator (mus, t);
       mi->construct_children ();

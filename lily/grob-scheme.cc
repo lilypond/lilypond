@@ -10,7 +10,7 @@ LY_DEFINE(ly_set_grob_property,"ly-set-grob-property!", 3, 0, 0,
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+  SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
@@ -46,7 +46,7 @@ initially read from @file{scm/grob-description.scm}.
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+  SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   return sc->internal_get_grob_property (sym);
 }
@@ -69,9 +69,9 @@ LY_DEFINE(ly_get_paper_var,"ly-get-paper-variable", 2, 0, 0,
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+  SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
-  return sc->paper_l() ->get_scmvar_scm (sym);
+  return sc->get_paper () ->get_scmvar_scm (sym);
 }
 
 
@@ -86,7 +86,7 @@ grob @var{refp}")
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(ref, refp, SCM_ARG2, __FUNCTION__, "grob");
   
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
 }
@@ -97,7 +97,7 @@ for the Y-axis.")
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE(sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
   Grob * par = sc->get_parent (Axis (gh_scm2int (axis)));
   return par ? par->self_scm() : SCM_EOL;

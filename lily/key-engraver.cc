@@ -25,8 +25,8 @@ class Key_engraver : public Engraver
 {
   void create_key (bool);
   void read_req (Key_change_req const * r);
-  Key_change_req * keyreq_l_;
-  Item * item_p_;
+  Key_change_req * keyreq_;
+  Item * item_;
 
 public:
   TRANSLATOR_DECLARATIONS(Key_engraver);
@@ -34,7 +34,7 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -50,56 +50,56 @@ Key_engraver::finalize ()
 
 Key_engraver::Key_engraver ()
 {
-  keyreq_l_ = 0;
-  item_p_ = 0;
+  keyreq_ = 0;
+  item_ = 0;
 }
 
 
 void
 Key_engraver::create_key (bool def)
 {
-  if (!item_p_) 
+  if (!item_) 
     {
-      item_p_ = new Item (get_property ("KeySignature"));
+      item_ = new Item (get_property ("KeySignature"));
 
-      item_p_->set_grob_property ("c0-position",
+      item_->set_grob_property ("c0-position",
 				  get_property ("centralCPosition"));
       
       // todo: put this in basic props.
-      item_p_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
-      item_p_->set_grob_property ("new-accidentals", get_property ("keySignature"));
+      item_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
+      item_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
-      announce_grob(item_p_, keyreq_l_ ? keyreq_l_->self_scm() : SCM_EOL);
+      announce_grob(item_, keyreq_ ? keyreq_->self_scm() : SCM_EOL);
     }
 
   if (!def)
     {
       SCM vis = get_property ("explicitKeySignatureVisibility"); 
       if (gh_procedure_p (vis))
-	item_p_->set_grob_property ("break-visibility",vis);
+	item_->set_grob_property ("break-visibility",vis);
     }
 }      
 
 
 bool
-Key_engraver::try_music (Music * req_l)
+Key_engraver::try_music (Music * req)
 {
-  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req_l))
+  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
     {
-      if (keyreq_l_ && !keyreq_l_->equal_b (kc))
+      if (keyreq_ && !keyreq_->equal_b (kc))
 	{
 	  kc->origin ()->warning (_ ("Conflicting key signatures found."));
-	  keyreq_l_->origin ()->warning (_ ("This was the other key definition."));	  
+	  keyreq_->origin ()->warning (_ ("This was the other key definition."));	  
 	  return false;
 	}
 
-      if (!keyreq_l_)
+      if (!keyreq_)
 	{
 	  /*
 	    do this only once, just to be on the safe side.
 	    */	    
-	  keyreq_l_ = kc;
-	  read_req (keyreq_l_);
+	  keyreq_ = kc;
+	  read_req (keyreq_);
 	}
       
       return true;
@@ -111,7 +111,7 @@ Key_engraver::try_music (Music * req_l)
 void
 Key_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Clef::has_interface (info.grob_l_))
+  if (Clef::has_interface (info.grob_))
     {
       SCM c =  get_property ("createKeyOnClefChange");
       if (to_boolean (c))
@@ -119,7 +119,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	  create_key (false);
 	}
     }
-  else if (Bar_line::has_interface (info.grob_l_)
+  else if (Bar_line::has_interface (info.grob_)
 	   && gh_pair_p (get_property ("keySignature")))
     {
       create_key (true);
@@ -130,7 +130,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 void
 Key_engraver::process_music ()
 {
-  if (keyreq_l_ ||
+  if (keyreq_ ||
       get_property ("lastKeySignature") != get_property ("keySignature"))
     create_key (false);
 }
@@ -139,10 +139,10 @@ Key_engraver::process_music ()
 void
 Key_engraver::stop_translation_timestep ()
 {
-  if (item_p_) 
+  if (item_) 
     {
-      typeset_grob (item_p_);
-      item_p_ = 0;
+      typeset_grob (item_);
+      item_ = 0;
     }
 }
 
@@ -171,27 +171,27 @@ Key_engraver::read_req (Key_change_req const * r)
       accs = gh_cons (ly_car (s), accs);
 
 #if 0
-  daddy_trans_l_->set_property ("lastKeySignature",
+  daddy_trans_->set_property ("lastKeySignature",
 				get_property ("keySignature"));
 #endif
   
-  daddy_trans_l_->set_property ("keySignature", accs);
+  daddy_trans_->set_property ("keySignature", accs);
 }
 
 
 void
 Key_engraver::start_translation_timestep ()
 {
-  keyreq_l_ = 0;
-  daddy_trans_l_->set_property ("lastKeySignature", get_property ("keySignature"));
+  keyreq_ = 0;
+  daddy_trans_->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
 
 void
 Key_engraver::initialize ()
 {
-  daddy_trans_l_->set_property ("keySignature", SCM_EOL);
-  daddy_trans_l_->set_property ("lastKeySignature", SCM_EOL);
+  daddy_trans_->set_property ("keySignature", SCM_EOL);
+  daddy_trans_->set_property ("lastKeySignature", SCM_EOL);
 }
 
 

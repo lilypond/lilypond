@@ -155,17 +155,17 @@ Break_align_interface::do_alignment (Grob *me)
       bool entry_found = gh_pair_p (entry);
       if (!entry_found)
 	{
-	  String sym_str;
-	  if(gh_symbol_p(rsym))
-	    sym_str = ly_symbol2string (rsym);
+	  String sym_string;
+	  if(gh_symbol_p (rsym))
+	    sym_string = ly_symbol2string (rsym);
 
-	  String orig_str ;
+	  String orig_string ;
 	  if (unsmob_grob (l->get_grob_property ("cause")))
-	    orig_str = unsmob_grob (l->get_grob_property ("cause"))->name ();
+	    orig_string = unsmob_grob (l->get_grob_property ("cause"))->name ();
 	  
 	  programming_error (_f("No spacing entry from %s to `%s'",
-				orig_str.ch_C (),
-				sym_str.ch_C()));
+				orig_string.to_str0 (),
+				sym_string.to_str0 ()));
 	}
 
       Real distance = 1.0;

@@ -20,22 +20,23 @@ Mandatory suffixes:
 
 
 Optional suffixes:
-  _b      :  _b,       bool
-  _p      :  _p        as in lispy pair_p ()?
-  _x      :  _x,       x-coor
-  _y      :  _y,       y-coor
+  _b      : bool
+  _p      : as in lispy pair_p ()?
+  _x      : x-coor
+  _y      : y-coor
 
-  _byte   :  _byte
-  _char   :  _char
-  _count  :  _count    counter
-  _drul   :  _drul     Drul_array
-  _global :  _global   global var
-  _grob   :  _grob     Grob
-  _req    :  _req      Request
-  _scm    :  _scm      SCM
-  _str   :   _str      C string
-  _str0   :  _str0     C string
-  _string :  _string   C++ string
+  _byte   :
+  _char   :
+  _count  : counter
+  _drul   : Drul_array
+  _global : global var
+  _grob   : Grob
+  _mom    : moment
+  _req    : Request
+  _scm    : SCM
+  _str    : C string
+  _str0   : C string
+  _string : C++ string
 
 Prefixes:
   get_    :  

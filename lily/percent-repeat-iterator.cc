@@ -22,22 +22,22 @@ Percent_repeat_iterator::Percent_repeat_iterator ()
 Percent_repeat_iterator::Percent_repeat_iterator (Percent_repeat_iterator const & p)
   : Music_iterator (p)
 {
-  child_iter_p_ = p.child_iter_p_ ? p.child_iter_p_->clone (): 0;
+  child_iter_ = p.child_iter_ ? p.child_iter_->clone (): 0;
   finish_mom_ = p.finish_mom_ ;
 }
 
 bool
 Percent_repeat_iterator::ok () const
 {
-  return child_iter_p_;
+  return child_iter_;
 }
 
 void
 Percent_repeat_iterator::construct_children ()
 {
-  Repeated_music * mus =dynamic_cast<Repeated_music *> (music_l ());
+  Repeated_music * mus =dynamic_cast<Repeated_music *> (get_music ());
   finish_mom_ = mus->length_mom ();
-  child_iter_p_ = get_iterator_p (mus->body ());
+  child_iter_ = get_iterator (mus->body ());
 }
 
 
@@ -46,28 +46,28 @@ Percent_repeat_iterator::process (Moment m)
 {
   if (!m.to_bool ())
     {
-      Music_iterator *yeah = try_music (music_l ());
+      Music_iterator *yeah = try_music (get_music ());
       if (yeah)
-	set_translator (yeah->report_to_l ());
+	set_translator (yeah->report_to ());
       else
-	music_l ()->origin ()->warning ( _ ("no one to print a percent"));
+	get_music ()->origin ()->warning ( _ ("no one to print a percent"));
     }
   
-  if (child_iter_p_->ok ())
-    child_iter_p_->process (m);
+  if (child_iter_->ok ())
+    child_iter_->process (m);
 
   if (finish_mom_ <= m )
     {
-      delete child_iter_p_;
-      child_iter_p_ = 0;
+      delete child_iter_;
+      child_iter_ = 0;
     }
 }
 
 Moment
 Percent_repeat_iterator::pending_moment ()const
 {
-  if (child_iter_p_->ok ())
-    return child_iter_p_->pending_moment ();
+  if (child_iter_->ok ())
+    return child_iter_->pending_moment ();
   else
     return finish_mom_ ;
 }
@@ -75,11 +75,11 @@ Percent_repeat_iterator::pending_moment ()const
 Music_iterator*
 Percent_repeat_iterator::try_music_in_children (Music *m) const
 {
-  return child_iter_p_->try_music (m);
+  return child_iter_->try_music (m);
 }
 
 
 Percent_repeat_iterator::~Percent_repeat_iterator ()
 {
-  delete child_iter_p_;
+  delete child_iter_;
 }

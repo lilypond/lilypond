@@ -1,5 +1,8 @@
 2002-07-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily, flower: Ran buildscripts/ontgaar.py.  See also
+	http://lilypond.org/wiki/?CodingStandards.
+	
 	* Documentation/GNUmakefile: Remove regression-test stuff.
 	(deep-WWW-clean): Remove wiki-dump.  Fixes web-clean target.
 

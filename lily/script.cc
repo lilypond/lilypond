@@ -61,7 +61,7 @@ Script_interface::before_line_breaking (SCM smob)
 
   if (Grob * par = me->get_parent (X_AXIS))
     {
-      Grob * stem = Note_column::stem_l (par);
+      Grob * stem = Note_column::get_stem (par);
       if (stem && Stem::first_head (stem))
 	{
 	  me->set_parent (Stem::first_head (stem), X_AXIS);

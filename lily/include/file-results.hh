@@ -11,11 +11,11 @@
 #define FILE_RESULTS_HH
 #include "flower-proto.hh"
 
-void do_one_file (String init_str, String file_str);
-extern Scheme_hash_table *global_header_p;
-extern Array<String> target_str_global_array;
-extern Array<String> inclusion_global_array;
-extern Link_array<Score> score_global_array;
+void do_one_file (String init_string, String file_string);
+extern Scheme_hash_table *global_header;
+extern Array<String> target_string_globals;
+extern Array<String> inclusion_globals;
+extern Link_array<Score> score_globals;
 void do_scores ();
 void clear_scores ();
 

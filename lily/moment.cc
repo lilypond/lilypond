@@ -37,8 +37,8 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   Moment  *r = (Moment *) ly_cdr (s);
      
   scm_puts ("#<Mom ", port);
-  String str = r->str ();
-  scm_puts ((char *)str.ch_C (), port);
+  String str = r->string ();
+  scm_puts ((char *)str.to_str0 (), port);
   scm_puts (" >", port);
   
   return 1;
@@ -182,12 +182,12 @@ Moment::set_infinite (int k)
 
 
 String
-Moment::str () const
+Moment::string () const
 {
-  String s =  main_part_.str ();
+  String s =  main_part_.string ();
   if (grace_part_)
     {
-      s += "G" + grace_part_.str ();
+      s += "G" + grace_part_.string ();
     }
   return s;
 }
@@ -206,7 +206,7 @@ Moment::operator - () const
 std::ostream &
 operator << (std::ostream &os, Moment const &m)
 {
-  os << m.str ();
+  os << m.string ();
   return os;
 }
 #endif

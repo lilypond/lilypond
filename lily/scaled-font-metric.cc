@@ -14,12 +14,12 @@
 
 Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
 {
-  magnification_f_ = magn;
+  magnification_ = magn;
   SCM desc = m->description_;
 
   Real total_mag = magn * gh_scm2double (ly_cdr (desc));
   description_ = gh_cons (ly_car (desc), gh_double2scm (total_mag));
-  orig_l_ = m;
+  orig_ = m;
 }
 
 SCM
@@ -32,9 +32,9 @@ Scaled_font_metric::make_scaled_font_metric (Font_metric*m, Real s)
 Molecule
 Scaled_font_metric::find_by_name (String s) const
 {
-  Molecule m = orig_l_->find_by_name (s);
+  Molecule m = orig_->find_by_name (s);
   Box b = m.extent_box ();
-  b.scale (magnification_f_);
+  b.scale (magnification_);
   Molecule q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
 
   return q ;
@@ -43,22 +43,22 @@ Scaled_font_metric::find_by_name (String s) const
 Box 
 Scaled_font_metric::get_char (int i) const
 {
-  Box b = orig_l_->get_char (i);
-  b.scale (magnification_f_);
+  Box b = orig_->get_char (i);
+  b.scale (magnification_);
   return b;  
 }
 
 Box
 Scaled_font_metric::text_dimension (String t) const
 {
-  Box b (orig_l_->text_dimension (t));
+  Box b (orig_->text_dimension (t));
 
-  b.scale (magnification_f_);
+  b.scale (magnification_);
   return b;
 }
 
 int
 Scaled_font_metric::count () const
 {
-  return orig_l_->count ();
+  return orig_->count ();
 }

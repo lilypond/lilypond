@@ -63,10 +63,10 @@ Tie::head (Grob*me, Direction d)
 }
 
 Real
-Tie::position_f (Grob*me) 
+Tie::get_position (Grob*me) 
 {
   Direction d = head (me,LEFT) ? LEFT:RIGHT;
-  return Staff_symbol_referencer::position_f (head (me,d));
+  return Staff_symbol_referencer::get_position (head (me,d));
 }
 
 
@@ -81,8 +81,8 @@ Tie::position_f (Grob*me)
 Direction
 Tie::get_default_dir (Grob*me) 
 {
-  Item * sl =  head (me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
-  Item * sr =  head (me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
+  Item * sl =  head (me,LEFT) ? Rhythmic_head::get_stem (head (me,LEFT)) :0;
+  Item * sr =  head (me,RIGHT) ? Rhythmic_head::get_stem (head (me,RIGHT)) :0;  
 
   if (sl && sr)
     {
@@ -198,16 +198,16 @@ Tie::get_control_points (SCM smob)
 
   */
 
-  Real ypos = Tie::position_f (me) * staff_space/2
+  Real ypos = Tie::get_position (me) * staff_space/2
     + dir * gh_scm2double (me->get_grob_property ("y-offset"));;
 
   /*
     Make sure we don't start on a dots
    */
-  if (Note_head::has_interface (l) && Rhythmic_head::dots_l (l))
+  if (Note_head::has_interface (l) && Rhythmic_head::get_dots (l))
     {
-      Grob* dots = Rhythmic_head::dots_l(l);
-      if(fabs (staff_space * Staff_symbol_referencer::position_f (dots) /2
+      Grob* dots = Rhythmic_head::get_dots (l);
+      if(fabs (staff_space * Staff_symbol_referencer::get_position (dots) /2
 	       - ypos) < 0.5)
 	{
 	  ypos += 0.5 * dir ;
@@ -312,7 +312,7 @@ Tie::brew_molecule (SCM smob)
   
   Real thick =
     gh_scm2double (me->get_grob_property ("thickness"))
-    * me->paper_l ()->get_var ("linethickness");
+    * me->get_paper ()->get_var ("linethickness");
 
   Bezier b;
   int i = 0;

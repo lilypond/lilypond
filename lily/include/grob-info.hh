@@ -18,14 +18,14 @@
   Data container for broadcasts.
   */
 struct Grob_info {
-  Translator * origin_trans_l_;
+  Translator * origin_trans_;
   friend class Engraver;
 
-  Grob * grob_l_;
+  Grob * grob_;
 
 public:
   Music * music_cause ();
-  Link_array<Translator> origin_trans_l_arr (Translator*) const;
+  Link_array<Translator> origin_transes (Translator*) const;
   Grob_info (Grob*);
   Grob_info ();
 };

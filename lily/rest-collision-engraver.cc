@@ -14,9 +14,9 @@
 
 class Rest_collision_engraver : public Engraver
 {
-  Item* rest_collision_p_;
+  Item* rest_collision_;
 
-  Link_array<Grob> note_column_l_arr_;
+  Link_array<Grob> note_columns_;
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -29,38 +29,38 @@ public:
 
 Rest_collision_engraver::Rest_collision_engraver ()
 {
-  rest_collision_p_ =0;
+  rest_collision_ =0;
 }
 
 void
 Rest_collision_engraver::process_acknowledged_grobs ()
 {
-  if (rest_collision_p_ || note_column_l_arr_.size () < 2)
+  if (rest_collision_ || note_columns_.size () < 2)
     return;
 
-  rest_collision_p_ = new Item (get_property ("RestCollision"));
+  rest_collision_ = new Item (get_property ("RestCollision"));
 
-  announce_grob(rest_collision_p_, SCM_EOL);
-  for (int i=0; i< note_column_l_arr_.size (); i++)
-    Rest_collision::add_column (rest_collision_p_,note_column_l_arr_[i]);
+  announce_grob(rest_collision_, SCM_EOL);
+  for (int i=0; i< note_columns_.size (); i++)
+    Rest_collision::add_column (rest_collision_,note_columns_[i]);
 }
 
 void
 Rest_collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob_l_))
-    note_column_l_arr_.push (i.grob_l_);
+  if (Note_column::has_interface (i.grob_))
+    note_columns_.push (i.grob_);
 }
 
 void
 Rest_collision_engraver::stop_translation_timestep ()
 {
-  if (rest_collision_p_) 
+  if (rest_collision_) 
     {
-      typeset_grob (rest_collision_p_);
-      rest_collision_p_ = 0;
+      typeset_grob (rest_collision_);
+      rest_collision_ = 0;
     }
-  note_column_l_arr_.clear ();
+  note_columns_.clear ();
 }
 ENTER_DESCRIPTION(Rest_collision_engraver,
 /* descr */       "Handles collisions of rests.",
