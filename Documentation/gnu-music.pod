@@ -32,12 +32,6 @@ sequencing
 
 interchanging music
 
-=back
-
-and possibly for
-
-=over 4
-
 =item *
 
 arranging
@@ -198,9 +192,9 @@ core team of four members (Bryan Ford <baford@cs.utah.edu>, David Linn
 Neil Jerram <nj104@cus.cam.ac.uk>) and in January '93 Robert Strandh
 <Robert.Strandh@labri.u-bordeaux.fr> joined.
 
-After serious disputes with Robert Strandh
-<Robert.Strandh@labri.u-bordeaux.fr> and the FSF staff in '94, the
-project core team got divided. The development efforts of GMP stopped.
+After serious disputes with Robert Strandh and the FSF staff in '94,
+the project core team got divided. The development efforts of GMP
+stopped.
 
 Independently, I (HWN) started LilyPond. When I showed it to
 RMS, he was very enthousiastic about having LilyPond in the GNU
@@ -217,8 +211,8 @@ Only later did I discover the previous quarrels about the GMP-"take
 gets me wrong or is angry at me because I stole a project or a
 project's name, I wrote this note.
 
-In summary, LilyPond is now the only substantial embodiment of the GNU Music
-Project, and it is part of the GNU project. 
+In summary, LilyPond is now the only substantial embodiment of the GNU
+Music Project, and it is part of the GNU project.
 
 For completeness' sake, I will mention the other efforts  here:
 
@@ -227,7 +221,7 @@ For completeness' sake, I will mention the other efforts  here:
 =item G Sharp, http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 
 An alpha version notation editor for X in Scheme. Source available on
-request.
+request from Robert Strandh.
 
 =item GNU music, 
 
