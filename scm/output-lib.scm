@@ -20,8 +20,7 @@
                    (ly:get-grob-property grob 'text)
                    )))
     molecule ; return the molecule.
-    )
-  )
+    ))
 
 ; The TabNoteHead tablatureFormat callback.
 ; Compute the text grob-property

@@ -1,5 +1,11 @@
 2003-09-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/note-head.cc (internal_brew_molecule): make left protusion
+	smaller, to accomodate for natural sign.
+	(internal_brew_molecule): only do this when the accidental is
+	close enough.
+	(extent): new function
+
 	* lily/skyline.cc (merge_skyline): new function
 	(heighten_skyline): new function
 

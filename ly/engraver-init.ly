@@ -568,6 +568,8 @@ OrchestralScoreContext= \translator {
 EasyNotation =  \translator {
 	\ScoreContext
 	NoteHead \override #'molecule-callback = #Note_head::brew_ez_molecule
+	NoteHead \override #'Y-extent-callback = #'()
+	NoteHead \override #'X-extent-callback = #'()
 }
 
 
