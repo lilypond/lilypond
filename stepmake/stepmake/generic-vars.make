@@ -90,7 +90,7 @@ M4 = m4
 #replace to do stripping of certain objects
 STRIPDEBUG=true 
 
-DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES)
+DIST_FILES=$(EXTRA_DIST_FILES) GNUmakefile $(ALL_SOURCES)  $(wildcard SConscript)
 DOCDIR=$(depth)/$(outdir)
 
 STRIP=strip --strip-debug
