@@ -1,8 +1,7 @@
-%!PS-Adobe-1.0: lilyponddefs.ps
+%!PS-Adobe-2.0: lilyponddefs.ps
 %
 % Functions for direct PostScript output
 
-% hmm
 % /setgray { 1 add } bind def
 
 % To let gs load fonts from builddir, do:
@@ -18,32 +17,25 @@
 /lily-output-units 2.83464  def  %% milimeter
 % /lily-output-units 0.996264  def  %% true points.
 
-/output-scale
-lilypondpaperoutputscale lily-output-units mul 
-def
+/output-scale lilypondpaperoutputscale lily-output-units mul def
 
-/set-ps-scale-to-lily-scale
-{
-output-scale output-scale scale
-} bind def
+/set-ps-scale-to-lily-scale { output-scale output-scale scale } bind def
 
 /paper-size { lilypondpaperpapersize } bind def
 
 %% FIXME: base-line-skip is too big, is this RIGHT?
 %% /base-line-skip lilypondpaperlineheight def
-/base-line-skip lilypondpaperlineheight lilypondpaperoutputscale div def
+%%/base-line-skip lilypondpaperlineheight lilypondpaperoutputscale div def
+/base-line-skip 0 def
 
 /init-paper {
 	gsave
  	.1 setlinewidth
  	clippath pathbbox newpath
  	/vsize exch def
- 	/hsize exch def  pop pop pop
-
-	%FIXME:
-	%vsize text-height sub 2 div /top-margin exch def
-	% 144 2 div /top-margin exch def
-	/top-margin 100 def
+ 	/hsize exch def pop pop pop pop
+	% FIXME
+	/top-margin 2 def
 	hsize line-width sub 2 div /left-margin exch def
 	grestore
 } bind def
@@ -85,6 +77,18 @@ output-scale output-scale scale
     end
 } bind def
 
+/start-page
+{
+    /line-x left-margin output-scale div def
+    /line-y vsize top-margin sub def
+} bind def
+
+/stop-page
+{
+    showpage
+} bind def
+
+% dump using baselineskip, fold to new page
 /start-system % height
 {
 	dup base-line-skip gt {
@@ -242,14 +246,5 @@ paper-size
 
 % initialise paper dimensions
 staff-height init-paper
-
-/line-x left-margin output-scale div def
-/line-y vsize top-margin sub def
-
-% FIXME: testing \markup titles
-% make-lilypond-title
-
-% see if we're there...
-% 10 setlinewidth 0 0 moveto 400 800 lineto stroke
 
 % end lilyponddefs.ps

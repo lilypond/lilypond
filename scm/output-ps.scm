@@ -278,16 +278,8 @@
 
 (define (header-end)
   (string-append
-   ;; URG: now we can't use scm output without Lily
    (ly:gulp-file "lilyponddefs.ps")
-   "{exch pop //systemdict /run get exec}\n\n"
-   (ly:gulp-file "music-drawing-routines.ps")
-   "{ exch pop //systemdict /run get exec }\n\n"
-   ;; ps-testing wreaks havoc when used with lilypond-book.
-   ;;  -- is this still true with new modules system?
-;;   (if (defined? 'ps-testing) "\n /testing true def" "")
-  ;   "\n /testing true def"
-   ))
+   (ly:gulp-file "music-drawing-routines.ps")))
 
 (define (horizontal-line x1 x2 th)
   (draw-line th x1  0 x2 0))
@@ -386,6 +378,8 @@
   (string-append
    "\n" (ly:number->string height)
    " start-system\n"
+   ;;(draw-line 2 0 (* OUTPUT-SCALE height) 100 0)
+   (draw-line 2 0 0 50 (- 0 (* OUTPUT-SCALE height)))
    "{\n"
    "set-ps-scale-to-lily-scale\n"))
 
@@ -438,7 +432,7 @@
     " draw_zigzag_line "))
 
 (define (start-page)
-  "\n%start page\n")
+  "\nstart-page\n")
 
 (define (stop-page last?)
-  "\n%showpage\n")
+  "\nstop-page\n")

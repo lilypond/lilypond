@@ -176,14 +176,14 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
       if (systems != SCM_UNDEFINED)
 	{
 	  Paper_score *ps = dynamic_cast<Paper_score*> (output);
-	  // Hmmr
+#if 1
 	  paper_book->protect_ = scm_cons (systems, paper_book->protect_);
 	  paper_book->protect_ = scm_cons (global_input_file->header_,
 					   paper_book->protect_);
 	  paper_book->protect_ = scm_cons (header, paper_book->protect_);
 	  paper_book->protect_ = scm_cons (ps->paper_->smobbed_copy (),
 					   paper_book->protect_);
-
+#endif
 	  paper_book->papers_.push (ps->paper_);
 	  paper_book->scores_.push (systems);
 	  paper_book->global_headers_.push (global_input_file->header_);

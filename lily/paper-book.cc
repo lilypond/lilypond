@@ -131,9 +131,7 @@ Paper_book::get_title (int i)
 						 papers_[0]->self_scm (),
 						 scm_variable_ref (s)));
       
-      /* match systems, which are also aligned to center */
-      //(ly:stencil-align-to! header-stencil Y CENTER)
-      title->align_to (Y_AXIS, CENTER);
+      title->align_to (Y_AXIS, UP);
       return title;
     }
   
@@ -206,13 +204,17 @@ Paper_book::get_pages ()
 	  if (page->height_ + h <= text_height || page->height_ == 0)
 	    {
 	      if (j == 0 && title)
-		page->lines_
-		  = ly_snoc (scm_cons (ly_offset2scm (Offset (0, 0)),
-				       scm_list_1
-				       (scm_cons
-					(ly_offset2scm (Offset (0, 0)),
-					 title->smobbed_copy ()))),
+		{
+		  Offset dim = Offset (title->extent (X_AXIS).length (),
+				       title->extent (Y_AXIS).length ());
+		  page->lines_
+		    = ly_snoc (scm_cons (ly_offset2scm (dim),
+					 scm_list_1
+					 (scm_cons
+					  (ly_offset2scm (Offset (0, 0)),
+					   title->smobbed_copy ()))),
 			     page->lines_);
+		}
 	      page->lines_ = ly_snoc (line, page->lines_);
 	      page->height_ += h;
 	      h = 0;
@@ -250,8 +252,17 @@ IMPLEMENT_SIMPLE_SMOBS (Paper_book)
 IMPLEMENT_TYPE_P (Paper_book, "ly:paper_book?")
 
 SCM
-Paper_book::mark_smob (SCM)
+Paper_book::mark_smob (SCM smob)
 {
+  Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
+
+#if 0 //TODO
+  scm_gc_mark (b->scores_);
+  scm_gc_mark (b->global_headers_);
+  scm_gc_mark (b->headers_);
+  scm_gc_mark (b->papers_);
+#endif
+
   return SCM_EOL;
 }
 
