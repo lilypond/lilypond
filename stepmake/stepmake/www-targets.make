@@ -9,8 +9,9 @@ WWW-clean: local-WWW-clean
 	$(LOOP)
 endif
 
+#ugh, this is (but whole make web/www/WWW is) lilypond specific
 local-web:
-	$(MAKE) out=www local-WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html local-WWW
 
 web:
 	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html WWW
