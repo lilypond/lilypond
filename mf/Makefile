@@ -14,8 +14,8 @@ TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
 EXTRA_DISTFILES =   TODO README  $(MFFILES)
 #
-lyout = $(depth)/init
-texout = $(depth)/tex
+lyout = $(outdir)/
+texout = $(outdir)/
 
 FONT_FILES = $(wildcard *[0-9].mf)
 FET_FILES = $(wildcard feta[0-9]*.mf)
@@ -44,6 +44,20 @@ $(outdir)/%.log: %.mf
 $(lyout)/%.ly $(texout)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 	$(PYTHON) $(depth)/bin/mf-to-table.py --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
+
+lyouts:
+
+TEXINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(TEXDIR)/lilypond depth=.. INSTALLATION_OUT_FILES="$(TEXTABLES)" -f $(depth)/make/Install_outfiles.sub.make $@
+
+LYINSTALL=$(MAKE) depth=.. INSTALLATION_OUT_DIR=$(datadir)/lilypond INSTALLATION_OUT_FILES="$(LYTABLES)" -f $(depth)/make/Install_outfiles.sub.make $@
+
+localinstall:
+	$(TEXINSTALL)
+	$(LYINSTALL)
+
+localuninstall:
+	$(TEXINSTALL)
+	$(LYINSTALL)
 
 INSTALLATION_DIR=$(MFDIR)/public/lilypond
 INSTALLATION_FILES=$(MFFILES)
