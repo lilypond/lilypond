@@ -18,7 +18,7 @@ stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 cresc = \notes {
   #(ly:export (make-event-chord (list cr)))
-  \property Voice.crescendoText = #'((font-shape . italic) "cresc.")
+  \property Voice.crescendoText = \markup { \italic "cresc." }
   \property Voice.crescendoSpanner = #'dashed-line
 }
 
@@ -33,7 +33,7 @@ endcresc = \notes {
 dim = \notes {
   #(ly:export (make-event-chord (list decr)))
 
-  \property Voice.decrescendoText = #"dim."
+  \property Voice.decrescendoText = \markup { \italic "dim." }
   \property Voice.decrescendoSpanner = #'dashed-line
 }
 
