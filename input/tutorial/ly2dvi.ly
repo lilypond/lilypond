@@ -1,9 +1,9 @@
-
+  \version "1.3.138";
   \header {
         title = "Two miniatures";
   }
   
-  #(set! point-and-click #t)
+  #(set! point-and-click line-column-location)
   
   \paper { linewidth = -1.0; }
 

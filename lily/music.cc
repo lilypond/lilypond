@@ -185,12 +185,10 @@ Music::set_mus_property (SCM s, SCM v)
 }
 
 #include "main.hh"
+
 void
 Music::set_spot (Input ip)
 {
-  /* misuse midi-debug flag: don't store origin */
-  if (midi_debug_global_b)
-    return;
   set_mus_property ("origin", make_input (ip));
 }
 

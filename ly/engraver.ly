@@ -84,6 +84,8 @@ RhythmicStaffContext=\translator{
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
+	\alias "Staff";
+	
 	Bar \override #'bar-size = #4
 	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
 	VoltaBracket \override #'padding =  #5  % urg, in \pt

@@ -1,5 +1,4 @@
 
-
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
 adding parentheses to existing molecule callbacks.

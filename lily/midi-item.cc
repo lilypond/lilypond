@@ -587,6 +587,7 @@ String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
+  
   if (midi_debug_global_b)
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 

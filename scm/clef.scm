@@ -1,5 +1,3 @@
-
-
 ;;
 ;; (name . (glyph clef-position octavation))
 ;; -- the name clefOctavation is misleading the value 7 is 1 octave not 7 Octaves.

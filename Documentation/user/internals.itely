@@ -11,16 +11,16 @@
 @chapter Internals
 
 @menu
-* Conversion stages::		Lilypond is a multi-pass program.
-* Moment::			
-* Grobs::			Graphical object  
-* Duration::			
-* Pitch data type::		
-* Engraver::			
-* Music_iterator::		
-* Music::			
-* Molecules::			Molecules are stand-alone descriptions of output
-* Font metrics::		Font metrics
+* Conversion stages::           Lilypond is a multi-pass program.
+* Moment::                      
+* Grobs::                       Graphical object  
+* Duration::                    
+* Pitch data type::             
+* Engraver::                    
+* Music_iterator::              
+* Music::                       
+* Molecules::                   Molecules are stand-alone descriptions of output
+* Font metrics::                Font metrics
 * Miscellaneous Scheme functions::  
 @end menu
 
@@ -116,19 +116,18 @@ them involve Grobs in some form, this section explains some details of
 how grobs work.
 
 @menu
-* What is a grob?::		
-* Callbacks::			
-* Setting grob properties::	
-* Items and Spanners::		
-* Grob Scheme functions::	
+* What is a grob?::             
+* Callbacks::                   
+* Setting grob properties::     
+* Grob interfaces::             
+* Items and Spanners::          
+* Grob Scheme functions::       
 @end menu
 
 
 
 @node What is a grob?
 @subsection What is a grob?
-
-[TODO: document/explain interfaces]
 
 In music notation, lots of symbols are related in some way.  You can
 think of music notation as a graph where nodes are formed by the
@@ -319,6 +318,42 @@ This shifts all elements that have a @code{text} property one staff
 space to the left. This mechanism is rather clumsy to use, but it allows
 you tweak any setting of any grob.
 
+
+@node Grob interfaces
+@unnumberedsubsec Grob interfaces
+
+Grob properties form a namespace where you can set variables per
+object.  Each object however, may have multiple functions. For example,
+consider a dynamic symbol, such @code{\ff} (fortissimo). It is printed
+above or below the staff, it is a dynamic sign, and it is a kind of
+text.
+
+To reflect this different functions of a grob, procedures and variables
+are grouped into so-called interfaces.  The dynamic text for example
+supports the  following interfaces:
+@table @code 
+@item font-interface
+  The glyph is built from characters from a font, hence the
+@code{font-interface}. For objects supporting @code{font-interface}, you
+can select alternate fonts by setting @code{font-style},
+@code{font-point-size}, etc.
+
+@item dynamic-interface
+  Dynamic interface is not associated with any variable or function in
+particular, but this makes it possible to distinguish this grob from
+other similar grobs (like @code{TextScript}), that have no meaning of
+dynamics.
+
+@item text-interface
+  This interface is for texts that are to be set using special routines
+to stack text into lines, using kerning, etc.
+
+@item general-grob-interface
+  This interface is supported by all grob types.
+@end table
+
+
+
 @node Items and Spanners
 @unnumberedsubsec Items and Spanners
 
@@ -502,13 +537,13 @@ If you are interested in seeing how this information is stored, you
 can run with the @code{-f scm} option. The scheme expressions are then
 dumped onto the output file.
 
-(refer to the C++ code for more details). All visible,
-i.e. non-transparant, grobs have a callback to create a Molecule. The
-name of the property is @code{molecule-callback}, and its value should
-be a Scheme function taking one argument (the grob) and returning a
-Molecule.
+All visible, i.e. non-transparant, grobs have a callback to create a
+Molecule. The name of the property is @code{molecule-callback}, and its
+value should be a Scheme function taking one argument (the grob) and
+returning a Molecule.  Most molecule callbacks are written in C++, but
+you can also write them in Scheme. An example is provided in
+@code{input/regression/molecule-hacking.ly}.
 
-[insert example of write your own.]
 
 @defun molecule? m
 type predicate.
@@ -585,4 +620,9 @@ type predicate. A direction is a -1, 0 or 1.
 at the end.
 @end defun
 
+@defun set-lily-option sym val
+ Set a global option for the program.
 
+[todo: document interesting sym/val pairs ]
+
+@end defun 

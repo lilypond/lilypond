@@ -15,8 +15,23 @@
 
 (debug-enable 'backtrace)
 
+
 (define point-and-click #f)
 (define security-paranoia #f)
+(define midi-debug #f)
+
+(define (line-column-location line col file)
+  "Print an input location, including column number ."
+  (string-append (number->string line) ":"
+		 (number->string col) " " file " ")
+  )
+
+(define (line-location line col file)
+  "Print an input location, without column number ."
+  (string-append (number->string line) " " file)
+  )
+
+  
 (define default-script-alist '())
 (define font-name-alist  '())
 

@@ -14,7 +14,13 @@
 @unnumberedsec Command Options
 
 @table @code
-@item -f,--format=
+
+@item -e,--evaluate=@var{code}
+  Evaluates the Scheme @var{code} before parsing @file{.ly}
+files. Multiple @code{-e} options may be given. They will be evaluated
+sequentially.
+
+@item -f,--format=@var{format}
 Output format for sheet music. Choices are tex (for @TeX{}
 output), ps (for PostScript) and scm (for a Scheme
 dump).
@@ -48,9 +54,6 @@ midi output only.
 Output rules to be included in Makefile.
 @item -o,--output=FILE
 Set the default output file to @file{FILE}.
-@item  -Q,--find-old-relative
-show all changes needed to convert a file to  relative octave syntax.
-
 @item -s,--safe
 Disallow untrusted @code{\include} directives, in-line
 Scheme evaluation, backslashes in @TeX{}, code.
@@ -59,11 +62,6 @@ Scheme evaluation, backslashes in @TeX{}, code.
 long time; do not rely on it for automatic invocation (e.g. over the
 web). Volunteers are welcome to do a new audit.
 
-@item -T,--no-timestamps
-don't timestamp the output
-
-@item -t,--test
-Switch on any experimental features.  Not for general public use.
 @item -v,--version
 Show version information 
 @item -V,--verbose

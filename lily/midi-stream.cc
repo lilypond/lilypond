@@ -38,6 +38,8 @@ Midi_stream&
 Midi_stream::operator << (Midi_item const& midi_c_r)
 {
   String str = midi_c_r.str ();
+
+
   if (midi_debug_global_b)
     {
      str = String_convert::bin2hex_str (str) + "\n";

@@ -2,10 +2,29 @@
 @node Preface
 @chapter Preface
 
-[talk about:
+Some six years ago I was in the EJE (Eindhoven Youth Orchestra), and
+Jan, one of the cranked violists told me about the grand new project he
+was working on. It was an automated system for printing music (to be
+precise, it was MPP, a preprocessor for MusiXTeX). Accidentally, I also
+wanted to print out some parts from a score, so I started looking at his
+software, and quickly got hooked.  The rest is, as they say, history.
 
-why lily, history, about manual, call for feedback on manual and
-program.
-Inspiration from ../misc/ ? 
-]
+You're reading the preface of the manual for LilyPond 1.4, which is in
+all honesty, the first release of LilyPond that combines stability,
+flexibility and good documentation. I hope you have as much fun in using
+LilyPond as I had when hacking it.
 
+This manual was written to help you learn lily, but as you might
+imagine, I don't have anything learn about it. It's hard for me as a
+writer to judge whether the manual is clear for a newbie, but you can!
+So, should you find any part of the manual vague or outdated, please let
+us know: if you don't tell us, we'll never know.
+
+
+Han-Wen Nienhuys
+
+Utrecht, The Netherlands,  March 2001.
+
+
+
+[preface jcn here? ]

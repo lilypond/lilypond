@@ -80,23 +80,13 @@ Paper_outputter::output_header ()
   exp = scm_eval2 (exp, SCM_EOL);
   scm_eval2 (exp, SCM_EOL);
   
-  String creator;
-  if (no_timestamps_global_b)
-    creator = gnu_lilypond_str ();
-  else
-    creator = gnu_lilypond_version_str ();
+  String creator = gnu_lilypond_version_str ();
   
-  String generate;
-  if (no_timestamps_global_b)
-    generate = ".";
-  else
-    {
-      generate = _ (", at ");
-      time_t t (time (0));
-      generate += ctime (&t);
-      generate = generate.left_str (generate.length_i () - 1);
-    }
-
+  String       generate = _ (", at ");
+  time_t t (time (0));
+  generate += ctime (&t);
+  generate = generate.left_str (generate.length_i () - 1);
+  
   /*
     Make fixed length time stamps
    */
@@ -187,10 +177,7 @@ void
 Paper_outputter::output_version ()
 {
   String id_str = "Lily was here";
-  if (no_timestamps_global_b)
-    id_str += ".";
-  else
-    id_str += String (", ") + version_str ();
+  id_str += String_convert::pad_to (String (", ") + version_str (), 40);
 
   output_String_def ("lilypondtagline", id_str);
   output_String_def ("LilyPondVersion", version_str ());

@@ -50,14 +50,8 @@ Array<String> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 String init_name_global;
 
-/* Write midi as formatted ascii stream? */
-bool midi_debug_global_b;
-
 /* Do not calculate and write paper output? */
 bool no_paper_global_b = false;
-
-/* Do not write timestamps in output? */
-bool no_timestamps_global_b = false;
 
 /* Selected output format.
    One of tex, ps, scm, as. */
@@ -72,6 +66,8 @@ bool safe_global_b = false;
 /* Verbose progress indication? */
 bool verbose_global_b = false;
 
+/* Scheme code to execute before parsing, after .scm init */
+String init_scheme_code_string = "(begin #t ";
 
 
 /*
@@ -115,11 +111,10 @@ static Long_option_init options_static[] = {
   {0, "no-paper", 'm',  _i ("produce MIDI output only")},
   {_i ("NAME"), "output", 'o',  _i ("write output to NAME")},
   {0, "safe", 's',  _i ("inhibit file output naming and exporting")},
-  {0, "no-timestamps", 'T',  _i ("don't timestamp the output")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
-  {0, "midi-debug", 'X',  _i ("write midi ouput in formatted ascii")},
+  {_i ("EXPR"), "evaluate", 'e',_i ("evalute  EXPR as Scheme after .scm init is read")},
   {0,0,0,0}
 };
 
@@ -332,6 +327,9 @@ main_prog (int, char**)
   call_constructors ();
   all_fonts_global_p = new All_font_metrics (global_path.str ());
 
+  init_scheme_code_string += ")";
+  gh_eval_str (init_scheme_code_string.ch_C());
+  
   int p=0;
   const char *arg ;
   while ((arg = oparser_p_static->get_next_arg ()) || p == 0)
@@ -438,6 +436,10 @@ main (int argc, char **argv)
 	    output_name_global = p.str ();
 	  }
 	  break;
+	case 'e':
+	  init_scheme_code_string +=
+	    oparser_p_static->optional_argument_ch_C_;
+	  break;
 	case 'w':
 	  notice ();
 	  exit (0);
@@ -472,12 +474,6 @@ main (int argc, char **argv)
 	  break; 
 	case 'm':
 	  no_paper_global_b = true;
-	  break;
-	case 'T':
-	  no_timestamps_global_b = true;
-	  break;
-	case 'X':
-	  midi_debug_global_b = true;
 	  break;
 	default:
 	  assert (false);
