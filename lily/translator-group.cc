@@ -108,7 +108,6 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
   Translator_group * tg
     = dynamic_cast<Translator_group*> (c->implementation ());
 
-
   /*
     Top down: 
    */
@@ -120,7 +119,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
       (tg->*ptr) ();
     }
 
-  for (SCM s = c->children_contexts () ; scm_is_pair (s);
+  for (SCM s = c->children_contexts (); scm_is_pair (s);
        s = scm_cdr (s))
     {
       recurse_over_translators (unsmob_context (scm_car (s)), ptr, dir);
@@ -129,7 +128,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
   if (dir == UP)
     {
       translator_each (tg->get_simple_trans_list (),
-		     ptr);
+		       ptr);
 
       (tg->*ptr) ();
     }

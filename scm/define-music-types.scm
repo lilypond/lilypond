@@ -573,7 +573,7 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
     (UntransposableMusic
      . (
 	(description .	"Music that can not be transposed.")
-
+	(untransposable . #t)
 	(internal-class-name . "Untransposable_music")
 	(types . (music-wrapper-music general-music untransposable-music)) 
 	))
