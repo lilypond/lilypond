@@ -13,6 +13,10 @@
 #include "item.hh"
 #include "parray.hh"
 
+/*
+  breathing sign (apostrophe within staff, not the comma above staff
+  type)
+*/
 class Breathing_sign : public Item
 {
 public:

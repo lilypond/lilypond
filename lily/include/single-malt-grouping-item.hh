@@ -17,6 +17,15 @@
    since these usually are in a different X_group
 
    It's 1:30 am.  Naming suggestions appreciated.
+
+   Properties:
+
+
+   elements -- list of items.
+   
+   no-spacing-rods -- read from elements: boolean that makes Single_malt_grouping_item ignore
+     this item
+   
 */
 class Single_malt_grouping_item : public Item
 {
@@ -26,7 +35,6 @@ public:
   Interval my_width () const;
   void add_item (Item*);
 };
-
 
 #endif /* SINGLE_MALT_GROUPING_ITEM_HH */
 

@@ -67,7 +67,7 @@ almost no restrictions.  LilyPond is part of the
 The version numbers are in Linux-kernel style: even numbered versions
 are `stable'. The webpages for the stable version (1.2) reside at GNU,
 here: @uref{http://www.gnu.org/software/lilypond}. Big enhancements go
-into the latest odd numbered version (1.3); its  webpages are on 
+into the latest odd numbered version (1.3), whose webpages are on 
  @uref{http://www.cs.uu.nl/~hanwen/lilypond/,Han-Wen's site}.
 
 If want more information, you can browse the
@@ -124,7 +124,7 @@ Installing and compiling requires many additional packages, which are
 listed in the @uref{Documentation/topdocs/out-www/INSTALL.html,
 installation instructions}.
 
-There are binaries available, but alas they are not updated for every version released.
+Binaries are available, but are not updated for every version released.
 @itemize @bullet
 @item RedHat-i386 and Linuxppc RPMs:
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}
@@ -149,10 +149,10 @@ Frequently Asked Questions} first.)
     subscribe: send mail with subject "subscribe" to
     info-gnu-music-request@@gnu.org.  
 
-    As this list is moderated, normal people should ask to
+    This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
-    @email{hanwen@@cs.uu.nl, Han-Wen} to forward announces instead of
-    sending it to info-gnu-music@@gnu.org
+    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
+list.
 
    This list is archived at 
     @uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}

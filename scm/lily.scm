@@ -104,6 +104,7 @@
    ((none Instrument_name) . (extra-space 1.0))
    ((Instrument_name Left_edge_item) . (extra-space 1.0))
    ((Left_edge_item Clef_item) . (extra-space 1.0))
+   ((Left_edge_item Key_item) . (extra-space 0.0))   
    ((none Left_edge_item) . (extra-space 0.0))
    ((Left_edge_item Staff_bar) . (extra-space 0.0))
 ;   ((none Left_edge_item) . (extra-space -15.0))

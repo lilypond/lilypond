@@ -39,6 +39,7 @@ Dots::after_line_breaking ()
 	si.set_position (p  + directional_element (this).get ());
     }
 }
+
 Molecule  
 Dots::do_brew_molecule () const
 {

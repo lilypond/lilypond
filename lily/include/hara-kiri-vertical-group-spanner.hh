@@ -16,7 +16,14 @@
   As Vertical_group_spanner, but keep track of interesting items.  If
   we don't contain any interesting items after linebreaking, then
   gracefully commit suicide.  Objective: don't disgrace Lily by
-  typesetting empty lines in orchestral scores.  */
+  typesetting empty lines in orchestral scores.
+
+  properties:
+
+  items-worth-living -- list of interesting items. If empty in a particular system,
+    clear this line
+
+*/
 class Hara_kiri_group_spanner : public Spanner
 {
 public:

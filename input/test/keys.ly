@@ -4,9 +4,9 @@
 test key itemv breaking
 %}
 \score {
-  \notes
+  \notes \relative c''
   {
-    \key bes; c1 \key c \minor;  c1
+    \key bes; c2 \key c \minor;  c2
     \break
     \key bes \major; c1 \key d;\break c1
   }

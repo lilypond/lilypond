@@ -70,9 +70,15 @@ arithmetic_multiplier = 0.9 * \quartwidth ;
 arithmetic_basicspace = 2.0;
 
 
+
+
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
 
 #'Left_edge_item::visibility-lambda = #begin-of-line-visible
+
+% 
+% UGH; junk these!
+%
 
 #'Key_item::visibility-lambda = #begin-of-line-visible
 #'Breathing_sign::visibility-lambda = #begin-of-line-invisible

@@ -12,6 +12,13 @@
 
 #include "rhythmic-head.hh"
 
+/**
+   A pause.
+   
+   Properties
+
+   style -- string specifying glyph style
+ */
 class  Rest : public Rhythmic_head
 {
 protected:

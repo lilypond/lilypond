@@ -52,10 +52,10 @@ Separating_group_spanner::get_rods () const
 	continue;
       
       Single_malt_grouping_item *lb
-	= dynamic_cast<Single_malt_grouping_item*>(l->find_broken_piece (RIGHT));
+	= dynamic_cast<Single_malt_grouping_item*>(l->find_prebroken_piece (RIGHT));
 
       Single_malt_grouping_item *rb
-	= dynamic_cast<Single_malt_grouping_item*>(r->find_broken_piece (LEFT));
+	= dynamic_cast<Single_malt_grouping_item*>(r->find_prebroken_piece (LEFT));
       
       a.push (make_rod(l,  r));
       if (lb)

@@ -29,6 +29,15 @@ Collision::add_column (Note_column* ncol_l)
 void
 Collision::before_line_breaking ()
 {
+  do_shifts();
+}
+
+/*
+  TODO: make callback of this.
+ */
+void
+Collision::do_shifts()
+{
   SCM autos (automatic_shift ());
   SCM hand (forced_shift ());
   Link_array<Score_element> done;
@@ -55,8 +64,7 @@ Collision::before_line_breaking ()
 /** This complicated routine moves note columns around horizontally to
   ensure that notes don't clash.
 
-  This should be done better, probably.
-
+  This should be put into Scheme.  
   */
 SCM
 Collision::automatic_shift ()

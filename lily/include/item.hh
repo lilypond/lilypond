@@ -38,8 +38,6 @@ class Item : public Score_element
 {
   Drul_array<Item*> broken_to_drul_;
 
-  void do_break ();
-  void try_visibility_lambda ();
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Item();
@@ -50,11 +48,12 @@ public:
   
   Direction break_status_dir () const;
   
-  Item * find_broken_piece (Direction) const;
+  Item * find_prebroken_piece (Direction) const;
   Score_element * find_broken_piece (Line_of_score*) const;    
 
   virtual Line_of_score * line_l() const;
   virtual Paper_column * column_l () const;
+  virtual void handle_prebroken_dependencies ();
 protected:
   virtual void do_breakable_col_processing();
   void copy_breakable_items();

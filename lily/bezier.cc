@@ -87,9 +87,10 @@ Bezier::curve_point (Real t)const
 	one_min_tj /= (1-t);
     }
 
+#ifdef PARANOID
   assert (fabs (o[X_AXIS] - polynomial (X_AXIS).eval (t))< 1e-8);
   assert (fabs (o[Y_AXIS] - polynomial (Y_AXIS).eval (t))< 1e-8);
-
+#endif
   
   return o;
 }

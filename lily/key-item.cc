@@ -8,13 +8,11 @@
   keyplacement by Mats Bengtsson
 */
 
+#include "group-interface.hh" 
 #include "key-item.hh"
-#include "key.hh"
-#include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "musical-pitch.hh"
 #include "staff-symbol-referencer.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
@@ -24,26 +22,32 @@ Key_item::Key_item ()
 {
   set_elt_property ("breakable", SCM_BOOL_T);
   set_elt_property ("c0-position", gh_int2scm (0));
+
+  set_elt_property ("old-accidentals", SCM_EOL);
+  set_elt_property ("new-accidentals", SCM_EOL);
 }
 
 void
 Key_item::add (int p, int a)
 {
-  pitch_arr_.push (p);
-  acc_arr_.push (a);
+  SCM pair = gh_cons (gh_int2scm (p),gh_int2scm (a));
+  Group_interface (this, "new-accidentals").add_thing (pair);
 }
 
 void
 Key_item::add_old (int p, int a)
 {
-  old_pitch_arr_.push (p);
-  old_acc_arr_.push (a);
+  SCM pair = gh_cons (gh_int2scm (p),gh_int2scm (a));  
+  Group_interface (this, "old-accidentals").add_thing (pair);
 }
 
 
 int
-Key_item::calculate_position(int p, int a) const
+Key_item::calculate_position(SCM pair) const
 {
+  int p = gh_scm2int (gh_car (pair));
+  int a = gh_scm2int (gh_cdr (pair));  
+  
   if (to_boolean (get_elt_property ("multi-octave")))
     {
       return p + gh_scm2int (get_elt_property ("c0-position"));
@@ -62,9 +66,10 @@ Key_item::calculate_position(int p, int a) const
       {
 	p -= 7; /* Typeset below c_position */
       }
-    /* Provide for the four cases in which there's a glitch */
-    /* it's a hack, but probably not worth */
-    /* the effort of finding a nicer solution. dl. */
+    /* Provide for the four cases in which there's a glitch 
+       it's a hack, but probably not worth  
+       the effort of finding a nicer solution.
+       --dl. */
     if (c0==2 && a>0 && p==3)
       p -= 7;
     if (c0==-3 && a>0 && p==-1)
@@ -81,8 +86,11 @@ Key_item::calculate_position(int p, int a) const
 /*
   TODO
   - space the `natural' signs wider
-  - dehair this
+
+  
+  
  */
+
 Molecule 
 Key_item::do_brew_molecule() const
 {
@@ -91,27 +99,23 @@ Key_item::do_brew_molecule() const
   Staff_symbol_referencer_interface si (this);
   Real inter = si.staff_space ()/2.0;
   
-  int j;
-  if ((break_status_dir () == LEFT || break_status_dir () == CENTER)
-      || old_pitch_arr_.size ())
+  SCM newas = get_elt_property ("new-accidentals");  
+
+  /*
+    SCM lists are stacks, so we work from right to left, ending with
+    the cancellation signature.
+  */
+  for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
     {
-      for (int i =0; i < old_pitch_arr_.size(); i++) 
-        {
-          for (j =0; (j < pitch_arr_.size())
-		 && (old_pitch_arr_[i] != pitch_arr_[j]); j++) 
-	    ;
-	  
-          if (j == pitch_arr_.size()
-	      || (old_pitch_arr_[i] == pitch_arr_[j]
-		  && old_acc_arr_[i] != acc_arr_[j]))
-            {
-              Molecule m =lookup_l ()->afm_find ("accidentals-0");
-
-              m.translate_axis (calculate_position(old_pitch_arr_[i], old_acc_arr_[i]) * inter, Y_AXIS);
-              mol.add_at_edge (X_AXIS, RIGHT, m,0);	
-            }
-        }
-
+      int a = gh_scm2int (gh_cdar (s));
+      Molecule m = lookup_l ()->afm_find ("accidentals-" + to_str (a));
+      m.translate_axis (calculate_position(gh_car (s)) * inter, Y_AXIS);
+      mol.add_at_edge (X_AXIS, LEFT, m, 0);
+    }
+  
+  if (break_status_dir () != RIGHT)
+    {
+      SCM old = get_elt_property ("old-accidentals");
       /*
 	Add half a space between  cancellation and key sig.
 
@@ -120,15 +124,31 @@ Key_item::do_brew_molecule() const
       Interval x(0, inter);
       Interval y(0,0);
 
-      mol.add_at_edge (X_AXIS, RIGHT, lookup_l()->blank (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, LEFT, lookup_l()->blank (Box(x,y)),0);
+      
+      for (; gh_pair_p (old); old = gh_cdr (old))
+        {
+	  SCM found = SCM_EOL;
+
+	  /*
+	    find correspondences in pitches 
+	   */
+          for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
+	    if (gh_caar(s) == gh_caar (old))
+	      found  = gh_car (s);
+		
+	  if (found == SCM_EOL || gh_cdr (found) != gh_cdar (old))
+	    {
+              Molecule m =lookup_l ()->afm_find ("accidentals-0");
+
+              m.translate_axis (calculate_position(gh_car(old)) * inter, Y_AXIS);
+              mol.add_at_edge (X_AXIS, LEFT, m,0);	
+            }
+        }
+
+
     }
  
-  for (int i =0; i < pitch_arr_.size(); i++) 
-    {
-      Molecule m = lookup_l ()->afm_find ("accidentals-" + to_str (acc_arr_[i]));
-      m.translate_axis (calculate_position(pitch_arr_[i], acc_arr_[i]) * inter, Y_AXIS);
-      mol.add_at_edge (X_AXIS, RIGHT, m, 0);
-    }
 
   return mol;
 }

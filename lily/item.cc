@@ -22,7 +22,7 @@ Item::Item ()
 
 /**
    Item copy ctor.  Copy nothing: everything should be a elt property
-   or a special purpose poitner (such as broken_to_drul_[]) */
+   or a special purpose pointer (such as broken_to_drul_[]) */
 Item::Item (Item const &s)
   : Score_element (s)
 {
@@ -38,7 +38,7 @@ Item::breakable_b () const
     return false;
   
   Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
-  return (i) ?  i->breakable_b () : to_boolean (get_elt_property( "breakable"));
+  return (i) ?  i->breakable_b () : to_boolean (get_elt_property ("breakable"));
 }
 
 Line_of_score *
@@ -63,35 +63,8 @@ Item::copy_breakable_items()
     }
   while (flip(&i) != LEFT);
   broken_to_drul_= new_copies;
-
-  do 
-    {
-       broken_to_drul_[i]->handle_prebroken_dependencies();
-       broken_to_drul_[i]->try_visibility_lambda();
-    }
-  while (flip(&i) != LEFT);
 }
 
-void
-Item::try_visibility_lambda ()
-{
-  SCM vis = remove_elt_property ("visibility-lambda");
-  if (gh_procedure_p (vis))
-    {
-      SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
-      SCM result = gh_apply (vis, args);
-      bool trans = gh_scm2bool (gh_car (result));
-      bool empty = gh_scm2bool (gh_cdr (result));
-
-      if (empty)
-	{
-	  set_extent_callback (0, X_AXIS);
-	  set_extent_callback (0,  Y_AXIS);
-	}
-      if (trans)
-	set_elt_property ("transparent", SCM_BOOL_T);
-    }
-}
 
 bool
 Item::broken_b () const
@@ -100,33 +73,13 @@ Item::broken_b () const
 }
 
 void
-Item::do_break ()
+Item::do_breakable_col_processing()
 {
   if (broken_b ())
     return;
 
   if (breakable_b ())
-    {
-      copy_breakable_items();
-      handle_prebroken_dependencies();
-  
-      /*
-    Otherwise the broken items won't be pre_process()'ed.
-  */
-  
-      if (broken_to_drul_[LEFT])
-	{
-	  add_dependency (broken_to_drul_[LEFT]);
-	  add_dependency (broken_to_drul_[RIGHT]);
-	}
-    }
-  try_visibility_lambda ();	// ugh.
-}
-
-void
-Item::do_breakable_col_processing()
-{
-  do_break ();
+    copy_breakable_items();
 }
 
 Score_element*
@@ -137,7 +90,7 @@ Item::find_broken_piece (Line_of_score*l) const
 
   Direction d = LEFT;
   do {
-    Score_element *s = find_broken_piece (d);
+    Score_element *s = broken_to_drul_[d];
     if (s && s->line_l () == l)
       return s;
   }
@@ -146,19 +99,14 @@ Item::find_broken_piece (Line_of_score*l) const
   return 0;
 }
 
+
 Item*
-Item::find_broken_piece (Direction d) const
+Item::find_prebroken_piece (Direction d) const
 {
   Item * me = (Item *) (this);	
   if (!d)
     return me;
-  else if (breakable_b ())
-    {
-      me->do_break ();
-      return dynamic_cast<Item*> (broken_to_drul_[d]);
-    }
-  else
-    return 0;
+  return dynamic_cast<Item*> (broken_to_drul_[d]);
 }
 
 Paper_column *
@@ -180,4 +128,34 @@ Item::break_status_dir () const
     return CENTER;
 }
 
+void
+Item::handle_prebroken_dependencies ()
+{
+  if (original_l_)
+    {
+      element_property_alist_
+	= handle_broken_smobs (original_l_->element_property_alist_,
+			       gh_int2scm (break_status_dir ()));
+    }
+  
+  /*
+    Can't do this earlier, because try_visibility_lambda () might set
+    the elt property transparent, which would then be copied.
+  */
+  SCM vis = remove_elt_property ("visibility-lambda");
+  if (gh_procedure_p (vis))
+    {
+      SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
+      SCM result = gh_apply (vis, args);
+      bool trans = gh_scm2bool (gh_car (result));
+      bool empty = gh_scm2bool (gh_cdr (result));
 
+      if (empty)
+	{
+	  set_extent_callback (0, X_AXIS);
+	  set_extent_callback (0,  Y_AXIS);
+	}
+      if (trans)
+	set_elt_property ("transparent", SCM_BOOL_T);
+    }
+}
