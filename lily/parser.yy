@@ -342,7 +342,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
 %type <scm>  verbose_duration
 	
-%type <scm>  pre_events post_events
+%type <scm>   post_events
 %type <music> gen_text_def
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
@@ -1226,17 +1226,36 @@ scalar:
         ;
 
 
+
+/*
+This is a trick:
+
+Adding pre_events to the simple_element
+makes the choice between
+
+  string:  STRING
+
+and
+
+  simple_element: STRING
+
+a single shift/reduction conflict.
+
+nevertheless, this is not very clean, and we should find a different
+solution.  
+
+*/
+pre_events:
+	;
+
 event_chord:
-	pre_events {
-		THIS->push_spot ();
-	} /*cont */ simple_element post_events	{
-		SCM elts = $3-> get_mus_property ("elements");
+	pre_events simple_element post_events	{
+		SCM elts = $2-> get_mus_property ("elements");
 
-		elts = gh_append3 (elts, scm_reverse_x ($1, SCM_EOL),
-				   scm_reverse_x ($4, SCM_EOL));
+		elts = gh_append2 (elts, scm_reverse_x ($3, SCM_EOL));
 
-		$3-> set_mus_property ("elements", elts);
-		$$ = $3;
+		$2->set_mus_property ("elements", elts);
+		$$ = $2;
 	}
 	| command_element
 	| note_chord_element
@@ -1752,22 +1771,6 @@ script_dir:
 	| '-'	{ $$ = CENTER; }
 	;
 
-pre_events:
-	/* empty */ { 
-		$$ = SCM_EOL;
-	}
-	| pre_events open_event {
-		static int warn_count ;
-		if (warn_count < 10)
-			{
-			$2->origin ()->warning (_("Prefix articulations are deprecated. Use postfix notation instead."));
-			warn_count ++;
-			}
-
-		$$ = gh_cons ($2->self_scm(), $$);
-		scm_gc_unprotect_object ($2->self_scm());
-	}
-	;
 
 absolute_pitch:
 	steno_pitch	{

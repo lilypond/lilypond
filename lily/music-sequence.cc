@@ -9,7 +9,7 @@
 #include "music-list.hh"
 #include "warn.hh"
 #include "pitch.hh"
-
+#include "input.hh"
 
 SCM
 Music_sequence::music_list ()const
@@ -94,7 +94,7 @@ Music_sequence::maximum_length (SCM l)
 Pitch
 Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 {
-  Pitch retval;
+  Pitch first;
   int count=0;
 
   Pitch last = p;
@@ -109,14 +109,19 @@ Music_sequence::do_relative_octave (Pitch p, bool ret_first)
 	{
 	  last = m->to_relative_octave (last);
 	  if (!count ++)
-	    retval = last;
+	    first = last;
 	}
     }
 
-  if (!ret_first)
-    retval = last;
-  
-  return retval;
+  if (ret_first && first != last)
+    {
+      String str = _("Changing relative definition causes pitch change.");
+      str += "\nWas: " +  first.to_string ()
+	+ "Will be: " + last.to_string () + "\n";
+      
+      origin()->warning (str);
+    }
+  return last;
 }
 
 void

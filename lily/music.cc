@@ -15,23 +15,7 @@
 #include "ly-smobs.icc"
 
 
-LY_DEFINE(ly_deep_mus_copy,
-	  "ly:music-deep-copy", 1,0,0, (SCM m),
-	  "Copy @var{m} and all sub expressions of @var{m}")
-{
-  if (unsmob_music (m))
-    {
-      SCM ss =  unsmob_music (m)->clone ()->self_scm ();
-      scm_gc_unprotect_object (ss);
-      return ss;
-    }
-  else if (gh_pair_p (m))
-    {
-      return gh_cons (ly_deep_mus_copy (ly_car (m)), ly_deep_mus_copy (ly_cdr (m)));
-    }
-  else
-    return m;
-}
+SCM ly_deep_mus_copy (SCM);
 
 bool
 Music::internal_is_music_type (SCM k)const
@@ -336,6 +320,40 @@ LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0,
   return SCM_BOOL_T;
 }
 ADD_MUSIC(Music);
+
+
+
+LY_DEFINE(ly_deep_mus_copy,
+	  "ly:music-deep-copy", 1,0,0, (SCM m),
+	  "Copy @var{m} and all sub expressions of @var{m}")
+{
+  if (unsmob_music (m))
+    {
+      SCM ss =  unsmob_music (m)->clone ()->self_scm ();
+      scm_gc_unprotect_object (ss);
+      return ss;
+    }
+  else if (gh_pair_p (m))
+    {
+      return gh_cons (ly_deep_mus_copy (ly_car (m)), ly_deep_mus_copy (ly_cdr (m)));
+    }
+  else
+    return m;
+}
+
+LY_DEFINE(ly_music_transpose,
+	  "ly:music-transpose", 2,0,0, (SCM m, SCM p),
+	  "Transpose @var{m} such that central C is mapped to @var{p}. "
+"Return @var{m}.")
+{
+  Music * sc = unsmob_music (m);
+  Pitch * sp = unsmob_pitch (p);
+  SCM_ASSERT_TYPE(sc, m, SCM_ARG1, __FUNCTION__, "music");
+  SCM_ASSERT_TYPE(sp, p, SCM_ARG2, __FUNCTION__, "pitch");
+
+  sc->transpose (*sp);
+  return sc->self_scm();	// SCM_UNDEFINED ? 
+}
 
 
 SCM make_music_proc;
