@@ -1,3 +1,15 @@
+1.4.10.jcn2
+===========
+
+* Documentation/windows/compiling.texi: Update.
+
+* Documentation/index.texi: Add link to orphaned compiling for
+  windows page.
+
+* stepmake/bin/add-html-footer.py: Python2.[12] re workarounds.
+
+* Documentation/footer.html.in: Comment fix.
+
 1.4.10.jcn1
 ===========
 

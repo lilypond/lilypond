@@ -123,6 +123,7 @@ A large document that tests all kinds of features (in
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain
 }  in the Translation Project.
+@item Compiling for @uref{../windows/out-www/compiling.html,Windows/Cygwin}.
 @end itemize
 
 

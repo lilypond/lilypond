@@ -4,7 +4,7 @@ If this file ./Documentation/footer.html.in is present,
 it is included automatically by add-html-footer.py,
 which substitutes some @AT_VARIABLES@ as well.
 
-!-->
+-->
 
 <!-- Layout shamelessly inspired by Franc,ois Pinard's TP pages -->
 
