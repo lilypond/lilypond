@@ -131,17 +131,10 @@ middle C.")
 accidentals. Choices are @code{smaller} or
 @code{parentheses}.")
      (cautionary ,boolean? "Is this a cautionary accidental?")
-     (concaveness-gap ,ly:dimension? "A beam is printed horizontally
-if its concaveness-gap is larger than this value.  The concaveness-gap
-is the distance of an inner note head to the line between two outer
-note heads. ")
-     (concaveness-threshold ,number? "A beam is printed horizontally
-if its concaveness is bigger than this threshold.
-
-Concaveness is calculated as the sum of the vertical distances of
-inner note heads that fall outside the interval of the two outer
-note heads, to the vertically nearest outer note head, divided by the
-square of the inner notes involved.")
+     (concaveness ,number? "A beam is concave when its inner stems are
+closer to the beam than the two outside stems. This number is a
+measure of the closeness of the inner stems. It is used for damping
+the slope of the beam.")
      (collapse-height ,ly:dimension? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
      ;;DOCME
