@@ -1433,11 +1433,16 @@ verbose_command_req:
 		$$ = key;
 	}
 	| KEY NOTENAME_PITCH SCM_IDENTIFIER 	{
+
 		Music *key= MY_MAKE_MUSIC("KeyChangeEvent");
-		
-		key->set_mus_property ("pitch-alist", $3);
-		key->set_mus_property ("tonic", Pitch (0,0,0).smobbed_copy());
- 		((Music*)key)->transpose (* unsmob_pitch ($2));
+		if (scm_ilength ($3) > 0)
+		{		
+			key->set_mus_property ("pitch-alist", $3);
+			key->set_mus_property ("tonic", Pitch (0,0,0).smobbed_copy());
+			((Music*)key)->transpose (* unsmob_pitch ($2));
+		} else {
+			THIS->parser_error (_("Second argument must be pitch list."));
+		}
 
 		$$ = key;
 	}

@@ -103,6 +103,7 @@ global _;_=ly._
 global re;re = ly.re
 
 # lilylib globals
+program_version = '@TOPLEVEL_VERSION@'
 program_name = 'lilypond-book'
 verbose_p = 0
 pseudo_filter_p = 0
@@ -1371,6 +1372,9 @@ def compile_all_files (chunks):
 		texfiles = string.join (tex)
 		cmd = string.join ((lilypond_binary, lilyopts, g_extra_opts,
 				    texfiles))
+
+		ly.lilypond_version_check (lilypond_binary, '@TOPLEVEL_VERSION@')
+		
 		ly.system (cmd, ignore_error = 0, progress_p = 1)
 
 		#

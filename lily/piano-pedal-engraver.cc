@@ -219,7 +219,6 @@ Piano_pedal_engraver::process_acknowledged_grobs ()
 void
 Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 {
-  SCM b;
   SCM s = SCM_EOL;
   SCM strings = get_property ( ("pedal" + String (p->name_) + "Strings").to_str0 ());
 
@@ -293,7 +292,8 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
   if (gh_string_p (s))
     {
       String propname = String (p->name_) + "Pedal";
-      b = get_property (propname.to_str0 ());
+
+      SCM b = get_property (propname.to_str0 ());
       p->item_ = new Item (b);
       p->item_->set_grob_property ("text", s);
       Axis_group_interface::add_element (p->line_spanner_, p->item_);
@@ -381,11 +381,11 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,  
         so the molecule function will shorten the ____ line by the length of the Ped. text.
       */
-      
+
       p->bracket_->set_grob_property ("text-start", 
-				       pedaltype == ly_symbol2scm ("mixed") ? 
-				       gh_bool2scm ( (bool) ! p->req_l_drul_[STOP]) :
-				       gh_bool2scm (false));
+				      pedaltype == ly_symbol2scm ("mixed")
+				      ? gh_bool2scm ( (bool) ! p->req_l_drul_[STOP])
+				      : gh_bool2scm (false));
 
       /*
 	Mixed style: Store a pointer to the preceding text for use in

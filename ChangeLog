@@ -1,5 +1,21 @@
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* buildscripts/lilypond-profile.sh: error message if script is not
+	sourced.
+
+	* lily/tuplet-bracket.cc (make_bracket): change edge-widen to
+	bracket-flare
+	(make_bracket): simplify code.
+
+	* lily/parser.yy (verbose_command_req): catch typos in \key scale
+	argument.
+
+	* python/lilylib.py (lilypond_version_check): new function
+
+	* scripts/lilypond-book.py (TexiPaper.incl_opt): idem
+
+	* scripts/ly2dvi.py (run_lilypond): add version check.
+
 	* scripts/lilypond-book.py (option_definitions): typo
 
 	* scripts/ly2dvi.py (include_path): typo

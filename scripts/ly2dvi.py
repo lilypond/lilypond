@@ -95,6 +95,7 @@ if os.environ.has_key ('LILYPONDPREFIX') :
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
 
+
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
 # Customize these
@@ -106,6 +107,7 @@ global re;re = ly.re
 
 # lilylib globals
 program_name = 'ly2dvi'
+program_version = '@TOPLEVEL_VERSION@'
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
@@ -262,7 +264,7 @@ def run_lilypond (files, dep_prefix):
 
 	if debug_p:
 		ly.print_environment ()
-
+		
 	cmd = string.join ((lilypond_binary, opts, fs))
 	status = ly.system (cmd, ignore_error = 1, progress_p = 1)
 	signal = 0x0f & status
@@ -779,6 +781,8 @@ if not files:
 
 if 1:
 	ly.identify (sys.stderr)
+	ly.lilypond_version_check (lilypond_binary, '@TOPLEVEL_VERSION@')
+	
 	original_output = output_name
 	
 	# Ugh, maybe make a setup () function

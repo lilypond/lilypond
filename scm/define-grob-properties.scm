@@ -177,7 +177,10 @@ mean centre distance weighted per note
 (grob-property-description 'dot-count integer? "number of dots.")
 (grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
-(grob-property-description 'edge-widen pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
+(grob-property-description 'bracket-flare number-pair? "a pair
+ that specifies how much edges of brackets  should slant outward.
+ Value 0.0 means straight edges")
+
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
 (grob-property-description 'elements grob-list? "list of grobs, type depending on the Grob where this is set in.")
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
