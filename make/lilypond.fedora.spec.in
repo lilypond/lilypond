@@ -78,9 +78,7 @@ gzip -9fn $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 
 # profile scripts.
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+
 
 # web doc
 make prefix="$RPM_BUILD_ROOT%{_prefix}" \
@@ -100,7 +98,6 @@ gzip -9fn `find $RPM_BUILD_ROOT%{_infodir}/ -name '*.info'`
 %post
 
 touch /tmp/.lilypond-install
-rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print` /tmp/.lilypond-install
 
 %if %{info}
 /sbin/install-info %{_infodir}/lilypond/lilypond.info.gz %{_infodir}/dir 
@@ -117,10 +114,6 @@ if [ -d /usr/share/vim ]; then
   done
 fi
 
-
-# chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
-
-echo 'Logout first before using LilyPond.'
 
 %preun
 if [ -f /usr/share/lilypond/%{version}/ls-R ]; then
