@@ -15,8 +15,8 @@
  * setting a gregorian ligature grob property or using the "\~"
  * keyword).  If the according bit of the head prefix value is set,
  * the attribute applies for this head.  The binary opereator "\~" is
- * marked only upon the second head (i.e. the note that comes after
- * the operator).
+ * treated like a prefix for the head that follows the operator, but
+ * does not affect the head that precedes the operator, if any.
  */
 #define VIRGA        0x0001 // attribute "\virga"
 #define STROPHA      0x0002 // attribute "\stropha"
@@ -33,7 +33,10 @@
 
 /*
  * Ligature context info: these attributes are derived from the head
- * prefixes by considering the current and the following head.
+ * prefixes by considering the current and the two neighbouring heads.
+ *
+ * These definitions may be extended by more specific Gregorian
+ * ligatures such as vaticana-ligature.hh.
  */
 #define PES_LOWER       0x0001 // this is a head before "\~" in an
 			       // ascending melody

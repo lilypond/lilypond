@@ -1,3 +1,19 @@
+2003-07-03  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely (Gregorian square neumes
+	ligatures): fixed typo
+
+	* lily/vaticana-ligature-engraver.cc,
+	lily/include/vaticana-ligature.hh: bugfix: use special heads for
+	lower/upper head of Pes only when heads are stacked
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	scm/define-grob-properties.scm: cleanup: make "join-left" a
+	boolean grob property and save delta pitch in grob property
+	"delta-pitch" instead
+
+	* lily/include/gregorian-ligature.hh: bugfix: corrected comments
+
 2003-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (Repeated_music): bug fix beam multiplicity was

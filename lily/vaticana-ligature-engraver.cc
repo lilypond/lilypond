@@ -25,15 +25,11 @@ class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 {
 
 private:
-  Real finish_primitive (Item *first_primitive,
-			 Item *primitive,
-			 int prefix_set,
-			 int context_info,
-			 String glyph_name,
-			 int pitch_delta,
-			 Real flexa_width,
-			 Real join_thickness,
-			 Real distance);
+  bool is_stacked_head (int prefix_set,
+			int context_info);
+  Real align_heads (Array<Grob_info> primitives,
+		    Real flexa_width,
+		    Real join_thickness);
 
 public:
   TRANSLATOR_DECLARATIONS(Vaticana_ligature_engraver);
@@ -54,57 +50,117 @@ Vaticana_ligature_engraver::create_ligature_spanner ()
   return new Spanner (get_property ("VaticanaLigature"));
 }
 
-Real
-Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
-					      Item *primitive,
-					      int prefix_set,
-					      int context_info,
-					      String glyph_name,
-					      int pitch_delta,
-					      Real flexa_width,
-					      Real join_thickness,
-					      Real distance)
+bool
+Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
+					     int context_info)
 {
-  Real next_distance = distance;
-  if (primitive)
-    { // determine width of previous head and x-offset
-      Real head_width;
-      Real x_offset;
-      bool is_stacked;
+      bool is_stacked_b;
 
       // upper head of pes is stacked upon lower head of pes ...
-      is_stacked = context_info & PES_UPPER;
+      is_stacked_b = context_info & PES_UPPER;
 
       // ... unless this note starts a flexa
       if (context_info & FLEXA_LEFT)
-	is_stacked = false;
+	is_stacked_b = false;
 
       // ... or another pes
       if (context_info & PES_LOWER)
-	is_stacked = false;
+	is_stacked_b = false;
 
       // ... or the previous note is a semivocalis or inclinatum
       if (context_info & AFTER_DEMINUTUM)
-	is_stacked = false;
+	is_stacked_b = false;
 
       // auctum head is never stacked upon preceding note
       if (prefix_set & AUCTUM)
-	is_stacked = false;
+	is_stacked_b = false;
 
       // virga is never stacked upon preceding note
       if (prefix_set & VIRGA)
-	is_stacked = false;
+	is_stacked_b = false;
 
       // oriscus is never stacked upon preceding note
       if (prefix_set & ORISCUS)
-	is_stacked = false;
+	is_stacked_b = false;
 
       if ((prefix_set & DEMINUTUM) &&
 	  !(prefix_set & INCLINATUM) &&
 	  (context_info & FLEXA_RIGHT))
-	is_stacked = true; // semivocalis head of deminutus form
+	is_stacked_b = true; // semivocalis head of deminutus form
 
-      if (is_stacked)
+      return is_stacked_b;
+}
+
+Real
+Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
+					 Real flexa_width,
+					 Real join_thickness)
+{
+  Item *first_primitive = dynamic_cast<Item*> (primitives[0].grob_);
+  Real ligature_width = 0.0;
+
+  /*
+   * Amount of extra space two put between some particular
+   * configurations of adjacent heads.
+   *
+   * TODO: make this a property of primtive grobs.
+   */
+  Real extra_space = 2.0 * join_thickness;
+
+  for (int i = 0; i < primitives.size(); i++)
+    {
+      Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
+
+      /*
+       * Get glyph_name, delta_pitch and context_info for this head.
+       */
+
+      SCM glyph_name_scm = primitive->get_grob_property ("glyph-name");
+      if (glyph_name_scm == SCM_EOL)
+	{
+	  primitive->programming_error ("Vaticana_ligature:"
+					"undefined glyph-name -> "
+					"ignoring grob");
+	  return 0.0;
+	}
+      String glyph_name = ly_scm2string (glyph_name_scm);
+
+      int delta_pitch;
+      SCM delta_pitch_scm = primitive->get_grob_property ("delta-pitch");
+      if (delta_pitch_scm != SCM_EOL)
+	{
+	  delta_pitch = gh_scm2int (delta_pitch_scm);
+	}
+      else
+	{
+	  primitive->programming_error ("Vaticana_ligature:"
+					"delta-pitch undefined -> "
+					"ignoring grob");
+	  return 0.0;
+	}
+
+      int context_info;
+      SCM context_info_scm = primitive->get_grob_property ("context-info");
+      if (context_info_scm != SCM_EOL)
+	{
+	  context_info = gh_scm2int (context_info_scm);
+	}
+      else
+	{
+	  primitive->programming_error ("Vaticana_ligature:"
+					"context-info undefined -> "
+					"ignoring grob");
+	  return 0.0;
+	}
+
+      /*
+       * Now determine width and x-offset of head.
+       */
+
+      Real head_width;
+      Real x_offset;
+
+      if (context_info & STACKED_HEAD)
 	{
 	  /*
 	   * This head is stacked upon the previous one; hence, it
@@ -137,10 +193,8 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	}
 
       /*
-       * Save the head's final shape and x-offset.
+       * Save the head's final x-offset.
        */
-      primitive->set_grob_property ("glyph-name",
-				    scm_makfrom0str (glyph_name.to_str0 ()));
       primitive->set_grob_property ("x-offset",
 				    gh_double2scm (x_offset));
 
@@ -153,49 +207,58 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	  ((context_info & FLEXA_RIGHT) &&
 	   !(context_info & PES_LOWER)))
 	{
-	  primitive->set_grob_property ("join-left",
-					gh_int2scm (pitch_delta));
+	  primitive->set_grob_property ("join-left", gh_bool2scm(true));
 
 	  /*
 	   * Create a small overlap of adjacent heads so that the join
 	   * can be drawn perfectly between them.
 	   */
-	  next_distance -= join_thickness;
+	  ligature_width -= join_thickness;
 	}
       else if (!String::compare (glyph_name, ""))
 	{
 	  /*
-	   * 2nd (virtual) head of flexa shape: join tightly with 1st
-	   * head, i.e. do *not* add additional space, such that next
-	   * head will not be off from the flexa shape.
+	   * This is the 2nd (virtual) head of flexa shape.  Join it
+	   * tightly with 1st head, i.e. do *not* add additional
+	   * space, such that next head will not be off from the flexa
+	   * shape.
 	   */
 	}
       else if (context_info & AFTER_VIRGA)
 	{
 	  /*
-	   * Make a small space after a virga.
+	   * After a virga, make a an additional small space such that
+	   * the appendix on the right side of the head does not touch
+	   * the following head.
 	   */
-	  next_distance += 2 * join_thickness;
+	  ligature_width += extra_space;
 	}
-      else if (pitch_delta == 0)
+      else if (delta_pitch == 0)
 	{
 	  /*
-	   * Make a small space between two adjacent notes with the
-	   * same pitch.
+	   * If there are two adjacent noteheads with the same pitch,
+	   * add additional small space between them, such that they
+	   * do not touch each other.
 	   */
-	  next_distance += 2 * join_thickness;
+	  ligature_width += extra_space;
 	}
 
       /*
        * Horizontally line-up this head to form a ligature.
        */
       get_set_column (primitive, first_primitive->get_column ());
-      primitive->translate_axis (next_distance, X_AXIS);
-      next_distance += head_width;
+      primitive->translate_axis (ligature_width, X_AXIS);
+      ligature_width += head_width;
 
     }
 
-  return next_distance;
+  /*
+   * Add extra horizontal padding space after ligature, such that
+   * neighbouring ligatures do not touch each other.
+   */
+  ligature_width += extra_space;
+
+  return ligature_width;
 }
 
 void
@@ -210,8 +273,9 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
   else
     {
-      programming_error ("Vaticana_ligature_engraver:"
-			 "flexa-width undefined; assuming 2.0 staff space");
+      ligature->programming_error ("Vaticana_ligature_engraver:"
+				   "flexa-width undefined; "
+				   "assuming 2.0 staff space");
       flexa_width =
 	2.0 * Staff_symbol_referencer::staff_space (ligature);
     }
@@ -224,29 +288,46 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
   else
     {
-      programming_error ("Vaticana_ligature_engraver:"
-			 "thickness undefined; assuming 1.4 linethickness");
+      ligature->programming_error ("Vaticana_ligature_engraver:"
+				   "thickness undefined; "
+				   "assuming 1.4 linethickness");
       join_thickness = 1.4;
     }
   join_thickness *= ligature->get_paper ()->get_var ("linethickness");
 
-  Item *first_primitive = 0;
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;
   int prev_context_info = 0;
   int prev_pitch = 0;
-  int prev_pitch_delta = 0;
   String prev_glyph_name = "";
-  Real prev_distance = 0.0;
   for (int i = 0; i < primitives.size(); i++) {
     Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
     Music *music_cause = primitives[i].music_cause ();
-    int context_info = gh_scm2int (primitive->get_grob_property ("context-info"));
-    int pitch = unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
-    String glyph_name;
-    if (!first_primitive)
-      first_primitive = primitive;
-    int prefix_set = gh_scm2int (primitive->get_grob_property ("prefix-set"));
+
+    /* compute interval between previous and current primitive */
+    int pitch =
+      unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
+    int delta_pitch;
+    if (i == 0)
+      {
+	delta_pitch = 0;
+      }
+    else
+      {
+	delta_pitch = pitch - prev_pitch;
+      }
+
+    /* retrieve & complete prefix_set and context_info */
+    int prefix_set =
+      gh_scm2int (primitive->get_grob_property ("prefix-set"));
+    int context_info =
+      gh_scm2int (primitive->get_grob_property ("context-info"));
+    if (is_stacked_head (prefix_set, context_info))
+      {
+	context_info |= STACKED_HEAD;
+	primitive->set_grob_property ("context-info",
+				      gh_int2scm (context_info));
+      }
 
     /*
      * Now determine which head to typeset (this is context sensitive
@@ -254,6 +335,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      * this decision must be made here in the engraver rather than in
      * the backend).
      */
+    String glyph_name;
     if (prefix_set & VIRGA)
       glyph_name = "vaticana_virga";
     else if (prefix_set & QUILISMA)
@@ -272,12 +354,12 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       else
 	glyph_name = "vaticana_inclinatum";
     else if (prefix_set & DEMINUTUM)
-      if (primitive == first_primitive)
+      if (i == 0)
 	{
 	  // initio debilis
 	  glyph_name = "vaticana_reverse_plica";
 	}
-      else if (pitch > prev_pitch)
+      else if (delta_pitch > 0)
 	{
 	  // epiphonus
 	  if (!(prev_context_info & FLEXA_RIGHT))
@@ -286,18 +368,18 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	    }
 	  glyph_name = "vaticana_plica";
 	}
-      else // (pitch <= prev_pitch)
+      else // (delta_pitch <= 0)
 	{
 	  // cephalicus
 	  if (!(prev_context_info & FLEXA_RIGHT))
 	    {
-	      if (prev_primitive == first_primitive)
+	      if (i > 1)
 		{
-		  prev_glyph_name = "vaticana_cephalicus";
+		  prev_glyph_name = "vaticana_inner_cephalicus";
 		}
 	      else
 		{
-		  prev_glyph_name = "vaticana_inner_cephalicus";
+		  prev_glyph_name = "vaticana_cephalicus";
 		}
 	    }
 	  glyph_name = "vaticana_reverse_plica";
@@ -318,42 +400,50 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	     (context_info & PES_LOWER) &&
 	     (context_info & FLEXA_RIGHT))
       glyph_name = ""; // second head of flexa shape
-    else if (context_info & PES_UPPER)
-      if (pitch - prev_pitch > 1)
+    else if ((context_info & STACKED_HEAD) &&
+	     (context_info & PES_UPPER))
+      if (delta_pitch > 1)
 	glyph_name = "vaticana_upes";
       else
 	glyph_name = "vaticana_vupes";
+    else if ((context_info & FLEXA_LEFT) &&
+	     !(prefix_set && PES_OR_FLEXA))
+      glyph_name = "vaticana_rvirga";
     else
       glyph_name = "vaticana_punctum";
 
     /*
-     * May need updating previous head, depending on the current head.
+     * If the head for the current primitive represents the right head
+     * of a flexa or the upper head of a pes, then this may affect the
+     * shape of the previous head.
      */
     if (prefix_set & PES_OR_FLEXA)
-      if ((context_info & PES_LOWER) &&
-	  (context_info & FLEXA_RIGHT)) // flexa shape
-	{
-	  prev_glyph_name = "flexa";
-	  prev_primitive->set_grob_property ("flexa-height",
-					     gh_int2scm (pitch - prev_pitch));
-	  prev_primitive->set_grob_property ("flexa-width",
-					     gh_double2scm (flexa_width));
-	  bool add_stem =
-	    !(prev_context_info & PES_UPPER) &&
-	    !(prev_context_info & FLEXA_RIGHT);
-	  prev_primitive->set_grob_property ("add-stem",
-					     gh_bool2scm (add_stem));
-	}
-      else if (context_info & PES_UPPER)
-	{
-	  if (!String::compare (prev_glyph_name, "vaticana_punctum"))
-	    prev_glyph_name = "vaticana_lpes";
-	}
-      else // flexa
-	{
-	  if (!String::compare (prev_glyph_name, "vaticana_punctum"))
-	    prev_glyph_name = "vaticana_rvirga";
-	}
+      {
+	if ((context_info & FLEXA_RIGHT) && (context_info & PES_LOWER))
+	  {
+	    // join the two flexa heads into a single curved flexa shape
+	    prev_glyph_name = "flexa";
+	    prev_primitive->set_grob_property ("flexa-height",
+					       gh_int2scm (delta_pitch));
+	    prev_primitive->set_grob_property ("flexa-width",
+					       gh_double2scm (flexa_width));
+	    bool add_stem = !(prev_prefix_set && PES_OR_FLEXA);
+	    prev_primitive->set_grob_property ("add-stem",
+					       gh_bool2scm (add_stem));
+	  }
+	if ((context_info & PES_UPPER) && (context_info & STACKED_HEAD))
+	  {
+	    if (!String::compare (prev_glyph_name, "vaticana_punctum"))
+	      prev_glyph_name = "vaticana_lpes";
+	  }
+      }
+
+    if (prev_primitive)
+      prev_primitive->set_grob_property ("glyph-name",
+					 scm_makfrom0str (prev_glyph_name.to_str0 ()));
+
+    primitive->set_grob_property ("delta-pitch",
+				  gh_int2scm (delta_pitch));
 
     /*
      * In the backend, flexa shapes and joins need to know about
@@ -363,52 +453,32 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
      */
     primitive->set_grob_property ("thickness", gh_double2scm (join_thickness));
 
-    /*
-     * The head of the current iteration still may change during the
-     * next iteration due to the context sensitiveness of the
-     * transformation.  However, the head of the previous iteration is
-     * now fully attributed and can be prepared for the backend.
-     */
-
-    /*
-     * Finish head of previous iteration for backend.
-     */
-    prev_distance =
-      finish_primitive (first_primitive, prev_primitive, prev_prefix_set,
-			prev_context_info, prev_glyph_name, prev_pitch_delta,
-			flexa_width, join_thickness, prev_distance);
-
     prev_primitive = primitive;
     prev_prefix_set = prefix_set;
     prev_context_info = context_info;
-    prev_pitch_delta = pitch - prev_pitch;
     prev_pitch = pitch;
     prev_glyph_name = glyph_name;
   }
 
-  /*
-   * Finish head of last iteration for backend.
-   */
-  prev_distance =
-    finish_primitive (first_primitive, prev_primitive, prev_prefix_set,
-		      prev_context_info, prev_glyph_name, prev_pitch_delta,
-		      flexa_width, join_thickness, prev_distance);
+  prev_primitive->set_grob_property ("glyph-name",
+				     scm_makfrom0str (prev_glyph_name.to_str0 ()));
 
-  /* TODO: make this cfg'able via SCM */
-  Real padding = join_thickness;
+#if 0
+  Real ligature_width =
+#endif
 
-  /* horizontal padding space after ligature */
-  prev_distance += padding;
+  align_heads (primitives, flexa_width, join_thickness);
 
 #if 0 // experimental code to collapse spacing after ligature
   /* TODO: set to max(old/new spacing-increment), since other
      voices/staves also may want to set this property. */
+  Item *first_primitive = dynamic_cast<Item*> (primitives[0].grob_);
   Paper_column *paper_column = first_primitive->get_column();
   paper_column->warning (_f ("Vaticana_ligature_engraver: "
 			     "setting `spacing-increment = %f': ptr=%ul",
-			     prev_distance, paper_column));
+			     ligature_width, paper_column));
   paper_column->
-    set_grob_property("forced-spacing", gh_double2scm (prev_distance));
+    set_grob_property("forced-spacing", gh_double2scm (ligature_width));
 #endif
 }
 
