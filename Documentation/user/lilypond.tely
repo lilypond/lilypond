@@ -51,6 +51,12 @@ besides the reader and the writer.
 
 * don't use abbreviations (don't, won't, etc.)
 
+* avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'') 
+
+* avoid long stretches of input code. Noone is go to read  them in
+print. Instead refer to an example input file (@inputfileref), these
+are clickable in HTML.
+
 @end ignore
 
 @ifhtml
@@ -100,7 +106,7 @@ Copyright 1999-2002 by the authors
 
 @chapter GNU LilyPond --- The music typesetter
 
-This is the user manual for GNU LilyPond 1.7.14.
+This is the user manual for GNU LilyPond 1.7.16.
 
 @cindex web site
 

@@ -3,7 +3,22 @@
 
 By default, the ambitus grob is put before the clef.  You can control
 this behaviour through the @code{breakAlignOrder} property of the score
-context by redefining the order, e.g. with the following addition to the
+context by redefining the order.
+
+
+The shape of the note heads to use can be changed via the
+@code{note-head-style} property, which holds the glyph name of the
+note head.  The vertical line between the upper and lower head can be
+switched on or off via the @code{join-heads} property.
+
+"
+}
+
+%{
+
+ tex chokes on #
+
+, e.g. with the following addition to the
 paper block:
 
 @example
@@ -24,12 +39,7 @@ paper block:
 @}
 @end example
 
-The shape of the note heads to use can be changed via the
-@code{note-head-style} property, which holds the glyph name of the note
-head (see also @ref{Ancient note heads}).  The vertical line between the
-upper and lower head can be switched on or off via the @code{join-heads}
-property.  Example:
-
+ 
 @example
 \translator @{
   \VoiceContext
@@ -40,9 +50,7 @@ property.  Example:
 @end example
 
 
-"
-}
-
+ %}
 \version "1.7.16"
 
 upper = \notes \relative c {
