@@ -1,8 +1,4 @@
 \version "1.7.18"
-% delete me?
-%TODO: what's this for? manual beaming? (the two pairs of 16ths)
-%  showing \stemUp?
-% all of those things are covered in refman and/or other files
 \header{
   texidoc="
 Seconds are tricky.  We used to have problems with seconds being too

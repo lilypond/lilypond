@@ -1,13 +1,7 @@
-\header {
-% this example doesn't look very useful.  Perhaps remove it in
-% the future, although it _does_ demonstrate a neat feature of
-% lilypond.  Maybe regression?
-texidoc = "@cindex Beam Damp
-Beams are less steep than the notes they encompass.
-DELETE or REGRESSION
-" }
-
 \version "1.7.18"
+\header { texidoc = "@cindex Beam Damp
+Beams are less steep than the notes they encompass. " }
+
 \score{
 	\notes\relative c''{
 %		\stemUp
