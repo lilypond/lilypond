@@ -1,7 +1,7 @@
 \header {
     
     texidoc = "The autobeamer may be switched off for a single note
-    with @code{\noBeam}."
+    with @code{\\noBeam}."
 
 
     }
