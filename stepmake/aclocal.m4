@@ -144,16 +144,19 @@ AC_DEFUN(AC_STEPMAKE_END, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_GXX, [
-    # ugh autoconf
-    # urg, egcs: how to check for egcs >= 1.1?
+    AC_MSG_CHECKING("g++ version")
+    cxx_version=`$CXX --version`
+    AC_MSG_RESULT("$cxx_version")
     changequote(<<, >>)dnl
-    if $CXX --version | egrep '2\.[89]' > /dev/null ||
-	$CXX --version | grep 'egcs' > /dev/null
+    # urg, egcs: how to check for egcs >= 1.1?
+    if expr "$cxx_version" : '.*2\.[89]' > /dev/null ||
+	expr "$cxx_version" : '.*egcs' > /dev/null ||
+	expr "$cxx_version" : '3\.0' > /dev/null
     changequote([, ])dnl
     then
 	    true
     else
-	    AC_STEPMAKE_WARN(can\'t find g++ 2.8, 2.9 or egcs 1.1)
+	    AC_STEPMAKE_WARN(can\'t find g++ 2.8, 2.9, 3.0 or egcs 1.1)
     fi
 ])
 
@@ -312,8 +315,9 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     AC_ARG_ENABLE(config,
     [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
                             do \`make conf=CONF' to get output in ./out-CONF],
-    [CONFIGSUFFIX=-$enableval])
+    [CONFIGURATION=$enableval])
 
+    test -n "$CONFIGURATION" && CONFIGSUFFIX="-$CONFIGURATION"
     CONFIGFILE=config$CONFIGSUFFIX
     AC_SUBST(CONFIGSUFFIX)
      

@@ -51,12 +51,14 @@ AC_PATH_PROG(PERL, perl, error)
 
 AC_STEPMAKE_END
 
+test -n "$CONFIGURATION" && mc=" conf=$CONFIGURATION" || mc=""
+
 cat <<EOF
 
 Type:
-    make all       to build LilyPond
-    make install   to install LilyPond
-    make help      to see all possible targets
+    make$mc all       to build LilyPond
+    make$mc install   to install LilyPond
+    make$mc help      to see all possible targets
 
 Do not worry if ./Documentation or ./mutopia should not build.
 EOF

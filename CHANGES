@@ -1,4 +1,17 @@
---- ../lilypond-1.4.3.jcn1/CHANGES	Thu Jun 14 21:29:50 2001
+--- ../lilypond-1.4.3.jcn2/CHANGES	Tue Jun 19 12:40:33 2001
+++ b/CHANGES	Tue Jun 26 13:22:05 2001
+@@ -1,5 +1,10 @@
+-1.4.3.jcn2
+1.4.3.jcn3
+ ==========
+
+* Included documentatioon and post-flex lexer.cc patch for
+Debian/unstable gcc-3.0.
+
+* Enhanced gcc autoconf and make messages.
+ 
+ * Fixed broken link in website.
+ --- ../lilypond-1.4.3.jcn1/CHANGES	Thu Jun 14 21:29:50 2001
 ++ b/CHANGES	Tue Jun 19 12:40:33 2001
 @@ -1,5 +1,12 @@
 -1.4.3.jcn1
