@@ -243,7 +243,7 @@ yylex (YYSTYPE *s,  void * v)
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
 %token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
 %token E_BACKSLASH
-%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET
+%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
 %token FIGURE_SPACE
 
 
@@ -310,6 +310,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
+%type <request> string_request
 %type <scm>	string bare_number number_expression number_term number_factor 
 
 %type <score>	score_block score_body
@@ -1396,8 +1397,16 @@ post_request:
 	verbose_request
 	| request_with_dir
 	| close_request
+	| string_request
 	;
 
+
+/*
+TODO.
+*/
+string_request:
+	'/' DIGIT  { $$ = new Text_script_req (); } 
+	;
 
 request_that_take_dir:
 	gen_text_def
@@ -2025,7 +2034,7 @@ chord_inversion:
 	{
 		$$ = SCM_EOL;
 	}
-	| '/' steno_tonic_pitch {
+	| CHORD_SLASH steno_tonic_pitch {
 		$$ = $2;
 	}
 	;

@@ -398,6 +398,9 @@ HYPHEN		--
 	\/\+ {
 		return CHORD_BASS;
 	}
+	\/  {
+		return CHORD_SLASH;
+	}
 	\^  {
 		return CHORD_CARET;
 	}
