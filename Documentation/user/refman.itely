@@ -6508,8 +6508,8 @@ In figures input mode, a group of bass figures is delimited by
 \figures { <4 6> }
 @end lilypond
 
-Accidentals are added to the numbers if you alterate them by
-appending @code{-}, @code{!}  and @code{+}.
+Accidentals are added when you append @code{-}, @code{!}  and @code{+}
+to the numbers.
 
 @example
   <4- 6+ 7!>

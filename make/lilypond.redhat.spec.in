@@ -53,7 +53,7 @@ make -C mf/ pfa
 make -C Documentation
 
 # make  html
-make web-doc top-web 
+make web top-web 
 make -C Documentation/user omf
 
 %install

@@ -44,31 +44,17 @@ web-reqs: run-reqs pfa-fonts
 doc: run-reqs
 	$(MAKE) -C Documentation
 
-web-doc: web-reqs
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/regression/ WWW
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/template/ WWW
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/test/ WWW
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C Documentation WWW
-	$(MAKE) footify
-
 pfa-fonts:
 	$(MAKE) MAKE_PFA_FILES=1 -C mf
 	(cd $(builddir)/share/lilypond/fonts && \
 		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
-install-html-doc: web-doc top-web
+install-html-doc: top-web
 	$(INSTALL) -m 755 -d $(local_package_docdir) 
 	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
 
-# KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
-my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
-
 local-install:
 	$(INSTALL) -d $(local_lilypond_datadir)
-ifeq ($(KPATHSEA),0)
-	$(foreach i, 1 2 3 4 5, rm -f $(local_lilypond_datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(local_lilypond_datadir)/tfm.$(i) ; )
-endif
-
 
 final-install:
 	@echo
@@ -88,7 +74,7 @@ lily: lily/$(outdir)/lilypond
 lily/$(outdir)/lilypond:
 	$(MAKE) -C lily
 
-local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
+local-web: $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
 
 web-ext = gz html midi pdf png txt ly

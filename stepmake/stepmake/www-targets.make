@@ -11,10 +11,10 @@ endif
 
 #ugh, this is (but whole make web/www/WWW is) lilypond specific
 local-web:
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html local-WWW
+	$(MAKE) out=www local-WWW
 
 web:
-	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html WWW
+	$(MAKE) out=www WWW
 
 local-WWW-clean:
 	rm -f $(outdir)/*

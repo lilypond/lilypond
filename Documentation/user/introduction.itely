@@ -1,38 +1,91 @@
 @c -*-texinfo-*-
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @node Introduction
 @chapter Introduction
+
+There are a lot of programs that let you print sheet music with a
+computer. Unfortunately, most of them do not do good job.  If you
+regularly from both recent and old music, you can probably agree with
+us on that.  Most computer printouts have a bland, mechanical look,
+and are unpleasant to play from.  Musicians are usually more absorbed
+with performing the music than with studying its looks, so they
+usually cannot pinpoint what exactly is so disconcerting about
+computer prints.
+
+However, it only takes a little attention to see for yourself what is
+
+
+
+   oftenmostly itself,
+than studying the looks of , and will so most l playing Since we
+normally don't For normal users, it is difficult If you are familiar
+with this sensation, you will probably not be able to pinpoint what
+exactly causes this feeling.
+
+
+
+
+ Normally, one notices these details only subconsiously. The best way
+to become conscious of these differences is to compare a traditionally
+printed and a computer printed edition of the same piece, preferably
+with a magnifying glass. If you are not sure: traditional engraving is
+photographically reproduced hand-work, and can be recognized by
+slightly irregularities in symbol placement, and small blotches due to
+the reproduction process.
+
+
+
+By contrast, we try to mimick traditional plate engraving in the
+general impression, layout algorithms, and the font
+design. Consequently, our output often beats our competitors when it
+comes to good looks.
+
+
+
+
+LilyPond is an automated music engraving system.
+
+  
+With LilyPond is a program that lets you print sheet music. It is
+certainly not unique in that sense.  
+
+
+it is more than that 
+
+ If you are reading this 
+
+What is LilyPond?
+
+Automatic notation, so that means I can play the music, and then it
+rolls out of the printer?
+
+There are other program that do notation. What's so special about yours?
+What is wrong with other computer printed scores?
+
+What is engraving?
+
+Music notation  vs. Engraving. (vs. composing)
+
+Why do you care about engraving?
+
+Why would I care about engraving?
+
+You say your program is special; you must be trying to sell it?
+
+Freedom
+
+Preserving/reinventing the art of engraving 
+
+Typography in LilyPond.
+
+Input format.  Issue is overrated.
+
+
+
+
+************
+
 
 LilyPond is a program to print sheet music.  If you have used notation
 programs before, then the way to use this program might be surprising
@@ -120,17 +173,22 @@ attached.
 @cindex typography
 
 Making sheet music may seem trivial at first (``you print 5 lines, and
-then put in the notes at different heights''), @emph{music engraving},
-i.e. professional music typography, is in another ballpark.  The term
-`music engraving' derives from the traditional process of music
-printing.  Only a few decades ago, sheet music was made by cutting and
-stamping the music into zinc or pewter plates, mirrored. The plate
-would be inked, and the depressions caused by the cutting and stamping
-would hold ink.  An  image was formed by pressing paper to the
-plate. Stamping and cutting was completely done by hand. Making
-corrections was cumbersome, so engraving had to be done correctly in
-one go. As you can imagine this was a highly specialized skill, much
-more so than the traditional process of printing books.
+then put in the notes at different heights''),
+
+
+Hier over notatie.
+
+@emph{music engraving}, i.e. professional music typography, is in
+another ballpark.  The term `music engraving' derives from the
+traditional process of music printing.  Only a few decades ago, sheet
+music was made by cutting and stamping the music into zinc or pewter
+plates, mirrored. The plate would be inked, and the depressions caused
+by the cutting and stamping would hold ink.  An image was formed by
+pressing paper to the plate. Stamping and cutting was completely done
+by hand. Making corrections was cumbersome, so engraving had to be
+done correctly in one go. As you can imagine this was a highly
+specialized skill, much more so than the traditional process of
+printing books.
 @cindex craftsmanship
 @cindex master
 In the traditional German craftsmanship six years of full-time

@@ -240,7 +240,7 @@ can also build it locally. This process requires a successful compile of
 lilypond. The documentation is built by issuing
 @example 
 
-  make web-doc
+  make web
  
 @end example 
 
