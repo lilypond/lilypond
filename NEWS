@@ -1,3 +1,8 @@
+pl 15.jcn1
+	- bf: typos whole and half notehead
+	- de-uglyfied bolletjes.mf
+	- ascii output of font metrics in mf logfile
+	
 pl 15
 	- put top of NEWS file in the webpage
 	- breadth first search for engravers.
