@@ -21,6 +21,7 @@ cat >/dev/null <<EOC
    tar xzf /var/tmp/lilypond-*
    mv lilypond-1.9.8 lilypond-1.9.8-1
    cd -
+   export ABI=1.5
    ./bin/mknetrel -xX lilypond
 
 EOC
@@ -155,9 +156,8 @@ postinstall () {
     ## Cygwin readmes
     cygwin=cygwin
     cd $src || exit 1
+    install -d -m755 $inst/$cygdocdir
     install -m644 $cygwin/changelog $inst/$cygdocdir/changelog.Cygwin
-    install -d -m755 $inst/$prefix/doc/Cygwin
-    #install -m644 $cygwin/README $inst/$cygdocdir/Cygwin/$package.README
 
     cd $build || exit 1
     install -m644 $cygwin/out/README $inst/$packagedocdir/README.Cygwin
