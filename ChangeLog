@@ -1,5 +1,8 @@
 2002-10-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* ly/grace-init.ly (startGraceMusic): shorten default grace stem
+	length.
+
 	* input/regression/spacing-to-grace.ly: new file.
 
 	* input/regression/spacing-end-of-line.ly: new file.

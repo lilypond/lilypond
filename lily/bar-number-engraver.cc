@@ -120,5 +120,5 @@ put on top of all staves, and appears only at  left side of the staff.",
 /* creats*/       "BarNumber",
 /* accepts */     "",
 /* acks  */      "break-aligned-interface",
-/* reads */       "currentBarNumber stavesFound" ,
+/* reads */       "currentBarNumber stavesFound barNumberVisibility" ,
 /* write */       "");
