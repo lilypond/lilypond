@@ -5,7 +5,7 @@ Dstream			1
 
 # yydebug
 InitParser		1
-Parser			1
+Parser			0
 InitDeclarations	1
 Declarations		1
 # FlexLexer debug
@@ -47,7 +47,7 @@ Midistrings		1
 Mixed_qp		0
 Music			0
 Music_iterator		0
-My_lily_lexer		1
+My_lily_lexer		0
 Note_head		0
 Note_performer		0
 Note_req		0
