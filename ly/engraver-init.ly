@@ -151,8 +151,6 @@
 	localKeySignature = #'()
 	\consists "Font_size_engraver"
 	
-	% must come before all
-	\consists "Voice_devnull_engraver"
 	\consists "Output_property_engraver"	
 	\consists "Arpeggio_engraver"
 	\consists "Multi_measure_rest_engraver"
@@ -191,7 +189,6 @@
 	\consists "Slur_engraver"
 	\consists "Tie_engraver"
 	\consists "Tuplet_engraver"
-	\consists "A2_engraver"
 
 	\consists "Skip_event_swallow_translator"
 	\accepts Thread % bug if you leave out this!
@@ -207,7 +204,6 @@
     style of individual note heads.
 "
 	\consists "Font_size_engraver"	
-	\consists "Thread_devnull_engraver"
 	\consists "Note_heads_engraver"
 	\consists "Rest_engraver"
 
@@ -442,8 +438,6 @@ AncientRemoveEmptyStaffContext = \translator {
 	soloIIText = #"Solo II"
 	aDueText = #"a2"
 	soloADue = ##t
-	splitInterval = #'(0 . 1)
-	changeMoment = #`(,(ly:make-moment 0 0) . ,(ly:make-moment 1 512))
 	systemStartDelimiter =#'SystemStartBar
 
 	melismaBusyProperties = #default-melisma-properties

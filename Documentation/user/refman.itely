@@ -3435,7 +3435,9 @@ Internals: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
 
 @refbugs
 
-The definition of lyrics mode is too complex. 
+The definition of lyrics mode is too complex.
+
+
 
 @node The Lyrics context
 @subsection  The Lyrics context
@@ -3548,6 +3550,12 @@ Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
 
+For proper processing of extender lines, the
+@internalsref{LyricsVoice} and @internalsref{Voice} should be
+linked. This can be achieved either by using @code{\lyricsto} or by
+setting corresponding names for both contexts. The latter is explained
+in @ref{More stanzas}.
+
 @node More stanzas
 @subsection More stanzas
 
@@ -3556,7 +3564,8 @@ inserted by hand.
 
 The lyrics should be aligned with the note heads of the melody. To
 achieve this, each line of lyrics should be marked to correspond with
-the melodic line.
+the melodic line. This is done automatically when @code{\lyricsto},
+but it can also be done manually. 
 
 To this end, give the @internalsref{Voice} context an identity:
 @example

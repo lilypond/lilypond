@@ -283,7 +283,6 @@ yylex (YYSTYPE *s,  void * v)
 %token OVERRIDE SET REVERT 
 %token PAPER
 %token PARTCOMBINE
-%token NEWPARTCOMBINE
 %token PARTIAL
 %token PITCHNAMES
 %token PROPERTY
@@ -1114,20 +1113,10 @@ re_rhythmed_music:
 	;
 
 part_combined_music:
-	PARTCOMBINE STRING Music Music {
-		Music * p= MY_MAKE_MUSIC("PartCombineMusic");
-		p->set_mus_property ("what", scm_string_to_symbol ($2));
-		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
-
-		scm_gc_unprotect_object ($3->self_scm ());
-		scm_gc_unprotect_object ($4->self_scm ());  
-
-		$$ = p;
-	}
-	| NEWPARTCOMBINE Music Music {
+	PARTCOMBINE Music Music {
 		static SCM proc;
 		if (!proc)
-			proc = scm_c_eval_string ("make-new-part-combine-music");
+			proc = scm_c_eval_string ("make-part-combine-music");
 
 		SCM res = scm_call_1 (proc, gh_list ($2->self_scm (),
 			$3->self_scm (), SCM_UNDEFINED));  
