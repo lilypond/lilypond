@@ -27,10 +27,12 @@ public:
 		    Moment start,
 		    String name, int);
 
+  static Object_key *from_scheme (SCM);
 protected:
   virtual int get_type () const;
   virtual void derived_mark () const; 
   virtual int do_compare (Object_key const* a) const;
+  virtual SCM as_scheme () const;
 };
 
 class Lilypond_context_key : public Object_key
@@ -48,12 +50,30 @@ public:
 			String id,
   			int count);
 
+  static Object_key *from_scheme (SCM);
 protected:
   virtual int get_type () const;
   virtual int do_compare (Object_key const* a) const;
   virtual void derived_mark () const; 
+  virtual SCM as_scheme () const;
 };
 
+class Lilypond_general_key : public Object_key
+{
+  Object_key const *parent_;
+  String name_;
+  int disambiguation_count_;
+public:
+  Lilypond_general_key (Object_key const *parent, String name,
+			int count);
+
+  static Object_key *from_scheme (SCM);
+protected:
+  virtual int get_type () const;
+  virtual int do_compare (Object_key const* a) const;
+  virtual void derived_mark () const; 
+  virtual SCM as_scheme () const;
+};
 
 #endif /* LILYPOND_KEY_HH */
 

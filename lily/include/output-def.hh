@@ -46,6 +46,7 @@ public:
   SCM scope_;
   Output_def * parent_;
   Input input_origin_;
+  String user_key_;
 
   Output_def (Output_def const&);
   Output_def ();

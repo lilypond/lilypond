@@ -13,18 +13,22 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 #include "smobs.hh"
+#include "object-key.hh"
+#include "string.hh"
 
 class Book : public Input
 {
   DECLARE_SMOBS (Book, foo);
-
 public:
+  String user_key_;
+  
   SCM header_;
   Output_def *paper_;
-  
+
+  void add_score (Score*);
   Link_array<Score> scores_;
   Book ();
-
+  void set_keys ();
   Paper_book* process (String, Output_def*);
 };
 DECLARE_UNSMOB (Book, book);

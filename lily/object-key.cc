@@ -7,8 +7,7 @@
 
 */
 
-
-#include "object-key.hh"
+#include "lilypond-key.hh"
 #include "ly-smobs.icc"
 
 SCM
@@ -38,6 +37,10 @@ Object_key::get_type () const
 int
 Object_key::print_smob (SCM smob, SCM port, scm_print_state*)
 {
+  Object_key* k = (Object_key*) SCM_CELL_WORD_1 (smob);
+  scm_puts ("#<Object_key ", port);
+  scm_display (scm_from_int (k->get_type()), port);
+  scm_puts (">", port);
   return 1;
 }
 
@@ -71,9 +74,51 @@ Object_key::equal_p (SCM a , SCM b)
 }
 
 int
-Object_key::do_compare (Object_key const *other) const
+Object_key::do_compare (Object_key const *) const
 {
   return 0;
+}
+
+
+SCM
+Object_key::dump () const
+{
+  return scm_cons (scm_from_int (get_type()),
+		   as_scheme());
+}
+
+
+
+SCM
+Object_key::as_scheme () const
+{
+  return SCM_EOL;  
+}
+
+Object_key*
+Object_key::from_scheme (SCM)
+{
+  return new Object_key();
+}
+
+struct {
+  Object_key_type type_;
+  Object_key* (*ctor_)(SCM);
+} undumpers[] = {
+  {BASE_KEY, Object_key::from_scheme},
+  {COPIED_KEY, Copied_key::from_scheme},
+  {GROB_KEY, Lilypond_grob_key::from_scheme},
+  {CONTEXT_KEY, Lilypond_context_key::from_scheme},
+  {GENERAL_KEY, Lilypond_general_key::from_scheme},
+  {KEY_COUNT,0},
+};
+
+Object_key *
+Object_key::undump (SCM scm_key)
+{
+  int t = scm_to_int (scm_car (scm_key));
+  assert (t == undumpers[t].type_);
+  return (undumpers[t].ctor_)(scm_cdr (scm_key)); 
 }
 
 /****************************************************************/
@@ -106,4 +151,18 @@ void
 Copied_key::derived_mark () const
 {
   scm_gc_mark (original_->self_scm ());
+}
+
+SCM
+Copied_key::as_scheme () const
+{
+  return scm_list_2 (original_ ? original_->self_scm() : SCM_BOOL_F, scm_from_int (copy_count_));
+}
+
+
+Object_key *
+Copied_key::from_scheme (SCM a) 
+{
+  return new Copied_key (unsmob_key (scm_car (a)),
+			 scm_to_int  (scm_list_ref (a, scm_from_int (1))));
 }

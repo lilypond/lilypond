@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 
+#include "lilypond-key.hh"
 #include "lily-parser.hh"
 #include "book.hh"
 #include "cpu-timer.hh"
@@ -47,6 +48,12 @@ SCM
 Score::mark_smob (SCM s)
 {
   Score *sc = (Score*) SCM_CELL_WORD_1 (s);
+
+#if 0 
+  if (sc->key_)
+    scm_gc_mark (sc->key_->self_scm());
+#endif
+  
   if (sc->header_)
     scm_gc_mark (sc->header_);
   for (int i = sc->defs_.size (); i--;)
@@ -87,11 +94,14 @@ Score::Score (Score const &s)
 
 
 LY_DEFINE (ly_run_translator, "ly:run-translator", 
-	   2, 0, 0, (SCM mus, SCM output_def),
-	   "Process @var{mus} according to @var{output_def}. "
-	   "An interpretation context is set up, "
-	   "and @var{mus} is interpreted with it.  "
-	   "The context is returned in its final state.")
+	   2, 1, 0, (SCM mus, SCM output_def, SCM key),
+	   "Process @var{mus} according to @var{output_def}. \n"
+	   "An interpretation context is set up,\n"
+	   "and @var{mus} is interpreted with it.  \n"
+	   "The context is returned in its final state.\n"
+
+	   "\n\nOptionally, this routine takes an Object-key to\n"
+	   "to uniquely identify the Score block containing it.\n")
 {
   Output_def *odef = unsmob_output_def (output_def);
   Music *music = unsmob_music (mus);
@@ -103,12 +113,14 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
       return SCM_BOOL_F;
     }
   
-  SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
-  SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__, "Output definition");
+  SCM_ASSERT_TYPE (music, mus, SCM_ARG1,
+		   __FUNCTION__, "Music");
+  SCM_ASSERT_TYPE (odef, output_def, SCM_ARG2, __FUNCTION__,
+		   "Output definition");
   
   Cpu_timer timer;
   
-  Global_context *trans = new Global_context (odef, music->get_length ());
+  Global_context *trans = new Global_context (odef, music->get_length (), unsmob_key (key) );
   if (!trans)
     {
       programming_error ("no toplevel translator");
@@ -159,7 +171,8 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 void
 default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
-		   SCM header, SCM outname)
+		   SCM header, SCM outname,
+		   SCM key)
 {
   SCM scaled_def = outdef;
   SCM scaled_bookdef = book_outputdef;
@@ -182,7 +195,7 @@ default_rendering (SCM music, SCM outdef,
       scm_gc_unprotect_object (scaled_def);
     }
   
-  SCM context = ly_run_translator (music, scaled_def);
+  SCM context = ly_run_translator (music, scaled_def, key);
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
     {
@@ -221,7 +234,8 @@ LAYOUTBOOK should be scaled already.
 SCM
 Score::book_rendering (String outname,
 		       Output_def *layoutbook,
-		       Output_def *default_def)
+		       Output_def *default_def,
+		       Object_key *book_key)
 {
   if (error_found_)
     return SCM_EOL;
@@ -235,6 +249,10 @@ Score::book_rendering (String outname,
   SCM out = scm_makfrom0str (outname.to_str0 ());
   SCM systems = SCM_EOL;
   int outdef_count = defs_.size ();
+
+  Object_key * key = new Lilypond_general_key (book_key, user_key_, 0);
+  SCM scm_key = key->self_scm();
+  
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
@@ -248,7 +266,7 @@ Score::book_rendering (String outname,
 	}
 
       /* TODO: fix or junk --no-layout.  */
-      SCM context = ly_run_translator (music_, def->self_scm ());
+      SCM context = ly_run_translator (music_, def->self_scm (), scm_key);
       if (dynamic_cast<Global_context*> (unsmob_context (context)))
 	{
 	  SCM s = ly_format_output (context, out);
@@ -258,7 +276,8 @@ Score::book_rendering (String outname,
 
       scm_remember_upto_here_1 (scaled);
     }
-  
+
+  scm_remember_upto_here_1 (scm_key);
   scm_remember_upto_here_1 (scaled_bookdef);
   return systems;
 }
@@ -267,10 +286,12 @@ Score::book_rendering (String outname,
 
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-	   2, 0, 0, (SCM score, SCM layout),
+	   2, 1, 0, (SCM score, SCM layout, SCM key),
 	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct outputscale already, "
-	   "return a list of layout-lines.")
+	   "return a list of layout-lines. "
+	   "\nTake optional Object_key argument."
+	   )
 {
   Score * sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (layout);
@@ -302,7 +323,8 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
      itself. */
   score_def->parent_ = od;
   
-  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
+  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
+				   key);
   SCM lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
   
   scm_remember_upto_here_1 (prot);

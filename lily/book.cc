@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 
+#include "lilypond-key.hh"
 #include "book.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
@@ -47,6 +48,10 @@ Book::mark_smob (SCM s)
   for (int i = 0; i < score_count; i++)
     scm_gc_mark (book->scores_[i]->self_scm ());
 
+#if 0
+  if (book->key_)
+    scm_gc_mark (book->key_->self_scm());
+#endif
   if (book->paper_)
     scm_gc_mark (book->paper_->self_scm ());
   return book->header_;
@@ -70,26 +75,33 @@ Book::process (String outname, Output_def *default_def)
 
   if (error)
     return 0;
-    
+
   Paper_book *paper_book = new Paper_book ();
   Real scale = scm_to_double (paper_->c_variable ("outputscale"));
-  
   Output_def * scaled_bookdef = scale_output_def (paper_, scale);
 
+
+  Object_key * key = new Lilypond_general_key (0, user_key_, 0);
+  SCM  scm_key = key->self_scm();
+  scm_gc_unprotect_object (scm_key);
+  
   paper_book->paper_ = scaled_bookdef;
   scm_gc_unprotect_object (scaled_bookdef->self_scm());
   
   paper_book->header_ = header_;
-  
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
       SCM systems = scores_[i]->book_rendering (outname,
 						paper_book->paper_,
-						default_def);
+						default_def,
+						key
+						);
       
-      /* If the score is empty, generate no output.  Should we
-	 do titling?  */
+      /*
+	If the score is empty, generate no output.  Should we
+	do titling?
+      */
       if (SCM_NFALSEP(scm_vector_p (systems)))
 	{
 	  Score_systems sc;
@@ -99,6 +111,8 @@ Book::process (String outname, Output_def *default_def)
 	}
     }
 
+
+  scm_remember_upto_here_1 (scm_key);
   return paper_book;
 }
 
@@ -129,3 +143,10 @@ LY_DEFINE(ly_make_book, "ly:make-book",
   return x;
 }
   
+
+void
+Book::add_score (Score *s)
+{
+  scores_.push (s);
+  scm_gc_unprotect_object (s->self_scm ());
+}

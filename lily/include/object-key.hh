@@ -28,16 +28,21 @@ protected:
   virtual void derived_mark () const;
   virtual int get_type () const;
   virtual int do_compare (Object_key const * other) const;
-
+  virtual SCM as_scheme () const;
 public:
+  static Object_key *from_scheme (SCM);
+  static Object_key *undump (SCM);
   int compare (Object_key const *other) const;
+  SCM dump () const;
 };
 
 enum Object_key_type {
+  BASE_KEY,
+  COPIED_KEY,
   GENERAL_KEY, 
   GROB_KEY,
   CONTEXT_KEY,
-  COPIED_KEY,
+  KEY_COUNT,
 };
 
 class Copied_key : public Object_key
@@ -51,11 +56,20 @@ protected:
   virtual void derived_mark () const;
   virtual int get_type () const;
   virtual int do_compare (Object_key const * other) const;
-
+  virtual SCM as_scheme () const;
 public:
+  static Object_key *from_scheme (SCM);
   Copied_key (Object_key const*, int); 
 };
 
 DECLARE_UNSMOB(Object_key, key);
+
+struct Object_key_less {
+  bool operator () (Object_key const *const &t1, Object_key const *const &t2) const
+  {
+    return t1->compare (t2);
+  }
+};
+
 
 #endif /* OBJECT_KEY_HH */

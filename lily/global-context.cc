@@ -18,8 +18,8 @@
 #include "output-def.hh"
 #include "lilypond-key.hh"
 
-Global_context::Global_context (Output_def *o, Moment final)
-  : Context (new Lilypond_context_key(0,
+Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
+  : Context (new Lilypond_context_key(key,
 				      Moment(0),
 				      "Global", "", 0))
 {
