@@ -230,5 +230,5 @@ ENTER_DESCRIPTION(New_fingering_engraver,
 /* creats*/       "Fingering",
 /* accepts */     "text-script-event",
 /* acks  */      "rhythmic-head-interface stem-interface",
-/* reads */       "fingerstHorizontal",
+/* reads */       "fingersHorizontal",
 /* write */       "");

@@ -679,7 +679,8 @@ The representation of a  list is the
 
  to have  efficient append.
 */
-Music_list: /* empty */ {
+Music_list:
+	/* empty */ {
 		$$ = scm_cons (SCM_EOL, SCM_EOL);
 	}
 	| Music_list Music {

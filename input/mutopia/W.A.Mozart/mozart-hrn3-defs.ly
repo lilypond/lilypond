@@ -70,6 +70,8 @@ stopGraceMusic= \sequential {
         \StaffContext
         minimumVerticalExtent = #'(-4.5 . 4.5)
     }
+    % #(define fonts my-sheet)
+
     indent = 10. \mm
     linewidth = 189. \mm
 
