@@ -1,3 +1,14 @@
+/*   
+  function-documentation.cc -- 
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
+#include <string.h>
+
 #include "lily-guile.hh"
 #include "protected-scm.hh"
 #include "string.hh"
