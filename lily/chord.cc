@@ -415,7 +415,8 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       scm_unprotect_object (n->self_scm ());
     }
 
-  Simultaneous_music*v = new Request_chord (list);
+  Simultaneous_music*v = new Request_chord (SCM_EOL);
+  v->set_mus_property ("elements", list);
 
   return v;
 }

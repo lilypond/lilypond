@@ -1,4 +1,8 @@
 
+1.3.115.hwn1
+============
+
+* Bugfix: multi-measure rest ends, chords. 
 
 1.3.114.mb1
 ===========
@@ -16,6 +20,7 @@
 ============
 
 * abc2ly fixes
+
 	* allow a g_8 clef to be specified by treble8
 
 	* allow full mode names, as well as 3 character abbreviations

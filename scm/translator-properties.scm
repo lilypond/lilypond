@@ -60,7 +60,17 @@ The head of the list:
     )
 
 @end example")
-(translator-property-description 'automaticPhrasing boolean? "")
+(translator-property-description 'automaticPhrasing boolean? " If set,
+the @ref{Lyric_phrasing_engraver} will match note heads of context
+called Voice X to syllables from LyricsVoice called
+X-<something>. This feature is turned on by default. See the example
+file @file{lyrics-multi-stanza.ly}.
+
+")
+(translator-property-description 'automaticMelismata boolean? " If
+set, \addlyrics will assume that beams, slurs and ties signal
+melismata, and align lyrics accordingly.
+")
 (translator-property-description 'barAlways boolean? " If set to true a bar line is drawn after each note.
 ")
 (translator-property-description 'barCheckNoSynchronize boolean? "If set, don't reset measurePosition when finding a bbarcheck. This
