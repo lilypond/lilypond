@@ -18,11 +18,12 @@ $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
 	-ln $< $@
 
 $(outdir)/latin1.enc: GNUmakefile
-	echo '/ISOLatin1Encoding' > $@ 
+	echo '/ISOLatin1Encoding' > $@.orig
 	echo 'ISOLatin1Encoding pstack' \
-	  | gs -sDEVICE=nullpage  -quiet - \
-	  | sed 's|/minus|/hyphen|' >> $@
-	echo 'def' >> $@
+	  | gs -sDEVICE=nullpage  -quiet - 2>> $@.orig
+	echo 'def' >> $@.orig
+	sed 's|/minus|/hyphen|' < $@.orig > $@
+
 
 # teTeX-2.0.x compatibility.
 local-install:

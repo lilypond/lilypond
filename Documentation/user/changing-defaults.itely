@@ -834,7 +834,10 @@ commands are described in
 @ifhtml
 the
 @end ifhtml
-@ref{Notation manual}, under the sections for slurs and stems
+@c @ref{Notation manual},
+Notation manual
+@c FIXME 
+under the sections for slurs and stems
 respectively.
 
 The exact tuning possibilities for each type of layout object are

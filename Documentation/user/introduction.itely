@@ -662,7 +662,8 @@ template into a file, add notes, and you're done!
 @ifhtml
 The
 @end ifhtml
-@emph{@ref{Notation manual}}
+@c @emph{@ref{Notation manual}} @c FIXME
+@emph{Notation manual}
 discusses topics grouped by notation construct.  Once you master the
 basics, this is the place to look up details.
 

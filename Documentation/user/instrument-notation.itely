@@ -11,13 +11,13 @@
 This chapter explains how to use notation for specific instruments.
 
 @menu
-* Rhythmic music::
-* Piano music::
-* Vocal music::
-* Other instrument specific notation::
-* Tablatures::
-* Popular music::
-* Ancient notation::
+* Rhythmic music::              
+* Piano music::                 
+* Vocal music::                 
+* Other instrument specific notation::  
+* Tablatures::                  
+* Popular music::               
+* Ancient notation::            
 @end menu
 
 
@@ -1373,7 +1373,7 @@ section.
 @end lilypond
 
 
-@node Other instrument specific notation, Tablatures, Vocal music, Notation manual
+@node Other instrument specific notation
 @section Other instrument specific notation
 
 This section includes extra information for writing string music, and may
@@ -1383,7 +1383,7 @@ include extra information for other instruments in the future.
 * Harmonic notes::              
 @end menu
 
-@node Harmonic notes, , Other instrument specific notation, Other instrument specific notation
+@node Harmonic notes
 @subsection Harmonic notes
 
 @cindex artificial harmonics
@@ -1397,7 +1397,7 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @end lilypond
 
 
-@node Tablatures, Popular music, Other instrument specific notation, Notation manual
+@node Tablatures
 @section Tablatures
 
 @cindex tablature
@@ -1413,7 +1413,7 @@ offers limited support for tablature.
 * Non-guitar tablatures::       
 @end menu
 
-@node Tablatures basic, Non-guitar tablatures, Tablatures, Tablatures
+@node Tablatures basic
 @subsection Tablatures basic
 @cindex Tablatures basic
 
@@ -1469,7 +1469,7 @@ string selector may easily select the same string to two notes in a
 chord.
 
 
-@node Non-guitar tablatures, , Tablatures basic, Tablatures
+@node Non-guitar tablatures
 @subsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
@@ -1502,7 +1502,7 @@ No guitar special effects have been implemented.
 Program reference: @internalsref{Tab_note_heads_engraver}.
 
 
-@node Popular music, Orchestral music, Tablatures, Notation manual
+@node Popular music
 @section Popular music
 
 This section discusses issues that arise when writing popular music.
@@ -1514,7 +1514,7 @@ This section discusses issues that arise when writing popular music.
 * Fret diagrams::               
 @end menu
 
-@node Chord names, Chords mode, Popular music, Popular music
+@node Chord names
 @subsection Chord names
 @cindex Chords
 

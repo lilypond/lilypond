@@ -11,11 +11,11 @@
 This chapter deals with rarely-used and advanced notation.
 
 @menu
-* Accidentals::
-* Expressive stuff::
-* Orchestral music::
-* Contemporary notation::
-* Educational use::
+* Accidentals::                 
+* Expressive stuff::            
+* Orchestral music::            
+* Contemporary notation::       
+* Educational use::             
 @end menu
 
 
@@ -181,6 +181,7 @@ notes and rhythms.
 * Text scripts::                
 * Text spanners::               
 * Analysis brackets::           
+* Articulations::               
 @end menu
 
 
@@ -448,7 +449,6 @@ some common problems in orchestral music.
 
 
 @menu
-* Aligning to cadenzas::        
 * Rehearsal marks::             
 * Bar numbers::                 
 * Instrument names::            
@@ -1233,7 +1233,7 @@ LilyPond is limited.
 * Clusters::                    
 * Special fermatas::            
 * Feathered beams::             
-* Improvisation::
+* Improvisation::               
 @end menu
 
 @node Polymetric notation

@@ -260,10 +260,6 @@ of this and other documentation.
 * Advanced notation::              Less frequently used notation.
 * Global issues::                  Non-notation commands.
 
-* Notation manual::                All notation supported, and how to
-                                   produce it.  (SOON OBSOLETE)
-* Sound::                          Producing MIDI output  (SOON OBSOLETE)
-
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
 * Running LilyPond::               Operation.

@@ -11,9 +11,12 @@
 This is a placeholder until I can write a nice intro for this chapter.
 
 @menu
-* Global layout:: 
-* File structure::
-* Sound::
+* Global layout::               
+* File structure::              
+* Sound::                       
+* Creating MIDI files::         
+* MIDI block::                  
+* MIDI instrument names::       
 @end menu
 
 

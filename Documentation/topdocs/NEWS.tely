@@ -13,7 +13,7 @@
 @uref{../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 @macro usermanref{NAME}
-@inforef{\NAME\,,../../user/out-www/lilypond/index}@c
+@inforef{\NAME\,,../../user/out-www/lilypond/lilypond}@c
 @end macro
 @end ifhtml
 
@@ -40,8 +40,6 @@ See
 @ifnothtml
 the section Point and click in he user manual. 
 @end ifnothtml
-
-
 
 
 @item

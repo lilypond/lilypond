@@ -761,7 +761,6 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r, Moment sho
 	      space *= 0.8;
 	    }
 
-
 	  compound_space += space;
 	  compound_fixed += fixed_space;
 	  wish_count ++ ;

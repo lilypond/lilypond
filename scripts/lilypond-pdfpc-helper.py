@@ -22,7 +22,8 @@ print os.getcwd()
 def usage():
 	sys.stdout.write ('Usage: %s FILE:LINE:COLUMN' % program_name)
 	sys.stdout.write ('\n\n')
-	sys.stdout.write ('Call remote editor given Mozilla remote link command')
+	sys.stdout.write ('''PDF Point & Click helper.
+Start a text-editor when given textedit:///path/to/file:line:column URI.''')
 	sys.stdout.write ('\n\n')
 	sys.stdout.write (_ ("Report bugs to %s.") % "bug-lilypond@gnu.org")
 	sys.stdout.write ('\n')

@@ -221,7 +221,10 @@
 	 (y-ext (ly:grob-extent grob grob Y)) 
 	 )
 
-    (if location
+    (if (and location
+	     (< 0 (interval-length x-ext))
+	     (< 0 (interval-length y-ext)))
+	
 	(format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_URI\n"
 		(+ (car offset) (car x-ext))
 		(+ (cdr offset) (car y-ext))
