@@ -51,8 +51,8 @@ produce most complex music with LilyPond.
 This section shows how easy writing music with LilyPond actually is.  If
 you have not seen LilyPond input source before, this section is for you.
 
-The next section has a small legend of all symbols that are introduced
-here, you may want to keep an eye on that.
+The next section has a table (see @ref{Simple legend}) of all symbols
+that are introduced here, you may want to keep an eye on that.
 
 Writing music with LilyPond is explained below by a number of small
 examples.  Each example has a small piece of text; the LilyPond input

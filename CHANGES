@@ -1,3 +1,12 @@
+1.4.0.jcn5
+==========
+
+* configure: check for splitting makeinfo; small fixes for
+non-splitting makeinfo doc.
+
+* Added some missing titling (dedication, translator) and fixed ps titling
+(Thanks David Arnold).
+
 1.4.0.jcn4
 ==========
 

@@ -1,11 +1,16 @@
 \version "1.3.146"
 \header {
   filename =  "title.ly"
+  dedication = "dedication"
   title = "Title"
   subtitle = "Subtitle"
   subsubtitle = "Subsubtitle"
   composer = "Composer (xxxx-yyyy)"
   arranger = "Arranger"
+  poet = "Poet"
+  % ugr: warning: Identifier name is a keyword: `translator'
+  % translator = "Translator"
+  texttranslator = "Translator"
   copyright = "public domain"
   enteredby = "jcn"
   source =  "urtext"

@@ -165,6 +165,10 @@
 
 /make-lilypond-title
 {
+	currentdict /lilyponddedication known {
+		normal-font lilyponddedication set-centered
+		line-y 10 sub /line-y exch def
+	} if
 	currentdict /lilypondtitle known {
 		huge-bold-font lilypondtitle set-centered
 		line-y 5 sub /line-y exch def
@@ -176,14 +180,27 @@
 	currentdict /lilypondsubsubtitle known {
 		large-bold-font lilypondsubsubtitle set-centered
 	} if
+	line-y /mini-page exch def
 	currentdict /lilypondcomposer known {
 		large-smallcaps-font lilypondcomposer set-right
+		line-y 2 sub /line-y exch def
 	} if
 	currentdict /lilypondopus known {
 		normal-font lilypondopus set-right
+		line-y 3 sub /line-y exch def
 	} if
 	currentdict /lilypondarranger known {
 		normal-font lilypondarranger set-right
+		line-y 3 sub /line-y exch def
+	} if
+	currentdict /lilypondpoet known {
+		mini-page /line-y exch def
+		normal-font lilypondpoet set-left
+		line-y 3 sub /line-y exch def
+	} if
+	currentdict /lilypondtexttranslator known {
+		normal-font lilypondtexttranslator set-left
+		line-y 3 sub /line-y exch def
 	} if
 	currentdict /lilypondinstrument known {
 		large-font lilypondinstrument set-centered

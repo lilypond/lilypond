@@ -1,5 +1,3 @@
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -536,6 +534,29 @@ AC_DEFUN(AC_STEPMAKE_GETTEXT, [
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
 ])
+
+AC_DEFUN(AC_STEPMAKE_MAKEINFO, [
+    AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
+    AC_MSG_CHECKING(whether makeinfo can split html by @node)
+    makeinfo --html --output=out/split <<EOF
+\input texinfo
+\input texinfo @c -*-texinfo-*-
+@setfilename split.info
+@settitle split.info
+@bye
+EOF
+    if test -d out/split; then
+	SPLITTING_MAKEINFO=yes
+	AC_MSG_RESULT(yes)
+	rm -rf out/split
+    else
+	AC_MSG_RESULT(no)
+	AC_STEPMAKE_WARN(your html documentation will be one large file)
+	rm -rf out/split
+    fi
+    AC_SUBST(SPLITTING_MAKEINFO)
+])
+
 
 AC_DEFUN(AC_STEPMAKE_MAN, [
     AC_CHECK_PROGS(GROFF, groff ditroff, -echo no groff)
