@@ -32,9 +32,11 @@
 #include <libintl.h>
 #endif
 
+#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
 extern "C" {
 #include <kpathsea/kpathsea.h>
 }
+#endif
 
 bool verbose_global_b = false;
 bool no_paper_global_b = false;
@@ -91,7 +93,8 @@ Long_option_init theopts[] = {
 void
 identify (ostream* os)
 {
-  *os << gnu_lilypond_version_str () << endl;
+  //*os << gnu_lilypond_version_str () << endl;
+  *os << gnu_lilypond_version_str ();
 }
 
 void
@@ -228,8 +231,27 @@ setup_paths ()
   for (char **s = suffixes; *s; s++)
     {
       String p =  prefix + to_str ('/') + String (*s);
-      
       global_path.add (p);
+
+#if !KPATHSEA
+      /*
+      Although kpathsea seems nice, it is not universally available 
+      (GNU/Windows). 
+
+      Compiling kpathsea seems not possible without
+      (compiling) a matching tex installation.  Apart from the fact
+      that I cannot get kpathsea compiled for GNU/Windows, another
+      major problem is that TeX installations may be different on
+      different clients, so it wouldn't work anyway.  While ugly,
+      this code is simple and effective.
+        -- jcn
+      */
+
+      /* Urg: GNU make's $(word) index starts at 1 */
+      int i  = 1;
+      while (global_path.try_add (p + to_str (".") + to_str (i)))
+	i++;
+#endif
     }
 }
 
@@ -241,6 +263,8 @@ main_prog (int, char**)
     need to do this first. Engravers use lily.scm contents.
    */
   init_lily_guile ();
+  if (verbose_global_b)
+    progress_indication ("\n");
   read_lily_scm_file ("lily.scm");
   cout << endl;
 
@@ -307,11 +331,13 @@ main (int argc, char **argv)
   setenv ("GUILE_INIT_SEGMENT_SIZE_1", "4194304", 0);
   setenv ("GUILE_MAX_SEGMENT_SIZE", "8388608", 0);
 
+#if KPATHSEA && HAVE_KPATHSEA_KPATHSEA_H
   /*
    initialize kpathsea
    */
   kpse_set_program_name(argv[0], NULL);
   kpse_maketex_option("tfm", TRUE);
+#endif
 
   oparser_global_p = new Getopt_long(argc, argv,theopts);
   while (Long_option_init const * opt = (*oparser_global_p)())

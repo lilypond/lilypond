@@ -1,3 +1,52 @@
+1.3.75
+======
+
+1.3.74.gp1
+==========
+
+* Improved default handling of Lyric_phrasing_engraver and made it on by 
+default.
+
+* Beginnings of a stanza number engraver (\property LyricVoice.stanza = 
+#"1:" etc.)
+
+* fixed bug in script.cc so fermata (and other scripts) get flipped 
+correctly when they are above the staff.
+
+1.3.74.jcn2
+===========
+
+* Reincluded simple code for including tfm.[1-5] into search path.
+  Configure with --disable-kpathsea to enable this kludge.
+
+1.3.74.jcn1
+===========
+
+* Updated input/test/banter-chords.ly German H/B example.
+
+* Updated nl.po.
+
+* Have configure check for kpathsea library and functions.  Made kpathsea
+  support optional for now.
+
+* Bugfix: halved width of tremolo-beams.
+ 
+* Included compilation fix for guile-1.3.4 (Anthony).
+
+* Added: chord inversion and base to regtest.
+
+* Fixed: Chord names that were broken by pl73.
+
+* Fixed: Chord inversions that were broken by pl72.
+
+* Resurrected ascii-script output, for debugging purposes.
+
+* Included compilation fix for scm-hash.cc (Han-Wen).
+
+
+1.3.74
+======
+
 * Small bugfix: also do a deep copy on  submusices
 
 * Fixed:  \autochange doesn't crash anymore.
