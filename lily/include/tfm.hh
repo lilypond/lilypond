@@ -150,7 +150,8 @@ class Tex_font_metric : public Font_metric
 public:
   static  SCM make_tfm (String filename);
 
-  Box get_char (int) const;
+  virtual int count () const;
+  virtual Box get_char (int) const;
   Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
   String str () const;

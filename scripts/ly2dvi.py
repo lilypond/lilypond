@@ -544,8 +544,9 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 %% to get the last mutopia tagline right (ie: no footer on last page)
 %% Please check that mutopia footers and endfooter are OK before changing
 %% this again. -- jcn
+% the \mbox{} helps latex if people do stupid things in tagline
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\makelilypondtagline}}%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
 \makeatother
 '''
 	s = s + '\\end{document}'

@@ -102,14 +102,22 @@
     ((-2 medium caps roman cmcsc 7) . "cmcsc7")
     ((-3 medium caps roman cmcsc 7) . "cmcsc7")
 
-    
-    ;; should use the same brace font every where and fix C++ code.
-    ((2 * * braces feta-braces 26) . "feta-braces26")
-    ((1 * * braces feta-braces 23) . "feta-braces23")
-    ((0 * * braces feta-braces 20) . "feta-braces20")
-    ((-1 * * braces feta-braces 16) . "feta-braces16")
-    ((-2 * * braces feta-braces 13) . "feta-braces13")
-    ((-3 * * braces feta-braces 11) . "feta-braces11")
+    ;; smallest needs 8 steps: -3 to +5, so
+    ;; biggest also needs 8 available steps: +2 to + 10
+    ((10 * * braces feta-braces 3) . "feta-braces3")
+    ((9 * * braces feta-braces 3) . "feta-braces3")
+    ((8 * * braces feta-braces 3) . "feta-braces3")
+    ((7 * * braces feta-braces 3) . "feta-braces3")
+    ((6 * * braces feta-braces 3) . "feta-braces3")
+    ((5 * * braces feta-braces 3) . "feta-braces3")
+    ((4 * * braces feta-braces 2) . "feta-braces2")
+    ((3 * * braces feta-braces 1) . "feta-braces1")
+    ((2 * * braces feta-braces 0) . "feta-braces0")
+    ((1 * * braces feta-braces 0) . "feta-braces0")
+    ((0 * * braces feta-braces 0) . "feta-braces0")
+    ((-1 * * braces feta-braces 0) . "feta-braces0")
+    ((-2 * * braces feta-braces 0) . "feta-braces0")
+    ((-3 * * braces feta-braces 0) . "feta-braces0")
 
     ((3 * * dynamic feta-din 19) . "feta-din19")
     ((2 * * dynamic feta-din 19) . "feta-din19")

@@ -90,6 +90,11 @@ Font_metric::Font_metric (Font_metric const &s)
 {
 }
 
+int
+Font_metric::count () const
+{
+  return 0;
+}
 
 Box 
 Font_metric::get_char (int)const

@@ -1,3 +1,15 @@
+1.3.151.jcn1
+============
+
+* Fixed feta-braces: more symbols again, but all paper sizes use same
+font.  Also fixed lookup.
+
+* Maximum length for lyric-hyphen.
+
+* Two forgotten note corrections to Standchen.
+
+* Website compilation fix.
+
 1.3.150.jcn3
 ============
 
