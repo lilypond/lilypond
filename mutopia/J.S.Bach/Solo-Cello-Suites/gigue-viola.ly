@@ -36,7 +36,7 @@ gigue_cello_scripts = \melodic{
 }
 
 gigue_cello_staff = \type Staff <
-	\$gigue
+	\melodic \transpose c' \$gigue
 	\$gigue_cello_global
 	\$gigue_cello_scripts
 >
@@ -44,6 +44,7 @@ gigue_cello_staff = \type Staff <
 \score{
 	\$gigue_cello_staff
 	\include "scs-paper.ly";
+%broken
 	\midi{ \tempo 4 = 60; }
 	\header{ piece = "Gigue"; }
 }

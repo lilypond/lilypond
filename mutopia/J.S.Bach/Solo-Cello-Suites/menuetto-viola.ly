@@ -1,8 +1,9 @@
 \header{
-filename =	 "menuetto-cello.ly";
+filename =	 "menuetto-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-%piece = "Menuetto I";
+% piece = "Menuetto I";
+description =	 "Transcribed for Viola";
 source =	 "?";
 % opus =	 "BWV 1008 no. 5";
 opus =	 "";
@@ -20,56 +21,54 @@ copyright =	 "public domain";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_cello_global = \melodic{
+menuetto_i_viola_global = \melodic{
 	\time 3/4;
 	\key f;
-	\clef bass;
+	\clef alto;
 	\skip 2.*8;
 	\bar ":|:";
+	\clef violin;
 	\skip 2.*1;
 	\slurdotted
-	\skip 2.*14;
+	\skip 2.*3;
+	\clef alto;
+	\skip 2.*11;
 	s2._"Fine"
 	\bar ":|";
 }
 
-menuetto_i_cello_scripts = \melodic{
+menuetto_i_viola_scripts = \melodic{
 	s2.
-	s8^"~"^1_2_4 s8 s4 s^4
-	s4^0_1 s_4 s
+	s8^"~"^1_2_4 s8*5
 	s2.*5
-	s2^3 s4
-	s4 s8_1 s s4
-	s2.
-	s2 s8^4 s
-	s2.
-	s8 s^2 s^4
-	s_2 s s s_0 s_4 s_1
-	s2.*2
-	s4^3_1
-	s^1_3 s4
-	s2.
-	s4_2 s2
-	s8^2_3 s s s^1 s4^1
+	s4 s-\upbow s-\downbow
+	s2.-\upbow
+	s2.*5
+	s2 s4-\upbow
+	s4-\downbow s2
+	s2.*1
+	s2^0 s4
+	s2.*1
+	s4-\downbow s4-\upbow
 }
 
-menuetto_i_cello_staff = \type Staff <
-	\$menuetto_i
-	\$menuetto_i_cello_global
-%	\$menuetto_i_cello_scripts
+menuetto_i_viola_staff = \type Staff <
+	\melodic \transpose c' \$menuetto_i
+	\$menuetto_i_viola_global
+%	\$menuetto_i_viola_scripts
 >
 
 \score{
-	\$menuetto_i_cello_staff
+	\$menuetto_i_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 110; }
 	\header{ piece = "Menuetto I"; }
 }
 
-menuetto_ii_cello_global = \melodic{
+menuetto_ii_viola_global = \melodic{
 	\time 3/4;
 	\key D;
-	\clef bass;
+	\clef alto;
 	\skip 2.*8;
 	\bar ":|:";
 	\skip 2.*1;
@@ -79,14 +78,14 @@ menuetto_ii_cello_global = \melodic{
 	\bar ":|";
 }
 
-menuetto_ii_cello_staff = \type Staff <
-	\$menuetto_ii
-	\$menuetto_ii_cello_global
-%	\$menuetto_ii_cello_scripts
+menuetto_ii_viola_staff = \type Staff <
+	\melodic \transpose c' \$menuetto_ii
+	\$menuetto_ii_viola_global
+%	\$menuetto_ii_viola_scripts
 >
 
 \score{
-	\$menuetto_ii_cello_staff
+	\$menuetto_ii_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 130; }
 	\header{ piece = "Menuetto II"; }
