@@ -27,7 +27,8 @@
     
     #(define-public book-title (marked-up-title 'bookTitleMarkup))
     #(define-public score-title (marked-up-title 'scoreTitleMarkup))
-
+    #(define-public force-eps-font-include #f)
+    
     %%
     %% ugh. hard coded?
     %%
