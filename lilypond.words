@@ -74,6 +74,7 @@ Cluster
 \\default
 \\defaultAccidentals
 \\denies
+\\description
 \\different
 \\dirs
 \\dorian
@@ -389,6 +390,7 @@ StaffSymbol
 \\staffTwo
 \\start
 \\startCluster
+\\startGroup
 \\startTextSpan
 Stem
 \\stemBoth
@@ -397,6 +399,7 @@ Stem
 \\stemUp
 \\stop
 \\stopCluster
+\\stopGroup
 \\stopped
 \\stopTextSpan
 \\stpaper

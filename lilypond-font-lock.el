@@ -85,21 +85,21 @@
 ;            Multiple lines may need refontifying (C-c f).
       '("\\(\\\\lyrics[^{<]*\\)\\({[^}]*\\|<[^>]*\\)" 2 font-lock-string-face t)
 
-;; "on top", ... horizontal grouping:
+;; "on top", ... horizontal grouping, also as postfix syntax '-*':
 ;;               - brackets '{[]}'
 ;;               - ties '~'
 ;;               - ligatures \[, \]
-      '("\\([][~}{]\\|\\\\[][]\\)" 0 font-lock-warning-face t)
+      '("\\(-?[][~}{]\\|\\\\[][]\\)" 0 font-lock-warning-face t)
 
 ;; "on top", ... vertical grouping:
 ;;               - '<>'-chord brackets with '\\'-voice sep., not marcato '->'
 ;;               - '<< a b >>8' -chords
       '("\\(\\(-.\\)+\\|[^-^_]\\)\\([<>]+\\(\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\|\\\\\\\\\\)" 3 font-lock-function-name-face t)
 
-;; "on top", ... expressional grouping:
+;; "on top", ... expressional grouping, also as postfix syntax '-*':
 ;;               - slurs ( ), \( \), [-^_][()]
 ;;               - hairpins \<, \>, \! 
-      '("\\(\\\\[(<!>)]\\|[-^_]?[()]\\)" 0 font-lock-builtin-face t)
+      '("\\(-?\\\\[(<!>)]\\|[-^_]?[()]\\)" 0 font-lock-builtin-face t)
 
 ;; "on top", ... (multiline-)scheme: try find slurs up to 7th
       '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z:-]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
