@@ -1146,6 +1146,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 	    }
 
 	  ye.widen (thick * 0.5);
+	  xe.widen (thick * 1.0);
 	  Extra_collision_info info (xp, xe, ye,  penalty);
 	  collision_infos.push (info);
 	}
@@ -1155,36 +1156,36 @@ score_extra_encompass (Grob *me, Grob *common[],
       Real demerit = 0.0;
       for (int j = 0; j < collision_infos.size(); j++)
 	{
-	  Drul_array<Offset> at = scores->elem (i).attachment_;
-	  Interval slur_wid (at[LEFT][X_AXIS], at[RIGHT][X_AXIS]);
+	  Drul_array<Offset> attachment = scores->elem (i).attachment_;
+	  Interval slur_wid (attachment[LEFT][X_AXIS], attachment[RIGHT][X_AXIS]);
 
 	  /*
 	    to prevent numerical inaccuracies in
 	    Bezier::get_other_coordinate().
-	   */
-	  slur_wid.widen (- 0.5 * thick);
-	  Real x = collision_infos[j].extents_[X_AXIS]
-	    .linear_combination (collision_infos[j].idx_);
+	  */
+	  Direction d = LEFT;
+	  bool found = false;
 	  Real y = 0.0;
 	  
-	  if (!slur_wid.contains (x))
-	    {	
-	      Direction contains_dir = CENTER;
-	      Direction d = LEFT;
-	      do
-		{
-		  if (collision_infos[j].extents_[X_AXIS].contains (at[d][X_AXIS]))
-		    contains_dir = d; 
-		}
-	      while (flip (&d) != LEFT);
-
-	      if (!contains_dir)
-		continue;
-	      else
-		y = at[contains_dir][Y_AXIS];
-	    }
-	  else
+	  do
 	    {
+	      if (collision_infos[j].extents_[X_AXIS].contains (attachment[d][X_AXIS]))
+		{
+		  y = attachment[d][Y_AXIS];
+		  found = true;
+		}
+	    }
+	  while (flip (&d) != LEFT);
+
+	  if (!found)
+	    {
+	      
+	      Real x = collision_infos[j].extents_[X_AXIS]
+		.linear_combination (collision_infos[j].idx_);
+ 
+	      if (!slur_wid.contains (x))
+		continue;
+	      
 	      y = scores->elem (i).curve_.get_other_coordinate (X_AXIS, x);
 	    }
 
