@@ -10,13 +10,11 @@
 #include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
 #include "musical-request.hh"
+#include "music-sequence.hh"
 #include "warn.hh"
 
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
-  combined_b_ = true;
-
-  now_ = 0;
   first_iter_p_ = 0;
   second_iter_p_ = 0;
   first_until_ = 0;
@@ -30,17 +28,16 @@ Part_combine_music_iterator::~Part_combine_music_iterator ()
 }
 
 Moment
-Part_combine_music_iterator::next_moment () const
+Part_combine_music_iterator::pending_moment () const
 {
-  Moment first_next = infinity_mom;
+  Moment p;
+  p.set_infinite (1);
   if (first_iter_p_->ok ())
-    first_next = first_iter_p_->next_moment ();
-  Moment second_next = infinity_mom;
+    p = p <? first_iter_p_->pending_moment ();
+
   if (second_iter_p_->ok ())
-    second_next = second_iter_p_->next_moment ();
-  if (first_next == infinity_mom && second_next == infinity_mom)
-    return 0;
-  return first_next <? second_next;
+    p = p <? second_iter_p_->pending_moment ();
+  return p;
 }
 
 bool
@@ -48,13 +45,6 @@ Part_combine_music_iterator::ok () const
 {
   //hmm
   return first_iter_p_->ok () || second_iter_p_->ok ();
-}
-
-void
-Part_combine_music_iterator::do_print () const
-{
-  first_iter_p_->print ();
-  second_iter_p_->print ();
 }
 
 void
@@ -117,110 +107,106 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
     error (_f ("none of these in my family: `%s'", to_id.ch_C ()));
 }
 
-Pitch_interrogate_req* first_spanish_inquisition; // nobody expects it
-Pitch_interrogate_req* second_spanish_inquisition; // won't strike twice
-
-Rhythm_interrogate_req* first_rhythmic_inquisition;
-Rhythm_interrogate_req* second_rhythmic_inquisition;
-
 void
-Part_combine_music_iterator::do_process_and_next (Moment m)
+Part_combine_music_iterator::process (Moment m)
 {
-  Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
-
-  now_ = next_moment ();
-
-  /*
-    Hmm, shouldn't we check per iterator if next_moment < m?
-   */
-  if (first_iter_p_->ok ())
-    first_iter_p_->process_and_next (m);
-  
-  if (second_iter_p_->ok ())
-    second_iter_p_->process_and_next (m);
-
-  Music_iterator::do_process_and_next (m);
 
   /*
     TODO:
-
-    * Maybe we need a Skip_engraver?
-
-    (check): can this all be handled now?
-    
-    Maybe different modes exist?
-
-    * Wind instruments (Flute I/II)
-    * Hymnals:  
-
-
-      Rules for Hymnals/SATB (John Henckel <henckel@iname.com>):
-
-      1. if S and A differ by less than a third, the stems should be up/down.
-      2. else if S and A have different values, the stems should be up/down.
-      3. else if A sings "la" or higher, both S and A stems should be down.
-      4. else both stems should be up
-
-    * This may get really tricky: combining voices/staffs: string instruments
-
+    - Use three named contexts (be it Thread or Voice): one, two, solo.
+      Let user pre-set (pushproperty) stem direction, remove
+      dynamic-engraver, and such.
+    - staff-combiner must switch only on per-measure basis (maybe even on
+      per-line-basis, but that's not feasible).  Maybe set minimum lengths
+      of matching rhythm for combine/split?
    */
-  
-  if (!first_spanish_inquisition)
-    first_spanish_inquisition = new Pitch_interrogate_req;
-  first_iter_p_->try_music (first_spanish_inquisition);
-  
-  if (!second_spanish_inquisition)
-    second_spanish_inquisition = new Pitch_interrogate_req;
-  second_iter_p_->try_music (second_spanish_inquisition);
+ 
+  Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
 
-  Array<Musical_pitch>* first_pitches = &first_spanish_inquisition->pitch_arr_;
-  Array<Musical_pitch>* second_pitches = &second_spanish_inquisition->pitch_arr_;
+  Moment now = pending_moment ();
 
-  if (!first_rhythmic_inquisition)
-    first_rhythmic_inquisition = new Rhythm_interrogate_req;
-  first_iter_p_->try_music (first_rhythmic_inquisition);
-
-  if (!second_rhythmic_inquisition)
-    second_rhythmic_inquisition = new Rhythm_interrogate_req;
-  second_iter_p_->try_music (second_rhythmic_inquisition);
-
-  Array<Duration>* first_durations = &first_rhythmic_inquisition->duration_arr_;
-  Array<Duration>* second_durations = &second_rhythmic_inquisition->duration_arr_;
-
-  SCM interval = SCM_BOOL_F;
-  if (first_pitches->size () && second_pitches->size ())
+  Array<Musical_pitch> first_pitches;
+  Array<Duration> first_durations;
+  if (first_iter_p_->ok ())
     {
-      first_pitches->sort (Musical_pitch::compare);
-      second_pitches->sort (Musical_pitch::compare);
-      interval = gh_int2scm (first_pitches->top ().steps ()
-			     - (*second_pitches)[0].steps ());
+      /* get_music () also performs next, modifying iterator */
+      Music_iterator *mi = first_iter_p_->clone ();
+      for (SCM i = mi->get_music (now); gh_pair_p (i); i = gh_cdr (i))
+	{
+	  Music *m = unsmob_music (gh_car (i));
+	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
+	    first_pitches.push (r->pitch_);
+	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
+		    first_durations.push (r->duration_);
+	}
+      delete mi;
     }
-  if (first_durations->size ())
+  
+  Array<Musical_pitch> second_pitches;
+  Array<Duration> second_durations;
+  if (second_iter_p_->ok ())
     {
-      first_durations->sort (Duration::compare);
-      Moment new_until = now_ + first_durations->top ().length_mom ();
+      Music_iterator *mi = second_iter_p_->clone ();
+      for (SCM i = mi->get_music (now); gh_pair_p (i); i = gh_cdr (i))
+	{
+	  Music *m = unsmob_music (gh_car (i));
+	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
+	    second_pitches.push (r->pitch_);
+	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
+	    second_durations.push (r->duration_);
+	}
+      delete mi;
+    }
+  
+  SCM interval = SCM_BOOL_F;
+  if (first_pitches.size () && second_pitches.size ())
+    {
+      first_pitches.sort (Musical_pitch::compare);
+      second_pitches.sort (Musical_pitch::compare);
+      interval = gh_int2scm (first_pitches.top ().steps ()
+			     - second_pitches[0].steps ());
+    }
+  if (first_durations.size ())
+    {
+      first_durations.sort (Duration::compare);
+      Moment new_until = now + first_durations.top ().length_mom ();
       if (new_until > first_until_)
 	first_until_ = new_until;
     }
 
-    if (second_durations->size ())
+    if (second_durations.size ())
     {
-      second_durations->sort (Duration::compare);
-      Moment new_until = now_ + second_durations->top ().length_mom ();
+      second_durations.sort (Duration::compare);
+      Moment new_until = now + second_durations.top ().length_mom ();
       if (new_until > second_until_)
 	second_until_ = new_until;
     }
 
+#if 0 /* DEBUG */
+  printf ("now: %s\n", now.str ().ch_C ());
+  printf ("first: ");
+  for (int i = 0; i < first_pitches.size (); i++)
+    {
+      printf ("%s, ", first_pitches[i].str ().ch_C ());
+    }
+  printf ("\nsecond: ");
+  for (int i = 0; i < second_pitches.size (); i++)
+    {
+      printf ("%s, ", second_pitches[i].str ().ch_C ());
+    }
+  printf ("\n");
+#endif
+
   Translator_group * fir = first_iter_p_->report_to_l ();
   Translator_group * sir = second_iter_p_->report_to_l ();
 
-  bool solo_b = (first_pitches->empty () != second_pitches->empty ())
-    && !(first_until_ > now_ && second_until_ > now_);
+  bool solo_b = (first_pitches.empty () != second_pitches.empty ())
+    && !(first_until_ > now && second_until_ > now);
 
-  bool unirhythm_b = !solo_b && !compare (first_durations, second_durations);
-  bool unison_b = unirhythm_b && !first_pitches->empty ()
-    &&!compare (first_pitches, second_pitches);
-  bool unisilence_b = unirhythm_b && first_pitches->empty ();
+  bool unirhythm_b = !solo_b && !compare (&first_durations, &second_durations);
+  bool unison_b = unirhythm_b && !first_pitches.empty ()
+    &&!compare (&first_pitches, &second_pitches);
+  bool unisilence_b = unirhythm_b && first_pitches.empty ();
 
   Translator_group * fd = fir->find_create_translator_l (p->what_str_, "one");
   Translator_group * sd = sir->find_create_translator_l (p->what_str_, "two");
@@ -238,28 +224,23 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 	split_interval_b = true;
     }
 
-  /*
-    Hmm, maybe we should set/check combined_b_ against
+  bool combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_
+    == second_iter_p_->report_to_l ()->daddy_trans_l_;
 
-       first_iter_p_->report_to_l () == second_iter_p_->report_to_l ()
-
-   ? 
-   */
-
-  String to_id =  combined_b_ ? "one" : "two";
-  if ((!unirhythm_b && combined_b_)
-      || (split_interval_b && combined_b_)
-      || (solo_b && combined_b_)
-      /*|| (unisilence_b && combined_b_) */
+  String to_id =  combined_b ? "one" : "two";
+  if ((!unirhythm_b && combined_b)
+      || (split_interval_b && combined_b)
+      || (solo_b && combined_b)
+      /*|| (unisilence_b && combined_b) */
       || ((unirhythm_b || unison_b || unisilence_b)
-	  && !combined_b_ && !split_interval_b && !solo_b))
+	  && !combined_b && !split_interval_b && !solo_b))
     {
-      combined_b_ = !combined_b_;
-      to_id =  combined_b_ ? "one" : "two";
+      combined_b = !combined_b;
+      to_id =  combined_b ? "one" : "two";
       change_to (second_iter_p_, p->what_str_, to_id);
     }
 
-  if (!combined_b_)
+  if (!combined_b)
     sir = second_iter_p_->report_to_l ();
 
   SCM b = unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F;
@@ -279,22 +260,23 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   sd->set_property ("unison", b);
 
   b = solo_b  ? SCM_BOOL_T : SCM_BOOL_F;
-  if (first_pitches->size ())
+  if (first_pitches.size ())
     {
       fd->set_property ("solo", b);
       sd->set_property ("solo", SCM_BOOL_F);
     }
 
-  if (second_pitches->size ())
+  if (second_pitches.size ())
     {
       fd->set_property ("solo", SCM_BOOL_F);
       sd->set_property ("solo", b);
     }
 
-  first_pitches->clear ();
-  second_pitches->clear ();
-  first_durations->clear ();
-  second_durations->clear ();
+  if (first_iter_p_->ok ())
+    first_iter_p_->process (m);
+  
+  if (second_iter_p_->ok ())
+    second_iter_p_->process (m);
 }
 
 Music_iterator*
@@ -307,3 +289,14 @@ Part_combine_music_iterator::try_music_in_children (Music *m) const
     return second_iter_p_->try_music (m);
 }
 
+
+SCM
+Part_combine_music_iterator::get_music (Moment m)const
+{
+  SCM s = SCM_EOL;
+  if (first_iter_p_)
+    s = gh_append2 (s,first_iter_p_->get_music (m));
+  if (second_iter_p_)
+    s = gh_append2 (second_iter_p_->get_music (m),s);
+  return s;
+}

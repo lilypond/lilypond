@@ -14,7 +14,7 @@
 #include "command-request.hh"
 
 void
-Time_scaled_music_iterator::do_process_and_next (Moment m)
+Time_scaled_music_iterator::process (Moment m)
 {
   if (!m)
     {
@@ -25,5 +25,5 @@ Time_scaled_music_iterator::do_process_and_next (Moment m)
 	music_l_->origin ()->warning ( _("no one to print a tuplet start bracket"));
     }
 
-  Music_wrapper_iterator::do_process_and_next (m);
+  Music_wrapper_iterator::process (m);
 }

@@ -105,9 +105,9 @@ Unfolded_repeat_iterator::ok () const
 }
 
 Moment
-Unfolded_repeat_iterator::next_moment () const
+Unfolded_repeat_iterator::pending_moment () const
 {
-  return done_mom_ + current_iter_p_->next_moment ();
+  return done_mom_ + current_iter_p_->pending_moment ();
 }
 
 void
@@ -135,7 +135,7 @@ Unfolded_repeat_iterator::construct_children ()
 }
 
 void
-Unfolded_repeat_iterator::do_process_and_next (Moment m) 
+Unfolded_repeat_iterator::process (Moment m) 
 {
   if (!m)
     {
@@ -155,22 +155,13 @@ Unfolded_repeat_iterator::do_process_and_next (Moment m)
 	    return;
 	}
       
-      if (m - done_mom_ >= current_iter_p_->next_moment ())
-	current_iter_p_->process_and_next (m - done_mom_);
+      if (m - done_mom_ >= current_iter_p_->pending_moment ())
+	current_iter_p_->process (m - done_mom_);
       else
 	return;
     }
 }
-  
-void
-Unfolded_repeat_iterator::do_print () const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "count " << done_count_ << "done time " << Rational (done_mom_) << '\n';
-  DEBUG_OUT << "current: ";
-  current_iter_p_->print();
-#endif
-}
+
 
 Music_iterator* 
 Unfolded_repeat_iterator::try_music_in_children (Music  * m) const

@@ -32,14 +32,14 @@ Folded_repeat_iterator::~Folded_repeat_iterator ()
 }
 
 Moment
-Folded_repeat_iterator::next_moment () const
+Folded_repeat_iterator::pending_moment () const
 {
   if (main_iter_p_)
     {
-      return main_iter_p_->next_moment ();
+      return main_iter_p_->pending_moment ();
     }
   else
-    return main_length_mom_ + alternative_iter_p_->next_moment ();
+    return main_length_mom_ + alternative_iter_p_->pending_moment ();
 }
 
 void
@@ -55,7 +55,7 @@ Folded_repeat_iterator::construct_children ()
 }
 
 void
-Folded_repeat_iterator::do_process_and_next (Moment m)
+Folded_repeat_iterator::process (Moment m)
 {
   if (!m)
     {
@@ -66,7 +66,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
   
   if (main_iter_p_)
     {
-      main_iter_p_->process_and_next (m);
+      main_iter_p_->process (m);
       if (!main_iter_p_->ok ())
 	leave_body ();
     }
@@ -78,7 +78,7 @@ Folded_repeat_iterator::do_process_and_next (Moment m)
   
   if (alternative_iter_p_)
     {
-      alternative_iter_p_->process_and_next (m - main_length_mom_);
+      alternative_iter_p_->process (m - main_length_mom_);
       if (!alternative_iter_p_->ok ())
 	{
 	  delete alternative_iter_p_;

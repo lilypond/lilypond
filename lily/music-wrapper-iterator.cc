@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
  */
 
 
@@ -16,19 +15,10 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
   child_iter_p_ =0;
 }
 
-
-
-void
-Music_wrapper_iterator::do_print () const
+Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &src)
+  : Music_iterator (src)
 {
-  child_iter_p_->print ();
-}
-
-void
-Music_wrapper_iterator::construct_children ()
-{
-  child_iter_p_ =
-    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element ());
+  child_iter_p_ = src.child_iter_p_->clone ();
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()
@@ -37,6 +27,13 @@ Music_wrapper_iterator::~Music_wrapper_iterator ()
 }
 
 
+void
+Music_wrapper_iterator::construct_children ()
+{
+  child_iter_p_ =
+    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l_)->element ());
+}
+
 bool
 Music_wrapper_iterator::ok () const
 {
@@ -44,19 +41,22 @@ Music_wrapper_iterator::ok () const
 }
 
 void
-Music_wrapper_iterator::do_process_and_next (Moment m)
+Music_wrapper_iterator::process (Moment m)
 {
-  child_iter_p_->process_and_next (m);
-  Music_iterator::do_process_and_next (m);
+  child_iter_p_->process (m);
 }
 
+SCM
+Music_wrapper_iterator::get_music (Moment m)const
+{
+  return child_iter_p_->get_music (m);
+}
 
 Moment
-Music_wrapper_iterator::next_moment () const
+Music_wrapper_iterator::pending_moment () const
 {
-  return child_iter_p_->next_moment ();
+  return child_iter_p_->pending_moment ();
 }
-
 
 Music_iterator*
 Music_wrapper_iterator::try_music_in_children (Music *m) const

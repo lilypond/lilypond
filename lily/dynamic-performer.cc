@@ -14,7 +14,6 @@
 /*
   TODO:
     handle multiple requests
-    handle span requests (crescendo/decrescendo)
  */
 
 /**

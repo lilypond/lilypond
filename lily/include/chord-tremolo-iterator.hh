@@ -14,20 +14,21 @@
 
 class Chord_tremolo_iterator : public Music_iterator
 {
-  Moment factor_;
-  Music_iterator * child_iter_p_;
-
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Chord_tremolo_iterator ();
 
 protected:
   virtual ~Chord_tremolo_iterator ();
-  virtual Moment next_moment () const;
+  virtual Moment pending_moment () const;
   virtual void construct_children  () ;
   virtual bool ok () const;
-  virtual void do_print () const;
-  virtual void do_process_and_next (Moment) ;
+  virtual void process (Moment) ;
   virtual Music_iterator *try_music_in_children (Music *) const;
+
+private:
+  Moment factor_;
+  Music_iterator * child_iter_p_;
 };
 
 

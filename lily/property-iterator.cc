@@ -16,17 +16,16 @@
   translation unit, and set the property.
   */
 void
-Property_iterator::do_process_and_next (Moment m)
+Property_iterator::process (Moment m)
 {
   SCM sym = music_l_->get_mus_property ("symbol");
   if (gh_symbol_p(sym))
     report_to_l ()->set_property (sym, music_l_->get_mus_property ("value"));
-  Music_iterator::do_process_and_next (m);
+  Simple_music_iterator::process (m);
 }
 
-
 void
-Push_property_iterator::do_process_and_next (Moment m)
+Push_property_iterator::process (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
   SCM eprop = music_l_->get_mus_property ("element-property");
@@ -34,15 +33,15 @@ Push_property_iterator::do_process_and_next (Moment m)
 
   Translator_def::apply_pushpop_property (report_to_l (), syms, eprop, val);
   
-  Music_iterator::do_process_and_next (m);
+  Simple_music_iterator::process (m);
 }
 
 void
-Pop_property_iterator::do_process_and_next (Moment m)
+Pop_property_iterator::process (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
   SCM eprop = music_l_->get_mus_property ("element-property");
   Translator_def::apply_pushpop_property (report_to_l (), syms, eprop, SCM_UNDEFINED);
   
-  Music_iterator::do_process_and_next (m);
+  Simple_music_iterator::process (m);
 }

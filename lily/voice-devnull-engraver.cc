@@ -17,13 +17,45 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
+  virtual bool do_try_music (Music *m);
   virtual void acknowledge_element (Score_element_info);
 };
 
 ADD_THIS_TRANSLATOR (Voice_devnull_engraver);
 
+static char const *eat_spanners[] = {
+  "beam-interface",
+  "slur",
+  "dynamic-interface",
+  "crescendo-interface",
+  0
+};
+
+bool
+Voice_devnull_engraver::do_try_music (Music *m)
+{
+  if (daddy_trans_l_->id_str_ == "two"
+      && (to_boolean (get_property ("unison"))
+	  || to_boolean (get_property ("unisilence"))))
+    {
+      for (char const **p = eat_spanners; *p; p++)
+	{
+	  if (Span_req *s = dynamic_cast <Span_req *> (m))
+	    {
+	      if (s->span_type_str_ == *p)
+		{
+		  return true;
+		}
+	    }
+	}
+    }
+  return false;
+}
+  
 static char const *junk_interfaces[] = {
-  //	"beam-interface",
+#if 0
+  "beam-interface",
+#endif
   "slur-interface",
   "tie-interface",
   "text-item-interface",

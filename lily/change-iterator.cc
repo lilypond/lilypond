@@ -24,7 +24,7 @@ Change_iterator::error (String reason)
   /*
     GUHG!
    */
-  String warn2= "Change_iterator::do_process_and_next (): " 
+  String warn2= "Change_iterator::process (): " 
     + report_to_l ()->type_str_ + " = `"
     + report_to_l ()->id_str_ + "': ";
   warning (warn2);
@@ -35,7 +35,7 @@ Change_iterator::error (String reason)
   move to construct_children ?
  */
 void
-Change_iterator::do_process_and_next (Moment m)
+Change_iterator::process (Moment m)
 {
   Translator_group * current = report_to_l ();
   Translator_group * last = 0;
@@ -80,7 +80,7 @@ Change_iterator::do_process_and_next (Moment m)
       }
   else
     error (_ ("none of these in my family"));
-  Music_iterator::do_process_and_next (m);
+  Simple_music_iterator::process (m);
 }
 
 

@@ -12,20 +12,33 @@
 #include "music-list.hh"
 #include "request-chord-iterator.hh"
 
-
-void
-Sequential_music_iterator::do_print() const
-{
-  if (iter_p_)
-    iter_p_->print();
-}
-
 Sequential_music_iterator::Sequential_music_iterator ()
 {
   cursor_ = 0;
   here_mom_ = 0;
   iter_p_ =0;
 }
+
+Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator const &src)
+  : Music_iterator (src)
+{
+  cursor_ = src.cursor_;
+  here_mom_ = src.here_mom_;
+  iter_p_ = src.iter_p_->clone ();
+}
+
+Sequential_music_iterator::~Sequential_music_iterator()
+{
+  if (iter_p_)
+    {
+      /*      if (iter_p_->ok () )
+	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
+      */
+      delete iter_p_;
+      iter_p_ = 0;
+    }
+}
+
 
 void
 Sequential_music_iterator::construct_children()
@@ -75,56 +88,78 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
-Sequential_music_iterator::~Sequential_music_iterator()
+
+SCM
+Sequential_music_iterator::get_music (Moment until)const
 {
-  if (iter_p_)
-    {
-      if (iter_p_->ok ())
-	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
-      delete iter_p_;
-      iter_p_ = 0;
-    }
+#if 0
+  /*
+     FIXME: get_music () is const, so we must operate on a copy of child-iter.
+  */
+  
+  SCM s = SCM_EOL;
+  while (1) 
+      {
+	Moment local_until = until - here_mom_;
+	while (iter_p_->ok ()) 
+	  {
+	    Moment here = iter_p_->pending_moment ();
+	    if (here != local_until)
+	      return s;
+	    
+	    s = gh_append2 (iter_p_->get_music (local_until), s);
+	  }
+	  
+	  if (!iter_p_->ok ()) 
+	    {
+	      //	      leave_element ();
+	      
+	      if (gh_pair_p (cursor_))
+		start_next_element ();
+	      else
+		return s;
+	    }
+	}
+  return s;
+#endif
+  return SCM_EOL;
 }
 
 void
-Sequential_music_iterator::do_process_and_next (Moment until)
+Sequential_music_iterator::process (Moment until)
 {
-  if (!iter_p_)
-    return;
-
-  while (1) 
+  if (ok ())
     {
-      Moment local_until = until - here_mom_;
-      while (iter_p_->ok()) 
+      while (1) 
 	{
-	  Moment here = iter_p_->next_moment();
-	  if (here != local_until)
-	    goto loopexit;
-	    
-	  iter_p_->process_and_next (local_until);
-	}
-      
-      if (!iter_p_->ok()) 
-	{
-	  set_sequential_music_translator();
-	  leave_element();
+	  Moment local_until = until - here_mom_;
+	  while (iter_p_->ok ()) 
+	    {
+	      Moment here = iter_p_->pending_moment ();
+	      if (here != local_until)
+		return ;
+	      
+	      iter_p_->process (local_until);
+	    }
 	  
-	  if (gh_pair_p (cursor_))
-	    start_next_element();
-	  else 
-	    goto loopexit;
+	  if (!iter_p_->ok ()) 
+	    {
+	      set_sequential_music_translator ();
+	      leave_element ();
+	      
+	      if (gh_pair_p (cursor_))
+		start_next_element ();
+	      else 
+		return ;
+	    }
 	}
     }
-
-loopexit:
-
-  Music_iterator::do_process_and_next (until);
 }
 
 Moment
-Sequential_music_iterator::next_moment() const
+Sequential_music_iterator::pending_moment() const
 {
-  return iter_p_->next_moment() + here_mom_;
+  return iter_p_->pending_moment() + here_mom_;
 }
 
 

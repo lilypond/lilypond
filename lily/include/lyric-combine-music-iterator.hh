@@ -15,20 +15,22 @@
 
 class Lyric_combine_music_iterator : public Music_iterator
 {
-  Music_iterator * music_iter_p_;
-  Music_iterator * lyric_iter_p_;
-  
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
+  Lyric_combine_music_iterator ();
+
 protected:
   virtual void construct_children ();
-  virtual Moment next_moment () const;
-  virtual void do_process_and_next (Moment);
+  virtual Moment pending_moment () const;
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
-  virtual void do_print () const;
   virtual ~Lyric_combine_music_iterator ();
-public:
-  Lyric_combine_music_iterator ();
+
+private:
+  Music_iterator * music_iter_p_;
+  Music_iterator * lyric_iter_p_;
 };
 #endif /* LYRIC_COMBINE_MUSIC_ITERATOR_HH */
 

@@ -6,11 +6,14 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "global-translator.hh"
-#include "music-iterator.hh"
 #include "debug.hh"
+#include "music.hh"
+#include "request.hh"
+#include "music-list.hh"
+#include "music-iterator.hh"
+#include "global-translator.hh"
 
-Global_translator::Global_translator()
+Global_translator::Global_translator ()
 {
 }
 
@@ -29,13 +32,12 @@ Global_translator::add_moment_to_process (Moment m)
   extra_mom_pq_.insert (m);
 }
 
-void
-Global_translator::modify_next (Moment &w)
+Moment
+Global_translator::sneaky_insert_extra_moment (Moment w)
 {
-  while (extra_mom_pq_.size() && 
-	 extra_mom_pq_.front() <= w)
-	
-    w =extra_mom_pq_.get();
+  while (extra_mom_pq_.size() && extra_mom_pq_.front() <= w)
+    w = extra_mom_pq_.get();
+  return w;
 }
 
 int
@@ -81,25 +83,22 @@ Global_translator::finish ()
 void
 Global_translator::run_iterator_on_me (Music_iterator * iter)
 {
-  while (iter->ok() || moments_left_i ())
+
+  while (iter->ok () || moments_left_i ())
     {
       Moment w;
       w.set_infinite (1);
-      if (iter->ok())
+      if (iter->ok ())
 	{
-	  w = iter->next_moment();
+	  w = iter->pending_moment();
+      
 	  DEBUG_OUT << "proccing: " << w << '\n';
-	  if (flower_dstream && !flower_dstream->silent_b ("walking"))
-	    iter->print();
 	}
-      
-      modify_next (w);
-      prepare (w);
-      
-      if (flower_dstream && !flower_dstream->silent_b ("walking"))
-	print();
 
-      iter->process_and_next (w);
-      process();
+      w = sneaky_insert_extra_moment (w);
+      prepare (w);
+      iter->process (w);
+      
+      process ();
     }
 }

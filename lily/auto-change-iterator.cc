@@ -65,11 +65,13 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
     ; //    error (_ ("none of these in my family"));
 
 }
+
 Pitch_interrogate_req* spanish_inquisition; // nobody expects it
+
 void
-Auto_change_iterator::do_process_and_next (Moment m)
+Auto_change_iterator::process (Moment m)
 {
-  Music_wrapper_iterator::do_process_and_next (m);
+  Music_wrapper_iterator::process (m);
 
   if (!spanish_inquisition)
     spanish_inquisition = new Pitch_interrogate_req;

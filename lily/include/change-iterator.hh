@@ -10,20 +10,18 @@
 #ifndef CHANGE_ITERATOR_HH
 #define CHANGE_ITERATOR_HH
 
-#include "music-iterator.hh"
+#include "simple-music-iterator.hh"
 
 
-class Change_iterator : public Music_iterator
+class Change_iterator : public Simple_music_iterator
 {
-  void  error (String);
-
-protected:
-  virtual void do_process_and_next (Moment);
-
 public:
-  /*
-    CTOR is public
-   */
+  VIRTUAL_COPY_CONS (Music_iterator);
+  /* constructor is public */
+  virtual void process (Moment);
+
+private:
+  void  error (String);
 };
 
 #endif

@@ -15,11 +15,12 @@
 class Grace_iterator : public Music_wrapper_iterator
 {
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   ~Grace_iterator ();
   virtual void construct_children () ;
-  virtual void do_process_and_next (Moment);
+  virtual void process (Moment);
 
-  Moment next_moment () const;
+  Moment pending_moment () const;
 };
 
 

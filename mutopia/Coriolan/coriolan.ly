@@ -51,38 +51,42 @@ violiniGroup = \context GrandStaff = violini_group <
 	\violinoIIStaff
 >
 
-violiGroup = \context PianoStaff = violi_group <
+violiGroup = \context PianoStaff = violi_group \notes <
 	\context StaffCombineStaff=one {
 		\clef "alto"; 
+		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
 	}
 	\context StaffCombineStaff=two {
 		\clef "alto"; 
+		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
 	}
 
 	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineThread=one \violaI
-		\context StaffCombineThread=two \violaII
+		\context StaffCombineVoice=one \violaI
+		\context StaffCombineVoice=two \violaII
 >
 
-bassiGroup = \context PianoStaff = bassi_group <
+bassiGroup = \context PianoStaff = bassi_group \notes <
 	\context StaffCombineStaff=one {
 		\clef "bass"; 
+		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
 	}
 	\context StaffCombineStaff=two {
 		\clef "bass"; 
+		\key es \major;
 		\skip 1*314; 
 		\bar "|."; 
 	}
 
 	\context StaffCombineStaff=one \partcombine StaffCombineStaff
-		\context StaffCombineThread=one \violoncello
-		\context StaffCombineThread=two \contrabasso
+		\context StaffCombineVoice=one \violoncello
+		\context StaffCombineVoice=two \contrabasso
 >
 
 

@@ -12,12 +12,30 @@
 #include "music-list.hh"
 #include "request.hh"
 
+Request_chord_iterator::Request_chord_iterator ()
+{
+}
 
+Request_chord_iterator::Request_chord_iterator (Request_chord_iterator const &src)
+  : Simple_music_iterator (src)
+{
+}
+
+Translator_group*
+Request_chord_iterator::get_req_translator_l ()
+{
+  assert (report_to_l ());
+  if (report_to_l ()->is_bottom_translator_b ())
+    return report_to_l ();
+
+  set_translator (report_to_l ()->get_default_interpreter ());
+  return report_to_l ();
+}
 
 void
 Request_chord_iterator::construct_children()
 {
-  elt_length_mom_ =elt_l ()->length_mom ();
+  Simple_music_iterator::construct_children ();
   get_req_translator_l();
 }
 
@@ -27,44 +45,34 @@ Request_chord_iterator::elt_l () const
   return (Request_chord*) music_l_;
 }
 
-Request_chord_iterator::Request_chord_iterator ()
+
+SCM
+Request_chord_iterator::get_music (Moment)const
 {
-  last_b_ = false;
-}
-
-
-bool
-Request_chord_iterator::ok() const
-{
-  return (elt_length_mom_ && !last_b_) || first_b_;
-}
-
-Moment
-Request_chord_iterator::next_moment() const
-{
-  Moment m (0);
-  if  (!first_b_)
-    m = elt_length_mom_;
-  return m;
-}
-
-
-void
-Request_chord_iterator::do_print() const
-{
-#ifndef NPRINT
-  DEBUG_OUT << "duration: " << elt_length_mom_;
-#endif
-}
-
-void
-Request_chord_iterator::do_process_and_next (Moment mom)
-{
-  if (first_b_)
+  SCM s = SCM_EOL;
+  if (music_l_)
     {
-      for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list (); gh_pair_p (s);  s = gh_cdr (s))
+      Music_sequence * ms = dynamic_cast<Music_sequence*> (music_l_);
+     
+      for (SCM m = ms->music_list (); gh_pair_p (m); m = gh_cdr (m))
+	{
+	  s = gh_cons (gh_car (m) , s);
+	}
+    }
+  return s;
+}
+
+void
+Request_chord_iterator::process (Moment m)
+{
+  last_processed_mom_ = m;
+  if (music_l_)
+    {
+      for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list ();
+	   gh_pair_p (s);  s = gh_cdr (s))
 	{
 	  Music *mus = unsmob_music (gh_car (s));
+
 	  if (Request * req_l = dynamic_cast<Request*> (mus))
 	    {
 	      bool gotcha = try_music (req_l);
@@ -73,11 +81,9 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 	    }
 	  else
 	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
-						 classname (mus)));
-		    }
-      first_b_ = false;
-    }
+					 classname (mus)));
+	}
 
-  if (mom >= elt_length_mom_)
-    last_b_ = true;
+     music_l_ =0;
+    }
 }

@@ -11,6 +11,32 @@
 #include "interpretation-context-handle.hh"
 #include "translator-group.hh"
 
+Interpretation_context_handle::Interpretation_context_handle()
+{
+  report_to_l_ =0;
+}
+
+Interpretation_context_handle::Interpretation_context_handle (Interpretation_context_handle const&s)
+{
+  report_to_l_ =0;
+  if (s.report_to_l_)
+    up (s.report_to_l_ );
+}
+
+Interpretation_context_handle*
+Interpretation_context_handle::clone () const
+{
+  Interpretation_context_handle* handle = new Interpretation_context_handle;
+  handle->report_to_l_ = this->report_to_l_;
+  return handle;
+}
+
+Interpretation_context_handle::~Interpretation_context_handle ()
+{
+  if (report_to_l_)
+    down ();
+}
+
 void
 Interpretation_context_handle::up (Translator_group*t)
 {
@@ -29,13 +55,6 @@ bool
 Interpretation_context_handle::try_music (Music *m)
 {
   return  report_to_l_->try_music (m);
-}
-
-Interpretation_context_handle::Interpretation_context_handle (Interpretation_context_handle const&s)
-{
-  report_to_l_ =0;
-  if (s.report_to_l_)
-    up (s.report_to_l_ );
 }
 
 void
@@ -61,14 +80,4 @@ Interpretation_context_handle::report_to_l ()const
   return report_to_l_;
 }
 
-Interpretation_context_handle::Interpretation_context_handle()
-{
-  report_to_l_ =0;
-}
-
-Interpretation_context_handle::~Interpretation_context_handle ()
-{
-  if (report_to_l_)
-    down ();
-}
 

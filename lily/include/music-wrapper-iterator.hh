@@ -21,16 +21,18 @@
 class Music_wrapper_iterator : public Music_iterator
 {
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Music_wrapper_iterator ();
+  Music_wrapper_iterator (Music_wrapper_iterator const&);
   ~Music_wrapper_iterator ();
 
   virtual void construct_children  () ;
-  virtual Moment next_moment () const;
+  virtual Moment pending_moment () const;
   virtual bool ok () const;
+  virtual SCM get_music (Moment)const;
 
 protected:
-  virtual void do_print () const;
-  virtual void do_process_and_next (Moment) ;
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   Music_iterator *child_iter_p_;

@@ -10,7 +10,7 @@
 #ifndef PROPERTY_ITERATOR_HH
 #define PROPERTY_ITERATOR_HH
 
-#include "music-iterator.hh"
+#include "simple-music-iterator.hh"
 
 
 
@@ -18,24 +18,31 @@
 /**
   Iterate a property.  
  */
-class Property_iterator : public Music_iterator
+class Property_iterator : public Simple_music_iterator
 {
 public:
-  // construction  
+  VIRTUAL_COPY_CONS (Music_iterator);
+  /* construction */
 protected:
-  virtual void do_process_and_next (Moment);
+  virtual void process (Moment);
 };
 
-class Push_property_iterator : public Music_iterator
+class Push_property_iterator : public Simple_music_iterator
 {
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
 protected:
-  virtual void do_process_and_next (Moment);
+  /* construction */
+  virtual void process (Moment);
 };
 
-class Pop_property_iterator : public Music_iterator
+class Pop_property_iterator : public Simple_music_iterator
 {
+public:
+  VIRTUAL_COPY_CONS (Music_iterator);
 protected:
-  virtual void do_process_and_next (Moment);
+  /* construction */
+  virtual void process (Moment);
 };
 
 
