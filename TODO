@@ -16,6 +16,7 @@ Grep for TODO and ugh/ugr/urg.
 > lines from the staff to the note will have a blob too.  For example,
 > with the note "a4" there will be a black note at the ledger line where
 > "c" would be too.  However, only the "a4" will have the extra blob.
+. * clefs.ly
 . * ps/lily.ps
 . * devise standard for functioning of Vertical_align_element.
 . * fix interstaff slurs & beams.
@@ -88,6 +89,17 @@ specify the third.  Should there be?
 . * rest collision minimum dist.
 . * Matanya's tips: 
 .  * spacing for prefatory matter
+.  * Score does not use points to describe musical sizes. I think becaue the music
+> symbols are not part of any PostScript font. The line length is 7.5 inch (19.05
+> cm) and the height of normal size is equivalent to the traditional raster 1
+> size. (The Schott company sells Letraset sheets of musical symbols which are
+> measured in raster sizes). It is agreed among most engravers I know that the
+> standard size for adult readers in solo music should 70% of raster 1.  Jeff's
+> example was 75%, so I had to modify my file to match. Of course, the amount of
+
+So that makes for a staff space of 4 2/3 point. I'll add the
+dimensions to the TODO file.
+
 .  * accidentals closer to note head
 .  * ledger line for rest dim less
 .  * heavier beams?
@@ -106,6 +118,10 @@ specify the third.  Should there be?
 
 .* TODO before 1.2
 . * \selectmusic to cut pieces from music. 
+. * Morally pure LilyPond.
+.  * Remove mutopia ramblings.
+.  * Remove non-free software links.
+.  * Remove meta article LilyPond.
 . * TODO: merge atom & molecule; make  tree from molecule.
 . * break priority setting from SCM.
 . * Gade score
@@ -208,6 +224,7 @@ compilation.
 .  * deps for ly2dvi
 .* STUFF
 . * compulsory hshift
+. * Give # lines in linebreaking.  
 . * arrows on slurs.
 . * Align_element::padding  ?
 . * uniformise property names...

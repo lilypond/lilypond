@@ -7,7 +7,7 @@
 \maketitle
 
 This document tries give an brief overview of LilyPond features. When
-the text correspond with  the shown notation, we consider LilyPond
+the text correspond with the shown notation, we consider LilyPond
 Officially BugFree (tm).
 
 \section{Notes and rests} 
@@ -19,9 +19,10 @@ centered on the middle staff line.
 \mudelafile{rest.fly}
 
 Note head shapes are settable.  The stem endings should be adjusted
-per note head
+per note head.  If you want different note head styles on one stem,
+you must create a special context called Thread.
 
-\mudelafile{noteheadstyle.fly}
+\mudelafile{noteheadstyle.ly}
 
 
 \section{Beams, slurs and other spanners}
@@ -78,5 +79,22 @@ knowing it.  Consequently, they fall over quite often.
 
 \mudelafile{bar-scripts.ly}
 
+
+\section{Clefs and Time Signatures}
+
+For octaviated clefs, the ``8'' should appear closely above or below
+the clef respectively. The transparent clef should not occupy any space
+and with style \texttt{fullSizeChanges}, the changing clef should be
+typeset in full size.
+
+\mudelafile{clefs.ly}
+
+By default, time signatures are written with two numbers. With style
+``C'', 4/4 and 2/2 are written with their corresponding symbols and
+with style ``old'', 2/2, 3/2, 3/4, 4/4, 6/4, 9/4, 6/8 and 9/8 are
+typeset with symbols, all other signatures retain the default layout.
+The style ``1'', gives single number signatures for all signatures.
+
+\mudelafile{time.fly}
 
 \end{document}
