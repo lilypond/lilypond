@@ -529,7 +529,10 @@ Slur::height (SCM smob, SCM ax)
   assert (a == Y_AXIS);
 
   SCM mol = me->get_uncached_molecule ();
-  return ly_interval2scm (unsmob_molecule (mol)->extent (a));
+  Interval ext;
+  if (Molecule * m = unsmob_molecule (mol))
+    ext = m->extent (a);
+  return ly_interval2scm (ext);
 }
 
 /*

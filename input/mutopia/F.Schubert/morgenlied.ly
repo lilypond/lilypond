@@ -54,7 +54,7 @@ melody = \notes   \relative c'' \repeat volta 2 \context Voice = singer {
   e4 c8
     <<
 	\new Voice { \stemUp f8. g16 }
-	{ \stemDown f8.[ g16] } >> a8 |
+	{ \stemDown f8.[ g16] } >> \stemBoth a8 |
   fis4  g8 c16[ b a g] f[ e] |
   d4 f8 a16[ g fis g] f[ d] |
   g4. r8 gis gis |

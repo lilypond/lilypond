@@ -829,7 +829,7 @@ Rest can contain a list of beat groupings
 ;;
 (define-public (determine-split-list evl1 evl2)
   "EVL1 and EVL2 should be ascending"
-  (define pc-debug #f)
+  (define pc-debug #t)
   (define ev1 (list->vector evl1))
   (define ev2 (list->vector evl2))
   (define (when v i)
@@ -842,14 +842,10 @@ Rest can contain a list of beat groupings
     (define (f? x)
       (equal? (ly:get-mus-property  x 'name) 'NoteEvent))
     (filter f? (map car (what v i))))
+  (define moments (uniq-list
+		   (merge (map car evl1) (map car evl2) ly:moment<?)))
+  (define result '())
   
-  (define result
-    (list->vector
-     (map (lambda (x)
-	    (cons x '()))
-	  (uniq-list
-	  (merge (map car evl1) (map car evl2) ly:moment<?)))))
-
   (define (analyse-time-step i1 i2 ri
 			     active1
 			     active2)
@@ -925,7 +921,7 @@ Rest can contain a list of beat groupings
      ((= i2 (vector-length ev2)) (put 'apart))
      (else
       (let*
-	  (
+	  ((now (when result ri))
 ;	   (x (display (list "\nelse" (= i1 (vector-length ev1)) i2  (vector-length ev2) (= i2 (vector-length ev2)))))
 	   (m1 (when ev1 i1))
 	   (m2 (when ev2 i2))
@@ -943,8 +939,8 @@ Rest can contain a list of beat groupings
 		       (vector-length ev1) (vector-length ev2) (vector-length result)  "\n")))
     
 	
-	(if (not (or (equal? m1 (when result ri))
-		     (equal? m2 (when result ri))))
+	(if (not (or (equal? m1 now)
+		     (equal? m2 now)))
 	    (begin
 	      (display
 	       (list "<? M1,M2 != result :"
@@ -961,6 +957,7 @@ Rest can contain a list of beat groupings
 	  (if (> ri 0) (put 'apart (1- ri)))
 	  (analyse-time-step i1 (1+ i2) (1+ ri) active1 new-active2))
 	 (else
+
 	  (if (and (equal? active1 active2) (equal? new-active2 new-active1))
 	      (let*
 		  ((notes1 (get-note-evs ev1 i1))
@@ -1007,8 +1004,10 @@ Rest can contain a list of beat groupings
 		  
 		  ))))
 	      
-	      ;; active states different: 
-	      (put 'apart))
+	      ;; active states different:
+	      ;; must mark differently so
+	      ;; it doesn't transform into solo 
+	      (put 'apart-spanner))
 	  (analyse-time-step (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2)))
 	 ))))
 
@@ -1087,8 +1086,12 @@ Rest can contain a list of beat groupings
 	  (else
 	   (analyse-solo12 (1+ i1) (1+ i2) (1+ ri)))
 	  )))))
-
+   (set! result (list->vector
+		 (map (lambda (x)
+			(cons x '())) moments)))
+   
    (analyse-time-step 0 0  0 '() '())
+   (if pc-debug (display result))
    (analyse-solo12 0 0 0)
    (if pc-debug (display result))
    
