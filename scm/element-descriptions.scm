@@ -554,8 +554,10 @@
                 (font-shape . italic)
 		(type . "line")
 		;;; urg
+		;; this would be for (de)cresc. text spanners
 		;;;(padding . 1.0)
-		(width-correct . -1) ;ughr
+		;;;(padding . 0.0)
+		(width-correct . -1) ;ughr, only for (de)cres. spanners
 		(direction . 1)
 		(meta . ,(grob-description "TextSpanner" text-spanner-interface  font-interface))		
 	))

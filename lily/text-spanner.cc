@@ -37,7 +37,16 @@ Text_spanner::brew_molecule (SCM smob)
 
 
   /* Ugh, must be same as Hairpin::brew_molecule.  */
+#if 0
   Real padding = gh_scm2double (me->get_grob_property ("padding"));
+#else
+  /* something seems seriously broken, somewhere, when used by
+     text-spanner-engraver.  For dynamic-engraver, all seems fine */
+  Real padding = 0;
+  if (me->get_grob_property ("padding") != SCM_EOL
+      && gh_number_p (me->get_grob_property ("padding")))
+    padding = gh_scm2double (me->get_grob_property ("padding"));
+#endif
   Real broken_left =  spanner->get_broken_left_end_align ();
   Real width = spanner->spanner_length ();
   width -= broken_left;
@@ -50,7 +59,9 @@ Text_spanner::brew_molecule (SCM smob)
       Item *b = spanner->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
 
-      if (!broken [d])
+      /* This should be switchable, only for (de)cresc. not for generic
+	 text spanners */
+      if (padding && !broken [d])
 	{
 
 	  Interval e = b->extent (b, X_AXIS);
@@ -63,8 +74,9 @@ Text_spanner::brew_molecule (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  // FIXME: ecs tells us
-  width += gh_scm2double (me->get_grob_property ("width-correct"));
+  // FIXME: ecs tells us -- only for (de)cresc. spanners
+  if (padding)
+    width += gh_scm2double (me->get_grob_property ("width-correct"));
   /* /Ugh */
 
 
