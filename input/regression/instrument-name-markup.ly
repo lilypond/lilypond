@@ -10,12 +10,13 @@ including alterations. "
 \version "1.7.6"
 
 
+textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
 \score {
   \notes \context Staff = treble {
     \property Staff.instrument
-	= \markup { \column << "Clarinetti" { "in B" \smaller \musicglyph #"accidentals--1" } >> }
+	= \markup { \column << "Clarinetti" { "in B" \textFlat } >> }
     \property Staff.instr
-	= \markup { \smaller  { "Cl(B" \smaller \musicglyph #"accidentals--1" ")" } }
+	= \markup { \smaller  { "Cl(B" \textFlat ")" } }
 
     { c''1 \break c'' }
 

@@ -1,7 +1,19 @@
 2003-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/new-chord-name-engraver.cc (process_music): give original
+	inversion pitch to chord name routine.
+
+	* input/tutorial/os-score.ly: update to new markup
+
+	* Documentation/user/appendices.itely: simply include
+	chords-ignatzek. 
+
+	* Documentation/user/refman.itely (Chords mode): add documentation
+	for chord mode.
+
 	* scm/chord-entry.scm (construct-chord): mark inversion as bass if
 	not present in chord.
+	(construct-chord): add inversion and bass support.
 
 	* lily/chord.cc: junk contents.
 

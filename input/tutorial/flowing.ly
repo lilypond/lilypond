@@ -22,8 +22,8 @@ text = \lyrics {
 
 accompaniment =\chords {
         r8
-        c2:3- f:3-.7 d:min es4 c8:min r8
-        c2:min f:min7 g:7^3.5 c:min }
+        c2:3- f:3-.7 d:m es4 c8:m r8
+        c2:m f:m7 g:7^3.5 c:m }
 
 \score {
         \simultaneous {

@@ -3333,107 +3333,118 @@ print them as name.
 @cindex Chords mode
 
 Chord mode is a mode where you can input sets of pitches using common
-names.  It is introduced by the keyword @code{\chords}.  It is similar
-to note mode, but words are also looked up in a chord modifier table
-(containing @code{maj}, @code{dim}, etc). Dashes and carets are used
-to indicate chord additions and subtractions, so articulation scripts
-can not be entered in Chord mode.
-
-Throughout these examples, chords have been shifted around the staff
-using @code{\transpose}.
-
+names.  It is introduced by the keyword @code{\chords}.
+In chords mode,  a  chord is entered by the root, which is entered
+like a common pitch, for example,
 @lilypond[fragment,verbatim]
-\transpose c c' {
-  \chords {
-    c1  c:3-       c:7     c:8
-    c:9 c:9-.5+.7+ c:3-.5- 
-  }
-}
+  es4.  d8 c2
+@end lilypond
+is the notation for an E-flat major chord.
+
+@cindex chord entry
+@cindex chord mode
+
+Other chords may be entered
+by suffixing a colon, and introducing a modifier, and optionally, a
+number, for example
+@lilypond[fragment,verbatim]
+\chords { e1:m e1:7 e1:m7  }
+@end lilypond
+The first number following the root is taken to be the `type' of the
+chord, thirds are added to the root until it reaches the specified
+number, for example.
+@lilypond[fragment,verbatim]
+ \chords { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
 @end lilypond
 
+@cindex root of chord
+@cindex additions, in chords
+@cindex removals, in  chords
+
+More complex chords may also be constructed  adding separate steps
+to a chord. Additions are added after the  number following
+the colon, and are separated by dots. For example
+@c
+@lilypond[verbatim,fragment]
+  \chords { c:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+Chord steps can be  altered by suffixing a @code{-} or @code{+} sign
+to the number, for example:
+@lilypond[verbatim,fragment]
+  \chords { c:7+ c:5+.3-  c:3-.5-.7- }
+@end lilypond
+Removals are specified similarly, and are introduced by a caret.  They
+must come after the additions.
+@lilypond[verbatim,fragment]
+  \chords { c^3 c:7^5 c:9^3.5 }
+@end lilypond
+
+Modifiers can be used to change pitches. The following modifiers are
+supported
+@table @code
+@item m
+  Minor chord. Lowers the 3rd and (if present) the 7th step.
+@item dim
+  Diminished chord. Lowers the 3rd, 5th and (if present) the 7th step
+@item aug
+  Augmented chord. Raises the 5th step.
+@item maj
+  Major 7th chord. Raises the 7th step, if present.  
+@item sus
+  Suspended 4th or 2nd. This modifier removes the 3rd step. Append
+  either @code{2} or @code{4} to add the 2nd or 4th step to the chord.
+@end table
+Modifiers can be mixed with additions. 
+@lilypond[verbatim,fragment]
+  \chords { c:sus4 c:7sus4 c:dim7 c:m6 } 
+@end lilypond
+
+@cindex modifiers, in chords. 
 @cindex @code{aug}
 @cindex @code{dim}
 @cindex @code{maj}
 @cindex @code{sus}
+@cindex @code{m}
 
-The second type of modifier that may appear after the @code{:} is a
-named modifier.  Named modifiers are listed in the file
-@file{chord-modifiers.ly}.  The available modifiers are @code{m} and
-@code{min} which lower the 3rd half a step, `@code{aug}' which
-raises the 5th, `@code{dim}' which lowers the 5th,
-`@code{maj}' which adds a raised 7th, and `@code{sus}'
-which replaces the 5th with a 4th.
-
+Since the unaltered 11 does sound well when combined with the
+unaltered 3, the 11 is removed in this case, unless it is added
+explicitly). For example,
 @lilypond[fragment,verbatim]
-\transpose c c' {
-  \chords {
-    c1:m c:min7 c:maj c:aug c:dim c:sus
-  }
-}
-@end lilypond
- 
-
-Chord subtractions are used to eliminate notes from a chord.  The
-notes to be subtracted are listed after a @code{^} character,
-separated by dots.
-
-@lilypond[fragment,verbatim,center]
-  \transpose c c' {
-    \chords {
-      c1^3 c:7^5.3 c:8^7
-    }
-  }
+  \chords { c:13 c:13.11 c:m13 }
 @end lilypond 
+
 @cindex @code{/}
 
-Chord inversions can be specified by appending `@code{/}' and the name
-of a single note to a chord.  In a chord inversion, the inverted note is
-transposed down until it is the lowest note in the chord.  If the note
-is not in the chord, a warning will be printed.
-
+An inversion (putting one pitch of the chord on the bottom), as well
+as bass notes, can be specified by appending
+@code{/}@var{pitch} to the chord. 
 @lilypond[fragment,verbatim,center]
-  \transpose c c'' {
-    \chords {
-      c1 c/e c/g c:7/e
-    }
-  }
-
+   \chords { c1 c/g c/f }
 @end lilypond 
 @cindex @code{/+}
-
-Bass notes can be added by `@code{/+}' and
-the name of a single note to a chord.  This has the effect of
-adding the specified note to the chord, lowered by an octave,
-so it becomes the lowest note in the chord.
+If you do not want to remove the bass note from the chord, but rather
+add the note, then you can use @code{/+}@var{pitch}.
 
 @lilypond[fragment,verbatim,center]
-  \transpose c c'' {
-    \chords {
-      c1 c/+c c/+g c:7/+b
-    }
-  }
-
+   \chords { c1 c/+g c/+f }
 @end lilypond 
-
-The formal syntax for named chords is as follows:
-@example
-  @var{tonic}[@var{duration}][@code{-}@var{modifiers}][@code{^}@var{subtractions}][@code{/}@var{inversion}][@code{/+}@var{bass}].
-@end example
-
-@var{tonic} should be the tonic note of the chord, and @var{duration} is
-the chord duration in the usual notation.  There are two kinds of
-modifiers.  One type is formed by @emph{chord additions}. Additions are
-obtained by listing intervals separated by dots.  An interval is written
-by its number with an optional @code{+} or @code{-} to indicate raising
-or lowering by half a step.  Chord additions have two effects: they adds
-the specified interval and all lower odd numbered intervals to the
-chord, and they may lower or raise the specified interval.
 
 
 @refbugs
 
-Implementation details are gory. For example @code{c:4} not only adds
-a fourth, but also removes the third.
+Each step can only be present in a chord once.  The following
+simply produces the augmented chord, since @code{5+} is interpreted
+last.
+@cindex clusters
+@lilypond[verbatim,fragment]
+  \chords { c:5.5-.5+ }
+@end lilypond
+
+In chord mode, dashes and carets are used to indicate chord additions
+and subtractions, so articulation scripts can not be entered.
+
+
+
 
 
 @c .  {Printing named chords}
@@ -3500,41 +3511,10 @@ scheme = \notes {
 }
 @end lilypond
 
+The default chord name layout is a system for Jazz music, proposed by
+Klaus Ignatzek (See @ref{Literature}).
 
-By default, a chord name system proposed by Harald Banter (See
-@ref{Literature}) is used. The system is very regular and predictable.
-Typical American style chord names may be selected by setting the
-@code{style} property of the @code{ChordNames.ChordName} object to
-@code{'american}. Similarly @code{'jazz} selects Jazz chordnames.
-
-Routines that determine the names to be printed are written in Scheme,
-and may be customized by the user.  The code can be found in
-@file{scm/chord-name.scm}.  Here's an example showing the differences in
-chord name styles:
-
-@c too long?
-@c maybe just junk verbatim option?
-@lilypond[verbatim,singleline,noquote]
-scheme = \chords {
-  c1 c:5^3 c:4^3 c:5+
-  c:m7+ c:m5-.7
-  c:5-.7 c:5+.7
-  c:9^7
-}
-
-\score {
-  \notes <
-    \context ChordNames = banter \scheme
-    \context ChordNames = american {
-      \property ChordNames.ChordName \override
-        #'style = #'american \scheme }
-    \context ChordNames = jazz {
-      \property ChordNames.ChordName \override
-        #'style = #'jazz \scheme }
-    \context Staff \transpose c c' \scheme
-  >
-}
-@end lilypond
+[TODO: add description for banter other jazz.]
 
 
 @node Writing parts

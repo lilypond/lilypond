@@ -149,7 +149,6 @@
 (define-public (ignatzek-chord-names
 		in-pitches bass inversion
 		context)
-  
 
   (define (remove-uptil-step x ps)
     "Copy PS, but leave out everything below the Xth step."
@@ -174,6 +173,7 @@
 	   alteration-pitches
 	   addition-pitches
 	   suffix-modifiers
+	   bass-pitch
 	   )
 
     "Format for the given (lists of) pitches. This is actually more
@@ -272,14 +272,20 @@ work than classifying the pitches."
 			       alterations
 			       suffixes
 			       add-markups) sep))
+	 (base-stuff (if bass-pitch
+			 (list sep (pitch->markup bass-pitch))
+			 '()))
 	 )
-      
-      (make-line-markup
-       (list
-	root-markup
-	(markup-join prefixes sep)
-	(make-super-markup to-be-raised-stuff))
-       )))
+
+      (set! base-stuff
+	    (append
+	     (list root-markup
+		   (markup-join prefixes sep)
+		   (make-super-markup to-be-raised-stuff))
+	     base-stuff))
+      (make-line-markup       base-stuff)
+
+       ))
 
   (let*
       (
@@ -291,6 +297,7 @@ work than classifying the pitches."
        (suffixes '())
        (add-steps '())
        (main-name #f)
+       (bass-note #f)
        (alterations '())
        )
 
@@ -340,10 +347,16 @@ work than classifying the pitches."
 	    )
 	 (set! alterations (append alterations (car split)))
 	 (set! add-steps (append add-steps (cdr split)))
-	 
 	 (set! alterations (delq main-name alterations))
 	 (set! add-steps (delq main-name add-steps))
 
+	 (if (ly:pitch? inversion)
+	     (set! bass-note inversion)
+	     )
+	 
+	 (if (ly:pitch? bass)
+	     (set! bass-note bass)
+	     )
 
 	 ;; chords with natural (5 7 9 11 13) or leading subsequence.
 	 ;; etc. are named by the top pitch, without any further
@@ -360,7 +373,7 @@ work than classifying the pitches."
 	       (set! alterations '())
 	       ))
 	 
-	 (ignatzek-format-chord-name root prefixes main-name alterations add-steps suffixes)
+	 (ignatzek-format-chord-name root prefixes main-name alterations add-steps suffixes bass-note)
 	 )
        ))))
 

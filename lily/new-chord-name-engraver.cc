@@ -18,6 +18,7 @@
 #include "pitch.hh"
 #include "protected-scm.hh"
 #include "translator-group.hh"
+#include "warn.hh"
 
 class New_chord_name_engraver : public Engraver 
 {
@@ -60,16 +61,29 @@ New_chord_name_engraver::process_music ()
   SCM inversion = SCM_EOL;
   SCM pitches = SCM_EOL;
 
+  Music* inversion_event = 0;
   for (int i =0 ; i < notes_.size (); i++)
     {
       Music *n = notes_[i];
       SCM p = n->get_mus_property ("pitch");;
       if (n->get_mus_property ("inversion") == SCM_BOOL_T)
-	inversion = p;
+	{
+	  inversion_event = n;
+	  inversion = p;
+	}
       else if (n->get_mus_property ("bass") == SCM_BOOL_T)
 	bass = p;
       else
 	pitches = gh_cons (p, pitches);
+    }
+
+  if (inversion_event)
+    {
+      SCM op = inversion_event->get_mus_property ("original-pitch");
+      if (unsmob_pitch (op))
+	pitches= gh_cons (op, pitches);
+      else
+	programming_error ("Inversion does not have original pitch.");
     }
 
   pitches = scm_sort_list (pitches, Pitch::less_p_proc);
