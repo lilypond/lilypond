@@ -115,7 +115,8 @@ rules = {
 	('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*))[,\*&]*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
 	('((if|while)\s+\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\n;'),
 	('(for\s+\(([^;]*;[^;]*;([^\)]|\([^\)]*\))*)\))\s*;', '\\1\n;'),
-
+	# do .. while
+	('(\Wdo\s*{([^}]|{[^}]*})*}\s*while\s*)(\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\\3;\n'),
 	## Fix code that gets broken by rules above.
 	# delete space before #define x()
 	('#[ \t]*define (\w*)[ \t]*\(', '#define \\1('),
@@ -518,6 +519,10 @@ Bar:: foe ()
   for (; i < x > y;
   foo > bar)
 ;
+  do {
+  ..
+  }
+  while (foe);
 
   squiggle. extent;
 
