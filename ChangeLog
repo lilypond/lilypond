@@ -1,5 +1,11 @@
 2004-10-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/break-substitution.cc (substitute_mutable_property_alist):
+	only put property back into value if != SCM_UNDEFINED
+
+	* lily/lyric-extender.cc (print): don't take common refpoint of
+	null object if right_text isn't there.
+ 
 	* lily/slur-scoring.cc (struct Slur_score_state): new
 	struct. Collect scoring function arguments.
 	(struct Slur_score_state): add musical_dy_

@@ -25,10 +25,14 @@ SCM
 Lyric_extender::print (SCM smob) 
 {
   Spanner *me = unsmob_spanner (smob);
-  Item *le = me->get_bound (LEFT);
+  Item *left_edge = me->get_bound (LEFT);
   Item *right_text = unsmob_item (me->get_property ("next"));
   
-  Grob *common = le->common_refpoint (right_text, X_AXIS);
+  Grob *common = left_edge;
+
+  if (right_text)
+    common = common->common_refpoint (right_text, X_AXIS);
+  
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Real sl = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));  
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
@@ -40,12 +44,12 @@ Lyric_extender::print (SCM smob)
   common = common_refpoint_of_array (heads, common, X_AXIS);
   
   Real left_point = 0.0;
-  if (le->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    left_point = le->extent (common, X_AXIS)[RIGHT];
+  if (left_edge->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+    left_point = left_edge->extent (common, X_AXIS)[RIGHT];
   else if (heads.size ())
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
   else
-    left_point = le->extent (common, X_AXIS)[RIGHT];
+    left_point = left_edge->extent (common, X_AXIS)[RIGHT];
 
   if (isinf (left_point))
     return SCM_EOL;
@@ -66,7 +70,7 @@ Lyric_extender::print (SCM smob)
     right_point = right_point <? (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad);
 
   /* run to end of line. */
-  right_point = right_point >? (me->get_bound (RIGHT)->extent (common, X_AXIS)[LEFT] - pad);
+  right_point = right_point >? (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad);
   
   left_point += pad;
 
