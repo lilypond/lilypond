@@ -13,16 +13,17 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "moment.hh"
+#include "input.hh"
 
 /** one horizontal bit.  Voice_element is nothing but a container for
     *the requests, */
-struct Voice_element {
+class Voice_element : public Input{
+public:
     /** the duration of the element.  This can be 0; The duration is
       determined from rhythmical requests contained in this
       Voice_element */
     Moment duration_;
-    char const* defined_ch_C_;
-    Voice const *voice_l_;
+    Voice const *voice_C_;
     IPointerList<Request*> reqs;
 
     /* *************** */
