@@ -2,7 +2,8 @@
 
 #include "string.hh"
 
-extern char const * lily_version_sz();
+char const * lily_version_sz();
+char const * lily_version_number_sz();
 
 String 
 get_version_str()
@@ -11,4 +12,10 @@ get_version_str()
   s+="/";
   s+=flower_version_sz();
    return s;
+}
+
+String
+get_version_number_str()
+{
+  return lily_version_number_sz();
 }

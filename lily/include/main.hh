@@ -1,3 +1,10 @@
+/*
+  main.hh -- declare global entry points
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
 #ifndef MAIN_HH
 #define MAIN_HH
 #include "lily-proto.hh"
@@ -10,6 +17,7 @@ void set_default_output (String s);
 Input_score* current_iscore_l();
 String find_file (String);
 String get_version_str();
+String get_version_number_str();
 extern Sources* source_l_g;
 extern bool only_midi;
 extern int exit_status_i_;
