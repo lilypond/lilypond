@@ -8,6 +8,7 @@ Accidentals
 \\alternative
 alto
 \\apply
+\\applycontext
 \\archiGroup
 \\arpeggio
 \\autoBeamOff
@@ -40,6 +41,7 @@ ChoirStaff
 \\chordchordmodifiers
 \\chordmodifiers
 ChordName
+\\chordnames
 ChordNames
 \\ChordNamesContext
 \\chords
@@ -127,6 +129,7 @@ Grace
 \\grandstaff
 GrandStaff
 \\GrandStaffContext
+\\grobdescriptions
 \\groupClose
 \\groupOpen
 \\grstaff
