@@ -110,6 +110,10 @@ familiar with English terms for notation.
 @item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
 Full documentation of internals, generated from the sources.  If you
 want to fine-tune output, you need the information in this document.
+
+@item @uref{../../input/test/out-www/test.html,Input snippets}
+All of the example input snippets, with the corresponding output
+shown.
 @end itemize
 
 
@@ -125,21 +129,9 @@ want to fine-tune output, you need the information in this document.
 
 @itemize @bullet
 @item @uref{../../input/regression/out-www/regression.html,Regression Tests}
-A large document that tests all kinds of features.
-@c (also as
-@c @uref{../out-www/regression-test.ps.gz,Postscript}
-@c and
-@c @uref{../out-www/regression-test.pdf,PDF}).
-@item @uref{../../input/test/out-www/test.html,Feature Tests}
-A large document that tests all kinds of features.
-@item @uref{../../input/bugs/out-www/bugs.html,Bugs}
-A document that shows bugs.
-
-
-@c  (also as
-@c @uref{../../input/bugs/out-www/bugs.ps.gz,Postscript}
-@c and @uref{../../input/bugs/out-www/bugs.pdf,PDF}).
-
+A large document that tests all kinds of features.  (also as
+@uref{../out-www/regression-test.ps.gz,Postscript} and
+@uref{../out-www/regression-test.pdf,PDF}).
 @item
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain

@@ -1,16 +1,16 @@
-2002-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* input/regression/abe.ly: 
-	* input/test/transposing.ly: Remove mention of mudela.
-
 2002-07-22  Han-Wen  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.69 released
+	
 	* lily/accidental-placement.cc (position_accidentals): document
 	two bugcases.
 
 	* lily/skyline.cc (skyline_meshing_distance): bugfixes.
 
 2002-07-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/abe.ly: 
+	* input/test/transposing.ly: Remove mention of mudela.
 
 	* scripts/lilypond-book.py (make_pixmap): Don't use quiet_system,
 	ie, don't redirect PNG output to /dev/null.  Fixes lys-to-tely
