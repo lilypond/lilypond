@@ -4,8 +4,8 @@
 %% deprecated
 papersizename = \papersize 
 
-% ly2dvi now uses `papersize' internally (and on cmd line)
-%papersize = \papersize
+% DO NOT change this without fixing -f ps output
+papersize = \papersize
 
 % FIXME
 % direct PostScript line height for single line staves
