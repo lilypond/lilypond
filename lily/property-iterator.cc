@@ -110,27 +110,27 @@ Push_property_iterator::process (Moment m)
 	Translator_def::apply_pushpop_property (report_to (),
 						sym, eprop, SCM_UNDEFINED);
 
-      translator_def::apply_pushpop_property (report_to (), sym, eprop, val);
+      Translator_def::apply_pushpop_property (report_to (), sym, eprop, val);
     }
-  simple_music_iterator::process (m);
+  Simple_music_iterator::process (m);
 }
 
-make_scheme_callback(push_property_iterator,once_finalization, 2);
-scm
-push_property_iterator::once_finalization (scm trans, scm music)
+MAKE_SCHEME_CALLBACK(Push_property_iterator,once_finalization, 2);
+SCM
+Push_property_iterator::once_finalization (SCM trans, SCM music)
 {
-  music * mus = unsmob_music (music);
-  translator_group *tg
-    = dynamic_cast<translator_group*> (unsmob_translator (trans));
+  Music * mus = unsmob_music (music);
+  Translator_group *tg
+    = dynamic_cast<Translator_group*> (unsmob_translator (trans));
 
-  scm sym = mus->get_mus_property ("symbol");
+  SCM sym = mus->get_mus_property ("symbol");
   if (check_grob (mus, sym))
     {
-      scm eprop = mus->get_mus_property ("grob-property");
+      SCM eprop = mus->get_mus_property ("grob-property");
   
-      translator_def::apply_pushpop_property (tg, sym, eprop, scm_undefined);
+      Translator_def::apply_pushpop_property (tg, sym, eprop, SCM_UNDEFINED);
     }
-  return scm_unspecified;
+  return SCM_UNSPECIFIED;
 }
 
 void

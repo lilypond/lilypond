@@ -1,5 +1,8 @@
 2002-09-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/tuplet-bracket.cc (brew_molecule): don't crash on broken
+	tuplet brackets.
+
 	* lily/property-iterator.cc (do_quit): add finalization functions
 	to undo property settings.
 
@@ -49,6 +52,16 @@
         * lily/time-signature.cc: fixed documentation bug
 
 2002-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/music-iterator.cc (quit, do_quit): new function: break link
+	to translator group explicitly. This used to be done from the
+	destructor of music-iterator. Now that iterators are GC'd, this is
+	no longer possible.  Add new function do_quit() to all applicable
+	derived classes.
+
+	* lily/lyric-combine-music-iterator.cc (construct_children): don't
+	unprotect objects.
+	(Lyric_combine_music_iterator): small typo bugfix.
 
 	* lily/musical-request.cc: do ADD_MUSIC for String_number_req.
 

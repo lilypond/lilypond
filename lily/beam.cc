@@ -70,8 +70,11 @@ Beam::add_stem (Grob *me, Grob *s)
 Real
 Beam::get_thickness (Grob * me)
 {
-  return gh_scm2double (me->get_grob_property ("thickness"))
-    *  Staff_symbol_referencer::staff_space (me);
+  SCM th = me->get_grob_property ("thickness");
+  if (gh_number_p (th))
+    return gh_scm2double (th)* Staff_symbol_referencer::staff_space (me);
+  else
+    return 0.0;
 }
 
 /* Return the translation between 2 adjoining beams. */

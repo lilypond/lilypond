@@ -58,7 +58,8 @@ Interpretation_context_handle::down ()
 void
 Interpretation_context_handle::quit ()
 {
-  if (report_to_) report_to_->iterator_count_ --;
+  if (report_to_)
+    report_to_->iterator_count_ --;
 }
 
 
