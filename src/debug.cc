@@ -25,3 +25,11 @@ debug_init()
     set_new_handler(&mynewhandler);
     set_matrix_debug(monitor);
 }   
+
+bool check_debug=false;
+
+void
+set_debug(bool b)
+{
+    check_debug =b;
+}
