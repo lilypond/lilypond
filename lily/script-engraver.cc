@@ -85,7 +85,8 @@ Script_engraver::do_process_music()
       SCM priority = gh_car (list);
 
       
-      if (to_dir (relative_stem_dir))
+      if (!isdir_b (force_dir)
+	  && to_dir (relative_stem_dir))
 	p->set_elt_property ("side-relative-direction", relative_stem_dir);
       else
 	p->set_elt_property ("direction", force_dir);

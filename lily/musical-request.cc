@@ -128,7 +128,3 @@ Articulation_req::do_equal_b (Request const* r) const
 }
 
 
-Script_req::Script_req ()
-{
-  set_direction (CENTER);
-}
