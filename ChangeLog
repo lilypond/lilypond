@@ -1,3 +1,8 @@
+2002-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/bin/install-dot-exe.sh: Filter collapsed directory
+	constructs '//' from arguments.
+
 2002-05-17  Han-Wen  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (check-start-chords): function to check
