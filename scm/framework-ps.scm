@@ -281,7 +281,8 @@
 
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module filename (ly:output-formats))
+    (postprocess-output book framework-ps-module filename
+			 (completize-formats (ly:output-formats)))
 ))
 
 (if (not (defined? 'nan?))

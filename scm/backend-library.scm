@@ -90,7 +90,7 @@
      (if (member x formats) (set! new-fmts (cons x new-fmts))))
    '("tex" "dvi" "ps" "pdf" "png"))
 
-  (reverse new-fmts))
+  (uniq-list (reverse new-fmts)))
 
 (define (header-to-file file-name key value)
   (set! key (symbol->string key))

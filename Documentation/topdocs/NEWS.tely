@@ -30,6 +30,11 @@ See user manual, \NAME\
 
 
 @itemize @bullet
+
+@item
+@file{lilypond-book} now makes @file{lilypond} print line numbers
+relative to the input file for every error message.
+  
 @item
 A new @code{\circle} markup command allows for all kinds of circled texts
 

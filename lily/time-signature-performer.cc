@@ -8,6 +8,7 @@
 
 #include "audio-item.hh"
 #include "performer.hh"
+#include "protected-scm.hh"
 
 class Time_signature_performer : public Performer
 {
@@ -19,12 +20,18 @@ protected:
 
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
-
+  virtual void derived_mark () const;
   SCM prev_fraction_;
 private:
 
   Audio_time_signature *audio_;
 };
+
+void
+Time_signature_performer::derived_mark () const
+{
+  scm_gc_mark (prev_fraction_);
+}
 
 Time_signature_performer::Time_signature_performer ()
 {

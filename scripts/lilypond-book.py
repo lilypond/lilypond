@@ -1088,13 +1088,14 @@ def find_toplevel_snippets (s, types):
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
 
+				
+				start = index + m.start ('match')
 				line_number = line_start_idx
-				while (line_starts[line_number] < index):
+				while (line_starts[line_number] < start):
 					line_number += 1
 
 				line_number += 1
 				snip = cl (type, m, format, line_number)
-				start = index + m.start ('match')
 				found[type] = (start, snip)
 
 			if found[type] \
