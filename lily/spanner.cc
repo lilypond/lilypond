@@ -100,8 +100,8 @@ Spanner::Spanner()
 Interval
 Spanner::do_width()const
 {
-    Real r = right_col_l_->hpos;
-    Real l = left_col_l_->hpos;
+    Real r = right_col_l_->hpos_f_;
+    Real l = left_col_l_->hpos_f_;
     assert(*left_col_l_ < *right_col_l_);
     assert(r>=l);
 	

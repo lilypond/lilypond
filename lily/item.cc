@@ -33,7 +33,7 @@ Item::do_print() const
 Real 
 Item::hpos_f()const
 {
-    return pcol_l_->hpos + offset().x;
+    return pcol_l_->hpos_f_ + offset().x;
 }
 
 
