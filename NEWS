@@ -1,3 +1,6 @@
+pl 12.jcn4
+	- fixed dynamic f, magstep bug
+
 pl 12.jcn3
 	- try at better dynamic font, copied from cmbxti10: mf/*
 
