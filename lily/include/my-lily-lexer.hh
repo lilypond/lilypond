@@ -59,8 +59,6 @@ public:
 
   Lily_lexer (Sources*);
   Lily_lexer (Lily_lexer const&);
-  ~Lily_lexer ();
-
   int yylex ();
 
   void prepare_for_next_token ();
