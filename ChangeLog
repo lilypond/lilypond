@@ -1,5 +1,12 @@
 2003-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/system-start-delimiter.cc (after_line_breaking): retrieve
+	vertical extents to deal with Hara kiri correctly.
+
+	* input/regression/hara-kiri-short.ly: remove
+
+	* input/regression/hara-kiri-pianostaff.ly: update test.
+
 	* Documentation/user/*.tely: remove WEBTITLE
 
 	* scm/output-tex.scm (comment): idem.

@@ -1,15 +1,31 @@
 \version "1.7.19"
-\header {
-texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle of 3 staves is harakiried."
+
+\header { texidoc =
+
+	  " Hara kiri staves kill themselves if they are empty.  This
+example really contains three staves, but as they progress, empty ones
+are removed: this example has three staves, but some of them
+disappear: note how the 2nd line only has the bar number 2. (That the
+bar number is printed might be considered a bug, however, the scenario
+of all staves disappearing doesn't happen in practice.)
+
+Any staff brackets and braces are removed, both in the single staff
+and no staff case.
+
+This example was done with a pianostaff, which has fixed distance
+alignment; this should not confuse the mechanism.
+"
+	  
 }
-    \paper { raggedright= ##t }
+
+\paper { raggedright= ##t }
 
 	
 \score { \notes \transpose c c''
  \context PianoStaff <
-   \context Staff = up {  c c c c \break }
-   \context Staff = mid {  s1 \break }
-   \context Staff = down {  c4 c c c \break }
+   \context Staff = up {  c4 c c c \break  s1 \break c4 c c c \break c c c c}
+   \context Staff = mid {  d4 d d d s1 s1 s1 s1 }
+   \context Staff = down {  e4 e e e s1 e4 e e e s1 }
  >
  \paper {
   \translator {

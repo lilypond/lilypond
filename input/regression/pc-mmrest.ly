@@ -4,6 +4,12 @@ texidoc="Multi measure rests of second voice should not disappear."
 }
 
 
+%{
+
+TODO:  what does this test? The contexts are tweaked too much.
+
+%}
+
 #(ly:set-point-and-click 'line-column)
 one = \notes\relative c'' {
 
