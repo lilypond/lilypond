@@ -166,6 +166,6 @@ for filenm in files:
 	afm = open (afmfile_nm, 'w')
 	write_afm_metric (afm, g,m)
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
-	write_deps (open (depfile_nm, 'w'), deps, [texfile_nm, afmfile_nm])
+	write_deps (open (depfile_nm, 'wb'), deps, [texfile_nm, afmfile_nm])
 
 

@@ -270,7 +270,7 @@ Lilypond every glyph usually is represented by one object, a so-called
 Graphic Object.  The primary relations between graphic objects involve
 positions:
 
-@itemize
+@itemize @asis
 @item consecutive notes are printed left to right, grouped  in a staff
 @item simultaneous notes are horizontally aligned (internally grouped in
 a paper column).

@@ -1,3 +1,53 @@
+1.3.39.jbr1
+===========
+
+* buildscripts/mf-to-table.py: feta dep files are now opened with write
+  binary option.  This avoids carriage return linefeed problems and
+  windows while not affecting unix.
+
+* Documentation/hacking.texi: Fixed a texinfo syntax error
+
+* stepmake/bin/package-zip32.sh: Fixed or Removed some legacy, 1.2.x,
+  directory paths.
+
+* Documentation/ntweb/index.texi: Fixed broken links, added 1.3.39 links.
+
+1.3.39.hwn1
+===========
+
+* Glossary updates by Christian Mondrup.
+
+* Bugfix: use generic properties in lyrics too. This fixes the
+\property textStyle for lyrics.
+
+* Score_element::preset_extent(), used by \property
+XXXVerticalExtent, so hard code the size of a vertical group. 
+
+* Don't fix up reference points for originals of broken
+spanners. Fixes spurious "orphaned score-element" warnings.
+
+2000-03-24    <janneke@gnu.org>
+
+* buildscripts/make-cygwin-cross.sh: Use rx-1.5 instead of regex (Jeffrey).
+
+* scm/lily.scm: Fixed check for Windows: by default don't use scm regex.
+
+* Documentation/ntweb/guile-1.3.4-gnu-windows.patch: Significantly smaller
+patch for guile.
+
+* buildscripts/make-cygwin-cross.sh: Compile native package GNU regex,
+which should fix Windows problems with guile.  Also added input directory
+to zip file.
+
+* stepmake/aclocal.m4: Added decent checking for version of guile, and 
+fixed warning message.
+
+* lily/lexer.ll (My_lily_lexer): Bugfix: lookup chordmodifiers in the
+chord-modifier table (not in the pitch list).
+
+1.3.39
+======
+
 1.3.38.hwn2
 ===========
 
