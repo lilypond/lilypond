@@ -1,3 +1,5 @@
+pl 41.tca1
+	- Lookup::accordion and removed some accordionfonts 
 pl 40.uu2
 	- rest ledger lines are dimensionless.
 	- Score_elements are added to the Paper_score directly when
