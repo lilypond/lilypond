@@ -5,7 +5,7 @@ save slant;
 slant := 20;
 currenttransform := identity;
 fet_beginchar("dynamic p", "p", "dynp")
-	set_char_box (0, 13/12 ex#, descender#, 1.0 ex#);
+	set_char_box (0, 13/12 new_ex#, descender#, 1.0 new_ex#);
 
 	save twiddle_thick, stem_thick, cheek_thick, serif_thick;
 	save updir, fill_up;
@@ -17,16 +17,16 @@ fet_beginchar("dynamic p", "p", "dynp")
 
 	updir := dir (90 - slant );
 	twiddle_thick = 1.5 stafflinethickness;
-	cheek_medium = 1/6 ex;
+	cheek_medium = 1/6 new_ex;
 	serif_thick =1.0 stafflinethickness;
 	dishing_angle = 5;
 	fill_up := 1.5 serif_thick;
 
-	stem_thick = 2/6 ex;
-	cheek_thick = 5/16 ex;
-	cheek_width = 3/4 ex;
-	left_serif_protude = 18/60 ex;
-	right_serif_protude= 15/60 ex;
+	stem_thick = 2/6 new_ex;
+	cheek_thick = 5/16 new_ex;
+	cheek_width = 3/4 new_ex;
+	left_serif_protude = 18/60 new_ex;
+	right_serif_protude= 15/60 new_ex;
 	
 	penpos1 (twiddle_thick, -slant - 5);
 	penpos2 (cheek_medium, 90 - slant );
@@ -40,23 +40,23 @@ fet_beginchar("dynamic p", "p", "dynp")
 	x6l = 0;
 	y6l = - descender + serif_thick/2;
 	x1l = x6l;
-	y1r = 0.5 ex;
-	y2r = ex;
+	y1r = 0.5 new_ex;
+	y2r = new_ex;
 	z7 = whatever * updir + z6l;
-	y7 = 43/60  ex;
+	y7 = 43/60  new_ex;
 	
 	z2l = whatever *updir + 0.3 [z7, z1r];
 	y8 = ypart (0.9 [z7, z2l]);
 	z8 = 2/3 [z6l, z6r] + whatever * updir;
 
 
-	y3r = ex;
+	y3r = new_ex;
 	z3l = 0.58 [(stem_thick, -descender), (stem_thick + cheek_width - cheek_thick, -descender)] + whatever * updir;
-	y4r = 1/3 ex;
+	y4r = 1/3 new_ex;
 	z4r = whatever*updir + (stem_thick+  cheek_width, -descender);
 
 	z5l = whatever*updir  + z3l;
-	y5l = 1/12 ex;
+	y5l = 1/12 new_ex;
 
 	z9 = z6r + whatever*updir;
 	y9 = y5l;
@@ -72,7 +72,7 @@ fet_beginchar("dynamic p", "p", "dynp")
 	pickup pencircle scaled 1;
 	fill p;
 
-	y12  = 0.5 ex;
+	y12  = 0.5 new_ex;
 	z12 = z6r + whatever*updir;
 
 	save inner_tension;
