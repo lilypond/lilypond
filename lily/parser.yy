@@ -118,7 +118,7 @@ make_simple_markup (SCM encoding, SCM a)
 
 
 bool
-is_is_duration (int t)
+is_duration (int t)
 {
   return t && t == 1 << intlog2 (t);
 }
@@ -1829,7 +1829,7 @@ optional_notemode_duration:
 steno_duration:
 	bare_unsigned dots		{
 		int len = 0;
-		if (!is_is_duration ($1))
+		if (!is_duration ($1))
 			THIS->parser_error (_f ("not a duration: %d", $1));
 		else
 			len = intlog2 ($1);
@@ -1883,7 +1883,7 @@ tremolo_type:
 		$$ = 0;
 	}
 	| ':' bare_unsigned {
-		if (!is_is_duration ($2))
+		if (!is_duration ($2))
 			THIS->parser_error (_f ("not a duration: %d", $2));
 		$$ = $2;
 	}
