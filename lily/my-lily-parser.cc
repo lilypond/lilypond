@@ -42,6 +42,7 @@ My_lily_parser::print_declarations()
 {
 #ifndef NPRINT
     String s = "";
+    
     if (init_parse_b_) 
 	s = "Init";
     if (!monitor->silence(s+"Declarations") && check_debug) {
@@ -51,30 +52,24 @@ My_lily_parser::print_declarations()
 }
 
 void
-My_lily_parser::do_init_file()
-{
-    init_parse_b_ = true;
-    set_debug();
-    lexer_p_->new_input(init_str_, source_l_);
-}
-
-void
 My_lily_parser::parse_file(String init, String s)
 {
     lexer_p_ = new My_lily_lexer;
     init_str_ = init;
     
-    
-
     *mlog << "Parsing ... ";
-    lexer_p_->new_input(s, source_l_);
-    if (!lexer_p_->source_file_l()) {
-	warning("Can not find toplevel file. Ignoring " + s);
-	return; 
-    }
+    
+    init_parse_b_ = true;
+    lexer_p_->new_input( init, source_l_);
     do_yyparse();
     print_declarations();
 
+    init_parse_b_ = false;
+    lexer_p_->new_input( s , source_l_);
+    do_yyparse();
+    print_declarations();
+
+    
     if(!define_spot_array_.empty())
 	warning("Braces don't match.");
 }
