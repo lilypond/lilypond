@@ -68,8 +68,8 @@ struct Meter_sym:Parametric_symbol {
 
     Symbol eval(svec<String> a) const{
 	Symbol s;
-	s.dim.x = Interval(0, convert_dimen(10,"pt"));
-	s.dim.y = Interval(0, convert_dimen(10,"pt") );	
+	s.dim.x = Interval( convert_dimen(-5,"pt"), convert_dimen(10,"pt"));
+	s.dim.y = Interval(0, convert_dimen(10,"pt") );	// todo
 	String src = the_sym_tables("param")->lookup("meter").tex;
 	s.tex = substitute_args(src,a);
 	return s;
