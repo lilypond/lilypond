@@ -5,7 +5,6 @@ texidoc = "@cindex Boxed Molecule
 You can override the molecule callback to draw a box around
 arbitrary grobs.
 
-TODO:  circled molecules.
 " }
 
 

@@ -1,13 +1,15 @@
 \version "1.7.18"
 \header {
   texidoc="@cindex Blank Paper
-Blank music paper with clefs.
+
+Blank music paper with clefs. Change the repeat count to get more staves.
+
 " }
 \score {
   \notes {
     % \clef violin
     \clef bass 
-    \repeat unfold 9 { c1 \break }
+    \repeat unfold 3 { c1 \break }
   }
   \paper {
     \translator {

@@ -1,5 +1,16 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/clef-manual-control.ly: from manual-clef
+
+	* input/test/repeat-shorter-bracket.ly: move from coda-kludge 
+
+	* input/test/different-time-signatures.ly: move to poly-metric.ly
+
+	* input/test/hara-kiri*,scales.ly: remove
+	
+	* input/test/chord-names-dpnj.ly (efullmusic): remove file (merged
+	with chord-names-jazz.ly)
+
 	* make/mutopia-rules.make ($(outdir)/%.pdf): use +lilypond.map to
 	get scalable cm fonts too.
 

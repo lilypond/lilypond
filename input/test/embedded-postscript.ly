@@ -4,9 +4,13 @@
 By inserting the @TeX{} command \embeddedps, you can
 insert postscript directly into the output.
 
-TODO: make molecule-callback to do this. 
   "
 }
+
+
+%
+%TODO: make molecule-callback to do this. 
+% 
 
 \score {
   \notes \relative c'' {

@@ -2,8 +2,9 @@
 \header {
 
 texidoc = "@cindex Bar Line Lyric Only
-You can move around Bar_engraver and
-Span_bar_engraver if you want bar lines on lyrics.
+
+You can move around @code{Bar_engraver} and
+@code{Span_bar_engraver} if you want bar lines on lyrics.
 "  }
 
 

@@ -1,5 +1,4 @@
 \version "1.7.18"
-% possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Notehead
 You can move objects around with scheme.  This example shows how to
 move noteheads around. " }
