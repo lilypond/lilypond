@@ -1,9 +1,32 @@
+
+pl 44
+	- ly2dvi 0.6.hwn1 
+	- ly2dvi 0.6 (JAF)
+	- use ly2dvi for website
+
+pl 44.jcn2
+	- fingers default to above note
+	- preludes-2.ly
+	- parser: fingerings
+	- preludes-1.ly
+	- bf: denneboom.ly
+	- preludes-3.ly.m4, standje.ly, preludes-4.ly
+	- make rule for macro ly-files
+	- pletvisibility (init/property.ly): 
+	  * default no bracket with beams
+	  * invisible plet bracket feature
+	- finger dir in text-def
+
+*******
+feb 2
+
 pl 43
 	- bf: broken Plet_spanners
 	- more GNITting
 	- avoid some more global ctors, for NeXTstep
 	- some NeXTStep patches from tiggr
 	- don't do overstrike/bold chars in textfiles
+
 
 pl 42.jcn2
 	- bit hesitating start of mutopia

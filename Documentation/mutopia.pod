@@ -14,9 +14,9 @@ and mudela.
 Music publishers make lots of money out of selling sheet music which
 is in the public domain (the composers died a long time ago). It is
 usually prohibited to xerox the sheet music.  Publishers have two
-arguments to justify this policy: the high prices are there to guarantee
-diversity (keeping lots of stock is expensive), and to encourage new
-work being composed.
+arguments to justify this policy: the high prices are there to
+guarantee diversity (keeping lots of it in stock is expensive), and to
+encourage new work being composed.
 
 This is bad. Storing a Mudela file takes almost no space at all, and
 if sheet music could be had for free, then it would be much easier
@@ -34,8 +34,6 @@ We also need an archive of public domain sheet music; this is what we
 call The Mutopia Project.
 
 
-
-
 =head1 STATUS
 
 This project is still in its vapourware stage, so don't ask questions
@@ -49,6 +47,7 @@ Just as an aside, the LilyPond package includes the following music:
 
 J.S. Bach, Das Wohltemperierte Clavier I: C major Prelude & Fugue, C
 minor fugue.  Solo cello suites: suite II, menuetto (alto version).
+Six small preludes: some preludes.
 
 =item *
 
