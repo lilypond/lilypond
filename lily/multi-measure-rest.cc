@@ -38,7 +38,7 @@ SCM
 Multi_measure_rest::member_brew_molecule () const
 {
   Real staff_space
-    = staff_symbol_referencer (this).staff_space ();
+    = Staff_symbol_referencer_interface (this).staff_space ();
 
   Interval sp_iv;
   Direction d = LEFT;
@@ -140,32 +140,6 @@ Multi_measure_rest::member_brew_molecule () const
   UGH. JUNKME elt prop "columns" isn't really needed. 
  */
 
-void
-Multi_measure_rest::do_add_processing ()
-{
-#if 0
-  if (gh_pair_p (get_elt_pointer ("columns")))
-    {
-      Link_array<Item> column_arr (Pointer_group_interface__extract_elements (this, (Item*)0, "columns"));
-				    
-      set_bound (LEFT, column_arr[0 >? column_arr.size () - 2]);
-      set_bound (RIGHT, column_arr.top ());
-    }
-#endif
-  // set columns to SCM_EOL?
-}
-  
-GLUE_SCORE_ELEMENT(Multi_measure_rest,after_line_breaking);
-SCM
-Multi_measure_rest::member_after_line_breaking ()
-{
-  if (!gh_pair_p (get_elt_pointer ("columns")))
-    {
-      suicide ();
-    }
-
-  return SCM_UNDEFINED;
-}
 
 
  

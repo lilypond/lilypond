@@ -14,30 +14,29 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,after_line_breaking);
 
-SCM
-Dots::after_line_breaking (SCM smob)
+Real
+Dots::quantised_position_callback (Score_element const* me, Axis a)
 {
-  Item * p = dynamic_cast<Item*> (unsmob_element (smob));
-  
-  SCM d= p->get_elt_property ("dot-count");
+  assert (a == Y_AXIS);
+    
+  SCM d= me->get_elt_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
     {
-      if (!Directional_element_interface (p).get ())
-	Directional_element_interface (p).set (UP);
+      if (!Directional_element_interface (me).get ())
+	Directional_element_interface (me).set (UP);
 
-      Staff_symbol_referencer_interface si (p);
+      Staff_symbol_referencer_interface si (me);
       int pos = int (si.position_f ());
       if (!(pos % 2))
-	si.set_position (pos  + Directional_element_interface (p).get ());
+	return si.staff_space () / 2.0 * Directional_element_interface (me).get ();
     }
 
-  return SCM_UNDEFINED;
+  return  0.0;
 }
 
-MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,brew_molecule);
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Dots,brew_molecule);
 SCM  
 Dots::brew_molecule (SCM d)
 {

@@ -19,7 +19,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "stem.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"

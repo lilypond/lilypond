@@ -99,7 +99,7 @@ Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
   Real off =0.0;
   if (gh_number_p (pos))
     {
-      Real space = staff_symbol_referencer (sc).staff_space ();
+      Real space = Staff_symbol_referencer_interface (sc).staff_space ();
       off = gh_scm2double (pos) * space/2.0;
     }
 
@@ -145,11 +145,6 @@ Staff_symbol_referencer_interface::set_position (Real p)
   elt_l_->add_offset_callback (callback, Y_AXIS);
 }
 
-Staff_symbol_referencer_interface
-staff_symbol_referencer (Score_element const*e)
-{
-  return e;			// gee, I'm so smart!
-}
 
 int
 compare_position (Score_element *const  &a, Score_element * const &b)

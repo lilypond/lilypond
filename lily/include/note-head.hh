@@ -7,7 +7,8 @@
 #ifndef NOTEHEAD_HH
 #define NOTEHEAD_HH
 
-#include "rhythmic-head.hh"
+#include "lily-guile.hh"
+#include "molecule.hh"
 
 /** ball at the end of the stem. Takes care of:
 
@@ -19,19 +20,11 @@
 
   */
 
-class Note_head : public Rhythmic_head
+class Note_head 
 {
 public:
-  static int compare (Note_head * const &a, Note_head *const &b) ;
- static SCM brew_molecule (SCM);
-  
-
-  Molecule ledger_line (Interval) const;
-  Note_head (SCM);
-
-  SCM member_before_line_breaking ();
-  static SCM before_line_breaking (SCM);
-  SCM member_brew_molecule() const;
+  static SCM brew_molecule (SCM);
+  static Molecule ledger_line (Interval, Score_element*) ;
 };
 #endif // NOTEHEAD_HH
 

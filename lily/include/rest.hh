@@ -10,7 +10,7 @@
 #ifndef REST_HH
 #define REST_HH
 
-#include "rhythmic-head.hh"
+#include "lily-guile.hh"
 
 /**
    A pause.
@@ -19,15 +19,10 @@
 
    style -- string specifying glyph style
  */
-class  Rest : public Rhythmic_head
+class  Rest
 {
 public:
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  SCM member_brew_molecule () const;
-
-   static SCM brew_molecule (SCM);
-  
-Rest (SCM s);
+  static SCM brew_molecule (SCM);
 };
 #endif // REST_HH

@@ -183,15 +183,15 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 {
   if (beam_p_)
     {
-      if (Rest* r = dynamic_cast<Rest* > (info.elem_l_))
+      if (to_boolean (info.elem_l_->get_elt_property("rest-interface")))
 	{
-	  r->add_offset_callback (Beam::rest_collision_callback, Y_AXIS);
+	  info.elem_l_->add_offset_callback (Beam::rest_collision_callback, Y_AXIS);
 	}
-      else if (Stem* stem_l = dynamic_cast<Stem *> (info.elem_l_))
+      else if (to_boolean (info.elem_l_->get_elt_property ("stem-interface")))
 	{
+	  Stem *stem_l = dynamic_cast<Stem*> (info.elem_l_);
 	  if (stem_l->beam_l ())
 	    return;
-
 
 	  bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
 

@@ -7,7 +7,7 @@
 */
 
 #include "staff-symbol-referencer.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "stem.hh"
 #include "musical-request.hh"
 #include "misc.hh"

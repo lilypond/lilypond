@@ -9,14 +9,14 @@
 #include "staff-symbol-referencer.hh"
 
 #include "pitch-squash-engraver.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_head *nh = dynamic_cast<Note_head *> (i.elem_l_))
+  if (to_boolean (i.elem_l_->get_elt_property ("note-head-interface")))
     {
-      Staff_symbol_referencer_interface (nh).set_position(0);
+      Staff_symbol_referencer_interface (i.elem_l_).set_position(0);
     }
 }
 

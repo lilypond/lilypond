@@ -8,7 +8,7 @@
 #include "debug.hh"
 #include "collision.hh"
 #include "note-column.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "paper-def.hh"
 #include "axis-group-interface.hh"
 #include "item.hh"
@@ -164,8 +164,8 @@ Collision::automatic_shift (Score_element *me)
       /*
 	TODO.
        */
-      Note_head * nu_l= cu_l->first_head();
-      Note_head * nd_l = cd_l->first_head();
+      Rhythmic_head * nu_l= cu_l->first_head();
+      Rhythmic_head * nd_l = cd_l->first_head();
       
       int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
       int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      

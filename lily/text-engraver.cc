@@ -12,7 +12,7 @@
 #include "side-position-interface.hh"
 #include "item.hh"
 #include "musical-request.hh"
-#include "note-head.hh"
+
 #include "stem.hh"
 #include "staff-symbol.hh"
 
@@ -24,7 +24,6 @@ class Text_engraver : public Engraver
   Link_array<Text_script_req> reqs_;
   Link_array<Item> texts_;
 public:
-
   VIRTUAL_COPY_CONS(Translator);
 protected:
   virtual bool do_try_music (Music* m);
@@ -48,20 +47,20 @@ Text_engraver::do_try_music (Music *m)
 
 
 void
-Text_engraver::acknowledge_element (Score_element_info i)
+Text_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (Note_head *n = dynamic_cast<Note_head*> (i.elem_l_))
+  if (to_boolean (inf.elem_l_->get_elt_property ("note-head-interface")))
     {
       for (int i=0; i < texts_.size (); i++)
 	{
 	  Side_position_interface st (texts_[i]);
-	  st.add_support (n);
+	  st.add_support (inf.elem_l_);
 	  if (st.get_axis( ) == X_AXIS
 	      && !texts_[i]->parent_l (Y_AXIS))
-	    texts_[i]->set_parent (n, Y_AXIS);
+	    texts_[i]->set_parent (inf.elem_l_, Y_AXIS);
 	}
     }
-  if (Stem *n = dynamic_cast<Stem*> (i.elem_l_))
+  if (Stem *n = dynamic_cast<Stem*> (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{

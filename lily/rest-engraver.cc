@@ -6,10 +6,27 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "staff-symbol-referencer.hh"
-#include "rest-engraver.hh"
 #include "musical-request.hh"
 #include "dots.hh"
-#include "rest.hh"
+#include "rhythmic-head.hh"
+#include "engraver.hh"
+
+class Rest_engraver : public Engraver
+{
+  Rest_req *rest_req_l_;
+  Item * dot_p_;
+  Rhythmic_head * rest_p_;
+protected:
+  virtual bool do_try_music (Music *);
+  virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
+  virtual void do_process_music ();
+public:
+  
+  VIRTUAL_COPY_CONS(Translator);
+  Rest_engraver ();
+};
+
 
 /*
   Should merge with Note_head_engraver
@@ -47,7 +64,7 @@ Rest_engraver::do_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {
-      rest_p_ = new Rest (get_property ("basicRestProperties"));
+      rest_p_ = new Rhythmic_head (get_property ("basicRestProperties"));
       Staff_symbol_referencer_interface si (rest_p_);
       si.set_interface ();
       
@@ -61,7 +78,9 @@ Rest_engraver::do_process_music ()
 	  Staff_symbol_referencer_interface si (dot_p_);
 	  si.set_interface ();
 	  
-	  rest_p_->add_dots (dot_p_);
+	  rest_p_->set_dots (dot_p_);
+	  dot_p_->set_parent (rest_p_, Y_AXIS);
+	  dot_p_->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
 	  dot_p_->set_elt_property ("dot-count",
 				    gh_int2scm (rest_req_l_->duration_.dots_i_));
 	  announce_element (Score_element_info (dot_p_,0));

@@ -46,27 +46,11 @@ Rhythmic_head::dot_count () const
   return dots_l ()
     ? gh_scm2int (dots_l ()->get_elt_property ("dot-count")) : 0;
 }
-  
-GLUE_SCORE_ELEMENT(Rhythmic_head,after_line_breaking);
-SCM
-Rhythmic_head::member_after_line_breaking ()
-{
-  if (Item *d = dots_l ())
-    {
-      Staff_symbol_referencer_interface si (d);
-      Staff_symbol_referencer_interface me (d);      
-      si.set_position(int (me.position_f ()));
-    }
-
-  return SCM_UNDEFINED;
-}
-
 
 void
-Rhythmic_head::add_dots (Item *dot_l)
+Rhythmic_head::set_dots (Item *dot_l)
 {
   set_elt_pointer ("dot", dot_l->self_scm_);
-  dot_l->add_dependency (this);  
 }
 
 

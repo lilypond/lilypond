@@ -14,14 +14,30 @@ TODO:
 */
 
 #include "staff-symbol-referencer.hh"
-#include "breathing-sign-engraver.hh"
 #include "breathing-sign.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "engraver-group-engraver.hh"
-#include "note-head.hh"
 #include "local-key-item.hh"
+#include "engraver.hh"
+#include "command-request.hh"
 
+class Breathing_sign_engraver : public Engraver {
+public:
+  Breathing_sign_engraver();
+  VIRTUAL_COPY_CONS(Translator);
+  
+protected:
+  virtual bool do_try_music (Music *req_l);
+  virtual void do_process_music();
+
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing();
+
+private:
+  Breathing_sign_req * breathing_sign_req_l_;
+  Breathing_sign * breathing_sign_p_;
+};
 
 Breathing_sign_engraver::Breathing_sign_engraver()
 {

@@ -27,7 +27,7 @@
 class Dots			// interface
 {
 public:
-  static SCM after_line_breaking (SCM);
+  static Real quantised_position_callback(Score_element const*, Axis);
   static SCM brew_molecule (SCM);
 };
 

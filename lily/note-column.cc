@@ -142,7 +142,7 @@ Note_column::rest_dim () const
   return r->extent (Y_AXIS);
 }
 
-Note_head*
+Rhythmic_head*
 Note_column::first_head () const
 {
   Stem * st = stem_l ();

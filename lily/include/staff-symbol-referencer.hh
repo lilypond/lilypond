@@ -40,9 +40,5 @@ public:
 };
 
 int compare_position (Score_element *const&,Score_element *const&); 
-
-
-Staff_symbol_referencer_interface staff_symbol_referencer  (Score_element const*);
-
 #endif /* STAFF_SYMBOL_REFERENCER_HH */
 

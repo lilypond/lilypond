@@ -57,8 +57,8 @@ public:
     our beam, for aligning abbrev flags
    */
   Beam* beam_l () const;
-  Note_head * first_head () const;
-  Drul_array<Note_head*> extremal_heads () const;
+  Rhythmic_head * first_head () const;
+  Drul_array<Rhythmic_head*> extremal_heads () const;
 
   Score_element * support_head () const;
   Stem (SCM);

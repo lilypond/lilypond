@@ -10,7 +10,7 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "tie.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "bezier.hh"
 #include "paper-column.hh"
 #include "debug.hh"
@@ -39,21 +39,21 @@ Tie::Tie(SCM s)
 
 }
 
-Note_head* 
+Rhythmic_head* 
 Tie::head (Direction d) const
 {
   SCM c = get_elt_pointer ("heads");
   c = index_cell (c, d);
 
-  return dynamic_cast<Note_head*> (unsmob_element (c));  
+  return dynamic_cast<Rhythmic_head*> (unsmob_element (c));  
 }
 
 Real
 Tie::position_f () const
 {
   return head (LEFT)
-    ? staff_symbol_referencer (head (LEFT)).position_f ()
-    : staff_symbol_referencer (head (RIGHT)).position_f () ;  
+    ? Staff_symbol_referencer_interface (head (LEFT)).position_f ()
+    : Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
 }
 
 
@@ -84,7 +84,7 @@ Tie::do_add_processing()
     warning (_ ("lonely tie"));
 
   Direction d = LEFT;
-  Drul_array<Note_head *> new_head_drul;
+  Drul_array<Rhythmic_head *> new_head_drul;
   new_head_drul[LEFT] = head(LEFT);
   new_head_drul[RIGHT] = head(RIGHT);  
   do {
@@ -110,7 +110,7 @@ Tie::member_after_line_breaking ()
   if (!Directional_element_interface (this).get ())
     Directional_element_interface (this).set (get_default_dir ());
   
-  Real staff_space = staff_symbol_referencer (this).staff_space ();
+  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
   Real half_space = staff_space / 2;
   Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
   Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
@@ -220,7 +220,7 @@ Tie::get_curve () const
   Direction d (Directional_element_interface (this).get ());
   Bezier_bow b (get_encompass_offset_arr (), d);
 
-  Real staff_space = staff_symbol_referencer (this).staff_space ();
+  Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
   Real h_inf = paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
   Real r_0 = paper_l ()->get_var ("tie_ratio");
 

@@ -22,10 +22,10 @@
   build a ledger line for small pieces.
  */
 Molecule
-Note_head::ledger_line (Interval xwid) const
+Note_head::ledger_line (Interval xwid, Score_element *me) 
 {
   Drul_array<Molecule> endings;
-  endings[LEFT] = lookup_l()->afm_find ("noteheads-ledgerending");
+  endings[LEFT] = me->lookup_l()->afm_find ("noteheads-ledgerending");
   Molecule *e = &endings[LEFT];
   endings[RIGHT] = *e;
   
@@ -52,34 +52,15 @@ Note_head::ledger_line (Interval xwid) const
 }
 
 
-GLUE_SCORE_ELEMENT(Note_head,before_line_breaking);
-SCM
-Note_head::member_before_line_breaking ()
-{
-  // 8 ball looks the same as 4 ball:
-  
-  if (balltype_i () > 2)
-    set_elt_property ("duration-log", gh_int2scm (2));
-
-  if (Item *d = dots_l ())
-    { // move into Rhythmic_head?
-      Staff_symbol_referencer_interface si (d);
-      Staff_symbol_referencer_interface me (this);      
-      
-      si.set_position(int (me.position_f ()));
-    }
-
-  return SCM_UNDEFINED;
-}
 
 
-
-GLUE_SCORE_ELEMENT(Note_head,brew_molecule);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Note_head,brew_molecule);
 
 SCM
-Note_head::member_brew_molecule () const 
+Note_head::brew_molecule (SCM smob)  
 {
-  Staff_symbol_referencer_interface si (this);
+  Score_element *me = unsmob_element (smob);
+  Staff_symbol_referencer_interface si (me);
   
   Real inter_f = si.staff_space ()/2;
   int sz = si.line_count ()-1;
@@ -88,15 +69,15 @@ Note_head::member_brew_molecule () const
     ? 0
     : (abs((int)p) - sz) /2;
 
-  SCM style  = get_elt_property ("style");
+  SCM style  = me->get_elt_property ("style");
   if (style == SCM_UNDEFINED)
     {
       style = ly_symbol2scm("default");
     }
   
-  Molecule out = lookup_l()->afm_find (String ("noteheads-") + 
+  Molecule out = me->lookup_l()->afm_find (String ("noteheads-") + 
 		ly_scm2string (scm_eval (gh_list (ly_symbol2scm("find-notehead-symbol"),
-						  gh_int2scm(balltype_i ()),
+						  me->get_elt_property ("duration-log"),
 						  ly_quote_scm(style),
 						  SCM_UNDEFINED))));
 
@@ -106,7 +87,7 @@ Note_head::member_brew_molecule () const
       Interval hd = out.extent (X_AXIS);
       Real hw = hd.length ()/4;
       Molecule ledger (ledger_line  (Interval (hd[LEFT] - hw,
-					       hd[RIGHT] + hw)));
+					       hd[RIGHT] + hw), me));
       
 
       ledger.set_empty (true);
@@ -121,11 +102,4 @@ Note_head::member_brew_molecule () const
 	}
     }
   return out.create_scheme();
-}
-
-
-Note_head::Note_head (SCM s)
-  : Rhythmic_head (s)
-{
-  
 }
