@@ -61,6 +61,7 @@ if files:
 	s = '''\input texinfo
 @setfilename %s.info
 @settitle %s
+@finalout @c we do not want black boxes.
 
 @c fool ls-latex
 @ignore

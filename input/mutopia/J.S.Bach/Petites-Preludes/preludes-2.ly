@@ -4,7 +4,7 @@ opus= "BWV 939"
 piece = "2"
 
 
-\version "1.7.6"
+\version "1.7.17"
 upper =  \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice.TextScript \set #'font-style = #'italic

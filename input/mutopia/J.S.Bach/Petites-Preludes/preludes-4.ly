@@ -1,15 +1,10 @@
-#(ly:set-point-and-click! 'line-column)
+#(ly:set-point-and-click 'line-column)
 
 opus = "BWV 925"
 piece = "4"
 
-\version "1.7.6"
+\version "1.7.17"
 
-%{
-
-This stretches LilyPond capabilities a little.
-
-%}
 
 one = \context Staff \notes\relative c {
 	\context Voice=i
@@ -108,9 +103,8 @@ two = \context Staff \notes\relative c{
 	\translator Staff=upper \stemDown\tieDown
 	d'8. ~ d8 c d4 a8 g |
 	%15
-	fis8 \translator Staff=lower \stemUp c' b4 \stemDown <<a
-	\translator Staff=upper \stemDown
-	a'>>4.
+	fis8 \translator Staff=lower \stemUp c' b4 \stemDown
+	\translator Staff=upper <<a a'>>4.
 	\stemDown\tieDown
 	a'8~ |
 	a g~  g16 e fis8~  fis16 d8.~  d8. cis!16 |

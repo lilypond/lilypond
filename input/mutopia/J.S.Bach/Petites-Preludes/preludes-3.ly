@@ -14,7 +14,7 @@ note, some have dotted half notes.
 This file was partly generated using m4.
 %}
 
-\version "1.7.6"
+\version "1.7.17"
 
 
 upper =   \notes \transpose c c' {
