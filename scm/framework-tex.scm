@@ -138,20 +138,22 @@
    "\\lilypondspecial\n"
    "\\lilypondpostscript\n"))
 
-(define (dump-page putter page)
+(define (dump-page putter page last?)
   (ly:outputter-dump-string
    putter
    "\n\\vbox to 0pt{%\n\\leavevmode\n\\lybox{0}{0}{0}{0}{%\n")
-  (ly:outputter-dump-stencil putter (ly:page-stencil page))
+  (ly:outputter-dump-stencil putter page)
   (ly:outputter-dump-string
    putter
-   (if (ly:page-last? page)
+   (if last?
        "}\\vss\n}\n\\vfill\n"
        "}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
 
 (define-public (output-framework-tex outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (pages (ly:paper-book-pages book)))
+	 (pages (ly:paper-book-pages book))
+	 (last-page (car (last-pair pages)))
+	 )
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
@@ -159,7 +161,10 @@
       (header "creator" "timestamp" bookpaper (length pages) #f)
       (define-fonts bookpaper)
       (header-end)))
-    (for-each (lambda (page) (dump-page outputter page)) pages)
+    
+    (for-each
+     (lambda (page) (dump-page outputter page (eq? last-page page)))
+     pages)
     (ly:outputter-dump-string outputter "\\lilypondend\n")))
 
 (define (dump-line putter line last?)

@@ -19,7 +19,6 @@
 #include "output-def.hh"
 #include "music-output.hh"
 #include "music.hh"
-#include "page.hh"
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "score.hh"
@@ -97,6 +96,7 @@ Book::process (String outname, Output_def *default_def)
   return paper_book;
 }
 
+#if 0
 /* FIXME: WIP, this is a hack.  Return first page as stencil.  */
 SCM
 Book::to_stencil (Output_def *default_def)
@@ -106,13 +106,14 @@ Book::to_stencil (Output_def *default_def)
   SCM pages = paper_book->pages ();
   scm_gc_unprotect_object (paper_book->self_scm ());
 
-  if (pages != SCM_EOL)
+  if (ly_c_pair_p (pages))
     {
       progress_indication (_f ("paper output to `%s'...", "<markup>"));
-      return (unsmob_page (ly_car (pages)))->to_stencil ().smobbed_copy ();
+      return ly_car (pages);
     }
 
   scm_gc_unprotect_object (paper_book->bookpaper_->self_scm ());
   
   return SCM_EOL;
 }
+#endif

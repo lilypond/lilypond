@@ -29,7 +29,7 @@ public:
   Stencil to_stencil () const;
   SCM stencils () const;
   bool is_title () const;
-  int penalty () const;
+  Real penalty () const;
 };
 
 DECLARE_UNSMOB (Paper_line, paper_line);

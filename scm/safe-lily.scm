@@ -115,7 +115,6 @@
      ly:pitch-transpose
      ly:pitch<?
      ly:pitch?
-     ly:ragged-page-breaks
      ly:round-filled-box
      ly:run-translator
      ly:set-option
