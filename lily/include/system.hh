@@ -47,5 +47,7 @@ public:
 protected:
 };
 
+
+void set_loose_columns (System* which, Column_x_positions const *posns);
 #endif /* SYSTEM_HH */
 

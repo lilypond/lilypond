@@ -172,6 +172,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	    \context {
 		\Lyrics
 		minimumVerticalExtent = #'(-0.5 . 2.5)
+		\override LyricText #'font-size = #-1
 	    }
 	    \context {
 		\Score

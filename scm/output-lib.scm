@@ -223,6 +223,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-safe-public (all-visible d) '(#f . #f))
 (define-safe-public (all-invisible d) '(#t . #t))
 (define-safe-public (begin-of-line-invisible d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define-safe-public (center-invisible d) (if (= d 0) '(#t . #t) '(#f . #f)))
 (define-safe-public (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 

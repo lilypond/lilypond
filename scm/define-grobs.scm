@@ -386,12 +386,14 @@
 	))
     (DynamicTextSpanner
      . ((print-function . ,Dynamic_text_spanner::print)
-	(font-series . bold)
+
+;; rather ugh with NCSB
+;	(font-series . bold)
 	(font-shape . italic)
 	(style . dashed-line)
 
 	; need to blend with dynamic texts.
-	(font-size . 2)
+	(font-size . 1)
 	(bound-padding . 0.75)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
@@ -419,6 +421,7 @@
 	(break-align-symbol . left-edge)
 	(X-extent . (0 . 0))
 	(breakable . #t)
+	(break-visibility . ,center-invisible)
 	(space-alist . (
 			(custos . (extra-space . 0.0))
 			(ambitus . (extra-space . 2.0))
