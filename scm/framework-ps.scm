@@ -130,7 +130,7 @@
 				 "")
 			     "%%EndPageSetup\n"
 
-			     "start-system { "
+			     "start-page { "
 			     "set-ps-scale-to-lily-scale "
 			     "\n"))
   (ly:outputter-dump-stencil outputter page)
