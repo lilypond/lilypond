@@ -6281,7 +6281,7 @@ neumes does not necessarily reflect directly the typographical
 appearance, but is designed to solely focuse on musical meaning.  For
 example, @code{\[ a \pes b \flexa g \]} produces a Torculus consisting
 of three Punctum heads, while @code{\[ a \flexa g \pes b \]} produces
-a torculus with a curved flexa shape and only a single Punctum head.
+a Porrectus with a curved flexa shape and only a single Punctum head.
 There is no command to explicitly typeset the curved flexa shape; the
 decision of when to typeset a curved flexa shape is purely taken from
 the musical input.  The idea of this approach is to separate the
