@@ -191,12 +191,10 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
     }
 
   
-  Grob * align_center = unsmob_grob (align);
   Real center_offset = 0.0;
-  
   /*
     also move the grobs that were empty, to maintain spatial order. 
-   */
+  */
   Array<Real> all_translates;
   if (translates.size ())
     {
@@ -209,9 +207,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	    {
 	      w = translates[i++];
 	    }
-	  if (all_grobs[j] == align_center)
-	    center_offset = w;
-	  all_translates .push (w);
+	  all_translates.push (w);
 	  j++;
 	}
 
@@ -220,8 +216,6 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	FIXME: uncommenting freaks out the Y-alignment of
 	line-of-score.
        */
-      // Real align_param = is_direction (align)  ? gh_scm2double (align) : 0.0;
-      
       if (gh_number_p (align))
 	center_offset = total.linear_combination (gh_scm2double (align));
 

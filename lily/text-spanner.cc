@@ -85,8 +85,7 @@ Text_spanner::print (SCM smob)
       Direction d = LEFT;
       do
 	{
-	  if (!to_boolean (me->get_grob_property ("text-repeat-if-broken"))
-	      && broken[d])
+	  if (broken[d])
 	    continue;
 	  
 	  SCM text = index_get_cell (edge_text, d);
@@ -156,5 +155,5 @@ Text_spanner::print (SCM smob)
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "text-repeat-if-broken dash-period if-text-padding dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
+	       "dash-period if-text-padding dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
 

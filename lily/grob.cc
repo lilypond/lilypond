@@ -798,19 +798,12 @@ ly_grobs2scm (Link_array<Grob> a)
 IMPLEMENT_TYPE_P (Grob, "ly:grob?");
 
 ADD_INTERFACE (Grob, "grob-interface",
-  "In music notation, lots of symbols are related in some way.  You can\n"
-"think of music notation as a graph where nodes are formed by the\n"
-"symbols, and the arcs by their relations. A grob is a node in that\n"
-"graph.  The directed edges in the graph are formed by references to\n"
-"other grobs (i.e. pointers).  This big graph of grobs specifies the\n"
-"notation problem. The solution of this problem is a description of the\n"
-"printout in closed form, i.e. a list of values.  These values are\n"
-"Stencils.\n"
-"\n"
+	       "A grob represents a piece of music notation\n"
+	       "\n"
 "All grobs have an X and Y-position on the page.  These X and Y positions\n"
 "are stored in a relative format, so they can easily be combined by\n"
 "stacking them, hanging one grob to the side of another, and coupling\n"
-"them into a grouping-grob.\n"
+"them into a grouping objects.\n"
 "\n"
 "Each grob has a reference point (a.k.a.  parent): the position of a grob\n"
 "is stored relative to that reference point. For example the X-reference\n"
@@ -823,12 +816,23 @@ ADD_INTERFACE (Grob, "grob-interface",
 "separate grob that stacks staves vertically. The @ref{NoteCollision}\n"
 "is also an abstract grob: it only moves around chords, but doesn't print\n"
 "anything.\n"
+"\n"
+	       "Grobs have a properties: Scheme variables, that can be read and set. "
+	       "They have two types. Immutable variables "
+	       "define the default style and behavior.  They are shared between  many objects "
+	       "They can be changed using @code{\\override} and @code{\\revert}. "
+	       "\n\n"
+	       "Mutable properties are variables that are specific to one grob. Typically, "
+	       "lists of other objects, or results from computations are stored in"
+	       "mutable properties: every call to set-grob-property (or its C++ equivalent) "
+	       "sets a mutable property. " 
+
 ,
-  "X-offset-callbacks Y-offset-callbacks X-extent-callback stencil cause "
-"Y-extent-callback print-function extra-offset spacing-procedure "
-"staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
-"meta layer before-line-breaking-callback "
-"after-line-breaking-callback extra-Y-extent minimum-X-extent "
-"minimum-Y-extent transparent");
+	       "X-offset-callbacks Y-offset-callbacks X-extent-callback stencil cause "
+	       "Y-extent-callback print-function extra-offset spacing-procedure "
+	       "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
+	       "meta layer before-line-breaking-callback "
+	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
+	       "minimum-Y-extent transparent");
 
 

@@ -622,20 +622,14 @@ EasyNotation = \translator {
       \alias "Staff"
       \name "TabStaff"
       \denies "Voice"
-
+      \remove "Staff_symbol_engraver"
+      \consists "Tab_staff_symbol_engraver"
+      
       \description "Context for generating tablature. [DOCME]"
 
-%{
-      TODO: this context should use a special staff_symbol engraver that
-      takes the line count out of the stringTunings property.
-
-%}
-      
-      
       \accepts "TabVoice"
       
       % 6 strings
-      \override StaffSymbol #'line-count = #6
       \override StaffSymbol #'staff-space = #1.5
 
      % Don't draw stems over the tablature figures !

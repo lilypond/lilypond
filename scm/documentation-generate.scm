@@ -94,7 +94,6 @@
 
 (display
  (string-append
-  "@c -*-texinfo-*-"
   (texi-file-head "LilyPond program-reference" outname "(lilypond-internals.info)")
   "
 

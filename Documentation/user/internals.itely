@@ -636,8 +636,6 @@ During a run, transient objects are also created and destroyed.
 @item Stencil: Device-independent page output object,
 including dimensions.
 
-@item Syllable_group
-
 @item Spring_smob
 
 @item Translator: An object that produces audio objects or Grobs.

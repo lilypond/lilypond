@@ -107,6 +107,8 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 1)
+
+	;; hmm. why did we do this: ? 
 	(extra-offset . (1.3 . 0))
 	(meta .
 	      ((interfaces . (side-position-interface
@@ -126,7 +128,6 @@
 	;; We must do this, other BFs in
 	;; paper16 become too small.
 	(font-size . -4)
-	(font-magnification . 0.8) 
 	(kern . 0.2)
 	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface
 												bass-figure-interface item-interface
@@ -697,7 +698,7 @@
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
 	(after-line-breaking-callback . ,Slur::after_line_breaking)
-	(extremity-rules . ,default-slur-extremity-rules)
+	(extremity-function . ,calc-slur-extremity)
 	(extremity-offset-alist . ,default-phrasing-slur-extremity-offset-alist)
 	(de-uglify-parameters . (1.5  0.8  -2.0))
 	(Y-extent-callback . ,Slur::height)
@@ -812,7 +813,7 @@
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
 	(after-line-breaking-callback . ,Slur::after_line_breaking)
-	(extremity-rules . ,default-slur-extremity-rules)
+	(extremity-function . ,calc-slur-extremity)
 	(extremity-offset-alist . ,default-slur-extremity-offset-alist)
 	(de-uglify-parameters . (1.5  0.8  -2.0))
 	(Y-extent-callback . ,Slur::height)
@@ -1119,7 +1120,6 @@
 	(print-function . ,Ottava_bracket::print)
 	(font-shape . italic)
 	(font-family . roman)
-	(text-repeat-if-broken . #t)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
 	(padding  . 0.5)
