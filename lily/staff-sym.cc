@@ -25,7 +25,7 @@ Staff_symbol::do_print() const
 {
 #ifndef NPRINT
   Spanner::do_print();
-  DOUT << "lines: " << no_lines_i_;
+  DEBUG_OUT << "lines: " << no_lines_i_;
 #endif
 }
 

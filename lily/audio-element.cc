@@ -22,9 +22,9 @@ void
 Audio_element::print () const
 {
 #ifndef NPRINT
-  DOUT << classname (this) << "{ ";
+  DEBUG_OUT << classname (this) << "{ ";
   do_print ();
-  DOUT << "}";
+  DEBUG_OUT << "}";
 #endif
 }
 

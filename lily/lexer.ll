@@ -133,7 +133,7 @@ HYPHEN		--
 <version>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DOUT << "#version `" << s << "'\n";
+	DEBUG_OUT << "#version `" << s << "'\n";
 	if (!valid_version_b (s))
 		return INVALID;
 	yy_pop_state ();
@@ -175,7 +175,7 @@ HYPHEN		--
 <incl>\"[^"]*\";?   { /* got the include file name */
 	String s (YYText ()+1);
 	s = s.left_str (s.index_last_i ('"'));
-	DOUT << "#include `" << s << "'\n";
+	DEBUG_OUT << "#include `" << s << "'\n";
 	new_input (s,source_global_l);
 	yy_pop_state ();
 }
@@ -184,12 +184,12 @@ HYPHEN		--
 	strip_trailing_white (s);
 	if (s.length_i () && (s[s.length_i () - 1] == ';'))
 	  s = s.left_str (s.length_i () - 1);
-	DOUT << "#include `\\" << s << "'\n";
+	DEBUG_OUT << "#include `\\" << s << "'\n";
 	Identifier * id = lookup_identifier (s);
 	if (id) 
 	  {
 	    String* s_l = id->access_content_String (false);
-	    DOUT << "#include `" << *s_l << "'\n";
+	    DEBUG_OUT << "#include `" << *s_l << "'\n";
 	    new_input (*s_l, source_global_l);
 
 	    yy_pop_state ();
@@ -207,7 +207,7 @@ HYPHEN		--
 <chords,notes>{RESTNAME} 	{
 	const char *s = YYText ();
 	yylval.string = new String (s);	
-	DOUT << "rest:"<< yylval.string;
+	DEBUG_OUT << "rest:"<< yylval.string;
 	return RESTNAME;
 }
 <chords,notes>R		{
@@ -265,7 +265,7 @@ HYPHEN		--
 		*yylval.string += YYText ();
 	}
 	\"	{
-		DOUT << "quoted string: `" << *yylval.string << "'\n";
+		DEBUG_OUT << "quoted string: `" << *yylval.string << "'\n";
 		yy_pop_state ();
 		return STRING;
 	}
@@ -306,7 +306,7 @@ HYPHEN		--
 			here_input ().warning (
 				"Brace found at end of lyric. Did you forget a space?");
 		yylval.string = new String (s);
-		DOUT << "lyric : `" << s << "'\n";
+		DEBUG_OUT << "lyric : `" << s << "'\n";
 		return STRING;
 	}
 	. {
@@ -339,7 +339,7 @@ HYPHEN		--
 }
 
 <<EOF>> {
-	DOUT << "<<eof>>";
+	DEBUG_OUT << "<<eof>>";
 
 	if (! close_input ()) { 
  	  yyterminate (); // can't move this, since it actually rets a YY_NULL
@@ -357,7 +357,7 @@ HYPHEN		--
 	Real r;
 	int cnv=sscanf (YYText (), "%lf", &r);
 	assert (cnv == 1);
-	DOUT  << "REAL" << r<<'\n';
+	DEBUG_OUT  << "REAL" << r<<'\n';
 	yylval.real = r;
 	return REAL;
 }
@@ -369,12 +369,12 @@ HYPHEN		--
 
 [{}]	{
 
-	DOUT << "parens\n";
+	DEBUG_OUT << "parens\n";
 	return YYText ()[0];
 }
 [*:=]		{
 	char c = YYText ()[0];
-	DOUT << "misc char" <<c<<"\n";
+	DEBUG_OUT << "misc char" <<c<<"\n";
 	return c;
 }
 
@@ -432,15 +432,15 @@ My_lily_lexer::pop_state ()
 int
 My_lily_lexer::scan_escaped_word (String str)
 {
-	DOUT << "\\word: `" << str<<"'\n";
+	DEBUG_OUT << "\\word: `" << str<<"'\n";
 	int l = lookup_keyword (str);
 	if (l != -1) {
-		DOUT << "(keyword)\n";
+		DEBUG_OUT << "(keyword)\n";
 		return l;
 	}
 	Identifier * id = lookup_identifier (str);
 	if (id) {
-		DOUT << "(identifier)\n";
+		DEBUG_OUT << "(identifier)\n";
 		yylval.id = id;
 		return id->token_code_i_;
 	}
@@ -452,11 +452,11 @@ My_lily_lexer::scan_escaped_word (String str)
 			return NOTENAME_PITCH;
 		}
 	}
-	if (check_debug)
+	if (flower_dstream)
 		print_declarations (true);
 	String msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.ch_C ());
-	DOUT << "(string)";
+	DEBUG_OUT << "(string)";
 	String *sp = new String (str);
 	yylval.string=sp;
 	return STRING;
@@ -465,16 +465,16 @@ My_lily_lexer::scan_escaped_word (String str)
 int
 My_lily_lexer::scan_bare_word (String str)
 {
-	DOUT << "word: `" << str<< "'\n";	
+	DEBUG_OUT << "word: `" << str<< "'\n";	
 	if ((YYSTATE == notes) || (YYSTATE == chords)) {
 		if (notename_b (str)) {
-		    DOUT << "(notename)\n";
+		    DEBUG_OUT << "(notename)\n";
 		    yylval.pitch = new Musical_pitch (lookup_notename (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));
                     return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
 		} else if (chordmodifier_b (str)) {
-		    DOUT << "(chordmodifier)\n";
+		    DEBUG_OUT << "(chordmodifier)\n";
 		    yylval.pitch = new Musical_pitch (lookup_chordmodifier (str));
 		    yylval.pitch->set_spot (Input (source_file_l (), 
 		      here_ch_C ()));

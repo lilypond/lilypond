@@ -141,11 +141,11 @@ void
 Performance::print() const
 {
 #ifndef NPRINT
-  DOUT << "Performance { ";
-  DOUT << "Items: ";
+  DEBUG_OUT << "Performance { ";
+  DEBUG_OUT << "Items: ";
   for (Cons<Audio_element>* i =audio_elem_p_list_; i; i = i->next_)
     i->car_->print ();
-  DOUT << "}";
+  DEBUG_OUT << "}";
 #endif
 }
 

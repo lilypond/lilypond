@@ -34,13 +34,42 @@ A binary RPM of Guile 1.3 has been distributed from the LilyPond ftp
 site.  This binary was made in RedHat 5.x, and it will fail if this
 RPM is used with RedHat 6.x.
 
+
 [GUILE 1.3.2]
 
 Guile 1.3.2 is buggy in several respects. Do not use it for LilyPond.
 
-[LinuxPPC, egcs-1.1b]
 
-Lilypond 1.1.35-1.1.51,...:  Wierd errors in guile scm_gc_mark ()
+[Sparc64/Solaris 2.6, make-3.77]
+
+GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.
+
+
+[Sparc64/Solaris 2.6, ld]
+
+Not yet resolved.
+
+
+[AIX 4.3 ld]
+
+The following is from the gcc install/SPECIFIC file.
+
+   Some versions of the AIX binder (linker) can fail with a relocation
+   overflow severe error when the -bbigtoc option is used to link
+   GCC-produced object files into an executable that overflows the TOC.
+A
+   fix for APAR IX75823 (OVERFLOW DURING LINK WHEN USING GCC AND  
+   -BBIGTOC) is available from IBM Customer Support and from its
+   [27]service.boulder.ibm.com website as PTF U455193.   
+
+   Binutils does not support AIX 4.3 (at least through release 2.9). GNU
+   as and GNU ld will not work properly and one should not configure GCC
+   to use those GNU utilities. Use the native AIX tools which do
+   interoperate with GCC.
+
+add -Wl,-bbigtoc to USER_LDFLAGS, ie:
+
+    LDFLAGS='-Wl,-bbigtoc' ./configure
 
 
 [All platforms] 

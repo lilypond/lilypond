@@ -27,7 +27,7 @@ void
 Multi_measure_rest::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "measures_i_ " << measures_i_;
+  DEBUG_OUT << "measures_i_ " << measures_i_;
 #endif
 }
 

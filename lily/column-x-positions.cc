@@ -33,8 +33,8 @@ void
 Column_x_positions::print() const
 {
 #ifndef NPRINT
-  DOUT << "energy : " << energy_f_ << '\n';
-  DOUT << "line of " << config_.size() << " cols\n";
+  DEBUG_OUT << "energy : " << energy_f_ << '\n';
+  DEBUG_OUT << "line of " << config_.size() << " cols\n";
 #endif
 }
 

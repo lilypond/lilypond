@@ -20,7 +20,8 @@ template<class T>
 void
 Interval_t<T>::print () const
 {
-  fdebug << str ();
+  if (flower_dstream)
+    *flower_dstream << str ();
 }
 
 template<class T>

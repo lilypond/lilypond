@@ -20,7 +20,7 @@ Scope::print () const
     {
       if (ai.val()->init_b_ == init_b)
 	{
-	  DOUT << ai.key() << "=";
+	  DEBUG_OUT << ai.key() << "=";
 	  ai.val()->print ();
 	}
     }
@@ -30,7 +30,7 @@ Scope::~Scope ()
 {
   for (Scope_iter ai (*this); ai.ok(); ai++)
     {
-      DOUT << "deleting: " << ai.key() << '\n';
+      DEBUG_OUT << "deleting: " << ai.key() << '\n';
       delete ai.val ();
     }
 }

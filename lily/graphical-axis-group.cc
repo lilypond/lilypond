@@ -111,7 +111,7 @@ Graphical_axis_group::do_print() const
 {
 #ifndef NPRINT
   for (int i=0; i < elem_l_arr_.size(); i++) 
-    DOUT << classname(elem_l_arr_[i]) << " ";
+    DEBUG_OUT << classname(elem_l_arr_[i]) << " ";
 #endif
 }
 

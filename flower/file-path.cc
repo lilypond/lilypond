@@ -84,7 +84,7 @@ File_path::parse_path (String p)
 String
 File_path::find (String nm) const
 {
-  fdebug << "looking for" << nm << ": ";
+  DEBUG_OUT << "looking for" << nm << ": ";
   if (!nm.length_i() || (nm == "-") )
     return nm;
   for (int i=0; i < size(); i++)
@@ -97,16 +97,16 @@ File_path::find (String nm) const
 
       path += nm;
 
-      fdebug << path << "? ";
+      DEBUG_OUT << path << "? ";
       FILE *f = fopen (path.ch_C(), "r"); // ugh!
       if (f)
 	{
-	  fdebug << "found\n";
+	  DEBUG_OUT << "found\n";
 	  fclose (f);
 	  return path;
 	}
     }
-  fdebug << '\n';
+  DEBUG_OUT << '\n';
   return "";
 }
 

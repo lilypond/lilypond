@@ -21,7 +21,7 @@ void
 Transposed_music::do_print () const
 {
   Music_wrapper::do_print ();
-  DOUT << "transposition pitch: " << transpose_to_pitch_.str ();
+  DEBUG_OUT << "transposition pitch: " << transpose_to_pitch_.str ();
 }
 
 Musical_pitch

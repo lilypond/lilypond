@@ -84,8 +84,8 @@ Paper_outputter::output_header ()
 	     ly_ch_C_to_scm (generate.ch_l ()), SCM_UNDEFINED);
 
 #ifndef NPRINT
-  DOUT << "output_header\n";
-  if (check_debug && !lily_monitor->silent_b ("Guile"))
+  DEBUG_OUT << "output_header\n";
+  if (flower_dstream && !flower_dstream->silent_b ("Guile"))
     {
       gh_display (args_scm); gh_newline ();
     }
@@ -98,11 +98,11 @@ Paper_outputter::output_header ()
 void
 Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 {
-  if (check_debug)
+  if (flower_dstream)
     *outstream_l_ << String ("\n%start: ") << nm << "\n";
 
 
-  if (check_debug)
+  if (flower_dstream)
     {
       output_comment (nm);
     }

@@ -1,3 +1,27 @@
+pl 11.uu1
+	- changed debug init code.
+
+pl 11.jcn2
+	- bf: LDFLAGS=foo CFLAGS=bar ./configure
+	- bf: configure (--disable-printing = default) -DNPRINT
+	- bf: mf-to-xpms / make -C mf xpms; feta-accordion is broken,
+	  see mf/README
+
+pl 11.jcn1
+	- gnossiene with new \autochange
+
+pl 11.jbr1
+        - Tried to get rid of path and switch dependencies in mf
+          build process.
+
+pl 11.hwn1
+	- doco reorganisation: folded glossary and tutorial into manual.
+	- move mudela-book-doc to texinfo
+	- feta.tex to mf/
+	- release.py, package-diff.py now dump into out/
+
+
+****
 pl 10.hwn1
 	- Auto_change_music, Auto_change_iterator: auto staff
 switching. 2nd try.  See input/test/auto-change.ly

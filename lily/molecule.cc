@@ -129,11 +129,11 @@ void
 Molecule::print() const
 {
 #ifndef NPRINT
-  if (! check_debug)
+  if (! flower_dstream)
     return;
-  DOUT << "dim:";
+  DEBUG_OUT << "dim:";
   for (Axis i=X_AXIS; i < NO_AXES; incr (i))
-    DOUT << axis_name_str (i) << " = " << dim_[i].str ();
+    DEBUG_OUT << axis_name_str (i) << " = " << dim_[i].str ();
 #endif
 }
 

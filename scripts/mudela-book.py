@@ -112,8 +112,8 @@ def output_verbatim (body):
 	return get_output ('output-verbatim') % body
 
 re_dict = {
-	'latex': {'input': '\\\\input{?([^}\t \n}]*)',
-		  'include': '\\\\include{([^}]+)}',
+	'latex': {'input': '\\\\mbinput{?([^}\t \n}]*)',
+		  'include': '\\\\mbinclude{([^}]+)}',
 		 
 		  'comma-sep' : ', *',
 		  'header': r"""\\documentclass(\[.*?\])?""",
@@ -127,7 +127,9 @@ re_dict = {
 		  'def-post-re': r"""\\def\\postMudelaExample""",
 		  'def-pre-re': r"""\\def\\preMudelaExample""",		  
 		  },
-	'texi': {'input': '@include[ \n\t]+([^\t \n]*)',
+	
+	'texi': {
+		 'input':  '@mbinclude[ \n\t]+([^\t \n]*)',# disabled
 		 'include': no_match,
 		 'header': no_match,
 		 'preamble-end': no_match,
@@ -216,6 +218,7 @@ def compose_full_body (body, opts):
 		m = re.match ('latexfontsize=([0-9]+)pt', o)
 		if m:
 			latex_size = string.atoi (m.group (1))
+
 
 
 	if 'twocolumn' in opts:

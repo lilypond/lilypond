@@ -119,8 +119,8 @@ void
 Rest_collision::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "rests: " << rest_l_arr_.size() << ", ";
-  DOUT << "cols: " << ncol_l_arr_.size();
+  DEBUG_OUT << "rests: " << rest_l_arr_.size() << ", ";
+  DEBUG_OUT << "cols: " << ncol_l_arr_.size();
 #endif
 }
 

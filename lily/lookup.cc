@@ -405,7 +405,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   Interval ydims (0,0);
 
   Font_metric* afm_l = all_fonts_global_p->find_font (style);
-  DOUT << "\nChars: ";
+  DEBUG_OUT << "\nChars: ";
 
 
   int brace_count =0;

@@ -40,17 +40,17 @@ void
 Music_iterator::print() const
 {
 #ifndef NPRINT
-  if (!check_debug)
+  if (!flower_dstream)
     return ;
-  DOUT << classname(this) << "{";
+  DEBUG_OUT << classname(this) << "{";
   Translator_group *t =     report_to_l();
-  DOUT << "report to " << t->type_str_ << " = " << t->id_str_ << "\n";
+  DEBUG_OUT << "report to " << t->type_str_ << " = " << t->id_str_ << "\n";
   if (ok())
-    DOUT << "next at " << next_moment() << " ";
+    DEBUG_OUT << "next at " << next_moment() << " ";
   else
-    DOUT << "not feeling well today..";
+    DEBUG_OUT << "not feeling well today..";
   do_print();
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }
 

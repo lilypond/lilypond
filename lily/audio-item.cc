@@ -84,7 +84,7 @@ Audio_item::do_print () const
 #ifndef NPRINT
   if (audio_column_l_)
     {
-      DOUT << "at: "<< audio_column_l_->at_mom ();
+      DEBUG_OUT << "at: "<< audio_column_l_->at_mom ();
     }
 #endif
 }

@@ -44,7 +44,7 @@ Midi_stream::operator << (Midi_item const& midi_c_r)
 {
 //    *this <<midi_c_r.str (); 
   String str = midi_c_r.str ();
-  if (check_debug && !lily_monitor->silent_b ("Midistrings")) 
+  if (flower_dstream && !flower_dstream->silent_b ("Midistrings")) 
     {
     str = String_convert::bin2hex_str (str) + "\n";
     // ugh, should have separate debugging output with Midi*::print routines

@@ -191,6 +191,7 @@ breakmusic = \notes {
   \context Score <
     \context PianoStaff <
       \context Staff = treble {
+ 	\property Score.midiInstrument = "church organ"
         \praeludium_right \breakmusic \fugaII_right }
       \context Staff = bass { 
         \praeludium_left \breakmusic \fugaII_left }

@@ -129,8 +129,8 @@ void
 Note_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "rests: " << rest_l_arr_.size() << ", ";
-  DOUT << "heads: " << head_l_arr_.size();
+  DEBUG_OUT << "rests: " << rest_l_arr_.size() << ", ";
+  DEBUG_OUT << "heads: " << head_l_arr_.size();
 #endif
 }
 

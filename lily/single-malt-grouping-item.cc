@@ -75,7 +75,7 @@ Single_malt_grouping_item::do_print () const
 #ifndef NDEBUG
   for (int i=0; i < item_l_arr_.size (); i++)
     {
-      DOUT << classname (item_l_arr_[i]) << ", ";
+      DEBUG_OUT << classname (item_l_arr_[i]) << ", ";
     }
 #endif
 }

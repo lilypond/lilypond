@@ -45,7 +45,7 @@ Stem_info::Stem_info (Stem*s, int mult)
          
   {
       static int i = 1;
-      DOUT << "******" << i++ << "******\n" 
+      DEBUG_OUT << "******" << i++ << "******\n" 
 	   << "begin_f: " << stem_l_->stem_begin_f () * dir_ 
 	   << "\nchord_f/i: " << stem_l_->chord_start_f () * dir_ / internote_f << '\n';
   }
@@ -119,11 +119,11 @@ Stem_info::Stem_info (Stem*s, int mult)
   miny_f_ /= internote_f;
   maxy_f_ /= internote_f;
 
-  DOUT << "dir_: " << dir_ << '\n';
-  DOUT << "mult_i_: " << mult_i_ << '\n';
-  DOUT << "idealy_f_: " << idealy_f_ << '\n';
-  DOUT << "miny_f_: " << miny_f_ << '\n';
-  DOUT << "maxy_f_: " << maxy_f_ << '\n';
+  DEBUG_OUT << "dir_: " << dir_ << '\n';
+  DEBUG_OUT << "mult_i_: " << mult_i_ << '\n';
+  DEBUG_OUT << "idealy_f_: " << idealy_f_ << '\n';
+  DEBUG_OUT << "miny_f_: " << miny_f_ << '\n';
+  DEBUG_OUT << "maxy_f_: " << maxy_f_ << '\n';
 
   idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;

@@ -21,7 +21,7 @@ void
 Musical_pitch::print () const
 {
 #ifndef NPRINT
-  DOUT << str ();
+  DEBUG_OUT << str ();
 #endif
 }
 

@@ -210,9 +210,9 @@ void
 Align_element::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "contains: ";
+  DEBUG_OUT << "contains: ";
   for (int i=0 ;  i < elem_l_arr_.size(); i++) 
-    DOUT << classname (elem_l_arr_[i]) << ", ";
+    DEBUG_OUT << classname (elem_l_arr_[i]) << ", ";
 #endif
 }
 

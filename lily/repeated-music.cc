@@ -45,7 +45,7 @@ void
 Repeated_music::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "Fold = " << fold_b_ << " reps: " << repeats_i_;
+  DEBUG_OUT << "Fold = " << fold_b_ << " reps: " << repeats_i_;
 
   if (repeat_body_p_)
     repeat_body_p_->print();

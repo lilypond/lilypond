@@ -23,7 +23,7 @@ void
 Column_rod::print () const
 {
 #ifndef NDEBUG
-  DOUT << "Column_rod { rank = "
+  DEBUG_OUT << "Column_rod { rank = "
        << other_l_->rank_i () << ", dist = " << distance_f_ << "}\n";   
 #endif
 }

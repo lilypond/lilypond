@@ -13,13 +13,14 @@
 #include "dstream.hh"
 
 extern Dstream *flower_dstream;
-extern bool flower_check_debug;
+
 #ifdef NPRINT
-#define	fdebug if (0) *flower_dstream
+#define	DEBUG_OUT if (0) *flower_dstream
 #else
-#define fdebug if (flower_check_debug) \
+#define DEBUG_OUT if (flower_dstream) \
 	flower_dstream->identify_as (__PRETTY_FUNCTION__)
 #endif
-void set_flower_debug (Dstream&ds, bool);
+
+void set_debug (Dstream *ds);
 
 #endif // FLOWER_DEBUG_HH

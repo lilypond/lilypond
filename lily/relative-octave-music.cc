@@ -27,7 +27,7 @@ void
 Relative_octave_music::do_print () const
 {
   Music_wrapper::do_print ();
-  DOUT << "default pitch: " << last_pitch_.str ();
+  DEBUG_OUT << "default pitch: " << last_pitch_.str ();
 }
 
 

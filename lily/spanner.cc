@@ -5,6 +5,7 @@
 
   (c) 1996, 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "dimension-cache.hh"
 #include "debug.hh"
 #include "spanner.hh"
@@ -19,11 +20,11 @@ void
 Spanner::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "Between " << classname (spanned_drul_[LEFT])
+  DEBUG_OUT << "Between " << classname (spanned_drul_[LEFT])
        << " and " << classname (spanned_drul_[RIGHT]) << '\n';
 
   if (broken_b ())
-    DOUT << "Broken in " << to_str (broken_into_l_arr_.size ()) << " pieces";
+    DEBUG_OUT << "Broken in " << to_str (broken_into_l_arr_.size ()) << " pieces";
 #endif
 }
 

@@ -24,7 +24,7 @@ Stem_tremolo::Stem_tremolo ()
 void
 Stem_tremolo::do_print () const
 {
-  DOUT << "abbrev_flags_i_ " << abbrev_flags_i_;
+  DEBUG_OUT << "abbrev_flags_i_ " << abbrev_flags_i_;
 }
 
 Interval

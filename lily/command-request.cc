@@ -14,7 +14,7 @@ void
 Cadenza_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << (int)on_b_;
+  DEBUG_OUT << (int)on_b_;
 #endif
 }
 
@@ -43,7 +43,7 @@ void
 Bar_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << type_str_;
+  DEBUG_OUT << type_str_;
 #endif
 }
 
@@ -76,7 +76,7 @@ void
 Clef_change_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << clef_str_ ;
+  DEBUG_OUT << clef_str_ ;
 #endif
 }
 
@@ -88,14 +88,14 @@ Clef_change_req::Clef_change_req (String s)
 void
 Partial_measure_req::do_print () const
 {
-  DOUT << length_mom_;
+  DEBUG_OUT << length_mom_;
 }
 
 void
 Time_signature_change_req::do_print () const
 {
 #ifndef NPRINT
-  DOUT << beats_i_ << "/" << one_beat_i_;
+  DEBUG_OUT << beats_i_ << "/" << one_beat_i_;
 #endif
 }
 
@@ -125,7 +125,7 @@ Tempo_req::Tempo_req ()
 void
 Tempo_req::do_print () const
 {
-  DOUT << dur_.str () << " = " << metronome_i_;
+  DEBUG_OUT << dur_.str () << " = " << metronome_i_;
 }
 
 
@@ -168,7 +168,7 @@ Mark_req::Mark_req (String s)
 void
 Mark_req::do_print () const
 {
-  DOUT << str_;
+  DEBUG_OUT << str_;
 }
 void
 Key_change_req::transpose (Musical_pitch p)

@@ -85,15 +85,15 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
       if (iter->ok())
 	{
 	  w = iter->next_moment();
-	  DOUT << "proccing: " << w << '\n';
-	  if (!lily_monitor->silent_b ("walking"))
+	  DEBUG_OUT << "proccing: " << w << '\n';
+	  if (flower_dstream && !flower_dstream->silent_b ("walking"))
 	    iter->print();
 	}
       
       modify_next (w);
       prepare (w);
       
-      if (!lily_monitor->silent_b ("walking"))
+      if (flower_dstream && !flower_dstream->silent_b ("walking"))
 	print();
 
       iter->process_and_next (w);

@@ -27,7 +27,7 @@ void
 Time_description::print() const
 {
 #ifndef NPRINT
-  DOUT << str ();
+  DEBUG_OUT << str ();
 #endif
 }
 

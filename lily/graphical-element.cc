@@ -95,7 +95,7 @@ void
 Graphical_element::do_print () const
 {
 #ifndef NPRINT
-  DOUT << '\n';
+  DEBUG_OUT << '\n';
 #endif
 }
 
@@ -140,9 +140,9 @@ void
 Graphical_element::print () const
 {
 #ifndef NPRINT
-  DOUT << classname (this) << "{\n";
+  DEBUG_OUT << classname (this) << "{\n";
   do_print ();
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }  
 

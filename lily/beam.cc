@@ -134,7 +134,7 @@ void
 Beam::do_print () const
 {
 #ifndef NPRINT
-  DOUT << "slope_f_ " << slope_f_ << "left ypos " << left_y_;
+  DEBUG_OUT << "slope_f_ " << slope_f_ << "left ypos " << left_y_;
   Spanner::do_print ();
 #endif
 }
@@ -260,7 +260,7 @@ void
 Beam::solve_slope ()
 {
   assert (sinfo_.size () > 1);
-  DOUT << "Beam::solve_slope: \n";
+  DEBUG_OUT << "Beam::solve_slope: \n";
 
   Least_squares l;
   for (int i=0; i < sinfo_.size (); i++)

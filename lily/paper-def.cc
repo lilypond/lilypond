@@ -209,14 +209,14 @@ Paper_def::print () const
 {
 #ifndef NPRINT
   Music_output_def::print ();
-  DOUT << "Paper {";
+  DEBUG_OUT << "Paper {";
 
   for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
     {
-      DOUT << "Lookup: " << ai.key () << " = " << ai.val ()->font_name_ << '\n';
+      DEBUG_OUT << "Lookup: " << ai.key () << " = " << ai.val ()->font_name_ << '\n';
     }
 
-  DOUT << "}\n";
+  DEBUG_OUT << "}\n";
 #endif
 }
 
