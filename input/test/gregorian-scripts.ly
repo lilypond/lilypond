@@ -28,7 +28,7 @@ FIXME: episem stops one notehead too early.
 
 \score {
   \context VaticanaVoice {
-    \override VaticanaScript  #'padding = #-0.5
+    \override Script #'padding = #-0.5
      {
       a\ictus
       a\circulus
