@@ -8,6 +8,7 @@
 */
 
 #include "book.hh"
+#include "book-paper-def.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "lily-version.hh"
@@ -325,10 +326,29 @@ LY_DEFINE(ly_parser_define, "ly:parser-define",
           (SCM parser_smob, SCM symbol, SCM val),
           "Bind SYMBOL to VAL in PARSER_SMOB's module.")
 {
-  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG1, __FUNCTION__, "symbol");
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
+
+
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
+}
+LY_DEFINE(ly_parser_lookup, "ly:parser-lookup",
+          2, 0, 0, 
+          (SCM parser_smob, SCM symbol),
+          "Lookup @var{symbol} in @var{parser_smob}'s module. Undefined is '().")
+{
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+
+  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
+
+  SCM val= parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
+  if (val != SCM_UNDEFINED)
+    return val;
+  else
+    return SCM_EOL;
 }
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
@@ -337,20 +357,13 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   "Parse the string LY_CODE with PARSER_SMOB."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-#if 0
-  SCM_ASSERT_TYPE (ly_c_parser_p (parser), music, SCM_ARG1, __FUNCTION__, "parser");
-#endif
-  SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
 
-#if 1
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
+  SCM_ASSERT_TYPE (ly_c_string_p (ly_code), ly_code, SCM_ARG2, __FUNCTION__, "string");
+  
   parser->parse_string (ly_scm2string (ly_code));
-#else
-  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
-  My_lily_parser *clone = new My_lily_parser (*parser);
-  clone->parse_string (ly_scm2string (ly_code));
-  clone = 0;
-#endif
   
   return SCM_UNSPECIFIED;
 }
@@ -363,17 +376,30 @@ get_paper (My_lily_parser *parser)
   return paper ? paper->clone () : new Paper_def;
 }
 
+
+Book_paper_def*
+get_bookpaper (My_lily_parser *parser)
+{
+  SCM id = parser->lexer_->lookup_identifier ("$defaultbookpaper");
+  Book_paper_def *paper = unsmob_bookpaper (id);
+  return  paper->clone ();
+}
+
+
+/*
+  TODO: move this to Scheme? Why take the parser arg, and all the back
+  & forth between scm and c++?
+ */
 LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 	   2, 0, 0,
 	   (SCM parser_smob, SCM score_smob),
 	   "Print score, i.e., the classic way.")
 {
-#if 0
-  SCM_ASSERT_TYPE (ly_c_parser_p (parser), music, SCM_ARG1, __FUNCTION__, "parser");
-  SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
-#endif
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Score *score = unsmob_score (score_smob);
+
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
+  SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
   SCM header = is_module (score->header_) ? score->header_
     : parser->header_.to_SCM ();
@@ -386,13 +412,16 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 
   SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
   for (int i = 0; i < score->defs_.size (); i++)
-    default_rendering (score->music_, score->defs_[i]->self_scm (), header,
-		       os);
+    default_rendering (score->music_, score->defs_[i]->self_scm (),
+		       get_bookpaper (parser)->self_scm (),
+		       header, os);
 
   if (score->defs_.is_empty ())
     {
       Music_output_def *paper = get_paper (parser);
-      default_rendering (score->music_, paper->self_scm (), header, os);
+      default_rendering (score->music_, paper->self_scm (),
+			 get_bookpaper (parser)->self_scm (),
+			 header, os);
       scm_gc_unprotect_object (paper->self_scm ());
     }
   return SCM_UNDEFINED;
@@ -403,12 +432,14 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 	   (SCM parser_smob, SCM book_smob),
 	   "Print book.")
 {
-#if 0
-  SCM_ASSERT_TYPE (ly_c_parser_p (parser_smob), parser_smob, SCM_ARG1, __FUNCTION__, "parser_smob");
-  SCM_ASSERT_TYPE (ly_c_music_p (book_smob), book_smob, SCM_ARG1, __FUNCTION__, "book_smob");
-#endif
   My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
   Book *book = unsmob_book (book_smob);
+  Book_paper_def *bp = unsmob_bookpaper (parser->lexer_->lookup_identifier ("$defaultbookpaper"));
+  
+  SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+  SCM_ASSERT_TYPE (book, book_smob, SCM_ARG2, __FUNCTION__, "Book");
+  
+  book->bookpaper_ = bp;	// ugh. changing argument. 
   
   SCM header = parser->header_;
   File_name outname (parser->output_basename_);

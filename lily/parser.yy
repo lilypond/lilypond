@@ -26,6 +26,7 @@ TODO:
 
 
 #include "book.hh"
+#include "book-paper-def.hh"
 #include "context-def.hh"
 #include "dimensions.hh"
 #include "event.hh"
@@ -622,6 +623,7 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
+		$$->bookpaper_ = unsmob_bookpaper (THIS->lexer_->lookup_identifier ("$defaultbookpaper"));
 	}
 	| book_body score_block {
 		Score *score = $2;

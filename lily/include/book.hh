@@ -20,8 +20,9 @@ class Book : public Input
 
 public:
   SCM header_;
+  Book_paper_def *bookpaper_;
+  
   Link_array<Score> scores_;
-    
   Book ();
 
   void process (String outname, Music_output_def*, SCM header);

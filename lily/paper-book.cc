@@ -89,7 +89,7 @@ Paper_book::output (String outname)
   Paper_def *paper = score_lines_[0].paper_;
   Paper_outputter *out = paper->get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
-  out->output_header (paper, scopes (0), page_count, false);
+  out->output_header (paper->bookpaper_, scopes (0), page_count, false);
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -145,7 +145,7 @@ Paper_book::classic_output (String outname)
   int count = score_lines_.size ();
   Paper_def * p = score_lines_.top ().paper_;
   Paper_outputter *out = p->get_paper_outputter (outname);
-  out->output_header (p, scopes (count - 1), 0, true);
+  out->output_header (p->bookpaper_, scopes (count - 1), 0, true);
 
   SCM top_lines = score_lines_.top ().lines_;
   Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,

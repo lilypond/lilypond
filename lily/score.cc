@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "book.hh"
+#include "book-paper-def.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
@@ -155,10 +156,20 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 }
 
 void
-default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
+default_rendering (SCM music, SCM outdef,
+		   SCM book_outputdef,
+		   SCM header, SCM outname)
 {
   SCM context = ly_run_translator (music, outdef);
 
+  Book_paper_def * bpd = unsmob_bookpaper (book_outputdef);
+  if (bpd &&
+      unsmob_paper (outdef))
+    {
+      outdef = bpd->scale_paper (unsmob_paper (outdef))->self_scm (); // mem
+								      // leak.
+    }
+  
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
     {
@@ -182,9 +193,11 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
       delete output;
     }
 }
-
+ 
 SCM
-Score::book_rendering (String outname, Music_output_def *default_def,
+Score::book_rendering (String outname,
+		       Book_paper_def* paperbook,
+		       Music_output_def *default_def,
 		       Paper_def **paper)
 {
   SCM out = scm_makfrom0str (outname.to_str0 ());
@@ -193,6 +206,11 @@ Score::book_rendering (String outname, Music_output_def *default_def,
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Music_output_def *def = outdef_count ? defs_[i] : default_def;
+      if (Paper_def * pd = dynamic_cast<Paper_def*> (def))
+	{
+	  def = paperbook->scale_paper (pd);
+	}
+      
       if (!(no_paper_global_b && dynamic_cast<Paper_def*> (def)))
 	{
 	  SCM context = ly_run_translator (music_, def->self_scm ());

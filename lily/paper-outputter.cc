@@ -10,6 +10,7 @@
 #include <math.h>
 #include <time.h>
 
+#include "book-paper-def.hh"
 #include "array.hh"
 #include "dimensions.hh"
 #include "font-metric.hh"
@@ -35,7 +36,6 @@ extern SCM stencil2line (Stencil* stil, bool is_title = false);
 Paper_outputter::Paper_outputter (String filename)
 {
   filename_ = filename;
-  paper_ = 0;
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
@@ -56,7 +56,7 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
+Paper_outputter::output_metadata (Book_paper_def *paper, SCM scopes)
 {
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--; )
@@ -76,10 +76,12 @@ Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
 }
 
 void
-Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
+Paper_outputter::output_header (Book_paper_def * bookpaper,
+				
+				SCM scopes,
+				int page_count,
 				bool is_classic)
 {
-  paper_ = paper;		//  BROKEN BROKEN BROKEN.
   String creator = gnu_lilypond_version_string ();
   creator += " (http://lilypond.org)";
   time_t t (time (0));
@@ -89,14 +91,14 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
   output_scheme (scm_list_n (ly_symbol2scm ("header"),
 			     scm_makfrom0str (creator.to_str0 ()),
 			     scm_makfrom0str (time_stamp.to_str0 ()),
-			     paper->self_scm (),
+			     bookpaper->self_scm (), // FIXME.
 			     scm_int2num (page_count),
 			     ly_bool2scm (is_classic),
 			     SCM_UNDEFINED));
 
-  output_metadata (paper, scopes);
-  output_music_output_def (paper);
-
+  output_metadata (bookpaper, scopes);
+  output_scheme (scm_list_2 (ly_symbol2scm ("define-fonts"),
+			     bookpaper->self_scm ()));
   output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
 }
 
@@ -162,13 +164,7 @@ paper_outputter_dump (void * po, SCM x)
 void
 Paper_outputter::output_stencil (Stencil stil)
 {
-  SCM fonts = find_expression_fonts (stil.expr ());
-
-  output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
- 			     paper_->self_scm (),
- 			     ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
-  
-  interpret_stencil_expression (stil.expr (), paper_outputter_dump,
+   interpret_stencil_expression (stil.expr (), paper_outputter_dump,
 			  (void*) this, Offset (0,0));
 }
 
