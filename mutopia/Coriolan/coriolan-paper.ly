@@ -1,76 +1,45 @@
 \version "1.3.120"
-\paper{
+\paper {
 	\paperSixteen
 
-	%textheight = 290.0\mm;
-	%linewidth = 195.0\mm;
-	textheight = 285.0\mm;
-	linewidth = 190.0\mm;
+	% Fine for my a4 laserprinter:
+	%textheight = 285.0\mm;
+	%linewidth = 190.0\mm;
 
-	\translator{ \HaraKiriStaffContext }
-	%
-	% The Voice combine hierarchy
-	%
-	\translator{
+	% Mandatory Mutopia settings:
+	textheight = 270.0\mm;
+	linewidth = 180.0\mm;
+
+	\translator {
 		\ThreadContext
-		\name "VoiceCombineThread";
 		\consists "Rest_engraver";
 	}
-	\translator{
+	\translator {
 		\VoiceContext
-		\name "VoiceCombineVoice";
-		soloText = #"I."
-		soloIIText = #"II."
 		\remove "Rest_engraver";
-		\accepts "VoiceCombineThread";
-	}
-	\translator{
-		\HaraKiriStaffContext
-		\consists "Mark_engraver";
-		\name "VoiceCombineStaff";
-		\accepts "VoiceCombineVoice";
-	}
 
-	%
-	% The Staff combine hierarchy
-	%
-	\translator{
-		\ThreadContext
-		\name "StaffCombineThread";
-	}
-	\translator{
-		\VoiceContext
-		\name "StaffCombineVoice";
-		\accepts "StaffCombineThread";
+		% The staff combine (bassi part) needs a
+		% thread_devnull_engraver here.
+		% Instead of maintaining two separate hierarchies,
+		% we switch add it, but switch it off immediately.
+		% --> move to Score level to be able to override
+		% The staff combine part switches it on.
+		
+		%% devNullThread = #'never
 		\consists "Thread_devnull_engraver";
 	}
 	\translator {
 		\HaraKiriStaffContext
-		\name "StaffCombineStaff";
-		\accepts "StaffCombineVoice";
-
-		soloADue = ##t
-		soloText = #""
-		soloIIText = #""
-		% This is non-conventional, but currently it is
-		% the only way to tell the difference.
-		aDueText = #"\\`a2"
-		splitInterval = #'(1 . 0)
-		changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+		\consists "Mark_engraver";
 	}
-	\translator {
-		\StaffGroupContext
-		\accepts "VoiceCombineStaff";
-		\accepts "StaffCombineStaff";
-	}
-	\translator{ \HaraKiriStaffContext }
-
-	\translator {
-		%\ScoreContext
+	\translator  {
 		\OrchestralScoreContext
-		\accepts "VoiceCombineStaff";
-		\accepts "StaffCombineStaff";
-		skipBars = ##t 
+		% skipBars = ##t 
+
+		soloText = #"I."
+		soloIIText = #"II."
+		devNullThread = #'never
+		
 		TimeSignature \override #'style = #'C
 		BarNumber \override #'padding = #3
 		RestCollision \override #'maximum-rest-count = #1
