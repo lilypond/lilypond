@@ -90,32 +90,6 @@ Text_item::lookup_character (Grob *, Font_metric*fm, SCM char_name)
 Molecule
 Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 {
-#if 0
-  /*
-    Fixme; should be done differently, move to font-interface?
-
-    differently -- how/why?
-   */
-
-  SCM magnification = me->get_grob_property ("font-magnification");
-
-  Font_metric* metric = 0;
-  if (gh_number_p (magnification))
-    {
-
-      Real realmag = pow (1.2, gh_scm2int (magnification));
-      metric = all_fonts_global_p->find_scaled (ly_scm2string (font_name), realmag);
-
-      assert (false);
-    }
-#else
-  SCM magnification = me->get_grob_property ("font-magnification");
-
-  if (gh_number_p (magnification) && gh_scm2double (magnification) > 1)
-    programming_error ("font-magnification disabled");
-#endif
-  
-
   SCM list = scm_list_n (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (fm, list);
   
@@ -240,20 +214,13 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
   
   if (extent_b)
     {
-#if 0
-      /* Hmm, we're not allowed to change a Molecule's extent? */
-      mol.dim_[axis] = extent;
-      Molecule::ly_set_molecule_extent_x (mol.self_scm (), gh_int2scm (axis),
-					  ly_cdr (e));
-#else
-      // burp: unpredictable names, these...
+      /* we're not setting extents for unknown reasons. */
       Box b = mol.extent_box ();
       SCM expr = mol.get_expr ();
 
       b[axis] = extent;
       mol = Molecule (b, expr);
-#endif
-	}  
+    }  
   return mol;
 }
 

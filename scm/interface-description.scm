@@ -15,6 +15,9 @@
 ;;; and `objects'.
 
 
+;;; TODO: this should be done through C++ macros, in order to have
+;;; tighter coupling between the C++ and its doco.
+
 (define all-interfaces '())
 
 (define (lily-interface symbol description props)

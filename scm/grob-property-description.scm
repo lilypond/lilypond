@@ -158,9 +158,11 @@ procedure is tried.")
 (grob-property-description 'flag-width-function procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
 (grob-property-description 'font-family symbol? "partial font
 definition: music roman braces dynamic math ...")
-(grob-property-description 'font-name symbol? "partial font definition:
-base name of font file FIXME: should override other partials.")
+(grob-property-description 'font-name string? "file name for the font to load.
+Overrides all other font-X qualifiers.")
 (grob-property-description 'font-design-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size.")
+(grob-property-description 'font-magnification number? "Magnification
+  of the font. If undefined, the default is @code{1.0}.")
 (grob-property-description 'font-relative-size number? "partial font definition: the relative size compared the `normal' size.
  0 is style-sheet's normal size, -1 is smaller, +1 is bigger, -1 is smaller.")
 (grob-property-description 'font-series symbol? "partial font definition: medium, bold.")

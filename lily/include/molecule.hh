@@ -42,7 +42,6 @@
 class Molecule {
   Box dim_;
   SCM expr_;
-
   
   DECLARE_SIMPLE_SMOBS (Molecule,);  
 public:

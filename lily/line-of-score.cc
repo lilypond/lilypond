@@ -191,7 +191,6 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 	  j ++;	
 	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
 	}
-      
     }
 }
 

@@ -28,6 +28,12 @@
 /*
   TODO:
   staff-line collisions for horizontal tuplet brackets.
+
+  TODO:
+
+  in the case that there is no bracket, but there is a (single) beam,
+  follow beam precisely for determining tuplet number location.
+  
  */
 
 
@@ -38,9 +44,6 @@ Tuplet_bracket::set_interface (Grob*me)
   me->set_interface (ly_symbol2scm ("tuplet-bracket"));
 }
 
-/*
-  TODO: use stem->beam fields to find Beams. Autobeams aren't found
-  through the engraver mechanism.  */
 MAKE_SCHEME_CALLBACK (Tuplet_bracket,brew_molecule,1);
 SCM
 Tuplet_bracket::brew_molecule (SCM smob) 

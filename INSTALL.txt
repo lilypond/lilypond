@@ -126,8 +126,9 @@ Compilation
 
    You need the following packages to compile Lilypond.
 
-   * A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or newer.
-     Check out the gcc site (ftp://ftp.gnu.org/gnu/gcc/).
+   * A reasonably new version of the GNU C++ compiler:  EGCS 1.1, GCC
+     2.95.2 or newer. Check out the gcc site
+     (ftp://ftp.gnu.org/gnu/gcc/).
 
    * Python (version 1.5 or newer; not 2.1.x) Check out the python
      website (http://www.python.org).
@@ -176,19 +177,8 @@ Compilation
           ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 
    * pktrace, [OPTIONAL], needed for generating PostScript Type1 fonts.
-     Get it from  `http://www.cs.uu.nl/~hanwen/pktrace/'
-
-   * autotrace-0.27a, [OPTIONAL], needed for generating PostScript Type1
-     fonts. `http://autotrace.sourceforge.net'.
-
-   * MetaPost [OPTIONAL] needed for generating PostScript Type3 fonts.
-     Please note that tetex-0.4pl8 (included with Red Hat 5.x) does not
-     include `mfplain.mp', which is needed for producing the scalable
-     font files.
-
-     If you don't have MetaPost and don't want to use PostScript
-     output, then edit `mf/GNUmakefile', removing the line saying
-     `PFA_FILES='.
+     Get it from  `http://www.cs.uu.nl/~hanwen/pktrace/'.  You will
+     need to install some additional packages to get pktrace to work.
 
 
 Running requirements

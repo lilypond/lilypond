@@ -429,6 +429,7 @@
 	
 	(PaperColumn . (
 		(axes 0)
+;	        (molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
 	))
 	(PhrasingSlur . (
@@ -455,6 +456,7 @@
 	
 	(NonMusicalPaperColumn . (
                 (axes 0)
+;	(molecule-callback . ,Paper_column::brew_molecule) (font-name . "cmr8")
  		(meta . ,(grob-description paper-column-interface axis-group-interface spaceable-element-interface))
         ))
 
