@@ -329,9 +329,13 @@ postinstall () {
     ## Cygwin readmes
     cygwin=cygwin
     cd $src || exit 1
-    install -m644 $cygwin/out/README $inst/$docdir/README.Cygwin
+    #install -m644 $cygwin/README $inst/$docdir/README.Cygwin
     install -m644 $cygwin/changelog $inst/$docdir/changelog.Cygwin
     install -d -m755 $inst/$prefix/doc/Cygwin
+    #install -m644 $cygwin/README $inst/$prefix/doc/Cygwin/$package.README
+
+    cd $build || exit 1
+    install -m644 $cygwin/out/README $inst/$docdir/README.Cygwin
     install -m644 $cygwin/out/README $inst/$prefix/doc/Cygwin/$package.README
 
     ## copy examples

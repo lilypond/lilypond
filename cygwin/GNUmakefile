@@ -27,7 +27,7 @@ $(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/$(outconfbase)
 	cp $< $@
 	chmod 755 $@
 
-default: $(OUT_POST_INSTALLS) $(OUT_PROFILES)
+default: $(OUT_POST_INSTALLS) $(OUT_PROFILES) $(OUTIN_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1 2
 
