@@ -374,7 +374,11 @@ the mark when there are no spanners active."
 	      (cond ((not (equal? (configuration now-state) 'apart))
 		     current-idx)
 		    ((> siln 0) start-idx)
-		    ((and (null? (span-state solo-state)))
+		    ((not solo-state)
+		     (put-range type start-idx current-idx)
+		     current-idx)
+		    ((and
+		      (null? (span-state solo-state)))
 		     ;;
 		     ;; This includes rests. This isn't a problem: long rests
 		     ;; will be shared with the silent voice, and be marked
