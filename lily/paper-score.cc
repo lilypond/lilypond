@@ -15,7 +15,7 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
-#include "scope.hh"
+#include "scm-hash.hh"
 #include "gourlay-breaking.hh"
 #include "paper-outputter.hh"
 #include "file-results.hh"
@@ -100,9 +100,9 @@ Paper_score::process ()
 
   if (global_header_p)
     {
-      Scope gh (global_header_p);
-      outputter_l_->output_scope (&gh, "lilypond");
-      outputter_l_->write_header_fields_to_file (&gh);
+
+      outputter_l_->output_scope (global_header_p, "lilypond");
+      outputter_l_->write_header_fields_to_file (global_header_p);
     }
   if (header_l_)
     {
@@ -113,8 +113,8 @@ Paper_score::process ()
   outputter_l_->output_comment (_ ("Outputting Score, defined at: "));
   outputter_l_->output_comment (origin_str_);
 
-  if (paper_l_->scope_p_)
-    outputter_l_->output_scope (paper_l_->scope_p_, "lilypondpaper");
+  if (paper_l_->variable_tab_)
+    outputter_l_->output_scope (paper_l_->variable_tab_, "lilypondpaper");
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);

@@ -18,10 +18,6 @@
 
 /**
   Definition of how to output lilypond.
-
-  TODO: smobify, remove Music_output_def_identifier.
-
-  TODO: remove Scope structure. Scheme_hash_table has all the info.
  */
 class Music_output_def  
 {
@@ -29,8 +25,6 @@ public:
   Scheme_hash_table * translator_tab_;
   Scheme_hash_table * variable_tab_;  
 
-  Scope *translator_p_dict_p_;
-  Scope *scope_p_;
 
   SCM scaled_fonts_;
   SCM style_sheet_;

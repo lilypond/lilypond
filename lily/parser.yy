@@ -47,7 +47,6 @@ this.
 #include "property-iterator.hh"
 #include "file-results.hh"
 #include "input.hh"
-#include "scope.hh"
 #include "relative-music.hh"
 #include "lyric-combine-music.hh"
 #include "transposed-music.hh"
@@ -145,7 +144,6 @@ of the parse stack onto the heap. */
     String *string; // needed by the lexer as temporary scratch area.
     Music *music;
     Score *score;
-    Scope *scope;
     Scheme_hash_table *scmhash;
     Music_output_def * outputdef;
 
@@ -363,9 +361,9 @@ toplevel_expression:
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultpaper", $1->self_scm ());
+			THIS->lexer_p_->set_identifier (gh_str02scm ("$defaultpaper"), $1->self_scm ());
 		else if (dynamic_cast<Midi_def*> ($1))
-			THIS->lexer_p_->set_identifier ("$defaultmidi", $1->self_scm ());
+			THIS->lexer_p_->set_identifier (gh_str02scm ("$defaultmidi"), $1->self_scm ());
 	}
 	| embedded_scm {
 		// junk value
@@ -406,9 +404,7 @@ notenames_body:
 lilypond_header_body:
 	{
 		$$ = new Scheme_hash_table;
-		
-		Scope *sc = new Scope ($$);
-		THIS->lexer_p_-> scope_l_arr_.push (sc);
+		THIS->lexer_p_-> scope_l_arr_.push ($$);
 	}
 	| lilypond_header_body assignment  { 
 
@@ -418,7 +414,7 @@ lilypond_header_body:
 lilypond_header:
 	HEADER '{' lilypond_header_body '}'	{
 		$$ = $3;
-		delete THIS->lexer_p_-> scope_l_arr_.pop ();
+		THIS->lexer_p_->scope_l_arr_.pop ();
 	}
 	;
 
@@ -442,7 +438,7 @@ assignment:
 			ip.warning (_ ("Identifier should have  alphabetic characters only"));
 		}
 
-	        THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
+	        THIS->lexer_p_->set_identifier ($1, $4);
 
 /*
  TODO: devise standard for protection in parser.
@@ -616,7 +612,7 @@ music_output_def_body:
 		p = new Midi_def;
 
 	 $$ = p;
-	 THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+	 THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
 	}
 	| PAPER '{' 	{
 		Music_output_def *id = unsmob_music_output_def (THIS->lexer_p_->lookup_identifier ("$defaultpaper"));
@@ -625,20 +621,20 @@ music_output_def_body:
 			p = dynamic_cast<Paper_def*> (id->clone ());
 		else
 			p = new Paper_def;
-		THIS-> lexer_p_-> scope_l_arr_.push (p->scope_p_);
+		THIS-> lexer_p_-> scope_l_arr_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| PAPER '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
-		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+		THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| MIDI '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		Music_output_def *p = unsmob_music_output_def ($3);
 		p = p->clone ();
 
-		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
+		THIS->lexer_p_->scope_l_arr_.push (p->variable_tab_);
 		$$ = p;
 	}
 	| music_output_def_body assignment  {

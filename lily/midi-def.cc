@@ -11,7 +11,7 @@
 #include "midi-def.hh"
 #include "performance.hh"
 #include "debug.hh"
-#include "scope.hh"
+#include "scm-hash.hh"
 
 Midi_def::Midi_def ()
 {
@@ -23,7 +23,7 @@ int
 Midi_def::get_tempo_i (Moment one_beat_mom)
 {
   SCM wis  = ly_symbol2scm ("whole-in-seconds");
-  Moment *w = unsmob_moment (scope_p_->scm_elem (wis));
+  Moment *w = unsmob_moment (variable_tab_->get (wis));
 
   Moment wholes_per_min = Moment (60);
   if (!w)
@@ -46,7 +46,7 @@ Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
 
   Moment m = Moment (1)/Moment (beats_per_second * one_beat_mom);
-  scope_p_->set ("whole-in-seconds", m.smobbed_copy ());
+  variable_tab_->set (ly_symbol2scm ("whole-in-seconds"), m.smobbed_copy ());
 }
 
 

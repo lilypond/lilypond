@@ -9,7 +9,6 @@
 #include "scm-hash.hh"
 
 #include "dictionary.hh"
-#include "scope.hh"
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
@@ -33,8 +32,6 @@ Music_output_def::Music_output_def ()
 
   variable_tab_ = new Scheme_hash_table;
   translator_tab_ = new Scheme_hash_table;
-  scope_p_ = new Scope (variable_tab_);
-  translator_p_dict_p_ = new Scope (translator_tab_);
 
   smobify_self ();
   scm_gc_unprotect_object (variable_tab_->self_scm ());
@@ -52,13 +49,10 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 
   style_sheet_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
+
   smobify_self ();
   scm_gc_unprotect_object (variable_tab_->self_scm ());
   scm_gc_unprotect_object (translator_tab_->self_scm ());  
-
-  
-  scope_p_ = new Scope (variable_tab_);
-  translator_p_dict_p_ = new Scope (translator_tab_);
   
   style_sheet_ = scm_list_copy (s.style_sheet_);
   scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
@@ -87,11 +81,11 @@ Music_output_def::assign_translator (SCM transdef)
   assert (tp);
 
   
-  String s;
+  SCM s = ly_symbol2scm ("");
   if (gh_string_p (tp->type_name_))
-      s =  ly_scm2string (tp->type_name_);
+    s = scm_string_to_symbol (tp->type_name_);
 
-  translator_p_dict_p_->set (s, transdef);
+  translator_tab_->set (s, transdef);
 }
 
 /*

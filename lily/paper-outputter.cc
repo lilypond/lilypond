@@ -21,8 +21,7 @@
 #include "debug.hh"
 #include "font-metric.hh"
 #include "main.hh"
-#include "scope.hh"
-
+#include "scm-hash.hh"
 #include "lily-version.hh"
 #include "paper-def.hh"
 #include "file-results.hh"
@@ -95,7 +94,7 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-Paper_outputter::output_scope (Scope *scope, String prefix)
+Paper_outputter::output_scope (Scheme_hash_table *scope, String prefix)
 {
   SCM al = scope->to_alist ();
   for (SCM s = al ; gh_pair_p (s); s = ly_cdr (s))
@@ -173,7 +172,7 @@ Paper_outputter::write_header_field_to_file (String filename, SCM key, SCM value
 }
 
 void
-Paper_outputter::write_header_fields_to_file (Scope * header)
+Paper_outputter::write_header_fields_to_file (Scheme_hash_table * header)
 {
   if (dump_header_fieldnames_global.size ())
     {

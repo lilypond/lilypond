@@ -144,7 +144,6 @@ class Rest_req;
 class Rhythmic_req;
 class Scaled_font_metric;
 class Scheme_hash_table;
-class Scope;
 class Score;
 class Grob;
 class Score_engraver;

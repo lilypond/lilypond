@@ -40,7 +40,7 @@ public:
 public:
   Duration default_duration_;
 
-  Scope *default_header_p_;
+  Scheme_hash_table *default_header_p_;
 
   int fatal_error_i_;
   Sources * source_l_;

@@ -19,7 +19,7 @@
 class Music_output 
 {
 public:
-  Scope * header_l_;
+  Scheme_hash_table * header_l_;
   String default_out_str_;
   String origin_str_;
   int errorlevel_i_;
