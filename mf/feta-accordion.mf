@@ -1,19 +1,18 @@
 % -*- Fundamental -*-
 
-
-
-accreg_dot_size# := .7interline#;
+accreg_dot_size# := .6interline#;
 accreg_linethickness# := 1.3stafflinethickness#;
 
 % This dimention is the same on all registersymbols.
 % The different symbols should calculate their other
 % dimensions from this and accreg_dot_size
-accreg_lh# := 1.2interline#;
+accreg_lh# := 1.0interline#;
 
 define_pixels(accreg_dot_size, accreg_linethickness, accreg_lh);
 pen accreg_pen;
 accreg_pen := pencircle xscaled accreg_linethickness yscaled 0.7accreg_linethickness;
-def draw_discant_reg(expr A, B, C, D, E, F) = 
+
+fet_beginchar("accDiscant", "accDiscant", "accDiscant")
 	save r, sx;
 	r# = 3/2accreg_lh#;
 	define_pixels(r);
@@ -24,18 +23,16 @@ def draw_discant_reg(expr A, B, C, D, E, F) =
 	sx = cosd(19.471221);
 	draw (-sx*r, r/3)--(sx*r, r/3);
 	draw (-sx*r, -r/3)--(sx*r, -r/3);
-
-	pickup pencircle scaled accreg_dot_size;
-	if A = 1: drawdot (0, 2/3r); fi
-	if B = 1: drawdot (r/2, 0); fi
-	if C = 1: drawdot (0, 0); fi
-	if D = 1: drawdot (-r/2, 0); fi
-	if E = 1: drawdot (0, -2/3r); fi
-	if F = 1: drawdot (-.25r, -.642r); drawdot (.25r, -.642r); fi
 	currentpicture := currentpicture shifted (0, r);
-enddef;
+fet_endchar;
 
-def draw_freebase_reg(expr rFour, rEight) =
+fet_beginchar("accDot", "accDot", "accDot")
+	set_char_box(accreg_dot_size#, accreg_dot_size#, 0, 0);
+	pickup pencircle scaled accreg_dot_size;
+	draw(0, 0);
+fet_endchar;
+
+fet_beginchar("accFreebase", "accFreebase", "accFreebase")
 	save r;
 	r#= accreg_lh#;
 	define_pixels(r);
@@ -43,13 +40,10 @@ def draw_freebase_reg(expr rFour, rEight) =
 	pickup accreg_pen;
 	draw fullcircle scaled 2r;
 	draw (-r, 0)--(r, 0);
-	pickup pencircle scaled accreg_dot_size;
-	if rFour = 1: draw (0, r/2); fi
-	if rEight = 1: draw (0, -r/2); fi
 	currentpicture := currentpicture shifted (0, r);
-enddef;
+fet_endchar;
 
-def draw_stdbase_reg(expr A, B, C, D, E) =
+fet_beginchar("accStdbase", "accStdbase", "accStdbase")
 	save r, sx;
 	r# = 2accreg_lh#;
 	define_pixels(r);
@@ -60,16 +54,10 @@ def draw_stdbase_reg(expr A, B, C, D, E) =
 	draw (-r, 0)--(r, 0);
 	draw (-sx*r, r/2)--(sx*r, r/2);
 	draw (-sx*r, -r/2)--(sx*r, -r/2);
-	pickup pencircle scaled accreg_dot_size;
-	if A = 1: draw (0, -3/4r); fi
-	if B = 1: draw (0, -1/4r); fi
-	if C = 1: draw (0, 1/4r); fi
-	if D = 1: draw (0, 3/4r); fi
-	if E = 1: draw (1/2r, 0); fi
 	currentpicture := currentpicture shifted (0, r);
-enddef;
+fet_endchar;
 
-def draw_bayanbase_reg_sign(expr nTwo, nEight) = 
+fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
 	save lh;
 	lh = accreg_lh;
 %	set_char_box(accreg_lh#, accreg_lh#, 3accreg_lh#, 0);
@@ -78,168 +66,7 @@ def draw_bayanbase_reg_sign(expr nTwo, nEight) =
 	draw (0, 0)--(2w, 0)--(2w, 3accreg_lh)--(0, 3accreg_lh)--(0, 0);
 	draw (0, accreg_lh)--(2w, accreg_lh);
 	draw (0, 2accreg_lh)--(2w, 2accreg_lh);
-
-	pickup pencircle scaled accreg_dot_size;
-	if nTwo = 1: draw (w, 5/2lh); fi
-	if nEight = 1: draw (w, lh/2); fi
-	if nEight = 2: draw (5/8w, lh/2); draw (11/8w, lh/2); fi
 	currentpicture := currentpicture shifted (-w, 0);% -3lh);
-enddef;
-
-fet_beginchar("accDiscant", "accDiscant", "accDiscant")
-	draw_discant_reg(0, 0, 0, 0, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantF", "accDiscantF", "accDiscantF")
-	draw_discant_reg(1, 0, 0, 0, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantEh", "accDiscantEh", "accDiscantEh")
-	draw_discant_reg(0, 1, 0, 0, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantE", "accDiscantE", "accDiscantE")
-	draw_discant_reg(0, 0, 1, 0, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFE", "accDiscantFE", "accDiscantFE")
-	draw_discant_reg(1, 0, 1, 0, 0, 0);
-fet_endchar;	
-
-fet_beginchar("accDiscantFEh", "accDiscantFEh", "accDiscantFEh")
-	draw_discant_reg(1, 1, 0, 0, 0, 0);
-fet_endchar;	
-
-fet_beginchar("accDiscantEE", "accDiscantEE", "accDiscantEE")
-	draw_discant_reg(0, 1, 0, 1, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFEE", "accDiscantFEE", "accDiscantFEE")
-	draw_discant_reg(1, 1, 0, 1, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantEEE", "accDiscantEEE", "accDiscantEEE")
-	draw_discant_reg(0, 1, 1, 1, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFEEE", "accDiscantFEEE", "accDiscantFEEE")
-	draw_discant_reg(1, 1, 1, 1, 0, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantS", "accDiscantS", "accDiscantS")
-	draw_discant_reg(0, 0, 0, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFS", "accDiscantFS", "accDiscantFS")
-	draw_discant_reg(1, 0, 0, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantES", "accDiscantES", "accDiscantES")
-	draw_discant_reg(0, 0, 1, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantEhS", "accDiscantEhS", "accDiscantEhS")
-	draw_discant_reg(0, 1, 0, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFES", "accDiscantFES", "accDiscantFES")
-	draw_discant_reg(1, 0, 1, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFEhS", "accDiscantFEhS", "accDiscantFEhS")
-	draw_discant_reg(1, 1, 0, 0, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantEES", "accDiscantEES", "accDiscantEES")
-	draw_discant_reg(0, 1, 0, 1, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFEES", "accDiscantFEES", "accDiscantFEES")
-	draw_discant_reg(1, 1, 0, 1, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantEEES", "accDiscantEEES", "accDiscantEEES")
-	draw_discant_reg(0, 1, 1, 1, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantFEEES", "accDiscantFEEES", "accDiscantFEEES")
-	draw_discant_reg(1, 1, 1, 1, 1, 0);
-fet_endchar;
-
-fet_beginchar("accDiscantSS", "accDiscantSS", "accDiscantSS")
-	draw_discant_reg(0, 0, 0, 0, 0, 1);
-fet_endchar;
-
-fet_beginchar("accDiscantESS", "accDiscantESS", "accDiscantESS")
-	draw_discant_reg(0, 0, 1, 0, 0, 1);
-fet_endchar;
-
-fet_beginchar("accDiscantEESS", "accDiscantEESS", "accDiscantEESS")
-	draw_discant_reg(0, 1, 0, 1, 0, 1);
-fet_endchar;
-
-fet_beginchar("accDiscantEEESS", "accDiscantEEESS", "accDiscantEEESS")
-	draw_discant_reg(0, 1, 1, 1, 0, 1);
-fet_endchar;
-
-fet_beginchar("accFreebase", "accFreebase", "accFreebase")
-	draw_freebase_reg(0, 0);
-fet_endchar;
-
-fet_beginchar("accFreebaseF", "accFreebaseF", "accFreebaseF")
-	draw_freebase_reg(1, 0);
-fet_endchar;
-
-fet_beginchar("accFreebaseE", "accFreebaseE", "accFreebaseE")
-	draw_freebase_reg(0, 1);
-fet_endchar;
-
-fet_beginchar("accFreebaseFE", "accFreebaseFE", "accFreebaseFE")
-	draw_freebase_reg(1, 1);
-fet_endchar;
-
-fet_beginchar("accStdbase", "accStdbase", "accStdbase")
-	draw_stdbase_reg(0, 0, 0, 0, 0);
-fet_endchar;
-
-fet_beginchar("accStdbaseM", "accStdbaseM", "accStdbaseM")
-	draw_stdbase_reg(1, 1, 1, 1, 1);
-fet_endchar;
-
-fet_beginchar("accStdbaseBp", "accStdbaseBp", "accStdbaseBp")
-	draw_stdbase_reg(1, 1, 0, 0, 1);
-fet_endchar;
-
-fet_beginchar("accStdbaseT", "accStdbaseT", "accStdbaseT")
-	draw_stdbase_reg(0, 1, 1, 1, 0);
-fet_endchar;
-
-fet_beginchar("accStdbaseTp", "accStdbaseTp", "accStdbaseTp")
-	draw_stdbase_reg(0, 1, 1, 0, 0);
-fet_endchar;
-
-fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
-	draw_bayanbase_reg_sign(0, 0);
-fet_endchar;
-
-fet_beginchar("accBayanbaseT", "accBayanbaseT", "accBayanbaseT")
-	draw_bayanbase_reg_sign(1, 0);
-fet_endchar;
-
-fet_beginchar("accBayanbaseE", "accBayanbaseE", "accBayanbaseE")
-	draw_bayanbase_reg_sign(0, 1);
-fet_endchar;
-
-fet_beginchar("accBayanbaseTE", "accBayanbaseTE", "accBayanbaseTE")
-	draw_bayanbase_reg_sign(1, 1);
-fet_endchar;
-
-fet_beginchar("accBayanbaseEE", "accBayanbaseEE", "accBayanbaseEE")
-	draw_bayanbase_reg_sign(0, 2);
-fet_endchar;
-
-fet_beginchar("accBayanbaseTEE", "accBayanbaseTEE", "accBayanbaseTEE")
-	draw_bayanbase_reg_sign(1, 2);
 fet_endchar;
 
 def def_B(expr w, h) = 
