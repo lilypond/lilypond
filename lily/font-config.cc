@@ -20,7 +20,7 @@ void
 init_fontconfig ()
 {
   if (be_verbose_global)
-    progress (_("Initializing FontConfig ..."));
+    progress_indication (_("Initializing FontConfig ..."));
   
   if (!FcInit ())
     error (_ ("FontConfig failed to initialize"));
@@ -41,7 +41,7 @@ init_fontconfig ()
     }
 
   if (be_verbose_global)
-    progress ("\n");
+    progress_indication ("\n");
 }
 
 #else
