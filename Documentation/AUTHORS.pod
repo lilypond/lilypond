@@ -59,8 +59,12 @@ Anthony Fok <foka@gpu.srv.ualberta.ca>, debian package: make/debian/*
 
 =item *
 
-Franc,ois Pinard <pinard@iro.umontreal.ca>, Neil Jerram
-<nj104@cus.cam.ac.uk>. Documentation/Vocab*
+Franc,ois Pinard <pinard@iro.umontreal.ca>, Documentation/Vocab*,
+internationalization stuff
+
+=item * 
+
+Neil Jerram <nj104@cus.cam.ac.uk>. Documentation/Vocab*
 
 =back
 

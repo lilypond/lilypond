@@ -86,14 +86,15 @@ of use and power.
 
 =item A set of music fonts
 
-Preferably in Metafont, suited to both screen display and use on
-paper.
+In development, the Feta font.  
 
 =item A typesetting engine
 
+In development, included in LilyPond.
 A system with rules on how to set properties of items to be printed
-(up/down directions, breaking, dimensions, etc) LilyPond provides one,
-but it is not (yet) suited to interactive typesetting
+(up/down directions, breaking, dimensions, etc)
+It should be suited to interactive typesetting (so, incremental
+algorithms are needed)
 
 =item A display engine
 
@@ -103,13 +104,13 @@ Ideally the system should cooperate with the typesetting engine
 
 =item An ASCII language
 
-In development, LilyPond has a language. (See over there for goals)
+In development, LilyPond has a language. 
 Having an ASCII format which enables urtext, and easy sharing (via
 mail and news forums) encourages cooperation and exchange of music.
 
 =item A printing engine
 
-Maybe to be merged with the display system.
+In development, included in LilyPond.
 
 =item An input system
 
@@ -132,6 +133,11 @@ simplifies creating a collection of music
 (difficult) A system to generate accompaniments, figured bass,
 automatic accompaniment, etc.
 
+=item A performing system
+
+A system which can play credible performances of abstract music
+representations.  LilyPond has a bare bones system, but it cannot
+(yet) be described as "credible". 
 
 =back
 
@@ -159,23 +165,10 @@ formats.
 
 =back
 
-=head1 TASKS (SHORT TERM)
-
-=over 4
-
-=item *
-
-Think about interfaces for components.
-
-=item *
-
 Find sponsors. This project will take a long time, and in its infant
 stages, having a hard and small core which does a lot of work, is more
 efficient than lots of people doing small subprojects. Finanicial
 support would be desirable.
-
-=back
-
 
 
 =head1 HISTORY 

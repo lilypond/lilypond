@@ -4,7 +4,6 @@
 	- more symbols
 	  * ledgerlines
 	  * stem-notehead attachments.
-	  * flags
 	  * clefs
 	  * some scripts:
 	  * piano pedals,
@@ -12,8 +11,12 @@
 	  * trills
 	  * maxima notehead
 	  * coda signs.
-	  * 0 - 9: bold and italic
+	  * 0 - 9: 
+	    - small(1/4staff) bold + bold slanted
+	    - normal(1/5staff) bold
+	    - large(3/4staff) bold
 
+	- redo flags in a orderly manner; 128th flags
 	- include important spacing dims in fetalog 
 	- lilyrules.mf for different rules (lines) ?
 
