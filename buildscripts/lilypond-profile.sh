@@ -9,8 +9,10 @@
 
 datadir=`echo "@datadir@" | sed 's!//!/!g'`
 
+
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
+export GS_LIB
 
 # bit silly. for ly2dvi, overrules compiled-in datadir...
 # Better comment this out.  Compiled-in datadir serves exactly the
@@ -21,16 +23,14 @@ GS_LIB="$datadir/ps:"${GS_LIB:=""}
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
 TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
+export TEXMF
 
 # LILYPONDPREFIX="$datadir"
 # export LILYPONDPREFIX
 
 # For direct ps output fonts. Add all available TeX Type1 fonts
-GS_FONTPATH=`kpsewhich -expand-path=\$T1FONTS`:${GS_FONTPATH:=""}
-
-
-
-export GS_LIB GS_FONTPATH TEXMF
+GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}
+export GS_FONTPATH
 
  	
 

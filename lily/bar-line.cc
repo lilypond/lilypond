@@ -5,6 +5,7 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include <math.h>
 
 #include "lookup.hh"

@@ -102,7 +102,7 @@ square of the inner notes involved.")
 (grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
 (grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
 (grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")
-(grob-property-description 'columns list? "list of grobs, typically containing paper-columns, list of note-columns.")
+(grob-property-description 'columns list? "list of grobs, typically containing paper-columns.")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
@@ -205,6 +205,8 @@ For text,  this is `relative'(?) to the current alignment.
 For barline, space after a thick line.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 
+(grob-property-description 'left-position number? "position of left part of spanner.")
+(grob-property-description 'right-position number? "position of right part of spanner.")
 (grob-property-description 'left-padding number? "space left of accs.")
 (grob-property-description 'right-head ly-grob? "")
 (grob-property-description 'left-head ly-grob? "")
@@ -256,7 +258,6 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'non-default boolean? "not set because of existence of a bar?.")
 (grob-property-description 'note-width number? "unit for horizontal translation, measured in staff-space.")
 (grob-property-description 'note-heads list? "List of note head grobs")
-(grob-property-description 'number-gap number? "size of the gap for tohe number in a tuplet.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
@@ -377,7 +378,6 @@ The following abbreviations are currently defined:
 @end table
 .")
 (grob-property-description 'text-start boolean? "Indicator for whether a piano pedal bracket has leading text, such as Ped.")
-(grob-property-description 'thick number? "thickness, in stafflinethickness.")
 (grob-property-description 'thick-thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'thin-kern number? "space after a hair-line.")
@@ -388,13 +388,13 @@ The following abbreviations are currently defined:
 same as setting molecule-callback to #f, but this retains the
 dimensions of this grob, which means that you can erase grobs
 individually. .")
-(grob-property-description 'tuplet-bracket-visibility boolean-or-symbol? "
+(grob-property-description 'bracket-visibility boolean-or-symbol? "
 This controls the visibility of the tuplet bracket.
 Setting it to false will prevent printing of the
 bracket. Setting the property to #'if-no-beam will make it
 print only if there is no beam associated with this tuplet bracket.")
-(grob-property-description 'tuplet-number-visibility boolean-or-symbol? "
-Like @code{tuplet-bracket-visibility}, but for the number.")
+(grob-property-description 'number-visibility boolean-or-symbol? "
+Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'type symbol? "one of: line, dashed-line or dotted-line.")
 (grob-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
 (grob-property-description 'when moment? "when does this column happen?.")
@@ -440,8 +440,9 @@ columns.
 (grob-property-description 'chord pair? "?")
 (grob-property-description 'begin-of-line-visible boolean? "?")
 
-(grob-property-description 'quant-score number? "Beam quanting score")
-
+(grob-property-description 'quant-score number? "Beam quanting score
+-- can be stored for debugging")
 (grob-property-description 'least-squares-dy number? 
  "ideal beam slope, without damping.")
 (grob-property-description 'stem-info pair? "caching of stem parameters")
+(grob-property-description 'note-columns pair? "list of NoteColumn grobs.")

@@ -5,7 +5,7 @@
 % hmm
 % /setgray { 1 add } bind def
 
-/staff-line-thickness lilypondpaperstafflinethickness def
+/staff-line-thickness lilypondpaperlinethickness def
 /staff-height lilypondpaperstaffheight def
 /line-width lilypondpaperlinewidth def
 
@@ -56,7 +56,7 @@ output-scale output-scale scale
 	grestore
 } bind def
 
-/start-line % height
+/start-system % height
 {
 	dup base-line-skip gt {
 		/line-height exch def
@@ -72,7 +72,7 @@ output-scale output-scale scale
 	line-x line-y translate
 } bind def
 
-/stop-line
+/stop-system
 { 
 	/the-line exch def
 	the-line

@@ -10,239 +10,178 @@
 
 ;; TODO: port this  to the new module framework.
 
-(define (pdftex-scm action-name)
-  (define (unknown) 
-    "%\n\\unknown%\n")
+(define-module (scm pdftex))
+
+(define (unknown) 
+  "%\n\\unknown%\n")
 
 
-  (define (select-font name-mag-pair)
-    (let*
-	(
-	 (c (assoc name-mag-pair font-name-alist))
-	 )
+(define (select-font name-mag-pair)
+  (let*
+      (
+       (c (assoc name-mag-pair font-name-alist))
+       )
 
-      (if (eq? c #f)
-	  (begin
-	    (display "FAILED\n")
-	    (display (object-type (car name-mag-pair)))
-	    (display (object-type (caaar font-name-alist)))
-
-	    (ly-warn (string-append
-		      "Programming error: No such font known "
-		      (car name-mag-pair) " "
-		      (ly-number->string (cdr name-mag-pair))
-		      ))
-	    "") ; issue no command
-	  (string-append "\\" (cddr c)))
-      
-      
-      ))
-  
-  (define (beam width slope thick)
-    (embedded-pdf ((pdf-scm 'beam) width slope thick)))
-
-  (define (bracket arch_angle arch_width arch_height height arch_thick thick)
-    (embedded-pdf ((pdf-scm 'bracket) arch_angle arch_width arch_height height arch_thick thick)))
-
-  (define (dashed-slur thick dash l)
-    (embedded-pdf ((pdf-scm 'dashed-slur)  thick dash l)))
-
-  (define (hairpin thick w sh eh)
-    (embedded-pdf ((pdf-scm 'hairpin) thick w sh eh)))
-
-  (define (char i)
-    (string-append "\\char" (inexact->string i 10) " "))
-  
-  (define (dashed-line thick on off dx dy)
-    (embedded-pdf ((pdf-scm 'dashed-line) thick on off dx dy)))
-
-  (define (font-load-command name-mag command)
-    (string-append
-     "\\font\\" command "="
-     (car name-mag)
-     " scaled "
-     (ly-number->string (inexact->exact (* 1000  (cdr name-mag))))
-     "\n"))
-
-  (define (ez-ball c l b)
-    (embedded-pdf ((pdf-scm 'ez-ball) c  l b)))
-
-  (define (embedded-pdf s)
-    (string-append "\\embeddedpdf{ " s "}"))
-
-  (define (comment s)
-    (string-append "% " s))
-  
-  (define (end-output) 
+    (if (eq? c #f)
 	(begin
-; uncomment for some stats about lily memory	  
-;		(display (gc-stats))
+	  (display "FAILED\n")
+	  (display (object-type (car name-mag-pair)))
+	  (display (object-type (caaar font-name-alist)))
+
+	  (ly-warn (string-append
+		    "Programming error: No such font known "
+		    (car name-mag-pair) " "
+		    (ly-number->string (cdr name-mag-pair))
+		    ))
+	  "") ; issue no command
+	(string-append "\\" (cddr c)))
+    
+    
+    ))
+
+(define (beam width slope thick)
+  (embedded-pdf ((pdf-scm 'beam) width slope thick)))
+
+(define (bracket arch_angle arch_width arch_height height arch_thick thick)
+  (embedded-pdf ((pdf-scm 'bracket) arch_angle arch_width arch_height height arch_thick thick)))
+
+(define (dashed-slur thick dash l)
+  (embedded-pdf ((pdf-scm 'dashed-slur)  thick dash l)))
+
+(define (hairpin thick w sh eh)
+  (embedded-pdf ((pdf-scm 'hairpin) thick w sh eh)))
+
+(define (char i)
+  (string-append "\\char" (inexact->string i 10) " "))
+
+(define (dashed-line thick on off dx dy)
+  (embedded-pdf ((pdf-scm 'dashed-line) thick on off dx dy)))
+
+(define (font-load-command name-mag command)
+  (string-append
+   "\\font\\" command "="
+   (car name-mag)
+   " scaled "
+   (ly-number->string (inexact->exact (* 1000  (cdr name-mag))))
+   "\n"))
+
+(define (ez-ball c l b)
+  (embedded-pdf ((pdf-scm 'ez-ball) c  l b)))
+
+(define (embedded-pdf s)
+  (string-append "\\embeddedpdf{ " s "}"))
+
+(define (comment s)
+  (string-append "% " s))
+
+(define (end-output) 
+  (begin
+					; uncomment for some stats about lily memory	  
+					;		(display (gc-stats))
     (string-append "\n\\EndLilyPondOutput"
-		   ; Put GC stats here.
+					; Put GC stats here.
 		   )))
-  
-  (define (experimental-on)
-    "")
 
-  (define (repeat-slash w a t)
-    (embedded-pdf ((pdf-scm 'repeat-slash) w a t)))
-  
-  (define (font-switch i)
-    (string-append
-     "\\" (font i) "\n"))
+(define (experimental-on)
+  "")
 
-  (define (font-def i s)
-    (string-append
-     "\\font" (font-switch i) "=" s "\n"))
+(define (repeat-slash w a t)
+  (embedded-pdf ((pdf-scm 'repeat-slash) w a t)))
 
-  (define (header-end)
-    (string-append
-     "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt"
-     "\\turnOnPostScript"
-     "\\pdfcompresslevel=0"))
+(define (font-switch i)
+  (string-append
+   "\\" (font i) "\n"))
 
-  ;; Note: this string must match the string in ly2dvi.py!!!
-  (define (header creator generate) 
-    (string-append
-     "% Generated automatically by: " creator generate "\n"))
+(define (font-def i s)
+  (string-append
+   "\\font" (font-switch i) "=" s "\n"))
 
-  (define (invoke-char s i)
-    (string-append 
-     "\n\\" s "{" (inexact->string i 10) "}" ))
+(define (header-end)
+  (string-append
+   "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt"
+   "\\turnOnPostScript"
+   "\\pdfcompresslevel=0"))
 
-  ;;
-  ;; need to do something to make this really safe.
-  ;;
-  (define (output-tex-string s)
-      (if security-paranoia
-	  (if use-regex
-	      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
-	      (begin (display "warning: not paranoid") (newline) s))
-	  s))
-      
-  (define (lily-def key val)
-    (let ((tex-key
-	   (if use-regex
-	       (regexp-substitute/global 
-		#f "_" (output-tex-string key) 'pre "X" 'post)      
-	       (output-tex-string key)))
-	  (tex-val (output-tex-string val)))
-      (if (equal? (sans-surrounding-whitespace tex-val) "")
-	  (string-append "\\let\\" tex-key "\\undefined\n")
-	  (string-append "\\def\\" tex-key "{" tex-val "}\n"))))
+;; Note: this string must match the string in ly2dvi.py!!!
+(define (header creator generate) 
+  (string-append
+   "% Generated automatically by: " creator generate "\n"))
 
-  (define (number->dim x)
-    (string-append
-     ;;ugh ly-* in backend needs compatibility func for standalone output
-     (ly-number->string x) " \\outputscale "))
+(define (invoke-char s i)
+  (string-append 
+   "\n\\" s "{" (inexact->string i 10) "}" ))
 
-  (define (placebox x y s) 
-    (string-append 
-     "\\placebox{"
-     (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
+;;
+;; need to do something to make this really safe.
+;;
+(define (output-tex-string s)
+  (if security-paranoia
+      (if use-regex
+	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+	  (begin (display "warning: not paranoid") (newline) s))
+      s))
 
-  (define (bezier-sandwich l thick)
-    (embedded-pdf ((pdf-scm 'bezier-sandwich) l thick)))
+(define (lily-def key val)
+  (let ((tex-key
+	 (if use-regex
+	     (regexp-substitute/global 
+	      #f "_" (output-tex-string key) 'pre "X" 'post)      
+	     (output-tex-string key)))
+	(tex-val (output-tex-string val)))
+    (if (equal? (sans-surrounding-whitespace tex-val) "")
+	(string-append "\\let\\" tex-key "\\undefined\n")
+	(string-append "\\def\\" tex-key "{" tex-val "}\n"))))
 
-  (define (start-line ht)
-      (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
+(define (number->dim x)
+  (string-append
+   ;;ugh ly-* in backend needs compatibility func for standalone output
+   (ly-number->string x) " \\outputscale "))
 
-  (define (stop-line) 
-    "}\\vss}\\interscoreline\n")
-  (define (stop-last-line)
-    "}\\vss}")
-  (define (filledbox breapth width depth height) 
-    (string-append 
-     "\\kern" (number->dim (- breapth))
-     "\\vrule width " (number->dim (+ breapth width))
-     "depth " (number->dim depth)
-     "height " (number->dim height) " "))
+(define (placebox x y s) 
+  (string-append 
+   "\\placebox{"
+   (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
 
-  (define (roundfilledbox x width y height blotdiam)
-    (embedded-pdf ((pdf-scm 'roundfilledbox) x width y height blotdiam)))
+(define (bezier-sandwich l thick)
+  (embedded-pdf ((pdf-scm 'bezier-sandwich) l thick)))
 
-  (define (text s)
-    (string-append "\\hbox{" (output-tex-string s) "}"))
-  
-  (define (tuplet ht gapx dx dy thick dir)
-    (embedded-pdf ((pdf-scm 'tuplet) ht gapx dx dy thick dir)))
+(define (start-system ht)
+  (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
 
-  (define (volta h w thick vert_start vert_end)
-    (embedded-pdf ((pdf-scm 'volta) h w thick vert_start vert_end)))
+(define (stop-system) 
+  "}\\vss}\\interscoreline\n")
+(define (stop-last-system)
+  "}\\vss}")
+(define (filledbox breapth width depth height) 
+  (string-append 
+   "\\kern" (number->dim (- breapth))
+   "\\vrule width " (number->dim (+ breapth width))
+   "depth " (number->dim depth)
+   "height " (number->dim height) " "))
 
-  (define (define-origin file line col)
-    (if (procedure? point-and-click)
-	(string-append "\\special{src:\\string:"
-		       (point-and-click line col file)
-		       "}" )
-	"")
-    )
+(define (roundfilledbox x width y height blotdiam)
+  (embedded-pdf ((pdf-scm 'roundfilledbox) x width y height blotdiam)))
 
-  ; no-origin not supported in PDFTeX
-  (define (no-origin) "")
+(define (text s)
+  (string-append "\\hbox{" (output-tex-string s) "}"))
 
-  ;; The procedures listed below form the public interface of
-  ;; PDFTeX-scm.  (should merge the 2 lists)
-  (cond ((eq? action-name 'all-definitions)
-	 `(begin
-	    (define font-load-command ,font-load-command)
-	    (define beam ,beam)
-	    (define bezier-sandwich ,bezier-sandwich)
-	    (define bracket ,bracket)
-	    (define char ,char)
-	    (define dashed-line ,dashed-line) 
-	    (define dashed-slur ,dashed-slur) 
-	    (define hairpin ,hairpin)
-	    (define end-output ,end-output)
-	    (define experimental-on ,experimental-on)
-	    (define filledbox ,filledbox)
-	    (define font-def ,font-def)
-	    (define font-switch ,font-switch)
-	    (define header-end ,header-end)
-	    (define lily-def ,lily-def)
-	    (define ez-ball ,ez-ball)
-	    (define header ,header) 
-	    (define invoke-char ,invoke-char) 
+(define (tuplet ht gapx dx dy thick dir)
+  (embedded-pdf ((pdf-scm 'tuplet) ht gapx dx dy thick dir)))
 
-	    (define placebox ,placebox)
-	    (define select-font ,select-font)
-	    (define start-line ,start-line)
-	    (define stop-line ,stop-line)
-	    (define stop-last-line ,stop-last-line)
-	    (define text ,text)
-	    (define tuplet ,tuplet)
-	    (define volta ,volta)
-	    (define define-origin ,define-origin)
-	    (define no-origin ,no-origin)
-	    (define repeat-slash ,repeat-slash)
-	    ))
+(define (volta h w thick vert_start vert_end)
+  (embedded-pdf ((pdf-scm 'volta) h w thick vert_start vert_end)))
 
-	((eq? action-name 'beam) beam)
-	((eq? action-name 'tuplet) tuplet)
-	((eq? action-name 'bracket) bracket)
-	((eq? action-name 'hairpin) hairpin)
-	((eq? action-name 'dashed-line) dashed-line) 
-	((eq? action-name 'dashed-slur) dashed-slur) 
-	((eq? action-name 'end-output) end-output)
-	((eq? action-name 'experimental-on) experimental-on)
-	((eq? action-name 'font-def) font-def)
-	((eq? action-name 'font-switch) font-switch)
-	((eq? action-name 'header-end) header-end)
-	((eq? action-name 'lily-def) lily-def)
-	((eq? action-name 'header) header) 
-	((eq? action-name 'invoke-char) invoke-char) 
-
-	((eq? action-name 'placebox) placebox)
-	((eq? action-name 'bezier-sandwich) bezier-sandwich)
-	((eq? action-name 'start-line) start-line)
-	((eq? action-name 'stem) stem)
-	((eq? action-name 'stop-line) stop-line)
-	((eq? action-name 'stop-last-line) stop-last-line)
-	((eq? action-name 'volta) volta)
-	((eq? action-name 'repeat-slash) repeat-slash)
-	(else (error "unknown tag -- PDFTEX " action-name))
-	)
+(define (define-origin file line col)
+  (if (procedure? point-and-click)
+      (string-append "\\special{src:\\string:"
+		     (point-and-click line col file)
+		     "}" )
+      "")
   )
+
+					; no-origin not supported in PDFTeX
+(define (no-origin) "")
+
 
 (define (scm-pdftex-output)
   (primitive-eval (pdftex-scm 'all-definitions)))

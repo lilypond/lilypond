@@ -240,7 +240,7 @@ layer('Layer 1',1,1,0,0,(0,0,0))
    sketch-beziers (list x y (primitive-eval l) thick)))
 
 ; TODO: use HEIGHT argument
-(define (start-line height)
+(define (start-system height)
    "G()\n"
    )
 
@@ -254,12 +254,12 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (stem x y z w) (filledbox x y z w))
 
 
-(define (stop-line)
+(define (stop-system)
     "G_()\n")
 
 ;; huh?
-(define (stop-last-line)
-   (stop-line))
+(define (stop-last-system)
+   (stop-system))
 
 (define (text x y s)
   (string-append "txt('" s "',(" (sketch-numbers->string

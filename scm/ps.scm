@@ -147,6 +147,24 @@
    (ly-number->string off)
    " ] 0 draw_dashed_line"))
 
+(define (draw-line thick x1 y1 x2 y2)
+
+  (string-append 
+  "	1 setlinecap
+	1 setlinejoin "
+  (ly-number->string thick)
+	" setlinewidth "
+   (ly-number->string x1)
+   " "
+   (ly-number->string y1)
+   " moveto"
+   (ly-number->string x2)
+   " "
+   (ly-number->string y2)
+   " lineto stroke"
+
+  ))
+
 (define (repeat-slash wid slope thick)
   (string-append (numbers->string (list wid slope thick))
 		 " draw_repeat_slash"))
@@ -237,11 +255,11 @@
 
 					; TODO: use HEIGHT argument
 
-  (define (start-line height)
+  (define (start-system height)
   (string-append
    "\n"
    (ly-number->string height)
-   " start-line {
+   " start-system {
 set-ps-scale-to-lily-scale
 
 "))
@@ -250,11 +268,11 @@ set-ps-scale-to-lily-scale
   (string-append (numbers->string (list breapth width depth height))
 		 " draw_box" ))
 
-(define (stop-line)
-  "}\nstop-line\n")
+(define (stop-system)
+  "}\nstop-system\n")
 
-(define (stop-last-line)
-  "}\nstop-line\n")
+(define (stop-last-system)
+  "}\nstop-system\n")
 
 (define (text s)
   (string-append "(" s ") show  "))

@@ -229,13 +229,13 @@
 (define (bezier-sandwich l thick)
   (embedded-ps (list 'bezier-sandwich  `(quote ,l) thick)))
 
-(define (start-line ht)
+(define (start-system ht)
   (string-append "\\vbox to " (number->dim ht) "{\\hbox{"
 		 "%\n"))
 
-(define (stop-line) 
+(define (stop-system) 
   "}\\vss}\\interscoreline\n")
-(define (stop-last-line)
+(define (stop-last-system)
   "}\\vss}")
 
 (define (filledbox breapth width depth height)
@@ -257,6 +257,9 @@
 
 (define (tuplet ht gapx dx dy thick dir)
   (embedded-ps (list 'tuplet  ht gapx dx dy thick dir)))
+
+(define (draw-line thick fx fy tx ty)
+  (embedded-ps (list 'draw-line thick fx fy tx ty)))
 
 (define (volta h w thick vert_start vert_end)
   (embedded-ps (list 'volta  h w thick vert_start vert_end)))
