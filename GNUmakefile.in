@@ -53,7 +53,7 @@ $(outdir)/$(fontball): $(outdir)/$(deb)
 	rm -rf $(outdir)/./usr
 	ar p $< data.tar.gz | \
 		tar -C $(outdir) -zxf - $(lld)/dvips $(lld)/fonts/type1
-	# strip the $(lld) part?
+# strip the $(lld) part?
 	tar -C $(outdir) -czf $@ ./usr
 
 get-pfa-fonts: $(outdir)/$(fontball)

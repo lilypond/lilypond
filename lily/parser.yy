@@ -238,6 +238,8 @@ yylex (YYSTYPE *s,  void * v)
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
 %token GRACE 
+%token ACCACCIATURA
+%token APPOGGIATURA 
 %token GROBDESCRIPTIONS
 %token HEADER
 %token HYPHEN
@@ -289,6 +291,7 @@ yylex (YYSTYPE *s,  void * v)
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
+%type <scm> 	grace_head 
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
@@ -893,6 +896,13 @@ Simple_music:
 	;
 
 
+grace_head:
+	GRACE  { $$ = scm_makfrom0str ("Grace"); } 
+	| ACCACCIATURA { $$ = scm_makfrom0str ("Accacciatura"); }
+	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
+	;
+	
+
 Composite_music:
 	CONTEXT STRING Music	{
 		Music*csm =MY_MAKE_MUSIC("ContextSpeccedMusic");
@@ -916,15 +926,26 @@ Composite_music:
 		$$ = chm;
 		chm->set_spot (*$3->origin ());
 	}
-	| GRACE Music {
+	| grace_head Music {
 #if 1
 	/*
 		The other version is for easier debugging  of
 		Sequential_music_iterator in combination with grace notes.
 	*/
 
-		SCM start = THIS->lexer_->lookup_identifier ("startGraceMusic");
-		SCM stop = THIS->lexer_->lookup_identifier ("stopGraceMusic");
+/*
+
+TODO: should distinguish between both grace types in the
+basic music objects too, since the meaning is different.
+
+*/
+
+		String start_str = "start" + ly_scm2string ($1) + "Music"; 
+		String stop_str = "stop" + ly_scm2string ($1) + "Music"; 
+		
+		SCM start = THIS->lexer_->lookup_identifier (start_str);
+		SCM stop = THIS->lexer_->lookup_identifier (stop_str);
+
 		Music *startm = unsmob_music (start);
 		Music *stopm = unsmob_music (stop);
 

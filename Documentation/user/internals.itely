@@ -78,7 +78,7 @@ Contexts for a music expression can be selected manually, using one of
 the following music expressions:
 
 @example
-\newcontext @var{contexttype} @var{musicexpr}
+\new @var{contexttype} @var{musicexpr}
 \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
 @end example
 
@@ -103,13 +103,13 @@ Within @code{another}, a (default) Voice context is created for the
 @code{e4}.  A context is ended when when all music referring it has
 finished, so after the third quarter, @code{another} is removed.
 
-The @code{\newcontext} construction creates a context with a
+The @code{\new} construction creates a context with a
 generated, unique @var{contextname}. An expression with
-@code{\newcontext} always leads to a new context. This is convenient
+@code{\new} always leads to a new context. This is convenient
 for creating multiple staffs, multiple lyric lines, etc.
 
 When using automatic staff changes, automatic phrasing, etc., the
-context names have special meanings, so @code{\newcontext} cannot be
+context names have special meanings, so @code{\new} cannot be
 used.
 
 

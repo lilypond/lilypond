@@ -62,8 +62,8 @@ Clef_engraver::set_glyph ()
 
   SCM basic = ly_symbol2scm ("Clef");
   
-  daddy_trans_->execute_single_pushpop_property (basic, glyph_sym, SCM_UNDEFINED);
-  daddy_trans_->execute_single_pushpop_property (basic, glyph_sym, glyph);
+  daddy_trans_->execute_pushpop_property (basic, glyph_sym, SCM_UNDEFINED);
+  daddy_trans_->execute_pushpop_property (basic, glyph_sym, glyph);
 }
 
 /** 
@@ -130,8 +130,7 @@ Clef_engraver::inspect_clef_properties ()
       || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
-      || to_boolean (force_clef)
-)
+      || to_boolean (force_clef))
     {
       set_glyph ();
       create_clef ();

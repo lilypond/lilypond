@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 %% I don't know what this example is supposed to do.  delete it?
 %% It shows how to use the autochange feature together with an extra

@@ -7,12 +7,12 @@ including alterations. "
 }
 
 
-\version "1.9.1"
+\version "1.9.2"
 
 
 textFlat = \markup {\smaller \musicglyph #"accidentals--1"}
 \score {
-  \notes \context Staff = treble {
+  \notes \new Staff {
     \property Staff.instrument
 	= \markup { \column << "Clarinetti" { "in B" \textFlat } >> }
     \property Staff.instr

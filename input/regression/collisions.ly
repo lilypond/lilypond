@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Normal collisions. We have support for polyphony, where the
@@ -13,16 +13,16 @@ copyright = 	 "public domain"
 
 twovoice =
 \notes \relative c' \context Staff \notes < 
-	\context Voice=i { \stemDown c4 c  d d e e f f }
-	\context Voice=ii { \stemUp g4 f f e e d d c } 
+	 {  g4 f f e e d d c } 
+\\ {  c4 c  d d e e f f }
 >
 
 twovoicechords = \context Staff \notes <
-	\context Voice = i \relative c' {
-		\stemUp e4 d c b a g f
-	}
-	\context Voice = ii \relative c' {
-		\stemDown <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>
+ \relative c' {
+ e4 d c b a g f
+	}\\
+ \relative c' {
+	 <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>
 		<<a c>> <<a c>>  
 	}
 >

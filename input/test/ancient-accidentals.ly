@@ -6,7 +6,7 @@ file lists all of them.
 "
 }
 
-\version "1.9.1"
+\version "1.9.2"
 
 \score { 
   \context Voice \notes\relative c {

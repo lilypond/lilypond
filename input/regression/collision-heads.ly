@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header {
     texidoc =
 
@@ -13,7 +13,7 @@ if the black note heads are from 8th or shorter notes.
 
 
 \score { \notes \context Staff\relative c''<
-\context Voice = VA {
+\new Voice {
     \voiceOne
     c2 c8 c4.
     
@@ -22,7 +22,7 @@ if the black note heads are from 8th or shorter notes.
     c8 c4.
     c2
 }
-\context Voice = VB {
+\new Voice {
     \voiceTwo
     c8 c4.
     c2

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
     texidoc = "Rests get a little less space, since they are narrower.
 However, the feta quarter rest is relatively wide, causing this effect to be

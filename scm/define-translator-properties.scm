@@ -267,6 +267,12 @@ in a context. This is done using the @code{Font_size_engraver}.")
 the side of the note head. Use LEFT, RIGHT or unset.")
 
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
+
+(translator-property-description 'graceSettings vector?
+				 "Overrides for grace notes. This
+property should be manipulated through the @code{add-grace-property}
+function.")
+
 (translator-property-description 'highStringOne boolean? "Whether the
 1st string is the string with highest pitch on the instrument (used by
 the automatic string selector).")

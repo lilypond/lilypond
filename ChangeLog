@@ -1,3 +1,18 @@
+2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/*/*.ly (vmus): use \new everywhere.
+
+	* lily/my-lily-lexer.cc: add \accacciatura and \appoggiatura
+
+	* ly/grace-init.ly (stopGraceMusic): add slurs on grace note by
+	default
+
+	* scm/music-functions.scm (set-stop-grace-properties)
+	(set-start-grace-properties, add-grace-property): new functions
+	for modular grace tweak control.
+
+	* ly/engraver-init.ly (ScoreContext): new property graceSettings.
+	
 2003-08-28  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Explain install-pfa-fonts.
@@ -9,6 +24,14 @@
 	install-pfa-fonts help.
 
 2003-08-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/translator-scheme.cc (LY_DEFINE):
+	ly:context-pushpop-property new function.
+	(LY_DEFINE): new function ly:translator-find  
+	new function ly:translator?
+	(LY_DEFINE): new function ly:context?
+
+	* lily/translator-def.cc: remove Translator_def::apply_pushpop_property().
 
 	* python/lilylib.py (read_pipe): only store and display error log
 	if verbose not set.

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
        texidoc = "
 When put across line breaks, only the part before the line break is

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
  % ?
 % niet zo onschuldig!  je hebt graces gefixt in 1.5, zie maar eens 1.3.150

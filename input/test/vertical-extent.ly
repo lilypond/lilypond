@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "
@@ -10,12 +10,12 @@ associated context finishes, so using it in \property works.
 
 \score {
   \notes  <
-    \context Staff = upper {
+    \new Staff {
       \property Staff.verticalExtent = #'(-15.0 . 0.0)
       \clef alto
       c1
     }
-    \context Staff = lower {
+    \new Staff {
       \property Staff.verticalExtent = #'(-0.0 . 15.0)
       \clef alto
       g1

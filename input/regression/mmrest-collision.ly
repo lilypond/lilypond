@@ -1,13 +1,13 @@
-\version "1.9.1"
+\version "1.9.2"
 \header { texidoc = "Tests a collision between multimeasure rests in
 different voices. " }
 \score {
   \context Staff \notes <
-    \context Voice=i {
+    \new Voice {
       \property Voice.MultiMeasureRest \override #'staff-position = #3
       R1
     }
-    \context Voice=ii {
+    \new Voice {
       \property Voice.MultiMeasureRest \override #'staff-position = #-3
       R1
     }

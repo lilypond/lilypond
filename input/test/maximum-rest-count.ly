@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 % possible rename to rest-foo
 \header {
     texidoc = "@cindex Rest Collision Count
@@ -8,7 +8,7 @@ Control the number of rests in a collision with maximum-rest-count."
 
 \score{
 \context Staff \notes\relative c''<
-	\context Voice = x {
+	\new Voice {
 		a4 
 		r 
 		\property Staff. RestCollision \set #'maximum-rest-count = #1
@@ -20,7 +20,7 @@ Control the number of rests in a collision with maximum-rest-count."
 		r8 r8
 		c
 	}
-	\context Voice = y {
+	\new Voice {
 		c4
 		r
 		r 
@@ -29,7 +29,7 @@ Control the number of rests in a collision with maximum-rest-count."
 		r
 		r
 	}
-	\context Voice = z {
+	\new Voice {
 		e4
 		r
 		r 

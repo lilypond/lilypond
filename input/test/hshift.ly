@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header { texidoc = "@cindex Horizontal Shift
 You can manually shift notes horizontally. " }
 
@@ -13,11 +13,11 @@ shiftV = \property Voice.NoteColumn \override #'horizontal-shift = #4
   \context Voice \notes\relative c {
     
 	\context Staff <
-		\context Voice =VA  {\stemUp \shiftI g'' }
-		\context Voice =VB  {\stemUp \shiftII e }
-		\context Voice =VC  {\stemUp \shiftIII c }
-		\context Voice =VD  {\stemUp \shiftIV a }
-		\context Voice =VE  {\stemUp \shiftV f }
+		\new Voice  {\stemUp \shiftI g'' }
+		\new Voice  {\stemUp \shiftII e }
+		\new Voice  {\stemUp \shiftIII c }
+		\new Voice  {\stemUp \shiftIV a }
+		\new Voice  {\stemUp \shiftV f }
 	>	
   }
   \paper { raggedright = ##t }  

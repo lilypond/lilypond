@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header{ texidoc="
 
@@ -47,18 +47,18 @@ what happens on the inside: a 3/4 time signature is combined with a
 
 \score {
     \notes \relative c'  <
-    	\context Staff= AS {
+    	\new Staff {
 	    \time 3/4
 	    c4 c c | c c c |
 	}
-    	\context Staff= BS {
+    	\new Staff {
 	    \time 3/4
 	    \property Staff.timeSignatureFraction= #'(9 . 8)
 	    \apply #display-music \apply #(scale-music-function '(2 . 3))
 	      \repeat unfold 6 { c8[ c c] }
 	}
 	
-    	\context Staff= DS {
+    	\new Staff {
 	    \time 3/4
 	    \property Staff.timeSignatureFraction= #'(10 . 8)
 	    \apply #display-music \apply #(scale-music-function '(3 . 5))

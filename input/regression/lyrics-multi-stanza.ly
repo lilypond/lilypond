@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
 
 texidoc = "Lyrics syllables are aligned according to
@@ -10,7 +10,7 @@ texidoc = "Lyrics syllables are aligned according to
 	
 \score {
 \addlyrics
-  \notes \relative c'' \context Voice = duetto { \time 3/4 g2 e4 a2 f4 g2.  }
+  \notes \relative c'' \context Voice = duet { \time 3/4 g2 e4 a2 f4 g2.  }
   \lyrics \context Lyrics <
   \context LyricsVoice = "duet-1" {
     \property LyricsVoice . stanza = "Bert"

@@ -1,5 +1,4 @@
-#(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header {
 texidoc = "Measure  repeats are supported, and may be nested with beat repeats."
 }

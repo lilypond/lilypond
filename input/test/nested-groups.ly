@@ -1,4 +1,4 @@
-\version "1.9.1" 
+\version "1.9.2" 
 
 \header{ texidoc="@cindex Nested Staff Groups
 LilyPond can print nested groups of staffs. "
@@ -9,31 +9,31 @@ LilyPond can print nested groups of staffs. "
 
 \score { \notes
 <
-  \context StaffGroup = ga < 
-  \context Staff = sb {c' d' e' f'}
-  \context InnerStaffGroup = isga <
-   \context Staff = sd {c' d' e' f'}
-   \context GrandStaff=gs <
-     \context Staff = sgsa {c' d' e' f'}
-     \context Staff = sgsb {c' d' e' f'}
+  \new StaffGroup < 
+  \new Staff {c' d' e' f'}
+  \new InnerStaffGroup <
+   \new Staff {c' d' e' f'}
+   \new GrandStaff <
+     \new Staff {c' d' e' f'}
+     \new Staff {c' d' e' f'}
    >
-  \context Staff = sc {c' d' e' f'}
+  \new Staff {c' d' e' f'}
   >
-  \context ChoirStaff = csa <
-   \context Staff = sd {c' d' e' f'}
-    \context InnerStaffGroup=gc <
-     \context Staff = sq {c' d' e' f'}
+  \new ChoirStaff <
+   \new Staff {c' d' e' f'}
+    \new InnerStaffGroup <
+     \new Staff {c' d' e' f'}
     >
-   \context Staff = se {c' d' e' f'}
+   \new Staff {c' d' e' f'}
   >
   >
-  \context ChoirStaff = csb < 
-   \context Staff = sg {c' d' e' f'}
-   \context InnerStaffGroup = isgb <
-    \context Staff = sh {c' d' e' f'}
-    \context Staff = si {c' d' e' f'}
+  \new ChoirStaff < 
+   \new Staff {c' d' e' f'}
+   \new InnerStaffGroup <
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
    >
-   \context Staff = sj {c' d' e' f'}
+   \new Staff {c' d' e' f'}
   >
 
 >

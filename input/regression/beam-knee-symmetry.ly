@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
 
     texidoc = "Point-symmetric beams should receive the same

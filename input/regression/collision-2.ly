@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header {
 texidoc = "Collisions for single head notes. "
 }

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
     texidoc = "Clusters are a device to denote that a complete range of
 notes is to be played."
@@ -12,8 +12,8 @@ fragment =\notes \relative c' {
 
 \score {
  \notes <
-     \context Staff = SA \fragment
-     \context Staff = SB \apply #notes-to-clusters \fragment
+     \new Staff \fragment
+     \new Staff \apply #notes-to-clusters \fragment
      >
  \paper { raggedright = ##t }
 }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header {
   texidoc="@cindex Trills
@@ -39,7 +39,7 @@ endHorizScript = {
 \score {
   <
     \context GrandStaff <
-      \context Staff=upper \notes\relative c'' {
+      \new Staff \notes\relative c'' {
 	\time 1/4
 	c4\prall
 	\time 3/8
@@ -52,8 +52,8 @@ endHorizScript = {
 	\time 3/4
 	b4 c^\turn d 
 	\time 1/4
-	<\context Voice=upper{\voiceOne d4}
-	 \context Voice=lower{\voiceTwo 
+	<{ d4}\\
+	{ 
 	   \property Voice.Script \override #'extra-offset = #'(-0.8 . 2.0)
 	   b_\turn}>
 	\startHorizScript
@@ -74,7 +74,7 @@ endHorizScript = {
 	\time 3/4
 	d2^\prallup e4
       }
-      \context Lyrics=one \lyrics {
+      \new Lyrics \lyrics {
 	"Tremblement"4
 	"Tremblement"4.
 	"Cadence"
@@ -95,7 +95,7 @@ endHorizScript = {
 %}
 
     }
-      \context Lyrics=two \lyrics {
+      \new Lyrics \lyrics {
 	"simple"4
 	"appuy\\'e"4.
 %{	\skip 1*3
@@ -105,7 +105,7 @@ endHorizScript = {
 	"de suite"1
 %}
       }
-      \context Staff=lower \notes\relative c'' {
+      \new Staff \notes\relative c'' {
         % autobeamer has som problems here
 	d32[  \repeat unfold 3 { c d } c]
 	d8 ~  d32[\repeat unfold 3 { d32 c  } c]

@@ -1,11 +1,11 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{ texidoc="@cindex Phrasing Slur Height
 Make PhrasingSlur higher, to avoid colission from other slurs. "
 }
 
 \score {
-    \context Staff = melody \notes\relative c''{
+    \new Staff \notes\relative c''{
 	\property Staff.PhrasingSlur \override #'height-limit = #8.0
 	c8 \( (d e f) g ( a b c)
 	| c ( b a g) f ( e d c)\)

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 % TODO bit too wordy; edit a bit to cut stuff.  -gp
 \header { texidoc ="@cindex Slur Beautiful
 Similarly, the curvature of a slur is adjusted to stay clear of note

@@ -313,7 +313,7 @@ Translator_group::unset_property (SCM sym)
   entry from a translator property list by name of PROP
 */
 void
-Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM val)
+Translator_group::execute_pushpop_property (SCM prop, SCM eltprop, SCM val)
 {
   if (gh_symbol_p (prop))
     {
@@ -356,8 +356,6 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	}
     }
 }
-
-
 
 
 

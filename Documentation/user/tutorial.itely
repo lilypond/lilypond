@@ -655,8 +655,8 @@ staff is marked by adding @code{\context Staff} before it.  These
 @quotation
 @lilypond[fragment,verbatim]
 \simultaneous {
-  \newcontext Staff { \clef violin c'' }
-  \newcontext Staff { \clef bass c }
+  \new Staff { \clef violin c'' }
+  \new Staff { \clef bass c }
 }
 @end lilypond
 @end quotation
@@ -696,14 +696,14 @@ We can now typeset a melody with two staves:
 @lilypond[verbatim,singleline]
 \score {
   \notes 
-  < \newcontext Staff {
+  < \new Staff {
       \time 3/4
       \clef violin
       \relative c'' {
         e2( d4 c2 b4 a8[ a]
         b[ b] g[ g] a2.) }  
     }
-    \newcontext Staff {
+    \new Staff {
        \clef bass
        c2 e4  g2.
        f4 e d c2.
@@ -1273,11 +1273,11 @@ Again, these expressions can be nested arbitrarily:
 
 @lilypond[fragment]
 <
- \newcontext Staff 
+ \new Staff 
   \relative c''
     < { a4 g2 f4-~ f4 } \\
       { s4 g4 f2 f4 } >
- \newcontext Staff 
+ \new Staff 
   <  { \clef bass <<c g>>1  } \\
      { f4 d e2 }
   >
@@ -1299,8 +1299,8 @@ Piano music is always typeset in two staves connected by a brace.
 Printing such a staff is done similar to the polyphonic example in
 @ref{Combining music into compound expressions}:
 @example
- < \newcontext Staff @{ @dots{} @}
-   \newcontext Staff @{ @dots{} @}
+ < \new Staff @{ @dots{} @}
+   \new Staff @{ @dots{} @}
  >
 @end example
 but now this entire expression must be interpreted as a
@@ -1313,9 +1313,9 @@ Here is a full-fledged example:
 
 @lilypond[relative 0,fragment]
 \context PianoStaff
- < \newcontext Staff { \time 2/4
+ < \new Staff { \time 2/4
      c4 c g' g  }
-   \newcontext Staff {
+   \new Staff {
      \clef bass c,, c' e c }
  >
 @end lilypond
@@ -1652,8 +1652,8 @@ file @file{bassoon-music.ly}:
 
 \score @{
   \simultaneous @{
-    \newcontext Staff \hornNotes
-    \newcontext Staff \bassoonNotes
+    \new Staff \hornNotes
+    \new Staff \bassoonNotes
   @} @}
 @end example
 
@@ -1662,10 +1662,10 @@ This would lead to the simple score depicted below:
 @lilypond[singleline]
 \score {
   \notes \relative c \simultaneous {
-    \newcontext Staff { \time 2/4
+    \new Staff { \time 2/4
         R2*3
     r4 f8 a cis4 f e d }
-    \newcontext Staff { \clef bass
+    \new Staff { \clef bass
       r4 d,8 f | gis4 c |  b bes |
       a8 e f4 |  g d | gis f }
   } }

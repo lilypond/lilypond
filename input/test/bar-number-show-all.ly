@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
     texidoc="@cindex Bar Number Show All
 Second line has bar numbers on start of every measure.

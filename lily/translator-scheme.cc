@@ -1,9 +1,9 @@
 /*   
-translator-scheme.cc --  implement 
+  translator-scheme.cc --  implement Scheme context functions
+ 
+  source file of the GNU LilyPond music typesetter
 
-source file of the GNU LilyPond music typesetter
-
-(c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 
@@ -97,6 +97,31 @@ LY_DEFINE(ly_context_parent,
     return SCM_BOOL_F;
 }
 
+/*
+  Todo: should support translator IDs, and creation?
+ */
+LY_DEFINE(ly_translator_find,
+	  "ly:translator-find", 2, 0,0,
+	  (SCM context, SCM name),
+	  "Find a parent of @var{context} that has name or alias @var{name}. "
+	  "Return @code{#f} if not found." )
+{
+  Translator_group* tr=   dynamic_cast<Translator_group*> ( unsmob_translator (context));
+
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "context");
+  SCM_ASSERT_TYPE(gh_string_p (name), name, SCM_ARG2, __FUNCTION__, "string");
+  
+  String s = ly_scm2string (name);
+  
+  while (tr)
+    {
+      if (tr->is_alias_b (s))
+	return tr->self_scm();
+      tr =  tr->daddy_trans_ ;
+    }
+  
+  return SCM_BOOL_F;
+}
 
 
 LY_DEFINE(ly_context_properties,
@@ -137,6 +162,36 @@ LY_DEFINE(ly_translator_description,
 }
 
 
+LY_DEFINE(ly_context_pushpop_property,
+	  "ly:context-pushpop-property", 3, 1, 0,
+	  (SCM context, SCM grob, SCM eltprop, SCM val),
+	  "Do a single @code{\\override} or @code{\\revert} operation "
+	  "in @var{context}. The grob definition @code{grob} is extended with "
+	  "@code{eltprop} (if @var{val} is specified) "
+	  "or reverted (if  unspecified).")
+{
+  Translator_group *tg = dynamic_cast<Translator_group*> (unsmob_translator (context));
+
+  SCM_ASSERT_TYPE(tg, context, SCM_ARG1, __FUNCTION__, "context");
+  SCM_ASSERT_TYPE(gh_symbol_p (grob), grob, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE(gh_symbol_p (eltprop), eltprop, SCM_ARG3, __FUNCTION__, "symbol");
+
+  tg->execute_pushpop_property (grob, eltprop, val);
+
+  return SCM_UNDEFINED;
+}
+
+LY_DEFINE(ly_context_p,
+	  "ly:context?", 1, 0, 0,
+	  (SCM x),
+	  "Type predicate: is @var{x} a context?")
+{
+  Translator_group *tg = dynamic_cast<Translator_group*> (unsmob_translator (x));
+
+  return SCM_BOOL (tg);
+}
+	  
+
 int
 Translator::print_smob (SCM s, SCM port, scm_print_state *)
 {
@@ -159,3 +214,4 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   
   return 1;
 }
+

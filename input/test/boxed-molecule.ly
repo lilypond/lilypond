@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
 texidoc = "@cindex Boxed Molecule
 You can override the molecule callback to draw a box around

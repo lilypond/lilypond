@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header
 {
     texidoc = "Symmetric figures should lead to symmetric slurs."
@@ -12,7 +12,7 @@
 		\context Staff{
 			e8(e e) e(d e) e(c e) e(b e)
 		}
-		\context Staff=x{
+		\new Staff{
 			f'8(f f) f(g f) f(a f) f(b f)
 		}
 	>

@@ -268,6 +268,11 @@ def read_pipe (cmd, mode = 'r'):
 			if contents:
 				error (_ ("The error log is as follows:"))
 				sys.stderr.write (contents)
+
+		# Ugh. code dup
+		if error_log_file:
+			os.unlink (error_log_file)
+
 		exit (status)
 		
 	if __main__.verbose_p:

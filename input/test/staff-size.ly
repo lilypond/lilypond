@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 
 \header { texidoc = "@cindex Staff Size
 
@@ -10,7 +10,7 @@ Setting staff sizes is a little clumsy.  There are two options: using
 }
 
 \score {
-  \notes \relative c' < \context StaffContainer = SA{
+  \notes \relative c' < \new StaffContainer {
      \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
 
 	\property Staff.fontSize = #-1
@@ -22,8 +22,8 @@ Setting staff sizes is a little clumsy.  There are two options: using
 	c8 d  e[ f g a] b c \ff
   }
 
-\context Staff = SB \relative c'' { \dynamicDown c,,4 \ff c c c  }
-\context Staff = SC {
+\new Staff \relative c'' { \dynamicDown c,,4 \ff c c c  }
+\new Staff {
   \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
     #'staff-space =  #0.8
   \property Staff.fontSize = #-1

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
     texidoc = "Dots move to the right when a collision with the (up)flag happens."
 }

@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.1"
 % Some beamed and slurred notes of different taste in LilyPond
 %
@@ -15,7 +14,7 @@
 
 \score { 
   \context Voice \notes\relative c {
-    a''2 ~ c4( [e8 )e] [a,16 a a a]
+    a''2 ~ a4( e8[ )e] a,16[ a a a]
   }
   \paper {  }  
   \midi { }

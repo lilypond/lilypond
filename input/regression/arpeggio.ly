@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
@@ -10,7 +10,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 
 \score{
     \context PianoStaff < 
-	 \context Staff=one \notes\relative c''{
+	 \new Staff \notes\relative c''{
 	    \context Voice << fis,  d a >>\arpeggio
 	    \property Staff.Arpeggio \override #'arpeggio-direction = #1 
 	    \context Voice << fis,  d a >>\arpeggio	    
@@ -18,7 +18,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 	     \property PianoStaff.connectArpeggios = ##t
 	     <<fis, a c>>\arpeggio
 	  }
-	 \context Staff=two \notes\relative c{
+	 \new Staff \notes\relative c{
 	     \clef bass
 	    \context Voice << g b d   >>\arpeggio
 	    \property Staff.Arpeggio \override #'arpeggio-direction = #-1 	    

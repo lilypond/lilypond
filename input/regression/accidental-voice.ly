@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 
 \header{
 texidoc="
@@ -49,12 +49,12 @@ voiceb = \notes \transpose c c' {
 \score {
     <
 	\notes
-	\context NoteNames=namesa \apply #no-octaves \voicea
+	\new NoteNames \apply #no-octaves \voicea
 	\context Staff < 
 	    \modernVoiceCautionaries
-	    \context Voice = voicea \voicea
-	    \context Voice = voiceb \voiceb
+	    \new Voice \voicea
+	    \new Voice \voiceb
 	>
-	\context NoteNames=namesb \apply #no-octaves \voiceb
+	\new NoteNames \apply #no-octaves \voiceb
     >
 }

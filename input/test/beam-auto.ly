@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
 	texidoc = "@cindex Beaming Presets
 The auto-beam engraver has presets for common time signatures. " }

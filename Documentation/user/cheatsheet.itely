@@ -149,12 +149,12 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{< \newcontext Staff ... >}
+@item @code{< \new Staff ... >}
 @tab more staves
 @tab
 @lilypond[fragment]
-< \newcontext Staff { c'1 }
-  \newcontext Staff { c'1 } >
+< \new Staff { c'1 }
+  \new Staff { c'1 } >
 @end lilypond
 
   

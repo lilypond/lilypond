@@ -268,7 +268,6 @@ Auto_beam_engraver::begin_beam ()
   beat_length_ = *unsmob_moment (get_property ("beatLength"));
 }
 
-
 void
 Auto_beam_engraver::junk_beam () 
 {
@@ -291,7 +290,6 @@ Auto_beam_engraver::end_beam ()
       junk_beam ();
     }
   else
-    
     {
       finished_beam_ = create_beam ();
       if (finished_beam_)

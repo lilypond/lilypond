@@ -1,4 +1,4 @@
-\version "1.9.1"
+\version "1.9.2"
 \header {
     
 texidoc = "If the first and last outer notes of a beam are the same,

@@ -1422,6 +1422,21 @@ if 1:
 		return str
 
 	conversions.append (((1,9,1), conv, """Remove - before articulation"""))
+if 1:
+	def conv (str):
+		str = re.sub ('\\\\newcontext', '\\\\new', str)
+		str = re.sub ('\\\\grace[\t\n ]*([^{ ]+)',
+			      r'\\grace { \1 }', str) 
+		str = re.sub ("\\\\grace[\t\n ]*{([^}]+)}",
+			      r"""\\grace {
+  \\property Voice.Stem \\override #'stroke-style = #"grace"
+  \1
+  \\property Voice.Stem \\revert #'stroke-style }
+""", str)
+		
+		return str
+	
+	conversions.append (((1,9,2), conv, """\newcontext -> \new"""))
 
 ################################
 #	END OF CONVERSIONS	

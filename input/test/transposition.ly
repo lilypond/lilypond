@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 
 \header{ texidoc = "@cindex Transposition
 Transposition test file."
@@ -62,10 +62,10 @@ vFour =  \notes \transpose c d \vThree
 
 \score {
   \context StaffGroup <
-         \context Staff=vOne \vOne
-         \context Staff=vTwo \vTwo
-         \context Staff=vThree \vThree
-         \context Staff=vFour \vFour
+         \new Staff \vOne
+         \new Staff \vTwo
+         \new Staff \vThree
+         \new Staff \vFour
   >
         \paper { linewidth= 130.\mm raggedright = ##t }
 }

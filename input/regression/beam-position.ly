@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 Beams should always reach the middle staff line.  The second beam
@@ -13,7 +13,7 @@ Override with @code{noStemExtend}.
 \score { 
   \context Voice \notes\relative c {
      f8[ f]   f64[ f] 
-    \grace { 
+     \grace { 
        f8[ e8] 
       \property Voice.Stem \override #'no-stem-extend = ##f
        f8[ e8] 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 \header{
 texidoc="
 
@@ -10,19 +10,19 @@ knowing it.  Consequently, they fall over  often.
 }
 
 
-onestaff =  \context Staff = foo\notes\relative c''  {
+onestaff =  \new Staff\notes\relative c''  {
 	\property Staff.instr = instr
 	\property Staff.instrument = instrument \mark "B"
 	 c1 \mark "A" \break c2  c2 \break
 }
 
 grstaff =  \notes \relative c'' \context GrandStaff <
-	\context Staff = bar {
+	\new Staff {
 
 	\property Staff.instr = instr
 	
 	 \mark "B" \break c1 \mark "A" c2  }
-	\context Staff = bufl { c1 c2  }
+	\new Staff { c1 c2  }
 >
 
 

@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 \header {
 
 texidoc = "Beams and ties may be entered in postfix notation, separating the

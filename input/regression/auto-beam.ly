@@ -5,7 +5,7 @@ texidoc="Test automatic beamer: the last measure should have a single beam."
 
 }
 
-\version "1.9.1"
+\version "1.9.2"
 
 
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.1"
+\version "1.9.2"
 % more yummy regression goodness.  -gp
 \header {
 texidoc = "
@@ -12,14 +12,14 @@ texidoc = "
 \score { 
     \notes \relative c''
 	\context GrandStaff <
-	\context Staff = SA <
-		\context Voice = VA { \stemUp\slurUp\tieUp
+	\new Staff <
+		\new Voice { \stemUp\slurUp\tieUp
 			e4 dis4 e2 }
-		\context Voice = VB { \stemDown\slurDown\tieDown
+		\new Voice { \stemDown\slurDown\tieDown
 			 cis8[ a]  fis[ b] gis2 }
 		{\key e \major }
 		>
-	\context Staff = SB { \clef "bass" \key e \major
+	\new Staff { \clef "bass" \key e \major
 		 a,,16[ e dis e]  b'8[ b,]  e16[ e, gis b] e4
 	} 
 > 

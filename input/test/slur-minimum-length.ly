@@ -1,5 +1,5 @@
 
-\version "1.9.1"
+\version "1.9.2"
 
 \header { texidoc = "@cindex Slur Minimum Length
 You can set the minimum length of a slur. " 
