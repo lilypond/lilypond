@@ -23,7 +23,7 @@
 	  \property Voice.Stem \set #'transparent = ##t
           d'
           \property Voice.Stem \revert #'transparent
-          ~ <<d b>>4  > }
+          ~ <<d b>>4 }
     >
     \context Staff = down {
         \key d \major

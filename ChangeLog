@@ -1,5 +1,17 @@
 2002-11-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* ly/paper16-init.ly (paperSixteen): Bugfix: set fonts instead of
+	stylesheet.
+
+	* ly/paper19.ly: Include paper19-init.ly.
+
+	* ly/paper19-init.ly: New file.
+
+	* Documentation/user/tutorial.itely (First steps): Fix first
+	example for font test.
+
+	* input/tutorial/brahms-tweaked.ly: Fix by hand for font test.
+
 	* ChangeLog: Add 1.7.6 release marker (see below).
 
 	* stepmake/stepmake/python-module-vars.make (EXTRA_DIST_FILES):
