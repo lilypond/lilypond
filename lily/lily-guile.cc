@@ -809,7 +809,8 @@ LY_DEFINE (ly_pango_add_afm_decoder, "ly:pango-add-afm-decoder",
 	   1, 0, 0, (SCM font_family),
 	   "Add pango afm decoder for FONT-FAMILY.")
 {
-  SCM_ASSERT_TYPE (ly_c_string_p (font_family), font_family, SCM_ARG1, __FUNCTION__, "font_family");
+  SCM_ASSERT_TYPE (ly_c_string_p (font_family), font_family, SCM_ARG1,
+		   __FUNCTION__, "font_family");
   pango_fc_afm_add_decoder (ly_scm2newstr (font_family, 0));
   return SCM_UNSPECIFIED;
 }
