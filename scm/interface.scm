@@ -3,7 +3,7 @@
 
 ;;; ::::::: should generate documentation for score elements from here.
 
-(define (property-description symbol type? description)
+(define (elt-property-description symbol type? description)
   (list symbol type? description))
   
 (define (lily-interface symbol description props)
@@ -43,25 +43,25 @@
    'general-element-interface
    "All elements support this"
    (list
-    (property-description 'X-offset-callbacks list? "list of functions, each taking an element and axis argument. The function determine the position relative to this element's parent. The last one in the list is called first")
-    (property-description 'Y-offset-callbacks list? "see <code> X-offset-callbacks</code>")
-    (property-description 'X-extent-callback procedure? "procedure taking an element and axis argument, returning a number-pair. The return value is the extent of the element.")
-    (property-description 'Y-extent-callback procedure? "see <code> X-extent-callback </code>")
-    (property-description 'font-relative-size integer? "")
-    (property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting")
-    (property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the <code>meta</code> field.")
-    (property-description 'dependencies list? "list of score-element pointers that indicate who to compute first for certain global passes")
-    (property-description 'no-spacing-rods boolean? "read from elements: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM)")
-    (property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space")
-    (property-description 'extra-extent-Y number-pair? "see <code>extra-extent-Y</code>")
-    (property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space")
-    (property-description 'minimum-extent-Y number-pair? "see <code>minimum-extent-Y</code>")
-    (property-description 'origin ly-input-location? "location in input file of the definition")
-    (property-description 'transparent boolean? "This is almost the
+    (elt-property-description 'X-offset-callbacks list? "list of functions, each taking an element and axis argument. The function determine the position relative to this element's parent. The last one in the list is called first")
+    (elt-property-description 'Y-offset-callbacks list? "see <code> X-offset-callbacks</code>")
+    (elt-property-description 'X-extent-callback procedure? "procedure taking an element and axis argument, returning a number-pair. The return value is the extent of the element.")
+    (elt-property-description 'Y-extent-callback procedure? "see <code> X-extent-callback </code>")
+    (elt-property-description 'font-relative-size integer? "")
+    (elt-property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting")
+    (elt-property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the <code>meta</code> field.")
+    (elt-property-description 'dependencies list? "list of score-element pointers that indicate who to compute first for certain global passes")
+    (elt-property-description 'no-spacing-rods boolean? "read from elements: boolean that makes Separation_item ignore this item (MOVE ME TO ITEM)")
+    (elt-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space")
+    (elt-property-description 'extra-extent-Y number-pair? "see <code>extra-extent-Y</code>")
+    (elt-property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space")
+    (elt-property-description 'minimum-extent-Y number-pair? "see <code>minimum-extent-Y</code>")
+    (elt-property-description 'origin ly-input-location? "location in input file of the definition")
+    (elt-property-description 'transparent boolean? "This is almost the
 same as setting molecule-callback to #f, but this retains the
 dimensions of this element, which means that you can erase elements
 individually. ")
-    (property-description 'molecule-callback procedure? "Function taking graphical element as argument, returning a Scheme encoded Molecule
+    (elt-property-description 'molecule-callback procedure? "Function taking graphical element as argument, returning a Scheme encoded Molecule
 
 This function can be called more than once (for instance once for
 computing dimensions, and once for computing the output).  Therefore,
@@ -77,23 +77,23 @@ Caching of computed values is permissible, and generally useful, though.
    'beam-interface
    "A beam. "
    (list
-    (property-description 'y-position number? "position of left edge")
-    (property-description 'height number? "dy")
-    (property-description 'flag-width-function procedure? "")
-    (property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams ")
-    (property-description 'default-neutral-direction dir? "which
+    (elt-property-description 'y-position number? "position of left edge")
+    (elt-property-description 'height number? "dy")
+    (elt-property-description 'flag-width-function procedure? "")
+    (elt-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams ")
+    (elt-property-description 'default-neutral-direction dir? "which
 direction to choose if we're in the middle of the staff ")
-    (property-description 'thickness number? "weight of beams, in staffspace")
-    (property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace)")
-    (property-description 'beamed-stem-shorten number? "")
-    (property-description 'height-quants number? "")
-    (property-description 'vertical-position-quant-function procedure? "")
-    (property-description 'dir-function procedure? "")
-    (property-description 'damping number? "damping factor.")
-    (property-description 'outer-stem-length-limit number? "catch
+    (elt-property-description 'thickness number? "weight of beams, in staffspace")
+    (elt-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace)")
+    (elt-property-description 'beamed-stem-shorten number? "")
+    (elt-property-description 'height-quants number? "")
+    (elt-property-description 'vertical-position-quant-function procedure? "")
+    (elt-property-description 'dir-function procedure? "")
+    (elt-property-description 'damping number? "damping factor.")
+    (elt-property-description 'outer-stem-length-limit number? "catch
 suspect beam slopes, set slope to zero if outer stem is lengthened
 more than this (in staffspace)")
-    (property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
+    (elt-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
     )
 ))
 
@@ -106,9 +106,9 @@ more than this (in staffspace)")
    'clef-interface
    "A clef sign"
    (list
-    (property-description 'non-default boolean? "not set because of existence of a bar?")
-    (property-description 'change boolean? "is this a change clef (smaller size)?")
-    (property-description 'glyph string? "a string determining what glyph is typeset")
+    (elt-property-description 'non-default boolean? "not set because of existence of a bar?")
+    (elt-property-description 'change boolean? "is this a change clef (smaller size)?")
+    (elt-property-description 'glyph string? "a string determining what glyph is typeset")
     ))
   )
 
@@ -117,7 +117,7 @@ more than this (in staffspace)")
    'axis-group-interface
    "a group of coupled elements"
    (list
-    (property-description 'axes list? "list of axis (number) in which this group works")
+    (elt-property-description 'axes list? "list of axis (number) in which this group works")
    )))
 
 (define note-column-interface
@@ -125,9 +125,9 @@ more than this (in staffspace)")
    'note-column-interface
    "Stem and noteheads combined"
    (list
-    (property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting.")
-    (property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings.")
-    (property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.")
+    (elt-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting.")
+    (elt-property-description 'force-hshift number? "amount of collision_note_width that overides automatic collision settings.")
+    (elt-property-description 'merge-differently-dotted boolean? "merge black noteheads with differing dot count in collisions.")
     ))
   )
 
@@ -136,25 +136,25 @@ more than this (in staffspace)")
    'stem-interface
    "A stem"
    (list
-    (property-description 'thickness number? "thickness, measured in stafflinethickness")
-    (property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity ")
-    (property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity")
-    (property-description 'stem-centered boolean? "Center stems on note heads. Useful for mensural notation")
-    (property-description 'lengths list? "Stem length given multiplicity of flag")
-    (property-description 'beam ly-element? "pointer to the beam, if applicable")
-    (property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity")
-    (property-description 'duration-log integer? "log of the duration, ie. 0=whole note, 1 = half note, etc.")
-    (property-description 'beaming number-pair? "number of beams extending to left and right")
-    (property-description 'default-neutral-direction dir? "Where to go if we're in the middle of the staff")
-    (property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head")
-    (property-description 'support-head ly-element? "the note head at
+    (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity ")
+    (elt-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity")
+    (elt-property-description 'stem-centered boolean? "Center stems on note heads. Useful for mensural notation")
+    (elt-property-description 'lengths list? "Stem length given multiplicity of flag")
+    (elt-property-description 'beam ly-element? "pointer to the beam, if applicable")
+    (elt-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity")
+    (elt-property-description 'duration-log integer? "log of the duration, ie. 0=whole note, 1 = half note, etc.")
+    (elt-property-description 'beaming number-pair? "number of beams extending to left and right")
+    (elt-property-description 'default-neutral-direction dir? "Where to go if we're in the middle of the staff")
+    (elt-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head")
+    (elt-property-description 'support-head ly-element? "the note head at
 one end of the stem")
-    (property-description 'heads list? "list of note heads")
-    (property-description 'direction dir? "up or down")
-    (property-description 'stem-length number? "length of stem")
-    (property-description 'style string? "") ; symbol!?
-    (property-description 'flag-style string? "") ; symbol!?
-    (property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
+    (elt-property-description 'heads list? "list of note heads")
+    (elt-property-description 'direction dir? "up or down")
+    (elt-property-description 'stem-length number? "length of stem")
+    (elt-property-description 'style string? "") ; symbol!?
+    (elt-property-description 'flag-style string? "") ; symbol!?
+    (elt-property-description 'dir-forced boolean? "set if direction has been forced; read by Beam.")
     )))
 
 
@@ -163,18 +163,18 @@ one end of the stem")
    'slur-interface
    "A slur"
    (list
-    (property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
-    (property-description 'details list? "alist containing contaning a few magic constants.")
-    (property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end")
-    (property-description 'direction dir? "up or down?")
-   (property-description 'attachment-offset pair? "cons of offsets, '(LEFT-offset . RIGHT-offset).  This offset is added to the attachments to prevent ugly slurs.")
-     (property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
-     (property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems")
-     (property-description 'control-points list? "[internal] control points of bezier curve")
-     (property-description 'extremity-rules  list? "an alist (procedure slur dir) -> attachment to determine the attachment (see above).  If procedure returns #t, attachment is used.  Otherwise, the next procedure is tried.")
-     (property-description 'extremity-offset-alist list? "an alist (attachment stem-dir*dir slur-dir*dir) -> offset.  The offset adds to the centre of the notehead, or stem.")
-     (property-description 'thickness list? "The thickness[stafflinethickness] of slur in the centre.")
-     (property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
+    (elt-property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
+    (elt-property-description 'details list? "alist containing contaning a few magic constants.")
+    (elt-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end")
+    (elt-property-description 'direction dir? "up or down?")
+   (elt-property-description 'attachment-offset pair? "cons of offsets, '(LEFT-offset . RIGHT-offset).  This offset is added to the attachments to prevent ugly slurs.")
+     (elt-property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
+     (elt-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems")
+     (elt-property-description 'control-points list? "[internal] control points of bezier curve")
+     (elt-property-description 'extremity-rules  list? "an alist (procedure slur dir) -> attachment to determine the attachment (see above).  If procedure returns #t, attachment is used.  Otherwise, the next procedure is tried.")
+     (elt-property-description 'extremity-offset-alist list? "an alist (attachment stem-dir*dir slur-dir*dir) -> offset.  The offset adds to the centre of the notehead, or stem.")
+     (elt-property-description 'thickness list? "The thickness[stafflinethickness] of slur in the centre.")
+     (elt-property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
 
     )
    )
@@ -185,19 +185,19 @@ one end of the stem")
    'side-position-interface
    "Position a victim object (this one) next to other objects (the support)."
    (list
-   (property-description 'side-support list? "the support, a list of score elements")
-   (property-description 'direction-source ly-element? "in case side-relative-direction is set, which element  to get the direction from ")
-    (property-description 'direction dir? "where to put the victim object (left or right?)")
-    (property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
-    (property-description 'minimum-space number? "minimum distance that the victim should move (after padding)")
-    (property-description 'padding number? "add this much extra space between victim and support")
-    (property-description 'self-alignment-X number? "real number: -1 =
+   (elt-property-description 'side-support list? "the support, a list of score elements")
+   (elt-property-description 'direction-source ly-element? "in case side-relative-direction is set, which element  to get the direction from ")
+    (elt-property-description 'direction dir? "where to put the victim object (left or right?)")
+    (elt-property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
+    (elt-property-description 'minimum-space number? "minimum distance that the victim should move (after padding)")
+    (elt-property-description 'padding number? "add this much extra space between victim and support")
+    (elt-property-description 'self-alignment-X number? "real number: -1 =
 left aligned, 0 = center, 1 right-aligned in X direction. <p> Set to
 an element pointer, if you want that element to be the center.  In
 this case, the center element should have this object as a reference
 point.
 ")
-    (property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis")
+    (elt-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis")
     
     )
   ))
@@ -207,8 +207,8 @@ point.
    'accidentals-interface
    "Accidentals"
    (list
-    (property-description 'left-padding number? "space left of accs")
-    (property-description 'right-padding number? "space right of accs")     
+    (elt-property-description 'left-padding number? "space left of accs")
+    (elt-property-description 'right-padding number? "space right of accs")     
     )
    ))
 
@@ -223,18 +223,18 @@ point.
    enters the Score_element dependency calculation from this single
    Line_of_score object."
    (list
-    (property-description 'between-system-string string? "string
+    (elt-property-description 'between-system-string string? "string
  to dump between two systems. Useful for forcing pagebreaks")
-    (property-description 'spacing-procedure procedure? "procedure taking
+    (elt-property-description 'spacing-procedure procedure? "procedure taking
 graphical element as argument. This is called after before-line-breaking-callback, but before the actual line breaking itself.  Return value is ignored")
-    (property-description 'before-line-breaking-callback procedure?
+    (elt-property-description 'before-line-breaking-callback procedure?
 			  "Procedure taking graphical element as argument.
 This procedure is called (using dependency resolution) before line breaking, but after generating discretionary items. Return value is ignored")
-    (property-description 'after-line-breaking-callback procedure?
+    (elt-property-description 'after-line-breaking-callback procedure?
 			  "Procedure taking graphical element as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored")
-    (property-description 'all-elements list? "list of all score elements in this line. Needed for protecting elements from GC.")
-    (property-description 'columns list? "list of all paper columns")
+    (elt-property-description 'all-elements list? "list of all score elements in this line. Needed for protecting elements from GC.")
+    (elt-property-description 'columns list? "list of all paper columns")
     )))
 
 (define note-head-interface
@@ -242,7 +242,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    'note-head-interface
    "Note head"
    (list
-    (property-description 'style symbol? "symbol that sets note head style")
+    (elt-property-description 'style symbol? "symbol that sets note head style")
     )
    ))
 
@@ -251,7 +251,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    'note-name-interface
    "Note name"
    (list
-    (property-description 'style symbol? "symbol that sets note name style")
+    (elt-property-description 'style symbol? "symbol that sets note name style")
     )
    ))
 
@@ -261,9 +261,9 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    'rhythmic-head-interface
    "Note head or rest"
    (list
-    (property-description 'dot ly-element? "reference to Dots object.")
-    (property-description 'stem ly-element? "pointer to Stem object")
-    (property-description 'duration-log integer? "2-log of the notehead duration")
+    (elt-property-description 'dot ly-element? "reference to Dots object.")
+    (elt-property-description 'stem ly-element? "pointer to Stem object")
+    (elt-property-description 'duration-log integer? "2-log of the notehead duration")
     )))
 
 (define rest-interface
@@ -271,18 +271,18 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    'rest-interface
    "a rest"
    (list
-    (property-description 'style string? "string specifying glyph style"))))
+    (elt-property-description 'style string? "string specifying glyph style"))))
 
 (define tuplet-bracket-interface
   (lily-interface
    'tuplet-bracket-interface
    "A bracket with a number in the middle, used for tuplets." 
    (list
-    (property-description 'beams list? "list of beam ptrs.")
-    (property-description 'columns list? " list of note-columns.")
-    (property-description 'number-gap number? "")
-    (property-description 'delta-y number? "amount of ascension")
-    (property-description 'thick number? "thickness, in stafflinethickness")
+    (elt-property-description 'beams list? "list of beam ptrs.")
+    (elt-property-description 'columns list? " list of note-columns.")
+    (elt-property-description 'number-gap number? "")
+    (elt-property-description 'delta-y number? "amount of ascension")
+    (elt-property-description 'thick number? "thickness, in stafflinethickness")
     )
 ))
 
@@ -292,15 +292,15 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    'align-interface
    " Order elements top to bottom/left to right/right to left etc."
    (list
-    (property-description 'stacking-dir  dir? "stack contents of elements in which direction ?")
-    (property-description 'align-dir  dir? "Which side to align? -1: left side, 0: around center of width, 1: right side")
-    (property-description 'threshold  number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace")
-    (property-description 'alignment-done  boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once)")
-    (property-description 'center-element ly-element? "element which will be at the
+    (elt-property-description 'stacking-dir  dir? "stack contents of elements in which direction ?")
+    (elt-property-description 'align-dir  dir? "Which side to align? -1: left side, 0: around center of width, 1: right side")
+    (elt-property-description 'threshold  number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace")
+    (elt-property-description 'alignment-done  boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once)")
+    (elt-property-description 'center-element ly-element? "element which will be at the
 center of the group after aligning (when using
 Align_interface::center_on_element). ")
-    (property-description 'elements  list? "to be aligned elements ")
-    (property-description 'axes  list? "list of axis numbers. Should contain only one number.")
+    (elt-property-description 'elements  list? "to be aligned elements ")
+    (elt-property-description 'axes  list? "list of axis numbers. Should contain only one number.")
     )))    
 
 (define aligned-interface
@@ -308,8 +308,8 @@ Align_interface::center_on_element). ")
    'aligned-interface
    "read by align-interface"
    (list
-    (property-description 'minimum-space number-pair? "(cons LEFT RIGHT)")
-    (property-description 'extra-space number-pair? "(cons LEFT RIGHT)")
+    (elt-property-description 'minimum-space number-pair? "(cons LEFT RIGHT)")
+    (elt-property-description 'extra-space number-pair? "(cons LEFT RIGHT)")
     )))
 
 (define break-aligned-interface
@@ -317,9 +317,9 @@ Align_interface::center_on_element). ")
    'break-aligned-interface
    "Items that are aligned in prefatory matter"
    (list
-    (property-description 'break-align-symbol symbol? "the index in the spacing table (symbol) of the to be aligned item.")
-    (property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY)")
-    (property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.)")
+    (elt-property-description 'break-align-symbol symbol? "the index in the spacing table (symbol) of the to be aligned item.")
+    (elt-property-description 'visibility-lambda procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY)")
+    (elt-property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.)")
     )))
 
 (define chord-name-interface
@@ -327,9 +327,9 @@ Align_interface::center_on_element). ")
    'chord-name-interface
    "generate a chord name"
    (list
-    (property-description 'pitches list? "list of musical-pitch")
-    (property-description 'inversion list? " musical-pitch, optional")
-    (property-description 'bass list? " musical-pitch, optional")
+    (elt-property-description 'pitches list? "list of musical-pitch")
+    (elt-property-description 'inversion list? " musical-pitch, optional")
+    (elt-property-description 'bass list? " musical-pitch, optional")
    )))
 
 (define time-signature-interface
@@ -337,8 +337,8 @@ Align_interface::center_on_element). ")
    'time-signature-interface
    "A time signature, in different styles"
    (list
-    (property-description 'fraction number-pair? "")
-    (property-description 'style string? "")
+    (elt-property-description 'fraction number-pair? "")
+    (elt-property-description 'style string? "")
     )))
 
 (define bar-line-interface
@@ -346,14 +346,14 @@ Align_interface::center_on_element). ")
    'bar-line-interface
    "Bar line"
    (list
-    (property-description 'barsize-procedure procedure? "how to compute the size of a bar line")
-    (property-description 'kern number? "space after a thick line")
-    (property-description 'thin-kern number? "space after a hair-line")
-    (property-description 'hair-thickness number? "thickness, measured in stafflinethickness")
-    (property-description 'thick-thickness number? "thickness, measured in stafflinethickness")
-    (property-description 'glyph string? "what kind barline? A concatenation of |, : and .")
-    (property-description 'bar-size number? "")
-    (property-description 'break-glyph-function procedure? "function taking glyph and break-direction, returning the glyph at a line break")
+    (elt-property-description 'barsize-procedure procedure? "how to compute the size of a bar line")
+    (elt-property-description 'kern number? "space after a thick line")
+    (elt-property-description 'thin-kern number? "space after a hair-line")
+    (elt-property-description 'hair-thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'thick-thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'glyph string? "what kind barline? A concatenation of |, : and .")
+    (elt-property-description 'bar-size number? "")
+    (elt-property-description 'break-glyph-function procedure? "function taking glyph and break-direction, returning the glyph at a line break")
    )))
 
 
@@ -364,9 +364,9 @@ Align_interface::center_on_element). ")
    'hairpin-interface
    "hairpin crescendo"
    (list
-    (property-description 'grow-direction dir? "crescendo or decrescendo?")
-    (property-description 'thickness number? "thickness, measured in stafflinethickness")
-    (property-description 'height number? "height, measured in staffspace in ")
+    (elt-property-description 'grow-direction dir? "crescendo or decrescendo?")
+    (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'height number? "height, measured in staffspace in ")
     )))
 
 (define arpeggio-interface
@@ -374,7 +374,7 @@ Align_interface::center_on_element). ")
    'arpeggio-interface
    "arpeggio"
    (list
-    (property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+    (elt-property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
     )
    )
   )
@@ -384,7 +384,7 @@ Align_interface::center_on_element). ")
    'note-collision-interface
    "note collision"
    (list
-    (property-description 'note-width 'number? "unit for horizontal translation, measured in staff-space.")
+    (elt-property-description 'note-width 'number? "unit for horizontal translation, measured in staff-space.")
     )   )  )
 
 
@@ -406,7 +406,7 @@ Align_interface::center_on_element). ")
 [TODO: add to glossary]"
 
    (list
-    (property-description 'style string? "a string determining what glyph is 
+    (elt-property-description 'style string? "a string determining what glyph is 
 typeset. Current choices are mensural, 
 hufnagel, vaticana and medicaea [TODO: should use symbol] ")
     ))
@@ -420,8 +420,8 @@ hufnagel, vaticana and medicaea [TODO: should use symbol] ")
    "The dots to go with a notehead/rest.  A separate interface, since they
   are a party in collision resolution."
    (list
-    (property-description 'direction dir? "Direction to handle staff-line collisions in.")
-    (property-description 'dot-count integer? "number of dots")
+    (elt-property-description 'direction dir? "Direction to handle staff-line collisions in.")
+    (elt-property-description 'dot-count integer? "number of dots")
     )))
 
 (define font-interface
@@ -429,13 +429,13 @@ hufnagel, vaticana and medicaea [TODO: should use symbol] ")
    'font-interface
    "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)"
    (list
-    (property-description 'font-style symbol? "a precooked set of font definitions, eg. finger volta timesig mark script large Large dynamic")
-    (property-description 'font-series symbol? "partial font definition: medium, bold")
-    (property-description 'font-shape symbol?  "partial font definition: upright or italic")
-    (property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
-    (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
-    (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
-    (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+    (elt-property-description 'font-style symbol? "a precooked set of font definitions, eg. finger volta timesig mark script large Large dynamic")
+    (elt-property-description 'font-series symbol? "partial font definition: medium, bold")
+    (elt-property-description 'font-shape symbol?  "partial font definition: upright or italic")
+    (elt-property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
+    (elt-property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
+    (elt-property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
+    (elt-property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
     )))
 
 
@@ -444,7 +444,7 @@ hufnagel, vaticana and medicaea [TODO: should use symbol] ")
    'text-interface
    "A scheme markup text"
    (list
-    (property-description 'text (lambda (x) (or (string? x) (list? x))) "
+    (elt-property-description 'text (lambda (x) (or (string? x) (list? x))) "
 Scheme markup text.  It is defined as follows:
 <p>
 
@@ -476,11 +476,11 @@ The following abbreviations are currently defined:
 </dl>
 " )
     ;; Should move this somewhere else?  
-    (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
-    (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
-    (property-description 'raise number? "height for text to be raised (a negative value lowers the text")
-    (property-description 'kern number? "amount of extra white space to add before text.  This is `relative'(?) to the current alignment.")
-    (property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts")
+    (elt-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
+    (elt-property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
+    (elt-property-description 'raise number? "height for text to be raised (a negative value lowers the text")
+    (elt-property-description 'kern number? "amount of extra white space to add before text.  This is `relative'(?) to the current alignment.")
+    (elt-property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts")
     )))
 
 (define dot-column-interface
@@ -523,7 +523,7 @@ The following abbreviations are currently defined:
    'grace-alignment-interface
    "put grace notes in line"
    (list
-    (property-description 'horizontal-space number? "amount of space to add after a note (in staff-space)")
+    (elt-property-description 'horizontal-space number? "amount of space to add after a note (in staff-space)")
     )
    ))
 
@@ -535,7 +535,7 @@ The following abbreviations are currently defined:
   gracefully commit suicide.  Objective: don't disgrace Lily by
   typesetting empty lines in orchestral scores."
    (list
-    (property-description 'items-worth-living list? "list of interesting items. If empty in a particular system, clear that system.")
+    (elt-property-description 'items-worth-living list? "list of interesting items. If empty in a particular system, clear that system.")
 
 
     )))
@@ -548,11 +548,11 @@ syllables.   The length of the hyphen line should stretch based on the
   size of the gap between syllables."
    (list
     
-    (property-description 'thickness number? "thickness of line (in stafflinethickness)")
-    (property-description 'height number? "vertical offset  (in staffspace)")
+    (elt-property-description 'thickness number? "thickness of line (in stafflinethickness)")
+    (elt-property-description 'height number? "vertical offset  (in staffspace)")
 
-    (property-description 'minimum-length number? "try to make the hyphens at least this long. Also works as a scaling parameter for the length")
-    (property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics)")
+    (elt-property-description 'minimum-length number? "try to make the hyphens at least this long. Also works as a scaling parameter for the length")
+    (elt-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics)")
     )))
 
 (define key-signature-interface
@@ -560,9 +560,9 @@ syllables.   The length of the hyphen line should stretch based on the
    'key-signature-interface
    "A group of  accidentals."
    (list
-    (property-description 'c0-position  integer? "integer indicating the position of central C")
-    (property-description 'old-accidentals  list? "list of (pitch, accidental) pairs")
-    (property-description 'new-accidentals  list? "list of (pitch, accidental) pairs")
+    (elt-property-description 'c0-position  integer? "integer indicating the position of central C")
+    (elt-property-description 'old-accidentals  list? "list of (pitch, accidental) pairs")
+    (elt-property-description 'new-accidentals  list? "list of (pitch, accidental) pairs")
     )))
 
 (define lyric-extender-interface
@@ -571,9 +571,9 @@ syllables.   The length of the hyphen line should stretch based on the
    "The extender is a simple line at the baseline of the lyric
   that helps show the length of a melissima (tied/slurred note)."
    (list
-    (property-description 'word-space  number? "")
-    (property-description 'height  number? "in stafflinethickness")
-    (property-description 'right-trim-amount  number? "")
+    (elt-property-description 'word-space  number? "")
+    (elt-property-description 'height  number? "in stafflinethickness")
+    (elt-property-description 'right-trim-amount  number? "")
     )))
 
 
@@ -582,7 +582,7 @@ syllables.   The length of the hyphen line should stretch based on the
    'lyric-syllable-interface
    "a single piece of lyrics"
    (list
-    (property-description 'word-space  number? "")
+    (elt-property-description 'word-space  number? "")
     )))
 
 
@@ -596,13 +596,15 @@ syllables.   The length of the hyphen line should stretch based on the
 (define multi-measure-rest-interface
   (lily-interface
    'multi-measure-rest-interface
-   "A rest that spans a whole number of measures."
+   "A rest that spans a whole number of measures.  For typesetting the
+numbers, fields from font-interface may be used. 
+"
    (list
     
-    (property-description 'columns  list? "list of paper-columns")
-    (property-description 'expand-limit  integer? "maximum number of measures expanded in church rests")
-    (property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace")
-    (property-description 'padding  number? "padding between number and rest. Measured in staffspace.")
+    (elt-property-description 'columns  list? "list of paper-columns")
+    (elt-property-description 'expand-limit  integer? "maximum number of measures expanded in church rests")
+    (elt-property-description 'minimum-width number? "minimum-width of rest symbol, in staffspace")
+    (elt-property-description 'padding  number? "padding between number and rest. Measured in staffspace.")
     )))
 
 (define paper-column-interface
@@ -610,22 +612,22 @@ syllables.   The length of the hyphen line should stretch based on the
    'paper-column-interface
    ""
    (list
-    (property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter)")
-    (property-description 'before-musical-spacing-factor number?
+    (elt-property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter)")
+    (elt-property-description 'before-musical-spacing-factor number?
 "space before musical columns (eg. taken by accidentals) get this much
 stretched when they follow a musical column, in absence of grace
 notes.  0.0 means no extra space (accidentals are ignored)")
-    (property-description 'stem-spacing-correction number? "optical correction amount.")
-    (property-description 'before-grace-spacing-factor number? " stretch space this much if there are grace notes before the column")
-    (property-description 'when moment? "when does this column happen?")
-    (property-description 'bounded-by-me list? "list of spanners that have this
+    (elt-property-description 'stem-spacing-correction number? "optical correction amount.")
+    (elt-property-description 'before-grace-spacing-factor number? " stretch space this much if there are grace notes before the column")
+    (elt-property-description 'when moment? "when does this column happen?")
+    (elt-property-description 'bounded-by-me list? "list of spanners that have this
 column as start/begin point. Only columns that have elements or act as bounds are spaced.")
-    (property-description 'dir-list  list? "list of stem directions")
-    (property-description 'shortest-playing-duration  moment? "duration of the shortest playing in that column.")
-    (property-description 'shortest-starter-duration  moment? "duration of the shortest notes that starts exactly in this column.")
-    (property-description 'contains-grace  boolean? "Used to widen entries for grace notes.")
-    (property-description 'extra-space  number-pair? "pair of distances")
-    (property-description 'stretch-distance number-pair? "pair of distances")
+    (elt-property-description 'dir-list  list? "list of stem directions")
+    (elt-property-description 'shortest-playing-duration  moment? "duration of the shortest playing in that column.")
+    (elt-property-description 'shortest-starter-duration  moment? "duration of the shortest notes that starts exactly in this column.")
+    (elt-property-description 'contains-grace  boolean? "Used to widen entries for grace notes.")
+    (elt-property-description 'extra-space  number-pair? "pair of distances")
+    (elt-property-description 'stretch-distance number-pair? "pair of distances")
     )))
 
 (define spaceable-element-interface
@@ -634,9 +636,9 @@ column as start/begin point. Only columns that have elements or act as bounds ar
    "An element (generally a Paper_column) that takes part in the
 spacing problem. "
    (list
-     (property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs)")
-     (property-description 'ideal-distances  list? "(OBJ . (DIST . STRENGTH)) pairs")
-     (property-description 'dir-list list? "list of stem directions, needed for optical spacing correction.")
+     (elt-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs)")
+     (elt-property-description 'ideal-distances  list? "(OBJ . (DIST . STRENGTH)) pairs")
+     (elt-property-description 'dir-list list? "list of stem directions, needed for optical spacing correction.")
      )))
 
 (define rest-collision-interface
@@ -645,9 +647,9 @@ spacing problem. "
    "Move around ordinary rests (not multi-measure-rests) to avoid
 conflicts."
    (list
-    (property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
-    (property-description 'minimum-distance number? "minimum distance between notes and rests.")
-    (property-description 'elements list? "list of elements (NoteColumn,
+    (elt-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
+    (elt-property-description 'minimum-distance number? "minimum distance between notes and rests.")
+    (elt-property-description 'elements list? "list of elements (NoteColumn,
 generally) participating in the collision. The
 <code>rest-collision</code> property in <code>elements</code> is set
 to a pointer to the collision")
@@ -658,7 +660,7 @@ to a pointer to the collision")
    'script-interface
    ""
    (list
-    (property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts")
+    (elt-property-description 'script-priority number? "A sorting key that determines in what order a script is within a stack of scripts")
     )))
 
 (define script-column-interface
@@ -673,8 +675,8 @@ to a pointer to the collision")
    'spacing-spanner-interface
    ""
    (list
-    (property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
-    (property-description 'arithmetic-basicspace number? "The space taken by a note is determined by the formula 
+    (elt-property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
+    (elt-property-description 'arithmetic-basicspace number? "The space taken by a note is determined by the formula 
 
    SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
 
@@ -713,7 +715,7 @@ If you want to space your music wider, use something like:
    arithmetic_basicspace = 4.;
 
 ")
-    (property-description 'arithmetic-multiplier number? "see arithmetic-basicspace")    
+    (elt-property-description 'arithmetic-multiplier number? "see arithmetic-basicspace")    
     
     )))
 
@@ -723,8 +725,8 @@ If you want to space your music wider, use something like:
    "This spanner draws the lines of a staff.  The middle line is
 position 0."
    (list
-    (property-description 'staff-space number? "Amount of line leading relative to global staffspace")
-    (property-description 'line-count integer? "Number of staff lines")
+    (elt-property-description 'staff-space number? "Amount of line leading relative to global staffspace")
+    (elt-property-description 'line-count integer? "Number of staff lines")
     )))
 
 (define stem-tremolo-interface
@@ -732,10 +734,10 @@ position 0."
    'stem-tremolo-interface
    ""
    (list
-    (property-description 'stem ly-element? "pointer to the stem object.")
-    (property-description 'beam-width number? "width of the tremolo sign")
-    (property-description 'beam-thickness number? "thickness, measured in staffspace")
-    (property-description 'beam-space-function procedure? "function returning space given multiplicity")
+    (elt-property-description 'stem ly-element? "pointer to the stem object.")
+    (elt-property-description 'beam-width number? "width of the tremolo sign")
+    (elt-property-description 'beam-thickness number? "thickness, measured in staffspace")
+    (elt-property-description 'beam-space-function procedure? "function returning space given multiplicity")
     )))
 
 (define separation-item-interface
@@ -748,7 +750,7 @@ Calc dimensions for the Separating_group_spanner; this has to be
    since these usually are in a different X_group
 "
    (list
-    (property-description 'elements list? " -- list of items.")
+    (elt-property-description 'elements list? " -- list of items.")
      )))
 
 (define sustain-pedal-interface
@@ -762,18 +764,18 @@ Calc dimensions for the Separating_group_spanner; this has to be
    'system-start-delimiter
    ""
    (list
-    (property-description 'collapse-height number? "")
-    (property-description 'thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'collapse-height number? "")
+    (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
 
     ; Should collapse into (bracket . ((height . ) ... ))
     ;
-    (property-description 'arch-height number? "")
-    (property-description 'arch-angle number? "")
-    (property-description 'arch-thick number? "")
-    (property-description 'arch-width number? "")
-    (property-description 'bracket-thick number? "")
-    (property-description 'bracket-width number? "")
-    (property-description 'glyph symbol? "bar-line, bracket or brace")
+    (elt-property-description 'arch-height number? "")
+    (elt-property-description 'arch-angle number? "")
+    (elt-property-description 'arch-thick number? "")
+    (elt-property-description 'arch-width number? "")
+    (elt-property-description 'bracket-thick number? "")
+    (elt-property-description 'bracket-width number? "")
+    (elt-property-description 'glyph symbol? "bar-line, bracket or brace")
     )))
 
 (define text-spanner-interface
@@ -781,12 +783,12 @@ Calc dimensions for the Separating_group_spanner; this has to be
    'text-spanner-interface
    "generic text spanner"
    (list
-    (property-description 'dash-period  number? "the length of one dash + white space")
-    (property-description 'dash-length number? "the length of a dash")
-    (property-description 'line-thickness number? "the thickness[stafflinethickness] of the line")
-    (property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height)")
-    (property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text)")
-    (property-description 'type string? "one of: line, dashed-line or dotted-line") ; SYMBOL!!?    
+    (elt-property-description 'dash-period  number? "the length of one dash + white space")
+    (elt-property-description 'dash-length number? "the length of a dash")
+    (elt-property-description 'line-thickness number? "the thickness[stafflinethickness] of the line")
+    (elt-property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height)")
+    (elt-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text)")
+    (elt-property-description 'type string? "one of: line, dashed-line or dotted-line") ; SYMBOL!!?    
     )
 ))
 
@@ -804,14 +806,14 @@ Calc dimensions for the Separating_group_spanner; this has to be
    'tie-interface
    "A tie connecting two noteheads."
    (list
-    (property-description 'staffline-clearance number? "don't get closer than this to stafflines.")
-    (property-description 'control-points list? "List of 4 offsets (number-pairs) controlling the tie shape")
-    (property-description 'heads pair? "pair of element pointers, pointing to the two heads of the  tie. ")
-    (property-description 'details list? "alist of parameters for the curve shape")
-    (property-description 'thickness number? "thickness, measured in stafflinethickness")
-    (property-description 'x-gap number? "horizontal gap between notehead and tie")
-    (property-description 'direction dir? "up or down?")    
-    (property-description 'minimum-length number? "minimum length in staffspace")
+    (elt-property-description 'staffline-clearance number? "don't get closer than this to stafflines.")
+    (elt-property-description 'control-points list? "List of 4 offsets (number-pairs) controlling the tie shape")
+    (elt-property-description 'heads pair? "pair of element pointers, pointing to the two heads of the  tie. ")
+    (elt-property-description 'details list? "alist of parameters for the curve shape")
+    (elt-property-description 'thickness number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'x-gap number? "horizontal gap between notehead and tie")
+    (elt-property-description 'direction dir? "up or down?")    
+    (elt-property-description 'minimum-length number? "minimum length in staffspace")
     )))
 
 
@@ -821,6 +823,7 @@ Calc dimensions for the Separating_group_spanner; this has to be
    'tie-column-interface
    "that sets tie directions in a tied chord"
    (list
+    (elt-property-description 'direction dir? "Forced direction for all ties") 
     )))
 
 (define volta-bracket-interface
@@ -828,9 +831,9 @@ Calc dimensions for the Separating_group_spanner; this has to be
    'volta-bracket-interface
    "Volta bracket with number"
    (list
-    (property-description 'bars  list? "list of barline ptrs.")
-    (property-description 'thickness  number? "thickness, measured in stafflinethickness")
-    (property-description 'height  number? "in staffspace ")
+    (elt-property-description 'bars  list? "list of barline ptrs.")
+    (elt-property-description 'thickness  number? "thickness, measured in stafflinethickness")
+    (elt-property-description 'height  number? "in staffspace ")
     )))
 
 (define span-bar-interface
