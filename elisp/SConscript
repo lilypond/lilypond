@@ -6,7 +6,7 @@ sources = src_glob ('*.el') + ['lilypond-words.el']
 e = env.Copy ()
 a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --el --dir=${TARGET.dir}'
 e.Command ('lilypond-words.el',
-	   ['#/lily/my-lily-lexer.cc',
+	   ['#/lily/lily-lexer.cc',
 	    '#/buildscripts/lilypond-words.py',
 	    '#/scm/new-markup.scm',
 	    '#/ly/engraver-init.ly',],

@@ -1,3 +1,7 @@
+2004-08-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Fix some problems after the renaming of my-lily -> lily
+
 2004-08-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/lily-parser.cc (parse_string): don't overwrite keytable_.

@@ -6,7 +6,7 @@ sources = src_glob ('*.vim') + ['lilypond-words.vim']
 e = env.Copy ()
 a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --words --vim --dir=${TARGET.dir}'
 e.Command ('lilypond-words.vim',
-	   ['#/lily/my-lily-lexer.cc',
+	   ['#/lily/lily-lexer.cc',
 	    '#/buildscripts/lilypond-words.py',
 	    '#/scm/new-markup.scm',
 	    '#/ly/engraver-init.ly',],
