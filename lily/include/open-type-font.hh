@@ -36,6 +36,7 @@ public:
   static SCM make_otf (String);
   virtual ~Open_type_font();
   virtual Offset attachment_point (String) const;
+  virtual int count () const;
   virtual Box get_indexed_char (int) const;
   virtual int name_to_index (String) const;
   //virtual unsigned glyph_name_to_charcode (String) const;

@@ -162,7 +162,6 @@ Stencil
 System_start_delimiter::staff_brace (Grob *me, Real y)
 {
   Font_metric *fm = 0;
-
   /* We go through the style sheet to lookup the font file
      name.  This is better than using find_font directly,
      esp. because that triggers mktextfm for non-existent
@@ -182,6 +181,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
     {
       int cmp = (lo + hi) / 2;
       b = fm->get_indexed_char (cmp);
+      //b = fm->get_indexed_char (fm->name_to_index ("brace" + to_string (cmp)));
       if (b[Y_AXIS].is_empty () || b[Y_AXIS].length () > y)
 	hi = cmp;
       else
@@ -189,8 +189,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
     }
   while (hi - lo > 1);
 
-  /* FIXME: ascii? */
-  Stencil stil (fm->get_indexed_char_stencil (lo));
+  Stencil stil (fm->find_by_name ("brace" + to_string (lo)));
   b = stil.extent_box ();
   b[X_AXIS] = Interval (0, 0);
 

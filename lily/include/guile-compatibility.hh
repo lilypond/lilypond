@@ -35,6 +35,7 @@ inline SCM scm_caadr (SCM x) { return SCM_CAADR (x); }
 inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_gc_unregister_collectable_memory(a, b, c) scm_done_free (b)
 #define scm_gc_register_collectable_memory(a, b, c) scm_done_malloc (b)
+#define SCM_HASHTABLE_P(x) (SCM_VECTORP (x))
 #define SCM_VECTOR_REF(v, i) (SCM_VELTS ((v))[(i)])
 #define scm_from_bool(x) (x ? SCM_BOOL_T : SCM_BOOL_F)
 #define scm_from_int(x) SCM_MAKINUM (x)

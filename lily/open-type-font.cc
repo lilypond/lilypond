@@ -138,7 +138,6 @@ Open_type_font::attachment_point (String glyph_name) const
   return point_constant * ly_scm2offset (att_scm);
 }
 
-
 Box
 Open_type_font::get_indexed_char (int signed_idx) const
 {
@@ -211,6 +210,12 @@ Open_type_font::glyph_name_to_index (String glyph_name) const
   return ((Open_type_font*) this)->glyph_name_to_charcode_map_[glyph_name];
 }
 #endif
+
+int
+Open_type_font::count () const
+{
+  return ((Open_type_font*) this)->index_to_charcode_map_.size ();
+}
 
 Real
 Open_type_font::design_size () const
