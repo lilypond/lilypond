@@ -261,16 +261,15 @@ AC_DEFUN(STEPMAKE_DATADIR, [
 
 ## ugh: cut & paste programming from datadir. 
 AC_DEFUN(STEPMAKE_LIBDIR, [
-    if test "$datadir" = "\${prefix}/lib"; then
-	    datadir='${prefix}/lib'
+    if test "$libdir" = "\${exec_prefix}/lib"; then
+	    libdir='${exec_prefix}/lib'
     fi
-    presome=${prefix}
-    if test "$prefix" = "NONE"; then
+    presome=${exec_prefix}
+    if test "$exec_prefix" = "NONE"; then
 	presome=${ac_default_prefix}
     fi
     
     package_libdir=$libdir/$package
-    
     local_package_libdir=$package_libdir/$FULL_VERSION
     build_package_libdir=$ugh_ugh_autoconf250_builddir/lib/$package
     

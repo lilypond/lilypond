@@ -1,25 +1,25 @@
 
-$(outdir)/%: %.pl
+$(outdir)/%: %.pl $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-$(outdir)/%: %.bash
+$(outdir)/%: %.bash $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-$(outdir)/%: %.scm
+$(outdir)/%: %.scm $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-$(outdir)/%: %.expect
+$(outdir)/%: %.expect $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-$(outdir)/%: %.sh
+$(outdir)/%: %.sh $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 
-$(outdir)/%: %.py
+$(outdir)/%: %.py $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@
 

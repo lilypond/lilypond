@@ -5,6 +5,6 @@ $(outdir)/%$(SHARED_MODULE_SUFFIX): $(outdir)/%.lo
 $(outdir)/%.pyc: $(outdir)/%.py
 	$(PYTHON) -c 'import py_compile; py_compile.compile ("$<")'
 
-$(outdir)/%.py: %.py
+$(outdir)/%.py: %.py $(builddir)/config.make
 	cat $< | sed $(sed-atvariables) > $@
 	chmod 755 $@

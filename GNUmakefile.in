@@ -132,13 +132,13 @@ CATALOGS = $(HELP_CATALOGS:lilypond=)
 
 $(builddir)/share/lilypond-force:
 # Preparing LilyPond tree for builddir exec
-	cd $(builddir) && rm -rf share lib
-	mkdir -p $(builddir)/share/lilypond
+	cd $(builddir) && rm -rf lib share
 	mkdir -p $(builddir)/lib/lilypond
+	mkdir -p $(builddir)/share/lilypond
 	mkdir -p $(builddir)/share/lilypond/fonts
 	mkdir -p $(builddir)/share/lilypond/tex
 	cd $(builddir)/lib/lilypond && \
-		ln -s  ../../python/$(outconfbase) python. 
+		ln -s  ../../python/$(outconfbase) python
 	cd $(builddir)/share/lilypond && \
 		ln -s $(abs-srcdir)/ly ly && \
 		ln -s ../../mf/$(outconfbase) dvips && \

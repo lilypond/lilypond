@@ -12,7 +12,9 @@ ATVARIABLES = \
   date\
   datadir\
   lilypond_datadir\
+  lilypond_libdir\
   local_lilypond_datadir\
+  local_lilypond_libdir\
   localedir\
   PACKAGE\
   package\
