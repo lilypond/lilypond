@@ -126,16 +126,19 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Real max_corr =0.0;
+
   for (SCM s = me->get_grob_property ("right-items");
        gh_pair_p (s);  s = gh_cdr (s))
     {
       Grob * g = unsmob_grob (gh_car (s));
+
       max_corr = max_corr >?  next_note_correction (me, g,  bar_size);
       for (SCM t = g->get_grob_property ("elements");
 	   gh_pair_p (t); t  = gh_cdr (t))
 	max_corr = max_corr >? next_note_correction (me, unsmob_grob (gh_car (t)), bar_size);
       
     }
+  
   return max_corr;
 }
 
@@ -145,9 +148,9 @@ Staff_spacing::next_notes_correction (Grob *me, Grob * last_grob)
 */
 Grob*
 Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
-				   Interval * last_ext)
+					    Interval * last_ext)
 {
-  Grob *left_col = dynamic_cast<Item*> (separation_item)->get_column ();
+  Grob *col = dynamic_cast<Item*> (separation_item)->get_column ();
   last_ext->set_empty ();
   Grob *last_grob = 0;
   for (SCM s = separation_item->get_grob_property ("elements");
@@ -158,7 +161,7 @@ Staff_spacing::extremal_break_aligned_grob (Grob *separation_item, Direction d,
       if (!gh_symbol_p (break_item->get_grob_property ("break-align-symbol")))
 	continue;
 
-      Interval ext = break_item->extent (left_col, X_AXIS);
+      Interval ext = break_item->extent (col, X_AXIS);
 
       if (ext.empty_b ())
 	continue;
@@ -231,7 +234,8 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
       if (gh_pair_p (nndef ))
 	space_def = nndef;
     }
-
+  
+  
   if (!gh_pair_p (space_def))
     {
       programming_error ("Unknown prefatory spacing. "); 
@@ -247,7 +251,6 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
     *space = *fixed + distance;
   else if (type == ly_symbol2scm("minimum-space"))
     *space = last_ext[LEFT] + (last_ext.length () >? distance);
-
 
   *space += next_notes_correction (me, last_grob);
 }
