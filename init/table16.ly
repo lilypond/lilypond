@@ -23,17 +23,31 @@ table_sixteen=
 		"roman"	"settext"	1			0.0\pt	4.5\pt	0.0\pt	8.0\pt
      }
      "dynamics" = \table {
-	"mf" "dynmf"	0
-	"fff" "dynfff"	0
-	"ff" "dynff"	0
-	"f" "dynf"	0
-	"mp" "dynmp"	0
-	"p" "dynp"	0
-	"pp" "dynpp"	0
-	"ppp" "dynppp"	0
-	"fp" "dynfp"	0
-	"sf" "dynsf"	0
-	"sfz" "dynsfz"	0
+	
+	"mf" "dynmf"            0
+        "ffffff" "dynffffff"    0
+        "fffff" "dynfffff"      0
+        "ffff" "dynffff"        0
+        "fff" "dynfff"          0
+        "ff" "dynff"            0
+        "f" "dynf"              0
+
+        "mp" "dynmp"            0
+        "p" "dynp"              0
+        "pp" "dynpp"            0
+        "ppp" "dynppp"          0
+        "pppp" "dynpppp"        0
+        "ppppp" "dynppppp"      0
+        "pppppp" "dynpppppp"    0
+
+        "fp" "dynfp"    0
+        "sf" "dynsf"    0
+        "sff" "dynsff"	0
+	"sfz" "dynsfz"  0
+        "sp" "dynsp"    0
+        "spp" "dynspp"	0
+	"rfz" "dynrfz"  0
+
 	}
      "align" = \table {
 		"-1"	"leftalign"	1
