@@ -102,7 +102,7 @@ PO_FILES = $(wildcard $(srcdir)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:$(srcdir)/po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
-$(tree-prefix)/lilypond-force:
+$(tree-prefix)/lilypond-force: GNUmakefile
 # Preparing LilyPond tree for builddir exec
 	cd $(builddir) && rm -rf lib share
 	mkdir -p $(builddir)/lib/$(package)
@@ -112,38 +112,38 @@ $(tree-prefix)/lilypond-force:
 	mkdir -p $(tree-prefix)/fonts
 	mkdir -p $(tree-prefix)/tex
 	cd $(builddir)/lib && \
-		ln -s  ../../python/$(outconfbase) python
+		ln -s  ../../../python/$(outconfbase) python
 	cd $(tree-prefix) && \
 		ln -s $(abs-srcdir)/ly ly && \
-		ln -s ../../mf/$(outconfbase) otf && \
-		ln -s ../../mf/$(outconfbase) svg && \
-		ln -s ../../mf/$(outconfbase) tfm && \
+		ln -s ../../../mf/$(outconfbase) otf && \
+		ln -s ../../../mf/$(outconfbase) svg && \
+		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
-		ln -s ../../python/$(outconfbase) python && \
+		ln -s ../../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
 	cd $(tree-prefix)/dvips && \
-		ln -s ./../mf/$(outconfbase) mf-out && \
+		ln -s ./../../mf/$(outconfbase) mf-out && \
 		ln -s $(abs-srcdir)/ps
 	cd $(tree-prefix)/tex && \
 		ln -s $(abs-srcdir)/tex source && \
-		ln -s ../../../tex/$(outconfbase) tex-out && \
-		ln -s ../../../mf/$(outconfbase) mf-out
+		ln -s ../../../../tex/$(outconfbase) tex-out && \
+		ln -s ../../../../mf/$(outconfbase) mf-out
 	cd $(tree-prefix)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
-		ln -s ../../../tex/$(outconfbase) enc && \
-		ln -s ../../../mf/$(outconfbase) map && \
-		ln -s ../../../mf/$(outconfbase) otf && \
-		ln -s ../../../mf/$(outconfbase) tfm && \
-		ln -s ../../../mf/$(outconfbase) svg && \
-		ln -s ../../../mf/$(outconfbase) type1
+		ln -s ../../../../tex/$(outconfbase) enc && \
+		ln -s ../../../../mf/$(outconfbase) map && \
+		ln -s ../../../../mf/$(outconfbase) otf && \
+		ln -s ../../../../mf/$(outconfbase) tfm && \
+		ln -s ../../../../mf/$(outconfbase) svg && \
+		ln -s ../../../../mf/$(outconfbase) type1
 	cd $(tree-prefix)/elisp && \
-		ln -sf ../../../../elisp/$(outconfbase)/lilypond-words.el . && \
+		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		mkdir -p $(tree-prefix)/locale/$i/LC_MESSAGES && \
 		cd $(tree-prefix)/locale/$i/LC_MESSAGES && \
-		ln -fs ../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
+		ln -sf ../../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
 	touch $@
 
 local-clean: builddir-setup-clean
