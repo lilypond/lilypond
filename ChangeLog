@@ -1,8 +1,15 @@
+2005-03-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/score.cc: Bugfixes for SCM header_ and texts_ members.
+
 2005-03-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/open-type-font-scheme.cc:  new file.
 
 2005-03-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/titling.scm (layout-extract-page-properties): Rename from
+	page-properties.  Update callers.
 
 	* lily/lexer.ll (Lily_lexer):
 	* lily/parser.yy: Junk lyric_markup state.
