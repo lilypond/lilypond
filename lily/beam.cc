@@ -520,7 +520,7 @@ Beam::print (SCM grob)
 	parameters.
       */
       String str;
-      SCM properties = Font_interface::font_alist_chain (me);
+      SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_item::interpret_markup
 	 (me->get_paper ()->self_scm (), properties, quant_score));

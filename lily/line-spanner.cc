@@ -112,7 +112,7 @@ Line_spanner::line_stencil (Grob *me,
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
     {
-      SCM alist_chain = Font_interface::font_alist_chain (me);
+      SCM alist_chain = Font_interface::text_font_alist_chain (me);
       SCM style_alist = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
 					     ly_symbol2scm ("music")),
 				    SCM_UNDEFINED);

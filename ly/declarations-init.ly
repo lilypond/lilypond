@@ -45,19 +45,22 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 % Do units first; must be done before any units are specified.
 \paper {
-    unit = "mm"  %% ugh: coupled to LilyPond C++ code.
+    unit = #(ly:unit)
     mm = 1.0
     in = 25.4
     pt = #(/  in 72.27)
     cm = #(* 10 mm)
 
     #(define font-defaults
-      '((font-family . music)
-	(font-shape . upright)
+      '((font-encoding . music))
+      )
+
+    #(define text-font-defaults
+      '((font-encoding . text)
 	(baseline-skip . 2)
 	(word-space . 0.6)
-	(font-series . medium)
-    ))
+	))
+
     
     \include "engraver-init.ly"
 }

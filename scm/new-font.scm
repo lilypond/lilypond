@@ -1,5 +1,3 @@
-
-
 ;; As an excercise, do it with records.
 ;; Should use GOOPS, really.
 
@@ -101,16 +99,6 @@
       (display node port))))
   )
 
-(define-public (scale-font-node node factor)
-  (cond
-   ((font-tree-node? node)
-    (hash-for-each (lambda (k v)
-		     (scale-font-tree v factor)
-		     (font-tree-children node))))
-   (else
-    (cons (* factor (car node))
-	  (cdr node)))))
-
 (define-public (lookup-font node alist-chain)
   (cond
    ((font-tree-node? node)
@@ -125,165 +113,112 @@
 		   desired-font
 		   (lookup-font (hashq-ref (font-tree-children node)
 					   def) alist-chain)))
-	 
 	 )
       
       font))
    (else node))
    )
 
-
-(define-public paper20-font-tree (make-font-tree-node 'font-encoding 'music))
-
-
-
-(add-font
- paper20-font-tree
- '((font-encoding . number))
- '(10 . #((4.0  . "feta-nummer4")
-	 (6.0  . "feta-nummer6")
-	 (8.0  . "feta-nummer8")
-	 (10.0  . "feta-nummer10")
-	 (12.0  . "feta-nummer12")
-	 (16.0  . "feta-nummer16"))))
-
-(add-font
- paper20-font-tree
- '((font-encoding . dynamic))
- '(14.0 .  #((6.0 . "feta-din6")
-	    (8.0 . "feta-din8")
-	    (10.0 . "feta-din10")
-	    (12.0 . "feta-din12")
-	    (14.0 . "feta-din14")
-	    (17.0 . "feta-din17")
-	    )))
-
-    (use-modules (ice-9 readline))
-
-
-
-(for-each
- (lambda (x)
-   (add-font
-    paper20-font-tree
-    `((font-encoding . text)
-      (font-series . ,(vector-ref (car x) 0))
-      (font-shape . ,(vector-ref (car x) 1))
-      (font-family . ,(vector-ref (car x) 2)))
-    (cdr x))
-   )
- '(
-   (#(roman upright medium) .
-    (10.0 . #((6.0 . "cmr6")
-	      (8.0 . "cmr8") 
-	      (10.0 . "cmr10")
-	      (17.0 . "cmr17")
-	      )))
-   
-  
-
-   (#(roman upright bold) .
-    (10.0 . #((6.0 . "cmbx6")
-	      (8.0 . "cmbx8")
-	      (10.0 . "cmbx10")
-	      (12.0 . "cmbx12")
-	      )))
-  
-   (#(roman italic medium) .
-    (10.0 . #((7.0 . "cmti7")
-	      (10.0 . "cmti10")
-	      (12.0 . "cmti12")
-	      )))
-   (#(roman italic bold) .
-    (10.0 . #((8.0 . "cmbxti8")
-	      (10.0 . "cmbxti10")
-	      (14.0 . "cmbxti14")
-	      )))
+(define-public (make-font-tree factor)
+  (let*
+      ((n (make-font-tree-node 'font-encoding 'music))
+       )
     
-   (#(roman caps medium) .
-    (10.0 . #((10.0 . "cmcsc10"))))
+    (for-each
+     (lambda (x)
+       (add-font n
+		 (list (cons 'font-encoding (car x)))
+		 (cons (* factor (cadr x))
+		       (caddr x))))
+     '((number 10 #((4.0  . "feta-nummer4")
+		    (6.0  . "feta-nummer6")
+		    (8.0  . "feta-nummer8")
+		    (10.0  . "feta-nummer10")
+		    (12.0  . "feta-nummer12")
+		    (16.0  . "feta-nummer16")))
+       (dynamic 14.0  #((6.0 . "feta-din6")
+			(8.0 . "feta-din8")
+			(10.0 . "feta-din10")
+			(12.0 . "feta-din12")
+			(14.0 . "feta-din14")
+			(17.0 . "feta-din17")
+			))
+       (math 10 #((10.0 . "msam10")))
+       (music 20.0
+	      #((11.22 . ("feta11" "parmesan11"))
+		(12.60 . ("feta13" "parmesan13"))
+		(14.14 . ("feta14" "parmesan14"))
+		(15.87 . ("feta16" "parmesan16"))
+		(17.82 . ("feta18" "parmesan18"))
+		(20.0 . ("feta20" "parmesan20"))
+		(22.45 . ("feta23" "parmesan23"))
+		(25.20 . ("feta26" "parmesan26"))
+		))
+       (braces 10 #((10.0 . ("feta-braces00"
+			      "feta-braces10"
+			      "feta-braces20"
+			      "feta-braces30"
+			      "feta-braces40"
+			      "feta-braces50"
+			      "feta-braces60"
+			      "feta-braces70"
+			      "feta-braces80"))
+		     ))))
 
-   (#(roman upright bold-narrow ) .
-    (10.0 . #((10.0 . "cmb10")
-	      )))
-   
-   (#(sans upright medium) .
-    (10.0  . #((8.0 . "cmss8")
-	       (10.0 . "cmss10")
-	       (12.0 . "cmss12")
-	       (17.0 . "cmss17")
-	       )))
-   (#(typewriter upright medium) .
-    (10.0 . #((8.0 .  "cmtt8")
-	      (10.0 . "cmtt10")
-	      (12.0 . "cmtt12")
-	      )))
-   ))
+    (for-each
+     (lambda (x)
+       (add-font
+	n
+	`((font-encoding . text)
+	  (font-series . ,(vector-ref (car x) 0))
+	  (font-shape . ,(vector-ref (car x) 1))
+	  (font-family . ,(vector-ref (car x) 2)))
+	(cons (* factor (cadr x))
+	      (cddr x))
+       ))
+     '((#(roman upright medium) .
+	(10.0 . #((6.0 . "cmr6")
+		  (8.0 . "cmr8") 
+		  (10.0 . "cmr10")
+		  (17.0 . "cmr17")
+		  )))
 
+       (#(roman upright bold) .
+	(10.0 . #((6.0 . "cmbx6")
+		  (8.0 . "cmbx8")
+		  (10.0 . "cmbx10")
+		  (12.0 . "cmbx12")
+		  )))
+       
+       (#(roman italic medium) .
+	(10.0 . #((7.0 . "cmti7")
+		  (10.0 . "cmti10")
+		  (12.0 . "cmti12")
+		  )))
+       (#(roman italic bold) .
+	(10.0 . #((8.0 . "cmbxti8")
+		  (10.0 . "cmbxti10")
+		  (14.0 . "cmbxti14")
+		  )))
+       
+       (#(roman caps medium) .
+	(10.0 . #((10.0 . "cmcsc10"))))
 
-
-(add-font
- paper20-font-tree
- '((font-encoding . math))
- '(10.0 . #((10.0 . "msam10"))))
-
-(add-font
- paper20-font-tree
- '((font-encoding . music))
- '(20.0 . #((11.22 . ("feta11" "parmesan11"))
-	    (12.60 . ("feta13" "parmesan13"))
-	    (14.14 . ("feta14" "parmesan14"))
-	    (15.87 . ("feta16" "parmesan16"))
-	    (17.82 . ("feta18" "parmesan18"))
-	    (20.0 . ("feta20" "parmesan20"))
-	    (22.45 . ("feta23" "parmesan23"))
-	    (25.20 . ("feta26" "parmesan26"))
-	    )))
-
-(add-font
- paper20-font-tree
- '((font-encoding . braces))
- '(10 . #((10.0 . ("feta-braces00"
-		  "feta-braces10"
-		  "feta-braces20"
-		  "feta-braces30"
-		  "feta-braces40"
-		  "feta-braces50"
-		  "feta-braces60"
-		  "feta-braces70"
-		  "feta-braces80"))
-	 )))
-
-
-(display-font-node paper20-font-tree )
-
-(if #f
-    (begin
-      (newline)
-      (display
-       (lookup-font
-	paper20-font-tree
-	'(((font-encoding . text)
-	   (font-shape . italic)
-	   ))))
-      (newline)
-      ))
-
-
-
-
-
-(define (scale-font-tree root factor)
-  "Scale ROOT with FACTOR."
-  (cond
-   ((and (font-tree-node? node)
-	 (equal? (font-tree-qualifier node) 'font-encoding))
-    (hash-for-each (lambda (k v)
-		     (if (not (equal? k 'braces))
-			 (scale-font-node v factor))
-		     (font-tree-children node))))
-   (else
-    (scale-font-node node))))
-
-    
+       (#(roman upright bold-narrow ) .
+	(10.0 . #((10.0 . "cmb10")
+		  )))
+       
+       (#(sans upright medium) .
+	(10.0  . #((8.0 . "cmss8")
+		   (10.0 . "cmss10")
+		   (12.0 . "cmss12")
+		   (17.0 . "cmss17")
+		   )))
+       (#(typewriter upright medium) .
+	(10.0 . #((8.0 .  "cmtt8")
+		  (10.0 . "cmtt10")
+		  (12.0 . "cmtt12")
+		  )))
+       ))
+    n))
 

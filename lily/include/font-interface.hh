@@ -15,6 +15,7 @@
 
 struct Font_interface
 {
+  static SCM text_font_alist_chain (Grob*);
   static SCM font_alist_chain (Grob*);
   static Font_metric * get_default_font (Grob*);
   static bool has_interface (Grob*);

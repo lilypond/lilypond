@@ -59,7 +59,7 @@ Balloon_interface::print (SCM smob)
 
 
   SCM bt = me->get_property ("balloon-text");
-  SCM chain = Font_interface::font_alist_chain (me);
+  SCM chain = Font_interface::text_font_alist_chain (me);
   chain = gh_cons (me->get_property ("balloon-text-props"), chain);
 
 

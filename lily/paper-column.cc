@@ -115,7 +115,7 @@ Paper_column::print (SCM p)
   Grob *me = unsmob_grob (p);
 
   String r = to_string (Paper_column::get_rank (me));
-  SCM properties = Font_interface::font_alist_chain (me);
+  SCM properties = Font_interface::text_font_alist_chain (me);
 
   SCM scm_mol = Text_item::interpret_markup (me->get_paper ()->self_scm (),
 					     properties,

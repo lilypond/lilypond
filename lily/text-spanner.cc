@@ -77,7 +77,7 @@ Text_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
 
 
-  SCM properties = Font_interface::font_alist_chain (me);
+  SCM properties = Font_interface::text_font_alist_chain (me);
   SCM edge_text = me->get_property ("edge-text");
   Drul_array<Stencil> edge;
   if (gh_pair_p (edge_text))

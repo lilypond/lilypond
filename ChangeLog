@@ -1,3 +1,14 @@
+2004-03-14  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/font-interface.cc (text_font_alist_chain): rename function,
+	and use text-font-defaults. 
+
+	* lily/font-select.cc (properties_to_font_size_family): call SCM code.
+
+	* scm/paper.scm (paper-set-staff-size): use new function.
+
+	* scm/new-font.scm (make-font-tree): new function.
+
 2004-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (output): Bugfix: no output if no \paper.

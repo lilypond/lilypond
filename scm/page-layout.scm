@@ -21,8 +21,8 @@
   
   (let ((props (list (append `((linewidth . ,(ly:paper-get-number
 					      paper 'linewidth))
-			       (font-family . roman))
-			     (ly:paper-lookup paper 'font-defaults)))))
+			       )
+			     (ly:paper-lookup paper 'text-font-defaults)))))
     (interpret-markup
      paper props
      (markup
