@@ -150,12 +150,16 @@ Slur::encompass_offset (Score_element*me,
   return o;
 }
 
-MAKE_SCHEME_CALLBACK(Slur,after_line_breaking);
-
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
+  if (!gh_scm2int(scm_length (me->get_elt_property ("note-columns"))))
+    {
+      me->suicide ();
+      return SCM_UNSPECIFIED;
+    }
   set_extremities (me);
   set_control_points (me);
   return SCM_UNSPECIFIED;
@@ -281,7 +285,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 Array<Offset>
 Slur::get_encompass_offset_arr (Score_element*me) 
 {
-    Spanner*sp = dynamic_cast<Spanner*>(me);
+  Spanner*sp = dynamic_cast<Spanner*>(me);
   SCM eltlist = me->get_elt_property ("note-columns");
   Score_element *common[] = {me->common_refpoint (eltlist,X_AXIS),
 			     me->common_refpoint (eltlist,Y_AXIS)};
@@ -371,11 +375,17 @@ Slur::set_spacing_rods (SCM smob)
 /*
   Ugh should have dash-length + dash-period
  */
-MAKE_SCHEME_CALLBACK(Slur,brew_molecule);
+MAKE_SCHEME_CALLBACK (Slur, brew_molecule);
 SCM
 Slur::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
+  if (!gh_scm2int(scm_length (me->get_elt_property ("note-columns"))))
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+
   Real thick = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_elt_property ("thickness"));
   Bezier one = get_curve (me);
