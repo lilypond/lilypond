@@ -16,21 +16,44 @@ Tremolo_req::Tremolo_req ()
 {
 }
 
-bool
-Melodic_req::do_equal_b (Request const* r) const
+LY_DEFINE(music_duration_length, "music-duration-length", 1, 0,0,
+	  (SCM mus),
+	  "Extract the duration field from @var{mus}, and return the length.")
 {
-  Melodic_req const* m= dynamic_cast <Melodic_req const*> (r);
-  return m; // && !compare (*m, *this);
+  Music* m =   unsmob_music(mus);
+  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
+  
+  Duration *d = unsmob_duration (m->get_mus_property ("duration"));
+
+  Moment l ;
+  
+  if (d)
+    {
+      l = d->length_mom ();  
+    }
+  else
+    programming_error("Rhythmic_req has no duration");
+  return l.smobbed_copy();
+  
 }
 
-bool
-Rhythmic_req::do_equal_b (Request const* r) const
-{
-  Rhythmic_req const* rh = dynamic_cast <Rhythmic_req const*> (r);
 
-  return rh; // ;  && !compare (*this, *rh);
+LY_DEFINE(music_duration_compress, "music-duration-compress", 2, 0,0,
+	  (SCM mus, SCM factor),
+	  "Extract the duration field from @var{mus}, and compress it.")
+{
+  Music* m =   unsmob_music(mus);
+  Moment * f = unsmob_moment (factor);
+  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
+  SCM_ASSERT_TYPE(f, factor, SCM_ARG2, __FUNCTION__, "Moment");
+  
+  Duration *d = unsmob_duration (m->get_mus_property ("duration"));
+  if (d)
+    m->set_mus_property ("duration", d->compressed (f->main_part_).smobbed_copy());
+  return SCM_UNSPECIFIED;
 }
 
+  
 Moment
 Rhythmic_req::length_mom () const
 {
@@ -52,17 +75,6 @@ Rhythmic_req::compress (Moment m)
     set_mus_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
 }
 
-bool
-Note_req::do_equal_b (Request const* r) const
-{
-  Note_req const* n = dynamic_cast<Note_req const*> (r);
-  return n&& Rhythmic_req::do_equal_b (n) && Melodic_req::do_equal_b (n);
-}
-
-
-Note_req::Note_req ()
-{
-}
 
 
 bool

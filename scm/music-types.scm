@@ -1,6 +1,12 @@
 
 (define-public music-descriptions
   `(
+    (AbortEvent
+     . (
+	(internal-class-name . "Span_req")
+	(span-type . "abort")
+	(types . (general-music event abort-event))
+	))
     (ArpeggioEvent 
      . (
 	(internal-class-name .  "Arpeggio_req")
@@ -14,8 +20,10 @@
     (BassFigureEvent
      . (
 	(internal-class-name . "Bass_figure_req")
+	(compress-procedure . ,music-duration-compress)
+	(length . ,music-duration-length) 
 	(types . (general-music event rhythmic-event bass-figure-event))
-	))  
+	))
     (BreakEvent
      . (
 	(internal-class-name . "Break_req")
@@ -64,7 +72,13 @@
      . (
 	(internal-class-name . "Lyric_req")
 	(types . (general-music rhythmic-event event))
-	)) 
+	))
+    (LigatureEvent
+     . (
+	(internal-class-name . "Span_req")
+	(span-type . ligature)
+	(types . (general-music event span-event ligature-event))
+	))
     (MarkEvent
      . (
 	(internal-class-name . "Mark_req")
@@ -87,8 +101,10 @@
 	))
     (NoteEvent
      . (
-	(internal-class-name . "Note_req")
-	(types . (general-music event rhythmic-event melodic-event))
+	(internal-class-name . "Request")
+	(length . ,music-duration-length) 
+	(compress-procedure . ,music-duration-compress)
+	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
     (PorrectusEvent
      . (
@@ -108,12 +124,16 @@
 	)) 
     (RestEvent
      . (
-	(internal-class-name . "Rest_req")
-	(types . (general-music event rhythmic-event ))
+	(internal-class-name . "Request")
+	(length . ,music-duration-length)
+	(compress-procedure . ,music-duration-compress)
+	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (RhythmicEvent
      . (
 	(internal-class-name . "Rhythmic_req")
+	(length . ,music-duration-length) 
+	(compress-procedure . ,music-duration-compress)
 	(types . (general-music rhythmic-event  event))
 	)) 
     (SequentialMusic
@@ -160,7 +180,6 @@
 	 (types . (general-music layout-instruction))
 	 (iterator-ctor . ,	Push_property_iterator::constructor)
 	 ))
-
      (RevertProperty
       . (
 	 (internal-class-name . "Music")
@@ -191,8 +210,6 @@
 	(iterator-ctor . , Change_iterator::constructor)
 	(types . (general-music translator-change-instruction))
 	))
- 
-
     (TimeScaledMusic
      . (
 	(internal-class-name . "Time_scaled_music")
@@ -252,9 +269,8 @@
 	)) 
     (SkipEvent
      . (
-	(internal-class-name . "Skip_req")
-
-	(types . (general-music event rhythmic-event ))
+	(internal-class-name . "Request")
+	(types . (general-music event rhythmic-event skip-event))
 	)) 
     (SpanEvent
      . (
@@ -280,18 +296,22 @@
 	)) 
     (TieEvent
      . (
-	(internal-class-name . "Tie_req")
+	(internal-class-name . "Request")
 	(types . (general-music tie-event event))
 	))
     ))
 
 
 
-(define music-name-to-property-table (make-vector 59))
+(define music-name-to-property-table (make-vector 59 '()))
+
 (map (lambda (x)
-       (hashq-set! music-name-to-property-table (car x) (cdr x))
+       (hashq-set! music-name-to-property-table (car x)
+		   (assoc-set! (cdr x) 'name (car x)))
        )
      music-descriptions)
+
+
 
 (define-public (make-music-by-name x)
   (if (not (symbol? x))
@@ -299,10 +319,13 @@
   (let*
       (
        (props (hashq-ref music-name-to-property-table x '()))
-       (name (if (pair? props) (cdr (assoc 'internal-class-name props)) "Music"))
+       (name (if (pair? props)
+		 (cdr (assoc 'internal-class-name props))
+		 (misc-error "Can not find music object ~s" x)))
        )
-,
+
     (if (eq? props '())
 	(ly-warn (format "Could not find music type `~a'" x)))  
     (ly-make-bare-music name props)
   ))
+

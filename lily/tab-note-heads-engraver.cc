@@ -24,8 +24,8 @@ class Tab_note_heads_engraver : public Engraver
   Link_array<Item> notes_;
   
   Link_array<Item> dots_;
-  Link_array<Note_req> note_reqs_;
-  Link_array<String_number_req> tabstring_reqs_;
+  Link_array<Music> note_reqs_;
+  Link_array<Music> tabstring_reqs_;
 public:
   TRANSLATOR_DECLARATIONS(Tab_note_heads_engraver);
 
@@ -45,19 +45,20 @@ Tab_note_heads_engraver::Tab_note_heads_engraver()
 bool
 Tab_note_heads_engraver::try_music (Music *m) 
 {
-  if (Note_req * n =dynamic_cast <Note_req *> (m))
+  if (m->is_mus_type ("note-event"))
     {
-      note_reqs_.push (n);
+      note_reqs_.push (m);
       return true;
     }
-  else if (String_number_req * ts = dynamic_cast<String_number_req*> (m))
+  else if (m->is_mus_type ("string-number-event"))
     {
       while(tabstring_reqs_.size () < note_reqs_.size ()-1)
 	tabstring_reqs_.push(0);
-      tabstring_reqs_.push(ts);
+      
+      tabstring_reqs_.push (m);
       return true;
     }
-  else if (dynamic_cast<Busy_playing_req*> (m))
+  else if (m->is_mus_type ("busy-playing-event"))
     {
       return note_reqs_.size ();
     }
@@ -173,7 +174,7 @@ Tab_note_heads_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Tab_note_heads_engraver,
 /* descr */       "Generate one or more tablature noteheads from Music of type Note_req.",
 /* creats*/       "TabNoteHead Dots",
-/* accepts */     "general-music",
+/* accepts */     "note-event string-number-event busy-playing-event",
 /* acks  */      "",
 /* reads */       "centralCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 /* write */       "");

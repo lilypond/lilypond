@@ -34,18 +34,10 @@ ly_deep_mus_copy (SCM m)
 
 
 
-void
-Music::add_music_type (SCM sym)
-{
-  assert (gh_symbol_p (sym));
 
-  SCM types= get_mus_property ("types");
-  types = scm_cons (sym, types);
-  set_mus_property ("types", types);
-}
 
 bool
-Music::is_music_type (SCM k)const
+Music::internal_is_music_type (SCM k)const
 {
   SCM ifs = get_mus_property ("types");
 
@@ -66,11 +58,7 @@ Music::Music (Music const &m)
   smobify_self ();
   mutable_property_alist_ = ly_deep_mus_copy (m.mutable_property_alist_);
   set_spot (*m.origin ());
-
-  add_music_type (ly_symbol2scm ("general-music"));
 }
-
-
 
 Music::Music ()
 {
@@ -80,6 +68,11 @@ Music::Music ()
   smobify_self ();
 }
 
+SCM
+Music::get_property_alist (bool m) const
+{
+  return (m) ? mutable_property_alist_ : immutable_property_alist_;
+}
 
 SCM
 Music::mark_smob (SCM m)
@@ -91,10 +84,14 @@ Music::mark_smob (SCM m)
 }
 
 void    
-Music::compress (Moment)
+Music::compress (Moment f)
 {
+  SCM l = get_mus_property ("compress-procedure");
+  if (gh_procedure_p (l))
+    {
+      SCM res = gh_call2 (l, self_scm (), f.smobbed_copy());
+    }
 }
-
 
 
 Moment

@@ -153,16 +153,15 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
       for (SCM i = iter->get_pending_events (m); gh_pair_p (i); i = ly_cdr (i))
 	{
 	  Music *m = unsmob_music (ly_car (i));
-	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
-	    *pitches = gh_cons (r->get_mus_property ("pitch"), *pitches);
-	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
+	  if (m->is_mus_type ("melodic-event"))
+	    *pitches = gh_cons (m->get_mus_property ("pitch"), *pitches);
+	  if (m->is_mus_type ("rhythmic-event"))
 	    {
-	      SCM d = r->get_mus_property ("duration");
+	      SCM d = m->get_mus_property ("duration");
 	      if (d == SCM_EOL)
-		r->origin ()->warning ("Rhythmic_req has no duration\n");
-		else
-		  // *durations = gh_cons (r->get_mus_property ("duration"), *durations);
-		  *durations = gh_cons (d, *durations);
+		m->origin ()->warning ("Rhythmic_req has no duration\n");
+	      else
+		*durations = gh_cons (d, *durations);
 	    }
 	}
     }
@@ -394,8 +393,7 @@ s      Consider thread switching: threads "one", "two" and "both".
 
   if (!abort_req)
     {
-      abort_req = make_music_by_name (ly_symbol2scm ("SpanEvent"));
-      abort_req->set_mus_property ("span-type", scm_makfrom0str ("abort"));
+      abort_req = make_music_by_name (ly_symbol2scm ("AbortEvent"));
     }
   
   if (combine_b && combine_b != previously_combined_b)

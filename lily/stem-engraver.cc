@@ -57,9 +57,10 @@ Stem_engraver::acknowledge_grob (Grob_info i)
       /* Reverted to the old method so chord tremolos work again. /MB 
       */
       int duration_log = 0;
-      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (i.music_cause ()); 
-      if (rhythmic_req)
-	duration_log = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log (); 
+
+      Music * m = i.music_cause ();
+      if (m->is_mus_type ("rhythmic-event"))
+	duration_log = unsmob_duration (m->get_mus_property ("duration"))-> duration_log (); 
       
       if (!stem_) 
 	{

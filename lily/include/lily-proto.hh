@@ -123,7 +123,6 @@ class Pitch;
 class Musical_req;
 class My_lily_lexer;
 class Note_performer;
-class Note_req;
 class Output_property;
 class Paper_column;
 class Paper_def;

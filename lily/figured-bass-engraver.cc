@@ -8,8 +8,8 @@ class Figured_bass_engraver : public Engraver
   
   TRANSLATOR_DECLARATIONS(Figured_bass_engraver);
 protected:
-  Link_array<Bass_figure_req> figures_;
-  Rest_req * rest_req_;
+  Link_array<Music> figures_;
+  Music * rest_req_;
 
   Grob * figure_;
   
@@ -41,14 +41,14 @@ Figured_bass_engraver::stop_translation_timestep ()
 bool
 Figured_bass_engraver::try_music (Music*m)
 {
-  if (Bass_figure_req* bfr = dynamic_cast<Bass_figure_req*> (m))
+  if (m->is_mus_type ("bass-figure-event"))
     {
-      figures_.push (bfr);
+      figures_.push (m);
       return true;
     }
-  else if (Rest_req * r = dynamic_cast<Rest_req*> (m))
+  else if (m->is_mus_type ("rest-event"))
     {
-      rest_req_ = r;
+      rest_req_ = m;
       return true;
     }
   return false;

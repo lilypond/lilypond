@@ -28,7 +28,7 @@ protected:
   virtual bool try_music (Music *);
 
 private:
-  void add_note (Note_req *);
+  void add_note (Music *);
   
   Item* chord_name_;
 
@@ -46,7 +46,7 @@ Chord_name_engraver::Chord_name_engraver ()
 }
 
 void
-Chord_name_engraver::add_note (Note_req* n)
+Chord_name_engraver::add_note (Music * n)
 {
   SCM pitches = ly_car (chord_);
   SCM modifiers = ly_cdr (chord_);
@@ -66,9 +66,12 @@ Chord_name_engraver::add_note (Note_req* n)
 bool
 Chord_name_engraver::try_music (Music* m)
 {
-  if (Note_req* n = dynamic_cast<Note_req*> (m))
+  /*
+    hmm. Should check? 
+   */
+  if (m->is_mus_type ("note-event"))
     {
-      add_note (n);
+      add_note (m);
       return true;
     }
   return false;
@@ -104,10 +107,10 @@ Chord_name_engraver::stop_translation_timestep ()
 }
 
 ENTER_DESCRIPTION(Chord_name_engraver,
-/* descr */       "Catch Note_req's, Tonic_reqs, Inversion_reqs, Bass_req
+/* descr */       "Catch note-events, Tonic_reqs, Inversion_reqs, Bass_req
 and generate the appropriate chordname.",
 /* creats*/       "ChordName",
-/* accepts */     "general-music",
+/* accepts */     "note-event busy-playing-event",
 /* acks  */      "",
 /* reads */       "chordChanges",
 /* write */       "");

@@ -28,9 +28,9 @@ protected:
   Global_translator* get_global_translator ();
 
 private:
-  Array<Note_req*> note_reqs_;
-  Array<Audio_note*> notes_;
-  Array<Audio_note*> delayeds_;
+  Link_array<Music> note_reqs_;
+  Link_array<Audio_note> notes_;
+  Link_array<Audio_note> delayeds_;
 };
 
 void 
@@ -46,7 +46,7 @@ Note_performer::create_audio_elements ()
 
       while (note_reqs_.size ())
 	{
-	  Note_req* n = note_reqs_.pop ();
+	  Music* n = note_reqs_.pop ();
 	  Pitch pit =  * unsmob_pitch (n->get_mus_property ("pitch"));
 	  Audio_note* p = new Audio_note (pit,  n->length_mom (), transposing_i);
 	  Audio_element_info info (p, n);
@@ -117,9 +117,9 @@ Note_performer::stop_translation_timestep ()
 bool
 Note_performer::try_music (Music* req)
 {
-  if (Note_req *nr = dynamic_cast <Note_req *> (req))
+  if (req->is_mus_type ("note-event"))
     {
-      note_reqs_.push (nr);
+      note_reqs_.push (req);
       return true;
     }
   return false;

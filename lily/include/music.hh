@@ -21,6 +21,7 @@
 
 #define get_mus_property(x) internal_get_mus_property(ly_symbol2scm(x))
 #define set_mus_property(x,y) internal_set_mus_property(ly_symbol2scm (x), y)
+#define is_mus_type(x) internal_is_music_type(ly_symbol2scm (x))
 
 /** Music is anything that has duration and supports both time compression and
   transposition.
@@ -42,8 +43,8 @@ public:
 
   SCM internal_get_mus_property (SCM) const;
   void internal_set_mus_property (SCM , SCM val);
-  void add_music_type (SCM);
-  bool is_music_type (SCM) const;
+  SCM get_property_alist (bool mut) const;
+  bool internal_is_music_type (SCM) const;
   
   virtual Pitch to_relative_octave (Pitch);
 

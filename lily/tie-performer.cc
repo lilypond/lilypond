@@ -14,11 +14,11 @@
 #include "performer.hh"
 
 struct CNote_melodic_tuple {
-  Melodic_req *req_ ;
+  Music *req_ ;
   Audio_note *note_;
   Moment end_;
   CNote_melodic_tuple ();
-  CNote_melodic_tuple (Audio_note*, Melodic_req*, Moment);
+  CNote_melodic_tuple (Audio_note*, Music*, Moment);
   static int pitch_compare (CNote_melodic_tuple const &, CNote_melodic_tuple const &);
   static int time_compare (CNote_melodic_tuple const &, CNote_melodic_tuple const &);  
 };
@@ -31,7 +31,7 @@ inline int compare (CNote_melodic_tuple const &a, CNote_melodic_tuple const &b)
 
 /**
    Manufacture ties.  Acknowledge notes, and put them into a
-   priority queue. If we have a Tie_req, connect the notes that finish
+   priority queue. If we have a Music, connect the notes that finish
    just at this time, and note that start at this time.
 
    TODO: should share code with Tie_engraver ?
@@ -43,7 +43,7 @@ public:
 private:
   bool done_;
   PQueue<CNote_melodic_tuple> past_notes_pq_;
-  Tie_req *req_;
+  Music *req_;
   Array<CNote_melodic_tuple> now_notes_;
   Array<CNote_melodic_tuple> stopped_notes_;
   Link_array<Audio_tie> ties_;
@@ -65,7 +65,7 @@ Tie_performer::Tie_performer ()
 }
 
 ENTER_DESCRIPTION (Tie_performer, "", "",
-		   "general-music",
+		   "tie-event",
 		   "", "", "");
 
 
@@ -81,11 +81,8 @@ Tie_performer::try_music (Music *m)
 {
   if (!req_)
     {
-      if (Tie_req * c = dynamic_cast<Tie_req*> (m))
-	{
-	  req_ = c;
-	  return true;
-	}
+      req_ = m;
+      return true;
     }
   return false;
 }
@@ -95,10 +92,9 @@ Tie_performer::acknowledge_audio_element (Audio_element_info i)
 {
   if (Audio_note *nh = dynamic_cast<Audio_note *> (i.elem_))
     {
-      Note_req * m = dynamic_cast<Note_req *> (i.req_);
-      if (!m)
-	return;
-      now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->length_mom ()));
+      Music *m = i.req_;
+      if (m->is_mus_type ("note-event"))
+	now_notes_.push (CNote_melodic_tuple (nh, m, now_mom ()+ m->length_mom ()));
     }
 }
 
@@ -201,7 +197,7 @@ CNote_melodic_tuple::CNote_melodic_tuple ()
   end_ = 0;
 }
 
-CNote_melodic_tuple::CNote_melodic_tuple (Audio_note *h, Melodic_req*m, Moment mom)
+CNote_melodic_tuple::CNote_melodic_tuple (Audio_note *h, Music*m, Moment mom)
 {
   note_ = h;
   req_ = m;

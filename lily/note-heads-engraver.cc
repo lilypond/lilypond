@@ -23,7 +23,7 @@ class Note_heads_engraver : public Engraver
   Link_array<Item> notes_;
   
   Link_array<Item> dots_;
-  Link_array<Note_req> note_reqs_;
+  Link_array<Music> note_reqs_;
 
 public:
   TRANSLATOR_DECLARATIONS(Note_heads_engraver);
@@ -47,27 +47,25 @@ Note_heads_engraver::Note_heads_engraver()
 bool
 Note_heads_engraver::try_music (Music *m) 
 {
-  if (Note_req * n =dynamic_cast <Note_req *> (m))
+  if (m->is_mus_type ("note-event"))
     {
-      note_reqs_.push (n);
+      note_reqs_.push (m);
       return true;
     }
-  else if (dynamic_cast<Busy_playing_req*> (m))
+  else if (m->is_mus_type ("busy-playing-event"))
+    return note_reqs_.size ();
+  else if (m->is_mus_type ("abort-event"))
     {
-      return note_reqs_.size ();
+      in_ligature = 0;
     }
-  else if (Span_req *req_ = dynamic_cast<Span_req*> (m))
+  else if (m->is_mus_type ("ligature-event"))
     {
-      if (scm_equal_p (req_->get_mus_property ("span-type"),
-		       scm_makfrom0str ("abort")) == SCM_BOOL_T)
-	{
-	  in_ligature = 0;
-	}
-      else if (scm_equal_p (req_->get_mus_property ("span-type"),
-			    scm_makfrom0str ("ligature")) == SCM_BOOL_T)
-	{
-	  in_ligature = (req_->get_span_dir () == START);
-	}
+      /*
+	Urg ; this is not protocol. We should accept and return
+	true, or ignore.
+      */
+      in_ligature = (m->get_mus_property("span-direction")
+		     == gh_int2scm (START));
     }
   
   return false;
@@ -129,7 +127,6 @@ Note_heads_engraver::stop_translation_timestep ()
       typeset_grob (dots_[i]);
     }
   dots_.clear ();
-  
   note_reqs_.clear ();
 }
 
@@ -140,9 +137,9 @@ Note_heads_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION(Note_heads_engraver,
-/* descr */       "Generate one or more noteheads from Music of type Note_req.",
-/* creats*/       "NoteHead Dots",
-/* accepts */     "general-music",
+/* descr */       "Generate noteheads (also serves a double functions: makes ligatures.",
+/* creats*/       "NoteHead LigatureHead Dots",
+/* accepts */     "note-event busy-playing-event ligature-event abort-event",
 /* acks  */      "",
 /* reads */       "centralCPosition",
 /* write */       "");

@@ -1,3 +1,14 @@
+2002-09-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/musical-request.cc (music-duration-length,
+	music-duration-compress): new functions.
+
+	* lily/ : Remove Note_req, Rest_req, Busy_playing_req. Changes
+	throughout. Warning doesn't work yet.
+
+	* lily/translator-group.cc (try_music_on_nongroup_children):
+	new implementation: store candidate acceptors in a hashTable.
+
 2002-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-types.scm (music-descriptions): change name to

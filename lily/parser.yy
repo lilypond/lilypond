@@ -1172,9 +1172,8 @@ command_element:
 		$1-> set_spot (THIS->here_input ());
 	}
 	| E_LEFTSQUARE {
-		Music *l = MY_MAKE_MUSIC("SpanEvent");
+		Music *l = MY_MAKE_MUSIC("LigatureEvent");
 		l->set_mus_property ("span-direction", gh_int2scm (START));
-		l->set_mus_property ("span-type", scm_makfrom0str ("ligature"));
 		l->set_spot (THIS->here_input ());
 
 		$$ = MY_MAKE_MUSIC("RequestChord");
@@ -1183,9 +1182,8 @@ command_element:
 		$$->set_spot (THIS->here_input ());
 	}
 	| E_RIGHTSQUARE {
-		Music *l = MY_MAKE_MUSIC("SpanEvent");
+		Music *l = MY_MAKE_MUSIC("LigatureEvent");
 		l->set_mus_property ("span-direction", gh_int2scm (STOP));
-		l->set_mus_property ("span-type", scm_makfrom0str ("ligature"));
 		l->set_spot (THIS->here_input ());
 
 		$$ = MY_MAKE_MUSIC("RequestChord");

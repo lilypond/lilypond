@@ -72,9 +72,12 @@ Custos_engraver::acknowledge_grob (Grob_info info)
   Item *item = dynamic_cast <Item *> (info.grob_);
   if (item)
     {
+      Music * m = info.music_cause();
       if (Bar_line::has_interface (info.grob_))
 	custos_permitted = true;
-      else if (Note_head::has_interface (info.grob_))
+      else if (Note_head::has_interface (info.grob_)
+	       && m
+	       && m->is_mus_type ("note-event"))
 	{
 
 	  /*
@@ -85,9 +88,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 	    don't look at the staff-position, since we can't be sure
 	    whether Clef_engraver already applied a vertical shift.
 	  */
-	  Note_req * nr = dynamic_cast<Note_req*> (info.music_cause ());
-	  if (nr)
-	    pitches_.push (*unsmob_pitch (nr->get_mus_property ("pitch")));
+	    pitches_.push (*unsmob_pitch (m->get_mus_property ("pitch")));
 	}
     }
 }

@@ -68,9 +68,9 @@ Completion_heads_engraver::initialize ()
 bool
 Completion_heads_engraver::try_music (Music *m) 
 {
-  if (Note_req * n =dynamic_cast <Note_req *> (m))
+  if (m->is_mus_type ("note-event"))
     {
-      note_reqs_.push (n);
+      note_reqs_.push (m);
 
       first_b_ = true;
       Moment musiclen = m->length_mom ();
@@ -86,7 +86,7 @@ Completion_heads_engraver::try_music (Music *m)
       
       return true;
     }
-  else if (dynamic_cast<Busy_playing_req*> (m))
+  else if  (m->is_mus_type ("busy-playing-event"))
     {
       return note_reqs_.size ();
     }

@@ -32,7 +32,7 @@ tweakable.
 
 struct Accidental_entry {
   bool done_;
-  Note_req * melodic_;
+  Music * melodic_;
   Grob * accidental_;
   Translator_group *origin_;
   Grob*  head_;
@@ -125,7 +125,7 @@ calculates the number of accidentals on basis of the current local key sig
 
 */
 static int
-number_accidentals (SCM sig, Note_req * note, Pitch *pitch, SCM curbarnum, SCM lazyness, 
+number_accidentals (SCM sig, Music * note, Pitch *pitch, SCM curbarnum, SCM lazyness, 
 		    bool ignore_octave_b)
 {
   int n = pitch->notename_;
@@ -171,7 +171,7 @@ number_accidentals (SCM sig, Note_req * note, Pitch *pitch, SCM curbarnum, SCM l
 }
 
 static int
-number_accidentals (Note_req * note, Pitch *pitch, Translator_group * origin, 
+number_accidentals (Music * note, Pitch *pitch, Translator_group * origin, 
 		    SCM accidentals, SCM curbarnum)
 {
   int number = 0;
@@ -249,7 +249,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	    continue;
 	  accidentals_[i].done_  = true;
 	  Grob * support = accidentals_[i].head_;
-	  Note_req * note = accidentals_[i].melodic_;
+	  Music * note = accidentals_[i].melodic_;
 	  Translator_group * origin = accidentals_[i].origin_;
 
 	  Pitch * pitch = unsmob_pitch (note->get_mus_property ("pitch"));
@@ -428,9 +428,11 @@ Accidental_engraver::stop_translation_timestep ()
 void
 Accidental_engraver::acknowledge_grob (Grob_info info)
 {
-  Note_req * note =  dynamic_cast <Note_req *> (info.music_cause ());
+  Music * note =  info.music_cause ();
 
-  if (note && Rhythmic_head::has_interface (info.grob_))
+  if (note
+      && note->is_mus_type("note-event")
+      && Rhythmic_head::has_interface (info.grob_))
     {
       Accidental_entry entry ;
       entry.head_ = info.grob_;

@@ -22,7 +22,7 @@ Music * _ ## type ## _ctor ()\
 static void  _ ## type ## _adder () {\
       add_music_ctor (#type, & _ ## type ## _ctor);\
 }\
-ADD_GLOBAL_CTOR (_ ## type ## _adder);
+ADD_SCM_INIT_FUNC( _ ## type ## _adder_prefix,  _ ## type ## _adder);
 
 void add_music_ctor (String, Music* (*) ());
 Music*make_music (String);

@@ -15,7 +15,7 @@
 
 class Rest_engraver : public Engraver
 {
-  Rest_req *rest_req_;
+  Music *rest_req_;
   Item * dot_;
   Grob* rest_;
 protected:
@@ -67,8 +67,6 @@ Rest_engraver::process_music ()
     {
       rest_ = new Item (get_property ("Rest"));
 
-
-      
       int durlog  = unsmob_duration (rest_req_->get_mus_property ("duration"))-> duration_log ();
       
       rest_->set_grob_property ("duration-log",
@@ -109,20 +107,18 @@ Rest_engraver::process_music ()
 bool
 Rest_engraver::try_music (Music *m)
 {
-  if (Rest_req *r = dynamic_cast <Rest_req *> (m))
+  if (m->is_mus_type ("rest-event"))
     {
-      rest_req_ = r;
+      rest_req_ = m;
       return true;
-    }  
+    }
   return false;
 }
-
-
 
 ENTER_DESCRIPTION(Rest_engraver,
 /* descr */       "",
 /* creats*/       "Rest Dots",
-/* accepts */     "general-music",
+/* accepts */     "rest-event",
 /* acks  */      "",
 /* reads */       "centralCPosition",
 /* write */       "");
