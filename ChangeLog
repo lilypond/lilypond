@@ -1,3 +1,10 @@
+2002-08-27  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* tex/titledefs.tex: Define \fetafont for use in titles.
+
+	* scm/music-functions.scm (shift-duration-log), lily/parser.yy
+	(Repeated_music): Handle dots correctly for \repeat tremolo.
+
 2002-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/score.cc: remove paranoia code.
