@@ -2,9 +2,9 @@
 #
 # postinst script for the Debian GNU/Linux lilypond package
 #
-#   by Anthony Fok <foka@gpu.srv.ualberta.ca>
+#   by Anthony Fok <foka@debian.org>
 #   Initial release:  Sun, 26 Oct 1997 03:23:00 -0700
-#     Last modified:  Mon, 10 Nov 1997 22:26:10 -0700
+#     Last modified:  Sun, 23 Nov 1997 03:04:16 -0700
 
 use strict;
 use File::Copy;
@@ -30,7 +30,6 @@ $pkg_name = "GNU LilyPond";
 
 $font_supplier = "public";
 $font_typeface = "lilypond";
-# @fonts = qw( dyn10 font-en-tja vette-beam );
 @fonts = qw( feta );
 
 $std_TEXMF = "/usr/lib/texmf";  # Debian's standard $TEXMF
@@ -154,7 +153,10 @@ sub add_fonts ($$$$@) {
 	if (length($font) < 8) { $font .= "\t"; }
 	$entries .= "$font\t$supplier\t\t$typeface\n";
     }
-    if ($_[0] !~ /$entries/m) {
+
+    $_[0] =~ /((^\w+\s+$supplier\s+$typeface\n)+)/m;
+
+    if ($1 ne $entries) {
 	($_[0] =~ s/(^\w+\s+$supplier\s+$typeface\n)+/$entries/m)
 	    or ($_[0] =~ s/(?=^beam\s+public\s+music\n)/$entries/m)
 	    or die " Can't add font entries to $specialmap: $!";

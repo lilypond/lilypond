@@ -149,7 +149,11 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
 
   // duh
   // let's try the embedded stuff
-  bool embedded_b = experimental_features_global_b;
+  
+  /*  bool embedded_b = experimental_features_global_b;
+      // embedded stuff still sucks for slurs
+   */
+  bool embedded_b = false;
   String embed;
   if (embedded_b)
     {

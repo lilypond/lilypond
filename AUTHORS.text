@@ -39,8 +39,8 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
            http://?.unicamp.br/
            testing
 
-       +o Anthony Fok <foka@gpu.srv.ualberta.ca>,
-           debian package: make/debian/*
+       +o Anthony Fok <foka@debian.org>,
+           debian package: debian/*
 
        +o Franc,ois Pinard <pinard@iro.umontreal.ca>,
            Documentation/Vocab*, internationalization stuff
@@ -61,6 +61,6 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
 
 
 
-24/Nov/97                LilyPond 0.1.33                        1
+25/Nov/97                LilyPond 0.1.34                        1
 
 

@@ -49,9 +49,9 @@ mf/ital-*.mf (these were taken from the CM fonts)
 
 testing
 
-=item * Anthony Fok <foka@gpu.srv.ualberta.ca>, 
+=item * Anthony Fok <foka@debian.org>, 
 
-debian package: make/debian/*
+debian package: debian/*
 
 =item * Franc,ois Pinard <pinard@iro.umontreal.ca>, 
 

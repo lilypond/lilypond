@@ -4,10 +4,10 @@ The Homepage of LilyPond -- the GNU Project music typesetter
 
 =head1 DESCRIPTION
 
-LilyPond is the GNU Project music typesetter.  The program generates
-visual or auditive output from a music definition file: it can typeset 
-formatted sheet music to a TeX file and play (mechanical) performances 
-to a MIDI file.
+LilyPond is the GNU Project music typesetter.  It generates visual or
+auditive output from a music definition file: it can typeset formatted
+sheet music to a TeX file and play (mechanical) performances to a MIDI
+file.
 
 This is not a Fanmail/Hype page. These pages were entirely created from
 the LilyPond package-sources. 
@@ -15,6 +15,17 @@ the LilyPond package-sources.
 Note: These pages are created from the latest B<development snapshots>
 of LilyPond.  You can look at the bottom if you want to know which
 version this was.
+
+=head2 Mirrors
+
+=over 4
+
+=item http://sca.uwaterloo.ca/~praetzel/lilypond/
+
+Eric Praetzel was kind enough to provide a mirror of both the website
+and the ftp site.  
+
+=back
 
 =head2 Examples
 

@@ -1,10 +1,12 @@
 \header{
 filename =	 "scsii-menuetto.ly";
-title =	 "Solo Cello Suites, Suite II part V, Menuetto I";
+title =	 "Cello Suite II";
+subtitle = "Part V";
+instrument = "Menuetto I";		% duh
 description =	 "Cello suite transcribed for Viola";
 source =	 "?";
 opus =	 "BWV 1008 no. 5";
-composers =	 "Johann Sebastian Bach (1685-1750)";
+composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 }

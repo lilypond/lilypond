@@ -1,3 +1,33 @@
+lilypond (0.1.33-1) unstable; urgency=low
+
+  * New upstream release
+  * Changed my maintainer e-mail address to <foka@debian.org>.  :)
+
+ -- Anthony Fok <foka@debian.org>  Tue, 25 Nov 1997 00:22:57 -0700
+
+lilypond (0.1.32-2) unstable; urgency=low
+
+  * Commented out run_texhash() in postinst by mistake.  Fixed.
+
+ -- Anthony Fok <foka@gpu.srv.ualberta.ca>  Sun, 23 Nov 1997 03:04:29 -0700
+
+lilypond (0.1.32-1) unstable; urgency=low
+
+  * New upstream release
+  * Applied a small fix to postinst.  The font-entries-search-and-replace
+    add_fonts() subroutine was slightly buggy.
+  * Unpatched ./configure.  It turned out that I spelt "--enable-optimise"
+    as "--enable-optimize" in debian/rules by mistake.  Oops!  :)  Thanks
+    to the upstream author for pointing this out!  :)
+  * The upstream authors has included the ./debian/* files in the pristine
+    source archive!  They also fixed some minor errors in README.debian
+    and copyright.  Thanks a lot!  :)
+  * Removed the line "dh_clean" from "binary-arch:" and switched the order
+    of dh_clean in "clean:" in debian/rules.  dh_clean was deleting
+    the zero-byte file ./make/out/Site.make, causing the build to fail.
+
+ -- Anthony Fok <foka@gpu.srv.ualberta.ca>  Sun, 23 Nov 1997 01:39:31 -0700
+
 lilypond (0.1.29-1) unstable; urgency=low
 
   * New upstream release
@@ -11,7 +41,7 @@ lilypond (0.1.29-1) unstable; urgency=low
     "stray" automatically generated TFM and PK font files were placed in
     the wrong directories because they were not listed in
     /usr/lib/texmf/fontname/special.map.
-  * Did some minor clean-up in debian/rules.
+  * Did some minor clean-up in debian/rules and switched to debhelper.
   * Updated Standards-Version to 2.3.0.1
 
  -- Anthony Fok <foka@gpu.srv.ualberta.ca>  Tue, 11 Nov 1997 02:31:33 -0700
@@ -113,5 +143,5 @@ lilypond (0.1.0-1) unstable; urgency=low
 
 Local variables:
 mode: debian-changelog
-add-log-mailing-address: "foka@gpu.srv.ualberta.ca"
+add-log-mailing-address: "foka@debian.org"
 End:
