@@ -16,6 +16,7 @@ ATVARIABLES = \
   package\
   PATHSEP\
   PERL\
+  prefix\
   program_prefix\
   program_suffix\
   PYTHON\

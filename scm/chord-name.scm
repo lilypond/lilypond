@@ -64,7 +64,7 @@
 (define simple-super
 ;; duh, no docstrings for 
 ;;  "No real superscript, just raised and small"
-  '((raise . 1) (font-relative-size . -1)))
+  '((raise . 1) (font-relative-size . -2)))
 
 (define (accidental->textp acc pos)
   (if (= acc 0)
@@ -73,8 +73,7 @@
 		   (list pos (string-append "accidentals-" (number->string acc))))))
 
 (define (accidental->text acc) (accidental->textp acc 'columns))
-(define (accidental->text-super acc)
-  (accidental->textp acc '((raise . 0.6) (font-relative-size . -1))))
+(define (accidental->text-super acc) (accidental->textp acc 'simple-super))
 (define (accidental->text-sub acc) (accidental->textp acc 'sub))
 
 (define (pitch->note-name pitch)

@@ -1,0 +1,10 @@
+#!@SHELL@
+# @name@.sh -- @name@ wrapper for Windows
+
+MFINPUTS="$WINDOWS_MFINPUTS"
+TEXINPUTS="$WINDOWS_TEXINPUTS"
+TFMFONTS="$WINDOWS_TFMFONTS"
+
+export MFINPUTS TEXINPUTS TFMFONTS
+
+@name@.tex "$*"

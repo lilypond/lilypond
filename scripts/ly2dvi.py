@@ -279,6 +279,8 @@ def system (cmd, ignore_error = 0):
 	Exit status of CMD
 	"""
 	
+        if ( os.name != 'posix' ):
+		cmd = "sh -c \'%s\'" % cmd
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
 	st = os.system (cmd) >> 8
@@ -563,7 +565,7 @@ None
         if ( os.name == 'posix' ):
 		cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 	else:
-		cmd = 'latex \\nonstopmode \\input %s' % latex_fn
+		cmd = 'latex \\\\\\\\nonstopmode \\\\\\\\input %s' % latex_fn
 
 	if not verbose_p:
 		progress ( _("Running %s...") % 'LaTeX')
@@ -592,8 +594,7 @@ None.
 	
 	if not verbose_p:
 		progress ( _("Running %s...") % 'dvips')
-		if os.name == 'posix':
-			cmd = cmd + ' 1> /dev/null 2> /dev/null'
+		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 		
 	system (cmd)
 
