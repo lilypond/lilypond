@@ -229,7 +229,7 @@ def help ():
 		('\n'),
 		(options_help_str (option_definitions)),
 		('\n\n'),
-		(_ ("Report bugs to %s") % 'bug-lilypond@gnu.org'),
+		(_ ("Report bugs to %s.") % 'bug-lilypond@gnu.org'),
 		('\n')]
 	map (sys.stdout.write, ls)
 	

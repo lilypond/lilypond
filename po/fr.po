@@ -96,8 +96,8 @@ msgstr "Options:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
-msgstr "Rapporter toutes anomalies à %s"
+msgid "Report bugs to %s."
+msgstr "Rapporter toutes anomalies à %s."
 
 #: lilylib.py:228
 #, python-format

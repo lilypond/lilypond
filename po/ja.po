@@ -96,8 +96,8 @@ msgstr "オプション:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
-msgstr "バグレポートは %s へ"
+msgid "Report bugs to %s."
+msgstr "バグレポートは %s へ."
 
 #: lilylib.py:228
 #, fuzzy, python-format
