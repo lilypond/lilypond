@@ -1,3 +1,10 @@
+2004-05-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/newaddlyrics.ly: Fix.
+
+	* Documentation/user/tutorial.itely: Use \newlyrics, remove most
+	\score \notes.
+
 2004-05-08  Heikki Junes <hjunes@cc.hut.fi>
 
         * Documentation/user/music-glossary.tely ([k-z]): last fixes.

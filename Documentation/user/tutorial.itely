@@ -88,10 +88,11 @@ The duration of a note is specified by a number after the note name.
 a1 a2 a4 a16 a32
 @end example
 
-@lilypond[quote,notime]
+@c FIXME: have NOTIME also remove Score.timing?
+@lilypond[quote,notime,relative=1]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
-\transpose c c' { a1 a2 a4 a16 a32 s16_" " }
+{ a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
 If you do not specify a @rglos{duration}, the duration last entered is
@@ -102,9 +103,9 @@ defaults to a quarter
 a a8 a a2 a
 @end example
 
-@lilypond[quote,notime]
+@lilypond[quote,notime,relative=1]
 \set Score.timing = ##f
-\transpose c c' { a a8 a a2 a s16_" " }
+{ a a8 a a2 a s16_" " }
 @end lilypond
 
 
@@ -126,9 +127,9 @@ Add a dot @samp{.} after the duration to get a @rglos{dotted note}
 a2. a4 a8. a16
 @end example
 
-@lilypond[quote,notime]
+@lilypond[quote,notime,relative=1]
 \set Score.timing = ##f
-\transpose c c' { a2. a4 a8. a16 s16_" " }
+{ a2. a4 a8. a16 s16_" " }
 @end lilypond
 
 The @rglos{meter} (or @rglos{time signature}) can be set with the
@@ -175,6 +176,7 @@ s4_" "
 s16_" "
 @end lilypond
 
+@ignore
 To recognize names like @samp{c} and @samp{d} as pitches, they have to
 be entered inside a so-called @code{\notes} block.  This block is
 formed by enclosing notes and commands are enclosed in curly braces
@@ -182,7 +184,7 @@ formed by enclosing notes and commands are enclosed in curly braces
 the opening brace
 
 @example
-\notes @{
+@{
   \time 3/4
   \clef bass
   c2 e4 g2.
@@ -206,24 +208,19 @@ the @code{\notes} block in a @code{\score} block
 
 @noindent
 and the music will be converted to printable output.
+@end ignore
 
-@lilypond[quote,noindent]
-\score {
-  \notes {
-     \time 3/4
-     \clef bass
-     c2 e4 g2.
-     f4 e d c2 r4
-  }
-  \paper {
-    linewidth = 55 * \staffspace
-  }
+Remember to enclose the notes and commands in curly braces
+@code{@{@tie{}@dots{}@tie{}@}} to convert it to printable output.
+
+@lilypond[quote,noindent,linewidth=55\staffspace]
+{
+  \time 3/4
+  \clef bass
+  c2 e4 g2.
+  f4 e d c2 r4
 }
 @end lilypond
-
-In many examples in this manual, both @code{\score} and @code{\notes}
-and accompanying braces are left out for brevity.  However, they must
-be present when feeding the file to LilyPond.
 
 For more elaborate information on
 
@@ -274,9 +271,7 @@ the file @file{INSTALL.txt}.}  In your text editor, enter the following
 input and save the file as @file{test.ly}
 
 @example
-\score @{
-  \notes @{ c'4 e' g' @}
-@} 
+@{ c'4 e' g' @}
 @end example
 
 @noindent
@@ -325,9 +320,7 @@ programmer-oriented editor will do, for example Notepad.  Do not use a
 word processor, its formatting codes will confuse LilyPond.} and enter
 
 @example
-\score @{
-  \notes @{ c'4 e' g' @}
-@} 
+@{ c'4 e' g' @}
 @end example
 
 Save it on the desktop as @file{test.ly} and make sure that it is not
@@ -477,31 +470,27 @@ For more information on beams, see @ref{Beaming}.
 Here are key signatures, accidentals and ties in action
 
 @example
-\score @{
-  \notes @{
-    \time 4/4
-    \key g \minor
-    \clef violin
-    r4 r8 a8 gis4 b
-    a8 d4.~ d e8
-    fis4 fis8 fis8 eis4 a8 gis~
-    gis2 r2
-  @}
+@{
+  \time 4/4
+  \key g \minor
+  \clef violin
+  r4 r8 a8 gis4 b
+  a8 d4.~ d e8
+  fis4 fis8 fis8 eis4 a8 gis~
+  gis2 r2
 @}
 @end example
 
-@lilypond[quote, noindent]
-\score {
-  \notes \transpose c c' { 
-    \time 4/4
-    \key g \minor
-    \clef violin
-    r4 r8 a8 gis4 b
-    a8 d4.~ d e8
-    fis4 fis8 fis8 eis4 a8 gis~
-    gis2 r2
-  }
-  \paper { linewidth = 50 * \staffspace }
+@c TODO: use relative mode, verbatim, junk \transpose and above @example
+@lilypond[quote,noindent,linewidth=50\staffspace]
+\transpose c c' { 
+  \time 4/4
+  \key g \minor
+  \clef violin
+  r4 r8 a8 gis4 b
+  a8 d4.~ d e8
+  fis4 fis8 fis8 eis4 a8 gis~
+  gis2 r2
 }
 @end lilypond
 @cindex accidentals
@@ -552,15 +541,20 @@ The last example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
 solution is to use `relative octave' mode.  In practice, this is the
 most convenient way to copy existing music.  To use relative mode, add
-@code{\relative} before the piece of music.  You must also give a note
-from which relative mode starts, in this case @code{c''}.  If you do not
+@code{\relative} before the piece of music.
+@ignore
+FIXME: move to notation manual?
+ You must also give a note
+from which relative mode starts, in this case @code{c''}.
+@end ignore
+If you do not
 use octavation quotes (i.e., do not add @code{'} or @code{,} after a
 note), relative mode chooses the note that is closest to the previous
 one.  For example, @samp{c f} goes up while @samp{c g} goes down
 
 @lilypond[quote,notime,fragment,verbatim]
-\relative c'' {
-  c f c g c
+\relative {
+  c'' f c g c
 }
 @end lilypond
 
@@ -570,10 +564,10 @@ without octavation quotes in relative mode.  The previous example is
 entered as
 
 @lilypond[quote,raggedright,fragment,verbatim]
-\relative c'' {
+\relative {
   \key a \major
   \time 6/8
-  cis8. d16 cis8 e4 e8
+  cis''8. d16 cis8 e4 e8
   b8. cis16 b8 d4 d8
 }
 @end lilypond
@@ -585,8 +579,8 @@ entered as
 Larger intervals are made by adding octavation quotes.
 
 @lilypond[quote,notime,verbatim,fragment]
-\relative c'' {
-  c f, f c' c g' c,
+\relative c {
+  c'' f, f c' c g' c,
 }
 @end lilypond
 
@@ -686,22 +680,25 @@ eases reading, and helps you insert the right number of closing
 braces at the end of an expression.  For example,
 
 @example
-\score @{
-  \notes <<
-    @{
-      @dots{}
-    @}
-    @{
-      @dots{}
-    @}
-  >>
-@}
+\book @{
+  \score @{
+    <<
+      @{
+        @dots{}
+      @}
+      @{
+        @dots{}
+      @}
+      \paper @{
+        @dots{}
+      @}
+    >>
+  @}
+@}  
 @end example
 
 Some editors have special support for entering LilyPond, and can help
 indenting source files.  See @ref{Editor support}, for more information.
-
-
 
 @node More staves
 @section More staves
@@ -742,22 +739,20 @@ We can now typeset a melody with two staves
 @c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
 
 @lilypond[quote,verbatim,raggedright]
-\score {
-  \notes <<
-    \new Staff {
-      \time 3/4
-      \clef violin
-      \relative c'' {
-        e2 d4 c2 b4 a8[ a]
-        b[ b] g[ g] a2. }  
-    }
-    \new Staff {
-       \clef bass
-       c2 e4 g2.
-       f4 e d c2.
-    }
-  >>
-}
+<<
+  \new Staff {
+    \time 3/4
+    \clef violin
+    \relative {
+      e''2 d4 c2 b4 a8[ a]
+      b[ b] g[ g] a2. }  
+  }
+  \new Staff {
+     \clef bass
+     c2 e4 g2.
+     f4 e d c2.
+  }
+>>
 @end lilypond
 
 For more information on context see the description in
@@ -994,64 +989,33 @@ smoothly. Changes in the syntax are handled with a special program,
 
 @cindex Lyrics
 @cindex Songs
-Lyrics are entered by separating each syllable with a space,
+Lyrics are entered by separating each syllable with a space
 
 @example
 I want to break free
 @end example
 
-To prevent certain words (for example `as') as being read as a
-pitch, the input-mode must be switched.  This is done with
-@code{\lyrics}.  In @code{\lyrics} mode, all words are read as lyric
-syllables.
-
-@example
-\lyrics @{ I want to break free @}
-@end example
-
-@noindent
-Again, the braces @code{@{@}} signify that the syllables are sung in
-sequence.
-
-By default, music expressions are interpreted in @code{Staff} context.  For
-lyrics, this is obviously not desirable, so it is necessary
-to explicitly specify a @code{Lyrics} context,
-
-@example
-\new Lyrics \lyrics @{ I want to break free @}
-@end example
-
-The melody for this song is as follows
-
-@lilypond[quote,fragment,relative=2]
-r4 c \times 2/3 { f4 g g }
-\times 2/3 { g4( a2) }
-@end lilypond
-
-The lyrics can be set to these notes, combining both with the
-@code{\lyricsto} keyword
-
-@example
-\lyricsto "@var{name}" \new Lyrics @dots{}
-@end example
-
-@noindent
-where @var{name} identifies to which melody the lyrics should be
-aligned.  In this case, there is only one melody, so we can leave it
-empty.
-
-The final result is 
+Consider the melody
 
 @lilypond[quote,verbatim,fragment,raggedright]
-\score {
-  \notes <<
-    \relative c' {
-      r4 c \times 2/3 { f g g }
-      \times 2/3 { g4( a2) }
-    }
-    \lyricsto "" \new Lyrics \lyrics { I want to break free }
-  >>
+\relative {
+    r4 c \times 2/3 { f g g }
+    \times 2/3 { g4( a2) }
 }
+@end lilypond
+
+@c FIXME: when/how/to what rename newlyrics?
+The lyrics can be set to these notes, combining both with the
+@code{\newlyrics} keyword
+
+@lilypond[quote,verbatim,fragment,raggedright]
+<<
+  \relative {
+    r4 c \times 2/3 { f g g }
+    \times 2/3 { g4( a2) }
+  }
+  \newlyrics { I want to break free }
+>>
 @end lilypond
 
 @cindex melisma
@@ -1062,19 +1026,17 @@ sung to more than one note.  This is indicated with an @emph{extender
 line}.  It is entered as two underscores, i.e.,
 
 @example
-\lyrics @{ I want to break free __ @}
+@{ I want to break free __ @}
 @end example 
 
 @lilypond[quote,raggedright]
-\score {
-  <<
-    \notes \relative c' \new Voice {
-      r4 c \times 2/3 { f g g }
-      \times 2/3 { g4( a2) }
-    }
-    \lyricsto "" \new Lyrics \lyrics { I want to break free __ }
-  >>
-}
+<<
+  \relative {
+    r4 c \times 2/3 { f g g }
+    \times 2/3 { g4( a2) }
+  }
+  \newlyrics { I want to break free __ }
+>>
 @end lilypond
 
 Similarly, hyphens between words can be entered as two dashes,
@@ -1085,20 +1047,52 @@ Twin -- kle twin -- kle
 @end example
 
 @lilypond[quote,raggedright]
-\score {
-  <<
-    \notes \relative f' \context Voice = bla {
-      \time 2/4
-      f4 f c' c
-    }
-    \new Lyrics \lyricsto "bla" \lyrics { Twin -- kle twin -- kle }
-  >>
-}
+<<
+  \relative {
+     \time 2/4
+     f4 f c' c
+   }
+   \newlyrics { Twin -- kle twin -- kle }
+>>
 @end lilypond
 
 More options, like putting multiple lines of lyrics below a melody are
 discussed in @ref{Vocal music}.
 
+@c FIXME: too geeky, for notation manual?
+@c or introduce using foo = \lyrics { a b c } ?
+
+When using variables for a piece of lyrics
+To prevent certain words (for example `as') as being read as a
+pitch, the input-mode must be switched.  This is done with
+@code{\lyrics}.  In @code{\lyrics} mode, all words are read as lyric
+syllables.
+
+@example
+myText = \lyrics @{ I want to break free @}
+@end example
+
+@noindent
+The braces @code{@{@}} signify that the syllables are sung in
+sequence.
+
+@ignore
+By default, music expressions are interpreted in @code{Staff} context.  For
+lyrics, this is obviously not desirable, so it is necessary
+to explicitly specify a @code{Lyrics} context,
+
+@example
+\lyrics @{ I want to break free @}
+@end example
+
+The melody for this song is as follows
+
+@lilypond[quote,fragment,relative=2]
+r4 c \times 2/3 { f4 g g }
+\times 2/3 { g4( a2) }
+@end lilypond
+
+@end ignore
 
 
 @node A lead sheet
@@ -1120,9 +1114,7 @@ but now, each pitch is read as the root of a chord instead of a note.
 This mode is switched on with @code{\chords}
 
 @lilypond[quote,verbatim,raggedright]
-\score {
-  \chords { c2 f4. g8 }
-}
+\chords { c2 f4. g8 }
 @end lilypond
 
 Other chords can be created by adding modifiers after a colon.  The
@@ -1146,32 +1138,29 @@ When put together, chord names, lyrics and a melody form
 a lead sheet, for example,
 
 @example
-\score @{
-  <<
-    \new ChordNames \chords @{ @emph{chords} @}
-    \notes @emph{the melody}
-    \lyricsto "" \new Lyrics \lyrics @{ @emph{the text} @}
-  >>
+<<
+  \new ChordNames \chords @{ @emph{chords} @}
+  @emph{the melody}
+  \newlyrics @{ @emph{the text} @}
+>>
 @}
 @end example
 
 @lilypond[quote,raggedright]
-\score {
-  <<
-    \new ChordNames \chords { r2 c:sus4 f } 
-    \notes \relative c' {
-      r4 c \times 2/3 { f g g }
-      \times 2/3 { g4( a2) }
-    }
-   \new Lyrics \lyricsto "" \lyrics { I want to break free __ }
-  >>
-}
+<<
+  \new ChordNames \chords { r2 c:sus4 f } 
+  \notes \relative {
+    r4 c' \times 2/3 { f g g }
+    \times 2/3 { g4( a2) }
+  }
+ \newlyrics { I want to break free __ }
+>>
 @end lilypond
 
 A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
 
-
+@c FIXME: we talk about \midi before mentioning \paper (or \layout?)
 @node Listening to output
 @section Listening to output
 
@@ -1221,8 +1210,9 @@ added
 
 Bibliographic information is entered in a separate block, the
 @code{\header} block.  The name of the piece, its composer, etc., are
-entered as an assignment, within @code{\header @{@tie{}@dots{}@tie{}@}}.
-For example,
+entered as an assignment, within @code{\header
+@{@tie{}@dots{}@tie{}@}}.  The @code{\header} block is usually put at
+the top of the file.  For example,
 
 @example 
 \header @{
@@ -1231,7 +1221,7 @@ For example,
   tagline = "small is beautiful"
 @}
 
-\score @{ @dots{} @}
+@{ @dots{} @}
 @end example
 
 @cindex bibliographic information
@@ -1246,15 +1236,29 @@ the example above it is replaced by the line `small is
 beautiful.'@footnote{Nicely printed parts are good PR for us, so
 please leave the tagline if you can.}
 
-Normally, the @code{\header} is put at the top of the file.  However,
-for a document that contains multiple pieces (e.g., an etude book, or
-an orchestral part with multiple movements), the header can be
-put into the @code{\score} block as follows; in this case, the name of
-each piece will be printed before each movement.
+
+The @code{\header} block is usually put at the top of the file.
+
+A document may contains multiple pieces of music, examples are an
+etude book, or an orchestral part with multiple movements.
+@c FIXME: ugh.  \header can only live at toplevel, or inside \score.
+@c If we allow it also to live inside \book, we do not need \score here?
+The @code{\book} block is used to group the individual @code{\score}
+blocks.
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.
+
+@c FIXME: introduce \BOOK
+
+@c FIXME: Using "Adagio" as a name is confusing, it's more common to be
+@c a plain tempo indication.
 
 @cindex Engraved by LilyPond
 @cindex signature line
 @cindex tag line
+
 @example 
 \header @{
   title = "Eight miniatures" 
@@ -1262,13 +1266,15 @@ each piece will be printed before each movement.
   tagline = "small is beautiful"
 @}
 
-\score @{
-  @dots{}
-  \header @{ piece = "Adagio" @}
-@}
-\score @{
-  @dots{}
-  \header @{ piece = "Menuetto" @}
+\book @{
+  \score @{
+    @dots{}
+    \header @{ piece = "Adagio" @}
+  @}
+  \score @{
+    @dots{}
+    \header @{ piece = "Menuetto" @}
+  @}
 @}
 @end example
 
@@ -1385,9 +1391,7 @@ variable substitution
 seufzer = \notes {
   e'4( dis'4)
 }
-\score {
-  \new Staff { \seufzer \seufzer }
-}
+{ \seufzer \seufzer }
 @end lilypond
 
 The name of an identifier should have alphabetic characters only;
