@@ -47,8 +47,6 @@ protected:
     */
   virtual void announce_grob (Grob*, SCM cause);
   virtual void announce_grob (Grob_info);
-  virtual void process_music ();
-  virtual void do_announces ();
   Engraver_group_engraver*get_daddy_engraver () const;
 
 public:

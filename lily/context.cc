@@ -35,7 +35,7 @@ Context::check_removal ()
       trg->check_removal ();
       if (trg->is_removable ())
 	{
-	  recurse_down_translators (trg, &Translator::finalize, false);
+	  recurse_down_translators (trg, &Translator::finalize, DOWN);
 	  remove_context (trg);
 	}
     }
@@ -73,7 +73,7 @@ Context::add_context (Context*t)
       */
       td->apply_default_property_operations (t);
 
-      recurse_down_translators (t, &Translator::initialize, true);
+      recurse_down_translators (t, &Translator::initialize, DOWN);
     }
 }
 
@@ -90,9 +90,8 @@ Context::Context ()
   
   smobify_self ();
 
-  Scheme_hash_table *tab = new Scheme_hash_table ;
-  properties_scm_ = tab->self_scm ();
-  scm_gc_unprotect_object (tab->self_scm ());
+  properties_scm_ = (new Scheme_hash_table)->self_scm ();
+  scm_gc_unprotect_object (properties_scm_);
 }
 
 Context *

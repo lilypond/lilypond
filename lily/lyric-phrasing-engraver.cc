@@ -98,9 +98,9 @@ String
 Lyric_phrasing_engraver::get_voice_name_for_lyric (Context *tr)
 {
   SCM voice_context = tr->get_property ("associatedVoiceContext");
-  if (Translator *vc = unsmob_translator (voice_context))
+  if (Context *vc = unsmob_context (voice_context))
     {
-      return dynamic_cast<Context *> (vc)->id_string_;
+      return vc->id_string_;
     }
   
   SCM voice = tr->get_property ("associatedVoice");

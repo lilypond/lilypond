@@ -63,11 +63,6 @@ Engraver::typeset_grob (Grob*p)
 
 
 
-void
-Engraver::process_music ()
-{
-  
-}
 Engraver::Engraver()
 {
 }
@@ -80,11 +75,6 @@ Engraver::get_score_engraver () const
   return dynamic_cast<Score_engraver*> (unsmob_translator (t));
 }
 
-
-void
-Engraver::do_announces ()
-{
-}
 
 ENTER_DESCRIPTION(Engraver,
 		   "", "",

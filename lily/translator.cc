@@ -30,6 +30,17 @@ Translator::init ()
   smobify_self ();
 }
 
+void
+Translator::do_announces ()
+{
+}
+
+void
+Translator::process_music ()
+{
+  
+}
+
 Translator::Translator ()
 {
   init ();

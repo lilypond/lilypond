@@ -286,16 +286,20 @@ SCM
 Context_def::clone_scm () const
 {
   Context_def * t = new Context_def (*this);
-  scm_gc_unprotect_object (t->self_scm());
-  return t->self_scm();
+
+  SCM x = t->self_scm();
+  scm_gc_unprotect_object (x);
+  return x;
 }
 
 SCM
 Context_def::make_scm ()
 {
   Context_def* t = new Context_def;
-  scm_gc_unprotect_object (t->self_scm());
-  return t->self_scm();
+
+  SCM x  =t->self_scm();
+  scm_gc_unprotect_object (x);
+  return x;
 }
 
 void
