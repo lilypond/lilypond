@@ -1212,14 +1212,14 @@ input.  For example,
 @example
   width = 4.5\cm
   name = "Wendy"
-  aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+  aFivePaper = \layout @{ paperheight = 21.0 \cm @}
 @end example
 
 Depending on its contents, the identifier can be used in different
 places.  The following example uses the above variables
 
 @example
-  \paper @{
+  \layout @{
     \aFivePaper
     linewidth = \width
   @}

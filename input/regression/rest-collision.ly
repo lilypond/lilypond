@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -48,7 +48,7 @@ restsII = \context Staff  {
 		\scales 
 		\restsII 
 	}
-	\paper { raggedright = ##t }
+	\layout { raggedright = ##t }
 }	
 
 

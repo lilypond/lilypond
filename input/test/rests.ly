@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "@cindex Rests
 
@@ -8,7 +8,7 @@ Rests may be used in various styles.
 "
 }
 
-\paper {
+\layout {
     indent = 0.0
     raggedright = ##t
 }

@@ -5,10 +5,10 @@ shifted horizontally slightly. Without this correction, slurs will
 point into one note head, and point over another note head."
  
 }
-\paper {
+\layout {
     raggedright = ##t
 }
-\version "2.3.17"
+\version "2.3.22"
 
 \relative c'' {
     \time 2/4

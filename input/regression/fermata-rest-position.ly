@@ -1,11 +1,11 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc = "
 Fermatas over multimeasure rests are positioned as over normal rests.
 " }
 
 
-\paper {
+\layout {
     raggedright = ##t 
 }
 \relative c' {

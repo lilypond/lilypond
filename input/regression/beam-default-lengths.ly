@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
     texidoc="Beamed stems have standard lengths if possible. Quantization is switched off in this example."
@@ -14,5 +14,5 @@
 
         f4  f8[ f]  f16[ f]  f32[ f]  f64[ f]  f128[ f] 
     }
-    \paper{ raggedright = ##t}
+    \layout{ raggedright = ##t}
 }          

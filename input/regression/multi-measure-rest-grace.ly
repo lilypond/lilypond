@@ -1,11 +1,11 @@
-\version "2.3.17"
+\version "2.3.22"
 
 
 \header {
 texidoc= "Multi-measure rests are centered also in the case of grace notes."
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 <<
     \new Staff { R1 R1 R1*3 }

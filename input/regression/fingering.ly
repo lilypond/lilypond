@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "Automatic fingering tries to put fingering instructions
@@ -7,7 +7,7 @@ next to noteheads.
 "
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 
 \score {

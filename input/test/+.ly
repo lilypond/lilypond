@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 %% +.ly: Be the first .ly file for lys-to-tely.py.
 %% Better to make lys-to-tely.py include "introduction.texi" or
 %% other .texi documents too?

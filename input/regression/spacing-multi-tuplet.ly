@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc = "Concurrent tuplets should be equidistant on all staffs.
 
@@ -27,7 +27,7 @@ multipart =  \relative c'{
 	\multipart 
     }
 
-%    \paper { raggedright = ##t }
+%    \layout { raggedright = ##t }
 
 }
 

@@ -38,7 +38,7 @@ class Paper_book
 public:
   SCM header_;
   Array<Score_systems> score_systems_;
-  Output_def *bookpaper_;
+  Output_def *paper_;
   
   Paper_book ();
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.17"
+\version "2.3.22"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."
@@ -17,6 +17,6 @@ should not confuse the spacing engine."
   >>
   c4
 }}
-  \paper { raggedright = ##t }
+  \layout { raggedright = ##t }
 }
 

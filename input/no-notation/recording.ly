@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 \header {
 
 texidoc = "The @code{Recording_group_engraver} will record events
@@ -13,7 +13,7 @@ theMusic = \context Staff  { c4 d8-. }
 #(define (notice-the-events context lst)
   (map (lambda (x) (display x) (newline))  lst))
 
-listener = \paper {
+listener = \layout {
  \context {
    \Voice
    \type "Recording_group_engraver"

@@ -328,7 +328,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
     r\longa*1/4 r\breve  *1/2
     r1 r2 r4 r8 r16 r32 r64 r64 
   }
-  \paper {
+  \layout {
     raggedright = ##t
     \context {
       \Staff
@@ -1134,7 +1134,7 @@ measure is subdivided in 2, 2, 2 and 3.  This is passed to
     #(set-time-signature 5 8 '(3 2))
     a4. g4
   }
-  \paper {
+  \layout {
     \context {
       \Staff
       \consists "Measure_grouping_engraver"
@@ -2113,7 +2113,7 @@ Metronome settings can be entered as follows
 @end example
 
 In the MIDI output, they are interpreted as a tempo change.  In the
-paper output, a metronome marking is printed
+layout output, a metronome marking is printed
 @cindex @code{\tempo}
 @lilypond[quote,raggedright,verbatim,fragment]
   \tempo 8.=120 c''1
@@ -2215,7 +2215,7 @@ to @internalsref{Staff} context.  A bracket is started with
     c4\startGroup
     c4\stopGroup\stopGroup
   }
-  \paper {
+  \layout {
     \context {
       \Staff \consists "Horizontal_bracket_engraver"
 }}}
@@ -2900,7 +2900,7 @@ percent repeats).  For example,
 @example
   \score @{
       @var{..music..}
-      \paper @{ .. @}
+      \layout @{ .. @}
   @} 
   \score @{
       \unfoldrepeats @var{..music..}
@@ -3163,7 +3163,7 @@ mus = \drummode  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
     } \mus
         \context Lyrics \nam 
     >>
-    \paper {
+    \layout {
     %% need to do this, because of indented @itemize
     linewidth= 9 \cm 
     \context { \Score
@@ -4195,7 +4195,7 @@ minimum and maximum pitch.  To print such ambits, add the
 for example,
 
 @example
-  \paper @{
+  \layout @{
     \context @{
       \Voice
       \consists Ambitus_engraver
@@ -4206,7 +4206,7 @@ for example,
 This results in the following output
 
 @lilypond[quote,raggedright]
-\paper {
+\layout {
   \context {
     \Staff
     \consists Ambitus_engraver
@@ -5039,7 +5039,7 @@ names, for example
 @end lilypond
 
 For longer instrument names, it may be useful to increase the
-@code{indent} setting in the @code{\paper} block.
+@code{indent} setting in the @code{\layout} block.
 
 @seealso
 
@@ -5382,7 +5382,7 @@ in this example disappears in the second line
 
 
 @lilypond[quote,raggedright,verbatim]
-\paper {
+\layout {
   \context { \RemoveEmptyStaffContext }
 }
 
@@ -5796,7 +5796,7 @@ select ancient accidentals.   Supported styles are
     >
   }
 }
-\paper {
+\layout {
   interscoreline = 1
   \context { \Score \remove "Bar_number_engraver" }
   \context { \Staff
@@ -6084,7 +6084,7 @@ command, @code{n} and @code{m} have to be chosen according to the
 following table
 
 @lilypond[quote,raggedright]
-\paper {
+\layout {
   indent = 0.0
   \context { \Staff
     \remove Staff_symbol_engraver
@@ -6230,11 +6230,11 @@ like the @emph{editio vaticana}.  There are different custos glyphs
 used in different flavors of notational style.
 
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
-@internalsref{Staff} context when declaring the @code{\paper} block,
+@internalsref{Staff} context when declaring the @code{\layout} block,
 as shown in the following example
 
 @example
-\paper @{
+\layout @{
   \context @{
     \Staff
     \consists Custos_engraver
@@ -6253,7 +6253,7 @@ The result looks like this
   \break
   g'
 }
-\paper {
+\layout {
   \context { \Staff \consists Custos_engraver }
   }
 }
@@ -6401,13 +6401,13 @@ Augmentum dots within ligatures are not handled correctly.
 
 There is limited support for white mensural ligatures.  
 
-To engrave white mensural ligatures, in the paper block the
+To engrave white mensural ligatures, in the layout block the
 @internalsref{Mensural_ligature_engraver} has to be put into the
 @internalsref{Voice} context, and remove the
 @internalsref{Ligature_bracket_engraver}
 
 @example
-\paper @{
+\layout @{
   \context @{
     \Voice
     \remove Ligature_bracket_engraver
@@ -6448,7 +6448,7 @@ For example,
     s4
     \[ e1 f1 a\breve g\longa \]
   }
-  \paper {
+  \layout {
     \context {
       \Voice
       \remove Ligature_bracket_engraver
@@ -6505,7 +6505,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @b{Figurae@*Liquescentes Auctae} @tab
 @b{Figurae@*Liquescentes Deminutae}
 
-@c TODO: \paper block is identical in all of the below examples.
+@c TODO: \layout block is identical in all of the below examples.
 @c Therefore, it should somehow be included rather than duplicated all
 @c the time. --jr
 
@@ -6530,7 +6530,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \inclinatum b \]
     \noBreak s^\markup {"b"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.5\cm]
@@ -6549,7 +6549,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \inclinatum \auctum b \]
     \noBreak s^\markup {"e"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6560,7 +6560,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \inclinatum \deminutum b \]
     \noBreak s^\markup {"f"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6574,7 +6574,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \virga b \]
     \noBreak s^\markup {"g"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @tab
@@ -6590,7 +6590,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \stropha b \]
     \noBreak s^\markup {"h"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6601,7 +6601,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \stropha \auctum b \]
     \noBreak s^\markup {"i"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 
@@ -6616,7 +6616,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \oriscus b \]
     \noBreak s^\markup {"j"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @tab
@@ -6632,7 +6632,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ b \flexa g \]
     s^\markup {"k"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
@@ -6647,7 +6647,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ b \flexa \auctum \ascendens g \]
     \noBreak s^\markup {"m"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6658,7 +6658,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ b \flexa \deminutum g \]
     s^\markup {"n"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6672,7 +6672,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes b \]
     s^\markup {"o"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
@@ -6687,7 +6687,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes \auctum \ascendens b \]
     \noBreak s^\markup {"q"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6698,7 +6698,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes \deminutum b \]
     s^\markup {"r"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6712,7 +6712,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \oriscus g \pes \virga b \]
     s^\markup {"s"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6723,7 +6723,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \oriscus g \pes \auctum \descendens b \]
     s^\markup {"t"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 
@@ -6738,7 +6738,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \quilisma g \pes b \]
     s^\markup {"u"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6749,7 +6749,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \quilisma g \pes \auctum \descendens b \]
     s^\markup {"v"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 
@@ -6764,7 +6764,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \deminutum g \pes b \]
     s^\markup {"w"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6775,7 +6775,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \deminutum g \pes \auctum \descendens b \]
     s^\markup {"x"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 
@@ -6790,7 +6790,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \pes b \flexa g \]
     s^\markup {"y"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6801,7 +6801,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \pes b \flexa \auctum \descendens g \]
     s^\markup {"z"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6812,7 +6812,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \pes b \flexa \deminutum g \]
     s^\markup {"A"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6826,7 +6826,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \deminutum a \pes b \flexa g \]
     s^\markup {"B"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6837,7 +6837,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \deminutum a \pes b \flexa \auctum \descendens g \]
     s^\markup {"C"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6848,7 +6848,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \deminutum a \pes b \flexa \deminutum g \]
     s^\markup {"D"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6862,7 +6862,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \flexa g \pes b \]
     s^\markup {"E"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6873,7 +6873,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \flexa g \pes \auctum \descendens b \]
     s^\markup {"F"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6884,7 +6884,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ a \flexa g \pes \deminutum b \]
     s^\markup {"G"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6898,7 +6898,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \virga b \inclinatum a \inclinatum g \]
     s^\markup {"H"}
   }
-  \paper { \neumeDemoPaper }
+  \layout { \neumeDemoLayout }
 }
 @end lilypond
 @tab
@@ -6910,7 +6910,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \virga b \inclinatum a \inclinatum \auctum g \]
     s^\markup {"I"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6921,7 +6921,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \virga b \inclinatum a \inclinatum \deminutum g \]
     s^\markup {"J"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6935,7 +6935,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes a \virga b \]
     s^\markup {"K"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6946,7 +6946,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes a \pes \auctum \descendens b \]
     s^\markup {"L"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6957,7 +6957,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \pes a \pes \deminutum b \]
     s^\markup {"M"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 
 @item
@@ -6971,7 +6971,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \oriscus a \pes \virga b \]
     s^\markup {"N"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
@@ -6982,7 +6982,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ g \oriscus a \pes \auctum \descendens b \]
     s^\markup {"O"}
   }
-\paper { \neumeDemoPaper }}
+\layout { \neumeDemoLayout }}
 @end lilypond
 @tab
 
@@ -6997,7 +6997,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
     \[ \stropha b \stropha b \stropha a \]
     s^\markup {"P"}
   }
-  \paper { \neumeDemoPaper }
+  \layout { \neumeDemoLayout }
 }
 @end lilypond
 @tab
@@ -7477,7 +7477,7 @@ moving the @internalsref{Timing_engraver} to @internalsref{Staff}
 context.
 
 @verbatim
-\paper{
+\layout{
   \context{ \Score \remove "Timing_engraver" }
   \context{ \Staff \consists "Timing_engraver" }
 }       
@@ -7503,7 +7503,7 @@ Now, each staff has its own time signature.
 @end verbatim
 
 @lilypond[quote,raggedright]
-\paper{
+\layout{
   \context{ \Score \remove "Timing_engraver" }
   \context{ \Staff \consists "Timing_engraver" }
 }       
@@ -7689,7 +7689,7 @@ teaching tools in addition to great musical scores.
 
 @menu
 * Balloon help::                
-* Blank music paper::           
+* Blank music layout::           
 * Hidden notes::     
 * Easy Notation note heads::    
 @end menu
@@ -7729,10 +7729,10 @@ Examples: @inputfileref{input/regression,balloon.ly}.
 
 
 
-@node Blank music paper
-@subsection Blank music paper
+@node Blank music layout
+@subsection Blank music layout
 
-A blank music paper can be produced also by using invisible notes, and
+A blank music layout can be produced also by using invisible notes, and
 removing @code{Bar_number_engraver}.
 
 

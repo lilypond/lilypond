@@ -12,7 +12,7 @@ The bracket direction is determined by the dominating stem direction.
 }
 
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
      \relative c' {
@@ -22,7 +22,7 @@ The bracket direction is determined by the dominating stem direction.
 	\times 4/5 { bes'''4 bes,, b c cis }
 	\times 4/5 { a''4 b b c cis }
     }
-    \paper {
+    \layout {
 	raggedright = ##t 
     }
 }

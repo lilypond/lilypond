@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     texidoc = "Note heads are flipped on the stem to prevent collisions.
@@ -8,7 +8,7 @@ It also works for whole heads that have invisible stems.
 
 }
 
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {  \relative c''
 	 \context Voice {

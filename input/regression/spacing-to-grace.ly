@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc ="Space from a normal note (or barline) to a grace note is
@@ -17,6 +17,6 @@
 		  }  
 
     }
-    \paper { raggedright = ##t}
+    \layout { raggedright = ##t}
     }
 

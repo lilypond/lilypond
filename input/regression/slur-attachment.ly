@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -15,7 +15,7 @@ with beams.
 	        a8 a(a4)
 		a4( a8) a
 	}
-	\paper{ 
+	\layout{ 
 		indent = 0.0
 		linewidth = 100.\mm
 	}

@@ -20,13 +20,13 @@
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 4)
 SCM
-Text_interface::interpret_string (SCM paper_smob,
+Text_interface::interpret_string (SCM layout_smob,
 			     SCM props, SCM input_encoding, SCM markup)
 {
-  Output_def *paper = unsmob_output_def (paper_smob);
+  Output_def *layout = unsmob_output_def (layout_smob);
   
-  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
-		   __FUNCTION__, "Paper definition");
+  SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
+		   __FUNCTION__, "Layout definition");
   SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
 		   __FUNCTION__, "string");
   SCM_ASSERT_TYPE (input_encoding == SCM_EOL || scm_is_symbol (input_encoding),
@@ -35,14 +35,14 @@ Text_interface::interpret_string (SCM paper_smob,
   String str = ly_scm2string (markup);
   if (!scm_is_symbol (input_encoding))
     {
-      SCM enc = paper->lookup_variable (ly_symbol2scm ("inputencoding"));
+      SCM enc = layout->lookup_variable (ly_symbol2scm ("inputencoding"));
       if (scm_is_string (enc))
 	input_encoding = scm_string_to_symbol (enc);
       else if (scm_is_symbol (enc))
 	input_encoding = enc;
     }
   
-  Font_metric *fm = select_encoded_font (paper, props, input_encoding);
+  Font_metric *fm = select_encoded_font (layout, props, input_encoding);
 
   SCM lst = SCM_EOL;      
   Box b;
@@ -67,10 +67,10 @@ Text_interface::interpret_string (SCM paper_smob,
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3)
 SCM
-Text_interface::interpret_markup (SCM paper_smob, SCM props, SCM markup)
+Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))
-    return interpret_string (paper_smob, props, SCM_EOL, markup);
+    return interpret_string (layout_smob, props, SCM_EOL, markup);
   else if (scm_is_pair (markup))
     {
       SCM func = scm_car (markup);
@@ -78,7 +78,7 @@ Text_interface::interpret_markup (SCM paper_smob, SCM props, SCM markup)
       if (!markup_p (markup))
 	programming_error ("Markup head has no markup signature.");
       
-      return scm_apply_2 (func, paper_smob, props, args);
+      return scm_apply_2 (func, layout_smob, props, args);
     }
   return SCM_EOL;
 }
@@ -91,7 +91,7 @@ Text_interface::print (SCM grob)
   
   SCM t = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-  return interpret_markup (me->get_paper ()->self_scm (), chain, t);
+  return interpret_markup (me->get_layout ()->self_scm (), chain, t);
 }
 
 /* Ugh. Duplicated from Scheme.  */

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -31,7 +31,7 @@ flats in a sixth should be staggered.  "
 	<bes! c d f >    
 	<bes,! c d f >
     }
-    \paper {
+    \layout {
 	raggedright = ##t
     }
 

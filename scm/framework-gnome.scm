@@ -99,9 +99,9 @@
 
 
 (define (gnome-main book)
-  (let* ((book-paper (ly:paper-book-book-paper book))
-	 (hsize (ly:output-def-lookup book-paper 'hsize))
-	 (vsize (ly:output-def-lookup book-paper 'vsize))
+  (let* ((paper (ly:paper-book-paper book))
+	 (hsize (ly:output-def-lookup paper 'hsize))
+	 (vsize (ly:output-def-lookup paper 'vsize))
 	 (page-width (inexact->exact (ceiling (* OUTPUT-SCALE hsize))))
 	 (page-height (inexact->exact (ceiling (* OUTPUT-SCALE vsize))))
 	 ;;(page-width (inexact->exact (ceiling hsize)))

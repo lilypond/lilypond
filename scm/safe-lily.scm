@@ -49,7 +49,7 @@
      ly:grob-alist-chain
      ly:grob-extent
      ly:grob-original
-     ly:grob-paper
+     ly:grob-layout
      ly:grob-parent
      ly:grob-pq-less?
      ly:grob-property
@@ -96,7 +96,7 @@
      ly:output-def-scope
      ly:output-description
      ly:paper-book?
-     ly:paper-def?
+     ly:layout-def?
      ly:paper-get-font
      ly:paper-get-number
      ly:paper-system-break-penalty
@@ -149,9 +149,9 @@
      set-global-staff-size
 
      ;; FIXME: cannot change staff size in --safe-mode
-     ;;$defaultbookpaper
-     ;;$defaultmidi
      ;;$defaultpaper
+     ;;$defaultmidi
+     ;;$defaultlayout
 
      ;; need these for parsing init files:
      ;; todo: should have a macro define-safe-public

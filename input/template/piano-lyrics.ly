@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 
 \header {
   texidoc ="Lyrics between two staffs."
@@ -27,7 +27,7 @@ text = \lyricmode {
       \lower
     >>  
   >>
-  \paper {
+  \layout {
     \context {
       \GrandStaff
       \accepts "Lyrics"

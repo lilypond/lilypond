@@ -11,18 +11,18 @@
 ;;     syntax, description and example. 
 
 
-(def-markup-command (stencil paper props stil) (ly:stencil?)
+(def-markup-command (stencil layout props stil) (ly:stencil?)
   "Stencil as markup"
   stil)
 
 
-(def-markup-command (score paper props score) (ly:score?)
+(def-markup-command (score layout props score) (ly:score?)
   (let*
-      ((systems (ly:score-embedded-format score paper)))
+      ((systems (ly:score-embedded-format score layout)))
 
     (if (= 0 (vector-length systems))
 	(begin
-	  (ly:warn "No systems found in \\score markup. Did you forget \\paper?")
+	  (ly:warn "No systems found in \\score markup. Did you forget \\layout?")
 	  empty-markup)
 	(begin
 	  (let*
@@ -31,15 +31,15 @@
 	    (ly:stencil-align-to! stencil Y CENTER)
 	    stencil)))))
 
-(def-markup-command (simple paper props str) (string?)
+(def-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
-    (interpret-markup paper props str))
+    (interpret-markup layout props str))
 
-(def-markup-command (encoded-simple paper props sym str) (symbol? string?)
+(def-markup-command (encoded-simple layout props sym str) (symbol? string?)
   "A text string, encoded with encoding @var{sym}. See
 @usermanref{Text encoding} for more information."
-  (Text_interface::interpret_string paper
+  (Text_interface::interpret_string layout
 			       props sym str))
 
 
@@ -51,7 +51,7 @@
   (make-simple-markup ""))
 
 
-(def-markup-command (postscript paper props str) (string?)
+(def-markup-command (postscript layout props str) (string?)
 
   "This inserts @var{str} directly into the output as a PostScript
 command string.  Due to technicalities of the output backends,
@@ -86,15 +86,15 @@ gsave /ecrm10 findfont
    (list 'embedded-ps str)
    '(0 . 0) '(0 . 0)  ))
 
-;;(def-markup-command (fill-line paper props line-width markups)
+;;(def-markup-command (fill-line layout props line-width markups)
 ;;  (number? markup-list?)
 ;; no parser tag -- should make number? markuk-list? thingy
-(def-markup-command (fill-line paper props markups)
+(def-markup-command (fill-line layout props markups)
   (markup-list?)
   "Put @var{markups} in a horizontal line of width @var{line-width}.
    The markups are spaced/flushed to fill the entire line."
 
-  (let* ((stencils (map (lambda (x) (interpret-markup paper props x))
+  (let* ((stencils (map (lambda (x) (interpret-markup layout props x))
 			markups))
 	 (text-width (apply + (map interval-length
 				   (map (lambda (x)
@@ -108,7 +108,7 @@ gsave /ecrm10 findfont
 			(/ (- line-width text-width)
 			   (if (= word-count 1) 2 (- word-count 1)))))
 	(line-stencils (if (= word-count 1)
-			   (map (lambda (x) (interpret-markup paper props x))
+			   (map (lambda (x) (interpret-markup layout props x))
 				(list (make-simple-markup "")
 				      (make-stencil-markup (car stencils))
 				      (make-simple-markup "")))
@@ -116,33 +116,33 @@ gsave /ecrm10 findfont
     (stack-stencil-line fill-space line-stencils)))
   
 (define (font-markup qualifier value)
-  (lambda (paper props arg)
-    (interpret-markup paper
+  (lambda (layout props arg)
+    (interpret-markup layout
 		      (prepend-alist-chain qualifier value props)
                       arg)))
 
-(def-markup-command (line paper props args) (markup-list?)
+(def-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (stack-stencil-line
    (chain-assoc-get 'word-space props)
-   (map (lambda (m) (interpret-markup paper props m)) args)))
+   (map (lambda (m) (interpret-markup layout props m)) args)))
 
-(def-markup-command (combine paper props m1 m2) (markup? markup?)
+(def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (let*
-      ((s1 (interpret-markup paper props m1))
-       (s2 (interpret-markup paper props m2)))
+      ((s1 (interpret-markup layout props m1))
+       (s2 (interpret-markup layout props m2)))
 	     
     (ly:stencil-add s1 s2)))
 
-(def-markup-command (finger paper props arg) (markup?)
+(def-markup-command (finger layout props arg) (markup?)
   "Set the argument as small numbers."
-  (interpret-markup paper
+  (interpret-markup layout
                     (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
 
-(def-markup-command (fontsize paper props mag arg) (number? markup?)
+(def-markup-command (fontsize layout props mag arg) (number? markup?)
   "This sets the relative font size, e.g.
 @example
 A \\fontsize #2 @{ B C @} D
@@ -152,11 +152,11 @@ A \\fontsize #2 @{ B C @} D
 This will enlarge the B and the C by two steps.
 "
   (interpret-markup
-   paper 
+   layout 
    (prepend-alist-chain 'font-size mag props)
    arg))
 
-(def-markup-command (magnify paper props sz arg) (number? markup?)
+(def-markup-command (magnify layout props sz arg) (number? markup?)
   "This sets the font magnification for the its argument. In the following
 example, the middle A will be 10% larger:
 @example
@@ -167,124 +167,124 @@ Note: magnification only works if a font-name is explicitly selected.
 Use @code{\\fontsize} otherwise."
 
   (interpret-markup
-   paper 
+   layout 
    (prepend-alist-chain 'font-magnification sz props)
    arg))
 
-(def-markup-command (bold paper props arg) (markup?)
+(def-markup-command (bold layout props arg) (markup?)
   "Switch to bold font-series"
-  (interpret-markup paper (prepend-alist-chain 'font-series 'bold props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-series 'bold props) arg))
 
-(def-markup-command (sans paper props arg) (markup?)
+(def-markup-command (sans layout props arg) (markup?)
   "Switch to the sans serif family"
-  (interpret-markup paper (prepend-alist-chain 'font-family 'sans props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-family 'sans props) arg))
 
-(def-markup-command (number paper props arg) (markup?)
+(def-markup-command (number layout props arg) (markup?)
   "Set font family to @code{number}, which yields the font used for
 time signatures and fingerings.  This font only contains numbers and
 some punctuation. It doesn't have any letters.  "
-  (interpret-markup paper (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
 
-(def-markup-command (roman paper props arg) (markup?)
+(def-markup-command (roman layout props arg) (markup?)
   "Set font family to @code{roman}."
-  (interpret-markup paper (prepend-alist-chain 'font-family 'roman props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-family 'roman props) arg))
 
-(def-markup-command (huge paper props arg) (markup?)
+(def-markup-command (huge layout props arg) (markup?)
   "Set font size to +2."
-  (interpret-markup paper (prepend-alist-chain 'font-size 2 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size 2 props) arg))
 
-(def-markup-command (large paper props arg) (markup?)
+(def-markup-command (large layout props arg) (markup?)
   "Set font size to +1."
-  (interpret-markup paper (prepend-alist-chain 'font-size 1 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size 1 props) arg))
 
-(def-markup-command (normalsize paper props arg) (markup?)
+(def-markup-command (normalsize layout props arg) (markup?)
   "Set font size to default."
-  (interpret-markup paper (prepend-alist-chain 'font-size 0 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size 0 props) arg))
 
-(def-markup-command (small paper props arg) (markup?)
+(def-markup-command (small layout props arg) (markup?)
   "Set font size to -1."
-  (interpret-markup paper (prepend-alist-chain 'font-size -1 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size -1 props) arg))
 
-(def-markup-command (tiny paper props arg) (markup?)
+(def-markup-command (tiny layout props arg) (markup?)
   "Set font size to -2."
-  (interpret-markup paper (prepend-alist-chain 'font-size -2 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size -2 props) arg))
 
-(def-markup-command (teeny paper props arg) (markup?)
+(def-markup-command (teeny layout props arg) (markup?)
   "Set font size to -3."
-  (interpret-markup paper (prepend-alist-chain 'font-size -3 props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-size -3 props) arg))
 
-(def-markup-command (caps paper props arg) (markup?)
+(def-markup-command (caps layout props arg) (markup?)
   "Set @code{font-shape} to @code{caps}."
-  (interpret-markup paper (prepend-alist-chain 'font-shape 'caps props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
-;(def-markup-command (latin-i paper props arg) (markup?)
+;(def-markup-command (latin-i layout props arg) (markup?)
 ;  "TEST latin1 encoding."
-;  (interpret-markup paper (prepend-alist-chain 'font-shape 'latin1 props) arg))
+;  (interpret-markup layout (prepend-alist-chain 'font-shape 'latin1 props) arg))
 
-(def-markup-command (dynamic paper props arg) (markup?)
+(def-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
 @b{z}, @b{p}, and @b{r}.  When producing phrases, like ``pi@`{u} @b{f}'', the
 normal words (like ``pi@`{u}'') should be done in a different font.  The
 recommend font for this is bold and italic"
   (interpret-markup
-   paper (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
+   layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
-(def-markup-command (italic paper props arg) (markup?)
+(def-markup-command (italic layout props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}. "
-  (interpret-markup paper (prepend-alist-chain 'font-shape 'italic props) arg))
+  (interpret-markup layout (prepend-alist-chain 'font-shape 'italic props) arg))
 
-(def-markup-command (typewriter paper props arg) (markup?)
+(def-markup-command (typewriter layout props arg) (markup?)
   "Use @code{font-family} typewriter for @var{arg}."
   (interpret-markup
-   paper (prepend-alist-chain 'font-family 'typewriter props) arg))
+   layout (prepend-alist-chain 'font-family 'typewriter props) arg))
 
-(def-markup-command (upright paper props arg) (markup?)
+(def-markup-command (upright layout props arg) (markup?)
   "Set font shape to @code{upright}."
   (interpret-markup
-   paper (prepend-alist-chain 'font-shape 'upright props) arg))
+   layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
-(def-markup-command (doublesharp paper props) ()
+(def-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol."
 
-  (interpret-markup paper props (markup #:musicglyph "accidentals-4")))
-(def-markup-command (sesquisharp paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals-4")))
+(def-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol."
-  (interpret-markup paper props (markup #:musicglyph "accidentals-3")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals-3")))
 
-(def-markup-command (sharp paper props) ()
+(def-markup-command (sharp layout props) ()
   "Draw a sharp symbol."
-  (interpret-markup paper props (markup #:musicglyph "accidentals-2")))
-(def-markup-command (semisharp paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals-2")))
+(def-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol."
-  (interpret-markup paper props (markup #:musicglyph "accidentals-1")))
-(def-markup-command (natural paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals-1")))
+(def-markup-command (natural layout props) ()
   "Draw a natural symbol."
 
-  (interpret-markup paper props (markup #:musicglyph "accidentals-0")))
-(def-markup-command (semiflat paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals-0")))
+(def-markup-command (semiflat layout props) ()
   "Draw a semiflat."
-  (interpret-markup paper props (markup #:musicglyph "accidentals--1")))
-(def-markup-command (flat paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals--1")))
+(def-markup-command (flat layout props) ()
   "Draw a flat symbol."
   
-  (interpret-markup paper props (markup #:musicglyph "accidentals--2")))
-(def-markup-command (sesquiflat paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals--2")))
+(def-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol."
   
-  (interpret-markup paper props (markup #:musicglyph "accidentals--3")))
-(def-markup-command (doubleflat paper props) ()
+  (interpret-markup layout props (markup #:musicglyph "accidentals--3")))
+(def-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol."
 
-  (interpret-markup paper props (markup #:musicglyph "accidentals--4")))
+  (interpret-markup layout props (markup #:musicglyph "accidentals--4")))
 
 
-(def-markup-command (column paper props args) (markup-list?)
+(def-markup-command (column layout props args) (markup-list?)
   "Stack the markups in @var{args} vertically."
   (stack-lines
    -1 0.0 (chain-assoc-get 'baseline-skip props)
-   (map (lambda (m) (interpret-markup paper props m)) args)))
+   (map (lambda (m) (interpret-markup layout props m)) args)))
 
-(def-markup-command (dir-column paper props args) (markup-list?)
+(def-markup-command (dir-column layout props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting
 of the @code{#'direction} layout property."
   (let* ((dir (chain-assoc-get 'direction props)))
@@ -292,72 +292,72 @@ of the @code{#'direction} layout property."
      (if (number? dir) dir -1)
      0.0
       (chain-assoc-get 'baseline-skip props)
-     (map (lambda (x) (interpret-markup paper props x)) args))))
+     (map (lambda (x) (interpret-markup layout props x)) args))))
 
-(def-markup-command (center-align paper props args) (markup-list?)
+(def-markup-command (center-align layout props args) (markup-list?)
   "Put @code{args} in a centered column. "
-  (let* ((mols (map (lambda (x) (interpret-markup paper props x)) args))
+  (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) mols)))
 
-(def-markup-command (vcenter paper props arg) (markup?)
+(def-markup-command (vcenter layout props arg) (markup?)
   "Align @code{arg} to its center. "
-  (let* ((mol (interpret-markup paper props arg)))
+  (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-align-to! mol Y CENTER)
     mol))
 
-(def-markup-command (right-align paper props arg) (markup?)
-  (let* ((m (interpret-markup paper props arg)))
+(def-markup-command (right-align layout props arg) (markup?)
+  (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-align-to! m X RIGHT)
     m))
 
-(def-markup-command (left-align paper props arg) (markup?)
+(def-markup-command (left-align layout props arg) (markup?)
   "Align @var{arg} on its left edge. "
   
-  (let* ((m (interpret-markup paper props arg)))
+  (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-align-to! m X LEFT)
     m))
 
-(def-markup-command (general-align paper props axis dir arg)  (integer? number? markup?)
+(def-markup-command (general-align layout props axis dir arg)  (integer? number? markup?)
   "Align @var{arg} in @var{axis} direction to the @var{dir} side."
-  (let* ((m (interpret-markup paper props arg)))
+  (let* ((m (interpret-markup layout props arg)))
 
     (ly:stencil-align-to! m axis dir)
     m
   ))
 
-(def-markup-command (halign paper props dir arg) (number? markup?)
+(def-markup-command (halign layout props dir arg) (number? markup?)
   "Set horizontal alignment. If @var{dir} is @code{-1}, then it is
 left-aligned, while @code{+1} is right. Values in between interpolate
 alignment accordingly."
 
   
-  (let* ((m (interpret-markup paper props arg)))
+  (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-align-to! m X dir)
     m))
 
-(def-markup-command (musicglyph paper props glyph-name) (string?)
+(def-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
 #\"accidentals-0\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 "
   (ly:find-glyph-by-name
-   (ly:paper-get-font paper (cons '((font-encoding . fetaMusic))
+   (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
                                   props))
    glyph-name))
 
 
-(def-markup-command (lookup paper props glyph-name) (string?)
+(def-markup-command (lookup layout props glyph-name) (string?)
   "Lookup a glyph by name."
-  (ly:find-glyph-by-name (ly:paper-get-font paper props)
+  (ly:find-glyph-by-name (ly:paper-get-font layout props)
                          glyph-name))
 
-(def-markup-command (char paper props num) (integer?)
+(def-markup-command (char layout props num) (integer?)
   "Produce a single character, e.g. @code{\\char #65} produces the 
 letter 'A'."
-  (ly:get-glyph (ly:paper-get-font paper props) num))
+  (ly:get-glyph (ly:paper-get-font layout props) num))
 
-(def-markup-command (raise paper props amount arg) (number? markup?)
+(def-markup-command (raise layout props amount arg) (number? markup?)
   "
 This  raises  @var{arg}, by the distance @var{amount}.
 A negative @var{amount} indicates lowering:
@@ -376,14 +376,14 @@ positions it next to the staff cancels any shift made with
 and/or @code{extra-offset} properties. "
 
   
-  (ly:stencil-translate-axis (interpret-markup paper props arg)
+  (ly:stencil-translate-axis (interpret-markup layout props arg)
                               amount Y))
 
-(def-markup-command (fraction paper props arg1 arg2) (markup? markup?)
+(def-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."
   
-  (let* ((m1 (interpret-markup paper props arg1))
-         (m2 (interpret-markup paper props arg2)))
+  (let* ((m1 (interpret-markup layout props arg1))
+         (m2 (interpret-markup layout props arg2)))
     (ly:stencil-align-to! m1 X CENTER)
     (ly:stencil-align-to! m2 X CENTER)    
     (let* ((x1 (ly:stencil-extent m1 X))
@@ -400,11 +400,11 @@ and/or @code{extra-offset} properties. "
 
 ;; TODO: better syntax.
 
-(def-markup-command (note-by-number paper props log dot-count dir) (number? number? number?)
+(def-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
   
-  (let* ((font (ly:paper-get-font paper (cons '((font-encoding . fetaMusic)) props)))
+  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
 	 (size (chain-assoc-get 'font-size props 0))
          (stem-length (* (magstep size) (max 3 (- log 1))))
          (head-glyph (ly:find-glyph-by-name
@@ -475,25 +475,25 @@ and/or @code{extra-offset} properties. "
                 (if dots (string-length dots) 0)))
         (error "This is not a valid duration string:" duration-string))))
 
-(def-markup-command (note paper props duration dir) (string? number?)
+(def-markup-command (note layout props duration dir) (string? number?)
   "This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots. For
 example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
 a shortened down stem."
   
   (let ((parsed (parse-simple-duration duration)))
-    (note-by-number-markup paper props (car parsed) (cadr parsed) dir)))
+    (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
 
-(def-markup-command (normal-size-super paper props arg) (markup?)
+(def-markup-command (normal-size-super layout props arg) (markup?)
   "Set @var{arg} in superscript with a normal font size."
   
   (ly:stencil-translate-axis (interpret-markup
-                               paper
+                               layout
                                props arg)
                               (* 0.5  (chain-assoc-get 'baseline-skip props))
                               Y))
 
-(def-markup-command (super paper props arg) (markup?)
+(def-markup-command (super layout props arg) (markup?)
   "
 @cindex raising text
 @cindex lowering text
@@ -514,13 +514,13 @@ Raising and lowering texts can be done with @code{\\super} and
   
   (ly:stencil-translate-axis
    (interpret-markup
-    paper
+    layout
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
     arg)
    (* 0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (translate paper props offset arg) (number-pair? markup?)
+(def-markup-command (translate layout props offset arg) (number-pair? markup?)
   "This translates an object. Its first argument is a cons of numbers
 @example
 A \\translate #(cons 2 -3) @{ B C @} D
@@ -532,42 +532,42 @@ that.
 
 "
   
-  (ly:stencil-translate (interpret-markup  paper props arg)
+  (ly:stencil-translate (interpret-markup  layout props arg)
                          offset))
 
-(def-markup-command (sub paper props arg) (markup?)
+(def-markup-command (sub layout props arg) (markup?)
   "Set @var{arg} in subscript."
   
   (ly:stencil-translate-axis
    (interpret-markup
-    paper
+    layout
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
     arg)
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (normal-size-sub paper props arg) (markup?)
+(def-markup-command (normal-size-sub layout props arg) (markup?)
   "Set @var{arg} in subscript, in a normal font size."
 
   (ly:stencil-translate-axis
-   (interpret-markup paper props arg)
+   (interpret-markup layout props arg)
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (hbracket paper props arg) (markup?)
+(def-markup-command (hbracket layout props arg) (markup?)
   "Draw horizontal brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
-        (m (interpret-markup paper props arg)))
+        (m (interpret-markup layout props arg)))
     (bracketify-stencil m X th (* 2.5 th) th)))
 
-(def-markup-command (bracket paper props arg) (markup?)
+(def-markup-command (bracket layout props arg) (markup?)
   "Draw vertical brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
-        (m (interpret-markup paper props arg)))
+        (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
 
 ;; todo: fix negative space
-(def-markup-command (hspace paper props amount) (number?)
+(def-markup-command (hspace layout props amount) (number?)
   "This produces a invisible object taking horizontal space.
 @example 
 \\markup @{ A \\hspace #2.0 B @} 
@@ -579,7 +579,7 @@ normally inserted before elements on a line.
       (ly:make-stencil "" (cons 0 amount) '(-1 . 1) )
       (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
 
-(def-markup-command (override paper props new-prop arg) (pair? markup?)
+(def-markup-command (override layout props new-prop arg) (pair? markup?)
   "Add the first argument in to the property list.  Properties may be
 any sort of property supported by @internalsref{font-interface} and
 @internalsref{text-interface}, for example
@@ -589,40 +589,40 @@ any sort of property supported by @internalsref{font-interface} and
 @end verbatim
 
 "
-  (interpret-markup paper (cons (list new-prop) props) arg))
+  (interpret-markup layout (cons (list new-prop) props) arg))
 
-(def-markup-command (smaller paper props arg) (markup?)
+(def-markup-command (smaller layout props arg) (markup?)
   "Decrease the font size relative to current setting"
   (let* ((fs (chain-assoc-get 'font-size props 0))
 	 (entry (cons 'font-size (- fs 1))))
-    (interpret-markup paper (cons (list entry) props) arg)))
+    (interpret-markup layout (cons (list entry) props) arg)))
 
 
-(def-markup-command (bigger paper props arg) (markup?)
+(def-markup-command (bigger layout props arg) (markup?)
   "Increase the font size relative to current setting"
   (let* ((fs (chain-assoc-get 'font-size props 0))
          (entry (cons 'font-size (+ fs 1))))
-    (interpret-markup paper (cons (list entry) props) arg)))
+    (interpret-markup layout (cons (list entry) props) arg)))
 
 (def-markup-command larger (markup?)
   bigger-markup)
 
 
-(def-markup-command (box paper props arg) (markup?)
+(def-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness} and
 @code{box-padding} properties to determine line thickness and padding
 around the markup."
   (let ((th (chain-assoc-get 'thickness props  0.1))
         (pad (chain-assoc-get 'box-padding props 0.2))
-        (m (interpret-markup paper props arg)))
+        (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
 
 ;FIXME: is this working? 
-(def-markup-command (strut paper props) ()
+(def-markup-command (strut layout props) ()
   
   "Create a box of the same height as the space in the current font."
   
-  (let ((m (Text_interface::interpret_markup paper props " ")))
+  (let ((m (Text_interface::interpret_markup layout props " ")))
     (ly:stencil-set-extent! m X '(1000 . -1000))
     m))
 
@@ -647,16 +647,16 @@ around the markup."
       (make-string 1 (vector-ref number->mark-letter-vector n)))))
 
 
-(def-markup-command (markletter paper props num) (integer?)
+(def-markup-command (markletter layout props num) (integer?)
    "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
  
-   (Text_interface::interpret_markup paper props (number->markletter-string num)))
+   (Text_interface::interpret_markup layout props (number->markletter-string num)))
 
 
 
 
-(def-markup-command (bracketed-y-column paper props indices args)
+(def-markup-command (bracketed-y-column layout props indices args)
   (list? markup-list?)
   "Make a column of the markups in @var{args}, putting brackets around
 the elements marked in @var{indices}, which is a list of numbers."
@@ -718,7 +718,7 @@ the elements marked in @var{indices}, which is a list of numbers."
       ((stencils
 	(map (lambda (x)
 	       (interpret-markup
-		paper
+		layout
 		props
 		x)) args))
        (leading

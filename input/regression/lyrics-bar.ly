@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -23,7 +23,7 @@ lyrics do not collide with barlines.
 	>>
 	 \new Staff { b1 b1 }
 	>>
-	\paper {
+	\layout {
 		raggedright = ##t
 		\context {
 			\Score

@@ -87,7 +87,7 @@ melody = \relative c' {
 
 \score{
    \new Staff \melody
-   \paper { }
+   \layout { }
    \midi { \tempo 4=60 }
 }
 
@@ -124,7 +124,7 @@ text = \lyricmode {
       }
       \lyricsto "one" \new Lyrics \text
    >>
-   \paper { }
+   \layout { }
    \midi { \tempo 4=60 }
 }
 
@@ -159,7 +159,7 @@ harmonies = \chordmode {
    \context Staff = one \melody
    >>
 
-   \paper{ }
+   \layout{ }
    \midi  { \tempo 4=60}
 }
 
@@ -200,7 +200,7 @@ harmonies = \chordmode {
    }
    \lyricsto "one" \new Lyrics \text
    >>
-   \paper { }
+   \layout { }
    \midi  { \tempo 4=60}
 }
 
@@ -237,7 +237,7 @@ lower = \relative c {
       \context Staff = upper \upper
       \context Staff = lower \lower
    >>  
-   \paper { }  
+   \layout { }  
    \midi { \tempo 4=60 }  
 }
 
@@ -292,7 +292,7 @@ lower = \relative c {
          \context Staff = lower \lower
       >>
    >>
-   \paper {
+   \layout {
       \context { \RemoveEmptyStaffContext }
    }  
    \midi { \tempo 4=60}
@@ -346,7 +346,7 @@ pedal =  {
     >>
     \context Dynamics=pedal \pedal
   >>
-  \paper {
+  \layout {
     \context {
       \type "Engraver_group_engraver"
       \name Dynamics
@@ -437,7 +437,7 @@ cello = \relative c'{
       \new Staff << \global \viola >>
       \new Staff << \global \cello >>
    >>
-   \paper { }
+   \layout { }
    \midi { \tempo 4=60}
 }
 
@@ -511,7 +511,7 @@ bassWords = \lyricmode {
       \context Lyrics = basses \lyricsto basses \bassWords
    >>
 
-   \paper {
+   \layout {
       \context {
          % a little smaller so lyrics can be closer to the staff. 
          \Staff minimumVerticalExtent = #'(-3 . 3) 
@@ -735,7 +735,7 @@ bassusLyrics = \lyricmode {
 	\context Voice = bassusNotes << \global \bassusNotes >>
 	\context Lyrics = bassusLyrics \lyricsto bassusNotes { \bassusLyrics }
     >>
-    \paper {
+    \layout {
 	\context {
 	    \Score
 	    \override BarLine #'transparent = ##t
@@ -1010,7 +1010,7 @@ drumContents = {
                 \new DrumStaff { \drumContents }
         >>
 >>
-        \paper {
+        \layout {
                 \context { \RemoveEmptyStaffContext }
                 \context {
                         \Score
@@ -1108,7 +1108,7 @@ chant = \relative c' {
 }
 \score {
    \chant
-   \paper{ }
+   \layout{ }
    \midi { \tempo 4=60 }
 }
 

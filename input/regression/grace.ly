@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -30,7 +30,7 @@ not set.  Main note scripts do not end up on the grace note.
 	%%\grace  { \set Grace.graceAlignPosition = \right c16} c4
 	c4 \grace  { c16 } c4
 }
-\paper {raggedright = ##t}
+\layout {raggedright = ##t}
 \midi{ }
 }
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.16"
+\version "2.3.22"
 
 one = \relative c{
 	c'' d e f
@@ -15,7 +15,7 @@ two = \relative c{
 		\one
 		\two
 	>>
-	\paper{}
+	\layout{}
 	\midi{}
 }
 

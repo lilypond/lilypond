@@ -2,7 +2,7 @@
     texidoc = "Rests under beams are only moved if necessary."
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 fig =   \relative c' {
     <a c e>8[ r <c e a> r <e a c> r <a c e>]  r |
@@ -30,7 +30,7 @@ fig =   \relative c' {
       >>
   }
 
-  \paper {
+  \layout {
       raggedright = ##t
   }
 }

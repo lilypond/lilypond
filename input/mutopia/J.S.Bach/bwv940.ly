@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.17"
+\version "2.3.22"
 
 %{
  Header for Petites Preludes.
@@ -149,7 +149,7 @@ global = {
 			\context Voice = iv \four
 		>>
 	>>
-	\paper{
+	\layout{
 		linewidth = 17.0 \cm  
 		\context {
 		    \Score

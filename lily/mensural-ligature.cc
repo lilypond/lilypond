@@ -169,7 +169,7 @@ internal_brew_primitive (Grob *me)
       int join_left = scm_to_int (join_left_scm);
       if (!join_left)
 	programming_error (_f ("Mensural_ligature: (join_left == 0)"));
-      Real blotdiameter = (me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter")));
+      Real blotdiameter = (me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter")));
       Interval x_extent = Interval (0, thickness);
       Interval y_extent = (join_left > 0) ?
 	Interval (-join_left * 0.5 * staff_space, 0) :

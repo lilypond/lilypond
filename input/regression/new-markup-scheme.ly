@@ -5,7 +5,7 @@
     texts using a similar syntax as @code{\\markup}."
 
     }
-\version "2.3.17"
+\version "2.3.22"
 \score {
      {
         \fatText
@@ -53,7 +53,7 @@
                              #:smaller #:smaller #:smaller "A")
               #:sub "alike")
     }
-    \paper { 
+    \layout { 
         raggedright = ##t
         indent = #0
         \context {

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     
     texidoc = "The area underneath an (up) slur is minimised to improve the shape. "
@@ -28,7 +28,7 @@ c,(g' c e f d b g)
 a8(a a a a a a a)
 
 }
-\paper{
+\layout{
 indent=0.0\mm
 }
 }

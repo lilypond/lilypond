@@ -7,7 +7,7 @@ large on smaller staves."
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
   <<
@@ -26,7 +26,7 @@ large on smaller staves."
     }
   >>
 
-  \paper {
+  \layout {
     #(paper-set-staff-size 6)
     raggedright = ##t
   }

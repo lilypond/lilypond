@@ -60,7 +60,7 @@ Volta_bracket_interface::print (SCM smob)
     (strcmp (cs,":|")!=0 && strcmp (cs,"|:")!=0 && strcmp (cs,"|.")!=0
      && strcmp (cs,":|:")!=0 && strcmp (cs,".|")!=0);
 
-  Output_def * paper =me->get_paper ();
+  Output_def * layout =me->get_layout ();
   Real half_space = 0.5;
 
   Item * bound = dynamic_cast<Spanner*> (me)->get_bound (LEFT);
@@ -100,7 +100,7 @@ Volta_bracket_interface::print (SCM smob)
     {
       SCM text = me->get_property ("text");
       SCM properties = me->get_property_alist_chain (SCM_EOL);
-      SCM snum  = Text_interface::interpret_markup (paper->self_scm (), properties, text);
+      SCM snum  = Text_interface::interpret_markup (layout->self_scm (), properties, text);
       Stencil num = *unsmob_stencil (snum);
 
       mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()

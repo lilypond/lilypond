@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc ="Polyphonic rhythms and rests do not disturb
@@ -29,6 +29,6 @@ texidoc ="Polyphonic rhythms and rests do not disturb
          }
        >>
     }
-    \paper { raggedright = ##t}
+    \layout { raggedright = ##t}
 }
 

@@ -74,8 +74,8 @@
 
      (if in-which-contexts
 	 (let*
-	     ((paper-alist (ly:output-description $defaultpaper))
-	      (context-description-alist (map cdr paper-alist))
+	     ((layout-alist (ly:output-description $defaultlayout))
+	      (context-description-alist (map cdr layout-alist))
 	      (contexts
 	       (apply append
 		      (map
@@ -261,11 +261,11 @@
 
 (define (all-contexts-doc)
   (let* (
-	 (paper-alist
-	  (sort (ly:output-description $defaultpaper)
+	 (layout-alist
+	  (sort (ly:output-description $defaultlayout)
 		(lambda (x y) (symbol<? (car x) (car y)))))
-	 (names (sort (map symbol->string (map car paper-alist)) string<?))
-	 (contexts (map cdr paper-alist))
+	 (names (sort (map symbol->string (map car layout-alist)) string<?))
+	 (contexts (map cdr layout-alist))
 	 )
 
     (make <texi-node>

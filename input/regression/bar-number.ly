@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -20,7 +20,7 @@ be increased.
       \override Score.BarNumber  #'padding = #3
       c1 c
   }
-  \paper {
+  \layout {
     raggedright = ##t
     \context {
 	\Score

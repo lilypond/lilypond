@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a
@@ -11,7 +11,7 @@ notes and fingerings, but the score has not."
 
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 common =
  \relative c''  {

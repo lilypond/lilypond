@@ -63,7 +63,7 @@ Will not fix it since I'm not sure.
 Stencil
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
-  Real lt =me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness")) ;
+  Real lt =me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness")) ;
   Real w = lt * robust_scm2double (me->get_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
 				   lt);
@@ -170,7 +170,7 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
   SCM fam = scm_cons (ly_symbol2scm ("font-encoding"), ly_symbol2scm ("fetaBraces"));
   
   SCM alist = scm_list_n (fam, SCM_UNDEFINED);
-  fm = select_font (me->get_paper (), scm_list_n (alist, SCM_UNDEFINED));
+  fm = select_font (me->get_layout (), scm_list_n (alist, SCM_UNDEFINED));
   
 
   int lo = 0;

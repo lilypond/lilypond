@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 
@@ -14,5 +14,5 @@
 	
 	\lyricsto "" \new Lyrics \lyricmode { bla bla bla }
     >>
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.22"
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have an effect on MIDI files.
@@ -20,7 +20,7 @@ a\ff
 a\fff
 a\sf
 }
-\paper{ raggedright = ##t }
+\layout{ raggedright = ##t }
 \midi{
 \tempo 1 = 60
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "Custodes may be engraved in various styles."
 }
@@ -23,7 +23,7 @@
 	c'1^"mensural"
 	\break < d' a' f''>1
     }
-    \paper {
+    \layout {
 	\context {
 	    \Staff
 	    \consists Custos_engraver

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -24,7 +24,7 @@ setting the @code{extra-offset} of a grob.
 	    \mark \default
 	    e
 }
-\paper{
+\layout{
 	raggedright = ##t
 }
 }

@@ -86,7 +86,7 @@ public:
   void warning (String) const;
   void programming_error (String) const;
   
-  Output_def *get_paper () const;
+  Output_def *get_layout () const;
   void add_dependency (Grob*);    
   virtual System *get_system () const;
 

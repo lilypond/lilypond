@@ -68,11 +68,11 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 \include "grace-init.ly"
 \include "midi-init.ly"
-\include "book-paper-defaults.ly"
+\include "paper-defaults.ly"
 
-\paper {
-    mm = #(ly:output-def-lookup $defaultbookpaper 'mm)
-    unit = #(ly:output-def-lookup $defaultbookpaper 'unit)
+\layout {
+    mm = #(ly:output-def-lookup $defaultpaper 'mm)
+    unit = #(ly:output-def-lookup $defaultpaper 'unit)
 
     in = #(* 25.4 mm)
     pt = #(/  in 72.27)
@@ -88,7 +88,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 #(set-default-paper-size "a4")
 
 
-partCombineListener = \paper {
+partCombineListener = \layout {
     \context {
 	\Voice
 	\consists Note_heads_engraver

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Also in the nested syntax here, grace notes appear rightly."
 }
@@ -10,7 +10,7 @@ texidoc = "Also in the nested syntax here, grace notes appear rightly."
     >>
     \grace c16 c2. \bar "|."
 }
-  \paper { raggedright = ##t }
+  \layout { raggedright = ##t }
 	 
 }
 

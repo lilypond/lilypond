@@ -253,7 +253,6 @@ or
 %token ALTERNATIVE
 %token BAR
 %token BOOK
-%token BOOKPAPER
 %token CHANGE
 %token CHORDMODIFIERS
 %token CHORDS
@@ -277,6 +276,7 @@ or
 %token HYPHEN
 %token INVALID
 %token KEY
+%token LAYOUT
 %token LYRICS
 %token LYRICMODE
 %token MARK
@@ -394,7 +394,7 @@ or
 %type <music> 	tempo_event
 
 %type <outputdef>	output_def_body output_def_head
-%type <outputdef> output_def book_paper_block 
+%type <outputdef> output_def paper_block 
 
 %type <scm>	Music_list
 %type <scm>	chord_body_elements
@@ -486,8 +486,8 @@ toplevel_expression:
 			id = ly_symbol2scm ("$defaultpaper");
 		else if ($1->c_variable ("is-midi") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultmidi");
-		else if ($1->c_variable ("is-bookpaper") == SCM_BOOL_T)
-			id = ly_symbol2scm ("$defaultbookpaper");
+		else if ($1->c_variable ("is-layout") == SCM_BOOL_T)
+			id = ly_symbol2scm ("$defaultlayout");
 
 		THIS->lexer_->set_identifier (id, od->self_scm ());
 		scm_gc_unprotect_object (od->self_scm ());
@@ -638,17 +638,17 @@ book_block:
 
 /* FIXME:
    * Use 'handlers' like for toplevel-* stuff?
-   * grok \paper and \midi?  */
+   * grok \layout and \midi?  */
 book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
-		$$->bookpaper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ());
-		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
+		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
+		scm_gc_unprotect_object ($$->paper_->self_scm ());
 		$$->header_ = THIS->lexer_->lookup_identifier ("$globalheader"); 
 	}
-	| book_body book_paper_block {
-		$$->bookpaper_ = $2;
+	| book_body paper_block {
+		$$->paper_ = $2;
 		scm_gc_unprotect_object ($2->self_scm ());
 	}
 	| book_body score_block {
@@ -660,7 +660,7 @@ book_body:
 		$$->header_ = $2;
 	}
 	| book_body error {
-		$$->bookpaper_ = 0;
+		$$->paper_ = 0;
 		$$->scores_.clear();
 	}
 	;
@@ -694,9 +694,9 @@ score_body:
 		$$->header_ = $2;
 	}
 	| score_body output_def {
-		if ($2->lookup_variable (ly_symbol2scm ("is-bookpaper")) == SCM_BOOL_T)
+		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 		{
-			THIS->parser_error (_("\\bookpaper cannot be in \\score. Use \\paper instead"));
+			THIS->parser_error (_("\\paper cannot be in \\score. Use \\layout instead"));
 		
 		}
 		else
@@ -715,13 +715,13 @@ score_body:
 	OUTPUT DEF
 */
 
-book_paper_block:
+paper_block:
 	output_def {
 		$$ = $1;
-		if ($$->lookup_variable (ly_symbol2scm ("is-bookpaper")) != SCM_BOOL_T)
+		if ($$->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
 		{
-			THIS->parser_error (_("Need \\bookpaper for bookpaper block."));
-			$$ = get_bookpaper (THIS);
+			THIS->parser_error (_("Need \\paper for paper block."));
+			$$ = get_paper (THIS);
 		}
 	}
 	;
@@ -737,8 +737,8 @@ output_def:
 	;
 
 output_def_head:
-	BOOKPAPER {
-		$$ = get_bookpaper (THIS);
+	PAPER {
+		$$ = get_paper (THIS);
 		$$->input_origin_ = THIS->here_input ();
 		THIS->lexer_->add_scope ($$->scope_);
 	}
@@ -747,8 +747,8 @@ output_def_head:
 		$$ = p;
 		THIS->lexer_->add_scope (p->scope_);
 	}
-	| PAPER 	{
-		Output_def *p = get_paper (THIS);
+	| LAYOUT 	{
+		Output_def *p = get_layout (THIS);
 
 		THIS->lexer_->add_scope (p->scope_);
 		$$ = p;

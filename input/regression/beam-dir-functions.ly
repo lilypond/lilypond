@@ -1,5 +1,5 @@
 % junkme?
-\version "2.3.17"
+\version "2.3.22"
 \header {
   texidoc = "@cindex Beam Dir Functions
 
@@ -21,7 +21,7 @@ own one.
 "
 }
 
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 \score {
   \relative c'' {\time 3/4
     \override Beam  #'dir-function = #beam-dir-majority
@@ -39,7 +39,7 @@ own one.
     \override Beam  #'dir-function = #beam-dir-median
       c[ c g] 
   }
-\paper{raggedright = ##t}
+\layout{raggedright = ##t}
 }
 
 %% Local variables:

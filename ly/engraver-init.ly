@@ -398,7 +398,7 @@ AncientRemoveEmptyStaffContext = \context {
     You cannot explicitly instantiate a Score context (since it is
     not contained in any other context).  It is instantiated
     automatically when an output definition (a @code{\score} or
-    @code{\paper} block) is processed."
+    @code{\layout} block) is processed."
     
     \consists "Repeat_acknowledge_engraver"
     \consists "Staff_collecting_engraver"

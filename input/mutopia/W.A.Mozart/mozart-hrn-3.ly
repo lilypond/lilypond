@@ -41,14 +41,14 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.3.16"
+\version "2.3.22"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"
 \include "mozart-hrn3-romanze.ily"
 \include "mozart-hrn3-rondo.ily"
 
-\bookpaper {
+\paper {
     betweensystempadding = 0.0
     betweensystemspace = 20 \mm
 }
@@ -58,7 +58,7 @@ virtuoso that taught in Geneva.
     \score
     {
 	{ \transpose c' bes \allegro }
-	\paper{ }
+	\layout{ }
 	\header { piece = "allegro" opus = "" }	
 	\midi{ \tempo 4=90 }
     }
@@ -69,7 +69,7 @@ virtuoso that taught in Geneva.
 	{ \transpose c' bes \romanze }
 	\header { piece = "romanze" opus = "" }	
 	\midi{ \tempo 4 = 70  }
-	\paper{}
+	\layout{}
     }
 
 
@@ -78,7 +78,7 @@ virtuoso that taught in Geneva.
 	{ \transpose c' bes	\rondo }
 	\header { piece = "rondo" opus = "" }
 	\midi{ \tempo 4 = 100 }
-	\paper { }
+	\layout { }
     }
 
 

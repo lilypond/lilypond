@@ -44,7 +44,7 @@ Hyphen_spanner::print (SCM smob)
     }
   while (flip (&d) != LEFT);
   
-  Real lt = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real th = robust_scm2double (me->get_property ("thickness"), 1) * lt ;
   Real h = robust_scm2double (me->get_property ("height"), 0.5);
 

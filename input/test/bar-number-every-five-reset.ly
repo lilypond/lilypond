@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     texidoc = "@cindex Bar Number Every Fifth Reset
@@ -26,5 +26,5 @@ resetBarnum = \context Score \applycontext
             \bar "|."
         }
     >>
-\paper{raggedright = ##t}
+\layout{raggedright = ##t}
 }

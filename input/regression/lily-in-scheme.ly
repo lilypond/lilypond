@@ -12,8 +12,8 @@ the @code{TextScript} grob.
           
       }
 
-\version "2.3.17"
-\paper { raggedright = ##t }
+\version "2.3.22"
+\layout { raggedright = ##t }
 
 withPaddingA = #(def-music-function (location padding music) (number? ly:music?)
 		 #{ \override TextScript #'padding = #$padding

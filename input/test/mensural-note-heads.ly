@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     texidoc ="@cindex Ancient Mensural Note Heads
@@ -14,6 +14,6 @@ Mensural notes may also have note heads. "
 		c\longa*1/4 c\breve*1/2 c1 c2 c4 c8 
 		}
 	}
-	\paper{raggedright=##t}
+	\layout{raggedright=##t}
 }
 

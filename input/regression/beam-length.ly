@@ -1,12 +1,12 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
 Beams should look the same.
 "
 }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
     
 \score { 

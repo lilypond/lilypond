@@ -1,4 +1,4 @@
-\version "2.3.18"
+\version "2.3.22"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -55,7 +55,7 @@ pipeSymbol = {
 
 myBreak = { \bar "" \break }
 
-\paper {
+\layout {
   indent = 0.0\mm
   linewidth = 120.0\mm
   textheight = 270.0\mm
@@ -145,7 +145,7 @@ oneHalfNoteTime = \markup {
   \column < { \number "1" } { \smaller \smaller \note #"2" #-0.5 } >
 }
 
-\paper {
+\layout {
   raggedright = ##t
 
   \context {
@@ -185,7 +185,7 @@ oneHalfNoteTime = \markup {
       \text
     }
   >>
-  \paper {}
+  \layout {}
   \midi {}
 }
 

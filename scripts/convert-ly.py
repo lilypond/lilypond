@@ -2216,6 +2216,16 @@ conversions.append (((2, 3, 18),
 		     conv,
 		     '''Text_item -> Text_interface''' ))
 
+def conv (str):
+	str = re.sub (r'\\paper', r'\\layout', str)
+	str = re.sub (r'\\bookpaper', r'\\paper', str)
+	return str
+
+conversions.append (((2, 3, 22),
+		     conv,
+		     '''paper -> layout
+ bookpaper -> paper''' ))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Unfolding tremolo repeats. All fragments fill one
@@ -23,5 +23,5 @@
 
 	
     }
-    \paper { raggedright = ##t }  
+    \layout { raggedright = ##t }  
 }

@@ -7,7 +7,7 @@ including alterations. "
 }
 
 
-\version "2.3.17"
+\version "2.3.22"
 
 
 textFlat = \markup {\smaller \flat}
@@ -20,7 +20,7 @@ textFlat = \markup {\smaller \flat}
     { c''1 \break c'' }
 
   }
-  \paper { raggedright = ##t }
+  \layout { raggedright = ##t }
 }
 
 

@@ -8,7 +8,7 @@ texidoc = "Stem lengths take precedence over beam quants: `forbidden'
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
      \relative c''{ 
@@ -27,5 +27,5 @@ c16[ d] b[ d]
 c32[ d] b[ d]
 a'32[ a] g[ g] f[ f] e[ e] d[ d] c[ c]
 }
-\paper {  }
+\layout {  }
 }

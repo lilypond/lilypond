@@ -68,8 +68,8 @@
   (let*
       ((posns (ly:grob-property beam 'positions))
        (thick (ly:grob-property beam 'thickness))
-       (paper (ly:grob-paper beam))
-       (lthick (ly:output-def-lookup paper 'linethickness))
+       (layout (ly:grob-layout beam))
+       (lthick (ly:output-def-lookup layout 'linethickness))
        (staff-thick lthick) ; fixme.
        (quant->coord (lambda (p q)
 		       (if (= 2 (abs q))

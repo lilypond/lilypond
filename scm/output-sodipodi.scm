@@ -243,7 +243,7 @@
 (define (comment s)
   (string-append "<!-- " s " -->\n"))
 
-(define (define-fonts paper font-list)
+(define (define-fonts layout font-list)
   (comment (format #f "Fonts used: ~S" font-list)))
 
 (define (filledbox breapth width depth height)
@@ -288,7 +288,7 @@
 (define (header-end)
   (comment "header-end"))
 
-(define (header creator time-stamp paper page-count- classic?)
+(define (header creator time-stamp layout page-count- classic?)
   (string-append
    xml-header
    (comment creator)
@@ -297,12 +297,12 @@
   
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
-(define (output-scopes paper scopes fields basename)
+(define (output-scopes layout scopes fields basename)
   (format (current-error-port) "TODO: FIX ps/tex/interface\n"))
 
 ;; FIXME: duplictates output-scopes, duplicated in other backends
 ;; FIXME: silly interface name
-(define (output-paper-def pd)
+(define (output-layout-def pd)
   (format (current-error-port) "TODO: FIX ps/tex/interface\n"))
 
 (define (lily-def key val)

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     texidoc = " Easy-notation (or Ez-notation) prints names in note heads.
@@ -12,7 +12,7 @@ You also get ledger lines, of course."
 	\override NoteHead #'note-names = ##("U" "V" "W" "X" "Y" "Z" "z")
 	c'2 e'4 f' | b'1
     }
-    \paper {
+    \layout {
 	raggedright = ##t
     } 
 }

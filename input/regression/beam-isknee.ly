@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 	texidoc="@cindex Beam Isknee
 
@@ -21,7 +21,7 @@ Beams can be placed across a @code{PianoStaff}.
 		s2
 	}
 	>>
-	\paper{
+	\layout{
  		raggedright = ##t
 	}
 }

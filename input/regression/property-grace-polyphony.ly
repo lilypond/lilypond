@@ -5,9 +5,9 @@
     not interfere with the overrides and reverts from polyphony."
 
 }
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
-\version "2.3.17"
+\version "2.3.22"
    \relative c'' {
       <<
 	  { \grace e8 d2 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header  {
   texidoc = "Grace notes in different voices/staves are synchronized."
 }
@@ -12,6 +12,6 @@
     c4) c4 }
 		\new Staff { c2 c4 c4 \bar "|." }
 		>>
-		\paper { raggedright = ##t}
+		\layout { raggedright = ##t}
  } 
 

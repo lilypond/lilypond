@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "Tie engraver uses @code{busyGrobs} to keep track of
@@ -19,7 +19,7 @@ one may have collisions between ties and beams.
 	{ \voiceThree  { b,8 ~ b8 ~ b8 ~  b8 }}
     >>
 
-    \paper {
+    \layout {
 	raggedright = ##t
     }
 }

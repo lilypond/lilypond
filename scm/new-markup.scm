@@ -22,7 +22,7 @@ print object).
 
 To add a function, use the def-markup-command utility.
 
-  (def-markup-command (mycommand paper prop arg1 ...) (arg1-type? ...)
+  (def-markup-command (mycommand layout prop arg1 ...) (arg1-type? ...)
     \"my command usage and description\"
     ...function body...)
 
@@ -51,7 +51,7 @@ register COMMAND-markup and its signature,
 * define a make-COMMAND-markup function.
 
 Syntax:
-  (def-markup-command (COMMAND paper props arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (def-markup-command (COMMAND layout props arg1 arg2 ...) (arg1-type? arg2-type? ...)
     \"documentation string\"
     ...command body...)
  or:

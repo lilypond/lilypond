@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
     texidoc = "Accidentals do not influence the amount of stretchable space.
@@ -15,6 +15,6 @@ The accidental does add a little non-stretchable space.
      }
 
      %% not raggedright!!
-     \paper {  linewidth = 14.\cm
+     \layout {  linewidth = 14.\cm
      }
 }

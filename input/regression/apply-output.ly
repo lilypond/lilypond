@@ -1,5 +1,5 @@
 
-\version "2.3.17" 
+\version "2.3.22" 
 \header {
 
 texidoc = "The @code{\applyoutput} expression is the most flexible way to
@@ -45,7 +45,7 @@ position.
    }
 	      
    }
-\paper { raggedright = ##t
+\layout { raggedright = ##t
 %		     outputscale = 5
 		     } 
 }

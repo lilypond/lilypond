@@ -60,7 +60,7 @@ Dynamic_text_spanner::print (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  Output_def * paper = me->get_paper ();
+  Output_def * layout = me->get_layout ();
 
   Interval span_points;
   Drul_array<bool> broken;
@@ -111,7 +111,7 @@ Dynamic_text_spanner::print (SCM smob)
 	  SCM text = index_get_cell (edge_text, d);
 
 	  if (Text_interface::markup_p (text)) 
-	    edge[d] = *unsmob_stencil (Text_interface::interpret_markup (paper->self_scm (), properties, text));
+	    edge[d] = *unsmob_stencil (Text_interface::interpret_markup (layout->self_scm (), properties, text));
 	  
 	  if (!edge[d].is_empty ())
 	    edge[d].align_to (Y_AXIS, CENTER);

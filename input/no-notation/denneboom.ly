@@ -1,4 +1,4 @@
-\version "2.3.16"
+\version "2.3.22"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -81,8 +81,8 @@ verseTwoStaff = \context Lyrics = two
 	\verseTwo
 
 
-denneboomShape = \paper{ 
-	\paperTwenty
+denneboomShape = \layout{ 
+	\layoutTwenty
 	indent = 20. \mm
 
 	% UGH -- THIS IS HAIRY 
@@ -109,7 +109,7 @@ denneboomShape = \paper{
 	\oldaddlyrics
 		\context Staff { \time 3/4 \melody }
 		\context Lyrics \verseOne
-	\paper{ 
+	\layout{ 
 		\denneboomShape 
 	}
 	\midi{ \tempo 4 = 90 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -41,7 +41,7 @@ extreme = \relative c'' {
     \extreme
     %}
   }
-  \paper{
+  \layout{
 %    raggedright = ##t
     raggedright = ##t
   }

@@ -182,7 +182,7 @@
   (draw-line th x1 0 x2 0))
 
 (define (lily-def key val)
-  (let ((prefix "lilypondpaper"))
+  (let ((prefix "lilypondlayout"))
     (if (string=?
 	 (substring key 0 (min (string-length prefix) (string-length key)))
 	 prefix)

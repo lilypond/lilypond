@@ -1,12 +1,12 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{ texidoc="@cindex Embedded Tex
 You can embed Tex commands in your score. "}
 
-\paper { raggedright = ##t} 
+\layout { raggedright = ##t} 
 
 
-\paper {
+\layout {
     raggedright = ##t
     inputencoding = "TeX"
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc = "Note head lines (e.g. glissando)
@@ -21,7 +21,7 @@ sd = { \change Staff = down}
 	    \clef F s1*4
 	}
     >>
-\paper {
+\layout {
     linewidth = 8.0 \cm
 }
 }

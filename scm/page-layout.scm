@@ -35,12 +35,12 @@
 ;; TODO: take <optimally-broken-page-node> iso. page-number
 ;; for all of these functions ?
 
-(define-public (plain-header paper scopes page-number last?)
+(define-public (plain-header layout scopes page-number last?)
   "Standard header for a part: page number --outside--  and instrument--centered."
 
-  (let* ((props (page-properties paper))
+  (let* ((props (page-properties layout))
          (pnum
-          (if (ly:output-def-lookup paper 'printpagenumber)
+          (if (ly:output-def-lookup layout 'printpagenumber)
               (markup #:bold (number->string page-number))
               ""))
          (instr (ly:modules-lookup scopes 'instrument))
@@ -50,19 +50,19 @@
     (if (even? page-number)
         (set! line (reverse line)))
     
-    (if ((if (ly:output-def-lookup paper 'printfirstpagenumber)
+    (if ((if (ly:output-def-lookup layout 'printfirstpagenumber)
              <=
              <)
-         (ly:output-def-lookup paper 'firstpagenumber) page-number)
-        (interpret-markup paper props (make-fill-line-markup line))
+         (ly:output-def-lookup layout 'firstpagenumber) page-number)
+        (interpret-markup layout props (make-fill-line-markup line))
         '())))
 
 ;; TODO: add publisher ID on non-first page.
-(define-public (plain-footer paper scopes page-number last?)
+(define-public (plain-footer layout scopes page-number last?)
   "Standard footer. Empty, save for first (copyright) and last (tagline) page."
   
   (let*
-      ((props (page-properties paper))
+      ((props (page-properties layout))
        (copyright (ly:modules-lookup scopes 'copyright))
        (tagline-var (ly:modules-lookup scopes 'tagline))
        (tagline (if (markup? tagline-var) tagline-var TAGLINE))
@@ -71,7 +71,7 @@
     (if last?
 	(set! stencil
 	      (ly:stencil-combine-at-edge
-	       stencil Y DOWN (interpret-markup paper props tagline)
+	       stencil Y DOWN (interpret-markup layout props tagline)
 	       0.0
 	       )))
 
@@ -80,21 +80,21 @@
 
 	(set! stencil
 	      (ly:stencil-combine-at-edge
-	       stencil Y DOWN (interpret-markup paper props copyright)
+	       stencil Y DOWN (interpret-markup layout props copyright)
 	       0.0
 	       )))
 
     stencil))
   
-(define (page-headfoot paper scopes number sym sepsym dir last?)
+(define (page-headfoot layout scopes number sym sepsym dir last?)
   "Create a stencil including separating space."
   (let*
-      ((header-proc (ly:output-def-lookup paper sym))
-       (sep (ly:output-def-lookup paper sepsym))
+      ((header-proc (ly:output-def-lookup layout sym))
+       (sep (ly:output-def-lookup layout sepsym))
        (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
        (head-stencil
 	(if (procedure? header-proc)
-	    (header-proc paper scopes number last?)
+	    (header-proc layout scopes number last?)
 	    #f)))
 
     (if (and (number? sep) (ly:stencil? head-stencil))
@@ -105,14 +105,14 @@
 
     head-stencil))
 
-(define-public (default-page-music-height paper scopes number last?)
+(define-public (default-page-music-height layout scopes number last?)
   "Printable area for music and titles; matches default-page-make-stencil." 
   (let*
-      ((h (- (ly:output-def-lookup paper 'vsize)
-	     (ly:output-def-lookup paper 'topmargin)
-	     (ly:output-def-lookup paper 'bottommargin)))
-       (head (page-headfoot paper scopes number 'make-header 'headsep UP last?))
-       (foot (page-headfoot paper scopes number 'make-footer 'footsep DOWN last?)))
+      ((h (- (ly:output-def-lookup layout 'vsize)
+	     (ly:output-def-lookup layout 'topmargin)
+	     (ly:output-def-lookup layout 'bottommargin)))
+       (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
+       (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?)))
     (- h (if (ly:stencil? head)
 	     (interval-length (ly:stencil-extent head Y))
 	     0)
@@ -123,35 +123,35 @@
 
 
 (define-public (default-page-make-stencil
-		 lines offsets paper scopes number last? )
+		 lines offsets layout scopes number last? )
   "Construct a stencil representing the page from LINES.  "
   (let*
-     ((topmargin  (ly:output-def-lookup paper 'topmargin))
+     ((topmargin  (ly:output-def-lookup layout 'topmargin))
       
       ;; TODO: naming vsize/hsize not analogous to TeX.
       
-      (vsize (ly:output-def-lookup paper 'vsize))
-      (hsize (ly:output-def-lookup paper 'hsize))
+      (vsize (ly:output-def-lookup layout 'vsize))
+      (hsize (ly:output-def-lookup layout 'hsize))
       
-      (lmargin (ly:output-def-lookup paper 'leftmargin))
+      (lmargin (ly:output-def-lookup layout 'leftmargin))
       (leftmargin (if lmargin
                       lmargin
                       (/ (- hsize
-                            (ly:output-def-lookup paper 'linewidth)) 2)))
+                            (ly:output-def-lookup layout 'linewidth)) 2)))
 
-      (rightmargin (ly:output-def-lookup paper 'rightmargin))
+      (rightmargin (ly:output-def-lookup layout 'rightmargin))
       (bottom-edge (- vsize
-		      (ly:output-def-lookup paper 'bottommargin)))
+		      (ly:output-def-lookup layout 'bottommargin)))
 		     
-      (head (page-headfoot paper scopes number 'make-header 'headsep UP last?))
-      (foot (page-headfoot paper scopes number 'make-footer 'footsep DOWN last?))
+      (head (page-headfoot layout scopes number 'make-header 'headsep UP last?))
+      (foot (page-headfoot layout scopes number 'make-footer 'footsep DOWN last?))
 
       (head-height (if (ly:stencil? head)
 		       (interval-length (ly:stencil-extent head Y))
 		       0.0))
 
       (line-stencils (map ly:paper-system-stencil lines))
-      (height-proc (ly:output-def-lookup paper 'page-music-height))
+      (height-proc (ly:output-def-lookup layout 'page-music-height))
 
       (page-stencil (ly:make-stencil '()
 				     (cons leftmargin hsize)
@@ -214,15 +214,15 @@ of lines. "
 
 
   (define MAXPENALTY 1e9)
-  (define bookpaper (ly:paper-book-book-paper paper-book))
+  (define paper (ly:paper-book-paper paper-book))
   (define scopes (ly:paper-book-scopes paper-book))
 
   (define (page-height page-number last?)
     (let
-	((p (ly:output-def-lookup bookpaper 'page-music-height)))
+	((p (ly:output-def-lookup paper 'page-music-height)))
 
       (if (procedure? p)
-	  (p bookpaper scopes page-number last?)
+	  (p paper scopes page-number last?)
 	  10000)))
   
   (define (get-path node done)
@@ -241,7 +241,7 @@ is what have collected so far, and has ascending page numbers."
 	 (prev-penalty (if (null? best-paths)
 			   0.0
 			   (node-penalty (car best-paths))))
-	 (inter-system-space (ly:output-def-lookup bookpaper 'betweensystemspace))
+	 (inter-system-space (ly:output-def-lookup paper 'betweensystemspace))
 	 (force-equalization-factor 0.3)
 	 (relative-force (/ force inter-system-space))
 	 (abs-relative-force (abs relative-force))
@@ -256,7 +256,7 @@ is what have collected so far, and has ascending page numbers."
   (define (space-systems page-height lines ragged?)
     (let*
 	((inter-system-space
-	  (ly:output-def-lookup bookpaper 'betweensystemspace))
+	  (ly:output-def-lookup paper 'betweensystemspace))
 	 (system-vector (list->vector
 	   (append lines
 		   (if (= (length lines) 1)
@@ -294,7 +294,7 @@ is what have collected so far, and has ascending page numbers."
 		   (-  (car (vector-ref real-extents (1- no-systems))))
 		   ))
 
-	 (fixed-dist (ly:output-def-lookup bookpaper 'betweensystempadding))
+	 (fixed-dist (ly:output-def-lookup paper 'betweensystempadding))
 	 (calc-spring
 	  (lambda (idx)
 	    (let*
@@ -311,11 +311,11 @@ is what have collected so far, and has ascending page numbers."
 		 (ideal (+
 			 (cond
 			  ((and title2? title1?)
-			   (ly:output-def-lookup bookpaper 'betweentitlespace))
+			   (ly:output-def-lookup paper 'betweentitlespace))
 			  (title1?
-			   (ly:output-def-lookup bookpaper 'aftertitlespace))
+			   (ly:output-def-lookup paper 'aftertitlespace))
 			  (title2?
-			   (ly:output-def-lookup bookpaper 'beforetitlespace))
+			   (ly:output-def-lookup paper 'beforetitlespace))
 			  (else inter-system-space))
 			 fixed))
 		 (hooke (/ 1 (- ideal fixed)))
@@ -378,12 +378,12 @@ corresponding to DONE-LINES.
 CURRENT-BEST is the best result sofar, or #f."
     
     (let* ((this-page-num (if (null? best-paths)
-                              (ly:output-def-lookup bookpaper 'firstpagenumber)
+                              (ly:output-def-lookup paper 'firstpagenumber)
                               (1+ (node-page-number (car best-paths)))))
 
 	   
-	   (ragged? (or (eq? #t (ly:output-def-lookup bookpaper 'raggedbottom))
-			(and (eq? #t (ly:output-def-lookup bookpaper 'raggedlastbottom))
+	   (ragged? (or (eq? #t (ly:output-def-lookup paper 'raggedbottom))
+			(and (eq? #t (ly:output-def-lookup paper 'raggedlastbottom))
 			     last?)))
            (page-height (page-height this-page-num last?))
 	   (vertical-spacing (space-systems page-height current-lines ragged?))
@@ -472,10 +472,10 @@ DONE."
     ; create stencils.
     
     (map (lambda (node)
-	   ((ly:output-def-lookup bookpaper 'page-make-stencil)
+	   ((ly:output-def-lookup paper 'page-make-stencil)
 	    (node-lines node)
 	    (node-configuration node)
-	    bookpaper
+	    paper
 	    scopes
 	    (node-page-number node)
 	    (eq? node best-break-node)))

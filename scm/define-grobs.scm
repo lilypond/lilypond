@@ -163,7 +163,7 @@
 	(font-family . number)
 
 	;; We must do this, other BFs in
-	;; paper16 become too small.
+	;; layout16 become too small.
 	(font-size . -4)
 	(kern . 0.2)
 	(meta . ((interfaces . (text-interface 							rhythmic-grob-interface

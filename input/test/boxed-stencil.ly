@@ -1,5 +1,5 @@
 
-\version "2.3.18"
+\version "2.3.22"
 \header {
 texidoc = "@cindex Boxed Stencil
 
@@ -24,6 +24,6 @@ grob. " }
 
       c4. c4 \mark "F" c1 
    }
-\paper{raggedright = ##t}
+\layout{raggedright = ##t}
 }
 

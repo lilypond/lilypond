@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.3.16"
+\version "2.3.22"
 
 \include "nederlands.ly"
 
@@ -152,7 +152,7 @@ lower = \context Staff  \relative c{
 	#(override-auto-beam-setting '(end 1 8 * *)  1 4)
 	#(override-auto-beam-setting '(end 1 16 * *)  1 4)
     >>
-    \paper {
+    \layout {
 	\context {
 	    \Score
 	    \override SpacingSpanner #'spacing-increment = #3

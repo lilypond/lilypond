@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header { texidoc = "@cindex Beam Damp
 Beams are less steep than the notes they encompass. " }
 
@@ -18,7 +18,7 @@ Beams are less steep than the notes they encompass. " }
 		 d'[ c b a]
 		 a[ b c d]
 	}
-	\paper{
+	\layout{
 		raggedright = ##t
 	}
 }

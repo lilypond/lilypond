@@ -668,7 +668,7 @@ Stem::print (SCM smob)
   // URG
   Real stem_width = thickness (me);
   Real blot =
-	me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
+	me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 
   Box b = Box (Interval (-stem_width/2, stem_width/2),
 	       Interval (stem_y[DOWN]*dy, stem_y[UP]*dy));

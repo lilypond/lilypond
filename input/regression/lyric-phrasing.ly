@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "
@@ -22,5 +22,5 @@ texidoc = "
 	    izzz
 	}
     >>
-    \paper { raggedright = ##t }
+    \layout { raggedright = ##t }
 }

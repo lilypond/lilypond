@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.16"
+\version "2.3.22"
 \header {
 texidoc = "
 
@@ -29,7 +29,7 @@ Midi2ly tuplet test.
     \times 3/5 { c8 c8 c8 c8 c8 }
 
   }
-  \paper { }  
+  \layout { }  
   \midi { }
 }
 

@@ -1,9 +1,7 @@
 \version "2.3.16"
 
-\bookpaper {
+\paper {
 
-    %%%%%%%%%%%%%%
-    %%%%
     %%%% WARNING
 
     %%% if you  add any new dimensions, don't forget to update
@@ -31,21 +29,21 @@
     #(define-public user-title default-user-title)
     #(define-public book-title default-book-title)
 
-    %
-    % ugh. hard coded?
-    %
+    %%
+    %% ugh. hard coded?
+    %%
 
-    #(paper-set-staff-size (* 20.0 pt))
+    #(layout-set-staff-size (* 20.0 pt))
 
-    %
-    % this dimension includes the extent of the
-    % staves themselves.
-    %
+    %%
+    %% this dimension includes the extent of the
+    %% staves themselves.
+    %%
     betweensystemspace = #(* 20 mm)
 
-    %
-    % fixed space between systems.
-    %
+    %%
+    %% fixed space between systems.
+    %%
     betweensystempadding = #(* 4 mm)
 
     aftertitlespace = 5 \mm
@@ -55,9 +53,9 @@
 
     raggedbottom = ##f
 
-    %
-    % looks best for shorter scores.
-    %
+    %%
+    %% looks best for shorter scores.
+    %%
     raggedlastbottom= ##t
 
     %% ugh.  Should use /etc/papersize and set explicitely for
@@ -79,5 +77,4 @@
     #(define make-header plain-header)
     #(define make-footer plain-footer)
     #(set-paper-dimension-variables (current-module))
-   
 }

@@ -28,8 +28,8 @@ Break_algorithm::find_break_indices () const
     if (Item::is_breakable (all[i]))
       retval.push (i);
 
-  if (linewidth_ <=0)
-    while (retval.size () >2)
+  if (linewidth_ <= 0)
+    while (retval.size () > 2)
       retval.del (1);
 
   return retval;
@@ -46,7 +46,7 @@ Break_algorithm::find_breaks () const
     if (Item::is_breakable (all[i]))
       retval.push (all[i]);
 
-  if (linewidth_ <=0)
+  if (linewidth_ <= 0)
     while (retval.size () >2)
       retval.del (1);
 
@@ -92,7 +92,7 @@ void
 Break_algorithm::set_pscore (Paper_score*s)
 {
   pscore_ = s;
-  linewidth_ = s->paper_->get_dimension (ly_symbol2scm ("linewidth"));
+  linewidth_ = s->layout_->get_dimension (ly_symbol2scm ("linewidth"));
 }
 
 Array<Column_x_positions>

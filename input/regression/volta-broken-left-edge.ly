@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 texidoc ="Broken volta spanners behave correctly at their left edge in all cases."
@@ -118,6 +118,6 @@ f f\break
 	}
 
     >>
-	\paper { raggedright =##t }
+	\layout { raggedright =##t }
 }
 

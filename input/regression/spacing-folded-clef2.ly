@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -11,7 +11,7 @@ show where columns are in the score."
 	\new Staff { \clef bass c,2 \clef treble  c'2 }
 	>>
 
-	\paper { raggedright = ##t
+	\layout { raggedright = ##t
 
 	\context { \Score
 	  \override NonMusicalPaperColumn #'print-function = #Paper_column::print

@@ -4,8 +4,8 @@
 "
 
 }
-\version "2.3.17"
-\paper { raggedright= ##t }
+\version "2.3.22"
+\layout { raggedright= ##t }
 
 \score {  \relative c''  {
     \set Score.allowBeamBreak = ##t

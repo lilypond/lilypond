@@ -5,9 +5,9 @@
     the scheme-function @code{make-century-schoolbook-tree}."
 
 }
-\version "2.3.17"
+\version "2.3.22"
 
-\bookpaper
+\paper
 {
     #(define text-font-defaults
       '((font-encoding . latin1)
@@ -22,7 +22,7 @@
 % this file.
 #(system "afm2tfm `kpsewhich uncb8a.afm` uncb8a.tfm") 
 
-\paper {
+\layout {
     linewidth = 160 \mm - 2.0 * 9.0 \mm
 
     

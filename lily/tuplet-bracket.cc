@@ -168,7 +168,7 @@ Tuplet_bracket::print (SCM smob)
   
   SCM number = me->get_property ("text");
 
-  Output_def *pap = me->get_paper ();
+  Output_def *pap = me->get_layout ();
   Stencil num;
  if (scm_is_string (number) && number_visibility)
     {

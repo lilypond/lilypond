@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Note heads in collisions should be merged if
 they have the same positions in the extreme note heads.  
@@ -12,7 +12,7 @@ they have the same positions in the extreme note heads.
 c4 
   << { c4 d4 <c d>8  <c d> <c d> } \\  { c4 c <a b>8 <b c> <c d>8 } >>
 }
-\paper {raggedright = ##t} 
+\layout {raggedright = ##t} 
 }
 
 

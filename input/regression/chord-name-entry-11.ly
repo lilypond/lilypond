@@ -1,4 +1,4 @@
-\version "2.3.17" 
+\version "2.3.22" 
 
 \header {
 
@@ -7,6 +7,6 @@
 
 }
 
-\paper { raggedright = ##t } 
+\layout { raggedright = ##t } 
 \chordmode { c:13 c:13.11 c:m13 }
 

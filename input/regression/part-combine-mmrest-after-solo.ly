@@ -1,9 +1,9 @@
 
 \header { texidoc = " Multimeasure rests are printed after solos, both
     for solo1 and for solo2."  }
-\version "2.3.17"
+\version "2.3.22"
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
   \new Staff 
     \partcombine
      \relative c''{ R1*2 | c4 r2.  | c2 r  | R1 }

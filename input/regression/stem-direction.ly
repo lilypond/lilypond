@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -13,7 +13,7 @@ notes, and up for low notes.
 "
 }
 
-\paper {
+\layout {
     raggedright = ##t
 }  
 \context Voice \relative c {

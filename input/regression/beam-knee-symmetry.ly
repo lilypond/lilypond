@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Point-symmetric beams should receive the same
@@ -12,7 +12,7 @@
 	 a8[ b'' a,, b'']
 	 b8[ a,, b'' a,,]
     }
-    \paper{
+    \layout{
 	raggedright = ##t 
     }
 }

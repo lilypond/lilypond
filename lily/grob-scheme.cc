@@ -58,28 +58,28 @@ LY_DEFINE (ly_spanner_get_bound, "ly:spanner-get-bound",
 
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
-LY_DEFINE (ly_grob_paper, "ly:grob-paper",
+LY_DEFINE (ly_grob_layout, "ly:grob-layout",
 	   1, 0, 0, (SCM g),
-	   "Get @code{\\paper} definition from grob @var{g}.")
+	   "Get @code{\\layout} definition from grob @var{g}.")
 {
   Grob * sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
-  return sc->get_paper ()->self_scm ();
+  return sc->get_layout ()->self_scm ();
 }
 
 LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 	   1, 1, 0, (SCM g, SCM global),
 	   "Get an alist chain for grob @var{g}, with @var{global} as the "
 	   "global default. If unspecified, @code{font-defaults} "
-	   "from the paper block is taken. ")
+	   "from the layout block is taken. ")
 {
   Grob *sc = unsmob_grob (g);
   SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
   if (global == SCM_UNDEFINED)
     global
-      = sc->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+      = sc->get_layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
 
   return sc->get_property_alist_chain (global);
 }

@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header { texidoc = "
 
 @cindex Preset Extent
@@ -18,7 +18,7 @@ they are spaced so widely.
 	\override LyricText  #'X-extent = #'(-10.0 . 10.0)
  bar baz
 	}
-    \paper { raggedright = ##t}
+    \layout { raggedright = ##t}
 }
     
 

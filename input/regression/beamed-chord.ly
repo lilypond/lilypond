@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc = "Hairy case for beam, chord, and automatic knees."
@@ -8,7 +8,7 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
 %be fixed by uncommenting \stemUp"
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 
 \score{

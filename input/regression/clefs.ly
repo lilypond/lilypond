@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 
@@ -26,7 +26,7 @@ or below the clef respectively."
 	 \override Staff.Clef  #'full-size-change = ##t 
          \clef "treble" c'1^"full-size-change = \#t" \bar "|."
          }
-         \paper{
+         \layout{
 	  raggedright = ##t
          }
 }

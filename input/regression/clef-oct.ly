@@ -1,5 +1,5 @@
 
-\version "2.3.17" \header {
+\version "2.3.22" \header {
 
     texidoc = "Octavation signs may be added to clefs.  These
 octavation signs may be placed below or above (meaning an octave
@@ -26,5 +26,5 @@ higher or lower), and can take any value, including 15 for two octaves."
 	    \clef "G^9"
 	    c4 
 }
-	 \paper { raggedright = ##t  }
+	 \layout { raggedright = ##t  }
 	     }

@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.22"
 % candidate for regression.  -gp
 \header {
   texidoc="Converting LilyPond input to MIDI and then again back with
@@ -153,7 +153,7 @@ scales =  \relative c {
 
 \score {
   \context Voice \scales
-  \paper { }
+  \layout { }
   \midi { }
 }
 

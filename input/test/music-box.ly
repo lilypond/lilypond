@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -53,7 +53,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.3.17"
+\version "2.3.22"
 
 pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }
@@ -122,7 +122,7 @@ endc =  {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
      }
    >>
    
-   \paper {
+   \layout {
        \context {
 	   \PianoStaff
 	   \override VerticalAlignment #'forced-distance = #10

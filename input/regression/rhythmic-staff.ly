@@ -1,11 +1,11 @@
-\version "2.3.17"
+\version "2.3.22"
 \header
 {
 
     texidoc = "In rhythmic staves stems should go up, and bar lines have the size for a  5 line staff. The whole note hangs from the rhythmic staff."
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 \context RhythmicStaff
 {

@@ -1,8 +1,8 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "In nested syntax, graces are still properly handled."
     }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {  \relative c'' {
 	f1

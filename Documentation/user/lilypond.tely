@@ -115,7 +115,7 @@ Copyright @copyright{} 1999--2004 by the authors
              "(For LilyPond version " (lilypond-version) ")"))
         s2
      }
-     \paper {
+     \layout {
          indent = 0.0\pt
          raggedright = ##t
      }

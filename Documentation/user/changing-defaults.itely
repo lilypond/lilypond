@@ -555,10 +555,10 @@ or crashes, or both.
 The adjustments of the previous subsections (@ref{Changing context
 properties on the fly}, @ref{Modifying context plug-ins} and
 @ref{Layout tunings within contexts}) can also be entered separate
-from the music, in the @code{\paper} block,
+from the music, in the @code{\layout} block,
 
 @example
-\paper @{
+\layout @{
   @dots{}
   \context @{
     \Staff
@@ -591,7 +591,7 @@ affect all staves in the score.
 
 Other contexts can be modified analogously.
 
-The @code{\set} keyword is optional within the @code{\paper} block, so
+The @code{\set} keyword is optional within the @code{\layout} block, so
 
 @example
 \context @{
@@ -625,7 +625,7 @@ The next example shows how to build a different type of
 to indicate improvisation in Jazz pieces,
 
 @lilypond[raggedright]
-  \paper { \context {
+  \layout { \context {
     \name ImproVoice
     \type "Engraver_group_engraver"
     \consists "Note_heads_engraver"
@@ -650,10 +650,10 @@ to indicate improvisation in Jazz pieces,
 
 
 These settings are again done within a @code{\context} block inside a
-@code{\paper} block,
+@code{\layout} block,
 
 @example
-  \paper @{
+  \layout @{
     \context @{
       @dots{}
     @}
@@ -744,10 +744,10 @@ which is sometimes when reusing existing context definitions. }
   }
 @end verbatim 
 
-Putting both into a @code{\paper} block, like
+Putting both into a @code{\layout} block, like
 
 @example
-  \paper @{
+  \layout @{
     \context @{
       \name ImproVoice
       @dots{}
@@ -1530,12 +1530,12 @@ encoding is passed as an extra argument to @code{\markup} commands,
 and is passed similarly to lyric syllables.
 
 If no @code{\encoding} has been specified, then the encoding is taken
-from the @code{\paper} block (or @code{\bookpaper}, if @code{\paper}
+from the @code{\layout} block (or @code{\paper}, if @code{\layout}
 does not specify encoding). The variable @code{inputencoding} may be
 set to a string or symbol specifying  the encoding, e.g.
 
 @verbatim
-  \paper {
+  \layout {
     inputencoding = "latin1"
   } 
 @end verbatim
@@ -1556,7 +1556,7 @@ Rather, you should say
 @end verbatim
 
 @noindent
-or set @code{inputencoding} in the @code{\bookpaper} block. 
+or set @code{inputencoding} in the @code{\paper} block. 
 
 There is a special encoding, called @code{TeX}. This encoding does not
 reencode text for the font used. Rather, it tries to guess the width
@@ -1573,7 +1573,7 @@ are passed to the output back-end verbatim.
 @subsection Nested scores
 
 It is possible to nest music inside markups, by adding a @code{\score}
-block to markup expression. Such a score must contain a @code{\paper}
+block to markup expression. Such a score must contain a @code{\layout}
 block.
 
 @lilypond[verbatim,raggedright]
@@ -1581,7 +1581,7 @@ block.
   c4  d^\markup {
     \score {
       \relative { c4 d e f }
-      \paper { }
+      \layout { }
     }
   }
   e f
@@ -1629,7 +1629,7 @@ titles.
 * Multiple movements::          
 * Creating titles::             
 * Page breaking::               
-* Paper size::                  
+* paper size::                  
 * Page layout::                 
 @end menu
 
@@ -1639,7 +1639,7 @@ titles.
 
 @cindex font size, setting
 @cindex staff size, setting
-@cindex @code{paper} file
+@cindex @code{layout} file
 
 The Feta font provides musical symbols at eight  different
 sizes. Each font is tuned for a different staff size: at a smaller size
@@ -1919,11 +1919,11 @@ No work-around exists for decreasing the amount of space.
 @cindex @code{linewidth}
 
 The most basic settings influencing the spacing are @code{indent} and
-@code{linewidth}. They are set in the @code{\paper} block. They
+@code{linewidth}. They are set in the @code{\layout} block. They
 control the indentation of the first line of music, and the lengths of
 the lines.
 
-If  @code{raggedright} is set to true in the @code{\paper}
+If  @code{raggedright} is set to true in the @code{\layout}
 block, then the lines are justified at their natural length. This
 useful for short fragments, and for checking how tight the natural
 spacing is.
@@ -2106,7 +2106,7 @@ This is a demonstration of the fields available,
     }
     { c'1 }
   }
-  \bookpaper {
+  \paper {
     linewidth = 8.0 \cm
   }
 }
@@ -2123,14 +2123,14 @@ Different fonts may be selected for each element, by using a
 
 A more advanced option is to change the Scheme functions
 @code{make-book-title} and @code{make-score-title} functions, defined
-in the @code{\bookpaper} of the @code{\book} block. These functions
+in the @code{\paper} of the @code{\book} block. These functions
 create a block of titling, given the information in the
 @code{\header}. The init file @file{ly/titling.scm} shows how the
 default format is created, and it may be used as a template for
 different styles.
 
  
-@cindex \bookpaper
+@cindex \paper
 @cindex header
 @cindex footer
 @cindex page layout
@@ -2150,7 +2150,7 @@ from happening.  Of course, the @code{\pageBreak} command also forces
 a line break.
 
 Page breaks are computed by the @code{page-breaking} function in the
-@code{\bookpaper} block. 
+@code{\paper} block. 
 
 @refcommands
 
@@ -2159,8 +2159,8 @@ Page breaks are computed by the @code{page-breaking} function in the
 @cindex  @code{\noPageBreak} 
 @code{\noPageBreak} 
 
-@node Paper size
-@subsection Paper size
+@node paper size
+@subsection paper size
 
 @cindex paper size
 @cindex page size
@@ -2169,11 +2169,11 @@ Page breaks are computed by the @code{page-breaking} function in the
 To change the paper size, there are two commands,
 @example
         #(set-default-paper-size "a4")
-        \paper@{
+        \layout@{
            #(set-paper-size "a4")
         @}
 @end example
-The second one sets the size of the @code{\paper} block that it is in.
+The second one sets the size of the @code{\layout} block that it is in.
 
 The following paper sizes are supported.
 
@@ -2210,9 +2210,9 @@ LilyPond will do page layout, setting margins and adding headers and
 footers to each page.
 
 The default layout responds to the following settings in the
-@code{\bookpaper} block
+@code{\paper} block
 
-@cindex \bookpaper
+@cindex \paper
 
 @table @code
 @item firstpagenumber
@@ -2231,7 +2231,7 @@ The default layout responds to the following settings in the
 @item leftmargin
  Margin between the left side of the page and the beginning  of the music.
 @item linewidth
- The length of the paper line.
+ The length of the systems.
 @item headsep
  Distance between top-most music system and the page header
 @item footsep
@@ -2276,7 +2276,7 @@ book and the title of piece).
 @end table
 
 @example
-        \bookpaper@{
+        \paper@{
            hsize = 2\cm
            topmargin = 3\cm
            bottommargin = 3\cm
@@ -2286,11 +2286,11 @@ book and the title of piece).
 
 You can also define these values in scheme. In that case @code{mm},
 @code{in}, @code{pt} and @code{cm} are variables defined in
-@file{book-paper-defaults.ly} with values in millimeters. That's why the
+@file{paper-defaults.ly} with values in millimeters. That's why the
 value has to be multiplied in the example above.
 
 @example
-        \bookpaper@{
+        \paper@{
         #(define bottommargin (* 2 cm)) 
         @}
 @end example
@@ -2306,7 +2306,7 @@ printed parts are good PR for us, so please leave the tagline if you
 can.}
 
 The header and footer are created by the functions @code{make-footer}
-and @code{make-header}, defined in @code{\bookpaper}. The default
+and @code{make-header}, defined in @code{\paper}. The default
 implementations are in @file{scm/page-layout.scm}.
 
 The following settings influence the header and footer layout.
@@ -2317,7 +2317,7 @@ The following settings influence the header and footer layout.
 @end table
 
 The page layout itself is done by two functions in the
-@code{\bookpaper}, @code{page-music-height} and
+@code{\paper}, @code{page-music-height} and
 @code{page-make-stencil}. The former tells the line-breaking algorithm
 how much space can be spent on a page, the latter creates the actual
 page given the system to put on it.
@@ -2359,8 +2359,8 @@ A @code{.ly} file contains any number of toplevel expressions, where a
 toplevel expressions is one of the following
 
 @itemize @bullet
-@item An output definition, such as @code{\bookpaper}, @code{\midi}
-and @code{\paper}. Such a definition at toplevel changes the default
+@item An output definition, such as @code{\paper}, @code{\midi}
+and @code{\layout}. Such a definition at toplevel changes the default
 settings for the block entered.
 
 @item An @code{\header} block. This sets the global header block. This
@@ -2406,7 +2406,7 @@ defined in the init file @file{scm/lily.scm}.
 The following example shows three things which may be entered at
 toplevel
 @verbatim
-   \paper  {
+   \layout  {
      % movements are non-justified by default    
      raggedright = ##t
    }

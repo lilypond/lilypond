@@ -4,7 +4,7 @@ longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.3.4"
+\version "2.3.22"
   
 cresc =  {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -29,7 +29,7 @@ stopGraceMusic= \sequential {
     \stopGraceMusic
 }
 
-\paper {
+\layout {
     \context {
         \Score
         skipBars = ##t
@@ -51,7 +51,7 @@ stopGraceMusic= \sequential {
     }
 }
 
-\bookpaper{
+\paper{
 
     % #(define fonts my-sheet)
 

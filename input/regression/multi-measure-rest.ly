@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header{
 
 texidoc="
@@ -26,7 +26,7 @@ are used then a different symbol is used.
 
 \time 8/4 R1*2
 }
-	\paper {
+	\layout {
 	\context {
 		\Score
 		skipBars = ##t

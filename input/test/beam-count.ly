@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -8,7 +8,7 @@ two sets of four 32nds are joined, as if they were 8th notes.
 
 " }
 
-\paper { raggedright = ##t}  
+\layout { raggedright = ##t}  
 
 \relative {
   #(override-auto-beam-setting '(end * * * *)  1 4)

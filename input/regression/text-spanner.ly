@@ -1,9 +1,9 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc= "Text spanners should not repeat start text when broken."
 }
-\paper {
+\layout {
     raggedright = ##t 
 }
 

@@ -5,8 +5,8 @@
   on the right side."
 }
 
-\version "2.3.17"
-\paper { raggedright= ##t }
+\version "2.3.22"
+\layout { raggedright= ##t }
 
 % todo: b2 (up) + b8 down looks strange compared to c2up + b8. (down)
 \score{

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
     texidoc=" By default, text is set with empty horizontal dimensions.  
@@ -15,7 +15,7 @@ to control the horizontal size of text.  " }
 	\fatText
 	c_"very wide and long text" c
     }
-    \paper {
+    \layout {
 	linewidth = 3.0\cm
     }
 }

@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -9,7 +9,7 @@ note. When central C is reached, staff is not yet switched (by default).
 
 "
 }
-    \paper { raggedright= ##t }
+    \layout { raggedright= ##t }
 
 \score {
 	 \context PianoStaff <<

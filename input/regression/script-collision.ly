@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -13,6 +13,6 @@
   <<  { c4^^ }\\
      { d4_^ } >>
     }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
     }
 

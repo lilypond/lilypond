@@ -23,7 +23,7 @@ Font_interface::get_default_font (Grob *me)
     {
       SCM chain = music_font_alist_chain (me);
       
-      fm = select_font (me->get_paper (), chain);
+      fm = select_font (me->get_layout (), chain);
       me->set_property ("font", fm->self_scm ());
     }
   
@@ -45,7 +45,7 @@ SCM
 Font_interface::music_font_alist_chain (Grob *g)
 {
   SCM defaults
-    = g->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
+    = g->get_layout ()->lookup_variable (ly_symbol2scm ("font-defaults"));
   return g->get_property_alist_chain (defaults);
 }
 
@@ -53,7 +53,7 @@ SCM
 Font_interface::text_font_alist_chain (Grob *g)
 {
   SCM defaults
-    = g->get_paper ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
+    = g->get_layout ()->lookup_variable (ly_symbol2scm ("text-font-defaults"));
   return g->get_property_alist_chain (defaults);
 }
 

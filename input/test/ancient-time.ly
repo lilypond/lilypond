@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 % TODO: move stuff from ancient-font into here?  See comment
 % for ancient-font.ly
 \header {
@@ -12,6 +12,6 @@ Time signatures may also be engraved in an old style.
     \override Staff.TimeSignature  #'style = #'neomensural
     s1 
   }
-	\paper {raggedright = ##t}
+	\layout {raggedright = ##t}
 }
 

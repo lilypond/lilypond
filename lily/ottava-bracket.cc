@@ -45,7 +45,7 @@ Ottava_bracket::print (SCM smob)
   Interval span_points;
   
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Output_def * paper = me->get_paper ();
+  Output_def * layout = me->get_layout ();
   
   Drul_array<bool> broken;
   Direction d = LEFT;
@@ -73,7 +73,7 @@ Ottava_bracket::print (SCM smob)
   SCM markup = me->get_property ("text");
   Stencil text;
   if (Text_interface::markup_p (markup)) 
-    text = *unsmob_stencil (Text_interface::interpret_markup (paper->self_scm (), properties, markup));
+    text = *unsmob_stencil (Text_interface::interpret_markup (layout->self_scm (), properties, markup));
 
 
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),

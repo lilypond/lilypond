@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "Automatic beaming works also in ternary time sigs."
 }
@@ -9,6 +9,6 @@ texidoc = "Automatic beaming works also in ternary time sigs."
 \time 6/8
  c8.[ c16 c16 c16] 
 }
-\paper { raggedright = ##t}
+\layout { raggedright = ##t}
 }
 

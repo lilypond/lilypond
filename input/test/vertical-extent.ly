@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 % TODO: huh?  what's this file about?  -gp
 
 \header { texidoc = "
@@ -20,7 +20,7 @@ Vertical extents may increased by setting @code{minimumVerticalExtent},
       g1
     }
   >>
-  \paper{
+  \layout{
       raggedright = ##t
   }
 }

@@ -27,14 +27,14 @@ been lowered
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 manuscriptBreak = { \break }
 
 
 
 #(set-global-staff-size (/ (* 5.8 72.27) 25.4))
 
-\bookpaper  {
+\paper  {
 %#(set-global-staff-size (* 5.8 mm))
     linewidth = #(* mm 160)
     indent = 8\mm
@@ -168,7 +168,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	   >> 
        >>
 
-	\paper {
+	\layout {
 	    \context {
 		\Lyrics
 		minimumVerticalExtent = #'(-1.0 . 0)

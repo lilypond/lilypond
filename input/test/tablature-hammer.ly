@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {texidoc = "@cindex Tablature hammer
 A hammer in tablature can be faked with slurs. "
 } 
@@ -12,6 +12,6 @@ A hammer in tablature can be faked with slurs. "
 		d(c)
   }
   >>
-	\paper{ raggedright = ##t}
+	\layout{ raggedright = ##t}
 }
 

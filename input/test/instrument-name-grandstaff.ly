@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header { texidoc = "@cindex Instrument Name Grandstaff
 You can have a name for the whole @code{GrandStaff} in addition to 
 individual @code{Staff}s. " }
@@ -12,7 +12,7 @@ individual @code{Staff}s. " }
     \context Staff = bass { \set Staff.instrument = " vn II" c''4 }>>
 
 
-\paper {
+\layout {
 raggedright = ##t
 \context { \GrandStaff \consists "Instrument_name_engraver" }
 }}

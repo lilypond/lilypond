@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc="@cindex Grace End
@@ -14,7 +14,7 @@
 	c4 \grace {  d16[ d16] }
 	
   }
-	\paper {
+	\layout {
 		raggedright = ##t
 	}  
   \midi { }

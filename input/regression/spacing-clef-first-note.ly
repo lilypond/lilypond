@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
 
     texidoc = "Clef changes at the start of a line get much more space
@@ -17,7 +17,7 @@ than clef changes halfway the line."
 	    c'4 c'4 c'4 
 	}
     >>
-    \paper {
+    \layout {
 	raggedright = ##t
 	\context {
 	    \Staff

@@ -3,7 +3,7 @@
   texidoc = "Frets are supported as markup commands."
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
     <<
@@ -48,5 +48,5 @@
   g' ^\markup \override #'(dot-color . white) {\fret-diagram-terse #'"3 5;2 3 5;2 4 5;2 4 5;3 5;2 3;" }
   }
     >>
-  \paper{ raggedright = ##t }
+  \layout{ raggedright = ##t }
 }

@@ -1,10 +1,10 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
     texidoc="@code{PhrasingSlur}s go over normal slurs."
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 \relative c''{
     c8 \( (d e f) g ( a b c)

@@ -4,7 +4,7 @@
 
 }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
     \new PianoStaff <<
@@ -18,7 +18,7 @@
 	    { \clef bass s1 * 2 }
 	    >>
 >>
-    \paper {
+    \layout {
 	raggedright= ##t
     }
 }

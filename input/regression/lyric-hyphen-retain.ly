@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -38,7 +38,7 @@ c16[ c c c]
 
 	   bla -- bla -- bla -- bla 
        }>>
-    \paper   {
+    \layout   {
 	indent = 0.0 \cm
 	linewidth = 3.4 \cm
 

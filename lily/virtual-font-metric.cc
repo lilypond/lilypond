@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 
 
 /*
-  passing DEF is ughish. Should move into paperdef?
+  passing DEF is ughish. Should move into layoutdef?
   */
 Virtual_font_metric::Virtual_font_metric (SCM font_list)
 {

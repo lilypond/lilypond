@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc = "@cindex Slur Minimum Length
 By setting the minimum length of a slur, notes are more separated. " 

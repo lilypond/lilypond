@@ -4,7 +4,7 @@
     @code{RemoveEmptyStaffContext} take out the unused parts.
 " }
 
-\version "2.3.17"
+\version "2.3.22"
 
 \score {
     \relative c''
@@ -30,7 +30,7 @@
     >>
     
 
-    \paper {
+    \layout {
 	raggedright= ##t
 	\context {\RemoveEmptyStaffContext}
 	\context {

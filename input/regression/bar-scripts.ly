@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header{
 texidoc="
 
@@ -6,7 +6,7 @@ Markings can be attached to (invisible) barlines.
 "
 }
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 
 onestaff = \new Staff\relative c''  {
 	\set Staff.instr = instr

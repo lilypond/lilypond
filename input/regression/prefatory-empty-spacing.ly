@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -8,7 +8,7 @@ the break alignment."
     
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 \score{  {
 a a a a \break

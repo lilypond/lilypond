@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header{
   texidoc="
 Engraving second intervals is tricky.  We used to have problems with seconds 
@@ -14,7 +14,7 @@ seconds, you'll spot something fishy very quickly.
 	 b16[ c]
 	 a'[ b]
     }
-    \paper{
+    \layout{
 	raggedright = ##t
     }
 }

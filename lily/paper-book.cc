@@ -24,7 +24,7 @@ Paper_book::Paper_book ()
   systems_ = SCM_BOOL_F;
   header_ = SCM_EOL;
   
-  bookpaper_ = 0;
+  paper_ = 0;
   smobify_self ();
 }
 
@@ -43,8 +43,8 @@ Paper_book::mark_smob (SCM smob)
   for (int i = 0; i < b->score_systems_.size (); i++)
     b->score_systems_[i].gc_mark ();
 
-  if (b->bookpaper_)
-    scm_gc_mark (b->bookpaper_->self_scm ());
+  if (b->paper_)
+    scm_gc_mark (b->paper_->self_scm ());
   scm_gc_mark (b->header_);
   scm_gc_mark (b->pages_);
   return b->systems_;
@@ -259,7 +259,7 @@ LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
 
 LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
 	  1, 0, 0, (SCM book),
-	  "Return pages in paper book @var{book}.")
+	  "Return pages in layout book @var{book}.")
 {
   Paper_book *pb = unsmob_paper_book(book);
   SCM_ASSERT_TYPE(pb, book, SCM_ARG1, __FUNCTION__, "Paper_book");
@@ -278,18 +278,18 @@ LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
   return unsmob_paper_book (pb)->systems ();
 }
 
-LY_DEFINE (ly_paper_book_book_paper, "ly:paper-book-book-paper",
+LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 	  1, 0, 0, (SCM pb),
 	  "Return pages in book PB.")
 {
-  return unsmob_paper_book (pb)->bookpaper_->self_scm ();
+  return unsmob_paper_book (pb)->paper_->self_scm ();
 }
 
 /* TODO: resurrect more complex user-tweaks for titling?  */
 Stencil
 Paper_book::book_title ()
 {
-  SCM title_func = bookpaper_->lookup_variable (ly_symbol2scm ("book-title"));
+  SCM title_func = paper_->lookup_variable (ly_symbol2scm ("book-title"));
   Stencil title;
 
   SCM scopes = SCM_EOL;
@@ -300,7 +300,7 @@ Paper_book::book_title ()
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
     tit = scm_call_2 (title_func,
-		     bookpaper_->self_scm (),
+		     paper_->self_scm (),
 		     scopes);
 
   if (unsmob_stencil (tit))
@@ -315,7 +315,7 @@ Paper_book::book_title ()
 Stencil
 Paper_book::score_title (int i)
 {
-  SCM title_func = bookpaper_->lookup_variable (ly_symbol2scm ("score-title"));
+  SCM title_func = paper_->lookup_variable (ly_symbol2scm ("score-title"));
 
   Stencil title;
 
@@ -331,7 +331,7 @@ Paper_book::score_title (int i)
   SCM tit = SCM_EOL;
   if (ly_c_procedure_p (title_func))
     tit = scm_call_2 (title_func,
-		     bookpaper_->self_scm (),
+		     paper_->self_scm (),
 		     scopes);
 
   if (unsmob_stencil (tit))
@@ -405,7 +405,7 @@ Paper_book::pages ()
     return pages_;
 
   pages_ = SCM_EOL;
-  SCM proc = bookpaper_->c_variable ("page-breaking");
+  SCM proc = paper_->c_variable ("page-breaking");
   pages_ = scm_apply_0 (proc, scm_list_2 (systems (), self_scm ()));
   return pages_;
 }

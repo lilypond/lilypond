@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header {
 
@@ -22,7 +22,7 @@ time and key signatures and clef at the beginning of the extra stave.
       c4 d e f |
     }
   }
-  \paper {
+  \layout {
     \context {
       \Score
       \consists Span_bar_engraver

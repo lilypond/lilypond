@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -50,7 +50,7 @@ GROB.  The dimensions of the stencil is not affected.
    parenthesize-stencil)
     
 
-\paper { raggedright = ##t }
+\layout { raggedright = ##t }
 \relative c' {
     c4 e
 

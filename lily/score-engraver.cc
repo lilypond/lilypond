@@ -111,7 +111,7 @@ Score_engraver::initialize ()
    
 
   pscore_ = new Paper_score;
-  pscore_->paper_ = dynamic_cast<Output_def*> (get_output_def ());
+  pscore_->layout_ = dynamic_cast<Output_def*> (get_output_def ());
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 

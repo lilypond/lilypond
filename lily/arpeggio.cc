@@ -123,7 +123,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
       heads.unite (iv  +  ss->relative_coordinate (common, Y_AXIS)  -  my_y);
     }
 
-  Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
+  Real lt =  me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length () + sp;
   Real x = 0.7;

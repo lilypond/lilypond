@@ -1,10 +1,10 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
     texidoc = "Grace notes may be put in a @code{partcombine}r."
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 
 \score {
     \new Staff

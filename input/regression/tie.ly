@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 
 \header{
 texidoc="
@@ -7,7 +7,7 @@ Ties are strictly horizontal.  They are placed in between note heads.
 The horizontal middle should not overlap with a staffline.
 "
 }
-\paper{
+\layout{
     raggedright= ##t 
 }
 

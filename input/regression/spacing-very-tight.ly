@@ -1,5 +1,5 @@
 
-\version "2.3.17"
+\version "2.3.22"
 \header {
 texidoc = "
  When tightly spaced, the spaces between elements (hinterfleisch?) 
@@ -17,7 +17,7 @@ texidoc = "
 	 \relative c''{ 
 		r1 e4 f, e' f,
 	}
-	\paper { 
+	\layout { 
 		linewidth = 25.0 \mm
 		indent = 0.0\mm
 	}

@@ -45,10 +45,10 @@
 	    ;; FIXME: a hammer is not a slur.
 	    ;; 
 	    (ly:make-stencil '() '(0 . 0) '(0 . 0)))
-	   (paper (ly:grob-paper grob))
+	   (layout (ly:grob-layout grob))
 	   (text (interpret-markup
-		  paper
-		  (ly:grob-alist-chain grob (ly:output-def-lookup paper 'text-font-defaults))
+		  layout
+		  (ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))
 		  letter)))
     
       (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 

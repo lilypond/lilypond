@@ -1,4 +1,4 @@
-\version "2.3.17"
+\version "2.3.22"
 \header {
     
     texidoc = "If NoteCollision has merge-differently-dotted = ##t note
@@ -7,7 +7,7 @@ should not disappear when merging similar note heads."
     
 }
 
-\paper { raggedright= ##t }
+\layout { raggedright= ##t }
 	
 \score {
     \context Staff \relative c'' <<
