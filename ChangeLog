@@ -1,3 +1,35 @@
+2002-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* make/lilypond-vars.make (PYTHONPATH): Add python's outdir to
+	path.
+
+	* scripts/ly2dvi.py: Use lilylib as module.  Fail gracefully if
+	kpsexpand, kpsewhich, ps2pdf exit with error.  Cleanups and fixes
+	throughout.
+
+	* python/lilylib.py (quiet_system): Junk
+	(system): Display error log upon failure.
+	(read_pipe): New function.  Cleanups and fixes.
+
+	* python/*.py: Rename from *.py.in.
+	
+	* make/substitute.make (ATVARIABLES): Add lilypond_datadir.
+
+	* GNUmakefile.in (SUBDIRS): Move python before scripts.
+
+2002-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* python/GNUmakefile: Bugfix: handle modules.
+
+	* stepmake/stepmake/python-module-targets.make (default): Add
+	compiled modules. 
+
+	* stepmake/stepmake/python-module-rules.make: Add rule for byte
+	compiling modules.
+
+	* stepmake/stepmake/python-module-vars.make (OUT_PY_MODULES):
+	Bugfix.  (OUT_PYC_MODULES): Add.
+
 2002-10-30  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: Repair info. Comment out menu.

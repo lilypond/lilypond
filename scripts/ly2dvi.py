@@ -1,7 +1,14 @@
 #!@PYTHON@
-
-# Run lilypond, latex, dvips.
 #
+# ly2dvi.py -- Run LilyPond, add titles to bare score, generate printable
+#              document
+#              Invokes: lilypond, latex (or pdflatex), dvips, ps2pdf, gs
+# 
+# source file of the GNU LilyPond music typesetter
+# 
+# (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+#                 Jan Nieuwenhuizen <janneke@gnu.org>
+
 # This is the third incarnation of ly2dvi.
 #
 # Earlier incarnations of ly2dvi were written by
@@ -9,10 +16,10 @@
 # Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
 #
 
-#
 # Note: gettext work best if we use ' for docstrings and "
 #       for gettextable strings.
-#       --> DO NOT USE """ for docstrings.
+#       --> DO NOT USE ''' for docstrings.
+
 
 '''
 TODO:
@@ -49,295 +56,53 @@ TODO:
   
 '''
 
-
-import os
-import stat
-import string
-import re
-import getopt
-import sys
-import shutil
 import __main__
 import operator
-import tempfile
+import re
+import stat
+import string
 import traceback
 
-
 ################################################################
-# lilylib.py -- options and stuff
-# 
-# source file of the GNU LilyPond music typesetter
+# Users of python modules should include this snippet
+# and customize variables below.
 
-# Handle bug in Python 1.6-2.1
-#
-# there are recursion limits for some patterns in Python 1.6 til 2.1. 
-# fix this by importing pre instead. Fix by Mats.
+# We'll suffer this path init stuff as long as we don't install our
+# python packages in <prefix>/lib/pythonx.y (and don't kludge around
+# it as we do with teTeX on Red Hat Linux: set some environment var
+# (PYTHONPATH) in profile)
 
-# todo: should check Python version first.
-try:
-	import pre
-	re = pre
-	del pre
-except ImportError:
-	import re
-
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
-
-try:
-	import gettext
-	gettext.bindtextdomain ('lilypond', localedir)
-	gettext.textdomain ('lilypond')
-	_ = gettext.gettext
-except:
-	def _ (s):
-		return s
-
-program_version = '@TOPLEVEL_VERSION@'
-if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.54'
-
-def identify ():
-	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
-
-def warranty ():
-	identify ()
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001--2002'))
-	sys.stdout.write ('\n')
-	sys.stdout.write ('  Han-Wen Nienhuys')
-	sys.stdout.write ('  Jan Nieuwenhuizen')
-	sys.stdout.write ('\n\n')
-	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License.  It comes with NO WARRANTY."))
-	sys.stdout.write ('\n')
-
-def progress (s):
-	errorport.write (s + '\n')
-
-def warning (s):
-	progress (_ ("warning: ") + s)
-
-def user_error (s, e=1):
-	errorport.write (program_name + ":" + _ ("error: ") + s + '\n')
-	if (e):
-		sys.exit (e)
-	
-def error (s):
-	'''Report the error S.
-
-	If verbose is set, exit by raising an exception. Otherwise,
-	simply sys.exit().
-
-	Please do not abuse by trying to catch this error. If you do
-	not want a stack trace, write to the output directly.
-
-	RETURN VALUE
-
-	None
-	
-	'''
-	
-	progress (_ ("error: ") + s)
-	if verbose_p:
-		raise _ ("Exiting ... ")
-	else:
-		sys.exit (2)
-
-def getopt_args (opts):
-	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
-	short = ''
-	long = []
-	for o in opts:
-		if o[1]:
-			short = short + o[1]
-			if o[0]:
-				short = short + ':'
-		if o[2]:
-			l = o[2]
-			if o[0]:
-				l = l + '='
-			long.append (l)
-	return (short, long)
-
-def option_help_str (o):
-	'''Transform one option description (4-tuple ) into neatly formatted string'''
-	sh = '  '	
-	if o[1]:
-		sh = '-%s' % o[1]
-
-	sep = ' '
-	if o[1] and o[2]:
-		sep = ','
-		
-	long = ''
-	if o[2]:
-		long= '--%s' % o[2]
-
-	arg = ''
-	if o[0]:
-		if o[2]:
-			arg = '='
-		arg = arg + o[0]
-	return '  ' + sh + sep + long + arg
-
-
-def options_help_str (opts):
-	'''Convert a list of options into a neatly formatted string'''
-	w = 0
-	strs =[]
-	helps = []
-
-	for o in opts:
-		s = option_help_str (o)
-		strs.append ((s, o[3]))
-		if len (s) > w:
-			w = len (s)
-
-	str = ''
-	for s in strs:
-		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
-	return str
-
-def help ():
-	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
-		('\n\n'),
-		(help_summary),
-		('\n\n'),
-		(_ ("Options:")),
-		('\n'),
-		(options_help_str (option_definitions)),
-		('\n\n'),
-		(_ ("Report bugs to %s") % 'bug-lilypond@gnu.org'),
-		('\n')]
-	map (sys.stdout.write, ls)
-	
-def setup_temp ():
-	"""
-	Create a temporary directory, and return its name. 
-	"""
-	global temp_dir
-	if not keep_temp_dir_p:
-		temp_dir = tempfile.mktemp (program_name)
-	try:
-		os.mkdir (temp_dir, 0777)
-	except OSError:
-		pass
-
-	return temp_dir
-
-
-def system (cmd, ignore_error = 0, quiet =0):
-	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
-
-	RETURN VALUE
-
-	Exit status of CMD
-	"""
-	
-	if verbose_p:
-		progress (_ ("Invoking `%s\'") % cmd)
-
-	st = os.system (cmd)
-	if st:
-		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
-		msg = name + ': ' + _ ("command exited with value %d") % st
-		if ignore_error:
-			if not quiet:
-				warning (msg + ' ' + _ ("(ignored)") + ' ')
-		else:
-			error (msg)
-
-	return st
-
-
-def cleanup_temp ():
-	if not keep_temp_dir_p:
-		if verbose_p:
-			progress (_ ("Cleaning %s...") % temp_dir)
-		shutil.rmtree (temp_dir)
-
-
-def strip_extension (f, ext):
-	(p, e) = os.path.splitext (f)
-	if e == ext:
-		e = ''
-	return p + e
-
-
-def cp_to_dir (pattern, dir):
-	"Copy files matching re PATTERN from cwd to DIR"
-	# Duh.  Python style portable: cp *.EXT OUTDIR
-	# system ('cp *.%s %s' % (ext, outdir), 1)
-	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
-	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
-
-
-# Python < 1.5.2 compatibility
-#
-# On most platforms, this is equivalent to
-#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
-if os.path.__dict__.has_key ('abspath'):
-	abspath = os.path.abspath
-else:
-	def abspath (path):
-		return os.path.normpath (os.path.join (os.getcwd (), path))
-
-if os.__dict__.has_key ('makedirs'):
-	makedirs = os.makedirs
-else:
-	def makedirs (dir, mode=0777):
-		system ('mkdir -p %s' % dir)
-
-
-def mkdir_p (dir, mode=0777):
-	if not os.path.isdir (dir):
-		makedirs (dir, mode)
-
-
-# if set, LILYPONDPREFIX must take prevalence
-# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+# If set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX
+import getopt, os, sys
 datadir = '@local_lilypond_datadir@'
-
+if not os.path.isdir (datadir):
+	datadir = '@lilypond_datadir@'
 if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
-else:
-	datadir = '@local_lilypond_datadir@'
-
-
-while datadir[-1] == os.sep:
-	datadir= datadir[:-1]
+	while datadir[-1] == os.sep:
+		datadir= datadir[:-1]
 
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
-################################################################
-# END Library
+# Customize these
+#if __name__ == '__main__':
 
+import lilylib as ly
+global _;_=ly._
 
+# lilylib globals
 program_name = 'ly2dvi'
-
+verbose_p = 0
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-errorport = sys.stderr
 keep_temp_dir_p = 0
-verbose_p = 0
-preview_p = 0
-lilypond_error_p = 0
-preview_resolution = 90
-pseudo_filter_p = 0
-latex_cmd = 'latex'
-tex_extension = '.tex'
-pdftex_p = 0
-binary = 'lilypond'
-#binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
-help_summary = _ ("Run LilyPond using LaTeX for titling")
+## FIXME
+## ly2dvi: silly name?
+## do -P or -p by default?
+##help_summary = _ ("Run LilyPond using LaTeX for titling")
+help_summary = _ ("Run LilyPond, add titles, generate printable document")
 
 option_definitions = [
 	('', 'd', 'dependencies',
@@ -362,6 +127,19 @@ option_definitions = [
 	('', 'v', 'version', _ ("print version number")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
 	]
+
+# other globals
+preview_p = 0
+lilypond_error_p = 0
+preview_resolution = 90
+pseudo_filter_p = 0
+
+
+# Pdftex support
+pdftex_p = 0
+latex_cmd = 'latex'
+tex_extension = '.tex'
+
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
 	  'footer', 'head', 'composer', 'arranger', 'instrument',
@@ -399,21 +177,7 @@ targets = ['DVI', 'LATEX', 'MIDI', 'TEX']
 track_dependencies_p = 0
 dependency_files = []
 
-
-
-kpse = os.popen ('kpsexpand \$TEXMF').read()
-kpse = re.sub('[ \t\n]+$','', kpse)
-type1_paths = os.popen ('kpsewhich -expand-path=\$T1FONTS').read ()
-
-environment = {
-	# TODO: * prevent multiple addition.
-	#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
-	#         as these take prevalence over $TEXMF
-	#         and thus may break tex run?
-	'TEXMF' : "{%s,%s}" % (datadir, kpse) ,
-	'GS_FONTPATH' : type1_paths,
-	'GS_LIB' : datadir + '/ps',
-}
+environment = {}
 
 # tex needs lots of memory, more than it gets by default on Debian
 non_path_environment = {
@@ -423,6 +187,22 @@ non_path_environment = {
 }
 
 def setup_environment ():
+	global environment
+
+	kpse = ly.read_pipe ('kpsexpand \$TEXMF')
+	texmf = re.sub ('[ \t\n]+$','', kpse)
+	type1_paths = ly.read_pipe ('kpsewhich -expand-path=\$T1FONTS')
+	
+	environment = {
+		# TODO: * prevent multiple addition.
+		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+		#         as these take prevalence over $TEXMF
+		#         and thus may break tex run?
+		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
+		'GS_FONTPATH' : type1_paths,
+		'GS_LIB' : datadir + '/ps',
+		}
+	
 	# $TEXMF is special, previous value is already taken care of
 	if os.environ.has_key ('TEXMF'):
 		del os.environ['TEXMF']
@@ -442,36 +222,26 @@ def set_setting (dict, key, val):
 	try:
 		val = string.atoi (val)
 	except ValueError:
-		#warning (_ ("invalid value: %s") % `val`)
+		#ly.warning (_ ("invalid value: %s") % `val`)
 		pass
 
 	if type(val) == type ('hoi'):
 		try:
 			val = string.atof (val)
 		except ValueError:
-			#warning (_ ("invalid value: %s") % `val`)
+			#ly.warning (_ ("invalid value: %s") % `val`)
 			pass
 
 	try:
 		dict[key].append (val)
 	except KeyError:
-		warning (_ ("no such setting: `%s'") % `key`)
+		ly.warning (_ ("no such setting: `%s'") % `key`)
 		dict[key] = [val]
 
 
 def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
-
-def quiet_system (cmd, name, ignore_error = 0):
-	if not verbose_p:
-		progress ( _("Running %s...") % name)
-		cmd = cmd + ' 1> /dev/null 2> /dev/null'
-	elif pseudo_filter_p:
-		cmd = cmd + ' 1> /dev/null'
-
-	return system (cmd, ignore_error, quiet = 1)
-
 
 def run_lilypond (files, dep_prefix):
 
@@ -496,35 +266,39 @@ def run_lilypond (files, dep_prefix):
 
 	fs = string.join (files)
 
-	if not verbose_p:
-		# cmd = cmd + ' 1> /dev/null 2> /dev/null'
-		progress ( _("Running %s...") % 'LilyPond')
-	else:
+	global verbose_p
+	if verbose_p:
 		opts = opts + ' --verbose'
-
-		# for better debugging!
 		print_environment ()
 
-	cmd = '%s %s %s ' % (binary, opts, fs)
-	if  verbose_p:
-		progress ("Invoking `%s'"% cmd)
-	status = os.system (cmd)
+	cmd = 'lilypond %s %s ' % (opts, fs)
+	
+	# We unset verbose, because we always want to see lily's
+	# progess on stderr
+	save_verbose = verbose_p
+	status = ly.system (cmd, ignore_error = 1)
+	verbose_p = save_verbose
 
 	signal = 0x0f & status
 	exit_status = status >> 8
 
 	# 2 == user interrupt.
-	if signal and  signal != 2:
-		error ("\n\n" + _ ("LilyPond crashed (signal %d).") % signal \
-		       + _ ("Please submit a bug report to bug-lilypond@gnu.org") + "\n")
-
+	if signal and signal != 2:
+		sys.stderr.write ('\n\n')
+		ly.error (_ ("LilyPond crashed (signal %d).") % signal)
+		ly.error (_ ("Please submit a bug report to bug-lilypond@gnu.org"))
+		ly.exit (status)
+			
 	if status:
-		sys.stderr.write ( "\n" \
-			+ _ ("LilyPond failed on an input file (exit status %d).") % exit_status + "\n")
-		sys.stderr.write (_("Trying to salvage the rest.") +'\n\n')
-
-		global lilypond_error_p
-		lilypond_error_p = 1
+		sys.stderr.write ('\n')
+		if len (files) == 1:
+			ly.error (_ ("LilyPond failed on input file %s (exit status %d)") % (files[0], exit_status))
+			ly.exit (status)
+		else:
+			ly.error (_ ("LilyPond failed on an input file (exit status %d)") % exit_status)
+			ly.error (_ ("Continuing..."))
+			global lilypond_error_p
+			lilypond_error_p = 1
 		
 
 def analyse_lilypond_output (filename, extra):
@@ -533,7 +307,7 @@ def analyse_lilypond_output (filename, extra):
 	'''Grep FILENAME for interesting stuff, and
 	put relevant info into EXTRA.'''
 	filename = filename+tex_extension
-	progress (_ ("Analyzing %s...") % filename)
+	ly.progress (_ ("Analyzing %s...") % filename)
 	s = open (filename).read ()
 
 	# search only the first 10k
@@ -542,12 +316,13 @@ def analyse_lilypond_output (filename, extra):
 		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}'%x, s)
 		if m:
 			set_setting (extra, x, m.group (1))
+	ly.progress ('\n')
 
 def find_tex_files_for_base (base, extra):
 
-	"""
+	'''
 	Find the \header fields dumped from BASE.
-	"""
+	'''
 	
 	headerfiles = {}
 	for f in layout_fields:
@@ -565,10 +340,10 @@ def find_tex_files_for_base (base, extra):
 	 
 
 def find_tex_files (files, extra):
-	"""
+	'''
 	Find all .tex files whose prefixes start with some name in FILES. 
 
-	"""
+	'''
 	
 	tfiles = []
 	
@@ -576,7 +351,7 @@ def find_tex_files (files, extra):
 		x = 0
 		while 1:
 			fname = os.path.basename (f)
-			fname = strip_extension (fname, '.ly')
+			fname = ly.strip_extension (fname, '.ly')
 			if x:
 				fname = fname + '-%d' % x
 
@@ -589,7 +364,7 @@ def find_tex_files (files, extra):
 			x = x + 1
 	if not x:
 		fstr = string.join (files, ', ')
-		warning (_ ("no LilyPond output found for `%s'") % fstr)
+		ly.warning (_ ("no LilyPond output found for `%s'") % fstr)
 	return tfiles
 
 def one_latex_definition (defn, first):
@@ -630,7 +405,7 @@ def global_latex_preamble (extra):
 		try:
 			options = ly_paper_to_latexpaper[extra['papersize'][0]]
 		except KeyError:
-			warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
+			ly.warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
 			pass
 
 	if extra['latexoptions']:
@@ -708,13 +483,13 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 
 def run_latex (files, outbase, extra):
 
-	"""Construct latex file, for FILES and EXTRA, dump it into
+	'''Construct latex file, for FILES and EXTRA, dump it into
 OUTBASE.latex. Run LaTeX on it.
 
 RETURN VALUE
 
 None
-	"""
+	'''
 
 	latex_fn = outbase + '.latex'
 	
@@ -726,24 +501,25 @@ None
 	f.close ()
 
 	cmd = latex_cmd + ' \\\\nonstopmode \\\\input %s' % latex_fn
-	status = quiet_system (cmd, 'LaTeX', ignore_error = 1)
-
+	status = ly.system (cmd, ignore_error = 1)
 	signal = 0xf & status
-	exit_stat = status >> 8
+	exit_status = status >> 8
 
-	if exit_stat:
-		logstr = open (outbase + '.log').read()
-		m = re.search ("\n!", logstr)
-		start = m.start (0)
-		logstr = logstr[start:start+200]
-		
-		user_error (_ ("LaTeX failed on the output file."), 0)
-		sys.stderr.write ("\n")
-		user_error (_ ("The error log is as follows:"), 0)
-		sys.stderr.write ("\n")
-		sys.stderr.write (logstr)
-		sys.stderr.write ("\n")
-		raise 'LaTeX error'
+	if exit_status:
+
+		logstr = ''
+		try:
+			logstr = open (outbase + '.log').read ()
+			m = re.search ("\n!", logstr)
+			start = m.start (0)
+			logstr = logstr[start:start+200]
+		except:
+			pass
+			
+		ly.error (_ ("LaTeX failed on the output file."))
+		ly.error (_ ("The error log is as follows:"))
+		sys.stderr.write (logstr + '\n')
+		ly.exit (1)
 	
 	if preview_p:
 		# make a preview by rendering only the 1st line.
@@ -761,19 +537,19 @@ None
 
 		f.close()
 		cmd = '%s \\\\nonstopmode \\\\input %s' % (latex_cmd, preview_fn)
-		quiet_system (cmd, '%s for preview' % latex_cmd)
+		ly.system (cmd)
 	
 
 def run_dvips (outbase, extra):
 
 
-	"""Run dvips using the correct options taken from EXTRA,
+	'''Run dvips using the correct options taken from EXTRA,
 leaving a PS file in OUTBASE.ps
 
 RETURN VALUE
 
 None.
-"""
+'''
 	opts = ''
 	if extra['papersize']:
 		opts = opts + ' -t%s' % extra['papersize'][0]
@@ -785,19 +561,21 @@ None.
 		opts = opts + ' -Ppdf -G0 -u lilypond.map'
 		
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
-	quiet_system (cmd, 'dvips')
+	ly.system (cmd)
 
 	if preview_p:
 		cmd = 'dvips -E -o%s %s' % ( outbase + '.preview.ps', outbase + '.preview.dvi')		
-		quiet_system (cmd, 'dvips for preview')
+		ly.system (cmd)
 
 	if 'PDF' in targets:
 		cmd = 'ps2pdf %s.ps %s.pdf' % (outbase , outbase)
-		quiet_system (cmd, 'ps2pdf')
+		ly.system (cmd)
 		
 def get_bbox (filename):
 	# cut & paste 
-	system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+	####ly.system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+	#### FIXME: 2>&1 ? --jcn
+	ly.system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox' % (filename, filename))
 
 	box = open (filename + '.bbox').read()
 	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
@@ -822,16 +600,16 @@ def make_preview (name, extra):
 
 	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
 	
-	cmd = cmd % (x, y, preview_resolution, name + '.trans.eps', name + '.preview.ps',name + '.png')
-	quiet_system (cmd, 'gs')
+	cmd = cmd % (x, y, preview_resolution, name + '.trans.eps',
+		     name + '.preview.ps',name + '.png')
+	ly.system (cmd)
 
 	try:
-		status = system (cmd)
+		status = ly.system (cmd)
 	except:
 		os.unlink (name + '.png')
-		error ("Removing output file")
-
-
+		ly.error (_ ("Removing output file"))
+		ly.exit (1)
 
 def generate_dependency_file (depfile, outname):
 	df = open (depfile, 'w')
@@ -862,7 +640,8 @@ def find_pfa_fonts (name):
 	s = open (name).read ()
 	if s[:len (PS)] != PS:
 		# no ps header?
-		user_error (_ ("not a PostScript file: `%s\'" % name))
+		ly.error (_ ("not a PostScript file: `%s\'" % name))
+		ly.exit (1)
 	here = 0
 	m = re.match ('.*?/(feta[-a-z0-9]+) +findfont', s[here:], re.DOTALL)
 	pfa = []
@@ -873,24 +652,24 @@ def find_pfa_fonts (name):
 	return pfa
 
 	
-(sh, long) = getopt_args (option_definitions)
+(sh, long) = ly.getopt_args (option_definitions)
 try:
-	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+	(options, files) = getopt.getopt (sys.argv[1:], sh, long)
 except getopt.error, s:
-	errorport.write ('\n')
-	user_error (_ ("getopt says: `%s\'" % s), 0)
-	errorport.write ('\n')
-	help ()
-	sys.exit (2)
+	sys.stderr.write ('\n')
+	ly.error (_ ("getopt says: `%s\'" % s))
+	sys.stderr.write ('\n')
+	ly.help ()
+	ly.exit (2)
 	
-for opt in options:	
+for opt in options:
 	o = opt[0]
 	a = opt[1]
 
 	if 0:
 		pass
 	elif o == '--help' or o == '-h':
-		help ()
+		ly.help ()
 		sys.exit (0)
 	elif o == '--find-pfa' or o == '-f':
 		fonts = map (lambda x: x + '.pfa', find_pfa_fonts (a))
@@ -928,7 +707,7 @@ for opt in options:
 	elif o == '--verbose' or o == '-V':
 		verbose_p = 1
 	elif o == '--version' or o == '-v':
-		identify ()
+		ly.identify (sys.stdout)
 		sys.exit (0)
 	elif o == '--pdftex':
 		latex_cmd = 'pdflatex'
@@ -937,9 +716,9 @@ for opt in options:
 		pdftex_p = 1
 		tex_extension = '.pdftex'
 	elif o == '--warranty' or o == '-w':
-		status = system ('lilypond -w', ignore_error = 1)
+		status = os.system ('lilypond -w')
 		if status:
-			warranty ()
+			ly.warranty ()
 
 		sys.exit (0)
 
@@ -954,25 +733,30 @@ include_path.insert (0, '.')
 if files and files[0] != '-' and os.path.dirname (files[0]) != '.':
 	include_path.append (os.path.dirname (files[0]))
 	
-include_path = map (abspath, include_path)
+include_path = map (ly.abspath, include_path)
 
 if files and (files[0] == '-' or output_name == '-'):
 	if len (files) == 1:
 		pseudo_filter_p = 1
 		output_name = 'lelie'
 		if verbose_p:
-			progress (_ ("pseudo filter"))
+			ly.progress (_ ("pseudo filter") + '\n')
 	else:
-		help ()
-		user_error (_ ("pseudo filter only for single input file"), 2)
+		ly.help ()
+		ly.error (_ ("pseudo filter only for single input file"))
+		ly.exit (2)
 		
-	
-original_output = output_name
+if not files:
+	ly.help ()
+	ly.error (_ ("no files specified on command line"))
+	ly.exit (2)
 
-if files:
+if 1:
+	ly.identify (sys.stderr)
+	original_output = output_name
 	
 	# Ugh, maybe make a setup () function
-	files = map (lambda x: strip_extension (x, '.ly'), files)
+	files = map (lambda x: ly.strip_extension (x, '.ly'), files)
 
 	# hmmm. Wish I'd 've written comments when I wrote this.
 	# now it looks complicated.
@@ -980,20 +764,22 @@ if files:
 	(outdir, outbase) = ('','')
 	if not output_name:
 		outbase = os.path.basename (files[0])
-		outdir = abspath ('.')
+		outdir = ly.abspath ('.')
 	elif output_name[-1] == os.sep:
-		outdir = abspath (output_name)
+		outdir = ly.abspath (output_name)
 		outbase = os.path.basename (files[0])
 	else:
-		(outdir, outbase) = os.path.split (abspath (output_name))
+		(outdir, outbase) = os.path.split (ly.abspath (output_name))
 
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex', '.pdftex'):
-		output_name = strip_extension (output_name, i)
-		outbase = strip_extension (outbase, i)
+		output_name = ly.strip_extension (output_name, i)
+		outbase = ly.strip_extension (outbase, i)
 
 	for i in files[:] + [output_name]:
 		if string.find (i, ' ') >= 0:
-			user_error (_ ("filename should not contain spaces: `%s'") % i)
+			ly.error (_ ("filename should not contain spaces: `%s'") %
+			       i)
+			ly.exit (1)
 			
 	if os.path.dirname (output_name) != '.':
 		dep_prefix = os.path.dirname (output_name)
@@ -1002,15 +788,19 @@ if files:
 
 	reldir = os.path.dirname (output_name)
 	if outdir != '.' and (track_dependencies_p or targets):
-		mkdir_p (outdir, 0777)
+		ly.mkdir_p (outdir, 0777)
 
 	setup_environment ()
-	tmpdir = setup_temp ()
+	tmpdir = ly.setup_temp ()
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
 	os.chdir (tmpdir)
-	
+
+	# We catch all exceptions, because we need to do stuff at exit:
+	#   * copy any successfully generated stuff from tempdir and
+	#     notify user of that
+	#   * cleanout tempdir
 	if lily_p:
 		try:
 			run_lilypond (files, dep_prefix)
@@ -1025,7 +815,8 @@ if files:
  			#   - parse error in .ly
  			#   - unexpected: assert/core dump
 			targets = []
-			traceback.print_exc ()
+			if verbose_p:
+				traceback.print_exc ()
 
 	# Our LilyPond pseudo filter always outputs to 'lelie'
 	# have subsequent stages and use 'lelie' output.
@@ -1050,7 +841,8 @@ if files:
 				targets.remove ('DVI')
 			if 'PS' in targets:
 				targets.remove ('PS')
-			traceback.print_exc ()
+			if verbose_p:
+				traceback.print_exc ()
 
 	if 'PS' in targets:
 		try:
@@ -1058,7 +850,8 @@ if files:
 		except: 
 			if 'PS' in targets:
 				targets.remove ('PS')
-			traceback.print_exc ()
+			if verbose_p:
+				traceback.print_exc ()
 
 	if 'PNG' in  targets:
 		make_preview (outbase, extra_init)
@@ -1081,16 +874,17 @@ if files:
 				targets.remove ('PDF')
 			if 'PS' in targets:
 				targets.remove ('PS')
-			traceback.print_exc ()
-			sys.exit(1)
+			if verbose_p:
+				traceback.print_exc ()
 
 	# add DEP to targets?
 	if track_dependencies_p:
 		depfile = os.path.join (outdir, outbase + '.dep')
 		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
-			progress (_ ("dependencies output to `%s'...") %
+			ly.progress (_ ("dependencies output to `%s'...") %
 				  depfile)
+			ly.progress ('\n')
 
 	if pseudo_filter_p:
 		main_target = 0
@@ -1099,30 +893,30 @@ if files:
 				main_target = i
 				break
 
+		ly.progress (_ ("%s output to <stdout>...") % i)
 		outname = outbase + '.' + string.lower (main_target)
 		if os.path.isfile (outname):
 			sys.stdout.write (open (outname).read ())
 		elif verbose_p:
-			warning (_ ("can't find file: `%s'") % outname)
+			ly.warning (_ ("can't find file: `%s'") % outname)
 		targets = []
+		ly.progress ('\n')
 		
 	# Hmm, if this were a function, we could call it the except: clauses
 	for i in targets:
 		ext = string.lower (i)
-		cp_to_dir ('.*\.%s$' % ext, outdir)
+		ly.cp_to_dir ('.*\.%s$' % ext, outdir)
 		outname = outbase + '.' + string.lower (i)
 		abs = os.path.join (outdir, outname)
 		if reldir != '.':
 			outname = os.path.join (reldir, outname)
 		if os.path.isfile (abs):
-			progress (_ ("%s output to `%s'...") % (i, outname))
+			ly.progress (_ ("%s output to `%s'...") % (i, outname))
+			ly.progress ('\n')
 		elif verbose_p:
-			warning (_ ("can't find file: `%s'") % outname)
+			ly.warning (_ ("can't find file: `%s'") % outname)
 			
 	os.chdir (original_dir)
-	cleanup_temp ()
+	ly.cleanup_temp ()
 
 	sys.exit (lilypond_error_p)
-else:
-	help ()
-	user_error (_ ("no files specified on command line"), 2)
