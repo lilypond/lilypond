@@ -51,8 +51,7 @@
 \def\placebox#1#2#3{%
         \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}}%
 
-% Are we using PDFTeX?  If so, use pdf definitions to translate
-% \embeddedps commands to embedded PDF.
+% Are we using PDFTeX?  If so, use pdf definitions.
 \ifx\pdfoutput\undefined  
   \input lily-ps-defs
 \else

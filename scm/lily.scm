@@ -112,6 +112,8 @@
      '("output-lib.scm"
        "tex.scm"
        "ps.scm"
+       "pdf.scm"
+       "pdftex.scm"
        "ascii-script.scm"
        ))
 
