@@ -63,7 +63,7 @@ utilities under GNU/Linux are used to make the binary file(.exe.zip)
 releases (some makefile hacking was needed to build this stuff).  Jeffrey
 Reed tries to keep-up with LilyPond development, and is doing quite
 well.  His latest release is available on
-lurl(http://www.realtime.net/~daboys/lilypond/).
+lurl(http://home.austin.rr.com/jbr/jeff/lilypond/).
 
 subsect(UNPACKING)
 
@@ -428,7 +428,7 @@ into all GNU programs that call for extensibility.
 
 itemize(
 it() download guile-1.3 patch from
-lurl(http://www.realtime.net/~daboys/lilypond/guile.patch) and save it
+lurl(http://home.austin.rr.com/jbr/jeff/lilypond/guile.patch) and save it
 to file(/tmp/guile.patch).
 it() download guile-1.3 from one of GNU's ftp sites.  
 it() From a bash shell, tar zxf guile-1.3.tar.gz
@@ -537,10 +537,10 @@ subsect(Running lilypond on Windows-NT) label(run)
 
 We are now distributing a formated binary distribution for
 Windows-NT.  Please refer to
-lurl(http://www.realtime.net/~daboys/lilypond/) for current news,
+lurl(http://home.austin.rr.com/jbr/jeff/lilypond/) for current news,
 download, installation, and running information.
 
-Jeffrey B. Reed email(daboys@bga.com)
+Jeffrey B. Reed email(daboys@austin.rr.com)
 
 
 sect(RUNNING LILYPOND -- by Dominique Cretel)

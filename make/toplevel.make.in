@@ -36,4 +36,4 @@ examples:
 
 localinstall:
 	mkdir -p $(datadir)
-	ln -s $(TEX_TFMDIR) $(datadir)/cmtfm
+	$(LN_S) $(TEX_TFMDIR) $(datadir)/cmtfm

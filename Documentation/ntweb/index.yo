@@ -1,5 +1,5 @@
-mailto(daboys@bga.com)
-article(LilyPond Windows NT 4.0/95 Distribution)(nemail(Jeffrey B. Reed)(daboys@bga.com))(label(contents))
+mailto(daboys@austin.rr.com)
+article(LilyPond Windows NT 4.0/95 Distribution)(nemail(Jeffrey B. Reed)(daboys@austin.rr.com))(label(contents))
 sect(Windows NT/95 Binary Distribution)
 
 subsect(Introduction) label(introduction)
@@ -37,7 +37,7 @@ I have also converted the Manual Pages for the above tools to HTML for
 easy browsing.  This release has been tested on Windows NT 4.0sp3 and
 Windows 95 and found to be operational.  If you have any troubles and
 or comments please do not hesitate to drop me a line
-url(Jeffrey B. Reed)(mailto:daboys@bga.com). 
+url(Jeffrey B. Reed)(mailto:daboys@austin.rr.com). 
 
 This is what the version @TOPLEVEL_VERSION@ brings:
 

@@ -292,7 +292,7 @@ dnl    fi
 
     if test "x$OSTYPE" = "xcygwin32" || test "x$OSTYPE" = "xWindows_NT"; then
 	LN=cp # hard link does not work under cygnus-nt
-	LN_S=cp # symbolic link does not work for native nt
+	LN_S='cp -r' # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	DOTEXE=.exe
 	# urg
