@@ -114,8 +114,6 @@ Staff_symbol::get_line_thickness (Grob* me)
 Real
 Staff_symbol::get_ledger_line_thickness (Grob * me)
 {
-  Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-
   SCM lt_pair = me->get_grob_property ("ledger-line-thickness");
   Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
   

@@ -536,8 +536,7 @@
 	))
     (MeasureGrouping
      . (
-	(Y-offset-callbacks . (,Side_position_interface::out_of_staff 
-			       ,Side_position_interface::aligned_side))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(molecule-callback . ,Measure_grouping::brew_molecule)
 	(padding . 2)
 	(direction . 1)
@@ -1074,8 +1073,7 @@
     
     (OttavaBracket
      . (
-	(Y-offset-callbacks . (,Side_position_interface::out_of_staff
-			       ,Side_position_interface::aligned_side))
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(molecule-callback . ,Ottava_bracket::brew_molecule)
 	(font-shape . italic)
 	(font-family . roman)

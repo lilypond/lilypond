@@ -11,6 +11,7 @@
 #define DRUL_ARRAY_HH
 
 #include "direction.hh"
+#include "real.hh"
 
 #include <assert.h>
 
@@ -49,5 +50,19 @@ struct Drul_array
       array_[1] = t2;
     }
 };
+
+template<class T>
+void
+scale_drul (Drul_array<T> * dr, T x)
+{
+  dr->elem (LEFT) *= x;
+  dr->elem (RIGHT) *= x;
+}
+
+inline Real
+linear_combination (Drul_array<Real> const &d, Real x)
+{
+  return ((1.0 - x) * Real (d.elem (LEFT))  + (x + 1.0) * Real (d.elem (RIGHT))) * 0.5;
+}
 
 #endif // DRUL_ARRAY_HH
