@@ -49,6 +49,13 @@ tremolo must be parallel to the beam.  If the stem is invisible
 
 \mudelafile{stem-tremolo.ly}
 
+Abbreviation beams (official naming?) are a kind of repeat symbol.
+To avoid confusion, abbreviation beams do not touch the stems, but 
+leave a gap.  Abbreviation beams on half notes are not ambiguous,
+and should touch the stems.
+
+\mudelafile{abbreviation-beam.sly}
+
 Beams, stems and noteheads often have communication troubles, since
 the two systems for y dimensions (1 unit = staffspace, 1 unit = 1
 point) are mixed.
@@ -58,6 +65,10 @@ on the middle staff line. Of course stem-direction is down for high
 notes, and up for low notes.
 
 \mudelafile{stem-direction.sly}
+
+Similarly, if \verb+stem_default_neutral_direction+ is set to \verb+-1+.
+
+\mudelafile{stem-direction-down.ly}
 
 \section{Grace notes}
 
@@ -153,12 +164,13 @@ Folded.  This doesn't make sense without alternatives, but it works.
 \section{Lyrics}
 
 Lyrics can be set to a melody automatically.  Excess lyrics will be
-dumped.  Lyrics will not be set over rests.  You can have melismata by
-setting a property melismaBusy.  If you want a different order than
-first Music, then Lyrics, you must precook a chord of staffs/lyrics
-and label those.  Of course \verb+\rhythm+ ignores any other rhythms
-in the piece.  Hyphens and extenders do not assume anything about
-lyric lengths, so they continue to work.
+dumped.  Lyrics will not be set over rests.  You can have melismata
+either by setting a property melismaBusy, or by setting
+automaticMelismas (which will set melismas during slurs).  If you want a
+different order than first Music, then Lyrics, you must precook a
+chord of staffs/lyrics and label those.  Of course \verb+\rhythm+
+ignores any other rhythms in the piece.  Hyphens and extenders do not
+assume anything about lyric lengths, so they continue to work.
 
 \mudelafile{lyric-combine.ly}
 
