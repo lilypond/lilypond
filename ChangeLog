@@ -1,5 +1,11 @@
 2004-03-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/notation.itely (Ancient clefs): idem.
+
+	* Documentation/user/lilypond-book.itely (Integrating HTML and music): idem.
+
+	* Documentation/user/cheatsheet.itely (Cheat sheet): octave fixes.
+
 	* lily/change-iterator.cc (process): use find_existing_context().
 
 	* input/test/polymetric-differing-notes.ly: use ly:music-compress.
@@ -76,6 +82,8 @@
 
 2004-03-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: release 2.1.36
+	
 	* Documentation/user/changing-defaults.itely (Interpretation
 	contexts): rewrite introduction.
 
