@@ -124,23 +124,14 @@
 (defvar LilyPond-mode-syntax-table nil
   "Syntax table used in `LilyPond-mode' buffers.")
 
-(if LilyPond-mode-syntax-table
-    ()
+(defun LilyPond-mode-set-syntax-table (&optional not-punct)
+  "Change syntax table which can be customized according to a context."
+  (interactive)
+  (if (not not-punct) (setq not-punct '()))
   (setq LilyPond-mode-syntax-table (make-syntax-table))
-  ;; NOTE: Emacs knows only "13"-style (used), XEmacs knows also "1b3b", etc.
-  (mapcar (function
-	   (lambda (x) (modify-syntax-entry
-			(car x) (cdr x) LilyPond-mode-syntax-table)))
+  (let ((defaults 	  
 	  '(
-	    ;; all the paren characters are now handled by   
-	    ;; lily-specific indenting/matching code in lilypond-indent.el
-	    ;; Emacs' show-paren-function and XEmacs' paren-highlight use
-	    ;; these slur-definitions through Lilypond specific scan-sexps.
-	    ( ?\[ . "(]" ) ( ?\] . ")[" )
-	    ( ?\( . "()" ) ( ?\) . ")(" ) 
-	    ( ?\< . "(>" ) ( ?\> . ")<") 
-	    ( ?\{  .  "(} 2" )  ; also 2nd char in begin of block-comment
-	    ( ?\}  .  "){ 4" )  ; also 2nd char in end of block-comment
+	    ;; NOTE: Emacs knows only "13"-style (used), XEmacs knows also "1b3b", etc.
 	    ( ?\%  .  "< 13" ) ; comment starter, 1st char in block-comments
 	    ( ?\n . ">")       ; newline: comment ender
 	    ( ?\r . ">")       ; formfeed: comment ender
@@ -152,10 +143,51 @@
 	    ( ?\$ . "." ) ( ?\& . "." )
 	    ( ?\* . "." ) ( ?\+ . "." ) ( ?\/ . "." )  ( ?\= . "." )
 	    ( ?\| . "." )      ; bar line
-	    ;; In LilyPond the following chars serve as escape chars, 
-	    ;; e.g., c^> d-) e_( , but they are set to punctuation chars, 
-	    ;; since inside strings they should not act as escape chars
-	    ( ?\- . "\\" ) ( ?\_ . "." ) ( ?\^ . "." )
-	    ))
-  )
+	    )))
+    ;; all the paren characters are now handled by lily-specific indenting/matching code in lilypond-indent.el
+    (if (or (memq ?\{ not-punct) (memq ?\} not-punct))
+	(setq defaults (cons '( ?\{ . "(} 2" ) (cons '( ?\} . "){ 4" ) defaults))) ; begin and end of a block-comment
+      (setq defaults (cons '( ?\{ . ". 2" ) (cons '( ?\} . ". 4" ) defaults))))    ; begin and end of a block-comment
+    (if (or (memq ?\[ not-punct) (memq ?\] not-punct))
+	(setq defaults (cons '( ?\[ . "(]" ) (cons '( ?\] . ")[" ) defaults)))
+      (setq defaults (cons '( ?\[ . "." ) (cons '( ?\] . "." ) defaults))))
+    (if (or (memq ?\< not-punct) (memq ?\> not-punct))
+	(setq defaults (cons '( ?\< . "(>" ) (cons '( ?\> . ")<" ) defaults)))
+      (setq defaults (cons '( ?\< . "." ) (cons '( ?\> . "." ) defaults))))
+    (if (or (memq ?\( not-punct) (memq ?\) not-punct))
+	(setq defaults (cons '( ?\( . "()" ) (cons '( ?\) . ")(" ) defaults)))
+      (setq defaults (cons '( ?\( . "." ) (cons '( ?\) . "." ) defaults))))
+    ;; In LilyPond the following chars serve as escape chars, e.g., c^> d-) e_( , 
+    ;; but they may be set to punctuation chars, since inside strings they should not act as escape chars
+    (setq defaults (cons (if (memq ?\- not-punct) '( ?\- . "\\" ) '( ?\- . "." ) ) defaults))
+    (setq defaults (cons (if (memq ?\^ not-punct) '( ?\^ . "\\" ) '( ?\^ . "." ) ) defaults))
+    (setq defaults (cons (if (memq ?\_ not-punct) '( ?\_ . "\\" ) '( ?\_ . "." ) ) defaults))
+    (mapcar (function
+	     (lambda (x) (modify-syntax-entry
+			  (car x) (cdr x) LilyPond-mode-syntax-table)))
+	    defaults)
+    (set-syntax-table LilyPond-mode-syntax-table)))
 
+(defun LilyPond-mode-context-set-syntax-table ()
+  "Change syntax table which can be customized according to a context."
+  ;; make a syntax table without parentheses
+  (interactive)
+  ;; default map sets parentheses to punctuation characters
+  (LilyPond-mode-set-syntax-table) 
+  ;; find the context
+  (setq context (parse-partial-sexp (point-min) (point)))
+  (cond ((nth 3 context)) ; inside string
+	((nth 4 context)) ; inside a comment
+	((memq (char-before (point)) '( ?\) ))
+	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
+	((memq (char-before (point)) '( ?\] ))
+	 (LilyPond-mode-set-syntax-table '( ?\[ ?\] )))
+	((memq (char-before (point)) '( ?\> ?\} ))
+	 (LilyPond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
+	((memq (char-after (point)) '( ?\( ))
+	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
+	((memq (char-after (point)) '( ?\[ ))
+	 (LilyPond-mode-set-syntax-table '( ?\[ ?\] )))
+	((memq (char-after (point)) '( ?\< ?\{ ))
+	 (LilyPond-mode-set-syntax-table '( ?\< ?\> ?\{ ?\} ?\^ ?\- ?\_ )))
+	))

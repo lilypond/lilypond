@@ -689,6 +689,7 @@ command."
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "]" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "\C-c\C-x" 'LilyPond-mode-context-set-syntax-table) ; try it
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
     (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
@@ -1112,7 +1113,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'LilyPond-indent-line)
 
-  (set-syntax-table LilyPond-mode-syntax-table)
+  (LilyPond-mode-set-syntax-table '(?\< ?\> ?\{ ?\}))
   (setq major-mode 'LilyPond-mode)
   (setq mode-name "LilyPond")
   (setq local-abbrev-table LilyPond-mode-abbrev-table)

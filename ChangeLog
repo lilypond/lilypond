@@ -1,3 +1,11 @@
+2003-07-18  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el (LilyPond-mode-set-syntax-table, 
+	LilyPond-mode-context-set-syntax-table): new functions to define
+	the syntax table according to context.
+
+	* lilypond-mode.el: use LilyPond-mode-set-syntax-table.
+
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* GNUmakefile.in: remove no kpathsea hack.
