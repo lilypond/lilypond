@@ -1,6 +1,6 @@
 # -*-Makefile-*-
 
-gMISSING_OPTIONAL = @OPTIONAL@
+MISSING_OPTIONAL = @OPTIONAL@
 MISSING_REQUIRED = @REQUIRED@
 
 # @configure_input@
