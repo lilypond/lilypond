@@ -174,3 +174,9 @@ Source_file::unmap()
 	size_off_m = 0;
     }
 }
+String
+Source_file::file_line_no_str(const char *cch_c_l )
+{
+    return name_str() + ": "
+	+ String( line_i( cch_c_l ) );
+}
