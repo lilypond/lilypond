@@ -160,7 +160,7 @@ Translator::name (SCM trans)
   if (unsmob_translator (trans))
     {
       char const* nm = classname (unsmob_translator (trans));
-      return gh_str02scm (nm);
+      return ly_str02scm (nm);
     }
   return
     SCM_EOL;

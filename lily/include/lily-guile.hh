@@ -48,6 +48,8 @@
 #define scm_list_n scm_listify
 #define SCM_STRING_CHARS SCM_CHARS
 #define SCM_STRING_LENGTH SCM_LENGTH
+#define SCM_SYMBOL_CHARS SCM_CHARS
+#define SCM_SYMBOL_LENGTH SCM_LENGTH
 #endif
 
 
