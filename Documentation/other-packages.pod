@@ -119,7 +119,11 @@ notation program available''.
 
 =item Ikarus,
 
-The music-engraving system described by [Wanske]
+URW's music-engraving system described by [Wanske]
+
+=item Logic,
+
+=item Personal Composer
 
 =item Finale
 
@@ -159,5 +163,8 @@ Sun boxen.
 
 A project at Ohio State university, which was discontinued in 1987.
 
-=item Berlioz, http://www.bsi.fr/~montel/
+=item Berlioz, http://www.?.fr/
+
+Dominique Montel (a professional music typesetter) is now working together with
+computer scientists on his own software for music publishing, called "Berlioz".
 
