@@ -1,3 +1,16 @@
+1.3.19.hwn1
+==========
+
+* Clean up font-metric hierarchy, use Adobe AFM code to parse AFM files.
+Cleanup mf-to-table.py
+
+* Fixed embarassing slur bug.
+
+1.3.19.jcn1
+==========
+
+* lilypond-mode.el: guess init file for lily-*-region, lily-mode-map bindings
+
 1.3.18.uu2
 ==========
 

@@ -125,7 +125,7 @@ struct Tfm_kern
   Real kern;
 };
 
-struct Tex_font_char_metric : Character_metric
+struct Tex_font_char_metric
 {
   bool exists_b_;
   Char_code code_;
@@ -147,8 +147,8 @@ public:
   Tex_font_metric ();
 
   void clear (int n);
-  Character_metric const *get_char (int, bool) const;
-  Tex_font_char_metric const &find_ascii (int ascii, bool warn=true) const;
+  Box get_char (int, bool) const;
+  Tex_font_char_metric const *find_ascii (int ascii, bool warn=true) const;
 
   String str () const;
 

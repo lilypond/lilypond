@@ -59,23 +59,23 @@ Tex_font_metric::Tex_font_metric ()
 
 static Tex_font_char_metric dummy_static_char_metric;
 
-Tex_font_char_metric const &
+Tex_font_char_metric const *
 Tex_font_metric::find_ascii (int ascii, bool warn) const
 {
   if (ascii < ascii_to_metric_idx_.size() && ascii_to_metric_idx_[ascii] >= 0)
-    return char_metrics_[ascii_to_metric_idx_ [ascii]];
+    return & char_metrics_[ascii_to_metric_idx_ [ascii]];
   else if (warn)
 
     {
       warning (_f ("Can't find ascii character: `%d'", ascii));
     }
-  return dummy_static_char_metric;  
+  return &dummy_static_char_metric;  
 }
 
-Character_metric const*
+Box
 Tex_font_metric::get_char (int a, bool w) const
 {
-  return &find_ascii (a, w);
+  return find_ascii (a, w)->dimensions ();
 }
 
 

@@ -12,13 +12,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * use hash tabs iso. alist_ for elt property?
 . * fix tremolos.
 . * internationalize GUILE msgs.
-. * with lily 1.3.17, i'm seeing tuplet markings slice mercilessly through
-whatever stands in their way.  for an example, see
-http://www4.smart.net/~jcovey/tmp/smith/closing.ps.gz
-on page 2, end of the second system.  is there any way around this?
 . * unbroken marks.
 . * put property test files in refman.
-. * use gnome-print ParseAFM
 . * fix slurdotted!
 . * alignment within @itemize
 . * interstaff stems
@@ -28,8 +23,6 @@ on page 2, end of the second system.  is there any way around this?
 . * script columns
 . * Must stop before this music ends:
 verse=\lyrics {
-. * input/bugs/clef.sly: clef changes go missing
-. * clean up font metric handling. 
 . * input/test/grace.sly: wierd big spacing on grace notes
 . * TODO^2:
 .  * make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
@@ -103,12 +96,10 @@ melismatic.
 . * staffside spanner (crescendo!) along with staffswitch.
 . * * auto melismaBusy for beams.
 
-. * 
-> \context Staff <
+. * \context Staff <
 >   {\voiceone''4. r8}
 >  \voicetwo c,4 r4}
 > >
-. * sort out breve shapes.
 . * \time forces keysig?
 
 .* STUFF
@@ -128,7 +119,6 @@ of the grace notes and extend to the note after the grace notes.
  The words are aligned with the main note, not the start of the
  grace note.  This is usually wrong, but is sometimes right.
 . * tie-direction
-. * repeats and partial measures.
 . * rhythmic staff & accidentals.
 . * use melismaBusy in Lyric context to typeset melismata correctly.  
 . * ly2dvi/lilypond logfile.
@@ -137,7 +127,7 @@ of the grace notes and extend to the note after the grace notes.
 . * msgfmt -o check?
 . * collision of lyrics with span_bars. See star-spangled.
 . * It is impossible to typeset two textual scripts that are stacked
-  on top of eachother and avoids note collisions and at the same
+  on top of each other and avoids note collisions and at the same
   time are typeset with different textStyle. I tried to move around
   the text_engraver and other engravers between Voice and Thread 
   but the granularity is not fine enough, the scripts have to 
@@ -162,13 +152,11 @@ of the grace notes and extend to the note after the grace notes.
    page three, the c-sharp on the second line should be a quarter with 
    a circle, not a quarter tied to a sixteenth.  is this at all
    possible with lily?
-. * make dependencies () a virtual function.
 . * deprecate hangOnClef.
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
 . * store req -> element, element -> element causes for warnings
-. * compulsory hshift
 . *  My wish list for lyrics. I dream of a time when I will have enough time to
 become familiar enough with the source code to be able to implement some of
 these myself, but I don't know when that will be, so I thought I'd "publish"
@@ -222,7 +210,6 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 .  * --prefix option?
 .  * -I option per filetype?
 .  * kpathsea?
-. * fix vertical alignment and stafflines
 . * declaring Performers
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
@@ -236,11 +223,8 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 	   * { a4 a16 } c <-- duration of c?
 	   * < a4 b8 > c <-- duration of c?
 . * \tempo 4. = 90;
-. * make sure all ex's have a mudela-version
 . * do rest-collisions for Multi_measure_rests as well.
 . * split error/warning in error/warning/non_fatal_error
-. * add a Duration_convert member to Duration_iter to set parameters.
-	Junk global duration settings. 
 .  * discourage breaking of slurs
 . * fix variable define/lookup parser global<->paper
 . * fix title/instrument placements; see input/test/title.ly
@@ -321,9 +305,6 @@ touching it.
 
 . * patch: don't touch timestamp if all patches fail.
 . * MetaPost: should not generate setgray for unfill
-
-. * mf-to-table -> add space 'before ; in AFM output.  (-> check AFM
-spec. Is this a bug in afm2tfm?)
 . * check out GCC signatures?
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
@@ -412,35 +393,6 @@ languages:
 .  * slurs
 .  * accents
 .  * dynamics
-> Would it be hard to add support for proper dynamics in MIDI output?  I
-> would really like to have this feature...
-
-Concretely spoken, for dynamics you have to write a performer
-(Dynamics_performer), that will take the input requests. If I
-understand correctly, every MIDI note played must have its dynamic
-strength set separately.  That means the the Dynamics_performer must
-set the strength of every Audio_note it finds.  This means that one
-has to modify existing Audio items.  The best way of doing this is
-with a broadcast/acknowledge process.
-
-So the best way of handling this, is
-
-  1 supporting dynamic settings in Audio_note
-
-  2 Write a Dynamics_performer that will modify
-  any notes it finds to set appropriate strengths.
-
-I'd say that the work involved is not hard, but you have to be fluent
-with C++ and need some insight into the working of Notation Contexts
-and friends.  I guess I could do it in a day or so, but if you are not
-so fluent with the inner workings of LilyPond, it could take you some
-more time (A few more days?).
-
-Please note, that I am *not* going to code this myself: my days are
-valuable, and I think I have more interesting things to do than fixing
-the MIDI output (I don't even have a soundcard).  But I *do* want to help
-you or other people with implementing this, so if you need help, don't
-hesitate to ask.
 .  * account for rhythmic position in measure
 .  * etc.
 
@@ -494,7 +446,6 @@ hesitate to ask.
 
 . * write Dynamic_line (to group dynamics horizontally)
 
-
 . * handle EOF graciously in error messages.
 
 . * midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
@@ -508,8 +459,6 @@ hesitate to ask.
 	    %  --|---         --|---
 	    %  --|---         --|---
           (where "to" is a tiny bow)
-
-. * auxilliary file for caching info.
 
 . * Text_crescendo
 

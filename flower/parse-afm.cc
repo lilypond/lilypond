@@ -663,8 +663,8 @@ static int parseCharMetrics(FILE *fp, register AFM_Font_info *fi)
                 temp->charBBox.ury = atoi(token(fp));
                 break;
             case LIGATURE: {
-                Ligature **tail = &(temp->ligs);
-                Ligature *node = *tail;
+                AFM_Ligature **tail = &(temp->ligs);
+                AFM_Ligature *node = *tail;
                 
                 if (*tail != NULL)
                 {
@@ -673,7 +673,7 @@ static int parseCharMetrics(FILE *fp, register AFM_Font_info *fi)
                     tail = &(node->next); 
                 }
                 
-                *tail = (Ligature *) calloc(1, sizeof(Ligature));
+                *tail = (AFM_Ligature *) calloc(1, sizeof(AFM_Ligature));
                 keyword = token(fp);
                 (*tail)->succ = (char *) malloc(strlen(keyword) + 1);
                 strcpy((*tail)->succ, keyword);
@@ -1078,7 +1078,7 @@ static int parseAFM_CompCharData(FILE *fp, register AFM_Font_info *fi)
  *  pointer upon return of this function is undefined.
  */
 
-extern int parseFile (FILE *fp, AFM_Font_info **fi, int flags)
+extern int AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
 {
     
     int code = AFM_ok; 	/* return code from each of the parsing routines */
@@ -1233,7 +1233,7 @@ extern int parseFile (FILE *fp, AFM_Font_info **fi, int flags)
 
 
 void
-parseFileFree (AFM_Font_info *fi)
+AFM_free (AFM_Font_info *fi)
 {
      if (fi->gfi) {
 	  free (fi->gfi->afmVersion);
@@ -1255,7 +1255,7 @@ parseFileFree (AFM_Font_info *fi)
 	  for (i = 0; i < fi->numOfChars; i++) {
 	       free (fi->cmi[i].name);
 	       while (fi->cmi[i].ligs) {
-		    Ligature *tmp;
+		    AFM_Ligature *tmp;
 		    tmp = fi->cmi[i].ligs;
 		    free (tmp->succ);
 		    free (tmp->lig);

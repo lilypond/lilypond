@@ -327,22 +327,21 @@ Slur::do_post_processing ()
     {
       Bezier c (get_curve ());
       
+      Offset size (c.extent (X_AXIS).length (),
+		   c.extent (Y_AXIS).length ());
 
-      Real height_f = c.extent (X_AXIS).length ();
-      Real width_f = c.extent (Y_AXIS).length ();
-      
       dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
       if (!fix_broken_b)
 	dy_f -= interstaff_f;
 
-      Real height_ratio_f = abs (height_f / width_f);
+      Real height_ratio_f = abs (size[Y_AXIS] / size[X_AXIS]);
       if (height_ratio_f > height_damp_f)
 	{
 	  Direction d = (Direction)(- my_dir * (sign (dy_f)));
 	  if (!d)
 	    d = LEFT;
 	  /* take third step */
-	  Real damp_f = (height_ratio_f - height_damp_f) * width_f / 3;
+	  Real damp_f = (height_ratio_f - height_damp_f) * size[X_AXIS] / 3;
 	  /*
 	    if y positions at about the same height, correct both ends
 	  */

@@ -76,8 +76,6 @@ Lookup::ledger_line (Interval xwid) const
 }
 
 
-
-
 Molecule
 Lookup::afm_find (String s, bool warn) const
 {
@@ -92,23 +90,20 @@ Lookup::afm_find (String s, bool warn) const
 	  error (_ ("Aborting"));
 	}
     }
-  Adobe_font_char_metric cm = afm_l_->find_char (s, warn);
+  AFM_CharMetricInfo const *cm = afm_l_->find_char_metric (s, warn);
   Molecule m;
-  if (cm.code () < 0)
+  if (!cm)
     {
-      /*
-	don't want people relying on this kind of dimension. 
-      */
       m.set_empty (false);
       return m;
     }
   
   Atom at (gh_list (ly_symbol2scm ("char"),
-		    gh_int2scm (cm.code ()),
+		    gh_int2scm (cm->code),
 		    SCM_UNDEFINED));
 
   at.fontify (afm_l_);
-  m.dim_ = cm.dimensions();
+  m.dim_ = afm_bbox_to_box (cm->charBBox);
   m.add_atom (&at);
   return m;
 }
