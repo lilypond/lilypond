@@ -42,7 +42,7 @@ Stem::print() const
 void
 Stem::set_stemend(Real se)
 {
-    assert(!output);
+
     // todo: margins
     assert((dir > 0 && se >= maxnote) || (se <= minnote && dir <0));
     
@@ -54,6 +54,8 @@ Stem::set_stemend(Real se)
 void
 Stem::add(Notehead *n)
 {
+    assert(status < PRECALCED);
+    
     if (n->balltype == 1)
 	return;
     int p = n->position;
@@ -62,6 +64,7 @@ Stem::add(Notehead *n)
     if ( p> maxnote)
 	maxnote = p;
     heads.add(n);
+    n->dependencies.add(this);
 }
 
 
@@ -113,10 +116,12 @@ void
 Stem::set_noteheads()
 {
     heads.sort(Notehead::compare);
-    int parity=0;
+    int parity=1;
     int lastpos = heads[0]->position;
     for (int i=1; i < heads.sz(); i ++) {
-	if (abs(lastpos- heads[i]->position) == 1) {
+	int dy =abs(lastpos- heads[i]->position);
+	
+	if (dy <= 1) {
 	    if (parity)
 		heads[i]->x_dir = (stem_xoffset>0) ? 1:-1;
 	    parity = !parity;
@@ -127,13 +132,13 @@ Stem::set_noteheads()
 }
 
 void
-Stem::postprocess()
+Stem::do_pre_processing()
 {
     if (bot == top)
 	set_default_extents();
     set_noteheads();
-    brew_molecole();
 }
+
 
 Interval
 Stem::width()const
@@ -146,12 +151,12 @@ Stem::width()const
     return r;
 }
 
-void
-Stem::brew_molecole()
+Molecule*
+Stem::brew_molecule()const return out;
 {
     assert(pstaff_);
     assert(bot!=top);
-    assert(!output);
+ 
     
     Paperdef *p =paper();
 
@@ -159,21 +164,20 @@ Stem::brew_molecole()
     Symbol ss =p->lookup_->stem(bot*dy,top*dy);
 
     
-    output = new Molecule(Atom(ss));
+    out = new Molecule(Atom(ss));
 
     if (print_flag&&abs(flag) > 4){
 	Symbol fl = p->lookup_->flag(flag);
 	Molecule m(fl);
 	if (flag < -4){		
-	    output->add_bottom(m);
+	    out->add_bottom(m);
 	} else if (flag > 4) {
-	    output->add_top(m);
+	    out->add_top(m);
 	} else
 	    assert(false); 
     }
 
-    output->translate(Offset(stem_xoffset,0));
-
+    out->translate(Offset(stem_xoffset,0));
 }
 
 Real
@@ -183,8 +187,3 @@ Stem::hpos()const
 }
 
 
-void
-Stem::preprocess()
-{
-    set_default_extents();	// needed for the flags.
-}
