@@ -8,7 +8,7 @@
 You can have multiple time signatures occuring at the same time.
 
 This is done by moving the timing engraver to staff context. Also,
-Staff should be given the alias @code{Timing} to make @code{\time}
+Staff should be given the alias @code{Timing} to make @code{\\time}
 command work correctly. Barlines distort the regular spacing, though.
 
 

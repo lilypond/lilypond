@@ -1,3 +1,7 @@
+2003-10-29  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/test/follow-thread.ly, input/test/polymetric.ly: Fix typos.
+
 2003-10-24  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/test/transposition.ly: Fix key signatures, given in comments.
