@@ -1,3 +1,8 @@
+2004-04-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* buildscripts/mf-to-table.py (parse_logfile): don't append
+	encoding to fontname.
+
 2004-04-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (define-fonts): Load .enc only once.
