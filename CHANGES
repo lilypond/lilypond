@@ -1,4 +1,45 @@
+1.3.30.mb1
+=========
 
+* Fixed the page layout, reintroducing space for the header and
+  trying to keep piece titles on the same page as the piece.
+  The header and footer can now contain several lines.
+
+1.3.30.jcn3
+===========
+
+* Span_dynamic_performer; perform crescendi/decrescendi.  Bit scrappy.
+
+* Preliminary support for crescendi/decrescendi other than `hairpins', eg:
+  `cresc. poco `a poco -- -- --'
+
+* Tie performance fix.
+
+1.3.30.jcn2
+===========
+
+* Dynamic_performer: performs absolute dynamic requests.
+
+* David's comments on opus47
+
+1.3.30.jcn1
+===========
+
+* More Coriolan: flute-1,2; oboe-1,2; clarinet-1,2; 
+  fixes and remainder french horn-1,2; trombone-1,2;
+  fagotto-1,2; timpani; and several fixes.
+  
+1.3.30.uu1
+==========
+
+* Remove some old doco from programmer/ and put on personal homepage.
+
+* Removed union-find from flower library.
+
+* Only quantise tie horizontal part inside the staff.
+
+1.3.30
+======
 1.3.29.hwn1
 ===========
 
