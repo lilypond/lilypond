@@ -679,7 +679,6 @@ def compose_ly (code, options, type):
 	# environment for non-quoted snippets.
 	override[EXAMPLEINDENT] = r'0.4\in'
 	override[LINEWIDTH] = texinfo_linewidths['@smallbook']
-	override[FONTLOAD] = ''
 	override.update (default_ly_options)
 
 	option_list = []
@@ -756,7 +755,7 @@ def compose_ly (code, options, type):
 	  string.join (compose_dict[PREAMBLE], '\n  ') % override
 
         font_dump_setting = ''
-	if FONTLOAD in options.keys():
+	if FONTLOAD in options:
 		font_dump_setting = '#(define-public force-eps-font-include #t)\n'
           			  
 	return (PREAMBLE_LY + body) % vars ()
