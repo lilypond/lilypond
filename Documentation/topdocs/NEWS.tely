@@ -39,6 +39,8 @@ String numbers are now printed on chords as well,
 
 See also @inputfileref{input/regression,string-number.ly}.
 
+This feature was sponsored by Gunther Strube.
+
 @item
 Notes with ledger lines will be kept at a distance, so they never
 disappear.
@@ -55,7 +57,7 @@ music expression, for example,
 \relative @{ c' d e @}
 \markup @{ first text @}
 \markup @{ second text @}
-@end example
+i@end example
 @c FIXME, cannot use toplevel music examples in lilypond-book,
 @c but it works at toplevel too, as shown.
 @lilypond[quote,raggedright]
