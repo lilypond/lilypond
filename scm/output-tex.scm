@@ -117,8 +117,8 @@
      string-append
      (module-map
      (lambda (sym var)
-       (let ((val (variable-ref var))
-	     ;;(val (if (variable-bound? var) (variable-ref var) '""))
+       (let (;;(val (variable-ref var))
+	     (val (if (variable-bound? var) (variable-ref var) '""))
 	     (tex-key (symbol->string sym)))
 	 
 	 (if (and (memq sym fields) (string? val))

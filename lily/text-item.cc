@@ -29,6 +29,7 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
   
   String str = ly_scm2string (markup);
   Font_metric *fm = select_encoded_font (pap, props, encoding);
+
   SCM lst = SCM_EOL;      
   Box b;
   if (Modified_font_metric* mf = dynamic_cast<Modified_font_metric*> (fm))
@@ -54,9 +55,7 @@ SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
   if (is_string (markup))
-    {
-      return interpret_string (paper, props, markup, SCM_EOL);
-    }
+    return interpret_string (paper, props, SCM_EOL, markup);
   else if (is_pair (markup))
     {
       SCM func = ly_car (markup);
@@ -73,7 +72,7 @@ MAKE_SCHEME_CALLBACK (Text_item,print,1);
 SCM
 Text_item::print (SCM grob)
 {
-  Grob * me = unsmob_grob (grob);
+  Grob *me = unsmob_grob (grob);
   
   SCM t = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);

@@ -51,9 +51,9 @@
 			   (if (= word-count 1) 2 (- word-count 1)))))
 	(line-stencils (if (= word-count 1)
 			   (map (lambda (x) (interpret-markup paper props x))
-				(list (make-word-markup "")
+				(list (make-simple-markup "")
 				      (car markups)
-				      (make-word-markup "")))
+				      (make-simple-markup "")))
 				stencils)))
     (stack-stencil-line fill-space line-stencils)))
   

@@ -221,7 +221,11 @@
 			       (assoc-get 'input-name
 					  (ly:font-encoding-alist x)))
 			     font-list))
-	 (encodings (uniq-list (sort-list encoding-list string<?))))
+	 ;;(encodings (uniq-list (sort-list encoding-list string<?))))
+	 (encodings (uniq-list (sort-list
+				;; FIXME: UGR
+				(filter (lambda (x) (string? x)) encoding-list)
+				string<?))))
     
     (string-append
      (apply string-append (map font-load-encoding encodings))
