@@ -3,6 +3,7 @@
   */
 
 #include "inputcommands.hh"
+#include "inputcommand.hh"
 #include "debug.hh"
 #include "staffcommands.hh"
 #include "getcommand.hh"
@@ -11,8 +12,8 @@
 Input_commands::Input_commands(Input_commands const&src)
     : ptr(src.ptr)
 {
-    IPointerList<Command*> &me(*this);
-    const IPointerList<Command*> &that(src);
+    IPointerList<Input_command*> &me(*this);
+    const IPointerList<Input_command*> &that(src);
     
     PL_copy(me, that);    
 }
@@ -20,8 +21,8 @@ Input_commands::Input_commands(Input_commands const&src)
 Input_commands::Input_commands()
     :    ptr (bottom())
 {
-    Command c(0.0);		
-    bottom().add(new Command(c));    
+    Input_command c(0.0);		
+    bottom().add(new Input_command(c));    
     ptr = bottom();    
 }
 
@@ -32,7 +33,7 @@ Input_commands::truncate(Real last)
     
     if (ptr.when() >= last)
 	reset_=true;
-    PCursor<Command*> i(*this);
+    PCursor<Input_command*> i(*this);
     
     while (i.ok() && i ->when < last)
 	i++;
@@ -67,11 +68,11 @@ Input_commands::find_moment(Real w)
 	    ptr.addbot(get_bar_command(bar_when));
 	    find_moment(w);	// tail-recursion. todo
 	} else {
-	    ptr.addbot(new Command(w));
+	    ptr.addbot(new Input_command(w));
 	}
 
     } else if (ptr.when() != w) {
-	ptr.insert(new Command(w));
+	ptr.insert(new Input_command(w));
 	ptr--;	
     }
 }
@@ -98,37 +99,32 @@ Input_commands::do_skip(int & bars, Real & wholes)
 
 
 void
-Input_commands::add(Command *c)
+Input_commands::add(Input_command c)
 {    
-    assert(c->code==INTERPRET);
-    if (c->args[0] == "PARTIAL") {
-	Real p = c->args[1].fvalue();
+    if (c.args[0] == "PARTIAL") {
+	Real p = c.args[1].fvalue();
 	ptr.setpartial(p);
 	
-    } else if (c->args[0] == "METER") {
+    } else if (c.args[0] == "METER") {
 	int beats_per_meas, one_beat;
 	Real r;
 	
-	interpret_meter(c, beats_per_meas, one_beat, r);
-	Command *ch = get_meterchange_command(beats_per_meas, one_beat);
+	interpret_meter(&c, beats_per_meas, one_beat, r);
+	Input_command *ch = get_meterchange_command(beats_per_meas, one_beat);
 	ch->when = ptr.when();	
 	ptr.add(ch);
-	
-	delete c;
-	
-    } else if  (c->args[0] == "KEY" || c->args[0] == "CLEF") {
-	c->when = ptr.when();
-	ptr.add(c);
-    } else if (c->args[0] == "SKIP") {
-	int bars = c->args[1].value() ;
-	Real wholes= c->args[2].fvalue();
+		
+    } else if  (c.args[0] == "KEY" || c.args[0] == "CLEF") {
+	Input_command *ic = new Input_command(c);
+	ic->when = ptr.when();
+	ptr.add(ic);
+    } else if (c.args[0] == "SKIP") {
+	int bars = c.args[1].value() ;
+	Real wholes= c.args[2].fvalue();
 	while (bars > 0 || wholes > 0.0) {
 	    do_skip(bars, wholes);
 	}
-	delete c;
-    } else if (c->args[0] == "RESET") {
-	delete c;
-	
+    } else if (c.args[0] == "RESET") {
 	reset();	
     }
     
@@ -155,8 +151,8 @@ Input_commands::parse() const
 	nc->process_add(c);
     }
 
-    for (PCursor<Command*> cc(*this); cc.ok(); cc++) {
-	if (cc->code != NOP)
+    for (PCursor<Input_command*> cc(*this); cc.ok(); cc++) {
+	if (cc->args.sz() &&  cc->args[0] !="")
 	    nc->process_add(**cc);
     }
     
