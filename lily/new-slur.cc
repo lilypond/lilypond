@@ -696,10 +696,6 @@ New_slur::print (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);
 
-  // get_curve may suicide
-  if (!scm_ilength (me->get_property ("note-columns")))
-    return SCM_EOL;
-
   Stencil a;
 
   /*
