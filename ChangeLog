@@ -1,3 +1,17 @@
+2002-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* mf/feta-autometric.mf: Write foundry and family to log.
+
+	* mf/GNUmakefile: Fixes for pfx builds.  Also write sketch
+	font translation table.
+
+	* buildscripts/mf-to-table.py: Better font info into afm.
+
+	* buildscripts/make-font-dir.py: Use font info from afm.  Mftrace
+	1.0.9 required.
+
+	* configure.in: Whine for mftrace 1.0.9.
+
 2002-10-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (chord_body): allow <<c e>>4 notation.

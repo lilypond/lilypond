@@ -50,7 +50,7 @@ STEPMAKE_GUILE(OPTIONAL)
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
 # mftrace for generating pfa's, pfb's
-STEPMAKE_PROGS(MFTRACE, pktrace mftrace, OPTIONAL, 1.0.3)
+STEPMAKE_PROGS(MFTRACE, pktrace mftrace, OPTIONAL, 1.0.9)
 # new makeinfo for multi-page website docs
 STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.1)
 
