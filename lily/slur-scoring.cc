@@ -305,7 +305,12 @@ Slur_score_state::fill (Grob *me)
 
       Direction d = LEFT;
       do {
-	common_[a] = common_[a]->common_refpoint (sp->get_bound (d), a);
+	/*
+	  If bound is not in note-columns, we don't want to know about
+	  its Y-position
+	 */
+	if (a != Y_AXIS) 
+	  common_[a] = common_[a]->common_refpoint (sp->get_bound (d), a);
       }
       while (flip (&d) != LEFT);
     }
@@ -503,18 +508,8 @@ Slur_score_state::get_base_attachments () const
 	    y = head->extent (common_[Y_AXIS], Y_AXIS)[dir_];
 	  y += dir_ * 0.5 * staff_space_;
 
-	  Real pos
-	    = (y - extremes_[d].staff_->relative_coordinate (common_[Y_AXIS],
-							    Y_AXIS))
-	    * 2.0 / staff_space_;
 
-	  /* start off staffline. */
-	  if (fabs (pos - my_round (pos)) < 0.2
-	      && Staff_symbol_referencer::on_staffline (head, (int) rint (pos))
-	      && Staff_symbol_referencer::line_count (head) - 1 >= rint (pos)
-	      )
-	    // TODO: calc from slur thick & line thick, parameter.	
-	    y += 1.5 * staff_space_ * dir_ / 10;
+	  y = move_away_from_staffline (y, head); 
 
 	  Grob * fh = Note_column::first_head (extremes_[d].note_column_);
 	  x =
@@ -544,18 +539,43 @@ Slur_score_state::get_base_attachments () const
 	  if (extremes_[-d].bound_ != col)
 	    {
 	      y = robust_relative_extent (col, common_[Y_AXIS], Y_AXIS)[dir_];
-	      if (get_grob_direction (col) == dir_)
-		y -= dir_ ;
+	      y += dir_ * 0.5 * staff_space_;
+	      
+	      if (get_grob_direction (col) == dir_
+		  && Note_column::get_stem (col)
+		  && !Stem::is_invisible (Note_column::get_stem (col)))
+		y -= dir_ * 1.5 * staff_space_;
 	    }
 	  else
 	    y = base_attachment[-d][Y_AXIS];
 
+	  
+	  y = move_away_from_staffline (y, col);
+	    
 	  base_attachment[d] = Offset (x, y);  
 	}
     }
   while (flip (&d) != LEFT);
 
   return base_attachment;
+}
+
+Real
+Slur_score_state::move_away_from_staffline (Real y,
+					    Grob *on_staff) const
+{
+  Real pos
+    = (y - Staff_symbol_referencer::get_staff_symbol (on_staff)->relative_coordinate (common_[Y_AXIS],
+									       Y_AXIS))
+    * 2.0 / staff_space_;
+  
+  if (fabs (pos - my_round (pos)) < 0.2
+      && Staff_symbol_referencer::on_staffline (on_staff, (int) rint (pos))
+      && Staff_symbol_referencer::line_count (on_staff) - 1 >= rint (pos)
+      )
+    y += 1.5 * staff_space_ * dir_ / 10;
+
+  return y;
 }
 
 void

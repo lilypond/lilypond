@@ -9,8 +9,9 @@ staff.  A slur should follow the same vertical direction it would have
 in unbroken state.
 "
 }
+
 \layout {
-    linewidth=40.\mm
+    raggedright = ##t 
     indent=0.
 }
 
@@ -33,9 +34,17 @@ in unbroken state.
     <d='' d'>8( <c c'> \break
     <bis f' b>) s2..\break
     \stemNeutral
-    \relative  { c'8[( c c c] g2 ~ | \break
-		g1) | \break
-		\slurDown c8[( c] g4 ~ g2 ~ | \break
-		g2 ~ g2) }
+
+    \new Voice \relative  {
+	c'8[( c c c] g2 ~ | \break
+	g1) | \break
+	\slurDown c8[( c] g4 ~ g2 ~ | \break
+	g2 ~ g2)
+    }
+    \relative c'' {
+	a4( c b4 e, ~ | \break
+	e1 ~ | e1)
+    }
+    
 }
 
