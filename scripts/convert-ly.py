@@ -1200,6 +1200,16 @@ if 1:
 
 
 
+if 1:
+	def conv(str):
+		str = re.sub (
+			r"(set|override|revert) *#'type",
+			r"\1 #'style"
+			str)
+		return str
+	
+	conversions.append (((1,7,22), conv,"remove GraceContext"))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -29,7 +29,7 @@
 static SCM
 line_atom (Grob *me, Real thick, Real dx, Real dy)
 {
-  SCM type = me->get_grob_property ("type");
+  SCM type = me->get_grob_property ("style");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   
       // maybe these should be in line-thickness?
@@ -124,7 +124,7 @@ Molecule
 Line_spanner::line_molecule (Grob *me, Real thick, Real dx, Real dy)
 {
   Molecule mol;
-  SCM type = me->get_grob_property ("type");
+  SCM type = me->get_grob_property ("style");
   if (gh_symbol_p (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
@@ -331,6 +331,6 @@ ADD_INTERFACE (Line_spanner, "line-spanner-interface",
 "gap is measured in staff-spaces.\n"
 "The property 'type is one of: line, dashed-line, trill, dotted-line or zigzag.\n"
 "\n",
-  "gap dash-period dash-length zigzag-width zigzag-length thickness type");
+  "gap dash-period dash-length zigzag-width zigzag-length thickness style");
 
 

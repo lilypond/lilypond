@@ -455,10 +455,6 @@ print only if there is no beam associated with this tuplet bracket.")
 (grob-property-description 'number-visibility boolean-or-symbol? "
 Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'tie ly:grob? "") 
-(grob-property-description 'type symbol? " 
-
-")
-
 (grob-property-description 'break-visibility procedure? "a function
 that takes the break direction and returns a cons of booleans
 containing (TRANSPARENT . EMPTY).

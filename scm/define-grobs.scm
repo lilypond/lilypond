@@ -611,7 +611,7 @@
 
     (Glissando
      . (
-	(type . line)
+	(style . line)
 	(gap . 0.5)
 	(zigzag-width . 0.75)
 	(breakable . #t)
@@ -624,7 +624,7 @@
 
     (VoiceFollower
      . (
-	(type . line)
+	(style . line)
 	(gap . 0.5)
 	(breakable . #t)
 	(X-extent-callback . #f)
@@ -718,7 +718,7 @@
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
-	(type . line)
+	(style . line)
 	(if-text-padding . 1.0)
 	(width-correct . 0)
 	(enclose-bounds . #t)
@@ -1067,7 +1067,7 @@
      . (
 	(molecule-callback . ,Text_spanner::brew_molecule)
 	(font-family . roman)
-	(type . line)
+	(style . line)
 
 	;; urg, only for (de)cresc. text spanners
 	(if-text-padding . 1.0)
@@ -1084,7 +1084,7 @@
 	(font-family . roman)
 	(enclose-bounds . #t)
 	(width-correct . 0.0)
-	(type . dashed-line)
+	(style . dashed-line)
 	(edge-height . (0 . 1.5))
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		

@@ -260,7 +260,7 @@ Dynamic_engraver::process_music ()
 	  else
 	    {
 	      cresc_  = new Spanner (get_property ("TextSpanner"));
-	      cresc_->set_grob_property ("type", s);
+	      cresc_->set_grob_property ("style", s);
 	      daddy_trans_->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
