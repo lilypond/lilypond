@@ -36,6 +36,8 @@ protected:
     virtual bool removable_b()const;
 
 public:
+    virtual void print() const { Engraver::print(); }
+
     Input_translator * itrans_l_;
     void check_removal();
     Engraver_group_engraver();
