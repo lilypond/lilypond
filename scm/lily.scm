@@ -111,19 +111,11 @@
   (string<? (symbol->string (car x))
 	    (symbol->string (car y))))
 
-
 (define (ly-load x)
-  (let*
-      (
-       (fn (%search-load-path x))
-       )
+  (let* ((fn (%search-load-path x)))
     (if (ly-verbose)
 	(format (current-error-port) "[~A]" fn))
-    (primitive-load fn)
-
-    ))
-
-
+    (primitive-load fn)))
 
 
 (use-modules (scm tex)

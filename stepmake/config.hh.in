@@ -7,8 +7,8 @@
 #define  TOPLEVEL_VERSION "@TOPLEVEL_VERSION@"
 
 /* default init and input dir */
-#define  DIR_DATADIR "@DIR_DATADIR@"
+#define DATADIR "@DATADIR@"
 
 /* default locale dir */
-#define  DIR_LOCALEDIR "@DIR_LOCALEDIR@"
+#define LOCALEDIR "@LOCALEDIR@"
 

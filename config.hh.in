@@ -1,13 +1,20 @@
 /* @AUTOGENERATE@ */
 
-/* Hmm */
 #define PACKAGE "@package@"
 
-/* default lilypond init and input dir */
-#define  DIR_DATADIR "@DIR_DATADIR@"
+/* datadir */
+#define DATADIR "@DATADIR@"
+
+/* LilyPond init and input base directory */
+#define PACKAGE_DATADIR "@PACKAGE_DATADIR@"
+#define LILYPOND_DATADIR PACKAGE_DATADIR
+
+/* LilyPond specific init and input directory */
+#define LOCAL_PACKAGE_DATADIR "@local_package_datadir@"
+#define LOCAL_LILYPOND_DATADIR LOCAL_PACKAGE_DATADIR
 
 /* default lilypond locale dir */
-#define  DIR_LOCALEDIR "@DIR_LOCALEDIR@"
+#define LOCALEDIR "@LOCALEDIR@"
 
 /* define if you have memmem */
 #define HAVE_MEMMEM 0

@@ -191,7 +191,7 @@ Beam::quanting (SCM smob)
   for (int i = qscores.size (); i--;)
     {
       qscores[i].demerits
-	+= score_slopes_dy (me, qscores[i].yl, qscores[i].yr,
+	+= score_slopes_dy (qscores[i].yl, qscores[i].yr,
 			    dy_mus, yr- yl, xstaff); 
     }
 
@@ -206,7 +206,7 @@ Beam::quanting (SCM smob)
     if (qscores[i].demerits < reasonable_score)
       {
 	qscores[i].demerits
-	  += score_forbidden_quants (me, qscores[i].yl, qscores[i].yr,
+	  += score_forbidden_quants (qscores[i].yl, qscores[i].yr,
 				     rad, slt, thickness, beam_translation,
 				     beam_count, ldir, rdir); 
       }
@@ -220,7 +220,7 @@ Beam::quanting (SCM smob)
 				 base_lengths, stem_xposns,
 				 xl, xr,
 				 knee_b,
-				 me, qscores[i].yl, qscores[i].yr);
+				 qscores[i].yl, qscores[i].yr);
       }
 
 
@@ -248,7 +248,6 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 			  Array<Real> stem_xs,
 			  Real xl, Real xr, 
 			  bool knee, 
-			  Grob*me,
 			  Real yl, Real yr)
 {
   Real pen = STEM_LENGTH_LIMIT_PENALTY;
@@ -297,8 +296,7 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 }
 
 Real
-Beam::score_slopes_dy (Grob *me,
-		       Real yl, Real yr,
+Beam::score_slopes_dy (Real yl, Real yr,
 		       Real dy_mus, Real dy_damp,
 		       bool xstaff)
 {
@@ -333,8 +331,7 @@ my_modf (Real x)
 }
 
 Real
-Beam::score_forbidden_quants (Grob*me,
-			      Real yl, Real yr,
+Beam::score_forbidden_quants (Real yl, Real yr,
 			      Real rad,
 			      Real slt,
 			      Real thickness, Real beam_translation,

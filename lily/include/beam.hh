@@ -39,13 +39,12 @@ public:
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));  
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
-  static Real score_slopes_dy (Grob*, Real,Real,Real,Real, bool);
+  static Real score_slopes_dy (Real, Real, Real, Real, bool);
   static Real score_stem_lengths (Link_array<Grob>,
 				  Array<Stem_info>,
 				  Array<Real>, Array<Real>,
-				  Real, Real,
-				  bool,Grob*,Real , Real);
-  static Real score_forbidden_quants (Grob*, Real, Real,
+				  Real, Real, bool, Real, Real);
+  static Real score_forbidden_quants (Real, Real,
 				      Real, Real, Real, Real,
 				      int, Direction, Direction);
   
