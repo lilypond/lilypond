@@ -6,7 +6,8 @@
 	    fis4-3_\p ( ~
 	    fis16 )a-5 } \\
 	{
-	    fis16( \> d \! b \translator Staff = down \clef treble g ~ < g8 )e> } \\
+	    fis16( \> d \! b \translator Staff = down
+	    \clef treble g ~ < g8 )e> } \\
 	{ s16
 	  d'
 	  ~ < d4 b4  > }

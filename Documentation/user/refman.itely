@@ -12,15 +12,6 @@
 
 @end macro
 
-@ifhtml
-@macro internalsref{NAME}
-@uref{../lilypond-internals/\NAME\.html,\NAME\}
-@cindex \NAME\
-@end macro
-@macro seeinternals{NAME}
-See @internalsref{\NAME\}
-@end macro
-@end ifhtml
 
 
 @ifnothtml
@@ -1144,15 +1135,16 @@ automatic beaming in irregular meters such as @code{5/8}.
 
 @node Slurs 
 @subsection Slurs
-@cindex slurs
+@cindex Slurs
 
 A slur indicates that notes are to be played bound or @emph{legato}.
 They are entered using parentheses:
-
 @lilypond[fragment,verbatim,center]
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
 @end lilypond
 
+The grob for this object is @internalsref{Slur}, generally in
+@internalsref{Voice} context.
 
 Slurs avoid crossing stems, and are generally attached to note heads.
 However, in some situations with beams, slurs may be attached to stem
@@ -2584,7 +2576,7 @@ so it becomes the lowest note in the chord.
 
 @refbugs
 
-Implementation details are quite gory. For example @code{c:4} not only
+Implementation details are gory. For example @code{c:4} not only
 adds a fourth, but also removes the third.
 
 

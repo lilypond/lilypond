@@ -365,7 +365,7 @@ automatically.  Thirdly, LilyPond calculates line breaks for you; it
 doesn't matter where you make new lines in the source file.
 
 The example also indicates that a piece of music written in a high
-register needs lots of quotes.  This makes the input a bit unreadable,
+register needs lots of quotes.  This makes the input less readable,
 and is therefore also a potential source of errors.
 
 @separate
@@ -1826,7 +1826,7 @@ This piece of Scheme code sets the Scheme variable
 @code{point-and-click} to the value @var{line-column-location} (which
 itself is a Scheme procedure).
 
-Editing input files can be quite complicated if you're working with
+Editing input files can be complicated if you're working with
 large files: if you're digitizing existing music, you have to
 synchronize the .ly file, the sheet music on your lap and the sheet
 music on the screen.  The point-and-click mechanism makes it easy to
@@ -2178,18 +2178,21 @@ decrescendo, and @code{\!} to end one. The crescendo is started using
 @code{\<} and also ended using @code{\!}. Absolute dynamics can be
 entered using @code{\p}, @code{\mf}, etc.
 
-Fingering indications are entered quite simply using @code{-@var{N}},
-where @var{N} is a digit. 
+Fingering indications are entered simply using @code{-@var{N}}, where
+@var{N} is a digit.
 
 Now that we have the basic piece of music entered, we want to fine
 tune it, so we get something that resembles the original printed
-edition by Schott/Universal Edition. The basic process that we follow
-is that we override defaults in the printing system. We do this by
-setting variables in so-called grobs.  Printed symbols are internally
-represented by Graphical Objects (Grobs).  Each grob is described by a
-bunch of settings. These setting determine the fonts, offsets,
-sub-routines to be called on the grob, etc.  The initial values of
-these settings are set in the Scheme file
+edition by Schott/Universal Edition:
+
+@lilypondfile{brahms-tweaked.ly}
+
+The basic process that we follow is that we override defaults in the
+printing system. We do this by setting variables in so-called grobs.
+Printed symbols are internally represented by Graphical Objects
+(Grobs).  Each grob is described by a bunch of settings. These setting
+determine the fonts, offsets, sub-routines to be called on the grob,
+etc.  The initial values of these settings are set in the Scheme file
 @file{scm/grob-description.scm}.
 
 We start with the slur: the slur in the upper part, running from the F
@@ -2203,10 +2206,130 @@ note head)
 @end example
 
 More precisely, this command extends the definition of the @code{Slur}
-object in the current @code{Voice}. In this, the variable
-@code{attacment} is set to the pair of symbols @code{'(stem . stem)}.
+object in the current @code{Voice}.  The variable @code{attachment} is
+set to the pair of symbols @code{'(stem . stem)}. 
 
-@lilypondfile{brahms-tweaked.ly}
+Although this is useful information, it is not very helpful: the
+lilypond backend supports approximately 240 variables like
+@code{attachment}, each with their own meaning and own type
+(eg. number, symbol, list, etc). Besides slur, LilyPond has 80
+different types of Grobs, that may be created in 14 different context
+types besides Voice.
+
+The interesting information is how you can figure out which properties
+to tune for your own scores. To discover this, you must have a copy of
+the internals document. This is a set of HTML pages, which should be
+included if you run a binary distribution@footnote{You can also
+compile them by executing @code{make -C Documentation/user/
+out/lilypond-internals.html} in the source package.}. This document is
+also available on the web: go to the lilypond website, click
+``Documentation: other'' on the side bar, click
+``lilypond-internals'', under information for users.
+
+Suppose that you wanted to tune the behavior of the slur. The first
+step is to get some general info on slurs in lilypond. Turn to the
+index, and look up slur. The text says
+@quotation
+The grob for this object is @internalsref{Slur}, generally in
+@internalsref{Voice} context.
+@end quotation
+
+So the grob for this object is called @code{Slur}, and slurs are
+created in the @code{Voice} context.  If you are reading this tutorial
+in the HTML version, then you can simply click Slur, otherwise, you
+must look it up the internal documentation: click ``grob overview'' ,
+and select ``slur'' (the list is alphabetical.)
+
+Now you get a list of all the properties that the slur object
+supports, along with their default values.
+
+
+We also want to move around the fingering `3'.  In the printed edition
+it is not above the stem, but a little lower, slightly left of the
+stem. From the user manual, we find that the associated grob is called
+@code{Fingering}, but how do we know if we should use @code{Voice} or
+@code{Staff}. In many cases, @code{Voice} is a safe bet, but you can
+also deduce this information from the internals documentation: if you
+visit the documentation of @code{Fingering}, you will notice
+@example
+Fingering grobs are created by: Fingering_engraver
+@end example
+
+
+
+Clicking @code{Fingering_engraver} will show you the documentation of
+the module responsible for interpreting the fingering instructions and
+translating them to a @code{Fingering} grob. Such a module is called
+an @emph{engraver}. The documentation of the @code{Fingering_engraver}
+says,
+@example
+Fingering_engraver is part of contexts: Voice and TabVoice
+@end example
+so tuning the settings for Fingering should be done using either
+@example
+  \property Voice.Fingering \set @dots{}
+@end example
+or
+@example
+  \property TabVoice.Fingering \set @dots{}
+@end example
+
+Since the @code{TabVoice} is only used for tab notation, we see that
+the first guess @code{Voice} was indeed correct.
+
+@cindex setting grob properties
+@cindex @code{extra-offset}
+
+For shifting the fingering, we use the grob property
+@code{extra-offset}.  The following command manually adds an offset to
+the object. We move it a little to the left, and 1.8 staff space
+downwards.
+@example
+ \property Voice.Fingering \set #'extra-offset = #'(-0.3 . -1.8) 
+@end example	   
+The @code{extra-offset} is a low-level feature: it moves around
+objects in the printout; the formatting engine is completely oblivious
+to these offsets.
+
+@cindex reverting grob properties
+@cindex undoing grob properties
+
+We only want to offset a single grob, so after the F-sharp, we must
+undo the setting. The technical term is to revert the grob property.
+@example
+  \property Voice.Fingering \revert #'extra-offset
+@end example
+
+@cindex property types
+@cindex translator properties
+@cindex grob properties
+@cindex music properties
+
+
+There is three different types of variables in LilyPond, something
+which is confusing at first (and for some, it stays like that).
+Variables such as @code{extra-offset} and @code{attachment} are called
+grob properties. They are something different from the translator
+properties, like @code{autoBeaming} and
+@code{automaticMelismata}. Finally, music expressions are internally
+also stored using properties, so-called music properties. You will
+encounter the latter type if you run Scheme functions on music using
+@code{\apply}.
+
+The second fingering instruction should be moved up a little, to avoid
+a collision with the slur. This could be achieved with
+@code{extra-offset}, but in this case, a simpler mechanism also
+works. We insert an empty text between the 5 and note. The empty text
+pushes the fingering instruction away:
+@example
+  a^" "^#'(finger "5")
+@end example
+
+Lilypond tries to put fingering instructions closer to the notes as
+text instructions. To insert an empty text (@code{^" "}) between the
+finger and the note, we have disguised the fingering instruction as a
+text: @code{(finger "5")}.
+
 
 
 @separate
@@ -2467,12 +2590,13 @@ Of course, all staves are simultaneous and use the same global settings.
     \property Score.BarNumber \override #'padding = #3
 @end example
 LilyPond prints bar numbers at the start of each line, but
-unfortunately, they end up a bit too close to the staff in this example.
-A bar number internally is a Grob called @var{BarNumber}.  BarNumber
-Grobs can be manipulated through their @var{side-position-interface}.  One
-of the properties of a @var{side-position-interface} that can be tweaked
-is the @var{padding}: the amount of extra space that is put between this
-Grob and other Grobs.  We set the padding to three staff spaces.
+unfortunately, they end up a bit too close to the staff in this
+example.  A bar number internally is a Grob called @var{BarNumber}.
+BarNumber Grobs can be manipulated through their
+@var{side-position-interface}.  One of the properties of a
+@var{side-position-interface} that can be tweaked is the
+@var{padding}: the amount of extra space that is put between this Grob
+and other Grobs.  We set the padding to three staff spaces.
 
 You can find information on all these kind of properties in LilyPond's
 automatically generated documentation in
