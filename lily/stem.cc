@@ -533,17 +533,12 @@ Stem::flag (Grob*me)
    e.g. "stroke-style", maybe with values "" (i.e. no stroke),
    "single" and "double".  Needs more discussion.
   */
-  String style, fstyle, staffline_offs;
-  SCM fst = me->get_grob_property ("flag-style");
-  if (gh_string_p (fst))
-    {
-      fstyle = ly_scm2string (fst);
-    }
+  String style, staffline_offs;
 
-  SCM st = me->get_grob_property ("style");
-  if (gh_symbol_p (st))
+  SCM style_scm = me->get_grob_property ("style");
+  if (gh_symbol_p (style_scm))
     {
-      style = (ly_scm2string (scm_symbol_to_string (st)));
+      style = (ly_scm2string (scm_symbol_to_string (style_scm)));
     }
   else
     {
@@ -585,10 +580,9 @@ Stem::flag (Grob*me)
 	    
 	    --hwn.
 	  */
-	  Grob *first = first_head(me);
-	  int sz = Staff_symbol_referencer::line_count (me)-1;
-	  int p = (int)rint (Staff_symbol_referencer::get_position (first));
-	  staffline_offs = (((p ^ sz) & 0x1) == 0) ? "1" : "0";
+	  int p = (int)rint (Staff_symbol_referencer::get_position (first_head (me)));
+	  staffline_offs = Staff_symbol_referencer::on_staffline (me, p) ?
+	    "1" : "0";
 	}
       else
         {
@@ -599,14 +593,36 @@ Stem::flag (Grob*me)
     {
       staffline_offs = "";
     }
-  char c = (get_direction (me) == UP) ? 'u' : 'd';
-  String index_string
-    = String ("flags-") + style + to_string (c) + staffline_offs + to_string (duration_log (me));
-  Molecule m
-    = Font_interface::get_default_font (me)->find_by_name (index_string);
-  if (!fstyle.empty_b ())
-    m.add_molecule (Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_string (c) + fstyle));
-  return m;
+  char dir = (get_direction (me) == UP) ? 'u' : 'd';
+  String font_char =
+    style + to_string (dir) + staffline_offs + to_string (duration_log (me));
+  Font_metric *fm = Font_interface::get_default_font (me);
+  Molecule flag = fm->find_by_name ("flags-" + font_char);
+  if (flag.empty_b ())
+    {
+      me->warning (_f ("flag `%s' not found", font_char));
+    }
+
+  SCM stroke_scm = me->get_grob_property ("flag-style");
+  if (gh_string_p (stroke_scm))
+    {
+      String stroke = ly_scm2string (stroke_scm);
+      if (!stroke.empty_b ())
+	{
+	  String font_char = to_string (dir) + stroke;
+	  Molecule stroke = fm->find_by_name ("flags-" + font_char);
+	  if (stroke.empty_b ())
+	    {
+	      me->warning (_f ("flag stroke `%s' not found", font_char));
+	    }
+	  else
+	    {
+	      flag.add_molecule (stroke);
+	    }
+	}
+    }
+
+  return flag;
 }
 
 MAKE_SCHEME_CALLBACK (Stem,dim_callback,2);
