@@ -26,7 +26,6 @@ public:
   Scope *scope_p_;
   
   Array<String> filename_str_arr_;
-  Scheme_hash_table default_properties_;
   
   Music_output_def (Music_output_def const&);
   Music_output_def ();

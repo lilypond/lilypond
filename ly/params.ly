@@ -1,7 +1,6 @@
 % params.ly
 % generic paper parameters
 
-#'staff-height = \staffheight;
 
 paperfile = \papersize + ".ly";
 % paperfile = "a4.ly";
@@ -18,7 +17,6 @@ interline = \staffspace;
 % urg, need grace_ versions of these too?
 beam_thickness = 0.52 * (\staffspace - \stafflinethickness);
 
-#'beam-thickness = \beam_thickness;  %% UGR
 
 
 interbeam = (2.0 * \staffspace + \stafflinethickness - \beam_thickness) / 2.0;
@@ -70,18 +68,9 @@ arithmetic_multiplier = 0.9 * \quartwidth ;
 arithmetic_basicspace = 2.0;
 
 
-
-
-#'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
-
-#'Left_edge_item::visibility-lambda = #begin-of-line-visible
-
 % 
 % UGH; junk these!
 %
-
-#'Key_item::visibility-lambda = #begin-of-line-visible
-#'Breathing_sign::visibility-lambda = #begin-of-line-invisible
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
@@ -277,13 +266,6 @@ Wordwrap =0.0;
 \include "engraver.ly";
 
 
-#'margin-shape = #'()
 
 
-% 
-#'Local_key_item::left-padding = #'0.2
-#'Local_key_item::right-padding = #'0.4
-
-#'Staff_symbol::staff-space = \staffspace ;
-#'Staff_symbol::line-count = #5
 

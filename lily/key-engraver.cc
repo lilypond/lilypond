@@ -5,7 +5,7 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
-// clean me up 
+
 #include "key-engraver.hh"
 #include "key-item.hh"
 #include "command-request.hh"
@@ -15,6 +15,11 @@
 #include "bar.hh"
 #include "timing-translator.hh"
 #include "staff-symbol-referencer.hh"
+
+/*
+  this is a large mess. Please clean this to use Basic properties and
+  Scheme data structs.
+ */
 
 Key_engraver::Key_engraver ()
 {
@@ -33,14 +38,19 @@ Key_engraver::create_key (bool def)
 {
   if (!item_p_) 
     {
-      item_p_ = new Key_item;
+      item_p_ = new Key_item ( get_property ("basicKeyProperties"));
+      
+      item_p_->set_elt_property ("c0-position", gh_int2scm (0));
+
+      // todo: put this in basic props.
+      item_p_->set_elt_property ("old-accidentals", SCM_EOL);
+      item_p_->set_elt_property ("new-accidentals", SCM_EOL);
+
       Staff_symbol_referencer_interface st (item_p_);
       st.set_interface ();
-
       
-      item_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Key_item")); 
-      item_p_->set_elt_property ("multi-octave",
-				 gh_bool2scm (key_.multi_octave_b_));
+      if (key_.multi_octave_b_)
+	item_p_->set_elt_property ("multi-octave", gh_bool2scm (key_.multi_octave_b_));
       
       announce_element (Score_element_info (item_p_,keyreq_l_));
       
@@ -68,8 +78,8 @@ Key_engraver::create_key (bool def)
 
 
   if (!def)
-      item_p_->set_elt_property ("visibility-lambda",
-				 scm_eval (ly_symbol2scm  ("all-visible")));
+    item_p_->set_elt_property ("visibility-lambda",
+			       scm_eval (ly_symbol2scm  ("all-visible")));
 
 }      
 
