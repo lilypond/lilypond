@@ -1,4 +1,5 @@
-New features in 1.7 since 1.6
+New features in 1.8 since 1.6
+=============================
 
 * INPUT
 
@@ -18,7 +19,7 @@ LilyPond identifiers.
 	<< PITCHES >>
 
 This is in addition to the < MUSICS > syntax for simultaneous
-music. Combined with this: uniform postfix syntax for articulations:
+music. Combined with this is uniform postfix syntax for articulation:
 
 	c8-[-( d8-]-) 
 
@@ -48,7 +49,6 @@ and
 * OUTPUT
 
 ** Preliminary Sodipodi/SVG output
-
 
 
 * NOTATION
@@ -89,8 +89,22 @@ completely modular way.
 
 ** Metronome markings. 
 
+** Horizontal fingerings on chords.
+
+** Tuning of various font glyphs
+
+** Nested percent style repeats
+
+* OTHER
+
+** More advanced emacs support
+
+** Completely revised manual, tutorial, and examples section
+
+
 
 New features in 1.6 since 1.4
+=============================
 
 * Support for figured bass and tablature.
 

@@ -116,6 +116,8 @@
 	  a)
       '()))
 
+;; TODO: use the srfi-1 partition function.
+
 ;; why -list suffix (see reduce-list)
 (define-public (filter-list pred? list)
   "return that part of LIST for which PRED is true.
