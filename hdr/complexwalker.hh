@@ -91,7 +91,6 @@ public:
     Complex_walker(Complex_staff*);
     ~Complex_walker();
 
-    Complex_column *col();
     Complex_staff *staff();
 private:
 };
