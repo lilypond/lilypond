@@ -5,9 +5,12 @@ Breathing signs, also used for phrasing, do normally not influence
 global spacing -- only if space gets tight, notes are shifted to make
 room for the breathing sign. Breathing signs break beams running
 through their voice. In the following example, the notes in the first
-two measures all have the same distance from each other:
-"
-}
+two measures all have the same distance from each other.
+
+Breathing signs are available in different tastes: commas (default),
+ticks, vees and `railroad tracks' (caesura).
+
+" }
 
 
 
