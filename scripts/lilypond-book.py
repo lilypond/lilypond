@@ -553,7 +553,7 @@ re_dict = {
 	# why do we have distinction between @mbinclude and @include?
 
 	'texi': {
-		'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude[ \n\t]+(?P<filename>[^\t \n]*))',
+		'include':  '(?m)^[^%\n]*?(?P<match>@mbinclude\s+(?P<filename>\S*))',
 		'input': no_match,
 		'header': no_match,
 		'preamble-end': no_match,

@@ -1,3 +1,8 @@
+2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (re_dict): Only fix texinfo @mbinclude
+	regexp for DOS/Windows, we are too paranoid to fix others.
+
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (bass_mod): bass figure alterations are semi
