@@ -1,5 +1,8 @@
 # flower/lib/include/Makefile.am.wild
 
+# the wild-perl script needs this.
+real_topdir = $(top_srcdir)/..
+
 noinst_HEADERS = $(wildcard *.hh *.icc *.tcc)
 
 EXTRA_DIST = Makefile.am.wild

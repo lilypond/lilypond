@@ -54,7 +54,7 @@ Script::set_default_dir()
   if (s_i)
     {
       if (stem_l_)
-	dir_ = stem_l_->dir_ * s_i;
+	dir_ = Direction(stem_l_->dir_ * s_i);
       else
 	{
 	  specs_l_->warning (_("Script needs stem direction"));

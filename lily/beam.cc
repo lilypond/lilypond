@@ -151,7 +151,7 @@ Beam::set_default_dir ()
       Stem *s = stems_[i];
       int current = s->dir_ 
 	? (1 + d * s->dir_)/2
-	: s->get_center_distance (Direction (-d));
+	: s->get_center_distance ((Direction)-d);
 
       if (current)
 	{
@@ -159,12 +159,12 @@ Beam::set_default_dir ()
 	  count[d] ++;
 	}
 
-    } while ((d *= -1) != DOWN);
+    } while (flip(&d) != DOWN);
   
    do {
     if (!total[d])
       count[d] = 1;
-  } while ((d *= -1) != DOWN);
+  } while (flip(&d) != DOWN);
   
   /* 
 

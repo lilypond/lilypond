@@ -85,7 +85,7 @@ Plet_spanner::do_add_processing ()
   do {
     if (!stem_l_drul_[d])
       new_stem_drul[d] = stem_l_drul_[(Direction)-d];
-  } while ( (d *= -1) != LEFT);
+  } while (flip(&d) != LEFT);
   stem_l_drul_ = new_stem_drul;
 }
   
@@ -110,7 +110,7 @@ Plet_spanner::do_post_processing ()
       if (d == RIGHT)
         dx_f_drul_[d] = nw_f;
     }
-  while ( (d *= -1) != LEFT);
+  while (flip(&d) != LEFT);
 }
 
 void

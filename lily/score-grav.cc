@@ -144,7 +144,7 @@ Score_engraver::typeset_all()
 		s->set_bounds(d, command_column_l_);
 		warning ("Unbound spanner");
 	      }
-	  } while ((d *= -1) != LEFT);
+	  } while (flip(&d) != LEFT);
 	}
       else 
 	{

@@ -19,8 +19,16 @@ enum Direction
   CENTER=0,
   SMALLER=-1,
   BIGGER=1,
-
 };
+
+inline Direction
+flip (Direction *i) {
+  if (*i == (Direction)1)
+    *i = (Direction)-1;
+  else if (*i == (Direction)-1)
+    *i = (Direction)1;
+  return *i;
+}
 
 /**
    if d > 0: the max operator

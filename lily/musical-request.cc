@@ -207,7 +207,7 @@ Rhythmic_req::duration() const
 Lyric_req::Lyric_req (Text_def* def_p)
   :Text_req (0, def_p)
 {
-  def_p->align_i_ = 0;	// centre
+  def_p->align_i_ = CENTER;	// centre
   dir_ = DOWN;		// lyrics below (invisible) staff
 }
 

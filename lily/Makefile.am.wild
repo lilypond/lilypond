@@ -20,9 +20,6 @@ lilypond_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower
 
 lilypond_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
 
-
- 
-
 INCLUDES =  -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include 
 
 EXTRA_DIST = Makefile.am.wild GNUmakefile Stable.make VERSION
@@ -47,3 +44,5 @@ all-am: Makefile $(PROGRAMS) wild-check
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
 
+distclean-local:
+	-rm -rf .deps

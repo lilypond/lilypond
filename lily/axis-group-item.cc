@@ -42,7 +42,7 @@ Axis_group_item::do_breakable_col_processing()
 	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_i_);
 	  ((Axis_group_item*)broken_to_drul_[j])->add_element (new_l);
 	}
-      while ((j*=-1)!=LEFT);
+      while (flip(&j)!=LEFT);
     }
   Item::do_breakable_col_processing();
 }
