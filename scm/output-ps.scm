@@ -88,10 +88,7 @@
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
 
-;; WIP
-(define font-encoding-alist
-  '(("ecrm12" . "ISOLatin1Encoding")
-    ("ecmb12" . "ISOLatin1Encoding")))
+;;    ("ecmb12" . "ISOLatin1Encoding")))
 		 
 (define (ps-encoding text)
   (escape-parentheses text))
@@ -207,11 +204,12 @@
     (let* ((command (font-command font))
 	   (fontname (ly:font-name font))
 	   (mangled (possibly-mangle-fontname fontname))
-	   (encoding (assoc-get fontname font-encoding-alist))
+	   ;;(encoding (assoc-get fontname font-encoding-alist))
+	   (encoding (ly:font-coding-name font))
 	   (designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
 	   (ops (ly:paper-lookup paper 'outputscale))
-	   (scaling (* ops magnification designsize)) )
+	   (scaling (* ops magnification designsize)))
 
       (if
        #f
@@ -219,20 +217,26 @@
 	 (newline)
 	 (format (current-error-port) "fontname ~S\n" fontname)
 	 (format (current-error-port) "command ~S\n" command)
+	 (format (current-error-port) "encoding ~S\n" encoding)
 	 (format (current-error-port) "mangled ~S\n" mangled)
 	 (format (current-error-port) "designsize ~S\n" designsize)
-	 (format (current-error-port) "foo-design ~S\n" foo-design)
 	 (format (current-error-port) "magnification ~S\n" magnification)
 	 (format (current-error-port) "ops ~S\n" ops)
 	 (format (current-error-port) "scaling ~S\n" scaling)))
       
-      (if encoding
+      (if (or (equal? encoding "ISOLatin1Encoding")
+	      ;; UGH, uhg 
+	      (equal? fontname "feta20")
+	      (equal? fontname "parmesan20"))
+	  (define-font command mangled scaling)
 	  ;; FIXME: should rather tag encoded font
-	  (let ((raw (string-append command "-raw")))
+	  (let ((raw (string-append command "-raw"))
+		(vector (get-coding-command encoding))
+		(filename (get-coding-filename encoding)))
 	    (string-append
+	     (ly:kpathsea-gulp-file filename)
 	     (define-font raw mangled scaling)
-	     (reencode-font raw encoding command)))
-	  (define-font command mangled scaling))))
+	     (reencode-font raw vector command))))))
   
   (apply string-append
 	 (map (lambda (x) (font-load-command paper x)) font-list)))

@@ -103,17 +103,13 @@ vector of symbols."
     (cons (car entry) (force (cdr entry)))))
 
 (define-public (get-coding-filename coding-name)
-  (format (current-error-port) "FILENAME: ~S\n" (get-coding coding-name))
   (car (get-coding coding-name)))
 
 (define-public (get-coding-command coding-name)
-  (format (current-error-port) "COMMAND: ~S\n" (get-coding coding-name))
   (cadr (get-coding coding-name)))
 
 (define-public (get-coding-vector coding-name)
-  (format (current-error-port) "VECTOR: ~S\n" (get-coding coding-name))
   (caddr (get-coding coding-name)))
 
 (define-public (get-coding-table coding-name)
-  (format (current-error-port) "TABLE: ~S\n" (get-coding coding-name))
   (cadddr (get-coding coding-name)))

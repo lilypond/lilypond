@@ -1,5 +1,9 @@
 2004-04-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm (define-fonts): Handle font re-encoding.
+
+	* lily/scaled-font-metric.cc (ly:font-coding-name): New function.
+
 	* scm/encoding.scm (get-coding-filename, get-coding-command): New
 	function.
 	(coding-alist): Also hold filename, command.
