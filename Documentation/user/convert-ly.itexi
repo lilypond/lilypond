@@ -8,7 +8,7 @@ Convert-ly sequentially applies different conversions to upgrade a
 Lilypond input file.  It uses @code{\version} statements in the file to
 detect the old version number.
 
-@subsection Invoking convert-ly
+@unnumberedsubsec Invoking convert-ly
 
 @example
         convert-ly [OPTION]... [FILE]...
@@ -20,28 +20,38 @@ detect the old version number.
     If version number cannot be determined, apply all conversions.
 @item -e,--edit
     Do an inline edit of the input file. override @code{--output}
-@item -f,--from=@var{FROM_PATCHLEVEL}
+@item -f,--from=@var{from-patchlevel}
     Set the level to convert from. If this is not set, convert-ly will
     guess this, on the basis of @code{\version} strings in the file
-@item -o,--output
-    The output file to write.  
+@item -o,--output=@var{file}
+    Set the output file to write.  
 @item -n,--no-version
     Normally, convert-ly adds a @code{\version} indicator 
 to the output. Specifying this option suppresses this.  
 
 @item --show-rules
-    shows all known conversions, and exit
-@item --to=@var{TO_PATCHLEVEL}
+    Show all known conversions and exit
+@item --to=@var{to-patchlevel}
     Set the goal version of the conversion. It defaults to the latest
     available version.
 @end table
 
+@unnumberedsubsec Example
+
+Upgrade all lilypond files to 1.3.150:
+@example
+        convert-ly -e --to=1.3.150 `find -name '*.ly'`
+@end example
+
+@unnumberedsubsec Bugs
+
 Not all language changes are handled. Multiple output options won't
 work.
+
+@unnumberedsubsec Authors
 
 @code{convert-ly} is written in @uref{http://www.python.org,Python}. It
 was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}. Report bugs
 to @code{bug-gnu-music@@gnu.org}
-
 
 

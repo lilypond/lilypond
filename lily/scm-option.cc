@@ -12,23 +12,27 @@
 #include "lily-guile.hh"
 #include "scm-option.hh"
 
+
 /*
-  TODO: mooie onschuldige test, en koel om allerleide dingen te kunnen zetten,
-  maar is dit nou wel handig voor gebruikert?
+  This interface to option setting is meant for setting options are
+  useful to a limited audience. The reason for this interface is that
+  making command line options clutters up the command-line option name
+  space.
 
-  -X, of -fps is hendiger dan
 
-          -e "(set-lily-option 'midi-debug #t)'
-
-  [niet voor niets tiepo in 139 announs..]
-
-*/
+  preferably, also dont use TESTING_LEVEL_GLOBAL, since it defeats
+  another purpose of this very versatile interface, which is to
+  support multiple debug/testing options concurrently.
+  
+ */
 
 
 /* Write midi as formatted ascii stream? */
 bool midi_debug_global_b;
+
 /* General purpose testing flag */
 int testing_level_global;
+
 
 
 /*
