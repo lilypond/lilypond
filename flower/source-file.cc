@@ -244,6 +244,6 @@ Source_file::forward_ch_C (int n)
 String
 Source_file::get_str (int n)
 {
-  String str ((Byte const*)forward_ch_C (n), n);
+  String str = String ((Byte const*)forward_ch_C (n), n);
   return str;
 }

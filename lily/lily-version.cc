@@ -13,7 +13,7 @@
 String
 version_str ()
 {
-  String str (MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL);
+  String str = MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL;
   String mpl ("." MY_PATCH_LEVEL);
   if (mpl != ".")
     str += mpl;
