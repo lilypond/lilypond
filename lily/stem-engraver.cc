@@ -76,7 +76,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
 	{
-	  stem_p_ = new Stem;
+	  stem_p_ = new Stem (SCM_EOL);
 	  Staff_symbol_referencer_interface st(stem_p_);
 	  st.set_interface ();
 	  
@@ -101,7 +101,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 
 	      if (requested_type)
 		{
-		  tremolo_p_ = new Stem_tremolo;
+		  tremolo_p_ = new Stem_tremolo (get_property ("basicStemTremoloProperties"));
 		  announce_element (Score_element_info (tremolo_p_, tremolo_req_l_));
 		  /*
 		    The number of tremolo flags is the number of flags of
