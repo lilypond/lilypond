@@ -18,7 +18,7 @@ hip_depth# = 15/7 interline#;
 hip_width# = 7/8 interline# + hip_thickness# /2 + stemthickness#/2;
 
 foot_depth# = flare# + 15/7 interline#;
-foot_width# = .885 hip_width#;
+foot_width# = .8 hip_width#;
 
 
 define_pixels(flare, 
