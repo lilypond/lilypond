@@ -911,11 +911,12 @@ The first system shows all staves in full.  If empty staves should be
 removed from the first system too, set @code{remove-first} to false in
 @internalsref{RemoveEmptyVerticalGroup}.
 
+To remove other types of contexts, use @code{\AncientRemoveEmptyStaffContext}
+or @code{\RemoveEmptyRhythmicStaffContext}.
+
 Another application is making ossia sections, i.e., alternative
 melodies on a separate piece of staff, with help of a Frenched
 staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
-
-
 
 
 @node Quoting other voices
