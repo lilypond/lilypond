@@ -62,6 +62,56 @@ Line_spanner::line_atom (Grob* me, Real dx, Real dy)
   return list;
 }
 
+Offset
+Line_spanner::get_broken_offset (Grob *me, Direction dir)
+{
+  Spanner *spanner = dynamic_cast<Spanner*> (me);
+  Item* bound = spanner->get_bound (dir);
+  
+  if (!bound->break_status_dir ())
+    {
+      Grob *common[] = {
+	bound->common_refpoint (Staff_symbol_referencer::staff_symbol_l (me),
+				X_AXIS),
+	bound->common_refpoint (Staff_symbol_referencer::staff_symbol_l (me),
+				Y_AXIS)
+      };
+  
+      return Offset ( abs (bound->extent (common[X_AXIS], X_AXIS)[-dir]),
+		      bound->extent (common[Y_AXIS], Y_AXIS).center ());
+    }
+  return Offset ();
+}
+
+Offset
+Line_spanner::broken_trend_offset (Grob *me, Direction dir)
+{
+  /* A broken line-spaner should maintain the same vertical trend
+     the unbroken line-spanner would have had.
+     From slur */
+  Offset o;
+  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_l_))
+    {
+      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size () - 1;
+	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i > 0;
+	   dir == LEFT ? i++ : i--)
+	{
+	  if (mother->broken_into_l_arr_[i - dir] == me)
+	    {
+	      Grob *neighbour = mother->broken_into_l_arr_[i];
+	      Offset neighbour_o = get_broken_offset (neighbour, dir);
+	      Offset me_o = get_broken_offset (me, -dir);
+	      // Hmm, why not return me_o[X], but recalc in brew_mol?
+	      o = Offset (0,
+			  (neighbour_o[Y_AXIS]*me_o[X_AXIS]
+			   - me_o[Y_AXIS]*neighbour_o[X_AXIS]) * dir /
+			  (me_o[X_AXIS] + neighbour_o[X_AXIS]));
+	      break;
+	    }
+	}
+    }
+  return o;
+}
 
 
 /*
@@ -78,45 +128,72 @@ SCM
 Line_spanner::brew_molecule (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
+
   Spanner *spanner = dynamic_cast<Spanner*> (me);
+  Item* bound_drul[] = {
+    spanner->get_bound (LEFT),
+    0,
+    spanner->get_bound (RIGHT)
+  };
+  
+  Item** bound = bound_drul + 1;
 
   Grob *common[] = { 0, 0 };
-
-  Item *l = spanner->get_bound (LEFT);
-  Item *r = spanner->get_bound (RIGHT);  
-
-  /*
-    FIXME: should also do something sensible across line breaks.
-   */
-  if (l->break_status_dir () || r->break_status_dir ())
-    return SCM_EOL;
-  
   for (Axis a = X_AXIS;  a < NO_AXES; a = Axis (a + 1))
     {
-      common[a] = l->common_refpoint (r, a);
-  
-    if (!common[a])
-      return SCM_EOL;
+      common[a] = bound[LEFT]->common_refpoint (bound[RIGHT], a);
+      
+      if (!common[a])
+	return SCM_EOL;
     }
   
-  Offset dxy ; 
-  for (Axis a = X_AXIS;  a < NO_AXES; a = Axis (a + 1))
-    {
-      dxy[a] = r->extent (common[a], a)[LEFT] -
-	l->extent (common[a], a)[RIGHT];
-    }
-  
-  Molecule line;
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
-
-  Offset my_off(me->relative_coordinate (common[X_AXIS], X_AXIS),
-		me->relative_coordinate (common[Y_AXIS], Y_AXIS) ); 
- 
-  Offset his_off(l->relative_coordinate (common[X_AXIS], X_AXIS),
-		 l->relative_coordinate (common[Y_AXIS], Y_AXIS) ); 
- 
-  dxy *= (dxy.length () - 2 * gap) / dxy.length ();
   
+  Offset dxy ;
+  Offset my_off;
+  Offset his_off;
+  
+  if (bound[LEFT]->break_status_dir () || bound[RIGHT]->break_status_dir ())
+    /* across line break */
+    {
+      Direction broken = bound[LEFT]->break_status_dir () ? LEFT : RIGHT;
+
+      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS)[LEFT]
+      	- bound[LEFT]->extent (common[X_AXIS], X_AXIS)[RIGHT];
+      
+      dxy += broken_trend_offset (me, broken);
+      dxy[X_AXIS] -= 1 * gap;
+
+      my_off = Offset (0,
+		       me->relative_coordinate (common[Y_AXIS], Y_AXIS));
+
+      his_off = Offset (0, 
+			bound[-broken]->relative_coordinate (common[Y_AXIS],
+							     Y_AXIS));
+
+      if (broken == LEFT)
+	{
+	  my_off[Y_AXIS] += dxy[Y_AXIS];
+	}
+    }
+  else
+    {
+      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS)[LEFT]
+	- bound[LEFT]->extent (common[X_AXIS], X_AXIS)[RIGHT];
+      dxy[Y_AXIS] = bound[RIGHT]->extent (common[Y_AXIS], Y_AXIS).center ()
+	- bound[LEFT]->extent (common[Y_AXIS], Y_AXIS).center ();
+      dxy[X_AXIS] -= 2 * gap;
+
+      my_off = Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
+		       me->relative_coordinate (common[Y_AXIS], Y_AXIS)); 
+      
+      his_off = Offset (bound[LEFT]->relative_coordinate (common[X_AXIS],
+							  X_AXIS),
+			bound[LEFT]->relative_coordinate (common[Y_AXIS],
+							  Y_AXIS)); 
+      
+      }
+  Molecule line;
   SCM list = Line_spanner::line_atom (me, dxy[X_AXIS], dxy[Y_AXIS]);
     
   if (list == SCM_EOL)
@@ -125,10 +202,9 @@ Line_spanner::brew_molecule (SCM smob)
   Box b (Interval (0, dxy[X_AXIS]), Interval (0, dxy[Y_AXIS]));
   
   line = Molecule (b, list);
-  line.translate_axis (l->extent (l, X_AXIS).length (), X_AXIS); 
-  
-  
-  Offset g = dxy * (gap / dxy.length ());
+  line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length (), X_AXIS); 
+
+  Offset g (gap, 0);
   line.translate (g - my_off + his_off);
       
   return line.smobbed_copy ();

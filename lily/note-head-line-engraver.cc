@@ -38,6 +38,7 @@ private:
   Request* req_;
   Request* last_req_;
   Translator* last_staff_;
+  bool follow_;
   Grob* head_;
   Grob* last_head_;
 };
@@ -47,6 +48,7 @@ Note_head_line_engraver::Note_head_line_engraver ()
   line_ = 0;
   req_ = 0;
   last_req_ = 0;
+  follow_ = false;
   head_ = 0;
   last_head_ = 0;
   last_staff_ = 0;
@@ -80,7 +82,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 	  if (staff != last_staff_)
 	    {
 	      if (last_head_)
-		last_req_ = (Request*)1; // ugh
+		follow_ = true;
 	      last_staff_ = staff;
 	    }
 	}
@@ -90,26 +92,34 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 void
 Note_head_line_engraver::create_grobs ()
 {
-  if (!line_ && last_req_ && last_head_ && head_)
+  if (!line_ && (follow_ || last_req_) && last_head_ && head_
+      && (last_head_ != head_))
     {
       /* type Glissando? */
-      line_ = new Spanner (get_property ("NoteHeadLine"));
-      line_->set_bound (RIGHT, head_);
+      if (follow_)
+	line_ = new Spanner (get_property ("FollowThread"));
+      else
+	line_ = new Spanner (get_property ("Glissando"));
+	
       line_->set_bound (LEFT, last_head_);
+      line_->set_bound (RIGHT, head_);
 
-      line_->set_parent (head_, X_AXIS);
-      line_->set_parent (head_, Y_AXIS);
+      /*
+	Note, mustn't set y-parent of breakable symbol to simple item:
+	one of the two broken parts won't have an y-parent!
+	
+	line_->set_parent (head_, Y_AXIS);
+	line_->set_parent (last_head_, Y_AXIS);
+	
+      */
+      /* X parent is set by set_bound */
+      line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
+			 Y_AXIS);
 
-      line_->set_parent (last_head_, X_AXIS);
-      line_->set_parent (last_head_, Y_AXIS);
-
-      if ((int)last_req_ == 1) // ugh
-	last_req_ = 0;
-      
       announce_grob (line_, last_req_);
       last_req_ = 0;
-      last_head_ = head_;
-      head_ = 0;
+      follow_ = false;
+      last_head_ = 0;
     }
 }
 
@@ -121,8 +131,7 @@ Note_head_line_engraver::stop_translation_timestep ()
       typeset_grob (line_);
       line_ = 0;
     }
-  if (req_)
-    last_req_ = req_;
+  last_req_ = req_;
   req_ = 0;
 }
 

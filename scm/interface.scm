@@ -476,7 +476,7 @@ font-point-size font-relative-size)
   (lily-interface
    'line-spanner-interface
    "Generic line drawn between two objects, eg. for use with glissandi.
-gap is relative to the total length of the line.   "
+gap is measured in staff-spaces.   "
 
    '(gap 
     dash-period 

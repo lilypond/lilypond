@@ -1,3 +1,13 @@
+1.3.112.jcn1
+============
+
+* Added forced slur direction (stemUp no longer implies slurUp) in
+cross-staff slur example.
+
+* Fixes to Glissando and line-spanner.  Behaves reasonably across line
+breaks.
+
+
 1.3.111.jcn3
 ============
 

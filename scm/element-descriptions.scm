@@ -287,13 +287,24 @@
 			rhythmic-head-interface font-interface 
 			note-head-interface ))
 	))
-	(NoteHeadLine . (
+	(Glissando . (
 			 (type . line)
 			 (gap . 0.5)
+			 (breakable . #t)
 			 (X-extent-callback . #f)
 			 (Y-extent-callback . #f)			 
 			 (molecule-callback . ,Line_spanner::brew_molecule)
-			 (meta . ,(element-description "NoteHeadLine"
+			 (meta . ,(element-description "Glissando"
+						       line-spanner-interface))
+			 ))
+	(FollowThread . (
+			 (type . line)
+			 (gap . 0.5)
+			 (breakable . #t)
+			 (X-extent-callback . #f)
+			 (Y-extent-callback . #f)			 
+			 (molecule-callback . ,Line_spanner::brew_molecule)
+			 (meta . ,(element-description "FollowThread"
 						       line-spanner-interface))
 			 ))
 
