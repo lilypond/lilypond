@@ -4,7 +4,9 @@
 
 Voice::Voice(Voice const&src)
 {
-    PL_copy(elts, src.elts);
+    for (iter_top(src.elts, i); i.ok(); i++)
+	add(new Voice_element(**i));
+
     start = src.start;
 }
 
@@ -57,7 +59,7 @@ Voice_element::add(Request*r)
 	assert (!duration);	    
 	duration = r->duration();
     }
-    r->elt = this;
+    r->elt_l_ = this;
     reqs.bottom().add(r);
 }
 
@@ -71,9 +73,8 @@ Voice_element::Voice_element()
 
 Voice_element::Voice_element(Voice_element const&src)
 {
-    duration=src.duration;
     voice_=src.voice_;
-    IPointerList__copy(Request*, reqs, src.reqs, clone());
+    for (iter_top(src.reqs, i); i.ok(); i++)
+	add(i->clone());
     group=src.group;
-//    assert(!granted_items.size() && !granted_spanners.size());
 }
