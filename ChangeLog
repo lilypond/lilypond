@@ -1,5 +1,8 @@
 2003-05-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* mf/feta-toevallig.mf: revamp flat symbol: use less points,
+	better parametrisation. Move fatness of bulb downward.
+
 	* mf/parmesan-custodes.mf (dir_down): remove underscores from
 	glyph names. Underscores are not allowed .ps encoding files.
 
