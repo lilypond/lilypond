@@ -271,6 +271,18 @@
 				   (string-append "accidentals-" 
 						  (number->string (caddr pitch)))))))))))))))
 
+;;; Hooks to override chord names and note names, 
+;;; see input/tricks/german-chords.ly
+
+(define (pitch->text-banter pitch)
+  (pitch->text pitch))
+
+(define (pitch->chord-name-text-banter pitch)
+  (pitch->text-banter))
+
+(define (pitch->note-name-text-banter pitch)
+  (pitch->text-banter))
+
 (define (step->text pitch)
   (string-append
     (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))
@@ -280,9 +292,6 @@
       ((0) "")
       ((1) "+")
       ((2) "++"))))
-
-(define (pitch->text-banter pitch)
-  (pitch->text pitch))
   
 (define (step->text-banter pitch)
   (if (= (cadr pitch) 6)
@@ -407,7 +416,7 @@
 (define (chord::inner-name-banter tonic user-name additions subtractions base-and-inversion)
   (apply append
 	 '(rows)
-	 (pitch->text-banter tonic)
+	 (pitch->chord-name-text-banter tonic)
 	 (if user-name user-name '())
 	 ;; why does list->string not work, format seems only hope...
 	 (if (and (string-match "super" (format "~s" user-name))
@@ -444,9 +453,9 @@
 		      (cdr base-and-inversion)))
 	     (cons "/" (append
 			(if (car base-and-inversion)
-			    (pitch->text 
+			    (pitch->note-name-text-banter 
 			     (car base-and-inversion))
-			    (pitch->text 
+			    (pitch->note-name-text-banter
 			     (cdr base-and-inversion)))
 			'()))
 	     '())
