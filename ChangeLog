@@ -1,3 +1,8 @@
+2002-09-13  Rune Zedeler  <rune@zedeler.dk>
+
+	* scm/drums.scm: "set" the automatic properties instead of
+	"override", (whoops!)
+	
 2002-09-13  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* ly/a3-init.ly, scripts/ly2dvi.py (ly_paper_to_latexpaper): 

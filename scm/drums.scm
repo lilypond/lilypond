@@ -196,6 +196,7 @@
      (ly-set-mus-property! m 'symbol 'NoteHead)
      (ly-set-mus-property! m 'grob-property 'style)
      (ly-set-mus-property! m 'grob-value t)
+     (ly-set-mus-property! m 'pop-first #t)
      m
    )
  )
