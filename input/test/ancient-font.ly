@@ -173,9 +173,9 @@ lowerStaff =  \context MensuralStaff = lowerStaff <
 
 	r\breve 
 	\clef "mensural_f"
-	% FIXME: must set Voice.Stem style to #'neo_mensural to avoid
+	% FIXME: must set Voice.Stem flag-style to #'neo_mensural to avoid
 	% segmentation fault on r8/r16/r32.  (Strange: what has
-	% Voice.Stem style to do with mensural rests?)
+	% Voice.Stem flag-style to do with mensural rests?)
 	\property Voice.Stem \override #'flag-style = #'neo_mensural
 	r2 r4 r8 r16 r16
 	\property Voice.Stem \override #'flag-style = #'mensural
