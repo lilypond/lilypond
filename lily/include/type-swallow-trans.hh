@@ -1,9 +1,9 @@
 /*
-  type-swallow-grav.hh -- declare Type_swallow_translator
+  type-swallow-engraver.hh -- declare Type_swallow_translator
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
