@@ -121,7 +121,9 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 
       if (Stem::duration_log (stem_) != duration_log)
 	{
-	  i.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::duration_log (stem_)));
+	  i.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 <<  Stem::duration_log (stem_))
+						+ _f ("Don't you want polyphonic voices instead?")
+						);
 	}
 
       Stem::add_head (stem_,h);

@@ -1,5 +1,10 @@
 2003-02-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/percent-repeat-engraver.cc (try_music): add correct
+	processing moments for double-measure percents as well.
+
+	* input/regression/percent-repeat-skipbars.ly (texidoc): new file
+
 	* lily/lily-guile.cc (ly:dimension?): add dimension as separate
 	grob prop type. 
 

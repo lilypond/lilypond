@@ -120,17 +120,9 @@ Percent_repeat_engraver::try_music (Music * m)
       repeat_ = rp;
 
       
-      Global_translator *global =0;
-      Translator *t = this;
-      do
-	{
-	  t = t->daddy_trans_ ;
-	  global = dynamic_cast<Global_translator*> (t);
-	}
-      while (!global);
-
+      Global_translator *global =top_engraver();
       for (int i = 0; i < count; i++)  
-	global->add_moment_to_process (now + Moment (1+i) * body_length_);
+	global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
   
       return true;
     }
@@ -170,6 +162,8 @@ Percent_repeat_engraver::process_music ()
 	    top_engraver()->forbid_breaks ();	// guh. Use properties!      
 	}
       next_moment_ = next_moment_ + body_length_;
+
+      top_engraver()->add_moment_to_process (next_moment_);
     }
 }
 
