@@ -55,13 +55,12 @@ Tom Cato Amundsen.
 
 @ifhtml
 This document is also available as a @uref{../lilypond.ps.gz,gzipped
-postscript file}.
+postscript file} and @uref{../lilypond.pdf,PDF}.
 @end ifhtml
 
 @chapter GNU LilyPond --- The music typesetter
 
-LilyPond produces sheet music from input files.  This document describes
-how to use LilyPond.
+This is the user manual for GNU LilyPond 1.6.0.
 
 @cindex web site
 
@@ -73,6 +72,7 @@ this and other documentation.
 
 @menu
 * Preface::                        Preface.
+* Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
 * Invoking LilyPond::              Operation.
@@ -83,7 +83,6 @@ this and other documentation.
 * lilypond-book::                  Interleaving text with music.
 * Internals::                      How it all works.
 * Literature::                     Additional reading
-* Index of internals:(lilypond-internals).  Auto generated detailed documentation.
 * Index::                          Unified index.
 * Function Index::                 Function index.
 * Refman appendix::
@@ -96,6 +95,7 @@ this and other documentation.
 
 @mbinclude macros.itexi
 @mbinclude preface.itely
+@mbinclude introduction.itely 
 @mbinclude tutorial.itely
 @mbinclude refman.itely
 @mbinclude internals.itely
