@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm output-texstr))
 (define this-module (current-module))
