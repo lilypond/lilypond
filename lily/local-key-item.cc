@@ -61,8 +61,9 @@ Local_key_item::accidental (int j, bool cautionary, bool natural) const
 /*
   UGH. clean me up
  */
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Local_key_item)
 Molecule 
-Local_key_item::do_brew_molecule() const
+Local_key_item::do_brew_molecule () const
 {
   Molecule mol;
   Staff_symbol_referencer_interface si (this);

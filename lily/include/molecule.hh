@@ -71,11 +71,16 @@ public:
   void translate_axis (Real,Axis);
   
   Interval extent (Axis) const;
+  /**
+     codify THIS into a Scheme expression.
+   */
+  SCM create_scheme () const;
   bool empty_b() const;
 };
 
 SCM fontify_atom (Font_metric*, SCM atom);
 
+Molecule create_molecule (SCM scheme_molecule);
 
 
 

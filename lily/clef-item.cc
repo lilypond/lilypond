@@ -16,6 +16,12 @@ Clef_item::Clef_item (SCM s)
   : Item (s)
 {}
 
+
+/*
+FIXME: should use symbol.
+
+FIXME: this should be schemified.
+*/
 void
 Clef_item::before_line_breaking ()
 {
@@ -26,9 +32,6 @@ Clef_item::before_line_breaking ()
 
   SCM glyph = get_elt_property ("glyph");
   
-  /*
-    FIXME: should use symbol.
-   */
   if (gh_string_p (glyph))
     {
       String s = ly_scm2string (glyph);
@@ -36,21 +39,23 @@ Clef_item::before_line_breaking ()
       /*
 	FIXME: should use fontsize property to set clef changes.
        */
-      if (break_status_dir() != RIGHT && style != "fullSizeChanges")
+      if (get_elt_property ("non-default") &&
+	  break_status_dir() != RIGHT && style != "fullSizeChanges")
 	{
 	  s += "_change";
+	  set_elt_property ("glyph", ly_str02scm (s.ch_C()));	  
 	}
-      s = "clefs-" +  s;
-      set_elt_property ("glyph", ly_str02scm (s.ch_C()));
     }
   else
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
+      suicide ();
+      return;
     }
-  
+
+  // ugh. 
   if (style == "transparent")	// UGH. JUNKME
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
+      set_elt_property ("molecule-callback", SCM_BOOL_T);
       set_extent_callback (0, X_AXIS);
     }
 }

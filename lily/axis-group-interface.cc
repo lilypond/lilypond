@@ -81,7 +81,7 @@ Axis_group_interface::set_interface ()
   if (!has_interface_b ())
     {
       elt_l_->set_elt_pointer ("elements", SCM_EOL);
-      elt_l_->set_elt_property ("transparent", SCM_BOOL_T); //  junk this?
+
 
       Group_interface (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Axis_group"));
     }

@@ -23,6 +23,8 @@ class Hyphen_spanner : public Spanner
 public:
   Hyphen_spanner (SCM);
   void set_textitem (Direction, Item*);
+ static SCM scheme_molecule (SCM);
+  
 
 protected:
   virtual Molecule do_brew_molecule () const;

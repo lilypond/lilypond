@@ -60,17 +60,14 @@ Span_bar::evaluate_empty ()
 { 
   if (!gh_pair_p (get_elt_pointer ("elements")))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);   
+      suicide ();
     }
   
   SCM gl = get_elt_property ("glyph");
   if (!gh_string_p (gl))
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);   
+      suicide ();
+      return ; 
     }
   else {
     String type_str = ly_scm2string (gl);

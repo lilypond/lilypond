@@ -324,13 +324,13 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
   r = r->column_l ();
   SCM s = get_elt_pointer ("columns");
 
-  while (gh_car (s) != r->self_scm_)
+  while (gh_pair_p (s) && gh_car (s) != r->self_scm_)
     s = gh_cdr  (s);
     
-
-  s = gh_cdr (s);
+  if (gh_pair_p (s))
+    s = gh_cdr (s);
   
-  while (gh_car (s) != l->self_scm_)
+  while (gh_pair_p (s) && gh_car (s) != l->self_scm_)
     {
       Paper_column *c
 	= dynamic_cast<Paper_column*> (unsmob_element (gh_car (s)));

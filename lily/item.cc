@@ -17,7 +17,6 @@
 
 Item::Item (SCM s)
   : Score_element (s)
-
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
@@ -155,13 +154,16 @@ Item::handle_prebroken_dependencies ()
       SCM result = gh_apply (vis, args);
       bool trans = gh_scm2bool (gh_car (result));
       bool empty = gh_scm2bool (gh_cdr (result));
-
-      if (empty)
+      
+      if (empty && trans)
+	suicide ();
+      else if (empty)
 	{
 	  set_extent_callback (0, X_AXIS);
 	  set_extent_callback (0,  Y_AXIS);
 	}
-      if (trans)
-	set_elt_property ("transparent", SCM_BOOL_T);
+      else if (trans)
+	set_elt_property ("molecule-callback", SCM_BOOL_T);
     }
 }
+

@@ -108,7 +108,6 @@ Clef_engraver::set_type (String s)
 
   c0_position_i_ -= (int) octave_dir_ * 7;
 
-
   current_settings_ = gh_cons (gh_cons (ly_symbol2scm ("glyph"), clef_glyph_), basic_properties_);
   current_settings_ =
     gh_cons (gh_cons (ly_symbol2scm ("c0-position"),
@@ -193,7 +192,7 @@ Clef_engraver::create_clef()
       clef_p_ = c;
     }
   Staff_symbol_referencer_interface si(clef_p_);
-  clef_p_->set_elt_property ("glyph", clef_glyph_);
+
   si.set_position (clef_position_i_);
   if (octave_dir_)
     {

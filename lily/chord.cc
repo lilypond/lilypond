@@ -14,7 +14,6 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-
 /*
   construct from parser output
 */

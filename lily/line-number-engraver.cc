@@ -36,7 +36,7 @@ Line_number_engraver::process_acknowledged ()
 {
   if (!text_item_p_ && interesting_.size ())
     {
-      text_item_p_ = new Text_item (SCM_EOL);
+      text_item_p_ = new Text_item (get_property ("basicTextProperties") );
       Side_position_interface si (text_item_p_);
       si.set_axis (Y_AXIS);
       text_item_p_->set_parent (interesting_[0].elem_l_, Y_AXIS);

@@ -106,7 +106,7 @@ Slur_engraver::do_process_music()
 	{
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
-	  Slur * s_p =new Slur (SCM_EOL);
+	  Slur * s_p =new Slur (get_property ("basicSlurProperties"));
 	  
 	  requests_arr_.push (slur_req_l);
 	  start_slur_l_arr_.push (s_p);

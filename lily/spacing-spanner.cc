@@ -21,7 +21,6 @@ Spacing_spanner::Spacing_spanner (SCM s)
 {
   set_extent_callback (0, X_AXIS);
   set_extent_callback (0, Y_AXIS);  
-  set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 /*

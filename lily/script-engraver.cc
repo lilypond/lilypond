@@ -71,7 +71,7 @@ Script_engraver::do_process_music()
 	  continue;
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
-      Script *p =new Script (SCM_EOL);
+      Script *p =new Script (get_property ("basicScriptProperties"));
       Side_position_interface stafy (p);
       
       

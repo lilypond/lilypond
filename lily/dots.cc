@@ -23,13 +23,7 @@ void
 Dots::after_line_breaking ()
 {
   SCM d= get_elt_property ("dot-count");
-  if (!gh_number_p (d) || !gh_scm2int (d))
-    {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);
-    }
-  else
+  if (gh_number_p (d) && gh_scm2int (d))
     {
       if (!directional_element (this).get ())
 	directional_element (this).set (UP);
@@ -41,23 +35,28 @@ Dots::after_line_breaking ()
     }
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Dots);
 Molecule  
 Dots::do_brew_molecule () const
 {
   Molecule mol (lookup_l ()->blank (Box (Interval (0,0),
 					 Interval (0,0))));
-  Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
-  Real dw = d.extent (X_AXIS).length ();
-  d.translate_axis (-dw, X_AXIS);
-
-
-  for (int i = gh_scm2int (get_elt_property ("dot-count")); i--; )
+  SCM c = get_elt_property ("dot-count");
+  if (!gh_number_p (c))
     {
-      d.translate_axis (2*dw,X_AXIS);
-      mol.add_molecule (d);
-    }
+      Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
+      Real dw = d.extent (X_AXIS).length ();
+      d.translate_axis (-dw, X_AXIS);
+
+
+      for (int i = gh_scm2int (c); i--; )
+	{
+	  d.translate_axis (2*dw,X_AXIS);
+	  mol.add_molecule (d);
+	}
+    }
   return mol;
 }
 

@@ -26,6 +26,8 @@
 class Beam : public Spanner
 {
 public:
+  static SCM scheme_molecule (SCM);
+  
 
   int stem_count () const;
   Stem* stem (int) const;

@@ -1,3 +1,9 @@
+1.3.55.hwn1
+===========
+
+* Molecules are now generated via callbacks exclusively; most calls to
+set_elt_property ("transparent) have been replaced by suicide().
+
 1.3.54.hwn2
 ===========
 

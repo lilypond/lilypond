@@ -60,6 +60,7 @@ Script::after_line_breaking ()
   i.set_direction (d);
 }
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Script)
 Molecule 
 Script::do_brew_molecule () const
 {

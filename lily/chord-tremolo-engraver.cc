@@ -90,7 +90,7 @@ Chord_tremolo_engraver::do_process_music ()
 {
   if (repeat_ && !beam_p_)
     {
-      beam_p_ = new Beam (SCM_EOL);
+      beam_p_ = new Beam (get_property ("basicBeamProperties"));
       beam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
 
 

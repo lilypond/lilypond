@@ -25,7 +25,9 @@ public:
 
   Note_head* head (Direction) const;
   Real position_f () const;
+   static SCM scheme_molecule (SCM);
   
+
   virtual Direction get_default_dir() const;
 
 protected:

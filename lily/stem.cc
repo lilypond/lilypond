@@ -385,11 +385,10 @@ Stem::before_line_breaking ()
 
   if (invisible_b ())
     {
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, Y_AXIS);      
-      set_extent_callback (0, X_AXIS);      
+      remove_elt_property ("molecule-callback");
+      // suicide();
     }
-
+  
   set_spacing_hints ();
 }
 
@@ -454,8 +453,9 @@ Stem::dim_callback (Score_element const *se, Axis )
 }
 
 
-const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh!
+const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh! Should be settable.
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Stem)
 Molecule 
 Stem::do_brew_molecule () const
 {

@@ -20,6 +20,7 @@ Time_signature::Time_signature (SCM s)
 }
 
 // ugh.!
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Time_signature)
 Molecule 
 Time_signature::do_brew_molecule () const
 {

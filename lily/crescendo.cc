@@ -24,6 +24,7 @@ Crescendo::Crescendo (SCM s)
 
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Crescendo)
 Molecule 
 Crescendo::do_brew_molecule () const
 {
@@ -36,7 +37,7 @@ Crescendo::do_brew_molecule () const
   if (!isdir_b (dir) || !gh_pair_p (dyns))
     {
       Crescendo * me = (Crescendo*)this;
-      me->set_elt_property ("transparent", SCM_BOOL_T);
+      me->suicide ();
       Molecule m;
       
       return m;

@@ -98,9 +98,7 @@ Tie::after_line_breaking ()
   if (!head (LEFT) && !head (RIGHT))
     {
       programming_error ("Tie without heads.");
-      set_elt_property ("transparent", SCM_BOOL_T);
-      set_extent_callback (0, X_AXIS);
-      set_extent_callback (0, Y_AXIS);
+      suicide ();
       return;
     }
 
@@ -192,6 +190,7 @@ Tie::get_rods () const
 
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Tie)
 Molecule 
 Tie::do_brew_molecule () const
 {

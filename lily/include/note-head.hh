@@ -23,6 +23,8 @@ class Note_head : public Rhythmic_head
 {
 public:
   static int compare (Note_head * const &a, Note_head *const &b) ;
+ static SCM scheme_molecule (SCM);
+  
 
   Molecule ledger_line (Interval) const;
   Note_head (SCM);

@@ -43,6 +43,10 @@
 class Stem : public Item
 {
 public:
+ static SCM scheme_molecule (SCM);
+  
+
+
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   int flag_i () const;
 
@@ -83,10 +87,8 @@ protected:
   Real get_default_stem_end_position () const;
   void position_noteheads();
 
-
   Real stem_end_position () const;
   static Real off_callback (Score_element const*, Axis);
-protected:
   Molecule flag () const;
 
   virtual void before_line_breaking();

@@ -41,6 +41,7 @@ Volta_spanner::Volta_spanner (SCM s)
   
   
 */
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Volta_spanner)
 Molecule 
 Volta_spanner::do_brew_molecule () const
 {

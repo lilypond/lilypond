@@ -48,7 +48,6 @@ public:
 Dynamic_line_spanner::Dynamic_line_spanner (SCM s)
   : Spanner (s)
 {
-  set_elt_property ("transparent", SCM_BOOL_T);
   Side_position_interface (this).set_axis (Y_AXIS);
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
@@ -304,7 +303,7 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  span_start_req_l_ = span_req_l_drul_[START];
-	  cresc_p_  = new Crescendo (SCM_EOL);
+	  cresc_p_  = new Crescendo (get_property ("basicCrescendoProperties"));
 	  cresc_p_->set_elt_property
 	    ("grow-direction",
 	     gh_int2scm ((span_req_l_drul_[START]->span_type_str_ == "crescendo")

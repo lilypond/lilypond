@@ -31,6 +31,7 @@ Multi_measure_rest::Multi_measure_rest (SCM s)
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Multi_measure_rest)
 Molecule 
 Multi_measure_rest::do_brew_molecule () const
 {
@@ -155,7 +156,10 @@ void
 Multi_measure_rest::after_line_breaking ()
 {
   if (!gh_pair_p (get_elt_pointer ("columns")))
-    set_elt_property ("transparent", SCM_BOOL_T);
+    {
+      suicide ();
+    }
+     
 }
 
 

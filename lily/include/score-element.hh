@@ -162,7 +162,7 @@ public:
   /// generate rods & springs
   virtual void do_space_processing ();
   virtual void discretionary_processing ();
-
+  virtual void do_derived_mark ();
   /// do calculations before determining horizontal spacing
   virtual void before_line_breaking ();
   /// do calculations after determining horizontal spacing
@@ -182,17 +182,16 @@ protected:
     be handled by GUILE gc.  */
   virtual ~Score_element ();
   
-  /// generate the molecule    
-  virtual Molecule do_brew_molecule () const;
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
-    
+  virtual Molecule do_brew_molecule ()const;
+  
   static Interval dim_cache_callback (Dimension_cache const*);
   
 public:
   static SCM ly_set_elt_property (SCM, SCM,SCM);
   static SCM ly_get_elt_property (SCM, SCM);  
-
+  static SCM scheme_molecule (SCM);
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
@@ -245,6 +244,23 @@ public:
 };
 
 Score_element * unsmob_element (SCM);
+
+#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(TYPE) 				\
+SCM								\
+TYPE::scheme_molecule (SCM smob)				\
+{								\
+  TYPE * b = dynamic_cast<TYPE*> (unsmob_element (smob));	\
+  return b ?  b->do_brew_molecule ().create_scheme () : SCM_EOL; \
+}								\
+								\
+void								\
+TYPE ## __init_functions ()					\
+{								\
+  scm_make_gsubr (#TYPE "::scheme_molecule", 1, 0, 0,		\
+  (SCM(*)(...))TYPE::scheme_molecule); 				\
+}								\
+								\
+ADD_SCM_INIT_FUNC(TYPE ## _molecule, TYPE ## __init_functions);	\
 
 
 

@@ -60,7 +60,7 @@ Note_heads_engraver::do_process_music()
   
   for (int i=0; i < note_req_l_arr_.size (); i++)
     {
-      Note_head *note_p  = new Note_head (SCM_EOL);
+      Note_head *note_p  = new Note_head (get_property ("basicNoteHeadProperties"));
       
       Staff_symbol_referencer_interface si (note_p);
       si.set_interface ();
@@ -73,7 +73,7 @@ Note_heads_engraver::do_process_music()
 
       if (note_req_l->duration_.dots_i_)
 	{
-	  Dots * d = new Dots (SCM_EOL);
+	  Dots * d = new Dots (get_property ("basicDotsProperties"));
 
 	  Staff_symbol_referencer_interface sd (d);
 	  sd.set_interface ();
