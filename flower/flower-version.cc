@@ -3,7 +3,7 @@
 #include "config.hh"
 
 // static char *s = "FlowerLib " MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL MY_PATCH_LEVEL " #%d";
-static char *s = "FlowerLib " MODULE_VERSION " #%d";
+static char *s = "FlowerLib " FLOWER_VERSION " #%d";
 
 static const int build=
 //#include ".build"

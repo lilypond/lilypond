@@ -20,3 +20,6 @@
 
 /* the toplevel version string */
 #define TOPLEVEL_VERSION "0"
+
+/* the version string of the flower lib */
+#define FLOWER_VERSION "0"
