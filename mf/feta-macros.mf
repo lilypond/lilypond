@@ -100,6 +100,27 @@ def distorted_ellipse(expr a,b,err_y,err_x,super) =
 	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
 	enddef;
 
+% stolen from feta-eindelijk, but still
+% FIXME: too high
+def draw_block (expr bottom_left, top_right) =
+	pickup pencircle scaled blot_diameter;
+
+	begingroup;
+	save x,y;
+	bot y1 = ypart bottom_left;
+	top y2 = ypart top_right;
+	y3 = y2;
+	y4 = y1;
+
+	rt x1 = xpart top_right;
+	x2 = x1;
+	lft x3 = xpart bottom_left;
+	x4 = x3;
+
+	filldraw z1--z2--z3--z4--cycle;
+	endgroup;
+	enddef;
+
 def draw_brush(expr a,w,b,v) =
 	save x,y;
 	z1=a; z2=b;
@@ -112,6 +133,25 @@ def draw_brush(expr a,w,b,v) =
 
 	fill z3r{z3r-z5l}..z4l..{z5r-z3l}z3l..z5r{z5r-z3l}..z6l..{z3r-z5l}z5l..cycle;
 enddef;
+
+def draw_flare(expr pos,alpha,beta,line,flare) =
+	begingroup;
+	clearxy;
+	penpos1(line,180+beta+alpha);
+	z1r=pos;
+	penpos2(flare,180+beta+alpha);
+	z2=z3;
+	penpos3(flare,0+alpha);
+	z3l=z1r+(1/2+0.43)*flare*dir(alpha+beta);
+	z4=z2r-1/6flare*dir(alpha);
+	penlabels(1,2,3,4);
+	pickup pencircle;
+	save t; t=0.833;
+	fill z1r{dir(alpha)}..z3r{dir(180+alpha-beta)}..z2l{dir(alpha+180)}
+		..z3l{dir(180+alpha+beta)}..tension t
+		..z4{dir(180+alpha+beta)}..z1l{dir(alpha+180)}..cycle;
+	endgroup;
+	enddef;
 
 def brush(expr a,w,b,v) =
 	begingroup;
