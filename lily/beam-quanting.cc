@@ -133,7 +133,7 @@ Beam::quanting (SCM smob)
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
-      stem_infos.push (Stem::calc_stem_info (s));
+      stem_infos.push (Stem::get_stem_info (s));
       dirs_found[stem_infos.top ().dir_] = true;
 
       bool f = french && i > 0&& (i < stems.size  () -1);
