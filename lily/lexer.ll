@@ -241,7 +241,7 @@ HYPHEN		--
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('"'));
 
-	new_input (s, &global_input_file->sources_);
+	new_input (s, sources_);
 	yy_pop_state ();
 }
 <incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
@@ -252,7 +252,7 @@ HYPHEN		--
 
 	SCM sid = lookup_identifier (s);
 	if (is_string (sid)) {
-		new_input (ly_scm2string (sid), &global_input_file->sources_);
+		new_input (ly_scm2string (sid), sources_);
 		yy_pop_state ();
 	} else { 
 	    String msg (_f ("wrong or undefined identifier: `%s'", s ));

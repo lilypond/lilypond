@@ -235,7 +235,7 @@ void ly_display_scm (SCM s);
 #include "array.hh"
 
 void read_lily_scm_file (String);
-void ly_init_guile ();
+void ly_c_init_guile ();
 
 bool is_direction (SCM s);
 bool is_number_pair (SCM);

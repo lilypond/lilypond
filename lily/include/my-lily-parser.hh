@@ -10,10 +10,10 @@
 #ifndef MY_LILY_PARSER_HH
 #define MY_LILY_PARSER_HH
 
+#include "protected-scm.hh"
 #include "lily-proto.hh"
 #include "string.hh"
 #include "parray.hh"
-#include "lily-proto.hh"
 #include "lily-proto.hh"
 #include "duration.hh"
 #include "pitch.hh"
@@ -30,7 +30,7 @@
 class My_lily_parser 
 {
 public:
-  My_lily_parser (Input_file_results * sources);
+  My_lily_parser (Sources * sources);
   ~My_lily_parser ();
 
   void do_init_file ();
@@ -40,10 +40,13 @@ public:
   Duration default_duration_;
   String output_basename_;
   
-  Scheme_hash_table *default_header_;
+  Protected_scm header_;
 
+  int score_count_;
+  int book_count_;
+  Sources *sources_;
+  
   int fatal_error_;
-  Input_file_results * input_file_;
   int error_level_;
 
   My_lily_lexer * lexer_;

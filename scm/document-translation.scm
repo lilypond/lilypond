@@ -74,7 +74,7 @@
 
      (if in-which-contexts
 	 (let*
-	     ((paper-alist (My_lily_parser::paper_description))
+	     ((paper-alist (ly:output-description $defaultpaper))
 	      (context-description-alist (map cdr paper-alist))
 	      (contexts
 	       (apply append
@@ -263,7 +263,7 @@
 (define (all-contexts-doc)
   (let* (
 	 (paper-alist
-	  (sort (My_lily_parser::paper_description)
+	  (sort (ly:output-description $defaultpaper)
 		(lambda (x y) (symbol<? (car x) (car y)))))
 	 (names (sort (map symbol->string (map car paper-alist)) string<?))
 	 (contexts (map cdr paper-alist))

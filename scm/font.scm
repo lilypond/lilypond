@@ -290,9 +290,9 @@
 		,(delay (ly:font-load "ecti12"))
 		)))
      (#(roman italic bold) .
-      (10.0 . #(,(delay (ly:font-load "ecbxti8"))
-		,(delay (ly:font-load "ecbxti10"))
-		,(delay (ly:font-load "ecbxti14"))
+      (10.0 . #(,(delay (ly:font-load "ecbi8"))
+		,(delay (ly:font-load "ecbi10"))
+		,(delay (ly:font-load "ecbi14"))
 		)))
      
      (#(roman caps medium) .

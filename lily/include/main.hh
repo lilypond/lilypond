@@ -19,8 +19,11 @@ void add_score (Score* s);
 void set_default_output (String s);
 String find_file (String);
 void call_constructors ();
-extern Array<String> get_inclusion_names ();
-extern void set_inclusion_names (Array<String>);
+
+Array<String> get_inclusion_names ();
+void set_inclusion_names (Array<String>);
+
+
 extern String init_name_global;
 
 /* FIXME: in warn.cc */
@@ -43,6 +46,5 @@ extern bool internal_type_checking_global_b;
 extern Array<String> failed_files;
 extern int exit_status_global;
 extern File_path global_path;
-extern int score_count_global;
 
 #endif /* MAIN_HH */

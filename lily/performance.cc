@@ -171,7 +171,8 @@ Performance::process (String out)
   Midi_stream midi_stream (out);
   progress_indication (_f ("MIDI output to `%s'...", out));
 
-  global_input_file->target_strings_.push (out);
+  // fixme: dependencies
+  //add_target_file (out);
 
   output (midi_stream);
   progress_indication ("\n");

@@ -68,8 +68,11 @@ bool safe_global_b = false;
 /* Verbose progress indication? */
 bool verbose_global_b = false;
 
-/* Scheme code to execute before parsing, after .scm init */
+/* Scheme code to execute before parsing, after .scm init
+   This is where -e arguments are appended to.
+*/
 String init_scheme_code_string = "(begin #t ";
+
 
 
 /*
@@ -78,10 +81,6 @@ String init_scheme_code_string = "(begin #t ";
 
 int exit_status_global;
 File_path global_path;
-
-/* Number of current score output block.  If there's more than one
-   score block, this counter will be added to the output filename. */
-int score_count_global;
 
 
 /*
@@ -266,10 +265,11 @@ main_with_guile (void *, int, char **)
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
 
+
   if (verbose_global_b)
     dir_info (stderr);
 
-  ly_init_guile ();
+  ly_c_init_guile ();
   call_constructors ();
   progress_indication ("\n");
 
@@ -290,7 +290,7 @@ main_with_guile (void *, int, char **)
       scm_gc ();
       scm_call_0 (ly_scheme_function ("dump-gc-protects"));
 #endif
-      do_one_file (arg);
+      ly_parse_file (scm_makfrom0str (arg));
       first = false;
     }
   delete option_parser;

@@ -1,5 +1,23 @@
 2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/music-output-def.cc (LY_DEFINE): ly:output-description
+	new function.
+
+	* lily/main.cc: remove global_score_count.
+
+	* lily/book.cc (process): don't take header from global_input_file.
+
+	* buildscripts/lilypond-profile.sh (Error): set GS_FONTPATH
+
+	* lily/parser.yy (My_lily_lexer): remove current_parser global var.
+
+	* lily/music-output-def.cc (LY_DEFINE): new function
+	ly_output_description. This function does the bulk for  setting,
+	parsing and breaking down of an input file.
+
+	* lily/ly-module.cc (ly_make_anonymous_module): don't protect
+	anonymous modules globally. Let's hope they get GCd
+
 	* scripts/lilypond.py (run_dvips): add sauter-mftrace.map 
 
 2004-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>

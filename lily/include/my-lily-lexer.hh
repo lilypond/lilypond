@@ -24,7 +24,6 @@ bool busy_parsing ();
 void kill_lexer ();
 void set_lexer ();
 
-/// lexer for LilyPond
 class My_lily_lexer : public Includable_lexer 
 {
   Protected_scm scopes_;
@@ -33,16 +32,19 @@ public:
   String main_input_name_;
   void *lexval;
   bool main_input_b_;
+  
+  Sources * sources_; 
 
   /*
-    Scheme hash tables with (oct name acc)  values, and symbol keys
+   Scheme hash tables with (oct name acc)  values, and symbol keys
    */
   Protected_scm chordmodifier_tab_;
   Protected_scm pitchname_tab_stack_;
+
   Keyword_table * keytable_;
   int errorlevel_;
 
-  My_lily_lexer ();
+  My_lily_lexer (Sources*);
   ~My_lily_lexer ();
   int yylex ();
 
