@@ -368,7 +368,6 @@ def split_options (option_string):
 index = 0
 
 class Snippet:
-
 	## huh? index is redundant? --hwn
 	def __init__ (self, type, source, index, match):
 		self.type = type
@@ -630,7 +629,7 @@ LATEX_DOCUMENT = r'''
 '''
 #need anything else besides textwidth?
 def get_latex_textwidth (source):
-	m = re.search (r'''(?P<preabmle>\\begin\s*{document})''', source)
+	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_DOCUMENT % vars ()
         parameter_string = filter_pipe (latex_document, latex_filter_cmd)
@@ -719,6 +718,8 @@ def do_file (input_filename):
 			input_base = 'stdin'
 		else:
 			input_base = os.path.splitext (input_filename)[0]
+			input_base = os.path.basename (input_base)
+			
 		output_filename = output_name + '/' + input_base \
 				  + format2ext[format]
 		h = open (output_filename, 'w')

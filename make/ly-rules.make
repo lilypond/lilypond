@@ -10,7 +10,6 @@ $(outdir)/%.latex: %.doc
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	if [ -f $@ ]; then chmod a+w $@; fi
-	set|egrep '(TEX|LILY)'  # ugh, what's this?
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 	chmod -w $@
 
