@@ -6,6 +6,8 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <stdio.h>
+
 #include "ly-smobs.icc"
 
 #include "score.hh"
@@ -24,7 +26,6 @@
 /*
   TODO: junkme.
  */
-
 Score::Score ()
   : Input ()
 {
@@ -68,20 +69,38 @@ Score::~Score ()
   
 }
 
+
+/*
+  should enable  this to find weird mistakes? 
+*/
+#define PARANOIA
+
+#ifdef PARANOIA
+#include <sys/resource.h>
+#endif
+
 void
 Score::run_translator (Music_output_def *odef_l)
 {
+
+
+#ifdef PARANOIA
+  if (verbose_global_b)
+    {
+      struct rlimit rls;
+
+      getrlimit (RLIMIT_STACK, &rls);
+      progress_indication (_f("stack size cur %d, max %d\n" ,rls.rlim_cur, rls.rlim_max));
+    }
+#endif
+  
   /*
     We want to know if we want to store locations, since they take a
     lot of overhead.
-    
-   */
+  */
   store_locations_global_b = (gh_eval_str ("point-and-click") !=  SCM_BOOL_F);
-
   
   Cpu_timer timer;
-
-  
   Global_translator * trans_p = odef_l->get_global_translator_p ();
   if (!trans_p)
     {
@@ -92,7 +111,6 @@ Score::run_translator (Music_output_def *odef_l)
   Music * music = unsmob_music (music_);
   
   trans_p->final_mom_ = music->length_mom ();
-
 
   Music_iterator * iter = Music_iterator::static_get_iterator_p (music);
   iter->init_translator (music, trans_p);
