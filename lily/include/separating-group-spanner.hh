@@ -14,9 +14,9 @@
 
 class Separating_group_spanner
 {
+  static void find_rods (Item*, SCM, Real);
 public:
   static void add_spacing_unit (Grob*me, Item*);
-  static void find_rods (Item*, SCM);
   
   static bool has_interface (Grob*);
   static void find_musical_sequences (Grob*);

@@ -15,7 +15,7 @@
 #include "group-interface.hh"
 
 void
-Separating_group_spanner::find_rods (Item * r, SCM next)
+Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
 {
 
   /*
@@ -26,7 +26,8 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
   */
   if (Separation_item::width (r).is_empty ())
     return; 
-  
+
+
   for(; gh_pair_p (next); next = ly_cdr (next))
     {
       Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car( next)));
@@ -43,7 +44,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	      rod.item_l_drul_[LEFT] = lb;
 	      rod.item_l_drul_[RIGHT] = r;
 
-	      rod.distance_ = li[RIGHT] - ri[LEFT];
+	      rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 	      rod.add_to_cols ();
 	    }
 	}
@@ -57,7 +58,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	  rod.item_l_drul_[LEFT] =l;
 	  rod.item_l_drul_[RIGHT]=r;
 
-	  rod.distance_ = li[RIGHT] - ri[LEFT];
+	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 	
 	  rod.add_to_cols ();
 	  break;
@@ -85,6 +86,7 @@ SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
+  Real padding = robust_scm2double (me->get_grob_property ("padding"), 0.1);
   
   for (SCM s = me->get_grob_property ("elements"); gh_pair_p (s) && gh_pair_p (ly_cdr (s)); s = ly_cdr (s))
     {
@@ -100,9 +102,9 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       Item *rb
 	= dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
       
-      find_rods (r, ly_cdr (s));
+      find_rods (r, ly_cdr (s), padding);
       if (rb)
-	find_rods (rb, ly_cdr (s));
+	find_rods (rb, ly_cdr (s), padding);
     }
 
   return SCM_UNSPECIFIED ;

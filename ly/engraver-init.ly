@@ -362,6 +362,7 @@
 	
 	minimumVerticalExtent = #'(0 . 2.5)
 	extraVerticalExtent = ##f
+	SeparatingGroupSpanner \override #'padding = #0.8
 	verticalExtent = ##f 
 }
 
