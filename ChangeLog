@@ -1,4 +1,10 @@
+2003-07-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/define-grobs.scm (TextScript): use new brewer.
+
 2003-06-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: release 1.7.23
 
 	* scm/new-markup.scm (brew-new-markup-molecule): bugfix 
 
