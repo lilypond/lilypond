@@ -114,8 +114,8 @@ Duration_convert::mom2_dur (Moment mom)
   //	Moment as_plet_mom = mom / dur.mom ();
   Moment as_plet_mom = mom / dur.length ();
   as_plet_mom *= dur.plet_.mom ();
-  long num = as_plet_mom.numerator ().as_long ();
-  long den = as_plet_mom.denominator ().as_long ();
+  long num = as_plet_mom.num ();
+  long den = as_plet_mom.den ();
   dur.set_plet (num, den);
   return dur;
 }
