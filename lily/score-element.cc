@@ -59,6 +59,14 @@ Score_element::Score_element(SCM basicprops)
   mutable_property_alist_ = SCM_EOL;
 
   smobify_self ();
+
+  dim_cache_[X_AXIS].offset_callbacks_
+    = get_elt_property ("X-offset-callbacks");
+  dim_cache_[Y_AXIS].offset_callbacks_
+    = get_elt_property ("Y-offset-callbacks");
+
+  dim_cache_[X_AXIS].offsets_left_ = scm_ilength (dim_cache_[X_AXIS].offset_callbacks_);
+  dim_cache_[Y_AXIS].offsets_left_ = scm_ilength (dim_cache_[Y_AXIS].offset_callbacks_);  
 }
 
 
@@ -295,7 +303,7 @@ Score_element::do_add_processing()
 }
 
 
-MAKE_SCHEME_CALLBACK(Score_element,brew_molecule)
+MAKE_SCHEME_CALLBACK(Score_element,brew_molecule,1)
 
 /*
   ugh.
@@ -477,7 +485,8 @@ Score_element::suicide ()
 
   for (int a= X_AXIS; a <= Y_AXIS; a++)
     {
-      dim_cache_[a].off_callbacks_.clear ();
+      dim_cache_[a].offset_callbacks_ = SCM_EOL;
+      dim_cache_[a].offsets_left_ = 0;
     }
 }
 
@@ -524,11 +533,13 @@ Real
 Score_element::get_offset (Axis a) const
 {
   Score_element *me = (Score_element*) this;
-  while (dim_cache_[a].off_callbacks_.size ())
+  while (dim_cache_[a].offsets_left_)
     {
-      Offset_callback c = dim_cache_[a].off_callbacks_[0];
-      me->dim_cache_[a].off_callbacks_.del (0);
-      Real r =  (*c) (me,a );
+      int l = --me->dim_cache_[a].offsets_left_;
+      SCM cb = scm_list_ref (dim_cache_[a].offset_callbacks_,  gh_int2scm (l));
+      SCM retval = gh_call2 (cb, self_scm (), gh_int2scm (a));
+
+      Real r =  gh_scm2double (retval);
       if (isinf (r) || isnan (r))
 	{
 	  programming_error (INFINITY_MSG);
@@ -643,9 +654,10 @@ Score_element::name () const
 }
 
 void
-Score_element::add_offset_callback (Offset_callback cb, Axis a)
+Score_element::add_offset_callback (SCM cb, Axis a)
 {
-  dim_cache_[a].off_callbacks_.push (cb);
+  dim_cache_[a].offset_callbacks_ = gh_cons (cb, dim_cache_[a].offset_callbacks_ );
+  dim_cache_[a].offsets_left_ ++;
 }
 
 bool
@@ -662,14 +674,9 @@ Score_element::has_extent_callback_b (Axis a) const
 }
 
 bool
-Score_element::has_offset_callback_b (Offset_callback cb, Axis a)const
+Score_element::has_offset_callback_b (SCM cb, Axis a)const
 {
-  for (int i= dim_cache_[a].off_callbacks_.size (); i--;)
-    {
-      if (dim_cache_[a].off_callbacks_[i] == cb)
-	return true;
-    }
-  return false;
+  return scm_memq (cb, dim_cache_[a].offset_callbacks_) != SCM_BOOL_F;
 }
 
 void
@@ -685,7 +692,7 @@ Score_element::set_parent (Score_element *g, Axis a)
   dim_cache_[a].parent_l_ = g;
 }
 
-MAKE_SCHEME_CALLBACK(Score_element,fixup_refpoint);
+MAKE_SCHEME_CALLBACK(Score_element,fixup_refpoint,1);
 SCM
 Score_element::fixup_refpoint (SCM smob)
 {
@@ -739,6 +746,8 @@ Score_element::mark_smob (SCM ses)
   Score_element * s = (Score_element*) SCM_CELL_WORD_1(ses);
   scm_gc_mark (s->immutable_property_alist_);
   scm_gc_mark (s->mutable_property_alist_);
+  scm_gc_mark (s->dim_cache_[X_AXIS].offset_callbacks_);
+  scm_gc_mark (s->dim_cache_[Y_AXIS].offset_callbacks_);  
   
   if (s->parent_l (Y_AXIS))
     scm_gc_mark (s->parent_l (Y_AXIS)->self_scm ());

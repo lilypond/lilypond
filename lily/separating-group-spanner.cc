@@ -34,7 +34,7 @@ do_rod (Item *l, Item *r)
   rod.add_to_cols ();
 }
   
-MAKE_SCHEME_CALLBACK(Separating_group_spanner,set_spacing_rods);
+MAKE_SCHEME_CALLBACK(Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
 {

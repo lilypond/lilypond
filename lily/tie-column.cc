@@ -104,7 +104,7 @@ Tie_column::set_directions (Score_element*me)
   
 }
 
-MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking,1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {

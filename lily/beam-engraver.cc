@@ -227,7 +227,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
     {
       if (Rest::has_interface (info.elem_l_))
 	{
-	  info.elem_l_->add_offset_callback (Beam::rest_collision_callback, Y_AXIS);
+	  info.elem_l_->add_offset_callback (Beam_rest_collision_callback_proc, Y_AXIS);
 	}
       else if (Stem::has_interface (info.elem_l_))
 	{

@@ -30,14 +30,9 @@ StaffContext=\translator {
 	\consists "Rest_collision_engraver";
 	\consists "Local_key_engraver";
 
-	startSustain = #"Ped."
-	stopSustain = #"*"
-	stopStartSustain = #"*Ped."
-	startUnaChorda = #"una chorda"
-	stopUnaChorda = #"tre chorde"
-	% should make separate lists for stopsustain and startsustain 
-	
 	\consists "Piano_pedal_engraver";
+
+%	\consists "Arpeggio_engraver";
 
 	\consistsend "Axis_group_engraver";
 
@@ -115,7 +110,6 @@ VoiceContext = \translator {
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
 	\consists "Auto_beam_engraver";
-	\include "auto-beam-settings.ly";
 
 	\consists "Chord_tremolo_engraver";
 	\consists "Melisma_engraver";
@@ -149,7 +143,6 @@ GraceContext=\translator {
 	\consists "Slur_engraver";
 	
 	\consists "Auto_beam_engraver";
-	\include "auto-beam-settings.ly";
 	\consists "Align_note_column_engraver";
 
 	\consists "Rhythmic_column_engraver";
@@ -198,6 +191,7 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
+	\consists "Span_arpeggio_engraver";
 	\consists "System_start_delimiter_engraver";
 	systemStartDelimiterGlyph = #'brace
 	
@@ -219,11 +213,13 @@ PianoStaffContext = \translator{\GrandStaffContext
 
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
-	\consists "Span_bar_engraver";
-	\consists "Output_property_engraver";	
-	\consists "System_start_delimiter_engraver";
-       systemStartDelimiterGlyph = #'bracket
 	\name StaffGroup;
+
+	\consists "Span_bar_engraver";
+	\consists "Span_arpeggio_engraver";
+	\consists "Output_property_engraver";	
+	systemStartDelimiterGlyph = #'bracket
+	\consists "System_start_delimiter_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
@@ -344,6 +340,7 @@ ScoreContext = \translator {
 
 	\consists "Lyric_phrasing_engraver";
 	\consists "Bar_number_engraver";
+	\consists "Span_arpeggio_engraver";
 
 	
 	\accepts "Staff";
@@ -401,6 +398,15 @@ ScoreContext = \translator {
 	explicitKeySignatureVisibility = #all-visible
 	
 	scriptDefinitions = #default-script-alist
+
+	startSustain = #"Ped."
+	stopSustain = #"*"
+	stopStartSustain = #"*Ped."
+	startUnaChorda = #"una chorda"
+	stopUnaChorda = #"tre chorde"
+	% should make separate lists for stopsustain and startsustain 
+
+
        %
        % what order to print accs.  We could compute this, 
        % but computing is more work than putting it here.
@@ -431,6 +437,11 @@ ScoreContext = \translator {
 	% distances are given in stafflinethickness (thicknesses) and
 	% staffspace (distances)
 	%
+	basicArpeggioProperties = #`(
+		(interfaces . (arpeggio-interface))
+		(molecule-callback . ,Arpeggio::brew_molecule)
+		(name . "arpeggio") 
+	)
 	basicBarProperties = #`(
 		(interfaces . (bar-interface staff-bar-interface))
 		(break-align-symbol . Staff_bar)
@@ -652,7 +663,7 @@ ScoreContext = \translator {
 	)
 	basicOctavateEightProperties  = #`(
 		(self-alignment-X . 0)
-		(text . "8")
+=		(text . "8")
 		(visibility-lambda . ,begin-of-line-visible) 
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
@@ -695,6 +706,11 @@ ScoreContext = \translator {
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
 		(name . "spacing spanner")
+	)
+	basicSpanArpeggioProperties = #`(
+		(interfaces . (span-arpeggio-interface))
+		(molecule-callback . ,Span_arpeggio::brew_molecule)
+		(name . "span arpeggio") 
 	)
 	basicSpanBarProperties = #`(
 		(interfaces . (bar-interface span-bar-interface))
@@ -859,6 +875,10 @@ ScoreContext = \translator {
 		(interfaces . (axis-group-interface))
 		(name . "Y-axis group")
 	)
+
+
+	\include "auto-beam-settings.ly";
+
 }
 
 OrchestralScoreContext= \translator {

@@ -34,7 +34,7 @@ staff_side_compare (Score_element * const &i1,
   return gh_scm2int (p1) - gh_scm2int (p2);
 }
 
-MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Script_column,before_line_breaking,1);
 
 SCM
 Script_column::before_line_breaking (SCM smob)

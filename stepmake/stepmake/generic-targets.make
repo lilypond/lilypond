@@ -108,8 +108,8 @@ html: $(HTML_FILES)
 
 TAGS:
 	-if [ "$(TAGS_FILES)" != "" ]; then \
-		etags -CT $(TAGS_FILES) || \
-		ctags -h ".h.hh.tcc.icc" $(TAGS_FILES) $(ERROR_LOG); \
+		etags $(ETAGS_FLAGS) $(TAGS_FILES) || \
+		ctags $(CTAGS_FLAGS) ".h.hh.tcc.icc" $(TAGS_FILES) $(ERROR_LOG); \
 	fi
 
 	$(LOOP)

@@ -15,24 +15,27 @@
 #include "lily-proto.hh"
 #include "parray.hh"
 #include "dimension-cache-callback.hh"
+#include "lily-guile.hh"
 
 
 /**
-  Adminstration of offset dimension info. 
- */
+  Adminstration of offset dimension info.
+
+  TODO: use SCM for callbacks, and let them be set as basic
+  properties.
+*/
 struct Dimension_cache
 {
-  bool valid_b_;
   Interval dim_;
   /**
     The offset wrt. to the center of #parent_l_#
    */
 
   Real offset_;
-
-
+  SCM offset_callbacks_;
   
-  Array<Offset_callback> off_callbacks_;
+  bool valid_b_;
+  char offsets_left_;
 
   /**
      What to call to find extent.  Nil means empty. 

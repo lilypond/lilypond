@@ -63,7 +63,7 @@ System_start_delimiter::simple_bar (Score_element*me,Real h)
   return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);
 
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
@@ -85,7 +85,7 @@ System_start_delimiter::try_collapse (Score_element*me)
 }
 
 
-MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule);
+MAKE_SCHEME_CALLBACK(System_start_delimiter,brew_molecule,1);
 
 SCM
 System_start_delimiter::brew_molecule (SCM smob)

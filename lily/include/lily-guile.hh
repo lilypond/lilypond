@@ -84,18 +84,20 @@ void add_scm_init_func (void (*)());
 typedef SCM(*Scheme_function_unknown)();
 
 #if __GNUC_MINOR__ >= 96
-typedef SCM(*Scheme_function_1)(SCM);	 
+typedef SCM(*Scheme_function_1)(SCM);
+typedef SCM(*Scheme_function_2)(SCM,SCM);	 
 #else
 typedef SCM(*Scheme_function_1)(...);
+typedef SCM(*Scheme_function_2)(...);
 #endif
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC) \
-static SCM TYPE ## _ ## FUNC ## _proc;\
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGS) \
+SCM TYPE ## _ ## FUNC ## _proc;\
 void								\
 TYPE ## _ ## FUNC ## _init_functions ()					\
 {								\
-  TYPE ## _ ## FUNC ## _proc = gh_new_procedure1_0 (#TYPE "::" #FUNC, \
-  ((Scheme_function_1)TYPE :: FUNC)); 				\
+  TYPE ## _ ## FUNC ## _proc = gh_new_procedure ## ARGS  ## _0 (#TYPE "::" #FUNC, \
+  ((Scheme_function_ ## ARGS)TYPE :: FUNC)); 				\
 }								\
 								\
 ADD_SCM_INIT_FUNC(TYPE ## _ ## FUNC ## _callback, TYPE ## _ ## FUNC ## _init_functions);	\

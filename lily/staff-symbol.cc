@@ -16,7 +16,7 @@
 #include "spanner.hh"
 
 
-MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule);
+MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule,1);
 
 SCM
 Staff_symbol::brew_molecule (SCM smob)

@@ -72,7 +72,7 @@ Local_key_item::parenthesize (Score_element*me, Molecule m)
   accidental placement is more complicated than this.
  */
 
-MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule);
+MAKE_SCHEME_CALLBACK(Local_key_item,brew_molecule,1);
 SCM
 Local_key_item::brew_molecule (SCM smob)
 {

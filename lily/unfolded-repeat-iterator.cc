@@ -178,6 +178,9 @@ Unfolded_repeat_iterator::construct_children ()
     }
 }
 
+/*
+  TODO: add source information for debugging
+ */
 void
 Unfolded_repeat_iterator::add_repeat_command (SCM what)
 {

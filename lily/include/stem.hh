@@ -71,7 +71,7 @@ public:
   static Real get_default_stem_end_position (Score_element*me) ;
   static void position_noteheads(Score_element*);
   static Real stem_end_position (Score_element*) ;
-  static Real off_callback (Score_element *, Axis);
+  static SCM off_callback (SCM element, SCM axis);
   static Molecule flag (Score_element*);
   static SCM before_line_breaking (SCM);
   static Interval dim_callback (Score_element *,Axis);

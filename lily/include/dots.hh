@@ -13,6 +13,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
+extern SCM Dots_quantised_position_callback_proc;
 
 /**
   The dots to go with a notehead/rest.  A separate class, since they
@@ -27,7 +28,7 @@
 class Dots			// interface
 {
 public:
-  static Real quantised_position_callback(Score_element*, Axis);
+  static SCM quantised_position_callback (SCM element, SCM axis);
   static SCM brew_molecule (SCM);
 };
 

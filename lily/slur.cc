@@ -107,7 +107,7 @@ Slur::get_default_dir (Score_element*me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Slur, after_line_breaking);
+MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
 SCM
 Slur::after_line_breaking (SCM smob)
 {
@@ -428,7 +428,7 @@ Slur::get_encompass_offset_arr (Score_element*me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Slur,set_spacing_rods);
+MAKE_SCHEME_CALLBACK(Slur,set_spacing_rods,1);
 SCM
 Slur::set_spacing_rods (SCM smob)
 {
@@ -450,7 +450,7 @@ Slur::set_spacing_rods (SCM smob)
 /*
   Ugh should have dash-length + dash-period
  */
-MAKE_SCHEME_CALLBACK (Slur, brew_molecule);
+MAKE_SCHEME_CALLBACK (Slur, brew_molecule,1);
 SCM
 Slur::brew_molecule (SCM smob)
 {

@@ -20,7 +20,7 @@ class Breathing_sign
 {
 public:
   static SCM brew_molecule (SCM);
-  static Real offset_callback (Score_element *, Axis);
+  static SCM offset_callback (SCM element, SCM axis);
   static void set_interface (Score_element*);
   static bool has_interface (Score_element*);
 };

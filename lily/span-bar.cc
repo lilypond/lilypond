@@ -39,7 +39,7 @@ Span_bar::width_callback (Score_element *se, Axis )
   return m.extent (X_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking,1);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
@@ -53,9 +53,12 @@ Span_bar::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-Real
-Span_bar::center_on_spanned_callback (Score_element * me, Axis a)
+MAKE_SCHEME_CALLBACK(Span_bar,center_on_spanned_callback,2);
+SCM
+Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
@@ -64,7 +67,7 @@ Span_bar::center_on_spanned_callback (Score_element * me, Axis a)
     we have to translate ourselves to be in the center of the 
     interval that we span.  */
 
-  return i.center ();
+  return gh_double2scm (i.center ());
 }
 
 void
@@ -122,7 +125,7 @@ Span_bar::get_spanned_interval (Score_element*me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Span_bar,get_bar_size);
+MAKE_SCHEME_CALLBACK(Span_bar,get_bar_size,1);
 SCM
 Span_bar::get_bar_size (SCM smob)
 {
@@ -138,6 +141,7 @@ Span_bar::get_bar_size (SCM smob)
     }
   return gh_double2scm (iv.length ());
 }
+
 void
 Span_bar::set_interface (Score_element *me)
 {
@@ -145,7 +149,7 @@ Span_bar::set_interface (Score_element *me)
   
   Pointer_group_interface(me).set_interface ();
   me->set_extent_callback (width_callback, X_AXIS);
-  me->add_offset_callback (center_on_spanned_callback, Y_AXIS);
+  me->add_offset_callback (Span_bar_center_on_spanned_callback_proc, Y_AXIS);
   me->set_interface (ly_symbol2scm ("span-bar-interface"));
   me->set_extent_callback (0, Y_AXIS);
 }

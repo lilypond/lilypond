@@ -165,11 +165,9 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    }
 	  s->set_elt_property ("direction", d);
 
-	  if (Rhythmic_req* r = dynamic_cast <Rhythmic_req *> (info.req_l_))
+	  if (dynamic_cast <Rhythmic_req *> (info.req_l_))
 	    {
 	      Beam::add_stem (beam_p_, s);
-	      Moment stem_location = now_mom () -
-		start_mom_ + beam_start_location_;
 	    }
 	  else
 	    {

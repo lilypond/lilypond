@@ -70,7 +70,7 @@ Script_engraver::do_process_music()
       Score_element *p =new Item (get_property ("basicScriptProperties"));
       Script::set_interface (p);
 
-      p->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+      p->add_offset_callback (Side_position_centered_on_parent_proc, X_AXIS);
       
       list = gh_cdr (list);
       p->set_elt_property ("molecule",
@@ -102,7 +102,7 @@ Script_engraver::do_process_music()
 	p->set_elt_property ("staff-support", SCM_BOOL_T);
 
       if (!xaxis && follow_staff)
-	p->add_offset_callback (Side_position::quantised_position, Y_AXIS);
+	p->add_offset_callback (Side_position_quantised_position_proc, Y_AXIS);
       
       
       p->set_elt_property ("script-priority", priority);

@@ -190,8 +190,8 @@ Piano_pedal_engraver::do_process_music ()
 	  Side_position::set_axis (p->item_p_,Y_AXIS);
 
 	  // todo: init with basic props.
-	  p->item_p_->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-	  p->item_p_->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+	  p->item_p_->add_offset_callback (Side_position_aligned_on_self_proc, X_AXIS);
+	  p->item_p_->add_offset_callback (Side_position_centered_on_parent_proc, X_AXIS);
 	  announce_element (p->item_p_,
 			    p->req_l_drul_[START]
 			    ? p->req_l_drul_[START]

@@ -35,7 +35,7 @@ Multi_measure_rest::has_interface (Score_element*me)
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */
-MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule);
+MAKE_SCHEME_CALLBACK(Multi_measure_rest,brew_molecule,1);
 SCM
 Multi_measure_rest::brew_molecule (SCM smob) 
 {
@@ -153,7 +153,7 @@ Multi_measure_rest::add_column (Score_element*me,Item* c)
 }
 
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods,1);
 
 SCM
 Multi_measure_rest::set_spacing_rods (SCM smob)

@@ -363,7 +363,7 @@ Stem::position_noteheads (Score_element*me)
     }
 }
 
-MAKE_SCHEME_CALLBACK(Stem,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Stem,before_line_breaking,1);
 SCM
 Stem::before_line_breaking (SCM smob)
 {
@@ -446,7 +446,7 @@ Stem::dim_callback (Score_element *se, Axis )
 const Real ANGLE = 20* (2.0*M_PI/360.0); // ugh! Should be settable.
 
 
-MAKE_SCHEME_CALLBACK(Stem,brew_molecule);
+MAKE_SCHEME_CALLBACK(Stem,brew_molecule,1);
 
 SCM
 Stem::brew_molecule (SCM smob) 
@@ -486,22 +486,25 @@ Stem::brew_molecule (SCM smob)
   return mol.create_scheme();
 }
 
-Real
-Stem::off_callback (Score_element * me, Axis)
+MAKE_SCHEME_CALLBACK(Stem,off_callback,2);
+SCM
+Stem::off_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   Real r=0;
   if (Score_element * f = first_head (me))
     {
       Interval head_wid(0, f->extent (X_AXIS).length ());
 
       if (to_boolean (me->get_elt_property ("stem-centered")))
-	return head_wid.center ();
+	return gh_double2scm ( head_wid.center ());
       
       Real rule_thick = gh_scm2double (me->get_elt_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
       Direction d = get_direction (me);
       r = head_wid[d] - d * rule_thick ;
     }
-  return r;
+  return gh_double2scm (r);
 }
 
 
@@ -638,6 +641,6 @@ void
 Stem::set_interface (Score_element*me)
 {    
   me->set_elt_property ("heads", SCM_EOL);
-  me->add_offset_callback ( &Stem::off_callback, X_AXIS);
+  me->add_offset_callback ( Stem_off_callback_proc, X_AXIS);
   me->set_interface (ly_symbol2scm ("stem-interface"));
 }

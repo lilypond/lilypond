@@ -17,7 +17,8 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
   init();
   extent_callback_l_ = d.extent_callback_l_;
   offset_ = d.offset_;
-  off_callbacks_ = d.off_callbacks_;
+  offset_callbacks_ = d.offset_callbacks_;
+  offsets_left_ = d.offsets_left_;
   parent_l_ = d.parent_l_;  
 }
 
@@ -30,7 +31,8 @@ void
 Dimension_cache::init()
 {
   extent_callback_l_ =0;
-  offset_ =0.0;
+  offsets_left_ = 0;
+  offset_callbacks_ = SCM_EOL;
   offset_ =0.0;
   
   dim_.set_empty ();

@@ -42,7 +42,7 @@ Instrument_name_engraver::do_pre_move_processing ()
 {
   if (text_)
     {
-      text_->add_offset_callback (Side_position::centered_on_parent,
+      text_->add_offset_callback (Side_position_centered_on_parent_proc,
 				  Y_AXIS);
 
       typeset_element (text_);

@@ -11,6 +11,7 @@
 #include "lily-guile.hh"
 
 
+extern SCM Beam_rest_collision_callback_proc;
 /** a beam connects multiple stems.
 
   Beam adjusts the stems its owns to make sure that they reach the
@@ -61,7 +62,7 @@ public:
   static  Item* last_visible_stem (Score_element*);
   static bool has_interface (Score_element*);
   static void set_interface (Score_element*);  
-  static Real rest_collision_callback (Score_element *,Axis);
+  static SCM rest_collision_callback (SCM element, SCM axis);
   Beam (SCM);
   static void add_stem (Score_element*,Score_element*);
   static void set_beaming (Score_element*,Beaming_info_list *);

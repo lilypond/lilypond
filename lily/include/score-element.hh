@@ -188,8 +188,9 @@ public:
   Score_element*common_refpoint (SCM elt_list, Axis a) const;
 
   // duh. slim down interface here. (todo)
-  bool has_offset_callback_b (Offset_callback, Axis)const;
-  void add_offset_callback (Offset_callback, Axis);
+  bool has_offset_callback_b (SCM callback, Axis)const;
+  void add_offset_callback (SCM callback, Axis);
+  
   bool has_extent_callback_b (Extent_callback, Axis)const;  
   bool has_extent_callback_b (Axis) const;
   void set_extent_callback (Extent_callback , Axis);

@@ -19,7 +19,7 @@ struct Text_item
 };
 
 
-MAKE_SCHEME_CALLBACK(Text_item,brew_molecule)
+MAKE_SCHEME_CALLBACK(Text_item,brew_molecule,1);
 
 SCM 
 Text_item::brew_molecule (SCM sm) 

@@ -192,8 +192,8 @@ Clef_engraver::create_clef()
 
       g->set_parent (clef_p_, Y_AXIS);
       g->set_parent (clef_p_, X_AXIS);
-      g->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-      g->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+      g->add_offset_callback (Side_position_aligned_on_self_proc, X_AXIS);
+      g->add_offset_callback (Side_position_centered_on_parent_proc, X_AXIS);
       g->set_elt_property ("direction", gh_int2scm (octave_dir_));
       octavate_p_ = g;
       announce_element (octavate_p_, clef_req_l_);

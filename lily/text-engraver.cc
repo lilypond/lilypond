@@ -104,8 +104,8 @@ Text_engraver::do_process_music ()
 	  /*
 	    nicely center the scripts.
 	   */ 
-	  text->add_offset_callback (Side_position::aligned_on_self, X_AXIS);
-	  text->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
+	  text->add_offset_callback (Side_position_aligned_on_self_proc, X_AXIS);
+	  text->add_offset_callback (Side_position_centered_on_parent_proc, X_AXIS);
 	}
       
 

@@ -44,7 +44,7 @@ Stem_tremolo::dim_callback (Score_element * se, Axis )
 
 
 
-MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule);
+MAKE_SCHEME_CALLBACK(Stem_tremolo,brew_molecule,1);
 SCM
 Stem_tremolo::brew_molecule (SCM smob)
 {

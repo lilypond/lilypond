@@ -190,7 +190,7 @@ Dynamic_engraver::do_process_music ()
 
       Axis_group_interface::add_element (line_spanner_, text_p_);
 
-      text_p_->add_offset_callback (Side_position::aligned_on_self,
+      text_p_->add_offset_callback (Side_position_aligned_on_self_proc,
 				    Y_AXIS);
       announce_element (text_p_, text_req_l_);
     }
@@ -290,7 +290,7 @@ Dynamic_engraver::do_process_music ()
 	  Axis_group_interface::add_element (line_spanner_, cresc_p_);
 	  cresc_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
 	  cresc_p_->add_offset_callback
-	    (Side_position::aligned_on_self, Y_AXIS);
+	    (Side_position_aligned_on_self_proc, Y_AXIS);
 	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }

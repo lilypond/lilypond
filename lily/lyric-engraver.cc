@@ -47,7 +47,7 @@ Lyric_engraver::do_process_music()
 // 				 ly_str02scm   ((req_l_->text_str_ + " ").ch_C ()));
  				 ly_str02scm   ((req_l_->text_str_).ch_C ()));
 
-      text_p_->add_offset_callback (&Side_position::aligned_on_self,X_AXIS);
+      text_p_->add_offset_callback (Side_position_aligned_on_self_proc,X_AXIS);
       /*
 	We can't reach the notehead where we're centered from here. So
 	we kludge.

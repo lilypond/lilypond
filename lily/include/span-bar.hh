@@ -34,7 +34,7 @@ public:
   static Interval width_callback(Score_element *, Axis) ;
   static SCM get_bar_size (SCM);
   static SCM before_line_breaking (SCM);
-  static Real center_on_spanned_callback (Score_element*,Axis);
+  static SCM center_on_spanned_callback (SCM element, SCM axis);
 };
 
 #endif // SPAN_BAR_HH

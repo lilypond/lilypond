@@ -81,7 +81,7 @@ Rest_engraver::do_process_music ()
 	  Staff_symbol_referencer::set_interface (dot_p_);
 	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
-	  dot_p_->add_offset_callback (Dots::quantised_position_callback, Y_AXIS);
+	  dot_p_->add_offset_callback (Dots_quantised_position_callback_proc, Y_AXIS);
 	  dot_p_->set_elt_property ("dot-count",
 				    gh_int2scm (rest_req_l_->duration_.dots_i_));
 	  announce_element (dot_p_,0);

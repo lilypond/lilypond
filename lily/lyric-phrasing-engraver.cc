@@ -19,6 +19,12 @@ String trim_suffix(String &id);
 ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
 
 /*
+  TODO: this code is too hairy, and does things that should be in the
+  backend. Fixme.
+*/
+
+
+/*
   We find start and end of phrases, and align lyrics accordingly.
   Also, lyrics at start of melismata should be left aligned.
 
@@ -241,6 +247,10 @@ void Lyric_phrasing_engraver::process_acknowledged ()
     // ((current . oldflag) . previous)
     if(!to_boolean(gh_cdar(v_entry))) { // not an old entry left over from a prior note ...
       Syllable_group *entry = unsmob_voice_entry(gh_caar(v_entry));
+
+      /*
+	TODO: give context for warning.
+       */
       if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
 	warning (_ ("lyrics found without any matching notehead"));
 

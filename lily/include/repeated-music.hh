@@ -49,10 +49,7 @@
 */
 class Repeated_music : public Music
 {
-  Music * repeat_body_p_;
-  Music_sequence * alternatives_p_;
 public:
-
   Music * body () const;
   Music_sequence * alternatives () const;
   String type_;

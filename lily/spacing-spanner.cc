@@ -309,7 +309,7 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
 }
   
 
-MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs);
+MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs,1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {
