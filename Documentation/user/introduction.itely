@@ -31,10 +31,12 @@ In this chapter, we will explain the reasoning behind this unusual
 design, and how this approach affects you as a user.
 
 @menu
-* Batch processing::
-* Music engraving::
-* Music representation::
-* About this manual::
+* Batch processing::            
+* Music engraving::             
+* Music representation::        
+* Program design::              
+* Example applications::        
+* About this manual::           
 @end menu
 
 @node Batch processing

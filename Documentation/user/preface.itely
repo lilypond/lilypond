@@ -1,7 +1,16 @@
 @comment @c -*-texinfo-*-
 
+
+@node Preface
+@unnumbered Preface
+
+@menu
+* Preface to version 1.8::      
+* Preface to version 1.6::      
+@end menu
+
 @node Preface to version 1.8
-@unnumbered Preface  to version 1.8
+@unnumberedsec Preface to version 1.8
 
 The 1.8 release brings old thing, in new, flashier
 clothes. Previously, the program used to have half-baked solutions to
@@ -27,10 +36,8 @@ rewrite chord name support
 
 [wie meer?]  
 
-@end ignore
-
-@node Preface
-@unnumbered Preface
+@node Preface to version 1.6
+@unnumberedsec Preface to version 1.6
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
 Orchestra), somewhere in 1995 that Jan, one of the cranked violists
