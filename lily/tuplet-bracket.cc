@@ -163,15 +163,31 @@ Tuplet_bracket::brew_molecule (SCM smob)
 	lt *= gh_scm2double (thick);
       
       SCM gap = me->get_grob_property ("gap");
-
-      Real prot_size = 0.7;	// magic.
-
+      SCM ew = me->get_grob_property ("edge-width");
+      SCM eh = me->get_grob_property ("edge-height");
+      SCM sp = me->get_grob_property ("shorten-pair");
+      
+      Direction d = LEFT;
+      Drul_array<Real> height, width, shorten;
+      do {
+	width[d] =  height[d] = shorten[d] = 0.0;
+	if ( gh_pair_p (ew) )
+	  width[d] +=  gh_scm2double (index_cell (ew, d)) * d;
+	if ( gh_pair_p (eh) )
+	  height[d] += gh_scm2double (index_cell (eh, d));
+	if ( gh_pair_p (sp) )
+	  shorten[d] +=  gh_scm2double (index_cell (sp, d));
+      }
+      while (flip (&d) != LEFT);
+      
       Molecule brack = make_bracket (Y_AXIS,
-				     w, ry-ly, lt,
-				     -prot_size*dir, -prot_size*dir,
+				     w, ry - ly, lt,
+				     -height[LEFT]*dir, -height[RIGHT]*dir,
 				     gh_scm2double (gap),
-				     0.0, 0.0);
+				     width[LEFT], width[RIGHT],
+				     shorten[LEFT], shorten[RIGHT]);
       mol.add_molecule (brack);
+      mol.translate_axis (dir * max(height[LEFT], height[RIGHT]), Y_AXIS);
     }
 
   mol.translate_axis (ly, Y_AXIS);
@@ -184,31 +200,36 @@ Tuplet_bracket::brew_molecule (SCM smob)
  */
 Molecule
 Tuplet_bracket::make_bracket (Axis protusion_axis,
-			      Real dx, Real dy, Real thick, Real lprotrusion,
-			      Real rprotrusion, Real gap, Real left_widen,
-			      Real right_widen)
+			      Real dx, Real dy, Real thick, Real left_height,
+			      Real right_height, Real gap, Real left_widen,
+			      Real right_widen, Real left_shorten, Real right_shorten)
 {
   Real len = Offset (dx,dy).length ();
-  Real gapx = dx*  (gap /  len);
-  Real gapy = dy*  (gap /  len);
+  Real gapx = dx * (gap /  len);
+  Real gapy = dy * (gap /  len);
+  Real lshortx = dx * (left_shorten /  len);
+  Real lshorty = dy * (left_shorten /  len);
+  Real rshortx = dx * (right_shorten /  len);
+  Real rshorty = dy * (right_shorten /  len);
   Axis other = other_axis (protusion_axis);
-
-  Molecule l1 = Lookup::line (thick, Offset(0,0),
+  
+  Molecule l1 = Lookup::line (thick, Offset(lshortx, lshorty),
 			      Offset ( (dx - gapx)/2, (dy - gapy)/2 ));
+
   Molecule l2 = Lookup::line (thick, Offset((dx + gapx) / 2,(dy + gapy) / 2),
-			      
-			      Offset (dx,dy));
+			      Offset (dx - rshortx, dy - rshorty));
 
   Offset protusion;
-  protusion[other] = left_widen;
-  protusion[protusion_axis] = lprotrusion;
-  
-  Molecule p1 = Lookup::line (thick, Offset(0,0), protusion);
-
+  protusion[other] = -left_widen;
+  protusion[protusion_axis] = left_height;
+  Molecule p1 = Lookup::line (thick, 
+			      Offset(lshortx, lshorty), 
+			      Offset(lshortx, lshorty) + protusion);
   protusion[other] = right_widen;
-  protusion[protusion_axis] = rprotrusion;
-  Molecule p2 = Lookup::line (thick, Offset(dx,dy),Offset(dx,dy) + protusion);  
-
+  protusion[protusion_axis] = right_height;
+  Molecule p2 = Lookup::line (thick, 
+			      Offset(dx - rshortx, dy - rshorty), 
+			      Offset(dx - rshortx, dy - rshorty) + protusion);  
 
   Molecule m;
   m.add_molecule (p1);
