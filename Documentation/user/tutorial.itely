@@ -640,14 +640,20 @@ fine tuning output, polyphonic music, and integrating text and music.
 
 
 
-@quotation
-@multitable @columnfractions .20 .20 .40
+@multitable @columnfractions .20 .20 .30  .20
 
+@item @b{Syntax}
+@tab @b{Description}
+@tab @b{Example}
+@tab @b{Grob name}
 
 @item @code{1 2 8 16}
 @tab durations 
 @tab
 @lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.autoBeaming = ##f
+\property Staff.Clef = \turnOff
 c1 c2 c8 c16
 @end lilypond
 
@@ -655,52 +661,63 @@ c1 c2 c8 c16
 @tab augmentation dots
 @tab
 @lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
+@tab @internalsref{Dot}, @internalsref{DotColumn}
 
 @item @code{c d e f g a b }
 @tab scale 
 @tab
 @lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 c d e f g a b
 @end lilypond
+@tab @internalsref{NoteHead}
 
 @item @code{es is}
 @tab flat/sharp
 @tab
 @lilypond[fragment, relative 2]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 bes4 cis4  
 @end lilypond
+@tab @internalsref{Accidental}
 
 @item @code{-. -^ ->}
 @tab articulations (1)
 @tab
-@lilypond[fragment, relative 2]
+@lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 c-. c-^ c->
 @end lilypond
-
+@tab @internalsref{Script}
 
 @item @code{-\trill -\fermata}
 @tab articulations (2)
 @tab
-@lilypond[fragment, relative 2]
+@lilypond[fragment, relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 c-\trill c-\fermata 
 @end lilypond
+@tab @internalsref{Script}
 
-
-@item @code{\time 3/4 \time 6/8 \time 4/4 }
+@item @code{\time 3/4 \time 4/4 }
 @tab time signature
 @tab
 @lilypond[fragment]
 \property Staff.Clef \set #'transparent = ##t 
 \time 3/4
 s4_" "
-\time 6/8
-s4_" "
 \time 4/4
 s16_" "
 @end lilypond
-
+@tab @internalsref{TimeSignature}
 
 @item @code{\clef treble \clef bass }
 @tab clefs
@@ -712,14 +729,17 @@ s4_" "
 \clef bass
 s4_" "
 @end lilypond
-
+@tab @internalsref{Clef}
 
 @item @code{\sfz \mf }
 @tab dynamics
 @tab
 @lilypond[fragment,relative 1]
+\property Staff.TimeSignature = \turnOff
+\property Staff.Clef = \turnOff
 c\sfz c\mf
 @end lilypond
+@tab @internalsref{DynamicText}
 
 @item @code{[ ]}
 @tab beam
@@ -731,6 +751,7 @@ c\sfz c\mf
 \property Staff.Clef = \turnOff
 [a8 b]
 @end lilypond
+@tab @internalsref{Beam}
 
 @item @code{~}
 @tab tie
@@ -742,6 +763,7 @@ c\sfz c\mf
 \property Staff.Clef = \turnOff
 d ~ d
 @end lilypond
+@tab @internalsref{Tie} 
 
 @item @code{( )}
 @tab slur
@@ -753,6 +775,8 @@ d ~ d
 \property Staff.Clef = \turnOff
 c( d )e
 @end lilypond
+@tab @internalsref{Slur}
+
 @item @code{'}
 @tab raise octave
 @tab
@@ -763,6 +787,7 @@ c( d )e
 \property Staff.Clef = \turnOff
 a a'
 @end lilypond
+@tab
 
 @item @code{,}
 @tab lower octave
@@ -774,6 +799,7 @@ a a'
 \property Staff.Clef = \turnOff
 c c,
 @end lilypond
+@tab
 
 @item @code{< >}
 @tab chord
@@ -785,6 +811,7 @@ c c,
 \property Staff.Clef = \turnOff
 \context Voice { <a c> }
 @end lilypond
+@tab 
 
 @item @code{\< \!}
 @tab crescendo
@@ -796,6 +823,7 @@ c c,
 \property Staff.Clef = \turnOff
 a\< a \!a
 @end lilypond
+@tab @internalsref{Hairpin}
 
 @item @code{\> \!}
 @tab decrescendo
@@ -807,9 +835,10 @@ a\< a \!a
 \property Staff.Clef = \turnOff
 a\> a \!a
 @end lilypond
+@tab @internalsref{Hairpin}
 
 @end multitable
-@end quotation
+
 
 
 
