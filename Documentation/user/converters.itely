@@ -12,13 +12,13 @@ sequencers and XML converters. Refer to the
 
 
 @menu
-* Invoking convert-ly::            Older LilyPond versions.
-* Invoking midi2ly::               Importing MIDI.
-* Invoking etf2ly::                Importing Finale.
-* Invoking abc2ly::                Importing ABC.          
-* Invoking pmx2ly::                Importing PMX.
-* Invoking musedata2ly::           Importing Musedata.
-* Invoking mup2ly::                Importing MUP. 
+* Invoking convert-ly::         Older LilyPond versions.
+* Invoking midi2ly::            Importing MIDI.
+* Invoking etf2ly::             Importing Finale.
+* Invoking abc2ly::             Importing ABC.          
+* Invoking pmx2ly::             Importing PMX.
+* Invoking musedata2ly::        Importing Musedata.
+* Invoking mup2ly::             Importing MUP. 
 @end menu
 
 

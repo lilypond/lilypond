@@ -18,12 +18,12 @@
 
 
 @itemize @bullet 
-@item Lily is @uref{DEDICATION.html,dedicated to our friends.}  
+@item Lily is @uref{DEDICATION.html,dedicated to our friends}.
 @item
 It is released under the @uref{http://www.gnu.org/copyleft/gpl.html,
 GNU GPL}.
 
-@item The website is at @uref{http://lilypond.org}
+@item The website is at @uref{http://lilypond.org}.
 @end itemize
 
 

@@ -94,7 +94,7 @@ msgstr "Käyttö: %s [OPTIOT]... TIEDOSTO"
 
 #: lilylib.py:198 midi2ly.py:228 mup2ly.py:224 main.cc:166
 msgid "Options:"
-msgstr "Vaihtoehdot:"
+msgstr "Optiot:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
@@ -425,7 +425,7 @@ msgstr "Poistetaan tulostustiedosto"
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: lilypond-book.py:120
 msgid "Process LilyPond snippets in hybrid html, LaTeX or texinfo document"
-msgstr "Prossoi LilyPond-palasia sekarakenteisessa html, LaTeX tai texinfo documentissa"
+msgstr "Prossoi LilyPond-osioita sekarakenteisessa html, LaTeX tai texinfo -dokumentissa"
 
 #. another bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format
@@ -460,7 +460,7 @@ msgstr "syötä OPT lainausmerkeissä lilypond-komentoriville"
 
 #: lilypond-book.py:129
 msgid "force fontsize for all inline lilypond. DIM is assumed be to in points"
-msgstr "pakota fonttikoko kullekin lilypond osiolle. DIM oletetaan olevan pisteinä"
+msgstr "pakota fonttikoko kullekin LilyPond-osiolle. DIM oletetaan olevan pisteinä"
 
 #: lilypond-book.py:130
 msgid "deprecated, use --force-music-fontsize"
@@ -683,7 +683,7 @@ msgstr "kirjoita Makefile -riippuvuudet kullekin tulostustiedostolle"
 
 #: ly2dvi.py:129
 msgid "print even more output"
-msgstr "kirjoita jopa enemmän tulostetta"
+msgstr "kirjoita vieläpä enemmän tulostetta"
 
 #: ly2dvi.py:130
 msgid "add DIR to LilyPond's search path"
@@ -696,7 +696,7 @@ msgstr "säilytä kaikki tulosteet, kirjoita hakemistoon %s.dir"
 
 #: ly2dvi.py:133
 msgid "don't run LilyPond"
-msgstr "jätä ajamatta Lilypond"
+msgstr "jätä ajamatta LilyPond"
 
 #: ly2dvi.py:134 main.cc:116
 msgid "produce MIDI output only"
@@ -738,7 +738,7 @@ msgstr "tee kuva ensimmäisestä kokonaisuudesta"
 
 #: ly2dvi.py:146
 msgid "make HTML file with links to all output"
-msgstr "tee HTML -tiedosto johon on kaikki linkitetty kaikki tulosteet"
+msgstr "tee HTML -tiedosto johon on linkitetty kaikki tulosteet"
 
 #: ly2dvi.py:147
 msgid "KEY=VAL"
@@ -959,7 +959,7 @@ msgstr "kvantisoi nuottipituuden PIT perusteella"
 # tulosta yksikäsitteiset nuottipituudet
 #: midi2ly.py:99
 msgid "print explicit durations"
-msgstr "tulosta yksikäsitteidet nuottipituudet"
+msgstr "tulosta yksikäsitteiset nuottipituudet"
 
 #: midi2ly.py:101
 msgid "ALT[:MINOR]"
@@ -1626,7 +1626,7 @@ msgstr "EXPR"
 
 #: main.cc:107
 msgid "set options, use -e '(ly-option-usage)' for help"
-msgstr "aseta optiot, käytä -e '(ly-option-usage)' saadaksesi apua"
+msgstr "aseta optiot, käytä -e '(ly-option-usage)' saadaksesi opastusta"
 
 #: main.cc:110
 msgid "use output format EXT"
