@@ -48,7 +48,7 @@ Key_engraver::create_key ()
 	    item_p_->add (m_l.notename_i_, a);
 	}
 
-      for (int i = 0 ; i< old_accidental_idx_arr_.size(); i++) 
+      for (int i = 0 ; i < old_accidental_idx_arr_.size(); i++) 
 	{
 	  Musical_pitch m_l =old_accidental_idx_arr_[i];
 	  int a =m_l.accidental_i_;
@@ -80,8 +80,8 @@ Key_engraver::acknowledge_element (Score_element_info info)
 {
   if (dynamic_cast <Clef_change_req *> (info.req_l_)) 
     {
-      int i= get_property ("createKeyOnClefChange", 0).length_i ();
-      if (i)
+      SCM c =  get_property ("createKeyOnClefChange", 0);
+      if (gh_boolean_p (c) && gh_scm2bool (c))
 	create_key ();
     }
   else if (dynamic_cast<Bar *> (info.elem_l_)
@@ -126,11 +126,9 @@ Key_engraver::read_req (Key_change_req const * r)
 {
   old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
-  Scalar prop = get_property ("keyOctaviation", 0);
-  if (prop.length_i () > 0)
-    {
-      key_.multi_octave_b_ = ! prop.to_bool ();
-    }
+  SCM prop = get_property ("keyOctaviation", 0);
+
+  key_.multi_octave_b_ = gh_boolean_p (prop) && gh_scm2bool (prop);
   
   accidental_idx_arr_.clear ();
 
@@ -196,7 +194,4 @@ Key_engraver::do_post_move_processing ()
   old_accidental_idx_arr_.clear ();
 }
 
-
-
 ADD_THIS_TRANSLATOR (Key_engraver);
-
