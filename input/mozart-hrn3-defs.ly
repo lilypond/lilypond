@@ -27,6 +27,52 @@ cresc = \notes {
     \property Voice.crescendoSpanner = #'dashed-line
 }
 
+startGraceContextOrig = \startGraceContext
+
+startGraceContext = {
+    %% Huh?
+    %% \startGraceContextOrig
+
+    
+    %%URG copy from original
+    \property Voice.Stem \override  #'direction = #1
+    \property Voice.Stem \override #'length = #6
+    \property Voice.Stem \override #'lengths = 
+        #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
+    \property Voice.Stem \override #'beamed-lengths =
+        #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
+    \property Voice.Stem \override #'beamed-minimum-lengths =
+        #(map (lambda (x) (* 0.8 x)) '(0.0 1.5 1.25 1.0))
+    \property Voice.Stem \override #'no-stem-extend = ##t
+    \property Voice.Stem \override #'flag-style  = #"grace"
+    \property Voice.Beam \override #'thickness = #0.384
+
+    %% Instead of calling Beam::space_function, we should invoke
+    %% the previously active beam function...
+    \property Voice.Beam \override #'space-function =
+      #(lambda (beam mult) (* 0.8 (Beam::space_function beam mult)))
+
+    \property Voice.Beam \override #'position-callbacks =
+      #`(,Beam::least_squares
+	 ,Beam::check_concave
+	 ,Beam::slope_damping)
+    
+    % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will
+    % be smaller as well.
+
+    \property Voice.fontSize = #-2
+    \property Staff.Accidentals \override #'font-relative-size = #-2
+    \property Voice.Slur \override #'direction = #-1
+    %% end copy
+    
+    
+    \property Voice.Beam \revert #'space-function
+    \property Voice.Beam \override #'space-function
+       = #(lambda (beam mult) (* 0.8 0.8))
+    \property Voice.Beam \revert #'thickness
+    \property Voice.Beam \override #'thickness = #(* 0.384 (/ 0.6 0.48))
+}
+
 \paper{
     \stylesheet #my-sheet
     \translator {
@@ -39,7 +85,7 @@ cresc = \notes {
         MultiMeasureRest \override #'number-threshold = #1
         
         Beam \override #'thickness = #0.6
-        Beam \override #'beam-space = #0.8
+        Beam \override #'space-function = #(lambda (beam mult) 0.8)
         Slur \override #'beautiful = #0.3
     }
     \translator {

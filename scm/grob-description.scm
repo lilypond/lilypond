@@ -136,6 +136,7 @@
 	(damping . 1)
 	(auto-knee-gap . 7)
 	(font-name . "cmr10")
+	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface))))
 	))
 

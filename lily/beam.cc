@@ -67,33 +67,12 @@ Beam::add_stem (Grob *me, Grob *s)
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
 }
 
-
-/*
-  TODO: fix this for grace notes.
- */
 Real
 Beam::get_interbeam (Grob *me)
 {
-  int multiplicity = get_multiplicity (me);
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  
-  SCM s = me->get_grob_property ("beam-space");
-  if (gh_number_p (s))
-    return gh_scm2double (s) * ss;
-  else if (s != SCM_EOL && gh_list_p (s))
-    return gh_scm2double (scm_list_ref (s,
-					gh_int2scm (multiplicity - 1
-						    <? scm_ilength (s) - 1)))
-      * ss;
-  
-  Real slt = me->paper_l ()->get_var ("linethickness");
-  Real thickness = gh_scm2double (me->get_grob_property ("thickness")) * ss;
-
-  Real interbeam = multiplicity < 4
-    ? (2*ss + slt - thickness) / 2.0
-    : (3*ss + slt - thickness) / 3.0;
-  
-  return interbeam;
+  SCM func = me->get_grob_property ("space-function");
+  SCM s = gh_call2 (func, me->self_scm (), gh_int2scm (get_multiplicity (me)));
+  return gh_scm2double (s);
 }
 
 int
@@ -109,6 +88,25 @@ Beam::get_multiplicity (Grob *me)
     }
   return m;
 }
+
+MAKE_SCHEME_CALLBACK (Beam, space_function, 2);
+SCM
+Beam::space_function (SCM smob, SCM multiplicity)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real line = me->paper_l ()->get_var ("linethickness");
+  Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
+    * staff_space;
+  
+  Real interbeam = gh_scm2int (multiplicity) < 4
+    ? (2*staff_space + line - thickness) / 2.0
+    : (3*staff_space + line - thickness) / 3.0;
+  
+  return gh_double2scm (interbeam);
+}
+
 
 /* After pre-processing all directions should be set.
    Several post-processing routines (stem, slur, script) need stem/beam
@@ -1379,5 +1377,5 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "position-callbacks beam-space concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
+  "position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions space-function thickness");
 

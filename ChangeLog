@@ -1,3 +1,18 @@
+2002-04-24  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/mozart-hrn3-defs.ly (startGraceContext): Customize grace init.
+
+	* scm/grob-property-description.scm (beam-space): Junk.
+
+	* lily/beam.cc (space_function): New method.
+	(get_interbeam): Call space-function.
+
+	* scm/grob-description.scm (Beam): Initialize space-function with
+	Beam::space_function.
+
+	* ly/grace-init.ly (startGraceMusic, stopGraceMusic): Set/revert
+	Beam.space-function.  Don't quantise grace beams.
+
 2002-04-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* mf/feta-nummer-code.mf (code): tweaks for three, fixes for 6
