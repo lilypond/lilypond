@@ -79,10 +79,10 @@ Spacing_spanner::do_measure (int col1, int col2) const
 
       Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
-      for (int i=0; i < 4; i++)
+      for (int j=0; j < 4; j++)
 	{
-	  Score_column * lc = dynamic_cast<Score_column*> (combinations[i][0]);
-	  Score_column *rc = dynamic_cast<Score_column*> (combinations[i][1]);
+	  Score_column * lc = dynamic_cast<Score_column*> (combinations[j][0]);
+	  Score_column *rc = dynamic_cast<Score_column*> (combinations[j][1]);
 	  if (!lc || !rc)
 	    continue;
 
@@ -112,14 +112,20 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	    }
 
 	  s.distance_f_ = left_distance;
-	  if (!lc->musical_b () || !rc->musical_b ())
+	  /*
+	    Only do tight spaces *after* barlines, not before.
+
+	    We want the space before barline to be like the note
+	    spacing in the measure.
+	  */
+	  if (!lc->musical_b ())
 	    s.strength_f_ = non_musical_space_strength;
 
 	  Real right_dist = 0.0;
 	  if (next_hint != SCM_BOOL_F)
 	    {
 	      next_hint = SCM_CADR(next_hint);
-	      right_dist += gh_scm2double (next_hint);
+	      right_dist += - gh_scm2double (next_hint);
 	    }
 	  else
 	    {
@@ -142,10 +148,8 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	    stretch_dist += left_distance;
 	  
 	  if (next_stretch_hint != SCM_BOOL_F)
-	    {
-	      // see regtest spacing-tight
-	      //	      stretch_dist += gh_scm2double (SCM_CADR (next_stretch_hint));
-	    }
+	    // see regtest spacing-tight
+	    stretch_dist += - gh_scm2double (SCM_CADR (next_stretch_hint));
 	  else
 	    stretch_dist += right_dist;
 

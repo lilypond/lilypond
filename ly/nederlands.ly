@@ -68,7 +68,9 @@
 	Dis 	= \musicalpitch { -2 1 1 }
 	Disis 	= \musicalpitch { -2 1 2 }
 	Eses 	= \musicalpitch { -2 2 -2 }
+	Eeses 	= \musicalpitch { -2 2 -2 }
 	Es 	= \musicalpitch { -2 2 -1 }
+	Ees 	= \musicalpitch { -2 2 -1 }
 	E 	= \musicalpitch { -2 2 0 }
 	Eis 	= \musicalpitch { -2 2 1 }
 	Eisis 	= \musicalpitch { -2 2 2 }

@@ -76,8 +76,8 @@ violino1 = \notes \relative c {
 	[a8 bes-.] bes4. bes8-. bes4~|
 	[bes8 bes-.] bes4. bes8-. bes4~|
 	[bes8 c-.] c4. c8-. c4~|
-	[c8 d-.] d4. d8-. d4~|
-	es2:16\ff es4: d: |
+	[c8 d-.] d4. d8-. d4(|
+	)es2:16\ff es4: d: |
 	%85
 	fis: g: fis: g: |
 	es2: es4: d: | 

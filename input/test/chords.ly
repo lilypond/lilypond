@@ -20,6 +20,7 @@ scales = \notes \transpose c'' \chords{
 		%<c1 e g>
 		c1-m c-min c4-dim c-aug c-sus c-maj
                 c1-6 c4-7 c-9 c-11 c-13
+		c-m7 c-m.sus c-m7.sus
 		c1-7^5 c-13^5.7.9.11
 		% c1-7^5 c-13^5
 		c1 g d a e b fis

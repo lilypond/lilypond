@@ -242,11 +242,46 @@ verb(
 	>
 )
 
+question(How do I combine multiple pieces into one document)
+
+There are several solutions:
+
+itemize(
+it() 
+verb(
+	ly2dvi foo.ly bar.ly
+) 
+produces one combined file(foo.dvi)
+it() make a toplevel file(.ly) file that contains al pieces:
+verb(
+	% booklet.ly
+	\input "piece-1.ly"
+	\input "piece-2.ly"
+	\input "piece-3.ly"
+) 
+it() make a hybrid TeX()/LilyPond file(.doc) document (see the
+     file(Documentation/tex) directory).
+)
+
+For the first two solutions, you will need to move code(\header) info 
+in each individual piece from toplevel into the code(\paper) block.
+
+There are several examples in the file(mutopia) directory.
+
 
 question(How do I get bar numbers?)
 
 See file(input/test/bar-scripts.ly).
 
+
+question(How do I change the tagline 'Lily was here')
+
+In the code(\header) field, add a code(tagline) entry, eg
+verb(
+tagline="Typeset by GNU LilyPond"
+)
+
+to get a bit less frivolous tagging.
 
 sect(Development)
 

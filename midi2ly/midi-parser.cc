@@ -53,7 +53,7 @@ unsigned
 Midi_parser::get_u (int n)
 {
   assert (n <= (int)sizeof(int));
-  return String_convert::bin2_i (get_str (n));
+  return String_convert::bin2_u (get_str (n));
 }
 
 String

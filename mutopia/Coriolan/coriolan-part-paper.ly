@@ -1,8 +1,6 @@
 \paper {
 	\translator { \OrchestralPartStaffContext }
-	\translator { \ScoreContext
-		skipBars = 1;
-	}
+	\translator { \VoiceContext beamAuto=0; }
+	\translator { \ScoreContext skipBars = 1; }
 	castingalgorithm = \Wordwrap;
-	
 }

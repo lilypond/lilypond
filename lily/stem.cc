@@ -149,10 +149,13 @@ Stem::get_center_distance (Direction d) const
 Direction
 Stem::get_default_dir () const
 {
-  return (get_center_distance (UP) >
-	  get_center_distance (DOWN)) 
-    ? DOWN 
-    : UP;
+  int du = get_center_distance (UP);
+  int dd = get_center_distance (DOWN);
+
+  if (sign (dd - du))
+    return Direction (sign (dd -du));
+
+  return Direction (int(paper_l ()->get_var ("stem_default_neutral_direction")));
 }
 
 Direction

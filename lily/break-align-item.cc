@@ -104,8 +104,12 @@ Break_align_item::do_pre_processing()
   
   Axis_align_item::do_pre_processing();
 
-  Real pre_space = elems[0]->extent (X_AXIS)[LEFT];
-  Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT];
+
+  Real pre_space = elems[0]->extent (X_AXIS)[LEFT]
+    + elems[0]->relative_coordinate (column_l ()->dim_cache_[X_AXIS], X_AXIS);
+  Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT]
+    + elems.top ()->relative_coordinate (column_l ()->dim_cache_[X_AXIS], X_AXIS);
+  
   Real stretch_distance =0.;
   
   if (SCM_CAR (symbol_list) == extra_space_scm_sym)
@@ -121,13 +125,16 @@ Break_align_item::do_pre_processing()
 
   /*
     Hint the spacing engine how much space to put in.
+
+
+    The pairs are in the format of an interval (ie. CAR <  CDR).
   */
   column_l ()->set_elt_property (extra_space_scm_sym,
 				 scm_cons (gh_double2scm (pre_space),
 					   gh_double2scm (spring_len)));
 
   column_l ()->set_elt_property (stretch_distance_scm_sym,
-				 gh_cons (gh_double2scm (dists[0]),
+				 gh_cons (gh_double2scm (-dists[0]),
 					  gh_double2scm (stretch_distance)));
 				 
 }

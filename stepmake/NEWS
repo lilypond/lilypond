@@ -1,3 +1,9 @@
+pl 79
+	- empty sed script fix for aix
+
+pl 78
+	- yodl mode, mp fixes
+
 pl 77
 	- mfmode
 

@@ -79,8 +79,8 @@ viola1 = \notes \relative c {
 	[d8-"cresc." d-.] es4. es8-. d4 ~ |
 	[d8 d-.] es4. es8-. d4 ~ |
 	[d8 d-.] es4. es8-. d4 ~ |
-	[d8 d-.] es4. es8-. d4 |
-	fis,2:\ff fis4: g: |
+	[d8 d-.] es4. es8-. d4 (|
+	)fis,2:\ff fis4: g: |
 	%85
 	d2: d: | fis: fis4: g: | c,: d: c: d: | b2: b4: c: | f': es: f: es: |
 	%90
@@ -222,8 +222,8 @@ viola1 = \notes \relative c {
 	[g8 g-.] as4. as8-. g4 ~ |
 	%210
 	[g8 g-.] as4. as8-. g4 ~ |
-	[g8 g-.] as4. as8-. g4 ~ |
-	b,2:16\ff b4: c: | g'2: g: | 
+	[g8 g-.] as4. as8-. g4 (|
+	)b,2:16\ff b4: c: | g'2: g: | 
 	%214
 	b,2:16\ff b4: c: | g'2: g: | 
 	e2:16\ff e4: f: | b,: c: b: c: | 

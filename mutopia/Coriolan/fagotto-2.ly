@@ -14,7 +14,7 @@ fagotto2 = \notes \relative c {
 	fis4-. r r2 | r1 | g4-. r r2 | g4-. r r2 | R1 *5 |
 	%20
 	r2 r4 g,4-. |
-	R1*6 | r4 g'\f r2 | R1*5 | as1\ff %~ |
+	R1*6 | r4 g'\f r2 | R1*6 | as1\ff %~ |
 	%35
 }
 
