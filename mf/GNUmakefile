@@ -71,6 +71,30 @@ export MFINPUTS:=.:$(MFINPUTS)
 
 default: $(ALL_GEN_FILES)
 
+
+debian-mirror=http://ftp.us.debian.org
+debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
+$(outdir)/$(debian-package):
+	wget -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
+
+get-debian-pfa: $(outdir)/$(debian-package)
+	rm -rf $(outdir)/./usr
+	ar p $< data.tar.gz | \
+		tar -C $(outdir) -zvxf - '*.pfa'
+	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
+
+
+redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
+$(outdir)/$(redhat-package):
+	wget -P $(outdir) ftp://ftp.lilypond.org/pub/LilyPond/binaries/RedHat-9/$(redhat-package)
+
+get-rpm-pfa: $(outdir)/$(redhat-package)
+	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -id '*.pfa'
+	cp `find $(outdir)/usr/ -name '*.pfa'` $(outdir)/
+
+# change this dependency 
+get-pfa: get-rpm-pfa
+
 ##
 ## todo: this also depends on .tfm, FIXME.
 $(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm

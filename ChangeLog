@@ -1,7 +1,14 @@
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/topdocs/INSTALL.texi (Top): add note about get-pfa
+	target.
+
+	* mf/GNUmakefile: add get-pfa, get-debian-pfa, get-rpm-pfa
+	targets.
+
 	* GNUmakefile.in ($(config_h)): config.h should depend on
 	config.hh.in .
+	(lilypond.words): remove fontball stuff.
 
 	* stepmake/aclocal.m4: only print config.cache warning if it exists.
 
