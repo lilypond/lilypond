@@ -1135,8 +1135,8 @@ msgid "EXPR"
 msgstr "EXPR"
 
 #: main.cc:136
-msgid "set options, use -e '(ly-option-usage)' for help"
-msgstr "zet opties, gebruik -e '(ly-option-usage)' voor hulp"
+msgid "set options, use -e '(ly:option-usage)' for help"
+msgstr "zet opties, gebruik -e '(ly:option-usage)' voor hulp"
 
 #: main.cc:139
 msgid "use output format EXT"
@@ -1414,13 +1414,13 @@ msgstr "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel w
 
 #: scm-option.cc:58
 #, c-format
-msgid "  The function ly-set-option allows for access to some internal variables."
-msgstr "  De functie ly-set-option verschaft toegang tot bepaalde interne variabelen."
+msgid "  The function ly:set-option allows for access to some internal variables."
+msgstr "  De functie ly:set-option verschaft toegang tot bepaalde interne variabelen."
 
 #: scm-option.cc:60
 #, c-format
-msgid "Usage: lilypond-bin -e \"(ly-set-option SYMBOL VAL)\""
-msgstr "Gebruik: lilypond-bin -e \"(ly-set-option SYMBOOL WAARDE)\""
+msgid "Usage: lilypond-bin -e \"(ly:set-option SYMBOL VAL)\""
+msgstr "Gebruik: lilypond-bin -e \"(ly:set-option SYMBOOL WAARDE)\""
 
 #: scm-option.cc:62
 #, c-format

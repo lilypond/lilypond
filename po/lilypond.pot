@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-18 16:01+0200\n"
+"POT-Creation-Date: 2004-07-19 01:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,6 +127,12 @@ msgid ""
 "\n"
 msgstr ""
 
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
@@ -487,6 +493,7 @@ msgstr ""
 #: lilypond.py:979 includable-lexer.cc:57 input-file-results.cc:217
 #: input-file-results.cc:224 lily-guile.cc:86 lily/includable-lexer.cc:57
 #: lily/kpath.cc:134 lily/lily-guile.cc:85 lily/my-lily-parser.cc:282
+#: lily/my-lily-parser.cc:286
 #, c-format, python-format
 msgid "can't find file: `%s'"
 msgstr ""
@@ -722,16 +729,19 @@ msgid "accidental `%s' not found"
 msgstr ""
 
 #: accidental-engraver.cc:167 lily/accidental-engraver.cc:194
+#: lily/accidental-engraver.cc:195
 #, c-format
 msgid "Accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
 #: accidental-engraver.cc:194 lily/accidental-engraver.cc:222
+#: lily/accidental-engraver.cc:223
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr ""
 
 #: accidental-engraver.cc:211 lily/accidental-engraver.cc:239
+#: lily/accidental-engraver.cc:240
 #, c-format
 msgid "Accidental rule must be pair or context-name; Found %s"
 msgstr ""
@@ -741,6 +751,9 @@ msgstr ""
 msgid "Error parsing AFM file: `%s'"
 msgstr ""
 
+#. FIXME: broken sentence
+#. FIXME: broken sentence
+#. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
@@ -791,7 +804,7 @@ msgstr ""
 
 #: all-font-metrics.cc:209 includable-lexer.cc:59 input-file-results.cc:218
 #: lily/all-font-metrics.cc:201 lily/includable-lexer.cc:59
-#: lily/my-lily-parser.cc:275
+#: lily/my-lily-parser.cc:275 lily/my-lily-parser.cc:279
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
@@ -858,6 +871,24 @@ msgstr ""
 #. errors hard to catch
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
 #.
 #.
 #. We could change the current translator's id, but that would make
@@ -1128,6 +1159,7 @@ msgid "can't open file: `%s'"
 msgstr ""
 
 #: input-file-results.cc:142 lily/my-lily-parser.cc:291
+#: lily/my-lily-parser.cc:295
 #, c-format
 msgid "Now processing `%s'"
 msgstr ""
@@ -1285,6 +1317,9 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
 #: main.cc:196 lily/main.cc:181
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
@@ -1382,6 +1417,15 @@ msgstr ""
 msgid "Braces don't match"
 msgstr ""
 
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
 #.
 #. music for the softenon children?
 #.
@@ -1609,10 +1653,13 @@ msgstr ""
 msgid "Don't know how to interpret articulation:"
 msgstr ""
 
-#: script-engraver.cc:97 lily/script-engraver.cc:97
+#: script-engraver.cc:97 lily/script-engraver.cc:97 lily/script-engraver.cc:95
 msgid "Scheme encoding: "
 msgstr ""
 
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
@@ -1636,7 +1683,7 @@ msgstr ""
 msgid "No spring between column %d and next one"
 msgstr ""
 
-#: slur-engraver.cc:121 lily/slur-engraver.cc:121
+#: slur-engraver.cc:121 lily/slur-engraver.cc:121 lily/slur-engraver.cc:128
 msgid "unterminated slur"
 msgstr ""
 
@@ -1666,7 +1713,13 @@ msgstr ""
 #. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
 #. eaten start event?
-#: slur-engraver.cc:139 lily/slur-engraver.cc:139
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#: slur-engraver.cc:139 lily/slur-engraver.cc:139 lily/slur-engraver.cc:146
 msgid "can't find start of slur"
 msgstr ""
 
@@ -1699,16 +1752,19 @@ msgstr ""
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: stem-engraver.cc:97 lily/stem-engraver.cc:100
+#: stem-engraver.cc:97 lily/stem-engraver.cc:100 lily/stem-engraver.cc:84
 msgid "tremolo duration is too long"
 msgstr ""
 
-#: stem-engraver.cc:128 lily/stem-engraver.cc:126
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#: stem-engraver.cc:128 lily/stem-engraver.cc:126 lily/stem-engraver.cc:117
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr ""
 
-#: stem-engraver.cc:129 lily/stem-engraver.cc:127
+#: stem-engraver.cc:129 lily/stem-engraver.cc:127 lily/stem-engraver.cc:119
 msgid "Don't you want polyphonic voices instead?"
 msgstr ""
 
@@ -1743,6 +1799,12 @@ msgstr ""
 msgid "can't find ascii character: %d"
 msgstr ""
 
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
@@ -1813,11 +1875,32 @@ msgstr ""
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #: time-signature.cc:95 lily/time-signature.cc:95
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #.
 #. Todo: should make typecheck?
 #.
@@ -2057,7 +2140,7 @@ msgstr ""
 msgid "kpathsea can not find file: `%s'"
 msgstr ""
 
-#: lily/my-lily-parser.cc:274
+#: lily/my-lily-parser.cc:274 lily/my-lily-parser.cc:278
 #, c-format
 msgid "can't find init file: `%s'"
 msgstr ""
@@ -2086,4 +2169,20 @@ msgstr ""
 #: lily/scm-option.cc:164 lily/scm-option.cc:132 lily/scm-option.cc:160
 #, c-format
 msgid "No such internal option: %s"
+msgstr ""
+
+#. FIXME:
+#. FIXME:
+#. FIXME:
+#: lily/script-engraver.cc:94
+msgid "Do not know how to interpret articulation: "
+msgstr ""
+
+#: lily/main.cc:122
+msgid "set options, use -e '(ly:option-usage)' for help"
+msgstr ""
+
+#: lily/scm-option.cc:64
+#, c-format
+msgid "Usage: lilypond-bin -e \"(ly:set-option SYMBOL VAL)\""
 msgstr ""
