@@ -9,11 +9,10 @@
 
 #ifndef ROD_HH
 #define ROD_HH
+
 #include "lily-proto.hh"
 #include "direction.hh"
 #include "drul-array.hh"
-
-
 
 struct Rod
 {
@@ -29,5 +28,6 @@ struct Rod
 
   Rod ();
 };
+
 #endif /* ROD_HH */
 

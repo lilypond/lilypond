@@ -81,7 +81,7 @@ the mailing lists.
 
 
 @itemize @bullet
-@item @uref{CHANGES.html, CHANGES} Things recently done.
+@item @uref{ChangeLog.html, ChangeLog} Things recently done.
 
 @c download sites?
 

@@ -17,6 +17,10 @@ else
     else
 	eval `cat $LILYPONDPREFIX/VERSION`
 	FULLVERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL"
+	if [ "" != "$MY_PATCH_LEVEL" ]; then
+	    FULLVERSION="$FULLVERSION.$MY_PATCH_LEVEL"
+	fi 
+	
 	datadir="$LILYPONDPREFIX/share/lilypond/$FULLVERSION"
     fi
     echo "Setting tree to $datadir"
