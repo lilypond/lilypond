@@ -11,24 +11,16 @@
 #define REST_COLUMN_HH
 
 #include "script-column.hh"
+#include "head-column.hh"
 
 /** 
   struct to treat a set of rests as union (one voicegroup should
   only produce one rest.
   */
-class Rest_column : public Script_column {
-    Link_array<Note_head> head_l_arr_;
+class Rest_column : public Head_column {
 public:
-    int dir_i_;
-    Stem* stem_l_;
-    void add(Note_head *);
-    void add(Stem *);
     NAME_MEMBERS();
-    Rest_column();
     void translate_heads(int dy);
-protected:
-    virtual void do_print() const;
-    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
 };
 
 #endif // REST_COLUMN_HH
