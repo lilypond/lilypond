@@ -63,33 +63,13 @@ STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20041208)
 
 AC_CHECK_HEADERS([assert.h libio.h sys/stat.h])
 AC_LANG_PUSH(C++)
-AC_CHECK_HEADERS([sstream])
+1AC_CHECK_HEADERS([sstream])
 AC_LANG_POP(C++)
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([fopencookie funopen gettext isinf memmem snprintf vsnprintf])
 
-AC_MSG_CHECKING([for ec-fonts-mftraced])
-ecb10=`kpsewhich ecb10.pfa 2>/dev/null`
-if test -n "$ecb10"; then
-    AC_MSG_RESULT([$ecb10])
-else
-    AC_MSG_RESULT(no)
-    AC_MSG_CHECKING([for lmodern])
-    lmr10=`kpsewhich lmr10.pfb 2>/dev/null`
-    if test -n "$lmr10"; then
-	AC_MSG_RESULT([$lmr10])
-    else
-	STEPMAKE_ADD_ENTRY(REQUIRED, 'package ec-fonts-mftraced >= 1.0.5')
-	AC_MSG_CHECKING([for old version of ec-fonts-mftraced])
-	ecrm10=`kpsewhich ecrm10.pfa 2>/dev/null`
-	if test -n "$ecrm10"; then
-	    AC_MSG_RESULT([$ecrm10])
-	    AC_MSG_WARN([old version of ec-fonts-mftraced found, install 1.0.5 or newer])
-	fi
-    fi
-fi
 
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2
@@ -120,7 +100,6 @@ if test "$optimise_b" = yes; then
     AC_DEFINE(STRINGS_UTILS_INLINED)
 fi
 
-AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 # Gather requirements and generate output.

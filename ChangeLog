@@ -1,5 +1,18 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/font-config.cc (init_fontconfig): add
+	prefix/{otf,type1,mf/out} to fontconfig path.
+
+	* lily/main.cc: only look at one prefix directory, LILYPONDPREFIX
+	overrides all. 
+
+	* config.make (package_suffix): use lilypond/MAJOR.MINOR as install
+	directory.
+
+	* configure.in (gui_b): remove ec mftrace check
+
+	* config.hh.in: use lilypond-Major.Minor as data directory.
+
 	* scm/framework-ps.scm (dump-page): use output-units for landscape.
 
 	* buildscripts/gen-emmentaler-scripts.py (i): lower case file

@@ -30,6 +30,7 @@
 #include "kpath.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"
+#include "version.hh"
 #include "misc.hh"
 #include "output-def.hh"
 #include "warn.hh"
@@ -112,8 +113,8 @@ _i ("    This program is free software; you can redistribute it and/or\n"
 
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
-   LOCAL_LILYPOND_DATADIR = /usr/share/lilypond/<VERSION> */
-char const *prefix_directories[] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR, 0};
+*/
+String prefix_directory;
 
 /* The jail specification: USER,GROUP,JAIL,DIR. */
 String jail_spec;
@@ -157,13 +158,7 @@ static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
-  fprintf (out, "LILYPOND_DATADIR =\"%s\"\n", LILYPOND_DATADIR);
-  fprintf (out, "LOCAL_LILYPOND_DATADIR =\"\%s\"\n", LOCAL_LILYPOND_DATADIR);
-  fprintf (out, "LOCALEDIR =\"%s\"\n", LOCALEDIR);
-
-  char *lilypond_prefix = getenv ("LILYPONDPREFIX");
-  fprintf (out, "LILYPONDPREFIX =\"%s\"\n",
-	   (lilypond_prefix ? lilypond_prefix : ""));
+  fprintf (out, "Directory prefix: \"%s\"\n", prefix_directory.to_str0());
 }
 
 static void
@@ -225,8 +220,9 @@ warranty ()
 static void
 setup_paths ()
 {
-  if (char const *lilypond_prefix = getenv ("LILYPONDPREFIX"))
-    prefix_directories[1] = lilypond_prefix;
+  prefix_directory = DATADIR "/lilypond/" MAJOR_VERSION "." MINOR_VERSION;
+  if (char const * env = getenv ("LILYPONDPREFIX"))
+    prefix_directory = env;
 
   global_path.append ("");
 
@@ -235,19 +231,18 @@ setup_paths ()
   char *suffixes[] = {"ly", "cff", "otf", "mf/out", "scm", "tfm", "ps", "svg",
 		      0};
 
-  for (unsigned i = 0; prefix_directories[i]; i++)
-    for (char **s = suffixes; *s; s++)
-      {
-	String p = prefix_directories[i] + to_string ('/') + String (*s);
-	global_path.prepend (p);
+  for (char **s = suffixes; *s; s++)
+    {
+      String path = prefix_directory + to_string ('/') + String (*s);
+      global_path.prepend (path);
 	
 #if !KPATHSEA
 	/* Urg: GNU make's $ (word) index starts at 1 */
 	int i  = 1;
-	while (global_path.try_append (p + to_string (".") + to_string (i)))
+	while (global_path.try_append (path + to_string (".") + to_string (i)))
 	  i++;
 #endif
-      }
+    }
 }
   
 static void
@@ -342,18 +337,15 @@ do_chroot_jail ()
       exit (3);
     }
 }
-
+void test_pango();
 static void
 main_with_guile (void *, int, char **)
 {
   /* Engravers use lily.scm contents, need to make Guile find it.
      Prepend onto GUILE %load-path, very ugh. */
-  for (unsigned i = 0; prefix_directories[i]; i++)
-    {
-      prepend_load_path (prefix_directories[i]);
-      /* Junk this.  We should make real modules iso. just loading files. */
-      prepend_load_path (String (prefix_directories[i]) + "/scm");
-    }
+
+  prepend_load_path (prefix_directory);
+  prepend_load_path (prefix_directory + "/scm");
 
   if (be_verbose_global)
     dir_info (stderr);
@@ -362,6 +354,8 @@ main_with_guile (void *, int, char **)
   call_constructors ();
   init_global_tweak_registry ();
   init_fontconfig ();
+  test_pango();
+  
   init_freetype ();
 
   is_pango_format_global = (output_backend_global != "tex"

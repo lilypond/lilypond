@@ -24,6 +24,7 @@
 class File_path : private Array<String>
 {
 public:
+  Array<String> paths () const;
   String find (String name) const;
   String find (String name, char const *extensions[]);
   String to_string () const;

@@ -40,17 +40,18 @@ elispdir = $(datadir)/emacs/site-lisp
 # forced instead of $(datadir)/vim
 
 # move out of config.make.in?
-package_datadir = $(datadir)/$(package)
-package_infodir = $(infodir)/$(package)
-package_libdir = $(libdir)/$(package)
-package_docdir = $(docdir)/$(package)
-package_omfdir = $(omfdir)/$(package)
+package_suffix = $(package)$(MAJOR_VERSION).$(MINOR_VERSION)
+package_datadir = $(datadir)/$(package_suffix)
+package_infodir = $(infodir)/$(package_suffix)
+package_libdir = $(libdir)/$(package_suffix)
+package_docdir = $(docdir)/$(package_suffix)
+package_omfdir = $(omfdir)/$(package_suffix)
 
 
-local_package_datadir = $(lilypond_datadir)/$(TOPLEVEL_VERSION)
-local_package_libdir = $(lilypond_libdir)/$(TOPLEVEL_VERSION)
-local_package_docdir = $(lilypond_docdir)/$(TOPLEVEL_VERSION)
-local_package_omfdir = $(lilypond_omfdir)/$(TOPLEVEL_VERSION)
+local_package_datadir = $(lilypond_datadir)
+local_package_libdir = $(lilypond_libdir)
+local_package_docdir = $(lilypond_docdir)
+local_package_omfdir = $(lilypond_omfdir)
 
 vimdir = $(local_package_datadir)/vim
 

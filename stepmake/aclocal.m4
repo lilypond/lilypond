@@ -563,7 +563,7 @@ AC_DEFUN(STEPMAKE_INIT, [
     if test x$MY_PATCH_LEVEL != x; then
 	FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
     fi
-
+    export MAJOR_VERSION MINOR_VERSION PATCH_LEVEL
     # urg: don't "fix" this: irix doesn't know about [:lower:] and [:upper:]
     changequote(<<, >>)dnl
     PACKAGE=`echo $PACKAGE_NAME | tr '[a-z]' '[A-Z]'`
@@ -642,6 +642,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
+    AC_SUBST(MAJOR_VERSION)
+    AC_SUBST(MINOR_VERSION)
+    
     # We don't need the upper case variant,
     # so stick to macros are uppercase convention.
     # AC_DEFINE_UNQUOTED(package, ["${package}"])
