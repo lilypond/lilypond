@@ -9,14 +9,18 @@ mode_setup;
 
 test:=0;
 input feta-macros;
+input feta-params;
 
-% copied from 4; will it work?
 height#:=designsize;
-thick#:=7/30height#;
-thin#:=thick#/4;
-hair#:=thin#/2;
-kuulleke#:=hair#;
-%kuulleke#:=0;
+
+fatten:=1.12;
+widen:=1.03;
+flaren:=0.9;
+tense=0.85;
+thick#:=7/30height#*fatten;
+hair#:=blot_diameter#;
+thin#:=hair#;
+kuulleke#:=1/8thick#;
 
 input feta-nummer;
 

@@ -9,13 +9,18 @@ mode_setup;
 
 test:=0;
 input feta-macros;
+input feta-params;
 
 height#:=designsize;
-thick#:=7/30height#;
-thin#:=thick#/4;
-hair#:=thin#/2;
-kuulleke#:=hair#;
-%kuulleke#:=0;
+
+fatten:=1;
+widen:=1;
+flaren:=1;
+tense=0.85;
+thick#:=7/30height#*fatten;
+thin#:=thick#/4*fatten;
+hair#:=blot_diameter#;
+kuulleke#:=1/8thick#;
 
 input feta-nummer;
 
