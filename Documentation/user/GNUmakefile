@@ -47,7 +47,10 @@ ifeq ($(out),www)
     $(outdir)/%.info: $(outdir)/%.nexi
 local-install-info: install-info info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
-	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
+
+## ugh: can not have absolute symlinks because of buildroot.
+#	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
+
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
 else

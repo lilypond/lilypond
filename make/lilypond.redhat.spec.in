@@ -62,24 +62,34 @@ make -C Documentation/user local_package_docdir=%{docdir} omf
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}"  mandir="$RPM_BUILD_ROOT%{_mandir}" install
+make prefix="$RPM_BUILD_ROOT%{_prefix}" \
+	infodir="$RPM_BUILD_ROOT%{_infodir}"  \
+	mandir="$RPM_BUILD_ROOT%{_mandir}" install
 
+#emacs
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
+install -m 644 elisp/lilypond-init.el  $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
+
+#manual pages
+gzip -9fn $RPM_BUILD_ROOT%{_mandir}/man1/*
+
+
+# profile scripts.
+mkdir -p $RPM_BUILD_ROOT/etc/profile.d
+cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
+cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
+
+# web doc
+make prefix="$RPM_BUILD_ROOT%{_prefix}" \
+  infodir="$RPM_BUILD_ROOT%{_infodir}"  \
+  webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/lilypond/" web-install
+
+# info 
 %if %{info}
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 gzip -9fn `find $RPM_BUILD_ROOT%{_infodir}/ -name '*.info'`
 %endif
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-# install -m 755 -d  $RPM_BUILD_ROOT/etc/emacs/site-start.d
-install -m 644 elisp/lilypond-init.el  $RPM_BUILD_ROOT%{_datadir}/emacs/site-lisp/site-start.d
-
-gzip -9fn $RPM_BUILD_ROOT%{_mandir}/man1/*
-
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
-
-make prefix="$RPM_BUILD_ROOT%{_prefix}" webdir="$RPM_BUILD_ROOT%{_prefix}/share/doc/lilypond/" web-install
 
 
 %post

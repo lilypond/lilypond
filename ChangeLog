@@ -143,7 +143,7 @@
 
 	* ps/lilyponddefs.ps: Disable PostScript titling.
 
-	* lily/paper-score.cc (process): Qoute PORT argument to make-title.
+	* lily/paper-score.cc (process): Qute PORT argument to make-title.
 
 2004-03-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
