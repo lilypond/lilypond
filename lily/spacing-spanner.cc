@@ -941,7 +941,7 @@ ADD_INTERFACE (Spacing_spanner,"spacing-spanner-interface",
 
 
 
-ADD_INTERFACE (Spacing_interface,"spacing-interface",
+ADD_INTERFACE (Spacing_interface, "spacing-interface",
   "Something to do with line breaking and spacing. Kill this one after determining line breaks.",
   "");
 

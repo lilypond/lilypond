@@ -84,7 +84,6 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength)
   Spring_smob spring;
   spring.strength_ = strength;
   spring.distance_ = d;
-  spring.expand_only_b_ = expand_only;
   spring.other_ = p;
   
   Group_interface::add_thing (me, ly_symbol2scm ("ideal-distances"), spring.smobbed_copy ());
