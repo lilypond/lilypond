@@ -31,12 +31,7 @@ struct Lookup {
     /// round slope to closest TeXslope
     Atom beam (Real&,Real) const;
 
-    /**
-      pos == 3 : 3 lines above staff (extending below note)
-
-      pos == -3: below staff
-      */
-    Atom streepjes (int type, int pos) const;
+    Atom streepje (int type) const;
 
     Atom vbrace (Real &dy) const;
     Atom meter (Array<Scalar>) const;
