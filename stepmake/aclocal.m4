@@ -402,10 +402,12 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     changequote(<<, >>)dnl
     GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
     GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
+    GUILE_PATCH_LEVEL=`expr $guile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
     changequote([, ])dnl
     STEPMAKE_GUILE_FLAGS
     AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
     AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
+    AC_DEFINE_UNQUOTED(GUILE_PATCH_LEVEL, $GUILE_PATCH_LEVEL)
 ])
 
 
