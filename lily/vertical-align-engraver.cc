@@ -35,9 +35,8 @@ Vertical_align_engraver::process_music ()
 {
   if (!valign_)
     {
-      valign_ =make_spanner ("VerticalAlignment", SCM_EOL);
+      valign_ = make_spanner ("VerticalAlignment", SCM_EOL);
       valign_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
-      
     }
 }
 
@@ -47,7 +46,7 @@ Vertical_align_engraver::finalize ()
   if (valign_)
     {
       valign_->set_bound (RIGHT,unsmob_grob (get_property ("currentCommandColumn")));
-      valign_ =0;
+      valign_ = 0;
     }
 }
 

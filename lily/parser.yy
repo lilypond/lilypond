@@ -2450,29 +2450,14 @@ markup:
 	| STRING_IDENTIFIER {
 		$$ = $1;
 	}
-	| {
+	| SCORE {
 		SCM nn = THIS->lexer_->lookup_identifier ("pitchnames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
-	}
-	/* cont */ score_block {
-		/* WIP this is a bit arbitrary,
-		   we should also allow \book or Composite_music.
-		   However, you'd typically want to change paper
-		   settings, and need a \score block anyway.  */
-
+	} '{' score_body '}' {
+		Score * sc = $4;
+		$$ = scm_list_2 (ly_scheme_function ("score-markup"), sc->self_scm ());
+		scm_gc_unprotect_object (sc->self_scm ());
 		THIS->lexer_->pop_state ();
- 		Score *score = $2;
- 		Book *book = new Book;
-		book->header_ = THIS->lexer_->lookup_identifier ("$globalheader");
-		book->scores_.push (score);
-			
-		Output_def *paper = get_paper (THIS);
-		book->bookpaper_ = get_bookpaper (THIS);
-
-		SCM s = book->to_stencil (paper);
- 		scm_gc_unprotect_object (score->self_scm ());
- 		scm_gc_unprotect_object (book->self_scm ());
-		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);
 	}
 	;
 

@@ -115,7 +115,7 @@ get_paper_outputter (String outname, String f)
 IMPLEMENT_SMOBS(Paper_outputter);
 IMPLEMENT_DEFAULT_EQUAL_P(Paper_outputter);
 
-LY_DEFINE(ly_outputter_dump_string, "ly:outputter-dump-stencil",
+LY_DEFINE(ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 	  2, 0,0, (SCM outputter, SCM stencil),
 	  "Dump stencil @var{expr} onto @var{outputter}."
 	  )
@@ -132,7 +132,7 @@ LY_DEFINE(ly_outputter_dump_string, "ly:outputter-dump-stencil",
 }
 
 
-LY_DEFINE(ly_outputter_dump_stencil, "ly:outputter-dump-string",
+LY_DEFINE(ly_outputter_dump_string, "ly:outputter-dump-string",
 	  2, 0, 0, (SCM outputter, SCM str),
 	  "Dump @var{str} onto @var{outputter}.")
 {
