@@ -26,21 +26,15 @@ public:
   
   DECLARE_SCHEME_CALLBACK (aligned_side, (SCM element, SCM axis));  
 
-  DECLARE_SCHEME_CALLBACK (out_of_staff, (SCM element, SCM axis));  
-
   DECLARE_SCHEME_CALLBACK (quantised_position, (SCM element, SCM axis));
 
   static SCM general_side_position (Grob*, Axis, bool);
-  static void set_axis (Grob*,Axis);
-  static void set_minimum_space (Grob*,Real);
-  static void set_padding (Grob*,Real);
   static Axis get_axis (Grob*) ;
-  static bool supported_b (Grob*) ;
+  static void set_axis (Grob*,  Axis) ;
   static bool has_interface (Grob*) ;
   static void add_support (Grob*,Grob*);
   static void add_staff_support (Grob*);
   static Direction get_direction (Grob*);
-  static void set_direction (Grob*,Direction);
 };
 
 

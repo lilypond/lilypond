@@ -221,15 +221,6 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   return gh_double2scm (o);
 }
 
-void
-Side_position_interface::add_staff_support (Grob*me)
-{
-  Grob* st = Staff_symbol_referencer::get_staff_symbol (me);
-  if (st && get_axis (me) == Y_AXIS)
-    {
-      add_support (me,st);
-    }
-}
 
 void
 Side_position_interface::set_axis (Grob*me, Axis a)
@@ -249,32 +240,6 @@ Side_position_interface::get_axis (Grob*me)
 
   
   return Y_AXIS;
-}
-
-void
-Side_position_interface::set_direction (Grob*me, Direction d)
-{
-  me->set_grob_property ("direction", gh_int2scm (d));
-}
-
-void
-Side_position_interface::set_minimum_space (Grob*me, Real m)
-{
-  me->set_grob_property ("minimum-space", gh_double2scm (m));
-}
-
-void
-Side_position_interface::set_padding (Grob*me, Real p)
-{
-  me->set_grob_property ("padding", gh_double2scm (p));
-}
-
-
-bool
-Side_position_interface::supported_b (Grob*me) 
-{
-  SCM s = me->get_grob_property ("side-support-elements"); 
-  return gh_pair_p (s);
 }
 
 

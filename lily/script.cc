@@ -60,7 +60,7 @@ Script_interface::before_line_breaking (SCM smob)
       d = DOWN;
     }
   
-  Side_position_interface::set_direction (me,d);
+  set_grob_direction (me, d);
 
   if (Grob * par = me->get_parent (X_AXIS))
     {

@@ -544,7 +544,6 @@ Piano_pedal_engraver::typeset_all ()
 
       if (p->finished_line_spanner_)
 	{
-	  Side_position_interface::add_staff_support (p->finished_line_spanner_);
 	  Grob * l = p->finished_line_spanner_->get_bound (LEFT);
 	  Grob * r = p->finished_line_spanner_->get_bound (RIGHT);      
 	  if (!r && l)

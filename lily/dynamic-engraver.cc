@@ -363,9 +363,6 @@ Dynamic_engraver::typeset_all ()
     }
   if (finished_line_spanner_)
     {
-      /* To make sure that this works */
-      Side_position_interface::add_staff_support (finished_line_spanner_);
-      
       /*
 	We used to have
 	

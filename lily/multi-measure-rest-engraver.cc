@@ -180,7 +180,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       for (int i = 0 ; i < numbers_.size(); i++)
 	{
 	  typeset_grob (numbers_[i]);
-	  Side_position_interface::add_staff_support (numbers_[i]);
 	}
       
       /*
@@ -200,7 +199,6 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	  for (int i = 0; i < last_numbers_.size ();i++)
 	    {
 	      typeset_grob (last_numbers_[i]);
-	      Side_position_interface::add_staff_support (last_numbers_[i]);
 	    }
 	}
       last_rest_ = 0;

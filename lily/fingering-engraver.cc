@@ -128,7 +128,6 @@ Fingering_engraver::stop_translation_timestep ()
   for (int i=0; i < fingerings_.size (); i++)
     {
       Item *ti = fingerings_[i];
-      Side_position_interface::add_staff_support (ti);
       typeset_grob (ti);
     }
   fingerings_.clear ();

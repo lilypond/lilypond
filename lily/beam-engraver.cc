@@ -169,8 +169,7 @@ Beam_engraver::process_music ()
       beam_info_ = new Beaming_info_list;
       
       /* urg, must copy to Auto_beam_engraver too */
- 
-      announce_grob(beam_, evs_drul_[START]->self_scm());
+      announce_grob (beam_, evs_drul_[START]->self_scm());
     }
 
 }

@@ -181,7 +181,6 @@ Clef_engraver::stop_translation_timestep ()
 
       if (octavate_)
 	{
-	  Side_position_interface::add_staff_support (octavate_);	  
 	  typeset_grob (octavate_);
 	}
 

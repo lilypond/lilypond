@@ -118,7 +118,6 @@ Text_spanner_engraver::typeset_all ()
 {  
   if (finished_)
     {
-      Side_position_interface::add_staff_support (finished_);
       if (!finished_->get_bound (RIGHT))
 	{
 	  Grob* e = unsmob_grob (get_property ("currentMusicalColumn"));
