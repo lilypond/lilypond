@@ -13,6 +13,7 @@
 #include "directional-element-interface.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
+#include "tuplet-bracket.hh"	// ugh.
 
 struct Horizontal_bracket
 {
@@ -49,19 +50,27 @@ Horizontal_bracket::print (SCM smob)
   Interval ext = gs.top ()->extent (cx, X_AXIS);
   ext.unite (gs[0]->extent (cx, X_AXIS));
 
-  Direction d = get_grob_direction (me);
+  Drul_array<Real> edge_height = robust_scm2interval (me->get_property ("edge-height"),
+						      Interval (1.0, 1.0));
 
-  Real thickness = Staff_symbol_referencer::line_thickness (me);
-  thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
   
-  Stencil b = Lookup::bracket (X_AXIS, ext, thickness, - d* 1.0, thickness/2); 
-  
-  b.translate_axis ( - sp->get_bound (LEFT)->relative_coordinate (cx, X_AXIS), X_AXIS);
+  Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
+						Interval (0,0));
+
+  Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
+						  Interval (0,0));
+
+  Interval empty;
+  Stencil b
+    = Tuplet_bracket::make_bracket (me, Y_AXIS, Offset (ext.length (), 0),
+				    edge_height, empty, flare, shorten);
+    
+  b.translate_axis (ext[LEFT] - sp->get_bound (LEFT)->relative_coordinate (cx, X_AXIS), X_AXIS);
 
   return b.smobbed_copy ();  
 }
 
 ADD_INTERFACE (Horizontal_bracket,"horizontal-bracket-interface",
   "A horizontal bracket encompassing notes.",
-  "thickness columns direction");
+  "columns");
 

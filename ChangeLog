@@ -1,3 +1,9 @@
+2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/horizontal-bracket.cc (print): use
+	Tuplet_bracket::make_bracket, so it supports bracket-flare,
+	edge-eight and shorten-pair.
+
 2004-08-22  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* scm/framework-ps.scm (output-framework): set the first
@@ -10,6 +16,9 @@
 	parameter
 
 2004-08-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/slur-engraver.cc (class Slur_engraver): simplify: remove
+	nested slurs. 
 
 	* scripts/convert-ly.py (lilypond_version_re_str): handle
 	\version "bar" % "foo"

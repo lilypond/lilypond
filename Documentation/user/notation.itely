@@ -1575,7 +1575,7 @@ either property is set, its value will be used only once, and then it
 is erased
 
 @lilypond[quote,fragment,relative=1,verbatim]
-\context Staff {
+{
   f8[ r16 f g a]
   f8[ r16 \set stemLeftBeamCount = #1 f g a]
 }
@@ -1597,10 +1597,6 @@ c16[ c c c c c c c]
 @end lilypond
 @cindex @code{subdivideBeams}
 
-Kneed beams are inserted automatically, when a large gap is detected
-between the note heads.  This behavior can be tuned through the object
-property @code{auto-knee-gap}.
-
 Normally, line breaks are forbidden when beams cross bar lines.  This
 behavior can be changed by setting @code{allowBeamBreak}.
 
@@ -1621,13 +1617,17 @@ User manual: @ref{Changing context properties on the fly} for the
 @refbugs
 
 @cindex Frenched staves
+Kneed beams are inserted automatically, when a large gap is detected
+between the note heads.  This behavior can be tuned through the object
+
 
 Automatically kneed cross-staff beams cannot be used together with
-hidden staves.
+hidden staves. See @ref{Hiding staves}.
 
 Beams do not avoid collisions with symbols around the notes, such as
 texts and accidentals.
 
+@c FIXME.
 
 
 @node Setting automatic beam behavior, Beam formatting, Manual beams, Beaming
@@ -1726,9 +1726,9 @@ So, while it is possible to have different ending rules for eight
 beams and sixteenth beams, a beam that contains both eight and
 sixteenth notes will use the rules for the sixteenth beam.
 
-In the example below, the autobeamer makes eight beams and sixteenth
-end at 3 eights; the third beam can only be corrected by specifying
-manual beaming.
+In the example below, the autobeamer makes eighth beams and sixteenth
+end at three eighths. The third beam can only be corrected by
+specifying manual beaming.
 
 @lilypond[quote,raggedright,fragment,relative=1]
 #(override-auto-beam-setting '(end * * * *) 3 8)
@@ -1794,9 +1794,10 @@ Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
 @code{code}.
 
-      This leads to some weird and often unwanted results
-      because accidentals from one voice do not get canceled in other
-      voices
+      As  a result,
+       accidentals from one voice do not get canceled in other
+      voices, which is often unwanted result
+      @c
 @lilypond[quote,raggedright,relative=1,fragment,verbatim]
 \context Staff <<
   #(set-accidental-style 'voice)
@@ -1805,11 +1806,12 @@ individually for each voice.  Apart from that, the rule is similar to
     { c, e }
 >> >>
 @end lilypond
-      Hence you should only use @code{voice} if the voices
+@c
+      The @code{voice} option should be used if the voices
 are to be read solely by individual musicians. If the staff is to be
-used by one musician (e.g. a conductor) then you use
+used by one musician (e.g. a conductor) then 
 @code{modern} or @code{modern-cautionary}
-instead.
+should be used instead.
 
 @item modern
 @cindex @code{modern} style accidentals
@@ -1860,7 +1862,7 @@ This rule reflects      20th century practice for piano notation. Very similar t
 
 @item piano-cautionary
       @cindex @code{#(set-accidental-style 'piano-cautionary)}
-      As @code{#(set-accidental-style 'piano)' , str)} but with the extra accidentals
+      As @code{#(set-accidental-style 'piano)} but with the extra accidentals
       typeset as cautionaries.
 
 @item no-reset
@@ -1899,13 +1901,11 @@ mode. This means that in a chord the accidentals are typeset as if the
 notes in the chord happened once at a time - in the order in which
 they appear in the input file.
 
-This is only a problem when accidentals in a chord depend on each
-other.  This problem can be solved by manually inserting @code{!} and
-@code{?}  for the problematic notes.
+This is a problem when accidentals in a chord depend on each other,
+which does not happen for the default accidental style.  The problem
+can be solved by manually inserting @code{!} and @code{?}  for the
+problematic notes.
 
-In the default scheme, accidentals only depend on other
-accidentals with the same pitch on the same staff, so no conflicts are
-possible.
 
 @node Expressive marks, Repeats, Accidentals, Notation manual
 @section Expressive marks
@@ -1937,10 +1937,9 @@ possible.
 
 A slur indicates that notes are to be played bound or @emph{legato}.
 
-
 They are entered using parentheses
 @lilypond[quote,relative=2,fragment,verbatim]
-f( g)( a) a8 b( a4 g2 f4)
+f( g a) a8 b( a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
 
@@ -1957,7 +1956,7 @@ However, there is a convenient shorthand for forcing slur
 directions. By adding @code{_} or @code{^} before the opening
 parentheses, the direction is also set. For example,  
 
-@lilypond[relative=2,fragment]
+@lilypond[relative=2,verbatim,fragment]
    c4_( c)   c^( c)
 @end lilypond
  
@@ -1999,8 +1998,8 @@ respectively
 
 Typographically, the phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects.  A
-@code{\slurUp} will have no effect on a phrasing slur; instead, you
-should use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
+@code{\slurUp} will have no effect on a phrasing slur; instead, use
+@code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
 @code{\phrasingSlurBoth}.
 
 The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurBoth}
@@ -2084,9 +2083,9 @@ Program reference: @internalsref{MetronomeChangeEvent}.
 
 Some performance indications, e.g. @i{rallentando} or @i{accelerando},
 are written as texts, and extended over many measures with dotted
-lines.  You can create such texts using text spanners: attach
-@code{\startTextSpan} and @code{\stopTextSpan} to the
-start and ending note of the spanner. 
+lines.  Such texts are created using text spanners: attach
+@code{\startTextSpan} and @code{\stopTextSpan} to the start and ending
+note of the spanner.
 
 The string to be printed, as well as the style, is set through object
 properties
@@ -2163,9 +2162,10 @@ The meanings of these shorthands can be changed. See
 @file{ly/script-init.ly} for examples.
 
 
-The script is automatically placed, but if you need to force
-directions, you can use @code{_} to force them down, or @code{^} to
-put them up
+The script is automatically placed, but the direction can be forced as
+well.  @code{_} will put them down, and @code{^} will put them up,
+
+
 @lilypond[quote,fragment,verbatim]
 c''4^^ c''4_^
 @end lilypond
