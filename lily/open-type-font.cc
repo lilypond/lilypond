@@ -16,6 +16,9 @@
 #include "open-type-font.hh"
 #include "dimensions.hh"
 
+
+const  Real point_constant = 1 PT;
+
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
@@ -44,7 +47,7 @@ SCM
 load_scheme_table (char const *tag_str, FT_Face face)
 {
   FT_ULong length = 0;
-  FT_Byte* buffer =load_table (tag_str, face, &length);
+  FT_Byte* buffer = load_table (tag_str, face, &length);
 
   SCM tab = SCM_EOL;
   if (buffer)
@@ -98,8 +101,9 @@ Open_type_font::make_otf (String str)
   return otf->self_scm ();
 }
 
-Open_type_font::Open_type_font(FT_Face)
+Open_type_font::Open_type_font(FT_Face face)
 {
+  face_ = face;
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
   
@@ -127,7 +131,7 @@ Open_type_font::attachment_point (String glyph_name) const
 
   SCM char_alist = entry;
 
-  SCM att_scm =scm_cdr (scm_assq (char_alist, ly_symbol2scm ("attachment")));
+  SCM att_scm =scm_cdr (scm_assq (ly_symbol2scm ("attachment"), char_alist));
   
   return ly_scm2offset (att_scm);
 }
@@ -153,7 +157,6 @@ Open_type_font::get_indexed_char (int signed_idx) const
   Box b (Interval (-hb, m.width - hb),
 	 Interval (-vb, m.height - vb));
 
-  Real point_constant = 1 PT;
   
 
   b.scale (design_size() * Real (point_constant) / face_->units_per_EM);
@@ -176,5 +179,5 @@ Open_type_font::name_to_index (String nm) const
 Real
 Open_type_font::design_size () const
 {
-  return scm_to_double (scm_hashq_ref (lily_global_table_, ly_symbol2scm ("staffsize"), SCM_BOOL_F));
+  return point_constant * scm_to_double (scm_hashq_ref (lily_global_table_, ly_symbol2scm ("staffsize"), SCM_BOOL_F));
 }

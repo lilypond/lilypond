@@ -290,7 +290,7 @@ get_encoded_index (Font_metric *m, String input_coding, int code)
 }
 
 Offset
-Font_metric::attachment_point (String str) const
+Font_metric::attachment_point (String) const
 {
   return Offset (0, 0);
 }
