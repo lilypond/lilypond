@@ -6,6 +6,7 @@
   (c) 1996--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "score.hh"
 #include "main.hh"
 #include "warn.hh"
 #include "font-metric.hh"
@@ -92,18 +93,17 @@ Paper_score::process ()
   system_->break_into_pieces (breaking);
   
   outputter_ = paper_->get_paper_outputter ();
-;
   outputter_->output_header ();
   outputter_->output_version ();
 
   progress_indication ("\n");
 
-  if (global_header)
+  if (global_input_file->global_header_)
     {
-
-      outputter_->output_scope (global_header, "lilypond");
-      outputter_->write_header_fields_to_file (global_header);
+      outputter_->output_scope (global_input_file->global_header_, "lilypond");
+      outputter_->write_header_fields_to_file (global_input_file->global_header_);
     }
+  
   if (header_)
     {
       outputter_->output_scope (header_, "lilypond");

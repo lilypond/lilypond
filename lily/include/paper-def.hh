@@ -48,8 +48,9 @@ class Paper_def : public Music_output_def
 protected:
   VIRTUAL_COPY_CONS (Music_output_def);
 
-
 public:    
+  Paper_outputter* get_paper_outputter () ;
+
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
   static int score_count_;
@@ -70,7 +71,6 @@ public:
   virtual int get_next_score_count () const;
   static void reset_score_count ();
   void output_settings (Paper_outputter*) const;
-  Paper_outputter* get_paper_outputter () ;
 
   Font_metric * find_font (SCM name, Real mag);
   

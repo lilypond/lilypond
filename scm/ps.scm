@@ -202,9 +202,12 @@
    " {exch pop //systemdict /run get exec} "
    (ly-gulp-file "music-drawing-routines.ps")
    "{ exch pop //systemdict /run get exec } "
-;; ps-testing is broken: global module
-   (if (defined? 'ps-testing) "\n /testing true def" "")
-;;   "\n /testing true def"
+
+;; ps-testing wreaks havoc when used with lilypond-book.
+;;   (if (defined? 'ps-testing) "\n /testing true def" "")
+
+
+   ;;   "\n /testing true def"
    ))
 
 (define (lily-def key val)

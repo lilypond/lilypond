@@ -1,9 +1,9 @@
-#(set! point-and-click line-column-location)
+#(set-point-and-click! 'line-column)
 
 piece = "5"
 opus = "BWV 926"
 
-\version "1.5.68"
+\version "1.5.72"
 
 upper =  \context Staff \notes\relative c
 	\context Voice=i {

@@ -13,7 +13,7 @@
 #include "lily-proto.hh"
 #include "scm-hash.hh"
 #include "interval.hh"
-
+#include "file-results.hh"
 #include "lily-guile.hh"
 #include "parser.hh"
 #include "keyword.hh"
@@ -126,7 +126,7 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  new_input (main_input_string_, source_global);
+  new_input (main_input_string_, &global_input_file->sources_);
   allow_includes_b_ = allow_includes_b_ &&  ! (safe_global_b);
 }
 

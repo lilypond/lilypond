@@ -1,3 +1,15 @@
+2002-08-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/file-results.hh (class Input_file_settings):
+	encapsulate file settings in a class, Input_file_settings.
+
+	* lily/scores.cc: new function ly_set_point_and_click_x
+	
+	* Documentation/topdocs/README.texi (Top): add note about xdelta
+
+	* Documentation/topdocs/INSTALL.texi (Top): move kpathsea to problems
+	section.
+	
 2002-08-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/ly2dvi.py: Remove debug printing.

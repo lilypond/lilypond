@@ -9,15 +9,31 @@
 
 #ifndef FILE_RESULTS_HH
 #define FILE_RESULTS_HH
-#include "flower-proto.hh"
+
+#include "lily-proto.hh"
+#include "source.hh"
+#include "parray.hh"
+#include "scm-hash.hh"
+
+class Input_file_settings
+{
+public:
+  Sources sources_;
+  Array<String> inclusion_names_;
+  Array<String> target_strings_;
+  Link_array<Score> scores_;
+  Scheme_hash_table * global_header_;
+
+  void do_deps( );
+  void do_scores();
+
+  Input_file_settings (String file,String init);
+  ~Input_file_settings();
+};
+
+extern Input_file_settings* global_input_file;
 
 void do_one_file (String init_string, String file_string);
-extern Scheme_hash_table *global_header;
-extern Array<String> target_string_globals;
-extern Array<String> inclusion_globals;
-extern Link_array<Score> score_globals;
-void do_scores ();
-void clear_scores ();
 
 
 #endif /* FILE_RESULTS_HH */

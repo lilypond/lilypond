@@ -177,7 +177,7 @@
        (regexp-substitute/global #f "\n"
 				 (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
        (ly-gulp-file "music-drawing-routines.ps"))
-   (if (defined? 'ps-testing) "/testing true def%\n" "")
+;   (if (defined? 'ps-testing) "/testing true def%\n" "")
    "}"
    "\\input lilyponddefs \\outputscale=\\lilypondpaperoutputscale \\lilypondpaperunit"
    "\\turnOnPostScript"))
@@ -239,7 +239,7 @@
   "}\\vss}")
 
 (define (filledbox breapth width depth height)
-  (if (defined? 'ps-testing)
+  (if (and #f (defined? 'ps-testing))
       (embedded-ps
        (string-append (numbers->string (list breapth width depth height))
 		      " draw_box" ))

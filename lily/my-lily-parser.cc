@@ -15,9 +15,9 @@
 #include "file-results.hh"
 #include "scm-hash.hh"
 
-My_lily_parser::My_lily_parser (Sources * source)
+My_lily_parser::My_lily_parser (Input_file_settings * source)
 {
-  source_ = source;
+  input_file_ = source;
   lexer_ = 0;
   default_duration_ = Duration (2,0);
   error_level_ = 0;
@@ -44,7 +44,7 @@ My_lily_parser::parse_file (String init, String s)
   progress_indication (_ ("Parsing..."));
 
   set_yydebug (0);
-  lexer_->new_input (init, source_);
+  lexer_->new_input (init, &input_file_->sources_);
   do_yyparse ();
 
   progress_indication ("\n");
@@ -55,7 +55,7 @@ My_lily_parser::parse_file (String init, String s)
       error_level_ = 1;
     }
 
-  inclusion_globals = lexer_->filename_strings_;
+  input_file_->inclusion_names_ = lexer_->filename_strings_;
 
   error_level_ = error_level_ | lexer_->errorlevel_; // ugh naming.
 }

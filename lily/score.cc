@@ -29,6 +29,7 @@
 Score::Score ()
   : Input ()
 {
+  input_file_ = 0;
   header_ = 0;
   music_ = SCM_EOL;
   errorlevel_ = 0;
@@ -82,8 +83,6 @@ Score::~Score ()
 void
 Score::run_translator (Music_output_def *odef)
 {
-
-
 #ifdef PARANOIA
   if (verbose_global_b)
     {
@@ -150,14 +149,8 @@ Score::run_translator (Music_output_def *odef)
 
   progress_indication ("\n");
   output->process ();
+  
   delete output ;
-
-  /*
-    force GC. At this point, GUILE may give back mallocated area to
-    the system.
-  */
-    
-  scm_gc ();
 }
 
 void
@@ -165,7 +158,6 @@ Score::process ()
 {
   if (!unsmob_music (music_))
     return;
-
 
   for (int i=0; i < defs_.size (); i++)
     {
@@ -175,8 +167,6 @@ Score::process ()
       run_translator (defs_[i]);
     }
 }
-
-
 
 
 void

@@ -349,12 +349,12 @@ toplevel_expression:
 		THIS->lexer_->chordmodifier_tab_  = $1;
 	}
 	| lilypond_header {
-		if (global_header)
-			scm_gc_unprotect_object (global_header->self_scm ());
-		global_header = $1;
+		if (THIS->input_file_->global_header_)
+			scm_gc_unprotect_object (THIS->input_file_->global_header_->self_scm ());
+		THIS->input_file_->global_header_ = $1;
 	}
 	| score_block {
-		score_globals.push ($1);
+		THIS->input_file_->scores_.push ($1);
 	}
 	| output_def {
 		if (dynamic_cast<Paper_def*> ($1))
