@@ -164,6 +164,15 @@ $(outdir)/lilypond-internals/index.html: $(outdir)/lilypond-internals.texi
 $(outdir)/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	$(MAKEINFO) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
+#
+# The split glossary
+#
+$(outdir)/music-glossary/index.html: $(outdir)/music-glossary.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) --output=$(outdir)/music-glossary --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
+	find $(outdir)/music-glossary/ -name '*'.png -o -name '*'.ly | xargs rm -f
+# symbolic links to save space 
+	(cd $(outdir)/music-glossary/ ; ln -sf ../*.png ../*.ly . )
 
 $(outdir)/lilypond.xml: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
@@ -183,7 +192,8 @@ $(outdir)/%.eps: %.png
 
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
- $(outdir)/lilypond-internals/index.html
+ $(outdir)/lilypond-internals/index.html\
+ $(outdir)/music-glossary/index.html
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) info info-dir
@@ -194,7 +204,7 @@ deep-WWW-clean:
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 
 info-dir:
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary
 
 
 $(outdir)/%.bib: %.bib
@@ -202,7 +212,7 @@ $(outdir)/%.bib: %.bib
 
 local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
-	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
+	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals $(outdir)/music-glossary
 
 # lilypond.texi deps
 $(builddir)/mf/$(outconfbase)/feta16list.ly:

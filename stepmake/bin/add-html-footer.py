@@ -279,6 +279,10 @@ def do_file (f):
 	
 	s = remove_self_ref (s)
 
+	# remove info's annoying's indication of referencing external document
+	s = re.sub (' \((lilypond|lilypond-internals|music-glossary)\)</a>',
+		    '</a>', s)
+
 	open (f, 'w').write (s)
 
 

@@ -64,8 +64,8 @@ reference.
 @section First steps
 
 The first example demonstrates how to enter the most elementary piece
-of music, a scale.  A note can be entered by typing its name, from
-@samp{a} through @samp{g}.  So, if you enter
+of music, a @rglos{scale}.  A rglos{note} can be entered by typing its
+name, from @samp{a} through @samp{g}.  So, if you enter
 
 @example
 c d e f g a b
@@ -78,9 +78,9 @@ the result looks like this
 c d e f g a b
 @end lilypond
 
-The duration of a note is specified by a number after the note name.
-@samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
-@samp{4} for a @rglos{quarter note} and so on
+The @rglos{duration} of a note is specified by a number after the note
+name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half
+note}, @samp{4} for a @rglos{quarter note} and so on
 
 @example
 a1 a2 a4 a16 a32
@@ -93,9 +93,9 @@ a1 a2 a4 a16 a32
 { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
 
-If you do not specify a @rglos{duration}, the duration last entered is
-used for the next notes.  The duration of the first note in input
-defaults to a quarter
+If you do not specify a duration, the duration last entered is used
+for the next notes.  The duration of the first note in input defaults
+to a quarter
 
 @example
 a a8 a a2 a
@@ -107,7 +107,7 @@ a a8 a a2 a
 @end lilypond
 
 
-Rests are entered just like notes, but with the name @samp{r}
+A @rglos{rest} is entered just like a note, but with the name @samp{r}
 
 @cindex rests
 @example
@@ -130,8 +130,8 @@ a2. a4 a8. a16
 { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
-The @rglos{meter} (or @rglos{time signature}) can be set with the
-@code{\time} command
+The (or @rglos{time signature}) can be set with the @code{\time}
+command
 
 @example
 \time 3/4
@@ -383,8 +383,8 @@ see @ref{Key signature}.
 @section Entering ties
 
 @cindex tie
-A tie is created by appending a tilde @samp{~} to the first note
-being tied
+A @rglos{tie} is created by appending a tilde @samp{~} to the first
+note being tied
 
 @lilypond[quote,notime,fragment,verbatim,relative=3]
 g4~ g a2~ a4
@@ -398,7 +398,7 @@ For more information on Ties see @ref{Ties}.
 @section Automatic and manual beams
 
 @cindex beams, by hand 
-Beams are drawn automatically
+All @rglos{beam}s are drawn automatically
 
 @lilypond[quote,fragment,relative=2,verbatim]
 a8 ais d es r d
@@ -745,20 +745,20 @@ c2\< c2\ff\> c2 c2\!
 
 @cindex slur
 
-A slur is a curve drawn across many notes, and indicates legato
-articulation.  The starting note and ending note are marked with
-@samp{(} and @samp{)}, respectively
+A @rglos{slur} is a curve drawn across many notes, and indicates
+legato articulation.  The starting note and ending note are marked
+with @samp{(} and @samp{)}, respectively
 
 @lilypond[fragment,quote,fragment,relative=2,verbatim]
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
 @cindex slurs versus ties
-A slur looks like a tie, but it has a different meaning.  A tie simply
-makes the first note sound longer, and can only be used on pairs of
-notes with the same pitch.  Slurs indicate the articulations of notes,
-and can be used on larger groups of notes.  Slurs and ties can be
-nested
+A slur looks like a @rglos{tie}, but it has a different meaning.  A
+tie simply makes the first note sound longer, and can only be used on
+pairs of notes with the same pitch.  Slurs indicate the articulations
+of notes, and can be used on larger groups of notes.  Slurs and ties
+can be nested
 
 @lilypond[quote,fragment,relative=2]
 c2~( c8 fis fis4 ~ fis2 g2)
