@@ -103,10 +103,10 @@ c1 | c2 c | c c | R1*5
     \translator {
       \OrchestralScoreContext
       skipBars = ##t 
-      markScriptPadding = #4.0
+      RehearsalMark \override #'padding = #4
       BarNumber \override #'padding = #3
       RestCollision \override #'maximum-rest-count = #1
-      marginScriptHorizontalAlignment = #1
+      %% FIXME marginScriptHorizontalAlignment = #1
     }
     \translator { \HaraKiriStaffContext
     }

@@ -94,11 +94,10 @@
 			\accepts "StaffCombineStaff"
 			skipBars = ##t 
 
-			barScriptPadding = #2.0 % dimension \pt
-			markScriptPadding = #4.0
-
-			%% urg: in pt?
-			barNumberScriptPadding = #15
+			%%% FIXME barScriptPadding = #2.0 % dimension \pt
+			RehearsalMark \override #'padding = #4
+			BarNumber \override #'padding = #3
+			
 			%% URG: this changes dynamics too
 			%%textStyle = #"italic"
 			TimeSignature \override #'style = #'C

@@ -55,10 +55,10 @@ Regular_spacing_engraver::process_music ()
 }
 
 
-ENTER_DESCRIPTION(Regular_spacing_engraver,
+ENTER_DESCRIPTION (Regular_spacing_engraver,
 /* descr */       ".",
 /* creats*/       "",
 /* acks  */       "",
 /* reads */       "regularSpacingDelta",
-/* write */       "");
+/* write */       "regular-distance-to");
 
