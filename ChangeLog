@@ -1,3 +1,12 @@
+2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/rest-collision.cc (force_shift_callback): rewrite using
+	-done property.
+
+	* scm/grob-property-description.scm (rest-collision-done): add property.
+
+	* lilypond.vim: add file (<hjunes@cc.hut.fi>)
+
 2002-10-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/multi-measure-rest-center.ly: new file.

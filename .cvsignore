@@ -19,6 +19,7 @@
 .gdbinit
 GNUmakefile
 TAGS
+a
 afm
 autom4te.cache
 config.cache
@@ -27,8 +28,12 @@ config.log
 config.make
 config.status
 configure
+conv.py
+fetchmail-5.9.0-21.i386.rpm
 fonts
+foo.hh
 l
+lilypond-internals.texi
 log
 ls-R
 ly2dvi.dir
@@ -39,3 +44,5 @@ share
 stepmake
 tfm
 tfm.[0-9]
+to-xml.texidoc
+xml.py

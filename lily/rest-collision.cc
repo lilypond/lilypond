@@ -29,17 +29,11 @@ Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 
   Grob * rc = unsmob_grob (them->get_grob_property ("rest-collision"));
 
-  if (rc)
+  if (rc && !to_boolean (rc->get_grob_property ("rest-collision-done")))
     {
-      /*
-	Done: destruct pointers, so we do the shift only once.
+      rc->set_grob_property ("rest-collision-done", SCM_BOOL_T);
 
-	TODO: use rest-collision-done
-      */
-      SCM elts = rc->get_grob_property ("elements");
-      rc->set_grob_property ("elements", SCM_EOL);
-
-      do_shift (rc, elts);
+      do_shift (rc);
     }
   
   return gh_double2scm (0.0);
@@ -52,7 +46,8 @@ Rest_collision::add_column (Grob*me,Grob *p)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
 
   /*
-    only add callback for the rests, since we don't move anything else.
+    only add callback for the rests, since we don't move anything
+    else.
 
  (not?)
   */
@@ -83,11 +78,10 @@ head_characteristic (Grob * col)
   for more than two voices.
  */
 SCM
-Rest_collision::do_shift (Grob *me, SCM elts)
+Rest_collision::do_shift (Grob *me)
 {
-  /*
-    ugh. -> score  elt type
-   */
+  SCM elts = me->get_grob_property ("elements");
+
   Link_array<Grob> rests;
   Link_array<Grob> notes;
 
@@ -144,9 +138,20 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	  for (; i > display_count; i--)
 	    {
 	      Grob* r = unsmob_grob (rests[i-1]->get_grob_property ("rest"));
+#if 1
 	      if (r)
 		r->suicide ();
 	      rests[i-1]->suicide ();
+#else
+	      if (r)
+		{
+		  
+		  r->set_grob_property ("transparent", gh_bool2scm(1));
+		  r = unsmob_grob (r->get_grob_property ("dot"));
+		  if (r)
+		    r->set_grob_property ("transparent", gh_bool2scm(1));
+		}
+#endif
 	    }
 	}
       else
@@ -239,7 +244,7 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 
 
 ADD_INTERFACE (Rest_collision,"rest-collision-interface",
-  "Move around ordinary rests (not multi-measure-rests) to avoid
-conflicts.",
-  "maximum-rest-count minimum-distance elements");
+  "Move around ordinary rests (not multi-measure-rests) to avoid "
+"conflicts.",
+  "maximum-rest-count minimum-distance rest-collision-done elements");
 
