@@ -1,3 +1,19 @@
+2002-09-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/property-iterator.cc (do_quit): add finalization functions
+	to undo property settings.
+
+	* lily/parser.yy (property_def): syntax for \once \property ....
+
+	* lily/note-spacing.cc (get_spacing): don't get crazy when there
+	is no (live) stem.
+
+	* lily/my-lily-lexer.cc: new keyword \once
+
+	* lily/global-translator.cc (apply_finalizations): new function
+	(add_finalization): new function
+
+	* input/regression/property-once.ly: new file
 
 2002-09-10  Juergen Reuter  <reuter@ipd.uka.de>
 
