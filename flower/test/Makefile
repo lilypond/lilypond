@@ -19,7 +19,7 @@ NAME =stringtest
 # include ./$(depth)/$(NAME)/.version
 MODULE_NAME = flower
 include ./$(depth)/flower/.version
-build = ./$(depth)/flower/lib/.build
+build = ./$(depth)/flower/test/$(outdir)/.build
 #
 
 # generic variables:
@@ -76,7 +76,7 @@ LOADLIBES +=
 #
 # MAINTARGET = $(EXECUTABLE)
 # MAINTARGET = $(LIBRARY)
-MAINTARGET = $(bindir)/$(EXECUTABLE)# huh?
+MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
 # MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 
 #default: $(MAINTARGET)
@@ -84,7 +84,7 @@ BUILDSTRINGTEST=$(MAINTARGET)
 EXECSTRINGTEST=$(EXECUTABLE)
 default:  $(BUILDSTRINGTEST) do-stringtest
 do-stringtest:
-	$(EXECSTRINGTEST)    # should return error value if test fails
+	$(EXECSTRINGTEST)    # should cmp with a 'standard result'
 
 dummy:
 
