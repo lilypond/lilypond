@@ -10,7 +10,8 @@
 	))
     (ArpeggioEvent 
      . (
-	(description .  "Make an arpeggio on this note.")
+	(description .  "Make an arpeggio on this note. Syntax:
+@var{note}-@code{\\arpeggio}")
 	(internal-class-name .  "Request")
 	(types . (general-music arpeggio-event event))
 	))
@@ -45,8 +46,6 @@
 	(description .  "")
 
 	(internal-class-name . "Request")
-	(compress-procedure . ,music-duration-compress)
-	(length . ,music-duration-length) 
 	(types . (general-music event rhythmic-event bass-figure-event))
 	))
     (BeamEvent
@@ -146,10 +145,8 @@
   (LyricEvent
      . (
 	(description .  "A lyric syllable. Must be entered in lyrics mode, i.e.
-@code{\lyrics @{ twinkle4 twinkle4 @} } .")
+@code{\\lyrics @{ twinkle4 twinkle4 @} } .")
 
-	(length . ,music-duration-length) 
-	(compress-procedure . ,music-duration-compress)
 	(internal-class-name . "Request")
 	(types . (general-music rhythmic-event lyric-event event))
 	))
@@ -201,8 +198,6 @@
 	(description .  "")
 
 	(internal-class-name . "Request")
-	(length . ,music-duration-length) 
-	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
  (OverrideProperty
@@ -224,7 +219,7 @@
      ))
       (PhrasingSlurEvent
      . (
-	(description . "Start or end phrasing slur. Syntax NOTE \(  and \) NOTE")
+	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
 	(internal-class-name . "Request")
 	(types . (general-music span-event phrasing-slur-event slur-event))
 	))
@@ -272,13 +267,11 @@
 	(description .  "")
 
 	(internal-class-name . "Request")
-	(length . ,music-duration-length)
-	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (SequentialMusic
      . (
-	(description .  "Music expressions concatenated. Syntax \sequential @{..@} or simply @{..@} .")
+	(description .  "Music expressions concatenated. Syntax \\sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -286,7 +279,7 @@
 	))
     (SimultaneousMusic
      . (
-	(description .  "Music playing together. Syntax: \simultaneous @{ .. @} or < .. >.")
+	(description .  "Music playing together. Syntax: \\simultaneous @{ .. @} or < .. >.")
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
@@ -394,8 +387,6 @@
 	(description .  "")
 
 	(internal-class-name . "Request")
-	(length . ,music-duration-length) 
-	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event rhythmic-event skip-event))
 	)) 
     (SpanEvent
