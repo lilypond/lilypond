@@ -13,7 +13,7 @@ less lyric syllables to a melody.
 % shorthand for Skip Lyric
 sl = \notes { \skip 4 }
 
-\version "2.1.36"
+\version "2.2.0"
 \score {
   <<
   \context Voice = "A"  \notes  {c4 c c c}

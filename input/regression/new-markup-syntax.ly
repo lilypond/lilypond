@@ -2,7 +2,7 @@
 texidoc = "With the new markup syntax, text may be written in various manners."
 }
 
-\version "2.1.36"
+\version "2.2.0"
 
 
 \score {

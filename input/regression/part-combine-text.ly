@@ -9,7 +9,7 @@ texts accordingly.
     }
 
 
-\version "2.1.36"
+\version "2.2.0"
 
 vone = \notes \relative a' { R1 a2    r4 r a a a a }
 vtwo = \notes \relative a' { R1 f4 f4 f4 f f f a a  }

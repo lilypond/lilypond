@@ -1,4 +1,4 @@
-\version "2.1.36"
+\version "2.2.0"
 \header {
 
 texidoc = "The @code{Recording_group_engraver} will record events

@@ -1,4 +1,4 @@
-\version "2.1.36"
+\version "2.2.0"
 
 \header { texidoc= "In lyric extenders, a syllable may be extended over several notes. "}
 

@@ -1,4 +1,4 @@
-\version "2.1.36"
+\version "2.2.0"
 
 \header { texidoc = "Volta repeats may be unfolded through the Scheme
     function @code{unfold-repeats}."

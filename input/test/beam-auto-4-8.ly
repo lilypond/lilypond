@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8

@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header{ texidoc="@cindex Phrasing Slur Height
 The @code{PhrasingSlur} can be made higher in order to avoid collision 
 with other slurs. "

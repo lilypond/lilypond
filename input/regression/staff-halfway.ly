@@ -2,7 +2,7 @@
 \header { texidoc = " Staves starting and ending halfway include clefs
     and bar lines.  " }
 
-\version "2.1.36"
+\version "2.2.0"
 
 \score {
     \new StaffGroup \notes \relative c''  <<

@@ -9,7 +9,7 @@
 "
     }
 
-\version "2.1.36"
+\version "2.2.0"
 
 vone = \notes \relative a' { g2 g    g  g4 g f' c c( c) c c  c ~ c
 			     c2. c4   c
