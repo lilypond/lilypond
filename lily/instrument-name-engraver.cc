@@ -78,7 +78,7 @@ Instrument_name_engraver::create_text ()
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
   
-  }
+}
 
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
