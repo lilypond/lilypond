@@ -20,7 +20,6 @@ Typesetting music is a complex task, whereas the message that printed
 music conveys is usually a simple one. GNU LilyPond is a try at providing
 a simple interface for setting music.
 
-
 =head1 OPTIONS
 
 =over 5
@@ -93,9 +92,9 @@ multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
 
 =item *
 
-beams, slurs, chords, super/subscripts (accents and text), triplets,
-general n-plet (triplet, quadruplets, etc.), lyrics, transposition
-dynamics (both absolute and hairpin style)
+beams, slurs, ties, chords, super/subscripts (accents and text),
+triplets, general n-plet (triplet, quadruplets, etc.), lyrics,
+transposition dynamics (both absolute and hairpin style)
 
 =item *
 
@@ -244,7 +243,7 @@ B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
 
 =over 4
 
-=item lilygut(?)
+=item lilygut
 
 On technical details of LilyPond
 
@@ -260,9 +259,7 @@ Goals of the GNU LilyPond project.
 
 The GNU LilyPond FAQ list
 
-
-
-=item http://?
+=item http://
 
 The GNU Music project. GNU LilyPond is part of the GNU Music
 project. For more information on the GNU Music project, 
@@ -337,8 +334,8 @@ After long and hard thinking, I came up with an algorithm for the
 horizontal spacing of multiple staffs (april 1996) I coded it (and did
 not test it). After starting with this fundamental piece, I slowly
 added the stages which come before spacing, and after.  A half year
-later later, I had a first working version, (october 1996).  I
-announced Patchlevel 0.0.7 (or 8) to the mutex list after asking some
-technical details on spacing; it was downloaded approximately 4 times.
-Then I got the hang of it, and in the subsequent two months, I coded
-until it had doubled in size (pl 23).
+later, I had a first working version, (october 1996).  I announced
+Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
+details on spacing; it was downloaded approximately 4 times.  Then I
+got the hang of it, and in the subsequent two months, I coded until it
+had doubled in size (pl 23).
