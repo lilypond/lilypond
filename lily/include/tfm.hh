@@ -161,6 +161,8 @@ public:
   Tfm_header header_;
   Array<Tex_font_char_metric> char_metrics_;
   Array<int> ascii_to_metric_idx_;
+
+  String path_;
 private:
   Tex_font_metric ();
 };

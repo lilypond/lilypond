@@ -409,13 +409,17 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 	  && gh_procedure_p (type_p)
 	  && gh_call1 (type_p, val) == SCM_BOOL_F)
 	{
+	  SCM errport = scm_current_error_port ();
 	  ok = false;
 	  SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
 	  SCM type_name = gh_call1 (typefunc, type_p);
-	  warning (_f ("Failed typecheck for `%s', value `%s' must be of type `%s'",
-		       ly_symbol2string (sym).ch_C (),
-		       ly_scm2string (ly_write2scm( val)).ch_C (),
-		       ly_scm2string (type_name).ch_C ()));
+
+	  scm_puts (_f ("Failed typecheck for `%s', value `%s' must be of type `%s'",
+			ly_symbol2string (sym).ch_C (),
+			ly_scm2string (ly_write2scm( val)).ch_C (),
+			ly_scm2string (type_name).ch_C ()).ch_C (),
+		    errport);
+	  scm_puts ("\n", errport);		      
 	}
     }
   return ok;

@@ -838,7 +838,7 @@ msgstr "kan niet vinden of scheppen: `%s'"
 msgid ""
 "Can't find property type-check for `%s'.  Perhaps you made a typing error?"
 msgstr ""
-"Kan geen type-controle vinden voor property `%s'.  Misschien een tiepfout?"
+"Kan geen type-controle vinden voor property `%s'.  Misschien een tikfout?"
 
 #. warning () ?
 #: translator-group.cc:420

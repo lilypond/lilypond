@@ -25,11 +25,8 @@ class Engraver : public virtual Translator {
     
   friend class Engraver_group_engraver;
 protected:
-  /// utility
-  //   Paper_def * paper_l() const;
-
   /*
-    Call this last thing.
+    Call this when you're finished with ELEM_P.
    */
   virtual void typeset_grob (Grob*elem_p);
   /*

@@ -100,6 +100,8 @@ this and other documentation.
 @c Move to Reference Manual?
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
 * convert-ly::                     Upgrading input files.
+* Internals::
+* Development::                    Some hints on developing for LilyPond.
 * Index::                          Unified index.
 @end menu
 
@@ -125,6 +127,8 @@ this and other documentation.
 @mbinclude refman.itely
 
 @include convert-ly.itexi
+
+@include development.itexi
 
 @node Index, , , Top
 @unnumbered Index

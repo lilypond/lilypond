@@ -1,0 +1,866 @@
+@node Internals, , , top
+
+@menu
+* Conversion stages::              Lilypond is a multi-pass program.
+
+* Grobs::                          Graphical object  
+* Engraver::
+* Music_iterator::
+* Music::
+* Molecule::                       Molecule are stand-alone descriptions of output
+@end menu
+
+
+@node Conversion stages, , , Internals
+
+When translating the input to notation, there are number of distinct
+phases.  We list them here:
+
+
+@table @samp
+
+@item Parsing:
+
+The .ly file is read, and converted to a list of @code{Scores}, which
+each contain @code{Music} and paper/midi-definitions.
+
+@item Interpreting music
+
+All music events are "read" in the same order as they would be played
+(or read from paper). At every step of the interpretation, musical
+events are delivered to
+interpretation contexts,
+@cindex engraver
+which use them to build grobs (or MIDI objects, for MIDI output).
+
+@item Prebreaking
+
+At places where line breaks may occur, clefs and bars are prepared for
+a possible line break. 
+
+@item Preprocessing
+
+In this stage, all information that is needed to determine line breaking
+is computed. 
+
+@item Break calculation:
+
+The lines and horizontal positions of the columns are determined.
+
+@item Breaking
+
+Relations between all grobs are modified to reflect line breaks. See
+also @ref{Pointer substitution}.
+
+@item Outputting:
+
+All vertical dimensions and spanning objects are computed, and all grobs
+are output, line by line.
+
+@end table
+
+
+@node Grobs, , , Internals
+@section Grobs
+
+This section is about Grobs (short for Graphical Objects), which are
+formatting objects used to create the final output. This material is
+normally the domain of LilyPond gurus, but occasionally, a normal user
+also has to deal with grobs.
+
+The most simple interaction with Grobs are when you use
+@code{\override}:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This piece of lily input causes all stem objects to be stem-up
+henceforth.  In effect, you are telling lilypond to extend the defintion
+of the "Stem" grob with the setting @code{direction := 1}.  Of course
+there are many more ways of customizing Lily output, and since most of
+them involve Grobs in some form, this section explains some details of
+how grobs work.
+
+@menu
+* What is a grob?::
+* Callbacks::
+* Setting grob properties::
+* Items and Spanners::
+* Pointer substitution::
+@end menu
+
+@node What is a grob?, , , Grobs
+
+In music notation, lots of symbols are related in some way.  You can
+think of music notation as a graph where nodes are formed by the
+symbols, and the arcs by their relations. A grob is node in that
+graph. A grob stores references to other grobs, the directed edges in
+the graph.
+
+The objective of this big graph of grobs, is to specify the notation
+problem. The solution of this problem is a description of the printout
+that is in closed form, i.e. but a list of values.  These values are
+Molecules. (see @ref{Molecules})
+
+All grobs have an X and Y-position on the page.  These X and Y positions
+are stored in a relative format, so they can easily be combined by
+stacking them, hanging one grob to the side of another, and coupling
+them into a grouping-grob.
+
+Each grob has a reference point, or parent: the position of a grob is
+stored relative to that reference point. For example the X-reference
+point of a staccato dot usually is the note head that it applies
+to. Whenever the note head is moved, the staccato dot moves along
+automatically.
+
+If you keep following offset reference points, you will always end up at
+the root-object. This root object is called @code{Line_of_score}
+@ref{(lilypond-internals)Element Line_of_score}, and it represents a
+system (ie. a line of music).
+
+All grobs carry a set of grob-properties.  In the Stem example above,
+the property @code{direction} is set to value @code{1}.  The function
+that draws the symbol (@code{Stem::brew_molecule}) uses the value of
+@code{direction} to determine how to print the stem and the flag.  The
+appearance of a grob is determined solely by the values of its
+properties.
+
+Often, a grob also is associated with a symbol. On the other hand,
+Some grobs do not print any symbols, but take care of grouping
+objects. For example, there is a separate grob that stacks staffs
+vertically, so they are not printed in overstrike. The NoteCollision
+@ref{(lilypond-internals)Element NoteCollision} is another example of
+an abstract grob.  It only moves around chords, but doesn't print
+anything.
+
+A complete list of grob types is found in
+@ref{(lilypond-internals)Elements}
+
+Grobs are created in the "Interpreting music" phase, by things in
+LilyPond called engravers.  In this phase of the translation, a load of
+grobs are created, and they are linked into a giant network of objects.
+This network of grobs forms the "specification" of the print
+problem. This problem is then solved: configurations, directions,
+dimensions, line breaks, etc.  are calculated. Finally,   the printing
+description in the form of Molecules (@ref{Molecule})  is extracted from
+the network. These are then dumped into the output file
+
+@node Callbacks, , , Grobs
+
+Offsets of grobs are relative to a parent reference point. Most
+positions are not known when an object is created, so these are
+calculated as needed. This is done by adding a callback for a specific
+direction.
+
+Suppose you have the following code in a .ly file.
+@example
+        #(define (my-callback gr axis)
+                (*  2.0 (get-gr-property grob 'direction))
+        )
+
+....
+
+        \property Voice.Stem \override #'Y-offset-callbacks = #(list
+                        my-callback)
+@end example
+
+When the Y-offset of a Stem object is needed, LilyPond will
+automatically execute all callbacks for that object. In this case, it
+will find @code{my-callback}, and execute that. The result is that the
+stem is translated by two staff spaces in its direction.
+
+(note: Y-offset-callbacks is also a property) 
+
+
+Offset callbacks can be stacked, ie.
+
+@example
+        \property .... \override #'Y-offset-callbacks = #(list
+                callback1 callback2 callback3)
+
+@end example
+
+The callbacks will be executed in the order callback3 callback2
+callback1. This is used for quantized positioning: the staccato dot is
+above or below a note head, and it must not be on a staff-line.
+
+To achieve this, for the staccato there are two callbacks: one callback
+that positions the grob above or below the note head, and one callback
+that rounds the Y-position of the grob to the nearest open space.
+
+Similarly, the size of a grob are determined through callbacks, settable
+with grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
+There can be only one extent-callback for each axis. No callback (value #f)
+means: "empty in this direction". If you fill in a pair, that pair
+hard-codes the extent in that coordinate.
+
+
+@node Setting grob properties, , , Grobs
+
+Grob properties are stored as GUILE association lists, with symbols as
+keys.   From C++, element properties can be accessed using the functions
+
+@example
+  SCM  get_grob_property (SCM) const;
+  void set_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (const char * , SCM val);
+  void set_immutable_grob_property (SCM key, SCM val);  
+  void set_grob_property (SCM , SCM val);  
+  void set_grob_pointer (const char*, SCM val);
+  SCM  remove_grob_property (const char* nm);
+@end example
+
+In GUILE, LilyPond provides
+
+@example
+        ly-get-grob-property GROB SYMBOL
+        ly-set-grob-property GROB SYMBOL VALUE
+@end example
+
+All lookup functions identify undefined properties with 
+end-of-list (ie. @code{'()} in Scheme or @code{SCM_EOL} in C)
+
+Properties are stored in two ways:
+@itemize @bullet
+@item mutable properties:
+element properties that change from object to object. The storage of
+these are private to a grob. Typically this is used to store lists of
+pointers to other grobs
+
+@item immutable properties:
+element properties that are shared across different grobs of the same
+type. The storage is shared, and hence it is read-only. Typically, this
+is used to store function callbacks, and values for shared element
+properties are read from @file{scm/element-description.scm}.
+@end itemize
+
+There are two ways to manually set grob properties.
+
+You can change immutable grob properties. This is done with the
+\override syntax:
+
+@example
+        \property Voice.Stem \override #'direction = #1
+@end example
+
+This will push the entry @code{'(direction . 1)} on the immutable
+property list for stems, in effect overriding the setting from
+@file{scm/element-description.scm}. This can be undone by 
+
+@example
+        \property Voice.stem \revert #'direction
+@end example
+
+If you use this a lot, this gets old quickly. So we also have a
+shorthand,
+
+@example
+        \property Context.GrobType \set #'prop = #VAL
+@end example
+
+this does a @code{\revert} followed by a @code{\override}
+
+The second way is \outputproperty. This construct looks like
+
+@example
+        \context ContextName \outputproperty @var{pred} #@var{sym} = #@var{val}
+@end example
+
+In this case, in every grob that satisfies @var{pred}, the property
+assignment @var{sym} = @var{val} is done.  For example
+
+@example
+        \outputproperty
+                #(lambda (gr) (string? (ly-get-grob-property gr
+                        'text)))
+                #'extra-offset = #'(-1.0 . 0.0)
+@end example
+
+This shifts all elements that have a @code{text} property one staff
+space to the left. This mechanism is rather clumsy to use, but it allows
+you tweak any setting of any grob.
+
+@node Items and Spanners, , , Grobs
+@unnumberedsubsec Items and Spanners
+
+Grobs can also be distinguished in their role in the horizontal spacing.
+A lot of grobs define constraints on the spacing by their sizes. For
+example, note heads, clefs, stems, and all other symbols with a fixed
+shape.  These grobs form a subtype called @code{Item}.
+
+Other grobs have a shape that depends on the horizontal spacing. For
+example, slur, beam, tie, etc. These grobs form a subtype called
+@code{Spanner}. All spanners have two span-points (these must be
+@code{Item}s), one on the left and one on the right. The left bound is
+also the X-reference point.
+
+Some items need special treatment for line breaking. For example, a
+clef is normally only printed at the start of a line (ie. after a line
+break).  To model this, `breakable' items (clef, key signature, bar lines,
+etc.) are copied twice. Then we have three versions of each breakable
+item: one version if there is no line break, one version that is printed
+before the line break (at the end of a system), one version that is
+printed after the line break.
+
+Whether these versions are visible and take up space, is determined by
+the outcome of the visibility-lambda. This is a function taking a
+direction (-1, 0 or 1) and returns a cons of booleans, signifying wether
+this grob should be transparent and invisible.
+
+@node Pointer substitution, , , Grobs
+@unnumberedsubsec Pointer substitution
+
+
+Symbols that cross line-breaks (such as slurs) cause some more
+complications. When a  spanner crosses a line-break, then the spanner is
+"broken into pieces", for every line that the spanner is in, a copy of
+the grob is made. A substitution process redirects all grob-reference
+so that spanner grob will only reference other grobs in the same line.
+
+@node Engraver, , , Internals
+
+@node Music_iterator, , , Internals
+
+@node Music, , , Internals
+
+@node Molecule, , , Internals
+
+The objective of any typesetting system is to put ink on paper in the
+right places. For LilyPond, this final stage is left to the TeX and the
+printer subsystem. For lily, the last stage in processing a score is
+outputting a description of what to put where.  This description roughly
+looks like
+
+@example
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y) 
+@end example
+
+you merely have to look at the tex output of lily to see this.
+Internally these instructions are encoded in Molecules:@footnote{At some
+point LilyPond also contained Atom-objects, but they have been replaced
+by Scheme expressions.}.  A molecule is an object that combines
+dimension information (how large is this glyph ?) with
+what-to-print-where.
+
+Conceptually, Molecules can be constructed from Scheme code, by
+translating a Molecule and by combining two molecules. In BNF notation:
+
+@example
+ Molecule = COMBINE Molecule Molecule
+           | TRANSLATE Offset Molecule
+	   | GLYPH-DESCRIPTION
+	   ;
+@end example
+
+(refer to the C++ code for more details). All visible,
+ie. non-transparent, grobs have a callback to create a Molecule. The
+name of the property is @code{molecule-callback}, and its value should
+be a Scheme function taking one argument (the grob) and returning a
+Molecule.
+
+
+
+@node Development, , , top
+@chapter Development
+
+@menu
+* Coding standards::
+* Making patches::
+* Localisation::
+@end menu
+
+@section CodingStyle - standards while programming for GNU LilyPond
+
+As a general rule, you should always try to continue computations, even
+if there is some kind of error. When the program stops, it is often very
+hard for a user to pinpoint what part of the input causes an
+error. Finding the culprit is much easier if there is some viewable
+output.
+
+So functions and methods do not return errorcodes, they never crash, but
+report a programming_error and try to carry on.
+
+@unnumberedsubsec Languages
+
+C++ and Python are preferred.  Python code should use an indent of 8,
+using TAB characters.
+
+@unnumberedsubsec Filenames
+
+Definitions of classes that are only accessed via pointers
+(*) or references (&) shall not be included as include files.
+
+filenames
+
+@example 
+	".hh"	Include files
+	".cc"	Implementation files
+	".icc"	Inline definition files
+	".tcc"	non inline Template defs
+@end example 
+
+in emacs:
+
+@example 
+	(setq auto-mode-alist
+	      (append '(("\\.make$" . makefile-mode)
+			("\\.cc$" . c++-mode)
+			("\\.icc$" . c++-mode)
+			("\\.tcc$" . c++-mode)
+			("\\.hh$" . c++-mode)
+			("\\.pod$" . text-mode)		
+			)
+		      auto-mode-alist))
+@end example 
+
+
+The class Class_name is coded in @file{class-name.*}
+
+@unnumberedsubsec Indentation
+
+Standard GNU coding style is used.   In emacs:
+
+@example 
+	(add-hook 'c++-mode-hook
+		  '(lambda() (c-set-style "gnu")
+		     )
+		  )
+@end example 
+
+If you like using font-lock, you can also add this to your @file{.emacs}:
+
+@example 
+	(setq font-lock-maximum-decoration t)
+	(setq c++-font-lock-keywords-3 
+	      (append
+	       c++-font-lock-keywords-3
+	       '(("\\b\\([a-zA-Z_]+_\\)\\b" 1 font-lock-variable-name-face)
+	       ("\\b\\([A-Z]+[a-z_]+\\)\\b" 1 font-lock-type-face))
+	       ))
+@end example 
+
+@unnumberedsubsec Classes and Types
+
+@example 
+	This_is_a_class
+@end example 
+
+@unnumberedsubsec Members
+
+@example 
+	Class::member ()
+	Type Class::member_type_
+	Type Class::member_type ()
+@end example 
+
+the @code{type} is a Hungarian notation postfix for @code{Type}. See below
+
+@unnumberedsubsec Macros
+
+Macro names should be written in uppercase completely.
+
+@unnumberedsubsec Broken code
+
+Try not to write broken code. This includes hardwired dependencies,
+hardwired constants, slow algorithms and obvious limitations. If you can
+not avoid it, mark the place clearly, and add a comment explaining
+shortcomings of the code.
+
+@unnumberedsec Hungarian notation naming convention
+
+The C++ part of LilyPond uses a naming convention derived from the
+so-called @emph{Hungarian Notation}.  Macros, @code{enum}s and
+@code{const}s are all uppercase, with the parts of the names separated
+by underscores.
+
+The hungarian notation  is to be used when variables are not declared
+near usage (mostly in member variables and functions).
+
+@unnumberedsubsec Types
+
+@table @samp
+@item @code{byte}
+    unsigned char. (The postfix _by is ambiguous)
+@item @code{b}
+    bool
+@item @code{bi}
+    bit
+@item @code{ch}
+    char
+@item @code{f}
+    float
+@item @code{i}
+    signed integer
+@item @code{str}
+    string class
+@item @code{sz}
+    Zero terminated c string
+@item @code{u}
+    unsigned integer
+@end table
+
+@unnumberedsubsec User defined types
+
+@example 
+
+	/*
+                Slur blah. blah.
+	*/
+	class Slur @{
+                ...
+        @};
+	Slur* slur_p = new Slur;
+ 
+@end example 
+
+@unnumberedsubsec Modifiers
+
+The following types modify the meaning of the prefix. 
+These are preceded by the prefixes:
+
+@table @samp
+@item @code{a}
+    array
+@item @code{arr}
+    user built array.
+@item @code{c}
+    const. Note that the proper order is @code{Type const}
+        and not @code{const Type}
+@item @code{C}
+    A const pointer. This would be equivalent to @code{_c_l}, but since any
+    "const" pointer has to be a link (you can't delete a const pointer),
+    it is superfluous.
+@item @code{l}
+    temporary pointer to object (link)
+@item @code{p}
+    pointer to newed object
+@item @code{r}
+    reference
+@end table
+
+@unnumberedsubsec Adjective
+
+Adjectives such as global and static should be spelled out in full.
+They come before the noun that they refer to, just as in normal english.
+
+@example 
+
+foo_global_i: a global variable of type int commonly called "foo".
+ 
+@end example 
+
+static class members do not need the static_ prefix in the name (the
+Class::var notation usually makes it clear that it is static)
+
+@table @samp
+@item @code{loop_i}
+    Variable loop: an integer
+@item @code{u}
+    Temporary variable: an unsigned integer
+@item @code{test_ch}
+    Variable test: a character
+@item @code{first_name_str}
+    Variable first_name: a String class object
+@item @code{last_name_ch_a}
+    Variable last_name: a @code{char} array
+@item @code{foo_i_p}
+    Variable foo: an @code{Int*} that you must delete
+@item @code{bar_i_l}
+    Variable bar: an @code{Int*} that you must not delete
+@end table
+
+Generally default arguments are taboo, except for nil pointers.
+
+The naming convention can be quite conveniently memorised, by
+expressing the type in english, and abbreviating it
+
+@example 
+
+	static Array<int*> foo
+ 
+@end example 
+
+@code{foo} can be described as "the static int-pointer user-array", so you get
+
+@example 
+
+	foo_static_l_arr
+ 
+@end example 
+
+
+@unnumberedsec Miscellaneous
+    
+For some tasks, some scripts are supplied, notably creating patches, a
+mirror of the website, generating the header to put over cc and hh
+files, doing a release.
+
+Use them.
+
+@node Making patches, , , Top
+
+
+@unnumberedsec  Track and distribute your code changes
+
+This page documents how to distribute your changes to GNU lilypond
+    
+We would like to have unified context diffs with full pathnames.  A
+script automating supplied with Lily.
+
+Distributing a change normally goes like this:
+
+@itemize @bullet
+@item make your fix/add your code 
+@item Add changes to CHANGES, and add yourself to Documentation/topdocs/AUTHORS.texi
+@item generate a patch, 
+@item e-mail your patch to one of the mailing lists
+    gnu-music-discuss@@gnu.org or bug-gnu-music@@gnu.org
+@end itemize
+
+Please do not send entire files, even if the patch is bigger than the
+original.  A patch makes it clear what is changed, and it won't
+overwrite previous (not yet released) changes.
+
+@unnumberedsec Generating a patch
+
+Simple version: run
+
+@example
+        make -C lilypond-x.y.z/ distclean
+        make -C lilypond-x.y.z.NEW/ distclean
+        diff -urN lilypond-x.y.z/ lilypond-x.y.z.NEW/
+@end example
+
+Complicated (but automated) version:
+
+In @file{VERSION}, set MY_PATCH_LEVEL:
+
+@example 
+
+    VERSION:
+	...
+	MY_PATCH_LEVEL=jcn1
+ 
+@end example 
+
+In @file{CHANGES}, enter a summary of changes:
+
+@example 
+	0.1.73.jcn1
+        ===========
+
+        * A concise, yet clearly readable description of what changed.
+
+@end example 
+
+Then, from the top of Lily's source tree, type
+
+@example 
+    make release
+@end example 
+
+These handy python scripts assume a directory structure which looks
+like:
+
+@example 
+
+    lilypond -> lilypond-x.y.z   # symlink to development directory
+    lilypond-x.y.z/              # current development
+    patches/ 		         # patches between different releases
+    releases/                    # .tar.gz releases
+
+@end example 
+
+@unnumberedsec Applying patches
+
+[outdated: please use xdeltas]
+
+If you're following LilyPond development regularly, you probably want to
+download just the patch for each subsequent release.
+After downloading the patch (into the patches directory, of course), simply 
+apply it:
+
+@example 
+
+    gzip -dc ../patches/lilypond-0.1.74.diff.gz | patch -p1 -E
+ 
+@end example 
+
+and don't forget to make automatically generated files:
+
+@example 
+
+    autoconf footnote(patches don't include automatically generated files, 
+    i.e. file(configure) and files generated by file(configure).)
+
+    configure
+ 
+@end example 
+
+@node Localisation, , , Top
+
+@chapter Localisation - User messages in LilyPond
+
+@section Introduction
+
+This document provides some guidelines for uniformising user messages.
+In the absence of other standards, we'll be using these rules when coding
+ for LilyPond.  Hopefully, this can be replaced by general GNU
+guidelines in the future.
+
+Not-preferred messages are marked with @code{+}.  By convention,
+agrammatical examples are marked with @code{*}.
+
+@section Guidelines
+
+@itemize @bullet
+
+@item
+Every message to the user should be localised (and thus be marked
+for localisation).  This includes warning and error messages.
+
+@item
+Don't localise/gettextify:
+
+@itemize @minus
+@item @code{programming_error ()}s
+@item @code{programming_warning ()}s
+@item debug strings
+@item output strings (PostScript, TeX)
+@end itemize
+
+@item
+Messages to be localised must be encapsulated in @code{_ (STRING)}
+or @code{_f (FORMAT, ...)}.  Eg:
+
+@example
+warning (_ ("Need music in a score"));
+error (_f ("Can't open file: `%s'", file_name));
+@end example
+
+In some rare cases you may need to call @code{gettext ()} by hand.
+This happens when you pre-define (a list of) string constants for later
+use.  In that case, you'll probably also need to mark these string
+constants for translation, using @code{_i (STRING)}.  The @code{_i}
+macro is a no-op, it only serves as a marker for @file{xgettext}.
+
+@example
+char const* messages[] = @{
+  _i ("enable debugging output"),
+  _i ("ignore lilypond version"),
+  0
+@};
+
+void
+foo (int i)
+@{
+  puts (gettext (messages [i]));
+@}
+@end example
+
+See also
+@file{flower/getopt-long.cc} and @file{lily/main.cc}.
+
+@item
+Don't use leading or trailing whitespace in messages.
+
+@item
+Messages containing a final verb, or a gerund (@code{-ing}-form)
+always start with a capital.  Other (simpler) messages start with
+a lowercase letter:
+
+@example
+The word `foo' is not declared.
+`foo': not declared.
+Not declaring: `foo'.
+@end example
+
+@item
+To avoid having a number of different messages for the same situation,
+we'll use quoting like this @code{"message: `%s'"} for all strings.
+Numbers are not quoted:
+
+@example
+_f ("Can't open file: `%s'", name_str)
+_f ("Can't find charater number: %d", i)
+@end example
+
+@item
+Think about translation issues.  In a lot of cases, it is better to
+translate a whole message.  The english grammar mustn't be imposed on
+the translator.  So, iso
+
+@example
+_ ("Stem at ") + moment.str () + _(" doen't fit in beam")
+@end example
+
+@noindent
+have
+
+@example
+_f ("Stem at %s doen't fit in beam", moment.str ())
+@end example
+
+@item
+Split up multi-sentence messages, whenever possible.  Instead of
+
+@example
+warning (_f ("out of tune!  Can't find: `%s', "Key_engraver"));
+
+warning (_f ("Can't find font `%s', loading default", 
+             font_name));
+@end example
+
+@noindent
+rather say:
+
+@example
+warning (_ ("out of tune:");
+warning (_f ("Can't find: `%s', "Key_engraver"));
+
+warning (_f ("Can't find font: `%s', font_name));
+warning (_f ("Loading default font"));
+@end example
+
+@item
+If you must have multiple-sentence messages, use full punctuation.
+Use two spaces after end of sentence punctuation.
+No punctuation (esp. period) is used at the end of simple messages.
+
+@example
+   _f ("Non-matching braces in text `%s', adding braces", text)
+   _ ("Debug output disabled.  Compiled with NPRINT.")
+   _f ("Huh?  Not a Request: `%s'.  Ignoring.", request)
+@end example
+
+@item
+Don't modularise too much; a lot of words cannot be translated
+without context.
+It's probably safe to treat most occurences of words like
+stem, beam, crescendo as separately translatable words.
+
+@item
+When translating, it is preferrable to put interesting information 
+at the end of the message, rather than embedded in the middle.
+This especially applies to frequently used messages, even if this
+would mean sacrificing a bit of eloquency.  This holds for original
+messages too, of course.
+
+@example
+    en: can't open: `foo.ly'
++   nl: kan `foo.ly' niet openen (1)
+    kan niet openen: `foo.ly'*   (2)
+    niet te openen: `foo.ly'*    (3)
+@end example
+
+The first nl message, although gramatically and stylishly correct,
+is not friendly for parsing by humans (even if they speak dutch).
+I guess we'd prefer something like (2) or (3).
+
+@item
+Please don't run make po/po-update with GNU gettext < 0.10.35
+
+@end itemize

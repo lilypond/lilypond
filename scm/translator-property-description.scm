@@ -270,11 +270,11 @@ itself.  ")
 (translator-property-description 'voltaSpannerDuration moment? "maximum duration of the volta bracket.
 
     Set to a duration to control the size of the brackets printed by
-@code{lternative}.  It specifies the number of whole notes duration
+@code{\\alternative}.  It specifies the number of whole notes duration
 to use for the brackets.  This can be used to shrink the length of
 brackets in the situation where one alternative is very large.  It may
 have odd effects if the specified duration is longer than the music
-given in an @code{lternative}.
+given in an @code{\\alternative}.
 ")
 (translator-property-description 'weAreGraceContext boolean? "")
 (translator-property-description 'whichBar string? "This property is read to determine what type of barline to create.

@@ -67,7 +67,8 @@ All_font_metrics::find_afm (String name)
       if (verbose_global_b)
 	progress_indication ("[" + path);
       val = read_afm_file (path);
-
+      unsmob_metrics (val)->path_ = path;
+      
       unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
 
       if (verbose_global_b)
@@ -85,7 +86,8 @@ All_font_metrics::find_afm (String name)
       if (tfm->info_.checksum != afm->checksum_)
 	{
 	  String s = _f ("checksum mismatch for font file: `%s'", path.ch_C ());
-	  s+= "\n";
+	  s += _f ("does not match: `%s'", tfm->path_.ch_C()); // FIXME
+	  s += "\n";
 	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
 	  s += " AFM: " + to_str ((int) afm->checksum_);
 	  s += "\n";
@@ -122,12 +124,15 @@ All_font_metrics::find_tfm (String name)
       if (path.empty_b())
 	return 0;
 
+      
       if (verbose_global_b)
 	progress_indication ("[" + path);
       val = Tex_font_metric::make_tfm (path);
+
       if (verbose_global_b)
 	progress_indication ("]");
 
+      unsmob_metrics (val)->path_ = path;
       unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
       tfm_p_dict_->set (sname, val);
 
