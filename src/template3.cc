@@ -4,9 +4,8 @@
 #include "list.cc"
 #include "plist.cc"
 #include "cursor.cc"
-PL_instantiate(Atom);
-PL_instantiate(Command);
-PL_instantiate(Request);
 
-
-
+IPL_instantiate(Atom);
+IPL_instantiate(Command);
+IPL_instantiate(Request);
+L_instantiate(void*);
