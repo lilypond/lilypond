@@ -975,7 +975,18 @@ c4 c  g' g  a a
 %@}
 @end example
 
+There is a special statement that really is a kind of comment. The
+version statement marks for which version of LilyPond the file was
+written. To mark a file for version 2.1.17, use
 
+@example
+\version "2.1.17"
+@end example
+
+These annotations make future upgrades of LilyPond go more
+smoothly. Changes in the syntax are handled with a special program,
+@file{convert-ly} (see @ref{Invoking convert-ly}), and it uses
+@code{\version} to determine what rules to apply.
 
 
 @node Printing lyrics
