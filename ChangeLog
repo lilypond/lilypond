@@ -1,5 +1,7 @@
 2004-04-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* ly/nederlands.ly: add comment about digits.
+
 	* lily/scaled-font-metric.cc (derived_mark): idem.
 
 	* scm/encoding.scm (make-encoding-mapping): change permutation to mapping.
