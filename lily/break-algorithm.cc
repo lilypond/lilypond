@@ -13,7 +13,7 @@
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "cpu-timer.hh"
-#include "command-request.hh"
+
 #include "simple-spacer.hh"
 #include "group-interface.hh"
 

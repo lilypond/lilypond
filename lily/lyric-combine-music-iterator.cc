@@ -10,7 +10,7 @@
 #include "translator-group.hh"
 #include "lyric-combine-music-iterator.hh"
 #include "lyric-combine-music.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "note-head.hh"
 #include "grob.hh"
 

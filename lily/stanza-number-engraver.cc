@@ -94,7 +94,7 @@ Stanza_number_engraver::create_text (SCM txt)
 ENTER_DESCRIPTION(Stanza_number_engraver,
 /* descr */       "",
 /* creats*/       "StanzaNumber",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "",
 /* reads */       "stz stanza",
 /* write */       "");

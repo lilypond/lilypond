@@ -1,6 +1,6 @@
 #include "engraver.hh"
 #include "text-item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "item.hh"
 
 class Figured_bass_engraver : public Engraver

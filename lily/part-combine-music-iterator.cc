@@ -9,7 +9,7 @@
 #include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
 #include "translator-group.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
 #include "warn.hh"
@@ -159,7 +159,7 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 	    {
 	      SCM d = m->get_mus_property ("duration");
 	      if (d == SCM_EOL)
-		m->origin ()->warning ("Rhythmic_req has no duration\n");
+		m->origin ()->warning ("Music has no duration\n");
 	      else
 		*durations = gh_cons (d, *durations);
 	    }

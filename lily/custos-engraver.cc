@@ -15,7 +15,7 @@
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "musical-request.hh"
+#include "request.hh"
 
 /*
   This class implements an engraver for custos symbols.

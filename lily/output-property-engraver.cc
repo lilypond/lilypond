@@ -39,8 +39,7 @@ protected:
 bool
 Output_property_engraver::try_music (Music* m)
 {
-  if (m->get_mus_property ("iterator-ctor") ==
-      Output_property_music_iterator::constructor_proc)
+  if (m->is_mus_type ("layout-instruction"))
     {
       props_.push (m);
       return true;
@@ -84,7 +83,7 @@ ENTER_DESCRIPTION(Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function
 to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",
-/* accepts */     "general-music",
-/* acks  */      "grob-interface",
+/* accepts */     "layout-instruction",
+/* acks  */       "grob-interface",
 /* reads */       "",
 /* write */       "");

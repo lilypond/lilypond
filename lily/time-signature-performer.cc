@@ -67,4 +67,4 @@ Time_signature_performer::stop_translation_timestep ()
     }
 }
 
-ENTER_DESCRIPTION(Time_signature_performer,"","","general-music","","","");
+ENTER_DESCRIPTION(Time_signature_performer,"","","","","","");

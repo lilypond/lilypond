@@ -4,7 +4,7 @@
     (AbortEvent
      . (
 	(description .  "Abort currently running spanners.")
-	(internal-class-name . "Span_req")
+	(internal-class-name . "Request")
 	(span-type . "abort")
 	(types . (general-music event abort-event))
 	))
@@ -14,13 +14,32 @@
 	(internal-class-name .  "Request")
 	(types . (general-music arpeggio-event event))
 	))
+
+    ;; todo: use articulation-event for slur as well.
+    ;; separate non articulation scripts  
     (ArticulationEvent
      . (
 	(description .  "")
 
-	(internal-class-name . "Articulation_req")
+	(internal-class-name . "Request")
 	(types . (general-music event articulation-event script-event))
 	)) 
+       (AutoChangeMusic
+     . (
+	(description .  "")
+
+	(internal-class-name . "Music_wrapper")
+	(iterator-ctor . ,Auto_change_iterator::constructor)
+	(types . (general-music music-wrapper-music auto-change-instruction))
+	))
+     (BarCheck
+      . (
+	(description .  "")
+
+	 (internal-class-name . "Music")
+	 (types . (general-music bar-check))
+	 (iterator-ctor . ,Bar_check_iterator::constructor)
+	 ))
     (BassFigureEvent
      . (
 	(description .  "")
@@ -58,7 +77,28 @@
 	(internal-class-name . "Request")
 	(types . (general-music event busy-playing-event))
 	)) 
-    (ExtenderEvent
+    (ContextSpeccedMusic
+     . (
+	(description .  "")
+
+	(internal-class-name . "Context_specced_music")
+	(types . (context-specification general-music music-wrapper-music))
+	))
+   (CrescendoEvent
+     . (
+	(description .  "")
+
+	(internal-class-name . "Request")
+	(types . (general-music dynamic-event crescendo-event event))
+	)) 
+    (DecrescendoEvent
+     . (
+	(description .  "")
+
+	(internal-class-name . "Request")
+	(types . (general-music dynamic-event decrescendo-event event))
+	)) 
+   (ExtenderEvent
      . (
 	(description .  "")
 
@@ -94,12 +134,24 @@
 	(internal-class-name . "Key_change_req")
 	(types . (general-music key-change-event event))
 	)) 
-    (LyricEvent
+      (LyricCombineMusic
      . (
 	(description .  "")
 
-	(internal-class-name . "Lyric_req")
-	(types . (general-music rhythmic-event event))
+	(internal-class-name . "Lyric_combine_music")
+	(types . (general-music lyric-combine-music))
+	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
+	))
+
+  (LyricEvent
+     . (
+	(description .  "A lyric syllable. Must be entered in lyrics mode, i.e.
+@code{\lyrics @{ twinkle4 twinkle4 @} } .")
+
+	(length . ,music-duration-length) 
+	(compress-procedure . ,music-duration-compress)
+	(internal-class-name . "Request")
+	(types . (general-music rhythmic-event lyric-event event))
 	))
     (LigatureEvent
      . (
@@ -130,6 +182,13 @@
 	(internal-class-name . "Request")
 	(types . (general-music event))
 	))
+    (MultiMeasureRestEvent
+     . (
+	(description . "Rests that may be compressed into Multi rests. Syntax
+@code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
+	(internal-class-name . "Request")
+	(types . (general-music event multi-measure-rest-event))
+	))
     (Music
      . (
 	(description .  "")
@@ -146,12 +205,52 @@
 	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
-    (PorrectusEvent
+ (OverrideProperty
+      . (
+	(description .  "")
+
+	 (internal-class-name . "Music")
+	 (types . (general-music layout-instruction))
+	 (iterator-ctor . ,	Push_property_iterator::constructor)
+	 ))
+
+ (PartCombineMusic
      . (
 	(description .  "")
 
-	(internal-class-name . "Porrectus_req")
-	(types . (general-music event))
+	(internal-class-name . "Part_combine_music")
+	(types . (general-music part-combine-music))
+	(iterator-ctor . ,Part_combine_music_iterator::constructor)
+     ))
+      (PhrasingSlurEvent
+     . (
+	(description . "Start or end phrasing slur. Syntax NOTE \(  and \) NOTE")
+	(internal-class-name . "Request")
+	(types . (general-music span-event phrasing-slur-event slur-event))
+	))
+    (PropertySet
+     . (
+	(description .  "")
+	(internal-class-name . "Music")
+	(types . (layout-instruction general-music))
+	(iterator-ctor . ,Property_iterator::constructor)
+	)
+     )
+     (PropertyUnset
+     . (
+	(description .  "")
+
+	(internal-class-name . "Music")
+	(types . (layout-instruction general-music))
+	(iterator-ctor . ,Property_unset_iterator::constructor)
+	)
+     )
+     (PorrectusEvent
+     . (
+	(description .  "")
+
+	(internal-class-name . "Request")
+	(types . (general-music porrectus-event event))
 	))
     (RepeatedMusic
      . (
@@ -159,7 +258,7 @@
 
 	(internal-class-name . "Repeated_music")
 	(type .  repeated-music)
-	(types . (general-music repeat-music))
+	(types . (general-music repeated-music))
 	))
     (Request
      . (
@@ -177,18 +276,9 @@
 	(compress-procedure . ,music-duration-compress)
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
-    (RhythmicEvent
-     . (
-	(description .  "")
-
-	(internal-class-name . "Rhythmic_req")
-	(length . ,music-duration-length) 
-	(compress-procedure . ,music-duration-compress)
-	(types . (general-music rhythmic-event  event))
-	)) 
     (SequentialMusic
      . (
-	(description .  "")
+	(description .  "Music expressions concatenated. Syntax \sequential @{..@} or simply @{..@} .")
 
 	(internal-class-name . "Sequential_music")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -196,55 +286,21 @@
 	))
     (SimultaneousMusic
      . (
-	(description .  "")
+	(description .  "Music playing together. Syntax: \simultaneous @{ .. @} or < .. >.")
 
 	(internal-class-name . "Simultaneous_music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
 	
 	(types . (general-music simultaneous-music))
 	))
-    (PropertySet
+    (SlurEvent
      . (
-	(description .  "")
+	(description . "Start or end slur. Syntax NOTE(  and )NOTE")
+	(internal-class-name . "Request")
+	(types . (general-music span-event slur-event))
+	))
 
-	(internal-class-name . "Music")
-	(types . (layout-instruction general-music))
-	(iterator-ctor . ,Property_iterator::constructor)
-	)
-     )
-     (PropertyUnset
-     . (
-	(description .  "")
-
-	(internal-class-name . "Music")
-	(types . (layout-instruction general-music))
-	(iterator-ctor . ,Property_unset_iterator::constructor)
-	)
-     )
-     (VoiceSeparator
-      . (
-	(description .  "")
-
-	 (internal-class-name . "Music")
-	 (types . (separator general-music))
-	 ))
-     (BarCheck
-      . (
-	(description .  "")
-
-	 (internal-class-name . "Music")
-	 (types . (general-music bar-check))
-	 (iterator-ctor . ,Bar_check_iterator::constructor)
-	 ))
-     (OverrideProperty
-      . (
-	(description .  "")
-
-	 (internal-class-name . "Music")
-	 (types . (general-music layout-instruction))
-	 (iterator-ctor . ,	Push_property_iterator::constructor)
-	 ))
-     (RevertProperty
+    (RevertProperty
       . (
 	(description .  "")
 
@@ -261,20 +317,12 @@
 	(iterator-ctor . ,Output_property_music_iterator::constructor)
 	(types . (general-music layout-instruction))
 	))
-    (ContextSpeccedMusic
+   
+    (TextSpanEvent
      . (
-	(description .  "")
-
-	(internal-class-name . "Context_specced_music")
-	(types . (context-specification general-music music-wrapper-music))
-	))
-    (AutoChangeMusic
-     . (
-	(description .  "")
-
-	(internal-class-name . "Music_wrapper")
-	(iterator-ctor . ,Auto_change_iterator::constructor)
-	(types . (general-music music-wrapper-music auto-change-instruction))
+	(description . "Start a text spanner like 8va.....|")
+	(internal-class-name . "Request")
+	(types . (general-music span-event text-span-event))
 	))
     (TranslatorChange
      . (
@@ -287,7 +335,6 @@
     (TimeScaledMusic
      . (
 	(description .  "")
-
 	(internal-class-name . "Time_scaled_music")
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
@@ -324,30 +371,14 @@
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
 
-    (LyricCombineMusic
-     . (
-	(description .  "")
-
-	(internal-class-name . "Lyric_combine_music")
-	(types . (general-music lyric-combine-music))
-	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
-	))
-
-    (PartCombineMusic
-     . (
-	(description .  "")
-
-	(internal-class-name . "Part_combine_music")
-	(types . (general-music part-combine-music))
-	(iterator-ctor . ,Part_combine_music_iterator::constructor)
-     ))
+  
     (RequestChord
      . (
 	(description .  "")
 
 	(internal-class-name . "Request_chord")
 	(iterator-ctor . ,Request_chord_iterator::constructor)
-	(types . (general-music simultaneous-music))
+	(types . (general-music request-chord simultaneous-music))
 	)
      )
      
@@ -355,7 +386,7 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Script_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	)) 
     (SkipEvent
@@ -371,23 +402,27 @@
      . (
 	(description .  "")
 
-	(internal-class-name . "Span_req")
+	(internal-class-name . "Request")
 	(types . (general-music event))
 	)) 
-    (DecrescendoEvent
-     . (
-	(description .  "")
-
-	(internal-class-name . "Request")
-	(types . (general-music dynamic-event decrescendo-event event))
-	)) 
-    (CrescendoEvent
-     . (
-	(description .  "")
-
-	(internal-class-name . "Request")
-	(types . (general-music dynamic-event crescendo-event event))
-	)) 
+    (SustainPedalEvent
+      . (
+	 (description . "")
+	 (internal-class-name . "Request")
+	 (types . (general-music pedal-event sustain-pedal-event))
+	 ))
+    (SostenutoEvent
+      . (
+	 (description . "")
+	 (internal-class-name . "Request")
+	 (types . (general-music pedal-event sostenuto-pedal-event))
+	 ))
+    (UnaCordaEvent
+      . (
+	 (description . "")
+	 (internal-class-name . "Request")
+	 (types . (general-music pedal-event una-corda-pedal-event))
+	 ))
     (StringNumberEvent
      . (
 	(description .  "")
@@ -405,7 +440,7 @@
     (TextScriptEvent
      . (
 	(description .  "")
-	(internal-class-name . "Text_script_req")
+	(internal-class-name . "Request")
 	(types . (general-music script-event text-script-event event))
 	)) 
     (TieEvent
@@ -414,6 +449,20 @@
 	(internal-class-name . "Request")
 	(types . (general-music tie-event event))
 	))
+    (TremoloEvent
+     . (
+	(description . "Un measured tremolo.")
+	(internal-class-name . "Request")
+	(types . (general-music event tremolo-event))
+	))
+     (VoiceSeparator
+      . (
+	(description .  "")
+
+	 (internal-class-name . "Music")
+	 (types . (separator general-music))
+	 ))
+    
     ))
 
 (set! music-descriptions
@@ -457,3 +506,24 @@
     (ly-make-bare-music name props)
   ))
 
+
+(define-public (old-span-request->event name)
+  (let
+      (
+       (entry   (assoc
+	 name
+	 '(
+	   ("text" . TextSpanEvent)
+	   ("decrescendo" . DecrescendoEvent)
+	   ("crescendo" . CrescendoEvent)
+	   ("Sustain" . SustainPedalEvent)
+	   ("UnaCorda" . UnaCordaEvent)
+	   ("Sostenuto" . SostenutoEvent)
+	   )))
+       )
+    (if (eq? entry #f)
+	(error (format "Could not find span type ~a" name))
+	
+	(make-music-by-name (cdr entry))
+	)
+  ))

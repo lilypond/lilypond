@@ -15,12 +15,12 @@ TODO:
 
 #include "staff-symbol-referencer.hh"
 #include "breathing-sign.hh"
-#include "musical-request.hh"
-#include "command-request.hh"
+#include "request.hh"
+
 #include "engraver-group-engraver.hh"
 #include "item.hh"
 #include "engraver.hh"
-#include "command-request.hh"
+
 
 class Breathing_sign_engraver : public Engraver {
 public:

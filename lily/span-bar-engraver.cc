@@ -93,7 +93,7 @@ ENTER_DESCRIPTION(Span_bar_engraver,
 /* descr */       "This engraver makes cross-staff barlines: It catches all normal
 bar lines, and draws a single span-bar across them.",
 /* creats*/       "SpanBar",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "bar-line-interface",
 /* reads */       "",
 /* write */       "");

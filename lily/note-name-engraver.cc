@@ -8,7 +8,7 @@
  */
 
 #include "engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "item.hh"
 
 class Note_name_engraver : public Engraver
@@ -74,7 +74,7 @@ Note_name_engraver::Note_name_engraver()
 ENTER_DESCRIPTION(Note_name_engraver,
 /* descr */       "",
 /* creats*/       "NoteName",
-/* accepts */     "general-music",
+/* accepts */     "note-event",
 /* acks  */      "",
 /* reads */       "",
 /* write */       "");

@@ -21,7 +21,7 @@
 ENTER_DESCRIPTION(Score_performer,
 /* descr */       "",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "",
 /* reads */       "",
 /* write */       "");

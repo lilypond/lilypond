@@ -8,7 +8,7 @@
 */
 
 #include "engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "item.hh"
 #include "paper-def.hh"
 #include "font-metric.hh"
@@ -29,7 +29,7 @@ protected:
 public:
   TRANSLATOR_DECLARATIONS(Lyric_engraver);
 private:
-  Lyric_req * req_;
+  Music * req_;
   Item* text_;
 };
 
@@ -45,11 +45,11 @@ Lyric_engraver::Lyric_engraver ()
 bool
 Lyric_engraver::try_music (Music*r)
 {
-  if (Lyric_req* l = dynamic_cast <Lyric_req *> (r))
+  if (r->is_mus_type ("lyric-event"))
     {
       if (req_)
 	return false;
-      req_ =l;
+      req_ =r;
       return true;
     }
   return false;
@@ -98,7 +98,7 @@ Lyric_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Lyric_engraver,
 /* descr */       "",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "lyric-event",
 /* acks  */      "",
 /* reads */       "",
 /* write */       "");

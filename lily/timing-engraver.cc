@@ -6,7 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include "translator-group.hh"
-#include "command-request.hh"
+
 #include "grob-info.hh"
 #include "multi-measure-rest.hh"
 #include "timing-translator.hh"
@@ -95,7 +95,7 @@ Normally in @code{Score}.  In order to create polyrhythmic music,
 this engraver should be removed from @code{Score} and placed in
 @code{Staff}.",
 /* creats*/       "",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "",
 /* reads */       "timeSignatureFraction barNonAuto whichBar barAlways defaultBarType skipBars timing oneBeat measureLength measurePosition currentBarNumber",
 /* write */       "");

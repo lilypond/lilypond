@@ -13,7 +13,7 @@
 #include "stem.hh"
 #include "note-column.hh"
 #include "dot-column.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "item.hh"
 #include "group-interface.hh"
 
@@ -182,7 +182,7 @@ Rhythmic_column_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Rhythmic_column_engraver,
 /* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 /* creats*/       "NoteColumn NoteSpacing",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "stem-interface rhythmic-head-interface dot-column-interface",
 /* reads */       "",
 /* write */       "");

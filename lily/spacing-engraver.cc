@@ -7,7 +7,7 @@
   
  */
 
-#include "musical-request.hh"
+#include "request.hh"
 #include "paper-column.hh"
 #include "engraver.hh"
 #include "pqueue.hh"
@@ -106,7 +106,8 @@ Spacing_engraver::acknowledge_grob (Grob_info i)
    */
   if (!now_.grace_part_)
     {
-      if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*> (i.music_cause ()))
+      Music *r = i.music_cause ();
+      if (r && r->is_mus_type ("rhythmic-event"))
 	{
 	  Moment len = r->length_mom ();
 	  Rhythmic_tuple t (i, now_mom () + len);
@@ -171,7 +172,7 @@ Spacing_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Spacing_engraver,
 /* descr */       "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
 /* creats*/       "SpacingSpanner",
-/* accepts */     "general-music",
+/* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "",
 /* write */       "");

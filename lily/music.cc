@@ -31,11 +31,6 @@ ly_deep_mus_copy (SCM m)
     return m;
 }
 
-
-
-
-
-
 bool
 Music::internal_is_music_type (SCM k)const
 {
@@ -43,6 +38,17 @@ Music::internal_is_music_type (SCM k)const
 
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
+
+void
+Music::transpose (Pitch)
+{
+}
+
+void
+Music::compress (Moment)
+{
+}
+
 
 Music::Music (Music const &m)
 {
@@ -82,17 +88,6 @@ Music::mark_smob (SCM m)
   scm_gc_mark (mus->mutable_property_alist_);
   return SCM_EOL;
 }
-
-void    
-Music::compress (Moment f)
-{
-  SCM l = get_mus_property ("compress-procedure");
-  if (gh_procedure_p (l))
-    {
-      SCM res = gh_call2 (l, self_scm (), f.smobbed_copy());
-    }
-}
-
 
 Moment
 Music::length_mom () const
@@ -158,25 +153,6 @@ Music::to_relative_octave (Pitch m)
   return m;
 }
 
-
-void
-Music::transpose (Pitch delta)
-{
-  Pitch *p = unsmob_pitch (get_mus_property ("pitch"));
-  if (!p)
-    return ;
-
-  Pitch np = *p;
-  np.transpose (delta);
-  
-  if (abs (np.alteration_) > 2)
-    {
-	warning (_f ("Transposition by %s makes accidental larger than two",
-	  delta.string ()));
-    }
-
-  set_mus_property ("pitch", np.smobbed_copy ());
-}
 
 IMPLEMENT_TYPE_P (Music, "music?");
 

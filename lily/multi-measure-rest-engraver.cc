@@ -5,7 +5,7 @@
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "musical-request.hh"
+#include "request.hh"
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
@@ -32,9 +32,9 @@ protected:
   virtual void finalize ();
 
 private:
-  Span_req * new_req_;
-  Span_req * busy_span_req_;
-  Span_req * stop_req_;
+  Music * new_req_;
+  Music * busy_span_req_;
+  Music * stop_req_;
   int start_measure_;
   Moment start_moment_;
   
@@ -55,22 +55,18 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 bool
 Multi_measure_rest_engraver::try_music (Music* req)
 {
-  if (Span_req * sp = dynamic_cast<Span_req*> (req))
+  if (req->is_mus_type ("multi-measure-rest-event"))
     {
-      
-      if (scm_equal_p (sp->get_mus_property ("span-type"),
-		       scm_makfrom0str ("rest")) == SCM_BOOL_T)
+      Direction d = to_dir (req->get_mus_property ("span-direction"));
+      if (d == STOP)
 	{
-	  if (sp->get_span_dir () == STOP)
-	    {
-	      stop_req_ = sp;
-	    }
-	  else if (sp->get_span_dir () == START && !new_req_)
-	    {
-	      new_req_ = sp;
-	    }
-	  return true;
+	  stop_req_ = req;
 	}
+      else if (d == START&& !new_req_)
+	{
+	  new_req_ = req;
+	}
+      return true;
     }
   return false;
 }
@@ -181,7 +177,7 @@ ENTER_DESCRIPTION(Multi_measure_rest_engraver,
 measurePosition and currentBarNumber to determine what number to print over the MultiMeasureRest
 ",
 /* creats*/       "MultiMeasureRest",
-/* accepts */     "general-music",
+/* accepts */     "multi-measure-rest-event",
 /* acks  */      "",
 /* reads */       "currentBarNumber currentCommandColumn measurePosition",
 /* write */       "");

@@ -63,10 +63,6 @@
        ))
     ))
 
-(define (engraver-makes-grob? name-symbol grav)
-  (memq name-symbol (assoc 'grobs-created (ly-translator-description grav)))
-  )
-
 (define (all-grobs-doc)
   (make <texi-node>
     #:name "All Graphical objects"

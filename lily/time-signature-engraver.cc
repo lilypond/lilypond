@@ -7,7 +7,7 @@
 */
 
 #include "time-signature.hh"
-#include "command-request.hh"
+
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
 

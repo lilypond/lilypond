@@ -34,7 +34,6 @@ class Request_chord : public Simultaneous_music
 {
 public:
   VIRTUAL_COPY_CONS (Music);
-  virtual Pitch to_relative_octave (Pitch);
   virtual Moment start_mom () const;
 
   Request_chord ();

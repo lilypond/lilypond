@@ -8,7 +8,7 @@
 #include "warn.hh"
 #include "dimensions.hh"
 #include "hairpin.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
 #include "item.hh"
@@ -43,7 +43,7 @@ class Dynamic_engraver : public Engraver
   Spanner * finished_cresc_;
   Spanner * cresc_;
 
-  Text_script_req* script_req_;
+  Music* script_req_;
   
   Music * current_cresc_req_;
   Drul_array<Music*> accepted_spanreqs_drul_;
@@ -95,10 +95,12 @@ Dynamic_engraver::start_translation_timestep ()
 bool
 Dynamic_engraver::try_music (Music * m)
 {
-  if (dynamic_cast <Text_script_req*> (m)
-      && m->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
+  if (m->is_mus_type ("dynamic-event"))
     {
-      script_req_ = dynamic_cast<Text_script_req*> (m);
+  /*
+    TODO: probably broken.
+   */
+      script_req_ = m;
       return true;
     }
   else if (m->is_mus_type ("abort-event"))
@@ -162,8 +164,9 @@ Dynamic_engraver::process_music ()
       script_ = new Item (get_property ("DynamicText"));
       script_->set_grob_property ("text",
 				   script_req_->get_mus_property ("text"));
+
       
-      if (Direction d = script_req_->get_direction ())
+      if (Direction d = to_dir (script_req_->get_mus_property ("direction")))
 	Directional_element_interface::set (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);

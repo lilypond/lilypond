@@ -40,7 +40,7 @@
 #include "parser.hh"
 #include "warn.hh"
 #include "main.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "version.hh"
 #include "lilypond-input-version.hh"
 #include "translator-def.hh"

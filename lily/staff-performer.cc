@@ -42,7 +42,7 @@ private:
 };
 
 ENTER_DESCRIPTION (Staff_performer, "", "",
-		   "general-music",
+		   "",
 		   "", "", "");
 
 Staff_performer::Staff_performer ()

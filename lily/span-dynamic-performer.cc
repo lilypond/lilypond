@@ -7,8 +7,8 @@
 */
 
 #include "performer.hh"
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "audio-item.hh"
 
 struct Audio_dynamic_tuple
@@ -35,8 +35,8 @@ protected:
 private:
   Audio_dynamic* audio_;
   Real last_volume_;
-  Span_req* span_start_req_;
-  Drul_array<Span_req*> span_req_l_drul_;
+  Music* span_start_req_;
+  Drul_array<Music*> span_req_l_drul_;
   Array<Audio_dynamic_tuple> dynamic_tuples_;
   Array<Audio_dynamic_tuple> finished_dynamic_tuples_;
   Direction dir_;
@@ -173,18 +173,15 @@ Span_dynamic_performer::start_translation_timestep ()
 bool
 Span_dynamic_performer::try_music (Music* r)
 {
-  if (Span_req * s = dynamic_cast<Span_req*> (r))
+  if (r->is_mus_type ("dynamic-event"))	// fixme.
     {
-      String t =  ly_scm2string (s->get_mus_property ("span-type"));      
-      if (t == "crescendo" || t == "decrescendo")
-	{
-	  span_req_l_drul_[s->get_span_dir ()] = s;
-	  return true;
-	}
+      Direction d = to_dir (r->get_mus_property ("span-direction"));
+      span_req_l_drul_[d] = r;
+      return true;
     }
   return false;
 }
 ENTER_DESCRIPTION (Span_dynamic_performer,
 		   "", "",
-		   "general-music", 
+		   "dynamic-event", 
 		   "", "", "");

@@ -10,7 +10,7 @@
 */
 
 #include "engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "grob.hh"
 #include "item.hh"
 #include "lily-guile.hh"
@@ -25,8 +25,8 @@
 struct Pedal_info
 {
   char const * name_;
-  Span_req* start_req_;
-  Drul_array<Span_req*> req_l_drul_;
+  Music* start_req_;
+  Drul_array<Music*> req_l_drul_;
   Item* item_;
   Spanner* bracket_;     // A single portion of a pedal bracket
   Spanner* finished_bracket_;
@@ -36,7 +36,7 @@ struct Pedal_info
    */
   Spanner* line_spanner_;
   Spanner* finished_line_spanner_;
-  Span_req* current_bracket_req_;
+  Music* current_bracket_req_;
 };
 
 
@@ -150,23 +150,28 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 bool
 Piano_pedal_engraver::try_music (Music *m)
 {
-  if (Span_req * s = dynamic_cast<Span_req*> (m))
+  if (m->is_mus_type ("abort-event"))
     {
       for (Pedal_info*p = info_list_; p->name_; p ++)
 	{
-	  if (ly_scm2string (s->get_mus_property ("span-type")) == "abort")
-	    {
-	      p->req_l_drul_[START] = 0;
-	      p->req_l_drul_[STOP] = 0;
-	      
+	  p->req_l_drul_[START] = 0;
+	  p->req_l_drul_[STOP] = 0;
+	  
 	      if (p->bracket_)
 		p->bracket_->suicide (); /* as in dynamic-engraver.cc */
 	      p->bracket_ = 0;
-	    }  
-	  if (scm_equal_p (s->get_mus_property ("span-type"),
-			   scm_makfrom0str (p->name_))==SCM_BOOL_T)
+	    }
+    }
+  else if  (m->is_mus_type ("pedal-event"))
+    {
+      for (Pedal_info*p = info_list_; p->name_; p ++)
+	{
+	  String nm = p->name_ + String ("Event");
+	  if (gh_equal_p (m->get_mus_property ("name") ,
+			  scm_makfrom0str (nm.to_str0())))
 	    {
-	      p->req_l_drul_[s->get_span_dir ()] = s;
+	      Direction d = to_dir (m->get_mus_property ("span-direction"));
+	      p->req_l_drul_[d] = m;
 	      return true;
 	    }
 	}
@@ -509,7 +514,7 @@ Piano_pedal_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION (Piano_pedal_engraver,
 /* descr */       "Engrave piano pedal symbols and brackets.",
 /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
-/* accepts */     "general-music",
+/* accepts */     "pedal-event abort-event",
 /* acks  */      "note-column-interface",
 /* reads */       "pedalSostenutoStrings pedalSustainStrings pedalUnaCordaStrings",
 /* write */       "");

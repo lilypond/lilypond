@@ -8,7 +8,7 @@
 
 #include <ctype.h>
 #include "bar-line.hh"
-#include "command-request.hh"
+
 #include "staff-symbol.hh"
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"

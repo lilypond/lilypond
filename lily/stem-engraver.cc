@@ -9,7 +9,7 @@
 #include "staff-symbol-referencer.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "misc.hh"
 #include "stem-tremolo.hh"
 #include "item.hh"
@@ -32,8 +32,8 @@ protected:
 private:
   Grob  *stem_;
   Grob *tremolo_;
-  Rhythmic_req *rhythmic_req_;
-  Tremolo_req* tremolo_req_;
+  Music *rhythmic_req_;
+  Music* tremolo_req_;
 };
 
 Stem_engraver::Stem_engraver ()
@@ -161,9 +161,9 @@ Stem_engraver::stop_translation_timestep ()
 bool
 Stem_engraver::try_music (Music* r)
 {
-  if (Tremolo_req* a = dynamic_cast <Tremolo_req *> (r))
+  if (r->is_mus_type ("tremolo-event"))
     {
-      tremolo_req_ = a;
+      tremolo_req_ = r;
       return true;
     }
   return false;
@@ -173,7 +173,7 @@ ENTER_DESCRIPTION(Stem_engraver,
 /* descr */       "Create stems and single-stem tremolos.  It also works together with
 the beam engraver for overriding beaming.",
 /* creats*/       "Stem StemTremolo",
-/* accepts */     "general-music",
+/* accepts */     "tremolo-event",
 /* acks  */      "rhythmic-head-interface",
 /* reads */       "tremoloFlags stemLeftBeamCount stemRightBeamCount",
 /* write */       "");

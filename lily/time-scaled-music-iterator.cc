@@ -9,9 +9,9 @@
 
 #include "time-scaled-music-iterator.hh"
 #include "time-scaled-music.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "translator-group.hh"
-#include "command-request.hh"
+
 
 void
 Time_scaled_music_iterator::process (Moment m)

@@ -31,8 +31,8 @@
 
 #include "staff-symbol-referencer.hh"
 #include "porrectus.hh"
-#include "musical-request.hh"
-#include "command-request.hh"
+#include "request.hh"
+
 #include "rhythmic-head.hh"
 #include "item.hh"
 #include "engraver.hh"
@@ -55,7 +55,7 @@ protected:
 
 private:
   PQueue<Grob_pitch_tuple> past_notes_pq_;
-  Porrectus_req *porrectus_req_;
+  Music *porrectus_req_;
   Array<Grob_pitch_tuple> left_heads_;
   Array<Grob_pitch_tuple> right_heads_;
   Link_array<Grob> porrectuses_;
@@ -69,9 +69,9 @@ Porrectus_engraver::Porrectus_engraver ()
 bool
 Porrectus_engraver::try_music (Music *m)
 {
-  if (Porrectus_req *req_ = dynamic_cast <Porrectus_req *> (m))
+  if (m->is_mus_type ("porrectus-event"))
     {
-      porrectus_req_ = req_;
+      porrectus_req_ = m;
       return true;
     }
   else
@@ -167,7 +167,7 @@ Porrectus_engraver::start_translation_timestep ()
 ENTER_DESCRIPTION(Porrectus_engraver,
 /* descr */       "Join adjacent notes to a porrectus ligature.",
 /* creats*/       "Porrectus",
-/* accepts */     "general-music",
+/* accepts */     "porrectus-event",
 /* acks  */      "rhythmic-head-interface",
 /* reads */       "",
 /* write */       "");

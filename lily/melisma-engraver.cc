@@ -8,7 +8,7 @@
  */
 
 #include "engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "grob.hh"
 #include "translator-group.hh"
 

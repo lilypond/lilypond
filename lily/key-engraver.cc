@@ -7,8 +7,8 @@
   */
 
 
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "item.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
@@ -86,13 +86,6 @@ Key_engraver::try_music (Music * req)
 {
   if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
     {
-      if (keyreq_ && !keyreq_->equal_b (kc))
-	{
-	  kc->origin ()->warning (_ ("Conflicting key signatures found."));
-	  keyreq_->origin ()->warning (_ ("This was the other key definition."));	  
-	  return false;
-	}
-
       if (!keyreq_)
 	{
 	  /*

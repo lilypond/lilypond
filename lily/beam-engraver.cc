@@ -8,7 +8,7 @@
  */
 #include "engraver-group-engraver.hh"
 #include "engraver.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"

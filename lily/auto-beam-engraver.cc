@@ -8,7 +8,7 @@
  */
 
 #include "beaming.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
@@ -18,6 +18,7 @@
 #include "engraver.hh"
 #include "item.hh"
 #include "spanner.hh"
+#include "duration.hh"
 
 /*
   TODO: figure what to do in grace?

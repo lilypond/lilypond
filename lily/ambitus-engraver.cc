@@ -10,7 +10,7 @@
 #include "item.hh"
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "pitch.hh"
 
 /*

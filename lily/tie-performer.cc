@@ -7,9 +7,9 @@
   
  */
 
-#include "command-request.hh"
+
 #include "audio-item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "pqueue.hh"
 #include "performer.hh"
 

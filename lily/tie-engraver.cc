@@ -7,8 +7,8 @@
   
  */
 
-#include "command-request.hh"
-#include "musical-request.hh"
+
+#include "request.hh"
 #include "tie.hh"
 #include "translator-group.hh"
 #include "spanner.hh"

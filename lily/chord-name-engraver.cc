@@ -9,7 +9,7 @@
 #include "engraver.hh"
 #include "chord-name.hh"
 #include "chord.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "paper-def.hh"

@@ -5,8 +5,8 @@
   Modified 2001-2002 by Rune Zedeler <rz@daimi.au.dk>
 */
 
-#include "musical-request.hh"
-#include "command-request.hh"
+#include "request.hh"
+
 #include "item.hh"
 #include "tie.hh"
 #include "rhythmic-head.hh"

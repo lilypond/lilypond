@@ -9,7 +9,7 @@
 #include "engraver.hh"
 #include "group-interface.hh"
 #include "item.hh"
-#include "musical-request.hh"
+#include "request.hh"
 #include "spanner.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
