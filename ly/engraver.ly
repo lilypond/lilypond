@@ -95,11 +95,14 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";
 	\name Voice ;
+	beamAuto = "1";
 	
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
+	\consists "Auto_beam_engraver";
+	\include "auto-beam-settings.ly";
 	\consists "Abbreviation_beam_engraver";
 %	\consists "Multi_measure_rest_engraver";
 
@@ -176,12 +179,14 @@ GrandStaffContext=\translator{
 	\consists "Chord_name_engraver";
 }
 
-\translator {
+
+ChordNameContext = \translator {
 	\type "Line_group_engraver_group";
 	\name ChordNames;
 	\consists "Vertical_align_engraver";
 	\accepts "ChordNameVoice";
-}
+};
+\translator { \ChordNameContext }
 
 ScoreContext = \translator {
 	\type Score_engraver;
