@@ -37,24 +37,21 @@
   "Standard header for a part: page number --outside--  and instrument--centered."
 
   (let* ((props (page-properties paper))
-	 (pnum
-	  (if (ly:output-def-lookup paper 'printpagenumber)
-	      (markup #:bold (number->string page-number))
-	      ""
-	      ))
-	 (instr (ly:modules-lookup scopes 'instrument))
-	 
-	 (line (list "" (if (markup? instr) instr "") pnum)))
-
+         (pnum
+          (if (ly:output-def-lookup paper 'printpagenumber)
+              (markup #:bold (number->string page-number))
+              ""))
+         (instr (ly:modules-lookup scopes 'instrument))
+         
+         (line (list "" (if (markup? instr) instr "") pnum)))
+    
     (if (even? page-number)
-	(set! line (reverse line)))
-
-    (if (< 1 page-number)
-	(interpret-markup
-	 paper props (make-fill-line-markup line))
-	'())
-    ))
-
+        (set! line (reverse line)))
+    
+    (if (< (ly:output-def-lookup paper 'firstpagenumber) page-number)
+        (interpret-markup
+         paper props (make-fill-line-markup line))
+        '())))
 
 ;; TODO: add publisher ID on non-first page.
 (define-public (plain-footer paper scopes page-number last?)
