@@ -46,6 +46,8 @@ public:
 
     Real hpos;			// should use ptr?
 
+    bool error_mark_b_;
+    
     PScore * pscore_l_;
 
     /* *************** */
