@@ -187,6 +187,8 @@ Voice-state objects
 	
 (define noticed '())
 (define part-combine-listener '())
+
+; UGH - should pass noticed setter to part-combine-listener
 (define-public (set-part-combine-listener x)
   (set! part-combine-listener x))
 
@@ -501,4 +503,6 @@ the mark when there are no spanners active."
 	 (evs (last-pair noticed)))
     (if (pair? evs)
 	(hash-set! tab name
-		   (list->vector (reverse! (car evs) '()))))))
+		   ;; cdr : skip name string
+		   (list->vector (reverse! (cdar evs) '()))))))
+

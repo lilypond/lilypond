@@ -89,7 +89,7 @@ a1 a2 a4 a16 a32
 @end example
 
 @c FIXME: have NOTIME also remove Score.timing?
-@lilypond[fragment,quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=2]
 \set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 { a1 a2 a4 a16 a32 s16_" " }
@@ -103,7 +103,7 @@ defaults to a quarter
 a a8 a a2 a
 @end example
 
-@lilypond[fragment,quote,notime,relative=1]
+@lilypond[fragment,quote,notime,relative=2]
 \set Score.timing = ##f
 { a a8 a a2 a s16_" " }
 @end lilypond
@@ -231,7 +231,7 @@ Windows are given at the end of this section.
 Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}.@footnote{There are macro files for VIM addicts, and there
-is a @code{LilyPond-mode} for Emacs addicts.  If it has not been
+is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
 installed already, refer to
 @c FIXME lousy reference.
 the file @file{INSTALL.txt}.}  In your text editor, enter the following
@@ -284,7 +284,8 @@ package for viewing and printing PDF and PostScript files.}
 
 On Windows, start up a text-editor@footnote{Any simple or
 programmer-oriented editor will do, for example Notepad.  Do not use a
-word processor, its formatting codes will confuse LilyPond.} and enter
+word processor, since these insert formatting codes that will confuse
+LilyPond.} and enter
 
 @example
 @{ c'4 e' g' @}
@@ -356,7 +357,7 @@ d' cis' fis'
 @end lilypond
 
 @noindent
-no note gets an explicit accidental, but you still must enter
+no note has an explicit accidental, but you still must enter
 
 @example
 \key d \major
@@ -380,7 +381,7 @@ d
 
 Adding all alterations explicitly might require a little more effort
 when typing, but the advantage is that transposing is easier, and
-music can be printed according to different conventions.  See
+accidentals can be printed according to different conventions.  See
 @ref{Accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
@@ -514,18 +515,20 @@ b'8. cis''16 b'8 d''4 d''8
 @noindent
 The last example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
-solution is to use `relative octave' mode.  In practice, this is the
-most convenient way to copy existing music.  To use relative mode, add
-@code{\relative} before the piece of music.
-@ignore
-FIXME: move to notation manual?
- You must also give a note
-from which relative mode starts, in this case @code{c''}.
-@end ignore
-If you do not
-use octavation quotes (i.e., do not add @code{'} or @code{,} after a
-note), relative mode chooses the note that is closest to the previous
-one.  For example, @samp{c f} goes up while @samp{c g} goes down
+solution is to use `relative octave' mode.   This is the
+most convenient way to copy existing music.
+
+In relative mode, a note without octavation quotes (i.e.  the @code{'}
+or @code{,} after a note) is chosen so it it is closest to the
+previous one.  For example, @samp{c f} goes up while @samp{c g} goes
+down
+
+To use relative mode, add @code{\relative} before the piece of
+music. The first note is taken relative to the middle C
+@c no , for this sentence
+(i.e. @code{c'})
+
+
 
 @lilypond[quote,notime,fragment,verbatim]
 \relative {
@@ -538,11 +541,11 @@ Since most music has small intervals, pieces can be written almost
 without octavation quotes in relative mode.  The previous example is
 entered as
 
-@lilypond[quote,raggedright,fragment,verbatim]
+@lilypond[quote,raggedright,verbatim]
 \relative {
   \key a \major
   \time 6/8
-  cis''8. d16 cis8 e4 e8
+  cis'8. d16 cis8 e4 e8
   b8. cis16 b8 d4 d8
 }
 @end lilypond
@@ -603,7 +606,7 @@ parallel.  Two voices that should play at the same time, are entered
 as a simultaneous combination of two sequences.  A `simultaneous'
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
-two notes) are combined simultaneously
+two other notes) are combined simultaneously
 
 @lilypond[fragment,quote,verbatim,relative=3]
 <<
@@ -630,15 +633,16 @@ you can make arbitrarily complex and large expressions.  For example,
 
 @cindex expression
 @cindex music expression
-This example shows a sequence of expressions, where each expression is
-contained in the next one.  The simplest expressions are numbers and
-operators (like @samp{+}, @samp{*} and @samp{/}).  Parentheses are used
-to group expressions.
+This is a sequence of expressions, where each expression is contained
+in the next one.  The simplest expressions are numbers, and larger
+ones are made by combining expressions with operators (like @samp{+},
+@samp{*} and @samp{/}) and parentheses.
 
 Like mathematical expressions, music expressions can be nested
-arbitrarily deep@footnote{The reason for getting three staves in the
+arbitrarily deep,@footnote{The reason for getting three staves in the
 previous example but just a single staff in the current one will be
-explained later.}
+explained in @ref{TODO}.}  which is necessary for complex music like
+polyphonic scores.
 
 @lilypond[fragment,quote,verbatim,relative=2] 
 {
@@ -647,29 +651,23 @@ explained later.}
 }
 @end lilypond
 
-
-@cindex indent
-When spreading expressions over multiple lines, it is customary to use
-an indent that indicates the nesting level.  Formatting music like this
-eases reading, and helps you insert the right number of closing
-braces at the end of an expression.  For example,
+Music files with deep nesting can be confusing to enter and
+maintain. One convention that helps against this confusion, is
+indenting.  When entering a file with deep nesting of braces and
+angles, it is customary to use an indent that indicates the nesting
+level.  Formatting music like this eases reading, and helps you insert
+the right number of closing braces at the end of an expression.  For
+example,
 
 @example
-\book @{
-  \score @{
-    <<
-      @{
-        @dots{}
-      @}
-      @{
-        @dots{}
-      @}
-      \paper @{
-        @dots{}
-      @}
-    >>
+<<
+  @{
+    @dots{}
   @}
-@}  
+  @{
+    @dots{}
+  @}
+>>
 @end example
 
 Some editors have special support for entering LilyPond, and can help
@@ -699,7 +697,7 @@ is best to mark contexts explicitly.  This ensures that each fragment
 gets its own stave.
 
 There are several types of contexts: @code{Staff}, @code{Voice} and
-@code{Score} handle normal music notation.  Other contexts are also
+@code{Score} handle melodic notation.  Other contexts are also
 @code{Lyrics} (for setting lyric texts) and @code{ChordNames} (for
 printing chord names).
 
@@ -714,17 +712,17 @@ We can now typeset a melody with two staves
 @c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
 
 @lilypond[fragment,quote,verbatim,raggedright]
-<<
+\relative <<
   \new Staff {
     \time 3/4
     \clef violin
-    \relative {
-      e''2 d4 c2 b4 a8[ a]
-      b[ b] g[ g] a2. }  
+    
+    e'2 d4 c2 b4 a8[ a]
+    b[ b] g[ g] a2. 
   }
   \new Staff {
      \clef bass
-     c2 e4 g2.
+     c,,2 e4 g2.
      f4 e d c2.
   }
 >>
@@ -786,15 +784,15 @@ articulation.  The starting note and ending note are marked with
 @samp{(} and @samp{)}, respectively
 
 @lilypond[fragment,quote,fragment,relative=2,verbatim]
-d4( c16)( cis d e c cis d e)( d4)
+d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
 @cindex slurs versus ties
 A slur looks like a tie, but it has a different meaning.  A tie simply
 makes the first note sound longer, and can only be used on pairs of
 notes with the same pitch.  Slurs indicate the articulations of notes,
-and can be used on larger groups of notes.  Slurs and ties are also
-nested in practice
+and can be used on larger groups of notes.  Slurs and ties can be
+nested
 
 @lilypond[quote,fragment,relative=2]
 c2~( c8 fis fis4 ~ fis2 g2)
@@ -921,12 +919,12 @@ see @ref{Partial measures}.
 @cindex line comment
 @cindex block comment
 A comment is a remark for the human reader of the music input; it is
-ignored and has no effect on the printed output.  There are two types
-of comments.  The percent symbol @samp{%} introduces a line comment;
-the rest of the line is ignored.  A block comments marks a whole
-section of music input---anything that is enclosed in @code{%@{} and
-@code{%@}} is ignored.  The following fragment shows possible uses for
-comments
+ignored while parsing, so it has no effect on the printed output.
+There are two types of comments.  The percent symbol @samp{%}
+introduces a line comment; after  @code{%} the rest of the line   is
+ignored.  A block comments marks a whole section of music
+input. Anything that is enclosed in @code{%@{} and @code{%@}} is
+ignored.  The following fragment shows possible uses for comments
 
 @example
 % notes for twinkle twinkle follow
@@ -941,9 +939,11 @@ c4 c g' g a a
 %@}
 @end example
 
-There is a special statement that really is a kind of comment.  The
-version statement marks for which version of LilyPond the file was
-written.  To mark a file for version 2.1.17, use
+@cindex versioning
+
+There is a special statement that is a kind of comment.  The @code{\version}
+statement marks for which version of LilyPond the file was written.
+To mark a file for version 2.1.17, use
 
 @example
 \version "2.1.17"
@@ -1033,41 +1033,6 @@ Twin -- kle twin -- kle
 More options, like putting multiple lines of lyrics below a melody are
 discussed in @ref{Vocal music}.
 
-@c FIXME: too geeky, for notation manual?
-@c or introduce using foo = \lyrics { a b c } ?
-
-When using variables for a piece of lyrics
-To prevent certain words (for example `as') as being read as a
-pitch, the input-mode must be switched.  This is done with
-@code{\lyrics}.  In @code{\lyrics} mode, all words are read as lyric
-syllables.
-
-@example
-myText = \lyrics @{ I want to break free @}
-@end example
-
-@noindent
-The braces @code{@{@}} signify that the syllables are sung in
-sequence.
-
-@ignore
-By default, music expressions are interpreted in @code{Staff} context.  For
-lyrics, this is obviously not desirable, so it is necessary
-to explicitly specify a @code{Lyrics} context,
-
-@example
-\lyrics @{ I want to break free @}
-@end example
-
-The melody for this song is as follows
-
-@lilypond[fragment,quote,fragment,relative=2]
-r4 c \times 2/3 { f4 g g }
-\times 2/3 { g4( a2) }
-@end lilypond
-
-@end ignore
-
 
 @node A lead sheet
 @section A lead sheet
@@ -1076,20 +1041,17 @@ r4 c \times 2/3 { f4 g g }
 @cindex chords
 @cindex chord names
 
-In popular music, it is common to denote accompaniment as chord names.
+In popular music, it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
-
-@example
-c2 f4. g8
-@end example
-
-@noindent
-but now, each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chords}
 
 @lilypond[quote,verbatim,raggedright]
 \chords { c2 f4. g8 }
 @end lilypond
+
+@noindent
+Now each pitch is read as the root of a chord instead of a note.
+This mode is switched on with @code{\chords}
+
 
 Other chords can be created by adding modifiers after a colon.  The
 following example shows a few common modifiers
@@ -1134,50 +1096,6 @@ a lead sheet, for example,
 A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
 
-@c FIXME: we talk about \midi before mentioning \paper (or \layout?)
-@node Listening to output
-@section Listening to output
-
-@cindex sound
-@cindex MIDI
-
-MIDI (Musical Instrument Digital Interface) is a standard for
-connecting and controlling digital instruments.  A MIDI file is like a
-tape recording of a MIDI instrument.
-
-To create a MIDI from a music piece of music, add a @code{\midi}
-block. This causes LilyPond to create a MIDI file, so you can listen
-to what you just entered.  It is great for checking the music.
-Octaves that are off or accidentals that were mistyped stand out very
-much when listening to the musical transcription.
-
-The @code{\midi} block is added to @code{\score}, for example,
-
-@example 
-\score @{
-    @var{...music...}
-    \midi @{ \tempo 4=72 @}
-@}
-@end example 
-
-Here, the tempo is specified using the @code{\tempo} command.  In this
-case the tempo of quarter notes is set to 72 beats per minute.  More
-information on auditory output in the notation manual can be found in
-@ref{Sound}.
-
-If there is a @code{\midi} command in a @code{\score}, only MIDI will
-be produced.  If notation is needed too, a @code{\paper} block must be
-added
-
-@example 
-\score @{
-    @var{...music...}
-    \midi @{ \tempo 4=72 @}
-    \paper @{ @}
-@}
-@end example 
-@cindex paper block
-
 
 @node Adding titles
 @section Adding titles
@@ -1190,84 +1108,16 @@ the top of the file.  For example,
 
 @example 
 \header @{
-  title = "Eight miniatures" 
+  title = "Miniature" 
   composer = "Igor Stravinsky"
-  tagline = "small is beautiful"
 @}
 
 @{ @dots{} @}
 @end example
 
-@cindex bibliographic information
-@cindex titles
-@cindex composer
-@cindex Engraved by LilyPond
 
 When the file is processed the title and composer are printed above
-the music.  The `tagline' is a short line printed at bottom of the last
-page which normally says `Engraved by LilyPond, version @dots{}'.  In
-the example above it is replaced by the line `small is
-beautiful.'@footnote{Nicely printed parts are good PR for us, so
-please leave the tagline if you can.}
-
-
-The @code{\header} block is usually put at the top of the file.
-
-A document may contains multiple pieces of music, examples are an
-etude book, or an orchestral part with multiple movements.
-@c FIXME: ugh.  \header can only live at toplevel, or inside \score.
-@c If we allow it also to live inside \book, we do not need \score here?
-The @code{\book} block is used to group the individual @code{\score}
-blocks.
-
-The header for each piece of music can be put inside the @code{\score}
-block.  The @code{piece} name from the header will be printed before
-each movement.
-
-@ignore
-
-FIXME: introduce \BOOK
-
-FIXME: Using "Adagio" as a name is confusing, it's more common to be
-a plain tempo indication.
-
-Since today (CVS-1.211) we also allow headers and composite music
-inside book:
-
-  \header { ... }
-  \book {
-    \header { ... }
-    { ... }
-    \header { ... }
-    { ... }
-  }
-
-@end ignore
-
-@cindex Engraved by LilyPond
-@cindex signature line
-@cindex tag line
-
-@example 
-\header @{
-  title = "Eight miniatures" 
-  composer = "Igor Stravinsky"
-  tagline = "small is beautiful"
-@}
-
-\book @{
-  \score @{
-    @dots{}
-    \header @{ piece = "Adagio" @}
-  @}
-  \score @{
-    @dots{}
-    \header @{ piece = "Menuetto" @}
-  @}
-@}
-@end example
-
-More information on titling can be found in @ref{Invoking lilypond}.
+the music.  More information on titling can be found in @ref{Titling}.
 
 
 @node Single staff polyphony
@@ -1285,7 +1135,7 @@ Entering such parts is done by entering each voice as a sequence (with
 @code{@{...@}}), and combining those simultaneously, separating the
 voices with @code{\\}
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[quote,verbatim,relative=2,fragment]
 << { a4 g2 f4~ f4 } \\
    { r4 g4 f2 f4 } >>
 @end lilypond
@@ -1295,7 +1145,7 @@ are rests that do not print.  It is useful for filling up voices that
 temporarily do not play.  Here is the same example with a spacer rest
 instead of a normal rest---just use @samp{s} instead of @samp{r}
 
-@lilypond[quote,verbatim,relative=3]
+@lilypond[quote,verbatim,relative=2,fragment]
 << { a4 g2 f4~ f4 } \\
    { s4 g4 f2 f4 } >>
 @end lilypond
@@ -1303,7 +1153,7 @@ instead of a normal rest---just use @samp{s} instead of @samp{r}
 @noindent
 Again, these expressions can be nested arbitrarily
 
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
 <<
   \new Staff <<
     { a4 g2 f4~ f4 } \\
@@ -1537,9 +1387,10 @@ in the notation manual; see @ref{Orchestral music}.
 Setting run-time variables (`properties') is discussed in ref-TODO.
 
 
-@node Integrating text and music
-@section Integrating text and music
+@node Musicological essays
+@section Musicological essays
 
+@cindex musicology
 @cindex La@TeX{}, music in
 @cindex HTML, music in
 @cindex Texinfo, music in
@@ -1612,10 +1463,10 @@ files, which would clutter up the working directory.  To remedy this,
 use the @code{--output=@var{dir}} option.  It will create the files in
 a separate subdirectory @file{dir}.
 
-Finally the result of the La@TeX{} example shown above.@footnote{Note
-that in this tutorial the example is processed with Texinfo.  This gives
-slightly different results in layout.}  This finishes the tutorial
-section.
+Finally the result of the La@TeX{} example shown above.@footnote{ This
+tutorial is processed with Texinfo, so the example is as well.  This
+gives slightly different results in layout.}  This finishes the
+tutorial section.
 
 @page
 

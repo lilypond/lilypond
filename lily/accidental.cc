@@ -25,6 +25,7 @@ parenthesize (Grob*me, Stencil m)
 {
   Stencil open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-leftparen"));
   Stencil close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-rightparen"));
+
   m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0,0);
   m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0,0);
 

@@ -62,10 +62,8 @@ moment_less (SCM a, SCM b)
 int
 binsearch_scm_vector (SCM vec, SCM key, bool (*is_less)(SCM a,SCM b))
 {
-  int lo;
-  int hi;
-  lo = 0;
-  hi = SCM_VECTOR_LENGTH (vec);
+  int lo = 0;
+  int hi = SCM_VECTOR_LENGTH (vec);
 
   /* binary search */
   do

@@ -12,8 +12,8 @@ TODO: cleanup
 @end ignore
 
 
-@node lilypond-book manual
-@chapter lilypond-book manual
+@node  Integrating text and music
+@chapter Integrating text and music
 
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  The pictures
