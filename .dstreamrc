@@ -10,13 +10,13 @@ InitDeclarations	1
 Declarations		1
 # FlexLexer debug
 InitLexer		1
-Lexer			0
+Lexer			1
 
 
 # flower lib
 File_path		1
-Matrix			0
-Vector			0
+Matrix			1
+Vector			1
 
 # lily
 Atom			0
