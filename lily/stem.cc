@@ -592,7 +592,7 @@ Stem::flag (Grob*me)
       return Stencil ();
     }
 
-  bool adjust = to_boolean (me->get_property ("adjust-if-on-staffline"));
+  bool adjust = true;
 
   String staffline_offs;
   if (String::compare (flag_style, "mensural") == 0)
@@ -984,7 +984,7 @@ ADD_INTERFACE (Stem,"stem-interface",
 ,
 	       
 	       "tremolo-flag french-beaming "
-	       "avoid-note-head adjust-if-on-staffline thickness "
+	       "avoid-note-head thickness "
 	       "stem-info beamed-lengths beamed-minimum-free-lengths "
 	       "beamed-extreme-minimum-free-lengths lengths beam stem-shorten "
 	       "duration-log beaming neutral-direction stem-end-position "

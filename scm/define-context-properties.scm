@@ -293,7 +293,7 @@ sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (pedalSostenutoStyle ,symbol? "see @code{pedalSustainStyle}.")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
-     (repeatCommands ,list? "This property is read to find any command of the form @{code(volta . @var{x})}, where @var{x} is a string or @code{#f}")
+     (repeatCommands ,list? "This property is read to find any command of the form @code{(volta . @var{x})}, where @var{x} is a string or @code{#f}")
 
      (restNumberThreshold ,number?
 			  "If a multimeasure rest takes less
@@ -388,7 +388,7 @@ is a pair of dimensions, for example, this sets the sizes of a staff
 to 10 (5+5) staffspaces high.
 
 @example
-\set Staff.verticalExtent = #'(-5.0 . 5.0)
+\\set Staff.verticalExtent = #'(-5.0 . 5.0)
 @end example
 
 
@@ -481,7 +481,7 @@ Script_engraver for typesetting note-super/subscripts. See
 ")
      (quotes ,hash-table? "Hash table, mapping names to music-event vectors.")
      (stavesFound ,grob-list? "list of all staff-symbols found.")
-     (instrumentSupport ,ly:grob-list? "list of grobs to attach instrument name
+     (instrumentSupport ,grob-list? "list of grobs to attach instrument name
 to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
      )

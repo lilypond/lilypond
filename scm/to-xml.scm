@@ -116,7 +116,7 @@ is then separated.
   (let* ((name (ly:music-property music 'name))
 	 (e (ly:music-property music 'element))
 	 (es (ly:music-property music 'elements))
-	 (mprops (ly:get-mutable-properties music))
+	 (mprops (ly:mutable-music-properties music))
 	 (d (ly:music-property music 'duration))
 	 (p (ly:music-property music 'pitch))
 	 (ignore-props '(origin elements duration pitch element)))

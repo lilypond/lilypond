@@ -75,7 +75,7 @@
   (display ": { ")  
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (display (ly:get-mutable-properties music))
+    (display (ly:mutable-music-properties music))
     (if (pair? es)
 	(begin (display "\nElements: {\n")
 	       (map display-music es)
@@ -275,25 +275,25 @@ a property set for MultiMeasureRestNumber."
 (define-public (make-ottava-set octavation)
   (let ((m (make-music 'ApplyContext)))
     (define (ottava-modify context)
-      "Either reset centralCPosition to the stored original, or remember
-old centralCPosition, add OCTAVATION to centralCPosition, and set
+      "Either reset middleCPosition to the stored original, or remember
+old middleCPosition, add OCTAVATION to middleCPosition, and set
 OTTAVATION to `8va', or whatever appropriate."	    
-      (if (number? (ly:context-property	 context 'centralCPosition))
+      (if (number? (ly:context-property	 context 'middleCPosition))
 	  (if (= octavation 0)
-	      (let ((where (ly:context-property-where-defined context 'centralCPosition))
+	      (let ((where (ly:context-property-where-defined context 'middleCPosition))
 		    (oc0 (ly:context-property context 'originalCentralCPosition)))
-		(ly:context-set-property! context 'centralCPosition oc0)
+		(ly:context-set-property! context 'middleCPosition oc0)
 		(ly:unset-context-property where 'originalCentralCPosition)
 		(ly:unset-context-property where 'ottavation))
-	      (let* ((where (ly:context-property-where-defined context 'centralCPosition))
-		     (c0 (ly:context-property context 'centralCPosition))
+	      (let* ((where (ly:context-property-where-defined context 'middleCPosition))
+		     (c0 (ly:context-property context 'middleCPosition))
 		     (new-c0 (+ c0 (* -7 octavation)))
 		     (string (cdr (assoc octavation '((2 . "15ma")
 						      (1 . "8va")
 						      (0 . #f)
 						      (-1 . "8va bassa")
 						      (-2 . "15ma bassa"))))))
-		(ly:context-set-property! context 'centralCPosition new-c0)
+		(ly:context-set-property! context 'middleCPosition new-c0)
 		(ly:context-set-property! context 'originalCentralCPosition c0)
 		(ly:context-set-property! context 'ottavation string)))))
     (set! (ly:music-property m 'procedure) ottava-modify)
@@ -523,7 +523,7 @@ without context specification. Called  from parser."
 
 (define-public (set-start-grace-properties context)
   (define (execute-1 x)
-    (let ((tr (ly:translator-find context (car x))))
+    (let ((tr (ly:context-find context (car x))))
       (if (ly:context? tr)
 	  (ly:context-pushpop-property tr (cadr x) (caddr x) (cadddr x)))))
   
@@ -533,7 +533,7 @@ without context specification. Called  from parser."
 
 (define-public (set-stop-grace-properties context)
   (define (execute-1 x)
-    (let ((tr (ly:translator-find context (car x))))
+    (let ((tr (ly:context-find context (car x))))
       (if (ly:context? tr)
 	  (ly:context-pushpop-property tr (cadr x) (caddr x)))))
   

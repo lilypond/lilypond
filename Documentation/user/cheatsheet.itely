@@ -238,8 +238,9 @@ twinkle
 @tab lyric hyphen 
 @tab
 @lilypond[fragment,relative=1]
- \notes { g'4 g }
-  \lyricsto "" \new Lyrics \lyrics {  twin -- kle }
+ << \notes { g'4 g }
+    \lyricsto "" \new Lyrics \lyrics {  twin -- kle }
+    >> 
 @end lilypond 
 
 @item @code{\chords @{ c:dim f:maj7 @}}

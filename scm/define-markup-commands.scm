@@ -37,7 +37,7 @@
 			markups))
 	 (text-width (apply + (map interval-length
 				   (map (lambda (x)
-					  (ly:stencil-get-extent x X))
+					  (ly:stencil-extent x X))
 					stencils))))
 	(word-count (length markups))
 	(word-space (cdr (chain-assoc 'word-space props)))
@@ -312,8 +312,8 @@ and/or @code{extra-offset} properties. "
          (m2 (interpret-markup paper props arg2)))
     (ly:stencil-align-to! m1 X CENTER)
     (ly:stencil-align-to! m2 X CENTER)    
-    (let* ((x1 (ly:stencil-get-extent m1 X))
-           (x2 (ly:stencil-get-extent m2 X))
+    (let* ((x1 (ly:stencil-extent m1 X))
+           (x2 (ly:stencil-extent m2 X))
            (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
            ;; should stack mols separately, to maintain LINE on baseline
            (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
@@ -338,7 +338,7 @@ and/or @code{extra-offset} properties. "
          (stemth 0.13)
          (stemy (* dir stemlen))
          (attachx (if (> dir 0)
-                      (- (cdr (ly:stencil-get-extent headgl X)) stemth)
+                      (- (cdr (ly:stencil-extent headgl X)) stemth)
                       0))
          (attachy (* dir 0.28))
          (stemgl (and (> log 0)
@@ -348,7 +348,7 @@ and/or @code{extra-offset} properties. "
                              (max stemy attachy))
                        (/ stemth 3))))
          (dot (ly:find-glyph-by-name font "dots-dot"))
-         (dotwid (interval-length (ly:stencil-get-extent dot X)))
+         (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
                     (apply ly:stencil-add
                            (map (lambda (x)
@@ -375,7 +375,7 @@ and/or @code{extra-offset} properties. "
                                                   (* 1.5 dotwid)
                                                   0)
                                               ;; huh ? why not necessary?
-                                              ;;(cdr (ly:stencil-get-extent headgl X))
+                                              ;;(cdr (ly:stencil-extent headgl X))
                                               dotwid)
                                            X)
                stemgl)))

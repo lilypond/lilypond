@@ -33,7 +33,7 @@
 (define-public (bracketify-stencil stil axis thick protusion padding)
   "Add brackets around STIL, producing a new stencil."
 
-  (let* ((ext (ly:stencil-get-extent stil axis))
+  (let* ((ext (ly:stencil-extent stil axis))
 	 (lb (ly:bracket axis ext thick (- protusion)))
 	 (rb (ly:bracket axis ext thick protusion)))
     (set! stil
@@ -68,8 +68,8 @@ encloses the contents.
 ;; TODO merge this and prev function. 
 (define-public (box-stencil stil thick padding)
   "Add a box around STIL, producing a new stencil."
-  (let* ((x-ext (interval-widen (ly:stencil-get-extent stil 0) padding))
-	 (y-ext (interval-widen (ly:stencil-get-extent stil 1) padding))
+  (let* ((x-ext (interval-widen (ly:stencil-extent stil 0) padding))
+	 (y-ext (interval-widen (ly:stencil-extent stil 1) padding))
 	 (y-rule (make-filled-box-stencil (cons 0 thick) y-ext))
 	 (x-rule (make-filled-box-stencil (interval-widen x-ext thick)
 					   (cons 0 thick))))
