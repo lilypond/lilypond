@@ -86,7 +86,8 @@
 	       (list
 		(markup #:fill-line
 			(#:large #:bigger #:bigger #:bold (get 'subtitle)))
-		(markup #:fill-line (#:bigger #:bigger #:bold (get 'subsubtitle)))
+		(markup #:fill-line (#:bigger #:bigger #:bold
+					      (get 'subsubtitle)))
 		(markup #:override '(baseline-skip . 5)
 			#:column ("")))
 
@@ -101,7 +102,9 @@
 	   (append
 	    (if (or (has 'poet) (has 'composer))
 		(list (markup #:fill-line
-			      (#:bigger (get 'poet) #:large #:bigger #:caps (get 'composer))))
+			      (#:bigger (get 'poet)
+					#:large #:bigger #:caps
+					(get 'composer))))
 		'())
 	    (if (or (has 'texttranslator) (has 'opus))
 		(list

@@ -7,26 +7,45 @@
 
 ;;; HIP -- hack in progress
 ;;;
-;;; This first working version needs Rotty's g-wrap--tng.
-;;; (janneke's guile-gnome patches now in main archive).
+;;; You need:
+;;;
+;;;   * guile-1.6.4 (NOT CVS)
+;;;   * Rotty's g-wrap--tng, possibly Janneke's if you have libffi-3.4.
+;;;   * lilypond branch: lilypond_2_3_2b; the framework-* backend
+;;;     loads output-gnome.scm at startup, which seems to break g-wrapped
+;;;     goops.
+;;;
 ;;; see also: guile-gtk-general@gnu.org
 ;;;
 ;;; Try it
 ;;;
+;;;   * Install g-wrap, guile-gnome (see script below)
+;;;  
 ;;;   * Use latin1 encoding for gnome backend, do
 ;;;       make -C mf clean
 ;;;       make -C mf ENCODING_FILE=$(kpsewhich cork.enc)
 ;;;       (cd mf/out && mkfontdir)
 ;;;       xset +fp $(pwd)/mf/out
-;;;  
-;;;   * lilypond-bin -fgnome input/simple-song.ly
+;;;
+;;;   * Setup PATHs:
+
+"
+# do not use guile CVS:
+export PATH=/usr/bin/:$PATH
+# use g-wrap and guile-gnome from usr/pkg
+export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$HOME/usr/pkg/g-wrap/share/guile/site/g-wrap:$HOME/usr/pkg/guile-gnome/share/guile
+export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
+"
+
+;;;  * Set XEDITOR and add
+;;;     #(ly:set-point-and-click 'line-column)
+;;;    to your .ly to get point-and-click
+;;;
+;;;  * Run lily: lilypond-bin -fgnome input/simple-song.ly
+;;;
 ;;;
 ;;;      todo: hmm --output-base broken?
 ;;;   ### cd mf && mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf && mf feta20.pfa out
-
-;;; Set XEDITOR and add
-;;;    #(ly:set-point-and-click 'line-column)
-;;; to your .ly to get point-and-click
 
 ;;; TODO:
 ;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
@@ -43,7 +62,6 @@
 ;;;       you'll probably want to pull all from
 ;;;       from guile-gnome-devel@gnu.org--2004 soon
 ;;;   
-;;; move this into workbook?
 
 "
 #!/bin/bash
@@ -57,7 +75,7 @@ cd test
 ## 1.  install gnome-devel (Debian/unstable: apt-get install gnome-devel)
 
 ## 2.  *** NOTE: use guile-1.6 for g-wrap and guile-gnome ***
-##### g-wrap fixes for guile-1.7 have been made -- should test
+##### using GUILE CVS g-wrap/guile-gnome is experimental (read: segfaults)
 PATH=/usr/bin:$PATH
 
 
@@ -78,7 +96,11 @@ mkdir =build
 cd =build
 ../configure --prefix=$HOME/usr/pkg/g-wrap
 make install
-## make install CC='cc -DSIZEOF_LONG=4'
+
+# cp srfi-34.scm from CVS head ?  --hwn
+(cd $HOME/usr/pkg/g-wrap/share/guile/site
+ mv srfi-34.scm srfi-34.scm-g-wrap
+ cp $HOME/usr/pkg/guile/share/guile-1.7/srfi/srfi-34.scm .)
 
 cd ../..
 
@@ -95,9 +117,9 @@ tla get guile-gnome-devel@gnu.org--2004/libgnomecanvas--dev libgnomecanvas
 
 ## pull latest defs from janneke -- this step is probably no longer
 ## necessary when you read this
-tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
-rm -rf defs
-tla get janneke@gnu.org--2004-gnome/defs--janneke defs
+## tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
+## rm -rf defs
+## tla get janneke@gnu.org--2004-gnome/defs--janneke defs
 
 rm -rf $HOME/usr/pkg/guile-gnome
 AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
@@ -108,17 +130,17 @@ export GUILE_LOAD_PATH=$HOME/usr/pkg/g-wrap/share/guile/site:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 
-# cp srfi-34.scm from CVS head ?  --hwn
-
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
-##G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
-G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install CC='cc -DSIZEOF_LONG=4'
+G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
 guile -s ../src/libgnomecanvas/examples/canvas.scm
 
+
+# simple test
+guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 "
 
@@ -313,14 +335,18 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 ;; TODO: one list per-page
 (define text-items '())
-
 (define (scale-canvas factor)
   (set! pixels-per-unit (* pixels-per-unit factor))
   (set-pixels-per-unit main-canvas pixels-per-unit)
   (for-each
    (lambda (x)
-     (let ((scale gobject-get-property x 'scale))
-       (gobject-set-property x 'scale pixels-per-unit)))
+     (let ((scale (gobject-get-property x 'scale))
+	   (points (gobject-get-property x 'size-points)))
+       ;;(stderr "scaling item:~S to ~S\n" x scale)
+       ;; (stderr "scaling item:~S to ~S\n" x points)
+       (gobject-set-property x 'size-points (* points factor))))
+       ;;(gobject-set-property x 'scale pixels-per-unit)
+       ;;(gobject-set-property x 'scale-set #t))
      text-items))
 
 (define (key-press-event item event . data)
@@ -432,8 +458,11 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
       #:size-points (pango-font-size font)
       ;;#:size (pango-font-size font)
       #:size-set #t
-      #:scale 1.0
-      #:scale-set #t
+
+      ;;apparently no effect :-(
+      ;;#:scale 1.0
+      ;;#:scale-set #t
+      
       #:fill-color "black"
       #:text string)
     text-items))
