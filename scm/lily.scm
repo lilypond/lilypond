@@ -223,8 +223,8 @@
   (define (char i)
     (string-append "\\char" (inexact->string i 10) " "))
   
-  (define (dashed-line thick dash w)
-    (embedded-ps ((ps-scm 'dashed-line) thick dash w)))
+  (define (dashed-line thick on off dx dy)
+    (embedded-ps ((ps-scm 'dashed-line) thick on off dx dy)))
 
   (define (decrescendo thick w h cont)
     (embedded-ps ((ps-scm 'decrescendo) thick w h cont)))
@@ -347,7 +347,11 @@
   (define (define-origin file line col)
     ; use this for column positions
      (string-append "\\special{src:" (number->string line) ":"
-        (number->string col) " " file "}")
+        (number->string col) " " file "}"
+	 ;; arg, the clueless take over the mailing list...
+	 "\\special{-****-These-warnings-are-harmless-***}"
+	 "\\special{-****-PLEASE-read-http://appel.lilypond.org/wiki/index.php3?PostProcessing-****}"
+	)
 
      ; line numbers only:
     ;(string-append "\\special{src:" (number->string line) " " file "}")
@@ -504,15 +508,17 @@
      (number->string (* 10 thick))	;UGH.  10 ?
      " ] 0 draw_dashed_slur"))
 
-  (define (dashed-line thick dash width)
+  (define (dashed-line thick on off dx dy)
     (string-append 
-     (number->string width) 
+     (number->string dx)
+     " "
+     (number->string dy)
      " "
      (number->string thick) 
      " [ "
-     (number->string dash)
+     (number->string on)
      " "
-     (number->string dash)
+     (number->string off)
      " ] 0 draw_dashed_line"))
 
   (define (decrescendo thick w h cont)
