@@ -82,7 +82,7 @@ one with cue notes for the instrumental part:
 
 @example
 < \tag #'part <
-  @{ c4 f2 g @}      % in the part, we have cue-notes  
+  @{ c4 f2 g4 @}      % in the part, we have cue-notes  
   \\ R1 >
   \tag #'score R1  % in the score: only a rest
 >
@@ -202,8 +202,8 @@ which is set through
 @end example
 
 @item
-Windows users can double click a @code{.ly} to process and view it
-automagically through the new @code{lily-wins} frontend.
+Windows users can double click a @code{.ly} file to process and view
+it automagically through the new @code{lily-wins} frontend.
 
 @end itemize
 

@@ -42,7 +42,7 @@ if test -z "$*"; then
   echo
 fi
 
-for coin in `find $srcdir -name configure.in -print`
+for coin in $srcdir/configure.in #`find $srcdir -name configure.in -print`
 do 
   dr=`dirname $coin`
   echo processing $dr

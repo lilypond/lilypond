@@ -8513,17 +8513,13 @@ The contexts for MIDI output are defined in @file{ly/performer-init.ly}.
 
 @cindex instrument names
 @cindex @code{Staff.midiInstrument}
-@cindex @code{Staff.instrument}
 
 The MIDI instrument name is set by the @code{Staff.midiInstrument}
-property or, if that property is not set, the @code{Staff.instrument}
 property.  The instrument name should be chosen from the list in
 @ref{MIDI instruments}.
 
 @refbugs
 
-If the selected string does not exactly match, then LilyPond uses the
-default (Grand Piano). It is not possible to select an instrument by
-number.
-
+If the selected string does not exactly match, then the default is
+used, which is the Grand Piano. 
 

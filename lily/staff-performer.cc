@@ -138,9 +138,6 @@ Staff_performer::new_instrument_string ()
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property ("midiInstrument");
 
-  if (!gh_string_p (minstr))
-    minstr = get_property ("instrument");
-
   if (!gh_string_p (minstr)
       || ly_scm2string (minstr) == instrument_string_)
     return "";

@@ -20,8 +20,8 @@ LY_DEFINE(ly_molecule_set_extent_x,"ly:molecule-set-extent!", 3 , 0, 0,
 {
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (ly_number_pair_p (np), np, SCM_ARG3, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_number_pair (np), np, SCM_ARG3, __FUNCTION__, "number pair");
 
   Interval iv = ly_scm2interval (np);
   m->dim_[Axis (gh_scm2int (axis))] = iv;
@@ -37,7 +37,7 @@ LY_DEFINE(ly_translate_molecule_axis,"ly:molecule-translate-axis", 3, 0, 0,
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
   SCM_ASSERT_TYPE (gh_number_p (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
 
   Molecule q (*m);
@@ -52,7 +52,7 @@ LY_DEFINE(ly_translate_molecule,"ly:molecule-translate", 2, 0, 0,
 {
   Molecule* m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE (ly_number_pair_p (offset), offset, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (is_number_pair (offset), offset, SCM_ARG2, __FUNCTION__, "number pair");
   Offset o = ly_scm2offset (offset);
   
   Molecule q (*m);
@@ -68,7 +68,7 @@ LY_DEFINE(ly_molecule_get_extent,
 {
   Molecule *m = unsmob_molecule (mol);
   SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
  
   return ly_interval2scm (m->extent (Axis (gh_scm2int (axis))));
 }
@@ -93,8 +93,8 @@ LY_DEFINE(ly_molecule_combined_at_edge,
   Molecule result;
 
 
-  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE(ly_dir_p (direction), direction, SCM_ARG4, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE(is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(is_direction (direction), direction, SCM_ARG4, __FUNCTION__, "dir");
 
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
@@ -183,8 +183,8 @@ LY_DEFINE(ly_make_molecule,
 "can run with the @code{-f scm} option. The scheme expressions are then \n"
 "dumped in the output file.")
 {
-  SCM_ASSERT_TYPE (ly_number_pair_p (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (ly_number_pair_p (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  
+  SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  
 
   Box b (ly_scm2interval (xext), ly_scm2interval(yext));
   Molecule m (b, expr);
@@ -217,7 +217,7 @@ LY_DEFINE(ly_align_to_x,"ly:molecule-align-to!", 3, 0, 0,  (SCM mol, SCM axis, S
 	  " the center. ")
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
-  SCM_ASSERT_TYPE(ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   SCM_ASSERT_TYPE(gh_number_p (dir), dir, SCM_ARG3, __FUNCTION__, "number");
 
   unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis),

@@ -180,7 +180,7 @@ Cluster::brew_molecule (SCM smob)
       SCM posns = col->get_grob_property ("positions");
       
       Slice s (0,0);
-      if (ly_number_pair_p (posns))
+      if (is_number_pair (posns))
 	s = Slice (gh_scm2int (gh_car (posns)),
 		   gh_scm2int (gh_cdr (posns)));
 
@@ -206,7 +206,7 @@ Cluster::brew_molecule (SCM smob)
 	      SCM posns = col->get_grob_property ("positions");
       
 	      Slice s (0,0);
-	      if (ly_number_pair_p (posns))
+	      if (is_number_pair (posns))
 		s = Slice (gh_scm2int (gh_car (posns)),
 			   gh_scm2int (gh_cdr (posns)));
 

@@ -66,7 +66,7 @@ Stem_tremolo::raw_molecule (Grob *me)
     {
       Real dy = 0;
       SCM s = beam->get_grob_property ("positions");
-      if (ly_number_pair_p (s))
+      if (is_number_pair (s))
 	{
 	  dy = -gh_scm2double (gh_car (s)) +gh_scm2double (gh_cdr (s));
 	}

@@ -59,7 +59,7 @@ LY_DEFINE (spanner_get_bound, "ly:get-spanner-bound", 2 , 0, 0,
 {
   Spanner * sl = dynamic_cast<Spanner*> (unsmob_grob (slur));
   SCM_ASSERT_TYPE (sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
-  SCM_ASSERT_TYPE (ly_dir_p (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE (is_direction (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
   return sl->get_bound (to_dir (dir))->self_scm ();
 }
 
@@ -101,7 +101,7 @@ LY_DEFINE (ly_get_extent, "ly:get-extent", 3, 0, 0,
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
   
-  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   return ly_interval2scm ( sc->extent (ref, Axis (gh_scm2int (axis))));
 }
@@ -112,7 +112,7 @@ LY_DEFINE (ly_get_parent, "ly:get-parent", 2, 0, 0, (SCM grob, SCM axis),
 {
   Grob * sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_axis_p (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
   Grob * par = sc->get_parent (Axis (gh_scm2int (axis)));
   return par ? par->self_scm () : SCM_EOL;
@@ -183,7 +183,7 @@ LY_DEFINE (ly_grob_translate_axis_x,
   Grob *me = unsmob_grob (g);
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (gh_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
-  SCM_ASSERT_TYPE (ly_axis_p (a), a, SCM_ARG3, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
   me->translate_axis (gh_scm2double (d),
 		      Axis (gh_scm2int (a)));

@@ -770,8 +770,8 @@ LY_DEFINE(ly_bracket ,"ly:bracket",
 	  "given by @var{iv}. The wings protude by an amount of @var{p}, which "
 	  "may be negative. The thickness is given by @var{t}.")
 {
-  SCM_ASSERT_TYPE(ly_axis_p (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
-  SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(is_axis (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
+  SCM_ASSERT_TYPE(is_number_pair (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
   SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG3, __FUNCTION__, "number") ;
   SCM_ASSERT_TYPE(gh_number_p (p), a, SCM_ARG4, __FUNCTION__, "number") ;
 
@@ -788,8 +788,8 @@ LY_DEFINE(ly_filled_box ,"ly:round-filled-box",
 	  (SCM xext, SCM yext, SCM blot),
 	  "Make a filled-box of dimensions @var{xext}, @var{yext} and roundness @var{blot}.")
 {
-  SCM_ASSERT_TYPE(ly_number_pair_p (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(ly_number_pair_p (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair") ;
+  SCM_ASSERT_TYPE(is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair") ;
   SCM_ASSERT_TYPE(gh_number_p (blot), blot, SCM_ARG3, __FUNCTION__, "number") ;
 
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),

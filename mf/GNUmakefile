@@ -50,11 +50,6 @@ INSTALLATION_OUT_FILES2=$(AFM_FILES)
 INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
 INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
-# comment this out if you don't want pfa's to be generated
-# making pfas takes a lot of CPU time. Let's skip it for now.
-#MAKE_PFA_FILES=1
-#MAKE_PFB_FILES=1
-
 SAUTER_FONTS = cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
 	cmcsc7 cmcsc12 cmtt17 cmbx14 cmbx17 cmtt6 cmbx6 cmbx5 cmbxti5 \
 	cmti6 cmti5 
@@ -65,23 +60,12 @@ ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 PFB_FILES = $(PFA_FILES:%.pfa=%.pfb)
 
-ifdef MAKE_PFB_FILES
-MAKE_PFA_FILES = 1
-ALL_GEN_FILES += $(PFB_FILES)
-endif
-
-ifdef MAKE_PFA_FILES
 ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
 INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/type1
 INSTALLATION_OUT_FILES4=$(PFA_FILES) $(outdir)/fonts.scale
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/dvips/
 INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
-endif
-
-ifdef MAKE_PFB_FILES
-INSTALLATION_OUT_FILES4 +=$(PFB_FILES)
-endif
 
 export MFINPUTS:=.:$(MFINPUTS)
 

@@ -55,6 +55,7 @@ TODO:
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 #include "scm-option.hh"

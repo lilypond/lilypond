@@ -200,11 +200,11 @@ Tuplet_bracket::brew_molecule (SCM smob)
       Drul_array<Real> height, flare, shorten;
       do {
 	flare[d] =  height[d] = shorten[d] = 0.0;
-	if (ly_number_pair_p (fl))
+	if (is_number_pair (fl))
 	  flare[d] +=  gh_scm2double (index_get_cell (fl, d));
-	if (ly_number_pair_p (eh))
+	if (is_number_pair (eh))
 	  height[d] += gh_scm2double (index_get_cell (eh, d)) * - dir;
-	if (ly_number_pair_p (sp))
+	if (is_number_pair (sp))
 	  shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
