@@ -1,3 +1,8 @@
+2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* input/regression/tie-grace.ly: new file.
+
+	* lily/tie-engraver.cc (create_grobs): fix tied graces.
 
 2002-04-13  Han-Wen  <hanwen@cs.uu.nl>
 
