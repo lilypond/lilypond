@@ -55,7 +55,8 @@ cd ../..
 
 export PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
-# 3.  [removed]
+# 3.  Still do not use GUILE CVS yet
+PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
@@ -67,7 +68,7 @@ tla register-archive a.rottmann@gmx.at--2004-main \
     http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true
 
 rm -rf g-wrap
-if true; then
+if false; then
     ## pull latest g-wrap from janneke -- this step is probably no longer
     ## necessary when you read this
     tla register-archive janneke@gnu.org--2004-gnome \
