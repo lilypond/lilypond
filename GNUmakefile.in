@@ -18,6 +18,9 @@ SUBDIRS = buildscripts python scripts \
 	vim 
 #
 
+include VERSION
+package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
+
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh
 README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS 
 README_TXT_FILES = AUTHORS.txt README.txt INSTALL.txt NEWS.txt
@@ -96,14 +99,14 @@ CATALOGS = $(HELP_CATALOGS:lilypond=)
 $(builddir)/share/lilypond-force:
 # Preparing LilyPond tree for builddir exec
 	cd $(builddir) && rm -rf lib share
-	mkdir -p $(builddir)/lib/lilypond
-	mkdir -p $(builddir)/share/lilypond
-	mkdir -p $(builddir)/share/lilypond/elisp
-	mkdir -p $(builddir)/share/lilypond/fonts
-	mkdir -p $(builddir)/share/lilypond/tex
-	cd $(builddir)/lib/lilypond && \
+	mkdir -p $(builddir)/lib/$(package)
+	mkdir -p $(builddir)/share/$(package)
+	mkdir -p $(builddir)/share/$(package)/elisp
+	mkdir -p $(builddir)/share/$(package)/fonts
+	mkdir -p $(builddir)/share/$(package)/tex
+	cd $(builddir)/lib/$(package) && \
 		ln -s  ../../python/$(outconfbase) python
-	cd $(builddir)/share/lilypond && \
+	cd $(builddir)/share/$(package) && \
 		ln -s $(abs-srcdir)/ly ly && \
 		ln -s ../../mf/$(outconfbase) dvips && \
 		ln -s ../../mf/$(outconfbase) afm && \
@@ -112,16 +115,16 @@ $(builddir)/share/lilypond-force:
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
-	cd $(builddir)/share/lilypond/tex && \
+	cd $(builddir)/share/$(package)/tex && \
 		ln -s $(abs-srcdir)/tex source && \
 		ln -s ../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../mf/$(outconfbase) mf-out
-	cd $(builddir)/share/lilypond/fonts && \
+	cd $(builddir)/share/$(package)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		ln -s ../../../mf/$(outconfbase) afm && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
-	cd $(builddir)/share/lilypond/elisp && \
+	cd $(builddir)/share/$(package)/elisp && \
 		ln -sf ../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
