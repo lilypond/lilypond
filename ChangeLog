@@ -1,5 +1,12 @@
 2004-09-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/quote-cyclic.ly (Module): new file.
+
+	* scm/lily.scm (print): add function.
+
+	* scm/music-functions.scm (quote-substitute): new
+	function. Substitute \quote when putting music into \score.
+
 	* input/regression/key-signature-cancellation.ly (Module): new file.
 
 	* lily/*.cc: more ly_scm2 -> scm_to converions.

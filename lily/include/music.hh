@@ -71,6 +71,6 @@ DECLARE_UNSMOB(Music,music);
 
 Music* make_music_by_name (SCM sym);
 SCM ly_deep_mus_copy (SCM);
-SCM ly_music_scorify (SCM);
+SCM ly_music_scorify (SCM, SCM);
 
 #endif /* MUSIC_HH */

@@ -19,7 +19,13 @@
 	     (srfi srfi-1)  ; lists
 	     (srfi srfi-13)) ; strings
 
+; my display
+
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
+
+(define-public (print . args)
+  (apply format (cons (current-output-port) args)))
+  
 
 ;;; General settings
 ;;; debugging evaluator is slower.  This should
@@ -122,7 +128,7 @@
     ))
 
 (define-public (collect-music-for-book parser music)
-  (collect-scores-for-book parser (ly:music-scorify music)))
+  (collect-scores-for-book parser (ly:music-scorify music parser)))
 
 
   

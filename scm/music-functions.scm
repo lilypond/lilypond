@@ -601,6 +601,26 @@ Syntax:
 			   (lambda (,@args)
 			     ,@body)))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public ((quote-substitute quote-tab) music)
+  (let*
+      ((quoted-name (ly:music-property music 'quoted-music-name))
+       (quoted-vector (if (string? quoted-name)
+			  (hash-ref quote-tab quoted-name #f)
+			  #f
+			  ))
+
+       )
+    (if (string? quoted-name)
+	(if  (vector? quoted-vector)
+	     (set! (ly:music-property music 'quoted-events) quoted-vector)
+	     (ly:warn "Cannot find quoted music `~S'" quoted-name)))
+
+    music))
+    
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; switch it on here, so parsing and init isn't checked (too slow!)
 ;;
@@ -614,8 +634,11 @@ Syntax:
 (define-public toplevel-music-functions
   (list
    ;; check-start-chords ; ; no longer needed with chord syntax. 
-   voicify-music
-   (lambda (x) (music-map glue-mm-rest-texts x))
+   (lambda (music parser) (voicify-music music))
+   (lambda (x parser) (music-map glue-mm-rest-texts x))
+   (lambda (music parser)
+
+     (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
    ;; switch-on-debugging
    ))
 

@@ -6,7 +6,9 @@ music may be quoted. "
 
 }
 \version "2.3.4"
-
+\paper {
+    raggedright = ##t
+}
 \addquote bla \relative c' {
     fis4 g a b }
 

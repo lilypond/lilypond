@@ -103,13 +103,17 @@ Quote_iterator::construct_children ()
       event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
       end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
     }
+  else
+    {
+      get_music ()->origin()->warning (_("No events found for \\quote"));
+    }
 }
 
 
 bool
 Quote_iterator::ok () const
 {
-  return (event_idx_ <= end_idx_);
+  return ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
 }
 
 
