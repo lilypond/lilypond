@@ -36,3 +36,9 @@
  "a rehearsal mark"
  '(
    ))
+
+;;; todo: this is not typesetting info. Move to interpretation.
+(ly-add-interface
+ 'tablature-interface
+ "tablature notes"
+ '(string-tunings tab-string))

@@ -531,8 +531,8 @@ command."
   (setq dutch-note-ends '("eses" "es" "" "is" "isis"))
   (setq dutch-note-replacements '("" ""))
   (setq finnish-note-replacements
-	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as")
-	 ("beses" "bb") ("bes" "b") ("b" "h") ("bis" "his") ("bisis" "hisis")))
+	'(("eeses" "eses") ("ees" "es") ("aeses" "asas") ("aes" "as") ("b" "h")
+	  ("beses" "heses") ("bes" "b") ("bis" "his") ("bisis" "hisis")))
 			      ; add more translations of the note names
   (setq other-keys "()<>~")
   (setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)
@@ -542,7 +542,9 @@ command."
   (setq note-replacements dutch-note-replacements)
   (while (not (= 27 ; esc to quit
     (setq x (read-char 
-	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)\\b\\n Esc \n | c | d | e | f | g | a | b | r with %s%s%s%s"
+	     (format " | a[_]s[_]d | f[_]j[_]k[_]l | r with ie ,' 12345678 . 0 (<~>)\\b\\n Esc \n | c | d | e | f | g | a | %s | r with %s%s%s%s"
+		     (if (string= (car(cdr(assoc "b" note-replacements))) "h")
+			 "h" "b")
 		     (nth (+ accid 2) dutch-note-ends)
 		     (make-string (abs octav) (if (> octav 0) ?' ?,)) 
 		     durat 
@@ -555,7 +557,7 @@ command."
     (setq x (char-to-string x))
     (cond
      ((and (string< x "9") (string< "0" x))
-      (progn (setq durat (int-to-string (expt 2 (string-to-int x))))
+      (progn (setq durat (int-to-string (expt 2 (- (string-to-int x) 1))))
 	     (setq dots 0)))
      ((string= x " ") (insert " "))
      ((string= x "0") (progn (setq accid 0) (setq octav 0) 
@@ -582,11 +584,15 @@ command."
 		 durat
 		 (if (string= durat "") "" (make-string dots ?.))))
 	(setq accid 0) (setq octav 0) (setq durat "") (setq dots 0)))
-     ((string= x "t") (setq note-replacements dutch-note-replacements)) ; t
-     ((string= x "n") (setq note-replacements finnish-note-replacements)) ; n
+     ((string= x "t") (progn (setq note-replacements dutch-note-replacements)
+			     (message "Selected Dutch notes") 
+			     (sit-for 0 750 1))) ; t
+     ((string= x "n") (progn (setq note-replacements finnish-note-replacements)
+			     (message "Selected Finnish/Deutsch notes") 
+			     (sit-for 0 750 1))) ; n
 			      ; add more translations of the note names
      ((string= x "h") 
-      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish note names.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Remember to add all more other details as well.") (sit-for 5 0 1)))
+      (progn (message "Insert notes with fewer key strokes. For example \"i,5.f\" produces \"fis,32. \".") (sit-for 5 0 1) (message "Add also \"a ~ a\"-ties, \"a ( ) b\"-slurs and \"< a b >\"-chords.") (sit-for 5 0 1) (message "Note names are in Du(t)ch by default. Hit 'n' for Fin(n)ish/Deutsch note names.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Backspace deletes last note, return starts a new indented line and Esc quits.") (sit-for 5 0 1) (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
 
 (define-skeleton LilyPond-insert-tag-notes
