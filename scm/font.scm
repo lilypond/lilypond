@@ -7,40 +7,74 @@
 ;;
 ;; should dump tree to .texi as internal documentation
 ;; 
-;; * should extract design sizes from fonts.
+;; * should extract design sizes from fonts: fonts should 
+;; be read off the disk, on demand, something like:
+;;  
+;; cmr -> ((font-load "cmr6") (font-load "cmr8")  .. )
+;;
 
-(define font-tree-record
-  (make-record-type
-   "font-tree-node"
-   '(qualifier default children)))
+(define-class <Font-tree-element>
+  ()
+  )
 
-(define-public font-tree-node?
-  (record-predicate font-tree-record))
-(define-public font-tree-default
-  (record-accessor font-tree-record 'default))
-(define-public font-tree-qualifier
-  (record-accessor font-tree-record 'qualifier))
-(define-public font-tree-children
-  (record-accessor font-tree-record 'children))
+(define-class <Font-tree-leaf> (<Font-tree-element>)
+  (default-size #:init-keyword #:default-size)
+  (size-vector  #:init-keyword #:size-vector))
 
+(define-class <Font-tree-node> (<Font-tree-element>)
+  (qualifier #:init-keyword #:qualifier  #:accessor font-qualifier)
+  (default #:init-keyword #:default #:accessor font-default)
+  (children #:init-keyword #:children #:accessor font-children))
+
+(define (make-font-tree-leaf size size-font-vector)
+  (make <Font-tree-leaf> #:default-size size #:size-vector size-font-vector))
 
 (define (make-font-tree-node
 	 qualifier default)
-  ((record-constructor font-tree-record)
-    qualifier
-    default
-    (make-hash-table 11)))		;ugh. hardcoded.
+  (make <Font-tree-node>
+     #:qualifier qualifier
+     #:default default 
+     #:children (make-hash-table 11)))
+
+(define-method (display (leaf <Font-tree-leaf>) port)
+  (map (lambda (x) (display x port))
+   (list
+    "Font-size-family: \n"
+     (slot-ref leaf 'default-size) 
+     (slot-ref leaf 'size-vector) )))
+  
+(define-method (display (node <Font-tree-node>) port)
+  
+    (map
+     (lambda (x)
+       (display x port))
+     
+     (list
+      "Font_node { \nqual: "
+      (font-qualifier node)
+      "(def: "
+      (font-default node)
+      ") {\n"))
+    (for-each 
+     (lambda (x)
+       (display "\n")
+       (display (car x) port)
+       (display "=" port)
+       (display (cdr x) port))
+     (hash-table->alist (font-children node)))
+    (display "} } \n"))
+
+
 
 (define default-qualifier-order
   '(font-encoding font-family font-shape font-series))
 
-
-(define-public (add-font node fprops size-family)
+(define-method (add-font (node <Font-tree-node>) fprops size-family)
   (define (assoc-delete key alist)
     (assoc-remove! (list-copy alist) key))
   (define (make-node fprops size-family)
     (if (null? fprops)
-	size-family
+	(make-font-tree-leaf (car size-family) (cdr size-family))
 	(let*
 	    ((qual (next-qualifier default-qualifier-order fprops)))
 	  (make-font-tree-node qual
@@ -58,72 +92,50 @@
 	  (next-qualifier (cdr order) props))
       )))
 
-  (if (font-tree-node? node)
-      (let*
-	  ((q (font-tree-qualifier node))
-	   (d (font-tree-default node))
-	   (v (assoc-get q fprops d))
-	   (new-fprops (assoc-delete q fprops))
-	   (child (hashq-ref (font-tree-children node)
-			     v #f)))
-
-
-	(if (not child)
-	    (begin
-	      (set! child (make-node new-fprops size-family))
-	      (hashq-set! (font-tree-children node) v child)))
-
-	(add-font child new-fprops size-family))
-      (if (not (equal? size-family node))
-	  (throw 'invalid-font props size-family)))
-  )
-
-(define-public (display-font-node node . rest)
   (let*
-      ((port (if (pair? rest) (car rest) (current-output-port)))
-       )
-    (cond
-     ((font-tree-node? node)
-      (map
-       (lambda (x)
-	 (display x port))
-       
-       (list
-	"Font_node { \nqual: "
-	(font-tree-qualifier node)
-	"(def: "
-	(font-tree-default node)
-	") {\n"))
-      (for-each 
-       (lambda (x)
-	 (display "\n")
-	 (display (car x) port)
-	 (display "=" port)
-	 (display-font-node (cdr x) port))
-       (hash-table->alist (font-tree-children node)))
-      (display "} } \n"))
+      ((q (font-qualifier node))
+       (d (font-default node))
+       (v (assoc-get q fprops d))
+       (new-fprops (assoc-delete q fprops))
+       (child (hashq-ref (slot-ref node 'children)
+			 v #f)))
 
-     (else
-      (display node port))))
-  )
 
-(define-public (lookup-font node alist-chain)
-  (cond
-   ((font-tree-node? node)
-    (let*
-	((qual (font-tree-qualifier node))
-	 (def (font-tree-default node))
+    (if (not child)
+	(begin
+	  (set! child (make-node new-fprops size-family))
+	  (hashq-set! (slot-ref node 'children) v child)))
+    (if (pair? new-fprops)
+	(add-font child new-fprops size-family))))
+
+
+(define-method (add-font (node <Font-tree-leaf>) fprops size-family)
+  (throw "must add to node, not leaf"))
+
+
+(define-method (g-lookup-font (node <Font-tree-node>) alist-chain)
+  (let*
+	((qual (font-qualifier node))
+	 (def (font-default node))
 	 (val (chain-assoc-get qual alist-chain def))
 	 (desired-font (lookup-font
-			(hashq-ref (font-tree-children node)
+			(hashq-ref (font-children node)
 				   val) alist-chain))
+
+	 (default (hashq-ref (font-children node) def))
 	 (font (if desired-font
 		   desired-font
-		   (lookup-font (hashq-ref (font-tree-children node)
+		   (g-lookup-font (hashq-ref (font-children node)
 					   def) alist-chain)))
 	 )
       font))
-   (else node)))
+
+(define-method (g-lookup-font (node <Font-tree-leaf>) alist-chain)
+  node)
+
+(define (lookup-font node alist-chain)
+  (g-lookup-font node alist-chain))
+
 
 (define-public (make-font-tree factor)
   (let*
@@ -228,6 +240,8 @@
 		  )))
        ))
     n))
+
+; (display (make-font-tree 1.0))
 
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))

@@ -96,11 +96,7 @@ Mark_engraver::try_music (Music* r)
 
 
 /*
-
   TODO: make the increment function in Scheme.
-
-
-  TODO: junk the number type for rehearsalMark
 */
 void
 Mark_engraver::process_music ()

@@ -20,7 +20,7 @@ $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
-	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $< 
+	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $<  
 
 # don't junk intermediate .dvi files.  They're easier to view than
 # .ps or .png

@@ -1,10 +1,22 @@
 @c -*-texinfo-*-
 
-
 @node Introduction
 @chapter Introduction
 
-[TODO: should have introduction of introduction]
+This manual 
+
+
+@menu
+* Automated engraving::         
+* What symbols to engrave?::    
+* Music representation::        
+* Example applications::        
+* About this manual::           
+@end menu
+
+
+@node Engraving
+@section Engraving
 
 The art of music typography is called @emph{(plate) engraving}. The
 term derives from the traditional process of music printing. Only a
@@ -160,13 +172,6 @@ see and love to play from.
 
 
 
-@menu
-* Automated engraving::         
-* What symbols to engrave?::    
-* Music representation::        
-* Example applications::        
-* About this manual::           
-@end menu
 
 @node Automated engraving
 @section Automated engraving

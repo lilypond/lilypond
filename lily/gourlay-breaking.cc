@@ -79,6 +79,9 @@ Gourlay_breaking::do_solve () const
   Break_node first_node ;
   optimal_paths.push (first_node);
 
+  bool ragged_right = to_boolean (pscore_->paper_->get_scmvar ("raggedright"));
+  bool ragged_last = to_boolean (pscore_->paper_->get_scmvar ("raggedlast"));
+
   Real worst_force = 0.0;
   for (int break_idx = 1; break_idx< breaks.size (); break_idx++) 
     {
@@ -92,13 +95,11 @@ Gourlay_breaking::do_solve () const
       
       Real minimal_demerits = infinity_f;
 
-      bool ragged = to_boolean (pscore_->paper_->get_scmvar ("raggedright"));
-
       for (int start_idx = break_idx; start_idx--;)
 	{
 	  Link_array<Grob> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
-	  line[0]     = dynamic_cast<Item*> (line[0])    ->find_prebroken_piece (RIGHT);
+	  line[0]     = dynamic_cast<Item*> (line[0])->find_prebroken_piece (RIGHT);
 	  line.top () = dynamic_cast<Item*> (line.top ())->find_prebroken_piece (LEFT);
 	    
 	  Column_x_positions cp;
@@ -107,9 +108,17 @@ Gourlay_breaking::do_solve () const
 	  Interval line_dims
 	    = pscore_->paper_->line_dimensions_int (optimal_paths[start_idx].line_);
 	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
+	  bool last_line = break_idx == breaks.size ()-1;
+	  bool ragged = ragged_right
+	    || (last_line && ragged_last);
+	  
 	  sp->solve (&cp, ragged);
+	  
 	  delete sp;
 
+	  if (ragged && last_line)
+	    cp.force_ = 0.0;
+	  
 	  if (fabs (cp.force_) > worst_force)
 	    worst_force = fabs (cp.force_);
 

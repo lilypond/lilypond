@@ -27,9 +27,7 @@ struct Horizontal_bracket
   This doesn't look very elegant: should support winged edges.
 
   Support texts on the brackets?
-
 */
-
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 
 SCM

@@ -117,10 +117,10 @@ select_font (Paper_def *paper, SCM chain)
   
       return paper->find_font (name, rmag);
     }
-  else if (gh_pair_p (name)) // (DEFAULT . FONT-VEC) pair
+  else if (scm_instance_p (name))
     {
-      SCM vec = gh_cdr (name);
-      SCM base_size = gh_car (name);
+      SCM base_size  = scm_slot_ref (name, ly_symbol2scm ("default-size"));
+      SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
       
       SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
       Real req = 0.0;

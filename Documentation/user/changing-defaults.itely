@@ -1929,6 +1929,11 @@ spacing is.
 @cindex page layout
 @cindex vertical spacing
 
+The option @code{raggedlast} is similar to @code{raggedright}, but
+only affects the last line of the piece. No restrictions are put on
+that line. The result is similar to formatting paragraphs. In a
+paragraph, the last line simply takes its natural length.
+
 The page layout process happens outside the LilyPond formatting
 engine: variables controlling page layout are passed to the output,
 and are further interpreted by @code{lilypond} wrapper program. It

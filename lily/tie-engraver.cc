@@ -27,8 +27,6 @@
 
    TODO: Remove the dependency on musical info. We should tie on the
    basis of position and duration-log of the heads (not of the events).
-
-   TODO: support sparseTies.
 */
 class Tie_engraver : public Engraver
 {

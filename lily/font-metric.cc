@@ -178,7 +178,6 @@ LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 
   /*
     TODO: make optional argument for default if not found.
-    
    */
   return m.smobbed_copy ();
 }

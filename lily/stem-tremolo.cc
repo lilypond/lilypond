@@ -141,10 +141,6 @@ Stem_tremolo::print (SCM grob)
   // ugh, rather calc from Stem_tremolo_req
   int beam_count = (beam) ? (Stem::beam_multiplicity (stem).length () + 1): 0;
 
-  /*
-    TODO.
-   */
-
 
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
