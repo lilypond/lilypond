@@ -31,7 +31,7 @@ global = \notes { s1*3 \bar "|." }
       \name SquashVoice
       \alias Voice
       \consists Pitch_squash_engraver
-      \consists Local_key_engraver
+      \consists "Accidental_engraver"
       squashedPosition = #0
       NoteHead \override #'style = #'slash
       Accidentals \override #'transparent = ##t
@@ -39,7 +39,7 @@ global = \notes { s1*3 \bar "|." }
     \translator {
       \VoiceContext
       \alias SquashVoice
-      \consists Local_key_engraver
+      \consists "Accidental_engraver"
     }
     \translator {
       \ScoreContext
@@ -47,7 +47,7 @@ global = \notes { s1*3 \bar "|." }
     }
     \translator {
       \StaffContext
-      \remove Local_key_engraver
+      \remove "Accidental_engraver"
       \accepts SquashVoice
     }
     linewidth = -1

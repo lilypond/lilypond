@@ -1,3 +1,8 @@
+%% +.ly: Be the first .ly file for lys-to-tely.py.
+%% Better to make lys-to-tely.py include "introduction.texi" or
+%% other .texi documents too?
+
+
 \header{
 texidoc = "
 @section Introduction
@@ -15,6 +20,6 @@ foollilypondbook = "
 "
 }
 
-\score {
-  \context Lyrics \lyrics { "." }
+\score{
+\context Lyrics \lyrics { "." }
 }

@@ -3,7 +3,9 @@
 
 % barline spacing  disrupts visual rhythm.
 
-#(define nbal (acons '("Staff_bar" "begin-of-note") '(minimum_space 0.0) default-break-align-space-alist))
+%%FIXME
+
+%% #(define nbal (acons '("Staff_bar" "begin-of-note") '(minimum_space 0.0) default-break-align-space-alist))  %% FIXME
 
 \score{
     \notes \relative c'  <
@@ -26,7 +28,7 @@
     	linewidth = -1.0\cm
 	\translator{
 	    \ScoreContext
-	    BreakAlignment \override #'space-alist = #nbal
+%%FIXME	    BreakAlignment \override #'space-alist = #nbal
 	    \remove Timing_engraver
 	}
 	\translator{

@@ -9,6 +9,7 @@ linebreak = \penalty #-1000
 
 \score {
   \notes {
+    c''
     \property Voice.Stem \set #'length = #"foo"
     \property Voice.Stem \set #'longth = #2
     \property Staff.clefStyle = #"foo"

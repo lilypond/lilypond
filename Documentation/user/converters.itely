@@ -27,7 +27,7 @@ files in the current directory and its subdirectories, use
 
 The program is invoked as follows:
 @example
-        convert-ly [@var{options}] @var{files}
+        convert-ly [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 

@@ -1,5 +1,33 @@
 2002-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/index.texi: Add pointers to new regression and
+	test documents.
+
+	* Documentation/user/converters.itely:
+	Documentation/user/invoking.itexi: Some small fixes for uniform
+	usage example.
+
+	* input/allfontsize.ly, size*.ly: New files, moved from
+	input/regression.
+	
+	* input/font20.ly, font-body.ly: New files, moved from input/test.
+	
+	* input/font*.ly: New files, moved from input/test.
+
+	* input/test/*.ly: Remove empty files, fix broken ones.
+
+	* input/test/different-time-signatures.ly: Add FIXME marker;
+	comment-out broken code.
+
+	* Documentation/regression-test.tely: Comment-out, add
+	obsolete-marker and url to regression-test-dir.
+
+	* input/test/GNUmakefile: 
+	* input/regression/GNUmakefile: Add rule for lys-to-tely.py.
+
+	* input/regression/+.ly:
+	* input/test/+.ly: New file.
+
 	* input/test/cue-notes.ly: better example
 
 	* Documentation/user/refman.itely (Font selection): font size doco

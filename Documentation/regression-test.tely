@@ -1,6 +1,8 @@
-\input texinfo @c -*-texinfo-*-   vim:tw=72
+\input texinfo @c -*-texinfo-*-
+
 @setfilename regression-test.info
 @settitle LilyPond Regression test
+
 
 @html
 <!--- @@WEB-TITLE@@=Regression Test --->
@@ -13,6 +15,12 @@
 @end ignore
 
 @node Top, , , (dir)
+
+This file has moved.
+
+See @uref{../../input/regression/out-www/regression.html,Regression Tests}.
+
+@ignore
 
 @section Introduction
 
@@ -401,5 +409,6 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{molecule-hacking.ly}
 
+@end ignore
 @bye
 

@@ -1,5 +1,5 @@
 \version "1.5.68"
-\include "german-chords.ly"
+\include "german-chords-init.ly"
 
 % #(set! german-Bb #t)
 

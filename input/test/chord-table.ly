@@ -23,6 +23,7 @@ tab =  \notes\transpose c'''\chords{
 		\context ChordNames=es \notes\transpose es\tab
 		\context Staff=e \notes\transpose e\tab
 		\context ChordNames=e \notes\transpose e\tab
+%{ FIXME: remove some, gs barfs		
 		\context Staff=fis \notes\transpose fis\tab
 		\context ChordNames=fis \notes\transpose fis\tab
 		\context Staff=g \notes\transpose g\tab
@@ -35,6 +36,7 @@ tab =  \notes\transpose c'''\chords{
 		\context ChordNames=bes \notes\transpose bes,\tab
 		\context Staff=b \notes\transpose b,\tab
 		\context ChordNames=b \notes\transpose b,\tab
+%}		
 	>
 	\paper{
 		textheight = \vsize - 4.0 * \staffheight

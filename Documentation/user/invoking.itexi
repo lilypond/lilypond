@@ -15,7 +15,7 @@
 Usage:
 
 @example
-        lilypond [@var{options}] @var{file}@dots{}
+        lilypond [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
 
