@@ -85,7 +85,6 @@ static Keyword_ent the_key_tab[] = {
 
 
 My_lily_lexer::My_lily_lexer (Sources *sources)
-  
 {
   keytable_ = new Keyword_table (the_key_tab);
   encoding_ = SCM_EOL;
@@ -116,8 +115,6 @@ My_lily_lexer::~My_lily_lexer ()
 {
   delete keytable_;
 }
-
-
 
 SCM
 My_lily_lexer::encoding () const
