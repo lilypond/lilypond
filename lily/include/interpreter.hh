@@ -12,12 +12,4 @@
 
 #include "lily-proto.hh"
 
-class Interpreter {
-public:
-    int music_list_i_;
-    Interpreter();
-    virtual ~Interpreter();
-    virtual bool interpret_request_b(Request*) { return false;}
-};
-
 #endif // INTERPRETER_HH

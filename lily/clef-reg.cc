@@ -56,10 +56,9 @@ void
 Clef_register::acknowledge_element(Score_elem_info info)
 {
     if (info.elem_l_->name() == Bar::static_name() ) {
-	if (!clef_p_){
-	    create_clef();
+	create_clef();
+	if ( !clef_req_l_ )
 	    clef_p_->default_b_ = true;
-	}
     }
 }
 
@@ -79,8 +78,7 @@ Clef_register::do_try_request(Request * r_l)
 
     clef_req_l_ = creq_l->clefchange();
     
-    // do it now! Others have to read c0_pos.
-    read_req(creq_l->clefchange()); 
+    read_req(clef_req_l_); 
     return true;
 }
 
@@ -89,13 +87,11 @@ Clef_register::create_clef()
 {
     if (!clef_p_) {
 	clef_p_ = new Clef_item;
-        announce_element(Score_elem_info(clef_p_,
-				     clef_req_l_));
-    
-	clef_p_->read(*this);
+        announce_element(Score_elem_info(clef_p_,clef_req_l_));
     }
-
+    clef_p_->read(*this);
 }
+
 void
 Clef_register::do_process_requests()
 {
