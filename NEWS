@@ -1,4 +1,12 @@
---- ../lilypond-1.1.53/NEWS	Mon Jul 05 05:56:28 1999
+--- ../lilypond-1.1.53.jbr1/NEWS	Wed Jul 07 23:47:42 1999
+++ b/NEWS	Thu Jul 08 17:07:30 1999
+@@ -1,3 +1,6 @@
+pl 53.jbr2
+        - Documentation/ntweb/index.html: Updated nt distribution web page
+
+ pl 53.jbr1
+ 	- scripts/ly2dvi.py: A fix for the multitude of file systems supported
+           by windows.  As long as the paths that the cygwin apps use are--- ../lilypond-1.1.53/NEWS	Mon Jul 05 05:56:28 1999
 ++ b/NEWS	Wed Jul 07 23:47:42 1999
 @@ -1,3 +1,9 @@
 pl 53.jbr1
