@@ -22,11 +22,11 @@ protected:
 public:
     Music_iterator *daddy_iter_l_;
     NAME_MEMBERS();
-    Register_group_register *report_to_reg_l_;
+    Acceptor *report_to_l_;
     
-    static Music_iterator* static_get_iterator_p(Music*,Register_group_register*);
+    static Music_iterator* static_get_iterator_p(Music*,Acceptor*);
     Music_iterator* get_iterator_p(Music*)const;
-    void set_reg(Register_group_register*);
+    void set_acceptor(Acceptor*);
     Music_iterator();
     virtual void next(Moment until);
     virtual Moment next_moment()const;
@@ -34,7 +34,7 @@ public:
     virtual ~Music_iterator();
     virtual void construct_children();
     void print()const;
-    virtual Register_group_register * get_req_acceptor_l();
+    virtual Acceptor * get_req_acceptor_l();
 };
 
 // duh.
