@@ -36,7 +36,7 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.85'	
+	program_version = '1.3.105.tca1'
 
 include_path = [os.getcwd()]
 
@@ -813,6 +813,8 @@ def find_eps_dims (match):
 	"Fill in dimensions of EPS files."
 	
 	fn =match.group (1)
+	if g_outdir:
+	    fn = os.path.join(g_outdir, fn)
 	dims = bounding_box_dimensions (fn)
 
 	return '%ipt' % dims[0]
