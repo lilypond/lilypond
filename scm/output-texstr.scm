@@ -10,19 +10,23 @@
 
 
 (define (dummy . foo) #f)
+
 (map (lambda (x) (module-define! this-module x dummy))
-     (append
-      (ly:all-stencil-expressions)
-      (ly:all-output-backend-commands)))
+     (ly:all-stencil-expressions))
 
-
+(define-public (grob-cause . x) "")
+(define-public (no-origin . x) "")
+(define-public (placebox
+		x y what)
+  (if (string? what)
+      what
+      ""))
+  
 (define-public (text font s)
   (call-with-output-string
    (lambda (port)
      (write (list
-	     "HOI"
 	     (ly:font-file-name font)
 	     (ly:font-magnification font)
-	     s
-	     ) port))))
-
+	     s) port)
+     (newline port))))
