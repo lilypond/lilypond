@@ -2980,6 +2980,10 @@ In this example, spacer rests are used to prevent the bottom staff from
 terminating too soon.
 
 
+@seealso
+
+@internalsref{AutoChangeMusic}
+
 @refbugs
 
 The staff switches often do not end up in optimal places. For high
