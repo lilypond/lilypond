@@ -374,7 +374,7 @@ fet_beginchar("Turn","turn","turn")
 	draw_turn;
 		
 	penlabels(5,6,7);
-	penlabels(2,3,4);
+	penlabels(1,2,3,4);
 fet_endchar;
 
 
@@ -584,6 +584,118 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 
 	penlabels(1,2,3,4);
 	draw z1..z2..z3..z4..cycle;
+fet_endchar;
+
+fet_beginchar("Repeatsign", "repeatsign", "repeatsign")
+	set_char_box(interline#, interline#, interline#, interline#);
+
+	save dot_diam;
+	2 dot_diam# = interline# - stafflinethickness#;
+	define_pixels(dot_diam);
+
+	penpos1(dot_diam,0);
+	z1l=(-b,-d);
+	penpos2(dot_diam,0);
+	z2r=(w,h);
+	filldraw z1l--z2l{right}--z2r{down}--z1r{right}--cycle;
+        penlabels (1,2);
+
+	pickup pencircle scaled dot_diam;
+        draw (-interline/2, interline/2);
+        draw (interline/2, -interline/2);
+fet_endchar;
+
+fet_beginchar("Segno", "segno", "segno")
+	save thin, thick, ball_diam, darkness, pointheight;
+	save wd, ht, thick_nibangle, ball_nib_thick;
+	save turndir;
+	pair turndir;
+
+	ht# = 3 interline#;
+	wd# = 2 interline#;
+	darkness = 1.20 stafflinethickness;
+
+	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);	
+
+	thick_nibangle = 30;
+	thick = 3 darkness;
+	thin = darkness;
+	ball_nib_thick = 2.7 darkness;
+	ball_diam = ball_nib_thick + (w - ball_nib_thick) / 10;
+	pointheight = 2 stafflinethickness;
+	
+	y3l = h;
+	2 x3 = x2 + x4;
+	x4 = 0;
+	y4 = y2;
+	y2l = .6 h;
+	x2l = -b;
+	z1 = (0,0);
+
+	penpos1(thick, 2 thick_nibangle);
+	penpos2(thick, thick_nibangle);
+	penpos3(thin, -90);
+	penpos4(ball_nib_thick, 180-thick_nibangle);
+
+	path swoosh, ploop;
+	swoosh :=  z1l{curl 0} .. z2l .. z3l{right} .. {down}z4l 
+	  -- z4r .. z3r{left} .. z2r{down} ;
+	fill swoosh .. (swoosh scaled -1) .. cycle;
+	penlabels(1,2,3,4);
+
+	y5r = y4;
+	x5r = x4l - ball_diam /2;
+	z6r = z5r;
+
+	penpos5(1.6 ball_diam/2, 100);
+	penpos6(ball_diam/2, 240);
+
+	ploop := z4l{down} .. z5l .. z6l -- cycle;
+	fill ploop;
+	fill ploop scaled -1;
+	penlabels(4,5,6);
+
+	penpos7(2 thin,0);
+	z7l=(-b,-d);
+	penpos8(2 thin,0);
+	z8r=(w,h);
+	filldraw z7l--z8l{right}--z8r{down}--z7r{right}--cycle;
+	pickup pencircle scaled 2 thin;
+	draw (-x2r,pointheight);
+	draw (x2r,-pointheight);
+fet_endchar;
+
+fet_beginchar("Coda", "coda", "coda")
+	save thin, thick, wheelwidth, wheelheight;
+	thin# = 1.2 stafflinethickness#;
+	thick# = 3.5 stafflinethickness#;
+	wheelwidth# = 2/3 interline#;
+	wheelheight# = 1 interline#;
+	define_pixels(thin, thick, wheelwidth, wheelheight);
+
+	set_char_box(wheelwidth#+thick#, wheelwidth#+thick#,
+		wheelheight#+thick#, wheelheight#+thick#);
+
+	penpos1(thick,0);
+	penpos2(thin,-90);
+	penpos3(thick,180);
+	x1l=-wheelwidth;
+	y2l=wheelheight;
+	y1=0;
+	x2=0;
+	z3 = - z1;
+	penlabels(1,2,3);
+
+	path halfwheel;
+	halfwheel := z1l{up} .. z2l{right} .. z3l{down} -- 
+		z3r{up} .. z2r{left} .. z1r{down} .. cycle;
+	fill halfwheel;
+	fill (halfwheel scaled -1);
+
+	pickup pencircle scaled thin;
+	draw (0,-h) -- (0,h);
+	draw (-w,0) -- (w,0);
+
 fet_endchar;
 
 input feta-slag;
