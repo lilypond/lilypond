@@ -8,19 +8,15 @@
     \notes
     <
 	\context Staff = SA
-	{ % \time hardcodes \property Score.XXX = YYY
-	\property Staff.timeSignatureFraction = #'(4 . 4)
-	\property Staff.measureLength = #(make-moment 1 1)
-	\property Staff.beatLength = #(make-moment 1 4)
+	{
+	    \time 4/4
 	c1 c1 c1
-	\property Staff.whichBar = #"|."
+	\bar "|."
     }
-	\context Staff= SB {
-	\property Staff.timeSignatureFraction = #'(3 . 4)
-	\property Staff.measureLength = #(make-moment 3 4)
-	\property Staff.beatLength = #(make-moment 1 4)
+    \context Staff= SB {
+	\time 3/4
 	c2. c2.  c2. c2.
-	\property Staff.whichBar = #"|."
+	\bar "|."
     }
 
     >		 
@@ -29,6 +25,8 @@
     \translator{ \ScoreContext
     \remove "Timing_engraver" }
     \translator{ \StaffContext
-    \consists "Timing_engraver"}
+    \consists "Timing_engraver"
+    \alias Timing
+}
 }
 }

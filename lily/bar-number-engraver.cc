@@ -54,7 +54,7 @@ Bar_number_engraver::process_music ()
 	{
 	  SCM bn = get_property ("currentBarNumber");
 	  SCM proc = get_property ("barNumberVisibility");
-	  if (to_boolean(gh_call1(proc, bn)))
+	  if (gh_number_p (bn) && to_boolean(gh_call1(proc, bn)))
 	    {
 	      create_items ();
 	      // guh.

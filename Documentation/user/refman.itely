@@ -929,7 +929,8 @@ many more options for its layout. They are selected through the
 examples.
 
 This command sets the property @code{timeSignatureFraction},
-@code{beatLength} and @code{measureLength}.  The property
+@code{beatLength} and @code{measureLength} in the @code{Timing}
+context, which is normally aliased to @internalsref{Score}.  The property
 @code{timeSignatureFraction} determine where bar lines should be
 inserted, and how automatic beams should be generated.  Changing the
 value of @code{timeSignatureFraction} also causes a time signature
@@ -957,7 +958,7 @@ The syntax for this command is
 @end example
 This is  internally translated into
 @example
-  \property Score.measurePosition = -@var{length of duration}
+  \property Timing.measurePosition = -@var{length of duration}
 @end example
 @cindex @code{|}
 The property @code{measurePosition} contains a rational number

@@ -1224,7 +1224,7 @@ command_element:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm->set_mus_property ("context-type", scm_makfrom0str ("Score"));
+		csm->set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| PARTIAL duration_length  	{
 		Moment m = - unsmob_duration ($2)->length_mom ();
@@ -1235,7 +1235,7 @@ command_element:
 		scm_gc_unprotect_object (p->self_scm ());
 
 		$$ =sp ;
-		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ("Timing"));
 	}
 	| CLEF STRING  {
 		SCM func = scm_primitive_eval (ly_symbol2scm ("clef-name-to-properties"));
@@ -1279,8 +1279,6 @@ command_element:
 		Context_specced_music * sp = new Context_specced_music (SCM_EOL);
 		sp->set_mus_property ("element", seq->self_scm ());
 
-		
-
 		scm_gc_unprotect_object (p3->self_scm ());
 		scm_gc_unprotect_object (p2->self_scm ());
 		scm_gc_unprotect_object (p1->self_scm ());
@@ -1288,11 +1286,7 @@ command_element:
 
 		$$ = sp;
 
-/*
- TODO: should make alias TimingContext for Score
-*/
-
-		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Score"));
+		sp-> set_mus_property ("context-type", scm_makfrom0str ( "Timing"));
 	}
 	;
 

@@ -1,6 +1,12 @@
 2002-09-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/poly-metric.ly: update to use Timing.
+
+	* lily/bar-number-engraver.cc (process_music): only run
+	barNumberVisibility if currentBarNumber is a number.
+
 	* lily/parser.yy (chord_inversion): use CHORD_SLASH for '/'
+	(command_element): use Timing as alias for Score.
 
 2002-09-06  Jérémie Lumbroso  <jeremie@lumbroso.fr>
 
