@@ -17,20 +17,24 @@ Interval::length() const {
     assert(max >= min);
     return max-min;
 }
+
 void
 Interval::unite(Interval h)
 {
+    compare(h, *this );
     if (h.min<min)
 	min = h.min;
     if (h.max>max)
 	max = h.max;
 }
+
 void
 Interval::intersect(Interval h)
 {
     min = MAX(h.min, min);
     max = MIN(h.max, max);
 }
+
 Interval
 intersection(Interval a, Interval const&b)
 {
@@ -38,6 +42,7 @@ intersection(Interval a, Interval const&b)
     return a;
     
 }
+
 int
 Interval::compare(const Interval&a,Interval const&b)
 {
@@ -62,8 +67,8 @@ intersect(Interval x, Interval const &y)
     return x;
 }
     
-
-Interval::operator String() const
+String
+Interval::str() const
 {
     if (empty())
 	return "[empty]";

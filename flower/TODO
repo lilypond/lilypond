@@ -1,3 +1,6 @@
+
+	* PointerVec ?
+
 	* PCursor -> Pointer_cursor / PointerCursor ?
 
 	* efficient copy cons for List
@@ -11,9 +14,6 @@
 	would be nice
 
 	* use template handle in handle.hh for strings.
-
-	* Restricted cursor/list: make sublist from a list, and use rcursor
-as if list is as big as the sublist.
 
 	* move towards gnu or STL?
 
