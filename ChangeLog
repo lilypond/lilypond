@@ -1,3 +1,7 @@
+2005-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/page-breaks.ly: Fix and update.
+
 2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/stepmake/texinfo-vars.make: DESTDIR fixes (Matthias
