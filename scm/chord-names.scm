@@ -10,6 +10,11 @@
    (ice-9 regex)
    )
 
+;; The regex module may not be available, or may be broken.
+(define use-regex
+  (let ((os (string-downcase (vector-ref (uname) 0))))
+    (not (equal? "cygwin" (substring os 0 (min 6 (string-length os)))))))
+
 ;;
 ;; (octave notename accidental)
 ;;
@@ -249,7 +254,8 @@
     (apply append (pitch->text-banter tonic)
 	   (if user-name user-name '())
 	   ;; why does list->string not work, format seems only hope...
-	   (if (and (string-match "super" (format "~s" user-name))
+	   (if (and use-regex
+		    (string-match "super" (format "~s" user-name))
 		    (or (pair? additions)
 			(pair? subtractions)))
 	       '(("/" (type . "super")))
