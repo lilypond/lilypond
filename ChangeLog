@@ -1,3 +1,9 @@
+2002-07-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/paper-column.cc (before_line_breaking): update
+	#'bounded-by-me field for suicided items.  This fixes crazy
+	spacing in \partcombine scores.
+
 2002-07-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* config.hh.in: Add HAVE_SSTREAM.
@@ -13,6 +19,11 @@
 	* input/twinkle.ly: Bugfix: no automaticMelismata.
 
 2002-07-08  Han-Wen  <hanwen@cs.uu.nl>
+
+	* mutopia/J.S.Bach/Cembalo-Partitas/: remove
+
+	* ly/engraver-init.ly (ScoreContext): turn on automaticMelismata
+	by default.
 
 	* lily/voice-devnull-engraver.cc (try_music):
 	lily/thread-devnull-engraver.cc: use proper spelling for #'always.

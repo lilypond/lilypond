@@ -12,19 +12,26 @@
 if [ "$LILYPONDPREFIX" == "" ] ; then
     datadir=`echo "@datadir@" | sed 's!//!/!g'`
 else
-## to support development from ~/usr/src/lilypon.
-    datadir=$LILYPONDPREFIX
+    if [ -d "$LILYPONDPREFIX/fonts" ] ; then
+	datadir=$LILYPONDPREFIX
+    else
+	eval `cat $LILYPONDPREFIX/VERSION`
+	FULLVERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL"
+	datadir="$LILYPONDPREFIX/share/lilypond/$FULLVERSION"
+    fi
+    echo "Setting tree to $datadir"
 fi
+
+# Add the installation directory to the teTeX system tree, 
+# see Documentation/misc/fontinstallation
+TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
+export TEXMF
 
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
 export GS_LIB
 
 
-# Add the installation directory to the teTeX system tree, 
-# see Documentation/misc/fontinstallation
-TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
-export TEXMF
 
 
 # For direct ps output fonts. Add all available TeX Type1 fonts

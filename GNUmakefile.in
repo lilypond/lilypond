@@ -122,6 +122,7 @@ builddir-setup: $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force
 
 $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION)-force:
 	# Preparing LilyPond tree for builddir exec
+	@echo Making $(depth)/$(builddir)/share 
 	@cd $(depth)/$(builddir) && rm -rf share
 	@cd $(depth)/$(builddir) && mkdir -p share/lilypond
 	@cd $(depth)/$(builddir)/share/lilypond && mkdir -p $(TOPLEVEL_VERSION)
