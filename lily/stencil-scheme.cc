@@ -8,11 +8,11 @@
 
 #include <math.h>
 
-#include <libc-extension.hh>	// isinf
-
 #include "font-metric.hh"
-#include "stencil.hh"
+#include "libc-extension.hh"
 #include "lookup.hh"
+#include "stencil.hh"
+
 
 /*
   TODO: naming add/combine.
