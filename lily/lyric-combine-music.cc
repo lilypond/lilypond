@@ -16,10 +16,13 @@ Lyric_combine_music::Lyric_combine_music (SCM x)
 {
 }
 
-Moment
-Lyric_combine_music::get_length () const
+MAKE_SCHEME_CALLBACK(Lyric_combine_music,length_callback,1);
+SCM
+Lyric_combine_music::length_callback (SCM m)
 {
-  return get_music ()->get_length ();
+  Music * me = unsmob_music (m);
+  Music *melody = unsmob_music (scm_car (me->get_property ("elements")));
+  return melody->get_length ().smobbed_copy ();
 }
 
 Music*

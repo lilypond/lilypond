@@ -9,16 +9,19 @@
 #include "event.hh"
 #include "warn.hh"
 
-Moment
-Event::get_length () const
+MAKE_SCHEME_CALLBACK(Event,length_callback,1);
+SCM
+Event::length_callback (SCM m)
 {
-  Duration *d = unsmob_duration (get_property ("duration"));
-  if (!d)
+  Music* me = unsmob_music (m);
+  Duration *d = unsmob_duration (me->get_property ("duration"));
+
+  Moment mom;
+  if (d)
     {
-      Moment m ;
-      return m;
+      mom = d->get_length ();
     }
-  return d->get_length ();
+  return mom.smobbed_copy();
 }
 
 void
@@ -62,6 +65,10 @@ Event::to_relative_octave (Pitch last)
 Event::Event (SCM i)
   : Music (i)
 {
+  if (!ly_c_procedure_p (length_callback_))
+    {
+      length_callback_ = length_callback_proc;
+    }
 }
 
 ADD_MUSIC (Event);

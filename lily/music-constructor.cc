@@ -14,8 +14,6 @@
 
 #include "warn.hh"
 
-typedef Music *(*Music_ctor) ();
-
 static std::map<String,Music_ctor> *ctors_map_;
 
 void

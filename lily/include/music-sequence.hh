@@ -9,16 +9,16 @@
 
 #ifndef MUSIC_SEQUENCE_HH
 #define MUSIC_SEQUENCE_HH
+
 #include "music.hh"
-/**
-  Music can be a list of other "Music" elements
- */
+
 class Music_sequence : public Music
 {
 public:
   Music_sequence (SCM h);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music_sequence);
-
+  DECLARE_SCHEME_CALLBACK(cumulative_length_callback, (SCM));
+  DECLARE_SCHEME_CALLBACK(maximum_length_callback, (SCM));
   SCM music_list () const;
   
   Pitch do_relative_octave (Pitch p, bool b);

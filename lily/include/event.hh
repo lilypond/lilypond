@@ -23,7 +23,7 @@ public:
   Event (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
   virtual void compress (Moment);
-  virtual Moment get_length () const;
+  DECLARE_SCHEME_CALLBACK(length_callback,(SCM));
   virtual Pitch to_relative_octave (Pitch);
 };
 

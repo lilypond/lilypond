@@ -18,7 +18,6 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR (Music, Grace_music);
   Grace_music (SCM);
 protected:
-  virtual Moment get_length () const;
   virtual Moment start_mom () const;
 };
 

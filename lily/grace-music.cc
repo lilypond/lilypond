@@ -8,22 +8,14 @@
 */
 
 #include "grace-music.hh"
-
 #include "grace-iterator.hh"
-
-Moment
-Grace_music::get_length () const
-{
-  Moment m;
-  return m;
-}
 
 Moment
 Grace_music::start_mom () const
 {
-  Moment l = Music_wrapper::get_length ();
+  Moment *l = unsmob_moment (Music_wrapper::length_callback (self_scm ()));
   Moment gl;
-  gl.grace_part_ = -(l.main_part_ + l.grace_part_ );
+  gl.grace_part_ = -(l->main_part_ + l->grace_part_ );
   return gl;
 }
 
