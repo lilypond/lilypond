@@ -112,6 +112,8 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 					       gh_int2scm (tremolo_flags));
 		  tremolo_->set_parent (stem_, X_AXIS);
 		  stem_->set_property ("tremolo-flag", tremolo_->self_scm ());
+		  tremolo_->set_property ("stem",
+					  stem_->self_scm ());
 		}
 	    }
 
@@ -137,7 +139,6 @@ Stem_engraver::stop_translation_timestep ()
 {
   if (tremolo_)
     {
-      Stem_tremolo::set_stem (tremolo_, stem_);
       typeset_grob (tremolo_);
       tremolo_ = 0;
     }
