@@ -122,9 +122,6 @@
 		   (lookup-font (hashq-ref (font-tree-children node)
 					   def) alist-chain)))
 	 )
-      (if (equal? (chain-assoc-get  'font-family alist-chain) 'sans)
-	  (display (list "...........\n" node alist-chain)))
-      
       font))
    (else node))
    )
