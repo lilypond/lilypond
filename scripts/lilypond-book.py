@@ -403,6 +403,7 @@ output_dict= {
 		'output-default-post': "\\def\postLilyPondExample{}\n",
 		'output-default-pre': "\\def\preLilyPondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
+		'output-eps': '\\noindent\includegraphics{%(fn)s}', 
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
@@ -1160,6 +1161,8 @@ def format_lilypond_block (chunk):
 	elif format == 'latex':
 		if 'quote' in opts:
 			s = 'output-latex-quoted'
+		elif 'eps' in opts:
+			s = 'output-eps'
 		else:
 			s = 'output-latex-noquote'
 	elif format == 'texi':
