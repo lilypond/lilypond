@@ -13,11 +13,18 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
+/*
+  It is possible that a slur starts and ends on the same note.  At
+  least, it is for phrasing slurs: a note can be both beginning and
+  ending of a phrase.
+ */
+
 class Slur_engraver : public Engraver
 {
   Drul_array<Music *> events_;
   Music * running_slur_start_;
   Grob * slur_;
+  Grob * end_slur_;
 
   Moment last_start_;
 
@@ -37,7 +44,7 @@ public:
 Slur_engraver::Slur_engraver ()
 {
   events_[START] =events_[STOP] = 0;
-  slur_ = 0;
+  end_slur_ = slur_ = 0;
   last_start_ = Moment (-1);
 }
 
@@ -84,11 +91,15 @@ Slur_engraver::acknowledge_grob (Grob_info info)
     {
       if (slur_)
 	New_slur::add_column (slur_, e);
+      if (end_slur_)
+	New_slur::add_column (end_slur_, e);
     }
   else
     {
       if (slur_)
 	New_slur::add_extra_encompass (slur_, e);
+      if (end_slur_)
+	New_slur::add_extra_encompass (end_slur_, e);
     }
 }
 
@@ -102,9 +113,10 @@ Slur_engraver::finalize ()
 void
 Slur_engraver::process_music ()
 {
-  if (events_[STOP] && events_[START])
+  if (events_[STOP])
     {
-      events_[START]->origin()->warning (_ ("Cannot start and end slur on same note"));
+      end_slur_ = slur_;
+      slur_ = 0;
     }
   
   if (events_[START] && !slur_)
@@ -115,21 +127,15 @@ Slur_engraver::process_music ()
 	slur_->set_property ("direction", scm_int2num (updown));
     }
 
-  set_melisma (slur_ && !events_[STOP]);
+  set_melisma (slur_)
 }
 
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  if (events_[STOP])
-    {
-      slur_ = 0;
-    }
-  
+  end_slur_ = 0;
   events_[START] = events_[STOP] = 0;
 }
-
-
 
 ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs grobs from slur events",

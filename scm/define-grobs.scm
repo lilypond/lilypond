@@ -434,8 +434,10 @@
     (Fingering
      . (
 	(print-function . ,Text_item::print)
-	(padding . 0.6)
-	(staff-padding . 0.6)
+
+	; sync with TextScript (?)
+	(padding . 0.5)
+	(staff-padding . 0.5)
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
@@ -1122,6 +1124,8 @@
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
+
+	; sync with Fingering ?
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)

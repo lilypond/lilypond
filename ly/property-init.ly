@@ -50,18 +50,6 @@ dynamicBoth = {
   \revert DynamicLineSpanner #'direction
 }
 
-scriptUp = {
-  \override TextScript  #'direction = #1
-  \override Script  #'direction = #1
-}
-scriptDown = {
-  \override TextScript  #'direction = #-1
-  \override Script  #'direction = #-1
-}
-scriptBoth = {
-  \revert TextScript #'direction
-  \revert Script #'direction
-}
 
 dotsUp = \override Dots  #'direction = #1
 dotsDown = \override Dots  #'direction = #-1
