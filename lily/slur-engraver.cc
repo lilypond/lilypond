@@ -12,12 +12,13 @@
 #include "note-column.hh"
 #include "translator-group.hh"
 #include "engraver.hh"
+#include "spanner.hh"
 
 class Slur_engraver :public Engraver {
   Link_array<Span_req> requests_arr_;
   Link_array<Span_req> new_slur_req_l_arr_;
-  Link_array<Slur> slur_l_stack_;
-  Link_array<Slur> end_slur_l_arr_;
+  Link_array<Score_element> slur_l_stack_;
+  Link_array<Score_element> end_slur_l_arr_;
 
   void set_melisma (bool);
 protected:
@@ -56,13 +57,13 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::acknowledge_element (Score_element_info info)
 {
-  if (dynamic_cast<Note_column *> (info.elem_l_))
+  if (Note_column::has_interface (info.elem_l_))
     {
-      Note_column *col_l =dynamic_cast<Note_column *> (info.elem_l_) ;// ugh
+      Score_element *e =info.elem_l_;
       for (int i = 0; i < slur_l_stack_.size (); i++)
-	slur_l_stack_[i]->add_column (col_l);
+	Slur::add_column (slur_l_stack_[i], e);
       for (int i = 0; i < end_slur_l_arr_.size (); i++)
-	end_slur_l_arr_[i]->add_column (col_l);
+	Slur::add_column (end_slur_l_arr_[i], e);
     }
 }
 
@@ -86,7 +87,7 @@ Slur_engraver::do_removal_processing ()
 void
 Slur_engraver::do_process_music ()
 {
-  Array<Slur*> start_slur_l_arr_;
+  Link_array<Score_element> start_slur_l_arr_;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)
     {
       Span_req* slur_req_l = new_slur_req_l_arr_[i];
@@ -98,7 +99,7 @@ Slur_engraver::do_process_music ()
 	    slur_req_l->warning (_f ("can't find both ends of %s", _ ("slur")));
 	  else
 	    {
-	      Slur* slur = slur_l_stack_.pop ();
+	      Score_element* slur = slur_l_stack_.pop ();
 	      SCM s = get_property ("slurEndAttachment");
 	      if (gh_symbol_p (s))
 		{
@@ -112,7 +113,8 @@ Slur_engraver::do_process_music ()
 	{
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
-	  Slur* slur = new Slur (get_property ("basicSlurProperties"));
+	  Score_element* slur = new Spanner (get_property ("basicSlurProperties"));
+	  Slur::set_interface (slur);
 	  SCM s = get_property ("slurBeginAttachment");
 	  if (gh_symbol_p (s))
 	    {

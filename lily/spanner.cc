@@ -232,38 +232,6 @@ Spanner::broken_b() const
   return broken_into_l_arr_.size();
 }
 
-Array<Rod>
-Spanner::get_rods () const
-{
-  Array<Rod> r;
-  return r;
-}
-
-Array<Spring>
-Spanner::get_springs () const
-{
-  Array<Spring> s;
-  return s;    
-}
-
-void
-Spanner::do_space_processing ()
-{
-  Array<Rod> rs (get_rods ());
-  for (int i=0; i < rs.size (); i++)
-    {
-      rs[i].add_to_cols ();
-    }
-
-  Array<Spring> ss (get_springs ());
-  for (int i=0; i < ss.size (); i++)
-    {
-      if (isinf (ss[i].distance_f_))
-	programming_error ("weird spring");
-      else
-	ss[i].add_to_cols ();
-    }
-}
 
 /*
   If this is a broken spanner, return the amount the left end is to be

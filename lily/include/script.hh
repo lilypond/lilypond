@@ -10,19 +10,20 @@
 #ifndef SCRIPT_HH
 #define SCRIPT_HH
 
-#include "item.hh"
-#include "drul-array.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /**
    Articulation marks (and the like) that are attached to notes/stems.
    Needs support from Staff_side for proper operation.  Staff_side
    handles the positioning.
 */
-class Script : public Item
+class Script
 {
 public:
-  static  Molecule get_molecule (Score_element*,Direction d);
-  Script (SCM);
+  static Molecule get_molecule (Score_element*,Direction d);
+  static void set_interface (Score_element*);
+  static bool  has_interface (Score_element*);
   static SCM brew_molecule (SCM);
   static SCM after_line_breaking (SCM);
 };

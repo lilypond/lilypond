@@ -13,8 +13,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem.hh"
-#include "offset.hh"
-
+#include "item.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
@@ -45,7 +44,7 @@ Stem_tremolo::brew_molecule (SCM smob)
 {
   Score_element *me= unsmob_element (smob);
   Score_element * stem = unsmob_element (me->get_elt_property ("stem"));
-  Beam * beam = Stem::beam_l (stem);
+  Score_element * beam = Stem::beam_l (stem);
   
   Real dydx;
   if (beam)
@@ -54,8 +53,8 @@ Stem_tremolo::brew_molecule (SCM smob)
       SCM s = beam->get_elt_property ("height");
       if (gh_number_p (s))
 	dy = gh_scm2double (s);
-      Real dx = beam->last_visible_stem ()->relative_coordinate (0, X_AXIS)
-	- beam->first_visible_stem ()->relative_coordinate (0, X_AXIS);
+      Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
+	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
       dydx = dx ? dy/dx : 0;
     }
   else
@@ -79,7 +78,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     // huh?
     tremolo_flags = 1;
 
-  int mult = beam ? beam->get_multiplicity () : 0;
+  int mult = beam ? Beam::get_multiplicity (beam) : 0;
   Real interbeam_f = me->paper_l ()->interbeam_f (mult);
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)

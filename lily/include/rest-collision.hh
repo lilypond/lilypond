@@ -16,7 +16,7 @@
 class Rest_collision		// interface
 {
 public:
-  static void add_column (Score_element*me,Note_column*);
+  static void add_column (Score_element*me,Score_element*);
   static void set_interface (Score_element*me);
   static bool has_interface (Score_element*);
   static Real force_shift_callback (Score_element *, Axis);

@@ -14,6 +14,7 @@
 #include "group-interface.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
+#include "spanner.hh"
 
 class System_start_delimiter_engraver : public Engraver
 {
@@ -41,9 +42,9 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
 	  
       Pointer_group_interface (delim_).add_element (inf.elem_l_);
     }
-  else if (System_start_delimiter * b = dynamic_cast<System_start_delimiter *> (inf.elem_l_))
+  else if (System_start_delimiter::has_interface (inf.elem_l_))
     {
-      SCM gl = b->get_elt_property ("glyph");
+      SCM gl = inf.elem_l_->get_elt_property ("glyph");
       SCM my_gl = delim_->get_elt_property ("glyph");
 
       /*
@@ -51,7 +52,7 @@ System_start_delimiter_engraver::acknowledge_element (Score_element_info inf)
        */
       if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
 	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
-	b->translate_axis ( -paper_l ()->get_var ("interline"), X_AXIS); // ugh
+	inf.elem_l_->translate_axis ( -paper_l ()->get_var ("interline"), X_AXIS); // ugh
     }
 
 }
@@ -64,7 +65,8 @@ System_start_delimiter_engraver::System_start_delimiter_engraver()
 void
 System_start_delimiter_engraver::do_creation_processing()
 {
-  delim_ = new System_start_delimiter (get_property ("basicSystemStartDelimiterProperties"));
+  delim_ = new Spanner (get_property ("basicSystemStartDelimiterProperties"));
+  System_start_delimiter::set_interface (delim_);
   delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
   /*

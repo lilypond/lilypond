@@ -16,13 +16,15 @@
 #include "score-engraver.hh"
 #include "rest.hh"
 #include "drul-array.hh"
+#include "item.hh"
+#include "spanner.hh"
 
 class Beam_engraver : public Engraver
 {
   Drul_array<Span_req*> reqs_drul_;
 
-  Beam *finished_beam_p_;
-  Beam *beam_p_;
+  Spanner *finished_beam_p_;
+  Spanner *beam_p_;
   Span_req * prev_start_req_;
 
   Beaming_info_list * beam_info_p_;
@@ -120,8 +122,9 @@ Beam_engraver::do_process_music ()
 	}
 
       prev_start_req_ = reqs_drul_[START];
-      beam_p_ = new Beam (get_property ("basicBeamProperties"));
-
+      beam_p_ = new Spanner (get_property ("basicBeamProperties"));
+      Beam::set_interface (beam_p_);
+      
       SCM smp = get_property ("measurePosition");
       Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
@@ -143,7 +146,7 @@ Beam_engraver::typeset_beam ()
     {
       finished_beam_info_p_->beamify ();
       
-      finished_beam_p_->set_beaming (finished_beam_info_p_);
+      Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
       typeset_element (finished_beam_p_);
       delete finished_beam_info_p_;
       finished_beam_info_p_ =0;
@@ -229,7 +232,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
 	  beam_info_p_->add_stem (stem_location,
 				  (rhythmic_req->duration_.durlog_i_ - 2) >? 1);
-	  beam_p_->add_stem (stem_l);
+	  Beam::add_stem (beam_p_, stem_l);
 	}
     }
 }

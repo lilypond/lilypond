@@ -49,7 +49,7 @@ class Tie_engraver : public Engraver
   Array<CHead_melodic_tuple> stopped_heads_;
   Link_array<Tie> tie_p_arr_;
 
-  Tie_column * tie_column_p_;
+  Spanner * tie_column_p_;
   
   void set_melisma (bool);
   
@@ -199,7 +199,7 @@ Tie_engraver::process_acknowledged ()
 	}
       else if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
-	  tie_column_p_ = new Tie_column (get_property ("basicTieColumnProperties"));
+	  tie_column_p_ = new Spanner (get_property ("basicTieColumnProperties"));
 	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--; )
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);

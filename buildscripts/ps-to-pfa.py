@@ -21,6 +21,8 @@ from string import *
 import re
 import time
 
+logfile = sys.stdout
+
 def program_id ():
     return name + ' version ' + version;
 
@@ -58,19 +60,19 @@ for opt in options:
 
 
 def gulp_file (f):
-	sys.stderr.write ('[%s' % f)
+	logfile.write ('[%s' % f)
 	try:
 		i = open (f)
 		i.seek (0, 2)
 		n = i.tell ()
 		i.seek (0,0)
 	except:
-		sys.stderr.write ('can\'t open file %s\n ' % f)
+		logfile.write ('can\'t open file %s\n ' % f)
 		return ''
 	s = i.read (n)
-	sys.stderr.write (']')
+	logfile.write (']')
 	if len (s) <= 0:
-		sys.stderr.write ('gulped empty file: %s\n'% f)
+		logfile.write ('gulped empty file: %s\n'% f)
 	return s
 
 mf = files[0]
@@ -81,7 +83,7 @@ if not output_name:
     output_name  = font_name + '.pfa'
 
 
-sys.stderr.write ('Font: %s\n'% font_name)
+logfile.write ('Font: %s\n'% font_name)
 
 def header (f):
 	f.write ('%!PS-AdobeFont-3.0: ' + font_name + '\n')
@@ -125,7 +127,7 @@ end                                         % of font dictionary
 suspect_re = re.compile ('closepath ((gsave )*fill( grestore stroke)*) 1 setgray newpath (.*?) closepath fill')
 
 def characters (f):
-	sys.stderr.write ('[')
+	logfile.write ('[')
 	
 	files = []
 	import find			# q
@@ -179,14 +181,14 @@ def characters (f):
 	f.write ('end                                         % of CharProcs\n')
 	f.write (encoding)
 	f.write ('\n')
-	sys.stderr.write (']')
+	logfile.write (']')
 
 
 ps_file = open (output_name, 'w')
 header (ps_file)
 characters (ps_file)
 footer (ps_file)
-sys.stderr.write ('\n')
+logfile.write ('\n')
 ps_file.close ()
-sys.stderr.write ('Wrote PostScript font: %s\n' % output_name)
+logfile.write ('Wrote PostScript font: %s\n' % output_name)
 

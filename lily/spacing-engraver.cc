@@ -11,6 +11,48 @@
 #include "paper-column.hh"
 #include "spacing-engraver.hh"
 #include "spacing-spanner.hh"
+#include "engraver.hh"
+#include "pqueue.hh"
+
+struct Rhythmic_tuple
+{
+  Score_element_info info_;
+  Moment end_;
+  
+  Rhythmic_tuple ()
+    {
+    }
+  Rhythmic_tuple (Score_element_info i, Moment m )
+    {
+      info_ = i;
+      end_ = m;
+    }
+  static int time_compare (Rhythmic_tuple const &, Rhythmic_tuple const &);  
+};
+
+/**
+   Acknowledge rhythmic elements, for initializing spacing fields in
+   the columns.
+
+   should be the  last one of the toplevel context
+*/
+class Spacing_engraver : public Engraver
+{
+  PQueue<Rhythmic_tuple> playing_durations_;
+  Array<Rhythmic_tuple> now_durations_;
+  Array<Rhythmic_tuple> stopped_durations_;
+
+  Spanner * spacing_p_;
+protected:
+  VIRTUAL_COPY_CONS(Translator);
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_post_move_processing ();
+  virtual void do_pre_move_processing ();
+  virtual void do_creation_processing ();
+  virtual void do_removal_processing ();
+public:
+  Spacing_engraver ();
+};
 
 inline int
 compare (Rhythmic_tuple const &a, Rhythmic_tuple const &b)
@@ -33,7 +75,8 @@ Spacing_engraver::Spacing_engraver()
 void
 Spacing_engraver::do_creation_processing ()
 {
-  spacing_p_  =new Spacing_spanner (SCM_EOL);
+  spacing_p_  =new Spanner (get_property ("basicSpacingSpannerProperties"));
+  Spacing_spanner::set_interface (spacing_p_);
   spacing_p_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));  
   announce_element (Score_element_info (spacing_p_, 0));
 }

@@ -41,7 +41,7 @@ Rest_collision::force_shift_callback (Score_element *them, Axis a)
 }
 
 void
-Rest_collision::add_column (Score_element*me,Note_column *p)
+Rest_collision::add_column (Score_element*me,Score_element *p)
 {
   me->add_dependency (p);
   Pointer_group_interface gi (me);  
@@ -72,16 +72,16 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
   /*
     ugh. -> score  elt type
    */
-  Link_array<Note_column> rests;
-  Link_array<Note_column> notes;
+  Link_array<Score_element> rests;
+  Link_array<Score_element> notes;
 
   for (SCM s = elts; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * e = unsmob_element (gh_car (s));
       if (e && unsmob_element (e->get_elt_property ("rest")))
-	rests.push (dynamic_cast<Note_column*> (e));
+	rests.push (e);
       else
-	notes.push (dynamic_cast<Note_column*> (e));
+	notes.push (e);
     }
 
   
@@ -147,8 +147,8 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       int dy = display_count > 2 ? 6 : 4;
       if (display_count > 1)
 	{
-	  rests[0]->translate_rests (dy);	
-	  rests[1]->translate_rests (-dy);
+	  Note_column::translate_rests (rests[0],dy);	
+	  Note_column::translate_rests (rests[1], -dy);
 	}
     }
   // meisjes met jongetjes
@@ -162,12 +162,12 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 	{
 	  warning (_("too many notes for rest collision"));
 	}
-      Note_column * rcol = rests[0];
+      Score_element * rcol = rests[0];
 
       // try to be opposite of noteheads. 
-      Direction dir = - notes[0]->dir();
+      Direction dir = - Note_column::dir (notes[0]);
 
-      Interval restdim = rcol->rest_dim ();
+      Interval restdim = Note_column::rest_dim (rcol);
       if (restdim.empty_b ())
 	return SCM_UNDEFINED;
       
@@ -208,7 +208,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
       if (discrete_dist < stafflines+1)
 	discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
       
-      rcol->translate_rests (dir * discrete_dist);
+      Note_column::translate_rests (rcol,dir * discrete_dist);
     }
   return SCM_UNDEFINED;
 }

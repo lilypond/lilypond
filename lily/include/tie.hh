@@ -38,7 +38,7 @@ public:
   Bezier get_curve () const;
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
-  virtual Array<Rod> get_rods () const;
+  static SCM set_spacing_rods (SCM);
   Array<Offset> get_controls () const;
 };
 

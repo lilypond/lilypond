@@ -14,7 +14,7 @@
 #include "item.hh"
 
 void
-Collision::add_column (Score_element*me,Note_column* ncol_l)
+Collision::add_column (Score_element*me,Score_element* ncol_l)
 {
   ncol_l->add_offset_callback (force_shift_callback, X_AXIS);
   Axis_group_interface::add_element (me, ncol_l);
@@ -77,7 +77,7 @@ Collision::do_shifts(Score_element* me)
 SCM
 Collision::automatic_shift (Score_element *me)
 {
-  Drul_array<Link_array<Note_column> > clash_groups;
+  Drul_array<Link_array<Score_element> > clash_groups;
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
@@ -87,8 +87,8 @@ Collision::automatic_shift (Score_element *me)
       SCM car = gh_car (s);
 
       Score_element * se = unsmob_element (car);
-      if (Note_column * col = dynamic_cast<Note_column*> (se))
-	clash_groups[col->dir ()].push (col);
+      if (Note_column::has_interface (se))
+	clash_groups[Note_column::dir (se)].push (se);
     }
 
   
@@ -96,7 +96,7 @@ Collision::automatic_shift (Score_element *me)
   do
     {
       Array<int> & shift (shifts[d]);
-      Link_array<Note_column> & clashes (clash_groups[d]);
+      Link_array<Score_element> & clashes (clash_groups[d]);
 
       clashes.sort (Note_column::shift_compare);
 
@@ -157,15 +157,15 @@ Collision::automatic_shift (Score_element *me)
     all of them again. */
   if (extents[UP].size () && extents[DOWN].size ())
     {
-      Note_column *cu_l =clash_groups[UP][0];
-      Note_column *cd_l =clash_groups[DOWN][0];
+      Score_element *cu_l =clash_groups[UP][0];
+      Score_element *cd_l =clash_groups[DOWN][0];
 
 
       /*
 	TODO.
        */
-      Score_element * nu_l= cu_l->first_head();
-      Score_element * nd_l = cd_l->first_head();
+      Score_element * nu_l= Note_column::first_head(cu_l);
+      Score_element * nd_l = Note_column::first_head(cd_l);
       
       int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
       int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      

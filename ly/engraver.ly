@@ -482,7 +482,7 @@ ScoreContext = \translator {
 		(interfaces . (dot-interface))
 	)
 	basicDynamicLineSpannerProperties = #`(
-		(interfaces (dynamic-interface))
+		(interfaces (dynamic-interface axis-group-interface))
 		(axes . ( 1))
 	)
 	basicDynamicTextProperties	 = # `(
@@ -498,6 +498,7 @@ ScoreContext = \translator {
 	)
 	basicGraceAlignItemProperties = #`(
 		(axes . (0))
+		(interfaces . (axis-group-interface align-interface))
 		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
 	)
 	basicHaraKiriVerticalGroupspannerProperties = #`(
@@ -523,11 +524,10 @@ ScoreContext = \translator {
 		(right-padding . 0.4)
 		(interfaces . (accidentals-interface ))
 	)
-	basicLineOfScoreProperties = #`( )
-%{;		(axes . (0 1))
-;		(interfaces . (axis-group))
-	;	(rank . -1)
-	; )%}
+	basicLineOfScoreProperties = #`(
+		(axes . (0 1))
+		(interfaces . (axis-group-interface))
+	)
 	basicLyricExtenderProperties = #`(
 		(molecule-callback . ,Lyric_extender::brew_molecule)
 	)
@@ -544,12 +544,13 @@ ScoreContext = \translator {
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
 	basicMultiMeasureRestProperties = #`(
+		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
 	)
 	basicNoteColumnProperties = #`(
 		(axes 0 1)
-		(interfaces . (note-column-interface))
+		(interfaces . (axis-group-interface note-column-interface))
 	)
 	basicNoteHeadProperties = #`(
 		(interfaces . (note-head-interface rhythmic-head-interface))
@@ -566,7 +567,7 @@ ScoreContext = \translator {
 		(style . "italic")
 	)
 	basicPaperColumnProperties = #`(
-		(interfaces . (paper-column-interface))
+		(interfaces . (paper-column-interface axis-group-interface))
 		(axes 0)
 		(rank . -1)
 	)
@@ -597,7 +598,11 @@ ScoreContext = \translator {
 	)
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::brew_molecule)
+		(spacing-procedure . ,Slur::set_spacing_rods)		
 		(after-line-breaking-callback . ,Slur::after_line_breaking) 
+	)
+	basicSpacingSpannerProperties =#`(
+		(spacing-procedure . ,Spacing_spanner::set_springs)
 	)
 	basicSpanBarProperties = #`(
 		(break-align-symbol . Staff_bar)
@@ -658,6 +663,7 @@ ScoreContext = \translator {
 	basicTieProperties = #`(
 		(molecule-callback . ,Tie::brew_molecule)
 		(after-line-breaking-callback . ,Tie::after_line_breaking)
+		(spacing-procedure . ,Tie::set_spacing_rods)				
 		(interfaces . (tie-interface))
 	)
 	basicTieColumnProperties = #`(
@@ -689,7 +695,8 @@ ScoreContext = \translator {
 		(interfaces . (separation-item-interface))
 	)
 	basicSeparatingGroupSpannerProperties = #`(
-		(interfaces . (separation-spanner-interface))	
+		(interfaces . (separation-spanner-interface))
+		(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
 	)
 	basicInstrumentNameProperties = #`(
 		(breakable . #t)
@@ -699,6 +706,7 @@ ScoreContext = \translator {
 	)
 	basicVerticalAxisGroupProperties = #`(
 		(axes 1)
+		(interfaces . (axis-group-interface))
 	)
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)

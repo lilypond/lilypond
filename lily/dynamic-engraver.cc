@@ -333,12 +333,12 @@ Dynamic_engraver::typeset_all ()
 void
 Dynamic_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_column* n = dynamic_cast<Note_column*> (i.elem_l_))
+  if (Note_column::has_interface (i.elem_l_))
     {
       if (line_spanner_)
 	{
-	  Side_position::add_support (line_spanner_,n);
-	  add_bound_item (line_spanner_,n);
+	  Side_position::add_support (line_spanner_,i.elem_l_);
+	  add_bound_item (line_spanner_,dynamic_cast<Item*>(i.elem_l_));
 	}
     }
 }

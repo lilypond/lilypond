@@ -13,17 +13,21 @@
 #include "directional-element-interface.hh"
 #include "rhythmic-head.hh"
 
-Tie_column::Tie_column (SCM s)
-  : Spanner (s)
-{
 
-}
+
 void
 Tie_column::set_interface (Score_element*me)
 {
- me-> set_elt_property ("ties", SCM_EOL);
+  me-> set_elt_property ("ties", SCM_EOL);
+  me->set_interface (ly_symbol2scm ("tie-column"));
   me->set_extent_callback (0, X_AXIS);
   me->set_extent_callback (0, Y_AXIS);  
+}
+
+bool
+Tie_column::has_interface (Score_element*me)
+{
+  return  me->has_interface (ly_symbol2scm ("tie-column"));
 }
 
 void

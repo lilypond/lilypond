@@ -15,6 +15,7 @@
 #include "beam.hh"
 #include "music-list.hh"
 #include "engraver.hh"
+#include "spanner.hh"
 
 class Tuplet_engraver : public Engraver
 {
@@ -96,17 +97,17 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
   if (grace != wgb)
     return;
   
-  if (Note_column *nc = dynamic_cast<Note_column *> (i.elem_l_))
+  if (Note_column::has_interface(i.elem_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_spanner::add_column (started_span_p_arr_[j],nc);
+	  Tuplet_spanner::add_column (started_span_p_arr_[j], dynamic_cast<Item*>(i.elem_l_));
     }
-  else if (Beam *b = dynamic_cast<Beam *> (i.elem_l_))
+  else if (Beam::has_interface (i.elem_l_))
     {
       for (int j = 0; j < started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  Tuplet_spanner::add_beam (started_span_p_arr_[j],b);
+	  Tuplet_spanner::add_beam (started_span_p_arr_[j],i.elem_l_);
     }
 }
 

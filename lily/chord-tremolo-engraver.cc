@@ -17,6 +17,8 @@
 #include "warn.hh"
 #include "misc.hh"
 #include "note-head.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 /**
   This acknowledges repeated music with "tremolo" style.  It typesets
@@ -49,8 +51,8 @@ protected:
 
   int note_head_i_;
   
-  Beam * beam_p_;
-  Beam * finished_beam_p_;
+  Spanner * beam_p_;
+  Spanner * finished_beam_p_;
   
 protected:
   virtual void do_removal_processing();
@@ -91,7 +93,8 @@ Chord_tremolo_engraver::do_process_music ()
 {
   if (repeat_ && !beam_p_)
     {
-      beam_p_ = new Beam (get_property ("basicBeamProperties"));
+      beam_p_ = new Spanner (get_property ("basicBeamProperties"));
+      Beam::set_interface (beam_p_);
       beam_p_->set_elt_property ("chord-tremolo", SCM_BOOL_T);
 
 
@@ -160,7 +163,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 
 	  if (Rhythmic_req* r = dynamic_cast <Rhythmic_req *> (info.req_l_))
 	    {
-	      beam_p_->add_stem (s);
+	      Beam::add_stem (beam_p_, s);
 	      Moment stem_location = now_mom () -
 		start_mom_ + beam_start_location_;
 	    }

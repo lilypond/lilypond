@@ -19,9 +19,9 @@
 class Rhythmic_column_engraver :public Engraver
 {
   Link_array<Score_element> rhead_l_arr_;
-  Link_array<Slur> grace_slur_endings_;
+  Link_array<Score_element> grace_slur_endings_;
   Score_element * stem_l_;
-  Note_column *ncol_p_;
+  Score_element *ncol_p_;
   Score_element *dotcol_l_;
 
 protected:
@@ -52,14 +52,15 @@ Rhythmic_column_engraver::process_acknowledged ()
     {
       if (!ncol_p_)
 	{
-	  ncol_p_ = new Note_column (get_property("basicNoteColumnProperties"));
+	  ncol_p_ = new Item (get_property("basicNoteColumnProperties"));
+	  Note_column::set_interface (ncol_p_);
 	  announce_element (Score_element_info (ncol_p_, 0));
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
 	{
 	  if (!rhead_l_arr_[i]->parent_l(X_AXIS))
-	    ncol_p_->add_head (rhead_l_arr_[i]);
+	    Note_column::add_head (ncol_p_, rhead_l_arr_[i]);
 	}
       rhead_l_arr_.set_size (0);
     }
@@ -70,13 +71,13 @@ Rhythmic_column_engraver::process_acknowledged ()
       if (dotcol_l_
 	  && !dotcol_l_->parent_l (X_AXIS))
 	{
-	  ncol_p_->set_dotcol (dotcol_l_);
+	  Note_column::set_dotcol (ncol_p_, dotcol_l_);
 	}
 
       if (stem_l_
 	  && !stem_l_->parent_l(X_AXIS))
 	{
-	  ncol_p_->set_stem (stem_l_);
+	  Note_column::set_stem (ncol_p_, stem_l_);
 	  stem_l_ = 0;
 	}
 
@@ -85,7 +86,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 
       if (!wegrace)
 	for (int i=0; i < grace_slur_endings_.size(); i++)
-	  grace_slur_endings_[i]->add_column (ncol_p_);
+	  Slur::add_column (grace_slur_endings_[i], ncol_p_);
       grace_slur_endings_.clear ();
     }
 }
@@ -96,7 +97,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
   SCM wg = get_property ("weAreGraceContext");
   bool wegrace = to_boolean (wg);
   if (wegrace != to_boolean (i.elem_l_->get_elt_property ("grace"))
-    && !dynamic_cast<Slur*> (i.elem_l_))
+    && !Slur::has_interface (i.elem_l_))
     return ;
   
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
@@ -112,14 +113,14 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
     {
       dotcol_l_ = item;
     }
-  else if (Slur *s = dynamic_cast<Slur*> (i.elem_l_))
+  else if (Slur::has_interface (i.elem_l_))
     {
       /*
 	end slurs starting on grace notes
        */
       
-      if (to_boolean (s->get_elt_property ("grace")))
-	grace_slur_endings_.push (s);
+      if (to_boolean (i.elem_l_->get_elt_property ("grace")))
+	grace_slur_endings_.push (i.elem_l_);
    }
 }
 

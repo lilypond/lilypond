@@ -17,7 +17,7 @@
 class Instrument_name_engraver : public Engraver
 {
   Item *text_;
-  System_start_delimiter * delim_ ;
+  Spanner * delim_ ;
 
   void create_text (SCM s);
 public:
@@ -84,10 +84,10 @@ Instrument_name_engraver::acknowledge_element (Score_element_info i)
 	}
     }
 
-  if (dynamic_cast <System_start_delimiter*> (i.elem_l_)
+  if (System_start_delimiter::has_interface (i.elem_l_)
       && i.origin_trans_l_->daddy_trans_l_ == daddy_trans_l_)
     {
-      delim_ = dynamic_cast<System_start_delimiter*> (i.elem_l_);
+      delim_ = dynamic_cast<Spanner*> (i.elem_l_);
     }
 }
 

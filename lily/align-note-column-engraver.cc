@@ -22,7 +22,7 @@
 class Align_note_column_engraver: public Engraver
 {
   Item * align_item_p_;
-  Note_column * now_column_l_;
+  Score_element * now_column_l_;
   Score_element * accidental_l_;
 
   virtual void process_acknowledged ();
@@ -71,9 +71,9 @@ Align_note_column_engraver::do_removal_processing ()
 void
 Align_note_column_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (Note_column * n = dynamic_cast<Note_column*> (inf.elem_l_))
+  if (Note_column::has_interface(inf.elem_l_))
     {
-      now_column_l_ =n;
+      now_column_l_ =inf.elem_l_;
     }
   else if (Local_key_item::has_interface (inf.elem_l_))
     {

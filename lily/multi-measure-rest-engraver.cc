@@ -111,7 +111,8 @@ Multi_measure_rest_engraver::do_process_music ()
 
   if (busy_span_req_l_ && !mmrest_p_)
     {
-      mmrest_p_ = new Multi_measure_rest (get_property ("basicMultiMeasureRestProperties"));
+      mmrest_p_ = new Spanner (get_property ("basicMultiMeasureRestProperties"));
+
       Multi_measure_rest::set_interface (mmrest_p_);
       Staff_symbol_referencer::set_interface (mmrest_p_);
 

@@ -16,7 +16,7 @@ class Rest_collision_engraver : public Engraver
 {
   Item* rest_collision_p_;
 
-  Link_array<Note_column> note_column_l_arr_;
+  Link_array<Score_element> note_column_l_arr_;
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void process_acknowledged ();
@@ -50,8 +50,8 @@ Rest_collision_engraver::process_acknowledged ()
 void
 Rest_collision_engraver::acknowledge_element (Score_element_info i)
 {
-  if (dynamic_cast<Note_column *> (i.elem_l_))
-    note_column_l_arr_.push (dynamic_cast<Note_column *> (i.elem_l_));
+  if (Note_column::has_interface (i.elem_l_))
+    note_column_l_arr_.push (i.elem_l_);
 }
 
 void

@@ -11,23 +11,19 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "paper-column.hh" // urg
-#include "bar.hh"
 #include "lookup.hh"
 #include "rest.hh"
 #include "molecule.hh"
 #include "misc.hh"
 #include "group-interface.hh"
-#include "stem.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+
 void
 Multi_measure_rest::set_interface (Score_element*me)
 {
   me->set_elt_property ("columns", SCM_EOL);
 }
-
-Multi_measure_rest::Multi_measure_rest (SCM s)
-  : Spanner(s)
-{}
 
 /*
    [TODO]                                      17
@@ -151,19 +147,22 @@ Multi_measure_rest::add_column (Score_element*me,Item* c)
 }
 
 
-Array<Rod>
-Multi_measure_rest::get_rods () const
-{
-  Array<Rod> a;
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, set_spacing_rods);
 
-  if (!(get_bound (LEFT) && get_bound (RIGHT)))
+SCM
+Multi_measure_rest::set_spacing_rods (SCM smob)
+{
+  Score_element*me = unsmob_element (smob);
+
+  Spanner*sp = dynamic_cast<Spanner*> (me);
+  if (!(sp->get_bound (LEFT) && sp->get_bound (RIGHT)))
     {
       programming_error ("Multi_measure_rest::get_rods (): I am not spanned!");
-      return a;
+      return SCM_UNDEFINED;
     }
 
-  Item * l = get_bound (LEFT)->column_l ();
-  Item * r = get_bound (RIGHT)->column_l ();
+  Item * l = sp->get_bound (LEFT)->column_l ();
+  Item * r = sp->get_bound (RIGHT)->column_l ();
   Item * lb = l->find_prebroken_piece (RIGHT);
   Item * rb = r->find_prebroken_piece (LEFT);      
   
@@ -184,11 +183,10 @@ Multi_measure_rest::get_rods () const
 	  should do something more advanced.
 	 */
       rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
-	+ paper_l ()->get_var ("multi_measure_rest_x_minimum");
+	+ me->paper_l ()->get_var ("multi_measure_rest_x_minimum");
   
-      a.push (rod);
+      rod.add_to_cols ();
     }
-  
-  return a;
+  return SCM_UNDEFINED;
 }
 

@@ -168,23 +168,28 @@ Tie::after_line_breaking (SCM smob)
 }
 
 
-
-Array<Rod>
-Tie::get_rods () const
+MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods);
+SCM
+Tie::set_spacing_rods (SCM smob)  
 {
-  Array<Rod> a;
+  Score_element*me = unsmob_element (smob);
+  Spanner*sp = dynamic_cast<Spanner*> (me);
   Rod r;
 
-  r.item_l_drul_ [LEFT]=get_bound (LEFT);
-  r.item_l_drul_ [RIGHT]=get_bound (RIGHT);  
+  r.item_l_drul_ [LEFT]=sp->get_bound (LEFT);
+  r.item_l_drul_ [RIGHT]=sp->get_bound (RIGHT);  
   
-  r.distance_f_ = paper_l ()->get_var ("tie_x_minimum");
-  a.push (r);
-  return a;
+  r.distance_f_ = me->paper_l ()->get_var ("tie_x_minimum");
+  r.add_to_cols ();
+  return SCM_UNDEFINED;
 }
 
-MAKE_SCHEME_CALLBACK(Tie,brew_molecule);
 
+
+
+
+
+MAKE_SCHEME_CALLBACK(Tie,brew_molecule);
 SCM
 Tie::brew_molecule (SCM smob) 
 {
