@@ -11,10 +11,6 @@
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
-;; ugh, need this for encoding.scm test
-;; srfi-13 overrides string->list
-(define-public plain-string->list string->list)
-
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
 	     (oop goops)

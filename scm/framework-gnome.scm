@@ -10,29 +10,12 @@
  (guile)
  (lily))
 
-;; dump?
-(define (dump-page outputter page page-number page-count)
-  (ly:outputter-dump-stencil outputter (ly:page-stencil page)))
-
 (define-public (output-framework-gnome outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (pages (ly:paper-book-pages book))
-	 (page-number 0)
-	 (page-count (length pages)))
+	 (pages (list->vector (map ly:page-stencil
+				   (ly:paper-book-pages book)))))
+    
+    (ly:outputter-dump-stencil
+     outputter
+     (ly:make-stencil (list 'main outputter pages) '(0 . 0) '(0 . 0)))))
 
-    ;;(header)
-    ;; FIXME: should output command, not stencil?
-    ;;(ly:outputter-dump-string outputter '(header))
-    ;; hmm, probably need (ly:outputter-command but its too late for that
-    ;; kind of elegancy now :-)
-    (ly:outputter-dump-stencil outputter (ly:make-stencil '(header)
-							  '(0 . 0) '(0 . 0)))
-
-    (for-each
-     (lambda (page)
-       (set! page-number (1+ page-number))
-       (dump-page outputter page page-number page-count))
-     pages)
-
-    (ly:outputter-dump-stencil outputter (ly:make-stencil '(end-output)
-							  '(0 . 0) '(0 . 0)))))
