@@ -40,6 +40,7 @@ struct Break_node {
   {
     prev_break_i_ = -1;
     line_i_ = 0;
+    demerits_f_ = 0;
   }
 };
 
@@ -56,10 +57,7 @@ Gourlay_breaking::do_solve () const
   optimal_paths.set_size (breaks.size ());
 
   Break_node first_node ;
-  first_node.prev_break_i_ = -1;
-  first_node.line_config_.force_f_ = 0;
   first_node.line_config_.energy_f_ = 0;  
-  first_node.line_i_ = 0;
   
   optimal_paths[0] = first_node; 
   int break_idx=1;

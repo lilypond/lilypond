@@ -11,7 +11,7 @@ footer substitutions:
  * ENV:WEBMASTER,
  * ENV:WEBMASTER
 
->
+-->
 
 <hr>
 Go <a href=%s>back</a> to index of LilyPond.
@@ -23,7 +23,7 @@ Please send GNU LilyPond questions and comments to
 <em>gnu-music-discuss@gnu.org</em></a>.
 <p>
 
-<!-- package %s %s >
+<!-- package %s %s -->
 
 Please send comments on these web pages to 
 <a href="mailto:%s"><em>%s</em></a>

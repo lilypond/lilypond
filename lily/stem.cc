@@ -201,7 +201,8 @@ Stem::set_default_stemlen ()
   set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + length_f:
 	       head_positions()[SMALLER] - length_f);
 
-  if (!grace_b && (dir_ * stem_end_f () < 0))
+  bool no_extend_b = get_elt_property (no_stem_extend_scm_sym) != SCM_BOOL_F;
+  if (!grace_b && !no_extend_b && (dir_ * stem_end_f () < 0))
     set_stemend (0);
 }
 
