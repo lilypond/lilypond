@@ -148,9 +148,6 @@ System::get_lines ()
    return lines;
 }
 
-
-
-
 /* Find the loose columns in POSNS, and drape them around the columns
    specified in BETWEEN-COLS.  */
 static void
@@ -228,7 +225,7 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 void
 System::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
-  for (int i=0; i < breaking.size (); i++)
+  for (int i = 0; i < breaking.size (); i++)
     {
       System *system = dynamic_cast <System*> (clone ());
       system->rank_ = i;
@@ -238,9 +235,9 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
       
       system->set_bound (LEFT,c[0]);
       system->set_bound (RIGHT,c.top ());
-      for (int j=0; j < c.size (); j++)
+      for (int j = 0; j < c.size (); j++)
 	{
-	  c[j]->translate_axis (breaking[i].config_[j],X_AXIS);
+	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column*> (c[j])->system_ = system;
 	}
       set_loose_columns (system, &breaking[i]);
@@ -253,11 +250,11 @@ System::add_column (Paper_column*p)
 {
   Grob *me = this;
   SCM cs = me->get_property ("columns");
-  Grob * prev =  ly_c_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
+  Grob *prev =  ly_c_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
 
   p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
 
-  me->set_property ("columns",  scm_cons (p->self_scm (), cs));
+  me->set_property ("columns", scm_cons (p->self_scm (), cs));
 
   Axis_group_interface::add_element (me, p);
 }
@@ -269,7 +266,7 @@ System::pre_processing ()
     unsmob_grob (ly_car (s))->discretionary_processing ();
 
   if (verbose_global_b)
-    progress_indication (_f ("Grob count %d",  element_count ()));
+    progress_indication (_f ("Grob count %d", element_count ()));
 
   
   for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
@@ -286,7 +283,7 @@ System::pre_processing ()
   progress_indication ("\n" + _ ("Calculating line breaks...") + " ");
   for (SCM s = get_property ("all-elements"); ly_c_pair_p (s); s = ly_cdr (s))
     {
-      Grob * e = unsmob_grob (ly_car (s));
+      Grob *e = unsmob_grob (ly_car (s));
       SCM proc = e->get_property ("spacing-procedure");
       if (ly_c_procedure_p (proc))
 	scm_call_1 (proc, e->self_scm ());
@@ -385,21 +382,21 @@ System::get_line ()
 }
 
 Link_array<Item> 
-System::broken_col_range (Item const*l, Item const*r) const
+System::broken_col_range (Item const *left, Item const *right) const
 {
   Link_array<Item> ret;
 
-  l = l->get_column ();
-  r = r->get_column ();
+  left = left->get_column ();
+  right = right->get_column ();
   SCM s = get_property ("columns");
 
-  while (ly_c_pair_p (s) && ly_car (s) != r->self_scm ())
+  while (ly_c_pair_p (s) && ly_car (s) != right->self_scm ())
     s = ly_cdr (s);
 
   if (ly_c_pair_p (s))
     s = ly_cdr (s);
 
-  while (ly_c_pair_p (s) && ly_car (s) != l->self_scm ())
+  while (ly_c_pair_p (s) && ly_car (s) != left->self_scm ())
     {
       Paper_column*c = dynamic_cast<Paper_column*> (unsmob_grob (ly_car (s)));
       if (Item::is_breakable (c) && !c->system_)
@@ -412,27 +409,25 @@ System::broken_col_range (Item const*l, Item const*r) const
   return ret;
 }
 
-/**
-   Return all columns, but filter out any unused columns , since they might
-   disrupt the spacing problem.
- */
+/** Return all columns, but filter out any unused columns , since they might
+    disrupt the spacing problem. */
 Link_array<Grob>
-System::columns ()const
+System::columns () const
 {
   Link_array<Grob> acs
     = Pointer_group_interface__extract_grobs (this, (Grob*) 0, "columns");
-  bool bfound = false;
-  for (int i= acs.size (); i -- ;)
+  bool found = false;
+  for (int i = acs.size (); i--;)
     {
       bool brb = Item::is_breakable (acs[i]);
-      bfound = bfound || brb;
+      found = found || brb;
 
       /*
 	the last column should be breakable. Weed out any columns that
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!bfound || !Paper_column::is_used (acs[i]))
+      if (!found || !Paper_column::is_used (acs[i]))
 	acs.del (i);
     }
   return acs;

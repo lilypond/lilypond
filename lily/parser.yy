@@ -2461,9 +2461,9 @@ markup:
 		extern Music_output_def* get_paper (My_lily_parser *parser);
 		Music_output_def *paper = get_paper (THIS);
 		SCM s = book->to_stencil (paper, THIS->header_);
-		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);
  		scm_gc_unprotect_object (score->self_scm ());
  		scm_gc_unprotect_object (book->self_scm ());
+		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);
 	}
 	;
 

@@ -28,27 +28,9 @@ Book::Book ()
   : Input ()
 {
   header_ = SCM_EOL;
+  assert (!scores_.size ());
   smobify_self ();
 }
-
-#if 0
-Book::Book (Book const &src)
-  : Input (src)
-{
-  header_ = SCM_EOL;
-  smobify_self ();
-
-  int score_count = src.scores_.size ();
-  for (int i = 0; i < score_count; i++)
-    scores_.push (src.scores_[i]->clone ());
-
-#if 0
-  header_ = ly_make_anonymous_module ();
-  if (is_module (src.header_))
-    ly_import_module (header_, src.header_);
-#endif
-}
-#endif
 
 Book::~Book ()
 {
@@ -120,11 +102,11 @@ Book::to_stencil (Music_output_def *default_def, SCM header)
     }
 
   SCM pages = paper_book->pages ();
-  scm_gc_unprotect_object (paper_book->self_scm ());
+  paper_book = 0;
   if (pages != SCM_EOL)
     {
       progress_indication (_f ("paper output to `%s'...", "<markup>"));
-      return unsmob_page (ly_car (pages))->to_stencil ();
+      return (unsmob_page (ly_car (pages)))->to_stencil ();
     }
   return SCM_EOL;
 }
