@@ -29,9 +29,6 @@ public:
     /// locate a file in the search path
     String find(String nm)const;
 
-    /// construct using prefix. Normally argv[0].
-    File_path(String);
-
     /// add to end of path.
     Array<String>::push;
     void add(String str) { push(str); }
