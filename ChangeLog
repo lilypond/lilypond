@@ -1,6 +1,7 @@
 2005-03-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* Documentation/user/GNUmakefile (deep-symlinks): remove outimages target.
+	* Documentation/user/GNUmakefile (deep-symlinks): remove outimages
+	target.
 
 	* input/typography-demo.ly: new file.
 

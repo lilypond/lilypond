@@ -145,6 +145,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	    \context {
 		\Score
 		\override Beam #'thickness = #0.55
+		\override Beam #'auto-knee-gap = #4.0
 		\override SpacingSpanner #'spacing-increment = #1.0
 		\override Stem #'stemlet-length = #0.5
 		\override Slur #'height-limit = #1.5
