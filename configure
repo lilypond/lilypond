@@ -3,7 +3,7 @@
 PREFIX=${PREFIX:-.}
 echo using PREFIX=$PREFIX
 
-NEEDFLOWERVER=1.0.22
+NEEDFLOWERVER=1.0.2
 flowertar=flower-$NEEDFLOWERVER
 here=`pwd`
 cd ..

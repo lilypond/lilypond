@@ -20,27 +20,31 @@
 #include "slur.hh"
 #include "localkeyitem.hh"
 #include "textitem.hh"
-
+#include "misc.hh"
 
 Rhythmic_grouping
-parse_grouping(Array<Scalar> a, Moment one_beat)
+parse_grouping(Array<Scalar> const &a)
 {
     Array<int> r;
-    for (int i= 0 ; i < a.size(); i++)
-	r.push(a[i]);
-    Moment here =0.0;
+    Array<Moment> grouplen_arr;
+    for (int i= 0 ; i < a.size()/2; ) {
+	r.push(a[i++]);
+	grouplen_arr.push(Moment(1,(int) a[i++]));
+    }
+    Moment here =0;
 
     Array<Rhythmic_grouping*> children;
     for (int i=0; i < r.size(); i++) {
 	
 	Moment last = here;
-	here += one_beat * r[i];
+	here += grouplen_arr[i] * Rational(r[i]);
 	children.push(
-	    new Rhythmic_grouping(MInterval(last, here), r[i] )
-	    );
+	    new Rhythmic_grouping(MInterval(last, here), r[i] ));
     }
     return Rhythmic_grouping(children);
 }
+
+
 
 void
 Simple_walker::do_INTERPRET_command(Command*com)
@@ -48,8 +52,7 @@ Simple_walker::do_INTERPRET_command(Command*com)
     Array<Scalar> args(com->args);
     args.del(0);
     if (com->args[0] == "GROUPING") {	
-	default_grouping = parse_grouping(args,
-					  col()->tdescription_->one_beat);
+	default_grouping = parse_grouping(args);
     }else if (com->args[0] == "NEWMEASURE") {
 	local_key_.reset(key_);
 
@@ -178,8 +181,7 @@ Simple_walker::process_requests()
 
     if (c->beam_ && c->beam_->spantype == Span_req::START) {
 	if (beam_)
-	    error("Too many beams (t = "
-			  +String(c->when())+")");
+	    error("Too many beams (t = " +String(c->when())+")");
 	beam_ = new Beam;
 	assert(!current_grouping);
 	current_grouping = new Rhythmic_grouping;
@@ -190,7 +192,7 @@ Simple_walker::process_requests()
 
 	if (sl->spantype == Span_req::START) {
 	    if  (find_slur(sl->elt_l_->voice_l_)>=0)
-		error_t("Too many slurs in voice", *col()->tdescription_);
+		error( "Too many slurs in voice", sl->defined_ch_c_l_m );
 	    pending_slur_reqs.push(sl);
 	    pending_slurs.push(new Slur);
 	}
@@ -225,7 +227,7 @@ Simple_walker::process_requests()
 
     if (c->beam_&& c->beam_->spantype == Span_req::STOP) {
 	if (!beam_) {
-	    error_t("No beam to end", *col()->tdescription_);
+	    error( "No beam to end", c->beam_->defined_ch_c_l_m );
 	}
 	default_grouping.extend(current_grouping->interval());
 	beam_->set_grouping(default_grouping, *current_grouping);
@@ -261,7 +263,7 @@ Simple_walker::process_requests()
 	if (sl->spantype == Span_req::STOP) {
 	    int idx = find_slur(sl->elt_l_->voice_l_);
 	    if (idx < 0)
-		error_t("can't find slur to end; ", *c->tdescription_);
+		error( "can't find slur end", sl->defined_ch_c_l_m );
 	    
 	    pscore_l_->typeset_spanner(pending_slurs[idx],
 				     s->theline_l_);
