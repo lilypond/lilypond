@@ -1,4 +1,8 @@
 % -*-latex-*-
+
+% this document should be run through the mudela-book script after lilypond
+% has been installed. 
+
 \documentclass{article}
 \usepackage{a4wide}
 \title{GNU LilyPond input format 0.1}
@@ -232,7 +236,7 @@ signifies that this note is part of a triplet (3 in stead of 2). The
 duration is one and a half quaver (\verb+4.+) times 2/3.
 
 Notenames are just a special kind of identifiers, and can be declared
-for any language appropriate (see \file{dutch.ini}).  The default language
+for any language appropriate (see \file{init/dutch.ly}).  The default language
 for notenames is defined to be dutch. In dutch, the notenames are
 a,b,c,d,e,f and g. Sharps are formed by adding the extension "is",
 flats by adding ``es''
@@ -291,23 +295,22 @@ error for this reason.
 
 Ties connect the noteheads of adjacent notes. They are entered as follows:
 
-\begin[fragment]{mudela}
-a4 ~ a4
+\begin[verbatim,fragment]{mudela}
+a'4 ~ a''4
 \end{mudela}
 
 Slurs connect whole chords, and try to avoid crossing stems. They are
 entered as follows:
-\begin{verbatim}
 
-\begin[fragment]{mudela}
-a4(  )a4
+\begin[verbatim,fragment]{mudela}
+a'4(  )a''4
 \end{mudela}
 
 \subsection{Scripts}
 
 Symbols which can be put at either side (above or below) of a staff
 are entered as follows:
-\begin[fragment]{mudela}
+\begin[verbatim,fragment]{mudela}
 a-^     % marcato, direction: default
         a^-     % portato, direction: above note
         a_.     % staccato, direction: below note
@@ -317,7 +320,7 @@ a-^     % marcato, direction: default
 c-"marcato"
 \end{mudela}
 
-If you want to define your own scripts refer to \file{script.ini} for
+If you want to define your own scripts refer to \file{init/script.ly} for
 details.
 
 
@@ -453,7 +456,7 @@ the same voicegroup share certain characteristics, among others:
         - beams and stems
         - scripts
 
-For the actual list, see the init file \file{register.ini}
+For the actual list, see the init file \file{init/register.ly}
 
 Putting different musical lines in to the same voicegroup effectively
 makes LilyPond try to form chords of all those lines. Putting

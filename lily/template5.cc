@@ -1,3 +1,11 @@
+/*
+  template5.cc -- instantiate Intervals
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <limits.h>
 #include "proto.hh"
 #include "string.hh"
@@ -18,7 +26,16 @@ const Real INFTY = HUGE_VAL;
 Rational
 Interval_t<Rational>::infinity()
 {
-    return INFTY;
+/*
+  windhoze-suck-suck-suck-suck-suck-thank-you-cygnus
+
+  I get tired of all these incompatibilities. We'll just assume:
+
+  that 2^31 is *Big*
+
+ */
+
+    return Rational(INT_MAX);
 }
 
 int
