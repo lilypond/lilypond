@@ -28,7 +28,7 @@ Sequential_music_iterator::Sequential_music_iterator ()
 void
 Sequential_music_iterator::construct_children()
 {
-  cursor_ = dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->head_;
+  cursor_ = dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->head_cons_p_;
   
   while (cursor_)
     {
@@ -50,16 +50,16 @@ Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
-  Moment elt_time = cursor_->car_->length_mom ();
+  Moment elt_time = cursor_->car_p_->length_mom ();
   here_mom_ += elt_time;
-  cursor_ =cursor_->next_;
+  cursor_ =cursor_->next_cons_p_;
 }
 
 void
 Sequential_music_iterator::start_next_element()
 {
   assert (!iter_p_);
-  iter_p_ = get_iterator_p (cursor_->car_);
+  iter_p_ = get_iterator_p (cursor_->car_p_);
 }
 
 void

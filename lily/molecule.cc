@@ -24,10 +24,10 @@
 #define UNBOX_PTR(a) SCM_CAR(a)
 #else
 #define MOL_EOL 0
-#define NEXT_CELL(a) ptr->next_
+#define NEXT_CELL(a) ptr->next_cons_p_
 #define CELLTYPE Cons<Atom>*
 #define UNBOX_ATOM(a) a
-#define UNBOX_PTR(a) a->car_
+#define UNBOX_PTR(a) a->car_p_
 #define BOX_ATOM(a) a
 #define NEWCELL(a,b) new Killing_cons<Atom>(a,b)
 #endif

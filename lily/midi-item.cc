@@ -552,9 +552,9 @@ Midi_track::data_str () const
   String str = Midi_chunk::data_str ();
   if (check_debug && !monitor->silent_b ("Midistrings"))
     str += "\n";
-  for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
+  for (Cons<Midi_event>* i = event_p_list_.head_cons_p_; i; i = i->next_cons_p_) 
     {
-      str += i->car_->str ();
+      str += i->car_p_->str ();
       if (check_debug && !monitor->silent_b ("Midistrings"))
         str += "\n";
     }

@@ -9,7 +9,7 @@
 #include "proto.hh"
 #include "mi2mu-proto.hh"
 #include "moment.hh"
-#include "plist.hh"
+#include "cons.hh"
 
 /// (mudela_column)
 class Mudela_column 
@@ -18,9 +18,9 @@ public:
     Mudela_column (Mudela_score* mudela_score_l, Moment mom);
 
     void add_item (Mudela_item* mudela_item_l);
-    Moment at_mom();
+    Moment at_mom ();
 
-    Link_list<Mudela_item*> mudela_item_l_list_;
+    Cons_list<Mudela_item> mudela_item_l_list_;
     Moment at_mom_;
     Mudela_score* mudela_score_l_;
 };

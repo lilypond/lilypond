@@ -99,9 +99,9 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
     {
       Atom *i = Atom::atom_l (SCM_CAR(ptr));
 #else
-  for (Cons<Atom> *ptr = m->atom_list_; ptr; ptr = ptr->next_)
+  for (Cons<Atom> *ptr = m->atom_list_; ptr; ptr = ptr->next_cons_p_)
     {
-      Atom * i = ptr->car_;
+      Atom * i = ptr->car_p_;
 #endif
       Offset a_off = i->off_;
       a_off += o;

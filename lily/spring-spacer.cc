@@ -68,9 +68,9 @@ Spring_spacer::handle_loose_cols()
   Union_find connected (cols_.size());
   Array<int> fixed;
   
-  for (Cons<Idealspacing> *i  = ideal_p_list_; i; i = i->next_)
+  for (Cons<Idealspacing> *i  = ideal_p_list_; i; i = i->next_cons_p_)
     {
-      connected.connect (i->car_->cols_drul_[LEFT],i->car_->cols_drul_[RIGHT]);
+      connected.connect (i->car_p_->cols_drul_[LEFT],i->car_p_->cols_drul_[RIGHT]);
     }
   for (int i = 0; i < cols_.size(); i++)
     if (cols_[i].fixed_b())
@@ -240,9 +240,9 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
   lin.fill (0);
   c = 0;
 
-  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_)
+  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_cons_p_)
     {
-      Idealspacing *i = p->car_;
+      Idealspacing *i = p->car_p_;
       int l = i->cols_drul_[LEFT];
       int r = i->cols_drul_[RIGHT];
 
@@ -296,9 +296,9 @@ Real
 Spring_spacer::calculate_energy_f (Vector solution) const
 {
   Real e = 0.0;
-  for (Cons<Idealspacing>*p =ideal_p_list_; p; p = p->next_)
+  for (Cons<Idealspacing>*p =ideal_p_list_; p; p = p->next_cons_p_)
     {
-      Idealspacing * i = p->car_;
+      Idealspacing * i = p->car_p_;
       e += i->energy_f(solution(i->cols_drul_[RIGHT]) - solution(i->cols_drul_[LEFT]));
     }
 
@@ -421,14 +421,14 @@ Spring_spacer::loosen_column (int idx)
 
   while (*pp)
     {
-      Idealspacing *j = (*pp)->car_;
+      Idealspacing *j = (*pp)->car_p_;
       if (j->cols_drul_[LEFT] == idx|| j->cols_drul_[RIGHT] == idx)
 	{
-	  delete remove_cons (pp);
+	  delete remove_cons_p (pp);
 	}
       else
 	{
-	  pp = &(*pp)->next_;
+	  pp = &(*pp)->next_cons_p_;
 	}
     }
   c.ugh_b_ = true;
@@ -453,9 +453,9 @@ Spring_spacer::print() const
       cols_[i].print();
     }
 
-  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_)
+  for (Cons<Idealspacing> *p =ideal_p_list_; p; p = p->next_cons_p_)
     {
-      p->car_->print();
+      p->car_p_->print();
     }
 #endif
 }

@@ -91,9 +91,9 @@ Translator_group::set_element (String s, bool add)
 bool
 Translator_group::removable_b() const
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (Cons<Translator> *p = trans_p_list_.head_cons_p_; p; p = p->next_cons_p_)
     {
-      if (dynamic_cast <Translator_group *> (p->car_))
+      if (dynamic_cast <Translator_group *> (p->car_p_))
 	return false;
     }
 
@@ -224,10 +224,10 @@ Link_array<Translator_group>
 Translator_group::group_l_arr () const
 {
   Link_array<Translator_group> groups;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (Cons<Translator> *p = trans_p_list_.head_cons_p_; p; p = p->next_cons_p_)
     {
-      if (dynamic_cast <Translator_group *> (p->car_))
-	groups.push (dynamic_cast <Translator_group *> (p->car_));
+      if (dynamic_cast <Translator_group *> (p->car_p_))
+	groups.push (dynamic_cast <Translator_group *> (p->car_p_));
     }
   return groups;
 }
@@ -236,10 +236,10 @@ Link_array<Translator>
 Translator_group::nongroup_l_arr () const
 {
   Link_array<Translator> groups;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (Cons<Translator> *p = trans_p_list_.head_cons_p_; p; p = p->next_cons_p_)
     {
-      if (!dynamic_cast <Translator_group *> (p->car_))
-	groups.push (p->car_);
+      if (!dynamic_cast <Translator_group *> (p->car_p_))
+	groups.push (p->car_p_);
     }
   return groups;
 }
@@ -266,11 +266,11 @@ Translator_group::remove_translator_p (Translator*trans_l)
 {
   assert (trans_l);
   
-  for (Cons<Translator> **pp = &trans_p_list_.head_; *pp; pp = &(*pp)->next_)
-    if ((*pp)->car_ == trans_l)
+  for (Cons<Translator> **pp = &trans_p_list_.head_cons_p_; *pp; pp = &(*pp)->next_cons_p_)
+    if ((*pp)->car_p_ == trans_l)
       {
-	Cons<Translator> *r = trans_p_list_.remove_cons (pp);
-	r->car_ =0;
+	Cons<Translator> *r = trans_p_list_.remove_cons_p (pp);
+	r->car_p_ =0;
 	trans_l->daddy_trans_l_ =0;
 	delete r;
 	return trans_l;
@@ -328,16 +328,16 @@ Translator_group::get_default_interpreter()
 void
 Translator_group::each (Method_pointer method)
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    (p->car_->*method) ();
+  for (Cons<Translator> *p = trans_p_list_.head_cons_p_; p; p = p->next_cons_p_)
+    (p->car_p_->*method) ();
 }
 
 
 void
 Translator_group::each (Const_method_pointer method) const
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    (p->car_->*method) ();
+  for (Cons<Translator> *p = trans_p_list_.head_cons_p_; p; p = p->next_cons_p_)
+    (p->car_p_->*method) ();
 }
 
 void
