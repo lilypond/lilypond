@@ -41,13 +41,13 @@ Note_req::height() const
     return  s + octave*7;
 }
 
-/****************************************************************/
 Rhythmic_req::Rhythmic_req(Voice_element*v)
      :Request(v)
 {
     balltype = 1;
     dots = 0;
 }
+
 void
 Rhythmic_req::print() const
 {
@@ -57,6 +57,7 @@ Rhythmic_req::print() const
 	mtor << '.';
     mtor<<"\n";
 }
+
 void
 Note_req::print() const
 {
