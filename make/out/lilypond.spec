@@ -1,13 +1,13 @@
 Name: lilypond
-Version: 1.1.4
+Version: 1.1.5
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.4.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.5.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
-Icon: lilypond-icon.gif
+# Icon: lilypond-icon.gif
 BuildRoot: /tmp/lilypond-install
 Prereq: tetex
 
@@ -26,7 +26,7 @@ a nice font of musical symbols.
 ./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --disable-optimise --enable-shared
 make all
 make -C Documentation info || true
-make htmldoc
+make htmldoc || true
 
 %install
 rm -rf $RPM_BUILD_ROOT

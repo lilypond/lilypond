@@ -16,11 +16,25 @@ manpagename(mudela-book)(integrate LaTeX and mudela)
 manpagesynopsis() bf(mudela-book) [options] inputfile
 
 manpagedescription() file(mudela-book) is a script that helps
-integrating mudela and LaTeX().  mudela-book runs LilyPond on
+integrating mudela and LaTeX.  mudela-book runs LilyPond on
 fragments of mudela in your source file, and includes the results into
-document that can be processed with LaTeX().  The result is a text
+document that can be processed with LaTeX.  The result is a text
 document with formatted music integrated.
 
+Lilypond will create a directory to put temporary files, the default
+dir name is file(out). When you run mudela on a file, like this:
+
+verb(mudelab-book myfile.tex)
+
+the a file file(out/myfile.latex) will be created. And to create
+the file(.dvi) file you should type:
+
+verb(latex out/myfile.latex)
+
+This will create file(myfile.dvi) in the current directory. Bad things
+will happen if you cd to file(out) and then runs verb(latex myfile.latex)
+
+bf(About the input)
 
 If the file contains the ``block''
 
@@ -32,7 +46,11 @@ verb(
 
 then LilyPond is run on CONTENTS.  mudela-book puts the result back,
 surrounded by code(\preMudelaExample) and code(\postMudelaExample)
-commands. The code(\begin) takes the following options:
+commands. code(\preMudelaExample) and code(posMudelaExample) is
+defined to nothing by default, and the user can redefine them
+to whatever he wants.
+
+code(\begin) takes the following options:
 
 description(
 dit(floating)
@@ -46,6 +64,7 @@ dit(verbatim)
 dit(11pt, 13pt, 16pt, 20pt, 26pt)
     set the fontsize to use for the music
 )
+
 
 manpageoptions()
 
@@ -63,9 +82,11 @@ the output name derived from the input name.
 dit(--outdir)
     The directory to output lilypond output and input to.
 dit(--help)
-	print a short help message
+	Print a short help message
 dit(--dependencies)
-        write dependencies to outdir/filname.dep
+        Write dependencies to outdir/filename.dep
+dit(--force-verbatim)
+	Make all mudela verbatim.
 enddit()
 
 manpagefiles()

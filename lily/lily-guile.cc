@@ -12,6 +12,8 @@
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
+#include "simple-file-storage.hh"
+#include "file-path.hh"
 
 SCM
 ly_append (SCM a, SCM b)
@@ -22,7 +24,7 @@ ly_append (SCM a, SCM b)
 SCM
 ly_list1 (SCM a)
 {
-  return gh_call1 (gh_eval_str ("list"), a);
+  return gh_list (a, SCM_UNDEFINED);
 }
 
 SCM
@@ -101,8 +103,9 @@ lambda_scm (String str, Array<Real> args_arr)
       args_arr.clear ();
     }
   SCM args_scm = SCM_EOL;
-  for (int i = args_arr.size () - 1; i >= 0; i--)
+  for (int i = args_arr.size (); i--; )
     args_scm = gh_cons (gh_double2scm (args_arr[i]), args_scm);
+  
   SCM scm =
     ly_append (ly_lambda_o (), 
     ly_list1 (ly_append (ly_func_o (str.ch_l ()), args_scm)));
@@ -110,3 +113,12 @@ lambda_scm (String str, Array<Real> args_arr)
 }
 
 
+
+void
+read_lily_scm_file (String fn)
+{
+  String s = global_path.find (fn);
+  Simple_file_storage f(s);
+  
+  gh_eval_str (f.ch_C());
+}

@@ -9,10 +9,43 @@ mudela-book \- integrate LaTeX and mudela
 .PP 
 .SH "DESCRIPTION" 
 \fBmudela-book\fP is a script that helps
-integrating mudela and \&.  mudela-book runs LilyPond on
+integrating mudela and LaTeX\&.  mudela-book runs LilyPond on
 fragments of mudela in your source file, and includes the results into
-document that can be processed with \&.  The result is a text
+document that can be processed with LaTeX\&.  The result is a text
 document with formatted music integrated\&.
+.PP 
+Lilypond will create a directory to put temporary files, the default
+dir name is \fBout\fP\&. When you run mudela on a file, like this:
+.PP 
+
+.DS 
+ 
+mudelab-book myfile\&.tex
+.DE 
+ 
+
+.PP 
+the a file \fBout/myfile\&.latex\fP will be created\&. And to create
+the \fB\&.dvi\fP file you should type:
+.PP 
+
+.DS 
+ 
+latex out/myfile\&.latex
+.DE 
+ 
+
+.PP 
+This will create \fBmyfile\&.dvi\fP in the current directory\&. Bad things
+will happen if you cd to \fBout\fP and then runs 
+.DS 
+ 
+latex myfile\&.latex
+.DE 
+ 
+
+.PP 
+\fBAbout the input\fP
 .PP 
 If the file contains the ``block\'\'
 .PP 
@@ -30,7 +63,11 @@ If the file contains the ``block\'\'
 .PP 
 then LilyPond is run on CONTENTS\&.  mudela-book puts the result back,
 surrounded by \f(CW\epreMudelaExample\fP and \f(CW\epostMudelaExample\fP
-commands\&. The \f(CW\ebegin\fP takes the following options:
+commands\&. \f(CW\epreMudelaExample\fP and \f(CWposMudelaExample\fP is
+defined to nothing by default, and the user can redefine them
+to whatever he wants\&.
+.PP 
+\f(CW\ebegin\fP takes the following options:
 .PP 
 .IP "floating" 
 the created graphics can be inserted in the middle of a text line, 
@@ -58,9 +95,11 @@ the output name derived from the input name\&.
 .IP "--outdir" 
 The directory to output lilypond output and input to\&.
 .IP "--help" 
-print a short help message
+Print a short help message
 .IP "--dependencies" 
-write dependencies to outdir/filname\&.dep
+Write dependencies to outdir/filename\&.dep
+.IP "--force-verbatim" 
+Make all mudela verbatim\&.
 .PP 
 .SH "FILES" 
 You have to install LaTeX\&. \fBmudela-book\fP is not tested on LaTeX 2\&.09

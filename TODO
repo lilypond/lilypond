@@ -8,11 +8,13 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
+	* gallina barlines.
+
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
-	* --safe:  disallow backslashes, disallow \include.
+	* acc placement: \score { \notes \key G; \transpose\notes { a b c } }
 
-	* fix rounding stuff in number->string
+	* --safe:  disallow backslashes, disallow \include.
 
 	* msgfmt -o check?
 
@@ -135,7 +137,7 @@ BUGS:
 
 	* fix weird behaviour when .AFMs not found.
 
-	* Xdvi zooming ?!
+	* Xdvi zooming ?! Try to understand GS garbage collection.
 		gs: Error: /undefined in draw_beam
 		gs: Operand stack:
 

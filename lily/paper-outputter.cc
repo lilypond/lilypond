@@ -146,11 +146,13 @@ Paper_outputter::output_scheme (SCM scm)
 	  FILE *file = fdopen (fd, "a");
 	  port = scm_standard_stream_to_port (file, "a", "");
 	  scm_display (gh_str02scm ("(load 'lily.scm)\n"), port);
+	  scm_display (gh_str02scm ("(define (of) 'ps)\n"), port);
+	  scm_display (gh_str02scm ("(define (of) 'tex)\n"), port);
 	}
 
       scm_display (gh_str02scm ("(display ((eval "), port);
       scm_write (scm, port);
-      scm_display (gh_str02scm (") 'tex))\n"), port);
+      scm_display (gh_str02scm (") (of)))\n"), port);
       scm_newline (port);
       scm_fflush (port);
 

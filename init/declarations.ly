@@ -38,7 +38,7 @@ minor = 3
 
 \include "property.ly"
 
-\include "scm.ly"
+\scmfile "lily.scm";
 
 % music = "\melodic\relative c"
 

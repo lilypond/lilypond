@@ -218,6 +218,12 @@ Paper_def::get_next_default_count () const
   return default_count_i_ ++;
 }
 
+void
+Paper_def::reset_default_count()
+{
+  default_count_i_ = 0;
+}
+
 //urg
 extern char const* lily_version_number_sz ();
 

@@ -76,3 +76,9 @@ Midi_def::get_next_default_count () const
 {
   return default_count_i_++;
 }
+
+void
+Midi_def::reset_default_count ()
+{
+  default_count_i_ = 0;
+}

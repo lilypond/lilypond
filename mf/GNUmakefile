@@ -6,13 +6,14 @@ STEPMAKE_TEMPLATES=metafont metapost install install-out
 
 EXTRA_DIST_FILES += TODO README feta.mp mfplain.ini
 
-
 FET_FILES = $(wildcard feta[0-9]*.mf)
 
 LYTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.ly))
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
-AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm)) $(outdir)/cmr12.afm
+AFM_IN_FILES = $(wildcard *.afm.in)
+AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm)) \
+  $(addprefix $(outdir)/, $(AFM_IN_FILES:.in=))
 XPM_FONTS = feta20
 
 ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)

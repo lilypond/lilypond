@@ -19,6 +19,11 @@
 	grestore
 } bind def
 
+/setbold % '(' text ')'
+{
+	settext
+} bind def
+ 
 /settext % '(' text ')'
 {
 	gsave
@@ -158,8 +163,8 @@
 	yoffset staffheight 8 mul sub /yoffset exch def
 } bind def
 
-/unknown { (U) show} bind def
-/empty {(E) show} bind def
+/unknown { (U) setbold } bind def
+/empty { (E) setbold } bind def
 
 /turnOnExperimentalFeatures { } bind def
 

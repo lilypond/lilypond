@@ -53,8 +53,8 @@
 \newdimen\staffheight
 \newdimen\notewidth
 \newdimen\noteheight
-\newdimen\staffrulethickness
-\newdimen\interstaffrule
+\newdimen\stafflinethickness
+\newdimen\interstaffline
 \newdimen\dist
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -126,10 +126,10 @@
         \notewidth=\mudelapapernotewidth pt
 
         \smallspace=.3\interlinedist
-        \interstaffrule=\staffheight
-        \divide\interstaffrule by 4
-        \staffrulethickness=\mudelapaperrulethickness pt
-        \stemthickness=\staffrulethickness
+        \interstaffline=\staffheight
+        \divide\interstaffline by 4
+        \stafflinethickness=\mudelapaperrulethickness pt
+        \stemthickness=\stafflinethickness
 }
 
 
@@ -176,7 +176,7 @@
 
 \def\doublebar#1{\hbox{\thinbar{#1}\hskip\smallspace\thinbar{#1}}}
 \def\thinbar#1{\dimen0=#1%
-        \vrule height .5\dimen0 depth .5\dimen0 width 1.6\staffrulethickness} % TODO parametric.
+        \vrule height .5\dimen0 depth .5\dimen0 width 1.6\stafflinethickness} % TODO parametric.
 \def\thickbar#1{\dimen0=#1%
         \vrule height .5\dimen0 depth .5\dimen0 width 2\smallspace}
 \def\maatstreep#1{\thinbar{#1}}

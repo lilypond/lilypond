@@ -36,7 +36,7 @@ public:
   void print() const;
   void set_tempo (Moment moment, int count_per_minute_i);
   virtual int get_next_default_count () const;
+  static void reset_default_count();
 };
 
 #endif // MIDI_DEF_HH
-

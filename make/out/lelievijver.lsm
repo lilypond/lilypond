@@ -1,15 +1,15 @@
 Begin3
 Titel: LilyPond
-Versie: 1.1.4
-Inschrijf datum: 10NOV98
+Versie: 1.1.5
+Inschrijf datum: 13NOV98
 Beschrijving: @FLAPTEKST@
 Trefwoorden: muziek typezetten midi notatie
 Auteur: hanwen@stack.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Onderhouden door: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Voornaamste plek: sunsite.unc.edu /pub/Linux/apps
-	770k lilypond-1.1.4.tar.gz 
+	770k lilypond-1.1.5.tar.gz 
 Oorspronkelijke plek: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
-	770k lilypond-1.1.4.tar.gz 
+	770k lilypond-1.1.5.tar.gz 
 Copi-eer voorwaarden: GPL
 End

@@ -4,11 +4,12 @@
 \usepackage{graphics}
 %\usepackage{showframe}
 \sloppy
-\def\postMudelaExample{\normalsize}
+\def\postMudelaExample{}
 \begin{document}
 %\printparam
 
 Mudela-book is a script that process your \LaTeX ~file and
+with great help from GNU LilyPond
 translates blocks of mudela code it finds inside \verb|mudela|
 environment to tex or eps graphics. It then creates a new
 file that can be sent through \LaTeX~ to create a document with
@@ -29,10 +30,9 @@ before this.
 
 The code above produces this music:
 
-\begin{mudela}[fragment, floating]
-    \relative c' {c4 d e f | g2 g}
+\begin{mudela}[fragment]
+    \relative c' {c4 d e f | g2 g }
 \end{mudela}
-
 
 The parameter \verb|fragment| means that mudela-book will insert
 some red tape for you. There are one thing to remember. Currently
@@ -43,14 +43,17 @@ make mudela-book print the mudela source instead of the
 music. The parameter will probably not be visible in later versions
 of mudela-book.
 
-If you use \verb|\default_paper| as your paper, mudela-book will
-(I hope) adjust the music to reach from the left to the right margin.
+There are some conventions to follow to make the music respect 
+margins. You have to use \verb|\default_paper| as your paper, 
+to make mudela-book adjust the music to reach from the 
+left to the right margin.
+
 The following code
 \begin{mudela}[verbatim]
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{\default_paper}
+    \paper{}
 }
 \end{mudela}
 gives this music:
@@ -58,7 +61,7 @@ gives this music:
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{\default_paper}
+    \paper{}
 }
 \end{mudela}
 
@@ -70,7 +73,7 @@ This does not look to well, but you can fix it by setting
 the \verb|linewidth| variable to, let's say 8 cm. The paper
 definition
 \begin{verbatim}
-\paper{\default_paper
+\paper{
 linewidth=8.\cm;}
 \end{verbatim}
 makes this score:
@@ -79,7 +82,7 @@ makes this score:
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{\default_paper
+    \paper{
            linewidth=8.\cm;}
 }
 \end{mudela}
@@ -91,8 +94,8 @@ reference manual for other variables.
 You can also,
 \begin{mudela}[fragment, floating]
   \relative c'{c c g' g | a a g2}
-\end{mudela}
-~include music in the middle of your text. Just give the option
+\end{mudela} 
+, include music in the middle of your text. Just give the option
 \verb|floating| to \verb|\begin{mudela}|
 
 Oh, you think the notes are to big to be in the middle of all those
@@ -100,7 +103,7 @@ small characters, that something like this,
 \begin{mudela}[fragment, floating, 11pt]
   \relative c'{c c g' g | a a g2}
 \end{mudela}
-~is better? If you have a lot of small music examples like this
+, is better? If you have a lot of small music examples like this
 in the middle of your text, you might get a nicer look by using
 ``double'' line spacing. Put the \verb|\linespread{1.6}| command
 into the preamble of your document. Then the line spacing will not
@@ -186,7 +189,7 @@ So the music will be adjusted to the new linewith:
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{\default_paper}
+    \paper{}
 }
 \end{mudela}
 produces
@@ -194,7 +197,7 @@ produces
 \score{
     \notes\relative c'{c d e f | g2 g | a4 a a a | g1 |
          f4 f f f | e2 e | d4 d d d | c1}
-    \paper{\default_paper}
+    \paper{}
 }
 \end{mudela}
 
