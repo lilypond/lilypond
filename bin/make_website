@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
 # stuff should be generated in out directory.
 
-sub
-	set_hrefs
+sub set_hrefs
 {
     while (<HTMLIN>) {
 	s#href=([A-Za-z.]+)#href=$base/$1#g;
@@ -24,18 +23,16 @@ sub all_refs
 }
 
 local $base="lilypond/";
-local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "martien");
+local @examples=("wohltemperirt" ,"standchen", "scsii-menuetto", "rhythm", "martien", "collisions");
 
-#mkdir "lilypond";
-sub
-    gen_html
+
+sub gen_html
 {
     print "generating HTML\n";
     system "make -kC .. html";
 }
 
-sub
-    gen_examples
+sub gen_examples
 {
     print "generating examples: \n";
     foreach $a (@examples) {
@@ -64,8 +61,7 @@ sub
 }
 
 
-sub
-    gen_list
+sub gen_list
 {
     print "generating HTML list\n";
     open HTMLLIST, ">example_output.html";
@@ -85,20 +81,26 @@ sub
 	print HTMLLIST "<ul>
 <li><a href=$inputf> The input file</a>
 <li><a href=$giff>The output (gif)</a>
-<li><a href=$psf>The output (PS)</a>
-<li><a href=$midif>The output (MIDI)</a>
-</ul>";
+<li><a href=$psf>The output (PS)</a>\n";
+	
+	print HTMLLIST "<li><a href=$midif>The output (MIDI)</a>\n"
+	    if ( -f $midif );
+	print HTMLLIST "</ul>";
     }
 	close HTMLLIST;
 }
-sub
-    copy_files
+sub copy_files
 {  
     print "copying files\n";
     print `ln -s $depth/out ./docxx` if ( ! -x "docxx" ) ;
     system "cp $depth/TODO ./TODO.txt";
     system "cp $depth/NEWS ./NEWS.txt";
     system "cp ../lelie*gif .";
+}
+
+sub docxx_update
+{
+    system "make -C $depth doc++";
 }
 
 sub
@@ -118,8 +120,10 @@ chomp($cwd = `pwd`);
 die "need to be in directory Documentation\n" if ( ! ($cwd =~ /Documentation$/));
 chdir ("out");
 
+
 gen_html;
 gen_examples;
 gen_list;
 copy_files;
+docxx_update;
 do_tar;

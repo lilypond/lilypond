@@ -1,4 +1,4 @@
-before 0.1
+IMPORTANT
 
 	* update 20 pt table
 
@@ -7,6 +7,11 @@ before 0.1
 	* per-pstaff item-widths
 
 	* script priority
+
+	* slur direction
+
+	* problems with empty staff.->revise staff-column/score-walker.
+
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
@@ -18,10 +23,6 @@ BUGS
 
 	* hairpin width
 
-	* problems with empty staff.
-
-	* help-lines
-
 	* help-lines for rests
 
 	* [c8. c32 c32]
@@ -29,8 +30,6 @@ BUGS
 	* cis ( | ) cis
 
 	* lilypond - -> crash
-
-	* \stem -1 < chord >  rest 
 
 SEVERELY LACKING:
 
@@ -65,6 +64,8 @@ INPUTLANGUAGE
 	* subtime with Subtle_reqs
 
 SMALLISH PROJECTS
+
+	* use rest size in Collision
 
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
@@ -116,11 +117,10 @@ SMALLISH PROJECTS
 
 	* command priority into enum
 
-	* don't broadcast Staff_sym
-
 	* C meter iso 4/4
 
 	* textspanner: center position
+
 	* script-spacing
 
 	* Brackets
@@ -131,8 +131,6 @@ SMALLISH PROJECTS
 	parser.
 
 	* configure idealspacing: arithmetic
-
-	* collision Request_register.
 
 	* add (good guess of) width to lyric items
 
@@ -153,12 +151,12 @@ FUTURE
 
 	* Reg_configure_request
 
+	* bring Collision::do_pre_processing to haircutter
+
 	* slurs per voicegroup.
 
 	* slur parts as a script
 	
-	* multiple scripst.
-
 	* mixed fontsizes
 
 	* put scripts on bars
@@ -170,7 +168,6 @@ FUTURE
 	* Junk Staff_column, and find the requests while walking the Voices.?
 
 	* MIDI repeat: make lily understand repeats
-
 
 	* better beamslope calculation:	QLP for beams?
 
@@ -189,17 +186,19 @@ FUTURE
 	* piano staff
 
 	* vertical spanner
+
 IDEAS
+
+	* scoping in Lexer?
 
 	* integrate Register/Midi stuff
 
 	* create libmudela, or liblily_frontend
 
-	* Horizontal_align_item, Vertical_align_item.
-
-	* move MIDI io to a ANSI C libmidi library.
+	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
 
 	* use an embedded language: scheme, lisp, S-lang, Perl, GUILE, ?
+	for : 
 		- Items/Spanners
 		- Registers
 
