@@ -6,7 +6,7 @@
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (doc-markup-function func)
-  (let* ((doc-str  (procedure-documentation func) )
+  (let* ((doc-str  (procedure-documentation func))
 	 (f-name (symbol->string (procedure-name  func)))
 	 (c-name (regexp-substitute/global #f "-markup$" f-name  'pre "" 'post))
 	 (sig (object-property func 'markup-signature))
@@ -43,7 +43,7 @@
    (apply string-append
 	  
 	  (map doc-markup-function
-	       (sort markup-function-list markup-function<?) ) )
+	       (sort markup-function-list markup-function<?)))
    "\n@end table"))
 
 (define (markup-doc-node)

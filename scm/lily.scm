@@ -237,7 +237,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 
 (define gc-protect-stat-count 0)
 (define-public (dump-gc-protects)
-  (set! gc-protect-stat-count (1+ gc-protect-stat-count) )
+  (set! gc-protect-stat-count (1+ gc-protect-stat-count))
   (let* ((protects (sort
 		    (hash-table->alist (ly:protects))
 		    (lambda (a b)

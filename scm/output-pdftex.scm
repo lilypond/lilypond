@@ -216,4 +216,4 @@
 (define (no-origin) "")
 
 (define-public (pdftex-output-expression expr port)
-  (display (eval expr this-module) port) )
+  (display (eval expr this-module) port))

@@ -36,11 +36,11 @@
 
 (display
  (backend-properties-doc-string all-user-grob-properties)
- (open-output-file "layout-properties.tely") )
+ (open-output-file "layout-properties.tely"))
 
 (display
  (translation-properties-doc-string all-user-translation-properties)
- (open-output-file "context-properties.tely") )
+ (open-output-file "context-properties.tely"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

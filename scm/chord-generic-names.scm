@@ -134,7 +134,7 @@ input/test/dpncnt.ly).
     (if (pair? exceptions)
 	(let* ((e (car exceptions))
 	       (e-pitches (car e)))
-	  (if (equal? e-pitches (take pitches (length e-pitches) ))
+	  (if (equal? e-pitches (take pitches (length e-pitches)))
 	      e
 	      (partial-match (cdr exceptions))))
 	#f))
@@ -160,8 +160,8 @@ input/test/dpncnt.ly).
 	 ;; kludge alert: replace partial matched lower part of all with
 	 ;; 'normal' pitches from full
 	 ;; (all pitches)
-	 (all (append (take full (length partial-pitches) )
-		      (drop pitches (length partial-pitches) )))
+	 (all (append (take full (length partial-pitches))
+		      (drop pitches (length partial-pitches))))
 	
 	 (highest (last all))
 	 (missing (list-minus full (map pitch-unalter all)))

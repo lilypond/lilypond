@@ -415,7 +415,7 @@
 	(direction . -1)
 	
 	(meta . ((interfaces . (dynamic-interface axis-group-interface
-						  side-position-interface spanner-interface)))) ))
+						  side-position-interface spanner-interface))))))
 
     (LeftEdge
      . (

@@ -246,25 +246,26 @@ with magnification @varr{mag} of the string @var{text}."
    (if (not (null? barre-list))
      (let* ((string1 (caar barre-list))
             (string2 (cadar barre-list))
-            (fret    (caddar barre-list))
+            (fret (caddar barre-list))
             (barre-type (chain-assoc-get 'barre-type props 'curved))
             (scale-dot-radius (* size dot-radius))
             (barre-vertical-offset (chain-assoc-get 'barre-vertical-offset props 0.5))
-            ; 2 is 1 for empty fret at bottom of figure + 1 for interval (top-fret - fret + 1) -- not an arbitrary constant
-            (dot-center-y (* size (- (+ 2 (- (cadr fret-range) fret))dot-position) ))
-            (bottom (+  dot-center-y (* barre-vertical-offset scale-dot-radius)))
+            ;; 2 is 1 for empty fret at bottom of figure + 1 for interval (top-fret - fret + 1) -- not an arbitrary constant
+            (dot-center-y (* size
+			     (- (+ 2 (- (cadr fret-range) fret)) dot-position)))
+            (bottom (+ dot-center-y (* barre-vertical-offset scale-dot-radius)))
             (left (* size (- string-count string1)))
             (right (* size (- string-count string2)))
-;            (bezier-thick (chain-assoc-get 'bezier-thickness props 0.1))
+;;            (bezier-thick (chain-assoc-get 'bezier-thickness props 0.1))
             (bezier-thick 0.1)
-;            (bezier-height (chain-assoc-get 'bezier-height props 0.5))
+;;            (bezier-height (chain-assoc-get 'bezier-height props 0.5))
             (bezier-height 0.5)
             (bezier-list (make-bezier-sandwich-list left right bottom (* size bezier-height) (* size bezier-thick)))
             (barre-stencil (if (eq? barre-type 'straight)
                               (ly:make-stencil (list 'draw-line (* size dot-radius) left dot-center-y right dot-center-y)
                                                (cons left right)
                                                (cons (- dot-center-y scale-dot-radius) (+ dot-center-y scale-dot-radius))) 
-                              (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick) )
+                              (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick))
                                   (cons left right)
                                   (cons bottom (+ bottom (* size bezier-height)))))))
         (if (not (null? (cdr barre-list)))
@@ -505,7 +506,7 @@ Note:  There is no limit to the number of fret indications per string.
                  
 (define (get-numeric-from-key keystring)
  "Get the numeric value from a key  of the form k:val"
-    (string->number (substring keystring 2  (string-length keystring) )))
+    (string->number (substring keystring 2 (string-length keystring))))
   
 (define (numerify mylist)
  "Convert string values to numeric or character"

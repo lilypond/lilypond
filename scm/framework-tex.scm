@@ -20,13 +20,13 @@
   (if (ly:get-option 'safe)
       (regexp-substitute/global
        #f "\\\\"
-       (regexp-substitute/global #f "([{}])" s 'pre  "\\" 1 'post )
+       (regexp-substitute/global #f "([{}])" s 'pre  "\\" 1 'post)
        'pre "$\\backslash$" 'post)
       s))
 
 (define (symbol->tex-key sym)
   (regexp-substitute/global
-   #f "_" (sanitize-tex-string (symbol->string sym)) 'pre "X" 'post) )
+   #f "_" (sanitize-tex-string (symbol->string sym)) 'pre "X" 'post))
 
 (define (tex-number-def prefix key number)
   (string-append
