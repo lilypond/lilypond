@@ -15,13 +15,9 @@
     \override Slur #'print-function = #New_slur::print     
     \override Slur #'height = ##f
 
-    \grace {
-	e=''16( 
-    }
-    d8.[) c16]
+    \grace e=''16( d8.[) c16]
     d8.[ \grace f16( e16)]
-    s2 
-
+    s2
     << {c=''8.([ es16] bes4~bes )}
        \\
        {r8  <as es> r <f des> r }
@@ -45,7 +41,7 @@
     c,,^( c'')
     c,,^( c')
     | b='2( a4) s4
-    b='4.( c8)
+    | b='4.( c8) s2
     | << c=''1_(
        { s2 \grace { b16[ c] } } >>
     \break

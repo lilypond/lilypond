@@ -169,7 +169,7 @@ rondo =  	\relative c'
 	g4 r8  g''8[ e c]
 
 	
-	<< d2.(\trill
+	<< d2._(\trill
 	  { s2 	\grace {
   \override Stem   #'stroke-style = #"grace"
      c16[ d] 
