@@ -1,3 +1,8 @@
+2003-06-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm (note-name->markup): don't superscript root
+	alterations in chordnames.
+
 2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/refman.itely (Multi measure rests): more

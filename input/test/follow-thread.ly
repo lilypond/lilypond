@@ -12,7 +12,7 @@ property @code{followVoice}. " }
 	\context PianoStaff=ps <
 		\property PianoStaff.followVoice = ##t
 		\context Staff=one \context Voice {
-			\property Voice.VoiceFollower \set #'type = #'dashed-line
+			\property Voice.VoiceFollower \set #'style = #'dashed-line
 			c'1
 			\translator Staff=two
 			b2 a

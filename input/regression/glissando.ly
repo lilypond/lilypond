@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.7.22"
 
 \header{
 
@@ -19,7 +19,7 @@ The engraver does no time-keeping, so it involves some trickery to get
 	     c \glissando d, \glissando e'
 	      < { \stemUp e8 \glissando g8 }
 	        \context Voice = VB {\stemDown \repeat unfold 4 d16 } >
-		\property Voice.Glissando \override #'type = #'zigzag
+		\property Voice.Glissando \override #'style = #'zigzag
 		c4 \glissando c,, \glissando c' \glissando d
     }
     \paper{

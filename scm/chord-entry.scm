@@ -67,6 +67,7 @@ Entry point for the parser.
     
     (define (interpret-additions  chord mods)
       "Interpret additions. TODO: should restrict modifier use?"
+      
       (cond
        ((null? mods) chord)
        ((ly:pitch? (car mods))
@@ -149,6 +150,8 @@ the bass specified.
 	  (set! flat-mods (cdr flat-mods))
 	  ))
 
+    
+
     ;; extract first  number if present, and build pitch list.
     (if (and (pair? flat-mods)
 	     (ly:pitch?  (car flat-mods))
@@ -167,13 +170,12 @@ the bass specified.
     (if (procedure? lead-mod)
 	(set! base-chord (lead-mod base-chord)))
 
-    
+
     (set! complete-chord
 	  (if start-additions
 	   (interpret-additions base-chord flat-mods)
 	   (interpret-removals base-chord flat-mods)
 	   ))
-
     
     (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
 			      (sort complete-chord ly:pitch<?)))
@@ -207,7 +209,7 @@ the bass specified.
 	  (write-me "bass: " bass)))
 
 
-    
+
     (if inversion
 	(make-chord (cdr complete-chord) bass duration (car complete-chord)
 		    inversion)

@@ -39,8 +39,7 @@
    (list
     (make-simple-markup
      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
-    (make-normal-size-super-markup
-     (accidental->markup (ly:pitch-alteration pitch))))))
+     (accidental->markup (ly:pitch-alteration pitch)))))
 
 
 (define-public ((chord-name->german-markup B-instead-of-Bb) pitch)
