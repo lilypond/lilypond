@@ -35,6 +35,10 @@ bool midi_debug_global_b;
 int testing_level_global;
 
 /*
+  Backwards compatibility.
+ */
+bool lily_1_8_relative = true;
+/*
   crash if internally the wrong type is used for a grob property.
  */
 bool internal_type_checking_global_b;
@@ -84,6 +88,10 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
 "@item parse-protect\n"
 "If protection is switched on, errors in inline scheme are caught in the parser. \n"
 "If off, GUILE will halt on errors, and give a stack trace. Default is protected evaluation. \n"
+"@item old-relative\n"
+"Relative for simultaneous functions similar to chord syntax\n"
+"@item new-relative\n"
+"Relative for simultaneous functions similar to sequential music\n"
 "@end table\n"
 "\n"
 "This function is useful to call from the command line: @code{lilypond -e\n"
@@ -110,18 +118,13 @@ LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
     {
      internal_type_checking_global_b = to_boolean (val); 
     }
-  else if (var == ly_symbol2scm ("find-old-relative"))
+  else if (var == ly_symbol2scm ("old-relative"))
     {
-      /*
-	Seems to have been broken for some time!
-	
-	@item  -Q,--find-old-relative
-	show all changes needed to convert a file to  relative octave syntax.
-
-
-	
-      */
-      ;
+      lily_1_8_relative = true;
+    }
+  else if (var == ly_symbol2scm ("new-relative"))
+    {
+      lily_1_8_relative = false;
     }
   else
     {

@@ -18,7 +18,6 @@ public:
   VIRTUAL_COPY_CONS (Music);
   Grace_music ();
 protected:
-  virtual void compress (Moment);
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
 };

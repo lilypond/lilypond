@@ -13,14 +13,6 @@
 
 
 
-void
-Music_wrapper::transpose (Pitch p)
-{
-  if (element ())
-    element ()-> transpose (p);
-}
-
-
 Music_wrapper::Music_wrapper ()
   : Music ()
 {
@@ -32,24 +24,12 @@ Music_wrapper::get_length () const
   return element ()->get_length ();
 }
 
-Pitch
-Music_wrapper::to_relative_octave (Pitch p)
-{
-  return element ()->to_relative_octave (p);
-}
-
-
 Music*
 Music_wrapper::element () const
 {
   return unsmob_music (get_mus_property ("element"));
 }
 
-void
-Music_wrapper::compress (Moment m)
-{
-  element ()->compress (m);
-}
 
 ADD_MUSIC (Music_wrapper);
 

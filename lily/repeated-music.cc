@@ -31,35 +31,25 @@ Repeated_music::alternatives ()const
 Pitch
 Repeated_music::to_relative_octave (Pitch p)
 {
-  if (body ())
-    p = body ()->to_relative_octave (p);
+  if (lily_1_8_relative)
+    {
+      if (body ())
+	p = body ()->to_relative_octave (p);
 
-  Pitch last = p ; 
-  if (alternatives ())
-    for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
-      unsmob_music (ly_car (s))->to_relative_octave (p);
+      Pitch last = p ; 
+      if (alternatives ())
+	for (SCM s = alternatives (); gh_pair_p (s);  s = ly_cdr (s))
+	  unsmob_music (ly_car (s))->to_relative_octave (p);
      
 
-  return last;
+      return last;
+    }
+  else
+    {
+      return Music::to_relative_octave (p);
+    }
 }
 
-void
-Repeated_music::transpose (Pitch p)
-{
-  if (body ())
-    body ()->transpose (p);
-
-  Music_sequence::transpose_list (get_mus_property ("elements"), p);
-}
-
-void
-Repeated_music::compress (Moment p)
-{
-  if (body ())
-    body ()->compress (p);
-
-  Music_sequence::compress_list (alternatives (), p);
-}
 
 Moment
 Repeated_music::alternatives_get_length (bool fold) const

@@ -14,8 +14,6 @@ source file of the GNU LilyPond music typesetter
 
   fixthis.
 */
-  
-
 void
 Untransposable_music::transpose (Pitch )
 {

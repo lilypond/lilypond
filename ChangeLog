@@ -1,3 +1,26 @@
+2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely: remove superfluous -'s 
+
+	* lily/music.cc: generic compress() function. Remove others.
+
+	* lily/parser.yy (gen_text_def): remove support for #'(italic )
+	style markups.
+
+	* lily/parser.yy: all articulations postfix; remove obligatory -
+	for [,  ) and \!
+	
+	* lily/music.cc (to_relative_octave): write generic
+	to_relative_octave function; various relative cleanups.
+	Hmmm.
+
+	* lily/scm-option.cc: add options new-relative and old-relative
+
+	* po/sv.po: new po file.
+
+	* Documentation/user/refman.itely (Dynamics): website
+	fixes. (should backport!)
+
 2003-08-22  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* make/lilypond.mandrake.spec.in: declare version only once.

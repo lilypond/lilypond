@@ -20,41 +20,10 @@ Simultaneous_music::Simultaneous_music()
 
 }
 
-/*
-  Cut & paste from Music_sequence, (ugh) , but we must add an error
-  message.
- */
 Pitch
 Simultaneous_music::to_relative_octave (Pitch p)
 {
-  Pitch first;
-  int count=0;
-
-  Pitch last = p;
-  for (SCM s = music_list (); gh_pair_p (s);  s = ly_cdr (s))
-    {
-      if (Music *m = unsmob_music (ly_car (s)))
-	{
-	  last = m->to_relative_octave (last);
-	  if (!count ++)
-	    first = last;
-	}
-    }
-
-#if 0
-  if (count && first != last)
-    {
-      String str = _("Changing relative definition may cause octave change.");
-      str += "\nWas: " +  first.to_string ()
-	+ " -- now returning: " + last.to_string () + "\n";
-      
-      origin()->warning (str);
-    }
-
-  return last;
-#else
-  return first;
-#endif
+  return music_list_to_relative (music_list(),p, lily_1_8_relative);
 }
 
 ADD_MUSIC (Simultaneous_music);
@@ -62,6 +31,7 @@ ADD_MUSIC (Simultaneous_music);
 Pitch
 Event_chord::to_relative_octave (Pitch p)
 {
-  return do_relative_octave (p, true);
+  return music_list_to_relative (music_list (), p, true);
 }
+
 ADD_MUSIC(Event_chord);

@@ -10,20 +10,27 @@
 #include "relative-music.hh"
 #include "warn.hh"
 
+
+
 Pitch
-Relative_octave_music::to_relative_octave (Pitch)
+Relative_octave_music::to_relative_octave (Pitch p)
 {
-	/*
-		ugh: last-pitch should  be junked.
+  if (lily_1_8_relative)
+    {
+      
+  /*
+    ugh: last-pitch should  be junked.
 
- 		Change this for lilypond 2.0. When you do,
-		then B should start where A left off.
+    Change this for lilypond 2.0. When you do,
+    then B should start where A left off.
 
-		\relative { A \relative { ...} B }
+    \relative { A \relative { ...} B }
 
-		*/
-
-  return * unsmob_pitch (get_mus_property ("last-pitch"));
+  */
+      return * unsmob_pitch (get_mus_property ("last-pitch"));
+    }
+  else
+    return p;
 }
 
 

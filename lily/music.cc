@@ -39,15 +39,7 @@ Music::name () const
     }
 }
 
-void
-Music::transpose (Pitch)
-{
-}
 
-void
-Music::compress (Moment)
-{
-}
 
 Music::Music (Music const &m)
 {
@@ -159,9 +151,39 @@ Music::print_smob (SCM s, SCM p, scm_print_state*)
 }
 
 Pitch
-Music::to_relative_octave (Pitch m)
+Music::to_relative_octave (Pitch p)
 {
-  return m;
+  SCM elt = get_mus_property ("element");
+
+  if (Music* m = unsmob_music (elt))
+    p = m->to_relative_octave (p);
+
+  p = music_list_to_relative (get_mus_property ("elements"),
+			      p, false);
+  return p;
+}
+
+void
+Music::compress (Moment factor)
+{
+  SCM elt = get_mus_property ("element");
+
+  if (Music* m = unsmob_music (elt))
+    m->compress (factor);
+
+  compress_music_list (get_mus_property ("elements"), factor);
+}
+
+
+void
+Music::transpose (Pitch delta)
+{
+  SCM elt = get_mus_property ("element");
+
+  if (Music* m = unsmob_music (elt))
+    m->transpose (delta);
+
+  transpose_music_list (get_mus_property ("elements"), delta);
 }
 
 

@@ -19,12 +19,9 @@ public:
   Music * get_lyrics () const;
   
   Lyric_combine_music ();
-  virtual void transpose (Pitch);
 
   VIRTUAL_COPY_CONS (Music);
   virtual Moment get_length () const;
-  virtual Pitch to_relative_octave (Pitch);
-  virtual void compress (Moment);
 };
 #endif /* LYRIC_COMBINE_MUSIC_HH */
 

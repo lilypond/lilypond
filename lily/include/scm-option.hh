@@ -11,5 +11,6 @@
 /* options */
 extern bool midi_debug_global_b;
 extern int testing_level_global;
+extern bool lily_1_8_relative;
 
 #endif /* SCM_OPTION_HH */

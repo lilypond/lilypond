@@ -4,6 +4,9 @@ This shows how to make an ``incipit'' to indicate scordatora
 tuning of a violin part, using the clefStyle property.
 The two first bars of Biber's Rosary sonata III. " }
 
+
+
+
 violinincipit =  \notes\relative c''{
   \clef "french"
   \time 2/2
@@ -29,7 +32,8 @@ violin =  \notes\relative c''{
   \clef treble
 
   a4. b8 c4 fis |
-  gis~ gis8 fis16^\trill (e-) b8 c \context Staff<{\voiceOne a d}{\voiceTwo es,4}>|
+V  gis~ gis8 fis16^\trill (e-) b8 c
+  <{ a d}\\ { es,4}>|
 }
 
 BC  = \notes\relative c{
