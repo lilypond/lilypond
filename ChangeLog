@@ -1,5 +1,7 @@
 2003-02-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/chords-ignatzek.scm (ignatzek-chord-names): robustness fix.
+
 	* lily/include/*.hh: string() -> to_string()
 
 	* scm/chords-ignatzek.scm: new file.
