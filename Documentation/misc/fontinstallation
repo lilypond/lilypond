@@ -1,0 +1,89 @@
+The font installation in LilyPond.
+
+Background
+
+This is a short overview of the installation of the Feta fonts
+in LilyPond. This structure is used by default from version 
+1.5.37.
+
+Let $DATADIR denote the Lilypond data installation directory, 
+typically /usr/local/share/lilypond/ or /usr/share/lilypond/.
+A non-default path can be specified using 'configure --prefix'
+or 'configure --datadir'.
+
+The trick used is to let $DATADIR be the root of an additional
+texmf tree, where the TeX tools can search just as it searches
+the default texmf tree of the teTeX distribution. We follow
+the official TeX Directory Structure (see `texdoc tds`). 
+
+The main advantage of putting the font files in a teTeX
+system tree is that generated font files (such as .*pk files)
+will automatically be stored in "the right place", i.e. you
+should never end up in your current working directory - something
+that was a common problem in previous Lilypond installations.
+What is then considered "the right place" in teTeX? If the user
+has write permissions in $DATADIR (for example if the installation
+is done locally in a home directory), then the generated files
+will also appear in subdirectories of $DATADIR. This means that
+you can keep several LilyPond versions installed in parallel
+as long as $DATADIR is set separately for each version and you 
+have write permissions in (at least all but one) of the installation
+directories. For ordinary installations in /usr/share/ or 
+/usr/local/share/, where the user does not have write permission, 
+the generated font files will instead appear in the directory
+specified by `kpsexpand \$VARTEXFONTS`, often /var/tmp/texfonts/
+or /var/spool/texmf/ depending on your teTeX distribution.
+
+Details
+
+The files are installed in the following subdirectories:
+
+$DATADIR/fonts/source/: all *.mf files
+$DATADIR/fonts/afm/: all *.afm files
+$DATADIR/fonts/tfm/: all *.tfm files
+$DATADIR/fonts/type1/: all *.pfa and/or *.pfb files
+$DATADIR/tex/: all *.tex files
+$DATADIR/dvips/: the lilypond.map file
+
+To make teTeX aware of the files, the directory is added
+to the list of texmf trees by setting the single variable
+$TEXMF. 
+
+In Bourne shell/bash:
+TEXMF="{$DATADIR,"`kpsexpand  \\$TEXMF`"}"
+export TEXMF
+
+In csh/tcsh:
+set noglob
+setenv TEXMF "{$DATADIR,"`kpsexpand  \$TEXMF`"}"
+unset noglob
+
+If $TEXMF was set previously, kpsexpand will use that value, 
+otherwise it is read from texmf.cnf (`kpsewhich texmf.cnf`
+tells you where to find the file). 
+
+
+Creating nice-looking PDF files
+
+If you have generated and installed the so-called Type1 versions
+of the fonts, and have Ghostscript version 6.0 or later, you can
+make PDF versions of your scores that look nice both on screen 
+and on paper. You just have to tell dvips to use the Type1 
+version of the fonts:
+
+dvips -ulilypond.map -Ppdf myscore.dvi
+ps2pdf myscore.ps
+
+If you want top quality printouts, it is recommended to stick
+to the bitmap fonts, i.e. to call dvips directly without
+any extra flags. The resulting PDF files will then unfortunately
+look fuzzy on screen.
+
+This will work well with ly2dvi output, however if you 
+use lilypond-book or write a LaTeX wrapper file yourself,
+do NOT include the line \usepackage[T1]{fontenc} since
+the Type1 text fonts included in the free TeX distributions
+only include TC encoded fonts, not T1 encoded. However,
+add \usepackage[latin1]{inputenc} if you use any non-
+anglosaxian characters. 
+

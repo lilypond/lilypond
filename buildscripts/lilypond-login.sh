@@ -13,9 +13,9 @@
 set datadir="@datadir@"
 
 if ( $?GS_FONTPATH ) then
-       setenv GS_FONTPATH "$datadir/afm:/usr/share/lilypond/pfa:$GS_FONTPATH"
+       setenv GS_FONTPATH "$datadir/fonts/afm:$datadir/fonts/type1:$GS_FONTPATH"
  else
-       setenv GS_FONTPATH "$datadir/afm:/usr/share/lilypond/pfa"
+       setenv GS_FONTPATH "$datadir/fonts/afm:$datadir/fonts/type1"
  endif
  if ( $?GS_LIB ) then
        setenv GS_LIB "$datadir/ps:$GS_LIB"
@@ -29,33 +29,12 @@ if ( $?GS_FONTPATH ) then
 # bit silly. for ly2dvi, overrules compiled-in datadir...
 # setenv LILYPONDPREFIX "@datadir@"
 
-# include an empty path component for the system wide includes.
-if ($?MFINPUTS) then
-        setenv MFINPUTS "$datadir/mf:${MFINPUTS}::"
-else
-        setenv MFINPUTS "$datadir/mf::"
-endif
-if ($?TEXINPUTS) then
-        setenv TEXINPUTS "$datadir/tex:${TEXINPUTS}::"
-else
-        setenv TEXINPUTS "$datadir/tex::"
-endif
-if ($?TFMFONTS) then
-        setenv TFMFONTS "$datadir/tfm:$TFMFONTS"
-else
-        setenv TFMFONTS "$datadir/tfm:"
-endif
+# Add the installation directory to the teTeX system tree, 
+# see Documentation/misc/fontinstallation
 
-if ($?TEXPSHEADERS) then
-        setenv TFMFONTS "$datadir/pfa:$TEXPSHEADERS"
-else
-        setenv TFMFONTS "$datadir/pfa:"
-endif
-if ($?TEXCONFIG) then
-        setenv TEXCONFIG "$datadir/pfa:$TEXPSHEADERS"
-else
-        setenv TEXCONFIG "$datadir/pfa:"
-endif
+set noglob
+setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
+unset noglob
 
 
 

@@ -1,3 +1,22 @@
+2002-03-15  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* buildscripts/lilypond-profile.sh: 
+
+	* mf/GNUmakefile (INSTALLATION_OUT_DIR*),
+	buildscripts/lilypond-login.sh, buildscripts/lilypond-profile.sh:
+	Implement new font installation strategy
+
+	* Documentation/misc/fontinstallation (TEXMF): Documentation of
+	the new font installation strategy.
+
+	* lilypond-mode.el (LilyPond-mode-map): Add shortcut "CTRL-c ;"
+	for comment-region.
+
+	* input/test/staff-size.ly: Simplified using StaffContainer
+
+	* mf/GNUmakefile (ALL_GEN_FILES): Actually generate the
+	lilypond.map file
+
 2002-03-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.41 released

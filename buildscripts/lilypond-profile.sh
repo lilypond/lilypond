@@ -7,15 +7,10 @@
 # If run by hand or from you .profile, run as follows
 #   . lilypond-profile
 
-# This is a bit of a kludge.  Ideally, lilypond's tex, afm, pfa, ps
-# directories should be installed into their location in the texmf/gs
-# trees, rather than messing around with environment variables (eg,
-# see Debian or SuSE package).
-
 datadir=`echo "@datadir@" | sed 's!//!/!g'`
 
 # For direct ps output fonts
-GS_FONTPATH="$datadir/afm:$datadir/pfa:"${GS_FONTPATH:=""}
+GS_FONTPATH="$datadir/fonts/afm:$datadir/fonts/type1:"${GS_FONTPATH:=""}
 
 # For direct ps output: ps/lilyponddefs.ps
 GS_LIB="$datadir/ps:"${GS_LIB:=""}
@@ -26,20 +21,14 @@ GS_LIB="$datadir/ps:"${GS_LIB:=""}
 # versions of lilypond).
 # LILYPONDPREFIX="$datadir"
 
-# include an empty path component for the system wide includes.
-MFINPUTS="$datadir/mf:"${MFINPUTS:=":"}
-TEXINPUTS="$datadir/tex:$datadir/ps:"${TEXINPUTS:=":"}
-TFMFONTS="$datadir/tfm:"${TFMFONTS:=":"}
-TEXPSHEADERS="$datadir/pfa/:"${TEXPSHEADERS:=":"}
-TEXCONFIG="$datadir/pfa/:"${TEXCONFIG:=":"}
-
-
+# Add the installation directory to the teTeX system tree, 
+# see Documentation/misc/fontinstallation
+TEXMF="{$DATADIR,"`kpsexpand  \\$TEXMF`"}"
 
 # LILYPONDPREFIX="$datadir"
 # export LILYPONDPREFIX
 
-export MFINPUTS TEXINPUTS TFMFONTS GS_LIB GS_FONTPATH
-export TEXPSHEADERS TEXCONFIG
+export GS_LIB GS_FONTPATH TEXMF
 
  	
 

@@ -1,8 +1,7 @@
 \version "1.3.146"
 \score {
-  \notes \relative c' < \context Voice {
-   \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
-       #'staff-space = #(/ 16 20)
+  \notes \relative c' < \context StaffContainer = SA{
+     \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
 
 	\property Staff.fontSize = #-1
 	\property Voice.fontSize = #-1
@@ -13,7 +12,7 @@
 	c8 d [e f g a] b c \ff
   }
 
-\context Staff = VB {  \dynamicDown c,,4 \ff c c c  }
+\context StaffContainer = SB {  \dynamicDown c,,4 \ff c c c  }
 
 >
 \paper { linewidth = -1. }
