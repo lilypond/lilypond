@@ -1,3 +1,8 @@
+2005-02-23  Werner Lemberg  <wl@gnu.org>
+
+	* mf/graycx.mf, mf/graylj.mf: Removed.  Any decent TeX distribution
+	contains those two files.
+
 2005-02-21  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-nummer-code.mf ("Numeral 5"): Include intersection point
