@@ -16,6 +16,7 @@
 #include "dstream.hh"
 #include "flower-debug.hh"
 #include "moment.hh"
+
 #include "main.hh"
 Dstream *monitor=0;
 ostream * nulldev =0;
@@ -53,13 +54,10 @@ float_handler (int)
   assert (false);
 }
 
-/// just to make sure print_rat is linked in
-static void (*rat_printer)(Moment const&);
 
 void
 debug_init()
 {
-  rat_printer = print_rat;
 #ifndef NDEBUG
   // libg++ 2.8.0 doesn't have set_new_handler
   // set_new_handler (&mynewhandler);
