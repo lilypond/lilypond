@@ -10,8 +10,8 @@
 #include "staff.hh"
 #include "musicalrequest.hh"
 #include "staffwalker.hh"
-#include "stcol.hh"
-#include "sccol.hh"
+#include "staffcolumn.hh"
+#include "scorecolumn.hh"
 #include "debug.hh"
 #include "timedescription.hh"
 #include "commandrequest.hh"
@@ -69,7 +69,7 @@ Staff_walker::process_timing_reqs()
 	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
 	    warning( "Barcheck failed", tr_l->defined_ch_c_l_ );
 	} else if (tr_l->cadenza()) {
-	    time_.set_cadenza(tr_l->cadenza()->on_b);
+	    time_.set_cadenza(tr_l->cadenza()->on_b_);
 	} else if (tr_l->measuregrouping()) {
 	    *default_grouping = parse_grouping(
 		tr_l->measuregrouping()->beat_i_arr_,
