@@ -7,6 +7,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "libc-extension.hh"
@@ -33,6 +34,7 @@ strnupr (char* start_l, int n)
     }
   return start_l;
 }
+
 
 #if !HAVE_MEMMEM
 
