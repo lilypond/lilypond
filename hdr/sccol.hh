@@ -12,7 +12,7 @@
 struct Score_column {
 
     /// indirection to column
-    PCol * pcol;
+    PCol * pcol_;
     /// length of notes/rests in this column
     svec<Real> durations;
     
@@ -28,7 +28,7 @@ struct Score_column {
 	return sgn(c1.when - c2.when);
     }
     void set_breakable() {
-	 pcol->set_breakable();
+	 pcol_->set_breakable();
     }
     bool used();
     void print() const;

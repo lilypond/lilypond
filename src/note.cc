@@ -105,10 +105,7 @@ get_note_element(String pitch, String durstr)
     int oct, pit, acc;
     bool forceacc;
     parse_pitch(pitch, i, oct, forceacc, pit, acc);
-    char nm =  pit + 'c';
-    if (nm > 'g')
-	nm += 'a' - 'h';
-    rq->name =nm;
+    rq->name =pit;
     
     rq->octave = oct;
     rq->accidental = acc;

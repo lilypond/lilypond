@@ -100,7 +100,7 @@ PScore::calc_breaking()
 	while (i < breakpoints.sz()) {
 
 	    // add another measure.
-	    while(breakpoints[i] !=curcol){
+	    while (breakpoints[i] != curcol.ptr()){
 		
 		current.add(curcol);
 		curcol++;
@@ -118,7 +118,7 @@ PScore::calc_breaking()
 		minimum = current;	   
 	    } else {		// we're one col too far.
 		i--;
-		while (curcol != breakpoints[i])
+		while (curcol.ptr() != breakpoints[i])
 		    curcol --;
 		
 		break;

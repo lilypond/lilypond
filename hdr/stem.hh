@@ -46,6 +46,7 @@ struct Stem : public Item {
     void set_default_stemlen();
     void set_default_extents();
     void postprocess();
+    void preprocess();
     Stem(int center);
     void print() const;
     Interval width() const;

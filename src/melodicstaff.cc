@@ -1,4 +1,5 @@
 #include "melodicstaff.hh"
+#include "keyitem.hh"
 #include "stem.hh"
 #include "rest.hh"
 #include "notehead.hh"
@@ -7,9 +8,10 @@
 #include "linestaff.hh"
 #include "rhythmstaff.hh"
 #include "sccol.hh" 
+#include "localkeyitem.hh"
 
 const int NO_LINES=5;
-const int BOTTOM_POSITION=2;	// e is on bottom line of 5-staff...
+
 
 void
 Melodic_staff::set_output(PScore*ps)
@@ -20,7 +22,7 @@ Melodic_staff::set_output(PScore*ps)
 
 
 Notehead*
-Melodic_staff::get_notehead(Note_req *rq)
+Melodic_staff::get_notehead(Note_req *rq, int bottom)
 {        
     int b  = rq->rhythmic()->balltype;
     int d  = rq->rhythmic()->dots;
@@ -28,10 +30,18 @@ Melodic_staff::get_notehead(Note_req *rq)
     Notehead *n =new Notehead((NO_LINES-1)*2);
     n->balltype =b;
     n->dots = d;
-    n->position = rq->note()->height() - BOTTOM_POSITION;
+    n->position = rq->note()->height() + bottom;
     return n;
 }
 
+Item *
+Melodic_staff::get_TYPESET_item(Command*com)
+{
+    if (com->args[0] == "KEY") {
+	return new Keyitem(NO_LINES);	// urgh.
+    } else
+	return Simple_staff::get_TYPESET_item(com);
+}
 
 Stem *
 Melodic_staff::get_stem(Stem_req*rq)
@@ -57,3 +67,9 @@ Melodic_staff::clone()const
 {
     return new Melodic_staff(*this);
 }
+
+Local_key_item* Melodic_staff::get_local_key_item()
+{
+    return new Local_key_item(-2);
+}
+

@@ -36,30 +36,36 @@ Staff::get_col(Real w, bool mus)
 {
     Score_column* sc = score_->find_col(w,mus);
     assert(sc->when == w);
-    PCursor<Staff_column *> stc(cols);
-    for (; stc.ok(); stc++) {
-	if (*stc->score_column > *sc) // too far
+    
+    PCursor<Staff_column *> i(cols);
+    for (; i.ok(); i++) {
+	if (*i->score_column > *sc) // too far
 	    break;
-	if (sc == stc->score_column)
-	    return stc;
+	if (sc == i->score_column)
+	    return i;
     }
+    /* post: *sc > *->score_column || !i.ok() */
     Staff_column* newst = create_col(sc);
 
-    if (!stc.ok()) {
+    if (!i.ok()) {
 	cols.bottom().add(newst);
 	return cols.bottom();
     }
     
     if (mus) {
-	stc.insert(newst);
+	i.insert(newst);
 	return newst;
     }
 
-    if ((stc-1)->when() == newst->when()) {
-	stc--;
+//  ;  assert((i-1).ok())
+    // todo!
+    
+    // making a fix at 2:30 am, with several beers drunk. 
+    if ((i-1).ok()&& (i-1)->when() == newst->when()) {
+	i--;
     }
 
-    stc.insert(newst);
+    i.insert(newst);
     
     return newst;
 }

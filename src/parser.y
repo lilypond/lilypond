@@ -36,11 +36,13 @@ svec<Request*> pre_reqs, post_reqs;
     Request* request;
     int i;
     char c;
+    svec<String> * strvec;
 }
 
 %token VOICE STAFF SCORE TITLE RHYTHMSTAFF BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
 %token MELODICSTAFF GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
+%token KEY CLEF VIOLIN BASS
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -64,8 +66,8 @@ svec<Request*> pre_reqs, post_reqs;
 %type <i> int
 %type <scommands> score_commands_block score_commands_body
 %type <request> post_request pre_request
-
-
+%type <strvec> pitch_list
+%type <string> clef_id
 %%
 
 mudela:	/* empty */
@@ -235,7 +237,7 @@ voice_command:
 	;
 
 voice_elt:
-	PITCH  DURATION 			{
+	PITCH DURATION 			{
 		$$ = get_note_element(*$1, *$2);
 		delete $1;
 		delete $2;
@@ -253,6 +255,14 @@ voice_elt:
 	}
 	;
 
+pitch_list:			{
+		$$ = new svec<String>;
+	}
+	| pitch_list PITCH	{
+		$$->add(*$2);
+		delete $2;		
+	}
+
 score_command:
 	SKIP int ':' REAL		{
 		$$ = get_skip_command($2, $4);
@@ -260,12 +270,23 @@ score_command:
 	| METER  int int		{
 		$$ = get_meterchange_command($2, $3);
 	}
+	| KEY '$' pitch_list '$'	{/*UGH*/
+		$$ = get_key_interpret_command(*$3);
+		delete $3;
+	}
+	| CLEF clef_id			{
+		$$ = get_clef_interpret_command(*$2);
+		delete $2;
+	}
 /*	| PARTIALMEASURE REAL		{
 		$$ = get_partial_command($2);
 	}*/
 	;
 	
-
+clef_id:
+	VIOLIN		{ $$ = new String("violin"); }
+	| BASS		{ $$ = new String("bass"); }
+	;
 int:
 	REAL			{
 		$$ = int($1);

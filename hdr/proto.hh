@@ -89,5 +89,13 @@ struct Stem;
 struct Notehead;
 struct Beam;
 struct Rest;
+struct Accidental;
+struct Key;
+struct Local_key;
+struct Keyitem;
+struct Local_key_item;
+struct Clef;
+struct Clef_item;
+
 #endif // PROTO_HH
 

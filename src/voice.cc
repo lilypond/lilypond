@@ -72,7 +72,7 @@ Voice_element::Voice_element(Voice_element const&src)
 {
     duration=src.duration;
     voice=src.voice;
-    PointerList__copy(Request*, reqs, src.reqs, clone());
+    IPointerList__copy(Request*, reqs, src.reqs, clone());
     group=src.group;
     assert(!granted_items.size() && !granted_spanners.size());
 }

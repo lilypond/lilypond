@@ -9,13 +9,13 @@
 /// base class for a collection of voices.
 struct Staff {
     /// synchronous horizontal stuff
-    PointerList<Voice*> voices;
+    IPointerList<Voice*> voices;
 
     /// commands in chronological order
-    PointerList<Command *> commands;
+    IPointerList<Command *> commands;
 
     /// runtime field
-    PointerList<Staff_column*> cols;
+    IPointerList<Staff_column*> cols;
 
     /// indirections to the Score and PScore
     Score *score_;

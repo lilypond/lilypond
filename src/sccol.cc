@@ -4,13 +4,13 @@
 Score_column::Score_column(Real w)
 {
     when = w;
-    pcol = new PCol(0);
+    pcol_ = new PCol(0);
     musical = false;
 }
 
 bool
 Score_column::used() {
-    return pcol->used;
+    return pcol_->used;
 }
 
 void
@@ -22,7 +22,7 @@ Score_column::print() const
     for (int i=0; i < durations.sz(); i++)
 	mtor << durations[i] << " ";
     mtor << "]\n";
-    pcol->print();
+    pcol_->print();
     mtor << "}\n";
 #endif
 }

@@ -1,6 +1,7 @@
 #include "request.hh"
 #include "swalker.hh"
 #include "stcol.hh"
+#include "sccol.hh"
 
 Staff_walker::~Staff_walker() {}
 
@@ -30,3 +31,34 @@ Staff_walker::process()
     process_requests();
 }
 
+
+void
+Staff_walker::process_command(Command*com)
+{
+    switch (com->code){
+    case BREAK_PRE:
+    case BREAK_MIDDLE:
+    case BREAK_POST:
+    case BREAK_END:
+	(*this)->score_column->set_breakable();
+	break_status = com->code- BREAK_PRE;
+	break;
+    case INTERPRET:
+	do_INTERPRET_command(com);
+	break;
+	
+    case TYPESET:
+	do_TYPESET_command(com);
+	break;
+   
+    default :
+	break;
+    }
+}
+
+void
+Staff_walker::operator++(int i)
+{
+    PCursor<Staff_column*>::operator++(i);
+    reset();
+}

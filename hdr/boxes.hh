@@ -42,7 +42,15 @@ struct Interval {
 	min += t;
 	max += t;
     }
-
+    Real operator[](int j) {
+	if (j==-1)
+	    return min;
+	else if (j==1)
+	    return max;
+	else
+	    assert(false);
+		
+    }
     void unite(Interval h) {
 	if (h.min<min)
 	    min = h.min;

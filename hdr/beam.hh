@@ -8,11 +8,11 @@
 #define BEAM_HH
 #include "proto.hh"
 #include "spanner.hh"
-#include "list.hh"
+#include "plist.hh"
 
 /// a beam connects multiple stems 
 struct Beam: public Spanner {
-    List<Stem*> stems;
+    PointerList<Stem*> stems;
     Real slope;
     Real left_pos;
     /// -1 below heads, +1 above heads.

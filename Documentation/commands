@@ -1,0 +1,24 @@
+This table decribes the proper order for the different commands:
+
+
+interpret
+	which		priority
+	========================
+	
+	key		200
+	clef		190
+	meter		180		
+	bar		170
+
+typeset
+
+	which		priority
+	========================
+
+	bar		100
+	clef		90
+	currentclef	80
+	key	 	70
+	currentkey	60
+	meter		40
+	

@@ -8,8 +8,8 @@
 
 /// stuff grouped vertically.
 struct PCol {
-    List<const Item*> its;
-    List<const Spanner*> stoppers, starters;
+    PointerList<const Item*> its;
+    PointerList<const Spanner*> stoppers, starters;
     
     /// Can this be broken? true eg. for bars. 
     bool breakable()const;
@@ -38,11 +38,11 @@ struct PCol {
     /// if lines are broken then this column x-coord #hpos#
     Real hpos;
 
-
+    
     /****************************************************************/
 
-    void add(Item*i);
-
+    void add(Item *i);
+    
     Interval width() const;
     ~PCol();
     PCol(PCol * parent);

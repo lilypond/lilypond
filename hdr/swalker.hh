@@ -17,13 +17,19 @@ struct Staff_walker : public PCursor<Staff_column*> {
     int break_status;
     
     /****************/
+
     int priority() const;		// Command
     Real when() const;    
     virtual ~Staff_walker();
     Staff_walker(Staff*, PScore*);
     void process() ;
-    virtual void process_command(Command *)=0;
+    void process_command(Command *);
+    void operator++(int);
+    /// every time ++ is called
+    virtual void reset()=0;
     virtual void process_requests()=0;
+    virtual void do_TYPESET_command(Command*)=0;
+    virtual void do_INTERPRET_command(Command*)=0 ;
 };
 /**
   manage run-time info when walking staffcolumns such as: key,

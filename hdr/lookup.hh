@@ -27,10 +27,11 @@ struct Lookup {
       */
 
     Symbol rule_symbol(Real height, Real width);
-
+    Symbol accidental(int);
     Symbol ball(int);
     Symbol flag(int);
     Symbol rest(int);
+    Symbol clef(String);
     Symbol bar(String);
     Symbol dots(int);
     Lookup();

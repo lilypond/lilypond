@@ -17,14 +17,17 @@ Rhythmic_staff::set_output(PScore*ps)
 Item *
 Rhythmic_staff::get_TYPESET_item(Command *com)
 {
+    if (com->args[0] == "KEY" || com->args[0] == "CLEF")
+	return 0;
     Item *i = Simple_staff::get_TYPESET_item(com);
+    if (!i) return 0;
     i->translate(Offset(0,
 			-score_->paper_->standard_height()/2));
     return i;
 }
 
 Notehead*
-Rhythmic_staff::get_notehead(Note_req *rq)
+Rhythmic_staff::get_notehead(Note_req *rq, int)
 {
     int b = rq->rhythmic()->balltype;
     int d = rq->rhythmic()->dots;

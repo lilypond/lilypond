@@ -113,7 +113,9 @@ Stem::width()const
     if (!print_flag || ABS(flag) <= 4)
 	return Interval(0,0);	// TODO!
     Paperdef*p= paper();
-    return p->lookup_->flag(flag).dim.x;
+    Interval r(p->lookup_->flag(flag).dim.x);
+    r+= stem_xoffset;
+    return r;
 }
 
 void
@@ -153,4 +155,11 @@ Real
 Stem::hpos()const
 {
     return pcol_->hpos + stem_xoffset;
+}
+
+
+void
+Stem::preprocess()
+{
+ 
 }

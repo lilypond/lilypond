@@ -17,9 +17,10 @@ struct Melodic_staff : public Simple_staff
 
     virtual void set_output(PScore *);
     virtual Melodic_staff*clone()const;
-
+    virtual Item* get_TYPESET_item(Command*);
     virtual Stem * get_stem(Stem_req *rq);
-    virtual Notehead * get_notehead(Note_req *rq);
+    virtual Notehead * get_notehead(Note_req *rq, int bot);
+    virtual Local_key_item* get_local_key_item();
 };
 
 #endif // MELODICSTAFF_HH

@@ -1,7 +1,7 @@
 #include <fstream.h>
 #include "assoc.hh"
 #include "dstream.hh"
-#include "string.hh"
+#include "scalar.hh"
 #include "textdb.hh"
 
 /// indent of each level 
@@ -118,7 +118,7 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
 	     r.message("not enough fields in Dstream init.");
 	     continue;
 	 }
-	 (*silent)[r[0]] = r[1].to_bool();
+	 (*silent)[r[0]] = Scalar(r[1]).to_bool();
     }
 
 }

@@ -2,9 +2,8 @@
 
 INTRODUCTION
 
-This is a beta version of LilyPond (a music typesetter). This release is
-preliminary, please do not distribute. Please send your helpful comments and
-patches to me, 
+This is a beta version of LilyPond (a music typesetter). Please send
+your helpful comments and patches to me,
 
 	hanwen@stack.urc.tue.nl
 
@@ -73,10 +72,10 @@ HOW DOES IT WORK
 * Use The Source, Luke. If you don't know C++, you can try editing
 .dstreamrc for copious debugging output.
 
-* also the subdir Documentation/ it contains some in depth matter
-on LilyPond algorithms
+* the subdir Documentation/ contains some in depth matter on LilyPond
+algorithms
 
 * The source is commented in the DOC++ style.
 Check out doc++ at
 
-	http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html 
+	http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html

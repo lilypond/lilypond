@@ -10,11 +10,11 @@
 #include "plist.hh"
 
 /// the list of commands in Score
-struct Score_commands : public PointerList<Command*> {
+struct Score_commands : public IPointerList<Command*> {
     void process_add(Command);
     Score_commands*parse(Real last)const;
     void parser_add(Command*);
-    void add_seq(svec<Command>);
+    void add_seq(svec<Command>,bool);
     void clean(Real last);
     void set_breakable(Real when);
     bool is_breakable(Real w);

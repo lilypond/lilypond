@@ -31,7 +31,8 @@ Paperdef::Paperdef()
     parse();
     linewidth = convert_dimen(15,"cm");		// in cm for now
     whole_width= 8*note_width();
-    geometric_ = PHI;
+//    geometric_ = PHI;
+        geometric_ = sqrt(2);
 }
 
 void 
@@ -40,8 +41,7 @@ Paperdef::parse()
     Text_db symini("symbol.ini");
 
     
-    while (!symini.eof()) {
-	
+    while (!symini.eof()) {	
 	 Text_record  r(  symini++);
 	
 	 if  (r[0] == "symboltables")
