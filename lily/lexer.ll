@@ -216,7 +216,7 @@ HYPHEN		--
 	}
 	<<EOF>> 	{
 		LexerError (_ ("EOF found inside a comment").to_str0 ());
-		main_input_b_ = false;
+		is_main_input_ = false;
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
@@ -224,10 +224,10 @@ HYPHEN		--
 
 
 <INITIAL,chords,lyrics,notes,figures>\\maininput           {
-	if (!main_input_b_)
+	if (!is_main_input_)
 	{
 		start_main_input ();
-		main_input_b_ = true;
+		is_main_input_ = true;
 	}
 	else
 		error (_ ("\\maininput not allowed outside init files"));
@@ -279,7 +279,7 @@ HYPHEN		--
 	Input hi = here_input();
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi.start_, &n, hi,
-		be_safe_global && main_input_b_);
+		be_safe_global && is_main_input_);
 
 	if (sval == SCM_UNDEFINED)
 	{
@@ -536,9 +536,9 @@ HYPHEN		--
 }
 
 <<EOF>> {
-	if (main_input_b_)
+	if (is_main_input_)
 	{
-		main_input_b_ = false;
+		is_main_input_ = false;
 		if (!close_input ())
  	        /* Returns YY_NULL */
 			yyterminate ();

@@ -91,7 +91,7 @@ Lily_lexer::Lily_lexer (Sources *sources)
   sources_ = sources;
   scopes_ = SCM_EOL;
   error_level_ = 0; 
-  main_input_b_ = false;
+  is_main_input_ = false;
 
   smobify_self ();
   
@@ -109,7 +109,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   sources_ = src.sources_;
   
   error_level_ = src.error_level_; 
-  main_input_b_ = src.main_input_b_;
+  is_main_input_ = src.is_main_input_;
 
   scopes_ = SCM_EOL;
   
