@@ -1,5 +1,11 @@
 2003-06-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	knee-spacing-correction to 1.0
+
+	* lily/note-spacing.cc (stem_dir_correction): compute knee
+	correction using stem-thickness and head width.
+
 	* input/regression/beam-quanting-horizontal.ly: update texidoc
 
 	* scm/define-grobs.scm (all-grob-descriptions): set

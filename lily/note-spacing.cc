@@ -18,6 +18,7 @@
 #include "separation-item.hh"
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
+#include "paper-def.hh"
 
 void
 Note_spacing::get_spacing (Grob *me, Item* right_col,
@@ -227,6 +228,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 			me->get_grob_property ("right-items"));
 
   Drul_array<Grob*> beams_drul(0,0);
+  Drul_array<Grob*> stems_drul(0,0);
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
   Interval intersect;
@@ -274,6 +276,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      continue;
 	    }
 
+	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
 	    
 	  
@@ -294,8 +297,6 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    {
 	      correct_stem_dirs = false;
 	    }
-	  
-
 	  
 	  Interval hp  = Stem::head_positions (stem);
 	  Real chord_start = hp[sd];	  
@@ -326,11 +327,32 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
+	  
 	  /*
 	    this is a knee: maximal correction.
 	  */
-	  
-	  correction = increment* stem_dirs[LEFT];
+	  Real note_head_width = increment;
+	  Grob * st = stems_drul[RIGHT];
+	  Grob * head = st ? Stem::support_head (st)  : 0;
+
+	  Interval head_extent;
+	  if (head)
+	    {
+	      head_extent = head->extent (rcolumn, X_AXIS);
+
+	      if (!head_extent.empty_b())
+		note_head_width = head_extent[RIGHT];
+
+	      if (st)
+		{
+		  Real thick = gh_scm2double (st->get_grob_property ("thickness"))
+		    * st->get_paper ()->get_var ("linethickness");
+
+		  note_head_width -= thick;
+		}
+	    }
+
+	  correction = note_head_width* stem_dirs[LEFT];
 	  correction *= gh_scm2double (me->get_grob_property ("knee-spacing-correction"));
 	  *fixed += correction;
 	}

@@ -6,6 +6,6 @@
 	\stemUp [ b8 \stemDown b'']
     }
     \paper{
-	linewidth = 0.0
+	raggedright = ##t 
     }
 }%% new-chords-done %%
