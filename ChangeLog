@@ -1,5 +1,9 @@
 2005-03-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-lib.scm (make-stencil-boxer): Junk code duplication,
+	use box-stencil.  Remove y-padding argument.
+	(make-stencil-circler): New function.
+
 	* buildscripts/lilypond-words.py (F): 
 	* elisp/SConscript (a): 
 	* elisp/GNUmakefile (LILYPOND_WORDS_DEPENDS):

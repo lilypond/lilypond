@@ -24,14 +24,30 @@ See user manual, \NAME\
 @documentencoding utf-8
 @documentlanguage en
 
-@node Top, , , 
+@node Top
 @top
 @unnumbered New features in 2.5 since 2.4
 
 
 @itemize @bullet
 @item
-String numbers are now printed on chords as well,
+A new @code{\circle} markup command allows for all kinds of circled texts
+
+@lilypond[relative,relative=2,raggedright,fragment]
+c1            
+\set Score.markFormatter
+  = #(lambda (mark context)
+             (make-circle-markup (format-mark-numbers mark context)))
+\mark \default
+c2 d^\markup{\circle \finger "2"}
+\override Score.BarNumber #'break-visibility = #all-visible
+\override Score.BarNumber #'print-function
+  = #(make-stencil-circler 0.1 0.25 Text_interface::print)
+@end lilypond
+
+
+@item
+String numbers are now printed on chords as well
 
 @lilypond[relative,relative=1,raggedright,fragment,verbatim]
 <c\1 e\2 g\3>

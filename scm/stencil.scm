@@ -79,13 +79,13 @@ encloses the contents.
      (make-filled-box-stencil (cons (- (car xext) thick) (car xext)) yext))))
 
 ;; TODO merge this and prev function. 
-(define-public (box-stencil stencil thick padding)
+(define-public (box-stencil stencil thickness padding)
   "Add a box around STENCIL, producing a new stencil."
   (let* ((x-ext (interval-widen (ly:stencil-extent stencil 0) padding))
 	 (y-ext (interval-widen (ly:stencil-extent stencil 1) padding))
-	 (y-rule (make-filled-box-stencil (cons 0 thick) y-ext))
+	 (y-rule (make-filled-box-stencil (cons 0 thickness) y-ext))
 	 (x-rule (make-filled-box-stencil
-		  (interval-widen x-ext thick) (cons 0 thick))))
+		  (interval-widen x-ext thickness) (cons 0 thickness))))
     (set! stencil (ly:stencil-combine-at-edge stencil X 1 y-rule padding))
     (set! stencil (ly:stencil-combine-at-edge stencil X -1 y-rule padding))
     (set! stencil (ly:stencil-combine-at-edge stencil Y 1 x-rule 0.0))  
@@ -98,7 +98,7 @@ encloses the contents.
 	 (y-ext (ly:stencil-extent stencil 1))
 	 (diameter (max (- (cdr x-ext) (car x-ext))
 			(- (cdr y-ext) (car y-ext))))
-	 (radius (+ (/ diameter 2) padding)))
+	 (radius (+ (/ diameter 2) padding thickness)))
     (ly:stencil-add
      (centered-stencil stencil) (make-circle-stencil radius thickness))))
 
