@@ -4,17 +4,22 @@
 # internal, not normally used
 DEPTH = $(depth)/$(package-depth)
 
-ifeq ($(topdir),)
-abs-srcdir := $(shell cd $(depth); pwd)
-#deprecated
-topdir := $(abs-srcdir)
-endif
+#ifeq ($(topdir),)
+#abs-srcdir := $(shell cd $(depth); pwd)
+##deprecated
+#topdir := $(abs-srcdir)
+#endif
 pwd := $(shell pwd)
 
 ifeq ($(srcdir),.)
 src-depth = $(depth)
 else
 src-depth = $(srcdir)
+endif
+
+ifeq ($(topdir),)
+abs-srcdir := $(shell cd $(src-depth); pwd)
+topdir := $(abs-srcdir)
 endif
 
 # derived names

@@ -1,5 +1,7 @@
 2002-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/mup2ly.py: Cut-n-paste include missing lilylib.
+
 	* stepmake/stepmake/compile-vars.make: 
 	* stepmake/stepmake/executable-rules.make: 
 	* stepmake/stepmake/python-module-rules.make:
