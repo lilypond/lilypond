@@ -170,44 +170,44 @@ $treble_intro = \notes\relative c{
 	\clef violin;
 	% ugh: id like to type this!
 	%r8\pp [<g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.>] |
-	r8^"\bf m\\\"assig"\pp <[g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.>] |
-	r8 <[as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.>] |
-	r8 <[as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.>] |
-	r8 <[g-. b-.> <b-. d-.> <g-. b-.> <b-. d-.> <g-. b-.>] |
+	r8^"\bf m\\\"assig"\pp [<g'-. c-.> <c-. es-.> <g-. c-.> <c-. es-.> <g-. c-.>] |
+	r8 [<as-. c-.> <c-. es-.> <as-. c-.> <c-. es-.> <as-. c-.>] |
+	r8 [<as-. c-.> <c-. d-.> <as-. c-.> <c-. d-.> <as-. c-.>] |
+	r8 [<g-. b-.> <b-. d-.> <g-. b-.> <b-. d-.> <g-. b-.>] |
 	\break
 }
 
 $treble_verse1 = \notes\relative c{
 %	\clef violin;
 	%5
-	r8 <[g' c> <c es> <g c> <c es> <g c>] |
-	r8 <[f c'> <c' d> <f, c'> <c' d> <f, c'>] |
-	r8 <[f g b> <g b d> <f g b> <g b d> <f g b>] |
-	r8 <[es g c> <g c es> <es g c> <g c es> <es g c>] |
+	r8 [<g' c> <c es> <g c> <c es> <g c>] |
+	r8 [<f c'> <c' d> <f, c'> <c' d> <f, c'>] |
+	r8 [<f g b> <g b d> <f g b> <g b d> <f g b>] |
+	r8 [<es g c> <g c es> <es g c> <g c es> <es g c>] |
 	<g''4.( b,> <)f8 d>
 	  \times 2/3 { < [ f( d> <es c> <)d b] > } |
 	%10
 	<c2. es> |
-	r8 <[g, c> <c es> <g c> <c es> <g c>] |
-	r8 <[f c'> <c' d> <f, c'> <c' d> <f, c'>] |
-	r8 <[f as bes> <as bes d> <f g bes> <as bes d> <f g bes>] |
-	r8 <[es g bes> <g bes es> <es g bes> <g bes es>] 
+	r8 [<g, c> <c es> <g c> <c es> <g c>] |
+	r8 [<f c'> <c' d> <f, c'> <c' d> <f, c'>] |
+	r8 [<f as bes> <as bes d> <f g bes> <as bes d> <f g bes>] |
+	r8 [<es g bes> <g bes es> <es g bes> <g bes es>] 
 	<{ es'~ | d4. ~ f8}{ c'~ | bes4. ~ as8 } > 
 	 \times 2/3 { < [f( as> <es g> <)d f] > } |
 	%16
 	<es2. g> |
-	r8 <[f, g> <g b> <f g> <g b> <f g>] |
-	r8 <[es g> <g c> <es g> <g c> <es g>] |
-	r8\pp <[es as c> <as c es> <es as c> <as c es> <es as c>] |
+	r8 [<f, g> <g b> <f g> <g b> <f g>] |
+	r8 [<es g> <g c> <es g> <g c> <es g>] |
+	r8\pp [<es as c> <as c es> <es as c> <as c es> <es as c>] |
 	%20
-	r8 <[es g bes> <g bes es> <es g bes> <g bes es> <es g bes>] |
+	r8 [<es g bes> <g bes es> <es g bes> <g bes es> <es g bes>] |
 	% \times 2/3 { [ as\grace( bes )
 	\times 2/3 { [ as'8( g as] } c4.-> ) as8 |
 	g2. |
-	r8 <[f, g> <g b> <f g> <g b> <f g>] |
-	r8 <[e g> <g c> <e g> <g c> <e g>] |
-	r8 <[f a c> <a c f> <f a c> <a c f> <f a c>] |
-	r8 <[e g c> <g c e> <e g c> <g c e> <e g c>] |
+	r8 [<f, g> <g b> <f g> <g b> <f g>] |
+	r8 [<e g> <g c> <e g> <g c> <e g>] |
+	r8 [<f a c> <a c f> <f a c> <a c f> <f a c>] |
+	r8 [<e g c> <g c e> <e g c> <g c e> <e g c>] |
 	\times 2/3 <
 	  { [ f'8\f( e f]  }
 	  {  f' e f } >
@@ -216,13 +216,13 @@ $treble_verse1 = \notes\relative c{
 
 $treble_eentje = \notes \relative c'{
 	<e2 e'> <e4 g>|
-	<f2\mf as!(> <[as8.->( c> <)f16 )as>] |
-	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> <[b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2\mf as!(> [<as8.->( c> <)f16 )as>] |
+	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
+	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
 	<e2 g> <e4\pp g> |
-	<f2 a(> <[a8. c> <f16 )a>] |
-	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> <[b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2 a(> [<a8. c> <f16 )a>] |
+	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
+	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
 	%60
 	<e2. g> |
 }
@@ -231,10 +231,10 @@ $treble_through = \notes \relative c'{
 	<e2. e'> |
 	%61
 	R2. |
-	<[g,8.\< g'> <g16 g'> <b8. b'> <\! b16\> b'16> <d8. d'> <d16 d'>] |
+	[<g,8.\< g'> <g16 g'> <b8. b'> <\! b16\> b'16> <d8. d'> <d16 d'>] |
 	< { c4( )b } { c'4( )b } > \!r |
 % ugh
-%	<g4. g> <b8 b> <[d8.-> d->> c16] |
+%	<g4. g> <b8 b> [<d8.-> d->> c16] |
 	<g4. g'> <b8 b'> [<d'8.-> d,-> > c16] |
 % ugh ugh: connecting chords
 	%65
@@ -252,9 +252,9 @@ $treble_through = \notes \relative c'{
 		}
 	>
 	% 4 bars copied from end verse1
-	r8 <[f, a c> <a c f> <f a c> <a c f> <f a c>] |
+	r8 [<f, a c> <a c f> <f a c> <a c f> <f a c>] |
 	%70
-	r8 <[e g c> <g c e> <e g c> <g c e> <e g c>] |
+	r8 [<e g c> <g c e> <e g c> <g c e> <e g c>] |
 	\times 2/3 < { [ f'8\f( e f] }
 	   {  f' e f }>
 	< { a4.-> )f8 } { a4. f8 } > |
@@ -267,9 +267,9 @@ $treble_through = \notes \relative c'{
 	<c2 c'> <e4\pp g> |
 
 	% four copied from begin eentje
-	<f2 as!(> <[as8.-> c> <f16 )as>] |
-	<e4. g> <[e8-. g-.(> <e-. g-.> <e-. )g-.>] |
-	<f4. g> <[b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
+	<f2 as!(> [<as8.-> c> <f16 )as>] |
+	<e4. g> [<e8-. g-.(> <e-. g-.> <e-. )g-.>] |
+	<f4. g> [<b,8-. g'-.(> <d-. g-.> <f-. )g-.>] |
 	%80
 	\property Voice . textstyle =  "italic"
 	<e2._"dim." g> |
@@ -295,73 +295,73 @@ $bass_verse1 = \notes\relative c{
 	<as2 as'> r4 |
 	<g2 g'> r4 |
 	<c2 c'> r4 |
-	<g8 g'> <[g'' d'> <d' f> <g, d'> <d' f> <g, d'>] |
+	<g8 g'> [<g'' d'> <d' f> <g, d'> <d' f> <g, d'>] |
 %10
-	<c,,8 c'> <[g'' c> <c es> <g c> <c es> <g c>] |
+	<c,,8 c'> [<g'' c> <c es> <g c> <c es> <g c>] |
 	<c,,2 c'> r4 |
 	<as2 as'> r4 |
 	<bes2 bes'> r4 |
 	<es,2 es'> r4 |
 %15
-	bes'8 <[bes' f'> <f' as> <bes, f'> <f' as> <bes, f'>] |
-	es,8 <[bes' es> <es g> <bes es> <es g> <bes es>] |
+	bes'8 [<bes' f'> <f' as> <bes, f'> <f' as> <bes, f'>] |
+	es,8 [<bes' es> <es g> <bes es> <es g> <bes es>] |
 	<g,2 g'> r4 |
 	<c2 c'> r4 |
 	<as2 as'> r4 |
 	<es2 es'> r4 |
-	<bes'8 bes'> <[f'' bes> <bes d> <f bes> <bes d> <f bes>] |
-	<es,,8 es'> <[es'' g bes> <g bes es> <es g bes> <g bes es> <es g bes>] |
+	<bes'8 bes'> [<f'' bes> <bes d> <f bes> <bes d> <f bes>] |
+	<es,,8 es'> [<es'' g bes> <g bes es> <es g bes> <g bes es> <es g bes>] |
 	<g,,2 g'> r4 |
 	<c2 c'> r4 |
 	<f,2 f'> r4 |
 	<c'2 c'> r4 |
-	<g8 g'> <[d'' g> <g b> <d g> <g b> <d g>] |
-	c,8 <[c' e g> <e g c> <c e g> <e g c> <c e g>] |
+	<g8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
+	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
 }
 
 $bass_eentje = \notes\relative c{
 	\property Voice.dynamicdir=1
-	<c,8 c'> <[c' f as!> <f as c> <c f as> <f as c> <c f as>] |
-	c,8 <[c' e g> <e g c> <c e g> <e g c> <c e g>] |
-	<g,8 g'> <[d'' g> <g b> <d g> <g b> <d g>] |
-	c,8 <[e' g> <g c> <e g> <g c> <e g>] |
-	<c,8 c'> <[c' f a> <f a c> <c f a> <f a c> <c f a>] |
-	c,8 <[c' e g> <e g c> <c e g> <e g c> <c e g>] |
-	<g,8 g'> <[d'' g> <g b> <d g> <g b> <d g>] |
-	c,8 <[e' g> <g c> <e g> <g c> <e g>] |
+	<c,8 c'> [<c' f as!> <f as c> <c f as> <f as c> <c f as>] |
+	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
+	<g,8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
+	c,8 [<e' g> <g c> <e g> <g c> <e g>] |
+	<c,8 c'> [<c' f a> <f a c> <c f a> <f a c> <c f a>] |
+	c,8 [<c' e g> <e g c> <c e g> <e g c> <c e g>] |
+	<g,8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
+	c,8 [<e' g> <g c> <e g> <g c> <e g>] |
 }
 
 $bass_through = \notes\relative c{
 	\property Voice.dynamicdir=1
 	%61
-	<g,8^"cresc." g'> <[g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
-	<g,8 g'> <[g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
+	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
 	% copied
-	<g,8 g'> <[g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
-	<g,8 g'> <[g' d' e> <d' f> <g, d'> <gis-> b-> d->> <b d f>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
+	<g,8 g'> [<g' d' e> <d' f> <g, d'> <gis-> b-> d->> <b d f>] |
 	%65
-	<gis,8 gis'> <[d''\> e> <e b'> <d e> <e b'> <d\! e>] |
-	<a,8 a'> <[c' e> <e a> <c e> <e a> <c e>] |
-	<a,8 a'> <[a' d f> <d f a> <a d f> <d f a> <a d f>] |
-	<a,8 a'> <[a' c e> <c e a> <a c e> <c e a> <a c e>] |
+	<gis,8 gis'> [<d''\> e> <e b'> <d e> <e b'> <d\! e>] |
+	<a,8 a'> [<c' e> <e a> <c e> <e a> <c e>] |
+	<a,8 a'> [<a' d f> <d f a> <a d f> <d f a> <a d f>] |
+	<a,8 a'> [<a' c e> <c e a> <a c e> <c e a> <a c e>] |
 	% 4 bars copied from end verse1
 	<f,2\p f'> r4 |
 	%70
 	<c'2 c'> r4 |
-	<g8 g'> <[d'' g> <g b> <d g> <g b> <d g>] |
-	c,8\> <[c' e g> < \! e g c> <c e g> <e g c> <c e g>] |
+	<g8 g'> [<d'' g> <g b> <d g> <g b> <d g>] |
+	c,8\> [<c' e g> < \! e g c> <c e g> <e g c> <c e g>] |
 
-	<c,8 c'> <[c' es! g> <es g c> <c es g> <es g c> <c es g>] |
-	<f,,8 f'> <[d'' f> <f as!> <d f> <f as> <d f>] |
+	<c,8 c'> [<c' es! g> <es g c> <c es g> <es g c> <c es g>] |
+	<f,,8 f'> [<d'' f> <f as!> <d f> <f as> <d f>] |
 	%75
-	<g,,8 g'> <[d'' f> <f g> <d f> <f g> <d f>] |
-	c,8 <[c' e> <e g> <c e> <e g> <c e>] |
-	c,8 <[c' f> <f as> <c f> <f as> <c f>] |
-	c,8 <[c' e> <e g> <c e> <e g> <c e>] |
-	<g,8 g'> <[g' d'> <d' f> <g, d'> <d' f> <g, d'>] |
+	<g,,8 g'> [<d'' f> <f g> <d f> <f g> <d f>] |
+	c,8 [<c' e> <e g> <c e> <e g> <c e>] |
+	c,8 [<c' f> <f as> <c f> <f as> <c f>] |
+	c,8 [<c' e> <e g> <c e> <e g> <c e>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <d' f> <g, d'>] |
 	%80
-	c,8 <[c' e> <e g> <c e> <e g> <c e>] |
-	c,8 <[c' g> <e c> <c g> <e c> <c g>] |
+	c,8 [<c' e> <e g> <c e> <e g> <c e>] |
+	c,8 [<c' g> <e c> <c g> <e c> <c g>] |
 	<c,2._\fermata g' c> |
 }
 		
