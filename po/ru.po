@@ -1680,8 +1680,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа."
 
 #: main.cc:160
 msgid ""

@@ -1666,8 +1666,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Käyttö: %s [OPTIOT]... TIEDOSTO..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Lado musiikki ja soita MIDI tiedostosta TIEDOSTO"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Lado musiikki ja tai soita MIDI tiedostosta TIEDOSTO."
 
 #: main.cc:160
 msgid ""

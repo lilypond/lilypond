@@ -1696,8 +1696,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Brug: %s [FLAG]... FIL..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Typesæt musik og/eller afspil MIDI fra FIL"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Typesæt musik og/eller afspil MIDI fra FIL."
 
 #: main.cc:160
 msgid ""

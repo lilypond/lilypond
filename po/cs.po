@@ -1697,8 +1697,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Pou¾ití: %s [PØEPÍNAÈ]... SOUBOR..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Sází hudbu a/nebo pøehrává MIDI ze SOUBORu"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Sází hudbu a/nebo pøehrává MIDI ze SOUBORu."
 
 #: main.cc:160
 msgid ""

@@ -1697,8 +1697,8 @@ msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Gebruik: %s [OPTIE]... BESTAND..."
 
 #: main.cc:157
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Zet muziek en of speel MIDI van BESTAND"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Zet muziek en of speel MIDI van BESTAND."
 
 #: main.cc:160
 msgid ""

@@ -1695,8 +1695,8 @@ msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
 #: main.cc:157
 #, fuzzy
-msgid "Typeset music and or play MIDI from FILE"
-msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>"
+msgid "Typeset music and or play MIDI from FILE."
+msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>."
 
 #: main.cc:160
 msgid ""
