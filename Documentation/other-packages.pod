@@ -65,7 +65,7 @@ the name MusiXTeX.
 
 =item OpusTeX, http://www.inf.ethz.ch/personal/achermann/
 
-Andreas Egler's branch is called MusiXTeX.
+Andreas Egler's branch is now called OpusTeX.
 
 =item ABC2MTeX, http://www.gre.ac.uk/~c.walshaw/abc
 
@@ -80,7 +80,7 @@ available on request. (?)
 =item MUTEX, http://www.gmd.de/Misc/Music/
 
 A TeX macro package for typesetting single-staff music by Angelika
-Schofer & Andrea Steinbach. With some fonts
+Schofer & Andrea Steinbach. With some fonts.
 
 =back
 
@@ -105,7 +105,7 @@ A formatter for medieval scores.
 =item Mup, http://www.arkkra.com/
 
 A program which creates PS from a script input. Although it comes with
-C source code, it is Shareware.
+C source code, it is shareware.
 
 =item MusicEase, http://mesa.colorado.edu/~grader/musicez.html 
 
@@ -126,21 +126,19 @@ URW's music-engraving system described by [Wanske].  (Although URW
 used ~DM 1.000.000 while developing this, it didn't buy them a cute
 name.)
 
-=item Logic,
+=item Logic, http://www.emagic.com/
 
 =item Finale
 
 =item Score, http://www.ymusic.com/Score
 
-Werner Lemberg <sx0005@sx2.hrz.uni-dortmund.de>
-writes to me: I consider SCORE as the best program for
-typesetting classical music. [..]  the price is quite high (about US$
-1000) [..]  It has a graphical interface but to get all out of the
-program you have to learn a 400 page manual almost by heart because
-you'll change most features by inputting parameters (up to 20 for some
-items) on a command line. Expect three months to master SCORE :-)
-
-
+Werner Lemberg <sx0005@sx2.hrz.uni-dortmund.de> writes:   I consider
+SCORE as the best program for typesetting classical music. [..]  the
+price is quite high (about US$ 1000) [..]  It has a graphical
+interface but to get all out of the program you have to learn a 400
+page manual almost by heart because you'll change most features by
+inputting parameters (up to 20 for some items) on a command
+line. Expect three months to master SCORE :-)
 
 
 =item Personal Composer
@@ -163,16 +161,17 @@ Shareware.
 
 =item Amadeus, Jerker.Elsgard@abc.se
 
-Jerker Elsgard writes: professional and expensive (DM 4000,--)
-engraving.  Designed as a batch program (like LilyPond).  It is aimed
-at publishers. Its history is more than fifteen years and Amadeus has
-been running under different Unix clones.  It uses MIDI-keyboard input
+Jerker Elsgard <Jerker.Elsgard@abc.se> writes: professional and
+expensive (DM 4000,--) engraving.  Designed as a batch program (like
+LilyPond).  It is aimed at publishers. Its history is more than
+fifteen years and Amadeus has been running under different Unix
+clones.  It uses MIDI-keyboard input
 
 =back
 
 =head2 Unknown
 
-=item MusE
+=item MusE, [no WWW address known]
 
 A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
 Sun boxen.
@@ -181,7 +180,7 @@ Sun boxen.
 
 A project at Ohio State university, which was discontinued in 1987.
 The technical reports that have resulted from MusiCopy can still be
-obtained.
+obtained by writing to OSU department of Computer Science.
 
 
 =item Berlioz, http://www.?.fr/

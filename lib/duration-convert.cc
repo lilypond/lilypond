@@ -38,14 +38,6 @@ Duration_convert::dur2_str (Duration dur)
   return str;
 }
 
-#if 0
-int
-Duration_convert::dur2_i (Duration dur, int division_1_i)
-{
-  return dur2_mom (dur) * Moment (division_1_i);
-}
-#endif
-
 int
 Duration_convert::dur2ticks_i (Duration dur)
 {
@@ -99,20 +91,6 @@ Duration_convert::dur2_mom (Duration dur)
 
   return mom * plet_factor_mom (dur);    
 }
-
-#if 0
-Moment
-Duration_convert::i2_mom (int time_i, int division_1_i)
-{
-  if (!time_i)
-    return Moment (0);
-
-  if (division_1_i > 0)
-    return Moment (time_i, division_1_i);
-  else 
-    return Moment (-division_1_i, time_i);
-}
-#endif
 
 Duration
 Duration_convert::mom2_dur (Moment mom)
@@ -201,28 +179,16 @@ Duration_convert::sync_f (Duration dur, Moment mom)
 Duration
 Duration_convert::ticks2_dur (int ticks_i)
 {
-  //		Duration dur (4, 0);
-  //		dur.set_plet (ticks_i, Duration::division_1_i_s / 4); 
-
   Moment mom (ticks_i, Duration::division_1_i_s);
   if (midi_as_plet_b_s)
     return mom2_dur (mom);
 
   Duration dur = mom2standardised_dur (mom);
 
-  //	if (dur.mom () == mom)
   if (dur.length () == mom)
     return dur;
 		
-// huh?
-#if 0
-  dur.durlog_i_ = -100;
-  dur.dots_i_ = 0;
-  dur.set_ticks (ticks_i);
-  return dur;
-#else
   return mom2_dur (mom);
-#endif
 }
 
 Duration
@@ -238,7 +204,6 @@ Duration_iterator::Duration_iterator ()
   cursor_dur_.durlog_i_ = 7;
   if (Duration_convert::no_smaller_than_i_s)
     cursor_dur_.durlog_i_ = Duration_convert::no_smaller_than_i_s;
-  //	cursor_dur_.set_plet (1, 1);
 }
 
 Duration 

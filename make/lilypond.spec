@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.1.45
+Version: 0.1.46
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.45.tar.gz
+Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.46.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -31,7 +31,7 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/convert-mudela.txt Documentation/out/faq.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/lilypond.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/ly2dvi.txt Documentation/out/mi2mu.txt Documentation/out/mudela-book.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
+%doc Documentation/out/ANNOUNCE.txt Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/DEDICATION.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/NEWS.txt Documentation/out/TODO.txt Documentation/out/cadenza.ly.txt Documentation/out/collisions.ly.txt Documentation/out/convert-mudela.txt Documentation/out/faq.txt Documentation/out/font16.ly.txt Documentation/out/font20.ly.txt Documentation/out/gallina.ly.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/lilypond.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/ly2dvi.txt Documentation/out/mi2mu.txt Documentation/out/mudela-book.txt Documentation/out/multi.ly.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt Documentation/out/preludes-1.ly.txt Documentation/out/preludes-2.ly.txt Documentation/out/rhythm.ly.txt Documentation/out/scsii-menuetto.ly.txt Documentation/out/standje.ly.txt Documentation/out/toccata-fuga-E.ly.txt Documentation/out/twinkle-pop.ly.txt Documentation/out/twinkle.ly.txt Documentation/out/wtk1-fugue2.ly.txt Documentation/out/wtk1-prelude1.ly.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
 %doc input/beams.ly input/cadenza.ly input/collisions.ly input/coriolan-alto.ly input/denneboom.ly input/font-body.ly input/font.ly input/font11.ly input/font13.ly input/font16.ly input/font20.ly input/font26.ly input/gourlay.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/rhythm.ly input/scales.ly input/scripts.ly input/sleur.ly input/slurs.ly input/spacing.ly input/stem.ly input/toccata-fuga-E.ly input/twinkle-pop.ly input/twinkle.ly Documentation/mudela-course.doc Documentation/mudela-man.doc 
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela

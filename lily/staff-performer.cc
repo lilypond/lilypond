@@ -13,43 +13,60 @@
 #include "audio-item.hh"
 #include "audio-staff.hh"
 
-IMPLEMENT_IS_TYPE_B1(Staff_performer,Performer_group_performer);
-ADD_THIS_TRANSLATOR(Staff_performer);
+IMPLEMENT_IS_TYPE_B1 (Staff_performer,Performer_group_performer);
+ADD_THIS_TRANSLATOR (Staff_performer);
 
-Staff_performer::Staff_performer()
+Staff_performer::Staff_performer ()
 {
   audio_staff_p_ = 0;
 }
 
-Staff_performer::~Staff_performer()
+Staff_performer::~Staff_performer ()
 {
   delete audio_staff_p_;
 }
 
 void
-Staff_performer::do_creation_processing()
+Staff_performer::do_creation_processing ()
 {
   audio_staff_p_ = new Audio_staff;
 
-  if (instrument_str().length_i()) 
-    {
-      // staff name
-      play (new Audio_text (Audio_text::TRACK_NAME, id_str_));
-      // instrument description
-      play (new Audio_text (Audio_text::INSTRUMENT_NAME, instrument_str ()));
-    }
+  play (new Audio_text (Audio_text::TRACK_NAME, id_str_));
+
+#if 1
+  String str = new_instrument_str ();
+  if (str.length_i ()) 
+    // instrument description
+    play (new Audio_text (Audio_text::INSTRUMENT_NAME, str));
+#endif
 
   // tempo
   play (new Audio_tempo (get_tempo_i ()));
 
-  if (instrument_str ().length_i ())
+#if 1
+  if (str.length_i ())
     // instrument
-    play (new Audio_instrument (instrument_str ()));
+    play (new Audio_instrument (str));
+#endif
+   
   Performer_group_performer::do_creation_processing ();
 }
 
 void
-Staff_performer::do_removal_processing()
+Staff_performer::do_process_requests ()
+{
+  String str = new_instrument_str ();
+  if (str.length_i ())
+    {
+      play (new Audio_text (Audio_text::INSTRUMENT_NAME, str));
+      play (new Audio_instrument (str));
+    }
+  Performer_group_performer::do_process_requests ();
+}
+
+
+void
+Staff_performer::do_removal_processing ()
 {
   Performer_group_performer::do_removal_processing ();
   Performer::play (audio_staff_p_);
@@ -57,10 +74,16 @@ Staff_performer::do_removal_processing()
 }
 
 String 
-Staff_performer::instrument_str() 
+Staff_performer::new_instrument_str () 
 { 
   // mustn't ask Score for instrument: it will return piano!
-  return get_property ("instrument");
+  String str = get_property ("instrument");
+  if (str == instrument_str_)
+    return "";
+
+  instrument_str_ = str;
+
+  return instrument_str_;
 
 /* ugh, but can't
   if (properties_dict_.elt_b ("instrument"))
@@ -72,9 +95,9 @@ Staff_performer::instrument_str()
 void 
 Staff_performer::play (Audio_element* p)
 {
-  if (p->is_type_b (Audio_item::static_name())) 
+  if (p->is_type_b (Audio_item::static_name ())) 
     {
-      audio_staff_p_->add ((Audio_item*)p);
+      audio_staff_p_->add ( (Audio_item*)p);
     }
   Performer::play (p);
 }

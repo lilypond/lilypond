@@ -47,7 +47,7 @@ Staff_group = \translator
 
 Score = \translator {
 	\type "Score_performer";
-%	instrument = piano;
+	instrument = piano;
 	\accepts Staff;
 	\accepts Grandstaff;
 	\accepts Lyrics; 

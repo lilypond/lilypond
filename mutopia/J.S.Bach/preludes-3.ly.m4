@@ -39,7 +39,7 @@ rh = \melodic{
 	s('bes d g)
 
 
-	s(c fis a -"poco\\_a\\_poco\\_cresc.")
+	s(c fis a -"poco a poco cresc.")
 	s(d g bes)
 	s(d fis c')
 
@@ -57,7 +57,7 @@ rh = \melodic{
 	s('fis 'a c)
 	s('fis 'a c)
 	r16\p ['g 'a c] ['b 'g 'b 'g] r 'g r 'g
-	s('a c fis -"poco\\_cresc.")
+	s('a c fis -"poco cresc.")
 	s(c fis a)
 	s('b d g)
 	s('b d f -"dim.")

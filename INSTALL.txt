@@ -61,7 +61,7 @@ RECOMMENDED
 
 
 
-28/Jan/98                LilyPond 0.1.45                        1
+28/Jan/98                LilyPond 0.1.46                        1
 
 
 
@@ -127,7 +127,7 @@ CONFIGURING and COMPILING
 
 
 
-28/Jan/98                LilyPond 0.1.45                        2
+28/Jan/98                LilyPond 0.1.46                        2
 
 
 
@@ -193,7 +193,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
 
-28/Jan/98                LilyPond 0.1.45                        3
+28/Jan/98                LilyPond 0.1.46                        3
 
 
 
@@ -259,7 +259,7 @@ EXAMPLE
 
 
 
-28/Jan/98                LilyPond 0.1.45                        4
+28/Jan/98                LilyPond 0.1.46                        4
 
 
 
@@ -325,7 +325,7 @@ MUSIXTEX
 
 
 
-28/Jan/98                LilyPond 0.1.45                        5
+28/Jan/98                LilyPond 0.1.46                        5
 
 
 
@@ -391,6 +391,6 @@ AUTHORS
 
 
 
-28/Jan/98                LilyPond 0.1.45                        6
+28/Jan/98                LilyPond 0.1.46                        6
 
 

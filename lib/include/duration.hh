@@ -25,9 +25,6 @@ extern bool no_triplets_bo_g;
   (dur)
   */
 struct Duration {
-  /**
-    Ctor of Duration. 
-    */
   Duration ();
   /// is the "plet factor" of this note != 1 ?
   bool plet_b ();

@@ -14,6 +14,7 @@
 
 Bar_engraver::Bar_engraver()
 {
+  bar_p_ =0;
   do_post_move_processing();
 }
 
@@ -43,16 +44,32 @@ Bar_engraver::create_bar ()
     }
 }
 
+void 
+Bar_engraver::do_creation_processing ()
+{
+  create_bar ();
+  bar_p_->type_str_ = "";
+}
+
+void
+Bar_engraver::do_removal_processing ()
+{
+  if (bar_p_) 
+    {
+      typeset_element (bar_p_);
+      bar_p_ =0;
+    }
+}
+
 void
 Bar_engraver::do_process_requests()
-{
-  if (bar_p_)
-    return ;
-  
+{  
   if (bar_req_l_) 
     {
-      create_bar ();
-      bar_p_->type_str_=bar_req_l_->type_str_;
+      if (!bar_p_)
+	create_bar ();    
+
+      bar_p_->type_str_ = bar_req_l_->type_str_;
     }
   else 
     {
@@ -83,7 +100,6 @@ void
 Bar_engraver::do_post_move_processing()
 {
   bar_req_l_ = 0;
-  bar_p_ =0;
 }
 
 

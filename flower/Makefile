@@ -70,8 +70,8 @@ localinstall: $(LIBFLOWER)
 ifeq ($(LIB_SUFFIX),.so)
 	$(INSTALL) -d $(libdir)
 	$(INSTALL) $(LIBFLOWER).$(VERSION) $(libdir)
-	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX).$(MAJOR_VERSION)
-	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
+	ln -sf $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX).$(MAJOR_VERSION)
+	ln -sf $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
 endif
 
 localuninstall:

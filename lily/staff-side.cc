@@ -54,11 +54,11 @@ Staff_side::add_support (Score_elem*i)
 }
 
 Real
-Staff_side::get_position_f() const
+Staff_side::get_position_f () const
 {
   if (!dir_)
     {
-      warning (_("Staff_side::get_position_i(): "
+      warning (_("Staff_side::get_position_f(): "
 		 "somebody forgot to set my vertical direction, returning -20"));
       return -20;
     }
@@ -68,8 +68,7 @@ Staff_side::get_position_f() const
   Real inter_f = paper()-> internote_f ();
 
   Interval v= support_height();
-//  y = v[dir_]  + 2*dir_*inter_f;	// ugh
-  y = v[dir_];	// ugh
+  y = v[dir_] + 2 * dir_ * inter_f;	// ugh
 
   return y;
 }
