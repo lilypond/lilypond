@@ -90,14 +90,9 @@
 } bind def
 
 % Nice beam with rounded corners
-/draw_beam % slope width thick 
+/draw_beam % slope width thick  blot
 {
-	currentdict /testing known {
-		%% real thin lines for testing
-		/blot 0.005 def
-	}{
-		/blot blot-diameter def
-	} ifelse
+	/blot exch def 
 	blot setlinewidth
 
  	0 setlinecap

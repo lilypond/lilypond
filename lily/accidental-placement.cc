@@ -27,9 +27,9 @@ Accidental_placement::alignment_callback(SCM s, SCM )
   Grob * me =unsmob_grob (s);
 
   Grob * par = me->get_parent (X_AXIS);
-  if (!to_boolean (par->get_grob_property ("alignment-done")))
+  if (!to_boolean (par->get_grob_property ("positioning-done")))
     {
-      par->set_grob_property ("alignment-done", SCM_BOOL_T);
+      par->set_grob_property ("positioning-done", SCM_BOOL_T);
       position_accidentals (par);
     }
 
@@ -450,4 +450,4 @@ Accidental_placement::position_accidentals (Grob * me)
 ADD_INTERFACE(Accidental_placement,
 	      "accidental-placement-interface",
 	      "Take care of complex accidental collisions.",
-	      "left-padding padding right-padding accidental-grobs alignment-done")
+	      "left-padding padding right-padding accidental-grobs positioning-done")

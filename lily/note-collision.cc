@@ -28,9 +28,9 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
   
    me = me->get_parent (a);
 
-   if (! to_boolean (me->get_grob_property ("collision-done")))
+   if (! to_boolean (me->get_grob_property ("positioning-done")))
     {
-      me->set_grob_property ("collision-done", SCM_BOOL_T);
+      me->set_grob_property ("positioning-done", SCM_BOOL_T);
       do_shifts (me);
     }
   
@@ -444,4 +444,4 @@ ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
 "directions and horizontal shifts. Most of the interesting properties "
 "are to be set in @ref{note-column-interface}: these are "
 "@code{force-hshift} and @code{horizontal-shift}. ",
-  "merge-differently-dotted merge-differently-headed collision-done");
+  "merge-differently-dotted merge-differently-headed positioning-done");

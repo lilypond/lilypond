@@ -32,9 +32,9 @@ Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 
   assert (a == X_AXIS);
   Grob *par = me->get_parent (a);
-  if (par && !to_boolean (par->get_grob_property ("break-alignment-done")))
+  if (par && !to_boolean (par->get_grob_property ("positioning-done")))
     {
-      par->set_grob_property ("break-alignment-done", SCM_BOOL_T);
+      par->set_grob_property ("positioning-done", SCM_BOOL_T);
       Break_align_interface::do_alignment (par);
     }
     
@@ -253,11 +253,11 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "\n"
 	       "Rules for this spacing are much more complicated than this. \n"
 	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
-	       "break-align-symbol break-alignment-done space-alist");
+	       "break-align-symbol space-alist");
 
 ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
   "See @ref{break-aligned-interface}.",
-  "break-alignment-done");
+  "positioning-done");
 
 
 

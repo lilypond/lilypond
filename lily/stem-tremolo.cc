@@ -82,10 +82,12 @@ Stem_tremolo::raw_molecule (Grob *me)
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thick = gh_scm2double (me->get_grob_property ("beam-thickness"));
   Real width = gh_scm2double (me->get_grob_property ("beam-width"));
+  Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+
   width *= ss;
   thick *= ss;
   
-  Molecule a (Lookup::beam (dydx, width, thick));
+  Molecule a (Lookup::beam (dydx, width, thick, blot));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags = 0;

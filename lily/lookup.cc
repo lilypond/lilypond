@@ -40,22 +40,20 @@ Lookup::dot (Offset p, Real radius)
 }
 
 Molecule 
-Lookup::beam (Real slope, Real width, Real thick) 
+Lookup::beam (Real slope, Real width, Real thick, Real blot) 
 {
   Real height = slope * width; 
   Real min_y = (0 <? height) - thick/2;
   Real max_y = (0 >? height) + thick/2;
 
-  
-
   Box b (Interval (0, width),
 	 Interval (min_y, max_y));
-
   
   SCM at = scm_list_n (ly_symbol2scm ("beam"),
 		    gh_double2scm (width),
 		    gh_double2scm (slope),
 		    gh_double2scm (thick),
+		    gh_double2scm (blot),
 		    SCM_UNDEFINED);
   return Molecule (b, at);
 }

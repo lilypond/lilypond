@@ -72,13 +72,13 @@ encloses the contents.
   (let* (
 	 (x-ext (interval-widen (ly:molecule-get-extent mol 0) padding))
 	 (y-ext (interval-widen (ly:molecule-get-extent mol 1) padding))
+	 (y-rule (make-filled-box-molecule (cons 0 thick) y-ext))
 	 (x-rule (make-filled-box-molecule (interval-widen x-ext thick)
-			       (cons 0 thick)))
-	 (y-rule (make-filled-box-molecule (cons 0 thick) y-ext)))
-    
-    (set! mol (ly:molecule-combine-at-edge mol 0 1 y-rule (* 0.5 padding)))
-    (set! mol (ly:molecule-combine-at-edge mol 0 -1  y-rule (* 0.5 padding)))
-    (set! mol (ly:molecule-combine-at-edge mol 1 1  x-rule 0.0))  
-    (set! mol (ly:molecule-combine-at-edge mol 1 -1 x-rule 0.0))
+					   (cons 0 thick)))
+	 )
+    (set! mol (ly:molecule-combine-at-edge mol X 1 y-rule padding))
+    (set! mol (ly:molecule-combine-at-edge mol X -1 y-rule padding))
+    (set! mol (ly:molecule-combine-at-edge mol Y 1 x-rule 0.0))  
+    (set! mol (ly:molecule-combine-at-edge mol Y -1 x-rule 0.0))
     
     mol))

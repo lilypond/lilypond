@@ -68,7 +68,6 @@ the grob to the nearest open space.
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
 (grob-property-description 'align-dir ly:dir? "Which side to align? -1: left side, 0: around center of width, 1: right side.")
-(grob-property-description 'alignment-done boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once).")
 (grob-property-description 'all-elements grob-list? "list of all grobs in this line. Needed for protecting grobs from GC.")
 (grob-property-description 'arch-angle number? "turning angle of the hook of a system brace" )
 (grob-property-description 'arch-height ly:dimension? "height of the hook of a system brace.")
@@ -511,7 +510,6 @@ columns.
 (grob-property-description 'right-items grob-list? "")
 (grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
 (grob-property-description 'font ly:font-metric? "Cached font metric object")
-(grob-property-description 'break-alignment-done boolean? "mark flag to signal we've done alignment already.")
 (grob-property-description
  'staff-padding ly:dimension?
  "Maintain this much space to the staff.  It's effect is similar to
@@ -520,10 +518,12 @@ staff in a row more often, when the heights of the notes vary.
 ")
 
 (grob-property-description 'staff-symbol ly:grob? "the staff symbol grob that we're in.")
-(grob-property-description 'collision-done boolean? "")
+(grob-property-description 'positioning-done boolean?
+			   "Used to signal that a positioning element
+did it's job. This ensures that a positioning is only done once.")
+
 (grob-property-description 'rest ly:grob? "the staff symbol grob that we're in.")
 (grob-property-description 'rest-collision ly:grob? "rest collision that a rest is in.")
-(grob-property-description 'rest-collision-done boolean? "Is this rest collision processed yet?")
 
 (grob-property-description 'script-molecule pair? "Index code for script -- internal, see script.cc.")
 

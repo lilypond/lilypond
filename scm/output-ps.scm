@@ -35,9 +35,9 @@
 
 
 ;; Interface functions
-(define (beam width slope thick)
+(define (beam width slope thick blot)
   (string-append
-   (numbers->string (list slope width thick)) " draw_beam" ))
+   (numbers->string (list slope width thick blot)) " draw_beam" ))
 
 ;; two beziers
 (define (bezier-sandwich l thick)

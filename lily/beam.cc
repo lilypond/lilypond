@@ -300,6 +300,8 @@ SCM
 Beam::brew_molecule (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
+  position_beam (me);
+  
   Link_array<Grob> stems=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
   Grob* xcommon = common_refpoint_of_array (stems, me, X_AXIS);
@@ -335,7 +337,7 @@ Beam::brew_molecule (SCM grob)
 
   SCM last_beaming = SCM_EOL;;
   Real last_xposn = -1;
-  Real last_width = -1 ;
+  Real last_stem_width = -1 ;
 
   Real gap_length =0.0;
   SCM scm_gap = me->get_grob_property ("gap");
@@ -392,29 +394,28 @@ Beam::brew_molecule (SCM grob)
 	how much to stick out for beams across linebreaks
        */
       Real break_overshoot = 3.0;
-      Real w = (i>0 && st)? xposn - last_xposn : break_overshoot;
-      Real stem_offset = 0.0;
-      Real width_corr = 0.0;
-      if (i == 1)
+      Real w = (i > 0 && st) ? xposn - last_xposn : break_overshoot;
+
+      Real stem_offset =0.0;
+      if (i > 0)
 	{
-	  stem_offset -= last_width/2;
-	  width_corr += last_width/2;
-	}
-	  
-      if (i == stems.size() -1)
-	{
-	  width_corr += stem_width/2;
+	  w += last_stem_width / 2;
+	  stem_offset = -last_stem_width / 2;
 	}
 
-	  
-      Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
+      if (st)
+	w += stem_width/ 2 ;
+      
+
+      Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
+      Molecule whole = Lookup::beam (dydx, w, thick, blot);
       Molecule gapped;
 
       int gap_count = 0;
       if (gh_number_p (me->get_grob_property ("gap-count")))
 	{
 	  gap_count = gh_scm2int (me->get_grob_property ("gap-count"));
-	  gapped = Lookup::beam (dydx, w + width_corr - 2 * gap_length, thick);
+	  gapped = Lookup::beam (dydx, w - 2 * gap_length, thick, blot);
 
 	  full_beams.sort (default_compare);
 	  if (stem_dir == UP)
@@ -459,7 +460,7 @@ Beam::brew_molecule (SCM grob)
 	  Real w = (i>0 && st) ? (xposn - last_xposn) : break_overshoot;
 	  w = w/2 <? nw_f;
 
-	  Molecule half = Lookup::beam (dydx, w, thick);
+	  Molecule half = Lookup::beam (dydx, w, thick, blot);
 	  for (int j = lfliebertjes.size(); j--;)
 	    {
 	      Molecule b (half);
@@ -478,7 +479,7 @@ Beam::brew_molecule (SCM grob)
 
 
       last_xposn = xposn;
-      last_width = stem_width;
+      last_stem_width = stem_width;
       last_beaming = this_beaming;
     }
 
@@ -786,22 +787,32 @@ SCM
 Beam::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  
+
+  position_beam (me);
+  return SCM_UNSPECIFIED;
+}
+
+void
+Beam::position_beam (Grob *me)
+{
+  if (to_boolean (me->get_grob_property ("positioning-done")))
+    return ;
+
+  me->set_grob_property ("positioning-done", SCM_BOOL_T);
+
   /* Copy to mutable list. */
   SCM s = ly_deep_copy (me->get_grob_property ("positions"));
   me->set_grob_property ("positions", s);
 
   if (ly_car (s) == SCM_BOOL_F)
     {
-
       // one wonders if such genericity is necessary  --hwn.
       SCM callbacks = me->get_grob_property ("position-callbacks");
       for (SCM i = callbacks; gh_pair_p (i); i = ly_cdr (i))
-	gh_call1 (ly_car (i), smob);
+	gh_call1 (ly_car (i), me->self_scm ());
     }
 
   set_stem_lengths (me);  
-  return SCM_UNSPECIFIED;
 }
 
 
@@ -1556,6 +1567,6 @@ ADD_INTERFACE (Beam, "beam-interface",
 "the ideal slope, how close the result is to the ideal stems, etc.). We "
 "take the best scoring combination. "
 ,
-  "knee position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
+  "knee positioning-done position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
 
 

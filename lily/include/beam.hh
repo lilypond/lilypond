@@ -29,7 +29,7 @@ public:
   static void set_beaming (Grob*,Beaming_info_list *);
   static void set_stemlens (Grob*);
   static int get_beam_count (Grob*me);
-
+  static void position_beam (Grob* me);
   static Real get_beam_translation (Grob*me);
   static Real get_thickness (Grob*me);
 

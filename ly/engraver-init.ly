@@ -475,7 +475,8 @@ AncientRemoveEmptyStaffContext = \translator {
 
 	fingeringOrientations = #'(up down)
 	tupletNumberFormatFunction = #denominator-tuplet-formatter
-	
+	markFormatter = #format-mark-letters
+	rehearsalMark = #1 
 	subdivideBeams = ##f
 	allowBeamBreak = ##f
 	extraNatural = ##t
@@ -523,9 +524,7 @@ AncientRemoveEmptyStaffContext = \translator {
 
 	%%
 	bassFigureFormatFunction = #make-bass-figure-markup
-	metronomeMarkFormatter = #make-metronome-markup
-
-
+	metronomeMarkFormatter = #format-metronome-markup
 	graceSettings = #`#(
 		 (Voice Stem direction 1)
 

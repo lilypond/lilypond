@@ -52,7 +52,7 @@
 (define (setgray g) (string-append (ly:number->string g) "g "))
 (define (setlineparams) "1 j 1 J ")
 
-(define (beam width slope thick)
+(define (beam width slope thick blot)
   (let ((ht (* slope width)))
     (string-append (moveto 0 (- (/ thick 2)))
 		   (rlineto width ht)
