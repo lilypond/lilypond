@@ -8,6 +8,9 @@
   Mats Bengtsson <matsb@s3.kth.se>
 */
 
+/*
+  CLEAN ME UP.
+ */
 #include <ctype.h>
 #include "bar.hh"
 #include "clef-engraver.hh"
@@ -30,31 +33,6 @@ Clef_engraver::Clef_engraver()
   create_default_b_ = true;
 }
 
-/*
-  PUT THIS IN GUILE!
- */
-struct Clef_settings {
-  char const *name;
-  char const *cleftype;
-  int position;
-} clef_settings[] = {
-  {"treble", "treble", -2},
-  {"violin", "treble", -2},
-  {"G", "treble", -2},
-  {"G2", "treble", -2},  
-  {"french", "treble",-4 },
-  {"soprano", "alto",-4 },
-  {"mezzosoprano", "alto",-2 },
-  {"alto", "alto",0 },
-  {"tenor", "alto",2 },
-  {"baritone", "alto",4 },
-  {"varbaritone", "bass",0 },
-  {"bass" , "bass",2 },
-  {"F", "bass", 2},
-  {"subbass", "bass",4},
-  {0,0,0}
-};
-
 bool
 Clef_engraver::set_type (String s)
 {
@@ -71,17 +49,25 @@ Clef_engraver::set_type (String s)
   else
     octave_dir_ = CENTER;
 
-  bool found = 0;
-  for (Clef_settings *c = clef_settings; !found && c->name; c++)
+  bool found = false;
+  SCM c = get_property ("supportedClefTypes",0);
+  for (; gh_pair_p(c); c = gh_cdr (c))
     {
-      if (c->name == s)
-	{
-	  clef_type_str_ = c->cleftype;
-	  clef_position_i_ = c->position;
-	  found = 1;
-	}
-      }
+      SCM entry = gh_car (c);
+      SCM name  = gh_car (entry);
 
+      if (ly_scm2string (name) != s)
+	continue;
+      
+      SCM glyph  = gh_cadr (entry);
+      SCM pos  = gh_caddr (entry);
+      
+      clef_type_str_ = ly_scm2string (glyph);
+      clef_position_i_ = gh_scm2int (pos);
+      found = true;
+      break;
+    }
+    
   if (!found)
     {
       switch(toupper (s[0]))
@@ -126,11 +112,11 @@ Clef_engraver::acknowledge_element (Score_element_info info)
   if (dynamic_cast<Bar*>(info.elem_l_)
       && clef_type_str_.length_i())
     {
-      bool def = !clef_p_;
+      bool default_clef = !clef_p_;
       create_clef();
-      if(def)
+      if(!default_clef)
 	clef_p_->set_elt_property("visibility-lambda",
-				  ly_ch_C_eval_scm ("postbreak_only_visibility"));
+				  ly_ch_C_eval_scm ("all-visibility"));
     }
 
   /* ugh; should make Clef_referenced baseclass */
@@ -139,8 +125,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     {
       if (Note_head * h = dynamic_cast<Note_head*>(it_l))
 	{
-	  //	  h->position_i_ += c0_position_i_;
-	  h->position_i_ += c0_position_i_;
+	  h->set_position (int (h->position_f ()) + c0_position_i_);
 	}
       else if (Local_key_item *i = dynamic_cast<Local_key_item*> (it_l))
 	{
@@ -195,7 +180,7 @@ Clef_engraver::create_clef()
     }
   
   clef_p_->symbol_ = clef_type_str_;
-  clef_p_->y_position_i_ = clef_position_i_;
+  clef_p_->set_position(clef_position_i_);
   if (octave_dir_)
     {
       clef_p_->set_elt_property ("octave-dir", gh_int2scm (octave_dir_));
@@ -218,7 +203,7 @@ Clef_engraver::do_process_requests()
       else
 	set_type ( "treble");
       create_clef ();
-      create_default_b_ =0;
+      create_default_b_ = false;
     }
 }
 

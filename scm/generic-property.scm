@@ -15,6 +15,8 @@
 (define generic-stem-properties
   (cons "Stem"
 	(list
+	 (list 'stemVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'stemLength number? 'length)
 	 (list 'stemStyle string? 'style)
 	 (list 'noStemExtend boolean? 'no-stem-extend)
@@ -36,6 +38,8 @@
 (define generic-breathing-sign-properties
   (cons "Breathing_sign"
 	(list
+	 (list 'breathingSignVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)
 	 (list 'breathingSignBreakPriority number? 'break-priority
 	  ))))
 
@@ -53,6 +57,13 @@
 (define generic-rest-properties
   (cons "Rest" (list (list 'restStyle string? 'reststyle))))
 
+(define generic-tie-properties
+  (cons "Tie" (list
+	       (list 'tieVerticalDirection dir? 'direction)
+	       (list 'verticalDirection dir? 'direction)
+  )))
+
+
 (define generic-note-column-properties
   (cons "Note_column"
 	(list
@@ -63,6 +74,8 @@
 (define generic-slur-properties
   (cons "Slur"
 	(list
+	 (list 'slurVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'slurDash number? 'dashed))))
 
 (define generic-timesig-properties

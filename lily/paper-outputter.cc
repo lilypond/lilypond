@@ -127,12 +127,12 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 
       if (a_off.length () > 100 CM)
 	{
-	  warning (_f ("improbable offset for object type: `%s'", nm));
+	  programming_error ("improbable offset for object");
 	  Axis a  =X_AXIS;
 	  while (a < NO_AXES)
 	    {
-	      if (abs(a_off[a]) > 50 CM)
-		a_off[a] = 50 CM;
+	      if (abs(a_off[a]) > 30 CM)
+		a_off[a] = 30 CM;
 	      incr (a);
 	    }
 	}
@@ -230,6 +230,11 @@ Paper_outputter::output_version ()
 void
 Paper_outputter::start_line (Real height)
 {
+  if (height > 50 CM)
+    {
+      programming_error ("Improbable system height");
+      height = 50 CM;
+    }
   SCM scm = gh_list (ly_symbol ("start-line"),
 		     gh_double2scm (height),
 		     SCM_UNDEFINED);

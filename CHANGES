@@ -1,3 +1,25 @@
+pl 2.jcn3
+	- chords:
+	  * Chord is item
+	  * junked TeX hacking
+	  * configurable with styled strings from scm
+	  * fixes: dim, /no X, tonic != C
+
+pl 2.jcn2
+	- chords from  scm 
+
+
+pl 3.hwn2
+	- visibility-lambdas into default elt properties SCM.
+	- clef types in SCM
+	- verticalDirection properties now in SCM.
+
+pl 3.hwn1
+	- move position_i_ into Staff_symbol_referencer
+	- move dir_ into Directional_element baseclass
+
+****************
+
 pl 2.hwn1
 	- bf: dynamic style.
 	- prepare to move dir_ into SCM. 

@@ -19,7 +19,7 @@
  */
 
 template<class T> INLINE void 
-arrcpy (T*dest, T*src, int count)
+arrcpy (T*dest, T const* src, int count)
 {
   for (int i_shadows_local=0; i_shadows_local < count ; i_shadows_local++)
 #ifdef __powerpc__
@@ -98,7 +98,7 @@ Array<T>::remove_array_p ()
 
 template<class T> INLINE
 Array<T>
-Array<T>::slice (int lower, int upper)
+Array<T>::slice (int lower, int upper) const
 {
   assert (lower >= 0 && lower <=upper&& upper <= size_);
   Array<T> r;

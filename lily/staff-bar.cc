@@ -19,3 +19,9 @@ Staff_bar::get_bar_size () const
     return (lines_i () -1) * staff_line_leading_f ();
 }
 
+void
+Staff_bar::do_pre_processing ()
+{
+  Bar::do_pre_processing ();
+  Staff_symbol_referencer::do_pre_processing ();
+}

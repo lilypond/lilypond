@@ -11,6 +11,7 @@
 #include "moment.hh"
 #include "molecule.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element.hh"
 
 /**the rule attached to the ball.
   takes care of:
@@ -41,19 +42,16 @@
   */
 // todo: remove baseclass Staff_symbol_referencer, since stem
 // can be across a staff.
-class Stem : public Item, public Staff_symbol_referencer {
+class Stem : public Item, public Staff_symbol_referencer,
+	     public Directional_element
+{
 
   /**extent of the stem (positions).
     fractional, since Beam has to adapt them.
     */
   Drul_array<Real> yextent_drul_;
 
-  /// direction stem (that's me)
-  Direction dir_;
-
 public:
-  void set_direction (Direction d);
-  Direction get_direction () const { return dir_; }
 
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;

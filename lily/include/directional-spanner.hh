@@ -8,20 +8,14 @@
 #define DIRECTIONALSPANNER_HH
 
 #include "spanner.hh"
+#include "directional-element.hh"
 
 /** a spanner which can be pointing "up" or "down".
 
     JUNKME?
  */
-class Directional_spanner : public Spanner{
-  /// -1 below heads, +1 above heads.
-  Direction dir_;
-
+class Directional_spanner : public Spanner, public Directional_element {
 public:
-  Directional_spanner();
-
-  void set_direction (Direction d ) { dir_ =  d; }
-  Direction get_direction () const { return dir_; }
   
   /// offset of "center" relative to left-column/0-pos of staff
   virtual Offset center() const;

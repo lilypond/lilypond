@@ -31,7 +31,6 @@ protected:
 public:
   
   String symbol_;
-  int y_position_i_;
 
   VIRTUAL_COPY_CONS(Score_element);
   Clef_item();

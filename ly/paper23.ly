@@ -9,6 +9,7 @@ paper_twentythree = \paper {
 	font_large = 12.;
 	font_Large = 12.;	
 	font_normal = 10.;
+	font_script = 8.;
 
 	font_finger = 5.;
 	font_volta = 8.;
@@ -25,6 +26,10 @@ paper_twentythree = \paper {
 	-2 = \font "feta16"
 	-1 = \font "feta20"
 	0 = \font "feta23"
+
+	"font_feta-2" = 16.;
+	"font_feta-1" = 20.;
+	"font_feta" = 23.;
 
 	\include "params.ly";
 }

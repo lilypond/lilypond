@@ -104,18 +104,8 @@ Slur_engraver::do_process_requests()
 void
 Slur_engraver::do_pre_move_processing()
 {
-  SCM dir (get_property ("slurVerticalDirection", 0));
-  SCM dir2 (get_property ("verticalDirection", 0));
-
-  Direction slurdir = CENTER;
-  if (gh_number_p(dir))
-    slurdir = to_dir (dir);
-  else if (gh_number_p (dir2))
-    slurdir = to_dir (dir2);
-  
   for (int i = 0; i < end_slur_l_arr_.size(); i++)
     {
-      end_slur_l_arr_[i]->set_direction (slurdir);
       typeset_element (end_slur_l_arr_[i]);
     }
   end_slur_l_arr_.clear();

@@ -14,7 +14,7 @@ isdir_b (SCM s)
 {
   if (gh_number_p (s))
     {
-      int i = gh_int2scm (s);
+      int i = gh_scm2int (s);
       return i>= -1 && i <= 1; 
     }
   return false;

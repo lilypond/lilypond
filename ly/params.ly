@@ -96,6 +96,11 @@ grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
 #'beam-dir-algorithm = #'majority	%urg.
 
 
+#'Clef_item::visibility-lambda = #postbreak-only-visibility
+#'Key_item::visibility-lambda = #postbreak-only-visibility
+#'Breathing_sign::visibility-lambda = #non-postbreak-visibility
+
+
 %{
 dit(code(beam_dir_algorithm)) Specify algorithm for determining
 whether beams go up or down.  It is real valued.  If set to 2.0 then

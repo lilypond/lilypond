@@ -13,6 +13,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
 % that's what i use them for...
+
 stemup =        \property Voice.verticalDirection = \up 
 stemboth= 	\property Voice.verticalDirection = \center
 stemdown = 	\property Voice.verticalDirection = \down

@@ -17,9 +17,10 @@
    A bar that is on a staff.
    Ugh. Entita non multiplicandum  ... 
  */
-class Staff_bar : public Bar , public Staff_symbol_referencer
+class Staff_bar : public Bar, public Staff_symbol_referencer
 {
 public:
+  virtual void do_pre_processing ();
   VIRTUAL_COPY_CONS(Score_element);
   virtual Real get_bar_size () const;
 };

@@ -15,7 +15,6 @@
 class  Rest : public Rhythmic_head
 {
 public:
-  Rest ();
   void add_dots (Dots*);
 protected:
   virtual void do_add_processing ();

@@ -312,7 +312,7 @@ Beam::get_default_dir () const
 void
 Beam::set_direction (Direction d)
 {
-  set_direction ( d);
+  Directional_spanner::set_direction (d);
   for (int i=0; i <stems_.size (); i++)
     {
       Stem *s = stems_[i];

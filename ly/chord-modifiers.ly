@@ -2,6 +2,8 @@
  chord modifiers
 %}
 
+#(eval-string (ly-gulp-file "chord-names.scm"))
+
 \chordmodifiers {
 	m 	= \musicalpitch { 0 2 -1 }
 	min 	= \musicalpitch { 0 2 -1 }

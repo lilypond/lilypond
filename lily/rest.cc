@@ -18,7 +18,7 @@ void
 Rest::do_add_processing ()
 {
   if (balltype_i_ == 0)
-    position_i_ += 2;
+    position_i_ += 2;		// guh.
 
   Rhythmic_head::do_add_processing ();
 }
@@ -27,18 +27,19 @@ void
 Rest::do_post_processing ()
 {
   Rhythmic_head::do_post_processing ();
-  if (dots_l_ && balltype_i_ > 4)
+  if (dots_l_
+      && balltype_i_ > 4) // UGH.
     {
-      dots_l_->position_i_ += 3;
+      /*
+	UGH. 
+       */
       if (balltype_i_ == 7)
-	dots_l_->position_i_++;
+	dots_l_->set_position (4);
+      else
+	dots_l_->set_position (3);
     }
 }
 
-Rest::Rest ()
-{
-  position_i_ =0;
-}
 
 Molecule *
 Rest::do_brew_molecule_p () const
@@ -47,7 +48,6 @@ Rest::do_brew_molecule_p () const
 
   if (balltype_i_ == 0 || balltype_i_ == 1)
     ledger_b = abs(position_f ()  - (2* balltype_i_ - 1)) > lines_i (); 
-      
 
   
   String style; 

@@ -96,15 +96,8 @@ Stem_engraver::do_pre_move_processing()
 
   if (stem_p_)
     {
-      SCM prop = get_property ("verticalDirection", 0);
-      if (gh_number_p(prop))
-	{
-	  stem_p_->set_direction (to_dir (prop));
-	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);
-	}
-
       Translator_group* which;
-      prop = get_property ("stemLeftBeamCount", &which);
+      SCM prop = get_property ("stemLeftBeamCount", &which);
       if (gh_number_p(prop))
 	{
 	  stem_p_->beams_i_drul_[LEFT] = gh_scm2int (prop);
@@ -116,6 +109,15 @@ Stem_engraver::do_pre_move_processing()
 	  stem_p_->beams_i_drul_[RIGHT] = gh_scm2int (prop);
 	  ((Translator_group*)which)->set_property ("stemRightBeamCount", SCM_UNDEFINED);
 	}
+
+      // UGH. Should mark non-forced instead.
+      SCM dir = stem_p_->get_elt_property ("direction");
+      if (gh_number_p (dir) && gh_int2scm (dir))
+	{
+	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);	  
+	}
+
+
       typeset_element(stem_p_);
       stem_p_ = 0;
     }

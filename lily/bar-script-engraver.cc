@@ -25,7 +25,7 @@ Bar_script_engraver::Bar_script_engraver ()
   text_p_ =0;
   hang_on_clef_b_ = false;
   visibility_lambda_ 
-    = ly_ch_C_eval_scm ("non_postbreak_visibility");
+    = ly_ch_C_eval_scm ("non-postbreak-visibility");
 }
 
 void
@@ -162,7 +162,7 @@ Bar_script_engraver::create_items (Request *rq)
     {
       staff_side_p_
 	->set_elt_property ("padding",
-			    gh_double2scm(paper_l ()->get_realvar (gh_symbol2scm("interline"))));
+			    gh_double2scm(paper_l ()->get_var ("interline")));
     }
   
   staff_side_p_->set_elt_property ("visibility-lambda",

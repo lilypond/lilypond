@@ -30,21 +30,8 @@ Rhythmic_head::do_post_processing ()
 {
   if (dots_l_)
     {
-      dots_l_->position_i_ = int (position_f ());
+      dots_l_->set_position(int (position_f ()));
     }
-}
-
-void
-Rhythmic_head::do_pre_processing ()
-{
-  translate_axis (position_i_ * staff_line_leading_f () /2.0, Y_AXIS);
-  position_i_ = 0;
-}
-
-Real
-Rhythmic_head::position_f () const
-{
-  return position_i_ +  Staff_symbol_referencer::position_f ();
 }
 
 
@@ -60,7 +47,6 @@ Rhythmic_head::Rhythmic_head ()
   dots_l_ =0;
   balltype_i_ =0;
   stem_l_ =0;
-  position_i_ =0;
 }
 
 void

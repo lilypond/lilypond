@@ -67,20 +67,20 @@
 
 
 ;; See documentation of Item::visibility_lambda_
-(define (postbreak_only_visibility d) (if (= d 1) '(#f . #f) '(#t . #t)))
-(define (spanbar_non_postbreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
-
-(define (non_postbreak_visibility d) (if (= d 1) '(#t . #t) '(#f . #f)))
-(define (non_prebreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (postbreak-only-visibility d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define (spanbar-non-postbreak-visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
+(define (all-visibility d) '(#f . #f))
+(define (non-postbreak-visibility d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define (non-prebreak-visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
-(define Span_bar_engraver_visibility non_postbreak_visibility)
-(define mark-visibility non_prebreak_visibility)
-(define Span_score_bar_engraver_visibility postbreak_only_visibility)
-(define Piano_bar_engraver_visibility postbreak_only_visibility)
-(define Staff_group_bar_engraver_visibility postbreak_only_visibility)
+(define Span_bar_engraver-visibility non-postbreak-visibility)
+(define mark-visibility non-prebreak-visibility)
+(define Span_score_bar_engraver-visibility postbreak-only-visibility)
+(define Piano_bar_engraver-visibility postbreak-only-visibility)
+(define Staff_group_bar_engraver-visibility postbreak-only-visibility)
 
 ;; Spacing constants for prefatory matter.
 ;;
@@ -132,13 +132,19 @@
 
 ;;;;;;;; TeX
 
+;; this is silly, can't we use something like
+;; roman-0, roman-1 roman+1 ?
 (define cmr-alist 
   '(("bold" . "cmbx") 
     ("dynamic" . "feta-din") 
+    ("feta" . "feta") 
+    ("feta-1" . "feta") 
+    ("feta-2" . "feta") 
     ("finger" . "feta-nummer") 
     ("typewriter" . "cmtt") 
     ("italic" . "cmti") 
     ("roman" . "cmr") 
+    ("script" . "cmr") 
     ("large" . "cmbx") 
     ("Large" . "cmbx") 
     ("mark" . "feta-nummer") 
@@ -657,16 +663,3 @@
    ((string? exp) (string-append "\"" exp "\""))
    ))
 
-(define (test-scm->string)
-(list (scmlist->string '(a))
-(scmlist->string '(a b))
-(scmlist->string '(a b . c))
-
-
-(scm->string '(a))
-(scm->string '(a b ))
-(scm->string '(a b . c))
-(scm->string '(a b (c . d)))
-(scm->string '(a "bla" (c . 1.5)))
-)
-)

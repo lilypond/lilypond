@@ -16,6 +16,7 @@
 Staff_symbol_referencer::Staff_symbol_referencer ()
 {
   staff_sym_l_ =0;
+  position_i_ =0;
 }
 
 void
@@ -55,12 +56,33 @@ Staff_symbol_referencer::staff_line_leading_f () const
 Real
 Staff_symbol_referencer::position_f () const
 {
-  if (!staff_sym_l_ )
-    return 0;
+  Real p = position_i_;
+  if (staff_sym_l_ )
+    {
+      Graphical_element * c = common_refpoint (staff_sym_l_, Y_AXIS);
+      Real y = relative_coordinate (c, Y_AXIS) - staff_sym_l_->relative_coordinate (c, Y_AXIS);
 
-  Graphical_element * c = common_refpoint (staff_sym_l_, Y_AXIS);
-  Real y = relative_coordinate (c, Y_AXIS) - staff_sym_l_->relative_coordinate (c, Y_AXIS);
-
-  return 2.0 * y / staff_line_leading_f ();
+      p += 2.0 * y / staff_line_leading_f ();
+    }
+  return  p;
 }
 
+
+
+void
+Staff_symbol_referencer::do_pre_processing ()
+{
+  translate_axis (position_i_ * staff_line_leading_f () /2.0, Y_AXIS);
+  position_i_ =0;
+}
+
+
+void
+Staff_symbol_referencer::set_position (int p)
+{
+  /*
+    UGH. Use position_f() as well. 
+   */
+  position_i_ =   p;
+  
+}

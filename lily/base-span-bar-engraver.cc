@@ -52,7 +52,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	{
 	  spanbar_p_ = get_span_bar_p();
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
-	  String visnam =  String(name()) + "_visibility";
+	  String visnam =  String(name()) + "-visibility";
 	  
 	  spanbar_p_->set_elt_property ("visibility-lambda",
 					ly_ch_C_eval_scm (visnam.ch_C()));

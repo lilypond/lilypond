@@ -1,4 +1,4 @@
-\version "1.2.0";
+\version "1.3.2";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -9,7 +9,7 @@ Would this be acceptable/good enough/convenient for entry?
    Cb                     ces
    Cm; Cmin               c:3-; c:m; c:min
    Caug                   c:5+; c:aug;
-   Cdim                   c:3-:5-; c:dim
+   Cdim                   c:3-.5-; c:dim
    Cmaj7                  c:7+; c:maj
    C7                     c:7
    Csus; Csus4            c:4; c:sus

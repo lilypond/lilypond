@@ -21,9 +21,11 @@ class Staff_symbol_referencer : public virtual Score_element
 {
 protected:
   Staff_symbol * staff_sym_l_;
-
+  int position_i_;
 public:
   Staff_symbol_referencer ();
+  void set_position (int);
+  
   void set_staff_symbol (Staff_symbol*);
   /**
      Leading are the lead strips between the sticks (lines) of
@@ -34,7 +36,7 @@ public:
   Staff_symbol * staff_symbol_l () const;
   int lines_i () const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
-
+  virtual void do_pre_processing ();
   virtual Real position_f () const;
 };
 
