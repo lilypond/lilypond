@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (C) 2000 Juergen Reuter <reuterj@ira.uka.de>,
+  (C) 2000 Juergen Reuter <reuter@ipd.uka.de>,
 
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
@@ -18,8 +18,11 @@
 #include "event.hh"
 
 /*
-  This class implements an engraver for custos symbols.
-*/
+ * This class implements an engraver for custos symbols.
+ *
+ * FIXME: note heads inside of ligatures (i.e. ligature heads) are
+ * sometimes not recognized by this engraver. --jr
+ */
 class Custos_engraver : public Engraver
 {
 public:

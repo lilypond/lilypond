@@ -1,3 +1,47 @@
+
+2003-01-07  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/custos-engraver.cc: added TODO; editorial changes
+
+	* lily/ligature-bracket-engraver.cc: added typeset_ligature () for
+	consistency with other ligature engravers; removed access on (now)
+	private variable _ligature of Ligature_engraver
+
+	* lily/include/ligature-engraver.hh, lily/ligature-engraver.cc:
+	renamed last_bound -> last_bound_; issue programming_error on
+	abstract method calls; moved primitives code from
+	Mensural_bracket_engraver to here (because almost ligature
+	engravers will need it); renamed try_stop_ligature () ->
+	typeset_ligature (); bugfix: store primitives of finished ligature
+	in separate variable finished_primitives_ to avoid clash on input
+	like "\] \["; added current_ligature () to enable access on
+	private variable _ligature
+
+	* lily/mensural-ligature-engraver.cc: removed primitives_ code
+	(now in super class); renamed try_stop_ligature () ->
+	typeset_ligature ()
+
+	* lily/mensural-ligature.cc: issue programming_error on abstract
+	method calls
+
+	* lily/note-heads-engraver.cc: added TODO comment upon bool
+	in_ligature
+
+	* mf/parmesan-heads.mf: fixed some of set_char_box()
+
+	* scm/grob-description.scm: added VaticanaLigature
+
+	* scm/grob-property-description.scm: added neume prefix properties
+
+	* ly/gregorian-init.ly, lily/gregorian-ligature-engraver.cc,
+	lily/include/gregorian-ligature-engraver.hh,
+	lily/include/gregorian-ligature.hh: new files; framework for
+	gregorian ligature engravers such as vaticana
+
+	* lily/vaticana-ligature.cc, lily/vaticana-ligature-engraver.cc,
+	lily/include/vaticana-ligature.hh, input/test/vaticana.ly:
+	vaticana style ligature implementation (still somewhat uncomplete)
+
 2003-01-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: release 1.7.11

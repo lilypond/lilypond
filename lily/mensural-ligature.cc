@@ -130,7 +130,8 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
   SCM primitive_scm = me->get_grob_property ("primitive");
   if (primitive_scm == SCM_EOL)
     {
-      programming_error ("Mensural_ligature: undefined primitive -> ignoring grob");
+      programming_error ("Mensural_ligature:"
+			 "undefined primitive -> ignoring grob");
       return Molecule ();
     }
 
@@ -149,7 +150,9 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	}
       else
 	{
-	  programming_error (_f ("Mensural_ligature: thickness undefined on flexa %d; assuming 1.4", primitive));
+	  programming_error (_f ("Mensural_ligature:"
+				 "thickness undefined on flexa %d; assuming 1.4",
+				 primitive));
 	  thickness = 1.4 * me->get_paper ()->get_var ("linethickness");
 	}
     }
@@ -163,7 +166,9 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	}
       else
 	{
-	  programming_error (_f ("Mensural_ligature: delta-pitch undefined on flexa %d; assuming 0", primitive));
+	  programming_error (_f ("Mensural_ligature:"
+				 "delta-pitch undefined on flexa %d; assuming 0",
+				 primitive));
 	  delta_pitch = 0;
 	}
 
@@ -174,7 +179,9 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	}
       else
 	{
-	  programming_error (_f ("Mensural_ligature: flexa-width undefined on flexa %d; assuming 2.0", primitive));
+	  programming_error (_f ("Mensural_ligature:"
+				 "flexa-width undefined on flexa %d; assuming 2.0",
+				 primitive));
 	  flexa_width = 2.0 * staff_space;
 	}
     }
@@ -205,7 +212,8 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 			  flexa_width, thickness, false, CENTER);
 	break;
       default:
-	programming_error (_f ("Mensural_ligature: unexpected case fall-through"));
+	programming_error (_f ("Mensural_ligature:"
+			       "unexpected case fall-through"));
 	return Molecule ();
     }
 
@@ -214,7 +222,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
     {
       int join_left = gh_scm2int (join_left_scm);
       if (!join_left)
-	programming_error (_f ("Menusral_ligature: (join_left == 0)"));
+	programming_error (_f ("Mensural_ligature: (join_left == 0)"));
       Real blotdiameter = (me->get_paper ()->get_var ("blotdiameter"));
       Interval x_extent = Interval (0, thickness);
       Interval y_extent = (join_left > 0) ?
@@ -222,8 +230,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	Interval (0, -join_left * 0.5 * staff_space);
       Box stem_box (x_extent, y_extent);
 
-      Molecule stem =
-	Lookup::roundfilledbox (stem_box, blotdiameter);
+      Molecule stem = Lookup::roundfilledbox (stem_box, blotdiameter);
       out.add_molecule (stem);
     }
 

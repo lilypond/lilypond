@@ -1168,6 +1168,16 @@
 	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface spanner-interface))))
 	))
 
+    (VaticanaLigature
+     . (
+	(thickness . 1.0)
+	(flexa-width . 2.0)
+	(ligature-primitive-callback . ,Vaticana_ligature::brew_ligature_primitive)
+	(molecule-callback . ,Vaticana_ligature::brew_molecule)
+	(font-family . ancient)
+	(meta . ((interfaces . (mensural-ligature-interface font-interface))))
+	))
+
     (VoltaBracket
      . (
 	(molecule-callback . ,Volta_bracket_interface::brew_molecule)

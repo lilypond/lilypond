@@ -6,8 +6,8 @@
   (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
   
  */
-#ifndef LIGATUREENGRAVER_HH
-#define LIGATUREEENGRAVER_HH
+#ifndef LIGATURE_ENGRAVER_HH
+#define LIGATURE_ENGRAVER_HH
 
 #include "engraver.hh"
 
@@ -21,11 +21,10 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music*);
   virtual void process_music ();
-  virtual void try_stop_ligature ();
-  virtual Spanner *create_ligature_spanner ();
-
-  Spanner *finished_ligature_;
-  Spanner *ligature_;
+  virtual Spanner *create_ligature_spanner (); /* abstract method */
+  virtual void typeset_ligature (Spanner *ligature,
+				 Array<Grob_info> primitives); /* abstract method */
+  virtual Spanner *current_ligature ();
   SCM brew_ligature_primitive_proc;
 
 public:
@@ -34,13 +33,19 @@ public:
 private:
   Drul_array<Music*> reqs_drul_;
   
+  Spanner *ligature_;
+  Array<Grob_info> primitives_;
+
+  Spanner *finished_ligature_;
+  Array<Grob_info> finished_primitives_;
+
   Music *prev_start_req_;
 
   // moment where ligature started.
   Moment ligature_start_mom_;
 
-  Grob *last_bound;
+  Grob *last_bound_;
 
 };
 
-#endif // ENGRAVERGROUP_HH
+#endif // LIGATURE_ENGRAVER_HH

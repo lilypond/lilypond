@@ -439,7 +439,7 @@ def inclinatum_char(expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
-		set_char_box(0.3wd#, 0.3wd#, 0.5 ht#, 0.5 ht#);
+		set_char_box(0.2wd#, 0.2wd#, 0.5 ht#, 0.5 ht#);
 		black_notehead_width# := wd#;
 
 		save za, alpha, size;
@@ -572,7 +572,8 @@ fet_beginchar("Ed. Vat. quilisma", "vaticana_quilisma", "vatquilismahead")
 	2beta# = ht#*b_h;
 	a# = beta#*a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0.4wd#, 0.00wd#, 0.5 ht#, 0.5 ht#);
+	set_char_box(0.5stafflinethickness#, 0.40wd# + 0.5stafflinethickness#,
+		     0.31 ht#, 0.41 ht#);
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
@@ -633,7 +634,7 @@ fet_beginchar("Solesmes oriscus", "solesmes_oriscus",
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0.5wd#, 0.0wd#, 0.5ht#, 0.5ht#);
+	set_char_box(0.0wd#, 0.5wd#, 0.5ht#, 0.5ht#);
 	black_notehead_width# := wd#;
 
 	save convexity;

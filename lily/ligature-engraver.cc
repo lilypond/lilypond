@@ -10,6 +10,7 @@
 #include "ligature-head.hh"
 #include "spanner.hh"
 #include "score-engraver.hh"
+#include "note-head.hh"
 #include "rest.hh"
 #include "warn.hh"
 
@@ -37,7 +38,7 @@ Ligature_engraver::Ligature_engraver ()
   finished_ligature_ = 0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] = 0;
   prev_start_req_ = 0;
-  last_bound = 0;
+  last_bound_ = 0;
   brew_ligature_primitive_proc = SCM_EOL;
 }
 
@@ -64,6 +65,9 @@ Ligature_engraver::try_music (Music *m)
 Spanner *
 Ligature_engraver::create_ligature_spanner ()
 {
+  programming_error ("Ligature_engraver::create_ligature_spanner (): "
+		     "this is an abstract method that should not be called, "
+		     "but overridden by a subclass");
   return 0;
 }
 
@@ -76,20 +80,22 @@ Ligature_engraver::process_music ()
 	reqs_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
       else
 	{
-	  if (!last_bound)
+	  if (!last_bound_)
 	    {
 	      reqs_drul_[STOP]->origin ()->warning (_ ("no right bound"));
 	    }
 	  else
 	    {
-	      ligature_->set_bound (RIGHT, last_bound);
+	      ligature_->set_bound (RIGHT, last_bound_);
 	    }
 	}
       prev_start_req_ = 0;
+      finished_primitives_ = primitives_;
       finished_ligature_ = ligature_;
+      primitives_.clear ();
       ligature_ = 0;
     }
-  last_bound = unsmob_grob (get_property ("currentMusicalColumn"));
+  last_bound_ = unsmob_grob (get_property ("currentMusicalColumn"));
 
   if (ligature_)
     {
@@ -137,25 +143,33 @@ Ligature_engraver::start_translation_timestep ()
 }
 
 void
-Ligature_engraver::try_stop_ligature ()
+Ligature_engraver::typeset_ligature (Spanner *, Array<Grob_info>)
 {
-  if (finished_ligature_)
-    {
-      typeset_grob (finished_ligature_);
-      finished_ligature_ = 0;
-    }
+  programming_error ("Ligature_engraver::typeset_ligature (): "
+		     "this is an abstract method that should not be called, "
+		     "but overridden by a subclass");
 }
 
 void
 Ligature_engraver::stop_translation_timestep ()
 {
-  try_stop_ligature ();
+  if (finished_ligature_)
+    {
+      typeset_ligature (finished_ligature_, finished_primitives_);
+      finished_primitives_.clear ();
+      finished_ligature_ = 0;
+    }
 }
 
 void
 Ligature_engraver::finalize ()
 {
-  try_stop_ligature ();
+  if (finished_ligature_)
+    {
+      typeset_ligature (finished_ligature_, finished_primitives_);
+      finished_primitives_.clear ();
+      finished_ligature_ = 0;
+    }
   if (ligature_)
     {
       prev_start_req_->origin ()->warning (_ ("unterminated ligature"));
@@ -163,11 +177,21 @@ Ligature_engraver::finalize ()
     }
 }
 
+Spanner *
+Ligature_engraver::current_ligature ()
+{
+  return ligature_;
+}
+
 void
 Ligature_engraver::acknowledge_grob (Grob_info info)
 {
   if (ligature_)
     {
+      if (Note_head::has_interface (info.grob_))
+	{
+	  primitives_.push (info);
+	}
       if (Ligature_head::has_interface (info.grob_))
 	{
 	  info.grob_->set_grob_property ("ligature-primitive-callback",
