@@ -4679,8 +4679,8 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
         \[ \auctum \descendens b \]
         \noBreak s^\markup {"d"} \noBreak
 
-        % Punctum Auctum Ascendens
-        \[ \auctum \ascendens b \]
+        % Punctum Inclinatum Auctum
+        \[ \inclinatum \auctum b \]
         \noBreak s^\markup {"e"}
     }
     \paper {
