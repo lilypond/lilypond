@@ -1,3 +1,10 @@
+2003-08-16  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely (Ancient notation): added some
+	introductory words; added section on ancient time signatures;
+	added some @seealso and @refcommands; small fixes and
+	beautifications
+
 2003-08-15  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/note-head-style.ly: many fixes and updates

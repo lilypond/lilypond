@@ -4366,7 +4366,19 @@ output:
 @cindex Petrucci
 @cindex mensural
 
-@c [TODO: write introduction on ancient notation]
+@c [TODO: write more comprehensive introduction on ancient notation]
+
+Support for ancient notation currently includes features for mensural
+notation and Gregorian Chant notation.  There is also limited support
+for figured bass notation.
+
+Many graphical objects provide a @code{style} property, see
+@ref{Ancient note heads}, @ref{Ancient accidentals}, @ref{Ancient
+rests}, @ref{Ancient clefs}, @ref{Ancient flags} and @ref{Ancient time
+signatures}.  By manipulating such a grob property, the typographical
+appearance of the affected graphical objects can be accomodated for a
+specific notation flavour without need for introducing any new
+notational concept.
 
 @menu
 * Ancient note heads::          
@@ -4374,6 +4386,16 @@ output:
 * Ancient rests::               
 * Ancient clefs::               
 * Ancient flags::               
+* Ancient time signatures::     
+@end menu
+
+Other aspects of ancient notation can not that easily be expressed as
+in terms of just changing a style property of a graphical object.
+Therefore, some notational concepts are introduced specifically for
+ancient notation, see @ref{Custodes}, @ref{Divisiones},
+@ref{Ligatures}, and @ref{Figured bass}.
+
+@menu
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
@@ -4385,6 +4407,8 @@ output:
 @subsection Ancient note heads
 
 @cindex note heads
+
+@syntax
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
@@ -4411,7 +4435,7 @@ ligature engraver will automatically select the proper note heads,
 such there is no need to explicitly set the note head style.  Still,
 the note head style can be set e.g. to @code{vaticana_punctum} to
 produce punctum neumes.  Similarly, a mensural ligature engraver is
-used to automatically assemble mensural ligatures.  See section
+used to automatically assemble mensural ligatures.  See
 @ref{Ligatures} for how ligature engravers work.
 
 @seealso
@@ -4426,6 +4450,8 @@ frequently used in contemporary music notation.
 @subsection Ancient accidentals
 
 @cindex accidentals
+
+@syntax
 
 Use the @code{style} property of grob @internalsref{Accidental} to
 select ancient accidentals.  Currently supported styles are
@@ -4485,11 +4511,20 @@ Similarly to local accidentals, the style of the key signature can be
 controlled by the @code{style} property of the
 @internalsref{KeySignature} grob.
 
+@seealso
+
+@ref{Pitches}, @ref{Chromatic alterations} and @ref{Accidentals} give
+a general introduction into the use of accidentals.  @ref{Key
+signature} gives a general introduction into the use of key
+signatures.
+
 
 @node Ancient rests
 @subsection Ancient rests
 
 @cindex rests
+
+@syntax
 
 Use the @code{style} property of grob @internalsref{Rest} to select
 ancient accidentals.  Currently supported styles are @code{classical},
@@ -4515,26 +4550,28 @@ rests.
 There are no rests in Gregorian Chant notation; instead, it uses
 @ref{Divisiones}.
 
+@seealso
+
+@ref{Rests} gives a general introduction into the use of rests.
+
 
 @node Ancient clefs
 @subsection Ancient clefs
 
 @cindex clefs
 
-LilyPond supports a variety of clefs, many of them ancient.
+@syntax
 
-For modern clefs, see section @ref{Clef}.  For the percussion clef, see
-section @ref{Percussion staves}.  For the @code{TAB} clef, see section
-@ref{Tablatures}.
+LilyPond supports a variety of clefs, many of them ancient.
 
 The following table shows all ancient clefs that are supported via the
 @code{\clef} command.  Some of the clefs use the same glyph, but
 differ only with respect to the line they are printed on.  In such
 cases, a trailing number in the name is used to enumerate these clefs.
 Still, you can manually force a clef glyph to be typeset on an
-arbitrary line, as described in section @ref{Clef}.  The note printed
-to the right side of each clef in the example column denotes the
-@code{c'} with respect to that clef.
+arbitrary line, as described in @ref{Clef}.  The note printed to the
+right side of each clef in the example column denotes the @code{c'}
+with respect to that clef.
 
 @multitable @columnfractions  .3 .3 .3 .1
 
@@ -4730,11 +4767,19 @@ editions (other than those of Petrucci)''.
 Petrucci used C clefs with differently balanced left-side vertical
 beams, depending on which staffline it is printed.
 
+@seealso
+
+For modern clefs, see @ref{Clef}.  For the percussion clef, see
+@ref{Percussion staves}.  For the @code{TAB} clef, see
+@ref{Tablatures}.
+
 
 @node Ancient flags
 @subsection Ancient flags
 
 @cindex flags
+
+@syntax
 
 Use the @code{flag-style} property of grob @internalsref{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
@@ -4771,6 +4816,107 @@ when typesetting e.g. the incipit of a transcibed piece of mensural
 music, the default flag style should be used.  There are no flags in
 Gregorian Chant notation.
 
+
+@node Ancient time signatures
+@subsection Ancient time signatures
+
+@cindex time signatures
+
+@syntax
+
+There is limited support for mensural time signatures.  Currently, the
+glyphs are hard-wired to particular time fractions.  In other words,
+to get a particular mensural signature glyph with the @code{\time n/m}
+command, @code{n} and @code{m} have to be chosen according to the
+following table:
+
+@lilypond
+\score {
+    \notes {
+	\property Score.timing = ##f
+	\property Score.barAlways = ##t
+	s_\markup { "$\\backslash$time 4/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/4" }
+	s
+	s_\markup { "$\\backslash$time 2/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/2" }
+	s
+	s_\markup { "$\\backslash$time 6/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/4" }
+	s
+	s_\markup { "$\\backslash$time 6/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/8" }
+	\break
+	s_\markup { "$\\backslash$time 3/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/2" }
+	s
+	s_\markup { "$\\backslash$time 3/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/4" }
+	s
+	s_\markup { "$\\backslash$time 9/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/4" }
+        s
+	s_\markup { "$\\backslash$time 9/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/8" }
+        \break
+	s_\markup { "$\\backslash$time 4/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/8" }
+	s
+	s_\markup { "$\\backslash$time 2/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/4" }
+	\break
+    }
+    \paper {
+	indent = 0.0
+	raggedright = ##t
+	\translator {
+	    \StaffContext
+	    \remove Staff_symbol_engraver
+	    \remove Clef_engraver
+	    \remove Time_signature_engraver
+	}
+    }
+}
+@end lilypond
+
+Use the @code{style} property of grob @internalsref{TimeSignature} to
+select ancient time signatures.  Currently supported styles are
+@code{neo_mensural} and @code{mensural}.  The above table uses the
+@code{neo_mensural} style.  This style is appropriate e.g. for the
+incipit of transcriptions of mensural pieces.  The @code{mensural}
+style mimicks the look of historical printings of the 16th century.
+
+@inputfileref{input/test,time.ly} gives an overview over all available
+ancient and modern styles.
+
+@seealso
+
+@ref{Time signature} gives a general introduction into the use of time
+signatures.
+
+@refbugs
+
+Mensural signature glyphs are currently mapped to time fractions in a
+hard-wired way.  This mapping is sensible, but still arbitrary: given
+a mensural time signature, the time fraction represents a modern meter
+that usually will be a good choice when transcribing a mensural piece
+of music.  For a particular piece of mensural music, however, the
+mapping may be unsatisfactory.  In particular, the mapping assumes a
+fixed transcription of durations (e.g. brevis = half note in 2/2,
+i.e. 4:1).  Some glyphs (such as the alternate glyph for 6/8 meter)
+are currently not at all accessible through the @code{\time} command.
+
+Mensural time signatures are supported typographically, but not yet
+musically.  The internal representation of durations is currently
+based on a purely binary system; a ternary division such as 1 brevis =
+3 semibrevis (tempus perfectum) or 1 semibrevis = 3 minima (prolatio
+perfectum) is not correctly handled: event times in ternary modes will
+be badly computed, resulting e.g. in horizontally misaligned note
+heads, and bar checks are likely to erroneously fail.
+
+The syntax and semantics of the @code{\time} command for mensural
+music is subject to change.
+
 @node Custodes
 @subsection Custodes
 
@@ -4788,6 +4934,8 @@ century.  Nowadays, they have survived only in a few particular forms
 of musical notation such as contemporary editions of Gregorian chant
 like the @emph{editio vaticana}.  There are different custos glyphs
 used in different flavours of notational style.
+
+@syntax
 
 For typesetting custodes, just put a @internalsref{Custos_engraver} into the
 @internalsref{Staff} context when declaring the @code{\paper} block,
@@ -4896,7 +5044,6 @@ extensions and should not be used.
 
 @seealso
 
-
 @internalsref{Custos} and @inputfileref{input/regression,custos.ly}.
 
 
@@ -4926,8 +5073,22 @@ and @code{\finalis} at proper places in the input.  Some editions use
 Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 @code{\caesura}:
 
-
 @lilypondfile[notexidoc]{divisiones.ly}
+
+@refcommands
+
+@cindex @code{\virgula}
+@code{\virgula},
+@cindex @code{\caesura}
+@code{\caesura},
+@cindex @code{\divisioMinima}
+@code{\divisioMinima},
+@cindex @code{\divisioMaior}
+@code{\divisioMaior},
+@cindex @code{\divisioMaxima}
+@code{\divisioMaxima},
+@cindex @code{\finalis}
+@code{\finalis}.
 
 @seealso
 
@@ -5001,9 +5162,13 @@ will be added in the future.
 There is limited support for white mensural ligatures.  The
 implementation is still experimental; it currently may output strange
 warnings or even crash in some cases or produce weird results on more
-complex ligatures.  To engrave white mensural ligatures, in the paper
-block the @internalsref{Mensural_ligature_engraver} has to be put into
-the @internalsref{Voice} context, and remove the
+complex ligatures.
+
+@syntax
+
+To engrave white mensural ligatures, in the paper block the
+@internalsref{Mensural_ligature_engraver} has to be put into the
+@internalsref{Voice} context, and remove the
 @internalsref{Ligature_bracket_engraver}:
 
 @example
@@ -5076,6 +5241,7 @@ to the following:
     }
 }
 @end lilypond
+
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
@@ -6453,6 +6619,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 
 @end multitable
 
+@syntax
 
 Unlike most other neumes notation systems, the input language for
 neumes does not necessarily reflect directly the typographical
@@ -6698,6 +6865,39 @@ Trigonus @tab
 @code{\[ \stropha b \stropha b \stropha a \]}
 
 @end multitable
+
+@refcommands
+
+The following head prefixes are supported:
+
+@cindex @code{\virga}
+@code{\virga},
+@cindex @code{\stropha}
+@code{\stropha},
+@cindex @code{\inclinatum}
+@code{\inclinatum},
+@cindex @code{\auctum}
+@code{\auctum},
+@cindex @code{\descendens}
+@code{\descendens},
+@cindex @code{\ascendens}
+@code{\ascendens},
+@cindex @code{\oriscus}
+@code{\oriscus},
+@cindex @code{\quilisma}
+@code{\quilisma},
+@cindex @code{\deminutum}
+@code{\deminutum}.
+
+Head prefixes can be accumulated, though restrictions apply.  For
+example, either @code{\descendens} or @code{\ascendens} can be applied
+to a head, but not both to the same head.
+
+@cindex @code{\pes}
+@cindex @code{\flexa}
+Two adjacent heads can be tied together with the @code{\pes} and
+@code{\flexa} infix commands for a rising and falling line of melody,
+respectively.
 
 @refbugs
 
