@@ -42,7 +42,7 @@ begin_autometric_re = regex.compile('@{')
 end_autometric_re = regex.compile('@}')
 include_re = regex.compile ('(\([a-zA-Z_0-9-]+\.mf\)')
 autometric_re = regex.compile('@{\(.*\)@}')
-version = '0.7'
+version = '0.8'
 postfixes = ['log', 'dvi', '2602gf', 'tfm']
 
 class Feta_file(File):
@@ -116,7 +116,7 @@ class Indentable_file(File):
         self.writeline (lines[-1])
 
 class Afm_file (File):
-    def print_f_dimen(self, f):
+    def print_dimen(self, f):
 	f = f * 1000 / self.fontsize
     
 	dimstr = '%.2f' % f
@@ -126,19 +126,23 @@ class Afm_file (File):
 		dimstr = '0.00'
 	self.write( dimstr  +' ');
 
-    def neg_print_dimen(self, str):
-	self.print_f_dimen(-atof(str))
-    def print_dimen(self, str):
-	self.print_f_dimen(atof(str))
     def def_symbol (self, code, lily_id, tex_id, xdim, ydim):
-	self.write ('C %s; N %s-%s; B ' % (code, self.groupname, lily_id))
+	xdim = map (atof, xdim)
+	ydim = map (atof, ydim)
+	
+	wid = xdim[0] + xdim[1]
+	self.write ('C %s ; ' % code)
+	self.write ('WX ')
+	self.print_dimen (wid)
 
-	self.neg_print_dimen(xdim [0])
-	self.neg_print_dimen(ydim [0])
+	self.write (' ; N %s-%s ; B ' % (self.groupname, lily_id))
+
+	self.print_dimen(-xdim [0])
+	self.print_dimen(-ydim [0])
 	self.print_dimen(xdim [1])
 	self.print_dimen(ydim [1])
 
-	self.write (';\n');
+	self.write (' ;\n');
 	
     def start (self,nm):
 	self.write ('Start%s\n' % nm)
