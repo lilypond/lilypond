@@ -1720,7 +1720,7 @@ is the to-be-transposed music.  As you can see, in this case, the
 transposition has no effect, as central C stays at central C.
 
 The purpose of this no-op is to protect it from being interpreted as
-relative notes.  Relative mode can not be used together with
+relative notes.  Relative mode cannot be used together with
 transposition, so @code{\relative} will leave the contents of
 @code{\hoomPah} alone.  We can use it without having to worry about
 getting the motive in a wrong octave. Conversely, if you want to

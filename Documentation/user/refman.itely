@@ -650,7 +650,7 @@ system, these lines are drawn using a separate graphical object called
 staff symbol.  
 
 This object is created whenever a @internalsref{Staff} context is
-created.  You can not change the appearance of the staff symbol by
+created.  You cannot change the appearance of the staff symbol by
 using @code{\override} or @code{\set}.  At the moment that
 @code{\property Staff} is interpreted, a Staff context is made, and
 the @internalsref{StaffSymbol} is created before any @code{\override} is
@@ -1021,7 +1021,7 @@ also example files @inputfileref{input/regression,collision-dots.ly},
 @refbugs
 
 Resolving collisions is a very intricate subject, and LilyPond only
-handles a few situations. When it can not cope, you are advised to use
+handles a few situations. When it cannot cope, you are advised to use
 @code{force-hshift} of the @internalsref{NoteColumn} object and pitched
 rests to override typesetting decisions.
 
@@ -1106,7 +1106,7 @@ property @code{auto-knee-gap}.
 
 @cindex hara kiri
 
-Automatically kneed beams can not be used together with Hara Kiri
+Automatically kneed beams cannot be used together with Hara Kiri
 staves.
 
 
@@ -1935,7 +1935,7 @@ second bars in this example:
 
 @refbugs
 
-Grace notes can not be used in the smallest size (@file{paper11.ly}).
+Grace notes cannot be used in the smallest size (@file{paper11.ly}).
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
@@ -2331,7 +2331,7 @@ patterns that divide the measure length are replaced by slashes.
 
 @refbugs
 
-You can not nest percent repeats, e.g. by filling in the first measure
+You cannot nest percent repeats, e.g. by filling in the first measure
 with slashes, and repeating that measure with percents.
 
 @node Rhythmic music
@@ -3271,7 +3271,7 @@ last.
 @end lilypond
 
 In chord mode, dashes and carets are used to indicate chord additions
-and subtractions, so articulation scripts can not be entered.
+and subtractions, so articulation scripts cannot be entered.
 
 
 @node Printing chord names
@@ -4885,7 +4885,7 @@ to override default setting, which are always present. For example:
 Relative size is not linked to any real size.
 
 There is no style sheet provided for other fonts besides the @TeX{}
-family, and the style sheet can not be modified easily.
+family, and the style sheet cannot be modified easily.
 
 @cindex font selection
 @cindex font magnification
