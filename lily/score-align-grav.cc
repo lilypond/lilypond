@@ -7,7 +7,7 @@
 */
 
 
-#include "elem-group-item.hh"
+#include "horizontal-group-item.hh"
 #include "score-align-grav.hh"
 #include "item.hh"
 

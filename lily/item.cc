@@ -5,19 +5,19 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "p-score.hh"
 #include "debug.hh"
 #include "item.hh"
 #include "p-col.hh"
+#include "elem-group.hh"
 
 Item::Item()
 {
     pcol_l_ = 0;
-
     broken_to_a_[0]
 	= broken_to_a_[1]=0;
 }
-
 
 IMPLEMENT_IS_TYPE_B1(Item, Score_elem);
 
@@ -59,18 +59,30 @@ Item::break_status_i() const
 }
 
 void
+Item::copy_breakable_items()
+{
+    for (int i=0; i < 2; i++) {
+	Item * item_p = clone()->item();
+	item_p->copy_dependencies(*this);
+	/* add our pre and postbreaks blondly to our own y_group
+	   Let Vertical_group_spanner figure out the mess.
+	 */
+	if  ( y_group_l_ )
+	    y_group_l_->add_element( item_p );
+	pscore_l_->typeset_item(item_p, pcol_l_, -1+ 2*i);
+	item_p->handle_prebroken_dependencies();
+	broken_to_a_[i] = item_p;
+    }
+}
+
+void
 Item::do_breakable_col_processing()
 {
     PCol * c = pcol_l_;
     if (!c->breakable_b())
 	return;
     
-    for (int i=0; i < 2; i++) {
-	broken_to_a_[i] = clone()->item();
-	pscore_l_->typeset_item(broken_to_a_[i], c, -1+ 2*i);
-	broken_to_a_[i]->handle_prebroken_dependencies();
-    }
-
+    copy_breakable_items();
     handle_prebroken_dependencies();
 }
 

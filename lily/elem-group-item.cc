@@ -8,6 +8,7 @@
 
 
 #include "elem-group-item.hh"
+#include "p-col.hh"
 
 void
 Horizontal_vertical_group_item::do_print()const
@@ -16,6 +17,3 @@ Horizontal_vertical_group_item::do_print()const
 }
 
 IMPLEMENT_IS_TYPE_B2(Horizontal_vertical_group_item,Horizontal_vertical_group,Item);
-    
-IMPLEMENT_IS_TYPE_B2(Horizontal_group_item, Horizontal_group, Item);
-
