@@ -8,7 +8,7 @@ enteredby =	"jcn";
 copyright =	"Public Domain";
 }
 
-\version "1.3.4";
+\version "1.3.5";
 
 $violino_ii = \notes\relative c''{
   R1*8 |
@@ -101,4 +101,4 @@ $violino_ii_staff = \context Staff = violino <
   \$violino_ii
   \$global_ii
 >
-\version "1.3.4";
+\version "1.3.5";

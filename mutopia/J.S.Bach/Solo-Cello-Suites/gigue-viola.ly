@@ -37,8 +37,8 @@ gigue_viola_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = "3/4";
-			beamAutoEnd_16 = "3/4";
+			beamAutoEnd_8 = #(make-moment 3 4)
+			beamAutoEnd_16 = #(make-moment 3 4)
 		}
 	}
 	\midi{ \tempo 4 = 60; }

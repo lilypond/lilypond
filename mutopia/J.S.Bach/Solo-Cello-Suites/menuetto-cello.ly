@@ -53,7 +53,7 @@ menuetto_i_cello_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = "3/4";
+			beamAutoEnd_8 = #(make-moment 3 4)
 		}
 	}
 	\midi{ \tempo 4 = 110; }
@@ -90,7 +90,8 @@ menuetto_ii_cello_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = "3/4";
+			beamAutoEnd_8 = #(make-moment 3 4)
+
 		}
 	}
 	\midi{ \tempo 4 = 130; }

@@ -387,6 +387,15 @@ if 1:
 	conversions.append ((1,3,4), conv,
 			    '\\cadenza -> \cadenza{On|Off}')
 
+if 1:
+	def conv (str):
+		str = re.sub ('beamAuto([^=]+)= *"([0-9]+)/([0-9]+)" *;',
+			      'beamAuto\\1 = #(make-moment \\2 \\3)',
+			      str)
+		return str
+
+	conversions.append ((1,3,5), conv, 'beamAuto moment properties')
+
 ############################
 	
 

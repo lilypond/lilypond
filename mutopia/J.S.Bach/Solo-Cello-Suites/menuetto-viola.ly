@@ -52,7 +52,8 @@ menuetto_i_viola_staff = \context Staff <
 		gourlay_maxmeasures = 7.0;
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = "3/4";
+			beamAutoEnd_8 = #(make-moment 3 4)
+
 		}
 	}
 	\midi{ \tempo 4 = 110; }
@@ -87,7 +88,8 @@ menuetto_ii_viola_staff = \context Staff <
 	\paper{
 		\translator{
 			\VoiceContext
-			beamAutoEnd_8 = "3/4";
+			beamAutoEnd_8 = #(make-moment 3 4)
+
 		}
 	}
 	\midi{ \tempo 4 = 130; }

@@ -12,7 +12,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.3.4";
+\version "1.3.5";
 
 \include "nederlands.ly"
 
@@ -162,7 +162,7 @@ accompany = \notes \relative c{
       \accepts "Staff";
       slurVerticalDirection = 1;
       verticalDirection = -1;
-      beamAutoEnd = "1/2";
+      beamAutoEnd  = #(make-moment 1 2)
     }
     \translator {
       \type "Engraver_group_engraver";

@@ -1,4 +1,4 @@
-\version "1.3.4";
+\version "1.3.5";
 
 global = \notes {
   s1 | \mark "A";
