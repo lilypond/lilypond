@@ -25,8 +25,8 @@ public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
 
   static Molecule big_rest (Grob*,Real);
-  static Molecule symbol_molecule (Grob*);  
-  static Molecule church_rest (Font_metric*, int,Real, Real);
+  static Molecule symbol_molecule (Grob*,Real);  
+  static Molecule church_rest (Grob*, Font_metric*, int,Real);
 };
 
 #endif /* MULTI_MEASURE_REST_HH */

@@ -34,11 +34,15 @@
 class Spacing_spanner
 {
 public:
+  static void standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
+						 Real * fixed, Real * space, Moment);
+  
+
   static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment);
   static Real note_spacing (Grob*,Grob*,Grob*,Moment, bool*);
   static Real get_duration_space (Grob*,Moment dur, Rational shortest, bool*);
   static Rational find_shortest (Link_array<Grob> const &);  
-  static void breakable_column_spacing (Item* l, Item *r);
+  static void breakable_column_spacing (Grob*, Item* l, Item *r, Moment);
   static void find_loose_columns () {}
   static void prune_loose_colunms (Grob*,Link_array<Grob> *cols, Rational);
   static void find_loose_columns (Link_array<Grob> cols);
@@ -470,7 +474,7 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 
       if (!Paper_column::musical_b (l))
 	{
-	  breakable_column_spacing (l, r);
+	  breakable_column_spacing (me, l, r, shortest);
 
 	  /*
 	    
@@ -483,12 +487,12 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 	  Item *rb = r->find_prebroken_piece (LEFT);
 	  
 	  if (lb)
-	    breakable_column_spacing (lb,r);
+	    breakable_column_spacing (me, lb,r, shortest);
 
 	  if (rb)
-	    breakable_column_spacing (l, rb);
+	    breakable_column_spacing (me, l, rb, shortest);
 	  if (lb && rb)
-	    breakable_column_spacing (lb, rb);
+	    breakable_column_spacing (me, lb, rb, shortest);
 	  
 	  continue ; 
 	}
@@ -553,15 +557,47 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
   Spaceable_grob::add_spring (lc, rc, max_note_space,  1 / (max_note_space -max_fixed_note_space), expand_only);
 }
 
+void
+Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
+				   Real * fixed, Real * space,
+				   Moment shortest)
+{
+  *fixed = l->extent (l, X_AXIS)[RIGHT] - r->extent (r, X_AXIS)[LEFT];
+      
+  if (l->breakable_b (l) && r->breakable_b(r))
+    {
+      Moment *dt = unsmob_moment (l->get_grob_property ("measure-length"));
+      Moment mlen (1);
+      if (dt)
+	mlen = *dt;
+      
+      Real incr = gh_scm2double (me->get_grob_property ("spacing-increment"));
+
+      *space =  *fixed + incr * double (mlen.main_part_ / shortest.main_part_) * 0.8;
+    }
+  else
+    {
+      Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
+      bool dummy;
+
+      *space = *fixed + get_duration_space (me, dt, shortest.main_part_, &dummy);
+    }
+  
+  
+}
+
 
 /*
   Read hints from L and generate springs.
  */
 void
-Spacing_spanner::breakable_column_spacing (Item* l, Item *r)
+Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shortest)
 {
   Real max_fixed = -infinity_f;
   Real max_space = -infinity_f;
+
+  standard_breakable_column_spacing (me, l, r, &max_fixed, &max_space ,
+				     shortest);
   
   for (SCM s = l->get_grob_property ("spacing-wishes");
        gh_pair_p (s); s = gh_cdr (s))
@@ -589,6 +625,9 @@ Spacing_spanner::breakable_column_spacing (Item* l, Item *r)
 	  max_fixed = fixed_space;
 	}
     }
+
+  
+  
 
   if (isinf (max_space))
     {

@@ -652,7 +652,7 @@
     (SpacingSpanner
      . (
 	(spacing-procedure .  ,Spacing_spanner::set_springs)
-	(grace-space-factor . 0.8)
+	(grace-space-factor . 0.5)
 
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)

@@ -37,7 +37,7 @@ rondo = \notes 	\relative c'
 	\rondotheme
 	
 	R2.*13 |
-	r8 r-\fermata d [d e f]
+	r8 r^\fermata d [d e f]
 	[g ()e c-.] [d()e d-.]
 	c4 c8 [d e f]
 	[g()e c-.] [d()e d-.]

@@ -221,6 +221,8 @@ and will have no effect.
 (grob-property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts.")
 (grob-property-description 'maximum-length number? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
+(grob-property-description 'measure-length moment? "Length of a
+measure. Used in some spacing situations.")
 (grob-property-description 'measure-count integer? "number of measures for a multimeasure rest.")
 (grob-property-description 'merge-differently-dotted boolean? " Merge noteheads in collisions, even if they have a different number of dots. This normal notation for some types of polyphonic music. The value of this setting is used by @ref{note-collision-interface} .")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")

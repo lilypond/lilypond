@@ -209,7 +209,7 @@ def flare_path(expr pos,alpha,beta,line,flare, direction) =
 	penpos2(flare,180+beta+alpha);
 	z2=z3;
 	penpos3(flare,0+alpha);
-	z3l=z1r+(1/2+0.43)*flare*dir(alpha+beta);
+	z3l=z1r+(1/2+0.43)*flare*dir(alpha+beta) ;
 	save taille;
 	taille = 0.0;
 	z4=z2r-  line * dir(alpha);

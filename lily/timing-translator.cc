@@ -15,7 +15,6 @@
 #include "multi-measure-rest.hh"
 
 
-
 void
 Timing_translator::stop_translation_timestep ()
 {
@@ -49,7 +48,6 @@ Timing_translator::stop_translation_timestep ()
 	global_l->add_moment_to_process (now + barleft);
     }
 }
-
 
 void
 Timing_translator::initialize ()

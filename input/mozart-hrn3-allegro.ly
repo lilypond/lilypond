@@ -19,7 +19,7 @@ allegro =
 	r2 r4 g'4^"Solo" |
 	e'4. () c8 [f (d c )b ]
 	[b()c] g4 r8 [g-. c-. e-.]
-	g2. ( [g16-.( f e ))f]
+	g2.  [g16-.( f e )f]
 	dis4 () e4-- r8 [c8-. c-. c-.]
 	c4.( [d16 e]  f4 ) e
 	a,( d g,) c
@@ -49,8 +49,8 @@ allegro =
 	[cis ()d] r4 r2
 	g,1 ~ g2 ~ [g8 a16 b] [c()d e c]
 	f4-. d-. b-. g-.
-	r1
-	\emptyText
+	R1
+
 	c,2\p e4 g c \cresc e g4. e8 |
 	d4. [e16 fis] [g () fis e d] [c() b a g]
 	\endcresc
@@ -88,7 +88,7 @@ allegro =
 	r2 r8 [g,-. g-. g-.]
 	e'4.() c8 [f( d c )b]
 	[b()c] g4 r8 [g c e] |
-	g2. ( [g16( f e ))f]
+	g2.  [g16( f e )f]
 	dis4()e r8 [c-. c-. c-.]
 	c4.( [d16 e] f4 )e
 	a, ( d g, )c
@@ -112,7 +112,7 @@ allegro =
 	[e()d] d4 r [d8 d]
 	d4(~ [d16 e d )e] [g8() f e d] |
 	c4 r r2
-	r1
+	R1
 	c1 ~
 	c |
 	[c8-. c-.] r c-. [cis()d] r d-. |
@@ -128,7 +128,7 @@ allegro =
 	  { s2. \grace { [c16 d] } } >
 	
 	) c4 r r2
-	r1 |
+	R1 |
 	\mark "H"
 	\times 2/3 { [ c8 ()b a ] }	\times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] } |
 	\times 2/3 { [ c () b a ] } \times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] }|
