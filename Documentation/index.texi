@@ -49,7 +49,9 @@
 @item @uref{../topdocs/out-www/INSTALL.html, INSTALL}
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
-How to install on Windows.
+How to install on Windows. @uref{http://cygwin.com/setup.exe, Install
+Lily now}.
+
 @end itemize
 
 @c also for users...
