@@ -76,14 +76,14 @@ local-WWW-post:
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
+# FIXME: rename to TAGS; should include deeper TAGS files, see guile-core
 ALL-TAGS:
-	etags $(shell find . $(src-ext:%=-name '*.%' -or) -false | grep -v '/out')
+	etags $(shell find . $(src-ext:%=-name '*.%' -or) -false \
+		| grep -v '/out')
 
 web-clean:
-	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 	$(MAKE) out=www clean
 	$(MAKE) $(builddir)/share/lilypond-force
-
 
 default: $(config_h) builddir-setup 
 

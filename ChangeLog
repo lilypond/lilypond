@@ -1,5 +1,21 @@
 2004-02-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/refman.itely: Run texinfo-all-menus-update
+	(fixes make web).
+
+	* GNUmakefile.in (web-clean): Do not remove fonts (they do not
+	live in $(out)-www).
+
+	* scripts/lilypond-book.py: Small cleanups.  Junk hairy include
+	dependencies.  Add link to .ly source in HTML output.
+	(Lilypond_snippet.output_html): Handle multiple page picture
+	output.
+	(Lilypond_snippet.output_html, Lilypond_snippet.output_latex):
+	Make usable for output_texinfo again.
+
+	* Documentation/user/GNUmakefile: Add static dependency for
+	lilypond.tely includes.
+
 	* Documentation/user/tutorial.itely: Add some lost `relative'
 	ly-options.
 

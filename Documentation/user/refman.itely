@@ -2746,6 +2746,7 @@ Internals: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 
 @menu
 * Showing melody rhythms::      
+* Entering percussion::         
 * Percussion staves::           
 @end menu
 

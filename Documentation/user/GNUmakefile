@@ -116,20 +116,20 @@ local-clean:
 	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk 
 	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
 
-#$(outdir)/lilypond.nexi: $(outdir)/interfaces.itexi
-#$(outdir)/lilypond.texi: $(outdir)/interfaces.itexi
-
 # lilypond.texi deps
 $(builddir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(topdir)/mf
+
+$(outdir)/lilypond.texi: $(ITELY_FILES) macros.itexi
 
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake
 ifneq ($(CROSS),yes)
 
 
-# there used to be a dependency on a dummy target, to force a rebuild of lilypond-internals every time.
-# however, this triggers compilation during install, which  is a bad thing (tm).
+# There used to be a dependency on a dummy target, to force a rebuild
+# of lilypond-internals every time.  however, this triggers
+# compilation during install, which is a bad thing (tm).
 
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond-bin
 	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond-bin --verbose $(abs-srcdir)/ly/generate-documentation
