@@ -8,16 +8,17 @@ include $(depth)/make/Include.make
 
 SCRIPTS = clearlily cpgento genheader make_patch \
 	lily.efence\
-	make_version make_website release convert-mudela show-latest \
-	conflily
+	make-version make-website release convert-mudela show-latest \
+	mudela-book conflily
 EXTRA_DISTFILES = $(SCRIPTS)
 #
 
 
-EXECUTABLES=convert-mudela 
+EXECUTABLES=convert-mudela mudela-book
 localinstall: all
 	$(INSTALL) -d $(bindir)
 	$(INSTALL) -m 755 convert-mudela $(bindir)
+	$(INSTALL) -m 755 mudela-book $(bindir)
 
 localuninstall:
-	rm -f $(bindir)/convert-mudela
+	rm -f $(bindir)/convert-mudela $(bindir)/mudela-book
