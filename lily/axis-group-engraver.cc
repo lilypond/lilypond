@@ -59,6 +59,10 @@ Axis_group_engraver::get_spanner () const
   return new Spanner (get_property ("VerticalAxisGroup"));
 }
 
+/*
+  TODO: should we junk minimumVerticalExtent/extraVerticalExtent ?  
+ */
+
 void
 Axis_group_engraver::finalize ()
 {

@@ -1,9 +1,21 @@
 2004-01-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* stepmake/bin/add-html-footer.py (built): add Wiki links to
+	footer.
+
+	* lily/parser.yy (translator_mod): allow \with { \remove .. }
+
+	* lily/bar-check-iterator.cc (process): only warn if
+	barCheckLastFail was changed.
+
+	* scm/define-translator-properties.scm (barCheckLastFail): add
+	property.
+
 	* lily/main.cc (main_prog): print summary of failed files.
 
 	* lily/axis-group-engraver.cc: move all spanner creation to
 	process_music (). Now staffs can be adjusted with \override too.
+	(Jan, you are a brilliant programmer!)
 	
 	* lily/chord-tremolo-engraver.cc (try_music): fix spurious warning. 
 

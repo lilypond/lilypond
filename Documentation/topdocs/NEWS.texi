@@ -10,6 +10,22 @@
 Unreleased:
 
 @itemize
+@end itemize
+
+Version 2.1.7
+
+@itemize @bullet
+
+@item Contexts may now be changed locally for an isolated music
+expression. For example,
+  
+@example
+  \new Voice \with @{
+     \consists "Pitch_squash_engraver"
+  @} @{
+    c'4
+  @}
+@end example
 
 @item The syntax for changing staffs has changed. The keyword
 @code{\change} should now be used, e.g.
@@ -18,24 +34,19 @@ Unreleased:
   \change Staff = up
 @end example 
 
-@item  Features of spanner contexts, like @code{Staff}, can now be changed easily:
+@item Features of spanner contexts, like @code{Staff}, can now be changed
+  using @code{\property}, eg.
 
 @example
-  \new Staff \with @{
-     StaffSymbol \set #'line-count = #4
-  @} @{
-    c'4
-  @}
+  \new Staff @{
+       \property Staff.StaffSymbol \set #'line-count = #4
+       c'4
+  @} 
 @end example
 
 @noindent
 puts a quarter note C on a staff with 4 lines.  
 
-@end itemize
-
-Version 2.1.7
-
-@itemize @bullet
 
 @item Multi measure rests are now truly centered between the
 clefs/barlines of the staff, their position is independent of symbols

@@ -19,9 +19,10 @@ lower = \notes\relative c {
     \new Staff <<
       \upper
     >>  
-    \new Staff \with { StaffSymbol \set #'line-count = #4 } <<
-      \clef bass
-      \lower
+    \new Staff  {
+	\property Staff.StaffSymbol \set #'line-count = #4 } <<
+        \clef bass
+        \lower
     >>  
   >>
   \paper { raggedright=##t}  

@@ -32,7 +32,6 @@ somewhat familiar with using LilyPond.
 * Ancient notation::            
 * Contemporary notation::       
 * Tuning output::               
-* Tuning spanning contexts::    
 * Global layout::               
 * Sound::                       
 @end menu
@@ -813,15 +812,12 @@ staff symbol.
 @cindex thickness of staff lines, setting 
 @cindex number of staff lines, setting 
 
-This object is created whenever a @internalsref{Staff} context is
-created.  To change its appearance, use the @code{\with} command,
-described in @ref{Tuning spanning contexts}.
-
 @seealso
 
+Internals: @internalsref{StaffSymbol},
 
-@internalsref{StaffSymbol}, @inputfileref{input/test,staff-lines.ly},
-@inputfileref{input/test,staff-size.ly}, @ref{Tuning spanning contexts}. 
+Examples: @inputfileref{input/test,staff-lines.ly},
+@inputfileref{input/test,staff-size.ly}
 
 @refbugs
 
@@ -1189,11 +1185,7 @@ The barlines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
-@code{systemStartDelimiter}.  They are spanner objects and therefore
-the objects, as well as @code{systemStartDelimiter} must be set from a
-@code{\translator} block (see @ref{Defining contexts}) or using
-@code{\with} (see @code{Tuning spanning contexts}).
-
+@code{systemStartDelimiter}.
 
 @node Polyphony
 @section Polyphony
@@ -3741,8 +3733,7 @@ chord.
 @cindex Non-guitar tablatures
 
 You can change the number of strings, by setting the number of lines
-in the @internalsref{TabStaff}. For more information, see @ref{Tuning
-spanning contexts}).
+in the @internalsref{TabStaff}. 
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number
@@ -3754,9 +3745,6 @@ g:
 
 @lilypond[fragment,verbatim]
   \context TabStaff <<
-
-    \applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface)
-                    'line-count 4)
     \property TabStaff.stringTunings =  #'(-5 -10 -15 -20)
     
     \notes {
@@ -4927,8 +4915,7 @@ historic style mensural G clef @tab
 Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "vaticana_do2" c
 @end lilypond
@@ -4938,8 +4925,7 @@ Editio Vaticana style do clef @tab
 Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "vaticana_fa2" c
 @end lilypond
@@ -4949,8 +4935,7 @@ Editio Vaticana style fa clef @tab
 Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "medicaea_do2" c
 @end lilypond
@@ -4960,8 +4945,7 @@ Editio Medicaea style do clef @tab
 Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "medicaea_fa2" c
 @end lilypond
@@ -4971,8 +4955,7 @@ Editio Medicaea style fa clef @tab
 historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "hufnagel_do2" c
 @end lilypond
@@ -4982,8 +4965,7 @@ historic style hufnagel do clef @tab
 historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
 @lilypond[relative 0, notime]
-\context Staff
-\applyoutput #(outputproperty-compatibility (make-type-checker 'staff-symbol-interface) 'line-count 4)
+    \property Staff.StaffSymbol \set #'line-count  = #4
 \property Staff.TimeSignature \set #'transparent = ##t
 \clef "hufnagel_fa2" c
 @end lilypond
@@ -7434,6 +7416,10 @@ layout property name:
 
 @menu
 * Tuning objects::              
+* Constructing a tweak::        
+* Applyoutput::                 
+* Font selection::              
+* Text markup::                 
 @end menu
 
 
@@ -7608,40 +7594,6 @@ third note, a new Voice is created, which inherits the new definition,
 including the changed thickness, but excluding the new neutral
 direction.
 
-
-@node Tuning spanning contexts
-@section Tuning spanning contexts
-
-Certain objects, for example, the staff symbol, are constructed before
-any @code{\property} statements are executed.  Therefore, they must be
-tuned with a different mechanism. This mechanism is @code{\with}. The
-syntax is as follows
-
-@example
-  \with @{
-     @var{property-settings}
-  @}
-@end example
-
-These statements comes between @code{\new} or @code{\context} and the
-music to be interpreted. @var{property-settings} may be any type of
-@code{\property} command.  The following example shows how a staff is
-created with bigger spaces:
-
-@lilypond[relative=1,fragment]
-<<  \new Staff { c4 es4 g2 }
-  \new Staff \with {
-        StaffSymbol \set #'staff-space = #(magstep 1.5)
-        fontSize = #1.5
-  } {
-        c4 es4 g2
-  } >>
-@end lilypond
-
-@refbugs
-
-@code{\with} has no effect for already existing contexts. @code{\with}
-can not be used for @internalsref{Score} contexts.
 
 
 @menu

@@ -35,6 +35,7 @@ together with the embedded Scheme interpreter.
 * Context properties::          
 * Context evaluation::          
 * Defining contexts::           
+* Changing contexts locally::   
 * Engravers and performers::    
 * Defining new contexts::       
 @end menu
@@ -284,6 +285,44 @@ command will override any predefined settings.
 It is not possible to collect multiple property assignments in a
 variable, and apply to one @code{\translator} definition by
 referencing that variable.
+
+@node Changing contexts locally
+@subsection Changing contexts locally
+
+
+Extending an existing context can also be done locally. A piece of
+music can be interpreted in a changed context by using the following syntax 
+
+@example
+  \with @{
+     @var{context modifications}
+  @}
+@end example
+
+These statements comes between @code{\new} or @code{\context} and the
+music to be interpreted. The @var{context modifications} property
+settings and @code{\remove}, @code{\consists} and @code{\consistsend}
+commands. The syntax is similar to the @code{\translator} block.
+
+The following example shows how a staff is created with bigger spaces:
+
+@lilypond[relative=1,fragment]
+<<
+  \new Staff { c4 es4 g2 }
+  \new Staff \with {
+        StaffSymbol \set #'staff-space = #(magstep 1.5)
+        fontSize = #1.5
+        \remove "Clef_engraver"
+  } {
+        c4 es4 g2
+  } >>
+@end lilypond
+
+@refbugs
+
+@code{\with} has no effect on contexts that already exist. Neither can
+it be used for @internalsref{Score} contexts.
+
 
 @node Engravers and performers
 @subsection  Engravers and performers

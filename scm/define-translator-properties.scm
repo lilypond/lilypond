@@ -108,6 +108,8 @@ wins. In case of draw, a normal accidental is typeset.
 
 (translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")
+(translator-property-description 'barCheckLastFail ly:moment? "Where in  the measurze did the last barcheck fail?") 
+
 (translator-property-description 'barCheckSynchronize boolean? "If
 true then reset measurePosition when finding a barcheck. Turn off when
 using barchecks in polyphonic music.")
