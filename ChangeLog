@@ -1,3 +1,10 @@
+2004-10-01  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lilyponddefs.tex (\lilypondECencoding): New command to handle
+	T1 encoding in texinfo mode.
+	(\lilypondstart): Use it.
+	(\lilypondloop, \lilyponditerate): Removed.  Unused.
+
 2004-09-30  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lilypondstart): Define

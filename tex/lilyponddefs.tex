@@ -40,6 +40,90 @@
   \fi
 }
 
+%% Urgh.  Lilypond uses EC fonts, but texinfo is based on CM.  We thus
+%% have to handle T1 font encoding by ourselves.  Note that the following
+%% code only provides the texinfo interface, not complete access to all
+%% EC glyphs.
+
+\begingroup
+\catcode `\@=11\relax
+\gdef\lilypondECencoding{
+  \def\"##1{
+    {\accent4 ##1}}
+  \def\'##1{
+    {\accent1 ##1}}
+  \def\,##1{
+    {\leavevmode
+     \setbox\z@\hbox{##1}
+     \ifdim\ht\z@=1ex
+       \accent11 ##1
+     \else
+       {\ooalign{
+          \unhbox\z@
+          \crcr
+          \hidewidth
+          \char11
+          \hidewidth}}
+     \fi}}
+  \def\=##1{
+    {\accent9 ##1}}
+  \def\^##1{
+    {\accent2 ##1}}
+  \def\`##1{
+    {\accent0 ##1}}
+  \def\~##1{
+    {\accent3 ##1}}
+  \def\dotaccent##1{
+    {\accent10 ##1}}
+  \def\H##1{
+    {\accent5 ##1}}
+  \def\ringaccent##1{
+    {\accent6 ##1}}
+% \def\tieaccent##1{}        % unsupported: this is TS1
+  \def\u##1{
+    {\accent8 ##1}}
+  \def\ubaraccent##1{
+    {\o@lign{
+       \relax
+       ##1
+       \crcr
+       \hidewidth
+       \sh@ft{29}\vbox to.2ex{
+         \hbox{\char9}
+         \vss}
+       \hidewidth}}}
+  \def\udotaccent##1{
+    {\o@lign{
+       \relax
+       ##1
+       \crcr
+       \hidewidth
+       \sh@ft{10}.
+       \hidewidth}}}
+  \def\v##1{
+    {\accent7 ##1}}
+
+  \chardef\exclamdown=189
+  \chardef\questiondown=190
+
+  \def\aa{
+    \ringaccent{a}}
+  \def\AA{
+    \ringaccent{A}}
+  \chardef\AE=198
+  \chardef\ae=230
+  \chardef\ptexi=25
+  \chardef\j=26
+  \chardef\L=138
+  \chardef\l=170
+  \chardef\O=216
+  \chardef\o=248
+  \chardef\OE=215
+  \chardef\oe=247
+  \chardef\ss=255
+}
+\endgroup
+
 \gdef\lilypondstart{
   \frenchspacing
   \begingroup
@@ -49,14 +133,16 @@
     {%% either plain TeX or texinfo or not at the beginning of LaTeX input
      \def\x{
        \endgroup
-       \def\lilypondfontencoding####1{}}}
+       \def\lilypondfontencoding####1{
+         \lilypondECencoding}}}
     {%% FIXME: a4
      %% provide a proper LaTeX preamble (for A4 paper format)
      \def\x{
        \endgroup
        \def\lilyponddocument{}
        \def\lilypondfontencoding####1{
-         \fontencoding{####1}\selectfont}
+         \fontencoding{####1}
+         \selectfont}
        \documentclass[a4paper]{article}
        %% safe-mode
        \nofiles
@@ -95,26 +181,12 @@
     {\def\x{\endgroup\csname end\endcsname{document}}}
   \x}
 
-%% Inversed \loop ... \repeat macro
-\def\lilypondloop#1\lilypondrepeat{
-  \def\lilypondbody{#1}
-  \lilyponditerate}
-
-\def\lilyponditerate{
-  % \if ...
-    \lilypondbody
-    \let\lilypondnext \relax
-  \else
-    \let\lilypondnext \lilyponditerate
-  \fi
-  \lilypondnext}
-
 %% Allow overriding of pagebreak
 \lilypondifundefined{lilypondpagebreak}
-{\lilypondifundefined{@nodocument}
-   {\gdef\lilypondpagebreak{\eject}}
-   {\gdef\lilypondpagebreak{\newpage}}}
-{}
+  {\lilypondifundefined{@nodocument}
+     {\gdef\lilypondpagebreak{\eject}}
+     {\gdef\lilypondpagebreak{\newpage}}}
+  {}
       
 %% Include \special only once.
 \gdef\lilypondspecial{
@@ -153,22 +225,22 @@
 
 %% Allow overriding of interscoreline, e.g. for lilypond.py's --preview
 \lilypondifundefined{interscoreline}
-{\lilypondifundefined{lilypondclassic}
-   {\gdef\interscoreline{}}
-   {\gdef\interscoreline{
-      \vskip\lilypondpaperinterscoreline\lilypondpaperunit
-      plus \lilypondpaperinterscorelinefill fill}}}
-{}
+  {\lilypondifundefined{lilypondclassic}
+     {\gdef\interscoreline{}}
+     {\gdef\interscoreline{
+        \vskip\lilypondpaperinterscoreline\lilypondpaperunit
+        plus \lilypondpaperinterscorelinefill fill}}}
+  {}
 
 %% Include postscript definitions unless using PDFTeX,
 %% in that case use pdf definitions.
 %% MiKTeX workaround: use \csname.
 \lilypondifundefined{lilypondpostscript}
-{\lilypondifundefined{pdfoutput}
-   {\input lily-ps-defs }
-   {\pdfoutput = 1
-    \input lily-pdf-defs }}
-{}
+  {\lilypondifundefined{pdfoutput}
+     {\input lily-ps-defs }
+     {\pdfoutput = 1
+      \input lily-pdf-defs }}
+  {}
 
 %% Restore newline functionality (disabled to avoid \par).
 \endlinechar \lilyponddefsELC
