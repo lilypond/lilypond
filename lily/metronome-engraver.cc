@@ -50,7 +50,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
       Grob*mc = unsmob_grob (get_property( "currentMusicalColumn"));
       text_->set_parent (mc, X_AXIS);
       text_->set_property ("side-support-elements" , get_property ("stavesFound"));
-      
+      typeset_grob (text_);
       text_ =0;
     }
   mark_ev_ = 0;
@@ -65,7 +65,6 @@ Metronome_mark_engraver::create_items (Music *rq)
 
   text_ = make_item ("MetronomeMark");
   announce_grob (text_, rq->self_scm ());
-
 }
 
 

@@ -343,7 +343,7 @@ and/or @code{extra-offset} properties. "
 (def-markup-command (note-by-number paper props log dot-count dir) (number? number? number?)
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
-  
+
   (let* ((font (ly:paper-get-font paper (cons '((font-encoding . music)) props)))
          (stemlen (max 3 (- log 1)))
          (headgl (ly:find-glyph-by-name

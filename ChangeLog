@@ -1,3 +1,8 @@
+2004-08-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/metronome-engraver.cc (stop_translation_timestep): call
+	typeset_grob().
+
 2004-08-20  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* scripts/lilypond.py (ly_paper_to_latexpaper): Only set the
