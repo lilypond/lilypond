@@ -56,7 +56,8 @@ web-ext = gz html midi pdf png txt ly
 
 footify=$(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
 
-local-WWW-post: 
+local-WWW-post:  
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(builddir)/examples.html ./
 	$(footify) `$(FIND) $(builddir) -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
@@ -66,6 +67,7 @@ local-WWW-post:
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
 	cd $(builddir) && ls *.html >> $(outdir)/weblist
 	cat $(outdir)/weblist | (cd $(builddir); GZIP=-9v tar -czf $(outdir)/web.tar.gz  -T -)
+
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
@@ -134,3 +136,10 @@ $(config_h): configure.in aclocal.m4
 	@echo '         rm $(config_h); ./autogen.sh'
 	@echo
 	@false
+
+
+# maybe move into private script?
+rsync-web:
+	cd out-www &&  mkdir web && tar  -xzf web.tar.gz -C web
+	cd out-www/web &&  rsync --delete --stats --progress -lavu -e ssh . x:/var/www/lilypond/doc/v1.8/
+	cd out-www && rm -rf web/

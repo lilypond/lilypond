@@ -1,3 +1,14 @@
+2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* GNUmakefile.in (local-WWW-post): move mutopia-index to toplevel
+	local-WWW-post target.
+	(rsync-web): add rsync-web target
+
+	* Documentation/user/introduction.itely (Music notation and
+	engraving): add neume example
+
+	* input/puer-fragment.ly (cantus): add puer-fragment
+
 2003-08-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/no-notation/midi-volume-equaliser.ly: Add volume setting
