@@ -383,7 +383,7 @@ void
 set_end_points (Grob *me)
 {
   Link_array<Grob> columns
-    = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");
+    = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
   Slur_score_parameters params;
   if (columns.is_empty ())
     {
@@ -443,10 +443,8 @@ set_end_points (Grob *me)
       && ly_c_pair_p (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
-      int i = 0;
-
       Real mindist = 1e6;
-      for (; i < scores.size (); i ++)
+      for (int i = 0; i < scores.size (); i ++)
 	{
 	  Real d =fabs (scores[i].attachment_[LEFT][Y_AXIS] - ins[LEFT])
 	    + fabs (scores[i].attachment_[RIGHT][Y_AXIS] - ins[RIGHT]);
@@ -470,13 +468,11 @@ set_end_points (Grob *me)
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
     {
-      Offset o = b.control_[i] -
-	Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
-		me->relative_coordinate (common[Y_AXIS], Y_AXIS));
-
+      Offset o = b.control_[i]
+	- Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
+		  me->relative_coordinate (common[Y_AXIS], Y_AXIS));
       controls = scm_cons (ly_offset2scm (o), controls);
     }
-
   me->set_property ("control-points", controls);
 }
 
@@ -544,20 +540,6 @@ get_base_attachments (Spanner *me,
 	  else if (head)
 	    y = head->extent (common[Y_AXIS], Y_AXIS)[dir];
 	  y += dir * 0.5 * staff_space;
-
-	  if (stem)
-	    {
-	      SCM scripts = stem->get_property ((dir == UP
-						 ? "script-up"
-						 : "script-down"));
-
-	      /* FIXME: number of scripts, height, priority?
-	         articulation scripts should be inside slur, other,
-	         such as dynamics, pedals, fingering, should be
-	         outside.  */
-	      if (!SCM_NULLP (scripts))
-		y += dir * staff_space;
-	    }
 
 	  Real pos
 	    = (y - extremes[d].staff_->relative_coordinate (common[Y_AXIS],
@@ -848,15 +830,6 @@ score_extra_encompass (Grob *me, Grob *common[],
   Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
-  /* FIXME: use actual height of script?
-
-   ugh: see slur-script.ly
-        must be <= 0.75 for  b-.( b-.  BUT
-        must be >= 0.9 for b-- ( b-)
-
-	both settings break the other.  */
-  Real y_padding = 0.9 * staff_space;
-
   Array<Real> xs;
   Array<Interval> yexts;
   for (int i = 0; i < encompasses.size (); i++)
@@ -901,7 +874,6 @@ score_extra_encompass (Grob *me, Grob *common[],
 
       xs.push (xe.linear_combination (xp));
       ye.widen (thick * 0.5);
-      ye[dir] += dir * y_padding;
       yexts.push (ye);
     }
 
