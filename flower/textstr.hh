@@ -7,8 +7,7 @@
 #include "string.hh"
 #include "varray.hh"
 
-/// line counting input stream.
-/**
+/**  line counting input stream. 
  a stream for textfiles. linecounting. Thin interface getchar and
  ungetchar.  (ungetc is unlimited) 
 

@@ -19,8 +19,7 @@
 
 #include "stringutil.hh"
 
-/// the smart string class.
-/** 
+/**  the smart string class.  
 
   Intuitive string class. provides 
 
@@ -50,8 +49,7 @@ protected:
     String_handle data; // should derive String from String_handle?
 
 public:
-    /// init to ""
-    /** needed because other constructors are provided.*/
+    /**  init to "".  needed because other constructors are provided.*/
     String() {  }                  
     String(Rational);
     /// String s = "abc";
@@ -118,8 +116,7 @@ public:
     /// index of rightmost element of string 
     int lastPos( const char* string ) const;
 
-    /// index of leftmost c
-    /**
+    /**  index of leftmost c. 
     RETURN:
     0 if not found, else index + 1
     */

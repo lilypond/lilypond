@@ -28,8 +28,7 @@ operator op(type t1, type t2)\
 #define gpp_minmax(type, prefix)
 #endif
 
-/// handy notations for a signed comparison
-/**
+/**  handy notations for a signed comparison. 
     make the operators{<,<=,==,>=,>} and the MAX and MIN of two.
     Please fill a & in the type argument if necessary.    
     */

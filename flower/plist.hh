@@ -9,12 +9,15 @@
 
 #include "list.hh"
 
-/// Use for list of pointers, e.g. PointerList<AbstractType*>.
 /**
+  A list of pointers.
+  
+  Use for list of pointers, e.g. PointerList<AbstractType*>. 
   This class does no deletion of the pointers, but it knows how to
   copy itself (shallow copy). We could have derived it from List<T>,
   but this design saves a lot of code dup; for all PointerLists in the
-  program only one parent List<void*> is instantiated.  */
+  program only one parent List<void*> is instantiated.
+  */
 template<class T>
 class PointerList : public List<void *>
 {
@@ -30,8 +33,7 @@ class PointerList : public List<void *>
     PointerList() {}
 };
 
-///  pl. which deletes pointers given to it.
-/**
+/**   PointerList which deletes pointers given to it. 
   NOTE:
   
   The copy constructor doesn't do what you'd want:
@@ -43,7 +45,8 @@ class PointerList : public List<void *>
   
   */
 template<class T>
-struct IPointerList : public PointerList<T> {
+class IPointerList : public PointerList<T> {
+public:
     IPointerList(const IPointerList&) { set_empty(); }
     IPointerList() { }
     ~IPointerList();

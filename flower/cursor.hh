@@ -6,8 +6,7 @@
 #include "link.hh"
 template<class T> class List;
 
-/// iterator to List
-/** 
+/**  iterator to List.  
   add and insert extend the list
   items are always stored as copies in List, but:
   List<String> :  copies of String stored 
@@ -19,8 +18,8 @@ template<class T>
 class Cursor 
 {
  public:
-    /** this isn't true, actually, #list# surely isn't const, but I get
-      tired of the warning messages.  */
+    /** create cursor, set at top. The const part isn't true, actually, #list#
+      surely isn't const, but I get tired of the warning messages.  */
     Cursor( const List<T>& list, Link<T>* pointer = 0 );
     
     Cursor( const Cursor<T>& cursor );
@@ -56,8 +55,7 @@ class Cursor
     /// -- items left?
     bool backward();
 
-    /// put (copy) after me in List
-    /**
+    /**  put (copy) after me in List. 
       analogously to editor. ok() interpreted as at end
       of line.
 
@@ -70,8 +68,7 @@ class Cursor
       */
     void add( const T& thing );
 
-    /// put (copy) before me in List
-    /**
+    /**  put (copy) before me in List. 
       analogously to editor. ok() interpreted as at begin of
       line.
       

@@ -19,7 +19,6 @@ fversion.hh: Variables.make make_version
 
 .PHONY: docxx
 docxx: $(hh) $(cc) $(templatecc) $(inl)
-	-mkdir docxx
 	doc++ -p -d docxx $(hh) $(cc) $(templatecc) $(inl)
 
 dist:

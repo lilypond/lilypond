@@ -15,9 +15,9 @@ inline void arrcpy(T*dest, T*src, int count) {
 	*dest++ = *src++;
 }
 
-///scaleable array/stack template, for T with def ctor.
-/**
 
+/**
+  scaleable array/stack template, for T with def ctor.
   This template implements a scaleable vector. With (or without) range
   checking. It may be flaky for objects with complicated con- and
   destructors. The type T should have a default constructor. It is
@@ -52,8 +52,9 @@ public:
 	assert(max >= size_ && size_ >=0);
 	if (max) assert(thearray);
     }
-    /// report the size_. See {setsize_}
-
+    /** report the size_.
+      @see {setsize_}
+      */
     int size() const  { return size_; }
     
     /// POST: size() == 0
@@ -61,13 +62,14 @@ public:
 
     Array() { thearray = 0; max =0; size_ =0; }
 
-    /// set the size_ to #s#
+
+    /** set the size_ to #s#.
+      POST: size() == s.
+    Warning: contents are unspecified */
     void set_size(int s) {
 	if (s >= max) remax(s);
 	size_ = s;    
     }
-    /** POST: size() == s.
-    Warning: contents are unspecified */
     
     ~Array() { delete[] thearray; }
 
