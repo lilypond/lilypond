@@ -823,9 +823,7 @@ avoid_silly_flex_induced_gcc_warnings ()
 SCM
 lookup_markup_command (String s)
 {
-	static SCM proc ;
-	if (!proc)
-		proc = scm_c_eval_string ("lookup-markup-command");
+	SCM proc = ly_scheme_function ("lookup-markup-command");
 
 	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
 }

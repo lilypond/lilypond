@@ -289,11 +289,8 @@ main_with_guile (void *, int, char **)
 #if 0
       /* Code to debug memory leaks.  Cannot call from within .ly
 	 since then we get the protects from the parser state too.  */
-      static SCM proc;
-      if (!proc)
-	proc = scm_c_eval_string ("dump-gc-protects");
       scm_gc ();
-      scm_call_0 (proc);
+      scm_call_0 (ly_scheme_function ("dump-gc-protects"));
 #endif
       
       do_one_file (arg);

@@ -22,5 +22,6 @@ void  ly_reexport_module (SCM mod);
 inline bool ly_module_p (SCM x) { return SCM_MODULEP(x); }
 void ly_clear_anonymous_modules ();
 
+
 #endif /* LY_MODULE_HH */
 

@@ -367,26 +367,30 @@ L1 is copied, L2 not.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
-(use-modules (scm output-tex)
-	     (scm output-sketch)
-	     (scm output-sodipodi)
-	     (scm output-pdftex))
+(use-modules
+	     ;(scm output-sketch)
+	     ;(scm output-sodipodi)
+	     ;(scm output-pdftex)
+
+	     )
 
 
-;;(define output-tex-module
-;;  (make-module 1021 (list (resolve-interface '(scm new-output-tex)))))
-
-(define (new-tex-output-expression expr port)
+(define output-tex-module
+  (make-module 1021 (list (resolve-interface '(scm output-tex)))))
+(define output-ps-module
+  (make-module 1021 (list (resolve-interface '(scm output-ps)))))
+(define-public (tex-output-expression expr port)
   (display (eval expr output-tex-module) port))
+(define-public (ps-output-expression expr port)
+  (display (eval expr output-ps-module) port))
 
 (define output-alist
   `(
     ("tex" . ("TeX output. The default output form." ,tex-output-expression))
-;;    ("safetex" . ("TeX output. The default output form." ,new-tex-output-expression))
     ("scm" . ("Scheme dump: debug scheme stencil expressions" ,write))
-    ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
-    ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))
-    ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))
+;    ("sketch" . ("Bare bones Sketch output." ,sketch-output-expression))
+;    ("sodipodi" . ("Bare bones Sodipodi output." ,sodipodi-output-expression))
+;    ("pdftex" . ("PDFTeX output. Was last seen nonfunctioning." ,pdftex-output-expression))
     ))
 
 

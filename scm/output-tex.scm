@@ -7,30 +7,55 @@
 
 
 ;; (debug-enable 'backtrace)
-(define-module (scm output-tex))
+(define-module (scm output-tex)
+  #:re-export (quote)
+  #:export (define-fonts
+	     unknown
+	     output-paper-def
+	     output-scopes
+	     select-font
+	     blank
+	     dot
+	     beam
+	     bracket
+	     dashed-slur
+	     char
+	     dashed-line
+	     zigzag-line
+	     symmetric-x-triangle
+	     ez-ball
+	     comment
+	     end-output
+	     experimental-on
+	     repeat-slash
+	     header-end
+	     header
+	     placebox
+	     bezier-sandwich
+	     start-system
+	     stop-system
+	     stop-last-system
+	     horizontal-line
+	     filledbox
+	     round-filled-box
+	     text
+	     tuplet
+	     polygon
+	     draw-line
+	     between-system-string
+	     define-origin
+	     no-origin
+	     start-page
+	     stop-page
+	     )
+)
+
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
 	     (lily))
-
-(define this-module (current-module))
-
-;; dumper-compatibility
-(define output-ps #f)
-(define (ps-output-expression expr port)
-  (if (not output-ps)
-      (let ((ps-module (resolve-module '(scm output-ps))))
-	(eval '(use-modules (guile) (ice-9 regex) (srfi srfi-13) (lily))
-	      ps-module)
-	(set! output-ps ps-module)))
-  (display (eval expr output-ps) port))
-
-;;; Output interface entry
-
-(define-public (tex-output-expression expr port)
-  (display (eval expr this-module) port ))
 
 ;;;;;;;;
 ;;;;;;;; DOCUMENT ME!
@@ -51,7 +76,7 @@
 			  (string-encode-integer
 			   (inexact->exact (round (* 1000 (cdr ename-mag))))))))))
 
-(define (define-fonts internal-external-name-mag-pairs)
+(define-public (define-fonts internal-external-name-mag-pairs)
   (set! font-name-alist (map tex-encoded-fontswitch
 			     internal-external-name-mag-pairs))
   (apply string-append
@@ -64,12 +89,12 @@
 ;;
 ;; set! returns #<unspecified>  --hwn
 ;;
-(define (fontify name-mag-pair exp)
+(define-public (fontify name-mag-pair exp)
   (string-append (select-font name-mag-pair)
 		 exp))
 
 
-(define (unknown) 
+(define-public (unknown) 
   "%\n\\unknown\n")
 
 (define (symbol->tex-key sym)

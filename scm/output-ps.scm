@@ -18,7 +18,48 @@
 
 (debug-enable 'backtrace)
 
-(define-module (scm output-ps))
+(define-module (scm output-ps)
+  #:re-export (quote)
+  #:export (define-fonts
+	     unknown
+	     output-paper-def
+	     output-scopes
+	     select-font
+	     blank
+	     dot
+	     beam
+	     bracket
+	     dashed-slur
+	     char
+	     dashed-line
+	     zigzag-line
+	     symmetric-x-triangle
+	     ez-ball
+	     comment
+	     end-output
+	     experimental-on
+	     repeat-slash
+	     header-end
+	     header
+	     placebox
+	     bezier-sandwich
+	     start-system
+	     stop-system
+	     stop-last-system
+	     horizontal-line
+	     filledbox
+	     round-filled-box
+	     text
+	     tuplet
+	     polygon
+	     draw-line
+	     between-system-string
+	     define-origin
+	     no-origin
+	     start-page
+	     stop-page
+	     )
+)
 (use-modules (guile)
 	     (ice-9 regex)
 	     (srfi srfi-13)

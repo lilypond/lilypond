@@ -262,8 +262,9 @@ are contained in a context.
 @node Changing context properties on the fly 
 @subsection Changing context properties  on the fly
 
-Such variables can be changed during the interpretation step.
-This is achieved by  inserting the @code{\set} command in the music,
+Context variables, properties, can be changed during the
+interpretation step.  This is achieved by inserting the @code{\set}
+command in the music,
 
 @quotation
   @code{\set }[@var{context}]@code{.}@var{prop}@code{ = #}@var{value} 
@@ -294,7 +295,9 @@ In this example,
 the @var{context} argument to @code{\set} is left out, and the current
 @internalsref{Voice} is used.  Contexts are hierarchical, so if a
 bigger context was specified, for example @code{Staff}, then the
-change would apply to all Voices in the current stave.
+change would apply to all Voices in the current stave. The change is
+applied `on-the-fly', during the music, so that the setting only
+affects the second group of eighth notes.
 
 There is also an @code{\unset} command,
 @quotation
@@ -307,17 +310,50 @@ definitions  set in
 @var{context}. in
 
 @example
-  \set staff.autobeaming = ##f
-  \unset voice.autobeaming
+  \set staff.autoBeaming = ##f
+  \unset voice.autoBeaming
 @end example
 
 @noindent
 the current voice does not have the property, and the definition at
 staff level remains intact.
 
-@node context property defaults 
-@subsection context property defaults
+Settings that should only apply to a single time-step  can be entered
+easily with @code{\once}, for example in 
 
+@lilypond[verbatim,relative=2]
+  c4
+  \once \set fontSize = #4.7
+  c4
+  c4
+@end lilypond
+
+@code{fontSize} is unset after the third note.
+
+@node Modifying context plug-ins
+@subsection Modifying context plug-ins
+
+
+
+@node Defining context defaults 
+@subsection Defining context defaults
+
+Context properties can be set as defaults, within the
+@code{\paper} block. For example, 
+
+@verbatim
+\paper {
+  \context {
+    \ScoreContext
+    skipBars = ##t
+  }
+}
+@end verbatim
+
+@noindent
+will set skipBars default 
+
+When This    score-wide
 
 
 @node which properties to change

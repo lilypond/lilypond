@@ -140,9 +140,7 @@ is_regular_identifier (SCM id)
 SCM
 make_simple_markup (SCM a)
 {
-	static SCM simple;
-	if (!simple)
-	simple = scm_c_eval_string ("simple-markup");
+ SCM simple = scm_c_eval_string ("simple-markup");
 
 	return scm_list_2 (simple, a);
 }
@@ -179,9 +177,7 @@ make_chord_step (int step, int alter)
 SCM
 make_chord (SCM pitch, SCM dur, SCM modification_list)
 {
-	static SCM chord_ctor;
-	if (!chord_ctor)
-		chord_ctor= scm_c_eval_string ("construct-chord");
+	SCM chord_ctor = ly_scheme_function ("construct-chord");
 	SCM ch=  scm_call_3 (chord_ctor, pitch, dur, modification_list);
 	scm_gc_protect_object (ch);
 	return ch;
@@ -622,7 +618,7 @@ score_body:
 		/*
 			guh.
 		*/
-		SCM check_funcs = scm_c_eval_string ("toplevel-music-functions");
+		SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
 		for (; gh_pair_p (check_funcs); check_funcs = gh_cdr (check_funcs))
 			m = gh_call1 (gh_car (check_funcs), m);
 		$$->music_ = m;
@@ -782,9 +778,7 @@ Repeated_music:
 		}
 
 
-		static SCM proc;
-		if (!proc)
-			proc = scm_c_eval_string ("make-repeated-music");
+		SCM proc = ly_scheme_function ("make-repeated-music");
 
 		SCM mus = scm_call_1 (proc, $2);
 		scm_gc_protect_object (mus); // UGH. 
@@ -899,9 +893,7 @@ context_mod_list:
 
 Composite_music:
 	AUTOCHANGE Music	{
-		static SCM proc ;
-		if (!proc)
-			proc = scm_c_eval_string ("make-autochange-music");
+		SCM proc = ly_scheme_function ("make-autochange-music");
 	
 		SCM res = scm_call_1 (proc,  $2->self_scm ());
 		scm_gc_unprotect_object ($2->self_scm ());
@@ -910,9 +902,7 @@ Composite_music:
 		$$->set_spot (THIS->here_input ());
 	}
 	| PARTCOMBINE Music Music {
-		static SCM proc;
-		if (!proc)
-			proc = scm_c_eval_string ("make-part-combine-music");
+		SCM proc = ly_scheme_function ("make-part-combine-music");
 
 		SCM res = scm_call_1 (proc, gh_list ($2->self_scm (),
 			$3->self_scm (), SCM_UNDEFINED));  
@@ -1346,9 +1336,7 @@ chord_body_element:
 
 add_quote:
 	ADDQUOTE string Music {
-		static SCM adder;
-		if (!adder)
-			adder = scm_c_eval_string ("add-quotable");
+		SCM adder = ly_scheme_function ("add-quotable");
 		
 		scm_call_2 (adder, $2, $3->self_scm ());
 		scm_gc_unprotect_object ($3->self_scm ());
@@ -1454,27 +1442,21 @@ command_element:
 		$$ =p ;
 	}
 	| CLEF STRING  {
-		static SCM proc ;
-		if (!proc)
-			proc = scm_c_eval_string ("make-clef-set");
+		SCM proc = ly_scheme_function ("make-clef-set");
 
 		SCM result = scm_call_1 (proc, $2);
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
 	| TIME_T fraction  {
-		static SCM proc;
-		if (!proc)
-			proc = scm_c_eval_string ("make-time-signature-set");
+		SCM proc= ly_scheme_function ("make-time-signature-set");
 
 		SCM result = scm_apply_2   (proc, gh_car ($2), gh_cdr ($2), SCM_EOL);
 		scm_gc_protect_object (result);
 		$$ = unsmob_music (result);
 	}
 	| MARK scalar {
-		static SCM proc;
-		if (!proc)
-			proc = scm_c_eval_string ("make-mark-set");
+		SCM proc = ly_scheme_function ("make-mark-set");
 
 		SCM result = scm_call_1 (proc, $2);
 		scm_gc_protect_object (result);
@@ -2074,10 +2056,7 @@ simple_element:
 	| MULTI_MEASURE_REST optional_notemode_duration  	{
 		THIS->pop_spot ();
 
-		static SCM proc ;
-		if (!proc)
-			proc = scm_c_eval_string ("make-multi-measure-rest");
-
+		SCM proc = ly_scheme_function ("make-multi-measure-rest");
 		SCM mus = scm_call_2 (proc, $2,
 			make_input (THIS->here_input ()));	
 		scm_gc_protect_object (mus);
@@ -2348,9 +2327,7 @@ markup_list:
 
 markup_line:
 	'{' markup_list_body '}' {
-		static SCM line ;
-		if (!line)
-			line = scm_c_eval_string ("line-markup");
+		SCM line = ly_scheme_function ("line-markup");
 	
 		$$ = scm_list_2 (line, scm_reverse_x ($2, SCM_EOL));
 	}

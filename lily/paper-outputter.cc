@@ -96,12 +96,8 @@ Paper_outputter::Paper_outputter (String name)
     }
   else
     {
-      static SCM find_dumper;
-      if (!find_dumper)
-	find_dumper = scm_c_eval_string ("find-dumper");
-      
       output_func_
-	= scm_call_1 (find_dumper,
+	= scm_call_1 (ly_scheme_function ("find-dumper"),
 		      scm_makfrom0str (output_format_global.to_str0 ()));
       output_module_ = SCM_EOL;
     }

@@ -447,8 +447,6 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 }
 
 
-SCM grob_list_p; 
-
 /*
   Although the substitution can be written as
 
@@ -465,8 +463,7 @@ SCM grob_list_p;
 SCM
 substitute_mutable_property_alist (SCM alist)
 {
-  if (!grob_list_p)
-    grob_list_p = scm_c_eval_string ("grob-list?");
+  SCM grob_list_p = ly_scheme_function ("grob-list?");
 
   SCM l = SCM_EOL;
   SCM *tail = &l;
@@ -497,6 +494,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
   Spanner*s = this;
   
   bool fast_done = false;
+  SCM grob_list_p = ly_scheme_function ("grob-list?");
   if (type == grob_list_p)
     fast_done = s->fast_fubstitute_grob_list (sym, val);
 
