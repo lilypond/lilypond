@@ -1,3 +1,7 @@
+2003-06-03  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: match two-char slurs \[ ... \] and \( ... \).
+
 2003-06-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ascii-script.scm (as-font-alist-alist):
@@ -60,9 +64,6 @@
 
 	* scm/output-lib.scm (func, arg->string): Re-add from archive.
 	(Were these silently removed, without ChangeLog entry?)
-2003-06-03  Heikki Junes  <hjunes@cc.hut.fi>
-
-	* lilypond-indent.el: match two-char slurs \[ ... \] and \( ... \).
 
 2003-05-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
