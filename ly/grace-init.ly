@@ -9,20 +9,20 @@ startGraceMusic = {
     \property Voice.Stem \override #'lengths = 
         #(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0))
     \property Voice.Stem \override #'beamed-lengths =
-        #(map (lambda (x) (* 1.25 x)) '(0.0 2.5 2.0 1.5))
+        #(map (lambda (x) (* 0.8 x)) '(0.0 2.5 2.0 1.5))
     \property Voice.Stem \override #'beamed-minimum-lengths =
-        #(map (lambda (x) (* 1.25 x)) '(0.0 1.5 1.25 1.0))
+        #(map (lambda (x) (* 0.8 x)) '(0.0 1.5 1.25 1.0))
     \property Voice.Stem \override #'no-stem-extend = ##t
     \property Voice.Stem \override #'flag-style  = #"grace"
 
     \property Voice.Beam \override #'space-function = #grace-beam-space-function
-    \property Voice.Beam \override #'thickness = #0.3
+    \property Voice.Beam \override #'thickness = #0.384
     
     % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will
     % be smaller as well.
 
     \property Voice.fontSize = #-2
-    \property Staff.LocalKeyItem \override #'font-relative-size = #-2
+    \property Staff.Accidentals \override #'font-relative-size = #-2
 }
 
 stopGraceMusic = {

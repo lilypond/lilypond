@@ -478,7 +478,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
     UGH: KLUDGE!
   */
   
-  if (delta_t > Moment (1,32))
+  if (delta_t > Moment (Rational (1,32)))
     dist += stem_dir_correction (me, lc,rc);
 
 

@@ -103,7 +103,8 @@ Articulation_req::do_equal_b (Request const* r) const
   Articulation_req const* a = dynamic_cast<Articulation_req const*> (r);
   
   return a && gh_equal_p (get_mus_property ("articulation-type"),
-			  r->get_mus_property ("articulation-type"));
+			  r->get_mus_property ("articulation-type"))
+    && get_direction () == a->get_direction ();
 }
 
 

@@ -83,6 +83,7 @@ centered, X==1 is at the right, X == -1 is at the left."
     ((default) '(1.0 . 0.5))
     ((cross) '(1.0 . 0.75))
     ((mensural) '(0.0 . 0.6))
+    ((neo_mensural) '(0.0 . 0.6))
     ((diamond) '(1.0 . 0.8))
     ((transparent) '(1.0 . 1.0))
     ((slash) '(1.0 . 1.0))

@@ -23,8 +23,8 @@ class Moment
 public:
   Moment ();
   Moment (int m);
-  Moment (int m, int n);
 
+  Moment (Rational, Rational);
   Moment (Rational m);
 
   Moment operator - () const;

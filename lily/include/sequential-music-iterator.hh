@@ -35,13 +35,13 @@
   by initting here_mom_ with Music::start_music (); no fixups are needed.
 
 */
-struct Grace_skip 
+struct Grace_fixup 
 {
   Moment start_;
-  Rational length_;
+  Moment length_;
 
   Rational grace_start_;  
-  Grace_skip *next_;
+  Grace_fixup *next_;
 };
 
 /** Sequential_music iteration: walk each element in turn, and
@@ -51,7 +51,7 @@ struct Grace_skip
 class Sequential_music_iterator :  public Music_iterator
 {
 public:
-  Grace_skip * grace_skips_;
+  Grace_fixup * grace_fixups_;
   
   VIRTUAL_COPY_CONS (Music_iterator);
   static SCM constructor_cxx_function;

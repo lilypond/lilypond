@@ -85,6 +85,8 @@ Music_sequence::cumulative_length () const
 
   last_len.grace_part_ = Rational (0);
   cumulative += last_len;
+
+  cumulative += - first_start ();
   
   return  cumulative;
 }
@@ -101,8 +103,14 @@ Music_sequence::maximum_length () const
 {
   Moment dur = 0;
   for (SCM s = music_list (); gh_pair_p (s);  s = gh_cdr (s))
-    dur = dur >? unsmob_music (gh_car (s))->length_mom ();
+    {
+      Music * m = unsmob_music (gh_car (s));
+      Moment l = m->length_mom () + m->start_mom ();
+      dur = dur >? l;
+    }
 
+  dur -= minimum_start ();
+  
   return dur;
 }
 int

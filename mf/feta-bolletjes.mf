@@ -110,7 +110,7 @@ fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
 	draw_brevis(brevis_wid#);
 fet_endchar;
 
-def draw_mensural_black_head (expr wid) =
+def draw_neo_mensural_black_head (expr wid) =
 	save head_width;
 	head_width# = wid;
 	set_char_box (0, head_width#, noteheight#/2, noteheight#/2);
@@ -128,8 +128,8 @@ def draw_mensural_black_head (expr wid) =
 	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
 enddef;
 
-def draw_mensural_open_head (expr wid)=
-	draw_mensural_black_head (wid);
+def draw_neo_mensural_open_head (expr wid)=
+	draw_neo_mensural_black_head (wid);
 	save diamNW, diamSW;
 	diamNW = length (z2 - z1) + blot_diameter;
 	diamSW = length (z4 - z1) + blot_diameter;
@@ -148,16 +148,57 @@ def draw_mensural_open_head (expr wid)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
+fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralminimhead")
+      draw_neo_mensural_open_head (staff_space#);
+fet_endchar;
+
+fet_beginchar("Neo-mensural open head","1neo_mensural","neomensuralsemiminimhead")
+      draw_neo_mensural_open_head (staff_space#);
+fet_endchar;
+
+fet_beginchar("Neo-mensural black head","2neo_mensural","neofusahead")
+      draw_neo_mensural_black_head (staff_space#);
+fet_endchar;
+
+
+def draw_mensural_head (expr wid, open) =
+      save head_width;
+      head_width# = wid;
+      set_char_box (0, head_width#,
+		    noteheight#/2, noteheight#/2);
+
+      define_pixels(head_width, noteheight);
+
+      x2 = head_width/2;
+      y2 = 1.1 noteheight/2;
+      y1 = 0;
+      (x2 - x1) / (y2 - y1) = tand(30);
+      z3 = (2x2 - x1, y1);
+      z4 = z3 + z1 - z2;
+
+      pickup pencircle
+	     xscaled 0.18 head_width
+	     yscaled 0.36 head_width
+	     rotated -30;
+
+      if open:
+	      draw z1 -- z2 -- z3 -- z4 -- cycle;
+      else:
+	      filldraw z1 -- z2 -- z3 -- z4 -- cycle;
+      fi;
+enddef;
+
+
 fet_beginchar("Mensural open head","0mensural","mensuralminimhead")
-	draw_mensural_open_head (staff_space#);
+	draw_mensural_head (staff_space#, true);
 fet_endchar;
 
 fet_beginchar("Mensural open head","1mensural","mensuralsemiminimhead")
-	draw_mensural_open_head (staff_space#);
+	draw_mensural_head (staff_space#, true);
 fet_endchar;
 
 fet_beginchar("Mensural black head","2mensural","fusahead")
-	draw_mensural_black_head (staff_space#);
+	draw_mensural_head (staff_space#, false);
 fet_endchar;
 
 
@@ -582,7 +623,7 @@ fet_beginchar("Ed. Vat. subbipunctum", "0vaticana_subbipunctum",
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0, wd#, 0.5 ht#, 0.5 ht#);
+	set_char_box(0.3wd#, 0.3wd#, 0.5 ht#, 0.5 ht#);
 	black_notehead_width# := wd#;
 
 	save za, alpha, size;
@@ -615,7 +656,7 @@ def punctum_char (expr verbose_name, internal_name, mudela_name,
 		2beta# = ht# * b_h;
 		a# = beta# * a_b;
 		wd# = 2a# / a_w;
-		set_char_box(0.0, 0.4wd#, 0.5ht#, 0.5ht#);
+		set_char_box(0.25wd#, 0.25wd#, 0.5ht#, 0.5ht#);
 		black_notehead_width# := wd#;
 
 		save convexity;
@@ -733,7 +774,7 @@ fet_beginchar("Ed. Vat. quilisma", "0vaticana_quilisma", "vatquilismahead")
 	2beta#=ht#*b_h;
 	a# = beta#*a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0, wd#, 0.5 ht#, 0.5 ht#);
+	set_char_box(0.1wd#, 0.4wd#, 0.5 ht#, 0.5 ht#);
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
@@ -770,7 +811,7 @@ fet_beginchar("Ed. Med. subbipunctum", "0medicaea_subbipunctum",
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0, wd#, 0.5 ht#, 0.5 ht#);
+	set_char_box(wd#/2, wd#/2, 0.5 ht#, 0.5 ht#);
 	black_notehead_width# := wd#;
 
 	save za, alpha, size;
@@ -899,11 +940,11 @@ fet_beginchar("Hufnagel pes lower punctum", "0hufnagel_lpes", "huflpeshead")
 	2beta# = ht# * b_h;
 	a# = beta# * a_b;
 	wd# = 2a# / a_w;
-	set_char_box(wd#/2, wd#/2, 0.7 ht#, 0.7 ht#);
+	set_char_box(wd#, wd#, 0.7 ht#, 0.7 ht#);
 	black_notehead_width# := wd#;
 
-	save za, zb, zc, alpha, size;
-	pair za, zb, zc;
+	save za, alpha, size;
+	pair za;
 	define_pixels(ht, wd);
 	alpha = 35;
 	size = 0.7ht;

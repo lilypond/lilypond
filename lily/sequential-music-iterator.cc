@@ -21,6 +21,20 @@
 */
 
 /*
+
+  TODO: the grace note handling hasn't been done for skip() and
+  get_music(), meaning that staff-switching and partcombining will be
+  broken with grace notes.
+  
+ */
+/*
+
+  TODO: the grace note handling hasn't been done for skip() and
+  get_music(), meaning that staff-switching and partcombining will be
+  broken with grace notes.
+  
+ */
+/*
   Invariant for the data structure.
 
 
@@ -39,14 +53,14 @@ Sequential_music_iterator::Sequential_music_iterator ()
 {
   cursor_ = SCM_EOL;
   here_mom_ = Moment (0);
-  grace_skips_ = 0;
+  grace_fixups_ = 0;
   iter_p_ =0;
 }
 
 Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator const &src)
   : Music_iterator (src)
 {
-  grace_skips_ = src.grace_skips_;
+  grace_fixups_ = src.grace_fixups_;
   cursor_ = src.cursor_;
   here_mom_ = src.here_mom_;
   if (src.iter_p_)
@@ -72,14 +86,14 @@ Sequential_music_iterator::~Sequential_music_iterator ()
   
  */
 
-Grace_skip *
-get_grace_skips (SCM cursor)
+Grace_fixup *
+get_grace_fixups (SCM cursor)
 {
-  Moment here (0);  
+  Moment here;
   Moment last (-1);
-  Grace_skip *head = 0;
-  Grace_skip **tail = &head;
-  
+  Grace_fixup *head = 0;
+  Grace_fixup **tail = &head;
+
   for (; gh_pair_p (cursor); cursor = gh_cdr (cursor))
     {
       Music * mus = unsmob_music (gh_car (cursor));
@@ -90,9 +104,9 @@ get_grace_skips (SCM cursor)
 	{
 	  if (last != Moment (-1))
 	    {
-	      Grace_skip *p =new Grace_skip;
+	      Grace_fixup *p =new Grace_fixup;
 	      p->start_ = last;
-	      p->length_ = (here - last).main_part_;
+	      p->length_ = here - last;
 	      p->grace_start_ = s.grace_part_;
 	      p->next_ = 0;
 	      *tail = p;
@@ -122,9 +136,8 @@ Sequential_music_iterator::construct_children ()
       next_element ();
     }
 
-  grace_skips_ = get_grace_skips (cursor_);
-
   here_mom_ = music_l ()->start_mom ();
+  grace_fixups_ = get_grace_fixups (cursor_);
 
   /*
     iter_p_->ok () is tautology, but what the heck.
@@ -142,20 +155,17 @@ void
 Sequential_music_iterator::next_element ()
 {
   Moment len =iter_p_->music_length_mom ();
-  Moment start  = iter_p_->music_start_mom ();
-  assert (!grace_skips_  || grace_skips_->start_ >= here_mom_);
+  assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
-  if (len.main_part_ && grace_skips_ &&
-      grace_skips_->start_.main_part_ == here_mom_.main_part_)
+  if (len.main_part_ && grace_fixups_ &&
+      grace_fixups_->start_ == here_mom_)
     {
-      Moment sk;
-      sk.main_part_ = grace_skips_->length_;
-      here_mom_ +=  sk;
-      here_mom_.grace_part_ = grace_skips_->grace_start_;
+      here_mom_ += grace_fixups_->length_;
+      here_mom_.grace_part_ += grace_fixups_->grace_start_;
 
-      Grace_skip * n =grace_skips_->next_;
-      delete grace_skips_;
-      grace_skips_ = n;
+      Grace_fixup * n =grace_fixups_->next_;
+      delete grace_fixups_;
+      grace_fixups_ = n;
     }
   else if (len.grace_part_ && !len.main_part_)
     {
@@ -167,10 +177,10 @@ Sequential_music_iterator::next_element ()
 	!len.grace_part_ || len.main_part_
 
 	We skip over a big chunk (mainpart != 0). Any starting graces
-	in that chunk are compensated by subtracting START.
+	in that chunk should be in len.grace_part_
 
       */
-      here_mom_ += len - start;
+      here_mom_ += len;
     }
   
   delete iter_p_;
@@ -250,7 +260,7 @@ Sequential_music_iterator::get_music (Moment until)const
   Skip events till UNTIL. We don't do any other side effects such as
   descending to child iterator contexts, because they might depend on
   \context specs and \translator changes being executed
-    
+  TODO: build support for grace notes here.
  */
 void
 Sequential_music_iterator::skip (Moment until)
@@ -273,17 +283,17 @@ Sequential_music_iterator::process (Moment until)
 {
   while (iter_p_)
     {
-      if (grace_skips_ &&
-	  grace_skips_->start_ == here_mom_
-	  && (grace_skips_->start_ + grace_skips_->length_).main_part_ ==
-	  until.main_part_)
+      if (grace_fixups_ &&
+	  grace_fixups_->start_ == here_mom_
+	  && (grace_fixups_->start_ + grace_fixups_->length_
+	      + Moment (Rational (0), grace_fixups_->grace_start_) == until))
 	{
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  Moment u = until;
-	  u.grace_part_ = 0;
-	  iter_p_->process (u - here_mom_);
+	  iter_p_->process (iter_p_->music_length_mom ()+ 
+			    iter_p_->music_start_mom ());
+
 	}
       else
 	iter_p_->process (until - here_mom_ + iter_p_->music_start_mom ());
@@ -310,13 +320,10 @@ Sequential_music_iterator::pending_moment () const
   /*
     Fix-up a grace note halfway in the music.
   */
-  if (grace_skips_ && here_mom_ == grace_skips_->start_
-      && cp.main_part_ >=  grace_skips_->length_)
+  if (grace_fixups_ && here_mom_ == grace_fixups_->start_
+      && grace_fixups_->length_ + iter_p_->music_start_mom () == cp)
     {
-      cp += here_mom_ ;
-      cp.grace_part_ = grace_skips_->grace_start_;
-      return cp;
-
+      return here_mom_ + grace_fixups_->length_ + Moment (0, grace_fixups_->grace_start_);
     }
 
   /*

@@ -16,7 +16,7 @@
 Midi_def::Midi_def ()
 {
   // ugh
-  set_tempo (Moment (1, 4), 60);
+  set_tempo (Moment (Rational (1, 4)), 60);
 }
 
 int

@@ -45,7 +45,7 @@ Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
 Midi_walker::~Midi_walker ()
 { 
   // ugh
-  do_stop_notes (last_mom_ + Moment (10, 1));
+  do_stop_notes (last_mom_ + Moment (Rational (10, 1)));
 }
 
 /**

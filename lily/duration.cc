@@ -71,7 +71,7 @@ String
 Duration::str () const
 {
   String s =  to_str (durlog_i_) + to_str ('.', dots_i_);
-  if (factor_ != Moment (1,1))
+  if (factor_ != Moment (Rational (1,1)))
     {
       s += "*" + factor_.str ();
     }
