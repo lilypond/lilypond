@@ -8,6 +8,9 @@
 ;;;; http://www.w3.org/TR/SVG12/ -- page, pageSet in draft
 
 ;;;; TODO:
+;;;;  * font selection: name, size, design size
+;;;;  * .cff MUST NOT be in fc's fontpath?
+
 ;;;;  * inkscape page/pageSet support
 ;;;;  * inkscape SVG-font support
 ;;;;    - use fontconfig/fc-cache for now, see output-gnome.scm
@@ -83,8 +86,7 @@
 (define (font-size font)
   (let* ((designsize (ly:font-design-size font))
 	 (magnification (* (ly:font-magnification font)))
-	 (ops 2)
-	 (scaling (* ops magnification designsize)))
+	 (scaling (* output-scale magnification designsize)))
     (debugf "scaling:~S\n" scaling)
     (debugf "magnification:~S\n" magnification)
     (debugf "design:~S\n" designsize)
@@ -100,33 +102,27 @@
   (apply string-append
 	 (map (lambda (x) (char->entity x)) (string->list string))))
 
+;; FIXME: font can be pango font-name or smob
+;;        determine size and style properly.
 (define (svg-font font)
-  (let* ((encoding (ly:font-encoding font))
-	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start))
-	 (family (font-family font)))
-   (format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~S;"
-	   (otf-name-mangling font family)
-	   (otf-style-mangling font family)
-	   (font-size font) anchor)))
+  (let ((family (if (string? font) font (font-family font)))
+	(size (if (string? font) 12 (font-size font)))
+	(anchor "west"))
+    (format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
+	    family
+	    (otf-style-mangling font family)
+	    size anchor)))
 
 (define (fontify font expr)
    (entity 'text expr (cons 'style (svg-font font))))
-
-;; FIXME
-(define-public (otf-name-mangling font family)
-  ;; Hmm, family is emmentaler20/26?
-  (if (string=? (substring family 0 (min (string-length family) 10))
-		"emmentaler")
-      "LilyPond"
-      (if (string=? family "aybabtu")
-	  "LilyPondBraces"
-	  family)))
 
 (define-public (otf-style-mangling font family)
   ;; Hmm, family is emmentaler20/26?
   (if (string=? (substring family 0 (min (string-length family) 10))
 		"emmentaler")
-      (substring family 10)
+      ;; urg; currently empty
+      ;;(substring family 10)
+      "20"
       "Regular"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -297,3 +293,6 @@
 
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
+
+(define (utf8-string pango-font-description string)
+  (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
