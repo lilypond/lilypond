@@ -1,5 +1,16 @@
 2002-07-21  Han-Wen  <hanwen@cs.uu.nl>
 
+	* lily/accidental-placement.cc (stagger_apes): try to arrange accs
+	in a C form, with the top accidental closet to the chord.
+
+	* lily/stem.cc (get_default_stem_end_position): don't crash if
+	lengths not set.
+	(get_default_stem_end_position): idem for stem-shorten.
+
+	* mf/feta-toevallig.mf: enlarge flat bbox.
+
+	* input/regression/lyrics-extender.ly: new file.
+
 	* lily/lyric-extender.cc (brew_molecule): don't add
 	right-trim-amount if extender is broken.
 

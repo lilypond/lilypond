@@ -156,8 +156,6 @@ Interval ly_scm2interval (SCM);
 Slice int_list_to_slice (SCM l);
 SCM ly_interval2scm (Drul_array<Real>);
 
-void taint (SCM *);
-
 
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
@@ -167,6 +165,8 @@ String print_scm_val (SCM val);
 SCM ly_number2string (SCM s);
 
 SCM parse_symbol_list (char const *);
+SCM robust_list_ref(int i, SCM l);
+
 
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
 inline SCM ly_car (SCM x) { return SCM_CAR (x); } 

@@ -251,7 +251,7 @@ enddef;
 % unfortunately, 600dpi is not enough to show the brush of the stem.
 %
 fet_beginchar("Flat", "-1", "flat")
-	set_char_box(1.2 stafflinethickness#, .8 staff_space#, .5 staff_space#, 2 staff_space#);
+	set_char_box(1.2 stafflinethickness#, .8 staff_space#, 0.6 staff_space#, 2 staff_space#);
 	draw_meta_flat(0, w, 1/3 staff_space);
 	fet_endchar;
 

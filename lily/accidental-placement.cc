@@ -104,16 +104,7 @@ struct Accidental_placement_entry
 static Interval all_accidental_vertical_extent;
 Real ape_priority (Accidental_placement_entry const * a)
 {
-  Real c = a->vertical_extent_.center();
-
-  /*
-    far from center means we can fold more. Hopefully.
-   */
-  Real center_distance =
-    fabs(c - all_accidental_vertical_extent[LEFT]) >?
-    fabs(c - all_accidental_vertical_extent[RIGHT]);
-  
-  return 20 * a->vertical_extent_.length  ()  + center_distance;
+  return a->vertical_extent_[UP];
 }
 
   
@@ -123,6 +114,52 @@ int ape_compare (Accidental_placement_entry *const &a,
 {
   return sign (ape_priority (a) - ape_priority(b));
 }
+
+int ape_rcompare (Accidental_placement_entry *const &a,
+		 Accidental_placement_entry *const &b)
+{
+  return -sign (ape_priority (a) - ape_priority(b));
+}
+
+
+/*
+
+TODO: should favor
+
+  b
+ b
+
+placement
+ 
+*/
+void
+stagger_apes (Link_array<Accidental_placement_entry> *apes)
+{
+  Link_array<Accidental_placement_entry> asc = *apes;
+
+
+  asc.sort (&ape_compare);
+
+  apes->clear();
+
+  int i =0;
+  int parity = 1;
+  while (i < asc.size())
+    {
+      Accidental_placement_entry * a = 0;      
+      if (parity)
+	a = asc.pop();
+      else
+	a = asc[i++];
+
+      apes->push (a);
+      parity = !parity;
+    }
+
+  apes->reverse();
+}
+
+  
 
 /*
   Return: width as SCM interval.
@@ -265,7 +302,7 @@ Accidental_placement::position_accidentals (Grob * me)
       total.unite (y);
     }
   all_accidental_vertical_extent = total;
-  apes.sort (&ape_compare);  
+  stagger_apes (&apes);
 
   Accidental_placement_entry * head_ape = new Accidental_placement_entry;
   Grob *commonx = common_refpoint_of_array (heads, me, X_AXIS);  
