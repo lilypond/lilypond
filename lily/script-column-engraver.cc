@@ -72,7 +72,7 @@ Script_column_engraver::create_grobs ()
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
       scol_p_ = new Item (get_property ("ScriptColumn"));
-      announce_grob (scol_p_, 0);
+      announce_grob(scol_p_, SCM_EOL);
     }
 
   if (scol_p_)

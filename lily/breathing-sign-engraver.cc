@@ -65,7 +65,7 @@ Breathing_sign_engraver::create_grobs ()
 
       Breathing_sign::set_interface (breathing_sign_p_);
 
-      announce_grob (breathing_sign_p_, breathing_sign_req_l_);
+      announce_grob(breathing_sign_p_, breathing_sign_req_l_->self_scm());
       breathing_sign_req_l_ = 0;
     }
 }

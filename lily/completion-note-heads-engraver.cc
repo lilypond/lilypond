@@ -201,12 +201,13 @@ Completion_heads_engraver::process_music ()
       if (scratch_note_reqs_.size())
 	{
 	  req = scratch_note_reqs_[i];
-	  req->set_mus_property ("pitch",
-	    note_req_l_arr_[i]->get_mus_property ("pitch"));
+	  SCM pits = note_req_l_arr_[i]->get_mus_property ("pitch");
+	  req->set_mus_property ("pitch",pits);
 	}
+
       note_p->set_grob_property ("duration-log",
 				 gh_int2scm (note_dur.duration_log ()));
-
+      
       int dots= note_dur.dot_count ();
       if (dots)
 	{
@@ -220,7 +221,7 @@ Completion_heads_engraver::process_music ()
 	    d->set_grob_property ("dot-count", gh_int2scm (dots));
 
 	  d->set_parent (note_p, Y_AXIS);
-	  announce_grob (d,0);
+	  announce_grob (d, SCM_EOL);
 	  dot_p_arr_.push (d);
 	}
 
@@ -241,7 +242,7 @@ Completion_heads_engraver::process_music ()
 	  note_p->set_grob_property ("note-character", ly_str02scm (s));
 	}
       
-      announce_grob (note_p,req);
+      announce_grob (note_p,req->self_scm ());
       note_p_arr_.push (note_p);
     }
 

@@ -5,16 +5,15 @@
 
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "grob.hh"
 #include "grob-info.hh"
 #include "request.hh"
 #include "translator.hh"
 #include "translator-group.hh"
 
-Grob_info::Grob_info (Grob*s_l, SCM c)
+Grob_info::Grob_info (Grob*s_l)
 {
   grob_l_ = s_l;
-  cause_ = c; 
   origin_trans_l_ = 0;  
 }
 
@@ -22,14 +21,15 @@ Grob_info::Grob_info (Grob*s_l, SCM c)
 Grob_info::Grob_info ()
 {
   grob_l_ = 0;
-  cause_ = SCM_EOL;
   origin_trans_l_ = 0;
 }
 
 Music*
 Grob_info::music_cause ()
+  
 {
-  return unsmob_music (cause_);
+  SCM cause = grob_l_->get_grob_property ("cause"); 
+  return unsmob_music (cause);
 }
 
 Link_array<Translator>

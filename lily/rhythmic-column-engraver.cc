@@ -86,12 +86,12 @@ Rhythmic_column_engraver::create_grobs ()
 	{
 	  note_column_ = new Item (get_property ("NoteColumn"));
 	  Note_column::set_interface (note_column_);
-	  announce_grob (note_column_, 0);
+	  announce_grob(note_column_, SCM_EOL);
 
 
          spacing_ = new Item (get_property ("NoteSpacing"));
          spacing_->set_grob_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
-         announce_grob (spacing_, 0);
+         announce_grob(spacing_, SCM_EOL);
 
          if (last_spacing_)
            {

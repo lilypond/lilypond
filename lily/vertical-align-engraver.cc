@@ -35,7 +35,7 @@ Vertical_align_engraver::initialize ()
 {
   valign_p_ =new Spanner (get_property ("VerticalAlignment"));
   valign_p_->set_bound (LEFT,unsmob_grob (get_property ("currentCommandColumn")));
-  announce_grob (valign_p_ , 0);
+  announce_grob(valign_p_ , SCM_EOL);
 }
 
 void

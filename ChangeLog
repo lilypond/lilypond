@@ -1,3 +1,56 @@
+2002-02-04  Han-Wen  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.30 released
+
+	* lily/dynamic-engraver.cc: add doco about DynamicLineSpanner
+
+	* Documentation/user/refman.itely (Dynamics): add a note about
+	DynamicLineSpanner.
+
+	* scm/grob-description.scm: add a 'translator-type?  object
+	property, so that \property Foo.Bar =\turnOff doesn't cause
+	type check warning.
+
+	* lily/translator-group.cc (add_fresh_group_translator): make
+	new add-translator functions to make distinction between fresh and
+	used group-translators. Fixes problem with scripts on auto-changing voice 
+
+	* lily/timing-engraver.cc: make Timing_engraver instantiatable,
+	add to Score_performer. Fixes bar checks in MIDI
+
+	* lily/tie-engraver.cc (create_grobs): Use pitches to compare note
+	heads. Fixes many quirks with ties.
+
+	* lily/engraver.cc (announce_grob): Use SCM argument. Store cause
+	in the grob property #'cause, instead of using Grob_info.
+
+	* ly/engraver-init.ly (StaffContext): move Dot_column_engraver to
+	staff context, fixing dot alignment on collisions.
+
+	* lily/beam-engraver.cc (try_music): remove can't find beam start
+	warning, so that skipTypesetting won't complain.
+
+2002-02-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* Documentation/user/refman.itely (Paper size): Documentation fix,
+	papersize
+
+	* lily/text-engraver.cc: Bugfix: textNonEmpty works again
+
+	* scm/grob-description.scm: \breathe: Use feta font comma by default
+
+2002-01-23  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* input/template/piano-dynamics.ly (pedal): Simplified
+
+2002-01-18  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* ly/engraver-init.ly: avoid warnings on \skip in lyrics
+
+2002-01-10  Mats Bengtsson  <matsb@s3.kth.se>
+
+	* lilypond-mode.el (LilyPond-command-query): ignore case.
+
 2002-02-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION: 1.5.29 released

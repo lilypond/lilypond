@@ -59,13 +59,13 @@ Figured_bass_engraver::process_music ()
   if (rest_req_)
     {
       figure_ = new Item (get_property ("BassFigure"));
-      announce_grob (figure_, rest_req_); // todo
+      announce_grob(figure_, rest_req_->self_scm()); // todo
       figure_->set_grob_property ("text" , ly_str02scm ("-"));
     }
   else if (figures_.size ())
     {
       figure_ = new Item (get_property ("BassFigure"));
-      announce_grob (figure_, figures_[0]); // todo
+      announce_grob(figure_, figures_[0]->self_scm()); // todo
       SCM flist = SCM_EOL;
       for (int i = 0; i < figures_.size (); i++)
 	{

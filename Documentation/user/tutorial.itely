@@ -258,7 +258,7 @@ We continue with the introduction of the remaining musical constructs.
 
 @c maybe legend here?
 
-Rests are entered just like notes with the name ``@code{r}'':
+Normal rests are entered just like notes with the name ``@code{r}'':
 
 @quotation
 @example

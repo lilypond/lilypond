@@ -235,7 +235,7 @@ Auto_beam_engraver::create_beam_p ()
       Beam::add_stem (beam_p, (*stem_l_arr_p_)[i]);
     }
   
-  announce_grob (beam_p, 0);
+  announce_grob(beam_p, SCM_EOL);
 
   return beam_p;
 }

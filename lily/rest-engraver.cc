@@ -84,10 +84,10 @@ Rest_engraver::create_grobs ()
 	  Rhythmic_head::set_dots (rest_p_, dot_p_);
 	  dot_p_->set_parent (rest_p_, Y_AXIS);
 	  dot_p_->set_grob_property ("dot-count", gh_int2scm (dots));
-	  announce_grob (dot_p_,0);
+	  announce_grob (dot_p_, SCM_EOL);
 	}
 
-      announce_grob (rest_p_, rest_req_l_);
+      announce_grob(rest_p_, rest_req_l_->self_scm());
     }
 }
 

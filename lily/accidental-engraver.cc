@@ -205,7 +205,7 @@ Accidental_engraver::create_grobs ()
 		  if (gh_number_p (c0))
 		    Staff_symbol_referencer::set_position (key_item_p_, gh_scm2int (c0));
 			 
-		  announce_grob (key_item_p_, 0);
+		  announce_grob(key_item_p_, SCM_EOL);
 		}
 
 	      
@@ -317,15 +317,14 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
   
 }
 
-/*
-  ugh. repeated deep_copy generates lots of garbage.
- */
 void
 Accidental_engraver::process_music ()
 {
+#if 0
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-
+#endif
+  
   SCM sig = get_property ("keySignature");
 
   /* Detect key sig changes. */

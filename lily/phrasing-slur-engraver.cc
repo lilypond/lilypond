@@ -155,7 +155,7 @@ Phrasing_slur_engraver::create_grobs ()
 	    }
 	  start_phrasing_slur_l_arr.push (phrasing_slur);
 	  requests_arr_.push (phrasing_slur_req_l);
-	  announce_grob (phrasing_slur, phrasing_slur_req_l);
+	  announce_grob(phrasing_slur, phrasing_slur_req_l->self_scm());
 	}
     }
   for (int i=0; i < start_phrasing_slur_l_arr.size (); i++)

@@ -80,7 +80,7 @@ Spacing_engraver::initialize ()
   spacing_p_  =new Spanner (get_property ("SpacingSpanner"));
   Spacing_spanner::set_interface (spacing_p_);
   spacing_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
-  announce_grob (spacing_p_, 0);
+  announce_grob(spacing_p_, SCM_EOL);
 }
 
 void

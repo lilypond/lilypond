@@ -92,7 +92,7 @@ Clef_engraver::create_clef ()
   if (!clef_p_)
     {
       Item *c= new Item (get_property ("Clef"));
-      announce_grob (c, 0);
+      announce_grob(c, SCM_EOL);
 
       Staff_symbol_referencer::set_interface (c);
       
@@ -115,7 +115,7 @@ Clef_engraver::create_clef ()
 
       g->set_grob_property ("direction", gh_int2scm (sign (gh_scm2int (oct))));
       octavate_p_ = g;
-      announce_grob (octavate_p_, 0);
+      announce_grob(octavate_p_, SCM_EOL);
     }
 }
 

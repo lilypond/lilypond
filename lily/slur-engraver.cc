@@ -164,7 +164,7 @@ Slur_engraver::create_grobs ()
 	    }
 	  start_slur_l_arr.push (slur);
 	  requests_arr_.push (slur_req_l);
-	  announce_grob (slur, slur_req_l);
+	  announce_grob(slur, slur_req_l->self_scm());
 	}
     }
   for (int i=0; i < start_slur_l_arr.size (); i++)

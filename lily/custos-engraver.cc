@@ -125,7 +125,7 @@ Custos_engraver::create_custos ()
   SCM basicProperties = get_property ("Custos");
   Item* custos = new Item (basicProperties);
   
-  announce_grob (custos, 0);
+  announce_grob(custos, SCM_EOL);
   custos_arr_.push (custos);
   
   return custos;

@@ -53,7 +53,7 @@ Bar_engraver::create_bar ()
       if (scm_equal_p (gl, bar_p_->get_grob_property ("glyph")) != SCM_BOOL_T)
 	  bar_p_->set_grob_property ("glyph", gl);
       
-      announce_grob (bar_p_, 0);
+      announce_grob(bar_p_, SCM_EOL);
     }
 }
 

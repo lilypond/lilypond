@@ -83,7 +83,7 @@ Note_heads_engraver::process_music ()
 	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note_p, Y_AXIS);
-	  announce_grob (d,0);
+	  announce_grob (d, SCM_EOL);
 	  dot_p_arr_.push (d);
 	}
 
@@ -104,7 +104,7 @@ Note_heads_engraver::process_music ()
 	  note_p->set_grob_property ("note-character", ly_str02scm (s));
 	}
       
-      announce_grob (note_p,req);
+      announce_grob (note_p,req->self_scm());
       note_p_arr_.push (note_p);
     }
 }

@@ -26,13 +26,6 @@
    TODO: Remove the dependency on musical info. We should tie on the
    basis of position and duration-log of the heads (not of the reqs).
 
-
-   TODO: figure this out: currently, this engravers ties note heads
-   that have the same Y-position (and does not look at pitch). This
-   means that we will fuck up with a clef-change. How should
-   clef-changes during ties be handled, or should they not?
-
-   
 */
 class Tie_engraver : public Engraver
 {
@@ -104,10 +97,13 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 }
 
 int
-head_position_compare (Grob  *const&a,Grob  *const&b)
+head_pitch_compare (Grob  *const&a,Grob  *const&b)
 {
-  return sign (gh_scm2double (a->get_grob_property ("staff-position"))
-	       - gh_scm2double (b->get_grob_property ("staff-position")));
+  Music *m1 =unsmob_music (a->get_grob_property ("cause"));
+  Music *m2 =unsmob_music (b->get_grob_property ("cause"));  
+
+  return Pitch::compare (* unsmob_pitch (m1->get_mus_property ("pitch")),
+			 * unsmob_pitch (m2->get_mus_property ("pitch")));
 }
 
 void
@@ -115,8 +111,8 @@ Tie_engraver::create_grobs ()
 {
   if (req_l_)
     {
-      now_heads_.sort (&head_position_compare);
-      stopped_heads_.sort (&head_position_compare);
+      now_heads_.sort (&head_pitch_compare);
+      stopped_heads_.sort (&head_pitch_compare);
 
       SCM head_list = SCM_EOL;
       
@@ -126,7 +122,7 @@ Tie_engraver::create_grobs ()
       while (i >= 0 && j >=0)
 	{
 	  int comp
-	    = head_position_compare (now_heads_[i], stopped_heads_[j]);
+	    = head_pitch_compare (now_heads_[i], stopped_heads_[j]);
 
 	  if (comp)
 	    {
@@ -164,7 +160,7 @@ Tie_engraver::create_grobs ()
 	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdr (pair))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_grob (p, req_l_);
+	  announce_grob(p, req_l_->self_scm());
 	}
       else for (SCM s = head_list; gh_pair_p (s); s = ly_cdr (s))
 	{
@@ -175,7 +171,7 @@ Tie_engraver::create_grobs ()
 	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_grob (ly_cdar (s))));
 	  
 	  tie_p_arr_.push (p);
-	  announce_grob (p, req_l_);
+	  announce_grob(p, req_l_->self_scm());
 	}
 
       if (tie_p_arr_.size () > 1 && !tie_column_p_)
@@ -184,7 +180,7 @@ Tie_engraver::create_grobs ()
 	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--;)
 	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
-	  announce_grob (tie_column_p_, 0);
+	  announce_grob(tie_column_p_, SCM_EOL);
 	}
     }
 }

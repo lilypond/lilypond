@@ -39,7 +39,7 @@ Collision_engraver::create_grobs ()
       Axis_group_interface::set_interface (col_p_);
       Axis_group_interface::set_axes (col_p_, X_AXIS, Y_AXIS);
 
-      announce_grob (col_p_,0);
+      announce_grob (col_p_, SCM_EOL);
     }
   
   for (int i=0; i< note_column_l_arr_.size (); i++)

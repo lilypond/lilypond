@@ -354,7 +354,7 @@ def draw_slash(expr hwid_hash) =
 enddef;
 
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
-	draw_slash(staff_space#);
+ 	draw_slash(staff_space#);
 fet_endchar;
 
 fet_beginchar("Half slashhead","1slash","halfslashhead")

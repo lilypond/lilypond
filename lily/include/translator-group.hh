@@ -33,10 +33,11 @@ class Translator_group : public virtual Translator {
   int iterator_count_;
 
   friend class Interpretation_context_handle;
+  SCM add_translator (SCM, Translator*);
+
 protected:
   ~Translator_group ();
 public:
-  SCM add_translator (SCM, Translator*);
   void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
 
@@ -49,7 +50,9 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   Translator_group (Translator_group const &);
   Translator_group ();
-  void add_group_translator (Translator *trans_p);
+  void add_fresh_group_translator (Translator *trans_p);
+  void add_fresh_simple_translator (Translator *trans_p);  
+  void add_used_group_translator (Translator *trans_p);
   
   /// Score_register = 0, Staff_registers = 1, etc)
   Translator_group* ancestor_l (int l=1);

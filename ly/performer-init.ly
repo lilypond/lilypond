@@ -115,8 +115,10 @@ ScoreContext = \translator {
 	\accepts ChoirStaff
 	\accepts RhythmicStaff
 	\accepts ChordNames
-	\consists "Swallow_performer"
 
+	\consists "Timing_translator"
+	\consists "Swallow_performer"
+	
 	dynamicAbsoluteVolumeFunction = #default-dynamic-absolute-volume
 	instrumentEqualizer = #default-instrument-equalizer
 }

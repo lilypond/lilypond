@@ -6,7 +6,7 @@
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-					; should include default value?
+; should include default value?
 
 
 ;;; FIXME: naming.

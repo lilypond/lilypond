@@ -91,7 +91,7 @@ Chord_name_engraver::create_grobs ()
     {
       chord_name_p_ = new Item (get_property ("ChordName"));
       chord_name_p_->set_grob_property ("chord", chord_);
-      announce_grob (chord_name_p_, 0);
+      announce_grob(chord_name_p_, SCM_EOL);
       SCM s = get_property ("chordChanges");
       if (to_boolean (s) && ly_car (last_chord_) != SCM_EOL
 	  	  && gh_equal_p (chord_, last_chord_))

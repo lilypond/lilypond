@@ -113,7 +113,7 @@ Extender_engraver::process_music ()
 
 
       Lyric_extender::set_textitem (extender_p_, LEFT, last_lyric_l_);
-      announce_grob (extender_p_, req_l_);
+      announce_grob(extender_p_, req_l_->self_scm());
     }
 }
 

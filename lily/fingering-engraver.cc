@@ -206,7 +206,7 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
     */
     fingering->set_grob_property ("no-spacing-rods" , SCM_BOOL_F);
 		
-  announce_grob (fingering, r);
+  announce_grob (fingering, r->self_scm());
   fingerings_.push (fingering);
 }
 

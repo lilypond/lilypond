@@ -65,7 +65,7 @@ Span_arpeggio_engraver::create_grobs ()
       && to_boolean (get_property ("connectArpeggios")))
     {
       span_arpeggio_ = new Item (get_property ("Arpeggio"));
-      announce_grob (span_arpeggio_, 0);      
+      announce_grob(span_arpeggio_, SCM_EOL);      
     }
 }
 

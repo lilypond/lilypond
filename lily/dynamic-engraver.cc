@@ -145,7 +145,7 @@ Dynamic_engraver::process_music ()
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_req_l_)
 	    rq =  script_req_l_ ;
-	  announce_grob (line_spanner_, rq);
+	  announce_grob(line_spanner_, rq->self_scm());
 			 
 
 	}
@@ -179,7 +179,7 @@ Dynamic_engraver::process_music ()
 
       Axis_group_interface::add_element (line_spanner_, script_p_);
 
-      announce_grob (script_p_, script_req_l_);
+      announce_grob(script_p_, script_req_l_->self_scm());
     }
 
   if (accepted_spanreqs_drul_[STOP])
@@ -276,7 +276,7 @@ Dynamic_engraver::process_music ()
 
 	  add_bound_item (line_spanner_, cresc_p_->get_bound (LEFT));
 	  
-	  announce_grob (cresc_p_, accepted_spanreqs_drul_[START]);
+	  announce_grob(cresc_p_, accepted_spanreqs_drul_[START]->self_scm());
 	}
     }
 }
@@ -409,7 +409,12 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     }
 }
 ENTER_DESCRIPTION(Dynamic_engraver,
-/* descr */       "",
+/* descr */       "
+This engraver creates hairpins, dynamic texts, and their vertical
+alignments.  The symbols are collected onto a DynamicLineSpanner grob
+which takes care of vertical positioning.  
+",
+		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 /* acks  */       "note-column-interface",
 /* reads */       "",

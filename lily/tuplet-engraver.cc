@@ -89,7 +89,7 @@ Tuplet_engraver::create_grobs ()
 	  glep->set_grob_property ("text", t);
 	}
       
-      announce_grob (glep, time_scaled_music_arr_ [i]);
+      announce_grob(glep, time_scaled_music_arr_ [i]->self_scm());
     }
 }
 

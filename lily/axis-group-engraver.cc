@@ -49,7 +49,7 @@ Axis_group_engraver::initialize ()
 
   staffline_p_->set_bound (LEFT,it);
 
-  announce_grob (staffline_p_, 0);
+  announce_grob(staffline_p_, SCM_EOL);
 }
 
 Spanner*

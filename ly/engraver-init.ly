@@ -20,6 +20,7 @@ StaffContext=\translator {
 	\consists "Separating_line_group_engraver"	
 	SeparatingGroupSpanner \override #'spacing-procedure
 	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
+	\consists "Dot_column_engraver"
 
 	\consists "Clef_engraver"
 	\consists "Key_engraver"
@@ -128,7 +129,6 @@ VoiceContext = \translator {
 	
 	\consists "Breathing_sign_engraver"
  	% \consists "Rest_engraver"
-	\consists "Dot_column_engraver"
 	\consists "Stem_engraver"
 	\consists "Beam_engraver"
 	\consists "Auto_beam_engraver"

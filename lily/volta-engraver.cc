@@ -147,7 +147,7 @@ Volta_engraver::create_grobs ()
 
       volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
       Volta_spanner::set_interface (volta_span_p_);
-      announce_grob (volta_span_p_,0);
+      announce_grob (volta_span_p_, SCM_EOL);
       volta_span_p_->set_grob_property ("text", start_str_);
     }
 }

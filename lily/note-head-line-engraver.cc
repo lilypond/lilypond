@@ -120,7 +120,8 @@ Note_head_line_engraver::create_grobs ()
       line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
 			 Y_AXIS);
 	  
-      announce_grob (line_, last_req_);
+      SCM c = last_req_? last_req_->self_scm () : SCM_EOL;
+      announce_grob(line_, c);
       last_req_ = 0;	
 
       follow_ = false;

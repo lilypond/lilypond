@@ -1,5 +1,5 @@
 /*
-  time_signature-reg.cc -- implement Time_signature_engraver
+  time-signature-engraver.cc -- implement Time_signature_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,10 +9,7 @@
 #include "time-signature.hh"
 #include "command-request.hh"
 #include "engraver.hh"
-
-
 #include "engraver-group-engraver.hh"
-
 
 /**
   generate time_signatures. 
@@ -27,7 +24,6 @@ protected:
   virtual void create_grobs ();
 public:
   TRANSLATOR_DECLARATIONS(Time_signature_engraver);
-
 };
 
 
@@ -51,12 +47,9 @@ Time_signature_engraver::create_grobs ()
       time_signature_p_->set_grob_property ("fraction",fr);
 
       if (time_signature_p_)
-	announce_grob (time_signature_p_, 0);
+	announce_grob(time_signature_p_, SCM_EOL);
     }
-  
 }
-
-
 
 void
 Time_signature_engraver::stop_translation_timestep ()
@@ -67,9 +60,6 @@ Time_signature_engraver::stop_translation_timestep ()
       time_signature_p_ =0;
     }
 }
-
-
-
  
 
 ENTER_DESCRIPTION(Time_signature_engraver,
