@@ -30,6 +30,7 @@ struct Lookup
   static Molecule filledbox (Box b);
   static Molecule roundfilledbox (Box b, Real blotdiameter);
   static Molecule repeat_slash (Real w, Real slope, Real th);
+  static Molecule line (Real th, Offset from, Offset to);
 };
 
 #endif // LOOKUP_HH

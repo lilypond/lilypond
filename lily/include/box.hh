@@ -26,6 +26,7 @@ struct Box
   void translate (Offset o);
   /// smallest box enclosing #b#
   void set_empty ();
+  void add_point (Offset);
   void scale (Real r);
   void unite (Box b);
   Box ();

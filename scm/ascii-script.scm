@@ -203,14 +203,14 @@
 	"")				; issue no command
     (func "select-font" (car name-mag-pair))))
 
-(define (start-line height)
-  (func "start-line" height))
+(define (start-system height)
+  (func "start-system" height))
 
-(define (stop-line)
-  (func "stop-line"))
+(define (stop-system)
+  (func "stop-system"))
 
-(define (stop-last-line)
-  (func "stop-line"))
+(define (stop-last-system)
+  (func "stop-system"))
 
 
 (define (text s)

@@ -61,3 +61,10 @@ Box::scale (Real s)
   interval_a_[X_AXIS] *= s;
   interval_a_[Y_AXIS] *= s;
 }
+
+void
+Box::add_point (Offset o)
+{
+  interval_a_[X_AXIS].add_point (o[X_AXIS]);
+  interval_a_[Y_AXIS].add_point (o[Y_AXIS]);  
+}

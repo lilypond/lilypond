@@ -10,10 +10,6 @@
 (define (end-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
-(define mark-visibility end-of-line-invisible)
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Bar lines.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

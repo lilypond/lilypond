@@ -913,12 +913,15 @@
 
     (TupletBracket
      . (
-	(number-gap . 2.0)   
-	(thick . 1.0)
+	(gap . 2.0)
+	(padding . 0.9)
+	(thickness . 1.6)
+	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(molecule-callback . ,Tuplet_bracket::brew_molecule)
 	(font-family . roman)
 	(font-shape . italic)
+
 	(font-relative-size . -1)
 	(meta .  ((interfaces . (text-interface tuplet-bracket-interface font-interface))))
 	))

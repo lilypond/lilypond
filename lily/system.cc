@@ -428,7 +428,7 @@ System::post_processing (bool last_line)
   /*
     line preamble.
    */
-  output_scheme (scm_list_n (ly_symbol2scm ("start-line"),
+  output_scheme (scm_list_n (ly_symbol2scm ("start-system"),
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
@@ -472,11 +472,11 @@ System::post_processing (bool last_line)
   
   if (last_line)
     {
-      output_scheme (scm_list_n (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-last-system"), SCM_UNDEFINED));
     }
   else
     {
-      output_scheme (scm_list_n (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-system"), SCM_UNDEFINED));
     }
 }
 

@@ -33,6 +33,11 @@ struct Interval_t : public Drul_array<T> {
       elem (LEFT) += t;
       elem (RIGHT) += t;
     }
+  void widen (T t)
+  {
+    elem (LEFT) -= t;
+    elem (RIGHT) += t;    
+  }
   
   /**
     PRE
@@ -40,7 +45,10 @@ struct Interval_t : public Drul_array<T> {
     */
   void unite (Interval_t<T> h);
   void intersect (Interval_t<T> h);
-
+  void add_point (T p) {
+    elem(LEFT) = elem (LEFT) <? p;
+    elem(RIGHT) = elem (RIGHT) >? p;
+  }
   T length () const;
   T delta () const;
   void set_empty () ;

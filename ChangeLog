@@ -1,3 +1,19 @@
+2002-04-01  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/tuplet-bracket.cc (make_bracket): new function
+	(get_x_offset): new function; make tuplet brackets align on stems
+	if stem has same direction.
+	(parallel_beam): be anal about matching bracket to tuplet.
+
+	* lily/lookup.cc (line): new function Lookup::line(). 
+
+	* scm/tex.scm (dashed-line): change -line to -system in names.
+
+	* lily/box.cc (add_point): new function.
+
+	* flower/include/interval.hh: new function add_point ().
+	new function widen()
+	
 2002-04-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* .cvsignore: Ignore all kinds of lilypond input and output.
