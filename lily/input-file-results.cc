@@ -47,13 +47,8 @@ argument is a symbol.  Possible options are @code{none} (no source specials),
   else if (what == ly_symbol2scm ("line"))
     val = gh_eval_str ("line-location");
 
-  /*
-    UGH.
-
-    How do you do set! from C ? 
-   */
-  scm_primitive_eval (scm_list_n (ly_symbol2scm ("set!"),
-				  ly_symbol2scm ("point-and-click"), val, SCM_UNDEFINED));
+  extern SCM lily_module; 
+  scm_module_define (lily_module, ly_symbol2scm ("point-and-click"), val);
   return SCM_UNSPECIFIED;
 }
 

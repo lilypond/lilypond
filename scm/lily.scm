@@ -7,8 +7,13 @@
 
 ;;; Library functions
 
-(use-modules (ice-9 regex))
+; (top-repl)
 
+(use-modules (ice-9 regex))
+; (use-modules (lily))
+
+(display "hallo\n")
+;;(display (make-duration 1  2))
 ;;(write standalone (current-error-port))
 
 
@@ -40,7 +45,7 @@
 (define ifdef "First run this through cpp.")
 (define ifndef "First run this through cpp.")
   
-(define default-script-alist '())
+(define-public default-script-alist '())
 (define font-name-alist  '())
 
 (if (not (defined? 'standalone))

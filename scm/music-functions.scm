@@ -1,8 +1,8 @@
 
-(define (denominator-tuplet-formatter mus)
+(define-public (denominator-tuplet-formatter mus)
   (number->string (ly-get-mus-property mus 'denominator)))
 
-(define (fraction-tuplet-formatter mus)
+(define-public (fraction-tuplet-formatter mus)
   (string-append (number->string (ly-get-mus-property mus 'numerator))
 		 ":"
 		 (number->string (ly-get-mus-property mus 'denominator))
@@ -10,7 +10,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(define (shift-duration-log music shift dot)
+(define-public (shift-duration-log music shift dot)
   "Recurse through music, adding SHIFT to duration-log and optionally 
   a dot to any note encountered. This scales the music up by a factor 
   2^shift * (2 - (1/2)^dot)"
@@ -47,7 +47,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (unfold-repeats music)
+(define-public (unfold-repeats music)
 "
 This function replaces all repeats  with unfold repeats. It was 
 written by Rune Zedeler. "
@@ -188,11 +188,13 @@ this is not an override
     (ly-set-mus-property! m 'elements elts)
     m
   ))
+
 (define (make-simultaneous-music elts)
   (let*  ((m (ly-make-music "Simultaneous_music")))
     (ly-set-mus-property! m 'elements elts)
     m
     ))
+
 (define (music-separator? m)
   "Is M a separator."
   (let* ((n (ly-get-mus-property m 'name )))

@@ -109,7 +109,18 @@ void
 My_lily_lexer::add_scope (SCM module)
 {
   scm_set_current_module (module);
+  for (SCM s = scopes_; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM expr = scm_list_n (ly_symbol2scm ("module-use!"),
+			     module, scm_list_n (ly_symbol2scm ("module-public-interface"),
+						 gh_car (s), SCM_UNDEFINED),
+			     SCM_UNDEFINED);
+      
+      scm_primitive_eval(expr);
+    }
+  
   scopes_ = scm_cons (module, scopes_);
+  scm_display (scm_current_module(), scm_current_output_port());
 }
 
 SCM
@@ -168,6 +179,7 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
 
   scm_variable_set_x (var, gh_cons (sym,  scm_variable_ref (var)));
   scm_module_define (mod, sym, s);
+  scm_c_export (ly_symbol2string(sym).to_str0(), NULL);
 }
 
 My_lily_lexer::~My_lily_lexer ()
