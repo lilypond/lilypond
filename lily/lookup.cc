@@ -159,7 +159,7 @@ Lookup::streepje (int type) const
 Atom
 Lookup::hairpin (Real &wid, bool decresc) const
 {
-  bool embedded_b = experimental_features_global_b;
+  bool embedded_b = postscript_global_b;
   String embed;
   Atom ret;  
   if (embedded_b)
@@ -173,6 +173,12 @@ Lookup::hairpin (Real &wid, bool decresc) const
     }
   else
     {
+      if (wid > 32 * 6 PT)
+	{
+	  warning (_("Crescendo too long (") + print_dimen (wid) 
+		   +_( ") shrinking (ugh)"));
+	  wid = 32*6 PT;
+	}
       int idx = int (rint (wid / 6 PT));
       if (!idx) idx ++;
       wid = idx*6 PT;
@@ -182,7 +188,6 @@ Lookup::hairpin (Real &wid, bool decresc) const
       Array<String> a;
       a.push (idx);
       ret.tex_ = substitute_args (ret.tex_, a);
-      
     }
   
   ret.dim_.x() = Interval (0,wid);

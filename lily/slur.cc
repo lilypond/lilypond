@@ -47,12 +47,18 @@ Slur::set_default_dir()
 }
 
 void
-Slur::do_pre_processing()
+Slur::do_add_processing()
 {
   set_bounds(LEFT, encompass_arr_[0]);    
-  set_bounds(RIGHT, encompass_arr_.top());
+  if (encompass_arr_.size () > 1)
+    set_bounds(RIGHT, encompass_arr_.top());
 }
 
+void
+Slur::do_pre_processing ()
+{
+  // don't set directions
+}
 
 void
 Slur::do_substitute_dependency (Score_elem*o, Score_elem*n)

@@ -132,12 +132,13 @@ Dynamic_engraver::do_removal_processing ()
   if (cresc_p_)
     {
       typeset_element (cresc_p_ );
+      
+      cresc_req_l_->warning (_("unended crescendo"));
       cresc_p_ =0;
     }
   if (to_end_cresc_p_)
     {
       typeset_element (to_end_cresc_p_);
-      cresc_req_l_->warning (_("unended crescendo"));
       to_end_cresc_p_ =0;
     }
   if (dynamic_p_)

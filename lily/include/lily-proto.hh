@@ -211,6 +211,7 @@ struct Text_gob;
 struct Text_item ;
 struct Text_engraver;
 struct Text_req;
+struct Text_spanner;
 struct Tie;
 struct Tie_engraver;
 struct Tie_req;

@@ -211,6 +211,8 @@ Paper_score::tex_output ()
 
   if (experimental_features_global_b)
     tex_out << "\\turnOnExperimentalFeatures%\n";
+  if (postscript_global_b)
+    tex_out << "\\turnOnPostScript%\n";
   super_elem_l_->output_all ();
   tex_out << "\n\\EndLilyPondOutput";
   outputter_l_ = 0;

@@ -1,11 +1,16 @@
-pl 36.jcn2
-	- mf numerals beautify: 2, 5, 7
+pl 37
+	- --postscript
+	- don't crash non-fitting grouping (thx, John)
+	- attach unended spanners to a column (thanks John)
+	- bf: unended tie
+	- bf: tie direction
+	- bf: unended slur
 
-pl 36.jcn1
-	- mf numerals:
-	  * small numerals wider and fatter
-	  * bf: no thinner lines than blot_diameter
-	  * several bf's: dims and parameterisations
+pl 36.jcn2
+	- feta: small numerals
+	
+********
+dec 9
 
 pl 36
 	- bf: notehead collisions

@@ -7,6 +7,7 @@
 \usepackage{a4wide}
 \title{GNU LilyPond input format 0.1}
 \author{Han-Wen Nienhuys}
+\date{October 8, 1997}
 
 \begin{document}
 \maketitle

@@ -61,6 +61,10 @@ Add F<DIRECTORY> to the search path for input files.
 
 Make incompatible mudela version non-fatal.
 
+=item B<--postscript, -p>,
+
+Try to use PostScript where possible.
+
 =back
 
 =head1 FEATURES

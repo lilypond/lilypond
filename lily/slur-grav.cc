@@ -1,5 +1,5 @@
 /*
-  slur-reg.cc -- implement Slur_engraver
+  slur-grav.cc -- implement Slur_engraver
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -33,6 +33,20 @@ Slur_engraver::acknowledge_element (Score_elem_info info)
 	slur_l_stack_[i]->add (col_l);
       for (int i = 0; i < end_slur_l_arr_.size(); i++)
 	end_slur_l_arr_[i]->add (col_l);
+    }
+}
+
+void
+Slur_engraver::do_removal_processing ()
+{
+  for (int i = 0; i < slur_l_stack_.size(); i++)
+    {
+      typeset_element (slur_l_stack_[i]);
+    }
+  slur_l_stack_.clear ();
+  for (int i=0; i < requests_arr_.size(); i++)
+    {
+      requests_arr_[i]->warning (_("unterminated slur"));
     }
 }
 
@@ -93,13 +107,6 @@ void
 Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
-}
-Slur_engraver::~Slur_engraver()
-{
-  for (int i=0; i < requests_arr_.size(); i++)
-    {
-      requests_arr_[i]->warning (_("unterminated slur"));
-    }
 }
 
 IMPLEMENT_IS_TYPE_B1(Slur_engraver,Engraver);

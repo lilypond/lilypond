@@ -14,12 +14,14 @@
 #include "grouping.hh"
 #include "text-spanner.hh"
 #include "text-def.hh"
+#include "p-col.hh"
 
 Beam_engraver::Beam_engraver()
 {
   span_reqs_drul_[LEFT] = span_reqs_drul_[RIGHT] =0;
   beam_p_ =0;
   current_grouping_p_ =0;
+  plet_spanner_p_ =0;
 }
 
 bool
@@ -53,15 +55,18 @@ Beam_engraver::do_process_requests()
     beam_p_ = new Beam;
     if (span_reqs_drul_[LEFT]->nplet)
       {
-	Text_spanner* t = new Text_spanner();
+	plet_spanner_p_ = new Text_spanner();
 	Text_def *defp = new Text_def;
-	t->set_support (beam_p_);
+	plet_spanner_p_->set_support (beam_p_);
+
+	// ugh
+	plet_spanner_p_->set_bounds (LEFT, get_staff_info ().command_pcol_l ());
+	
 	defp->align_i_ = 0;
 	defp->text_str_ = span_reqs_drul_[LEFT]->nplet;
 	defp->style_str_="italic";
-	t->spec_p_  = defp;
-	announce_element (Score_elem_info (t,0));
-	typeset_element (t);
+	plet_spanner_p_->spec_p_  = defp;
+	announce_element (Score_elem_info(plet_spanner_p_,0));
       }
     announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
   }
@@ -70,19 +75,25 @@ Beam_engraver::do_process_requests()
 void
 Beam_engraver::do_pre_move_processing()
 {
-  if (beam_p_ && span_reqs_drul_[RIGHT]) {
-    Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
-    rg_C->extend (current_grouping_p_->interval());
-    beam_p_->set_grouping (*rg_C, *current_grouping_p_);
-    typeset_element (beam_p_);
-    beam_p_ = 0;
+  if (beam_p_ && span_reqs_drul_[RIGHT]) 
+    {
+      Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
+      rg_C->extend (current_grouping_p_->interval());
+      beam_p_->set_grouping (*rg_C, *current_grouping_p_);
+      typeset_element (beam_p_);
+      beam_p_ = 0;
 
-    delete current_grouping_p_;
-    current_grouping_p_ = 0;
+      delete current_grouping_p_;
+      current_grouping_p_ = 0;
 
-    span_reqs_drul_[RIGHT] =
-      span_reqs_drul_[LEFT] = 0;
-  }
+      span_reqs_drul_[RIGHT] =
+	span_reqs_drul_[LEFT] = 0;
+      if (plet_spanner_p_)
+	{
+	  typeset_element (plet_spanner_p_);
+	  plet_spanner_p_ =0;
+	}
+    }
 }
 
 void
@@ -114,11 +125,23 @@ Beam_engraver::acknowledge_element (Score_elem_info i)
   /*
     TODO: do something sensible if it doesn't fit in the beam.
    */
-  current_grouping_p_->add_child (get_staff_info().time_C_->whole_in_measure_,
-				  rhythmic_req->duration ());
-  s->flag_i_ = rhythmic_req->duration_.durlog_i_;
-  beam_p_->add (s);
-}
+  Moment start = get_staff_info().time_C_->whole_in_measure_;
 
+  if (!current_grouping_p_->child_fit_b (start))
+    {
+      String s (_("please fix me: Stem at ") 
+		+ String(now_moment ()) + _(" does not fit in beam"));
+      if (i.req_l_)
+	i.req_l_->warning(s);
+      else 
+	warning (s);
+    }
+  else
+    {
+      current_grouping_p_->add_child (start, rhythmic_req->duration ());
+      s->flag_i_ = rhythmic_req->duration_.durlog_i_;
+      beam_p_->add (s);
+    }
+}
 IMPLEMENT_IS_TYPE_B1(Beam_engraver, Engraver);
 ADD_THIS_TRANSLATOR(Beam_engraver);

@@ -135,11 +135,11 @@ void
 Score_elem::calcalute_dependencies (int final, int busy,
 				    Score_elem_method_pointer funcptr)
 {
-   if (status_i_ >= final)
+  if (status_i_ >= final)
     return;
 
-   assert (status_i_!= busy);
-   status_i_= busy;
+  assert (status_i_!= busy);
+  status_i_= busy;
 
   for (int i=0; i < dependency_size(); i++)
     dependency (i)->calcalute_dependencies (final, busy, funcptr);
@@ -157,10 +157,10 @@ Score_elem::calcalute_dependencies (int final, int busy,
 void
 Score_elem::do_brew_molecule () 
 {
-   if (transparent_b_)
+  if (transparent_b_)
     return ;
-   Molecule *output= brew_molecule_p ();
-   pscore_l_->outputter_l_->output_molecule (output, absolute_offset ());
+  Molecule *output= brew_molecule_p ();
+  pscore_l_->outputter_l_->output_molecule (output, absolute_offset ());
 }
 
 /*
@@ -330,9 +330,9 @@ Score_elem::handle_prebroken_dependencies()
 	else 
 	  {
 	    new_arr.push (it_l->broken_to_drul_[LEFT]);
-	      old_arr.push (0);
-	      old_arr.push (0);		
-	      new_arr.push (it_l->broken_to_drul_[RIGHT]);		
+	    old_arr.push (0);
+	    old_arr.push (0);		
+	    new_arr.push (it_l->broken_to_drul_[RIGHT]);		
 	  }
     }
   

@@ -127,7 +127,21 @@ Score_engraver::typeset_all()
     {
       Score_elem * elem_p = elem_p_arr_[i];
       if (elem_p->spanner()) 
-	  pscore_p_->typeset_unbroken_spanner (elem_p->spanner());
+	{
+	  Spanner *s = elem_p->spanner ();
+	  pscore_p_->typeset_unbroken_spanner (s);
+
+	  /*
+	    do something sensible if spanner not 
+	    spanned on 2 items.
+	   */
+	  Direction d = LEFT;
+	  do {
+	    if (!s->spanned_drul_[d])
+	      s->set_bounds(d, command_column_l_);
+	  } while ((d *= -1) != LEFT);
+	  
+	}
       else 
 	{
 	  Item *item_p = elem_p->item();

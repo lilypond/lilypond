@@ -18,6 +18,7 @@ Tie::set_head (Direction d, Note_head * head_l)
 {
   assert (!head_l_drul_[d]);
   head_l_drul_[d] = head_l;
+  set_bounds (d, head_l);
 
   add_dependency (head_l);
 }
@@ -29,11 +30,16 @@ Tie::Tie()
   same_pitch_b_ =false;
 }
 
+
+/*
+  ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
+ */
 void
 Tie::set_default_dir()
 {
-  int m= (head_l_drul_[LEFT]->position_i_ + head_l_drul_[RIGHT]->position_i_) /2;
-  dir_ =  (m < 5)? DOWN : UP;	// UGH
+  int m= (head_l_drul_[LEFT]->position_i_ 
+	  + head_l_drul_[RIGHT]->position_i_) /2;
+  dir_ =  (m < 0)? DOWN : UP;
 }
 
 void
@@ -42,8 +48,13 @@ Tie::do_add_processing()
   if (!(head_l_drul_[LEFT] && head_l_drul_[RIGHT]))
     warning (_("Lonely tie.. "));
 
-  set_bounds(LEFT,head_l_drul_[LEFT]);
-  set_bounds(RIGHT,head_l_drul_[RIGHT]);
+  Direction d = LEFT;
+  Drul_array<Note_head *> new_head_drul = head_l_drul_;
+  do {
+    if (!head_l_drul_[d])
+      new_head_drul[d] = head_l_drul_[(Direction)-d];
+  } while ((d *= -1) != LEFT);
+  head_l_drul_ = new_head_drul;
 }
 
 void
