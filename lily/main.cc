@@ -106,12 +106,12 @@ static File_path path;
 void
 do_one_file (String init_str, String file_str)
 {
-  if (init_str && "" == path.find (init_str)) 
+  if (init_str.length_i () && path.find (init_str).empty_b ()) 
     {
       error ("Can not find `" + init_str +"\'");
       return ;
     }
-  if (file_str && !path.find (file_str))
+  if (file_str.length_i () && path.find (file_str).empty_b ())
     {
       error ("Can not find `" + file_str + "'");
       return ;
@@ -216,7 +216,7 @@ destill_inname (String &name_str_r)
 	  split_path (name_str_r,a,b,c,d);
 
 	  // add extension if not present.
-	  if (!d) 
+	  if (d.empty_b ()) 
 	    d = ".ly";
 	  name_str_r = a+b+c+d;
 	}
