@@ -8,7 +8,7 @@
 static
 char direction_char(int y_sign)
 {
-    char c;
+    char c='#';
     switch(y_sign){
     case -1:
 	c = 'd';
