@@ -1,3 +1,7 @@
+pl 71
+	- bf: c-tags
+	- yodl: groff, ditroff
+
 pl 70
 	- GUILE config fixes (AF)
 

@@ -442,6 +442,7 @@ AC_DEFUN(AC_STEPMAKE_GETTEXT, [
 ])
 
 AC_DEFUN(AC_STEPMAKE_MAN, [
+    AC_CHECK_PROGS(GROFF, groff ditroff, -echo no groff)
     AC_CHECK_PROGS(TROFF, troff, -echo no troff)
     AC_CHECK_PROGS(TBL, tbl, cat)
 ])

@@ -91,6 +91,21 @@ Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
   return Item::left_right_compare (n1, n2);
 }
 
+static bool
+broken_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+{
+  return extrema[dir] != s->spanned_drul_[dir];
+}
+
+static bool
+normal_edge_b (Slur*s, Drul_array<Note_column*>& extrema, Direction dir)
+{
+  return !broken_edge_b (s, extrema, dir)
+    && extrema[dir]->stem_l_
+    && !extrema[dir]->stem_l_->transparent_b_ 
+    && extrema[dir]->head_l_arr_.size ();
+}
+
 void
 Slur::do_post_processing ()
 {
@@ -122,16 +137,9 @@ Slur::do_post_processing ()
 
   Direction d=LEFT;
  
-#define BROKEN_SLUR_b(dir) \
-  (extrema[dir] != spanned_drul_[d])
-#define NORMAL_SLUR_b(dir) \
-  (extrema[dir]->stem_l_ \
-   && !extrema[dir]->stem_l_->transparent_b_  \
-   && extrema[dir]->head_l_arr_.size ()) 
-
   do 
     {
-      if (BROKEN_SLUR_b (d))
+      if (broken_edge_b (this, extrema, d))
 	{
 	  // ugh -- check if needed
 	  dx_f_drul_[d] = -d 
@@ -150,7 +158,7 @@ Slur::do_post_processing ()
       /*
         normal slur
        */
-      else if (NORMAL_SLUR_b (d))
+      else if (normal_edge_b (this, extrema, d))
         {
 	  Real notewidth_f = extrema[d]->extent (X_AXIS).length ();
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_-> extent (Y_AXIS)[dir_]);
@@ -179,7 +187,7 @@ Slur::do_post_processing ()
   // now that both are set, do dependent
   do 
     {
-      if (BROKEN_SLUR_b (d))
+      if (broken_edge_b (this, extrema, d))
         {
 	  Direction u = d;
 	  flip(&u);
@@ -196,8 +204,8 @@ Slur::do_post_processing ()
   /*
     Slur should follow line of music
    */
-  if (!BROKEN_SLUR_b (LEFT) && !BROKEN_SLUR_b (RIGHT)
-      && NORMAL_SLUR_b (LEFT) && NORMAL_SLUR_b (RIGHT)
+  if (normal_edge_b (this, extrema, LEFT)
+      && normal_edge_b (this, extrema, RIGHT)
       && (extrema[LEFT]->stem_l_ != extrema[RIGHT]->stem_l_))
     {
       Real note_dy = extrema[RIGHT]->stem_l_->head_positions ()[dir_]
