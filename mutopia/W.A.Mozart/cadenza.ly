@@ -44,7 +44,7 @@ cad = \notes  \relative c' {
 
 	r8 a [b cis]
 	[d16 cis d e]
-	f4() [f16 e d c]
+	f4( [  )f16 e d c]
 	b4-\turn
 	\times 2/3 { [ d8 c8 a8] }
 	g2

@@ -67,6 +67,10 @@ Local_key_engraver::process_acknowledged ()
 	      key_item_p_ = new Local_key_item;
 	      announce_element (Score_element_info (key_item_p_, 0));	      
 	    }
+
+	  /*
+	    UGH!  Changes input ! 
+	   */
 	  if (note_l->cautionary_b_)
 	    {
 	      note_l->pitch_.cautionary_b_ = true;

@@ -26,9 +26,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   first_b_ = true;
   source_l_ = source_l;
   lexer_p_ = 0;
-  abbrev_beam_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
-  default_abbrev_i_ = 0;
   error_level_i_ = 0;
   extender_req = 0;
   fatal_error_i_ = 0;
@@ -94,11 +92,6 @@ My_lily_parser::parser_error (String s)
   exit_status_i_ = 1;
 }
 
-void
-My_lily_parser::set_abbrev_beam (int type_i)
-{
-  abbrev_beam_type_i_ = type_i;
-}
 
 
 void
@@ -344,18 +337,7 @@ My_lily_parser::get_parens_request (int t)
     case '[':
     case ']':
       {
-	if (!abbrev_beam_type_i_)
-	  {
-	    reqs.push (new Beam_req);
-	  }
-	else
-	  {
-	    Abbreviation_beam_req* a = new Abbreviation_beam_req;
-	    a->type_i_ = abbrev_beam_type_i_;
-	    if (t==']')
-	      abbrev_beam_type_i_ = 0;
-	    reqs.push (a);
-	  }
+	reqs.push (new Beam_req);
       }
       break;
 

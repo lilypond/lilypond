@@ -1,18 +1,19 @@
---- ../lilypond-1.1.15/NEWS	Mon Dec 14 15:30:19 1998
-++ b/NEWS	Tue Dec 15 00:10:45 1998
-@@ -1,3 +1,7 @@
+pl 15.uu1
+	- dynamic fix.	
+	- junked abbrev stuff from parser.
+
 pl15.tca1
 	- fixed verbatim option behaviour for mudela-book.
         - added mudela-book option intertext="some text" 
 	- mudela-book now understand latex \begin{verbatim}
- pl 15
- 
- pl 14.hwn1pl 15.jcn1
+  
+pl 15.jcn1
 	- chord inversion: 
 	  * enter C/E
 	  * display chord names according to boolean property
 	    \property Score.chordInversion; 
 
+*********
 pl 15
 
 pl 14.hwn1

@@ -74,7 +74,7 @@ StaffContext=\translator {
 
 RhythmicStaffContext=\translator{
 	\type "Line_group_engraver_group";
-	nolines  = "1";
+	numberOfStaffLines  = "1";
 	\consists "Pitch_squash_engraver";
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;

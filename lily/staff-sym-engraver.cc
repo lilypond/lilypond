@@ -39,7 +39,7 @@ Staff_symbol_engraver::do_creation_processing()
 void
 Staff_symbol_engraver::do_removal_processing()
 {
-  Scalar l (get_property ("nolines"));
+  Scalar l (get_property ("numberOfStaffLines"));
   if (l.isnum_b ())
     {
       span_p_->no_lines_i_ = l;

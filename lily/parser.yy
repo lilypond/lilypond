@@ -523,7 +523,6 @@ translator_spec_body:
 */
 score_block:
 	SCORE { THIS->remember_spot ();
-		THIS->error_level_i_ =0;
 	}
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
@@ -531,9 +530,6 @@ score_block:
 		if (!$$->def_p_arr_.size ())
 			$$->add_output (THIS->default_paper_p ());
 
-		/* handle error levels. */
-		$$->errorlevel_i_ = THIS->error_level_i_;
-		THIS->error_level_i_ = 0;
 	}
 	;
 

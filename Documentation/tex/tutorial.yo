@@ -1214,7 +1214,7 @@ COMMENT(
 \type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })COMMENT(
 
 )The result is technically correct, but it needs a melody to make it
-performable: COMMENT(
+perfor0mable: COMMENT(
 
 )mudela(fragment,verbatim)(
   <
@@ -1601,7 +1601,7 @@ The notes in a triplet take 2/3 of their notated duration.  The syntax
 for triplet in LilyPond reflects this.  To make a triplet, you enter
 COMMENT(
 
-)mudela(fragment,center)(
+)mudela(verbatim,fragment,center)(
 	\type Voice \times 2/3 { c''4 c''4 c''4 }
 )COMMENT(
 
@@ -1612,7 +1612,7 @@ don't need this, if a Voice context is already instantiated, like in
 the following example:
 COMMENT(
 
-)mudela(fragment,center)(
+)mudela(fragment,verbatim,center)(
 	c''4 \times 2/3 { c''4 c''4 c''4 } c''4
 )COMMENT(
 
@@ -1628,3 +1628,4 @@ the bracket, the bracket is omitted.
 
 sect(Repeats)
 
+[todo]

@@ -30,8 +30,6 @@ public:
   void set_version_check (bool ignore);
 
 public:
-  int abbrev_beam_type_i_;
-  int default_abbrev_i_;
   Duration default_duration_;
   Extender_req* extender_req;
   Scope *default_header_p_;
@@ -74,7 +72,6 @@ private:
   Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
   String notename_str (Melodic_req* melodic);
   void set_last_duration (Duration const *);
-  void set_abbrev_beam (int type_i);
   friend int yyparse (void*);
 };
 

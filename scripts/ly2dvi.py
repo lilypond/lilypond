@@ -102,7 +102,7 @@ class Input:
 
         firstline = this.__fd.readline()
         this.__fd.seek(0)
-        if  re.match('% Creator: GNU LilyPond [0-9]+[.0-9]+',firstline ):
+        if  re.match('%created by: GNU LilyPond [0-9]+[.0-9]+',firstline ):
             return 'output'
         else:
             return 'source'

@@ -214,7 +214,14 @@ breakmusic = \notes {
     ydirection = "-1";
     hshift = "1";
     }
-
+   \translator { 
+     \StaffContext 
+     
+     \accepts VoiceFour;
+     \accepts VoiceThree;
+     \accepts VoiceTwo;
+     \accepts VoiceOne;
+   } 
   }
 
   \midi {

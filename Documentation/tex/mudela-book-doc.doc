@@ -1,8 +1,4 @@
-%
-%  written by Tom Cato Amundsen <tomcato@xoommail.com>
-%  send questions/patches to:
-%  gnu-music-discuss@gnu.org
-
+% -*-LaTeX-*-
 \documentclass[a4paper, 12pt]{article}
 
 \usepackage{t1enc,isolatin1}
@@ -254,10 +250,11 @@ and marginspars just as any other included eps graphics.
 \begin{mudela}
 \score{
   \notes\relative c'{ 
-    \time 12/8;  
-    r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
-    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
-    r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+        \time 12/8;  
+        r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+        [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
+        
+        r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
   }
   \paper{linewidth = 7.\cm;}
 }
@@ -271,21 +268,21 @@ danish composer Andy Pape. The music is put inside a
 the right marging if you set floatingfigure width and mudela linewidth
 to the same value. The code looks like this:
 
-\begin{verbatim}
-\begin{floatingfigure}[r]{7cm}
-\begin{mudela}
+\verb|\begin{floatingfigure}{7cm}|
+\begin{mudela}[verbatim]
 \score{
   \notes\relative c'{ 
     \time 12/8;  
-    r4-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
-    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis4.-\fermata |
-    r4.-\fermata [cis,16 cis g'8 f16 f b8][g16 g f8 b16 b] dis4.-\fermata
+    r4.-\fermata [b16-.( )b-.] [f'8-- dis16-.( )dis-. gis8--]
+    [f16-.( )f-. dis8-- gis16-.( )gis-.] cis8.-\fermata |
+        
+    r4.-\fermata [cis,16 cis g'8 f16 f b8]
+    [g16 g f8 b16 b] dis4.-\fermata
   }
   \paper{linewidth = 7.\cm;}
 }
 \end{mudela}
-\end{floatingfigure}
-\end{verbatim}
+\verb|\end{floatingfigure}|
 
 \twocolumn[\large The following is written in two columns just to show
 what mudela-book can do..\normalsize]
@@ -352,3 +349,6 @@ environment when you don't want \LaTeX~to do any linebreaking)
 
 \end{document}
 
+\begin{verbatim}
+
+\end{verbatim}
