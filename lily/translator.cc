@@ -166,7 +166,7 @@ Translator::output_def_l () const
 SCM
 Translator::get_property (String id, Translator_group **where_l) const
 {
-  return daddy_trans_l_->get_property (ly_symbol (id), where_l);
+  return daddy_trans_l_->get_property (ly_symbol2scm (id.ch_C()), where_l);
 }
 
 SCM

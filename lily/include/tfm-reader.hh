@@ -19,10 +19,11 @@
 class Tex_font_metric_reader
 {
 public:
-  Tex_font_metric_reader (String name);
-  Tex_font_metric read_tfm ();
+  static Tex_font_metric * read_file (String name);
   
 private:
+  Tex_font_metric_reader (Tex_font_metric *, String name);
+
   Real get_U32_fix_f ();
   Real get_U32_fix_scaled_f ();
   String get_bcpl_str ();
@@ -33,7 +34,7 @@ private:
   Tex_font_char_metric read_char ();
   void read_lig_kern_program (Array<Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p);
 
-  Tex_font_metric tfm_;
+  Tex_font_metric *tfm_l_;
   Binary_source_file input_;
 };
 

@@ -76,6 +76,8 @@ Bar::do_pre_processing ()
 	  break;
 	}
     }
+
+
   if (remove_elt_property ("at-line-start") == SCM_BOOL_T	// UGR.
       && (break_status_dir () == RIGHT) && (type_str_ == ""))
     {

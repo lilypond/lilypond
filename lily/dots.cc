@@ -14,25 +14,26 @@
 Dots::Dots ()
 {
   dots_i_ =0;
-  resolve_dir_ =CENTER;
 }
 
 void
 Dots::do_post_processing ()
 {
-  if (!resolve_dir_)
-    resolve_dir_ = UP;
-  
-  if (!(position_i_ % 2))
-    position_i_ += resolve_dir_;
-
   if (!dots_i_)
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (true, X_AXIS, Y_AXIS);
     }
-}
+  else
+    {
+      if (!get_direction ())
+	set_direction (UP);
 
+      int p = int (position_f ());
+      if (!(p % 2))
+	set_position (p  + get_direction ());
+    }
+}
 Molecule* 
 Dots::do_brew_molecule_p () const
 {
@@ -41,7 +42,7 @@ Dots::do_brew_molecule_p () const
 					  Interval (0,0)));
   out->add_molecule (fill);
 
-  Molecule d = lookup_l ()->dots ();
+  Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
   Real dw = d.dim_[X_AXIS].length ();
   d.translate_axis (-dw, X_AXIS);
@@ -50,7 +51,7 @@ Dots::do_brew_molecule_p () const
       d.translate_axis (2*dw,X_AXIS);
       out->add_molecule (d);
     }
-  out->translate_axis (staff_line_leading_f () * position_i_ /2., Y_AXIS);
+
   return out;
 }
 

@@ -54,7 +54,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	  String visnam =  String(name()) + "-visibility";
 	  
 	  spanbar_p_->set_elt_property ("visibility-lambda",
-					ly_ch_C_eval_scm (visnam.ch_C()));
+					ly_eval_str (visnam.ch_C()));
 
 	  if (use_priority_b_)
 	    {

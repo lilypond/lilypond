@@ -18,6 +18,8 @@ paper_eleven = \paper {
 	font_number = 4.;
 	font_dynamic = 10.;
 	font_mark = 6.;
+
+	% UGH!
 	magnification_dynamic = -4.0;
 
 	-1=\font "feta11"

@@ -25,11 +25,18 @@ Stem_info::Stem_info ()
 
 /*
   FIXME: y dims should not be in internote.
- */
+
+
+  GURG UGRGINRG INA UG R
+
+  JUNKME -> This should be in Beam
+*/
 Stem_info::Stem_info (Stem*s, int mult)
 {
   mult_i_ =mult;
   stem_l_ = s;
+  Beam* beam_l = stem_l_->beam_l_;
+  
   x_ = stem_l_->hpos_f ();
   set_direction (stem_l_->get_direction ());
   SCM bd = stem_l_->remove_elt_property ("beam-dir");
@@ -39,7 +46,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   Paper_def* paper_l = stem_l_->paper_l ();
   Real internote_f = stem_l_->staff_line_leading_f ()/2;
   Real interbeam_f = paper_l->interbeam_f (mult_i_);
-  Real beam_f = paper_l->get_var ("beam_thickness");;
+  Real beam_f = gh_scm2double (beam_l->get_elt_property ("beam-thickness"));
          
 
   // strangely enough, dim(chord_start_f) == pt (and not internote!)
@@ -114,9 +121,6 @@ Stem_info::Stem_info (Stem*s, int mult)
   idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;
 
-  // interstaff beam
-  Beam* beam_l = stem_l_->beam_l_;
-  
   interstaff_f_ = calc_interstaff_dist (stem_l_, beam_l) / internote_f;
   idealy_f_ += interstaff_f_* beam_dir_;
   miny_f_   += interstaff_f_ * beam_dir_;

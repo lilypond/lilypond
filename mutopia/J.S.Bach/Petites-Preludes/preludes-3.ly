@@ -6,7 +6,9 @@
 
 
 
- Kellner was a student of Bach's.  
+
+ Kellner was a student of Bach's that copied some 90 works of his master.
+
  
 %}
 \header{
@@ -25,15 +27,22 @@
   mutopiainstrument = "Piano";
   style = "baroque";
   copyright = "Public Domain";
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Jan Nieuwenhuizen.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
+
+  maintainer = "Jan Nieuwenhuizen";
+  maintainer_email = "janneke@gnu.org";
+  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!";
   maintainer = "janneke@gnu.org";
-  lastupdated = "1999/Oct/16";
-  
+  lastupdated = "1999/Nov/14";
 }
+
 %{
 
 TODO: this file needs additional layouting: the upper voice should
 switch staffs to avoid leger lines.
+
+Not all editions agree on the last note: ed. Lemoine has a quarter
+note, some have dotted half notes.
+
 
 %}
 \version "1.3.4";
@@ -85,9 +94,11 @@ upper =  \notes \transpose c'' {
 	r16 [fis, c es] [c fis, c fis,] r fis, r fis, |
 	r16 [fis, c es] [c fis, c fis,] r fis, r fis, |
 	r16 [g, b, d] [b, g, b, d] [es c a, fis] |
+
+	
 	\context Staff <
-		\context Voice=i {\stemup g2.-\fermata\mf}
-		\context Voice=ii {\stemdown <b,2. d>}
+		\context Voice=i {\stemup g4-\fermata}
+		\context Voice=ii {\stemdown <b,4 d>}
 	>
 	\stemboth
 	\bar "|.";
@@ -102,12 +113,12 @@ lower =  \notes{
 	c4 r [as8 f] |
 	c4 r [as8 f] |
 
-	c4-- r [es8 c] |
-	bes,!4-- r [es8 c] |
-	as,!4-- r [es8 c] |
+	c4 r [es8 c] |
+	bes,!4 r [es8 c] |
+	as,!4 r [es8 c] |
 
-	g,4-- r [es8 c] |
-	fis,4-- r [es8 c] |
+	g,4 r [es8 c] |
+	fis,4 r [es8 c] |
 	fis,4 r [fis8 d] |
 
 	g,4 r [d8 bes,] |

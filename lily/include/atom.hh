@@ -16,19 +16,17 @@
 #include "lily-guile.hh"
 
 class Atom {
+  Offset off_;
+  friend class Molecule;
+  friend class Paper_outputter;
 public:
   Atom (SCM s);
-  Offset off_;
+
   /*
     SCM expression that (when evaluated) gives a TeX string
 representing a musical notation symbol.  */
   Protected_scm func_;
-  Protected_scm font_;
-
-  /*
-    TODO: move this into the font_ field.
-   */
-  Protected_scm magn_;
+  void fontify (Font_metric*);
 };
 
 

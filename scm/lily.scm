@@ -11,10 +11,23 @@
 
 ; :use-module (ice-9 regex))
 
+;; do nothing in .scm output
+(define (comment s)
+  ""
+  )
+
+
 (define
   (xnumbers->string l)
   (string-append 
    (map (lambda (n) (string-append (number->string n ) " ")) l)))
+
+(define (mm-to-pt x)
+  (* (/ 72.27 25.40) x)
+  )
+
+(define (cons-map f x)
+  (cons (f (car x)) (f (cdr x))))
 
 (define (reduce operator list)
       (if (null? (cdr list)) (car list)
@@ -152,6 +165,32 @@
     ("volta" . "feta-nummer"))
 )
 
+(define (string-encode-integer i)
+  (cond
+   ((= i  0) "o")
+   ((< i 0)   (string-append "n" (string-encode-integer (- i))))
+   (else (string-append
+	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
+	  (string-encode-integer (quotient i 26))
+	 )
+   )
+  )
+  )
+
+(define (magstep i)
+  (cdr (assoc i '((-4 . 482)
+		  (-3 . 579)
+		  (-2 . 694)
+		  (-1 . 833)
+		  (0 . 1000)
+		  (1 . 1200) 
+		  (2 . 1440)
+		  (3 . 1728)
+		  (4 . 2074))
+	      )
+       )
+  )
+	     
 (define script-alist '())
 (define (articulation-to-scriptdef a)
   (assoc a script-alist)
@@ -163,46 +202,52 @@
   (assoc s cmr-alist )
   )
 
+(define (define-font name-mag)
+  (cons name-mag
+	(string-append  "\\magfont"
+			(string-encode-integer (hash (car name-mag) 1000000))
+			"m"
+			(string-encode-integer (cdr name-mag)))
+
+	)
+  )
+
+(define font-name-alist  '())
+(define (define-fonts names)
+  (set! font-name-alist (map define-font names))
+  (apply string-append (map (lambda (x)
+			(string-append "\\font" (cdr x) "="
+				       (symbol->string (caar x))
+				       " scaled "
+				       (number->string (magstep (cdar x)))
+				       "\n"))
+		      font-name-alist
+		      )
+	 )
+  )
+  
+
 
 (define (tex-scm action-name)
-
   (define (unknown) 
     "%\n\\unknown%\n")
 
-  (define font-alist '())
-  (define font-count 0)
-  (define current-font "")
-  (define (clear-fontcache)
-    (begin
-      (set! font-alist '())
-      (set! font-count 0)
-      (set! current-font "")))
-  
-  (define (cached-fontname i)
-    (string-append
-     "\\lilyfont"
-     (make-string 1 (integer->char (+ 65 i)))))
 
-  (define (select-font font-name magnification)
-      (if (not (equal? font-name current-font))
-	  (let* ((font-cmd (assoc font-name font-alist)))
-	    (set! current-font font-name)
-	    (if (eq? font-cmd #f)
-		(begin
-		  (set! font-cmd (cached-fontname font-count))
-		  (set! font-alist (acons font-name font-cmd font-alist))
-		  (set! font-count (+ 1 font-count))
-		  (if (equal? font-name "")
-		      (error "Empty fontname -- SELECT-FONT"))
-		  (if (> magnification 0)
-		      (string-append "\\font" font-cmd "=" font-name 
-				     " scaled \\magstep " 
-				     (number->string magnification) font-cmd)
-		      (string-append "\\font" font-cmd "=" font-name font-cmd)))
-		
-		(cdr font-cmd)))
-	  ""				;no switch needed
-	  ))
+  (define (select-font font-name-symbol)
+    (let*
+	(
+	 (c (assoc font-name-symbol font-name-alist))
+	 )
+
+      (if (eq? c #f)
+	  (begin
+	    (ly-warn (string-append
+		      "Programming error: No such font known " (car font-name-symbol)))
+	    "")				; issue no command
+	  (cdr c))
+      
+      
+      ))
   
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
@@ -228,6 +273,9 @@
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
 
+  (define (comment s)
+    (string-append "% " s))
+  
   (define (end-output) 
     "\n\\EndLilyPondOutput")
   
@@ -308,7 +356,6 @@
 
   (define (start-line ht)
     (begin
-      (clear-fontcache)
       (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
     )
   (define (stop-line) 
@@ -398,11 +445,7 @@
   (define font-alist '())
   (define font-count 0)
   (define current-font "")
-  (define (clear-fontcache)
-    (begin
-      (set! font-alist '())
-      (set! font-count 0)
-      (set! current-font "")))
+
   
   (define (cached-fontname i)
     (string-append
@@ -411,13 +454,13 @@
     
   (define (mag-to-size m)
     (number->string (case m 
-		      ('0 12)
-		      ('1 12)
-		      ('2 14) ; really: 14.400
-		      ('3 17) ; really: 17.280
-		      ('4 21) ; really: 20.736
-		      ('5 24) ; really: 24.888
-		      ('6 30) ; really: 29.856
+		      (0 12)
+		      (1 12)
+		      (2 14) ; really: 14.400
+		      (3 17) ; really: 17.280
+		      (4 21) ; really: 20.736
+		      (5 24) ; really: 24.888
+		      (6 30) ; really: 29.856
 		      )))
   
   (define (select-font font-name magnification)
@@ -443,6 +486,9 @@
   (define (beam width slope thick)
     (string-append
      (numbers->string (list width slope thick)) " draw_beam" ))
+
+  (define (comment s)
+    (string-append "% " s))
 
   (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
     (string-append
@@ -546,7 +592,6 @@
 
   (define (start-line height)
     (begin
-      (clear-fontcache)
       "\nstart_line {\n"))
   
   (define (stem breapth width depth height) 

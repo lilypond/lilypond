@@ -16,10 +16,10 @@
 #include "direction.hh"
 
 SCM ly_str02scm (char const*c);
-SCM ly_ch_C_eval_scm (char const*c);
-SCM ly_symbol (String name);
-String symbol_to_string (SCM);
-SCM ly_set_scm (String name , SCM val);
+SCM ly_eval_str (char const*c);
+SCM ly_symbol2scm (char const *);
+String ly_symbol2string (SCM);
+SCM ly_set_x (String name , SCM val);
 
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);

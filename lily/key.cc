@@ -5,8 +5,6 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-  TODO
-  transposition.
 */
 
 #include "key.hh"

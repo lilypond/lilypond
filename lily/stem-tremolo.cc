@@ -50,11 +50,11 @@ Stem_tremolo::do_brew_molecule_p () const
     }
   
   Real interbeam_f = paper_l ()->interbeam_f (mult);
-  Real w = 1.5 * lookup_l ()->notehead (2, "").dim_[X_AXIS].length ();
+  Real w  = gh_scm2double (get_elt_property ("beam-width"));
   Real space = stem_l_->staff_line_leading_f ();
   Real internote_f = space/2;
   
-  Real beam_f = paper_l ()->get_var ("beam_thickness");
+  Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));
 
   int beams_i = 0;
   Real slope_f = internote_f / 4 / internote_f;	// HUH?

@@ -33,11 +33,27 @@ Local_key_item::add_pitch (Musical_pitch p, bool cautionary)
 }
 
 
+
 void
 Local_key_item::do_pre_processing()
 {
   accidental_arr_.sort (Local_key_cautionary_tuple::compare);
   Note_head_side::do_pre_processing ();
+}
+
+Molecule
+Local_key_item::accidental (int j, bool cautionary) const
+{
+  Molecule m (lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
+  if (cautionary) 
+    {
+      Molecule open = lookup_l ()->afm_find (String ("accidentals-("));
+      Molecule close = lookup_l ()->afm_find (String ("accidentals-)"));
+      m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
+      m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
+    }
+  
+  return m;
 }
 
 Molecule*
@@ -68,8 +84,8 @@ Local_key_item::do_brew_molecule_p() const
       Real dy =
 	(c0_position_i_ + p.notename_i_)
 	* note_distance;
-      Molecule m (lookup_l ()->accidental (p.accidental_i_, 
-					   accidental_arr_[i].cautionary_b_));
+      
+      Molecule m (accidental (p.accidental_i_, accidental_arr_[i].cautionary_b_));
 
       m.translate_axis (dy, Y_AXIS);
       octave_mol_p->add_at_edge (X_AXIS, RIGHT, m, 0);

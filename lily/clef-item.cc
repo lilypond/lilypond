@@ -81,7 +81,8 @@ Clef_item::do_add_processing ()
 Molecule*
 Clef_item::do_brew_molecule_p() const
 {
-  Molecule*output = new Molecule (lookup_l ()->clef (symbol_));
+  Molecule*output = new Molecule (lookup_l ()->afm_find (String ("clefs-" + symbol_)));
+
   return output;
 }
 

@@ -19,9 +19,10 @@
  */
 class Staff_symbol_referencer : public virtual Score_element
 {
+  int position_i_;
 protected:
   Staff_symbol * staff_sym_l_;
-  int position_i_;
+
 public:
   Staff_symbol_referencer ();
   void set_position (int);

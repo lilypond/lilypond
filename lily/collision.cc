@@ -52,8 +52,6 @@ Collision::do_pre_processing()
 
   This should be done better, probably.
 
-  TODO: forced hshift
-  
   */
 Array< Shift_tup >
 Collision::automatic_shift ()

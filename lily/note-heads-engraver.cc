@@ -69,13 +69,6 @@ Note_heads_engraver::do_process_requests()
 	  Dots * d = new Dots;
 	  note_p->dots_l_ = d;
 	  d->dots_i_ = note_req_l->duration_.dots_i_;
-
-	  SCM dir = get_property ("verticalDirection",0);
-	  if (isdir_b (dir))
-	    {
-	      d->resolve_dir_ = to_dir (dir);
-	    }
-	  
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}

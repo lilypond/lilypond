@@ -9,8 +9,10 @@ Most of the items are marked in the code as well
 Grep -i for TODO, FIXME and ugh/ugr/urg.  
 
 .* TODO
-. * make this file understandable for 3rd parties.
-. * break align order from SCM list. 
+. * agressive type-checking for SCM stuff. 
+. * TODO^2:
+.   *make  a TODO.texi, like http://www.gnu.org/software/guile/ideas.html
+.  * make this file understandable for 3rd parties.
 . * \accepts -> \acceptedby 
 . * context in embedded SCM errors.
 . * eradicate all VIRTUAL_COPY_CONS () macros ; use indexed creation,
@@ -18,7 +20,6 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 	ctor_dict["Score_element"]->clone_func (orig);
 	ctor_dict["Score_element"]->create_func ();
-
 . * acc at tied note after linebreak.
 . * fix font-naming and selecting
 . * fix naming: \interline Context.staffLineLeading, staff_line_leading (),
@@ -26,27 +27,22 @@ staff_position staff_space
 . * chord tonic: placement of accidental  C#, Cb (from scm and C++)
 . * note head on stem err msg in dutch.
 . * why need to run -C mf twice?
-. * setting indent to 0 with \shape fails
 . * here's no difference at all in output. When either is jacked up to 7.0,
 everything works and matches up; when either is set just a bit above the
 default 5.0 (5.4 is what I was hoping to use), stems miss note heads. So
 it's some sort of a numerical (truncation/roundoff) problem.
 John
+. * fix #'margin-shape;  setting indent to 0 with \shape fails
 . * Fixed size staff/system heights;
-. * ly2dvi : don't repeat opus if same.
-. * breaks before mmrests are favored.
-. * hara kiri _8 clef.
-. * junk -M ?
+. * 
+. * ly2dvi : don't repeat opus if same. 
+. * hara kiri _8 clef. 
+. * junk -M ? 
 . * mudela-book doco
 . * fix or replace feta-accordion.mf
 . * script engraver
 . * bracket pdf hack
-
 . * Mondrup:
-- I would like an option to define the number of systems on which the
-score must be distributed. As it is now it seems that I may only
-influence that indirectly through the gourlay_maxmeasures property.
-
 - if I change the property minVerticalAlign in a multi staff score with
 lyrics the change affects the lyrics too. I would like the change to
 _only_ affect staves.
@@ -67,15 +63,14 @@ ChoirStaff bar line types in the rest of the scores
 . * make all Feta (including dynamics) available to the user in
     textual scripts. Examples: "D.S. al \coda", "\mf espress.".
  
-. * Write script that uses --find-old-relative to do auto relativization.
+. * Write script that uses --find-old-relative to do auto relativization. 
 . * Junk shared cruft (duration, moment) in lib/
 
 
 .* Cleanups needed
-. * \$ and $ identifier syntax in examples.
+. * \$ and $ identifier syntax in examples. 
 . * Junk ghost positioning objects eg, Script leans on  Staffside
     leans on Staff.
-. * bracket ps code.
 . * Key_engraver, Local_key_item
 . * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * String[String.length] doesn't trap.
@@ -86,6 +81,12 @@ ChoirStaff bar line types in the rest of the scores
 . * Lookup::text -> needs  to be TeX independent.
 . * junk Music_iterator::first_b_
 . * Bezier
+
+.* ACCIDENTALS
+. * half-sharps, half-flats
+. * adaptive accidental spacing.
+. * accidentals closer to note head
+
 
 .* Beams
 . * [c8. c16 c16 c16] in 6/8 timesig.
@@ -123,13 +124,9 @@ singer knows where to break the words.
 
 In bar 27, there's a crescendo that's supposed to start at the start
 of the grace notes and extend to the note after the grace notes.
-. * 5. Sometimes lyrics extend past the right end of the staff. I guess that
-this is a similar problem (if not another symptom of the same problem) as
-one of the spacing bugs mentioned in the TODO.
-. * 4.  Lyrics and grace sections don't go too well together.
-        The words are aligned with the main note, not the start of the
-        grace note.  This is usually wrong, but is sometimes right.
-. * decimal point in \paper {}
+. * 4. Lyrics and grace sections don't go too well together.
+ The words are aligned with the main note, not the start of the
+ grace note.  This is usually wrong, but is sometimes right.
 . * tie-direction
 . * repeats and partial measures.
 . * rhythmic staff & accidentals.
@@ -152,7 +149,6 @@ one of the spacing bugs mentioned in the TODO.
 
 . * Matanya's tips: 
 .  * don't  shorten stems/staffs closer to each other.
-.  * accidentals closer to note head
 .  * to space the staffs/staffgroups contained in the score.  
 .  * heavier beams?
 
@@ -245,8 +241,6 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 . * split error/warning in error/warning/non_fatal_error
 . * add a Duration_convert member to Duration_iter to set parameters.
 	Junk global duration settings. 
-. * en-,discouraged linebreaking: 
-.  * handle DISALLOW < penalty > FORCE
 .  * discourage breaking of slurs
 . * fix variable define/lookup parser global<->paper
 . * fix title/instrument placements; see input/test/title.ly
@@ -254,16 +248,12 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 . *  I'd like to change the \repetitions command to Jan's suggested
   syntax: \repeat "repeatsymbol" 2 {...}, but I'm not sure that
   I understand the implementation of repeats well enough.
-. * add full cello suites to web site (kom op, Maarten!)
 . * add mudela-book-doc source to webstie.
-. * Rethink Time_description
-\cadenza , \meter,  should all be \properties
 . * fix singleStaffBracket
 . * rename
 .  * partial -> anacrouse
 . * move paper vars into engraver properties
 . * add new glyphs to font.ly
-. * check for groff / troff/ nroff et
 . * more intelligent file searching
 . * disable spaces in TeX stuff
 . * handle ^C for tmp/file creation.
@@ -274,7 +264,7 @@ to provide IO handling for TeX stream, mudela stream, data-file.
 touching it.
 . * put errorlevel in Input class
 . * junk nesting slurs
-. * distinguish between unset and empty properties. 
+
 
 .* FONT
 . * the bracket is ugly (wings are too parabolic, should be more circular)
@@ -331,14 +321,16 @@ touching it.
 
 . * patch: don't touch timestamp if all patches fail.
 . * MetaPost: should not generate setgray for unfill
-. * mfplain.ini not in tetex 0.9
+
 . * mf-to-table -> add space 'before ; in AFM output.  (-> check AFM
 spec. Is this a bug in afm2tfm?)
 . * check out GCC signatures?
 . * glibc 2.0:
 	  f = fopen ("/dev/null", "r")
 	  assert (feof (f))
-. * tetex: mfplain.mem
+. * tetex: mfplain.mem -> INSTALL
+. * mfplain.ini not in tetex 0.9 -> INSTALL
+
 
 .* PROJECTS
 . * Scripts:
@@ -350,7 +342,6 @@ spec. Is this a bug in afm2tfm?)
 .  * stack parameterised scripts for fingering and footing:
 
 . * convert-mudela:
-.  * automatically add  a \version if not present.
 .  * better parsing
 .  * make smarter
 .  * convert-mudela -e empty.ly
@@ -364,7 +355,6 @@ spec. Is this a bug in afm2tfm?)
 
 . * use properties for:
 .  * default tempo.
-.  * cadenza mode? 
 
 . * page handling:
 .  * PS output
@@ -390,6 +380,7 @@ spec. Is this a bug in afm2tfm?)
 
 . * \header
 .  * output header info to MIDI too.
+.  * dump \header into easily parsable format.
 
 . * a musical dictionary. See Documentation/vocabulary-*, other
 languages:
@@ -465,6 +456,7 @@ hesitate to ask.
 .  * speed up PS code.
 .  * PS lines to .eps files
 .  * write custom prolog
+.  * fix ps font switching
 
 . * more spanners (smallish)
 .  * Glissando
@@ -485,7 +477,6 @@ hesitate to ask.
 . * should adjust stemlength for flag number.
 
 . * breaking:
-.  * saving them
 .  * specify number of lines
 
 .* INPUTLANGUAGE
@@ -504,15 +495,10 @@ hesitate to ask.
 
 .* SMALLISH PROJECTS
 
-. * A range for context errors (eg. mark both { and }. )
-
 . * lyric in staff  (sharpsharp in staff, text below)
 
 . * write Dynamic_line (to group dynamics horizontally)
 
-. * half-sharps, half-flats
-
-. * adaptive accidental spacing.
 
 . * handle EOF graciously in error messages.
 
@@ -529,15 +515,13 @@ hesitate to ask.
           (where "to" is a tiny bow)
 
 . * auxilliary file for caching info.
+
 . * Text_crescendo
 
 .* IDEAS
 . * Output data structures of Mudela in XML/SGML.
 . * create libmudela, or liblily_frontend
 . * move MIDI stuff (including Quantization) to a ANSI C libmidi library.
-. * Spacing_request for manually adjusting spacing
-. * caching breakpoints
-. * used fixedpoint arithmetic for min. energy.
 
 * OUTLINE SETUP
 .* .EMACS

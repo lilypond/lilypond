@@ -89,7 +89,7 @@ public:
   static void reset_default_count();
 
   void output_settings (Paper_outputter*) const;
-  Paper_outputter* paper_outputter_p (Paper_stream*, Scope*, String) const;
+
   Paper_stream* paper_stream_p () const;
   String base_output_str () const;
 
