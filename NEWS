@@ -1,3 +1,40 @@
+**************
+pl 60
+	- mats patches: use Latex font stuff.
+	- fixes to the .59 patch release (jcn)
+	- make website|examples target
+	
+pl 59.jcn3
+	- bf: preludes-5
+	- no inline compiler warnings by default
+	- bf: gcc 2.8 compile bow.cc
+	- moved functions with loops from varray.hh to varray.cc
+	- bf: minimum length for tie
+	- slur clipping standard
+	- bf: second broken slur minimum length
+
+pl 59.jcn2
+	- added some to .dstream
+	- bf: second part of broken slur
+	- slur encompassing noteheads adjust
+	- bwv'd preludes
+	- bf: make-patch -d
+	- doc'd rerunning of autoconf
+	- rest of real standje (rename and move simplified standchen to 
+	  input/test?)
+	- bf: clipping
+	- bit better bar number placement
+
+pl 59.jcn1
+	- more INLINE
+	- bf: multi-measure rest
+
+pl 58.jcn7
+	- los-toros: do multi-bar rest
+
+
+
+***************
 pl 59
 	- ly2dvi 0.9.hwn1, -K switch, 
 	- doc: moved manpages in separate directory.
