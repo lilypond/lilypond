@@ -115,23 +115,22 @@ export MFINPUTS:=.:$(MFINPUTS)
 
 default: pfa_warning $(ALL_GEN_FILES) $(outdir)/bigcheese20.otf
 
-
 pfa_warning:
-ifneq ($(notdir $(MFTRACE)),mftrace)
-	@echo ""
-	@echo "ERROR: mftrace not found"
-	@echo ""
-	@echo "For obtaining PFA fonts, either install mftrace "
-	@echo "(see http://www.xs4all.nl/~hanwen/mftrace/ ),"
-	@echo "or try one of the following commands in this directory: "
-	@echo ""
-	@echo " make get-pfa "
-	@echo " make get-rpm-pfa "
-	@echo " make get-deb-pfa "
-	@echo ""
-	@echo "These commands will try to download the files from the internet."
-	@false
-endif
+# ifneq ($(notdir $(MFTRACE)),mftrace)
+# 	@echo ""
+# 	@echo "ERROR: mftrace not found"
+# 	@echo ""
+# 	@echo "For obtaining PFA fonts, either install mftrace "
+# 	@echo "(see http://www.xs4all.nl/~hanwen/mftrace/ ),"
+# 	@echo "or try one of the following commands in this directory: "
+# 	@echo ""
+# 	@echo " make get-pfa "
+# 	@echo " make get-rpm-pfa "
+# 	@echo " make get-deb-pfa "
+# 	@echo ""
+# 	@echo "These commands will try to download the files from the internet."
+# 	@false
+# endif
 
 
 debian-mirror=http://ftp.us.debian.org

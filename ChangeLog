@@ -1,3 +1,10 @@
+2004-12-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* python/lilylib.py (setup_environment): Remove cruft from
+	GS_FONTPATH.
+
+	* configure.in: Bump mftrace requirement to 1.1.1.
+
 2004-12-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-svg.scm (beam): Use polygon.
