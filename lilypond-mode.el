@@ -31,6 +31,11 @@
 (defvar LilyPond-mode-hook nil
   "*Hook called by `LilyPond-mode'.")
 
+;; FIXME: find ``\score'' in buffers / make settable?
+(defun LilyPond-master-file ()
+  ;; duh
+  (buffer-file-name))
+
 (defvar LilyPond-kick-xdvi nil
   "If true, no simultaneous xdvi's are started, but reload signal is sent.")
 
@@ -152,8 +157,13 @@ in LilyPond-include-path."
 
 (defun Midi-running ()
   (let ((process (get-process "midi")))
-  (and process
-       (eq (process-status process) 'run))))
+    (and process
+	 (eq (process-status process) 'run))))
+
+(defun MidiAll-running ()
+  (let ((process (get-process "midiall")))
+    (and process
+	 (eq (process-status process) 'run))))
 
 (defun LilyPond-kill-job ()
   "Kill the currently running LilyPond job."
@@ -223,11 +233,78 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-midi-all-command "timidity -ig"
+(defcustom LilyPond-all-midi-command "timidity -ia"
   "Command used to play MIDI files."
 
   :group 'LilyPond
   :type 'string)
+
+(defun LilyPond-command-current-midi ()
+  "Play midi corresponding to the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file))
+
+(defun LilyPond-command-all-midi ()
+  "Play midi corresponding to the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "MidiAll") 'LilyPond-master-file))
+
+(defun count-rexp (start end rexp)
+  "Print number of found regular expressions in the region."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (goto-char (point-min))
+      (count-matches rexp))))
+
+(defun count-midi-words ()
+  "Print number of scores before the curser."
+  (interactive)
+  (count-rexp (point-min) (point-max) "\\\\midi"))
+ 
+(defun count-midi-words-backwards ()
+  "Print number of scores before the curser."
+  (interactive)
+  (count-rexp (point-min) (point) "\\\\midi"))
+ 
+(defun LilyPond-stop-midi ()
+  "Stop midi playing."
+  (let ((stopped nil))
+    (if (Midi-running)
+	(progn (quit-process (get-process "midi") t)
+	       (setq stopped t)))
+    (if (MidiAll-running)
+	(progn (quit-process (get-process "midiall") t)
+	       (setq stopped t)))
+    stopped))
+
+(defun LilyPond-string-current-midi ()
+  "Play the following midi score of the current document."
+  (interactive)
+  (let ((fname (LilyPond-master-file))
+	(allcount (string-to-number (substring (count-midi-words) 0 -12)))
+	(count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
+    (concat  (substring fname 0 -3) ; suppose ".ly"
+	     (if (and (> allcount 1) (> count 0)) ; not first score
+		 (if (eq count allcount)          ; last score
+		     (concat "-" (number-to-string (+ count -1)))
+		   (concat "-" (number-to-string count))))
+	     ".midi")))
+
+(defun LilyPond-string-all-midi ()
+  "Play all midi scores of the current document."
+  (interactive)
+  (let ((fname (LilyPond-master-file))
+	(allcount (string-to-number (substring (count-midi-words) 0 -12))))
+    (concat  (if (> allcount 0) ; at least one midi-score
+		 (concat (substring fname 0 -3) ".midi "))
+	     (if (> allcount 1) ; more than one midi-score
+		 (concat (substring fname 0 -3) "-[1-9].midi "))
+	     (if (> allcount 9) ; etc.
+		 (concat (substring fname 0 -3) "-[1-9][0-9].midi"))
+	     (if (> allcount 99) ; not first score
+		 (concat (substring fname 0 -3) "-[1-9][0-9][0-9].midi")))))
 
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
@@ -250,7 +327,10 @@ in LilyPond-include-path."
 
     ("ViewPS" . (,(concat LilyPond-gv-command " %p") . "LilyPond"))
 
-    ("Midi" . (,(concat LilyPond-midi-command " %m") . "LilyPond"))
+    ; the following are refreshed in LilyPond-command: e.g., current-midi depends on cursor position
+    ("Midi" . (,(concat LilyPond-midi-command " " (LilyPond-string-current-midi)) . "LilyPond"))
+
+    ("MidiAll" . (,(concat LilyPond-all-midi-command " " (LilyPond-string-all-midi)) . "LilyPond"))
     )
 
   "AList of commands to execute on the current document.
@@ -350,12 +430,6 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	  answer
 	default))))
 
-
-;; FIXME: find ``\score'' in buffers / make settable?
-(defun LilyPond-master-file ()
-  ;; duh
-  (buffer-file-name))
-
 (defun LilyPond-command-master ()
   "Run command on the current document."
   (interactive)
@@ -397,68 +471,6 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
 )
-
-(defun LilyPond-command-midi ()
-  "Play midi corresponding to the current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
-)
-
-(defun count-rexp (start end rexp)
-  "Print number of found regular expressions in the region."
-  (interactive "r")
-  (save-excursion
-    (save-restriction
-      (narrow-to-region start end)
-      (goto-char (point-min))
-      (count-matches rexp))))
-
-(defun count-midi-words ()
-  "Print number of scores before the curser."
-  (interactive)
-  (count-rexp (point-min) (point-max) "\\\\midi"))
- 
-(defun count-midi-words-backwards ()
-  "Print number of scores before the curser."
-  (interactive)
-  (count-rexp (point-min) (point) "\\\\midi"))
- 
-(defun LilyPond-command-next-midi ()
-  "Play next midi score of the current document."
-  (interactive)
-  (if (Midi-running)
-      (quit-process (get-process "midi") t)
-    (LilyPond-compile-file 
-     (let ((fname (LilyPond-master-file))
-	   (allcount (string-to-number (substring (count-midi-words) 0 -12)))
-	   (count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
-       (concat  LilyPond-midi-command " "
-		(substring fname 0 -3) ; suppose ".ly"
-		(if (and (> allcount 1) (> count 0)) ; not first score
-		    (if (eq count allcount)          ; last score
-			(concat "-" (number-to-string (+ count -1)))
-		      (concat "-" (number-to-string count))))
-		".midi"))
-     "Midi")))
-
-(defun LilyPond-command-all-midi ()
-  "Play next midi score of the current document."
-  (interactive)
-  (if (Midi-running)
-      (quit-process (get-process "midi") t)
-    (LilyPond-compile-file 
-     (let ((fname (LilyPond-master-file))
-	   (allcount (string-to-number (substring (count-midi-words) 0 -12))))
-       (concat  LilyPond-midi-all-command " "
-		(if (> allcount 0) ; at least one midi-score
-		    (concat (substring fname 0 -3) ".midi "))
-		(if (> allcount 1) ; more than one midi-score
-		    (concat (substring fname 0 -3) "-?.midi "))
- 		(if (> allcount 9) ; etc.
-		    (concat (substring fname 0 -3) "-??.midi"))
- 		(if (> allcount 99) ; not first score
-		    (concat (substring fname 0 -3) "-???.midi"))))
-     "Midi")))
 
 (defun LilyPond-un-comment-region (start end level)
   "Remove up to LEVEL comment characters from each line in the region."
@@ -544,8 +556,13 @@ command."
 		      (LilyPond-shell-process name buffer-xdvi command)))
 		  (LilyPond-shell-process name buffer-xdvi command)))
 	    (progn
+	      (if (string-equal name "Midi")
+		  (setq command (concat LilyPond-midi-command " " (LilyPond-string-current-midi))))
+	      (if (string-equal name "MidiAll")
+		  (setq command (concat LilyPond-all-midi-command " " (LilyPond-string-all-midi))))
 	      (setq LilyPond-command-default name)
-	      (LilyPond-compile-file command name)))))))
+	      (if (not (and (LilyPond-stop-midi) (string-equal name "Midi")))
+		  (LilyPond-compile-file command name))))))))
 	  
 ;; XEmacs stuff
 ;; Sadly we need this for a macro in Emacs 19.
@@ -580,7 +597,8 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
-  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
+  (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-current-midi)
+  (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
   (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   (define-key LilyPond-mode-map "\C-ci" 'LilyPond-quick-note-insert)
@@ -871,7 +889,7 @@ command."
 	  '([ "SmartView" LilyPond-command-smartview t])
 	  '([ "View" LilyPond-command-view t])
 	  '([ "ViewPS" LilyPond-command-viewps t])
-	  '([ "Midi (off)" LilyPond-command-next-midi t])
+	  '([ "Midi (toggle)" LilyPond-command-current-midi t])
 	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
 
