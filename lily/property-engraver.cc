@@ -118,7 +118,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 
 	  SCM meta = e->get_grob_property ("meta");
 	  SCM name = scm_assoc (ly_symbol2scm ("name"), meta);
-	  warning (_f ("%s is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
+	  warning (_f ("`%s' is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
 		       ly_symbol2string (prop_sym).ch_C (),
 		       origin->type_str_.ch_C (),
 		       ly_scm2string (gh_cdr (name)).ch_C (),

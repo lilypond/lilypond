@@ -158,12 +158,12 @@ msgstr "Uralt-Bitte: `%s'"
 
 #: ly2dvi.py:654 scores.cc:44
 #, fuzzy, c-format
-msgid "dependencies output to %s..."
+msgid "dependencies output to `%s'..."
 msgstr "Ausgabe auf Papier auf %s..."
 
 #: ly2dvi.py:665
 #, fuzzy, c-format
-msgid "%s output to %s..."
+msgid "%s output to `%s'..."
 msgstr "MIDI-Ausgabe nach %s..."
 
 #: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
@@ -209,7 +209,7 @@ msgstr "Verarbeite..."
 
 #: mup2ly.py:1203
 #, fuzzy, c-format
-msgid "Writing %s..."
+msgid "Writing `%s'..."
 msgstr "Linie ... "
 
 #: update-lily.py:46
@@ -803,7 +803,7 @@ msgstr "Uralt-Bitte: `%s'"
 
 #: paper-def.cc:109
 #, fuzzy, c-format
-msgid "paper output to %s..."
+msgid "paper output to `%s'..."
 msgstr "Ausgabe auf Papier auf %s..."
 
 #: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
@@ -812,7 +812,7 @@ msgstr ", bei "
 
 #: paper-outputter.cc:232
 #, fuzzy, c-format
-msgid "writing header field %s to %s..."
+msgid "writing header field `%s' to `%s'..."
 msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
 
 #: paper-score.cc:80
@@ -875,7 +875,7 @@ msgstr "von der musiaklischen Definition: %s"
 
 #: performance.cc:168
 #, c-format
-msgid "MIDI output to %s..."
+msgid "MIDI output to `%s'..."
 msgstr "MIDI-Ausgabe nach %s..."
 
 #: phrasing-slur-engraver.cc:119
@@ -1238,7 +1238,7 @@ msgstr "#32 in Vierteln: %d"
 
 #: lilypond-score.cc:108
 #, c-format
-msgid "Lily output to %s..."
+msgid "Lily output to `%s'..."
 msgstr "Lily-Ausgabe nach %s..."
 
 #: lilypond-score.cc:119

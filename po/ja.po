@@ -157,12 +157,12 @@ msgstr "要求を捨てます: `%s'"
 
 #: ly2dvi.py:654 scores.cc:44
 #, fuzzy, c-format
-msgid "dependencies output to %s..."
+msgid "dependencies output to `%s'..."
 msgstr "%s へ paper 出力..."
 
 #: ly2dvi.py:665
 #, fuzzy, c-format
-msgid "%s output to %s..."
+msgid "%s output to `%s'..."
 msgstr "%s への MIDI 出力"
 
 #: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
@@ -208,7 +208,7 @@ msgstr "処理中..."
 
 #: mup2ly.py:1203
 #, fuzzy, c-format
-msgid "Writing %s..."
+msgid "Writing `%s'..."
 msgstr "行 ..."
 
 #: update-lily.py:46
@@ -815,7 +815,7 @@ msgstr "要求を捨てます: `%s'"
 
 #: paper-def.cc:109
 #, c-format
-msgid "paper output to %s..."
+msgid "paper output to `%s'..."
 msgstr "%s へ paper 出力..."
 
 #: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
@@ -824,7 +824,7 @@ msgstr ", at "
 
 #: paper-outputter.cc:232
 #, fuzzy, c-format
-msgid "writing header field %s to %s..."
+msgid "writing header field `%s' to `%s'..."
 msgstr "依存関係ファイルの書き込み: `%s'..."
 
 #: paper-score.cc:80
@@ -885,7 +885,7 @@ msgstr "音楽的定義より: %s"
 
 #: performance.cc:168
 #, c-format
-msgid "MIDI output to %s..."
+msgid "MIDI output to `%s'..."
 msgstr "%s への MIDI 出力"
 
 #: phrasing-slur-engraver.cc:119
@@ -1234,7 +1234,7 @@ msgstr "四分の中に #32: %d"
 
 #: lilypond-score.cc:108
 #, c-format
-msgid "Lily output to %s..."
+msgid "Lily output to `%s'..."
 msgstr "Lily は %s に出力します..."
 
 #: lilypond-score.cc:119

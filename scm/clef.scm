@@ -1,7 +1,8 @@
-;;
+
 ;; (name . (glyph clef-position octavation))
-;; -- the name clefOctavation is misleading the value 7 is 1 octave not 7 Octaves.
 ;;
+;; -- the name clefOctavation is misleading. The value 7 is 1 octave, not 7 Octaves.
+
 (define supported-clefs '(
 	  ("treble" . ("clefs-G" -2 0))
 	  ("violin" . ("clefs-G" -2 0))
@@ -56,8 +57,29 @@
 	)
 )
 
+; "an alist mapping GLYPHNAME to the position of the central C for that symbol")
+(define c0-pitch-alist
+  '(("clefs-G" . -4)
+	  ("clefs-C" . 0)
+	  ("clefs-F" . 4)
+	  ("clefs-vaticana_do" . 0)
+	  ("clefs-vaticana_fa" . 4)
+	  ("clefs-medicaea_do" . 0)
+	  ("clefs-medicaea_fa" . 4)
+	  ("clefs-hufnagel_do" . 0)
+	  ("clefs-hufnagel_fa" . 4)
+	  ("clefs-hufnagel_do_fa" . 0)
+	  ("clefs-mensural1_c" . 0)
+	  ("clefs-mensural2_c" . 0)
+	  ("clefs-mensural3_c" . 0)
+	  ("clefs-mensural1_f" . 4)
+	  ("clefs-mensural2_f" . 4)
+	  ("clefs-mensural_g" . -4))
+  )
+
 (define (clef-name-to-properties cl)
   (let ((e '())
+	(c0 0)
 	(oct 0)
 	(l (string-length cl))
 	)
@@ -73,17 +95,17 @@
 
 
     (set! e  (assoc cl supported-clefs))
+
     (if (pair? e)
 	`(((symbol . clefGlyph)
 	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(cadr e))
 	   )
 	  
-;	  ((symbol . forceClef)
-;	   (iterator-ctor . ,Property_iterator::constructor)
-;	   (value . #t)
-;	   )
-
+	  ((symbol . centralCPosition)
+	   (iterator-ctor . ,Property_iterator::constructor)
+	   (value . ,(+ oct (caddr e) (cdr  (assoc  (cadr e) c0-pitch-alist))))
+	   )
 	  ((symbol . clefPosition)
 	   (iterator-ctor . ,Property_iterator::constructor)
 	   (value . ,(caddr e))

@@ -41,10 +41,10 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/index.html#everyone">General information</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#new-users">New users</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#other-users">Other users</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#developers">Developers</a><br>
-    	<a href="@TOP@Documentation/out-www/index.html#background">Background info</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#new-users">For new users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#other-users">For users</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#developers">For developers</a><br>
+    	<a href="@TOP@Documentation/out-www/index.html#background">Background information</a><br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<b>Download </b>

@@ -203,7 +203,7 @@ msgstr ""
 
 #: mup2ly.py:1203
 #, c-format
-msgid "Writing %s..."
+msgid "Wwriting `%s'..."
 msgstr ""
 
 #: update-lily.py:46

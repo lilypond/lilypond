@@ -135,9 +135,9 @@ verbose_p = 0
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
 #
 environment = {
-	'MFINPUTS' : datadir + '/mf:',
-	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
-	'TFMFONTS' : datadir + '/tfm:',
+	'MFINPUTS' : ':' + datadir + '/mf',
+	'TEXINPUTS': ':' + datadir + '/tex:' + datadir + '/ps',
+	'TFMFONTS' : ':' + datadir + '/tfm',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
 }
@@ -146,7 +146,7 @@ def setup_environment ():
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):
-			val = val + os.pathsep + os.environ[key]
+			val = os.environ[key] + os.pathsep + val 
 		os.environ[key] = val
 
 def identify ():
@@ -767,7 +767,7 @@ if files and files[0] != '-':
 		depfile = os.path.join (outdir, outbase + '.dep')
 		generate_dependency_file (depfile, depfile)
 		if os.path.isfile (depfile):
-			progress (_ ("dependencies output to %s...") % depfile)
+			progress (_ ("dependencies output to `%s'...") % depfile)
 
 	for i in targets.keys ():
 		ext = string.lower (i)
@@ -777,7 +777,7 @@ if files and files[0] != '-':
 		if reldir != '.':
 			outname = os.path.join (reldir, outname)
 		if os.path.isfile (abs):
-			progress (_ ("%s output to %s...") % (i, outname))
+			progress (_ ("%s output to `%s'...") % (i, outname))
 		elif verbose_p:
 			warning (_ ("can't find file: `%s'") % outname)
 

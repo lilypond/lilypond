@@ -340,6 +340,12 @@ You must have the following packages: guile tcsh tetex te_latex te_kpath
 te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb
 gs_serv gs_lib gs_fonts guile
 
+@subsection Slackware
+
+Problems have been reported with Slackware 7.0; apparently, it ships
+with a faulty compiler. Do not compile LilyPond with -O2 on this
+platform.
+
 @subsection Mandrake
 
 [TODO]

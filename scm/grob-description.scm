@@ -513,7 +513,7 @@
 	(SpanBar . (
 		(break-align-symbol . Staff_bar)
 		(bar-size-procedure . ,Span_bar::get_bar_size) 
-		(molecule-callback . ,Span_bar::brew_molecule)
+		(molecule-callback . ,Bar::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
 		(X-extent-callback . ,Span_bar::width_callback)
 		(Y-offset-callbacks . (,Span_bar::center_on_spanned_callback))

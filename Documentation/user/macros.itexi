@@ -18,7 +18,7 @@
 @macro separate
 
 @tex
-\\hbox to\\hsize{\\hfill$\\heartsuit$\\hfill}
+\\hbox to\\hsize{\\hfill\\vrule width1.4 cm height1.0pt\\hfill}
 @end tex
 
 @end macro
@@ -26,14 +26,7 @@
 
 @c \heartsf was supposed to be filled?
 
-@c center is broken?
-@ifnottex
-@macro braakseparate
-
-@center ***
-
-@end macro
-@end ifnottex
+@c center*** is broken?
 
 @ifinfo
 @macro separate

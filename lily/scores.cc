@@ -41,7 +41,7 @@ void write_dependency_file (String fn, Array<String> targets,
 {
   const int WRAPWIDTH = 65;
 
-  progress_indication (_f ("dependencies output to %s...", fn.ch_C ()));
+  progress_indication (_f ("dependencies output to `%s'...", fn.ch_C ()));
   progress_indication ("\n");
   ofstream f (fn.ch_C ());
   if (!f)

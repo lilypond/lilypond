@@ -21,6 +21,7 @@ INSTALL - compiling and installing GNU LilyPond
   Compiling for distributions
     Red Hat Linux
     SuSE
+    Slackware
     Mandrake
     Debian GNU/Linux
   Problems
@@ -198,7 +199,7 @@ issuing
 
        make web-doc
 
-   Building the website requires  some additional tools:
+   Building the website requires some additional tools:
 
    * xpmtoppm (from the netpbm package: the Portable Bitmap Utilities).
      The original is at the netpbm FTP site
@@ -218,6 +219,11 @@ issuing
      The website will build without bib converter utility, but you will
      not see our hypertextified bibliography.
 
+   * texinfo (a development release) The documentation will build with
+     texinfo-4.0, but if you want split html pages, you're best off
+     using the lates pretest version from texinfo-4.0b
+     (ftp://texinfo.org/texinfo/pretests/texinfo-4.0b.tar.gz) or
+     texinfo-4.0b (ftp://alpha.gnu.org/gnu/texinfo-4.0b.tar.gz)
 
 Building  LilyPond
 ==================
@@ -313,6 +319,13 @@ SuSE
 te_kpath te_mpost libpng python gpp libgpp gettext autoconf netpbm
 libnetpb gs_serv gs_lib gs_fonts guile
 
+Slackware
+---------
+
+   Problems have been reported with Slackware 7.0; apparently, it ships
+with a faulty compiler. Do not compile LilyPond with -O2 on this
+platform.
+
 Mandrake
 --------
 
@@ -325,6 +338,21 @@ Debian GNU/Linux
 using apt-get as root:
 
      	apt-get install lilypond1.3
+
+   Debian's tex installation is a bit short on memory, you may want to
+increase it like this:
+     --- /etc/texmf/texmf.cnf.dpkg	Sun Jan 28 14:12:14 2001
+     +++ /etc/texmf/texmf.cnf	Fri Apr 27 11:09:35 2001
+     @ -384,8 +384,8 @
+      main_memory.context = 1500000
+      main_memory.mpost = 1000000
+      main_memory = 263000 % words of inimemory available; also applies to inimf&mp
+     -extra_mem_top = 0    % extra high memory for chars, tokens, etc.
+     -extra_mem_bot = 0    % extra low memory for boxes, glue, breakpoints, etc.
+     +extra_mem_top = 100000    % extra high memory for chars, tokens, etc.
+     +extra_mem_bot = 100000    % extra low memory for boxes, glue, breakpoints, etc.
+     
+      obj_tab_size.context = 256000
 
    Alternatively, visit
 

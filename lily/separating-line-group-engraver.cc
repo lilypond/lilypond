@@ -41,7 +41,7 @@ void
 Separating_line_group_engraver::initialize ()
 {
   sep_span_p_ = new Spanner (get_property ("SeparatingGroupSpanner"));
-  Separating_group_spanner::set_interface (sep_span_p_);
+
   announce_grob (sep_span_p_, 0);
   sep_span_p_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
 }

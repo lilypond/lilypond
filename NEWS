@@ -1,20 +1,12 @@
 
 New features in 1.4
 
-* Finale (.etf), PMX, Musedata and Mup import tools.
 
-* Point and click functionality using emacs and Xdvi.
+DESIGN
 
-* Comprehensive documentation, including tutorial.
 
-* Self-documenting: generated internal documentation.
-
-* Includes an extensive glossary of musical terms.
-
-* Improved design and implementation: Complete rewrite of the
-internals: LilyPond is smaller, cleaner, more flexible, etc.
-
- - More pervasive GUILE integration resulting in:
+* More pervasive GUILE integration resulting in improved design and
+implementation.  LilyPond is smaller, cleaner, more flexible, etc.
 
  - Improved speed with comparable memory footprint
 
@@ -23,38 +15,64 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
  - Improved robustness: Lily almost never crashes.
 
+ - Access to internal music representation
+
 * New font selection scheme similar to Latex-NFSS.
 
-* Medieval notation features: clefs, custodes
+* Flexible formatting mechanism for musical texts.
 
-* Piano pedal support, Arpeggios, Glissandi
-
-* MIDI: dynamics, tempo changes
-
-* Typography: More elegant slurs, aligned dynamics, text crescendos,
-
-* Better lyrics placement: Automatical phrasing, melisma alignment,
-  and stanza numbering.
+* Chordnames are now configurable in every respect
 
 * Part combining for orchestral scores and hymns: two voices are
   combined into a staff automatically, including Solo/a2
   indications as appropriate.
 
-* Chordnames are now configurable in every respect
 
-* Easy-play notation
+ERGONOMICS
 
-* Finished ouverture Coriolan as full orchestral score example.
+* Point and click functionality using emacs and Xdvi.
+
+* Rewritten Emacs mode
+
+* Cleaned up syntax details 
+
+* Comprehensive documentation, including a rewritten tutorial.
+
+* All properties have doc strings, and internal documentation is
+generated automatically.
+
+* Windows point-and-click installer 
+
+
+NOTATION FEATURES
+
+* Piano pedals, Arpeggios, Glissandi, many more note head
+shapes, Medieval clefs, custodes.
+
+* Better lyrics placement: Automatical phrasing, melisma alignment,
+  and stanza numbering.
+
+* Typography: More elegant slurs, aligned dynamics, text crescendos,
+
+* Easy-play note heads
+
+
+MIDI
+
+* dynamics, tempo changes in the MIDI output
+
+
+MISC
+
+* Finale (.etf), PMX, Musedata and Mup import tools.
 
 * Mutopia ports collection: easy accessible music archive.
 
 * ASCIIScript: ASCII-art output 
 
+* Improved standalone postscript layout.
+
 * Translations into Japanese, French and Russian
 
-* Many bugfixes.
+* Many many many bugfixes.
 
-
-Removed features
-
-* margin shape

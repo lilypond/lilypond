@@ -16,7 +16,9 @@ class Separating_group_spanner
 {
 public:
   static void add_spacing_unit (Grob*me, Item*);
+  static void find_rods (Item*, SCM);
   static void set_interface (Grob*);
+  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
 };
 

@@ -255,11 +255,11 @@ def gulp_file(f):
 		n = i.tell ()
 		i.seek (0,0)
 	except:
-		sys.stderr.write ("can't open file: %s\n" % f)
+		sys.stderr.write ("can't open file: `%s'\n" % f)
 		return ''
 	s = i.read (n)
 	if len (s) <= 0:
-		sys.stderr.write ("gulped empty file: %s\n" % f)
+		sys.stderr.write ("gulped empty file: `%s'\n" % f)
 	i.close ()
 	return s
 
@@ -354,7 +354,7 @@ def lily_key (k):
 	type = k[0:3]
 	if key_lookup.has_key(type):
 		return("%s \\%s" % ( key, key_lookup[type]))
-	sys.stderr.write("Unknown key type %s ignored\n" % type)
+	sys.stderr.write("Unknown key type `%s' ignored\n" % type)
 	return key
 
 def shift_key (note, acc , shift):
@@ -696,15 +696,16 @@ def parse_duration (str, parser_state):
 	(str, num) = parse_num (str)
 	if not num:
 		num = 1
-	
-	if str[0] == '/':
-		while str[:1] == '/':
-			str= str[1:]
-			d = 2
-			if str[0] in DIGITS:
-				(str, d) =parse_num (str)
+	if len(str):
+		if str[0] == '/':
+			if len(str[0]):
+				while str[:1] == '/':
+					str= str[1:]
+					d = 2
+					if str[0] in DIGITS:
+						(str, d) =parse_num (str)
 
-			den = den * d
+					den = den * d
 
 	den = den * default_len
 	
@@ -779,7 +780,7 @@ def try_parse_articulation (str, state):
 	while str and  artic_tbl.has_key(str[:1]):
 		state.next_articulation = state.next_articulation + artic_tbl[str[:1]]
 		if not artic_tbl[str[:1]]:
-			sys.stderr.write("Warning: ignoring %s\n" % str[:1] )
+			sys.stderr.write("Warning: ignoring `%s'\n" % str[:1] )
 
 		str = str[1:]
 
@@ -1247,12 +1248,12 @@ for f in files:
 	if f == '-':
 		f = ''
 
-	sys.stderr.write ('Parsing... [%s]\n' % f)
+	sys.stderr.write ('Parsing `%s\'...\n' % f)
 	parse_file (f)
 
 	if not out_filename:
 		out_filename = os.path.basename (os.path.splitext (f)[0]) + ".ly"
-	sys.stderr.write ('Ly output to: %s...' % out_filename)
+	sys.stderr.write ('lilypond output to: `%s\'...' % out_filename)
 	outf = open (out_filename, 'w')
 
 #	dump_global (outf)

@@ -115,7 +115,7 @@ read_afm_file (String nm)
 
   if (ok)
     {
-      error (_f ("Error parsing AFM file: %s", nm.ch_C ()));
+      error (_f ("Error parsing AFM file: `%s'", nm.ch_C ()));
       exit (2);
     }
   fclose (f);

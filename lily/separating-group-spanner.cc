@@ -14,26 +14,63 @@
 #include "dimensions.hh"
 #include "group-interface.hh"
 
-static void
-do_rod (Item *l, Item *r)
+void
+Separating_group_spanner::find_rods (Item * r, SCM next)
 {
-  Rod rod;
-
-  Interval li (Separation_item::my_width (l));
   Interval ri (Separation_item::my_width (r));
+  if (ri.empty_b ())
+    return;
 
-  rod.item_l_drul_[LEFT] =l;
-  rod.item_l_drul_[RIGHT]=r;
+  /*
+    This is an inner loop, however, in most cases, the interesting L
+    will just be the first entry of NEXT, making it linear in most of
+    the cases.  */
+  for(; gh_pair_p (next); next = gh_cdr (next))
+    {
+      Item *l = dynamic_cast<Item*> (unsmob_grob (gh_car( next)));
+      Item *lb = l->find_prebroken_piece (RIGHT);
 
-  if (li.empty_b () || ri.empty_b ())
-    rod.distance_f_ = 0;
-  else
-    rod.distance_f_ = li[RIGHT] - ri[LEFT];
+      if (lb)
+	{
+	  Interval li (Separation_item::my_width (lb));
 
-  rod.columnize ();
-  rod.add_to_cols ();
+	  if (!li.empty_b ())
+	    {
+	      Rod rod;
+
+	      rod.item_l_drul_[LEFT] = lb;
+	      rod.item_l_drul_[RIGHT] = r;
+
+	      rod.distance_f_ = li[RIGHT] - ri[LEFT];
+	
+	      rod.columnize ();
+	      rod.add_to_cols ();
+	    }
+	}
+
+      Interval li (Separation_item::my_width (l));
+      if (!li.empty_b ())
+	{
+	  Rod rod;
+
+	  rod.item_l_drul_[LEFT] =l;
+	  rod.item_l_drul_[RIGHT]=r;
+
+	  rod.distance_f_ = li[RIGHT] - ri[LEFT];
+	
+	  rod.columnize ();
+	  rod.add_to_cols ();
+
+	  break;
+	}
+      else
+	/*
+	  this grob doesn't cause a constraint. We look further until we
+	  find one that does.  */
+	;
+    }
 }
-  
+
 MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
@@ -45,37 +82,18 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       /*
 	Order of elements is reversed!
        */
-      SCM elt = gh_cadr (s);
-      SCM next_elt = gh_car (s);
+      SCM elt = gh_car (s);
+      Item *r = dynamic_cast<Item*> (unsmob_grob (elt));
 
-      Item *l = dynamic_cast<Item*> (unsmob_grob (elt));
-      Item *r = dynamic_cast<Item*> (unsmob_grob (next_elt));
-
-      if (!r || !l)
+      if (!r)
 	continue;
-      
-      Item *lb
-	= dynamic_cast<Item*> (l->find_prebroken_piece (RIGHT));
 
       Item *rb
 	= dynamic_cast<Item*> (r->find_prebroken_piece (LEFT));
       
-      do_rod (l,  r);
-      if (lb)
-	{
-	  do_rod (lb, r);
-	}
-      
+      find_rods (r, gh_cdr (s));
       if (rb)
-	{
-	  do_rod (l, rb);
-	}
-      
-      if (lb && rb)
-	{
-	  do_rod (lb, rb);
-
-	}
+	find_rods (rb, gh_cdr (s));
     }
 
   /*
@@ -106,5 +124,10 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 void
 Separating_group_spanner::set_interface (Grob*)
 {
+}
 
+bool
+Separating_group_spanner::has_interface (Grob*)
+{//todo
+  assert (false);
 }

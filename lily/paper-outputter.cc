@@ -229,7 +229,7 @@ Paper_outputter::write_header_field_to_file (String filename, String key, String
 {
   if (filename != "-")
     filename += String (".") + key;
-  progress_indication (_f ("writing header field %s to %s...",
+  progress_indication (_f ("writing header field `%s' to `%s'...",
 			   key,
 			   filename == "-" ? String ("<stdout>") : filename));
   

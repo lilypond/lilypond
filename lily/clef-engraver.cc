@@ -43,7 +43,6 @@ private:
   SCM prev_cpos_;
   SCM prev_octavation_;
   void create_clef ();
-  void set_central_c (SCM, SCM, SCM);
   void set_glyph ();
   void inspect_clef_properties ();
 };
@@ -58,37 +57,6 @@ Clef_engraver::Clef_engraver ()
     will trigger a clef at the start since #f != ' ()
    */
   prev_cpos_ = prev_glyph_ = SCM_BOOL_F;
-}
-
-void
-Clef_engraver::set_central_c (SCM glyph,SCM clefpos, SCM octavation)
-{
-  prev_cpos_ = clefpos;
-  prev_glyph_ = glyph;
-  prev_octavation_ = octavation;
-
-  SCM p = get_property ("clefPitches");
-  int c0_position =  0;
-  if (gh_list_p (p))
-    {
-      SCM found = scm_assoc (glyph, p);
-      if (found == SCM_BOOL_F)
-	{
-	  c0_position =0;
-	}
-      else
-	{
-	  c0_position =  gh_scm2int (gh_cdr (found));
-
-	  if (gh_number_p (octavation))
-	      c0_position -= gh_scm2int (octavation);
-      
-	  if (gh_number_p (clefpos))
-	    c0_position += gh_scm2int (clefpos);
-	}
-      
-    }
-  daddy_trans_l_->set_property ("centralCPosition", gh_int2scm (c0_position));
 }
 
 void
@@ -195,11 +163,14 @@ Clef_engraver::inspect_clef_properties ()
 )
     {
       set_glyph ();
-      set_central_c (glyph, clefpos, octavation);
-	
       create_clef ();
 
       clef_p_->set_grob_property ("non-default", SCM_BOOL_T);
+
+       prev_cpos_ = clefpos;
+       prev_glyph_ = glyph;
+       prev_octavation_ = octavation;
+
     }
 
   if (to_boolean (force_clef))
@@ -208,6 +179,7 @@ Clef_engraver::inspect_clef_properties ()
       w->set_property ("forceClef", SCM_EOL);
     }
 }
+
 
 void
 Clef_engraver::stop_translation_timestep ()

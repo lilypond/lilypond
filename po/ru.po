@@ -156,12 +156,12 @@ msgstr "Выбрасываю музыку: `%s'"
 
 #: ly2dvi.py:654 scores.cc:44
 #, fuzzy, c-format
-msgid "dependencies output to %s..."
+msgid "dependencies output to `%s'..."
 msgstr "\"бумажный\" вывод в %s..."
 
 #: ly2dvi.py:665
 #, fuzzy, c-format
-msgid "%s output to %s..."
+msgid "%s output to `%s'..."
 msgstr "вывод MIDI в %s..."
 
 #: includable-lexer.cc:49 lily-guile.cc:139 ly2dvi.py:667
@@ -207,7 +207,7 @@ msgstr "Обрабатываю..."
 
 #: mup2ly.py:1203
 #, fuzzy, c-format
-msgid "Writing %s..."
+msgid "Writing `%s'..."
 msgstr "Выбрасываю музыку: `%s'"
 
 #: update-lily.py:46
@@ -767,7 +767,7 @@ msgstr "Выбрасываю запрос: `%s'"
 
 #: paper-def.cc:109
 #, c-format
-msgid "paper output to %s..."
+msgid "paper output to `%s'..."
 msgstr "\"бумажный\" вывод в %s..."
 
 #: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:99
@@ -776,7 +776,7 @@ msgstr ", в"
 
 #: paper-outputter.cc:232
 #, fuzzy, c-format
-msgid "writing header field %s to %s..."
+msgid "writing header field `%s' to `%s'..."
 msgstr "Записываю файл зависимостей: `%s'..."
 
 #: paper-score.cc:80
@@ -837,7 +837,7 @@ msgstr "из музыкальной нотации %s"
 
 #: performance.cc:168
 #, c-format
-msgid "MIDI output to %s..."
+msgid "MIDI output to `%s'..."
 msgstr "вывод MIDI в %s..."
 
 #: phrasing-slur-engraver.cc:119
@@ -1186,7 +1186,7 @@ msgstr "#32 в четвертной: %d"
 
 #: lilypond-score.cc:108
 #, c-format
-msgid "Lily output to %s..."
+msgid "Lily output to `%s'..."
 msgstr "Lily выход в %s..."
 
 #: lilypond-score.cc:119

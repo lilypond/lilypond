@@ -968,7 +968,7 @@ for f in files:
 		do_one_file (f)
 	except UnknownVersion:
 		sys.stderr.write ('\n')
-		sys.stderr.write ("%s: can't determine version for %s" % (program_name, f))
+		sys.stderr.write ("%s: can't determine version for `%s'" % (program_name, f))
 		sys.stderr.write ('\n')
 		if assume_old:
 			fv = from_version
@@ -976,6 +976,6 @@ for f in files:
 			do_one_file (f)
 			from_version = fv
 		else:
-			sys.stderr.write ("%s: skipping: %s " % (program_name,  f))
+			sys.stderr.write ("%s: skipping: `%s' " % (program_name,  f))
 		pass
 sys.stderr.write ('\n')
