@@ -5,6 +5,8 @@ at-ext = .in
 
 footify=$(PYTHON) $(step-bindir)/add-html-footer.py --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) --footer $(depth)/Documentation/footer.html.in
 
+footify-all-command=$(footify) `$(FIND) . -name '*.html' -print`
+
 #
 YO_FILES := $(wildcard *.yo)
 POD_FILES := $(wildcard *.pod)

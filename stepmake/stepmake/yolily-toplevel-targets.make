@@ -16,9 +16,8 @@ htmldoc:
 	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
 	rm -f `find . -name \*.html~ -print`
-	$(footify)
+	$(footify-all-command)
 	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' > wwwlist
-
 	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png out-www/$(distname).diff.gz $(ERRORLOG)`  index.html
 
 localclean:
