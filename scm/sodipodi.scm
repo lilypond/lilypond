@@ -109,7 +109,19 @@
 ;; Interface functions
 
 (define (char i)
-  (tagify "tspan" (make-string 1 (integer->char i))))
+  (if (or
+       #t
+       (= i #x9)
+       (= i #xa)
+       (= i #xd)
+       (>= i #x20))
+      ;;(tagify "tspan" (format #f "&#x~2,'0x;" i))
+      (tagify "tspan" (format #f "&#xe0~2,'0x;" i))
+      ;; how to access remaining characters??
+      ;;;(tagify "tspan" (format #f "&#x~2,'0x;" #x20)
+      (begin
+	(format #t "can't display char: ~x\n" i)
+	" ")))
 
 (define (end-output)
   "</g></svg>")
@@ -125,15 +137,22 @@
 	  `(height . ,(number->string (* output-scale (+ depth height))))))
 
 
+(define font-alist '(("feta13" . ("LilyPond-Feta13" . "13"))
+		     ("feta20" . "fill:black;stroke:none;font-family:lilypond;font-style:feta;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;")
+		     ("parmesan20" . "fill:black;stroke:none;font-family:lilypond;font-style:parmesan;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;")
+		     ))
+(define (get-font name-mag-pair)
+  ;; name-mag-pair: (quote ("feta20" . 0.569055118110236))"feta20"(quote ("feta20" . 0.569055118110236))
+  (let ((f (assoc (caadr name-mag-pair) font-alist)))
+    (if (pair? f)
+	(cdr f)
+	(begin
+	  (format #t "font not found: ~s\n" (caadr name-mag-pair))
+	  (cdr (assoc "feta20" font-alist))))))
+
 (define (fontify name-mag-pair expr)
-
-  ;; for simple sodipodi with feta20.pfb:
-;;  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:futa20;font-style:normal;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
-
-  ;; Sketch' svg input filter groks this:
-  (tagify "text" (dispatch expr) '(style . "fill:black;stroke:none;font-family:LilyPond-Feta-20;font-style:normal;font-weight:normal;font-size:20;fill-opacity:1;stroke-opacity:1;stroke-width:1pt;stroke-linejoin:miter;stroke-linecap:butt;text-anchor:start;writing-mode:lr;"))
-
-  )
+  (string-append
+   (tagify "text" (dispatch expr) (cons 'style (get-font name-mag-pair)))))
 
 
 (define (header creator generate)

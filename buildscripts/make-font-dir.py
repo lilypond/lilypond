@@ -83,7 +83,11 @@ class Font_info:
 		if len (split) >= 4:
 			# Assume
 			#   Adobe FontName = X11 foundry-family-weight-style
-			self.foundry, self.family = split[:2]
+			if 1:
+				self.foundry, self.family = split[:2]
+			else: # testin'
+				self.foundry = split[0]
+				self.family = string.join (split[1:-2], ' ')
 			self.weight = string.join (split[2:-1], ' ')
 			self.style = split[-1:][0]
 			self.FamilyName = '%s %s' % (self.family, self.weight)

@@ -27,8 +27,7 @@ Span_bar::add_bar (Grob*me, Grob*b)
 
 MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
 
-/*
-  Limitations/Bugs:
+/* Limitations/Bugs:
 
    (1) Elements from 'me->get_grob_property ("elements")' must be
    ordered according to their y coordinates relative to their common
@@ -42,20 +41,17 @@ MAKE_SCHEME_CALLBACK (Span_bar,brew_molecule,1);
    (2) This method depends on bar_engraver not being removed from
    staff context.  If bar_engraver is removed, the size of the staff
    lines is evaluated as 0, which results in a solid span bar line
-   with faulty y coordinate.
- */
+   with faulty y coordinate. */
 
-/*
-  This routine was originally by Juergen Reuter, but it was a on the
-  bulky side. Rewritten by Han-Wen. 
- */
+/* This routine was originally by Juergen Reuter, but it was a on the
+   bulky side. Rewritten by Han-Wen. */
 SCM
 Span_bar::brew_molecule (SCM smobbed_me) 
 {
   Grob *me = unsmob_grob (smobbed_me);
   SCM first_elt = me->get_grob_property ("elements");
 
-  // compute common refpoint of elements
+  /* compute common refpoint of elements */
   Grob *refp = me;
   for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
     {
@@ -64,19 +60,17 @@ Span_bar::brew_molecule (SCM smobbed_me)
       refp = staff_bar->common_refpoint (refp, Y_AXIS);
     }
 
-  Span_bar::evaluate_glyph(me);
+  Span_bar::evaluate_glyph (me);
   SCM glyph = me->get_grob_property ("glyph");
 
-  /*
-    glyph may not be a string, when ME is killed by Hara Kiri in
-    between.
-  */
+  /* glyph may not be a string, when ME is killed by Hara Kiri in
+    between. */
   if (!gh_string_p (glyph))
     return SCM_EOL;
   
   String glyph_string = ly_scm2string (glyph);
 
-  // compose span_bar_mol
+  /* compose span_bar_mol */
   Molecule span_bar_mol;
 
   Interval prev_extent;
@@ -90,18 +84,18 @@ Span_bar::brew_molecule (SCM smobbed_me)
       
       if (!prev_extent.empty_b ())
 	{
-	  Interval l(prev_extent [UP],
+	  Interval l (prev_extent [UP],
 		     ext[DOWN]);
 
 	  if (l.empty_b ())
 	    {
-	      /* there is  overlap between the bar lines. We do nothign here.
-	       */
+	      /* There is overlap between the bar lines.  Do nothing. */
 	    }
 	  else
 	    {
-	      Molecule interbar
-		= Bar_line::compound_barline (staff_bar, glyph_string, l.length());
+	      Molecule interbar = Bar_line::compound_barline (staff_bar,
+							      glyph_string,
+							      l.length ());
 	      interbar.translate_axis (l.center (), Y_AXIS);
 	      span_bar_mol.add_molecule (interbar);
 	    }
@@ -109,7 +103,8 @@ Span_bar::brew_molecule (SCM smobbed_me)
       prev_extent = ext;
     }
 
-  span_bar_mol.translate_axis (- me->relative_coordinate (refp, Y_AXIS), Y_AXIS);
+  span_bar_mol.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
+			       Y_AXIS);
   
   return span_bar_mol.smobbed_copy ();
 }
@@ -138,10 +133,9 @@ Span_bar::before_line_breaking (SCM smob)
   evaluate_empty (unsmob_grob (smob));
   evaluate_glyph (unsmob_grob (smob));
 
-  /*
-    no need to call   Bar_line::before_line_breaking (), because the info
-    in ELEMENTS already has been procced by Bar_line::before_line_breaking ().
-  */
+  /* No need to call Bar_line::before_line_breaking (), because the info
+     in ELEMENTS already has been procced by
+     Bar_line::before_line_breaking (). */
   return SCM_UNSPECIFIED;
 }
 
@@ -155,10 +149,9 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   assert (a == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
-  /*
-    Bar_line::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
-    we have to translate ourselves to be in the center of the 
-    interval that we span.  */
+  /* Bar_line::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
+     we have to translate ourselves to be in the center of the 
+     interval that we span. */
   if (i.empty_b ())
     {
       me->suicide ();
@@ -171,12 +164,9 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 void
 Span_bar::evaluate_empty (Grob*me)
 {
-  /*
-    TODO: filter all hara-kiried out of ELEMENS list, and then
-    optionally do suicide. Call this cleanage function from
-    center_on_spanned_callback () as well.
-    
-   */
+  /* TODO: filter all hara-kiried out of ELEMENS list, and then
+     optionally do suicide. Call this cleanage function from
+     center_on_spanned_callback () as well. */
   if (!gh_pair_p (me->get_grob_property ("elements")))
     {
       me->suicide ();
@@ -192,7 +182,8 @@ Span_bar::evaluate_glyph (Grob*me)
 
   while (gh_pair_p (elts))
     {
-      gl =  unsmob_grob (gh_car (elts))->internal_get_grob_property (glyph_symbol);
+      gl = unsmob_grob (gh_car (elts))
+	->internal_get_grob_property (glyph_symbol);
       if (gh_string_p (gl))
 	break;
       elts =gh_cdr (elts);
@@ -219,14 +210,16 @@ Span_bar::evaluate_glyph (Grob*me)
     }
 
   gl = scm_makfrom0str (type.to_str0 ());
-  if (scm_equal_p (me->internal_get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
+  if (scm_equal_p (me->internal_get_grob_property (glyph_symbol), gl)
+      != SCM_BOOL_T)
     me->internal_set_grob_property (glyph_symbol, gl);
 }
 
 Interval
 Span_bar::get_spanned_interval (Grob*me) 
 {
-  return ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm (), gh_int2scm (Y_AXIS))); 
+  return ly_scm2interval (Axis_group_interface::group_extent_callback
+			  (me->self_scm (), gh_int2scm (Y_AXIS))); 
 }
 
 
@@ -238,9 +231,7 @@ Span_bar::get_bar_size (SCM smob)
   Interval iv (get_spanned_interval (me));
   if (iv.empty_b ())
     {
-      /*
-	This happens if the bars are hara-kiried from under us.
-      */
+      /* This happens if the bars are hara-kiried from under us. */
       me->suicide ();
       return gh_double2scm (-1);
     }

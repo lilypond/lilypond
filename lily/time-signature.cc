@@ -16,10 +16,8 @@
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK (Time_signature,brew_molecule,1);
-/*
-  TODO: make different functions for special and normal timesigs.
- */
+MAKE_SCHEME_CALLBACK (Time_signature, brew_molecule, 1);
+/* TODO: make different functions for special and normal timesigs. */
 SCM
 Time_signature::brew_molecule (SCM smob) 
 {
@@ -79,15 +77,13 @@ Time_signature::special_time_signature (Grob *me, SCM scm_style, int n, int d)
 
   String char_name = style + to_string (n) + "/" + to_string (d);
   me->set_grob_property ("font-family", ly_symbol2scm ("music"));
-  Molecule out =
-    Font_interface::get_default_font (me)->find_by_name ("timesig-" + char_name);
+  Molecule out = Font_interface::get_default_font (me)
+    ->find_by_name ("timesig-" + char_name);
   if (!out.empty_b ())
     return out;
 
-  /*
-    If there is no such symbol, we default to the numbered style.
-    (Here really with a warning!)
-  */
+  /* If there is no such symbol, we default to the numbered style.
+    (Here really with a warning!) */
   me->warning (_f ("time signature symbol `%s' not found; "
 		   "reverting to numbered style", char_name));
   return numbered_time_signature (me, n, d);
@@ -97,14 +93,14 @@ Molecule
 Time_signature::numbered_time_signature (Grob*me,int num, int den)
 {
   SCM chain = Font_interface::font_alist_chain (me);
-  me->set_grob_property("font-family", ly_symbol2scm ("number"));
+  me->set_grob_property ("font-family", ly_symbol2scm ("number"));
 
-  Molecule n = Text_item::text2molecule (me,
-					 scm_makfrom0str (to_string (num).to_str0 ()),
-					 chain);
-  Molecule d = Text_item::text2molecule (me,
-					 scm_makfrom0str (to_string (den).to_str0 ()),
-					 chain);
+  Molecule n =
+    Text_item::text2molecule (me, scm_makfrom0str (to_string (num).to_str0 ()),
+			      chain);
+  Molecule d =
+    Text_item::text2molecule (me, scm_makfrom0str (to_string (den).to_str0 ()),
+			      chain);
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;
@@ -124,7 +120,7 @@ Time_signature::numbered_time_signature (Grob*me,int num, int den)
   return m;
 }
 
-ADD_INTERFACE (Time_signature,"time-signature-interface",
+ADD_INTERFACE (Time_signature, "time-signature-interface",
   "A time signature, in different styles.
   The following values for 'style are are recognized:
 

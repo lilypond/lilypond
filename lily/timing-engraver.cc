@@ -19,16 +19,14 @@
 class Timing_engraver : public Timing_translator, public Engraver
 {
 protected:
-  /*
-    Needed to know whether we're advancing in grace notes, or not.
-   */
+  /* Needed to know whether we're advancing in grace notes, or not. */
   Moment last_moment_;
   
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
 
 public:
-  TRANSLATOR_DECLARATIONS(Timing_engraver);
+  TRANSLATOR_DECLARATIONS (Timing_engraver);
 };
 
 
@@ -48,21 +46,21 @@ Timing_engraver::start_translation_timestep ()
   Moment now = now_mom ();
   SCM which = get_property ("whichBar");
 
-  /*
-    Set the first bar of the score? 
-   */
+  /* Set the first bar of the score? */
   if (!gh_string_p (which))
     which
       = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
       ? SCM_EOL : scm_makfrom0str ("|");
 
   Moment mp = measure_position ();
-  bool start_of_measure = (last_moment_.main_part_ != now.main_part_&& !mp.main_part_  );
+  bool start_of_measure = (last_moment_.main_part_ != now.main_part_
+			   && !mp.main_part_);
 
   if (start_of_measure)
     {
-      Moment mlen = Moment(measure_length ());
-      unsmob_grob (get_property ("currentCommandColumn"))->set_grob_property ("measure-length", mlen.smobbed_copy()); 
+      Moment mlen = Moment (measure_length ());
+      unsmob_grob (get_property ("currentCommandColumn"))
+	->set_grob_property ("measure-length", mlen.smobbed_copy ()); 
     }
   
   if (!gh_string_p (which) && !to_boolean (nonauto))
@@ -89,7 +87,7 @@ Timing_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Timing_engraver,
+ENTER_DESCRIPTION (Timing_engraver,
 /* descr */       " Responsible for synchronizing timing information from staves. 
 Normally in @code{Score}.  In order to create polyrhythmic music,
 this engraver should be removed from @code{Score} and placed in

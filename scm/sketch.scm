@@ -219,10 +219,8 @@
    ;; how to get zero-left padding with ``Guile's fprintf'' ?
    ;;(format #f "txt('\\x~2x',(" i)
    ;;(format #f "txt('\\x~02x',(" i)
-   ;; ugh uhg
-   (if (< i 16)
-       (format #f "txt('\\x0~x',(" i)
-       (format #f "txt('\\x~x',(" i))
+   ;; ugh: python's '%02x' % i
+   (format #f "&#x~2,'0x;" i)
    (sketch-numbers->string (map mul-scale (list x y)))
    "))\n"))
 
