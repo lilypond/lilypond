@@ -8,6 +8,7 @@
 #define KEYITEM_HH
 
 #include "item.hh"
+#include "musical-pitch.hh"
 #include "array.hh"
 
 

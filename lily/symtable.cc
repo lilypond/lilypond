@@ -42,8 +42,7 @@ Symtable::lookup (String s) const
 {
   if (elem_b (s))
     {
-      Atom a (elem(s));
-      return a;
+      return ((Symtable*)this)->elem(s);
     }
   else
     {
