@@ -29,9 +29,11 @@ my_paper = \paper {
     SkipBars = 1;
     markScriptPadding = "6.0";
     textstyle = "italic";
+    textEmptyDimension = 1;
+    oldTieBehavior = 1;
   }
 }
-%{
+
 \score{
   \type Staff <
     \global
@@ -43,7 +45,7 @@ my_paper = \paper {
     instrument = "Oboe";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "oboe";
   }
   \midi {
@@ -62,7 +64,7 @@ my_paper = \paper {
     instrument = "Flauto";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "flauto";
   }
   \midi {
@@ -80,7 +82,7 @@ my_paper = \paper {
     instrument = "Clarinetto I in B\\textflat";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "clarI";
   }
   \midi {
@@ -98,7 +100,7 @@ my_paper = \paper {
     instrument = "Clarinetto II in B\\textflat";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "clarII";
   }
   \midi {
@@ -116,7 +118,7 @@ my_paper = \paper {
     instrument = "Fagotto";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "fagotto";
   }
   \midi {
@@ -135,14 +137,14 @@ my_paper = \paper {
     instrument = "Corno I in F";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "corI";
   }
   \midi {
     \tempo 4=120;
   }
 }
-%}
+
 \score{
   \type Staff <
     \globalNoKey
@@ -154,14 +156,14 @@ my_paper = \paper {
     instrument = "Corno II in F";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "corII";
   }
   \midi {
     \tempo 4=120;
   }
 }
-%{
+
 \score{
   \type Staff <
     \globalNoKey
@@ -173,7 +175,7 @@ my_paper = \paper {
     instrument = "Tromba I in B\\textflat";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "trpI";
   }
   \midi {
@@ -192,7 +194,7 @@ my_paper = \paper {
     instrument = "Tromba II in B\\textflat";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "trpII";
   }
   \midi {
@@ -211,7 +213,7 @@ my_paper = \paper {
     instrument = "Timpani";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "timpani";
   }
   \midi {
@@ -229,7 +231,7 @@ my_paper = \paper {
     instrument = "Violino I";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "viI";
   }
   \midi {
@@ -241,14 +243,13 @@ my_paper = \paper {
   \type Staff <
     \global
     \marks
-%    \notes{s2.*32 s2*141 \break}
     \viII
   >
   \header{
     instrument = "Violino II";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "viII";
   }
   \midi {
@@ -267,7 +268,7 @@ my_paper = \paper {
     instrument = "Viola";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "viola";
   }
   \midi {
@@ -285,7 +286,7 @@ my_paper = \paper {
     instrument = "Violoncello";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "violoncello";
   }
   \midi {
@@ -303,11 +304,10 @@ my_paper = \paper {
     instrument = "Contrabasso";
   }
   \paper{
-    \my_paper;
+    \my_paper
     output = "cb";
   }
   \midi {
     \tempo 4=120;
   }
 }
-%}

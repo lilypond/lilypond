@@ -1,3 +1,6 @@
+pl 36.mb1
+	- bf: N.W.Gade
+
 pl 35.uu1
 	- more memory tweaks: don't do Score_element::line_l () when deleting lines.
 	- more generic properties.

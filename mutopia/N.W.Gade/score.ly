@@ -35,13 +35,13 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     \type Staff = clarI <
       \property Staff.instrument = "Clarinetto I"
       \property Staff.instr = "Cl. I"
-      \global
+      \globalNoKey
       \clarI
     >
     \type Staff = clarII <
       \property Staff.instrument = "Clarinetto II"
       \property Staff.instr = "Cl. II"
-      \global
+      \globalNoKey
       \clarII
     >
     \type Staff = fagotto <
@@ -53,14 +53,14 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
   >
   \type StaffGroup = brass <
     \type Staff = cor <
-      \global
+      \globalNoKey
       \property Staff.instrument = "2 Corni in F"
       \property Staff.instr = "Cor."
       \type Voice = corI { \stemup \corI }
       \type Voice = corII { \stemdown \corII }
     >
     \type Staff = trp <
-      \global
+      \globalNoKey
       \property Staff.instrument = "2 Trp. in B\\textflat  "
       \property Staff.instr = "Trp."
       \type Voice = trpI { \stemup \trpI }
@@ -75,7 +75,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     >
   >
   \type StaffGroup = strings <
-    \type GrandStaff = violins <
+%    \type GrandStaff = violins <
       \type Staff = viI <
         \property Staff.instrument = "Violin I"
         \property Staff.instr = "Vi. I"
@@ -88,7 +88,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
         \global
         \viII
       >
-    >
+%    >
     \type Staff = vla <
       \property Staff.instrument = "Viola"
       \property Staff.instr = "Vla."
@@ -110,7 +110,7 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
   >
 >
  \paper {
-    \paper_sixteen
+%    \paper_sixteen;
     linewidth = 185.\mm;
     textheight = 260.\mm;
     \translator {
@@ -119,11 +119,16 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
-        marginHangOnClef = 1;
-        marginScriptPadding = "20.0";
+%        marginHangOnClef = 1;
+        marginScriptPadding = "52.0";
 	textstyle = "italic";
 	textScriptPadding = 5.0;
+        textEmptyDimension = 1;
+        oldTieBehavior = 1;
     }
+%\translator{\VoiceContext
+%\remove Auto_beam_engraver; % Bug workaround!
+%}
   }
 }
 
