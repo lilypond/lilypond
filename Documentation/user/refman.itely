@@ -29,9 +29,10 @@ revision of this document was for LilyPond 1.3.136.
 @menu
 * Overview::                    
 * Note entry::                  
-* Music notation::              
+* Staff notation::              
 * Polyphony::                   
-* Spanners::                    
+* Beaming::                     
+* Expressive marks::            
 * Ornaments::                   
 * Repeats::                     
 * Piano music::                 
@@ -107,14 +108,15 @@ brevity we omit obligotary lint such as @code{\score} blocks and
 
 
 @menu
-* Notes mode::                  
 * Pitches::                     
 * Defining pitch names::        
 * Durations::                   
 * Notes::                       
-* Note head tweaks::            
+* Easy Notation note heads ::   
+* Tie::                         
 * Rests::                       
 * Skip::                        
+* Note mode::                   
 @end menu
 
 @c .  {Pitches}
@@ -364,6 +366,10 @@ located in between the notes. There is also no way to convert
 between tied notes, dotted notes and plain notes.
 
 @c .   {Tuplets}
+@menu
+* Tuplets::                     
+@end menu
+
 @node Tuplets
 @subsubsection Tuplets
 @cindex Tuplets
@@ -447,9 +453,9 @@ numbers in this mode.
 @cindex Staff notation
 
 @menu
-* Key::                         
-* Breath marks::                
+* Key signature::               
 * Time signature::              
+* Bar lines::                   
 @end menu
 
 @c .  {Key}
@@ -636,19 +642,34 @@ which  contexts to instantiate.]
     shifted horiztonally. Also @code{\shiftOnn} and @code{\shiftOnnn}
 set different shift values.
 
-@cindex @code{\stemBoth}  
+@cindex @code{\stemBoth} 
   @item @code{\stemBoth}
-    Allow stems, beams, and slurs to point either upwards or
+    Allow stems and beams to point either upwards or
     downwards, decided automatically by LilyPond.
 
 @cindex @code{\stemDown}  
   @item @code{\stemDown}
-    Force stems, beams, and slurs to point down.
+    Force stems and beams to point down.
 
 @cindex @code{\stemUp}  
   @item @code{\stemUp}
-    Force stems, beams and slurs to point up.
+    Force stems and beams to point up.
 @end table
+
+@cindex @code{\slurBoth}
+@cindex @code{\slurDown} 
+@cindex @code{\slurUp}
+Similarly, for slurs use
+@code{\slurBoth}, 
+@code{\slurDown}, 
+@code{\slurUp}.
+@cindex @code{\slurBoth}
+@cindex @code{\slurDown} 
+@cindex @code{\slurUp}
+Aand for ties use
+@code{\tieBoth}, 
+@code{\tieDown}, 
+@code{\tieUp}.
 
 
 @node Beaming
@@ -780,6 +801,12 @@ control the number of beams through the properties
 @section Expressive marks
 
 @c .   {Slur}
+@menu
+* Slur ::                       
+* Phrasing slur::               
+* Breath marks::                
+@end menu
+
 @node Slur 
 @subsection Slur
 @cindex slur
@@ -797,7 +824,8 @@ stem end.  If you want to override this layout you can do this through
 @code{Voice.Slur}'s grob-property @code{attachment}:
 
 [TODO: remove this section]
-maybe reinclude other slur features and move back to tricks?
+Maybe reinclude other slur features and move back to tricks?  Esp. the
+second example, how to fix, can be very helpful.
 
 @quotation
 @lilypond[fragment,relative,verbatim]
@@ -899,6 +927,10 @@ not. The grob for this object is called @code{Voice.BreathingSign}.
 
 
 @c .   {Text spanner}
+@menu
+* Text spanner::                
+@end menu
+
 @node Text spanner
 @subsubsection Text spanner
 @cindex Text spanner
@@ -934,7 +966,6 @@ An application ---or rather, a hack---is to fake octavation indications.
 * Articulation::                
 * Text scripts::                
 * Grace notes::                 
-* Bar check::                   
 @end menu
 
 @c .   {Articulation}
@@ -1141,8 +1172,6 @@ also be implemented.
 @menu
 * Glissando ::                  
 * Dynamics::                    
-* Crescendo and Decrescendo::   
-* Bar lines::                   
 @end menu
 
 
@@ -1352,7 +1381,7 @@ the specified number of repeats.
 
 As you can see, LilyPond doesn't remember the timing information, nor
 are slurs or ties repeated, so you have to reset timing information
-after a repeat, e.g. using a bar-check (See @ref{Bar checks}),
+after a repeat, e.g. using a bar-check (See @ref{Bar check}),
 @code{Score.measurePosition} or @code{\partial}. We hope to fix this
 after 1.4.
 
@@ -3111,6 +3140,7 @@ output with 76 quarter notes per minute.
 @cindex Music entry
 @menu
 * Relative::                    
+* Bar check::                   
 * Point and click::             
 @end menu
 
@@ -3822,6 +3852,10 @@ possible.
 
 
 @c .   {Span requests}
+@menu
+* Span requests::               
+@end menu
+
 @node Span requests
 @subsubsection Span requests
 @cindex Span requests

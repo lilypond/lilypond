@@ -70,12 +70,13 @@ this and other documentation.
 * Preface::                        Preface 
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
-* Tricks::                       Features, tips and tricks.
+* Tricks::                         Features, tips and tricks.
 * Invoking LilyPond::              Operation.
 * Bug reports:: 	           Where to report bugs.
 * ly2dvi::                         Generating nice output with titles.
 * convert-ly::                     Upgrading input files.
-* Conversion tools::               Converting from MIDI input.
+* Conversion tools::               Converting to lilypond source format.
+* lilypond-book::                  Interleaving text with music.
 * Internals::                      How it all works.
 * Literature::                     additional reading
 * Index of internals:(lilypond-internals).  Auto generated detailed documentation.

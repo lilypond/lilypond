@@ -20,7 +20,7 @@ ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LY2DVI = $(script-dir)/ly2dvi.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
-LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/
+LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/
 PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
 PS_TO_PNGS = $(buildscript-dir)/ps-to-pngs.sh
 
