@@ -1,3 +1,11 @@
+2002-05-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Bugfix: complain if program not found.
+
+	* scripts/update-lily.py (next_version, prev_version, diff_name):
+	New function.  Patches now named name-prev-latest.diff.gz.
+	Bugfix: import shutil.
+
 2002-05-19  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/note-collision.cc (check_meshing_chords): move file from

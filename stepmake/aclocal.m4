@@ -55,11 +55,11 @@ AC_DEFUN(STEPMAKE_OPTIONAL_REQUIRED, [
 # Return if tested proram ($1) was found (true) or not (false).
 AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
     r="`eval echo '$'"$1"`"
-    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && ! expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
+    if test -n "$r" -a "$r" != "error" -a "$r" != "no" && expr '`eval echo '$'"$1"`' : '.*\(echo\)' > /dev/null; then
+	true
+    else
 	##STEPMAKE_WARN(cannot find $2. $3)
 	false
-    else
-	true
     fi
 ])
 
@@ -596,8 +596,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(INSTALL)
     AC_DEFINE_UNQUOTED(DIRSEP, '${DIRSEP}')
     AC_DEFINE_UNQUOTED(PATHSEP, '${PATHSEP}')
-    AC_SUBST(PATHSEP)
     AC_SUBST(DIRSEP)
+    AC_SUBST(PATHSEP)
+    AC_SUBST(ROOTSEP)
   
     STEPMAKE_DATADIR
 ])
