@@ -65,14 +65,15 @@ Long_option_init theopts[] = {
   {0, "warranty", 'w'},
   {0, "help", 'h'},
   {0, "test", 't'},
-  {0, "debug", 'D'},
+  {0, "debug", 'd'},
   {1, "init", 'i'},
   {1, "include", 'I'},
-  {0, "no-paper", 'M'},
-  {0, "dependencies", 'd'},
+  {0, "no-paper", 'm'},
+  {0, "dependencies", 'M'},	// like GCC
   {0, "no-timestamps", 'T'},	// why do we have this option?
   {0, "find-old-relative", 'Q'},
   {0, "ignore-version", 'V'},
+  {0, "version", 'v'},
   {1, "output-format", 'f'},
   {0, "safe", 's'},
   {0,0,0}
@@ -91,10 +92,10 @@ usage ()
     "  -a, --about            about LilyPond\n"
     );
   cout  << _ (
-    "  -D, --debug            enable debugging output\n"
+    "  -d, --debug            enable debugging output\n"
     );
   cout  << _ (
-    "  -d, --dependencies     write Makefile dependencies for every input file\n"
+    "  -M, --dependencies     write Makefile dependencies for every input file\n"
     );
   cout  << _ (
     "  -h, --help             this help\n"
@@ -109,7 +110,7 @@ usage ()
     "  -i, --init=FILE        use FILE as init file\n"
     );
   cout  << _ (
-    "  -M, --no-paper         produce midi output only\n"
+    "  -m, --no-paper         produce midi output only\n"
     );
   cout  << _ (
     "  -o, --output=FILE      set FILE as default output base\n"
@@ -322,6 +323,9 @@ main (int argc, char **argv)
     {
       switch (opt->shortname)
 	{
+	case 'v':
+	  exit (0);		// we print a version anyway.
+	  break;
 	case 't':
 	  experimental_features_global_b = true;
 	  *mlog << "*** enabling experimental features, you're on your own now ***\n";
@@ -358,13 +362,13 @@ main (int argc, char **argv)
 	case 's':
 	  safe_global_b = true;
 	  break;
-	case 'd':
+	case 'M':
 	  dependency_global_b = true;
 	  break; 
-	case 'D':
+	case 'd':
 	  set_debug (true);
 	  break;
-	case 'M':
+	case 'm':
 	  no_paper_global_b = true;
 	  break;
 	case 'T':
