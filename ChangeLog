@@ -1,5 +1,8 @@
 2002-12-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/tex.scm (tex-output-expression): remove eval compat
+	glut. Other output files too.
+
 	* scm/chord-name.scm: don't export anything from chord module.
 
 	* input/test/american-chords.ly: idem
