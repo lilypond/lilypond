@@ -35,7 +35,8 @@ include $(depth)/make/stepmake.make
 TEXINFO_SOURCES := $(filter-out lilypond.tely, $(TEXINFO_SOURCES))
 
 outimages:
-	cp $(IMAGES) $(outdir)
+	true
+#	cp $(IMAGES) $(outdir)
 
 dvi: $(DVI_FILES)
 
