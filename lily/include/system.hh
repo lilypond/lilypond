@@ -24,7 +24,7 @@ class System : public Spanner
 public:
   int rank_;
   void post_processing ();
-  SCM get_line (bool);
+  SCM get_line ();
   SCM get_lines ();
 
   System (SCM);
