@@ -5,8 +5,10 @@
 
 
     }
-\version "2.3.4"
 
-\score {
-     { c8 c-\noBeam c c }
-    }
+\version "2.3.4"
+\paper {
+    raggedright = ##t
+}
+
+{ c8 c-\noBeam c c }

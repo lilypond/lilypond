@@ -736,11 +736,11 @@ Stem::off_callback (SCM element_smob, SCM)
   return scm_make_real (r);
 }
 
-Grob *
+Spanner *
 Stem::get_beam (Grob *me)
 {
   SCM b = me->get_property ("beam");
-  return unsmob_grob (b);
+  return dynamic_cast<Spanner*> (unsmob_grob (b));
 }
 
 Stem_info

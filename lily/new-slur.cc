@@ -1,5 +1,5 @@
 /*
-  slur.cc -- implement score based Slur
+  slur.cc -- implement external interface for Slur
 
   source file of the GNU LilyPond music typesetter
 

@@ -6,7 +6,6 @@ identifier @code{pipeSymbol}."
 
 pipeSymbol = \bar "||"
 
-\score {
-      { c'2 | c'2 | }
-}
+\paper { raggedright = ##t }
+{ c'2 | c'2 | }
     

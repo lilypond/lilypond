@@ -49,7 +49,8 @@ Ambitus::print (SCM smob)
       
       if (pmin < pmax)
 	{
-	  Real linethickness = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness")) * robust_scm2double (me->get_property ("thickness"), 1.0); 
+	  Real linethickness = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"))
+	    * robust_scm2double (me->get_property ("thickness"), 1.0); 
 	  Real blotdiameter = me->get_paper ()->get_dimension (ly_symbol2scm ("blotdiameter"));
 	  Interval x_extent = 0.5 * linethickness *Interval (-1,1);
 	  Interval y_extent = Interval (pmin, pmax);

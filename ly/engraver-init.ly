@@ -30,6 +30,7 @@
 	\consists "Clef_engraver"
 	\consists "Key_engraver"
 	\consists "Time_signature_engraver"
+	\consists "Ledger_line_engraver" 
 	\consists "Staff_symbol_engraver"
 	\consists "Collision_engraver"
 	\consists "Rest_collision_engraver"
@@ -137,6 +138,7 @@
     \consists "Bar_engraver"
     \consists "Time_signature_engraver"
     \consists "Staff_symbol_engraver"
+    \consists "Ledger_line_engraver" 
     \consists "Instrument_name_engraver"
     \consistsend "Axis_group_engraver"
     \accepts "Voice"
@@ -175,7 +177,6 @@
     \consists "Breathing_sign_engraver"
 				% \consists "Rest_engraver"
     \consists "Note_heads_engraver"
-    \consists "Ledger_line_engraver" 
     \consists "Rest_engraver"
 
     \consists "Stem_engraver"

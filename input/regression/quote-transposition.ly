@@ -8,6 +8,8 @@ In this example, all instruments play sounding central C, the target is a instru
 }
 \version "2.3.4"
 
+\paper { raggedright = ##t }
+
 
 \addquote clarinet  {
     \transposition bes
@@ -15,19 +17,16 @@ In this example, all instruments play sounding central C, the target is a instru
     d'16 d'16 d'8 
     d'16 d'16 d'8 
     d'16 d'16 d'8 
-    }
+}
 \addquote sax  {
     \transposition es'
     a8 a a a a a  a a 
-    }
-
-\score {
-    {
-	\transposition f  % french horn
-	
-	g'4
-	<< \quote clarinet 4 s4^"clar" >> 
-	<< \quote sax 4 s4^"sax" >> 
-    }
+}
+{
+    \transposition f  % french horn
+    
+    g'4
+    << \quote clarinet 4 s4^"clar" >> 
+    << \quote sax 4 s4^"sax" >> 
 }
 

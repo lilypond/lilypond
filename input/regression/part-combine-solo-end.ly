@@ -6,12 +6,11 @@
 }
 
 \version "2.3.4"
+\paper { raggedright = ##t }
 
-\score {
-   <<
-     \new Staff
-       \partcombine
-          { R1 * 2 }
-          { c'8\> c'\! r2.  }
-   >>
-}
+<<
+    \new Staff
+    \partcombine
+    { R1 * 2 }
+    { c'8\> c'\! r2.  }
+>>
