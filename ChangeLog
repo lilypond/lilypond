@@ -4,6 +4,9 @@
 
 	* Documentation/user/converters.itely: updated convert-ly bugs.
 
+	* Documentation/user/lilypond-book.itely: add info about using
+	feta characters in latex.
+
 2005-02-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py: new slur dash patch by Bertalan Fodor.
