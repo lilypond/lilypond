@@ -237,7 +237,7 @@ Stem::do_width()const
     if (!print_flag_b_ || abs(flag_i_) <= 4)
 	return Interval(0,0);	// TODO!
     Paper_def*p= paper();
-    Interval r(p->lookup_l()->flag(flag_i_).dim.x);
+    Interval r(p->lookup_l()->flag(flag_i_).dim.x());
     r+= stem_xoffset_f_;
     return r;
 }
@@ -270,7 +270,7 @@ Stem::brew_molecule_p()const
 	    assert(false); 
     }
 
-    out->translate_x(stem_xoffset_f_);
+    out->translate(stem_xoffset_f_, X_AXIS);
     return out;
 }
 

@@ -33,13 +33,9 @@ struct Atom {
     void translate(Offset o) {
 	off_ += o;
     }
-    void translate_x(Real r){ 
-	off_.x += r;
+    void translate(Real r,Axis a){
+	off_[a] += r;
     }
-    void translate_y(Real r) {
-	off_.y += r;
-    }
-    
     /// how big is #this#?
     Box extent() const;
     Atom(Symbol s);

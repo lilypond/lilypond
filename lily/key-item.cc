@@ -1,10 +1,20 @@
+/*
+  key-item.cc -- implement Key_item
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  keyplacement by Mats Bengtsson
+*/
+
 #include "key-item.hh"
 #include "key.hh"
 #include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-//#include "clef-grav.hh"
+
 #include "key-grav.hh"
 
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
@@ -12,6 +22,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
 Key_item::Key_item(int c)
 {
+    breakable_b_ =true;
     default_b_ = false;
     set_c_position(c);
 }
@@ -58,7 +69,7 @@ Key_item::brew_molecule_p()const
     for (int i =0; i < pitch.size(); i++) {
 	Symbol s= paper()->lookup_l()->accidental(acc[i]);
 	Atom a(s);
-	a.translate_y((c_position + pitch[i]) * inter);
+	a.translate((c_position + pitch[i]) * inter, Y_AXIS);
 	Molecule m(a);
 	output->add_right(m);	
     }

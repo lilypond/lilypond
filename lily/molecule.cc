@@ -14,9 +14,6 @@
 #include "debug.hh"
 #include "tex.hh"
 
-
-/* *************** */
-
 String
 Molecule::TeX_string() const
 {
@@ -43,15 +40,10 @@ Molecule::translate(Offset o)
 }
 
 void
-Molecule::translate_x(Real x)
+Molecule::translate(Real x,Axis a)
 {
-    translate(Offset(x,0));
-}
-
-void
-Molecule::translate_y(Real y)
-{
-    translate(Offset(0,y));
+    for (iter_top(ats,c); c.ok(); c++)
+	c->translate(x,a);
 }
 
 void
@@ -69,7 +61,9 @@ Molecule::add_right(Molecule const &m)
 	add(m);
 	return;
     }
-   Real xof=extent().x.right - m.extent().x.left;
+     Real xof=extent().x().right - m.extent().x().left;
+ 
+     
     Molecule toadd(m);
     toadd.translate(Offset(xof, 0.0));
     add(toadd);
@@ -82,7 +76,8 @@ Molecule::add_left(Molecule const &m)
 	add(m);
 	return;
     }
-    Real xof=extent().x.left - m.extent().x.right;
+  Real xof=extent().x().left - m.extent().x().right;
+   
     Molecule toadd(m);
     toadd.translate(Offset(xof, 0.0));
     add(toadd);
@@ -96,9 +91,10 @@ Molecule::add_top(Molecule const &m)
 	add(m);
 	return;
     }
-  Real yof=extent().y.right - m.extent().y.left;
+   Real yof=extent().y().right - m.extent().y().left;
+
     Molecule toadd(m);
-    toadd.translate_y(yof);
+    toadd.translate(yof, Y_AXIS);
     add(toadd);
 }
 
@@ -109,9 +105,9 @@ Molecule::add_bottom(Molecule const &m)
 	add(m);
 	return;
     }
-    Real yof=extent().y.left- m.extent().y.right;
+     Real yof=extent().y().left- m.extent().y().right;
     Molecule toadd(m);
-    toadd.translate_y(yof);
+    toadd.translate(yof, Y_AXIS);
     add(toadd);
 }
 

@@ -27,6 +27,13 @@ Vertical_align_element::do_substitute_dependency(Score_elem*o,Score_elem*n)
 	else
 	    elem_l_arr_.del(i);
 }
+
+/**
+  Align elements top to bottom. 
+  The first element has its top at y =0.0 afterwards
+
+  TODO configurable, like Horizontal_align_item
+ */
 void
 Vertical_align_element::do_post_processing()
 {
@@ -41,7 +48,7 @@ Vertical_align_element::do_post_processing()
 
     Real where_f=0;
     for ( int i=0 ;  i < elem_l_arr_.size(); i++) {
-	elem_l_arr_[i]->translate_y( - dims[i][1] - where_f);
+	elem_l_arr_[i]->translate( - dims[i][1] - where_f, Y_AXIS);
 	where_f += dims[i].length();
     }
 }

@@ -17,6 +17,7 @@ class Span_bar : public Bar
     Link_array<Bar> spanning_l_arr_;
 
 public:
+    Span_bar();
     DECLARE_MY_RUNTIME_TYPEINFO;
     SCORE_ELEM_CLONE(Span_bar);
     void add(Bar* );
@@ -25,7 +26,6 @@ public:
 protected:
     virtual Interval do_width()const;
     virtual void do_pre_processing();
-    virtual void translate_y(Real y);
     
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);
     virtual Molecule * brew_molecule_p()const;

@@ -67,12 +67,16 @@ Script::set_default_dir()
 Interval
 Script::do_width() const
 {
-    return specs_l_->get_atom(paper(), dir_i_).extent().x;
+    return specs_l_->get_atom(paper(), dir_i_).extent().x();
 }
 
 void
 Script::do_pre_processing()
 {
+    if  (breakable_b_ && break_status_i() != 1) {
+	transparent_b_ = empty_b_ = true;
+    }
+    
     if (!dir_i_)
 	set_default_dir();
     inside_staff_b_ = specs_l_->inside_b();
@@ -81,7 +85,7 @@ Script::do_pre_processing()
 Interval
 Script::symbol_height()const
 {
-    return specs_l_->get_atom(paper(), dir_i_).extent().y;
+    return specs_l_->get_atom(paper(), dir_i_).extent().y();
 }
 
 Molecule*
@@ -90,7 +94,7 @@ Script::brew_molecule_p() const
     Real dy = paper()->internote_f();
     
     Molecule*out = new Molecule(specs_l_->get_atom(paper(), dir_i_));
-    out->translate_y(dy * pos_i_);
+    out->translate(dy * pos_i_, Y_AXIS);
     return out;
 }
 
