@@ -1,3 +1,18 @@
+2004-11-30  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* lily/parser.yy (markup): in markups, { .. } without command
+	before are also flattened, ie \line must be explicitely used.
+
+	* Documentation/user/changing-defaults.itely:
+	* Documentation/user/notation.itely: 
+	* input/wilhelmus.ly: 
+	* input/regression/instrument-name-markup.ly: 
+	* input/regression/markup-score.ly: 
+	* input/regression/new-markup-scheme.ly: 
+	* input/regression/new-markup-syntax.ly: 
+	* input/test/coriolan-margin.ly: use \line in markups where
+	appropriate
+	
 2004-11-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/new-markup.scm (map-markup-command-list): helper function

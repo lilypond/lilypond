@@ -19,7 +19,7 @@ tuning = \markup {
 \header {
     title = "Solo Cello Suites"
     subtitle = "Suite IV"
-    subsubtitle = \markup { \fill-line { { "Originalstimmung: " \tuning } } }
+    subsubtitle = \markup { "Originalstimmung:" \tuning }
 }
 
 \relative {

@@ -142,7 +142,7 @@ text = \lyricmode {
 
 oneHalfNoteTime = \markup {
   \override #'(baseline-skip . 0)
-  \column { { \number "1" } { \smaller \smaller \note #"2" #-0.5 } }
+  \column { \line { \number "1" } \line { \smaller \smaller \note #"2" #-0.5 } }
 }
 
 \layout {

@@ -12,7 +12,10 @@ In markups, expressions stacked with @code{\column},
 @code{\center-align}, etc, are not grouped with @code{< ... >} anymore,
 but with @code{@{ ... @}}, eg:
 @example
-\markup \column @{ @{ first line @} @{ second line @} @}
+\markup \column @{
+  \line @{ first line @}
+  \line @{ second line @}
+@}
 @end example
 
 @item
