@@ -199,11 +199,6 @@ PScore::print() const
 void
 PScore::preprocess()
 {
-#if 0
-    for (PCursor<Item*> ic(its); ic.ok(); ic++){
-	ic->preprocess();
-    }
-#endif 
 }
 
 void
@@ -222,11 +217,11 @@ PScore::postprocess()
 PCursor<PCol *>
 PScore::find_col(const PCol *c)const
 {
-    PCursor<PCol*> cc(cols);
-    for (; cc.ok(); cc++)
-	if (cc.ptr() == c || cc->prebreak == c || cc->postbreak == c)
-	    return cc;
-    return cc;
+    PCol*what = (PCol*)c;
+    if (what->daddy )
+	what = what -> daddy;
+    
+    return cols.find(what);
 }
 
 void
