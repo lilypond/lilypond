@@ -16,6 +16,7 @@ class Slur_engraver :public Engraver {
   Link_array<Slur> slur_l_stack_;
   Link_array<Slur> end_slur_l_arr_;
 
+  void set_melisma (bool);
 protected:
   virtual bool do_try_music (Music*);
   virtual void do_process_requests();
