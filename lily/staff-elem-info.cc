@@ -24,17 +24,5 @@ Staff_elem_info::Staff_elem_info()
     req_l_ = 0;
 }
 
-Features::Features()
-{
-    direction_i_ = 0;
-    initialiser_b_ = false;
-}
-
-Features
-Features::dir(int d) return f;
-{
-    f.initialiser_b_ = true;
-    f.direction_i_ = d;
-}
 
 

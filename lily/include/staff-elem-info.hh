@@ -10,6 +10,7 @@
 #ifndef STAFFELEMINFO_HH
 #define STAFFELEMINFO_HH
 
+#include "scalar.hh"
 #include "proto.hh"
 #include "varray.hh"
 
@@ -26,11 +27,8 @@ struct Staff_elem_info {
 };
 
 
-struct Features {
-    bool initialiser_b_;
-    int direction_i_;
-    
-    Features();
-    static Features dir(int);
+struct Feature {
+    Scalar type_; 
+    Scalar value_;
 };
 #endif // STAFFELEMINFO_HH

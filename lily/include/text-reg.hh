@@ -15,7 +15,7 @@ class Text_register : public Request_register{
     int dir_i_;
     /* *************** */
 protected:
-    virtual void set_feature(Features );
+    virtual void set_feature(Feature );
     virtual bool try_request(Request*);
     virtual void process_requests();
     virtual void pre_move_processing();

@@ -31,7 +31,7 @@ protected:
     virtual void pre_move_processing();
     virtual void post_move_processing();
     virtual bool acceptable_request_b(Request*) const;
-    virtual void set_feature(Features);
+    virtual void set_feature(Feature);
 };
 
 #endif // DYNAMIC_REG_HH

@@ -176,7 +176,6 @@ Stem::brew_molecule_p()const return out;
     Real dy = p->internote();
     Symbol ss =p->lookup_l()->stem(bot*dy,top*dy);
 
-    
     out = new Molecule(Atom(ss));
 
     if (print_flag&&abs(flag) > 4){
@@ -196,7 +195,7 @@ Stem::brew_molecule_p()const return out;
 Real
 Stem::hindex()const
 {
-    return pcol_l_->hpos + stem_xoffset; // hmm.  + offset_.x;
+    return hpos_f() + stem_xoffset;
 }
 
 

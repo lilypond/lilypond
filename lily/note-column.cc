@@ -26,6 +26,11 @@ Note_column::add(Stem*stem_l)
 void
 Note_column::add(Notehead* n_l)
 {
+    if (head_l_arr_.size())
+	assert(n_l->rest_b_ == rest_b_);
+    else
+	rest_b_ = n_l->rest_b_;
+    
     head_l_arr_.push(n_l);
     add_dependency(n_l);
 }
@@ -81,6 +86,9 @@ Note_column::do_width()const return r;
 void
 Note_column::do_pre_processing()
 {
+    if (stem_l_ && !dir_i_)
+	dir_i_ = stem_l_->dir_i_;
+    
     if (!script_l_arr_.size()) 
 	return;
 
@@ -128,8 +136,25 @@ Note_column::do_pre_processing()
 	}
     }
 }
+
 Note_column::Note_column()
 {
+    h_shift_b_ =false;
     stem_l_ =0;
+    rest_b_ = false;
+    dir_i_ =0;
+}
+void
+Note_column::sort()
+{
+    head_l_arr_.sort( Notehead::compare);
 }
     
+Interval_t<int>
+Note_column::head_positions_interval()const
+{
+    (    (Note_column*)this)->sort();
+    return Interval_t<int> ( head_l_arr_[0]->position, 
+			     head_l_arr_.top()->position);
+
+}

@@ -1,0 +1,151 @@
+/*
+  collision.cc -- implement Collision
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+#include "debug.hh"
+#include "collision.hh"
+#include "note-column.hh"
+#include "notehead.hh"
+#include "paper-def.hh"
+
+Collision::Collision()
+{
+}
+
+void
+Collision::add(Note_column* ncol_l)
+{
+    clash_l_arr_.push(ncol_l);
+    add_dependency(ncol_l);
+}
+static 
+int idx(int dir, bool h_shift_b)
+{
+    assert(abs (dir) == 1);
+    int j = dir > 0 ? 0 : 3;
+    if ( h_shift_b ) 
+	j += dir;
+    return j;
+}
+
+/** This complicated routine moves note columns around horizontally
+  (and rests vertically) to ensure that notes don't clash. 
+
+  This should be done better, probably.  
+
+  This routine is dedicated to Stine Randmael :-)
+
+  */
+void
+Collision::do_pre_processing()
+{
+    if (clash_l_arr_.size() <= 1)
+	return;
+    
+    /*
+      [stem up, stem up shifted, stem down shifted, stem down]
+     */
+    Array<Note_column*> clash_group_arr_a[4];
+    
+    for (int i=0; i < clash_l_arr_.size(); i++) {
+	Note_column* c_l = clash_l_arr_[i];
+	int d = (c_l->dir_i_);
+	
+	clash_group_arr_a[idx(d, c_l->h_shift_b_)].push(c_l);
+    }
+    
+    for (int j=0; j < 4; j++) {
+	if (clash_group_arr_a[j].size() > 1) {
+	    warning("Too many clashing notecolumns. Ignoring them.");
+	    return;
+	}
+    }
+    int d = 1;
+    do {
+	if (!clash_group_arr_a[idx(d, false)].size()){
+	    clash_group_arr_a[idx(d,  false)] = clash_group_arr_a[idx(d, true)];
+	    clash_group_arr_a[idx(d, true)].set_size(0);
+	}
+    } while ((d *= -1) != 1);
+				  
+
+    Interval_t<int> y_extent[4];
+    Note_column * col_l_a[4];
+    Real x_off [4];
+    int y_off[4];
+    bool rest_b_a[4];
+    
+    for (int j =0 ; j < 4; j++) {
+	if (clash_group_arr_a[j].size()) 
+	    col_l_a[j] = clash_group_arr_a[j][0];
+	else
+	    col_l_a[j] = 0;
+	
+	if (col_l_a[j]) {
+	    y_extent[j] = col_l_a[j]->head_positions_interval();
+	}
+
+	rest_b_a[j] = (col_l_a[j]) ? col_l_a[j]->rest_b_ : false;	
+	x_off [j] = 0.0;
+	y_off[j] = 0;
+    }
+    
+    do {
+	x_off[idx(d, true)] = d*0.5;
+    } while ((d *= -1) != 1);
+
+   do {
+	int i1 = idx(d, false);
+	int i2 = idx(d,true);
+	if (!intersection(y_extent[i1] , 
+			  y_extent[i2]).empty_b()) {
+	    if (rest_b_a[i1]) {
+		y_off[i1] = -y_extent[i1][-d] + y_extent[1][d] + d*4; // ugh
+		y_extent[i1] += y_off[i1];
+	    }
+	}
+    } while ((d *= -1) != 1);
+
+    do {
+	int i1 = idx(d, false);
+	int i2 = idx(-d,false);
+	
+	if (d*(y_extent[i1][-d] - y_extent[i2][d] )< 0&& rest_b_a[i1]) {
+	    y_off[i1] = -y_extent[i1][-d] + y_extent[i2][d] +d* 4; // ugh
+	    y_extent[i1] += y_off[i1];
+	}
+    } while ((d *= -1) != 1);
+    
+    Interval_t<int> middle( y_extent[0].min(), y_extent[3].max());
+    Interval_t<int> open_middle( y_extent[3].max()+1, y_extent[0].min()-1);
+    do{
+	if (!open_middle.contains_b(y_extent[idx(d,true)]))
+	    x_off[idx(d, true)] = d *1.0 ;
+    } while ((d *= -1) != 1);
+   
+    if (!middle.empty_b() && 
+	middle.length() <= 1 && col_l_a[idx(1,0)] && col_l_a[idx(-1,0)]
+	&& !rest_b_a[idx(1,0)] && !rest_b_a[idx(-1,0)]) {
+	
+	Notehead * nu_l= col_l_a[idx(1,0)]->head_l_arr_[idx(1,0)];
+	Notehead * nd_l = col_l_a[idx(-1,0)]->head_l_arr_[idx(1,0)];
+	if (! (nu_l->balltype == nd_l->balltype && nu_l->dots == nd_l->dots)) {
+	    x_off[idx(1,0)] -= 0.5;
+	    x_off[1] -= 0.5;
+	    x_off[2] += 0.5;
+	    x_off[idx(-1,0)] += 0.5;
+	}
+    }    
+    Real inter_f = paper()->internote();
+    Real wid_f = paper()->note_width();
+    for (int j=0; j < 4; j++) {
+	if (col_l_a[j])
+	    col_l_a[j]->translate(Offset(x_off[j] * wid_f,
+					 y_off[j] * inter_f));
+	
+    }
+}
+IMPLEMENT_STATIC_NAME(Collision);

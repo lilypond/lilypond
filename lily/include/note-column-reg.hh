@@ -14,9 +14,12 @@
 
 class Note_column_register :public Request_register {
     Note_column *ncol_p_;
+    bool h_shift_b_;
+    int dir_i_;
     /* *************** */
     bool acceptable_elem_b(Staff_elem const*)const;
 protected:
+    virtual void set_feature(Feature);
     virtual void acknowledge_element(Staff_elem_info);
     virtual void pre_move_processing();
 

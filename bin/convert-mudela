@@ -1,3 +1,141 @@
 #!/usr/bin/perl -w
 
-print "todo\n!";
+=head1 NAME
+
+convert-mudela  - convert mudela to newer versions
+
+=head1 SYNOPSIS
+
+	convert-mudela --from=FROM_PATCHLEVEL --to=TO_PATCHLEVEL
+
+=head1 DESCRIPTION
+
+convert-mudela sequentially applies different mudela-conversions to
+upgrade a Mudela input file from FROM_PATCHLEVEL to TO_PATCHLEVEL
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--output>
+
+The output file to write
+
+=item B<--edit> 
+
+Do an inline edit of the input file. override B<--output>
+
+=item B<--show-rules>
+
+shows all known conversions.
+
+=item B<--from>=FROM_PATCHLEVEL
+
+=item B<--to>=TO_PATCHLEVEL
+
+=back
+
+=cut
+
+
+use Getopt::Long;
+sub 
+    version_string_conv
+{
+    my ($from_version, $to_version) = @_;
+    s/\version \"0.0.$from_version\"/\version \"0.0.$to_version\"/g;
+}
+
+sub
+    conv_pl0_0_50_pl0_0_52
+{
+ 
+}
+
+sub
+    usage
+{
+    print STDERR "Usage: convert-mudela --from=XX --to=XX\n";
+    print STDERR "other options: --edit --output=FILE --show-rules\n";
+    exit 2;
+}
+    
+my %minor_conversions = ("50" => \&no_conv,
+			 "52" => \&conv_pl0_0_50_pl0_0_52);
+
+sub
+    show_rules
+{
+    print "Rules: ", join(", ", keys %minor_conversions), "\n";
+    
+}
+
+sub 
+    do_conversion
+{
+    my ($from,$to) = @_;
+
+    my @applicable_conversion;
+    my @mudela_levels;
+    
+    die "This is too old  to convert " if $from < 50;
+    
+    foreach $a (sort keys %minor_conversions) {
+	if ($a > $from && $a <= $to ){ 
+	    push @applicable_conversion, $minor_conversions{$a};
+	    push @mudela_levels, $a;
+	}
+    }
+    
+    print STDERR "Applying following rules: ", join(", ", @mudela_levels) , "\n";
+
+    while (<INLY>) {
+	foreach $subroutine (@applicable_conversion) {
+	
+	    &$subroutine;
+	    
+	}
+	version_string_conv $from, $to;
+	print OUTLY;
+    }
+}
+    
+
+sub 
+    set_files 
+{
+    $infile = "-";
+    $outfile = "-";
+    $outfile = $opt_output if (defined($opt_output));
+
+    if ($ARGV [0])  {
+	$infile = $ARGV[0];
+    } 
+
+    if ($opt_edit && $infile ne "-") {
+	$opt_edit = 1;
+	rename $infile, "$infile~";
+	$outfile = $infile;
+	$infile = "$infile~";
+    }
+}
+
+GetOptions ("output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
+
+if ($opt_show_rules) { 
+    show_rules ;
+    $opt_show_rules = 0;	# to extinguish typo check.
+    exit 0;
+}
+
+usage if (!defined($opt_from) || !defined($opt_to));
+local ( $infile,$outfile);
+set_files;
+
+die "can't open \`$infile\'" unless open INLY,$infile ;
+die "can't open \`$outfile\'" unless open OUTLY, ">$outfile";
+
+do_conversion $opt_from, $opt_to;
+close INLY;
+close OUTLY;
+

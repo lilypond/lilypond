@@ -11,7 +11,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
-\version "0.0.50";
+\version "0.0.52";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}
@@ -58,7 +58,7 @@ ii_menuetto = \melodic{
 	< [ e' g > d' cis'_"2" e' a( )g ] |
 %%11
 	< \multivoice  
-		{\stem 1; a4(\stem 1;) d'4 cis'4-. }
+		{\stem 1; a4() d'4 cis'4-. }
 		{ \stem -1; f2 e4 } > |
 %%12
 	< [ g'^"4" d > f' e' f' d'^"3"( ) c' ] |
@@ -66,7 +66,7 @@ ii_menuetto = \melodic{
 	\clef "alto";
 	< \multivoice
 		 { \stem 1; bes2 c'4 }
-		 { \stem -1; g4(\stem -1;) f4 e4 }% ugh
+		 { \stem -1; g4() f4 e4 }% ugh
 	> |
 %%14
 	< [ a f > g a f ] < d'4-\upbow e4 'bes4 > |

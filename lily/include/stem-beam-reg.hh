@@ -22,7 +22,7 @@ struct Stem_beam_register : Request_register {
     /* *************** */
     Stem_beam_register();
     ~Stem_beam_register();
-    virtual void set_feature(Features dir_i_);
+    virtual void set_feature(Feature dir_i_);
     virtual bool try_request(Request*);
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);

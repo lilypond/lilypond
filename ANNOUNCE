@@ -66,9 +66,8 @@ MIDI to Mudela conversion through the mi2mu program.
 
 Multiple staffs in one score. Each staff can have a different meters.
 Multiple voices within one staff; beams optionally shared between
-voices. (well, more than 2 voices won't look pretty --yet.)  Multiple
-scores within one input file. Each score is output to a different
-file.
+voices.  Multiple scores within one input file. Each score is output
+to a different file.
 
 Beams, slurs, chords, super/subscripts (accents and text), triplets,
 general n-plet (triplet, quadruplets, etc.), lyrics, transposition

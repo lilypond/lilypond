@@ -25,7 +25,7 @@ public:
     virtual Item *item() { return this; }
     Item();
     void do_print()const;
-
+    Real hpos_f() const;
     NAME_MEMBERS(Item);
 };
 

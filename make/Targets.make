@@ -206,12 +206,9 @@ $(LIBLILY): dummy
 
 # RedHat rpm package:
 #
-#rpm:	dist
-#	mv ./$(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
 rpm:
-	make -C ./$(depth) dist
-	cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
-	cp $(doc-dir)/*.gif $(rpm-sources)
+	-cp $(depth)/lilypond-$(TOPLEVEL_VERSION).tar.gz $(rpm-sources)
+	-cp $(doc-dir)/*.gif $(rpm-sources)
 	$(MAKE) -C $(make-dir) spec
 	rpm -ba $(makeout)/lilypond.spec
 #

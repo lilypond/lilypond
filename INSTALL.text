@@ -23,29 +23,27 @@ IIIIMMMMPPPPOOOORRRRTTTTAAAANNNNTTTT
 PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
        For compilation you need.
 
-       +o Unix. GNU LilyPond is known to run on Linux, AIX,
+       +o    Unix. GNU LilyPond is known to run on Linux, AIX,
             Digital Unix and Solaris
+
             If you have the Cygnus WIN32 port of the GNU utils,
             it will even work in Lose NT/95, but don't promise to
             support it.
 
-       +o GNU C++ v2.7 or better, with libg++ installed.  Version
-            2.7.2 or better recommended. I almost positive that
-            it will not compile with AT&T CC.
+       +o    GNU C++ v2.7 or better, with libg++ installed.
+            Version 2.7.2 or better recommended. I almost
+            positive that it will not compile with AT&T CC.
 
-       +o Bash. Most scripts will continue to work with a stock
-            sh, but they might generate (harmless) syntax errors
+       +o    GNU make.
 
-       +o GNU make.
+       +o    Flex (2.5.1 or better).
 
-       +o Flex (2.5.1 or better).
-
-       +o Bison.
+       +o    Bison.
 
 RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
-       +o Perl.  Some (mostly unimportant scripts) use Perl for
-            trivial operations. The documentation was created
-            with the perl's Plain Old Documentation.
+       +o    Perl.  Most scripts are written in Perl. The
+            documentation was created with the perl's Plain Old
+            Documentation.
 
        +o (GNU) find
 
@@ -61,7 +59,9 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-14/Apr/97                LilyPond 0.0.51                        1
+
+
+17/Apr/97                LilyPond 0.0.52                        1
 
 
 
@@ -78,10 +78,11 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                /usr/lib/texmf/texmf/tex/lilypond/*
 
        The TeX include directory is detected dynamically, but it
-       can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxxpppprrrreeeeffffiiiixxxx. The above assumes
-       that you are root and have the gnu development tools, and
-       your make is gnu make.  If this is not the case, you can
-       adjust your environment variables to your taste:
+       can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
+       ddddiiiirrrr. The above assumes that you are root and have the gnu
+       development tools, and your make is gnu make.  If this is
+       not the case, you can adjust your environment variables to
+       your taste:
 
                export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
                configure
@@ -94,7 +95,13 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
                configure --prefix=/home/me_myself_and_I/
 
-       Since GNU LilyPond currently is beta, You are advised to
+       If you want to install GNU LilyPond in _/_u_s_r_/_l_o_c_a_l, and
+       your TeX has no default hooks for local stuff (mine is
+       broken too), you can do:
+
+               configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
+
+       Since GNU LilyPond currently is beta, you are advised to
        also use
 
                --enable-debug
@@ -106,6 +113,8 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                --enable-printing
                --enable-optimise
                --enable-profiling
+               --enable-tex-prefix
+               --enable-tex-dir
 
        The option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
        usage.
@@ -115,6 +124,18 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                make all
 
        everything will be compiled, but nothing will be
+
+
+
+17/Apr/97                LilyPond 0.0.52                        2
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
        installed.  The resulting binaries can be found in the
        subdirectory _b_i_n_/.
 
@@ -124,18 +145,6 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
        +o A fast computer (a full page of music typically takes 1
             minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
-
-
-
-14/Apr/97                LilyPond 0.0.51                        2
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
             compile. It's lot slower than most MusiXTeX
             preprocessors)
 
@@ -147,7 +156,9 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        RedHat Linux users should be able to get a RPM. A spec
-       file is in _m_a_k_e_/_l_i_l_y_p_o_n_d_._s_p_e_c.
+       file is in _m_a_k_e_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
+       create an rpm as a normal user. Be sure you have a
+       ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e
 
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
        Windows NT:
@@ -165,16 +176,16 @@ PPPPLLLLAAAATTTTFFFFOOOORRRRMMMMSSSS
        GNU LilyPond (pl 0.0.39) is known to compile on the
        following platforms:
 
-               * linux 2.0.28, g++ 2.7.2[.1]
+               * linux 2.0.x, g++ 2.7.2[.1]
                * aix 4.1, g++ 2.7.2
                * windows-nt 4.0, cygnus gnu-win32 beta17.1 (~=g++ 2.7.2)
                * linux 2.0.28 X to doze, gcc-go32 (~=g++ 2.7.2) [exec. untested]
 
 
 AAAAUUUUTTTTHHHHOOOORRRRSSSS
-               Han-Wen Nienhuys <hanwen@stack.nl>
+       Han-Wen Nienhuys <hanwen@stack.nl>
 
-               Jan Nieuwenhuizen <jan@digicash.com>
+       Jan Nieuwenhuizen <jan@digicash.com>
 
        Have fun!
 
@@ -182,17 +193,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-14/Apr/97                LilyPond 0.0.51                        3
+17/Apr/97                LilyPond 0.0.52                        3
 
 

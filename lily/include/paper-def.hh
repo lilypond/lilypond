@@ -1,5 +1,5 @@
 /*
-  paper-def.hh -- declare 
+  paper-def.hh -- declare Paper_def
 
   source file of the LilyPond music typesetter
 
@@ -7,8 +7,8 @@
 */
 
 
-#ifndef Paper_def_HH
-#define Paper_def_HH
+#ifndef PAPER_DEF_HH
+#define PAPER_DEF_HH
 #include "proto.hh"
 #include "real.hh"
 #include "string.hh"
@@ -41,13 +41,27 @@ public:
     void set(Lookup*);
     ~Paper_def();
     Paper_def(Paper_def const&);
+    /**
+      The distance between lines
+     */
     Real interline()const;
+    /// half the distance between lines
     Real internote()const;
+
+    /// thickness of the standard line 
     Real rule_thickness()const;
+
+    /// height of the staff
     Real standard_height()const;
+
+    /// width of a quaver ball
     Real note_width() const;
     void print() const;
     Lookup const * lookup_l();	// TODO naming
+
+    /** convert a duration to an idealspacing
+      influence using the geometric_ and whole_width parameters.
+      */
     Real duration_to_dist(Moment);
 };
 

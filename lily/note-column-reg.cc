@@ -44,12 +44,28 @@ void
 Note_column_register::pre_move_processing()
 {
     if (ncol_p_) {
+	if (!	ncol_p_->dir_i_ )
+	    ncol_p_->dir_i_ = dir_i_;
+	if (! ncol_p_->h_shift_b_)
+	    ncol_p_->h_shift_b_ = h_shift_b_;
 	typeset_element(ncol_p_);
 	ncol_p_ =0;
     }
 }
+
+void
+Note_column_register::set_feature(Feature i)
+{
+     if (i.type_ == "vdir")	
+	dir_i_ = i.value_;
+     if (i.type_ == "hshift")
+	 h_shift_b_ = i.value_;
+}
+
 Note_column_register::Note_column_register()
 {
+    dir_i_ =0;
+    h_shift_b_ = false;
     ncol_p_=0;
 }
 IMPLEMENT_STATIC_NAME(Note_column_register);

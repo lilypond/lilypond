@@ -65,6 +65,8 @@ File_path::find(String nm)const
 
 {
     fdebug << "looking for " << nm ;
+    if ( !nm.length_i() || ( nm == "-" ) )
+	return nm;
     for (int i=0; i < size(); i++) {
 
 	 String path  = (*this)[i];

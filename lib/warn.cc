@@ -13,7 +13,7 @@ error(String s)
 void
 warning(String m)
 {
-    cerr << "warning" <<m <<endl;
+    cerr << "warning: " <<m <<endl;
 
 }
 

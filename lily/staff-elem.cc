@@ -226,3 +226,8 @@ Staff_elem::brew_molecule_p()const
     Atom a(paper()->lookup_l()->fill(Box(Interval(0,0), Interval(0,0))));
     return new Molecule (a);
 }
+Offset
+Staff_elem::offset() const
+{
+    return offset_; 
+}

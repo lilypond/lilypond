@@ -99,7 +99,7 @@ dynamics (both absolute and hairpin style)
 =item *
 
 multiple voices within one staff; beams optionally shared
-between voices. (well, more than 2 voices won't look pretty --yet.)
+between voices. Up to four voices is handled cleanly.
 
 =item *
 
@@ -159,22 +159,24 @@ quality. If you're not discouraged; this is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	GNU LilyPond 0.0.40 #0/FlowerLib 1.1.7 #2. Compile: Mar 11 1997, 22:58:47 (g++ 2.7.2)
-	Parsing ... [./init//symbol.ini[./init//dynamic.ini][./init//dutch.ini]
-	[./init//script.ini][./init//table_sixteen.ini]][./input/wohltemperirt.ly]
-	Setting up music ...Processing music ............
-	Preprocessing ...
-	Calculating column positions ... [3][6][9]
+	hw:~/musix/spacer$ lilypond input/kortjakje.ly
+	GNU LilyPond 0.0.52 #1/FlowerLib 1.1.12 #1
+	Parsing ... [/home/hw/share/lilypond/init//symbol.ini[
+		<lots of stuff deleted>
+	][./input/kortjakje.ly]
+
+	Setting up music ...Processing music ...[8][16][24][25]
+	Preprocessing ... 
+	Calculating column positions ... [3][9][14][18][22][25]
 	Postprocessing ...
 	TeX output to lelie.out ...
-	midi output to lelie.midi ...
 
 	hw:~/musix/spacer$ tex test
 	This is TeX, Version 3.14159 (C version 6.1)
-	(test.tex
+	(/home/hw/lib/texmf/tex/lilypond/test.tex
 	Hyphenation patterns for english, dutch, loaded.
-	(lilyponddefs.tex) (lelie.uit) [1] [2] )
-	Output written on test.dvi (2 pages, 8420 bytes).
+	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) (lelie.out) [1] )
+	Output written on test.dvi (1 page, 9180 bytes).
 	Transcript written on test.log.
 
 	hw:~/musix/spacer$ xdvi test&

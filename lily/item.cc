@@ -1,7 +1,14 @@
+/*
+  item.cc -- implement Item
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "debug.hh"
 #include "item.hh"
-
-
+#include "p-col.hh"
 
 Item::Item()
 {
@@ -18,3 +25,9 @@ Item::do_print() const
 #endif
 }
 
+
+Real 
+Item::hpos_f()const
+{
+    return pcol_l_->hpos + offset().x;
+}

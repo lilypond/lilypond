@@ -22,7 +22,7 @@ Register_group_register::acceptable_request_b(Request* r)const
 }
 
 void
-Register_group_register::set_feature(Features d)
+Register_group_register::set_feature(Feature d)
 {
     for (iter_top(reg_list_, i); i.ok(); i++) {
 	i->set_feature(d);

@@ -19,6 +19,7 @@ public:
     /* *************** */
 
     NAME_MEMBERS(Voice_registers);
+
     virtual bool acceptable_request_b(Request*);
     virtual void acknowledge_element(Staff_elem_info info);
     virtual bool try_request(Request*);

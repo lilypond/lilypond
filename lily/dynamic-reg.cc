@@ -117,9 +117,10 @@ Dynamic_register::acceptable_request_b(Request*r)const
 }
 
 void
-Dynamic_register::set_feature(Features i)
+Dynamic_register::set_feature(Feature i)
 {
-    dir_i_ = i.direction_i_;
+    if (i.type_ == "vdir")	
+	dir_i_ = i.value_;
 }
 
 IMPLEMENT_STATIC_NAME(Dynamic_register);

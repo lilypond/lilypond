@@ -9,6 +9,7 @@ CXX = @CXX@
 libdir = @libdir@
 prefix = @prefix@
 TEXPREFIX = @TEXPREFIX@
+TEXDIR = @TEXDIR@
 mandir  =  @mandir@
 exec_prefix = @exec_prefix@
 bindir = @bindir@

@@ -33,13 +33,15 @@ Source_file::Source_file( String filename_str )
     istream_p_ = 0;
 
     open();
-    map();
+    if ( fildes_i_ > 0 )
+	map();
 }
 
 istream*
 Source_file::istream_l()
 {
-    assert( fildes_i_ );
+    if ( !fildes_i_ )
+    	return &cin;
     if ( !istream_p_ ) {
 	if ( size_off_ ) // can-t this be done without such a hack?
 	    istream_p_ = new istrstream( ch_C(), size_off_ );
@@ -165,6 +167,11 @@ Source_file::name_str()
 void
 Source_file::open()
 {
+    if ( !name_str_.length_i() || ( name_str_ == "-" ) ) {
+    	fildes_i_ = 0;
+	return;
+    }
+
     fildes_i_ = ::open( name_str_, O_RDONLY );	
 	    
     if ( fildes_i_ == -1 ) {
