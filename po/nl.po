@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-03 19:27+0200\n"
+"POT-Creation-Date: 2004-03-31 16:22+0200\n"
 "PO-Revision-Date: 2004-04-04 11:35+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -28,7 +28,7 @@ msgid "lilylib module"
 msgstr "lilylib module"
 
 #: lilylib.py:63 lilypond-book.py:84 lilypond.py:127 midi2ly.py:100
-#: mup2ly.py:75 old-lilypond-book.py:129 main.cc:139
+#: mup2ly.py:75 old-lilypond-book.py:129 main.cc:140
 msgid "print this help"
 msgstr "toon deze hulp"
 
@@ -65,12 +65,12 @@ msgstr "Afsluiten (%d)..."
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Gebruik: %s [OPTIE]... BESTAND"
 
-#: lilylib.py:194 midi2ly.py:227 mup2ly.py:223 main.cc:204
+#: lilylib.py:194 midi2ly.py:227 mup2ly.py:223 main.cc:205
 #, c-format
 msgid "Options:"
 msgstr "Opties:"
 
-#: lilylib.py:198 midi2ly.py:231 mup2ly.py:227 main.cc:208
+#: lilylib.py:198 midi2ly.py:231 mup2ly.py:227 main.cc:209
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr ""
@@ -138,13 +138,12 @@ msgstr ""
 "Verwerk LilyPond snippers in hybride HTML, LaTeX of texinfo dokument.\n"
 "Gebruiksvoorbeeld:\n"
 "   lilypond-book --filter=\\\"tr '[a-z]' '[A-Z]'\\\" BOEK\\n\"\n"
-"   lilypond-book --filter=\\\"convert-ly --no-version --from=2.0.0 -\\\" BOEK"
-"\\n\n"
+"   lilypond-book --filter=\\\"convert-ly --no-version --from=2.0.0 -\\\" BOEK\\n\n"
 "   lilypond-book --process='lilypond-bin -I invoeging' BOEK\\n\"\n"
 
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
-#: lilypond-book.py:82 old-lilypond-book.py:123 main.cc:138
+#: lilypond-book.py:82 old-lilypond-book.py:123 main.cc:139
 msgid "EXT"
 msgstr "EXT"
 
@@ -161,7 +160,7 @@ msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "pijp snippers door FILTER [convert-ly -n -]"
 
 #: lilypond-book.py:85 lilypond-book.py:87 lilypond.py:131
-#: old-lilypond-book.py:130 main.cc:141 main.cc:146
+#: old-lilypond-book.py:130 main.cc:142 main.cc:147
 msgid "DIR"
 msgstr "MAP"
 
@@ -182,7 +181,7 @@ msgid "write output to DIR"
 msgstr "schrijf uitvoer naar MAP"
 
 #: lilypond-book.py:88 lilypond.py:149 midi2ly.py:105 mup2ly.py:78
-#: old-lilypond-book.py:140 main.cc:149
+#: old-lilypond-book.py:140 main.cc:150
 msgid "be verbose"
 msgstr "wees breedsprakig"
 
@@ -191,7 +190,7 @@ msgid "print version information"
 msgstr "toon versieinformatie"
 
 #: lilypond-book.py:90 lilypond.py:151 midi2ly.py:107 mup2ly.py:80
-#: old-lilypond-book.py:142 main.cc:150
+#: old-lilypond-book.py:142 main.cc:151
 msgid "show warranty and copyright"
 msgstr "toon garantie en auteursrechten"
 
@@ -282,7 +281,7 @@ msgid "print even more output"
 msgstr "toon nog meer uitvoer"
 
 #: lilypond.py:129 lilypond.py:136 midi2ly.py:102 old-lilypond-book.py:136
-#: old-lilypond-book.py:137 main.cc:142 main.cc:145
+#: old-lilypond-book.py:137 main.cc:143 main.cc:146
 msgid "FILE"
 msgstr "BESTAND"
 
@@ -307,11 +306,11 @@ msgstr "bewaar alle uitvoer, schrijf naar map %s.dir"
 msgid "don't run LilyPond"
 msgstr "draai LilyPond niet"
 
-#: lilypond.py:135 main.cc:144
+#: lilypond.py:135 main.cc:145
 msgid "produce MIDI output only"
 msgstr "produceer alleen MIDI uitvoer"
 
-#: lilypond.py:136 midi2ly.py:102 mup2ly.py:76 main.cc:145
+#: lilypond.py:136 midi2ly.py:102 mup2ly.py:76 main.cc:146
 msgid "write output to FILE"
 msgstr "schrijf uitvoer naar BESTAND"
 
@@ -367,7 +366,7 @@ msgstr "SEUTEL=WAARDE"
 msgid "change global setting KEY to VAL"
 msgstr "verander globale instelling SLEUTEL in WAARDE"
 
-#: lilypond.py:150 midi2ly.py:106 mup2ly.py:79 main.cc:148
+#: lilypond.py:150 midi2ly.py:106 mup2ly.py:79 main.cc:149
 msgid "print version number"
 msgstr "druk versienummer af"
 
@@ -456,19 +455,15 @@ msgstr "bestandsnaam mag geen spaties bevatten: `%s'"
 
 #: lilypond.py:880
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-msgstr ""
-"Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
+msgstr "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
 
 #: lilypond.py:921
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
-msgstr ""
-"Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor "
-"een foutpad."
+msgstr "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor een foutpad."
 
 #: lilypond.py:951
 msgid "Running LaTeX failed. Rerun with --verbose for a trace."
-msgstr ""
-"Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
+msgstr "Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
 
 #: lilypond.py:963 input-file-results.cc:74
 #, c-format, python-format
@@ -730,7 +725,7 @@ msgstr "negeren van onbekend voorteken: %s"
 msgid "Accidental rule must be pair or context-name; Found %s"
 msgstr "Voortekenregel moet paar of context-naam zijn; Gevonden %s"
 
-#: afm.cc:154
+#: afm.cc:145
 #, c-format
 msgid "Error parsing AFM file: `%s'"
 msgstr "Fout bij ontleden AFM-bestand: `%s'"
@@ -755,9 +750,7 @@ msgstr "Draai opnieuw met -V voor het tonen van fontpaden."
 
 #: all-font-metrics.cc:111
 msgid "A script for removing font-files is delivered with the source-code:"
-msgstr ""
-"Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-"
-"code:"
+msgstr "Een script ter verwijdering van fontbestanden is meegeleverd bij de bron-code:"
 
 #: all-font-metrics.cc:192
 #, c-format
@@ -801,9 +794,7 @@ msgstr "verwijderen van waardestreep met minder dan twee stokken"
 
 #: beam.cc:1040
 msgid "no viable initial configuration found: may not find good beam slope"
-msgstr ""
-"geen werkbare initiële configuratie gevonden: kan wellicht geen goede "
-"waardestreephelling kunnen vinden"
+msgstr "geen werkbare initiële configuratie gevonden: kan wellicht geen goede waardestreephelling kunnen vinden"
 
 #: beam-engraver.cc:139
 msgid "already have a beam"
@@ -841,11 +832,11 @@ msgstr "kan `%s' niet in `%s' veranderen"
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
 #.
-#: change-iterator.cc:93
+#: change-iterator.cc:87
 msgid "I'm one myself"
 msgstr "Ben er zelf een"
 
-#: change-iterator.cc:96
+#: change-iterator.cc:90
 msgid "none of these in my family"
 msgstr "geen van deze in mijn gezin"
 
@@ -982,16 +973,6 @@ msgstr "\\%s genegeerd"
 msgid "implied \\%s added"
 msgstr "impliciede \\%s toegevoeg"
 
-#: grob-interface.cc:73
-#, c-format
-msgid "Unknown interface `%s'"
-msgstr "onbekende interface `%s'"
-
-#: grob-interface.cc:84
-#, c-format
-msgid "Grob `%s' has no interface for property `%s'"
-msgstr "Grob `%s' heeft geen interface voor eigenschap `%s'"
-
 #: hairpin.cc:98
 msgid "decrescendo too small"
 msgstr "decrescendo te klein"
@@ -1100,16 +1081,13 @@ msgstr "Type contole gefaald voor `%s'; waarde `%s' moet type hebben: `%s'"
 
 #: lookup.cc:169
 msgid "round filled box horizontal extent smaller than blot; decreasing blot"
-msgstr ""
-"rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van "
-"blot"
+msgstr "rond gevulde doos horizontale afmetingen kleiner dan blot; verkleinen van blot"
 
 #: lookup.cc:174
 msgid "round filled box vertical extent smaller than blot; decreasing blot"
-msgstr ""
-"rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van blot"
+msgstr "rond gevulde doos vertikale afmetingen kleiner dan blot; verkleinen van blot"
 
-#: main.cc:99
+#: main.cc:100
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
 "License and you are welcome to change it and/or distribute copies of it\n"
@@ -1121,7 +1099,7 @@ msgstr ""
 "veranderen en/of te verspreiden onder bepaalde voorwaarden.  Roep aan\n"
 "als `lilypond-bin --warranty' voor meer informatie.\n"
 
-#: main.cc:105
+#: main.cc:106
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1152,47 +1130,47 @@ msgstr ""
 "zoniet, schrijf dan naar de Free Software Foundation, Inc.,\n"
 "675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
-#: main.cc:134
+#: main.cc:135
 msgid "EXPR"
 msgstr "EXPR"
 
-#: main.cc:135
+#: main.cc:136
 msgid "set options, use -e '(ly-option-usage)' for help"
 msgstr "zet opties, gebruik -e '(ly-option-usage)' voor hulp"
 
-#: main.cc:138
+#: main.cc:139
 msgid "use output format EXT"
 msgstr "gebruik uitvoerformaat EXT"
 
-#: main.cc:140
+#: main.cc:141
 msgid "FIELD"
 msgstr "VELD"
 
-#: main.cc:140
+#: main.cc:141
 msgid "write header field to BASENAME.FIELD"
 msgstr "schrijf kop veld naar BASISNAAM.VELD"
 
-#: main.cc:141
+#: main.cc:142
 msgid "add DIR to search path"
 msgstr "voeg DIR toe aan zoekpad"
 
-#: main.cc:142
+#: main.cc:143
 msgid "use FILE as init file"
 msgstr "gebruik BESTAND als initialisatiebestand"
 
-#: main.cc:143
+#: main.cc:144
 msgid "write Makefile dependencies"
 msgstr "schrijf Makefile afhankelijkheden"
 
-#: main.cc:146
+#: main.cc:147
 msgid "prepend DIR to dependencies"
 msgstr "voeg DIR voor aan afhankelijkheden"
 
-#: main.cc:147
+#: main.cc:148
 msgid "run in safe mode"
 msgstr "draai in veilige modus"
 
-#: main.cc:170
+#: main.cc:171
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1202,32 +1180,32 @@ msgstr ""
 "%s  en anderen."
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:196
+#: main.cc:197
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
 msgstr "Gebruik: %s [OPTIE]... BESTAND..."
 
-#: main.cc:198
+#: main.cc:199
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Zet muziek en of produceer MIDI van BESTAND."
 
-#: main.cc:200
+#: main.cc:201
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond produceert prachtige muzieknotatie."
 
-#: main.cc:202
+#: main.cc:203
 #, c-format
 msgid "For more information, see %s"
 msgstr "Voor meer informatie, zie %s"
 
-#: main.cc:368
+#: main.cc:369
 #, c-format
 msgid "This option is for developers only."
 msgstr "Deze optie is uitsluitend bestemd voor ontwikkelaars."
 
-#: main.cc:369
+#: main.cc:370
 #, c-format
 msgid "Read the sources for more information."
 msgstr "Lees de broncodes voor meer informatie."
@@ -1322,7 +1300,7 @@ msgstr "Te veel botsende nootkolommen.  Negeer ze."
 msgid "note head `%s' not found"
 msgstr "nootbolletje `%s' niet gevonden"
 
-#: paper-def.cc:89
+#: paper-def.cc:73
 #, c-format
 msgid "paper output to `%s'..."
 msgstr "papier uitvoer naar %s..."
@@ -1336,8 +1314,7 @@ msgstr "Aantal elementen %d (spanners %d)"
 msgid "Preprocessing graphical objects..."
 msgstr "Voorbewerken van grafische objecten..."
 
-#. prevent warning
-#: parse-scm.cc:82
+#: parse-scm.cc:81
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE signaleerde een fout voor de expressie beginnend alhier"
 
@@ -1432,18 +1409,13 @@ msgstr "  Evalueer de Scheme EXPR alvorens enig .ly bestand te ontleden."
 
 #: scm-option.cc:56
 #, c-format
-msgid ""
-"  Multiple -e options may be given, they will be evaluated sequentially."
-msgstr ""
-"  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel "
-"worden geëvalueerd."
+msgid "  Multiple -e options may be given, they will be evaluated sequentially."
+msgstr "  Verscheidene -e opties mogen worden gegeven, deze zullen sequentieel worden geëvalueerd."
 
 #: scm-option.cc:58
 #, c-format
-msgid ""
-"  The function ly-set-option allows for access to some internal variables."
-msgstr ""
-"  De functie ly-set-option verschaft toegang tot bepaalde interne variabelen."
+msgid "  The function ly-set-option allows for access to some internal variables."
+msgstr "  De functie ly-set-option verschaft toegang tot bepaalde interne variabelen."
 
 #: scm-option.cc:60
 #, c-format
@@ -1597,8 +1569,7 @@ msgstr "TFM kop van `%s' heeft slechts %u woord(en)"
 #: tfm-reader.cc:142
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
-msgstr ""
-"%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
+msgstr "%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
 
 #: tie-engraver.cc:164
 msgid "lonely tie"
@@ -1649,19 +1620,15 @@ msgstr "Vaticana_ligature: nulsamenvoeging (delta_pitch == 0)"
 
 #: vaticana-ligature-engraver.cc:342
 #, c-format
-msgid ""
-"ignored prefix (es) `%s' of this head according to restrictions of the "
-"selected ligature style"
+msgid "ignored prefix (es) `%s' of this head according to restrictions of the selected ligature style"
 msgstr ""
-"negeren van voorvoegsel (es) `%s' van dit bolletje volgens restricties van "
-"de\n"
+"negeren van voorvoegsel (es) `%s' van dit bolletje volgens restricties van de\n"
 "geselecteerde ligatuurstijl"
 
 #: vaticana-ligature-engraver.cc:572
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
-msgstr ""
-"Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
+msgstr "Vaticana_ligature_engraver: instelling `spacing-increment = %f': ptr=%ul"
 
 #: volta-engraver.cc:140
 msgid "No volta spanner to end"
@@ -1675,61 +1642,60 @@ msgstr "Heb al een volta spanner.  Stop die nu voortijdig."
 msgid "Also have a stopped spanner.  Giving up."
 msgstr "Heb ook al een gestopte spanner.   Geef op."
 
-#: parser.yy:80
+#: parser.yy:114
 msgid "Tag must be symbol or list of symbols."
 msgstr "Merk moet symbool of lijst van symbolen zijn."
 
-#: parser.yy:510
+#: parser.yy:513
 msgid "Identifier should have alphabetic characters only"
 msgstr "Identifier mag uitsluitend alfabetische tekens hebben"
 
-#: parser.yy:773
+#: parser.yy:776
 msgid "More alternatives than repeats.  Junking excess alternatives."
-msgstr ""
-"Meer alternatieven dan herhalingen.  Schroot overvloedige alternatieven."
+msgstr "Meer alternatieven dan herhalingen.  Schroot overvloedige alternatieven."
 
-#: parser.yy:854 parser.yy:861
+#: parser.yy:857 parser.yy:864
 msgid "\\applycontext takes function argument"
 msgstr "\\applycontext neemt een functieargument"
 
-#: parser.yy:1011
+#: parser.yy:1014
 msgid "\\apply takes function argument"
 msgstr "\\apply neemt een functieargument"
 
-#: parser.yy:1374
+#: parser.yy:1377
 msgid "Can't find music"
 msgstr "Kan geen muziek vinden"
 
-#: parser.yy:1497
+#: parser.yy:1495
 msgid "Second argument must be pitch list."
 msgstr "Tweede argument moet een toonhoogtelijst zijn."
 
-#: parser.yy:1534 parser.yy:1539 parser.yy:2071
+#: parser.yy:1532 parser.yy:1537 parser.yy:2070
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Moet in Lyric modus zijn voor liedteksten"
 
-#: parser.yy:1624
+#: parser.yy:1622
 msgid "Expecting string as script definition"
 msgstr "Verwacht string voor script definitie"
 
-#: parser.yy:1831 parser.yy:1885
+#: parser.yy:1829 parser.yy:1884
 #, c-format
 msgid "not a duration: %d"
 msgstr "geen duur: %d"
 
-#: parser.yy:1981
+#: parser.yy:1980
 msgid "Have to be in Note mode for notes"
 msgstr "Moet in Note modus zijn voor noten"
 
-#: parser.yy:2086
+#: parser.yy:2085
 msgid "Have to be in Chord mode for chords"
 msgstr "Moet in Chord modus zijn voor accoorden"
 
-#: parser.yy:2233
+#: parser.yy:2232
 msgid "need integer number arg"
 msgstr "heb integer getal arg nogig"
 
-#: parser.yy:2384
+#: parser.yy:2383
 msgid "Suspect duration found following this beam"
 msgstr "Verdachte lengte gevonden volgend op deze waardestreep"
 
@@ -1782,3 +1748,9 @@ msgstr "Verkeerde lilypond versie: %s (%s, %s)"
 #: lexer.ll:755 lexer.ll:756
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Overweeg het actualiseren van de invoer met het convert-ly script"
+
+#~ msgid "Unknown interface `%s'"
+#~ msgstr "onbekende interface `%s'"
+
+#~ msgid "Grob `%s' has no interface for property `%s'"
+#~ msgstr "Grob `%s' heeft geen interface voor eigenschap `%s'"

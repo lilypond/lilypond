@@ -29,7 +29,7 @@ int
 Spring_smob::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Spring_smob *ss = unsmob_spring (s);
-  scm_puts (_f ("#<spring smob d= %f>", ss->distance_).to_str0 (), p);
+  scm_puts ("#<Spring smob>", p);
   return 1;
 }
 
