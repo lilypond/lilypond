@@ -2,6 +2,7 @@
 % scales with accents.
 %
 
+\version "0.0.56";
 blah = \staff{  melodicregs
 	\melodic {
 		\meter 6/8;	

@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-28/Apr/97                LilyPond 0.0.57                        1
+2/May/97                 LilyPond 0.0.58                        1
 
 
 
@@ -70,12 +70,15 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+               /usr/local/man/man1/mi2mu.1
+               /usr/local/man/man5/mudela.5
                /usr/local/man/man1/lilypond.1
                /usr/local/lib/libflower.{so,a}
                /usr/local/bin/lilypond
                /usr/local/bin/mi2mu
                /usr/local/share/lilypond/*
                /usr/lib/texmf/texmf/tex/lilypond/*
+               /usr/lib/texmf/texmf/fonts/source/lilypond/*
 
        The TeX include directory is detected dynamically, but it
        can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
@@ -116,18 +119,15 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
            Make a shared library (linux, solaris (?) only )
 
        --enable-printing
-           Enable debugging print routines (----dddd option)
+           Enable debugging print routines (lilypond ----dddd option)
 
        --enable-optimise
            Set maximum optimisation
 
-       --enable-profiling
-           Compile with support for profiling
 
 
 
-
-28/Apr/97                LilyPond 0.0.57                        2
+2/May/97                 LilyPond 0.0.58                        2
 
 
 
@@ -136,14 +136,18 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+       --enable-profiling
+           Compile with support for profiling
+
        --enable-tex-prefix
            Set the directory where texmf lives
 
        --enable-tex-dir
-           Set then directory tex input is in
+           Set then directory tex input is in (detected as a
+           subdir of tex-prefix)
 
        --enable-mf-dir
-           Set then directory tex input is in
+           Set then directory tex input is in (idem)
 
        All options are documented in the _c_o_n_f_i_g_u_r_e help The
        option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
@@ -187,13 +191,9 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
        GNU LilyPond does use a lot of resources. For operation
        you need the following:
 
-       +o    A fast computer (a full page of music typically takes
-            1 minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
-            compile. It's lot slower than most MusiXTeX
 
 
-
-28/Apr/97                LilyPond 0.0.57                        3
+2/May/97                 LilyPond 0.0.58                        3
 
 
 
@@ -202,6 +202,9 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+       +o    A fast computer (a full page of music typically takes
+            1 minute on my 486/66, using the --------eeeennnnaaaabbbblllleeee----cccchhhheeeecccckkkkiiiinnnngggg
+            compile. It's lot slower than most MusiXTeX
             preprocessors)
 
        +o    TeX
@@ -256,9 +259,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-28/Apr/97                LilyPond 0.0.57                        4
+2/May/97                 LilyPond 0.0.58                        4
 
 

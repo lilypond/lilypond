@@ -28,6 +28,98 @@ grep for TODO and ugh/ugr
 PARSER
 	* Duration-> Musical_duration, typedef Rational Duration?
 
+HKN buglist:
+
+exitcode? (altijd 0)
+
+\bar || ook dunne streepjes? Sluit de balk niet af! (soms met de
+ruimte van een hele maat erachter (bij unmatching staffs)
+
+logfile?
+
+Gepunteerde rusten kloppen niet (punt eronder/boven ipv ernaast)
+
+Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
+
+
+
+------------------------\
+barcheck failed in lyric mode -> assert (zie barcheck.ly) (0.0.57)
+------------------------/
+
+optie om te stoppen na eerste barcheck fail? (en wellicht in eerder
+stadium van precessing)
+
+noten staan vaak te dicht aan de rechterkant van de maatstreep.
+
+optie om nummers/markers boven maatstrepen te zetten
+
+tekst staat erg ver van notenbalken af
+
+barcheck her-synchroniseren? (evt met optie)
+
+script ^"3" onder ondanks boven?
+
+symbolen voor triller? (dus "tr---")
+
+mogelijkheid om complete regions te commenten (met /* */ ofzo)
+
+waarom geen ; achter dingen in \paper? (\textwidth 180\mm)
+(sowieso: wanneer wel en geen ; ?)
+
+Onduidelijk wanneer wel en geen \ voor een woord. Maak liever
+verplichte regels
+
+implementeren versieringen door duration *0 ofzo? (geeft nu assertion,
+zie duration0.ly)
+
+midi: instrumenten definieren?
+midi: tempo halverwege het stuk wijzigen?
+midi: gebonden noten niet herhalen?
+
+TeX literals invoegen?
+
+--------/\
+Dit geeft gigantische trubbels
+        < [d8.( e'32*2/3 d'32*2/3 cis'32*2/3 b16 d'16 cis'16 )b'16]
+          [b8.  cis'32*2/3 b32*2/3 a32*2/3     gis16 fis16 e16 d16] >
+(zie file junkjunk.ly) Ik had natuurlijk wat accolades moeten
+plaatsen, maar ja...
+
+--------/\
+Inconsequent: ene keer wel, andere keer niet parse error?
+ipt.ini][/usr/local/share/lilypond/init//table_sixteen.ini]]./lacidarem.ly: 56: 
+error: parse error:
+        <[d8. b8.> \duration 32; <e'*
+                                     2/3 cis'*2/3> <d'*2/3 b*2/3>
+./lacidarem.ly: 56: error: parse error:
+        <[d8. b8.> \duration 32; <e'*2/3 cis'*2/3> <d'*
+                                                       2/3 b*2/3>
+./lacidarem.ly: 57: error: parse error:
+        <cis'*
+              2/3 a*2/3> \duration 16; <b gis> <d' fis> <cis' e> <b' d]> |
+]./lacidarem.ly: 65: warning: Score contains errors. Will not process it. :
+--------/\
+De beam van de triool klopt niet.
+        <[d8. b8.> \duration 32; <e'32*2/3 cis'32*2/3> <d'32*2/3 b32*2/3>
+        <cis'32*2/3 a32*2/3> \duration 16; <b gis> <d' fis> <cis' e>
+<b d]> |
+(zie ook ergens in lacidarem-pianoI.ly)
+--------/
+scales.ly compileert niet meer (vanwege transpose?)
+
+Lengte van de stokken klopt vaak niet, zie bijv. de eerste maat van
+langestok.ly.
+
+Triolen enzo: het zou handig zijn als je het cijfer "3" ook _tussen_
+twee noten kon plaatsen. Dat is bijvoorbeeld nodig in
+c4*2/3 c8*2/3
+
+---------------\
+\bar "||" \meter 6/8; op het eind van de regel staat door elkaar
+gedrukt.
+
+
 BUGS
 
 	* detect -pipe
@@ -49,7 +141,7 @@ BUGS
 
 	* chlapik balk ruimte 
 
-	* standchen triool beam up/down
+		* standchen triool beam up/down
 
 
 SEVERELY LACKING:
@@ -214,6 +306,9 @@ FUTURE
 
 IDEAS
 
+	* output an intermediate format, move backend/output routines into 
+	interpreter
+
 	* scoping in Lexer: do general id- assignments in mudela.
 
 	ID '=' EXPR;
@@ -251,6 +346,11 @@ IDEAS
 
 	* PostScript output (esp. Beams, Slurs, etc)
 
+	* poor man's ascii output possible?
+
+	* Output an output format independent (ofi) typeset file; and 
+	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
+
 	* caching breakpoints
 
 	* use exceptions iso assert?
@@ -266,4 +366,22 @@ IDEAS
 	    mudela-file.ly: '\texinclude "lilyponddefs";'
 	    (junking test.tex and latex.test)
 	  - rename {standchen,scsii-menuetto,...}.tex
+
+	* (related with above) --simple-mudela option for lily,
+	  to lily input files with one-voice simple mudela 
+	  (no red tape)
+
+	* stack scripts in chords:
+	  % fingering:        footing:
+	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
+
+	* parameterised scripts for fingering and footing:
+
+            % toe to bheel   four to five
+	    %   ^_u            4_5  
+	    %     -                           
+	    %  --|x--         --|x--
+	    %  --|---         --|---
+	    %  --|---         --|---
+          (where "to" is a tiny bow)
 

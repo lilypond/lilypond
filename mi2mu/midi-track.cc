@@ -43,11 +43,28 @@ Midi_track::add_event( Moment mom, Midi_event* midi_event_p )
 	tcol_l( mom - midi_event_p->mom() )->add_event( midi_event_p );
 }
 
-// too much red tape?
-String
-Midi_track::name_str()
+int
+Midi_track::check_begin_bar_i( Moment now_mom, int open_bar_i )
 {
-	return name_str_;
+	Moment bar_mom = midi_time_p_->bar_mom();
+	int bar_i = (int)( now_mom / bar_mom ) + 1;
+	if ( bar_i > open_bar_i ) { 
+		tor( NORMAL_ver ) << '[' << flush; 
+		return bar_i;
+	}
+	return 0;
+}
+
+int
+Midi_track::check_end_bar_i( Moment now_mom, int open_bar_i )
+{
+	Moment bar_mom = midi_time_p_->bar_mom();
+	int bar_i = (int)( now_mom / bar_mom ) + 1;
+	if ( bar_i > open_bar_i ) {
+		tor( NORMAL_ver ) << ']' << flush; 
+		return bar_i;
+	}
+	return open_bar_i;
 }
 
 Moment
@@ -71,6 +88,13 @@ Midi_track::get_free_midi_voice_l( Moment mom )
 	Midi_voice* midi_voice_l = midi_voice_p;
 	midi_voice_p_list_.bottom().add( midi_voice_p );
 	return midi_voice_l; 
+}
+
+// too much red tape?
+String
+Midi_track::name_str()
+{
+	return name_str_;
 }
 
 Moment
@@ -99,18 +123,13 @@ void
 Midi_track::process()
 {
 	int bar_i = 1;
-	Moment bar_mom = midi_time_p_->bar_mom();
-
 	for ( PCursor<Track_column*> i( tcol_p_list_.top() ); i.ok(); i++ ) {
-		int bars_i = (int)( i->mom() / bar_mom );
-		if ( bars_i > bar_i )
-			tor( NORMAL_ver ) << '[' << bar_i << flush; 
+		int begin_bar_i = check_begin_bar_i( i->mom(), bar_i );
+		if ( begin_bar_i )
+			tor( NORMAL_ver ) << begin_bar_i << flush; 
 		while ( i->midi_event_p_list_.size() ) 
 			get_free_midi_voice_l( i->mom() )->add_event( i->midi_event_p_list_.top().remove_p() );
-		if ( bars_i > bar_i ) {
-			bar_i = bars_i;
-			tor( NORMAL_ver ) << ']' << flush; 
-		}
+		bar_i = check_end_bar_i( i->mom(), bar_i );
 	}
 
 	tor( DEBUG_ver ) << "ends: " << endl;
@@ -132,37 +151,23 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 	lily_stream_r.newline();
 
 	int bar_i = 0;
-	Moment bar_mom = midi_time_p_->bar_mom();
 
 	PointerList<Midi_voice*> open_voices;
 	Moment now_mom = 0.0;
-	Moment then_mom = 0.0;
-	while ( now_mom < end_mom() ) {
-		int bars_i = (int)( now_mom / bar_mom ) + 1;
-		if ( bars_i > bar_i )
-			tor( NORMAL_ver ) << '[' << flush; 
-
-		if ( bars_i > bar_i ) { 
-		 	Moment into_bar_mom = now_mom - Moment( bars_i - 1 ) * bar_mom;
-			if ( bars_i > 1 ) {
-				if ( !into_bar_mom )
-					lily_stream_r << "|";
-				lily_stream_r.newline();
-			}
-			lily_stream_r << "% " << String_convert::i2dec_str( bars_i, 0, ' ' );
-			if ( into_bar_mom )
-				lily_stream_r << ":" << Duration_convert::dur2_str( Duration_convert::mom2_dur( into_bar_mom ) );
-			lily_stream_r.newline();
-		}
-
+	/// ugh, avoid status track 0...
+	while ( number_i_ && ( now_mom < end_mom() ) ) {
+		int begin_bar_i = check_begin_bar_i( now_mom, bar_i );
+		if ( begin_bar_i )
+			output_mudela_begin_bar( lily_stream_r, now_mom, begin_bar_i );
 		add_begin_at( open_voices, now_mom );
 
 		Moment begin_mom = next_begin_mom( now_mom ); 
 
-		if ( bars_i > bar_i )
-			tor( NORMAL_ver ) << bars_i << flush; 
+		if ( begin_bar_i )
+			tor( NORMAL_ver ) << begin_bar_i << flush; 
 
 		Moment end_mom = next_end_mom( now_mom ); 
+		Moment then_mom = 0.0;
 		if ( ( begin_mom > now_mom ) && ( begin_mom < end_mom ) )
 			then_mom = begin_mom;
 		else 
@@ -171,19 +176,27 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 		tor( DEBUG_ver ) << "begin: " << begin_mom << " end: " << end_mom << endl;
 		tor( DEBUG_ver ) << "slice: " << now_mom << ", " << then_mom << endl;
 
+// rests, ugh
+		String str;
+//		if ( !open_voices.size() )
+//			output_mudela_rest( lily_stream_r, now_mom, then_mom );
 		if ( open_voices.size() > 1 )
 			lily_stream_r << "< ";
 		for ( PCursor<Midi_voice*> i( open_voices.top() ); i.ok(); i++ )
-			lily_stream_r << i->mudela_str( now_mom, then_mom, open_voices.size() - 1 );
+//			lily_stream_r << i->mudela_str( now_mom, then_mom, open_voices.size() - 1 );
+			str += i->mudela_str( now_mom, then_mom, open_voices.size() - 1 );
+		if ( str.length_i() )
+			lily_stream_r << str;
+		else
+			output_mudela_rest( lily_stream_r, now_mom, then_mom );
+			
 		if ( open_voices.size() > 1 )
 			lily_stream_r << "> ";
-		now_mom = then_mom;
+		remove_end_at( open_voices, then_mom );
 
-		remove_end_at( open_voices, now_mom );
-		if ( bars_i > bar_i ) {
-			bar_i = bars_i;
-			tor( NORMAL_ver ) << ']' << flush; 
-		}
+		bar_i = check_end_bar_i( now_mom, bar_i );
+
+		now_mom = then_mom;
 	}
 	bar_i++;
 	tor( NORMAL_ver ) << '[' << bar_i << ']' << flush; 
@@ -193,11 +206,84 @@ Midi_track::output_mudela( Lily_stream& lily_stream_r )
 	lily_stream_r.newline();
 }
 
+
+void
+Midi_track::output_mudela_begin_bar( Lily_stream& lily_stream_r, Moment now_mom, int bar_i )
+{
+	Moment bar_mom = midi_time_p_->bar_mom();
+	Moment into_bar_mom = now_mom - Moment( bar_i - 1 ) * bar_mom;
+	if ( bar_i > 1 ) {
+		if ( !into_bar_mom )
+			lily_stream_r << "|";
+		lily_stream_r.newline();
+	}
+	lily_stream_r << "% " << String_convert::i2dec_str( bar_i, 0, ' ' );
+	if ( into_bar_mom )
+		lily_stream_r << ":" << Duration_convert::dur2_str( Duration_convert::mom2_dur( into_bar_mom ) );
+	lily_stream_r.newline();
+}
+
+
+void 
+Midi_track::output_mudela_rest( Lily_stream& lily_stream_r, Moment begin_mom, Moment end_mom )
+{
+	Moment bar_mom = midi_time_p_->bar_mom();
+	Moment now_mom = begin_mom;
+	int begin_bar_i =(int)( now_mom / bar_mom ) + 1; 
+	Moment remain_mom = now_mom - Moment( begin_bar_i - 1 ) * bar_mom;
+        if ( remain_mom > Moment( 0 ) )
+		output_mudela_rest_remain( lily_stream_r, remain_mom );
+
+	int end_bar_i = (int)( end_mom / bar_mom ) + 1;
+	now_mom += remain_mom;
+
+	int bar_i = (int)( now_mom / bar_mom ) + 1;
+	bar_i = check_end_bar_i( now_mom, bar_i );
+	for ( int i = 0; i < end_bar_i - begin_bar_i; i++ ) {
+		int begin_bar_i = check_begin_bar_i( now_mom, bar_i );
+		if ( begin_bar_i )
+			output_mudela_begin_bar( lily_stream_r, now_mom, begin_bar_i );
+		lily_stream_r << "r1 ";
+		tor( NORMAL_ver ) << begin_bar_i << flush; 
+		bar_i = check_end_bar_i( now_mom, bar_i );
+		now_mom += bar_mom;
+	}
+	// use "int i" here, and gcc 2.7.2 hits internal compiler error
+	int ii = check_begin_bar_i( now_mom, bar_i );
+	if ( ii )
+		output_mudela_begin_bar( lily_stream_r, now_mom, ii );
+	bar_i = check_end_bar_i( now_mom, bar_i );
+
+	remain_mom = end_mom - Moment( end_bar_i - 1 ) * bar_mom;
+        if ( remain_mom > Moment( 0 ) )
+		output_mudela_rest_remain( lily_stream_r, remain_mom );
+}
+
+
+void
+Midi_track::output_mudela_rest_remain( Lily_stream& lily_stream_r, Moment mom )
+{
+	int type_i = 2;
+	while ( mom > Moment( 0 ) ) {
+		Duration dur( type_i );
+		Moment type_mom = Duration_convert::dur2_mom( dur );
+		int count_i = (int)( mom / type_mom ); 
+		for( int i = 0; i < count_i; i++ )
+			lily_stream_r << "r" << dur.str() << " ";
+		type_i *= 2;
+		mom -= Moment( count_i ) * type_mom;
+		if ( Duration_convert::no_smaller_than_i_s
+			&& ( type_i > Duration_convert::no_smaller_than_i_s ) ) 
+			break;	
+	}
+
+}
+
 void
 Midi_track::remove_end_at( PointerList<Midi_voice*>& open_voices_r, Moment mom )
 {
 	for ( PCursor<Midi_voice*> i( open_voices_r.top() ); i.ok(); i++ )
-//		if ( i->end_mom() == mom ) {
+//		if ( i->end_mom() == mom ) { }
 		if ( i->end_mom() <= mom ) {
 			tor( DEBUG_ver ) << "open_voices (" << open_voices_r.size() << "): -1\n";
 			i.remove_p();

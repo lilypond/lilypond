@@ -1,4 +1,12 @@
 %{ // -*-Fundamental-*-
+/*
+  lexer.l -- implement the Flex lexer
+
+  source file of the LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 
 #include <stdio.h>
 
@@ -35,7 +43,7 @@
 %x lyrics
 %x notes
 %x quote
-
+%x longcomment
 
 
 A		[a-zA-Z]
@@ -57,30 +65,45 @@ BLACK		[^ \n\t\f]
 RESTNAME	[rs]
 NOTECOMMAND	\\{WORD}
 DOTS		\.+
-LYRICS		{AA}[^0-9 \t\n\f]*
-COMMENT		%.*\n
+LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 %%
 
-<lyrics,INITIAL,notes>{COMMENT}	{
+
+<notes,incl,INITIAL,lyrics>{
+  "%{"	{
+	yy_push_state(longcomment);
+  }
+  %[^{\n].*\n	{
+  }
+  %\n	{
+  }
+  {WHITE}+ 	{
+	
+  }
 }
 
+<longcomment>{
+	[^\%]* 		{
+	}
+	\%*[^}%]*		{
 
+	}
+	"%"+"}"		{
+		yy_pop_state();
+	}
+}
 
 <notes,INITIAL,lyrics>
 \\include           {
 	yy_push_state(incl);
 }
-<incl>{WHITE}*      { /* eat the whitespace */ }
 <incl>\"[^"]*\"   { /* got the include file name */
 	String s (YYText()+1);
 	s = s.left_str(s.length_i()-1);
 	mtor << "#include `" << s << "\'\n";
 	new_input(s,source_l_g);
 	yy_pop_state();
-}
-<*>{WHITE}+ 	{
-	
 }
 <notes>{RESTNAME} 	{
 	const char *s = YYText();
@@ -98,99 +121,99 @@ COMMENT		%.*\n
 	s=s.left_str(s.length_i() - 1);
 	return scan_bare_word(s);
 }
-<notes>{ALPHAWORD}/\'	{
-	post_quotes_b_ = true;
-	return scan_bare_word(YYText());
-}
-<notes>\'+		{
-	yylval.i = YYLeng();
-	if (post_quotes_b_) {
-		post_quotes_b_ = false;
-		return POST_QUOTES;
-	} else
-		return PRE_QUOTES;
-}
-<notes>{ALPHAWORD}	{
-	return scan_bare_word(YYText());
+<notes>{
+	{ALPHAWORD}/\'	{
+		post_quotes_b_ = true;
+		return scan_bare_word(YYText());
+	}
+	\'+		{
+		yylval.i = YYLeng();
+		if (post_quotes_b_) {
+			post_quotes_b_ = false;
+			return POST_QUOTES;
+		} else
+			return PRE_QUOTES;
+	}
+	{ALPHAWORD}	{
+		return scan_bare_word(YYText());
 
-}
+	}
 
-<notes>{NOTECOMMAND}	{
-	return scan_escaped_word(YYText()+1);
-}
+	{NOTECOMMAND}	{
+		return scan_escaped_word(YYText()+1);
+	}
 
-<notes>{DOTS}		{
-	yylval.i = strlen(YYText());
-	return DOTS;
-}
-<notes>{INT}		{
-	yylval.i = String_convert::dec2_i( String( YYText() ) );
-	return INT;
-}
+	{DOTS}		{
+		yylval.i = strlen(YYText());
+		return DOTS;
+	}
+	{INT}		{
+		yylval.i = String_convert::dec2_i( String( YYText() ) );
+		return INT;
+	}
 
-<notes>\+\+		{
-	return CONCAT;
+	\+\+		{
+		return CONCAT;
+	}
+	\" {
+		start_quote();
+	}
 }
-<notes>\" {
-	start_quote();
-}
-
 
 \"		{
 	start_quote();
 }
-<quote>\\\\	{
-	*yylval.string += '\\';
-}
-<quote>\\\"	{
-	*yylval.string +='\"';
-}
-<quote>[^"]+	{
-	*yylval.string += YYText();
-}
-<quote>\"	{
-	mtor << "quoted string: `" << *yylval.string << "'\n";
-	yy_pop_state();
-	return STRING;
+<quote>{
+	\\\\	{
+		*yylval.string += '\\';
+	}
+	\\\"	{
+		*yylval.string +='\"';
+	}
+	[^"]+	{
+		*yylval.string += YYText();
+	}
+	\"	{
+		mtor << "quoted string: `" << *yylval.string << "'\n";
+		yy_pop_state();
+		return STRING;
+	}
 }
 
-<lyrics>\" {
-	start_quote();
-}
-<lyrics>{DOTS}		{
-	yylval.i = strlen(YYText());
-	return DOTS;
-}
-<lyrics>{INT}		{
-	yylval.i = String_convert::dec2_i( String( YYText() ) );
-	return INT;
-}
-<lyrics>{NOTECOMMAND}	{
-	return scan_escaped_word(YYText()+1);
-}
-<lyrics>{LYRICS} {
-	/* ugr. This sux. */
-	String s (YYText()); 
-	int i = 0;
-	while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
-		*(s.ch_l() + i) = ' ';
-	if ((i=s.index_i("\\,")) != -1)   // change "\," to TeX's "\c "
-		{
-		*(s.ch_l() + i + 1) = 'c';
-		s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
-		}
-	yylval.string = new String(s);
-	mtor << "lyric : `" << s << "'\n";
-	return STRING;
-}
-<lyrics>\|	{
-	return YYText()[0];
-}
-<lyrics>[{}]	{
-	return YYText()[0];
-}
-<lyrics>. {
-	return yylval.c = YYText()[0];
+<lyrics>{
+
+	\" {
+		start_quote();
+	}
+	{DOTS}		{
+		yylval.i = strlen(YYText());
+		return DOTS;
+	}
+	{INT}		{
+		yylval.i = String_convert::dec2_i( String( YYText() ) );
+		return INT;
+	}
+	{NOTECOMMAND}	{
+		return scan_escaped_word(YYText()+1);
+	}
+	{LYRICS} {
+		/* ugr. This sux. */
+		String s (YYText()); 
+		int i = 0;
+		while ((i=s.index_i("_")) != -1) // change word binding "_" to " "
+			*(s.ch_l() + i) = ' ';
+		if ((i=s.index_i("\\,")) != -1)   // change "\," to TeX's "\c "
+			{
+			*(s.ch_l() + i + 1) = 'c';
+			s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
+			}
+		yylval.string = new String(s);
+		mtor << "lyric : `" << s << "'\n";
+		return STRING;
+	}
+	. {
+		return yylval.c = YYText()[0];
+	}
 }
 
 <<EOF>> {
@@ -229,6 +252,7 @@ COMMENT		%.*\n
 <INITIAL,notes>.	{
 	return yylval.c = YYText()[0];
 }
+
 <INITIAL,lyrics,notes>\\. {
     char c= YYText()[1];
     yylval.c = c;

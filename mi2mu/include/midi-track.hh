@@ -31,8 +31,14 @@ public:
 
 private:
 	void add_begin_at( PointerList<Midi_voice*>& open_voices_r, Moment mom );
+	int check_begin_bar_i( Moment now_mom, int open_bar_i );
+	int check_end_bar_i( Moment now_mom, int open_bar_i );
 	Midi_voice* get_free_midi_voice_l( Moment mom );
 	void remove_end_at( PointerList<Midi_voice*>& open_voices_r, Moment mom );
+	void output_mudela_begin_bar( Lily_stream& lily_stream_r, Moment now_mom, int bar_i );
+	void output_mudela_rest( Lily_stream& lily_stream_r, Moment begin_mom, Moment end_mom );
+	void output_mudela_rest_remain( Lily_stream& lily_stream_r, Moment mom );
+
 	IPointerList<Track_column*> tcol_p_list_;
 	IPointerList<Midi_voice*> midi_voice_p_list_;
 	int number_i_;

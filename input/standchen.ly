@@ -9,7 +9,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, standchen.tex)
 %
-\version "0.0.54";
+\version "0.0.56";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -20,7 +20,7 @@ commands = \melodic{
 %	volta2
 	\bar ":|";
 	\skip 2.*22;
-	\bar "||"; 
+	\bar "|."; 
 	}
 
 melodie = \melodic{ 

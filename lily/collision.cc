@@ -21,6 +21,7 @@ Collision::add(Note_column* ncol_l)
     clash_l_arr_.push(ncol_l);
     add_dependency(ncol_l);
 }
+
 static 
 int idx(int dir, bool h_shift_b)
 {
@@ -102,7 +103,8 @@ Collision::do_pre_processing()
     } while ((d *= -1) != 1);
 
   
-
+    // y_extent: smallest y-pos noteball interval containing all balls
+    // 4 (0..3) groups: stem up/down; shift on/off; 
     Interval_t<int> middle( y_extent[0].min(), y_extent[3].max());
     Interval_t<int> open_middle( y_extent[3].max()+1, y_extent[0].min()-1);
     do{
@@ -111,9 +113,10 @@ Collision::do_pre_processing()
     } while ((d *= -1) != 1);
    
     if (!middle.empty_b() && 
-	middle.length() <= 1 && col_l_a[idx(1,0)] && col_l_a[idx(-1,0)]) {	
-	Notehead * nu_l= col_l_a[idx(1,0)]->head_l_arr_[idx(1,0)];
-	Notehead * nd_l = col_l_a[idx(-1,0)]->head_l_arr_[idx(1,0)];
+	middle.length() <= 2 && col_l_a[idx(1,0)] && col_l_a[idx(-1,0)]) {	
+// reproduction of bugfix at 3am ?
+	Notehead * nu_l= col_l_a[idx(1,0)]->head_l_arr_[0];
+	Notehead * nd_l = col_l_a[idx(-1,0)]->head_l_arr_.top();
 	if (! (nu_l->balltype_i_ == nd_l->balltype_i_ && nu_l->dots_i_ == nd_l->dots_i_)) {
 	    x_off[idx(1,0)] -= 0.5;
 	    x_off[1] -= 0.5;
@@ -130,4 +133,5 @@ Collision::do_pre_processing()
 	
     }
 }
+
 IMPLEMENT_STATIC_NAME(Collision);

@@ -29,9 +29,21 @@ sub convert_0_0_52_to_0_0_53
 }
 
   
+sub convert_0_0_54_to_0_0_55
+{
+    s/%{/% {/g;
+}
+
+  
 sub convert_0_0_53_to_0_0_54
 {
     print STDERR "Not smart enough to convert \\transpose\n"    if (/\\transpose/) ;
+}
+
+# we-re not at 58 yet, but this is at least one of the rules
+sub convert_0_0_55_to_0_0_56
+{
+    s/\"\|\|\"/\"|.\"/g;
 }
 
 ###############################################################
@@ -66,7 +78,9 @@ sub identify
 my %minor_conversions = (50 => \&no_conv,
  			 52 => \&convert_0_0_50_to_0_0_52,
   			 53 => \&convert_0_0_52_to_0_0_53,
-  			 54 => \&convert_0_0_53_to_0_0_54
+  			 54 => \&convert_0_0_53_to_0_0_54,
+			 55 => \&convert_0_0_54_to_0_0_55,
+			 56 => \&convert_0_0_55_to_0_0_56
   			 );
  
 

@@ -52,6 +52,7 @@ Staff_walker::when() const
 void
 Staff_walker::process_timing_reqs()
 {
+    // first all meter changes
     for (int i=0; i < ptr()->timing_req_l_arr_.size(); i++) {
 	Timing_req * tr_l = ptr()->timing_req_l_arr_[i];
 	if (tr_l->meterchange()) {
@@ -68,6 +69,7 @@ Staff_walker::process_timing_reqs()
 	} 
     }
     
+    // then do the rest
     for (int i=0; i < ptr()->timing_req_l_arr_.size(); i++) {
 	Timing_req * tr_l = ptr()->timing_req_l_arr_[i];
 	if (tr_l->partial()) {

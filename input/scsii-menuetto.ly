@@ -1,7 +1,8 @@
 % scsii-menuetto.ly
 %
 % Solo Cello Suites
-% J. S. Bach
+% Johann Sebastian Bach (1685-1750)
+% bwv 000
 %
 % Suite II part v
 % Menuetto I
@@ -11,7 +12,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
-\version "0.0.54";
+\version "0.0.56";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}

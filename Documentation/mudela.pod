@@ -36,7 +36,8 @@ entering C<include> at the start of a line:
 
 =head2 Comments
 
-Line comments are introduced by a C<%>.
+Line comments are introduced by a C<%>. Block comments are delimited
+by C<%{> and C<%}>. They do not nest.
 
 =head2 Versions
 
@@ -48,7 +49,7 @@ inputfile was written,
 	\version "0.0.50";
 
 A perl-script which tries to convert to newer versions
-(F<convert-mudela.pod>) is included in the LilyPond distribution.
+(F<convert-mudela>) is included in the LilyPond distribution.
 
 =head2 Words
 
@@ -144,12 +145,12 @@ In Lyrics mode, a word is looked up in the following order:
 	\word	keyword, identifier, string
 
 In Lyric mode every sequence of non-digit and non-white characters
-starting with an alphabetic character is considered a word.
+starting with an alphabetic character or the '_'is considered a word.
 
 	a&@&@&TSI|{[	% a word
 	1THtrhortho	% not a "word"
 	Leise Fl\"u\ss{}teren meine Sapfe	% 4 words
-
+	_ _ _ _		% 4 words: 4 spaces
 
 =back
 
@@ -231,9 +232,12 @@ example:
 
 	[c8 () d8 () e8 ]
 
-Please note that these two characters do I<not> necessarrily nest, eg:
+Please note that these two characters do I<not> necessarrily nest,
+they should attached to the note C<[ {c4 c4} ]> will generate a parse
+error for this reason. 
 
-	[c8 e8(] [)g8 c'8]
+	[c8 e8(] [)g8 <c'8] e'8>
+				% NO nesting!
 	[c8 c8 c8]2/3		% a triplet
 
 Symbols which can be put at either side (above or below) of a staff
@@ -383,6 +387,75 @@ You can transpose horizontal music in the following way:
 	}
 
 The result is, as you can see, again simple horizontal music.
+
+
+=head2 Voicegroups
+
+If more than one "voice" is in a staff, then you have the option of
+putting the different voices into so called voicegroups: members of
+the same voicegroup share certain characteristics, among others:
+
+	- dynamics
+	- text
+	- beams and stems
+	- scripts
+
+For the actual list, see the init file F<register.ini>
+
+Putting different musical lines in to the same voicegroup effectively
+makes LilyPond try to form chords of all those lines. Putting
+different musical lines in to different voicegroups effectively makes
+LilyPond try to set those lines as independently as possible. 
+
+You can set the voicegroup of a voice with the command C<\group>, e.g.,
+	
+	oboeI = \melodic { 
+		\group "oboes"; 
+		[e8 f8
+		\group "+solo";
+		[g16 a16 g16 fis16]
+		\group "-";
+		g8 f8
+	}
+	oboeII = \melodic { \group "oboes";
+		c8 d8]
+		e4
+		e8 d8
+	}
+	///	...
+
+	\staff { 
+		melodicregs \melodic{ oboeI }
+		\melodic { oboeII}
+	}
+
+In this example, the two oboe voices share one staff and are initially
+in the voicegroup called "oboes". They will share beams, dynamics etc.
+After two quavers, oboeI "pushes" its group: a new voicegroup is
+created, called "oboes+solo". The C<\group "-"> command makes the
+voice enter "oboes" again.
+
+Please do note that [] are voicegroup wide; the previous input is
+valid: the beam, started in oboeI, voicegroup "oboes" is also ended in
+voicegroup "oboes", albeit not in oboeI but oboeII
+
+This concept may seem contorted, but it allows you to set the separate
+oboe parts without changing the C<oboeI> and C<oboeII> (assuming that
+you edit the [] in the example.)
+
+The construct
+
+	< { .... } {......} >
+
+makes a chord (all horizontal parts are in the same voicegroup). The construct
+
+	< \multivoice { ....} { .... } >
+
+creates horizontal parts which behave independently. You will have to
+set voicegroup features by hand (\stem and \hshift. See examples)
+
+
+
 
 =head2 Rhythms
 

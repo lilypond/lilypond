@@ -82,7 +82,7 @@ main( int argc_i, char* argv_sz_a[] )
 		0, "help", 'h',
 		0, "no-silly", 'n',
 		1, "output", 'o',
-		1, "no-plets", 'p',
+		0, "no-plets", 'p',
 		0, "quiet", 'q',
 		1, "smallest", 's',
 		0, "verbose", 'v',

@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.54"
+#define MUDELA_VERSION "0.0.56"
 
 #include "script-def.hh"
 #include "symtable.hh"
