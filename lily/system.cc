@@ -423,7 +423,7 @@ System::get_line ()
   Paper_system *pl = new Paper_system (sys_stencil, false);
   pl->staff_refpoints_ = staff_refpoints;
   Item * break_point =this->get_bound(LEFT);
-  pl->penalty_ =
+  pl->break_before_penalty_ =
     robust_scm2double (break_point->get_property ("page-penalty"), 0.0);
   
   return scm_gc_unprotect_object (pl->self_scm ());
