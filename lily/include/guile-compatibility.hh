@@ -35,8 +35,8 @@ inline SCM scm_caadr (SCM x) { return SCM_CAADR (x); }
 inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_gc_unregister_collectable_memory(a, b, c) scm_done_free (b)
 #define scm_gc_register_collectable_memory(a, b, c) scm_done_malloc (b)
-#define scm_is_vector(x) (SCM_VECTORP(x))
-#define SCM_HASHTABLE_P(x) (SCM_VECTORP (x))
+#define scm_is_vector(x) (SCM_VECTORP ((SCM) x))
+#define SCM_HASHTABLE_P(x) (SCM_VECTORP ((SCM) x))
 #define SCM_VECTOR_REF(v, i) (SCM_VELTS ((v))[(i)])
 #define scm_from_bool(x) (x ? SCM_BOOL_T : SCM_BOOL_F)
 #define scm_from_int(x) SCM_MAKINUM (x)
@@ -61,8 +61,8 @@ inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_c_string_length(x) SCM_STRING_LENGTH (x)
 #define scm_is_pair(x) (SCM_CONSP (x))
 
-#define scm_c_vector_length(x) SCM_VECTOR_LENGTH(x)
-#define scm_c_vector_ref(x,y)  SCM_VECTOR_REF(x,y)
+#define scm_c_vector_length(x) SCM_VECTOR_LENGTH (x)
+#define scm_c_vector_ref(x, y) SCM_VECTOR_REF(x, y)
 
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double (x))

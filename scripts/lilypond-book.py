@@ -896,7 +896,7 @@ class Lilypond_snippet (Snippet):
 		ok = self.ly_is_outdated ()
 		ok = ok and (os.path.exists (base + '.texstr'))
 		return not ok
-	
+
 	def filter_text (self):
 		code = self.substring ('code')
 		s = run_filter (code)
@@ -1139,7 +1139,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 
 	status = 0
 	def my_system (cmd):
-		status = ly.system (cmd, 
+		status = ly.system (cmd,
 				    ignore_error = 1, progress_p = 1)
 
 		if status:
@@ -1150,16 +1150,13 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# the --process=CMD switch is a bad idea
 	# it is too generic for lilypond-book.
 	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
-		
+
 		my_system (string.join ([cmd + ' --backend texstr ' ] + texstr_names))
 		for l in texstr_names:
 			my_system ('latex %s.texstr' % l)
-					
 
 	if ly_names:
 		my_system (string.join ([cmd] + ly_names))
-		
-
 
 	if format == HTML or format == TEXINFO:
 		for i in png_names:
@@ -1457,5 +1454,3 @@ def main ():
 
 if __name__ == '__main__':
 	main ()
-
-# EOF

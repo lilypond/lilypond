@@ -1,8 +1,8 @@
-/*   
+/*
   scm-hash.cc --  implement Scheme_hash_table
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
@@ -45,7 +45,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
   elt_count_ = 0;
   smobify_self ();
 
-  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11 ), SCM_EOL);  
+  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11 ), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -54,8 +54,8 @@ Scheme_hash_table::operator = (Scheme_hash_table const & src)
 {
   if (&src == this)
     return;
-  
-  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);  
+
+  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -78,8 +78,8 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
   char str[1000];
   sprintf (str, "#<Scheme_hash_table 0x%0lx ", SCM_UNPACK (s));
   Scheme_hash_table *me = (Scheme_hash_table*) SCM_CELL_WORD_1 (s);
-  scm_display (me->hash_tab_, p);      
-  scm_puts ("> ",p);        
+  scm_display (me->hash_tab_, p);
+  scm_puts ("> ",p);
   return 1;
 }
 
@@ -109,7 +109,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
   if (scm_cdr (handle) == SCM_UNDEFINED)
     elt_count_++;
-  
+
   scm_set_cdr_x (handle, v);
 
   /*
@@ -123,7 +123,7 @@ Scheme_hash_table::set (SCM k, SCM v)
     }
 }
 
-// UGH. 
+// UGH.
 SCM
 Scheme_hash_table::get (SCM k) const
 {
@@ -154,5 +154,3 @@ Scheme_hash_table::to_alist () const
 
 IMPLEMENT_SMOBS (Scheme_hash_table);
 IMPLEMENT_DEFAULT_EQUAL_P (Scheme_hash_table);
-
-
