@@ -2253,7 +2253,7 @@ direction for this grace, so stems do not always point up.
 
 @example
 \new Staff @{
-   #(add-grace-property "Voice" Stem direction '())
+   #(add-grace-property 'Voice 'Stem 'direction '())
    @dots{}
 @}
 @end example
