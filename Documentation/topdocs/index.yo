@@ -23,10 +23,9 @@ nsect()
 
 Hmm, this is what it said yesterday too.  I just want to know
 url(What's new)(DOEXPAND(docdir)/DOEXPAND(outdir)/NEWS.html) today and
-then url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz)
+then url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
 LilyPond.
 nl()
-Or get the latest url(patch)(DOEXPAND(depth)/DOEXPAND(outdir)/lilypond-@TOPLEVEL_VERSION@.diff.gz).
 
 nsubsect(Webmaster's Disclaimer)
 
