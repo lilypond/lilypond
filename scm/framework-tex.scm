@@ -222,7 +222,7 @@
        (ly:outputter-dump-string outputter x))
      (list
       ;;FIXME
-      (header "creator" "timestamp" bookpaper (length lines) #f)
+      (header bookpaper (length lines) #f)
       "\\def\\lilypondclassic{1}%\n"
       (output-scopes scopes fields basename)
       (define-fonts bookpaper)
