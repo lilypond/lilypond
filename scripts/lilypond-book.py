@@ -417,7 +417,7 @@ output_dict= {
 <p>
 <a href="%(fn)s.png">
 <img border=0 src="%(fn)s.png" alt="[picture of music]">
-</a>
+</a><p>
 @end html
 ''',
 		}

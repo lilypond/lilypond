@@ -89,7 +89,7 @@ lily/$(outdir)/lilypond:
 
 local-web: web-doc $(TOP_HTMLS:%.html=%) footify do-top-doc top-web
 
-web-ext = gz html midi pdf png txt
+web-ext = gz html midi pdf png txt ly
 top-web:
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
@@ -126,12 +126,11 @@ builddir-setup: $(builddir)/share/lilypond-force
 
 $(builddir)/share/lilypond-force:
 # Preparing LilyPond tree for builddir exec
-	@echo Making $(builddir)/share 
-	@cd $(builddir) && rm -rf share
-	@mkdir -p $(builddir)/share/lilypond
-	@mkdir -p $(builddir)/share/lilypond/fonts
-	@mkdir -p $(builddir)/share/lilypond/tex
-	@cd $(builddir)/share/lilypond && \
+	cd $(builddir) && rm -rf share
+	mkdir -p $(builddir)/share/lilypond
+	mkdir -p $(builddir)/share/lilypond/fonts
+	mkdir -p $(builddir)/share/lilypond/tex
+	cd $(builddir)/share/lilypond && \
 		ln -s $(abs-srcdir)/ly ly && \
 		ln -s ../../mf/$(outconfbase) dvips && \
 		ln -s ../../mf/$(outconfbase) afm && \
@@ -140,18 +139,19 @@ $(builddir)/share/lilypond-force:
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
-	@cd $(builddir)/share/lilypond/tex && \
+	cd $(builddir)/share/lilypond/tex && \
 		ln -s $(abs-srcdir)/tex source && \
 		ln -s ../../../mf/$(outconfbase) generate
-	@cd $(builddir)/share/lilypond/fonts && \
+	cd $(builddir)/share/lilypond/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		ln -s ../../../mf/$(outconfbase) afm && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
+	touch $@
 
 local-clean: builddir-setup-clean
 builddir-setup-clean:
-	@cd $(builddir) && rm -rf share
+	cd $(builddir) && rm -rf share
 
 $(config_h): configure.in aclocal.m4
 #
