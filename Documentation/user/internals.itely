@@ -332,7 +332,7 @@ the central C is at its default position, the center line:
 @end lilypond
 
 A list of all engravers is in the internal documentation,
-see @internalsref{All engravers}.
+see @internalsref{Engravers}.
 
 @node Defining new contexts
 @subsection Defining new contexts

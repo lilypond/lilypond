@@ -15,7 +15,7 @@ That is much cleaner: building the document, and dumping it to output
 is then separated.
 
 
-   foo = \score { ... }
+   foo = \\score { ... }
 
    #(as-xml foo)
 

@@ -148,7 +148,7 @@ if 1:					# need new a namespace
 		return str
 
 	conversions.append ((
-		((0,1,20), conv, 'deprecated \\textstyle, new \key syntax')))
+		((0,1,20), conv, 'deprecated \\textstyle, new \\key syntax')))
 
 
 if 1:
@@ -402,7 +402,7 @@ if 1:
 		return str
 
 	conversions.append (((1,3,4), conv,
-                '\\cadenza -> \cadenza{On|Off}'))
+                '\\cadenza -> \\cadenza{On|Off}'))
 
 if 1:
 	def conv (str):
@@ -1390,6 +1390,17 @@ if 1:
 		str = re.sub (r'@ACCENT@', '>', str)
 		return str
 
+	def text_markup (str):
+		str = re.sub (r"""([-_^]) *# *' *\( *music *(\"[^"]*\") *\)""",
+				r"\1\\markup { \\musicglyph #\2 }", str)
+		str = re.sub (r"""([-_^]) *# *' *\( *([a-z]+) *([^()]*)\)""",
+				r"\1\\markup { \\\2 \3 }", str)
+		str = re.sub (r"""\\mark *# *' *\( *music *(\"[^"]*\") *\)""",
+				r"\\mark \\markup { \\musicglyph #\1 }", str)
+		str = re.sub (r"""\\mark *# *' *\( *([a-z]+) *([^()]*)\)""",
+				r"\\mark \\markup { \\\1 \2 }", str)
+		return str	
+
 	def articulation_substitute (str):
 		str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
 			      r" \1 \2[", str)
@@ -1408,9 +1419,8 @@ if 1:
 	def conv (str):
 		str =  conv_relative (str)
 		str = sub_chords (str)
-
+		str = text_markup (str)
 		str = articulation_substitute (str)
-		
 		return str
 	
 	conversions.append (((1,9,0), conv, """New relative mode,

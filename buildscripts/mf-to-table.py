@@ -167,7 +167,7 @@ def write_fontlist (file, global_info, charmetrics):
 		count += 1
 		
 ## \musicglyph and \markup require "_" to be escaped differently:
-		musicglyphname=re.sub('_','\\\\_', m['name'])
+		musicglyphname=  m['name']
 		markupname=re.sub('_','\\\\_', musicglyphname)
 
 ## prevent TeX from interpreting "--" as long dash:

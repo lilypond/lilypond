@@ -175,8 +175,7 @@ the bass specified.
 	   (interpret-removals base-chord flat-mods)
 	   ))
     
-    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
-			      (sort complete-chord ly:pitch<?)))
+    (set! complete-chord (sort complete-chord ly:pitch<?))
 
     ;; If natural 11 + natural 3 is present, but not given explicitly,
     ;; we remove the 11.
@@ -186,12 +185,11 @@ the bass specified.
 	     (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
 	     (= 0 (ly:pitch-alteration (get-step 3 complete-chord)))
 	     )
-	(begin
-	  (set! complete-chord (remove-step 11  complete-chord))
-	  )
+	(set! complete-chord (remove-step 11  complete-chord))
 	  
 	)
 
+    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root) ))
     (if inversion
 	(set! complete-chord (process-inversion complete-chord)))
     (if bass

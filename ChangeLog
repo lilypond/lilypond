@@ -1,3 +1,19 @@
+2004-04-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py (FatalConversionError.conv): add
+	#'(markup) conversion
+
+2004-02-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/chord-entry.scm: backport of chord entry fix.
+
+2004-01-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: release 2.0.3 
+
+	* Documentation/user/internals.itely (Engravers and performers):
+	fix link.
+
 2004-01-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/*.scm (grob-property-description): fix escape sequences for

@@ -5067,34 +5067,34 @@ following table:
         \property Score.timing = ##f
         \property Score.barAlways = ##t
         s_\markup { "$\\backslash$time 4/4" }
-         ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/4" }
+         ^\markup { "       " \musicglyph #"timesig-neo_mensural4/4" }
 	s
 	s_\markup { "$\\backslash$time 2/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/2" }
 	s
 	s_\markup { "$\\backslash$time 6/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/4" }
 	s
 	s_\markup { "$\\backslash$time 6/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/8" }
 	\break
 	s_\markup { "$\\backslash$time 3/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/2" }
 	s
 	s_\markup { "$\\backslash$time 3/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/4" }
 	s
 	s_\markup { "$\\backslash$time 9/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/4" }
         s
 	s_\markup { "$\\backslash$time 9/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/8" }
         \break
 	s_\markup { "$\\backslash$time 4/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural4/8" }
 	s
 	s_\markup { "$\\backslash$time 2/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/4" }
 	\break
     }
     \paper {
