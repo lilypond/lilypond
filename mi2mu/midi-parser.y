@@ -148,8 +148,6 @@ the_meta_event:
 				break;
 			case Midi_text::TRACK_NAME:
 			        midi_parser_l_g->track_name_str_ = *$2;
-				while ( midi_parser_l_g->track_name_str_.index_i( ' ' ) != -1 )
-			        	*(midi_parser_l_g->track_name_str_.ch_l() + midi_parser_l_g->track_name_str_.index_i( ' ' ) ) = '_';
 				break;
 			case Midi_text::INSTRUMENT_NAME:
 			        midi_parser_l_g->instrument_str_ = *$2;

@@ -18,11 +18,12 @@
 // ugh, to get me in lily lib
 extern bool no_triplets_bo_g;
 
-/** (plet)
-  The type and replacement value of a  plet (triplet, quintuplet.) Conceptually the same as a rational, but 4/6 != 2/3 
+/** 
+  The type and replacement value of a  plet (triplet, quintuplet.) Conceptually the same as a rational, but 4/6 != 2/3.
+  
+  (plet)
  */
 struct Plet {
-    Plet( int replace_i, int type_i );
     Plet();
     Moment mom()const;
     bool unit_b()const;
@@ -39,7 +40,7 @@ struct Duration {
     /**
       Ctor of Duration. type_i should be a power of 2. 
        */
-    Duration( int type_i = 1, int dots_i = 0);
+    Duration();
     /// is the "plet factor" of this note != 1 ?
     bool plet_b();
     String str()const;
