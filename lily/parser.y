@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.0"
+#define MUDELA_VERSION "0.1.1"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -77,6 +77,7 @@
     Symtable * symtable;
     Symtables * symtables;
     Text_def * textdef;
+    Tempo_req *tempo;
     char c;
     const char *consstr;
     int i;
@@ -100,7 +101,6 @@ yylex(YYSTYPE *s,  void * v_l)
 %pure_parser
 
 /* tokens which are not keywords */
-%token CONCAT
 
 %token ALIAS
 %token BAR
@@ -114,14 +114,12 @@ yylex(YYSTYPE *s,  void * v_l)
 %token DURATIONCOMMAND
 %token ABSDYNAMIC
 %token END
-%token GEOMETRIC
 %token GROUPING
 %token GROUP
 %token REQUESTTRANSLATOR
 %token HSHIFT
 %token IN_T
 %token ID
-%token INIT_END
 %token LYRIC
 %token KEY
 %token MELODIC
@@ -130,7 +128,6 @@ yylex(YYSTYPE *s,  void * v_l)
 %token METER
 %token MM_T
 %token MULTI
-%token NOTE
 %token NOTENAMES
 %token OCTAVECOMMAND
 %token OUTPUT
@@ -152,8 +149,6 @@ yylex(YYSTYPE *s,  void * v_l)
 %token TEXID
 %token TEXTSTYLE
 %token TITLE
-%token UNITSPACE
-%token WIDTH
 %token VERSION
 
 /* escaped */
@@ -168,7 +163,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	VOICE_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
 %token <id>	SCRIPT_IDENTIFIER
-%token <id>	STAFF_IDENTIFIER
+%token <id>	COMMAND_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
 %token <id>	INPUT_TRANS_IDENTIFIER
 %token <id>	INT_IDENTIFIER
@@ -190,7 +185,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <i>	int
 %type <i>	script_dir
 %type <id>	declaration
-%type <duration>	explicit_duration notemode_duration
+%type <duration>	explicit_duration notemode_duration entered_notemode_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
@@ -217,6 +212,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
 %type <itrans>	input_translator_spec input_translator_spec_body
+%type <tempo> 	tempo_request
 
 %left PRIORITY
 
@@ -461,21 +457,31 @@ midi_block:
 	'{' midi_body '}' 	{ $$ = $3; }
 	;
 
-midi_body: /* empty */		 	{
-		$$ = THIS->default_midi(); // midi / audio / perform
+midi_body: /* empty */ 		{
+		$$ = THIS->default_midi();
 	}
 	| midi_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3; 
 		delete $3; 
 	}
-	| midi_body TEMPO notemode_duration ':' int ';' {
-		$$->set_tempo( $3->length(), $5 );
+	| midi_body tempo_request ';' {
+		$$->set_tempo( $2->dur_.length(), $2->metronome_i_ );
+		delete $2;
 	}
 	| midi_body input_translator_spec	{
 		$$->set( $2 );
 	}
 	| midi_body error {
 
+	}
+	;
+
+tempo_request:
+	TEMPO entered_notemode_duration '=' int 	{
+		$$ = new Tempo_req;
+		$$->dur_ = *$2;
+		delete $2;
+		$$-> metronome_i_ = $4;
 	}
 	;
 
@@ -562,32 +568,22 @@ full_element:
 	 	THIS->add_requests((Chord*)$2);//ugh
  		$$ = $2;
 	}
+	| command_elt
 	| voice_command ';'	{ $$ = 0; }
 	;	
 
 simple_element:
 	music_elt 
  	| lyrics_elt
-	| command_elt
 	;
 
 command_elt:
-/* empty */ 	{
+	command_req {
 		$$ = new Request_chord;
 		$$-> set_spot( THIS->here_input());
-	}
-/* cont: */
-	command_req {
-		$2-> set_spot( THIS->here_input());
-		((Chord*)$$) ->add($2);//ugh
+		$1-> set_spot( THIS->here_input());
+		((Chord*)$$) ->add($1);//ugh
 
-	}
-	| GROUP STRING ';' { // ugh ugh ugh
-		Change_reg *chr_p = new Change_reg;
-		$$ = chr_p;
-		chr_p-> type_str_ = "Voice_group_engravers"; //ugh
-		chr_p-> id_str_ = *$2;
-		delete $2;
 	}
 	;
 
@@ -599,6 +595,9 @@ command_req:
 abbrev_command_req:
 	 '|'				{ 
 		$$ = new Barcheck_req;
+	}
+	| COMMAND_IDENTIFIER	{
+		$$ = $1->request(true);
 	}
 	;
 
@@ -620,12 +619,14 @@ verbose_command_req:
 	}
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_ = Duration(1,0);
 		skip_p->duration_.set_plet($2->numerator().as_long(), 
 			$2->denominator().as_long());
 		
 		delete $2;
 		$$ = skip_p;
+	}
+	| tempo_request {
+		$$ = $1;
 	}
 	| CADENZA int	{
 		$$ = new Cadenza_req($2);
@@ -653,7 +654,6 @@ verbose_command_req:
 	| GROUPING intastint_list {
 		$$ = get_grouping_req(*$2); delete $2;
 	}
-	
 	;
 
 post_requests:
@@ -735,7 +735,8 @@ dynamic_req:
 close_plet_parens:
 	']' INT '/' INT {
 		$$ = ']';
-		THIS->default_duration_.set_plet($2,$4);
+		THIS->plet_.type_i_ = $4;
+		THIS->plet_.iso_i_ = $2;
 	}
 	;
 
@@ -763,7 +764,8 @@ close_request_parens:
 open_plet_parens:
 	'[' INT '/' INT {
 		$$ = '[';
-		THIS->default_duration_.set_plet($2,$4);
+		THIS->plet_.type_i_ = $4;
+		THIS->plet_.iso_i_ = $2;
 	}
 	;
 
@@ -872,7 +874,7 @@ voice_command:
 		THIS->set_duration_mode(*$2);
 		delete $2;
 	}
-	| DURATIONCOMMAND notemode_duration {
+	| DURATIONCOMMAND entered_notemode_duration {
 		THIS->set_default_duration($2);
 		delete $2;
 	}
@@ -910,17 +912,25 @@ dots:
 	| dots '.'	{ $$ ++; }
 	;
 
-notemode_duration:
+entered_notemode_duration:
 	/* */		{ 
 		$$ = new Duration(THIS->default_duration_);
 	}
 	| dots		{
-		$$ = new Duration(THIS->default_duration_);
+		$$ = new Duration(THIS->default_duration_);		
 		$$->dots_i_  = $1;
 	}
 	| explicit_duration	{
 		THIS->set_last_duration($1);
 		$$ = $1;
+	}
+	;
+
+notemode_duration:
+	entered_notemode_duration {
+		$$ = $1;
+		$$->plet_.type_i_ *= THIS->plet_.type_i_;
+		$$->plet_.iso_i_ *= THIS->plet_.iso_i_;
 	}
 	;
 
@@ -931,7 +941,6 @@ explicit_duration:
 			THIS->parser_error("Not a duration");
 		else {
 			$$->type_i_ = $1;
-			$$->set_plet(THIS->default_duration_);
 		     }
 	}
 	| explicit_duration '.' 	{
