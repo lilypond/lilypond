@@ -1,6 +1,8 @@
 2005-01-18  Werner Lemberg  <wl@gnu.org>
 
 	* scm/framework-ps.scm (ps-embed-cff): Fix DSC comments.
+	(procset): New function to define a procset resource.
+	(preamble): Use it.
 
 2005-01-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
