@@ -27,7 +27,7 @@ large on smaller staves."
   >>
 
   \layout {
-    #(paper-set-staff-size 6)
+    #(layout-set-staff-size 6)
     raggedright = ##t
   }
 }
