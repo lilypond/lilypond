@@ -163,47 +163,53 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-(define (font-command font)
-  (string-append
-   "magfont"
-   (string-encode-integer
-    (hashq (ly:font-name font) 1000000))
-   "m"
-   (string-encode-integer
-    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
+(define (font-command font . override-coding-command)
+  (let* ((name (ly:font-name font))
+	 (magnify (ly:font-magnification font))
+	 (coding-alist (ly:font-encoding-alist font))
+	 (encoding (assoc-get 'input-name coding-alist))
+	 (coding-command (if (not (null? override-coding-command))
+			     (car override-coding-command)
+			     (get-coding-command encoding))))
+
+    (string-append
+     "magfont" (string-encode-integer (hashq  name 1000000))
+     "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
+     (if (equal? coding-command "AdobeStandardEncoding") ""
+	 (string-append "e" coding-command)))))
 
 (define (define-fonts paper font-list)
+  
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "
-     ;; FIXME
      (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
-     ;;(ly:number->string scaling) " scalefont } bind def\n"))
 
-  (define (reencode-font raw encoding command)
-    (string-append
-     raw " " encoding " /" command " reencode-font\n"
-     "/" command "{ /" command " findfont 1 scalefont } bind def\n"))
-	  
-  ;; frobnicate NAME to jibe with external definitions.
-  (define (possibly-mangle-fontname fontname)
+  (define (reencode-font plain encoding command)
+    (let ((coding-vector (get-coding-command encoding)))
+      (string-append
+       plain " " coding-vector " /" command " reencode-font\n"
+       "/" command "{ /" command " findfont 1 scalefont } bind def\n")))
+  
+  (define (guess-ps-fontname basename)
+    "We do not have the FontName, try to guess is from basename."
     (cond
-     ((tex-font? fontname)
-      ;; FIXME: we need proper Fontmap for CM fonts, like so:
-      ;; /CMR10 (cmr10.pfb); 
-      ;; (string-upcase fontname)
-      (string-append fontname ".pfb"))
-     ((or (equal? (substring fontname 0 4) "feta")
-	  (equal? (substring fontname 0 4) "parm"))
+     ((tex-font? basename)
+      ;; FIXME: we need proper Fontmap for the bluesky CM*, EC* fonts.
+      ;; Only the fonts that we trace in mf/ are in our own FontMap.
+      (string-append basename ".pfb"))
+     ((or (equal? (substring basename 0 4) "feta")
+	  (equal? (substring basename 0 4) "parm"))
       (regexp-substitute/global
        #f "(feta|parmesan)([a-z-]*)([0-9]+)"
-       fontname 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
-     (else fontname)))
-			 
+       basename 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
+     (else basename)))
+
   (define (font-load-command paper font)
     (let* ((command (font-command font))
-	   (fontname (ly:font-name font))
-	   (mangled (possibly-mangle-fontname fontname))
+	   (plain (font-command font "AdobeStandardEncoding"))
+	   (basename (ly:font-name font))
+	   (fontname (guess-ps-fontname basename))
 	   (coding-alist (ly:font-encoding-alist font))
 	   (encoding (assoc-get 'input-name coding-alist))
 	   (designsize (ly:font-design-size font))
@@ -211,27 +217,10 @@
 	   (ops (ly:paper-lookup paper 'outputscale))
 	   (scaling (* ops magnification designsize)))
 
-      (if
-       #f
-       (begin
-	 (newline)
-	 (format (current-error-port) "fontname ~S\n" fontname)
-	 (format (current-error-port) "command ~S\n" command)
-	 (format (current-error-port) "encoding name ~S\n" encoding)
-	 (format (current-error-port) "mangled ~S\n" mangled)
-	 (format (current-error-port) "designsize ~S\n" designsize)
-	 (format (current-error-port) "magnification ~S\n" magnification)
-	 (format (current-error-port) "ops ~S\n" ops)
-	 (format (current-error-port) "scaling ~S\n" scaling)))
-      
-      (if (equal? encoding "AdobeStandardEncoding")
-	  (define-font command mangled scaling)
-	  ;; FIXME: should rather tag encoded font
-	  (let ((raw (string-append command "-raw"))
-		(vector (get-coding-command encoding)))
-	    (string-append
-	     (define-font raw mangled scaling)
-	     (reencode-font raw vector command))))))
+      (string-append
+       (define-font plain fontname scaling)
+       (if (equal? command plain) ""
+	   (reencode-font plain encoding command)))))
   
   (define (font-load-encoding encoding)
     (let ((filename (get-coding-filename encoding)))
@@ -246,7 +235,7 @@
     (string-append
      (apply string-append (map font-load-encoding encodings))
      (apply string-append
-	    (map (lambda (x) (font-load-command paper x)) fonts)))))
+	    (map (lambda (x) (font-load-command paper x)) font-list)))))
 
 (define (define-origin file line col) "")
 
