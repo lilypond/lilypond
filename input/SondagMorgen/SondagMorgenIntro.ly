@@ -5,7 +5,7 @@ marks = \lyrics {
 }
 
 ned = \downbow
-op = \upbow
+op = \upbow 
 
 #(define meter '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem")) " = 128"))
 

@@ -579,7 +579,7 @@ want to use relative within transposed music, you must place an
 additional @code{\relative} inside the @code{\transpose}.
 
 
-@c .  {Bar check}
+@c . {Bar check}
 @node Bar check
 @subsection Bar check
 @cindex Bar check
@@ -1332,7 +1332,8 @@ quite hairy, so non-experts should stick to the macros defined in
 @file{ly/property-init.ly}.
 @cindex @file{property-init.ly}
 
-The normal way of using the macros is to enter the macro name right after the
+The macros operate on the ``Current'' context (see @ref{Context properties}). This
+means that the macros shuold normally be invoked right after the
 creation of the context in which the accidental typesetting described
 by the macro is to take effect. I.e. if you want to use
 piano-accidentals in a pianostaff then you issue
