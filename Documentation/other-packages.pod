@@ -24,6 +24,11 @@ Jan Nieuwenhuizen, Using TeX and the MusiXTeX macro package to
 write parts and scores of music. Department of Physics, Eindhoven
 University of Technology, 1995.
 
+MusicEase, ftp://ftp.secret.com/ad-ftp
+
+Described in Computer vol 29(6)
+
+
 
 MusE
 
