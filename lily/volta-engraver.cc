@@ -101,11 +101,11 @@ Volta_engraver::process_music ()
 
   if (gh_string_p (start_str_) && volta_span_p_)
     {
-      warning (_ ("Already have a volta spanner. Stopping that one prematurely."));
+      warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
       
       if (end_volta_span_p_)
 	{
-	  warning (_("Also have a stopped spanner. Giving up."));
+	  warning (_ ("Also have a stopped spanner.  Giving up."));
 	  return ;
 	}
 

@@ -103,7 +103,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	  SCM stretch_hint = lc->get_grob_property ("stretch-distance");
 	  SCM next_stretch_hint = rc->get_grob_property ("stretch-distance");	  
 
-	  Real left_distance;
+	  Real left_distance = 0;
 	  if (gh_pair_p (hint))
 	    {
 	      left_distance = gh_scm2double (gh_cdr (hint)); 
@@ -117,7 +117,9 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	    {
 	      left_distance  = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
 	    }
-
+	  else
+	      programming_error ("uninitialised left_distance");
+	  
 	  s.distance_f_ = left_distance;
 
 	  /*

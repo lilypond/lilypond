@@ -102,6 +102,8 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 #if 0
   /*
     Fixme; should be done differently, move to font-interface?
+
+    differently -- how/why?
    */
 
   SCM magnification = me->get_grob_property ("font-magnification");
@@ -115,8 +117,13 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 
       assert (false);
     }
+#else
+  SCM magnification = me->get_grob_property ("font-magnification");
 
+  if (gh_number_p (magnification) && gh_scm2double (magnification) > 1)
+    programming_error ("font-magnification disabled");
 #endif
+  
 
   SCM list = gh_list (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (fm, list);

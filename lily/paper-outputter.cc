@@ -45,10 +45,10 @@ Paper_outputter::Paper_outputter (Paper_stream  * ps )
     {
 	*ps << ""
 	  ";;; Usage: guile -s x.scm > x.tex\n"
-	  "(primitive-load-path 'lily.scm)\n"
-	  "(scm-tex-output)\n"
-	  ";(scm-ps-output)\n"
-	  "(map (lambda (x) (display (eval x))) '(\n"
+	  "(primitive-load-path 'standalone.scm)\n"
+	  ";(scm-tex-output)\n"
+	  "(scm-ps-output)\n"
+	  "(map (lambda (x) (display (ly-eval x))) '(\n"
 	;
     }
 
@@ -139,18 +139,7 @@ Paper_outputter::dump_scheme (SCM s)
 {
   if  (verbatim_scheme_b_)
     {
-      SCM p;
-
-      p = scm_mkstrport (SCM_INUM0, 
-			 scm_make_string (SCM_INUM0, SCM_UNDEFINED),
-			 SCM_OPN | SCM_WRTNG,
-			 "Paper_outputter::dump_scheme()");
-
-      SCM wr =scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
-      scm_apply (wr, s, gh_list (p, SCM_UNDEFINED));
-  
-      SCM result =  scm_strport_to_string (p);
-      *stream_p_ << ly_scm2string (result);
+      *stream_p_ << ly_scm2string (ly_write2scm (s));
     }
   else
     {

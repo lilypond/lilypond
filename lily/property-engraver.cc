@@ -117,19 +117,16 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	  e->set_grob_property (elt_prop_sym, val);
 
 	  SCM errport = scm_current_error_port ();
-	  scm_display (prop_sym, errport);
-	  scm_puts (_(" is deprecated. Use\n \\property ").ch_C(), errport);
-
-	  scm_puts (origin->type_str_.ch_C(), errport);
-	  scm_puts (".", errport);
-	  
-	  SCM name = e->get_grob_property ("meta");
-	  name = scm_assoc (ly_symbol2scm ("name"), name);
-	  scm_display (gh_cdr(name), errport);
-	  scm_puts(" \\override #'",errport);
-	  scm_write (elt_prop_sym,errport);
-	  scm_puts ( " = #",errport);
-	  scm_write (val, scm_current_error_port ());
+	  SCM meta = e->get_grob_property ("meta");
+	  SCM name = scm_assoc (ly_symbol2scm ("name"), meta);
+	  /* warning () ? */
+	  scm_puts (_f ("%s is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
+			ly_symbol2string (prop_sym).ch_C (),
+			origin->type_str_.ch_C (),
+			ly_scm2string (gh_cdr (name)).ch_C (),
+			ly_symbol2string (elt_prop_sym).ch_C (),
+			ly_scm2string (ly_write2scm (val)).ch_C ()).ch_C (),
+		    errport);
 	  scm_puts ("\n", errport);
 	}
       else
@@ -147,17 +144,13 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	if (val != SCM_EOL)
 	  {			// not the right type: error message.
 	    SCM errport = scm_current_error_port ();
-	    warning (_("Wrong type for property"));
-	    scm_display (prop_sym, errport);
-	    scm_puts (", type: ", errport);
-
 	    SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
-	    
-	    scm_display (gh_call1 (typefunc, type_p), errport);
-	    scm_puts (", value found: ", errport);
-	    scm_write (val, errport);
-	    scm_puts (" type: ", errport);
-	    scm_display (ly_type (val), errport);
+	    SCM type_name = gh_call1 (typefunc, type_p);
+	    warning (_f ("Wrong type for property: %s, type: %s, value found: %s, type: %s",
+			 ly_symbol2string (prop_sym).ch_C (),
+			 ly_symbol2string (type_name).ch_C (),
+			 ly_scm2string (ly_write2scm (val)).ch_C (),
+			 ly_scm2string (ly_type (val)).ch_C ()));
 	    scm_puts ("\n", errport);
 	  }
     }

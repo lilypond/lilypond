@@ -136,7 +136,8 @@
      "{" (output-tex-string val) "}\n"))
 
   (define (number->dim x)
-    (string-append 
+    (string-append
+     ;;ugh ly-* in backend needs compatibility func for standalone output
      (ly-number->string x) " \\outputscale "))
 
   (define (placebox x y s) 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-09-17 12:01+0200\n"
+"POT-Creation-Date: 2000-12-17 15:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -14,39 +14,39 @@ msgstr ""
 "Content-Type: text/plain; charset=koi8-r\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: data-file.cc:52
+#: data-file.cc:54
 msgid "EOF in a string"
 msgstr "EOF в строке"
 
-#: data-file.cc:116 input.cc:85 midi-parser.cc:100 warn.cc:22
+#: data-file.cc:118 input.cc:85 midi-parser.cc:100 warn.cc:23
 msgid "warning: "
 msgstr "предупреждаю: "
 
-#: dstream.cc:187
+#: dstream.cc:186
 msgid "not enough fields in Dstream init"
 msgstr "не достаточно полей в Dstream init"
 
-#: getopt-long.cc:143
+#: getopt-long.cc:145
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "опция `%s' требует аргумент"
 
-#: getopt-long.cc:147
+#: getopt-long.cc:149
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr "опция `%s' не допускает использование аргумента"
 
-#: getopt-long.cc:151
+#: getopt-long.cc:153
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "неизвестная опция: `%s'"
 
-#: getopt-long.cc:158
+#: getopt-long.cc:160
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "неверный аргумент `%s' для опции `%s'"
 
-#: input.cc:90 warn.cc:8 warn.cc:16
+#: input.cc:90 warn.cc:9 warn.cc:17
 msgid "error: "
 msgstr "ошибка: "
 
@@ -63,7 +63,7 @@ msgid "can't map file"
 msgstr "не могу отобразить файл в память"
 
 #: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:25 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:22
+#: paper-stream.cc:26 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "не могу открыть файл: `%s'"
@@ -73,98 +73,110 @@ msgstr "не могу открыть файл: `%s'"
 msgid "Huh?  Got %d, expected %d characters"
 msgstr "Хм... Получил %d, а ожидал %d знаков"
 
-#: text-stream.cc:9
+#: text-stream.cc:10
 msgid "<stdin>"
 msgstr "<стандартный ввод>"
 
-#: warn.cc:35
+#: warn.cc:36
 msgid "programming error: "
 msgstr "ошибка программирования: "
 
-#: warn.cc:35
+#: warn.cc:36
 msgid " (Continuing; cross thumbs)"
 msgstr " (Продолжаю; скрестите пальцы)"
 
-#: afm.cc:51
+#: afm.cc:53
 #, c-format
 msgid "can't find character number: %d"
 msgstr "не могу найти символ с номером: %d"
 
-#: afm.cc:66
+#: afm.cc:68
 #, c-format
 msgid "can't find character called: `%s'"
 msgstr "не могу найти символ под названием: `%s'"
 
-#: afm.cc:96
-msgid "Error parsing AFM file"
+#: afm.cc:113
+#, fuzzy, c-format
+msgid "Error parsing AFM file: %s"
 msgstr "Ошибка при анализе файла AFM"
 
-#: all-font-metrics.cc:151 lookup.cc:80
+#: all-font-metrics.cc:87
+#, c-format
+msgid "checksum mismatch for font file: `%s'"
+msgstr ""
+
+#: all-font-metrics.cc:92
+msgid ""
+" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V "
+"to show font paths."
+msgstr ""
+
+#: all-font-metrics.cc:153
 #, c-format
 msgid "can't find font: `%s'"
 msgstr "не могу найти шрифт: `%s'"
 
-#: all-font-metrics.cc:152
+#: all-font-metrics.cc:154
 msgid "Loading default font"
 msgstr "Загружаю шрифт по умолчанию"
 
-#: all-font-metrics.cc:169
+#: all-font-metrics.cc:171
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
-#: all-font-metrics.cc:170 includable-lexer.cc:50 lookup.cc:81 scores.cc:109
+#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:107
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(путь поиска: `%s')"
 
-#: all-font-metrics.cc:171
+#: all-font-metrics.cc:173 parser.yy:1642
 msgid "Giving up"
 msgstr "Сдаюсь"
 
-#: auto-change-iterator.cc:43 change-iterator.cc:60
+#: auto-change-iterator.cc:43 change-iterator.cc:59
 #: part-combine-music-iterator.cc:85
 msgid "Can't switch translators, I'm there already"
 msgstr "Не могу переключить переводчиков, я уже там"
 
-#: beam-engraver.cc:76 beam-engraver.cc:109
+#: beam-engraver.cc:91 beam-engraver.cc:124
 msgid "can't find start of beam"
 msgstr "что-то не найду начало группировки штилей"
 
-#: beam-engraver.cc:138
+#: beam-engraver.cc:158
 msgid "already have a beam"
 msgstr "уже имеем группу штилей"
 
-#: beam-engraver.cc:202
+#: beam-engraver.cc:224
 msgid "unterminated beam"
 msgstr "незаконченная группировка штилей"
 
-#: beam-engraver.cc:240 chord-tremolo-engraver.cc:176
+#: beam-engraver.cc:262 chord-tremolo-engraver.cc:178
 msgid "stem must have Rhythmic structure"
 msgstr "штиль должен иметь ритмовую структуру"
 
-#: beam-engraver.cc:251
+#: beam-engraver.cc:274
 msgid "stem doesn't fit in beam"
 msgstr "штиль не влезает в группировку"
 
-#: beam-engraver.cc:252
+#: beam-engraver.cc:275
 msgid "beam was started here"
 msgstr "группировка начиналась здесь"
 
-#: beam.cc:84
+#: beam.cc:83
 msgid "beam has less than two stems"
 msgstr "группировка менее двух штилей"
 
-#: beam.cc:511
+#: beam.cc:506
 msgid "weird beam vertical offset"
 msgstr "дикое вертикальное смещение группировки штилей"
 
-#: break-align-item.cc:119
+#: break-align-item.cc:131
 #, fuzzy, c-format
 msgid "unknown spacing pair `%s', `%s'"
 msgstr "неизвестная переменная бумаги: `%s'"
 
-#: change-iterator.cc:22
+#: change-iterator.cc:21
 #, c-format
 msgid "can't change `%s' to `%s'"
 msgstr "не могу сменить `%s' на `%s'"
@@ -175,15 +187,15 @@ msgstr "не могу сменить `%s' на `%s'"
 #.
 #. last->translator_id_str_  = change_l ()->change_to_id_str_;
 #.
-#: change-iterator.cc:79
+#: change-iterator.cc:78
 msgid "I'm one myself"
 msgstr "Я единственный"
 
-#: change-iterator.cc:82
+#: change-iterator.cc:81
 msgid "none of these in my family"
 msgstr "они мне не родственники"
 
-#: chord-tremolo-engraver.cc:115
+#: chord-tremolo-engraver.cc:119
 msgid "unterminated chord tremolo"
 msgstr "незаконченное тремоло аккорда"
 
@@ -192,35 +204,23 @@ msgstr "незаконченное тремоло аккорда"
 msgid "no one to print a tremolos"
 msgstr "некому рисовать скобу повтора"
 
-#: chord.cc:162
+#: chord.cc:365
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr "неверное вычитание: не часть аккорда: %s"
 
-#: chord.cc:386
+#: chord.cc:394
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: clef-engraver.cc:165
-msgid "unknown clef type"
-msgstr "неизвестный тип ключа"
-
-#: collision.cc:118
+#: collision.cc:116
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Слишком много пересекающихся столбцов нот. Игнорирую."
 
-#: crescendo.cc:65
-msgid "crescendo"
-msgstr "крещендо"
-
-#: crescendo.cc:65
-msgid "too small"
-msgstr "слишком мало"
-
-#: cross-staff.cc:22
-msgid ""
-"minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"
+#: cross-staff.cc:24
+#, fuzzy
+msgid "not a forced distance; cross-staff spanners may be broken"
 msgstr ""
 "minVerticalAlign != maxVerticalAlign: междустрочные лиги могут быть неверными"
 
@@ -236,19 +236,19 @@ msgstr "не могу включить проверку памяти"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:192 span-dynamic-performer.cc:87
+#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
 msgid "can't find start of (de)crescendo"
 msgstr "не могу найти начало (де)крещендо"
 
-#: dynamic-engraver.cc:213
+#: dynamic-engraver.cc:220
 msgid "already have a crescendo"
 msgstr "крещендо уже есть"
 
-#: dynamic-engraver.cc:214
+#: dynamic-engraver.cc:221
 msgid "already have a decrescendo"
 msgstr "декрещендо уже есть"
 
-#: dynamic-engraver.cc:303
+#: dynamic-engraver.cc:298
 msgid "unterminated (de)crescendo"
 msgstr "незаконченное (де)крещендо"
 
@@ -260,9 +260,13 @@ msgstr "незавершенный расширитель"
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
 msgstr "Некуда присоединить расширитель слева. Игнорирую запрос расширителя."
 
-#: folded-repeat-iterator.cc:64
+#: folded-repeat-iterator.cc:70
 msgid "no one to print a repeat brace"
 msgstr "некому рисовать скобу повтора"
+
+#: font-interface.cc:199
+msgid "couldn't find any font satisfying "
+msgstr ""
 
 #: gourlay-breaking.cc:157
 msgid "No feasible line breaking found"
@@ -272,9 +276,18 @@ msgstr "Не найдено удовлетворительного разрыва строки"
 msgid "no Grace context available"
 msgstr "нет доступного Форшлаг-контекста"
 
-#: grace-position-engraver.cc:94
+#: grace-position-engraver.cc:96
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "Форшлаг без привязки. Привязываю к последнему музыкальному столбцу."
+
+#: hairpin.cc:71
+msgid "decrescendo too small"
+msgstr ""
+
+#: hairpin.cc:72
+#, fuzzy
+msgid "crescendo too small"
+msgstr "крещендо"
 
 #: hyphen-engraver.cc:90
 msgid "unterminated hyphen"
@@ -289,17 +302,17 @@ msgstr "Не к чему присоединить перенос слева. Игнорирую запрос переноса."
 msgid "wrong identifier type, expected: `%s'"
 msgstr "неверный тип переменной, ожидался: `%s'"
 
-#: includable-lexer.cc:48 lily-guile.cc:117 midi-score-parser.cc:24
-#: scores.cc:108 scores.cc:114
+#: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
+#: scores.cc:106 scores.cc:112
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "не могу найти файл: `%s'"
 
-#: key-engraver.cc:101 key-performer.cc:54
+#: key-engraver.cc:103 key-performer.cc:72
 msgid "FIXME: key change merge"
 msgstr "ИСПРАВЬМЕНЯ: слияние смены ключа"
 
-#: lily-guile.cc:119
+#: lily-guile.cc:141
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(путь загрузки: `%s')"
@@ -309,48 +322,44 @@ msgstr "(путь загрузки: `%s')"
 msgid "Element count %d."
 msgstr ""
 
-#: line-of-score.cc:255 paper-score.cc:79
+#: line-of-score.cc:253 paper-score.cc:77
 #, c-format
 msgid "Element count %d "
 msgstr ""
 
-#: line-of-score.cc:269
+#: line-of-score.cc:267
 msgid "Calculating column positions..."
 msgstr "Вычисляю позиции столбцов"
 
-#: lookup.cc:82
-msgid "Aborting"
-msgstr "Совершаю харакири"
-
-#: lookup.cc:223
-#, c-format
-msgid "Non-matching braces in text `%s', adding braces"
-msgstr "Фигурные скобки в тексте `%s' не совпадают, добавляю скобки"
-
-#: lyric-phrasing-engraver.cc:245
+#: lyric-phrasing-engraver.cc:269
 msgid "lyrics found without any matching notehead"
 msgstr ""
 
-#: lyric-phrasing-engraver.cc:250
+#: lyric-phrasing-engraver.cc:274
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:75 main.cc:93
-msgid "enable debugging output"
-msgstr "включить вывод отладочной информации"
-
-#: main.cc:76
+#: main.cc:75
 msgid "EXT"
 msgstr "РАСШ"
 
-#: main.cc:76
+#: main.cc:75
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "использовать выходной формат РАСШ"
 
-#: main.cc:77 main.cc:94
+#: main.cc:76 main.cc:95
 msgid "this help"
 msgstr "эта справка"
+
+#: main.cc:77
+#, fuzzy
+msgid "FIELD"
+msgstr "ФАЙЛ"
+
+#: main.cc:77
+msgid "write header field to BASENAME.FIELD"
+msgstr ""
 
 #: main.cc:78
 msgid "DIR"
@@ -360,7 +369,7 @@ msgstr "КАТ"
 msgid "add DIR to search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: main.cc:79 main.cc:97
+#: main.cc:79 main.cc:98
 msgid "FILE"
 msgstr "ФАЙЛ"
 
@@ -392,7 +401,7 @@ msgstr "показывать все изменения в относительном синтаксисе"
 msgid "inhibit file output naming and exporting"
 msgstr "скрыть именование и экспорт вывода в файл"
 
-#: main.cc:85 main.cc:102
+#: main.cc:85 main.cc:103
 msgid "don't timestamp the output"
 msgstr "не отмечать дату и время вывода"
 
@@ -400,7 +409,7 @@ msgstr "не отмечать дату и время вывода"
 msgid "switch on experimental features"
 msgstr "включить экспериментальные возможности"
 
-#: main.cc:87 main.cc:103
+#: main.cc:87 main.cc:104
 msgid "print version number"
 msgstr "выводить номер версии"
 
@@ -409,23 +418,23 @@ msgstr "выводить номер версии"
 msgid "verbose"
 msgstr "быть болтливым"
 
-#: main.cc:89 main.cc:105
+#: main.cc:89 main.cc:106
 msgid "show warranty and copyright"
 msgstr "показать гарантию и copyright"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:107
+#: main.cc:106
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
-#: main.cc:109
+#: main.cc:108
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа"
 
-#: main.cc:113
+#: main.cc:112
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -439,16 +448,16 @@ msgstr ""
 msgid "Options:"
 msgstr "Опции:"
 
-#: main.cc:123
+#: main.cc:122
 msgid "This binary was compiled with the following options:"
 msgstr "Этот исполняемый файл был собран со следующими опциями:"
 
-#: main.cc:122 main.cc:142
+#: main.cc:123 main.cc:141
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: main.cc:54 main.cc:150
+#: main.cc:55 main.cc:149
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -460,17 +469,17 @@ msgstr ""
 "при соблюдении некоторых условий. Вызывайте как `%s --warranty' для\n"
 "получения дополнительной информации.\n"
 
-#: main.cc:61 main.cc:157 main.cc:169
+#: main.cc:62 main.cc:156 main.cc:168
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Все права защищены (c) %s by"
 
-#. GNU GNU?
-#: main.cc:167
-msgid "GNU LilyPond -- The GNU Project music typesetter"
+#: main.cc:166
+#, fuzzy
+msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Наборщик музыки Проекта GNU"
 
-#: main.cc:70 main.cc:175
+#: main.cc:71 main.cc:174
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -487,21 +496,21 @@ msgid ""
 "USA.\n"
 msgstr ""
 
-#: midi-item.cc:310
+#: midi-item.cc:311
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "нет такого инструмента: `%s'"
 
-#: midi-item.cc:365
+#: midi-item.cc:366
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr "нестандартный ключ: бемоли: %d, диезы: %d"
 
-#: midi-item.cc:412
+#: midi-item.cc:413
 msgid "silly duration"
 msgstr "глупая продолжительность"
 
-#: midi-item.cc:425
+#: midi-item.cc:426
 msgid "silly pitch"
 msgstr "глупый тон"
 
@@ -509,22 +518,34 @@ msgstr "глупый тон"
 msgid "Error syncing file (disk full?)"
 msgstr "Ошибка синхронизации файла (диск переполнен?)"
 
-#: music-output-def.cc:71
+#: music-output-def.cc:72
 #, c-format
 msgid "can't find `%s' context"
 msgstr "не могу найти контекст `%s'"
 
-#: musical-request.cc:42
+#: music.cc:222
+msgid "ly_get_mus_property (): Not a Music"
+msgstr ""
+
+#: music.cc:236
+msgid "ly_set_mus_property (): Not a symbol"
+msgstr ""
+
+#: music.cc:248
+msgid "ly_set_mus_property ():  not of type Music"
+msgstr ""
+
+#: musical-request.cc:29
 #, c-format
 msgid "Transposition by %s makes accidental larger than two"
 msgstr ""
 
-#: my-lily-lexer.cc:124
+#: my-lily-lexer.cc:132
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "Имя команды является ключевым словом: `%s'"
 
-#: my-lily-lexer.cc:143
+#: my-lily-lexer.cc:151
 #, c-format
 msgid "error at EOF: %s"
 msgstr "ошмбка в конце файла: %s"
@@ -537,20 +558,30 @@ msgstr "Разбираю..."
 msgid "Braces don't match"
 msgstr "Фигурные скобки не совпадают"
 
-#: paper-def.cc:149
+#: output-property-music-iterator.cc:20 request-chord-iterator.cc:76
+#, c-format
+msgid "Junking request: `%s'"
+msgstr "Выбрасываю запрос: `%s'"
+
+#: paper-def.cc:116
 #, c-format
 msgid "paper output to %s..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: mudela-stream.cc:93 paper-outputter.cc:91 performance.cc:97
+#: mudela-stream.cc:93 paper-outputter.cc:93 performance.cc:97
 msgid ", at "
 msgstr ", в"
 
-#: paper-score.cc:82
+#: paper-outputter.cc:239
+#, fuzzy, c-format
+msgid "writing header field %s to %s..."
+msgstr "Записываю файл зависимостей: `%s'..."
+
+#: paper-score.cc:80
 msgid "Preprocessing elements..."
 msgstr "Предварительно обрабатываю элементы..."
 
-#: paper-score.cc:107
+#: paper-score.cc:105
 msgid "Outputting Score, defined at: "
 msgstr ""
 
@@ -588,40 +619,43 @@ msgstr "Автоматически сгенерировано"
 msgid "from musical definition: %s"
 msgstr "из музыкальной нотации %s"
 
-#: performance.cc:174
+#: performance.cc:161
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "вывод MIDI в %s..."
 
-#: piano-pedal-engraver.cc:157 piano-pedal-engraver.cc:169
+#: piano-pedal-engraver.cc:144 piano-pedal-engraver.cc:156
 #: piano-pedal-performer.cc:87
 #, fuzzy, c-format
 msgid "can't find start of piano pedal: %s"
 msgstr "что-то не найду начало группировки штилей"
 
-#: property-engraver.cc:131
-msgid "Wrong type for property"
-msgstr "Неверный тип для свойства"
+#: pitch.cc:25
+msgid "Pitch arguments out of range"
+msgstr ""
 
-#: request-chord-iterator.cc:93
+#. warning () ?
+#: property-engraver.cc:124
 #, c-format
-msgid "Junking request: `%s'"
-msgstr "Выбрасываю запрос: `%s'"
+msgid ""
+"%s is deprecated.  Use\n"
+" \\property %s.%s \\override #'%s = #%s"
+msgstr ""
 
-#: request-chord-iterator.cc:96
+#: property-engraver.cc:150
 #, c-format
-msgid "Huh?  Not a Request: `%s'"
-msgstr "А? НЕ Запрос: `%s'"
+msgid "Wrong type for property: %s, type: %s, value found: %s, type: %s"
+msgstr ""
 
-#: rest-collision.cc:159
+#: rest-collision.cc:190
 msgid "too many colliding rests"
 msgstr "слишком много налезающих пауз"
 
-#: rest-collision.cc:163
+#: rest-collision.cc:194
 msgid "too many notes for rest collision"
 msgstr ""
 
-#: score-engraver.cc:149
+#: score-engraver.cc:177
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr ""
@@ -653,12 +687,12 @@ msgstr "Записываю файл зависимостей: `%s'..."
 msgid "Score contains errors; will not process it"
 msgstr ""
 
-#: scores.cc:124
+#: scores.cc:122
 #, fuzzy, c-format
 msgid "Now processing: `%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
 
-#: script-engraver.cc:66
+#: script-engraver.cc:67
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr ""
@@ -669,39 +703,49 @@ msgstr ""
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Single_malt_grouping_item: я лишком много выпил"
 
-#: sequential-music-iterator.cc:35
-msgid "Must stop before this music ends"
-msgstr ""
-
-#: simple-music-iterator.cc:36
-#, c-format
-msgid "Junking music: `%s'"
-msgstr "Выбрасываю музыку: `%s'"
-
-#: slur-engraver.cc:89
+#: slur-engraver.cc:128
 msgid "unterminated slur"
 msgstr "незавершенная лига"
 
-#: slur-engraver.cc:104
+#: slur-engraver.cc:143
 #, fuzzy
 msgid "can't find start of slur"
 msgstr "что-то не найду начало группировки штилей"
 
-#: slur.cc:48
+#: slur.cc:49
 msgid "Putting slur over rest.  Ignoring."
 msgstr "Лига над паузой. Игнорирую."
 
-#: slur.cc:324
+#: slur.cc:379
 msgid "Slur over rest?"
 msgstr "Лига над паузой?"
 
-#: stem-engraver.cc:128
+#: stem-engraver.cc:115
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Добавляю ноту к несовместимому штилю (тип = %d)"
 
-#: stem.cc:116
+#: stem.cc:117
 msgid "Weird stem size; check for narrow beams"
+msgstr ""
+
+#: text-spanner-engraver.cc:95
+#, fuzzy
+msgid "can't find start of text spanner"
+msgstr "что-то не найду начало группировки штилей"
+
+#: text-spanner-engraver.cc:114
+#, fuzzy
+msgid "already have a text spanner"
+msgstr "уже имеем группу штилей"
+
+#: text-spanner-engraver.cc:167
+#, fuzzy
+msgid "unterminated text spanner"
+msgstr "незавершенный расширитель"
+
+#: text-spanner.cc:115
+msgid "Text_spanner too small"
 msgstr ""
 
 #: tfm-reader.cc:105
@@ -709,21 +753,21 @@ msgstr ""
 msgid "TFM header of `%s' has only %u word(s)"
 msgstr ""
 
-#: tfm-reader.cc:143
+#: tfm-reader.cc:139
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
 
-#: tfm.cc:71
-#, c-format
-msgid "can't find ascii character: `%d'"
+#: tfm.cc:77
+#, fuzzy, c-format
+msgid "can't find ascii character: %d"
 msgstr "не могу найти символ ASCII: `%d'"
 
-#: tie-engraver.cc:203 tie-performer.cc:109
+#: tie-engraver.cc:212 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr ""
 
-#: tie-engraver.cc:242
+#: tie-engraver.cc:231
 msgid "lonely tie"
 msgstr ""
 
@@ -731,15 +775,7 @@ msgstr ""
 msgid "no one to print a tuplet start bracket"
 msgstr ""
 
-#: timing-translator.cc:36
-msgid "conflicting timing request"
-msgstr ""
-
-#: timing-translator.cc:37
-msgid "This is the other timing request"
-msgstr ""
-
-#: timing-translator.cc:65
+#: timing-translator.cc:38
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr ""
@@ -768,208 +804,238 @@ msgstr ""
 msgid "can't find: `%s'"
 msgstr "не могу найти: `%s'"
 
-#: translator-group.cc:142
+#: translator-group.cc:146
 #, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr ""
 
-#: translator-group.cc:246
+#: translator-group.cc:231
 #, c-format
 msgid "can't find or create: `%s'"
 msgstr "не могу найти или создать: `%s'"
 
-#: unfolded-repeat-iterator.cc:146
-msgid "no one to print a volta bracket"
+#. warning () ?
+#: translator-group.cc:405
+#, c-format
+msgid ""
+"Can't find property type-check for `%s'.  Perhaps you made a typing error?"
 msgstr ""
 
-#: parser.yy:61
+#. warning () ?
+#: translator-group.cc:420
+#, c-format
+msgid "Failed typecheck for `%s', value `%s' must be of type `%s'"
+msgstr ""
+
+#. programming_error?
+#: translator-group.cc:440
+msgid "ly-get-trans-property: expecting a Translator_group argument"
+msgstr ""
+
+#: volta-engraver.cc:87
+msgid "No volta spanner to end"
+msgstr ""
+
+#: volta-engraver.cc:104
+msgid "Already have a volta spanner.  Stopping that one prematurely."
+msgstr ""
+
+#: volta-engraver.cc:108
+msgid "Also have a stopped spanner.  Giving up."
+msgstr ""
+
+#: parser.yy:71
 #, c-format
 msgid "Oldest supported input version: %s"
 msgstr ""
 
-#: parser.yy:447
+#: parser.yy:467
 msgid "Wrong type for property value"
 msgstr ""
 
-#: parser.yy:633
+#: parser.yy:668
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 
-#: parser.yy:673
+#: parser.yy:732
 msgid "Second argument must be a symbol"
 msgstr "Второй аргумент должен быть символом"
 
-#: parser.yy:678
+#: parser.yy:737
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1015
+#: parser.yy:1217
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1025
+#: parser.yy:1227
 msgid "Can't specify direction for this request"
 msgstr "Не могу указать направление для этого запроса"
 
-#: parser.yy:1117
-#, c-format
-msgid "Expecting %d arguments"
+#: parser.yy:1348
+msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1133
-msgid "Must have 2 arguments for duration"
-msgstr ""
+#: parser.yy:1359
+#, fuzzy
+msgid "Must have duration object"
+msgstr "установить наименьшую продолжительность"
 
-#: parser.yy:1140 parser.yy:1148 parser.yy:1383
+#: parser.yy:1368 parser.yy:1376 parser.yy:1640
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Должен быть в Лирическом режиме для лирики"
 
-#: parser.yy:1289 parser.yy:1309
+#: parser.yy:1525 parser.yy:1554
 #, c-format
 msgid "not a duration: %d"
 msgstr "не продолжительность: %d"
 
-#: parser.yy:1318
+#: parser.yy:1563
 msgid "Have to be in Note mode for notes"
 msgstr "Должен быть в Нотном режиме для нот"
 
-#: parser.yy:1396
+#: parser.yy:1659
 msgid "Have to be in Chord mode for chords"
 msgstr "Должен быть в Аккордном режиме для аккордов"
 
-#: parser.yy:1558 parser.yy:1576
+#: parser.yy:1821 parser.yy:1839
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:1562
+#: parser.yy:1825
 msgid "Must be positive integer"
 msgstr ""
 
-#: lexer.ll:159
+#: lexer.ll:164
 msgid "EOF found inside a comment"
 msgstr "Конец файла внутри комментария"
 
-#: lexer.ll:173
+#: lexer.ll:178
 msgid "\\maininput disallowed outside init files"
 msgstr ""
 
-#: lexer.ll:197
+#: lexer.ll:202
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "неизвестная метка/команда: `%s'"
 
 #. backup rule
-#: lexer.ll:202
+#: lexer.ll:207
 msgid "Missing end quote"
 msgstr "Отсутсвует заключительная кавычка"
 
 #. backup rule
-#: lexer.ll:224 lexer.ll:228
+#: lexer.ll:229 lexer.ll:233
 msgid "white expected"
 msgstr "в то время как ожидалось"
 
-#: lexer.ll:236
+#: lexer.ll:241
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Не могу выполнять код схемы в безопасном режиме"
 
-#: lexer.ll:432
+#: lexer.ll:433
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "неверный символ: `%c'"
 
-#: lexer.ll:512
+#: lexer.ll:515
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
 
-#: lexer.ll:598
-#, c-format
-msgid "incorrect mudela version: %s (%s, %s)"
+#: lexer.ll:597
+#, fuzzy, c-format
+msgid "incorrect lilypond version: %s (%s, %s)"
 msgstr "неверная версия mudela: %s (%s, %s)"
 
-#: lexer.ll:599
-msgid "Consider converting the input with the convert-mudela script"
+#: lexer.ll:598
+msgid "Consider converting the input with the convert-ly script"
 msgstr ""
 
-#: main.cc:92
+#: main.cc:93
 msgid "write exact durations, e.g.: a4*385/384"
 msgstr ""
 
-#: main.cc:95
+#: main.cc:94
+msgid "enable debugging output"
+msgstr "включить вывод отладочной информации"
+
+#: main.cc:96
 msgid "ACC[:MINOR]"
 msgstr ""
 
-#: main.cc:95
+#: main.cc:96
 msgid "set key: ACC +sharps/-flats; :1 minor"
 msgstr ""
 
-#: main.cc:96
+#: main.cc:97
 msgid "don't output tuplets, double dots or rests, smallest is 32"
 msgstr ""
 
-#: main.cc:97
+#: main.cc:98
 msgid "set FILE as default output"
 msgstr "установить ФАЙЛ для вывода по умолчанию"
 
-#: main.cc:98
+#: main.cc:99
 msgid "don't output tuplets"
 msgstr "не выводить скобы триолей"
 
-#: main.cc:99
+#: main.cc:100
 msgid "be quiet"
 msgstr "быть молчаливым"
 
-#: main.cc:100
+#: main.cc:101
 #, fuzzy
 msgid "don't output rests or skips"
 msgstr "не выводить скобы триолей"
 
-#: main.cc:101
+#: main.cc:102
 msgid "DUR"
 msgstr "МАЖОР"
 
-#: main.cc:101
+#: main.cc:102
 msgid "set smallest duration"
 msgstr "установить наименьшую продолжительность"
 
-#: main.cc:104
+#: main.cc:105
 msgid "be verbose"
 msgstr "быть болтливым"
 
-#: main.cc:106
+#: main.cc:107
 msgid "assume no double dotted notes"
 msgstr ""
 
-#: main.cc:113
+#: main.cc:114
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]"
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]"
 
-#: main.cc:115
+#: main.cc:116
 msgid "Translate MIDI-file to mudela"
 msgstr "Транслировать MIDI-файл в mudela"
 
-#: main.cc:129
+#: main.cc:130
 #, c-format
 msgid "no_double_dots: %d\n"
 msgstr ""
 
-#: main.cc:131
+#: main.cc:132
 #, c-format
 msgid "no_rests: %d\n"
 msgstr ""
 
-#: main.cc:133
+#: main.cc:134
 #, c-format
 msgid "no_quantify_b_s: %d\n"
 msgstr ""
 
-#: main.cc:135
+#: main.cc:136
 #, c-format
 msgid "no_smaller_than: %d (1/%d)\n"
 msgstr ""
 
-#: main.cc:138
+#: main.cc:139
 #, c-format
 msgid "no_tuplets: %d\n"
 msgstr ""
@@ -1023,7 +1089,7 @@ msgstr "ожидалась MIDI дорожка"
 msgid "invalid track length"
 msgstr "неверная длина дорожки"
 
-#: mudela-item.cc:160
+#: mudela-item.cc:161
 #, c-format
 msgid "#32 in quarter: %d"
 msgstr "#32 в четвертной: %d"
@@ -1092,6 +1158,27 @@ msgstr "% Автоматически сгенерировано"
 #, c-format
 msgid "% from input file: "
 msgstr "% из входного файла: "
+
+#~ msgid "Wrong type for property"
+#~ msgstr "Неверный тип для свойства"
+
+#~ msgid "unknown clef type"
+#~ msgstr "неизвестный тип ключа"
+
+#~ msgid "too small"
+#~ msgstr "слишком мало"
+
+#~ msgid "Aborting"
+#~ msgstr "Совершаю харакири"
+
+#~ msgid "Non-matching braces in text `%s', adding braces"
+#~ msgstr "Фигурные скобки в тексте `%s' не совпадают, добавляю скобки"
+
+#~ msgid "Huh?  Not a Request: `%s'"
+#~ msgstr "А? НЕ Запрос: `%s'"
+
+#~ msgid "Junking music: `%s'"
+#~ msgstr "Выбрасываю музыку: `%s'"
 
 #~ msgid "can't find both ends of %s"
 #~ msgstr "не могу найти оба конца у %s"

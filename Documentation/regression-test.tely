@@ -91,6 +91,8 @@ and documenting bugfixes.
 
 @lilypondfile{beam-length.ly}
 
+@lilypondfile{triplets.ly}
+
 @lilypondfile{slur-nice.ly}
 @lilypondfile{slur-symmetry.ly}
 @lilypondfile{slur-symmetry-1.ly}
