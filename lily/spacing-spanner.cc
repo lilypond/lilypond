@@ -258,13 +258,13 @@ Spacing_spanner::note_spacing (Paper_column *lc, Paper_column *rc, Moment shorte
    This should be more advanced, since relative heights of the note
    heads also influence required correction.
 
-   Also might not work correctly ico. multi voices or staff changing voices
+   Also might not work correctly in case of multi voices or staff
+   changing voices
 
    TODO: lookup correction distances?  More advanced correction?
    Possibly turn this off?
 
-   This routine reads the DIR_LIST property of both its L and R arguments.
-*/
+   This routine reads the DIR-LIST property of both its L and R arguments.  */
 Real
 Spacing_spanner::stem_dir_correction (Paper_column*l, Paper_column*r) const
 {
