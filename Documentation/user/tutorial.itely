@@ -266,11 +266,11 @@ Windows are given at the end of this section.
 
 Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
-@code{joe}@footnote{There are macro files for VIM addicts, and there
+@code{joe}.@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If it has not been
 installed already, refer to
 @c FIXME lousy reference.
-the file @file{INSTALL.txt}}. In your text editor, enter the following
+the file @file{INSTALL.txt}.}  In your text editor, enter the following
 input and save the file as @file{test.ly}
 
 @example
@@ -291,13 +291,15 @@ lilypond test.ly
 You will see something resembling
 
 @example
-GNU LilyPond 1.8.0
-Now processing: `/home/fred/ly/test.ly'
+lilypond (GNU LilyPond) 2.2.0
+Running lilypond-bin...
+Now processing `/home/fred/ly/test.ly'
 Parsing...
 Interpreting music...[1]
-@emph{ ...  more interesting stuff ...  }
-PDF output to `test.pdf'...
+@emph{... more interesting stuff ... }
 DVI output to `test.dvi'...
+PDF output to `test.pdf'...
+PS output to `test.ps'...
 @end example
 @cindex DVI file
 @cindex Viewing music
@@ -321,7 +323,7 @@ viewing and printing PDF and PostScript files.}
 
 On Windows, start up a text-editor@footnote{Any simple or
 programmer-oriented editor will do, for example Notepad.  Do not use a
-word processor, its formatting codes will confuse LilyPond} and enter
+word processor, its formatting codes will confuse LilyPond.} and enter
 
 @example
 \score @{
@@ -340,7 +342,7 @@ the file and show the resulting PDF file.
 A @rglos{sharp} (@texisharp{}) pitch is made by adding @samp{is} to
 the name, a @rglos{flat} (@texiflat{}) pitch by adding @samp{es}.  As
 you might expect, a @rglos{double sharp} or @rglos{double flat} is
-made by adding @samp{isis} or @samp{eses}:@footnote{This syntax
+made by adding @samp{isis} or @samp{eses}@footnote{This syntax
 derived from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.}
 
@@ -354,7 +356,7 @@ cis1 ees fisis aeses
 @end lilypond
 
 @cindex key signature, setting
-The key signature is set with the command @samp{\key}, followed by
+The key signature is set with the command @code{\key}, followed by
 a pitch and @code{\major} or @code{\minor}
 @example
 \key d \major
@@ -363,25 +365,24 @@ g1
 g
 @end example
 
-@lilypond[quote,fragment]
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,fragment]
 \key d \major
 g'1
 \key c \minor
 g'
 @end lilypond
 
-
+@noindent
 Key signatures together with the pitches (including alterations) are
-used together to determine when to print accidentals.  This is a
+used to determine when to print accidentals.  This is a
 feature that often causes confusion to newcomers, so let us explain it
-in more detail
+in more detail.
 
 
 LilyPond makes a sharp distinction between musical content and
 layout.  The alteration (flat, natural or sharp) of a note is part of
 the pitch, and is therefore musical content.  Whether an accidental (a
-flat, natural or sharp @emph{sign}) is a printed in front of the
+flat, natural or sharp @emph{sign}) is printed in front of the
 corresponding note is a question of layout.  Layout is something that
 follows rules, so accidentals are printed automatically according to
 those rules.  The pitches in your music are works of art, so they will
@@ -389,26 +390,25 @@ not be added automatically, and you must enter what you want to hear.
 
 In this example
 
-@lilypond[quote,fragment]
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,fragment]
 \key d \major
 d' cis' fis'
 @end lilypond
 
 @noindent
-no note gets an explicit accidental, but still you enter
+no note gets an explicit accidental, but you still must enter
 
 @example
 \key d \major
 d cis fis
 @end example
 
-The code @code{d} does not mean ``print a black dot just below the
-staff.''  Rather, it means: ``a note with pitch D-natural.''  In the key
+@noindent
+The code @samp{d} does not mean `print a black dot just below the
+staff.'  Rather, it means: `a note with pitch D-natural.'  In the key
 of A-flat, it does get an accidental
 
-@lilypond[quote,fragment]
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,fragment]
 \key as \major
 d'
 @end lilypond
@@ -427,6 +427,7 @@ according to different rules.
 
 For more information on
 
+@quotation
 @table @asis
 @item Accidentals
 see @ref{Accidentals}
@@ -434,20 +435,20 @@ see @ref{Accidentals}
 @item Key signature
 see @ref{Key signature}
 @end table
+@end quotation
 
 @node Entering ties
 @section Entering ties
 
 @cindex tie
-A tie is created by adding a tilde @samp{~} to the first note
+A tie is created by appending a tilde @samp{~} to the first note
 being tied
-@lilypond[quote,fragment,verbatim,relative=3]
+@lilypond[quote,notime,fragment,verbatim,relative=3]
 g4~ g a2~ a4
 @end lilypond
 @separate
 
-
-For more information on Ties, see @ref{Ties}.
+For more information on Ties see @ref{Ties}.
 
 
 
@@ -462,9 +463,10 @@ a8 ais d es r d
 @end lilypond
 @separate
 
+@noindent
 If you do not like where beams are put, they can be entered by
-hand.  Mark the first note to be beamed with @code{[} and the last one
-with @code{]}.
+hand.  Mark the first note to be beamed with @samp{[} and the last one
+with @samp{]}.
 
 @lilypond[quote,fragment,relative=2,verbatim]
 a8[ ais] d[ es r d]
@@ -483,13 +485,13 @@ Here are key signatures, accidentals and ties in action
     \key g \minor
     \clef violin
     r4 r8 a8 gis4 b
-    g8 d4.~ d e8
-    fis4 fis8 fis8 eis4  a8 gis~
+    a8 d4.~ d e8
+    fis4 fis8 fis8 eis4 a8 gis~
     gis2 r2
   @}
 @}
 @end example
-@lilypond[quote]
+@lilypond[quote, noindent]
 \score {
   \notes \transpose c c' { 
     \time 4/4
@@ -497,14 +499,15 @@ Here are key signatures, accidentals and ties in action
     \clef violin
     r4 r8 a8 gis4 b
     a8 d4.~ d e8
-    fis4 fis8 fis8 eis4  a8 gis~
+    fis4 fis8 fis8 eis4 a8 gis~
     gis2 r2
   }
-  \paper { linewidth = #(* 50 staffspace) }
+  \paper { linewidth = 50 * \staffspace }
 }
 @end lilypond
 @cindex accidentals
 
+@noindent
 There are some interesting points to note in this example.  Bar lines
 and beams are drawn automatically.  Line breaks are calculated
 automatically; it does not matter where the line breaks are in the
@@ -525,16 +528,14 @@ according to standard notation conventions.
 @c better to have this just before the `octaves are bad' snipped
 @c but we'd need to remove the ', from \key and tie 
 To raise a note by an octave, add a high quote @code{'} (apostrophe) to
-the note name, to lower a note one octave, add a ``low quote'' @code{,}
+the note name, to lower a note one octave, add a `low quote' @code{,}
 (a comma).  Middle C is @code{c'}
 
 @example
 c'4 c'' c''' \clef bass c c,
 @end example
 
-@lilypond[quote,fragment]
-\set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,fragment]
 c'4 c'' c''' \clef bass c c,
 @end lilypond
 @separate
@@ -547,25 +548,18 @@ cis''8. d''16 cis''8 e''4 e''8
 b'8. cis''16 b'8 d''4 d''8 
 @end lilypond
 
-This example shows that music in a high register needs lots of quotes.
+@noindent
+The last example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
-solution is to use ``relative octave'' mode.  In practice, this is the
+solution is to use `relative octave' mode.  In practice, this is the
 most convenient way to copy existing music.  To use relative mode, add
 @code{\relative} before the piece of music.  You must also give a note
-from which relative starts, in this case @code{c''}.  If you do not
-use octavation quotes (i.e.  do not add @code{'} or @code{,} after a
+from which relative mode starts, in this case @code{c''}.  If you do not
+use octavation quotes (i.e., do not add @code{'} or @code{,} after a
 note), relative mode chooses the note that is closest to the previous
-one.  For example, @code{c f} goes up while @code{c g} goes down
+one.  For example, @samp{c f} goes up while @samp{c g} goes down
 
-@example
-\relative c'' @{
-  c f c g c
-@}
-@end example
-
-@lilypond[quote,fragment]
-\set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,fragment,verbatim]
 \relative c'' {
   c f c g c
 }
@@ -576,7 +570,7 @@ one.  For example, @code{c f} goes up while @code{c g} goes down
 Since most music has small intervals, pieces can be written almost
 without octavation quotes in relative mode.  The previous example is
 entered as
-@c
+
 @lilypond[quote,raggedright,fragment,verbatim]
 \relative c'' {
   \key a \major
@@ -591,25 +585,18 @@ entered as
 @c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
 @c in eerste instantie drong het `relative' niet door zonder extra uitleg.
 Larger intervals are made by adding octavation quotes.
-@example
-\relative c'' @{
-  c f, f c' c g' c,
-@}
-@end example
 
-@lilypond[quote,fragment]
-\set Score.timing = ##f
-\set Staff.TimeSignature = \turnOff
+@lilypond[quote,notime,verbatim,fragment]
 \relative c'' {
   c f, f c' c g' c,
 }
 @end lilypond
 @separate
 
-In @code{\relative} mode, quotes or commas no longer determine the
-absolute height of a note.  Rather, the height of a note is relative to
-the previous one, and changing the octave of a single note shifts all
-following notes an octave up or down.
+In summary, quotes or commas no longer determine the absolute height
+of a note in @code{\relative} mode.  Rather, the height of a note is
+relative to the previous one, and changing the octave of a single note
+shifts all following notes an octave up or down.
 
 For more information on Relative octaves see @ref{Relative octaves}
 and @ref{Octave check}.
@@ -647,7 +634,7 @@ notes
 This technique is useful for non-monophonic music.  To enter music
 with more voices or more staves, we also combine expressions in
 parallel.  Two voices that should play at the same time, are entered
-as a simultaneous combination of two sequences.  A ``simultaneous''
+as a simultaneous combination of two sequences.  A `simultaneous'
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two notes) are combined simultaneously
@@ -678,8 +665,8 @@ you can make arbitrarily complex and large expressions.  For example,
 @cindex music expression
 This example shows a sequence of expressions, where each expression is
 contained in the next one.  The simplest expressions are numbers and
-operators (like +, * and /).  Parentheses are used to group
-expressions.
+operators (like @samp{+}, @samp{*} and @samp{/}).  Parentheses are used
+to group expressions.
 
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, e.g.
@@ -731,7 +718,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 @end lilypond
 
 
-The command @code{\new} introduces a ``notation context.'' A notation
+The command @code{\new} introduces a `notation context.' A notation
 context is an environment in which musical events (like notes or
 @code{\clef} commands) are interpreted.  For simple pieces, such
 notation contexts are created implicitly.  For more complex pieces, it
@@ -1002,7 +989,7 @@ Lyrics are entered by separating each syllable with a space,
 I want to break free
 @end example
 
-To prevent certain words (for example ``as'') as being read as a
+To prevent certain words (for example `as') as being read as a
 pitch, the input-mode must be switched.  This is done with
 @code{\lyrics}.  In @code{\lyrics} mode, all words are read as lyric
 syllables.
@@ -1055,9 +1042,9 @@ The final result is
 @cindex melisma
 @cindex extender line
 @c synonyms?
-This melody ends on a @rglos{melisma}, a single syllable (``free'')
+This melody ends on a @rglos{melisma}, a single syllable (`free')
 sung to more than one note.  This is indicated with an @emph{extender
-line}.  It is entered as two underscores, i.e.
+line}.  It is entered as two underscores, i.e.,
 @example
 \lyrics @{ I want to break free __ @}
 @end example 
@@ -1214,7 +1201,7 @@ added too
 @section Titling
 
 Bibliographic information is entered in a separate block, the
-@code{\header} block.  The name of the piece, its composer, etc.  are
+@code{\header} block.  The name of the piece, its composer, etc., are
 entered as an assignment, within @code{\header @{ @dots{} @}}.  For
 example,
 @example 
@@ -1234,9 +1221,9 @@ example,
 
 When the file is processed the title and composer are printed above
 the music.  The `tagline' is a short line printed at bottom of the last
-page which normally says ``Engraved by LilyPond, version @dots{}''.  In
-the example above it is replaced by the line ``small is
-beautiful.''@footnote{Nicely printed parts are good PR for us, so
+page which normally says `Engraved by LilyPond, version @dots{}'.  In
+the example above it is replaced by the line `small is
+beautiful.'@footnote{Nicely printed parts are good PR for us, so
 please leave the tagline if you can.}
 
 Normally, the @code{\header} is put at the top of the file.  However,
@@ -1363,7 +1350,7 @@ namedMusic = \notes @{ @dots{}
 @end example
 
 The contents of the music expression @code{namedMusic}, can be used
-later by preceding the name with a backslash, i.e.  @code{\namedMusic}.
+later by preceding the name with a backslash, i.e., @code{\namedMusic}.
 In the next example, a two note motive is repeated two times by using
 variable substitution
 
@@ -1461,7 +1448,7 @@ the following output
 In ensemble pieces, one of the voices often does not play for many
 measures.  This is denoted by a special rest, the multi-measure
 rest.  It is entered with a capital @code{R} followed by a duration (1
-for a whole note, 2 for a half note, etc.) By multiplying the
+for a whole note, 2 for a half note, etc.).  By multiplying the
 duration, longer rests can be constructed.  For example, this rest
 takes 3 measures in 2/4 time
 @example
@@ -1528,7 +1515,7 @@ leading to
 More in-depth information on preparing parts and scores in the
 notation manual, in @ref{Orchestral music}.
 
-Setting run-time variables (``properties'') is discussed in ref-TODO.
+Setting run-time variables (`properties') is discussed in ref-TODO.
 
 @node Integrating text and music
 @section Integrating text and music
