@@ -39,6 +39,10 @@
 class Item : public virtual Score_element {
   void do_break ();
   void try_visibility_lambda ();
+public:
+  /*
+    ugh.
+   */
   Drul_array<Item*> broken_to_drul_;
 
 

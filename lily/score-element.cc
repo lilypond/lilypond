@@ -54,19 +54,6 @@ Score_element::Score_element()
   set_elt_property ("interfaces", SCM_EOL);
 }
 
-SCM ly_deep_copy (SCM);
-
-SCM
-ly_deep_copy (SCM l)
-{
-  if (gh_pair_p (l))
-    {
-      return gh_cons (ly_deep_copy (gh_car (l)), ly_deep_copy (gh_cdr (l)));
-    }
-  else
-    return l;
-}
-
 
 Score_element::Score_element (Score_element const&s)
 {
@@ -77,12 +64,7 @@ Score_element::Score_element (Score_element const&s)
   self_scm_ = SCM_EOL;
   used_b_ = true;
   original_l_ =(Score_element*) &s;
-
-  /*
-    should protect because smobify_self () might trigger GC.
-   */
-  SCM onstack = ly_deep_copy (s.element_property_alist_);
-  element_property_alist_ = onstack;
+  element_property_alist_ = SCM_EOL; // onstack;
 
   output_p_ =0;
   status_i_ = s.status_i_;
@@ -377,15 +359,16 @@ Score_element::add_dependency (Score_element*e)
 
 /**
       Do break substitution in S, using CRITERION. Return new value.
-         CRITERION is either a SMOB pointer to the desired line, or a number
-	 representing the break direction.  */
+      CRITERION is either a SMOB pointer to the desired line, or a number
+      representing the break direction. Do not modify SRC.
+*/
 SCM
-Score_element::handle_broken_smobs (SCM s, SCM criterion)
+Score_element::handle_broken_smobs (SCM src, SCM criterion)
 {
  again:
 
   
-  Score_element *sc = unsmob_element ( s);
+  Score_element *sc = unsmob_element (src);
   if (sc)
     {
       if (criterion == SCM_UNDEFINED)
@@ -415,13 +398,13 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
 	    return SCM_UNDEFINED;
 	}
     }
-  else if (gh_pair_p (s))
+  else if (gh_pair_p (src))
     {
       /*
 	UGH! breaks on circular lists.
       */
-      SCM car = handle_broken_smobs (gh_car (s), criterion);
-      SCM cdr = gh_cdr (s);
+      SCM car = handle_broken_smobs (gh_car (src), criterion);
+      SCM cdr = gh_cdr (src);
       
       if (car == SCM_UNDEFINED
 	  && (gh_pair_p (cdr) || cdr == SCM_EOL))
@@ -432,26 +415,41 @@ Score_element::handle_broken_smobs (SCM s, SCM criterion)
 	    return handle_broken_smobs (cdr, criterion);
 
 	    We don't want to rely on the compiler to do this.  */
-	  s =  cdr;	
+	  src =  cdr;	
 	  goto again;
 	}
 
-      gh_set_car_x (s, car);
-      gh_set_cdr_x (s, handle_broken_smobs (cdr, criterion));
-      return s;
+      return gh_cons (car, handle_broken_smobs (cdr, criterion));
     }
-  return s;
+  else
+    return src;
+
+  return src;
 }
 
 void
 Score_element::handle_broken_dependencies()
 {
-  Line_of_score *line  = line_l();
-  element_property_alist_ = handle_broken_smobs (element_property_alist_,
-						 line ? line->self_scm_ : SCM_UNDEFINED);
-
-  if (!line)
+  Spanner * s= dynamic_cast<Spanner*> (this);
+  if (original_l_ && s)
     return;
+
+  if (s)
+    {
+      for (int i = 0;  i< s->broken_into_l_arr_ .size (); i++)
+	{
+	  Score_element * sc = s->broken_into_l_arr_[i];
+	  Line_of_score * l = sc->line_l ();
+	  s->broken_into_l_arr_[i]->element_property_alist_ =
+	    handle_broken_smobs (element_property_alist_,
+				 l ? l->self_scm_ : SCM_UNDEFINED);
+	}
+    }
+
+  Line_of_score *line = line_l();
+  element_property_alist_
+    = handle_broken_smobs (element_property_alist_,
+			   line ? line->self_scm_ : SCM_UNDEFINED);
 }
 
 
@@ -463,15 +461,14 @@ Score_element::handle_prebroken_dependencies()
 {
   if (Item*i =dynamic_cast<Item*> (this))
     {
-      element_property_alist_
-	= handle_broken_smobs (element_property_alist_,
+      if (original_l_)
+	{
+	  element_property_alist_
+	    = handle_broken_smobs (original_l_->element_property_alist_,
 			       gh_int2scm (i->break_status_dir ()));
+	}
     }
 }
-
-
-
-
 
 Link_array<Score_element>
 Score_element::get_extra_dependencies() const
@@ -496,8 +493,6 @@ Score_element::find_broken_piece (Line_of_score*) const
 {
   return 0;
 }
-
-
 
 void
 Score_element::translate_axis (Real y, Axis a)
@@ -636,8 +631,9 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
   scm_puts ("#<Score_element ", port);
   scm_puts ((char *)sc->name (), port);
 
-  // scm_puts (" properties = ", port);
-  // scm_display (sc->element_property_alist_, port);
+  /*
+    don't try to print properties, that is too much hassle.
+   */
   scm_puts (" >", port);
   return 1;
 }

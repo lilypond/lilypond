@@ -101,7 +101,8 @@ Staff_performer::new_instrument_str ()
   if (!gh_string_p(minstr))
     minstr = get_property (ly_symbol2scm ("instrument"), 0);
 
-  if (ly_scm2string (minstr) == instrument_str_)
+  if (!gh_string_p (minstr)
+      || ly_scm2string (minstr) == instrument_str_)
     return "";
 
   instrument_str_ = ly_scm2string (minstr);
