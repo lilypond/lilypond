@@ -32,7 +32,7 @@
 
 #include <iostream>
 using namespace std;
-
+#include "music-head.hh"
 #include "source-file.hh"
 #include "parse-scm.hh"
 #include "lily-guile.hh"
@@ -57,7 +57,7 @@ RH 7 fix (?)
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
 String lyric_fudge (String s);
-
+int music_head_type (SCM);
 SCM lookup_markup_command (String s);
 bool is_valid_version (String s);
 
@@ -699,6 +699,12 @@ My_lily_lexer::scan_escaped_word (String str)
 		return l;
 	}
 	SCM sid = lookup_identifier (str);
+	if (is_music_head (sid))
+	{
+		yylval.scm = get_music_head_transform (sid); 
+		return music_head_type (yylval.scm);
+	}
+
 	if (sid != SCM_UNDEFINED)
 	{
 		yylval.scm = sid;
@@ -879,4 +885,35 @@ lookup_markup_command (String s)
 {
 	SCM proc = ly_scheme_function ("lookup-markup-command");
 	return scm_call_1 (proc, scm_makfrom0str (s.to_str0 ()));
+}
+
+
+int
+music_head_type (SCM func)
+{
+	SCM type= scm_object_property (func, ly_symbol2scm ("music-head-signature"));
+	if (type == ly_symbol2scm ("scm"))
+	{
+		return MUSIC_HEAD_SCM;
+	}
+	else if (type == ly_symbol2scm ("music"))
+	{
+		return MUSIC_HEAD_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("scm-music"))
+	{
+		return MUSIC_HEAD_SCM_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("scm-music-music"))
+	{
+		return MUSIC_HEAD_SCM_MUSIC_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("scm-scm-music"))
+	{
+		return MUSIC_HEAD_SCM_SCM_MUSIC;
+	}
+	else
+		assert (false);
+
+	return MUSIC_HEAD_SCM_MUSIC_MUSIC;
 }

@@ -359,6 +359,13 @@ or
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 
+%token <scm> MUSIC_HEAD_SCM 
+%token <scm> MUSIC_HEAD_MUSIC 
+%token <scm> MUSIC_HEAD_SCM_MUSIC 
+%token <scm> MUSIC_HEAD_MUSIC_MUSIC 
+%token <scm> MUSIC_HEAD_SCM_SCM_MUSIC 
+%token <scm> MUSIC_HEAD_SCM_MUSIC_MUSIC 
+
 %token <scm> MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
@@ -377,7 +384,7 @@ or
 %type <i>	sub_quotes sup_quotes
 %type <music>	toplevel_music
 %type <music>	simple_element event_chord command_element
-%type <music>	Composite_music Simple_music Prefix_composite_music
+%type <music>	Composite_music Simple_music Prefix_composite_music Generic_prefix_music
 %type <music>	Grouped_music_list
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
@@ -945,9 +952,26 @@ Grouped_music_list:
 	Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
 	;
-	
+
+Generic_prefix_music:
+	MUSIC_HEAD_SCM { THIS->push_spot (); } embedded_scm {
+		SCM m = scm_call_2 ($1, make_input (THIS->pop_spot ()),
+			$3);
+		if (unsmob_music (m))
+			$$ = unsmob_music (m);
+		else
+		{
+			THIS->parser_error ("MUSIC_HEAD should return Music");
+			$$ = MY_MAKE_MUSIC("Music");
+		}
+	}
+	;
+
 Prefix_composite_music:
-	AUTOCHANGE Music	{
+	Generic_prefix_music {
+		$$ = $1;
+	}
+	|AUTOCHANGE Music	{
 		SCM proc = ly_scheme_function ("make-autochange-music");
 	
 		SCM res = scm_call_1 (proc, $2->self_scm ());
