@@ -461,11 +461,10 @@ ScoreContext = \translator {
 		(molecule-callback . ,Crescendo::brew_molecule)
 	)
 	basicDotColumnProperties = #`(
-		(after-line-breaking-callback . ,Dot_column::after_line_breaking)
+		(dot-column-interface . #t)
 	)
 	basicDotsProperties = #`(
 		(molecule-callback . ,Dots::brew_molecule)
-		(after-line-breaking-callback . ,Dots::after_line_breaking)
 		(dot-count . 1)
 		(dots-interface . #t)
 	)
@@ -525,7 +524,7 @@ ScoreContext = \translator {
 	basicMultiMeasureRestProperties = #`(
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
-		(after-line-breaking-callback . ,Multi_measure_rest::after_line_breaking)
+
 	)
 	basicNoteColumnProperties = #`(
 		(axes 0 1)
@@ -533,8 +532,6 @@ ScoreContext = \translator {
 	basicNoteHeadProperties = #`(
 		(note-head-interface . #t)
 		(molecule-callback . ,Note_head::brew_molecule)
-		(before-line-breaking-callback . ,Note_head::before_line_breaking)
-		(after-line-breaking-callback . ,Rhythmic_head::after_line_breaking)
 	)
 	basicNoteNameProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -557,7 +554,6 @@ ScoreContext = \translator {
 	basicRestProperties = #`(
 		(rest-interface . #t)	
 		(molecule-callback . ,Rest::brew_molecule)
-		(after-line-breaking-callback . ,Rhythmic_head::after_line_breaking)
 		(minimum-beam-collision-distance . 1.5)
 	)
 	
@@ -611,6 +607,7 @@ ScoreContext = \translator {
 	basicStemProperties = #`(
 		(before-line-breaking-callback . ,Stem::before_line_breaking)
 		(molecule-callback . ,Stem::brew_molecule)
+		(stem-interface . #t)
 	)
 	staffSymbolBasicProperties = #`(
 		(molecule-callback . ,Staff_symbol::brew_molecule)

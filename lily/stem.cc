@@ -15,7 +15,7 @@
 #include "stem.hh"
 #include "debug.hh"
 #include "paper-def.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 #include "lookup.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
@@ -61,10 +61,10 @@ Stem::head_positions () const
     }
 
   
-  Drul_array<Note_head*> e (extremal_heads ());
+  Drul_array<Rhythmic_head*> e (extremal_heads ());
 
-  return Interval (staff_symbol_referencer (e[DOWN]).position_f (),
-		   staff_symbol_referencer( e[UP]).position_f ()); 
+  return Interval (Staff_symbol_referencer_interface (e[DOWN]).position_f (),
+		   Staff_symbol_referencer_interface ( e[UP]).position_f ()); 
 }
 
 
@@ -159,7 +159,7 @@ Stem::heads_i ()const
 /*
   The note head which forms one end of the stem.  
  */
-Note_head*
+Rhythmic_head*
 Stem::first_head () const
 {
   return extremal_heads ()[-get_direction ()];
@@ -168,7 +168,7 @@ Stem::first_head () const
 /*
   START is part where stem reaches `last' head. 
  */
-Drul_array<Note_head*>
+Drul_array<Rhythmic_head*>
 Stem::extremal_heads () const
 {
   const int inf = 1000000;
@@ -176,12 +176,12 @@ Stem::extremal_heads () const
   extpos[DOWN] = inf;
   extpos[UP] = -inf;  
   
-  Drul_array<Note_head *> exthead;
+  Drul_array<Rhythmic_head *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
   for (SCM s = get_elt_pointer ("heads"); gh_pair_p (s); s = gh_cdr (s))
     {
-      Note_head * n = dynamic_cast<Note_head*> (unsmob_element (gh_car (s)));
+      Rhythmic_head * n = dynamic_cast<Rhythmic_head*> (unsmob_element (gh_car (s)));
       Staff_symbol_referencer_interface si (n);
       
       int p = int(si.position_f ());
@@ -205,12 +205,9 @@ Stem::add_head (Rhythmic_head *n)
   n->set_elt_pointer ("stem", this->self_scm_);
   n->add_dependency (this);
 
-  if (Note_head *nh = dynamic_cast<Note_head *> (n))
+  if (to_boolean (n->get_elt_property ("note-head-interface")))
     {
-      Pointer_group_interface gi (this);
-      gi.name_ = "heads";
-
-      gi.add_element (n);
+      Pointer_group_interface (this, "heads").add_element (n);
     }
   else
     {
@@ -232,7 +229,7 @@ Stem::invisible_b () const
   /*
     UGH. Who determines balltype for stem?
    */
-  Note_head * nh = dynamic_cast<Note_head*> (support_head ());
+  Rhythmic_head * nh = dynamic_cast<Rhythmic_head*> (support_head ());
   return !(heads_i () && nh->balltype_i () >= 1);
 }
 
@@ -476,7 +473,7 @@ Stem::member_brew_molecule () const
   Interval stem_y(y1,y2);
   stem_y.unite (Interval (y2,y1));
 
-  Real dy = staff_symbol_referencer (this).staff_space ()/2.0;
+  Real dy = Staff_symbol_referencer_interface (this).staff_space ()/2.0;
   Real head_wid = 0;
   if (support_head ())
     head_wid = support_head ()->extent (X_AXIS).length ();
@@ -506,7 +503,7 @@ Stem::off_callback (Score_element const* se, Axis)
   Stem *st = dynamic_cast<Stem*> ((Score_element*)se);
 
   Real r=0;
-  if (Note_head * f = st->first_head ())
+  if (Rhythmic_head * f = st->first_head ())
     {
       Interval head_wid(0, f->extent (X_AXIS).length ());
 
