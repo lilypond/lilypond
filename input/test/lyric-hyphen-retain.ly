@@ -24,15 +24,17 @@ c16[ c c c]
 c16[ c c c]
 
 }
-    \lyrics \new Lyrics \with {
+      \new Lyrics \with {
 	% Otherwise lyrics are so far apart that hyphens don't disappear
-	\override SeparationItem #'padding = #0.0
-	}{ bla -- bla -- bla -- bla --
-	   bla -- bla -- bla -- bla --
+	  \override SeparationItem #'padding = #0.0
+      }
+      \lyrics {
+	  bla -- bla -- bla -- bla --
+	  bla -- bla -- bla -- bla --
 
-	   \override LyricHyphen  #'minimum-length = #0.7
-	   \override LyricHyphen  #'spacing-procedure =
-                  #Hyphen_spanner::set_spacing_rods
+	  \override LyricHyphen  #'minimum-length = #0.7
+	  \override LyricHyphen  #'spacing-procedure =
+	  #Hyphen_spanner::set_spacing_rods
 
 	   bla -- bla -- bla -- bla 
        }>>
