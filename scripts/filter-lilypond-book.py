@@ -1,8 +1,7 @@
 #!@PYTHON@
 
 '''
-TODO: @\ lilypondfile
-      \input, @include
+TODO: \input, @include
       check latex parameters
       papersizes?
       
@@ -78,14 +77,17 @@ option_definitions = [
 	(_ ("EXT"), 'f', 'format', _ ("use output format EXT (texi [default], texi-html, latex, html)")),
 	(_ ("FILTER"), 'F', 'filter', _ ("pipe snippets through FILTER [convert-ly -n -]")),
 	('', 'h', 'help', _ ("print this help")),
+	(_ ("DIR"), 'I', 'include', _ ("add DIR to include path")),
 	(_ ("COMMAND"), 'P', 'process', _ ("process ly_files using COMMAND FILE...")),
 	(_ ("FILE"), 'o', 'output', _ ("write output to FILE")),
 	('', 'V', 'verbose', _ ("be verbose")),
 	('', 'v', 'version', _ ("print version information")),
 	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	('', 'M', 'dependencies', _ ("TODO")),
+	(_ ("DIR"), '', 'outdir', _ ("DEPRECATED, use --output")),
 	]
 
-include_path = [os.getcwd ()]
+include_path = [ly.abspath (os.getcwd ())]
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond-bin')
 
@@ -98,10 +100,11 @@ use_hash_p = 1
 format = 0
 output_name = 0
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
-filter_cmd = 'convert-ly --no-version --from=2.0.0 -'
-#filter_cmd = 0
+##filter_cmd = 'convert-ly --no-version --from=2.0.0 -'
+filter_cmd = 0
 #process_cmd = 'convert-ly --no-version --from=2.0.0'
-process_cmd = 0
+#process_cmd = 0
+process_cmd = 'lilypond-bin'
 default_ly_options = { }
 
 LATEX = 'latex'
@@ -276,8 +279,9 @@ def compose_ly (code, option_string):
 	for i in default_ly_options.keys ():
 		options.append (i)
 		vars ()[i] = default_ly_options[i]
-			
-	options = options + string.split (option_string, ',')
+
+	if option_string:
+		options = options + string.split (option_string, ',')
 	
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
@@ -332,6 +336,15 @@ def to_eps (file):
 ## make source, index statics of Snippet?
 index = 0
 
+def find_file (name):
+	for i in include_path:
+		full = os.path.join (i, name)
+		if os.path.exists (full):
+			return full
+	ly.error (_ ('file not found: %s\n' % name))
+	ly.exit (1)
+	return ''
+	
 class Snippet:
 	def __init__ (self, type, index, match):
 		self.type = type
@@ -349,15 +362,27 @@ class Snippet:
 		return source[self.start (s):self.end (s)]
 
 	def ly (self, source):
+		s = ''
 		if self.type == 'lilypond-block' or self.type == 'lilypond':
-			return compose_ly (self.substring (source, 'code'),
-					   self.match.group ('options'))
+			s = self.substring (source, 'code')
+		elif self.type == 'lilypond-file':
+			name = self.substring (source, 'filename')
+			s = open (find_file (name)).read ()
+		return s
+		
+	def full_ly (self, source):
+		s = self.ly (source)
+		if s:
+			return compose_ly (s, self.match.group ('options'))
 		return ''
 	
 	def get_hash (self, source):
 		if not self.hash:
-			self.hash = abs (hash (self.substring (source,
-							       'code')))
+			self.hash = abs (hash (self.ly (source)))
+		if not self.hash:
+			print 'TYPE:: ' + self.type
+			print 'CODE:: ' + self.substring (source, 0)
+			raise 'URG'
 		return self.hash
 
 	def basename (self, source):
@@ -366,13 +391,16 @@ class Snippet:
 		raise 'to be done'
 
 	def write_ly (self, source):
-		h = open (self.basename (source) + '.ly', 'w')
-		h.write (self.ly (source))
-		h.close ()
+		if self.type == 'lilypond-block' or self.type == 'lilypond'\
+		       or self.type == 'lilypond-file':
+			h = open (self.basename (source) + '.ly', 'w')
+			h.write (self.full_ly (source))
+			h.close ()
 
 	def output_html (self, source):
 		base = self.basename (source)
-		if VERBATIM in self.match.group ('options'):
+		option_string = self.match.group ('options')
+		if option_string and VERBATIM in string.split (option_string):
 			code = self.substring (source, 'code')
 			h.write (output[HTML][VERBATIM] % vars ())
 		h.write (output[HTML][BEFORE])
@@ -380,13 +408,12 @@ class Snippet:
 		h.write (output[HTML][AFTER])
 			
 	def output_latex (self, source):
-		if VERBATIM in self.match.group ('options'):
+		option_string = self.match.group ('options')
+		if option_string and VERBATIM in string.split (option_string):
 			code = self.substring (source, 'code')
 			h.write (output[LATEX][VERBATIM] % vars ())
 		h.write (output[LATEX][BEFORE])
 		base = self.basename (source)
-		# h.write (open (base + '.tex').read ())
-		# output = open (base + '.tex').read ()
 		h.write (output[LATEX][OUTPUT] % vars ())
 		h.write (output[LATEX][AFTER])
 			
@@ -400,6 +427,9 @@ class Snippet:
 		h.write ('\n@end html\n')
 			
 	def outdated_p (self, source):
+		if self.type != 'lilypond-block' and self.type != 'lilypond'\
+		       and self.type != 'lilypond-file':
+			return None
 		base = self.basename (source)
 		if os.path.exists (base + '.ly') \
 		   and os.path.exists (base + '.tex') \
@@ -565,7 +595,7 @@ def do_file (input_filename):
 	source = h.read ()
 
 	snippet_types = ('verbatim', 'verb', 'multiline-comment',
-			 'lilypond', 'lilypond-block')
+			 'lilypond', 'lilypond-block', 'lilypond-file',)
 	snippets = []
 	for i in snippet_types:
 		snippets += find_snippets (source, i)
@@ -577,7 +607,9 @@ def do_file (input_filename):
 		if not os.path.isdir (output_name):
 			os.mkdir (output_name, 0777)
 		if input_filename != '-':
-			h = open (output_name + '/' + input_filename + '.out',
+			h = open (output_name + '/' \
+				  + os.path.split (input_filename)[0] \
+				  + '.' + format,
 				  'w')
 		os.chdir (output_name)
 
@@ -594,8 +626,6 @@ def do_file (input_filename):
 			h.write (source[index:snippet.end (0)])
 		index = snippet.end (0)
 
-	# TODO: output dict?
-
 	snippet_output = eval ("Snippet.output_" + format)
 	def compile_output (snippet, source):
 		global index
@@ -603,7 +633,8 @@ def do_file (input_filename):
 		# if snippet.match.group ('code'):
 		# urg
 		if snippet.type == 'lilypond' \
-		       or snippet.type == 'lilypond-block':
+		       or snippet.type == 'lilypond-block'\
+		       or snippet.type == 'lilypond-file':
 			h.write (source[index:snippet.start (0)])
 			snippet_output (snippet, source)
  		index = snippet.end (0)
@@ -660,12 +691,17 @@ def do_options ():
 			process_cmd = 0
 		elif o == '--format' or o == '-f':
 			format = a
-			if a == 'texi-html':
-				format = 'texi'
+			if a == 'texi-html' or a == 'texi':
+				format = TEXINFO
 		elif o == '--help' or o == '-h':
 			ly.help ()
 			sys.exit (0)
+		elif o == '--include' or o == '-I':
+			include_path.append (os.path.join (original_dir,
+							   ly.abspath (a)))
 		elif o == '--output' or o == '-o':
+			output_name = a
+		elif o == '--outdir':
 			output_name = a
 		elif o == '--process' or o == '-P':
 			process_cmd = a
