@@ -306,11 +306,12 @@ is what have collected so far, and has ascending page numbers."
 		  ragged?))
 	 (force (car result))
 	 (positions
-	  (map (lambda (y) (+ y topskip) y) 
+	  (map (lambda (y)
+		       (+ y topskip)) 
 	       (cdr  result)))
 	 )
 
-     (if #f ;; debug.
+     (if #t ;; debug.
 	 (begin
 	   (display (list "\n# systems: " no-systems
 			  "\nreal-ext" real-extents "\nstaff-ext" staff-extents
@@ -318,10 +319,12 @@ is what have collected so far, and has ascending page numbers."
 			  "\nspace-letf" space-left
 			  "\npage empty" page-very-empty
 			  "\nspring,rod" springs rods
-			  "\ntopskip etc" topskip space
+			  "\ntopskip " topskip
+			  " space " space
 			  "\npage-height" page-height
 			  "\nragged" ragged?
-			  "\nforce" force 
+			  "\nforce" force
+			  "\nres" (cdr result)
 			  "\npositions" positions "\n"))))
      
      (cons force positions)))
