@@ -376,8 +376,7 @@ paper_p = 1
 
 output_name = ''
 
-# List of output formats that ly2dvi should create
-# Most advanced format first.
+# Output formats that ly2dvi should create
 targets = ['DVI', 'LATEX', 'MIDI', 'TEX']
 
 track_dependencies_p = 0
