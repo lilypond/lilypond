@@ -958,7 +958,9 @@ Generic_prefix_music:
 		SCM m = scm_call_2 ($1, make_input (THIS->pop_spot ()),
 			$3);
 		if (unsmob_music (m))
-			$$ = unsmob_music (m);
+		{	$$ = unsmob_music (m);
+			scm_gc_protect_object (m);
+		}
 		else
 		{
 			THIS->parser_error ("MUSIC_HEAD should return Music");

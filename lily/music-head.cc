@@ -8,10 +8,7 @@
 */
 #include "music-head.hh"
 #include "string.hh"
-
-/*
-  C&P from example/box.c
- */
+#include "music.hh"
 
 static scm_t_bits music_head_tag;
 
@@ -30,8 +27,6 @@ print_music_head (SCM b, SCM port, scm_print_state *)
 }
 
 
-/* This defines the primitve `make-music_head', which returns a new smob of
-   type `music_head', initialized to `#f'.  */
 LY_DEFINE (ly_make_music_head, "ly:make-music-head", 2, 0, 0,
 	   (SCM func, SCM signature),
 	  "Make a function to process music, to be used for the "
@@ -39,11 +34,7 @@ LY_DEFINE (ly_make_music_head, "ly:make-music-head", 2, 0, 0,
 	   "Its arguments. @code{signature} is a list containing either "
 	   "@code{ly:music?} predicates or other type predicates.")
 {
-  /* This macro creates the new objects, stores the value `#f' into it
-     and returns it to the caller.  */
   String str = "";
-
-  int k = 0;
   for (SCM s = signature; ly_c_pair_p (s); s = ly_cdr (s))
     {
       if (str != "")
@@ -51,10 +42,8 @@ LY_DEFINE (ly_make_music_head, "ly:make-music-head", 2, 0, 0,
       
       if (ly_car (s) == Music_type_p_proc)
 	str += "music";
-      else if (ly_procedure_p (ly_car (s)))
+      else if (ly_c_procedure_p (ly_car (s)))
 	str += "scm";
-
-      k++;
     }
   
   scm_set_object_property_x (func, ly_symbol2scm ("music-head-signature"),
@@ -73,8 +62,6 @@ is_music_head (SCM music_head)
 }
 
 
-/* This is the primitive `music_head-ref' which returns the object stored in
-   the music_head.  */
 SCM
 get_music_head_transform (SCM music_head)
 {
