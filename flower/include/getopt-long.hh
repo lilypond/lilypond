@@ -9,11 +9,18 @@ class ostream;
   a struct this for initialising the commandline options.
  */
 struct Long_option_init {
-  bool take_arg;
-  char const * longname;
-  char        shortname;
+  char const * take_arg_sz_;
+  char const * longname_sz_;
+  char        shortname_ch_;
 
+  char const * help_sz_;
+  
   String str () const;
+  String str_for_help () const;
+  //   NO constructor!
+
+  static int compare (Long_option_init const&,Long_option_init const&);
+  static String table_str (Long_option_init *); 
 };
 
 

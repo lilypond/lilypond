@@ -131,7 +131,7 @@ $(outdir)/VERSION: $(depth)/VERSION
 	cp $< $@
 
 $(outdir)/version.hh: $(outdir)/VERSION
-	sh $(step-bindir)/make-version.sh $< > $@
+	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
 # should this be in Rules?
 configure: configure.in aclocal.m4

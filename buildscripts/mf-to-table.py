@@ -6,19 +6,12 @@
 # 
 # (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-
-#
-# TODO: Should use RE.
-#
-
 import os
 import sys
 import getopt
-from string import *
-import regex
-import regsub
+import string
+import re
 import time
-
 
 (options, files) = getopt.getopt(
     sys.argv[1:], 'a:d:hl:o:p:t:', 
@@ -30,92 +23,49 @@ for opt in options:
     if o == '-p' or o == '--package':
 	topdir = a
 
-sys.path.append (topdir + '/stepmake/bin')
-from packagepython import *
-package = Package (topdir)
-packager = Packager ()
+def gulp_file(f):
+	try:
+		i = open(f)
+		i.seek (0, 2)
+		n = i.tell ()
+		i.seek (0,0)
+	except:
+		print 'can\'t open file: ' + f + '\n'
+		return ''
+	s = i.read (n)
+	if len (s) <= 0:
+		print 'gulped empty file: ' + f + '\n'
+	i.close ()
+	return s
 
-from packagepython import *
-from flower import *
+version = '0.9'
 
-begin_autometric_re = regex.compile('@{')
-end_autometric_re = regex.compile('@}')
-include_re = regex.compile ('(\([a-zA-Z_0-9-]+\.mf\)')
-autometric_re = regex.compile('@{\(.*\)@}')
-version = '0.8'
 postfixes = ['log', 'dvi', '2602gf', 'tfm']
 
-class Feta_file(File):
-    """Read Feta metrics from a metafont log-file."""
+print re
 
-    def include_scan (self, line):
-	include_pos =  include_re.search (line)
-	while include_pos <> -1:
-	    self.dependencies.append (include_re.group (1))
+def read_log_file (fn):
+	str = gulp_file (fn)
+	str = re.sub ('\n', '', str) 	
+	str = re.sub ('[\t ]+', ' ', str) 
 
-	    line = line[include_pos + 1:]
-	    include_pos =  include_re.search (line)
+	deps = []
+	autolines = []
+	def include_func (match, d = deps):
+		d.append (match.group (1))
+		return ''
 
-    def read_autometricline(self):
-	line = ''
-	while end_autometric_re.search(line) == -1 and not self.eof():
-	    suf = File.readline(self)
-	    self.include_scan (suf)
-	    if begin_autometric_re.search(line) == -1:
-		line = ''
-	    line = line + regsub.sub('\n','', suf)
-            line = regsub.sub('\r','', line)
+	def auto_func (match, a = autolines):
+		a.append (match.group (1))
+		return ''
 
-	if self.eof():
-	   return ''
+	str = re.sub ('\(([a-zA-Z_0-9-]+\.mf)', include_func, str)
+	str = re.sub ('@{(.*?)@}', auto_func, str)
 
-	return line;
-    def readline(self):
-	"""return what is enclosed in one @{ @} pair"""
-	line = '';
-	while autometric_re.search(line) == -1 and not self.eof():
-	    line = self.read_autometricline()
+	return (autolines, deps)
 
-	if self.eof():
-	    return '';
 
-	return autometric_re.group(1);
-    def __init__(self, nm):
-	File.__init__(self, nm)
-	self.dependencies = []
-    def do_file(infile_nm):
-	infile = readline();
-
-#
-# FIXME: should parse output for {} to do indenting.
-#
-class Indentable_file(File):
-    """Output file with support for indentation"""
-    def __init__(self,nm, mode):
-	File.__init__(self,nm,mode)
-	self.current_indent_ = 0
-	self.delta_indent_ = 4
-    def writeline (self, str):
-	File.write(self, str)
-    def writeeol(self):
-    	File.write(self, '\n')
-    	File.write(self, ' '* self.current_indent_)
-
-    def indent(self):
-	self.current_indent_ = self.delta_indent_ + self.current_indent_;
-    def dedent(self):
-	self.current_indent_ = self.current_indent_ - self.delta_indent_;
-	if self.current_indent_ < 0:
-	    raise 'Nesting!'
-
-    def write(self, str):
-	lines = split(str, '\n')
-	for l in lines[:-1]:
-	    self.writeline(l)
-	    self.writeeol()
-        self.writeline (lines[-1])
-
-class Afm_file (File):
+class Afm_file:
     def print_dimen(self, f):
 	f = f * 1000 / self.fontsize
     
@@ -127,8 +77,8 @@ class Afm_file (File):
 	self.write( dimstr  +' ');
 
     def def_symbol (self, code, lily_id, tex_id, xdim, ydim):
-	xdim = map (atof, xdim)
-	ydim = map (atof, ydim)
+	xdim = map (string.atof, xdim)
+	ydim = map (string.atof, ydim)
 	
 	wid = xdim[0] + xdim[1]
 	self.write ('C %s ; ' % code)
@@ -143,12 +93,16 @@ class Afm_file (File):
 	self.print_dimen(ydim [1])
 
 	self.write (' ;\n');
-	
+    def write (self, str):
+	self.file.write (str)
+    def __init__ (self, fn):
+        self.file = open (fn,'w')
     def start (self,nm):
 	self.write ('Start%s\n' % nm)
     def end (self,nm):
 	self.write ('End%s\n' % nm)
 
+	
 	
 class Log_reader:
     """Read logs, destill info, and put into output files"""
@@ -156,17 +110,19 @@ class Log_reader:
 
 	if not line:
 	    return;
-	tags = split(line, '@:')
+
+	tags = string.split(line, '@:')
 	label = tags[0]
 	name = tags[1]
 	afm = self.afmfile
+	print tags
 	if tags[0] == 'font':
 	    self.texfile.write("% name\n")
 
 	    afm.write ('FontName %s\n' % name)
 	    afm.start ('FontMetrics')
 	    afm.start ('CharMetrics')	    
-	    afm.fontsize = atof(tags[2])
+	    afm.fontsize = string.atof(tags[2])
 	elif label == "group":
 	    self.texfile.write("% " + name + "\n")
 	    afm.groupname = name
@@ -203,18 +159,17 @@ class Log_reader:
 	
     def do_file(self,filenm):
 	self.texfile.write ('\n% input from ' + filenm + '\n')
-	feta = Feta_file(filenm)
-	while not feta.eof():
-	    line = feta.readline()
-	    self.output_label(line)
-	feta.close()
+	(autolines, deps) = read_log_file (filenm)
+
+	for a in autolines:
+	    self.output_label(a)
 	
-	self.writedeps (feta.dependencies)
+	self.writedeps (deps)
 
     def __init__(self,  texfile_nm, depfile_nm, afmfile_nm):	    
-	self.texfile = Indentable_file(texfile_nm, 'w')
-	self.depfile = File (depfile_nm, 'w')
-	self.afmfile = Afm_file (afmfile_nm, 'w')
+	self.texfile = open(texfile_nm, 'w')
+	self.depfile = open (depfile_nm, 'w')
+	self.afmfile = Afm_file (afmfile_nm)
 	headerstr = '%% Creator: %s\n%% Automatically generated on\n%% Do not edit' % \
 		   (program_id() )
 
@@ -238,17 +193,17 @@ def identify():
     sys.stdout.write(program_id() + '\n')
     
 def help():
-    sys.stdout.write("Usage: mf-to-table [options] LOGFILEs\n"
-		 + "Generate mozarella metrics table from preparated feta log\n\n"
-		 + "Options:\n"
-		 + "  -a, --afm=FILE         .afm file\n"
-		 + "  -d, --dep=FILE         print dependency info to FILE\n"
-		 + "  -h, --help             print this help\n"
-		 + "  -l, --ly=FILE          name output table\n"
-		 + "  -o, --outdir=DIR       prefix for dependency info\n"
-		 + "  -p, --package=DIR      specify package\n"
-		 + "  -t, --tex=FILE         name output tex chardefs\n"
-		     )
+    sys.stdout.write(r"""Usage: mf-to-table [options] LOGFILEs
+Generate feta metrics table from preparated feta log\n
+Options:
+  -a, --afm=FILE         .afm file
+  -d, --dep=FILE         print dependency info to FILE
+  -h, --help             print this help
+  -l, --ly=FILE          name output table
+  -o, --outdir=DIR       prefix for dependency info
+  -p, --package=DIR      specify package
+  -t, --tex=FILE         name output tex chardefs"""
+)
     sys.exit (0)
 
 
