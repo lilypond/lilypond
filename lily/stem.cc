@@ -294,24 +294,22 @@ Stem::get_default_stem_end_position (Grob*me)
   else
     {
       s = me->get_grob_property ("lengths");
-      for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
-	a.push (gh_scm2double (ly_car (q)));
-		
-      // stem uses half-spaces
-      length_f = a[ ((duration_log (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+      length_f = 3.5;
+      
+      if (gh_pair_p (s))
+	{
+	  length_f = 2* gh_scm2double (robust_list_ref (duration_log(me) -2, s));
+	}
     }
 
 
-  a.clear ();
-  s = me->get_grob_property ("stem-shorten");
-  for (SCM q = s; gh_pair_p (q); q = ly_cdr (q))
-    a.push (gh_scm2double (ly_car (q)));
-
-
-  // stem uses half-spaces
-
-  // fixme: use scm_list_n_ref () iso. array[]
-  Real shorten_f = a[ ((duration_log (me) - 2) >? 0) <? (a.size () - 1)] * 2;
+  Real shorten_f = 0.0;
+  
+  SCM sshorten = me->get_grob_property ("stem-shorten");
+  if (gh_pair_p (sshorten))
+    {
+      shorten_f = 2* gh_scm2double (robust_list_ref ((duration_log (me) - 2) >? 0, sshorten));
+    }
 
   /* On boundary: shorten only half */
   if (abs (chord_start_y (me)) == 0.5)
@@ -758,20 +756,6 @@ Stem::beam_l (Grob*me)
 {
   SCM b=  me->get_grob_property ("beam");
   return unsmob_grob (b);
-}
-
-/*
-  return I-th element, or last elt L
-
-  PRE: length (L) > 0
- */
-SCM
-robust_list_ref(int i, SCM l)
-{
-  while (i--  && gh_pair_p (gh_cdr(l)))
-    l = gh_cdr (l);
-
-  return gh_car(l);
 }
 
 // ugh still very long.

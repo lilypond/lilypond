@@ -247,7 +247,10 @@ For barline, space after a thick line.")
 (grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-widen.")
 
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
-(grob-property-description 'lengths list? "Stem length given multiplicity of flag.")
+(grob-property-description 'lengths list? "Stem length given
+multiplicity of flag.  The Nth element of the list gives the stem
+length of a note with N flags.
+")
 (grob-property-description 'line-count integer? "Number of staff
 lines.  If you want to override this for staffs individually, you must
 use @code{\outputproperty}. @code{\property .. \override} will not
@@ -379,7 +382,9 @@ being the style. It returns a (X . Y) pair, specifying location in
 terms of note head bounding box.")
 (grob-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head.")
 
-(grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity.")
+(grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity:
+the Nth element of the list gives the amount stem shortening of a note with N flags.
+")
 (grob-property-description 'stem-spacing-correction number? "optical correction amount.  [TODO: doco] ")
 (grob-property-description 'stems grob-list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")

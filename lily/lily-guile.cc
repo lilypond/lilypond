@@ -812,3 +812,19 @@ int_list_to_slice (SCM l)
   return s;
 }
 
+
+
+
+/*
+  return I-th element, or last elt L
+
+  PRE: length (L) > 0
+ */
+SCM
+robust_list_ref(int i, SCM l)
+{
+  while (i--  && gh_pair_p (gh_cdr(l)))
+    l = gh_cdr (l);
+
+  return gh_car(l);
+}
