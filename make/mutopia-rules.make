@@ -31,8 +31,8 @@ $(outdir)/%.dvi: %.ly
 
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips -u +lilypond.map -o $@.pdfps  -Ppdf $<
-	ps2pdf $@.pdfps $@
+	dvips -u +lilypond.map -t $(DVIPS_PAPERSIZE) -o $@.pdfps  -Ppdf $<
+	ps2pdf -sPAPERSIZE=$(DVIPS_PAPERSIZE) $@.pdfps $@
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --output=$@ --dependencies --set=papersize=$(PAPERSIZE) $< 

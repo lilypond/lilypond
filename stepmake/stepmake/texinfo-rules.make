@@ -9,7 +9,6 @@ $(outdir)/%.html: $(outdir)/%.texi
 # we want footers even if website builds (or is built) partly
 	$(footify) $@
 
-
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
 
@@ -26,7 +25,7 @@ $(outdir)/%/%.html: $(outdir)/%.texi
 	$(deep-footify) $(sort $(wildcard $(outdir)/$(*F)/*.html))
 
 $(outdir)/%.dvi: $(outdir)/%.texi
-	cd $(outdir); texi2dvi --batch -t $(TEXINFO_PAPERSIZE) $(<F)
+	cd $(outdir); texi2dvi --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
 $(outdir)/%.txt: $(outdir)/%.texi
 	$(MAKEINFO) -I $(pwd) -I $(outdir) --no-split --no-headers --output $@ $<

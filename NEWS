@@ -21,13 +21,18 @@ exported as XML.
 
 	<< PITCHES >>
 
-In version 2.0, this syntax will be changed to
+It is not necessary to update files to this syntax, but it will be for
+using LilyPond version 2.0.  In version 2.0, this syntax will be
+changed to
 
    < PITCHES >  for chords
 
 and
 
    \simultaneous { .. } for simultaneous music.
+
+To convert your files from <PITCHES> to <<PITCHES>>, use the script
+included in buildscripts/convert-new-chords.py
 
 ** A new uniform postfix syntax for articulation has been introduced.
 A beamed slurred pair of eighth notes can be entered as

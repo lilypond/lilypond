@@ -16,7 +16,8 @@ that we love to see and love to play from.
 
 @menu
 * Music notation and  engraving::  
-* Computerized typography::     
+* Notation and engraving in LilyPond::  
+* Typography and program architecture::  
 * Music representation::        
 * Example applications::        
 * About this manual::           
@@ -31,14 +32,14 @@ that we love to see and love to play from.
 @cindex typography
 
 Making sheet music may seem trivial, ``you print 5 lines, and then put
-in the notes at different heights'', but as one learns more of it, the
-opposite turns out to be true. There are two problems when making
-sheet music. First, one has to master music notation: the science of
-knowing which symbols to use when what. Second, one has to master
-music engraving: the art of placing symbols such that they look
-elegant.
+in the notes at different heights'', but as you learn more of it, the
+opposite turns out to be true. One has to master two difficult
+tasks. First, one has to master music notation: the science of knowing
+which symbols to use when what. Second, one has to master music
+engraving: the art of placing symbols such that the result looks
+pleasing.
 
-Common music notation has its roots in the medieval centuries. In this
+Common music notation has its roots in the medieval time. In this
 time, monks started to write down hints that indicated how their
 sacred music was sung. These hints, neumes, gradually became simpler,
 and at some point became the note heads.  Lines were added to the
@@ -53,30 +54,18 @@ counterpoint in the early renaissance.  The graphic language of
 notation is still under development; the innovations of contemporary
 music require still newer and more complex notations.
 
-In summary, common music notation encompasses such a wide scope of
-music inherently is complex: there are many rules, and for every rule
-there are exceptional situations where they do not apply.  The result
-is that LilyPond cannot support each and every form of notation in
-existence. Rather, we focus on a specific style and idiom: we take
-inspiration from late-romantic music printed at the beginning of the
-20th century. Most of the contemporary music after that, and most of
-the music going back to 17th century can be written in this
-idiom. That is not a fundamental limit, though. There is support for
-some modern notation like clusters, and older notation, such as white
-mensural and gregorian notation, is being worked on.
-
-The term music engraving derives from the traditional process of
-music printing.  Only a few decades ago, sheet music was made by
-cutting and stamping the music into zinc or pewter plates,
-mirrored. The plate would be inked, and the depressions caused by the
-cutting and stamping would hold ink.  An image was formed by pressing
-paper to the plate. The stamping and cutting was completely done by
-hand. Making corrections was cumbersome, so engraving had to be done
-correctly in one go. As you can imagine this was a highly specialized
-skill, much more so than the traditional process of printing books.
+The term music engraving derives from the traditional process of music
+printing.  Only a few decades ago, sheet music was made by cutting and
+stamping the music into zinc or pewter plates, mirrored. The plate
+would be inked, and the depressions caused by the cutting and stamping
+would hold ink.  An image was formed by pressing paper to the
+plate. The stamping and cutting was completely done by hand. Making
+corrections was cumbersome, so engraving had to be done correctly in
+one go. Of course, this was a highly specialized skill, much more so
+than the traditional process of printing books.
 @cindex craftsmanship
 @cindex master
-In the traditional German craftsmanship six years of full-time
+In the traditional German system of  craftsmanship six years of full-time
 training, more than any other craft, were required before a student
 could call himself a master of the art. After that many more years of
 practical experience were needed to become an established music
@@ -84,26 +73,43 @@ engraver.  Even today, with the use of high-speed computers and
 advanced software, music requires lots of manual fine tuning before it
 is acceptable for publication.
 
-Sheet music is performance material, hence everything is done to aid
-the musician in letting him perform better.  Music often is far away
-from its reader---it might be on a music stand. To make it clearly
+Sheet music is performance material: everything is done to aid the
+musician in letting him perform better.  Music often is far away from
+its reader---it might be on a music stand. To make it clearly
 readable, traditionally printed sheet music always uses bold symbols,
 on heavy staff lines, and is printed on large sheets of paper.  This
 ``strong'' look is also present in the horizontal spacing.  To
 minimize the number of page breaks, (hand-engraved) sheet music is
 spaced very tightly. Yet, by a careful distribution of white space,
-the feeling of balance is retained, and clutters of black are avoided.
+the feeling of balance is retained, and a clutter of symbols is
+avoided.
+
+
+@node Notation and engraving in LilyPond
+@section Notation and engraving in LilyPond
+
+Common music notation encompasses such a wide scope of music, and
+therefore inherently is complex: there are many rules, and for every
+rule there are exceptional situations where they do not apply.  The
+result is that LilyPond cannot support each and every form of notation
+in existence. Rather, we focus on a specific style and idiom: we take
+inspiration from late-romantic music printed at the beginning of the
+20th century. Most of the contemporary music after that, and most of
+the music going back to 17th century can be written in this
+idiom. That is not a fundamental limit, though. There is support for
+some modern notation like clusters, and older notation, such as white
+mensural and gregorian notation, is being worked on.
 
 We have used these observations in designing LilyPond.  The images
 below shows the flat symbol. On the left, a scan from a Henle edition,
 which was made by a computer, and in the center is the flat from a
-B@"{a}renreiter edition of the same music. The symbols have noticeable
-differences: the left image is much lighter, the staff lines are
-thinner, and the glyph has a straight layout with sharp corners. By
-contrast, the B@"{a}renreiter has a bold and almost voluptuous rounded
-look.  Our flat symbol is designed after, among others, this one.  It
-is tuned it to harmonize with the thickness of our staff lines, which
-are also much thicker than Henle's lines.
+B@"{a}renreiter edition of the same music. The left scan illustrates
+typical flaws of computer print: the symbol is much lighter, the staff
+lines are thinner, and the glyph has a straight layout with sharp
+corners. By contrast, the B@"{a}renreiter has a bold and almost
+voluptuous rounded look.  Our flat symbol is designed after, among
+others, this one.  It is tuned it to harmonize with the thickness of
+our staff lines, which are also much thicker than Henle's lines.
 
 @multitable @columnfractions  .1 .3 .3 .3
 @item  @tab
@@ -172,19 +178,19 @@ and with some corrections. Can you spot which fragment is which?
 @cindex regular rhythms
 @cindex regular spacing
 
-The fragment that was printed uses only quarter notes: notes that are
-played in a constant rhythm. The spacing should reflect
-that. Unfortunately, the eye deceives us a little: the eye not only
-notices the distance between note heads, but also between consecutive
-stems. As a result, the notes of an up-stem/down-stem combination
-should be put farther apart, and the notes of a down-up combination
-should be put closer together, all depending on the combined vertical
-positions of the notes. The first two measures are printed with this
-correction, the last two measures without. The notes in the last two
-measures form down-stem/up-stems clumps of notes.
+The fragment only uses quarter notes: notes that are played in a
+constant rhythm. The spacing should reflect that. Unfortunately, the
+eye deceives us a little: not only does it notice the distance between
+note heads, it also takes into account the distance between
+consecutive stems. As a result, the notes of an up-stem/down-stem
+combination should be put farther apart, and the notes of a down-up
+combination should be put closer together, all depending on the
+combined vertical positions of the notes. The first two measures are
+printed with this correction, the last two measures without. The notes
+in the last two measures form down-stem/up-stems clumps of notes.
 
-@node Computerized typography
-@section Computerized typography
+@node Typography and program architecture
+@section Typography and program architecture
 
 Producing good engraving requires skill and knowledge.  It was our
 challenge to see if we could put such typographical knowledge into a
