@@ -1,3 +1,9 @@
+2003-09-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/GNUmakefile: Remove bashism (Bertalan Fodor).
+
+	* cygwin/mknetrel (preinstall): Set webdir (Bertalan Fodor).
+
 2003-09-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/postinstall-lilypond.sh: 

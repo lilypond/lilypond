@@ -69,7 +69,8 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond --html $<
 	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
-	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond
+	-cp -f $(outdir)/*.ly $(outdir)/lilypond
+	-cp -f $(outdir)/*.png $(outdir)/lilypond
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
