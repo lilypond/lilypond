@@ -34,6 +34,7 @@ ly_deep_mus_copy (SCM m)
 
 Music::Music ()
 {
+  self_scm_ = SCM_EOL; 
   immutable_property_alist_ = SCM_EOL;
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();

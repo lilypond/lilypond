@@ -1,3 +1,7 @@
+2002-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-property-description.scm (once): add 'once
+
 2002-09-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/simultaneous-music-iterator.cc (skip): call quit()
