@@ -134,9 +134,8 @@ begingroup;
 	clearxy;
 
 	center = outer_tangent_point
-		 + big_radius * dir (0)
+		 + big_radius * dir (0);
 %		 + (big_radius - bulb_radius) * dir (-turning_dir * 90)
- 		;
 
 	z1' = center + bulb_radius * dir (turning_dir * 180);
 	z2' = outer_tangent_point + flare * dir (0);
@@ -148,23 +147,22 @@ begingroup;
 
 	before := z3'{dir (turning_dir * 90)}
 		  .. z4'{-dir(0)}
-		  .. tension 1.1
-                  .. z1'{-dir (turning_dir* 90)};
+		  ..tension 1.1.. z1'{-dir (turning_dir* 90)};
 	after := z2'{dir (turning_dir * 90)}
 		 .. end_point{dir (end_angle)};
 	(u, v) = before intersectiontimes after;
 
 	pat := start_point{dir (start_angle)}
 	       .. outer_tangent_point{dir (-turning_dir * 90)}
-	       .. tension 1.02
-	       .. z5'{dir(0)}
-               .. subpath (0, u) of before
+	       ..tension 1.02.. z5'{dir(0)}
+	       .. subpath (0, u) of before
 	       .. subpath (v, infinity) of after;
 
 	if direction = 0:
 		pat := reverse pat;
 	fi
-	pat
+
+pat
 endgroup
 enddef;
 
@@ -370,46 +368,21 @@ def draw_gclef (expr reduction) =
 	z10r - z10l = .7 thinnib * dir (downstroke_angle + 90)
 		      + whatever * downstroke_dir;
 	z10 = .5 [z10l, z10r];
-
 	z11 = center + whatever * downstroke_dir + (-0.05 reduced_ss, 0);
-	penpos11 (thinnib, start_angle + 90);
 
+	penpos11 (thinnib, start_angle + 90);
  	penpos12 (thinnib, bot_angle + 90);
 	penpos13 (thinnib + 0.14 staff_space, 180);
 
 	% this auxiliary point ensures good contour overlapping
 	z8 = .5 [z9l, z9r] + .25 ((z9r - z9l) rotated -90);
 
-
 	z20 = z9l - (0, .25 blot_diameter);
-	penpos20(blot_diameter, 0);
+	penpos20 (blot_diameter, 0);
 	
-	fill
-             z2l{right}
-	     .. z3l
-	     .. z4l{left}
-             .. tension 1.07  % inside curve 
-	     .. z5l{up}
-	     .. z7l{up}
-	     .. tension 1.2
-	     .. z20r
-	     & simple_serif (z20r,z20l, 60)
-	     -- z8
-	     -- z9r			% {dir (downstroke_angle + 0)}
-	     ..tension 0.8.. z7r{down}
-	     .. z5r{down}
-	     .. z4r{right}
-	     .. z3r
-	     .. z2r{left}
-	     ..tension .95.. z1r
-	     -- simple_serif (z1r, z1l, 80)
-	     -- z1l
-	     ..tension 0.85.. cycle;
-
 	pat := z10{down}
 	       .. z6
-	       .. tension 1.1
-	       .. z11{dir (start_angle)};
+	       ..tension 1.1.. z11{dir (start_angle)};
 
 	penpos6 (thinnib, angle (direction 1 of pat) + 90);
 
@@ -422,7 +395,30 @@ def draw_gclef (expr reduction) =
 
 	z21l = z20l;
 	z21r = z9r;
- 
+
+	pat := z21l
+	       .. z10l{down}
+	       .. z10'l;
+
+	fill z2l{right}
+	     .. z3l
+	     .. z4l{left}
+	     ..tension 1.07.. z5l{up}  % inside curve
+	     .. z7l{up}
+	     ..tension 1.2.. z20r{curl 1}
+	     .. {direction 0 of pat}z20l
+	     -- z8
+	     -- z9r			% {dir (downstroke_angle + 0)}
+	     ..tension 0.8.. z7r{down}
+	     .. z5r{down}
+	     .. z4r{right}
+	     .. z3r
+	     .. z2r{left}
+	     ..tension .95.. z1r
+	     -- simple_serif (z1r, z1l, 80)
+	     -- z1l
+	     ..tension 0.85.. cycle;
+
 	penstroke z21e
 		  .. z10e{down}
 		  .. z10'e
@@ -436,7 +432,7 @@ def draw_gclef (expr reduction) =
 		       thinnib + .05 staff_space, 1, -1)
 	     -- cycle;
 
-	penlabels (range 1 thru 20);
+	penlabels (range 1 thru 21);
 	penlabels (10', 11');
 
 	draw_staff (-1, 3, 0);
