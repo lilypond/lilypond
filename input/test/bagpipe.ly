@@ -49,8 +49,8 @@ gcdg =  \notes{ \grace {  g'32[ c d]}}
 \score {
   \notes  { \time 6/8 \partial 4
 
- #(add-grace-property "Voice" 'Stem 'length 6)
- #(add-grace-property "Voice" 'Stem 'stroke-style '())
+ #(add-grace-property 'Voice 'Stem 'length 6)
+ #(add-grace-property 'Voice 'Stem 'stroke-style '())
 
 	    
   \tieUp

@@ -61,7 +61,6 @@
 
 	* lily/molecule-scheme.cc: ly_align_to_x takes continuous dir argument.
 	
-
 	* ly/grace-init.ly (stopAcciaccaturaMusic): correct misspelling of
 	accacciatura everywhere.
 
