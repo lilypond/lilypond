@@ -1,3 +1,18 @@
+pl 16
+	- read property ydirection and tieYDirection for tie direction.
+	- bf: slur over rest.
+	- bf: include path
+	- part of jcn2
+	- configure --enable-guile
+
+pl 15.jcn1
+ 	- autoconf on mf,mfont mp,mpost
+ 
+pl 15.am
+	- Lots of patches from *Adrian* *Mariano*!
+
+**********
+
 pl 15
 pl 14.hwn1
 	- \lyrics iso \lyric (mudela 1.0.7)
