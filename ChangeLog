@@ -1,3 +1,9 @@
+2003-06-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4 (STEPMAKE_CHECK_VERSION_SUPPORT): New
+	function.
+	(STEPMAKE_GETTEXT): If g++ >= 3.3, use gcc for gettext checking.
+
 2003-06-08  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: tune regexp for show-paren-function.

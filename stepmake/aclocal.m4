@@ -92,7 +92,23 @@ AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     req=`STEPMAKE_NUMERIC_VERSION($3)`
     AC_MSG_RESULT([$ver])
     if test "$num" -lt "$req"; then
-	STEPMAKE_ADD_ENTRY($2, ["$r $3 (installed: $ver)"])
+	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
+])
+
+# Check version of program ($1)
+# If version is greater than or equals requested ($3),
+# add entry to unsupported list ($2, 'UNSUPPORTED')
+AC_DEFUN(STEPMAKE_CHECK_VERSION_SUPPORT, [
+    r="`eval echo '$'"$1"`"
+    AC_MSG_CHECKING([$r version])
+    exe=`STEPMAKE_GET_EXECUTABLE($r)`
+    ver=`STEPMAKE_GET_VERSION($exe)`
+    num=`STEPMAKE_NUMERIC_VERSION($ver)`
+    sup=`STEPMAKE_NUMERIC_VERSION($3)`
+    AC_MSG_RESULT([$ver])
+    if test "$num" -ge "$sup"; then
+	STEPMAKE_ADD_ENTRY($2, ["$r < $3 (installed: $ver)"])
     fi
 ])
 
@@ -275,8 +291,7 @@ AC_DEFUN(STEPMAKE_END, [
     AC_SUBST(REQUIRED)
     
     AC_CONFIG_FILES([$CONFIGFILE.make:config.make.in])
-AC_OUTPUT
-
+    AC_OUTPUT
     
     if test -n "$OPTIONAL"; then
 	echo
@@ -286,6 +301,11 @@ AC_OUTPUT
     if test -n "$REQUIRED"; then
 	echo
         echo "ERROR: Please install required programs: $REQUIRED"
+    fi
+    
+    if test -n "$UNSUPPORTED"; then
+	echo
+        echo "ERROR: Please use older version of programs: $UNSUPPORTED"
     fi
     
     if test -n "$OPTIONAL$REQUIRED"; then
@@ -376,8 +396,24 @@ AC_DEFUN(STEPMAKE_GETTEXT, [
     
     AC_SUBST(localedir)
     AC_DEFINE_UNQUOTED(LOCALEDIR, ["${LOCALEDIR}"])
+    # ouch.  autoconf <= 2.57's gettext check fails for
+    # g++ >= 3.3 (with -std=gnu++98, the default).
+    # While the check is OK for g++ -std=c++98,
+    # LilyPond needs GNU g++, so who is to blame here?
+    # Use a workaround until this is resolved:
+    # for g++ >= 3.3, select C language.
+    GCC_UNSUPPORTED=
+    STEPMAKE_CHECK_VERSION_SUPPORT(CXX, GCC_UNSUPPORTED, 3.3)
+    if test -n "$GCC_UNSUPPORTED"; then
+	AC_MSG_WARN([autoconf <= 2.57 with g++ >= 3.3 gettext test broken.])
+	AC_MSG_WARN([Trying gcc, cross thumbs.])
+	AC_LANG_PUSH(C)
+    fi
     AC_CHECK_LIB(intl, gettext)
     AC_CHECK_FUNCS(gettext)
+    if test -n "$GCC_UNSUPPORTED"; then
+	AC_LANG_POP(C)
+    fi
 ])
 
 
