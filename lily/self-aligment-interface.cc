@@ -11,8 +11,9 @@ Self_alignment_interface::centered_on_parent (SCM element_smob, SCM axis)
   Grob *me = unsmob_grob (element_smob);
   Axis a = (Axis) gh_scm2int (axis);
   Grob *him = me->get_parent (a);
-
-  return gh_double2scm (him->extent (him,a).center ());  
+  Interval he = him->extent (him,a);
+  
+  return  gh_double2scm (he.empty_b () ? 0.0 : he.center ());
 }
 
 

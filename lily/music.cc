@@ -231,7 +231,7 @@ LY_DEFINE(ly_set_mus_property,
 	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {
   Music * sc = unsmob_music (mus);
-  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
   SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));

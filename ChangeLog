@@ -2,6 +2,11 @@
 
 	* VERSION: release 1.6.0 
 
+	* lily/self-aligment-interface.cc (centered_on_parent): only
+	return center if extents not empty.
+
+	* scm/music-functions.scm (unfold-repeats): typo,  
+
 	* mf/feta-bolletjes.mf: use resolution independent variables.
 
 2002-08-19  janneke  <janneke@blauw.xs4all.nl>
