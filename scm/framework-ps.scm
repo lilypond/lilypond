@@ -56,17 +56,14 @@
 		    ((aname (string-append x ".pfa"))
 		     (apath (ly:kpathsea-expand-path aname))
 
-;		     (bpath (if (not apath)
-;				(ly:kpathsea-expand-path (string-append x ".pfb"))
-;				#f)))
-
-		     )
+		     (bpath (if (not apath)
+				(ly:kpathsea-expand-path (string-append x ".pfb"))
+				#f)))
+		     
 			    
 		  (cond
 		   (apath (ly:gulp-file apath))
-
-		   ; oops , can't plonk PFB in, must convert to ASCII.
-		   ;(bpath (ly:gulp-file bpath))
+		   (bpath (ly:pfb->pfa bpath))
 		   (else
 		    (ly:warn "Can't find PFA font ~S" x)
 		    ""))))
