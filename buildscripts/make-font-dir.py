@@ -70,7 +70,7 @@ class Font_info:
 		self.slant = 'r'
 		self.setwidth = 'normal'
 		self.style = ''
-		self.pixelsize = '' # '0'
+		self.pixelsize = '0'
 		self.pointsize = '0'
 		self.xresolution = '0'
 		self.yresolution = '0'
@@ -159,40 +159,40 @@ for filename in ls:
 	# parameter as `Font', and X11's `Weight' parameter as `Style'.
 
 	# Using X11 description/convention -- good for xfontsel:
-	# foundry: GNU
-	# family: LilyPond <basename>
-	# weight: <designsize>
-	# slant: r(oman) =upright
-	# setwidth: normal
-	# style:
-	# pixelsize: 0
-	# pointsize: 0 (20 crashes xfs, moved to style)
-	# xresolution: 0
-	# yresolution: 0
-	# spacing: p(roportional)
-	# averagewidth: 0
-	# registry: GNU
-	# encoding: fonstpecific
+	#  1 foundry: GNU
+	#  2 family: LilyPond <basename>
+	#  3 weight: <designsize>
+	#  4 slant: r(oman) =upright
+	#  5 setwidth: normal
+	#  6 style:
+	#  7 pixelsize: 0
+	#  8 pointsize: 0 (20 crashes xfs, moved to style)
+	#  9 xresolution: 0
+	# 10 yresolution: 0
+	# 11 spacing: p(roportional)
+	# 12 averagewidth: 0
+	# 13 registry: GNU
+	# 14 encoding: fonstpecific
 
 	# gives:
 	# feta20.pfa -GNU-LilyPond feta-20-r-normal--0-0-0-0-p-0-gnu-fontspecific
 
 	# However, GNOME (gtkfontsel, gnome apps) seems to want:
 
-	# foundry: GNU
-	# family: LilyPond
-	# weight:  <basename>
-	# slant: r(oman) =upright
-	# setwidth: normal
-	# style: <designsize>
-	# pixelsize: 0
-	# pointsize: 0 (20 crashes xfs, moved to style)
-	# xresolution: 0
-	# yresolution: 0
-	# spacing: p(roportional)
-	# averagewidth: 0
-	# registry: GNU
-	# encoding: fonstpecific
+	#  1 foundry: GNU
+	#  2 family: LilyPond
+	#  3 weight:  <basename>
+	#  4 slant: r(oman) =upright
+	#  5 setwidth: normal
+	#  6 style: <designsize>
+	#  7 pixelsize: 0
+	#  8 pointsize: 0 (20 crashes xfs, moved to style)
+	#  9 xresolution: 0
+	# 10 yresolution: 0
+	# 11 spacing: p(roportional)
+	# 12 averagewidth: 0
+	# 13 registry: GNU
+	# 14 encoding: fonstpecific
 
 	# which gives:
 	# feta20.pfa -GNU-LilyPond-feta-r-normal--20-0-0-0-p-0-gnu-fontspecific
@@ -226,17 +226,17 @@ for filename in ls:
 		s = string.join ([fontinfo.FontName,
 				  fontinfo.family,
 				  '%s %s' % (fontinfo.weight, fontinfo.style),
-				  string.join (fontinfo.get_X11 ()[:5], '-'),
-				  string.join (fontinfo.get_X11 ()[:-2], '-'),
+				  string.join (fontinfo.get_X11 ()[:4], '-'),
+				  string.join (fontinfo.get_X11 ()[-2:], '-'),
 				  fontinfo.name],
 				 ',')
 		print s
 
-		s = string.join ([fontinfo.FamilyName,
+		s = string.join ([fontinfo.FamilyName + fontinfo.designsize,
 				  fontinfo.family,
 				  '%s %s' % (fontinfo.weight, fontinfo.style),
-				  string.join (fontinfo.get_X11 ()[:5], '-'),
-				  string.join (fontinfo.get_X11 ()[:-2], '-'),
+				  string.join (fontinfo.get_X11 ()[:4], '-'),
+				  string.join (fontinfo.get_X11 ()[-2:], '-'),
 				  fontinfo.name],
 				 ',')
 		print s
