@@ -20,7 +20,8 @@ make-root?=$(wildcard /usr/share/lilypond/make)
 make-root?=$(wildcard /usr/share/lilypond/make)
 #make-root=<LilyPond's datadir>/make
 ifneq ($(make-root),)
-$(message running from $(make-root))
+### some versions apparently choke on $(message)
+### $(message running from $(make-root))
 depth=$(make-root)/..
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 include $(make-root)/stepmake.make
@@ -41,6 +42,15 @@ endif
 name=book
 tarball=$(name)
 parts=$(patsubst %.ly,%,$(wildcard *-part.ly))
+
+#
+# scores for target local-WWW (duh)
+#
+examples=
+
+#
+# scores for target mutopia
+#
 mutopia-examples=$(name) $(parts)
 
 #
@@ -60,8 +70,15 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 #
 # Also clean hand-compiled stuff in cwd
 #
-localclean: local-auto-gen-clean
+localclean: local-auto-gen-clean local-letter-clean
+
+# Compose string from two parts: must not remove myself.
+auto-gen-tag=Generated
+auto-gen-tag+= automatically by
 
 local-auto-gen-clean:
-	rm -f `grep -l 'Generated automacially by'  *`
+	rm -f `grep -l '$(auto-gen-tag)' *`
 	rm -f *.dvi *.png
+
+local-letter-clean:
+	rm -f $(outdir)-letter/*

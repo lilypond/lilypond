@@ -230,8 +230,10 @@ contrabasso =  \notes \relative c {
 
 	%195
 	)g,4 r r r8 g(|
-	\!)d2\ff e'|
-	dis b|
+%%	\!)d2\ff e'|
+%%	dis b|
+	\!)d2\ff e|
+	dis b'|
 	es4\p r r r8 es(|
 	)a,4 r r r8 a(|
 	)g1|

@@ -12,7 +12,8 @@ the-script-dir=$(wildcard $(script-dir))
 
 ifneq ($(the-script-dir),)
 
-$(message running from source tree stepmake)
+### some versions apparently choke on $(message)
+### $(message running from source tree stepmake)
 
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
@@ -23,8 +24,8 @@ PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
 PS_TO_PNGS = $(buildscript-dir)/ps-to-pngs.sh
 
 else
-
-$(message running from installed stepmake)
+### some versions apparently choke on $(message)
+### $(message running from installed stepmake)
 
 ABC2LY = $(shell $(SHELL) -c 'type -p abc2ly')
 LY2DVI = $(shell $(SHELL) -c 'type -p ly2dvi')
