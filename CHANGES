@@ -1,3 +1,7 @@
+pl 10.jcn2
+	- fixes for invisible beamed stems
+	- removed steminfo from properties, don't cache Stem_info
+
 pl 10.jcn1
 	- steminfo to properties
 	- dropped internote dim for stem-beams

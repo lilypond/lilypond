@@ -13,12 +13,6 @@
   [TODO]
     * center beam symbol
     * less hairy code
-    * redo grouping 
-
-TODO:
-
-The relationship Stem <-> Beam is way too hairy.  Let's figure who
-needs what, and what information should be available when.
 
     */
 
@@ -36,6 +30,7 @@ needs what, and what information should be available when.
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "group-interface.hh"
+#include "cross-staff.hh"
 
 Beam::Beam ()
 {
@@ -69,6 +64,48 @@ Beam::stem_top ()const
   return Group_interface__extract_elements ((Beam*) this, (Stem*) 0, "stems")[stem_count () - 1];
 }
 
+/* burp */
+int
+Beam::visible_stem_count () const
+{
+  int c = 0;
+  for (int i = 0; i < stem_count (); i++)
+    {
+      if (!stem (i)->invisible_b ())
+        c++;
+    }
+  return c;
+}
+
+Stem*
+Beam::first_visible_stem () const
+{
+  for (int i = 0; i < stem_count (); i++)
+    {
+      Stem* s = stem (i);
+      if (!s->invisible_b ())
+        return s;
+    }
+
+  assert (0);
+  // sigh
+  return 0;
+}
+
+Stem*
+Beam::last_visible_stem () const
+{
+  for (int i = stem_count (); i > 0; i--)
+    {
+      Stem* s = stem (i - 1);
+      if (!s->invisible_b ())
+        return s;
+    }
+
+  assert (0);
+  // sigh
+  return 0;
+}
 
 void
 Beam::add_stem (Stem*s)
@@ -94,7 +131,7 @@ Beam::do_brew_molecule_p () const
   if (!stem_count ())
     return mol_p;
   
-  Real x0 = stem (0)->hpos_f ();
+  Real x0 = first_visible_stem ()->hpos_f ();
   for (int j=0; j <stem_count (); j++)
     {
       Stem *i = stem (j);
@@ -115,7 +152,7 @@ Beam::do_brew_molecule_p () const
 Offset
 Beam::center () const
 {
-  Real w = (stem (0)->note_delta_f () + extent (X_AXIS).length ())/2.0;
+  Real w = (first_visible_stem ()->note_delta_f () + extent (X_AXIS).length ())/2.0;
   return Offset (w, w * slope_f_);
 }
 
@@ -133,11 +170,12 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
       int auto_gap_i = gh_scm2int (gap);
       for (int i=1; i < stem_count (); i++)
         {
-	  bool is_b = (bool)(stem (i)->get_real ("interstaff-f") - stem (i-1)->get_real ("interstaff-f"));
+	  bool is_b = (bool)(calc_interstaff_dist (stem (i), this) 
+	    - calc_interstaff_dist (stem (i-1), this));
 	  int l_y = (int)(stem (i-1)->chord_start_f ())
-	    + (int)stem (i-1)->get_real ("interstaff-f");
+	    + (int)calc_interstaff_dist (stem (i-1), this);
 	  int r_y = (int)(stem (i)->chord_start_f ())
-	    + (int)stem (i)->get_real ("interstaff-f");
+	    + (int)calc_interstaff_dist (stem (i), this);
 	  int gap_i = r_y - l_y;
 
 	  /*
@@ -157,7 +195,7 @@ Beam::auto_knee (SCM gap, bool interstaff_b)
       for (int i=0; i < stem_count (); i++)
         {
 	  int y = (int)(stem (i)->chord_start_f ())
-	    + (int)stem (i)->get_real ("interstaff-f");
+	    + (int)calc_interstaff_dist (stem (i), this);
 	  stem (i)->set_direction ( y < knee_y ? UP : DOWN);
 	  stem (i)->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
@@ -200,13 +238,13 @@ Beam::do_print () const
 void
 Beam::do_post_processing ()
 {
-  if (stem_count () < 2)
+  if (visible_stem_count () < 2)
     {
       warning (_ ("beam with less than two stems"));
       set_elt_property ("transparent", SCM_BOOL_T);
       return;
     }
-  beamify_stems ();
+  set_stem_shorten ();
   if (auto_knees ())
     {
       /*
@@ -221,7 +259,7 @@ Beam::do_post_processing ()
          set_elt_property ("damping", gh_int2scm(1000));
       */
 
-      beamify_stems ();
+      set_stem_shorten ();
     }
   calculate_slope ();
   set_stemlens ();
@@ -325,14 +363,16 @@ Beam::set_direction (Direction d)
 void
 Beam::solve_slope ()
 {
-  assert (stem_count () > 1);
+  assert (visible_stem_count () > 1);
 
   Least_squares l;
-  Real x0 = stem (0)->hpos_f ();
+  Real x0 = first_visible_stem ()->hpos_f ();
   for (int i=0; i < stem_count (); i++)
     {
-      l.input.push (Offset (stem (i)->hpos_f () - x0, 
-        stem (i)->get_real ("idealy-f")));
+      Stem* s = stem (i);
+      if (s->invisible_b ())
+        continue;
+      l.input.push (Offset (s->hpos_f () - x0, s->get_info ().idealy_f_));
     }
   l.minimise (slope_f_, left_y_);
 }
@@ -340,7 +380,6 @@ Beam::solve_slope ()
 /*
   ugh. Naming: this doesn't check, but sets as well.
  */
-  
 Real
 Beam::check_stemlengths_f (bool set_b)
 {
@@ -350,44 +389,48 @@ Beam::check_stemlengths_f (bool set_b)
   Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
   Real epsilon_f = staffline_f / 8;
   Real dy_f = 0.0;
-  Real x0 = stem (0)->hpos_f ();
+  Real x0 = first_visible_stem ()->hpos_f ();
   Real internote_f = paper_l ()->get_var ("interline");
   for (int i=0; i < stem_count (); i++)
     {
-      Real y = (stem (i)->hpos_f () - x0) * slope_f_ + left_y_;
+      Stem* s = stem (i);
+      if (s->invisible_b ())
+	continue;
+      Real y = (s->hpos_f () - x0) * slope_f_ + left_y_;
+      Stem_info info = s->get_info ();
 
       // correct for knee
-      if (get_direction () != stem (i)->get_direction ())
+      if (get_direction () != s->get_direction ())
 	{
 	  y -= get_direction () * (beam_f / 2
 	    + (multiplicity_i_ - 1) * interbeam_f);
 	  if (!i
-	    && stem (i)->staff_symbol_l () != stem_top ()->staff_symbol_l ())
-	    y += get_direction () * (multiplicity_i_ - (stem (i)->flag_i_ - 2) >? 0)
+	    && s->staff_symbol_l () != stem_top ()->staff_symbol_l ())
+	    y += get_direction () * (multiplicity_i_ - (s->flag_i_ - 2) >? 0)
 	      * interbeam_f;
 	}
 
       /* caution: stem measures in staff-positions */
       if (set_b)
-	stem (i)->set_stemend ((y - stem (i)->get_real ("interstaff-f"))
+	s->set_stemend ((y - calc_interstaff_dist (s, this))
 			       / internote_f);
 	
       y *= get_direction ();
-      if (y > stem (i)->get_real ("maxy-f"))
-	dy_f = dy_f <? stem (i)->get_real ("maxy-f") - y;
-      if (y < stem (i)->get_real ("miny-f"))
+      if (y > info.maxy_f_)
+	dy_f = dy_f <? info.maxy_f_ - y;
+      if (y < info.miny_f_)
 	{ 
 	  // when all too short, normal stems win..
 	  if (dy_f < -epsilon_f)
 	    warning (_ ("weird beam vertical offset"));
-	  dy_f = dy_f >? stem (i)->get_real ("miny-f") - y; 
+	  dy_f = dy_f >? info.miny_f_ - y; 
 	}
     }
   return dy_f;
 }
 
 void
-Beam::beamify_stems ()
+Beam::set_stem_shorten ()
 {
   if(!stem_count ())
     return;
@@ -428,13 +471,12 @@ Beam::beamify_stems ()
 	    continue;
 	}
 
-      s->beamify ();
       if (s->get_direction () == get_direction ())
         {
 	  if (forced_count_i == total_count_i)
-	    s->set_real ("idealy-f", s->get_real ("idealy-f") - shorten_f);
+	    s->set_real ("shorten", shorten_f);
 	  else if (forced_count_i > total_count_i / 2)
-	    s->set_real ("idealy-f", s->get_real ("idealy-f") - shorten_f/2);
+	    s->set_real ("shorten", shorten_f/2);
 	}
     }
 }
@@ -444,10 +486,10 @@ Beam::calculate_slope ()
 {
   if (!stem_count ())
     slope_f_ = left_y_ = 0;
-  else if (stem (0)->get_real ("idealy-f") == stem_top ()->get_real ("idealy-f"))
+  else if (first_visible_stem ()->get_info ().idealy_f_ == last_visible_stem ()->get_info ().idealy_f_)
     {
       slope_f_ = 0;
-      left_y_ = stem (0)->get_real ("idealy-f");
+      left_y_ = first_visible_stem ()->get_info ().idealy_f_;
       left_y_ *= get_direction ();
     }
   else
@@ -458,13 +500,13 @@ Beam::calculate_slope ()
       /*
 	steep slope running against lengthened stem is suspect
       */
-      Real dx_f = stem (stem_count () -1)->hpos_f () - stem (0)->hpos_f ();
+      Real dx_f = stem (stem_count () -1)->hpos_f () - first_visible_stem ()->hpos_f ();
 
       Real lengthened = paper_l ()->get_var ("beam_lengthened");
       Real steep = paper_l ()->get_var ("beam_steep_slope");
-      if (((left_y_ - stem (0)->get_real ("idealy-f") > lengthened)
+      if (((left_y_ - first_visible_stem ()->get_info ().idealy_f_ > lengthened)
 	   && (slope_f_ > steep))
-	  || ((left_y_ + slope_f_ * dx_f - stem_top ()->get_real ("idealy-f") > lengthened)
+	  || ((left_y_ + slope_f_ * dx_f - last_visible_stem ()->get_info ().idealy_f_ > lengthened)
 	      && (slope_f_ < -steep)))
 	{
 	  slope_f_ = 0;
@@ -514,7 +556,7 @@ Beam::quantise_dy ()
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real beam_f = gh_scm2double (get_elt_property ("beam-thickness"));;
 
-  Real dx_f = stem (stem_count () -1 )->hpos_f () - stem (0)->hpos_f ();
+  Real dx_f = stem (stem_count () -1 )->hpos_f () - first_visible_stem ()->hpos_f ();
 
   Real dy_f = dx_f * abs (slope_f_);
   
@@ -585,7 +627,7 @@ Beam::quantise_left_y (bool extend_b)
   
   Real dy_f = get_direction () * left_y_;
 
-  Real beamdx_f = stem (stem_count () -1)->hpos_f () - stem (0)->hpos_f ();
+  Real beamdx_f = stem (stem_count () -1)->hpos_f () - first_visible_stem ()->hpos_f ();
   Real beamdy_f = beamdx_f * slope_f_;
 
   Array<Real> allowed_position;
@@ -667,6 +709,7 @@ Beam::do_add_processing ()
       } while ((flip (&d)) != LEFT);
     }
 
+#if 0
   /*
     Why?
    */
@@ -675,6 +718,7 @@ Beam::do_add_processing ()
       stem (0)->beams_i_drul_[LEFT] =0;
       stem (stem_count () -1)->beams_i_drul_[RIGHT] =0;
     }
+#endif
 }
 
 

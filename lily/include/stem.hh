@@ -12,6 +12,7 @@
 #include "molecule.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element.hh"
+#include "stem-info.hh"
 
 /**the rule attached to the ball.
   takes care of:
@@ -69,7 +70,7 @@ public:
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add_head (Rhythmic_head*n);
-  void beamify ();
+  Stem_info get_info () const;
 
   Real hpos_f () const;
   Real chord_start_f () const;

@@ -28,9 +28,12 @@ slope_quantisation: 'none, 'normal or 'traditional
 class Beam : public Directional_spanner  {
 public:
 
-  int stem_count ()const;
-  Stem * stem (int )const;
-  Stem* Beam::stem_top ()const;
+  int stem_count () const;
+  Stem* stem (int) const;
+  Stem* stem_top () const;
+  int visible_stem_count () const;
+  Stem* first_visible_stem () const;
+  Stem* last_visible_stem () const;
 
   /**
      the slope of the beam in (staffpositions) per (X-dimension, in PT).
@@ -59,7 +62,7 @@ protected:
   Offset center () const;
   Direction get_default_dir () const;
   void set_direction (Direction);
-  void beamify_stems ();
+  void set_stem_shorten ();
   bool auto_knee (SCM gap, bool interstaff_b);
   bool auto_knees ();
   

@@ -402,23 +402,16 @@ Stem::beam_l ()const
 }
 
 
-/*
-  stupid name: we're calculating and setting (caching??)
-  some stem length parameters for beamed stem
-*/
-void
-Stem::beamify ()
+Stem_info
+Stem::get_info () const
 {
   assert (beam_l ());
 
-  SCM bd = remove_elt_property ("beam-dir");
+  SCM bd = get_elt_property ("beam-dir");
   Real internote_f = staff_line_leading_f ()/2;
   
   Direction beam_dir;
-  Real idealy_f;
-  Real interstaff_f;
-  Real maxy_f;
-  Real miny_f;
+  Stem_info info; 
 
   if (gh_number_p (bd))
     {
@@ -433,10 +426,10 @@ Stem::beamify ()
   Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->multiplicity_i_);
   Real beam_f = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
          
-  idealy_f = chord_start_f ();
+  info.idealy_f_ = chord_start_f ();
 
   // for simplicity, we calculate as if dir == UP
-  idealy_f *= beam_dir;
+  info.idealy_f_ *= beam_dir;
 
   bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
   bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
@@ -453,14 +446,14 @@ Stem::beamify ()
     {
       if (beam_l ()->multiplicity_i_)
 	{
-	  idealy_f += beam_f;
-	  idealy_f += (beam_l ()->multiplicity_i_ - 1) * interbeam_f;
+	  info.idealy_f_ += beam_f;
+	  info.idealy_f_ += (beam_l ()->multiplicity_i_ - 1) * interbeam_f;
 	}
-      miny_f = idealy_f;
-      maxy_f = INT_MAX;
+      info.miny_f_ = info.idealy_f_;
+      info.maxy_f_ = INT_MAX;
 
-      idealy_f += stem_f;
-      miny_f += min_stem_f;
+      info.idealy_f_ += stem_f;
+      info.miny_f_ += min_stem_f;
 
       /*
 	lowest beam of (UP) beam must never be lower than second staffline
@@ -475,34 +468,35 @@ Stem::beamify ()
       if (!grace_b && !no_extend_b)
 	{
 	  //highest beam of (UP) beam must never be lower than middle staffline
-	  miny_f = miny_f >? 0;
+	  info.miny_f_ = info.miny_f_ >? 0;
 	  //lowest beam of (UP) beam must never be lower than second staffline
-	  miny_f = miny_f >? (- 2 * internote_f - beam_f
+	  info.miny_f_ = info.miny_f_ >? (- 2 * internote_f - beam_f
 				+ (beam_l ()->multiplicity_i_ > 0) * beam_f + interbeam_f * (beam_l ()->multiplicity_i_ - 1));
 	}
     }
   else
     /* knee */
     {
-      idealy_f -= beam_f;
-      maxy_f = idealy_f;
-      miny_f = -INT_MAX;
+      info.idealy_f_ -= beam_f;
+      info.maxy_f_ = info.idealy_f_;
+      info.miny_f_ = -INT_MAX;
 
-      idealy_f -= stem_f;
-      maxy_f -= min_stem_f;
+      info.idealy_f_ -= stem_f;
+      info.maxy_f_ -= min_stem_f;
     }
 
-  idealy_f = maxy_f <? idealy_f;
-  idealy_f = miny_f >? idealy_f;
+  info.idealy_f_ = info.maxy_f_ <? info.idealy_f_;
+  info.idealy_f_ = info.miny_f_ >? info.idealy_f_;
 
-  interstaff_f = calc_interstaff_dist (this, beam_l ());
-  idealy_f += interstaff_f * beam_dir;
-  miny_f += interstaff_f * beam_dir;
-  maxy_f += interstaff_f * beam_dir;
+  Real interstaff_f = calc_interstaff_dist (this, beam_l ());
+  info.idealy_f_ += interstaff_f * beam_dir;
 
-  set_elt_property ("interstaff-f", gh_double2scm (interstaff_f));
-  set_elt_property ("idealy-f", gh_double2scm (idealy_f));
-  set_elt_property ("miny-f", gh_double2scm (miny_f));
-  set_real ("maxy-f", gh_double2scm (maxy_f));
+  SCM s = get_elt_property ("shorten");
+  if (s != SCM_UNDEFINED)
+    info.idealy_f_ -= gh_double2scm (s);
+  info.miny_f_ += interstaff_f * beam_dir;
+  info.maxy_f_ += interstaff_f * beam_dir;
+
+  return info;
 }
 
