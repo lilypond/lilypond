@@ -23,23 +23,22 @@ lower = \notes\relative c {
 
 \score {
   <<
-    \addlyrics
-      \context Staff = mel {
-        \autoBeamOff
-        \melody
+      \context Voice = mel {
+	  \autoBeamOff
+	  \melody
       }
-      \context Lyrics \text
+      \newaddlyrics mel \new LyricsVoice \text
 
-    \context PianoStaff <<
-      \context Staff = upper \upper
-      \context Staff = lower <<
-	\clef bass
-	\lower
+      \context PianoStaff <<
+	  \context Staff = upper \upper
+	  \context Staff = lower <<
+	      \clef bass
+	      \lower
+	  >>
       >>
-    >>
   >>
   \paper {
-    \translator { \RemoveEmptyStaffContext }
+      \translator { \RemoveEmptyStaffContext }
   }  
   \midi { }  
 }

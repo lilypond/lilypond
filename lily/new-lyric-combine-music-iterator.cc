@@ -167,15 +167,18 @@ New_lyric_combine_music_iterator::find_thread ()
 	  Translator_group *t = report_to ();
 	  while (t && t->daddy_trans_)
 	    t = t->daddy_trans_;
-      
-	  Translator_group* voice = find_context_below (t, "Voice", ly_scm2string (voice_name));
+
+	  String name =  ly_scm2string (voice_name);
+	  Translator_group* voice = find_context_below (t, "Voice", name);
 	  Translator_group *thread = 0;
 	  if (voice)
 	    thread = find_context_below (voice, "Thread", "");
+	  else
+	    get_music ()->origin ()->warning (_f("Cannot find Voice: %s\n", name.to_str0())); 
 
 	  if (thread)
 	    music_context_ = thread;
-      
+	    
 	  if (lyrics_context_ && voice)
 	    lyrics_context_->set_property ("associatedVoiceContext",  voice->self_scm ());
 	}

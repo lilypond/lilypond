@@ -14,12 +14,11 @@ text = \lyrics {
 
 \score {
   <<
-    \addlyrics
-      \context Staff = one {
-        \property Staff.autoBeaming = ##f
-        \melody
+      \context Voice = one {
+	  \property Staff.autoBeaming = ##f
+	  \melody
       }
-      \context Lyrics \text
+      \newaddlyrics \new Lyrics \text
   >>
   \paper { }
   \midi  { }

@@ -1,30 +1,30 @@
 \version "2.1.7"
-
-\header {
-  texidoc = "Popsong format: chords, melody and lyrics."
+\header
+{
+    texidoc = "Popsong format: chords, melody and lyrics."
 }
 
-melody = \notes \relative c' {
-  a b c d
+melody = \notes \relative c'
+{
+    a b c d
 }
 
 text = \lyrics {
-  Aaa Bee Cee Dee
+    Aaa Bee Cee Dee
 }
 
 accompaniment = \chords {
-  a2 c2
+    a2 c2
 }
 
 \score {
   <<
     \context ChordNames \accompaniment
-    \addlyrics
-      \context Staff = one {
-        \autoBeamOff
+    \context Voice = one {
+	\autoBeamOff
         \melody
-      }
-      \context Lyrics \text
+    }
+    \newaddlyrics "one" \new LyricsVoice \text
   >>
   \paper { }
   \midi  { }

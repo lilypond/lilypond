@@ -45,6 +45,7 @@ dashed_line_molecule (Grob *me, Real thick, Offset from, Offset to)
       SCM s = me->get_grob_property ("dash-fraction");
       if (gh_number_p (s))
 	fraction = gh_scm2double (s);
+
       fraction = (fraction >? 0) <? 1.0;
 
       Real period = Staff_symbol_referencer::staff_space (me);
@@ -52,6 +53,9 @@ dashed_line_molecule (Grob *me, Real thick, Offset from, Offset to)
       if (gh_number_p (s))
 	period *= gh_scm2double (s);
 
+      if (period < 0)
+	return Molecule ();
+	
       return Lookup::dashed_line (thick, from, to, period, fraction);
     }
   else

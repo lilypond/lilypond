@@ -20,24 +20,25 @@ bassWords = \lyrics { ho4 ho ho ho }
 
 \score { \notes
 	  \context StaffGroup <<
-	  \context Lyrics = sopLyrs { s1 }
-	  \context Staff = women { s1 }
-	  \context Lyrics = altoLyrs { s1 }
-	  \context Lyrics = tenorLyrs { s1 }
-	  \context Staff = men {\clef bass s1 }
-	  \context Lyrics = bassLyrs { s1 }
-	  \addlyrics
-		\context Staff = women \context Voice = VA { \voiceOne \sopMusic }
-		\context Lyrics = sopLyrs { \sopWords}
-	  \addlyrics
-		\context Staff = women \context Voice = VB { \voiceTwo \altoMusic }
-		\context Lyrics = altoLyrs { \altoWords}
-	  \addlyrics
-		\context Staff = men \context Voice = VA { \voiceOne \tenorMusic }
-		\context Lyrics = tenorLyrs { \tenorWords}
-	  \addlyrics
-		\context Staff = men  \context Voice = VB { \voiceTwo \bassMusic }
-		\context Lyrics = bassLyrs { \bassWords}
+	      \context LyricsVoice = sopranos { s1 }
+	      \context Staff = women <<
+		  \context Voice = sopranos { \voiceOne \sopMusic }
+		  \context Voice = altos { \voiceTwo \altoMusic }
+	      >>
+	      \context LyricsVoice = altos { s1 }
+	      \context LyricsVoice = tenors { s1 }
+	      \context Staff = men <<
+		  \clef bass
+		  \context Voice = tenors { \voiceOne \tenorMusic }
+		  \context Voice = basses { \voiceTwo \bassMusic }
+	      >>
+	      \context LyricsVoice = basses { s1 }
+
+	      
+	      \context LyricsVoice = sopranos \newaddlyrics sopranos \sopWords
+	      \context LyricsVoice = altos \newaddlyrics altos \altoWords
+	      \context LyricsVoice = tenors \newaddlyrics tenors \tenorWords
+	      \context LyricsVoice = basses \newaddlyrics basses \bassWords
 	  
 	  >>
   \paper {
