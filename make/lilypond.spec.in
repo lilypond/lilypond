@@ -66,6 +66,7 @@ fi
 # %doc input/*.ly
 # verbatim include of input: list the directory without issuing a %dir 
 
+/usr/bin/abc2ly
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
 /usr/bin/ly2dvi
