@@ -288,7 +288,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_grob_property ("attachment");
-  if (!gh_symbol_p (index_get_cell (s, dir)))
+  if (!gh_pair_p (s) || !gh_symbol_p (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
