@@ -1,4 +1,5 @@
-% -*-LaTeX-*-
+
+                                % -*-LaTeX-*-
 
 \documentclass{article}
 \def\kdots{,\ldots,}
@@ -20,9 +21,9 @@ notably \begin{itemize} \item B\"arenreiter \item Hofmeister \item
 Breitkopf \item Durand \& C'ie \end{itemize}
 
 The best references on Music engraving are Wanske\cite{wanske} and
-Ross\cite{ross} quite some of their insights were used.  Although it
-is a matter of taste, I'd say that B\"arenreiter has the finest
-typography of all.
+Ross\cite{ross} some of their insights were used.  Although it is a
+matter of taste, I'd say that B\"arenreiter has the finest typography
+of all.
 
 
 \section{Bezier curves for slurs}
@@ -192,15 +193,14 @@ Staffsize       &Numbers                &Name\\
 15.9pt  &No. 6          &Small middle\\
 13.7pt  &No. 7          &Cadenza\\
 11.1pt  &No. 8          &Pearl\\
-
     \end{tabular}
     \caption{Foo}
     \label{fonts:staff-size}
   \end{center}
 \end{table}
 
-Ross states that the dies (the stamps to make the symbols) come in
-12 different sizes.
+
+
 
 \section{Beams}
 
@@ -304,3 +304,27 @@ create and export glyphs.
 
 
 \end{document}
+
+\begin{verbatim}
+Paul Terry <paul@musonix.demon.co.uk> writes:
+
+Ross states that the dies (the stamps to make the symbols) come in
+12 different sizes.
+
+>Can you tell me how big rastrals are?
+
+According to the Score manual:
+
+   Rastral Size     Height in millimetres
+
+   0                9   mm
+   1                8   mm
+   2                7.5 mm
+   3                7   mm
+   4                6.5 mm
+   5                6   mm
+   6                5.5 mm
+
+I must say, despite having been a music setter for many years, I had to
+look these up - none of the publishers I work for deal in Rastral sizes
+these days (they all use millimetres).
