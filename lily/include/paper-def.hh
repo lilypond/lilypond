@@ -49,7 +49,7 @@ protected:
   VIRTUAL_COPY_CONS (Music_output_def);
 
 public:    
-  Paper_outputter* get_paper_outputter () ;
+  Paper_outputter* get_paper_outputter (String)  const;
 
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
@@ -66,8 +66,6 @@ public:
 
   Interval line_dimensions_int (int) const;
 
-  virtual int get_next_score_count () const;
-  static void reset_score_count ();
   void output_settings (Paper_outputter*) const;
 
   Font_metric * find_font (SCM name, Real mag);

@@ -161,12 +161,12 @@ My_lily_lexer::lookup_identifier (String s)
 void
 My_lily_lexer::start_main_input ()
 {  
-  new_input (main_input_string_, &global_input_file->sources_);
+  new_input (main_input_name_, &global_input_file->sources_);
   allow_includes_b_ = allow_includes_b_ &&  ! (safe_global_b);
 
   scm_module_define (gh_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (main_input_string_.to_str0()));
+		     scm_makfrom0str (main_input_name_.to_str0()));
 }
 
 void

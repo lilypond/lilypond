@@ -1,27 +1,17 @@
+/*   
+  font-select.cc -- implement property -> font_metric routines. 
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2003 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+ */
+
+#include <math.h>
+
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"
-
-
-/*
-  TODO revise font handling.
-
-
-* relative sizes should relate to staff-space, eg.  font-staff-space
-= 1.2 ^ relative-size
-
-* If a relative size is given, lily should magnify the closest
-design size font to match that. (ie. fonts should have variable
-scaling)
-
-(this requires that fonts are stored as (filename , designsize))
-
-
-  
- */
-
-
-
 
 LY_DEFINE(ly_paper_get_font,"ly:paper-get-font", 2, 0, 0,
 	  (SCM paper, SCM chain),
@@ -51,22 +41,63 @@ wild_compare (SCM field_val, SCM val)
 {
   return (val == SCM_BOOL_F || field_val == ly_symbol2scm ("*") || field_val == val);
 }
+Font_metric*
+get_font_by_design_size (Paper_def* paper, Real requested,
+			 SCM font_vector)
+{
+  int n = SCM_VECTOR_LENGTH (font_vector);
+  Real size = 1e6;
+  Real last_size = -1e6;
+  int i = 0;
+  
+  for (; i < n; i++)
+    {
+      size = gh_scm2double (gh_car (SCM_VECTOR_REF (font_vector, i)));
+      if (size > requested)
+	break ;
+      last_size = size; 
+    }
+
+  if (i == n)
+    {
+      i = n-1;
+    }
+  else if (i > 0)
+    {
+      if ((requested / last_size) < (size / requested))
+	{
+	  i -- ;
+	  size = last_size;
+	}
+    }
+  
+  return paper->find_font (gh_cdr (SCM_VECTOR_REF (font_vector, i)),
+			   requested / size);
+}
+
+
+Font_metric*
+get_font_by_mag_step (Paper_def* paper, Real requested_step,
+		      SCM font_vector, Real default_size)
+{
+  return get_font_by_design_size (paper,
+				  default_size * pow (2.0, requested_step / 6.0),
+				  font_vector);
+}
+
+
 
 /*
   We can probably get more efficiency points if we preprocess FONTS
   to make lookup easier.
  */
 SCM
-properties_to_font_name (SCM fonts, SCM alist_chain)
+properties_to_font_size_family (SCM fonts, SCM alist_chain)
 {
   SCM shape = SCM_BOOL_F;
   SCM family = SCM_BOOL_F;
   SCM series = SCM_BOOL_F;
-
   
-  SCM point_sz = ly_assoc_chain (ly_symbol2scm ("font-design-size"), alist_chain);
-  SCM rel_sz = SCM_BOOL_F;
-
   shape = ly_assoc_chain (ly_symbol2scm ("font-shape"), alist_chain);
   family = ly_assoc_chain (ly_symbol2scm ("font-family"), alist_chain);
   series = ly_assoc_chain (ly_symbol2scm ("font-series"), alist_chain);
@@ -79,40 +110,28 @@ properties_to_font_name (SCM fonts, SCM alist_chain)
     series = ly_cdr (series);
 
 
-  if (gh_pair_p (point_sz))
-    point_sz = ly_cdr (point_sz);
-  else
-    {
-      rel_sz = ly_assoc_chain (ly_symbol2scm ("font-relative-size"), alist_chain);
-      if (gh_pair_p (rel_sz))
-	rel_sz = ly_cdr (rel_sz);
-    }
-
   for (SCM s = fonts ; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM qlist = ly_caar (s);
 
-      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (1)), series))
+      if (!wild_compare (SCM_VECTOR_REF (qlist, 0), series))
 	continue;
-      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (2)), shape))
+      if (!wild_compare (SCM_VECTOR_REF (qlist, 1), shape))
 	continue;
-      if (!wild_compare (scm_list_ref (qlist, gh_int2scm (3)), family))
+      if (!wild_compare (SCM_VECTOR_REF (qlist, 2), family))
 	continue;
   
-      if (point_sz == SCM_BOOL_F && !wild_compare (ly_car (qlist), rel_sz))
-	continue;
-          
       SCM qname = ly_cdar (s);
       return qname;
     }
 
-  warning (_ ("couldn't find any font satisfying "));
-  scm_write (scm_list_n (point_sz, shape, series , family, rel_sz,
+  warning (_ ("couldn't find any font size family satisfying "));
+  
+  scm_write (scm_list_n (shape, series , family, 
 			 SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return scm_makfrom0str ("cmr10");
-  
 }
 
 
@@ -124,16 +143,38 @@ select_font (Paper_def *paper, SCM chain)
   if (!gh_pair_p (name) || !gh_string_p (gh_cdr (name)))
     {
       SCM fonts = paper->lookup_variable (ly_symbol2scm ("fonts"));
-      name = properties_to_font_name (fonts, chain);
+      name = properties_to_font_size_family (fonts, chain);
     }
   else
     name  = gh_cdr (name);
+
+
+  if (gh_string_p (name))
+    {
+      SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
   
-  SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
+      Real rmag = gh_pair_p (mag) && gh_number_p (gh_cdr (mag))
+	? gh_scm2double (gh_cdr (mag)) : 1.0;
   
-  Real rmag = gh_pair_p (mag) && gh_number_p (gh_cdr (mag))
-    ? gh_scm2double (gh_cdr (mag)) : 1.0;
-  
-  Font_metric *fm = paper->find_font (name, rmag);
-  return fm;
+      return paper->find_font (name, rmag);
+    }
+  else if (gh_pair_p (name)) // (DEFAULT . FONT-VEC) pair
+    {
+      SCM vec = gh_cdr (name);
+      SCM base_size = gh_car (name);
+      
+      SCM font_size = ly_assoc_chain (ly_symbol2scm ("font-size"), chain);
+      Real req = 0.0;
+      if (gh_pair_p (font_size))
+	req = gh_scm2double (ly_cdr (font_size));
+
+      return get_font_by_mag_step (paper, req,
+				   vec, gh_scm2double (base_size));
+    }
+
+  assert (0);
+
+  return 0;
 }
+
+

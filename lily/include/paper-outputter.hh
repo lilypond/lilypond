@@ -27,8 +27,6 @@
 class Paper_outputter
 {
   bool verbatim_scheme_b_;
-
-  
 public:
 
   SCM output_func_ ;

@@ -1,4 +1,11 @@
 
+%%
+%
+% TODO: blot diameter should be fixed, not scalable.
+%
+%
+
+
 save serif_thick;
 serif_thick# = 1.1 stafflinethickness#;
 define_blacker_pixels (serif_thick);

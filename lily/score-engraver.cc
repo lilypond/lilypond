@@ -84,7 +84,7 @@ Score_engraver::finish ()
     progress_indication ("[" + to_string (breaks_) + "]");
    
   check_removal ();
-  removal_processing ();
+  finalize ();
 
 }
 

@@ -34,11 +34,12 @@ public:
   ~My_lily_parser ();
 
   void do_init_file ();
-  void parse_file ( String init_string, String file_string);
+  void parse_file (String init, String file, String out_name);
 
 public:
   Duration default_duration_;
-
+  String output_basename_;
+  
   Scheme_hash_table *default_header_;
 
   int fatal_error_;

@@ -233,7 +233,6 @@
   (string-append
    "%!PS-Adobe-3.0\n"
    "%%Creator: " creator generate "\n"))
-
 (define (header-end)
   (string-append
    ;; URG: now we can't use scm output without Lily
@@ -243,8 +242,8 @@
    "{ exch pop //systemdict /run get exec } "
    ;; ps-testing wreaks havoc when used with lilypond-book.
    ;;  -- is this still true with new modules system?
-   ;;   (if (defined? 'ps-testing) "\n /testing true def" "")
-   ;;   "\n /testing true def"
+;;   (if (defined? 'ps-testing) "\n /testing true def" "")
+  ;   "\n /testing true def"
    ))
 
 (define (lily-def key val)

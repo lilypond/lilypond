@@ -5,9 +5,21 @@
 
 paperTwenty = \paper {
 	staffheight = 20.0\pt
-	#(define fonts (make-font-list 'paper20))
+	#(define fonts (scale-font-list  1.0))
 	
 	\include "params-init.ly"
 }
 
 \paper { \paperTwenty }
+
+
+%{
+
+; note:
+; you can add fonts manually  in the paper block by issuing
+
+#(set! fonts (append ...myfonts... fonts))
+
+for the format of myfonts, see font.scm
+
+%}

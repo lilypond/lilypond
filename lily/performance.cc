@@ -110,8 +110,9 @@ Performance::output_header_track (Midi_stream& midi_stream)
   Midi_text at (&at_a);
   midi_track.add (Moment (0), &at);
 
-  
-  str = _f ("from musical definition: %s", origin_string_);
+
+  // TODO:
+  //  str = _f ("from musical definition: %s", origin_string_);
 
   Audio_text from_a (Audio_text::TEXT, str);
   Midi_text from (&from_a);
@@ -147,19 +148,11 @@ Performance::add_element (Audio_element *p)
 
 
 void
-Performance::process ()
+Performance::process (String out)
 {
-  String out = output_name_global;
   if (out == "-")
     out = "lelie.midi";
-  int def = midi_->get_next_score_count ();
-  if (def)
-    {
-      Path p = split_path (out);
-      p.base += "-" + to_string (def);
-      out = p.to_string ();
-    }
-
+  
   /* Maybe a bit crude, but we had this before */
   Path p = split_path (out);
   p.ext = "midi";

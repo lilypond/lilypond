@@ -19,12 +19,6 @@
 
 #include "ly-smobs.icc"
 
-int
-Music_output_def::get_next_score_count () const
-{
-  return 0;
-}
-
 Music_output_def::Music_output_def ()
 {
   scaled_fonts_ = SCM_EOL;
@@ -35,6 +29,8 @@ Music_output_def::Music_output_def ()
 
   scope_ =   ly_make_anonymous_module();
 }
+
+
 
 Music_output_def::~Music_output_def ()
 {
@@ -118,24 +114,6 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
   return 1;
 }
 
-/*
-  ugh: should move into Music_output_def (complication: .midi and .tex
-  need separate counts.)  */
-String
-Music_output_def::outname_string () 
-{
-  String out = output_name_global;
-  int def = get_next_score_count ();
-  if (def && out != "-")
-    {
-      Path p = split_path (out);
-      p.base += "-" + to_string (def);
-      out = p.to_string ();
-    }
-  return out;
-}
-
-
 
 SCM
 Music_output_def::get_scmvar (String s) const
@@ -157,7 +135,6 @@ Music_output_def::lookup_variable (SCM sym) const
 
   return scm_variable_ref (var);
 }
-
 
 LY_DEFINE(ly_paper_lookup,
 	  "ly:paper-lookup",

@@ -61,8 +61,9 @@ Mark_engraver::acknowledge_grob (Grob_info inf)
   if (text_ && Bar_line::has_interface (s))
     {
       /*
-	Ugh. Figure out how to do this right at beginning of line, (without
-	creating class Bar_script : public Item).
+      TODO: make this configurable. RehearsalMark cannot be
+      break-aligned, since the width of the object should not be taken
+      into alignment considerations.
       */
       text_->set_parent (s, X_AXIS);
     }

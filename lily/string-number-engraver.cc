@@ -16,7 +16,7 @@ protected:
 
 
 bool
-String_number_engraver::try_music (Music * m)
+String_number_engraver::try_music (Music * )
 {
   return true;
 }

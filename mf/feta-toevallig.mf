@@ -357,7 +357,7 @@ fet_beginchar("Double Sharp", "4", "sharpsharp")
 	z5 = z1 reflectedabout((0,0), (1,1));
 
 	labels(1,2,3,4,5);
-	pickup pencircle scaled 1/20 staff_space;
+	pickup pencircle scaled blot_diameter;
 	filldraw  
 		z1{dir 45} .. {right}z2 -- z3 -- 
 		z4{down} .. {dir 225}z5 .. cycle;

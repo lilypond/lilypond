@@ -57,4 +57,5 @@ voiceb = \notes \transpose c c' {
 	>>
 	\new NoteNames \apply #no-octaves \voiceb
     >>
+\paper { raggedright = ##t }
 }

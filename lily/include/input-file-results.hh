@@ -21,13 +21,13 @@ public:
   Sources sources_;
   Array<String> inclusion_names_;
   Array<String> target_strings_;
-  Link_array<Score> scores_;
   Protected_scm header_;
 
-  void do_deps ();
-  void do_scores ();
+  int score_count_;
+  
+  void do_deps (String);
 
-  Input_file_results (String file, String init);
+  Input_file_results (String init, String in, String out);
   ~Input_file_results ();
   
 private:
@@ -37,7 +37,7 @@ private:
 
 extern Input_file_results* global_input_file;
 
-void do_one_file (String init_string, String file_string);
+void do_one_file (String init_string, String in_file, String out_file);
 
 
 #endif /* FILE_RESULTS_HH */

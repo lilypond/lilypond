@@ -11,6 +11,7 @@ INSTALLATION_FILES=$(TEX_FILES)
 include $(depth)/make/stepmake.make
 
 $(outdir)/music-drawing-routines.ps: $(depth)/ps/music-drawing-routines.ps
-	-cp $< $@
+	rm -f $@
+	-ln $< $@
 
 all: $(INSTALLATION_FILES)

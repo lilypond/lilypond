@@ -6,7 +6,7 @@
 %% 19 is broken --hwn.
 %\include "paper19.ly"
 \include "paper16.ly"
-\version "1.9.8"
+\version "2.1.1"
 
 \header {
   title = "Romanzen"
@@ -245,7 +245,7 @@ leftb = \notes \transpose c cis {
     \property PianoStaff.connectArpeggios = ##t
     \property PianoStaff.Arpeggio \override #'molecule-callback = \arpeggioBracket
 
-    \property PianoStaff.InstrumentName \set #'font-relative-size   = #3
+    \property PianoStaff.InstrumentName \set #'font-size = #6
     \property PianoStaff.InstrumentName \set #'font-shape   = #'italic
     \property PianoStaff.InstrumentName \set #'font-magnification   = #3
     
@@ -255,7 +255,7 @@ leftb = \notes \transpose c cis {
       \clef G <<\global \context Voice=upv \righta >>
     }
     \context Staff = mid {
-    \property Staff.InstrumentName \set #'font-relative-size   = #0
+    \property Staff.InstrumentName \set #'font-size = #0
     \property Staff.InstrumentName \set #'font-shape   = #'upright
     \property Staff.InstrumentName \set #'font-magnification   = #1
     \property Staff.InstrumentName \set #'extra-offset = #'(0 . 6)

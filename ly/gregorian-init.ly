@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.1"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -39,7 +39,7 @@ cavum =
 %
 virgula = {
   \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rcomma")
-  \once \property Voice.BreathingSign \override #'font-relative-size = #-1
+  \once \property Voice.BreathingSign \override #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)
@@ -48,7 +48,7 @@ virgula = {
 }
 caesura = {
   \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rvarcomma")
-  \once \property Voice.BreathingSign \override #'font-relative-size = #-1
+  \once \property Voice.BreathingSign \override #'font-size = #-2
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
   \once \property Voice.BreathingSign \override #'extra-X-extent = #'(-1.0 . 0)

@@ -35,11 +35,12 @@ My_lily_parser::~My_lily_parser ()
 
 
 void
-My_lily_parser::parse_file (String init, String s)
+My_lily_parser::parse_file (String init, String in_file, String out_file)
 {
   lexer_ = new My_lily_lexer;
-
-  lexer_->main_input_string_ = s;
+  output_basename_ = out_file;
+  
+  lexer_->main_input_name_ = in_file;
 
   progress_indication (_ ("Parsing..."));
 

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <math.h>   /* isinf */
 #include <string.h> /* strdup, strchr */
-
+#include <ctype.h>
 
 #include "lily-proto.hh"
 

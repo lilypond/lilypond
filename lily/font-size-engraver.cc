@@ -1,5 +1,5 @@
 /*   
-  font-size-engraver.cc --  implement 
+  font-size-engraver.cc --  implement Font_size_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -36,9 +36,9 @@ Font_size_engraver::acknowledge_grob (Grob_info gi)
 
   if (gh_number_p (sz)
       && gh_scm2double (sz)
-      && !gh_number_p (gi.grob_->get_grob_property ("font-relative-size")))
+      && !gh_number_p (gi.grob_->get_grob_property ("font-size")))
     {
-      gi.grob_->set_grob_property ("font-relative-size", sz);
+      gi.grob_->set_grob_property ("font-size", sz);
     }
 }
 

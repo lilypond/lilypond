@@ -215,13 +215,13 @@ options include undefined and mensural.
 definition: music roman braces dynamic math ...")
 (grob-property-description 'font-name string? "file name for the font to load.
 Overrides all other font-X qualifiers.")
-(grob-property-description 'font-design-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size.")
 (grob-property-description 'font-magnification number? "Magnification
   of the font. If undefined, the default is @code{1.0}.")
 
-(grob-property-description 'font-relative-size number? "partial font
-definition: the relative size compared the `normal' size.  0 is
-style-sheet's normal size, -1 is smaller, +1 is bigger.")
+(grob-property-description 'font-size number? "font definition: the
+relative size compared the `normal' size.  0 is style-sheet's normal
+size, -1 is smaller, +1 is bigger.  Each step of 1 is approximately
+12% larger, 6 steps are exactly a factor 2 larger. Fractional values are allowed.")
 
 (grob-property-description 'font-series symbol? "partial font definition: medium, bold.")
 (grob-property-description 'font-shape symbol? "partial font definition: upright or italic.")

@@ -215,8 +215,6 @@ Music::internal_set_mus_property (SCM s, SCM v)
   mutable_property_alist_ =  scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
-
-
 #include "main.hh"
 
 void
@@ -238,8 +236,8 @@ Music::~Music ()
   
 }
 
-LY_DEFINE(ly_get_music_length,
-	  "ly:get-music-length", 1, 0, 0,  (SCM mus),
+LY_DEFINE(ly_music_length,
+	  "ly:music-length", 1, 0, 0,  (SCM mus),
 	  "Get the length (in musical time) of music expression @var{mus}.")
 {
   Music * sc = unsmob_music (mus);
@@ -250,8 +248,7 @@ LY_DEFINE(ly_get_music_length,
 LY_DEFINE(ly_get_mus_property,
 	  "ly:get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
 	  "Get the property @var{sym} of music expression @var{mus}.\n"
-	  "If @var{sym} is undefined, return @code{'()}.\n"
-	  )
+	  "If @var{sym} is undefined, return @code{'()}.\n" )
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
@@ -395,3 +392,4 @@ make_music_by_name (SCM sym)
   scm_gc_protect_object (rv);
   return unsmob_music (rv);
 }
+

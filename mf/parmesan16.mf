@@ -1,7 +1,7 @@
 % parmesan16.mf
 % part of LilyPond's pretty-but-neat music font
 
-staffsize#:=16pt#;
+staffsize#:=15.87pt#;
 
 input feta-autometric;
 fet_beginfont("parmesan", 16);

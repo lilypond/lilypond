@@ -3,7 +3,7 @@
 
 input feta-autometric;
 fet_beginfont("feta", 16);
-staffsize#:=16pt#;
+staffsize#:=15.87pt#;
 test:=0;
 
 

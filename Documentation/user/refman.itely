@@ -3114,7 +3114,6 @@ terminating too soon.
 The staff switches often do not end up in optimal places. For high
 quality output, staff switches should be specified manually.
 
- 
 
 @node Manual staff switches
 @subsection Manual staff switches
@@ -3132,6 +3131,7 @@ The string @var{staffname} is the name of the staff. It switches the
 current voice from its current staff to the Staff called
 @var{staffname}. Typically @var{staffname} is @code{"up"} or
 @code{"down"}.
+
 
 
 @node Pedals
@@ -7535,11 +7535,10 @@ then you can use
 @end example
 @end itemize
 
- The object description is an Scheme association
-list. Since a Scheme list is a singly linked list, we can treat it as
-a stack, and @code{\override} and @code{\revert} are push and pop
-operations.  The association list is stored in a normal context
-property, hence
+The object description is an Scheme association list. Since a Scheme
+list is a singly linked list, we can treat it as a stack, and
+@code{\override} and @code{\revert} are push and pop operations.  The
+association list is stored in a normal context property, hence
 @example
  \property Voice.NoteHead  = #'() 
 @end example
@@ -7561,6 +7560,28 @@ The backend is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties cause hangs and/or
 crashes.  Reverting properties that are system defaults may also lead
 to crashes.
+
+A property tweak of modifies a local copy of the object definition.
+After such a tweak, the definition is independent of the objects in
+enclosing contexts. For example
+
+@lilypond
+  \property Voice.Stem \set #'neutral-direction = #1
+  b'8
+  \property Staff.Stem \set #'thickness = #4.0
+  b'16
+  \new Voice { b'32 }
+@end lilypond
+
+In this fragment, @code{neutral-direction} is tweaked. As a result,
+the current @internalsref{Voice} gets a private version of the
+@internalsref{Stem} object. The following tweak modifies the
+definition at @internalsref{Staff} level. Since it a different
+definition, the thickness of the @code{b'16} is unaffected.  For the
+third note, a new Voice is created, which inherits the new definition,
+including the changed thickness, but excluding the new neutral
+direction.
+
 
 @node Constructing a tweak
 @subsection Constructing a tweak
@@ -7761,17 +7782,16 @@ center-line:
 
 The most common thing to change about the appearance of fonts is their
 size. The font size of any context can be easily changed by setting
-the @code{fontSize} property for that context.  Its value is an
-integer: negative numbers make the font smaller, positive numbers
-larger. An example is given below:
+the @code{fontSize} property for that context.  Its value is a number:
+negative numbers make the font smaller, positive numbers larger. An
+example is given below:
 @c
 @lilypond[fragment,relative=1,verbatim,quote]
   c4 c4 \property Voice.fontSize = #-1
   f4 g4
 @end lilypond
-This command will set @code{font-relative-size} (see below), and does
+This command will set @code{font-size} (see below), and does
 not change the size of variable symbols, such as beams or slurs.
-
 
 One of the uses of @code{fontSize} is to get smaller symbol for cue
 notes. An elaborate example of those is in
@@ -7779,16 +7799,9 @@ notes. An elaborate example of those is in
 
 @cindex magnification
 
-The size of the font may be scaled with the object property
-@code{font-magnification}.  For example, @code{2.0} blows up all
-letters by a factor 2 in both directions.
 
 
 @cindex cue notes
-@cindex font size
-@cindex size
-@cindex symbol size
-@cindex glyph size
 
 The font used for printing a object can be selected by setting
 @code{font-name}, e.g.
@@ -7800,13 +7813,20 @@ The font used for printing a object can be selected by setting
 @noindent
 Any font can be used, as long as it is available to @TeX{}. Possible
 fonts include foreign fonts or fonts that do not belong to the
-Computer Modern font family.
+Computer Modern font family.  The size of fonts selected in this way
+can be changed with the @code{font-magnification} property.  For
+example, @code{2.0} blows up all letters by a factor 2 in both
+directions.
+
+@cindex font size
+@cindex font magnification
 
 Font selection for the standard fonts, @TeX{}'s Computer Modern fonts,
 can also be adjusted with a more fine-grained mechanism.  By setting
 the object properties described below, you can select a different font;
 all three mechanisms work for every object that supports
 @code{font-interface}:
+
 
 @table @code
 @item font-family
@@ -7825,22 +7845,6 @@ is a  symbol indicating the series of the font. There are typically several
 font series for each font family and shape. Choices are @code{medium}
 and @code{bold}. 
 
-@item font-relative-size
-  is a number indicating the size relative the standard size.  For example,
-  with 20pt staff height, relative size -1  corresponds to 16pt staff
-  height, and relative size +1 corresponds to 23 pt staff height.
-
-   There are small differences in design between fonts designed for
-different sizes, hence @code{font-relative-size} is preferred over
-@code{font-magnification} for changing font sizes.
-
-
-@item font-design-size
-is a number indicating  the design size of the font. 
-
-This is a feature of the Computer Modern Font: each point size has a
-slightly different design. Smaller design sizes are relatively wider,
-which enhances readability.
 @end table
 
 For any of these properties, the value @code{*} (i.e. the symbol
@@ -7853,6 +7857,20 @@ to override default setting, which are always present. For example:
 @end example
 
 @cindex @code{font-style}
+
+The font size is set by modifying the @code{font-size} property.  Its
+value is a number indicating the size relative to the standard size.
+Each step up is an increase of approximately 12% of the font size. Six
+steps is exactly a factor two.
+
+LilyPond has fonts in different design sizes: the music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.
+
+The @code{font-size} mechanism does not work for fonts selected
+through @code{font-name}. These may be scaled with
+@code{font-magnification}.
 
 @refcommands
 

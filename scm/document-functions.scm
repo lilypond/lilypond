@@ -2,12 +2,15 @@
  (ice-9 regex)
  )
 
+(define (dashify-underscores str)
+   (regexp-substitute/global #f "_" str 'pre "-" 'post))
+
 (define (format-c-header c-h)
   (regexp-substitute/global
    #f "," 
-   (regexp-substitute/global #f "(SCM|\\)|\\() *" c-h 'pre "" 'post)
-   'pre " " 'post)
-  )
+   (regexp-substitute/global #f "(SCM|\\)|\\() *" (dashify-underscores c-h)
+			     'pre "" 'post)
+   'pre " " 'post))
 
 (define (document-scheme-function name c-header doc-string)
   (string-append
@@ -21,8 +24,7 @@
     (lambda (key val prior)
       (cons (cons key val)  prior)
       )
-    '() (ly:get-all-function-documentation))
-   )
+    '() (ly:get-all-function-documentation)))
 
 (define (all-scheme-functions-doc)
   (let*

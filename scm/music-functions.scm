@@ -711,10 +711,28 @@ Rest can contain a list of beat groupings
   m)
 
 (define-public toplevel-music-functions
-  (list check-start-chords
+  (list
+;;   check-start-chords ; ; no longer needed with chord syntax. 
 	voicify-music
 	(lambda (x) (music-map glue-mm-rest-texts x))
 ; switch-on-debugging
 	))
+
+
+
+
+;;;;;;;;;;;;;;;;;
+;; lyrics
+
+(define (apply-durations lyric-music durations) 
+  (define (apply-duration music)
+    (if (and (not (equal? (ly:music-length music) ZERO-MOMENT))
+	     (ly:duration?  (ly:get-mus-property music 'duration)))
+	(begin
+	  (ly:set-mus-property! music 'duration (car durations))
+	  (set! durations (cdr durations))
+	  )))
+
+  (music-map apply-duration lyric-music))
 
 

@@ -536,9 +536,9 @@ ScoreContext = \translator {
 		 
 		 (Voice Stem lengths ,(map (lambda (x) (* 0.8 x)) '(3.5 3.5 3.5 4.5 5.0)))
 		 (Voice Stem stem-shorten (0.4 0))
-		 (Voice Stem font-relative-size -1)
-		 (Voice NoteHead font-relative-size -1)
-		 (Voice Dots font-relative-size -1)
+		 (Voice Stem  font-size -3)
+		 (Voice NoteHead  font-size -3)
+		 (Voice Dots  font-size -3)
 		 (Voice Stem beamed-lengths  
 		  ,(map (lambda (x) (* 0.8 x)) '(3.26)))
 		 (Voice Stem beamed-minimum-free-lengths  
@@ -554,7 +554,7 @@ ScoreContext = \translator {
 		 (Voice Beam position-callbacks (,Beam::least_squares
 						    ,Beam::check_concave
 						    ,Beam::slope_damping))
-		 (Staff Accidental font-relative-size -2)
+		 (Staff Accidental font-size -4)
 		 (Voice Slur direction -1)
 	)
 	

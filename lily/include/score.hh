@@ -16,27 +16,22 @@
 #include "parray.hh"
 #include "smobs.hh"
 
-/// the total music def of one movement
-class Score: public Input {
+class Score : public Input
+{
 public:
-  /// paper_, staves_ and commands_ form the problem definition.
   Link_array<Music_output_def> defs_;
   SCM music_;
   SCM header_;
-  Input_file_results* input_file_;
-  
-  int errorlevel_;
     
-  /// construction
   Score ();
   Score (Score const&);
-
-
-  void process ();
-  void add_output (Music_output_def *def);
   DECLARE_SMOBS (Score,foo);
 private:
-  void run_translator (Music_output_def*);
 };
 DECLARE_UNSMOB(Score,score); 
+
+
+SCM ly_run_translator (SCM, SCM);
+SCM ly_render_output (SCM, SCM, SCM);
+void default_rendering (SCM,SCM,SCM,SCM);
 #endif

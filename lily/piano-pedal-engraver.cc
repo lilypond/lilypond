@@ -144,7 +144,6 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 	  if (p->line_spanner_)
 	    {
 	      Side_position_interface::add_support (p->line_spanner_, info.grob_);
-	      
 	      add_bound_item (p->line_spanner_,info.grob_);
 	    }	  
 	  if (p->bracket_)
@@ -404,10 +403,22 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	    p->bracket_->set_grob_property ("pedal-text", p->item_->self_scm ());
 	}
 
-      p->bracket_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
-      Axis_group_interface::add_element (p->line_spanner_, p->bracket_);	      
 
-      add_bound_item (p->line_spanner_, p->bracket_->get_bound (LEFT));
+      /*
+	We do not use currentMusicalColumn for the left span-point.
+	If the column as accidentals (eg on a different stave), the
+	currentMusicalColumn is too wide, making the bracket too big.
+
+	TODO:
+
+	Hmm. What do we do when there are no notes when the spanner starts?
+
+	TODO:
+
+	what about the right span point?
+	
+       */
+      Axis_group_interface::add_element (p->line_spanner_, p->bracket_);	      
       announce_grob (p->bracket_, p->event_drul_[START]->self_scm ());
 
       if (!p->event_drul_[STOP])

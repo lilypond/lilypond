@@ -72,7 +72,7 @@ Paper_score::calc_breaking ()
   urg. clean me
  */
 void
-Paper_score::process ()
+Paper_score::process (String outname)
 {
   if (verbose_global_b)
     progress_indication (_f ("Element count %d (spanners %d) ",
@@ -95,7 +95,7 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
   
-  outputter_ = paper_->get_paper_outputter ();
+  outputter_ = paper_->get_paper_outputter (outname);
   outputter_->output_header ();
   outputter_->output_version ();
 
@@ -112,10 +112,13 @@ Paper_score::process ()
       outputter_->output_scope (header_, "lilypond");
       outputter_->write_header_fields_to_file (header_);
     }
-  
+
+#if 0
+  // todo: transport origin_string_ in header.
   outputter_->output_comment (_ ("Outputting Score, defined at: "));
   outputter_->output_comment (origin_string_);
-
+#endif
+  
   outputter_->output_scope (paper_->scope_, "lilypondpaper");
 
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);

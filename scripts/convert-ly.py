@@ -1603,13 +1603,19 @@ conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
 
 
 def conv (str):
-	if re.search ("up-to-staff", str) :
-		sys.stderr.write ("up-to-staff was removed. Use stem-end-position instead. ")
-		raise FatalConversionError ()
-	
+	def func(match):
+		return "#'font-size = #%d" % (2*string.atoi (match.group (1))) 
+		
+	str =re.sub (r"#'font-relative-size\s*=\s*#([0-9-]+)", func, str)
 	return str
 
-conversions.append (((2,0,1), conv, """dash-length -> dash-fraction"""))
+conversions.append (((2,1,1), conv, """font-relative-size -> font-size"""))
+
+def conv (str):
+	str =re.sub (r"ly:get-music-length", "ly:music-length", str)
+	return str
+
+conversions.append (((2,1,2), conv, """ly:get-music-length -> ly:music-length"""))
 
 ################################
 #	END OF CONVERSIONS	

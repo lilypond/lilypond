@@ -72,7 +72,6 @@ Text_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
 
 
-
   SCM properties = Font_interface::font_alist_chain (me);
   SCM edge_text = me->get_grob_property ("edge-text");
   Drul_array<Molecule> edge;

@@ -49,12 +49,22 @@ def notehead_calc =
 	enddef;
 
 
+% a: x diameter
+% b: y diameter
+% err_x: drift of y axis at top
+% err_y: drift of x axis at right
+def distorted_ellipse(expr a,b,err_y,err_x,super) =
+	superellipse((a,err_x),(-err_y,b),(-a,-err_x),(err_y,-b),super);
+	enddef;
+
+
+
 % draw the outer and inner ellipse.
 def notehead_draw =
 	path black,white;
 	black=distorted_ellipse(a,beta,a*err_y_a,0,superness);
 	white=distorted_ellipse(ai,bi,ai*err_y_ai,bi*err_x_bi,inner_superness);
-if test>1: %fixme
+if test > 1: %fixme
 		save x;
 		x1=-x3=a; x2=x4=0; y1=y3=0; y2=-y4=b;
 		penlabels(1,2,3,4);
@@ -145,12 +155,14 @@ fet_endchar;
 fet_beginchar("Half notehead", "1", 
 	"halfhead")
 	setup_notehead_vars;
-		% a_b:=1.49; % after text
+	% a_b:=1.49; % after text
 	a_b:=1.50; % after drawing
 	err_y_a:=0.157;
 	tilt:=34;
+
 	% superness:=0.66;
 	superness:=0.67; % jcn
+
 	% ai_a:=0.863;
 	% was 0.85
 	% set to 0.83 to avoid stem entering white part.

@@ -292,15 +292,6 @@ distill_inname (String str)
   return p;
 }
 
-String
-format_to_ext (String format)
-{
-  if (format == "tex")
-    /* .lytex change put off */
-    return "tex"; // "lytex";
-  return format;
-}
-
 void
 prepend_load_path (String dir)
 {
@@ -353,15 +344,12 @@ main_prog (void *, int, char **)
   do
     {
       String infile (arg);
-      Midi_def::reset_score_count ();
-      Paper_def::reset_score_count ();
-
       Path inpath = distill_inname (infile);
 
       /* By default, use base name of input file for output file name */
       Path outpath = inpath;
       if (inpath.to_string () != "-")
-	outpath.ext = format_to_ext (output_format_global);
+	outpath.ext = output_format_global;
 
       /* By default, write output to cwd; do not copy directory part
          of input file name */
@@ -377,11 +365,7 @@ main_prog (void *, int, char **)
       else
 	init = "init.ly";
 	
-      /* Burp: output name communication goes through _global */
-      String save_output_name_global = output_name_global;
-      output_name_global = outpath.to_string ();
-      do_one_file (init, inpath.to_string ());
-      output_name_global = save_output_name_global;
+      do_one_file (init, inpath.to_string (), outpath.to_string ());
       
       p++;
     } while ((arg  = oparser_p_static->get_next_arg ()));
@@ -437,7 +421,8 @@ main (int argc, char **argv)
 	    String s = oparser_p_static->optional_argument_str0_;
 	    Path p = split_path (s);
 	    if (s != "-" && p.ext.empty_b ())
-	      p.ext = format_to_ext (output_format_global);
+	      p.ext = output_format_global;
+
 	    output_name_global = p.to_string ();
 	  }
 	  break;
@@ -452,8 +437,11 @@ main (int argc, char **argv)
 	case 'f':
 	  if (oparser_p_static->optional_argument_str0_ == "help")
 	    {
-	      printf("See http://lilypond.org/wiki?OutputFormats for more information.\n"\
-		     "This option is for developers only.\n");
+	      printf("This option is for developers only;  Read the source code for more information\n");
+	      
+	      // actually it's not here,
+	      // but we award you special points for looking here.
+	      
 	      exit (0);
 	    }
 	  output_format_global = oparser_p_static->optional_argument_str0_;
