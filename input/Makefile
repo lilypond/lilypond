@@ -9,13 +9,13 @@ build = ./$(depth)/lily/$(outdir)/.build
 
 # generic stuff/Makefile
 #
-include ./$(depth)/make/Stuff.make
+include ./$(depth)/make/Include.make
 #
 
 # list of distribution files:
 # 
-LYFILES = $(shell ls *.ly)
-TEXFILES = $(shell ls *.tex)
+LYFILES = $(wildcard *.ly)
+TEXFILES = $(wildcard *.tex)
 DISTFILES = Makefile $(LYFILES) $(TEXFILES)
 #
 

@@ -1,36 +1,30 @@
-	* remove notename.* README.pod LilyPond.pod
-
 before 0.1
 
 	* remove spurious/outdated comments in .ly, debug .ly
-	
+
 	* pushgroup, popgroup.
 
 	* basic dynamics
 
-	* basic syntax & parser/lexer cleanup.
-
 	* decent TeX page layout
 
-	* clean split for m2m of sources.
-
-	* caching of Register_group_register hierarchies.
+	* remove unnecessary or confusing constructs from .ly
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
+PARSER
+	* Duration
+
 MAKE-STUFF
 
-	* fix increase build ( libflower rebuilt when making lilypond. )
+	* flower config: separate optiflags.
 
 	* sort out headers, see m2m
 
 	* do platform stuff: configure, header(s), targets, build (out?)
-
-	* make install.
 	
 BUGS
-	* plet bugs: scales.ly
 
 	* key at clef change.
 
@@ -40,7 +34,7 @@ BUGS
 
 	* [c8. c32 c32]
 
-	* $cis ( | ) cis$
+	* cis ( | ) cis
 
 	* Group_feature at start of music. 
 
@@ -48,13 +42,25 @@ BUGS
 
 SEVERELY LACKING:
 
+	* hairpins
+
 	* grace notes
+
+FURTHER FOR ORCHESTRAL SCORE:
+
+	* multibar rests
+
+	* barnumbers, markers
+
+	* abbreviations c4=16
 
 INPUTLANGUAGE
 
-	* read ENV for include path 
+	* read ENV for include /init path 
 
-	* lose the $ and @ ?
+	* configure pitch_byte
+
+	* special key.
 
 	* figured bass?
 
@@ -62,12 +68,20 @@ INPUTLANGUAGE
 
 	* rest name configurable
 
-	* < .. > vs. { .. } syntax? ! 
-
-	* '*' vs. '/'
+	* uniformate: \clef\violin, \clef"violin", \geometric 1.4, 
+	  \meter{ 2/4 }, etc.
 
 SMALLISH PROJECTS
 
+	* key transposition
+
+	* key { C } 
+	
+	* use dstream feature in mi2mu
+
+        * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
+
+	* use tors feature in lily
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
@@ -75,13 +89,11 @@ SMALLISH PROJECTS
 
 	* parshape
 
-	* a pure parser.
-
-	* bar numbers/repetition marks
+	* a pure parser?
 
 	* read from mmap directly: study yy_scan_buffer
 
-	* binsearch/hash for notenames, id. for identifiers
+	* binsearch/hash for identifiers
 
 	* stafftypes: voice names/ instrument names.
 
@@ -100,7 +112,8 @@ SMALLISH PROJECTS
 
 	* Brackets
 
-	* space rest.
+	* caching of Register_group_register hierarchies.
+
 
 	* use (char *) iso. String for communication between lexer and
 	parser.
@@ -109,9 +122,11 @@ SMALLISH PROJECTS
 
 	* collision Request_register.
 
-	* make install (gnu dir names)
+	* add (good guess of) width to lyric items
 
-	* LilyPond .rpm and .deb
+	* midi output: eat-up dynamic, key/meter/tempo changes, and write them neatly
+
+	* LilyPond .deb
 
 DOC
 
@@ -125,7 +140,7 @@ DOC
 
 FUTURE
 
-	* Register_container baseclass
+	* mixed  fontsizes
 
 	* put scripts on bars
 
@@ -133,7 +148,7 @@ FUTURE
 
 	* guitar chord
 
-	* better beamslope calculation
+	* better beamslope calculation:	QLP for beams?
 
 	* implement better breaking algorithm
 
@@ -143,29 +158,23 @@ FUTURE
 
 	* merge key{item} & localkey{item}?
 
-	* QLP for beams?
-
 	* revise calcideal
 
 	* eentje/tweetje
 
 	* piano staff
 
-	* abbreviations a4*8
-
 IDEAS
 
 	* integrate Register/Midi stuff
 
-	* create libmudela,  or liblily_frontend
+	* create libmudela, or liblily_frontend
 
 	* Horizontal_align_item, Vertical_align_item.
 
 	* move MIDI io to a ANSI C libmidi library.
 
 	* fold indentifiers and notenames?
-
-	* enter Requests directly
 
 	* itemcolumns: Use dummy items.
 

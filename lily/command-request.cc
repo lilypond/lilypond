@@ -25,7 +25,7 @@ Cadenza_req::Cadenza_req(bool b)
 
 
 int
-Bar_req::compare(const Bar_req &c1)const
+Bar_req::compare(Bar_req const &c1)const
 {
     return type_str_ == c1.type_str_;
 }
@@ -124,6 +124,16 @@ Measure_grouping_req::do_print() const
     }
 }
 /* *************** */
+
+void
+Key_change_req::transpose(Melodic_req const & d)const
+{
+    WARN << "don't know how to transpose a key. \n";
+    for (int i=0; i < melodic_p_arr_.size(); i++) {
+	melodic_p_arr_[i]->transpose(d);
+    }
+}
+
 void
 Key_change_req::do_print() const
 {
