@@ -776,10 +776,6 @@ for opt in options:
 		page_images_p = 1
 		if 'PNG' not in targets:
 			targets.append ('PNG')
-	elif o == '--psgz':
-		targets.append ('PS.GZ')
-		if 'PS' not in targets:
-			targets.append ('PS')
 	else:
 		unimplemented_option () # signal programming error
 

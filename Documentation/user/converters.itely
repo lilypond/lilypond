@@ -71,24 +71,25 @@ Not all language changes are handled. Only one output option can be specified.
 
 @cindex MIDI
 
-Midi2ly translates a MIDI input file to a LilyPond source file. MIDI
-(Music Instrument Digital Interface) is a standard for digital
-instruments: it specifies cabling, a serial protocol and a file format.
+Midi2ly translates a MIDI input file to a LilyPond source file.
 
-The MIDI file format is a de facto standard format for exporting music
-from other programs, so this capability may come in useful when you want
-to import files from a program that has no converter for its native
-format.
+MIDI (Music Instrument Digital Interface) is a standard for digital
+instruments: it specifies cabling, a serial protocol and a file
+format.  The MIDI file format is a de facto standard format for
+exporting music from other programs, so this capability may come in
+useful when you want to import files from a program that has no
+converter for its native format.
 
-@file{midi2ly} will convert tracks into @internalsref{Staff} and
+Midi2ly will convert tracks into @internalsref{Staff} and
 channels into @internalsref{Voice} contexts.  Relative mode is used
 for pitches, durations are only written when necessary.
 
-It is possible to record a MIDI file using a digital keyboard, and then
-convert it to @file{.ly}. However, human players are not rhythmically
-exact enough to make a MIDI to LY conversion trivial.  midi2ly tries to
-compensate for these timing errors, but is not very good at this. It is
-therefore not recommended to use midi2ly for human-generated midi files.
+It is possible to record a MIDI file using a digital keyboard, and
+then convert it to @file{.ly}. However, human players are not
+rhythmically exact enough to make a MIDI to LY conversion trivial.
+midi2ly tries to compensate for these timing errors, but is not very
+good at this. It is therefore not recommended to use midi2ly for
+human-generated midi files.
 
 Hackers who know about signal processing are invited to write a more
 robust midi2ly.  midi2ly is written in Python, using a module written in
