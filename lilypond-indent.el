@@ -339,33 +339,50 @@ slur-paren-p defaults to nil.
 		 (setq paren-regexp (concat (car paren-regexp) "\\|" (cdr paren-regexp))))
 	(setq paren-regexp (concat (mapconcat 'car (mapcar 'cdr regexp-alist) "\\|") "\\|"
 				   (mapconcat 'cdr (mapcar 'cdr regexp-alist) "\\|")))))
+    ;; match concurrent one-char opening and closing slurs
     (if (and (eq dir 1)
-	     (memq (char-after oldpos) '(?[ ?{ ?\()))
-	(forward-char 1))
+	     (not (sequencep bracket-type))
+	     (eq (char-syntax (char-after oldpos)) ?\())
+	;; anyway do not count open slur, since already level = -1
+        (progn (forward-char 1)
+	       (if (eq (following-char) 
+		       (LilyPond-matching-paren (char-after oldpos)))
+		   ;; matching char found, go after it and set level = 0
+		   (progn (forward-char 1)
+			  (setq level 0)))))
+    ;; browse the code until matching slur is found, or report mismatch
     (while (and (if (not (eq dir 1)) 
 		    (> level 0) 
 		  (< level 0))
+		;; dir tells whether to search backward or forward
 		(if (not (eq dir 1))
 		    (re-search-backward paren-regexp nil t)
 		  (re-search-forward paren-regexp nil t))
+		;; note: in case of two-char bracket only latter is compared
 		(setq match (char-before (match-end 0))))
 ;;;      (message "%d" level) (sit-for 0 300)
-      (if (not (save-excursion (goto-char (match-end 0)) 
+      (if (not (save-excursion (goto-char (match-end 0))
+			       ;; skip over strings and comments
 			       (LilyPond-inside-string-or-comment-p)))
 	  (if (memq match '(?} ?> ?] ?\)))
+	      ;; count closing brackets
 	      (progn (setq level (1+ level))
-		     ;; single '>' was not matched .. need to correct
+		     ;; slurs may be close to each other, e.g.,
+		     ;; a single '>' was not matched .. need to be corrected
 		     (if (and (eq dir 1) (eq (char-after (match-end 0)) match))
 			 (if (/= level 0)
 			     (progn
 			       (setq level (1+ level))
 			       (forward-char 1))))
 ;;;		     (message "%d %c" level match) (sit-for 0 300)
+		     ;; hmm..
 		     (if (and (= match ?>) 
 			      (looking-at ".\\s-+>\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)>"))
 			 (forward-char 1)))
+	    ;; count opening brackets
 	    (progn (setq level (1- level))
 ;;;		   (message "%d %c" level match) (sit-for 0 300)
+		   ;; hmm..
 		   (if (and (= match ?<)
 			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
@@ -373,8 +390,11 @@ slur-paren-p defaults to nil.
     (if (not (eq dir 1))
 	(progn
 	  (if (sequencep bracket-type)
+	      ;; match the latter char in two-char brackets
 	      (if (looking-at "..[][)(]") (forward-char 1)))
+	  ;; if the following char is not already a slur
 	  (if (and (not (looking-at "[)(]"))
+		   ;; match the slur which follows
 		   (looking-at ".[][><)(]")) (forward-char 1)))
       (backward-char 1))
     (if (= level 0) 
