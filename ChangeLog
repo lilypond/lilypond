@@ -1,5 +1,9 @@
 2005-03-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/accidental.cc: special bboxes for natural. 
+
+	* mf/feta-toevallig.mf: make stems heavier.
+
 	* lily/dynamic-text-spanner.cc (print): add bound padding for edge
 	texts as well.
 
