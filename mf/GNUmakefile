@@ -47,7 +47,7 @@ foe:
 
 
 ## use separate package sauter-fonts-mftraced.
-SAUTER_FONTS = ecb10
+SAUTER_FONTS = 
 
 #cmbxti8 ecbm14 ecrm12
 MORE_SAUTER_FONTS = cmbx14 cmbx17 \
