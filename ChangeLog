@@ -1,5 +1,10 @@
 2003-06-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/stem-shorten.ly: new file.
+
+	* lily/stem.cc (get_default_stem_end_position): revise stem
+	shortening code.
+
 	* input/regression/spacing-multi-tuplet.ly: move from input/test/
 
 	* input/test/{scripts,volta-start,sleur}.ly: remove

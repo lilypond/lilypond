@@ -289,32 +289,32 @@ Stem::get_default_stem_end_position (Grob*me)
   SCM s;
   Array<Real> a;
 
-  Real length_f = 3.5;
+  Real length = 3.5;
   SCM scm_len = me->get_grob_property ("length");
   if (gh_number_p (scm_len))
     {
-      length_f = gh_scm2double (scm_len);
+      length = gh_scm2double (scm_len);
     }
   else
     {
       s = me->get_grob_property ("lengths");
       if (gh_pair_p (s))
 	{
-	  length_f = 2* gh_scm2double (robust_list_ref (duration_log(me) -2, s));
+	  length = 2* gh_scm2double (robust_list_ref (duration_log(me) -2, s));
 	}
     }
 
-  Real shorten_f = 0.0;
+  Real shorten = 0.0;
   
   SCM sshorten = me->get_grob_property ("stem-shorten");
-  if (gh_pair_p (sshorten))
+  SCM scm_shorten = gh_pair_p (sshorten) ?
+    robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
+  if (gh_number_p (scm_shorten))
     {
-      shorten_f = 2* gh_scm2double (robust_list_ref ((duration_log (me) - 2) >? 0, sshorten));
+      shorten = 2* gh_scm2double (scm_shorten);
     }
 
-  /* On boundary: shorten only half */
-  if (abs (chord_start_y (me)) == 0.5)
-    shorten_f *= 0.5;
+
 
   /* URGURGURG
      'set-default-stemlen' sets direction too
@@ -325,16 +325,19 @@ Stem::get_default_stem_end_position (Grob*me)
       dir = get_default_dir (me);
       Directional_element_interface::set (me, dir);
     }
+
+  /* On boundary: shorten only half */
+  if (abs (head_positions (me)[get_direction (me)]) <= 1)
+    shorten *= 0.5;
   
   /* stems in unnatural (forced) direction should be shortened, 
     according to [Roush & Gourlay] */
-  if (chord_start_y (me)
-      && (get_direction (me) != get_default_dir (me)))
-    length_f -= shorten_f;
+  if (!chord_start_y (me)
+      || (get_direction (me) != get_default_dir (me)))
+    length -= shorten;
 
   Interval hp = head_positions (me);  
-  Real st = hp[dir] + dir * length_f;
-
+  Real st = hp[dir] + dir * length;
 
   /*
     TODO: change name  to extend-stems to staff/center/'()
@@ -417,11 +420,9 @@ Stem::position_noteheads (Grob*me)
     heads.reverse ();
 
 
-  bool invisible = invisible_b (me);
   Real thick = gh_scm2double (me->get_grob_property ("thickness"))
      * me->get_paper ()->get_var ("linethickness");
       
-
   Grob *hed = support_head (me);
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
   for (int i=0; i < heads.size (); i++)
@@ -430,7 +431,7 @@ Stem::position_noteheads (Grob*me)
 				X_AXIS);
     }
   
-  bool parity= true;		// todo: make me settable.
+  bool parity= true;
   int lastpos = int (Staff_symbol_referencer::get_position (heads[0]));
   for (int i=1; i < heads.size (); i ++)
     {
@@ -909,7 +910,6 @@ Stem::calc_stem_info (Grob *me)
   SCM shorten = beam->get_grob_property ("shorten");
   if (gh_number_p (shorten))
     ideal_y -= gh_scm2double (shorten);
-
 
   Real minimum_free =
     gh_scm2double (robust_list_ref
