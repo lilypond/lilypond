@@ -7,25 +7,66 @@
 
 # automake/wild-make should generate this file from Makefile.am.wild
 
+#ugh
+Makefile=$(wildcard Makefile)
+# are we configured here, or are we using --srcdir
+ifeq ($(Makefile),Makefile)
+
 include Makefile
 
-# Makefile.am.wild: lilypond_SOURCES = $(wildcard *.cc)
-CURRENT_lilypond_SOURCES = $(wildcard *.cc)
+biltdir=.
 
-# ugh: there is a dummy file 'wild-check' to satisfy the wild-check target
-# for non-GNU makes in Makefile(.test)
-# but we'll ignore that
-# .PHONY: wild-check
+else
+
+#ugh
+biltdir=../../build/lily
+
+make-in-build: wild-check
+	echo exec $(MAKE) -C $(biltdir)
+	exec $(MAKE) -C $(biltdir)
+
+include $(biltdir)/Makefile
+
+clean: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+dist: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+distclean: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+lexer.cc: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+parser.hh: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+parser.cc: wild-check
+	exec $(MAKE) -C $(biltdir) $@
+
+#ugh OMIT_DEPENDENCIES does not seem to work
+.deps/lexer.P:
+	exec $(MAKE) -C $(biltdir) $@
+
+.deps/parser.P:
+	exec $(MAKE) -C $(biltdir) $@
+
+endif
+
+# Makefile.am.wild: lilypond_SOURCES = $(wildcard *.cc *.ll *.yy)
+# ugh
+CURRENT_lilypond_SOURCES = $(wildcard *.cc lexer.ll parser.yy)
 
 # ugh: stupid lexer.cc/parser.cc cluttering sourcedir!
-# but it works fine in other dirs (see ../mi2mu)
-# wild-check: check-lilypond-sources
+wild-check: check-lilypond-sources
 
 check-lilypond-sources:
-ifneq ($(lilypond_SOURCES),$(CURRENT_mi2mu_SOURCES))
+ifneq ($(lilypond_SOURCES),$(filter-out $(IGNORE_WILDCARDS), $(CURRENT_lilypond_SOURCES)))
 	@echo \"$(lilypond_SOURCES)\"
 	@echo \"$(CURRENT_lilypond_SOURCES)\"
-	@echo  lilypond_SOURCES changed: NOT yet rerunning make-wild.  Please type:
-	@echo "$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am"
+	@echo  lilypond_SOURCES changed: rerunning make-wild.
+	@-rm -f Makefile.am
+	$(PERL) $(top_srcdir)/bin/wild-perl < Makefile.am.wild > Makefile.am
 endif
 

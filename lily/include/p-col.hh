@@ -36,7 +36,7 @@ public:
 
   void preprocess ();
   /// set a minimum distance
-  void add_rod (Paper_column * to, Real distance, Direction d);
+  void add_rod (Paper_column * to, Real distance);
   
   /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
