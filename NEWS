@@ -1,3 +1,6 @@
+pl 34.jcn1
+	- templates for windows
+
 pl 33.uu2
 	- some performance cleanups: junked PointerList instance, plugged some leaks.
 	- style -> fontname now in scheme.

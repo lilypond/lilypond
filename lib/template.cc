@@ -13,8 +13,11 @@
 #include "cursor.tcc"
 #include "list.tcc"
 
-#ifdef NEED_EXPLICIT_INSTANTIATION
-LIST_INSTANTIATE (void *);
+#if defined NEED_EXPLICIT_INSTANTIATION || __CYGWIN__
+// huh?
+//LIST_INSTANTIATE (void *);
+template class List<void*>;
+template class Cursor<void*>;
 #endif
 
 POINTERLIST_INSTANTIATE (Source_file);
