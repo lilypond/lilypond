@@ -74,7 +74,7 @@ show two simple examples here.  First a complete block:
 @end example
 
 @noindent
-produces this music:
+produces
 
 @lilypond
   c' d' e' f' g'2 g'
@@ -87,7 +87,7 @@ Then the short version:
 @end example
 
 @noindent
-and its music:
+produces
 
 @lilypond[11pt]{ <<c' e' g'>> }
 
@@ -113,7 +113,7 @@ music, so you can make a HTML document with embedded music.
 @section Integrating LaTeX and music
 
 
-For La@TeX{}, music is entered like this:
+For La@TeX{}, music is entered using
 
 @example
 \begin[options, go, here]@{lilypond@}
@@ -133,7 +133,7 @@ or
 @end example
 
 Running lilypond-book yields a file that can be processed with
-La@TeX{}. We show some examples here.
+La@TeX{}. We show some examples here:
 
 @example
 \begin[26pt]@{lilypond@}
@@ -142,7 +142,7 @@ La@TeX{}. We show some examples here.
 @end example
 
 @noindent
-produces this music:
+produces
 
 @lilypond[26pt]
   c' d' e' f' g'2 g'2
@@ -155,7 +155,7 @@ Then the short version:
 @end example
 
 @noindent
-and its music:
+produces
 
 @lilypond[11pt]{<<c' e' g'>>}
 
@@ -184,7 +184,7 @@ The music will be surrounded by @code{\preLilypondExample} and
 @node Integrating HTML and music
 @section Integrating HTML and music
 
-Music is entered  like this:
+Music is entered using
 
 @example
 <lilypond relative1 verbatim>
@@ -193,8 +193,8 @@ Music is entered  like this:
 @end example
 
 @noindent
-lilypond-book will produce a HTML with appropriate image tags for the
-music fragments.
+of which lilypond-book will produce a HTML with appropriate image tags for the
+music fragments:
  
 @example
 <lilypond relative1 verbatim>
@@ -212,11 +212,11 @@ Some music in <lilypond a b c/> a line of text.
 @end example
 
 A special feature not (yet) available in other output formats, is the
-@code{<ly2dvifile>} tag, for example
+@code{<ly2dvifile>} tag, for example,
 @example
   <ly2dvifile>trip.ly</ly2dvifile>
 @end example
-This runs @file{trip.ly} through ly2dvi (See also @ref{Invoking
+This runs @file{trip.ly} through ly2dvi (see also @ref{Invoking
 ly2dvi}), and substitutes a preview image in the output. The image
 links to a separate HTML file, so clicking it will take the viewer to
 a menu, with links to images, midi and printouts.
@@ -242,14 +242,14 @@ the short version of the music blocks:
 @code{ @@lilypond@{ CONTENTS @} } and @code{ \lilypond@{ CONTENTS @} }
 
 @item smallverbatim
-Like @code{verbatim}, but in a smaller font.
+works like @code{verbatim}, but in a smaller font.
 
 @item intertext="@var{text}"
-Used in conjunction with @code{verbatim} option: This puts
+is used in conjunction with @code{verbatim} option: This puts
 @var{text} between the code and the music (without indentation).
 
 @item filename="@var{filename}"
-Save the LilyPond code to @var{filename}.  By default, a hash value
+saves the LilyPond code to @var{filename}.  By default, a hash value
 of the code is used.
 
 @item 11pt
@@ -290,40 +290,40 @@ of the code is used.
 @end lilypond
 
 @item raggedright
-Produce naturally spaced lines (i.e., @code{raggedright = ##t}); this
+produces naturally spaced lines (i.e., @code{raggedright = ##t}); this
 works well for small music fragments.
 
 @item multiline
-The opposite of @code{singleline}: Justify and break lines.
+is the opposite of @code{singleline}: it justifies and breaks lines.
 
 @item linewidth=@var{size}@var{unit}
-Set linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
+sets linewidth to @var{size}, where @var{unit} = cm, mm, in, or pt.
 This option affects LilyPond output, not the text layout.
 
 @item notime
-Do not print time signature.
+prevents printing time signature.
 
 @item fragment
 @itemx nofragment
-Override @command{lilypond-book} auto detection of what type of code is
+overrides @command{lilypond-book} auto detection of what type of code is
 in the LilyPond block, voice contents or complete code.
 
 @item indent=@var{size}@var{unit}
-Set indentation of the first music system to @var{size},
+sets indentation of the first music system to @var{size},
 where @var{unit} = cm, mm, in, or pt.  This option affects LilyPond,
 not the text layout.  For single-line fragments the default is to
 use no indentation.
 
 @item noindent
-Set indentation of the first music system to zero.  This option
+sets indentation of the first music system to zero.  This option
 affects LilyPond, not the text layout.
 
 @item notexidoc
-Do not include @code{texidoc}. This is only for Texinfo output.
+prevents including @code{texidoc}. This is only for Texinfo output.
 
 In Texinfo, the music fragment is normally preceded by the
 @code{texidoc} field from the @code{\header}. The LilyPond test
-documents are composed from small @file{.ly} files in this way,
+documents are composed from small @file{.ly} files in this way:
 
 @example
   \header @{
@@ -333,15 +333,15 @@ documents are composed from small @file{.ly} files in this way,
 @end example
 
 @item quote
-Instruct @command{lilypond-book} to put La@TeX{} and Texinfo output
+instructs @command{lilypond-book} to put La@TeX{} and Texinfo output
 into a quotation block.
 
 @item printfilename
-Prints the file name before the music example.  Useful in conjunction
+prints the file name before the music example.  Useful in conjunction
 with @code{\lilypondfile}.
 
 @item relative, relative @var{N}
-Use relative octave mode.  By default, notes are specified relative
+uses relative octave mode.  By default, notes are specified relative
 central C.  The optional integer argument specifies the octave of the
 starting note, where the default @code{1} is central C.
 @end table
@@ -352,7 +352,7 @@ starting note, where the default @code{1} is central C.
 
 Running @command{lilypond-book} generates lots of small files that
 LilyPond will process.  To avoid all that garbage in the source
-directory, it is advisable to change to a temporary directory first,
+directory, it is advisable to change to a temporary directory first:
 @example
 cd out && lilypond-book ../yourfile.tex
 @end example
@@ -448,6 +448,6 @@ easier.
 
 @command{lilypond-book} processes all music fragments in one big run.
 The state of the GUILE interpreter is not reset between fragments;
-this means that changes made to global GUILE definitions, e.g., done
+this means that changes made to global GUILE definitions, e.g. done
 with @code{set!} or @code{set-cdr!}, can leak from one fragment into
 the next fragment.
