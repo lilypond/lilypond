@@ -6,7 +6,7 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* 
+	* whole head on ledger line
 
 	* piano staff
 
@@ -25,6 +25,8 @@ grep for TODO and ugh/ugr
 	* a Hands on tutorial [HKN]
 
 PROJECTS
+
+	* accidentals per Voice_group
 
 	* Convert all ref/bib stuff into BibTeX.
 

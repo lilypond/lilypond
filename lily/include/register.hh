@@ -125,7 +125,6 @@ public:
     bool try_request(Request*);
 
     void post_move_processing();
-    virtual Interpreter * interpreter_l() { return 0; }
     
     Register_group_register * daddy_reg_l_;
 

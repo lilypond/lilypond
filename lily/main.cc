@@ -17,6 +17,7 @@
 #include "path.hh"
 #include "config.hh"
 #include "source.hh"
+#include "debug.hh"
 #include "my-lily-parser.hh"
 
 Sources* source_l_g = 0;
@@ -98,14 +99,22 @@ notice()
 	"USA.\n";
 }
 
-static File_path * path_l =0;
+
+static File_path path;
 
 void
 do_one_file(String init_str, String file_str)
 {
+    if ( "" == path.find( init_str ) )
+	error ( "Can not find `" + init_str +"'");
+
+    if ( path.find( file_str ) == "" )
+	error ( "Can not find `" + file_str + "'");
+	
+    
     Sources sources;
     source_l_g = &sources; 
-    source_l_g->set_path(path_l);
+    source_l_g->set_path(&path);
     {
 	My_lily_parser parser(source_l_g);
 	parser.set_version_check(version_ignore_b_);
@@ -121,8 +130,6 @@ main (int argc, char **argv)
     debug_init();		// should be first
 
 
-    File_path path;
-    
     // must override (come before) "/usr/local/share/lilypond"!
     char const * env_l=getenv("LILYINCLUDE");
     if (env_l) {
@@ -131,8 +138,7 @@ main (int argc, char **argv)
     path.add( "" );
     path.add( String( DIR_DATADIR ) + "/init/" );
     
-    path_l = & path;
-    path_l->push(DIR_DATADIR );
+    path.push(DIR_DATADIR );
 
     Getopt_long oparser(argc, argv,theopts);
     cout << get_version_str() << endl;

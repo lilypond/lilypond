@@ -8,8 +8,8 @@
 
 #include "music-list.hh"
 #include "music-iterator.hh"
-#include "register.hh"
-#include "register-group.hh"
+#include "acceptor.hh"
+#include "request.hh"
 #include "interpreter.hh"
 #include "debug.hh"
 
@@ -27,37 +27,37 @@ Music_iterator::print() const
 {
 #ifndef NPRINT
     mtor << name() << "{";
-    mtor << "report to " << report_to_reg_l_ << " (" << report_to_reg_l_->name() << ")\n";
+    mtor << "report to " << report_to_l_ << " (" << report_to_l_->name() << ")\n";
     mtor << "next at " << next_moment() << " ";
     do_print();
     mtor << "}\n";
 #endif
 }
 
-Register_group_register * 
+Acceptor*
 Music_iterator::get_req_acceptor_l()
 {
-    assert(report_to_reg_l_);
-    if (report_to_reg_l_->interpreter_l() )
-	return report_to_reg_l_;
+    assert(report_to_l_);
+    if (report_to_l_->interpreter_l() )
+	return report_to_l_;
 
-    set_reg( report_to_reg_l_->get_default_interpreter() );
-    return report_to_reg_l_;
+    set_acceptor( report_to_l_->get_default_interpreter() );
+    return report_to_l_;
 }
 
 void
-Music_iterator::set_reg(Register_group_register*reg)
+Music_iterator::set_acceptor(Acceptor*reg)
 {    
-    if (report_to_reg_l_==reg)
+    if (report_to_l_==reg)
 	return;
 
-    if (report_to_reg_l_)
-	report_to_reg_l_->iterator_count_ --;
+    if (report_to_l_)
+	report_to_l_->iterator_count_ --;
 
-    report_to_reg_l_ = reg;
+    report_to_l_ = reg;
  
-    if (report_to_reg_l_)
-	report_to_reg_l_->iterator_count_ ++;
+    if (report_to_l_)
+	report_to_l_->iterator_count_ ++;
 }
 
 void
@@ -68,7 +68,7 @@ Music_iterator::construct_children()
 
 Music_iterator::~Music_iterator()
 {
-    set_reg(0);
+    set_acceptor(0);
 }
 
 Moment
@@ -91,7 +91,7 @@ Music_iterator::ok()const
 
 Music_iterator*
 Music_iterator::static_get_iterator_p(Music *m,
-				      Register_group_register *report_l)
+				      Acceptor *report_l)
 {
     Music_iterator * p =0;
     if (m->is_type_b( Change_reg::static_name()))
@@ -108,12 +108,16 @@ Music_iterator::static_get_iterator_p(Music *m,
      if ( m->is_type_b( Music_list::static_name())) {
 	Music_list* ml = (Music_list*) m;
 	if (ml -> type_str_ != "") {
-	    p->set_reg(report_l->find_get_reg_l(ml-> type_str_, ml->id_str_));
+	    Acceptor * a =report_l->
+		find_get_acceptor_l(ml-> type_str_, ml->id_str_);
+
+		
+	    p->set_acceptor( a);
 	    
 	} 
      } 
-     if (! p->report_to_reg_l_ )
-	 p ->set_reg(report_l);
+     if (! p->report_to_l_ )
+	 p ->set_acceptor(report_l);
     
     return p;
 }
@@ -121,7 +125,7 @@ Music_iterator::static_get_iterator_p(Music *m,
 Music_iterator*
 Music_iterator::get_iterator_p(Music*m)const
 {
-    Music_iterator*p = static_get_iterator_p(m,report_to_reg_l_);
+    Music_iterator*p = static_get_iterator_p(m,report_to_l_);
     p->daddy_iter_l_ = (Music_iterator*)this;
     p->construct_children();
     return p;
@@ -130,7 +134,7 @@ Music_iterator::get_iterator_p(Music*m)const
 Music_iterator::Music_iterator()
 {
     daddy_iter_l_ =0;
-    report_to_reg_l_ = 0;
+    report_to_l_ = 0;
     first_b_ = true;
 }
 
@@ -148,8 +152,11 @@ Chord_iterator::construct_children()
     for(iter(chord_C_->music_p_list_.top(), i); i.ok(); j++, i++) {
 	
 	Music_iterator * mi =  get_iterator_p( i.ptr());
-	set_reg(mi->report_to_reg_l_->ancestor_l( chord_C_->multi_level_i_ ));
-	children_p_list_.bottom().add( mi );
+	set_acceptor(mi->report_to_l_->ancestor_l( chord_C_->multi_level_i_ ));
+	if ( mi->ok() )
+	    children_p_list_.bottom().add( mi );
+	else 
+	    delete mi;
     }
 }
 void
@@ -221,8 +228,8 @@ Voice_iterator::construct_children()
 {
     if (ok()) {
 	iter_p_ = Music_iterator::get_iterator_p( ptr() );	
-	if (iter_p_->report_to_reg_l_->depth_i() > report_to_reg_l_->depth_i())
-	    set_reg(iter_p_->report_to_reg_l_);
+	if (iter_p_->report_to_l_->depth_i() > report_to_l_->depth_i())
+	    set_acceptor(iter_p_->report_to_l_);
     }
 }
 
@@ -292,7 +299,7 @@ void
 Request_iterator::next(Moment m)
 {
     if ( first_b_) {
-	bool gotcha = daddy_iter_l_->report_to_reg_l_->
+	bool gotcha = daddy_iter_l_->report_to_l_->
 	    interpreter_l()->interpret_request_b(req_l_);
 	if (!gotcha)
 	    req_l_->warning("Junking request: " + String(req_l_->name()));
@@ -337,13 +344,14 @@ IMPLEMENT_IS_TYPE_B1(Change_iterator,Music_iterator);
 void
 Change_iterator::next(Moment mom)
 {
+#if 0
     Register_group_register *group_l =
-	report_to_reg_l_->find_get_reg_l(change_l_->type_str_, 
+	report_to_l_->find_get_reg_l(change_l_->type_str_, 
 					 change_l_->id_str_);
 
-    report_to_reg_l_->daddy_reg_l_->remove_register_p(report_to_reg_l_);
-    group_l->add(report_to_reg_l_);
-
+    report_to_l_->daddy_reg_l_->remove_register_p(report_to_l_);
+    group_l->add(report_to_l_);
+#endif
     Music_iterator::next(mom);
 }
 
@@ -361,7 +369,7 @@ Voice_element_iterator::construct_children()
 /*
     if ( daddy_iter_l_ 
 	 && daddy_iter_l_->is_type_b(Voice_iterator::static_name() )) {
-	set_reg(daddy_iter_l_-> get_req_acceptor_l());
+	set_acceptor(daddy_iter_l_-> get_req_acceptor_l());
     } else if (daddy_iter_l_
 	       && daddy_iter_l_-> is_type_b( Chord_iterator::static_name() )) {
 

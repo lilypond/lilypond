@@ -12,7 +12,7 @@
 
 struct My_lily_lexer;
 struct Absolute_dynamic_req;
-struct Accidental;
+struct Acceptor;
 struct Atom;
 struct Bar;
 struct Bar_register;
@@ -50,6 +50,7 @@ struct Element_group;
 struct Element_group_item;
 struct Feature;
 struct General_script_def;
+struct Global_acceptor;
 struct Group_change_req;
 struct Group_feature_req;
 struct Horizontal_align_item;

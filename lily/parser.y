@@ -79,17 +79,13 @@ yylex(YYSTYPE *s,  void * v_l)
 	My_lily_parser	 *pars_l = (My_lily_parser*) v_l;
 	My_lily_lexer * lex_l = pars_l->lexer_p_;
 	
-	if (pars_l->first_b_) {
-		pars_l->first_b_ = false;
-		pars_l->do_init_file();
- 	}
-
 	lex_l->lexval_l = (void*) s;
 	return lex_l->yylex();
 }
 
 
 %}
+
 %pure_parser
 
 /* tokens which are not keywords */
@@ -189,7 +185,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <melreqvec>	pitch_list 
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
-%type <music>	init_melodic init_lyrics init_music
+
 %type <music>	Music transposed_music
 %type <musiclist> Voice Voice_body 
 %type <chord>	Chord Chord_body
@@ -220,16 +216,9 @@ mudela:	/* empty */
 	| mudela error
 	| mudela check_version { } 
 	| mudela add_notenames { }
-	| mudela init_end	{}
 	| mudela input_register_spec { add_global_input_register($2); }
 	;
 
-init_end: INIT_END ';'		{
-	    THIS->print_declarations();
-	    THIS->init_parse_b_ = false;
-	    THIS->set_debug();
-	}
-	;
 check_version:
 	VERSION STRING ';'		{
 		if (*$2 != MUDELA_VERSION) {
@@ -299,7 +288,7 @@ declaration:
 		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier '=' init_music  {
+	| declarable_identifier '=' Music  {
 		$$ = new Music_id(*$1, $3, MUSIC_IDENTIFIER);
 		delete $1;
 	}
@@ -370,7 +359,7 @@ score_body:		{
 	| SCORE_IDENTIFIER {
 		$$ = $1->score(true);
 	}
-	| score_body init_music	{
+	| score_body Music	{
 		$$->music_p_ = $2;
 	}
 	| score_body paper_block		{
@@ -443,27 +432,6 @@ midi_body: {
 
 
 
-/*
-	let the lexer switch mode.
-*/
-init_music:
-	init_melodic	{ $$ = $1; }
-	| init_lyrics	{ $$ = $1; }
-	;
-
-init_lyrics:
-	LYRIC 
-		{ THIS->lexer_p_->push_lyric_state(); } 
-	Music
-		{ $$ = $3; THIS->lexer_p_->pop_state(); }
-	;
-
-init_melodic:
-	MELODIC 
-		{ THIS->lexer_p_->push_note_state(); } 
-	Music
-		{ $$=$3; THIS->lexer_p_->pop_state(); }
-	;
 
 /*
 	MUSIC
@@ -497,6 +465,15 @@ Music:
 	| Chord			{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
 	| MUSIC_IDENTIFIER 	{ $$ = $1->music(true); }
+	| MELODIC 
+		{ THIS->lexer_p_->push_note_state(); } 
+	Music
+		{ $$=$3; THIS->lexer_p_->pop_state(); }
+
+	| LYRIC 
+		{ THIS->lexer_p_->push_lyric_state(); } 
+	Music
+		{ $$ = $3; THIS->lexer_p_->pop_state(); }
 	; 
 
 Chord:

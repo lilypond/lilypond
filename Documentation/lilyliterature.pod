@@ -133,7 +133,7 @@ ISBN 3-9000 035-96-2.
 some of the conventions and difficulties in printing music]
 
 The University of Colorado Music Engraving page.
-http://obenamots.cc.colorado.edu/cgi-bin/Musicpress/engraving.html
+http://obenamots.cc.colorado.edu/Musicpress/engraving.html
 
 More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 

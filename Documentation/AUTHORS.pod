@@ -39,7 +39,8 @@ testing, general comments.
 
 =item *
 
-Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes.
+Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes, some
+Beam and Stem code. 
 
 =back
 

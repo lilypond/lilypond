@@ -34,54 +34,28 @@ Score::Score(Score const &s)
 }
 
 void
-Score::setup_music()
+Score::run_acceptor(Global_acceptor * acc_l)
 {
-    *mlog << "\nSetting up requests..." << flush;
-    
-    Score_register * score_reg =  
-	(Score_register*)lookup_reg("Score_register")->get_group_register_p();
-
-    score_reg->set_score (this);
+    acc_l->set_score (this);
     Music_iterator * iter = Music_iterator::static_get_iterator_p(music_p_, 
-								  score_reg);
+								  acc_l);
     iter->construct_children();
 
-    while ( iter->ok() || score_reg->extra_mom_pq_.size() ) {
+    while ( iter->ok() || acc_l->moments_left_i() ) {
 	Moment w = INFTY;
 	if (iter->ok() ) {
 	    w = iter->next_moment();
 	    iter->print();
 	}
-	if (score_reg->extra_mom_pq_.size() && 
-	    score_reg->extra_mom_pq_.front() <= w)
-	    
-	    w = score_reg->extra_mom_pq_.get();
-
-	mtor << "processing moment " << w << "\n";
-
-	Score_column* c1 = new Score_column(w);
-	Score_column* c2 = new Score_column(w);
-	
-	c1->musical_b_ = false;
-	c2->musical_b_ = true;
-	
-	cols_.bottom().add(c1);
-	cols_.bottom().add(c2);
-	score_reg->set_cols(c1,c2);
-	
-	score_reg->post_move_processing();
+	acc_l->modify_next( w );
+	acc_l->prepare(w);
 	iter->next( w );
-	
-	score_reg->process_requests();
-	score_reg->do_announces();
-	score_reg->pre_move_processing();
-	score_reg->check_removal();
+	acc_l->process();
     }
     delete iter;
-    score_reg->check_removal();
-    score_reg->do_removal_processing();
-    delete score_reg;
+    acc_l->finish();
 }
+
 
 void
 Score::process()
@@ -94,14 +68,20 @@ Score::paper()
 {
     if (!paper_p_)
 	return;
-
+    
+    *mlog << "\nCreating elements ..." << flush;
+    pscore_p_ = new PScore(paper_p_);
+    
+    Score_register * score_reg =  
+	(Score_register*)lookup_reg("Score_register")->get_group_register_p();
+    run_acceptor( score_reg );
+    delete score_reg;
+    
     if( errorlevel_i_){
 	// should we? hampers debugging. 
 	warning("Errors found, /*not processing score*/");
 //	return;
     }
-    pscore_p_ = new PScore(paper_p_);
-    setup_music();
     do_cols();
     
     clean_cols();    // can't move clean_cols() farther up.
@@ -124,7 +104,6 @@ Score::paper()
 void
 Score::clean_cols()
 {
-#if 1
     for (iter_top(cols_,c); c.ok(); ) {
 	if (!c->pcol_l_->used_b()) {
 	    delete c.remove_p();
@@ -133,7 +112,6 @@ Score::clean_cols()
 	    c++;
 	}
     }
-#endif
 }
 
 PCursor<Score_column*>

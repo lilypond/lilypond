@@ -16,6 +16,7 @@ struct Key_item : Item {
     Array<int> pitch;
     Array<int> acc;
     int c_position;
+    bool default_b_;
 
     
     /* *************** */
@@ -26,7 +27,7 @@ struct Key_item : Item {
     void add(int pitch, int acc);
     void read(const Key_register&);
     void set_c_position(int);
-    void preprocess();
+    virtual void do_pre_processing();
     Molecule* brew_molecule_p()const;
 };
 

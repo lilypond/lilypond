@@ -14,7 +14,7 @@
  Tested Features: lyrics
 EndMudelaHeader
 %}
-\version "0.0.58";
+\version "0.0.60";
 
 melody = \melodic{
 	\clef\violin;
@@ -22,8 +22,8 @@ melody = \melodic{
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 
-	g g | f f | e e | d d |
-	g g | f f | e( e8. f16 | e )d |
+	g4 g | f f | e e | d d |
+	g g | f f | e( e8. f16 | e4 )d |
 
 	c c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 % :|
@@ -37,8 +37,8 @@ accompany = \melodic {
 	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
-	e' g | d g | c' g | b g | 
-	e' g | d' g | c' c'8.( d'16 | c' )b |
+	e'4 g | d g | c' g | b g | 
+	e' g | d' g | c' c'8.( d'16 | c'4 )b |
 
 	c c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 
@@ -52,78 +52,82 @@ global = \melodic {
 	}
 
 tekst = \lyric{ 
- 	Al- tijd is Kort- jak- je ziek,2
-	midden in_de week maar s'_zon- dags niet.2
-	s'_Zon- dags gaat ze naar de kerk,2
-	met een boek vol zil- ver werk.2
-	Al- tijd is Kort- jak- je ziek,2
-	midden in_de week maar s'_zon- dags niet.2
+ 	Al-4 tijd is Kort- jak- je ziek,2
+	midden4 in_de week maar s'_zon- dags niet.2
+	s'_Zon-4 dags gaat ze naar de kerk,2
+	met4 een boek vol zil- ver werk.2
+	Al-4 tijd is Kort- jak- je ziek,2
+	midden4 in_de week maar s'_zon- dags niet.2
 }
 
 hegedraagjetekst = \lyric{ 
- 	Al- tijd zuigt Bill Gates mijn piek,2
-	"\TeX" is slecht- ser dan mu- ziek.2
-	s'_Zon- dags gaat het door een raam,2
-	Weet dat ik me er- voor schaam.2
- 	Al- tijd zuigt Bill Gates mijn piek,2
-	"\TeX" is slecht- ser dan mu- ziek.2
+ 	Al-4 tijd zuigt Bill Gates mijn piek,2
+	"\TeX"4 is slecht- ser dan mu- ziek.2
+	s'_Zon-4 dags gaat het door een raam,2
+	Weet4 dat ik me er- voor schaam.2
+ 	Al-4 tijd zuigt Bill Gates mijn piek,2
+	"\TeX"4 is slecht- ser dan mu- ziek.2
 }
 
 texte = \lyric{ 
 	 
 	\textstyle "italic" ;
- 	Ah! vous dir- ai_- je ma man2
-	Ce qui cau- se mon tour- ment2
-	Pa- pa veut que je rai- sonne2
-	Comme un- e grand- e per- sonne2
-	Moi je dis que les bon- bons2
-	Val- ent mieux que la rai- son2
+ 	Ah!4 vous dir- ai_- je ma man2
+	Ce4 qui cau- se mon tour- ment2
+	Pa-4 pa veut que je rai- sonne2
+	Comme4 un- e grand- e per- sonne2
+	Moi4 je dis que les bon- bons2
+	Val-4 ent mieux que la rai- son2
 	
 }
 
 texti = \lyric{
 	
 	\textstyle "roman";
-	Twin- kle, twin- kle, lit- tle star,2
-	How I won- der what you are.2
-	Up a- bove the world so high,2
-	Like a dia- mond in the sky.2
-	Twin- kle, twin- kle, lit- tle star,2
-	How I won- der what you are!2
+	Twin-4 kle, twin- kle, lit- tle star,2
+	How4 I won- der what you are.2
+	Up4 a- bove the world so high,2
+	Like4 a dia- mond in the sky.2
+	Twin-4 kle, twin- kle, lit- tle star,2
+	How4 I won- der what you are!2
 }
 
 textii = \lyric{
-	When the bla- zing sun is gone,2
-	When he no- thing shines up- on,2
-	Then you show your lit- tle light,2
-	Twin- kle, twin- kle, all the night.2
-	Twin- kle, twin- kle, lit- tle star,2
-	How I won- der what you are!2
+	When4 the bla- zing sun is gone,2
+	When4 he no- thing shines up- on,2
+	Then4 you show your lit- tle light,2
+	Twin-4 kle, twin- kle, all the night.2
+	Twin-4 kle, twin- kle, lit- tle star,2
+	How4 I won- der what you are!2
 	
 }
 
 textiii = \lyric{
 	
-	Then the tra- veler in the dark2
-	Thanks you for your ti- ny spark;2
-	He_could not see which way to go,2
-	If you did not twin- kle so.2
-	Twin- kle, twin- kle, lit- tle star,2
-	How I won- der what you are!2
+	Then4 the tra- veler in the dark2
+	Thanks4 you for your ti- ny spark;2
+	He_could4 not see which way to go,2
+	If4 you did not twin- kle so.2
+	Twin-4 kle, twin- kle, lit- tle star,2
+	How4 I won- der what you are!2
 	
 }
 
 \score{
-	\staff{ melodicregs global melody }
-	\staff{ lyricregs global tekst hegedraagjetekst }
-	\staff{ lyricregs global texte }
-	\staff{ lyricregs global texti textii textiii }
-	\staff{ melodicregs global accompany }
+	< \multi 3;
+		\melodic <\global \melody >
+		
+		% ugh
+		\lyric < \id "Lyric" "1"; \global \tekst \hegedraagjetekst >
+%		\lyric < \id "Lyric" "2";  \global \texte >
+%		\lyric < \id "Lyric" "3"; \global \texti \textii \textiii >
+		\melodic < \global \accompany >
+	>
 	\paper{
-		\unitspace 2.5\cm
+		\unitspace 2.5\cm;
 	}
 	\midi{ 
-		\tempo 4:120 
+		\tempo 4:120 ;
 	}
 }
 

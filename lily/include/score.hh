@@ -64,8 +64,8 @@ public:
     Score(Score const&);
 
 private:
+    void run_acceptor(Global_acceptor*);
     void paper_output();
-    void setup_music();
     /// do midi stuff
     void midi();
 

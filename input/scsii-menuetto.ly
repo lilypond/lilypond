@@ -1,11 +1,11 @@
 %{MudelaHeader
 
  filename: scsii-menuetto.ly
- title:Solo Cello Suites,
- description: Suite II part V, Menuetto I
+ title: Solo Cello Suites, Suite II part V, Menuetto I
+ description: Cello suite transcribed for Viola
  composers: Johann Sebastian Bach (1685-1750)
  entered-by: JCN
- copyright: 
+ copyright: public domain
 
  Tested Features:breaking algorithm, chords, multivoice, accents
 

@@ -13,6 +13,15 @@
 #include "input-register.hh"
 #include "register-group.hh"
 
+bool
+Input_register::is_name_b(String n)
+{
+    bool b = (n == name_str_);
+    for (int i=0; !b && i < alias_str_arr_.size(); i++)
+	b = b || (alias_str_arr_[i] == n);
+    return b;
+}
+
 void
 Input_register::print() const
 {
@@ -42,16 +51,18 @@ Input_register *
 lookup_reg(String nm)
 {
     for (int i=0; i < iregs_p_arr.size(); i++)
-	if (iregs_p_arr[i]->name_str_ == nm)
+	if (iregs_p_arr[i]->is_name_b(nm))
 	    return iregs_p_arr[i];
 
     error("can't find reg `" + nm + "'");
 }
 
+
+
 Input_register *
 Input_register::recursive_find(String nm)
 {
-    if ( nm == name_str_)
+    if ( is_name_b( nm) )
 	return this;
 
     Input_register * r =0;
@@ -64,7 +75,7 @@ Input_register *
 Input_register::find_ireg_l(String nm)
 {
     for (iter(contains_ireg_p_list_.top(), i); i.ok(); i++)
-	if (i->name_str_ == nm)
+	if (i->is_name_b( nm))
 	    return i;
 
     return 0;

@@ -10,10 +10,9 @@
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
-
-
 Key_item::Key_item(int c)
 {
+    default_b_ = false;
     set_c_position(c);
 }
 
@@ -63,12 +62,22 @@ Key_item::brew_molecule_p()const
 	Molecule m(a);
 	output->add_right(m);	
     }
-    Molecule m(paper()->lookup_l()->fill(Box(
+    if ( pitch.size() ) {
+	Molecule m(paper()->lookup_l()->fill(Box(
 	Interval(0, paper()->note_width()),
 	Interval(0,0))));
-    if ( pitch.size() )
+
 	output->add_right(m);
+    }
     return output;
 }
 IMPLEMENT_STATIC_NAME(Key_item);
 IMPLEMENT_IS_TYPE_B1(Key_item,Item);
+
+void 
+Key_item::do_pre_processing()
+{
+    if (default_b_ ) {
+	empty_b_ = transparent_b_ = (break_status_i() != 1);
+    }
+}

@@ -5,77 +5,80 @@ Other-packages -- related packages
 =head1 DESCRIPTION 
 
 A (not-at-all complete) overview of other music-typesetting/notation
-packages. Feel free to add info (and mail it to me).  Partly based on
-a reflist by Miguel Filgueiras <mig@ncc.up.pt>.
+packages. Feel free to add info (and mail it to me).  
 
 =head2 Free packages (with source)
 
 G Sharp, http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 
+An alpha version notation editor for X. Source available on request.
+
 Rosegarden, http://www.math.bath.ac.uk/~masjpf/rose.html
 
-Common Music/Common Notation, ftp://ccrma-ftp.stanford.edu/pub/Lisp
+A Notation editor/Sequencer for X (win95 port underway). Outputs musictex.
 
-Vivace
+Common Notation, ftp://ccrma-ftp.stanford.edu/pub/Lisp
+
+A versatile lisp package. Part of the Common Music system. Input is in Lisp. 
+
+Vivace, http://
+
+A amateurish notation program for TclTk and X
 
 MPP, http://www.stack.nl/~hanwen/mpp-english.html
 
-Jan Nieuwenhuizen, Using TeX and the MusiXTeX macro package to
-write parts and scores of music. Department of Physics, Eindhoven
-University of Technology, 1995.
+A preprocessor to MusixTeX by Jan Nieuwenhuizen and Han-Wen Nienhuys.
+It is outdated by its successor, LilyPond.
+
+Music, http://
+
+A TROFF preprocessor by Eric Foxley
 
 MusicEase, ftp://ftp.secret.com/ad-ftp
 
 Described in Computer vol 29(6)
 
-
-
 MusE
 
-A-R Editions, Inc.
+A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
+Sun boxen.
 
 Mup, http://www.arkkra.com/
 
 A program which creates PS from a script input. Although it comes with
-C source code, it is Shareware ($29).
+C source code, it is Shareware ($ 29).
 
-PMX
+PMX, http://www.gmd.de/Misc/Music/
 
-Don Simons, PMX, A Preprocessor for MusiXTeX (Version 1.04).
-dsimons@logicon.com.
+A Preprocessor for MusiXTeX by Don Simons
 
-Musi*TeX, http://www.gmd.de/misc/music
+Musi*TeX, http://www.gmd.de/Misc/Music/
 
-Daniel Taupin, Ross Mitchell and Andreas Egler, MusixTeX: Using TeX
-to Write Polyphonic or Instrumental Music (Version T.64). Laboratoire
-de Physique des Solides, Centre Universitaire, Orsay, 1993.
+MusixTeX is a macro package for TeX to typeset polyphonic or
+instrumental music by Daniel Taupin, Ross Mitchell and Andreas
+Egler. It includes a font set with lots symbols
 
-ABC2MTeX
+ABC2MTeX, http://www.gmd.de/Misc/Music/
 
-Chris Walshaw,  ABC2MTeX --- An easy way of transcribing folk
-and traditional music. School of Maths, University of Greenwich, 1993.
+A preprocessor to MusixTeX by Chris Walshaw for way of transcribing folk
+and traditional music. 
 
 SceX
 
-Miguel Filgueiras and Jos\'e Paulo Leal, A First Formulation of
-SceX, a Music Typesetting System. Centro de Inform\'atica da
-Universidade do Porto, 1993.
+A preprocessor to MusixTeX by Miguel Filgueiras. Source in prolog
+available on request. (?)
 
-MUTEX
+MUTEX, http://www.gmd.de/Misc/Music/
 
-Fran\ccois Jalbert, MuTeX User's Guide (Version 1.1). Computer
-Science Department, University of British Columbia, 1989.
+A TeX macro package for typesetting single-staff music by Angelika
+Schofer & Andrea Steinbach. With some fonts
 
 
 =head2 Free (zero cents)
 
 Calliope, http://www.cl.cam.ac.uk/users/wfc/
 
-A NeXT package
-
-Mozart
-
-A windows package
+A NeXT package by William F Clocksin. Requires Adobe fonts
 
 =head2 Proprietary
 
@@ -86,6 +89,16 @@ Sibelius, http://www.acorn.co.uk/developers/sibelius
 Finale
 
 Score
+
+Personal Composer
+
+Mozart,
+
+A shareware windows package, 
+
+Capella
+
+Encore
 
 Musicator
 

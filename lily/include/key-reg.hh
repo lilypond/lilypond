@@ -29,6 +29,7 @@ struct Key_register : Request_register {
     Key_register();
     NAME_MEMBERS();
 private:
+    void create_key();
     
     void read_req(Key_change_req * r);
 };

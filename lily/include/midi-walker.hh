@@ -7,8 +7,35 @@
 #ifndef MIDIWALKER_HH
 #define MIDIWALKER_HH
 
-#if 0
+
 #include "lily-proto.hh"
+
+#if 0
+
+// sketch. . .
+class Midi_register {
+};
+
+class Midi_group_reg : public Midi_register, public Acceptor {
+    
+};
+
+class Midi_staff_reg : public Midi_group_reg {
+};
+
+
+class Midi_note_reg : public Midi_register {
+    
+};
+
+class Midi_voice_reg : public Midi_group_reg, public Interpreter {
+    
+};
+
+class Midi_score_reg: public Midi_group_reg, public Global_acceptor {
+};
+
+
 #include "grouping.hh"
 #include "staff-walker.hh"
 #include "pcursor.hh"
