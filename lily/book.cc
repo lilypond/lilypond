@@ -69,6 +69,7 @@ Book::process (String outname, Music_output_def *default_def, SCM header)
 	{
 	  if (paper)
 	    paper_book->papers_.push (paper);
+	  
 	  paper_book->scores_.push (systems);
 
 	  // fixme.

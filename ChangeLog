@@ -1,5 +1,10 @@
 2004-05-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/paper-def.cc (find_scaled_font): divide lookup
+	magnification by outpuscale for non-virtual fontmetrics. This
+	fixes ludicrously long font definitions for text
+	fonts. (backportme)
+
 	* lily/score-engraver.cc: remove
 	{Engraver,Score_engraver}::typeset_grob(), remove all calls.
 
@@ -10,6 +15,8 @@
 	* lily/parser.yy (book_body): Grok Composite_music and \header.
 	(markup): Push NOTES mode before score_block.
 
+	* VERSION: release 2.3.1
+	
 	* mf/feta-klef.mf: 
 	* mf/feta-bolletjes.mf: Oops.  Comment-out canvast test code.
 

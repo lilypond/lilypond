@@ -84,10 +84,18 @@ Paper_def::get_paper_outputter (String outname) const
 Font_metric*
 Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 {
+  SCM scale_var = SCM_EOL;
+  Real lookup_mag = m;
+  if (!dynamic_cast<Virtual_font_metric*> (f))
+    {
+      scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
+      lookup_mag /= ly_scm2double (scm_variable_ref (scale_var));
+    }
+  
   SCM sizes = scm_hashq_ref (scaled_fonts_, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)
     {
-      SCM met = scm_assoc (scm_make_real (m), sizes);
+      SCM met = scm_assoc (scm_make_real (lookup_mag), sizes);
       if (ly_c_pair_p (met))
 	return unsmob_metrics (ly_cdr (met));
     }
@@ -99,14 +107,18 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
   SCM val = SCM_EOL;
   if (Virtual_font_metric * vf = dynamic_cast<Virtual_font_metric*> (f))
     {
-      /* For fontify_atom (), the magnification and name must be known
-	 at the same time. That's impossible for
+      /*
+	For fontify_atom (), the magnification and name must be known
+	at the same time. That's impossible for
 
 	  Scaled (Virtual_font (Font1,Font2))
 
 	so we replace by
 
-	  Virtual_font (Scaled (Font1), Scaled (Font2))  */
+	  Virtual_font (Scaled (Font1), Scaled (Font2))
+
+      */
+      
       SCM lst = SCM_EOL;
       SCM *t = &lst;
       for (SCM s = vf->get_font_list (); ly_c_pair_p (s); s = ly_cdr (s))
@@ -122,19 +134,17 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
     }
   else
     {
-      SCM scale_var = ly_module_lookup (scope_, ly_symbol2scm ("outputscale"));
 
       if (!ly_c_symbol_p (input_enc_name))
 	{
 	  SCM var = ly_module_lookup (scope_, ly_symbol2scm ("inputencoding"));
 	  input_enc_name = scm_variable_ref (var);
 	}
-      m /= ly_scm2double (scm_variable_ref (scale_var));
       val = Modified_font_metric::make_scaled_font_metric (input_enc_name,
-							   f, m);
+							   f, lookup_mag);
     }
 
-  sizes = scm_acons (scm_make_real (m), val, sizes);
+  sizes = scm_acons (scm_make_real (lookup_mag), val, sizes);
   scm_gc_unprotect_object (val);
   scm_hashq_set_x (scaled_fonts_, f->self_scm (), sizes);
   return unsmob_metrics (val);
