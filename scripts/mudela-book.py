@@ -2,9 +2,6 @@
 # All non-english comments are NOT in swedish, they are norwegian!
 
 #  TODO:  center option (??)
-# * One empty, not two line after a mudela{floating} should be enough
-#   to get a new paragraph.
-# * clean up handling of filename of inputfile
 # * the   verbatim  option should not be visible in the created latex file
 # * what the h.. does castingalgorithm do/mean???
 # * the following fails because mudelabook doesn't care that the
@@ -13,35 +10,37 @@
 #     \begin{mudela}[fragment]
 #        c d e f g
 #     \end{mudela}}
-# log:
+# * fragments should know about margins
 
+# log:
 # 0.3:
 #   rewrite in Python.
 # 0.4:
 #   much rewritten by new author. I think the work has been split more
 #   logical between different classes.
-#   
+# 0.4.1:
+#   - cleanup
+#   - speedup, do all mudela parsing at the same time to avoid multiple
+#     guile startup that takes some seconds on my computer
 
 import os
 import string
 import re
 import getopt
 import sys
-import regsub
 
 outdir = 'out'
-program_version = '0.4'
-default_paper_size_global = 'a4'
-default_mudela_fontsize = '16pt'
-force_mudela_fontsize_b = 0
+program_version = '0.4.1'
 
-EXPERIMENTAL = 0
 out_files = []
 
 fontsize_i2a = {11:'eleven', 13:'thirteen', 16:'sixteen', 20:'twenty', 26:'twentysix'}
 fontsize_pt2i = {'11pt':11, '13pt':13, '16pt':16, '20pt':20, '26pt':26}
 
 begin_mudela_re = re.compile ('^ *\\\\begin{mudela}')
+extract_papersize_re = re.compile('\\\\documentclass[\[, ]*(\w*)paper[\w ,]*\]\{\w*\}')
+extract_fontsize1_re = re.compile('\\\\documentclass\[[^\]]*\]\{[^\}]*\}')
+extract_fontsize2_re = re.compile('[ ,\[]*([0-9]*)pt')
 begin_mudela_opts_re = re.compile('\[[^\]]*\]')
 end_mudela_re = re.compile ('^ *\\\\end{mudela}')
 section_re = re.compile ('\\\\section')
@@ -77,6 +76,8 @@ def ps_dimention(fname):
 
 class CompileStatus:
     pass
+class SomethingIsSeriouslyBroken:
+    pass
 
 def file_mtime (name):
     return os.stat (name)[8] #mod time
@@ -89,12 +90,13 @@ def need_recompile_b(infile, outfile):
     except os.error:
         return 1
 
-     
 #
 # executes os.system(command) if infile is newer than
 # outfile or outfile don't exist
 #
 def compile (command, workingdir, infile, outfile):
+    "Test if infile is newer than outfile. If so, cd to workingdir"
+    "and execute command"
     indate = file_mtime (workingdir+infile)
     try:
         outdate = file_mtime (workingdir+outfile)
@@ -112,70 +114,85 @@ def compile (command, workingdir, infile, outfile):
         if status:
             raise CompileStatus
 
-
-class PaperDef:
-    __onecolumn_linewidth = {
-        'a4':{'10pt': 345, '11pt': 360, '12pt':390},
-        'a5':{'10pt': 276, '11pt': 276, '12pt':276},
-        'b5':{'10pt': 345, '11pt': 356, '12pt':356},
-        'letter':{'10pt': 345, '11pt': 360, '12pt':390},
-        'legal':{'10pt': 345, '11pt': 360, '12pt':390},
-        'executive':{'10pt': 345, '11pt': 360, '12pt':379}
-        }
-    __twocolumn_linewidth = {
-         'a4':{'10pt': 167, '11pt': 175, '12pt':190},
-        'a5':{'10pt': 133, '11pt': 133, '12pt':133},
-        'b5':{'10pt': 167, '11pt': 173, '12pt':173},
-        'letter':{'10pt': 167, '11pt': 175, '12pt':190},
-        'legal':{'10pt': 167, '11pt': 175, '12pt':190},
-        'executive':{'10pt': 167, '11pt': 175, '12pt':184}
-        }
-    __numcolumn = 1
-    __fontsize = '11pt'
+class Properties:
     #
     # init
     #
     def __init__(self):
-        self.__papersize = default_paper_size_global
-    def set_papersize (self, p):
-        if not self.__onecolumn_linewidth.has_key(p):
-            print "warning:unsupported papersize", p, \
-                  "will use", default_paper_size_global
-            self.__papersize = default_paper_size_global
+        self.__linewidth = {
+            1: {'a4':{10: 345, 11: 360, 12: 390},
+                'a5':{10: 276, 11: 276, 12: 276},
+                'b5':{10: 345, 11: 356, 12: 356},
+                'letter':{10: 345, 11: 360, 12: 390},
+                'legal': {10: 345, 11: 360, 12: 390},
+                'executive':{10: 345, 11: 360, 12: 379}},
+            2: {'a4':{10: 167, 11: 175, 12: 190},
+                'a5':{10: 133, 11: 133, 12: 133},
+                'b5':{10: 167, 11: 173, 12: 173},
+                'letter':{10: 167, 11: 175, 12: 190},
+                'legal':{10: 167, 11: 175, 12: 190},
+                'executive':{10: 167, 11: 175, 12: 184}}}
+        # >0 --> force all mudela to this pt size
+        self.force_mudela_fontsize = 0
+        self.force_verbatim_b = 0
+        self.__data = {
+            'mudela-fontsize' : {'init': 16},
+            'papersize' : {'init': 'a4'},
+            'num-column' : {'init': 1},
+            'tex-fontsize' : {'init': 11}
+            }
+    def clear_for_new_file(self):
+        for var in self.__data.keys():
+            self.__data[var] = {'init': self.__data[var]['init']}
+    def clear_for_new_block(self):
+        for var in self.__data.keys():
+            if self.__data[var].has_key('block'):
+                del self.__data[var]['block']
+    def __get_variable(self, var):
+        if self.__data[var].has_key('block'):
+            return self.__data[var]['block']
+        elif self.__data[var].has_key('file'):
+            return self.__data[var]['file']
         else:
-            self.__papersize = p
-    def set_latex_fontsize(self, pt):
-        self.__fontsize = pt
-    def get_linewidth (self):
-        if self.__numcolumn == 1:
-            return self.__onecolumn_linewidth[self.__papersize][self.__fontsize]
-        else:
-            return self.__twocolumn_linewidth[self.__papersize][self.__fontsize]
-    def onecolumn (self):
-        self.__numcolumn = 1
-    def twocolumn (self):
-        self.__numcolumn = 2
+            return self.__data[var]['init']
+    def setPapersize(self, size, requester):
+        self.__data['papersize'][requester] = size
+    def getPapersize(self):
+        return self.__get_variable('papersize')
+    def setMudelaFontsize(self, size, requester):
+        self.__data['mudela-fontsize'][requester] = size
+    def getMudelaFontsize(self):
+        if self.force_mudela_fontsize:
+            return self.force_mudela_fontsize
+        return self.__get_variable('mudela-fontsize')
+    def setTexFontsize(self, size, requester):
+        self.__data['tex-fontsize'][requester] = size
+    def getTexFontsize(self):
+        return self.__get_variable('tex-fontsize')
+    def setNumColumn(self, num, requester):
+        self.__data['num-column'][requester] = num
+    def getNumColumn(self):
+        return self.__get_variable('num-column')
+    def getLineWidth(self):
+        return self.__linewidth[self.getNumColumn()][self.getPapersize()][self.getTexFontsize()]
 
 
 class Mudela_output:
     def __init__ (self, basename):
         self.basename = basename
-        # it's an integer!
-        self.feta_pt_size = fontsize_pt2i[default_mudela_fontsize]
         self.temp_filename = "%s/%s" %(outdir, 'mudela-temp.ly')
         self.file = open (self.temp_filename, 'w')
         # 'tex' or 'eps'
         self.graphic_type = 'tex'
         self.fragment = 0
     def write (self, line):
-        # match only if there is nothing but whitespace before \begin
+        # match only if there is nothing but whitespace before \begin HACK
         if re.search('^\s*\\\\begin{mudela}', line):
             self.scan_begin_statement(line)
             self.write_red_tape()
         else:
             self.file.write (line)
     def scan_begin_statement(self, line):
-        global force_mudela_fontsize_b;
         r  = begin_mudela_opts_re.search(line)
         if r:
             o = r.group()[1:][:-1]
@@ -192,116 +209,125 @@ class Mudela_output:
             self.fragment = 0
         for pt in fontsize_pt2i.keys():
             if pt in optlist:
-                if force_mudela_fontsize_b:
-                    self.feta_pt_size = fontsize_pt2i[default_mudela_fontsize]
-                else:
-                    self.feta_pt_size = fontsize_pt2i[pt]
+                Props.setMudelaFontsize(fontsize_pt2i[pt], 'block')
     def write_red_tape(self):
-        self.file.write ('\\include \"paper%d.ly\"\n' % self.feta_pt_size)
-        s = fontsize_i2a[self.feta_pt_size]
+        self.file.write ('\\include \"paper%d.ly\"\n' % Props.getMudelaFontsize())
+        s = fontsize_i2a[Props.getMudelaFontsize()]
         if self.fragment:
-            self.file.write("default_paper = \\paper {"
+            self.file.write("\\paper {"	# mudela  1.0.4
                             + "\\paper_%s\n linewidth = -1.\\pt;" % s
                             + "castingalgorithm = \Wordwrap; indent = 2.\cm; \n}")
-            self.file.write("\\score{\n\\notes{") #HACK
+            self.file.write("\\score{\n\\notes{")
         else:
-            self.file.write ("default_paper = \\paper {"
+            self.file.write ("\paper {"
                              + "\\paper_%s\n linewidth = %i.\\pt;" % \
-                             (s, Paper.get_linewidth()) \
+                             (s, Props.getLineWidth()) \
                              + "castingalgorithm = \Wordwrap; indent = 2.\cm;\n}")
     def close (self):
         if self.fragment:
-            self.file.write ('}\\paper { \\default_paper; } }\n')
+            self.file.write ('}\\paper { } }\n')
         self.file.close ()
 
-        inf = self.basename + '.ly'
-        outf = self.basename + '.tex'
-        if not file_exist_b (inf):
+        inf = outdir + self.basename + '.ly'
+        outf = outdir + self.basename + '.tex'
+        if not os.path.isfile(inf):
             status = 1
         else:
             status = os.system ('diff -q %s %s' % (self.temp_filename, inf))
         if status:
             os.rename (self.temp_filename, inf)
-        if EXPERIMENTAL:
-            if need_recompile_b(inf, outf):
-                print "Need recompile"
-                out_files.append((self.graphic_type, inf))
-        else:
-            compile ('lilypond  -o %s %s;'%  (self.basename, inf), '', inf, outf)
-            if self.graphic_type == 'eps':
-                bname = self.basename[string.rfind(self.basename, '/')+1:]
-                tex_name = bname+'.tex'
-                dvi_name = bname+'.dvi'
-                eps_name = bname+'.eps'
-                compile ('tex %s' % tex_name, outdir, tex_name, dvi_name)
-                compile ('dvips -E -o %s %s' % (eps_name, dvi_name), outdir, dvi_name, eps_name)
+        if need_recompile_b(inf, outf):
+            out_files.append((self.graphic_type, inf))
     def insert_me_string(self):
         "Returns a string that can be used directly in latex."
         if self.graphic_type == 'tex':
-            return '\\preMudelaExample\\input %s\n\postMudelaExample\n' % self.basename
+            return ['tex', self.basename]
         elif self.graphic_type == 'eps':
-            ps_dim = ps_dimention('%s.eps' % self.basename)
-            return '\\parbox{%ipt}{\includegraphics{%s.eps}}' % (ps_dim[0], self.basename)
+            return ['eps', self.basename]
         else:
-            print "Unsupported graphic type '%s'" % self.graphic_type
-            sys.exit(1)
+            raise SomethingIsSeriouslyBroken
 
 class Tex_output:
     def __init__ (self, name):
         self.output_fn = '%s/%s' % (outdir, name)
-        self.file = open (self.output_fn , 'w')
-    def open_mudela (self, basename):
-        self.mudela_basename = basename
+        self.__lines = []
     def open_verbatim (self):
-        self.file.write ('\\begin{verbatim}\n')
+        self.__lines.append('\\begin{verbatim}\n')
     def close_verbatim (self):
-        self.file.write ('\\end{verbatim}\n')
+        self.__lines.append('\\end{verbatim}\n')
     def write (self, s):
-        self.file.write (s)
+        self.__lines.append(s)
+    def create_graphics(self):
+        s = ''
+        g_vec = []
+        for line in self.__lines:
+            if type(line)==type([]):
+                g_vec.append(line)
+        for g in g_vec:
+            if need_recompile_b(outdir+g[1]+'.ly', outdir+g[1]+'.tex'):
+                    s = s + ' ' + g[1]+'.ly'
+        if s != '':
+            os.system('cd %s; lilypond %s' %(outdir, s))
+        for g in g_vec:
+            if g[0] == 'eps':
+                compile('tex %s' % g[1]+'.tex', outdir, g[1]+'.tex', g[1]+'.dvi')
+                compile('dvips -E -o %s %s' %(g[1]+'.eps', g[1]+'.dvi'), outdir,
+                        g[1]+'.dvi', g[1]+'.eps')
+    def write_outfile(self):
+        file = open(self.output_fn+'.latex', 'w')
+        file.write('% Created by mudela-book\n')
+        for line in self.__lines:
+            if type(line)==type([]):
+                if line[0] == 'tex':
+                    file.write('\\preMudelaExample\\input %s\n\postMudelaExample '\
+#                               % (outdir+line[1]+'.tex'))
 
+			       # TeX applies the prefix of the main source automatically.
+                               % (line[1]+'.tex'))			       
+                if line[0] == 'eps':
+                    ps_dim = ps_dimention(outdir+line[1]+'.eps')
+                    file.write('\\parbox{%ipt}{\includegraphics{%s}}\n' \
+#                               % (ps_dim[0], outdir+line[1]+'.eps'))
+                               % (ps_dim[0], line[1]+'.eps'))
+		    
+            else:
+                file.write(line)
+        file.close()
 class Tex_input:
-    def __init__ (self,name):
-        # HACK
-        print "name=", name
-        try:
-            self.infile = open (name)
-        except IOError:
-            if (name[-4:] != '.tex') and (name[-4:] != '.doc'):
-                try:
-                    name = name + '.doc'
-                    self.infile = open (name)
-                except IOError:
-                    name = name + '.tex'
-                    self.infile = open(name)
-        self.filename = name
-            
+    def __init__ (self, filename):
+        for fn in [filename, filename+'.tex', filename+'.doc']:
+            try:
+                self.infile = open (fn)
+            except:
+                continue
+            self.filename = fn
+            break
     def get_lines (self):
         lines = self.infile.readlines ()
         (retlines, retdeps) = ([],[self.filename])
         for line in lines:
-            r = input_re.search (line)
-            ri = include_re.search (line)
-            if r:
-                try:
-                    t = Tex_input (r.groups()[0])
-                    ls =t.get_lines ()
-                except IOError:
-                    # HACK should not warn about files like lilyponddefs, only
-                    # files we think is a part of the document and include
-                    # mudela that need parsing
-                    print "warning: can't find file " % r.grops()[0]
-                    ls = [[line], []]
+            r_inp = input_re.search (line)
+            r_inc = include_re.search (line)
+            # Filename rules for \input :
+            # input: no .tex ext
+            # 1. will search for file with exact that name (tex-input.my will be found)
+            # 2. will search for file with .tex ext, (tex-input.my
+            #    will find tex-input.my.tex)
+            # input: with .tex ext
+            # 1. will find exact match
+            
+            # Filename rules for \include :
+            # 1. will only find files with name given to \include + .tex ext
+            if r_inp:
+                t = Tex_input (r_inp.groups()[0])
+                ls = t.get_lines ()
                 retlines = retlines + ls[0]
                 retdeps = retdeps + ls[1]
-            elif ri:
-                try:
-                    t = Tex_input (ri.groups()[0])
-                    ls =t.get_lines ()
-                    ls[0].insert(0, '\\newpage')
-                    ls[0].append('\\newpage')
-                except IOError:
-                    print "warning: can't find include file:",  ri.groups()[0]
-                    ls = [[line], []];
+            elif r_inc:
+                t = Tex_input (r_inc.groups()[0]+'.tex')
+                ls =t.get_lines ()
+                ls[0].insert(0, '\\newpage\n')
+                ls[0].append('\\newpage\n')
                 retlines = retlines + ls[0]
                 retdeps = retdeps + ls[1]
             else:
@@ -311,9 +337,8 @@ class Tex_input:
 
 class Main_tex_input(Tex_input):
     def __init__ (self, name, outname):
-		
-        Tex_input.__init__ (self, name) # ugh
 
+        Tex_input.__init__ (self, name) # ugh
         self.outname = outname
         self.chapter = 0
         self.section = 0
@@ -333,30 +358,34 @@ class Main_tex_input(Tex_input):
             self.chapter = self.chapter + 1
 
     def gen_basename (self):
-        return '%s/%s-%d.%d.%d' % (outdir, self.outname,self.chapter,self.section,self.fine_count)
+        return '%s-%d.%d.%d' % (self.outname,self.chapter,self.section,self.fine_count)
+        #return '%s/%s-%d.%d.%d' % (outdir, self.outname,self.chapter,self.section,self.fine_count)
 
     def extract_papersize_from_documentclass(self, line):
-        pre = re.search('\\\\documentclass[\[, ]*(\w*)paper[\w ,]*\]\{\w*\}', line)
+        pre = extract_papersize_re.search(line)
         if not pre:
-            return default_paper_size_global
+            return None
         return pre.groups()[0]
     def extract_fontsize_from_documentclass(self, line):
-        if re.search('\\\\documentclass\[[^\]]*\]\{[^\}]*\}', line):
-            r = re.search('[ ,\[]*([0-9]*pt)', line)
+        if extract_fontsize1_re.search(line):
+            r = extract_fontsize2_re.search(line)
             if r:
-                return r.groups()[0]
-        return '10pt'
+                return int(r.groups()[0])
     def do_it(self):
         preMudelaDef = postMudelaDef = 0
         (lines, self.deps) = self.get_lines ()
         for line in lines:
             if documentclass_re.search (line):
-                Paper.set_papersize (self.extract_papersize_from_documentclass (line) )
-                Paper.set_latex_fontsize (self.extract_fontsize_from_documentclass (line) )
+                p = self.extract_papersize_from_documentclass (line)
+                if p:
+                    Props.setPapersize(p, 'file')
+                f = self.extract_fontsize_from_documentclass (line)
+                if f:
+                    Props.setTexFontsize (f, 'file')
             elif twocolumn_re.search (line):
-                Paper.twocolumn ()
+                Props.setNumColumn (2, 'file')
             elif onecolumn_re.search (line):
-                Paper.onecolumn ()
+                Props.setNumColumn (1, 'file')
             elif preMudelaExample_re.search (line):
                 preMudelaDef = 1
             elif postMudelaExample_re.search (line):
@@ -367,6 +396,7 @@ class Main_tex_input(Tex_input):
                 if not postMudelaDef:
                     self.mudtex.write ('\\def\\postMudelaExample{}\n')
             elif begin_mudela_re.search (line):
+                Props.clear_for_new_block()
                 if __debug__:
                     if self.mode == 'mudela':
                         raise AssertionError
@@ -377,7 +407,7 @@ class Main_tex_input(Tex_input):
                     optlist =  re.compile('[ ,]*').split(o)
                 else:
                     optlist = []
-                if 'verbatim' in optlist:
+                if ('verbatim' in optlist) or (Props.force_verbatim_b):
                     self.verbatim = 1
                     self.mudtex.open_verbatim ()
                 else:
@@ -405,25 +435,28 @@ class Main_tex_input(Tex_input):
             else:
                 self.mudtex.write (line)
                 self.set_sections(line)
+        self.mudtex.create_graphics()
+        self.mudtex.write_outfile()
         del self.mudtex
 		
 
 def help():
-    sys.stdout.write("Usage: mudela-book [options] FILE\n"
-		 + "Generate hybrid LaTeX input from Latex + mudela"
-		 + "Options:\n"
-		 + "  -h, --help             print this help\n"
-		 + "  -d, --outdir=DIR       directory to put generated files\n" 
-		 + "  -o, --outname=FILE     prefix for filenames\n"
-                 + "  --mudela-fontsize=??pt default fontsize when no parameter for \\begin{mudela}\n"
-                 + "  --force-mudela-fontsize=??pt force fontsize for all inline mudela\n"
+    sys.stdout.write("""Usage: mudela-book [options] FILE\n
+Generate hybrid LaTeX input from Latex + mudela
+Options:\n
+  -h, --help                     print this help
+  -d, --outdir=DIR               directory to put generated files
+  -o, --outname=FILE             prefix for filenames
+  --default-mudela-fontsize=??pt default fontsize for music
+  --force-mudela-fontsize=??pt   force fontsize for all inline mudela
+  --force-verbatim               make all mudela verbatim\n"""
 		     )
     sys.exit (0)
 
 
 def write_deps (fn, out,  deps):
 	out_fn = outdir + '/' + fn
-	print '\`writing \`%s\'\n\'' % out_fn
+	print '`writing `%s\'\n\'' % out_fn
 	
 	f = open (out_fn, 'w')
 	f.write ('%s: %s\n'% (outdir + '/' + out + '.dvi',
@@ -431,16 +464,18 @@ def write_deps (fn, out,  deps):
 	f.close ()
 
 def identify():
-    sys.stderr.write('*** Lokal versjon av mudela-book ***\n')
     sys.stderr.write ('This is %s version %s\n' % ('mudela-book', program_version))
 
 def main():
-    global default_mudela_fontsize, force_mudela_fontsize_b, outdir
+    global outdir
     outname = ''
     try:
         (options, files) = getopt.getopt(
-            sys.argv[1:], 'hd:o:', ['outdir=', 'outname=', 'mudela-fontsize=',
-                                    'force-mudela-fontsize=', 'help', 'dependencies'])
+            sys.argv[1:], 'hd:o:', ['outdir=', 'outname=',
+                                    'default-mudela-fontsize=',
+                                    'force-mudela-fontsize=',
+                                    'help', 'dependencies',
+                                    'force-verbatim'])
     except getopt.error, msg:
         print "error:", msg
         sys.exit(1)
@@ -450,6 +485,10 @@ def main():
 	o = opt[0]
 	a = opt[1]
 	if o == '--outname' or o == '-o':
+            if len(files) > 1:
+                #HACK
+                print "Mudela-book is confused by --outname on multiple files"
+                sys.exit(1)
             outname = a
         if o == '--outdir' or o == '-d':
             outdir = a
@@ -457,41 +496,41 @@ def main():
             help ()
 	if o == '--dependencies':
             do_deps = 1
-        if o == '--mudela-fontsize':
-            default_mudela_fontsize = a
+        if o == '--default-mudela-fontsize':
+            if not fontsize_pt2i.has_key(a):
+                print "Error: illegal fontsize:", a
+                print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
+                sys.exit()
+            Props.setMudelaFontsize(fontsize_pt2i[a], 'init')
 	if o == '--force-mudela-fontsize':
-            default_mudela_fontsize = a
-            force_mudela_fontsize_b = 1
+            if not fontsize_pt2i.has_key(a):
+                print "Error: illegal fontsize:", a
+                print " accepted fontsizes are: 11pt, 13pt, 16pt, 20pt, 26pt"
+                sys.exit()
+            Props.force_mudela_fontsize = fontsize_pt2i[a]
+        if o == '--force-verbatim':
+            Props.force_verbatim_b = 1
 
     if outdir[-1:] != '/':
         outdir = outdir + '/'
 
-    if not file_exist_b(outdir):
+    if not os.path.isdir(outdir):
         os.system('mkdir %s' % outdir)
 
-    if not fontsize_pt2i.has_key(default_mudela_fontsize):
-        print "warning: fontsize %s is not supported using 16pt" % default_mudela_fontsize
-        default_mudela_fontsize = '16pt'
-    
-    for f in files:
-        my_outname = outname
-        if not my_outname:
-            my_outname = regsub.sub ('\\(.*\\)\\.doc', '\\1', f)
-
-        my_depname = my_outname + '.dep'
-        
-        inp = Main_tex_input (f, my_outname)
+    for input_filename in files:
+        Props.clear_for_new_file()
+        if outname:
+            my_outname = outname
+        else:
+            my_outname = os.path.basename(os.path.splitext(input_filename)[0])
+        my_depname = my_outname + '.dep'        
+        inp = Main_tex_input (input_filename, my_outname)
         inp.do_it ()
+        print "LaTeX output to %s%s.latex" %(outdir, my_outname)
 
-    if do_deps:
-		write_deps (my_depname, my_outname, inp.deps)
-
-
+        if do_deps:
+            write_deps (my_depname, my_outname, inp.deps)
 
 identify()
-Paper = PaperDef()
+Props = Properties()
 main()
-if EXPERIMENTAL:
-    print "outfile:", out_files
-    for i in out_files:
-        print "skal gjøre", i
