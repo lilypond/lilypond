@@ -191,7 +191,7 @@
    "init-lilypond-parameters\n"
    "%%EndSetup\n"))
 
-(define (preamble paper load-fonts?)
+(define (write-preamble paper load-fonts? port)
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
 	   (all-font-names
@@ -225,17 +225,14 @@
 			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)
 			""))))
 		  (filter string? font-names))))
+	   pfas))
+      
 
-      (string-join pfas "\n")))
-
-  (list
-   (procset "music-drawing-routines.ps")
-   (procset "lilyponddefs.ps")
-   (if load-fonts?
-       (load-fonts paper)
-       "")
-   
-   (setup paper)))
+  (display (procset "music-drawing-routines.ps") port)
+  (display (procset "lilyponddefs.ps") port)
+  (if load-fonts?
+      (for-each (lambda (f) (display f port)) (load-fonts paper)))
+  (display (setup paper) port))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
@@ -245,14 +242,12 @@
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
-	 (page-count (length pages)))
+	 (page-count (length pages))
+	 (port (ly:outputter-port outputter)))
 
-    (for-each
-     (lambda (x)
-       (ly:outputter-dump-string outputter x))
-     (cons
-      (page-header paper page-count #t)
-      (preamble paper #t)))
+
+    (display (page-header paper page-count #t) port)
+    (write-preamble paper #t  port)
 
     (for-each
      (lambda (page)
@@ -260,8 +255,8 @@
        (dump-page outputter page page-number page-count landscape?))
      pages)
 
-    (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")
-        (ly:outputter-close outputter)
+    (display "%%Trailer\n%%EOF\n" port)
+    (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename (ly:output-formats))
 ))
 
@@ -298,24 +293,16 @@
 	   (lambda (x)
 	     (inexact->exact
 	      (round (* x scale mm-to-bigpoint))))))
+	 (port (ly:outputter-port outputter))
 	  )
+    
 
-    (for-each
-     (lambda (x)
-       (ly:outputter-dump-string outputter x))
-     (cons
-      (eps-header paper rounded-bbox #t)
-      (preamble paper #t)))
-
-
-    (ly:outputter-dump-string outputter
-			      (string-append "start-system { "
-					     "set-ps-scale-to-lily-scale "
-					     "\n"))
-
+    (display (eps-header paper rounded-bbox #t) port)
+    (write-preamble paper #t port)
+    (display "start-system { set-ps-scale-to-lily-scale \n" port)
     (ly:outputter-dump-stencil outputter dump-me)
-    (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
-        (ly:outputter-close outputter)
+    (display outputter "} stop-system\n%%Trailer\n%%EOF\n" port)
+    (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename
 			(ly:output-formats))
 ))
@@ -342,23 +329,16 @@
 	   (lambda (x)
 	     (inexact->exact
 	      (round (* x scale mm-to-bigpoint)))) bbox))
-	  
+	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox #f)))
 
-      (for-each
-       (lambda (str) (ly:outputter-dump-string outputter str))
-       (cons
-	header
-	(preamble paper #f)))
+    (display header port)
+    (write-preamble paper #f port)
+    (display "start-system { set-ps-scale-to-lily-scale \n" port)
+    (ly:outputter-dump-stencil outputter dump-me)
+    (display "} stop-system\n%%Trailer\n%%EOF\n" port)
+    (ly:outputter-close outputter)))
 
-      (ly:outputter-dump-string outputter
-				(string-append "start-system { "
-					       "set-ps-scale-to-lily-scale "
-					       "\n"))
-
-      (ly:outputter-dump-stencil outputter dump-me)
-      (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
-      (ly:outputter-close outputter)))
 
   (define (dump-infinite-page lines)
     (let*
@@ -377,25 +357,18 @@
 	   (list (car xext) (car yext)
 		 (cdr xext) (cdr yext))))
 	 (ps-bbox (map (lambda (x)
-				  (inexact->exact
-				   (round (* x scale mm-to-bigpoint))))
-				bbox))
+			 (inexact->exact
+			  (round (* x scale mm-to-bigpoint))))
+		       bbox))
 	 
+	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper ps-bbox #t)))
 
-      (for-each
-       (lambda (str) (ly:outputter-dump-string outputter str))
-       (cons
-	header
-	(preamble paper #t)))
-
-      (ly:outputter-dump-string outputter
-				(string-append "start-system { "
-					       "set-ps-scale-to-lily-scale "
-					       "\n"))
-
+      (display header port)
+      (write-preamble paper #t port)
+      (display "start-system { set-ps-scale-to-lily-scale \n" port)
       (ly:outputter-dump-stencil outputter dump-me)
-      (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
+      (display "} stop-system\n%%Trailer\n%%EOF\n" port)
       (ly:outputter-close outputter)))
 
   (define (dump-lines lines count)
@@ -428,12 +401,8 @@
 
     (display "@c eof" texi-system-port)
     (display "% eof" tex-system-port)
-
     (dump-infinite-page lines))
-
-    (postprocess-output book framework-ps-module (format "~a.eps" basename) (ly:output-formats))
-  )
-
+    (postprocess-output book framework-ps-module (format "~a.eps" basename) (ly:output-formats)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
