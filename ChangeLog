@@ -1,5 +1,8 @@
 2003-09-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/slur.scm (default-slur-extremity-rules): use equal? for
+	comparison.
+
 	* mf/feta-bolletjes.mf: make hole in half note little
 	smaller for stem attachment.
 
