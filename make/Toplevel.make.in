@@ -66,13 +66,24 @@ Makefile: make/Toplevel.make.in
 
 
 website:
+	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
-
+	tar cfz $(outdir)/htmldoc.tar.gz  `find Documentation -type d -name 'out-www' -print` out-www
 
 examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
-	tar cfz $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
+	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 
 
+
+
+local-WWW: $(outdir)/index.html
+
+$(outdir)/index.html: Documentation/$(outdir)/topweb.html NEWS
+	cp Documentation/$(outdir)/topweb.html $@
+	add-html-footer --news=NEWS $@
+
+Documentation/$(outdir)/topweb.html: 
+	make -C Documentation/ html
