@@ -1,5 +1,13 @@
 2002-10-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/ly2dvi.py: Updates.
+
+	* python/lilylib.py (setup_environment, print_environment)
+	(get_bbox, make_preview): Merge and remove from ly2dvi and
+	lilypond-book.
+
+	* scripts/lilypond-book.py: Use lilylib.  Cleanups.
+
 	* .cvsignore: Remove some cruft.
 
 	* make/lilypond-vars.make (PYTHONPATH): Add python's outdir to

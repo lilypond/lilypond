@@ -56,9 +56,7 @@ TODO:
   
 '''
 
-import __main__
 import operator
-import re
 import stat
 import string
 import traceback
@@ -90,19 +88,24 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 
 import lilylib as ly
 global _;_=ly._
+global re;re = ly.re
 
 # lilylib globals
 program_name = 'ly2dvi'
 verbose_p = 0
+pseudo_filter_p = 0
 original_dir = os.getcwd ()
 temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 keep_temp_dir_p = 0
+preview_resolution = 90
 
 ## FIXME
 ## ly2dvi: silly name?
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
 help_summary = _ ("Run LilyPond, add titles, generate printable document")
+copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
+	     'Jan Nieuwenhuizen <janneke@gnu.org')
 
 option_definitions = [
 	('', 'd', 'dependencies',
@@ -131,14 +134,15 @@ option_definitions = [
 # other globals
 preview_p = 0
 lilypond_error_p = 0
-preview_resolution = 90
-pseudo_filter_p = 0
-
 
 # Pdftex support
 pdftex_p = 0
 latex_cmd = 'latex'
 tex_extension = '.tex'
+
+# Debugging support -- do we need this?
+lilypond_cmd = 'lilypond'
+#lilypond_cmd = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
@@ -177,46 +181,6 @@ targets = ['DVI', 'LATEX', 'MIDI', 'TEX']
 track_dependencies_p = 0
 dependency_files = []
 
-environment = {}
-
-# tex needs lots of memory, more than it gets by default on Debian
-non_path_environment = {
-	'extra_mem_top' : '1000000',
-	'extra_mem_bottom' : '1000000',
-	'pool_size' : '250000',
-}
-
-def setup_environment ():
-	global environment
-
-	kpse = ly.read_pipe ('kpsexpand \$TEXMF')
-	texmf = re.sub ('[ \t\n]+$','', kpse)
-	type1_paths = ly.read_pipe ('kpsewhich -expand-path=\$T1FONTS')
-	
-	environment = {
-		# TODO: * prevent multiple addition.
-		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
-		#         as these take prevalence over $TEXMF
-		#         and thus may break tex run?
-		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
-		'GS_FONTPATH' : type1_paths,
-		'GS_LIB' : datadir + '/ps',
-		}
-	
-	# $TEXMF is special, previous value is already taken care of
-	if os.environ.has_key ('TEXMF'):
-		del os.environ['TEXMF']
- 
-	for key in environment.keys ():
-		val = environment[key]
-		if os.environ.has_key (key):
-			val = os.environ[key] + os.pathsep + val 
-		os.environ[key] = val
-
-	for key in non_path_environment.keys ():
-		val = non_path_environment[key]
-		os.environ[key] = val
-
 #what a name.
 def set_setting (dict, key, val):
 	try:
@@ -238,10 +202,6 @@ def set_setting (dict, key, val):
 		ly.warning (_ ("no such setting: `%s'") % `key`)
 		dict[key] = [val]
 
-
-def print_environment ():
-	for (k,v) in os.environ.items ():
-		sys.stderr.write ("%s=\"%s\"\n" % (k,v)) 
 
 def run_lilypond (files, dep_prefix):
 
@@ -269,9 +229,9 @@ def run_lilypond (files, dep_prefix):
 	global verbose_p
 	if verbose_p:
 		opts = opts + ' --verbose'
-		print_environment ()
+		ly.print_environment ()
 
-	cmd = 'lilypond %s %s ' % (opts, fs)
+	cmd = string.join ((lilypond_cmd,opts, fs))
 	
 	# We unset verbose, because we always want to see lily's
 	# progess on stderr
@@ -571,46 +531,6 @@ None.
 		cmd = 'ps2pdf %s.ps %s.pdf' % (outbase , outbase)
 		ly.system (cmd)
 		
-def get_bbox (filename):
-	# cut & paste 
-	####ly.system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
-	#### FIXME: 2>&1 ? --jcn
-	ly.system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox' % (filename, filename))
-
-	box = open (filename + '.bbox').read()
-	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', box)
-	gr = []
-	if m:
-		gr = map (string.atoi, m.groups ())
-	
-	return gr
-
-#
-# cut & paste from lilypond-book.
-#
-def make_preview (name, extra):
-	bbox = get_bbox (name + '.preview.ps')
-	margin = 0
-	fo = open (name + '.trans.eps' , 'w')
-	fo.write ('%d %d translate\n' % (-bbox[0]+margin, -bbox[1]+margin))
-	fo.close ()
-	
-	x = (2* margin + bbox[2] - bbox[0]) * preview_resolution / 72.
-	y = (2* margin + bbox[3] - bbox[1]) * preview_resolution / 72.
-
-	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
-	
-	cmd = cmd % (x, y, preview_resolution, name + '.trans.eps',
-		     name + '.preview.ps',name + '.png')
-	ly.system (cmd)
-
-	try:
-		status = ly.system (cmd)
-	except:
-		os.unlink (name + '.png')
-		ly.error (_ ("Removing output file"))
-		ly.exit (1)
-
 def generate_dependency_file (depfile, outname):
 	df = open (depfile, 'w')
 	df.write (outname + ':' )
@@ -719,7 +639,6 @@ for opt in options:
 		status = os.system ('lilypond -w')
 		if status:
 			ly.warranty ()
-
 		sys.exit (0)
 
 # Don't convert input files to abspath, rather prepend '.' to include
@@ -790,8 +709,8 @@ if 1:
 	if outdir != '.' and (track_dependencies_p or targets):
 		ly.mkdir_p (outdir, 0777)
 
-	setup_environment ()
 	tmpdir = ly.setup_temp ()
+	ly.setup_environment ()
 
 	# to be sure, add tmpdir *in front* of inclusion path.
 	#os.environ['TEXINPUTS'] =  tmpdir + ':' + os.environ['TEXINPUTS']
@@ -854,7 +773,7 @@ if 1:
 				traceback.print_exc ()
 
 	if 'PNG' in  targets:
-		make_preview (outbase, extra_init)
+		ly.make_preview (outbase)
 
 	if 'PDFTEX' in targets:
 		try:

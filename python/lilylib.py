@@ -13,6 +13,7 @@
 
 import __main__
 import shutil
+import string
 import sys
 import tempfile
 
@@ -42,9 +43,11 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 if __name__ == '__main__':
 	import lilylib as ly
 	global _;_=ly._
+	global re;re = ly.re
 
 	# lilylib globals
 	program_name = 'unset'
+	pseudo_filter_p = 0
 	original_dir = os.getcwd ()
 	temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
 	keep_temp_dir_p = 0
@@ -64,14 +67,16 @@ if __name__ == '__main__':
 # there are recursion limits for some patterns in Python 1.6 til 2.1. 
 # fix this by importing pre instead. Fix by Mats.
 
-# todo: should check Python version first.
-try:
-	import pre
-	re = pre
-	del pre
-except ImportError:
+if float (sys.version[0:3]) <= 2.1:
+	try:
+		import pre
+		re = pre
+		del pre
+	except ImportError:
+		import re
+else:
 	import re
-
+	
 # Attempt to fix problems with limited stack size set by Python!
 # Sets unlimited stack size. Note that the resource module only
 # is available on UNIX.
@@ -85,31 +90,29 @@ try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', localedir)
 	gettext.textdomain ('lilypond')
-	global _
 	_ = gettext.gettext
 except:
 	def _ (s):
 		return s
 underscore = _
 
-program_version = '1.6.6'
+program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.54'
+	program_version = '1.7.5'
 
 def identify (port):
 	port.write ('%s (GNU LilyPond) %s\n' % (__main__.program_name, program_version))
 
-# hmm
 def warranty ():
 	identify (sys.stdout)
 	sys.stdout.write ('\n')
 	sys.stdout.write (_ ('Copyright (c) %s by' % ' 1998--2002'))
 	sys.stdout.write ('\n')
-	sys.stdout.write ('  Han-Wen Nienhuys')
-	sys.stdout.write ('  Jan Nieuwenhuizen')
-	sys.stdout.write ('\n\n')
+	map (lambda x: sys.stdout.write ('  %s\n' % x), __main__.copyright)
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License.  It comes with NO WARRANTY."))
+	sys.stdout.write (_ ("Distributed under terms of the GNU General Public License."))
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ ("It comes with NO WARRANTY."))
 	sys.stdout.write ('\n')
 
 def progress (s):
@@ -321,3 +324,106 @@ else:
 def mkdir_p (dir, mode=0777):
 	if not os.path.isdir (dir):
 		makedirs (dir, mode)
+
+
+environment = {}
+
+# tex needs lots of memory, more than it gets by default on Debian
+non_path_environment = {
+	'extra_mem_top' : '1000000',
+	'extra_mem_bottom' : '1000000',
+	'pool_size' : '250000',
+}
+
+def setup_environment ():
+	global environment
+
+	kpse = read_pipe ('kpsexpand \$TEXMF')
+	texmf = re.sub ('[ \t\n]+$','', kpse)
+	type1_paths = read_pipe ('kpsewhich -expand-path=\$T1FONTS')
+	
+	environment = {
+		# TODO: * prevent multiple addition.
+		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
+		#         as these take prevalence over $TEXMF
+		#         and thus may break tex run?
+		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
+		'GS_FONTPATH' : type1_paths,
+		'GS_LIB' : datadir + '/ps',
+		}
+	
+	# $TEXMF is special, previous value is already taken care of
+	if os.environ.has_key ('TEXMF'):
+		del os.environ['TEXMF']
+ 
+	for key in environment.keys ():
+		val = environment[key]
+		if os.environ.has_key (key):
+			val = os.environ[key] + os.pathsep + val 
+		os.environ[key] = val
+
+	for key in non_path_environment.keys ():
+		val = non_path_environment[key]
+		os.environ[key] = val
+
+def print_environment ():
+	for (k,v) in os.environ.items ():
+		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
+
+def get_bbox (filename):
+	####system ('gs -sDEVICE=bbox -q  -sOutputFile=- -dNOPAUSE %s -c quit > %s.bbox 2>&1 ' % (filename, filename))
+	#### FIXME: 2>&1 ? --jcn
+	bbox = filename + '.bbox'
+	## -sOutputFile does not work with bbox?
+	##cmd = 'gs -sDEVICE=bbox -q -sOutputFile=%s -dNOPAUSE %s -c quit' % \
+	##      (bbox, filename)
+	cmd = 'gs -sDEVICE=bbox -q -dNOPAUSE %s -c quit 2>%s' % \
+	      (filename, bbox)
+	system (cmd)
+	box = open (bbox).read ()
+	m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)',
+		      box)
+	gr = []
+	if m:
+		gr = map (string.atoi, m.groups ())
+	
+	return gr
+
+def make_preview (name):
+	## ly2dvi/lilypond-book discrepancy
+	preview_ps = name + '.preview.ps'
+	if not os.path.isfile (preview_ps):
+		preview_ps = name + '.eps'
+	bbox = get_bbox (preview_ps)
+	print 'bbox:' + `bbox`
+	trans_ps = name + '.trans.ps'
+	png = name + '.png'
+	
+	margin = 0
+	fo = open (trans_ps, 'w')
+	fo.write ('%d %d translate\n' % (-bbox[0] + margin,
+					 -bbox[1] + margin))
+	fo.close ()
+	
+	x = (2* margin + bbox[2] - bbox[0]) \
+	    * __main__.preview_resolution / 72.0
+	y = (2* margin + bbox[3] - bbox[1]) \
+	    * __main__.preview_resolution / 72.0
+	if x == 0:
+		x = 1
+	if y == 0:
+		y = 1
+
+	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=%s -r%d -dNOPAUSE %s %s -c quit ''' % \
+	      (x, y, png, __main__.preview_resolution, trans_ps, preview_ps)
+	
+	system (cmd)
+
+	status = system (cmd)
+	signal = 0xf & status
+	exit_status = status >> 8
+	
+	if status:
+		os.unlink (png)
+		error (_ ("Removing output file"))
+		exit (1)
