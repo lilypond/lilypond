@@ -237,7 +237,9 @@ Beam::auto_knee (String gap_str, bool interstaff_b)
 
 /*
  Set stem's shorten property if unset.
- TODO: take some y-position (nearest?) into account
+ TODO:
+    take some y-position (chord/beam/nearest?) into account
+    scmify forced-fraction
  */
 void
 Beam::set_stem_shorten ()
@@ -250,12 +252,17 @@ Beam::set_stem_shorten ()
     return;
 
   int multiplicity = get_multiplicity ();
-  SCM shorten = scm_eval (gh_list (
-				   ly_symbol2scm ("beamed-stem-shorten"),
-				   gh_int2scm (multiplicity),
-				   SCM_UNDEFINED));
-  Real shorten_f = gh_scm2double (shorten) 
-    * Staff_symbol_referencer_interface (this).staff_space ();
+  // grace stems?
+  SCM shorten = ly_eval_str ("beamed-stem-shorten");
+
+  Array<Real> a;
+  scm_to_array (shorten, &a);
+  if (!a.size ())
+    return;
+
+  Staff_symbol_referencer_interface st (this);
+  Real staff_space = st.staff_space ();
+  Real shorten_f = a[multiplicity <? (a.size () - 1)] * staff_space;
 
   /* cute, but who invented this -- how to customise ? */
   if (forced_fraction < 1)
@@ -270,6 +277,7 @@ Beam::set_stem_shorten ()
 	s->set_elt_property ("shorten", gh_double2scm (shorten_f));
     }
 }
+
 /*
   Set elt properties height and y-position if not set.
   Adjust stem lengths to reach beam.

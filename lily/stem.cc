@@ -23,6 +23,7 @@
 #include "group-interface.hh"
 #include "cross-staff.hh"
 #include "staff-symbol-referencer.hh"
+#include "lily-guile.icc"
 
 
 void
@@ -214,6 +215,11 @@ Stem::get_default_dir () const
 Real
 Stem::get_default_stemlen () const
 {
+  bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
+  String type_str = grace_b ? "grace-" : "";
+  SCM s;
+  Array<Real> a;
+
   Real length_f = 0.;
   SCM scm_len = get_elt_property("length");
   if (gh_number_p (scm_len))
@@ -221,12 +227,19 @@ Stem::get_default_stemlen () const
       length_f = gh_scm2double (scm_len);
     }
   else
-    length_f = paper_l ()->get_var ("stem_length0");
+    {
+      s = ly_eval_str (type_str + "stem-length");
+      scm_to_array (s, &a);
+      // stem uses half-spaces
+      length_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
+    }
 
-  bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
-  String type_str = grace_b ? "grace_" : "";
 
-  Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten0");
+  s = ly_eval_str (type_str + "stem-shorten");
+  scm_to_array (s, &a);
+
+  // stem uses half-spaces
+  Real shorten_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG
      'set-default-stemlen' sets direction too
@@ -247,6 +260,7 @@ Stem::get_default_stemlen () const
       && (get_direction () != get_default_dir ()))
     length_f -= shorten_f;
 
+#if 0
   /*
     UGK.!
    */
@@ -254,18 +268,20 @@ Stem::get_default_stemlen () const
     length_f += 2.0;
   if (flag_i () >= 6)
     length_f += 1.0;
-
-
+#endif
   
-  Real st = head_positions()[-dir] + dir * length_f;
+  Real st_f = head_positions()[-dir] + dir * length_f;
 
   bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
-  if (!grace_b && !no_extend_b && dir * st < 0)
-    st = 0.0;
+  if (!grace_b && !no_extend_b && dir * st_f < 0)
+    st_f = 0.0;
 
-  return st;
+  return st_f;
 }
 
+/*
+  FIXME: wrong name
+ */
 int
 Stem::flag_i () const
 {
@@ -487,41 +503,46 @@ Stem::calc_stem_info () const
       beam_dir = UP;
     }
     
-  Stem_info info; 
-  Real internote_f
-     = staff_symbol_referencer_interface (this).staff_space ()/2;
+  Staff_symbol_referencer_interface st (this);
+  Real staff_space = st.staff_space ();
+  Real half_space = staff_space / 2;
   Real interbeam_f = paper_l ()->interbeam_f (beam_l ()->get_multiplicity ());
-  Real beam_f = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
-         
+  Real thick = gh_scm2double (beam_l ()->get_elt_property ("beam-thickness"));
+  int multiplicity = beam_l ()->get_multiplicity ();
+
+  Stem_info info; 
   info.idealy_f_ = chord_start_f ();
 
   // for simplicity, we calculate as if dir == UP
   info.idealy_f_ *= beam_dir;
   SCM grace_prop = get_elt_property ("grace");
-  bool grace_b = gh_boolean_p (grace_prop) && gh_scm2bool (grace_prop);
-  SCM extend_prop = get_elt_property ("no-stem-extend");
-  bool no_extend_b = gh_boolean_p (extend_prop) && gh_scm2bool (extend_prop);
 
-  int stem_max = (int)rint(paper_l ()->get_var ("stem_max"));
-  String type_str = grace_b ? "grace_" : "";
-  Real min_stem_f = paper_l ()->get_var (type_str + "minimum_stem_length"
-    + to_str (beam_l ()->get_multiplicity () <? stem_max)) * internote_f;
-  Real stem_f = paper_l ()->get_var (type_str + "stem_length"
-    + to_str (beam_l ()->get_multiplicity () <? stem_max)) * internote_f;
+  bool grace_b = gh_boolean_p (grace_prop) && gh_scm2bool (grace_prop);
+  
+  Array<Real> a;
+  SCM s;
+  String type_str = grace_b ? "grace-" : "";
+  
+  s = ly_eval_str (type_str + "beamed-stem-minimum-length");
+  scm_to_array (s, &a);
+  Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
+
+  s = ly_eval_str (type_str + "beamed-stem-length");
+  scm_to_array (s, &a);
+  Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
   if (!beam_dir || (beam_dir == get_direction ()))
     /* normal beamed stem */
     {
-      if (beam_l ()->get_multiplicity ())
+      if (multiplicity)
 	{
-	  info.idealy_f_ += beam_f
-	    + (beam_l ()->get_multiplicity () - 1) * interbeam_f;
+	  info.idealy_f_ += thick + (multiplicity - 1) * interbeam_f;
 	}
       info.miny_f_ = info.idealy_f_;
       info.maxy_f_ = INT_MAX;
 
-      info.idealy_f_ += stem_f;
-      info.miny_f_ += min_stem_f;
+      info.idealy_f_ += stem_length;
+      info.miny_f_ += minimum_length;
 
       /*
 	lowest beam of (UP) beam must never be lower than second staffline
@@ -533,33 +554,36 @@ Stem::calc_stem_info () const
 	than middle staffline, just as normal stems.
 	
       */
+      SCM extend_prop = get_elt_property ("no-stem-extend");
+      bool no_extend_b = gh_boolean_p (extend_prop)
+	&& gh_scm2bool (extend_prop);
       if (!grace_b && !no_extend_b)
 	{
-	  /* highest beam of (UP) beam must never be lower than middle staffline
-	     
+	  /* highest beam of (UP) beam must never be lower than middle
+	     staffline
 	     lowest beam of (UP) beam must never be lower than second staffline
 	   */
 	  info.miny_f_ =
 	    info.miny_f_ >? 0
-	    >? (- 2 * internote_f - beam_f
-		+ (beam_l ()->get_multiplicity () > 0) * beam_f
-		+ interbeam_f * (beam_l ()->get_multiplicity () - 1));
+	    >? (- 2 * half_space - thick
+		+ (multiplicity > 0) * thick
+		+ interbeam_f * (multiplicity - 1));
 	}
     }
   else
     /* knee */
     {
-      info.idealy_f_ -= beam_f;
+      info.idealy_f_ -= thick;
       info.maxy_f_ = info.idealy_f_;
       info.miny_f_ = -INT_MAX;
 
-      info.idealy_f_ -= stem_f;
-      info.maxy_f_ -= min_stem_f;
+      info.idealy_f_ -= stem_length;
+      info.maxy_f_ -= minimum_length;
     }
   
   info.idealy_f_ = (info.maxy_f_ <? info.idealy_f_) >? info.miny_f_;
 
-  SCM s = beam_l ()->get_elt_property ("shorten");
+  s = beam_l ()->get_elt_property ("shorten");
   if (gh_number_p (s))
     info.idealy_f_ -= gh_double2scm (s);
 

@@ -16,7 +16,7 @@
 #include "direction.hh"
 
 SCM ly_str02scm (char const*c);
-SCM ly_eval_str (char const*c);
+SCM ly_eval_str (String s);
 SCM ly_symbol2scm (char const *);
 String ly_symbol2string (SCM);
 SCM ly_set_x (String name , SCM val);

@@ -6,12 +6,6 @@
 
 ;;; All dimensions are measured in staff-spaces
 
-;; TODO
-;;  - make easily customisable from mudela
-;;  - take #forced stems into account (now done in C++)
-;;  - take y-position of chord or beam into account
-(define (stem-shorten flags) 0.5)
-(define (beamed-stem-shorten multiplicity) 0.5)
 
 
 ;; Beams should be prevented to conflict with the stafflines, 
@@ -63,3 +57,28 @@
 (define beam-vertical-position-quants beam-normal-y-quants)
 
 
+;; array index flag-2 (what a name!!), last if index>size
+;; unbeamed stems
+(define stem-length '(3.5 3.5 3.5 4.5 5.0))
+(define grace-length-factor 0.8)
+(define grace-stem-length
+  (map (lambda (x) (* grace-length-factor x)) stem-length))
+
+;; array index multiplicity, last if index>size
+;; beamed stems
+(define beamed-stem-shorten '(0.5))
+(define beamed-stem-length '(0.0 2.5 2.0 1.5))
+(define beamed-stem-minimum-length '(0.0 3.0 2.5 2.0))
+(define grace-beamed-stem-minimum-length
+  (map (lambda (x) (* grace-length-factor x)) beamed-stem-minimum-length))
+
+;;  Stems in unnatural (forced) direction should be shortened,
+;;  according to [Roush & Gourlay].  Their suggestion to knock off
+;;  a whole staffspace seems a bit drastical: we'll do half.
+
+;; TODO
+;;  - take #forced stems into account (now done in C++)?
+;;  - take y-position of chord or beam into account
+
+(define stem-shorten '(0.5))
+(define grace-stem-shorten '(0.0))

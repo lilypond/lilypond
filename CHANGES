@@ -1,4 +1,7 @@
 pl 15.jcn2
+	- moved poor man's stem arrays to scm
+	
+pl 15.jcn2
 	- beam quanting using scm lists
 
 pl 14.hwn1jcn1

@@ -29,6 +29,7 @@ array_to_scm (Array<T> arr)
 template<class T>void
 scm_to_array (SCM s, Array<T>* arr)
 {
+  arr->clear ();
   for (; gh_pair_p (s); s= gh_cdr (s))
     {
       T t;

@@ -28,10 +28,10 @@ ly_str02scm (char const*c)
 }
 
 SCM
-ly_eval_str (char const*c)
+ly_eval_str (String s)
 {
   // this all really sucks, guile should take char const* arguments!
-  return gh_eval_str ((char*)c);
+  return gh_eval_str ((char*)s.ch_C ());
 }
 
   
