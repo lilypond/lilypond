@@ -8,7 +8,6 @@
 
 #include "engraver.hh"
 #include "chord-name.hh"
-#include "chord.hh"
 #include "event.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
