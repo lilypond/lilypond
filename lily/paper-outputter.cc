@@ -60,6 +60,9 @@ Paper_outputter::~Paper_outputter ()
 }
 
 
+/*
+  TODO: move this to Scheme  
+ */
 void
 Paper_outputter::output_header ()
 {
