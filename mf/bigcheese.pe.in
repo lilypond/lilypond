@@ -9,14 +9,8 @@ SetFontNames("bigcheese20", "LilyPond", "LilyPond BigCheese 20", "20", "GNU GPL"
 
 MergeFonts("feta20.pfa");
 MergeFonts("parmesan20.pfa");
-MergeFonts("feta-nummer10.pfa");
-MergeFonts("feta-din14.pfa");
-MergeKern("feta-din14.tfm");
 
-LoadTableFromFile("LILC", "feta20.otf-table")
-
-# Hmm, how do we keep feta-din and feta-nummer mapped on ascii positions?
-# That's much more convenient for using in a text processor.  --jcn
+# load nummer/din after setting PUA.
 i = 0;
 while (i < CharCnt())
   Select(i);
@@ -36,6 +30,13 @@ PRIVATE AREA
   SetUnicodeValue(i + 0xE000, 0);
   ++i;
 endloop
+
+
+MergeFonts("feta-nummer10.pfa");
+MergeFonts("feta-din14.pfa");
+MergeKern("feta-din14.tfm");
+
+LoadTableFromFile("LILC", "feta20.otf-table")
 
 Generate("bigcheese20.otf");
 Generate("bigcheese20.cff");

@@ -98,7 +98,7 @@ INSTALLATION_OUT_FILES7=$(ENC_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: pfa_warning $(ALL_GEN_FILES)
+default: pfa_warning $(ALL_GEN_FILES) $(outdir)/bigcheese20.otf
 
 
 pfa_warning:

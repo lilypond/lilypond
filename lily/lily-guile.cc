@@ -111,7 +111,7 @@ gulp_file_to_string (String fn, bool must_exist)
 
   int n;
   char *str = gulp_file (s, &n);
-  String result (str);
+  String result ((Byte*) str, n);
   delete[] str;
   
   if (verbose_global_b)

@@ -70,7 +70,6 @@
 
    ))
 
-(display (ly:gulp-file "/home/hanwen/usr/src/lilypond/mf/out/bigcheese20.cff"))
 
 
 (define (load-fonts paper)
