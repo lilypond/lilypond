@@ -1,4 +1,4 @@
-\version "1.7.18"
+s\version "1.7.18"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -49,6 +49,18 @@ PianoStaffContext = \translator {
 	\accepts Staff
 }
 
+TabVoiceContext = \translator {
+        \type "Performer_group_performer"
+	\name "TabVoice"
+	\consists "Swallow_performer"
+}
+
+TabStaffContext = \translator {
+        \type "Performer_group_performer"
+	\name "TabStaff"
+	\accepts "TabVoice"
+}
+
 ScoreContext = \translator {
 	\type "Score_performer"
 
@@ -58,6 +70,7 @@ ScoreContext = \translator {
 	\accepts Staff
 	\accepts GrandStaff
 	\accepts PianoStaff
+	\accepts TabStaff
 	\accepts Lyrics 
 	\accepts StaffGroup
 	\accepts ChoirStaff
@@ -85,7 +98,8 @@ ScoreContext = \translator {
 	\name ChoirStaff
 	\accepts Staff
 }
-\translator { 
+
+\translator {
 	\type "Staff_performer"
 	\accepts LyricsVoice
 	\name Lyrics
@@ -117,8 +131,10 @@ ScoreContext = \translator {
 \translator { \ScoreContext }
 \translator { \StaffContext }
 \translator { \StaffContext \name RhythmicStaff }
+\translator { \TabVoiceContext }
 \translator { \VoiceContext }
 \translator { \ThreadContext }
 \translator { \PianoStaffContext }
+\translator { \TabStaffContext }
 \translator { \GrandStaffContext }
 \translator { \FiguredBassContext }
