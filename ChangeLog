@@ -1,5 +1,7 @@
 2005-01-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-beugel.mf: use design size 20 (not 15).
+
 	* mf/aybabtu.pe.in: scale brace fonts to design sizes.
 	change name to aybabtu completely
 
