@@ -5574,6 +5574,7 @@ Examples: @inputfileref{input/@/regression,tag@/-filter@/.ly}.
 
 Multiple rests are not merged if you create the score with both tagged
 sections.
+ 
 
 @node Quoting other voices
 @subsection Quoting other voices
@@ -5752,7 +5753,7 @@ the original clef should be stated once again.
 
 
 
- 
+
 
 @node Ancient notation
 @section Ancient notation
