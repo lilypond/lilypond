@@ -26,6 +26,15 @@
 	 ("fermata" .
 	  ((script-molecule . (feta . ("dfermata" . "ufermata")))
 	   (direction .  1)))
+	 ("shortfermata" .
+	  ((script-molecule . (feta . ("dshortfermata" . "ushortfermata")))
+	   (direction .  1)))
+	 ("longfermata" .
+	  ((script-molecule . (feta . ("dlongfermata" . "ulongfermata")))
+	   (direction .  1)))
+	 ("verylongfermata" .
+	  ((script-molecule . (feta . ("dverylongfermata" . "uverylongfermata")))
+	   (direction .  1)))
 	 ("stopped" .
 	  ((script-molecule . (feta . ("stopped" . "stopped")))
 	   (direction  . 1) ))
@@ -40,6 +49,10 @@
 	   (side-relative-direction . -1)))
 	 ("comma" .
 	  ((script-molecule . (feta . ("lcomma" . "rcomma")))
+	   (follow-into-staff . #t)
+	   (direction . 1)))
+	 ("varcomma" .
+	  ((script-molecule . (feta . ("lvarcomma" . "rvarcomma")))
 	   (follow-into-staff . #t)
 	   (direction . 1)))
 	 ("upbow" .
@@ -115,6 +128,9 @@
 	   (direction  . 1) ))
 	 ("coda" .
 	  ((script-molecule . (feta . ("coda" . "coda")))
+	   (direction  . 1) ))
+	 ("varcoda" .
+	  ((script-molecule . (feta . ("varcoda" . "varcoda")))
 	   (direction  . 1) )))
        default-script-alist)
       )

@@ -57,6 +57,110 @@ fet_beginchar("fermata down", "dfermata", "dfermata")
 	y_mirror_char;
 fet_endchar;
 
+def draw_short_fermata =
+	save fat_factor, thinness, dot_radius;
+	set_char_box(staff_space#, staff_space#, 0, 2.2 staff_space#);
+	dot_radius# = 8/3*stafflinethickness#;
+	define_pixels(dot_radius)
+
+	fat_factor = .11;
+	thinness = 1.5 stafflinethickness;
+
+	pickup pencircle scaled thinness;
+	rt x2 = w;
+	lft x5 = -b;
+	bot y5 = 0;
+	top y3 = h;
+	y1 = y2 = y5;
+
+	x3 = 0;
+	z1 - z4 = whatever * (charwd, -charht);
+	z4 = fat_factor [z3, z5];
+
+	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
+	draw z3 .. z5;
+
+	pickup pencircle scaled 2dot_radius;
+	x1 - 2x6 = x2;
+	bot y6 = -d;
+	drawdot z6;
+enddef;
+
+fet_beginchar("short fermata up", "ushortfermata", "ushortfermata")
+	draw_short_fermata;	
+fet_endchar;
+
+fet_beginchar("short fermata down", "dshortfermata", "dshortfermata")
+	draw_short_fermata;
+	xy_mirror_char;
+fet_endchar;
+
+def draw_long_fermata =
+	save stemthick, beamheight, dot_radius, wd;
+	define_pixels(wd, dot_radius)
+
+	wd# = 2.5 staff_space#;
+	stemthick = 1.5 stafflinethickness;
+	beamheight = 4 stafflinethickness;
+	dot_radius# = 8/3*stafflinethickness#;
+	set_char_box(wd#/2, wd#/2, 0, 3/2 staff_space#);
+
+	draw_rounded_block((-b, h-beamheight), (w, h), blot_diameter);
+	draw_rounded_block((-b, -d),(-b+stemthick, h-stemthick), stemthick);
+	addto currentpicture also currentpicture xscaled -1;
+
+	pickup pencircle scaled 2dot_radius;
+	x4 = 0;
+	bot y4 = -d;
+	drawdot z4;
+enddef;
+
+fet_beginchar("long fermata up", "ulongfermata", "ulongfermata")
+	draw_long_fermata;	
+fet_endchar;
+
+fet_beginchar("long fermata down", "dlongfermata", "dlongfermata")
+	draw_long_fermata;
+	y_mirror_char;
+fet_endchar;
+
+def draw_very_long_fermata =
+	save ibeamheight, obeamheight;
+	save ihwd, ohwd, iht, oht; % inner/outer half_width/height
+	save stemthick, dot_radius;
+	define_pixels(ihwd, ohwd, iht, oht, dot_radius)
+
+	ihwd# = 1.0 staff_space#;
+	ohwd# = 1.5 staff_space#;
+	iht# = 0.9 staff_space#;
+	oht# = 1.6 staff_space#;
+	stemthick = 1.5 stafflinethickness;
+	ibeamheight = 3 stafflinethickness;
+	obeamheight = 5 stafflinethickness;
+	dot_radius# = 8/3*stafflinethickness#;
+	set_char_box(ohwd#, ohwd#, 0, oht#);
+
+	draw_rounded_block((-ohwd, oht-obeamheight), (ohwd, oht), blot_diameter);
+	draw_rounded_block((-ohwd, 0),(-ohwd+stemthick, ohwd-stemthick), stemthick);
+	draw_rounded_block((-ihwd, iht-ibeamheight), (ihwd, iht), blot_diameter);
+	draw_rounded_block((-ihwd, 0),(-ihwd+stemthick, ihwd-stemthick), stemthick);
+	addto currentpicture also currentpicture xscaled -1;
+
+	pickup pencircle scaled 2dot_radius;
+	x4 = 0;
+	bot y4 = -d;
+	drawdot z4;
+enddef;
+
+fet_beginchar("very long fermata up", "uverylongfermata", "uverylongfermata")
+	draw_very_long_fermata;	
+fet_endchar;
+
+fet_beginchar("very long fermata down", "dverylongfermata", "dverylongfermata")
+	draw_very_long_fermata;
+	y_mirror_char;
+fet_endchar;
+
 %
 % Thumbs are used in cello music.
 % TODO : thumbs should look like the finger-font and should be placed in
@@ -708,6 +812,36 @@ fet_beginchar("Coda", "coda", "coda")
 
 fet_endchar;
 
+fet_beginchar("Varied Coda", "varcoda", "varcoda")
+	save thin, thick, codawidth, codaheight;
+	thin# = 1.2 stafflinethickness#;
+	thick# = 3.5 stafflinethickness#;
+	codawidth# = 2/3 staff_space#;
+	codaheight# = 1 staff_space#;
+	define_pixels(thin, thick, codawidth, codaheight);
+
+	set_char_box(codawidth#+thick#, codawidth#+thick#,
+		codaheight#+thick#, codaheight#+thick#);
+
+	x1 = -codawidth;
+	y1 = y2 - thin;
+	x2 = 0;
+	y2 = codaheight;
+	draw_rounded_block(z1, z2, thick);
+
+	x3 = x1;
+	y3 = -blot_diameter;
+	x4 = x1 + thick;
+	y4 = y2;
+	draw_rounded_block(z3, z4, thick);
+
+	addto currentpicture also currentpicture xscaled -1;
+	addto currentpicture also currentpicture yscaled -1;
+
+	draw_gridline((0,-h),(0,h),thin);
+	draw_gridline((-w,0),(w,0),thin);
+fet_endchar;
+
 def draw_comma = 
 	save alpha, thick, thin, ht;
 	alpha:=35;
@@ -738,6 +872,29 @@ fet_endchar;
 
 fet_beginchar("Left Comma","lcomma","lcomma");
 	draw_comma;
+	xy_mirror_char;
+fet_endchar;
+
+def draw_varcomma = 
+	save thick, thin, ht, wd, alpha;
+	alpha:=35;
+	thin# = 1.2 stafflinethickness#;
+	thick# = 3 stafflinethickness#;
+	ht# = .6 staff_space#;
+	wd# = .25 staff_space#;
+	define_pixels(thin, thick, ht, alpha);
+	set_char_box(wd#, wd#, ht#, ht#);
+	z1 = (-b, -d);
+	z2 = (w, h);
+	draw_brush(z1, thin, z2, thick);
+enddef;
+
+fet_beginchar("Right Varied Comma","rvarcomma","rvarcomma");
+	draw_varcomma;
+fet_endchar;
+
+fet_beginchar("Left Varied Comma","lvarcomma","lvarcomma");
+	draw_varcomma;
 	xy_mirror_char;
 fet_endchar;
 
