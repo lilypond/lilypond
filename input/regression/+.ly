@@ -7,7 +7,7 @@
 \header{
 texidoc =
 
-#(string-append "@section Introduction
+#(string-append "@unnumbered Introduction
 
 This document presents a feature test for
 LilyPond " (lilypond-version) ".  When the

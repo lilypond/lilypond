@@ -1,3 +1,7 @@
+2004-06-29  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/regression/+.ly: use @unnumbered section.
+
 2004-06-28  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* elisp/lilypond-mode.el (LilyPond-guile): set current module to
