@@ -496,6 +496,9 @@ ScoreContext = \translator {
 	chordNameExceptions = #ignatzekExceptions
 	chordNoteNamer = #'()
 	chordRootNamer = #note-name->markup
+
+	chordNameExceptionsFull = #fullJazzExceptions
+	chordNameExceptionsPartial = #partialJazzExceptions
 	
 	%% tablature:
 	stringOneTopmost = ##t

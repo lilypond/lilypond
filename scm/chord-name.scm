@@ -103,7 +103,9 @@ FOOBAR-MARKUP) if OMIT-ROOT.
 			(lambda (y) (memq 'text-script-event
 					  (ly:get-mus-property y 'types)))
 			elts)))
-	   (text (if (null? texts) #f (car texts))))
+	   ;;(text (if (null? texts) #f (if (= length texts) 1)
+	   ;;	     (car texts) (reverse texts))))
+	   (text (if (null? texts) #f (if omit-root (car texts) texts))))
       (cons (if omit-root (cdr normalized) normalized) text)))
 
   (define (is-req-chord? m)
@@ -143,49 +145,15 @@ FOOBAR-MARKUP) if OMIT-ROOT.
   "Return music expressions that set the chord naming style. For
 inline use in .ly file"
   
-  (define (chord-name-style-setter function exceptions)
+  (define (chord-name-style-setter function style)
     (context-spec-music
      (make-sequential-music 
       (list (make-property-set 'chordNameFunction function)
-	    (make-property-set 'chordNameExceptions exceptions)))
-     "ChordNames"
-     )
-    )
-
-  (ly:export
-   (case sym
-     ((ignatzek)
-      (chord-name-style-setter ignatzek-chord-names
-			       '()))
-     ((banter)
-      (chord-name-style-setter double-plus-new-chord->markup-banter
-       chord::exception-alist-banter))
-     
-     ((jazz)
-      (chord-name-style-setter double-plus-new-chord->markup-jazz
-       chord::exception-alist-jazz))
-     )))
-
-;; can't put this in double-plus-new-chord-name.scm, because we can't
-;; ly:load that very easily.
-(define-public (set-double-plus-new-chord-name-style style options)
-  "Return music expressions that set the chord naming style. For
-inline use in .ly file"
-  
-  (define (chord-name-style-setter function)
-    (context-spec-music
-     (make-sequential-music 
-      (list (make-property-set 'chordNameFunction function)
-
-	    ;; urg , misuse of chordNameExceptions function.
-	    (make-property-set 'chordNameExceptions options)))
+	    (make-property-set 'chordNameStyle style)))
      "ChordNames"))
 
   (ly:export
-   (case style
-     ((banter)
-      (chord-name-style-setter double-plus-new-chord->markup-banter))
-     
-     ((jazz)
-      (chord-name-style-setter double-plus-new-chord->markup-jazz)))))
-
+   (case sym
+     ((ignatzek) (chord-name-style-setter ignatzek-chord-names))
+     ((banter) (chord-name-style-setter double-plus-new-chord->markup 'banter))
+     ((jazz) (chord-name-style-setter double-plus-new-chord->markup 'jazz)))))
