@@ -116,7 +116,7 @@ Paper_def::interline_f() const
 Real
 Paper_def::rule_thickness() const
 {
-  return get_var ("rule_thickness");
+  return get_var ("rulethickness");
 }
 
 Real
@@ -164,9 +164,9 @@ String
 Paper_def::TeX_output_settings_str () const
 {
   String s("\n ");
-  s +=  lookup_p_->texsetting + "%(Tex id)\n";
   for (Assoc_iter<String,Real> i (*real_vars_p_); i.ok(); i++)
     s += String ("\\def\\mudelapaper") + i.key () + "{" + i.val () + "}\n";
+  s +=  lookup_p_->texsetting + "%(Tex id)\n";
   return s;
 }
 

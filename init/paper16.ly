@@ -13,8 +13,8 @@ paper sizes.
 %}
 paper_sixteen = \paper {
 	linewidth = 15.5 \cm;
-	rule_thickness = 0.4\pt;
-	bar_size = 16.0 \pt;
+	rulethickness = 0.4\pt;
+	barsize = 16.0 \pt;
 	interline = 4.\pt;
 	notewidth = 5.93\pt; % ugh, see table16 for sizes
 	wholewidth = 8.64\pt;

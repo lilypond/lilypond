@@ -127,7 +127,6 @@ Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
   assert (idx < 256);
   f+=String ("{") + String (idx) + "}";
 
-
   s.tex_ = f;
 
   return s;
@@ -143,12 +142,28 @@ Lookup::ps_slur (Real dy , Real dx, Real dir) const
     + String_convert::double_str (dir) +
     " draw_slur}";
 
-  String mf = "\\embeddedmf{\n";
+  /*
+   slurs are rarely wider than 100pt: 
+   precision of 3 yields maximum (slur spanning page)
+   error of: 1%% * 6*72pt === 0.4pt = 0.14 mm
+   */
+  String dx_str = String_convert::precision_str (dx, 4);
+  String dy_str = String_convert::precision_str (dy, 3);
+  String dir_str = String_convert::int_str ((int)dir);
+  String name = "feta-sleur-" + dx_str + "-" + dy_str + "-" + dir_str;
+  int i = name.index_i ('.');
+  while (i != -1)
+    {
+      *(name.ch_l () + i) = 'x';
+      i = name.index_i ('.');
+    }
+
+  String mf = "\\embeddedmf{" + name + "}{\n";
+  mf += "staffsize\\#:=" 
+    + String_convert::int_str ((int)paper_l_->get_var ("barsize"), "%d")
+    + "pt\\#;\n";
   mf += "input feta-sleur;\n";
-  mf += "draw_slur((0,0),";
-  mf += "(" + String_convert::double_str (dx) + "," 
-    + String_convert::double_str (dy) + "),";
-  mf += String_convert::double_str (dir) + ");\n";
+  mf += "drawslur(" + dx_str + "," + dy_str + "," + dir_str + ");\n";
   mf += "end.\n";
   mf += "}\n";
 
