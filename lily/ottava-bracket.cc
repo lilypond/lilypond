@@ -146,7 +146,12 @@ Ottava_bracket::brew_molecule (SCM smob)
        |
        |
        
-   */
+
+    Just a small amount, yes.  In tight situations, it is even
+    possible to center the `8' directly below the note, dropping the
+    ottava line completely...
+
+  */
   
   b = Molecule (Box (b.extent (X_AXIS),
 		     Interval (0.1,0.1)),

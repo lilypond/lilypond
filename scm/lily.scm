@@ -24,7 +24,7 @@
     (begin
       (debug-enable 'debug)
       (debug-enable 'backtrace)
-      (read-enable 'positions)))
+      (read-enable 'positions) ))
 
 
 (define-public (line-column-location line col file)
@@ -296,6 +296,9 @@ L1 is copied, L2 not.
       0
       (if (< x 0) -1 1)))
 
+(define-public (symbol<? l r)
+  (string<? (symbol->string l) (symbol->string r)))
+
 (define-public (!= l r)
   (not (= l r)))
 
@@ -380,6 +383,7 @@ L1 is copied, L2 not.
        "define-grob-interfaces.scm"
 
        "paper.scm"
+       "bla.scm"
        ))
 
 

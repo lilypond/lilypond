@@ -451,8 +451,7 @@ Stem::position_noteheads (Grob*me)
     heads.reverse ();
 
 
-  Real thick = robust_scm2double (me->get_grob_property ("thickness"),1)
-     * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real thick = thickness (me);
       
   Grob *hed = support_head (me);
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
@@ -683,14 +682,17 @@ Stem::dim_callback (SCM e, SCM ax)
   else
     {
       r = flag (me).extent (X_AXIS)
-	+
-	 gh_scm2double (me->get_grob_property ("thickness"))
-	* me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"))/2;
+	+ thickness (me)/2;
     }
   return ly_interval2scm (r);
 }
  
-
+Real
+Stem::thickness (Grob* me)
+{
+  return gh_scm2double (me->get_grob_property ("thickness"))
+    * Staff_symbol_referencer::line_thickness (me);
+}
 
 MAKE_SCHEME_CALLBACK (Stem,brew_molecule,1);
 
@@ -700,11 +702,9 @@ Stem::brew_molecule (SCM smob)
   Grob*me = unsmob_grob (smob);
   Molecule mol;
   Direction d = get_direction (me);
-  
-  
      
   /*
-    TODO: make  the stem start a direction ?
+    TODO: make the stem start a direction ?
 
     This is required to avoid stems passing in tablature chords...
   */
@@ -715,9 +715,7 @@ Stem::brew_molecule (SCM smob)
     return SCM_EOL;
 
   if (invisible_b (me))
-    {
-      return SCM_EOL;
-    }
+    return SCM_EOL;
   
   Real y1 = Staff_symbol_referencer::get_position (lh);
   Real y2 = stem_end_position (me);
@@ -742,8 +740,7 @@ Stem::brew_molecule (SCM smob)
 
   
   // URG
-  Real stem_width = robust_scm2double (me->get_grob_property ("thickness"), 1)
-    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real stem_width = thickness (me);
   Real blot = 
 	me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
   
@@ -805,8 +802,7 @@ Stem::off_callback (SCM element_smob, SCM)
       if (attach)
 	{
 	  Real rule_thick
-	    = robust_scm2double (me->get_grob_property ("thickness"), 1)
-	    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+	    = thickness (me);
 	  
 	  r += - d * rule_thick * 0.5;
 	}

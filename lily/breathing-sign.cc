@@ -45,10 +45,9 @@ Breathing_sign::divisio_minima (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM lt =  me->get_grob_property ("thickness");
-  if (gh_number_p (lt))
-    thickness *= gh_scm2double (lt);
+
+  Real thickness = Staff_symbol_referencer::line_thickness (me);
+  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
@@ -79,10 +78,9 @@ Breathing_sign::divisio_maior (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM lt =  me->get_grob_property ("thickness");
-  if (gh_number_p (lt))
-    thickness *= gh_scm2double (lt);
+  Real thickness = Staff_symbol_referencer::line_thickness (me);
+  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
@@ -120,10 +118,9 @@ Breathing_sign::divisio_maxima (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM lt =  me->get_grob_property ("thickness");
-  if (gh_number_p (lt))
-    thickness *= gh_scm2double (lt);
+  Real thickness = Staff_symbol_referencer::line_thickness (me);
+  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
@@ -151,10 +148,9 @@ Breathing_sign::finalis (SCM smob)
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real staff_size;
-  Real thickness = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM lt =  me->get_grob_property ("thickness");
-  if (gh_number_p (lt))
-    thickness *= gh_scm2double (lt);
+  Real thickness = Staff_symbol_referencer::line_thickness (me);
+  thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
+
   if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;

@@ -37,6 +37,9 @@ Engraver::announce_grob (Grob* e, SCM cause)
   i.grob_ = e;
   if (!i.origin_trans_)
     i.origin_trans_ = this;
+
+
+
   get_daddy_grav ()->announce_grob (i);
 }
 

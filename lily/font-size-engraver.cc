@@ -25,23 +25,25 @@ Font_size_engraver::Font_size_engraver ()
 
 }
 
-/*
-  TODO: use fontSize = NUMBER as a scaling constant: find the closest
-  integer design size, and use magnification to do the fractional bit.
-*/
 void
 Font_size_engraver::acknowledge_grob (Grob_info gi)
 {
   SCM sz = get_property ("fontSize");
 
-  if (gh_number_p (sz)
-      && gh_scm2double (sz)
-      && !gh_number_p (gi.grob_->get_grob_property ("font-size")))
+  /*
+    We only want to process a grob once.
+   */
+  if (gi.origin_trans_->daddy_trans_ != daddy_trans_)
+    return ;
+  
+  if (gh_number_p (sz) && gh_scm2double (sz))
     {
-      gi.grob_->set_grob_property ("font-size", sz);
+      Real font_size = gh_scm2double (sz);
+      
+      font_size +=  robust_scm2double (gi.grob_->get_grob_property ("font-size"), 0);
+      gi.grob_->set_grob_property ("font-size", gh_double2scm (font_size));
     }
 }
-
 
 
 ENTER_DESCRIPTION(Font_size_engraver,

@@ -751,3 +751,13 @@ robust_scm2offset (SCM k, Offset o)
 
   return o;
 }
+
+
+int
+robust_scm2int (SCM k, int o)
+{
+  if (scm_integer_p (k) == SCM_BOOL_T)
+    o = gh_scm2int (k);
+
+  return o;
+}

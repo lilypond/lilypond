@@ -56,6 +56,7 @@
 	instr = #'()
 	  
 	\accepts "Voice"
+	\accepts "Devnull"
 }
 
 
@@ -118,8 +119,8 @@
 	\alias "Staff"
 	
 	BarLine \override #'bar-size = #4
-	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
-	VoltaBracket \override #'padding =  #5  % urg, in \pt
+	VoltaBracket \override #'minimum-space =  #15
+	VoltaBracket \override #'padding =  #5
 	StaffSymbol \override #'line-count = #1	
 
 	Stem \override #'neutral-direction = #1
@@ -585,13 +586,21 @@ EasyNotation = \translator {
 }
 
 \translator {
+    \name "Devnull"
+    \type "Engraver_group_engraver"
+    \consists "Swallow_engraver"
+    \description "Silently discards all musical information given to this context. "
+    }
+
+\translator {
       \VoiceContext
       \name "TabVoice"
       \denies "Thread"
       \consists "Tab_note_heads_engraver"
       \remove "Fingering_engraver"
       \remove "New_fingering_engraver"
-      
+
+\description "Context for drawing notes in a Tab staff. "
       Slur \override #'font-family       = #'roman
       Slur \override #'molecule-callback = #hammer-molecule-callback
       Slur \override #'direction    = #-1

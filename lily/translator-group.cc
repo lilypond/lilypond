@@ -131,6 +131,10 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
   if (existing)
     return existing;
 
+
+  /*
+    TODO: use accepts_list_.
+   */
   Link_array<Context_def> path
     = unsmob_context_def (definition_)->path_to_acceptable_translator (n, get_output_def ());
 
@@ -212,18 +216,32 @@ Translator_group::remove_translator (Translator*trans)
   return trans;
 }
 
-bool
-Translator_group::is_bottom_translator_b () const
+
+/*
+  Default child context as a SCM string, or something else if there is
+  none.
+*/
+SCM
+default_child_context_name (Translator_group const *tg)
 {
-  return !gh_symbol_p (unsmob_context_def (definition_)->default_child_context_name ());
+  return gh_pair_p (tg->accepts_list_)
+    ? ly_car (scm_last_pair (tg->accepts_list_))
+    : SCM_EOL;
+}
+
+
+bool
+Translator_group::is_bottom_context () const
+{
+  return !gh_symbol_p (default_child_context_name (this));
 }
 
 Translator_group*
 Translator_group::get_default_interpreter ()
 {
-  if (!is_bottom_translator_b ())
+  if (!is_bottom_context ())
     {
-      SCM nm = unsmob_context_def (definition_)->default_child_context_name ();
+      SCM nm = default_child_context_name (this);
       SCM st = get_output_def ()->find_translator (nm);
 
       Context_def *t = unsmob_context_def (st);
@@ -235,7 +253,7 @@ Translator_group::get_default_interpreter ()
       Translator_group *tg = t->instantiate (output_def_, SCM_EOL);
       add_fresh_group_translator (tg);
 
-      if (!tg->is_bottom_translator_b ())
+      if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();
       else
 	return tg;

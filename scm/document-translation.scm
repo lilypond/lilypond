@@ -241,8 +241,7 @@
     grobs
     ))
 
-(define (symbol<? l r)
-  (string<? (symbol->string l) (symbol->string r)))
+
 
 (define (all-contexts-doc)
   (let* (

@@ -6,6 +6,7 @@
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "staff-symbol-referencer.hh"
 #include "molecule.hh"
 #include "line-interface.hh"
 #include "hairpin.hh"
@@ -100,7 +101,8 @@ Hairpin::brew_molecule (SCM smob)
     }
 
   bool continued = broken[Direction (-grow_dir)];
-  Real height = robust_scm2double (me->get_grob_property ("height"), 0.2);
+  Real height = robust_scm2double (me->get_grob_property ("height"), 0.2) *
+    Staff_symbol_referencer::staff_space (me);
 
   Real starth, endh;
   if (grow_dir < 0)

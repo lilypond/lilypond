@@ -348,9 +348,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	      /*
 		Default position is on stem X, at stem end Y
 	       */
-	      Real stem_thickness =
-		robust_scm2double (stem->get_grob_property ("thickness"), 1)
-		* stem->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+	      Real stem_thickness = Stem::thickness (stem);
 	      o += Offset (0.5 *
 			   x_extent * (1 + Stem::get_direction (stem))
 			   - ((dir + 1)/2) * stem_thickness
@@ -549,9 +547,7 @@ Slur::brew_molecule (SCM smob)
     }
 
   Real base_thick = robust_scm2double (me->get_grob_property ("thickness"), 1);
-
-  Real thick = base_thick *
-    me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+  Real thick = base_thick * Staff_symbol_referencer::line_thickness (me);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);

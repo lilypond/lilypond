@@ -37,7 +37,7 @@ public:
   void add_context_mod (SCM);
   SCM default_child_context_name ();
   SCM get_context_name () const;
-  SCM get_accepted ()  const;
+  SCM get_accepted (SCM)  const;
   SCM get_property_ops ()  const { return property_ops_; }
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);

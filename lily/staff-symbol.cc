@@ -100,10 +100,27 @@ Staff_symbol::line_count (Grob*me)
 Real
 Staff_symbol::staff_space (Grob*me)
 {
-  return  robust_scm2double ( me->get_grob_property ("staff-space"), 1.0);
+  return robust_scm2double ( me->get_grob_property ("staff-space"), 1.0);
 }
 
+Real
+Staff_symbol::get_line_thickness (Grob* me)
+{
+  Real lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
+  return robust_scm2double (me->get_grob_property ("thickness"), 1.0) * lt;
+}
+
+Real
+Staff_symbol::get_ledger_line_thickness (Grob * me)
+{
+  Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+
+  SCM lt_pair = me->get_grob_property ("ledger-line-thickness");
+  Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
+  
+  return z[X_AXIS] * get_line_thickness(me) + z[Y_AXIS]* staff_space (me);
+}
 
 
 ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
@@ -111,5 +128,4 @@ ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
 "or space) is position 0. The length of the symbol may be set by hand "
 "through the @code{width} property. ",
 	       
-  "width staff-space thickness line-count");
-
+  "ledger-line-thickness width staff-space thickness line-count");

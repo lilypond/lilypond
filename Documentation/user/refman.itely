@@ -1334,6 +1334,12 @@ Internals: @internalsref{Beam}.
 
 
 @cindex Automatic beams
+@menu
+* Manual beams::                
+* Setting automatic beam behavior::  
+@end menu
+
+@node Manual beams
 @subsection Manual beams
 @cindex beams, manual
 @cindex @code{]}
@@ -1406,28 +1412,6 @@ behavior can be changed by setting @code{allowBeamBreak}.
 Automatically kneed beams cannot be used together with hidden staves.
 
 
-
-@menu
-* Setting automatic beam behavior::  
-@end menu
-
-@ignore
-@no de Beam typography
-@sub section Beam typography
-
-One of the strong points of LilyPond is how beams are formatted. Beams
-are quantized, meaning that the left and right endpoints beams start
-exactly on staff lines. Without quantization, small wedges of white
-space appear between the beam and staff line, and this looks untidy.
-
-Beams are also slope-damped: melodies that go up or down should also
-have beams that go up or down, but the slope of the beams should be
-less than the slope of the notes themselves.
-
-Some beams should be horizontal. These are so-called concave beams. 
-
-[TODO: some pictures.]
-@end ignore
 
 
 @node Setting automatic beam behavior
@@ -2146,7 +2130,7 @@ For finger changes, use markup texts:
 @cindex subscript
 
 You can use the thumb-script to indicate that a note should be
-played with your thumb (used in cello music):
+played with the thumb. (used in cello music):
 
 @lilypond[verbatim, singleline, fragment]
       <a' a''-3>8(_\thumb <b' b''-3>)_\thumb
@@ -2159,7 +2143,8 @@ of the chord by adding them after the pitches:
         < c-1  e-2 g-3 b-5 > 4
 @end lilypond
 
-Setting @code{fingeringOrientations} will put  fingerings next
+@noindent
+In this case, setting @code{fingeringOrientations} will put  fingerings next
 to note heads:
 
 @lilypond[verbatim,singleline,fragment,relative=1]
@@ -2173,6 +2158,7 @@ to note heads:
 
 Internals: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
+Examples: @inputfileref{input/regression,finger-chords.ly}
 
 @node Text scripts
 @subsection Text scripts
@@ -3450,7 +3436,7 @@ The definition of lyrics mode is too complex.
 @node The Lyrics context
 @subsection  The Lyrics context
 
-Lyrics are printed by interpreting them in @internalsref{LyricsVoice} context:
+Lyrics are printed by interpreting them in a @internalsref{LyricsVoice} context:
 @example
  \context LyricsVoice \lyrics @dots{}
 @end example
@@ -3468,10 +3454,11 @@ melody and the lyrics with the @code{\lyricsto} expression:
 \lyricsto @var{name} \new LyricsVoice @dots{} 
 @end example
 
-This aligns the lyrics to the notes of the @internalsref{Voice}
-context called @var{name}, which has to exist. Therefore, normally
-the @code{Voice} is specified first, and then the lyrics are specified
-with @code{\lyricsto}. 
+This aligns the lyrics to the
+@c
+notes of the @internalsref{Voice} context called @var{name}, which has
+to exist. Therefore, normally the @code{Voice} is specified first, and
+then the lyrics are specified with @code{\lyricsto}.
 
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.
@@ -3488,7 +3475,41 @@ and then combine the appropriate melodies and lyric lines:
   \lyricsto "soprano" \new LyricsVoice @emph{the lyrics}
 @end example
 
-An example is in @inputfileref{input/template,satb.ly}.
+@noindent
+The final input would resemble
+
+@example
+  << \context ChoirStaff \notes << @emph{setup the music}  >>
+     \lyricsto "soprano" @emph{etc}
+     \lyricsto "alto" @emph{etc}
+     @emph{etc}
+  >>
+@end example 
+
+
+The @code{\lyricsto} command detects melismata: it only puts one
+syllable under a tied or slurred group of notes. If you want to force
+an unslurred group of notes to be a melisma, then insert
+@code{\melisma} after the first note of the group, and
+@code{\melismaEnd} after the last one, e.g.
+
+@lilypond[relative 1, singleline, fragment,verbatim]
+<<  \context Voice = "lala" { \time 3/4
+    f4 g8
+    \melisma 
+    f e f
+    \melismaEnd
+     e2 }
+  \lyricsto "lala" \new LyricsVoice \lyrics {
+    la di __ daah 
+  } >>
+@end lilypond
+
+In addition, notes are considered a melisma if they are manually
+beamed, and automatic beaming (See @ref{Setting automatic beam
+behavior}) is switched off.  The criteria for deciding melismata
+can be tuned with the property @code{melismaBusyProperties}. See
+@internalsref{Melisma_engraver} for more information.
 
 When multiple stanzas are put on the same melody, it can happen that
 two stanzas have melismata in different locations. This can be
@@ -3497,16 +3518,22 @@ remedied by switching off melismata for one
 the @code{ignoreMelismata} property to @code{#t}. An example is shown
 in @inputfileref{input/regression,lyric-combine-new.ly}.
 
-
 @cindex SATB
 @cindex choral score
 
 A complete example of a SATB score setup is in the file
 @inputfileref{input/template,satb.ly}.
 
+@refcommands
+
+@code{\melisma}, @code{\melismaEnd}
+@cindex @code{\melismaEnd}
+@cindex @code{\melisma}
+
 @seealso
 
-Internals: @internalsref{LyricCombineMusic}, @internalsref{Lyrics}
+Internals: @internalsref{LyricCombineMusic}, @internalsref{Lyrics},
+@internalsref{Melisma_engraver}.
 
 Examples: @inputfileref{input/template,satb.ly},
 @inputfileref{input/regression,lyric-combine-new.ly}.

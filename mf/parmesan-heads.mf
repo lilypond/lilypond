@@ -184,7 +184,13 @@ fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralsemibrevishea
       draw_neo_mensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-fet_beginchar("Harmonic notehead (Neo-mensural open)","0harmonic","harmonichead")
+%
+% WL says the thin lines should be thinner.
+%
+
+fet_beginchar("Harmonic notehead (Neo-mensural open)",
+		"0harmonic","harmonichead")
+
 	draw_neo_mensural_open_head (1.3 staff_space#, 1.3 noteheight#);
 	charwx := head_width#;
 	charwy := 0;

@@ -203,6 +203,12 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   else
     scm_display (ly_translator_name (s), port);
 
+  if (Translator_group *td=dynamic_cast<Translator_group*> (sc))
+    {
+      scm_puts ("=", port);
+      scm_puts (td->id_string_.to_str0 (), port);
+    }
+  
   scm_display (sc->simple_trans_list_, port);
 
   /*

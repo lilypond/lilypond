@@ -8,6 +8,7 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "staff-symbol.hh"
 #include "misc.hh"
 #include "dots.hh"
 #include "note-head.hh"
@@ -69,6 +70,7 @@ Note_head::brew_ledger_lines (Grob *me,
 			      Real left_shorten,
 			      bool take_space)
 {
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
   int line_count = (abs (pos) < interspaces)
     ? 0
@@ -79,9 +81,8 @@ Note_head::brew_ledger_lines (Grob *me,
   if (line_count)
     {
       Real ledgerlinethickness =
-	(me->get_paper ()->get_realvar (ly_symbol2scm ("ledgerlinethickness")));
+	Staff_symbol::get_ledger_line_thickness (staff);
       Real blotdiameter = ledgerlinethickness;
-      //	(me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
       Interval y_extent =
 	Interval (-0.5*(ledgerlinethickness),
 		  +0.5*(ledgerlinethickness));

@@ -1125,14 +1125,17 @@ part_combined_music:
 
 		$$ = p;
 	}
-	| NEWPARTCOMBINE embedded_scm Music Music {
-		Music * p= MY_MAKE_MUSIC("NewPartCombineMusic");
-		p->set_mus_property ("elements", gh_list ($3->self_scm (),$4->self_scm (), SCM_UNDEFINED));  
-		p->set_mus_property ("split-list", $2);
-		scm_gc_unprotect_object ($3->self_scm ());
-		scm_gc_unprotect_object ($4->self_scm ());  
+	| NEWPARTCOMBINE Music Music {
+		static SCM proc;
+		if (!proc)
+			proc = scm_c_eval_string ("make-new-part-combine-music");
 
-		$$ = p;
+		SCM res = scm_call_1 (proc, gh_list ($2->self_scm (),
+			$3->self_scm (), SCM_UNDEFINED));  
+		scm_gc_unprotect_object ($3->self_scm ());
+		scm_gc_unprotect_object ($2->self_scm ());
+		$$ = unsmob_music (res);
+		scm_gc_protect_object (res);
 	}
 	;
 

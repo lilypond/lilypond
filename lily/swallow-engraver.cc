@@ -9,8 +9,6 @@
 #include "engraver.hh"
 
 /**
-  This engraver swallows everything given to it silently. The purpose of
-  this is to prevent spurious "event junked" warnings.
  */
 class Swallow_engraver : public Engraver
 {
@@ -27,3 +25,16 @@ Swallow_engraver::try_music (Music*)
 {
   return true;
 }
+
+Swallow_engraver::Swallow_engraver ()
+{
+}
+
+ENTER_DESCRIPTION(Swallow_engraver,
+/* descr */       "This engraver swallows everything given to it silently. The purpose of "
+		  "this is to prevent spurious \"event junked\" warnings.",
+/* creats*/       "",
+/* accepts */     "general-music",
+/* acks  */       "",
+/* reads */       "",
+/* write */       "");
