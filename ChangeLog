@@ -1,3 +1,13 @@
+2005-02-21  Werner Lemberg  <wl@gnu.org>
+
+	* mf/feta-nummer-code.mf ("Numeral 5"): Include intersection point
+	to improve overlap removal process.
+
+	* mf/feta-slag.mf (draw_trillelement): Add parameter to control
+	left and right ending.  This ensures better overlapping.
+	Update all callers.
+	("lineprall"): Don't use draw_gridline to get better overlapping.
+
 2005-02-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily-library.scm (ps-embed-cff): add \n after EndResource

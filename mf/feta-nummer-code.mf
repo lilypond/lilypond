@@ -652,13 +652,18 @@ fet_beginchar ("Numeral 5", "five");
 	       .. {up}z7l
 	       -- z2l{up}
 	       .. cycle;
-	fill pat;
 
 	beta = 45;
 	delta = 180 + beta + 10;
 	z8r = (x7r, y7r - 1/16 thick + thin);
 	z8l = directionpoint dir (delta) of
 		subpath (6, 7) of pat;
+
+	% include intersection point to improve overlap removal
+	fill subpath (0, 6) of pat
+	     .. z8l
+	     .. subpath (7, length (pat)) of pat
+	     .. cycle;
 
 	penpos9 (thin, 90);
 	y9 = 10/16 [y5, y7];

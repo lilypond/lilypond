@@ -30,8 +30,10 @@ trill_ne := unitvector ((2, 3));
 % The trill element sticks out on both the left and right side
 % of the normal bbox, so you can glue them together easily.
 %
+% `ending' is either 0 for none, 1 for left, or 2 for right.
+%
 
-def draw_trillelement (expr offset) =
+def draw_trillelement (expr offset, ending) =
 	clearxy;
 
 begingroup;
@@ -47,23 +49,18 @@ begingroup;
 	top y3 = vround trill_height;
 	z2 = z3 - (trill_thick - trill_thin) * trill_ne;
 
-	z4 = z1 - trill_ne * trill_overlap;
-	x4 := hround x4;
-
 	bot z3' = (top z3) scaled -1;
 
 	nw = unitvector (z2 - z3');
 	ne_dist = (nw rotated -90) * 0.5 trill_thin;
 	nw_dist = (trill_ne rotated 90) * 0.5 trill_thin;
 
-	z5 = whatever * trill_ne + (z4 - nw_dist);
+	z5 = whatever * trill_ne + (z1 - nw_dist);
 	z5 = whatever * nw + (z3' - ne_dist);
 
 	pat := z5
-	       -- (z4 - nw_dist){-trill_ne}
-	       .. bot z4{left}
-	       .. lft z4{up}
-	       .. (z4 + nw_dist){trill_ne}
+	       -- (z1 - nw_dist){-trill_ne}
+	       -- (z1 + nw_dist){trill_ne}
 	       -- (z3 + nw_dist){trill_ne}
 	       .. top z3{right}
 	       .. (z3 + ne_dist){-nw};
@@ -72,6 +69,24 @@ begingroup;
 	       -- cycle;
 	pat := pat shifted (offset, 0);
 	fill pat;
+
+	z4 = z1 - trill_ne * trill_overlap;
+	x4 := hround (x4 + 0.5 trill_thin) - 0.5 trill_thin;
+
+	pat := (z4 - nw_dist){-trill_ne}
+	       .. bot z4{left}
+	       .. lft z4{up}
+	       .. (z4 + nw_dist){trill_ne}
+	       -- (z1 + nw_dist){trill_ne}
+	       -- (z1 - nw_dist){-trill_ne}
+	       -- cycle;
+
+	if ending = 1:
+		fill pat shifted (offset, 0);
+	elseif ending = 2:
+		pat := pat scaled -1 shifted (-feta_eps, -feta_eps);
+                fill pat shifted (offset, 0);
+	fi;
 endgroup;
 enddef;
 
@@ -80,7 +95,7 @@ fet_beginchar ("trilelement", "trilelement");
 	set_char_box (.5 trill_width#, .5 trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (0);
+	draw_trillelement (0, 0);
 	labels (1, 2, 3, 3', 4, 5, 5');
 fet_endchar;
 
@@ -89,8 +104,8 @@ fet_beginchar ("prall", "prall");
 	set_char_box (trill_width#, trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (-hround (.5 trill_width));
-	draw_trillelement (-hround (.5 trill_width) + trill_width);
+	draw_trillelement (-hround (.5 trill_width), 1);
+	draw_trillelement (-hround (.5 trill_width) + trill_width, 2);
 fet_endchar;
 
 
@@ -98,8 +113,8 @@ fet_beginchar ("mordent", "mordent");
 	set_char_box (trill_width#, trill_width#,
 		      4/3 trill_height#, 4/3 trill_height#);
 
-	draw_trillelement (-hround (.5 trill_width));
-	draw_trillelement (-hround (.5 trill_width) + trill_width);
+	draw_trillelement (-hround (.5 trill_width), 1);
+	draw_trillelement (-hround (.5 trill_width) + trill_width, 2);
 
 	clearxy;
 
@@ -120,9 +135,9 @@ fet_beginchar ("prallprall", "prallprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (-trill_width);
-	draw_trillelement (0);
-	draw_trillelement (trill_width);
+	draw_trillelement (-trill_width, 1);
+	draw_trillelement (0, 0);
+	draw_trillelement (trill_width, 2);
 fet_endchar;
 
 
@@ -130,9 +145,9 @@ fet_beginchar ("prallmordent", "prallmordent");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      4/3 trill_height#, 4/3 trill_height#);
 
-	draw_trillelement (-trill_width);
-	draw_trillelement (0);
-	draw_trillelement (trill_width);
+	draw_trillelement (-trill_width, 1);
+	draw_trillelement (0, 0);
+	draw_trillelement (trill_width, 2);
 
 	clearxy;
 
@@ -157,9 +172,9 @@ fet_beginchar ("upprall", "upprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (-trill_width);
-	draw_trillelement (0);
-	draw_trillelement (trill_width);
+	draw_trillelement (-trill_width, 1);
+	draw_trillelement (0, 0);
+	draw_trillelement (trill_width, 2);
 
 	z11 = z4 shifted (-trill_width, 0);
 	z12 = z11 + (0, -2 trill_height);
@@ -215,9 +230,9 @@ fet_beginchar ("downprall", "downprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, trill_height#);
 
-	draw_trillelement (-trill_width);
-	draw_trillelement (0);
-	draw_trillelement (trill_width);
+	draw_trillelement (-trill_width, 1);
+	draw_trillelement (0, 0);
+	draw_trillelement (trill_width, 2);
 
 	z11 = z4 shifted (-trill_width, 0);
 	z12 = z11 + (0, 2 trill_height);
@@ -273,20 +288,28 @@ fet_beginchar ("lineprall", "lineprall");
 	set_char_box (1.5 trill_width#, 1.5 trill_width#,
 		      trill_height#, 4 trill_height#);
 
-	draw_trillelement (-trill_width);
+	draw_trillelement (-trill_width, 1);
 
 	labels (1, 2, 3, 3', 4, 5, 5');
 
 	pickup pencircle scaled trill_stemwidth;
 
-	lft x10 = x4 - .5 trill_thin - trill_width;
+	penpos10 (trill_stemwidth, 0);
+	penpos11 (trill_stemwidth, 0);
+
+	x10l = x4 - .5 trill_thin - trill_width;
 	y10 = y4;
 	z11 = z10 + (0, h);
 
-	labels (10, 11);
+	penlabels (10, 11);
 
-	draw_gridline (z10, z11, trill_stemwidth);
+	fill z11l
+	     .. top z11
+	     .. z11r
+	     -- z10r
+	     -- z10l
+	     -- cycle;
 
-	draw_trillelement (0);
-	draw_trillelement (trill_width);
+	draw_trillelement (0, 0);
+	draw_trillelement (trill_width, 2);
 fet_endchar;
