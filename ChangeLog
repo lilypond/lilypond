@@ -1,5 +1,7 @@
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/lilypond.tely: add @finalout.
+
 	* lily/slur-scoring.cc (enumerate_attachments): use stem_extent_
 	for attaching, fixes slur/stem left attachment of
 	downslur/downstem.

@@ -94,6 +94,8 @@ PostScript} and @uref{../lilypond.pdf,PDF}.
 @syncodeindex vr cp
 
 
+@finalout
+
 @titlepage
 @title GNU LilyPond
 @subtitle The music typesetter

@@ -1,11 +1,18 @@
 
 \version "2.3.22"
 
-\header{ texidoc = "This shows how different settings on \paper
-modify the general page layout. Basically \paper will set the
-values for the whole paper while \layout for each \score block." }
 
- \header {
+    
+\header {
+
+     texidoc = "This shows how different settings on \paper modify the
+general page layout. Basically \paper will set the values for the
+whole paper while \layout for each \score block.
+
+This file is best viewed outside the collated files document.
+" 
+
+ 
     title = "Title"
     subtitle = "(and (the) subtitle)"
     subsubtitle = "Sub sub title"
