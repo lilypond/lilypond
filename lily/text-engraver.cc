@@ -82,7 +82,7 @@ Text_engraver::do_process_requests ()
       Side_position_interface stafy (text);
 
       SCM axisprop = get_property ("scriptHorizontal",0);
-      if (gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
+      if (to_boolean (axisprop))
 	{
 	  stafy.set_axis (X_AXIS);
 	  //	  text->set_parent (ss, Y_AXIS);
@@ -102,7 +102,7 @@ Text_engraver::do_process_requests ()
 	text->set_elt_property ("style", ly_str02scm (r->style_str_.ch_C()));
       
       SCM empty = get_property ("textEmptyDimension", 0);
-      if (gh_boolean_p (empty) && gh_scm2bool (empty))
+      if (to_boolean (empty))
 	{
 	  text->set_empty (X_AXIS);
 	}

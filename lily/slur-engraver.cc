@@ -59,7 +59,7 @@ Slur_engraver::do_removal_processing ()
     }
   slur_l_stack_.clear ();
   SCM wg = get_property ("weAreGraceContext",0);
-  bool wgb = gh_boolean_p (wg) && gh_scm2bool (wgb);
+  bool wgb = to_boolean (wg);
   if (!wgb)
     for (int i=0; i < requests_arr_.size(); i++)
       {
@@ -116,7 +116,7 @@ Slur_engraver::do_post_move_processing()
 {
   new_slur_req_l_arr_.clear();
   SCM m = get_property ("automaticMelismata",0);
-  if (gh_boolean_p (m) && gh_scm2bool (m))
+  if (to_boolean (m))
     {
       set_melisma (slur_l_stack_.size ());
     }

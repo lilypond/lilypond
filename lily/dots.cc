@@ -11,6 +11,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 Dots::Dots ()
 {
@@ -28,13 +29,13 @@ Dots::do_post_processing ()
     }
   else
     {
-      if (!get_direction ())
-	set_direction (UP);
+      if (!directional_element (this).get ())
+	directional_element (this).set (UP);
 
       Staff_symbol_referencer_interface si (this);
       int p = int (si.position_f ());
       if (!(p % 2))
-	si.set_position (p  + get_direction ());
+	si.set_position (p  + directional_element (this).get ());
     }
 }
 Molecule* 

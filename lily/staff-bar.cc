@@ -19,7 +19,7 @@ Staff_bar::get_bar_size () const
   else
     {
       Staff_symbol_referencer_interface si (this);
-      return (si.lines_i () -1) * si.staff_space ();
+      return (si.line_count () -1) * si.staff_space ();
     }
 }
 

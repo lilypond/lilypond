@@ -7,7 +7,7 @@
 #ifndef EXTENDER_SPANNER_HH
 #define EXTENDER_SPANNER_HH
 
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 /** 
   simple extender line 
@@ -27,7 +27,7 @@
   extend beond, lasting the whole duration of the melissima
   (as in MUP, urg).
   */
-class Extender_spanner : public Directional_spanner
+class Extender_spanner : public Spanner
 {
 public:
   Extender_spanner ();

@@ -18,6 +18,7 @@
 class Text_item : public Item
 {
 public:
+  // junkme.
   String text_str_;
 
   VIRTUAL_COPY_CONS (Score_element);

@@ -28,10 +28,10 @@ ly_str02scm (char const*c)
 }
 
 SCM
-ly_eval_str (char const*c)
+ly_eval_str (String s)
 {
   // this all really sucks, guile should take char const* arguments!
-  return gh_eval_str ((char*)c);
+  return gh_eval_str ((char*)s.ch_C ());
 }
 
   
@@ -198,17 +198,6 @@ index_set_cell (SCM s, Direction d, SCM v)
 }
   
 SCM
-array_to_list (SCM *a , int l)
-{
-  SCM list = SCM_EOL;
-  for (int i= l; i--;  )
-    {
-      list =  gh_cons (a[i], list);
-    }
-  return list;
-}
-
-SCM
 ly_warning (SCM str)
 {
   assert (gh_string_p (str));
@@ -282,3 +271,35 @@ to_dir (SCM s)
 }
 
 
+SCM
+to_scm (int i)
+{
+  return gh_int2scm (i);
+}
+
+void
+scm_to (SCM s, int* i)
+{
+  // urg
+  *i = gh_number_p (s) ? gh_scm2int (s) : 0;
+}
+
+SCM
+to_scm (Real r)
+{
+  return gh_double2scm (r);
+}
+
+void
+scm_to (SCM s, Real* r)
+{
+  // urg
+  *r = gh_number_p (s) ? gh_scm2double (s) : 0;
+}
+
+  
+bool
+to_boolean (SCM s)
+{
+  return gh_boolean_p (s) && gh_scm2bool (s);
+}

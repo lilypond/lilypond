@@ -565,7 +565,7 @@ Lookup::volta (Real h, Real w, Real thick, bool vert_start, bool vert_end) const
 }
 
 Molecule
-Lookup::accordion (SCM s, Real interline_f) const
+Lookup::accordion (SCM s, Real staff_space) const
 {
   Molecule m;
   String sym = ly_scm2string(gh_car (s));
@@ -578,7 +578,7 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (reg.left_str(1) == "F")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
@@ -606,37 +606,37 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (eflag & 0x02)
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	}
       if (eflag & 0x04)
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
-	  d.translate_axis(0.8 * interline_f PT, X_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
+	  d.translate_axis(0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	}
       if (eflag & 0x01)
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
-	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
+	  d.translate_axis(-0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	}
       if (reg.left_str(2) == "SS")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(0.5 * interline_f PT, Y_AXIS);
-	  d.translate_axis(0.4 * interline_f PT, X_AXIS);
+	  d.translate_axis(0.5 * staff_space PT, Y_AXIS);
+	  d.translate_axis(0.4 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
-	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  d.translate_axis(-0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-2);
 	}
       if (reg.left_str(1) == "S")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(0.5 * interline_f PT, Y_AXIS);
+	  d.translate_axis(0.5 * staff_space PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
@@ -648,14 +648,14 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (reg.left_str(1) == "F")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg == "E")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	}
     }
@@ -666,7 +666,7 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (reg.left_str(1) == "T")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
@@ -674,24 +674,24 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (reg.left_str(1) == "F")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(2) == "EE")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
-	  d.translate_axis(0.4 * interline_f PT, X_AXIS);
+	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
+	  d.translate_axis(0.4 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
-	  d.translate_axis(-0.8 * interline_f PT, X_AXIS);
+	  d.translate_axis(-0.8 * staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-2);
 	}
       if (reg.left_str(1) == "E")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
@@ -703,36 +703,36 @@ Lookup::accordion (SCM s, Real interline_f) const
       if (reg.left_str(1) == "T")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 3.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 3.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "F")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 2.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 2.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "M")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 2 PT, Y_AXIS);
-	  d.translate_axis(interline_f PT, X_AXIS);
+	  d.translate_axis(staff_space * 2 PT, Y_AXIS);
+	  d.translate_axis(staff_space PT, X_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "E")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 1.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 1.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}
       if (reg.left_str(1) == "S")
 	{
 	  Molecule d = afm_find("scripts-accDot");
-	  d.translate_axis(interline_f * 0.5 PT, Y_AXIS);
+	  d.translate_axis(staff_space * 0.5 PT, Y_AXIS);
 	  m.add_molecule(d);
 	  reg = reg.right_str(reg.length_i()-1);
 	}

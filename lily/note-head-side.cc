@@ -7,6 +7,8 @@
   
  */
 
+#include "directional-element-interface.hh"
+
 #include "side-position-interface.hh"
 #include "note-head-side.hh"
 void

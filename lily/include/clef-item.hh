@@ -9,7 +9,7 @@
 #include "item.hh"
 
 #include "direction.hh"
-#include "pointer.hh"
+
 
 /**
   Set a clef in a staff.

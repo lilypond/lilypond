@@ -46,7 +46,7 @@ Rest::do_brew_molecule_p () const
     {
       Staff_symbol_referencer_interface si(this);
       ledger_b = abs(si.position_f ()  - (2* balltype_i () - 1))
-	> si.lines_i (); 
+	> si.line_count (); 
     }
   
   String style; 

@@ -187,7 +187,7 @@ Note_column::do_post_processing ()
   Real dist =
     minimum_dist +  -d  * (beamy - rest_dim) >? 0;
 
-  int stafflines = si.lines_i ();
+  int stafflines = si.line_count ();
 
   // move discretely by half spaces.
   int discrete_dist = int (ceil (dist ));

@@ -70,7 +70,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		{
 		  abbrev_p_ = new Stem_tremolo;
 		  announce_element (Score_element_info (abbrev_p_, abbrev_req_l_));
-		  abbrev_p_->abbrev_flags_i_ =intlog2 (t) - (duration_log>? 2);
+		  abbrev_p_->set_elt_property ("tremolo-flags", gh_int2scm (intlog2 (t) - (duration_log>? 2)));
 		}
 	    }
 

@@ -12,20 +12,19 @@
 
 #include "item.hh"
 
-#include "directional-element.hh"
 
 /**
   The dots to go with a notehead/rest.  A separate class, since they
   are a party in collision resolution.
   */
 class Dots :
-  public Item,
-  public Directional_element
+  public Item
 {
 protected:
   virtual Molecule * do_brew_molecule_p () const;
   virtual void do_post_processing ();
 public:
+  // junkme.
   int dots_i_;
   
   Dots ();

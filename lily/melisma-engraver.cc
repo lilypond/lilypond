@@ -30,9 +30,9 @@ Melisma_engraver::do_try_music (Music *m )
       SCM plain (get_property ("melismaBusy", 0));
       SCM slur (get_property ("slurMelismaBusy", 0));
       SCM tie (get_property ("tieMelismaBusy", 0));
-      return (gh_boolean_p (plain) && gh_scm2bool (plain))
-	|| (gh_boolean_p (slur) && gh_scm2bool (slur))
-	|| (gh_boolean_p (tie) && gh_scm2bool (tie));
+      return (to_boolean (plain))
+	|| (to_boolean (slur))
+	|| (to_boolean (tie));
     }
   return false;
 }

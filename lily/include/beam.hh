@@ -8,7 +8,7 @@
 #define BEAM_HH
 
 #include "lily-proto.hh"
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 
 /** a beam connects multiple stems.
@@ -16,16 +16,14 @@
   Beam adjusts the stems its owns to make sure that they reach the
   beam and that point in the correct direction (urg?)
 
-elt property:
+   elt_properties:
+   y-position: real  (position of left edge)
+   height: real  (dy)
 
-damping: amount of beam slope damping. (int)
-
-should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
-
-slope_quantisation: 'none, 'normal or 'traditional
-
+   damping: amount of beam slope damping. (int)
+   should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 */
-class Beam : public Directional_spanner
+class Beam : public Spanner
 {
 public:
 

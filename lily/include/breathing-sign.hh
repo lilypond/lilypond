@@ -12,10 +12,8 @@
 
 #include "item.hh"
 #include "parray.hh"
-#include "directional-element.hh"
 
-class Breathing_sign : public Item,
-		       public Directional_element
+class Breathing_sign : public Item
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);

@@ -82,10 +82,13 @@ Tie_engraver::process_acknowledged ()
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);
       stopped_heads_.sort(CHead_melodic_tuple::pitch_compare);
-      int i=0;
-      int j=0;
-      int tie_count=0;
-      while  ( i < now_heads_.size () && j < stopped_heads_.size ())
+
+      SCM head_list = SCM_EOL;
+      
+      int j = stopped_heads_.size ()-1;
+      int i = now_heads_.size ()-1;
+
+      while  (i >= 0 && j >=0)
 	{
 	  int comp
 	    = Musical_pitch::compare (now_heads_[i].req_l_->pitch_ ,
@@ -93,29 +96,49 @@ Tie_engraver::process_acknowledged ()
 
 	  if (comp)
 	    {
-	      (comp < 0) ? i ++ : j++;
+	      (comp < 0) ? j -- : i--;
 	      continue;
 	    }
 	  else
 	    {
-	      tie_count ++;
+	      head_list  = gh_cons (gh_cons (stopped_heads_[j].head_l_->self_scm_,
+					     now_heads_[i].head_l_->self_scm_),
+				    head_list);
 
-	      /* don't go around recreating ties that were already
-		 made. Not infallible. Due to reordering in sort (),
-		 we will make the wrong ties when noteheads are
-		 added.  */
-	      if (tie_count > tie_p_arr_.size ())
-		{
-		  Tie * p = new Tie;
-		  p->set_head (LEFT, stopped_heads_[j].head_l_);
-		  p->set_head (RIGHT, now_heads_[i].head_l_);
-		  tie_p_arr_.push (p);
-		  announce_element (Score_element_info (p, req_l_));
-		}
-	      i++;
-	      j++;
-
+	      past_notes_pq_. insert (now_heads_[i]);
+	      now_heads_.del (i);
+	      stopped_heads_.del (j);
+	      i--;
+	      j--;
 	    }
+	}
+
+
+      SCM sparse = get_property ("sparseTies", 0);
+      if (to_boolean (sparse))
+	{
+	  int i = scm_ilength (head_list);
+
+	  if (!i)
+	    return;
+	  
+	  SCM pair = gh_list_ref (head_list, gh_int2scm (i/2));
+	  
+	  Tie * p = new Tie;
+	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_car (pair))));
+	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
+	  
+	  tie_p_arr_.push (p);
+	  announce_element (Score_element_info (p, req_l_));
+	}
+      else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
+	{
+	  Tie * p = new Tie;
+	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));
+	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
+	  
+	  tie_p_arr_.push (p);
+	  announce_element (Score_element_info (p, req_l_));
 	}
 
       if (!tie_p_arr_.size ())
@@ -147,7 +170,7 @@ void
 Tie_engraver::do_post_move_processing ()
 {
   SCM m = get_property ("automaticMelismata",0);
-  if (gh_boolean_p (m) && gh_scm2bool (m))
+  if (to_boolean (m))
     {
       set_melisma (false);
     }

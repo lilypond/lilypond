@@ -11,6 +11,7 @@
 #include "rhythmic-head.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "directional-element-interface.hh"
 
 void
 Dot_column::add_dots (Dots *d)
@@ -49,7 +50,7 @@ Dot_column::Dot_column ()
   Group_interface gi (this, "dots");
   gi.set_interface ();
   
-  set_direction (RIGHT);
+  directional_element (this).set (RIGHT);
   set_axes(X_AXIS,X_AXIS);
 }
 

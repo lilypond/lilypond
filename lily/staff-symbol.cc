@@ -14,35 +14,13 @@
 #include "item.hh"
 
 
-Staff_symbol::Staff_symbol ()
-{
-  no_lines_i_ = 5;
-  staff_space_ = 5.0 PT;
-}
-
-void
-Staff_symbol::do_print() const
-{
-#ifndef NPRINT
-  Spanner::do_print();
-  DEBUG_OUT << "lines: " << no_lines_i_;
-#endif
-}
-
 
 Molecule*
 Staff_symbol::do_brew_molecule_p() const
 {
   Score_element * common
     = spanned_drul_[LEFT]->common_refpoint (spanned_drul_[RIGHT], X_AXIS);
-
-#if 0
-  Interval r =  spanned_drul_[RIGHT]->extent (X_AXIS);
-  Interval l =  spanned_drul_[LEFT]->extent (X_AXIS);
   
-  Real left_shift =l.empty_b () ? 0.0: l[LEFT];
-  Real right_shift =r.empty_b () ? 0.0: r[RIGHT];  
-#endif
   Real width =
     // right_shift     - left_shift
     + spanned_drul_[RIGHT]->relative_coordinate (common , X_AXIS)
@@ -53,27 +31,34 @@ Staff_symbol::do_brew_molecule_p() const
   Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,width),
 						Interval (-t/2, t/2)));
 
-  Real height = (no_lines_i_-1) * staff_space_ /2;
+  int l = line_count ();
+  
+  Real height = (l-1) * staff_space () /2;
   Molecule * m = new Molecule;
-  for (int i=0; i < no_lines_i_; i++)
+  for (int i=0; i < l; i++)
     {
       Molecule a (rule);
-      a.translate_axis (height - i * staff_space_, Y_AXIS);
+      a.translate_axis (height - i * staff_space (), Y_AXIS);
       m->add_molecule (a);
     }
 
-  //  m->translate_axis (left_shift, X_AXIS);
   return m;
 }
-
 
 int
 Staff_symbol::steps_i() const
 {
-  return no_lines_i_*2;
+  return line_count () * 2;
 }
-Real
-Staff_symbol::staff_space ()
+
+int
+Staff_symbol::line_count () const
 {
-  return staff_space_;
+  return gh_scm2int (get_elt_property ("line-count"));
+}
+
+Real
+Staff_symbol::staff_space ()const
+{
+  return gh_scm2double (get_elt_property ("staff-space"));
 }

@@ -20,22 +20,6 @@ beam_thickness = 0.52 * (\interline - \stafflinethickness);
 interbeam = (2.0 * \interline + \stafflinethickness - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
-
-
-% stems and beams
-%
-% poor man's array size
-stem_max = 3.0;
-
-%{ Specify length of stems for notes in the staff
-that don't have beams. 
-   Measured in staff positions.
-%}
-stem_length0 = 7.;
-stem_length1 = 5.;
-stem_length2 = 4.;
-stem_length3 = 3.;
-
 %{
 The space taken by a note is determined by the formula 
 
@@ -51,73 +35,11 @@ arithmetic_basicspace = 2.;
 arithmetic_multiplier = 0.9 * \quartwidth ;
 
 
-
-% urg.
-% if only these ugly arrays were scm,
-% we could override them in the Grace context
-grace_factor = 0.8;
-grace_stem_length0 = \stem_length0 * \grace_factor;
-grace_stem_length1 = \stem_length1 * \grace_factor;
-grace_stem_length2 = \stem_length2 * \grace_factor;
-grace_stem_length3 = \stem_length3 * \grace_factor;
-
-% only used for beams
-minimum_stem_length0 = 0.0 ; % not used
-minimum_stem_length1 = 3.;
-minimum_stem_length2 = 2.5;
-minimum_stem_length3 = 2.0;
-
-grace_minimum_stem_length0 = 0.0 ; % not used
-grace_minimum_stem_length1 = \minimum_stem_length1 * \grace_factor;
-grace_minimum_stem_length2 = \minimum_stem_length2 * \grace_factor;
-grace_minimum_stem_length3 = \minimum_stem_length3 * \grace_factor;
-
-%{
-  stems in unnatural (forced) direction should be shortened,
-  according to [Roush & Gourlay].  Their suggestion to knock off
-  a whole staffspace seems a bit drastical: we'll do half.
-%}
-
-forced_stem_shorten0 = 1.0;
-forced_stem_shorten1 = \forced_stem_shorten0;
-forced_stem_shorten2 = \forced_stem_shorten1;
-forced_stem_shorten3 = \forced_stem_shorten2;
-
-% don't shorten grace stems, always up
-grace_forced_stem_shorten0 = 0.;
-grace_forced_stem_shorten1 = \grace_forced_stem_shorten0;
-grace_forced_stem_shorten2 = \grace_forced_stem_shorten1;
-grace_forced_stem_shorten3 = \grace_forced_stem_shorten2;
-
-% there are several ways to calculate the direction of a beam
-% 
-% * MAJORITY : number count of up or down notes
-% * MEAN     : mean centre distance of all notes
-% * MEDIAN   : mean centre distance weighted per note
-%
-
-#'beam-dir-algorithm = #'majority	%urg.
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 
-
-% The beams should be prevented to conflict with the stafflines, 
-% especially at small slopes.
-#'slope-quantisation = #'normal
-
-
 
 #'Clef_item::visibility-lambda = #postbreak-only-visibility
 #'Key_item::visibility-lambda = #postbreak-only-visibility
 #'Breathing_sign::visibility-lambda = #non-postbreak-visibility
-
-
-%{
-dit(code(beam_dir_algorithm)) Specify algorithm for determining
-whether beams go up or down.  It is real valued.  If set to 2.0 then
-majority selection is used.  If set to 3.0, then mean selection is
-used based on the mean center distance.  If set to 4.0 then median
-selection is used, based on the median center distance.
-%}
-
 
 % catch suspect beam slopes, set slope to zero if
 % outer stem is lengthened more than
@@ -313,3 +235,6 @@ Wordwrap =0.0;
 % 
 #'Local_key_item::left-padding = #'0.2
 #'Local_key_item::right-padding = #'0.4
+
+#'Staff_symbol::staff-space = \interline ;
+#'Staff_symbol::line-count = #5

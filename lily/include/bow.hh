@@ -10,7 +10,7 @@
 #ifndef BOW_HH
 #define BOW_HH
 
-#include "directional-spanner.hh"
+#include "spanner.hh"
 
 /**
   Base class for anything that looks like a slur.
@@ -21,7 +21,7 @@
     dy_f_drul_ , dx_f_drul_
   
   */
-class Bow : public Directional_spanner
+class Bow : public Spanner
 {
 public:
   Bow ();

@@ -265,7 +265,7 @@ Score_element::calculate_dependencies (int final, int busy,
 void
 Score_element::output_processing () 
 {
-  if (get_elt_property ("transparent") != SCM_UNDEFINED)
+  if (to_boolean  (get_elt_property ("transparent")))
     return;
 
   // we're being silly here. 

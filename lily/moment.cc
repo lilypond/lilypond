@@ -13,7 +13,7 @@
 #include "warn.hh"
 
 SCM
-Moment::mark_smob (SCM s)
+Moment::mark_smob (SCM)
 {
   return SCM_EOL;
 }

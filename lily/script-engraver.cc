@@ -76,7 +76,7 @@ Script_engraver::do_process_requests()
 	stafy.set_direction (l->get_direction ());
 
       SCM axisprop = get_property ("scriptHorizontal",0);
-      bool xaxis = gh_boolean_p (axisprop) && gh_scm2bool (axisprop);
+      bool xaxis = to_boolean (axisprop);
       if (xaxis)
 	stafy.set_axis (X_AXIS);
       else

@@ -176,7 +176,7 @@ Auto_beam_engraver::consider_end_and_begin (Moment test_mom)
     Allow already started autobeam to end
    */
   SCM on = get_property ("noAutoBeaming", 0);
-  if (gh_boolean_p (on) && gh_scm2bool (on))
+  if (to_boolean (on))
     return;
 
   if (begin_mom)
@@ -290,7 +290,7 @@ Auto_beam_engraver::same_grace_state_b (Score_element* e)
 {
   bool gr = e->get_elt_property ("grace") == SCM_BOOL_T;
   SCM wg =get_property ("weAreGraceContext",0);
-  return (gh_boolean_p (wg) && gh_scm2bool (wg)) == gr;
+  return (to_boolean (wg)) == gr;
 }
 
 void
@@ -327,7 +327,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
       /*
 	Don't (start) auto-beam over empty stems; skips or rests
 	*/
-      if (!stem_l->first_head ())
+      if (!stem_l->heads_i ())
 	{
 	  if (stem_l_arr_p_)
 	    end_beam ();

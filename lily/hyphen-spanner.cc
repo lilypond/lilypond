@@ -23,7 +23,7 @@
 #include "dimension-cache.hh"
 
 Hyphen_spanner::Hyphen_spanner ()
-  : Directional_spanner ()
+  : Spanner ()
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 
