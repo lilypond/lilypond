@@ -1,6 +1,7 @@
 depth = ..
 
-SEXECUTABLES=convert-ly lilypond-book lilypond-latex abc2ly etf2ly mup2ly midi2ly
+SEXECUTABLES=convert-ly lilypond-book lilypond-latex abc2ly etf2ly mup2ly midi2ly ps2png
+
 STEPMAKE_TEMPLATES=script help2man po
 LOCALSTEPMAKE_TEMPLATES = lilypond
 HELP2MAN_EXECS = $(SEXECUTABLES)

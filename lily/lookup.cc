@@ -687,7 +687,7 @@ Stencil
 Lookup::triangle (Interval iv, Real thick, Real protude)
 {
   Box b ;
-  b[X_AXIS] = iv;
+  b[X_AXIS] = Interval (0, iv.length());
   b[Y_AXIS] = Interval (0 <? protude , 0 >? protude);
 
   SCM s = scm_list_n (ly_symbol2scm ("symmetric-x-triangle"),

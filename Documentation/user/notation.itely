@@ -4437,8 +4437,8 @@ twoWays = \transpose c c' {
   <f bes d'>
 }
 
-  << \context ChordNames \twoWays
-     \context Voice \twoWays >> 
+<< \context ChordNames \twoWays
+   \context Voice \twoWays >> 
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
@@ -4461,7 +4461,7 @@ In chord mode sets of pitches (chords) are entered with normal note
 names.  A chord is entered by the root, which is entered like a
 normal pitch
 
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
+@lilypond[quote,raggedright,fragment,verbatim]
   \chordmode { es4. d8 c2 }
 @end lilypond
 
@@ -5493,8 +5493,8 @@ to an articulation, for example,
 
 This defines a note with a conditional fingering indication.
 
-By applying the @code{\keepWithTag} command, tagged expressions
-can be filtered.  For example,
+By applying the @code{\keepWithTag} and @code{\removeWithTag}
+commands, tagged expressions can be filtered.  For example,
 @example
 <<
   @var{the music}
@@ -5512,6 +5512,8 @@ of symbols, for example,
 @example
   \tag #'(original-part transposed-part) @dots{}
 @end example
+
+
 
 @seealso
 
