@@ -56,5 +56,12 @@ stacktrace of the crash.
 
 HOW DOES IT WORK
 
-Use The Source, Luke. If you don't know C++, you can try editing
+* Use The Source, Luke. If you don't know C++, you can try editing
 .dstreamrc for copious debugging output.
+
+* see also the subdir Documentation
+
+* The source is commented in the DOC++ style.
+Check out doc++ at
+
+	http://www.ZIB-Berlin.DE/VisPar/doc++/doc++.html 
