@@ -4855,9 +4855,9 @@ Augmentum dots within ligatures are  not handled correctly.
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
 property of the NoteHead object to the desired value (@code{baroque},
-@code{neo_mensural} or @code{mensural}).  The @code{baroque} style
+@code{neomensural} or @code{mensural}).  The @code{baroque} style
 differs from the @code{default} style only in using a square shape for
-@code{\breve} note heads.  The @code{neo_mensural} style differs from
+@code{\breve} note heads.  The @code{neomensural} style differs from
 the @code{baroque} style in that it uses rhomboidal heads for whole
 notes and all smaller durations.  Stems are centered on the note
 heads.  This style is in particular useful when transcribing mensural
@@ -4865,10 +4865,10 @@ music, e.g. for the incipit.  The @code{mensural} style finally
 produces note heads that mimic the look of note heads in historic
 printings of the 16th century.
 
-The following example demonstrates the @code{neo_mensural} style
+The following example demonstrates the @code{neomensural} style
 
 @lilypond[quote,fragment,raggedright,verbatim]
-\override NoteHead #'style = #'neo_mensural
+\override NoteHead #'style = #'neomensural
 a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
@@ -4973,17 +4973,17 @@ Examples: @inputfileref{input/test,ancient-accidentals.ly}.
 
 Use the @code{style} property of grob @internalsref{Rest} to select
 ancient accidentals.   Supported styles are @code{classical},
-@code{neo_mensural} and @code{mensural}.  @code{classical} differs
+@code{neomensural} and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks like
-a horizontally mirrored 8th rest.  The @code{neo_mensural} style suits
+a horizontally mirrored 8th rest.  The @code{neomensural} style suits
 well for e.g. the incipit of a transcribed mensural piece of music.
 The @code{mensural} style finally mimics the appearance of rests as
 in historic prints of the 16th century.
 
-The following example demonstrates the @code{neo_mensural} style
+The following example demonstrates the @code{neomensural} style
 
 @lilypond[quote,fragment,raggedright,verbatim]
-\override Rest #'style = #'neo_mensural
+\override Rest #'style = #'neomensural
 r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -5017,32 +5017,23 @@ arbitrary line, as described in @ref{Clef}.  The note printed to the
 right side of each clef in the example column denotes the @code{c'}
 with respect to that clef.
 
-@multitable @columnfractions  .3 .3 .3 .1
+@multitable @columnfractions   .4 .4 .2
 
 @item
-@b{Glyph Name} @tab
 @b{Description} @tab
 @b{Supported Clefs} @tab
 @b{Example}
 
 @item
-@code{clefs-neo_mensural_c} @tab
 modern style mensural C clef @tab
-@code{neo_mensural_c1}, @code{neo_mensural_c2},
-@code{neo_mensural_c3}, @code{neo_mensural_c4} @tab
+@code{neomensural_c1}, @code{neomensural_c2},
+@code{neomensural_c3}, @code{neomensural_c4} @tab
 @lilypond[fragment,quote,relative=1,notime]
 \override Staff.TimeSignature   #'transparent = ##t
-\clef "neo_mensural_c2" c
+\clef "neomensural_c2" c
 @end lilypond
 
 @item
-@code{clefs-petrucci_c1}
-@code{clefs-petrucci_c2}
-@code{clefs-petrucci_c3}
-@code{clefs-petrucci_c4}
-@code{clefs-petrucci_c5}
-
-@tab
 petrucci style mensural C clefs, for use  on different  staff lines
 (the examples shows the 2nd staff line C clef).
 
@@ -5060,7 +5051,6 @@ petrucci style mensural C clefs, for use  on different  staff lines
 @end lilypond
 
 @item
-@code{clefs-petrucci_f} @tab
 petrucci style mensural F clef @tab
 @code{petrucci_f} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5069,7 +5059,6 @@ petrucci style mensural F clef @tab
 @end lilypond
 
 @item
-@code{clefs-petrucci_g} @tab
 petrucci style mensural G clef @tab
 @code{petrucci_g} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5078,7 +5067,6 @@ petrucci style mensural G clef @tab
 @end lilypond
 
 @item
-@code{clefs-mensural_c} @tab
 historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4} @tab
@@ -5088,7 +5076,6 @@ historic style mensural C clef @tab
 @end lilypond
 
 @item
-@code{clefs-mensural_f} @tab
 historic style mensural F clef @tab
 @code{mensural_f} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5097,7 +5084,6 @@ historic style mensural F clef @tab
 @end lilypond
 
 @item
-@code{clefs-mensural_g} @tab
 historic style mensural G clef @tab
 @code{mensural_g} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5106,7 +5092,6 @@ historic style mensural G clef @tab
 @end lilypond
 
 @item
-@code{clefs-vaticana_do} @tab
 Editio Vaticana style do clef @tab
 @code{vaticana_do1}, @code{vaticana_do2}, @code{vaticana_do3} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5116,7 +5101,6 @@ Editio Vaticana style do clef @tab
 @end lilypond
 
 @item
-@code{clefs-vaticana_fa} @tab
 Editio Vaticana style fa clef @tab
 @code{vaticana_fa1}, @code{vaticana_fa2} @tab
 @lilypond[quote,relative=1,notime,fragment]
@@ -5126,7 +5110,6 @@ Editio Vaticana style fa clef @tab
 @end lilypond
 
 @item
-@code{clefs-medicaea_do} @tab
 Editio Medicaea style do clef @tab
 @code{medicaea_do1}, @code{medicaea_do2}, @code{medicaea_do3} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5136,7 +5119,6 @@ Editio Medicaea style do clef @tab
 @end lilypond
 
 @item
-@code{clefs-medicaea_fa} @tab
 Editio Medicaea style fa clef @tab
 @code{medicaea_fa1}, @code{medicaea_fa2} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5146,7 +5128,6 @@ Editio Medicaea style fa clef @tab
 @end lilypond
 
 @item
-@code{clefs-hufnagel_do} @tab
 historic style hufnagel do clef @tab
 @code{hufnagel_do1}, @code{hufnagel_do2}, @code{hufnagel_do3} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5156,7 +5137,6 @@ historic style hufnagel do clef @tab
 @end lilypond
 
 @item
-@code{clefs-hufnagel_fa} @tab
 historic style hufnagel fa clef @tab
 @code{hufnagel_fa1}, @code{hufnagel_fa2} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5166,7 +5146,6 @@ historic style hufnagel fa clef @tab
 @end lilypond
 
 @item
-@code{clefs-hufnagel_do_fa} @tab
 historic style hufnagel combined do/fa clef @tab
 @code{hufnagel_do_fa} @tab
 @lilypond[fragment,quote,relative=1,notime]
@@ -5263,34 +5242,34 @@ following table
         \set Score.timing = ##f
         \set Score.barAlways = ##t
         s_\markup { "$\\backslash$time 4/4" }
-         ^\markup { "       " \musicglyph #"timesig-neo_mensural4/4" }
+         ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
 	s
 	s_\markup { "$\\backslash$time 2/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
 	s
 	s_\markup { "$\\backslash$time 6/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
 	s
 	s_\markup { "$\\backslash$time 6/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
 	\break
 	s_\markup { "$\\backslash$time 3/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
 	s
 	s_\markup { "$\\backslash$time 3/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
 	s
 	s_\markup { "$\\backslash$time 9/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
         s
 	s_\markup { "$\\backslash$time 9/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
         \break
 	s_\markup { "$\\backslash$time 4/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural4/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
 	s
 	s_\markup { "$\\backslash$time 2/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
 	\break
     }
     \paper {
@@ -5308,8 +5287,8 @@ following table
 
 Use the @code{style} property of grob @internalsref{TimeSignature} to
 select ancient time signatures.  Supported styles are
-@code{neo_mensural} and @code{mensural}.  The above table uses the
-@code{neo_mensural} style.  This style is appropriate e.g. for the
+@code{neomensural} and @code{mensural}.  The above table uses the
+@code{neomensural} style.  This style is appropriate e.g. for the
 incipit of transcriptions of mensural pieces.  The @code{mensural}
 style mimics the look of historical printings of the 16th century.
 
@@ -5559,8 +5538,8 @@ For example,
 @example
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neo_mensural
-        \override Staff.TimeSignature   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neomensural
+        \override Staff.TimeSignature   #'style = #'neomensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
@@ -5571,8 +5550,8 @@ For example,
     \transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neo_mensural
-        \override Staff.TimeSignature   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neomensural
+        \override Staff.TimeSignature   #'style = #'neomensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
@@ -5596,8 +5575,8 @@ to the following
 \transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neo_mensural
-        \override Staff.TimeSignature   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neomensural
+        \override Staff.TimeSignature   #'style = #'neomensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
         s4
