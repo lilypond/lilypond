@@ -1,3 +1,40 @@
+	
+2002-09-15  Werner Lemberg  <wl@gnu.org>
+
+	Improving LilyPond's output to make them ordinary TeX boxes with
+	predictable dimensions.  System boxes are now vertically centered on
+	the baseline; this offset can be further controlled with
+	\lilypondscoreshift.
+
+	* lily/system.cc (System::post_processing): Pass length of current
+	system to `start-system' (including any horizontal indentation).
+
+	* scm/tex.scm, scm/pdftex.scm: Make output of various functions
+	prettier.
+	(lily-def): Append `%'.
+	(start-system): Add parameter `wd'.  Output more TeX code to specify
+	box dimensions.
+	(stop-system, stop-last-system): Complement changes in
+	`start-system'.
+	* scm/sketch.scm, scm/ps.scm, scm/pdf.scm, scm/ascii-script.scm:
+	Updated.
+
+	* scripts/ly2dvi.py (global_latex_definition): Set \parindent to 0.
+	* buildscripts/mf-to-table.py (write_tex_defs): Append `%'.
+	Write final `\endinput'.
+
+	* tex/lily-ps-defs.tex, tex/lily-pdf-defs.tex,
+	tex/lilypond-plaintex.tex, tex/lilypond-latex.tex,
+	tex/lilyponddefs.tex, tex/titledefs.tex: Reformat code.  Assure that
+	files and macro definitions don't produce spurious spaces and
+	paragraphs (using \endlinechar).
+	* tex/lilyponddefs.tex: New dimension `\scoreshift'.
+
+	* Documentation/user/internals.itely: Improved formatting, fixing
+	typos
+	Added a section `Output details' to describe how the TeX code
+	looks like.
+
 2002-09-17  Rune Zedeler  <rune@zedeler.dk>
 
 	* lily/accidental-engraver.cc: Also work with partial measures.
