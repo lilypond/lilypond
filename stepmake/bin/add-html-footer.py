@@ -35,7 +35,8 @@ default_header = r"""
 """
 
 
-wiki_base = 'http://afavant.elte.hu/lywiki/'
+#wiki_base = 'http://afavant.elte.hu/lywiki/'
+wiki_base = None 
 
 
 default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
@@ -44,8 +45,7 @@ of @PACKAGE_NAME@
 
 built = r"""
 <div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
-<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
-<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.
+%(wiki_string)s
 <p>
 <font size="-1">
 This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
@@ -200,14 +200,6 @@ def do_file (f):
 	s = gulp_file (f)
 	s = re.sub ('%', '%%', s)
 
-	if changelog_file:
-		changes = gulp_file (changelog_file)
-		# urg?
-		#m = re.search ('^\\\\*\\\\*', changes)
-		m = re.search (r'\*\*\*', changes)
-		if m:
-			changes = changes[:m.start (0)]
-		s = re.sub ('top_of_ChangeLog', '<pre>\n'+ changes  + '\n</pre>\n', s)
 
 	if re.search (header_tag, s) == None:
 		body = '<BODY BGCOLOR=WHITE TEXT=BLACK>'
@@ -235,6 +227,7 @@ def do_file (f):
 		else:
 			s = s + footer
 
+		s = i18n (f, s)
 
 	#URUGRGOUSNGUOUNRIU
 	index = index_url
@@ -261,12 +254,18 @@ def do_file (f):
 	wiki_page = re.sub (r'\.-', '', wiki_page) 
 	wiki_page = re.sub ('.html', '', wiki_page)
 
+	wiki_string = ''
+
+	if wiki_base:
+		wiki_string = (r'''<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
+		<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.''' % 
+			       { 'wiki_base': wiki_base,
+				 'wiki_page': wiki_page})
+		
 	subst = globals ()
 	subst.update (locals())
-	
-	
 	s = s % subst
-	
+
 	# urg
 	# maybe find first node?
 	fallback_web_title = '-- --'
@@ -282,6 +281,77 @@ def do_file (f):
 
 	open (f, 'w').write (s)
 
+
+
+localedir = 'out/locale'
+try:
+	import gettext
+	gettext.bindtextdomain ('newweb', localedir)
+	gettext.textdomain ('newweb')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
+underscore = _
+
+
+LANGUAGES = (
+	('site', 'English'),
+	('nl', 'Nederlands'),
+	)
+
+language_available = _ ("Other languages: %s.") % "%(language_menu)s"
+browser_language = _ ("Using <A HREF='%s'>automatic language selection</A>.") \
+		      % "%(root_url)sabout/browser-language"
+
+LANGUAGES_TEMPLATE = '''\
+<P>
+  %(language_available)s
+  <BR>
+  %(browser_language)s
+</P>
+''' % vars ()
+
+def file_lang (file, lang):
+	(base, ext) = os.path.splitext (file)
+	base = os.path.splitext (base)[0]
+	if lang and lang != 'site':
+		return base + '.' + lang + ext
+	return base + ext
+
+
+def i18n (file_name, page):
+	# ugh
+	root_url = "/web/"
+
+	base_name = os.path.basename (file_name)
+
+	lang = ''
+	m = re.match ('.*[.]([^.]*).html', file_name)
+	if m:
+		lang = m.group (1)
+
+	# Find available translations of this page.
+	available = filter (lambda x: lang != x[0] \
+			    and os.path.exists (file_lang (file_name, x[0])),
+			    LANGUAGES)
+
+	# Strip .html, .png suffix for auto language selection.
+#	page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html(#[^"]*)|.png)[\'"]''',
+#		       '\\1="\\2"', page)
+
+	# Create language menu.
+	language_menu = ''
+	for (prefix, name) in available:
+		lang_file = file_lang (base_name, prefix)
+		language_menu += '<a href="%(lang_file)s">%(name)s</a>' % vars ()
+
+	languages = ''
+	if language_menu:
+		languages = LANGUAGES_TEMPLATE % vars ()
+
+	return page + languages
+	## end i18n
 
 for f in files:
 	do_file (f)

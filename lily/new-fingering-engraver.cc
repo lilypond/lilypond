@@ -257,7 +257,7 @@ New_fingering_engraver::position_scripts ()
       Grob* f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    scm_int2num (finger_prio + i));
+			    scm_int2num (finger_prio + ft.position_));
       f->add_offset_callback (Side_position_interface::aligned_side_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
@@ -272,7 +272,7 @@ New_fingering_engraver::position_scripts ()
       Grob* f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_property ("script-priority",
-			    scm_int2num (finger_prio + down.size () - i));
+			    scm_int2num (finger_prio + down.size () - ft.position_));
 
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, X_AXIS);
