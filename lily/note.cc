@@ -70,6 +70,7 @@ get_text_req(int d , Text_def*def)
 Request*
 get_stemdir_req(int d)
 {
+    d = sign(long(d));
     Group_feature_req * gfreq_p = new Group_feature_req;
     gfreq_p->type_str_ = "vdir";
     gfreq_p->value_str_ = String(d);
