@@ -4,6 +4,7 @@ title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Courante";
 % opus =	 "BWV 1008";
+opus =	 "";
 composer =	 "Johann Sebastian Bach(1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
@@ -28,9 +29,11 @@ courante_alto_global = \melodic{
 	\key bes;
 	\partial 16;
 	\clef alto;
-	\skip 2.*16;
+	\skip 2.*15;
+	s2 s8.
 	\bar ":|:";
-	\skip 2.*16;
+	\skip 2.*15;
+	s2 s8
 	\bar ":|";
 }
 
