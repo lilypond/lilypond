@@ -84,9 +84,6 @@ Source_file::Source_file (String filename, String data)
   init_port();
 }
 
-
-
-
 Source_file::Source_file (String filename_string)
 {
   name_string_ = filename_string;
@@ -262,15 +259,24 @@ Source_file::get_line (char const* pos_str0) const
   if (!in_b (pos_str0))
     return 0;
 
+  if (!newline_locations_.size())
+    return 1;
+  
   int lo=0;
   int hi = newline_locations_.size();
+
+  if (newline_locations_[lo] > pos_str0)
+    return 1;
+  
+  if (newline_locations_[hi-1] < pos_str0)
+    return hi;
   
   binary_search_bounds (newline_locations_,
 			pos_str0, 
 			Link_array<char>::default_compare,
 			&lo, &hi);
   
-  return lo;
+  return lo + 2;
 }
 
 int

@@ -1,3 +1,16 @@
+2002-10-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/source-file.cc (get_line): oops. All line numbers were off
+	by 2. Fix that. 
+
+	* lily/parser.yy (event_that_take_dir): allow () \< \> \! \( \) to
+	be after the note, combined with -_^, i.e. c4-(-\)-\>  
+
+	* ly/params-init.ly (ledgerlinethickness): use Scheme expressions.
+
+	* lily/parser.yy (number_factor): remove (number) as number
+	expression. ("Let them eat Lisp").
+
 2002-10-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/horizontal-bracket.cc: new file.

@@ -31,9 +31,12 @@
   (string-append (number->string line) " " file)
   )
 
+(define-public point-and-click #f)
+
 ;; cpp hack to get useful error message
 (define ifdef "First run this through cpp.")
 (define ifndef "First run this through cpp.")
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
