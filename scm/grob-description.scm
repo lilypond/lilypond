@@ -132,7 +132,7 @@
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
 			       ,Beam::shift_region_to_valid
-			       ,Beam::quanting
+;			       ,Beam::quanting
 			      ))
 
 	;; TODO: should be in SLT.
@@ -147,7 +147,6 @@
 	(flag-width-function . ,default-beam-flag-width-function)
 	(damping . 1)
 	(auto-knee-gap . 7)
-	
 	(font-name . "cmr10")
 	(space-function . ,Beam::space_function)
 	(meta . ((interfaces . (staff-symbol-referencer-interface beam-interface spanner-interface))))

@@ -15,8 +15,6 @@ TODO:
   * Junk stem_info.
 
   * Use Number_pair i.s.o Interval to represent (yl, yr).
-
-  * cross staff 
   
   - Determine auto knees based on positions if it's set by the user.
 
@@ -33,6 +31,7 @@ Notes:
 
 #include <math.h> // tanh.
 
+#include "align-interface.hh"
 #include "molecule.hh" 
 #include "directional-element-interface.hh"
 #include "beaming.hh"
@@ -517,13 +516,10 @@ Beam::consider_auto_knees (Grob *me, Direction d)
       Real gap = gh_scm2double (scm) / staff_space;
 
 
-      Link_array<Item> stems=
-	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+      Link_array<Grob> stems=
+	Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
       
-      Grob *common = me->common_refpoint (stems[0], Y_AXIS);
-      for (int i=1; i < stems.size (); i++)
-	if (!Stem::invisible_b (stems[i]))
-	  common = common->common_refpoint (stems[i], Y_AXIS);
+      Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
 
       int l = 0;
       for (int i=1; i < stems.size (); i++)
@@ -554,7 +550,7 @@ Beam::consider_auto_knees (Grob *me, Direction d)
 	{
 	  for (int i=0; i < stems.size (); i++)
 	    {
-	      Item *s = stems[i];	  
+	      Grob *s = stems[i];	  
 	      if (Stem::invisible_b (s) || 
 		  s->get_grob_property ("dir-forced") == SCM_BOOL_T)
 		continue;
@@ -702,7 +698,8 @@ Beam::quanting (SCM smob)
   Array<Real> rbase_lengths;  
 
   Drul_array<bool> dirs_found(0,0);
-
+  Grob *common_y = common_refpoint_of_array (stems, me, Y_AXIS);
+  
   bool french = to_boolean (me->get_grob_property ("french-beaming"));
   for (int i= 0; i < stems.size(); i++)
     {
@@ -710,10 +707,10 @@ Beam::quanting (SCM smob)
       stem_infos.push (Stem::calc_stem_info (s));
       dirs_found[stem_infos.top ().dir_] = true;
 
-      Real b = calc_stem_y (me, s, Interval (1,0), french && i > 0&& (i < stems.size  () -1));
+      Real b = calc_stem_y (me, s, common_y , Interval (1,0), french && i > 0&& (i < stems.size  () -1));
       lbase_lengths.push (b);
 
-      Real a = calc_stem_y (me, s, Interval (0,1),  french && i > 0&& (i < stems.size  () -1));
+      Real a = calc_stem_y (me, s, common_y , Interval (0,1),  french && i > 0&& (i < stems.size  () -1));
       rbase_lengths.push (a);
     }
 
@@ -757,12 +754,20 @@ Beam::quanting (SCM smob)
     parameters outside of the loop, we can save a lot of time.
 
   */
+
+
+  Grob *fvs  = first_visible_stem (me);
+  Grob *lvs  = last_visible_stem (me);
+
+  Grob *commony = fvs->common_refpoint (lvs, Y_AXIS);
+  bool xstaff=  (Align_interface::has_interface (commony));
+      
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < 100)
       {
 	qscores[i].demerits
 	  += score_slopes_dy (me, qscores[i].yl, qscores[i].yr,
-			      dy_mus, yr- yl); 
+			      dy_mus, yr- yl, xstaff); 
       }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
@@ -859,7 +864,8 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
 Real
 Beam::score_slopes_dy (Grob *me,
 		       Real yl, Real yr,
-		       Real dy_mus, Real dy_damp)
+		       Real dy_mus, Real dy_damp,
+		       bool xstaff)
 {
   Real dy = yr - yl;
 
@@ -870,8 +876,18 @@ Beam::score_slopes_dy (Grob *me,
     }
 
    dem += MUSICAL_DIRECTION_FACTOR * (0 >? (fabs (dy) - fabs (dy_mus)));
-   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* IDEAL_SLOPE_FACTOR;
 
+
+   Real slope_penalty = IDEAL_SLOPE_FACTOR;
+
+   /*
+     Xstaff beams tend to use extreme slopes to get short stems. We
+     put in a penalty here.
+   */
+   if (xstaff)
+     slope_penalty *= 10;
+
+   dem += shrink_extra_weight (fabs (dy_damp) - fabs (dy))* slope_penalty;
    return dem;
 }
 
@@ -996,27 +1012,32 @@ Beam::least_squares (SCM smob)
       return SCM_UNSPECIFIED;
     }
 
-  Interval ideal (Stem::calc_stem_info (first_visible_stem (me)).ideal_y_,
-		  Stem::calc_stem_info (last_visible_stem (me)).ideal_y_);
-
-
 
   Array<Real> x_posns ;
-  Link_array<Item> stems=
-    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
-  Grob *common = stems[0];
-  for (int i=1; i < stems.size (); i++)
-    common = stems[i]->common_refpoint (common, X_AXIS);
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+  Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
+  Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);  
 
-  Real x0 = first_visible_stem (me)->relative_coordinate (common, X_AXIS);
+  Real my_y = me->relative_coordinate (commony, Y_AXIS);
+  
+  Grob *fvs  = first_visible_stem (me);
+  Grob *lvs  = last_visible_stem (me);
+  
+  Interval ideal (Stem::calc_stem_info (fvs).ideal_y_
+		  + fvs->relative_coordinate (commony, Y_AXIS) -my_y,
+		  Stem::calc_stem_info (lvs).ideal_y_
+		  + lvs->relative_coordinate (commony, Y_AXIS) - my_y);
+  
+  Real x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
   for (int i=0; i < stems.size (); i++)
     {
-      Item* s = stems[i];
+      Grob* s = stems[i];
 
-      Real x = s->relative_coordinate (common, X_AXIS) - x0;
+      Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
       x_posns.push (x);
     }
-  Real dx = last_visible_stem (me)->relative_coordinate (common, X_AXIS) - x0;
+  Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
 
   Real y =0;  
   Real dydx = 0;
@@ -1060,11 +1081,13 @@ Beam::least_squares (SCM smob)
       Array<Offset> ideals;
       for (int i=0; i < stems.size (); i++)
 	{
-	  Item* s = stems[i];
+	  Grob* s = stems[i];
 	  if (Stem::invisible_b (s))
 	    continue;
 	  ideals.push (Offset (x_posns[i],
-			       Stem::calc_stem_info (s).ideal_y_));
+			       Stem::calc_stem_info (s).ideal_y_
+			       + s->relative_coordinate (commony, Y_AXIS)
+			       - my_y));
 	}
       minimise_least_squares (&dydx, &y, ideals);
 
@@ -1092,23 +1115,22 @@ Beam::shift_region_to_valid (SCM grob)
     Code dup.
    */
   Array<Real> x_posns ;
-  Link_array<Item> stems=
-    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
-  Grob *common = stems[0];
-  for (int i=1; i < stems.size (); i++)
-    common = stems[i]->common_refpoint (common, X_AXIS);
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+  Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
+  Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);  
 
   Grob *fvs = first_visible_stem (me);
 
   if (!fvs)
     return SCM_UNSPECIFIED;
     
-  Real x0 =fvs->relative_coordinate (common, X_AXIS);
+  Real x0 =fvs->relative_coordinate (commonx, X_AXIS);
   for (int i=0; i < stems.size (); i++)
     {
-      Item* s = stems[i];
+      Grob* s = stems[i];
 
-      Real x = s->relative_coordinate (common, X_AXIS) - x0;
+      Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
       x_posns.push (x);
     }
 
@@ -1116,7 +1138,7 @@ Beam::shift_region_to_valid (SCM grob)
   if (!lvs)
     return SCM_UNSPECIFIED;
   
-  Real dx = lvs->relative_coordinate (common, X_AXIS) - x0;
+  Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
   Interval pos = ly_scm2interval ( me->get_grob_property ("positions"));
   Real dy = pos.delta();
@@ -1132,16 +1154,23 @@ Beam::shift_region_to_valid (SCM grob)
   feasible_left_point.set_full ();
   for (int i=0; i < stems.size (); i++)
     {
-      Item* s = stems[i];
+      Grob* s = stems[i];
       if (Stem::invisible_b (s))
 	continue;
 
-
       Direction d = Stem::get_direction (s);
 
-
-      Real left_y = Stem::calc_stem_info (s).shortest_y_
+      Real left_y =
+	Stem::calc_stem_info (s).shortest_y_
 	- dydx * x_posns [i];
+
+      /*
+	left_y is now relative to the stem S. We want relative to
+	ourselves, so translate:
+       */
+      left_y += 
+	+ s->relative_coordinate (commony, Y_AXIS)
+	- me->relative_coordinate (commony, Y_AXIS);
 
       Interval flp ;
       flp.set_full ();
@@ -1175,8 +1204,8 @@ Beam::check_concave (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Link_array<Item> stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob> stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
 
   for (int i = 0; i < stems.size ();)
     {
@@ -1309,10 +1338,15 @@ Beam::slope_damping (SCM smob)
     {
       Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
       Real dy = pos.delta ();
-      
-      // ugh -> use commonx
-      Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS)
-	- first_visible_stem (me)->relative_coordinate (0, X_AXIS);
+
+      Grob *fvs  = first_visible_stem (me);
+      Grob *lvs  = last_visible_stem (me);
+
+      Grob *commonx = fvs->common_refpoint (lvs, X_AXIS);
+
+
+      Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS)
+	- first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
       Real dydx = dy && dx ? dy/dx : 0;
       dydx = 0.6 * tanh (dydx) / damping;
 
@@ -1345,9 +1379,8 @@ where_are_the_whole_beams(SCM beaming)
   in POS, and for stem S.
  */
 Real
-Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french) 
+Beam::calc_stem_y (Grob *me, Grob* s, Grob * common_y, Interval pos, bool french) 
 {
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
   Real beam_space = get_beam_space (me);
 
   // ugh -> use commonx
@@ -1381,8 +1414,11 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french)
       if (!bm.empty_b())
 	stem_y +=bm[my_dir] * beam_space;
     }
-
-  return stem_y;
+  
+  Real id = me->relative_coordinate (common_y, Y_AXIS)
+    - s->relative_coordinate (common_y, Y_AXIS);
+  
+  return stem_y + id;
 }
 
 /*
@@ -1392,17 +1428,13 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french)
 void
 Beam::set_stem_lengths (Grob *me)
 {
-  Link_array<Item> stems=
-    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
 
   if (stems.size () <= 1)
     return;
   
-  Grob *common = me->common_refpoint (stems[0], Y_AXIS);
-  for (int i=1; i < stems.size (); i++)
-    if (!Stem::invisible_b (stems[i]))
-      common = common->common_refpoint (stems[i], Y_AXIS);
-
+  Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -1410,16 +1442,13 @@ Beam::set_stem_lengths (Grob *me)
  
   for (int i=0; i < stems.size (); i++)
     {
-      Item* s = stems[i];
+      Grob* s = stems[i];
       if (Stem::invisible_b (s))
 	continue;
 
-      Real stem_y = calc_stem_y (me, s, pos, french && i > 0&& (i < stems.size  () -1));
+      Real stem_y = calc_stem_y (me, s, common , pos, french && i > 0&& (i < stems.size  () -1));
 
-      /* caution: stem measures in staff-positions */
-      Real id = me->relative_coordinate (common, Y_AXIS)
-	- stems[i]->relative_coordinate (common, Y_AXIS);
-      Stem::set_stemend (s, (stem_y + id) / staff_space * 2);
+        Stem::set_stemend (s, 2* stem_y / staff_space);
     }
 }
 
@@ -1459,12 +1488,12 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 int
 Beam::forced_stem_count (Grob *me) 
 {
-  Link_array<Item>stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob>stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   int f = 0;
   for (int i=0; i < stems.size (); i++)
     {
-      Item *s = stems[i];
+      Grob *s = stems[i];
 
       if (Stem::invisible_b (s))
 	continue;
@@ -1482,8 +1511,8 @@ Beam::forced_stem_count (Grob *me)
 int
 Beam::visible_stem_count (Grob *me) 
 {
-  Link_array<Item>stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob>stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   int c = 0;
   for (int i = stems.size (); i--;)
     {
@@ -1493,11 +1522,11 @@ Beam::visible_stem_count (Grob *me)
   return c;
 }
 
-Item*
+Grob*
 Beam::first_visible_stem (Grob *me) 
 {
-  Link_array<Item>stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob>stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1507,11 +1536,11 @@ Beam::first_visible_stem (Grob *me)
   return 0;
 }
 
-Item*
+Grob*
 Beam::last_visible_stem (Grob *me) 
 {
-  Link_array<Item>stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob>stems = 
+    Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   for (int i = stems.size (); i--;)
     {
       if (!Stem::invisible_b (stems[i]))

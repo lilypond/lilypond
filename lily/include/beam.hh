@@ -16,8 +16,8 @@ class Beam
 {
 public:
   static int visible_stem_count (Grob*);
-  static Item* first_visible_stem (Grob*);
-  static Item* last_visible_stem (Grob*);
+  static Grob* first_visible_stem (Grob*);
+  static Grob* last_visible_stem (Grob*);
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM axis));
   Beam (SCM);
@@ -38,7 +38,7 @@ public:
   DECLARE_SCHEME_CALLBACK (slope_damping, (SCM));
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM));  
   DECLARE_SCHEME_CALLBACK (quanting, (SCM));
-  static Real score_slopes_dy (Grob*, Real,Real,Real,Real);
+  static Real score_slopes_dy (Grob*, Real,Real,Real,Real, bool);
   static Real score_stem_lengths (Link_array<Grob>,
 				  Array<Stem_info>,
 				  Array<Real>, Array<Real>, 
@@ -53,7 +53,7 @@ private:
   static void set_stem_directions (Grob*, Direction );
   static void consider_auto_knees (Grob*, Direction d);
   static void set_stem_shorten (Grob*);
-  static Real calc_stem_y (Grob*, Grob* s, Interval pos, bool french);
+  static Real calc_stem_y (Grob*, Grob* s, Grob*c, Interval pos, bool french);
   static void set_stem_lengths (Grob*);
   static int forced_stem_count (Grob*);
 };
