@@ -11,6 +11,11 @@
 #include <cassert>
 #include <clocale>
 #include <cstring>
+#include <unistd.h>
+#include <errno.h>
+#include <pwd.h>
+#include <grp.h>
+#include <sys/types.h>
 
 #include "config.hh"
 
@@ -29,6 +34,7 @@
 #include "output-def.hh"
 #include "warn.hh"
 #include "freetype.hh"
+#include "string-convert.hh"
 
 /*
  * Global options that can be overridden through command line.
