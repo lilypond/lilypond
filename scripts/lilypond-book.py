@@ -179,27 +179,30 @@ snippet_res = {
 	    </lilypondfile>)''',
 	'multiline_comment':
 	  r'''(?smx)
+	    (?P<match>
 	    \s*(?!@c\s+)
 	    (?P<code><!--\s.*?!-->)
-	    \s''',
+	    \s)''',
 	'singleline_comment':
 	  no_match,
 	'verb':
 	  r'''(?x)
-	    (?P<code><pre>.*?</pre>)''',
+	    (?P<match>
+	      (?P<code><pre>.*?</pre>))''',
 	'verbatim':
 	  r'''(?x)
 	    (?s)
-	    (?P<code><pre>\s.*?</pre>\s)''',
+	    (?P<match>
+	      (?P<code><pre>\s.*?</pre>\s))''',
 	},
 
 	LATEX: {
 	'include':
-	  r'''(?mx)
+	  r'''(?smx)
 	    ^[^%\n]*?
 	    (?P<match>
-	    \\input{
-	      (?P<filename>[^}]+)
+	    \\input\s*{
+	      (?P<filename>\S+?)
 	    })''',
 	'lilypond':
 	  r'''(?smx)
@@ -221,16 +224,16 @@ snippet_res = {
 	    \])?\s*{lilypond}
 	      (?P<code>.*?)
 	    ^[^%\n]*?
-	    \\end{lilypond})''',
+	    \\end\s*{lilypond})''',
 	'lilypond_file':
-	  r'''(?mx)
+	  r'''(?smx)
 	    ^[^%\n]*?
 	    (?P<match>
 	    \\lilypondfile\s*(
 	    \[
 	      (?P<options>.*?)
 	    \])?\s*\{
-	      (?P<filename>.+)
+	      (?P<filename>\S+?)
 	    })''',
 	'multiline_comment':
 	  no_match,
@@ -239,65 +242,66 @@ snippet_res = {
 	    ^.*?
 	    (?P<match>
 	      (?P<code>
-	      ^%.*$\n+))''',
+	      %.*$\n+))''',
 	'verb':
-	  r'''(?x)
-	    (?P<code>
-	    \\verb(?P<del>.)
-	      .*?
-	    (?P=del))''',
+	  r'''(?mx)
+	    ^[^%\n]*?
+	    (?P<match>
+	      (?P<code>
+	      \\verb(?P<del>.)
+		.*?
+	      (?P=del)))''',
 	'verbatim':
-	  r'''(?sx)
-	    (?P<code>
-	    \\begin\s*{verbatim}
-	      .*?
-	    \\end{verbatim})''',
+	  r'''(?msx)
+	    ^[^%\n]*?
+	    (?P<match>
+	      (?P<code>
+	      \\begin\s*{verbatim}
+		.*?
+	      \\end\s*{verbatim}))''',
 	},
 
 	TEXINFO: {
 	'include':
 	  r'''(?mx)
-	    ^[^%\n]*?
-	    (?P<match>
+	    ^(?P<match>
 	    @include\s+
 	      (?P<filename>\S+))''',
 	'lilypond':
-	  r'''(?mx)
-	    ^
+	  r'''(?smx)
+	    ^[^\n]*?(?!@c\s+)[^\n]*?
 	    (?P<match>
-	    @lilypond(
+	    @lilypond\s*(
 	    \[
-	      (?P<options>[^]]*)
-	    \])?{
+	      (?P<options>.*?)
+	    \])?\s*{
 	      (?P<code>.*?)
 	    })''',
 	'lilypond_block':
 	  r'''(?msx)
-	    ^
-	    (?P<match>
-	    @lilypond(
+	    ^(?P<match>
+	    @lilypond\s*(
 	    \[
-	      (?P<options>[^]]*)
-	    \])?\s
-	    (?P<code>.*?)
-	    @end lilypond)\s''',
+	      (?P<options>.*?)
+	    \])?\s+?
+	    ^(?P<code>.*?)
+	    ^@end\s+lilypond)\s''',
 	'lilypond_file':
 	  r'''(?mx)
-	    ^
-	    (?P<match>
-	    @lilypondfile(
+	    ^(?P<match>
+	    @lilypondfile\s*(
 	    \[
-	      (?P<options>[^]]*)
-	    \])?{
-	      (?P<filename>[^}]+)
+	      (?P<options>.*?)
+	    \])?\s*{
+	      (?P<filename>\S+)
 	    })''',
 	'multiline_comment':
 	  r'''(?smx)
-	    ^\s*(?!@c\s+)
-	    (?P<code>
-	    @ignore
-	      \s.*?
-	    @end\s+ignore)\s''',
+	    ^(?P<match>
+	      (?P<code>
+	      @ignore\s
+		.*?
+	      @end\s+ignore))\s''',
 	'singleline_comment':
 	  r'''(?mx)
 	    ^.*
@@ -309,10 +313,11 @@ snippet_res = {
 #	'verb': r'''(?P<code>@code{.*?})''',
 	'verbatim':
 	  r'''(?sx)
-	    (?P<code>
-	    @example
-	      \s.*?
-	    @end\s+example\s)''',
+	    (?P<match>
+	      (?P<code>
+	      @example
+		\s.*?
+	      @end\s+example\s))''',
 	},
 }
 
@@ -378,8 +383,7 @@ output = {
 	AFTER: r'''
   </a>
 </p>''',
-	BEFORE: r'''
-<p>
+	BEFORE: r'''<p>
   <a href="%(base)s.ly">''',
 	OUTPUT: r'''
     <img align="center" valign="center"
@@ -399,12 +403,11 @@ output = {
 	OUTPUT: r'''{\parindent 0pt
 \catcode`\@=12
 \ifx\preLilyPondExample\undefined\relax\else\preLilyPondExample\fi
-\def\lilypondbook{}
+\def\lilypondbook{}%%
 \input %(base)s.tex
 \ifx\postLilyPondExample\undefined\relax\else\postLilyPondExample\fi
 \catcode`\@=0}''',
 	PRINTFILENAME: '''\\texttt{%(filename)s}
-
 	''',
 	QUOTE: r'''\begin{quotation}
 %(str)s
@@ -426,10 +429,8 @@ output = {
 	AFTER: '',
 	BEFORE: '',
 	OUTPUT: r'''@noindent
-@image{%(base)s,,,[image of music],%(ext)s}
-''',
+@image{%(base)s,,,[image of music],%(ext)s}''',
 	PRINTFILENAME: '''@file{%(filename)s}
-
 	''',
 	QUOTE: r'''@quotation
 %(str)s
@@ -822,10 +823,11 @@ class Lilypond_snippet (Snippet):
 	def output_texinfo (self):
 		str = ''
 		# self.output_print_filename (TEXINFO)
-		str += ('@html\n' + self.output_print_filename (HTML)
-			+ '\n@end html\n')
-		str += ('@tex\n' + self.output_print_filename (LATEX)
-			+ '\n@end tex\n')
+		if self.output_print_filename (0):
+			str += ('@html\n' + self.output_print_filename (HTML)
+				+ '\n@end html\n')
+			str += ('@tex\n' + self.output_print_filename (LATEX)
+				+ '\n@end tex\n')
 		base = self.basename ()
 		if TEXIDOC in self.options:
 			texidoc = base + '.texidoc'
@@ -893,7 +895,7 @@ def find_toplevel_snippets (s, types):
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
 				snip = cl (type, m, format)
-				start = index + m.start (1)
+				start = index + m.start ('match')
 				found[type] = (start, snip)
 
 			if found[type] \
@@ -920,7 +922,7 @@ def find_toplevel_snippets (s, types):
 		snippets.append (Substring (s, index, start))
 		snippets.append (snip)
 		found[first] = None
-		index = start + len (snip.match.group (1))
+		index = start + len (snip.match.group ('match'))
 
 	return snippets
 
