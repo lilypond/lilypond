@@ -1,16 +1,21 @@
+@c -*-texinfo-*-
 
-@node convert-ly, , , Top
-@chapter convert-ly
-@code{convert-ly} sequentially applies different
+@node Convert-ly
+@section Convert-ly
+
+
+Convert-ly sequentially applies different
 lilypond-conversions to upgrade a Lilypond input file.  It uses
 @code{\version} statements in the file to detect the old version
 number.
+
+@subsection Invoking convert-ly
 
 @example
         convert-ly [options] [files]
 @end example
 
-@section Options
+
 @table @samp
 @item --output
     The output file to write.  

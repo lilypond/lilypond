@@ -1,0 +1,16 @@
+@c -*-texinfo-*-
+
+@node Programs
+@chapter Programs
+
+@menu
+* Ly2dvi::                         Generating nice output with titles.
+* Convert-ly::                     Upgrading input files.
+* Midi2ly::                        Converting from MIDI input.
+@end menu
+
+@mbinclude ly2dvi.itexi
+@mbinclude convert-ly.itexi
+@mbinclude midi2ly.itexi
+
+

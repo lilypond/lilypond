@@ -152,6 +152,8 @@ Chord::member_notename (SCM p, SCM pitches)
 	    }
 	}
     }
+  else
+    member = gh_car (member);
   return member;
 }
 
@@ -175,6 +177,8 @@ Chord::member_pitch (SCM p, SCM pitches)
 	    }
 	}
     }
+  else
+    member = gh_car (member);
   return member;
 }
 

@@ -20,13 +20,13 @@
 ;; First level Engraver description and
 ;; second level Context description
 (define (document-engraver where engraver-descr)
- 
   (let* (
 	 (level (if (eq? where 'context) 3 2))
 	 (props (car (cdddr engraver-descr)))
 	 (name (car engraver-descr))
+	 (name-sym (string->symbol name))
 	 (desc (cadr engraver-descr))
-	 (objs (caddr engraver-descr))
+	 (objs (map symbol->string (caddr engraver-descr)))
 	 )
 
     (string-append
@@ -60,7 +60,7 @@
 					    (cdr (assoc 'consists x))
 					    (cdr (assoc 'end-consists x)))))
 
-			     (if (member name consists)
+			     (if (member name-sym consists)
 				 (list context)
 				 '())))
 			 context-description-alist))))
@@ -131,12 +131,14 @@
      (texi-section 2 (context-name name) #f)
       doc)))
 
+(define (symbol<? l r)
+  (string<? (symbol->string l) (symbol->string r)))
 
 (define (document-paper name)
   (let* ((paper-alist
 	  (sort (My_lily_parser::paper_description)
-		(lambda (x y) (string<? (car x) (car y)))))
-	 (names (sort (map car paper-alist) string<?))
+		(lambda (x y) (symbol<? (car x) (car y)))))
+	 (names (sort (map symbol->string (map car paper-alist)) string<?))
 	 (contexts (map cdr paper-alist))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-context name x)) contexts))))
@@ -148,27 +150,22 @@
 
 (define (document-all-engravers name)
   (let* ((descs (map cdr engraver-description-alist))
-	 (names (map car engraver-description-alist))
+	 (names (map symbol->string (map car engraver-description-alist)))
 	 (doc (apply string-append
 		     (map (lambda (x) (document-separate-engraver name x))
 			  descs))))
-    
     (string-append
      (texi-node-menu name (map (lambda (x) (cons (engraver-name x) ""))
 			       names))
      doc)))
 
 (define (document-all-engraver-properties name)
-  (let*
-    (
-     (ps (sort (map symbol->string all-translation-properties) string<?))
-     (sortedsyms (map string->symbol ps))
-     (propdescs (map document-translator-property sortedsyms))
-     (texi (description-list->texi propdescs))
-     )
+  (let* ((ps (sort (map symbol->string all-translation-properties) string<?))
+	 (sortedsyms (map string->symbol ps))
+	 (propdescs (map document-translator-property sortedsyms))
+	 (texi (description-list->texi propdescs)))
      
   (string-append
 	  (node name)
 	  (texi-section 1 name #f)
-	  texi
-   )))
+	  texi)))

@@ -87,6 +87,7 @@ than the names being similar :-)"
 
 @ifnottex
 @node Top
+@c FIXME: this should not be necessary...
 @top
 @end ifnottex
 
@@ -104,13 +105,13 @@ this and other documentation.
 
 
 @menu
-* Tutorial::                       A tutorial introduction to lilypond.
+* Tutorial::                       A tutorial introduction to LilyPond.
 * Invoking LilyPond::              Operation.
-* Reporting Bugs::                 Where to report bugs.
+* Bug reports:: 	           Where to report bugs.
 * Reference Manual::               Reference Manual.
-@c Move to Reference Manual?
+* Features::                       Features, tips and tricks.
 * Internals:(lilypond-internals).  Auto generated detailed documentation.
-* convert-ly::                     Upgrading input files.
+* Programs::                       External programs.
 * Internals::                      How it all works.
 * Development::                    On developing code for LilyPond.
 * Index::                          Unified index.
@@ -118,14 +119,8 @@ this and other documentation.
 
 @contents
 
-@macro keyindex {word}
-@cindex \\@code{\word\}
-@end macro
 
-@macro indexcode {word}
-@cindex @code{\word\}
-@end macro
-
+@mbinclude macros.itexi
 
 @mbinclude tutorial.itely
 
@@ -135,11 +130,14 @@ this and other documentation.
 
 @mbinclude refman.itely
 
-@mbinclude convert-ly.itexi
+@mbinclude features.itely
+
+@mbinclude programs.itexi
 
 @mbinclude development.itexi
 
-@node Index, , , top
+@c FIXME: Index has two alphabetically sorted lists @code vs plain?
+@node Index
 @unnumbered Index
 
 @printindex cp

@@ -5,10 +5,15 @@
 @c - Restructure! Separate internal commands from user level commands. /MB
 @c - Add some words about Guile.  /MB
 @c - Fix indexing (keyindex) so it doesn't add line breaks  /MB
+@c
+@c FIXME: Index has two alphabetically sorted lists @code vs plain?
+@c 
+@c If we'd include the auto-generated documentation, we 'd get a lot of
+@c very useful index entries.
+@c 
 
-@c ugh: because of @include, we need to fill in these nodes
 
-@node Reference Manual, , , top
+@node Reference Manual
 @chapter Reference Manual
 
 @menu
@@ -41,7 +46,6 @@
 * Sound output::                   Sound output
 * midilist::                       midilist
 * Pre-defined Identifiers::        Pre-defined Identifiers
-@c May be fragile.  Better make single link to generated doco?
 * Interpretation contexts:(lilypond-internals)LilyPond interpretation contexts.
 * Engravers:(lilypond-internals)LilyPond engravers.
 * Backend:(lilypond-internals)LilyPond backend.
@@ -52,10 +56,12 @@
 @node Overview
 @section Overview
 
+
 This document@footnote{This document has been revised for LilyPond 1.2.}
 describes the the GNU LilyPond input format This format represents a
 piece of music in an elegant way, but contains enough information for
 both automatic typesetting and automatic performances.
+
 
 LilyPond input can be classified  into three types:
 @itemize @bullet
@@ -109,6 +115,7 @@ It is customary to put the @code{\header} at the top of the file.
 @node Pitch names
 @section Pitch names
 
+
 @cindex pitch names
 @cindex note names
 @cindex chord modifier names
@@ -116,14 +123,14 @@ It is customary to put the @code{\header} at the top of the file.
 Note names and chord modifiers can be customised for nationalities.
 languages and conventions.  The syntax is as follows.
 @example
-   \pitchnames @keyindex{pitchnames} @var{scheme-alist}
+   \pitchnames@keyindex{pitchnames} @var{scheme-alist}
    \chordmodifiers@keyindex{chordmodifiers} @var{scheme-alist}
 @end example
 
 See @file{ly/nederlands.ly} and @file{ly/chord-modifiers.ly} for
 specific examples how to do this.  tables can be tailored specified
 using. Some national note names have been provided, see
-@ref{Other languages}.
+section @ref{Other languages}.
 A @code{\paper} block at top level sets the default paper block.  A
 @code{\midi} block at top level works similarly.
 
@@ -132,12 +139,10 @@ forbidden after top level assignments.
 
 @cindex assignments
 
-
 @node Lexical conventions
 @section Lexical conventions
 
 @cindex lexical conventions
-
 
 
 @unnumberedsubsec Comments
@@ -520,9 +525,7 @@ corresponding to C and 7 corresponding to B.  The shift is zero for a
 natural, negative to add flats, or positive to add sharps.
 
 In Note and Chord mode, pitches may be designated by names.  See
-section
- @c @ref{Other languages} FIXME
- for pitch names in different languages.
+section @ref{Other languages} for pitch names in different languages.
 
 The syntax for duration specification is
 
@@ -569,7 +572,7 @@ and `@code{ees}' are contracted to `@code{as}' and `@code{es}' in Dutch,
 but both forms will be accepted.
 
 LilyPond has predefined sets of notenames for various languages.  See
-@ref{Other languages}.
+section @ref{Other languages}.
 
 The optional octave specification takes the form of a series of
 single quote (`@code{'}@indexcode{'}') characters or a series of comma
@@ -1499,6 +1502,7 @@ their written length:
 A grace note expression has duration 0; the next real note is
 assumed to be the main note.
 
+
 You cannot have the grace note after the main note, in terms of
 duration, and main notes, but you can typeset the grace notes to the
 right of the main note using the property
@@ -1901,17 +1905,20 @@ display the chord name after a line break:
 @quotation
 @lilypond[verbatim]
 scheme = \chords {
-%  \property ChordNames.chordChanges = ##t
   c1:m \break c:m c:m c:m d
 }
 
 \score {
   \notes <
-    \context ChordNamesVoice \scheme
+    \context ChordNames \scheme
     \context Staff \transpose c'' \scheme
   >
   \paper{
     linewidth = 40 * \staffspace;
+    \translator {
+      \ChordNamesContext
+      chordChanges = ##t
+    }
   }
 }
 @end lilypond
@@ -2318,6 +2325,7 @@ built of.  These modules are called @emph{translators}.  Translators for
 notation are called @emph{engravers}, and translators for sound are
 called @emph{performers}.
 
+
 @mbinclude properties.itely
 
 @node Page layout
@@ -2374,9 +2382,8 @@ where each of the items is one of
 	See @file{font.scm} for details of @var{alist}.
 @end itemize
 
+
 @subsection Paper variables 
-
-
 
 The paper block has some variables you may want to use or change:
 
@@ -2753,7 +2760,6 @@ piano.
 @c @end quotation
 
 
-
 @node Pre-defined Identifiers
 
 @section Pre-defined Identifiers
@@ -2793,4 +2799,5 @@ set different shift values.
     Force stems, beams and slurs to point up.
 
 @end table
+
 

@@ -1,6 +1,7 @@
-@node Reporting Bugs, , , top
+@node Bug reports
 @chapter Bug reports
 @cindex bugs
+@cindex bug reports
 @cindex reporting bugs
 
 LilyPond development moves quickly, so if you have a problem, it is

@@ -35,6 +35,7 @@ private:
   void add_note (Note_req *);
   
   Item* chord_name_p_;
+
   Protected_scm chord_;
   Protected_scm last_chord_;
 };
@@ -93,18 +94,8 @@ Chord_name_engraver::create_grobs ()
       chord_name_p_->set_grob_property ("chord", chord_);
       announce_grob (chord_name_p_, 0);
       SCM s = get_property ("chordChanges");
-#ifdef DEBUG
-      /*
-	gdb crashes upon printscm (chord_) etc...
-	ugh: why does gh_equal_p () not seem to work??
-       */
-      printf ("chord: %s\n",  ly_scm2string (ly_write2scm (chord_)).ch_C ());
-      printf ("last_chord: %s\n", ly_scm2string (ly_write2scm (last_chord_)).ch_C ());
-      int i = gh_equal_p (chord_, last_chord_);
-      printf ("i: %d\n", i);
-#endif
       if (to_boolean (s) && last_chord_ != SCM_EOL
-	  && gh_equal_p (chord_, last_chord_))
+	  	  && gh_equal_p (chord_, last_chord_))
 	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
 }

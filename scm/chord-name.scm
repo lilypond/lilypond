@@ -487,7 +487,8 @@
 ;;
 ;; CHORD: (pitches (base . inversion))
 (define (default-chord-name-function style chord)
-  (let* ((pitches (map new-to-old-pitch (car chord)))
+  (let* ((style-string (symbol->string style))
+	 (pitches (map new-to-old-pitch (car chord)))
 	 (modifiers (cdr chord))
 	 (base-and-inversion (if (pair? modifiers)
 				 (cons (new-to-old-pitch (car modifiers))
@@ -495,9 +496,9 @@
 				 '(() . ())))
 	 (diff (pitch::diff '(0 0 0) (car pitches)))
 	 (name-func 
-	  (ly-eval (string->symbol (string-append "chord::name-" style))))
+	  (ly-eval (string->symbol (string-append "chord::name-" style-string))))
 	 (names-alist 
-	  (ly-eval (string->symbol (string-append "chord::names-alist-" style)))))
+	  (ly-eval (string->symbol (string-append "chord::names-alist-" style-string)))))
   (let loop ((note-names (reverse pitches))
 	     (chord '())
 	     (user-name #f))

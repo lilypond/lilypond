@@ -6,7 +6,7 @@
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define standalone (not (defined? 'ly-gulp-file)))
-(write standalone (current-error-port))
+;;(write standalone (current-error-port))
 
 (define (gulp-file name)
   (let* ((file (open-input-file name))
