@@ -37,10 +37,11 @@ typedef void (Grob::*Grob_method_pointer) (void);
    Basic output object.
 */
 class Grob  {
-private:
+protected:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
-
+  friend class Spanner;
+  
   void substitute_mutable_properties(SCM,SCM);
 public:
   Grob *original_;

@@ -119,6 +119,8 @@ Spanner::do_break_processing ()
 	}
     }
   broken_intos_.sort (Spanner::compare);
+  for (int i= broken_intos_.size();i--;)
+    broken_intos_[i]->break_index_ = i;
 }
 
 void
@@ -148,6 +150,7 @@ Spanner::spanned_rank_iv ()
     }
   return iv;
 }
+
 
 Item*
 Spanner::get_bound (Direction d) const
@@ -196,6 +199,7 @@ Spanner::set_bound (Direction d, Grob*s)
 Spanner::Spanner (SCM s)
   : Grob (s)
 {
+  break_index_ = 0;
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));

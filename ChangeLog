@@ -1,10 +1,21 @@
 2002-08-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/source-file.cc (init_port): add an SCM port to the
-	sourcefile as well.
+	* lily/system.cc (spanner_count): new function
+
+	* lily/break-substitution.cc (fast_fubstitute_grob_list): special
+	function for break substitutions on groblists in spanners. By
+	reordering the elements of the list, we can skip large parts of
+	the list in the break substitution. This brings the complexity of
+	Lily back to more-or-less linear in the length of the score.
+
+	Measured speed increase: 20 % (coriolan, without -O2)
 
 	* lily/parse-scm.cc (parse_handler): don't construct a new strport
-	for every parsing.
+	for every parsing. This saves a lot of garbage on large files that
+	have many # constructs.
+
+	* lily/source-file.cc (init_port): add an SCM port to the
+	sourcefile as well. 
 
 	* lily/include/input-file-results.hh: move from
 	file-results. Rename Input_file_settings to Input_file_results.

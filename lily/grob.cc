@@ -320,22 +320,20 @@ Grob::add_dependency (Grob*e)
 void
 Grob::handle_broken_dependencies ()
 {
-  Spanner * s= dynamic_cast<Spanner*> (this);
-  if (original_ && s)
+  Spanner * sp = dynamic_cast<Spanner*> (this);
+  if (original_ && sp)
     return;
 
-  if (s)
+  if (sp)
     {
-      for (int i = 0;  i< s->broken_intos_ .size (); i++)
+      for (SCM s = mutable_property_alist_; gh_pair_p(s);
+	   s = gh_cdr(s))
 	{
-	  Grob * sc = s->broken_intos_[i];
-	  System * l = sc->get_system ();
-
-	  sc->substitute_mutable_properties (l ? l->self_scm () : SCM_UNDEFINED,
-				   mutable_property_alist_);
+	  sp->substitute_one_mutable_property (gh_caar (s),
+					      gh_cdar (s));
+	  
 	}
     }
-
 
   System *system = get_system ();
 
@@ -343,7 +341,7 @@ Grob::handle_broken_dependencies ()
       && system && common_refpoint (system, X_AXIS) && common_refpoint (system, Y_AXIS))
     {
       substitute_mutable_properties (system ? system->self_scm () : SCM_UNDEFINED,
-			       mutable_property_alist_);
+				     mutable_property_alist_);
     }
   else if (dynamic_cast <System*> (this))
     {
