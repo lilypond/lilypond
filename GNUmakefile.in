@@ -149,14 +149,15 @@ local-clean: builddir-setup-clean
 builddir-setup-clean:
 	@cd $(builddir) && rm -rf share
 
-$(config_h): configure
+$(config_h): configure.in aclocal.m4
 #
 # this is to prevent people from getting
 # undefined symbols  when we add them to config.h.in,
 # and they blindly run "cvs update; make".
 #
 	@echo
-	@echo ' *** config.h file is out of date'
-	@echo ' *** Remove it, and rerun configure or autogen.sh'
+	@echo ' *** config.h is out of date'
+	@echo ' *** Remove it and rerun autogen:'
+	@echo '         rm config.h; ./autogen.sh'
 	@echo
 	@false
