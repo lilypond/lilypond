@@ -840,8 +840,8 @@ fet_beginchar ("Trill (`tr')", "trill");
 	z6''' = point 2.9 of krul_p;
 	penpos6''' (hair_thick, angle (direction 2.9 of krul_p) + 90);
 	penpos7 (hair_thick, up_angle + 90);
-	z7' = point 3.3 of krul_p;
-	penpos7' (hair_thick, angle (direction 3.3 of krul_p) + 90);
+	z7' = point 3.2 of krul_p;
+	penpos7' (hair_thick, angle (direction 3.2 of krul_p) + 90);
 
 	% the left loop
 	penstroke z5'e{direction 1.1 of krul_p}
@@ -878,25 +878,28 @@ fet_beginchar ("Trill (`tr')", "trill");
 		 -- z7'r;
 	(u, v) = before intersectiontimes after;
 
+	save before_bulb, after_bulb;
+	path before_bulb, after_bulb;
+	before_bulb := z9r{up}
+		       ..tension 0.94.. z13r{down};
+	after_bulb := z13l{up}
+		      ..tension 1.06.. z15{down};
+	(u_bulb, v_bulb) = before_bulb intersectiontimes after_bulb;
+
 	% the connection between `t' and `r', the body of the `r',
-	% and part of the bulb
+	% and the bulb
 	fill z7'l{z7 - z7'}
 	     -- z7l
 	     .. z9l{down}
 	     -- simple_serif (z10l, z10r, -30)
 	     -- z9r{up}
-	     ..tension 0.94.. z13r{down}
-	     -- z15{down}
+	     .. subpath (0, u_bulb) of before_bulb
+	     .. subpath (v_bulb, infinity) of after_bulb
+	     .. z14
 	     .. z13l{up}
 	     .. subpath (0, u) of before
 	     .. subpath (v, infinity) of after
 	     -- cycle;
-
-	% the rest of the bulb
-	fill z15{up}
-	     ..tension 1.06.. z13l{down}
-	     .. z14
-	     .. cycle;
 
 	penlabels (range 1 thru 15);
 	penlabels (4', 5', 5'', 5''', 6', 6'', 6''', 7');
