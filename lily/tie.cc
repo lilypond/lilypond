@@ -76,15 +76,18 @@ Tie::position_f (Score_element*me)
 
 
 /*
+  Default:  Put the tie oppositie of the stem [Wanske p231]
+
+  In case of chords: Tie_column takes over
+  
   The direction of the Tie is more complicated (See [Ross] p136 and
-  further), the case of multiple ties is handled by Tie_column.
+  further).
 */
 Direction
 Tie::get_default_dir (Score_element*me) 
 {
   Item * sl =  head(me,LEFT) ? Rhythmic_head::stem_l (head (me,LEFT)) :0;
   Item * sr =  head(me,RIGHT) ? Rhythmic_head::stem_l (head (me,RIGHT)) :0;  
-
 
   if (sl && sr)
     {
