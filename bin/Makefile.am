@@ -8,7 +8,9 @@
 SLANG_SCHRIFTEN = flower.py lilypython.py
 PAREL_SCHRIFTEN = 
 IN_SCHRIFTEN = flower.py lilypython.py
-EXTRA_DIST = Makefile.am.wild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) $(SLANG_SCHRIFTEN) wild-perl
+EXTRA_DIST = Makefile.am.wild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) $(SLANG_SCHRIFTEN) wild-perl autowild
 
+clean-local:
+	-rm -f flower.pyc
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

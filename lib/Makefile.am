@@ -21,5 +21,7 @@ MODULE_CXXFLAGS += -D_REENTRANT
 
 EXTRA_DIST = Makefile.am.wild
 
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

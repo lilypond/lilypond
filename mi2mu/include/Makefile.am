@@ -8,4 +8,4 @@ noinst_HEADERS = mi2mu-global.hh mi2mu-proto.hh midi-parser.hh midi-score-parser
 EXTRA_DIST = Makefile.am.wild
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

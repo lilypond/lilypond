@@ -109,7 +109,7 @@ SUBDIRS = include
 
 bin_PROGRAMS = mi2mu
 
-mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template.cc version.cc
+mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template9.cc version.cc
 
 # ugh -lfl bo lib/FlexLexer stuff
 #mi2mu_LDADD = -llily -lflower -lfl
@@ -131,8 +131,8 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 mi2mu_OBJECTS =  main.o mi2mu-version.o midi-parser.o \
 midi-score-parser.o midi-track-parser.o mudela-column.o mudela-item.o \
-mudela-score.o mudela-staff.o mudela-stream.o mudela-voice.o template.o \
-version.o
+mudela-score.o mudela-staff.o mudela-stream.o mudela-voice.o \
+template9.o version.o
 mi2mu_DEPENDENCIES =  $(top_builddir)/lib/liblily.la \
 $(top_builddir)/flower/libflower.la
 mi2mu_LDFLAGS = 
@@ -429,7 +429,8 @@ mudela-score.o: mudela-score.cc ../lib/include/moment.hh \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
 	include/mudela-item.hh include/mudela-score.hh \
 	../flower/include/parray.hh include/mudela-staff.hh \
-	include/mudela-stream.hh
+	include/mudela-stream.hh ../flower/include/list.tcc \
+	../flower/include/cursor.tcc
 mudela-staff.o: mudela-staff.cc ../lib/include/moment.hh \
 	../flower/include/rational.hh ../flower/include/compare.hh \
 	../flower/include/arithmetic-operator.hh \
@@ -492,6 +493,25 @@ template.o: template.cc ../lib/include/proto.hh \
 	../flower/include/rational.hh ../lib/include/duration.hh \
 	../lib/include/plet.hh include/mudela-column.hh \
 	include/mudela-staff.hh include/mudela-voice.hh \
+	../flower/include/plist.tcc
+template9.o: template9.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/plist.hh \
+	../flower/include/plist.icc ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/list.tcc \
+	../flower/include/cursor.tcc include/mudela-item.hh \
+	include/mi2mu-proto.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh include/mudela-column.hh \
+	include/mudela-staff.hh include/mudela-voice.hh \
+	include/mudela-score.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
 version.o: version.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -563,7 +583,7 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 
 clean:  clean-recursive clean-am
 
-distclean:  distclean-recursive distclean-am
+distclean:  distclean-recursive distclean-am distclean-local
 	-rm -f config.status
 	-rm -f libtool
 
@@ -593,8 +613,11 @@ all-am: Makefile $(PROGRAMS) wild-check
 
 # dummy target for non-GNU makes; is overridden in GNUmakefile
 wild-check:
+
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

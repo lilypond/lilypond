@@ -36,4 +36,4 @@ lilypond.spec: lilypond.spec.in ../VERSION
 	cat $< | $(SED_VERSION) | $(SED_DATE) > $@
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

@@ -14,4 +14,4 @@ OUTFILES = $(M4FILES:%.m4=%)
 
 default: all $(OUTFILES)
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@

@@ -155,6 +155,7 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
+	$(MAKE) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-hook
 info:
 dvi:
 check: all
@@ -163,15 +164,15 @@ installcheck:
 install-exec: 
 	@$(NORMAL_INSTALL)
 
-install-data: 
+install-data: install-data-local
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all
 	@:
 
-uninstall: 
+uninstall: uninstall-local
 
-all: Makefile
+all: Makefile all-local
 
 install-strip:
 	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
@@ -194,9 +195,9 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean:  mostlyclean-generic
 
-clean:  clean-generic mostlyclean
+clean:  clean-generic mostlyclean clean-local
 
-distclean:  distclean-generic clean
+distclean:  distclean-generic clean distclean-local
 	-rm -f config.status
 	-rm -f libtool
 
@@ -210,21 +211,33 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
-default: all $(LYTABLES) $(TEXTABLES)
+all-local: $(LYTABLES) $(TEXTABLES)
 
-localclean:
-	rm -f $(LYTABLES) $(TEXTABLES) 
+dist-hook: $(LYTABLES) $(TEXTABLES)
 
-localrealclean: 
-	rm -f $(MFDEPS)
+clean-local:
+	-rm -f $(LYTABLES) $(TEXTABLES)
+	-rm -f *.log
 
-localinstall:
+distclean-local:
+	-rm -f $(MFDEPS)
+
+install-data-local:
 	$(INSTALL) -d $(MFDIR)/public/lilypond
+	$(INSTALL) -d $(TEXDIR)/lilypond
+	$(INSTALL) -d $(datadir)/lilypond/init
 	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/public/lilypond/
+	$(INSTALL) -m 644 $(TEXTABLES) $(TEXDIR)/lilypond
+	$(INSTALL) -m 644 $(LYTABLES) $(datadir)/lilypond/init/
 
-localuninstall:
-	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
-	-rmdir $(MFDIR)/public/lilypond/
+uninstall-local:
+	for i in $(MFFILES) ; do rm -f $(MFDIR)/public/lilypond/$$i; done
+	for i in $(TEXTABLES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
+	for i in $LYTABLES) ; do rm -f $(datadir)/lilypond/init/$$i; done
+	-rmdir $(MFDIR)/public/lilypond
+	-rmdir $(TEXDIR)/lilypond
+	-rmdir $(datadir)/lilypond/init
+	-rmdir $(datadir)/lilypond
 
 include $(srcdir)/Rules.make
 
@@ -232,9 +245,8 @@ include $(srcdir)/Rules.make
 #
 include $(MFDEPS)
 #
-
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

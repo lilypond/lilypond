@@ -23,12 +23,7 @@
 #	Han-Wen Nienhuys <hanwen@stack.nl>
 #
 
-# bin_PROGRAMS = test
-
-# TEST = test
-
-# can't link to libflower: has not been created yet...
-# test_SOURCES = main.cc mat-test.cc pqtest.cc rattest.cc stringtest.cc
+# the wild-perl script needs this.
 
 
 SHELL = /bin/sh
@@ -94,6 +89,15 @@ PERL = @PERL@
 RANLIB = @RANLIB@
 REVISION = @REVISION@
 VERSION = @VERSION@
+
+real_topdir = $(top_srcdir)/..
+
+# bin_PROGRAMS = test
+
+# TEST = test
+
+# can't link to libflower: has not been created yet...
+# test_SOURCES = main.cc mat-test.cc pqtest.cc rattest.cc stringtest.cc
 
 EXTRA_SOURCES = main.cc mat-test.cc pqtest.cc rattest.cc stringtest.cc
 
@@ -219,7 +223,7 @@ mostlyclean distclean maintainer-clean
 
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

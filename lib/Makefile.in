@@ -507,7 +507,7 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 
 clean:  clean-recursive clean-am
 
-distclean:  distclean-recursive distclean-am
+distclean:  distclean-recursive distclean-am distclean-local
 	-rm -f config.status
 	-rm -f libtool
 
@@ -534,8 +534,10 @@ maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 MODULE_CXXFLAGS += -D_REENTRANT
 
+distclean-local:
+	-rm -rf .deps
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
-	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
+	$(PERL) $(top_srcdir)/bin/wild-perl --top-srcdir="$(real_topdir)" < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
