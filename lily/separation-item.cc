@@ -136,4 +136,4 @@ ADD_INTERFACE (Separation_item,"separation-item-interface",
 "\n"
 "Calculate dimensions for the Separating_group_spanner; this has to be "
 "an item to get dependencies correct.  "
-  "padding X-extent conditional-elements elements");
+, "padding X-extent conditional-elements elements");
