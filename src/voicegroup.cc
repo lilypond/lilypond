@@ -1,11 +1,19 @@
-#include "request.hh"
+/*
+  voicegroup.cc -- implement Voice_group_registers
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+#include "musicalrequest.hh"
 #include "voicegroup.hh"
 #include "register.hh"
 #include "textreg.hh"
 #include "stembeamreg.hh"
 #include "scriptreg.hh"
 #include "complexwalker.hh"
-
+#include "commandrequest.hh"
 
 static int temp_id_count;
 
@@ -27,6 +35,7 @@ Voice_group_registers::~Voice_group_registers()
     delete stem_beam_reg_;
     delete script_reg_;
 }
+
 void
 Voice_group_registers::pre_move_processing()
 {
