@@ -2054,6 +2054,14 @@ def conv (str):
 conversions.append (((2,1,34), conv,
 		     '''set-paper-size -> set-default-paper-size.'''))
 
+def conv (str):
+	str = re.sub (r"ly:mutable-music-properties",
+		      "ly:music-mutable-properties", str)
+	return str
+
+conversions.append (((2,1, 36), conv,
+		     '''ly:mutable-music-properties -> ly:music-mutable-properties'''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -140,7 +140,7 @@ is_regular_identifier (SCM id)
 SCM
 make_simple_markup (SCM a)
 {
- SCM simple = scm_c_eval_string ("simple-markup");
+	SCM simple = ly_scheme_function ("simple-markup");
 
 	return scm_list_2 (simple, a);
 }
@@ -796,10 +796,7 @@ Repeated_music:
 			we can not get durations and other stuff correct down the line, so we have to
 			add to the duration log here.
 			*/
-			static SCM func;
-
-			if (!func)
-				func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
+			SCM func = ly_scheme_function ("shift-duration-log");
 
 			int dots = ($3 % 3) ? 0 : 1;
 			int shift = -intlog2 ((dots) ? ($3*2/3) : $3);
