@@ -1,5 +1,7 @@
 2004-10-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/beamed-chord.ly: removed.
+
 	* Documentation/user/macros.itexi: add \global to definitions for
 	feta macros.
 
