@@ -265,14 +265,14 @@ rondo = \melodic {
 	
 	
 }
-
+%{
 \score
 {
 	{ 	\property Score.SkipBars = 1
 		\allegro
 	}
 }
-
+%}
 %{
 \score
 {
@@ -281,10 +281,13 @@ rondo = \melodic {
 	}
 }
 
+%}
 \score
 {
 	{ 	\property Score.SkipBars = 1
 		\rondo
 	}
+	\paper{
+	castingalgorithm =\Wordwrap;
+	}
 }
-%}
