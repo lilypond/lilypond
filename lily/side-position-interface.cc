@@ -27,10 +27,10 @@ Direction
 Side_position::get_direction (Grob*me)
 {
   SCM d = me->get_grob_property ("direction");
-  if (isdir_b (d))
-    return to_dir (d) ? to_dir (d) : DOWN;
+  if (isdir_b (d) && to_dir (d))
+    return to_dir (d);
 
-  Direction relative_dir = UP;
+  Direction relative_dir = Direction (1);
   SCM reldir = me->get_grob_property ("side-relative-direction");	// should use a lambda.
   if (isdir_b (reldir))
     {
