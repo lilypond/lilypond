@@ -79,7 +79,7 @@ endHorizScript = {
 	"Cadence"
 	"autre"
 	"Double"4 "cadence"4.
-	"autre"4 _4.
+%{	"autre"4 _4.
 	_4 "sans tremblement"2
 	"sur une tierce"4
 	"Pinc\\'e"4
@@ -91,20 +91,23 @@ endHorizScript = {
 	"autre"
 	"autre"
 	"Double cadence"2.
-      }
+%}
+
+    }
       \context Lyrics=two \lyrics {
 	"simple"4
 	"appuy\'e"4.
-	\skip 1*3
+%{	\skip 1*3
 	\skip 4 \skip 4.
 	"voix et montant"
 	\skip 2.
 	"de suite"1
+%}
       }
       \context Staff=lower \notes\relative c'' {
         % autobeamer has som problems here
 	d32-[  \repeat unfold 3 { c d } c-]
-	d8 ~  d32-[\repeat unfold 3 { d32  } c-]
+	d8 ~  d32-[\repeat unfold 3 { d32 c  } c-]
 	d32 c b c \repeat unfold 4 { d32 c }
 	b32 c d c \repeat unfold 4 { d32 c }
 	c32-[-( b a16 b  c-)-]

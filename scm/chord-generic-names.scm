@@ -1,4 +1,4 @@
-;;;; double-plus-new-chord-name.scm -- Compile chord names
+;;;; chord-generic-names.scm -- Compile chord names
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 

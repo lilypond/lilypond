@@ -9,15 +9,11 @@
 @end menu
 
 
-@node American Chords 
-@section American Chords
 
-[TODO]
+@node Chord name chart
+@section chord name chart
 
-@node Jazz chords
-@section Jazz chords
-
-@lilypondfile[notexidoc]{chords-ignatzek.ly}
+@lilypondfile[notexidoc]{chord-names-jazz.ly}
 
 @node MIDI instruments
 @section MIDI instruments

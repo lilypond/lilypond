@@ -42,15 +42,15 @@
 
 (define size-independent-fonts
   `(
-    ((* * * braces *) . ("feta-braces0"
-			 "feta-braces1"
-			 "feta-braces2"
-			 "feta-braces3"
-			 "feta-braces4"
-			 "feta-braces5"
-			 "feta-braces6"
-			 "feta-braces7"
-			 "feta-braces8") )))
+    ((* * * braces *) . ("feta-braces00"
+			 "feta-braces10"
+			 "feta-braces20"
+			 "feta-braces30"
+			 "feta-braces40"
+			 "feta-braces50"
+			 "feta-braces60"
+			 "feta-braces70"
+			 "feta-braces80") )))
 
 ;; FIXME: what about this comment?:
 
@@ -96,8 +96,8 @@
     ((-3 medium italic roman 7) . "cmti7")    
 
     ;;; cmbx17 is sauter, not commonly available as Type1.
-    ((4 bold upright roman 17) . "cmr17") 
-    ((3 bold upright roman 17) . "cmr17")
+    ((4 bold upright roman 17) . "cmbx17") 
+    ((3 bold upright roman 17) . "cmbx17")
     
     ((2 bold upright roman 14) . "cmbx14")
     ((1 bold upright roman 12) . "cmbx12")
@@ -350,13 +350,8 @@ and warn if the selected font is not unique.
 		    (display (filter-field 'font-name 'cmbx paper20-style-sheet-alist))
 		    
 		    (display (qualifiers-to-fontname '((font-name . cmbx)) paper20-style-sheet-alist))
-		    (display (style-to-font-name 'paper20 'large))
-		    )
-	   )
-	 )
-
-
-)
+		    (display (style-to-font-name 'paper20 'large)))
+	   )))
 
 ;;; ascii-script font init
 (define as-font-sheet-alist

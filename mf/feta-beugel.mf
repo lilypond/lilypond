@@ -4,8 +4,13 @@ input feta-params;
 
 font_coding_scheme "feta braces";
 
-fet_beginfont("feta-braces", font_count);
+% we set the designsize arbitrarily at 10
+% if the * 10 is left out, pktrace gets confused  over the proper magnification,
+% and makes it too large.
+fet_beginfont("feta-braces", font_count * 10);
+
 mode_setup;
+
 
 
 save code;
