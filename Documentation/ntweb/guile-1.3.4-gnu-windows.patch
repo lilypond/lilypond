@@ -1,0 +1,3570 @@
+diff -urN ../guile-1.3.4/ChangeLog ./ChangeLog
+--- ../guile-1.3.4/ChangeLog	Sat Sep 25 19:26:50 1999
++++ ./ChangeLog	Fri Mar 24 10:47:12 2000
+@@ -1,3 +1,18 @@
++2000-03-24    <janneke@gnu.org>
++
++	* guile-config/cross-guile-config.in: Simple shell script to
++	take over guile-config's functionality for cross-compilation.
++	It will be installed as ${build}-guile-config.
++
++	* guile-config/Makefile.am: Provide for cross-guile-config.in
++	and its targets.
++
++2000-03-23    <janneke@gnu.org>
++
++	* configure.in: Added options to enable cross-compilation:
++	--enable-sizeof-int, --enable-sizeof-long,
++	--enable-restartable-syscalls.
++
+ 1999-09-25  Jim Blandy  <jimb@savonarola.red-bean.com>
+ 
+ 	* Guile 1.3.4 released.
+diff -urN ../guile-1.3.4/Makefile.in ./Makefile.in
+--- ../guile-1.3.4/Makefile.in	Sat Sep 25 19:37:14 1999
++++ ./Makefile.in	Fri Mar 24 10:47:25 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -104,22 +105,21 @@
+ DATA =  $(aclocal_DATA)
+ 
+ DIST_COMMON =  README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
+-Makefile.in NEWS THANKS TODO acconfig.h acinclude.m4 aclocal.m4 \
+-config.guess config.sub configure configure.in install-sh \
+-libguile/scmconfig.h.in libguile/stamp-h.in ltconfig ltmain.sh mdate-sh \
+-missing mkinstalldirs
++Makefile.in NEWS THANKS TODO acinclude.m4 aclocal.m4 config.guess \
++config.sub configure configure.in install-sh ltconfig ltmain.sh \
++mdate-sh missing mkinstalldirs
+ 
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -131,34 +131,6 @@
+ $(srcdir)/configure: @MAINTAINER_MODE_TRUE@$(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCIES)
+ 	cd $(srcdir) && $(AUTOCONF)
+ 
+-libguile/scmconfig.h: libguile/stamp-h
+-	@if test ! -f $@; then \
+-		rm -f libguile/stamp-h; \
+-		$(MAKE) libguile/stamp-h; \
+-	else :; fi
+-libguile/stamp-h: $(srcdir)/libguile/scmconfig.h.in $(top_builddir)/config.status
+-	cd $(top_builddir) \
+-	  && CONFIG_FILES= CONFIG_HEADERS=libguile/scmconfig.h \
+-	     $(SHELL) ./config.status
+-	@echo timestamp > libguile/stamp-h 2> /dev/null
+-$(srcdir)/libguile/scmconfig.h.in: @MAINTAINER_MODE_TRUE@$(srcdir)/libguile/stamp-h.in
+-	@if test ! -f $@; then \
+-		rm -f $(srcdir)/libguile/stamp-h.in; \
+-		$(MAKE) $(srcdir)/libguile/stamp-h.in; \
+-	else :; fi
+-$(srcdir)/libguile/stamp-h.in: $(top_srcdir)/configure.in $(ACLOCAL_M4) acconfig.h
+-	cd $(top_srcdir) && $(AUTOHEADER)
+-	@echo timestamp > $(srcdir)/libguile/stamp-h.in 2> /dev/null
+-
+-mostlyclean-hdr:
+-
+-clean-hdr:
+-
+-distclean-hdr:
+-	-rm -f libguile/scmconfig.h
+-
+-maintainer-clean-hdr:
+-
+ install-aclocalDATA: $(aclocal_DATA)
+ 	@$(NORMAL_INSTALL)
+ 	$(mkinstalldirs) $(DESTDIR)$(aclocaldir)
+@@ -305,10 +277,15 @@
+ 	-rm -rf $(distdir)
+ 	mkdir $(distdir)
+ 	-chmod 777 $(distdir)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -347,7 +324,7 @@
+ all-am: Makefile $(DATA)
+ all-redirect: all-recursive
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs: installdirs-recursive
+ installdirs-am:
+ 	$(mkinstalldirs)  $(DESTDIR)$(aclocaldir)
+@@ -362,30 +339,29 @@
+ 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+ 
+ maintainer-clean-generic:
+-mostlyclean-am:  mostlyclean-hdr mostlyclean-tags mostlyclean-generic
++mostlyclean-am:  mostlyclean-tags mostlyclean-generic
+ 
+ mostlyclean: mostlyclean-recursive
+ 
+-clean-am:  clean-hdr clean-tags clean-generic mostlyclean-am
++clean-am:  clean-tags clean-generic mostlyclean-am
+ 
+ clean: clean-recursive
+ 
+-distclean-am:  distclean-hdr distclean-tags distclean-generic clean-am
++distclean-am:  distclean-tags distclean-generic clean-am
+ 	-rm -f libtool
+ 
+ distclean: distclean-recursive
+ 	-rm -f config.status
+ 
+-maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-tags \
+-		maintainer-clean-generic distclean-am
++maintainer-clean-am:  maintainer-clean-tags maintainer-clean-generic \
++		distclean-am
+ 	@echo "This command is intended for maintainers to use;"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 
+ maintainer-clean: maintainer-clean-recursive
+ 	-rm -f config.status
+ 
+-.PHONY: mostlyclean-hdr distclean-hdr clean-hdr maintainer-clean-hdr \
+-uninstall-aclocalDATA install-aclocalDATA install-data-recursive \
++.PHONY: uninstall-aclocalDATA install-aclocalDATA install-data-recursive \
+ uninstall-data-recursive install-exec-recursive \
+ uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
+ all-recursive check-recursive installcheck-recursive info-recursive \
+diff -urN ../guile-1.3.4/configure ./configure
+--- ../guile-1.3.4/configure	Sat Sep 25 16:50:16 1999
++++ ./configure	Fri Mar 24 10:47:28 2000
+@@ -19,6 +19,12 @@
+ ac_help="$ac_help
+   --enable-guile-debug    Include internal debugging functions"
+ ac_help="$ac_help
++  --enable-sizeof-int     Set size of int (for cross compilation)"
++ac_help="$ac_help
++  --enable-sizeof-long    Set size of long (for cross compilation)"
++ac_help="$ac_help
++  --enable-restartable syscalls  Are interrupted syscalls restarted (for cross compilation)"
++ac_help="$ac_help
+   --enable-shared[=PKGS]  build shared libraries [default=yes]"
+ ac_help="$ac_help
+   --enable-static[=PKGS]  build static libraries [default=yes]"
+@@ -572,7 +578,7 @@
+ # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
+ # ./install, which can be erroneously created by make from ./install.sh.
+ echo $ac_n "checking for a BSD compatible install""... $ac_c" 1>&6
+-echo "configure:576: checking for a BSD compatible install" >&5
++echo "configure:582: checking for a BSD compatible install" >&5
+ if test -z "$INSTALL"; then
+ if eval "test \"`echo '$''{'ac_cv_path_install'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -625,7 +631,7 @@
+ test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
+ 
+ echo $ac_n "checking whether build environment is sane""... $ac_c" 1>&6
+-echo "configure:629: checking whether build environment is sane" >&5
++echo "configure:635: checking whether build environment is sane" >&5
+ # Just in case
+ sleep 1
+ echo timestamp > conftestfile
+@@ -682,7 +688,7 @@
+ test "$program_transform_name" = "" && program_transform_name="s,x,x,"
+ 
+ echo $ac_n "checking whether ${MAKE-make} sets \${MAKE}""... $ac_c" 1>&6
+-echo "configure:686: checking whether ${MAKE-make} sets \${MAKE}" >&5
++echo "configure:692: checking whether ${MAKE-make} sets \${MAKE}" >&5
+ set dummy ${MAKE-make}; ac_make=`echo "$2" | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_prog_make_${ac_make}_set'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -721,7 +727,7 @@
+ 
+ missing_dir=`cd $ac_aux_dir && pwd`
+ echo $ac_n "checking for working aclocal""... $ac_c" 1>&6
+-echo "configure:725: checking for working aclocal" >&5
++echo "configure:731: checking for working aclocal" >&5
+ # Run test in a subshell; some versions of sh will print an error if
+ # an executable is not found, even if stderr is redirected.
+ # Redirect stdin to placate older versions of autoconf.  Sigh.
+@@ -734,7 +740,7 @@
+ fi
+ 
+ echo $ac_n "checking for working autoconf""... $ac_c" 1>&6
+-echo "configure:738: checking for working autoconf" >&5
++echo "configure:744: checking for working autoconf" >&5
+ # Run test in a subshell; some versions of sh will print an error if
+ # an executable is not found, even if stderr is redirected.
+ # Redirect stdin to placate older versions of autoconf.  Sigh.
+@@ -747,7 +753,7 @@
+ fi
+ 
+ echo $ac_n "checking for working automake""... $ac_c" 1>&6
+-echo "configure:751: checking for working automake" >&5
++echo "configure:757: checking for working automake" >&5
+ # Run test in a subshell; some versions of sh will print an error if
+ # an executable is not found, even if stderr is redirected.
+ # Redirect stdin to placate older versions of autoconf.  Sigh.
+@@ -760,7 +766,7 @@
+ fi
+ 
+ echo $ac_n "checking for working autoheader""... $ac_c" 1>&6
+-echo "configure:764: checking for working autoheader" >&5
++echo "configure:770: checking for working autoheader" >&5
+ # Run test in a subshell; some versions of sh will print an error if
+ # an executable is not found, even if stderr is redirected.
+ # Redirect stdin to placate older versions of autoconf.  Sigh.
+@@ -773,7 +779,7 @@
+ fi
+ 
+ echo $ac_n "checking for working makeinfo""... $ac_c" 1>&6
+-echo "configure:777: checking for working makeinfo" >&5
++echo "configure:783: checking for working makeinfo" >&5
+ # Run test in a subshell; some versions of sh will print an error if
+ # an executable is not found, even if stderr is redirected.
+ # Redirect stdin to placate older versions of autoconf.  Sigh.
+@@ -787,7 +793,7 @@
+ 
+ 
+ echo $ac_n "checking whether to enable maintainer-specific portions of Makefiles""... $ac_c" 1>&6
+-echo "configure:791: checking whether to enable maintainer-specific portions of Makefiles" >&5
++echo "configure:797: checking whether to enable maintainer-specific portions of Makefiles" >&5
+     # Check whether --enable-maintainer-mode or --disable-maintainer-mode was given.
+ if test "${enable_maintainer_mode+set}" = set; then
+   enableval="$enable_maintainer_mode"
+@@ -849,6 +855,30 @@
+ fi
+ 
+ 
++sizeof_int=0
++# Check whether --enable-sizeof-int or --disable-sizeof-int was given.
++if test "${enable_sizeof_int+set}" = set; then
++  enableval="$enable_sizeof_int"
++  sizeof_int=$enableval
++fi
++
++    
++sizeof_long=0
++# Check whether --enable-sizeof-long or --disable-sizeof-long was given.
++if test "${enable_sizeof_long+set}" = set; then
++  enableval="$enable_sizeof_long"
++  sizeof_long=$enableval
++fi
++
++    
++restartable_syscalls=test
++# Check whether --enable-restartable-syscalls or --disable-restartable-syscalls was given.
++if test "${enable_restartable_syscalls+set}" = set; then
++  enableval="$enable_restartable_syscalls"
++  restartable_syscalls=$enableval
++fi
++
++    
+ cat >> confdefs.h <<\EOF
+ #define DEBUG_EXTENSIONS 1
+ EOF
+@@ -863,7 +893,7 @@
+ # Extract the first word of "gcc", so it can be a program name with args.
+ set dummy gcc; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:867: checking for $ac_word" >&5
++echo "configure:897: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -893,7 +923,7 @@
+   # Extract the first word of "cc", so it can be a program name with args.
+ set dummy cc; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:897: checking for $ac_word" >&5
++echo "configure:927: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -944,7 +974,7 @@
+       # Extract the first word of "cl", so it can be a program name with args.
+ set dummy cl; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:948: checking for $ac_word" >&5
++echo "configure:978: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_CC'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -976,7 +1006,7 @@
+ fi
+ 
+ echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works""... $ac_c" 1>&6
+-echo "configure:980: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
++echo "configure:1010: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
+ 
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
+@@ -987,12 +1017,12 @@
+ 
+ cat > conftest.$ac_ext << EOF
+ 
+-#line 991 "configure"
++#line 1021 "configure"
+ #include "confdefs.h"
+ 
+ main(){return(0);}
+ EOF
+-if { (eval echo configure:996: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:1026: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   ac_cv_prog_cc_works=yes
+   # If we can't run a trivial program, we are probably using a cross compiler.
+   if (./conftest; exit) 2>/dev/null; then
+@@ -1018,12 +1048,12 @@
+   { echo "configure: error: installation or configuration problem: C compiler cannot create executables." 1>&2; exit 1; }
+ fi
+ echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
+-echo "configure:1022: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
++echo "configure:1052: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) is a cross-compiler" >&5
+ echo "$ac_t""$ac_cv_prog_cc_cross" 1>&6
+ cross_compiling=$ac_cv_prog_cc_cross
+ 
+ echo $ac_n "checking whether we are using GNU C""... $ac_c" 1>&6
+-echo "configure:1027: checking whether we are using GNU C" >&5
++echo "configure:1057: checking whether we are using GNU C" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_gcc'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1032,7 +1062,7 @@
+   yes;
+ #endif
+ EOF
+-if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:1036: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
++if { ac_try='${CC-cc} -E conftest.c'; { (eval echo configure:1066: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+   ac_cv_prog_gcc=yes
+ else
+   ac_cv_prog_gcc=no
+@@ -1051,7 +1081,7 @@
+ ac_save_CFLAGS="$CFLAGS"
+ CFLAGS=
+ echo $ac_n "checking whether ${CC-cc} accepts -g""... $ac_c" 1>&6
+-echo "configure:1055: checking whether ${CC-cc} accepts -g" >&5
++echo "configure:1085: checking whether ${CC-cc} accepts -g" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_cc_g'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1083,7 +1113,7 @@
+ fi
+ 
+ echo $ac_n "checking how to run the C preprocessor""... $ac_c" 1>&6
+-echo "configure:1087: checking how to run the C preprocessor" >&5
++echo "configure:1117: checking how to run the C preprocessor" >&5
+ # On Suns, sometimes $CPP names a directory.
+ if test -n "$CPP" && test -d "$CPP"; then
+   CPP=
+@@ -1098,13 +1128,13 @@
+   # On the NeXT, cc -E runs the code through the compiler's parser,
+   # not just through cpp.
+   cat > conftest.$ac_ext <<EOF
+-#line 1102 "configure"
++#line 1132 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1108: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1138: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -1115,13 +1145,13 @@
+   rm -rf conftest*
+   CPP="${CC-cc} -E -traditional-cpp"
+   cat > conftest.$ac_ext <<EOF
+-#line 1119 "configure"
++#line 1149 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1125: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1155: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -1132,13 +1162,13 @@
+   rm -rf conftest*
+   CPP="${CC-cc} -nologo -E"
+   cat > conftest.$ac_ext <<EOF
+-#line 1136 "configure"
++#line 1166 "configure"
+ #include "confdefs.h"
+ #include <assert.h>
+ Syntax Error
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1142: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1172: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   :
+@@ -1164,9 +1194,9 @@
+ 
+ 
+ echo $ac_n "checking for AIX""... $ac_c" 1>&6
+-echo "configure:1168: checking for AIX" >&5
++echo "configure:1198: checking for AIX" >&5
+ cat > conftest.$ac_ext <<EOF
+-#line 1170 "configure"
++#line 1200 "configure"
+ #include "confdefs.h"
+ #ifdef _AIX
+   yes
+@@ -1188,7 +1218,7 @@
+ 
+ 
+ echo $ac_n "checking for POSIXized ISC""... $ac_c" 1>&6
+-echo "configure:1192: checking for POSIXized ISC" >&5
++echo "configure:1222: checking for POSIXized ISC" >&5
+ if test -d /etc/conf/kconfig.d &&
+   grep _POSIX_VERSION /usr/include/sys/unistd.h >/dev/null 2>&1
+ then
+@@ -1210,17 +1240,17 @@
+ 
+ ac_safe=`echo "minix/config.h" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for minix/config.h""... $ac_c" 1>&6
+-echo "configure:1214: checking for minix/config.h" >&5
++echo "configure:1244: checking for minix/config.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1219 "configure"
++#line 1249 "configure"
+ #include "confdefs.h"
+ #include <minix/config.h>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:1224: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:1254: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -1262,7 +1292,7 @@
+ 
+ 
+ echo $ac_n "checking for ${CC-cc} option to accept ANSI C""... $ac_c" 1>&6
+-echo "configure:1266: checking for ${CC-cc} option to accept ANSI C" >&5
++echo "configure:1296: checking for ${CC-cc} option to accept ANSI C" >&5
+ if eval "test \"`echo '$''{'am_cv_prog_cc_stdc'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1278,7 +1308,7 @@
+ do
+   CC="$ac_save_CC $ac_arg"
+   cat > conftest.$ac_ext <<EOF
+-#line 1282 "configure"
++#line 1312 "configure"
+ #include "confdefs.h"
+ #include <stdarg.h>
+ #include <stdio.h>
+@@ -1315,7 +1345,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1319: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1349: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   am_cv_prog_cc_stdc="$ac_arg"; break
+ else
+@@ -1414,7 +1444,7 @@
+ fi
+ 
+ echo $ac_n "checking host system type""... $ac_c" 1>&6
+-echo "configure:1418: checking host system type" >&5
++echo "configure:1448: checking host system type" >&5
+ 
+ host_alias=$host
+ case "$host_alias" in
+@@ -1435,7 +1465,7 @@
+ echo "$ac_t""$host" 1>&6
+ 
+ echo $ac_n "checking build system type""... $ac_c" 1>&6
+-echo "configure:1439: checking build system type" >&5
++echo "configure:1469: checking build system type" >&5
+ 
+ build_alias=$build
+ case "$build_alias" in
+@@ -1455,7 +1485,7 @@
+ # Extract the first word of "ranlib", so it can be a program name with args.
+ set dummy ranlib; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:1459: checking for $ac_word" >&5
++echo "configure:1489: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_RANLIB'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1494,7 +1524,7 @@
+ if test "$ac_cv_prog_gcc" = yes; then
+   # Check if gcc -print-prog-name=ld gives a path.
+   echo $ac_n "checking for ld used by GCC""... $ac_c" 1>&6
+-echo "configure:1498: checking for ld used by GCC" >&5
++echo "configure:1528: checking for ld used by GCC" >&5
+   ac_prog=`($CC -print-prog-name=ld) 2>&5`
+   case "$ac_prog" in
+     # Accept absolute paths.
+@@ -1518,10 +1548,10 @@
+   esac
+ elif test "$with_gnu_ld" = yes; then
+   echo $ac_n "checking for GNU ld""... $ac_c" 1>&6
+-echo "configure:1522: checking for GNU ld" >&5
++echo "configure:1552: checking for GNU ld" >&5
+ else
+   echo $ac_n "checking for non-GNU ld""... $ac_c" 1>&6
+-echo "configure:1525: checking for non-GNU ld" >&5
++echo "configure:1555: checking for non-GNU ld" >&5
+ fi
+ if eval "test \"`echo '$''{'ac_cv_path_LD'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -1557,7 +1587,7 @@
+ test -z "$LD" && { echo "configure: error: no acceptable ld found in \$PATH" 1>&2; exit 1; }
+ 
+ echo $ac_n "checking if the linker ($LD) is GNU ld""... $ac_c" 1>&6
+-echo "configure:1561: checking if the linker ($LD) is GNU ld" >&5
++echo "configure:1591: checking if the linker ($LD) is GNU ld" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_gnu_ld'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1573,7 +1603,7 @@
+ 
+ 
+ echo $ac_n "checking for BSD-compatible nm""... $ac_c" 1>&6
+-echo "configure:1577: checking for BSD-compatible nm" >&5
++echo "configure:1607: checking for BSD-compatible nm" >&5
+ if eval "test \"`echo '$''{'ac_cv_path_NM'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1610,7 +1640,7 @@
+ 
+ 
+ echo $ac_n "checking whether ln -s works""... $ac_c" 1>&6
+-echo "configure:1614: checking whether ln -s works" >&5
++echo "configure:1644: checking whether ln -s works" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_LN_S'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -1654,8 +1684,8 @@
+ case "$host" in
+ *-*-irix6*)
+   # Find out which ABI we are using.
+-  echo '#line 1658 "configure"' > conftest.$ac_ext
+-  if { (eval echo configure:1659: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++  echo '#line 1688 "configure"' > conftest.$ac_ext
++  if { (eval echo configure:1689: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+     case "`/usr/bin/file conftest.o`" in
+     *32-bit*)
+       LD="${LD-ld} -32"
+@@ -1676,19 +1706,19 @@
+   SAVE_CFLAGS="$CFLAGS"
+   CFLAGS="$CFLAGS -belf"
+   echo $ac_n "checking whether the C compiler needs -belf""... $ac_c" 1>&6
+-echo "configure:1680: checking whether the C compiler needs -belf" >&5
++echo "configure:1710: checking whether the C compiler needs -belf" >&5
+ if eval "test \"`echo '$''{'lt_cv_cc_needs_belf'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1685 "configure"
++#line 1715 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1692: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:1722: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   lt_cv_cc_needs_belf=yes
+ else
+@@ -1791,12 +1821,12 @@
+ 
+ 
+ echo $ac_n "checking for working const""... $ac_c" 1>&6
+-echo "configure:1795: checking for working const" >&5
++echo "configure:1825: checking for working const" >&5
+ if eval "test \"`echo '$''{'ac_cv_c_const'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1800 "configure"
++#line 1830 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+@@ -1845,7 +1875,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1849: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1879: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_c_const=yes
+ else
+@@ -1866,21 +1896,21 @@
+ fi
+ 
+ echo $ac_n "checking for inline""... $ac_c" 1>&6
+-echo "configure:1870: checking for inline" >&5
++echo "configure:1900: checking for inline" >&5
+ if eval "test \"`echo '$''{'ac_cv_c_inline'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   ac_cv_c_inline=no
+ for ac_kw in inline __inline__ __inline; do
+   cat > conftest.$ac_ext <<EOF
+-#line 1877 "configure"
++#line 1907 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ } $ac_kw foo() {
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1884: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:1914: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_c_inline=$ac_kw; break
+ else
+@@ -1906,15 +1936,15 @@
+ esac
+ 
+ echo $ac_n "checking size of int""... $ac_c" 1>&6
+-echo "configure:1910: checking size of int" >&5
++echo "configure:1940: checking size of int" >&5
+ if eval "test \"`echo '$''{'ac_cv_sizeof_int'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   if test "$cross_compiling" = yes; then
+-    { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
++  ac_cv_sizeof_int=$sizeof_int
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1918 "configure"
++#line 1948 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+ main()
+@@ -1925,7 +1955,7 @@
+   exit(0);
+ }
+ EOF
+-if { (eval echo configure:1929: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:1959: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   ac_cv_sizeof_int=`cat conftestval`
+ else
+@@ -1945,15 +1975,15 @@
+ 
+ 
+ echo $ac_n "checking size of long""... $ac_c" 1>&6
+-echo "configure:1949: checking size of long" >&5
++echo "configure:1979: checking size of long" >&5
+ if eval "test \"`echo '$''{'ac_cv_sizeof_long'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   if test "$cross_compiling" = yes; then
+-    { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
++  ac_cv_sizeof_long=$sizeof_long
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1957 "configure"
++#line 1987 "configure"
+ #include "confdefs.h"
+ #include <stdio.h>
+ main()
+@@ -1964,7 +1994,7 @@
+   exit(0);
+ }
+ EOF
+-if { (eval echo configure:1968: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:1998: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   ac_cv_sizeof_long=`cat conftestval`
+ else
+@@ -1984,19 +2014,19 @@
+ 
+ 
+ echo $ac_n "checking for long longs""... $ac_c" 1>&6
+-echo "configure:1988: checking for long longs" >&5
++echo "configure:2018: checking for long longs" >&5
+ if eval "test \"`echo '$''{'scm_cv_long_longs'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 1993 "configure"
++#line 2023 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ long long a
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2000: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2030: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   scm_cv_long_longs=yes
+ else
+@@ -2017,12 +2047,12 @@
+ fi
+ 
+ echo $ac_n "checking for ANSI C header files""... $ac_c" 1>&6
+-echo "configure:2021: checking for ANSI C header files" >&5
++echo "configure:2051: checking for ANSI C header files" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_stdc'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2026 "configure"
++#line 2056 "configure"
+ #include "confdefs.h"
+ #include <stdlib.h>
+ #include <stdarg.h>
+@@ -2030,7 +2060,7 @@
+ #include <float.h>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:2034: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:2064: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -2047,7 +2077,7 @@
+ if test $ac_cv_header_stdc = yes; then
+   # SunOS 4.x string.h does not declare mem*, contrary to ANSI.
+ cat > conftest.$ac_ext <<EOF
+-#line 2051 "configure"
++#line 2081 "configure"
+ #include "confdefs.h"
+ #include <string.h>
+ EOF
+@@ -2065,7 +2095,7 @@
+ if test $ac_cv_header_stdc = yes; then
+   # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
+ cat > conftest.$ac_ext <<EOF
+-#line 2069 "configure"
++#line 2099 "configure"
+ #include "confdefs.h"
+ #include <stdlib.h>
+ EOF
+@@ -2086,7 +2116,7 @@
+   :
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2090 "configure"
++#line 2120 "configure"
+ #include "confdefs.h"
+ #include <ctype.h>
+ #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+@@ -2097,7 +2127,7 @@
+ exit (0); }
+ 
+ EOF
+-if { (eval echo configure:2101: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:2131: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   :
+ else
+@@ -2125,12 +2155,12 @@
+ do
+ ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for $ac_hdr that defines DIR""... $ac_c" 1>&6
+-echo "configure:2129: checking for $ac_hdr that defines DIR" >&5
++echo "configure:2159: checking for $ac_hdr that defines DIR" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_dirent_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2134 "configure"
++#line 2164 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <$ac_hdr>
+@@ -2138,7 +2168,7 @@
+ DIR *dirp = 0;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2142: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2172: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   eval "ac_cv_header_dirent_$ac_safe=yes"
+ else
+@@ -2163,7 +2193,7 @@
+ # Two versions of opendir et al. are in -ldir and -lx on SCO Xenix.
+ if test $ac_header_dirent = dirent.h; then
+ echo $ac_n "checking for opendir in -ldir""... $ac_c" 1>&6
+-echo "configure:2167: checking for opendir in -ldir" >&5
++echo "configure:2197: checking for opendir in -ldir" >&5
+ ac_lib_var=`echo dir'_'opendir | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2171,7 +2201,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-ldir  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2175 "configure"
++#line 2205 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -2182,7 +2212,7 @@
+ opendir()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2186: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2216: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2204,7 +2234,7 @@
+ 
+ else
+ echo $ac_n "checking for opendir in -lx""... $ac_c" 1>&6
+-echo "configure:2208: checking for opendir in -lx" >&5
++echo "configure:2238: checking for opendir in -lx" >&5
+ ac_lib_var=`echo x'_'opendir | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2212,7 +2242,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-lx  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2216 "configure"
++#line 2246 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -2223,7 +2253,7 @@
+ opendir()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2227: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2257: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2246,12 +2276,12 @@
+ fi
+ 
+ echo $ac_n "checking whether time.h and sys/time.h may both be included""... $ac_c" 1>&6
+-echo "configure:2250: checking whether time.h and sys/time.h may both be included" >&5
++echo "configure:2280: checking whether time.h and sys/time.h may both be included" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_time'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2255 "configure"
++#line 2285 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <sys/time.h>
+@@ -2260,7 +2290,7 @@
+ struct tm *tp;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2264: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2294: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_header_time=yes
+ else
+@@ -2281,12 +2311,12 @@
+ fi
+ 
+ echo $ac_n "checking for sys/wait.h that is POSIX.1 compatible""... $ac_c" 1>&6
+-echo "configure:2285: checking for sys/wait.h that is POSIX.1 compatible" >&5
++echo "configure:2315: checking for sys/wait.h that is POSIX.1 compatible" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_sys_wait_h'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2290 "configure"
++#line 2320 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <sys/wait.h>
+@@ -2302,7 +2332,7 @@
+ s = WIFEXITED (s) ? WEXITSTATUS (s) : 1;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2306: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2336: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_header_sys_wait_h=yes
+ else
+@@ -2326,17 +2356,17 @@
+ do
+ ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
+-echo "configure:2330: checking for $ac_hdr" >&5
++echo "configure:2360: checking for $ac_hdr" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2335 "configure"
++#line 2365 "configure"
+ #include "confdefs.h"
+ #include <$ac_hdr>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:2340: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:2370: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -2367,17 +2397,17 @@
+ do
+ ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
+-echo "configure:2371: checking for $ac_hdr" >&5
++echo "configure:2401: checking for $ac_hdr" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2376 "configure"
++#line 2406 "configure"
+ #include "confdefs.h"
+ #include <$ac_hdr>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:2381: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:2411: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -2404,7 +2434,7 @@
+ done
+ 
+     echo $ac_n "checking "whether libc.h and unistd.h can be included together"""... $ac_c" 1>&6
+-echo "configure:2408: checking "whether libc.h and unistd.h can be included together"" >&5
++echo "configure:2438: checking "whether libc.h and unistd.h can be included together"" >&5
+ if eval "test \"`echo '$''{'guile_cv_header_libc_with_unistd'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -2415,7 +2445,7 @@
+           guile_cv_header_libc_with_unistd="yes"
+         else
+           cat > conftest.$ac_ext <<EOF
+-#line 2419 "configure"
++#line 2449 "configure"
+ #include "confdefs.h"
+ 
+ #             include <libc.h>
+@@ -2425,7 +2455,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2429: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2459: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   guile_cv_header_libc_with_unistd=yes
+ else
+@@ -2452,12 +2482,12 @@
+ 
+ 
+ echo $ac_n "checking for uid_t in sys/types.h""... $ac_c" 1>&6
+-echo "configure:2456: checking for uid_t in sys/types.h" >&5
++echo "configure:2486: checking for uid_t in sys/types.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_type_uid_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2461 "configure"
++#line 2491 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ EOF
+@@ -2486,7 +2516,7 @@
+ fi
+ 
+ echo $ac_n "checking type of array argument to getgroups""... $ac_c" 1>&6
+-echo "configure:2490: checking type of array argument to getgroups" >&5
++echo "configure:2520: checking type of array argument to getgroups" >&5
+ if eval "test \"`echo '$''{'ac_cv_type_getgroups'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -2494,7 +2524,7 @@
+   ac_cv_type_getgroups=cross
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2498 "configure"
++#line 2528 "configure"
+ #include "confdefs.h"
+ 
+ /* Thanks to Mike Rendell for this test.  */
+@@ -2519,7 +2549,7 @@
+ }
+ 
+ EOF
+-if { (eval echo configure:2523: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:2553: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+     ac_cv_type_getgroups=gid_t
+ else
+@@ -2533,7 +2563,7 @@
+ 
+ if test $ac_cv_type_getgroups = cross; then
+         cat > conftest.$ac_ext <<EOF
+-#line 2537 "configure"
++#line 2567 "configure"
+ #include "confdefs.h"
+ #include <unistd.h>
+ EOF
+@@ -2557,12 +2587,12 @@
+ 
+ 
+ echo $ac_n "checking return type of signal handlers""... $ac_c" 1>&6
+-echo "configure:2561: checking return type of signal handlers" >&5
++echo "configure:2591: checking return type of signal handlers" >&5
+ if eval "test \"`echo '$''{'ac_cv_type_signal'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2566 "configure"
++#line 2596 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <signal.h>
+@@ -2579,7 +2609,7 @@
+ int i;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2583: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:2613: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_type_signal=void
+ else
+@@ -2598,12 +2628,12 @@
+ 
+ 
+ echo $ac_n "checking for mode_t""... $ac_c" 1>&6
+-echo "configure:2602: checking for mode_t" >&5
++echo "configure:2632: checking for mode_t" >&5
+ if eval "test \"`echo '$''{'ac_cv_type_mode_t'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2607 "configure"
++#line 2637 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #if STDC_HEADERS
+@@ -2632,7 +2662,7 @@
+ 
+ 
+ echo $ac_n "checking for main in -lm""... $ac_c" 1>&6
+-echo "configure:2636: checking for main in -lm" >&5
++echo "configure:2666: checking for main in -lm" >&5
+ ac_lib_var=`echo m'_'main | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2640,14 +2670,14 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-lm  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2644 "configure"
++#line 2674 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ main()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2651: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2681: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2677,12 +2707,12 @@
+ for ac_func in gethostbyname
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:2681: checking for $ac_func" >&5
++echo "configure:2711: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2686 "configure"
++#line 2716 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -2705,7 +2735,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2709: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2739: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -2731,7 +2761,7 @@
+ 
+ if test $ac_cv_func_gethostbyname = no; then
+     echo $ac_n "checking for gethostbyname in -lnsl""... $ac_c" 1>&6
+-echo "configure:2735: checking for gethostbyname in -lnsl" >&5
++echo "configure:2765: checking for gethostbyname in -lnsl" >&5
+ ac_lib_var=`echo nsl'_'gethostbyname | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2739,7 +2769,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-lnsl  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2743 "configure"
++#line 2773 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -2750,7 +2780,7 @@
+ gethostbyname()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2754: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2784: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2781,12 +2811,12 @@
+ for ac_func in connect
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:2785: checking for $ac_func" >&5
++echo "configure:2815: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2790 "configure"
++#line 2820 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -2809,7 +2839,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2813: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2843: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -2835,7 +2865,7 @@
+ 
+ if test $ac_cv_func_connect = no; then
+     echo $ac_n "checking for connect in -lsocket""... $ac_c" 1>&6
+-echo "configure:2839: checking for connect in -lsocket" >&5
++echo "configure:2869: checking for connect in -lsocket" >&5
+ ac_lib_var=`echo socket'_'connect | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2843,7 +2873,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-lsocket  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2847 "configure"
++#line 2877 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -2854,7 +2884,7 @@
+ connect()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2858: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2888: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2888,7 +2918,7 @@
+ if test "$enable_dynamic_linking" = "yes"; then
+ 
+ echo $ac_n "checking for dlopen in -ldl""... $ac_c" 1>&6
+-echo "configure:2892: checking for dlopen in -ldl" >&5
++echo "configure:2922: checking for dlopen in -ldl" >&5
+ ac_lib_var=`echo dl'_'dlopen | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -2896,7 +2926,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-ldl  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 2900 "configure"
++#line 2930 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -2907,7 +2937,7 @@
+ dlopen()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2911: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:2941: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -2938,12 +2968,12 @@
+   for ac_func in dlopen
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:2942: checking for $ac_func" >&5
++echo "configure:2972: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 2947 "configure"
++#line 2977 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -2966,7 +2996,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:2970: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3000: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -2996,7 +3026,7 @@
+ 
+ else
+ echo $ac_n "checking for dld_link in -ldld""... $ac_c" 1>&6
+-echo "configure:3000: checking for dld_link in -ldld" >&5
++echo "configure:3030: checking for dld_link in -ldld" >&5
+ ac_lib_var=`echo dld'_'dld_link | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -3004,7 +3034,7 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-ldld  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 3008 "configure"
++#line 3038 "configure"
+ #include "confdefs.h"
+ /* Override any gcc2 internal prototype to avoid an error.  */
+ /* We use char because int might match the return type of a gcc2
+@@ -3015,7 +3045,7 @@
+ dld_link()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3019: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3049: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -3051,12 +3081,12 @@
+ for ac_func in shl_load
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3055: checking for $ac_func" >&5
++echo "configure:3085: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3060 "configure"
++#line 3090 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3079,7 +3109,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3083: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3113: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3112,12 +3142,12 @@
+ for ac_func in dlopen
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3116: checking for $ac_func" >&5
++echo "configure:3146: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3121 "configure"
++#line 3151 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3140,7 +3170,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3144: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3174: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3178,7 +3208,7 @@
+ 
+ 
+   echo $ac_n "checking for underscore before symbols""... $ac_c" 1>&6
+-echo "configure:3182: checking for underscore before symbols" >&5
++echo "configure:3212: checking for underscore before symbols" >&5
+   if eval "test \"`echo '$''{'guile_cv_uscore'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -3204,7 +3234,7 @@
+ 
+     if test $ac_cv_func_dlopen = yes -o $ac_cv_lib_dl_dlopen = yes ; then
+ 	echo $ac_n "checking whether dlsym always adds an underscore for us""... $ac_c" 1>&6
+-echo "configure:3208: checking whether dlsym always adds an underscore for us" >&5
++echo "configure:3238: checking whether dlsym always adds an underscore for us" >&5
+ 	if eval "test \"`echo '$''{'guile_cv_dlsym_adds_uscore'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -3212,7 +3242,7 @@
+   guile_cv_dlsym_adds_uscore=no
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3216 "configure"
++#line 3246 "configure"
+ #include "confdefs.h"
+ 
+ #include <dlfcn.h>
+@@ -3223,7 +3253,7 @@
+     if(ptr1 && !ptr2) exit(0); } exit(1); } 
+ 
+ EOF
+-if { (eval echo configure:3227: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:3257: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   guile_cv_dlsym_adds_uscore=yes
+ 	cat >> confdefs.h <<\EOF
+@@ -3250,12 +3280,12 @@
+ for ac_func in ctermid ftime getcwd geteuid gettimeofday lstat mkdir mknod nice readlink rename rmdir select setegid seteuid setlocale setpgid setsid sigaction siginterrupt strftime strptime symlink sync tcgetpgrp tcsetpgrp times uname waitpid bzero strdup system usleep atexit on_exit
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3254: checking for $ac_func" >&5
++echo "configure:3284: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3259 "configure"
++#line 3289 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3278,7 +3308,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3282: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3312: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3314,12 +3344,12 @@
+ 
+ 
+   echo $ac_n "checking for strptime declaration""... $ac_c" 1>&6
+-echo "configure:3318: checking for strptime declaration" >&5
++echo "configure:3348: checking for strptime declaration" >&5
+ if eval "test \"`echo '$''{'guile_cv_func_strptime_declared'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3323 "configure"
++#line 3353 "configure"
+ #include "confdefs.h"
+ #include <time.h>
+ EOF
+@@ -3345,12 +3375,12 @@
+ 
+ 
+   echo $ac_n "checking for bzero declaration""... $ac_c" 1>&6
+-echo "configure:3349: checking for bzero declaration" >&5
++echo "configure:3379: checking for bzero declaration" >&5
+ if eval "test \"`echo '$''{'guile_cv_func_bzero_declared'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3354 "configure"
++#line 3384 "configure"
+ #include "confdefs.h"
+ #include <string.h>
+ EOF
+@@ -3376,12 +3406,12 @@
+ 
+ 
+   echo $ac_n "checking for sleep declaration""... $ac_c" 1>&6
+-echo "configure:3380: checking for sleep declaration" >&5
++echo "configure:3410: checking for sleep declaration" >&5
+ if eval "test \"`echo '$''{'guile_cv_func_sleep_declared'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3385 "configure"
++#line 3415 "configure"
+ #include "confdefs.h"
+ #include <unistd.h>
+ EOF
+@@ -3407,12 +3437,12 @@
+ 
+ 
+   echo $ac_n "checking for usleep declaration""... $ac_c" 1>&6
+-echo "configure:3411: checking for usleep declaration" >&5
++echo "configure:3441: checking for usleep declaration" >&5
+ if eval "test \"`echo '$''{'guile_cv_func_usleep_declared'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3416 "configure"
++#line 3446 "configure"
+ #include "confdefs.h"
+ #include <unistd.h>
+ EOF
+@@ -3440,12 +3470,12 @@
+ ### On some systems usleep has no return value.  If it does have one,
+ ### we'd like to return it; otherwise, we'll fake it.
+ echo $ac_n "checking return type of usleep""... $ac_c" 1>&6
+-echo "configure:3444: checking return type of usleep" >&5
++echo "configure:3474: checking return type of usleep" >&5
+ if eval "test \"`echo '$''{'guile_cv_func_usleep_return_type'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3449 "configure"
++#line 3479 "configure"
+ #include "confdefs.h"
+ #include </usr/include/unistd.h>
+ EOF
+@@ -3474,17 +3504,17 @@
+ 
+ ac_safe=`echo "sys/un.h" | sed 'y%./+-%__p_%'`
+ echo $ac_n "checking for sys/un.h""... $ac_c" 1>&6
+-echo "configure:3478: checking for sys/un.h" >&5
++echo "configure:3508: checking for sys/un.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3483 "configure"
++#line 3513 "configure"
+ #include "confdefs.h"
+ #include <sys/un.h>
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:3488: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:3518: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -3515,12 +3545,12 @@
+ for ac_func in socketpair getgroups setpwent pause tzset
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3519: checking for $ac_func" >&5
++echo "configure:3549: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3524 "configure"
++#line 3554 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3543,7 +3573,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3547: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3577: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3574,12 +3604,12 @@
+ for ac_func in sethostent   gethostent   endhostent                  setnetent    getnetent    endnetent                   setprotoent  getprotoent  endprotoent                 setservent   getservent   endservent                  getnetbyaddr getnetbyname inet_lnaof inet_makeaddr inet_netof
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3578: checking for $ac_func" >&5
++echo "configure:3608: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3583 "configure"
++#line 3613 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3602,7 +3632,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3606: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3636: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3629,8 +3659,18 @@
+ 
+ 
+ 
+-echo $ac_n "checking for restartable system calls""... $ac_c" 1>&6
+-echo "configure:3634: checking for restartable system calls" >&5
++if test "$restartable_syscalls" = yes ||
++   test "$restartable_syscalls" = y; then
++   cat >> confdefs.h <<\EOF
++#define HAVE_RESTARTABLE_SYSCALLS 1
++EOF
++
++elif test "$restartable_syscalls" = no ||
++     test "$restartable_syscalls" = n; then
++   true
++else
++   echo $ac_n "checking for restartable system calls""... $ac_c" 1>&6
++echo "configure:3674: checking for restartable system calls" >&5
+ if eval "test \"`echo '$''{'ac_cv_sys_restartable_syscalls'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -3638,7 +3678,7 @@
+     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3642 "configure"
++#line 3682 "configure"
+ #include "confdefs.h"
+ /* Exit 0 (true) if wait returns something other than -1,
+    i.e. the pid of the child, which means that wait was restarted
+@@ -3656,7 +3696,7 @@
+ }
+ 
+ EOF
+-if { (eval echo configure:3660: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:3700: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   ac_cv_sys_restartable_syscalls=yes
+ else
+@@ -3678,17 +3718,18 @@
+ 
+ fi
+ 
++fi
+ 
+ if test "$ac_cv_header_regex_h" = yes ||
+    test "$ac_cv_header_rxposix_h" = yes ||
+    test "$ac_cv_header_rx_rxposix_h" = yes; then
+   echo $ac_n "checking for regcomp""... $ac_c" 1>&6
+-echo "configure:3687: checking for regcomp" >&5
++echo "configure:3728: checking for regcomp" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_regcomp_norx'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3692 "configure"
++#line 3733 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char regcomp(); below.  */
+@@ -3711,7 +3752,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3715: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3756: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_regcomp_norx=yes"
+ else
+@@ -3729,7 +3770,7 @@
+ else
+   echo "$ac_t""no" 1>&6
+ echo $ac_n "checking for main in -lrx""... $ac_c" 1>&6
+-echo "configure:3733: checking for main in -lrx" >&5
++echo "configure:3774: checking for main in -lrx" >&5
+ ac_lib_var=`echo rx'_'main | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+@@ -3737,14 +3778,14 @@
+   ac_save_LIBS="$LIBS"
+ LIBS="-lrx  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+-#line 3741 "configure"
++#line 3782 "configure"
+ #include "confdefs.h"
+ 
+ int main() {
+ main()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3748: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3789: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -3772,12 +3813,12 @@
+ fi
+ 
+    echo $ac_n "checking for regcomp""... $ac_c" 1>&6
+-echo "configure:3776: checking for regcomp" >&5
++echo "configure:3817: checking for regcomp" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_regcomp_rx'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3781 "configure"
++#line 3822 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char regcomp(); below.  */
+@@ -3800,7 +3841,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3804: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3845: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_regcomp_rx=yes"
+ else
+@@ -3834,12 +3875,12 @@
+ for ac_func in inet_aton putenv strerror memmove
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:3838: checking for $ac_func" >&5
++echo "configure:3879: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3843 "configure"
++#line 3884 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -3862,7 +3903,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3866: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3907: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -3895,19 +3936,19 @@
+ # The Ultrix 4.2 mips builtin alloca declared by alloca.h only works
+ # for constant arguments.  Useless!
+ echo $ac_n "checking for working alloca.h""... $ac_c" 1>&6
+-echo "configure:3899: checking for working alloca.h" >&5
++echo "configure:3940: checking for working alloca.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_header_alloca_h'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3904 "configure"
++#line 3945 "configure"
+ #include "confdefs.h"
+ #include <alloca.h>
+ int main() {
+ char *p = alloca(2 * sizeof(int));
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3911: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:3952: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   ac_cv_header_alloca_h=yes
+ else
+@@ -3928,12 +3969,12 @@
+ fi
+ 
+ echo $ac_n "checking for alloca""... $ac_c" 1>&6
+-echo "configure:3932: checking for alloca" >&5
++echo "configure:3973: checking for alloca" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_alloca_works'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 3937 "configure"
++#line 3978 "configure"
+ #include "confdefs.h"
+ 
+ #ifdef __GNUC__
+@@ -3961,7 +4002,7 @@
+ char *p = (char *) alloca(1);
+ ; return 0; }
+ EOF
+-if { (eval echo configure:3965: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:4006: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   ac_cv_func_alloca_works=yes
+ else
+@@ -3993,12 +4034,12 @@
+ 
+ 
+ echo $ac_n "checking whether alloca needs Cray hooks""... $ac_c" 1>&6
+-echo "configure:3997: checking whether alloca needs Cray hooks" >&5
++echo "configure:4038: checking whether alloca needs Cray hooks" >&5
+ if eval "test \"`echo '$''{'ac_cv_os_cray'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4002 "configure"
++#line 4043 "configure"
+ #include "confdefs.h"
+ #if defined(CRAY) && ! defined(CRAY2)
+ webecray
+@@ -4023,12 +4064,12 @@
+ if test $ac_cv_os_cray = yes; then
+ for ac_func in _getb67 GETB67 getb67; do
+   echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
+-echo "configure:4027: checking for $ac_func" >&5
++echo "configure:4068: checking for $ac_func" >&5
+ if eval "test \"`echo '$''{'ac_cv_func_$ac_func'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4032 "configure"
++#line 4073 "configure"
+ #include "confdefs.h"
+ /* System header to define __stub macros and hopefully few prototypes,
+     which can conflict with char $ac_func(); below.  */
+@@ -4051,7 +4092,7 @@
+ 
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4055: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:4096: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_func_$ac_func=yes"
+ else
+@@ -4078,7 +4119,7 @@
+ fi
+ 
+ echo $ac_n "checking stack direction for C alloca""... $ac_c" 1>&6
+-echo "configure:4082: checking stack direction for C alloca" >&5
++echo "configure:4123: checking stack direction for C alloca" >&5
+ if eval "test \"`echo '$''{'ac_cv_c_stack_direction'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -4086,7 +4127,7 @@
+   ac_cv_c_stack_direction=0
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4090 "configure"
++#line 4131 "configure"
+ #include "confdefs.h"
+ find_stack_direction ()
+ {
+@@ -4105,7 +4146,7 @@
+   exit (find_stack_direction() < 0);
+ }
+ EOF
+-if { (eval echo configure:4109: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:4150: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   ac_cv_c_stack_direction=1
+ else
+@@ -4129,12 +4170,12 @@
+ if test "$ALLOCA" = "alloca.o"; then LIBOBJS="alloca.o $LIBOBJS"; fi
+ 
+ echo $ac_n "checking for st_rdev in struct stat""... $ac_c" 1>&6
+-echo "configure:4133: checking for st_rdev in struct stat" >&5
++echo "configure:4174: checking for st_rdev in struct stat" >&5
+ if eval "test \"`echo '$''{'ac_cv_struct_st_rdev'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4138 "configure"
++#line 4179 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -4142,7 +4183,7 @@
+ struct stat s; s.st_rdev;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4146: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4187: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_struct_st_rdev=yes
+ else
+@@ -4163,12 +4204,12 @@
+ fi
+ 
+ echo $ac_n "checking for st_blksize in struct stat""... $ac_c" 1>&6
+-echo "configure:4167: checking for st_blksize in struct stat" >&5
++echo "configure:4208: checking for st_blksize in struct stat" >&5
+ if eval "test \"`echo '$''{'ac_cv_struct_st_blksize'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4172 "configure"
++#line 4213 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -4176,7 +4217,7 @@
+ struct stat s; s.st_blksize;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4180: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4221: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_struct_st_blksize=yes
+ else
+@@ -4200,12 +4241,12 @@
+ # We could use AC_STRUCT_ST_BLOCKS here, but that adds fileblocks.o to
+ # LIBOBJS, which we don't need.  This seems more direct. 
+ echo $ac_n "checking for st_blocks in struct stat""... $ac_c" 1>&6
+-echo "configure:4204: checking for st_blocks in struct stat" >&5
++echo "configure:4245: checking for st_blocks in struct stat" >&5
+ if eval "test \"`echo '$''{'ac_cv_struct_st_blocks'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4209 "configure"
++#line 4250 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -4213,7 +4254,7 @@
+ struct stat s; s.st_blocks;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4217: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4258: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_struct_st_blocks=yes
+ else
+@@ -4234,12 +4275,12 @@
+ fi
+ 
+ echo $ac_n "checking for S_ISLNK in sys/stat.h""... $ac_c" 1>&6
+-echo "configure:4238: checking for S_ISLNK in sys/stat.h" >&5
++echo "configure:4279: checking for S_ISLNK in sys/stat.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_macro_S_ISLNK'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4243 "configure"
++#line 4284 "configure"
+ #include "confdefs.h"
+ #include <sys/stat.h>
+                #ifndef S_ISLNK
+@@ -4247,7 +4288,7 @@
+                #endif
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:4251: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:4292: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -4271,12 +4312,12 @@
+ fi
+ 
+ echo $ac_n "checking whether struct tm is in sys/time.h or time.h""... $ac_c" 1>&6
+-echo "configure:4275: checking whether struct tm is in sys/time.h or time.h" >&5
++echo "configure:4316: checking whether struct tm is in sys/time.h or time.h" >&5
+ if eval "test \"`echo '$''{'ac_cv_struct_tm'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4280 "configure"
++#line 4321 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <time.h>
+@@ -4284,7 +4325,7 @@
+ struct tm *tp; tp->tm_sec;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4288: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4329: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_struct_tm=time.h
+ else
+@@ -4305,12 +4346,12 @@
+ fi
+ 
+ echo $ac_n "checking for tm_zone in struct tm""... $ac_c" 1>&6
+-echo "configure:4309: checking for tm_zone in struct tm" >&5
++echo "configure:4350: checking for tm_zone in struct tm" >&5
+ if eval "test \"`echo '$''{'ac_cv_struct_tm_zone'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4314 "configure"
++#line 4355 "configure"
+ #include "confdefs.h"
+ #include <sys/types.h>
+ #include <$ac_cv_struct_tm>
+@@ -4318,7 +4359,7 @@
+ struct tm tm; tm.tm_zone;
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4322: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4363: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   ac_cv_struct_tm_zone=yes
+ else
+@@ -4338,12 +4379,12 @@
+ 
+ else
+   echo $ac_n "checking for tzname""... $ac_c" 1>&6
+-echo "configure:4342: checking for tzname" >&5
++echo "configure:4383: checking for tzname" >&5
+ if eval "test \"`echo '$''{'ac_cv_var_tzname'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4347 "configure"
++#line 4388 "configure"
+ #include "confdefs.h"
+ #include <time.h>
+ #ifndef tzname /* For SGI.  */
+@@ -4353,7 +4394,7 @@
+ atoi(*tzname);
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4357: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if { (eval echo configure:4398: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   ac_cv_var_tzname=yes
+ else
+@@ -4376,12 +4417,12 @@
+ 
+ 
+   echo $ac_n "checking whether we need POSIX to get struct utimbuf""... $ac_c" 1>&6
+-echo "configure:4380: checking whether we need POSIX to get struct utimbuf" >&5
++echo "configure:4421: checking whether we need POSIX to get struct utimbuf" >&5
+ if eval "test \"`echo '$''{'guile_cv_struct_utimbuf_needs_posix'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4385 "configure"
++#line 4426 "configure"
+ #include "confdefs.h"
+ 
+ #ifdef __EMX__
+@@ -4393,7 +4434,7 @@
+ 
+ EOF
+ ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
+-{ (eval echo configure:4397: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
++{ (eval echo configure:4438: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+ ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
+ if test -z "$ac_err"; then
+   rm -rf conftest*
+@@ -4426,13 +4467,13 @@
+   echo "configure: warning: Guessing that stack grows down -- see scmconfig.h.in" 1>&2
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4430 "configure"
++#line 4471 "configure"
+ #include "confdefs.h"
+ aux (l) unsigned long l;
+ 	     { int x; exit (l >= ((unsigned long)&x)); }
+ 	   main () { int q; aux((unsigned long)&q); }
+ EOF
+-if { (eval echo configure:4436: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:4477: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   cat >> confdefs.h <<\EOF
+ #define SCM_STACK_GROWS_UP 1
+@@ -4447,7 +4488,7 @@
+ 
+ 
+ echo $ac_n "checking whether floats fit in longs""... $ac_c" 1>&6
+-echo "configure:4451: checking whether floats fit in longs" >&5
++echo "configure:4492: checking whether floats fit in longs" >&5
+ if eval "test \"`echo '$''{'guile_cv_type_float_fits_long'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+@@ -4455,11 +4496,11 @@
+   guile_cv_type_float_fits_long=guess-yes
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4459 "configure"
++#line 4500 "configure"
+ #include "confdefs.h"
+ main () { exit (sizeof(float) > sizeof(long)); }
+ EOF
+-if { (eval echo configure:4463: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
++if { (eval echo configure:4504: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+ then
+   guile_cv_type_float_fits_long=yes
+ else
+@@ -4493,12 +4534,12 @@
+ 
+ 
+ echo $ac_n "checking for struct linger""... $ac_c" 1>&6
+-echo "configure:4497: checking for struct linger" >&5
++echo "configure:4538: checking for struct linger" >&5
+ if eval "test \"`echo '$''{'scm_cv_struct_linger'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   cat > conftest.$ac_ext <<EOF
+-#line 4502 "configure"
++#line 4543 "configure"
+ #include "confdefs.h"
+ 
+ #include <sys/types.h>
+@@ -4507,7 +4548,7 @@
+ struct linger lgr;  lgr.l_linger = 100
+ ; return 0; }
+ EOF
+-if { (eval echo configure:4511: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
++if { (eval echo configure:4552: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+   rm -rf conftest*
+   scm_cv_struct_linger="yes"
+ else
+@@ -4567,7 +4608,7 @@
+ ### Turn $with_threads into either the name of a threads package, like
+ ### `qt', or `no', meaning that threads should not be supported.
+ echo $ac_n "checking whether to support threads""... $ac_c" 1>&6
+-echo "configure:4571: checking whether to support threads" >&5
++echo "configure:4612: checking whether to support threads" >&5
+ case "$with_threads" in
+   "yes" | "qt" | "coop" | "")
+     with_threads=qt
+@@ -4591,7 +4632,7 @@
+   
+ 
+   echo $ac_n "checking QuickThreads configuration""... $ac_c" 1>&6
+-echo "configure:4595: checking QuickThreads configuration" >&5
++echo "configure:4636: checking QuickThreads configuration" >&5
+   # How can we refer to the qt source directory from within the qt build
+   # directory?  For headers, we can rely on the fact that the qt src
+   # directory appears in the #include path.
+@@ -4731,12 +4772,12 @@
+     CFLAGS="$CFLAGS -Wall -Wpointer-arith -Wmissing-prototypes" ;;
+ esac
+ 
+-for ac_prog in mawk gawk nawk awk
++for ac_prog in gawk mawk nawk awk
+ do
+ # Extract the first word of "$ac_prog", so it can be a program name with args.
+ set dummy $ac_prog; ac_word=$2
+ echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
+-echo "configure:4740: checking for $ac_word" >&5
++echo "configure:4781: checking for $ac_word" >&5
+ if eval "test \"`echo '$''{'ac_cv_prog_AWK'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+diff -urN ../guile-1.3.4/configure.in ./configure.in
+--- ../guile-1.3.4/configure.in	Wed Sep 22 21:58:39 1999
++++ ./configure.in	Fri Mar 24 01:48:26 2000
+@@ -50,6 +50,21 @@
+     AC_DEFINE(GUILE_DEBUG)
+   fi)
+ 
++sizeof_int=0
++AC_ARG_ENABLE(sizeof-int, 
++  [  --enable-sizeof-int     Set size of int (for cross compilation)],
++  [sizeof_int=$enableval])
++    
++sizeof_long=0
++AC_ARG_ENABLE(sizeof-long, 
++  [  --enable-sizeof-long    Set size of long (for cross compilation)],
++  [sizeof_long=$enableval])
++    
++restartable_syscalls=test
++AC_ARG_ENABLE(restartable-syscalls,
++  [  --enable-restartable syscalls  Are interrupted syscalls restarted (for cross compilation)],
++  [restartable_syscalls=$enableval])
++    
+ dnl The --disable-debug used to control these two.  But now they are
+ dnl a required part of the distribution.
+ AC_DEFINE(DEBUG_EXTENSIONS)
+@@ -69,8 +84,8 @@
+ 
+ AC_C_CONST
+ AC_C_INLINE
+-AC_CHECK_SIZEOF(int)
+-AC_CHECK_SIZEOF(long)
++AC_CHECK_SIZEOF(int, $sizeof_int)
++AC_CHECK_SIZEOF(long, $sizeof_long)
+ AC_CACHE_CHECK([for long longs], scm_cv_long_longs,
+ 	       AC_TRY_COMPILE(,
+ 			      [long long a],
+@@ -218,7 +233,15 @@
+ dnl behaviour for some reason: e.g., different versions of linux seem
+ dnl to behave differently.)
+ 
+-AC_SYS_RESTARTABLE_SYSCALLS
++if test "$restartable_syscalls" = yes ||
++   test "$restartable_syscalls" = y; then
++   AC_DEFINE(HAVE_RESTARTABLE_SYSCALLS)
++elif test "$restartable_syscalls" = no ||
++     test "$restartable_syscalls" = n; then
++   true
++else
++   AC_SYS_RESTARTABLE_SYSCALLS
++fi
+ 
+ if test "$ac_cv_header_regex_h" = yes ||
+    test "$ac_cv_header_rxposix_h" = yes ||
+@@ -279,7 +302,7 @@
+ AC_TRY_RUN(aux (l) unsigned long l;
+ 	     { int x; exit (l >= ((unsigned long)&x)); }
+ 	   main () { int q; aux((unsigned long)&q); }, 
+-	   AC_DEFINE(SCM_STACK_GROWS_UP),,AC_MSG_WARN(Guessing that stack grows down -- see scmconfig.h.in))
++	   AC_DEFINE(SCM_STACK_GROWS_UP),,AC_MSG_WARN(Guessing that stack grows down -- see scmconfig.h.in), AC_DEFINE(SCM_STACK_GROWS_DOWN))
+ 
+ AC_CACHE_CHECK([whether floats fit in longs], guile_cv_type_float_fits_long,
+     [AC_TRY_RUN([main () { exit (sizeof(float) > sizeof(long)); }],
+diff -urN ../guile-1.3.4/doc/Makefile.in ./doc/Makefile.in
+--- ../guile-1.3.4/doc/Makefile.in	Sat Sep 25 19:37:35 1999
++++ ./doc/Makefile.in	Fri Mar 24 10:47:26 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -108,15 +109,15 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ .SUFFIXES: .dvi .info .ps .texi .texinfo .txi
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps doc/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --gnu doc/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -270,10 +271,15 @@
+ subdir = doc
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu doc/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -304,7 +310,7 @@
+ all-am: Makefile $(INFO_DEPS)
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 	$(mkinstalldirs)  $(DESTDIR)$(infodir)
+ 
+diff -urN ../guile-1.3.4/guile-compile ./guile-compile
+--- ../guile-1.3.4/guile-compile	Thu Jan  1 01:00:00 1970
++++ ./guile-compile	Fri Mar 24 01:48:27 2000
+@@ -0,0 +1,13 @@
++##automake --cygnus
++
++ROOT=/usr/src/gnu-windows
++PREFIX=$ROOT/usr
++
++ARCH=i686-pc-cygwin
++
++export PATH=$PREFIX/$ARCH/bin:$PREFIX/bin:$PATH 
++
++VERSION=1.3.31
++
++./configure --prefix=$PREFIX --target=$ARCH --build=$ARCH --host=ppc-redhat-linux --oldincludedir=$PREFIX/include --enable-sizeof-int=4 --enable-sizeof-long=4 --enable-restartable-syscalls=yes && make oldincludedir=$PREFIX/include
++make oldincludedir=$PREFIX/include install
+diff -urN ../guile-1.3.4/guile-config/Makefile.am ./guile-config/Makefile.am
+--- ../guile-1.3.4/guile-config/Makefile.am	Mon Oct 19 17:24:31 1998
++++ ./guile-config/Makefile.am	Fri Mar 24 10:46:01 2000
+@@ -20,9 +20,9 @@
+ ##   to the Free Software Foundation, Inc., 59 Temple Place, Suite
+ ##   330, Boston, MA 02111-1307 USA
+ 
+-bin_SCRIPTS=guile-config
+-CLEANFILES=guile-config
+-EXTRA_DIST=guile-config.in
++bin_SCRIPTS=guile-config @build@-guile-config
++CLEANFILES=guile-config @build@-guile-config
++EXTRA_DIST=guile-config.in cross-guile-config.in
+ 
+ ## We use @-...-@ as the substitution brackets here, instead of the
+ ## usual @...@, so autoconf doesn't go and substitute the values
+@@ -34,6 +34,15 @@
+ 	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:
+ 	chmod +x guile-config.tmp
+ 	mv guile-config.tmp guile-config
++
++@build@-guile-config: cross-guile-config.in
++	rm -f $<.tmp
++	sed < ${srcdir}/$< > $<.tmp \
++	    -e s:@-SHELL-@:${SHELL}: \
++	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:\
++	    -e s:@-PREFIX-@:${prefix}:
++	chmod +x $<.tmp
++	mv $<.tmp $@
+ 
+ ## Get rid of any copies of the configuration script under the old
+ ## name, so people don't end up running ancient copies of it.
+diff -urN ../guile-1.3.4/guile-config/Makefile.in ./guile-config/Makefile.in
+--- ../guile-1.3.4/guile-config/Makefile.in	Sat Sep 25 19:37:32 1999
++++ ./guile-config/Makefile.in	Fri Mar 24 10:47:26 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -90,9 +91,9 @@
+ qtmdc_c = @qtmdc_c@
+ qtmds_s = @qtmds_s@
+ 
+-bin_SCRIPTS = guile-config
+-CLEANFILES = guile-config
+-EXTRA_DIST = guile-config.in
++bin_SCRIPTS = guile-config @build@-guile-config
++CLEANFILES = guile-config @build@-guile-config
++EXTRA_DIST = guile-config.in cross-guile-config.in
+ mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+ CONFIG_HEADER = ../libguile/scmconfig.h
+ CONFIG_CLEAN_FILES = 
+@@ -103,14 +104,14 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps guile-config/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --gnu guile-config/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -142,10 +143,15 @@
+ subdir = guile-config
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu guile-config/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -174,7 +180,7 @@
+ all-am: Makefile $(SCRIPTS)
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 	$(mkinstalldirs)  $(DESTDIR)$(bindir)
+ 
+@@ -224,6 +230,15 @@
+ 	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:
+ 	chmod +x guile-config.tmp
+ 	mv guile-config.tmp guile-config
++
++@build@-guile-config: cross-guile-config.in
++	rm -f $<.tmp
++	sed < ${srcdir}/$< > $<.tmp \
++	    -e s:@-SHELL-@:${SHELL}: \
++	    -e s:@-GUILE_VERSION-@:${GUILE_VERSION}:\
++	    -e s:@-PREFIX-@:${prefix}:
++	chmod +x $<.tmp
++	mv $<.tmp $@
+ 
+ install-exec-local:
+ 	rm -f ${bindir}/build-guile
+diff -urN ../guile-1.3.4/guile-config/cross-guile-config.in ./guile-config/cross-guile-config.in
+--- ../guile-1.3.4/guile-config/cross-guile-config.in	Thu Jan  1 01:00:00 1970
++++ ./guile-config/cross-guile-config.in	Fri Mar 24 11:15:19 2000
+@@ -0,0 +1,16 @@
++#!@-SHELL-@
++# build-guile-config.in
++case $1 in
++	--version)
++		echo "@-GUILE_VERSION-@"
++		exit 0
++		;;
++	compile)
++		echo "-I @-PREFIX-@/include/guile"
++		exit 0
++		;;
++	link)
++		echo "-L @-PREFIX-@/lib -lguile"
++		exit 0
++		;;
++esac
+diff -urN ../guile-1.3.4/ice-9/Makefile.in ./ice-9/Makefile.in
+--- ../guile-1.3.4/ice-9/Makefile.in	Sat Sep 25 19:37:16 1999
++++ ./ice-9/Makefile.in	Fri Mar 24 10:47:25 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -111,14 +112,14 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps ice-9/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --foreign ice-9/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -176,10 +177,15 @@
+ subdir = ice-9
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign ice-9/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -208,7 +214,7 @@
+ all-am: Makefile $(DATA)
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 	$(mkinstalldirs)  $(DESTDIR)$(subpkgdatadir)
+ 
+diff -urN ../guile-1.3.4/libguile/Makefile.in ./libguile/Makefile.in
+--- ../guile-1.3.4/libguile/Makefile.in	Sat Sep 25 19:37:27 1999
++++ ./libguile/Makefile.in	Fri Mar 24 10:47:25 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -202,8 +203,31 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
++DEP_FILES =  .deps/alist.P .deps/alloca.P .deps/arbiters.P .deps/async.P \
++.deps/backtrace.P .deps/boolean.P .deps/chars.P .deps/continuations.P \
++.deps/cpp_err_symbols.P .deps/cpp_sig_symbols.P .deps/debug.P \
++.deps/dynl.P .deps/dynwind.P .deps/eq.P .deps/error.P .deps/eval.P \
++.deps/evalext.P .deps/feature.P .deps/filesys.P .deps/fluids.P \
++.deps/fports.P .deps/gc.P .deps/gdbint.P .deps/gh_data.P \
++.deps/gh_eval.P .deps/gh_funcs.P .deps/gh_init.P .deps/gh_io.P \
++.deps/gh_list.P .deps/gh_predicates.P .deps/gh_test_c.P \
++.deps/gh_test_repl.P .deps/gsubr.P .deps/guardians.P .deps/guile.P \
++.deps/hash.P .deps/hashtab.P .deps/inet_aton.P .deps/init.P \
++.deps/ioext.P .deps/iselect.P .deps/keywords.P .deps/lang.P \
++.deps/list.P .deps/load.P .deps/macros.P .deps/mallocs.P \
++.deps/memmove.P .deps/modules.P .deps/net_db.P .deps/numbers.P \
++.deps/objects.P .deps/objprop.P .deps/options.P .deps/pairs.P \
++.deps/ports.P .deps/posix.P .deps/print.P .deps/procprop.P \
++.deps/procs.P .deps/putenv.P .deps/ramap.P .deps/random.P .deps/read.P \
++.deps/regex-posix.P .deps/root.P .deps/scmsigs.P .deps/script.P \
++.deps/simpos.P .deps/smob.P .deps/socket.P .deps/sort.P .deps/srcprop.P \
++.deps/stackchk.P .deps/stacks.P .deps/stime.P .deps/strerror.P \
++.deps/strings.P .deps/strop.P .deps/strorder.P .deps/strports.P \
++.deps/struct.P .deps/symbols.P .deps/tag.P .deps/threads.P \
++.deps/throw.P .deps/unif.P .deps/variable.P .deps/vectors.P \
++.deps/version.P .deps/vports.P .deps/weaks.P
+ SOURCES = $(libguile_la_SOURCES) $(EXTRA_libguile_la_SOURCES) $(guile_SOURCES) $(gh_test_c_SOURCES) $(gh_test_repl_SOURCES)
+ OBJECTS = $(libguile_la_OBJECTS) $(guile_OBJECTS) $(gh_test_c_OBJECTS) $(gh_test_repl_OBJECTS)
+ 
+@@ -211,9 +235,9 @@
+ .SUFFIXES:
+ .SUFFIXES: .S .c .lo .o .s .x
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps libguile/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --foreign libguile/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -275,9 +299,6 @@
+ 	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+ 	done
+ 
+-.c.o:
+-	$(COMPILE) -c $<
+-
+ .s.o:
+ 	$(COMPILE) -c $<
+ 
+@@ -294,9 +315,6 @@
+ 
+ maintainer-clean-compile:
+ 
+-.c.lo:
+-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+-
+ .s.lo:
+ 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+ 
+@@ -330,8 +348,8 @@
+ 	$(mkinstalldirs) $(DESTDIR)$(bindir)
+ 	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+ 	  if test -f $$p; then \
+-	    echo " $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+-	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
++	    echo " $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
++	    $(LIBTOOL)  --mode=install $(INSTALL_PROGRAM) $(INSTALL_STRIP_FLAG) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+ 	  else :; fi; \
+ 	done
+ 
+@@ -479,590 +497,53 @@
+ subdir = libguile
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign libguile/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+ 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+ 	  fi; \
+ 	done
+-alist.lo alist.o : alist.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eq.h alist.h alist.x
+-arbiters.lo arbiters.o : arbiters.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h smob.h genio.h \
+-	arbiters.h arbiters.x
+-async.lo async.o : async.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eval.h throw.h smob.h \
+-	async.x
+-backtrace.lo backtrace.o : backtrace.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h stacks.h \
+-	srcprop.h genio.h struct.h strports.h throw.h fluids.h root.h \
+-	vectors.h backtrace.h backtrace.x
+-boolean.lo boolean.o : boolean.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h boolean.x
+-chars.lo chars.o : chars.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h chars.x
+-continuations.lo continuations.o : continuations.c _scm.h __scm.h \
+-	scmconfig.h tags.h error.h __scm.h print.h options.h pairs.h \
+-	list.h gc.h gsubr.h procs.h numbers.h print.h symbols.h \
+-	boolean.h strings.h vectors.h root.h debug.h throw.h ports.h \
+-	struct.h async.h threads.h procs.h coop-defs.h iselect.h \
+-	snarf.h stackchk.h continuations.h debug.h dynwind.h \
+-	continuations.h continuations.x
+-debug.lo debug.o : debug.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eval.h stackchk.h \
+-	continuations.h throw.h genio.h macros.h smob.h procprop.h \
+-	srcprop.h alist.h continuations.h strports.h read.h feature.h \
+-	dynwind.h modules.h debug.h debug.x
+-dynl.lo dynl.o : dynl.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h dynl.h genio.h smob.h \
+-	keywords.h dynl-dl.c dynl.x
+-dynwind.lo dynwind.o : dynwind.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h alist.h \
+-	fluids.h root.h vectors.h genio.h smob.h dynwind.h dynwind.x
+-eq.lo eq.o : eq.c _scm.h __scm.h scmconfig.h tags.h error.h __scm.h \
+-	print.h options.h pairs.h list.h gc.h gsubr.h procs.h numbers.h \
+-	print.h symbols.h boolean.h strings.h vectors.h root.h debug.h \
+-	throw.h ports.h struct.h async.h threads.h procs.h coop-defs.h \
+-	iselect.h snarf.h ramap.h stackchk.h continuations.h strorder.h \
+-	smob.h unif.h eq.h eq.x
+-error.lo error.o : error.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h genio.h throw.h \
+-	cpp_err_symbols.c error.x
+-eval.lo eval.o : eval.c scmconfig.h _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h debug.h alist.h \
+-	eq.h continuations.h throw.h smob.h macros.h procprop.h \
+-	hashtab.h hash.h srcprop.h stackchk.h continuations.h objects.h \
+-	feature.h modules.h eval.h eval.c eval.x
+-evalext.lo evalext.o : evalext.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h macros.h \
+-	modules.h evalext.h evalext.x
+-feature.lo feature.o : feature.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h \
+-	procprop.h smob.h feature.h feature.x
+-filesys.lo filesys.o : filesys.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h genio.h smob.h \
+-	feature.h fports.h ports.h iselect.h filesys.h filesys.x
+-fluids.lo fluids.o : fluids.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h smob.h genio.h dynwind.h \
+-	fluids.h root.h vectors.h alist.h eval.h fluids.x
+-fports.lo fports.o : fports.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h fports.h ports.h \
+-	iselect.h fports.x
+-gc.lo gc.o : gc.c _scm.h __scm.h scmconfig.h tags.h error.h __scm.h \
+-	print.h options.h pairs.h list.h gc.h gsubr.h procs.h numbers.h \
+-	print.h symbols.h boolean.h strings.h vectors.h root.h debug.h \
+-	throw.h ports.h struct.h async.h threads.h procs.h coop-defs.h \
+-	iselect.h snarf.h stime.h stackchk.h continuations.h struct.h \
+-	genio.h weaks.h guardians.h smob.h unif.h gc.x
+-gdbint.lo gdbint.o : gdbint.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h tag.h strports.h read.h \
+-	eval.h chars.h modules.h gdbint.h gdb_interface.h
+-gh_data.lo gh_data.o : gh_data.c gh.h libguile.h __scm.h scmconfig.h \
+-	tags.h print.h options.h smob.h pairs.h alist.h arbiters.h \
+-	async.h boolean.h chars.h continuations.h backtrace.h debug.h \
+-	stacks.h dynl.h dynwind.h eq.h error.h eval.h evalext.h \
+-	feature.h filesys.h fluids.h root.h throw.h vectors.h fports.h \
+-	ports.h struct.h gc.h gdbint.h genio.h gsubr.h guardians.h \
+-	hash.h hashtab.h init.h ioext.h keywords.h kw.h list.h load.h \
+-	macros.h mallocs.h modules.h net_db.h numbers.h objects.h \
+-	objprop.h posix.h procprop.h procs.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h coop-defs.h iselect.h
+-gh_eval.lo gh_eval.o : gh_eval.c gh.h libguile.h __scm.h scmconfig.h \
+-	tags.h print.h options.h smob.h pairs.h alist.h arbiters.h \
+-	async.h boolean.h chars.h continuations.h backtrace.h debug.h \
+-	stacks.h dynl.h dynwind.h eq.h error.h eval.h evalext.h \
+-	feature.h filesys.h fluids.h root.h throw.h vectors.h fports.h \
+-	ports.h struct.h gc.h gdbint.h genio.h gsubr.h guardians.h \
+-	hash.h hashtab.h init.h ioext.h keywords.h kw.h list.h load.h \
+-	macros.h mallocs.h modules.h net_db.h numbers.h objects.h \
+-	objprop.h posix.h procprop.h procs.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h coop-defs.h iselect.h
+-gh_funcs.lo gh_funcs.o : gh_funcs.c gh.h libguile.h __scm.h scmconfig.h \
+-	tags.h print.h options.h smob.h pairs.h alist.h arbiters.h \
+-	async.h boolean.h chars.h continuations.h backtrace.h debug.h \
+-	stacks.h dynl.h dynwind.h eq.h error.h eval.h evalext.h \
+-	feature.h filesys.h fluids.h root.h throw.h vectors.h fports.h \
+-	ports.h struct.h gc.h gdbint.h genio.h gsubr.h guardians.h \
+-	hash.h hashtab.h init.h ioext.h keywords.h kw.h list.h load.h \
+-	macros.h mallocs.h modules.h net_db.h numbers.h objects.h \
+-	objprop.h posix.h procprop.h procs.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h coop-defs.h iselect.h
+-gh_init.lo gh_init.o : gh_init.c gh.h libguile.h __scm.h scmconfig.h \
+-	tags.h print.h options.h smob.h pairs.h alist.h arbiters.h \
+-	async.h boolean.h chars.h continuations.h backtrace.h debug.h \
+-	stacks.h dynl.h dynwind.h eq.h error.h eval.h evalext.h \
+-	feature.h filesys.h fluids.h root.h throw.h vectors.h fports.h \
+-	ports.h struct.h gc.h gdbint.h genio.h gsubr.h guardians.h \
+-	hash.h hashtab.h init.h ioext.h keywords.h kw.h list.h load.h \
+-	macros.h mallocs.h modules.h net_db.h numbers.h objects.h \
+-	objprop.h posix.h procprop.h procs.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h coop-defs.h iselect.h
+-gh_io.lo gh_io.o : gh_io.c gh.h libguile.h __scm.h scmconfig.h tags.h \
+-	print.h options.h smob.h pairs.h alist.h arbiters.h async.h \
+-	boolean.h chars.h continuations.h backtrace.h debug.h stacks.h \
+-	dynl.h dynwind.h eq.h error.h eval.h evalext.h feature.h \
+-	filesys.h fluids.h root.h throw.h vectors.h fports.h ports.h \
+-	struct.h gc.h gdbint.h genio.h gsubr.h guardians.h hash.h \
+-	hashtab.h init.h ioext.h keywords.h kw.h list.h load.h macros.h \
+-	mallocs.h modules.h net_db.h numbers.h objects.h objprop.h \
+-	posix.h procprop.h procs.h ramap.h random.h read.h scmsigs.h \
+-	script.h simpos.h snarf.h socket.h sort.h srcprop.h stackchk.h \
+-	stime.h strings.h strop.h strorder.h strports.h symbols.h tag.h \
+-	unif.h variable.h version.h vports.h weaks.h threads.h \
+-	coop-defs.h iselect.h
+-gh_list.lo gh_list.o : gh_list.c gh.h libguile.h __scm.h scmconfig.h \
+-	tags.h print.h options.h smob.h pairs.h alist.h arbiters.h \
+-	async.h boolean.h chars.h continuations.h backtrace.h debug.h \
+-	stacks.h dynl.h dynwind.h eq.h error.h eval.h evalext.h \
+-	feature.h filesys.h fluids.h root.h throw.h vectors.h fports.h \
+-	ports.h struct.h gc.h gdbint.h genio.h gsubr.h guardians.h \
+-	hash.h hashtab.h init.h ioext.h keywords.h kw.h list.h load.h \
+-	macros.h mallocs.h modules.h net_db.h numbers.h objects.h \
+-	objprop.h posix.h procprop.h procs.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h coop-defs.h iselect.h
+-gh_predicates.lo gh_predicates.o : gh_predicates.c gh.h libguile.h \
+-	__scm.h scmconfig.h tags.h print.h options.h smob.h pairs.h \
+-	alist.h arbiters.h async.h boolean.h chars.h continuations.h \
+-	backtrace.h debug.h stacks.h dynl.h dynwind.h eq.h error.h \
+-	eval.h evalext.h feature.h filesys.h fluids.h root.h throw.h \
+-	vectors.h fports.h ports.h struct.h gc.h gdbint.h genio.h \
+-	gsubr.h guardians.h hash.h hashtab.h init.h ioext.h keywords.h \
+-	kw.h list.h load.h macros.h mallocs.h modules.h net_db.h \
+-	numbers.h objects.h objprop.h posix.h procprop.h procs.h \
+-	ramap.h random.h read.h scmsigs.h script.h simpos.h snarf.h \
+-	socket.h sort.h srcprop.h stackchk.h stime.h strings.h strop.h \
+-	strorder.h strports.h symbols.h tag.h unif.h variable.h \
+-	version.h vports.h weaks.h threads.h coop-defs.h iselect.h
+-gsubr.lo gsubr.o : gsubr.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h genio.h procprop.h
+-guardians.lo guardians.o : guardians.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h smob.h genio.h \
+-	guardians.h guardians.x
+-guile.o: guile.c libguile.h __scm.h scmconfig.h tags.h print.h options.h \
+-	smob.h pairs.h alist.h arbiters.h async.h boolean.h chars.h \
+-	continuations.h backtrace.h debug.h stacks.h dynl.h dynwind.h \
+-	eq.h error.h eval.h evalext.h feature.h filesys.h fluids.h \
+-	root.h throw.h vectors.h fports.h ports.h struct.h gc.h \
+-	gdbint.h genio.h gsubr.h guardians.h hash.h hashtab.h init.h \
+-	ioext.h keywords.h kw.h list.h load.h macros.h mallocs.h \
+-	modules.h net_db.h numbers.h objects.h objprop.h posix.h \
+-	procprop.h procs.h ramap.h random.h read.h scmsigs.h script.h \
+-	simpos.h snarf.h socket.h sort.h srcprop.h stackchk.h stime.h \
+-	strings.h strop.h strorder.h strports.h symbols.h tag.h unif.h \
+-	variable.h version.h vports.h weaks.h threads.h coop-defs.h \
+-	iselect.h gdb_interface.h
+-hash.lo hash.o : hash.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h hash.h hash.x
+-hashtab.lo hashtab.o : hashtab.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h alist.h hash.h \
+-	eval.h hashtab.h hashtab.x
+-init.lo init.o : init.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h alist.h arbiters.h \
+-	backtrace.h chars.h continuations.h debug.h dynl.h dynwind.h \
+-	eq.h eval.h evalext.h feature.h filesys.h fluids.h root.h \
+-	vectors.h fports.h ports.h gdbint.h hash.h hashtab.h iselect.h \
+-	ioext.h keywords.h lang.h load.h macros.h mallocs.h modules.h \
+-	net_db.h objects.h objprop.h options.h posix.h regex-posix.h \
+-	procprop.h ramap.h random.h read.h scmsigs.h script.h simpos.h \
+-	smob.h socket.h sort.h srcprop.h stackchk.h continuations.h \
+-	stacks.h stime.h strop.h strorder.h strports.h struct.h tag.h \
+-	throw.h unif.h variable.h version.h vports.h weaks.h \
+-	guardians.h init.h
+-ioext.lo ioext.o : ioext.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h read.h fports.h ports.h \
+-	unif.h chars.h ioext.h ioext.x
+-iselect.lo iselect.o : iselect.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h iselect.h \
+-	coop-threads.h coop-defs.h ../qt/qt.h iselect.x
+-keywords.lo keywords.o : keywords.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h genio.h smob.h \
+-	keywords.h keywords.x
+-lang.lo lang.o : lang.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eval.h macros.h lang.h \
+-	lang.x
+-list.lo list.o : list.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eq.h list.x
+-load.lo load.o : load.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h libpath.h fports.h \
+-	ports.h read.h eval.h throw.h alist.h dynwind.h load.h load.x
+-macros.lo macros.o : macros.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h smob.h macros.h macros.x
+-mallocs.lo mallocs.o : mallocs.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h genio.h smob.h \
+-	mallocs.h
+-modules.lo modules.o : modules.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h \
+-	procprop.h modules.h modules.x
+-net_db.lo net_db.o : net_db.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h feature.h net_db.h \
+-	net_db.x
+-numbers.lo numbers.o : numbers.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h genio.h unif.h \
+-	feature.h smob.h numbers.x
+-objects.lo objects.o : objects.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h struct.h \
+-	procprop.h chars.h keywords.h smob.h eval.h alist.h objects.h \
+-	objects.x
+-objprop.lo objprop.o : objprop.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h hashtab.h \
+-	alist.h weaks.h objprop.h objprop.x
+-options.lo options.o : options.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h options.h \
+-	options.x
+-pairs.lo pairs.o : pairs.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h pairs.x
+-ports.lo ports.o : ports.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h objects.h smob.h chars.h \
+-	keywords.h ports.x
+-posix.lo posix.o : posix.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h fports.h ports.h \
+-	scmsigs.h feature.h posix.h cpp_sig_symbols.c posix.x
+-print.lo print.o : print.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h genio.h smob.h \
+-	eval.h macros.h procprop.h read.h weaks.h unif.h alist.h \
+-	struct.h objects.h print.x
+-procprop.lo procprop.o : procprop.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h alist.h eval.h \
+-	objects.h procprop.h procprop.x
+-procs.lo procs.o : procs.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h objects.h procs.x
+-ramap.lo ramap.o : ramap.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h unif.h smob.h chars.h \
+-	eq.h eval.h feature.h ramap.h ramap.x
+-random.lo random.o : random.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h genio.h smob.h feature.h \
+-	random.h random.x
+-read.lo read.o : read.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h genio.h eval.h \
+-	unif.h keywords.h alist.h srcprop.h hashtab.h hash.h read.h \
+-	read.x
+-regex-posix.lo regex-posix.o : regex-posix.c _scm.h __scm.h scmconfig.h \
+-	tags.h error.h __scm.h print.h options.h pairs.h list.h gc.h \
+-	gsubr.h procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h smob.h \
+-	strports.h feature.h regex-posix.h regex-posix.x
+-root.lo root.o : root.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h stackchk.h \
+-	continuations.h dynwind.h eval.h genio.h smob.h throw.h \
+-	fluids.h root.h vectors.h root.x
+-scmsigs.lo scmsigs.o : scmsigs.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h \
+-	scmsigs.h scmsigs.x
+-script.lo script.o : script.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h gh.h libguile.h smob.h \
+-	pairs.h alist.h arbiters.h async.h boolean.h chars.h \
+-	continuations.h backtrace.h stacks.h dynl.h dynwind.h eq.h \
+-	error.h eval.h evalext.h feature.h filesys.h fluids.h root.h \
+-	vectors.h fports.h ports.h gc.h gdbint.h genio.h gsubr.h \
+-	guardians.h hash.h hashtab.h init.h ioext.h keywords.h kw.h \
+-	list.h load.h macros.h mallocs.h modules.h net_db.h numbers.h \
+-	objects.h objprop.h posix.h procprop.h ramap.h random.h read.h \
+-	scmsigs.h script.h simpos.h snarf.h socket.h sort.h srcprop.h \
+-	stackchk.h stime.h strings.h strop.h strorder.h strports.h \
+-	symbols.h tag.h unif.h variable.h version.h vports.h weaks.h \
+-	threads.h load.h version.h script.h script.x
+-simpos.lo simpos.o : simpos.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h scmsigs.h simpos.h \
+-	simpos.x
+-smob.lo smob.o : smob.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h objects.h smob.h
+-socket.lo socket.o : socket.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h unif.h feature.h fports.h \
+-	ports.h socket.h socket.x
+-sort.lo sort.o : sort.c scmconfig.h _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eval.h unif.h \
+-	ramap.h alist.h feature.h sort.h sort.x
+-srcprop.lo srcprop.o : srcprop.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h smob.h genio.h \
+-	alist.h debug.h hashtab.h hash.h weaks.h srcprop.h srcprop.x
+-stackchk.lo stackchk.o : stackchk.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h genio.h \
+-	stackchk.h continuations.h stackchk.x
+-stacks.lo stacks.o : stacks.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eval.h debug.h \
+-	continuations.h struct.h macros.h procprop.h modules.h stacks.h \
+-	stacks.x
+-stime.lo stime.o : stime.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h feature.h stime.h stime.x
+-strings.lo strings.o : strings.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h chars.h \
+-	strings.x
+-strop.lo strop.o : strop.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h strop.h read.h \
+-	strop.x
+-strorder.lo strorder.o : strorder.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h chars.h \
+-	strorder.h strorder.x
+-strports.lo strports.o : strports.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h unif.h eval.h \
+-	read.h strports.h strports.x
+-struct.lo struct.o : struct.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h genio.h eval.h \
+-	alist.h weaks.h hashtab.h struct.h struct.x
+-symbols.lo symbols.o : symbols.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h chars.h eval.h \
+-	variable.h alist.h weaks.h symbols.x
+-tag.lo tag.o : tag.c _scm.h __scm.h scmconfig.h tags.h error.h __scm.h \
+-	print.h options.h pairs.h list.h gc.h gsubr.h procs.h numbers.h \
+-	print.h symbols.h boolean.h strings.h vectors.h root.h debug.h \
+-	throw.h ports.h struct.h async.h threads.h procs.h coop-defs.h \
+-	iselect.h snarf.h chars.h struct.h tag.h tag.x
+-threads.lo threads.o : threads.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h dynwind.h \
+-	smob.h genio.h coop-threads.c coop-threads.h coop-defs.h \
+-	../qt/qt.h coop.c eval.h threads.x
+-throw.lo throw.o : throw.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h genio.h smob.h alist.h \
+-	eval.h eq.h dynwind.h backtrace.h debug.h continuations.h \
+-	stackchk.h continuations.h stacks.h fluids.h root.h vectors.h \
+-	throw.h throw.x
+-unif.lo unif.o : unif.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h chars.h eval.h fports.h \
+-	ports.h smob.h strop.h feature.h unif.h ramap.h unif.x
+-variable.lo variable.o : variable.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eq.h genio.h \
+-	smob.h variable.h variable.x
+-vectors.lo vectors.o : vectors.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h eq.h vectors.x
+-version.lo version.o : version.c _scm.h __scm.h scmconfig.h tags.h \
+-	error.h __scm.h print.h options.h pairs.h list.h gc.h gsubr.h \
+-	procs.h numbers.h print.h symbols.h boolean.h strings.h \
+-	vectors.h root.h debug.h throw.h ports.h struct.h async.h \
+-	threads.h procs.h coop-defs.h iselect.h snarf.h versiondat.h \
+-	version.h version.x
+-vports.lo vports.o : vports.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h eval.h chars.h fports.h \
+-	ports.h vports.h vports.x
+-weaks.lo weaks.o : weaks.c _scm.h __scm.h scmconfig.h tags.h error.h \
+-	__scm.h print.h options.h pairs.h list.h gc.h gsubr.h procs.h \
+-	numbers.h print.h symbols.h boolean.h strings.h vectors.h \
+-	root.h debug.h throw.h ports.h struct.h async.h threads.h \
+-	procs.h coop-defs.h iselect.h snarf.h weaks.h weaks.x
+ 
++DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
++
++-include $(DEP_FILES)
++
++mostlyclean-depend:
++
++clean-depend:
++
++distclean-depend:
++	-rm -rf .deps
++
++maintainer-clean-depend:
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
++
++%.lo: %.c
++	@echo '$(LTCOMPILE) -c $<'; \
++	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
++	  < .deps/$(*F).pp > .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm -f .deps/$(*F).pp
+ info-am:
+ info: info-am
+ dvi-am:
+@@ -1096,7 +577,7 @@
+ 		$(HEADERS) scmconfig.h
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 	$(mkinstalldirs)  $(DESTDIR)$(libdir) $(DESTDIR)$(bindir) \
+ 		$(DESTDIR)$(bindir) $(DESTDIR)$(modincludedir) \
+@@ -1120,19 +601,19 @@
+ mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
+ 		mostlyclean-compile mostlyclean-libtool \
+ 		mostlyclean-binPROGRAMS mostlyclean-checkPROGRAMS \
+-		mostlyclean-tags mostlyclean-generic
++		mostlyclean-tags mostlyclean-depend mostlyclean-generic
+ 
+ mostlyclean: mostlyclean-am
+ 
+ clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
+ 		clean-binPROGRAMS clean-checkPROGRAMS clean-tags \
+-		clean-generic mostlyclean-am
++		clean-depend clean-generic mostlyclean-am
+ 
+ clean: clean-am
+ 
+ distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
+ 		distclean-libtool distclean-binPROGRAMS \
+-		distclean-checkPROGRAMS distclean-tags \
++		distclean-checkPROGRAMS distclean-tags distclean-depend \
+ 		distclean-generic clean-am
+ 	-rm -f libtool
+ 
+@@ -1143,7 +624,8 @@
+ 		maintainer-clean-compile maintainer-clean-libtool \
+ 		maintainer-clean-binPROGRAMS \
+ 		maintainer-clean-checkPROGRAMS maintainer-clean-tags \
+-		maintainer-clean-generic distclean-am
++		maintainer-clean-depend maintainer-clean-generic \
++		distclean-am
+ 	@echo "This command is intended for maintainers to use;"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 
+@@ -1164,8 +646,9 @@
+ uninstall-modincludeHEADERS install-modincludeHEADERS \
+ uninstall-pkgincludeHEADERS install-pkgincludeHEADERS tags \
+ mostlyclean-tags distclean-tags clean-tags maintainer-clean-tags \
+-distdir info-am info dvi-am dvi check-local check check-am \
+-installcheck-am installcheck all-recursive-am install-exec-am \
++distdir mostlyclean-depend distclean-depend clean-depend \
++maintainer-clean-depend info-am info dvi-am dvi check-local check \
++check-am installcheck-am installcheck all-recursive-am install-exec-am \
+ install-exec install-data-am install-data install-am install \
+ uninstall-am uninstall all-redirect all-am all installdirs \
+ mostlyclean-generic distclean-generic clean-generic \
+diff -urN ../guile-1.3.4/libguile/dynl-dl.c ./libguile/dynl-dl.c
+--- ../guile-1.3.4/libguile/dynl-dl.c	Sun Aug 29 20:03:26 1999
++++ ./libguile/dynl-dl.c	Fri Mar 24 01:48:27 2000
+@@ -45,7 +45,9 @@
+    Author: Aubrey Jaffer
+    Modified for libguile by Marius Vollmer */
+ 
++#ifndef __CYGWIN__
+ #include <dlfcn.h>
++#endif
+ 
+ #ifdef RTLD_LAZY	/* Solaris 2. */
+ #  define DLOPEN_MODE	RTLD_LAZY
+diff -urN ../guile-1.3.4/libguile/filesys.c ./libguile/filesys.c
+--- ../guile-1.3.4/libguile/filesys.c	Sun Sep 12 05:47:39 1999
++++ ./libguile/filesys.c	Fri Mar 24 01:48:27 2000
+@@ -138,7 +138,9 @@
+ 	fdes = SCM_INUM (object);
+       else
+ 	fdes = SCM_FPORT_FDES (object);
++#ifndef __CYGWIN__
+       SCM_SYSCALL (rv = fchown (fdes, SCM_INUM (owner), SCM_INUM (group)));
++#endif
+     }
+   else
+     {
+diff -urN ../guile-1.3.4/qt/Makefile.in ./qt/Makefile.in
+--- ../guile-1.3.4/qt/Makefile.in	Sat Sep 25 19:37:18 1999
++++ ./qt/Makefile.in	Fri Mar 24 10:47:26 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -125,8 +126,9 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
++DEP_FILES =  .deps/qt.P
+ SOURCES = $(libqthreads_la_SOURCES)
+ OBJECTS = $(libqthreads_la_OBJECTS)
+ 
+@@ -134,9 +136,9 @@
+ .SUFFIXES:
+ .SUFFIXES: .S .c .lo .o .s
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps qt/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --foreign qt/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -168,9 +170,6 @@
+ 	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+ 	done
+ 
+-.c.o:
+-	$(COMPILE) -c $<
+-
+ .s.o:
+ 	$(COMPILE) -c $<
+ 
+@@ -187,9 +186,6 @@
+ 
+ maintainer-clean-compile:
+ 
+-.c.lo:
+-	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+-
+ .S.lo:
+ 	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+ 
+@@ -300,10 +296,15 @@
+ subdir = qt
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign qt/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -320,9 +321,38 @@
+ 	      || exit 1; \
+ 	  fi; \
+ 	done
+-qt.lo qt.o : qt.c copyright.h qt.h md/i386.h
+-qtmdc.lo qtmdc.o : qtmdc.c
+ 
++DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
++
++-include $(DEP_FILES)
++
++mostlyclean-depend:
++
++clean-depend:
++
++distclean-depend:
++	-rm -rf .deps
++
++maintainer-clean-depend:
++
++%.o: %.c
++	@echo '$(COMPILE) -c $<'; \
++	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-cp .deps/$(*F).pp .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm .deps/$(*F).pp
++
++%.lo: %.c
++	@echo '$(LTCOMPILE) -c $<'; \
++	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
++	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
++	  < .deps/$(*F).pp > .deps/$(*F).P; \
++	tr ' ' '\012' < .deps/$(*F).pp \
++	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
++	    >> .deps/$(*F).P; \
++	rm -f .deps/$(*F).pp
+ info-am:
+ info: info-recursive
+ dvi-am:
+@@ -345,7 +375,7 @@
+ all-am: Makefile $(LTLIBRARIES)
+ all-redirect: all-recursive
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs: installdirs-recursive
+ installdirs-am:
+ 	$(mkinstalldirs)  $(DESTDIR)$(libdir)
+@@ -361,27 +391,27 @@
+ 
+ maintainer-clean-generic:
+ mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+-		mostlyclean-libtool mostlyclean-tags \
++		mostlyclean-libtool mostlyclean-tags mostlyclean-depend \
+ 		mostlyclean-generic
+ 
+ mostlyclean: mostlyclean-recursive
+ 
+ clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool clean-tags \
+-		clean-generic mostlyclean-am
++		clean-depend clean-generic mostlyclean-am
+ 
+ clean: clean-recursive
+ 
+ distclean-am:  distclean-libLTLIBRARIES distclean-compile \
+-		distclean-libtool distclean-tags distclean-generic \
+-		clean-am
++		distclean-libtool distclean-tags distclean-depend \
++		distclean-generic clean-am
+ 	-rm -f libtool
+ 
+ distclean: distclean-recursive
+ 
+ maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+ 		maintainer-clean-compile maintainer-clean-libtool \
+-		maintainer-clean-tags maintainer-clean-generic \
+-		distclean-am
++		maintainer-clean-tags maintainer-clean-depend \
++		maintainer-clean-generic distclean-am
+ 	@echo "This command is intended for maintainers to use;"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 
+@@ -398,12 +428,14 @@
+ all-recursive check-recursive installcheck-recursive info-recursive \
+ dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
+ maintainer-clean-recursive tags tags-recursive mostlyclean-tags \
+-distclean-tags clean-tags maintainer-clean-tags distdir info-am info \
+-dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+-install-exec install-data-am install-data install-am install \
+-uninstall-am uninstall all-redirect all-am all installdirs-am \
+-installdirs mostlyclean-generic distclean-generic clean-generic \
+-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
++distclean-tags clean-tags maintainer-clean-tags distdir \
++mostlyclean-depend distclean-depend clean-depend \
++maintainer-clean-depend info-am info dvi-am dvi check check-am \
++installcheck-am installcheck install-exec-am install-exec \
++install-data-am install-data install-am install uninstall-am uninstall \
++all-redirect all-am all installdirs-am installdirs mostlyclean-generic \
++distclean-generic clean-generic maintainer-clean-generic clean \
++mostlyclean distclean maintainer-clean
+ 
+ 
+ .s.lo:
+diff -urN ../guile-1.3.4/qt/md/Makefile.in ./qt/md/Makefile.in
+--- ../guile-1.3.4/qt/md/Makefile.in	Sat Sep 25 19:37:20 1999
++++ ./qt/md/Makefile.in	Fri Mar 24 10:47:26 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -102,14 +103,14 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps qt/md/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --foreign qt/md/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -122,10 +123,15 @@
+ subdir = qt/md
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign qt/md/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -154,7 +160,7 @@
+ all-am: Makefile
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 
+ 
+diff -urN ../guile-1.3.4/qt/time/Makefile.in ./qt/time/Makefile.in
+--- ../guile-1.3.4/qt/time/Makefile.in	Sat Sep 25 19:37:22 1999
++++ ./qt/time/Makefile.in	Fri Mar 24 10:47:26 2000
+@@ -1,4 +1,4 @@
+-# Makefile.in generated automatically by automake 1.4 from Makefile.am
++# Makefile.in generated automatically by automake 1.4a from Makefile.am
+ 
+ # Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+@@ -46,9 +46,10 @@
+ AUTOHEADER = @AUTOHEADER@
+ 
+ INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
++INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
++INSTALL_STRIP_FLAG =
+ transform = @program_transform_name@
+ 
+ NORMAL_INSTALL = :
+@@ -101,14 +102,14 @@
+ 
+ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+ 
+-TAR = tar
++TAR = gtar
+ GZIP_ENV = --best
+ all: all-redirect
+ .SUFFIXES:
+ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+-	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps qt/time/Makefile
++	cd $(top_srcdir) && $(AUTOMAKE) --foreign qt/time/Makefile
+ 
+-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
++Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+ 	cd $(top_builddir) \
+ 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+ 
+@@ -121,10 +122,15 @@
+ subdir = qt/time
+ 
+ distdir: $(DISTFILES)
++	here=`cd $(top_builddir) && pwd`; \
++	top_distdir=`cd $(top_distdir) && pwd`; \
++	distdir=`cd $(distdir) && pwd`; \
++	cd $(top_srcdir) \
++	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign qt/time/Makefile
+ 	@for file in $(DISTFILES); do \
+ 	  d=$(srcdir); \
+ 	  if test -d $$d/$$file; then \
+-	    cp -pr $$/$$file $(distdir)/$$file; \
++	    cp -pr $$d/$$file $(distdir)/$$file; \
+ 	  else \
+ 	    test -f $(distdir)/$$file \
+ 	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+@@ -153,7 +159,7 @@
+ all-am: Makefile
+ all-redirect: all-am
+ install-strip:
+-	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
++	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+ installdirs:
+ 
+ 

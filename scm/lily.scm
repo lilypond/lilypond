@@ -17,6 +17,9 @@
 
 (use-modules (ice-9 regex))
 
+(define use-regex
+  (not (string-match ".*windows.*" (string-downcase (vector-ref (uname) 0)))))
+
 ;; do nothing in .scm output
 (define (comment s) "")
 
@@ -307,11 +310,13 @@
   (define (header-end)
     (string-append
      "\\special{! "
-     ; fixed in 1.3.4
-     ;(ly-gulp-file "lily.ps")
 
-     ;; URG: now we can't use scm output without Lily
-     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
+     ;; URG: ly-gulp-file: now we can't use scm output without Lily
+     (if use-regex
+	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
+	 (regexp-substitute/global #f "\n"
+				   (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
+	 (ly-gulp-file "lily.ps"))
      "}"
      "\\input lilyponddefs \\turnOnPostScript"))
 
@@ -334,15 +339,19 @@
   ;;
   (define (output-tex-string s)
       (if security-paranoia
-	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+	  (if use-regex
+	      (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+	      (begin (display "warning: not paranoid") (newline) s))
 	  s))
       
   (define (lily-def key val)
     (string-append
      "\\def\\"
-     ; fixed in 1.3.4
-     (regexp-substitute/global #f "_" (output-tex-string key) 'pre "X" 'post)
-     ;(output-tex-string key)
+     (if use-regex
+	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
+	 (regexp-substitute/global #f "_"
+				   (output-tex-string key) 'pre "X" 'post)
+	 (output-tex-string key))
      "{" (output-tex-string val) "}\n"))
 
   (define (number->dim x)

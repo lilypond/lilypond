@@ -37,6 +37,7 @@
 #include "request.hh"
 #include "request-iterator.hh"
 #include "output-property.hh"
+#include "chord-tremolo-iterator.hh"
 
 void
 Music_iterator::do_print() const
@@ -149,7 +150,9 @@ Music_iterator::static_get_iterator_p (Music const *m)
     p = new Music_wrapper_iterator;
   else if (Repeated_music const * n = dynamic_cast<Repeated_music const *> (m))
     {
-      if (n->fold_b_)
+      if (n->type_ == "tremolo")
+	p = new Chord_tremolo_iterator;
+      else if (n->fold_b_)
 	p = new Folded_repeat_iterator;
       else
 	p = new Unfolded_repeat_iterator;

@@ -69,7 +69,7 @@ String distill_inname_str (String name_str, String& ext_r);
  */
 Long_option_init theopts[] = {
   {0, "debug", 'd',  _i ("enable debugging output")},
-  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT")},
+  {_i ("EXT"), "output-format", 'f',  _i ("use output format EXT (scm, ps, tex or as)")},
   {0, "help", 'h',  _i ("this help")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},

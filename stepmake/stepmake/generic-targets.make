@@ -7,6 +7,8 @@
 all:	 default
 	$(LOOP)
 
+man:
+	$(LOOP)
 
 # be careful about deletion.
 clean: localclean
@@ -120,13 +122,13 @@ TAGS:
 
 # ugh . -> $(outdir)
 $(outdir)/VERSION: $(depth)/VERSION
-	cp $< $@
+	cp -p $< $@
 
 $(outdir)/version.hh: $(outdir)/VERSION
 	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
 $(outdir)/config.h: $(config_h)
-	cp $< $@
+	cp -p $< $@
 
 # should this be in Rules?
 configure: configure.in aclocal.m4

@@ -53,6 +53,7 @@ Axis_group_engraver::process_acknowledged ()
   for (int i=0; i < elts_.size (); i++)
     {
       Score_element *par = elts_[i]->parent_l (Y_AXIS);
+
       if (!par || !Axis_group_interface (par).has_interface_b ())
 	Axis_group_interface (staffline_p_).add_element (elts_[i]);
     }

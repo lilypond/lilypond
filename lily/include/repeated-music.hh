@@ -50,6 +50,8 @@
 class Repeated_music : public Music
 {
 public:
+  String type_;
+  
   bool fold_b_;
   /// if FOLD_B_ is false, semifold this.
   bool volta_fold_b_;

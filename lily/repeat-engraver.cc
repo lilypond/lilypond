@@ -40,7 +40,8 @@ Repeat_engraver::do_try_music (Music* m)
 	We acknowledge other types of unfolded music as well, to
 	get auto context selection right.
        */
-      return true;
+      if (r->type_ == "volta" || r->type_ == "unfolded")
+	return true;
 
     }
   return false;

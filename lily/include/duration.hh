@@ -29,6 +29,10 @@ struct Duration {
   /// Logarithm of the base duration.
   int durlog_i_;
   int dots_i_;
+
+  /*
+    JUNKME.
+   */
   int tuplet_iso_i_;  // 2/3; 2 is not duration, maar of count!
   int tuplet_type_i_; 
 

@@ -9,6 +9,7 @@
 #include "translator.hh"
 #include "engraver.hh"
 #include "bar.hh"
+#include "span-bar.hh"
 #include "dimension-cache.hh"
 #include "directional-element-interface.hh"
 #include "timing-translator.hh"
@@ -73,10 +74,18 @@ Staff_margin_engraver::acknowledge_element (Score_element_info info)
   if (now_mom () > Moment (0))
     s = get_property ("instr");
 
-  //s = ly_str02scm ("HALLO");
-  
-  if (dynamic_cast<Bar*> (info.elem_l_) && gh_string_p (s))
-    create_text (s);
+  if (gh_string_p (s))
+    {
+      if (Bar* b= dynamic_cast<Bar*> (info.elem_l_))
+	{
+	  create_text (s);
+	  if (Span_bar* s= dynamic_cast<Span_bar*> (b))
+	    {
+	      assert (text_p_);
+	      text_p_->set_parent (s, Y_AXIS);
+	    }
+	}
+    }
 }
 
 void

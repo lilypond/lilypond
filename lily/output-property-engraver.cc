@@ -43,6 +43,7 @@ Output_property_engraver::acknowledge_element (Score_element_info inf)
     {
       Output_property * o = props_[i];
       SCM pred = gh_car (o->pred_sym_val_list_);
+      
       /*
 	should typecheck pred. 
        */

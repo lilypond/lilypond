@@ -17,7 +17,6 @@ class Protected_scm;
 class Scope {
   Hash_table<Protected_scm,Identifier*> *id_dict_;
 public:
-  void print () const;
   bool elem_b (String ) const;
   bool elem_b (SCM s) const;
   Identifier *&elem (String);

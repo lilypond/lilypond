@@ -14,29 +14,11 @@
 #include "dictionary.hh"
 #include "protected-scm.hh"
 
-void
-Scope::print () const
-{
-#ifndef NPRINT
-  bool init_b = false;		// ugh
-  for (Scope_iter ai (*this);  ai.ok(); ai++)
-    {
-      if (ai.val()->init_b_ == init_b)
-	{
-	  DEBUG_OUT << ai.key() << "=";
-	  ai.val()->print ();
-	}
-    }
-#endif
-}
 
 Scope::~Scope ()
 {
   for (Scope_iter ai (*this); ai.ok(); ai++)
-    {
-      DEBUG_OUT << "deleting: " << ai.key() << '\n';
-      delete ai.val ();
-    }
+    delete ai.val ();
   delete id_dict_;
 }
 

@@ -167,7 +167,7 @@ fugaIIPedal = \notes \relative c {
     \context Staff = pedal \relative c  <
       {
         \time 4/4;
-	\key E; 
+	\key e; 
   \clef bass;
 
   %13
