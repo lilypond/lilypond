@@ -9,6 +9,8 @@
 
 	* input/GNUmakefile: remove "templates" from build subdirs.
 
+	* input/template: removed.
+
 2004-10-16  Werner Lemberg  <wl@gnu.org>
 
 	* scripts/lilypond-book.ly (snippet_res): Define group `match'
