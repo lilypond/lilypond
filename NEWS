@@ -1,3 +1,6 @@
+pl 12.jcn3
+	- try at better dynamic font, copied from cmbxti10: mf/*
+
 pl 12.jcn2
 	- typesetting abbreviation beams; abbreviation-*
 	- some simple abbrev fixes + code cleanup (dank je, lieverd)
