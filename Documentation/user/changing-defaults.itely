@@ -850,11 +850,13 @@ to indicate improvisation in Jazz pieces,
   \context { \Staff
     \accepts "ImproVoice"
   }}
-  {  \relative c'' {
+
+
+\relative c'' {
     a4 d8 bes8 \new ImproVoice { c4^"ad lib" c 
      c4 c^"undress" c_"while playing :)" c } 
     a1 
-  }
+}
 @end lilypond
 
 

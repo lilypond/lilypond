@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 \header {
     texidoc="@cindex Force hshift
 Horizontal shift (@code{hshift}) can be forced in order to avoid collisions. " }

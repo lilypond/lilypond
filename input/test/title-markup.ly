@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 %{
    Markup titles also available for direct PostScript output:

@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 % possible rename to bar-something.
 
 \header{ texidoc = "@cindex Bar Length

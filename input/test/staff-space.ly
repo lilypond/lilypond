@@ -1,4 +1,4 @@
-\version "2.3.4"
+\version "2.3.8"
 
 \header{ texidoc ="@cindex Staff Space
 By just increasing @code{staff-space} on a staff, you may produce strange

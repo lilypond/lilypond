@@ -1,5 +1,5 @@
 
-\version "2.3.4"
+\version "2.3.8"
 % possible rename to invis-notes.ly
 % check if other documents call this "blank notes", though.  I think
 % invisible notes sounds better, but whatever it is, it should be

@@ -7,7 +7,7 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 @code{caesura}.
 " }
 
-\version "2.3.4"
+\version "2.3.8"
 
 \include "gregorian-init.ly"
 

@@ -6,7 +6,7 @@ requires adding an engraver to @code{ChordNames}, and setting
 
 }
 
-\version "2.3.5"
+\version "2.3.8"
 <<
   \new ChordNames \with {
       voltaOnThisStaff = ##t

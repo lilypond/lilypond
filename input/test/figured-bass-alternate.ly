@@ -3,7 +3,7 @@
 texidoc = "An alternate method to make bass figures is to use
 @code{markup} texts."
 }
-\version "2.3.4"
+\version "2.3.8"
 
 nat = \markup { \natural }
 sh = \markup { \smaller \raise #0.6 \sharp }

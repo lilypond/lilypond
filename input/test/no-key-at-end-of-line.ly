@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.8"
 \header {
 
     texidoc = "@cindex Key Signature End of Line
@@ -9,7 +9,7 @@ new key signature at the beginning of the next line.
 " }
 
 \score {
-  \notes \relative c' {
+   \relative c' {
     \set Staff.explicitKeySignatureVisibility = #end-of-line-invisible
     c d e f | g a b c | \break
     \key d \major
