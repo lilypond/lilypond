@@ -1,21 +1,22 @@
+% fetdefs.tex
+% encapsulating tex backend for auto-generated font-en-tja definitions
 
 \def\fetsixteendefs{
         \font\fontentja=font-en-tja16
+        \font\vetfont=vette-beams16
 }
 \def\fettwentydefs{
-  \font\fontentja=font-en-tja20
+        \font\fontentja=font-en-tja20
+        \font\vetfont=vette-beams20
 }
-
 
 % \def\fetdef#1#2{\def#1{\fetchar{#2}}}
 % ugh, linewidth, ugh, tablexx.ly balldims not used!
-\def\fetdef#1#2{\def#1{\lower.5\staffrulethickness\hbox{\fetchar{#2}}}}
+\def\fetdef#1#2{\def#1{\lower.3884\staffrulethickness\hbox{\fetchar{#2}}}}
 \def\fetchar#1{\fontentja\char#1}
-\fetdef\quartball{'002}
-\fetdef\halfball{'001}
-\fetdef\wholeball{'000}
-% \fetdef\breveball{'003}
-% \fetdef\longaball{'004}
-% \musicdef\quartball{'007}
-% \musicdef\halfball{'010}
-% \musicdef\wholeball{'011}
+
+\input font-en-tja20
+
+\def\beamslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0by128
+        {\vetfont\char\count0}}}
