@@ -25,6 +25,8 @@ Output: DVI file
 
 name = 'ly2dvi'
 version = '@TOPLEVEL_VERSION@'
+if version == '@' + 'TOPLEVEL_VERSION' + '@':
+	version = '(unknown version)'		# uGUHGUHGHGUGH
 errorlog = ''
 
 import sys

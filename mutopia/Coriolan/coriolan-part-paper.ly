@@ -18,6 +18,6 @@
 		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"
 		marginScriptHorizontalAlignment = #1
-		maximumRestCount = #1
+		RestCollision \override #'maximum-rest-count = #1
 	}
 }

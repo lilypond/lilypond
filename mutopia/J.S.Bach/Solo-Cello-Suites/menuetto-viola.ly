@@ -40,7 +40,7 @@ menuettoIViolaScripts =  \notes{
 }
 
 menuettoIViolaStaff =  \context Staff <
-	\notes \transpose c' \menuettoI
+	\notes \transpose c'' \menuettoI
 	\menuettoIViolaGlobal
 %	\menuettoIViolaScripts
 >
@@ -79,7 +79,7 @@ menuettoIiViolaGlobal =  \notes{
 }
 
 menuettoIiViolaStaff =  \context Staff <
-	\notes \transpose c' \menuettoIi
+	\notes \transpose c'' \menuettoIi
 	\menuettoIiViolaGlobal
 %	\menuettoIiViolaScripts
 >

@@ -1,213 +1,273 @@
+\header {
+texidoc="Template for part-combining orchestral scores";
+}
+  
+\include "paper16.ly"; 
+% \include "mutopia/Coriolan/coriolan-paper.ly";
+
+
+
+flautoI = \notes\relative c'' {
+  c4 d e f
+  b,4 d c d
+  r2 e4 f
+  \break
+  c4 d e f
+  c4 r e f
+  c4 r e f
+  \break
+  c4 r a r
+  a a r a
+  a2 \property VoiceCombineThread.soloADue = ##f a
+}
+
+flautoII = \notes\relative c'' {
+  g4 b d f
+  r2 c4 d
+  a c c d
+  a4. b8 c4 d
+  c r e r
+  r2 s2
+  a,4 r a r
+  a r r a
+  a2 \property VoiceCombineThread.soloADue = ##f a
+}
+          
+flautiStaff =  \notes \context VoiceCombineStaff = flauti <
+  \property VoiceCombineStaff.midiInstrument = #"flute"
+  \property VoiceCombineStaff.instrument = #"2 Flauti"
+  \property VoiceCombineStaff.instr = #"Fl."
+  %\global
+  \context VoiceCombineVoice=one \partcombine VoiceCombineVoice
+    \context VoiceCombineThread=one \flautoI
+    \context VoiceCombineThread=two \flautoII
+>
+
+legniGroup =  \context StaffGroup = legni_group <
+  \flautiStaff
+  %\oboiStaff
+  %\clarinettiStaff
+  %\fagottiStaff
+>
+
+violinoI = \notes\relative c'' {
+  c4 d e f
+  c d e f
+  c d e f
+  c d e f
+  c d e f
+  c d e f
+  c4 d e f
+  a8 a a a b b b b
+  d1
+}      
+
+violinoII = \notes\relative c'' { 
+  c4 d e f
+  c d e f
+  c d e f
+  c2 e2
+  c4 d e f
+  c2 e2
+  c,4 d e f
+  a8 a a a b b b b
+  b1
+}
+
+violinoIStaff =  \context Staff = violino1 <
+  \property Staff.midiInstrument = #"violin"
+  \property Staff.instrument = #"Violino I"
+  \property Staff.instr = #"Vl. I"
+  \notes< 
+    %\global
+    \context Voice=violinoi
+      \violinoI
+  >
+>
+
+violinoIIStaff =  \context Staff = violino2 <
+  % MIDI hoort geeneens verschil tussen een
+  % eerste en tweede viool ;-)
+  \property Staff.midiInstrument = #"violin"
+  \property Staff.instrument = #"Violino II"
+  \property Staff.instr = #"Vl. II"
+  \notes< 
+    %\global
+    \context Voice=violinoii
+      \violinoII
+  >
+>
+
+violaI = \notes\transpose c, \violinoI
+
+violaII = \notes\transpose c, \violinoII
+
+violiGroup =  \notes \context VoiceCombineStaff = violi <
+  \context VoiceCombineStaff=violi {
+    \property VoiceCombineStaff.midiInstrument = #"viola"
+    \property VoiceCombineStaff.instrument = #"Viola"
+    \property VoiceCombineStaff.instr = #"Vla."
+    \clef "alto"; 
+    \key es \major;
+    \skip 1*314; 
+    \bar "|."; 
+  }
+  \context VoiceCombineVoice=one \partcombine VoiceCombineVoice
+    \context VoiceCombineThread=one \violaI
+    \context VoiceCombineThread=two \violaII
+>
+
+violoncello = \notes\relative c {
+  \clef bass;
+  c1 d e f c d e f c
+}
+
+contrabasso = \notes\relative c {
+  \clef bass;
+  c1
+  d4 e d e
+  e1
+  f4 g f g
+  c1
+  d4 e d e
+  e1
+  f4 g f g
+  c1
+}
+
+
+bassiGroup =  \context PianoStaff = bassi_group \notes <
+  \context StaffCombineStaff=oneBassi {
+    \property StaffCombineStaff.midiInstrument = #"cello"
+    %\property StaffCombineStaff.instrument = #"Violoncello\ne\nContrabasso"
+    \property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
+    \property StaffCombineStaff.instr = #"Vc."
+    \clef "bass"; 
+    \key es \major;
+    \skip 1*314; 
+    \bar "|."; 
+  }
+  \context StaffCombineStaff=twoBassi {
+    \property StaffCombineStaff.midiInstrument = #"contrabass"
+    \property StaffCombineStaff.instrument = #"Contrabasso"
+    \property StaffCombineStaff.instr = #"Cb."
+    \clef "bass"; 
+    \key es \major;
+    \skip 1*314; 
+    \bar "|."; 
+  }
+
+  \context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
+    \context StaffCombineVoice=oneBassi \violoncello
+    \context StaffCombineVoice=twoBassi \contrabasso
+>
+
+
+violiniGroup =  \context GrandStaff = violini_group <
+  \violinoIStaff
+  \violinoIIStaff
+>
+
+archiGroup =  \context StaffGroup = archi_group <
+  \violiniGroup
+  \violiGroup
+  \bassiGroup
+>
+
+
 \score{
-	<
-	\context VoiceCombineStaff = flauti <
-		\time 4/4;
+  <
+    \legniGroup
+    %\ottoniGroup
+    %\timpaniGroup
+    \archiGroup
+  >
+  \header {
+    title = "Coriolan";
+    subtitle = "Ouverture"; 
+    opus = "Opus 62";
+    composer = "Ludwig van Beethoven (1770-1827)";
+    enteredby = "JCN";
+    copyright = "public domain";
+  }
+  %\paper {}
+  \paper{
+    \paperSixteen
 
-		\context VoiceCombineThread=one \skip 1*9;
-		\context VoiceCombineThread=two \skip 1*9;
+    %textheight = 290.0\mm;
+    %linewidth = 195.0\mm;
+    textheight = 285.0\mm;
+    linewidth = 190.0\mm;
 
-		\context VoiceCombineVoice=one \partcombine VoiceCombineVoice
-			\context VoiceCombineThread=one \notes\relative c''
-				{
-					c4 d e f
-					b,4 d c d
-					r2 e4 f
-					\break
-					c4 d e f
-					c4 r e f
-					c4 r e f
-					\break
-					c4 r a r
-					a a r a
-					a2 \property VoiceCombineThread.soloADue = ##f a
-				}
-			\context VoiceCombineThread=two \notes\relative c''
-				{
-					g4 b d f
-					r2 c4 d
-					a c c d
-					a4. b8 c4 d
-					c r e r
-					r2 s2
-					a,4 r a r
-					a r r a
-					a2 \property VoiceCombineThread.soloADue = ##f a
-				}
-		>
-	\context PianoStaff = violi <
-		\context StaffCombineStaff=oneVioli { \clef alto; \skip 1*9;}
-		\context StaffCombineStaff=twoVioli { \clef alto; \skip 1*9;}
-		\context StaffCombineStaff=oneVioli \partcombine StaffCombineStaff
-			\context StaffCombineVoice=one \notes\relative c'
-				{
-					c4 d e f
-					c d e f
-					c d e f
-					c d e f
-					c d e f
-					c d e f
-					c4 d e f
-					a8 a a a b b b b
-					d1
-				}
-			\context StaffCombineVoice=two \notes\relative c'
-				{
-					c4 d e f
-					c d e f
-					c d e f
-					c2 e2
-					c4 d e f
-					c2 e2
-					c,4 d e f
-					a8 a a a b b b b
-					b1
-				}
-		>
-	\context PianoStaff = lower <
-		\context StaffCombineStaff=oneBassi { \clef bass; \skip 1*9;}
-		\context StaffCombineStaff=twoBassi { \clef bass; \skip 1*9;}
-		\context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
-			\context StaffCombineVoice=oneB \notes\relative c
-				{
-					\clef bass;
-					c1
-					d
-					e
-					f
-					c
-					d
-					e
-					f
-					c
-				}
-			\context StaffCombineVoice=twoB \notes\relative c
-				{
-					\clef bass;
-					c1
-					d4 e d e
-					e1
-					f4 g f g
-					c1
-					d4 e d e
-					e
-					f4 g f g
-					c1
-				}
-		>
-	>
-	\paper {
+    \translator{ \HaraKiriStaffContext }
+    %
+    % The Voice combine hierarchy
+    %
+    \translator{
+      \ThreadContext
+      \name "VoiceCombineThread";
+      \consists "Rest_engraver";
+    }
+    \translator{
+      \VoiceContext
+      \name "VoiceCombineVoice";
+      soloText = #"I."
+      soloIIText = #"II."
+      \remove "Rest_engraver";
+      \accepts "VoiceCombineThread";
+    }
+    \translator{
+      \HaraKiriStaffContext
+      \consists "Mark_engraver";
+      \name "VoiceCombineStaff";
+      \accepts "VoiceCombineVoice";
+    }
 
-		textheight = 295.0\mm;
-		linewidth = 180.0\mm;
+    %
+    % The Staff combine hierarchy
+    %
+    \translator{
+      \ThreadContext
+      \name "StaffCombineThread";
+    }
+    \translator{
+      \VoiceContext
+      \name "StaffCombineVoice";
+      \accepts "StaffCombineThread";
+      \consists "Thread_devnull_engraver";
+    }
+    \translator {
+      \HaraKiriStaffContext
+      \name "StaffCombineStaff";
+      \accepts "StaffCombineVoice";
 
-		\translator{ \HaraKiriStaffContext }
-		%
-		% The Voice combine hierarchy
-		%
-		\translator{
-			\ThreadContext
-			\name "VoiceCombineThread";
-			\consists "Rest_engraver";
-		}
-		\translator{
-			\VoiceContext
-			\name "VoiceCombineVoice";
-			soloText = #"I."
-			soloIIText = #"II."
-			\remove "Rest_engraver";
-			\accepts "VoiceCombineThread";
-		}
-		\translator{
-			\HaraKiriStaffContext
-			\consists "Mark_engraver";
-			\name "VoiceCombineStaff";
-			\accepts "VoiceCombineVoice";
-		}
+      soloADue = ##t
+      soloText = #""
+      soloIIText = #""
+      % This is non-conventional, but currently it is
+      % the only way to tell the difference.
+      aDueText = #"\\`a2"
+      splitInterval = #'(1 . 0)
+      changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+    }
+    \translator {
+      \StaffGroupContext
+      \accepts "VoiceCombineStaff";
+      \accepts "StaffCombineStaff";
+    }
+    \translator{ \HaraKiriStaffContext }
 
-		%
-		% The Staff combine hierarchy
-		%
-		\translator{
-			\ThreadContext
-			\name "StaffCombineThread";
-		}
-		\translator{
-			\VoiceContext
-			\name "StaffCombineVoice";
-			\accepts "StaffCombineThread";
-			\consists "Thread_devnull_engraver";
-		}
-		\translator {
-			\HaraKiriStaffContext
-			\name "StaffCombineStaff";
-			\accepts "StaffCombineVoice";
+    \translator {
+      %\ScoreContext
+      \OrchestralScoreContext
+      \accepts "VoiceCombineStaff";
+      \accepts "StaffCombineStaff";
+      skipBars = ##t 
 
-			soloADue = ##t
-			soloText = #""
-			soloIIText = #""
-			aDueText = #""
-			splitInterval = #'(1 . 0)
-		}
-		\translator {
-			\StaffGroupContext
-			\accepts "VoiceCombineStaff";
-			\accepts "StaffCombineStaff";
-		}
-		\translator{ \HaraKiriStaffContext }
+      markScriptPadding = #4.0
 
-		\translator {
-			\ScoreContext
-			\accepts "VoiceCombineStaff";
-			\accepts "StaffCombineStaff";
-			skipBars = ##t 
-
-			barScriptPadding = #2.0 % dimension \pt
-			markScriptPadding = #4.0
-
-			%% urg: in pt?
-			barNumberScriptPadding = #15
-			%% URG: this changes dynamics too
-			%%textStyle = #"italic"
-			timeSignatureStyle = #"C"
-			maximumRestCount = #1
-		}
-	}
-	\midi{ 
-		\tempo 4 = 150; 
-
-		\translator {
-			\ThreadContext
-			\name "VoiceCombineThread";
-		}
-		\translator {
-			\VoiceContext
-			\name "VoiceCombineVoice";
-			\accepts "VoiceCombineThread";
-		}
-		\translator {
-			\StaffContext
-			\name "VoiceCombineStaff";
-			\accepts "VoiceCombineVoice";
-		}
-
-		\translator {
-			\ThreadContext
-			\name "StaffCombineThread";
-		}
-		\translator {
-			\VoiceContext
-			\name "StaffCombineVoice";
-			\accepts "StaffCombineThread";
-		}
-		\translator {
-			\StaffContext
-			\name "StaffCombineStaff";
-			\accepts "StaffCombineVoice";
-		}
-		\translator {
-			\ScoreContext
-			\accepts "VoiceCombineStaff";
-			\accepts "StaffCombineStaff";
-		}
-	}
+      BarNumber \override #'padding = #3
+      RestCollision \override #'maximum-rest-count = #1
+    }
+  }
 }

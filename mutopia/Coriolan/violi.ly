@@ -43,8 +43,8 @@ violiGroup =  \context PianoStaff = violi_group \notes <
 violiGroup =  \notes \context VoiceCombineStaff = violi <
 	\context VoiceCombineStaff=violi {
 		\property VoiceCombineStaff.midiInstrument = #"viola"
-		\property VoiceStaffCombineStaff.instrument = #"Viola"
-		\property VoiceStaffCombineStaff.instr = #"Vla."
+		\property VoiceCombineStaff.instrument = #"Viola"
+		\property VoiceCombineStaff.instr = #"Vla."
 		\clef "alto"; 
 		\key es \major;
 		\skip 1*314; 

@@ -17,7 +17,7 @@ preludeViolaScripts =  \notes{
 }
 
 preludeViolaStaff =  \context Staff <
-	\notes \transpose c' \prelude
+	\notes \transpose c'' \prelude
 	\preludeViolaGlobal
 	\preludeViolaScripts
 >

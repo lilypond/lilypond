@@ -25,7 +25,7 @@ couranteViolaScripts =  \notes{
 }
 
 couranteViolaStaff =  \context Staff <
-	\notes \transpose c' \courante
+	\notes \transpose c'' \courante
 	\couranteViolaGlobal
 	\couranteViolaScripts
 >

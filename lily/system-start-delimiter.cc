@@ -15,6 +15,7 @@
 #include "font-interface.hh"
 #include "all-font-metrics.hh"
 #include "grob.hh"
+#include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 
 Molecule
@@ -86,28 +87,32 @@ SCM
 System_start_delimiter::brew_molecule (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
-  Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback (me->self_scm(), gh_int2scm (Y_AXIS)));
-  Real l = ext.length (); 
-  Molecule m;
 
-  SCM s = me->get_grob_property ("collapse-height");
-  if (gh_number_p (s) && l < gh_scm2double (s))
+  SCM s = me->get_grob_property ("glyph");
+  if (!gh_symbol_p (s))
+    return SCM_EOL;
+  
+  SCM c = me->get_grob_property ((ly_symbol2string (s) + "-collapse-height")
+				 .ch_C ());
+  
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback
+				  (me->self_scm(), gh_int2scm (Y_AXIS)));
+  Real l = ext.length () / staff_space;
+  
+  if (gh_number_p (c) && l <= gh_scm2double (c))
     {
       me->suicide();
       return SCM_EOL;
     }
 
-  s = me->get_grob_property ("glyph");
-  if (!gh_symbol_p(s))
-    return SCM_EOL;
-  
+  Molecule m;
   if (s == ly_symbol2scm ("bracket"))
     m = staff_bracket (me,l);
   else if (s == ly_symbol2scm ("brace"))
     m =  staff_brace (me,l);
   else if (s == ly_symbol2scm ("bar-line"))
     m = simple_bar (me,l);
-  
   
   m.translate_axis (ext.center (), Y_AXIS);
   return m.smobbed_copy ();

@@ -72,11 +72,9 @@
 		\accepts "StaffCombineStaff";
 		skipBars = ##t 
 
-		barScriptPadding = #2.0 % dimension \pt
 		markScriptPadding = #4.0
 
-		%% urg: in pt?
-		barNumberScriptPadding = #15
-		maximumRestCount = #1
+		BarNumber \override #'padding = #3
+		RestCollision \override #'maximum-rest-count = #1
 	}
 }

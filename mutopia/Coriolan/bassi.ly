@@ -17,7 +17,8 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
         %\global
 	\context StaffCombineStaff=oneBassi {
 		\property StaffCombineStaff.midiInstrument = #"cello"
-		\property StaffCombineStaff.instrument = #"Violoncello\ne\nContrabasso"
+		%\property StaffCombineStaff.instrument = #"Violoncello\ne\nContrabasso"
+		\property StaffCombineStaff.instrument = #'(lines "Violoncello" "e" "Contrabasso")
 		\property StaffCombineStaff.instr = #"Vc."
 		\clef "bass"; 
 		\key es \major;
@@ -36,6 +37,6 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 	}
 
 	\context StaffCombineStaff=oneBassi \partcombine StaffCombineStaff
-		\context StaffCombineVoice=one \violoncello
-		\context StaffCombineVoice=two \contrabasso
+		\context StaffCombineVoice=oneBassi \violoncello
+		\context StaffCombineVoice=twoBassi \contrabasso
 >

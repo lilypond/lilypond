@@ -1,14 +1,10 @@
 #!@PYTHON@
 
-#
-#
-#
-# 
-#
-#
+# PMX is a Musixtex preprocessor written by Don Simons, see
+# http://www.gmd.de/Misc/Music/musixtex/software/pmx/
 
-
-#fixme: block openings aren't parsed.
+# TODO:
+#  * block openings aren't parsed.
 
 import os
 import string
@@ -703,6 +699,8 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 				left = left[1:]
 			elif c == '\\':
 				left = self.parse_mumbo_jumbo(left)
+			elif c == '\r':
+				left = left[1:]
 			else:
 				sys.stderr.write ("""
 Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))

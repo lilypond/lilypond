@@ -24,7 +24,6 @@
 #include "beam.hh"
 #include "rest.hh"
 #include "group-interface.hh"
-// #include "cross-staff.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
