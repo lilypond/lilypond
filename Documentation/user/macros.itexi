@@ -92,7 +92,7 @@ $\\flat$%
 @end macro
 
 @macro inputfileref{DIR,NAME}
-@uref{../../../\DIR\/out-www/collated-files.html#\NAME\}
+@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
 @end macro
 
 @end ifhtml
@@ -103,7 +103,7 @@ $\\flat$%
 @cindex \NAME\
 @end macro
 
-@macro inputfileref{DIR,NAME}
+@macro inputfileref{DIR,NAME}i
 @file{\DIR\/\NAME\}
 @end macro
 
