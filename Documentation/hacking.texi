@@ -10,7 +10,6 @@
 @menu
 * LilyPond internals::
 * Overview::
-* mudela::                      
 * Request_engraver::            
 * Backend::
 * Coding standards::
@@ -22,7 +21,6 @@
 
 @menu
 * Overview::                      Overview
-* mudela::                        mudela
 * Request_engraver::              Request_engraver
 @end menu
 
@@ -100,21 +98,10 @@ scanning sheet music.
 @chapter LilyPond internals
 
 
-This documents some aspects of the internals of GNU LilyPond. Some of
-this stuff comes from e-mail I wrote, some from e-mail others wrote,
-some are large comments taken away from the headers. This page may be a
-little incoherent.  Unfortunately, it is also quite outdated.  A more
-thorough and understandable document is in the works.
-
-You should use @code{doc++} to take a peek at the sources.
-
-@node Overview, mudela, Top, Top
+@node Overview, , , Top
 @section Overview
 
-GNU LilyPond is a "multi-pass" system. The different passes have been
-created so that they do not depend on each other. In a later stage
-some parts may be moved into libraries, or seperate programs, or they
-might be integrated in larger systems.
+GNU LilyPond is a "multi-pass" system.
 
 @table @samp
 
@@ -183,48 +170,8 @@ staffs.
 
 @end table
 
-@node mudela, Request_engraver, Overview, Top
-@section mudela
 
-[FIXME: implementation has been generalised, so this is out of date]
-
-Most information is stored in the form of a request.  In music
-typesetting, the user might want to cram a lot more symbols on the
-paper than actually fits. To reflect this idea (the user asks more
-than we can do), the container for this data is called Request.
-
-In a lot of other formats this would be called an 'Event'
-
-@table @samp
-@item @code{Barcheck_req}
-    Checks during music processing if start of this voice element
-    coincides with the start of a measure. Handy to check if you left out
-    some voice elts.
-@item @code{Note_req}
-    LilyPond has to decide if the ball should be hanging left or
-    right. This influences the horizontal dimensions of a column, and this
-    is why request processing should be done before horizontal spacing.
-    Other voices' frivolities may cause the need for accidentals, so this
-    is also for the to decide. The engraver can decide on positioning based on
-    ottava commands and the appropriate clef.
-@item @code{Rest_req}
-    Typeset a rest.
-@item @code{Span_req}
-    This type of request typically results in the creation of a @code{Spanner}
-@item @code{Beam_req}
-    Start/stop a beam.
-    Engraver has to combine this request with the stem_request, since the
-    number of flags that a stem wants to carry will determine the
-    number of beams.
-@item @code{Dynamic}
-    Each dynamic is bound to one note (a crescendo spanning multiple
-    notes is thought to be made of two "dynamics": a start and a stop).
-    Dynamic changes can occur in a smaller time than the length of its
-    note, therefore each @code{Dynamic} request carries a time, measured
-    from the start of its note.
-@end table
-
-@node Request_engraver, , mudela, Top
+@node Request_engraver, , , Top
 @section Request_engraver
 
 In the previous section the idea of Request has been explained, but
@@ -307,7 +254,8 @@ blah blah blah
 @end menu
 
 
-@node Graphic elements, , , Backend 
+@node Graphic elements, , , Backend
+@unnumberedsubsec
 
 Music notation is composed of a sets of interrelated glyphs.  In
 Lilypond every glyph usually is represented by one object, a so-called
@@ -367,6 +315,7 @@ function as a parent.  The size of a Graphical_axis_groups group is the
 union of its children.
 
 @node Position and width Callbacks, , , Backend
+@unnumberedsubsec
 
 The positions are, as explained relative to a parent reference
 point. Most positions are not known when an object is created, so these
@@ -404,6 +353,7 @@ can be only one callback for each axis. No callback (the 0 ptr) means:
 "empty in this direction".
 
 @node Score_element properties, , , Backend
+@unnumberedsubsec
 
 Score elements can have other properties besides positioning, for
 example, text strings (for text objects) style settings, glyphs, padding
@@ -481,7 +431,8 @@ selection in most cases.
 
 
 
-@node Score elements, ,  , Backend
+@node Score elements, , , Backend
+@unnumberedsubsec
 
 [FIXME: we want to get rid of dependencies in the implementation.]
 
@@ -572,7 +523,7 @@ There are plans to unify Spanner and Item, so there will no longer be
 such a clear distinction between the two.  Right now, Score_elements are
 always either Item or either Spanner.
 
-@node Coding standards,  , , Top
+@node Coding standards, , , Top
 
 @chapter CodingStyle - standards while programming for GNU LilyPond
 
@@ -846,7 +797,7 @@ files, doing a release.
 
 Use them.
 
-@node Making patches,  , , Top
+@node Making patches, , , Top
 
 
 @unnumberedsec  Track and distribute your code changes
@@ -945,7 +896,7 @@ and don't forget to make automatically generated files:
  
 @end example 
 
-@node Localisation, , , Top 
+@node Localisation, , , Top
 
 @chapter Localisation - User messages in LilyPond
 
@@ -1003,7 +954,7 @@ macro is a no-op, it only serves as a marker for @file{xgettext}.
 @example
 char const* messages[] = @{
   _i ("enable debugging output"),
-  _i ("ignore mudela version"),
+  _i ("ignore lilypond version"),
   0
 @};
 

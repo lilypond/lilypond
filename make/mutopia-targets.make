@@ -9,8 +9,8 @@ local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(png_examples)
 local-web:
 	$(MAKE) conf=www local-WWW
 
-convert-mudela: local-convert-mudela
+convert-ly: local-convert-ly
 	$(LOOP)
 
-local-convert-mudela:
-	$(PYTHON) $(script-dir)/convert-mudela.py -e *ly
+local-convert-ly:
+	$(PYTHON) $(script-dir)/convert-ly.py -e *ly
