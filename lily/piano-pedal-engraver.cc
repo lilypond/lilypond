@@ -132,31 +132,17 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
-      Grob *gs[]  = {p->item_p_,
-		     p->bracket_p_};
-      for (int i = 0; i < 2 ; i++)
+      if (Note_column::has_interface (info.grob_l_))
 	{
-	  Grob *g = gs[i];
-	  if (g && p->line_spanner_) 
+	  if (p->line_spanner_)
 	    {
-	      if (Note_column::has_interface (info.grob_l_))
-		{
-		  Side_position_interface::add_support (p->line_spanner_, info.grob_l_);
-		  add_bound_item (p->line_spanner_,info.grob_l_);
-
-		  if (p->bracket_p_)
-		    add_bound_item (p->bracket_p_,info.grob_l_);		  
-
-		  /*
-		    What the h*ll is this supposed to do? --hwn
-		   */
-#if 0
-		  if (Side_position_interface::get_axis (g) == X_AXIS
-		      && !g->get_parent (Y_AXIS))
-		    g->set_parent (info.grob_l_, Y_AXIS);
-#endif
-		}
-	    }
+	      Side_position_interface::add_support (p->line_spanner_, info.grob_l_);
+	      
+	      add_bound_item (p->line_spanner_,info.grob_l_);
+	    }	  
+	  if (p->bracket_p_)
+	    add_bound_item (p->bracket_p_,info.grob_l_);		  
+	  
 	}
     }
 }
@@ -317,7 +303,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       assert (!p->finished_bracket_p_ && p->bracket_p_);
 
-      p->bracket_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+      Grob *cmc = unsmob_grob (get_property ("currentMusicalColumn"));
+      p->bracket_p_->set_bound (RIGHT, cmc);
 
       /*
 	Set properties so that the molecule-creating function will
@@ -471,8 +458,9 @@ Piano_pedal_engraver::typeset_all ()
       
       if (p->finished_bracket_p_)
 	{
-	  Grob * l = p->finished_line_spanner_->get_bound (LEFT);
-	  Grob * r = p->finished_line_spanner_->get_bound (RIGHT);      
+	  
+	  Grob * l = p->finished_bracket_p_->get_bound (LEFT);
+	  Grob * r = p->finished_bracket_p_->get_bound (RIGHT);      
 	  if (!r)
 	    {
 	      p->finished_bracket_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));

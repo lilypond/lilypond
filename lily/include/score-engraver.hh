@@ -21,7 +21,8 @@ class Score_engraver :
 {
   System * scoreline_l_;
   int breaks_i_;
-
+  
+  
   Link_array<Grob> elem_p_arr_;
     
   Paper_column* command_column_l_;

@@ -103,6 +103,7 @@ square of the inner notes involved.")
 (grob-property-description 'collapse-height number? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
 (grob-property-description 'columns list? "list of grobs, typically containing paper-columns.")
+(grob-property-description 'count integer? "")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
