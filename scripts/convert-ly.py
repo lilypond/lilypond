@@ -933,7 +933,8 @@ if 1:
 				props = re.sub (k, v, props)
 			return  "breakAlignOrder = #'(%s)" % props
 
-		str = re.sub (r"breakAlignOrder *= *#'\(([a-z_A-Z ]+)\)", func, str)
+		str = re.sub ("breakAlignOrder *= *#'\\(([a-z_\n\tA-Z ]+)\\)",
+			      func, str)
 		return str
 
 	# 40 ? 
