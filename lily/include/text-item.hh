@@ -9,18 +9,18 @@
 
 #include "text-def.hh"
 #include "item.hh"
+#include "staff-side.hh"
 
 /**
   print a fixed width text above or below the staff.
  */
-class Text_item : public Item {
-    void init(Text_def* tdef_l,int staffsize_i); 
+class Text_item : public Item ,public Staff_side{
+    void init(Text_def* tdef_l); 
     Text_def* tdef_p_;
+
 public:
     Text_def * tdef_l();
     int pos_i_;
-    int staffsize_i_;
-    int dir_i_;
         
     /* ***************/
 
@@ -28,8 +28,8 @@ public:
     virtual void set_default_index();
     Molecule* brew_molecule_p() const;
     void do_pre_processing();
-    Text_item(Text_def*,int);
-    Text_item(Text_req*,int);
+    Text_item(Text_def*);
+    Text_item(Text_req*);
     ~Text_item();
 };
 

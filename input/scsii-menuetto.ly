@@ -11,7 +11,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
-
+\version "0.0.50";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}
@@ -45,10 +45,10 @@ ii_menuetto = \melodic{
 	c'!4-. |
 %%7
 	< a4-. f4>
-	< d'4-.-upbow f4 'bes4 >
-	< e'4-.-downbow g4 'g4 > |
+	< d'4-.-\upbow f4 'bes4 >
+	< e'4-.-\downbow g4 'g4 > |
 %%8
-	< cis'2.-upbow e2. 'a2. > 
+	< cis'2.-\upbow e2. 'a2. > 
 		\bar ":|:";
 %%9
 	\clef "violin";
@@ -69,9 +69,9 @@ ii_menuetto = \melodic{
 		 { \stem -1; g4(\stem -1;) f4 e4 }% ugh
 	> |
 %%14
-	< [ a f > g a f ] < d'4-$upbow e4 'bes4 > |
+	< [ a f > g a f ] < d'4-\upbow e4 'bes4 > |
 %%15
-	< c'4-$downbow f4 'a4 > [ bes( )a g a ] |
+	< c'4-\downbow f4 'a4 > [ bes( )a g a ] |
 %%16
 	[ f( e )f a-. g-. bes-. ] |
 %%17
@@ -79,7 +79,7 @@ ii_menuetto = \melodic{
 %%18
 	< { [ c'( )bes c' a ] } { [ es ] } > fis4 |
 %%19
-	< d'4-downbow g4 'bes4 > < c'4-upbow g4 c4 > < [ bes d > a ] |
+	< d'4-\downbow g4 'bes4 > < c'4-\upbow g4 c4 > < [ bes d > a ] |
 %%20
 	< { [ c'( bes a )bes g( )bes ] } { [ d ] } { [ g ] } > |
 %%21
@@ -96,7 +96,7 @@ ii_menuetto = \melodic{
 }
 
 \score{
-	\staff{ melodicregs $ii_menuetto }
+	\staff{ melodicregs ii_menuetto }
 	\paper{
 		\width 195\mm
 		\unitspace 9\mm  % to get lily to use only three lines

@@ -10,9 +10,10 @@
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-Crescendo::Crescendo(int s)
+
+Crescendo::Crescendo()
+    : Staff_side(this)
 {
-    staff_size_i_ = s;
     grow_dir_i_ =0;
     dir_i_ = -1 ;
     left_dyn_b_ = right_dyn_b_ =false;
@@ -47,9 +48,7 @@ Crescendo::brew_molecule_p() const return m_p ;
     }
     Symbol s( paper()->lookup_l()->hairpin(w_dim, grow_dir_i_ < 0) );
     m_p->add(Atom(s));
-    int pos = (dir_i_ >0) ? staff_size_i_ + 4 : - 4 ;
-    if(dir_i_<0 )		// should do something better anyway.
-	m_p->translate(Offset(0, -m_p->extent().y.left ));
+    int pos = get_position_i();
     m_p->translate(Offset(x_off_dim,pos * paper()->internote()));
 }
 
