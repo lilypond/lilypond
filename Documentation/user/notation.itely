@@ -5676,9 +5676,9 @@ heads that mimic the look of note heads in historic printings of the
 The following example demonstrates the @code{neomensural} style
 
 @lilypond[quote,fragment,raggedright]
-\set Score.skipBars = ##T 
-\override NoteHead #'style = #'neomensural
-a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
+  \set Score.skipBars = ##T 
+  \override NoteHead #'style = #'neomensural
+  a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 When typesetting a piece in Gregorian Chant notation, the
@@ -5708,46 +5708,40 @@ select ancient accidentals.   Supported styles are
 
 @lilypond[quote,raggedright,staffsize=26]
 \score {
-    {
-        \fatText
-        s
-        ^\markup {
-            \column <
-                "vaticana" 
-                { " " \musicglyph #"accidentals-vaticana-1"
-                  " " \musicglyph #"accidentals-vaticana0" }
-            >
-            \column <
-                "medicaea"
-                { " " \musicglyph #"accidentals-medicaea-1" }
-            >
-            \column <
-                "hufnagel"
-                { " " \musicglyph #"accidentals-hufnagel-1" }
-            >
-            \column <
-                "mensural"
-                { " " \musicglyph #"accidentals-mensural-1"
-                  " " \musicglyph #"accidentals-mensural1" }
-            >
-        }
+{
+  \fatText
+  s^\markup {
+    \column <
+      "vaticana" 
+      { " " \musicglyph #"accidentals-vaticana-1"
+      " " \musicglyph #"accidentals-vaticana0" }
+    >
+    \column <
+      "medicaea"
+      { " " \musicglyph #"accidentals-medicaea-1" }
+    >
+    \column <
+      "hufnagel"
+      { " " \musicglyph #"accidentals-hufnagel-1" }
+    >
+    \column <
+      "mensural"
+      { " " \musicglyph #"accidentals-mensural-1"
+      " " \musicglyph #"accidentals-mensural1" }
+    >
+  }
+}
+\paper {
+  interscoreline = 1
+  \context { \Score \remove "Bar_number_engraver" }
+  \context { \Staff
+      \remove "Clef_engraver"
+      \remove "Key_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      minimumVerticalExtent = ##f
     }
-    \paper {
-        raggedright = ##t 
-        interscoreline = 1
-        \context {
-            \Score
-            \remove "Bar_number_engraver"
-        }
-        \context{
-            \Staff
-            \remove "Clef_engraver"
-            \remove "Key_engraver"
-            \remove "Time_signature_engraver"
-            \remove "Staff_symbol_engraver"
-            minimumVerticalExtent = ##f
-        }
-    }
+  }
 }
 @end lilypond
 
@@ -5789,9 +5783,9 @@ in historic prints of the 16th century.
 The following example demonstrates the @code{neomensural} style
 
 @lilypond[quote,fragment,raggedright]
-\override Rest #'style = #'neomensural
-\set Score.skipBars = ##t 
-r\longa r\breve r1 r2 r4 r8 r16
+  \override Rest #'style = #'neomensural
+  \set Score.skipBars = ##t 
+  r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
 There are no 32th and 64th rests specifically for the mensural or
@@ -5836,8 +5830,7 @@ modern style mensural C clef @tab
 @code{neomensural-c1}, @code{neomensural-c2},
 @code{neomensural-c3}, @code{neomensural-c4} @tab
 @lilypond[fragment,quote,relative=1,notime]
-
-\clef "neomensural-c2" c
+  \clef "neomensural-c2" c
 @end lilypond
 
 @item
@@ -5853,24 +5846,21 @@ petrucci style mensural C clefs, for use on different staff lines
 
 @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "petrucci-c2" c
+  \clef "petrucci-c2" c
 @end lilypond
 
 @item
 petrucci style mensural F clef @tab
 @code{petrucci-f} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "petrucci-f" c
+  \clef "petrucci-f" c
 @end lilypond
 
 @item
 petrucci style mensural G clef @tab
 @code{petrucci-g} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "petrucci-g" c
+  \clef "petrucci-g" c
 @end lilypond
 
 @item
@@ -5878,85 +5868,76 @@ historic style mensural C clef @tab
 @code{mensural-c1}, @code{mensural-c2}, @code{mensural-c3},
 @code{mensural-c4} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "mensural-c2" c
+  \clef "mensural-c2" c
 @end lilypond
 
 @item
 historic style mensural F clef @tab
 @code{mensural-f} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "mensural-f" c
+  \clef "mensural-f" c
 @end lilypond
 
 @item
 historic style mensural G clef @tab
 @code{mensural-g} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-
-\clef "mensural-g" c
+  \clef "mensural-g" c
 @end lilypond
 
 @item
 Editio Vaticana style do clef @tab
 @code{vaticana-do1}, @code{vaticana-do2}, @code{vaticana-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "vaticana-do2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "vaticana-do2" c
 @end lilypond
 
 @item
 Editio Vaticana style fa clef @tab
 @code{vaticana-fa1}, @code{vaticana-fa2} @tab
 @lilypond[quote,relative=1,notime,indent=0.0\mm,fragment]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "vaticana-fa2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "vaticana-fa2" c
 @end lilypond
 
 @item
 Editio Medicaea style do clef @tab
 @code{medicaea-do1}, @code{medicaea-do2}, @code{medicaea-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "medicaea-do2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "medicaea-do2" c
 @end lilypond
 
 @item
 Editio Medicaea style fa clef @tab
 @code{medicaea-fa1}, @code{medicaea-fa2} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "medicaea-fa2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "medicaea-fa2" c
 @end lilypond
 
 @item
 historic style hufnagel do clef @tab
 @code{hufnagel-do1}, @code{hufnagel-do2}, @code{hufnagel-do3} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "hufnagel-do2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "hufnagel-do2" c
 @end lilypond
 
 @item
 historic style hufnagel fa clef @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-    \override Staff.StaffSymbol   #'line-count = #4
-
-\clef "hufnagel-fa2" c
+  \override Staff.StaffSymbol   #'line-count = #4
+  \clef "hufnagel-fa2" c
 @end lilypond
 
 @item
 historic style hufnagel combined do/fa clef @tab
 @code{hufnagel-do-fa} @tab
 @lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
-\clef "hufnagel-do-fa" c
+  \clef "hufnagel-do-fa" c
 @end lilypond
 
 @end multitable
@@ -5998,12 +5979,12 @@ select ancient flags.  Besides the @code{default} flag style,
  only @code{mensural} style is supported
 
 @lilypond[quote,fragment,raggedright,verbatim]
-\override Stem #'flag-style = #'mensural
-\override Stem #'thickness = #1.0
-\override NoteHead #'style = #'mensural
-\autoBeamOff
-c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
-c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+  \override Stem #'flag-style = #'mensural
+  \override Stem #'thickness = #1.0
+  \override NoteHead #'style = #'mensural
+  \autoBeamOff
+  c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
+  c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 @end lilypond
 
 Note that the innermost flare of each mensural flag always is
@@ -6037,49 +6018,46 @@ to get a particular mensural signature glyph with the @code{\time n/m}
 command, @code{n} and @code{m} have to be chosen according to the
 following table
 
-@lilypond[quote]
+@lilypond[quote,raggedright]
 \paper {
-    indent = 0.0
-    raggedright = ##t
-    \context {
-        \Staff
-        \remove Staff_symbol_engraver
-        \remove Clef_engraver
-        \remove Time_signature_engraver
-    }
+  indent = 0.0
+  \context { \Staff
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
+  }
 } {
-    \set Score.timing = ##f
-    \set Score.barAlways = ##t
-    s_\markup { "$\\backslash$time 4/4" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
-    s
-    s_\markup { "$\\backslash$time 2/2" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
-    s
-    s_\markup { "$\\backslash$time 6/4" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
-    s
-    s_\markup { "$\\backslash$time 6/8" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
-    \break
-    s_\markup { "$\\backslash$time 3/2" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
-    s
-    s_\markup { "$\\backslash$time 3/4" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
-    s
-    s_\markup { "$\\backslash$time 9/4" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
-    s
-    s_\markup { "$\\backslash$time 9/8" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
-    \break
-    s_\markup { "$\\backslash$time 4/8" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
-    s
-    s_\markup { "$\\backslash$time 2/4" }
-     ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
-    \break
+  \set Score.timing = ##f
+  \set Score.barAlways = ##t
+  s_\markup { "$\\backslash$time 4/4" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural4/4" }
+  s
+  s_\markup { "$\\backslash$time 2/2" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural2/2" }
+  s
+  s_\markup { "$\\backslash$time 6/4" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural6/4" }
+  s
+  s_\markup { "$\\backslash$time 6/8" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural6/8" }
+  \break
+  s_\markup { "$\\backslash$time 3/2" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural3/2" }
+  s
+  s_\markup { "$\\backslash$time 3/4" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural3/4" }
+  s
+  s_\markup { "$\\backslash$time 9/4" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural9/4" }
+  s
+  s_\markup { "$\\backslash$time 9/8" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural9/8" }
+  \break
+  s_\markup { "$\\backslash$time 4/8" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural4/8" }
+  s
+  s_\markup { "$\\backslash$time 2/4" }
+  ^\markup { "       " \musicglyph #"timesig-neomensural2/4" }
 }
 @end lilypond
 
@@ -6092,8 +6070,9 @@ style mimics the look of historical printings of the 16th century.
 
 The following examples shows the differences in style,
 
-@lilypond[raggedright]
-\relative c' {
+@lilypond[raggedright,relative=1]
+{
+  \fatText
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }
 
@@ -6205,9 +6184,9 @@ as shown in the following example
 @example
 \paper @{
   \context @{
-     \Staff
-     \consists Custos_engraver
-     Custos \override #'style = #'mensural
+    \Staff
+    \consists Custos_engraver
+    Custos \override #'style = #'mensural
   @}
 @}
 @end example
@@ -6216,18 +6195,15 @@ The result looks like this
 
 @lilypond[quote,raggedright]
 \score {
-     {
-	a'1
-	\override Staff.Custos #'style = #'mensural
-	\break
-	g'
-    }
-    \paper {
-	\context {
-	    \Staff
-	    \consists Custos_engraver
-	}
-    }
+{
+  a'1
+  \override Staff.Custos #'style = #'mensural
+  \break
+  g'
+}
+\paper {
+  \context { \Staff \consists Custos_engraver }
+  }
 }
 @end lilypond
 
@@ -6235,34 +6211,26 @@ The custos glyph is selected by the @code{style} property.  The styles
 supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 @code{mensural}.  They are demonstrated in the following fragment
 
-@lilypond[quote]
-\score {
-       \new Lyrics    \lyricmode {
-        \markup {
-            \column <
-                \typewriter                "vaticana" 
-                { " " \musicglyph #"custodes-vaticana-u0" }
-            > }
-	\markup {    \column <
-                \typewriter                "medicaea"
-		{ " " \musicglyph #"custodes-medicaea-u0" }
-            >}
-            \markup {
-	    \column <
-                \typewriter                "hufnagel"
-		{ " " \musicglyph #"custodes-hufnagel-u0" }
-            >}
-            \markup {
-            \column <
-                \typewriter                "mensural"
-                { " " \musicglyph #"custodes-mensural-u0" }
-            >}
-        }
-    
-    \paper {
-	raggedright = ##t 
-        }      
+@lilypond[quote,raggedright,fragment]
+\new Lyrics \lyricmode {
+  \markup { \column <
+    \typewriter "vaticana" 
+    { " " \musicglyph #"custodes-vaticana-u0" }
+  > }
+  \markup { \column <
+    \typewriter "medicaea"
+    { " " \musicglyph #"custodes-medicaea-u0" }
+  >}
+  \markup { \column <
+    \typewriter "hufnagel"
+    { " " \musicglyph #"custodes-hufnagel-u0" }
+  >}
+  \markup { \column <
+    \typewriter "mensural"
+    { " " \musicglyph #"custodes-mensural-u0" }
+  >}
 }
+
 @end lilypond
 
 @seealso
@@ -6342,9 +6310,9 @@ above the ligature
 
 @lilypond[quote,raggedright,verbatim]
 \transpose c c' {
-    \[ g c a f d' \]
-    a g f
-    \[ e f a g \]
+  \[ g c a f d' \]
+  a g f
+  \[ e f a g \]
 }
 @end lilypond
 
@@ -6387,13 +6355,13 @@ To engrave white mensural ligatures, in the paper block the
 @internalsref{Ligature_bracket_engraver}
 
 @example
-    \paper @{
-        \context @{
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Mensural_ligature_engraver
-        @}
-    @}
+\paper @{
+  \context @{
+    \Voice
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
+  @}
+@}
 @end example
 
 There is no additional input language to describe the shape of a
@@ -6407,34 +6375,34 @@ automatic transcription of the ligatures.
 For example,
 
 @example
-        \set Score.timing = ##f
-        \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neomensural
-        \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci-g"
-        \[ g\longa c\breve a\breve f\breve d'\longa \]
-        s4
-        \[ e1 f1 a\breve g\longa \]
+  \set Score.timing = ##f
+  \set Score.defaultBarType = "empty"
+  \override NoteHead #'style = #'neomensural
+  \override Staff.TimeSignature   #'style = #'neomensural
+  \clef "petrucci-g"
+  \[ g\longa c\breve a\breve f\breve d'\longa \]
+  s4
+  \[ e1 f1 a\breve g\longa \]
 @end example
 @lilypond[quote,raggedright]
 \score {
-    \transpose c c' {
-        \set Score.timing = ##f
-        \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neomensural
-        \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci-g"
-        \[ g\longa c\breve a\breve f\breve d'\longa \]
-        s4
-        \[ e1 f1 a\breve g\longa \]
+  \transpose c c' {
+    \set Score.timing = ##f
+    \set Score.defaultBarType = "empty"
+    \override NoteHead #'style = #'neomensural
+    \override Staff.TimeSignature   #'style = #'neomensural
+    \clef "petrucci-g"
+    \[ g\longa c\breve a\breve f\breve d'\longa \]
+    s4
+    \[ e1 f1 a\breve g\longa \]
+  }
+  \paper {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
     }
-    \paper {
-        \context {
-            \Voice
-            \remove Ligature_bracket_engraver
-            \consists Mensural_ligature_engraver
-        }
-    }
+  }
 }
 @end lilypond
 
@@ -6444,14 +6412,14 @@ to the following
 
 @lilypond[quote,raggedright]
 \transpose c c' {
-        \set Score.timing = ##f
-        \set Score.defaultBarType = "empty"
-        \override NoteHead #'style = #'neomensural
-        \override Staff.TimeSignature   #'style = #'neomensural
-        \clef "petrucci-g"
-        \[ g\longa c\breve a\breve f\breve d'\longa \]
-        s4
-        \[ e1 f1 a\breve g\longa \]
+  \set Score.timing = ##f
+  \set Score.defaultBarType = "empty"
+  \override NoteHead #'style = #'neomensural
+  \override Staff.TimeSignature   #'style = #'neomensural
+  \clef "petrucci-g"
+  \[ g\longa c\breve a\breve f\breve d'\longa \]
+  s4
+  \[ e1 f1 a\breve g\longa \]
 }
 @end lilypond
 
@@ -6501,45 +6469,45 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.5\cm]
 \include "gregorian-init.ly"
 \score {
-    \transpose c c' {
-        % Punctum
-        \[ b \]
-        \noBreak s^\markup {"a"} \noBreak
+  \transpose c c' {
+    % Punctum
+    \[ b \]
+    \noBreak s^\markup {"a"} \noBreak
 
-        % Punctum Inclinatum
-        \[ \inclinatum b \]
-        \noBreak s^\markup {"b"}
-    }
+    % Punctum Inclinatum
+    \[ \inclinatum b \]
+    \noBreak s^\markup {"b"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.5\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Punctum Auctum Ascendens
-        \[ \auctum \ascendens b \]
-        \noBreak s^\markup {"c"} \noBreak
+  \transpose c c' {
+    % Punctum Auctum Ascendens
+    \[ \auctum \ascendens b \]
+    \noBreak s^\markup {"c"} \noBreak
 
-        % Punctum Auctum Descendens
-        \[ \auctum \descendens b \]
-        \noBreak s^\markup {"d"} \noBreak
+    % Punctum Auctum Descendens
+    \[ \auctum \descendens b \]
+    \noBreak s^\markup {"d"} \noBreak
 
-        % Punctum Inclinatum Auctum
-        \[ \inclinatum \auctum b \]
-        \noBreak s^\markup {"e"}
-    }
+    % Punctum Inclinatum Auctum
+    \[ \inclinatum \auctum b \]
+    \noBreak s^\markup {"e"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Punctum Inclinatum Parvum
-        \[ \inclinatum \deminutum b \]
-        \noBreak s^\markup {"f"}
-    }
+  \transpose c c' {
+    % Punctum Inclinatum Parvum
+    \[ \inclinatum \deminutum b \]
+    \noBreak s^\markup {"f"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6549,11 +6517,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Virga
-        \[ \virga b \]
-        \noBreak s^\markup {"g"}
-    }
+  \transpose c c' {
+    % Virga
+    \[ \virga b \]
+    \noBreak s^\markup {"g"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6565,22 +6533,22 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Stropha
-        \[ \stropha b \]
-        \noBreak s^\markup {"h"}
-    }
+  \transpose c c' {
+    % Stropha
+    \[ \stropha b \]
+    \noBreak s^\markup {"h"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Stropha Aucta
-        \[ \stropha \auctum b \]
-        \noBreak s^\markup {"i"}
-    }
+  \transpose c c' {
+    % Stropha Aucta
+    \[ \stropha \auctum b \]
+    \noBreak s^\markup {"i"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6591,11 +6559,11 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Oriscus
-        \[ \oriscus b \]
-        \noBreak s^\markup {"j"}
-    }
+  \transpose c c' {
+    % Oriscus
+    \[ \oriscus b \]
+    \noBreak s^\markup {"j"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6607,37 +6575,37 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Clivis vel Flexa
-        \[ b \flexa g \]
-        s^\markup {"k"}
-    }
+  \transpose c c' {
+    % Clivis vel Flexa
+    \[ b \flexa g \]
+    s^\markup {"k"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Clivis Aucta Descendens
-        \[ b \flexa \auctum \descendens g \]
-        \noBreak s^\markup {"l"} \noBreak
+  \transpose c c' {
+    % Clivis Aucta Descendens
+    \[ b \flexa \auctum \descendens g \]
+    \noBreak s^\markup {"l"} \noBreak
 
-        % Clivis Aucta Ascendens
-        \[ b \flexa \auctum \ascendens g \]
-        \noBreak s^\markup {"m"}
-    }
+    % Clivis Aucta Ascendens
+    \[ b \flexa \auctum \ascendens g \]
+    \noBreak s^\markup {"m"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Cephalicus
-        \[ b \flexa \deminutum g \]
-        s^\markup {"n"}
-    }
+  \transpose c c' {
+    % Cephalicus
+    \[ b \flexa \deminutum g \]
+    s^\markup {"n"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6647,37 +6615,37 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Podatus vel Pes
-        \[ g \pes b \]
-        s^\markup {"o"}
-    }
+  \transpose c c' {
+    % Podatus vel Pes
+    \[ g \pes b \]
+    s^\markup {"o"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Pes Auctus Descendens
-        \[ g \pes \auctum \descendens b \]
-        \noBreak s^\markup {"p"} \noBreak
+  \transpose c c' {
+    % Pes Auctus Descendens
+    \[ g \pes \auctum \descendens b \]
+    \noBreak s^\markup {"p"} \noBreak
 
-        % Pes Auctus Ascendens
-        \[ g \pes \auctum \ascendens b \]
-        \noBreak s^\markup {"q"}
-    }
+    % Pes Auctus Ascendens
+    \[ g \pes \auctum \ascendens b \]
+    \noBreak s^\markup {"q"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Epiphonus
-        \[ g \pes \deminutum b \]
-        s^\markup {"r"}
-    }
+  \transpose c c' {
+    % Epiphonus
+    \[ g \pes \deminutum b \]
+    s^\markup {"r"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6687,22 +6655,22 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Pes Quassus
-        \[ \oriscus g \pes \virga b \]
-        s^\markup {"s"}
-    }
+  \transpose c c' {
+    % Pes Quassus
+    \[ \oriscus g \pes \virga b \]
+    s^\markup {"s"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Pes Quassus Auctus Descendens
-        \[ \oriscus g \pes \auctum \descendens b \]
-        s^\markup {"t"}
-    }
+  \transpose c c' {
+    % Pes Quassus Auctus Descendens
+    \[ \oriscus g \pes \auctum \descendens b \]
+    s^\markup {"t"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6713,22 +6681,22 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Quilisma Pes
-        \[ \quilisma g \pes b \]
-        s^\markup {"u"}
-    }
+  \transpose c c' {
+    % Quilisma Pes
+    \[ \quilisma g \pes b \]
+    s^\markup {"u"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Quilisma Pes Auctus Descendens
-        \[ \quilisma g \pes \auctum \descendens b \]
-        s^\markup {"v"}
-    }
+  \transpose c c' {
+    % Quilisma Pes Auctus Descendens
+    \[ \quilisma g \pes \auctum \descendens b \]
+    s^\markup {"v"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6739,22 +6707,22 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Pes Initio Debilis
-        \[ \deminutum g \pes b \]
-        s^\markup {"w"}
-    }
+  \transpose c c' {
+    % Pes Initio Debilis
+    \[ \deminutum g \pes b \]
+    s^\markup {"w"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Pes Auctus Descendens Initio Debilis
-        \[ \deminutum g \pes \auctum \descendens b \]
-        s^\markup {"x"}
-    }
+  \transpose c c' {
+    % Pes Auctus Descendens Initio Debilis
+    \[ \deminutum g \pes \auctum \descendens b \]
+    s^\markup {"x"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6765,33 +6733,33 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus
-        \[ a \pes b \flexa g \]
-        s^\markup {"y"}
-    }
+  \transpose c c' {
+    % Torculus
+    \[ a \pes b \flexa g \]
+    s^\markup {"y"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus Auctus Descendens
-        \[ a \pes b \flexa \auctum \descendens g \]
-        s^\markup {"z"}
-    }
+  \transpose c c' {
+    % Torculus Auctus Descendens
+    \[ a \pes b \flexa \auctum \descendens g \]
+    s^\markup {"z"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus Deminutus
-        \[ a \pes b \flexa \deminutum g \]
-        s^\markup {"A"}
-    }
+  \transpose c c' {
+    % Torculus Deminutus
+    \[ a \pes b \flexa \deminutum g \]
+    s^\markup {"A"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6801,33 +6769,33 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus Initio Debilis
-        \[ \deminutum a \pes b \flexa g \]
-        s^\markup {"B"}
-    }
+  \transpose c c' {
+    % Torculus Initio Debilis
+    \[ \deminutum a \pes b \flexa g \]
+    s^\markup {"B"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus Auctus Descendens Initio Debilis
-        \[ \deminutum a \pes b \flexa \auctum \descendens g \]
-        s^\markup {"C"}
-    }
+  \transpose c c' {
+    % Torculus Auctus Descendens Initio Debilis
+    \[ \deminutum a \pes b \flexa \auctum \descendens g \]
+    s^\markup {"C"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Torculus Deminutus Initio Debilis
-        \[ \deminutum a \pes b \flexa \deminutum g \]
-        s^\markup {"D"}
-    }
+  \transpose c c' {
+    % Torculus Deminutus Initio Debilis
+    \[ \deminutum a \pes b \flexa \deminutum g \]
+    s^\markup {"D"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6837,33 +6805,33 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Porrectus
-        \[ a \flexa g \pes b \]
-        s^\markup {"E"}
-    }
+  \transpose c c' {
+    % Porrectus
+    \[ a \flexa g \pes b \]
+    s^\markup {"E"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Porrectus Auctus Descendens
-        \[ a \flexa g \pes \auctum \descendens b \]
-        s^\markup {"F"}
-    }
+  \transpose c c' {
+    % Porrectus Auctus Descendens
+    \[ a \flexa g \pes \auctum \descendens b \]
+    s^\markup {"F"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Porrectus Deminutus
-        \[ a \flexa g \pes \deminutum b \]
-        s^\markup {"G"}
-    }
+  \transpose c c' {
+    % Porrectus Deminutus
+    \[ a \flexa g \pes \deminutum b \]
+    s^\markup {"G"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6873,34 +6841,34 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Climacus
-        \[ \virga b \inclinatum a \inclinatum g \]
-        s^\markup {"H"}
-    }
-    \paper { \neumeDemoPaper }
+  \transpose c c' {
+    % Climacus
+    \[ \virga b \inclinatum a \inclinatum g \]
+    s^\markup {"H"}
+  }
+  \paper { \neumeDemoPaper }
 }
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Climacus Auctus
-        \[ \virga b \inclinatum a \inclinatum \auctum g \]
-        s^\markup {"I"}
-    }
+  \transpose c c' {
+    % Climacus Auctus
+    \[ \virga b \inclinatum a \inclinatum \auctum g \]
+    s^\markup {"I"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Climacus Deminutus
-        \[ \virga b \inclinatum a \inclinatum \deminutum g \]
-        s^\markup {"J"}
-    }
+  \transpose c c' {
+    % Climacus Deminutus
+    \[ \virga b \inclinatum a \inclinatum \deminutum g \]
+    s^\markup {"J"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6910,33 +6878,33 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Scandicus
-        \[ g \pes a \virga b \]
-        s^\markup {"K"}
-    }
+  \transpose c c' {
+    % Scandicus
+    \[ g \pes a \virga b \]
+    s^\markup {"K"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Scandicus Auctus Descendens
-        \[ g \pes a \pes \auctum \descendens b \]
-        s^\markup {"L"}
-    }
+  \transpose c c' {
+    % Scandicus Auctus Descendens
+    \[ g \pes a \pes \auctum \descendens b \]
+    s^\markup {"L"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Scandicus Deminutus
-        \[ g \pes a \pes \deminutum b \]
-        s^\markup {"M"}
-    }
+  \transpose c c' {
+    % Scandicus Deminutus
+    \[ g \pes a \pes \deminutum b \]
+    s^\markup {"M"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 
@@ -6946,22 +6914,22 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Salicus
-        \[ g \oriscus a \pes \virga b \]
-        s^\markup {"N"}
-    }
+  \transpose c c' {
+    % Salicus
+    \[ g \oriscus a \pes \virga b \]
+    s^\markup {"N"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-     \transpose c c' {
-        % Salicus Auctus Descendens
-        \[ g \oriscus a \pes \auctum \descendens b \]
-        s^\markup {"O"}
-    }
+  \transpose c c' {
+    % Salicus Auctus Descendens
+    \[ g \oriscus a \pes \auctum \descendens b \]
+    s^\markup {"O"}
+  }
 \paper { \neumeDemoPaper }}
 @end lilypond
 @tab
@@ -6972,7 +6940,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @lilypond[quote,noindent,staffsize=26,nofragment,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
-   \transpose c c' {
+  \transpose c c' {
     % Trigonus
     \[ \stropha b \stropha b \stropha a \]
     s^\markup {"P"}
@@ -7371,8 +7339,8 @@ to the numbers
 <4- 6+ 7!>
 @end example
 @lilypond[quote,fragment]
-\context FiguredBass
-\figuremode { <4- 6+ 7!> }
+  \context FiguredBass
+  \figuremode { <4- 6+ 7!> }
 @end lilypond
 
 Spaces or dashes may be inserted by using @code{_}.  Brackets are
@@ -7382,8 +7350,8 @@ introduced with @code{[} and @code{]}
 < [4 6] 8 [_! 12]>
 @end example
 @lilypond[quote,fragment]
-\context FiguredBass
-\figuremode { < [4 6] 8 [_! 12]> }
+  \context FiguredBass
+  \figuremode { < [4 6] 8 [_! 12]> }
 @end lilypond
 
 Although the support for figured bass may superficially resemble chord
@@ -7437,18 +7405,18 @@ created with a markup text.  This markup text is inserted in the
 
 % create 2/4 + 5/8
 tsMarkup =\markup  {
-    \number { 
-      \column < "2" "4" >
-      \musicglyph #"scripts-stopped" 
-      \bracket \column < "5" "8" >
-    }
+  \number { 
+    \column < "2" "4" >
+    \musicglyph #"scripts-stopped" 
+    \bracket \column < "5" "8" >
+  }
 }
 
 {
-  \override Staff.TimeSignature  #'print-function = #Text_interface::print
-  \override Staff.TimeSignature  #'text = #tsMarkup
+  \override Staff.TimeSignature #'print-function = #Text_interface::print
+  \override Staff.TimeSignature #'text = #tsMarkup
   \time 3/2
-  c'2  \bar ":" c'4 c'4.
+  c'2 \bar ":" c'4 c'4.
 }
 @end lilypond
 
@@ -7458,14 +7426,8 @@ context.
 
 @verbatim
 \paper{
-    \context{
-        \Score
-        \remove "Timing_engraver"
-    }
-    \context{
-        \Staff
-        \consists "Timing_engraver"
-    }
+  \context{ \Score \remove "Timing_engraver" }
+  \context{ \Staff \consists "Timing_engraver" }
 }       
 @end verbatim
 
@@ -7473,48 +7435,40 @@ context.
 Now, each staff has its own time signature.
 @verbatim
 <<
-    \new Staff {
-        \time 3/4
-        c4 c c | c c c |
-    }
-
-    \new Staff {
-        \time 2/4
-        c4 c | c c | c c
-    }
-    \new Staff {
-        \time 3/8
-        c4. c8 c c c4. c8 c c
-    }
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c | c c | c c
+  }
+  \new Staff {
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  }
 >>
 @end verbatim
 
 @lilypond[raggedright]
 \paper{
-    \context{
-        \Score
-        \remove "Timing_engraver"
-    }
-    \context{
-        \Staff
-        \consists "Timing_engraver"
-    }
+  \context{ \Score \remove "Timing_engraver" }
+  \context{ \Staff \consists "Timing_engraver" }
 }       
 
 \relative c'  <<
-    \new Staff {
-        \time 3/4
-        c4 c c | c c c |
-    }
-
-    \new Staff {
-        \time 2/4
-        c4 c | c c | c c
-    }
-    \new Staff {
-        \time 3/8
-        c4. c8 c c c4. c8 c c
-    }
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c | c c | c c
+  }
+  \new Staff {
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  }
 >>
 @end lilypond
 
@@ -7535,27 +7489,28 @@ used in parallel.  In the second staff, shown durations are multiplied by
 2/3, so that 2/3 * 9/8 = 3/4, and in the third staff, shown durations are 
 multiplied by 3/5, so that 3/5 * 10/8 = 3/4.
 
-@lilypond[raggedright,verbatim]
-\relative c'  <<
-    \new Staff {
-        \time 3/4
-        c4 c c | c c c |
+@lilypond[raggedright,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \compressmusic #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \compressmusic #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[  c] }
+      | c4. c4. \times 2/3 { c8 c c } c4
     }
-    \new Staff {
-        \time 3/4
-        \set Staff.timeSignatureFraction = #'(9 . 8)
-        \compressmusic #'(2 . 3)
-          \repeat unfold 6 { c8[ c c] }
-    }
-    \new Staff {
-        \time 3/4
-        \set Staff.timeSignatureFraction = #'(10 . 8)
-        \compressmusic #'(3 . 5)
-          { \repeat unfold 2 { c8[ c c] }
-            \repeat unfold 2 { c8[  c] }
-            |  c4. c4. \times 2/3 { c8 c c } c4  }
-    }
->>
+  }
+>> }
 @end lilypond
 
 
@@ -7578,8 +7533,7 @@ can be denoted as the envelope of a set of notes.  They are entered by
 applying the function @code{makeClusters} to a sequence of
 chords, e.g.
 @c
-@lilypond[quote,verbatim]
-\relative c'' 
+@lilypond[quote,relative=2,fragment,verbatim]
   \makeClusters { <c e > <b f'> }
 @end lilypond
 
@@ -7619,30 +7573,31 @@ of differing lengths.  The following fermatas are supported
 
 @lilypond[quote,raggedright]
 <<
-    \oldaddlyrics  {
-      b'
-      ^\shortfermata
-      _\shortfermata
-      r
-      b'
-      ^\fermata
-      _\fermata
-
-      r
-      b'
-      ^\longfermata
-      _\longfermata
-
-      r
-      b'
-      ^\verylongfermata
-      _\verylongfermata
+  \oldaddlyrics  {
+    b'2
+    ^\shortfermata
+    _\shortfermata
     r
-    }
-    \context Lyrics \lyricmode {
-      \override LyricText #'font-family = #'typewriter
-      "shortfermata" "fermata"  "longfermata" "verylongfermata"
-    }
+
+    b'
+    ^\fermata
+    _\fermata
+    r
+
+    b'
+    ^\longfermata
+    _\longfermata
+    r
+
+    b'
+    ^\verylongfermata
+    _\verylongfermata
+    r
+  }
+  \context Lyrics \lyricmode {
+    \override LyricText #'font-family = #'typewriter
+    "shortfermata" "fermata"  "longfermata" "verylongfermata"
+  }
 >>
 @end lilypond
 
@@ -7655,19 +7610,19 @@ such as fermatas to notes.
 Feathered beams are not supported natively, but they can be faked by
 forcing two beams to overlap.  Here is an example,
 
-@lilypond[raggedright]
-\relative \new Staff <<
-    \new Voice
-    {
-	\stemUp
-	\once \override Voice.Beam #'positions = #'(0 . 0.5)
-        c8[ c c c c ]
-    }
-    \new Voice {
-	\stemUp
-	\once \override Voice.Beam #'positions = #'(0 . -0.5) 
-        c[ c c c c]
-    }
+@lilypond[raggedright,relative=2,fragment,verbatim]
+\new Staff <<
+  \new Voice
+  {
+    \stemUp
+    \once \override Voice.Beam #'positions = #'(0 . 0.5)
+    c8[ c c c c ]
+  }
+  \new Voice {
+    \stemUp
+    \once \override Voice.Beam #'positions = #'(0 . -0.5) 
+    c[ c c c c]
+  }
 >>
 @end lilypond
 
@@ -7676,10 +7631,13 @@ forcing two beams to overlap.  Here is an example,
 @node Educational use
 @section Educational use
 
+With the amount of control that LilyPond offers, one can make great
+teaching tools in addition to great musical scores.
+
 @menu
 * Balloon help::                
 * Blank music paper::           
-* Notation for excercises::     
+* Hidden notes::     
 * Easy Notation note heads::    
 @end menu
 
@@ -7692,11 +7650,12 @@ balloon.  The primary purpose of this feature is to explain notation.
 The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,raggedright,relative=2]
-\context Voice
-\applyoutput
-   #(add-balloon-text 'NoteHead "heads, or tails?"
+\context Voice {
+  \applyoutput
+    #(add-balloon-text 'NoteHead "heads, or tails?"
     '(1 . -3))
-c8
+  c8
+}
 @end lilypond
 
 @noindent
@@ -7731,37 +7690,48 @@ emptymusic =  {
   \bar "|."
 }
 \new Score \with {
-    \override TimeSignature #'transparent = ##t
-    defaultBarType = #""
-    \remove Bar_number_engraver
+  \override TimeSignature #'transparent = ##t
+  defaultBarType = #""
+  \remove Bar_number_engraver
 } <<
-	\context Staff \emptymusic
-	\context TabStaff \emptymusic
+  \context Staff \emptymusic
+  \context TabStaff \emptymusic
 >>
 @end lilypond
 
 
-@node Notation for excercises
-@subsection Notation for excercises
+@node Hidden notes
+@subsection Hidden notes
 
-@cindex Blank Notes
+@cindex Hidden notes
+@cindex Invisible notes
+@cindex Transparent notes
 
-Invisible (or transparent) notes can be useful, when weird tricks are
-needed; especially, a slur cannot be attach to a rest or spacer rest.
+Hidden (or invisible or transparent) notes can be useful in preparing theory
+or composition exercises.
 
+@lilypond[quote,verbatim,relative=2,fragment]
+  c4 d4 
+  \hideNotes
+  e4 f4
+  \unHideNotes
+  g4 a 
+@end lilypond
 
-@lilypond
-blanknotes = { \override NoteHead  #'transparent = ##t
-	       \override Stem  #'transparent = ##t }
-unblanknotes = { \revert NoteHead #'transparent
-		 \revert Stem #'transparent }
+Hidden notes are also great for performing weird tricks.  For example,
+slurs cannot be attached to rests or spacer rests, but you may with
+to include that in your score -- string instruments use this notation
+when doing pizzicato to indicate that the note should ring for as long
+as possible.
 
-
-\relative c'' {
-    c4 d4 
-    \blanknotes e4 f4   \unblanknotes
-    g4 a 
-}
+@lilypond[quote,verbatim,relative=0,fragment]
+  \clef bass
+  << {
+    c4^"pizz"( \hideNotes c)
+    \unHideNotes c( \hideNotes c)
+  } {
+    s4 r s r
+  } >>
 @end lilypond
 
 
@@ -7775,8 +7745,8 @@ The `easy play' note head includes a note name inside the head.  It is
 used in music for beginners
 
 @lilypond[quote,raggedright,verbatim,fragment,staffsize=26]
-\setEasyHeads
-c'2 e'4 f' | g'1
+  \setEasyHeads
+  c'2 e'4 f' | g'1
 @end lilypond
 
 The command @code{\setEasyHeads} overrides settings for the
