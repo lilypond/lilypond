@@ -700,9 +700,8 @@ void
 Grob::warning (String s)const
 {
   SCM cause = self_scm();
-  while (cause != SCM_EOL && !unsmob_music (cause))
+  while (Grob * g = unsmob_grob (cause))
     {
-      Grob * g = unsmob_grob (cause);
       cause = g->get_grob_property ("cause");
     }
 

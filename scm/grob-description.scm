@@ -444,11 +444,18 @@
 
     (LigatureBracket
      . (
-	(width . 0.75)
-	(height . 0.5)
 	(ligature-primitive-callback . ,Note_head::brew_molecule)
-	(molecule-callback . ,Ligature_bracket::brew_molecule)
-	(meta . ((interfaces . (ligature-bracket-interface spanner-interface))))
+	(direction . 1)
+	(gap . 0.0)
+	(padding . 2.0)
+	(thickness . 1.6)
+	(edge-widen . (0.0 . 0.0))
+	(edge-height . (0.7 . 0.7))
+	(shorten-pair . (-0.2 . -0.2))
+	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
+	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
+	(molecule-callback . ,Tuplet_bracket::brew_molecule)
+	(meta .  ((interfaces . (tuplet-bracket-interface spanner-interface))))
 	))
 
     (LigatureHead

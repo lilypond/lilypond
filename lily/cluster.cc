@@ -132,10 +132,11 @@ Cluster::brew_molecule (SCM smob)
   Grob *me = unsmob_grob (smob);
 
   Spanner *spanner = dynamic_cast<Spanner*> (me);
-  if (!spanner) {
-    me->programming_error ("Cluster::brew_molecule(): not a spanner");
-    return SCM_EOL;
-  }
+  if (!spanner)
+    {
+      me->programming_error ("Cluster::brew_molecule(): not a spanner");
+      return SCM_EOL;
+    }
 
   Item *left_bound = spanner->get_bound (LEFT);
   Item *right_bound = spanner->get_bound (RIGHT);
@@ -149,7 +150,15 @@ Cluster::brew_molecule (SCM smob)
   bottom_points.clear ();
   top_points.clear ();
   SCM column_scm = SCM_EOL;
-  for (SCM columns_scm = me->get_grob_property ("segments");
+
+  SCM columns_scm = me->get_grob_property ("segments");
+  if (columns_scm == SCM_EOL)
+    {
+      me->warning ("junking empty cluster");
+      return SCM_EOL;
+    }
+
+  for (;
        columns_scm != SCM_EOL;
        columns_scm = ly_cdr (columns_scm)) {
     column_scm = ly_car (columns_scm);
@@ -162,31 +171,26 @@ Cluster::brew_molecule (SCM smob)
 	break; // ok, we have seen all columns
     column = unsmob_grob (col_scm);
     column_scm = ly_cdr (column_scm);
-    Real y = 0.5 * gh_scm2double (ly_car (column_scm));
+    Real y_bottom = gh_scm2double (ly_car (column_scm));
     column_scm = ly_cdr (column_scm);
-    Pitch *pitch_min = unsmob_pitch (ly_car (column_scm));
-    column_scm = ly_cdr (column_scm);
-    Pitch *pitch_max = unsmob_pitch (ly_car (column_scm));
-    Real height = 0.5 * (pitch_max->steps () - pitch_min->steps ());
+    Real y_top = gh_scm2double (ly_car (column_scm));
     Real x = column->relative_coordinate (common, X_AXIS);
     if (right_broken)
       x -= left_bound->relative_coordinate (common, X_AXIS);
-    bottom_points.push (Offset (x, y));
-    top_points.push (Offset (x, y + height));
+    bottom_points.push (Offset (x, y_bottom));
+    top_points.push (Offset (x, y_top));
   }
   if (right_broken)
     {
-      Real y = 0.5 * gh_scm2double (ly_car (column_scm));
+      Real y_bottom = gh_scm2double (ly_car (column_scm));
       column_scm = ly_cdr (column_scm);
-      Pitch *pitch_min = unsmob_pitch (ly_car (column_scm));
+      Real y_top = gh_scm2double (ly_car (column_scm));
       column_scm = ly_cdr (column_scm);
-      Pitch *pitch_max = unsmob_pitch (ly_car (column_scm));
-      Real height = 0.5 * (pitch_max->steps () - pitch_min->steps ());
       Real x =
 	right_bound->relative_coordinate (common, X_AXIS) -
 	left_bound->relative_coordinate (common, X_AXIS);
-      bottom_points.push (Offset (x, y));
-      top_points.push (Offset (x, y + height));
+      bottom_points.push (Offset (x, y_bottom));
+      top_points.push (Offset (x, y_top));
     }
   Molecule out = brew_cluster_piece (me, bottom_points, top_points);
   return out.smobbed_copy ();
