@@ -1623,10 +1623,10 @@ titles.
 * Vertical spacing of piano staves::  
 * Vertical spacing::            
 * Horizontal spacing::          
+* Line length::                 
 * Line breaking::               
-* Line length and line breaking::  
 * Multiple movements::          
-* Titling::                     
+* Creating titles::             
 * Page breaking::               
 * Paper size::                  
 * Page layout::                 

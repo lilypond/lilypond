@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
-@node Invoking LilyPond
-@chapter Invoking LilyPond
+@node Running LilyPond
+@chapter Running LilyPond
 
 This chapter details the technicalities of running LilyPond.
 
@@ -272,8 +272,7 @@ test.ly:2:19: error: not a duration: 5:
 
 If you have input that results in a crash or an erroneous output, then
 that is a bug. We try respond to bug-reports promptly, and fix them as
-soon as possible. For this, we need to reproduce and isolate the
-problem. Help us by sending a defective input file, so we can
+soon as possible.  Help us by sending a defective input file, so we can
 reproduce the problem. Make it small, so we can easily debug the
 problem. Don't forget to tell which version you use, and on which
 platform you run it.  Send the report to
@@ -293,16 +292,22 @@ There is support from different editors  for LilyPond.
 
 @table @asis
 @item Emacs
- Emacs has a @file{lilypond-mode}, which provides keyword
+Emacs has a @file{lilypond-mode}, which provides keyword
 autocompletion, indentation, LilyPond specific parenthesis matching
 and syntax coloring, handy compile short-cuts and reading LilyPond
-manuals using Info.  If lilypond-mode is not installed on your
-platform, then refer to the installation instructions for more
-information.
+manuals using Info.  If @file{lilypond-mode} is not installed on your
+platform, then read the
+@ifhtml
+@uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
+@end ifhtml
+@ifnothtml
+installation instructions.
+@end ifnothtml
+for more information.
 
 @item VIM
 
-For @uref{http://www.vim.org,VIM}, a vimrc is supplied, along with
+For @uref{http://www.vim.org,VIM}, a @file{vimrc} is supplied, along with
 syntax coloring tools. For more information, refer to the
 @ifhtml
 @uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
@@ -312,10 +317,6 @@ installation instructions.
 @end ifnothtml
 
 
-For both editors, there is also a facility to jump in the input file
-to the source of errors in the graphical output. See @ref{Point and
-click}.
-
 @item JEdit
 
 There exists a plugin for @uref{http://www.jedit.org/,jEdit}. Refer to
@@ -323,6 +324,10 @@ the @uref{http://lily4jedit.sourceforge.net,plugin website} for more
 information.
 
 @end table
+
+For both VIM and Emacs editors, there is also a facility to jump in
+the input file to the source of errors in the graphical output. See
+@ref{Point and click}.
 
 
 

@@ -17,7 +17,8 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c  prepend GNU for dir, must be unique
 @c  do not list the `lilypond' node at toplevel, so that `info lilypond'
 @c  goes to Top.
-@c  * lilypond: (lilypond/lilypond)Invoking LilyPond.      Titling LilyPond scores.
+@c  * lilypond: (lilypond/lilypond)Running LilyPond.      Invoking the
+@c  LilyPond  program.
 * GNU LilyPond: (lilypond/lilypond).           The GNU music typesetter.
 * convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
@@ -167,7 +168,7 @@ this and other documentation.
 * Sound::                          Producing MIDI output
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
-* Invoking LilyPond::              Operation.
+* Running LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * Integrating text and music::     Integrating text and music with lilypond-book.
 * Literature list::

@@ -2,10 +2,9 @@
 @appendix Literature list
 
 If you need to know more about music notation, here are some
-interesting titles to read. The source archive includes a more
-elaborate Bib@TeX{} bibliography of over 100 entries in
-@file{Documentation/bibliography/}. It is also available online from
-the website.
+interesting titles to read.
+
+
 
 @table @cite
 @item Ignatzek 1995
@@ -57,3 +56,7 @@ starts out with a thorough overview of existing traditional notation
 practices.
 
 @end table
+
+The source archive includes a more elaborate Bib@TeX{} bibliography of
+over 100 entries in @file{Documentation/bibliography/}. It is also
+available online from the website.

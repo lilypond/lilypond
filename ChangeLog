@@ -1,3 +1,13 @@
+2004-08-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/advanced.itely: removed.
+
+	* Documentation/user/programming-interface.itely (How markups work
+	internally): new subsection.
+
+	* Documentation/user/converters.itely (Invoking abc2ly): remove
+	musedata2ly.
+
 2004-08-27  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/point-and-click.texi (Point and click): new file.
