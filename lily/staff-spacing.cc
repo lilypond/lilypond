@@ -18,6 +18,7 @@
 #include "staff-symbol-referencer.hh"
 #include "note-column.hh"
 #include "stem.hh"
+#include "accidental-placement.hh"
 
 /*
   Insert some more space for the next note, in case it has a stem in
@@ -40,7 +41,10 @@ Staff_spacing::next_note_correction (Grob * me,
    */
   if (Grob * a = Note_column::accidentals (g))
     {
-      max_corr = max_corr >? (- a->extent (col, X_AXIS)[LEFT]);
+      Interval v= Accidental_placement::get_relevant_accidental_extent
+	(a, col, me);
+      
+      max_corr = max_corr >? (- v[LEFT]);
     }
   if (Grob* a = unsmob_grob (g->get_grob_property ("arpeggio")))
     {

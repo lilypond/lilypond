@@ -19,6 +19,12 @@ public:
   DECLARE_SCHEME_CALLBACK (extent_callback, (SCM element, SCM axis));  
   static void add_accidental (Grob *,Grob* );
 
+  static Interval get_relevant_accidental_extent (Grob *me,
+						  Item *item_col,
+						  Grob *acc);
+  static void split_accidentals (Grob * accs,
+			  Link_array<Grob> *break_reminder,
+			  Link_array<Grob> *real_acc);
   
   static SCM position_accidentals (Grob* );
   static bool has_interface (Grob*);

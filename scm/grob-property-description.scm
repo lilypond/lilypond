@@ -140,6 +140,7 @@ square of the inner notes involved.")
 (grob-property-description 'collapse-height number? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
 
 (grob-property-description 'columns grob-list? "list of grobs, typically containing paper-columns.")
+(grob-property-description 'conditional-elements grob-list? "Internal use only")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
@@ -177,6 +178,7 @@ mean centre distance weighted per note
 (grob-property-description 'expand-limit integer? "maximum number of measures expanded in church rests.")
 (grob-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}.")
+(grob-property-description 'extent-X number-pair? "Store extent. internal use only. ")
 (grob-property-description 'extra-offset number-pair? "pair of reals
 (a cons) forcing an extra offset before outputting.
 @code{extra-offset} is added just before `printing' the grob, so the
@@ -304,7 +306,7 @@ taking grob as argument, returning a smobbed Molecule.
 All visible, i.e. non-transparent, grobs have a callback to create a
 Molecule. The callback should be a Scheme function taking one argument
 (the grob) and returning a Molecule.  Most molecule callbacks are
-written in C++, but you can also write them in Scheme. An example is
+written in C++, but you can also write them in Scheme. An examlily/lilypond/ple is
 provided in @code{input/regression/molecule-hacking.ly}.
 ")
 

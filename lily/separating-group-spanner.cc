@@ -17,9 +17,6 @@
 void
 Separating_group_spanner::find_rods (Item * r, SCM next)
 {
-  Interval ri (Separation_item::my_width (r));
-  if (ri.empty_b ())
-    return;
 
   /*
     This is an inner loop, however, in most cases, the interesting L
@@ -32,9 +29,9 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 
       if (lb)
 	{
-	  Interval li (Separation_item::my_width (lb));
-
-	  if (!li.empty_b ())
+	  Interval li (Separation_item::width (lb));
+	  Interval ri (Separation_item::conditional_width (r, lb));
+	  if (!li.empty_b () && !ri.empty_b())
 	    {
 	      Rod rod;
 
@@ -48,8 +45,9 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	    }
 	}
 
-      Interval li (Separation_item::my_width (l));
-      if (!li.empty_b ())
+      Interval li (Separation_item::width (l));
+      Interval ri (Separation_item::conditional_width (r, l));
+      if (!li.empty_b () && !ri.empty_b())
 	{
 	  Rod rod;
 
