@@ -15,13 +15,33 @@
 # TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips.
 #
 
+
+#
+# This is a slightly hairy program. The general approach is as follows 
+# The input string is chopped up in chunks, i.e. ,  a list of tuples
+#
+#   with the format  (TAG_STR, MAIN_STR, OPTIONS, TODO, BASE)
+#
+# This list is build step by step: first ignore and verbatim commands are handled,
+# delivering a list of chunks.
+# 
+# then all chunks containing lilypnod commands are chopped up
+#
+# when all chunks have their final form, all bodies from lilypond blocks are 
+# extracted, and if applicable, written do disk and run through lilypond.
+# 
+
+
 # This is was the idea for handling of comments:
+
+
 #	Multiline comments, @ignore .. @end ignore is scanned for
 #	in read_doc_file, and the chunks are marked as 'ignore', so
 #	lilypond-book will not touch them any more. The content of the
 #	chunks are written to the output file. Also 'include' and 'input'
 #	regex has to check if they are commented out.
 #
+
 #	Then it is scanned for 'lilypond', 'lilypond-file' and 'lilypond-block'.
 #	These three regex's has to check if they are on a commented line,
 #	% for latex, @c for texinfo.
@@ -140,7 +160,9 @@ default_music_fontsize = 16
 default_text_fontsize = 12
 paperguru = None
 
-
+################################################################
+# Dimension handling for LaTeX.
+# 
 class LatexPaper:
 	def __init__ (self):
 		self.m_document_preamble = []
@@ -297,6 +319,9 @@ html_linewidths = {
 	'smallbook': {12: in2pt (5)},
 	'letterpaper': {12: in2pt (6)}}
 
+
+################################################################
+# How to output various structures. 
 output_dict= {
 
 
@@ -460,7 +485,11 @@ def output_verbatim (body, small):
 	return get_output (key) % body
 
 
-# Warning: This uses extended regular expressions.  Treat with care.
+################################################################
+# Recognize special sequences in the input 
+
+
+# Warning: This uses extended regular expressions.  Tread with care.
 #
 # legenda
 #
@@ -486,6 +515,7 @@ re_dict = {
 		'singleline-comment': no_match,
 		'numcols': no_match,
 		'multicols': no_match,
+		'ly2dvi': r'(?m)(?P<match><ly2dvifile(?P<options>[^>]+)?>\s*(?P<filename>[^<]+)\s*</ly2dvifile>)',
 		},
 
 	'latex': {
@@ -507,6 +537,8 @@ re_dict = {
 		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>^%.*$\n+))",
 		'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		'multicols': r"(?P<code>\\(?P<be>begin|end)\s*{multicols}({(?P<num>\d+)?})?)",
+		'ly2dvi': no_match,
+
 		},
 
 	# why do we have distinction between @mbinclude and @include?
@@ -528,6 +560,7 @@ re_dict = {
 		'singleline-comment': r"(?m)^.*?(?P<match>(?P<code>@c.*$\n+))",
 		'numcols': no_match,
 		'multicols': no_match,
+		'ly2dvi': no_match,
 		}
 	}
 
@@ -859,6 +892,15 @@ def make_lilypond_file (m):
 	return [('input', get_output ('output-lilypond') %
 			(options, content))]
 
+def make_ly2dvi_block (m):
+	'''
+
+	Find <ly2dvifile .. >
+	'''
+
+	return [('ly2dvi', m.group ('filename'), m.group ('options'))]
+
+
 def make_lilypond_block (m):
 	if not g_do_music:
 		return []
@@ -869,6 +911,7 @@ def make_lilypond_block (m):
 		options = []
 	options = filter (lambda s: s != '', options)
 	return [('lilypond', m.group ('code'), options)]
+
 
 def do_columns (m):
 	global format
@@ -966,6 +1009,10 @@ def read_doc_file (filename):
 
 
 taken_file_names = {}
+
+def unique_file_name (body):
+	return 'lily-' + `abs (hash (body))`
+
 def schedule_lilypond_block (chunk):
 	'''Take the body and options from CHUNK, figure out how the
 	real .ly should look, and what should be left MAIN_STR (meant
@@ -982,7 +1029,7 @@ def schedule_lilypond_block (chunk):
 	## Hmm, we should hash only lilypond source, and skip the
 	## %options are ...
 	## comment line
-	basename = 'lily-' + `abs (hash (file_body))`
+	basename = unique_file_name (file_body)
 	for o in opts:
 		m = re.search ('filename="(.*?)"', o)
 		if m:
@@ -1001,6 +1048,7 @@ def schedule_lilypond_block (chunk):
 		needed_filetypes.append ('png')
 	if 'eps' in opts and not ('eps' in needed_filetypes):
 		needed_filetypes.append ('eps')
+
 	pathbase = os.path.join (g_outdir, basename)
 	def f (base, ext1, ext2):
 		a = os.path.isfile (base + ext2)
@@ -1062,6 +1110,9 @@ def schedule_lilypond_block (chunk):
 	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
 
+
+
+
 def process_lilypond_blocks (chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
@@ -1073,6 +1124,106 @@ def process_lilypond_blocks (chunks):#ugh rename
 		elif c[0] == 'multicols':
 			paperguru.m_multicols = c[2]
 		newchunks.append (c)
+	return newchunks
+
+def process_ly2dvi_blocks (chunks):
+	
+	def process_ly2dvi_block (chunk):
+		"""
+
+Run ly2dvi script on filename specified in CHUNK.
+This is only supported for HTML output.
+
+In HTML output it will leave a download menu with ps/pdf/midi etc.  in
+a separate HTML file, and a title + preview in the main html file,
+linking to the menu.
+
+		"""
+		(tag, name, opts) = chunk
+		assert format == 'html'
+		(content, original_name) = find_file (name)
+
+		original_name = os.path.basename (original_name)
+		
+		base = unique_file_name (content)
+		outname = base + '.ly'
+		changed = update_file (content, outname)
+
+		preview = base + ".png"
+		if changed or not os.path.isfile (preview):
+			ly.system ('ly2dvi --preview --postscript --verbose %s ' % base) 
+
+			ly.make_page_images (base)
+			ly.system ('gzip -9 - < %s.ps > %s.ps.gz' %  (base, base))
+			
+		def size_str (fn):
+			b = os.stat(fn)[stat.ST_SIZE]
+			if b < 1024:
+				return '%d bytes' % b
+			elif b < (2 << 20):
+				return '%d kb' % (b >> 10)
+			else:
+				return '%d mb' % (b >> 20)
+
+		exts = {
+			'pdf' : "Print (PDF, %s)",
+			'ps.gz' : "Print (gzipped PostScript, %s)",
+			'png' : "View (PNG, %s)",
+			'midi' : "Listen (MIDI, %s)",
+			'ly' : "View source code (%s)", 
+			}
+
+		menu = ''
+		page_files = ly.read_pipe ('ls --color=no -1 %s-page*.png' % base)
+
+		for p in string.split (page_files, '\n'):
+			p = p.strip()
+			if os.path.isfile (p):
+				sz = size_str (p)
+				page = re.sub ('.*page([0-9])+.*', 'View page \\1 (PNG picture, %s)\n', p)
+				page = page % sz
+				menu += '<li><a href="%s">%s</a>' % (p, page) 
+
+		ext_order = ['ly', 'pdf', 'ps.gz', 'midi']
+		for e in ext_order:
+			fn =   base +  '.' + e
+			print 'checking,' , fn
+			if not os.path.isfile (fn):
+				continue
+
+			entry = exts[e] % size_str (fn)
+
+			## TODO: do something like
+			## this for texinfo/latex as well ?
+			
+			menu += '<li><a href="%s">%s</a>\n\n' % (fn, entry)
+
+
+		explanatory_para = """The pictures are 90dpi
+anti-aliased snapshots of the printed output, in PNG format. Both  PDF and PS
+use scalable fonts and should look OK at any resolution."""
+		
+		separate_menu =r'''
+<title>LilyPond example %s</title>
+
+<h1>%s</h1>
+<p><img src="%s">
+<p>%s
+<p>
+<ul>%s</ul>''' % (original_name,original_name, preview, explanatory_para, menu)
+		
+		open (base + '.html','w'). write (separate_menu)
+
+		inline_menu = '<p/><a href="%s.html"><img src="%s"><p/></a>' % (base, original_name, preview)
+
+		return ('ly2dvi', inline_menu)
+
+	newchunks = []
+	for c in chunks:
+		if c[0] == 'ly2dvi':
+			c = process_ly2dvi_block (c)
+		newchunks.append (c)
+
 	return newchunks
 
 def compile_all_files (chunks):
@@ -1149,7 +1300,7 @@ def compile_all_files (chunks):
 
 def update_file (body, name):
 	'''
-	write the body if it has changed
+	write the body if it has changed. Return whether BODY has changed.
 	'''
 	same = 0
 	try:
@@ -1242,6 +1393,7 @@ foutn=""
 
 def do_file (input_filename):
 	chunks = read_doc_file (input_filename)
+	chunks = chop_chunks (chunks, 'ly2dvi', make_ly2dvi_block, 1)
 	chunks = chop_chunks (chunks, 'lilypond', make_lilypond, 1)
 	chunks = chop_chunks (chunks, 'lilypond-file', make_lilypond_file, 1)
 	chunks = chop_chunks (chunks, 'lilypond-block', make_lilypond_block, 1)
@@ -1254,7 +1406,8 @@ def do_file (input_filename):
 	#sys.exit ()
 	scan_preamble (chunks)
 	chunks = process_lilypond_blocks (chunks)
-
+	chunks = process_ly2dvi_blocks (chunks)
+	
 	# Do It.
 	global g_run_lilypond
 	if g_run_lilypond:

@@ -97,7 +97,7 @@ rules.
 @section The Feta font
 The following symbols are available in the Feta font and may be
 accessed directly using text markup such as 
-@code{g^#'(music "scripts-segno")}, see @ref{Text markup}.
+@code{g^\markup @{ \musicglyph #"scripts-segno" @}}, see @ref{Text markup}.
 
 @lilypondfile[noquote,noindent]{feta16list.ly}
 

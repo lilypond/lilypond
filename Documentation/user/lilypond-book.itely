@@ -206,12 +206,26 @@ For inline pictures, use @code{<lilypond ... />} syntax, eg.
 Some music in <lilypond a b c/> a line of text.
 @end example
 
+A special feature not (yet) available in other output formats, is the
+@code{<ly2dvifile>} tag, for example
+@example
+  <ly2dvifile>trip.ly</ly2dvifile>
+@end example
+This runs @file{trip.ly} through ly2dvi (See also @ref{Invoking
+ly2dvi}), and substitutes a preview image in the output. The image
+links to a separate HTML file, so clicking it will take the viewer to
+a menu, with links to images, midi and printouts.
+
+@cindex ly2dvi
+@cindex titling in THML
+@cindex preview image
+@cindex thumbnail
 
 @node Music fragment options
 @section Music fragment options
 
-The commands for lilypond-book have room to specify options.  These are
-all of the options:
+The commands for lilypond-book have room to specify options.  These
+are all of the options:
 
 @table @code
 @item eps

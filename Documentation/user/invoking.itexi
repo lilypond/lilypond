@@ -214,7 +214,7 @@ developers, send a @emph{small} sample file.
 system libraries, whether you downloaded a binary release)
 
 @item If necessary, send a description of the bug itself.  If you
-include output a ly2dvi run, please use @code{--verbose} option of
+include output a ly2dvi run, please use @code{--debug} option of
 ly2dvi.
 
 @end itemize
@@ -277,8 +277,16 @@ through @code{ps2pdf} producing a PDF file.
 @code{\usepackage[latin1]@{inputenc@}} if you use any other
 non-anglosaxian characters.
 
-    @item --preview
+@item --preview
     Also generate a picture of the first system of the score.
+
+@cindex preview
+@cindex picture
+@cindex bitmap
+@cindex pixmap
+@cindex thumbnail
+@cindex screenshot
+    
 @item -s,--set=@var{key}=@var{val}
     Add @var{key}= @var{val} to the settings, overriding those specified
 in the files. Possible keys: @code{language}, @code{latexheaders},
@@ -286,9 +294,11 @@ in the files. Possible keys: @code{language}, @code{latexheaders},
 @code{pagenumber}, @code{linewidth}, @code{orientation},
 @code{textheight}.
 @item -v,--version
-Show version information 
+Show version information .
 @item -V,--verbose
-Be verbose
+Be verbose.
+@item --debug
+Print even more information. This is useful when generating bugreports.
 @item -w,--warranty
 Show the warranty with which GNU LilyPond comes. (It comes with 
 @strong{NO WARRANTY}!)
