@@ -1,3 +1,10 @@
+2002-06-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/convert-ly.py:  add tuplet-X-visibility rules.
+
+	* Documentation/user/refman.itely (Tuplets): update
+	tuplet-X-visibility properties. 
+
 2002-06-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (shift_region_to_valid): fix stupido bug. 
@@ -26,12 +33,6 @@
 	* lily/beam.cc (shift_region_to_valid): Try to shift positions
 	after slope-damping and concaveness check, so that short-stems are
 	not violated.
-
-2002-06-01  Jan Nieuwenhuizen  <janneke@gnu.org>
-
-	* lily/beam.cc (quanting): Increase REGION_SIZE to 4 by default.
-	While we'd rather not pay the performance penalty, we certainly
-	don't want silly bugs.  This should be looked into.
 
 2002-05-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 

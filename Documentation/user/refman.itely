@@ -471,18 +471,18 @@ denominator, but if you set it to the Scheme function
 instead.
 
 The typesetting of brackets and numbers is controlled by the properties
-@code{tuplet-bracket-visibility} and @code{tuplet-number-visibility}. 
+@code{bracket-visibility} and @code{number-visibility}. 
 
 @lilypond[fragment,  relative, singleline, verbatim]
-\property Voice.TupletBracket \set #'tuplet-bracket-visibility = ##t
+\property Voice.TupletBracket \set #'bracket-visibility = ##t
 \times 2/3{c'8 d e} \times 2/3{d4 e8} 
-\property Voice.TupletBracket \set #'tuplet-bracket-visibility = #'if-no-beam
+\property Voice.TupletBracket \set #'bracket-visibility = #'if-no-beam
 \times 2/3{c d e} \times 2/3{d4 e8} 
-\property Voice.TupletBracket \set #'tuplet-bracket-visibility = ##f
+\property Voice.TupletBracket \set #'bracket-visibility = ##f
 \times 2/3{c d e} \times 2/3{d4 e8}
-\property Voice.TupletBracket \set #'tuplet-number-visibility = ##f
+\property Voice.TupletBracket \set #'number-visibility = ##f
 \times 2/3{c d e} \times 2/3{d4 e8}
-\property Voice.TupletBracket \set #'tuplet-number-visibility = #'if-no-beam
+\property Voice.TupletBracket \set #'number-visibility = #'if-no-beam
 \times 2/3{c d e} \times 2/3{d4 e8}
 @end lilypond
 
