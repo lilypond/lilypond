@@ -820,7 +820,7 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     if test "$kpathsea_b" != no; then
         AC_MSG_RESULT(yes)
 	KPATHSEA=1
-	if "$have_libkpathsea_so" = "no" ; then
+	if test "$have_libkpathsea_so" = "no"; then
 	  KPATHSEA_LIBS="-lkpathsea"
 	fi
     else
