@@ -163,7 +163,8 @@ All_font_metrics::find_tfm (String name)
 Font_metric *
 All_font_metrics::find_font (String name)
 {
-  if (name.left_string (4) == "feta") 
+  if ((name.left_string (4) == "feta") ||
+      (name.left_string (8) == "parmesan"))
     {
       Font_metric * f = find_afm (name);
       if (f)
