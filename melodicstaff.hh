@@ -19,7 +19,8 @@ struct Melodic_staff : public Simple_staff
 
 struct Melodic_column : public Simple_column {
     virtual void typeset_req(Request *rq);
-  virtual void typeset_command(Command *, int brs);
+    virtual void typeset_stem(Stem_req *rq);
+    virtual void typeset_command(Command *, int brs);
   //    virtual void typeset_item(Item*, int=1);
     Melodic_column(Score_column*s,Simple_staff*rs) :
 	Simple_column(s,rs) { }

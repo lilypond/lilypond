@@ -38,7 +38,11 @@ Paperdef::interline() const
 {
     return lookup_->ball(4).dim.y.length();
 }
-
+Real
+Paperdef::note_width()const
+{
+    return lookup_->ball(4).dim.x.length( );
+}
 Real
 Paperdef::standard_height() const
 {
