@@ -1,5 +1,7 @@
 2003-07-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/main.cc (notice): change FSF address 
+
 	* po/de.po: update PO file to 1.6.
 
 2003-07-13  Heikki Junes  <hjunes@cc.hut.fi>
