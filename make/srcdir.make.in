@@ -35,13 +35,17 @@ config = config$(CONFIGSUFFIX).make
 
 include $(config)
 
-SRCDIR=$(MAKE) -C $(srcdir) -f GNUmakefile.in builddir=$(builddir)
+export SRCMAKE=$(MAKE) -C $(srcdir) -f GNUmakefile.in builddir=$(builddir)
 
 default: all
 
 %:
-	$(SRCDIR) $@
+	$(SRCMAKE) $@
 
 web: 
-	$(SRCDIR) out=www WWW
-	$(SRCDIR) out=www WWW-post
+	$(SRCMAKE) out=www WWW
+	$(SRCMAKE) out=www WWW-post
+
+install:
+	$(SRCMAKE) install
+	$(SRCMAKE) final-install
