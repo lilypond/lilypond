@@ -1,9 +1,14 @@
 2004-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/include/lily-guile.hh: Remove guile-1.4 compatibility.
+	This greatly reduces the number of files that get recompiled
+	after touching config.hh.
+
+	* config.hh.in: Remove GUILE_*_VERSION.
+
 	* lily/new-slur.cc: Resolve conflicts.
 
-	* lily/stem-engraver.cc (add_script):
-	(make_stem): New method.
+	* lily/stem-engraver.cc	(make_stem): New method.
 
 	* lily/include/script-interface.hh:
 	* lily/script-interface.cc: New file.

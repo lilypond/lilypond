@@ -9,123 +9,57 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
-
-/* GUILE only includes version in headers (libguile/version.h) as of
-   1.5.x.  For some strange reason, they call it SCM.*VERSION.
-
-   Not including config.hh here, saves a lot of unnecessary
-   recompiles. */
 #include <libguile.h>
-
-#ifndef GUILE_MAJOR_VERSION
-#ifdef SCM_MAJOR_VERSION
-#define GUILE_MAJOR_VERSION SCM_MAJOR_VERSION
-#define GUILE_MINOR_VERSION SCM_MINOR_VERSION
-#define GUILE_PATCH_LEVEL SCM_MICRO_VERSION
-#else
-#include "config.hh"
-#endif
-#endif
+#include "flower-proto.hh"
 
 #include "drul-array.hh"
+#include "direction.hh"
 
-
-/* Guile 1.4.x compatibility */
-#if GUILE_MINOR_VERSION < 5
-
-#define scm_t_bits scm_bits_t
-
-#define fix_guile_1_4_scm_primitive_eval(form) scm_eval_3 (form, 1, SCM_EOL)
-#define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
-
-#define scm_int2num(x) scm_long2num (x)  
-#define scm_current_module() (SCM)0
-#define scm_set_current_module(x) (void)x
-#define scm_c_resolve_module(x) (SCM)0
-
-inline SCM scm_c_make_vector  (int k, SCM val) {
-  return scm_make_vector (scm_from_int (k), val);
-}
-#define scm_c_define_gsubr scm_make_gsubr
-#define scm_remember_upto_here_1(s) scm_remember (&s)
-#define scm_gc_protect_object scm_protect_object
-#define scm_gc_unprotect_object scm_unprotect_object
-#define scm_list_n scm_listify
-#define SCM_STRING_CHARS SCM_CHARS
-#define SCM_STRING_LENGTH SCM_LENGTH
-#define SCM_SYMBOL_CHARS SCM_CHARS
-#define SCM_SYMBOL_LENGTH SCM_LENGTH
-#define SCM_VECTOR_LENGTH SCM_LENGTH
-
-#define SMOB_FREE_RETURN_VAL(CL) sizeof(CL) 
-#define scm_done_free(x) 
-#endif
+#if SCM_MINOR_VERSION < 7
+/* guile-1.6.x compatibility */
+#define scm_gc_unregister_collectable_memory(a, b, c) scm_done_free (b)
+#define scm_gc_register_collectable_memory(a, b, c) scm_done_malloc (b)
+#define SCM_VECTOR_REF(v,i) (SCM_VELTS ((v))[(i)])
+#define scm_from_int(x) SCM_MAKINUM (x)
+#define scm_hash_table_p scm_vector_p
+#endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL
 #define SMOB_FREE_RETURN_VAL(CL) 0
 #endif
 
-
-#if GUILE_MINOR_VERSION < 7
-#define scm_gc_unregister_collectable_memory(a,b,c) scm_done_free(b)
-#define scm_gc_register_collectable_memory(a,b,c) scm_done_malloc(b)
-#define SCM_VECTOR_REF(v,i) (SCM_VELTS((v))[(i)])
-#define scm_from_int(x) SCM_MAKINUM(x)
-#define scm_hash_table_p scm_vector_p 
-
-#endif
-
-#include "direction.hh"
-#include "flower-proto.hh"
-
 #ifndef SCM_PACK
 #define SCM_PACK(x) ((SCM) x)
-
 #endif
+
 #ifndef SCM_UNPACK
-#define SCM_UNPACK(x) ( x)
+#define SCM_UNPACK(x) (x)
 #endif
 
-/*
-  conversion functions follow the GUILE naming convention, i.e.
-
-    A ly_B2A (B b);
- */
+/** Conversion functions follow the GUILE naming convention, i.e.
+    A ly_B2A (B b);  */
 
 SCM ly_last (SCM list);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
-SCM ly_truncate_list (int k, SCM l );
-
-
-/*
-  Unreliable on gcc2
- */
-// #define CACHE_SYMBOLS
-
+SCM ly_truncate_list (int k, SCM lst);
 
 #if (__GNUC__ > 2)
-/*
-  todo: should add check for x86 as well
- */
+/* Unreliable with gcc-2.x
+   FIXME: should add check for x86 as well?  */
 #define CACHE_SYMBOLS
 #endif
 
-
 #ifdef CACHE_SYMBOLS
 
-
-/*
-  Using this trick we cache the value of scm_str2symbol ("fooo") where
+/* Using this trick we cache the value of scm_str2symbol ("fooo") where
   "fooo" is a constant string. This is done at the cost of one static
   variable per ly_symbol2scm() use, and one boolean evaluation for
   every call.
 
-  The overall speedup of lily is about 5% on a run of wtk1-fugue2
-
-*/
-#define ly_symbol2scm(x) ({ static SCM cached;  \
- SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
+  The overall speedup of lily is about 5% on a run of wtk1-fugue2.  */
+#define ly_symbol2scm(x) ({ static SCM cached; \
+ SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */ \
  if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
      value = cached =  scm_gc_protect_object (scm_str2symbol((x)));\
@@ -134,7 +68,7 @@ SCM ly_truncate_list (int k, SCM l );
   value; })
 #else
 inline SCM ly_symbol2scm(char const* x) { return scm_str2symbol((x)); }
-#endif 
+#endif
 
 extern SCM global_lily_module;
 
@@ -142,7 +76,7 @@ extern SCM global_lily_module;
   TODO: rename me to ly_c_lily_module_eval
  */
 #define ly_scheme_function(x) ({static SCM cached; \
- SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
+ SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */ \
  if ( __builtin_constant_p ((x)))\
  {  if (!cached)\
      value = cached =  scm_gc_protect_object (scm_eval(scm_str2symbol (x), global_lily_module));\
@@ -180,7 +114,7 @@ SCM robust_list_ref(int i, SCM l);
 SCM alist_to_hashq (SCM);
 
 inline SCM ly_cdr (SCM x) { return SCM_CDR (x); }
-inline SCM ly_car (SCM x) { return SCM_CAR (x); } 
+inline SCM ly_car (SCM x) { return SCM_CAR (x); }
 inline SCM ly_caar (SCM x) { return SCM_CAAR (x); }
 inline SCM ly_cdar (SCM x) { return SCM_CDAR (x); }
 inline SCM ly_cadr (SCM x) { return SCM_CADR (x); }
@@ -204,39 +138,37 @@ inline bool ly_c_vector_p (SCM x) { return SCM_VECTORP (x); }
 inline bool ly_c_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_c_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
-inline bool ly_c_equal_p (SCM x, SCM y) { 
-  return SCM_NFALSEP (scm_equal_p (x, y)); 
+inline bool ly_c_equal_p (SCM x, SCM y) {
+  return SCM_NFALSEP (scm_equal_p (x, y));
 }
 
 inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
 inline char ly_scm2char (SCM x) { return SCM_CHAR(x); }
 inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
-inline unsigned long ly_length (SCM x) { 
+inline unsigned long ly_length (SCM x) {
   return scm_num2ulong (scm_length (x), 0, "ly_length");
 }
 inline unsigned long ly_vector_length (SCM x) { return SCM_VECTOR_LENGTH (x); }
 
 inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
 
-inline SCM ly_append2 (SCM x1, SCM x2) { 
-  return scm_append (scm_listify (x1, x2, SCM_UNDEFINED)); 
+inline SCM ly_append2 (SCM x1, SCM x2) {
+  return scm_append (scm_listify (x1, x2, SCM_UNDEFINED));
 }
-inline SCM ly_append3 (SCM x1, SCM x2, SCM x3) { 
-  return scm_append (scm_listify (x1, x2, x3, SCM_UNDEFINED)); 
+inline SCM ly_append3 (SCM x1, SCM x2, SCM x3) {
+  return scm_append (scm_listify (x1, x2, x3, SCM_UNDEFINED));
 }
-inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4) { 
-  return scm_append (scm_listify (x1, x2, x3, x4, SCM_UNDEFINED)); 
+inline SCM ly_append4 (SCM x1, SCM x2, SCM x3, SCM x4) {
+  return scm_append (scm_listify (x1, x2, x3, x4, SCM_UNDEFINED));
 }
 
 /*
   display and print newline.
  */
-extern "C" { 
+extern "C" {
 void ly_display_scm (SCM s);
 }
-
-#include "array.hh"
 
 void read_lily_scm_file (String);
 void ly_c_init_guile ();
@@ -278,8 +210,8 @@ typedef SCM (*Scheme_function_unknown) ();
 #if __GNUC__ > 2 || __GNUC_MINOR__ >= 96
 typedef SCM (*Scheme_function_0) ();
 typedef SCM (*Scheme_function_1) (SCM);
-typedef SCM (*Scheme_function_2) (SCM,SCM);	 
-typedef SCM (*Scheme_function_3) (SCM,SCM, SCM);	 
+typedef SCM (*Scheme_function_2) (SCM,SCM);	
+typedef SCM (*Scheme_function_3) (SCM,SCM, SCM);	
 #else
 typedef SCM (*Scheme_function_0) (...);
 typedef SCM (*Scheme_function_1) (...);
@@ -297,7 +229,7 @@ typedef SCM (*Scheme_function_3) (...);
 	static SCM NAME ## _proc
 
 /*
-  Make TYPE::FUNC available as a Scheme function. 
+  Make TYPE::FUNC available as a Scheme function.
  */
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT) \
 SCM TYPE :: FUNC ## _proc;\
@@ -344,12 +276,12 @@ FNAME ARGLIST\
 
 #define LY_DEFINE(FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
 SCM FNAME ARGLIST ; \
-LY_DEFINE_WITHOUT_DECL(FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) 
+LY_DEFINE_WITHOUT_DECL(FNAME, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)
 
 
 #define LY_DEFINE_MEMBER_FUNCTION(CLASS, FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) \
 SCM FNAME ARGLIST ; \
-LY_DEFINE_WITHOUT_DECL(CLASS ## FNAME,  CLASS::FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING) 
+LY_DEFINE_WITHOUT_DECL(CLASS ## FNAME,  CLASS::FNAME, PRIMNAME, REQ, OPT, VAR, ARGLIST, DOCSTRING)
 
 
 #define get_property(x) internal_get_property(ly_symbol2scm(x))
