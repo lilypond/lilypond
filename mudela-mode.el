@@ -39,7 +39,7 @@
 		     "notenames" "octave" "output" "partial" "paper" "plet"
 		     "property" "pt" "shape" "relative" "include" "score"
 		     "scm" "scmfile"
-		     "script" "skip"  "table" "spandynamic" "symboltables"
+		     "script" "skip"  "table" "times" "spandynamic" "symboltables"
 		     "tempo" "texid" "textstyle" "transpose" "version" "grouping"
 		     ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
@@ -98,8 +98,8 @@
   (mapcar (function
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) mu-mode-syntax-table)))
-	  '(( ?\( . "()" ) ( ?\) . ")(" )
-	    ( ?\[ . "(]" ) ( ?\] . ")[" )
+	  '(( ?\( . "." ) ( ?\) . "." )
+	    ( ?\[ . "." ) ( ?\] . "." )
 	    ( ?\{ . "(}" ) ( ?\} . "){" )
 	    ( ?\< . "(>" )( ?\> . ")>") 
 	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )

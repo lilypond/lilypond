@@ -379,8 +379,9 @@ on entering music for now.  Consequently, when we mean
 verb(\score {
 	\notes { XXXX } 
  	\paper {  }
-})
-we will leave out the the repetitive details and just print
+})COMMENT(
+
+) we will leave out the the repetitive details and just print
 code(XXXX).
 
 
@@ -1010,9 +1011,7 @@ A notation context is not a primitive element of LilyPond, but rather
   how you can create your own contexts.
 
 
-
-
-sect(Nested music: more than one staff)
+sect(Nested music: multiple staffs)
 label(tutorial:more-staffs)
 
 Now we explain how to typeset music that runs in multiple staffs.
@@ -1022,19 +1021,15 @@ mudela(fragment)(
  \type GrandStaff <e'4 {\clef bass; g4^""} >
 )
 
-  The music consists of two notes.  Perhaps this is sheet music for a
-piano player, and one note is meant to be played with the left hand,
-and the other with the right hand.  That music would sound the same if
-it were written as a single chord on a single staff, i.e.,
-mudela(fragment)(
-  <g4 e'4>
-)
+In this example the music consists of two notes.  The above would
+sound the same if it were written as a single chord on a single staff,
+i.e., COMMENT(
 
+)mudela(fragment)(
+	<g4 e'4>
+)COMMENT(
 
-This is another example where we can see that there can be a difference
-between a musical idea, and the way it is expressed in notation.
-
-The Mudela construct for multiple staffs reflects the similarity
+) The Mudela construct for multiple staffs reflects the similarity
 between the two examples: to get multiple staffs in Mudela you enter a
 chord, with an additional instruction to tell LilyPond that the chord
 does not represent notes stacked together, but staffs stacked
@@ -1063,16 +1058,19 @@ verb(
 )
 
 This looks reasonable, but the effect of this input is not what you
-might expect (try it!).  When interpreting this chord LilyPond will
-start with the first entry, so a (nameless) staff is searched.  Such a
-staff is not found, so it is created.  On this staff the code(e) note
-is put.  When the second code(\type) entry is read, LilyPond will
-start looking for a nameless staff.  The staff that contains the
-code(e) is found, and the code(g) is put there as well.
+might expect:
+mudela(fragment)(
+  < \type Staff e'4
+    \type Staff g4 
+  >
+)COMMENT(
 
-The correct solution is to label both code(\type) constructs with
-different names, for example code(trebleStaff) and code(bassStaff).
-This makes LilyPond distinguish between them, and create two staffs:
+) Since there are no names specified for the desired staffs, LilyPond
+thinks your wishes are fullfilled by putting the code(g) on the same
+staff as the code(e).  The correct solution is to label both staffs
+with different names, for example code(trebleStaff) and
+code(bassStaff).  This makes LilyPond distinguish between them, and
+create two staffs:
 
 mudela(verbatim,fragment)(
   < \type Staff = trebleStaff e'4
@@ -1082,38 +1080,34 @@ mudela(verbatim,fragment)(
 
 ) The names that you choose do not matter just as long as they are
 different.  This is almost right, except for the brace at the left and
-the clef of the second staff.  The bass clef will be taken care of in
-the next section. If you want a brace, then you have to tell LilyPond
-that the chord you just formed is to be interpreted as a so-called
-grand staff.  This is also done with the code(\type) command.
-mudela(verbatim,fragment)(
+the clef of the second staff.  If you want a brace, then you have to
+tell LilyPond that the chord you just formed is to be interpreted as a
+so-called grand staff.  This is also done with the code(\type)
+command.  The bass clef is made with a clef command:  COMMENT(
+
+) mudela(verbatim,fragment)(
   \type GrandStaff <
-     \type Staff = treblestaff  e'4 
-     \type Staff = bassstaff  g4 
-  >
+	\type Staff = treblestaff e'4
+	\type Staff = bassstaff { \clef "bass"; g4 }
+  >)COMMENT(
+
 )
-
-
-
 
 sect(Polyphonic music (or: Notation context properties))
 label(sec:polyphonic)
 
-
-In the last section we explained that a notation context can have
-properties that influence the conversion from music to notation.  A
-simple example of such a property is the clef: the type of clef
-partially determines the vertical position of note heads in a staff.
-Some of these properties can be modified by commands such as
+In the section on notation contexts we explained that a notation
+context can have properties that influence the conversion from music
+to notation.  A simple example of such a property is the clef: the
+type of a clef helps determines the vertical position of note heads in
+a staff.  Some of these properties can be modified by commands such as
 code(\clef) and code(\time).  But there is more: notation contexts
 also have properties are settable in a generic fashion.  We will
 demonstrate this feature by printing multiple voices on a staff.
 
-In polyphonic (keyboard) music and orchestral scores often more than
-one voice is printed on one staff.  We'll explain how to achieve this
-effect with LilyPond.  The effect is not unlike the two stacked staffs
-from bind(Section)ref(tutorial:more-staffs), except that we don't want
-to stack staffs but voices.  Thus,  the general template is the following:
+Printing more than one voice on a staff, is not unlike printing
+multiple   staffs stacked together.  This suggests that  the template
+to follow  is this:
 verb(
   \type Staff <
     \type Voice = one  ...
@@ -1122,8 +1116,8 @@ verb(
 ) COMMENT(
 
 ) On the ellipsis there should be music going from left to right, in
-otherr words, there should be sequential music, notes enclosed in
-braces.  Let us try the following simple melodies:
+other words, notes enclosed in braces.  Let us try the following
+simple melodies:
 
 mudela(fragment,verbatim)(
 \type "Staff" <
@@ -1136,24 +1130,17 @@ two beats look like plain chords and not like separate voices.  What
 really happened was that the stems of the upper and lower voices were
 printed on top of each other.
 
-
-To remedy this, engravers traditionally make the stems of the upper
-and lower voice point in different directions: the stems of the lower
+To remedy this, engravers traditionally make the stems of the lower
 voice point down, and the stems of the upper up, as shown in
 bind(Figure)ref(tutorial:multi-voice-fig).
 
 Surely the direction of a single stem is a property of the stem as a
 graphical object.  But the fact that all of the stems in a voice point
 in the same direction is not directly graphical.  Since this is a
-property shared by all the stems in the voice, it is logical to
-consider this property to be a property of the context code(Voice).
-And this is how it's done in LilyPond: the context code(Voice) has an
-attribute whose value is the direction to use
-for stems.  You can change it to `up'
-by issuing the following phrase:footnote(The name code(ydirection) is
-no mistake.  The property also controls the up/down directions of
-super-/subscripts, slurs, ties, etc.)
-
+property shared by all the stems in the voice, this property is a
+property of the context code(Voice).  The context code(Voice) has an
+attribute whose value is the direction to use for stems.  You can
+change it to `up' by issuing the following phrase:
 verb(
   \property "Voice"."ydirection" = "1"
 )
@@ -1161,8 +1148,9 @@ verb(
 This command should be read as ``change the property called
 code(ydirection) within the current code(Voice) context to the value
 code(-1).''  For the property code(ydirection) the value code(1) means
-`up', and code(-1) means `down'.   The proper way to code the
-polyphonic example is given in bind(Figure)ref(tutorial:multi-voice-fig).
+`up', and code(-1) means `down'. So, the
+proper way to code the polyphonic example is given in
+bind(Figure)ref(tutorial:multi-voice-fig).
 
 latexcommand(\begin{figure}[h])
 mudela(fragment,verbatim,center)(
@@ -1179,10 +1167,14 @@ mudela(fragment,verbatim,center)(
     label(tutorial:multi-voice-fig)
 latexcommand(\end{figure})
 
+As you can see, this property also controls the directions of slurs,
+which explains the name code(ydirection).COMMENT(hmm)
+
+
 Other properties can also be set, and they can be within different
 contexts.  In general, you can set a property by specifying
 code(\property) var(contexttype)code(.)var(propertyname) code(=)
-var(value).  Both var(ContextType), var(PropertyName) and var(Value)
+var(value).  Both var(contexttype), var(propertyname) and var(value)
 should be strings.
 
 The effect of a property is pretty much hardwired into the
@@ -1191,70 +1183,47 @@ all the possible properties in detail. Among other characteristics that
 can be set are the layout of slurs and beams.  The initialisation file
 file(property.ly) explains most properties.
 
-We conclude this section with another example of a context property.
-Polyphonic music that has three or four voices can't be printed by
-simply changing the directions of the stems for each voice, obviously.
-Traditionally, some chords are shifted horizontally to print if this
-many voices have to be printed.  LilyPond can also do this, and the
-property that controls the horizontal shifting is called code(hshift).
-The notes in a code(Voice) context that has code(hshift) set to a true
-value (i.e., non-zero or non-empty), will be shifted horizontally in
-the case of a collision.  The following example demonstrates the
-effect.
-
-mudela(fragment,verbatim)(
-  \type "Staff" <
-    \type "Voice" =  "one"  {
-      \property Voice.ydirection = "1"
-      r4 as'4 () as'4 g'4 }
-    \type "Voice" =  "two"  {
-      \property Voice.ydirection = "1"
-      \property Voice.hshift = 1
-      g'2 f'4 e'4 }
-    \type "Voice" = "three" {
-      \property Voice.ydirection = "-1"
-      [d'8 dis'] [d' cis'] [c' b] c'4
-    }
-  >
-)
-
 sect(Lyrics)
 label(tutorial:lyrics)
 
-Now for something completely different: Lyrics.  Lyrics are also
-considered to be music, although a lyric by itself does not have any
-pitch.  Producing lyrics has two aspects. First, you have to enter the
-text, i.e., the syllables along with their durations.  
-After this, you have to specify how to convert these to graphics.
+Since a lyrics can have durations just like notes, we consider them to
+be music too.  Entering lyrics in mudela has two aspects. First, you
+have to enter the text, i.e., the syllables along with their
+durations.  After this, you have to specify how to convert these to
+graphics.
 
 Lyrics consist of syllables, which are strings together with
 durations.  Previously we only entered note names, so for entering
 lyrics we have to instruct LilyPond that what we enter are not note
-names but words---or rather: strings.  This instruction is the keyword
+names but strings.  This instruction is the keyword
 code(\lyrics).  After entering this keyword you can enter a musical
 construct---sequential music, simultaneous music, code(\type)
 entries, etc.--- but with syllables instead of pitches.  For example:
-verb( \lyrics { 'got8 me on my knees4, Le-8 lie! })
+COMMENT(
 
-Next comes the conversion to notation.  LilyPond can't (yet) figure
+)verb(\lyrics { 'got8 me on my knees4, Le-8 lie! })COMMENT(
+
+) Next comes the conversion to notation.  LilyPond can't (yet) figure
 out that lyrics need different treatment than notes.  As a result, the
 default conversion will try to put the text you entered as note heads
-onto a staff, and this will fail.  This default must be overriden with
-a code(\type) keyword.  Printing syllables of text in a line is done
-by a context called code(Lyrics).  You can select this context with
-the code(\type) keyword.  Here is a simple example:
+onto a staff, and this will fail.  This default must be overridden
+with a code(\type) keyword.  Printing syllables of text in a line is
+done by a context called code(Lyrics).  You can select this context
+with the code(\type) keyword.  Here is a simple example:
+COMMENT(
 
-mudela(fragment,verbatim)(
-	\type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })
+)mudela(fragment,verbatim)(
+\type Lyrics \lyrics { 'got8 me on my knees,4 Le-8 lie! })COMMENT(
 
-The result is technically  correct, but without a melody it
-just doesn't work, so let's add a blob of cream:
-mudela(fragment,verbatim)(
+)The result is technically correct, but it needs a melody to make it
+performable: COMMENT(
+
+)mudela(fragment,verbatim)(
   <
     \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
     \type Lyrics \lyrics { 'got8. me16 on8. my16 knees,4 Le-8 lie!4. }
   >
-) COMMENT
+) COMMENT(
 
 ) The strings that makes up each syllable in the lyrics block are
 passed along to TeX() verbatim, so if you are proficient with TeX()
@@ -1262,19 +1231,20 @@ you can do various nifty things.  Just keep in mind that a syllable
 either starts with a letter (a character in the range `code(a)' to
 `code(z)' or `code(A)' to `code(Z)'), or it is a string enclosed
 quotes. It ends with either a number for the duration, or a space.
-All these tricks are demonstrated in the following example:
-
+These tricks are demonstrated in the following example:
 COMMENT( urg
 \type Lyrics \lyrics { 'got8 m\textbf{e}8 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
 \type Lyrics \lyrics { 'got8 m{\bf e}4 on8. m$\cal_Y$16 knees,4 Le-8 lie!4.}
-)
+)COMMENT(
 
-mudela(fragment,verbatim)(<
+)mudela(fragment,verbatim)(<
   \type Staff  { c''8. c''16 bes'8. a'16 g'4 f'8 g'4. }
   \type Lyrics \lyrics { 'got8 me8 on8. m$\cal_Y$16 "3s,"4 Le-8 lie!4.}
 >
-)
+)COMMENT(
 
+
+)
 COMMENT(Groen is de kleur van geluk.)
 COMMENT(Dat geldt zeker voor Bj"ork)
 
@@ -1350,38 +1320,29 @@ stemdown = \property Voice.ydirection = "-1"
 shift = \property Voice.hshift = "1"
 \score {
   \type "Staff" \notes <
-    \type "Voice" =  "one"  {
-      \stemup
-      r4 as'4 () as'4 g'4 }
-    \type "Voice" =  "two"  {
-      \stemup
-      \shift
-      g'2 f'4 e'4 }
-    \type "Voice" = "three" {
-      \stemdown
-      [d'8 dis'] [d' cis'] [c' b] c'4
-    }
-  >
+    \type "Voice" =  "one"  { \stemup r4 as'4 () as'4 g'4 }
+    \type "Voice" =  "two"  { \stemup \shift g'2 f'4 e'4 }
+    \type "Voice" = "three" { \stemdown [d'8 dis'] [d' cis'] [c' b] c'4 } >
   \paper{  linewidth = -1.0\pt; }
-}
-)
+})
 
-Several abbreviations like code(\stemup) are defined in the
-standard initialisation file file(property.ly).  Setting or changing
-context properties can have a similar effect as the commands that were
+Several abbreviations like code(\stemup) are defined in the standard
+initialisation file file(property.ly).  Setting or changing context
+properties can have a similar effect as the commands that were
 discussed in bind(Section)ref(sec:commands).  Don't be fooled by the
-similarity in appearance between a declared property-setting entry
-and a real command.  Real commands are hardcoded into the language
-and they have to be terminated by semicolons.
+similarity in appearance between a declared property-setting entry and
+a real command like code(\clef) or code(\bar).  Real commands are
+hardcoded into the language and they have to be terminated by
+semicolons.
 
-You can also use identifiers to break up the heavy nesting that can occur
-in the code(\score) block.  Another useful application is
+You can also use identifiers to break up the heavy nesting that can
+occur in the code(\score) block.  Another useful application is
 parametrisation of the music: if you use identifiers in the
 code(\score) block, you can make variations of the music by simply
 redefining those identifiers.  One particular application of this is
 part extraction: by using identifiers and redefining them, one can
-print extracted parts and a full orchestral score from the same
-music definition.
+print extracted parts and a full orchestral score from the same music
+definition.
 
 
 sect(Sound output)
@@ -1391,25 +1352,23 @@ You get output by combining music with definition a conversion to
 output.  LilyPond currently supports one other conversion besides
 notation: the conversion from abstract music to sound. You can have
 LilyPond play the music that you entered.  The format that is used for
-this output is MIDI.  The most useful purpose of this sound output is
-to prooflisten your files: typing errors stand out when you listen,
-especially if they involve accidentals.
+this output is MIDI.  The result is not very pretty, but it is useful
+for prooflistening your files: typing errors stand out when you
+listen, especially if they involve accidentals.
 
 The only information that you need to enter is the
- nop(tempo)footnote(Unfortunately,
-this the only thing that can be tuned at this
-time.  This is a limitation: the tempo of music can vary throughout
-the music.) for the performance.  The syntax for the tempo is
-code(\tempo )var(duration) = var(beatsperminute);), for example:
-verb(
+tempo. (Unfortunately, at this time, this the only thing that can be
+tuned.  The syntax for the tempo is code(\tempo )var(duration) =
+var(beatsperminute);), for example: COMMENT(
+
+
+)verb(
 \score {
    ...music...
    \midi { \tempo 4 = 76; }
 }) COMMENT(
 
-)   The output was implemented in a very rudimentary
-manner, so it is probably not worth listening to for any other reason.
-
+)
 
 sect(Contexts revisited: engravers)
 label(tutorial:engravers)
@@ -1427,6 +1386,7 @@ it()handles specific notation constructs
 This characterization almost automatically explains what the definition of a
 context should look like:
 itemize(
+it() It should have a name
 it()It should be part of the ``notation output definition,'' i.e., the
   code(\paper) block
 it()
@@ -1437,100 +1397,85 @@ it()
   handled.
 )
 
-In practice, the context definition
-looks like this:
+LilyPond can create notation for a large number of symbols.  This code
+is split up into basic building blocks. Each building block is called
+an em(engraver), and an engraver generally handles only one notation
+construct: the code(Clef_engraver) takes care of the clefs, the
+code(Time_signature_engraver) takes care of printing time signatures.
+
+A notation context is formed by a group of engravers.  A special class
+in LilyPond---the code(Engraver_group_engraver)---allows engravers to
+cooperate in a group.  A variant of this grouping object is the
+code(Line_group_engraver_group), which puts the output of all the
+engravers (clefs, bars, etc) into a compound object, so that these
+symbols can be treated as a whole.
+
+This explains the following definition, which is a simplified Staff context:
 verb(
 \translator
 {
-        \type "Engraver_group_engraver";
+	\type "Line_group_engraver_group";
+        \name Staff ;
 
-	\name "ContextName";
+        \consists "Bar_engraver";
+        \consists "Clef_engraver";
+        \consists "Key_engraver";
+        \consists "Local_key_engraver";
+        \consists "Time_signature_engraver";
+        \consists "Staff_symbol_engraver";
 
-        \accepts "...";
-        \accepts "...";
-        \accepts "...";
-
-
-
-        \consists " ... ";
-        \consists " ... ";
-        \consists " ... ";
-
-        propertyname = "value";
-        propertyname = "value";
-
+	defaultClef = treble;
+          
+        \accepts "Voice";
 }) COMMENT(
 
-) The code(\translator) keyword opens the block for translation (or
-context) definition.  The code(\type) keyword explains to Lily that
-the context should be formed by taking an (empty) instance of
-code(Engraver_group_engraver).  The code(Engraver_group_engraver) is a
-C++ class from the source code to Lily.  The code(\accepts) entries
-explain what kind of contexts this context could contain.  If we were
-to define a context for a staff, the definition would typically
-contain code(\accepts "Voice";).
-
-The code(\consists) entries specify which notation constructs should
-be handled. This needs a little explanation: LilyPond contains the
-code for quite a large number of basic building blocks for notation
-generation, and each building block handles only one notation
-construct.  The name of such a building block is `engraver'.  You can
-specify which notation construct a context should handle by specifying
-which engravers should be part of the context.  The code(\consists
-"Foobar") entry really means ``add an instance of code(Foobar) to the
-translation group.''
-
+) This context, named Staff, puts its graphic objects into a compound
+object (a so-called ``Line group'').  At Staff level, bars, clefs,
+keys, accidentals, time signatures and the staff symbol are handled.
+A staff can contain a Voice context.  You can also preset properties
+of contexts: for instance, the clef that is printed upon starting a
+Staff, is the treble clef.
 
 You can also declare contexts, and reference them.  This is useful in
 combination with code(\remove "..."): code(\remove) does the opposite
-of code(\consists)
+of code(\consists).
 
-Finally, one can pre-set some properties in a context definition.  A
-new context inherits these pre-set properties, when it is created,
-e.g., when LilyPond processes the code(\type) construct.
+The real context definitions are in the standard initialisation
+file file(engraver.ly).
 
-As a practical example, we will show you how to typeset polymetric
-music, i.e., music where the meter can differ for each staff.  The
-solution is not very complicated: normally all timing information
-(time signature, rhythmic grouping) is synchronised across each staff.
-In LilyPond this is expressed by having only one registration for
-timing information for all staffs.  To be precise, there is only one
-code(Timing_engraver), and it is located in the top level context, the
-code(Score) context.
+As a practical example, we will show how to typeset polymetric music,
+i.e., music where the meter can differ for each staff.  The solution
+is not very complicated: normally all timing information (time
+signature, rhythmic grouping) is synchronised across each staff.  This
+is done by having only one administration for timing information: in
+the default configuration there is only one code(Timing_engraver), in
+the code(Score) context.
 
-All staffs use the information in the global code(Timing_engraver) for
-generating bar lines and time signatures.  In polymetric music, this
-timing information can be different for every staff, so we should
-redefine the code(Staff) context to include and the code(Score)
-context to exclude the code(Timing_engraver).
+All staffs use the information in the code(Timing_engraver) for
+generating bar lines and time signatures.  So, we can have different
+timing for every staff, by moving the code(Timing_engraver) into the
+ Staff context.
 
 mudela(verbatim)(
-polymetricpaper = \paper {
-  \translator {
-    \ScoreContext
-    \remove "Timing_engraver";
-  }
-  \translator {
-    \StaffContext
-    defaultClef = bass;
-
-    \consists "Timing_engraver";
-  }
-}
-\score {
-  \notes <
-    \type Staff = one { \time 2/4; c'4 c'4 c'4 c'4 c'4 c'4 }
-    \type Staff = two { \time 3/4; c'4 c'4 c'4 c'4 c'4 c'4 }
-  >
-  \paper { \polymetricpaper
-    linewidth = -1.;
+  \score {
+   \notes <
+     \type Staff = one { \time 2/4; c'4 c'4 c'4 c'4 c'4 c'4 }
+     \type Staff = two { \time 3/4; c'4 c'4 c'4 c'4 c'4 c'4 }
+   >
+   \paper { 
+     linewidth = -1.;
+     \translator {
+       \ScoreContext
+       \remove "Timing_engraver";
+     }
+     \translator {
+       \StaffContext
+       \consists "Timing_engraver";
+     }
   }
 }
 )
 
-As you can see, we used the identifier code(polymetricpaper) to break
-up the large score block.  More of these context definitions appear in
-the standard initialisation file file(engraver.ly).
 
 sect(Urtexts and context selection)
 label(tutorial:urtext)
@@ -1569,9 +1514,8 @@ music that can be had as Urtext usually is also available in enhanced
 and edited editions.  ) and an edited edition from em(one source).  We
 will use the first few bars of bind(J.)bind(S.)Bach's first Cello
 suite to demonstrate this.  The example makes heavy use of space
-rests: a space rest takes up time, like a rest does, but it doesn't
-print anything.  It can be used as a placeholder, to attach
-articulation marks to.  It is entered as a note with the name code(s).
+rests; here they are used as a placeholder to attach articulation
+marks to.  
 
 mudela(verbatim)(
   bach =  \notes \relative c { [g16 d' b' a] [b d, b' d,] }
@@ -1662,13 +1606,15 @@ beam, though: the spanners won't switch along.
 
 sect(Hairy durations: triplets)
 
+OUTDATED
+
 In the previous section we explained an operation that changes the
 pitches of music, transposition.  In this section we will explain an
 operation that modifies the duration of the notes that you enter.
 When notes are part of a triplet, then the real of duration of the
 notes are 2/3 part of what their shape indicates:
 mudela(fragment)(
-\[/3  c'4 c'4 c'4 \]/1
+\times 2/3 {  c'4 c'4 c'4 }
 )
 
 To support this notion, Mudela allows you to modify the duration of a
@@ -1677,7 +1623,7 @@ triplet is written as code(c'4*2/3).  If you sequence a few of these
 notes, you get a triplet.footnote(We added a normal staff in the example to
 show the difference.)
 mudela(fragment,verbatim)(
-<  \type Staff = staffA { c'8*2/3 c'8*2/3 c'8*2/3 c'4}
+<  \type Staff = staffA { \times 2/3 { c'8 c'8 c'8 } c'4}
    \type Staff = staffB { c''8 c''8 c''4 } >)
 
 LilyPond knows that these notes are no normal eighth notes, but the
@@ -1688,8 +1634,8 @@ they also abbreviate the code(*2/3) part.  If you want brackets in
 stead of beams, you can use `code(\[2/3])' and `code(\]1/1)'.
 mudela(fragment,verbatim)(
 < \type Staff = staffA {
-    [2/3 c'8 c'8 c'8 ]1/1
-    \[2/3 c'8 c'8 c'8 \]1/1
+    \times 2/3 { [ c'8 c'8 c'8 }
+    \times 2/3 {  c'8 c'8 c'8 }
   }
   \type Staff = staffB { [c''8 c''8 c''8 c''8] }
 >)
@@ -1698,7 +1644,7 @@ Other tuplets  can be entered in the same way.
 mudela(fragment,verbatim)(
 < \type Staff = staffA {
     \time 7/8;
-    [7/6 c'8 c'8 c'8 c'8 c'8 c'8 ]1/1
+    \times 7/6 { [c'8 c'8 c'8 c'8 c'8 c'8] }
   }
   \type Staff = staffB {
     \time 7/8;
@@ -1710,7 +1656,7 @@ you can abbreviate code(]1/1) on the closing beam marker to code(]/1).
 
 mudela(fragment,verbatim)(
 < \type Staff = staffA {
-    [/3 c'8 c'8 c'8 ]/1 c'4
+    \times 2/3 { c'8 c'8 c'8 } c'4
   }
   \type Staff = staffB { [c''8 c''8] c''4 } >
 )

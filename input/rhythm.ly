@@ -7,7 +7,7 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "1.0.7";
+\version "1.0.10";
 
 ritme = \notes\transpose c'' {
 	\time  4/4;
@@ -21,7 +21,7 @@ ritme = \notes\transpose c'' {
 	% divide measure in 5 equal parts. Usually it 2+3 or 3+2
 	\grouping  16*5 ;	
 	[c8 c16 c8 ]				|	% watch THIS!
-	 [5/4 c16 c16 c16 c16]1/1 |
+	 \times 5/4 { [ c16 c16 c16 c16] } |
 	\time   2/8;
 	c4 				|
 	c4	c4	c4	c4

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.7";
+\version "1.0.10";
 
 allegro =
 	\notes
@@ -129,10 +129,10 @@ allegro =
 	c4 r r2
 	r1 |
 	% mark H
-	[/3 c8 ()b a ]/1	[/3 g a b]/1 [/3 c d e]/1 [/3 f()e d]/1 |
-	[/3 c () b a ]/1 [/3 g a b]/1 [/3 c d e]/1 [/3 f()e d]/1|
-	c4 \[/3 r8 [g'()e]\]/1 c4 \[/3 r8 [e () c]\]/1 |
-	g4 \[/3 r8 [c8() g] \]/1 [/3 e ()g e]/1 [/3c ()e c]/1|
+	\times 2/3 { [ c8 ()b a ] }	\times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] } |
+	\times 2/3 { [ c () b a ] } \times 2/3 { [ g a b] } \times 2/3 { [ c d e] } \times 2/3 { [ f()e d] }|
+	c4 \times 2/3 {  r8 [g'()e]} c4 \times 2/3 {  r8 [e () c]} |
+	g4 \times 2/3 {  r8 [c8() g] } \times 2/3 { [ e ()g e] } \times 2/3 { [c ()e c] }|
 	g4 r8 g'\f [a b c d]|
 	d1(-\trill % \grace { c d }
 	)c4 r r2

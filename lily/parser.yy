@@ -47,7 +47,7 @@
 
 // mmm
 Mudela_version oldest_version ("1.0.7");
-Mudela_version version ("1.0.9");
+Mudela_version version ("1.0.10");
 
 
 // needed for bison.simple's malloc() and free()
@@ -782,9 +782,15 @@ Composite_music:
 		delete $2;
 		delete $4;
 	}
-	| TIMES int '/' int Music 	{
-		$$ = new Compressed_music ($2, $4, $5);
+	| TIMES {
+		THIS->remember_spot ();
+	}
+	/* CONTINUED */ 
+		int '/' int Music 	
 
+	{
+		$$ = new Compressed_music ($3, $5, $6);
+		$$->set_spot (THIS->pop_spot ());
 	}
 	| Repeated_music		{ $$ = $1; }
 	| Simultaneous_music		{ $$ = $1; }
@@ -806,7 +812,7 @@ Composite_music:
 		{
 		  $$ = $3;
 		  THIS->lexer_p_->pop_state ();
-		}
+	}
 	| relative_music	{ $$ = $1; }
 	;
 

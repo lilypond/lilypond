@@ -6,7 +6,7 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "1.0.7";
+\version "1.0.10";
 
 multipart = \notes{ 
     \type StaffGroup < 
@@ -21,29 +21,29 @@ multipart = \notes{
                    [c c] [c c] 
                 }
                 { 
-                   [2/3 c8 c c]1/1 
-                   [2/3 c c c]1/1 
-                   [2/3c c c]1/1 [2/3c c c]1/1 
+                   \times 2/3 { [ c8 c c] } 
+                   \times 2/3 { [ c c c] } 
+                   \times 2/3 { [c c c] } \times 2/3 { [c c c] } 
                 }
                 { 
-                   [2/4 c8 c c c]1/1
-                   [2/4 c c c c]1/1 
-                   [2/4c c c c]1/1 [2/4c c c c]1/1 
+                   \times 2/4 { [ c8 c c c] }
+                   \times 2/4 { [ c c c c] } 
+                   \times 2/4 { [c c c c] } \times 2/4 { [c c c c] } 
                 }
                 { 
-                   [2/5 c8 c c c c]1/1 
-                   [2/5 c c c c c]1/1 
-                   [2/5c c c c c]1/1 [2/5c c c c c]1/1 
+                   \times 2/5 { [ c8 c c c c] } 
+                   \times 2/5 { [ c c c c c] } 
+                   \times 2/5 { [c c c c c] } \times 2/5 { [c c c c c] } 
                 }
                 { 
-                   [2/6c8 c c c c c]1/1 
-                   [2/6c  c c c c c]1/1 
-                   [2/6c c c c c c]1/1 [2/6c c c c c c]1/1 
+                   \times 2/6 { [c8 c c c c c] } 
+                   \times 2/6 { [c  c c c c c] } 
+                   \times 2/6 { [c c c c c c] } \times 2/6 { [c c c c c c] } 
                 }
                 { 
-                   [2/7c8 c c c c c c]1/1 
-                   [2/7c c  c c c c c]1/1 
-                   [2/7c c c c c c c]1/1 [2/7c c c c c c c]1/1 
+                   \times 2/7 { [c8 c c c c c c] } 
+                   \times 2/7 { [c c  c c c c c] } 
+                   \times 2/7 { [c c c c c c c] } \times 2/7 { [c c c c c c c] } 
                 }
             >
 	}

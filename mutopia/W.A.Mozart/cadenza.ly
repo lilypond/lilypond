@@ -13,7 +13,7 @@ Tested Features: cadenza mode
 Ugh.. Wish we had grace notes....  It adds another dimension to this
 piece of music.  %}
 
-\version "1.0.7";
+\version "1.0.10";
 
 
 cad = \notes  \relative c' {
@@ -46,7 +46,7 @@ cad = \notes  \relative c' {
 	[d16 cis d e]
 	f4() [f16 e d c]
 	b4-\turn
-	[2/3 d8 c8 a8]1/1
+	\times 2/3 { [ d8 c8 a8] }
 	g2
 		\bar "" ;
 	[g16 c, e g] [c e, g c]

@@ -10,7 +10,7 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.7";
+\version "1.0.10";
 
 global = \notes {
 	\time 4/4;
@@ -133,7 +133,7 @@ andanteEn = \notes\relative c''{
 %28
 	[bes'8-\fermata~ bes32 a g fis] [g bes a g fis e d c] [bes d c es d g fis e]
 	[d c bes a bes d bes g] |
-	r16 [e'32 fis fis16.-\prall \[2/3 e64 fis g\]1/1 ] 
+	r16 [e'32 fis fis16.-\prall \times 2/3 { e64 fis g] }  
 	\type Staff <
 	 	{	\stemup  
 			[bes,32 a g fis g32 bes16.~] [bes16 c32 bes a bes c a] [fis8. g16] }

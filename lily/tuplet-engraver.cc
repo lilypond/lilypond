@@ -13,6 +13,7 @@
 #include "note-column.hh"
 #include "compressed-music.hh"
 #include "text-def.hh"
+#include "beam.hh"
 
 bool
 Tuplet_engraver::do_try_music (Music *r)
@@ -49,6 +50,11 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	started_span_p_arr_[j]->add_column (nc);
+    }
+  else if (Beam *b = dynamic_cast<Beam *> (i.elem_l_))
+    {
+      for (int j = 0; j < started_span_p_arr_.size (); j++)
+	started_span_p_arr_[j]->set_beam (b);
     }
 }
 

@@ -239,6 +239,23 @@ if 1:
 	
 	conversions.append ((1,0,7), conv, '\\lyric -> \\lyrics')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  re.sub ('\\\\\\[/3+', '\\\\times 2/3 { ',x)
+			x =  re.sub ('\\[/3+', '\\\\times 2/3 { [',x)
+			x =  re.sub ('\\\\\\[([0-9/]+)', '\\\\times \\1 {',x)
+			x =  re.sub ('\\[([0-9/]+)', '\\\\times \\1 { [',x)
+			x =  re.sub ('\\\\\\]([0-9/]+)', '}', x)
+			x =  re.sub ('\\\\\\]', '}',x)
+			x =  re.sub ('\\]([0-9/]+)', '] }', x)
+
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 ')
+
 
 ############################
 	

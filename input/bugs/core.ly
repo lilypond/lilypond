@@ -30,41 +30,41 @@ blah = 	\notes {
 \transpose c''' {
 		c4. d 
 	%ugr
-		 |\times 6/9 { [ a8 \< a a a a a a  \! a a \ff \> ] } | }
+		 |\times 6/9 { a8 \< a a a a a a  \! a a \ff \> ] } | }
 		 \transpose c'' {
-		     \times 6/9 { [ a  a a a a a a a \! a ] } | }
+		     \times 6/9 { a  a a a a a a a \! a ] } | }
 		 \transpose c''' {
-		 \times 6/9 { [ c,->-.-\fermata \< g,->-.-\fermata 
+		 \times 6/9 { c,->-.-\fermata \< g,->-.-\fermata 
 			d->-.-\fermata a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. c'''->-.-\fermata 
 			\! g'''->-.-\fermata \> ] }
 
-		\times 6/9 { [ g'''->-.-\fermata c'''->-.-\fermata
+		\times 6/9 { g'''->-.-\fermata c'''->-.-\fermata
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
 			a->-.-\fermata d->-.-\fermata g,->-.-\fermata \! 
 			c,->-.-\fermata ] }
 			
-		\times 6/9 { [ c,->-.-\fermata \< g,->-.-\fermata d->-.-\fermata 
+		\times 6/9 { c,->-.-\fermata \< g,->-.-\fermata d->-.-\fermata 
 		a->-.-\fermata
 			e'->-.-\fermata b'-. f''-. 
 			c'''->-.-\fermata \! g'''->-.-\fermata \> ] }
-		 \times 6/9 { [ g'''->-.-\fermata c'''->-.-\fermata
+		 \times 6/9 { g'''->-.-\fermata c'''->-.-\fermata
 			f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata 
 			a->-.-\fermata d->-.-\fermata 
 			g,->-.-\fermata \! c,->-.-\fermata ] }
 		}
 		\transpose c'' {
-		 \times 2/3 { [ c g d' ] } 
-		 \times 2/3 { [ d' g c ] }  
-		 \times 2/3 { [ f c' g' ] } 
-		 \times 2/3 { [ g' c' f ] }
+		 \times 2/3 { c g d' ] } 
+		 \times 2/3 { d' g c ] }  
+		 \times 2/3 { f c' g' ] } 
+		 \times 2/3 { g' c' f ] }
 		 }
 		 \transpose c' {
-		 \times 2/3 { [ c g d' ] } 
-		 \times 2/3 { [ d' g c ] }  
-		 \times 2/3 { [ f c' g' ] } 
-		 \times 2/3 { [ g' c' f ] } 
-		 \times 2/3 { [ g' c' f ] } 
+		 \times 2/3 { c g d' ] } 
+		 \times 2/3 { d' g c ] }  
+		 \times 2/3 { f c' g' ] } 
+		 \times 2/3 { g' c' f ] } 
+		 \times 2/3 { g' c' f ] } 
   \time 4/4;
 
 c1}

@@ -46,6 +46,7 @@ StaffContext=\translator {
 	(\property Staff.instrument; Staff.instr for subsequent lines)
 	to the left of a staff.
 %}
+	defaultClef = treble;
 
 	marginBreakPriority = "-5";
 
@@ -152,7 +153,6 @@ GrandStaffContext=\translator{
 ScoreContext = \translator {
 	\type Score_engraver;
 	\name Score;
-	defaultClef = treble;
 
 	\consists "Timing_engraver";
 

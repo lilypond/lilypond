@@ -18,12 +18,15 @@ public:
   Plet_spanner ();
  
   void add_column (Note_column*);
- 
+  void set_beam (Beam*);
   P<Text_def>  tdef_p_;
-  Link_array<Note_column> column_arr_;
-  int visibility_i_;
- 
+  bool bracket_visibility_b_;
+  bool num_visibility_b_;
+  
 protected:
+  Beam *beam_l_;
+  Link_array<Note_column> column_arr_;
+
   virtual Molecule* brew_molecule_p () const;
   VIRTUAL_COPY_CONS(Score_element);
 

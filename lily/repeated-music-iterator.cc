@@ -47,19 +47,11 @@ Repeated_music_iterator::do_process_and_next (Moment m)
       if (!success)
 	music_l_->warning ( _("No one to print a volta bracket"));
     }
-  if (repeat_iter_p_->ok ())
+  if (repeat_iter_p_ && repeat_iter_p_->ok ())
     repeat_iter_p_->process_and_next (m);
   else
-    {
-      if (!alternative_iter_p_)
-        {
-	  delete repeat_iter_p_;
-	  repeat_iter_p_ = 0;
-	  alternative_iter_p_ = dynamic_cast<Sequential_music_iterator*>
-	    (get_iterator_p (repeated_music_l ()->alternative_p_));  
-	}
-      alternative_iter_p_->process_and_next (m);
-    }
+    alternative_iter_p_->process_and_next (m - 
+      repeated_music_l ()->repeat_p_->duration ());
   Music_iterator::do_process_and_next (m);
 }
 
@@ -69,18 +61,47 @@ Repeated_music_iterator::next_moment () const
   if (repeat_iter_p_)
     return repeat_iter_p_->next_moment ();
   else if (alternative_iter_p_)
-    return alternative_iter_p_->next_moment ();
-  return 0;
+//    return alternative_iter_p_->next_moment ();
+    return alternative_iter_p_->next_moment () + 
+      repeated_music_l ()->repeat_p_->duration ();
+// return 0;
+  return repeated_music_l ()->repeat_p_->duration ();
 }
 
 bool
 Repeated_music_iterator::ok () const
 {
+#if 0
   if (repeat_iter_p_)
     return repeat_iter_p_->ok ();
   else if (alternative_iter_p_)
     return alternative_iter_p_->ok ();
   return false;
+#elif 0
+  if (repeat_iter_p_ && repeat_iter_p_->ok ())
+    return true;
+  else if (!alternative_iter_p_)
+    return true;
+  return alternative_iter_p_->ok ();
+#else // perhaps iterating stops because we return false on repeat_iter...
+  if (repeat_iter_p_)
+    {
+      if (repeat_iter_p_->ok ())
+        return true;
+      else
+        {
+	  // urg, we're const
+	  Repeated_music_iterator *urg = (Repeated_music_iterator*)this;
+	  delete urg->repeat_iter_p_;
+	  urg->repeat_iter_p_ = 0;
+	  urg->alternative_iter_p_ = dynamic_cast<Sequential_music_iterator*>
+	    (get_iterator_p (repeated_music_l ()->alternative_p_));  
+	}
+    }
+  if (alternative_iter_p_)
+    return alternative_iter_p_->ok ();
+  return false;
+#endif
 }
 
 Repeated_music*
