@@ -1052,7 +1052,7 @@ request_that_take_dir:
 request_with_dir:
 	script_dir request_that_take_dir	{
 		if (Script_req * gs = dynamic_cast<Script_req*> ($2))
-			gs->dir_ = Direction ($1);
+			gs->set_direction (Direction ($1));
 		else if ($1)
 			$2->origin ()->warning (_ ("Can't specify direction for this request"));
 		$$ = $2;
@@ -1065,7 +1065,11 @@ verbose_request:
 		$$->set_spot (THIS->here_input ());
 	}
 	| DYNAMICSCRIPT embedded_scm {
-		Dynamic_script_req *d = new Dynamic_script_req;
+		/*
+			TODO: junkme, use text-type == dynamic
+		*/
+		Text_script_req *d = new Text_script_req;
+		d->set_mus_property ("text-type" , ly_symbol2scm ("dynamic"));
 		d->set_mus_property ("text", $2);
 		d->set_spot (THIS->here_input ());
 		$$ = d;
@@ -1250,13 +1254,11 @@ gen_text_def:
 		$$ = t;
 	}
 	| DIGIT {
-		/*
-		  Maybe use Finger_script_request?
-		*/
+		String ds = to_str ($1);
 		Text_script_req* t = new Text_script_req;
-		t->set_mus_property ("text", 
-			gh_cons (ly_symbol2scm ("finger"),
-				ly_str02scm (to_str ($1).ch_C ())));
+
+		t->set_mus_property ("text",  ly_str02scm (ds.ch_C()));
+		t->set_mus_property ("text-type" , ly_symbol2scm ("finger"));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
