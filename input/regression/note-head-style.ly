@@ -11,163 +11,68 @@ either up or down stems.
 "
 }
 
+pattern = \notes <<
+      \new Voice {
+        \property Voice.Stem \set #'direction = #UP
+        e'4
+         e'2. e'1 e'\breve*1/2 e'\longa*1/4
+      }
+      \new Voice {
+        \property Voice.Stem \set #'direction = #DOWN
+         a4 a2. a1 a\breve*1/2 a\longa*1/4
+      }
+    >>
+
 \score {
   \notes \transpose c c {
     \clef C
 
     \property Staff.NoteHead \set #'style = #'default
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'default" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "default" }
+    \pattern
 
     \property Staff.NoteHead \set #'style = #'baroque
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'baroque" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "baroque" }
+    \pattern
+        \break
 
     \property Staff.NoteHead \set #'style = #'neo_mensural
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'neo\_mensural" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "neomensural" }
+    \pattern
 
     \property Staff.NoteHead \set #'style = #'mensural
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'mensural" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
+    s1*0^\markup { "mensural" }
+    \pattern
+    
     \break
 
     \property Staff.NoteHead \set #'style = #'harmonic
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'harmonic" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "harmonic" }
+    \pattern
 
     \property Staff.NoteHead \set #'style = #'diamond
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'diamond" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
+    s1*0^\markup { "diamond" }
+    \pattern
     \break
 
     \property Staff.NoteHead \set #'style = #'cross
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'cross" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "cross" }
+    \pattern
 
     \property Staff.NoteHead \set #'style = #'xcircle
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'xcircle" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
+    s1*0^\markup { "xcircle" }
+\pattern
+    
     \break
 
     \property Staff.NoteHead \set #'style = #'triangle
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'triangle" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
+    s1*0^\markup { "triangle" }
+    \pattern
+    
 
     \property Staff.NoteHead \set #'style = #'slash
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'style = \#'slash" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \break
-
-    \property Staff.NoteHead \override #'transparent = ##t
-    <<
-      \new Voice {
-        \property Voice.Stem \set #'direction = #1 %up
-        e'16^\markup { "NoteHead \#'transparent = \#\#t" }
-        e'16 e'8 e'4 e'2 e'1 e'\breve e'\longa
-      }
-      \new Voice {
-        \property Voice.Stem \set #'direction = #-1 %down
-        a16 a16 a8 a4 a2 a1 a\breve a\longa
-      }
-    >>
-    \property Staff.NoteHead \revert #'transparent
+    s1*0^\markup { "slash" }
+    \pattern
     \break
 
     \new Voice <<
@@ -183,7 +88,6 @@ either up or down stems.
         \property Thread.NoteHead \set #'style = #'mensural d'16
       }
     >>
-
     \context Voice <<
       \new Thread {
         \property Thread.NoteHead \set #'style = #'cross
