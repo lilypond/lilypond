@@ -1,3 +1,7 @@
+2004-05-08  Heikki Junes <hjunes@cc.hut.fi>
+
+        * Documentation/user/music-glossary.tely ([k-z]): last fixes.
+
 2004-05-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/paper-line.cc (Paper_line): don't store list of stencils,
