@@ -11,6 +11,7 @@
 #include "varray.hh"
 #include "request.hh"
 #include "staff-elem-info.hh"
+#include "staff-info.hh"
 
 /**
   a struct which processes requests, and creates the #Staff_elem#s.
@@ -84,7 +85,7 @@ protected:
     /**
       Does this equal or contain a certain register?
      */
-    virtual bool contains_b(Request_register*reg_l);
+    virtual bool contains_b(Request_register*reg_l)const;
     /**
       Get information on the staff. Default: ask daddy.
       */
@@ -103,6 +104,22 @@ public:
     void print() const;
 };
 
+/**
+  A macro to automate administration of registers.
+ */
+#define ADD_THIS_REGISTER(c)				\
+struct c ## init {					\
+    static Request_register * globalctor (){		\
+	return new c;					\
+    }							\
+    c ## init () {					\
+	add_request_register(c::static_name(), globalctor);	\
+							\
+    }							\
+} _ ## c ## init;
+
+typedef Request_register*(*Reg_ctor)(void);
+void add_request_register(String s, Reg_ctor f);
 
 #endif // REGISTER_HH
 
