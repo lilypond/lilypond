@@ -27,6 +27,9 @@ Line_of_score::Line_of_score()
   Axis_group_interface (this).set_axes (Y_AXIS,X_AXIS);
 }
 
+/*
+  Ugh.  this is grossly hairy.
+ */
 
 void
 Line_of_score::typeset_element (Score_element * elem_p)
@@ -45,6 +48,29 @@ Line_of_score::output_lines ()
       unsmob_element (gh_car (s))->do_break_processing ();
     }
 
+  /*
+    fixups must be done in broken line_of_scores, because new elements are put over there. 
+   */
+  for (int i=0; i < broken_into_l_arr_.size (); i++)
+    {
+      Score_element *se = broken_into_l_arr_[i];
+
+      for (SCM s = se->get_elt_property ("all-elements");
+	   gh_pair_p (s); s = gh_cdr (s))
+	{
+	  unsmob_element (gh_car (s))->fixup_refpoint ();
+	}
+    }
+  
+  /*
+    needed for doing items.
+   */
+  for (SCM s = get_elt_property ("all-elements");
+       gh_pair_p (s); s = gh_cdr (s))
+    {
+      unsmob_element (gh_car (s))->fixup_refpoint ();
+    }
+  
   for (SCM s = get_elt_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
@@ -203,7 +229,6 @@ Line_of_score::pre_processing ()
 void
 Line_of_score::post_processing ()
 {
-  fixup_refpoints (get_elt_property ("all-elements"));
   for (SCM s = get_elt_property ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {

@@ -231,6 +231,10 @@ Chord::Chord (Chord const& chord)
 }
   
 
+/*
+  JUNKME. 
+  do something smarter.
+ */
 Array<Musical_pitch>
 Chord::base_arr (Musical_pitch p)
 {

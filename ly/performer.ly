@@ -17,6 +17,10 @@ StaffContext = \translator {
 	dynamicStyle = #"dynamic"
 };
 \translator { \StaffContext }
+\translator { \StaffContext
+  \name RhythmicStaff;
+}
+
 
 VoiceContext = \translator {
 	\type "Performer_group_performer";
@@ -57,6 +61,7 @@ GraceContext = \translator {
 GrandStaffContext = \translator {
 	\type "Performer_group_performer";
 	\name GrandStaff;
+	\accepts RhythmicStaff;
 	\accepts Staff;
 };
 \translator { \GrandStaffContext }
@@ -117,6 +122,7 @@ ScoreContext = \translator {
 	\accepts Lyrics; 
 	\accepts StaffGroup;
 	\accepts ChoirStaff;
+	\accepts RhythmicStaff;
 	\accepts ChordNames;
 	\consists "Swallow_performer";
 };

@@ -6,22 +6,24 @@ decr = \spanrequest  \start "decrescendo"
 rc = \spanrequest   \stop "crescendo"
 rced = \spanrequest \stop "decrescendo"
 
-%% urg, these don't work yet.
-%% must set manually
-xcresc = {
-%\spanrequest \start "crescendo"
-\property Voice.crescendoText = "cresc."
-\property Voice.crescendoSpanner = "dashed"
+cresc = \notes {
+  \commandspanrequest \start "crescendo" ;
+  \property Voice.crescendoText = "cresc."
+  \property Voice.crescendoSpanner = "dashed-line"
 }
 
-xendcresc = {
-%\spanrequest \start "crescendo"
+endcresc = \notes {
+\commandspanrequest \stop "crescendo"; 
 \property Voice.crescendoText = ##f
 \property Voice.crescendoSpanner = ##f
 }
 
+%{
+
 cresc = \spanrequest \start "crescendo"
 endcresc = \spanrequest \stop "crescendo"
+
+%}
 
 % better name sustainstart/stop? 
 sustaindown = \spanrequest \start "Sustain"

@@ -141,3 +141,12 @@ vsnprintf (char *str, size_t, char const *format, va_list args)
 }
 #endif
 
+
+#if !HAVE_ISINF
+int
+isinf (double x)
+{
+  return x && ( x == x/ 2) ;
+}
+
+#endif
