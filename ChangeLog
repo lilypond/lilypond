@@ -1,5 +1,9 @@
 2002-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/beam.cc (score_stem_lengths): Bugfix for knees: use correct
+	(but alas, not partly precomputed) value for current_y when
+	calculating stem length demerits.
+
 	* lily/stem.cc (calc_stem_info): Take multiplicity into account
 	for shortest_y too.
 
