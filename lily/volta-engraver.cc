@@ -26,48 +26,35 @@ public:
   VIRTUAL_COPY_CONS(Translator);
 protected:
 
-  virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
   virtual void stop_translation_timestep ();
-  void deprecated_process_music ();
+  virtual void process_music ();
   virtual void create_grobs ();
   
   Moment started_mom_;
   Spanner *volta_span_p_;
   Spanner *end_volta_span_p_;
 
-  bool first_b_;
+  SCM start_str_;
 };
 
 ADD_THIS_TRANSLATOR(Volta_engraver);
 
 Volta_engraver::Volta_engraver ()
 {
-  first_b_ = true;
   volta_span_p_ = 0;
   end_volta_span_p_ = 0;
 }
 
+
 void
-Volta_engraver::create_grobs ()
+Volta_engraver::process_music ()
 {
-  if (first_b_)
-    {
-      deprecated_process_music ();
-      first_b_ = false;
-    }
-}
-  
-void
-Volta_engraver::deprecated_process_music ()
-{
-  if (volta_span_p_)
-    return;
   SCM cs = get_property ("repeatCommands");
 
-  SCM str = SCM_EOL; 
-  bool end = false;
+  bool  end = false;
+  start_str_ = SCM_EOL;
   while (gh_pair_p (cs))
     {
       SCM c = gh_car (cs);
@@ -77,23 +64,29 @@ Volta_engraver::deprecated_process_music ()
 	  if (gh_cadr (c) ==  SCM_BOOL_F)
 	    end = true;
 	  else
-	    str = gh_cadr (c);
+	    start_str_ = gh_cadr (c);
 	}
       
       cs = gh_cdr (cs);
     }
 
-  SCM l (get_property ("voltaSpannerDuration"));
-  Moment now = now_mom ();
+  if (volta_span_p_)
+    {
+      SCM l (get_property ("voltaSpannerDuration"));
+      Moment now = now_mom ();
   
-  bool early_stop = volta_span_p_ &&    unsmob_moment (l)
-    &&*unsmob_moment (l) <= now - started_mom_;
+      bool early_stop = unsmob_moment (l)
+	&& *unsmob_moment (l) <= now - started_mom_;
+      
+      end = end || early_stop;
+    }
 
+  
   if (end && !volta_span_p_)
     {
       warning (_("No volta spanner to end")); // fixme: be more verbose.
     }
-  else if (end || early_stop)
+  else if (end)
     {
       end_volta_span_p_ = volta_span_p_;
       volta_span_p_ =0;
@@ -102,33 +95,39 @@ Volta_engraver::deprecated_process_music ()
 	maybe do typeset_grob () directly?
       */
 
-      if (!gh_string_p (str))
+      if (!gh_string_p (start_str_))
 	end_volta_span_p_->set_grob_property ("last-volta", SCM_BOOL_T);
     }
 
-  if (gh_string_p (str))
+  if (gh_string_p (start_str_) && volta_span_p_)
     {
-      started_mom_ = now;
-      if (volta_span_p_)
+      warning (_ ("Already have a volta spanner. Stopping that one prematurely."));
+      
+      if (end_volta_span_p_)
 	{
-	  warning (_ ("Already have a volta spanner. Stopping that one prematurely."));
-
-	  if (end_volta_span_p_)
-	    {
-	      warning (_("Also have a stopped spanner. Giving up."));
-
-	      return ;
-
-	    }
-
-	  end_volta_span_p_ = volta_span_p_;
-	  volta_span_p_ = 0;
+	  warning (_("Also have a stopped spanner. Giving up."));
+	  return ;
 	}
+
+      end_volta_span_p_ = volta_span_p_;
+      volta_span_p_ = 0;
+    }
+}
+
+/*
+  this could just as well be done in process_music (), but what the hack.
+ */
+void
+Volta_engraver::create_grobs ()
+{
+  if (!volta_span_p_ && gh_string_p (start_str_))
+    {
+      started_mom_ = now_mom () ;
 
       volta_span_p_ = new Spanner (get_property ("VoltaBracket"));
       Volta_spanner::set_interface (volta_span_p_);
       announce_grob (volta_span_p_,0);
-      volta_span_p_->set_grob_property ("text", str);
+      volta_span_p_->set_grob_property ("text", start_str_);
     }
 }
 
@@ -167,11 +166,7 @@ Volta_engraver::finalize ()
     }
 }
 
-void
-Volta_engraver::start_translation_timestep ()
-{
-  first_b_ = true;
-}
+
 
 void 
 Volta_engraver::stop_translation_timestep ()
