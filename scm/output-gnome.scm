@@ -308,8 +308,6 @@ lilypond-bin -fgnome input/simple-song.ly
 		     (list line col file)
 		     #f)))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; gnome stuff  --- move to framework-gnome
 (define (dump-page number)

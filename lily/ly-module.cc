@@ -1,10 +1,9 @@
 /*
   ly-module.cc --  implement guile module stuff.
-  
-  source file of the GNU LilyPond music typesetter
-  
-  (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "main.hh"
@@ -71,12 +70,14 @@ ly_module_define (void *closure, SCM key, SCM val, SCM result)
 /* Ugh signature of scm_internal_hash_fold () is inaccurate.  */
 typedef SCM (*Hash_cl_func)();
 
-void
-ly_import_module (SCM dest, SCM src)
+LY_DEFINE (ly_import_module, "ly:import-module",
+	   2, 0, 0, (SCM dest, SCM src),
+	   "Import all bindings from module SRC into DEST.")
 {
   SCM_VALIDATE_MODULE (1, src);
   scm_internal_hash_fold ((Hash_cl_func) &ly_module_define, (void*) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
+  return SCM_UNDEFINED;
 }
 
 static SCM
