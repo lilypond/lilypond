@@ -42,8 +42,9 @@ public:
   void output_stencil (SCM, Offset);
   void output_scheme (SCM);
   void pre_processing ();
+
 protected:
-  VIRTUAL_COPY_CONS (Grob);
+  VIRTUAL_COPY_CONSTRUCTOR (Grob, System);
 };
 
 #endif /* SYSTEM_HH */

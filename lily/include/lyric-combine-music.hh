@@ -9,19 +9,18 @@
 
 #ifndef LYRIC_COMBINE_MUSIC_HH
 #define LYRIC_COMBINE_MUSIC_HH
-#include "music.hh"
 
+#include "music.hh"
 
 class Lyric_combine_music : public Music
 {
 public:
-  Music * get_music () const;
-  Music * get_lyrics () const;
-  
   Lyric_combine_music ();
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Lyric_combine_music);
 
-  VIRTUAL_COPY_CONS (Music);
+  Music *get_music () const;
+  Music *get_lyrics () const;
   virtual Moment get_length () const;
 };
-#endif /* LYRIC_COMBINE_MUSIC_HH */
 
+#endif /* LYRIC_COMBINE_MUSIC_HH */

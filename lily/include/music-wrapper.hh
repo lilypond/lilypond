@@ -23,15 +23,12 @@ class Music_wrapper : public Music
 {
 public:
   Music_wrapper ();
-  Music * element () const;
-  
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Music_wrapper);
+
+  Music *element () const;
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
 };
-
-
-
 
 #endif /* MUSIC_WRAPPER_HH */
 

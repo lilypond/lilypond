@@ -19,13 +19,10 @@
 
 typedef void (Translator::*Translator_method) (void);
 
-class Translator_group : public virtual Translator {
-protected:
-  
+class Translator_group : public virtual Translator
+{
 public:
-  VIRTUAL_COPY_CONS (Translator);
-
-public:
+  VIRTUAL_COPY_CONSTRUCTOR (Translator, Translator_group);
   virtual Translator_group* get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
   virtual bool try_music (Music* req);       

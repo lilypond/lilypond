@@ -16,8 +16,8 @@ class Relative_octave_music : public Music_wrapper
 {
 public:
   Relative_octave_music ();
-  
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Relative_octave_music);
+
   virtual Pitch to_relative_octave (Pitch);
 };
 

@@ -1,6 +1,5 @@
 /*
-  music-list.hh -- declare Music_sequence,
-  Simultaneous_music and Sequential_music
+  music-list.hh -- declare Simultaneous_music, Sequential_music, Event_chord
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,8 +7,8 @@
 */
 
 
-#ifndef Music_sequence_HH
-#define Music_sequence_HH
+#ifndef MUSIC_LIST_HH
+#define MUSIC_LIST_HH
 
 #include "music-sequence.hh"
 
@@ -19,11 +18,12 @@
 class Simultaneous_music : public Music_sequence
 {
 public:
-  VIRTUAL_COPY_CONS (Music);
+  Simultaneous_music ();
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Simultaneous_music);
+
   virtual Pitch to_relative_octave (Pitch);
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
-  Simultaneous_music ();
 };
 
 /*
@@ -32,7 +32,7 @@ public:
 class Event_chord : public Simultaneous_music
 {
 public:
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Event_chord);
   virtual Pitch to_relative_octave (Pitch);
 };
 
@@ -42,11 +42,11 @@ public:
 class Sequential_music : public Music_sequence
 {
 public:
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Sequential_music);
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
   
   Sequential_music ();
 };
 
-#endif // Music_sequence_HH
+#endif /* MUSIC_LIST_HH */

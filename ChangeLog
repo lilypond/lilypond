@@ -1,3 +1,19 @@
+2004-02-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gcc-3.4 snapshot: 3.4.0 20040215 (prerelease) compile fixes, and
+	stray style cleanups:
+
+	* stepmake/stepmake/c++-vars.make (EXTRA_CXXFLAGS): Remove
+	-Wmissing-prototypes.
+
+	* flower/include/killing-cons.tcc (Killing_cons): Add template
+	specifier for car_.
+
+	* flower/include/parray.hh (binsearchs): Add template specifier
+	for maxkey.
+
+	* flower/include/interval.hh: Declare elem () with template specfier.
+
 2004-02-23  Heikki Junes <hjunes@cc.hut.fi>
 
 	* elisp/lilypond-indent.el (get-buffer-size): add customization
@@ -24,7 +40,7 @@
 2004-02-22  Heikki Junes <hjunes@cc.hut.fi>
 
 	* elisp/lilypond-mode.el (get-buffer-size): define new function,
-	for Emacs >= 20 (Laurent Martelli).
+	for Emacs <= 20 (Laurent Martelli).
 
 2004-02-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

@@ -18,15 +18,13 @@
 #include "duration.hh"
 #include "pitch.hh"
 
-/** An atom of musical information.  This is an abstract class for any
-  piece of music that does not contain other Music.
-  
-
- */
-class Event : public Music {
+/* An atom of musical information.  This is an abstract class for any
+  piece of music that does not contain other Music.  */
+class Event : public Music
+{
 public:
   Event ();
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Event);
   virtual void compress (Moment);
   virtual void transpose (Pitch);
   virtual Moment get_length () const;
@@ -43,7 +41,7 @@ public:
   SCM pitch_alist ();
   
 protected:
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Key_change_ev);
   void transpose (Pitch  d);
 };
 

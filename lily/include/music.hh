@@ -34,8 +34,13 @@
 
   TODO: make a equalp function for general music. 
   */
-class Music {
+class Music
+{
 public:
+  Music ();
+  Music (Music const &m);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
+
   Input *origin () const; 
   void set_spot (Input);  
 
@@ -45,7 +50,7 @@ public:
   bool internal_is_music_type (SCM) const;
   
   virtual Pitch to_relative_octave (Pitch);
-  String name ()const;
+  String name () const;
   /// The duration of this piece of music
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
@@ -55,9 +60,7 @@ public:
 
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);
-  VIRTUAL_COPY_CONS (Music);
-  Music ();
-  Music (Music const &m);
+  
 protected:
   DECLARE_SMOBS (Music,);
   SCM immutable_property_alist_;

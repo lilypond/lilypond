@@ -46,7 +46,7 @@
 class Paper_def : public Music_output_def 
 {
 protected:
-  VIRTUAL_COPY_CONS (Music_output_def);
+  VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Paper_def);
 
 public:    
   Paper_outputter* get_paper_outputter (String)  const;

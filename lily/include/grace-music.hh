@@ -15,7 +15,7 @@
 class Grace_music : public Music_wrapper
 {
 public:
-  VIRTUAL_COPY_CONS (Music);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Grace_music);
   Grace_music ();
 protected:
   virtual Moment get_length () const;

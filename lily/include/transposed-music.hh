@@ -10,17 +10,15 @@
 #ifndef TRANSPOSED_MUSIC_HH
 #define TRANSPOSED_MUSIC_HH
 
-
 #include "music-wrapper.hh"
 
 class Transposed_music : public Music_wrapper
 {
 public:
-  Transposed_music (SCM);
   Transposed_music ();
-  
-  
-  VIRTUAL_COPY_CONS (Music);
+  Transposed_music (SCM);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Transposed_music);
+
   virtual Pitch to_relative_octave (Pitch);
 };
 

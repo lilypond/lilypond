@@ -15,7 +15,7 @@
 template<class T>
 Killing_cons<T>::~Killing_cons ()
 {
-  delete car_;
+  delete Cons<T>::car_;
 }
 
 template<class T>

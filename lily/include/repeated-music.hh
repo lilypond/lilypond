@@ -7,8 +7,8 @@
   
  */
 
-#ifndef RepEATED_MUSIC_HH
-#define RepEATED_MUSIC_HH
+#ifndef REPEATED_MUSIC_HH
+#define REPEATED_MUSIC_HH
 
 #include "music.hh"
 
@@ -49,11 +49,15 @@
 class Repeated_music : public Music
 {
 public:
-  Music * body () const;
+  Repeated_music ();
+  Repeated_music (SCM);
+  VIRTUAL_COPY_CONSTRUCTOR (Music, Repeated_music);
+
+  Music *body () const;
   SCM alternatives () const;
 
-  /// how often do we repeat?
-  int repeat_count ( ) const;
+  /* How often do we repeat? */
+  int repeat_count () const;
   virtual Pitch to_relative_octave (Pitch);
 
   Moment body_get_length () const;
@@ -65,11 +69,7 @@ public:
   DECLARE_SCHEME_CALLBACK (folded_music_length, (SCM));    
   DECLARE_SCHEME_CALLBACK (minimum_start, (SCM));
   DECLARE_SCHEME_CALLBACK (first_start, (SCM));    
-  
-  VIRTUAL_COPY_CONS (Music);
-  Repeated_music ();
-  Repeated_music (SCM);
 };
 
 
-#endif /* RepEATED_MUSIC_HH */
+#endif /* REPEATED_MUSIC_HH */
