@@ -27,8 +27,7 @@ protected:
   virtual void process_acknowledged ();
   virtual Spanner* get_spanner_p () const;
   virtual void add_element (Score_element*) ;
-public:
-  
+public:  
   VIRTUAL_COPY_CONS(Translator);
   Axis_group_engraver ();
 };
@@ -83,7 +82,7 @@ Axis_group_engraver::do_removal_processing ()
       && gh_number_p (gh_cdr (dims)))
     staffline_p_->set_elt_property ("extra-extent-Y", dims);
 
-Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
+  Score_element *  it = unsmob_element (get_property ("currentCommandColumn"));
 
   Pointer_group_interface (it, "bounded-by-me").add_element (staffline_p_);  
   staffline_p_->set_bound(RIGHT,it);
@@ -98,6 +97,10 @@ Axis_group_engraver::acknowledge_element (Score_element_info i)
   elts_.push (i.elem_l_);
 }
 
+/*
+  maybe should check if our parent_l is set, because we now get a
+  cyclic parent relationship if we have two Axis_group_engravers in
+  the context.  */
 void
 Axis_group_engraver::process_acknowledged ()
 {
@@ -120,8 +123,7 @@ Axis_group_engraver::add_element (Score_element*e)
 }
 
 ////////////////////////////////////////////////////////
-
-// maybenot sucsh a good idea after all.
+// maybenot such a good idea after all., to put classes in .cc
 
 #include "hara-kiri-group-spanner.hh"
 #include "rhythmic-head.hh"
