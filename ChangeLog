@@ -1,3 +1,11 @@
+2004-11-17  Werner Lemberg  <wl@gnu.org>
+
+	* python/lilylib.py (options_help_str): Support pretty-printing of
+	newlines in fourth element of option description.
+
+	* scripts/lilypond-book.py (option_definitions): Use new lilylib
+	feature.
+
 2004-11-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/macros.itexi: Add comment about \command.
