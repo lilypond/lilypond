@@ -326,25 +326,40 @@
 %% and the \ifpdf switch is needed before \documentclass, using
 %% \usepackage{ifpdf} is not an option.
 %
-\lilypondifundefined{lilypondpostscript}
-  {\newif\ifpdf
-   \ifx\pdfoutput\undefined
-   \else
-     \ifx\pdfoutput\relax
-     \else
-       \ifcase\pdfoutput
-       \else
-         \pdftrue
-       \fi
-     \fi
-   \fi
-   \ifpdf
-     {\input lily-pdf-defs }
-   \else
-     {\input lily-ps-defs }
-   \fi}
-  {}
+\input lily-ps-defs 
 
+% barfs with texi 
+% Runaway argument?
+%{
+%! Forbidden control sequence found while scanning use of \lilypondfirst.
+%<inserted text>
+%                \par
+%<to be read again>
+%                   \newif
+%l.330   {\newif
+%               \ifpdf
+%?
+%
+%%
+%\lilypondifundefined{lilypondpostscript}
+%  {\newif\ifpdf
+%   \ifx\pdfoutput\undefined
+%   \else
+%     \ifx\pdfoutput\relax
+%     \else
+%       \ifcase\pdfoutput
+%       \else
+%         \pdftrue
+%       \fi
+%     \fi
+%   \fi
+%   \ifpdf
+%     {\input lily-pdf-defs }
+%   \else
+%     {\input lily-ps-defs }
+%   \fi}
+%  {}
+%
 %% Restore newline functionality (disabled to avoid \par).
 %%
 \endlinechar \lilyponddefsELC
