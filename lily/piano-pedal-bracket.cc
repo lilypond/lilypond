@@ -70,12 +70,11 @@ Piano_pedal_bracket::print (SCM smob)
     {
       height[LEFT] = 0;
       
-      Real padding = robust_scm2double (me->get_property ("if-text-padding"), 0);
+      Real padding = robust_scm2double (me->get_property ("bound-padding"), 0);
       
       span_points[LEFT] = padding
 	+ textbit->extent (common, X_AXIS)[RIGHT];
     }
-  
 
   Stencil m ;
   if (!span_points.is_empty () &&
@@ -97,4 +96,4 @@ Piano_pedal_bracket::print (SCM smob)
 ADD_INTERFACE (Piano_pedal_bracket,"piano-pedal-bracket-interface",
 	       "The bracket of the piano pedal.  It can be tuned through the regular "
 	       "bracket properties.",
-	       "edge-height shorten-pair bracket-flare pedal-text");
+	       "bound-padding edge-height shorten-pair bracket-flare pedal-text");

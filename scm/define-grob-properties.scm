@@ -106,6 +106,7 @@ beaming patterns from stem to stem inside a beam.")
 called before line breaking, but after splitting breakable items at
 potential line breaks.")
      (between-cols ,pair? "Where to attach a loose column to")
+     (bound-padding ,number? "The amount of padding to insert around spanner bounds.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
@@ -225,7 +226,6 @@ fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-strin
 typeset on a Stem. Valid options include @code{()} and
 @code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
 flag.")
-     (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
      (flag-width-function ,procedure? "Procedure that computes the width of a half-beam (a non-connecting beam.).")
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
      (font-encoding ,symbol? "The font encoding is the broadest
@@ -247,6 +247,9 @@ factor 2 larger. Fractional values are allowed.")
 include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
 @code{italic}, @code{caps}.")
+
+     (forced-distance ,ly:dimension? "A fixed distance between object
+reference points in an alignment.")
 
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions. The unit is the note head width of the first voice
@@ -450,6 +453,8 @@ stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
      (string-count ,integer? "The number of strings in a fret diagram.")
+     (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
+     
      (style ,symbol? "This setting determines in what style a grob is
 typeset. Valid choices depend on the @code{print-function} that is
 reading this property.")
@@ -460,8 +465,6 @@ reading this property.")
      (thickness ,number? "Bar line thickness, measured in
 @code{linethickness}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
-     (forced-distance ,ly:dimension? "A fixed distance between object
-reference points in an alignment.")
 
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
@@ -605,7 +608,6 @@ debugging")
      (stem-info ,pair? "caching of stem parameters")
      (note-columns ,pair? "list of NoteColumn grobs.")
 
-     (if-text-padding ,number? "padding in case texts are there.")
      (position-callbacks ,list? "list of
 functions set spanner positions.")
 

@@ -115,7 +115,7 @@ recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
   if (dir == DOWN)
     {
       translator_each (tg->get_simple_trans_list (),
-			  ptr);
+		       ptr);
 
       (tg->*ptr) ();
     }

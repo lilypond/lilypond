@@ -40,7 +40,7 @@ public:
   virtual System *get_system () const;
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
-  static  bool has_interface (Grob *);
+  static bool has_interface (Grob *);
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

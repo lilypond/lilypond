@@ -44,9 +44,9 @@
   (make-simple-markup ""))
 
 
-(def-markup-command (postscript paper props str)
+(def-markup-command (postscript paper props str) (string?)
+
   "This inserts @var{str} directly into the output as a PostScript command string."
-  (string?)
   (ly:make-stencil
    (list 'embedded-ps str)
    '(0 . 0) '(0 . 0)  ))

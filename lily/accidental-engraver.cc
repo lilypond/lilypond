@@ -10,7 +10,6 @@
 #include "accidental-placement.hh"
 #include "arpeggio.hh"
 #include "context.hh"
-#include "engraver-group-engraver.hh"
 #include "engraver.hh"
 #include "event.hh"
 #include "item.hh"

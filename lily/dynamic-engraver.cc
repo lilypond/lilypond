@@ -40,16 +40,16 @@
 class Dynamic_engraver : public Engraver
 {
   Item * script_;
-  Spanner * finished_cresc_;
-  Spanner * cresc_;
+  Spanner *line_spanner_;
+  Spanner *cresc_;
 
-  Music* script_ev_;
+  Spanner *finished_line_spanner_;
+  Spanner *finished_cresc_;
+
+  Music *script_ev_;
+  Music *current_cresc_ev_;
   
-  Music * current_cresc_ev_;
   Drul_array<Music*> accepted_spanreqs_drul_;
-
-  Spanner* line_spanner_;
-  Spanner* finished_line_spanner_;
 
   Link_array<Note_column> pending_columns_;
   Link_array<Grob> pending_elements_;
@@ -141,14 +141,13 @@ Dynamic_engraver::process_music ()
     {
       script_ = make_item ("DynamicText", script_ev_->self_scm ());
       script_->set_property ("text",
-				   script_ev_->get_property ("text"));
+			     script_ev_->get_property ("text"));
 
       
       if (Direction d = to_dir (script_ev_->get_property ("direction")))
 	set_grob_direction (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, script_);
-
     }
 
   Music *stop_ev = accepted_spanreqs_drul_ [STOP] ?
@@ -222,8 +221,8 @@ Dynamic_engraver::process_music ()
 	    {
 	      cresc_  = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("grow-direction",
-					   scm_int2num ((start_type == "crescendo")
-						       ? BIGGER : SMALLER));
+				    scm_int2num ((start_type == "crescendo")
+						 ? BIGGER : SMALLER));
 	      
 	    }
 
@@ -235,10 +234,10 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_  = make_spanner ("TextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
+	      cresc_  = make_spanner ("DynamicTextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
-					    + "Spanner").to_str0 (), SCM_EOL);
+					 + "Spanner").to_str0 (), SCM_EOL);
 	      s = get_property ((start_type + "Text").to_str0 ());
 	      /*
 		FIXME: use get_markup () to check type.
@@ -246,20 +245,19 @@ Dynamic_engraver::process_music ()
 	      if (ly_c_string_p (s) || ly_c_pair_p (s))
 		{
 		  cresc_->set_property ("edge-text",
-					     scm_cons (s, scm_makfrom0str ("")));
+					scm_cons (s, scm_makfrom0str ("")));
 		  context ()->set_property ((start_type + "Text").to_str0 (),
-						SCM_EOL);
+					    SCM_EOL);
 		}
 	    }
 
 	  cresc_->set_bound (LEFT, script_
-			       ? script_
-			       : unsmob_grob (get_property ("currentMusicalColumn")));
+			     ? script_
+			     : unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  Axis_group_interface::add_element (line_spanner_, cresc_);
 
 	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
-	  
 	}
     }
 }
@@ -308,26 +306,13 @@ Dynamic_engraver::finalize ()
 void
 Dynamic_engraver::typeset_all ()
 {  
-  /*
-    remove suicided spanners,
-    ugh: we'll need this for every spanner, beam, slur
-    Hmm, how to do this, cleanly?
-    Maybe just check at typeset_grob ()?
-  */
-  if (finished_cresc_
-      && !finished_cresc_->is_live ())
-    finished_cresc_ = 0;
-  if (finished_line_spanner_
-      && !finished_line_spanner_->is_live ())
-    finished_line_spanner_ = 0;
-
   if (finished_cresc_)
     {
       if (!finished_cresc_->get_bound (RIGHT))
 	{
 	  finished_cresc_->set_bound (RIGHT, script_
-					? script_
-					: unsmob_grob (get_property ("currentMusicalColumn")));
+				      ? script_
+				      : unsmob_grob (get_property ("currentMusicalColumn")));
 
 	  if (finished_line_spanner_)
 	    add_bound_item (finished_line_spanner_,
@@ -336,7 +321,7 @@ Dynamic_engraver::typeset_all ()
       finished_cresc_ =0;
     }
   
-      script_ = 0;
+  script_ = 0;
   if (finished_line_spanner_)
     {
       /*
@@ -350,7 +335,7 @@ Dynamic_engraver::typeset_all ()
 
       */
 
-      Grob * l = finished_line_spanner_->get_bound (LEFT );
+      Grob * l = finished_line_spanner_->get_bound (LEFT);
       Grob * r = finished_line_spanner_->get_bound (RIGHT);      
       if (!r && l)
 	finished_line_spanner_->set_bound (RIGHT, l);
@@ -410,9 +395,10 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	{
 	  Side_position_interface::add_support (line_spanner_, i.grob_);
 
-	}	  
+	}
     }
 }
+
 ENTER_DESCRIPTION (Dynamic_engraver,
 /* descr */       
 "This engraver creates hairpins, dynamic texts, and their vertical\n"

@@ -30,6 +30,8 @@ public:
   virtual void initialize ();
   virtual void do_announces ();
   virtual void announce_grob (Grob_info);
+
+  int pending_grob_count () const;
 private:
   virtual void acknowledge_grobs ();
 };

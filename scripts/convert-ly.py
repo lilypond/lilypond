@@ -2128,10 +2128,11 @@ conversions.append (((2, 3, 8), conv,
 
 def conv (str):
 	str = re.sub (r'neo_mensural', 'neomensural', str)
+	str = re.sub (r'if-text-padding', 'bound-padding', str)
 	return str
 
 conversions.append (((2, 3, 9), conv,
-		     '''neo_mensural -> neomensural'''))
+		     '''neo_mensural -> neomensural, if-text-padding -> bound-padding'''))
 
 
 def conv_mode_experiment (str):
