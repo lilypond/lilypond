@@ -23,9 +23,11 @@ Bar_register::try_request(Request*r_l)
     Command_req* c_l = r_l->command();
     if (!c_l|| !c_l->bar()) 
 	return false;
-
-    assert(!bar_req_l_);
-    bar_req_l_ = c_l->bar();
+    Bar_req  * b= c_l->bar();
+    if (bar_req_l_ && bar_req_l_->compare(*b))
+	return false;
+    
+    bar_req_l_ = b;
 
     return true;
 }
@@ -43,6 +45,8 @@ Bar_register::process_requests()
 	announce_element(Staff_elem_info(bar_p_, bar_req_l_) );
     }
 }
+
+
 
 void
 Bar_register::split_bar(Bar *& pre, Bar * no, Bar * &post)
@@ -77,3 +81,7 @@ Bar_register::post_move_processing()
     bar_req_l_ = 0;
     bar_p_ =0;
 }
+
+IMPLEMENT_STATIC_NAME(Bar_register);
+
+

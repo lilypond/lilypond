@@ -49,6 +49,7 @@ struct Partial_measure_req : Timing_req {
 struct Meter_change_req : Timing_req {
     int beats_i_, one_beat_i_;
 
+    int compare(Meter_change_req const&);
     Meter_change_req();
     void set(int,int);
     REQUESTMETHODS(Meter_change_req, meterchange);
@@ -99,13 +100,29 @@ struct Group_feature_req : Command_req {
 };
 
 
+/**
+    Handle key changes.
+    Routines for sharps and flats are separated, 
+    so that caller may identify non-conventional keys.
+*/
 struct Key_change_req : Command_req {
     Array<Melodic_req*> melodic_p_arr_;
-    virtual void transpose(Melodic_req const &)const;
+    bool minor_b_;
+  
     Key_change_req();
     Key_change_req(Key_change_req const&);
     ~Key_change_req();
     REQUESTMETHODS(Key_change_req, keychange);
+
+    /// return number of flats in key
+    int flats_i();
+
+    /// return number of sharps in key
+    int sharps_i();
+
+    void transpose(Melodic_req const & d) const;
+    /// is minor key?
+    int minor_b();
 };
 
 struct Clef_change_req : Command_req {
