@@ -1,4 +1,4 @@
-\version "1.7.10"
+\version "1.7.16"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -47,16 +47,16 @@ caesura = {
   \once \property Voice.BreathingSign \override #'font-relative-size = #-1
   \breathe
 }
-divisiominima = {
+divisioMinima = {
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_minima
   \breathe
 }
-divisiomaior = {
+divisioMaior = {
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maior
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe
 }
-divisiomaxima = {
+divisioMaxima = {
   \once \property Voice.BreathingSign \override #'molecule-callback = #Breathing_sign::divisio_maxima
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe

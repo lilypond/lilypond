@@ -403,7 +403,6 @@ reference point.
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
 (grob-property-description 'semivocalis boolean? "is this neume a lisquescending one?.")
-(grob-property-description 'shape symbol? "shape of cluster segments.  Valid values include 'leftsided-stairs', 'rightsided-stairs', 'centered-stairs', and 'ramp'.")
 (grob-property-description 'shorten ly:dimension? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
 (grob-property-description 'common-shortest-duration ly:moment?

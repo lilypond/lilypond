@@ -37,8 +37,6 @@ private:
   Protected_scm last_chord_;
 };
 
-
-
 Chord_name_engraver::Chord_name_engraver ()
 {
   chord_name_ = 0;

@@ -3,7 +3,7 @@
 \header  {
 
     texidoc = "By setting @code{ChordNames.chordRootNamer}, the root
- of the chord may be named with a different function."
+of the chord may be named with a different function."
 
 }
 

@@ -138,8 +138,12 @@ internals document,  @internalsref{\NAME\}
 
 @macro seealso
 @strong{SEE ALSO}
+
+
 @end macro
 
 @macro syntax
 @strong{SYNTAX}
+
+
 @end macro
