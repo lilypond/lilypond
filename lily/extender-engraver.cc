@@ -16,6 +16,8 @@
 #include "note-head.hh"
 #include "warn.hh"
 
+void completize_extender (Spanner *sp);
+
 class Extender_engraver : public Engraver
 {
   Music *ev_;
@@ -71,36 +73,38 @@ Extender_engraver::acknowledge_grob (Grob_info i)
 	extender_->set_bound (LEFT, item);
 
       if (pending_extender_)
-	pending_extender_->set_bound (RIGHT, item);
+	{
+	  pending_extender_->set_property ("next", item->self_scm ());
+	  completize_extender (pending_extender_);
+	  pending_extender_ = 0;
+	}
     }
 }
 
 void
 Extender_engraver::stop_translation_timestep ()
 {
-  if (pending_extender_ && pending_extender_->get_bound (RIGHT))
-    pending_extender_ = 0;
-
   if (extender_ || pending_extender_)
     {
       Context *voice = get_voice_to_lyrics (context ());
       Grob *h = voice ? get_current_note_head (voice) : 0;
-      Grob *r = voice ? get_current_rest (voice) : 0;
 
       if (h)
 	{
 	  if (extender_)
-	    Pointer_group_interface::add_grob (extender_,
-					       ly_symbol2scm ("heads"), h);
+	    {
+	      Pointer_group_interface::add_grob (extender_,
+						 ly_symbol2scm ("heads"), h);
+	    }
+	  
 	  if (pending_extender_)
-	    Pointer_group_interface::add_grob (pending_extender_,
-					       ly_symbol2scm ("heads"), h);
+	    {
+	      Pointer_group_interface::add_grob (pending_extender_,
+						 ly_symbol2scm ("heads"), h);
+	    }
 	}
-      else if (r && pending_extender_)
-	/* Rest: stop right here. */
-	pending_extender_->set_bound (RIGHT, r);
- 
-      if (extender_ && !r)
+      
+      if (extender_)
 	{
 	  pending_extender_ = extender_;
 	  extender_ = 0;

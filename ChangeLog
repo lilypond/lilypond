@@ -1,3 +1,15 @@
+2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/lyric-extender.ly: simplify.
+
+	* lily/lyric-extender.cc (print): use it to determine size of
+	extender. Remove Lyric_extender::is_visible().
+
+	* lily/extender-engraver.cc (acknowledge_grob): store lyric in
+	next property.
+
+	* lily/lyric-engraver.cc: remove get_current_rest().
+	
 2004-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/lyric-extender.ly: Fix and add test.

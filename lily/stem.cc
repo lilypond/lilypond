@@ -401,10 +401,9 @@ Stem::position_noteheads (Grob *me)
   Real thick = thickness (me);
 
   Grob *hed = support_head (me);
-  Real w = Note_head::head_extent (hed, X_AXIS)[dir];
+  Real w = hed->extent (hed, X_AXIS)[dir];
   for (int i = 0; i < heads.size (); i++)
-    heads[i]->translate_axis (w - Note_head::head_extent (heads[i],
-							  X_AXIS)[dir],
+    heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir],
 			      X_AXIS);
 
   bool parity = true;
@@ -422,7 +421,7 @@ Stem::position_noteheads (Grob *me)
 	{
 	  if (parity)
 	    {
-	      Real ell = Note_head::head_extent (heads[i], X_AXIS).length ();
+	      Real ell = heads[i]->extent (heads[i], X_AXIS).length ();
 
 	      Direction d = get_direction (me);
 	      /*
@@ -658,7 +657,7 @@ Stem::print (SCM smob)
       /*
 	must not take ledgers into account.
        */
-      Interval head_height = Note_head::head_extent (hed,Y_AXIS);
+      Interval head_height = hed->extent (hed,Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate (hed, Y_AXIS);
 
       y_attach = head_height.linear_combination (y_attach);
@@ -701,7 +700,7 @@ Stem::off_callback (SCM element_smob, SCM)
   if (head_count (me))
     if (Grob *f = first_head (me))
       {
-	Interval head_wid = Note_head::head_extent (f, X_AXIS);
+	Interval head_wid = f->extent (f, X_AXIS);
 	Real attach = 0.0;
 	
 	if (is_invisible (me))

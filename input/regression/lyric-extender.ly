@@ -4,14 +4,11 @@
 LyricExtender does not extend past a rest."}
 
 \paper { raggedright = ##t }
-<<
-    \relative c''{
-	c8( d e f)
-	d1
-	r2. f4
-    }
-    \addlyrics { ah2 __ ha4 __ ah4 }
->>
+\relative c''{
+    d8( e f) r4. 
+    f4
+}
+\addlyrics { ah __ ha }
 
 
 

@@ -122,23 +122,6 @@ get_current_note_head (Context *voice)
   return 0;
 }
 
-Grob *
-get_current_rest (Context *voice)
-{
-  for (SCM s = voice->get_property ("busyGrobs"); ly_c_pair_p (s);
-       s = ly_cdr (s))
-    {
-      Item *g = dynamic_cast<Item*> (unsmob_grob (ly_cdar (s)));
-	
-      if (g && !g->get_column ()
-	  && (Rest::has_interface (g)
-	      || Multi_measure_rest::has_interface (g)))
-	return g;
-    }
-
-  return 0;
-}
-
 void
 Lyric_engraver::stop_translation_timestep ()
 {

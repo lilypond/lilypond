@@ -18,15 +18,7 @@
 #include "note-head.hh"
 #include "group-interface.hh"
 
-bool
-Lyric_extender::is_visible (Grob *gr)
-{
-  Spanner *me = dynamic_cast<Spanner*> (gr);
 
-  SCM heads = me->get_property ("heads");
-  int il = scm_ilength (heads);
-  return il != 0;
-}
 
 MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
 SCM 
@@ -34,15 +26,16 @@ Lyric_extender::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   Item *le = me->get_bound (LEFT);
-  Item *ri = me->get_bound (RIGHT);
-  Grob *common = le->common_refpoint (ri, X_AXIS);
-
+  Item *right_text = unsmob_item (me->get_property ("next"));
+  
+  Grob *common = le->common_refpoint (right_text, X_AXIS);
+  common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
   Real sl = me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));  
 
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
 								  "heads"));
 
-  if (!heads.size () && ri->break_status_dir () == CENTER)
+  if (!heads.size ())
     return SCM_EOL;
 
   common = common_refpoint_of_array (heads, common, X_AXIS);
@@ -64,31 +57,18 @@ Lyric_extender::print (SCM smob)
   Real right_point
     = left_point + (robust_scm2double  (minlen, 0));
 
-  Spanner *orig = dynamic_cast<Spanner*> (me->original_);
-  bool last_line = orig
-    && (me->get_break_index () == orig->broken_intos_.size () - 2)
-    && !Lyric_extender::is_visible (orig->broken_intos_.top ());
-    
   if (heads.size ())
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Real pad = 2* h;
 
-  if (ri->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
-    right_point = right_point <? (ri->extent (common, X_AXIS)[LEFT] - pad);
-  else if (Note_head::has_interface (ri))
-    ; 
-  else if (!last_line)
-    /* run to end of line. */
-    right_point = right_point >? (ri->extent (common, X_AXIS)[LEFT] - pad);
-  
-  if (isinf (right_point))
-    {
-      programming_error ("Right point of extender not defined?");
-      right_point = ri->relative_coordinate (common, X_AXIS);
-    }  
+  if (right_text)
+    right_point = right_point <? (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad);
 
+  /* run to end of line. */
+  right_point = right_point >? (me->get_bound (RIGHT)->extent (common, X_AXIS)[LEFT] - pad);
+  
   left_point += pad;
 
   Real w = right_point - left_point;
@@ -106,6 +86,6 @@ Lyric_extender::print (SCM smob)
 
 
 ADD_INTERFACE (Lyric_extender,"lyric-extender-interface",
-  "The extender is a simple line at the baseline of the lyric "
-  " that helps show the length of a melissima (tied/slurred note).",
-  "thickness heads");
+	       "The extender is a simple line at the baseline of the lyric "
+	       "that helps show the length of a melissima (tied/slurred note).",
+	       "next thickness heads");
