@@ -5,7 +5,7 @@
 paperAsFive = \paper {
 	staffheight = 5.\char
 
-	\stylesheet #(as-make-style-sheet 'as5)
+	\stylesheet #(as-make-font-list 'as5)
 	
 	\translator { \StaffContext barSize = #5 }
 

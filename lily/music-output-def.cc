@@ -28,12 +28,9 @@ Music_output_def::get_next_score_count () const
 
 Music_output_def::Music_output_def ()
 {
-  style_sheet_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
-  
   translator_tab_ = new Scheme_hash_table;
   scope_ = SCM_EOL;
-  
   smobify_self ();
   scm_gc_unprotect_object (translator_tab_->self_scm ());
 
@@ -49,13 +46,11 @@ Music_output_def::Music_output_def (Music_output_def const &s)
   scope_ = SCM_EOL;
   translator_tab_ = new Scheme_hash_table (*s.translator_tab_);
 
-  style_sheet_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
 
   smobify_self ();
   scm_gc_unprotect_object (translator_tab_->self_scm ());  
   
-  style_sheet_ = scm_list_copy (s.style_sheet_);
   scaled_fonts_ = scm_list_copy (s.scaled_fonts_);  
 
   scope_= ly_make_anonymous_module ();
@@ -71,7 +66,6 @@ SCM
 Music_output_def::mark_smob (SCM m)
 {
   Music_output_def * mo = (Music_output_def*) SCM_CELL_WORD_1 (m);
-  scm_gc_mark (mo->style_sheet_);
   scm_gc_mark (mo->translator_tab_->self_scm ());
   scm_gc_mark (mo->scope_);
 

@@ -111,13 +111,18 @@ Molecule
 Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 				 SCM alist_chain)
 {
-  SCM sheet = me->get_paper ()->style_sheet_;
-  SCM f = ly_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
+  SCM f = me->get_paper ()->lookup_variable (ly_symbol2scm ("markup-to-properties"));
   
   SCM markup = ly_car (markup_text);
   SCM text = ly_cdr (markup_text);
 
-  SCM p = gh_cons (gh_call2 (f, sheet, markup), alist_chain);
+  /* ARGRGRRGRARGRA
+   */
+
+  SCM abbrev = me->get_paper ()->lookup_variable (ly_symbol2scm ("abbreviation-alist"));
+  SCM style = me->get_paper ()->lookup_variable (ly_symbol2scm ("style-alist"));
+  
+  SCM p = gh_cons (scm_call_3 (f, abbrev, style, markup), alist_chain);
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 

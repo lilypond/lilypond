@@ -5,7 +5,7 @@
 
 paperTwentythree = \paper {
 	staffheight = 23.0\pt
-	\stylesheet #(make-style-sheet 'paper23)
+	#(define fonts (make-font-list 'paper23))
 	\include "params-init.ly"
 }
 

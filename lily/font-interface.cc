@@ -38,11 +38,9 @@ Font_interface::font_alist_chain (Grob *me)
   /*
     Ugh: why the defaults?
    */
-  SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
-				    me->get_paper ()->style_sheet_));
+  SCM defaults = me->get_paper ()->lookup_variable (ly_symbol2scm ("font-defaults"));
 
   SCM ch = me->get_property_alist_chain (defaults);
-  
   return ch;
 }
 
@@ -107,12 +105,10 @@ Font_interface::get_font (Grob *me, SCM chain)
   
   if (!gh_string_p (name))
     {
-      SCM ss = me->get_paper ()->style_sheet_;
+      Paper_def * p =  me->get_paper ();
 
-      SCM proc = ly_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
-				    ss));
-
-      SCM fonts = ly_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
+      SCM proc = p->lookup_variable (ly_symbol2scm ("properties-to-font"));
+      SCM fonts = p->lookup_variable (ly_symbol2scm ("fonts"));
 
       assert (gh_procedure_p (proc));
       name = gh_call2 (proc, fonts, chain);
@@ -129,10 +125,8 @@ SCM
 Font_interface::add_style (Grob* me, SCM style, SCM chain)
 {
   assert (gh_symbol_p (style));
-  
-  SCM sheet = me->get_paper ()->style_sheet_;
       
-  SCM style_alist = ly_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
+  SCM style_alist = me->get_paper ()->lookup_variable (ly_symbol2scm ("style-alist"));
   SCM entry = scm_assoc (style, style_alist);
   if (gh_pair_p (entry))
     {
