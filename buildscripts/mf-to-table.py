@@ -149,7 +149,7 @@ def write_fontlist (file, global_info, charmetrics):
     \translator{
       \ScoreContext
       \remove "Bar_number_engraver"
-      TextScript \override #'extra-extent-X = #'(-1 . 1)
+      TextScript \override #'extra-X-extent = #'(-1 . 1)
     }
     \translator{
       \StaffContext
