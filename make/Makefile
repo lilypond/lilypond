@@ -20,7 +20,7 @@ NAME = make
 
 # list of distribution files:
 #
-EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in
+EXTRA_DISTFILES = Configure_variables.make.in lilypond.spec.in Toplevel.make.in
 #
 
 # generic variables:
