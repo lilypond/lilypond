@@ -44,7 +44,7 @@ Recording_group_engraver::start_translation_timestep ()
   /*
     We have to do this both in initialize() and
     start_translation_timestep(), since start_translation_timestep()
-    isn't called on the first time-step.g
+    isn't called on the first time-step.
    */
   if (!gh_pair_p (gh_car (accumulator_)))
     scm_set_car_x (accumulator_, gh_cons (now_mom ().smobbed_copy (), SCM_EOL));
