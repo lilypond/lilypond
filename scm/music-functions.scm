@@ -203,7 +203,8 @@ i.e.  this is not an override"
    (append
     (map (lambda (x) (make-grob-property-revert x 'direction))
 	 direction-polyphonic-grobs)
-    (list (make-grob-property-revert 'NoteColumn 'horizontal-shift)))))
+    (list (make-grob-property-revert 'NoteColumn 'horizontal-shift))
+    (list (make-grob-property-revert 'MultiMeasureRest 'staff-position)))))
 
 
 (define*-public (context-spec-music m context #:optional id)
