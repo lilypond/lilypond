@@ -13,8 +13,9 @@
 #include <libc-extension.hh>	// isinf
 
 #include "input-smob.hh"
-#include "font-metric.hh" 
+#include "font-metric.hh"
 #include "dimensions.hh"
+#include "string-convert.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"
@@ -87,10 +88,13 @@ Stencil::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
+      /* FIXME: 100CM should relate to paper size.  */
       if (abs (o[a]) > 100 CM
 	  || isinf (o[a]) || isnan (o[a]))
 	{
-	  programming_error ("Improbable offset for translation: setting to zero");
+	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f%s", o[a], INTERNAL_UNIT)
+			     + "\n"
+			     + "Setting to zero.");
 	  o[a] =  0.0;
 	}
       incr (a);
@@ -103,7 +107,7 @@ Stencil::translate (Offset o)
     dim_.translate (o);
   origin_ += o;
 }
-  
+
 void
 Stencil::translate_axis (Real x, Axis a)
 {
@@ -202,7 +206,7 @@ interpret_stencil_expression (SCM expr,
         return;
 
       SCM head = scm_car (expr);
-     
+
       if (head == ly_symbol2scm ("translate-stencil"))
         {
           o += ly_scm2offset (scm_cadr (expr));
@@ -217,16 +221,15 @@ interpret_stencil_expression (SCM expr,
       else if (head == ly_symbol2scm ("grob-cause"))
 	{
 	  SCM grob = scm_cadr (expr);
-	  
+	
 	  (*func) (func_arg, scm_list_2 (head, grob));
 	  interpret_stencil_expression (scm_caddr (expr), func, func_arg, o);
 	  (*func) (func_arg, scm_list_1 (ly_symbol2scm ("no-origin")));
-	  
-	  return ; 
+	  return;
 	}
       else
         {
-          (*func) (func_arg, 
+          (*func) (func_arg,
                    scm_list_4 (ly_symbol2scm ("placebox"),
                                scm_make_real (o[X_AXIS]),
                                scm_make_real (o[Y_AXIS]),
@@ -249,7 +252,7 @@ find_font_function (void *fs, SCM x)
 
   if (scm_car (x) == ly_symbol2scm ("placebox"))
     {
-      SCM args = scm_cdr (x); 
+      SCM args = scm_cdr (x);
       SCM what = scm_caddr (args);
 
       if (scm_is_pair (what))
@@ -267,10 +270,10 @@ SCM
 find_expression_fonts (SCM expr)
 {
   Font_list fl;
-  
+
   fl.fonts_ = SCM_EOL;
-  
-  interpret_stencil_expression (expr, &find_font_function, 
+
+  interpret_stencil_expression (expr, &find_font_function,
 				(void*) &fl, Offset (0,0));
 
   return fl.fonts_;

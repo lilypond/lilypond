@@ -88,7 +88,7 @@ vector of symbols."
 	 ("T1" . "tex256.enc")
 	 ("adobe" . "8a.enc")
 	 ;; EC-fonts-mftraced
-	 ("ec" . "EC.enc")
+	 ("Extended-TeX-Font-Encoding---Latin" . "EC.enc")
 	 ;; lmodern, encoding flavour latin1
 	 ("cork-lm" . "cork-lm.enc")
 	 

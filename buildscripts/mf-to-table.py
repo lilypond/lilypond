@@ -130,7 +130,7 @@ def write_afm_char_metric (file, charmetric):
 	       charmetric['wx'] * f,
 	       charmetric['wy'] * f)
 
-	file.write ('C %d ; N %s ; B %d %d %d %d ; W %d %d ;\n'% tup)
+	file.write ('C %d ; N %s ; B %d %d %d %d ; W %d %d ;\n' % tup)
 
 
 def write_afm_header (file):

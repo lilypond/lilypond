@@ -1,5 +1,13 @@
 2004-11-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/encoding.scm (coding-alist): 
+	* scm/font.scm (add-ec-fonts):
+	* ly/paper-defaults.ly: Use actual name for EC fontencoding:
+	Extended-TeX-Font-Encoding---Latin.
+
+	* lily/side-position-interface.cc (general_side_position): Add
+	actual offset to error message (avoid constant error messages).
+
 	* lily/all-font-metrics.cc (find_font): Add "lm" to try-AFM-first
 	block.
 

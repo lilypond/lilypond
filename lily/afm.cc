@@ -149,22 +149,18 @@ read_afm_file (String nm)
   return Adobe_font_metric::make_afm (fi, cs, ds);
 }
 
-
-/* Actually, AFMs will be printers point, usually, but our .py script dumps
-  real points.  */
 Box
 afm_bbox_to_box (AFM_BBox bb)
 {
-  return Box (Interval (bb.llx, bb.urx)* (1/1000.0) PT,
-	      Interval (bb.lly, bb.ury)* (1/1000.0) PT);
-
+  return Box (Interval (bb.llx, bb.urx) * 0.001 PT,
+	      Interval (bb.lly, bb.ury) * 0.001 PT);
 }
 
 Offset
 Adobe_font_metric::get_indexed_wxwy (int k) const
 {
-  AFM_CharMetricInfo const *mi = font_info_->cmi+ k;
-  return 1/1000.0 PT * Offset (mi->wx, mi->wy); 
+  AFM_CharMetricInfo const *mi = font_info_->cmi + k;
+  return Offset (mi->wx, mi->wy) * 0.001 PT;
 }
 
 Real
