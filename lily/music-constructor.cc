@@ -8,6 +8,7 @@
  */
 
 #include <map>			// UGH.
+#include "warn.hh"
 #include "music-constructor.hh"
 typedef Music* (*Music_ctor) ();
 
@@ -36,6 +37,8 @@ Music*
 make_music (String s)
 {
   Music_ctor c = get_music_ctor (s);
+  if (!c)
+    programming_error (String ("No constructor for music: ") + s);
   assert (c);
   
   return (*c) ();
