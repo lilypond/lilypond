@@ -16,8 +16,7 @@ metre = "metre"
 opus = "opus"
 piece = "piece"
 poet = "poet"
-texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi.
-REGRESSION?  (probably not DELETE) "
+texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi. "
 
 %
 % todo: check whether title.ly does the same. --hwn
