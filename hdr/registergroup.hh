@@ -12,25 +12,41 @@
 
 
 #include "plist.hh"
-#include "staffeleminfo.hh"
+#include "staff-elem-info.hh"
+#include "register.hh"
+
 /**
   Group a number of registers. Usually delegates everything to its contents.
+  Postfix: group
   */
-class Register_group {
-public:
+class Register_group_register : public Request_register {
+protected:
     IPointerList<Request_register*> reg_list_;
+    virtual void do_print()const;
+public:
+
+    /**
+      Junk #reg_l#.
+
+      Pre:
+        #reg_l# is in #reg_list_#
+     */
+    virtual void terminate_register(Request_register * reg_l);
     
-    void set_dir(int i);
-    bool acceptable_request_b(Request*);
-    void pre_move_processing();
-    void post_move_processing();
-    void acknowledge_element(Staff_elem_info info);
-    bool try_request(Request*);
-    void process_requests();
-    virtual ~Register_group();
-    void add(Request_register* reg_p);
-    bool contains_b(Request_register*);
-//    bool contains_b(Register_group*);
+    /**
+      Remove #reg_l# from the list, and return it.
+     */
+    Request_register * get_register_p(Request_register*reg_l);
+    virtual void set_feature(Features i);
+    virtual bool acceptable_request_b(Request*);
+    virtual void pre_move_processing();
+    virtual void post_move_processing();
+    virtual void acknowledge_element(Staff_elem_info info);
+    virtual bool try_request(Request*);
+    virtual void process_requests();
+    virtual ~Register_group_register();
+    virtual void add(Request_register* reg_p);
+    virtual bool contains_b(Request_register*);
 };
 
 #endif // REGISTERGROUP_HH
