@@ -69,7 +69,7 @@ Font_metric::Font_metric ()
   smobify_self ();
 }
 
-Font_metric::Font_metric (Font_metric const &)
+Font_metric::Font_metric (Font_metric const &s)
 {
 }
 
