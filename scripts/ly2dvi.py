@@ -565,7 +565,7 @@ None
 
 	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 
-	if not verbose_p:
+	if not verbose_p and os.name == 'posix':
 		progress ( _("Running %s...") % 'LaTeX')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 
@@ -590,7 +590,7 @@ None.
 
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	
-	if not verbose_p:
+	if not verbose_p and os.name == 'posix':
 		progress ( _("Running %s...") % 'dvips')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 		

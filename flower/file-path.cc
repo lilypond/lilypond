@@ -94,8 +94,9 @@ split_path (String path)
 {
 #ifdef __CYGWIN__
   /* All system functions would work, even if we don't convert to
-     posix path, but we'd think that \foe\bar\baz.ly is in the cwd.  */
-  if (testing_level_global & 1)
+     posix path, but we'd think that \foe\bar\baz.ly is in the cwd.
+     On by default.  */
+  if (!(testing_level_global & 1))
     path = dos_to_posix (path);
 #endif
 
