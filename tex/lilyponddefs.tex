@@ -14,23 +14,29 @@
 \fi
 \SkipLilydefs
 
+\ifundefined{mudelacopyright}
+        \def\mudelacopyright{\copyright\ \number\year}
+\fi
+\ifundefined{LilyIdString}
+        \def\LilyIdString{Lily was here}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % macros to shorten other definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\mdef#1#2{\def#1{\mchar{#2}}}
-\def\mchar#1{\musicfnt\char#1}
+\def\musicdef#1#2{\def#1{\musicchar{#2}}}
+\def\musicchar#1{\musicfnt\char#1}
 \def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
 
 
 \def\maccentraise#1#2{\dimen0=\noteheight
         \rationalmultiply\dimen0*#2%
         \raise\dimen0\hbox{#1}}
-\def\maccentdef#1#2#3{\def#1{\maccentraise{\mchar{#2}}{#3}}}
+\def\maccentdef#1#2#3{\def#1{\maccentraise{\musicchar{#2}}{#3}}}
 \def\vertcenter#1{\vbox to 0pt{\vss #1\vss}}
 
-\def\mathdef#1#2{\def#1{\mathchar{#2}}}
-\def\mathchar#1{\mathfont\char#1}
+\def\musicmathdef#1#2{\def#1{\musicmathchar{#2}}}
+\def\musicmathchar#1{\musicmathfont\char#1}
 
 \def\topalign#1{\vbox to 0pt{#1\vss}}
 \def\botalign#1{\vbox to 0pt{\vss #1}}
@@ -101,9 +107,9 @@
 
 \input taupindefs
 
-\mathdef\cup{91} % \cup
-\mathdef\wedge{94} % \wedge
-\mathdef\striepke{0} % heu?
+\musicmathdef\cup{91} % \cup
+\musicmathdef\wedge{94} % \wedge
+\musicmathdef\striepke{0} % heu?
 
 %% custom characters --- this should go: add to (meta!) font
 % \def\myheel{\kern-.5ex\vbox{\cup}\kern-.5ex}
@@ -202,7 +208,7 @@
 \def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
 \def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}
 \def\rulesym#1#2{\vrule height #1 width #2}
-\def\settext#1{\textfont #1}
+\def\settext#1{\normaltextfont #1}
 \def\setitalic#1{\italicfont #1}
 \def\setdynamic#1{\dynfont #1}
 
@@ -225,3 +231,17 @@
 \def\unknown{{\bf u}}
 
 \def\postheader{}
+\ifundefined{documentclass}
+        \footline={\ifnum\pageno=1
+        {\smalltextfont\mudelacopyright\hfil \LilyIdString
+        }\else{\hfil\the\pageno\hfil}\fi
+}\else
+        %% FIXME
+        \def\ps@plain{
+                \renewcommand{\@oddhead}{}%
+                \renewcommand{\@evenfoot}{}%
+                \renewcommand{\@evenhead}{}%
+                \renewcommand{\@oddfoot}{\ifnum\thepage=1
+        {\hfil \LilyIdString
+        }\else{foo\hfil\the\pageno\hfil}\fi}}
+\fi

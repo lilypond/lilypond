@@ -87,9 +87,17 @@ Slur::do_post_processing()
   extrema[RIGHT] = encompass_arr_.top();
 
   Direction d=LEFT;
+  Real nw_f = paper()->note_width ();
+ 
+  while ((d *= -1) != LEFT);
   do 
     {
-      if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
+      if  (extrema[d] != spanned_drul_[d]) 
+	{
+	  dx_f_drul_[d] = -d 
+	    *(spanned_drul_[d]->width ().length ()/nw_f -0.5);
+	}
+      else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
 	pos_i_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]/inter_f);
       else 
 	pos_i_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_]);

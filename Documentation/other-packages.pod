@@ -40,11 +40,21 @@ A TROFF preprocessor by Eric Foxley
 
 A Preprocessor for MusiXTeX by Don Simons
 
-=item Musi*TeX, http://www.gmd.de/Misc/Music/
+=item Musictex, http://www.gmd.de/Misc/Music/
 
-MusixTeX is a macro package for TeX to typeset polyphonic or
-instrumental music by Daniel Taupin, Ross Mitchell and Andreas
-Egler. It includes a full-featured set of fonts.
+MusicTeX is a macro package for TeX to typeset polyphonic or
+instrumental music.  It is originally written by Daniel Taupin, Ross
+Mitchell and Andreas Egler. 
+
+It includes a full-featured set of fonts.
+
+=item MusiXTeX, http://www.gmd.de/Misc/Music/
+
+Daniel Taupin's branch of MusicTeX.
+
+=item OpusTeX, http://www.inf.ethz.ch/department/Department.html/achermann/opustex
+
+Andreas Egler's branch of MusicTeX.
 
 =item ABC2MTeX, http://www.gre.ac.uk/~c.walshaw/abc
 
@@ -60,6 +70,7 @@ available on request. (?)
 
 A TeX macro package for typesetting single-staff music by Angelika
 Schofer & Andrea Steinbach. With some fonts
+
 
 =head2 Free (zero cents)
 
@@ -96,11 +107,6 @@ Notation/engraving on Acorn machines.
 
 =item Personal Composer
 
-=item MusE
-
-A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
-Sun boxen.
-
 =item Mozart, http://www.mozart.co.uk/
 
 A shareware windows package  
@@ -112,6 +118,11 @@ A shareware windows package
 =item Musicator
 
 =head2 Unknown
+
+=item MusE
+
+A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
+Sun boxen.
 
 =item MusiCopy, ? 
 

@@ -16,6 +16,7 @@
 
 struct Header : Assoc<String, String>
 {
+  String lily_id_str_;
   String TeX_string() const;
 };
 

@@ -29,59 +29,59 @@ template<class T> class Link;
 template<class T>
 class List
 {
- public:
-    List (List const&src);
+public:
+  List (List const&src);
 
-    /// construct empty list                
-    List();    
-    virtual ~List();
+  /// construct empty list                
+  List();    
+  virtual ~List();
 	
-    int size() const;
+  int size() const;
 
-    Cursor<T> bottom() const;	// const sucks.
-    Cursor<T> top() const;
+  Cursor<T> bottom() const;	// const sucks.
+  Cursor<T> top() const;
 
-    void OK() const;		// check list
-    void junk_links();
+  void OK() const;		// check list
+  void junk_links();
     
- protected:
-    friend class Cursor<T>;
-    friend class Link<T>;
+protected:
+  friend class Cursor<T>;
+  friend class Link<T>;
 
-    void concatenate (List<T> const &s);
+  void concatenate (List<T> const &s);
     
-    /**  make *this empty. 
+  /**  make *this empty. 
 
-      POST:
-      size == 0
+    POST:
+    size == 0
       
-      WARNING:
-      contents lost, and not deleted.
-      */
-     void set_empty();
+    WARNING:
+    contents lost, and not deleted.
+    */
+  void set_empty();
   
-    void add (T const & thing, Cursor<T> &after_me);
+  void add (T const & thing, Cursor<T> &after_me);
 
-    /// put thing before #before_me#
-    void insert (T const & thing, Cursor<T> &before_me);
+  /// put thing before #before_me#
+  void insert (T const & thing, Cursor<T> &before_me);
 
-    /** Remove link pointed to by me. Destructor of contents called
-      (nop for pointers)
+  /** Remove link pointed to by me. Destructor of contents called
+    (nop for pointers)
 
-      POST
-      none;
+    POST
+    none;
 
 
-      WARNING: do not use #me# after calling
-      */
-    void remove (Cursor<T> me);
+    WARNING: do not use #me# after calling
+    */
+  void remove (Cursor<T> me);
    
 
-    /* ************** */
+  /* ************** */
     
-    int size_;
-    Link<T>* top_;
-    Link<T>* bottom_;
+  int size_;
+  Link<T>* top_;
+  Link<T>* bottom_;
 };
 
 #include "list.icc"

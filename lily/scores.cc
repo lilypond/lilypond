@@ -10,19 +10,22 @@
 #include "score.hh"
 #include "string.hh"
 #include "paper-def.hh"
+#include "header.hh"
 #include "debug.hh"
+#include "parray.hh"
 
-static Array<Score*> score_array_global;
+static Link_array<Score> global_score_array;
 String default_out_fn = "lelie";
 
 void
 do_scores()
 {
-  for (int i=0; i < score_array_global.size(); i++) 
+  for (int i=0; i < global_score_array.size(); i++) 
     {
-	Score *&is_p = score_array_global[i];
-	
-	
+	Score *&is_p = global_score_array[i];
+	if (is_p->header_p_)
+	  is_p->header_p_->lily_id_str_ = "Lily was here, " + 
+	    get_version_number_str();
 	if (is_p->errorlevel_i_) 
 	  {
 	    is_p->warning ("Score contains errors. Will not process it. ");
@@ -37,13 +40,13 @@ do_scores()
 	is_p =0;
 
     }
-  score_array_global.clear();
+  global_score_array.clear();
 }
 
 void
 add_score (Score * s)
 {
-  score_array_global.push (s);
+  global_score_array.push (s);
 }
 
 void

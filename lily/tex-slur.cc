@@ -15,20 +15,19 @@
 #include "paper-def.hh"
 
 
-
-static
-char direction_char (int y_sign)
+static char
+direction_char (Direction y_sign)
 {
   char c='#';
   switch (y_sign)
     {
-    case -1:
+    case DOWN:
       c = 'd';
       break;
-    case 0:
+    case CENTER:
       c = 'h';
       break;
-    case 1:
+    case UP:
       c = 'u';
       break;
     default:
@@ -38,12 +37,14 @@ char direction_char (int y_sign)
 }
 
 Symbol
-Lookup::half_slur_middlepart (Real &dx, int dir) const
+Lookup::half_slur_middlepart (Real &dx, Direction dir) const
 {
-  if (dx >= 400 PT) {// todo
-    WARN<<"halfslur too large" <<print_dimen (dx)<< "shrinking (ugh)\n";
-    dx = 400 PT;
-  }
+  // todo
+  if (dx >= 400 PT)
+    {
+      WARN<<"halfslur too large" <<print_dimen (dx)<< "shrinking (ugh)\n";
+      dx = 400 PT;
+    }
   int widx = int (floor (dx / 4.0));
   dx = widx * 4.0;
   if (widx) widx --;
@@ -58,7 +59,7 @@ Lookup::half_slur_middlepart (Real &dx, int dir) const
   s.dim.x() = Interval (0,dx);
 
   String f =  String ("\\hslurchar");
-  f += direction_char (0);
+  f += direction_char (CENTER);
 
   int idx = widx;
   if (dir < 0)
@@ -74,8 +75,9 @@ Lookup::half_slur_middlepart (Real &dx, int dir) const
 
   return s;
 }
+
 Symbol
-Lookup::half_slur (int dy, Real &dx, int dir, int xpart) const
+Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
 {
   Real orig_dx = dx;
   if (!xpart)
@@ -127,10 +129,16 @@ Lookup::half_slur (int dy, Real &dx, int dir, int xpart) const
 }
 
 Symbol
-Lookup::slur (int dy , Real &dx, int dir) const
+Lookup::slur (int dy , Real &dx, Direction dir) const
 {
-  assert (dx >=0 && abs (dir) <= 1);
-  int y_sign = sign (dy);
+  
+  assert (abs (dir) <= 1);
+  if  (dx < 0)
+    {
+      warning ("Negative slur/tie length: " + print_dimen (dx));
+      dx = 4.0 PT;
+    }
+  Direction y_sign = (Direction) sign (dy);
 
   bool large = abs (dy) > 8;
 
@@ -201,9 +209,14 @@ Lookup::slur (int dy , Real &dx, int dir) const
 }
 
 Symbol
-Lookup::big_slur (int dy , Real &dx, int dir) const
+Lookup::big_slur (int dy , Real &dx, Direction dir) const
 {
-  assert (dx >= 24 PT);
+  if (dx < 24 PT) 
+    {
+      warning ("big_slur too small " + print_dimen (dx) + " (stretching)");
+      dx = 24 PT;
+    }
+  
   Real slur_extra =abs (dy)  /2.0 + 2; 
   int l_dy = int (Real (dy)/2 + slur_extra*dir);
   int r_dy =  dy - l_dy;

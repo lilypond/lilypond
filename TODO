@@ -6,6 +6,9 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+
+	* move to OpusTeX fonts
+
 	* check out egcs
 	
 	* give Items/Spanners access to unbroken originals	
@@ -382,14 +385,11 @@ IDEAS
 
 	* Klavarskribo?
 
-	* return status on exit
-
 	* lyrics in chords still fuck up.
 
 	*
 	- rewire acknowledge_element() logic with a process_acknowledged()
 	- construct Stem upon receiving Notehead. Junk Stem_req
-
 
 	* pushgroup/popgroup
 

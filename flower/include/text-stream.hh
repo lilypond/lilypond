@@ -18,57 +18,57 @@
 
 class Text_stream
 {
-    int line_no;
+  int line_no;
 
-    // could just have used streams. 
-    FILE *f;  
-    Array<char> pushback;
-    String name;
+  // could just have used streams. 
+  FILE *f;  
+  Array<char> pushback;
+  String name;
     
- public:
-    Text_stream (String fn);
-    String get_name() { return name; }
-    bool eof() {
-	return feof (f);
-    }
-    bool eol() {
-	return (peek() == '\n');
-    }
-    char peek() {
-	char c = get();
-	unget (c);
-	return c;
-    }
-    int line(){
-	return line_no;
-    }
+public:
+  Text_stream (String fn);
+  String get_name() { return name; }
+  bool eof() {
+    return feof (f);
+  }
+  bool eol() {
+    return (peek() == '\n');
+  }
+  char peek() {
+    char c = get();
+    unget (c);
+    return c;
+  }
+  int line(){
+    return line_no;
+  }
 
-    char    get() {
-	char c;
+  char    get() {
+    char c;
 	
-	if (pushback.empty())
-	    c = getc (f);	
-	else 
-	    c = pushback.pop();
+    if (pushback.empty())
+      c = getc (f);	
+    else 
+      c = pushback.pop();
 
-	if (c =='\n')
-	    line_no++;
-	return c;	
-    }
-    void unget (char c) {
-	if (c =='\n')
-	    line_no--;
-	pushback.push (c);
-    }
-    ~Text_stream(){
-	if (!eof()) 
-	    cerr <<__FUNCTION__<< ": closing unended file";
+    if (c =='\n')
+      line_no++;
+    return c;	
+  }
+  void unget (char c) {
+    if (c =='\n')
+      line_no--;
+    pushback.push (c);
+  }
+  ~Text_stream(){
+    if (!eof()) 
+      cerr <<__FUNCTION__<< ": closing unended file";
     
-	fclose (f);
-    }
+    fclose (f);
+  }
 
-    /// GNU format message.
-    void message (String s); 
+  /// GNU format message.
+  void message (String s); 
 };
 
 #endif

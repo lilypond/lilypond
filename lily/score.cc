@@ -10,7 +10,6 @@
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "music-output.hh"
-#include "main.hh"
 #include "source.hh"
 #include "source-file.hh"
 #include "music-iterator.hh"

@@ -14,6 +14,9 @@ String
 Header::TeX_string() const
 {
   String s;
+
+  s+= "\\def\\LilyIdString{"  + lily_id_str_ + "}";
+  
   for (Assoc_iter<String, String> i(*this); i.ok(); i++) 
     {
       s += "\\def\\mudela" + i.key() + "{" + i.val() + "}";

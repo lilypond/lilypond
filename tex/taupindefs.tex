@@ -1,6 +1,7 @@
 
 \def\musixtwentyfonts{
-  \font\textfont=cmr10
+        \font\normaltextfont=cmr10 %\textfont is a primitive
+        \font\smalltextfont=cmr8
         \font\meterfont=cmbx12
         \font\slurufont=xslu20
         \font\slurdfont=xsld20
@@ -12,12 +13,13 @@
         \font\musicdraw=musixsps
         \font\italicfont=cmti10
         \font\dynfont=cmbxti10 scaled \magstep1
-        \font\mathfont=cmsy10
+        \font\musicmathfont=cmsy10
 }
 
 
 \def\musixsixteenfonts{
-        \font\textfont=cmr8
+        \font\normaltextfont=cmr8 %\textfont is a primitive
+        \font\smalltextfont=cmr6
         \font\meterfont=cmbx12
         \font\italicfont=cmti8
         \font\slurufont=xslu16
@@ -29,57 +31,57 @@
         \font\musicfnt=musix16
         \font\dynfont=cmbxti10
         \font\musicdraw=musixsps
-        \font\mathfont=cmsy8
+        \font\musicmathfont=cmsy8
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provide interface to musixtex fonts 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\mdef\quartball{'007}
-\mdef\halfball{'010}
-\mdef\wholeball{'011}
-\mdef\breveball{'040}
-\mdef\halfrest{'074}
-\mdef\wholerest{'075}
-\mdef\breverest{'072}
+\musicdef\quartball{'007}
+\musicdef\halfball{'010}
+\musicdef\wholeball{'011}
+\musicdef\breveball{'040}
+\musicdef\halfrest{'074}
+\musicdef\wholerest{'075}
+\musicdef\breverest{'072}
 %% hmm
-\mdef\outsidehalfrest{10}
-\mdef\outsidewholerest{11}
-\mdef\quartrest{62}
-\mdef\eighthrest{63}
-\mdef\sixteenthrest{64}
-\mdef\thirtysecondrest{65}
-\mdef\sixtyfourthrest{66}
-\mdef\hundredtwentyeighthrest{67}
-\mdef\sharp{52}
-\mdef\flat{50}
-\mdef\natural{54}
-\mdef\sharpsharp{53}
-\mdef\flatflat{51}
+\musicdef\outsidehalfrest{10}
+\musicdef\outsidewholerest{11}
+\musicdef\quartrest{62}
+\musicdef\eighthrest{63}
+\musicdef\sixteenthrest{64}
+\musicdef\thirtysecondrest{65}
+\musicdef\sixtyfourthrest{66}
+\musicdef\hundredtwentyeighthrest{67}
+\musicdef\sharp{52}
+\musicdef\flat{50}
+\musicdef\natural{54}
+\musicdef\sharpsharp{53}
+\musicdef\flatflat{51}
 
-\mdef\singledot{'00}
-\mdef\doubledot{'01}
-\mdef\tripledot{'02}
-\mdef\mussepline{155}
+\musicdef\singledot{'00}
+\musicdef\doubledot{'01}
+\musicdef\tripledot{'02}
+\musicdef\mussepline{155}
 
-\mdef\violinclef{71}
-\mdef\bassclef{73}
-\mdef\altoclef{75}
-\mdef\cviolinclef{72}
-\mdef\cbassclef{74}
-\mdef\caltoclef{76}
+\musicdef\violinclef{71}
+\musicdef\bassclef{73}
+\musicdef\altoclef{75}
+\musicdef\cviolinclef{72}
+\musicdef\cbassclef{74}
+\musicdef\caltoclef{76}
 
-\mdef\deighthflag{45}
-\mdef\dsixteenthflag{46}
-\mdef\dthirtysecondflag{47}
-\mdef\dsixtyfourthflag{48}
-\mdef\dhundredtwentyeighthflag{49}
+\musicdef\deighthflag{45}
+\musicdef\dsixteenthflag{46}
+\musicdef\dthirtysecondflag{47}
+\musicdef\dsixtyfourthflag{48}
+\musicdef\dhundredtwentyeighthflag{49}
 
 % pointing up
-\mdef\ueighthflag{40}
-\mdef\usixteenthflag{41}
-\mdef\uthirtysecondflag{42}
-\mdef\usixtyfourthflag{43}
-\mdef\uhundredtwentyeighthflag{44}
+\musicdef\ueighthflag{40}
+\musicdef\usixteenthflag{41}
+\musicdef\uthirtysecondflag{42}
+\musicdef\usixtyfourthflag{43}
+\musicdef\uhundredtwentyeighthflag{44}
 
 \maccentdef\repeatcolon{55}{2/1}
 \def\eighthflag{\topalign{\ueighthflag}}
@@ -99,7 +101,7 @@
 \def\ldoubledot{\kern-\notewidth\doubledot}
 \def\ltripledot{\kern-\notewidth\tripledot}
 
-\mdef\turn{67}
+\musicdef\turn{67}
 \maccentdef\sforzato{30}{-3/2}
 \maccentdef\marcato{20}{-1/1}
 \maccentdef\imarcato{21}{1/1}
@@ -114,9 +116,9 @@
 \maccentdef\fermata{80}{-1/1}
 \maccentdef\ifermata{81}{1/1}
 
-\mdef\spicato{28}
-\mdef\ispicato{29}
-\mdef\upbow{23}
-\mdef\downbow{22}
+\musicdef\spicato{28}
+\musicdef\ispicato{29}
+\musicdef\upbow{23}
+\musicdef\downbow{22}
 
 \def\tr{{\it tr}}

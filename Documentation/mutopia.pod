@@ -7,8 +7,7 @@ Mutopia project - manifesto
 Random ranting about the Mutopia project, aka "Music To the People." 
 
 This is the ultimate goal which I want to accomplish using LilyPond
-and mudela. This project is still vapourware, so don't ask questions
-unless you want to put in effort into The GNU Music project,
+and mudela. 
 
 =head1 WHY
 
@@ -36,3 +35,27 @@ call The Mutopia Project.
 
 
 
+
+=head1 STATUS
+
+This project is still in its vapourware stage, so don't ask questions
+unless you want to put in effort into The GNU Music project.
+
+Just as an aside, the LilyPond package includes the following music:
+
+=over 4
+
+=item *
+
+J.S. Bach, Das Wohltemperierte Clavier I: C major Prelude & Fugue, C
+minor fugue.  Solo cello suites: suite II, menuetto (alto version).
+
+=item * 
+
+F. Schubert, St\"andchen (Serenade) "Leise flehen meine Lieder"
+
+=item * 
+
+Tarquinio Merula, La Gallina a 2 violini
+
+=back

@@ -12,8 +12,7 @@
 
 /** don't copy anything: an element can only be in one
   Axis_group_element at one time.  */
-Axis_group_administration::Axis_group_administration (
-						      Axis_group_administration const&)
+Axis_group_administration::Axis_group_administration (Axis_group_administration const&)
 {
 }
 

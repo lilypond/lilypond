@@ -12,7 +12,7 @@ paper_sixteen = \paper {
 	wholewidth = 4.8\pt;
 	unitspace = 22.\pt;
 	%geometric = 1.414;
-	%basicspace = 4.\pt;
+	basicspace = 4.\pt;
 
 	geometric = 0.;
      	arithmetic_basicspace = 2.;

@@ -4,8 +4,8 @@ filename		kortjakje.ly
 title		Ah,  vous dirais-je, maman (variations)
 description		 bare bones version. (written down from memory :-)
 composers		Mozart, KV 265
-entered-by		HWN
-copyright		PD
+enteredby		HWN
+copyright		public domain
 }
 %{
 Tested Features: example file with comments

@@ -12,6 +12,7 @@
 #include "symbol.hh"
 #include "fproto.hh"
 #include "scalar.hh"
+#include "direction.hh"
 
 /// intuitive interface to symbol table
 struct Lookup {
@@ -48,10 +49,10 @@ struct Lookup {
     Symbol bar (String, Real height) const;
     
     Symbol dots (int) const;
-    Symbol slur (int dy, Real &dx, int dir) const;
-    Symbol half_slur (int dy, Real &dx, int dir, int xpart) const;
-    Symbol half_slur_middlepart (Real &dx, int dir) const;
-    Symbol big_slur (int dy, Real &dx, int dir) const;
+    Symbol slur (int dy, Real &dx, Direction dir) const;
+    Symbol half_slur (int dy, Real &dx, Direction dir, int xpart) const;
+    Symbol half_slur_middlepart (Real &dx, Direction dir) const;
+    Symbol big_slur (int dy, Real &dx, Direction dir) const;
     Symbol text (String style, String text, int align = 1) const;
     Symbol script (String idx) const;
     Symbol hairpin (Real & width, bool decresc) const;

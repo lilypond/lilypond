@@ -21,17 +21,17 @@
 template<class T>
 class Link_list : public List<void *>
 {
- public:
-    PCursor<T> top() const{
-	return PCursor<T> (List<void*>::top());
-    }
-    PCursor<T> bottom() const {
-	return PCursor<T> (List<void*>::bottom());
-    }
-    PCursor<T> find (T) const;
-    void concatenate (Link_list<T> const &s) { List<void*>::concatenate (s); }
+public:
+  PCursor<T> top() const{
+    return PCursor<T> (List<void*>::top());
+  }
+  PCursor<T> bottom() const {
+    return PCursor<T> (List<void*>::bottom());
+  }
+  PCursor<T> find (T) const;
+  void concatenate (Link_list<T> const &s) { List<void*>::concatenate (s); }
 
-    Link_list() {}
+  Link_list() {}
 };
 
 /**   
@@ -54,16 +54,16 @@ template<class T>
 class Pointer_list : public Link_list<T> {
     
 public:
-    void junk();
-    Pointer_list (Pointer_list const &) { set_empty(); }
-    Pointer_list() { }
-    ~Pointer_list() { junk (); }
+  void junk();
+  Pointer_list (Pointer_list const &) { set_empty(); }
+  Pointer_list() { }
+  ~Pointer_list() { junk (); }
 };
 
 #define Pointer_list__copy(T, to, from, op)   \
-  for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
-      to.bottom().add (_pc_->op)\
-  \
+for (PCursor<T> _pc_(from); _pc_.ok(); _pc_++)\
+to.bottom().add (_pc_->op)\
+\
 
 
 template<class T>

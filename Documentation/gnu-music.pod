@@ -147,10 +147,6 @@ automatic accompaniment, etc.
 
 =back
 
-=head1 PLAN
-
-
-
 =head1 PROGRAMS
 
 =over 4

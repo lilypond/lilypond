@@ -34,9 +34,9 @@ String_handle::copy()
 {
   if (data->references !=1)
     {
-	String_data *newdata = new String_data (*data);
-	down();
-	up (newdata);
+      String_data *newdata = new String_data (*data);
+      down();
+      up (newdata);
     }
 }
 
@@ -88,7 +88,7 @@ INLINE void
 String_handle::operator =(String_handle const &src) 
 {
   if (this == &src)
-	return;
+    return;
   down();
   up (src.data);
 }
