@@ -1,9 +1,0 @@
-\input texinfo @c -*-texinfo-*-
-@setfilename internals.info
-@settitle LilyPond internals
-
-
-@node Top, , (dir), (dir)
-@top
-
-
