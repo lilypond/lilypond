@@ -172,7 +172,10 @@ Beam::quanting (SCM smob)
    */
   if (knee_b)
     region_size += 2;
-  
+
+  /*
+    Asymetry ? should run to <= region_size ?
+   */
   for (int i = -region_size ; i < region_size; i++)
     for (int j = 0; j < num_quants; j++)
       {
