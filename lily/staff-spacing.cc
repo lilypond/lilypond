@@ -3,7 +3,7 @@ staff-spacing.cc --  implement Staff_spacing
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2001--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

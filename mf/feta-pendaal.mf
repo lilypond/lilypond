@@ -127,7 +127,7 @@ def draw_pedal_P =
 	y11 = 1/5h;
 
 	penlabels (1,2,3,4,5,6,7,8,9,10,11);
-	penstroke z1e..tension 2.5 .. z2e.. tension 1.5 .. z3e ..tension 2.5
+	soft_penstroke z1e..tension 2.5 .. z2e.. tension 1.5 .. z3e ..tension 2.5
 		..z4e..tension 1.5
 		..z5e..z6e..tension 1.5
 		..z7e..tension 1.5
@@ -148,7 +148,7 @@ def draw_pedal_P =
 	y16r = y2r;
 
 	penlabels (12,13,14,15,16);
-	penstroke z12e{down}..tension 1.1
+	soft_penstroke z12e{down}..tension 1.1
 		..z13e{dir (180-pedbeta)}..tension 1.1
 		..z14e{right}..tension 1.1
 		..z15e{dir (180+pedbeta)}..tension 1.1
@@ -177,7 +177,7 @@ def draw_pedal_d =
 
 	penlabels (1,2,3,4,5);
 
-	penstroke z1e{dir (-70-90)}..tension 1.1
+	soft_penstroke z1e{dir (-70-90)}..tension 1.1
 		..z2e{down}..tension 1.1
 		..z3e{right}..tension 1.1
 		..z4e{dir (90+10)}..tension 1.1
@@ -217,7 +217,7 @@ def draw_pedal_e =
 	y8 = 1/5pedalh;
 
 	penlabels (1,2,3,4,5,6,7,8);
-	penstroke z1e{dir pedalpha}
+	soft_penstroke z1e{dir pedalpha}
 		..z2e{dir pedalpha}.. tension 1.1
 		%urg
 		..z3e..tension 1.05

@@ -1,0 +1,38 @@
+% 
+% feta-generic.mf --  implement generic stuff: include lots of files, but don't
+%  set dims.
+%
+% source file of the Feta (defintively not an abbreviation for Font-En-Tja)
+% music font
+% 
+% (c) 1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% 
+
+
+if test = -1:
+	mode := smoke;
+fi
+
+mode_setup;
+%
+
+input feta-macros;
+
+make_pen_stack;
+make_picture_stack;
+input feta-params;
+
+font_x_height  staff_space#;
+
+if test = 0: 
+	input parmesan-rests;
+	input parmesan-heads;
+	input parmesan-clefs;
+	input parmesan-custodes
+	input parmesan-accidentals;
+	input parmesan-flags;
+	input parmesan-timesig;
+
+else:
+
+fi

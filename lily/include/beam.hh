@@ -1,7 +1,7 @@
 /*
   beam.hh -- part of GNU LilyPond
 
-  (c) 1996--2001 Han-Wen Nienhuys
+  (c) 1996--2002 Han-Wen Nienhuys
 */
 
 #ifndef BEAM_HH

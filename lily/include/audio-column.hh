@@ -1,7 +1,7 @@
 /*
   audio-column.hh -- declare Audio_column
 
-  (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c)  1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
 #ifndef AUDIO_COLUMN_HH

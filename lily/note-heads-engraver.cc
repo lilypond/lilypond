@@ -1,7 +1,7 @@
 /*
   head-grav.cc -- part of GNU LilyPond
 
-  (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 #include <ctype.h>
 

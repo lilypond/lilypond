@@ -1,0 +1,275 @@
+% -*-Fundamental-*-
+% feta-custodes.mf --  implement custos symbols
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (C) 2000, 2002 Juergen Reuter <reuter@ipd.uka.de>
+% 
+
+save black_notehead_width;
+numeric black_notehead_width;
+
+fet_begingroup("custodes");
+
+noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
+define_pixels(noteheight);
+
+
+%%%%%%%%
+%
+% Hufnagel style
+%
+
+% stem up
+fet_beginchar("Custos Hufnagel", "hufnagel", "hufnagel")
+	save b_h,a_w;
+	a_b:=1.54; % b_h*a_b/a_w = wd/ht
+	b_h:=0.85;
+	a_w:=1.09;
+
+	save a, beta, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2);
+	black_notehead_width# := wd#;
+
+	save rh_width, rh_height, rh_edge; % rhombus dimensions
+	rh_width#=0.7ht#; % ht*tan(35)
+	rh_height#=1.0ht#;
+	rh_edge#=0.61ht#; % (ht/2)/cos(35)
+
+	define_pixels(rh_width, rh_height, rh_edge);
+	pickup pencircle
+	  xscaled stafflinethickness
+	  yscaled rh_edge rotated -35;
+	z1=(0.5rh_width,+0.25rh_height);
+	z2=(1.0rh_width,-0.25rh_height);
+	z3=(2.0rh_width,+0.50rh_height);
+	draw z1 -- z2 -- z3;
+fet_endchar;
+
+% stem down
+fet_beginchar("Reverse Custos Hufnagel", "rhufnagel", "rhufnagel")
+	save b_h,a_w;
+	a_b:=1.54; % b_h*a_b/a_w = wd/ht
+	b_h:=0.85;
+	a_w:=1.09;
+
+	save a, beta, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2);
+	black_notehead_width# := wd#;
+
+	save rh_width, rh_height, rh_edge; % rhombus dimensions
+	rh_width#=0.7ht#; % ht*tan(35)
+	rh_height#=1.0ht#;
+	rh_edge#=0.61ht#; % (ht/2)/cos(35)
+
+	define_pixels(rh_width, rh_height, rh_edge);
+	pickup pencircle
+	  xscaled stafflinethickness
+	  yscaled rh_edge rotated +35;
+	z1=(0.5rh_width,-0.25rh_height);
+	z2=(1.0rh_width,+0.25rh_height);
+	z3=(2.0rh_width,-0.50rh_height);
+	draw z1 -- z2 -- z3;
+fet_endchar;
+
+
+%%%%%%%%
+%
+% Medicaea style
+%
+
+% stem up
+fet_beginchar("Custos Med.", "medicaea", "medicaea")
+	save b_h, a_w;
+	a_b := 1.54; % b_h*a_b/a_w = wd/ht
+	b_h := 0.85;
+	a_w := 1.09;
+
+	save a, beta, ht, wd;
+	ht# = noteheight# * mag;
+	2beta# = ht# * b_h;
+	a# = beta# * a_b;
+	wd# = 0.4a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+
+	% head
+	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
+	z1 = (0.0wd, 0.0ht);
+	z2 = z1 + (1.0wd - blot_diameter/2, 0);
+	draw z1 .. z2;
+
+	% stem
+	pickup pencircle scaled stafflinethickness;
+	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
+	z4 = z3 + (0, +1.0ht);
+	draw z3 .. z4;
+fet_endchar;
+
+
+% stem down
+fet_beginchar("Reverse Custos Med.", "rmedicaea", "rmedicaea")
+	save b_h, a_w;
+	a_b := 1.54; % b_h*a_b/a_w = wd/ht
+	b_h := 0.85;
+	a_w := 1.09;
+
+	save a, beta, ht, wd;
+	ht# = noteheight# * mag;
+	2beta# = ht# * b_h;
+	a# = beta# * a_b;
+	wd# = 0.4a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+
+	% head
+	pickup pencircle xscaled blot_diameter yscaled 1.0ht;
+	z1 = (0.0wd, 0.0ht);
+	z2 = z1 + (1.0wd - blot_diameter/2, 0);
+	draw z1 .. z2;
+
+	% stem
+	pickup pencircle scaled stafflinethickness;
+	z3 = (1.0wd - stafflinethickness/2, 0.0ht);
+	z4 = z3 + (0, -1.0ht);
+	draw z3 .. z4;
+fet_endchar;
+
+
+%%%%%%%%
+%
+% Editio Vaticana style
+%
+
+% stem up
+fet_beginchar("Custos Ed. Vat.", "vaticana", "vaticana")
+	save b_h, a_w;
+	a_b := 1.54; % b_h*a_b/a_w = wd/ht
+	b_h := 0.85;
+	a_w := 1.09;
+
+	save a, beta, ht, wd;
+	ht# = noteheight# * mag;
+	2beta# = ht# * b_h;
+	a# = beta# * a_b;
+	wd# = 0.4a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2);
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+	pickup pencircle scaled stafflinethickness;
+
+	z1 = (0.0wd, +0.05ht);
+	z2 = (1.0wd + 0.5stafflinethickness, 0.0ht);
+	penpos1(0.5ht, 90);
+	penpos2(0.5ht, 90);
+	penstroke z1e{z2 - z1} .. {right}z2e;
+
+	z3=(1.0wd, +0.0ht);
+	z4=(1.0wd, +1.0ht);
+	draw z3 -- z4;
+fet_endchar;
+
+
+% stem down
+fet_beginchar("Reverse Custos Ed. Vat.", "rvaticana", "rvaticana")
+	save b_h, a_w;
+	a_b := 1.54; % b_h*a_b/a_w = wd/ht
+	b_h := 0.85;
+	a_w := 1.09;
+
+	save a, beta, ht, wd;
+	ht# = noteheight# * mag;
+	2beta# = ht# * b_h;
+	a# = beta# * a_b;
+	wd# = 0.4a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2);
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+	pickup pencircle scaled stafflinethickness;
+
+	z1 = (0.0wd, -0.05ht);
+	z2 = (1.0wd + 0.5stafflinethickness, -0.0ht);
+	penpos1(0.5ht, 90);
+	penpos2(0.5ht, 90);
+	penstroke z1e{z2 - z1} .. {right}z2e;
+
+	z3=(1.0wd, -0.0ht);
+	z4=(1.0wd, -1.0ht);
+	draw z3 -- z4;
+fet_endchar;
+
+
+%%%%%%%%
+%
+% Mensural style
+%
+
+% stem up
+fet_beginchar("Custos Mensural", "mensural", "mensural")
+	save b_h,a_w;
+	a_b:=1.54; % b_h*a_b/a_w = wd/ht
+	b_h:=0.85;
+	a_w:=1.09;
+
+	save a, beta, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+	pickup pencircle xscaled stafflinethickness yscaled 0.4ht rotated -35;
+	z1=(0.0wd,-0.2ht);
+	z2=(0.2wd,+0.2ht);
+	z3=(0.4wd,-0.2ht);
+	z4=(0.6wd,+0.2ht);
+	z5=(0.8wd,-0.2ht);
+	z6=(1.6wd,+1.4ht);
+	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
+fet_endchar;
+
+% stem down
+fet_beginchar("Reverse Custos Mensural", "rmensural", "rmensural")
+	save b_h,a_w;
+	a_b:=1.54; % b_h*a_b/a_w = wd/ht
+	b_h:=0.85;
+	a_w:=1.09;
+
+	save a, beta, ht, wd;
+	ht# =noteheight#;
+	2beta#=ht#*b_h;
+	a# = beta#*a_b;
+	wd# = 2a# / a_w;
+	set_char_box(0, wd#, ht#/2, ht#/2); % width intentionally too small
+	black_notehead_width# := wd#;
+
+	define_pixels(ht, wd);
+	pickup pencircle xscaled stafflinethickness yscaled 0.4ht rotated +35;
+	z1=(0.0wd,+0.2ht);
+	z2=(0.2wd,-0.2ht);
+	z3=(0.4wd,+0.2ht);
+	z4=(0.6wd,-0.2ht);
+	z5=(0.8wd,+0.2ht);
+	z6=(1.6wd,-1.4ht);
+	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
+fet_endchar;
+
+fet_endgroup("custodes");
+define_pixels(black_notehead_width);
+

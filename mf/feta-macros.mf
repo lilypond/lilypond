@@ -95,6 +95,15 @@ enddef;
 % drawing
 %
 
+def soft_penstroke text t =
+	forsuffixes e = l,r: path_.e:=t; endfor
+	if cycle path_.l:
+	  cyclestroke_
+	else:
+	  fill path_.l .. tension1.5 .. reverse path_.r .. tension1.5 .. cycle
+	fi
+enddef;
+
 def simple_serif(expr p,q, a)= 
 	p{dir(angle(q-p) -a)} .. q{ - dir(angle(p -q) + a)}
 enddef;
@@ -191,6 +200,7 @@ begingroup;
 	penlabels(1,2,3,4,5,6);
 endgroup;
 enddef;
+
 
 def y_mirror_char =
 	currentpicture := currentpicture yscaled -1;

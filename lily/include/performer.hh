@@ -1,7 +1,7 @@
 /*
   performer.hh -- declare Performer
 
-  (c) 1996--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
  */
 

@@ -3,8 +3,9 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
+% (c) 1997--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 % & Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% & Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 
@@ -21,225 +22,10 @@ fet_begingroup("noteheads");
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
 
-
-%%%%%%%%
 %
+
+%%% TODO: Document these!
 %
-%
-% MENSURAL NOTATION
-%
-%
-%
-brevis_wid# := 2 staff_space#;
-
-def draw_brevis(expr brevwid) =
-	save beamheight, head_width;
-	save holeheight, stem_width;
-	save serif_size, serif_protrude;
-
-	head_width# = brevwid;
-	holeheight = 3 stafflinethickness;
-	stem_width = 1.4 stafflinethickness;
-
-
-	define_pixels(head_width);
-	set_char_box(0, head_width#, noteheight#/2, noteheight#/2);
-	
-	2 beamheight + holeheight = noteheight;
-	serif_size = (holeheight - stafflinethickness)/2;
-	serif_protrude = 1.5 serif_size;
-	penpos1(stem_width, 0);
-	penpos2(stem_width, 0);
-	penpos3(beamheight, 90);
-	penpos4(beamheight, 90);
-	penpos5(stem_width, 180);
-
-	z1l = (0, 0);
-	z2l = (0, -stafflinethickness/2);
-	z3r = z2r + serif_size *(1,-1);
-	y4r = y3r;
-	x4r = head_width/2;
-	z5l = z3l + (-serif_size, -serif_protrude);
-
-	penlabels(1,2,3,4, 5);
-	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
-		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
-
-	addto currentpicture also currentpicture yscaled -1;
-	show z4r; show z4l;
-	addto currentpicture also currentpicture 
-		shifted (-x4r,0) xscaled -1 shifted (x4l,0);
-
-enddef;
-
-
-%
-% Some sources (eg Musix/OpusTeX think that the appendage should be on
-% the left, some say right. Right wins democratically.
-%
-def draw_longa (expr wid) =
-	draw_brevis(wid);
-	save theta;
-
-	x7r = head_width;
-	y7 = y5;
-%	z7 = z5;
-	z6 - z7 = (stem_width/2, -staff_space);
-	theta = angle(z6-z7)+ 90;
-	penpos7(stem_width, theta);
-	penpos6(1.2 stem_width, theta);
-	
-	fill z7r .. z6r{z6-z7} .. {z7-z6} z6l -- z7l -- cycle;
-	penlabels(6,7);
-enddef;
-
-%
-% En wij presenteren U: de opvolgster van Emily
-%
-% (ze is wel breed)
-% 
-fet_beginchar("Maxima notehead", "-3mensural", "mensuralmaximahead");
-	draw_longa (1.3 brevis_wid#)
-fet_endchar;
-
-fet_beginchar("Longa notehead", "-2mensural", "mensurallongahead");
-	draw_longa (brevis_wid#)
-fet_endchar;
-
-fet_beginchar("Brevis notehead", "-1mensural", "mensuralbrevishead")
-	draw_brevis(brevis_wid#);
-fet_endchar;
-
-def draw_neo_mensural_black_head (expr wid) =
-	save head_width;
-	head_width# = wid;
-	set_char_box (0, head_width#, noteheight#/2, noteheight#/2);
-
-
-	y3 = y1 =0;
-	x2 = x4 = (x1 + x3) /2;
-	define_pixels (head_width);
-	pickup pencircle scaled blot_diameter;
-	top y2 = h;
-	bot y4 = -d;
-	lft x1 = 0;
-	rt x3 = w;
-
-	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
-enddef;
-
-def draw_neo_mensural_open_head (expr wid)=
-	draw_neo_mensural_black_head (wid);
-	save diamNW, diamSW;
-	diamNW = length (z2 - z1) + blot_diameter;
-	diamSW = length (z4 - z1) + blot_diameter;
-	
-	save hole_widthNW, hole_widthSW;
-	hole_widthNW = 0.34 diamNW ;
-	hole_widthSW + 2.6 stafflinethickness = diamSW;
-
-	(z7 + z5)/2 = (w/2, 0);
-	(z8 + z6)/2 = (w/2, 0);
-	(z6 - z5) = hole_widthNW * unitvector (z2 - z1);
-	(z7 - z6) = hole_widthSW * unitvector (z4 - z1);
-
-	labels (1,2,3,4,5,6,7,8);
-
-	unfill z5 -- z6 -- z7 -- z8 --cycle;
-enddef;
-
-fet_beginchar("Neo-mensural open head","0neo_mensural","neomensuralminimhead")
-      draw_neo_mensural_open_head (staff_space#);
-fet_endchar;
-
-fet_beginchar("Neo-mensural open head","1neo_mensural","neomensuralsemiminimhead")
-      draw_neo_mensural_open_head (staff_space#);
-fet_endchar;
-
-fet_beginchar("Neo-mensural black head","2neo_mensural","neofusahead")
-      draw_neo_mensural_black_head (staff_space#);
-fet_endchar;
-
-
-def draw_mensural_head (expr wid, open) =
-      save head_width;
-      head_width# = wid;
-      set_char_box (head_width#/2, head_width#/2,
-		    noteheight#/2, noteheight#/2);
-
-      define_pixels(head_width, noteheight);
-
-      x1 = -x3;
-      y1 = x2 = y3 = x4 = 0;
-      y4 = -y2;
-      y2 = 1.4 noteheight/2;
-      tand(30) = x3 / y2;
-
-      pickup pencircle
-	     xscaled 0.15 head_width
-	     yscaled 0.30 head_width
-	     rotated -30;
-
-      % pencircle width correction
-      save zc, zd; pair zc, zd;
-      zc = (+0.150 head_width * sind(30), +0.150 head_width * cosd(30));
-      zd = (+0.075 head_width * sind(30), -0.075 head_width * cosd(30));
-
-      if open:
-	      draw (z1+zc+zd) -- (z2-zc+zd) --
-		   (z3-zc-zd) -- (z4+zc-zd) -- cycle;
-      else:
-	      filldraw (z1+zc+zd) -- (z2-zc+zd) --
-		       (z3-zc-zd) -- (z4+zc-zd) -- cycle;
-      fi;
-enddef;
-
-
-fet_beginchar("Mensural open head","0mensural","mensuralminimhead")
-	draw_mensural_head (staff_space#, true);
-fet_endchar;
-
-fet_beginchar("Mensural open head","1mensural","mensuralsemiminimhead")
-	draw_mensural_head (staff_space#, true);
-fet_endchar;
-
-fet_beginchar("Mensural black head","2mensural","fusahead")
-	draw_mensural_head (staff_space#, false);
-fet_endchar;
-
-
-%%%%%%%%%%%%
-%
-%
-% ledger (leger) lines
-%
-fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
-set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
-  		ledgerlinethickness#/2,ledgerlinethickness#/2);
-	pickup pencircle scaled 1.3 blot_diameter;
-
-	rt x2 = w;
-	lft x1 = -b;
-	x3 = x2;
-	bot y1 = -d;
-	y2 = y1;
-
-	top y3 = h;
-	y4 = y3;
-	x4 = x1;
-
-	filldraw z1 --- z2 --- z3 --- z4 --- cycle ;
-fet_endchar;
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%
-%
-%
-%
-% TODO: Document these!
 
 % setup user vars
 def setup_notehead_vars =
@@ -487,47 +273,76 @@ fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
 	fill black;
 fet_endchar;
 
-save triangle; path triangle;
-triangle = (-sqrt3/4,-1/2) -- (0,1) -- (sqrt3/4,-1/2) -- cycle;
+
+
+begingroup;
+def def_triangle =
+	save triangle,kern; path triangle;
+	kern = 1/3(x2-x1);
+	z2 = z1 rotated 120;
+	z3 = z1 rotated 240;
+	z12 = caveness[.5[z1,z2],z3];
+	z23 = z12 rotated 120;
+	z31 = z12 rotated 240;
+	triangle = z1 .. z12 .. z2 ..
+		    z2 .. z23 .. z3 ..
+		    z3 .. z31 .. z1 ..
+		    cycle;
+	triangle := triangle shifted (-x1+pent/2-kern,0) xscaled xs;
+	pickup pencircle scaled pent xscaled xs;
+	hei = max(y1,-y2)+pent/2; 
+	%set_char_box(-kern*xs*fac, ((x3-x1)*fac+pent#)*xs,hei*fac,hei*fac);
+	set_char_box(0, ((x3-x1-kern)*fac+pent#)*xs,hei*fac,hei*fac);
+enddef;
+save fac,pent;
+fac = noteheight#/noteheight;
+pent# = 2stafflinethickness#;
+define_pixels(pent);
+
 
 fet_beginchar("Whole trianglehead", "0triangle", "wholetrianglehead")
-	set_char_box(0, 2(noteheight#+stafflinethickness#)/sqrt3*7/8,
-	  (noteheight#+stafflinethickness#)/2,(noteheight#+stafflinethickness#)/2);
-	fill triangle scaled (7h/6) shifted (w/2,-h/6);
-	unfill triangle scaled 0.72h shifted (w/2,-h/6);
+	save hei,xs;
+	z1 = dir(130)*3/4noteheight;
+	xs = 1.5;
+	caveness:=0.1;
+	def_triangle;
+	draw triangle;
 fet_endchar;
+
 fet_beginchar("Half trianglehead", "1triangle", "halftrianglehead")
-	thick := 1.2stafflinethickness;
-	set_char_box(0, 2noteheight#/sqrt3*7/8,noteheight#/2,noteheight#/2);
-	fill triangle scaled (7h/6) shifted (w/2,-h/6);
-	unfill triangle scaled 0.7h shifted (w/2,-h/6);
+	save hei,xs;
+	z1 = dir(130)*2/3noteheight;
+	xs = 1.2;
+	caveness:=0.1;
+	def_triangle;
+	draw triangle;
 fet_endchar;
+
 fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
-	thick := 1.2stafflinethickness;
-	set_char_box(0, 2noteheight#/sqrt3*7/8,noteheight#/2,noteheight#/2);
-	fill triangle scaled (7h/6) shifted (w/2,-h/6);
+	save hei,xs;
+	z1 = dir(130)*2/3noteheight;
+	xs = 1.0;
+	caveness:=0.1;
+	def_triangle;
+	filldraw triangle;
 fet_endchar;
+
+endgroup;
 
 %%% Editable values:
 slope := 1.7; % slope of slash. From scm/grob-description.scm. How to auto-copy?
-slt := 2/3*0.48staff_space; % thickness of lines. quarter notes get 1.5slt width.
-slh := 2staff_space; % height of char.
+slt# := 2/3*0.48staff_space#; % thickness of lines. quarter notes get 1.5slt width.
+slh# := 2staff_space#; % height of char.
 
 %%% Calculated values:
-sxa := 0; % how much the char exceeds the boundingbox horizontally:
-slxt := sqrt(slt*slt+(slt/slope)*(slt/slope)); % Width of hor. pen - with thanks to Pythagoras
-slw := slh/slope; % width of sloping part of slash:
+sxa# := 0; % how much the char exceeds the boundingbox horizontally:
+slxt# := sqrt(slt#*slt#+(slt#/slope)*(slt#/slope)); % Width of hor. pen - with thanks to Pythagoras
+slw# := slh#/slope; % width of sloping part of slash:
 
-% is this really nessesary? -rz
-fac# := staff_space#/staff_space;
-slt# := fac#*slt;
-slh# := fac#*slh;
-sxa# := fac#*sxa;
-slxt# := fac#*slxt;
-slw# := fac#*slw;
+define_pixels(slt,slh,sxa,slxt,slw);
 
-def draw_slash(expr hwid) =
-	wid# := slw#+2slxt#+hwid*fac#;
+def draw_slash(expr hwid_hash) =
+	wid# := slw#+2slxt#+hwid_hash;
 	set_char_box(0,wid#-2sxa#,slh#/2,slh#/2);
 	define_pixels (wid#);
 	pickup penrazor scaled slxt;
@@ -539,15 +354,15 @@ def draw_slash(expr hwid) =
 enddef;
 
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
-	draw_slash(staff_space);
+	draw_slash(staff_space#);
 fet_endchar;
 
 fet_beginchar("Half slashhead","1slash","halfslashhead")
-	draw_slash(0.6staff_space);
+	draw_slash(0.6staff_space#);
 fet_endchar;
 
 fet_beginchar("Quart slashhead","2slash","quartslashhead")
-	draw_slash(-slxt/2);
+	draw_slash(-slxt#/2);
 fet_endchar;
 
 % thick is the distance between the two parallel lines in the cross (distance between centres of lines)
@@ -593,10 +408,10 @@ fet_beginchar("Crossed notehead", "2cross", "crossedhead")
 fet_endchar;
 
 fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
-	wid# := black_notehead_width#;
-	hei# := noteheight#+stafflinethickness#;
+	wid# := black_notehead_width#*sqrt(sqrt2);
+	hei# := noteheight#*sqrt(sqrt2);
 	set_char_box(0, wid#,hei#/2,hei#/2);
-	cthick := 1.2stafflinethickness;
+	cthick := (1.2+1/4)*stafflinethickness;
 	cxr := w/2-cthick/2;
 	cyr := h-cthick/2;
 	pickup pencircle scaled cthick;
@@ -607,359 +422,30 @@ fet_beginchar("X-Circled notehead", "2xcircle", "xcircledhead")
 	draw (-xpos+w/2,ypos) -- (xpos+w/2,-ypos);
 fet_endchar;
 
-%%%%%%%%
-%
-%
-%
-% EDITIO VATICANA
-%
-%
-%
 
-% subbipunctum
-fet_beginchar("Ed. Vat. subbipunctum", "0vaticana_subbipunctum",
-	"vatsubbipunctumhead")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
+%%%%%%%%%%%%
+%
+%
+% ledger (leger) lines
+%
+fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
+set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
+  		ledgerlinethickness#/2,ledgerlinethickness#/2);
+	pickup pencircle scaled 1.3 blot_diameter;
 
-	save a, beta, ht, wd;
-	ht# = noteheight#;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0.3wd#, 0.3wd#, 0.5 ht#, 0.5 ht#);
-	black_notehead_width# := wd#;
+	rt x2 = w;
+	lft x1 = -b;
+	x3 = x2;
+	bot y1 = -d;
+	y2 = y1;
 
-	save za, alpha, size;
-	pair za;
-	define_pixels(ht, wd);
-	alpha = 35;
-	size = 0.45ht;
-	pickup pencircle
-		xscaled 0
-		yscaled size rotated -alpha;
-	za = (0, size) / 2 rotated alpha;
-	draw -za .. za;
+	top y3 = h;
+	y4 = y3;
+	x4 = x1;
 
+	filldraw z1 --- z2 --- z3 --- z4 --- cycle ;
 fet_endchar;
 
-
-% parametrized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
-	left_stem, right_stem,
-	straight, reverse_convexity, excentric, up_shift, mag) =
-
-	fet_beginchar(verbose_name, internal_name, mudela_name)
-		save b_h, a_w;
-		a_b := 1.54; % b_h*a_b/a_w = wd/ht
-		b_h := 0.85;
-		a_w := 1.09;
-
-		save a, beta, ht, wd;
-		ht# = noteheight# * mag;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2a# / a_w;
-		set_char_box(0.25wd#, 0.25wd#, 0.5ht#, 0.5ht#);
-		black_notehead_width# := wd#;
-
-		save convexity;
-		if straight:
-			if reverse_convexity:
-				convexity# = -0.02ht#;
-			else:
-				convexity# = +0.02ht#;
-			fi;
-		else:
-			if reverse_convexity:
-				convexity# = -0.05ht#;
-			else:
-				convexity# = +0.05ht#;
-			fi;
-		fi;
-
-		save yoffs;
-		if up_shift:
-			yoffs# = 0.08ht#;
-		else:
-			yoffs# = 0.00ht#;
-		fi
-
-		define_pixels(ht, wd, convexity, yoffs);
-		pickup pencircle scaled stafflinethickness;
-
-		if excentric:
-			z1 = (0.00wd, yoffs - 1.0convexity);
-			z2 = (0.08wd, yoffs + 1.4convexity);
-			z3 = (0.40wd, yoffs);
-			penpos1(0.50ht, 90);
-			penpos2(0.50ht, 90);
-			penpos3(0.50ht, 90);
-			if reverse_convexity:
-				penstroke z1e{up} .. z2e{right} .. z3e;
-			else:
-				penstroke z1e{down} .. z2e{right} ..z3e;
-			fi;
-		else:
-			z1 = (0.00wd, yoffs);
-			z2 = (0.20wd, yoffs + convexity);
-			z3 = (0.40wd, yoffs);
-			penpos1(0.50ht, 90);
-			penpos2(0.50ht, 90);
-			penpos3(0.50ht, 90);
-			penstroke z1e .. z2e .. z3e;
-		fi;
-
-		if left_stem:
-			z5=(0.00wd + 0.5 stafflinethickness, yoffs);
-			z6=(0.00wd + 0.5 stafflinethickness, yoffs - 1.5ht);
-			draw z5 -- z6;
-		elseif right_stem:
-			z5=(0.40wd - 0.25 stafflinethickness, yoffs);
-			z6=(0.40wd - 0.25 stafflinethickness, yoffs - 1.5ht);
-			draw z5 -- z6;
-		fi;
-
-	fet_endchar;
-enddef;
-
-
-% punctum
-punctum_char("Ed. Vat. punctum", "0vaticana_punctum", "vatpunctumhead",
-	false, false, false, false, false, false, 1.0);
-
-% virga (i.e. right stemmed punctum)
-punctum_char("Ed. Vat. virga", "0vaticana_virga", "vatvirgahead",
-	false, true, false, false, false, false, 1.0);
-
-% left stemmed punctum as used in clivis (flexa) ligature
-punctum_char("Ed. Vat. reverse virga", "0vaticana_rvirga", "vatrvirgahead",
-	true, false, false, false, false, false, 1.0);
-
-% pes lower punctum
-punctum_char("Ed. Vat. pes lower punctum", "0vaticana_lpes", "vatlpeshead",
-	false, false, true, true, false, false, 1.0);
-
-% pes upper punctum
-punctum_char("Ed. Vat. pes upper punctum", "0vaticana_upes", "vatupeshead",
-	false, false, true, false, false, false, 1.0);
-
-% pes upper punctum (shifted variation)
-%
-% Note: This note head is used instead of the regular pes upper
-% punctum to avoid collision with the lower punctum note of the pes when
-% the upper punctum sits directly on top of the lower punctum.
-punctum_char("Ed. Vat. var pes upper punctum", "0vaticana_vupes",
-	"vatvupeshead",
-	false, false, true, false, false, true, 1.0);
-
-% small punctum as used in epiphonus/cephalicus
-punctum_char("Ed. Vat. plica", "0vaticana_plica", "vatplicahead",
-	false, false, true, false, false, false, 0.5);
-
-% excentric punctum as used in epiphonus
-punctum_char("Ed. Vat. epiphonus", "0vaticana_epiphonus", "vatepiphonushead",
-	false, false, false, true, true, false, 1.0);
-
-% excentric punctum as used in cephalicus
-punctum_char("Ed. Vat. cephalicus", "0vaticana_cephalicus",
-	"vatcephalicushead",
-	false, false, false, false, true, false, 1.0);
-
-% quilisma
-fet_beginchar("Ed. Vat. quilisma", "0vaticana_quilisma", "vatquilismahead")
-	save b_h,a_w;
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
-
-	save a, beta, ht, wd;
-	ht# =noteheight#;
-	2beta#=ht#*b_h;
-	a# = beta#*a_b;
-	wd# = 2a# / a_w;
-	set_char_box(0.1wd#, 0.4wd#, 0.5 ht#, 0.5 ht#);
-	black_notehead_width# := wd#;
-
-	define_pixels(ht, wd);
-	pickup pencircle xscaled stafflinethickness yscaled 0.4ht;
-	z1=(0.00wd,-0.10ht);
-	z2=(0.00wd,+0.05ht);
-	z3=(0.15wd,-0.05ht);
-	z4=(0.15wd,+0.10ht);
-	z5=(0.30wd,+0.00ht);
-	z6=(0.30wd,+0.15ht);
-	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
-
-fet_endchar;
-
-%%%%%%%%
-%
-%
-%
-% EDITIO MEDICAEA
-%
-%
-%
-
-% subbipunctum
-fet_beginchar("Ed. Med. subbipunctum", "0medicaea_subbipunctum",
-	"medsubbipunctumhead")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
-
-	save a, beta, ht, wd;
-	ht# = noteheight#;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 2a# / a_w;
-	set_char_box(wd#/2, wd#/2, 0.5 ht#, 0.5 ht#);
-	black_notehead_width# := wd#;
-
-	save za, alpha, size;
-	pair za;
-	define_pixels(ht, wd);
-	alpha = 35;
-	size = 0.7ht;
-	pickup pencircle
-		xscaled 0
-		yscaled size rotated -alpha;
-	za = (0, size) / 2 rotated alpha;
-	draw -za .. za;
-
-fet_endchar;
-
-% parametrized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
-	left_up_stem, left_down_stem) =
-
-	fet_beginchar(verbose_name, internal_name, mudela_name)
-
-		save a, beta, ht, wd;
-		ht# = 2 staff_space#;
-		wd# = ht#;
-		set_char_box(0.0, 0.4wd#, 0.5ht#, 0.5ht#);
-		black_notehead_width# := wd#;
-
-		define_pixels(ht, wd);
-		pickup pencircle scaled stafflinethickness;
-
-			z1 = (0.00wd, 0);
-			z2 = (0.20wd, 0);
-			z3 = (0.40wd, 0);
-			penpos1(0.50ht, 90);
-			penpos2(0.50ht, 90);
-			penpos3(0.50ht, 90);
-			penstroke z1e .. z2e .. z3e;
-
-		if left_down_stem:
-			z5=(0.00wd + 0.5 stafflinethickness, 0);
-			z6=(0.00wd + 0.5 stafflinethickness, - 1.25ht);
-			draw z5 -- z6;
-		elseif left_up_stem:
-			z5=(0.00wd + 0.5 stafflinethickness, 0);
-			z6=(0.00wd + 0.5 stafflinethickness, + 1.25ht);
-			draw z5 -- z6;
-		fi;
-
-	fet_endchar;
-enddef;
-
-% punctum
-punctum_char("Ed. Med. punctum", "0medicaea_punctum", "medpunctumhead",
-	false, false);
-
-% left up-stemmed punctum
-punctum_char("Ed. Med. reverse virga", "0medicaea_rvirga", "medrvirgahead",
-	true, false);
-
-% virga (i.e. left down-stemmed punctum)
-punctum_char("Ed. Med. virga", "0medicaea_virga", "medvirgahead",
-	false, true);
-
-%%%%%%%%
-%
-%
-%
-% HUFNAGEL
-%
-%
-%
-
-% punctum
-% parametrized punctum
-def punctum_char (expr verbose_name, internal_name, mudela_name,
-	down_stem) =
-
-	fet_beginchar(verbose_name, internal_name, mudela_name)
-		save b_h, a_w;
-		a_b := 1.54; % b_h*a_b/a_w = wd/ht
-		b_h := 0.85;
-		a_w := 1.09;
-
-		save a, beta, ht, wd;
-		ht# = noteheight#;
-		2beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2a# / a_w;
-		set_char_box(wd#/2, wd#/2, 0.5 ht#, 0.5 ht#);
-		black_notehead_width# := wd#;
-
-		save za, zb, zc, alpha, size;
-		pair za, zb, zc;
-		define_pixels(ht, wd);
-		alpha = 55;
-		size = 0.7ht;
-		pickup pencircle
-			xscaled 0
-			yscaled size rotated -alpha;
-		za = (0, size) / 2 rotated alpha;
-		draw -za .. za;
-
-		if down_stem:
-			zb = (0.00wd, 0);
-			zc = (0.00wd, - 1.25ht);
-			draw zb -- zc;
-		fi;
-	fet_endchar;
-enddef;
-
-% punctum
-punctum_char("Hufnagel punctum", "0hufnagel_punctum", "hufpunctumhead", false)
-
-% virga
-punctum_char("Hufnagel virga", "0hufnagel_virga", "hufvirgahead", true)
-
-% pes lower punctum
-fet_beginchar("Hufnagel pes lower punctum", "0hufnagel_lpes", "huflpeshead")
-	save b_h, a_w;
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
-	b_h := 0.85;
-	a_w := 1.09;
-
-	save a, beta, ht, wd;
-	ht# = noteheight#;
-	2beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 2a# / a_w;
-	set_char_box(wd#, wd#, 0.7 ht#, 0.7 ht#);
-	black_notehead_width# := wd#;
-
-	save za, alpha, size;
-	pair za;
-	define_pixels(ht, wd);
-	alpha = 35;
-	size = 0.7ht;
-	pickup pencircle
-		xscaled 0
-		yscaled size rotated -alpha;
-	za = (size, 0);
-	draw -za .. za;
-fet_endchar;
 
 fet_endgroup("noteheads");
 define_pixels(black_notehead_width);

@@ -1,3 +1,70 @@
+2002-02-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* VERSION: 1.5.29 released
+
+	* all files: change 2001 to 2002 in headers globally
+
+	* mf/parmesan20.mf: split out ancient notation into parmesan ("old
+	cheese") font. WARNING: fonts changed.
+	
+2002-02-01  Juergen Reuter <reuter@ipd.uka.de>
+
+	* mf/*.mf: Fixed some blot_diameter related flaws in some feta symbols
+	
+	* mf/*.mf: Added some more vaticana/solesmes style font symbols
+	
+	* mf/*.mf: Bugfix: renamed subbipunctum -> inclinatum
+
+	* mf/*.mf: Fixed a few typos in various .mf files
+
+2002-01-17 Rune Zedeler <rune@zedeler.dk>
+ 
+ 	* mf/: added macro soft_penstroke
+	
+ 	       softened some glyphs
+ 	       redrawn triangular noteheads
+ 	       redrawn tab-clef
+ 	       added classical quarter rest
+ 	
+ 	* lily/stem.cc: Bugfix: Stem-attachment when staff_space!=1
+ 
+ 	* lily/bar.cc: Bugfix: repeat dots when even number of staff
+ 	lines and staff_space>=2
+ 
+ 	* lily/rest.cc: Use default rests when current style glyphs not
+ 	found - this allows
+ 	\property Staff.Rest \override #'style = #'classical
+
+2002-01-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/bugs/first-tie.ly: New file.
+
+	* input/bugs/spacing-clash.ly: New file.
+
+2002-01-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* po: regenerate.
+
+2002-1-24 Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lilypond-indent.el: New file providing indentation for
+	parenthesised blocks of lilypond code in Emacs
+	
+	* lilypond-font-lock.el: Changes to the syntax table to facilitate
+	indentation and handle block comments properly. Distinguish
+	accents from close-brackets in fontification.
+
+	* lilypond-mode.el: LilyPond-indent-command set appropriately.
+
+2002-01-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/installing.texi: 
+	* Documentation/windows/compiling.texi: Include from 1.4.10.
+
+	* Documentation/windows/gs-profile.sh: previously lily-gs.sh
+
+	* input/bugs/first-midi-tie.ly: New file.
+
 2001-12-29  Han-Wen  <hanwen@cs.uu.nl>
 	
 	* VERSION: 1.5.28 released
