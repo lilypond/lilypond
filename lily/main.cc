@@ -127,7 +127,7 @@ static Long_option_init options_static[] =
      _i ("set option, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output =foe is taken as an abbreviation
        for --output-format.  */
-    {_i ("EXT"), "format", 'f', _i ("select back-end to use")},
+    {_i ("EXT"), "backend", 'b', _i ("select back-end to use")},
     {0, "help", 'h',  _i ("print this help")},
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
