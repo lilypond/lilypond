@@ -14,7 +14,3 @@ outdir = os.path.join (env['build'], reldir, env['out'])
 lydir = os.path.join (env['sharedir_package_version'], 'ly')
 env.Install (lydir, sources)
 env.Alias ('install', lydir)
-
-#testing
-all_sources = ['SConscript',] + sources
-x = env.Tar (env['tarball'], all_sources)

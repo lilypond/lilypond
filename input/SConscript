@@ -24,7 +24,3 @@ mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
 #e.Depends ('doc', 'fonts')
 env.Depends ('doc', mfbuild)
 env.Depends ('doc', LILYPOND_BIN)
-
-#testing
-all_sources = ['SConscript',] + sources + abc_sources
-x = env.Tar (env['tarball'], all_sources)

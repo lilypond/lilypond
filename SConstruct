@@ -37,8 +37,8 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
-#   * TARBALL
 #   * add missing dirs
+#   * cleanup
 
 #   * separate environments?
 #     - compile environment checks headers and libraries
@@ -78,8 +78,7 @@ env.Alias ('all', ['lily', 'mf', 'input', 'Documentation'])
 ## FIXME: opts in function
 
 # Put your favourite stuff in custom.py
-opts = Options ('custom.py', ARGUMENTS)
-#opts = Options (['config.cache', 'custom.py'], ARGUMENTS)
+opts = Options (['config.cache', 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
 opts.Add ('build', 'Build directory', '.')
@@ -105,7 +104,7 @@ Help (usage + opts.GenerateHelpText (env))
 env = Environment (options = opts)
 
 opts.Update (env)
-#opts.Save ('config.cache', env)
+opts.Save ('config.cache', env)
 
 env.CacheDir (os.path.join (env['build'], '=build-cache'))
 
@@ -332,6 +331,7 @@ def configure (env):
 
 # Hmm.  Must configure when building lily, to get compiler and linker
 # flags set-up.
+# FIXME
 if not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS\
    or 'lily' in BUILD_TARGETS or 'all' in BUILD_TARGETS:
 	env = configure (env)
@@ -378,40 +378,7 @@ env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
 
-tarbase = package.name + '-' + env['version']
-tarname = tarbase + '.tar.gz'
-
-if 0: # broken :-(
-	ballprefix = os.path.join (outdir, tarbase)
-	tarball = os.path.join (outdir, tarname)
-else:
-	ballprefix = os.path.join (os.getcwd (), tarbase)
-	tarball = os.path.join (os.getcwd (), tarname)
-env['tarball'] = tarball
-env['ballprefix'] = ballprefix
-
 SConscript ('buildscripts/builder.py')
-
-readme_files = ['ChangeLog', 'COPYING', 'DEDICATION', 'ROADMAP', 'THANKS']
-readme_txt = ['AUTHORS.txt', 'README.txt', 'INSTALL.txt', 'NEWS.txt']
-# to be [re]moved after spit
-patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
-
-#testing
-env.Append (TARFLAGS = '-z --owner=0 --group=0')
-env.Append (GZIPFLAGS = '-9')
-#all_sources = ['SConstruct', 'VERSION', '.cvsignore']\
-#	      + readme_files #+ patch_files # + readme_txt
-all_sources = ['SConstruct', 'VERSION']\
-	      + readme_files
-#	      + readme_files + readme_txt
-#	      + readme_files + patch_files + readme_txt
-
-env['sources'] = all_sources
-
-map (lambda x: env.Texi2txt (x, os.path.join ('Documentation/topdocs',
-					      os.path.splitext (x)[0])),
-     readme_txt)
 
 for d in subdirs:
 	b = os.path.join (build, d, out)
@@ -436,7 +403,6 @@ def symlink_tree (prefix):
 				os.mkdir (dir)
 			os.chdir (dir)
 		map (mkdir, string.split (dir, os.sep))
-	#srcdir = os.getcwd ()
 	def symlink (src, dst):
 		os.chdir (absbuild)
 		dir = os.path.dirname (dst)
@@ -468,21 +434,44 @@ if env['debugging']:
 	if not os.path.exists (prefix):
 		symlink_tree (prefix)
 
-#ball = Builder (prefix = ballprefix + '/', action = 'ln $SOURCE $TARGET')
-#et = env.Copy (BUILDERS = {'BALL': ball})
-#ballize = map (et.BALL, all_sources)
-#tar = env.Tar (tarball, map (lambda x: os.path.join (env['ballprefix'], x),
-#			     all_sources))
-tar = env['baller'] ('', all_sources, env)
+#### dist, tar
+src_files = ['ChangeLog', '.cvsignore', 'Documentation/index.html.in',
+	     'lily/beam.cc']
+
+def cvs_files (dir):
+	entries = open (os.path.join (dir, 'CVS/Entries')).readlines ()
+	files = filter (lambda x: x[0] != 'D', entries)
+	return map (lambda x: os.path.join (dir, x[1:x[1:].index ('/')+1]),
+		    files)
+
+readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
+foo = map (lambda x: env.Texi2txt (x + '.txt',
+				   os.path.join ('Documentation/topdocs',
+						 x)),
+	   readme_files)
+txt_files = map (lambda x: x + '.txt', readme_files)
+src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
+tar_base = package.name + '-' + env['version']
+tar_name = tar_base + '.tar.gz'
+ball_prefix = os.path.join (outdir, tar_base)
+tar_ball = os.path.join (outdir, tar_name)
+
+dist_files = src_files + txt_files
+ball_files = map (lambda x: os.path.join (ball_prefix, x), dist_files)
+map (lambda x: env.Depends (tar_ball, x), ball_files)
+map (lambda x: env.Command (os.path.join (ball_prefix, x), x,
+			    'ln $SOURCE $TARGET'), dist_files)
+tar = env.Command (tar_ball, src_files,
+		   'tar czf $TARGET -C $TARGET.dir %s' % tar_base)
 env.Alias ('tar', tar)
 
-distball = os.path.join (package.release_dir, tarname)
-env.Command (distball, tarball,
+dist_ball = os.path.join (package.release_dir, tar_name)
+env.Command (dist_ball, tar_ball,
 	     'if [ -e $SOURCE -a -e $TARGET ]; then rm $TARGET; fi;' \
 	     + 'ln $SOURCE $TARGET')
-env.Depends ('dist', distball)
-patchfile = os.path.join (outdir, tarbase + '.diff.gz')
-patch = env.PATCH (patchfile, tarball)
-env.Depends (patchfile, distball)
+env.Depends ('dist', dist_ball)
+patch_name = os.path.join (outdir, tar_base + '.diff.gz')
+patch = env.PATCH (patch_name, tar_ball)
+env.Depends (patch_name, dist_ball)
 env.Alias ('release', patch)
 
