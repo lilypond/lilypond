@@ -43,6 +43,16 @@ scheme = \chords {
 
   % diminished chords
   c:m5-.7-	% o = diminished seventh chord
+
+
+  % suspended (?) 4ths
+  c:sus c:m.sus c:m7.sus
+  c:m7.sus^3   
+  c:7.4.3
+  c:7.4^3.5
+  c:2^3
+  c:2.7^3
+  c:4^5.3
 }
 
 \score {
