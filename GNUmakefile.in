@@ -114,7 +114,8 @@ $(builddir)/share/lilypond-force:
 		ln -s $(abs-srcdir)/scm
 	cd $(builddir)/share/lilypond/tex && \
 		ln -s $(abs-srcdir)/tex source && \
-		ln -s ../../../mf/$(outconfbase) generate
+		ln -s ../../../tex/$(outconfbase) tex-out && \
+		ln -s ../../../mf/$(outconfbase) mf-out
 	cd $(builddir)/share/lilypond/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		ln -s ../../../mf/$(outconfbase) afm && \
