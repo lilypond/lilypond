@@ -55,8 +55,9 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/g-wrap/lib:$HOME/usr/pkg/guile-gnome/lib
 ;;;    - hack feta20/feta20.pfa?:
 ;;;  * font, canvas, scaling?
 ;;;  * implement missing stencil functions
-;;;  * implement missing commands (next, prev? page)
+;;;  * implement missing commands
 ;;;  * user-interface, keybindings
+;;;  * cleanups: (too many) global vars
 
 ;;; Note: this install information is volatile
 ;;;       you'll probably want to pull all from
@@ -146,8 +147,7 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 (debug-enable 'backtrace)
 
-(define-module (scm output-gnome)
-  #:export (header))
+(define-module (scm output-gnome))
 
 (define this-module (current-module))
 
@@ -159,8 +159,8 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
  (gnome gtk)
  (gnome gtk gdk-event)
  ;; the name of the module will change to canvas rsn
- (gnome gw libgnomecanvas))
- ;;(gnome gw canvas))
+ ;;(gnome gw libgnomecanvas))
+ (gnome gw canvas))
 
 
 ;;; Lily output interface --- fix silly names and docme
@@ -234,8 +234,13 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 ;;; Global vars
 (define main-window #f)
+(define main-scrolled #f)
 (define main-canvas #f)
 (define canvas-root #f)
+(define page-number 0)
+
+(define page-stencils #f)
+(define output-canvas #f)
 
 (define system-origin '(0 . 0))
 
@@ -346,11 +351,8 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
    (lambda (x)
      (let ((scale (gobject-get-property x 'scale))
 	   (points (gobject-get-property x 'size-points)))
-       ;;(stderr "scaling item:~S to ~S\n" x scale)
-       ;; (stderr "scaling item:~S to ~S\n" x points)
-       (gobject-set-property x 'size-points (* points factor))))
        ;;(gobject-set-property x 'scale pixels-per-unit)
-       ;;(gobject-set-property x 'scale-set #t))
+       (gobject-set-property x 'size-points (* points factor))))
      text-items))
 
 (define (key-press-event item event . data)
@@ -365,7 +367,13 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 	   (scale-canvas 2))
 	  ((and #t ;; (null? mods)
 		(eq? keyval gdk:minus))
-	   (scale-canvas 0.5)))
+	   (scale-canvas 0.5))
+	  ((or (eq? keyval gdk:Page-Up)
+	       (eq? keyval gdk:BackSpace))
+	   (dump-page (1- page-number)))
+	  ((or (eq? keyval gdk:Page-Down)
+	       (eq? keyval gdk:space))
+	   (dump-page (1+ page-number))))
     #f))
 
 (define (char font i)
@@ -396,41 +404,66 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
     #:x1 (- breapth) #:y1 depth #:x2 width #:y2 (- height)
     #:fill-color "black" #:width-units blot-diameter))
 
-(define (fontify font expr)
-  #f)
+;;(define (fontify font expr)
+;;  #f)
 
-(define (end-output)
-  (gtk-main))
-
-(define (header . rest)
+(define (main outputter pages)
   (let* ((window (make <gtk-window> #:type 'toplevel))
 	 (button (make <gtk-button> #:label "Exit"))
+	 (next (make <gtk-button> #:label "Next"))
+	 (prev (make <gtk-button> #:label "Previous"))
 	 (canvas (make <gnome-canvas>))
 	 (vbox (make <gtk-vbox> #:homogeneous #f))
+	 (hbox (make <gtk-hbox> #:homogeneous #f))
 	 (scrolled (make <gtk-scrolled-window>)))
 
     (add window vbox)
     (add vbox scrolled)
     (add scrolled canvas)
 
-    (set-size-request button canvas-width 20)
-    (add vbox button)
-    (set-child-packing vbox button #f #f 0 'end)
-
+    ;;(set-size-request button canvas-width 20)
+    ;;(add vbox button)
+    ;;(set-child-packing vbox button #f #f 0 'end)
+    
+    (add vbox hbox)
+    (set-size-request hbox canvas-width 25)
+    (set-child-packing vbox hbox #f #f 0 'end)
+    
+    (set-child-packing hbox button #f #f 0 'end)
+    ;;(set-size-request next 40 25)
+    ;;(set-size-request prev 40 25)
+    (set-size-request button (/ canvas-width 2) 25)
+    
+    (add hbox next)
+    (add hbox prev)
+    (add hbox button)
+    
+    
     (gtype-instance-signal-connect button 'clicked
 				   (lambda (b) (gtk-main-quit)))
+    (gtype-instance-signal-connect next 'clicked
+				   (lambda (b) (dump-page (1+ page-number))))
+    (gtype-instance-signal-connect prev 'clicked
+				   (lambda (b) (dump-page (1- page-number))))
     
     ;; papersize
     (set-size-request canvas canvas-width canvas-height)
     (set-scroll-region canvas 0 0 2000 4000)
+    (set-pixels-per-unit canvas pixels-per-unit)
     
     (gtype-instance-signal-connect window 'key-press-event key-press-event)
-
-    (set-pixels-per-unit canvas pixels-per-unit)
     (show-all window)
+
+    ;; HMMM
     (set! canvas-root (root canvas))
     (set! main-canvas canvas)
-    (set! main-window window)))
+    (set! main-window window)
+    (set! output-canvas outputter)
+    (set! page-stencils pages)
+    (set! main-scrolled scrolled)
+    
+    (dump-page 0)
+    (gtk-main)))
 
 (define (pango-font-name font)
   (cond
@@ -498,4 +531,38 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 		     ;; (point-and-click line col file)
 		     (list line col file)
 		     #f)))
+
+(define (dump-page number)
+  (if (or (not page-stencils)
+	  (< number 0)
+	  (>= number (vector-length page-stencils)))
+      (stderr "No such page: ~S\n" (1+ number))
+      (begin
+	(set! page-number number)
+
+	;; no destroy method for gnome-canvas-text?
+	;;(map destroy (gtk-container-get-children main-canvas))
+	;;(map destroy text-items)
+
+	;; UGHR - destroying the whole canvas....
+	(if (and main-canvas
+		 (not (null? text-items)))
+	    (let* ((canvas (make <gnome-canvas>))
+		   (root (root canvas)))
+	      
+	      (destroy main-canvas)
+	      (add main-scrolled canvas)
+
+	      ;; papersize
+	      (set-size-request canvas canvas-width canvas-height)
+	      (set-scroll-region canvas 0 0 2000 4000)
+	      (set-pixels-per-unit canvas pixels-per-unit)
+	      (show canvas)
+	      
+	      (set! main-canvas canvas)
+	      (set! canvas-root root)
+	      (set! text-items '())))
+	
+	(ly:outputter-dump-stencil output-canvas
+				   (vector-ref page-stencils page-number)))))
 
