@@ -3,8 +3,6 @@ texidoc = "Percent repeats are not skipped, even when skipBars is set.  "
 }
 
 
-\include "paper20.ly"
-
 \score {
      \context Staff <
 	\property Score.skipBars = ##t

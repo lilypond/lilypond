@@ -11,5 +11,8 @@ printed correctly.
 
 \score { \notes\relative c''' { c1 \break
 \grace c8
-c1  }}
+c1  }
+
+\paper { raggedright = ##t }
+}
 %% new-chords-done %%

@@ -40,7 +40,6 @@ FIXME: Shorten and docu
     music))
 
 
-\include "paper16.ly"
 
 mel = \notes \transpose c c' {
   \time 4/4 \key d \major

@@ -1,7 +1,4 @@
 \version "1.7.18"
-\include "paper16.ly"
-\paper  {
-}
 
 muz = \notes \relative c'' {
     \time 6/1

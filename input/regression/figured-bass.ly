@@ -1,7 +1,6 @@
 \version "1.7.18"
 \header {
-texidoc = "Test figured bass.
-
+texidoc = "
 Figured bass is created by the FiguredBass context which eats
 figured bass requests and  rest-requests.  You must enter these using
 the special @code{\figures @{ @}} mode, which allows you to type
@@ -29,5 +28,7 @@ numbers, like @code{<4 6+>}.
   }
  
 >
+	\paper  { raggedright = ##t }  
  }
+
 %% new-chords-done %%

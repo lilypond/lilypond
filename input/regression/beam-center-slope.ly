@@ -2,9 +2,9 @@
 \version "1.7.18"
 \header{
 
-    texidoc="Simple beams on middle staffline be allowed to be
-    slightly sloped.  Beams reaching beyond middle line can have
-    bigger slope."
+    texidoc="Simple beams on middle staffline are allowed to be
+    slightly sloped, even if the notes have ledgers.  Beams reaching
+    beyond middle line can have bigger slope."
 
 }
 

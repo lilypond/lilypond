@@ -4,8 +4,6 @@
 texidoc="Template for part-combining orchestral scores"
 }
   
-\include "paper16.ly" 
-
 				
 raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
 

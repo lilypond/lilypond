@@ -3,7 +3,6 @@
     texidoc	= "vaticana ligature test"
 }
 
-\include "paper26.ly"
 \include "gregorian-init.ly"
 
 %

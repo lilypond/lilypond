@@ -20,7 +20,6 @@ FIXME: padding/minimum-distance is fragile.
 
 "}
 
-\include "paper26.ly"
 \include "gregorian-init.ly"
 
 cantus = \notes \relative c' {
