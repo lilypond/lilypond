@@ -1,13 +1,13 @@
 \include "german-chords.ly"
+
 % #(set! german-Bb #t)
 
 ch = \chords { beses1/+beses bes/+bes b/+b bis/+bis ases/+ases as/+as a/+a ais/+ais fisis/+fisis}
 
-
 \score {
    <
-   \context ChordNames=ch {\ch}
-   \context Staff=st \chords {\ch}
+   \context ChordNames=chn {\ch}
+   \context Staff=stf \chords {\ch}
    >
    \paper {}
 }

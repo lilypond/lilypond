@@ -24,7 +24,10 @@ struct Interval_t : public Drul_array<T> {
     
   static T infinity () ;
   static String T_to_str (T arg);
-  T center () { return (elem (LEFT) + elem (RIGHT)) / T (2);}
+  T center () {
+    assert (!empty_b ());
+    return (elem (LEFT) + elem (RIGHT)) / T (2);
+  }
   void translate (T t)
     {
       elem (LEFT) += t;

@@ -461,46 +461,46 @@ fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
 	fill triangle scaled (7h/6) shifted (w/2,-h/6);
 fet_endchar;
 
+%%% Editable values:
+slope := 1.7; % slope of slash. From scm/grob-description.scm. How to auto-copy?
+slt := 2/3*0.48staff_space; % thickness of lines. quarter notes get 1.5slt width.
+slh := 2staff_space; % height of char.
 
-slw := staff_space;
-slw# := staff_space#;
-slt := 1.25stafflinethickness;
-slt# := 1.25stafflinethickness#;
-slxt = 1.5slt;
-slxt# := 1.5slt#;
-slh := 1.5staff_space;
-slh# := 1.5staff_space#;
+%%% Calculated values:
+sxa := 0; % how much the char exceeds the boundingbox horizontally:
+slxt := sqrt(slt*slt+(slt/slope)*(slt/slope)); % Width of hor. pen - with thanks to Pythagoras
+slw := slh/slope; % width of sloping part of slash:
+
+% is this really nessesary? -rz
+fac# := staff_space#/staff_space;
+slt# := fac#*slt;
+slh# := fac#*slh;
+sxa# := fac#*sxa;
+slxt# := fac#*slxt;
+slw# := fac#*slw;
+
+def draw_slash(expr hwid) =
+	wid# := slw#+2slxt#+hwid*fac#;
+	set_char_box(0,wid#-2sxa#,slh#/2,slh#/2);
+	define_pixels (wid#);
+	pickup penrazor scaled slxt;
+	draw (-b+slxt/2-sxa,-d) -- (-b+slxt/2+slw-sxa,h);
+	draw (w-slxt/2-slw+sxa,-d) -- (w-slxt/2+sxa,h);
+	pickup penrazor scaled slt rotated 90;
+	draw (-b+slxt-sxa,-d+slt/2) -- (w-slw+sxa,-d+slt/2);
+	draw (-b+slw-sxa,h-slt/2) -- (w-slxt+sxa,h-slt/2);
+enddef;
 
 fet_beginchar("Whole slashhead","0slash","wholeslashhead")
-	wid := slw#+2slxt#+staff_space#;
-	set_char_box(0,wid-stafflinethickness#,slh#/2,slh#/2);
-	define_pixels (wid);
-	pickup penrazor scaled slxt;
-	draw (-b+slxt/2-stafflinethickness/2,-d) -- (-b+slxt/2+slw-stafflinethickness/2,h);
-	draw (w-slxt/2-slw+stafflinethickness/2,-d) -- (w-slxt/2+stafflinethickness/2,h);
-	pickup penrazor scaled slt rotated 90;
-	draw (-b+slxt-stafflinethickness/2,-d+slt/2) -- (w-slw+stafflinethickness/2,-d+slt/2);
-	draw (-b+slw-stafflinethickness/2,h-slt/2) -- (w-slxt+stafflinethickness/2,h-slt/2);
+	draw_slash(staff_space);
 fet_endchar;
 
 fet_beginchar("Half slashhead","1slash","halfslashhead")
-	wid := slw#+2slxt#+0.6staff_space#;
-	set_char_box(0,wid-stafflinethickness#,slh#/2,slh#/2);
-	define_pixels (wid);
-	pickup penrazor scaled slxt;
-	draw (b+slxt/2-stafflinethickness/2,-d) -- (b+slxt/2+slw-stafflinethickness/2,h);
-	draw (w-slxt/2-slw+stafflinethickness/2,-d) -- (w-slxt/2+stafflinethickness/2,h);
-	pickup penrazor scaled slt rotated 90;
-	draw (b+slxt-stafflinethickness/2,-d+slt/2) -- (w-slw+stafflinethickness/2,-d+slt/2);
-	draw (b+slw-stafflinethickness/2,h-slt/2) -- (w-slxt+stafflinethickness/2,h-slt/2);
+	draw_slash(0.6staff_space);
 fet_endchar;
 
 fet_beginchar("Quart slashhead","2slash","quartslashhead")
-	wid := slw#+slxt#;
-	set_char_box(0,slw#+slxt#-stafflinethickness#,slh#/2,slh#/2);
-	define_pixels (wid);
-	pickup penrazor scaled slxt;
-	draw (b+slxt/2-stafflinethickness/2,-d) -- (b+slxt/2+slw-stafflinethickness/2,h);
+	draw_slash(-slxt/2);
 fet_endchar;
 
 % thick is the distance between the two parallel lines in the cross (distance between centres of lines)

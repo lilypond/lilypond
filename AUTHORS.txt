@@ -1,7 +1,7 @@
 
 
-AUTHORS - who did what on GNU LilyPond?
-***************************************
+AUTHORS
+*******
 
    This file lists authors of GNU LilyPond, and what they wrote.  This
 list is alphabetically ordered.
@@ -76,4 +76,6 @@ list is alphabetically ordered.
    * Shay Rojanski     Some lilypond input.
 
    * August S.Sigov <august@infran.ru>     Russian translation
+
+   * Rune Zedeler <rune@zedeler.dk>     Drum notation
 

@@ -1385,13 +1385,6 @@ is an example how to do it:
 @end lilypond
 
 
-@refbugs
-
-When using spacer notes to subdivide note dynamics and @code{linewidth =
--1}, starting a hairpin on the first spacer note (the one coinciding
-with the real note) exposes an embarassing bug.
-
-
 
 @c .  {Repeats}
 @node Repeats
@@ -2300,7 +2293,8 @@ used, for the next ones @code{instr} is used.
 @end lilypond
 
 This requires  that you add the @code{Instrument_name_engraver} to the
-staff context. You can also  use markup texts:
+staff context. You can also  use markup texts to construct more
+complicated instrument names:
 
 
 @lilypond[verbatim,singleline]
@@ -2316,6 +2310,14 @@ staff context. You can also  use markup texts:
     \consists "Instrument_name_engraver"; } } }
 @end lilypond
 
+
+@refbugs
+
+When you put a name on a grand staff or piano staff (By adding an
+@code{Instrument_name_engraver} to that context and setting
+e.g. @code{\property GrandStaff.instrument}), the width of the brace is
+not taken into account. You must add extra spaces to the end of the name
+to avoid a collision.
 
 @node Transpose
 @subsection Transpose
@@ -3438,7 +3440,6 @@ Xdvi} version 22.36 or newer.
   are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
 @item emacs
 @end itemize
-
 
 Add one these lines to the top of your .ly file. The first one is for
 line location only. The second one is more convenient, but requires

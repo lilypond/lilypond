@@ -58,6 +58,7 @@ public:
   /// Scale the music in time by #factor#.
   virtual void compress (Moment factor);
   VIRTUAL_COPY_CONS (Music);
+  Music ();
   Music (Music const &m);
   Music (SCM);
 protected:

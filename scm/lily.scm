@@ -98,6 +98,7 @@
 	   "chord-name.scm"
 	   "grob-description.scm"
 	   "script.scm"
+	   "drums.scm"
 	   "midi.scm"
 	   )))
 

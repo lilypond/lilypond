@@ -2,7 +2,7 @@
 
 depth = ..
 
-SUBDIRS = J.S.Bach Coriolan F.Schubert D.Zipoli Hymns E.Satie 
+SUBDIRS = J.S.Bach F.Schubert E.Satie 
 
 LOCALSTEPMAKE_TEMPLATES=mutopia
 

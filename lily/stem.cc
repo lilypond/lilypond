@@ -503,14 +503,17 @@ TODO:
  
   */
     
-  Real slope =0.0;
   if (Grob *hed = support_head (me))
     {
-      head_wid = hed->extent (hed,X_AXIS).length ();
+      Real slope =0.0;
+      
+      Interval head_height = hed->extent (hed,Y_AXIS);
+      Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
 
-      slope = gh_scm2double (hed->get_grob_property ("attachment-slope"));
+      y_attach = head_height.linear_combination (y_attach);
+      stem_y[Direction (-d)] += d * y_attach;
     }
-  stem_y[Direction (-d)] += d * head_wid * slope/ (2*dy);
+
   
   if (!invisible_b (me))
     {
@@ -542,14 +545,29 @@ Stem::off_callback (SCM element_smob, SCM)
   Real r=0;
   if (Grob * f = first_head (me))
     {
-      Interval head_wid (0, f->extent (f,X_AXIS).length ());
+      Interval head_wid = f->extent (f,X_AXIS);
 
-      if (to_boolean (me->get_grob_property ("stem-centered")))
-	return gh_double2scm (head_wid.center ());
-      
-      Real rule_thick = gh_scm2double (me->get_grob_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
+      Real attach =
+	Note_head::stem_attachment_coordinate(f, X_AXIS);
+
       Direction d = get_direction (me);
-      r = head_wid[d] - d * rule_thick * 0.5;
+
+      Real real_attach = head_wid.linear_combination (d * attach);
+
+      r = real_attach;
+
+      /*
+	If not centered: correct for stem thickness.
+       */
+      if (attach)
+	{
+	  Real rule_thick
+	    = gh_scm2double (me->get_grob_property ("thickness"))
+	    * me->paper_l ()->get_var ("stafflinethickness");
+
+	  
+	  r += - d * rule_thick * 0.5;
+	}
     }
   return gh_double2scm (r);
 }

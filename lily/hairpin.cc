@@ -70,6 +70,9 @@ Hairpin::brew_molecule (SCM smob)
 		make the padding a little smaller, here.
 	      */
 	      Interval e =b->extent (common, X_AXIS);
+	      if (e.empty_b ())
+		e = Interval (0,0) + b->relative_coordinate (common, X_AXIS);
+	      
 	      x_points[d] = e.center () - d  * padding /3; // ugh.
 	    }
 	  else

@@ -5,11 +5,14 @@ Theads can be traced automagically when they switch staffs by setting
 property @code{followVoice}.
 ";
 }
-% followThread: connect note heads with line when thread switches staff 
+
+\version "1.3.139"
+% followVoice: connect note heads with line when thread switches staff 
 
 fragment = \notes {
   \context PianoStaff <
     \property PianoStaff.followVoice = ##t
+    \property Voice.VoiceFollower \set #'type = #'dashed-line
     \context Staff \context Voice {
       c'1
       \translator Staff=two

@@ -31,6 +31,13 @@ ly_deep_mus_copy (SCM m)
 }
 
 
+Music::Music ()
+{
+  immutable_property_alist_ = SCM_EOL;
+  mutable_property_alist_ = SCM_EOL;
+  smobify_self ();
+}
+
 Music::Music (Music const &m)
 {
   immutable_property_alist_ = m.immutable_property_alist_;
@@ -49,6 +56,7 @@ Music::Music (SCM l)
   mutable_property_alist_ = SCM_EOL;
   smobify_self ();
 }
+
 
 SCM
 Music::mark_smob (SCM m)
@@ -298,3 +306,4 @@ init_functions ()
   scm_make_gsubr ("ly-music-name", 1, 0, 0, (Scheme_function_unknown)ly_music_name);    
 }
 ADD_SCM_INIT_FUNC (musicscm,init_functions);
+ADD_MUSIC(Music);

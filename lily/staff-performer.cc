@@ -91,6 +91,9 @@ Staff_performer::create_audio_elements ()
 void
 Staff_performer::stop_translation_timestep ()
 {
+  SCM proc = scm_eval2 (ly_symbol2scm ("percussion-p"), SCM_EOL); 
+  SCM drums_p = gh_call1 (proc, ly_symbol2scm (instrument_str_.ch_C()));
+  audio_staff_p_->channel_i_ = (drums_p == SCM_BOOL_T ? 9 : -1 );
   if (name_p_)
     {
       play_element (name_p_);

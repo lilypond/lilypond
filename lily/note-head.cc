@@ -72,7 +72,11 @@ Note_head::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
-  // ugh: use gh_call ()
+  /*
+    ugh: use gh_call ()
+
+    UGH: use grob-property.
+  */
   Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
 		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm ("find-notehead-symbol"),
 						  me->get_grob_property ("duration-log"),
@@ -130,4 +134,24 @@ Note_head::brew_ez_molecule (SCM smob)
   Molecule m (bx, at);
 
   return m.smobbed_copy ();
+}
+
+
+Real
+Note_head::stem_attachment_coordinate (Grob *me, Axis a)
+{
+  SCM v = me->get_grob_property ("stem-attachment-function");
+
+  if (!gh_procedure_p (v))
+    return 0.0;
+
+  SCM st = me->get_grob_property ("style");
+  SCM result = gh_apply (v, gh_list (st, SCM_UNDEFINED));
+
+  if (!gh_pair_p (result))
+    return 0.0;
+
+  result = (a == X_AXIS) ? gh_car (result) : gh_cdr (result);
+  
+  return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }

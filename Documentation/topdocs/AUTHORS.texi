@@ -2,14 +2,14 @@
 @setfilename AUTHORS.info
 @settitle AUTHORS - who did what on GNU LilyPond-
 
-@node Top, , AUTHORS - who did what on GNU LilyPond-, (dir)
+@node Top
 @top
 @menu
-* AUTHORS - who did what on GNU LilyPond-::AUTHORS - who did what on GNU LilyPond-
+* AUTHORS::                     
 @end menu
 
-@node AUTHORS - who did what on GNU LilyPond-, Top, , Top
-@chapter AUTHORS - who did what on GNU LilyPond?
+@node AUTHORS
+@chapter AUTHORS
 
 
 This file lists authors of GNU LilyPond, and what they wrote.  This
@@ -76,6 +76,8 @@ list is alphabetically ordered.
     Some lilypond input.
 @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
+@item @email{rune@@zedeler.dk, Rune Zedeler}
+    Drum notation
 @end itemize
 
 @bye

@@ -178,6 +178,9 @@
 	(DynamicText . (
 		(Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		(molecule-callback . ,Text_item::brew_molecule)
+(X-offset-callbacks . (,Side_position_interface::aligned_on_self))
+		(self-alignment-X . 0)
+		
 		(no-spacing-rods . #t)
 		(script-priority . 100)
 		(font-series . bold)
@@ -345,7 +348,8 @@
 		(style . default)
 		(molecule-callback . ,Note_head::brew_molecule)
 		(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
-		(attachment-slope . 0.17)
+		(stem-attachment-function
+		 . ,note-head-style->attachment-coordinates)
 		(meta . ,(grob-description  "NoteHead"
 			rhythmic-head-interface font-interface 
 			note-head-interface ))
