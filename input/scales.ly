@@ -4,15 +4,15 @@ staff {melodic
 	music{ 	$
 \duration { 8 }
 			\octave{ }
-			 |[ a a a a a a a a a ] 
+			 |[ a a a a a a a a a ]8/9 
 			\octave{ ' }
-			 |[ a a a a a a a a a ] 
+			 |[ a a a a a a a a a ]8/9
 			\octave { ` } 
-			 [ `c `g d a 'e 'b ''f '''c '''g ] 
-			 [ '''g '''c ''f 'b 'e a d `g `c ] 
+			 [ `c `g d a 'e 'b ''f '''c '''g ] 8/9
+			 [ '''g '''c ''f 'b 'e a d `g `c ] 8/9
 			\octave{ ' }
-			 [ `c `g d a 'e 'b ''f '''c '''g ] 
-			 [ '''g '''c ''f 'b 'e a d `g `c ] 
+			 [ `c `g d a 'e 'b ''f '''c '''g ] 8/9
+			 [ '''g '''c ''f 'b 'e a d `g `c ] 8/9
 			\octave { } 
 			 [ c g 'd ]2/3 
 			 [ 'd g c ]2/3  
@@ -54,7 +54,7 @@ score {
 	}
 	commands  {
                 meter {6*8}
-                skip 36*8
+                skip {36*8}
 		meter {4*4}
 	}
 }
