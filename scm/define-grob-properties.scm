@@ -11,13 +11,11 @@
   (if (not (equal? (object-property symbol 'backend-doc) #f))
       (begin
 	(ly:warn-append "Redefining ~S" symbol)
-	(exit 2)
-      ))
+	(exit 2)))
   
   (set-object-property! symbol 'backend-type? type?)
   (set-object-property! symbol 'backend-doc description)
-  symbol
-  )
+  symbol)
 
 ;; put this in an alist?
 (define-public

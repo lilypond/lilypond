@@ -1,3 +1,8 @@
+;;;; texstr.scm -- implement Scheme output routines for TeX strings
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm output-texstr))
 (define this-module (current-module))
@@ -7,7 +12,6 @@
  (ice-9 regex)
  (srfi srfi-13)
  (lily))
-
 
 (define (dummy . foo) #f)
 

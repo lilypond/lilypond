@@ -1,8 +1,8 @@
-;;; midi.scm -- scm midi variables and functions
-;;;
-;;;  source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; midi.scm -- scm midi variables and functions
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
 
@@ -246,38 +246,29 @@
 	  ("mt-32 drums" .      ,(+ 32768 127))
 	  ("cm-64 kit" .        ,(+ 32768 127))
 	  ("cm-64 drums" .      ,(+ 32768 127))
-	)
-        instrument-names-alist
-      )
-)
-
+	  )
+       instrument-names-alist))
 
 (define-public (default-instrument-equalizer s)
   (let ((entry (assoc s instrument-equalizer-alist)))
     (if entry
 	(cdr entry))))
 
-
 (define-public (percussion? instrument)
   "
 returns whether the instrument should use midi channel 9
 "
   (let* ((inst  (symbol->string instrument))
-         (entry (assoc inst instrument-names-alist))
-	)
-     (and entry (>= (cdr entry) 32768))
-  ))
+         (entry (assoc inst instrument-names-alist)))
+     (and entry (>= (cdr entry) 32768))))
 
 (define-public (midi-program instrument)
 "
 returns the program of the instrument
 "
   (let* ((inst  (symbol->string instrument))
-         (entry (assoc inst instrument-names-alist))
-	)
-    (if entry (modulo (cdr entry) 32768) #f )
-  )
-)
+         (entry (assoc inst instrument-names-alist)))
+    (if entry (modulo (cdr entry) 32768) #f)))
 
 ;; 90 == 90/127 == 0.71 is supposed to be the default value
 ;; urg: we should set this at start of track

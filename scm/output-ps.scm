@@ -104,7 +104,7 @@
    (ly:number->string thick)
    " draw_bezier_sandwich"))
 
-(define (bracket arch_angle arch_width arch_height  height arch_thick thick)
+(define (bracket arch_angle arch_width arch_height height arch_thick thick)
   (string-append
    (ly:numbers->string
     (list arch_angle arch_width arch_height height arch_thick thick))
@@ -113,12 +113,7 @@
 (define (char font i)
   (string-append 
    (ps-font-command font) " setfont " 
-   "(\\" (ly:inexact->string i 8) ") show" ))
-
-(define (named-glyph font glyph)
-  (string-append 
-   (ps-font-command font) " setfont " 
-   "/" glyph " glyphshow "))
+   "(\\" (ly:inexact->string i 8) ") show"))
 
 (define (dashed-line thick on off dx dy)
   (string-append 
@@ -131,9 +126,9 @@
    " ] 0 draw_dashed_line"))
 
 ;; what the heck is this interface ?
-(define (dashed-slur thick dash l)
+(define (dashed-slur thick dash lst)
   (string-append 
-   (string-join (map ly:number-pair->string l) " ")
+   (string-join (map ly:number-pair->string lst) " ")
    " "
    (ly:number->string thick) 
    " [ "
@@ -143,22 +138,11 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-					; todo: merge with tex-font-command?
-
-(define (embedded-ps string)
-  string)
-
 (define (dot x y radius)
   (string-append
    " "
    (ly:numbers->string
     (list x y radius)) " draw_dot"))
-
-(define (white-dot x y radius)
-  (string-append
-   " "
-   (ly:numbers->string
-    (list x y radius)) " draw_white_dot"))
 
 (define (draw-line thick x1 y1 x2 y2)
   (string-append 
@@ -169,16 +153,36 @@
    (ly:number->string x2) " "
    (ly:number->string y2) " lineto stroke"))
 
+(define (embedded-ps string)
+  string)
+
 (define (ez-ball ch letter-col ball-col)
   (string-append
    " (" ch ") "
    (ly:numbers->string (list letter-col ball-col))
-   " /Helvetica-Bold " ;; ugh
+   ;; FIXME: barf
+   " /Helvetica-Bold "
    " draw_ez_ball"))
 
-(define (filledbox breapth width depth height) ; FIXME : use draw_round_box
+;; FIXME: use draw_round_box
+(define (filledbox breapth width depth height)
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
+
+(define (glyph-string postscript-font-name x-y-named-glyphs)
+  (apply
+   string-append
+   (cons
+    (format #f " /~a findfont setfont " postscript-font-name)
+    (map (lambda  (item)
+	   (format #f " ~a ~a rmoveto /~a glyphshow "
+		   (car item)
+		   (cadr item)
+		   (caddr item)))
+	 x-y-named-glyphs))))
+
+(define (grob-cause grob)
+  "")
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
@@ -192,6 +196,13 @@
 	(string-append "/" key " {" val "} bind def\n")
 	(string-append "/" key " (" val ") def\n"))))
 
+(define (named-glyph font glyph)
+  (string-append 
+   (ps-font-command font) " setfont " 
+   "/" glyph " glyphshow "))
+
+(define (no-origin)
+  "")
 
 (define (placebox x y s) 
   (string-append 
@@ -230,7 +241,8 @@
 	    (string-append "(" (ps-encoding word) ") show\n")))
 
        (if (equal? #\space chr)
-	   (add-command  (string-append (number->string space-length) " 0.0 rmoveto ")) )
+	   (add-command  (string-append (number->string space-length)
+					" 0.0 rmoveto ")))
        
        (if (equal? #\space chr)
 	   ""
@@ -244,13 +256,12 @@
 
 (define (new-text font s)
   (let* ((space-length (cdar (ly:text-dimension font " ")))
-	 (space-move (string-append (number->string space-length) " 0.0 rmoveto "))
-	 
+	 (space-move (string-append (number->string space-length)
+				    " 0.0 rmoveto "))
 	 (input-enc (assoc-get 'input-name
 			       (ly:font-encoding-alist font)
 			       'latin1))
 	 (out-vec (decode-byte-string input-enc s)))
-
 
     (string-append
      (ps-font-command font) " setfont "
@@ -264,16 +275,25 @@
 	      (string-append "/" (symbol->string sym) " glyphshow")))
 	out-vec))))))
 
-					;(define text old-text)
+;;(define text old-text)
 (define text new-text)
 
+;; FIXME: BARF helvetica?
 (define (white-text scale s)
-  (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-Bold "
-				 " draw_white_text")))
+  (let ((mystring (string-append
+		   "(" s  ") " (number->string scale)
+		   " /Helvetica-Bold "
+		   " draw_white_text")))
     mystring))
 
 (define (unknown) 
   "\n unknown\n")
+
+(define (white-dot x y radius)
+  (string-append
+   " "
+   (ly:numbers->string
+    (list x y radius)) " draw_white_dot"))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (string-append
@@ -285,22 +305,3 @@
    (ly:number->string dx) " "
    (ly:number->string dy)
    " draw_zigzag_line"))
-
-
-(define (grob-cause grob)
-  "")
-
-(define (no-origin)
-  "")
-
-(define-public (glyph-string psname items)
-  (apply
-   string-append
-   (cons
-    (format " /~a findfont setfont " psname)
-    (map (lambda  (item)
-	   (format " ~a ~a rmoveto /~a glyphshow "
-		   (car item)
-		   (cadr item)
-		   (caddr item)))
-	 items))))

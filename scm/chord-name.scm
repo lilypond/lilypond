@@ -1,18 +1,15 @@
-;;;
-;;; chord-name.scm --  chord name utility functions
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;
-;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; chord-name.scm --  chord name utility functions
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define (natural-chord-alteration p)
   "Return the natural alteration for step P."
   (if (= (ly:pitch-steps p) 6)
       FLAT
       0))
-
 
 ;; 
 ;; TODO: make into markup.
@@ -32,9 +29,7 @@
       (make-line-markup (list empty-markup))
       (conditional-kern-before
        (alteration->text-accidental-markup alteration)
-       (= alteration FLAT) 0.2
-       )))
-
+       (= alteration FLAT) 0.2)))
 
 (define-public (note-name->markup pitch)
   "Return pitch markup for PITCH."
@@ -43,7 +38,6 @@
     (make-simple-markup
      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
      (accidental->markup (ly:pitch-alteration pitch)))))
-
 
 (define-public ((chord-name->german-markup B-instead-of-Bb) pitch)
   "Return pitch markup for PITCH, using german note names.
@@ -62,7 +56,6 @@
       (make-normal-size-super-markup
        (accidental->markup (cdr n-a)))))))
 
-
 (define-public (note-name->german-markup  pitch)
   (let* ((name (ly:pitch-notename pitch))
 	 (alt (ly:pitch-alteration pitch))
@@ -75,11 +68,7 @@
        (list-ref '("c" "d" "e" "f" "g" "a" "h" "b")  (car n-a) )
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
 	   (list-ref '( "ses"  "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
-	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))
-	   ))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2) ))))))))
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the  default should also be reversed --hwn

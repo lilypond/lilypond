@@ -303,12 +303,36 @@ lilypond -fgnome input/simple-song.ly
     #:fill-color "black"
     #:join-style 'miter))
 
+;; FIXME: the framework-gnome backend needs to see every item that
+;; gets created.  All items created here must should be put in a group
+;; that gets returned.
+(define (FIXME-glyph-string postscript-font-name named-glyphs)
+  (for-each
+   (lambda (x)
+     (placebox (car x) (cadr x)
+	       (make <gnome-canvas-text>
+		 #:parent (canvas-root)
+		 #:x 0.0 #:y 0.0
+		 #:anchor 'west
+		 ;; FIXME: 
+		 #:font postscript-font-name
+		 #:size-points 12
+		 #:size-set #t
+		 #:text
+		 ;; FIXME: need FONT to get to charcode
+		 (integer->utf8-string
+		  (ly:font-glyph-name-to-charcode font caddr x)))))
+   text-snippets))
+
 (define (grob-cause grob)
   grob)
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 thickness)
   (filledbox (- x1) (- x2 x1) (* .5 thickness) (* .5 thickness)))
+
+(define (named-glyph font name)
+  (text font (ly:font-glyph-name-to-charcode font name)))
 
 (define (placebox x y expr)
   (let ((item expr))
@@ -320,9 +344,6 @@ lilypond -fgnome input/simple-song.ly
 	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  item)
 	#f)))
-
-(define (named-glyph font name)
-  (text font (ly:font-glyph-name-to-charcode font name)))
 
 (define (polygon coords blot-diameter)
   (let* ((def (make <gnome-canvas-path-def>))
@@ -396,3 +417,4 @@ lilypond -fgnome input/simple-song.ly
     #:text (if (integer? s)
 	       (integer->utf8-string s)
 	       (string->utf8-string s))))
+

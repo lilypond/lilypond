@@ -1335,7 +1335,7 @@
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
-;	(threshold .  (6 . 1000))
+	;; (threshold .  (6 . 1000))
 	(meta . ((interfaces . (align-interface axis-group-interface spanner-interface))))
 	))
 
@@ -1372,18 +1372,15 @@
 (set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
 
 
-
-					;  (display  (map pair? all-grob-descriptions))
-
+;;  (display  (map pair? all-grob-descriptions))
 
 ;; make sure that \property Foo.Bar =\turnOff doesn't complain
 
 (map (lambda (x)
-					; (display (car x)) (newline)
-
+       ;; (display (car x)) (newline)
+       
        (set-object-property! (car x) 'translation-type? list?)
        (set-object-property! (car x) 'is-grob? #t))
      all-grob-descriptions)
-
 
 (set! all-grob-descriptions (sort all-grob-descriptions alist<?))

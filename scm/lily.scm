@@ -125,6 +125,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     draw-line
     ez-ball
     filledbox
+    glyph-string
     horizontal-line
     named-glyph
     polygon
