@@ -20,4 +20,14 @@
 /* the toplevel version string */
 #define TOPLEVEL_VERSION "0"
 
+/* the version string of the flower lib */
+#define FLOWER_VERSION "0"
+
+/* define if you have memmem */
+#define HAVE_MEMMEM 0
+
+/* define if you have snprintf */
+#define HAVE_SNPRINTF 0
+
 #endif
+
