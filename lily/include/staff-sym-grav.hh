@@ -1,5 +1,5 @@
 /*
-  staff-sym-grav.hh -- declare 
+  staff-sym-grav.hh -- declare Staff_sym_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -21,6 +21,7 @@ public:
     Staff_sym_engraver();
     NAME_MEMBERS();
 protected:
+    virtual ~Staff_sym_engraver();
     virtual void do_process_requests();
     virtual void fill_staff_info(Staff_info&);
     virtual void do_removal_processing();

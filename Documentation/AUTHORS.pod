@@ -12,17 +12,18 @@ This file lists authors of GNU LilyPond, and what they wrote.
 
 =item *
 
-Han-Wen Nienhuys <hanwen@stack.nl>
+Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
 
 Main author, all files files except mentioned below
 
 =item *
 
-Jan Nieuwenhuizen <jan@digicash.com>
+Jan Nieuwenhuizen <jan@digicash.com>, http://www.digicash.com/~jan
 
 lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make, */Makefile
 parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
-lib/source, flower/*{list,cursor}*,  
+lib/source, flower/*{list,cursor}*,  lily/rest-collision*, conflily,
+cygnus w32 stuff
 
 and corresponding header files.
 
