@@ -7,7 +7,16 @@
 '''
 TODO:
 
-  * --dependencies
+  * check --dependencies
+
+  * move versatile taglines, 
+  
+     \header {
+        beginfooter=\mutopiaPD
+        endfooter=\tagline  -> 'lily was here <version>'
+     }
+
+  * head/header tagline/endfooter
 
   * dvi from lilypond .tex output?  This is hairy, because we create dvi
     from lilypond .tex *and* header output.
@@ -43,7 +52,7 @@ extra_init = {
 	'latexheaders' : [],
 	'latexpackages' :  ['geometry'],
 	'papersize' : [],
-	'pagenumber' : [],
+	'pagenumber' : [1],
 	'textheight' : [], 
 	'linewidth' : [],
 	'orientation' : []
@@ -403,26 +412,35 @@ def global_latex_definition (tfiles, extra):
 		linewidth = 597
 	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
-	s= s + r'''
-\usepackage[latin1]{inputenc} 
+	s = s + r'''
+\usepackage[latin1]{inputenc}
 \input{titledefs}
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondfooter}}%
 '''
-	if extra['pagenumber'] and  extra['pagenumber'][-1]:
+	
+	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
 		s = s + r'''
-		\renewcommand{\@oddhead}{\parbox{\textwidth}%%
-		{\mbox{}\small\theheader\hfill\textbf{\thepage}}}%%'''
+\renewcommand{\@oddhead}{\parbox{\textwidth}%
+    {\mbox{}\small\makelilypondheader\hfill\textbf{\thepage}}}
+'''
 	else:
-		s = s + '\\pagestyle{empty}'
-		
-	s = s + '\\begin{document}'
+		s = s + '\\pagestyle{empty}\n'
+
+	s = s + '\\makeatother\n'
+	s = s + '\\begin{document}\n'
+
 
 	first = 1
 	for t in tfiles:
 		s = s + one_latex_definition (t, first)
 		first = 0
-		
+
+	s = s + r'''
+\makeatletter
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\lilypondtagline}}%
+\makeatother
+'''
 	s = s + '\\end{document}'
 
 	return s
