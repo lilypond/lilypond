@@ -7,15 +7,17 @@
 ;;; TODO:
 ;;;
 ;;;  * Figure out and fix font scaling and character placement
+;;;  * EC font package: add missing X font directories and AFMs
 ;;;  * User-interface, keybindings
 ;;;  * Implement missing stencil functions
 ;;;  * Implement missing commands
+;;;  * More information in stencils, e.g., location and grob tag.
 ;;;  * Embedded Lily:
 ;;;    - allow GnomeCanvas or `toplevel' GtkWindow to be created
 ;;;      outside of LilyPond
 ;;;    - lilylib.
 ;;;  * Release schedule and packaging of dependencies.  This hack
-;;;    depends on several CVS and TLA developent sources.
+;;;    depends on several CVS and TLA development sources.
 
 ;;; You need:
 ;;;
