@@ -76,8 +76,6 @@
 	(style . default)
 	(print-function . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
-	(X-extent-callback . ,Note_head::extent)
-	(Y-extent-callback . ,Note_head::extent)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (font-interface note-head-interface
 					       ambitus-interface
@@ -733,8 +731,6 @@
 	(print-function . ,Note_head::print)
 	(ligature-primitive-callback . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
-	(X-extent-callback . ,Note_head::extent)
-	(Y-extent-callback . ,Note_head::extent)
 	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((interfaces . (rhythmic-grob-interface

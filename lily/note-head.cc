@@ -85,21 +85,6 @@ Note_head::head_extent (Grob *me, Axis a)
   return Interval (0,0);
 }
 
-/*
-  This is necessary to prevent a cyclic dependency: the appearance of
-  the ledgers depends on positioning, so the Grob::get_stencil () can
-  not be used for determining the note head extent.
-  
- */ 
-MAKE_SCHEME_CALLBACK (Note_head,extent,2);
-SCM
-Note_head::extent (SCM smob, SCM axis)  
-{
-  Grob *me = unsmob_grob (smob);
-
-  return ly_interval2scm (head_extent (me, (Axis) scm_to_int (axis)));
-}
-
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_stencil,1);
 SCM
 Note_head::brew_ez_stencil (SCM smob)

@@ -1,3 +1,7 @@
+2004-09-23  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/note-head.cc: remove Note_head::extent.
+
 2004-09-23  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/tutorial.itely: do manual style 2-space

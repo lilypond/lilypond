@@ -231,7 +231,6 @@
      Multi_measure_rest::percent
      Multi_measure_rest::print
      Multi_measure_rest::set_spacing_rods
-     Note_head::extent
      Note_head::print
      Note_head::brew_ez_stencil
      Ottava_bracket::print
