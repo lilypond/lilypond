@@ -50,6 +50,9 @@ All_font_metrics::find_afm (String name)
     {
       String path;
 
+      if (path.empty_b())
+	path = search_path_.find (name  + ".afm");
+
 #if (KPATHSEA && HAVE_KPSE_FIND_FILE)
       if (path.empty_b ())
 	{
@@ -59,8 +62,6 @@ All_font_metrics::find_afm (String name)
 	}
 #endif
       
-      if (path.empty_b())
-	path = search_path_.find (name  + ".afm");
       if (path.empty_b())
 	return 0;
       
@@ -112,7 +113,8 @@ All_font_metrics::find_tfm (String name)
       if (path.empty_b())
 	{
 	  char * p = kpse_find_tfm (name.ch_C());
-	  path = p;
+	  if (p)
+	    path = p;
 	}
 #endif
       if (path.empty_b())
@@ -140,11 +142,12 @@ Font_metric *
 All_font_metrics::find_font (String name)
 {
   Font_metric * f=0;
-  f = find_tfm (name);
+
+  f= find_afm (name);
   if (f)
     return f;
 
-  f= find_afm (name);
+  f = find_tfm (name);
   if (f)
     return f;
 
@@ -158,11 +161,11 @@ All_font_metrics::find_font (String name)
   if (l != SCM_BOOL_F)
     def_name = ly_scm2string (gh_cdr (l));
 
-  f =  find_tfm (def_name);
+  f= find_afm (def_name);
   if (f)
     return f;
 
-  f= find_afm (def_name);
+  f =  find_tfm (def_name);
   if (f)
     return f;
 
