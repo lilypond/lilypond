@@ -78,11 +78,6 @@ Plet::Plet( int iso_i, int type_i )
 	type_i_ = type_i;
 }
 
-Plet::Plet( Plet const& plet_c_r )
-{
-	iso_i_ = plet_c_r.iso_i_;
-	type_i_ = plet_c_r.type_i_;
-}
 
 // statics Duration_convert
 bool Duration_convert::be_blonde_b_s = false;
