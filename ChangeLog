@@ -6,6 +6,8 @@
 
 2003-07-28  Juergen Reuter  <reuter@ipd.uka.de>
 
+	* Documentation/user/refman.itely: fixed typo
+
 	* lily/vaticana-ligature-engraver.cc: bugfix: insert extra space
 	before flexa
 
