@@ -18,7 +18,8 @@
   A request which is coupled to a #Voice_element# with nonzero duration.
   Base class only
  */
-struct Musical_req : virtual Request {
+class Musical_req  : public virtual Request  {
+public:
     
     virtual Skip_req* skip() { return 0; }
     virtual Dynamic_req* dynamic() { return 0; }
@@ -29,7 +30,8 @@ struct Musical_req : virtual Request {
 };
 
 
-struct Skip_req : Musical_req {
+class Skip_req  : public Musical_req  {
+public:
     Moment duration_;
     
     virtual Moment duration() const;
@@ -38,7 +40,8 @@ struct Skip_req : Musical_req {
 /** a request with a duration.
   This request is used only a base class.
  */
-struct Rhythmic_req : virtual Musical_req {
+class Rhythmic_req  : public virtual Musical_req  {
+public:
     Duration duration_;
     
     /* *************** */
@@ -58,13 +61,15 @@ struct Spacing_req :virtual Request {
     REQUESTMETHODS(Spacing_req, spacing);
 };
 
-struct Blank_req : Spacing_req, Rhythmic_req {
+class Blank_req  : public Spacing_req, Rhythmic_req  {
+public:
     REQUESTMETHODS(Spacing_req, spacing);
     
 };
 
 /// Put a text above or below (?) this staff.
-struct Text_req : virtual Musical_req {
+class Text_req  : public virtual Musical_req  {
+public:
     /// preferred position (above/below)
     int dir_i_;
     /// the characteristics of the text
@@ -80,7 +85,8 @@ struct Text_req : virtual Musical_req {
 /** Put a text in lyric_staff
   @see Lyric_staff
   */
-struct Lyric_req : public Rhythmic_req, Text_req {
+class Lyric_req  : public  Rhythmic_req, public Text_req  {
+public:
     Lyric_req(Text_def* t_p);
     REQUESTMETHODS(Lyric_req, lreq_l);
 };
@@ -109,7 +115,8 @@ struct Melodic_req :virtual Musical_req
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
-struct Note_req : Rhythmic_req, virtual Melodic_req {
+class Note_req  : public Rhythmic_req, virtual public Melodic_req  {
+public:
     
     /// force/supress printing of accidental.
     bool forceacc_b_;
@@ -130,7 +137,8 @@ public:
   attach a stem to the noteball.
   Rhythmic_req parent needed to  determine if it will fit inside a beam.
   */
-struct Stem_req : Rhythmic_req {
+class Stem_req  : public Rhythmic_req  {
+public:
     /// preferred direction for the stem
     int dir_i_;
     Stem_req();
@@ -141,7 +149,8 @@ struct Stem_req : Rhythmic_req {
   Requests to start or stop something.
  This type of request typically results in the creation of a #Spanner#
 */
-struct Span_req : virtual Musical_req {
+class Span_req  : public virtual Musical_req  {
+public:
     /// should the spanner start or stop, or is it unwanted?
     enum {
 	NOSPAN, START, STOP
@@ -158,7 +167,8 @@ struct Span_req : virtual Musical_req {
 
  ugr. Place in hierarchy?
  */
-struct Plet_req : virtual Request {
+class Plet_req  : public virtual Request  {
+public:
      char type_c_;
      int dur_i_;
      int type_i_;
@@ -170,7 +180,8 @@ struct Plet_req : virtual Request {
 /** Start / stop a beam at this note.  if #nplet# is set, the staff will try to put an
 appropriate number over the beam
     */
-struct Beam_req : Span_req {
+class Beam_req  : public Span_req  {
+public:
     int nplet;
 
     /* *************** */
@@ -180,7 +191,8 @@ struct Beam_req : Span_req {
 };
 
 /// a slur
-struct Slur_req : Span_req {
+class Slur_req  : public Span_req  {
+public:
  REQUESTMETHODS(Slur_req,slur);
 
 };
@@ -189,7 +201,8 @@ struct Slur_req : Span_req {
 /** Put a script above or below this ``note''. eg upbow, downbow. Why
   a request? These symbols may conflict with slurs and brackets, so
   this also a request */
-struct Script_req : Musical_req {
+class Script_req  : public Musical_req  {
+public:
     int dir_i_;
     Script_def *scriptdef_p_;
 
@@ -208,12 +221,14 @@ struct Script_req : Musical_req {
     Dynamic request carries a time, measured from the start of its
     note.
  */
-struct Subtle_req : virtual Musical_req {
+class Subtle_req  : public virtual Musical_req  {
+public:
     Moment subtime_;
     REQUESTMETHODS(Subtle_req, subtle);
 };
 
-struct Dynamic_req : Subtle_req {
+class Dynamic_req  : public Subtle_req  {
+public:
     /// for absolute dynamics
     enum Loudness {
  	FFF, FF, F, MF, MP, P, PP, PPP
@@ -222,13 +237,15 @@ struct Dynamic_req : Subtle_req {
     REQUESTMETHODS(Dynamic_req, dynamic);
 };
 
-struct Absolute_dynamic_req : Dynamic_req {
+class Absolute_dynamic_req  : public Dynamic_req  {
+public:
     Loudness loudness_;
     Absolute_dynamic_req();
     REQUESTMETHODS(Absolute_dynamic_req, absdynamic);
 };
 
-struct Span_dynamic_req : Dynamic_req, Span_req {
+class Span_dynamic_req  : public Dynamic_req, public Span_req  {
+public:
     /// Grow or shrink the volume: 1=cresc, -1 = decresc 
     int dynamic_dir_i_;
     Span_dynamic_req();

@@ -17,7 +17,7 @@ depth = ..
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 include .version
-
+include Stable.make
 #
 
 # identify module:
@@ -31,15 +31,10 @@ NAME = lilypond
 SUBDIRS = include
 #
 
-# to be remade each build:
-#
-VERSION_DEPENDENCY = $(lily-version)
-#
-
 
 # list of distribution files:
 #
-DISTFILES = .version Makefile $(ALL_SOURCES)
+EXTRA_DISTFILES = .version 
 #
 
 # list of custom libraries:
@@ -53,10 +48,7 @@ LOADLIBES +=
 
 # main target of this module:
 #
-# MAINTARGET = $(EXECUTABLE)
-# MAINTARGET = $(LIBRARY)
 MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
-# MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 
 default: $(MAINTARGET)
 #
