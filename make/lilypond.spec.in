@@ -21,7 +21,7 @@ Prereq: tetex
 make all
 ln -s /usr/share/texmf/fonts/tfm/public/cm/ tfm
 
-# make -C Documentation info || true
+make -C Documentation info || true
 make htmldoc || true
 
 

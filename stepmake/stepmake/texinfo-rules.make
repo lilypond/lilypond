@@ -16,7 +16,7 @@ $(outdir)/%.1: %.texinfo
 	$(texi2man)
 
 $(outdir)/%.info: $(outdir)/%.texinfo
-	$(MAKEINFO) -o $@ $<
+	$(MAKEINFO) --force -o $@ $<
 
 # $(outdir)/%.html: %.texinfo
 # 	$(texi2html)

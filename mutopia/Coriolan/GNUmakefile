@@ -2,11 +2,10 @@
 
 depth = ../..
 
-# do Coriolan if you have plenty RAM / CPU
-#examples=coriolan oboi-part viola-part
+# do Coriolan if you have plenty RAM / CPU / quotum
+examples=
 
-examples= coriolan oboi-part viola-part
-
+examples= 
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make

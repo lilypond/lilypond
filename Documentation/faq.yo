@@ -359,7 +359,7 @@ Upgrade to 4.17.
 
 question(Why do I need g++ >= 2.8 / EGCS-1.1 ?)
 
-Supporting more compilers then EGCS/G++ 2.8 is unlikely to make
+Supporting more compilers than EGCS/G++ 2.8 is unlikely to make
 LilyPond run on more platforms.  It would give us an enormous headache
 in detecting and catering for every variant of every compiler: not
 having to support other compilers saves us a em(lot) of trouble.

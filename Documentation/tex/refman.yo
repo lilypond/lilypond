@@ -1,3 +1,4 @@
+mailto(gnu-music-discuss@gnu.org)
 COMMENT(-*-text-*-)
 
 redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\

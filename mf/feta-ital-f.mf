@@ -12,7 +12,8 @@
 % cmchar "Italic letter f";
 % beginchar("f",max(1.5u#,stem#)+max(3.5u#,2flare#),asc_height#,desc_depth#);
 \"Dynamic letter f";
-beginchar(incr num,max(1.5u#,stem#)+max(3.5u#,2flare#),asc_height#,desc_depth#);
+beginchar(fcode ,max(1.5u#,stem#)+max(3.5u#,2flare#),asc_height#,desc_depth#);
+
 italcorr asc_height#*slant+.75u#;
 adjust_fit(if monospace:u#,u# else: 0,0 fi); pickup fine.nib;
 numeric theta; z88=(.5w-.5u,h); z89=(.5w+.5u,-d); theta=angle(z88-z89);

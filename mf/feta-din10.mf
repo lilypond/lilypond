@@ -117,6 +117,10 @@ fet_beginfont("feta-din", 10);
 
 num=-1;
 xbar:=u;
+
+save fcode;
+
+fcode = 101;
 input feta-ital-f;
 
 bar#:=17/36pt#;      % lowercase bar thickness
@@ -124,6 +128,10 @@ slant:=.38;      % tilt ratio $(\Delta x/\Delta y)$
 stem#:=58/36pt#;    % lowercase stem breadth
 font_setup;
 xbar:=.4u;
+
+save fcode;
+
+fcode = 102;
 
 input feta-ital-f;
 stem#:=54/36pt#;    % lowercase stem breadth

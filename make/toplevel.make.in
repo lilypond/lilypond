@@ -32,7 +32,7 @@ website: htmldoc examples doc++
 examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
 	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
-	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
+	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz  `find input mutopia -type d -name 'out-www' -print`
 
 CMR10DIR=$(dir $(shell kpsewhich cmr10.tfm))#ugh! Need kpsewhich
 TEX_TFMDIR=$(CMR10DIR)

@@ -134,9 +134,10 @@ GrandStaffContext=\translator{
 	\name "PianoStaff";
 	
 }
+
 \translator {
-	\type "Line_group_engraver_group";
-%	\type "Hara_kiri_line_group_engraver";
+	\type "Hara_kiri_line_group_engraver";
+%	\type "Line_group_engraver_group";
 	\consists "Span_bar_engraver";
 	\consists "Vertical_align_engraver";
 	\consists "Staff_group_bar_engraver";
@@ -230,7 +231,6 @@ BarNumberingStaffContext = \translator {
 
 };
 
-
 HaraKiriStaffContext = \translator {
 	\type "Hara_kiri_line_group_engraver";
 	\name Staff;
@@ -252,9 +252,7 @@ HaraKiriStaffContext = \translator {
 	\accepts "Voice";
 };
 
-% huh, Score should do HaraKiri, not Part yes?
 OrchestralPartStaffContext = \translator {
-%	\HaraKiriStaffContext
 	\StaffContext
 	barColumnPriority = "0";
 	marginBreakPriority = "-4";
@@ -262,7 +260,6 @@ OrchestralPartStaffContext = \translator {
 	\consists "Bar_number_engraver";
 };
 
-% where to put HaraKiri here?
 OrchestralScoreContext= \translator {
 	\type Score_engraver;
 	\name Score;
@@ -283,7 +280,7 @@ OrchestralScoreContext= \translator {
 
 	\accepts "ChoirStaff";
 	\accepts "StaffGroup";
-	\accepts "Staff";
+	\accepts "HaraKiriStaff";
 	\accepts "RhythmicStaff";	
 	\accepts "Lyrics";
 	\accepts "ChordNames";
