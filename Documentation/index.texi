@@ -7,7 +7,7 @@
 
 @unnumberedsubsec Introduction
 
-@itemize 
+@itemize @bullet 
 @item @uref{DEDICATION.txt,Dedication}
 @item @uref{../topdocs/out-www/AUTHORS.html, Authors}
 @item @uref{../topdocs/out-www/README.html, Readme file}
@@ -29,7 +29,7 @@
 
 @unnumberedsubsec Status
 
-@itemize
+@itemize @bullet
 @item @uref{TODO.txt, Thing to do}
 @item @uref{CHANGES.txt, Things recently done}
 @end itemize
@@ -42,7 +42,7 @@
 @end itemize
 
 @unnumberedsubsec Logo:
-@itemize
+@itemize @bullet
 @item @uref{../pictures/out-www/lelieblond.png,  logo} in large size
 @item @uref{../pictures/out-www/lelie-logo.png, logo} in medium size
 @item @uref{../pictures/out-www/lelie-icon.png, logo} in small size
