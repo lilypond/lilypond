@@ -63,6 +63,10 @@ if files:
 @settitle %s
 @finalout @c we do not want black boxes.
 
+@iftex
+@afourpaper
+@end iftex
+  
 @c fool ls-latex
 @ignore
 @author Han-Wen Nienhuys and Jan Nieuwenhuizen
@@ -82,7 +86,7 @@ if files:
 @end ifhtml
 """ % n
 		
-		s += "@lilypondfile[printfilename]{%s}" % n
+		s += "\n\n@lilypondfile[printfilename]{%s}" % n
 		return s
 	files.sort ()
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")

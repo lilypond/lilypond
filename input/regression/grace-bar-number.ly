@@ -9,7 +9,7 @@ printed correctly.
 "
 }
 
-\score { \notes\relative c''' { c1 \break
+\score { \notes\relative c'' { c1 \break
 \grace c8
 c1  }
 

@@ -1443,7 +1443,7 @@ def check_texidoc (chunks):
 			pathbase = os.path.join (g_outdir, basename)
 			if os.path.isfile (pathbase + '.texidoc') \
 			   and 'notexidoc' not in opts:
-				n.append( ('input', '\n@include %s.texidoc\n' % basename))
+				n.append( ('input', '\n@include %s.texidoc\n\n' % basename))
 		n.append (c)
 	return n
 
