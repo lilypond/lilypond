@@ -1,5 +1,6 @@
+
 /*
-  clef-item.cc -- implement Clef_item
+  clef.cc -- implement Clef_item
 
   source file of the GNU LilyPond music typesetter
 

@@ -8,7 +8,7 @@
  */
 #include "engraver.hh"
 #include "protected-scm.hh"
-#include "break-align-item.hh"
+#include "break-align-interface.hh"
 #include "item.hh"
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
@@ -18,6 +18,7 @@ class Break_align_engraver : public Engraver
 {
   Item *align_l_;
   Protected_scm column_alist_;
+  void add_to_group (SCM,Item*);
 protected:
   virtual void finalize ();
   virtual void acknowledge_grob (Grob_info i);
@@ -102,54 +103,43 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 	  Break_align_interface::set_interface (align_l_);
 	  announce_grob (align_l_, SCM_EOL);
 
-	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  Item * edge = new Item (get_property ("LeftEdge"));
-
-	 
-
-	  /*
-	    If the element is empty, it will be ignored in the break
-	    alignment stuff.
-
-	    TODO: switch off ignoring empty stuff?
-	  */
-	  edge->set_extent_callback (Grob::point_dimension_callback_proc, X_AXIS);
-	  
-	  /*
-	    We must have left-edge in the middle.  Instrument-names
-	    are left to left-edge, so they don't enter the staff.
-	  */
-	  align_l_->set_grob_property ("self-alignment-X", edge->self_scm ());
-	  
+	  add_to_group (edge->get_grob_property ("break-align-symbol"), edge);
 	  announce_grob(edge, SCM_EOL);
-	  column_alist_ = scm_assoc_set_x (column_alist_, edge_sym, edge->self_scm ());
 	}
-
-      SCM s = scm_assoc (align_name, column_alist_);
-
-      Item * group = 0;
-
-      if (s != SCM_BOOL_F)
-	{
-	  Grob *e =  unsmob_grob (ly_cdr (s));
-	  group = dynamic_cast<Item*> (e);
-	}
-      else
-	{
-	  group = new Item (get_property ("BreakAlignGroup"));
-
-	  Axis_group_interface::set_interface (group);
-	  Axis_group_interface::set_axes (group, X_AXIS,X_AXIS);
-
-	  group->set_grob_property ("break-align-symbol", align_name);
-	  group->set_parent (align_l_, Y_AXIS);
-	  announce_grob(group, SCM_EOL);
-	  column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
-
-	}
-      Axis_group_interface::add_element (group, item_l);
+      
+      add_to_group (align_name, item_l);
     }
 }
+
+void
+Break_align_engraver::add_to_group(SCM align_name, Item*item_l)
+{
+  SCM s = scm_assoc (align_name, column_alist_);
+  Item * group = 0;
+
+  if (s != SCM_BOOL_F)
+    {
+      Grob *e =  unsmob_grob (ly_cdr (s));
+      group = dynamic_cast<Item*> (e);
+    }
+  else
+    {
+      group = new Item (get_property ("BreakAlignGroup"));
+
+      Axis_group_interface::set_interface (group);
+      Axis_group_interface::set_axes (group, X_AXIS,X_AXIS);
+
+      group->set_grob_property ("break-align-symbol", align_name);
+      group->set_parent (align_l_, Y_AXIS);
+      announce_grob(group, item_l->self_scm());
+	  
+      column_alist_ = scm_assoc_set_x (column_alist_, align_name, group->self_scm ());
+
+    }
+  Axis_group_interface::add_element (group, item_l);
+}
+
 ENTER_DESCRIPTION(Break_align_engraver,
 /* descr */       "Align grobs with corresponding break-align-symbols into groups, and order the groups according to breakAlignOrder",
 /* creats*/       "BreakAlignment BreakAlignGroup LeftEdge",

@@ -11,7 +11,7 @@
 #include "paper-column.hh"
 #include "main.hh"
 #include "grob.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
@@ -21,10 +21,10 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK (Bar,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Bar_line,brew_molecule,1);
 
 SCM 
-Bar::brew_molecule (SCM smob) 
+Bar_line::brew_molecule (SCM smob) 
 {
   Grob * me = unsmob_grob (smob);
 
@@ -45,7 +45,7 @@ Bar::brew_molecule (SCM smob)
 
 
 Molecule
-Bar::compound_barline (Grob*me, String str, Real h)
+Bar_line::compound_barline (Grob*me, String str, Real h)
 {
   Real kern = gh_scm2double (me->get_grob_property ("kern"));
   Real thinkern = gh_scm2double (me->get_grob_property ("thin-kern"));
@@ -128,15 +128,15 @@ Bar::compound_barline (Grob*me, String str, Real h)
 
 
 Molecule
-Bar::simple_barline (Grob*,Real w, Real h) 
+Bar_line::simple_barline (Grob*,Real w, Real h) 
 {
   return Lookup::filledbox (Box (Interval (0,w), Interval (-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK (Bar,before_line_breaking ,1);
+MAKE_SCHEME_CALLBACK (Bar_line,before_line_breaking ,1);
 
 SCM
-Bar::before_line_breaking (SCM smob)
+Bar_line::before_line_breaking (SCM smob)
 {
   Grob*me=unsmob_grob (smob);
   Item * item = dynamic_cast<Item*> (me);
@@ -165,21 +165,21 @@ Bar::before_line_breaking (SCM smob)
 }
   
 void
-Bar::set_interface (Grob*me)
+Bar_line::set_interface (Grob*me)
 {
   me->set_interface (ly_symbol2scm ("bar-line-interface"));
 }
 
 bool
-Bar::has_interface (Grob*m)
+Bar_line::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("bar-line-interface"));
 }
 
 
-MAKE_SCHEME_CALLBACK (Bar,get_staff_bar_size,1);
+MAKE_SCHEME_CALLBACK (Bar_line,get_staff_bar_size,1);
 SCM
-Bar::get_staff_bar_size (SCM smob) 
+Bar_line::get_staff_bar_size (SCM smob) 
 {
   Grob*me = unsmob_grob (smob);
   Real ss = Staff_symbol_referencer::staff_space (me);

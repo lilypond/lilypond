@@ -12,11 +12,10 @@
 #include "debug.hh"
 #include "group-interface.hh"
 
-void
-Separation_item::set_interface (Grob*s)
+bool
+Separation_item::has_interface (Grob *g)
 {
-  s->set_extent_callback (SCM_EOL, X_AXIS);
-  s->set_extent_callback (SCM_EOL, Y_AXIS);
+  return g->has_interface (ly_symbol2scm ("separation-item-interface"));
 }
 
 void

@@ -1,4 +1,5 @@
-\input texinfo @c -*-texinfo-*-
+@node 
+@comment  node-name,  next,  previous,  up\input texinfo @c -*-texinfo-*-
 @setfilename INSTALL.info
 @settitle INSTALL - compiling and installing GNU LilyPond
 
@@ -339,7 +340,7 @@ tetex-latex, tetex-dvips, libstdc++, python, ghostscript.
 
 For compilation on a Red Hat system you need these packages, in addition
 to the those needed for running: glibc-devel, gcc-c++, libstdc++-devel,
-guile-devel, flex, bison, texinfo, groff.
+guile-devel, flex, bison, texinfo, groff, pktrace.
 
 
 

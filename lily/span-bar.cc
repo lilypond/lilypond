@@ -15,7 +15,7 @@
 #include "axis-group-interface.hh"
 #include "group-interface.hh"
 #include "grob.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 
 void
 Span_bar::add_bar (Grob*me, Grob*b)
@@ -91,10 +91,18 @@ Span_bar::brew_molecule (SCM smobbed_me)
 	  Interval l(prev_extent [UP],
 		     ext[DOWN]);
 
-	  Molecule interbar
-	    = Bar::compound_barline (staff_bar, glyph_str, l.length());
-	  interbar.translate_axis (l.center (), Y_AXIS);
-	  span_bar_mol.add_molecule (interbar);
+	  if (l.empty_b ())
+	    {
+	      /* there is  overlap between the bar lines. We do nothign here.
+	       */
+	    }
+	  else
+	    {
+	      Molecule interbar
+		= Bar_line::compound_barline (staff_bar, glyph_str, l.length());
+	      interbar.translate_axis (l.center (), Y_AXIS);
+	      span_bar_mol.add_molecule (interbar);
+	    }
 	}
       prev_extent = ext;
     }
@@ -116,7 +124,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   /*
     urg.
   */
-  Molecule m = Bar::compound_barline (se, gl, 40 PT);
+  Molecule m = Bar_line::compound_barline (se, gl, 40 PT);
   
   return ly_interval2scm (m.extent (X_AXIS));
 }
@@ -129,8 +137,8 @@ Span_bar::before_line_breaking (SCM smob)
   evaluate_glyph (unsmob_grob (smob));
 
   /*
-    no need to call   Bar::before_line_breaking (), because the info
-    in ELEMENTS already has been procced by Bar::before_line_breaking ().
+    no need to call   Bar_line::before_line_breaking (), because the info
+    in ELEMENTS already has been procced by Bar_line::before_line_breaking ().
   */
   return SCM_UNSPECIFIED;
 }
@@ -146,7 +154,7 @@ Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
   Interval i (get_spanned_interval (me));
 
   /*
-    Bar::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
+    Bar_line::brew_molecule delivers a barline of y-extent (-h/2,h/2), so
     we have to translate ourselves to be in the center of the 
     interval that we span.  */
   if (i.empty_b ())
@@ -240,7 +248,7 @@ Span_bar::get_bar_size (SCM smob)
 void
 Span_bar::set_interface (Grob *me)
 {
-  Bar::set_interface (me);
+  Bar_line::set_interface (me);
   
   me->set_interface (ly_symbol2scm ("span-bar-interface"));
   me->set_extent_callback (SCM_EOL, Y_AXIS);

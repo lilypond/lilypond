@@ -290,7 +290,10 @@ TODO: revise typing.")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
 (grob-property-description 'solid boolean? "should porrectus be solidly filled?.")
 
-(grob-property-description 'space-alist list? "Alist of break align spacing tuples. See basic-property.scm")
+(grob-property-description 'space-alist list? "Alist of break align
+spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be
+minimum-space or extra-space.")
+
 (grob-property-description 'space-factor number? "Scale horizontal spacing up by this amount.")
 
 (grob-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace).")
@@ -416,10 +419,16 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 ;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; INTERNAL
 
-(grob-property-description 'left-neighbors list? "")
-(grob-property-description 'right-neighbors list? "")
+(grob-property-description 'left-neighbors list? " List of
+spacing-wish grobs that are close to the current column.
+
+The closest spacing-wishes determine the actual distances between the
+columns.
+")
+(grob-property-description 'right-neighbors list? "see left-neighbors")
 (grob-property-description 'left-items list? "")
 (grob-property-description 'right-items list? "")
+
 (grob-property-description 'cause scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
 (grob-property-description 'font font-metric? "Cached font metric object")
 (grob-property-description 'break-alignment-done boolean? "mark flag to signal we've done alignment already.")
@@ -436,3 +445,5 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'causes list? "list of cause objects.")
 (grob-property-description 'tremolo-flags number? "")
 (grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")
+(grob-property-description 'chord pair? "?")
+(grob-property-description 'begin-of-line-visible boolean? "?")

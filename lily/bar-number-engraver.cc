@@ -75,7 +75,7 @@ Bar_number_engraver::acknowledge_grob (Grob_info inf)
   Grob * s = inf.grob_l_;
   if (text_p_
       && dynamic_cast<Item*> (s)
-      && s->get_grob_property ("break-align-symbol") == ly_symbol2scm ("Left_edge_item"))
+      && s->get_grob_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))
     {
       /*
 	By default this would land on the Paper_column -- so why

@@ -78,6 +78,7 @@ Time_signature::special_time_signature (Grob*me, String s, int n, int d)
     Second guess: s contains the full signature name
   */
   m = feta->find_by_name ("timesig-" + s);
+  m.align_to (X_AXIS, LEFT);
   if (!m.empty_b ()) 
     return m;
 
@@ -115,6 +116,9 @@ Time_signature::time_signature (Grob*me,int num, int den)
       m = n;
       m.align_to (Y_AXIS, CENTER);
     }
+
+  m.align_to (X_AXIS, LEFT);
+  
   return m;
 }
 

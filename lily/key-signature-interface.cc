@@ -1,5 +1,6 @@
+
 /*
-  key-item.cc -- implement Key_item
+  key-item.cc -- implement Key_signature_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,12 +10,24 @@
 */
 
 #include "item.hh"
-#include "key-item.hh"
+
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
+
+
+struct Key_signature_interface
+{
+
+  static void set_interface (Grob*);
+  static bool has_interface (Grob*);
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+};
+
 
 /*
   FIXME: too much hardcoding here.
@@ -74,9 +87,9 @@ alteration_pos  (SCM what, int alter, int c0p)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_CALLBACK (Key_item,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Key_signature_interface,brew_molecule,1);
 SCM
-Key_item::brew_molecule (SCM smob)
+Key_signature_interface::brew_molecule (SCM smob)
 {
   Grob*me =unsmob_grob (smob);
 
@@ -156,17 +169,14 @@ Key_item::brew_molecule (SCM smob)
         }
     }
 
+  mol.align_to (X_AXIS, LEFT);
+  
   return mol.smobbed_copy ();
 }
 
 bool
-Key_item::has_interface (Grob*m)
+Key_signature_interface::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("key-signature-interface"));
 }
 
-void
-Key_item::set_interface (Grob*m)
-{
-  m->set_interface (ly_symbol2scm ("key-signature-interface"));
-}

@@ -10,7 +10,7 @@
 */
 
 #include "engraver.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "item.hh"
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
@@ -72,7 +72,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
   Item *item = dynamic_cast <Item *> (info.grob_l_);
   if (item)
     {
-      if (Bar::has_interface (info.grob_l_))
+      if (Bar_line::has_interface (info.grob_l_))
 	custos_permitted = true;
       else if (Note_head::has_interface (info.grob_l_))
 	{

@@ -251,6 +251,9 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{non-empty-text.ly}
 
+@lilypondfile[printfilename]{prefatory-spacing-matter.ly}
+
+
 @c @l ilypondfile[printfilename]{spacing-tight.ly}
 
 @c @l ilypondfile[printfilename]{spacing-natural.ly}

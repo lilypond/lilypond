@@ -396,15 +396,15 @@ ScoreContext = \translator {
          (3  . 2) (0 . 2) (4 . 2) (2 . 2) (5 . 2) (2 . 2) (6 . 2)
         )
 	breakAlignOrder = #'(
-	  Instrument_name
-	  Left_edge_item
-	  Span_bar
-	  Breathing_sign
-	  Clef_item
-	  Key_item
-	  Staff_bar
-	  Time_signature
-	  Custos
+	  instrument-name
+	  left-edge
+	  span-bar
+	  breathing-sign
+	  clef
+	  key-signature
+	  staff-bar
+	  time-signature
+	  custos
 	)
 
 

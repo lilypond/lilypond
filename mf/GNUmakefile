@@ -57,7 +57,7 @@ ifdef MAKE_PFA_FILES
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
 ALL_GEN_FILES += $(PFA_FILES)
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
-INSTALLATION_OUT_FILES4=$(PFA_FILES)
+INSTALLATION_OUT_FILES4=$(PFA_FILES) lilypond.map
 
 pfa: $(PFA_FILES) 
 endif

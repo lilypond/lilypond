@@ -12,7 +12,7 @@
 #include "volta-spanner.hh"
 #include "item.hh"
 #include "note-column.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol.hh"
 
@@ -155,7 +155,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	  if (volta_span_p_)
 	    Volta_spanner::add_column (volta_span_p_,item);
 	}
-      if (Bar::has_interface (item))
+      if (Bar_line::has_interface (item))
 	{
 	  if (volta_span_p_)
 	    Volta_spanner::add_bar (volta_span_p_, item);

@@ -200,6 +200,7 @@ def draw_gclef (expr exact_center, reduction)=
 		vround_pixels(ypart exact_center));
 
 	hair =  .3 stafflinethickness;
+%	hair = blot_diameter; 
 	thinness = 1.3 stafflinethickness;
 	downstroke_dir = (14, -75);
 	breapth_factor = 11/7;
@@ -288,7 +289,7 @@ def draw_gclef (expr exact_center, reduction)=
 		z1r -- z1l 
 		.. tension 0.85 ..cycle;
 
-	filldraw simple_serif(z1r, z1l, 90)  -- cycle;
+	filldraw simple_serif(z1r, z1l, 80)  -- cycle;
 
 	filldraw z12r{left} .. z13r{up} -- z13l{down} .. z12l{right} .. cycle;
 

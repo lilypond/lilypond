@@ -15,7 +15,8 @@ source file of the GNU LilyPond music typesetter
 class Staff_spacing
 {
 public:
-  static bool has_interface (Grob*);  
+  static bool has_interface (Grob*);
+  static void get_spacing_params (Grob*,Real*,Real*);
 };
 
 #endif /* STAFF_SPACING_HH */

@@ -7,7 +7,7 @@
 */
 
 #include "command-request.hh"
-#include "bar.hh"
+#include "bar-line.hh"
 #include "debug.hh"
 #include "line-group-group-engraver.hh"
 #include "paper-column.hh"
