@@ -31,7 +31,7 @@ instrument = "Piano"
   maintainer = "Jan Nieuwenhuizen"
   maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Apr/27"
-  mutopiapublicdomain = "\\parbox{\\hsize}{\\thefooter\\quad\\small
+  mutopiapublicdomain = "\\parbox[b]{\\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
     \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
     and placed in the public domain by " + \maintainer +
@@ -452,15 +452,16 @@ grandStaff =  \context PianoStaff <
 		\grandStaff
 	>
 	\paper {
-		% arg, if it weren't for the mutopia margins, this would
-		% fit on three a4 pages, like the original
-		% Mandatory Mutopia settings:
+		% Use
+		%   textheight = 280.\mm
+		%   linewidth = 190.\mm
+		% to get this on 3 pages of a4.
+		
+		% Mandatory Mutopia settings yield 4 pages :-(
 		textheight = 270.0\mm
 		linewidth = 180.0\mm
 
-		\translator {
-			\HaraKiriStaffContext
-		}
+		\translator { \HaraKiriStaffContext }
 	}
 	\midi{
 		\tempo 4 = 54
