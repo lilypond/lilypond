@@ -44,7 +44,6 @@
 ;;;    define-fonts
 ;;;    no-origin
 ;;;    start-system
-;;;    end-output
 ;;;    header
 ;;;    comment
 ;;;    stop-last-system
@@ -246,9 +245,6 @@
 
 (define (define-fonts paper font-list)
   (comment (format #f "Fonts used: ~S" font-list)))
-
-(define (end-output)
-  "</g></svg>")
 
 (define (filledbox breapth width depth height)
   (round-filled-box breapth width depth height line-thickness))

@@ -98,17 +98,6 @@
 	   (lambda () (ps-output-expression expr (current-output-port))))))
     (string-append "\\embeddedps{" ps-string "}")))
   
-(define (comment s)
-  (string-append "% " s "\n"))
-
-(define (end-output)
-  (begin
-    ;; uncomment for some stats about lily memory	  
-    ;; (display (gc-stats))
-    (string-append
-     "\\lilypondend\n"
-     ;; Put GC stats here.
-     )))
 
 (define (repeat-slash w a t)
   (embedded-ps (list 'repeat-slash  w a t)))

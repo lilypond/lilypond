@@ -60,9 +60,6 @@
 		   (lineto 0 (/ thick 2))
 		   (closefill))))
 
-(define (comment s) 
-  (string-append "% " s "\n"))
-
 (define (brack-traject pair ds alpha)
   (let ((alpha-rad (* alpha (/ 3.141592654 180))))
     (cons (+ (car pair) (* (cos alpha-rad) ds))
@@ -131,7 +128,6 @@
 		   (rlineto (- xwid) 0)
 		   (closefill))))
 
-(define (end-output) "")
 
 (define (experimental-on) "")
 

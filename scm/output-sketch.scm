@@ -48,7 +48,6 @@
 ; ((eq? keyword 'dashed-line thick on off dx dy)
 ; ((eq? keyword 'dashed-slur thick dash l)
 ; ((eq? keyword 'define-origin a b c ) "")
-; ((eq? keyword 'end-output)
 ; ((eq? keyword 'experimental-on) "")
 ; ((eq? keyword 'ez-ball ch letter-col ball-col)
 ; ((eq? keyword 'filledbox x y breapth width depth height)
