@@ -82,7 +82,7 @@ global _;_=ly._
 global re;re = ly.re
 
 # lilylib globals
-program_name = sys.argv[0]
+program_name = os.path.split (sys.argv[0])[1]
 program_version = '@TOPLEVEL_VERSION@'
 # input without \book, use classic latex definitions
 classic_p = 0

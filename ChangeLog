@@ -1,5 +1,8 @@
 2004-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/lilypond-latex.py (program_name): Bugfix: use only basename of
+	argv[0] (Thomas Scharkowski).
+
 	* configure.in: Bugfix: add REQUIRED parameter to STEPMAKE_TEXMF
 	call (carlyannehorse).  Also check for mf and mf-nowin.  Add check
 	for ec-fonts-mtraced.
