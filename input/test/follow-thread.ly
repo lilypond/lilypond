@@ -6,7 +6,7 @@ property @code{followVoice}.
 "
 }
 
-\version "1.3.146"
+\version "1.5.68"
 % followVoice: connect note heads with line when thread switches staff 
 
 fragment = \notes {

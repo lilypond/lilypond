@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 \header {
 
  texidoc = "You can create music expressions from Scheme.  The
@@ -9,20 +9,20 @@
 
 #(define (make-note-req p d)
    (let* ( (ml (ly-make-music "Note_req")) )
-   (ly-set-mus-property ml 'duration d)
-   (ly-set-mus-property ml 'pitch p)   
+   (ly-set-mus-property! ml 'duration d)
+   (ly-set-mus-property! ml 'pitch p)   
    ml 
 ))
 
 #(define (make-note elts)
    (let* ( (ml (ly-make-music "Request_chord")) )
-   (ly-set-mus-property ml 'elements elts)
+   (ly-set-mus-property! ml 'elements elts)
    ml 
 ))
 
 #(define (seq-music-list elts)
    (let* ( (ml (ly-make-music "Sequential_music")) )
-   (ly-set-mus-property ml 'elements elts)
+   (ly-set-mus-property! ml 'elements elts)
    ml 
 ))
 

@@ -1,4 +1,4 @@
-\version "1.3.148"
+\version "1.5.68"
 \header{
 texidoc="The partcombiner should not combine two small slurs into a big one."
 }

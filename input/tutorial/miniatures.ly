@@ -1,4 +1,4 @@
-\version "1.5.49"
+\version "1.5.68"
 \header {
   title = "Two miniatures"
   tagline = "Small is beatiful"

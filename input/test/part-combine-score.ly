@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 \header {
 texidoc="Template for part-combining orchestral scores"
@@ -149,7 +149,7 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 
     % Ugh, markup burps
     \property StaffCombineStaff.instrument = #'((kern . 0.5)
-    (lines "Violoncello" (columns "    e") (rows "Contrabasso")))
+    (lines "Violoncello" (columns "    e") (columns "Contrabasso")))
 
     \property StaffCombineStaff.instr = #"Vc."
     

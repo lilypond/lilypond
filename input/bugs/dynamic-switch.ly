@@ -5,7 +5,7 @@ texidoc="The decrescendo disappears when the part combiner decides that
 the a2 and c2 should be a chord in one voice.  Using the commented
 version, with a c2 instead of a2, the decrescendo reappears."
 }
-\version "1.3.148"
+\version "1.5.68"
 
 \score{
 	\context Staff <

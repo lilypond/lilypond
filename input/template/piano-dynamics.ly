@@ -6,7 +6,7 @@
 centered between staffs.
 %}
 
-\version "1.5.1"
+\version "1.5.68"
 
 \header {
   dedication = "dedication"
@@ -58,7 +58,7 @@ pedal = \notes {
       \name Dynamics
       \consists "Output_property_engraver"
       
-      minimumVerticalExtent = #'(-1 . 1)
+      minimumverticalExtent = #'(-1 . 1)
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
       

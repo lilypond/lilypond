@@ -1,4 +1,4 @@
-\version "1.5.1"
+\version "1.5.68"
 \header {
 texidoc="staff symbol property set workaround"
 }

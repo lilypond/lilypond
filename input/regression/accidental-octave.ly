@@ -1,5 +1,5 @@
 
-\version "1.5.43.rz1"
+\version "1.5.68"
 
 \header {
 texidoc="
@@ -19,19 +19,19 @@ Fixme: Shorten and docu
          (p (ly-get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map no-octaves es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (no-octaves e)))
 
     (if (pitch? p)
         (begin
           (set! p (lo-octave p))
-          (ly-set-mus-property music 'pitch p)))
+          (ly-set-mus-property! music 'pitch p)))
 
 
     music))

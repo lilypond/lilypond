@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly-get-grob-property grob 'text))))

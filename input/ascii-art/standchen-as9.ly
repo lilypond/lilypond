@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 % ASCII Art output
 
 % Process as:
@@ -35,7 +35,7 @@
       % horizontal beams
       Beam \override #'height = #0
       autoBeamSettings \override #'(begin * * * *) = #(make-moment 0 1)
-      textNonEmpty = ##f
+      TextScript \set #'no-spacing-rods = ##t
     }
   }
 }

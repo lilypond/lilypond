@@ -6,7 +6,7 @@ longgrace = \property Voice.Stem \override #'flag-style = #'()
 endlonggrace = \property Voice.Stem \revert #'flag-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.5.49"
+\version "1.5.68"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 
@@ -61,7 +61,7 @@ stopGraceMusic= \sequential {
     }
     \translator {
         \StaffContext
-        MinimumVerticalExtent = #'(-4.5 . 4.5)
+        minimumVerticalExtent = #'(-4.5 . 4.5)
     }
     indent = 10. \mm
     linewidth = 189. \mm

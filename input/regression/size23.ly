@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 \include "paper23.ly"
 \include "allfontstyle.ly"

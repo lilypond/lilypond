@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 
 %
 % test file to get a4 paper really filled,
@@ -33,7 +33,7 @@ tagline="Ligly"
 		linewidth = 15.0\mm
 		\translator {
 			\StaffContext
-			MinimumVerticalExtent = #(cons 0 0)
+			minimumVerticalExtent = #(cons 0 0)
 		}
 	}
 }

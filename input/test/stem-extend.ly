@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 \header { texidoc = "
 Conventionally, stems and beams extend to the middle staff line.  This
 extension can be controlled through @code{Voice.Stem}'s grob-property

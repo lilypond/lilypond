@@ -1,4 +1,4 @@
-\version "1.3.146"
+\version "1.5.68"
 \header {
 texidoc= "Using make-music, you can add
 various stuff to notes. Here is an example
@@ -10,13 +10,13 @@ create, then write a function that will build the structure for you."
 
 #(define (make-text-script x) 
    (let ((m (ly-make-music "Text_script_req")))
-     (ly-set-mus-property m 'text-type 'finger)
-     (ly-set-mus-property m 'text x)
+     (ly-set-mus-property! m 'text-type 'finger)
+     (ly-set-mus-property! m 'text x)
      m))
      
 #(define (add-text-script m x)
    (if (equal? (ly-music-name m) "Request_chord")
-       (ly-set-mus-property m 'elements
+       (ly-set-mus-property! m 'elements
 			    (cons (make-text-script x)
 				  (ly-get-mus-property m 'elements)))
        

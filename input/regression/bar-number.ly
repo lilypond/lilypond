@@ -1,4 +1,4 @@
-\version "1.5.54"
+\version "1.5.68"
 
 \header {
 
@@ -19,7 +19,7 @@ start counting after the anacrusis."
     linewidth = -1. \mm
     \translator {
 	\ScoreContext
-	BarNumber \override #'visibility-lambda = #all-visible
+	BarNumber \override #'break-visibility = #all-visible
     }
   }
 }
