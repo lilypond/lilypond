@@ -21,7 +21,8 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.7.95
+PANGOVERSION=1.6.0
+GGVERSION=2.7.97
 GWRAPVERSION=1.9.3
 
 download=$HOME/usr/src/releases
@@ -67,9 +68,9 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 	echo "." > CVS/Repository
 	cvs -z3 checkout -P pango
     else
-        $WGET ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
-	tar -xzf $download/pango-1.5.2.tar.gz
-	ln -s pango-1.5.2 pango
+        $WGET ftp://ftp.gtk.org/pub/gtk/v2.6/pango-$PANGOVERSION.tar.gz
+	tar -xzf $download/pango-$PANGOVERSION.tar.gz
+	ln -s pango-$PANGOVERSION pango
     fi
     cd pango
     rm -rf $OPT/pango
@@ -205,6 +206,14 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
     fi
     make all install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
 fi
+
+cat <<EOF
+***********************************************************************
+Before using with Lily, do
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+    export GUILE_LOAD_PATH=$GUILE_LOAD_PATH
+EOF
 
 # simple test -- fails atm
 # guile -s ../src/libgnomecanvas/examples/canvas.scm

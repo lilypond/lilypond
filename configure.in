@@ -111,8 +111,11 @@ STEPMAKE_PERL(OPTIONAL)
 
 
 
-# new makeinfo for multi-page website docs
-STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.7)
+# New makeinfo for multi-page website docs Simply always require new
+# makeinfo should avoid bug reports; if people want to build lily
+# without the docs, they can find this comment and use an older
+# makeinfo -- but hopefully won't report makeinfo problems.
+STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
 AC_SUBST(MAKEINFO_VERSION)
 
 
