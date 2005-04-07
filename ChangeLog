@@ -3,8 +3,15 @@
 	* Documentation/topdocs/NEWS.tely (Top): Make tex-able.  Handy
 	test for PDF docs.
 
-	* mf/GNUmakefile (lilypond.map): Add PFAEmmentaler.  Fixes feta
-	font in PDFs.
+	* mf/GNUmakefile (lilypond.map): Add PFAEmmentaler,
+	PFAAybabtu-Regular.  Fixes feta font in PDFs.
+	
+	Notes for tetex-3.0 make web:
+	   psclean.map: s/uhv8a/uhvr8a/
+	   config.ps add:
+		p +psfonts_t1.map
+		p +psclean.map
+		p +typeface.map
 
 2005-04-06  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 

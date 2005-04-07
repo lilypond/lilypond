@@ -123,7 +123,13 @@ INSTALLATION_OUT_FILES9=$(SVG_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf
+.PHONY: tree-regen
+# FIXME: temporary hack: must regenerate after building fonts
+tree-regen:
+	rm -rf $(builddir)/share
+	make -C $(builddir) link-tree
+
+default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 
 pfa_warning:
 ifneq ($(shell $(MFTRACE) --version | sed 's/ .*//'),mftrace)
@@ -176,15 +182,20 @@ $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdi
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
 
-$(outdir)/lilypond.map:
+$(outdir)/lilypond.map: GNUmakefile
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
 	for i in $(STAFF_SIZES); do\
 		echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
 		echo "PFAEmmentaler-$$i PFAEmmentaler-$$i <PFAemmentaler-$$i.pfa";\
  	done >> $@
 	echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $@
-
-$(outdir)/Fontmap.lily: 
+	echo "PFAAybabtu-Regular PFAAybabtu-Regular <aybabtu.cff.ps" >> $@
+#
+# FIXME: needed for make web on Debian/unstable -- not in any other .map file	
+	echo "FreeSans FreeSans <FreeSans.ttf" >> $@
+	echo "Kochi-Gothic Kochi-Gothic <kochi-gothic.ttf" >> $@
+	
+$(outdir)/Fontmap.lily: GNUmakefile
 	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
 	for i in $(STAFF_SIZES); \
 		do echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; done \
