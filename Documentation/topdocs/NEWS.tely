@@ -24,8 +24,10 @@ See user manual, \NAME\
 @documentencoding utf-8
 @documentlanguage en
 
+@ifnottex
 @node Top
 @top
+@end ifnottex
 @unnumbered New features in 2.5 since 2.4
 
 
@@ -268,7 +270,9 @@ c8[ r8 c16 r16 c8]
 
 @end itemize
 
-
+@ifhtml
 For older news, go to
 @uref{http://lilypond.org/doc/v2.4/Documentation/topdocs/out-www/NEWS.html}.
+@end ifhtml
 
+@bye

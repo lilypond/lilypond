@@ -178,9 +178,10 @@ fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.s
 
 $(outdir)/lilypond.map:
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
-	for i in $(STAFF_SIZES); \
-		do echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps" ; done \
-	>> $@
+	for i in $(STAFF_SIZES); do\
+		echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
+		echo "PFAEmmentaler-$$i PFAEmmentaler-$$i <PFAemmentaler-$$i.pfa";\
+ 	done >> $@
 	echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $@
 
 $(outdir)/Fontmap.lily: 

@@ -1,3 +1,11 @@
+2005-04-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/NEWS.tely (Top): Make tex-able.  Handy
+	test for PDF docs.
+
+	* mf/GNUmakefile (lilypond.map): Add PFAEmmentaler.  Fixes feta
+	font in PDFs.
+
 2005-04-06  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/music-functions.scm (music-pretty-string): fix bug with
