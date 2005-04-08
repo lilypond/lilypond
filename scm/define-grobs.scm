@@ -821,7 +821,7 @@
     (PhrasingSlur
      . ((slur-details . ,default-slur-details)
 	(print-function . ,Slur::print)
-	(thickness . 1.2)		
+	(thickness . 1.1)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
 	(after-line-breaking-callback . ,Slur::after_line_breaking)
@@ -934,7 +934,7 @@
     (Slur
      . ((slur-details . ,default-slur-details)
 	(print-function . ,Slur::print)
-	(thickness . 1.2)		
+	(thickness . 1.0)		
 	(spacing-procedure . ,Spanner::set_spacing_rods)		
 	(minimum-length . 1.5)
 	(after-line-breaking-callback . ,Slur::after_line_breaking)
@@ -1256,7 +1256,7 @@
 	(spacing-procedure . ,Spanner::set_spacing_rods)
 	(staffline-clearance . 0.35)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
-	(thickness . 1.2)
+	(thickness . 1.0)
 	(x-gap . -0.1)
 	(y-offset . 0.6)
 	(minimum-length . 2.5)

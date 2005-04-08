@@ -57,8 +57,9 @@ Slur::print (SCM smob)
       return SCM_EOL;
     }
 
+  Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
-  Real thick = base_thick * Staff_symbol_referencer::line_thickness (me);
+  Real thick = base_thick * staff_thick;
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);
@@ -74,7 +75,8 @@ Slur::print (SCM smob)
     a = Lookup::dashed_slur (one, thick, robust_scm2double (p, 1.0),
 			     robust_scm2double (f, 0));
   else
-    a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
+    a = Lookup::slur (one,
+		      get_grob_direction (me) * staff_thick * 1.0,
 		      thick);
 
 #if DEBUG_SLUR_SCORING
