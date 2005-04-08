@@ -332,9 +332,11 @@ Tie::print (SCM smob)
   if (!scm_is_pair (cp))
     return Stencil ().smobbed_copy ();
 
-  Real thick
-    = Staff_symbol_referencer::line_thickness (me)
-    * robust_scm2double (me->get_property ("thickness"), 1);
+
+  Real staff_thick = Staff_symbol_referencer::line_thickness (me);
+  Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
+  Real thick = base_thick * staff_thick;
+
 
   Bezier b;
   int i = 0;
@@ -344,7 +346,9 @@ Tie::print (SCM smob)
       i++;
     }
 
-  Stencil a = Lookup::slur (b, get_grob_direction (me) * thick, thick);
+  Stencil a = Lookup::slur (b,
+			    get_grob_direction (me) * staff_thick,
+			    thick);
 
   return a.smobbed_copy ();
 }

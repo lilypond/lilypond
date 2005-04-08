@@ -8,7 +8,7 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 \score {
   
    {
-    f'-\markup {
+    f'1-\markup {
 		foo
 		\raise #0.2 \hbracket \bold bar
 		\override #'(baseline-skip . 4)
@@ -24,6 +24,8 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 		
 		\combine "X" "+"   
 		\combine "o" "/"
+		}
+    g'1-\markup {
 %		\char-number #"abc1234abc"
 		\box \column { \line { "string 1" } \line { "string 2" } }
 		"$\\emptyset$"
@@ -32,7 +34,9 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 		\italic Norsk
 		\super "2"
 		" "
+		\raise #3.0 \whiteout white-out
 		\circle \dynamic p
+		\with-color #green Green
 		\dynamic sfzp
 		\huge { "A" \smaller "A" \smaller \smaller "A"
 			\smaller \smaller \smaller "A" }

@@ -371,6 +371,14 @@ recommend font for this is bold and italic"
   "Draw a double flat symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
 
+(def-markup-command (with-color layout props color arg) (color? markup?)
+  "Draw @var{arg} in color specified by @var{color}"
+
+  (let* ((stil (interpret-markup layout props arg)))
+
+    (ly:make-stencil (list 'color color (ly:stencil-expr stil))
+		     (ly:stencil-extent stil X)
+		     (ly:stencil-extent stil Y))))
 
 ;;
 ;; TODO: should extract baseline-skip from each argument somehow..
@@ -489,6 +497,28 @@ and/or @code{extra-offset} properties. "
       ;; empirical anyway
       (ly:stencil-translate-axis stack 0.75 Y))))
 
+
+
+(def-markup-command (filled-box layout props xext yext blot)
+  (number-pair? number-pair? number?)
+  "Draw a box with rounded corners of dimensions @var{xext} and @var{yext}."
+  (ly:round-filled-box
+   xext yext blot))
+
+(def-markup-command (whiteout layout props arg) (markup?)
+  "Provide a white underground for @var{arg}"
+  (let* ((stil (interpret-markup layout props
+				 (make-with-color-markup black arg)))
+	 (white
+	  (interpret-markup layout props
+			    (make-with-color-markup
+			     white
+			     (make-filled-box-markup
+			      (ly:stencil-extent stil X)
+			      (ly:stencil-extent stil Y)
+			      0.0)))))
+
+    (ly:stencil-add white stil)))
 
 ;; TODO: better syntax.
 

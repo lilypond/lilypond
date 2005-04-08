@@ -337,7 +337,7 @@
     (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port)
-		  (_ "Converting to `~a'...") (string-append base ".psbl"))
+		  (_ "Converting to `~a'...") (string-append base ".ps"))
 	  (newline (current-error-port))))
     (ly:system cmd)))
 

@@ -192,19 +192,26 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_REST_ARGUMENT (args);
 
-  Stencil result;
-
+  SCM expr = SCM_EOL;
+  SCM *tail = &expr; 
+  Box extent;
+  extent.set_empty ();
+  
   while (!SCM_NULLP (args))
     {
       Stencil *s = unsmob_stencil (scm_car (args));
       if (!s)
 	SCM_ASSERT_TYPE (s, scm_car (args), SCM_ARGn, __FUNCTION__, "Stencil");
 
-      result.add_stencil (*s);
+
+      extent.unite (s->extent_box ());
+      *tail = scm_cons (s->expr (), SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
       args = scm_cdr (args);
     }
 
-  return result.smobbed_copy ();
+  expr = scm_cons (ly_symbol2scm ("combine-stencil"), expr);
+  return Stencil (extent, expr).smobbed_copy ();
 }
 
 LY_DEFINE (ly_make_stencil, "ly:make-stencil",
