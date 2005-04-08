@@ -102,7 +102,7 @@ PO_FILES = $(wildcard $(srcdir)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:$(srcdir)/po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
-$(tree-prefix)/lilypond-force: GNUmakefile
+$(tree-prefix)/lilypond-force link-tree: GNUmakefile
 # Preparing LilyPond tree for builddir exec
 	cd $(builddir) && rm -rf lib share
 	mkdir -p $(builddir)/lib/$(package)
@@ -152,7 +152,8 @@ $(tree-prefix)/lilypond-force: GNUmakefile
 		mkdir -p $(share-prefix)/locale/$i/LC_MESSAGES && \
 		cd $(share-prefix)/locale/$i/LC_MESSAGES && \
 		ln -sf ../../../../po/$(outconfbase)/$i.mo lilypond.mo &&) true
-	touch $@
+#	touch $@
+	touch $(tree-prefix)/lilypond-force
 
 local-clean: builddir-setup-clean
 builddir-setup-clean:
