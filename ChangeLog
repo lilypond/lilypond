@@ -1,5 +1,7 @@
 2005-04-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-nummer-code.mf (code): add plus glyph.
+
 	* lily/tie.cc (print): idem.
 
 	* lily/slur.cc (print): don't use thickness property for
