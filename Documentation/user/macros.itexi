@@ -1,12 +1,18 @@
 @c -*-texinfo-*-
 
+@tex
+\input feta20.tex
+\font\fetasixteen=feta16
+\def\fetafont{\fetasixteen}
+\def\fetachar#1{\hbox{\fetasixteen#1}}
+@end tex
 
 @c Reference GLOSsary
 @macro rglos {NAME}
 @ifhtml
 @c ugh: @ref assumes that external refs are split documents too
 @html
-<a style="text-decoration: none; color: inherit;" href="../music-glossary.html#\NAME\">\NAME\</a>@c
+<a style="text-decoration: none; color: inherit;" href="source/Documentation/user/out-www/music-glossary.html#\NAME\">\NAME\</a>@c
 @end html
 @end ifhtml
 @ifnothtml
@@ -24,7 +30,7 @@
 @iftex
 @macro texisharp {word}
 @tex
-$\\sharp$%
+\\raise0.5ex\\fetachar\\fetasharp
 @end tex
 @end macro
 @end iftex
@@ -38,10 +44,25 @@ b
 @iftex
 @macro texiflat {word}
 @tex
-$\\flat$%
+\\kern0.15em\\fetachar\\fetaflat
 @end tex
 @end macro
 @end iftex
+
+@macro arrow{}
+@iftex
+@tex $\\Rightarrow$ @end tex@c
+@end iftex
+@ifhtml
+@html
+&rarr;
+@end html
+@end ifhtml
+@ifinfo
+-->
+@end ifinfo
+@end macro
+
 
 
 
@@ -77,23 +98,24 @@ $\\flat$%
 @c dup?
 @ifhtml
 @macro internalsref{NAME}
-@uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@ref{\NAME\,,,lilypond-internals}@c
 @cindex \NAME\@c
 @end macro
 
+
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@uref{source/\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @end ifhtml
 
 @ifinfo
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond-internals}@c
+@inforef{\NAME\,,lilypond/lilypond-internals}@c
 @cindex \NAME\@c
 @end macro
 
-@macro inputfileref{DIR,NAME}i
+@macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
 
@@ -122,23 +144,42 @@ internals document,  @internalsref{\NAME\}
 @end macro
 @end ifnottex
 
+@ifinfo
+@macro usermanref{NAME}
+@ref{\NAME\}@c
+@end macro
+@end ifinfo
+
+@ifnotinfo
+@macro usermanref{NAME}
+@ref{\NAME\}@c
+@end macro
+@end ifnotinfo
+
 @macro refbugs
 @noindent
-@heading Bugs
+@subsubheading Bugs
 
 @end macro
 
 @macro seealso
 @noindent
-@heading See also
+@subsubheading See also
 
 @end macro
 
 @macro refcommands
 @noindent
-@heading Predefined commands
+@subsubheading Predefined commands
 
 @end macro
+
+@macro context{NAME}@c
+@code{\NAME\}@c should use internalsref
+@cindex \NAME\@c
+@end macro
+
+
 
 
 @c
@@ -151,6 +192,7 @@ internals document,  @internalsref{\NAME\}
 @cindex @code{\WHAT\}
 @code{\WHAT\}, 
 @end macro
+
 
 @macro syntax
 @noindent

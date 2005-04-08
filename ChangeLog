@@ -1,3 +1,13 @@
+2005-04-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in: Require makeinfo-4.7, mftrace-1.1.0.
+
+	* Fix website links, backport from 2.2, 2.4.
+
+	* GNUmakefile.in:
+	* tex/lilyponddefs.tex: teTeX-3.0 web build fix.  Note:
+	installation is not tetex-3.0 compatible.
+
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* stepmake/bin/add-html-footer.py (wiki_base): remove wiki link.

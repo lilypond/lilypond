@@ -46,33 +46,69 @@
   (texi-file-head "LilyPond program-reference" outname "(lilypond-internals.info)")
   "
 
+@c NOTE: This is documentation-generate.scm, not macros.itexi
+
 @ifhtml
 @macro usermanref{NAME}
-@uref{../lilypond/\\NAME\\.html,\\NAME\\}
+@ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
 @end ifhtml
 
 @ifinfo
 @macro usermanref{NAME}
-@inforef{\\NAME\\,,lilypond}
+@inforef{\\NAME\\,,,lilypond/lilypond}
 @cindex \\NAME\\
 @end macro
 @end ifinfo
 
+@iftex
+@macro usermanref{NAME}
+@ref{\\NAME\\}@c
+@end macro
+@end iftex
+
 @ifhtml
 @macro glossaryref{NAME}
-@uref{../music-glossary/\\NAME\\.html,\\NAME\\}
+@uref{source/Documentation/out-www/music-glossary.html#\\NAME\\,\\NAME\\}
 @cindex \\NAME\\
 @end macro
 @end ifhtml
 
 @ifinfo
 @macro glossaryref{NAME}
-@inforef{\\NAME\\,,music-glossary}
+@inforef{\\NAME\\,,lilypond/music-glossary}
 @cindex \\NAME\\
 @end macro
 @end ifinfo
+
+
+@macro internalsref{NAME}
+@ref{\\NAME\\}
+@end macro
+
+@ifhtml
+
+@macro inputfileref{DIR,NAME}
+@uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
+@end macro
+
+@end ifhtml
+
+@ifinfo
+
+@macro inputfileref{DIR,NAME}
+@file{\\DIR\\/\\NAME\\}
+@end macro
+
+@end ifinfo
+
+@iftex
+@macro inputfileref{DIR,NAME}@c
+@file{\\DIR\\/\\NAME\\}@c
+@end macro
+@end iftex
+
 
 
 @ignore

@@ -66,7 +66,7 @@ local-WWW-post:
 	cd $(builddir) && $(footify) `$(FIND) . -name '*.html' -print`
 	cd $(builddir) && rm -f `find . -name \*.html~ -print`
 	cd $(builddir) && find Documentation input \
-		$(web-ext:%=-path '*/out-www/*.%' -or) -false \
+		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
 		> $(outdir)/weblist
 	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/out-www/index.html">' > $(builddir)/index.html
 	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(builddir)/index.html
@@ -98,6 +98,7 @@ $(builddir)/share/lilypond-force:
 	cd $(builddir) && rm -rf lib share
 	mkdir -p $(builddir)/lib/lilypond
 	mkdir -p $(builddir)/share/lilypond
+	mkdir -p $(builddir)/share/lilypond/dvips
 	mkdir -p $(builddir)/share/lilypond/elisp
 	mkdir -p $(builddir)/share/lilypond/fonts
 	mkdir -p $(builddir)/share/lilypond/tex
@@ -105,23 +106,28 @@ $(builddir)/share/lilypond-force:
 		ln -s  ../../python/$(outconfbase) python
 	cd $(builddir)/share/lilypond && \
 		ln -s $(abs-srcdir)/ly ly && \
-		ln -s ../../mf/$(outconfbase) dvips && \
 		ln -s ../../mf/$(outconfbase) afm && \
 		ln -s ../../mf/$(outconfbase) tfm && \
 		ln -s $(abs-srcdir)/mf && \
 		ln -s $(abs-srcdir)/ps && \
 		ln -s ../../python/$(outconfbase) python && \
 		ln -s $(abs-srcdir)/scm
+	cd $(builddir)/share/lilypond/dvips && \
+		ln -s ./../mf/$(outconfbase) mf-out && \
+		ln -s $(abs-srcdir)/ps
 	cd $(builddir)/share/lilypond/tex && \
 		ln -s $(abs-srcdir)/tex source && \
-		ln -s ../../../mf/$(outconfbase) generate
+		ln -s ../../../tex/$(outconfbase) tex-out && \
+		ln -s ../../../mf/$(outconfbase) mf-out
 	cd $(builddir)/share/lilypond/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		ln -s ../../../mf/$(outconfbase) afm && \
+		ln -s ../../../tex/$(outconfbase) enc && \
+		ln -s ../../../mf/$(outconfbase) map && \
 		ln -s ../../../mf/$(outconfbase) tfm && \
 		ln -s ../../../mf/$(outconfbase) type1
 	cd $(builddir)/share/lilypond/elisp && \
-		ln -sf ../../../elisp/$(outconfbase)/lilypond.words.el . && \
+		ln -sf ../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(abs-srcdir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		mkdir -p $(builddir)/share/locale/$i/LC_MESSAGES && \

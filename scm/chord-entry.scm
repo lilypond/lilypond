@@ -189,7 +189,8 @@ the bass specified.
 	  
 	)
 
-    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root) ))
+    (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
+			      complete-chord))
     (if inversion
 	(set! complete-chord (process-inversion complete-chord)))
     (if bass
@@ -210,7 +211,7 @@ the bass specified.
 	(make-chord (cdr complete-chord) bass duration (car complete-chord)
 		    inversion)
 	(make-chord complete-chord bass duration #f #f))
-  )))
+  ))
 
 
 (define (make-chord pitches bass duration inversion original-inv-pitch)

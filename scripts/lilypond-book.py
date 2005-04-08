@@ -1561,7 +1561,7 @@ try:
 	
 except getopt.error, msg:
 	sys.stderr.write ('\n')
-	ly.error (_ ("getopt says: `%s\'" % s))
+	ly.error (_ ("getopt says: `%s\'" % msg))
 	sys.stderr.write ('\n')
 	ly.help ()
 	ly.exit (2)
