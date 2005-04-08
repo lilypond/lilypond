@@ -1209,6 +1209,7 @@ happy_count = 100
 def parse_file (fn):
 	f = open (fn)
 	ls = f.readlines ()
+	ls = map (lambda x: re.sub ("\r$", '', x), ls)
 
 	select_voice('default', '')
 	lineno = 0

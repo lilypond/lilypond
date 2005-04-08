@@ -210,7 +210,7 @@ the bass specified.
 	(make-chord (cdr complete-chord) bass duration (car complete-chord)
 		    inversion)
 	(make-chord complete-chord bass duration #f #f))
-  ))
+  )))
 
 
 (define (make-chord pitches bass duration inversion original-inv-pitch)
@@ -314,4 +314,3 @@ UPPER-STEP separately."
      (list upper-step))
     (else '())
     ))
-
