@@ -768,6 +768,7 @@ notation manual has a @b{See also} subsection, which refers to the
 the generated documentation.  In the HTML document, these subsections
 have clickable links.
 
+@cindex snippets
 @item
 @ifnothtml
 Various input examples.
@@ -777,7 +778,6 @@ Various input examples.
 @c @inputfileref{input/test,Various input examples}.
 @uref{source/input/test/out-www/collated-files.html,Various input examples}.
 @end ifhtml
-@cindex snippets
 
 This collection of files shows various tips and tricks, and is
 available as a big HTML document, with pictures and explanatory texts
