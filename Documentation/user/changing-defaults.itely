@@ -489,7 +489,7 @@ note.
 A full description of all available context properties is in the
 program reference, see
 @ifhtml
-@internalsref{Tunable-context-properties}.
+@internalsref{Tunable context properties}.
 @end ifhtml
 @ifnothtml
 Translation @arrow{} Tunable context properties.
@@ -1192,7 +1192,7 @@ starts from the output, and ends at the input event.
 The program reference can also be browsed like a normal document.  It
 contains a chapter on
 @ifhtml
-@internalsref{Music-definitions},
+@internalsref{Music definitions},
 @end ifhtml
 @ifnothtml
 Music definitions

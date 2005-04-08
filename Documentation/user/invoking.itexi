@@ -502,7 +502,7 @@ information.
 For @uref{http://www.vim.org,VIM}, a vimrc is supplied, along with
 syntax coloring tools. For more information, refer to the
 @ifhtml
-@uref{../../../topdocs/out-www/INSTALL.html,installation instructions}.
+@uref{source/Documentation/topdocs/out-www/INSTALL.html,installation instructions}.
 @end ifhtml
 @ifnothtml
 installation instructions.
