@@ -42,13 +42,17 @@ init_fontconfig ()
       dirs.push (prefix_directory + "/fonts/type1/");
       dirs.push (prefix_directory + "/fonts/cff/");
       dirs.push (prefix_directory + "/fonts/svg/");
-  }
+    }
+
+  
   
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
       if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
-	error (_f ("Failed to add lilypond directory %s", dir));
+	error (_f ("Failed to add lilypond directory %s", dir.to_str0 ()));
+      else if (be_verbose_global_b)
+	progress_indication (_ ("Adding font directory %s", dir.to_str0 ()));
     }
 
   if (be_verbose_global)

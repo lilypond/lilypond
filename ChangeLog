@@ -1,3 +1,7 @@
+2005-04-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/font-config.cc (init_fontconfig): be verbose about font path.
+
 2005-04-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/feta-nummer-code.mf (code): add plus glyph.
@@ -42,7 +46,7 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (Lilypond_snippet.__init__): 
-	only process options fi they're there.
+	only process options if they're there.
 	(write_file_map): add version-seen? to snippet-map.ly
 
 2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
