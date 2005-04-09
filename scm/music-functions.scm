@@ -111,78 +111,64 @@ For instance,
       markup-expression
       `(markup ,@(inner-markup->make-markup markup-expression))))
 
-(define (music-expression? obj)
-  (ly:music? obj))
-
-(define*-public (music-pretty-string obj #:optional (depth 0))
-  "Return a string describing `obj', in particular music expression
-will be printed as: (make-music 'MusicType 'property ...)"
-  
-  (cond (;; string 
-	 (string? obj) (format #f "~s" obj))
-        (;; markup expression
+(define-public (music->make-music obj)
+  "Generate a expression that, once evaluated, may return an object equivalent to `obj',
+that is, for a music expression, a (make-music ...) form."
+  (cond (;; markup expression
 	 (markup? obj)
-	 (format #f "~a" (markup-expression->make-markup obj)))
+	 (markup-expression->make-markup obj))
 	(;; music expression
-	 (music-expression? obj)
-	 (format #f "(make-music '~a~{~a~})"
-		 (ly:music-property obj 'name)
-		 (map (lambda (prop)
-			(format #f "~%~v_'~a ~a" 
-				(+ 2 (* 13 depth))
-				(car prop)
-				(cond (;; property is a markup expression
-				       (markup? (cdr prop))
-				       (music-pretty-string (cdr prop) (1+ depth)))
-				      (;; property is a non-empty list
-				       (and (list? (cdr prop))
-					    (pair? (cdr prop)))
-				       (format #f "(list ~{~a~})"
-					       (map (lambda (mus)
-						      (format #f "~%~v_~a"
-							      (* 13 (1+ depth))
-							      (music-pretty-string mus (1+ depth))))
-						    (cdr prop))))
-				      (;; property is a string
-				       (string? (cdr prop))
-				       (string-append "\"" (cdr prop) "\""))
-				      (else ;; property is something else
-				       (music-pretty-string (cdr prop) (1+ depth))))))
-		      (remove (lambda (prop)
-				(eqv? (car prop) 'origin))
-			      (ly:music-mutable-properties obj)))))
-	(;; symbol
-	 (symbol? obj) (format #f "'~a" obj))
+	 (ly:music? obj)
+	 `(make-music 
+	   ',(ly:music-property obj 'name)
+	   ,@(append (map (lambda (prop)
+			    (list
+			     (car prop)
+			     (if (and (not (markup? (cdr prop)))
+				      (list? (cdr prop))
+				      (pair? (cdr prop))) ;; property is a non-empty list
+				 `(list ,@(map music->make-music (cdr prop)))
+				 (music->make-music (cdr prop)))))
+			  (remove (lambda (prop)
+				    (eqv? (car prop) 'origin))
+				  (ly:music-mutable-properties obj))))))
 	(;; moment
 	 (ly:moment? obj)
-	 (format #f "(ly:make-moment ~a ~a ~a ~a)"
-		 (ly:moment-main-numerator obj)
-		 (ly:moment-main-denominator obj)
-		 (ly:moment-grace-numerator obj)
-		 (ly:moment-grace-denominator obj)))
+	 `(ly:make-moment ,(ly:moment-main-numerator obj)
+			  ,(ly:moment-main-denominator obj)
+			  ,(ly:moment-grace-numerator obj)
+			  ,(ly:moment-grace-denominator obj)))
 	(;; note duration
-	 (ly:duration? obj) (format #f "(ly:make-duration ~a ~a ~a ~a)"
-				    (ly:duration-log obj)
-				    (ly:duration-dot-count obj)
-				    (car (ly:duration-factor obj))
-				    (cdr (ly:duration-factor obj))))
+	 (ly:duration? obj)
+	 `(ly:make-duration ,(ly:duration-log obj)
+			    ,(ly:duration-dot-count obj)
+			    ,(car (ly:duration-factor obj))
+			    ,(cdr (ly:duration-factor obj))))
 	(;; note pitch
-	 (ly:pitch? obj) (format #f "(ly:make-pitch ~a ~a ~a)"
-				 (ly:pitch-octave obj)
-				 (ly:pitch-notename obj)
-				 (ly:pitch-alteration obj)))
+	 (ly:pitch? obj)
+	 `(ly:make-pitch ,(ly:pitch-octave obj)
+			 ,(ly:pitch-notename obj)
+			 ,(ly:pitch-alteration obj)))
 	(;; scheme procedure
-	 (procedure? obj) (or (procedure-name obj) (format #f "(lambda ...)")))
+	 (procedure? obj)
+	 (or (procedure-name obj) obj))
+	(;; a symbol (avoid having an unquoted symbol)
+	 (symbol? obj)
+	 `',obj)
+	(;; an empty list (avoid having an unquoted empty list)
+	 (null? obj)
+	 `'())
 	(else
-	 (format #f "~a" obj))))
+	 obj)))
 
-(define-public (display-scheme-music obj)
+(use-modules (ice-9 pretty-print))
+(define*-public (display-scheme-music obj #:optional (port (current-output-port)))
   "Displays `obj', typically a music expression, in a friendly fashion,
 which often can be read back in order to generate an equivalent expression.
 
 Returns `obj'.
 "
-  (display (music-pretty-string obj))
+  (pretty-print (music->make-music obj) port)
   (newline)
   obj)
 
