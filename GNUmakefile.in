@@ -59,13 +59,6 @@ web-uninstall:
 local-install:
 	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
 
-final-install:
-	@echo '*** Before using LilyPond, the contents of one of the login scripts'
-	@echo '*** buildscripts/out/lilypond-{profile,login} should be sourced.'
-	@echo '*** LilyPond should have been installed to do that automatically'
-	@echo '*** when you log in.  So, please log out now and log in again.'
-	@echo '*** For more information see Invoking LilyPond in the manual.'
-
 web-ext = html midi pdf png txt ly
 
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)

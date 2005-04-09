@@ -32,7 +32,7 @@ init_fontconfig ()
 
   struct stat statbuf; 
   String builddir = prefix_directory + "/mf/out/";
-  if (stat (builddir.to_str0 (), &statbuf) != 0)
+  if (stat (builddir.to_str0 (), &statbuf) == 0)
     {
       dirs.push (builddir.to_str0 ());
     }
@@ -51,8 +51,8 @@ init_fontconfig ()
       String dir = dirs[i];
       if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
 	error (_f ("Failed to add lilypond directory %s", dir.to_str0 ()));
-      else if (be_verbose_global_b)
-	progress_indication (_ ("Adding font directory %s", dir.to_str0 ()));
+      else if (be_verbose_global)
+	progress_indication (_f ("Adding font directory %s\n", dir.to_str0 ()));
     }
 
   if (be_verbose_global)
