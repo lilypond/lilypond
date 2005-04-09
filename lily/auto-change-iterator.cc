@@ -144,4 +144,5 @@ Auto_change_iterator::do_quit ()
   up_.set_context (0);
   down_.set_context (0);
 }
+
 IMPLEMENT_CTOR_CALLBACK (Auto_change_iterator);

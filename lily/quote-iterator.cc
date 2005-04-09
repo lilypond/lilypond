@@ -31,13 +31,22 @@ public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   bool quote_ok () const;
   bool accept_music_type (Music *) const;
+
 protected:
   virtual void derived_mark () const;
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual void process (Moment);
+  virtual void do_quit ();
   virtual bool ok () const;
 };
+
+void
+Quote_iterator::do_quit ()
+{
+  Music_wrapper_iterator::do_quit ();
+  quote_outlet_.set_context (0);
+}
 
 bool
 Quote_iterator::accept_music_type (Music *mus) const
