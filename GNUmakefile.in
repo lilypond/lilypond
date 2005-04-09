@@ -125,16 +125,18 @@ $(tree-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -s $(abs-srcdir)/tex source && \
 		ln -s ../../../../tex/$(outconfbase) tex-out && \
 		ln -s ../../../../mf/$(outconfbase) mf-out
-	cd $(tree-prefix)/fonts/type1 && \
-		ln -s ../../../../../mf/$(outconfbase)/*.pfa .
+	cd $(tree-prefix)/fonts/enc && \
+		ln -s ../../../../../mf/$(outconfbase)/*.enc .
+	cd $(tree-prefix)/fonts/map && \
+		ln -s ../../../../../mf/$(outconfbase)/*.map .
 	cd $(tree-prefix)/fonts/otf && \
 		ln -s ../../../../../mf/$(outconfbase)/*.otf .
 	cd $(tree-prefix)/fonts/svg && \
 		ln -s ../../../../../mf/$(outconfbase)/*.svg .
 	cd $(tree-prefix)/fonts/tfm && \
 		ln -s ../../../../../mf/$(outconfbase)/*.tfm .
-	cd $(tree-prefix)/fonts/enc && \
-		ln -s ../../../../../mf/$(outconfbase)/*.enc .
+	cd $(tree-prefix)/fonts/type1 && \
+		ln -s ../../../../../mf/$(outconfbase)/*.pfa .
 	cd $(tree-prefix)/fonts && \
 		ln -s $(abs-srcdir)/mf source && \
 		true
