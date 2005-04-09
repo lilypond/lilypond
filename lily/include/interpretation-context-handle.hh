@@ -27,7 +27,6 @@ public:
   Context *get_outlet () const;
 
   int get_count () const;
-  void quit ();
 private:
   Context *outlet_;
   void down ();

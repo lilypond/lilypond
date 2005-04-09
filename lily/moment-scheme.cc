@@ -75,6 +75,26 @@ LY_DEFINE (ly_div_moment, "ly:div-moment",
   return (*ma / * mb).smobbed_copy ();
 }
 
+
+LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
+	   1, 0, 0, (SCM mom),
+	   "Extract numerator from grace timing.")
+{
+  Moment *ma = unsmob_moment (mom);
+  SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
+
+  return scm_from_int (ma->grace_part_.numerator ());
+}
+
+LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
+	   1, 0, 0, (SCM mom),
+	   "Extract denominator from grace timing.")
+{
+  Moment *ma = unsmob_moment (mom);
+  SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
+
+  return scm_from_int (ma->grace_part_.denominator ());
+}
 LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
 	   1, 0, 0, (SCM mom),
 	   "Extract numerator from main timing.")

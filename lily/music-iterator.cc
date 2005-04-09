@@ -220,7 +220,7 @@ void
 Music_iterator::quit ()
 {
   do_quit ();
-  handle_.quit ();
+  handle_.set_context (0);
 }
 
 void

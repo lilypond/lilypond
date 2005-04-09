@@ -47,16 +47,6 @@ Interpretation_context_handle::down ()
   outlet_ = 0;
 }
 
-void
-Interpretation_context_handle::quit ()
-{
-  if (outlet_)
-    {
-      outlet_->iterator_count_--;
-      outlet_ = 0;
-    }
-}
-
 bool
 Interpretation_context_handle::try_music (Music *m)
 {
