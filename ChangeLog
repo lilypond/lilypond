@@ -1,3 +1,10 @@
+2005-04-09  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/music-functions.scm (music->make-music): generate 
+	a (make-music ...) sexpr from a music expression.
+	(display-scheme-music): use guile pretty printer to display the
+	make-music sexpr.
+
 2005-04-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/engraver-init.ly: reindent.
