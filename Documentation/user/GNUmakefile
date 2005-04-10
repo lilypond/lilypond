@@ -138,7 +138,7 @@ $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 #
 # The split user manual
 #
-$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi
+$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
