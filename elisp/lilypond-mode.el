@@ -322,13 +322,18 @@ in LilyPond-include-path."
 ;; variable instead of quering the user. 
 (defvar LilyPond-command-force nil)
 
+(defcustom LilyPond-lilypond-command "lilypond"
+  "Command used to compile LY files."
+  :group 'LilyPond
+  :type 'string)
+
 (defcustom LilyPond-xdvi-command "xdvi"
   "Command used to display DVI files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-gv-command "gv -watch"
+(defcustom LilyPond-gv-command "gv --watch"
   "Command used to display PS files."
 
   :group 'LilyPond
@@ -411,12 +416,13 @@ in LilyPond-include-path."
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   `(
-    ("LilyPond" . ("lilypond -ftex %s" "%s" "%l" "View"))
+    ("LilyPond" . (,(concat LilyPond-lilypond-command " -ftex %s") "%s" "%l" "View"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "View"))
 
-    ("2Dvi" . ("lilypond -f tex %s" "%s" "%d" "LaTeX"))
-    ("2PS" . ("lilypond -f ps %s" "%s" "%p" "ViewPS"))
-    ("2Midi" . ("lilypond -m %s" "%s" "%m" "Midi"))
+    ("2Dvi" . (,(concat LilyPond-lilypond-command " -f tex %s") "%s" "%d" "LaTeX"))
+    ("2PS" . (,(concat LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
+    ("2Midi" . (,(concat LilyPond-lilypond-command " -m %s") "%s" "%m" "Midi"))
+    ("2Gnome" . (,(concat LilyPond-lilypond-command " -b gnome %s")))
 
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))
     ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "View"))
@@ -556,6 +562,11 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (interactive)
   (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-get-master-file)
 )
+
+(defun LilyPond-command-formatgnome ()
+  "Format the gnome output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2Gnome") 'LilyPond-get-master-file))
 
 (defun LilyPond-command-formatmidi ()
   "Format the midi output of the current document."
@@ -746,6 +757,7 @@ command."
   (define-key LilyPond-mode-map "\C-cm" 'LilyPond-command-formatmidi)
   (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
   (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
+  (define-key LilyPond-mode-map "\C-c\C-g" 'LilyPond-command-formatgnome)
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)

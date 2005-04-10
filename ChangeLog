@@ -1,3 +1,12 @@
+2005-04-10  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* elisp/lilypond-mode.el (LilyPond-lilypond-command): command used
+	to compile LY files (useful for adding eg. "-I" args)
+	(LilyPond-command-alist): use `LilyPond-lilypond-command'. Add a
+	2Gnome command for gnome backend.
+	(LilyPond-command-formatgnome): call the 2Gnome command. key
+	binding: C-c C-g
+
 2005-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/GNUmakefile (lilypond/index.html): Bugfix:
