@@ -2354,12 +2354,17 @@ conversions.append (((2, 5, 1),
 		     'ly:import-module -> ly:module-copy'))
 
 def conv (str):
-	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<(([^>]|<[^>]*>)*)>',
 		      r'\\\1 {\2}', str)
-	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<(([^>]|<[^>]*>)*)>',
 		      r'\\\1 {\2}', str)
-	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<([^<]*)>',
+	str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<(([^>]|<[^>]*>)*)>',
 		      r'\\\1 {\2}', str)
+	def get_markup (m):
+		s = m.group (0)
+		s = re.sub (r'''((\\"|})\s*){''', '\2 \\line {', s)
+		return s
+	str = re.sub (r'\\markup\s*{([^}]|{[^}]*})*}', get_markup, str)
 	return str
 
 conversions.append (((2, 5, 2),

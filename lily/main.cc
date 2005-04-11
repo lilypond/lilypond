@@ -156,6 +156,8 @@ static Long_option_init options_static[]
   {0, 0, 0, 0}
 };
 
+#define LILYPOND_DATADIR PACKAGE_DATADIR "/" TOPLEVEL_VERSION
+
 static void
 dir_info (FILE *out)
 {
