@@ -1,3 +1,7 @@
+2005-04-11  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* lily/main.cc: --help says what types of backends are availabe
+
 2005-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	Fix ./VERSION dependency, and without need to reconfigure.
