@@ -18,8 +18,8 @@ SUBDIRS = buildscripts python scripts \
 	vim 
 #
 
-include VERSION
-package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
+#include VERSION
+#package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
 
 SCRIPTS = configure aclocal.m4 autogen.sh lexer-gcc-3.1.sh Doxyfile
 README_FILES = ChangeLog  COPYING DEDICATION ROADMAP THANKS HACKING
@@ -154,7 +154,7 @@ local-clean: builddir-setup-clean
 builddir-setup-clean:
 	cd $(builddir) && rm -rf share
 
-$(config_h): config.hh.in 
+$(config_h): config.hh.in
 #
 # this is to prevent people from getting
 # undefined symbols  when we add them to config.h.in,

@@ -100,7 +100,7 @@ local-tags:
 			$(ERROR_LOG) ; \
 	fi
 
-$(outdir)/version.hh: $(depth)/VERSION $(config_make)
+$(outdir)/version.hh: $(depth)/VERSION $(config_make) $(step-bindir)/make-version.py
 	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
 $(outdir)/config.hh: $(config_h)

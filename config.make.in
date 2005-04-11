@@ -42,28 +42,31 @@ elispdir = $(datadir)/emacs/site-lisp
 # forced instead of $(datadir)/vim
 
 # move out of config.make.in?
+
+# FIXME: naming scheme has been broken
+#     package_ is supposed to be '.../lilypond', while
+#     local_ means: .../lilypond-x.y.z or .../lilypond/x.y.z
+
 package_suffix = $(package)/$(TOPLEVEL_VERSION)
 package_datadir = $(datadir)/$(package_suffix)
 package_infodir = $(infodir)/$(package_suffix)
 package_libdir = $(libdir)/$(package_suffix)
+
+# FIXME: docdir using /version/?
 package_docdir = $(docdir)/$(package_suffix)
 package_omfdir = $(omfdir)/$(package_suffix)
 
-
-local_package_datadir = $(lilypond_datadir)
+local_package_datadir = $(package_datadir)/$(TOPLEVEL_VERSION)
 local_package_libdir = $(lilypond_libdir)
 local_package_docdir = $(lilypond_docdir)
 local_package_omfdir = $(lilypond_omfdir)
 
-vimdir = $(local_package_datadir)/vim
-
-lilypond_datadir = $(package_datadir)
 lilypond_libdir = $(package_libdir)
 lilypond_docdir = $(package_docdir)
 lilypond_omfdir = $(package_omfdir)
 
-local_lilypond_datadir = $(local_package_datadir)
-local_lilypond_libdir = $(local_package_libdir)
+lilypond_datadir = $(package_datadir)/$(TOPLEVEL_VERSION)
+vimdir = $(lilypond_datadir)/vim
 
 BASH = @BASH@
 BISON = @BISON@

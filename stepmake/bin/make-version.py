@@ -2,43 +2,44 @@
 import re
 import sys
 
-
-vf = 'VERSION'
-if sys.argv[1:]:
-	vf = sys.argv[1]
-
-f = open (vf)
-ls = f.readlines ()
-mypatch = 0
+PROGRAM = sys.argv[0]
+VERSION = sys.argv[1]
 defs = []
-for l in ls:
-	l = re.sub ('#.*','', l)
-	m  = re.search ('([^ =]*)[\t ]*=[ \t]*([^ \t]*)[ \t]*\n', l)
+for i in open (VERSION).readlines ():
+	i = re.sub ('#.*','', i)
+	m  = re.search ('([^ =]*)[\t ]*=[ \t]*([^ \t]*)[ \t]*\n', i)
 	if m:
-		defs.append ((m.group(1), m.group(2)))
-
+		defs.append ((m.group (1), m.group (2)))
 
 sys.stdout.write (r'''
+/*
+   Automatically generated from %(VERSION)s
+   by %(PROGRAM)s.
+*/
 #ifndef VERSION_HH
 #define VERSION_HH
-/* automatically generated */
+''' % vars ())
 
-
-''')
-for d in defs:
-
+for name, expansion in defs:
 	# GUILE leaks autoconf data into userspace. 
-	sys.stdout.write ('#ifdef %s\n' % d[0])
-	sys.stdout.write ('#undef %s\n' % d[0])
-	sys.stdout.write ('#endif /* %s */\n' % d[0])		
+	sys.stdout.write (r'''
+#ifdef %(name)s
+#undef %(name)s
+#endif /* %(name)s */
+#define %(name)s "%(expansion)s"
+''' % vars ())
 	
-	sys.stdout.write ('#define %s "%s"\n' % d)
-	
-
 if ('MY_PATCH_LEVEL', '') in defs:
-	sys.stdout.write ('#define NO_MY_PATCHLEVEL')
+	sys.stdout.write (r'''
+#define NO_MY_PATCHLEVEL
+#define TOPLEVEL_VERSION MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL
+''')
+else:
+	sys.stdout.write (r'''
+#define TOPLEVEL_VERSION MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL "." MY_PATCH_LEVEL
+''')
 
 sys.stdout.write(r'''
-#endif
+#endif /* VERSION_HH */
 ''')
 	
