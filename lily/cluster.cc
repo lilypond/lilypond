@@ -141,7 +141,7 @@ Cluster::print (SCM smob)
 
   if (!scm_is_pair (cols))
     {
-      me->warning ("junking empty cluster");
+      me->warning (_ ("junking empty cluster"));
       me->suicide ();
 
       return SCM_EOL;

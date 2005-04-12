@@ -91,7 +91,7 @@ Chord_tremolo_engraver::try_music (Music *m)
 
       if (body_is_sequential_ && elt_count != 2)
 	{
-	  m->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
+	  m->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
 	}
 
       if (elt_count <= 0)
@@ -199,7 +199,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
     {
       repeat_ = 0;
       if (beam_)
-	programming_error ("Huh, beam and stem tremolo?");
+	programming_error ("beam and stem tremolo?");
       stem_tremolo_ = 0;
     }
 

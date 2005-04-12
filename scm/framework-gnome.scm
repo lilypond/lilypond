@@ -30,10 +30,6 @@
 (define OUTPUT-SCALE (* 2.5 PIXELS-PER-UNIT))
 (define-public output-scale OUTPUT-SCALE)
 
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
-
 (define (debugf string . rest)
   (if #f
       (apply stderr (cons string rest))))

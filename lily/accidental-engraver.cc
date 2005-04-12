@@ -232,7 +232,7 @@ number_accidentals (bool *different,
 
   *different = false;
   if (scm_is_pair (accidentals) && !scm_is_symbol (scm_car (accidentals)))
-    warning (_f ("Accidental typesetting list must begin with context-name: %s",
+    warning (_f ("accidental typesetting list must begin with context-name: %s",
 		 ly_scm2string (scm_car (accidentals)).to_str0 ()));
 
   for (; scm_is_pair (accidentals) && origin;
@@ -264,9 +264,8 @@ number_accidentals (bool *different,
 			 ly_symbol2string (type).to_str0 ()));
 	}
 
-      /*
-	if symbol then it is a context name. Scan parent contexts to find it.
-      */
+      /* if symbol then it is a context name.  Scan parent contexts to
+	 find it. */
       else if (scm_is_symbol (rule))
 	{
 	  Context *dad = origin;
@@ -276,8 +275,9 @@ number_accidentals (bool *different,
 	  if (dad)
 	    origin = dad;
 	}
-      else warning (_f ("Accidental rule must be pair or context-name; Found %s",
-			ly_scm2string (rule).to_str0 ()));
+      else
+	warning (_f ("pair or context-name expected for accidental rule, found %s",
+		     ly_scm2string (rule).to_str0 ()));
     }
 
   return number;
@@ -343,11 +343,8 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  if (num == 0 && to_boolean (note->get_property ("force-accidental")))
 	    num = 1;
 
-	  /*
-	    Can not look for ties: it's not guaranteed that they reach
-	    us before the notes
-	  */
-
+	  /* Cannot look for ties: it's not guaranteed that they reach
+	     us before the notes. */
 	  if (num)
 	    {
 	      /*

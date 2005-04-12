@@ -111,7 +111,7 @@
 		       "\\char" (number->string subidx))
 
 	(begin
-	  (ly:warn "Can't find ~a in ~a" name font)
+	  (ly:warning (_ "can't find ~a in ~a" name font))
 	  ""))))
 
 (define (dashed-line thick on off dx dy)

@@ -799,10 +799,10 @@ and values. E.g:
 	      'grob-property 'thickness
 	      'grob-value (* 2 1.5))"
   (if (not (symbol? name))
-      (error (format "Not a symbol: ~a" name)))
+      (ly:error (_ "symbol expected: ~S") name))
   (let ((props (hashq-ref music-name-to-property-table name '())))
     (if (not (pair? props))
-	(error "Can not find music object" name))
+	(ly:error (_ "can't find music object: ~S") name))
     (let ((m (ly:make-bare-music (cdr (assoc 'internal-class-name props)) props)))
       (define (set-props mus-props)
 	(if (and (not (null? mus-props))
@@ -822,7 +822,8 @@ and values. E.g:
 	 (music-name (if (pair? handle)
 			 (cdr handle)
 			 (begin
-			   (ly:warn "Unknown repeat type `~S'\nSee music-types.scm for supported repeats" name)
+			   (ly:warning (_ "unknown repeat type `~S'") name)
+			   (ly:warning (_ "See music-types.scm for supported repeats"))
 			   'VoltaRepeatedMusic))))
     (make-music music-name)))
 

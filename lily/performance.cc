@@ -44,8 +44,7 @@ Performance::output (Midi_stream &midi_stream)
 
   midi_stream << Midi_header (1, tracks_i, clocks_per_4_i);
   output_header_track (midi_stream);
-  progress_indication ("\n");
-  progress_indication (_ ("Track...") + " ");
+  message (_ ("Track...") + " ");
   int channel = 0;
   for (int i = 0; i < audio_staffs_.size (); i++)
     {
@@ -68,7 +67,10 @@ Performance::output (Midi_stream &midi_stream)
 	{
 	  s->channel_ = channel % 16;
 	  if (channel > 15)
-	    warning ("MIDI channel wrapped around. Remapping modulo 16.");
+	    {
+	      warning (_ ("MIDI channel wrapped around"));
+	      warning (_ ("remapping modulo 16"));
+	    }
 	}
 
       s->output (midi_stream, channel++);
@@ -159,7 +161,7 @@ Performance::process (String out)
   out = file_name.to_string ();
 
   Midi_stream midi_stream (out);
-  progress_indication (_f ("MIDI output to `%s'...", out));
+  message (_f ("MIDI output to `%s'...", out));
 
   output (midi_stream);
   progress_indication ("\n");

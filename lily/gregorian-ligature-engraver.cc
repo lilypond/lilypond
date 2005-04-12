@@ -121,7 +121,7 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 			  primitive);
 	}
 
-      /* check: virga, quilisma and oriscus can not be combined with any
+      /* check: virga, quilisma and oriscus cannot be combined with any
 	 other prefix, but may be part of a pes or flexa */
       if (prefix_set & VIRGA)
 	{
@@ -210,8 +210,7 @@ provide_context_info (Array<Grob_info> primitives)
       if (prefix_set & PES_OR_FLEXA)
 	if (!i) // ligature may not start with 2nd head of pes or flexa
 	  {
-	    primitive->warning ("may not apply `\\~' on first head of "
-				"ligature; ignoring `\\~'");
+	    primitive->warning (_ ( "Cannot apply `\\~' on first head of ligature; ignoring `\\~'"));
 	  }
 	else if (pitch > prev_pitch) // pes
 	  {
@@ -225,8 +224,7 @@ provide_context_info (Array<Grob_info> primitives)
 	  }
 	else // (pitch == prev_pitch)
 	  {
-	    primitive->warning ("may not apply `\\~' on heads with "
-				"identical pitch; ignoring `\\~'");
+	    primitive->warning (_ ("can't apply `\\~' on heads with identical pitch; ignoring `\\~'"));
 	  }
       if (prev_prefix_set & DEMINUTUM)
 	{

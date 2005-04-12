@@ -98,7 +98,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
       if (!nr->is_mus_type ("note-event"))
 	{
 	  nr->origin ()->warning
-	    (_f ("can not determine pitch of ligature primitive -> skipping"));
+	    (_f ("cannot determine pitch of ligature primitive -> skipping"));
 	  at_beginning = true;
 	  continue;
 	}

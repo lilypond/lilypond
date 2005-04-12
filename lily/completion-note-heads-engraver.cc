@@ -112,7 +112,7 @@ Completion_heads_engraver::next_barline_moment ()
   Moment *l = unsmob_moment (get_property ("measureLength"));
   if (!e || !l)
     {
-      programming_error ("No timing props set?");
+      programming_error ("no timing props set?");
       return Moment (1, 1);
     }
 

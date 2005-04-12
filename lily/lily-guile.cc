@@ -200,9 +200,7 @@ ly_init_ly_module (void *)
 
 #if KPATHSEA
   if (is_TeX_format_global)
-    {
-      initialize_kpathsea ();
-    }
+    initialize_kpathsea ();
 #endif
 
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
@@ -483,16 +481,16 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   if (type != SCM_EOL && !ly_c_procedure_p (type))
     {
-      warning (_f ("Can't find property type-check for `%s' (%s).",
+      warning (_f ("can't find property type-check for `%s' (%s).",
 		   ly_symbol2string (sym).to_str0 (),
 		   ly_symbol2string (type_symbol).to_str0 ())
-	       + "  " + _ ("Perhaps you made a typing error?"));
+	       + "  " + _ ("perhaps a typing error?"));
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
 	abort ();
 
-      warning (_ ("Doing assignment anyway."));
+      warning (_ ("doing assignment anyway"));
     }
   else
     {
@@ -500,17 +498,15 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 	  && ly_c_procedure_p (type)
 	  && scm_call_1 (type, val) == SCM_BOOL_F)
 	{
-	  SCM errport = scm_current_error_port ();
 	  ok = false;
 	  SCM typefunc = ly_lily_module_constant ("type-name");
 	  SCM type_name = scm_call_1 (typefunc, type);
 
-	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
-			ly_symbol2string (sym).to_str0 (),
-			print_scm_val (val),
-			ly_scm2string (type_name).to_str0 ()).to_str0 (),
-		    errport);
-	  scm_puts ("\n", errport);
+	  message (_f ("type check for `%s' failed; value `%s' must be of type `%s'",
+		       ly_symbol2string (sym).to_str0 (),
+		       print_scm_val (val),
+		       ly_scm2string (type_name).to_str0 ()));
+	  progress_indication ("\n");
 	}
     }
   return ok;

@@ -65,7 +65,7 @@
 	 (new-scope (ly:output-def-scope new-paper)))
     
     (if in-layout?
-	(ly:warn "Not in toplevel scope"))
+	(ly:warning (_ "Not in toplevel scope")))
     (set-current-module new-scope)
     (layout-set-staff-size (* sz (eval 'pt new-scope)))
     (set-current-module old-mod)
@@ -110,8 +110,7 @@
     
     (cond
      ((not is-paper?)
-      (ly:warning "This is not a \\layout {} object, ~S"
-		   module))
+      (ly:warning (_ "This is not a \\layout {} object, ~S" module)))
      ((pair? entry)
 
       (set! entry (eval (cdr entry) module))
@@ -124,7 +123,7 @@
       (if landscape?
 	  (module-define! module 'landscape #t)))
      (else
-      (ly:warn (string-append "Unknown papersize: " name))))))
+      (ly:warning (_ ("Unknown papersize: ~a" name)))))))
 
 (define-safe-public (set-default-paper-size name . rest)
   (internal-set-paper-size
@@ -139,7 +138,7 @@
 
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
-      (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))
+      (ly:warning (_ "Must use #(set-paper-size .. ) within \\paper { ... }"))))
 
 (define-public (scale-layout pap scale)
   (let* ((new-pap (ly:output-def-clone pap))
@@ -157,7 +156,7 @@
 			     (/ val scale))
 
 	     ;; spurious warnings, eg. for hsize, vsize. 
-	     ;; (ly:warn "not a number, ~S = ~S " v  val)
+	     ;; (ly:warning (_ "not a number, ~S = ~S " v  val))
 	     )))
      
      dim-vars)

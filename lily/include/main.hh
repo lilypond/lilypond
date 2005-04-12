@@ -42,7 +42,7 @@ extern String prefix_directory;
 extern String output_format_global;
 
 extern bool make_preview;
-extern bool make_pages;
+extern bool make_print;
 
 /* misc */
 extern Array<String> failed_files;

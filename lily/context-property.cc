@@ -54,7 +54,7 @@ execute_pushpop_property (Context *trg,
 
 	  if (!scm_is_pair (prev))
 	    {
-	      programming_error ("Grob definition should be cons.");
+	      programming_error ("Grob definition should be cons");
 	      return;
 	    }
 
@@ -108,7 +108,7 @@ execute_pushpop_property (Context *trg,
     }
   else
     {
-      warning ("Need symbol arguments for \\override and \\revert");
+      warning (_ ("need symbol arguments for \\override and \\revert"));
       if (do_internal_type_checking_global)
 	assert (false);
     }

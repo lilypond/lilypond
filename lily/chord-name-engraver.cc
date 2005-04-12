@@ -99,7 +99,7 @@ Chord_name_engraver::process_music ()
 	  pitches = scm_cons (orig.smobbed_copy (), pitches);
 	}
       else
-	programming_error ("Inversion does not have original pitch.");
+	programming_error ("inversion does not have original pitch");
     }
 
   pitches = scm_sort_list (pitches, Pitch::less_p_proc);

@@ -139,7 +139,7 @@ Tie::get_control_points (SCM smob)
     headdir = RIGHT;
   else
     {
-      programming_error ("Tie without heads.");
+      programming_error ("tie without heads");
       me->suicide ();
       return SCM_EOL;
     }
@@ -308,7 +308,7 @@ Tie::get_control_points (SCM smob)
 	= (b.control_[1][Y_AXIS] - y0) * ((newy - y0) / (y - y0)) + y0;
     }
   else
-    programming_error ("Tie is nowhere horizontal");
+    programming_error ("tie is nowhere horizontal");
 
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)

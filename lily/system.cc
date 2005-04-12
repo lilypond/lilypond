@@ -63,7 +63,7 @@ void
 System::typeset_grob (Grob *elem)
 {
   if (elem->pscore_)
-    programming_error ("Adding element twice.");
+    programming_error ("adding element twice");
   else
     {
       elem->pscore_ = pscore_;
@@ -142,7 +142,7 @@ System::get_lines ()
 #endif
 
   if (be_verbose_global)
-    progress_indication (_f ("Element count %d.", count + element_count ()));
+    message (_f ("Element count %d.", count + element_count ()));
 
   int line_count = broken_intos_.size ();
   SCM lines = scm_c_make_vector (line_count, SCM_EOL);
@@ -221,7 +221,7 @@ System::pre_processing ()
     unsmob_grob (scm_car (s))->discretionary_processing ();
 
   if (be_verbose_global)
-    progress_indication (_f ("Grob count %d", element_count ()));
+    message (_f ("Grob count %d", element_count ()));
 
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     unsmob_grob (scm_car (s))->handle_prebroken_dependencies ();
@@ -237,8 +237,7 @@ System::pre_processing ()
       sc->calculate_dependencies (PRECALCED, PRECALCING, ly_symbol2scm ("before-line-breaking-callback"));
     }
 
-  progress_indication ("\n");
-  progress_indication (_ ("Calculating line breaks..."));
+  message (_ ("Calculating line breaks..."));
   progress_indication (" ");
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
@@ -264,7 +263,7 @@ System::post_processing ()
 
   Interval iv (extent (this, Y_AXIS));
   if (iv.is_empty ())
-    programming_error ("System with zero extent.");
+    programming_error ("system with zero extent");
   else
     translate_axis (-iv[MAX], Y_AXIS);
 

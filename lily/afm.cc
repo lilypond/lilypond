@@ -136,13 +136,10 @@ read_afm_file (String nm)
   rewind (f);
 
   AFM_Font_info *fi;
-  int ok = AFM_parseFile (f, &fi, ~0);
+  int e = AFM_parseFile (f, &fi, ~0);
 
-  if (ok)
-    {
-      error (_f ("Error parsing AFM file: `%s'", nm.to_str0 ()));
-      exit (2);
-    }
+  if (e)
+    error (_f ("parsing AFM file: `%s'", nm.to_str0 ()));
   fclose (f);
 
   return Adobe_font_metric::make_afm (fi, cs, ds);

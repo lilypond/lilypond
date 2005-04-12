@@ -27,7 +27,7 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
 	   "Deprecated.")
 {
   (void) what;
-  warning ("ly:set-point-and-click called");
+  warning (_f ("deprecated function called: %s", "ly:set-point-and-click"));
   return SCM_UNSPECIFIED;
 }
 
@@ -84,7 +84,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       sources.set_path (&global_path);
 
       String mapped_fn = map_file_name (file_name);
-      progress_indication (_f ("Processing `%s'", mapped_fn.to_str0 ()));
+      message (_f ("Processing `%s'", mapped_fn.to_str0 ()));
       progress_indication ("\n");
 
       Lily_parser *parser = new Lily_parser (&sources);

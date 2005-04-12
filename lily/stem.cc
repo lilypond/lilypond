@@ -121,7 +121,7 @@ Stem::set_stemend (Grob *me, Real se)
   Direction d = get_direction (me);
 
   if (d && d * head_positions (me)[get_direction (me)] >= se * d)
-    me->warning (_ ("Weird stem size; check for narrow beams"));
+    me->warning (_ ("weird stem size, check for narrow beams"));
 
   me->set_property ("stem-end-position", scm_make_real (se));
 }
@@ -516,7 +516,7 @@ Stem::height (SCM smob, SCM ax)
       Direction d = get_direction (me);
       if (d == CENTER)
 	{
-	  programming_error ("No stem direction");
+	  programming_error ("no stem direction");
 	  d = UP;
 	}
       iv[d] += d * Beam::get_thickness (b) * 0.5;
@@ -787,7 +787,7 @@ Stem::calc_stem_info (Grob *me)
 
   if (!my_dir)
     {
-      programming_error ("No stem dir set?");
+      programming_error ("no stem dir set");
       my_dir = UP;
     }
 

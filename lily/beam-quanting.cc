@@ -77,7 +77,7 @@ best_quant_score_idx (Array<Quant_score> const &qscores)
 
   if (best_idx < 0)
     {
-      programming_error ("Huh? No best beam quant score?");
+      programming_error ("no best beam quant score");
       best_idx = 0;
     }
 
@@ -284,7 +284,7 @@ Beam::quanting (SCM smob)
 	    }
 	}
       if (mindist > 1e5)
-	programming_error ("Could not find quant.");
+	programming_error ("can't find quant");
     }
 #endif
 

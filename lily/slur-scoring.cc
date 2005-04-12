@@ -184,7 +184,7 @@ Slur_score_state::get_encompass_info (Grob *col) const
 
   if (!stem)
     {
-      programming_error ("No stem for note column?");
+      programming_error ("no stem for note column");
       ei.x_ = col->relative_coordinate (common_[X_AXIS], X_AXIS);
       ei.head_ = ei.stem_ = col->extent (common_[Y_AXIS],
 					 Y_AXIS)[dir_];
@@ -440,7 +440,7 @@ Slur_score_state::get_closest_index (SCM inspect_quants) const
 	}
     }
   if (mindist > 1e5)
-    programming_error ("Could not find quant.");
+    programming_error ("can't not find quant");
   return opt_idx;
 }
 
@@ -573,7 +573,7 @@ Slur_score_state::get_base_attachments () const
 
 	  if (isinf (b) || isnan (b))
 	    {
-	      programming_error ("Slur attachment is inf/nan");
+	      programming_error ("slur attachment is inf/nan");
 	      b = 0.0;
 	    }
 	    

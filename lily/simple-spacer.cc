@@ -74,7 +74,7 @@ Simple_spacer::add_rod (int l, int r, Real dist)
 {
   if (isinf (dist) || isnan (dist))
     {
-      programming_error ("Weird minimum distance. Ignoring");
+      programming_error ("ignoring weird minimum distance");
       return;
     }
 
@@ -350,7 +350,7 @@ Simple_spacer::add_spring (Real ideal, Real hooke)
   desc.hooke_ = hooke;
   if (!desc.is_sane ())
     {
-      programming_error ("Insane spring found. Setting to unit spring.");
+      programming_error ("insane spring found, setting to unit");
 
       desc.hooke_ = 1.0;
       desc.ideal_ = 1.0;

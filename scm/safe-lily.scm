@@ -32,6 +32,7 @@
    ly:duration-log
    ly:duration<?
    ly:duration?
+   ly:error
    ly:export
    ly:font-get-glyph
    ly:font-design-size
@@ -89,6 +90,7 @@
    ly:music-transpose
    ly:music?
    ly:lily-parser?
+   ly:message
    ly:number->string
    ly:option-usage
    ly:output-def-clone
@@ -141,7 +143,7 @@
    ly:transpose-key-alist
    ly:unit
    ly:version
-   ly:warn
+   ly:warning
 
    ;; FIXME: cannot change staff size in --safe-mode
    ;;$defaultpaper

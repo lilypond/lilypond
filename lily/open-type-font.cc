@@ -26,11 +26,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
-	error (_f ("Cannot allocate %d bytes", *length));
+	error (_f ("can't allocate %d bytes", *length));
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
-	error (_f ("Could not load %s font table", tag_str));
+	error (_f ("can't load font table: %s", tag_str));
 
       return buffer;
     }
@@ -81,14 +81,10 @@ Open_type_font::make_otf (String str)
   int error_code = FT_New_Face (freetype2_library, str.to_str0 (), 0, &face);
 
   if (error_code == FT_Err_Unknown_File_Format)
-    {
-      error (_f ("Unsupported font format: %s", str.to_str0 ()));
-    }
+    error (_f ("unsupported font format: %s", str.to_str0 ()));
   else if (error_code)
-    {
-      error (_f ("Unknown error: %d reading font file: %s", error_code,
-		 str.to_str0 ()));
-    }
+    error (_f ("unknown error: %d reading font file: %s", error_code,
+	       str.to_str0 ()));
 
   Open_type_font *otf = new Open_type_font (face);
 

@@ -82,7 +82,7 @@ Grace_engraver::start_translation_timestep ()
 	    }
 	  else
 	    {
-	      programming_error ("Cannot find context");
+	      programming_error ("can't find context");
 	      scm_display (context_name, scm_current_error_port ());
 	    }
 	}

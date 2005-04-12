@@ -50,13 +50,13 @@ Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
       SCM func = scm_car (markup);
       SCM args = scm_cdr (markup);
       if (!markup_p (markup))
-	programming_error ("Markup head has no markup signature.");
+	programming_error ("markup head has no markup signature");
 
       return scm_apply_2 (func, layout_smob, props, args);
     }
   else
     {
-      programming_error ("Is not a markup: ");
+      programming_error ("not a markup: ");
       scm_display (markup, scm_current_error_port ());
       assert (false);
       Box b;

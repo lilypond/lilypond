@@ -95,7 +95,7 @@ Paper_book::output (String outname)
   String mod_nm = "scm framework-" + output_backend_global;
 
   SCM mod = scm_c_resolve_module (mod_nm.to_str0 ());
-  if (make_pages)
+  if (make_print)
     {
       SCM func = scm_c_module_lookup (mod, "output-framework");
 
@@ -117,7 +117,6 @@ Paper_book::output (String outname)
 				     dump_fields (),
 				     SCM_UNDEFINED));
     }
-  progress_indication ("\n");
 }
 
 void

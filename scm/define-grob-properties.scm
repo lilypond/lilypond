@@ -5,13 +5,9 @@
 ;;;; (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
-
 (define (define-grob-property symbol type? description)
   (if (not (equal? (object-property symbol 'backend-doc) #f))
-      (begin
-	(ly:warn-append "Redefining ~S" symbol)
-	(exit 2)))
+      (ly:error (_ "symbol ~S redefined") symbol))
   
   (set-object-property! symbol 'backend-type? type?)
   (set-object-property! symbol 'backend-doc description)

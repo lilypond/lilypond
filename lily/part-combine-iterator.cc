@@ -336,7 +336,7 @@ Part_combine_iterator::construct_children ()
 					  "", SCM_EOL);
 
   if (!null)
-    programming_error ("No Devnull found?");
+    programming_error ("no Devnull found");
 
   null_.set_context (null);
 

@@ -244,9 +244,9 @@ def setup_temp ():
 	return __main__.temp_dir
 
 def command_name (cmd):
-
+	# Strip all stuf after command,
 	# deal with "((latex ) >& 1 ) .." too
-	cmd = re.match ("([\(\)]*)([^ ]*)", cmd).group(2)
+	cmd = re.match ('([\(\)]*)([^\\\ ]*)', cmd).group (2)
 	return os.path.basename (cmd)
 
 def error_log (name):
@@ -462,38 +462,36 @@ def get_bbox (filename):
 	return gr
 
 
-def make_ps_images (ps_name, resolution = 90, papersize = "a4"):
-	## todo:
+def make_ps_images (ps_name, resolution = 90, papersize = "a4",
+		    rename_page1_p = 0):
+	## FIXME
 	## have better algorithm for deciding when to crop page,
-	## and when to show full page
-	base = re.sub (r'\.e?ps', '', ps_name)
-	
-	header = open (ps_name).read (1024)
+	## and when to show full page.
+	## Better than what, and why?
 
+	base = re.sub (r'\.e?ps', '', ps_name)
+	header = open (ps_name).read (1024)
 	match = re.search (BOUNDING_BOX_RE, header, re.MULTILINE)
 	bbox = []
 	if match:
 		bbox = map (string.atoi, match.groups ())
 
+	png1 = base + '.png'
+	pngn = base + '-page%d.png'
+	output_file = pngn
 	multi_page = re.search ('\n%%Pages: ', header)
-	cmd = ''
-
-	if multi_page == None:
-
-		if bbox == []:
+	if not multi_page:
+		if not bbox:
 			bbox = get_bbox (ps_name)
 			
-		trans_ps = ps_name + '.trans.ps'
-		output_file = re.sub (r'\.e?ps', '.png', ps_name)
+		transform_ps = ps_name + '.trans.ps'
 
-		# need to have margin, otherwise edges of letters will
-		# be cropped off.
-
+		# Use margin to avoid letters getting cropped off.
 		margin = 3 
-		fo = open (trans_ps, 'w')
-		fo.write ('%d %d translate\n' % (-bbox[0] + margin,
-						 -bbox[1] + margin))
-		fo.close ()
+		h = open (transform_ps, 'w')
+		h.write ('%d %d translate\n' % (-bbox[0] + margin,
+						-bbox[1] + margin))
+		h.close ()
 
 		x = (2* margin + bbox[2] - bbox[0]) \
 		    * resolution / 72.0
@@ -514,20 +512,11 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4"):
 		-sPAPERSIZE=%(papersize)s\
 		-q\
 		-r%(resolution)d\
-		%(trans_ps)s\
+		%(transform_ps)s\
 		'%(ps_name)s'\
 		-c showpage\
 		-c quit ''' % vars ()
-
-		rms = glob.glob (base + '-page*.png')
-		map (os.unlink, rms)
 	else:
-		output_file = re.sub (r'\.e?ps', '-page%d.png', ps_name)
-
-		rmfile = base + '.png'
-		if os.path.isfile (rmfile):
-			os.unlink (rmfile)
-		
 		cmd = r'''gs\
 		-s\
 		-dGraphicsAlphaBits=4\
@@ -541,20 +530,20 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4"):
 		'%(ps_name)s'\
 		-c quit''' % vars ()
 
+	remove = glob.glob (png1) + glob.glob (base + '-page*.png')
+	map (os.unlink, remove)
+
 	status = system (cmd)
 	signal = 0xf & status
 	exit_status = status >> 8
 
-	
 	if status:
-		os.unlink (png)
-		error (_ ("Removing output file"))
+		remove = glob.glob (png1) + glob.glob (base + '-page*.png')
+		map (os.unlink, remove)
+		error (_ ("GS exited with status: %d" % status))
 		exit (1)
 
-
-	cmd = r'''gs -s  -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=%s -dNOPAUSE -r%d %s -c quit''' % (output_file,
-																      resolution, ps_name)
-
-	files = glob.glob (re.sub ('%d', '*', output_file))
+	if rename_page1_p or not multi_page:
+		os.rename (pngn % 1, png1)
+ 	files = glob.glob (png1) + glob.glob (re.sub ('%d', '*', output_file))
 	return files
-

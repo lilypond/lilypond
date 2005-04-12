@@ -63,11 +63,11 @@ SCM
 Paper_score::process (String)
 {
   if (be_verbose_global)
-    progress_indication (_f ("Element count %d (spanners %d) ",
+    message (_f ("Element count %d (spanners %d) ",
 			     system_->element_count (),
 			     system_->spanner_count ()));
 
-  progress_indication (_ ("Preprocessing graphical objects...") + " ");
+  message (_ ("Preprocessing graphical objects...") + " ");
 
   /* FIXME: Check out why we need this - removing gives assertion failures
      down the road.

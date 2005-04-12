@@ -108,7 +108,7 @@ Context_def::add_context_mod (SCM mod)
       || ly_symbol2scm ("remove") == tag)
     {
       if (!get_translator (sym))
-	error (_f ("Program has no such type: `%s'",
+	error (_f ("program has no such type: `%s'",
 		   ly_symbol2string (sym).to_str0 ()));
       else
 	translator_mods_ = scm_cons (scm_list_2 (tag, sym), translator_mods_);
@@ -129,7 +129,7 @@ Context_def::add_context_mod (SCM mod)
   else if (ly_symbol2scm ("context-name") == tag)
     context_name_ = sym;
   else
-    programming_error ("Unknown context mod tag.");
+    programming_error ("unknown context mod tag");
 }
 
 SCM

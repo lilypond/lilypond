@@ -109,10 +109,9 @@ Axis_group_engraver::process_acknowledged_grobs ()
 	  if (staffline_->get_parent (Y_AXIS)
 	      && staffline_->get_parent (Y_AXIS) == elts_[i])
 	    {
-	      String msg = _ ("Axis_group_engraver: vertical group already has a parent.\n"
-			      "Do you have two Axis_group_engravers?\n"
-			      "Killing this vertical group.");
-	      staffline_->warning (msg);
+	      staffline_->warning (_ ("Axis_group_engraver: vertical group already has a parent"));
+	      staffline_->warning (_ ("are there two Axis_group_engravers?"));
+	      staffline_->warning (_ ("removing this vertical group"));
 	      staffline_->suicide ();
 	      staffline_ = 0;
 	      break;

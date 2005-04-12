@@ -318,7 +318,7 @@ Beam::print (SCM grob)
   Drul_array<Real> pos;
   if (!is_number_pair (posns))
     {
-      programming_error ("No beam posns");
+      programming_error ("no beam positions?");
       pos = Interval (0, 0);
     }
   else

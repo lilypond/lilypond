@@ -38,8 +38,7 @@
       (if (module-defined? this-module keyword)
 	  (apply (eval keyword this-module) (cdr expr))
 	  (begin
-	    (display
-	     (string-append "undefined: " (symbol->string keyword) "\n"))
+	    (ly:warning (_ "undefined: ~S") keyword)
 	    ""))))))
 
 ;; Helper functions
@@ -117,7 +116,7 @@
 	  (set! size
 		(string->number (match:substring match 3))))
 
-	(display (format "Cannot decypher Pango description:  ~a\n" str)))
+	(ly:warning (_ "can't decypher Pango description: ~a") str))
 
     (set! style
 	  (if (string? style)

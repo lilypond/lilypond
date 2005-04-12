@@ -49,12 +49,11 @@ the PDF backend."
   "Inline an image of music."
   (let* ((systems (ly:score-embedded-format score layout)))
 
-    (if (= 0 (vector-length systems))
+    (if (= (vector-length systems) 0)
 	(begin
-	  (ly:warn (_"No systems found in \\score markup.  Does it have a \\layout? block"))
+	  (ly:warning (_"No systems found in \\score markup.  Does it have a \\layout? block"))
 	  empty-markup)
 	(let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
-	  
 	  (ly:stencil-aligned-to stencil Y CENTER)))))
 
 (def-markup-command (simple layout props str) (string?)
@@ -593,7 +592,7 @@ and/or @code{extra-offset} properties. "
                       ((string=? len "maxima") -3)
                       (else (log2 (string->number len))))
                 (if dots (string-length dots) 0)))
-        (error "This is not a valid duration string:" duration-string))))
+        (ly:error (_ "not a valid duration string: ~a") duration-string))))
 
 (def-markup-command (note layout props duration dir) (string? number?)
   "This produces a note with a stem pointing in @var{dir} direction, with

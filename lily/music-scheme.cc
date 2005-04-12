@@ -160,16 +160,13 @@ LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0, 0,
   SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
 
   Duration *d = unsmob_duration (m->get_property ("duration"));
-
-  Moment l;
+  Moment len;
 
   if (d)
-    {
-      l = d->get_length ();
-    }
+    len = d->get_length ();
   else
-    programming_error ("Music has no duration");
-  return l.smobbed_copy ();
+    programming_error ("music has no duration");
+  return len.smobbed_copy ();
 }
 
 LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0, 0,

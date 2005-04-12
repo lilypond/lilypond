@@ -43,8 +43,6 @@ Usage: make ["VARIABLE=value"]... [TARGET]\n\
 \n\
 Targets:\n"
 
-# urg
-webdir = $(local_package_docdir)
 help: generic-help local-help
 	@echo -e "\
   all         update everything\n\
@@ -119,7 +117,9 @@ local-maintainerclean:
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
 
-ifneq ($(strip $(depth)),.)
+ifeq ($(strip $(depth)),.)
+final-install:
+else
 final-install:
 	$(LOOP)
 

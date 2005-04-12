@@ -18,10 +18,6 @@
 
 (define framework-ps-module (current-module))
 
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
-
 ;;(define pdebug stderr)
 (define (pdebug . rest) #f)
 
@@ -122,25 +118,23 @@
    (output-entry "page-width" 'hsize)))
 
 (define (dump-page outputter page page-number page-count landscape?)
-  (ly:outputter-dump-string outputter
-			    (string-append
-			     "%%Page: "
-			     (number->string page-number) " " (number->string page-count) "\n"
-
-			     "%%BeginPageSetup\n"
-			     (if landscape?
-				 "page-width output-scale
- lily-output-units mul
- mul 0 translate 90 rotate\n"
-				 "")
-			     "%%EndPageSetup\n"
-
-			     "start-page { "
-			     "set-ps-scale-to-lily-scale "
-			     "\n"))
+  (ly:outputter-dump-string
+   outputter
+   (string-append
+    "%%Page: "
+    (number->string page-number) " " (number->string page-count) "\n"
+    
+    "%%BeginPageSetup\n"
+    (if landscape?
+	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
+	"")
+    "%%EndPageSetup\n"
+    
+    "start-page { "
+    "set-ps-scale-to-lily-scale "
+    "\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
-
 
 (define (supplies-or-needs paper load-fonts?)
   (define (extract-names font)
@@ -149,8 +143,7 @@
 	(list (munge-lily-font-name (ly:font-name font)))))
   
   (let* ((fonts (ly:paper-fonts paper))
-	 (names (apply append (map extract-names fonts)))
-	 )
+	 (names (apply append (map extract-names fonts))))
     
     (apply string-append
 	   (map (lambda (f)
@@ -162,7 +155,7 @@
 		(uniq-list (sort names string<?))))))
 
 (define (eps-header paper bbox load-fonts?)
-    (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
+  (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
 		 "%%Creator: LilyPond\n"
 		 "%%BoundingBox: "
 		 (string-join (map ly:number->string bbox) " ") "\n"
@@ -206,7 +199,8 @@
    "%%EndSetup\n"))
 
 (define-public (munge-lily-font-name name)
-  (regexp-substitute/global #f "([eE]mmentaler|[aA]ybabtu)"  name 'pre "PFA" 1 'post))
+  (regexp-substitute/global #f "([eE]mmentaler|[aA]ybabtu)"
+			    name 'pre "PFA" 1 'post))
 
 (define (write-preamble paper load-fonts? port)
   (define (load-fonts paper)
@@ -229,8 +223,7 @@
 		  (lambda (x)
 		    (let* ((bare-file-name (ly:find-file x))
 			   (cffname (string-append x ".cff.ps"))
-			   (cff-file-name (ly:find-file cffname))
-			   )
+			   (cff-file-name (ly:find-file cffname)))
 
 		      
 		      (cond
@@ -248,8 +241,10 @@
 
 			; replace with the CFF.ps, which lives in a
 			; separate subdir.
-			(for-each (lambda (tup)  (set! bare-file-name
-						       (string-regexp-substitute (car tup) (cdr tup) bare-file-name)))
+			(for-each (lambda (tup)
+				    (set! bare-file-name
+					  (string-regexp-substitute
+					   (car tup) (cdr tup) bare-file-name)))
 				  '(("/fonts/otf/" . "/ps/")
 				    ("/fonts/cff/" . "/ps/")
 				    ("\\.(otf|cff)" . ".cff.ps")))
@@ -260,7 +255,7 @@
 		       (bare-file-name (cached-file-contents bare-file-name))
 		       (cff-file-name  (cached-file-contents cff-file-name))
 		       (else
-			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)
+			(ly:warning (_ "can't find CFF/PFA/PFB font ~S" x))
 			""))))
 		  (filter string? font-names))))
 	   pfas))
@@ -294,55 +289,47 @@
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename
-			 (completize-formats (ly:output-formats)))
-))
+			 (completize-formats (ly:output-formats)))))
 
 (if (not (defined? 'nan?))
     (define (nan? x) #f))
+
 (if (not (defined? 'inf?))
     (define (inf? x) #f))
 
-
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
   (define (mm-to-bp-box mmbox)
-    (let*
-	((scale  (ly:output-def-lookup paper 'outputscale))
-	 (box (map 
-	       (lambda (x)
-		 (inexact->exact
-		  (round (* x scale mm-to-bigpoint)))) mmbox)))
+    (let* ((scale  (ly:output-def-lookup paper 'outputscale))
+	   (box (map 
+		 (lambda (x)
+		   (inexact->exact
+		    (round (* x scale mm-to-bigpoint)))) mmbox)))
 
     (list (car box) (cadr box)
 	  (max (1+ (car box)) (caddr box))
 	  (max (1+ (cadr box)) (cadddr box)))))
-  
-  (let*
-      ((outputter (ly:make-paper-outputter (format "~a.eps" filename)
-					   "ps"))
-       
-       (port (ly:outputter-port outputter))
-       (xext (ly:stencil-extent dump-me X))
-       (yext (ly:stencil-extent dump-me Y))
-       
-       (bbox
-	(map
-	 (lambda (x)
-	   (if (or (nan? x) (inf? x))
-	       0.0 x))
-	 (list (car xext) (car yext)
+
+  (let* ((outputter (ly:make-paper-outputter (format "~a.eps" filename) "ps"))
+	 (port (ly:outputter-port outputter))
+	 (xext (ly:stencil-extent dump-me X))
+	 (yext (ly:stencil-extent dump-me Y))
+	 (bbox
+	  (map
+	   (lambda (x)
+	     (if (or (nan? x) (inf? x))
+		 0.0 x))
+	   (list (car xext) (car yext)
 	       (cdr xext) (cdr yext))))
-       (rounded-bbox (mm-to-bp-box bbox))
-       (port (ly:outputter-port outputter))
-       (header (eps-header paper rounded-bbox load-fonts?)))
+	 (rounded-bbox (mm-to-bp-box bbox))
+	 (port (ly:outputter-port outputter))
+	 (header (eps-header paper rounded-bbox load-fonts?)))
 
     (display header port)
     (write-preamble paper load-fonts? port)
     (display "start-system { set-ps-scale-to-lily-scale \n" port)
     (ly:outputter-dump-stencil outputter dump-me)
     (display "} stop-system\n%%Trailer\n%%EOF\n" port)
-    (ly:outputter-close outputter)
-    ))
-
+    (ly:outputter-close outputter)))
 
 (define-public (output-preview-framework basename book scopes fields)
   (let* ((paper (ly:paper-book-paper book))
@@ -360,16 +347,14 @@
 			 (format "~a.preview" basename)
 			 #t)))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
-    (if (equal? name "-")
-	(ly:warn "Can't convert <stdout> to PDF")
+    (if (equal? (basename name ".ps") "-")
+	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
 	(postscript->pdf (if (string? papersizename) papersizename "a4")
 			 name))))
 
@@ -384,10 +369,10 @@
 		     name)))
 
 (define-public (convert-to-dvi book name)
-  (ly:warn "Can not generate DVI via the postscript back-end"))
+  (ly:warning (_ "can't generate ~S using the postscript back-end") "DVI"))
 
 (define-public (convert-to-tex book name)
-  (ly:warn "Can not generate TeX via the postscript back-end"))
+  (ly:warning (_ "can't generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)

@@ -98,8 +98,8 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   lexer_->main_input_name_ = name;
 
-  progress_indication (_ ("Parsing..."));
-  progress_indication ("\n");
+  message (_ ("Parsing..."));
+  //  progress_indication ("\n");
 
   set_yydebug (0);
 
@@ -116,7 +116,7 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   if (!define_spots_.is_empty ())
     {
-      define_spots_.top ().warning (_ ("Braces don't match"));
+      define_spots_.top ().warning (_ ("braces don't match"));
       error_level_ = 1;
     }
 
@@ -168,7 +168,9 @@ Lily_parser::here_str0 () const
 void
 Lily_parser::parser_error (String s)
 {
-  lexer_->here_input ().error (s);
+  /* FIXME: cannot otherwise internationalize this bison warning.  */
+  (void) _i ("syntax error, unexpected ");
+  lexer_->here_input ().error (_ (s.to_str0 ()));
   error_level_ = 1;
 }
 

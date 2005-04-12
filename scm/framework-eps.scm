@@ -42,8 +42,8 @@
 	 (tex-system-port (open-output-file tex-system-name))
 	 (texi-system-port (open-output-file texi-system-name)))
     
-    (display (format "Writing ~a\n" tex-system-name))
-    (display (format "Writing ~a\n" texi-system-name))
+    (ly:message (_ ("Writing ~a...") tex-system-name))
+    (ly:massage (_ ("Writing ~a...") texi-system-name))
     (dump-stencils-as-separate-EPS stencils 1)
     (for-each (lambda (c)
 		(display (format "\\includegraphics{~a-~a.eps}%\n"
@@ -52,8 +52,8 @@
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
 
-    (display "@c eof - 'eof' is a Makefile marker; don't remove. " texi-system-port)
-    (display "% eof - 'eof' is Makefile marker; don't remove. " tex-system-port)
+    (display "@c eof - 'eof' is a Makefile marker; don not remove. " texi-system-port)
+    (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     
     (dump-infinite-stack-EPS stencils))
     (postprocess-output book framework-eps-module

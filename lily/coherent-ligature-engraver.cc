@@ -90,7 +90,7 @@ if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
       }
     else
       {
-	me->warning ("distance undefined, assuming 0.1");
+	me->warning (_ ("distance undefined, assuming 0.1"));
 	distance = 0.1;
       }
     me->warning (_f ("distance=%f", distance));//debug

@@ -71,22 +71,16 @@ Volta_engraver::staff_eligible ()
   */
   SCM staffs = get_property ("stavesFound");
 
-  /*
-    only put a volta on the top staff.
-
-    May be this is a bit convoluted, and we should have a single
-    volta engraver in score context or somesuch.
-
-  */
+  /* Only put a volta on the top staff.
+     Maybe this is a bit convoluted, and we should have a single
+     volta engraver in score context or somesuch. */
   if (!scm_is_pair (staffs))
     {
-      programming_error ("Huh? Volta engraver can't find staffs?");
+      programming_error ("volta engraver can't find staffs");
       return false;
     }
   else if (scm_car (scm_last_pair (staffs)) != staff_)
-    {
-      return false;
-    }
+    return false;
   return true;
 }
 
@@ -129,9 +123,8 @@ Volta_engraver::process_music ()
     }
 
   if (end && !volta_span_)
-    {
-      warning (_ ("No volta spanner to end")); // fixme: be more verbose.
-    }
+    /* fixme: be more verbose.  */
+    warning (_ ("can't end volta spanner"));
   else if (end)
     {
       end_volta_span_ = volta_span_;
@@ -141,11 +134,12 @@ Volta_engraver::process_music ()
   if (volta_span_
       && (scm_is_string (start_string_) || scm_is_pair (start_string_)))
     {
-      warning (_ ("Already have a volta spanner.  Stopping that one prematurely."));
+      warning (_ ("already have a volta spanner, ending that one prematurely"));
 
       if (end_volta_span_)
 	{
-	  warning (_ ("Also have a stopped spanner.  Giving up."));
+	  warning (_ ("also already have an ended spanner"));
+	  warning (_ ("giving up"));
 	  return;
 	}
 

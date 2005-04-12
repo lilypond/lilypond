@@ -47,10 +47,10 @@ Array<String> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 String init_name_global;
 
-/* Selected output format.
-   One of tex, ps, scm, as.
-*/
+/* Selected output backend
+   One of (gnome, ps [default], scm, svg, tex, texstr)") */
 String output_backend_global = "ps";
+/* Output formats to generate.  */
 String output_format_global = "pdf";
 
 bool is_pango_format_global;
@@ -68,13 +68,15 @@ bool point_and_click_global = true;
 /* Verbose progress indication? */
 bool be_verbose_global = false;
 
-/* Scheme code to execute before parsing, after .scm init
-   This is where -e arguments are appended to.
-*/
+/* Scheme code to execute before parsing, after .scm init.
+   This is where -e arguments are appended to.  */
 String init_scheme_code_string = "(begin #t ";
 
+/* Generate preview of first system.  */
 bool make_preview = false;
-bool make_pages = true;
+
+/* Generate printed output.  */
+bool make_print = true;
 
 /*
  * Miscellaneous global stuff.
@@ -130,25 +132,24 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("select backend to use. Possible values of BACK are: ps, tex, gnome, svg, scm")},
-  {_i ("EXPR"), "evaluate", 'e',
-   _i ("set option, use -e '(ly:option-usage)' for help")},
+  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],\n                                       scm, svg, tex, texstr)")},
+  {_i ("EXPR"), "evaluate", 'e', _i ("set scheme option, for help use\n                                       -e '(ly:option-usage)'")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
-  {_i ("EXTs"), "formats", 'f', _i ("list of formats to dump")},
+  {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
+  {0, "dvi", 0, _i ("generate DVI (tex backend only)")},
+  {0, "pdf", 0, _i ("generate PDF (default)")},
+  {0, "png", 0, _i ("generate PNG")},
+  {0, "ps", 0, _i ("generate PostScript")},
+  {0, "tex", 0, _i ("generate TeX (tex backend only)")},
   {0, "help", 'h',  _i ("print this help")},
   {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
-  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP and cd into DIR")},
-  {0, "preview", 'p',  _i ("generate a preview")},
-  {0, "no-pages", 0, _i ("don't generate full pages")},
-  {0, "png", 0, _i ("generate PNG")},
-  {0, "ps", 0, _i ("generate PostScript")},
-  {0, "dvi", 0, _i ("generate DVI")},
-  {0, "pdf", 0, _i ("generate PDF (default)")},
-  {0, "tex", 0, _i ("generate TeX")},
+  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n                                       and cd into DIR")},
+  {0, "no-print", 0, _i ("do not generate printed output")},
+  {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "safe-mode", 's',  _i ("run in safe mode")},
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i ("be verbose")},
@@ -328,7 +329,7 @@ do_chroot_jail ()
       if (errno == 0)
 	error (_f ("no such group: %s", components[GROUP_NAME]));
       else
-	error (_f ("can't get group id from group name: %s: ",
+	error (_f ("can't get group id from group name: %s: %s",
 		   components[GROUP_NAME],
 		   strerror (errno)));
       exit (3);
@@ -460,18 +461,16 @@ parse_argv (int argc, char **argv)
       switch (opt->shortname_char_)
 	{
 	case 0:
-	  if (String (opt->longname_str0_) == "png"
+	  if (String (opt->longname_str0_) == "dvi"
 	      || String (opt->longname_str0_) == "pdf"
+	      || String (opt->longname_str0_) == "png"
 	      || String (opt->longname_str0_) == "ps"
-	      || String (opt->longname_str0_) == "dvi"
 	      || String (opt->longname_str0_) == "tex")
-	    {
-	      add_output_format (opt->longname_str0_);
-	    }
+	    add_output_format (opt->longname_str0_);
 	  else if (String (opt->longname_str0_) == "preview")
 	    make_preview = true;
 	  else if (String (opt->longname_str0_) == "no-pages")
-	    make_pages = false;
+	    make_print = false;
 	  break;
 
 	case 'v':

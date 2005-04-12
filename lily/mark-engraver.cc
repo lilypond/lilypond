@@ -119,13 +119,14 @@ Mark_engraver::process_music ()
 	  if (scm_is_number (m))
 	    m = scm_call_2 (proc, m, context ()->self_scm ());
 	  else
-	    warning ("rehearsalMark does not have integer value.");
+	    /* FIXME: constant error message.  */
+	    warning (_ ("rehearsalMark must have integer value"));
 	}
 
       if (Text_interface::markup_p (m))
 	text_->set_property ("text", m);
       else
-	warning ("Mark label should be markup object.");
+	warning (_ ("mark label must be a markup object"));
     }
 }
 

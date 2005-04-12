@@ -81,7 +81,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	    }
 	  else if (m->is_mus_type ("text-script-event"))
 	    {
-	      m->origin ()->warning ("Can not add text scripts to individual note heads");
+	      m->origin ()->warning (_ ("can't add text scripts to individual note heads"));
 	    }
 	  else if (m->is_mus_type ("script-event"))
 	    {
@@ -262,7 +262,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
   else
     {
       if (!down_p)
-	warning (_ ("Fingerings are also not down?! Putting them down anyway."));
+	{
+	  warning (_ ("no placement found for fingerings"));
+	  warning (_ ("placing below"));
+	}
       down.concat (*scripts);
       scripts->clear ();
     }

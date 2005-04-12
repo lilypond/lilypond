@@ -819,7 +819,7 @@ Return: (value, rest-of-STR)
 			
 		return (string.atoi (dec), str)
 	else:
-		sys.stderr.write ("Can't convert `%s'\n" % str)
+		sys.stderr.write ("can't convert `%s'\n" % str)
 		return (None, str)
 
 

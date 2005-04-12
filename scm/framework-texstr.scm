@@ -30,14 +30,11 @@
 \\end{document}
 ")
 
-
 (define-public (output-classic-framework basename book scopes fields)
   (let* ((filename (format "~a.texstr" basename))
-	 (outputter  (ly:make-paper-outputter filename
-					      (ly:output-backend)))
+	 (outputter (ly:make-paper-outputter filename (ly:output-backend)))
 	 (paper (ly:paper-book-paper book))
-	 (lines (ly:paper-book-systems book))
-	 )
+	 (lines (ly:paper-book-systems book)))
     (ly:outputter-dump-string outputter (header basename))
     (for-each
      (lambda (system)
@@ -47,11 +44,9 @@
 
 (define-public (output-framework basename book scopes fields )
   (let* ((filename (format "~a.texstr" basename))
-	 (outputter  (ly:make-paper-outputter filename
-					      (ly:output-backend)))
+	 (outputter (ly:make-paper-outputter filename (ly:output-backend)))
 	 (paper (ly:paper-book-paper book))
-	 (pages (ly:paper-book-pages book))
-	 )
+	 (pages (ly:paper-book-pages book)))
     (ly:outputter-dump-string outputter (header basename))
     (for-each
      (lambda (page)

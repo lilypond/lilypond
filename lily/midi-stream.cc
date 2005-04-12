@@ -41,7 +41,7 @@ Midi_stream::operator << (String str)
 			   sz, n, out_file_);
 
   if (written != sz * n)
-    warning (_ ("could not write file: `%s'"));
+    warning (_ ("can't write to file: `%s'"));
 
   return *this;
 }

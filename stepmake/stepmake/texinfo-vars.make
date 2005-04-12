@@ -7,7 +7,7 @@ TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
 
-GENERATE_OMF = $(PYTHON) $(depth)/buildscripts/texi2omf.py --format $(1) --location $(package_docdir)/html/$(current-relative-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
+GENERATE_OMF = $(PYTHON) $(depth)/buildscripts/texi2omf.py --format $(1) --location $(webdir)/$(current-relative-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 

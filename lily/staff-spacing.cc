@@ -198,7 +198,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
 
   if (!scm_is_pair (space_def))
     {
-      programming_error ("Unknown prefatory spacing. ");
+      programming_error ("unknown prefatory spacing");
       return;
     }
 

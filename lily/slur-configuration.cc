@@ -159,7 +159,7 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
 
   if (max_h < 0)
     {
-      programming_error ("Slur indent too small.");
+      programming_error ("slur indent too small");
       max_h = len / 3.0;
     }
   else

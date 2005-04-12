@@ -67,10 +67,8 @@ Context::add_context (Context *t)
       scm_gc_unprotect_object (ts);
       Context_def *td = unsmob_context_def (t->definition_);
 
-      /*
-	this can not move before add_context (), because \override
-	operations require that we are in the hierarchy.
-      */
+      /* This cannot move before add_context (), because \override
+	 operations require that we are in the hierarchy.  */
       td->apply_default_property_operations (t);
 
       recurse_over_translators (t, &Translator::initialize, DOWN);
@@ -145,7 +143,7 @@ Context::create_unique_context (SCM n, SCM operations)
     ret = daddy_context_->create_unique_context (n, operations);
   else
     {
-      warning (_f ("Cannot find or create new `%s'",
+      warning (_f ("can't find or create new `%s'",
 		   ly_symbol2string (n).to_str0 ()));
       ret = 0;
     }
@@ -209,7 +207,7 @@ Context::find_create_context (SCM n, String id, SCM operations)
     ret = daddy_context_->find_create_context (n, id, operations);
   else
     {
-      warning (_f ("Cannot find or create `%s' called `%s'",
+      warning (_f ("can't find or create `%s' called `%s'",
 		   ly_symbol2string (n).to_str0 (), id));
       ret = 0;
     }
@@ -534,7 +532,7 @@ Context::get_global_context () const
   if (daddy_context_)
     return daddy_context_->get_global_context ();
 
-  programming_error ("No Global context!");
+  programming_error ("no Global context");
   return 0;
 }
 

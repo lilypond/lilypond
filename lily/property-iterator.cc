@@ -81,17 +81,14 @@ bool
 check_grob (Music *mus, SCM sym)
 {
   if (!list_p)
-    {
-      list_p = scm_c_eval_string ("list?");
-    }
+    list_p = scm_c_eval_string ("list?");
 
   SCM type = scm_object_property (sym, ly_symbol2scm ("translation-type?"));
   bool ok = type == list_p;
 
   if (!ok)
-    {
-      mus->origin ()->warning (_f ("Not a grob name, `%s'.", ly_symbol2string (sym)));
-    }
+    mus->origin ()->warning (_f ("not a grob name, `%s'",
+				 ly_symbol2string (sym)));
   return ok;
 }
 

@@ -75,7 +75,7 @@ Note_column::dir (Grob *me)
   else if (scm_is_pair (me->get_property ("note-heads")))
     return (Direction)sign (head_positions_interval (me).center ());
 
-  programming_error ("Note column without heads and stem!");
+  programming_error ("note column without heads and stem");
   return CENTER;
 }
 
@@ -112,7 +112,7 @@ Note_column::add_head (Grob *me, Grob *h)
     }
 
   if (both)
-    me->warning ("Can't have rests and note heads together on a stem.");
+    me->warning (_ ("can't have note heads and rests together on a stem"));
   else
     Axis_group_interface::add_element (me, h);
 }

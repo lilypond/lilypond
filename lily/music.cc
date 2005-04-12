@@ -236,7 +236,7 @@ Music::transpose (Pitch delta)
 
 	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
 	    {
-	      warning (_f ("Transposition by %s makes alteration larger than double",
+	      warning (_f ("transposition by %s makes alteration larger than double",
 			   delta.to_string ()));
 	    }
 	}

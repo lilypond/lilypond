@@ -272,7 +272,8 @@
   " setrgbcolor\n"))
 
 (define (text font s)
-;  (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
+  ;; (ly:warning (_ "TEXT backend-command encountered in Pango backend"))
+  ;; (ly:warning (_ "Arguments: ~a ~a"" font str))
   
   (let* ((space-length (cdar (ly:text-dimension font " ")))
 	 (space-move (string-append (number->string space-length)
@@ -303,7 +304,7 @@
 	  url))
 
 (define (utf8-string pango-font-description string)
-  (ly:warn "utf8-string encountered in PS backend"))
+  (ly:warning (_ "utf8-string encountered in PS backend")))
 
 (define (white-dot x y radius)
   (string-append

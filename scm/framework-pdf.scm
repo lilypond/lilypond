@@ -12,10 +12,6 @@
 
 (define framework-pdf-module (current-module))
 
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
-
 ;;(define pdebug stderr)
 (define (pdebug . rest) #f)
 
@@ -33,9 +29,7 @@
     (pdf-ify lst))
    
    (else
-    (ly:make-pdf-object '(null)))
-       
-  ))
+    (ly:make-pdf-object '(null)))))
 
 (define (make-page-object parent contents)
   (ly:make-pdf-object
@@ -43,10 +37,9 @@
 	 (pdf-ify
 	  `((Type . Page)
 	    (Parent . ,parent)
-	    (Contents . ,contents)
-	    )))))
+	    (Contents . ,contents))))))
 
-(define (make-page-node root)  )
+(define (make-page-node root))
 
 
 (define-public (output-framework basename book scopes fields)
@@ -54,15 +47,9 @@
 	 (pdf (ly:open-pdf-file filename))
 	 (outputter
 	  (ly:make-paper-outputter (format "~a.bla.pdf" basename) "pdf"))
-
-
-	  
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
 	 (page-count (length pages))
-	 (port (ly:outputter-port outputter))))
-
-    
-))
+	 (port (ly:outputter-port outputter)))))

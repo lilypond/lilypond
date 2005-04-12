@@ -46,9 +46,7 @@ internal_print (Grob *me, String *font_char)
     {
       stem_dir = get_grob_direction (stem);
       if (stem_dir == CENTER)
-	{
-	  programming_error ("Must have stem dir for note head");
-	}
+	programming_error ("must have stem dir for note head");
     }
 
   Stencil out;

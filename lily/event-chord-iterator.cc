@@ -52,7 +52,7 @@ Event_chord_iterator::process (Moment m)
 
 	  bool gotcha = try_music (mus);
 	  if (!gotcha)
-	    mus->origin ()->warning (_f ("Junking event: `%s'", mus->name ()));
+	    mus->origin ()->warning (_f ("junking event: `%s'", mus->name ()));
 	}
     }
   Simple_music_iterator::process (m);

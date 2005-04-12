@@ -127,7 +127,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
 
   if (!ps_name_str0)
-    warning (_f ("No PS font name for font `%s'", filename));
+    warning (_f ("no PostScript font name for font `%s'", filename));
 
   String ps_name;
   if (!ps_name_str0
@@ -174,7 +174,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
     }
   else
     {
-      warning (_ ("FreeType face has no PostScript font name."));
+      warning (_ ("FreeType face has no PostScript font name"));
       return Stencil ();
     }
 }

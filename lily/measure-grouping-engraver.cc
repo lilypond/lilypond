@@ -79,7 +79,7 @@ Measure_grouping_engraver::process_music ()
 	    {
 	      if (grouping_)
 		{
-		  programming_error ("Huh, last grouping not finished yet.");
+		  programming_error ("last grouping not finished yet");
 		  continue;
 		}
 

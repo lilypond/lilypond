@@ -58,7 +58,6 @@ Includable_lexer::new_input (String name, Sources *sources)
       msg += "\n";
       msg += _f ("(search path: `%s')",
 		 sources->path_->to_string ().to_str0 ());
-      msg += "\n";
       LexerError (msg.to_str0 ());
       return;
     }

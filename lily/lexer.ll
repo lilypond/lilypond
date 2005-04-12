@@ -190,7 +190,7 @@ HYPHEN		--
 
 	yy_pop_state();
 	this->here_input().source_file_->name_ = s;
-	progress_indication (_f ("Renaming input to: `%s'", s.to_str0 ()));
+	message (_f ("Renaming input to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
@@ -198,11 +198,11 @@ HYPHEN		--
 
 }
 <version>. 	{
-	LexerError (_ ("No quoted string found after \\version").to_str0 ());
+	LexerError (_ ("quoted string expected after \\version").to_str0 ());
 	yy_pop_state ();
 }
 <renameinput>. 	{
-	LexerError (_ ("No quoted string found after \\renameinput").to_str0 ());
+	LexerError (_ ("quoted string expected after \\renameinput").to_str0 ());
 	yy_pop_state ();
 }
 <longcomment>{
@@ -263,7 +263,7 @@ HYPHEN		--
 	  }
 }
 <incl>\"[^"]*   { // backup rule
-	error (_ ("Missing end quote"));
+	error (_ ("end quote missing"));
 	exit (1);
 }
 <chords,notes,figures>{RESTNAME} 	{
@@ -507,7 +507,7 @@ HYPHEN		--
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
 			else {
-				programming_error ("No parser tag defined for this signature. Abort"); 
+				programming_error ("no parser tag defined for this signature"); 
 				ly_display_scm (s);
 				assert(false);
 			}
@@ -936,7 +936,7 @@ music_function_type (SCM func)
 	else
 		{
 		/* TODO: print location */
-		error ("Can not find signature for music function.");
+		error (_ ("can't find signature for music function"));
 		}
 
 	return MUSIC_FUNCTION_SCM;

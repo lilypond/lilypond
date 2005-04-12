@@ -121,7 +121,7 @@
 	       (csp (make-music 'ContextSpeccedMusic)))
 	  (context-spec-music seq 'Staff))
 	(begin
-	  (ly:warn (_ "Unknown clef type `~a'") clef-name)
-	  (ly:warn (_ "See scm/lily.scm for supported clefs"))
+	  (ly:warning (_ "unknown clef type `~a'") clef-name)
+	  (ly:warning (_ "see scm/clef.scm for supported clefs"))
 	  (make-music 'Music)))))
 

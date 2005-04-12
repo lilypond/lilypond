@@ -196,12 +196,12 @@ Gourlay_breaking::do_solve () const
 
   if (be_verbose_global)
     {
-      progress_indication (_f ("Optimal demerits: %f",
+      message (_f ("Optimal demerits: %f",
 			       optimal_paths.top ().demerits_) + "\n");
     }
 
   if (optimal_paths.top ().demerits_ >= infinity_f)
-    warning (_ ("No feasible line breaking found"));
+    warning (_ ("no feasible line breaking found"));
 
   for (int i = final_breaks.size (); i--;)
     {
@@ -209,7 +209,7 @@ Gourlay_breaking::do_solve () const
 
       lines.push (cp);
       if (!cp.satisfies_constraints_)
-	warning ("Could not find line breaking that satisfies constraints.");
+	warning (_ ("can't find line breaking that satisfies constraints"));
     }
   return lines;
 }

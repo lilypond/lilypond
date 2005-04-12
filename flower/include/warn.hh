@@ -11,12 +11,11 @@
 
 #include "string.hh"
 
-void error (String message_string);
+void error (String s);
 void message (String s);
 void non_fatal_error (String);
 void programming_error (String s);
-void warning (String message_string);
-
-#define progress_indication message
+void progress_indication (String s);
+void warning (String s);
 
 #endif /* WARN_HH */

@@ -97,7 +97,7 @@
 		(lambda (x)
 		  (let ((file-name (ly:find-file (string-append x ".svg"))))
 		    (if file-name (embed-font (cached-file-contents file-name))
-			(begin (ly:warn "cannot find SVG font ~S" x) ""))))
+			(begin (ly:warning "cannot find SVG font ~S" x) ""))))
 		(filter string? font-names))))
     (entity 'defs (string-join svgs "\n"))))
 

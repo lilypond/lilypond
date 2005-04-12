@@ -45,7 +45,7 @@ Accidental_placement::add_accidental (Grob *me, Grob *a)
   Music *mcause = unsmob_music (cause);
   if (!mcause)
     {
-      programming_error ("Note head has no music cause!");
+      programming_error ("note head has no music cause");
       return;
     }
 
