@@ -84,7 +84,7 @@ vaticana_brew_flexa (Grob *me,
   else
     {
       me->warning ("Vaticana_ligature: "
-		   "flexa-height undefined; assuming 0");
+		   + _ ("flexa-height undefined; assuming 0"));
       interval = 0.0;
     }
 

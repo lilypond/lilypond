@@ -104,14 +104,9 @@ entry_to_alist (void *closure, SCM key, SCM val, SCM result)
 {
   (void) closure;
   if (scm_variable_bound_p (val) == SCM_BOOL_T)
-    {
-      return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
-    }
-  else
-    {
-      programming_error ("Unbound variable in module.");
-      return result;
-    }
+    return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
+  programming_error ("unbound variable in module");
+  return result;
 }
 
 LY_DEFINE (ly_module2alist, "ly:module->alist",

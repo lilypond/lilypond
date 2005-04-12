@@ -59,9 +59,9 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
   puts ("");
   printf (_ ("  The function ly:set-option allows for access to some internal variables.").to_str0 ());
   puts ("\n");
-  printf (_ ("Usage: lilypond -e \"(ly : set - option SYMBOL VAL)\"").to_str0 ());
+  printf (_ ("Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\"").to_str0 ());
   puts ("\n");
-  printf (_ ("Use help as  SYMBOL to get online help.").to_str0 ());
+  printf (_ ("Use help as SYMBOL to get online help.").to_str0 ());
   puts ("\n");
 
   exit (0);
@@ -132,7 +132,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
       if (scm_is_symbol (var))
 	var = scm_symbol_to_string (var);
 
-      warning (_f ("No such internal option: %s", ly_scm2string (var)));
+      warning (_f ("no such internal option: %s", ly_scm2string (var)));
     }
   return SCM_UNSPECIFIED;
 }
@@ -172,7 +172,7 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 
       String s = ly_scm2string (var);
 
-      warning (_f ("No such internal option: %s", s.to_str0 ()));
+      warning (_f ("no such internal option: %s", s.to_str0 ()));
     }
   return o;
 }

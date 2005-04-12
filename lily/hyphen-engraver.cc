@@ -125,7 +125,7 @@ Hyphen_engraver::stop_translation_timestep ()
 
   if (finished_hyphen_ && hyphen_)
     {
-      programming_error ("Haven't finished hyphen yet.");
+      programming_error ("hyphen not finished yet");
       finished_hyphen_ = 0;
     }
 

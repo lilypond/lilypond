@@ -79,7 +79,7 @@ tag_music (Music *m, SCM tag, Input ip)
 	else if (ly_c_list_p (tag))
 		tags = ly_append2 (tag, tags);
 	else
-		ip.warning (_ ("Tag must be symbol or list of symbols."));
+		ip.warning (_ ("tag must be symbol or list of symbols"));
 
 	m->set_property ("tags", tags);
 }
@@ -556,7 +556,7 @@ assignment:
 	assignment_id '=' identifier_init  {
 		if (! is_regular_identifier ($1))
 		{
-			@1.warning (_ ("Identifier should have alphabetic characters only"));
+			@1.warning (_ ("identifier should have alphabetic characters only"));
 		}
 
 	        THIS->lexer_->set_identifier ($1, $3);
@@ -714,7 +714,7 @@ score_body:
 	| score_body output_def {
 		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)
 		{
-			THIS->parser_error (@2, _("\\paper cannot be in \\score. Use \\layout instead"));
+			THIS->parser_error (@2, _("\\paper cannot be used in \\score, use \\layout instead"));
 		
 		}
 		else
@@ -738,7 +738,7 @@ paper_block:
 		$$ = $1;
 		if ($$->lookup_variable (ly_symbol2scm ("is-paper")) != SCM_BOOL_T)
 		{
-			THIS->parser_error (@1, _("Need \\paper for paper block."));
+			THIS->parser_error (@1, _ ("need \\paper for paper block"));
 			$$ = get_paper (THIS);
 		}
 	}
@@ -883,7 +883,8 @@ Repeated_music:
 		if (times < scm_ilength (alts)) {
 		  unsmob_music (scm_car (alts))
 		    ->origin ()->warning (
-		    _ ("More alternatives than repeats.  Junking excess alternatives."));
+		    _ ("more alternatives than repeats"));
+		    warning ("junking excess alternatives");
 		  alts = ly_truncate_list (times, alts);
 		}
 
@@ -906,10 +907,9 @@ Repeated_music:
 			TODO: move this code to Scheme.
 			*/
 
-			/*
-			we can not get durations and other stuff correct down the line, so we have to
-			add to the duration log here.
-			*/
+			/* we cannot get durations and other stuff
+			   correct down the line,
+			   so we have to add to the duration log here. */
 			SCM func = ly_lily_module_constant ("shift-duration-log");
 
 			int dots = ($3 % 3) ? 0 : 1;
@@ -920,7 +920,7 @@ Repeated_music:
 			{
 				int list_len = scm_ilength ($4->get_property ("elements"));
 				if (list_len != 2)
-					$4->origin ()->warning ("Chord tremolo must have 2 elements.");
+					$4->origin ()->warning (_f ("expect 2 elements for Chord tremolo, found %d", list_len));
 				shift -= 1;
 				r->compress (Moment (Rational (1, list_len)));
 			}
@@ -1075,7 +1075,7 @@ Generic_prefix_music:
 		else
 			{
 			if (ok)
- 				loc->error (_ ("Music head function should return Music object.")); 
+ 				loc->error (_ ("music head function must return Music object")); 
 			$$ = MY_MAKE_MUSIC ("Music");
 			}
 		$$->set_spot (*loc);
@@ -1704,10 +1704,10 @@ command_req:
 		if (scm_ilength ($3) > 0)
 		{		
 			key->set_property ("pitch-alist", $3);
-			key->set_property ("tonic", Pitch (0,0,0).smobbed_copy ());
+			key->set_property ("tonic", Pitch (0, 0, 0).smobbed_copy ());
 			key->transpose (* unsmob_pitch ($2));
 		} else {
-			THIS->parser_error (@3, _ ("Second argument must be pitch list."));
+			THIS->parser_error (@3, _ ("second argument must be pitch list"));
 		}
 
 		$$ = key;
@@ -1746,12 +1746,12 @@ post_event:
 	}
 	| HYPHEN {
 		if (!THIS->lexer_->is_lyric_state ())
-			THIS->parser_error (@1, _ ("Have to be in Lyric mode for lyrics"));
+			THIS->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC ("HyphenEvent");
 	}
 	| EXTENDER {
 		if (!THIS->lexer_->is_lyric_state ())
-			THIS->parser_error (@1, _ ("Have to be in Lyric mode for lyrics"));
+			THIS->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 		$$ = MY_MAKE_MUSIC ("ExtenderEvent");
 	}
 	| script_dir direction_reqd_event {
@@ -1844,7 +1844,7 @@ direction_reqd_event:
 		Music *a = MY_MAKE_MUSIC ("ArticulationEvent");
 		if (scm_is_string (s))
 			a->set_property ("articulation-type", s);
-		else THIS->parser_error (@1, _ ("Expecting string as script definition"));
+		else THIS->parser_error (@1, _ ("expecting string as script definition"));
 		$$ = a;
 	}
 	;
@@ -2151,7 +2151,7 @@ optional_rest:
 simple_element:
 	pitch exclamations questions octave_check optional_notemode_duration optional_rest {
 		if (!THIS->lexer_->is_note_state ())
-			THIS->parser_error (@1, _ ("Have to be in Note mode for notes"));
+			THIS->parser_error (@1, _ ("have to be in Note mode for notes"));
 
 		Music *n = 0;
 		if ($6)
@@ -2232,7 +2232,7 @@ simple_element:
 	
 	| lyric_element optional_notemode_duration 	{
 		if (!THIS->lexer_->is_lyric_state ())
-			THIS->parser_error (@1, _ ("Have to be in Lyric mode for lyrics"));
+			THIS->parser_error (@1, _ ("have to be in Lyric mode for lyrics"));
 
 		Music *lreq = MY_MAKE_MUSIC ("LyricEvent");
 		lreq->set_property ("text", $1);
@@ -2245,7 +2245,7 @@ simple_element:
 	}
 	| new_chord {
                 if (!THIS->lexer_->is_chord_state ())
-                        THIS->parser_error (@1, _ ("Have to be in Chord mode for chords"));
+                        THIS->parser_error (@1, _ ("have to be in Chord mode for chords"));
                 $$ = unsmob_music ($1);
 	}
 	;
@@ -2594,7 +2594,8 @@ Lily_parser::beam_check (SCM dur)
   if (unsmob_music (last_beam_start_) && d->duration_log () <= 2)
     {
       Music *m = unsmob_music (last_beam_start_);
-      m->origin ()->warning (_ ("Suspect duration found following this beam"));
+      m->origin ()->warning (_f ("suspect duration in beam: %s",
+      d->to_string ()));
     }
   last_beam_start_ = SCM_EOL;
 }

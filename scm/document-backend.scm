@@ -88,7 +88,7 @@ node."
 	 (ifacedoc (map (lambda (iface)
 			  (if (pair? iface)
 			      (ref-ify (symbol->string (car iface)))
-			      (error (format "Error making doc of ~s" name))))
+			      (ly:error (_ "pair expected in doc ~s") name)))
 			(reverse ifaces)))
 	 (engravers (filter
 		     (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
@@ -131,7 +131,8 @@ node."
 
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
-      (error "\ndefine-grob-properties.scm: Can't find interface for property:" prop)))
+      (ly:error (string-append "define-grob-properties.scm: "
+		(_ "can't find interface for property: ~S")) prop)))
 
 (map check-dangling-properties all-backend-properties)
 
@@ -140,7 +141,7 @@ node."
 (define (lookup-interface name)
   (let* ((entry (hashq-ref (ly:all-grob-interfaces) name '())))
     (if (equal? entry #f)
-	(error "Unknown interface" name))
+	(ly:error (_ "unknown interface: ~S") name))
     entry))
 
 (define (all-interfaces-doc)

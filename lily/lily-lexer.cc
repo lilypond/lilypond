@@ -207,7 +207,7 @@ Lily_lexer::set_identifier (SCM name, SCM s)
       if (lookup_keyword (ly_symbol2string (sym)) >= 0)
 	{
 	  String symstr = ly_symbol2string (sym);
-	  warning (_f ("Identifier name is a keyword: `%s'", symstr.to_str0 ()));
+	  warning (_f ("identifier name is a keyword: `%s'", symstr.to_str0 ()));
 	}
 
       SCM mod = scm_car (scopes_);
@@ -215,16 +215,14 @@ Lily_lexer::set_identifier (SCM name, SCM s)
       scm_module_define (mod, sym, s);
     }
   else
-    {
-      programming_error ("Identifier is not a symbol.");
-    }
+    programming_error ("identifier is not a symbol");
 }
 
 void
 Lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.is_empty ())
-    progress_indication (_f ("error at EOF: %s", s) + String ("\n"));
+    message (_f ("error at EOF: %s", s) + "\n");
   else
     {
       error_level_ |= 1;

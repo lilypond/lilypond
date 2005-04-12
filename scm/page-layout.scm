@@ -422,7 +422,7 @@ DONE."
   (define (line-number node)
     (ly:paper-system-number (car (node-lines node))))
 
-  (display (_ "Calculating page breaks...") (current-error-port))
+  (ly:message (_ "Calculating page breaks..."))
 
   (let* ((best-break-node (walk-lines '() '() lines))
 	 (break-nodes (get-path best-break-node '()))
@@ -430,7 +430,7 @@ DONE."
 
     (define (node->page-stencil node)
       (if (not (eq? node last-node))
-	  (display "[" (current-error-port)))
+	  (ly:progress "["))
       (let ((stencil
 	     ((ly:output-def-lookup paper 'page-make-stencil)
 	      (node-lines node)
@@ -441,9 +441,9 @@ DONE."
 	      (eq? node best-break-node))))
 	(if (not (eq? node last-node))
 	    (begin
-	      (display (car (last-pair (node-system-numbers node)))
-		       (current-error-port))
-	      (display "]" (current-error-port))))
+	      (ly:progress (number->string
+			    (car (last-pair (node-system-numbers node)))))
+	      (ly:progress "]")))
 	stencil))
 
     (if #f; (ly:get-option 'verbose)
@@ -455,5 +455,5 @@ DONE."
 		   "\nconfigs " (map node-configuration break-nodes))))
 
     (let ((stencils (map node->page-stencil break-nodes)))
-      (newline (current-error-port))
+      (ly:progress "\n")
       stencils)))

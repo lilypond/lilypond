@@ -88,7 +88,7 @@ Stem_tremolo::raw_stencil (Grob *me)
 
   if (!tremolo_flags)
     {
-      programming_error ("No tremolo flags?");
+      programming_error ("no tremolo flags");
 
       me->suicide ();
       return Stencil ();
@@ -115,7 +115,7 @@ Stem_tremolo::print (SCM grob)
   Grob *stem = unsmob_grob (me->get_property ("stem"));
   if (!stem)
     {
-      programming_error ("No stem for stem-tremolo");
+      programming_error ("no stem for stem-tremolo");
       return SCM_EOL;
     }
 

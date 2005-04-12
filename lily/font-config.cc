@@ -20,22 +20,18 @@ void
 init_fontconfig ()
 {
   if (be_verbose_global)
-    progress_indication (_("Initializing FontConfig ..."));
+    message (_ ("Initializing FontConfig..."));
   
   if (!FcInit ())
-    error (_ ("FontConfig failed to initialize"));
+    error (_ ("initializing FontConfig"));
 
   FcConfig *fcc = FcConfigGetCurrent ();
-
   Array<String> dirs;
-
-
   struct stat statbuf; 
   String builddir = prefix_directory + "/mf/out/";
+
   if (stat (builddir.to_str0 (), &statbuf) == 0)
-    {
-      dirs.push (builddir.to_str0 ());
-    }
+    dirs.push (builddir.to_str0 ());
   else
     {
       dirs.push (prefix_directory + "/fonts/otf/");
@@ -43,16 +39,14 @@ init_fontconfig ()
       dirs.push (prefix_directory + "/fonts/cff/");
       dirs.push (prefix_directory + "/fonts/svg/");
     }
-
-  
   
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
       if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
-	error (_f ("Failed to add lilypond directory %s", dir.to_str0 ()));
+	error (_f ("adding lilypond directory: %s", dir.to_str0 ()));
       else if (be_verbose_global)
-	progress_indication (_f ("Adding font directory %s\n", dir.to_str0 ()));
+	message (_f ("adding font directory: %s", dir.to_str0 ()));
     }
 
   if (be_verbose_global)

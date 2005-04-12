@@ -101,12 +101,12 @@ Timing_translator::start_translation_timestep ()
   Moment dt = now - global->previous_moment ();
   if (dt < Moment (0))
     {
-      programming_error ("Moving backwards in time");
+      programming_error ("moving backwards in time");
       dt = 0;
     }
   else if (dt.main_part_.is_infinity ())
     {
-      programming_error ("Moving infinitely to future");
+      programming_error ("moving infinitely to future");
       dt = 0;
     }
 

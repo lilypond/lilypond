@@ -221,7 +221,8 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       Music *m = p->event_drul_[START];
       if (!m) m = p->event_drul_ [STOP];
 
-      String msg = _ ("Need 3 strings for piano pedals. No pedal made. ");
+      String msg = _f ("expect 3 strings for piano pedals, found: %d",
+		       scm_ilength (strings));
       if (m)
 	m->origin ()->warning (msg);
       else

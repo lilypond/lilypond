@@ -15,6 +15,18 @@
 
 #include "guile-compatibility.hh"
 
+#if !HAVE_GETTEXT
+inline char *
+gettext (char const *s)
+{
+  return (char *)s;
+}
+#else
+#include <libintl.h>
+#endif
+
+#define _(x) gettext (x)
+
 #include <dlfcn.h>
 #include <stdio.h>
 #include <string.h>
@@ -127,8 +139,8 @@ open_library ()
       /*
 	todo i18n.
        */
-      fprintf (stderr, "can't dlopen: %s: %s", LIBKPATHSEA, dlerror ());
-      fprintf (stderr,"install package: %s or %s",
+      fprintf (stderr, _ ("can't dlopen: %s: %s"), LIBKPATHSEA, dlerror ());
+      fprintf (stderr, _ ("install package: %s or %s"),
 	       "libkpathsea3 (teTeX 2.x)",
 	       "libkpathsea4 (teTeX 3.x)");
 
@@ -141,9 +153,9 @@ open_library ()
       *symbols[i].func_pointer = dlsym (kpathsea_handle, symbols[i].name);
       if (!symbols[i].func_pointer)
 	{
-	  fprintf(stderr, "no such symbol: %s: %s",
-		  symbols[i].name,
-		  dlerror ());
+	  fprintf (stderr, _ ("no such symbol: %s: %s"),
+		   symbols[i].name,
+		   dlerror ());
 	  return 1;
 	}
     }
@@ -164,7 +176,8 @@ initialize_kpathsea ()
 {
   if (open_library ())
     {
-      fprintf (stderr, "Error opening kpathsea library. Aborting");
+      fprintf (stderr, _ ("error opening kpathsea library"));
+      fprintf (stderr, _ ("aborting"));
       exit (1);
     }
 

@@ -79,8 +79,8 @@ copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 	     'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
 
 option_definitions = [
-	(_ ("EXT"), 'f', 'format',
-	  _ ('''use output format EXT (texi [default], texi-html,
+	(_ ("FMT"), 'f', 'format',
+	  _ ('''use output format FMT (texi [default], texi-html,
 		latex, html)''')),
 	(_ ("FILTER"), 'F', 'filter',
 	  _ ("pipe snippets through FILTER [convert-ly -n -]")),
@@ -1319,7 +1319,7 @@ def guess_format (input_filename):
 		# FIXME
 		format = ext2format[e]
 	else:
-		ly.error (_ ("cannot determine format for: %s" \
+		ly.error (_ ("can't determine format for: %s" \
 			     % input_filename))
 		ly.exit (1)
 	return format

@@ -1,11 +1,11 @@
 #!@PYTHON@
 
-import operator
-import stat
-import string
-import traceback
+import getopt
 import glob
-import getopt, os, sys
+import os
+import string
+import sys
+
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
@@ -13,7 +13,6 @@ if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
 	while datadir[-1] == os.sep:
 		datadir= datadir[:-1]
-
 
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
@@ -29,7 +28,7 @@ preview_resolution = 90
 preview_papersize = "a4"
 
 # lilylib globals
-program_name = sys.argv[0]
+program_name = os.path.basename (sys.argv[0])
 verbose_p = 0
 program_version = '@TOPLEVEL_VERSION@'
 pseudo_filter_p = 0 # ugr.
@@ -60,6 +59,7 @@ for opt in options:
 	a = opt[1]
 
 	if o == '--help' or o == '-h':
+		ly.identify (sys.stdout)
 		ly.help ()
 		sys.exit (0)
 	elif o == '--papersize' or o == '-P':
@@ -69,10 +69,9 @@ for opt in options:
 	elif o == '--verbose' or o == '-V':
 		verbose_p = 1
 
+ly.identify (sys.stderr)
 for f in files:
 	outfiles = ly.make_ps_images (f, resolution = preview_resolution,
 				      papersize = preview_papersize)
-	## FIXME: silly message containing %d
-	
 	sys.stderr.write (_ ("Wrote `%s'" % string.join (outfiles, ', ')))
 	sys.stderr.write ('\n')

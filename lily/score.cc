@@ -210,13 +210,13 @@ Score::set_music (SCM music, SCM parser)
 
   if (unsmob_music (music_))
     {
-      unsmob_music (music)->origin ()->error (_ ("Already have music in score"));
-      unsmob_music (music_)->origin ()->error (_ ("This is the previous music"));
+      unsmob_music (music)->origin ()->error (_ ("already have music in score"));
+      unsmob_music (music_)->origin ()->error (_ ("this is the previous music"));
     }
   Music *m = unsmob_music (music);
   if (m && to_boolean (m->get_property ("error-found")))
     {
-      m->origin ()->error (_ ("Error found in this music expression. Ignoring it"));
+      m->origin ()->error (_ ("errors found, ignoring music expression"));
 
       this->error_found_ = this->error_found_ || to_boolean (m->get_property ("error-found"));
     }

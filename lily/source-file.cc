@@ -58,7 +58,7 @@ gulp_file (String filename, int *filesize)
 
   int bytes_read = fread (str, sizeof (char), *filesize, f);
   if (bytes_read != *filesize)
-    warning (_f ("Huh?  Got %d, expected %d characters", bytes_read,
+    warning (_f ("expected to read %d characters, got %d", bytes_read,
 		 *filesize));
   fclose (f);
 
@@ -269,7 +269,7 @@ Source_file::get_line (char const* pos_str0) const
 			&lo, &hi);
 
   if (*pos_str0 == '\n')
-    lo --;
+    lo--;
   return lo + 2;
 }
 

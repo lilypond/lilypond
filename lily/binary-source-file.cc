@@ -33,11 +33,13 @@ Binary_source_file::error_string (char const *pos_str0) const
   String pre_string ((Byte const *)begin_str0, pos_str0 - begin_str0);
   pre_string = String_convert::bin2hex (pre_string);
   for (int i = 2; i < pre_string.length (); i += 3)
-    pre_string = pre_string.left_string (i) + " " + pre_string.cut_string (i, INT_MAX);
+    pre_string = pre_string.left_string (i)
+      + " " + pre_string.cut_string (i, INT_MAX);
   String post_string ((Byte const *)pos_str0, end_str0 - pos_str0);
   post_string = String_convert::bin2hex (post_string);
   for (int i = 2; i < post_string.length (); i += 3)
-    post_string = post_string.left_string (i) + " " + post_string.cut_string (i, INT_MAX);
+    post_string = post_string.left_string (i)
+      + " " + post_string.cut_string (i, INT_MAX);
 
   String str = pre_string
     + to_string ('\n')

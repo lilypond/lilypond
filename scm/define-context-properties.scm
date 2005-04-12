@@ -10,9 +10,7 @@
 
 (define (translator-property-description symbol type? description)
  (if (not (equal? #f (object-property symbol 'translation-doc)))
-      (begin
-	(ly:warn "Redefining ~S " symbol)
-	(exit 2)))
+     (ly:erorr (_ "symbol ~S redefined" symbol)))
   
   (set-object-property! symbol 'translation-type? type?)
   (set-object-property! symbol 'translation-doc description)

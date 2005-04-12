@@ -97,9 +97,10 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
   if (art == SCM_BOOL_F)
     {
       /* FIXME: */
-      warning (_ ("Do not know how to interpret articulation: "));
-      warning (_ ("Scheme encoding: "));
+      warning (_ ("don't know how to interpret articulation: "));
+      warning (_ ("scheme encoding: "));
       scm_write (art_type, scm_current_error_port ());
+      message ("");
       return;
     }
 

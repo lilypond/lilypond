@@ -311,8 +311,7 @@ possibly turned off."
   (cond
    ((equal? (ly:unit) "mm") (/ 72.0 25.4))
    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
-   (else (error "unknown unit" (ly:unit)))))
-
+   (else (ly:error (_ "unknown unit: ~S") (ly:unit)))))
 
 (define-public lily-unit->mm-factor
   (* 25.4 (/ lily-unit->bigpoint-factor 72)))
@@ -341,10 +340,7 @@ possibly turned off."
     scaling))
 
 (define-public (version-not-seen-message)
-  (ly:warn
+  (ly:warning
    (format #f
 	   (_ "No \\version statement found.  Add~afor future compatibility.")
-	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))
-  (newline (current-error-port)))
-  
-
+	   (format #f "\n\n\\version ~s\n\n" (lilypond-version)))))

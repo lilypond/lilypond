@@ -69,14 +69,14 @@ Bezier::get_other_coordinate (Axis a, Real x) const
 
   if (ts.size () == 0)
     {
-      programming_error ("No solution found for Bezier intersection.");
+      programming_error ("no solution found for Bezier intersection");
       return 0.0;
     }
 
   Offset c = curve_point (ts[0]);
 
   if (fabs (c[a] - x) > 1e-8)
-    programming_error ("Bezier intersection not correct?");
+    programming_error ("bezier intersection not correct?");
 
   return c[other];
 }

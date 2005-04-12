@@ -241,7 +241,7 @@ Rest_collision::do_shift (Grob *me)
       int stafflines = Staff_symbol_referencer::line_count (me);
       if (!stafflines)
 	{
-	  programming_error ("No staff line count ? ");
+	  programming_error ("no staff line count");
 	  stafflines = 5;
 	}
 

@@ -59,7 +59,7 @@ Auto_change_iterator::change_to (Music_iterator *it, SCM to_type_sym,
   if (current && current->id_string () == to_id)
     {
       String msg;
-      msg += _ ("Can't switch translators, I'm there already");
+      msg += _f ("can't change, already in translator: %s", to_id);
     }
 
   if (current)

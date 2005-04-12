@@ -432,7 +432,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       Music *m = info.music_cause ();
       if (!m->is_mus_type ("rhythmic-event"))
 	{
-	  programming_error ("Stem must have rhythmic structure");
+	  programming_error ("stem must have rhythmic structure");
 	  return;
 	}
 

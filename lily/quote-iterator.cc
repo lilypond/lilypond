@@ -229,7 +229,7 @@ Quote_iterator::process (Moment m)
 
 	  Music *mus = unsmob_music (scm_car (ev_acc));
 	  if (!mus)
-	    programming_error ("need music in quote.");
+	    programming_error ("no music found in quote");
 	  else if (accept_music_type (mus))
 	    {
 	      if (quote_pitch || me_pitch)
@@ -251,7 +251,8 @@ Quote_iterator::process (Moment m)
 
 	      bool b = quote_outlet_.get_outlet ()->try_music (mus);
 	      if (!b)
-		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
+		mus->origin ()->warning (_f ("in quotation: junking event %s",
+					     mus->name ()));
 	    }
 	}
 

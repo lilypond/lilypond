@@ -59,7 +59,7 @@ Arpeggio::print (SCM smob)
 
 	:-)
       */
-      programming_error ("Huh, no heads for arpeggio found.");
+      programming_error ("no heads for arpeggio found?");
       return SCM_EOL;
     }
 

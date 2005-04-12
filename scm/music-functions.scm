@@ -504,8 +504,7 @@ of beat groupings "
 (define-public (voicify-music m)
   "Recursively split chords that are separated with \\ "
   (if (not (ly:music? m))
-      (begin (display m)
-	     (error "not music!")))
+      (ly:error (_ "music expected: ~S") m))
   (let ((es (ly:music-property m 'elements))
 	(e (ly:music-property m 'element)))
 
@@ -554,9 +553,10 @@ of beat groupings "
       (let* ((bn (ly:context-property tr 'currentBarNumber)))
 	(if (= bn n)
 	    #t
-	    (error
-	     (format "Bar check failed, we should have reached ~a, instead at ~a\n"
-		     n bn)))))
+	    (ly:error
+	     ;; FIXME: uncomprehensable message
+	     (_ "Bar check failed.  Expect to be at ~a, instead at ~a")
+	     n bn))))
     (set! (ly:music-property m 'procedure) checker)
     m))
 
@@ -573,7 +573,7 @@ of beat groupings "
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
 	(ly:input-message ip msg)
-	(ly:warn msg))))
+	(ly:warning msg))))
 
 (define (check-start-chords music)
   "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords),
@@ -699,8 +699,7 @@ Syntax:
     (if (string? quoted-name)
 	(if  (vector? quoted-vector)
 	     (set! (ly:music-property music 'quoted-events) quoted-vector)
-	     (ly:warn "Cannot find quoted music `~S'" quoted-name)))
-
+	     (ly:warning (_ "can't find quoted music `~S'" quoted-name))))
     music))
 
 
@@ -873,7 +872,7 @@ use GrandStaff as a context. "
 				   '()
 				   context))
       (else
-       (ly:warn "Unknown accidental style: ~S" (symbol->string style))
+       (ly:warning (_ "unknown accidental style: ~S" style))
        (make-sequential-music '()))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

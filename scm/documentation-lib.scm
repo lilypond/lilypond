@@ -42,7 +42,7 @@
        (node-children node)))
 
 (define (processing name)
-  (display (string-append "\nProcessing " name " ... ") (current-error-port)))
+  (ly:message (_ "Processing ~S...") name))
 
 (define (self-evaluating? x)
   (or (number? x) (string? x) (procedure? x) (boolean? x)))
@@ -157,7 +157,7 @@
    (else (string-append (car lst) ", " (human-listify (cdr lst))))))
 
 (define (writing-wip x)
-  (display (string-append "\nWriting " x " ... ") (current-error-port)))
+  (ly:message (_ "Writing ~S...") x))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -179,7 +179,7 @@ with init values from ALIST (1st optional argument)
 	 (handle (assoc sym alist)))
 
     (if (eq? desc #f)
-	(error "No description for property ~S" sym))
+	(ly:error (_ "can't find description for property ~S") sym))
     
     (cons
      (string-append "@code{" name "} "

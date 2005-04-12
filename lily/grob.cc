@@ -188,7 +188,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 
   if (status_ == busy)
     {
-      programming_error ("Element is busy, come back later");
+      programming_error ("element is busy, come back later");
       return;
     }
 
@@ -281,10 +281,9 @@ void
 Grob::add_dependency (Grob *e)
 {
   if (e)
-    Pointer_group_interface::add_grob (this, ly_symbol2scm ("dependencies"),
-				       e);
+    Pointer_group_interface::add_grob (this, ly_symbol2scm ("dependencies"), e);
   else
-    programming_error ("Null dependency added");
+    programming_error ("null dependency added");
 }
 
 void
@@ -630,8 +629,8 @@ Grob::warning (String s) const
 void
 Grob::programming_error (String s) const
 {
-  s = "Programming error: " + s;
-  warning (s);
+  s = _f ("programming error: %s", s);
+  message (s);
 }
 
 /****************************************************

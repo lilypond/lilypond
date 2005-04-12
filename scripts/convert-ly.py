@@ -58,11 +58,11 @@ version taken from the \\version command, to the current LilyPond version."""))
 	sys.stdout.write ('\n')
 	sys.stdout.write (_ ("""\
   -e, --edit             edit in place
-  -f, --from=VERSION     start from version [default: \\version found in file]
+  -f, --from=VERSION     start from VERSION [default: \\version found in file]
   -h, --help             print this help
   -n, --no-version       do not add \\version command if missing
   -s, --show-rules       print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]
-  -t, --to=VERSION       convert to version [default: @TOPLEVEL_VERSION@]
+  -t, --to=VERSION       convert to VERSION [default: @TOPLEVEL_VERSION@]
   -v, --version          print program version"""))
 	sys.stdout.write ('\n\n')
 	sys.stdout.write (_ ("Report bugs to %s.") % "bug-lilypond@gnu.org")
@@ -2622,7 +2622,7 @@ for f in files:
 		do_one_file (f)
 	except UnknownVersion:
 		sys.stderr.write ('\n')
-		sys.stderr.write (_ ("%s: cannot determine version for `%s'") \
+		sys.stderr.write (_ ("%s: can't determine version for `%s'") \
 				  % (program_name, f))
 		sys.stderr.write ('\n')
 		if assume_old:

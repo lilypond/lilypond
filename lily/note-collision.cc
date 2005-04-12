@@ -401,7 +401,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	{
 	  if (shift[i - 1] == shift[i])
 	    {
-	      clashes[0]->warning (_ ("Too many clashing notecolumns.  Ignoring them."));
+	      clashes[0]->warning (_ ("ignoring too many clashing note columns"));
 	      return tups;
 	    }
 	}

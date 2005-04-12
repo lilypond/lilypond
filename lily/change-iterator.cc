@@ -57,7 +57,7 @@ Change_iterator::process (Moment m)
   if (current && current->id_string () == to_id)
     {
       String msg;
-      msg += _ ("Can't switch translators, I'm there already");
+      msg += _f ("can't change, already in translator: %s", to_id);
     }
 
   if (current)
@@ -77,21 +77,20 @@ Change_iterator::process (Moment m)
 	    dest->add_context (last);
 	  }
 	else
-	  {
-	    get_music ()->origin ()->warning ("could not find context to switch to.");
-	  }
+	  /* FIXME: constant error message.  */
+	  get_music ()->origin ()->warning (_ ("can't find context to switch to"));
       }
     else
       {
-	/*
-	  We could change the current translator's id, but that would make
-	  errors hard to catch
-
-	  last->translator_id_string ()  = get_change ()->change_to_id_string ();
-	*/
-	error (_ ("I'm one myself"));
+	/* We could change the current translator's id, but that would make
+	   errors hard to catch.
+	   
+	   last->translator_id_string () = get_change
+	   ()->change_to_id_string (); */
+	error (_f ("not changing to same context type: %s", to_type));
       }
   else
+    /* FIXME: uncomprehensable message */
     error (_ ("none of these in my family"));
 
   Simple_music_iterator::process (m);

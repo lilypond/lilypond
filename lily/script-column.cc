@@ -63,7 +63,7 @@ Script_column::before_line_breaking (SCM smob)
       Direction d = Side_position_interface::get_direction (g);
       if (!d)
 	{
-	  programming_error ("No direction for script?");
+	  programming_error ("no direction for script");
 	  d = DOWN;
 	  g->set_property ("direction", scm_int2num (d));
 	}

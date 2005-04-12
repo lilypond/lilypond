@@ -72,10 +72,12 @@
     (define-public _ ly:gettext))
 
 (define-public (ly:load x)
-  (let* ((fn (%search-load-path x)))
+  (let* ((file-name (%search-load-path x)))
     (if (ly:get-option 'verbose)
-	(format (current-error-port) "[~A]" fn))
-    (primitive-load fn)))
+	(ly:progress "[~A" file-name))
+    (primitive-load file-name)
+    (if (ly:get-option 'verbose)
+	(ly:progress "]"))))
 
 (define-public TEX_STRING_HASHLIMIT 10000000)
 
@@ -224,7 +226,7 @@ The syntax is the same as `define*-public'."
 	    
 	    "paper.scm"
 	    "backend-library.scm"
-					; last:
+	    ;; must be after everything has been defined
 	    "safe-lily.scm"))
 
 
@@ -314,14 +316,11 @@ The syntax is the same as `define*-public'."
      files)
     
     (if (pair? failed)
+	(ly:error (_ "failed files: ~S") (string-join failed))
 	(begin
-	  (newline (current-error-port))
-	  (display (_ "error: failed files: ") (current-error-port))
-	  (display (string-join failed) (current-error-port))
-	  (newline (current-error-port))
-	  (newline (current-error-port))
-	  (exit 1))
-	(exit 0))))
+	  ;; HACK: be sure to exit with single newline
+	  (ly:message "")
+	  (exit 0)))))
 
 (define-public (tweak-grob-property grob sym val)
   (set! (ly:grob-property grob sym) val))

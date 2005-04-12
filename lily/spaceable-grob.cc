@@ -28,12 +28,10 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 {
   //  printf ("rod %lf\n", d);
   if (d < 0)
-    return ;
+    return;
   
   if (isinf (d))
-    {
-      programming_error ("Infinite rod");
-    }
+    programming_error ("infinite rod");
 
   SCM mins = get_minimum_distances (me);
   SCM newdist = scm_make_real (d);
@@ -58,7 +56,7 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real strength)
   //  printf ("dist %lf, str %lf\n", d, strength); 
   if (d <= 0.0 || strength <= 0.0)
     {
-      programming_error ("Adding reverse spring! Setting to unit spring");
+      programming_error ("adding reverse spring, setting to unit");
       d = 1.0;
       strength = 1.0;
     }
@@ -66,10 +64,8 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real strength)
   if (isinf (d) || isnan (d)
       || isnan (strength))
     {
-      /*
-	strength == INF is possible. It means fixed distance.
-      */
-      programming_error ("Insane distance found.");
+      /* strength == INF is possible. It means fixed distance.  */
+      programming_error ("insane distance found");
       d = 1.0;
       strength = 1.0;
     }

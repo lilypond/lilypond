@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-01 15:24+0100\n"
+"POT-Creation-Date: 2005-04-13 00:40+0200\n"
 "PO-Revision-Date: 2002-09-28 10:27+0200\n"
 "Last-Translator: Tomá¹ Kopeèek <xkopec14@stud.fit.vutbr.cz>\n"
 "Language-Team: Czech <cz@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 msgid "lilylib module"
 msgstr ""
 
-#: lilylib.py:65 lilypond-book.py:88 midi2ly.py:100 mup2ly.py:75 ps2png.py:40
-#: main.cc:127
+#: lilylib.py:65 lilypond-book.py:88 midi2ly.py:100 mup2ly.py:75 ps2png.py:41
+#: main.cc:145
 msgid "print this help"
 msgstr "tato nápovìda"
 
@@ -39,12 +39,12 @@ msgstr ""
 msgid "It comes with NO WARRANTY."
 msgstr ""
 
-#: lilylib.py:125 warn.cc:24
+#: lilylib.py:125 warn.cc:44 input.cc:79
 #, fuzzy, c-format, python-format
 msgid "warning: %s"
 msgstr "varování: %s\n"
 
-#: lilylib.py:128 warn.cc:30
+#: lilylib.py:128 warn.cc:50 input.cc:85 input.cc:93
 #, fuzzy, c-format, python-format
 msgid "error: %s"
 msgstr "chyba: %s\n"
@@ -59,13 +59,13 @@ msgstr "Konèím ... "
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Pou¾ití: %s [PØEPÍNAÈ]... SOUBOR"
 
-#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:196
+#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:211
 #, c-format
 msgid "Options:"
 msgstr "Pøepínaèe:"
 
 #: lilylib.py:208 convert-ly.py:68 lilypond-pdfpc-helper.py:28 midi2ly.py:231
-#: mup2ly.py:227 main.cc:200
+#: mup2ly.py:227 main.cc:215
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr ""
@@ -82,12 +82,12 @@ msgstr ""
 msgid "Opening pipe `%s'"
 msgstr ""
 
-#: lilylib.py:277 lilypond-book.py:1119
+#: lilylib.py:277 lilypond-book.py:1157
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1120
+#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1158
 msgid "The error log is as follows:"
 msgstr "Hlá¹ení chyby je takovéto:"
 
@@ -115,9 +115,10 @@ msgstr "(ignorováno)"
 msgid "Cleaning %s..."
 msgstr "Odstraòuji %s..."
 
-#: lilylib.py:529
-msgid "Removing output file"
-msgstr ""
+#: lilylib.py:543
+#, fuzzy, python-format
+msgid "GS exited with status: %d"
+msgstr "pøíkaz skonèil s návratovou hodnotou %d"
 
 #: convert-ly.py:32
 #, python-format
@@ -147,17 +148,17 @@ msgstr ""
 #: convert-ly.py:59
 msgid ""
 "  -e, --edit             edit in place\n"
-"  -f, --from=VERSION     start from version [default: \\version found in "
+"  -f, --from=VERSION     start from VERSION [default: \\version found in "
 "file]\n"
 "  -h, --help             print this help\n"
 "  -n, --no-version       do not add \\version command if missing\n"
 "  -s, --show-rules       print rules [default: --from=0, --"
 "to=@TOPLEVEL_VERSION@]\n"
-"  -t, --to=VERSION       convert to version [default: @TOPLEVEL_VERSION@]\n"
+"  -t, --to=VERSION       convert to VERSION [default: @TOPLEVEL_VERSION@]\n"
 "  -v, --version          print program version"
 msgstr ""
 
-#: convert-ly.py:75 lilypond-pdfpc-helper.py:34 main.cc:86
+#: convert-ly.py:75 lilypond-pdfpc-helper.py:34 main.cc:98
 #, fuzzy, c-format, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -170,47 +171,47 @@ msgstr ""
 "urèitých podmínek. Pro více informací spus»te program takto: `%s --"
 "warranty'.\n"
 
-#: convert-ly.py:2402
+#: convert-ly.py:2407
 msgid "LilyPond source must be UTF-8"
 msgstr ""
 
-#: convert-ly.py:2405
+#: convert-ly.py:2410
 msgid "Try the texstrings backend"
 msgstr ""
 
-#: convert-ly.py:2408
+#: convert-ly.py:2413
 #, python-format
 msgid "Do something like: %s"
 msgstr ""
 
-#: convert-ly.py:2411
+#: convert-ly.py:2416
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convert-ly.py:2459
+#: convert-ly.py:2487
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:2471
+#: convert-ly.py:2499
 #, python-format
 msgid "%s: error while converting"
 msgstr ""
 
-#: convert-ly.py:2474 score-engraver.cc:112
+#: convert-ly.py:2502 score-engraver.cc:111
 msgid "Aborting"
 msgstr ""
 
-#: convert-ly.py:2495
+#: convert-ly.py:2523
 #, fuzzy, python-format
 msgid "Processing `%s'... "
 msgstr "Zpracovávám `%s'..."
 
-#: convert-ly.py:2597
-#, python-format
-msgid "%s: cannot determine version for `%s'"
-msgstr ""
+#: convert-ly.py:2625
+#, fuzzy, python-format
+msgid "%s: can't determine version for `%s'"
+msgstr "nelze nalézt implicitní font: `%s'"
 
-#: convert-ly.py:2606
+#: convert-ly.py:2634
 #, fuzzy, python-format
 msgid "%s: skipping: `%s'"
 msgstr "takové nastavení neexistuje: `%s'"
@@ -225,13 +226,13 @@ msgid ""
 "   lilypond-book --process='lilypond -I include' BOOK\n"
 msgstr ""
 
-#: lilypond-book.py:82 main.cc:121
-msgid "EXT"
-msgstr "PØÍP"
+#: lilypond-book.py:82
+msgid "FMT"
+msgstr ""
 
 #: lilypond-book.py:83
 msgid ""
-"use output format EXT (texi [default], texi-html,\n"
+"use output format FMT (texi [default], texi-html,\n"
 "\t\tlatex, html)"
 msgstr ""
 
@@ -244,7 +245,7 @@ msgstr "SOUBOR"
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr ""
 
-#: lilypond-book.py:89 lilypond-book.py:91 main.cc:129
+#: lilypond-book.py:89 lilypond-book.py:91 main.cc:147
 msgid "DIR"
 msgstr "ADRESÁØ"
 
@@ -266,7 +267,7 @@ msgstr ""
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:96 midi2ly.py:105 mup2ly.py:78 ps2png.py:41 main.cc:141
+#: lilypond-book.py:96 midi2ly.py:105 mup2ly.py:78 ps2png.py:42 main.cc:155
 msgid "be verbose"
 msgstr "vypisuje více informací"
 
@@ -275,95 +276,95 @@ msgstr "vypisuje více informací"
 msgid "print version information"
 msgstr "vypisuje èíslo verze"
 
-#: lilypond-book.py:100 midi2ly.py:107 mup2ly.py:80 main.cc:142
+#: lilypond-book.py:100 midi2ly.py:107 mup2ly.py:80 main.cc:156
 msgid "show warranty and copyright"
 msgstr "vypisuje záruku a copyright"
 
-#: lilypond-book.py:703
-#, python-format
-msgid "deprecated ly-option used: %s=%s"
-msgstr ""
-
-#: lilypond-book.py:706
-#, python-format
-msgid "compatibility mode translation: %s=%s"
-msgstr ""
-
-#: lilypond-book.py:710
-#, python-format
-msgid "deprecated ly-option used: %s"
-msgstr ""
-
-#: lilypond-book.py:713
-#, python-format
-msgid "compatibility mode translation: %s"
-msgstr ""
-
-#: lilypond-book.py:732
-#, python-format
-msgid "ignoring unknown ly option: %s"
-msgstr ""
-
-#: lilypond-book.py:769
+#: lilypond-book.py:604
 #, fuzzy, python-format
 msgid "file not found: %s"
 msgstr "klíè `%s' nebyl nalezen"
 
-#: lilypond-book.py:1102
+#: lilypond-book.py:802
+#, python-format
+msgid "deprecated ly-option used: %s=%s"
+msgstr ""
+
+#: lilypond-book.py:805
+#, python-format
+msgid "compatibility mode translation: %s=%s"
+msgstr ""
+
+#: lilypond-book.py:809
+#, python-format
+msgid "deprecated ly-option used: %s"
+msgstr ""
+
+#: lilypond-book.py:812
+#, python-format
+msgid "compatibility mode translation: %s"
+msgstr ""
+
+#: lilypond-book.py:831
+#, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr ""
+
+#: lilypond-book.py:1140
 #, fuzzy, python-format
 msgid "Opening filter `%s'"
 msgstr "nelze nalézt soubor: `%s'"
 
-#: lilypond-book.py:1244
+#: lilypond-book.py:1303
 #, fuzzy
 msgid "Writing snippets..."
 msgstr "Zapisuji `%s'..."
 
-#: lilypond-book.py:1249
+#: lilypond-book.py:1308
 #, fuzzy
 msgid "Processing..."
 msgstr "Zpracovávám `%s'..."
 
-#: lilypond-book.py:1253
+#: lilypond-book.py:1312
 #, fuzzy
 msgid "All snippets are up to date..."
 msgstr "uvolnìte se, %s je aktuální"
 
-#: lilypond-book.py:1263
+#: lilypond-book.py:1322
 #, fuzzy, python-format
-msgid "cannot determine format for: %s"
+msgid "can't determine format for: %s"
 msgstr "nelze nalézt implicitní font: `%s'"
 
-#: lilypond-book.py:1308
+#: lilypond-book.py:1367
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:1315
+#: lilypond-book.py:1374
 #, fuzzy, python-format
 msgid "Reading %s..."
 msgstr "Odstraòuji %s..."
 
-#: lilypond-book.py:1331
+#: lilypond-book.py:1390
 #, fuzzy
 msgid "Dissecting..."
 msgstr "Prohledávám `%s'..."
 
-#: lilypond-book.py:1362
+#: lilypond-book.py:1421
 #, fuzzy, python-format
 msgid "Compiling %s..."
 msgstr "Odstraòuji %s..."
 
-#: lilypond-book.py:1370
+#: lilypond-book.py:1429
 #, fuzzy, python-format
 msgid "Processing include: %s"
 msgstr "Zpracovávám `%s'..."
 
-#: lilypond-book.py:1380
+#: lilypond-book.py:1439
 #, fuzzy, python-format
 msgid "Removing `%s'"
 msgstr "Vyvolávám `%s'"
 
-#: lilypond-book.py:1395 midi2ly.py:1017 ps2png.py:51
+#: lilypond-book.py:1454 midi2ly.py:1016 ps2png.py:52
 #, python-format
 msgid "getopt says: `%s'"
 msgstr "getopt øíká: `%s'"
@@ -408,7 +409,7 @@ msgstr "ZMÌNA[:MOLL]"
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr "nastaví stupnici: ZMÌNA=+køí¾ky|-béèka; MOLL=1"
 
-#: midi2ly.py:102 main.cc:130 main.cc:131
+#: midi2ly.py:102 main.cc:148 main.cc:149
 msgid "FILE"
 msgstr "SOUBOR"
 
@@ -428,7 +429,7 @@ msgstr "DÉLKA*ÈÍSLO/DÌLITEL"
 msgid "allow tuplet durations DUR*NUM/DEN"
 msgstr "povolí triolové (kvartolové, ...) délky DÉLKA*ÈÍSLO/DÌLITEL"
 
-#: midi2ly.py:106 mup2ly.py:79 main.cc:140
+#: midi2ly.py:106 mup2ly.py:79 main.cc:154
 msgid "print version number"
 msgstr "vypisuje èíslo verze"
 
@@ -436,12 +437,11 @@ msgstr "vypisuje èíslo verze"
 msgid "treat every text as a lyric"
 msgstr "zpracuje ka¾dý text jako slova písnì"
 
-#: midi2ly.py:149 mup2ly.py:143 input.cc:105
+#: midi2ly.py:149 mup2ly.py:143
 msgid "warning: "
 msgstr "varování: "
 
-#: midi2ly.py:164 midi2ly.py:1017 midi2ly.py:1082 mup2ly.py:146 mup2ly.py:160
-#: input.cc:110
+#: midi2ly.py:164 midi2ly.py:1016 midi2ly.py:1081 mup2ly.py:146 mup2ly.py:160
 msgid "error: "
 msgstr "chyba: "
 
@@ -454,16 +454,16 @@ msgstr "Konèím ... "
 msgid "command exited with value %d"
 msgstr "pøíkaz skonèil s návratovou hodnotou %d"
 
-#: midi2ly.py:1001
+#: midi2ly.py:1000
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "výstup %s se zapisuje do `%s'..."
 
-#: midi2ly.py:1032
+#: midi2ly.py:1031
 msgid "Example:"
 msgstr "Pøíklad:"
 
-#: midi2ly.py:1082
+#: midi2ly.py:1081
 msgid "no files specified on command line."
 msgstr "na pøíkazové øádce nebyly zadány ¾ádné soubory."
 
@@ -499,181 +499,224 @@ msgid "Writing `%s'..."
 msgstr "Zapisuji `%s'..."
 
 #. ugr.
-#: ps2png.py:35
+#: ps2png.py:36
 msgid "Convert PostScript to PNG image."
 msgstr ""
 
-#: ps2png.py:42
-msgid "RES"
+#: ps2png.py:43
+msgid "PAPER"
 msgstr ""
 
 #: ps2png.py:43
+msgid "use papersize PAPER"
+msgstr ""
+
+#: ps2png.py:44
+msgid "RES"
+msgstr ""
+
+#: ps2png.py:44
 msgid "set the resolution of the preview to RES"
 msgstr "nastavuje rozli¹ení náhledu na RES"
 
-#. # FIXME: silly message containing %d
-#: ps2png.py:72
+#: ps2png.py:76
 #, fuzzy, python-format
 msgid "Wrote `%s'"
 msgstr "Zapisuji `%s'..."
 
-#: getopt-long.cc:144
+#: getopt-long.cc:143
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "volba `%s' vy¾aduje argument"
 
-#: getopt-long.cc:148
+#: getopt-long.cc:147
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr "volba `%s' nemá argumenty"
 
-#: getopt-long.cc:152
+#: getopt-long.cc:151
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "neznámá volba: `%s'"
 
-#: getopt-long.cc:159
+#: getopt-long.cc:158
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "neplatný argument `%s' pro volbu `%s'"
 
-#: warn.cc:43
+#: warn.cc:64 grob.cc:632
 #, fuzzy, c-format
 msgid "programming error: %s"
 msgstr "chyba programrátora: %s (Pokraèuji: dr¾te mi palce)\n"
 
-#: warn.cc:44
-msgid "Continuing; crossing fingers"
+#: warn.cc:65
+msgid "continuing, cross fingers"
 msgstr ""
 
-#: accidental-engraver.cc:239
+#.
+#. todo i18n.
+#.
+#: kpath.c:142
 #, fuzzy, c-format
-msgid "Accidental typesetting list must begin with context-name: %s"
+msgid "can't dlopen: %s: %s"
+msgstr "nelze otevøít soubor: `%s'"
+
+#: kpath.c:143
+#, fuzzy, c-format
+msgid "install package: %s or %s"
+msgstr "nelze zmìnit `%s' na `%s'"
+
+#: kpath.c:156
+#, fuzzy, c-format
+msgid "no such symbol: %s: %s"
+msgstr "neexistující kontext: %s"
+
+#: kpath.c:179
+#, c-format
+msgid "error opening kpathsea library"
+msgstr ""
+
+#: kpath.c:180
+#, c-format
+msgid "aborting"
+msgstr ""
+
+#: accidental-engraver.cc:235
+#, fuzzy, c-format
+msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "Sazba posuvek musí zaèínat jménem kontextu: %s"
 
-#: accidental-engraver.cc:267
+#: accidental-engraver.cc:263
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr ""
 
-#: accidental-engraver.cc:284
-#, fuzzy, c-format
-msgid "Accidental rule must be pair or context-name; Found %s"
-msgstr "Sazba posuvek musí být pár nebo jméno kontextu: %s"
+#: accidental-engraver.cc:279
+#, c-format
+msgid "pair or context-name expected for accidental rule, found %s"
+msgstr ""
 
-#: accidental.cc:223 key-signature-interface.cc:133
+#: accidental.cc:233 key-signature-interface.cc:127
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "Posuvka `%s' nebyla nalezena"
 
-#: afm.cc:144
-#, c-format
-msgid "Error parsing AFM file: `%s'"
+#: afm.cc:142
+#, fuzzy, c-format
+msgid "parsing AFM file: `%s'"
 msgstr "Chyba pøi zpracování AFM souboru: `%s'"
 
 #. FIXME: broken sentence
-#: all-font-metrics.cc:158
+#: all-font-metrics.cc:176
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
 msgstr "Chyba kontrolního souètu pro soubor fontu: `%s'"
 
-#: all-font-metrics.cc:160
+#: all-font-metrics.cc:178
 #, c-format
 msgid "does not match: `%s'"
 msgstr "nesouhlasí: `%s'"
 
-#: all-font-metrics.cc:166
+#: all-font-metrics.cc:184
 #, fuzzy
 msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
 msgstr ""
 " Znovu sestavte v¹echny .afm soubory a odstraòte v¹echny .pk a .tfm soubory. "
 "Spus»te znovu s parametrem -V k výpisu cest k souborùm fontù."
 
-#: all-font-metrics.cc:168
+#: all-font-metrics.cc:186
 msgid "Rerun with -V to show font paths."
 msgstr ""
 
-#: all-font-metrics.cc:170
+#: all-font-metrics.cc:188
 msgid "A script for removing font-files is delivered with the source-code:"
 msgstr ""
 
-#: all-font-metrics.cc:279
+#: all-font-metrics.cc:297
 #, c-format
 msgid "can't find font: `%s'"
 msgstr "nelze nalézt font: `%s'"
 
-#: all-font-metrics.cc:280
-msgid "Loading default font"
+#: all-font-metrics.cc:298
+#, fuzzy
+msgid "loading default font"
 msgstr "Nahrávám implicitní font"
 
-#: all-font-metrics.cc:295
+#: all-font-metrics.cc:313
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "nelze nalézt implicitní font: `%s'"
 
-#: all-font-metrics.cc:296 includable-lexer.cc:59 lily-parser-scheme.cc:69
+#: all-font-metrics.cc:314 includable-lexer.cc:59 lily-parser-scheme.cc:70
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(vyhledávací cesta: `%s')"
 
-#: all-font-metrics.cc:297
-msgid "Giving up"
+#: all-font-metrics.cc:315 volta-engraver.cc:142
+#, fuzzy
+msgid "giving up"
 msgstr "Vzdávám"
 
-#: apply-context-iterator.cc:35
+#: apply-context-iterator.cc:33
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
-#: auto-change-iterator.cc:66 change-iterator.cc:61
-msgid "Can't switch translators, I'm there already"
-msgstr "Nelze pøepnout pøekladaèe. Ji¾ jsem tam."
+#: auto-change-iterator.cc:62 change-iterator.cc:60
+#, fuzzy, c-format
+msgid "can't change, already in translator: %s"
+msgstr "nelze zmìnit `%s' na `%s'"
 
 #: axis-group-engraver.cc:112
-msgid ""
-"Axis_group_engraver: vertical group already has a parent.\n"
-"Do you have two Axis_group_engravers?\n"
-"Killing this vertical group."
+msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: bar-check-iterator.cc:68
+#: axis-group-engraver.cc:113
+msgid "are there two Axis_group_engravers?"
+msgstr ""
+
+#: axis-group-engraver.cc:114
+msgid "removing this vertical group"
+msgstr ""
+
+#: bar-check-iterator.cc:70
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "kontrola taktových èar selhala na: %s"
 
-#: beam-engraver.cc:138
+#: beam-engraver.cc:136
 msgid "already have a beam"
 msgstr "trámec ji¾ existuje"
 
-#: beam-engraver.cc:209
+#: beam-engraver.cc:205
 msgid "unterminated beam"
 msgstr "neukonèený trámec"
 
-#: beam-engraver.cc:242 chord-tremolo-engraver.cc:168
+#: beam-engraver.cc:238 chord-tremolo-engraver.cc:165
 msgid "stem must have Rhythmic structure"
 msgstr "no¾ka musí mít strukturu Rhythmic"
 
-#: beam-engraver.cc:256
+#: beam-engraver.cc:251
 msgid "stem doesn't fit in beam"
 msgstr "no¾ka se nevejde pod trámec"
 
-#: beam-engraver.cc:257
+#: beam-engraver.cc:252
 msgid "beam was started here"
 msgstr "trámec byl zaèat zde"
 
-#: beam.cc:150
+#: beam.cc:142
 msgid "beam has less than two visible stems"
 msgstr "trámec má ménì ne¾ dvì viditelné no¾ky"
 
-#: beam.cc:155
+#: beam.cc:147
 #, fuzzy
 msgid "removing beam with less than two stems"
 msgstr "trámec má ménì ne¾ dvì viditelné no¾ky"
 
-#: beam.cc:1011
+#: beam.cc:988
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: break-align-interface.cc:212
+#: break-align-interface.cc:205
 #, fuzzy, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr "Není záznam pro rozestup %s a `%s'"
@@ -683,30 +726,37 @@ msgstr "Není záznam pro rozestup %s a `%s'"
 msgid "can't change `%s' to `%s'"
 msgstr "nelze zmìnit `%s' na `%s'"
 
-#.
-#. We could change the current translator's id, but that would make
-#. errors hard to catch
-#.
-#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
-#.
-#: change-iterator.cc:93
-msgid "I'm one myself"
-msgstr "Jsem pouze jediný"
+#. FIXME: constant error message.
+#: change-iterator.cc:81
+#, fuzzy
+msgid "can't find context to switch to"
+msgstr "nelze nalézt kontext `%s'"
 
-#: change-iterator.cc:96
+#. We could change the current translator's id, but that would make
+#. errors hard to catch.
+#.
+#. last->translator_id_string () = get_change
+#. ()->change_to_id_string ();
+#: change-iterator.cc:90
+#, fuzzy, c-format
+msgid "not changing to same context type: %s"
+msgstr "neexistující kontext: %s"
+
+#. FIXME: uncomprehensable message
+#: change-iterator.cc:94
 msgid "none of these in my family"
 msgstr "¾ádný z tìchto neznám"
 
-#: chord-tremolo-engraver.cc:97
+#: chord-tremolo-engraver.cc:94
 #, c-format
-msgid "Chord tremolo with %d elements. Must have two elements."
+msgid "expect 2 elements for chord tremolo, found %d"
 msgstr ""
 
-#: chord-tremolo-engraver.cc:134
+#: chord-tremolo-engraver.cc:131
 msgid "unterminated chord tremolo"
 msgstr "neukonèené akordové tremolo"
 
-#: chord-tremolo-iterator.cc:66
+#: chord-tremolo-iterator.cc:64
 msgid "no one to print a tremolos"
 msgstr "není nikdo, kdo by tiskl tremola"
 
@@ -715,15 +765,27 @@ msgstr "není nikdo, kdo by tiskl tremola"
 msgid "clef `%s' not found"
 msgstr "klíè `%s' nebyl nalezen"
 
-#: cluster.cc:122
+#: cluster.cc:118
 #, fuzzy, c-format
 msgid "unknown cluster style `%s'"
 msgstr "neznámý pøekladaè: `%s':"
+
+#: cluster.cc:144
+#, fuzzy
+msgid "junking empty cluster"
+msgstr "matoucí osamocený porrectus"
 
 #: coherent-ligature-engraver.cc:84
 #, c-format
 msgid "gotcha: ptr=%ul"
 msgstr ""
+
+#: coherent-ligature-engraver.cc:93
+#, fuzzy
+msgid "distance undefined, assuming 0.1"
+msgstr ""
+"Mensural_ligature: ¹íøka flexy (flexa-width) není definována pro flexu %d; "
+"pøedpokládám 2.0"
 
 #: coherent-ligature-engraver.cc:96
 #, c-format
@@ -737,105 +799,136 @@ msgstr ""
 
 #: context-def.cc:111
 #, fuzzy, c-format
-msgid "Program has no such type: `%s'"
+msgid "program has no such type: `%s'"
 msgstr "Program nemá takový typ"
 
-#: context-def.cc:286
+#: context-def.cc:285
 #, c-format
 msgid "can't find: `%s'"
 msgstr "nelze nalézt: `%s'"
 
-#: context.cc:151
+#: context-property.cc:111
+msgid "need symbol arguments for \\override and \\revert"
+msgstr ""
+
+#: context.cc:146
 #, fuzzy, c-format
-msgid "Cannot find or create new `%s'"
+msgid "can't find or create new `%s'"
 msgstr "nelze nalézt nebo vytvoøit: `%s'"
 
-#: context.cc:217
+#: context.cc:210
 #, fuzzy, c-format
-msgid "Cannot find or create `%s' called `%s'"
+msgid "can't find or create `%s' called `%s'"
 msgstr "nelze nalézt nebo vytvoøit `%s' nazvaný `%s'"
 
-#: context.cc:315
+#: context.cc:301
 #, c-format
 msgid "can't find or create: `%s'"
 msgstr "nelze nalézt nebo vytvoøit: `%s'"
 
-#: custos.cc:84
+#: custos.cc:83
 #, c-format
 msgid "custos `%s' not found"
 msgstr "kustod `%s' nebyl nalezen"
 
-#: dynamic-engraver.cc:179 span-dynamic-performer.cc:84
+#: dynamic-engraver.cc:171 span-dynamic-performer.cc:84
 msgid "can't find start of (de)crescendo"
 msgstr "nelze nalézt zaèátek (de)crescenda"
 
-#: dynamic-engraver.cc:189
+#: dynamic-engraver.cc:180
 msgid "already have a decrescendo"
 msgstr "ji¾ má decrescendo"
 
-#: dynamic-engraver.cc:191
+#: dynamic-engraver.cc:182
 msgid "already have a crescendo"
 msgstr "ji¾ má crescendo"
 
-#: dynamic-engraver.cc:194
+#: dynamic-engraver.cc:185
 #, fuzzy
-msgid "Cresc started here"
+msgid "cresc starts here"
 msgstr "Crescendo zaèalo zde"
 
-#: dynamic-engraver.cc:315
+#: dynamic-engraver.cc:304
 msgid "unterminated (de)crescendo"
 msgstr "neukonèené (de)crescendo"
 
-#: event-chord-iterator.cc:56 output-property-music-iterator.cc:29
+#: event-chord-iterator.cc:55 output-property-music-iterator.cc:29
 #, fuzzy, c-format
-msgid "Junking event: `%s'"
+msgid "junking event: `%s'"
 msgstr "Matoucí po¾adavek: `%s'"
 
-#: extender-engraver.cc:140 extender-engraver.cc:149
+#: extender-engraver.cc:139 extender-engraver.cc:148
 msgid "unterminated extender"
 msgstr "neukonené prodlou¾ení"
 
-#: folded-repeat-iterator.cc:65
+#: folded-repeat-iterator.cc:64
 msgid "no one to print a repeat brace"
 msgstr "není nikdo, kdo by tiskl repetièní svorku"
 
-#: font-config.cc:34
-#, c-format
-msgid "Failed to add lilypond directory %s"
+#: font-config.cc:23
+msgid "Initializing FontConfig..."
 msgstr ""
 
-#: glissando-engraver.cc:99
+#: font-config.cc:26
+msgid "initializing FontConfig"
+msgstr ""
+
+#: font-config.cc:47
+#, fuzzy, c-format
+msgid "adding lilypond directory: %s"
+msgstr "nelze vytvoøit adresáø: `%s'"
+
+#: font-config.cc:49
+#, fuzzy, c-format
+msgid "adding font directory: %s"
+msgstr "nelze vytvoøit adresáø: `%s'"
+
+#: general-scheme.cc:172
+msgid "infinity or NaN encountered while converting Real number"
+msgstr ""
+
+#: general-scheme.cc:173
+msgid "setting to zero"
+msgstr ""
+
+#: glissando-engraver.cc:97
 #, fuzzy
-msgid "Unterminated glissando."
+msgid "unterminated glissando"
 msgstr "neukonèená ligatura"
 
-#: global-context-scheme.cc:52 global-context-scheme.cc:80
-msgid "Need music in a score"
+#: global-context-scheme.cc:50 global-context-scheme.cc:77
+#, fuzzy
+msgid "no music found in score"
 msgstr "V partituøe je tøeba hudby"
 
-#: global-context-scheme.cc:70
+#: global-context-scheme.cc:67
 #, fuzzy
 msgid "Interpreting music... "
 msgstr "Interpretuji hudbu..."
 
-#: global-context-scheme.cc:91
+#: global-context-scheme.cc:88
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "uplynulý èas: %.2f sekund"
 
-#: global-context.cc:162
+#: global-context.cc:160
 #, c-format
 msgid "can't find `%s' context"
 msgstr "nelze nalézt kontext `%s'"
 
-#: gourlay-breaking.cc:200
+#: gourlay-breaking.cc:199
 #, c-format
 msgid "Optimal demerits: %f"
 msgstr "Optimální penalty: %f"
 
-#: gourlay-breaking.cc:205
-msgid "No feasible line breaking found"
+#: gourlay-breaking.cc:204
+#, fuzzy
+msgid "no feasible line breaking found"
 msgstr "Nebylo nalezeno vhodné místo pro øádkový zlom"
+
+#: gourlay-breaking.cc:212
+msgid "can't find line breaking that satisfies constraints"
+msgstr ""
 
 #: gregorian-ligature-engraver.cc:59
 #, fuzzy, c-format
@@ -847,41 +940,49 @@ msgstr "(ignorováno)"
 msgid "implied \\%s added"
 msgstr ""
 
-#: grob-interface.cc:48
+#: gregorian-ligature-engraver.cc:213
+msgid "Cannot apply `\\~' on first head of ligature; ignoring `\\~'"
+msgstr ""
+
+#: gregorian-ligature-engraver.cc:227
+msgid "can't apply `\\~' on heads with identical pitch; ignoring `\\~'"
+msgstr ""
+
+#: grob-interface.cc:45
 #, fuzzy, c-format
 msgid "Unknown interface `%s'"
 msgstr "neznámý pøekladaè: `%s':"
 
-#: grob-interface.cc:59
+#: grob-interface.cc:56
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: hairpin.cc:106
+#: hairpin.cc:105
 #, fuzzy
 msgid "decrescendo too small"
 msgstr "Text_spanner je pøíli¹ malý"
 
-#: hairpin.cc:107
+#: hairpin.cc:106
 #, fuzzy
 msgid "crescendo too small"
 msgstr "Text_spanner je pøíli¹ malý"
 
-#: horizontal-bracket-engraver.cc:57
-msgid "Don't have that many brackets."
+#: horizontal-bracket-engraver.cc:55
+msgid "don't have that many brackets"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:66
+#: horizontal-bracket-engraver.cc:64
 #, fuzzy
-msgid "Conflicting note group events."
+msgid "conflicting note group events"
 msgstr "Nalezeny konfliktní tóniny."
 
-#: hyphen-engraver.cc:96
+#: hyphen-engraver.cc:89
 #, fuzzy
 msgid "removing unterminated hyphen"
 msgstr "neukonèený spojovník"
 
-#: hyphen-engraver.cc:109
+#: hyphen-engraver.cc:102
 #, fuzzy
 msgid "unterminated hyphen; removing"
 msgstr "neukonèený spojovník"
@@ -890,63 +991,44 @@ msgstr "neukonèený spojovník"
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: includable-lexer.cc:57 kpath.cc:129 lily-guile.cc:90
-#: lily-parser-scheme.cc:76
+#: includable-lexer.cc:57 lily-guile.cc:90 lily-parser-scheme.cc:77
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "nelze nalézt soubor: `%s'"
 
-#: input.cc:116
-msgid "non fatal error: "
-msgstr "nepøíli¹ záva¾ná chyba: "
-
-#: input.cc:124 source-file.cc:136 source-file.cc:229
+#: input.cc:101 source-file.cc:137 source-file.cc:230
 msgid "position unknown"
 msgstr "neznámá pozice"
 
-#: key-performer.cc:88
-msgid "FIXME: key change merge"
-msgstr "FIXME: slouèení zmìn tóniny"
-
-#: kpath.cc:56 kpath.cc:80
-#, fuzzy, c-format
-msgid "kpathsea can't find %s file: `%s'"
-msgstr "Kpathsea nemù¾e nalézt TFM soubor `%s'"
-
-#: kpath.cc:124
-#, fuzzy, c-format
-msgid "kpathsea can't find file: `%s'"
-msgstr "Kpathsea nemù¾e nalézt TFM soubor `%s'"
-
-#: ligature-engraver.cc:153
+#: ligature-engraver.cc:152
 #, fuzzy
 msgid "can't find start of ligature"
 msgstr "nelze nalézt zaèátek ligatury"
 
-#: ligature-engraver.cc:159
+#: ligature-engraver.cc:158
 msgid "no right bound"
 msgstr "chybí pravá hranice"
 
-#: ligature-engraver.cc:185
+#: ligature-engraver.cc:184
 #, fuzzy
 msgid "already have a ligature"
 msgstr "ligatura ji¾ existuje"
 
-#: ligature-engraver.cc:201
+#: ligature-engraver.cc:200
 msgid "no left bound"
 msgstr "chybí levá hranice"
 
-#: ligature-engraver.cc:257
+#: ligature-engraver.cc:256
 #, fuzzy
 msgid "unterminated ligature"
 msgstr "neukonèená ligatura"
 
-#: ligature-engraver.cc:281
+#: ligature-engraver.cc:280
 #, fuzzy
 msgid "ignoring rest: ligature may not contain rest"
 msgstr "ligatura by nemìla obsahovat pomlku; ignoruji pomlku"
 
-#: ligature-engraver.cc:282
+#: ligature-engraver.cc:281
 #, fuzzy
 msgid "ligature was started here"
 msgstr "ligatura byla zaèata zde"
@@ -956,53 +1038,67 @@ msgstr "ligatura byla zaèata zde"
 msgid "(load path: `%s')"
 msgstr "(nahrávací cesta: `%s')"
 
-#: lily-guile.cc:478
+#: lily-guile.cc:484
 #, fuzzy, c-format
-msgid "Can't find property type-check for `%s' (%s)."
+msgid "can't find property type-check for `%s' (%s)."
 msgstr "Nelze nalézt kontrolu typu vlastnosti pro `%s' (%s)."
 
-#: lily-guile.cc:481
-msgid "Perhaps you made a typing error?"
+#: lily-guile.cc:487
+#, fuzzy
+msgid "perhaps a typing error?"
 msgstr "Mo¾ná se stal pøeklep?"
 
-#: lily-guile.cc:487
-msgid "Doing assignment anyway."
+#: lily-guile.cc:493
+#, fuzzy
+msgid "doing assignment anyway"
 msgstr "Pøesto pøiøazuji."
 
-#: lily-guile.cc:501
-#, c-format
-msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
+#: lily-guile.cc:505
+#, fuzzy, c-format
+msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "Kontrola typu `%s' selhala; hodnota `%s' musí být typu `%s'"
 
-#: lily-lexer.cc:211
-#, c-format
-msgid "Identifier name is a keyword: `%s'"
+#: lily-lexer.cc:210
+#, fuzzy, c-format
+msgid "identifier name is a keyword: `%s'"
 msgstr "Název identifikátoru je klíèové slovo: `%s'"
 
-#: lily-lexer.cc:228
+#: lily-lexer.cc:225
 #, c-format
 msgid "error at EOF: %s"
 msgstr "chyba na konci souboru: %s"
 
-#: lily-parser-scheme.cc:68
+#: lily-parser-scheme.cc:30
+#, fuzzy, c-format
+msgid "deprecated function called: %s"
+msgstr "nelze nalézt znak nazvaný: `%s'"
+
+#: lily-parser-scheme.cc:69
 #, fuzzy, c-format
 msgid "can't find init file: `%s'"
 msgstr "nelze nalézt soubor: `%s'"
 
-#: lily-parser-scheme.cc:85
+#: lily-parser-scheme.cc:87
 #, fuzzy, c-format
 msgid "Processing `%s'"
 msgstr "Zpracovávám `%s'..."
 
-#: lily-parser.cc:102
+#: lily-parser.cc:101
 msgid "Parsing..."
 msgstr "Analyzuji..."
 
-#: lily-parser.cc:120
-msgid "Braces don't match"
+#: lily-parser.cc:119
+#, fuzzy
+msgid "braces don't match"
 msgstr "Poèet závorek nesouhlasí"
 
-#: main.cc:92
+#. FIXME: cannot otherwise internationalize this bison warning.
+#: lily-parser.cc:172
+#, fuzzy
+msgid "syntax error, unexpected "
+msgstr "nepøíli¹ záva¾ná chyba: "
+
+#: main.cc:104
 #, fuzzy
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
@@ -1030,89 +1126,106 @@ msgstr ""
 "GNU General Public License. Pokud se tak nestalo, napi¹te Free Software\n"
 "Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139. USA\n"
 
-#: main.cc:121
-msgid "select backend to use"
+#: main.cc:135
+msgid "BACK"
 msgstr ""
 
-#: main.cc:122
+#: main.cc:135
+msgid ""
+"use backend BACK (gnome, ps [default],\n"
+"                                       scm, svg, tex, texstr)"
+msgstr ""
+
+#: main.cc:136
 msgid "EXPR"
 msgstr "VÝRAZ"
 
-#: main.cc:123
-#, fuzzy
-msgid "set option, use -e '(ly:option-usage)' for help"
-msgstr "nastaví volby, pou¾ijte -e '(ly-option-usage)' pro nápovìdu"
+#: main.cc:136
+msgid ""
+"set scheme option, for help use\n"
+"                                       -e '(ly:option-usage)'"
+msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:126
-#, fuzzy
-msgid "EXTs"
-msgstr "PØÍP"
-
-#: main.cc:126
-msgid "list of formats to dump"
+#: main.cc:139
+msgid "FORMATs"
 msgstr ""
 
-#: main.cc:128
-msgid "FIELD"
-msgstr "POLE"
-
-#: main.cc:128
-msgid "write header field to BASENAME.FIELD"
-msgstr "zapísuje pole hlavièky do BASENAME.POLE"
-
-#: main.cc:129
-msgid "add DIR to search path"
-msgstr "pøidává ADRESÁØ do vyhledávací cesty"
-
-#: main.cc:130
-msgid "use FILE as init file"
-msgstr "pou¾ívá SOUBOR jako inicializaèní soubor"
-
-#: main.cc:131
-#, fuzzy
-msgid "write output to FILE (suffix will be added)"
-msgstr "zapisuje výstup do SOUBORu"
-
-#: main.cc:132
-msgid "generate a preview"
+#: main.cc:139
+msgid "dump FORMAT,...  Also as separate options:"
 msgstr ""
 
-#: main.cc:133
-msgid "don't generate full pages"
-msgstr ""
-
-#: main.cc:134
+#: main.cc:140
 #, fuzzy
-msgid "generate PNG"
+msgid "generate DVI (tex backend only)"
 msgstr "vytváøí PDF výstup"
 
-#: main.cc:135
-#, fuzzy
-msgid "generate PostScript"
-msgstr "vytváøí PostScriptový výstup"
-
-#: main.cc:136
-#, fuzzy
-msgid "generate DVI"
-msgstr "vytváøí PDF výstup"
-
-#: main.cc:137
+#: main.cc:141
 #, fuzzy
 msgid "generate PDF (default)"
 msgstr "vytváøí PDF výstup"
 
-#: main.cc:138
+#: main.cc:142
 #, fuzzy
-msgid "generate TeX"
+msgid "generate PNG"
 msgstr "vytváøí PDF výstup"
 
-#: main.cc:139
+#: main.cc:143
+#, fuzzy
+msgid "generate PostScript"
+msgstr "vytváøí PostScriptový výstup"
+
+#: main.cc:144
+msgid "generate TeX (tex backend only)"
+msgstr ""
+
+#: main.cc:146
+msgid "FIELD"
+msgstr "POLE"
+
+#: main.cc:146
+msgid "write header field to BASENAME.FIELD"
+msgstr "zapísuje pole hlavièky do BASENAME.POLE"
+
+#: main.cc:147
+msgid "add DIR to search path"
+msgstr "pøidává ADRESÁØ do vyhledávací cesty"
+
+#: main.cc:148
+msgid "use FILE as init file"
+msgstr "pou¾ívá SOUBOR jako inicializaèní soubor"
+
+#: main.cc:149
+#, fuzzy
+msgid "write output to FILE (suffix will be added)"
+msgstr "zapisuje výstup do SOUBORu"
+
+#: main.cc:150
+msgid "USER,GROUP,JAIL,DIR"
+msgstr ""
+
+#: main.cc:150
+msgid ""
+"chroot to JAIL, become USER:GROUP\n"
+"                                       and cd into DIR"
+msgstr ""
+
+#: main.cc:151
+#, fuzzy
+msgid "do not generate printed output"
+msgstr "vytváøí PostScriptový výstup"
+
+#: main.cc:152
+#, fuzzy
+msgid "generate a preview of the first system"
+msgstr "vytvoøí obrázek prvního systému"
+
+#: main.cc:153
 msgid "run in safe mode"
 msgstr ""
 
-#: main.cc:162
+#: main.cc:177
 #, fuzzy, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1120,59 +1233,114 @@ msgid ""
 msgstr "Copyright (c) %s by"
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:188
+#: main.cc:203
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Pou¾ití: %s [PØEPÍNAÈ]... SOUBOR..."
 
-#: main.cc:190
+#: main.cc:205
 #, fuzzy, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Sází hudbu a/nebo pøehrává MIDI ze SOUBORu."
 
-#: main.cc:192
+#: main.cc:207
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:194
+#: main.cc:209
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:76
+#: main.cc:299
+#, c-format
+msgid "expected %d arguments with jail, found: %d"
+msgstr ""
+
+#: main.cc:313
+#, fuzzy, c-format
+msgid "no such user: %s"
+msgstr "takové nastavení neexistuje: `%s'"
+
+#: main.cc:315
+#, c-format
+msgid "can't get user id from user name: %s: %s"
+msgstr ""
+
+#: main.cc:330
+#, fuzzy, c-format
+msgid "no such group: %s"
+msgstr "neexistující kontext: %s"
+
+#: main.cc:332
+#, fuzzy, c-format
+msgid "can't get group id from group name: %s: %s"
+msgstr "nelze zmìnit `%s' na `%s'"
+
+#: main.cc:340
+#, fuzzy, c-format
+msgid "can't chroot to: %s: %s"
+msgstr "nelze vytvoøit adresáø: `%s'"
+
+#: main.cc:347
+#, fuzzy, c-format
+msgid "can't change group id to: %d: %s"
+msgstr "nelze zmìnit `%s' na `%s'"
+
+#: main.cc:353
+#, fuzzy, c-format
+msgid "can't change user id to: %d: %s"
+msgstr "nelze zmìnit `%s' na `%s'"
+
+#: main.cc:359
+#, fuzzy, c-format
+msgid "can't change working directory to: %s: %s"
+msgstr "nelze vytvoøit adresáø: `%s'"
+
+#. FIXME: constant error message.
+#: mark-engraver.cc:123
+msgid "rehearsalMark must have integer value"
+msgstr ""
+
+#: mark-engraver.cc:129
+msgid "mark label must be a markup object"
+msgstr ""
+
+#: mensural-ligature-engraver.cc:74
 msgid "ligature with less than 2 heads -> skipping"
 msgstr "ligatura s ménì ne¾ dvìma hlavièkami -> vynechávám"
 
-#: mensural-ligature-engraver.cc:102
-msgid "can not determine pitch of ligature primitive -> skipping"
+#: mensural-ligature-engraver.cc:101
+#, fuzzy
+msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr "nelze urèit vý¹ku poèátku ligatury -> vynechávám"
 
-#: mensural-ligature-engraver.cc:116
+#: mensural-ligature-engraver.cc:115
 #, fuzzy
 msgid "single note ligature - skipping"
 msgstr "interval ligatury je prima -> vynechávám"
 
-#: mensural-ligature-engraver.cc:128
+#: mensural-ligature-engraver.cc:127
 msgid "prime interval within ligature -> skipping"
 msgstr "interval ligatury je prima -> vynechávám"
 
-#: mensural-ligature-engraver.cc:140
+#: mensural-ligature-engraver.cc:139
 #, fuzzy
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr "menzurální ligatura: délka není ani jedna z L, B, S -> vynechávám"
 
-#: mensural-ligature-engraver.cc:188
+#: mensural-ligature-engraver.cc:187
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:199
+#: mensural-ligature-engraver.cc:198
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:226
+#: mensural-ligature-engraver.cc:225
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -1184,33 +1352,38 @@ msgstr ""
 msgid "unexpected case fall-through"
 msgstr "neznámý pøípad"
 
-#: mensural-ligature.cc:132
+#: mensural-ligature.cc:131
 #, fuzzy
 msgid "Mensural_ligature: unexpected case fall-through"
 msgstr "Mensural_ligature: neznámý pøípad"
 
-#: mensural-ligature.cc:184
+#: mensural-ligature.cc:183
 #, fuzzy
 msgid "Mensural_ligature: (join_right == 0)"
 msgstr "Mensural_ligature: (join_left == 0)"
 
-#: midi-item.cc:151
+#: midi-item.cc:150
 #, fuzzy, c-format
 msgid "no such MIDI instrument: `%s'"
 msgstr "takový nástroj neexistuje: `%s'"
 
-#: midi-item.cc:255
+#: midi-item.cc:254
 msgid "silly pitch"
 msgstr "podivná vý¹ka"
 
-#: midi-item.cc:271
+#: midi-item.cc:270
 #, c-format
-msgid "Experimental: temporarily fine tuning (of %d cents) a channel."
+msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr ""
 
-#: midi-stream.cc:39
+#: midi-stream.cc:27
 #, fuzzy, c-format
-msgid "could not write file: `%s'"
+msgid "can't open for write: %s: %s"
+msgstr "nelze otevøít soubor: `%s'"
+
+#: midi-stream.cc:44
+#, fuzzy, c-format
+msgid "can't write to file: `%s'"
 msgstr "nelze otevøít soubor: `%s'"
 
 #: music.cc:176
@@ -1220,64 +1393,82 @@ msgstr ""
 
 #: music.cc:239
 #, fuzzy, c-format
-msgid "Transposition by %s makes alteration larger than double"
+msgid "transposition by %s makes alteration larger than double"
 msgstr "Transpozice o %s vytváøí více posuvek ne¾ dvì"
+
+#: new-fingering-engraver.cc:84
+msgid "can't add text scripts to individual note heads"
+msgstr ""
 
 #.
 #. music for the softenon children?
 #.
-#: new-fingering-engraver.cc:153
+#: new-fingering-engraver.cc:158
 msgid "music for the martians."
 msgstr ""
 
-#: new-fingering-engraver.cc:233
-msgid "Fingerings are also not down?! Putting them down anyway."
+#: new-fingering-engraver.cc:266
+msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-lyric-combine-music-iterator.cc:243
+#: new-fingering-engraver.cc:267
+msgid "placing below"
+msgstr ""
+
+#: new-lyric-combine-music-iterator.cc:240
 #, fuzzy, c-format
 msgid "cannot find Voice `%s'"
 msgstr "nelze nalézt soubor: `%s'"
 
-#: note-collision.cc:413
-msgid "Too many clashing notecolumns.  Ignoring them."
+#: note-collision.cc:404
+#, fuzzy
+msgid "ignoring too many clashing note columns"
 msgstr "Pøíli¹ mnoho kolizí notových sloupcù. Ignoruji je."
 
-#: note-head.cc:68
+#: note-column.cc:115
+msgid "can't have note heads and rests together on a stem"
+msgstr ""
+
+#: note-head.cc:66
 #, c-format
 msgid "note head `%s' not found"
 msgstr "notová hlavièka `%s' nebyla nalezena"
 
 #: open-type-font.cc:29
-#, c-format
-msgid "Cannot allocate %d bytes"
-msgstr ""
+#, fuzzy, c-format
+msgid "can't allocate %d bytes"
+msgstr "nelze otevøít soubor: `%s'"
 
 #: open-type-font.cc:33
+#, fuzzy, c-format
+msgid "can't load font table: %s"
+msgstr "nelze nalézt font: `%s'"
+
+#: open-type-font.cc:84
 #, c-format
-msgid "Could not load %s font table"
+msgid "unsupported font format: %s"
 msgstr ""
 
-#: open-type-font.cc:85
+#: open-type-font.cc:86
 #, c-format
-msgid "Unsupported font format: %s"
+msgid "unknown error: %d reading font file: %s"
 msgstr ""
 
-#: open-type-font.cc:89
-#, c-format
-msgid "Unknown error: %d reading font file: %s"
-msgstr ""
-
-#: open-type-font.cc:144
+#: open-type-font.cc:140
 #, c-format
 msgid "FT_Get_Glyph_Name() returned error: %d"
 msgstr ""
 
-#: pango-font.cc:147
-msgid "FreeType face has no PostScript font name."
+#: pango-font.cc:130
+#, fuzzy, c-format
+msgid "no PostScript font name for font `%s'"
+msgstr "`%s' není PostScriptovým souborem"
+
+#: pango-font.cc:177
+msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: paper-outputter-scheme.cc:27
+#: paper-outputter-scheme.cc:26
 #, fuzzy, c-format
 msgid "Layout output to `%s'..."
 msgstr "výstup %s se zapisuje do `%s'..."
@@ -1297,179 +1488,176 @@ msgstr "Pøedzpracovávám prvky..."
 msgid "GUILE signaled an error for the expression beginning here"
 msgstr "GUILE hlásí chybu ve výrazu, který zaèíná zde"
 
-#: pdf.cc:253 source-file.cc:47
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "nelze otevøít soubor: `%s'"
-
 #: percent-repeat-engraver.cc:100
-msgid "Don't know how to handle a percent repeat of this length."
+#, fuzzy, c-format
+msgid "can't handle a percent repeat of length: %s"
 msgstr "Nevím, jak zpracovat procentové opakování této délky."
 
-#: percent-repeat-engraver.cc:160
+#: percent-repeat-engraver.cc:158
 #, fuzzy
 msgid "unterminated percent repeat"
 msgstr "neuzavøená pedálová závorka"
 
-#: percent-repeat-iterator.cc:54
+#: percent-repeat-iterator.cc:51
 msgid "no one to print a percent"
 msgstr "není nikdo, kdo by tiskl procento"
 
-#: performance.cc:49
+#: performance.cc:47
 #, fuzzy
 msgid "Track..."
 msgstr "Stopa ... "
 
-#: performance.cc:92
+#: performance.cc:71
+msgid "MIDI channel wrapped around"
+msgstr ""
+
+#: performance.cc:72
+msgid "remapping modulo 16"
+msgstr ""
+
+#: performance.cc:91
 msgid "Creator: "
 msgstr "Vytvoøil: "
 
-#: performance.cc:112
+#: performance.cc:111
 msgid "at "
 msgstr "v "
 
-#: performance.cc:166
+#: performance.cc:164
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "MIDI výstup do `%s'..."
 
-#: phrasing-slur-engraver.cc:116
+#: phrasing-slur-engraver.cc:115
 msgid "unterminated phrasing slur"
 msgstr "neukonèené frázovací legato"
 
-#: piano-pedal-engraver.cc:232
-msgid "Need 3 strings for piano pedals. No pedal made. "
+#: piano-pedal-engraver.cc:224
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %d"
 msgstr ""
 
-#: piano-pedal-engraver.cc:247 piano-pedal-engraver.cc:262
+#: piano-pedal-engraver.cc:240 piano-pedal-engraver.cc:255
 #: piano-pedal-performer.cc:80
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
 msgstr "nelze nalézt zaèátek pedálu piana: `%s'"
 
-#: piano-pedal-engraver.cc:313
+#: piano-pedal-engraver.cc:305
 #, fuzzy, c-format
 msgid "can't find start of piano pedal bracket: `%s'"
 msgstr "nelze nalézt zaèátek pedálu piana: `%s'"
 
-#: property-iterator.cc:95
-#, c-format
-msgid "Not a grob name, `%s'."
+#: property-iterator.cc:90
+#, fuzzy, c-format
+msgid "not a grob name, `%s'"
 msgstr "Není jménem grobu, `%s'."
 
-#: quote-iterator.cc:251
+#: quote-iterator.cc:254
 #, fuzzy, c-format
-msgid "In quotation: junking event %s"
+msgid "in quotation: junking event %s"
 msgstr "Matoucí po¾adavek: `%s'"
 
-#: relative-octave-check.cc:40
+#: relative-octave-check.cc:38
 msgid "Failed octave check, got: "
 msgstr ""
 
-#: rest-collision.cc:152
+#: rest-collision.cc:147
 msgid "rest direction not set.  Cannot resolve collision."
 msgstr ""
 
-#: rest-collision.cc:164 rest-collision.cc:207
+#: rest-collision.cc:162 rest-collision.cc:208
 msgid "too many colliding rests"
 msgstr "pøíli¹ mnoho kolidujících pomlk"
 
-#: rest.cc:141
+#: rest.cc:140
 #, fuzzy, c-format
 msgid "rest `%s' not found"
 msgstr "pomlka `%s' nebyla nalezena, "
 
-#: scm-option.cc:59
+#: scm-option.cc:54
 #, c-format
 msgid "lilypond -e EXPR means:"
 msgstr "lilypond -e VÝRAZ znamená:"
 
-#: scm-option.cc:61
+#: scm-option.cc:56
 #, c-format
 msgid "  Evalute the Scheme EXPR before parsing any .ly files."
 msgstr "  Vyhodnotí VÝRAZ Scheme pøed zpracováním v¹ech souborù .ly."
 
-#: scm-option.cc:63
+#: scm-option.cc:58
 #, c-format
 msgid ""
 "  Multiple -e options may be given, they will be evaluated sequentially."
 msgstr "  Voleb -e mù¾e být zadáno více, budou vyhodnoceny postupnì."
 
-#: scm-option.cc:65
+#: scm-option.cc:60
 #, fuzzy, c-format
 msgid ""
 "  The function ly:set-option allows for access to some internal variables."
 msgstr "  Funkce ly-set-option dovoluje nastavovat nìkteré interní promìnné."
 
-#: scm-option.cc:67
+#: scm-option.cc:62
 #, fuzzy, c-format
 msgid "Usage: lilypond -e \"(ly:set-option SYMBOL VAL)\""
 msgstr "Pou¾ití: lilypond -e \"(ly-set-option SYMBOL HODN)\""
 
-#: scm-option.cc:69
+#: scm-option.cc:64
 #, c-format
-msgid "Use help as  SYMBOL to get online help."
+msgid "Use help as SYMBOL to get online help."
 msgstr ""
 
-#: scm-option.cc:137 scm-option.cc:175
+#: scm-option.cc:135 scm-option.cc:175
 #, fuzzy, c-format
-msgid "No such internal option: %s"
+msgid "no such internal option: %s"
 msgstr "Neznámá interní volba!"
 
-#: score-engraver.cc:106 score-engraver.cc:117 score-engraver.cc:119
+#: score-engraver.cc:105
 #, fuzzy, c-format
 msgid "cannot find `%s'"
 msgstr "nelze nalézt `%s'"
 
-#: score-engraver.cc:108
+#: score-engraver.cc:107
 #, fuzzy
 msgid "Music font has not been installed properly."
 msgstr "Písma nebyla správnì nainstalována. Konèím"
 
-#: score-engraver.cc:110
+#: score-engraver.cc:109
 #, fuzzy, c-format
 msgid "Search path `%s'"
 msgstr "(vyhledávací cesta: `%s')"
 
-#: score-engraver.cc:121
-#, c-format
-msgid "Install the ec-fonts-mftraced package from: %s."
-msgstr ""
-
-#: score-engraver.cc:124
-msgid "Aborting."
-msgstr ""
-
-#: score.cc:224
+#: score.cc:213
 #, fuzzy
-msgid "Already have music in score"
+msgid "already have music in score"
 msgstr "V partituøe je tøeba hudby"
 
-#: score.cc:225
+#: score.cc:214
 #, fuzzy
-msgid "This is the previous music"
+msgid "this is the previous music"
 msgstr "Toto je záznam chyb:\n"
 
-#: score.cc:230
-msgid "Error found in this music expression. Ignoring it"
-msgstr ""
+#: score.cc:219
+#, fuzzy
+msgid "errors found, ignoring music expression"
+msgstr "Nalezeny chyby/*, nezpracovávám partituru*/"
 
 #. FIXME:
-#: script-engraver.cc:101
+#: script-engraver.cc:100
 #, fuzzy
-msgid "Do not know how to interpret articulation: "
+msgid "don't know how to interpret articulation: "
 msgstr "Nevím, jak interpretovat artikulaèní znaménko `%s'"
 
-#: script-engraver.cc:102
-msgid "Scheme encoding: "
+#: script-engraver.cc:101
+msgid "scheme encoding: "
 msgstr ""
 
 #. this shouldn't happen, but let's continue anyway.
-#: separation-item.cc:54 separation-item.cc:98
+#: separation-item.cc:52 separation-item.cc:96
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Separation_item: Moc jsem pil"
 
-#: simple-spacer.cc:506
+#: simple-spacer.cc:410
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "Chybí pru¾ný výplnìk mezi sloupcem %d a následujícím"
@@ -1478,17 +1666,22 @@ msgstr "Chybí pru¾ný výplnìk mezi sloupcem %d a následujícím"
 msgid "unterminated slur"
 msgstr "neukonèená ligatura"
 
-#: slur-engraver.cc:123
+#: slur-engraver.cc:122
 #, fuzzy
-msgid "No slur to end"
-msgstr "zde není repetice k ukonèení"
+msgid "can't end slur"
+msgstr "nelze nalézt: `%s'"
 
-#: source-file.cc:60
+#: source-file.cc:48
 #, c-format
-msgid "Huh?  Got %d, expected %d characters"
-msgstr "Joj! Obdr¾eno %d, oèekáváno %d znakù"
+msgid "can't open file: `%s'"
+msgstr "nelze otevøít soubor: `%s'"
 
-#: spacing-spanner.cc:386
+#: source-file.cc:61
+#, c-format
+msgid "expected to read %d characters, got %d"
+msgstr ""
+
+#: spacing-spanner.cc:377
 #, fuzzy, c-format
 msgid "Global shortest duration is %s"
 msgstr "Celkovì nejkrat¹í délka je %s\n"
@@ -1499,63 +1692,64 @@ msgstr "délka tremola je pøíli¹ velká"
 
 #. FIXME:
 #: stem-engraver.cc:125
-#, c-format
-msgid "Adding note head to incompatible stem (type = %d)"
+#, fuzzy, c-format
+msgid "adding note head to incompatible stem (type = %d)"
 msgstr "Pøidávám hlavièku k nekompatibilní no¾ce (typ = %d)"
 
-#: stem-engraver.cc:127
-msgid "Don't you want polyphonic voices instead?"
+#: stem-engraver.cc:126
+msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
-#: stem.cc:125
-msgid "Weird stem size; check for narrow beams"
+#: stem.cc:124
+#, fuzzy
+msgid "weird stem size, check for narrow beams"
 msgstr "Podivná velikost no¾ky; zkontrolujte úzké trámce"
 
-#: stem.cc:579
+#: stem.cc:577
 #, c-format
 msgid "flag `%s' not found"
 msgstr "praporek `%s' nebyl nalezen"
 
-#: stem.cc:590
+#: stem.cc:588
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "symbol praporku `%s' nebyl nalezen"
 
-#: system.cc:148
+#: system.cc:145
 #, c-format
 msgid "Element count %d."
 msgstr "Poèet prvkù je %d."
 
-#: system.cc:301
+#: system.cc:224
 #, fuzzy, c-format
 msgid "Grob count %d"
 msgstr "Poèet grobù je %d "
 
-#: system.cc:319
+#: system.cc:240
 #, fuzzy
 msgid "Calculating line breaks..."
 msgstr "Poèítám pozice sloupcù..."
 
-#: text-spanner-engraver.cc:62
+#: text-spanner-engraver.cc:61
 msgid "can't find start of text spanner"
 msgstr "nelze nalézt zaèátek textového pøeklenutí"
 
-#: text-spanner-engraver.cc:76
+#: text-spanner-engraver.cc:75
 msgid "already have a text spanner"
 msgstr "ji¾ obsahuje textové pøeklenutí"
 
-#: text-spanner-engraver.cc:138
+#: text-spanner-engraver.cc:136
 msgid "unterminated text spanner"
 msgstr "neukonèené textové pøeklenutí"
 
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
-#: tfm-reader.cc:108
+#: tfm-reader.cc:106
 #, c-format
 msgid "TFM header of `%s' has only %u word (s)"
 msgstr "TFM hlavièka `%s' má pouze %u slov"
 
-#: tfm-reader.cc:142
+#: tfm-reader.cc:139
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr ""
@@ -1566,11 +1760,11 @@ msgstr ""
 msgid "can't find ascii character: %d"
 msgstr "nelze nalézt ascii znak: %d"
 
-#: tie-engraver.cc:199
+#: tie-engraver.cc:194
 msgid "lonely tie"
 msgstr "osamocená ligatura"
 
-#: time-scaled-music-iterator.cc:23
+#: time-scaled-music-iterator.cc:22
 msgid "no one to print a tuplet start bracket"
 msgstr "není kdo by vytiskl otevírací závorku pro triolu (kvartolu, ...)"
 
@@ -1579,41 +1773,41 @@ msgstr "není kdo by vytiskl otevírací závorku pro triolu (kvartolu, ...)"
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:55
+#: time-signature-engraver.cc:54
 #, c-format
-msgid "Found strange time signature %d/%d."
+msgid "strange time signature found: %d/%d"
 msgstr ""
 
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:85
+#: time-signature.cc:83
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 "symbol pro znaèení taktu `%s' nebyl nalezen; mìním na znaèení èíslicemi"
 
-#: translator-ctors.cc:53
+#: translator-ctors.cc:52
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "neznámý pøekladaè: `%s':"
 
-#: trill-spanner-engraver.cc:70
+#: trill-spanner-engraver.cc:68
 #, fuzzy
 msgid "can't find start of trill spanner"
 msgstr "nelze nalézt zaèátek textového pøeklenutí"
 
-#: trill-spanner-engraver.cc:84
+#: trill-spanner-engraver.cc:82
 #, fuzzy
 msgid "already have a trill spanner"
 msgstr "ji¾ obsahuje textové pøeklenutí"
 
-#: trill-spanner-engraver.cc:144
+#: trill-spanner-engraver.cc:142
 #, fuzzy
 msgid "unterminated trill spanner"
 msgstr "neukonèené textové pøeklenutí"
 
-#: tuplet-bracket.cc:451
-msgid "Killing tuplet bracket across linebreak."
+#: tuplet-bracket.cc:438
+msgid "removing tuplet bracket across linebreak"
 msgstr ""
 
 #: vaticana-ligature-engraver.cc:341
@@ -1623,10 +1817,17 @@ msgid ""
 "selected ligature style"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:571
+#: vaticana-ligature-engraver.cc:568
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr ""
+
+#: vaticana-ligature.cc:87
+#, fuzzy
+msgid "flexa-height undefined; assuming 0"
+msgstr ""
+"Mensural_ligature: ¹íøka flexy (flexa-width) není definována pro flexu %d; "
+"pøedpokládám 2.0"
 
 #: vaticana-ligature.cc:93
 #, fuzzy
@@ -1638,79 +1839,94 @@ msgstr "vzestupný porrectus ve stylu vaticana "
 msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr "Mensural_ligature: (join_left == 0)"
 
-#: volta-engraver.cc:140
-msgid "No volta spanner to end"
-msgstr "zde není repetice k ukonèení"
+#. fixme: be more verbose.
+#: volta-engraver.cc:127
+#, fuzzy
+msgid "can't end volta spanner"
+msgstr "nelze nalézt zaèátek textového pøeklenutí"
 
-#: volta-engraver.cc:151
-msgid "Already have a volta spanner.  Stopping that one prematurely."
+#: volta-engraver.cc:137
+#, fuzzy
+msgid "already have a volta spanner, ending that one prematurely"
 msgstr "Ji¾ má repetici. Pøedèasnì ji ukonèuji."
 
-#: volta-engraver.cc:155
-msgid "Also have a stopped spanner.  Giving up."
-msgstr "Také má právì ukonèenou repetici. Vzdávám."
+#: volta-engraver.cc:141
+#, fuzzy
+msgid "also already have an ended spanner"
+msgstr "ji¾ obsahuje textové pøeklenutí"
 
 #: parser.yy:82
-msgid "Tag must be symbol or list of symbols."
+msgid "tag must be symbol or list of symbols"
 msgstr ""
 
-#: parser.yy:567
+#: parser.yy:559
 #, fuzzy
-msgid "Identifier should have alphabetic characters only"
+msgid "identifier should have alphabetic characters only"
 msgstr "Identifikátor by mìl obsahovat pouze písmena"
 
-#: parser.yy:721
-msgid "\\paper cannot be in \\score. Use \\layout instead"
+#: parser.yy:717
+msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:745
-msgid "Need \\paper for paper block."
+#: parser.yy:741
+msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:890
-msgid "More alternatives than repeats.  Junking excess alternatives."
+#: parser.yy:886
+#, fuzzy
+msgid "more alternatives than repeats"
 msgstr "Více alternativ ne¾ opakování. Zahazuji nadbyteèné alternativy."
 
-#: parser.yy:1082
-msgid "Music head function should return Music object."
+#: parser.yy:923
+#, c-format
+msgid "expect 2 elements for Chord tremolo, found %d"
 msgstr ""
 
-#: parser.yy:1354
+#: parser.yy:1078
+msgid "music head function must return Music object"
+msgstr ""
+
+#: parser.yy:1350
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1714
+#: parser.yy:1710
 #, fuzzy
-msgid "Second argument must be pitch list."
+msgid "second argument must be pitch list"
 msgstr "Druhý argument musí být symbol"
 
-#: parser.yy:1753 parser.yy:1758 parser.yy:2238
-msgid "Have to be in Lyric mode for lyrics"
+#: parser.yy:1749 parser.yy:1754 parser.yy:2235
+#, fuzzy
+msgid "have to be in Lyric mode for lyrics"
 msgstr "Pro zápis textu musíte být v módu Lyric"
 
-#: parser.yy:1851
-msgid "Expecting string as script definition"
+#: parser.yy:1847
+#, fuzzy
+msgid "expecting string as script definition"
 msgstr "Oèekáván øetìzec jako definice skriptu"
 
-#: parser.yy:2014 parser.yy:2064
+#: parser.yy:2010 parser.yy:2060
 #, c-format
 msgid "not a duration: %d"
 msgstr "není délkou: %d"
 
-#: parser.yy:2157
-msgid "Have to be in Note mode for notes"
+#: parser.yy:2154
+#, fuzzy
+msgid "have to be in Note mode for notes"
 msgstr "Pro zápis not musíte být v módu Note"
 
-#: parser.yy:2251
-msgid "Have to be in Chord mode for chords"
+#: parser.yy:2248
+#, fuzzy
+msgid "have to be in Chord mode for chords"
 msgstr "Pro zápis akordù musíte být v módu Chord"
 
-#: parser.yy:2403
+#: parser.yy:2399
 msgid "need integer number arg"
 msgstr "argument musí být celé èíslo"
 
-#: parser.yy:2586
-msgid "Suspect duration found following this beam"
+#: parser.yy:2597
+#, fuzzy, c-format
+msgid "suspect duration in beam: %d"
 msgstr "Byla oèekávána délka následující za tímto trámcem"
 
 #: lexer.ll:193
@@ -1719,11 +1935,11 @@ msgid "Renaming input to: `%s'"
 msgstr "Matoucí po¾adavek: `%s'"
 
 #: lexer.ll:201
-msgid "No quoted string found after \\version"
+msgid "quoted string expected after \\version"
 msgstr ""
 
 #: lexer.ll:205
-msgid "No quoted string found after \\renameinput"
+msgid "quoted string expected after \\renameinput"
 msgstr ""
 
 #: lexer.ll:218
@@ -1742,8 +1958,8 @@ msgstr "¹patný nebo nedefinovaný identifikátor: `%s'"
 
 #. backup rule
 #: lexer.ll:266
-msgid "Missing end quote"
-msgstr "Chybìjící koncová uvozovka"
+msgid "end quote missing"
+msgstr ""
 
 #: lexer.ll:428
 #, fuzzy
@@ -1760,68 +1976,359 @@ msgstr "Na konci textu byla nalezena závorka. Zapomnìl jste na mezeru?"
 msgid "invalid character: `%c'"
 msgstr "neplatný znak: `%c'"
 
-#: lexer.ll:702 lexer.ll:703
+#: lexer.ll:703 lexer.ll:704
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "neznámá escape sekvence: `\\%s'"
 
-#: lexer.ll:800 lexer.ll:801
+#: lexer.ll:801 lexer.ll:802
 #, fuzzy, c-format
 msgid "Incorrect lilypond version: %s (%s, %s)"
 msgstr "Nesprávná verze lilypondu: %s (%s, %s)"
 
-#: lexer.ll:801 lexer.ll:802
+#: lexer.ll:802 lexer.ll:803
 #, fuzzy
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Zva¾te konverzi zdrojového textu pomocí skriptu convert-ly"
 
-#: backend-library.scm:19
+#. TODO: print location
+#: lexer.ll:939 lexer.ll:940
+#, fuzzy
+msgid "can't find signature for music function"
+msgstr "nelze nalézt kontext `%s'"
+
+#: out/parser.cc:1881
+#, fuzzy
+msgid "syntax error: cannot back up"
+msgstr "nepøíli¹ záva¾ná chyba: "
+
+#: out/parser.cc:5600
+msgid "syntax error; also virtual memory exhausted"
+msgstr ""
+
+#: out/parser.cc:5604
+#, fuzzy
+msgid "syntax error"
+msgstr "nepøíli¹ záva¾ná chyba: "
+
+#: out/parser.cc:5726
+msgid "parser stack overflow"
+msgstr ""
+
+#: backend-library.scm:18
 #, fuzzy, lisp-format
 msgid "Invoking `~a'..."
 msgstr "Vyvolávám `%s'"
 
-#: backend-library.scm:24
+#: backend-library.scm:23
 #, lisp-format
 msgid "`~a' failed (~a)"
 msgstr ""
 
-#: backend-library.scm:45 framework-tex.scm:366 framework-tex.scm:387
+#: backend-library.scm:42 framework-tex.scm:332 framework-tex.scm:357
 #, fuzzy, lisp-format
 msgid "Converting to `~a'..."
 msgstr "Zapisuji `%s'..."
 
-#: clef.scm:124
+#. Do not try to guess the name of the png file,
+#. GS produces PNG files like BASE-page%d.png.
+#. (ly:message (_ "Converting to `~a'...")
+#. (string-append (basename name ".ps") "-page1.png" )))
+#: backend-library.scm:65
 #, fuzzy, lisp-format
-msgid "Unknown clef type `~a'"
-msgstr "neznámý pøekladaè: `%s':"
+msgid "Converting to ~a..."
+msgstr "Zapisuji `%s'..."
 
-#: clef.scm:125
-msgid "See scm/lily.scm for supported clefs"
-msgstr ""
-
-#: framework-tex.scm:130
+#: backend-library.scm:95
 #, lisp-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
-#: lily-library.scm:356
+#: beam.scm:79
 #, lisp-format
-msgid "No \\version statement found.  Please add~afor future compatibility."
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
 msgstr ""
 
-#: lily.scm:95
+#: beam.scm:93
+#, lisp-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr ""
+
+#: clef.scm:124
+#, fuzzy, lisp-format
+msgid "unknown clef type `~a'"
+msgstr "neznámý pøekladaè: `%s':"
+
+#: clef.scm:125
+msgid "see scm/clef.scm for supported clefs"
+msgstr ""
+
+#: define-context-properties.scm:13 define-grob-properties.scm:10
+#: define-music-properties.scm:10
+#, lisp-format
+msgid "symbol ~S redefined"
+msgstr ""
+
+#: define-markup-commands.scm:54
+msgid "No systems found in \\score markup.  Does it have a \\layout? block"
+msgstr ""
+
+#: define-markup-commands.scm:595
+#, fuzzy, lisp-format
+msgid "not a valid duration string: ~a"
+msgstr "není délkou: %d"
+
+#: define-music-types.scm:802
+#, lisp-format
+msgid "symbol expected: ~S"
+msgstr ""
+
+#: define-music-types.scm:805
+#, fuzzy, lisp-format
+msgid "can't find music object: ~S"
+msgstr "nelze nalézt kontext `%s'"
+
+#: define-music-types.scm:825
+#, fuzzy, lisp-format
+msgid "unknown repeat type `~S'"
+msgstr "neznámý pøekladaè: `%s':"
+
+#: define-music-types.scm:826
+msgid "See music-types.scm for supported repeats"
+msgstr ""
+
+#: document-backend.scm:91
+#, lisp-format
+msgid "pair expected in doc ~s"
+msgstr ""
+
+#: document-backend.scm:135
+#, fuzzy, lisp-format
+msgid "can't find interface for property: ~S"
+msgstr "nelze nalézt znak èíslo: %d"
+
+#: document-backend.scm:144
+#, fuzzy, lisp-format
+msgid "unknown interface: ~S"
+msgstr "neznámý pøekladaè: `%s':"
+
+#: documentation-lib.scm:45
+#, fuzzy, lisp-format
+msgid "Processing ~S..."
+msgstr "Zpracovávám `%s'..."
+
+#: documentation-lib.scm:160
+#, fuzzy, lisp-format
+msgid "Writing ~S..."
+msgstr "Zapisuji `%s'..."
+
+#: documentation-lib.scm:182
+#, lisp-format
+msgid "can't find description for property ~S"
+msgstr ""
+
+#: framework-ps.scm:258
+#, fuzzy, lisp-format
+msgid "can't find CFF/PFA/PFB font ~S"
+msgstr "nelze nalézt font: `%s'"
+
+#: framework-ps.scm:357
+#, lisp-format
+msgid "can't convert <stdout> to ~S"
+msgstr ""
+
+#: framework-ps.scm:372 framework-ps.scm:375
+#, lisp-format
+msgid "can't generate ~S using the postscript back-end"
+msgstr ""
+
+#: framework-tex.scm:349
+#, fuzzy, lisp-format
+msgid "TeX file name must not contain whitespace: `~a'"
+msgstr "jméno souboru by nemìlo obsahovat mezery: `%s'"
+
+#: lily-library.scm:314
+#, fuzzy, lisp-format
+msgid "unknown unit: ~S"
+msgstr "neznámý pøekladaè: `%s':"
+
+#: lily-library.scm:345
+#, lisp-format
+msgid "No \\version statement found.  Add~afor future compatibility."
+msgstr ""
+
+#: lily.scm:97
 #, lisp-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:313
-msgid "error: failed files: "
+#: lily.scm:319
+#, lisp-format
+msgid "failed files: ~S"
 msgstr ""
 
-#: page-layout.scm:426
+#: markup.scm:88
+#, lisp-format
+msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr ""
+
+#: markup.scm:94
+#, lisp-format
+msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr ""
+
+#: music-functions.scm:507
+#, fuzzy, lisp-format
+msgid "music expected: ~S"
+msgstr "oèekávána mezera (whitespace)"
+
+#. FIXME: uncomprehensable message
+#: music-functions.scm:558
+#, lisp-format
+msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
+msgstr ""
+
+#: music-functions.scm:702
+#, fuzzy, lisp-format
+msgid "can't find quoted music `~S'"
+msgstr "nelze nalézt font: `%s'"
+
+#: music-functions.scm:875
+#, fuzzy, lisp-format
+msgid "unknown accidental style: ~S"
+msgstr "neznámá sazba posuvek: %s. Ignorováno"
+
+#: output-lib.scm:245
+#, fuzzy, lisp-format
+msgid "unknown bar glyph: `~S'"
+msgstr "neznámý pøekladaè: `%s':"
+
+#: output-ps.scm:307
+msgid "utf8-string encountered in PS backend"
+msgstr ""
+
+#: output-svg.scm:41
+#, fuzzy, lisp-format
+msgid "undefined: ~S"
+msgstr "nedefinované left_head"
+
+#: output-svg.scm:119
+#, lisp-format
+msgid "can't decypher Pango description: ~a"
+msgstr ""
+
+#: output-tex.scm:114
+#, fuzzy, lisp-format
+msgid "can't find ~a in ~a"
+msgstr "nelze nalézt zaèátek ligatury"
+
+#: page-layout.scm:425
 #, fuzzy
 msgid "Calculating page breaks..."
 msgstr "Poèítám pozice sloupcù..."
+
+#: paper.scm:68
+msgid "Not in toplevel scope"
+msgstr ""
+
+#: paper.scm:113
+#, lisp-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr ""
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:141
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr ""
+
+#: to-xml.scm:190
+#, fuzzy
+msgid "assertion failed"
+msgstr "Spu¹tìní LaTeXu selhalo"
+
+#~ msgid "More alternatives than repeats.  Junking excess alternatives."
+#~ msgstr "Více alternativ ne¾ opakování. Zahazuji nadbyteèné alternativy."
+
+#, fuzzy
+#~ msgid "Second argument must be pitch list."
+#~ msgstr "Druhý argument musí být symbol"
+
+#~ msgid "Have to be in Lyric mode for lyrics"
+#~ msgstr "Pro zápis textu musíte být v módu Lyric"
+
+#~ msgid "Expecting string as script definition"
+#~ msgstr "Oèekáván øetìzec jako definice skriptu"
+
+#~ msgid "Have to be in Note mode for notes"
+#~ msgstr "Pro zápis not musíte být v módu Note"
+
+#~ msgid "Have to be in Chord mode for chords"
+#~ msgstr "Pro zápis akordù musíte být v módu Chord"
+
+#, fuzzy
+#~ msgid "programming error: "
+#~ msgstr "chyba programrátora: %s (Pokraèuji: dr¾te mi palce)\n"
+
+#, fuzzy
+#~ msgid "Programming error: "
+#~ msgstr "chyba programrátora: %s (Pokraèuji: dr¾te mi palce)\n"
+
+#~ msgid "Can't switch translators, I'm there already"
+#~ msgstr "Nelze pøepnout pøekladaèe. Ji¾ jsem tam."
+
+#, fuzzy
+#~ msgid "Accidental rule must be pair or context-name; Found %s"
+#~ msgstr "Sazba posuvek musí být pár nebo jméno kontextu: %s"
+
+#~ msgid "I'm one myself"
+#~ msgstr "Jsem pouze jediný"
+
+#, fuzzy
+#~ msgid "No slur to end"
+#~ msgstr "zde není repetice k ukonèení"
+
+#~ msgid "Huh?  Got %d, expected %d characters"
+#~ msgstr "Joj! Obdr¾eno %d, oèekáváno %d znakù"
+
+#~ msgid "No volta spanner to end"
+#~ msgstr "zde není repetice k ukonèení"
+
+#~ msgid "Also have a stopped spanner.  Giving up."
+#~ msgstr "Také má právì ukonèenou repetici. Vzdávám."
+
+#~ msgid "Missing end quote"
+#~ msgstr "Chybìjící koncová uvozovka"
+
+#~ msgid "EXT"
+#~ msgstr "PØÍP"
+
+#~ msgid "FIXME: key change merge"
+#~ msgstr "FIXME: slouèení zmìn tóniny"
+
+#, fuzzy
+#~ msgid "kpathsea can't find %s file: `%s'"
+#~ msgstr "Kpathsea nemù¾e nalézt TFM soubor `%s'"
+
+#, fuzzy
+#~ msgid "kpathsea can't find file: `%s'"
+#~ msgstr "Kpathsea nemù¾e nalézt TFM soubor `%s'"
+
+#, fuzzy
+#~ msgid "set option, use -e '(ly:option-usage)' for help"
+#~ msgstr "nastaví volby, pou¾ijte -e '(ly-option-usage)' pro nápovìdu"
+
+#, fuzzy
+#~ msgid "EXTs"
+#~ msgstr "PØÍP"
+
+#, fuzzy
+#~ msgid "generate DVI"
+#~ msgstr "vytváøí PDF výstup"
+
+#, fuzzy
+#~ msgid "generate TeX"
+#~ msgstr "vytváøí PDF výstup"
 
 #, fuzzy
 #~ msgid "kpathsea can not find %s file: `%s'"
@@ -1871,12 +2378,6 @@ msgstr "Poèítám pozice sloupcù..."
 #~ msgid "generate PDF output"
 #~ msgstr "vytváøí PDF výstup"
 
-#~ msgid "generate PostScript output"
-#~ msgstr "vytváøí PostScriptový výstup"
-
-#~ msgid "make a picture of the first system"
-#~ msgstr "vytvoøí obrázek prvního systému"
-
 #, fuzzy
 #~ msgid "generate PS.GZ"
 #~ msgstr "vytváøí PDF výstup"
@@ -1886,10 +2387,6 @@ msgstr "Poèítám pozice sloupcù..."
 
 #~ msgid "change global setting KEY to VAL"
 #~ msgstr "zmìní globální nastavení KLÍÈe na HODN"
-
-#, fuzzy
-#~ msgid "no such setting: `%s'"
-#~ msgstr "takové nastavení neexistuje: `%s'"
 
 #~ msgid "LilyPond crashed (signal %d)."
 #~ msgstr "LilyPond havaroval (signal %d)"
@@ -1915,9 +2412,6 @@ msgstr "Poèítám pozice sloupcù..."
 #~ msgid "LaTeX failed on the output file."
 #~ msgstr "LaTeX selhal u výstupního souboru."
 
-#~ msgid "not a PostScript file: `%s'"
-#~ msgstr "`%s' není PostScriptovým souborem"
-
 #~ msgid "pseudo filter"
 #~ msgstr "pseudofiltr"
 
@@ -1927,9 +2421,6 @@ msgstr "Poèítám pozice sloupcù..."
 #, fuzzy
 #~ msgid "no files specified on command line"
 #~ msgstr "na pøíkazové øádce nebyly zadány ¾ádné soubory"
-
-#~ msgid "filename should not contain spaces: `%s'"
-#~ msgstr "jméno souboru by nemìlo obsahovat mezery: `%s'"
 
 #, fuzzy
 #~ msgid "%s output to <stdout>..."
@@ -1963,10 +2454,6 @@ msgstr "Poèítám pozice sloupcù..."
 #~ msgid "filename main output file"
 #~ msgstr "LaTeX selhal u výstupního souboru."
 
-#, fuzzy
-#~ msgid "LaTeX failed."
-#~ msgstr "Spu¹tìní LaTeXu selhalo"
-
 #~ msgid "write Makefile dependencies for every input file"
 #~ msgstr "zapisuje závislosti Makefile pro v¹echny vstupní soubory "
 
@@ -1993,18 +2480,8 @@ msgstr "Poèítám pozice sloupcù..."
 #~ "Distribuováno ve znìní licence GNU General Public License. Program je "
 #~ "nabízen BEZ jakékoliv ZÁRUKY"
 
-#, fuzzy
-#~ msgid "unknown accidental typesetting: %s. Ignored"
-#~ msgstr "neznámá sazba posuvek: %s. Ignorováno"
-
 #~ msgid "Symbol is not a parent context: %s. Ignored"
 #~ msgstr "Symbol není otcovským kontextem: %s. Ignorováno"
-
-#~ msgid "can't find character number: %d"
-#~ msgstr "nelze nalézt znak èíslo: %d"
-
-#~ msgid "can't find character called: `%s'"
-#~ msgstr "nelze nalézt znak nazvaný: `%s'"
 
 #~ msgid "Beam has less than two stems. Removing beam."
 #~ msgstr "Trámec má ménì ne¾ dvì no¾ky. Odstraòuji jej."
@@ -2129,23 +2606,14 @@ msgstr "Poèítám pozice sloupcù..."
 #~ msgid "Where SYMBOL VAL pair is any of:"
 #~ msgstr "Kde je dvojice SYMBOL HODN jedna z:"
 
-#~ msgid "Errors found/*, not processing score*/"
-#~ msgstr "Nalezeny chyby/*, nezpracovávám partituru*/"
-
 #~ msgid "unbound spanner `%s'"
 #~ msgstr "nepøichycené pøeklenutí `%s'"
-
-#~ msgid "can't find start of slur"
-#~ msgstr "nelze nalézt zaèátek ligatury"
 
 #~ msgid "#<spring smob d= %f>"
 #~ msgstr "#<spring smob d= %f>"
 
 #~ msgid "staff symbol: indentation yields beyond end of line"
 #~ msgstr "Symbol osnovy: odsazení vyná¹í za konec øádku"
-
-#~ msgid "can't create directory: `%s'"
-#~ msgstr "nelze vytvoøit adresáø: `%s'"
 
 #~ msgid "Error syncing file (disk full?)"
 #~ msgstr "Chyba pøi synchronizaci souboru (disk je plný?)"
@@ -2165,12 +2633,6 @@ msgstr "Poèítám pozice sloupcù..."
 #~ "Mensural_ligature: tlou¹»ka není definována pro flexu %d; pøedpokládám 1.4"
 
 #, fuzzy
-#~ msgid "Vaticana_ligature:x-offset undefined; assuming 0.0"
-#~ msgstr ""
-#~ "Mensural_ligature: ¹íøka flexy (flexa-width) není definována pro flexu %"
-#~ "d; pøedpokládám 2.0"
-
-#, fuzzy
 #~ msgid "First argument must be a procedure taking one argument"
 #~ msgstr "První argument musí být procedura s jedním parametrem"
 
@@ -2179,9 +2641,6 @@ msgstr "Poèítám pozice sloupcù..."
 
 #~ msgid "Must have duration object"
 #~ msgstr "Musí mít objekt délka"
-
-#~ msgid "white expected"
-#~ msgstr "oèekávána mezera (whitespace)"
 
 #~ msgid "Can't evaluate Scheme in safe mode"
 #~ msgstr "Nelze vvyhodnotit Scheme v bezpeèném módu"
@@ -2252,17 +2711,11 @@ msgstr "Poèítám pozice sloupcù..."
 #~ msgid "(left_head == 0)"
 #~ msgstr "(left_head == 0)"
 
-#~ msgid "undefined left_head"
-#~ msgstr "nedefinované left_head"
-
 #~ msgid "(right_head == 0)"
 #~ msgstr "(right_head == 0)"
 
 #~ msgid "undefined right_head"
 #~ msgstr "nedefinované right_head"
-
-#~ msgid "junking lonely porrectus"
-#~ msgstr "matoucí osamocený porrectus"
 
 #~ msgid "porrectus style undefined; using mensural"
 #~ msgstr "syyl porrectu není definován; pou¾ívám mensural"

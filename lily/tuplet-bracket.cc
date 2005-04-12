@@ -78,7 +78,7 @@ Tuplet_bracket::parallel_beam (Grob *me, Link_array<Grob> const &cols, bool *equ
   Link_array<Grob> beam_stems = extract_grob_array (b1, ly_symbol2scm ("stems"));
   if (beam_stems.size () == 0)
     {
-      programming_error ("Beam under tuplet bracket has no stems!");
+      programming_error ("beam under tuplet bracket has no stems");
       *equally_long = 0;
       return 0;
     }
@@ -435,7 +435,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
     }
   if (dynamic_cast<Spanner *> (me)->is_broken ())
     {
-      me->warning (_ ("Killing tuplet bracket across linebreak."));
+      me->warning (_ ("removing tuplet bracket across linebreak"));
       me->suicide ();
       return SCM_UNSPECIFIED;
     }

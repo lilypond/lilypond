@@ -267,7 +267,7 @@ Midi_note::to_string () const
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
     {
-      warning (_f ("Experimental: temporarily fine tuning (of %d cents) a channel.",
+      warning (_f ("experimental: temporarily fine tuning (of %d cents) a channel.",
 		   get_fine_tuning ()));
 
       finetune = PITCH_WHEEL_CENTER;

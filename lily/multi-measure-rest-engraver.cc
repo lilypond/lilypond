@@ -136,19 +136,15 @@ Multi_measure_rest_engraver::process_music ()
 void
 Multi_measure_rest_engraver::stop_translation_timestep ()
 {
-  /*
-    We can not do this earlier, as breakableSeparationItem is not yet there.
-  */
-
+  /* We cannot do this earlier, as breakableSeparationItem is not yet
+     there.  */
   if (bar_seen_)
     {
       Grob *cmc = unsmob_grob (get_property ("breakableSeparationItem"));
       if (!cmc)
 	cmc = unsmob_grob (get_property ("currentCommandColumn"));
 
-      /*
-	Ugh, this is a kludge - need this for multi-measure-rest-grace.ly
-      */
+      /* Ugh, this is a kludge - need this for multi-measure-rest-grace.ly  */
       last_command_item_ = dynamic_cast<Item *> (cmc);
     }
 

@@ -66,16 +66,36 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
   return scm_from_locale_stringn (contents.get_str0 (), contents.length ());
 }
 
-LY_DEFINE (ly_warn, "ly:warn",
+LY_DEFINE (ly_error, "ly:error",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to issue the warning @code{msg}. "
+	   "Scheme callable function to issue the error @code{msg}. "
+	   "The error is formatted with @code{format} and @code{rest}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  error (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_message, "ly:message",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "Scheme callable function to issue the message @code{msg}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
   SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
-  progress_indication ("\n");
-
   str = scm_simple_format (SCM_BOOL_F, str, rest);
-  warning (ly_scm2string (str));
+  message (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_progress, "ly:progress",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "Scheme callable function to print progress @code{str}. "
+	   "The message is formatted with @code{format} and @code{rest}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  progress_indication (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -85,10 +105,19 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
   SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
-  progress_indication ("\n");
-
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   programming_error (ly_scm2string (str));
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_warning, "ly:warning",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "Scheme callable function to issue the warning @code{str}. "
+	   "The message is formatted with @code{format} and @code{rest}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  warning (ly_scm2string (str));
   return SCM_UNSPECIFIED;
 }
 
@@ -140,7 +169,9 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	if (isinf (r) || isnan (r))
 #endif
 	  {
-	    programming_error ("Infinity or NaN encountered while converting Real number; setting to zero.");
+	    programming_error (_ ("infinity or NaN encountered while converting Real number"));
+	    programming_error (_ ("setting to zero"));
+			       
 	    r = 0.0;
 	  }
 

@@ -51,7 +51,7 @@ Script_interface::before_line_breaking (SCM smob)
   if (!d)
     {
       /* FIXME: This should never happen: `arbitrary' directions.  */
-      programming_error ("Script direction not yet known!");
+      programming_error ("script direction not yet known");
       d = DOWN;
     }
 
@@ -76,7 +76,7 @@ Script_interface::print (SCM smob)
   Direction dir = Side_position_interface::get_direction (me);
   if (!dir)
     {
-      programming_error ("Script direction not known, but stencil wanted.");
+      programming_error ("script direction unknown, but stencil wanted");
       dir = DOWN;
     }
   return get_stencil (me, dir).smobbed_copy ();

@@ -23,7 +23,7 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
   String outname_str = ly_scm2string (outname);
   String f = ly_scm2string (format);
 
-  progress_indication (_f ("Layout output to `%s'...",
+  message (_f ("Layout output to `%s'...",
 			   outname_str == "-"
 			   ? String ("<stdout>")
 			   : outname_str));

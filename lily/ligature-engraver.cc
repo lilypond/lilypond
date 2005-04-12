@@ -58,7 +58,7 @@
  * Mensural_ligature_engraver) to the proper translator
  * (e.g. VoiceContext) to choose between various representations.
  * Since adding/removing an engraver to a translator is a global
- * action in the layout block, you can not mix various representations
+ * action in the layout block, you cannot mix various representations
  * _within_ the same score.  Hence, for selecting a representation,
  * one would rather like to have a property that can be set e.g. for
  * several staves individually.  However, it seems that this approach
@@ -191,7 +191,7 @@ Ligature_engraver::process_music ()
 	= ligature_->get_property ("ligature-primitive-callback");
       if (brew_ligature_primitive_proc == SCM_EOL)
 	{
-	  warning ("Ligature_engraver: ligature-primitive-callback undefined");
+	  programming_error ("Ligature_engraver: ligature-primitive-callback undefined");
 	}
 
       Grob *bound = unsmob_grob (get_property ("currentMusicalColumn"));

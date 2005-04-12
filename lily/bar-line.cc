@@ -1,19 +1,20 @@
 /*
-  bar.cc -- implement Bar
+  bar-line.cc -- implement Bar_line
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "bar-line.hh"
+
 #include <math.h>
 
-#include "bar-line.hh"
-#include "lookup.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "font-interface.hh"
 #include "all-font-metrics.hh"
+#include "font-interface.hh"
+#include "lookup.hh"
+#include "output-def.hh"
+#include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 
 MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
@@ -146,12 +147,13 @@ Bar_line::simple_barline (Grob *me,
 			  Real h,
 			  bool rounded)
 {
-  Real blot =
-    rounded
+  Real blot
+    = rounded
     ? me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"))
     : 0.0;
 
-  return Lookup::round_filled_box (Box (Interval (0, w), Interval (-h / 2, h / 2)), blot);
+  return Lookup::round_filled_box (Box (Interval (0, w),
+					Interval (-h / 2, h / 2)), blot);
 }
 
 MAKE_SCHEME_CALLBACK (Bar_line, before_line_breaking, 1);
@@ -204,8 +206,7 @@ Bar_line::get_staff_bar_size (SCM smob)
       ysize = ysize * ss + Staff_symbol_referencer::line_thickness (me);
       return scm_make_real (ysize);
     }
-  else
-    return scm_int2num (0);
+  return scm_int2num (0);
 }
 
 ADD_INTERFACE (Bar_line, "bar-line-interface",

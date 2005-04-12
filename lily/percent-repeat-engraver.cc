@@ -97,7 +97,8 @@ Percent_repeat_engraver::try_music (Music *m)
 	}
       else
 	{
-	  warning (_ ("Don't know how to handle a percent repeat of this length."));
+	  warning (_f ("can't handle a percent repeat of length: %s",
+		       body_length_.to_string ()));
 	  return false;
 	}
 
@@ -106,11 +107,10 @@ Percent_repeat_engraver::try_music (Music *m)
       Global_context *global = get_global_context ();
       for (int i = 0; i < count; i++)
 	{
-	  global->add_moment_to_process (next_moment_ + Moment (i) * body_length_);
+	  global->add_moment_to_process (next_moment_
+					 + Moment (i) * body_length_);
 
-	  /*
-	    bars between % too.
-	  */
+	  /* bars between % too.  */
 	  if (repeat_sign_type_ == DOUBLE_MEASURE)
 	    global->add_moment_to_process (next_moment_ + meas_len + Moment (i) * body_length_);
 	}

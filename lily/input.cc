@@ -12,6 +12,7 @@
 
 #include "source.hh"
 #include "source-file.hh"
+#include "warn.hh"
 
 Input::Input (Input const &i)
 {
@@ -64,56 +65,32 @@ Input::set_location (Input const &i_start, Input const &i_end)
   [file:line:column:][warning:]message
 */
 void
-Input::message (String message_string) const
+Input::message (String s) const
 {
-  String str;
-
-  /*
-    marked "Work in prgress" in GNU iostream
-    libg++ 2.7.2.8
-    libstdc++ 2.8.1
-
-    why not just return always -1 (unknown),
-    iso breaking the interface?
-
-    int col = cerr.rdbuf ()->column ();
-
-  */
-
-  // well, we don't want to loose first warning...
-  int col = 1;
-  if (col > 0)
-    str += "\n";
-
   if (source_file_)
-    str += location_string () + String (": ");
-
-  str += message_string;
-  if (source_file_)
-    {
-      str += ":\n";
-      str += source_file_->error_string (start_);
-    }
-  fprintf (stderr, "%s\n", str.to_str0 ());
-  fflush (stderr);
+    s = location_string () + ": " + s + "\n"
+      + source_file_->error_string (start_);
+  ::message (s);
 }
 
 void
-Input::warning (String message_string) const
+Input::warning (String s) const
 {
-  message (_ ("warning: ") + message_string);
+  message (_f ("warning: %s", s));
 }
 
 void
 Input::error (String s) const
 {
-  message (_ ("error: ")+ s);
+  message (_f ("error: %s", s));
+  // UGH, fix naming or usage
+  // exit (1);
 }
 
 void
 Input::non_fatal_error (String s) const
 {
-  message (_ ("non fatal error: ") + s);
+  message (_f ("error: %s", s));
 }
 
 String
@@ -121,8 +98,7 @@ Input::location_string () const
 {
   if (source_file_)
     return source_file_->file_line_column_string (start_);
-  else
-    return " (" + _ ("position unknown") + ")";
+  return " (" + _ ("position unknown") + ")";
 }
 
 String
@@ -130,8 +106,7 @@ Input::line_number_string () const
 {
   if (source_file_)
     return to_string (source_file_->get_line (start_));
-  else
-    return "?";
+  return "?";
 }
 
 String
@@ -139,8 +114,7 @@ Input::file_string () const
 {
   if (source_file_)
     return source_file_->name_string ();
-  else
-    return "";
+  return "";
 }
 
 int
@@ -148,8 +122,7 @@ Input::line_number () const
 {
   if (source_file_)
     return source_file_->get_line (start_);
-  else
-    return 0;
+  return 0;
 }
 
 int
@@ -157,8 +130,7 @@ Input::column_number () const
 {
   if (source_file_)
     return source_file_->get_column (start_);
-  else
-    return 0;
+  return 0;
 }
 
 int
@@ -166,8 +138,7 @@ Input::end_line_number () const
 {
   if (source_file_)
     return source_file_->get_line (end_);
-  else
-    return 0;
+  return 0;
 }
 
 int
@@ -175,6 +146,5 @@ Input::end_column_number () const
 {
   if (source_file_)
     return source_file_->get_column (end_);
-  else
-    return 0;
+  return 0;
 }

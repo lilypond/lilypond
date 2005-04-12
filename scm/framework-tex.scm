@@ -162,10 +162,7 @@
 (define (header-end)
   (string-append
    "\\def\\scaletounit{ "
-   (number->string (cond
-		    ((equal? (ly:unit) "mm") (/ 72.0 25.4))
-		    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
-		    (else (error "unknown unit" (ly:unit)))))
+   (number->string (lily-unit->bigpoint-factor))
    " mul }%\n"
    "\\ifx\\lilypondstart\\undefined\n"
    "  \\input lilyponddefs\n"
@@ -288,17 +285,13 @@
     (ly:outputter-dump-string outputter "\\lilypondend\n")
     (ly:outputter-close outputter)
     (postprocess-output book framework-tex-module filename
-			(output-formats))
-
-))
+			(output-formats))))
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
     (postscript->pdf (if (string? papersizename) papersizename "a4")
-		     (string-append
-		      (basename name ".tex")
-		      ".ps"))))
+		     (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
@@ -336,9 +329,8 @@
 	(delete-file ps-name))
     (if (not (ly:get-option 'verbose))
 	(begin
-	  (format (current-error-port)
-		  (_ "Converting to `~a'...") (string-append base ".ps"))
-	  (newline (current-error-port))))
+	  (ly:message (_ "Converting to `~a'...") (string-append base ".ps"))
+	  (ly:progress "\n")))
     (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)
@@ -354,9 +346,7 @@
 
     ;; FIXME: latex 'foo bar' works, but \input 'foe bar' does not?
     (if (string-index name (char-set #\space #\ht #\newline #\cr))
-	(error (format
-		#f
-		(_"TeX file name must not contain whitespace: `~a'") name)))
+	(ly:error (_"TeX file name must not contain whitespace: `~a'") name))
 
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
     (let ((dvi-name (string-append base ".dvi")))
@@ -364,9 +354,8 @@
 	  (delete-file dvi-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
-	  (format (current-error-port) (_ "Converting to `~a'...")
-		  (string-append base ".dvi"))
-	  (newline (current-error-port))))
+	  (ly:message (_ "Converting to `~a'...") (string-append base ".dvi"))
+	  (ly:progress "\n")))
 
     ;; FIXME: set in environment?
     (if (ly:get-option 'safe)

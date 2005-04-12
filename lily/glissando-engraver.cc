@@ -82,7 +82,7 @@ Glissando_engraver::stop_translation_timestep ()
   if (line_)
     {
       if (last_line_)
-	programming_error ("Overwriting glissando.");
+	programming_error ("overwriting glissando");
       last_line_ = line_;
     }
   line_ = 0;
@@ -94,7 +94,7 @@ Glissando_engraver::finalize ()
 {
   if (line_)
     {
-      String msg = _ ("Unterminated glissando.");
+      String msg = _ ("unterminated glissando");
 
       if (event_)
 	event_->origin ()->warning (msg);

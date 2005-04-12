@@ -5,14 +5,9 @@
 ;;;; (c) 1998--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
-
 (define (music-property-description symbol type? description)
   (if (not (equal? #f (object-property symbol 'music-doc)))
-      (begin
-	(ly:warn "Redefining ~S" symbol)
-	(exit 2)
-	))
+      (ly:error (_ "symbol ~S redefined") symbol))
   (set-object-property! symbol 'music-type? type?)
   (set-object-property! symbol 'music-doc description)
   symbol)

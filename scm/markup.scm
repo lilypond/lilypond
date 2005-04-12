@@ -84,15 +84,16 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
                         (markup-argument-list-error signature args 1)
                         #f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
-        (scm-error 'markup-format make-name
-                   "Expect ~A arguments for ~A. Found ~A: ~S"
-                   (list siglen make-name arglen args)
-                   #f))
+        (ly:error (string-append make-name ": "
+                   (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S")
+                   (list siglen arglen args))))
     (if error-msg
-        (scm-error 'markup-format make-name
-                   "Invalid argument in position ~A\nExpect: ~A\nFound: ~S."
-                   error-msg #f)
-        (cons markup-function args))))
+        (ly:error
+	 (string-append
+	  make-name ": "
+	  (_ "Invalid argument in position ~A.  Expect: ~A, found: ~S.")
+	  error-msg))
+	(cons markup-function args))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup constructors

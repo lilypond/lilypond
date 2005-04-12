@@ -295,7 +295,7 @@ All_font_metrics::find_font (String name)
   if (!f)
     {
       warning (_f ("can't find font: `%s'", name.to_str0 ()));
-      warning (_ ("Loading default font"));
+      warning (_ ("loading default font"));
     }
 
   String def_name = default_font_str0_;
@@ -312,7 +312,7 @@ All_font_metrics::find_font (String name)
     {
       error (_f ("can't find default font: `%s'", def_name.to_str0 ()));
       error (_f ("(search path: `%s')", search_path_.to_string ()));
-      error (_ ("Giving up"));
+      error (_ ("giving up"));
     }
 
   return f;

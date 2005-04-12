@@ -122,9 +122,8 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
       if (Stem::duration_log (stem_) != duration_log)
 	{
 	  // FIXME: 
-	  gi.music_cause ()->origin ()->warning (_f ("Adding note head to incompatible stem (type = %d)", 1 << Stem::duration_log (stem_)));
-
-	  gi.music_cause ()->origin ()->warning (_f ("Don't you want polyphonic voices instead?"));
+	  gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)", 1 << Stem::duration_log (stem_)));
+	  gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
 	}
 
       Stem::add_head (stem_, gi.grob_);

@@ -242,7 +242,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 			 ("bracket" . (() . "bracket"))  ))))
 
     (if (equal? result #f)
-	(ly:warn "Unknown bar glyph: `~S'" glyph)
+	(ly:warning (_ "unknown bar glyph: `~S'" glyph))
 	(index-cell (cdr result) dir))))
 
 (define-public (shift-right-at-line-begin g)

@@ -203,7 +203,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
     {
       if (!d)
 	{
-	  programming_error ("Direction unknown, but aligned-side wanted.");
+	  programming_error ("direction unknown, but aligned-side wanted");
 	  d = DOWN;
 	}
       o += -iv[-d];

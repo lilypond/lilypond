@@ -30,7 +30,7 @@ Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
   Context_def *globaldef = unsmob_context_def (definition_);
   if (!globaldef)
     {
-      programming_error ("No `Global' context found.");
+      programming_error ("no `Global' context found");
     }
   else
     globaldef->apply_default_property_operations (this);
@@ -50,7 +50,7 @@ Global_context::add_moment_to_process (Moment m)
     return;
 
   if (m < now_mom_)
-    programming_error ("Trying to freeze in time.");
+    programming_error ("trying to freeze in time");
 
   for (int i = 0; i < extra_mom_pq_.size (); i++)
     if (extra_mom_pq_[i] == m)

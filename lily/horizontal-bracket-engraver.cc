@@ -52,7 +52,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
 	{
 	  pop_count_++;
 	  if (pop_count_ > bracket_stack_.size ())
-	    m->origin ()->warning (_ ("Don't have that many brackets."));
+	    m->origin ()->warning (_ ("don't have that many brackets"));
 	}
       else
 	{
@@ -61,7 +61,7 @@ Horizontal_bracket_engraver::try_music (Music *m)
 	}
 
       if (pop_count_ && push_count_)
-	m->origin ()->warning (_ ("Conflicting note group events."));
+	m->origin ()->warning (_ ("conflicting note group events"));
 
       return true;
     }

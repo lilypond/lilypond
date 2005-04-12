@@ -182,7 +182,7 @@ Dynamic_engraver::process_music ()
 	    msg = _ ("already have a crescendo");
 
 	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
-	  current_cresc_ev_->origin ()->warning (_ ("Cresc started here"));
+	  current_cresc_ev_->origin ()->warning (_ ("cresc starts here"));
 	}
       else
 	{
