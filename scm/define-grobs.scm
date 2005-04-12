@@ -487,6 +487,7 @@
     (Hairpin
      . (
 	(print-function . ,Hairpin::print)
+	(after-line-breaking-callback . ,Hairpin::after_line_breaking)
 	(thickness . 1.0)
 	(height . 0.6666)
 	(spacing-procedure . ,Spanner::set_spacing_rods)

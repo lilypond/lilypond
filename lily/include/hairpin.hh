@@ -18,6 +18,7 @@ struct Hairpin
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static bool has_interface (Grob *);
 };
 

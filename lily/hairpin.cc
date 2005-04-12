@@ -19,13 +19,39 @@
 #include "lookup.hh"
 #include "text-item.hh"
 
+
+MAKE_SCHEME_CALLBACK(Hairpin,after_line_breaking,1);
+SCM
+Hairpin::after_line_breaking (SCM smob)
+{
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  
+  Drul_array<bool> broken;
+  Drul_array<Item *> bounds;
+  Direction d = LEFT;
+  do
+    {
+      bounds[d] = me->get_bound (d);
+      broken[d] = bounds[d]->break_status_dir () != CENTER;
+    }
+  while (flip (&d) != LEFT);
+
+  if (broken[LEFT]
+      && ly_c_equal_p (bounds[RIGHT]->get_column ()->get_property ("when"),
+		       bounds[LEFT]->get_property ("when")))
+    {
+      me->suicide ();
+    }
+  return SCM_UNSPECIFIED;
+}
+
+
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
 
 SCM
 Hairpin::print (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Spanner *spanner = dynamic_cast<Spanner *> (me);
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
@@ -42,14 +68,14 @@ Hairpin::print (SCM smob)
   Direction d = LEFT;
   do
     {
-      bounds[d] = spanner->get_bound (d);
+      bounds[d] = me->get_bound (d);
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
   while (flip (&d) != LEFT);
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
   Drul_array<Real> x_points;
-
+  
   do
     {
       Item *b = bounds[d];

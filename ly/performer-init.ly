@@ -37,6 +37,11 @@
     \consists "Melisma_translator"
 }
 
+\context {
+  \Voice
+  \name CueVoice
+  \alias Voice
+}
 
 \context {
     \Voice

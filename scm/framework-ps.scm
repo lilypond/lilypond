@@ -195,7 +195,6 @@
    "%%BeginSetup\n"
    (define-fonts paper)
    (output-variables paper)
-   "init-lilypond-parameters\n"
    "%%EndSetup\n"))
 
 (define-public (munge-lily-font-name name)
@@ -260,11 +259,16 @@
 		  (filter string? font-names))))
 	   pfas))
 
-  (display (procset "music-drawing-routines.ps") port)
-  (display (procset "lilyponddefs.ps") port)
   (if load-fonts?
       (for-each (lambda (f) (display f port)) (load-fonts paper)))
-  (display (setup paper) port))
+  (display (setup paper) port)
+
+  ; adobe note 5002: should initialize variables before loading routines.
+  (display (procset "music-drawing-routines.ps") port)
+  (display (procset "lilyponddefs.ps") port)
+  (display "init-lilypond-parameters\n" port)
+
+  )
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))

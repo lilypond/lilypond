@@ -59,6 +59,9 @@ web-uninstall:
 local-install:
 	$(INSTALL) -d $(DESTDIR)$(local_lilypond_datadir)
 
+final-install:
+	@true
+
 web-ext = html midi pdf png txt ly
 
 footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
