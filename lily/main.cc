@@ -130,7 +130,7 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("select backend to use. Possible values of BACK are: ps, tex, gnome, svg")},
+  {_i ("BACK"), "backend", 'b', _i ("select backend to use. Possible values of BACK are: ps, tex, gnome, svg, scm")},
   {_i ("EXPR"), "evaluate", 'e',
    _i ("set option, use -e '(ly:option-usage)' for help")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
