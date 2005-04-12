@@ -186,8 +186,8 @@
 
 	    (if (and (= 0.0 x)
 		     (= 0.0 y))
-		(format #f " /~a glyphshow " g)
-		(format #f " ~a ~a rmoveto /~a glyphshow "
+		(format #f " /~a glyphshow\n" g)
+		(format #f " ~a ~a rmoveto /~a glyphshow\n"
 			x y g))))
 	x-y-named-glyphs))
   ))

@@ -53,7 +53,7 @@ public:
   Slice line_slice (char const *pos_str0) const;
   String line_string (char const *pos_str0) const;
   int get_column (char const *pos_str0) const;
-  int get_char (char const *pos_str0) const;
+  int get_char_of_line (char const *pos_str0) const;
 
   /*
     JUNKME.

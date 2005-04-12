@@ -11,7 +11,14 @@
 
 #include "config.hh"
 
+#if HAVE_UTF8_WCHAR_H
+#include <utf8/wchar.h>  /* wcrtomb */
+#else
+#include <wchar.h> /* wcrtomb */
+#endif
+
 #include <cstdio>
+
 #if HAVE_SSTREAM
 #include <sstream>
 #else
@@ -110,7 +117,7 @@ Source_file::init_port ()
 int
 Source_file::tell () const
 {
-  return pos_str0_  - contents_str0_; 
+  return pos_str0_ - contents_str0_; 
 }
 
 std::istream*
@@ -137,7 +144,7 @@ Source_file::file_line_column_string (char const *context_str0) const
     return " (" + _ ("position unknown") + ")";
   else
     return name_string () + ":" + to_string (get_line (context_str0))
-      + ":" + to_string (get_char (context_str0));
+      + ":" + to_string (get_column (context_str0));
 }
 
 String
@@ -195,7 +202,7 @@ Source_file::line_string (char const* pos_str0) const
 }
 
 int
-Source_file::get_char (char const *pos_str0) const
+Source_file::get_char_of_line (char const *pos_str0) const
 {
   if (!contains (pos_str0))
     return 0;
@@ -210,17 +217,46 @@ Source_file::get_column (char const *pos_str0) const
   if (!contains (pos_str0))
     return 0;
 
-  int ch_i = get_char (pos_str0);
-  String line = line_string (pos_str0);
+  Slice line = line_slice (pos_str0);
+  char const *data = to_str0 ();
+  Byte const *line_start = (Byte const *)data + line[LEFT];
 
-  int col_i = 0;
-  for (int i = 0; i < ch_i; i++)
-    if (line[i] == '\t')
-      col_i = (col_i / 8 + 1) * 8;
-    else
-      col_i++;
+  int left = (Byte const*) pos_str0 -  line_start;
+  String line_begin (line_start, left);
+  char const *line_chars = line_begin.to_str0();
+  
+  int column = 0;
+  mbstate_t state;
 
-  return col_i;
+  /* Initialize the state.  */
+  memset (&state, '\0', sizeof (state));
+
+  while (left > 0)
+    {
+      wchar_t multibyte[2];
+      size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
+      
+      /* Stop converting at invalid character;
+	 this can mean we have read just the first part
+	 of a valid character.  */
+      if (thislen == (size_t) -1)
+	break;
+      /* We want to handle embedded NUL bytes
+	 but the return value is 0.  Correct this.  */
+      if (thislen == 0)
+	thislen = 1;
+
+      if (thislen == 1 && line_chars[0] == '\t')
+	column = (column / 8 + 1) * 8;  
+      else
+	column ++;
+      
+      /* Advance past this character. */
+      line_chars += thislen;
+      left -= thislen;
+    }
+
+  return column;
 }
 
 String
@@ -229,7 +265,7 @@ Source_file::error_string (char const* pos_str0) const
   if (!contains (pos_str0))
     return " (" + _ ("position unknown") + ")";
 
-  int ch_i = get_char (pos_str0);
+  int ch_i = get_char_of_line (pos_str0);
   String line = line_string (pos_str0);
   String context = line.left_string (ch_i)
     + to_string ('\n')

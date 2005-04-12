@@ -5,6 +5,7 @@
 ;;;; (c) 2000--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
+
 ;;; markup commands
 ;;;  * each markup function should have a doc string with
 ;;     syntax, description and example. 
@@ -44,6 +45,60 @@ the PDF backend."
 	 (old-expr (ly:stencil-expr stil))
 	 (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
+
+
+(define bbox-regexp
+  (make-regexp "%%BoundingBox: ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)"))
+
+(define (get-postscript-bbox string)
+  "Extract the bbox from STRING, or return #f if not present."
+  (let*
+      ((match (regexp-exec bbox-regexp string)))
+    
+    (if match
+	(map (lambda (x)
+	       (string->number (match:substring match x)))
+	     (cdr (iota 5)))
+	     
+	#f)))
+
+(def-markup-command (epsfile layout props file-name) (string?)
+  "Inline an EPS image. The image is scaled such that 10 PS units is
+one staff-space."
+
+  (if (ly:get-option 'safe)
+      (interpret-markup layout props "not allowed in safe") 
+      (let*
+	  ((contents (ly:gulp-file file-name))
+	   (bbox (get-postscript-bbox contents))
+	   (scaled-bbox
+	    (if bbox
+		(map (lambda (x) (/ x 10)) bbox)
+		(begin
+		  (ly:warn (_ "Could not find bounding box of `~a'")
+			   file-name)
+		  '()))))
+	
+
+	(if bbox
+	    
+	    (ly:make-stencil
+	     (list
+	      'embedded-ps
+	      (string-append
+
+	       ; adobe 5002.
+	       "BeginEPSF "
+	       "0.1 0.1 scale "
+	       (format "\n%%BeginDocument: ~a\n" file-name)
+	       contents
+	       "%%EndDocument\n"
+	       "EndEPSF\n"
+	       ))
+	     (cons (list-ref scaled-bbox 0) (list-ref scaled-bbox 2))
+	     (cons (list-ref scaled-bbox 1) (list-ref scaled-bbox 3)))
+	    
+	    (ly:make-stencil "" '(0 . 0) '(0 . 0))))))  
 
 (def-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
