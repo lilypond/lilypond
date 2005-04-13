@@ -1,14 +1,14 @@
 .SUFFIXES: .doc .dvi .tely .texi .ly
 
 
-$(outdir)/%.latex: %.doc
+$(outdir)/%.latex $(outdir)/%.fonts.ps:  %.doc
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --verbose $(LILYPOND_BOOK_FLAGS) $<
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) --psfonts=$(basename $<).fonts.ps  $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
@@ -36,6 +36,7 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 $(outdir)/%.pdf: $(outdir)/%.dvi
 	dvips $(DVIPS_FLAGS)  -o $@.pdfps -t $(DVIPS_PAPERSIZE)  $<
 # without -dSAFER
+# gs 8.15 complains of safety of loading a ttf directly 
 	gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $@.pdfps
 
 $(outdir)/%.html.omf: %.tely

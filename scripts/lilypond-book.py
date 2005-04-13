@@ -55,6 +55,7 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 #if __name__ == '__main__':
 
 import lilylib as ly
+import fontextract
 global _;_=ly._
 global re;re = ly.re
 
@@ -92,6 +93,8 @@ option_definitions = [
 	  _ ("write output to DIR")),
 	(_ ("COMMAND"), 'P', 'process',
 	  _ ("process ly_files using COMMAND FILE...")),
+	(_('FILE'), '', 'psfonts',
+	 _('extract all PS snippet fonts into FILE')),
 	('', 'V', 'verbose',
 	  _ ("be verbose")),
 	('', 'v', 'version',
@@ -107,6 +110,7 @@ lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
+psfonts_file = ''
 use_hash_p = 1
 format = 0
 output_name = 0
@@ -155,6 +159,7 @@ no_options = {
 	NOFRAGMENT: FRAGMENT,
 	NOINDENT: INDENT,
 }
+
 
 # Recognize special sequences in the input.
 #
@@ -1324,6 +1329,20 @@ def guess_format (input_filename):
 		ly.exit (1)
 	return format
 
+def write_if_updated (file_name, lines):
+	try:
+		f = open (file_name)
+		oldstr = f.read ()
+		new_str = string.join (lines, '')
+		if old == new_str:
+			ly.progress (_ ("Output file is up to date."))
+			return
+	except:
+		pass
+
+	ly.progress (_ ("Writing output file."))
+	open (file_name, 'w').writelines (lines)
+
 def do_file (input_filename):
 	# Ugh.
 	if not input_filename or input_filename == '-':
@@ -1351,15 +1370,12 @@ def do_file (input_filename):
 		output_filename = '-'
 		output_file = sys.stdout
 	else:
-		if not output_name:
-			output_filename = input_base + format2ext[format]
-		else:
+		if output_name:
 			if not os.path.isdir (output_name):
 				os.mkdir (output_name, 0777)
-			output_filename = (output_name
-					   + '/' + input_base
-					   + format2ext[format])
+			os.chdir (output_name)
 
+		output_filename = input_base + format2ext[format]
 		if os.path.exists (input_filename) \
 		   and os.path.exists (output_filename) \
 		   and os.path.samefile (output_filename, input_fullname):
@@ -1367,9 +1383,6 @@ def do_file (input_filename):
 			  _ ("Output would overwrite input file; use --output."))
 			ly.exit (2)
 
-		output_file = open (output_filename, 'w')
-		if output_name:
-			os.chdir (output_name)
 	try:
 		ly.progress (_ ("Reading %s...") % input_fullname)
 		source = in_handle.read ()
@@ -1413,37 +1426,41 @@ def do_file (input_filename):
 						break
 
 		if filter_cmd:
-			output_file.writelines ([c.filter_text () \
-						 for c in chunks])
-
+			write_if_updated (output_filename,
+					  [c.filter_text () for c in chunks])
 		elif process_cmd:
 			do_process_cmd (chunks, input_fullname)
 			ly.progress (_ ("Compiling %s...") % output_filename)
-			output_file.writelines ([s.replacement_text () \
-						 for s in chunks])
+			write_if_updated (output_filename,
+					  [s.replacement_text ()
+					   for s in chunks])
 			ly.progress ('\n')
+
+		
 
 		def process_include (snippet):
 			os.chdir (original_dir)
 			name = snippet.substring ('filename')
 			ly.progress (_ ("Processing include: %s") % name)
 			ly.progress ('\n')
-			do_file (name)
+			return do_file (name)
 
-		map (process_include,
-		     filter (lambda x: is_derived_class (x.__class__,
-							 Include_snippet),
-			     chunks))
+		include_chunks = map (process_include,
+				      filter (lambda x: is_derived_class (x.__class__,
+									  Include_snippet),
+					      chunks))
+
+
+		return chunks + reduce (lambda x,y: x + y, include_chunks, [])
+		
 	except Compile_error:
 		os.chdir (original_dir)
 		ly.progress (_ ("Removing `%s'") % output_filename)
 		ly.progress ('\n')
-
-		os.unlink (output_filename)
 		raise Compile_error
 
 def do_options ():
-	global format, output_name
+	global format, output_name, psfonts_file
 	global filter_cmd, process_cmd, verbose_p
 
 	(sh, long) = ly.getopt_args (option_definitions)
@@ -1489,6 +1506,8 @@ def do_options ():
 			sys.exit (0)
 		elif o == '--verbose' or o == '-V':
 			verbose_p = 1
+		elif o == '--psfonts':
+			psfonts_file = a
 		elif o == '--warranty' or o == '-w':
 			if 1 or status:
 				ly.warranty ()
@@ -1521,7 +1540,15 @@ def main ():
 	ly.setup_environment ()
 
 	try:
-		do_file (file)
+		chunks = do_file (file)
+		if psfonts_file:
+			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
+									      Lilypond_snippet),
+						 chunks)
+			fontextract.extract_fonts (psfonts_file,
+						   [x.basename() + '.eps'
+						    for x in snippet_chunks])
+			
 	except Compile_error:
 		ly.exit (1)
 

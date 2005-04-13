@@ -99,7 +99,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	   "@end table\n"
 	   "\n"
 	   "This function is useful to call from the command line: @code{lilypond -e\n"
-	   "\"(ly : set - option 'midi-debug #t)\"}.\n")
+	   "\"(ly:set-option 'midi-debug #t)\"}.\n")
 {
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
