@@ -78,7 +78,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 
 		if extract_from_this:
 			sys.stderr.write ("Failed to extract %s from %s\n"
-					  % (string.join (extract_from_this, ', '), f))
+					  % (string.join (extract_from_this, ', '), filename))
 
 def write_extracted_fonts (output_file_name, font_dict):
 	output = open (output_file_name, 'w')

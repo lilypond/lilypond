@@ -1542,6 +1542,7 @@ def main ():
 	try:
 		chunks = do_file (file)
 		if psfonts_file:
+			fontextract.verbose = verbose_p
 			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
 									      Lilypond_snippet),
 						 chunks)
