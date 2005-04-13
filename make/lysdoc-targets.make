@@ -1,5 +1,5 @@
 
 
-local-WWW: $(outdir)/$(NAME).html $(outdir)/$(NAME).ps.gz $(outdir)/$(NAME).pdf
+local-WWW: $(outdir)/$(NAME).html $(outdir)/$(NAME).pdf
 
-.PRECIOUS: $(outdir)/$(NAME).texi
+#.PRECIOUS: $(outdir)/$(NAME).texi

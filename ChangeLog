@@ -1,5 +1,7 @@
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/lysdoc-targets.make (local-WWW): remove ps.gz target.
+
 	* Documentation/user/changing-defaults.itely (Font selection):
 	document font-name.
 
