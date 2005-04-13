@@ -1,45 +1,31 @@
-\version "2.4.0"
+\version "2.5.19"
 
 \header {
 
-    texidoc = "Other fonts can be used by setting font-name for
-the appropriate object. This may include Postscript fonts that are
-available through (La)TeX.
-
-
-BROKEN by pango/fontconfig
-"
+    texidoc = "Other fonts can be used by setting @code{font-name} for
+the appropriate object. The string should be a Pango font description
+without size specification."
 
 
 }
 
-%{
-
- Postscript fonts are switched off by default,
- for compatibility with TeX installations that have no
- PS fonts installed.
-%}
-
-\score {
-     {
-
-       %% FIXME. 
-%	\override Staff.TimeSignature  #'font-name = #"cmr17"
-	\set Score.skipBars = ##t
-
-	% use font-name putri8r for Utopia Italic :
-	
-	\override Staff.MultiMeasureRestText   #'font-name = #"cmss12"
+\layout { raggedright = ##t }
 
 
-	% use "ptmb8r" for Times Roman
-	
-	c'1_\markup { \override #'(font-name . "cmdunh10")
-			  { This text is Dunhill } }
+{
+  \override Staff.TimeSignature  #'font-name = #"Times"
+  \time 3/4
+  \set Score.skipBars = ##t
 
-	     R1*21^"Wait for Utopia Italic"
-	     }
-    
-    \layout { raggedright = ##t }
+				% use font-name putri8r for Utopia Italic :
+  
+  \override Staff.MultiMeasureRestText #'font-name = #"LuxiMono"
+  R1*21^"Rest in LuxiMono"
 
+  c'1_\markup {
+    \override #'(font-name . "Utopia Bold")
+      \override #'(font-size . 4)
+        { This text is in large Utopia Bold }
+  }
 }
+

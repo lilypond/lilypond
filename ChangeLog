@@ -1,5 +1,13 @@
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/font-name.ly: show Pango fonts for
+	font-name. Update example. 
+
+	* lily/pango-select.cc (properties_to_pango_description): don't
+	convert symbol font-size to number, but use to lookup.
+
+	* python/fontextract.py (write_extracted_fonts): add VMusage 0.
+
 	* scm/framework-ps.scm (write-preamble): use (NAME . CONTENTS) and
 	(NAME . FILE-NAME) tuples for font descriptions. 
 	(write-preamble): display BeginFont DSC comments.
