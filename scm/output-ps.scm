@@ -107,9 +107,13 @@
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
-(define (circle radius thick)
+(define (circle radius thick fill)
   (format
-   "~a ~a draw_circle" radius thick))
+   "~a ~a ~a draw_circle" radius thick
+   (if fill
+       "true "
+       "false ")
+   ))
 
 (define (char font i)
   (string-append 

@@ -57,10 +57,10 @@
                        (- (car yext)) (cdr yext))
       xext yext))
 
-(define-public (make-circle-stencil radius thickness)
+(define-public (make-circle-stencil radius thickness fill)
   "Make a circle of radius @var{radius} and thickness @var{thickness}"
   (ly:make-stencil
-   (list 'circle radius thickness)
+   (list 'circle radius thickness fill) 
    (cons (- radius) radius)
    (cons (- radius) radius)))
 
@@ -100,7 +100,7 @@ encloses the contents.
 			(- (cdr y-ext) (car y-ext))))
 	 (radius (+ (/ diameter 2) padding thickness)))
     (ly:stencil-add
-     (centered-stencil stencil) (make-circle-stencil radius thickness))))
+     (centered-stencil stencil) (make-circle-stencil radius thickness #f))))
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a stencil."

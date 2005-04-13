@@ -1,5 +1,13 @@
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/markup-syntax.ly: remove \score.
+
+	* scm/define-markup-commands.scm (draw-circle): add fill argument
+
+	* scm/stencil.scm (make-circle-stencil): add fill argument
+
+	* ps/music-drawing-routines.ps: add fill argument.
+
 	* ly/performer-init.ly: add CueVoice to MIDI too.
 
 	* ps/music-drawing-routines.ps: new routine BeginEPSF /
@@ -82,7 +90,6 @@
 
 	* GNUmakefile.in: Bugfix: also link .map files.
 
->>>>>>> 1.3423
 2005-04-09  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/music-functions.scm (music->make-music): generate 

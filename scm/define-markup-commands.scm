@@ -19,10 +19,11 @@
   "Stencil as markup"
   stil)
 
-(def-markup-command (draw-circle layout props radius thickness)
-  (number? number?)
-  "A circle of radius @var{radius} and thickness @var{thickness}"
-  (make-circle-stencil radius thickness))
+(def-markup-command (draw-circle layout props radius thickness fill)
+  (number? number? boolean?)
+  "A circle of radius @var{radius}, thickness @var{thickness} and
+optionally filled."
+  (make-circle-stencil radius thickness fill))
 
 (def-markup-command (circle layout props arg) (markup?)
   "Draw a circle around @var{arg}.  Use @code{thickness},

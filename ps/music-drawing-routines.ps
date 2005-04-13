@@ -284,12 +284,15 @@ bind def
 	0 360 arc closepath fill stroke
 } bind def
 
-/draw_circle % R T
+/draw_circle % R T F
 {
+	/filled exch def
 	setlinewidth
 	dup 0 moveto
 	0 exch 0 exch
-	0 360 arc closepath stroke
+	0 360 arc closepath
+	gsave stroke grestore
+	filled { fill } if 
 } bind def
 
 /draw_white_dot % x1 y2 R
