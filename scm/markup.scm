@@ -85,8 +85,8 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
                         #f)))
     (if (or (not (= arglen siglen)) (< siglen 0) (< arglen 0))
         (ly:error (string-append make-name ": "
-                   (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S")
-                   (list siglen arglen args))))
+                   (_ "Wrong number of arguments.  Expect: ~A, found ~A: ~S"))
+		  siglen arglen args))
     (if error-msg
         (ly:error
 	 (string-append

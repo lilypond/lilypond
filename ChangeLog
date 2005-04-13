@@ -1,8 +1,28 @@
+2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (write-preamble): use (NAME . CONTENTS) and
+	(NAME . FILE-NAME) tuples for font descriptions. 
+	(write-preamble): display BeginFont DSC comments.
+
+	* python/fontextract.py (write_extracted_fonts): new file. Extract
+	font resources from a PS file.
+
+	* scripts/lilypond-book.py (option_definitions): --psfonts option.
+	(Compile_error.process_include): do_file returns chunks.
+
+	* make/ly-vars.make (DVIPS_FLAGS): don't load .map file.
+
+	* make/lysdoc-targets.make: .texi is .PRECIOUS
+
+	* scripts/lilypond-book.py (write_if_updated): new function.
+
 2005-04-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-eps.scm (dump-stencils-as-EPSes): Massage messages.
 
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): no massages.
 
 	* input/regression/markup-syntax.ly: remove \score.
 

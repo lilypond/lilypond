@@ -7,6 +7,13 @@
 "
 
     }
+
+%{
+
+For maintenance reasons, we don't excercise the entire markup command set.
+
+%}
+
 \version "2.5.2"
 \score {
      {
@@ -25,7 +32,6 @@
             \combine "X" "+"   
             \combine "o" "/"
             \box \column { \line { "string 1" } \line { "string 2" } }
-            "$\\emptyset$"
             \italic Norsk
             \super "2"
             \dynamic sfzp
@@ -46,8 +52,6 @@
               #:combine "X" "+"   
               #:combine "o" "/"
               #:box #:column ("string 1" "string 2")
-              "$\\emptyset$"
-	      #:draw-circle 1 0.3
 	      " "
               #:italic "Norsk"
               #:super "2"

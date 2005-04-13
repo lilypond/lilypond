@@ -39,14 +39,6 @@
    (equal? (substring fontname 0 2) "cm")
    (equal? (substring fontname 0 2) "ec")))
 
-(define (ps-embed-pfa body font-name version)
-  (string-append
-   (format
-    "%%BeginResource: font ~a
-~a
-%%EndResource\n"
-    font-name body)))
-
 
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
@@ -202,65 +194,80 @@
 			    name 'pre "PFA" 1 'post))
 
 (define (write-preamble paper load-fonts? port)
+  (define (load-font font-pair)
+    (let* ((name (car font-pair))
+	   (file-name (cdr font-pair))
+		 
+	   (bare-file-name (ly:find-file file-name))
+	   (cffname (string-append file-name ".cff.ps"))
+	   (cff-file-name (ly:find-file cffname)))
+
+      (cons 
+       (munge-lily-font-name name)
+       (cond
+	((and bare-file-name (string-match "\\.pfa" bare-file-name))
+	 (cached-file-contents bare-file-name))
+	((and bare-file-name (string-match "\\.pfb" bare-file-name))
+	 (ly:pfb->pfa bare-file-name))
+	
+	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
+	 (cached-file-contents
+	  (format "~a.pfa" (munge-lily-font-name file-name))))
+
+	((and bare-file-name
+	      (string-match "\\.(otf|cff)" bare-file-name))
+
+					; replace with the CFF.ps, which lives in a
+					; separate subdir.
+	 (for-each (lambda (tup)
+		     (set! bare-file-name
+			   (string-regexp-substitute
+			    (car tup) (cdr tup) bare-file-name)))
+		   '(("/fonts/otf/" . "/ps/")
+		     ("/fonts/cff/" . "/ps/")
+		     ("\\.(otf|cff)" . ".cff.ps")))
+
+	 (cached-file-contents bare-file-name))
+	((and bare-file-name (string-match "\\.ttf" bare-file-name))
+	 (ly:ttf->pfa bare-file-name))
+	(bare-file-name (cached-file-contents bare-file-name))
+	(cff-file-name  (cached-file-contents cff-file-name))
+	(else
+	 (ly:warning (_ "can't find CFF/PFA/PFB font ~S=~S" name file-name))
+	 (cons font-name ""))))))
+  
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
+
 	   (all-font-names
 	    (map
 	     (lambda (font)
 	       (cond
-		((string? (ly:font-file-name font)) (list (ly:font-file-name font)))
+		((string? (ly:font-file-name font))
+		 (list (cons (ly:font-name font)
+			     (ly:font-file-name font))))
 		((ly:pango-font? font)
-		 (map cdr  (ly:pango-font-physical-fonts font)))
-		(else (ly:font-sub-fonts font))))
+		 (ly:pango-font-physical-fonts font))
+		(else
+		 (ly:font-sub-fonts font))))
 		   
 	     fonts))
-	   
 	   (font-names
 	    (uniq-list
-	     (sort (apply append all-font-names) string<?)))
-	   (pfas (map
-		  (lambda (x)
-		    (let* ((bare-file-name (ly:find-file x))
-			   (cffname (string-append x ".cff.ps"))
-			   (cff-file-name (ly:find-file cffname)))
-
-		      
-		      (cond
-		       ((and bare-file-name (string-match "\\.pfa" bare-file-name))
-			(cached-file-contents bare-file-name))
-		       ((and bare-file-name (string-match "\\.pfb" bare-file-name))
-			(ly:pfb->pfa bare-file-name))
-			
-		       ((string-match "([eE]mmentaler|[Aa]ybabtu)" x)
-			(cached-file-contents
-			 (format "~a.pfa" (munge-lily-font-name x))))
-
-		       ((and bare-file-name
-			    (string-match "\\.(otf|cff)" bare-file-name))
-
-			; replace with the CFF.ps, which lives in a
-			; separate subdir.
-			(for-each (lambda (tup)
-				    (set! bare-file-name
-					  (string-regexp-substitute
-					   (car tup) (cdr tup) bare-file-name)))
-				  '(("/fonts/otf/" . "/ps/")
-				    ("/fonts/cff/" . "/ps/")
-				    ("\\.(otf|cff)" . ".cff.ps")))
-
-			(cached-file-contents bare-file-name))
-		       ((and bare-file-name (string-match "\\.ttf" bare-file-name))
-			(ly:ttf->pfa bare-file-name))
-		       (bare-file-name (cached-file-contents bare-file-name))
-		       (cff-file-name  (cached-file-contents cff-file-name))
-		       (else
-			(ly:warning (_ "can't find CFF/PFA/PFB font ~S" x))
-			""))))
-		  (filter string? font-names))))
-	   pfas))
+	     (sort (apply append all-font-names)
+		   (lambda (x y) (string<? (car x) (car y))))))
+	   
+	   (pfas (map load-font font-names)))
+      pfas))
 
   (if load-fonts?
-      (for-each (lambda (f) (display f port)) (load-fonts paper)))
+      (for-each
+       (lambda (f)
+	 (format port "\n%%BeginFont: ~a\n" (car f))
+	 (display (cdr f) port)
+	 (display "\n%%EndFont\n" port))
+       (load-fonts paper)))
+      
   (display (setup paper) port)
 
   ; adobe note 5002: should initialize variables before loading routines.

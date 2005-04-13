@@ -17,5 +17,4 @@ TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(ILY_FILES)
 
 
-# not mf/out , not mf/$(outdir) 
-DVIPS_FLAGS= -u+$(builddir)/mf/out/lilypond.map  -Ppdf
+DVIPS_FLAGS= -h $(notdir $(basename $<)).fonts.ps
