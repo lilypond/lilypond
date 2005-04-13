@@ -35,11 +35,6 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
 	$(cd $(outdir) && dvips $(DVIPS_FLAGS)  -o $(notdir $@).pdfps -t $(DVIPS_PAPERSIZE)  $(notdir $<)  \
-	 && gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$(notdir $@) -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $(notdir $@).pdfps )
-
-# without -dSAFER
-# gs 8.15 complains of safety of loading a ttf directly 
-
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)

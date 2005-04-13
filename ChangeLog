@@ -1,3 +1,10 @@
+2005-04-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/stepmake/tex-rules.make ($(outdir)/%.pdf): make PDF
+	directly, remove -$(PAGESIZE) target.
+
+	* input/test/embedded-postscript.ly: update.
+
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lysdoc-targets.make (local-WWW): remove ps.gz target.
