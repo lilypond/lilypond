@@ -81,8 +81,12 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 					  % (string.join (extract_from_this, ', '), filename))
 
 def write_extracted_fonts (output_file_name, font_dict):
+
+	if verbose:
+		sys.stderr.write( _('Writing fonts to %s') % output_file_name + '\n')
 	output = open (output_file_name, 'w')
 	output.write ('''%!PS-Adobe-3.0
+%%VMusage: 0 0 
 %%Creator: lilypond-extract-fonts
 ''')
 

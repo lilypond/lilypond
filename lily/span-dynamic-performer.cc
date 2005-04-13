@@ -13,7 +13,6 @@
   TODO: fold this into 1 engraver: \< and \> should also stop when
   absdyn is encountered.
 */
-
 struct Audio_dynamic_tuple
 {
   Audio_dynamic *audio_;

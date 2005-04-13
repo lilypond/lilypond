@@ -40,7 +40,8 @@ properties_to_pango_description (SCM chain, Real text_size)
 					     SCM_BOOL_F);
     }
 
-  Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
+  Real step = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
+				 0.0);
   Real size = text_size * pow (2.0, step / 6.0);
 
   pango_font_description_set_size (description,
@@ -51,8 +52,10 @@ properties_to_pango_description (SCM chain, Real text_size)
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain)
 {
-  PangoFontDescription *pfd = properties_to_pango_description (chain,
-							       point_constant * layout->get_dimension (ly_symbol2scm ("text-font-size")));
+  PangoFontDescription *pfd
+    = properties_to_pango_description (chain,
+				       point_constant
+				       * layout->get_dimension (ly_symbol2scm ("text-font-size")));
 
   char *str = pango_font_description_to_string (pfd);
   SCM scm_str = scm_makfrom0str (str);
