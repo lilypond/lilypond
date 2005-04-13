@@ -1,5 +1,8 @@
 2005-04-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/changing-defaults.itely (Font selection):
+	document font-name.
+
 	* input/regression/font-name.ly: show Pango fonts for
 	font-name. Update example. 
 

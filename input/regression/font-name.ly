@@ -16,16 +16,13 @@ without size specification."
   \override Staff.TimeSignature  #'font-name = #"Times"
   \time 3/4
   \set Score.skipBars = ##t
-
-				% use font-name putri8r for Utopia Italic :
-  
   \override Staff.MultiMeasureRestText #'font-name = #"LuxiMono"
   R1*21^"Rest in LuxiMono"
 
   c'1_\markup {
-    \override #'(font-name . "Utopia Bold")
+    \override #'(font-name . "Vera Bold")
       \override #'(font-size . 4)
-        { This text is in large Utopia Bold }
+        { This text is in large Vera Bold }
   }
 }
 
