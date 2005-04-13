@@ -42,8 +42,8 @@
 	 (tex-system-port (open-output-file tex-system-name))
 	 (texi-system-port (open-output-file texi-system-name)))
     
-    (ly:message (_ ("Writing ~a...") tex-system-name))
-    (ly:massage (_ ("Writing ~a...") texi-system-name))
+    (ly:message (_ "Writing ~a...") tex-system-name)
+    (ly:message (_ "Writing ~a...") texi-system-name)
     (dump-stencils-as-separate-EPS stencils 1)
     (for-each (lambda (c)
 		(display (format "\\includegraphics{~a-~a.eps}%\n"
