@@ -12,7 +12,7 @@ $(outdir)/%.texi: %.tely
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
-	$(PYTHON) $(LILYPOND_BOOK) --psfonts=$(basename $<).fonts.ps $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) --psfonts=$(notdir $(basename $<)).fonts.ps $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<
@@ -34,10 +34,12 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	pstops '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips $(DVIPS_FLAGS)  -o $@.pdfps -t $(DVIPS_PAPERSIZE)  $<
+	$(cd $(outdir) && dvips $(DVIPS_FLAGS)  -o $(notdir $@).pdfps -t $(DVIPS_PAPERSIZE)  $(notdir $<)  \
+	 && gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$(notdir $@) -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $(notdir $@).pdfps )
+
 # without -dSAFER
 # gs 8.15 complains of safety of loading a ttf directly 
-	gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$@ -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $@.pdfps
+
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)
