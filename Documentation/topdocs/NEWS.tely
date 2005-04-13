@@ -36,9 +36,14 @@ See user manual, \NAME\
 @item
 @file{lilypond-book} now makes @file{lilypond} print line numbers
 relative to the input file for every error message.
+
+@item
+The command @code{\epsfile} allows inclusion of EPS graphics into
+markup texts.
   
 @item
-A new @code{\circle} markup command allows for all kinds of circled texts
+A new @code{\circle} markup command allows for all kinds of circled
+texts
 
 @lilypond[relative,relative=2,raggedright,fragment]
 c1            
