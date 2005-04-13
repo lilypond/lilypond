@@ -70,7 +70,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 						sys.stderr.write (_('Extracted %s')
 								  % curr_font_name + '\n')
 
-				extract_from_this.remove (curr_font_name)
+					extract_from_this.remove (curr_font_name)
 			elif in_font:
 				curr_font.append (l)
 			if not extract_from_this:
