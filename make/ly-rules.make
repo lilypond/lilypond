@@ -34,7 +34,20 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	pstops '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	$(cd $(outdir) && dvips $(DVIPS_FLAGS)  -o $(notdir $@).pdfps -t $(DVIPS_PAPERSIZE)  $(notdir $<)  \
+	$(shell cd $(outdir) \
+		&& dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) \
+			-o $(notdir $@).pdfps $(notdir $<) \
+	 	&& gs -dCompatibilityLevel=1.2\
+			-sPAPERSIZE=a4\
+			-q\
+			-dNOPAUSE\
+			-dBATCH\
+			-sDEVICE=pdfwrite\
+			-sOutputFile=$(notdir $@)\
+			-dCompatibilityLevel=1.2\
+			-sPAPERSIZE=a4\
+			-c .setpdfwrite\
+			-f $(notdir $@).pdfps)
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)
