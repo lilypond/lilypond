@@ -148,7 +148,7 @@ This manual: @ref{Selecting font sizes}.
 @cindex page size
 @cindex @code{papersize}
 
-To change the paper size, there are two equal commands,
+To change the paper size, there are two commands,
 @example
 #(set-default-paper-size "a4")
 \paper @{
