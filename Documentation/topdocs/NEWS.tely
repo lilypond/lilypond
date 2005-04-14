@@ -40,6 +40,13 @@ relative to the input file for every error message.
 @item
 The command @code{\epsfile} allows inclusion of EPS graphics into
 markup texts.
+
+@item
+There is a music function @code{\musicDisplay}, which will display a
+music expression as indented Scheme code.
+
+@item
+A plus sign was added to the number font.
   
 @item
 A new @code{\circle} markup command allows for all kinds of circled
