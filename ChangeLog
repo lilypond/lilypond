@@ -1,5 +1,11 @@
 2005-04-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/ly-rules.make ($(outdir)/%.html.omf): transplant .dvi ->
+	.pdf rule to tex-rules.make.
+
+	* scm/framework-eps.scm (dump-stencils-as-EPSes): remove comments
+	from -systems.* output.
+
 	* stepmake/stepmake/tex-rules.make ($(outdir)/%.pdf): make PDF
 	directly, remove -$(PAGESIZE) target.
 
