@@ -589,9 +589,9 @@ HYPHEN		--
 
     switch (c) {
     case '>':
-	return E_BIGGER;
+	return E_ANGLE_CLOSE;
     case '<':
-	return E_SMALLER;
+	return E_ANGLE_OPEN;
     case '!':
 	return E_EXCLAMATION;
     case '(':
@@ -599,9 +599,9 @@ HYPHEN		--
     case ')':
 	return E_CLOSE;
     case '[':
-	return E_LEFTSQUARE;
+	return E_BRACKET_OPEN;
     case ']':
-	return E_RIGHTSQUARE;
+	return E_BRACKET_CLOSE;
     case '~':
 	return E_TILDE;
     case '\\':

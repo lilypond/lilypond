@@ -53,6 +53,14 @@ Music *context_spec_music (SCM type, SCM id, Music *m, SCM ops);
 SCM get_next_unique_context_id ();
 SCM get_next_unique_lyrics_context_id ();
 
+#undef _
+#if !HAVE_GETTEXT
+#define _(x) x
+#else
+#include <libintl.h>
+#define _(x) gettext (x)
+#endif
+
 #define YYERROR_VERBOSE 1
 
 #define YYPARSE_PARAM my_lily_parser
@@ -249,111 +257,135 @@ or
 %pure_parser
 %locations
 
-%token ACCEPTS
-%token ADDQUOTE
-%token LYRICSTO
-%token ALIAS
-%token ALTERNATIVE
-%token BAR
-%token BOOK
-%token CHANGE
+/* FIXME: The third option is an alias that will be used to display
+   the syntax error.  There's a bug (reported with patch) in bison CVS
+   that prints double backslashes
+
+   bison.ly:1:5: error: syntax error, unexpected \\book", expecting '{'
+   \book
+	\book %expect \book error here
+   
+/* Keyword tokens with plain escaped name.  */
+%token ACCEPTS "\\accepts"
+%token ADDLYRICS "\\addlyrics"
+%token ADDQUOTE "\\addquote"
+%token ALIAS "\\alias"
+%token ALTERNATIVE "\\alternative"
+%token BAR "\\bar"
+%token BOOK "\\book"
+%token CHANGE "\\change"
+%token CHORDMODE "\\chordmode"
+%token CHORDS "\\chords"
+%token CLEF "\\clef"
+%token CONSISTS "\\consists"
+%token CONTEXT "\\context"
+%token DEFAULT "\\default"
+%token DENIES "\\denies"
+%token DESCRIPTION "\\description"
+%token DRUMMODE "\\drummode"
+%token DRUMS "\\drums"
+%token FIGUREMODE "\\figuremode"
+%token FIGURES "\\figures"
+%token GROBDESCRIPTIONS "\\grobdescriptions"
+%token HEADER "\\header"
+%token INVALID "\\invalid"
+%token KEY "\\key"
+%token LAYOUT "\\layout"
+%token LYRICMODE "\\lyricmode"
+%token LYRICS "\\lyrics"
+%token LYRICSTO "\\lyricsto"
+%token MARK "\\mark"
+%token MARKUP "\\markup"
+%token MIDI "\\midi"
+%token NAME "\\name"
+%token NOTEMODE "\\notemode"
+%token OBJECTID "\\objectid"	
+%token OCTAVE "\\octave"
+%token ONCE "\\once"
+%token OVERRIDE "\\override"
+%token PAPER "\\paper"
+%token PARTIAL "\\partial"
+%token RELATIVE "\\relative"
+%token REMOVE "\\remove"
+%token REPEAT "\\repeat"
+%token REST "\\rest"
+%token REVERT "\\revert"
+%token SCORE "\\score"
+%token SEQUENTIAL "\\sequential"
+%token SET "\\set"
+%token SIMULTANEOUS "\\simultaneous"
+%token SKIP "\\skip"
+%token TAG "\\tag"
+%token TEMPO "\\tempo"
+%token TIMES "\\times"
+%token TRANSPOSE "\\transpose"
+%token TRANSPOSITION "\\transposition"
+%token TYPE "\\type"
+%token UNSET "\\unset"
+%token WITH "\\with"
+
+/* Keyword token exceptions.  */
+%token TIME_T "\\time"
+%token NEWCONTEXT "\\new"
+
+
+/* Other string tokens.  */
+
+%token CHORD_BASS "/+"
+%token CHORD_CARET "^"
+%token CHORD_COLON ":"
+%token CHORD_MINUS "-"
+%token CHORD_SLASH "/"
+%token DOUBLE_ANGLE_CLOSE ">>"
+%token DOUBLE_ANGLE_OPEN "<<"
+%token E_BACKSLASH "\\"
+%token E_ANGLE_CLOSE "\\>"
+%token E_CHAR "\\C[haracter]"
+%token E_CLOSE "\\)"
+%token E_EXCLAMATION "\\!"
+%token E_BRACKET_OPEN "\\["
+%token E_OPEN "\\("
+%token E_BRACKET_CLOSE "\\]"
+%token E_ANGLE_OPEN "\\<"
+%token E_TILDE "\\~"
+%token EXTENDER "__"
+/*  These used at all?
+  %token FIGURE_BRACKET_CLOSE 
+  %token FIGURE_BRACKET_OPEN
+
+parser.yy:348.8-25: warning: symbol `"\\>"' used more than once as a literal string
+parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal string
+
+*/
+%token FIGURE_CLOSE /* "\\>" */
+%token FIGURE_OPEN /* "\\<" */
+%token FIGURE_SPACE "_"
+%token HYPHEN "--"
+
 %token CHORDMODIFIERS
-%token CHORDS
-%token CHORDMODE
-%token DOUBLE_ANGLE_OPEN
-%token DOUBLE_ANGLE_CLOSE
-%token CLEF
 %token COMMANDSPANREQUEST
-%token CONSISTS
-%token CONTEXT
-%token DEFAULT
-%token DENIES
-%token DESCRIPTION
-%token EXTENDER
-%token FIGURES
-%token FIGUREMODE
-%token FIGURE_OPEN FIGURE_CLOSE
-%token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
-%token GROBDESCRIPTIONS
-%token HEADER
-%token HYPHEN
-%token INVALID
-%token KEY
-%token LAYOUT
-%token LYRICS
 %token LYRIC_MARKUP
-%token LYRICMODE
-%token MARK
-%token MIDI
 %token MULTI_MEASURE_REST
-%token NAME
-%token NEWCONTEXT
-%token NOTEMODE
-%token OBJECTID	
-%token OCTAVE
-%token ONCE
-%token OVERRIDE SET REVERT
-%token PAPER
-%token PARTIAL
-%token QUOTE
-%token RELATIVE
-%token REMOVE
-%token REPEAT
-%token REST
 %token SCM_T
-%token SCORE
-%token SEQUENTIAL
-%token ADDLYRICS
-%token SIMULTANEOUS
-%token SKIP
-%token SPANREQUEST
-%token TAG
-%token TEMPO
-%token TIMES
-%token TIME_T
-%token TRANSPOSE
-%token TRANSPOSITION
-%token TYPE
-%token UNSET
-%token WITH
-%token MARKUP
 
-/* escaped */
-/* FIXME: this sucks.  The user will get to see these names:
-    syntax error, unexpected E_CHAR:
-		\
-                 %%
-  */
 
-%token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
-%token E_LEFTSQUARE E_RIGHTSQUARE E_TILDE
-%token E_BACKSLASH
-%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET  CHORD_SLASH
-%token FIGURE_SPACE
-
-%token <i>	DIGIT
-%token <i>	UNSIGNED
+%token <i> DIGIT
 %token <i> E_UNSIGNED
-%token <id>	IDENTIFIER
-%token <scm>	CHORDMODIFIER_PITCH
-%token <scm>	DRUM_PITCH
-%token <scm>	DURATION_IDENTIFIER
-%token <scm>	EVENT_IDENTIFIER
-%token <scm>	MUSIC_IDENTIFIER CONTEXT_DEF_IDENTIFIER
-%token <scm>	NOTENAME_PITCH
-%token <scm>	NUMBER_IDENTIFIER
-%token <scm>	OUTPUT_DEF_IDENTIFIER
-%token <scm>	RESTNAME
+%token <i> UNSIGNED
+
+%token <id> IDENTIFIER
+
+%token <scm> CHORDMODIFIER_PITCH
+%token <scm> CHORD_MODIFIER
+%token <scm> CONTEXT_DEF_IDENTIFIER
+%token <scm> DRUM_PITCH
+%token <scm> DURATION_IDENTIFIER
+%token <scm> EVENT_IDENTIFIER
+%token <scm> FRACTION
 %token <scm> LYRICS_STRING
-%token <scm>	SCM_T
-%token <scm>	SCORE_IDENTIFIER
-%token <scm>	STRING
-%token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER
-%token <scm>	TONICNAME_PITCH
-%token <scm> 	CHORD_MODIFIER
-%token <scm>    FRACTION
-%token <scm>   REAL
+%token <scm> LYRIC_MARKUP_IDENTIFIER
 %token <scm> MARKUP_HEAD_EMPTY
+%token <scm> MARKUP_HEAD_LIST0
 %token <scm> MARKUP_HEAD_MARKUP0
 %token <scm> MARKUP_HEAD_MARKUP0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0
@@ -361,87 +393,151 @@ or
 %token <scm> MARKUP_HEAD_SCM0_SCM1
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
-%token <scm> LYRIC_MARKUP_IDENTIFIER MARKUP_IDENTIFIER MARKUP_HEAD_LIST0
+%token <scm> MARKUP_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
+%token <scm> MUSIC_FUNCTION_MARKUP 
+%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP 
+%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC 
+%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC 
+%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_MUSIC 
 %token <scm> MUSIC_FUNCTION_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM 
-%token <scm> MUSIC_FUNCTION_SCM_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_SCM_SCM 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
-%token <scm> MUSIC_FUNCTION_MARKUP 
-%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP 
-%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC 
-%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC 
-%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC 
+%token <scm> MUSIC_IDENTIFIER
+%token <scm> NOTENAME_PITCH
+%token <scm> NUMBER_IDENTIFIER
+%token <scm> OUTPUT_DEF_IDENTIFIER
+%token <scm> REAL
+%token <scm> RESTNAME
+%token <scm> SCM_IDENTIFIER
+%token <scm> SCM_T
+%token <scm> SCORE_IDENTIFIER
+%token <scm> STRING
+%token <scm> STRING_IDENTIFIER
+%token <scm> TONICNAME_PITCH
 
-%token DRUMS
-%token DRUMMODE
 
+%type <book> book_block
+%type <book> book_body
 
-%type <book>	book_block book_body
-%type <i>	bare_int  bare_unsigned
-%type <i>	exclamations questions dots optional_rest
-%type <i>	script_dir
-%type <i>	sub_quotes sup_quotes
-%type <i>	tremolo_type
-%type <i>  	bass_mod
+%type <i> bare_int
+%type <i> bare_unsigned
+%type <i> bass_mod
+%type <i> dots
+%type <i> exclamations
+%type <i> optional_rest
+%type <i> questions
+%type <i> script_dir
+%type <i> sub_quotes
+%type <i> sup_quotes
+%type <i> tremolo_type
 
-%type <music>	Composite_music Simple_music Prefix_composite_music Generic_prefix_music
-%type <music>	Grouped_music_list
-%type <music>	Music Sequential_music Simultaneous_music
-%type <music>	Repeated_music
-%type <music>	command_req
-%type <music>	gen_text_def direction_less_event direction_reqd_event
-%type <music>	music_property_def context_change
-%type <music>	note_chord_element chord_body chord_body_element
-%type <music>	post_event tagged_post_event
-%type <music>	relative_music re_rhythmed_music
-%type <music>	simple_element event_chord command_element
-%type <music>	string_number_event
-%type <music>	toplevel_music
-%type <music> 	tempo_event
+%type <music> Composite_music
+%type <music> Generic_prefix_music
+%type <music> Grouped_music_list
+%type <music> Music
+%type <music> Prefix_composite_music
+%type <music> Repeated_music
+%type <music> Sequential_music
+%type <music> Simple_music
+%type <music> Simultaneous_music
+%type <music> chord_body
+%type <music> chord_body_element
+%type <music> command_element
+%type <music> command_req
+%type <music> context_change
+%type <music> direction_less_event
+%type <music> direction_reqd_event
+%type <music> event_chord
+%type <music> gen_text_def
+%type <music> music_property_def
+%type <music> note_chord_element
+%type <music> post_event
+%type <music> re_rhythmed_music
+%type <music> relative_music
+%type <music> simple_element
+%type <music> string_number_event
+%type <music> tagged_post_event
+%type <music> tempo_event
+%type <music> toplevel_music
 
-%type <outputdef>	output_def_body output_def_head
-%type <outputdef> output_def paper_block 
+%type <outputdef> output_def_body
+%type <outputdef> output_def_head
+%type <outputdef> output_def
+%type <outputdef> paper_block 
 
-%type <scm>     assignment_id
-%type <scm>	Music_list
-%type <scm>	chord_body_elements
-%type <scm>	chord_item chord_items chord_separator new_chord
-%type <scm>	context_def_spec_block context_def_spec_body
-%type <scm>	context_mod context_def_mod optional_context_mod
-%type <scm>	context_prop_spec
-%type <scm>	direction_less_char
-%type <scm>	duration_length fraction
-%type <scm>	embedded_scm scalar
-%type <scm>	identifier_init
-%type <scm>	lilypond_header lilypond_header_body
-%type <scm>	new_lyrics
-%type <scm>	post_events
-%type <scm>	property_operation
-%type <scm>	script_abbreviation
-%type <scm>	simple_string
-%type <scm>	steno_pitch pitch absolute_pitch pitch_also_in_chords
-%type <scm>	steno_tonic_pitch
-%type <scm>	step_number step_numbers 
-%type <scm>	string bare_number number_expression number_term number_factor
-%type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
-%type <scm> 	context_mod_list
-%type <scm> 	octave_check
-%type <scm> 	steno_duration optional_notemode_duration multiplied_duration
-%type <scm>  	Generic_prefix_music_scm 
-%type <scm>  	lyric_element
-%type <scm>     Alternative_music
-%type <scm>	full_markup lyric_markup
-%type <scm>	markup_list markup_composed_list markup_braced_list markup_braced_list_body 
-%type <scm>	markup_head_1_item markup_head_1_list markup simple_markup markup_top
-%type <scm> 	mode_changing_head
-%type <scm> 	mode_changing_head_with_context
-%type <scm>     object_id_setting 
+%type <scm> Alternative_music
+%type <scm> Generic_prefix_music_scm 
+%type <scm> Music_list
+%type <scm> absolute_pitch
+%type <scm> assignment_id
+%type <scm> bare_number
+%type <scm> bass_figure
+%type <scm> bass_number
+%type <scm> br_bass_figure
+%type <scm> chord_body_elements
+%type <scm> chord_item
+%type <scm> chord_items
+%type <scm> chord_separator
+%type <scm> context_def_mod
+%type <scm> context_def_spec_block
+%type <scm> context_def_spec_body
+%type <scm> context_mod
+%type <scm> context_mod_list
+%type <scm> context_prop_spec
+%type <scm> direction_less_char
+%type <scm> duration_length
+%type <scm> embedded_scm
+%type <scm> figure_list
+%type <scm> figure_spec
+%type <scm> fraction
+%type <scm> full_markup
+%type <scm> identifier_init
+%type <scm> lilypond_header
+%type <scm> lilypond_header_body
+%type <scm> lyric_element
+%type <scm> lyric_markup
+%type <scm> markup
+%type <scm> markup_braced_list
+%type <scm> markup_braced_list_body 
+%type <scm> markup_composed_list
+%type <scm> markup_head_1_item
+%type <scm> markup_head_1_list
+%type <scm> markup_list
+%type <scm> markup_top
+%type <scm> mode_changing_head
+%type <scm> mode_changing_head_with_context
+%type <scm> multiplied_duration
+%type <scm> new_chord
+%type <scm> new_lyrics
+%type <scm> number_expression
+%type <scm> number_factor
+%type <scm> number_term
+%type <scm> object_id_setting
+%type <scm> octave_check
+%type <scm> optional_context_mod
+%type <scm> optional_notemode_duration
+%type <scm> pitch
+%type <scm> pitch_also_in_chords
+%type <scm> post_events
+%type <scm> property_operation
+%type <scm> scalar
+%type <scm> script_abbreviation
+%type <scm> simple_markup
+%type <scm> simple_string
+%type <scm> steno_duration
+%type <scm> steno_pitch
+%type <scm> steno_tonic_pitch
+%type <scm> step_number
+%type <scm> step_numbers 
+%type <scm> string
 
-%type <score>	score_block score_body
+%type <score> score_block
+%type <score> score_body
 
 
 %left '-' '+'
@@ -1598,7 +1694,7 @@ command_element:
 		$$->set_spot (@$);
 		$$->set_property ("pitch", $2);
 	}
-	| E_LEFTSQUARE {
+	| E_BRACKET_OPEN {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
 		m->set_property ("span-direction", scm_int2num (START));
 		m->set_spot (@$);
@@ -1608,7 +1704,7 @@ command_element:
 		scm_gc_unprotect_object (m->self_scm ());
 		$$->set_spot (@$);
 	}
-	| E_RIGHTSQUARE {
+	| E_BRACKET_CLOSE {
 		Music *m = MY_MAKE_MUSIC ("LigatureEvent");
 		m->set_property ("span-direction", scm_int2num (STOP));
 		m->set_spot (@$);
@@ -1801,10 +1897,10 @@ direction_less_char:
 	| E_CLOSE  {
 		$$ = ly_symbol2scm ("escapedParenthesisCloseSymbol");
 	}
-	| E_BIGGER  {
+	| E_ANGLE_CLOSE  {
 		$$ = ly_symbol2scm ("escapedBiggerSymbol");
 	}
-	| E_SMALLER  {
+	| E_ANGLE_OPEN  {
 		$$ = ly_symbol2scm ("escapedSmallerSymbol");
 	}
 	;
