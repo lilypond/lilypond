@@ -4,6 +4,8 @@ texidoc  = "Stem directions and head positions are taken into account for spacin
 
 }
 
+\version "2.5.19"
+
 \paper {
   raggedright = ##t
   indent = #0.0
