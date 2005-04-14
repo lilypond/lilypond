@@ -14,9 +14,22 @@ $(outdir)/%.dvi: $(outdir)/%.latex
 	  latex \\nonstopmode \\input $(<F) )
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	cd $(outdir) && dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) -o $(@F).pdfps $(<F)
 	cd $(outdir) \
-	 && gs -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=$(@F) -dCompatibilityLevel=1.2 -sPAPERSIZE=a4 -c .setpdfwrite -f $(@F).pdfps
+		&& dvips $(DVIPS_FLAGS) -t $(DVIPS_PAPERSIZE) \
+			-o $(@F).pdfps $(<F) \
+	 	&& gs -dCompatibilityLevel=1.2\
+			-sPAPERSIZE=a4\
+			-q\
+			-dNOPAUSE\
+			-dBATCH\
+			-sDEVICE=pdfwrite\
+			-sOutputFile=$(@F)\
+			-dCompatibilityLevel=1.2\
+			-sPAPERSIZE=a4\
+			-c .setpdfwrite\
+			-f $(@F).pdfps
+
+
 # without -dSAFER
 # gs 8.15 complains of safety of loading a ttf directly 
 
