@@ -430,26 +430,22 @@ The stress of one tone over others.
 
 @aref{ornament}.
 
-@c F: how to distinguish between accidental and key-sig alteration?
-
 @node accidental
 @section accidental
 
-ES: alteración,
-I: alterazione, accidente,
-F: altération
-D: Vorzeichen, Versetzungszeichen,
-NL: voorteken,
+ES: alteración accidentelle,
+I: accidento,
+F: altération accidentelle,
+D: Vorzeichen, Versetzungszeichen, Akzidenz,
+NL: toevallig voorteken, accident,
 DK: løst fortegn,
 S: tillfälligt förtecken,
 FI: tilapäinen etumerkki.
 
-@c F: altération accidentelle, D: Vorzeichen, Versetzungszeichen,
-@c Akzidenz, NL: toevallig teken, I: accidento.
-
-A sharp raises a tone by a @aref{semitone}, a double sharp raises it
-by a @aref{whole tone}, a flat lowers it by a semitone and a double
-flat lowers it by a whole tone.  A natural cancels the effect of a previous
+An accidental has the effect of an @aref{alteration} of a note.  A
+sharp raises a tone by a @aref{semitone}, a double sharp raises it by
+a @aref{whole tone}, a flat lowers it by a semitone and a double flat
+lowers it by a whole tone.  A natural cancels the effect of a previous
 accidental.
 
 @lilypond[fragment,notime,linewidth=13.0\cm]
@@ -511,6 +507,21 @@ FI: allegro, nopeasti.
 
 It.@: cheerful.  Quick tempo.  Also used as a title for pieces in a quick
 tempo, especially the first and last movements of a @aref{sonata}.
+
+@node alteration
+@section alteration
+
+ES: alteración,
+I: alterazione
+F: altération
+D: 
+NL: verhoging of verlaging,
+DK:
+S:
+FI:
+
+An alteration is the modification, raising or lowering, of a note's
+pitch.  It is established by an @aref{accidental}.
 
 @node alto
 @section alto
