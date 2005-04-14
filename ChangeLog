@@ -1,5 +1,8 @@
 2005-04-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
+	only put xrefs in info documentation.
+
 	* make/ly-rules.make ($(outdir)/%.html.omf): transplant .dvi ->
 	.pdf rule to tex-rules.make.
 

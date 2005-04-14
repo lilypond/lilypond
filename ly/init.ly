@@ -27,7 +27,7 @@
 #(if (and (ly:get-option 'old-relative)
       (defined? 'input-file-name)
       (not (ly:get-option 'old-relative-used)))
-  (ly:warn (string-append
+  (ly:warning (string-append
 	    "\n"
 	    input-file-name ": old relative compatibility was not used."
 	)))%% there is a problem at the end of the input file
