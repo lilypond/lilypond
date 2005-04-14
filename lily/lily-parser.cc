@@ -168,8 +168,6 @@ Lily_parser::here_str0 () const
 void
 Lily_parser::parser_error (String s)
 {
-  /* FIXME: cannot otherwise internationalize this bison warning.  */
-  (void) _i ("syntax error, unexpected ");
   lexer_->here_input ().error (_ (s.to_str0 ()));
   error_level_ = 1;
 }

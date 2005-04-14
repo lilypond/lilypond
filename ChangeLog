@@ -1,5 +1,8 @@
 2005-04-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/lily-library.scm (old-relative-not-used-message)
+	(version-not-seen-message): Add input-file-name-location to message.
+
 	* lily/parser.yy (lilypond): Add token aliases.
 
 	* Documentation/user/music-glossary.tely (accidental): Fixes.  Do

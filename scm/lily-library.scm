@@ -339,8 +339,16 @@ possibly turned off."
     (debugf "design:~S\n" designsize)
     scaling))
 
-(define-public (version-not-seen-message)
-  (ly:warning
+(define-public (version-not-seen-message input-file-name)
+  (ly:message
+   (string-append
+    input-file-name ": 0: " (_ "warning: ")
    (format #f
-	   (_ "No \\version statement found.  Add~afor future compatibility.")
-	   (format #f "\n\n\\version ~s\n\n" (lilypond-version)))))
+	   (_ "no \\version statement found,  add~afor future compatibility")
+	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))))
+
+(define-public (old-relative-not-used-message input-file-name)
+  (ly:message
+   (string-append
+    input-file-name ": 0: " (_ "warning: ")
+    (_ "old relative compatibility not used"))))
