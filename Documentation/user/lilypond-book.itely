@@ -552,9 +552,16 @@ ps2pdf yourfile.ps
 
 To produce a Texinfo document (in any output format), follow the normal
 procedures for Texinfo (this is, either call @command{texi2dvi} or
-@command{makeinfo}, depending on the output format you want to create).
+@command{makeinfo}, depending on the output format you want to
+create).
+@ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
 an Info File, , , texinfo, GNU Texinfo}.
+@end ifinfo
+@ifnotinfo
+See the documentation of Texinfo for further details.
+@end ifnotinfo
+
 
 @command{lilypond-book} accepts the following command line options:
 

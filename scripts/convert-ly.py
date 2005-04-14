@@ -2467,7 +2467,14 @@ conversions.append (((2, 5, 17),
 		     conv,
 		     'ly:stencil-set-extent! removed'))
 		    
+def conv (str):
+	str = re.sub (r"ly:warn\b", 'ly:warning', str)
+	return str
 
+conversions.append (((2, 5, 18),
+		     conv,
+		     'ly:warn -> ly:warning'))
+		    
 ################################
 #	END OF CONVERSIONS
 ################################
