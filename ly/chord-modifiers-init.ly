@@ -7,10 +7,6 @@ whiteTriangleMarkup = \markup {
   %%  394 capital delta
   #(ly:export (ly:wide-char->utf-8 #x0394))
 
-
-  %% need to have symbol; can't deal with TTF yet.
-  %\override #'(font-name . "Symbol")
-
   %% 2206 : delta from the symbol font.
   %   #(ly:export (ly:wide-char->utf-8 #x2206))
   
