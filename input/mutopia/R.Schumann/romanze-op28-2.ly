@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 % NOT FINISHED!!!!
 
 \include "deutsch.ly"
@@ -237,6 +236,14 @@ leftb =  \transpose c cis {
  c c8 c c16 r4_\fermata r8 \bar "|." |
 }
 
+
+\paper {
+    indent = 0.5 \in
+    % textheight = 29.8 \cm
+    pagenumber = no
+    linewidth = 17.0 \cm
+}  
+		       
 \score { 
   \context PianoStaff <<
     #(set-accidental-style 'piano-cautionary)
@@ -268,13 +275,7 @@ leftb =  \transpose c cis {
 	<< \global \context Voice = "lva" \lefta \context Voice = "lvb" \leftb >>
     }
   >>
-  \layout {
-    interscoreline = 0.0
-    interscorelinefill = 1
-    indent = 0.5 \in
-    % textheight = 29.8 \cm
-    pagenumber = no
-    linewidth = 17.0 \cm
+  \layout { 
     \context {
       \RemoveEmptyStaffContext
     }

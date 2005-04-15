@@ -471,48 +471,23 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 
 	base = re.sub (r'\.e?ps', '', ps_name)
 	header = open (ps_name).read (1024)
-	match = re.search (BOUNDING_BOX_RE, header, re.MULTILINE)
-	bbox = []
-	if match:
-		bbox = map (string.atoi, match.groups ())
 
 	png1 = base + '.png'
 	pngn = base + '-page%d.png'
 	output_file = pngn
 	multi_page = re.search ('\n%%Pages: ', header)
+	
 	if not multi_page:
-		if not bbox:
-			bbox = get_bbox (ps_name)
-			
-		transform_ps = ps_name + '.trans.ps'
-
-		# Use margin to avoid letters getting cropped off.
-		margin = 3 
-		h = open (transform_ps, 'w')
-		h.write ('%d %d translate\n' % (-bbox[0] + margin,
-						-bbox[1] + margin))
-		h.close ()
-
-		x = (2* margin + bbox[2] - bbox[0]) \
-		    * resolution / 72.0
-		y = (2* margin + bbox[3] - bbox[1]) \
-		    * resolution / 72.0
-		if x == 0:
-			x = 1
-		if y == 0:
-			y = 1
-
 		cmd = r'''gs\
-		-g%(x)dx%(y)d\
+		-dEPSCrop
 		-dGraphicsAlphaBits=4\
 		-dNOPAUSE\
 		-dTextAlphaBits=4\
-		-sDEVICE=png16m\
+		-sDEVICE=pnggray\
 		-sOutputFile='%(output_file)s'\
 		-sPAPERSIZE=%(papersize)s\
 		-q\
 		-r%(resolution)d\
-		%(transform_ps)s\
 		'%(ps_name)s'\
 		-c showpage\
 		-c quit ''' % vars ()
@@ -522,7 +497,7 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		-dGraphicsAlphaBits=4\
 		-dNOPAUSE\
 		-dTextAlphaBits=4\
-		-sDEVICE=png16m\
+		-sDEVICE=pnggray\
 		-sOutputFile='%(output_file)s'\
 		-sPAPERSIZE=%(papersize)s\
 		-q\
