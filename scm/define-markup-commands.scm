@@ -107,7 +107,7 @@ one staff-space."
 
     (if (= (vector-length systems) 0)
 	(begin
-	  (ly:warning (_"No systems found in \\score markup.  Does it have a \\layout? block"))
+	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
 	  empty-markup)
 	(let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
 	  (ly:stencil-aligned-to stencil Y CENTER)))))
