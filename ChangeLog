@@ -1,3 +1,16 @@
+2005-04-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* configure.in (gui_b): make bison optional.
+
+	* lily/GNUmakefile (OUT_DIST_FILES): dist parser and lexer.
+
+2005-04-16  Bernard Hurley  <bernard@fong-hurley.org.uk>
+
+	* framework-eps.scm: code added so that a macro \betweenLilyPondSystem
+	with one parameter can be defined in a LaTeX file when processed
+	by lilypond-book this will be evaluated between the systems of
+	a muti-system score. The parameter is the number of systems processed.
+
 2005-04-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* python/lilylib.py (make_ps_images): Escape newline.
