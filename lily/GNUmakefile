@@ -38,6 +38,8 @@ $(outdir)/kpath.o: $(outdir)/version.hh
 $(outdir)/lily-guile.o: $(outdir)/version.hh
 $(outdir)/lily-version.o: $(outdir)/version.hh
 
+local-po: $(outdir)/parser.cc
+
 # ugh.  For --srcdir builds, these must exist to satisfy their broken
 # lexer.dep and parser.dep file entries.
 ifneq ($(srcdir), .)
