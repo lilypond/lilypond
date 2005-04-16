@@ -1,3 +1,8 @@
+2005-04-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/music-glossary.tely: Run
+	texinfo-all-menus-update.
+
 2005-04-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily-library.scm (old-relative-not-used-message)
