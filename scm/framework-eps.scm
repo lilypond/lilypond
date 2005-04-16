@@ -46,12 +46,19 @@
     (ly:message (_ "Writing ~a...") texi-system-name)
     (dump-stencils-as-separate-EPS stencils 1)
     (for-each (lambda (c)
+		(if (< 0 c)
+		    (begin 
+		      (display "\\ifx\\betweenLilyPondSystem \\undefined\n" tex-system-port)
+		      (display "  \\relax\n" tex-system-port)
+		      (display "\\else\n" tex-system-port)
+		      (display (format 
+				"  \\betweenLilyPondSystem{~a}\n" c) tex-system-port)
+		      (display "\\fi\n" tex-system-port)))
 		(display (format "\\includegraphics{~a-~a.eps}\n"
 				 basename (1+ c)) tex-system-port)
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
-
     (display "@c eof - 'eof' is a Makefile marker; don not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     

@@ -11,6 +11,8 @@ MODULE_CXXFLAGS=
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
+OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc lexer.cc parser.hh)
+
 include $(depth)/make/stepmake.make 
 
 ifeq ($(HAVE_LIBKPATHSEA_SO),no)
@@ -32,6 +34,7 @@ default:
 $(outdir)/lily-parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
+
 
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/kpath.o: $(outdir)/version.hh
