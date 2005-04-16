@@ -1,5 +1,7 @@
 2005-04-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py (make_ps_images): typo.
+
 	* configure.in (gui_b): make bison optional.
 
 	* lily/GNUmakefile (OUT_DIST_FILES): dist parser and lexer.

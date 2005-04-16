@@ -515,7 +515,7 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 	if status:
 		remove = glob.glob (png1) + glob.glob (base + '-page*.png')
 		map (os.unlink, remove)
-		error (_ ("%s exited with status: %d" % ('GS', status))
+		error (_ ("%s exited with status: %d" % ('GS', status)))
 		exit (1)
 
 	if rename_page1_p or not multi_page:
