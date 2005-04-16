@@ -23,7 +23,7 @@ ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)
 	xgettext --default-domain=$(package) --join \
 	 --output-dir=$(po-dir)/$(outdir) --add-comments \
-	 --keyword=_ --keyword=_f --keyword=_i
+	 --keyword=_ --keyword=_f --keyword=_i \
 	 $(XGETTEXT_FLAGS) $(ALL_PO_SOURCES)
 endif
 endif

@@ -10,15 +10,15 @@
 */
 
 /*
+FIXME:
 
-TODO:
+   * The rules for who is protecting what are very shady.  Uniformise
+     this.
 
-* The rules for who is protecting what are very shady. Uniformise
-  this.
-
-* There are too many lexical modes?
-
+   * There are too many lexical modes?
 */
+
+#include "config.hh"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -264,6 +264,7 @@ or
    bison.ly:1:5: error: syntax error, unexpected \\book", expecting '{'
    \book
 	\book %expect \book error here
+*/	
    
 /* Keyword tokens with plain escaped name.  */
 %token ACCEPTS "\\accepts"
@@ -272,7 +273,7 @@ or
 %token ALIAS "\\alias"
 %token ALTERNATIVE "\\alternative"
 %token BAR "\\bar"
-%token BOOK "\\book"
+%token BOOK "\book"
 %token CHANGE "\\change"
 %token CHORDMODE "\\chordmode"
 %token CHORDS "\\chords"
