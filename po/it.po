@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-13 00:40+0200\n"
+"POT-Creation-Date: 2005-04-16 16:50+0200\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -14,11 +14,26 @@ msgstr ""
 "out --add-comments --keyword=_ --keyword=_f\n"
 "Files: bow.cc int.cc\n"
 
+#: fontextract.py:25
+#, fuzzy, python-format
+msgid "Scanning %s"
+msgstr "attenzione: "
+
+#: fontextract.py:70
+#, python-format
+msgid "Extracted %s"
+msgstr ""
+
+#: fontextract.py:86
+#, fuzzy, python-format
+msgid "Writing fonts to %s"
+msgstr "non trovo e non posso creare `%s'"
+
 #: lilylib.py:62
 msgid "lilylib module"
 msgstr ""
 
-#: lilylib.py:65 lilypond-book.py:88 midi2ly.py:100 mup2ly.py:75 ps2png.py:41
+#: lilylib.py:65 lilypond-book.py:89 midi2ly.py:100 mup2ly.py:75 ps2png.py:41
 #: main.cc:145
 msgid "print this help"
 msgstr ""
@@ -77,12 +92,12 @@ msgstr ""
 msgid "Opening pipe `%s'"
 msgstr "Genero le voci..."
 
-#: lilylib.py:277 lilypond-book.py:1157
+#: lilylib.py:277 lilypond-book.py:1162
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1158
+#: lilylib.py:282 lilylib.py:341 lilypond-book.py:1163
 msgid "The error log is as follows:"
 msgstr ""
 
@@ -110,9 +125,9 @@ msgstr ""
 msgid "Cleaning %s..."
 msgstr "Genero le voci..."
 
-#: lilylib.py:543
+#: lilylib.py:518
 #, python-format
-msgid "GS exited with status: %d"
+msgid "%s exited with status: %d"
 msgstr ""
 
 #: convert-ly.py:32
@@ -179,35 +194,35 @@ msgstr ""
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convert-ly.py:2487
+#: convert-ly.py:2494
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:2499
+#: convert-ly.py:2506
 #, python-format
 msgid "%s: error while converting"
 msgstr ""
 
-#: convert-ly.py:2502 score-engraver.cc:111
+#: convert-ly.py:2509 score-engraver.cc:111
 msgid "Aborting"
 msgstr ""
 
-#: convert-ly.py:2523
+#: convert-ly.py:2530
 #, fuzzy, python-format
 msgid "Processing `%s'... "
 msgstr "Elaboro..."
 
-#: convert-ly.py:2625
+#: convert-ly.py:2632
 #, fuzzy, python-format
 msgid "%s: can't determine version for `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: convert-ly.py:2634
+#: convert-ly.py:2641
 #, fuzzy, python-format
 msgid "%s: skipping: `%s'"
 msgstr "% strumento:"
 
-#: lilypond-book.py:70
+#: lilypond-book.py:71
 msgid ""
 "Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.\n"
 "Example usage:\n"
@@ -217,142 +232,159 @@ msgid ""
 "   lilypond-book --process='lilypond -I include' BOOK\n"
 msgstr ""
 
-#: lilypond-book.py:82
+#: lilypond-book.py:83
 msgid "FMT"
 msgstr ""
 
-#: lilypond-book.py:83
+#: lilypond-book.py:84
 msgid ""
 "use output format FMT (texi [default], texi-html,\n"
 "\t\tlatex, html)"
 msgstr ""
 
-#: lilypond-book.py:85
+#: lilypond-book.py:86
 msgid "FILTER"
 msgstr ""
 
-#: lilypond-book.py:86
+#: lilypond-book.py:87
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr ""
 
-#: lilypond-book.py:89 lilypond-book.py:91 main.cc:147
+#: lilypond-book.py:90 lilypond-book.py:92 main.cc:147
 msgid "DIR"
 msgstr ""
 
-#: lilypond-book.py:90
+#: lilypond-book.py:91
 #, fuzzy
 msgid "add DIR to include path"
 msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
 
-#: lilypond-book.py:92
+#: lilypond-book.py:93
 msgid "write output to DIR"
 msgstr ""
 
-#: lilypond-book.py:93
+#: lilypond-book.py:94
 msgid "COMMAND"
 msgstr ""
 
-#: lilypond-book.py:94
+#: lilypond-book.py:95
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:96 midi2ly.py:105 mup2ly.py:78 ps2png.py:42 main.cc:155
+#: lilypond-book.py:96 midi2ly.py:102 main.cc:148 main.cc:149
+msgid "FILE"
+msgstr ""
+
+#: lilypond-book.py:97
+msgid "extract all PS snippet fonts into FILE"
+msgstr ""
+
+#: lilypond-book.py:99 midi2ly.py:105 mup2ly.py:78 ps2png.py:42 main.cc:155
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:98
+#: lilypond-book.py:101
 msgid "print version information"
 msgstr ""
 
-#: lilypond-book.py:100 midi2ly.py:107 mup2ly.py:80 main.cc:156
+#: lilypond-book.py:103 midi2ly.py:107 mup2ly.py:80 main.cc:156
 #, fuzzy
 msgid "show warranty and copyright"
 msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
 
-#: lilypond-book.py:604
+#: lilypond-book.py:609
 #, python-format
 msgid "file not found: %s"
 msgstr ""
 
-#: lilypond-book.py:802
+#: lilypond-book.py:807
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:805
+#: lilypond-book.py:810
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:809
+#: lilypond-book.py:814
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: lilypond-book.py:812
+#: lilypond-book.py:817
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: lilypond-book.py:831
+#: lilypond-book.py:836
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: lilypond-book.py:1140
+#: lilypond-book.py:1145
 #, fuzzy, python-format
 msgid "Opening filter `%s'"
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1303
+#: lilypond-book.py:1308
 #, fuzzy
 msgid "Writing snippets..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1308
+#: lilypond-book.py:1313
 #, fuzzy
 msgid "Processing..."
 msgstr "Elaboro..."
 
-#: lilypond-book.py:1312
+#: lilypond-book.py:1317
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1322
+#: lilypond-book.py:1327
 #, fuzzy, python-format
 msgid "can't determine format for: %s"
 msgstr "non trovo il file: `%s'"
 
-#: lilypond-book.py:1367
+#: lilypond-book.py:1338
+msgid "Output file is up to date."
+msgstr ""
+
+#: lilypond-book.py:1343
+#, fuzzy
+msgid "Writing output file."
+msgstr "  -D, --debug            abilita l'output di debugging\n"
+
+#: lilypond-book.py:1383
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:1374
+#: lilypond-book.py:1387
 #, fuzzy, python-format
 msgid "Reading %s..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1390
+#: lilypond-book.py:1403
 #, fuzzy
 msgid "Dissecting..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1421
+#: lilypond-book.py:1433
 #, fuzzy, python-format
 msgid "Compiling %s..."
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1429
+#: lilypond-book.py:1444
 #, fuzzy, python-format
 msgid "Processing include: %s"
 msgstr "Elaboro..."
 
-#: lilypond-book.py:1439
+#: lilypond-book.py:1458
 #, fuzzy, python-format
 msgid "Removing `%s'"
 msgstr "Genero le voci..."
 
-#: lilypond-book.py:1454 midi2ly.py:1016 ps2png.py:52
+#: lilypond-book.py:1471 midi2ly.py:1016 ps2png.py:52
 #, python-format
 msgid "getopt says: `%s'"
 msgstr ""
@@ -399,10 +431,6 @@ msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr ""
 " -k, --key=ACC[:MINOR]  imposta l'armatura: ACC +diesis/-bemolli; :1 minore\n"
 
-#: midi2ly.py:102 main.cc:148 main.cc:149
-msgid "FILE"
-msgstr ""
-
 #: midi2ly.py:102 mup2ly.py:76
 msgid "write output to FILE"
 msgstr ""
@@ -427,7 +455,7 @@ msgstr ""
 msgid "treat every text as a lyric"
 msgstr ""
 
-#: midi2ly.py:149 mup2ly.py:143
+#: midi2ly.py:149 mup2ly.py:143 lily-library.scm:345 lily-library.scm:353
 msgid "warning: "
 msgstr "attenzione: "
 
@@ -817,7 +845,7 @@ msgstr "non trovo e non posso creare `%s'"
 msgid "custos `%s' not found"
 msgstr ""
 
-#: dynamic-engraver.cc:171 span-dynamic-performer.cc:84
+#: dynamic-engraver.cc:171 span-dynamic-performer.cc:83
 #, fuzzy
 msgid "can't find start of (de)crescendo"
 msgstr "non trovo un (de)crescendo fino alla fine"
@@ -948,11 +976,11 @@ msgstr "tipo di chiave sconosciuto"
 msgid "Grob `%s' has no interface for property `%s'"
 msgstr ""
 
-#: hairpin.cc:105
+#: hairpin.cc:131
 msgid "decrescendo too small"
 msgstr ""
 
-#: hairpin.cc:106
+#: hairpin.cc:132
 #, fuzzy
 msgid "crescendo too small"
 msgstr "troppo piccolo"
@@ -985,7 +1013,7 @@ msgstr ""
 msgid "can't find file: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: input.cc:101 source-file.cc:137 source-file.cc:230
+#: input.cc:101 source-file.cc:144 source-file.cc:266
 msgid "position unknown"
 msgstr "posizione sconosciuta"
 
@@ -1077,12 +1105,6 @@ msgstr "Analisi..."
 #, fuzzy
 msgid "braces don't match"
 msgstr "le bretelle no si accoppiano"
-
-#. FIXME: cannot otherwise internationalize this bison warning.
-#: lily-parser.cc:172
-#, fuzzy
-msgid "syntax error, unexpected "
-msgstr "Errore non fatale: "
 
 #: main.cc:104
 #, fuzzy
@@ -1657,12 +1679,12 @@ msgstr "slur non terminato"
 msgid "can't end slur"
 msgstr "non posso maneggiare %s"
 
-#: source-file.cc:48
+#: source-file.cc:55
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "non posso aprire il file: `%s'"
 
-#: source-file.cc:61
+#: source-file.cc:68
 #, c-format
 msgid "expected to read %d characters, got %d"
 msgstr ""
@@ -1836,74 +1858,74 @@ msgstr ""
 msgid "also already have an ended spanner"
 msgstr "crescendo non terminato"
 
-#: parser.yy:82
+#: parser.yy:90
 msgid "tag must be symbol or list of symbols"
 msgstr ""
 
-#: parser.yy:559
+#: parser.yy:656
 msgid "identifier should have alphabetic characters only"
 msgstr ""
 
-#: parser.yy:717
+#: parser.yy:814
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:741
+#: parser.yy:838
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:886
+#: parser.yy:983
 msgid "more alternatives than repeats"
 msgstr ""
 
-#: parser.yy:923
+#: parser.yy:1020
 #, c-format
 msgid "expect 2 elements for Chord tremolo, found %d"
 msgstr ""
 
-#: parser.yy:1078
+#: parser.yy:1175
 msgid "music head function must return Music object"
 msgstr ""
 
-#: parser.yy:1350
+#: parser.yy:1447
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1710
+#: parser.yy:1807
 msgid "second argument must be pitch list"
 msgstr ""
 
-#: parser.yy:1749 parser.yy:1754 parser.yy:2235
+#: parser.yy:1846 parser.yy:1851 parser.yy:2332
 #, fuzzy
 msgid "have to be in Lyric mode for lyrics"
 msgstr "bisogna essere in Lyric mode per i testi"
 
-#: parser.yy:1847
+#: parser.yy:1944
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:2010 parser.yy:2060
+#: parser.yy:2107 parser.yy:2157
 #, c-format
 msgid "not a duration: %d"
 msgstr "non è una durata: %d"
 
-#: parser.yy:2154
+#: parser.yy:2251
 #, fuzzy
 msgid "have to be in Note mode for notes"
 msgstr "bisogna essere in Note mode per le note"
 
-#: parser.yy:2248
+#: parser.yy:2345
 #, fuzzy
 msgid "have to be in Chord mode for chords"
 msgstr "bisogna essere in Chord mode per gli accordi"
 
-#: parser.yy:2399
+#: parser.yy:2496
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:2597
+#: parser.yy:2694
 #, fuzzy, c-format
-msgid "suspect duration in beam: %d"
+msgid "suspect duration in beam: %s"
 msgstr "non è una durata: %d"
 
 #: lexer.ll:193
@@ -1970,22 +1992,105 @@ msgstr ""
 msgid "can't find signature for music function"
 msgstr "Non trovo il contesto dello Score"
 
-#: out/parser.cc:1881
+#: out/parser.cc:1893
 #, fuzzy
 msgid "syntax error: cannot back up"
 msgstr "Errore non fatale: "
 
-#: out/parser.cc:5600
-msgid "syntax error; also virtual memory exhausted"
+#: out/parser.cc:1993
+#, fuzzy
+msgid "Stack now"
+msgstr "traccia "
+
+#: out/parser.cc:2021
+#, c-format
+msgid "Reducing stack by rule %d (line %u), "
 msgstr ""
 
-#: out/parser.cc:5604
+#. Each stack pointer address is followed by the size of the
+#. data in use in that stack, in bytes.  This used to be a
+#. conditional around just the two extra args, but that might
+#. be undefined if yyoverflow is a macro.
+#: out/parser.cc:2351 out/parser.cc:5824
+msgid "parser stack overflow"
+msgstr ""
+
+#: out/parser.cc:2391
+#, c-format
+msgid "Stack size increased to %lu\n"
+msgstr ""
+
+#: out/parser.cc:2398
+#, c-format
+msgid "Entering state %d\n"
+msgstr ""
+
+#: out/parser.cc:2422
+#, fuzzy
+msgid "Reading a token: "
+msgstr "Genero le voci..."
+
+#: out/parser.cc:2429
+msgid "Now at end of input.\n"
+msgstr ""
+
+#: out/parser.cc:2434
+msgid "Next token is"
+msgstr ""
+
+#. Shift the look-ahead token.
+#. Shift the error token.
+#: out/parser.cc:2455 out/parser.cc:5796
+msgid "Shifting"
+msgstr ""
+
+#. This is so xgettext sees the translatable formats that are
+#. constructed on the fly.
+#: out/parser.cc:5615
+#, fuzzy, c-format
+msgid "syntax error, unexpected %s"
+msgstr "Errore non fatale: "
+
+#: out/parser.cc:5616
+#, fuzzy, c-format
+msgid "syntax error, unexpected %s, expecting %s"
+msgstr "Errore non fatale: "
+
+#: out/parser.cc:5617
+#, fuzzy, c-format
+msgid "syntax error, unexpected %s, expecting %s or %s"
+msgstr "Errore non fatale: "
+
+#: out/parser.cc:5618
+#, fuzzy, c-format
+msgid "syntax error, unexpected %s, expecting %s or %s or %s"
+msgstr "Errore non fatale: "
+
+#: out/parser.cc:5619
+#, c-format
+msgid "syntax error, unexpected %s, expecting %s or %s or %s or %s"
+msgstr ""
+
+#: out/parser.cc:5693
+#, fuzzy
+msgid "syntax error; also memory exhausted"
+msgstr "Errore non fatale: "
+
+#: out/parser.cc:5697
 #, fuzzy
 msgid "syntax error"
 msgstr "Errore non fatale: "
 
-#: out/parser.cc:5726
-msgid "parser stack overflow"
+#: out/parser.cc:5718 out/parser.cc:5778
+msgid "Error: popping"
+msgstr ""
+
+#: out/parser.cc:5724
+msgid "Error: discarding"
+msgstr ""
+
+#: out/parser.cc:5813
+msgid "Error: discarding lookahead"
 msgstr ""
 
 #: backend-library.scm:18
@@ -2042,11 +2147,16 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-markup-commands.scm:54
-msgid "No systems found in \\score markup.  Does it have a \\layout? block"
+#: define-markup-commands.scm:79
+#, lisp-format
+msgid "Could not find bounding box of `~a'"
 msgstr ""
 
-#: define-markup-commands.scm:595
+#: define-markup-commands.scm:110
+msgid "no systems found in \\score markup, does it have a \\layout block?"
+msgstr ""
+
+#: define-markup-commands.scm:651
 #, fuzzy, lisp-format
 msgid "not a valid duration string: ~a"
 msgstr "non è una durata: %d"
@@ -2100,17 +2210,22 @@ msgstr "Genero le voci..."
 msgid "can't find description for property ~S"
 msgstr ""
 
-#: framework-ps.scm:258
+#: framework-eps.scm:45 framework-eps.scm:46
 #, fuzzy, lisp-format
-msgid "can't find CFF/PFA/PFB font ~S"
+msgid "Writing ~a..."
+msgstr "Genero le voci..."
+
+#: framework-ps.scm:236
+#, fuzzy, lisp-format
+msgid "can't find CFF/PFA/PFB font ~S=~S"
 msgstr "non trovo il file: `%s'"
 
-#: framework-ps.scm:357
+#: framework-ps.scm:368
 #, lisp-format
 msgid "can't convert <stdout> to ~S"
 msgstr ""
 
-#: framework-ps.scm:372 framework-ps.scm:375
+#: framework-ps.scm:383 framework-ps.scm:386
 #, lisp-format
 msgid "can't generate ~S using the postscript back-end"
 msgstr ""
@@ -2125,9 +2240,13 @@ msgstr ""
 msgid "unknown unit: ~S"
 msgstr "traduttore sconosciuto `%s'"
 
-#: lily-library.scm:345
+#: lily-library.scm:347
 #, lisp-format
-msgid "No \\version statement found.  Add~afor future compatibility."
+msgid "no \\version statement found,  add~afor future compatibility"
+msgstr ""
+
+#: lily-library.scm:354
+msgid "old relative compatibility not used"
 msgstr ""
 
 #: lily.scm:97
@@ -2171,12 +2290,12 @@ msgstr "non trovo il file: `%s'"
 msgid "unknown accidental style: ~S"
 msgstr "stringa di escape sconosciuta: `\\%s'"
 
-#: output-lib.scm:245
+#: output-lib.scm:246
 #, fuzzy, lisp-format
 msgid "unknown bar glyph: `~S'"
 msgstr "tipo di chiave sconosciuto"
 
-#: output-ps.scm:307
+#: output-ps.scm:311
 msgid "utf8-string encountered in PS backend"
 msgstr ""
 
@@ -2321,10 +2440,6 @@ msgstr ""
 #~ msgstr "aspettavo uno spazio bianco"
 
 #, fuzzy
-#~ msgid "filename main output file"
-#~ msgstr "  -D, --debug            abilita l'output di debugging\n"
-
-#, fuzzy
 #~ msgid "write Makefile dependencies for every input file"
 #~ msgstr ""
 #~ "  -d, --dependencies     scrive le dependenze del Makefile per ogni file "
@@ -2455,9 +2570,6 @@ msgstr ""
 
 #~ msgid "Creating voices..."
 #~ msgstr "Genero le voci..."
-
-#~ msgid "track "
-#~ msgstr "traccia "
 
 #~ msgid "NOT Filtering tempo..."
 #~ msgstr "NON filtro il tempo..."
