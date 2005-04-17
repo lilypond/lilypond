@@ -513,6 +513,7 @@ AncientRemoveEmptyStaffContext = \context {
   chordNameExceptions = #ignatzekExceptions
   chordNoteNamer = #'()
   chordRootNamer = #note-name->markup
+  chordPrefixSpacer = #0
   chordNameExceptionsFull = #fullJazzExceptions
   chordNameExceptionsPartial = #partialJazzExceptions
   
