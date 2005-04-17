@@ -1,5 +1,7 @@
 2005-04-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* SConstruct: Require pkg-config.
+
 	* stepmake/aclocal.m4 (STEPMAKE_PANGO_FT2): Define HAVE_PANGO16 too.
 
 	* lily/*: s/ifdef HAVE_*/if have/.
