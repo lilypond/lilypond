@@ -26,12 +26,12 @@
 Performance::Performance ()
 {
   midi_ = 0;
-  audio_elem_p_list_ = 0;
+  audio_element_list_ = 0;
 }
 
 Performance::~Performance ()
 {
-  delete audio_elem_p_list_;
+  delete audio_element_list_;
 }
 
 void
@@ -146,7 +146,7 @@ Performance::add_element (Audio_element *p)
     {
       audio_staffs_.push (s);
     }
-  audio_elem_p_list_ = new Killing_cons<Audio_element> (p, audio_elem_p_list_);
+  audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
 }
 
 SCM
@@ -165,5 +165,5 @@ Performance::process (String out)
 
   output (midi_stream);
   progress_indication ("\n");
-  return SCM_UNDEFINED;
+  return SCM_BOOL_F;
 }
