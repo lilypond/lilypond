@@ -306,6 +306,7 @@ def configure (target, source, env):
 	optional = []
 	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
+	test_program (optional, 'gs', '8.14', 'Ghostscript PostScript interpreter', 'gs or gs-afpl or gs-esp or gs-gpl')
 	test_program (optional, 'mftrace', '1.1.0', 'Metafont tracing Type1',
 			'mftrace')
 	test_program (optional, 'perl', '4.0',
