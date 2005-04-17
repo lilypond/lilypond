@@ -27,6 +27,7 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 
   Music_output *output = g->get_output ();
   progress_indication ("\n");
+
   /* ugh, midi still wants outname  */
   return output->process (ly_scm2string (outname));
 }

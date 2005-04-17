@@ -16,11 +16,8 @@
 class Music_output
 {
 public:
-  virtual SCM process (String)
-  {
-    return SCM_EOL;
-  }
-  virtual ~Music_output () {}
+  virtual SCM process (String); 
+  virtual ~Music_output ();
 };
 
 #endif /* MUSIC_OUTPUT_HH */

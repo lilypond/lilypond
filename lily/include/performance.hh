@@ -27,7 +27,7 @@ public:
   SCM process (String);
 
   Link_array<Audio_staff> audio_staffs_;
-  Cons<Audio_element> *audio_elem_p_list_;
+  Cons<Audio_element> *audio_element_list_;
   Output_def *midi_;
 };
 
