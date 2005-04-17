@@ -1,3 +1,16 @@
+2005-04-17  Mathieu Giraud  <magiraud@free.fr>
+
+	* scm/chord-name.scm : support for italian and french
+	chords names.
+
+	* scm/chord-ignatzek-names.scm (ignatzek-chord-names): add
+	a space defined by chordPrefixSpacer when the root name is
+	direclty followed by a prefix.
+
+	* ly/engraver-init.ly : chordPrefixSpacer	
+	* scm/define-context-properties.scm : chordPrefixSpacer
+	* ly/property-init.ly : italianChords, frenchChords 
+
 2005-04-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct: Require pkg-config.

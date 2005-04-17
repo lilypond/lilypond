@@ -132,6 +132,9 @@ Contains (@var{chord} . @var{markup}) entries.")
      (chordNameSeparator ,markup?
 			 "The markup object used to separate
  parts of a chord name.")
+     (chordPrefixSpacer ,number?
+			"The space added between the root symbol and the prefix
+ of a chord name")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
      (clefGlyph ,string? "Name of the symbol within the music font.")
      (clefOctavation ,integer? "Add

@@ -177,7 +177,10 @@ work than classifying the pitches."
       (set! base-stuff
 	    (append
 	     (list root-markup
-		   (markup-join prefixes sep)
+		   (conditional-kern-before (markup-join prefixes sep)
+					    (and (not (null? prefixes))
+						 (= (ly:pitch-alteration root) NATURAL))
+					    (ly:context-property context 'chordPrefixSpacer))
 		   (make-super-markup to-be-raised-stuff))
 	     base-stuff))
       (make-line-markup base-stuff)))

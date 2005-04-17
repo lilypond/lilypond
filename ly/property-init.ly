@@ -176,7 +176,15 @@ semiGermanChords = {
     \set chordNoteNamer = #note-name->german-markup
 }
 
+frenchChords = {
+    \set chordRootNamer = #(chord-name->italian-markup #t)
+    \set chordPrefixSpacer = #0.4
+}
 
+italianChords = {
+    \set chordRootNamer = #(chord-name->italian-markup #f)
+    \set chordPrefixSpacer = #0.4
+}
 
 improvisationOn =  {
     \set squashedPosition = #0

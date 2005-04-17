@@ -31,6 +31,17 @@
        (alteration->text-accidental-markup alteration)
        (= alteration FLAT) 0.2)))
 
+(define (accidental->markup-italian alteration)
+  "Return accidental markup for ALTERATION, for use after an italian chord root name."
+  (if (= alteration 0)
+      (make-hspace-markup 0.2)
+      (make-line-markup
+       (list
+        (make-hspace-markup (if (= alteration FLAT) 0.7 0.5))
+	(make-raise-markup 0.7 (alteration->text-accidental-markup alteration))
+	(make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
+	))))
+
 (define-public (note-name->markup pitch)
   "Return pitch markup for PITCH."
   (make-line-markup
@@ -69,6 +80,23 @@
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
 	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))
 	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))))))))
+
+(define-public ((chord-name->italian-markup re-with-eacute) pitch)
+  "Return pitch markup for PITCH, using italian/french note names.
+   If re-with-eacute is set to #t, french 'ré' is returned for D instead of 're'
+"
+  (let* ((name (ly:pitch-notename pitch))
+         (alt (ly:pitch-alteration pitch)))
+    (make-line-markup
+     (list
+      (make-simple-markup
+       (vector-ref
+        (if re-with-eacute
+            #("Do" "Ré" "Mi" "Fa" "Sol" "La" "Si")
+            #("Do" "Re" "Mi" "Fa" "Sol" "La" "Si"))
+        name))
+      (accidental->markup-italian alt)
+      ))))
 
 ;; fixme we should standardize on omit-root (or the other one.)
 ;; perhaps the default should also be reversed --hwn
