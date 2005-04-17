@@ -392,6 +392,8 @@ def configure (target, source, env):
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
 
+	test_program (required, 'pkg-config', '0.9.0',
+		      'pkg-config library compile manager', 'pkg-config')
 	if test_lib (required, 'freetype2', '0.0',
 		     'Development files for FreeType 2 font engine'):
 		conf.env['DEFINES']['HAVE_FREETYPE2'] = '1'
