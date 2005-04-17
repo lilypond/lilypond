@@ -11,7 +11,7 @@
 
 #include "config.hh"
 
-#ifdef HAVE_PANGO16
+#if HAVE_PANGO16
 
 #include <pango/pango.h>
 #include <pango/pangoft2.h>

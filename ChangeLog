@@ -1,3 +1,15 @@
+2005-04-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4 (STEPMAKE_PANGO_FT2): Define HAVE_PANGO16 too.
+
+	* lily/*: s/ifdef HAVE_*/if have/.
+
+	* SConstruct (test_lib): New function.  Update pkg-config and some
+	other requirements.
+
+	* configure.in: Require pkg-config.  Enforce REQUIRE and version for
+	freetype, pangof2t.
+
 2005-04-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* po/lilypond.pot, ...: Update using bison-CVS.

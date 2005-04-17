@@ -257,13 +257,11 @@ or
 %pure_parser
 %locations
 
-/* FIXME: The third option is an alias that will be used to display
-   the syntax error.  There's a bug (reported with patch) in bison CVS
-   that prints double backslashes
+/* The third option is an alias that will be used to display the
+   syntax error.  Bison CVS now correctly handles backslash escapes.
 
-   bison.ly:1:5: error: syntax error, unexpected \\book", expecting '{'
-   \book
-	\book %expect \book error here
+   FIXME: Bison needs to translate some of these, eg, STRING.
+
 */	
    
 /* Keyword tokens with plain escaped name.  */
