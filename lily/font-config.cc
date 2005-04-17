@@ -8,7 +8,7 @@
 
 #include "config.hh"
 
-#ifdef HAVE_FONTCONFIG
+#if HAVE_FONTCONFIG
 
 #include <fontconfig/fontconfig.h>
 #include <sys/stat.h>

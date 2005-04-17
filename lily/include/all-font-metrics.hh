@@ -13,7 +13,7 @@
 #include "font-metric.hh"
 #include "config.hh"
 
-#ifdef HAVE_PANGO16
+#if HAVE_PANGO16
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
 #endif
@@ -28,7 +28,7 @@ class All_font_metrics
   Scheme_hash_table *otf_dict_;
   File_path search_path_;
 
-#ifdef HAVE_PANGO_FT2
+#if HAVE_PANGO_FT2
   PangoFT2FontMap *pango_ft2_fontmap_;
   Scheme_hash_table *pango_dict_;
   int pango_dpi_;
@@ -39,7 +39,7 @@ public:
   All_font_metrics (String search_path);
   ~All_font_metrics ();
 
-#ifdef HAVE_PANGO_FT2
+#if HAVE_PANGO_FT2
   Pango_font *find_pango_font (PangoFontDescription *description,
 			       Real magnification,
 			       Real scale);

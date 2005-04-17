@@ -237,12 +237,14 @@ def list_sort (lst):
 def configure (target, source, env):
 	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
 	def get_version (program):
-		command = '(%(program)s --version || %(program)s -V) 2>&1' % vars ()
+		command = '(pkg-config --modversion %(program)s || %(program)s --version || %(program)s -V) 2>&1' % vars ()
 		pipe = os.popen (command)
 		output = pipe.read ()
 		if pipe.close ():
 			return None
 		v = re.sub (vre, '\\1', output)
+		if v[-1] == '\n':
+			v = v[:-1]
 		return string.split (v, '.')
 
 	def test_program (lst, program, minimal, description, package):
@@ -252,12 +254,28 @@ def configure (target, source, env):
 			print 'not found'
 			lst.append ((description, package, minimal, program,
 				     'not installed'))
-			return
+			return 0
 		sys.stdout.write (string.join (actual, '.'))
 		sys.stdout.write ('\n')
 		if actual < string.split (minimal, '.'):
 			lst.append ((description, package, minimal, program,
 				     string.join (actual, '.')))
+			return 0
+		return 1
+
+	def test_lib (lst, program, minimal, description):
+		# FIXME: test for Debian or RPM (or -foo?) based dists
+		# to guess (or get correct!: apt-cache search?)
+		# package name.
+		#if os.system ('pkg-config --atleast-version=0 freetype2'):
+		# barf
+		if test_program (lst, program, minimal, description,
+				 'lib%(program)s-dev or %(program)s-devel'
+				 % vars ()):
+			env.ParseConfig ('pkg-config --cflags --libs %(program)s'
+					 % vars ())
+			return 1
+		return 0
 
 	for i in ['bash', 'perl', 'python', 'sh']:
 		sys.stdout.write ('Checking for %s... ' % i)
@@ -283,12 +301,10 @@ def configure (target, source, env):
 			'bison')
 	test_program (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
 
-
 	optional = []
 	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
-	test_program (optional, 'guile', '1.6', 'GUILE scheme',
-			'libguile-dev or guile-devel')
-	test_program (optional, 'mftrace', '1.0.27', 'Metafont tracing Type1',
+	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
+	test_program (optional, 'mftrace', '1.1.0', 'Metafont tracing Type1',
 			'mftrace')
 	test_program (optional, 'perl', '4.0',
 			'Perl practical efficient readonly language', 'perl')
@@ -315,12 +331,10 @@ def configure (target, source, env):
 	defines = {
 	   'DIRSEP' : "'%s'" % os.sep,
 	   'PATHSEP' : "'%s'" % os.pathsep,
-	   'TOPLEVEL_VERSION' : '"' + version + '"',
-	   'PACKAGE': '"' + package.name + '"',
-	   'DATADIR' : '"' + sharedir + '"',
-	   'LILYPOND_DATADIR' : '"' + sharedir_package + '"',
-	   'LOCAL_LILYPOND_DATADIR' : '"' + sharedir_package_version + '"',
-	   'LOCALEDIR' : '"' + localedir + '"',
+	   'PACKAGE': '"%s"' % package.name,
+	   'DATADIR' : '"%s"' % sharedir,
+	   'PACKAGE_DATADIR' : '"%s"' % sharedir_package,
+	   'LOCALEDIR' : '"%s"' %localedir,
 	}
 	conf.env.Append (DEFINES = defines)
 
@@ -378,27 +392,32 @@ def configure (target, source, env):
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
 
-	## FIXME: pkg-test to required/optional
-	if os.system ('pkg-config --atleast-version=1.6.0 pango'):
-		barf
-	env.ParseConfig ('pkg-config --cflags --libs pango')
-	conf.env['DEFINES']['HAVE_PANGO16'] = '1'
-	
-	if os.system ('pkg-config --atleast-version=1.6.0 pangoft2'):
-		barf
-	env.ParseConfig ('pkg-config --cflags --libs pangoft2')
-	conf.env['DEFINES']['HAVE_PANGO_FT2'] = '1'
+	if test_lib (required, 'freetype2', '0.0',
+		     'Development files for FreeType 2 font engine'):
+		conf.env['DEFINES']['HAVE_FREETYPE2'] = '1'
+		
+	if test_lib (required, 'pangoft2', '1.6.0',
+		     'Development files for pango, with fontconfig2'):
+		conf.env['DEFINES']['HAVE_PANGO_FT2'] = '1'
+		conf.env['DEFINES']['HAVE_PANGO16'] = '1'
+
+	if test_lib (optional, 'fontconfig', '2.2.0',
+		     'Development files for fontconfig'):
+		conf.env['DEFINES']['HAVE_FONTCONFIG'] = '1'
 	
 	#this could happen only for compiling pango-*
 	if env['gui']:
-		env.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
-		env.ParseConfig ('pkg-config --cflags --libs pango')
+		test_lib (required, 'gtk+-2.0', '2.4.0',
+			  'Development files for GTK+')
+		if test_lib (required, 'pango', '1.6.0',
+			  'Development files for pango'):
+			conf.env['DEFINES']['HAVE_PANGO16'] = '1'
+			
 		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
 			conf.env['DEFINES']['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
-
 		if conf.CheckLib ('pango-1.0',
 				  'pango_fc_font_map_add_decoder_find_func'):
-			conf.env['DEFINES']['HAVE_PANGO_CVS'] = '1'
+			conf.env['DEFINES']['HAVE_PANGO16'] = '1'
 			conf.env['DEFINES']['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
 
 	if env['fast']:

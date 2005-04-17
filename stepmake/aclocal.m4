@@ -1095,9 +1095,6 @@ AC_DEFUN(PKG_CHECK_MODULES, [
 
         AC_SUBST($1_CFLAGS)
         AC_SUBST($1_LIBS)
-     else
-        echo "*** Your version of pkg-config is too old. You need version $PKG_CONFIG_MIN_VERSION or newer."
-        echo "*** See http://www.freedesktop.org/software/pkgconfig"
      fi
   fi
 
@@ -1108,28 +1105,35 @@ AC_DEFUN(PKG_CHECK_MODULES, [
   fi
 ])
 
-
 AC_DEFUN(STEPMAKE_FREETYPE2, [
-    PKG_CHECK_MODULES(FREETYPE2, freetype2 >= 0, have_freetype2=true, true)
-    if $have_freetype2 ; then
+    PKG_CHECK_MODULES(FREETYPE2, $1 >= $3, have_freetype2=yes, true)
+    if test "$have_freetype2" = yes; then
 	AC_DEFINE(HAVE_FREETYPE2)
 	AC_SUBST(FREETYPE2_CFLAGS)
 	AC_SUBST(FREETYPE2_LIBS)
+    else
+     	r="lib$1-dev or $1-devel"
+     	ver="$(pkg-config --modversion $1)"
+     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
 
 AC_DEFUN(STEPMAKE_GTK2, [
-    PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.4.0, have_gtk2=true, true)
-    if $have_gtk2 ; then
+    PKG_CHECK_MODULES(GTK2, $1 >= $3, have_gtk2=yes, true)
+    if test "$have_gtk2" = yes ; then
 	AC_DEFINE(HAVE_GTK2)
 	AC_SUBST(GTK2_CFLAGS)
 	AC_SUBST(GTK2_LIBS)
+    else
+     	r="lib$1-dev or $1-devel"
+     	ver="$(pkg-config --modversion $1)"
+     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
 ])
 
 AC_DEFUN(STEPMAKE_PANGO, [
-    PKG_CHECK_MODULES(PANGO, pango >= 1.6.0, have_pango16=true, true)
-    if $have_pango16 ; then
+    PKG_CHECK_MODULES(PANGO, $1 >= $3, have_pango16=yes, true)
+    if test "$have_pango16" = yes ; then
 	AC_DEFINE(HAVE_PANGO16)
 	PANGO_CFLAGS="$PANGO_CFLAGS $GTK2_CFLAGS"
 	PANGO_LIBS="$PANGO_LIBS $GTK2_LIBS"
@@ -1142,13 +1146,17 @@ AC_DEFUN(STEPMAKE_PANGO, [
 	AC_SUBST(PANGO_LIBS)
 	CPPFLAGS="$save_CPPFLAGS"
 	LIBS="$save_LIBS"
-fi
+    else
+     	r="lib$1-dev or $1-devel"
+     	ver="$(pkg-config --modversion $1)"
+     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
 ])
 
-
 AC_DEFUN(STEPMAKE_PANGO_FT2, [
-    PKG_CHECK_MODULES(PANGO_FT2, pangoft2 >= 1.6.0, have_pangoft2=true, true)
-    if $have_pangoft2 ; then
+    PKG_CHECK_MODULES(PANGO_FT2, $1 >= $3, have_pangoft2=yes, true)
+    if test "$have_pangoft2" = yes ; then
+	AC_DEFINE(HAVE_PANGO16)
 	AC_DEFINE(HAVE_PANGO_FT2)
 	PANGO_FT2_CFLAGS="$PANGO_FT2_CFLAGS $GTK2_CFLAGS"
 	PANGO_FT2_LIBS="$PANGO_FT2_LIBS $GTK2_LIBS"
@@ -1163,12 +1171,16 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
 	AC_SUBST(PANGO_FT2_LIBS)
 	CPPFLAGS="$save_CPPFLAGS"
 	LIBS="$save_LIBS"
-fi
+    else
+     	r="lib$1-dev or $1-devel"
+     	ver="$(pkg-config --modversion $1)"
+     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
 ])
 
 AC_DEFUN(STEPMAKE_FONTCONFIG, [
-    PKG_CHECK_MODULES(FONTCONFIG, fontconfig >= 2.2.0, have_fontconfig=true, true)
-    if $have_fontconfig ; then
+    PKG_CHECK_MODULES(FONTCONFIG, $1 >= $3, have_fontconfig=yes, true)
+    if test "$have_fontconfig" = yes ; then
 	AC_DEFINE(HAVE_FONTCONFIG)
 	FONTCONFIG_CFLAGS="$FONTCONFIG_CFLAGS"
 	FONTCONFIG_LIBS="$FONTCONFIG_LIBS"
@@ -1181,5 +1193,9 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
 	AC_SUBST(FONTCONFIG_LIBS)
 	CPPFLAGS="$save_CPPFLAGS"
 	LIBS="$save_LIBS"
-fi
+    else
+     	r="lib$1-dev or $1-devel"
+     	ver="$(pkg-config --modversion $1)"
+     	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
+    fi
 ])
