@@ -235,7 +235,8 @@ def list_sort (lst):
 
 
 def configure (target, source, env):
-	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
+	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$',
+			  re.DOTALL)
 	def get_version (program):
 		command = '(pkg-config --modversion %(program)s || %(program)s --version || %(program)s -V) 2>&1' % vars ()
 		pipe = os.popen (command)
@@ -257,7 +258,8 @@ def configure (target, source, env):
 			return 0
 		sys.stdout.write (string.join (actual, '.'))
 		sys.stdout.write ('\n')
-		if actual < string.split (minimal, '.'):
+		if map (string.atoi, actual) \
+		   < map (string.atoi, string.split (minimal, '.')):
 			lst.append ((description, package, minimal, program,
 				     string.join (actual, '.')))
 			return 0
