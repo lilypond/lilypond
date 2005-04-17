@@ -1,3 +1,7 @@
+2005-04-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* config.hh.in: remove HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
+
 2005-04-17  Mathieu Giraud  <magiraud@free.fr>
 
 	* scm/chord-name.scm : support for italian and french
