@@ -248,7 +248,18 @@ def configure (target, source, env):
 			v = v[:-1]
 		return string.split (v, '.')
 
-	def test_program (lst, program, minimal, description, package):
+	def get_fullname (program):
+		command = 'type -p "%s" 2>/dev/null' % program
+		pipe = os.popen (command)
+		output = pipe.readlines ()
+		if pipe.close ():
+			return None
+		o = output[-1]
+		if o[-1] == '\n':
+			o = o[:-1]
+		return string.split (o)[-1]
+
+	def test_version (lst, program, minimal, description, package):
 		sys.stdout.write ('Checking %s version... ' % program)
 		actual = get_version (program)
 		if not actual:
@@ -256,8 +267,7 @@ def configure (target, source, env):
 			lst.append ((description, package, minimal, program,
 				     'not installed'))
 			return 0
-		sys.stdout.write (string.join (actual, '.'))
-		sys.stdout.write ('\n')
+		print string.join (actual, '.')
 		if map (string.atoi, actual) \
 		   < map (string.atoi, string.split (minimal, '.')):
 			lst.append ((description, package, minimal, program,
@@ -265,13 +275,24 @@ def configure (target, source, env):
 			return 0
 		return 1
 
+	def test_program (lst, program, minimal, description, package):
+		sys.stdout.write ('Checking for %s ... ' % program)
+		f = get_fullname (program)
+		if not f:
+			print 'not found'
+			lst.append ((description, package, minimal, program,
+				     'not installed'))
+			return 0
+		print f
+		return test_version (lst, program, minimal, description, package)
+
 	def test_lib (lst, program, minimal, description):
 		# FIXME: test for Debian or RPM (or -foo?) based dists
 		# to guess (or get correct!: apt-cache search?)
 		# package name.
 		#if os.system ('pkg-config --atleast-version=0 freetype2'):
 		# barf
-		if test_program (lst, program, minimal, description,
+		if test_version (lst, program, minimal, description,
 				 'lib%(program)s-dev or %(program)s-devel'
 				 % vars ()):
 			env.ParseConfig ('pkg-config --cflags --libs %(program)s'
@@ -312,6 +333,7 @@ def configure (target, source, env):
 	test_program (optional, 'perl', '4.0',
 			'Perl practical efficient readonly language', 'perl')
 	#test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
+	test_program (optional, 'fontforge', '20041224.0', 'FontForge', 'fontforge')
 
 	def CheckYYCurrentBuffer (context):
 		context.Message ('Checking for yy_current_buffer... ')
@@ -733,6 +755,20 @@ def symlink_tree (target, source, env):
 	      ('#ps',        'share/lilypond/%(ver)s/ps'),
 	      ('po/@/nl.mo', 'share/locale/nl/LC_MESSAGES/lilypond.mo'),
 	      ('elisp',      'share/lilypond/%(ver)s/elisp')))
+
+	print "FIXME: BARF BARF BARF"
+	os.chdir (absbuild)
+	out = env['out']
+	ver = version
+	prefix = os.path.join (env['out'], 'usr/share/lilypond/%(ver)s/fonts'
+			       % vars ())
+	for ext in ('enc', 'map', 'otf', 'svg', 'tfm', 'pfa'):
+		dir = os.path.join (absbuild, prefix, ext)
+		os.system ('rm -f ' + dir)
+		mkdirs (dir)
+		os.chdir (dir)
+		os.system ('ln -s ../../../../../../../mf/%(out)s/*.%(ext)s .'
+			   % vars ())
 	os.chdir (srcdir)
 
 if env['debugging']:

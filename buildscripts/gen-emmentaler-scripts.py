@@ -21,7 +21,7 @@ for opt in options:
 		print o
 		raise getopt.error
 
-
+# Ugh
 for design_size in [11,13,14,16,18,20,23,26]:
 	name = 'Emmentaler' 
 	filename = name.lower ()

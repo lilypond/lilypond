@@ -17,6 +17,12 @@
 
 2005-04-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* mf/feta-din.mf: Remove.
+
+	* mf/GNUmakefile (fontdir): Bugfix.
+
+	* mf/SConstruct: Some updates.
+
 	* SConstruct: Require pkg-config.
 	(test_program): Bugfix for double digit version compares, use
 	integer (not string-) compare.

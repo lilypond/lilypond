@@ -145,8 +145,6 @@ env.Append (BUILDERS = {'PNG2EPS': PNG2EPS})
 
 
 
-
-
 # FIXME: cleanup, see above
 
 
@@ -178,14 +176,21 @@ def add_log_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.log'], source)
 
-def add_enc_ly_tex_target (target, source, env):
+def add_lisp_enc_tex_ly_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
-	return (target + [base + '.enc', base + '.tex', base + 'list.ly'],
+	return (target + [base + '.lisp', base + '.enc', base + '.tex',
+			  base + 'list.ly'],
 		source)
-a = 'cd ${TARGET.dir} && \
-MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir}: \
+
+def add_cff_cffps_svg (target, source, env):
+	base = os.path.splitext (str (target[0]))[0]
+	return (target + [base + '.cff', base + '.cff.ps', base + '.svg'],
+		source)
+
+a = 'cd ${TARGET.dir} \
+&& MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir}: \
 mf "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
-| grep -v "@\|>>"'
+| grep -v "@\|>>\|w:\|h:";'
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
 #	       emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
 	       emitter = add_log_target)
@@ -193,14 +198,15 @@ env.Append (BUILDERS = {'TFM': tfm})
 
 a = '$PYTHON $MF_TO_TABLE_PY \
 --outdir=${TARGET.dir} \
---afm=${TARGET.base}.afm \
+--global-lisp=${TARGET.base}.otf-gtable \
+--lisp=${TARGET.base}.lisp \
 --enc=${TARGET.base}.enc \
 --tex=${TARGET.base}.tex \
 --ly=${TARGET.base}list.ly \
 ${TARGET.base}.log'
-afm = Builder (action = a, suffix = '.afm', src_suffix = '.log',
-	       emitter = add_enc_ly_tex_target)
-env.Append (BUILDERS = {'AFM': afm})
+gtable = Builder (action = a, suffix = '.otf-gtable', src_suffix = '.log',
+		  emitter = add_lisp_enc_tex_ly_target)
+env.Append (BUILDERS = {'GTABLE': gtable})
 
 def add_enc_src (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
@@ -211,7 +217,8 @@ def add_enc_src (target, source, env):
 a = 'cd ${TARGET.dir} && \
 if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
 MFINPUTS=$srcdir/mf:.: \
-mftrace --formats=pfa --simplify --keep-trying $$encoding $TOO__verbose \
+mftrace --formats=pfa --simplify --keep-trying --no-afm --verbose \
+$$encoding $TOO__verbose \
 --include=${TARGET.dir} \
 ${SOURCE.file}'
 
@@ -220,6 +227,16 @@ pfa = Builder (action = a,
 	       src_suffix = '.mf',
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
+
+a = ['(cd ${TARGET.dir} && fontforge -script ${SOURCE.file})',
+     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.filebase}.cff $(${SOURCE.filebase}).fontname) ${SOURCE.filebase}.cff.ps',
+     'rm -f ${TARGET.dir}/*.scale.pfa']
+otf = Builder (action = a,
+	       suffix = '.otf',
+	       src_suffix = '.pe',
+	       emitter = add_cff_cffps_svg)
+env.Append (BUILDERS = {'OTF': otf})
+
 
 # Specific builders
 
