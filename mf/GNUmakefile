@@ -197,10 +197,10 @@ $(outdir)/lilypond.map: GNUmakefile
 	
 $(outdir)/Fontmap.lily: GNUmakefile
 	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
-	for i in $(STAFF_SIZES); \
-		do echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; done \
-		do echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" ; done \
-	>> $@
+	for i in $(STAFF_SIZES); do \
+		echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; \
+		echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" \
+		done >> $@
 	echo "/Aybabtu (aybabtu.cff.ps);" >> $@
 	echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $@
 

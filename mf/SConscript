@@ -7,10 +7,9 @@ Import ('env', 'base_glob', 'install')
 feta = reduce (lambda x, y: x + y,
 	       map (lambda x: base_glob (x),
 		    ('feta[0-9]*.mf',
-		     'feta-braces-[a-z].mf',
-		     'feta-din*[0-9].mf',
-		     'feta-nummer*[0-9].mf',
-		     'parmesan[0-9]*.mf',)))
+		     'feta-alphabet*[0-9].mf',
+		     #'parmesan[0-9]*.mf',
+		     )))
 
 # .pfa rules want an encoding file; ecb10.enc
 #sauter = ['ecb10']
@@ -19,13 +18,27 @@ fonts = feta + sauter
 env['feta'] = string.join (feta)
 env['sauter'] = ''
 
+#BARF
+feta_sizes = ['11']
+otfs = map (lambda x: 'emmentaler-' + x, feta_sizes) + ['aybabtu']
+
 t = map (env.TFM, fonts)
-a = map (env.AFM, feta)
+a = map (env.GTABLE, feta)
+# FIXME: don't know how to add prefix: PFAEmmentaler (naming is ugly anyway)
+#p = map (env.PFA, fonts + map (lambda x: 'PFA' + x, otfs))
 p = map (env.PFA, fonts)
+##e = map (env.PE, otfs)
+o = map (env.OTF, otfs)
+
+env.Command ('emmentaler-11.pe',
+	     '$srcdir/buildscripts/gen-emmentaler-scripts.py',
+	     '$PYTHON $srcdir/buildscripts/gen-emmentaler-scripts.py --dir=${TARGET.dir}')
 
 map (lambda x: env.Depends (x + '.pfa', x + '.enc'), feta)
 
-mf_essential = ['feta16', 'feta20', 'parmesan16', ]
+## FIXME
+##mf_essential = ['feta16', 'feta20', 'parmesan16', ]
+mf_essential = ['feta16', 'feta20',] #'parmesan16', ]
 pfa_essential = map (env.PFA, mf_essential)
 env.Alias ('mf-essential', pfa_essential)
 
@@ -33,7 +46,13 @@ env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
 env.Alias ('mf', 'cmr.enc')
 
 env.Command ('lilypond.map', p,
-	     ['for i in $feta; do echo $$i $$(fgrep FontName ${TARGET.dir}/$$i.afm | sed -e "s/FontName *//") "<"$$i.pfa; done > $TARGET',
+	     ['for i in $feta; do echo $$i $$i "<"$$i.pfa; done > $TARGET',
+	      'for i in $feta_sizes; do\
+	      echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
+	      echo "PFAEmmentaler-$$i PFAEmmentaler-$$i <PFAemmentaler-$$i.pfa";\
+	      done >> $TARGET',
+	      'echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
+	      'echo "PFAAybabtu-Regular PFAAybabtu-Regular <aybabtu.cff.ps" >> $TARGET',
 	      'for i in $sauter; do echo "$$i $$i <$$i.pfa"; done >> $TARGET'])
 env.Alias ('mf', 'lilypond.map')
 
@@ -52,13 +71,20 @@ env.Command ('Fontmap', p,
 
 env.Command ('Fontmap.lily', p + ['Fontmap'],
 	     ['echo "%!" > $TARGET',
-	      '''for i in $feta; do echo "/$$(fgrep FontName ${TARGET.dir}/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $TARGET''',
+	      '''for i in $feta; do echo "/$$i ($$i.pfa);"; done >> $TARGET''',
+	      ''' for i in $feta_sizes; do \
+	      echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ;  \
+	      echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" ; \
+	      done >> $TARGET''',
+	      '''echo "/Aybabtu (aybabtu.cff.ps);" >> $TARGET''',
+	      '''echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $TARGET''',
 	      '''for i in $sauter; do echo "$$i ($$i.pfa);"; done >> $TARGET'''])
 env.Alias ('mf', 'Fontmap.lily')
 
 # build essential stuff first, that's friendlier
-env.Alias ('mf', pfa_essential + p)
+env.Alias ('mf', pfa_essential + p + map (lambda x: x[0], o))
 
 install (t, env['sharedir_package_version'] + '/fonts/tfm')
 install (a, env['sharedir_package_version'] + '/afm')
 install (p, env['sharedir_package_version'] + '/fonts/type1')
+install (o, env['sharedir_package_version'] + '/fonts/otf')
