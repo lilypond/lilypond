@@ -23,8 +23,9 @@ e.Append (
 
 e.HH ('parser.hh', 'parser.yy')
 e.ParseConfig ('guile-config link')
-lily = e.Program ('lilypond-bin', sources)
+lily = e.Program ('lilypond', sources)
 install (lily, env['bindir'])
 
-po = env.Command ('lilypond.po', cc_sources + includes, env['pocommand'])
-env.Alias ('po-update', po)
+# let's not, for now
+#po = env.Command ('lilypond.po', cc_sources + includes, env['pocommand'])
+#env.Alias ('po-update', po)

@@ -17,7 +17,7 @@ Line_interface::make_arrow (Offset begin, Offset end,
 			    Real thick,
 			    Real length, Real width)
 {
-  Real angle = (end - begin).arg();
+  Real angle = (end - begin).arg ();
   Array<Offset> points;
   
   points.push (Offset (0, 0));
@@ -113,7 +113,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
   SCM type = me->get_property ("style");
 
-  Stencil l;
+  Stencil stil;
   
   SCM dash_fraction = me->get_property ("dash-fraction");
   if (scm_is_number (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
@@ -131,14 +131,12 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       if (period < 0)
 	return Stencil ();
 
-      l =  make_dashed_line (thick, from, to, period, fraction);
+      stil =  make_dashed_line (thick, from, to, period, fraction);
     }
   else
-    {
-      l =  make_line (thick, from, to);
-    }
+    stil =  make_line (thick, from, to);
 
-  return l;
+  return stil;
 }
 
 ADD_INTERFACE (Line_interface, "line-interface",

@@ -225,13 +225,13 @@ of the parse stack onto the heap. */
 %{
 
 int
-yylex (YYSTYPE *s, YYLTYPE *l, void *v)
+yylex (YYSTYPE *s, YYLTYPE *loc, void *v)
 {
 	Lily_parser *pars = (Lily_parser*) v;
 	Lily_lexer *lex = pars->lexer_;
 
 	lex->lexval = (void*) s;
-	lex->lexloc = l;
+	lex->lexloc = loc;
 	lex->prepare_for_next_token ();
 	return lex->yylex ();
 }
@@ -2671,16 +2671,14 @@ Lily_parser::do_yyparse ()
 }
 
 
-/*
-Should make this optional?    It will also complain when you do
+/* FIXME: Should make this optional?  It will also complain at
 
 	[s4]
 
 which is entirely legitimate.
 
-Or we can scrap it. Barchecks should detect wrong durations, and
-skipTypesetting speeds it up a lot.
-*/
+Or we can scrap it.  Barchecks should detect wrong durations, and
+skipTypesetting speeds it up a lot.  */
 
 void
 Lily_parser::beam_check (SCM dur)

@@ -7,7 +7,7 @@
 */
 
 #include "paper-book.hh"
-#include "paper-score.hh"
+
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
