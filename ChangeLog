@@ -1,5 +1,7 @@
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/test/chord-names-languages.ly (Module): rename file.
+
 	* lily/text-spanner.cc: add bound-padding.
 
 	* lily/paper-book.cc (systems): accept Paper_score
