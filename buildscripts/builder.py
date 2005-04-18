@@ -243,7 +243,7 @@ env.Append (BUILDERS = {'OTF': otf})
 # Specific builders
 
 env['DIFF_PY'] = '$srcdir/stepmake/bin/package-diff.py'
-a = '$PYTHON $DIFF_PY $__verbose --outdir=${TARGET.dir}'
+a = '$PYTHON $DIFF_PY $NO__verbose --outdir=${TARGET.dir}'
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
 

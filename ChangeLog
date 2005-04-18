@@ -5,6 +5,8 @@
 
 2005-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* aclocal.m4: Massage package names.
+
 	* SCons updates.
 
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>

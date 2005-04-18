@@ -994,12 +994,36 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
 ])
 
 
-
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
+    AC_ARG_ENABLE(tfm-path,
+    [  --enable-tfm-path=PATH  set path of tex directories where tfm files live,
+                            esp.: cmr10.tfm.  Default: use kpsewhich],
+    [tfm_path=$enableval],
+    [tfm_path=auto] )
 
     # ugh
     STEPMAKE_PROGS(KPSEWHICH, kpsewhich, OPTIONAL)
-   
+    AC_MSG_CHECKING(for tfm path)
+
+    TFM_FONTS="cmr msam"
+
+    if test "x$tfm_path" = xauto ; then
+	if test "x$KPSEWHICH" != "xno" ; then
+	    for i in $TFM_FONTS; do
+		dir=`$KPSEWHICH tfm ${i}10.tfm`
+		TFM_PATH="$TFM_PATH `dirname $dir`"
+	    done
+	else
+	    STEPMAKE_WARN(Please specify where cmr10.tfm lives:
+    ./configure --enable-tfm-path=/usr/local/TeX/lib/tex/fonts)
+	fi
+    else
+         TFM_PATH=$tfm_path
+    fi
+
+    TFM_PATH=`echo $TFM_PATH | tr ':' ' '`
+    AC_MSG_RESULT($TFM_PATH)
+    AC_SUBST(TFM_PATH)
 ])
 
 
@@ -1101,7 +1125,9 @@ AC_DEFUN(STEPMAKE_GTK2, [
 	AC_SUBST(GTK2_CFLAGS)
 	AC_SUBST(GTK2_LIBS)
     else
-     	r="lib$1-dev or $1-devel"
+	# UGR
+     	# r="lib$1-dev or $1-devel"
+     	r="libgtk+2.0-dev or gtk2-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
@@ -1123,7 +1149,9 @@ AC_DEFUN(STEPMAKE_PANGO, [
 	CPPFLAGS="$save_CPPFLAGS"
 	LIBS="$save_LIBS"
     else
-     	r="lib$1-dev or $1-devel"
+	# UGR
+     	#r="lib$1-dev or $1-devel"
+     	r="libpango1.0-dev or pango1.0-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
@@ -1148,7 +1176,9 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
 	CPPFLAGS="$save_CPPFLAGS"
 	LIBS="$save_LIBS"
     else
-     	r="lib$1-dev or $1-devel"
+	# UGR
+     	#r="lib$1-dev or $1-devel"
+     	r="libpango1.0-dev or pango1.0-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
