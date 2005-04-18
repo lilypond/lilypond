@@ -3,7 +3,7 @@
 Import ('env', 'src_glob', 'install')
 
 tely = src_glob ('*.tely')
-texi = src_glob ('*.texi')
+texi = src_glob ('*.texi') + map (env.TEXI, tely)
 
 txt = map (env.TXT, texi)
 html = map (env.HTML, texi)

@@ -884,7 +884,7 @@ def flatten (tree, lst):
 				lst.append (i)
 	return lst
 
-if os.path.isdir ('$srcdir/CVS'):
+if os.path.isdir ('%(srcdir)s/CVS' % vars ()):
 	subdirs = flatten (cvs_dirs ('.'), [])
 else:
 	# ugh
@@ -905,7 +905,7 @@ if env['fast']\
 		   'mf',
 		   ]
 
-if os.path.isdir ('$srcdir/CVS'):
+if os.path.isdir ('%(srcdir)s/CVS' % vars ()):
 	src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
 else:
 	src_files = ['foobar']
