@@ -1,23 +1,23 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\version "2.5.18"
+\header {
+  texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
+}
 
-%% demonstration of line arrows
-%% By Jonatan Liljedahl <http://kymatica.com>
+\version "2.5.20"
+
+\paper {
+  raggedright = ##t
+}
 
 \relative c'' {
-    %% Arrow between two texts    
-    \override TextSpanner #'edge-text = #'("foo" . "bar")
-    \override TextSpanner #'dash-fraction = #'()
-    \override TextSpanner #'style = #'line
-    \override TextSpanner #'arrow = ##t
-    
-    %% Default arrow size
-%    \override TextSpanner #'arrow-length = #1.3
-%    \override TextSpanner #'arrow-width = #0.5
-
-    %% We can put arrows to a glissando line
-    \override Glissando #'arrow = ##t
-    
-    a8\startTextSpan gis8\< a2 b4\glissando
-    c,4 g'\! c\stopTextSpan c
+  \override TextSpanner #'edge-text = #'("foo" . "bar")
+  \override TextSpanner #'bound-padding = #1.0
+  \override TextSpanner #'dash-fraction = #'()
+  \override TextSpanner #'arrow = ##t
+  
+  \override Glissando #'arrow = ##t
+  \override Glissando #'arrow-length = #0.5
+  \override Glissando #'arrow-width = #0.25
+  
+  a8\startTextSpan gis8 a4 b4\glissando
+  b,4 | g' c\stopTextSpan c
 }
