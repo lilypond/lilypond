@@ -20,16 +20,14 @@ Line_interface::make_arrow (Offset begin, Offset end,
   Real angle = (end - begin).arg();
   Array<Offset> points;
   
-  //construct the arrow
   points.push (Offset (0, 0));
   points.push (Offset (-length, width));
   points.push (Offset (-length, -width));
 
-  // rotate and translate the arrow
   for (int i = 0; i < points.size(); i++)
     points[i] = points[i] * complex_exp (Offset (0, angle)) + end;
     
-  return (Lookup::round_filled_polygon (points, thick));
+  return Lookup::round_filled_polygon (points, thick);
 }
 
 Stencil
@@ -91,8 +89,10 @@ Line_interface::arrows (Grob *me, Offset from, Offset to,
     {
       Real thick = Staff_symbol_referencer::line_thickness (me)
 	* robust_scm2double (me->get_property ("thickness"), 1);
-      Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3);
-      Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5);
+      Real ss =  Staff_symbol_referencer::staff_space (me);
+      
+      Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3 * ss);
+      Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5 * ss);
 
       if (to_arrow)
         a.add_stencil (make_arrow (from, to, thick, len, wid));
