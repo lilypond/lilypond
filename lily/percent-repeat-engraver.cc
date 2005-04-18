@@ -139,11 +139,14 @@ Percent_repeat_engraver::process_music ()
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	{
 	  double_percent_ = make_item ("DoublePercentRepeat", repeat_->self_scm ());
+	  
 	  /*
 	    forbid breaks on a % line. Should forbid all breaks, really.
-	  */
 
-	  get_score_engraver ()->forbid_breaks ();	// guh. Use properties!      
+	    Ugh. Why can't this be regular communication between
+	    contexts?
+	  */
+	  get_score_engraver ()->forbid_breaks ();
 	}
       next_moment_ = next_moment_ + body_length_;
     }
