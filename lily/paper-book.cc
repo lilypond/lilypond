@@ -265,23 +265,31 @@ Paper_book::systems ()
 	  if (header_0_ == SCM_EOL)
 	    header_0_ = header;
 	}
-      else if (Paper_score *pscore
-	       = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
+      else if (Music_output *mop = unsmob_music_output (scm_car (s)))
+	
 	{
-	  add_score_title (header);
+	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
+	    {
+	      add_score_title (header);
 	  
-	  header = SCM_EOL;
-
+	      header = SCM_EOL;
 	  
-	  SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
-	  system_list = scm_reverse (system_list);
-	  systems_ = scm_append (scm_list_2 (system_list, systems_));
+	      SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
+	      system_list = scm_reverse (system_list);
+	      systems_ = scm_append (scm_list_2 (system_list, systems_));
+	    }
+	  else
+	    {
+	      /*
+		Ignore MIDI
+	      */
+	    }
 	}
       else if (scm_is_vector (scm_car (s)))
 	{
 	  /*
 	    UGH. code dup.  
-	   */
+	  */
 	  add_score_title (header);
 	  header = SCM_EOL;
 	  
