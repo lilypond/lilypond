@@ -95,16 +95,24 @@ import shutil
 EnsureSConsVersion (0, 95)
 
 usage = r'''Usage:
-scons [KEY=VALUE].. [TARGET|DIR]..
+[ENVVAR=VALUE]... scons [OPTION=VALUE]... [TARGET|DIR]...
 
 TARGETS: clean, config, doc, dist, install, mf-essential, po-update,
          realclean, release, sconsclean, tar, TAGS
 
+ENVVARS: BASH, CCFLAGS, CC, CXX, LIBS, PYTHON, SH...
+         (see SConstruct:config_vars)
+
+OPTIONS:
 '''
       
 
 config_cache = 'scons.cache'
 
+# All config_vars can be set as ENVVAR, eg:
+#
+#    CXX=g++-4.0 GS=~/usr/pkg/gs/bin/gs scons config
+#
 # append test_program variables automagically?
 config_vars = [
 	'BASH',
@@ -116,12 +124,15 @@ config_vars = [
 	'CXX',
 	'CXXFLAGS',
 	'DEFINES',
+	'DVIPS',
 	'FONTFORGE',
 	'GCC',
 	'GXX',
+	'GS',
 	'LIBS',
 	'LINKFLAGS',
-	'METAFONT',
+	'MF',
+	'MFTRACE',
 	'PERL',
 	'PYTHON',
 	'SH',
@@ -162,24 +173,16 @@ package = packagepython.Package (srcdir)
 version = packagepython.version_tuple_to_str (package.version)
 
 ENV = { 'PATH' : os.environ['PATH'] }
-for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
-    	if os.environ.has_key (key):
-        	ENV[key] = os.environ[key]
-
-for key in config_vars:
+for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH', 'TEXMF']:
     	if os.environ.has_key (key):
         	ENV[key] = os.environ[key]
 
 env = Environment (
 	ENV = ENV,
-
-	#BASH = '/bin/bash',
 	BYTEORDER = sys.byteorder.upper (),
+	CC = '$GCC',
+	CXX = '$GXX',
 	CPPDEFINES = '-DHAVE_CONFIG_H',
-	#PERL = '/usr/bin/perl',
-	#PYTHON = '/usr/bin/python',
-	#SH = '/bin/sh',
-
 	MAKEINFO = 'LANG= makeinfo',
 	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
 	
@@ -192,13 +195,16 @@ env = Environment (
 	TOPLEVEL_VERSION = version,
 	)
 
+Help (usage + opts.GenerateHelpText (env))
+
 # Add all config_vars to opts, so that they will be read and saved
 # together with the other configure options.
 map (lambda x: opts.AddOptions ((x,)), config_vars)
-
-Help (usage + opts.GenerateHelpText (env))
-
 opts.Update (env)
+
+for key in config_vars:
+    	if os.environ.has_key (key):
+        	env[key] = os.environ[key]
 
 if env['fast']:
 	# Usability switch (Anthony Roach).
@@ -260,7 +266,7 @@ def list_sort (lst):
 
 
 def configure (target, source, env):
-	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$',
+	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9]([.0-9]*[0-9])*).*$',
 			  re.DOTALL)
 	def get_version (program):
 		command = '(pkg-config --modversion %(program)s || %(program)s --version || %(program)s -V) 2>&1' % vars ()
@@ -291,19 +297,23 @@ def configure (target, source, env):
 		return 1
 
 	def test_program (lst, program, minimal, description, package):
+		key = program.upper ()
+		if key.find ('+-'):
+			key = re.sub ('\+', 'X', key)
+			key = re.sub ('-', '_', key)
 		sys.stdout.write ('Checking for %s ... ' % program)
-		f = WhereIs (program)
+		if env.has_key (key):
+			f = env[key]
+			sys.stdout.write ('(cached) ')
+		else:
+			f = WhereIs (program)
+			env[key] = f
 		if not f:
 			print 'not found'
 			lst.append ((description, package, minimal, program,
 				     'not installed'))
 			return 0
 		print f
-		key = program.upper ()
-		if key.find ('+-'):
-			key = re.sub ('\+', 'X', key)
-			key = re.sub ('-', '_', key)
-		env[key] = f
 		return test_version (lst, program, minimal, description, package)
 
 	def test_lib (lst, program, minimal, description):
@@ -320,32 +330,25 @@ def configure (target, source, env):
 			return 1
 		return 0
 
-	for i in []: #['bash', 'perl', 'python', 'sh']:
-		sys.stdout.write ('Checking for %s... ' % i)
-		c = WhereIs (i)
-		key = string.upper (i)
-		if c:
-			env[key] = c
-			sys.stdout.write (c)
-		else:
-			sys.stdout.write ('not found: %s (using: %s)' \
-					  % (c, env[key]))
-			# Hmm? abort?
-		sys.stdout.write ('\n')
-
 	required = []
 	test_program (required, 'bash', '2.0', 'Bash', 'bash')
 	test_program (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
 	test_program (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
 	test_program (required, 'guile-config', '1.6', 'GUILE development',
 			'libguile-dev or guile-devel')
+	test_program (required, 'mf', '0.0', 'Metafont', 'tetex-bin')
+	test_program (required, 'mftrace', '1.1.6', 'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
+	test_program (required, 'potrace', '0.0', 'Potrace', 'potrace')
 	test_program (required, 'python', '2.1', 'Python (www.python.org)', 'python')
 	test_program (required, 'sh', '0.0', 'Bourne shell', 'sh')
 
 	optional = []
 	# Do not use bison 1.50 and 1.75.
+	#test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
 	test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
 			'bison')
+	test_program (optional, 'dvips', '0.0', 'Dvips', 'tetex-bin')
+	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge', 'fontforge')
 	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
 	test_program (optional, 'gs', '8.14', 'Ghostscript PostScript interpreter', 'gs or gs-afpl or gs-esp or gs-gpl')
@@ -353,13 +356,12 @@ def configure (target, source, env):
 			'mftrace')
 	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
 	test_program (optional, 'perl', '4.0',
-			'Perl practical efficient readonly language', 'perl')
-	#test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
-	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge', 'fontforge')
+		      'Perl practical efficient readonly language', 'perl')
+	#test_program (optional, 'ps2pdf', '0.0', 'Ps2pdf', 'gs')
 
 	def CheckYYCurrentBuffer (context):
 		context.Message ('Checking for yy_current_buffer... ')
-		ret = conf.TryCompile ("""using namespace std;
+		ret = conf.TryLink ("""using namespace std;
 		#include <FlexLexer.h>
 		class yy_flex_lexer: public yyFlexLexer
 		{
@@ -372,8 +374,45 @@ def configure (target, source, env):
 		context.Result (ret)
 		return ret
 
+	def CheckLibkpathseaSo (context):
+		saveCFLAGS = []
+		if context.env.has_key ('CFLAGS'):
+			saveCFLAGS = context.env['CFLAGS']
+		CFLAGS_shared_no_debugging = filter (lambda x: x != '-g',
+						     saveCFLAGS)\
+						     + ['-shared']
+		# FIXME: how does this work, with scons
+		context.env.Replace (CFLAGS = CFLAGS_shared_no_debugging)
+		#context.env.Replace (CFLAGS = '')
+		#context.env.Append (CFLAGS = ['-shared'])
+		context.Message ('Checking for libkpathsea... ')
+		ret = conf.TryLink ('''#include <kpathsea/kpathsea.h>
+		int main ()
+		{
+		kpse_var_expand ("\$TEXMF");
+		return 0;
+		}
+		''', '.c')
+		context.env.Replace (CFLAGS = saveCFLAGS)
+		# FIXME: this prints 'ok' already
+		context.Result (ret)
+		if not ret:
+			return 0
+		
+		sys.stdout.write ('Checking for libkpathsea.so... ')
+		testfile = str (context.sconf.lastTarget)
+		shared_size = os.path.getsize (testfile)
+		ret = shared_size < 40000
+		if ret:
+			print 'ok'
+		else:
+			print 'no'
+		return ret
+
 	conf = Configure (env, custom_tests = { 'CheckYYCurrentBuffer'
-						: CheckYYCurrentBuffer })
+						: CheckYYCurrentBuffer,
+						'CheckLibkpathseaSo'
+						: CheckLibkpathseaSo })
 
 	defines = {
 	   'DIRSEP' : "'%s'" % os.sep,
@@ -415,6 +454,9 @@ def configure (target, source, env):
 	if conf.CheckYYCurrentBuffer ():
 		conf.env['DEFINES']['HAVE_FLEXLEXER_YY_CURRENT_BUFFER'] = 1
 
+	if conf.CheckLibkpathseaSo ():
+		conf.env['DEFINES']['HAVE_LIBKPATHSEA_SO'] = '1'
+
 	if conf.CheckLib ('dl'):
 		pass
 
@@ -426,9 +468,6 @@ def configure (target, source, env):
 		conf.env['DEFINES']['HAVE_KPSE_FIND_FILE'] = '1'
 	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
 		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
-
-	# FIXME fc3 - move to kpath-guile/SConscript?
-	conf.env['DEFINES']['HAVE_LIBKPATHSEA_SO'] = '1'
 
 	if env['fast']:
 		cpppath = []
@@ -570,17 +609,21 @@ SConscript ('buildscripts/builder.py')
 env.PrependENVPath ('PATH',
 		    os.path.join (env['absbuild'], env['out'], 'usr/bin'))
 
-if os.environ.has_key ('TEXMF'):
-	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
+LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version)
+
 env.Append (ENV = {
-	'TEXMF' : '{$LILYPONDPREFIX,' \
+	#'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond/', version),
+	'LILYPONDPREFIX' : LILYPONDPREFIX,
+	# ugh, can't use LILYPONDPREFIX here
+	#'TEXMF' : '{' + os.path.join (run_prefix, 'share/lilypond/', version)\
+	#+ ',' \
+	'TEXMF' : '{$LILYPONDPREFIX,'
 	+ os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}',
-	'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond/', version),
 	})
 
 BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
 BUILD_LILYPOND = '$absbuild/lily/$out/lilypond ${__verbose}'
-BUILD_LILYPOND_BOOK = '$PYTHON $srcdir/scripts/lilypond-book.py --verbose'
+BUILD_LILYPOND_BOOK = '$PYTHON $srcdir/scripts/lilypond-book.py ${__verbose}'
 
 
 # post-option environment-update
@@ -595,6 +638,9 @@ env.Append (
 	sharedir_doc_package = sharedir_doc_package,
 	sharedir_package_version = sharedir_package_version,
 
+	# global build verbosity switch
+	__verbose = ' --verbose',
+	
 	LILYPOND = BUILD_LILYPOND,
 	ABC2LY = BUILD_ABC2LY,
 	LILYPOND_BOOK = BUILD_LILYPOND_BOOK,
@@ -603,9 +649,9 @@ env.Append (
 	# should not be necessary
 	# PYTHONPATH = ['$absbuild/python/$out'],
 	TEXI2DVI_PAPERSIZE = '@afourpaper',
-	TEXI2DVI_FLAGS = [ '-t $TEXI2DVI_PAPERSIZE'],
+	TEXI2DVI_FLAGS = [ '-t$TEXI2DVI_PAPERSIZE'],
 	DVIPS_PAPERSIZE = 'a4',
-	DVIPS_FLAGS = ['-t $DVIPS_PAPERSIZE',
+	DVIPS_FLAGS = ['-t$DVIPS_PAPERSIZE',
 		       '-u+lilypond.map',
 		       '-u+ec-mftrace.map'],
 	PSPDF_FLAGS = ['-sPAPERSIZE=$DVIPS_PAPERSIZE'],
@@ -686,7 +732,7 @@ env.Command (version_hh, '#/VERSION',
 # post-config environment update
 env.Append (
 	run_prefix = run_prefix,
-	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version),
+	LILYPONDPREFIX = LILYPONDPREFIX,
 
 	# FIXME: move to lily/SConscript?
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),
@@ -900,14 +946,16 @@ if not env['fast']:
 	web_ball = web_base + '.tar.gz'
 	env['footify'] = 'MAILADDRESS=bug-lilypond@gnu.org $PYTHON stepmake/bin/add-html-footer.py --name=lilypond --version=$TOPLEVEL_VERSION'
 	web_ext = ['.html', '.ly', '.midi', '.pdf', '.png', '.ps.gz', '.txt',]
-	web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"')
+	web_path = '-path "*/$out/*"' + string.join (web_ext, ' -or -path "*/$out/*"') + '-or -type l'
 	env['web_path'] = web_path
 	web_list = os.path.join (outdir, 'weblist')
 	# compatible make heritits
 	# fixme: generate in $outdir is cwd/builddir
 	env.Command (web_list,
-		     ## this is correct, but takes > 5min if you have a peder :-)
-		     ##'doc',
+		     ## Adding 'doc' dependency is correct, but takes
+		     ## > 5min extra if you have a peder :-)
+		     #'doc',
+		     
 		     '#/VERSION',
 		     ['$PYTHON buildscripts/mutopia-index.py -o examples.html ./',
 		      'cd $absbuild && $footify $$(find . -name "*.html" -print)',

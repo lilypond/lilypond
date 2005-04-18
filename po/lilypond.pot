@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-17 18:18+0200\n"
+"POT-Creation-Date: 2005-04-18 14:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -625,11 +625,6 @@ msgid "parsing AFM file: `%s'"
 msgstr ""
 
 #. FIXME: broken sentence
-#. FIXME: broken sentence
-#. FIXME: broken sentence
-#. FIXME: broken sentence
-#. FIXME: broken sentence
-#. FIXME: broken sentence
 #: all-font-metrics.cc:176 lily/all-font-metrics.cc:176
 #, c-format
 msgid "checksum mismatch for font file: `%s'"
@@ -749,40 +744,10 @@ msgid "can't change `%s' to `%s'"
 msgstr ""
 
 #. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
 #: change-iterator.cc:81 lily/change-iterator.cc:81
 msgid "can't find context to switch to"
 msgstr ""
 
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
-#. We could change the current translator's id, but that would make
-#. errors hard to catch.
-#.
-#. last->translator_id_string () = get_change
-#. ()->change_to_id_string ();
 #. We could change the current translator's id, but that would make
 #. errors hard to catch.
 #.
@@ -793,11 +758,6 @@ msgstr ""
 msgid "not changing to same context type: %s"
 msgstr ""
 
-#. FIXME: uncomprehensable message
-#. FIXME: uncomprehensable message
-#. FIXME: uncomprehensable message
-#. FIXME: uncomprehensable message
-#. FIXME: uncomprehensable message
 #. FIXME: uncomprehensable message
 #: change-iterator.cc:94 lily/change-iterator.cc:94
 msgid "none of these in my family"
@@ -951,14 +911,17 @@ msgstr ""
 
 #: global-context-scheme.cc:50 global-context-scheme.cc:77
 #: lily/global-context-scheme.cc:50 lily/global-context-scheme.cc:77
+#: lily/global-context-scheme.cc:49 lily/global-context-scheme.cc:76
 msgid "no music found in score"
 msgstr ""
 
 #: global-context-scheme.cc:67 lily/global-context-scheme.cc:67
+#: lily/global-context-scheme.cc:66
 msgid "Interpreting music... "
 msgstr ""
 
 #: global-context-scheme.cc:88 lily/global-context-scheme.cc:88
+#: lily/global-context-scheme.cc:87
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
@@ -1172,16 +1135,6 @@ msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
-#. Bug in option parser: --output =foe is taken as an abbreviation
-#. for --output-format.
 #: main.cc:139 lily/main.cc:139
 msgid "FORMATs"
 msgstr ""
@@ -1260,11 +1213,6 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#. No version number or newline here.  It confuses help2man.
-#. No version number or newline here.  It confuses help2man.
-#. No version number or newline here.  It confuses help2man.
-#. No version number or newline here.  It confuses help2man.
-#. No version number or newline here.  It confuses help2man.
 #: main.cc:203 lily/main.cc:203
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
@@ -1330,11 +1278,6 @@ msgstr ""
 msgid "can't change working directory to: %s: %s"
 msgstr ""
 
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
-#. FIXME: constant error message.
 #. FIXME: constant error message.
 #: mark-engraver.cc:123 lily/mark-engraver.cc:123
 msgid "rehearsalMark must have integer value"
@@ -1432,22 +1375,6 @@ msgstr ""
 msgid "can't add text scripts to individual note heads"
 msgstr ""
 
-#.
-#. music for the softenon children?
-#.
-#.
-#. music for the softenon children?
-#.
-#.
-#. music for the softenon children?
-#.
-#.
-#. music for the softenon children?
-#.
-#.
-#. music for the softenon children?
-#.
-#.
 #. music for the softenon children?
 #.
 #: new-fingering-engraver.cc:158 lily/new-fingering-engraver.cc:158
@@ -1520,12 +1447,12 @@ msgstr ""
 msgid "Layout output to `%s'..."
 msgstr ""
 
-#: paper-score.cc:66 lily/paper-score.cc:66
+#: paper-score.cc:66 lily/paper-score.cc:66 lily/paper-score.cc:76
 #, c-format
 msgid "Element count %d (spanners %d) "
 msgstr ""
 
-#: paper-score.cc:70 lily/paper-score.cc:70
+#: paper-score.cc:70 lily/paper-score.cc:70 lily/paper-score.cc:80
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
@@ -1566,7 +1493,7 @@ msgstr ""
 msgid "at "
 msgstr ""
 
-#: performance.cc:164 lily/performance.cc:164
+#: performance.cc:164 lily/performance.cc:164 lily/performance.cc:165
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr ""
@@ -1672,23 +1599,18 @@ msgstr ""
 msgid "Search path `%s'"
 msgstr ""
 
-#: score.cc:213 lily/score.cc:213
+#: score.cc:213 lily/score.cc:213 lily/score.cc:214
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:214 lily/score.cc:214
+#: score.cc:214 lily/score.cc:214 lily/score.cc:215
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:219 lily/score.cc:219
+#: score.cc:219 lily/score.cc:219 lily/score.cc:220
 msgid "errors found, ignoring music expression"
 msgstr ""
 
-#. FIXME:
-#. FIXME:
-#. FIXME:
-#. FIXME:
-#. FIXME:
 #. FIXME:
 #: script-engraver.cc:100 lily/script-engraver.cc:100
 msgid "don't know how to interpret articulation: "
@@ -1698,11 +1620,6 @@ msgstr ""
 msgid "scheme encoding: "
 msgstr ""
 
-#. this shouldn't happen, but let's continue anyway.
-#. this shouldn't happen, but let's continue anyway.
-#. this shouldn't happen, but let's continue anyway.
-#. this shouldn't happen, but let's continue anyway.
-#. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:52 separation-item.cc:96 lily/separation-item.cc:52
 #: lily/separation-item.cc:96
@@ -1741,11 +1658,6 @@ msgstr ""
 msgid "tremolo duration is too long"
 msgstr ""
 
-#. FIXME:
-#. FIXME:
-#. FIXME:
-#. FIXME:
-#. FIXME:
 #. FIXME:
 #: stem-engraver.cc:125 lily/stem-engraver.cc:125
 #, c-format
@@ -1798,16 +1710,6 @@ msgstr ""
 
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
-#. Not using ngettext's plural feature here, as this message is
-#. more of a programming error.
-#. Not using ngettext's plural feature here, as this message is
-#. more of a programming error.
-#. Not using ngettext's plural feature here, as this message is
-#. more of a programming error.
-#. Not using ngettext's plural feature here, as this message is
-#. more of a programming error.
-#. Not using ngettext's plural feature here, as this message is
-#. more of a programming error.
 #: tfm-reader.cc:106 lily/tfm-reader.cc:106
 #, c-format
 msgid "TFM header of `%s' has only %u word (s)"
@@ -1831,32 +1733,6 @@ msgstr ""
 msgid "no one to print a tuplet start bracket"
 msgstr ""
 
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#.
-#. Todo: should make typecheck?
-#.
-#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
-#.
-#.
 #. Todo: should make typecheck?
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
@@ -1866,6 +1742,10 @@ msgstr ""
 msgid "strange time signature found: %d/%d"
 msgstr ""
 
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
@@ -1928,11 +1808,6 @@ msgstr ""
 msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr ""
 
-#. fixme: be more verbose.
-#. fixme: be more verbose.
-#. fixme: be more verbose.
-#. fixme: be more verbose.
-#. fixme: be more verbose.
 #. fixme: be more verbose.
 #: volta-engraver.cc:127 lily/volta-engraver.cc:127
 msgid "can't end volta spanner"

@@ -67,7 +67,7 @@ env.Append (BUILDERS = {'HH' : HH})
 
 env.Append (
 	_fixme = _fixme,
-	ABC2LY = 'abc2ly',
+	##ABC2LY = 'abc2ly',
 	##LILYPOND = 'lilypond',
 	LILYOND_BOOK = 'lilypond-book',
 
@@ -125,12 +125,12 @@ TEXIDVI =\
 env.Append (BUILDERS = {'TEXIDVI': TEXIDVI})
 
 DVIPS =\
-      Builder (action = 'dvips -o $TARGET $DVIPS_FLAGS $SOURCE',
+      Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET $DVIPS_FLAGS $SOURCE',
 	       suffix = '.ps', src_suffix = '.dvi')
 env.Append (BUILDERS = {'DVIPS': DVIPS})
 
 DVIPDF =\
-      Builder (action = 'dvips -o $TARGET -Ppdf $DVIPS_FLAGS $SOURCE',
+      Builder (action = 'TEXINPUTS=${TARGET.dir}:$$TEXINPUTS $DVIPS -o $TARGET -Ppdf $DVIPS_FLAGS $SOURCE',
 	       suffix = '.pdfps', src_suffix = '.dvi')
 env.Append (BUILDERS = {'DVIPDF': DVIPDF})
 
@@ -192,7 +192,7 @@ def add_cff_cffps_svg (target, source, env):
 
 a = 'cd ${TARGET.dir} \
 && MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir}: \
-mf "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
+$MF "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
 | grep -v "@\|>>\|w:\|h:";'
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
 #	       emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
@@ -215,13 +215,12 @@ def add_enc_src (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target, source + [base + '.enc'])
 
-# UGH, should fix --output option for mftrace
-# mftrace --verbose is too verbose
+# FIXME UGH, should fix --output option for mftrace
 a = 'cd ${TARGET.dir} && \
 if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
 MFINPUTS=$srcdir/mf:.: \
-mftrace --formats=pfa --simplify --keep-trying --no-afm --verbose \
-$$encoding $TOO__verbose \
+$MFTRACE --formats=pfa --simplify --keep-trying --no-afm \
+$$encoding $__verbose \
 --include=${TARGET.dir} \
 ${SOURCE.file}'
 
@@ -231,7 +230,7 @@ pfa = Builder (action = a,
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
-a = ['(cd ${TARGET.dir} && fontforge -script ${SOURCE.file})',
+a = ['(cd ${TARGET.dir} && $FONTFORGE -script ${SOURCE.file})',
      '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.base}.cff $$(cat ${SOURCE.base}.fontname) ${SOURCE.base}.cff.ps',
      'rm -f ${TARGET.dir}/*.scale.pfa']
 otf = Builder (action = a,

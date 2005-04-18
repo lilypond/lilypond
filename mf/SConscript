@@ -93,6 +93,9 @@ env.Alias ('mf-essential', pfa_essential)
 env.Command ('cmr.enc', 'cmr.enc.in', 'cp $SOURCE $TARGET')
 env.Alias ('mf', 'cmr.enc')
 
+env['fonts'] = string.join (fonts)
+env['feta_sizes'] = string.join (feta_sizes)
+env['sauter'] = string.join (sauter)
 env.Command ('lilypond.map', p,
 	     ['for i in $fonts; do echo $$i $$i "<"$$i.pfa; done > $TARGET',
 	      'for i in $feta_sizes; do\
