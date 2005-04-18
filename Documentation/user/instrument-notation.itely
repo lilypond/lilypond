@@ -599,7 +599,7 @@ The predefined variables @code{\germanChords},
 set these variables.  The effect is
 demonstrated here,
 
-@lilypondfile[raggedright]{chord-names-german.ly}
+@lilypondfile[raggedright]{chord-names-languages.ly}
 
 There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords.  The

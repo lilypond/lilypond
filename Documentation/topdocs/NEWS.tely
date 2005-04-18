@@ -34,6 +34,16 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Lines, such glissandi or Text-spanner lines can have arrows at the end,
+
+@lilypond[verbatim,fragment]
+\override Glissando #'arrow = ##t
+b''2 \glissando b'
+@end lilypond
+
+@item
+Chord names may now be rendered in Italian and French.
+
 @file{lilypond-book} now makes @file{lilypond} print line numbers
 relative to the input file for every error message.
 
