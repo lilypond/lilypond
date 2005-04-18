@@ -96,11 +96,11 @@ For instance,
       (symbol->keyword (string->symbol (substring cmd-markup 0 (- (string-length cmd-markup)
 								  (string-length "-markup")))))))
   (define (transform-arg arg)
-    (cond ((and (pair? arg) (pair? (car arg))) ;; a markup list
+    (cond ((and (pair? arg) (markup? (car arg))) ;; a markup list
 	   (apply append (map inner-markup->make-markup arg)))
-	  ((pair? arg)			       ;; a markup
+	  ((and (not (string? arg)) (markup? arg)) ;; a markup
 	   (inner-markup->make-markup arg))
-	  (else				       ;; scheme arg
+	  (else					 ;; scheme arg
 	   arg)))
   (define (inner-markup->make-markup mrkup)
     (let ((cmd (proc->command-keyword (car mrkup)))
