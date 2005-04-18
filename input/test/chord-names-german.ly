@@ -2,13 +2,16 @@
 \header  {
     texidoc = "@cindex Chord Names German
 The english naming of chords (default) can be changed to german 
-(@code{\germanChords} replaces B and Bes to H and B) or semi-german 
-(@code{\semiGermanChords} replaces B and Bes to H and Bb).
+(@code{\germanChords} replaces B and Bes to H and B), semi-german 
+(@code{\semiGermanChords} replaces B and Bes to H and Bb), italian
+(@code{\italianChords} uses Do Re Mi Fa Sol La Si), or french
+(@code{\frenchChords} replaces Re to Ré).
 
 " }
 
 scm = \chordmode {
-    c1/c cis/cis
+    e1/d c:m
+    % c/c cis/cis
     % yeah, we get the idea. -hwn
     
     % cisis/cisis ces/ces ceses/ceses
@@ -33,5 +36,12 @@ scm = \chordmode {
     \new ChordNames {
 	\set instrument = #"semi-german"
 	\semiGermanChords \scm }
+    \new ChordNames {
+	\set instrument = #"italian"
+	\italianChords \scm }
+    \new ChordNames {
+	\set instrument = #"french"
+	\frenchChords \scm }
+
     \context Voice { \scm }
 >>

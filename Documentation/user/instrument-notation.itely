@@ -585,10 +585,18 @@ The default is to print single pitch, e.g., the bass note, using the
 to a specialized function to change this behavior.  For example, the
 base can be printed in lower case.
 
+@cindex @code{chordPrefixSpacer}
+@item chordPrefixSpacer
+The ``m'' for minor chords is usually printed right after the root of 
+the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer 
+between the root and ``m''. The spacer is not used when the root
+is altered.
+
 @end table
 
 The predefined variables @code{\germanChords},
-@code{\semiGermanChords} set these variables.  The effect is
+@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords} 
+set these variables.  The effect is
 demonstrated here,
 
 @lilypondfile[raggedright]{chord-names-german.ly}
@@ -610,6 +618,10 @@ chart}.  Turning on these styles is described in the input file
 @code{\germanChords},
 @cindex @code{\semiGermanChords}
 @code{\semiGermanChords}.
+@cindex @code{\italianChords}
+@code{\italianChords}.
+@cindex @code{\frenchChords}
+@code{\frenchChords}.
 
 
 
