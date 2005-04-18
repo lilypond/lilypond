@@ -108,6 +108,8 @@ OPTIONS:
       
 
 config_cache = 'scons.cache'
+if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
+	os.unlink (config_cache)
 
 # All config_vars can be set as ENVVAR, eg:
 #
@@ -571,10 +573,17 @@ def save_config_cache (env):
 		sys.stdout.write ('\n')
 		sys.stdout.write ('LilyPond configured')
 		sys.stdout.write ('\n')
-		sys.stdout.write ('now run')
+		sys.stdout.write ('Now run')
 		sys.stdout.write ('\n')
 		sys.stdout.write ('    scons [TARGET|DIR]...')
 		sys.stdout.write ('\n')
+		sys.stdout.write ('\n')
+		sys.stdout.write ('Examples:')
+		sys.stdout.write ('    scons lily    # build lilypond')
+		sys.stdout.write ('    scons all     # build everything')
+		sys.stdout.write ('    scons doc     # build documentation')
+		## TODO
+		## sys.stdout.write ('    scons prefix=/usr DESTDIR=/tmp/pkg all install')
 		Exit (0)
 	elif not env['checksums']:
 		# When using timestams, config.hh is NEW.  The next
@@ -587,9 +596,6 @@ def save_config_cache (env):
 		s = os.system (command)
 		Exit (s)
 
-
-if os.path.exists (config_cache) and 'config' in COMMAND_LINE_TARGETS:
-	os.unlink (config_cache)
 # WTF?
 # scons: *** Calling Configure from Builders is not supported.
 # env.Command (config_cache, None, configure)
