@@ -148,7 +148,8 @@ Text_spanner::print (SCM smob)
 
   if (!span_points.is_empty ())
     {
-      Stencil l = Line_spanner::line_stencil (me, Offset (span_points[LEFT], 0),
+      Stencil l = Line_spanner::line_stencil (me,
+					      Offset (span_points[LEFT], 0),
 					      Offset (span_points[RIGHT], 0));
       m.add_stencil (l);
     }

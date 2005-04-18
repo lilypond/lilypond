@@ -18,6 +18,7 @@ class Paper_score : public Music_output
   Output_def *layout_;
   System *system_;
   SCM systems_;
+  SCM paper_systems_;
 
 public:
   Paper_score (Output_def *);

@@ -13,6 +13,30 @@
 #include "output-def.hh"
 
 Stencil
+Line_interface::make_arrow (Offset beg, Offset end,
+			    Real thick,
+			    Real length, Real width)
+{
+  Real angle = (end - beg).arg();
+  Array<Offset> points;
+  
+  //construct the arrow
+  points.push (Offset (0, 0));
+  points.push (Offset (length, width));
+  points.push (Offset (length, -width));
+
+  // rotate and translate the arrow
+  for (int i = 0; i < points.size(); i++)
+    points[i] = points[i] * complex_exp (Offset (0, angle)) + beg;
+    
+  // we must shorten the line half of arrow length
+  // to prevent the line from sticking out
+  beg = beg + Offset (length/2,0) * complex_exp (Offset (0, angle));
+  
+  return (Lookup::round_filled_polygon (points, thick));
+}
+
+Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 				  Real dash_period, Real dash_fraction)
 {
@@ -62,6 +86,30 @@ Line_interface::make_line (Real th, Offset from, Offset to)
 }
 
 Stencil
+Line_interface::arrows (Grob *me, Offset from, Offset to,
+			bool from_arrow,
+			bool to_arrow)
+{
+  Stencil a;
+  if (from_arrow || to_arrow)
+    {
+      Real thick = Staff_symbol_referencer::line_thickness (me)
+	* robust_scm2double (me->get_property ("thickness"), 1);
+      Real len = robust_scm2double (me->get_property ("arrow-length"), 1.3);
+      Real wid = robust_scm2double (me->get_property ("arrow-width"), 0.5);
+
+      if (to_arrow)
+        a.add_stencil (make_arrow (from, to, thick, len, wid));
+	
+      if (from_arrow)
+        a.add_stencil (make_arrow (to, from, thick, len, wid));
+    }
+
+  return a;
+}
+			
+
+Stencil
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
   Real thick = Staff_symbol_referencer::line_thickness (me)
@@ -69,6 +117,8 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 
   SCM type = me->get_property ("style");
 
+  Stencil l;
+  
   SCM dash_fraction = me->get_property ("dash-fraction");
   if (scm_is_number (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
     {
@@ -85,12 +135,14 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       if (period < 0)
 	return Stencil ();
 
-      return make_dashed_line (thick, from, to, period, fraction);
+      l =  make_dashed_line (thick, from, to, period, fraction);
     }
   else
     {
-      return make_line (thick, from, to);
+      l =  make_line (thick, from, to);
     }
+
+  return l;
 }
 
 ADD_INTERFACE (Line_interface, "line-interface",
@@ -101,4 +153,4 @@ ADD_INTERFACE (Line_interface, "line-interface",
 	       "produced. If @code{dash-fraction} is negative, the line is made "
 	       "transparent.",
 
-	       "dash-period dash-fraction thickness style")
+	       "dash-period dash-fraction thickness style arrow-length arrow-width")

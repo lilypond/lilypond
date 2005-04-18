@@ -147,6 +147,10 @@ negative, no line is drawn at all.")
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
 
+     (arrow ,boolean? "Add an arrow to the line.")
+     (arrow-length ,number? "Arrow length.")
+     (arrow-width ,number? "Arrow width.")
+
      ;; todo: why is this tunable?
      (dir-function ,procedure? "The function to determine the
 direction of a beam. Choices include: 
