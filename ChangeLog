@@ -1,5 +1,7 @@
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/line-arrows.ly: new file.
+
 	* lily/paper-score.cc (process): run get_paper_systems() only once.
 
 	* lily/line-interface.cc (make_arrow): new function. Patch by

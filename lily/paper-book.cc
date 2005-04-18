@@ -7,7 +7,7 @@
 */
 
 #include "paper-book.hh"
-
+#include "paper-score.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-score.hh"
@@ -250,8 +250,10 @@ Paper_book::systems ()
 	  if (header_0_ == SCM_EOL)
 	    header_0_ = header;
 	}
-      else if (scm_is_vector (scm_car (s)))
+      else if (Paper_score *pscore
+	       = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
 	{
+	  
 	  Stencil title = score_title (header);
 	  if (title.is_empty ())
 	    title = score_title (header_);
@@ -264,7 +266,8 @@ Paper_book::systems ()
 	    }
 	  header = SCM_EOL;
 
-	  SCM system_list = scm_vector_to_list (scm_car (s));
+	  
+	  SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
 	}
