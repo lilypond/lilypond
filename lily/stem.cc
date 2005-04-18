@@ -878,6 +878,13 @@ Stem::calc_stem_info (Grob *me)
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
+  if (Grob *tremolo = unsmob_grob (me->get_property ("tremolo-flag")))
+    {
+      Interval y_ext = tremolo->extent (tremolo, Y_AXIS);
+      y_ext.widen (0.5);	// FIXME. Should be tunable? 
+      minimum_length = minimum_length >? y_ext.length ();
+    }
+  
   ideal_y *= my_dir;
   Real minimum_y = note_start + minimum_length;
   Real shortest_y = minimum_y * my_dir;
