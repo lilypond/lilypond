@@ -26,6 +26,7 @@ Paper_score::Paper_score (Output_def *layout)
   layout_ = layout;
   system_ = 0;
   systems_ = SCM_EOL;
+  paper_systems_ = SCM_EOL;
 }
 
 Paper_score::Paper_score (Paper_score const &s)
@@ -39,6 +40,7 @@ void
 Paper_score::derived_mark () const
 {
   scm_gc_mark (systems_);
+  scm_gc_mark (paper_systems_);
 }
 
 void
@@ -89,7 +91,8 @@ Paper_score::process ()
 
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
-  system_->get_paper_systems ();
+
+  paper_systems_ = system_->get_paper_systems ();
 }
 
 System *
@@ -108,5 +111,5 @@ Paper_score::layout () const
 SCM
 Paper_score::get_systems () const
 {
-  return root_system ()->get_paper_systems ();
+  return paper_systems_;
 }

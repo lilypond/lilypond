@@ -95,6 +95,9 @@ Line_spanner::line_stencil (Grob *me,
 {
   Offset dz = to -from;
   SCM type = me->get_property ("style");
+
+  Stencil line;
+  
   if (scm_is_symbol (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
@@ -102,7 +105,7 @@ Line_spanner::line_stencil (Grob *me,
 	  || type == ly_symbol2scm ("zigzag")
 	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
     {
-      return (type == ly_symbol2scm ("zigzag"))
+      line = (type == ly_symbol2scm ("zigzag"))
 	? zigzag_stencil (me, from, to)
 	: Line_interface::line (me, from, to);
     }
@@ -135,8 +138,12 @@ Line_spanner::line_stencil (Grob *me,
 			     + mol.extent (Y_AXIS).length ()) / 2, Y_AXIS);
 
       mol.translate (from);
-      return mol;
+      line = mol;
     }
+
+  if (to_boolean (me->get_property ("arrow")))
+    line.add_stencil (Line_interface::arrows (me, from, to, false, true));
+  
   return Stencil ();
 }
 
@@ -288,5 +295,5 @@ ADD_INTERFACE (Line_spanner, "line-spanner-interface",
 	       "@code{dashed-line}, @code{trill}, \n"
 	       "@code{dotted-line} or @code{zigzag}.\n"
 	       "\n",
-	       "gap zigzag-width zigzag-length thickness");
+	       "gap zigzag-width zigzag-length thickness arrow");
 
