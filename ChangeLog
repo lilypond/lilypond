@@ -1,5 +1,7 @@
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/text-spanner.cc: add bound-padding.
+
 	* lily/paper-book.cc (systems): accept Paper_score
 	iso. Paper_system vector. 
 
@@ -12,7 +14,6 @@
 	(arrows): idem.
 
 	* lily/line-spanner.cc (line_stencil): add arrows.
-	
 
 2005-04-18  Mathieu Giraud  <magiraud@free.fr>
 

@@ -219,6 +219,21 @@ set_system_penalty (Paper_system *ps, SCM header)
     }
 }
 
+void
+Paper_book::add_score_title (SCM header)
+{
+  Stencil title = score_title (header);
+  if (title.is_empty ())
+    title = score_title (header_);
+  if (!title.is_empty ())
+    {
+      Paper_system *ps = new Paper_system (title, true);
+      systems_ = scm_cons (ps->self_scm (), systems_);
+      scm_gc_unprotect_object (ps->self_scm ());
+      set_system_penalty (ps, header);
+    }
+}
+
 SCM
 Paper_book::systems ()
 {
@@ -253,21 +268,24 @@ Paper_book::systems ()
       else if (Paper_score *pscore
 	       = dynamic_cast<Paper_score *> (unsmob_music_output (scm_car (s))))
 	{
+	  add_score_title (header);
 	  
-	  Stencil title = score_title (header);
-	  if (title.is_empty ())
-	    title = score_title (header_);
-	  if (!title.is_empty ())
-	    {
-	      Paper_system *ps = new Paper_system (title, true);
-	      systems_ = scm_cons (ps->self_scm (), systems_);
-	      scm_gc_unprotect_object (ps->self_scm ());
-	      set_system_penalty (ps, header);
-	    }
 	  header = SCM_EOL;
 
 	  
 	  SCM system_list = scm_vector_to_list (pscore->get_paper_systems ());
+	  system_list = scm_reverse (system_list);
+	  systems_ = scm_append (scm_list_2 (system_list, systems_));
+	}
+      else if (scm_is_vector (scm_car (s)))
+	{
+	  /*
+	    UGH. code dup.  
+	   */
+	  add_score_title (header);
+	  header = SCM_EOL;
+	  
+	  SCM system_list = scm_vector_to_list (scm_car (s));
 	  system_list = scm_reverse (system_list);
 	  systems_ = scm_append (scm_list_2 (system_list, systems_));
 	}

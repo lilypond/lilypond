@@ -129,9 +129,10 @@ Text_spanner::print (SCM smob)
       Interval ext = edge[d].extent (X_AXIS);
       if (!ext.is_empty ())
 	{
+	  Real pad = robust_scm2double (me->get_property ("bound-padding"), 0.0);
 	  edge[d].translate_axis (span_points[d], X_AXIS);
 	  m.add_stencil (edge[d]);
-	  span_points[d] += -d * ext[-d];
+	  span_points[d] += -d * (ext[-d] + pad);
 	}
     }
   while (flip (&d) != LEFT);
@@ -159,5 +160,5 @@ Text_spanner::print (SCM smob)
 
 ADD_INTERFACE (Text_spanner, "text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
+	       "bound-padding dash-period dash-fraction edge-height bracket-flare edge-text shorten-pair style thickness enclose-bounds");
 

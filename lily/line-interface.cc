@@ -13,26 +13,22 @@
 #include "output-def.hh"
 
 Stencil
-Line_interface::make_arrow (Offset beg, Offset end,
+Line_interface::make_arrow (Offset begin, Offset end,
 			    Real thick,
 			    Real length, Real width)
 {
-  Real angle = (end - beg).arg();
+  Real angle = (end - begin).arg();
   Array<Offset> points;
   
   //construct the arrow
   points.push (Offset (0, 0));
-  points.push (Offset (length, width));
-  points.push (Offset (length, -width));
+  points.push (Offset (-length, width));
+  points.push (Offset (-length, -width));
 
   // rotate and translate the arrow
   for (int i = 0; i < points.size(); i++)
-    points[i] = points[i] * complex_exp (Offset (0, angle)) + beg;
+    points[i] = points[i] * complex_exp (Offset (0, angle)) + end;
     
-  // we must shorten the line half of arrow length
-  // to prevent the line from sticking out
-  beg = beg + Offset (length/2,0) * complex_exp (Offset (0, angle));
-  
   return (Lookup::round_filled_polygon (points, thick));
 }
 
