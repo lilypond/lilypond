@@ -993,39 +993,10 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     fi
 ])
 
-
 AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
-    AC_ARG_ENABLE(tfm-path,
-    [  --enable-tfm-path=PATH  set path of tex directories where tfm files live,
-                            esp.: cmr10.tfm.  Default: use kpsewhich],
-    [tfm_path=$enableval],
-    [tfm_path=auto] )
-
     # ugh
     STEPMAKE_PROGS(KPSEWHICH, kpsewhich, OPTIONAL)
-    AC_MSG_CHECKING(for tfm path)
-
-    TFM_FONTS="cmr msam"
-
-    if test "x$tfm_path" = xauto ; then
-	if test "x$KPSEWHICH" != "xno" ; then
-	    for i in $TFM_FONTS; do
-		dir=`$KPSEWHICH tfm ${i}10.tfm`
-		TFM_PATH="$TFM_PATH `dirname $dir`"
-	    done
-	else
-	    STEPMAKE_WARN(Please specify where cmr10.tfm lives:
-    ./configure --enable-tfm-path=/usr/local/TeX/lib/tex/fonts)
-	fi
-    else
-         TFM_PATH=$tfm_path
-    fi
-
-    TFM_PATH=`echo $TFM_PATH | tr ':' ' '`
-    AC_MSG_RESULT($TFM_PATH)
-    AC_SUBST(TFM_PATH)
 ])
-
 
 AC_DEFUN(STEPMAKE_TEXMF, [
     STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
