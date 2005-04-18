@@ -103,14 +103,14 @@ one staff-space."
 
 (def-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
-  (let* ((systems (ly:score-embedded-format score layout)))
+  (let* ((output (ly:score-embedded-format score layout)))
 
-    (if (= (vector-length systems) 0)
+    (if (ly:music-output? output)
+	(ly:paper-system-stencil
+	 (vector-ref (ly:paper-score-paper-systems output) 0))
 	(begin
 	  (ly:warning (_"no systems found in \\score markup, does it have a \\layout block?"))
-	  empty-markup)
-	(let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
-	  (ly:stencil-aligned-to stencil Y CENTER)))))
+	  empty-stencil))))
 
 (def-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with

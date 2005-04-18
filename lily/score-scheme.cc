@@ -14,15 +14,17 @@
 LY_DEFINE (ly_music_scorify, "ly:music-scorify",
 	   2, 0, 0,
 	   (SCM music, SCM parser),
-	   "Return MUSIC with TEXTS encapsulated in SCORE.")
+	   "Return @var{music} with @var{texts} encapsulated in @var{score}.")
 {
-#if 0
-  SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
-#endif
+  Music *mus = unsmob_music (music);
+  SCM_ASSERT_TYPE (mus, music, SCM_ARG1, __FUNCTION__, "music");
+  
   Score *score = new Score;
   score->set_music (music, parser);
-  scm_gc_unprotect_object (score->self_scm ());
-  return score->self_scm ();
+
+  SCM self = score->self_scm ();
+  scm_gc_unprotect_object (self);
+  return self;
 }
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
@@ -50,7 +52,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
       score_def = sc->defs_[i];
 
   if (!score_def)
-    return scm_c_make_vector (0, SCM_EOL);
+    return SCM_BOOL_F;
 
   score_def = score_def->clone ();
   SCM prot = score_def->self_scm ();
@@ -62,8 +64,8 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 
   SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
 				   key);
-  SCM lines = ly_format_output (context);
+  SCM output = ly_format_output (context);
 
   scm_remember_upto_here_1 (prot);
-  return lines;
+  return output;
 }

@@ -74,8 +74,8 @@ Paper_score::process ()
 {
   if (be_verbose_global)
     message (_f ("Element count %d (spanners %d) ",
-			     system_->element_count (),
-			     system_->spanner_count ()));
+		 system_->element_count (),
+		 system_->spanner_count ()));
 
   message (_ ("Preprocessing graphical objects...") + " ");
 

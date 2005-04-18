@@ -1,5 +1,10 @@
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/paper-score-scheme.cc (LY_DEFINE): new file.
+	(LY_DEFINE): ly:paper-score-paper-systems: new function 
+
+	* lily/score-scheme.cc (LY_DEFINE): require music argument. 
+
 	* lily/score.cc (default_rendering): use Music_output too.
 
 	* input/test/chord-names-languages.ly (Module): rename file.
