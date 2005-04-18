@@ -27,6 +27,7 @@ tremolo must be centered on the note.
 		c,16:32 c: c c a16:32 a: a a
 		c8:16 g: d: a:
 		c8:32 f: b: e:
+		\transpose c c { f''8:256[ f'8: f'':] }
 	}
 }
 
