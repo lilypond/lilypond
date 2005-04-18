@@ -121,17 +121,16 @@ that is, for a music expression, a (make-music ...) form."
 	 (ly:music? obj)
 	 `(make-music 
 	   ',(ly:music-property obj 'name)
-	   ,@(append (map (lambda (prop)
-			    (list
-			     (car prop)
-			     (if (and (not (markup? (cdr prop)))
-				      (list? (cdr prop))
-				      (pair? (cdr prop))) ;; property is a non-empty list
-				 `(list ,@(map music->make-music (cdr prop)))
-				 (music->make-music (cdr prop)))))
-			  (remove (lambda (prop)
-				    (eqv? (car prop) 'origin))
-				  (ly:music-mutable-properties obj))))))
+	   ,@(apply append (map (lambda (prop)
+                                  `(',(car prop)
+                                    ,(if (and (not (markup? (cdr prop)))
+                                              (list? (cdr prop))
+                                              (pair? (cdr prop))) ;; property is a non-empty list
+                                         `(list ,@(map music->make-music (cdr prop)))
+                                         (music->make-music (cdr prop)))))
+                                (remove (lambda (prop)
+                                          (eqv? (car prop) 'origin))
+                                        (ly:music-mutable-properties obj))))))
 	(;; moment
 	 (ly:moment? obj)
 	 `(ly:make-moment ,(ly:moment-main-numerator obj)
