@@ -154,9 +154,20 @@ protected:
   virtual Spanner *get_spanner ();
   virtual void acknowledge_grob (Grob_info);
   virtual void add_element (Grob *e);
+  virtual void start_translation_timestep ();
+
+  SCM interesting_;
 public:
   TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
 };
+
+void
+Hara_kiri_engraver::start_translation_timestep ()
+{
+  Axis_group_engraver::start_translation_timestep ();
+  interesting_ = get_property ("keepAliveInterfaces");
+}
+
 
 void
 Hara_kiri_engraver::add_element (Grob *e)
@@ -176,16 +187,19 @@ void
 Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
-  if (staffline_
-      && (i.grob_->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface"))
-	  || i.grob_->internal_has_interface (ly_symbol2scm ("lyric-interface"))))
+  if (staffline_)
     {
-      Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
+      for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
+	{
+	  if (i.grob_->internal_has_interface (scm_car (s)))
+	    Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
+	}
     }
 }
 
 Hara_kiri_engraver::Hara_kiri_engraver ()
 {
+  interesting_ = SCM_EOL;
 }
 
 ADD_TRANSLATOR (Hara_kiri_engraver,
@@ -194,7 +208,7 @@ ADD_TRANSLATOR (Hara_kiri_engraver,
 		/* creats*/ "RemoveEmptyVerticalGroup",
 		/* accepts */ "",
 		/* acks  */ "grob-interface",
-		/* reads */ "",
+		/* reads */ "keepAliveInterfaces",
 		/* write */ "");
 
 ADD_TRANSLATOR (Axis_group_engraver,

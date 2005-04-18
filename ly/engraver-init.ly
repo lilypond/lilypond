@@ -559,6 +559,7 @@ AncientRemoveEmptyStaffContext = \context {
     (Voice Slur direction -1)
   )
 
+  keepAliveInterfaces = #'(rhythmic-grob-interface lyric-interface percent-repeat-interface)
   quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event)
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
@@ -778,6 +779,7 @@ EasyNotation = \context {	%% TODO: why \context override?
   \override TextSpanner #'enclose-bounds = #1
   \override TextSpanner #'edge-text = #'("" . "")
 }
+
 \context {
   \Staff
   \name "GregorianTranscriptionStaff"
