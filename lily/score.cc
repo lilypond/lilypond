@@ -116,27 +116,25 @@ default_rendering (SCM music, SCM outdef,
     }
 
   SCM context = ly_run_translator (music, scaled_def, key);
-  if (Global_context *g = dynamic_cast<Global_context *>
-      (unsmob_context (context)))
+  Music_output *output = unsmob_music_output (ly_format_output (context));
+      
+  if (Paper_score *pscore = dynamic_cast<Paper_score*> (output))
     {
-      SCM systems = ly_format_output (context);
-      Music_output *output = g->get_output ();
-      if (systems != SCM_UNDEFINED)
-	{
-	  /* ugh, this is strange, Paper_book without a Book object. */
-	  Paper_book *paper_book = new Paper_book ();
-	  paper_book->header_ = header;
-	  paper_book->paper_ = unsmob_output_def (scaled_bookdef);
+      /* ugh, this is strange, Paper_book without a Book object. */
+      Paper_book *paper_book = new Paper_book ();
+      paper_book->header_ = header;
+      paper_book->paper_ = unsmob_output_def (scaled_bookdef);
 
-	  if (ly_c_module_p (header))
-	    paper_book->add_score (header);
-	  paper_book->add_score (systems);
+      if (ly_c_module_p (header))
+	paper_book->add_score (header);
 
-	  paper_book->classic_output (ly_scm2string (outname));
-	  scm_gc_unprotect_object (paper_book->self_scm ());
-	}
-      scm_gc_unprotect_object (output->self_scm ());
+      SCM systems = pscore->get_paper_systems ();
+      paper_book->add_score (systems);
+
+      paper_book->classic_output (ly_scm2string (outname));
+      scm_gc_unprotect_object (paper_book->self_scm ());
     }
+  scm_gc_unprotect_object (output->self_scm ());
 
   scm_remember_upto_here_1 (scaled_def);
   scm_remember_upto_here_1 (scaled_bookdef);
