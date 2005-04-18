@@ -63,8 +63,8 @@
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
     (ly:message (_ "Converting to ~a...") "PNG")
-    (ly:progress "\n")
-    (ly:system cmd)))
+    (ly:system cmd)
+    (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)
   (for-each
