@@ -4,6 +4,12 @@
 
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* config.make.in (TTFTOOL_ENDIAN): rm TFM_PATH
+
+	* aclocal.m4: remove --enable-tfm-path configure option
+
+	* input/test/ancient-font.ly (lowerStaff): clef name errors.
+
 	* scm/backend-library.scm (postscript->png): newline after
 	finishing command.
 
