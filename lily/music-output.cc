@@ -32,7 +32,7 @@ Music_output::derived_mark () const
 
 IMPLEMENT_SMOBS (Music_output);
 IMPLEMENT_DEFAULT_EQUAL_P (Music_output);
-IMPLEMENT_TYPE_P (Music_output, "ly:score?");
+IMPLEMENT_TYPE_P (Music_output, "ly:music-output?");
 
 SCM
 Music_output::mark_smob (SCM s)
