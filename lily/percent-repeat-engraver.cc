@@ -93,7 +93,6 @@ Percent_repeat_engraver::try_music (Music *m)
       else if (Moment (2) * meas_len == body_length_)
 	{
 	  repeat_sign_type_ = DOUBLE_MEASURE;
-	  next_moment_ += meas_len;
 	}
       else
 	{
@@ -105,16 +104,19 @@ Percent_repeat_engraver::try_music (Music *m)
       repeat_ = m;
 
       Global_context *global = get_global_context ();
-      for (int i = 0; i < count; i++)
+      for (int i = 1; i < count; i++)
 	{
-	  global->add_moment_to_process (next_moment_
-					 + Moment (i) * body_length_);
+	  Moment m = next_moment_ + Moment (i) * body_length_;
+	  global->add_moment_to_process (m);
 
 	  /* bars between % too.  */
 	  if (repeat_sign_type_ == DOUBLE_MEASURE)
-	    global->add_moment_to_process (next_moment_ + meas_len + Moment (i) * body_length_);
+	    global->add_moment_to_process (m - meas_len);
 	}
 
+      if (repeat_sign_type_ == DOUBLE_MEASURE)
+	next_moment_ += meas_len;
+      
       return true;
     }
 
@@ -144,8 +146,6 @@ Percent_repeat_engraver::process_music ()
 	  get_score_engraver ()->forbid_breaks ();	// guh. Use properties!      
 	}
       next_moment_ = next_moment_ + body_length_;
-
-      get_global_context ()->add_moment_to_process (next_moment_);
     }
 }
 

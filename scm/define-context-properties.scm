@@ -231,6 +231,8 @@ Function taking a string (instrument name), and returning a (@var{min} . @var{ma
 the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")
 
+     (keepAliveInterfaces ,list? "List of symbols, signifying grob interfaces that
+are worth keeping a RemoveEmptyStaff staff around for.")   
      (keyAccidentalOrder ,list? " Alist that defines in what order
 alterations should be printed.  The format is (@var{name}
 . @var{alter}), where @var{name} is from 0 .. 6 and @var{alter} from
