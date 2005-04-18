@@ -19,7 +19,7 @@
 Array<int>
 Break_algorithm::find_break_indices () const
 {
-  Link_array<Grob> all = pscore_->system_->columns ();
+  Link_array<Grob> all = pscore_->root_system ()->columns ();
   Array<int> retval;
 
   for (int i = 0; i < all.size (); i++)
@@ -36,7 +36,7 @@ Break_algorithm::find_break_indices () const
 Link_array<Grob>
 Break_algorithm::find_breaks () const
 {
-  Link_array<Grob> all = pscore_->system_->columns ();
+  Link_array<Grob> all = pscore_->root_system ()->columns ();
   Link_array<Grob> retval;
 
   for (int i = 0; i < all.size (); i++)
@@ -88,7 +88,7 @@ void
 Break_algorithm::set_pscore (Paper_score *s)
 {
   pscore_ = s;
-  linewidth_ = s->layout_->get_dimension (ly_symbol2scm ("linewidth"));
+  linewidth_ = s->layout ()->get_dimension (ly_symbol2scm ("linewidth"));
 }
 
 Array<Column_x_positions>

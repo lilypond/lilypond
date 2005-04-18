@@ -149,8 +149,9 @@ Performance::add_element (Audio_element *p)
   audio_element_list_ = new Killing_cons<Audio_element> (p, audio_element_list_);
 }
 
-SCM
-Performance::process (String out)
+
+void
+Performance::write_output (String out)
 {
   if (out == "-")
     out = "lelie.midi";
@@ -165,5 +166,4 @@ Performance::process (String out)
 
   output (midi_stream);
   progress_indication ("\n");
-  return SCM_BOOL_F;
 }

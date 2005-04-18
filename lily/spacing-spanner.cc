@@ -360,7 +360,7 @@ Spacing_spanner::set_springs (SCM smob)
   /*
     can't use get_system() ? --hwn.
   */
-  Link_array<Grob> all (me->pscore_->system_->columns ());
+  Link_array<Grob> all (me->pscore_->root_system ()->columns ());
 
   set_explicit_neighbor_columns (all);
 

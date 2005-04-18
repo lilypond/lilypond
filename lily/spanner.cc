@@ -81,7 +81,7 @@ Spanner::do_break_processing ()
     }
   else
     {
-      Link_array<Item> break_points = pscore_->system_->broken_col_range (left, right);
+      Link_array<Item> break_points = pscore_->root_system ()->broken_col_range (left, right);
 
       break_points.insert (left, 0);
       break_points.push (right);

@@ -23,6 +23,9 @@
 #include "text-item.hh"
 #include "warn.hh"
 
+#include "performance.hh"
+#include "paper-score.hh"
+
 #include "ly-smobs.icc"
 
 Book::Book ()
@@ -95,20 +98,36 @@ Book::process (String outname, Output_def *default_def)
   paper_book->header_ = header_;
 
   /* Render in order of parsing.  */
+  int midi_count = 0;
   for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
       if (Score *score = unsmob_score (scm_car (s)))
 	{
-	  SCM systems = score
-	    ->book_rendering (outname, paper_book->paper_, default_def, key);
+	  SCM outputs = score
+	    ->book_rendering (paper_book->paper_, default_def, key);
 
-	  /* If the score is empty, generate no output.  Should we do
-	     titling? */
-	  if (scm_is_vector (systems))
+	  while (scm_is_pair (outputs))
 	    {
-	      if (ly_c_module_p (score->header_))
-		paper_book->add_score (score->header_);
-	      paper_book->add_score (systems);
+	      Music_output *output = unsmob_music_output (scm_car (outputs));
+
+	      if (Performance *perf = dynamic_cast<Performance *> (output))
+		{
+		  String fn = outname;
+		  if (midi_count)
+		    fn += "-" + to_string (midi_count);
+
+		  midi_count ++;
+		  perf->write_output (fn);
+		}
+	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output)) 
+		{
+		  SCM systems = pscore->get_systems ();
+		  if (ly_c_module_p (score->header_))
+		    paper_book->add_score (score->header_);
+		  paper_book->add_score (systems);
+		}
+	      
+	      outputs = scm_cdr (outputs);
 	    }
 	}
       else if (Text_interface::markup_p (scm_car (s)))

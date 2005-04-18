@@ -74,7 +74,7 @@ Item::copy_breakable_items ()
     {
       Grob *dolly = clone (count++);
       Item *item = dynamic_cast<Item *> (dolly);
-      pscore_->system_->typeset_grob (item);
+      pscore_->root_system ()->typeset_grob (item);
       new_copies[i] = item;
     }
   while (flip (&i) != LEFT);

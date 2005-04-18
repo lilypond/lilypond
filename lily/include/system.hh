@@ -21,8 +21,8 @@ class System : public Spanner
 public:
   int rank_;
   void post_processing ();
-  SCM get_line ();
-  SCM get_lines ();
+  SCM get_paper_system ();
+  SCM get_paper_systems ();
 
   System (SCM, Object_key const *);
   System (System const &, int);
