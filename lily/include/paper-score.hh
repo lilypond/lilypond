@@ -29,7 +29,7 @@ public:
   void typeset_system (System *);
   Array<Column_x_positions> calc_breaking ();
 
-  SCM get_systems () const;
+  SCM get_paper_systems () const;
 protected:
   virtual void process ();
   virtual void derived_mark () const;

@@ -121,7 +121,7 @@ Book::process (String outname, Output_def *default_def)
 		}
 	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output)) 
 		{
-		  SCM systems = pscore->get_systems ();
+		  SCM systems = pscore->get_paper_systems ();
 		  if (ly_c_module_p (score->header_))
 		    paper_book->add_score (score->header_);
 		  paper_book->add_score (systems);
