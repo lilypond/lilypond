@@ -68,14 +68,14 @@ env.Append (BUILDERS = {'HH' : HH})
 env.Append (
 	_fixme = _fixme,
 	ABC2LY = 'abc2ly',
-	LILYPOND = 'lilypond',
-	LILYPOND_BIN = 'lilypond-bin',
+	##LILYPOND = 'lilypond',
 	LILYOND_BOOK = 'lilypond-book',
 
 	#ugr
 	#LILYPOND_BOOK_FORMAT = 'texi',
 	LILYPOND_BOOK_FORMAT = '',
-	LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
+	#LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
+	LILYPOND_BOOK_FLAGS = '''--format=$LILYPOND_BOOK_FORMAT --process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
 
 	LILYPOND_PATH = [],
 	# The SCons way around FOO_PATH:
@@ -85,7 +85,8 @@ env.Append (
 	MAKEINFO_PATH = [],
 	MAKEINFO_FLAGS = [],
 	MAKEINFO_INCFLAGS = '$( ${_concat(INCPREFIX, MAKEINFO_PATH, INCSUFFIX, __env__, RDirs)} $)',
-
+	# should not be necessary
+	# PYTHONPATH = ['$absbuild/python/$out'],
 	TEXI2DVI_FLAGS = [],
 	_TEXI2DVI_FLAGS = '$( ${_concat(" ", TEXI2DVI_FLAGS,)} $)',
 	)
@@ -111,7 +112,7 @@ TEXI =\
      Builder (action =
 	      '$LILYPOND_BOOK --output=${TARGET.dir} \
 	      --include=${TARGET.dir} $LILYPOND_INCFLAGS \
-	      --process="$LILYPOND_BIN $LILYPOND_INCFLAGS" \
+	      --process="$LILYPOND $LILYPOND_INCFLAGS" \
 	      $LILYPOND_BOOK_FLAGS \
 	      $SOURCE',
 	      suffix = '.texi', src_suffix = '.tely')
@@ -160,8 +161,6 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-# TODO: 
-# FIXME: INCLUDES, FLAGS, use LILYPOND_BIN for building ? 
 lilypond =\
 	 Builder (action = '$LILYPOND --output=${TARGET.base} --include=${TARGET.dir} $SOURCE',
 		  suffix = '.pdf', src_suffix = '.ly')
@@ -175,6 +174,10 @@ env.Append (BUILDERS = {'ABC': ABC})
 def add_log_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.log'], source)
+
+def add_tfm_target (target, source, env):
+	base = os.path.splitext (str (target[0]))[0]
+	return (target + [base + '.tfm'], source)
 
 def add_lisp_enc_tex_ly_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
@@ -229,7 +232,7 @@ pfa = Builder (action = a,
 env.Append (BUILDERS = {'PFA': pfa})
 
 a = ['(cd ${TARGET.dir} && fontforge -script ${SOURCE.file})',
-     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.filebase}.cff $(${SOURCE.filebase}).fontname) ${SOURCE.filebase}.cff.ps',
+     '$PYTHON $srcdir/buildscripts/ps-embed-cff.py ${SOURCE.base}.cff $$(cat ${SOURCE.base}.fontname) ${SOURCE.base}.cff.ps',
      'rm -f ${TARGET.dir}/*.scale.pfa']
 otf = Builder (action = a,
 	       suffix = '.otf',
@@ -273,7 +276,8 @@ atvars = [
 
 # naming
 def at_copy (target, source, env):
-    s = open (str (source[0])).read ()
+    n = str (source[0])
+    s = open (n).read ()
     for i in atvars:
 	    if env.has_key (i):
 		    s = string.replace (s, '@%s@'% i, env[i])
@@ -285,6 +289,22 @@ def at_copy (target, source, env):
 
 AT_COPY = Builder (action = at_copy, src_suffix = ['.in', '.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
+
+# naming
+def at_copy_ext (target, source, env):
+    n = str (source[0])
+    s = open (n).read ()
+    for i in atvars:
+	    if env.has_key (i):
+		    s = string.replace (s, '@%s@'% i, env[i])
+    # whugh
+    e = os.path.splitext (n)[1]
+    t = str (target[0]) + e
+    open (t, 'w').write (s)
+
+AT_COPY_EXT = Builder (action = at_copy_ext, src_suffix = ['.py', '.sh',])
+env.Append (BUILDERS = {'AT_COPY_EXT': AT_COPY_EXT})
+
 
 MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
 	      suffix = '.mo', src_suffix = '.po')
@@ -327,11 +347,11 @@ def mutopia (ly = None, abc = None):
 	# Override them again to fix web build...
 
 	
-	BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
-	BUILD_LILYPOND = '${set__x}$PYTHON $srcdir/scripts/lilypond.py${__verbose}'
+	#BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
+	#BUILD_LILYPOND = '$absbuild/$out/lilypond ${__verbose}'
 	e = env.Copy (
-		LILYPOND = BUILD_LILYPOND,
-		ABC2LY = BUILD_ABC2LY,
+		#LILYPOND = BUILD_LILYPOND,
+		#ABC2LY = BUILD_ABC2LY,
 	)
 	
 	if not abc:
@@ -352,10 +372,10 @@ def collate (title = 'collated files'):
 	
 	e = env.Copy (
 		TITLE = title,
-		LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'"''',
-													    __verbose = ' --verbose',
-													    )
-	#		
+		LILYPOND_BOOK_FLAGS = '''--process="lilypond --backend=eps --formats=ps,png --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'" ''',
+																       __verbose = ' --verbose',
+																       )
+	#
 	tely = e.LYS2TELY ('collated-files', ly)
 	texi = e.TEXI (tely)
 	# We need lily and mf to build these.

@@ -22,9 +22,9 @@ Run from build tree
     PATH=$run/bin:$PATH
 
     #optionally, if you do not use custom.py below
-    #export LILYPONDPREFIX=$run/share/lilypond
+    #export LILYPONDPREFIX=$run/share/lilypond/<VERSION>
 
-    lilypond-bin input/simple
+    lilypond input/simple
 
 Other targets
     scons mf-essential         # build minimal mf stuff
@@ -60,9 +60,20 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
-#  * usability
 
-#  * more program configure tests (mfont, ...?)
+#  * reality check:
+#     - too many stages in Environments setup
+#       (see also buildscripts/builders.py)
+#     - Home-brew scons.cach configuration caching
+#     - Home-brew source tarball generating -- [why] isn't that in SCons?
+
+#  * usability and documentation for "./configure; make" users
+
+#  * too much cruft in toplevel SConstruct
+
+#  * (optional) operation without CVS directories, from tarball
+
+#  * more program configure tests, actually use full executable name
 
 #  * install doc
 
@@ -70,6 +81,7 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 #  * grep FIXME $(find . -name 'S*t')
 
+#  * drop "fast"
 
 import re
 import glob
@@ -93,18 +105,26 @@ TARGETS: clean, config, doc, dist, install, mf-essential, po-update,
 
 config_cache = 'scons.cache'
 
+# append test_program variables automagically?
 config_vars = [
 	'BASH',
+	'BYTEORDER',
+	'CC',
 	'CCFLAGS',
 	'CPPPATH',
 	'CPPDEFINES',
+	'CXX',
 	'CXXFLAGS',
 	'DEFINES',
+	'FONTFORGE',
+	'GCC',
+	'GXX',
 	'LIBS',
 	'LINKFLAGS',
 	'METAFONT',
 	'PERL',
 	'PYTHON',
+	'SH',
 	]
 
 # Put your favourite stuff in custom.py
@@ -131,7 +151,7 @@ opts.AddOptions (
 	BoolOption ('checksums', 'use checksums instead of timestamps',
 		    0),
 	BoolOption ('fast', 'use timestamps, implicit cache, prune CPPPATH',
-		    1),
+		    0),
 	)
 
 srcdir = Dir ('.').srcnode ().abspath
@@ -146,14 +166,19 @@ for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH']:
     	if os.environ.has_key (key):
         	ENV[key] = os.environ[key]
 
+for key in config_vars:
+    	if os.environ.has_key (key):
+        	ENV[key] = os.environ[key]
+
 env = Environment (
 	ENV = ENV,
 
-	BASH = '/bin/bash',
+	#BASH = '/bin/bash',
+	BYTEORDER = sys.byteorder.upper (),
 	CPPDEFINES = '-DHAVE_CONFIG_H',
-	PERL = '/usr/bin/perl',
-	PYTHON = '/usr/bin/python',
-	SH = '/bin/sh',
+	#PERL = '/usr/bin/perl',
+	#PYTHON = '/usr/bin/python',
+	#SH = '/bin/sh',
 
 	MAKEINFO = 'LANG= makeinfo',
 	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
@@ -248,18 +273,8 @@ def configure (target, source, env):
 			v = v[:-1]
 		return string.split (v, '.')
 
-	def get_fullname (program):
-		command = 'type -p "%s" 2>/dev/null' % program
-		pipe = os.popen (command)
-		output = pipe.readlines ()
-		if pipe.close ():
-			return None
-		o = output[-1]
-		if o[-1] == '\n':
-			o = o[:-1]
-		return string.split (o)[-1]
-
-	def test_version (lst, program, minimal, description, package):
+	def test_version (lst, full_name, minimal, description, package):
+		program = os.path.basename (full_name)
 		sys.stdout.write ('Checking %s version... ' % program)
 		actual = get_version (program)
 		if not actual:
@@ -277,13 +292,18 @@ def configure (target, source, env):
 
 	def test_program (lst, program, minimal, description, package):
 		sys.stdout.write ('Checking for %s ... ' % program)
-		f = get_fullname (program)
+		f = WhereIs (program)
 		if not f:
 			print 'not found'
 			lst.append ((description, package, minimal, program,
 				     'not installed'))
 			return 0
 		print f
+		key = program.upper ()
+		if key.find ('+-'):
+			key = re.sub ('\+', 'X', key)
+			key = re.sub ('-', '_', key)
+		env[key] = f
 		return test_version (lst, program, minimal, description, package)
 
 	def test_lib (lst, program, minimal, description):
@@ -300,7 +320,7 @@ def configure (target, source, env):
 			return 1
 		return 0
 
-	for i in ['bash', 'perl', 'python', 'sh']:
+	for i in []: #['bash', 'perl', 'python', 'sh']:
 		sys.stdout.write ('Checking for %s... ' % i)
 		c = WhereIs (i)
 		key = string.upper (i)
@@ -314,26 +334,28 @@ def configure (target, source, env):
 		sys.stdout.write ('\n')
 
 	required = []
+	test_program (required, 'bash', '2.0', 'Bash', 'bash')
 	test_program (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
 	test_program (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
-	test_program (required, 'python', '2.1', 'Python (www.python.org)', 'python')
 	test_program (required, 'guile-config', '1.6', 'GUILE development',
 			'libguile-dev or guile-devel')
-	# Do not use bison 1.50 and 1.75.
-	test_program (required, 'bison', '1.25', 'Bison -- parser generator',
-			'bison')
-	test_program (required, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+	test_program (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+	test_program (required, 'sh', '0.0', 'Bourne shell', 'sh')
 
 	optional = []
-	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+	# Do not use bison 1.50 and 1.75.
+	test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
+			'bison')
+	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
 	test_program (optional, 'gs', '8.14', 'Ghostscript PostScript interpreter', 'gs or gs-afpl or gs-esp or gs-gpl')
 	test_program (optional, 'mftrace', '1.1.0', 'Metafont tracing Type1',
 			'mftrace')
+	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
 	test_program (optional, 'perl', '4.0',
 			'Perl practical efficient readonly language', 'perl')
 	#test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
-	test_program (optional, 'fontforge', '20041224.0', 'FontForge', 'fontforge')
+	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge', 'fontforge')
 
 	def CheckYYCurrentBuffer (context):
 		context.Message ('Checking for yy_current_buffer... ')
@@ -364,11 +386,11 @@ def configure (target, source, env):
 	conf.env.Append (DEFINES = defines)
 
 	command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
-	PYTHON_INCLUDE = os.popen (command).read ()
+	PYTHON_INCLUDE = os.popen (command).read ()#[:-1]
 	if env['fast']:
-		env.Append (CCFLAGS = ['-I%s ' % PYTHON_INCLUDE])
+		env.Append (CCFLAGS = ['-I%s' % PYTHON_INCLUDE])
 	else:
-		env.Append (CPPPATH = PYTHON_INCLUDE)
+		env.Append (CPPPATH = [PYTHON_INCLUDE])
 
 	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'libio.h',
 		   'Python.h')
@@ -442,11 +464,6 @@ def configure (target, source, env):
 			
 		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
 			conf.env['DEFINES']['HAVE_PANGO_PANGOFC_FONTMAP_H'] = '1'
-		if conf.CheckLib ('pango-1.0',
-				  'pango_fc_font_map_add_decoder_find_func'):
-			conf.env['DEFINES']['HAVE_PANGO16'] = '1'
-			conf.env['DEFINES']['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
-
 	if env['fast']:
 		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
 		# <system-dir>] speeds up SCons
@@ -558,12 +575,11 @@ if os.environ.has_key ('TEXMF'):
 env.Append (ENV = {
 	'TEXMF' : '{$LILYPONDPREFIX,' \
 	+ os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}',
-	'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond'),
+	'LILYPONDPREFIX' : os.path.join (run_prefix, 'share/lilypond/', version),
 	})
 
 BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
-BUILD_LILYPOND = '${set__x}$PYTHON $srcdir/scripts/lilypond.py${__verbose}'
-BUILD_LILYPOND_BIN = '$absbuild/$out/lilypond-bin ${__verbose}'
+BUILD_LILYPOND = '$absbuild/lily/$out/lilypond ${__verbose}'
 BUILD_LILYPOND_BOOK = '$PYTHON $srcdir/scripts/lilypond-book.py --verbose'
 
 
@@ -584,7 +600,8 @@ env.Append (
 	LILYPOND_BOOK = BUILD_LILYPOND_BOOK,
 	LILYPOND_BOOK_FORMAT = 'texi-html',
 	MAKEINFO_FLAGS = '--css-include=$srcdir/Documentation/texinfo.css',
-
+	# should not be necessary
+	# PYTHONPATH = ['$absbuild/python/$out'],
 	TEXI2DVI_PAPERSIZE = '@afourpaper',
 	TEXI2DVI_FLAGS = [ '-t $TEXI2DVI_PAPERSIZE'],
 	DVIPS_PAPERSIZE = 'a4',
@@ -669,7 +686,7 @@ env.Command (version_hh, '#/VERSION',
 # post-config environment update
 env.Append (
 	run_prefix = run_prefix,
-	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
+	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version),
 
 	# FIXME: move to lily/SConscript?
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),
@@ -731,6 +748,8 @@ def symlink_tree (target, source, env):
 	     # @  := out
 	     # /$ := add dst file_name
 	     (('python',     'lib/lilypond/python'),
+	      # ugh
+	      ('python',     'share/lilypond/%(ver)s/python'),
 	      ('lily/',      'bin/lilypond'),
 	      ('scripts/',   'bin/convert-ly'),
 	      ('scripts/',   'bin/lilypond-book'),
@@ -773,7 +792,8 @@ def symlink_tree (target, source, env):
 
 if env['debugging']:
 	stamp = os.path.join (run_prefix, 'stamp')
-	env.Command (stamp, 'SConstruct', [symlink_tree, 'touch $TARGET'])
+	env.Command (stamp, ['#/SConstruct', '#/VERSION'],
+		     [symlink_tree, 'touch $TARGET'])
 	env.Depends ('lily', stamp)
 	
 #### dist, tar
@@ -812,6 +832,14 @@ def flatten (tree, lst):
 				lst.append (i)
 	return lst
 
+if os.path.isdir ('$srcdir/CVS'):
+	subdirs = flatten (cvs_dirs ('.'), [])
+else:
+	# ugh
+	command = 'cd %(srcdir)s \
+	&& find . -name SConscript | sed s@/SConscript@@' % vars ()
+	subdirs = string.split (os.popen (command).read ())
+
 if env['fast']\
    and 'all' not in COMMAND_LINE_TARGETS\
    and 'doc' not in COMMAND_LINE_TARGETS\
@@ -824,10 +852,12 @@ if env['fast']\
 		   'ttftool',
 		   'mf',
 		   ]
-else:
-	subdirs = flatten (cvs_dirs ('.'), [])
 
-src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
+if os.path.isdir ('$srcdir/CVS'):
+	src_files = reduce (lambda x, y: x + y, map (cvs_files, subdirs))
+else:
+	src_files = ['foobar']
+
 readme_files = ['AUTHORS', 'README', 'INSTALL', 'NEWS']
 txt_files = map (lambda x: x + '.txt', readme_files)
 
