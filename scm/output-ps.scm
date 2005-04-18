@@ -204,7 +204,10 @@
 		       (ly:input-file-line-column music-origin)
 		       #f
 		       ))
-	 (file (if location (string-append (getcwd) "/" (car location))
+	 (file (if location
+		   (if (eq? (string-ref (car location) 0 ) #\/) 
+		       location
+		       (string-append (getcwd) "/" (car location)))
 		   #f))
 	 (x-ext (ly:grob-extent grob grob X)) 
 	 (y-ext (ly:grob-extent grob grob Y)) 
