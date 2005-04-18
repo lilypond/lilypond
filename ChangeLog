@@ -6,6 +6,7 @@
 
 	* scm/music-functions.scm (markup-expression->make-markup): fix
 	bug with cons arguments of markup commands.
+	(music->make-music): fix music expression property list building
 
 2005-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
