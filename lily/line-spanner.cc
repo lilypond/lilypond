@@ -144,7 +144,7 @@ Line_spanner::line_stencil (Grob *me,
   if (to_boolean (me->get_property ("arrow")))
     line.add_stencil (Line_interface::arrows (me, from, to, false, true));
   
-  return Stencil ();
+  return line;
 }
 
 /*
@@ -188,7 +188,7 @@ Line_spanner::print (SCM smob)
 
   Real gap = robust_scm2double (me->get_property ("gap"), 0.0);
 
-  Offset ofxy (gap, 0); /*offset from start point to start of line*/
+  Offset ofxy (gap, 0); /* offset from start point to start of line */
   Offset dxy;
   Offset my_off;
   Offset his_off;

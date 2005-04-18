@@ -26,6 +26,7 @@ class Paper_book
   SCM systems_;
   SCM pages_;
 
+  void add_score_title (SCM);
 public:
   SCM header_;
   SCM header_0_;
