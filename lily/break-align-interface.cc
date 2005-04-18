@@ -43,8 +43,8 @@ SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-  assert (a == X_AXIS);
+  (void)  axis;
+  assert (scm_to_int (axis) == X_AXIS);
 
   Item *item = dynamic_cast<Item *> (me);
   Direction bsd = item->break_status_dir ();

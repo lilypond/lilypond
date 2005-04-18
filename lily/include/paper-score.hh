@@ -15,27 +15,25 @@
 /* LAYOUT output */
 class Paper_score : public Music_output
 {
-public:
   Output_def *layout_;
   System *system_;
+  SCM systems_;
 
-  Paper_score ();
+public:
+  Paper_score (Output_def *);
 
-  int find_col_idx (Paper_column const *) const;
-  Link_array<Item> broken_col_range (Item const *, Item const *) const;
-  void typeset_line (System *);
-  void output ();
+  Output_def *layout () const;
+  System *root_system () const;
+  
+  void typeset_system (System *);
+  Array<Column_x_positions> calc_breaking ();
 
+  SCM get_systems () const;
 protected:
-  virtual SCM process (String);
+  virtual void process ();
+  virtual void derived_mark () const;
 
 private:
-  Protected_scm systems_;
-
-  void preprocess ();
-  void calc_idealspacing ();
-  Array<Column_x_positions> calc_breaking ();
-  void postprocess ();
   Paper_score (Paper_score const &);
 };
 

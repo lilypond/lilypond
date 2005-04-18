@@ -83,7 +83,7 @@ fixup_refpoints (SCM s)
 }
 
 SCM
-System::get_lines ()
+System::get_paper_systems ()
 {
   for (SCM s = get_property ("all-elements"); scm_is_pair (s); s = scm_cdr (s))
     {
@@ -154,7 +154,7 @@ System::get_lines ()
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
       system->post_processing ();
-      scm_vector_set_x (lines, scm_int2num (i), system->get_line ());
+      scm_vector_set_x (lines, scm_int2num (i), system->get_paper_system ());
 
       if (be_verbose_global)
 	progress_indication (to_string (i) + "]");
@@ -171,7 +171,7 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
       system->rank_ = i;
 
       Link_array<Grob> c (breaking[i].cols_);
-      pscore_->typeset_line (system);
+      pscore_->typeset_system (system);
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.top ());
@@ -282,7 +282,7 @@ System::post_processing ()
 }
 
 SCM
-System::get_line ()
+System::get_paper_system ()
 {
   static int const LAYER_COUNT = 3;
 

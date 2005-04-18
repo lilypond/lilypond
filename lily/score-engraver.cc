@@ -111,15 +111,14 @@ Score_engraver::initialize ()
 	     + _ ("Aborting"));
     }
 
-  pscore_ = new Paper_score;
-  pscore_->layout_ = dynamic_cast<Output_def *> (get_output_def ());
+  pscore_ = new Paper_score (dynamic_cast<Output_def *> (get_output_def ()));
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
   Object_key const *sys_key = context ()->get_grob_key ("System");
-  pscore_->typeset_line (new System (props, sys_key));
+  pscore_->typeset_system (new System (props, sys_key));
 
-  system_ = pscore_->system_;
+  system_ = pscore_->root_system ();
   make_columns ();
   system_->set_bound (LEFT, command_column_);
   command_column_->set_property ("breakable", SCM_BOOL_T);
@@ -156,7 +155,7 @@ void
 Score_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
-  pscore_->system_->typeset_grob (info.grob_);
+  pscore_->root_system ()->typeset_grob (info.grob_);
   elems_.push (info.grob_);
 }
 

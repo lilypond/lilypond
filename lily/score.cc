@@ -119,7 +119,7 @@ default_rendering (SCM music, SCM outdef,
   if (Global_context *g = dynamic_cast<Global_context *>
       (unsmob_context (context)))
     {
-      SCM systems = ly_format_output (context, outname);
+      SCM systems = ly_format_output (context);
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{
@@ -135,7 +135,7 @@ default_rendering (SCM music, SCM outdef,
 	  paper_book->classic_output (ly_scm2string (outname));
 	  scm_gc_unprotect_object (paper_book->self_scm ());
 	}
-      delete output;
+      scm_gc_unprotect_object (output->self_scm ());
     }
 
   scm_remember_upto_here_1 (scaled_def);
@@ -143,14 +143,12 @@ default_rendering (SCM music, SCM outdef,
 }
 
 /*
-  Format score, return systems. OUTNAME is still passed to create a midi
-  file.
+  Format score, return list of Music_output objects. 
 
   LAYOUTBOOK should be scaled already.
 */
 SCM
-Score::book_rendering (String outname,
-		       Output_def *layoutbook,
+Score::book_rendering (Output_def *layoutbook,
 		       Output_def *default_def,
 		       Object_key *book_key)
 {
@@ -163,8 +161,9 @@ Score::book_rendering (String outname,
   if (layoutbook && layoutbook->c_variable ("is-paper") == SCM_BOOL_T)
     scale = scm_to_double (layoutbook->c_variable ("outputscale"));
 
-  SCM out = scm_makfrom0str (outname.to_str0 ());
-  SCM systems = SCM_EOL;
+  SCM outputs = SCM_EOL;
+  SCM *tail = &outputs;
+  
   int outdef_count = defs_.size ();
 
   Object_key *key = new Lilypond_general_key (book_key, user_key_, 0);
@@ -175,6 +174,7 @@ Score::book_rendering (String outname,
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
       SCM scaled = SCM_EOL;
+
       if (def->c_variable ("is-layout") == SCM_BOOL_T)
 	{
 	  def = scale_output_def (def, scale);
@@ -187,9 +187,10 @@ Score::book_rendering (String outname,
       SCM context = ly_run_translator (music_, def->self_scm (), scm_key);
       if (dynamic_cast<Global_context *> (unsmob_context (context)))
 	{
-	  SCM s = ly_format_output (context, out);
-	  if (s != SCM_UNDEFINED)
-	    systems = s;
+	  SCM s = ly_format_output (context);
+	  
+	  *tail = scm_cons (s, SCM_EOL);
+	  tail = SCM_CDRLOC(*tail);
 	}
 
       scm_remember_upto_here_1 (scaled);
@@ -197,7 +198,7 @@ Score::book_rendering (String outname,
 
   scm_remember_upto_here_1 (scm_key);
   scm_remember_upto_here_1 (scaled_bookdef);
-  return systems;
+  return outputs;
 }
 
 void

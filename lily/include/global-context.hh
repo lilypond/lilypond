@@ -44,6 +44,6 @@ protected:
   Moment now_mom_;
 };
 
-SCM ly_format_output (SCM, SCM);
+SCM ly_format_output (SCM);
 
 #endif // GLOBAL_CONTEXT_HH

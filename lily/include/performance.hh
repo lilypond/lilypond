@@ -24,7 +24,7 @@ public:
   void output_header_track (Midi_stream &midi_stream_r);
 
   void print () const;
-  SCM process (String);
+  void write_output (String filename);
 
   Link_array<Audio_staff> audio_staffs_;
   Cons<Audio_element> *audio_element_list_;

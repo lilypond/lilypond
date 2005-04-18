@@ -21,10 +21,11 @@
 #include "system.hh"
 #include "warn.hh"
 
-Paper_score::Paper_score ()
+Paper_score::Paper_score (Output_def *layout)
 {
-  layout_ = 0;
+  layout_ = layout;
   system_ = 0;
+  systems_ = SCM_EOL;
 }
 
 Paper_score::Paper_score (Paper_score const &s)
@@ -33,8 +34,15 @@ Paper_score::Paper_score (Paper_score const &s)
   assert (false);
 }
 
+
 void
-Paper_score::typeset_line (System *system)
+Paper_score::derived_mark () const
+{
+  scm_gc_mark (systems_);
+}
+
+void
+Paper_score::typeset_system (System *system)
 {
   if (!system_)
     system_ = system;
@@ -59,8 +67,8 @@ Paper_score::calc_breaking ()
   return sol;
 }
 
-SCM
-Paper_score::process (String)
+void
+Paper_score::process ()
 {
   if (be_verbose_global)
     message (_f ("Element count %d (spanners %d) ",
@@ -81,12 +89,24 @@ Paper_score::process (String)
 
   Array<Column_x_positions> breaking = calc_breaking ();
   system_->break_into_pieces (breaking);
-  SCM lines = system_->get_lines ();
+  system_->get_paper_systems ();
+}
 
-  /*
-    retain Grobs, since they are pointed to by the point & click data
-    structures, and are not marked fully, because child -> parent
-    links aren't marked.
-   */
-  return lines;
+System *
+Paper_score::root_system () const
+{
+  return system_;
+}
+
+Output_def *
+Paper_score::layout () const
+{
+  return layout_;
+}
+  
+
+SCM
+Paper_score::get_systems () const
+{
+  return root_system ()->get_paper_systems ();
 }

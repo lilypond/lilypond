@@ -17,19 +17,17 @@
 #include "main.hh"
 
 LY_DEFINE (ly_format_output, "ly:format-output",
-	   2, 0, 0, (SCM context, SCM outname),
+	   1, 0, 0, (SCM context),
 	   "Given a Global context in its final state, "
-	   "process it and return the (rendered) result.")
+	   "process it and return the @code{Music_output} object in its final state.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
   SCM_ASSERT_TYPE (g, context, SCM_ARG1, __FUNCTION__, "Global context");
-  SCM_ASSERT_TYPE (scm_is_string (outname), outname, SCM_ARG2, __FUNCTION__, "output file name");
 
   Music_output *output = g->get_output ();
   progress_indication ("\n");
-
-  /* ugh, midi still wants outname  */
-  return output->process (ly_scm2string (outname));
+  output->process ();
+  return output->self_scm ();
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",

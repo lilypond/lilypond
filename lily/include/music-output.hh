@@ -12,12 +12,20 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "protected-scm.hh"
+#include "smobs.hh"
 
 class Music_output
 {
+  DECLARE_SMOBS(Music_output, foo);
+
+protected:
+  Music_output ();
+
 public:
-  virtual SCM process (String); 
-  virtual ~Music_output ();
+  virtual void derived_mark () const; 
+  virtual void process (); 
 };
+
+DECLARE_UNSMOB (Music_output, music_output);
 
 #endif /* MUSIC_OUTPUT_HH */

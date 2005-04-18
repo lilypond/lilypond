@@ -1287,12 +1287,12 @@ SCM
 Beam::rest_collision_callback (SCM element_smob, SCM axis)
 {
   Grob *rest = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
+  (void) axis;
 
   if (scm_is_number (rest->get_property ("staff-position")))
     return scm_int2num (0);
 
-  assert (a == Y_AXIS);
+  assert (scm_to_int (axis) == Y_AXIS);
 
   Grob *st = unsmob_grob (rest->get_property ("stem"));
   Grob *stem = st;

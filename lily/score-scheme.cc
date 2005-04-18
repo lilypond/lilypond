@@ -62,7 +62,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 
   SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
 				   key);
-  SCM lines = ly_format_output (context, scm_makfrom0str ("<embedded>"));
+  SCM lines = ly_format_output (context);
 
   scm_remember_upto_here_1 (prot);
   return lines;

@@ -35,7 +35,7 @@ public:
 
   SCM get_music () const;
   void set_music (SCM music, SCM parser);
-  SCM book_rendering (String, Output_def *, Output_def *, Object_key *);
+  SCM book_rendering (Output_def *, Output_def *, Object_key *);
 };
 
 DECLARE_UNSMOB (Score, score);
