@@ -1,5 +1,8 @@
 2005-04-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/backend-library.scm (postscript->png): newline after
+	finishing command.
+
 	* lily/paper-score-scheme.cc (LY_DEFINE): new file.
 	(LY_DEFINE): ly:paper-score-paper-systems: new function 
 
