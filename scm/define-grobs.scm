@@ -19,7 +19,8 @@
 	(print-function . ,Accidental_interface::print)
 	(inside-slur . #t)
 	(cautionary-style . parentheses)
-	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface
+	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)
+	(meta . ((interfaces . (item-interface accidental-interface
 																       font-interface))))
 	))
 
@@ -643,7 +644,10 @@
 	(word-space . 0.6)
 	(font-series . bold-narrow)
 	(font-size . 1.0)
-	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
+	(meta . ((interfaces . (rhythmic-grob-interface
+				lyric-syllable-interface
+				self-alignment-interface text-interface
+				font-interface item-interface ))))
 	))
 
     (MensuralLigature
@@ -691,7 +695,8 @@
 	(thickness . 1)
 	(height . 2.0)
 	(staff-padding . 3)
-	(meta . ((interfaces . (spanner-interface side-position-interface measure-grouping-interface))))
+	(meta . ((interfaces . (spanner-interface side-position-interface
+						  measure-grouping-interface))))
 	))
     (MultiMeasureRest
      . (
@@ -703,7 +708,9 @@
 	(thick-thickness . 6.6)
 	(hair-thickness . 2.0)
 	(padding . 1)
-	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
+	(meta . ((interfaces . (multi-measure-rest-interface
+				multi-measure-interface rest-interface
+				font-interface staff-symbol-referencer-interface))))
 	))
 
     (MultiMeasureRestNumber
@@ -717,7 +724,9 @@
 	(padding . 0.4)
 	(staff-padding . 0.4)
 	(font-encoding . fetaNumber)
-	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
+	(meta . ((interfaces . (side-position-interface
+				multi-measure-interface self-alignment-interface
+				font-interface spanner-interface text-interface))))
 	))
     (MultiMeasureRestText
      . (
@@ -729,7 +738,9 @@
 	(direction . 1)
 	(padding . 0.2)
 	(staff-padding . 0.25)
-	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
+	(meta . ((interfaces . (side-position-interface
+				multi-measure-interface self-alignment-interface font-interface
+				spanner-interface text-interface))))
 	))
 
     (NoteCollision
