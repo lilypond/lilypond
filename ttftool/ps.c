@@ -3,7 +3,7 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "types.h"
 #include "proto.h"
 
