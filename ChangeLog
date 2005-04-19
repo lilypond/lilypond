@@ -1,5 +1,9 @@
 2005-04-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/dynamic-engraver.cc (acknowledge_grob): add note-column
+	also to finished cresc as right bound. This fixes:
+	skip-string-decresc.ly
+
 	* lily/slur-scoring.cc (get_bound_info): robustness: substitute
 	relative_coordinate if extent is empty.
 

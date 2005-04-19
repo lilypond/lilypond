@@ -384,12 +384,22 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	    script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
 	}
 
-      if (cresc_ && !cresc_->get_bound (LEFT))
+      if (cresc_)
 	{
-	  cresc_->set_bound (LEFT, info.grob_);
-	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+	  if (!cresc_->get_bound (LEFT))
+	    {
+	      cresc_->set_bound (LEFT, info.grob_);
+	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
+	    }
+	  cresc_->set_bound (RIGHT, info.grob_);
+	}
+
+      if (finished_cresc_)
+	{
+	  finished_cresc_->set_bound (RIGHT, info.grob_);
 	}
     }
+  
   else if (Script_interface::has_interface (info.grob_) && script_)
     {
       SCM p = info.grob_->get_property ("script-priority");
