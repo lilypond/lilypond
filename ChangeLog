@@ -1,3 +1,7 @@
+2005-04-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py (make_ps_images): switch back to png16m.
+	
 2005-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (write_if_updated): Bugfix for not

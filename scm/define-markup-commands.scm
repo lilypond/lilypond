@@ -524,7 +524,7 @@ A negative @var{amount} indicates raising, see also @code{\raise}.
 (def-markup-command (raise layout props amount arg) (number? markup?)
   "
 Raise @var{arg}, by the distance @var{amount}.
-A negative @var{amount} indicates lowering, see also @code{\lower}.
+A negative @var{amount} indicates lowering, see also @code{\\lower}.
 @c
 @lilypond[verbatim,fragment,relative=1]
  c1^\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" }}
