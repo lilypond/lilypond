@@ -247,6 +247,9 @@ Break_align_interface::do_alignment (Grob *grob)
       total_extent.unite (extents[i] + here);
     }
 
+  if (total_extent.is_empty ())
+    return ;
+  
   if (me->break_status_dir () == LEFT)
     {
       alignment_off = -total_extent[RIGHT] - extra_right_space;
