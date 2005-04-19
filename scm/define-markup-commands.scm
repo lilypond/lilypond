@@ -513,10 +513,18 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
 letter 'A'."
   (ly:get-glyph (ly:paper-get-font layout props) num))
 
+(def-markup-command (lower layout props amount arg) (number? markup?)
+  "
+Lower @var{arg}, by the distance @var{amount}.
+A negative @var{amount} indicates raising, see also @code{\raise}.
+"
+  (ly:stencil-translate-axis (interpret-markup layout props arg)
+			     (- amount) Y))
+
 (def-markup-command (raise layout props amount arg) (number? markup?)
   "
-This  raises  @var{arg}, by the distance @var{amount}.
-A negative @var{amount} indicates lowering:
+Raise @var{arg}, by the distance @var{amount}.
+A negative @var{amount} indicates lowering, see also @code{\lower}.
 @c
 @lilypond[verbatim,fragment,relative=1]
  c1^\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" }}
@@ -530,8 +538,7 @@ If the text object itself is positioned above or below the staff, then
 positions it next to the staff cancels any shift made with
 @code{\\raise}. For vertical positioning, use the @code{padding}
 and/or @code{extra-offset} properties. "
-  (ly:stencil-translate-axis (interpret-markup layout props arg)
-			     amount Y))
+  (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
 
 (def-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."

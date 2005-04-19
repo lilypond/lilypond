@@ -17,11 +17,12 @@ FETA_MF_FILES = $(wildcard feta[0-9]*.mf)\
 
 STAFF_SIZES = 11 13 14 16 18 20 23 26
 BRACES = a b c d e f g h i
+PFA_PREFIX = PFA
 
 OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf)\
  $(outdir)/aybabtu.otf
-PFA_OTF_FILES = $(STAFF_SIZES:%=$(outdir)/PFAemmentaler-%.pfa)\
- $(outdir)/PFAaybabtu.pfa
+PFA_OTF_FILES = $(STAFF_SIZES:%=$(outdir)/$(PFA_PREFIX)emmentaler-%.pfa)\
+ $(outdir)/$(PFA_PREFIX)aybabtu.pfa
 PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)\
  $(STAFF_SIZES:%=$(outdir)/emmentaler-%.dep)
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
@@ -57,10 +58,53 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 # 2. are not included with teTeX
 #
 
-$(outdir)/%.cff.ps $(outdir)/PFA%.pfa $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+$(outdir)/%.cff.ps $(outdir)/$(PFA_PREFIX)%.pfa $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
 	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps
 	-rm $(outdir)/*.scale.pfa
+
+# ugh, this does not work
+$(outdir)/%.pfa: $(outdir)/%.log
+$(outdir)/feta-alphabet%.pfa: $(outdir)/feta-alphabet%.log
+$(outdir)/emmentaler-%.otf $(outdir)/$(PFA_PREFIX)emmentaler-%.pfa $(outdir)/emmentaler%.cff $(outdir)/emmentaler%.svg: $(outdir)/feta%.pfa $(outdir)/feta-alphabet%.pfa $(outdir)/parmesan%.pfa
+
+# AARGH?
+
+$(outdir)/feta11.pfa: $(outdir)/feta11.log
+$(outdir)/feta13.pfa: $(outdir)/feta13.log
+$(outdir)/feta14.pfa: $(outdir)/feta14.log
+$(outdir)/feta16.pfa: $(outdir)/feta16.log
+$(outdir)/feta18.pfa: $(outdir)/feta18.log
+$(outdir)/feta20.pfa: $(outdir)/feta20.log
+$(outdir)/feta23.pfa: $(outdir)/feta23.log
+$(outdir)/feta26.pfa: $(outdir)/feta26.log
+
+$(outdir)/feta-alphabet11.pfa: $(outdir)/feta-alphabet11.log
+$(outdir)/feta-alphabet13.pfa: $(outdir)/feta-alphabet13.log
+$(outdir)/feta-alphabet14.pfa: $(outdir)/feta-alphabet14.log
+$(outdir)/feta-alphabet16.pfa: $(outdir)/feta-alphabet16.log
+$(outdir)/feta-alphabet18.pfa: $(outdir)/feta-alphabet18.log
+$(outdir)/feta-alphabet20.pfa: $(outdir)/feta-alphabet20.log
+$(outdir)/feta-alphabet23.pfa: $(outdir)/feta-alphabet23.log
+$(outdir)/feta-alphabet26.pfa: $(outdir)/feta-alphabet26.log
+
+$(outdir)/parmesan11.pfa: $(outdir)/parmesan11.log
+$(outdir)/parmesan13.pfa: $(outdir)/parmesan13.log
+$(outdir)/parmesan14.pfa: $(outdir)/parmesan14.log
+$(outdir)/parmesan16.pfa: $(outdir)/parmesan16.log
+$(outdir)/parmesan18.pfa: $(outdir)/parmesan18.log
+$(outdir)/parmesan20.pfa: $(outdir)/parmesan20.log
+$(outdir)/parmesan23.pfa: $(outdir)/parmesan23.log
+$(outdir)/parmesan26.pfa: $(outdir)/parmesan26.log
+
+$(outdir)/$(PFA_PREFIX)emmentaler-11.otf $(outdir)/$(PFA_PREFIX)emmentaler-11.pfa: $(outdir)/feta11.pfa $(outdir)/feta-alphabet11.pfa $(outdir)/parmesan11.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-13.otf $(outdir)/$(PFA_PREFIX)emmentaler-13.pfa: $(outdir)/feta13.pfa $(outdir)/feta-alphabet13.pfa $(outdir)/parmesan13.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-14.otf $(outdir)/$(PFA_PREFIX)emmentaler-14.pfa: $(outdir)/feta14.pfa $(outdir)/feta-alphabet14.pfa $(outdir)/parmesan14.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-16.otf $(outdir)/$(PFA_PREFIX)emmentaler-16.pfa: $(outdir)/feta16.pfa $(outdir)/feta-alphabet16.pfa $(outdir)/parmesan16.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-18.otf $(outdir)/$(PFA_PREFIX)emmentaler-18.pfa: $(outdir)/feta18.pfa $(outdir)/feta-alphabet18.pfa $(outdir)/parmesan18.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-20.otf $(outdir)/$(PFA_PREFIX)emmentaler-20.pfa: $(outdir)/feta20.pfa $(outdir)/feta-alphabet20.pfa $(outdir)/parmesan20.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-23.otf $(outdir)/$(PFA_PREFIX)emmentaler-23.pfa: $(outdir)/feta23.pfa $(outdir)/feta-alphabet23.pfa $(outdir)/parmesan23.pfa
+$(outdir)/$(PFA_PREFIX)emmentaler-26.otf $(outdir)/$(PFA_PREFIX)emmentaler-26.pfa: $(outdir)/feta26.pfa $(outdir)/feta-alphabet26.pfa $(outdir)/parmesan26.pfa
 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
@@ -68,7 +112,9 @@ $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst fet
 		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
 		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
-$(outdir)/aybabtu.otf $(outdir)/PFAaybabtu.pfa: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
+$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
+
+$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.cff $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@ 
@@ -186,10 +232,10 @@ $(outdir)/lilypond.map: GNUmakefile
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
 	for i in $(STAFF_SIZES); do\
 		echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
-		echo "PFAEmmentaler-$$i PFAEmmentaler-$$i <PFAemmentaler-$$i.pfa";\
+		echo "$(PFA_PREFIX)Emmentaler-$$i $(PFA_PREFIX)Emmentaler-$$i <$(PFA_PREFIX)emmentaler-$$i.pfa";\
  	done >> $@
 	echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $@
-	echo "PFAAybabtu-Regular PFAAybabtu-Regular <aybabtu.cff.ps" >> $@
+	echo "$(PFA_PREFIX)Aybabtu-Regular $(PFA_PREFIX)Aybabtu-Regular <aybabtu.cff.ps" >> $@
 #
 # FIXME: needed for make web on Debian/unstable -- not in any other .map file	
 	echo "FreeSans FreeSans <FreeSans.ttf" >> $@
@@ -199,10 +245,10 @@ $(outdir)/Fontmap.lily: GNUmakefile
 	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
 	for i in $(STAFF_SIZES); do \
 		echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; \
-		echo "/PFAEmmentaler-$$i (PFAemmentaler-$$i.pfa);" \
+		echo "/$(PFA_PREFIX)Emmentaler-$$i ($(PFA_PREFIX)emmentaler-$$i.pfa);" \
 		done >> $@
 	echo "/Aybabtu (aybabtu.cff.ps);" >> $@
-	echo "/PFAAybabtu (PFAaybabtu.pfa);" >> $@
+	echo "/$(PFA_PREFIX)Aybabtu ($(PFA_PREFIX)aybabtu.pfa);" >> $@
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 

@@ -58,24 +58,16 @@ There is a music function @code{\musicDisplay}, which will display a
 music expression as indented Scheme code.
 
 @item
-A plus sign was added to the number font.
+A plus sign was added to the number font.  This enables printing of
+compound time signatures
+
+@lilypondfile[]{compound-time.ly}
   
 @item
 A new @code{\circle} markup command allows for all kinds of circled
 texts
 
-@lilypond[relative,relative=2,raggedright,fragment]
-c1            
-\set Score.markFormatter
-  = #(lambda (mark context)
-             (make-circle-markup (format-mark-numbers mark context)))
-\mark \default
-c2 d^\markup{\circle \finger "2"}
-\override Score.BarNumber #'break-visibility = #all-visible
-\override Score.BarNumber #'print-function
-  = #(make-stencil-circler 0.1 0.25 Text_interface::print)
-@end lilypond
-
+@lilypondfile[]{circle.ly}
 
 @item
 String numbers are now printed on chords as well
@@ -139,7 +131,7 @@ Point and click editing is now supported in the PS/PDF backend as
 well.
 See
 @ifhtml
-@uref{../../user/out-www/lilypond/Point-and-click.html,Point and click}
+@uref{../../user/out-www/lilypond/Point-and-click.html,Point and click}.
 @end ifhtml
 @ifnothtml
 the section Point and click in he user manual. 
@@ -212,10 +204,11 @@ for texts, including kerning and accents.
 
 @item
 LilyPond now uses FreeType read the Feta font as an OpenType
-font. This is cleaner design and more robust.  A recent version of
-FontForge (11122004 or newer) and Freetype is required.
+font. This is cleaner design and more robust.  Recent versions of
+FontForge (20041211 or newer) and Freetype are required.  As a result,
 
-As a result, the SVG backend is now a fully functional backend.
+@item
+the SVG backend is now a fully functional backend.
 
 @item
 A new script, @code{\espressivo} has been added, for a combination of
@@ -282,8 +275,7 @@ Layout for titles, page header and footer can now be entered as
 
 @noindent
 This will set stem directions and put the cue notes in the @code{cue}
-@code{Voice}
-
+@code{Voice}.
 
 @item Stemlets, short stems over beamed rests, have been added.
 

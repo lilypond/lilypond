@@ -148,13 +148,15 @@ Use `markup*' in a \\notes block."
   (string->symbol (string-append "make-" (symbol->string (keyword->symbol key)) "-markup")))
 
 (define (compile-markup-expression expr)
-  "Return two values: the first complete canonical markup expression found in `expr',
-e.g. (make-COMMAND-markup arg1 arg2 ...), and the rest expression."
+  "Return two values: the first complete canonical markup expression
+   found in `expr', e.g. (make-COMMAND-markup arg1 arg2 ...),
+   and the rest expression."
   (cond ((and (pair? expr)
               (keyword? (car expr)))
          ;; expr === (#:COMMAND arg1 ...)
          (let* ((command (symbol->string (keyword->symbol (car expr))))
-                (sig (markup-command-signature (car (lookup-markup-command command))))
+                (sig (markup-command-signature
+		      (car (lookup-markup-command command))))
                 (sig-len (length sig)))
            (do ((i 0 (1+ i))
                 (args '() args)
