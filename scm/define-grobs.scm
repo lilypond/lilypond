@@ -1388,7 +1388,9 @@
 	(height . 2.0) ;; staffspace;
 	(minimum-space . 5)
 	(font-size . -4)
-	(meta . ((interfaces . (volta-bracket-interface line-interface text-interface side-position-interface font-interface spanner-interface))))
+	(meta . ((interfaces . (volta-bracket-interface
+				line-interface text-interface
+				side-position-interface font-interface spanner-interface))))
 	))
 
     (VerticalAlignment
@@ -1397,7 +1399,6 @@
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
-	;; (threshold . (6 . 1000))
 	(meta . ((interfaces . (align-interface axis-group-interface spanner-interface))))
 	))
 
@@ -1407,13 +1408,10 @@
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	
-	(meta . ((interfaces . (axis-group-interface vertically-spaceable-interface spanner-interface))))
+	(meta . ((interfaces . (axis-group-interface
+				vertically-spaceable-interface spanner-interface))))
 	))
-   )
- )
-
-
-
+   ))
 
 (define (completize-grob-entry x)
   "transplant assoc key into 'name entry of 'meta of X

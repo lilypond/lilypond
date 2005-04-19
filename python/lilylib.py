@@ -464,26 +464,22 @@ def get_bbox (filename):
 
 def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		    rename_page1_p = 0):
-	## FIXME
-	## have better algorithm for deciding when to crop page,
-	## and when to show full page.
-	## Better than what, and why?
-
-	base = re.sub (r'\.e?ps', '', ps_name)
+	base = os.path.basename (re.sub (r'\.e?ps', '', ps_name))
 	header = open (ps_name).read (1024)
 
 	png1 = base + '.png'
 	pngn = base + '-page%d.png'
 	output_file = pngn
 	multi_page = re.search ('\n%%Pages: ', header)
-	
+
+	# png16m is because Lily produces color nowadays.
 	if not multi_page:
 		cmd = r'''gs\
 		-dEPSCrop\
 		-dGraphicsAlphaBits=4\
 		-dNOPAUSE\
 		-dTextAlphaBits=4\
-		-sDEVICE=pnggray\
+		-sDEVICE=png16m\
 		-sOutputFile='%(output_file)s'\
 		-sPAPERSIZE=%(papersize)s\
 		-q\
@@ -497,7 +493,7 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		-dGraphicsAlphaBits=4\
 		-dNOPAUSE\
 		-dTextAlphaBits=4\
-		-sDEVICE=pnggray\
+		-sDEVICE=png16m\
 		-sOutputFile='%(output_file)s'\
 		-sPAPERSIZE=%(papersize)s\
 		-q\
