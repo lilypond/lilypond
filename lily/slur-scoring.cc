@@ -240,8 +240,20 @@ Slur_score_state::get_bound_info () const
 	  extremes[d].note_column_ = extremes[d].bound_;
 	  extremes[d].stem_ = Note_column::get_stem (extremes[d].note_column_);
 	  extremes[d].stem_dir_ = get_grob_direction (extremes[d].stem_);
-	  extremes[d].stem_extent_[X_AXIS]
-	    = extremes[d].stem_->extent (common_[X_AXIS], X_AXIS);
+
+	  for (int a = X_AXIS; a < NO_AXES; a++)
+	    {
+	      Axis ax = Axis (a);
+	      Interval s = extremes[d].stem_->extent (common_[ax], ax);
+	      if (s.is_empty ())
+		{
+		  programming_error ("Stem has no extent in Slur_score_state");
+		  s = Interval (0,0)
+		    + extremes[d].stem_->relative_coordinate (common_[ax], ax);
+		}
+	      extremes[d].stem_extent_[ax] = s; 
+	    }
+	  
 	  extremes[d].stem_extent_[Y_AXIS]
 	    = extremes[d].stem_->extent (common_[Y_AXIS], Y_AXIS);
 	  extremes[d].slur_head_

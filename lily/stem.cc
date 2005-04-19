@@ -615,8 +615,8 @@ Stem::width_callback (SCM e, SCM ax)
     }
   else
     {
-      r = flag (me).extent (X_AXIS)
-	+ thickness (me) / 2;
+      r = Interval (-1,1) * thickness (me) * 0.5;
+      r.unite (flag (me).extent (X_AXIS));
     }
   return ly_interval2scm (r);
 }
