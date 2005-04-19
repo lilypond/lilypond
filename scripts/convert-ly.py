@@ -2137,7 +2137,7 @@ conversions.append (((2, 3, 1), conv,
 def conv (str):
 	if re.search ('textheight', str):
 		sys.stderr.write ('\n')
-		sys.stderr.write (NOT_SMART % "tuning of page layout")
+		sys.stderr.write (NOT_SMART % "tuning of textheight")
 		sys.stderr.write ('\n')
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
@@ -2153,7 +2153,6 @@ def conv (str):
 
 
 	str = re.sub (r'\\([a-zA-Z]+)Context\b', func, str)
-
 	str = re.sub ('ly:paper-lookup', 'ly:output-def-lookup', str)
 	return str
 

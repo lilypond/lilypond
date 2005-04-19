@@ -418,7 +418,7 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 
   for (int i = 0; i < cols.size () - 1; i++)
     {
-g      for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
+      for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob *other = unsmob_grob (scm_caar (s));
