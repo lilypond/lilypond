@@ -12,9 +12,11 @@
 
 class Grace_engraver : public Engraver
 {
+  void consider_change_grace_settings ();
 protected:
   virtual void start_translation_timestep ();
   virtual void derived_mark () const;
+  virtual void initialize (); 
 
   TRANSLATOR_DECLARATIONS (Grace_engraver);
   Moment last_moment_;
@@ -25,17 +27,17 @@ public:
 Grace_engraver::Grace_engraver ()
 {
   grace_settings_ = SCM_EOL;
+  last_moment_ = Moment (Rational (-1,1));
 }
 
 void
-Grace_engraver::derived_mark () const
+Grace_engraver::initialize ()
 {
-  scm_gc_mark (grace_settings_);
-  Engraver::derived_mark ();
+  consider_change_grace_settings ();
 }
 
 void
-Grace_engraver::start_translation_timestep ()
+Grace_engraver::consider_change_grace_settings ()
 {
   Moment now = now_mom ();
   if (last_moment_.grace_part_ && !now.grace_part_)
@@ -88,7 +90,20 @@ Grace_engraver::start_translation_timestep ()
 	}
     }
 
-  last_moment_ = now;
+  last_moment_ = now_mom();
+}
+
+void
+Grace_engraver::derived_mark () const
+{
+  scm_gc_mark (grace_settings_);
+  Engraver::derived_mark ();
+}
+
+void
+Grace_engraver::start_translation_timestep ()
+{
+  consider_change_grace_settings ();
 }
 
 ADD_TRANSLATOR (Grace_engraver,
