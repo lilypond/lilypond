@@ -65,6 +65,12 @@ version taken from the \\version command, to the current LilyPond version."""))
   -t, --to=VERSION       convert to VERSION [default: @TOPLEVEL_VERSION@]
   -v, --version          print program version"""))
 	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ('Examples'))
+	sys.stdout.write ('\n')
+	sys.stdout.write ('  convert-ly -e *ly')
+	sys.stdout.write ('\n')
+	sys.stdout.write ('  convert-ly --from=2.4.0 -e $(find . -name "*ly")')
+	sys.stdout.write ('\n\n')
 	sys.stdout.write (_ ("Report bugs to %s.") % "bug-lilypond@gnu.org")
 	sys.stdout.write ('\n')
 	sys.exit (0)
@@ -2137,11 +2143,14 @@ conversions.append (((2, 3, 1), conv,
 def conv (str):
 	if re.search ('textheight', str):
 		sys.stderr.write ('\n')
-		sys.stderr.write (NOT_SMART % "tuning of textheight")
+		sys.stderr.write (NOT_SMART % "textheight")
 		sys.stderr.write ('\n')
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
-
+		sys.stderr.write (
+"""Page layout has been changed, using paper size and margins.
+textheight is no longer used.
+""")
 	str = re.sub (r'\\OrchestralScoreContext', '\\Score', str)
 	def func(m):
 		if m.group(1) not in ['RemoveEmptyStaff',
@@ -2619,6 +2628,11 @@ if show_rules_p:
 	sys.exit (0)
 
 identify ()
+
+if not files:
+	usage ()
+	sys.exit (2)
+
 for f in files:
 	if f == '-':
 		f = ''

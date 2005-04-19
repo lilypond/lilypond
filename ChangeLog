@@ -1,5 +1,9 @@
 2005-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/convert-ly.py: Fix error message.
+	Print usage if no files on command line.
+	(usage): Add example usage.
+
 	* input/test/compound-time.ly: New file.
 
 	* input/test/circle.ly: New file.
