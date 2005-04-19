@@ -198,7 +198,7 @@
 	* SConstruct: Require pkg-config.
 	(test_program): Bugfix for double digit version compares, use
 	integer (not string-) compare.
-	Optionall require gs 8.14.
+	Optionally require gs 8.14.
 
 	* stepmake/aclocal.m4 (STEPMAKE_PANGO_FT2): Define HAVE_PANGO16 too.
 
