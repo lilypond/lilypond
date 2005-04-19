@@ -157,11 +157,12 @@ Dynamic_engraver::process_music ()
 	{
 	  assert (!finished_cresc_ && cresc_);
 
-	  cresc_->set_bound (RIGHT, script_
-			     ? script_
-			     : unsmob_grob (get_property ("currentMusicalColumn")));
-	  add_bound_item (line_spanner_, cresc_->get_bound (RIGHT));
-
+	  if (script_)
+	    {
+	      cresc_->set_bound (RIGHT, script_);
+	      add_bound_item (line_spanner_, script_);
+	    }
+	  
 	  finished_cresc_ = cresc_;
 	  cresc_ = 0;
 	  current_cresc_ev_ = 0;
@@ -391,10 +392,9 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	      cresc_->set_bound (LEFT, info.grob_);
 	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	    }
-	  cresc_->set_bound (RIGHT, info.grob_);
 	}
 
-      if (finished_cresc_)
+      if (finished_cresc_ && !finished_cresc_->get_bound (RIGHT))
 	{
 	  finished_cresc_->set_bound (RIGHT, info.grob_);
 	}
