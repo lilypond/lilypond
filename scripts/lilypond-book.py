@@ -61,7 +61,7 @@ global re;re = ly.re
 
 # Lilylib globals.
 program_version = '@TOPLEVEL_VERSION@'
-program_name = sys.argv[0]
+program_name = os.path.basename (sys.argv[0])
 verbose_p = 0
 pseudo_filter_p = 0
 original_dir = os.getcwd ()
@@ -94,7 +94,8 @@ option_definitions = [
 	(_ ("COMMAND"), 'P', 'process',
 	  _ ("process ly_files using COMMAND FILE...")),
 	(_('FILE'), '', 'psfonts',
-	 _('extract all PS snippet fonts into FILE')),
+	 _ ('''extract all PostScript fonts into FILE for LaTeX
+	 must use this with dvips -h FILE''')),
 	('', 'V', 'verbose',
 	  _ ("be verbose")),
 	('', 'v', 'version',
@@ -113,7 +114,7 @@ if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 psfonts_file = ''
 use_hash_p = 1
 format = 0
-output_name = 0
+output_name = ''
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
 filter_cmd = 0
 process_cmd = ''
@@ -1334,14 +1335,16 @@ def write_if_updated (file_name, lines):
 		f = open (file_name)
 		oldstr = f.read ()
 		new_str = string.join (lines, '')
-		if old == new_str:
-			ly.progress (_ ("Output file is up to date."))
+		if oldstr == new_str:
+			ly.progress (_ ("%s is up to date."))
+			ly.progress ('\n')
 			return
 	except:
 		pass
 
-	ly.progress (_ ("Writing output file."))
+	ly.progress (_ ("Writing `%s'...") % file_name)
 	open (file_name, 'w').writelines (lines)
+	ly.progress ('\n')
 
 def do_file (input_filename):
 	# Ugh.
@@ -1431,13 +1434,11 @@ def do_file (input_filename):
 		elif process_cmd:
 			do_process_cmd (chunks, input_fullname)
 			ly.progress (_ ("Compiling %s...") % output_filename)
+			ly.progress ('\n')
 			write_if_updated (output_filename,
 					  [s.replacement_text ()
 					   for s in chunks])
-			ly.progress ('\n')
-
 		
-
 		def process_include (snippet):
 			os.chdir (original_dir)
 			name = snippet.substring ('filename')
@@ -1496,8 +1497,6 @@ def do_options ():
 							   ly.abspath (a)))
 		elif o == '--output' or o == '-o':
 			output_name = a
-		elif o == '--outdir':
-			output_name = a
 		elif o == '--process' or o == '-P':
 			process_cmd = a
 			filter_cmd = 0
@@ -1516,8 +1515,8 @@ def do_options ():
 
 def main ():
 	files = do_options ()
-	if not files:
-		ly.warning ("Need to have command line option")
+	if not files or len (files) > 1:
+		ly.help ()
 		ly.exit (2)
 
 	file = files[0]
@@ -1546,13 +1545,31 @@ def main ():
 			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
 									      Lilypond_snippet),
 						 chunks)
+			if not verbose_p:
+				ly.progress (_ ("Writing fonts to %s...") % psfonts_file)
 			fontextract.extract_fonts (psfonts_file,
 						   [x.basename() + '.eps'
 						    for x in snippet_chunks])
+			if not verbose_p:
+				ly.progress ('\n')
 			
 	except Compile_error:
 		ly.exit (1)
 
+	if format == TEXINFO or format == LATEX:
+		psfonts = os.path.join (output_name, psfonts_file)
+		output = os.path.join (output_name,
+				       os.path.splitext (os.path.basename
+							 (file))[0]) + '.dvi'
+		if not psfonts:
+			ly.warning (_ ("option --psfonts=FILE not used"))
+			ly.warning (_ ("processing with dvips will have no fonts"))
+			psfonts = 'PSFONTS-FILE'
+		ly.progress ('\n')
+		ly.progress (_ ("DVIPS usage:"))
+		ly.progress ('\n')
+		ly.progress ("    dvips -h %(psfonts)s %(output)s" % vars ())
+		ly.progress ('\n')
 
 if __name__ == '__main__':
 	main ()
