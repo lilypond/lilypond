@@ -249,9 +249,10 @@ fet_beginchar ("Space", "space");
 fet_endchar;
 
 
-code := 42; 
+code := 42; 	% , 43
+
 fet_beginchar ("Plus", "plus");
-	set_char_box (0, .5 height#,  -0.25 height#, 0.75 height#);
+	set_char_box (0, .5 height#, -0.25 height#, 0.75 height#);
 
 	save hthick, vthick, size, outer_hsize, outer_vsize;
 
@@ -270,9 +271,9 @@ fet_beginchar ("Plus", "plus");
 	z2 = (centerx + hthick/2, h); 
 	labels(1,2);
 	draw_rounded_block (z1, z2, hthick);
-	draw_rounded_block ((0, centery - vthick/2),  (w, (centery + vthick/2)), vthick);
+	draw_rounded_block ((0, centery - vthick/2),
+	  (w, (centery + vthick/2)), vthick);
 fet_endchar;
-
 
 
 code := 43;	% , = 44

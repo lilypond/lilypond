@@ -1,15 +1,15 @@
-;;;
-;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
-;;;
-;;; source file of the GNU LilyPond music typesetter
-;;;  
-;;; (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
-;;; 
-;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
-;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
-;;;    * Keyboard shortcuts (12th Sep 2001)
-;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
-;;;    * Autocompletion & Info (23rd Nov 2002)
+;;;;
+;;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
+;;;;
+;;;; source file of the GNU LilyPond music typesetter
+;;;;  
+;;;; (c) 1999--2005 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; 
+;;;; Changed 2001--2003 Heikki Junes <heikki.junes@hut.fi>
+;;;;    * Add PS-compilation, PS-viewing and MIDI-play (29th Aug 2001)
+;;;;    * Keyboard shortcuts (12th Sep 2001)
+;;;;    * Inserting tags, inspired on sgml-mode (11th Oct 2001)
+;;;;    * Autocompletion & Info (23rd Nov 2002)
 
 ;;; Inspired on auctex
 
@@ -19,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "2.3.17"
+(defconst LilyPond-version "2.5.20"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -327,14 +327,20 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-xdvi-command "xdvi"
+(defcustom LilyPond-dvi-command "xdvi"
   "Command used to display DVI files."
 
   :group 'LilyPond
   :type 'string)
 
-(defcustom LilyPond-gv-command "gv --watch"
+(defcustom LilyPond-ps-command "gv --watch"
   "Command used to display PS files."
+
+  :group 'LilyPond
+  :type 'string)
+
+(defcustom LilyPond-pdf-command "xpdf"
+  "Command used to display PDF files."
 
   :group 'LilyPond
   :type 'string)
@@ -416,23 +422,21 @@ in LilyPond-include-path."
   ;; Should expand this to include possible keyboard shortcuts which
   ;; could then be mapped to define-key and menu.
   `(
-    ("LilyPond" . (,(concat LilyPond-lilypond-command " -ftex %s") "%s" "%l" "View"))
-    ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "View"))
-
-    ("2Dvi" . (,(concat LilyPond-lilypond-command " -f tex %s") "%s" "%d" "LaTeX"))
-    ("2PS" . (,(concat LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
+    ("LilyPond" . (,(concat LilyPond-lilypond-command " %s") "%s" "%l" "View"))
+    ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "ViewDVI"))
+    ("2Dvi" . (,(concat LilyPond-lilypond-command " -b tex %s") "%s" "%d" "LaTeX"))
+    ("2PS" . (,(concat LilyPond-lilypond-command "-b ps %s") "%s" "%p" "ViewPS"))
     ("2Midi" . (,(concat LilyPond-lilypond-command " -m %s") "%s" "%m" "Midi"))
     ("2Gnome" . (,(concat LilyPond-lilypond-command " -b gnome %s")))
 
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))
-    ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "View"))
-
-    ;; point-n-click (arg: exits upop USR1)
-    ("SmartView" . ("xdvi %d"))
+    ("LaTeX" . ("latex '\\nonstopmode\\input %l'" "%l" "%d" "ViewDVI"))
 
     ;; refreshes when kicked USR1
-    ("View" . (,(concat LilyPond-xdvi-command " %d")))
-    ("ViewPS" . (,(concat LilyPond-gv-command " %p")))
+    ("View" . (,(concat LilyPond-pdf-command " %f")))
+    ("ViewPDF" . (,(concat LilyPond-pdf-command " %f")))
+    ("ViewDVI" . (,(concat LilyPond-dvi-command " %d")))
+    ("ViewPS" . (,(concat LilyPond-ps-command " %p")))
 
     ;; The following are refreshed in LilyPond-command:
     ;; - current-midi depends on cursor position and
@@ -468,6 +472,7 @@ LilyPond-expand-list.
     ("%s" . ".ly")
     ("%t" . ".tex")
     ("%d" . ".dvi")
+    ("%f" . ".pdf")
     ("%p" . ".ps")
     ("%l" . ".tex")
     ("%x" . ".tely")
@@ -571,26 +576,22 @@ Must be the car of an entry in `LilyPond-command-alist'."
 (defun LilyPond-command-formatmidi ()
   "Format the midi output of the current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-get-master-file)
-)
-
-(defun LilyPond-command-smartview ()
-  "View the dvi output of current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-get-master-file)
-)
+  (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-get-master-file))
 
 (defun LilyPond-command-view ()
-  "View the dvi output of current document."
+  "View the output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-get-master-file)
-)
+  (LilyPond-command-viewpdf))
+
+(defun LilyPond-command-viewpdf ()
+  "View the ps output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "ViewPDF") 'LilyPond-get-master-file))
 
 (defun LilyPond-command-viewps ()
   "View the ps output of current document."
   (interactive)
-  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-get-master-file)
-)
+  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-get-master-file))
 
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
@@ -758,8 +759,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
   (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
   (define-key LilyPond-mode-map "\C-c\C-g" 'LilyPond-command-formatgnome)
-  (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-smartview)
-  (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
+  (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
   (define-key LilyPond-mode-map [(control c) return] 'LilyPond-command-current-midi)
   (define-key LilyPond-mode-map [(control c) (control return)] 'LilyPond-command-all-midi)
@@ -983,7 +983,6 @@ command."
 	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-get-master-file) ])
 	  '([ "Kill jobs" LilyPond-kill-jobs t])
 	  '("-----")
-	  '([ "SmartView" LilyPond-command-smartview t])
 	  '([ "View" LilyPond-command-view t])
 	  '([ "ViewPS" LilyPond-command-viewps t])
 	  '("-----")
@@ -1099,7 +1098,7 @@ COMMANDS
 VARIABLES
 
 LilyPond-command-alist\t\talist from name to command
-LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
+LilyPond-dvi-command\t\tcommand to display dvi files -- bit superfluous"
   (interactive)
   ;; set up local variables
   (kill-all-local-variables)

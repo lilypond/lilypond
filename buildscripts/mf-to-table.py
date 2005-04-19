@@ -321,7 +321,7 @@ for filenm in files:
 	write_global_lisp_table (open (global_lisp_nm, 'w'), g)  
 	if depfile_nm:
 		write_deps (open (depfile_nm, 'wb'), deps,
-			    [base + '.dvi', base + '.pfa', base + '.pfb',
-			     texfile_nm])
+			    [base + '.log', base + '.dvi', base + '.pfa',
+			     base + '.pfb', texfile_nm])
 	if lyfile_nm:
 		write_fontlist (open (lyfile_nm, 'w'), g, m)

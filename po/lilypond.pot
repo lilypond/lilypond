@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-18 14:27+0200\n"
+"POT-Creation-Date: 2005-04-18 20:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,13 +53,13 @@ msgstr ""
 msgid "It comes with NO WARRANTY."
 msgstr ""
 
-#: lilylib.py:125 warn.cc:44 input.cc:79 lily/input.cc:79
+#: lilylib.py:125 warn.cc:44 input.cc:79 lily/input.cc:79 flower/warn.cc:44
 #, c-format, python-format
 msgid "warning: %s"
 msgstr ""
 
 #: lilylib.py:128 warn.cc:50 input.cc:85 input.cc:93 lily/input.cc:85
-#: lily/input.cc:93
+#: lily/input.cc:93 flower/warn.cc:50
 #, c-format, python-format
 msgid "error: %s"
 msgstr ""
@@ -541,59 +541,62 @@ msgstr ""
 msgid "Wrote `%s'"
 msgstr ""
 
-#: getopt-long.cc:143
+#: getopt-long.cc:143 flower/getopt-long.cc:143
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr ""
 
-#: getopt-long.cc:147
+#: getopt-long.cc:147 flower/getopt-long.cc:147
 #, c-format
 msgid "option `%s' doesn't allow an argument"
 msgstr ""
 
-#: getopt-long.cc:151
+#: getopt-long.cc:151 flower/getopt-long.cc:151
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr ""
 
-#: getopt-long.cc:158
+#: getopt-long.cc:158 flower/getopt-long.cc:158
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
 
-#: warn.cc:64 grob.cc:632 lily/grob.cc:632
+#: warn.cc:64 grob.cc:632 lily/grob.cc:632 flower/warn.cc:64
 #, c-format
 msgid "programming error: %s"
 msgstr ""
 
-#: warn.cc:65
+#: warn.cc:65 flower/warn.cc:65
 msgid "continuing, cross fingers"
 msgstr ""
 
 #.
 #. todo i18n.
 #.
-#: kpath.c:142
+#.
+#. todo i18n.
+#.
+#: kpath.c:142 kpath-guile/kpath.c:142
 #, c-format
 msgid "can't dlopen: %s: %s"
 msgstr ""
 
-#: kpath.c:143
+#: kpath.c:143 kpath-guile/kpath.c:143
 #, c-format
 msgid "install package: %s or %s"
 msgstr ""
 
-#: kpath.c:156
+#: kpath.c:156 kpath-guile/kpath.c:156
 #, c-format
 msgid "no such symbol: %s: %s"
 msgstr ""
 
-#: kpath.c:179
+#: kpath.c:179 kpath-guile/kpath.c:179
 #, c-format
 msgid "error opening kpathsea library"
 msgstr ""
 
-#: kpath.c:180
+#: kpath.c:180 kpath-guile/kpath.c:180
 #, c-format
 msgid "aborting"
 msgstr ""
