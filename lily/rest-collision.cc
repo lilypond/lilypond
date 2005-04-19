@@ -140,11 +140,9 @@ Rest_collision::do_shift (Grob *me)
 
 	  Direction d = get_grob_direction (r);
 	  if (d)
-	    {
-	      ordered_rests[d].push (rests[i]);
-	    }
+	    ordered_rests[d].push (rests[i]);
 	  else
-	    rests[d]->warning (_ ("rest direction not set.  Cannot resolve collision."));
+	    rests[d]->warning (_ ("can't resolve rest collission: rest direction not set"));
 	}
 
       Direction d = LEFT;

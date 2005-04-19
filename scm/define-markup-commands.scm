@@ -76,7 +76,7 @@ one staff-space."
 	    (if bbox
 		(map (lambda (x) (/ x 10)) bbox)
 		(begin
-		  (ly:warn (_ "Could not find bounding box of `~a'")
+		  (ly:warn (_ "can't find bounding box of `~a'")
 			   file-name)
 		  '()))))
 	

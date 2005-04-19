@@ -1,5 +1,8 @@
 2005-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/lilypond-book.py (write_if_updated): Bugfix for not
+	writing up to date file.  Add dvips usage suggestion.
+
 	* scripts/convert-ly.py: Fix error message.
 	Print usage if no files on command line.
 	(usage): Add example usage.
