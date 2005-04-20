@@ -1,10 +1,7 @@
-2005-04-20  Erik Sandberg  <ersa9195@student.uu.se>
-
-        * ly/performer-init.ly: Bugfix
-
-        * THANKS: Added bughunters.
-
 2005-04-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/fontextract.py (write_extracted_fonts): bugfix, too many
+	%'s.
 
 	* lily/ledger-line-spanner.cc: some more words of explanation.
 
@@ -12,6 +9,12 @@
 	htmlquote bugfix.
 	Allow snippets to be given distinct filenames.
 	Allow the default alt text to be overridden.
+
+2005-04-20  Erik Sandberg  <ersa9195@student.uu.se>
+
+	* ly/performer-init.ly: Bugfix
+
+	* THANKS: Added bughunters.
 
 2005-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
 
