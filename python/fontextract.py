@@ -98,7 +98,7 @@ def write_extracted_fonts (output_file_name, font_dict):
 	for (k,v) in font_dict.items ():
 		output.write ('\n%%%%BeginFont: %s\n' % k)
 		output.write (v)
-		output.write ('\n%%%%EndFont')
+		output.write ('\n%%EndFont')
 
 
 def extract_fonts (output_file_name, input_files):
