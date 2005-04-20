@@ -138,7 +138,8 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 
 @seealso
 
-Program reference: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
+Program reference: @internalsref{NoteEvent},
+@internalsref{LedgerLineSpanner}, and @internalsref{NoteHead}.
 
 
 
