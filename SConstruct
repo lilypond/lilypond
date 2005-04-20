@@ -318,14 +318,14 @@ def configure (target, source, env):
 		print f
 		return test_version (lst, program, minimal, description, package)
 
-	def test_lib (lst, program, minimal, description):
+	def test_lib (lst, program, minimal, description, package):
 		# FIXME: test for Debian or RPM (or -foo?) based dists
 		# to guess (or get correct!: apt-cache search?)
 		# package name.
 		#if os.system ('pkg-config --atleast-version=0 freetype2'):
 		# barf
 		if test_version (lst, program, minimal, description,
-				 'lib%(program)s-dev or %(program)s-devel'
+				 'lib%(package)s-dev or %(package)s-devel'
 				 % vars ()):
 			env.ParseConfig ('pkg-config --cflags --libs %(program)s'
 					 % vars ())
@@ -339,9 +339,11 @@ def configure (target, source, env):
 	test_program (required, 'guile-config', '1.6', 'GUILE development',
 			'libguile-dev or guile-devel')
 	test_program (required, 'mf', '0.0', 'Metafont', 'tetex-bin')
-	test_program (required, 'mftrace', '1.1.6', 'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
+	test_program (required, 'mftrace', '1.1.6',
+		      'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
 	test_program (required, 'potrace', '0.0', 'Potrace', 'potrace')
-	test_program (required, 'python', '2.1', 'Python (www.python.org)', 'python')
+	test_program (required, 'python', '2.1', 'Python (www.python.org)',
+		      'python')
 	test_program (required, 'sh', '0.0', 'Bourne shell', 'sh')
 
 	optional = []
@@ -350,10 +352,14 @@ def configure (target, source, env):
 	test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
 			'bison')
 	test_program (optional, 'dvips', '0.0', 'Dvips', 'tetex-bin')
-	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge', 'fontforge')
-	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator', 'flex')
+	test_program (optional, 'fontforge', '0.0.20041224', 'FontForge',
+		      'fontforge')
+	test_program (optional, 'flex', '0.0', 'Flex -- lexer generator',
+		      'flex')
 	test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
-	test_program (optional, 'gs', '8.14', 'Ghostscript PostScript interpreter', 'gs or gs-afpl or gs-esp or gs-gpl')
+	test_program (optional, 'gs', '8.14',
+		      'Ghostscript PostScript interpreter',
+		      'gs or gs-afpl or gs-esp or gs-gpl')
 	test_program (optional, 'mftrace', '1.1.0', 'Metafont tracing Type1',
 			'mftrace')
 	test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
@@ -483,24 +489,26 @@ def configure (target, source, env):
 	test_program (required, 'pkg-config', '0.9.0',
 		      'pkg-config library compile manager', 'pkg-config')
 	if test_lib (required, 'freetype2', '0.0',
-		     'Development files for FreeType 2 font engine'):
+		     'Development files for FreeType 2 font engine',
+		     'freetype6'):
 		conf.env['DEFINES']['HAVE_FREETYPE2'] = '1'
 		
 	if test_lib (required, 'pangoft2', '1.6.0',
-		     'Development files for pango, with fontconfig2'):
+		     'Development files for pango, with FreeType2',
+		     'pango1.0'):
 		conf.env['DEFINES']['HAVE_PANGO_FT2'] = '1'
 		conf.env['DEFINES']['HAVE_PANGO16'] = '1'
 
 	if test_lib (optional, 'fontconfig', '2.2.0',
-		     'Development files for fontconfig'):
+		     'Development files for fontconfig', 'fontconfig1'):
 		conf.env['DEFINES']['HAVE_FONTCONFIG'] = '1'
 	
 	#this could happen only for compiling pango-*
 	if env['gui']:
 		test_lib (required, 'gtk+-2.0', '2.4.0',
-			  'Development files for GTK+')
+			  'Development files for GTK+', 'gtk2.0')
 		if test_lib (required, 'pango', '1.6.0',
-			  'Development files for pango'):
+			  'Development files for pango', 'pango1.0'):
 			conf.env['DEFINES']['HAVE_PANGO16'] = '1'
 			
 		if conf.CheckCHeader ('pango/pangofc-fontmap.h'):
@@ -579,11 +587,16 @@ def save_config_cache (env):
 		sys.stdout.write ('\n')
 		sys.stdout.write ('\n')
 		sys.stdout.write ('Examples:')
+		sys.stdout.write ('\n')
 		sys.stdout.write ('    scons lily    # build lilypond')
+		sys.stdout.write ('\n')
 		sys.stdout.write ('    scons all     # build everything')
+		sys.stdout.write ('\n')
 		sys.stdout.write ('    scons doc     # build documentation')
+		sys.stdout.write ('\n')
 		## TODO
 		## sys.stdout.write ('    scons prefix=/usr DESTDIR=/tmp/pkg all install')
+		## sys.stdout.write ('\n')
 		Exit (0)
 	elif not env['checksums']:
 		# When using timestams, config.hh is NEW.  The next

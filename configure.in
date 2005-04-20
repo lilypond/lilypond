@@ -72,9 +72,7 @@ AC_CHECK_HEADERS([utf8/wchar.h], LIBS="$LIBS -lutf8")
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2(gtk+-2.0, REQUIRED, 2.4.0)
-else
-    STEPMAKE_GTK2(gtk+-2.0, OPTIONAL, 2.4.0)
-fi
+fi # $gui_b
 
 STEPMAKE_FREETYPE2(freetype2, REQUIRED, 0)
 #STEPMAKE_PANGO(pango, REQUIRED, 1.6.0)

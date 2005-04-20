@@ -1083,7 +1083,9 @@ AC_DEFUN(STEPMAKE_FREETYPE2, [
 	AC_SUBST(FREETYPE2_CFLAGS)
 	AC_SUBST(FREETYPE2_LIBS)
     else
-     	r="lib$1-dev or $1-devel"
+	# UGR
+     	#r="lib$1-dev or $1-devel"
+     	r="libfreetype6-dev or freetype?-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
@@ -1098,7 +1100,7 @@ AC_DEFUN(STEPMAKE_GTK2, [
     else
 	# UGR
      	# r="lib$1-dev or $1-devel"
-     	r="libgtk+2.0-dev or gtk2-devel"
+     	r="libgtk2.0-dev or gtk2-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
@@ -1148,8 +1150,8 @@ AC_DEFUN(STEPMAKE_PANGO_FT2, [
 	LIBS="$save_LIBS"
     else
 	# UGR
-     	#r="lib$1-dev or $1-devel"
-     	r="libpango1.0-dev or pango1.0-devel"
+     	#r="lib$1-dev or $1-devel"e
+     	r="libpango1.0-dev or pango?-devel"
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
