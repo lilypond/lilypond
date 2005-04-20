@@ -142,7 +142,7 @@ def check_clef(s):
 		s = s[4:]
 		state.base_octave = -2
 		voices_append ("\\clef bass\n" )
-		return s
+	return s
 
 def select_voice (name, rol):
 	if not voice_idx_dict.has_key (name):
