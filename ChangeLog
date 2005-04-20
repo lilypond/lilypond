@@ -1,3 +1,7 @@
+2005-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in (no gui_b): Remove optional gtk+ requirement.
+
 2005-04-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/dynamic-engraver.cc (process_music): set right bound to
