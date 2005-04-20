@@ -118,7 +118,7 @@ output_name = ''
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
 filter_cmd = 0
 process_cmd = ''
-default_ly_options = {}
+default_ly_options = { 'alt': "[image of music]" }
 
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
@@ -152,6 +152,8 @@ TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
 FONTLOAD = 'fontload'
+FILENAME = 'filename'
+ALT = 'alt'
 
 
 # NOTIME has no opposite so it isn't part of this dictionary.
@@ -390,7 +392,9 @@ simple_options = [
 	PRINTFILENAME,
 	TEXIDOC,
 	VERBATIM,
-	FONTLOAD
+	FONTLOAD,
+	FILENAME,
+	ALT
 ]
 
 ly_options = {
@@ -443,7 +447,7 @@ output = {
 
 		OUTPUT: r'''
     <img align="center" valign="center"
-	 border="0" src="%(image)s" alt="[image of music]">''',
+	 border="0" src="%(image)s" alt="%(alt)s">''',
 
 		PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
 
@@ -507,13 +511,13 @@ output = {
 
 		OUTPUTIMAGE: r'''@noindent
 @ifinfo
-@image{%(base)s,,,[image of music],%(ext)s}
+@image{%(base)s,,,%(alt)s,%(ext)s}
 @end ifinfo
 @html
 <p>
   <a href="%(base)s.ly">
     <img align="center" valign="center"
-	 border="0" src="%(image)s" alt="[image of music]">
+	 border="0" src="%(image)s" alt="%(alt)s">
   </a>
 </p>
 @end html
@@ -623,8 +627,14 @@ def verbatim_texinfo (s):
 
 def split_options (option_string):
 	if option_string:
-		return re.split (format_res[format]['option_sep'],
-				 option_string)
+		if format == HTML:
+			options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',option_string)
+			for i in range(len(options)):
+				options[i] = re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)','\g<1>\g<3>',options[i])
+			return options
+		else:
+			return re.split (format_res[format]['option_sep'],
+					 option_string)
 	return []
 
 class Chunk:
@@ -683,8 +693,7 @@ class Lilypond_snippet (Snippet):
 	def __init__ (self, type, match, format, line_number):
 		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
-		if os:
-			self.do_options (os, self.type)
+		self.do_options (os, self.type)
 
 	def ly (self):
 		return self.substring ('code')
@@ -872,6 +881,8 @@ class Lilypond_snippet (Snippet):
 		return self.hash
 
 	def basename (self):
+		if FILENAME in self.option_dict:
+			return self.option_dict[FILENAME]
 		if use_hash_p:
 			return 'lily-%d' % self.get_hash ()
 		raise 'to be done'
@@ -893,8 +904,9 @@ class Lilypond_snippet (Snippet):
 		     and os.path.exists (system_file)\
 		     and os.stat (system_file)[stat.ST_SIZE] \
 		     and re.match ('% eof', open (system_file).readlines ()[-1])
-		if ok and (use_hash_p \
-			   or self.ly () == open (ly_file).read ()):
+		if ok and (not use_hash_p or FILENAME in self.option_dict):
+			ok = (self.full_ly () == open (ly_file).read ())
+		if ok:
 			# TODO: Do something smart with target formats
 			#       (ps, png) and m/ctimes.
 			return None
@@ -957,6 +969,7 @@ class Lilypond_snippet (Snippet):
 		str += output[HTML][BEFORE] % vars ()
 		for image in self.get_images ():
 			(base, ext) = os.path.splitext (image)
+			alt = self.option_dict[ALT]
 			str += output[HTML][OUTPUT] % vars ()
 		str += output[HTML][AFTER] % vars ()
 		return str
@@ -969,6 +982,7 @@ class Lilypond_snippet (Snippet):
 			# URG, makeinfo implicitly prepends dot to extension.
 			# Specifying no extension is most robust.
 			ext = ''
+			alt = self.option_dict[ALT]
 			str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
 		base = self.basename ()

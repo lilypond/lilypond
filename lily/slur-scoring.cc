@@ -32,8 +32,6 @@
 
   - curve around flag for y coordinate
 
-  - this file is a mess, clean it up
-
   - short-cut: try a smaller region first.
 
   - handle non-visible stems better.
