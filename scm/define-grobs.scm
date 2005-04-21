@@ -110,6 +110,7 @@
 	(break-align-symbol . staff-bar)
 	(glyph . "|")
 	(break-glyph-function . ,default-break-barline)
+	(layer . 0)
 	(bar-size-procedure . ,Bar_line::get_staff_bar_size)
 	(print-function . ,Bar_line::print)	
 	(break-visibility . ,all-visible)
@@ -495,6 +496,22 @@
 	(print-function . ,Line_spanner::print)
 	(meta . ((interfaces . (line-interface line-spanner-interface spanner-interface))))
 	))
+
+    (GridPoint
+     . (
+	(X-extent . (0 . 0))
+	(Y-extent . (0 . 0))
+	(meta . ((interfaces . (grid-point-interface))))
+	))
+
+    (GridLine
+     . (
+	(print-function . ,Grid_line_interface::print)
+	(X-extent . (0 . 0))
+	(layer . 0)
+	(meta . ((interfaces . (grid-line-interface)))
+	)))
+	
 
     (Hairpin
      . (
@@ -993,6 +1010,7 @@
 	(print-function . ,Span_bar::print)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
+	(layer . 0)
 	(breakable . #t)
 	(before-line-breaking-callback . ,Span_bar::before_line_breaking)
 	;; ugh duplication!

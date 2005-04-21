@@ -27,7 +27,6 @@ public:
 protected:
   virtual bool try_music (Music *ev);
   virtual void process_music ();
-
   virtual void stop_translation_timestep ();
 };
 
@@ -54,7 +53,6 @@ Note_heads_engraver::process_music ()
 {
   for (int i = 0; i < note_evs_.size (); i++)
     {
-
       Music *ev = note_evs_[i];
       Item *note = make_item ("NoteHead", ev->self_scm ());
 

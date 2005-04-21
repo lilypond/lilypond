@@ -1,3 +1,15 @@
+2005-04-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/grid-lines.ly (Module): new file.
+
+	* lily/grid-point-engraver.cc (Module): new file
+
+	* lily/grid-line.cc (Module): new file.
+
+	* lily/grid-line-span-engraver.cc (Module): new file.
+
+	* lily/grid-line-interface.cc (Module): new file.
+
 2005-04-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/auto-beam.scm (revert-property-setting): Bugfixes: add
@@ -34,7 +46,7 @@
 2005-04-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/fontextract.py (write_extracted_fonts): bugfix, too many
-	%'s.
+	%'s on EndFont comment.
 
 	* lily/ledger-line-spanner.cc: some more words of explanation.
 

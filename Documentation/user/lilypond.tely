@@ -177,7 +177,7 @@ This document is also available in @uref{source/Documentation/user/out-www/lilyp
 @finalout
 
 @titlepage
-@title GNU LilyPond
+@title LilyPond
 @subtitle The music typesetter
 @author The LilyPond development team
 
