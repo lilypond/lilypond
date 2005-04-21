@@ -507,12 +507,11 @@
     (GridLine
      . (
 	(print-function . ,Grid_line_interface::print)
-	(X-extent . (0 . 0))
+	(X-extent-callback  . ,Grid_line_interface::width_callback)
 	(layer . 0)
 	(meta . ((interfaces . (grid-line-interface)))
 	)))
 	
-
     (Hairpin
      . (
 	(print-function . ,Hairpin::print)

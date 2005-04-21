@@ -48,6 +48,9 @@ skips =
   }
 }
 
+\layout {
+  raggedright = ##t
+}
 \new Score 
 \with {
   \consists "Grid_line_span_engraver"
@@ -55,14 +58,30 @@ skips =
   \override TimeSignature #'transparent = ##t
 
   \override NoteColumn #'X-offset-callbacks = #(list (lambda (x a) -0.5))
-  \override NoteColumn #'Y-offset-callbacks = #(list (lambda (x a) 0.25))
+  \override NoteHead #'Y-offset-callbacks = #(list (lambda (x a) 0.75))
 
 }
 \new StaffGroup <<
-  \new Staff {
-    \repeat unfold 12 { c''8 }
+  \new RhythmicStaff \with
+  {
+    \override NoteHead  #'no-ledgers = ##t
+  }
+  {
+   \stemUp
+   c4. c8 c8 c c4 c8 c8.[ c16 c8]
+  }
+  \new RhythmicStaff
+  {
+    \override NoteHead #'transparent = ##t
+    \override NoteHead #'no-ledgers = ##t
+    \override Stem #'transparent = ##t
+    \override Beam #'transparent = ##t
+    << \skips
+
+       % force regular spacing by introducing notes.
+       \repeat unfold 12 c8
+       >>
     }
-  \new RhythmicStaff \skips
-  \new RhythmicStaff \skips
+    
 >>
   

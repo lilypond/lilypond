@@ -72,6 +72,8 @@ immediately, and if @var{laziness} is @code{#t} then the accidental
 lasts forever.
 @end table
 ")
+     (autoBeamCheck ,procedure? "Routine taking two arguments,
+start/stop (-1 or 1) and shortest note in the beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
 automatically.")
 
@@ -86,7 +88,7 @@ printed automatically; they must be explicitly created with
 are still counted.  Bar generation will resume according to that count
 if this property is unset.
 ")
-
+     
      (barAlways ,boolean? "If set to true a bar line is drawn after each
 note.")
 
@@ -210,6 +212,8 @@ fingered.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed. Only active for the first clef after the property is set, not
 for the full staff.")
+     (gridInterval ,ly:moment?
+		   "Interval for which to generate @ref{GridPoint}s")
 
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
@@ -453,8 +457,6 @@ top of those automatically detected. ")
      (graceSettings ,list?
 		    "Overrides for grace notes. This property should
 be manipulated through the @code{add-grace-property} function.")
-     (gridInterval ,ly:moment?
-		   "Interval for which to generate @ref{GridPoint}s")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable (clef, key signature, etc.) items.")
      (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all

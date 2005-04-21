@@ -1,5 +1,10 @@
 2005-04-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/grid-lines.ly (skips): refine example.
+
+	* scm/define-context-properties.scm
+	(all-user-translation-properties): doc autoBeamCheck
+
 	* input/regression/grid-lines.ly (Module): new file.
 
 	* lily/grid-point-engraver.cc (Module): new file
