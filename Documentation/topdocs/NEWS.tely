@@ -34,6 +34,9 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Grid lines 
+
+@item
 Lines, such as glissandi or Text-spanner lines, can have arrows at the
 end, e.g.
 

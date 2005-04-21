@@ -304,6 +304,8 @@ This will enlarge the B and the C by two steps.
    (prepend-alist-chain 'font-size mag props)
    arg))
 
+
+;; FIXME -> should convert to font-size.
 (def-markup-command (magnify layout props sz arg) (number? markup?)
   "Set the font magnification for the its argument. In the following
 example, the middle A will be 10% larger:
