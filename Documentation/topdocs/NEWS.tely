@@ -34,7 +34,11 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
-Grid lines 
+Grid lines, vertical lines synchronized with notes, can be drawn across
+staves, by adding suitable engravers.
+An example is in @inputfileref{input/regression,grid-lines.ly},
+
+@lilypondfile[]{grid-lines.ly}
 
 @item
 Lines, such as glissandi or Text-spanner lines, can have arrows at the
