@@ -453,6 +453,8 @@ top of those automatically detected. ")
      (graceSettings ,list?
 		    "Overrides for grace notes. This property should
 be manipulated through the @code{add-grace-property} function.")
+     (gridInterval ,ly:moment?
+		   "Interval for which to generate @ref{GridPoint}s")
      (currentCommandColumn ,ly:grob? "Grob that is X-parent to all
 current breakable (clef, key signature, etc.) items.")
      (currentMusicalColumn ,ly:grob? "Grob that is X-parent to all
