@@ -123,6 +123,7 @@ if 1:
 		if re.search ('\\\\multi', str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "\\multi")
+			sys.stderr.write ('\n')
 		return str
 
 	conversions.append (((0,1,9), conv, '\\header { key = concat + with + operator }'))
@@ -192,6 +193,7 @@ if 1:
 		if re.search ('\\\\header', str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "new \\header format")
+			sys.stderr.write ('\n')
 		return str
 
 	conversions.append (((1,0,2), conv, '\\header { key = concat + with + operator }'))
@@ -225,6 +227,7 @@ if 1:
 		if re.search ('[a-zA-Z]+ = *\\translator',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "\\translator syntax")
+			sys.stderr.write ('\n')
 		#	raise FatalConversionError ()
 		return str
 
@@ -296,6 +299,7 @@ if 1:
 		if re.search ('\\\\repeat',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "\\repeat")
+			sys.stderr.write ('\n')
 		#	raise FatalConversionError ()
 		return str
 
@@ -445,6 +449,7 @@ if 1:
 		if re.search ('\\\\repetitions',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "\\repetitions")
+			sys.stderr.write ('\n')
 		#	raise FatalConversionError ()
 		return str
 
@@ -473,6 +478,7 @@ if 1:
 		if re.search ('\\\\notenames',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "new \\notenames format")
+			sys.stderr.write ('\n')
 		return str
 
 	conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
@@ -492,6 +498,7 @@ if 1:
 		if re.search ('\\[:',str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "new tremolo format")
+			sys.stderr.write ('\n')
 		return str
 
 	conversions.append (((1,3,41), conv,
@@ -518,6 +525,7 @@ if 1:
 		if re.search ('\\\\keysignature', str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "new tremolo format")
+			sys.stderr.write ('\n')
 		return str
 
 
@@ -630,6 +638,7 @@ if 1:
 		if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "new \\textscript markup text")
+			sys.stderr.write ('\n')
 
 		str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
 
@@ -945,6 +954,7 @@ if 1:
 		       and re.search ('automaticMelismata', str)  == None:
 			sys.stderr.write ('\n')
 			sys.stderr.write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
+			sys.stderr.write ('\n')
 			raise FatalConversionError ()
 		return str
 
@@ -1592,6 +1602,7 @@ def conv (str):
 		sys.stderr.write (NOT_SMART % "\\pitch")
 		sys.stderr.write ('\n')
 		sys.stderr.write ("Use Scheme code to construct arbitrary note events.")
+		sys.stderr.write ('\n')
 
 		raise FatalConversionError ()
 
@@ -1988,6 +1999,7 @@ def conv (str):
 		sys.stderr.write (NOT_SMART % "ly:paper-get-variable")
 		sys.stderr.write ('\n')
 		sys.stderr.write ('use (ly:paper-lookup (ly:grob-paper ))')
+		sys.stderr.write ('\n')
 		raise FatalConversionError ()
 
 	str = re.sub (r'\\defaultAccidentals', "#(set-accidental-style 'default)", str)
@@ -2482,6 +2494,24 @@ def conv (str):
 conversions.append (((2, 5, 18),
 		     conv,
 		     'ly:warn -> ly:warning'))
+def conv (str):
+	if re.search ("(override-|revert-)auto-beam-setting", str)\
+	   or re.search ("autoBeamSettings"):
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "auto beam settings")
+		sys.stderr.write ('\n')
+		sys.stderr.write ('''
+Auto beam settings must now specify each interesting moment in a measure
+explicitely; 1/4 is no not multiplied to cover moments 1/2 and 3/4 too.
+''')
+		sys.stderr.write (UPDATE_MANUALLY)
+		sys.stderr.write ('\n')
+		raise FatalConversionError ()
+	return str
+
+conversions.append (((2, 5, 21),
+		     conv,
+		     'warn about auto beam settings'))
 		    
 ################################
 #	END OF CONVERSIONS
@@ -2505,10 +2535,10 @@ def do_conversion (infile, from_version, outfile, to_version):
 	try:
 		for x in conv_list:
 			sys.stderr.write (tup_to_str (x[0]))
-			str = x[1] (str)
-			last_conversion = x[0]
 			if x != conv_list[-1]:
 				sys.stderr.write (', ')
+			str = x[1] (str)
+			last_conversion = x[0]
 
 	except FatalConversionError:
 		sys.stderr.write (_ ("%s: error while converting") \
@@ -2558,7 +2588,7 @@ def do_one_file (infile_name):
 
 
 	if infile_name:
-		infile = open (infile_name,'r')
+		infile = open (infile_name, 'r')
 	else:
 		infile = sys.stdin
 
@@ -2637,6 +2667,11 @@ for f in files:
 	if f == '-':
 		f = ''
 	elif not os.path.isfile (f):
+		sys.stderr.write ('\n')
+		sys.stderr.write (_ ("can't open file: `%s'") % f)
+		sys.stderr.write ('\n')
+		if len (files) == 1:
+			sys.exit (1)
 		continue
 	try:
 		do_one_file (f)

@@ -1,3 +1,32 @@
+2005-04-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/auto-beam.scm (revert-property-setting): Bugfixes: add
+	missing parameter, actualy cdr through list.  Actually return a
+	list with ENTRY removed (was '()).
+
+	* scripts/convert-ly.py: Update.  Print warning if file cannot be
+	opened.
+	(do_conversion): Fix printing of continuation comma.
+
+	* Documentation/user/advanced-notation.itely (Beam formatting):
+	Remove refbugs about compound time and mixed duration.
+
+	* scm/auto-beam.scm (default-auto-beam-settings): Write out all
+	modulo moments explicitely.
+
+	* lily/moment.cc (operator %): New function.
+
+	* lily/moment-scheme.cc (ly:mod-moment): Wrap it.
+
+	* lily/translator-scheme.cc (ly:translator-now,
+	ly:translator-property): New function.
+
+	* scm/auto-beam.scm (default-auto-beam-check): New function.
+
+	* lily/auto-beam-engraver.cc (test_moment): Use it.
+
+	* flower/rational.cc (operator %): Bugfix.
+
 2005-04-21  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* scripts/abc2ly: Bugfix
@@ -21,6 +50,11 @@
 	* THANKS: Added bughunters.
 
 2005-04-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* SConstruct (test_lib): Bump mftrace requirement to 1.1.9.
+
+	* lily/auto-beam-engraver.cc (test_moment): Test exact measure
+	position (was: use modulo measure length).
 
 	* configure.in (no gui_b): Remove optional gtk+ requirement.
 

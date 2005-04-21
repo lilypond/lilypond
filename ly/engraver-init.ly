@@ -467,6 +467,7 @@ AncientRemoveEmptyStaffContext = \context {
   explicitKeySignatureVisibility = #all-visible
   autoBeamSettings = #default-auto-beam-settings
   autoBeaming = ##t
+  autoBeamCheck = #default-auto-beam-check
   scriptDefinitions = #default-script-alist
 
   verticalAlignmentChildCallback = #Align_interface::alignment_callback

@@ -96,6 +96,7 @@ Moment::operator += (Moment const &src)
   main_part_ += src.main_part_;
   grace_part_ += src.grace_part_;
 }
+
 void
 Moment::operator -= (Moment const &src)
 {
@@ -103,9 +104,7 @@ Moment::operator -= (Moment const &src)
   grace_part_ -= src.grace_part_;
 }
 
-/*
-  only take the main part of SRC for multiplication.
-*/
+/* Only take the main part of SRC for multiplication.  */
 void
 Moment::operator *= (Moment const &src)
 {
@@ -113,14 +112,20 @@ Moment::operator *= (Moment const &src)
   grace_part_ *= src.main_part_;
 }
 
-/*
-  only take the main part of SRC for multiplication.
-*/
+/* Only take the main part of SRC for division.  */
 void
 Moment::operator /= (Moment const &src)
 {
   main_part_ /= src.main_part_;
   grace_part_ /= src.main_part_;
+}
+
+/* Only take the main part of SRC for division.  */
+void
+Moment::operator %= (Moment const &src)
+{
+  main_part_ %= src.main_part_;
+  grace_part_ %= src.main_part_;
 }
 
 int

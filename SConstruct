@@ -339,7 +339,7 @@ def configure (target, source, env):
 	test_program (required, 'guile-config', '1.6', 'GUILE development',
 			'libguile-dev or guile-devel')
 	test_program (required, 'mf', '0.0', 'Metafont', 'tetex-bin')
-	test_program (required, 'mftrace', '1.1.6',
+	test_program (required, 'mftrace', '1.1.9',
 		      'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
 	test_program (required, 'potrace', '0.0', 'Potrace', 'potrace')
 	test_program (required, 'python', '2.1', 'Python (www.python.org)',
