@@ -1909,7 +1909,7 @@ also possible to adjust settings at higher contexts, by adding a
 equal to @code{override-auto-beam-setting} with the argument
 @var{context} set to @code{'Score}.
 
-For example, if automatic beams should end on every quarter note, use
+For example, if automatic beams should end on the first quarter note, use
 the following
 @example
 #(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
@@ -1917,10 +1917,22 @@ the following
 Since the duration of a quarter note is 1/4 of a whole note, it is
 entered as @code{(ly:make-moment 1 4)}.
 
+If automatic beams should end on every quarter in 5/4 time, specify
+all endings
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
+#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
+@dots{}
+@end example
+
 The same syntax can be used to specify beam starting points.  In this
 example, automatic beams can only end on a dotted quarter note
 @example
 #(override-auto-beam-setting '(end * * * *) 3 8)
+#(override-auto-beam-setting '(end * * * *) 1 2)
+#(override-auto-beam-setting '(end * * * *) 7 8)
 @end example
 In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
@@ -1964,26 +1976,6 @@ still accepting notes, this last beam will not be typeset at all.  The
 same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
 >>}.  If a polyphonic voice ends while an automatic beam is still
 accepting notes, it is not typeset.
-
-The rules for ending a beam depend on the shortest note in a beam.
-So, while it is possible to have different ending rules for eight
-beams and sixteenth beams, a beam that contains both eight and
-sixteenth notes will use the rules for the sixteenth beam.
-
-In the example below, the autobeamer makes eighth beams and sixteenth
-end at three eighths.  The third beam can only be corrected by
-specifying manual beaming.
-
-@lilypond[quote,raggedright,fragment,relative=1]
-#(override-auto-beam-setting '(end * * * *) 3 8)
-% rather show case where it goes wrong
-%\time 12/8 c'8 c c c16 c c c c c c[ c c c] c8[ c] c4
-\time 12/8 c'8 c c c16 c c c c c c c c c c8 c c4
-@end lilypond
-It is not possible to specify beaming parameters that act differently in
-different parts of a measure.  This means that it is not possible to use
-automatic beaming in irregular meters such as @code{5/8}.
-
 
 @node Beam formatting
 @subsection Beam formatting

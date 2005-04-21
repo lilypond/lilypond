@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+%%\version "2.5.21"
 \header{
 	texidoc="@cindex Beam Count
 
@@ -11,7 +11,13 @@ two sets of four 32nds are joined, as if they were 8th notes.
 \layout { raggedright = ##t}  
 
 \relative {
-  #(override-auto-beam-setting '(end * * * *)  1 4)
+  %% This has now (2.5.21) changed, (end * * * *) no longer
+  %% masks the default config entry ('(end * * 2 4) 1 4))
+  %% rather than masking by override:
+  %% #(override-auto-beam-setting '(end * * * *) 1 4)
+  %% revert the config file settings.
+  #(revert-auto-beam-setting '(end 1 32 4 4) 1 8)
+  #(revert-auto-beam-setting '(end 1 32 4 4) 3 8)
   f32 g a b b a g f
 
   f32 g a 

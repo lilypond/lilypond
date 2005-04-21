@@ -1,15 +1,17 @@
 
-\version "2.4.0"
-% keep for now, although merging into beam-auto-override is a possibility.
+%% \version "2.5.21"
+
+%% keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
 You can override the automatic beaming settings.
 "
 }
 
-\score{
-   \relative c''{
-     \time 4/8
+\layout{raggedright = ##t}
+
+\relative c''{
+  \time 4/8
 
 %{
     the default for 4/8 (see scm/auto-beam.scm)
@@ -17,8 +19,7 @@ You can override the automatic beaming settings.
      |  |  |   |--|
     x| x| x|  x| x|
 %}
-     c8 c c c16 c
-
+  c8 c c c16 c
 
 %{
     user override
@@ -26,11 +27,13 @@ You can override the automatic beaming settings.
      |  |  |   |--|
     x| x| x|  x| x|
 %}
-     #(override-auto-beam-setting '(end * * * *)  2 4)
-     c8 c c c16 c
-
-  }
-\layout{raggedright = ##t}
+  %% This has now (2.5.21) changed, (end * * * *) no longer
+  %% masks the default config entry ('(end * * 4 8) 1 4))
+  %% rather than masking by override:
+  %% #(override-auto-beam-setting '(end * * * *) 2 4)
+  %% revert the config file setting.
+  #(revert-auto-beam-setting '(end * * 4 8) 1 4)
+  c8 c c c16 c
 }
     
 

@@ -33,6 +33,7 @@ public:
 
   void operator *= (Moment const &m);
   void operator /= (Moment const &m);
+  void operator %= (Moment const &m);
 
   Rational main_part_;
   Rational grace_part_;
@@ -53,6 +54,7 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Moment, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, *);
+IMPLEMENT_ARITHMETIC_OPERATOR (Moment, %);
 
 DECLARE_UNSMOB (Moment, moment);
 int compare (Moment const &, Moment const &);

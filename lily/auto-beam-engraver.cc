@@ -108,141 +108,16 @@ Auto_beam_engraver::try_music (Music *m)
   return false;
 }
 
-/*
-  Determine end moment for auto beaming (or begin moment, but mostly
-  0== anywhere) In order of increasing priority:
-
-  i.   begin anywhere, end at every beat
-  ii.  end   *    <num> <den>
-  iii. end <type> <num> <den>
-
-  iv.  end   *      *     *
-  v.   end <type>   *     *
-
-
-  Rationale:
-
-  [to be defined in config file]
-  i.   easy catch-all rule
-  ii.  exceptions for time signature
-  iii. exceptions for time signature, for specific duration type
-
-  [user override]
-  iv.  generic override
-  v.   override for specific duration type
-*/
 bool
-Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
+Auto_beam_engraver::test_moment (Direction dir, Moment test)
 {
-  Moment now = now_mom ();
-  if (dir == START
-      && now.grace_part_)
-    {
-      return false;
-    }
-
-  SCM wild = scm_list_n (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
-  SCM function;
-  if (dir == START)
-    function = scm_list_n (ly_symbol2scm ("begin"), SCM_UNDEFINED);
-  else
-    function = scm_list_n (ly_symbol2scm ("end"), SCM_UNDEFINED);
-
-  Moment beat_length (1, 4);
-  if (Moment *m = unsmob_moment (get_property ("beatLength")))
-    {
-      beat_length = *m;
-    }
-  Moment measure_length (1, 1);
-  int num = 4;
-  if (Moment *m = unsmob_moment (get_property ("measureLength")))
-    {
-      num = int ((*m / beat_length).main_part_);
-    }
-
-  int den = beat_length.den ();
-  SCM time = scm_list_n (scm_int2num (num), scm_int2num (den), SCM_UNDEFINED);
-
-  SCM type = scm_list_n (scm_int2num (test_mom.num ()),
-			 scm_int2num (test_mom.den ()), SCM_UNDEFINED);
-
-  /*
-    UGH UGH.
-    settings aren't grob-properties.
-  */
-  SCM settings = get_property ("autoBeamSettings");
-
-  /* first guess */
-
-  /* begin beam at any position
-     (and fallback for end) */
-  Moment moment (0);
-
-  /* end beam at end of beat */
-  if (dir == STOP)
-    {
-      moment = robust_scm2moment (get_property ("beatLength"), moment);
-    }
-
-  /* second guess: property generic time exception */
-  SCM m = scm_assoc (ly_append3 (function, wild, time), settings);
-
-  if (m != SCM_BOOL_F && unsmob_moment (scm_cdr (m)))
-    moment = *unsmob_moment (scm_cdr (m));
-
-  /* third guess: property time exception, specific for duration type */
-  m = scm_assoc (ly_append3 (function, type, time), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (scm_cdr (m)))
-    moment = *unsmob_moment (scm_cdr (m));
-
-  /* fourth guess [user override]: property plain generic */
-  m = scm_assoc (ly_append3 (function, wild, wild), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (scm_cdr (m)))
-    moment = *unsmob_moment (scm_cdr (m));
-
-  /* fifth guess [user override]: property plain, specific for duration type */
-  m = scm_assoc (ly_append3 (function, type, wild), settings);
-  if (m != SCM_BOOL_F && unsmob_moment (scm_cdr (m)))
-    moment = *unsmob_moment (scm_cdr (m));
-
-  Rational r;
-  if (moment.to_bool ())
-    {
-      /* Ugh? measurePosition can be negative, when \partial
-	 We may have to fix this elsewhere (timing translator)
-	 r = unsmob_moment (get_property ("measurePosition"))->mod_rat (moment);
-      */
-      Moment pos (0);
-      if (Moment *m = unsmob_moment (get_property ("measurePosition")))
-	{
-	  pos = *m;
-	}
-
-      if (pos < Moment (0))
-	{
-	  Moment length (1);
-
-	  if (Moment *m = unsmob_moment (get_property ("measureLength")))
-	    {
-	      length = *m;
-	    }
-	  pos = length - pos;
-	}
-      r = pos.main_part_.mod_rat (moment.main_part_);
-    }
-  else
-    {
-      if (dir == START)
-	/* if undefined, starting is ok */
-	r = 0;
-      else
-	/* but ending is not */
-	r = 1;
-    }
-
-  return !r;
+  return scm_call_3 (get_property ("autoBeamCheck"),
+		     self_scm (),
+		     scm_from_int (dir),
+		     test.smobbed_copy ())
+    != SCM_BOOL_F;
 }
-
+    
 void
 Auto_beam_engraver::consider_begin (Moment test_mom)
 {

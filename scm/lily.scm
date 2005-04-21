@@ -305,12 +305,14 @@ The syntax is the same as `define*-public'."
   "Entry point for LilyPond."
   (let* ((failed '())
 	 (handler (lambda (key failed-file)
-		    (set! failed (append (list failed-file) failed)))))
+	     (set! failed (append (list failed-file) failed)))))
+	 ;;(handler (lambda (key . arg) (set! failed (append arg failed)))))
     (for-each
      (lambda (f)
        (catch 'ly-file-failed
 	      (lambda () (ly:parse-file f))
 	      (lambda (x . args) (handler x f)))
+	      ;;(lambda (x) (handler x f)))
        (if #f
 	   (dump-gc-protects)))
      files)

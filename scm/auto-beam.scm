@@ -21,91 +21,124 @@
 
 ;;; maybe do:  '(end shortest-1 16 time-3 4) ?
 
-;;; in 3 2 time:
-;;;   end beams each 1 2 note
-;;;   end beams with 16th notes each 1 4 note
-;;;   end beams with 32th notes each 1 8 note
-
 (define-public default-auto-beam-settings
-   `(
-     ((end * * 3 2) . ,(ly:make-moment 1 2))
-     ((end 1 16 3 2) . ,(ly:make-moment 1 4))
-     ((end 1 32 3 2) . ,(ly:make-moment 1 8))
+  `(
+    ;; in 3 2 time:
+    ;;   end beams each 1 2 note
+    ;;   end beams with 16th notes each 1 4 note
+    ;;   end beams with 32th notes each 1 8 note
 
-     ((begin 1 8 3 4) . ,(ly:make-moment 1 4))
+    ((end * * 3 2) . ,(ly:make-moment 1 2))
+    ((end * * 3 2) . ,(ly:make-moment 2 2))
+    
+    ((end 1 16 3 2) . ,(ly:make-moment 1 4))
+    ((end 1 16 3 2) . ,(ly:make-moment 1 2))
+    ((end 1 16 3 2) . ,(ly:make-moment 3 4))
+    ((end 1 16 3 2) . ,(ly:make-moment 5 4))
+    
+    ((end 1 32 3 2) . ,(ly:make-moment 1 8))
+    ((end 1 32 3 2) . ,(ly:make-moment 1 4))
+    ((end 1 32 3 2) . ,(ly:make-moment 3 8))
+    ((end 1 32 3 2) . ,(ly:make-moment 1 2))
+    ((end 1 32 3 2) . ,(ly:make-moment 5 8))
+    ((end 1 32 3 2) . ,(ly:make-moment 3 4))
+    ((end 1 32 3 2) . ,(ly:make-moment 9 8))
+    ((end 1 32 3 2) . ,(ly:make-moment 5 4))
+    ((end 1 32 3 2) . ,(ly:make-moment 11 8))
 
-     ((end * * 3 4) . ,(ly:make-moment 3 4))
-     ((begin 1 16 3 4) . ,(ly:make-moment 1 16))
-     ((end 1 16 3 4) . ,(ly:make-moment 1 4))
-     ;;((begin 1 32 3 4) . ,(ly:make-moment 1 8))
-     ((end 1 32 3 4) . ,(ly:make-moment 1 8))
+    ((end * * 3 4) . ,(ly:make-moment 3 4))
 
-     ((begin 1 16 3 8) . ,(ly:make-moment 1 8))
-     ((end * * 3 8) . ,(ly:make-moment 3 8))
+    ((end 1 16 3 4) . ,(ly:make-moment 1 4))
+    ((end 1 16 3 4) . ,(ly:make-moment 1 2))
+    
+    ((end 1 32 3 4) . ,(ly:make-moment 1 8))
+    ((end 1 32 3 4) . ,(ly:make-moment 1 4))
+    ((end 1 32 3 4) . ,(ly:make-moment 3 8))
+    ((end 1 32 3 4) . ,(ly:make-moment 1 2))
+    ((end 1 32 3 4) . ,(ly:make-moment 5 8))
 
-     ;; in common time:
-     ;;   end beams each 1 2 note
-     ;;   end beams with 32th notes each 1 8 note
-     ;;   end beams with 1 8 triplets each 1 4 note
+    ((end * * 3 8) . ,(ly:make-moment 3 8))
 
-     ((end * * 4 4) . ,(ly:make-moment 1 2))
-     ((end 1 12 4 4) . ,(ly:make-moment 1 4))
-     ((end 1 16 4 4) . ,(ly:make-moment 1 4))
-     ((end 1 32 4 4) . ,(ly:make-moment 1 8))
+    ;; in common time:
+    ;;   end beams each 1 2 note
+    ;;   end beams with 32th notes each 1 8 note
+    ;;   end beams with 1 8 triplets each 1 4 note
 
-     ((end * * 2 4) . ,(ly:make-moment 1 4))
-     ((end 1 12 2 4) . ,(ly:make-moment 1 4))
-     ((end 1 16 2 4) . ,(ly:make-moment 1 4))
-     ((end 1 32 2 4) . ,(ly:make-moment 1 8))
+    ((end * * 4 4) . ,(ly:make-moment 1 2))
+    ((end 1 12 4 4) . ,(ly:make-moment 1 4))
+    ((end 1 12 4 4) . ,(ly:make-moment 3 4))
+    
+    ((end 1 16 4 4) . ,(ly:make-moment 1 4))
+    ((end 1 16 4 4) . ,(ly:make-moment 3 4))
+    
+    ((end 1 32 4 4) . ,(ly:make-moment 1 8))
+    ((end 1 32 4 4) . ,(ly:make-moment 1 4))
+    ((end 1 32 4 4) . ,(ly:make-moment 3 8))
+    ((end 1 32 4 4) . ,(ly:make-moment 5 8))
+    ((end 1 32 4 4) . ,(ly:make-moment 3 4))
+    ((end 1 32 4 4) . ,(ly:make-moment 7 8))
 
-     ;; It seems that, because of a bug in the previous auto-beamer,
-     ;; we had the effect of this setting x
-     ;; ((end * * 2 8) . ,(ly:make-moment 2 8))
+    ((end * * 2 4) . #f) ;; switch-off at-any-beat feature
+    ((end * * 2 4) . ,(ly:make-moment 1 4))
+    ((end 1 32 2 4) . ,(ly:make-moment 1 8))
+    ((end 1 32 2 4) . ,(ly:make-moment 3 8))
 
-     ((end * * 4 8) . ,(ly:make-moment 1 4))
-     ((end 1 16 4 8) . ,(ly:make-moment 1 4))
-     ((end 1 32 4 8) . ,(ly:make-moment 1 8))
+    ((end * * 4 8) . #f) ;; switch-off at-any-beat feature
+    ((end * * 4 8) . ,(ly:make-moment 1 4))
+    ((end 1 32 4 8) . ,(ly:make-moment 1 8))
+    ((end 1 32 4 8) . ,(ly:make-moment 3 8))
 
-     ((end * * 4 16) . ,(ly:make-moment 1 8))
+    ((end * * 4 16) . #f) ;; switch-off at-any-beat feature
+    ((end * * 4 16) . ,(ly:make-moment 1 8))
 
-     ((end * * 6 8) . ,(ly:make-moment 3 8))
-     ((end 1 16 6 8) . ,(ly:make-moment 3 8))
-     ((end 1 32 6 8) . ,(ly:make-moment 1 8))
+    ((end * * 6 8) . #f) ;; switch-off at-any-beat feature
+    ((end * * 6 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 1 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 1 4))
+    ((end 1 32 6 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 6 8) . ,(ly:make-moment 5 8))
 
-     ((end * * 9 8) . ,(ly:make-moment 3 8))
-     ((end 1 16 9 8) . ,(ly:make-moment 3 8))
-     ((end 1 32 9 8) . ,(ly:make-moment 1 8))
+    ((end * * 9 8) . #f) ;; switch-off at-any-beat feature
+    ((end * * 9 8) . ,(ly:make-moment 3 8))
+    ((end * * 9 8) . ,(ly:make-moment 3 4))
+    ((end 1 32 9 8) . ,(ly:make-moment 1 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 1 4))
+    ((end 1 32 9 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 9 8) . ,(ly:make-moment 5 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 7 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 1 1))
+    ((end 1 32 9 8) . ,(ly:make-moment 9 8))
 
-     ((end * * 12 8) . ,(ly:make-moment 3 8))
-     ((end 1 16 12 8) . ,(ly:make-moment 3 8))
-     ((end 1 32 12 8) . ,(ly:make-moment 1 8))
-     ))
+    ((end * * 12 8) . #f) ;; switch-off at-every-beat
+    ((end * * 12 8) . ,(ly:make-moment 3 8))
+    ((end * * 12 8) . ,(ly:make-moment 3 4))
+    ((end * * 12 8) . ,(ly:make-moment 9 8))
+    ((end * * 12 8) . ,(ly:make-moment 2 1))
+    ((end 1 32 12 8) . ,(ly:make-moment 1 8))
+    ))
 
-
-(define (override-property-setting context context-prop setting value)
+(define (override-property-setting context property setting value)
   "Like the C++ code that executes \\override, but without type
 checking. "
+  (ly:context-set-property!
+   context property
+   (cons (cons setting value) (ly:context-property context property))))
 
-  (ly:context-set-property! context context-prop
-			   (cons (cons setting value)
-				 (ly:context-property context context-prop))))
-
-(define (revert-property-setting context setting)
+(define (revert-property-setting context property setting)
   "Like the C++ code that executes \revert, but without type
 checking. "
 
-  (define (revert-assoc alist key)
-    "Return ALIST, with KEY removed. ALIST is not modified, instead
-a fresh copy of the  list-head is made."
+  (define (revert-member alist entry new)
+    "Return ALIST, with ENTRY removed.  ALIST is not modified, instead
+a fresh copy of the list-head is made."
     (cond
-     ((null? alist) '())
-     ((equal? (caar alist) key) (cdr alist))
-     (else (cons (car alist) (revert-assoc alist key)))))
+     ((null? alist) new)
+     ((equal? (car alist) entry) (revert-member (cdr alist) entry new))
+     (else (revert-member (cdr alist) entry (cons (car alist) new)))))
 
-    (ly:context-set-property!
-     context context-prop
-     (revert-assoc (ly:context-property context context-prop)
-		   setting)))
+  (ly:context-set-property!
+   context property
+   (revert-member (ly:context-property context property) setting '())))
 
 (define-public (override-auto-beam-setting setting num den . rest)
   (ly:export
@@ -121,13 +154,79 @@ a fresh copy of the  list-head is made."
 (define-public (score-override-auto-beam-setting setting num den)
   (override-auto-beam-setting setting num den 'Score))
 
-(define-public (revert-auto-beam-setting setting . rest)
+(define-public (revert-auto-beam-setting setting num den . rest)
   (ly:export
    (context-spec-music
     (make-apply-context (lambda (c)
 			  (revert-property-setting
 			   c 'autoBeamSettings
-			   setting)))
+			   (cons setting (ly:make-moment num den)))))
     (if (and (pair? rest) (symbol? (car rest)))
 	(car rest)
 	'Voice))))
+
+;;  Determine end moment for auto beaming (or begin moment, but mostly
+;;  0== anywhere).  In order of decreasing priority:
+;;
+;;  1. end <type>   *     *
+;;  2. end   *      *     *
+;;  3. end <type> <num> <den>
+;;  4. end   *    <num> <den>
+;;  5. if 1-4 not specified: begin anywhere, end at every beat
+;;
+;;  Rationale:
+;;
+;;  [user override]
+;;  1. override for specific duration type
+;;  2. generic override
+;;
+;;  [to be defined in config file]
+;;  3. exceptions for specific time signature, for specific duration type
+;;  4. exceptions for specific time signature
+;;  5. easy catch-all rule for non-specified measure types
+
+(define-public (default-auto-beam-check translator dir test)
+  (define (get name default)
+    (let ((value (ly:translator-property translator name)))
+      (if (not (null? value)) value default)))
+
+  (if (!= (ly:moment-grace-numerator (ly:translator-now translator)) 0)
+      ;; No auto beaming for grace notes
+      #f
+      (let* ((beat-length (get 'beatLength (ly:make-moment 1 1)))
+	     (measure-length (get 'measureLength (ly:make-moment 1 1)))
+	     (measure-pos (get 'measurePosition (ly:make-moment 0 1)))
+	     (settings (get 'autoBeamSettings '()))
+	     (function (list (if (= dir START) 'begin 'end)))
+	     (num-mom (ly:div-moment measure-length beat-length))
+	     (num (inexact->exact
+		   (round (/ (ly:moment-main-numerator num-mom)
+			     (ly:moment-main-denominator num-mom)))))
+	     (den (ly:moment-main-denominator beat-length))
+	     (time (list num den))
+	     (type (list (ly:moment-main-numerator test)
+			 (ly:moment-main-denominator test)))
+	     (pos (if (>= (ly:moment-main-numerator measure-pos) 0)
+		      measure-pos
+		      (ly:add-moment measure-length measure-pos)))
+	     (lst (list
+		   ;; Hmm, should junk user-override feature,
+		   ;; or split this in user-override and config section?
+		   (append function type '(* *))
+		   (append function '(* * * *))
+		   (append function type time)
+		   (append function '(* *) time))))
+	(if (or
+	     ;; always begin or end beams at beginning/ending of measure
+	     (= (ly:moment-main-numerator pos) 0)
+	     (first-member (map (lambda (x) (cons x pos)) lst) settings))
+	    #t
+	    (if (= dir START)
+		;; if no entry matches our function + time or type,
+		;; start anywhere
+		(not (first-assoc lst settings))
+		;; if no entry matches our function + time or type,
+		;; end at any beat
+		(and (not (first-assoc lst settings))
+		     (= (ly:moment-main-denominator
+			 (ly:div-moment pos beat-length)) 1)))))))

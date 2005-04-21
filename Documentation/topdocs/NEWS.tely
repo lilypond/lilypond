@@ -58,11 +58,16 @@ There is a music function @code{\musicDisplay}, which will display a
 music expression as indented Scheme code.
 
 @item
+Automatic beaming is now specified explicitly for each moment
+throughout a measure, which enables automatic beaming in compound
+measures, as demonstrated in the following item.
+
+@item
 A plus sign was added to the number font.  This enables printing of
 compound time signatures
 
 @lilypondfile[]{compound-time.ly}
-  
+
 @item
 A new @code{\circle} markup command allows for all kinds of circled
 texts

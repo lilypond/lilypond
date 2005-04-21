@@ -8,6 +8,7 @@
 
 #include "context-def.hh"
 #include "translator-group.hh"
+#include "moment.hh"
 
 LY_DEFINE (ly_translator_name, "ly:translator-name",
 	   1, 0, 0, (SCM trans),
@@ -20,6 +21,15 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
   return ly_symbol2scm (nm);
 }
 
+LY_DEFINE (ly_translator_now, "ly:translator-now",
+	   1, 0, 0, (SCM trans),
+	   "Return now-moment of translater TRANS")
+{
+  Translator *tr = unsmob_translator (trans);
+  SCM_ASSERT_TYPE (tr, trans, SCM_ARG1, __FUNCTION__, "Translator");
+  return tr->now_mom ().smobbed_copy ();
+}
+
 LY_DEFINE (ly_translator_description, "ly:translator-description",
 	   1, 0, 0, (SCM me),
 	   "Return an alist of properties of  translator @var{me}.")
@@ -27,6 +37,20 @@ LY_DEFINE (ly_translator_description, "ly:translator-description",
   Translator *tr = unsmob_translator (me);
   SCM_ASSERT_TYPE (tr, me, SCM_ARG1, __FUNCTION__, "Translator");
   return tr->translator_description ();
+}
+
+LY_DEFINE (ly_translator_property, "ly:translator-property",
+	   2, 0, 0, (SCM translator, SCM sym),
+	   "Return the value of a value in translator @var{g} of property @var{sym}. "
+	   "It will return @code{' ()} (end-of-list) "
+	   "if  @var{sym} is undefined in @var{g}."
+	   "\n\n")
+{
+  Translator *sc = unsmob_translator (translator);
+  SCM_ASSERT_TYPE (sc, translator, SCM_ARG1, __FUNCTION__, "translator");
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+
+  return sc->internal_get_property (sym);
 }
 
 int

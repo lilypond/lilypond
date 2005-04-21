@@ -149,8 +149,6 @@ lower = \context Staff  \relative c{
 	    \clef bass
 	    \lower
 	>>
-	#(override-auto-beam-setting '(end 1 8 * *)  1 4)
-	#(override-auto-beam-setting '(end 1 16 * *)  1 4)
     >>
     \layout {
 	\context {

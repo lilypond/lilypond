@@ -140,10 +140,7 @@ Rational::compare (Rational const &r, Rational const &s)
     return 0;
   else if (r.sign_ == 0)
     return 0;
-  else
-    {
-      return r.sign_ * ::sign (int (r.num_ * s.den_) - int (s.num_ * r.den_));
-    }
+  return r.sign_ * ::sign (int (r.num_ * s.den_) - int (s.num_ * r.den_));
 }
 
 int
@@ -155,7 +152,7 @@ compare (Rational const &r, Rational const &s)
 Rational &
 Rational::operator %= (Rational r)
 {
-  *this = r.mod_rat (r);
+  *this = mod_rat (r);
   return *this;
 }
 
@@ -165,9 +162,7 @@ Rational::operator += (Rational r)
   if (is_infinity ())
     ;
   else if (r.is_infinity ())
-    {
-      *this = r;
-    }
+    *this = r;
   else
     {
       int n = sign_ * num_ * r.den_ + r.sign_ * den_ * r.num_;

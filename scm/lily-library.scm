@@ -119,7 +119,21 @@ found."
       '()
       (cons (cons (func (caar list)) (cdar list))
 	    (map-alist-keys func (cdr list)))))
- 
+
+(define-public (first-member members lst)
+  "Return first successful MEMBER of member from MEMBERS in LST."
+  (if (null? members)
+      #f
+      (let ((m (member (car members) lst)))
+	(if m m (first-member (cdr members) lst)))))
+
+(define-public (first-assoc keys lst)
+  "Return first successful ASSOC of key from KEYS in LST."
+  (if (null? keys)
+      #f
+      (let ((k (assoc (car keys) lst)))
+	(if k k (first-assoc (cdr keys) lst)))))
+
 ;;;;;;;;;;;;;;;;
 ;; vector
 (define-public (vector-for-each proc vec)
