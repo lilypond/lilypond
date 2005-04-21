@@ -9,20 +9,20 @@ staves synchronized with the notes."
 
 skips =
 {
-\time 12/8
-\once  \override Score.GridLine #'thickness = #4.0
+  \time 12/8
+  \once  \override Score.GridLine #'thickness = #4.0
   s8 
   s8 
   s8 
-\once  \override Score.GridLine #'thickness = #2.0
+  \once  \override Score.GridLine #'thickness = #3.0
   s8 
   s8 
   s8 
-\once  \override Score.GridLine #'thickness = #4.0
+  \once  \override Score.GridLine #'thickness = #4.0
   s8 
   s8 
   s8 
-\once  \override Score.GridLine #'thickness = #2.0
+  \once  \override Score.GridLine #'thickness = #3.0
   s8 
   s8 
   s8 
@@ -31,17 +31,18 @@ skips =
 
 \layout {
   \context {
-  \Staff
-  \consists "Grid_point_engraver"
-  
+    \Staff
+    \consists "Grid_point_engraver"
+    
   }
 
   \context {
-  \RhythmicStaff
-  \consists "Grid_point_engraver"
-  gridInterval = #(ly:make-moment 1 8)
-  \override BarLine #'bar-size = #0.05
-}
+    \RhythmicStaff
+    \consists "Grid_point_engraver"
+    minimumVerticalExtent = #'(-4 . 4) 
+    gridInterval = #(ly:make-moment 1 8)
+    \override BarLine #'bar-size = #0.05
+  }
   \context {
     \StaffGroup
     \remove "System_start_delimiter_engraver" 
@@ -55,7 +56,6 @@ skips =
 \with {
   \consists "Grid_line_span_engraver"
   \override SystemStartBrace #'transparent = ##t
-  \override TimeSignature #'transparent = ##t
 
   \override NoteColumn #'X-offset-callbacks = #(list (lambda (x a) -0.5))
   \override NoteHead #'Y-offset-callbacks = #(list (lambda (x a) 0.75))
@@ -67,8 +67,8 @@ skips =
     \override NoteHead  #'no-ledgers = ##t
   }
   {
-   \stemUp
-   c4. c8 c8 c c4 c8 c8.[ c16 c8]
+    \stemUp
+    c4. c8 c8 c c4 c8 c8.[ c16 c8]
   }
   \new RhythmicStaff
   {
@@ -78,10 +78,10 @@ skips =
     \override Beam #'transparent = ##t
     << \skips
 
-       % force regular spacing by introducing notes.
+				% force regular spacing by introducing notes.
        \repeat unfold 12 c8
-       >>
-    }
-    
->>
+     >>
+  }
   
+>>
+
