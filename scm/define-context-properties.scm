@@ -72,8 +72,9 @@ immediately, and if @var{laziness} is @code{#t} then the accidental
 lasts forever.
 @end table
 ")
-     (autoBeamCheck ,procedure? "Routine taking two arguments,
-start/stop (-1 or 1) and shortest note in the beam.")
+     (autoBeamCheck ,procedure? "Procedure taking three
+arguments, CONTEXT, DIR start/stop (-1 or 1) and TEST shortest
+note in the beam.  A non-#f return value starts or stops the auto beam.")
      (autoBeaming ,boolean? "If set to true then beams are generated
 automatically.")
 
