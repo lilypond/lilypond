@@ -185,12 +185,12 @@ a fresh copy of the list-head is made."
 ;;  4. exceptions for specific time signature
 ;;  5. easy catch-all rule for non-specified measure types
 
-(define-public (default-auto-beam-check translator dir test)
+(define-public (default-auto-beam-check context dir test)
   (define (get name default)
-    (let ((value (ly:translator-property translator name)))
+    (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (if (!= (ly:moment-grace-numerator (ly:translator-now translator)) 0)
+  (if (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
       ;; No auto beaming for grace notes
       #f
       (let* ((beat-length (get 'beatLength (ly:make-moment 1 1)))

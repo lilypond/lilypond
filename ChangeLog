@@ -1,3 +1,11 @@
+2005-04-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/translator-scheme.cc (ly:translator-property): Remove.
+	Update callers.
+
+	* lily/context-scheme.cc (ly:context-now): Move from translator.
+	Update callers.
+
 2005-04-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/grid-lines.ly (skips): refine example.
@@ -7,7 +15,7 @@
 
 	* input/regression/grid-lines.ly (Module): new file.
 
-	* lily/grid-point-engraver.cc (Module): new file
+	* lily/grid-point-engraver.cc (Module): new file.
 
 	* lily/grid-line.cc (Module): new file.
 

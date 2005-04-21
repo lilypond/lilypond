@@ -150,3 +150,11 @@ LY_DEFINE (ly_context_find, "ly:context-find",
   return SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_context_now, "ly:context-now",
+	   1, 0, 0, (SCM context),
+	   "Return now-moment of context CONTEXT")
+{
+  Context *ctx = unsmob_context (context);
+  SCM_ASSERT_TYPE (ctx, context, SCM_ARG1, __FUNCTION__, "Context");
+  return ctx->now_mom ().smobbed_copy ();
+}

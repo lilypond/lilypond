@@ -112,7 +112,7 @@ bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test)
 {
   return scm_call_3 (get_property ("autoBeamCheck"),
-		     self_scm (),
+		     context ()->self_scm (),
 		     scm_from_int (dir),
 		     test.smobbed_copy ())
     != SCM_BOOL_F;

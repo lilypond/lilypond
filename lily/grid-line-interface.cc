@@ -7,12 +7,13 @@
 
 */
 
+#include "grid-line-interface.hh"
+
+#include "grob.hh"
 #include "group-interface.hh"
+#include "lookup.hh"
 #include "output-def.hh"
 #include "stencil.hh"
-#include "lookup.hh"
-#include "grid-line-interface.hh"
-#include "grob.hh"
 
 
 MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
@@ -81,4 +82,3 @@ ADD_INTERFACE (Grid_line_interface, "grid-line-interface",
 ADD_INTERFACE (Grid_point_interface, "grid-point-interface",
 	       "A spanning point for grid lines. ",
 	       "");
-
