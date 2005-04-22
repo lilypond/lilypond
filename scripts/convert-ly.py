@@ -2502,7 +2502,7 @@ def conv (str):
 		sys.stderr.write ('\n')
 		sys.stderr.write ('''
 Auto beam settings must now specify each interesting moment in a measure
-explicitely; 1/4 is no not multiplied to cover moments 1/2 and 3/4 too.
+explicitely; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.
 ''')
 		sys.stderr.write (UPDATE_MANUALLY)
 		sys.stderr.write ('\n')
