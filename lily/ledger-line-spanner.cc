@@ -344,7 +344,7 @@ ADD_INTERFACE (Ledger_line_spanner,
 	       "ledger-line-interface",
 	       
 	       "This spanner draws the ledger lines of a staff.\n"
-	       "This is a separate grob to because it has to process\n"
+	       "This is a separate grob because it has to process\n"
 	       "all potential collisions between all note heads.",
 	       
 	       "note-heads thickness minimum-length-fraction length-fraction gap");
