@@ -1,5 +1,7 @@
 2005-04-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* po/de.po: update.
+
 	* lily/GNUmakefile (OUT_DIST_FILES): don't dist lexer.cc
 
 2005-04-22  Laura Conrad <lconrad@laymusic.org>
