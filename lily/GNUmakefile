@@ -11,7 +11,7 @@ MODULE_CXXFLAGS=
 HELP2MAN_EXECS = lilypond
 STEPMAKE_TEMPLATES= c++ executable po help2man
 
-OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc lexer.cc parser.hh)
+OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc parser.hh)
 
 include $(depth)/make/stepmake.make 
 
