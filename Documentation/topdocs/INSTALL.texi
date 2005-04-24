@@ -116,9 +116,6 @@ newer).  EGCS and 2.x are known to cause crashes.
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
-@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.29 or
-newer, but not 1.50 or 1.75).
-
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
 
 @item All packages required for running, including development packages with
