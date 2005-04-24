@@ -1,3 +1,13 @@
+2005-04-22  Laura Conrad <lconrad@laymusic.org>
+ 
+	* scripts/abc2ly:
+	second title line append with punctuation dash character;
+	encode abc2ly python strings in utf-8
+       
+2005-04-21  Laura Conrad <lconrad@laymusic.org>
+
+	* scripts/abc2ly fix chords (again)
+ 
 2005-04-22  Bernard Hurley  <bernard@fong-hurley.org.uk>
 
 	* scm/x11-color.scm: new file

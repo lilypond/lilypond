@@ -1,5 +1,5 @@
 #!@PYTHON@
-
+# -*- coding: utf-8 -*-
 # once upon a rainy monday afternoon.
 #
 #   ...
@@ -636,7 +636,10 @@ def try_parse_header_line (ln, state):
 			if header.has_key('title'):
 				if a:
  					if len(header['title']):
- 						header['title'] = header['title'] + '\\\\\\\\' + a
+						# the non-ascii character
+						# in the string below is a
+						# punctuation dash. (TeX ---)
+ 						header['title'] = header['title'] + ' — ' + a
  					else:
  						header['subtitle'] = a
 			else:
@@ -1208,7 +1211,7 @@ def try_parse_chord_delims (str, state):
 	ch = ''
 	if str[:1] ==']':
 		str = str[1:]
-		ch = '>'
+		ch = '>>'
 
 	end = 0
 	while str[:1] ==')':
@@ -1388,7 +1391,9 @@ for f in files:
 	sys.stderr.write ('lilypond output to: `%s\'...' % out_filename)
 	outf = open (out_filename, 'w')
 
-	outf.write ('\\version "2.3.25"\n')
+# don't substitute @VERSION@. We want this to reflect
+# the last version that was verified to work.
+	outf.write ('\\version "2.5.20"\n' % version)
 
 #	dump_global (outf)
 	dump_header (outf, header)
