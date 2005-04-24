@@ -49,7 +49,7 @@ Separation_item::conditional_width (Grob *me, Grob *left)
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error (_ ("Separation_item:  I've been drinking too much"));
+	  programming_error ("Separation_item:  I've been drinking too much");
 	  continue;		/*UGH UGH*/
 	}
 
@@ -93,7 +93,7 @@ Separation_item::width (Grob *me)
       if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error (_ ("Separation_item:  I've been drinking too much"));
+	  programming_error ("Separation_item:  I've been drinking too much");
 	  continue;		/*UGH UGH*/
 	}
 
