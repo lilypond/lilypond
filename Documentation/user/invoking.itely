@@ -485,12 +485,12 @@ http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/conve
 @end ignore
 @verbatim
 
-There are a few things that the convert-ly cannot handle.  Here's a list of limitations
-that the community has complained about.
+There are a few things that the convert-ly cannot handle.  Here's a
+list of limitations that the community has complained about.
 
-This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes.  Thus this is just a wishlist, placed
-here for reference.
+This bug report structure has been chosen because convert-ly has a
+structure that doesn't allow to smoothly implement all needed changes.
+Thus this is just a wishlist, placed here for reference.
 
 1.6->2.0:
  Doesn't always convert figured bass correctly, specifically things like {< >}. Mats' comment on working around this:
@@ -524,11 +524,15 @@ reproduce the problem.  Make it small, so we can easily debug the
 problem.  Don't forget to tell which version of LilyPond you use!  Send
 the report to @email{bug-lilypond@@gnu.org}.
 
+@ignore
+@c the bug database is not up to date enough. 
+
 When you've found a bug, have a look at our
 @uref{http://@/lilypond@/.org/@/doc/@/v2.5/@/bugs/,bug database} to see if
 it has already been reported.  You could also try to do a few searches
 on the mailing list for the bug.  Sometimes the bug will have already
 been reported and a fix or workaround is already known.
+@end ignore
 
 Here is an example of a good bug report:
 
