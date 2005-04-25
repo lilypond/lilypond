@@ -72,7 +72,7 @@ endif
 ifeq ($(builddir),)
   outroot=.
 else
-  outroot=$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
+  outroot=$(builddir)$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
 endif
 
 include $(config_make)

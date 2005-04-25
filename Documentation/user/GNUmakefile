@@ -3,15 +3,16 @@ depth=../..
 LATEX_FILES =$(wildcard *.latex)
 
 # todo: add latex.
-DVI_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.dvi))
+DVI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.dvi)
 
 EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES)
 IMAGES=$(wildcard *.png)
 
-OUT_EPS_IMAGES=$(addprefix $(outdir)/,$(IMAGES:.png=.eps))
-OUT_PNG_IMAGES=$(addprefix $(outdir)/,$(IMAGES))
-OUT_ITEXI_FILES=$(addprefix $(outdir)/,$(ITELY_FILES:.itely=.itexi) 
-HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))\
+OUT_EPS_IMAGES=$(IMAGES:%.png=$(outdir)/%.eps)
+OUT_PNG_IMAGES=$(IMAGES:%=$(outdir)/%)
+OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
+ $(ITELY_FILES:%.itely=$(outdir)/%.texi)
+HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%.html)\
  $(outdir)/lilypond-internals.html
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)
@@ -241,7 +242,7 @@ $(builddir)/mf/$(outconfbase)/feta16list.ly:
 $(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES) 
 $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
-# Prevent music-glossary.texi from default
+# Prevent building music-glossary.texi from default target
 $(outdir)/music-glossary.nexi:
 
 # Rules for the automatically generated documentation
@@ -269,10 +270,9 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi:
 	touch $@
 	touch $(outdir)/$(*F).nexi
 
-$(outdir)/interfaces.itexi:
+$(outdir)/programming-interface.texi:
 	cp dummy-interfaces.itexi $@
 endif
-
 
 local-clean: local-delete
 
