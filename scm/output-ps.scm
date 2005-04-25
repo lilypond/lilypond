@@ -202,10 +202,13 @@
 			   (ly:music-property cause 'origin)))
 	 (location (if (ly:input-location? music-origin)
 		       (ly:input-file-line-column music-origin)
-		       #f))
-	 (file (if location
-		   (if (and (> 0 (string-length (car location)))
-			    (eq? (string-ref (car location) 0) #\/))
+		       #f
+		       ))
+	 (file (if (string? location)
+		   (if (and
+			(> (string-length location) 0)
+			(eq? (string-ref (car location) 0 ) #\/))
+
 		       location
 		       (string-append (getcwd) "/" (car location)))
 		   #f))

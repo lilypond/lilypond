@@ -1,3 +1,7 @@
+2005-04-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (grob-cause): bugfix.
+
 2005-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/*: Update.
