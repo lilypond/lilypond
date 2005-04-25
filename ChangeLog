@@ -1,3 +1,8 @@
+2005-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/GNUmakefile: Only build music-glossary with
+	rendered lilypond snippets during web.
+
 2005-04-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* po/de.po: update.

@@ -241,6 +241,9 @@ $(builddir)/mf/$(outconfbase)/feta16list.ly:
 $(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES) 
 $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
+# Prevent music-glossary.texi from default
+$(outdir)/music-glossary.nexi:
+
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake
 ifneq ($(CROSS),yes)
