@@ -109,6 +109,7 @@ EOF
 --define-variable prefix=$cygwin_root \
 --define-variable includedir=$cygwin_root/usr/include"
     fi
+    export CFLAGS="-DKPSE_DLL"
 }
 
 postconfig () {
