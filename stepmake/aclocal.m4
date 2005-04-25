@@ -11,7 +11,7 @@ AC_DEFUN(STEPMAKE_GET_EXECUTABLE, [
     ## command -v doesn't work in zsh
     ## command -v "$1" 2>&1
     ## this test should work in ash, bash, pdksh (ksh), zsh
-    type -p "$1" 2>/dev/null | tail -n 1 | awk '{print $NF}'
+    type -p $1 2>/dev/null | tail -n 1 | awk '{print $NF}'
 ])
 
 
@@ -797,12 +797,12 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
                  [kpse_var_expand ("\$TEXMF");],
                  [have_libkpathsea_so=maybe;
-		  shared_size=`wc -c conftest`;
+		  shared_size=`wc -c conftest$ac_exeext`;
 		  shared_size=`echo $shared_size | sed -e 's/ .*//g'`],
                  [have_libkpathsea_so=no])
 
     if test "$have_libkpathsea_so" = "maybe"; then
-	if test $shared_size -lt 40000 ; then
+	if test "$shared_size" -lt 40000 ; then
 	  have_libkpathsea_so=yes
 	else
 	  have_libkpathsea_so=no

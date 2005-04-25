@@ -86,6 +86,12 @@ preconfig () {
     patchsrc 
     rm -f config.cache
 
+    cd $src
+    if [ ! -x ./configure ]; then
+	./autogen.sh --noconfigure
+    fi
+
+    cd $build
     # for cross-compiling LilyPond, fake a guile-config
     if ! iscygwin; then
 	cd $build || exit 1
@@ -111,13 +117,17 @@ postconfig () {
     # cross-compiling: configure for build-host
     if ! iscygwin; then
 	rm -f config.cache
-	export HOST_CC=gcc
-	export HOST_CXX=g++
+	export HOST_CC=${HOST_CC:-gcc}
+	export HOST_CXX=${HOST_CXX:-g++}
+	export HOST_PKG_CONFIG=${HOST_PKG_CONFIG:-pkg-config}
+	export HOST_PKG_CONFIG_PATH=${HOST_PKG_CONFIG_PATH:-}
 	(PATH="$old_path" \
 	    PATH="$HOME/usr/pkg/guile/bin:$PATH" \
 	    CFLAGS="-O2 -g" \
 	    CC=$HOST_CC \
 	    CXX=$HOST_CXX \
+	    PKG_CONFIG=$HOST_PKG_CONFIG \
+	    PKG_CONFIG_PATH=$HOST_PKG_CONFIG_PATH \
 	    $src/configure --prefix=/usr --enable-config=for-build)
     fi
 }
