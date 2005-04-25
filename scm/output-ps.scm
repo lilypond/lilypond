@@ -193,41 +193,34 @@
 		(format #f " /~a glyphshow\n" g)
 		(format #f " ~a ~a rmoveto /~a glyphshow\n"
 			x y g))))
-	x-y-named-glyphs))
-  ))
+	x-y-named-glyphs))))
 
 (define (grob-cause offset grob)
   (let* ((cause (ly:grob-property grob 'cause))
 	 (music-origin (if (ly:music? cause)
-			   (ly:music-property cause 'origin)))
-	 (location (if (ly:input-location? music-origin)
-		       (ly:input-file-line-column music-origin)
-		       #f
-		       ))
-	 (file (if (string? location)
-		   (if (and
-			(> (string-length location) 0)
-			(eq? (string-ref (car location) 0 ) #\/))
+			   (ly:music-property cause 'origin))))
+    (if (not (ly:input-location? music-origin))
+	""
+	(let* ((location (ly:input-file-line-column music-origin))
+	       (raw-file (car location))
+	       (file (if (and (> (string-length raw-file) 0)
+			      (eq? (string-ref raw-file 0) #\/))
+			 raw-file
+			 (string-append (getcwd) "/" raw-file)))
+	       (x-ext (ly:grob-extent grob grob X))
+	       (y-ext (ly:grob-extent grob grob Y)))
 
-		       location
-		       (string-append (getcwd) "/" (car location)))
-		   #f))
-	 (x-ext (ly:grob-extent grob grob X)) 
-	 (y-ext (ly:grob-extent grob grob Y)))
-
-    (if (and location
-	     (< 0 (interval-length x-ext))
-	     (< 0 (interval-length y-ext)))
-	
-	(format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_URI\n"
-		(+ (car offset) (car x-ext))
-		(+ (cdr offset) (car y-ext))
-		(+ (car offset) (cdr x-ext))
-		(+ (cdr offset) (cdr y-ext))
-		file
-		(cadr location)
-		(caddr location))
-	"")))
+	  (if (and (< 0 (interval-length x-ext))
+		   (< 0 (interval-length y-ext)))
+	      (format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_URI\n"
+		      (+ (car offset) (car x-ext))
+		      (+ (cdr offset) (car y-ext))
+		      (+ (car offset) (cdr x-ext))
+		      (+ (cdr offset) (cdr y-ext))
+		      file
+		      (cadr location)
+		      (caddr location))
+	      "")))))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
