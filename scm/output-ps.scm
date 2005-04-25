@@ -202,16 +202,15 @@
 			   (ly:music-property cause 'origin)))
 	 (location (if (ly:input-location? music-origin)
 		       (ly:input-file-line-column music-origin)
-		       #f
-		       ))
+		       #f))
 	 (file (if location
-		   (if (eq? (string-ref (car location) 0 ) #\/) 
+		   (if (and (> 0 (string-length (car location)))
+			    (eq? (string-ref (car location) 0) #\/))
 		       location
 		       (string-append (getcwd) "/" (car location)))
 		   #f))
 	 (x-ext (ly:grob-extent grob grob X)) 
-	 (y-ext (ly:grob-extent grob grob Y)) 
-	 )
+	 (y-ext (ly:grob-extent grob grob Y)))
 
     (if (and location
 	     (< 0 (interval-length x-ext))

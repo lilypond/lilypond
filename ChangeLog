@@ -1,5 +1,7 @@
 2005-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm (grob-cause): Bugfix.
+
 	* scm/lily.scm (ly:load): Remove x11-color.
 
 	* stepmake/aclocal.m4 (STEPMAKE_GET_EXECUTABLE): Bugfix: do not
