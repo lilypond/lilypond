@@ -1,5 +1,9 @@
 2005-04-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/INSTALL.texi (Top): idem.
+
+	* Documentation/topdocs/README.texi (Top): remove clean-fonts refs.
+
 	* VERSION (MAJOR_VERSION): release 2.5.21
 
 	* scm/output-ps.scm (grob-cause): bugfix.

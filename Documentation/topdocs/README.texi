@@ -85,18 +85,6 @@ for sending bugreports.
 You can search the lists from the following page:
 @uref{http://lilypond.org/search, searching facilities}.
 
-@section Caveats
-
-If you have installed a previous version, be sure to remove old font
-files, e.g.,
-
-@example 
-	rm `find /var/lib/texmf/fonts -name 'feta*'` 
-@end example 
-
-a script to do this is left after compiling in
-@file{buildscripts/out/clean-fonts}.
-
 @section Bugs
 
 Send bug reports to @email{bug-lilypond@@gnu.org}.  For help and

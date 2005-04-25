@@ -55,16 +55,6 @@ Check out @uref{http://lilypond.org/download} for up to date information on
 binary packages for your platform.
 
 
-@subsection Font problems
-
-If you are upgrading from a previous version of LilyPond, be sure to
-remove all old font files.  These include @file{.pk} and @file{.tfm}
-files that may be located in @file{/var/lib/texmf},
-@file{/var/spool/texmf}, @file{/var/tmp/texmf} or
-@file{@var{prefix}/share/lilypond/fonts/}.  A script automating this
-has been included, see @file{buildscripts/out/clean-fonts}.
-
-
 @section Requirements
 
 @subsection Compilation
@@ -185,7 +175,6 @@ cd lilypond-x.y.z
 ./configure		# run with --help for applicable options
 make
 make install
-sh buildscripts/clean-fonts.sh
 @end example
 @end quotation
 
@@ -199,10 +188,6 @@ make -C mf get-pfa                # requires rpm2cpio
 make -C mf get-debian-pfa         # may not be up to date
 @end example
 @end quotation
-
-If you are doing an upgrade, you should remove all @file{feta}
-@code{.pk} and @code{.tfm} files.  A script has been provided to do the
-work for you, see @file{buildscripts/out/clean-fonts}.
 
 If you are not root, you should choose a @code{--prefix} argument that
 points into your home directory, e.g.
