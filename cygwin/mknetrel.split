@@ -125,7 +125,8 @@ domkdist() {
     # The source package
     cd $src/.. || exit 1
     echo creating "$tarstem"-src.tar.bz2
-    find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    ##find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    cd $package_src && tar -cj --exclude='\.cvsignore' --exclude='\.bak$' --exclude='\.orig$' --exclude='\.o$' --exclude='~$' --exclude='^.#' --exclude='CVS' --exclude='%redact' --exclude='/tags$' --owner=0 --group=0 -f "$tarstem"-src.tar.bz2 .
     postpackage
 }
 

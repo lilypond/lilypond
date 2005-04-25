@@ -86,18 +86,28 @@ preconfig () {
     patchsrc 
     rm -f config.cache
 
+    cd $src
+    if [ ! -x ./configure ]; then
+	./autogen.sh --noconfigure
+    fi
+
+    cd $build
     # for cross-compiling LilyPond, fake a guile-config
     if ! iscygwin; then
 	cd $build || exit 1
 	GUILE=1.6.5
-	cat > guile-config <<EOF
-[ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
+	cat > i686-cygwin-guile-config <<EOF
+[ "\$1" == "--version" ] && echo "i686-cygwin-guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_root/usr/include"
 [ "\$1" == "link" ] && echo "-L$cygwin_root/usr/lib -lguile"
 exit 0
 EOF
-	chmod 755 guile-config
+	chmod 755 i686-cygwin-guile-config
 	PATH=$(pwd):$PATH
+	export PKG_CONFIG_PATH=$cygwin_root/usr/lib/pkgconfig
+	export PKG_CONFIG="pkg-config \
+--define-variable prefix=$cygwin_root \
+--define-variable includedir=$cygwin_root/usr/include"
     fi
 }
 
@@ -107,13 +117,17 @@ postconfig () {
     # cross-compiling: configure for build-host
     if ! iscygwin; then
 	rm -f config.cache
-	export HOST_CC=gcc
-	export HOST_CXX=g++
+	export HOST_CC=${HOST_CC:-gcc}
+	export HOST_CXX=${HOST_CXX:-g++}
+	export HOST_PKG_CONFIG=${HOST_PKG_CONFIG:-pkg-config}
+	export HOST_PKG_CONFIG_PATH=${HOST_PKG_CONFIG_PATH:-}
 	(PATH="$old_path" \
 	    PATH="$HOME/usr/pkg/guile/bin:$PATH" \
 	    CFLAGS="-O2 -g" \
 	    CC=$HOST_CC \
 	    CXX=$HOST_CXX \
+	    PKG_CONFIG=$HOST_PKG_CONFIG \
+	    PKG_CONFIG_PATH=$HOST_PKG_CONFIG_PATH \
 	    $src/configure --prefix=/usr --enable-config=for-build)
     fi
 }

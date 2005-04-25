@@ -52,9 +52,9 @@ ac_cv_exeext=\${ac_cv_exeext=}
 #    sys_lib_search_path_spec="/usr/lib /lib/w32api /lib /usr/local/lib"
 lt_cv_dlopen=\${lt_cv_dlopen="dlopen"}
 lt_cv_dlopen_libs=\${lt_cv_dlopen_libs="none required"}
-## -- will this work?
-##libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"/lib /usr/lib"'"}
-libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"$cygwin_prefix/lib"'"}
+## trying to get .la's in /usr/lib, will this work? -- jcn
+libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"/lib /usr/lib"'"}
+##libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"$cygwin_prefix/lib"'"}
 lt_cv_sys_max_cmd_len=${lt_cv_sys_max_cmd_len=8192}
 ##ac_cv_header_strings_h=${ac_cv_header_strings_h=yes}
 ac_cv_lib_dld_shl_load=\${ac_cv_lib_dld_shl_load=no}
