@@ -1,3 +1,7 @@
+2005-04-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/abc2ly.py (out_filename): fix thinko with \version.
+
 2005-04-26  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/basic-notation.itely,

@@ -68,14 +68,14 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 				   gint (magnification *
 					 pango_font_description_get_size (description)));
 
-  gchar *fn = pango_font_description_to_filename (description);
-  SCM key = ly_symbol2scm (fn);
+  gchar *pango_fn = pango_font_description_to_filename (description);
+  SCM key = ly_symbol2scm (pango_fn);
 
   SCM val;
   if (!pango_dict_->try_retrieve (key, &val))
     {
-      if (be_verbose_global)
-	progress_indication ("[" + String (fn));
+      progress_indication ("[" + String (pango_fn));
+      
       Pango_font *pf = new Pango_font (pango_ft2_fontmap_,
 				       RIGHT,
 				       description,
@@ -90,7 +90,7 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
       pf->description_ = scm_cons (SCM_BOOL_F,
 				   scm_make_real (1.0));
     }
-  g_free (fn);
+  g_free (pango_fn);
   return dynamic_cast<Pango_font *> (unsmob_metrics (val));
 }
 

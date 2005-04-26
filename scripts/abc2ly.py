@@ -1393,7 +1393,7 @@ for f in files:
 
 # don't substitute @VERSION@. We want this to reflect
 # the last version that was verified to work.
-	outf.write ('\\version "2.5.20"\n' % version)
+	outf.write ('\\version "2.5.20"\n')
 
 #	dump_global (outf)
 	dump_header (outf, header)
