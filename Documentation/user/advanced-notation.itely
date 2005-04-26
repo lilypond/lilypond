@@ -1715,11 +1715,11 @@ This example demonstrates how to place prefatory matter
 
 
 @node Coloring objects
-@section Coloring objects
+@subsection Coloring objects
 
 @c FIXME: need link to missing list of colors
 Individual objects may be assigned colors.  You may use color names
-listed HERE or the x11 color names listed THERE.
+listed HERE
 
 @lilypond[quote,raggedright,verbatim,fragment]
 \override NoteHead #'color = #red
@@ -1729,6 +1729,62 @@ d
 \override Stem #'color = #blue
 e
 @end lilypond
+
+The full range of colors defined for X11 can be accessed by using the
+scheme function x11-color.  The function takes one argument that can be a
+symbol
+
+@example
+\override Beam #'color = #(x11-color 'MediumTurquoise)
+@end example
+
+or a string
+
+@example
+\override Beam #'color = #(x11-color "MediumTurquoise")
+@end example
+
+The first form is quicker to write and is more efficient.  However, using
+the second form it is possible to access X11 colors by the multi-word
+form of its name
+
+@example
+\override Beam #'color = #(x11-color "medium turquoise")
+@end example
+
+If x11-color cannot make sense of the parameter then the color returned
+defaults to black.  It should be obvious from the final score that
+something is wrong.
+
+This example, illustrates the use of x11-color.  Notice that the stem
+color remains black after being set to (x11-color 'Boggle), which is
+deliberate nonsense.
+
+@lilypond[quote,raggedright,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrument = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 2/4
+  gis''8 a''
+  \override Beam #'color = #(x11-color "medium turquoise")
+  gis'' a''
+  \override NoteHead #'color = #(x11-color "LimeGreen")
+  gis'' a''
+  \override Stem #'color = #(x11-color 'Boggle)
+  gis'' a''
+}
+@end lilypond
+
+
+@refbugs
+Not all x11 colors are distinguishable in a web browser.  For web use
+normal colors are recommended. 
+
+An x11 color is not necessarily exactly the same shade as a similarly
+named normal color. 
+
 
 @seealso
 
