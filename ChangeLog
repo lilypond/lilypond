@@ -1,3 +1,10 @@
+2005-04-26  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/basic-notation.itely,
+	instrument-notation.itely, advanced-notation.itely,
+	changing-defaults.itely: minor fixes.  Added docs
+	for colors to advanced-notation.itely.
+
 2005-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-ps.scm (grob-cause): Yet another fix, hope it's
