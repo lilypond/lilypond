@@ -721,6 +721,10 @@ Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the engraver will
 not insert tuplets.
 
+@code{Completion_heads_engraver} only affects notes; it does not split
+rests.
+
+
 @seealso
 
 Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
