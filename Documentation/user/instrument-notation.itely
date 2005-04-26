@@ -116,12 +116,6 @@ quality output, staff switches should be specified manually.
 
 @code{\autochange} cannot be inside @code{\times}.
 
-Internally, the @code{\partcombine} interprets both arguments as
-@code{Voice}s named @code{one} and @code{two}, and then decides when
-the parts can be combined.  Consequently, if the arguments switch to
-differently named @internalsref{Voice} contexts, the events in those
-will be ignored.
-
 
 @node Manual staff switches
 @subsection Manual staff switches
