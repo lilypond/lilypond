@@ -896,6 +896,7 @@ the parts can be combined.  Consequently, if the arguments switch to
 differently named @internalsref{Voice} contexts, the events in those
 will be ignored.
 
+
 @node Hiding staves
 @subsection Hiding staves
 
@@ -903,7 +904,7 @@ will be ignored.
 @cindex Hiding staves
 
 In orchestral scores, staff lines that only have rests are usually
-removed.  This saves some space.  This style is called `French Score'.
+removed; this saves some space.  This style is called `French Score'.
 For @internalsref{Lyrics},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default.  When the lines of these contexts turn out
@@ -1712,6 +1713,26 @@ This example demonstrates how to place prefatory matter
 
 @end ignore
 
+
+@node Coloring objects
+@section Coloring objects
+
+@c FIXME: need link to missing list of colors
+Individual objects may be assigned colors.  You may use color names
+listed HERE or the x11 color names listed THERE.
+
+@lilypond[quote,raggedright,verbatim,fragment]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+@seealso
+
+COLORLIST
 
 
 @node Automatic notation
