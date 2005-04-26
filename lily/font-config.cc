@@ -44,7 +44,7 @@ init_fontconfig ()
     {
       String dir = dirs[i];
       if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
-	error (_f ("adding lilypond directory: %s", dir.to_str0 ()));
+	error (_f ("adding font directory: %s", dir.to_str0 ()));
       else if (be_verbose_global)
 	message (_f ("adding font directory: %s", dir.to_str0 ()));
     }
@@ -58,5 +58,7 @@ init_fontconfig ()
 void
 init_fontconfig ()
 {
+  
 }
+
 #endif
