@@ -158,6 +158,7 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
 
   String nm = ly_scm2string (name);
   String filename = global_path.find (nm);
+#if KPATHSEA
   if (filename.is_empty ())
     {
       char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
@@ -167,6 +168,7 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
       else
 	return SCM_BOOL_F;
     }
+#endif /* KPATHSEA */
   return scm_makfrom0str (filename.to_str0 ());
 }
 
@@ -176,13 +178,17 @@ LY_DEFINE (ly_kpathsea_expand_variable, "ly:kpathsea-expand-variable",
 	   "Return the expanded version  @var{var}.")
 {
   SCM_ASSERT_TYPE (scm_is_string (var), var, SCM_ARG1, __FUNCTION__, "string");
+#if KPATHSEA
 
   String nm = ly_scm2string (var);
-  char *result =  kpse_var_expand (nm.to_str0 ());
+  char *result = kpse_var_expand (nm.to_str0 ());
   SCM ret =  scm_makfrom0str (result);
   delete[] result;
 
   return ret;
+#else
+  return scm_makfrom0str ("");
+#endif
 }
 
 

@@ -2,6 +2,7 @@
 #define DIMENSIONS_HH
 
 #include "real.hh"
+
 class String;
 
 

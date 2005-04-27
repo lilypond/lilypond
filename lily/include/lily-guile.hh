@@ -9,7 +9,12 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
+#if __MINGW32__
+#include "mingw-compatibility.hh"
+#endif
+
 #include <libguile.h>
+
 #include "flower-proto.hh"
 
 #include "drul-array.hh"

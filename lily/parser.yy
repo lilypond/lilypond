@@ -24,9 +24,7 @@ TODO:
 #include <stdlib.h>
 #include <stdio.h>
 
-
 #include "book.hh"
-
 #include "context-def.hh"
 #include "dimensions.hh"
 #include "event.hh"
