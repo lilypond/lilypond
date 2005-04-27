@@ -1,5 +1,7 @@
 2005-04-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* po/zh_TW.po (Module): new translation.
+
 	* lily/lily-guile.cc (ly_chain_assoc): remove.
 
 	* lily/general-scheme.cc (LY_DEFINE): export ly:chain_assoc_get
