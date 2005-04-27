@@ -271,3 +271,20 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 }
 
 
+
+LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
+	   2, 1, 0, (SCM key, SCM achain, SCM dfault),
+	   "Return value for @var{key} from a list of alists @var{achain}. Return @var{dfault} "
+	   "if no entry is found, or #f if not specified. ")
+{
+  if (scm_is_pair (achain))
+    {
+      SCM handle = scm_assoc (key, scm_car (achain));
+      if (scm_is_pair (handle))
+	return scm_cdr (handle);
+      else
+	return ly_chain_assoc_get (key, scm_cdr (achain), dfault);
+    }
+  else
+    return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
+}

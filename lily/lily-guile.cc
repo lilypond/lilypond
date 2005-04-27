@@ -325,35 +325,7 @@ ly_deep_copy (SCM src)
   return src;
 }
 
-SCM
-ly_chain_assoc_get (SCM key, SCM achain, SCM dfault)
-{
-  if (scm_is_pair (achain))
-    {
-      SCM handle = scm_assoc (key, scm_car (achain));
-      if (scm_is_pair (handle))
-	return scm_cdr (handle);
-      else
-	return ly_chain_assoc (key, scm_cdr (achain));
-    }
-  else
-    return dfault;
-}
 
-SCM
-ly_chain_assoc (SCM key, SCM achain)
-{
-  if (scm_is_pair (achain))
-    {
-      SCM handle = scm_assoc (key, scm_car (achain));
-      if (scm_is_pair (handle))
-	return handle;
-      else
-	return ly_chain_assoc (key, scm_cdr (achain));
-    }
-  else
-    return SCM_BOOL_F;
-}
 
 /* looks the key up in the cdrs of the alist-keys
    - ignoring the car and ignoring non-pair keys.

@@ -133,6 +133,10 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[]
 = {
   {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],\n                                       scm, svg, tex, texstr)")},
+
+  {_i ("SYM=VAL"), "define-default", 'd',
+   _i ("define a default Scheme setting.")},
+
   {_i ("EXPR"), "evaluate", 'e', _i ("set scheme option, for help use\n                                       -e '(ly:option-usage)'")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
@@ -473,6 +477,10 @@ parse_argv (int argc, char **argv)
 	    make_print = false;
 	  break;
 
+	case 'd':
+	  
+	  break;
+	  
 	case 'v':
 	  notice ();
 	  exit (0);

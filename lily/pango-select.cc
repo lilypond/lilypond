@@ -15,12 +15,12 @@
 PangoFontDescription *
 properties_to_pango_description (SCM chain, Real text_size)
 {
-  SCM name = ly_chain_assoc (ly_symbol2scm ("font-name"), chain);
+  SCM name = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
 
   PangoFontDescription *description = 0;
-  if (scm_is_pair (name) && scm_is_string (scm_cdr (name)))
+  if (scm_is_string (name))
     {
-      String name_str = ly_scm2string (scm_cdr (name));
+      String name_str = ly_scm2string (name);
       description = pango_font_description_from_string (name_str.to_str0 ());
     }
   else

@@ -102,15 +102,13 @@ properties_to_font_size_family (SCM fonts, SCM alist_chain)
 Font_metric *
 select_encoded_font (Output_def *layout, SCM chain)
 {
-  SCM name = ly_chain_assoc (ly_symbol2scm ("font-name"), chain);
+  SCM name = ly_chain_assoc_get (ly_symbol2scm ("font-name"), chain, SCM_BOOL_F);
 
-  if (!scm_is_pair (name) || !scm_is_string (scm_cdr (name)))
+  if (!scm_is_string (name))
     {
       SCM fonts = layout->lookup_variable (ly_symbol2scm ("fonts"));
       name = properties_to_font_size_family (fonts, chain);
     }
-  else
-    name = scm_cdr (name);
 
 #if HAVE_PANGO_FT2
   if (scm_is_string (name)
@@ -122,10 +120,9 @@ select_encoded_font (Output_def *layout, SCM chain)
 #endif
     if (scm_is_string (name))
       {
-	SCM mag = ly_chain_assoc (ly_symbol2scm ("font-magnification"), chain);
-	Real rmag = (scm_is_pair (mag)
-		     ? robust_scm2double (scm_cdr (mag), 1.0)
-		     : 1);
+	Real rmag =
+	  robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-magnification"), chain, SCM_BOOL_F),
+			     1.0);
 	Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
 
 	return find_scaled_font (layout, fm, rmag);
@@ -135,11 +132,9 @@ select_encoded_font (Output_def *layout, SCM chain)
 	SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
 	SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
 
-	SCM font_size = ly_chain_assoc (ly_symbol2scm ("font-size"), chain);
-	Real req = 0;
-	if (scm_is_pair (font_size))
-	  req = scm_to_double (scm_cdr (font_size));
-
+	Real req = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-size"), chain, SCM_BOOL_F),
+				      0.0);
+	
 	return get_font_by_mag_step (layout, req, vec,
 				     scm_to_double (base_size));
       }
