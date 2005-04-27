@@ -1,3 +1,7 @@
+2005-04-28  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/index.html.in: specify utf-8 charset in meta content.
+
 2005-04-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/lilylib.py (make_ps_images): bugfixes; GS can produce

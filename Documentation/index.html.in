@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>LilyPond @TOPLEVEL_VERSION@ Documentation</title>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
     <meta name="aesop" content="links">
     <meta name="description"
           content="Top-level index to the standard documentation for
