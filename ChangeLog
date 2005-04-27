@@ -1,3 +1,8 @@
+2005-04-27  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/lily.scm (postscript->png): Add space between arguments to
+	ps2png
+
 2005-04-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin: Updates.

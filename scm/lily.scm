@@ -327,7 +327,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 	       (number->string resolution)
 	       "90 ")
 	   (if (ly:get-option 'verbose)
-	       "--verbose "
+	       " --verbose "
 	       " ")
 	   name)))
     (ly:system cmd)))
