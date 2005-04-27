@@ -192,7 +192,21 @@
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
+
+
+
+(define-public (line-location  file line col)
+  "Print an input location, without column number ."
+  (string-append (number->string line) " " file))
+
+(define-public point-and-click #f)
+
 (define (grob-cause offset grob)
+  (define (line-column-location file line col)
+    "Print an input location, including column number ."
+    (string-append (number->string line) ":"
+		   (number->string col) " " file))
+
   (if (procedure? point-and-click)
       (let* ((cause (ly:grob-property grob 'cause))
 	     (music-origin (if (ly:music? cause)
@@ -202,6 +216,6 @@
 	(if (pair? location)
 	     ;;; \\string ? 
 	    (string-append "\\special{src:"
-			   (apply point-and-click location) "}")
+			   (line-column-location location) "}")
 	    ""))
       ""))

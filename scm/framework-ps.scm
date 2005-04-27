@@ -342,22 +342,74 @@
     (display "} stop-system\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
 
+
 (define-public (output-preview-framework basename book scopes fields)
+  
   (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (scale (ly:output-def-lookup paper 'outputscale))
-	 (titles (take-while ly:paper-system-title? systems))
-	 (non-title (find (lambda (x)
-			    (not (ly:paper-system-title? x))) systems))
-	 (dump-me
-	  (stack-stencils Y DOWN 0.0
-			  (map ly:paper-system-stencil
-			       (append titles (list non-title))))))
-    (output-scopes scopes fields basename)
-    (dump-stencil-as-EPS paper dump-me
-			 (format "~a.preview" basename)
-			 #t)))
+	 (to-dump-systems '())
+	 )
 
+    
+    ;; skip booktitles.
+    (if (and
+	 (not
+	  (cdr (assoc
+	       'preview-include-book-title
+	       (ly:get-option 'command-line-settings)
+	       )))
+	 (< 1 (length systems))
+	 (ly:paper-system-title? (list-ref systems 0))
+	 (ly:paper-system-title? (list-ref systems 1)))
+	(set! systems (cdr systems)))
+
+    
+    (for-each
+     (lambda (sys)
+       (if (or
+	    (ly:paper-system-title? sys)
+	    (and (pair? to-dump-systems)
+		 (ly:paper-system-title? (car to-dump-systems))))
+	   (set! to-dump-systems (cons sys to-dump-systems))))
+     systems)
+
+    (dump-stencil-as-EPS
+     paper
+     (stack-stencils Y DOWN 0.0
+		     (map ly:paper-system-stencil (reverse to-dump-systems)))
+     (format "~a.preview" basename)
+     #t)
+
+    (postprocess-output book framework-ps-module
+			(format "~a.preview.eps" basename)
+			(completize-formats (cons "png" (ly:output-formats))))
+    
+    ))
+(if #f
+    (define-public (output-preview-framework basename book scopes fields)
+      
+      (let* ((paper (ly:paper-book-paper book))
+	     (systems (ly:paper-book-systems book))
+	     (scale (ly:output-def-lookup paper 'outputscale))
+	     (titles (take-while ly:paper-system-title? systems))
+	     (non-title (find (lambda (x)
+				(not (ly:paper-system-title? x))) systems))
+	     (dump-me
+	      (stack-stencils Y DOWN 0.0
+			      (map ly:paper-system-stencil
+				   (append titles (list non-title))))))
+	(output-scopes scopes fields basename)
+	(dump-stencil-as-EPS paper dump-me
+			     (format "~a.preview" basename)
+			     #t)
+
+	(postprocess-output book framework-ps-module
+			    (format "~a.preview.eps" basename)
+			    (completize-formats (ly:output-formats)))
+	
+	))
+    )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)
@@ -371,12 +423,17 @@
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
-	 (resolution (ly:output-def-lookup defs 'pngresolution))
+	 (defs-resolution (ly:output-def-lookup defs 'pngresolution))
+	 (resolution (if (number? defs-resolution)
+			 defs-resolution
+			 (cdr (assoc 'resolution
+				(ly:get-option 'command-line-settings)))))
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
-    (postscript->png (if (number? resolution) resolution
-			 (ly:get-option 'resolution))
-		     (if (string? papersizename) papersizename "a4")
+    (postscript->png resolution
+		     (if (string? papersizename)
+			 papersizename "a4")
+		     
 		     name)))
 
 (define-public (convert-to-dvi book name)

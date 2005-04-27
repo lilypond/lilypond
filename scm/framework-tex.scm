@@ -298,8 +298,16 @@
 	 (resolution (ly:output-def-lookup defs 'pngresolution))
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
     (postscript->png
-     (if (number? resolution) resolution (ly:get-option 'resolution))
-     (if (string? papersizename) papersizename "a4")
+     (if (number? resolution)
+	 resolution
+	 (assoc
+	  'resolution
+	  (ly:get-option 'command-line-settings)))
+
+     (if (string? papersizename)
+	 papersizename
+	 "a4")
+     
      (string-append (basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)

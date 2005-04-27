@@ -36,16 +36,13 @@
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-(define-public (line-column-location file line col)
-  "Print an input location, including column number ."
-  (string-append (number->string line) ":"
-		 (number->string col) " " file))
 
-(define-public (line-location  file line col)
-  "Print an input location, without column number ."
-  (string-append (number->string line) " " file))
 
-(define-public point-and-click #f)
+;; initialize defaults. 
+(ly:set-option 'command-line-settings
+	       '((resolution . 90)
+		 (preview-include-book-title . #t)
+		 ))
 
 (define-public tex-backend?
   (member (ly:output-backend) '("texstr" "tex")))
