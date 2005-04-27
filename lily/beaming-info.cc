@@ -22,13 +22,12 @@ Beaming_info::Beaming_info (Moment m, int i)
   beams_i_drul_[RIGHT] = i;
 }
 
-const int infinity_i = INT_MAX;	// guh.
-const int at_beat = 1<<15;
+const int at_beat = 1 << 15;
 
 int
 Beaming_info_list::best_splitpoint_index (Moment &beat_length, bool subdivide) const
 {
-  int minden = infinity_i;
+  int minden = INT_MAX;	
   int minidx = -1;
   Moment beat_pos;
 

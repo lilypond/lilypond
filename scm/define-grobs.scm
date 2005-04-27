@@ -508,6 +508,9 @@
      . (
 	(print-function . ,Grid_line_interface::print)
 	(X-extent-callback  . ,Grid_line_interface::width_callback)
+	(self-alignment-X . ,CENTER)
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
+			       ,Self_alignment_interface::centered_on_parent))
 	(layer . 0)
 	(meta . ((interfaces . (grid-line-interface)))
 	)))
