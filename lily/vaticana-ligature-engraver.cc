@@ -25,6 +25,9 @@ class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 {
 
 private:
+  static bool
+  need_extra_horizontal_space (int prev_prefix_set, int prefix_set,
+			       int context_info, int delta_pitch);
   bool is_stacked_head (int prefix_set,
 			int context_info);
   Real align_heads (Array<Grob_info> primitives,
@@ -98,8 +101,8 @@ Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
  * added at most once between to heads.
  */
 bool
-need_extra_space (int prev_prefix_set, int prefix_set,
-		  int context_info, int delta_pitch)
+Vaticana_ligature_engraver::need_extra_horizontal_space (int prev_prefix_set, int prefix_set,
+							 int context_info, int delta_pitch)
 {
   if (prev_prefix_set & VIRGA)
     /*
@@ -295,8 +298,8 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
 	   */
 	}
 
-      if (need_extra_space (prev_prefix_set, prefix_set,
-			    context_info, delta_pitch))
+      if (need_extra_horizontal_space (prev_prefix_set, prefix_set,
+				       context_info, delta_pitch))
 	ligature_width += extra_space;
 
       /*
@@ -426,12 +429,17 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	    if (! (prev_context_info & FLEXA_RIGHT))
 	      /* correct head of previous primitive */
 	      if (prev_delta_pitch > 1)
-		prev_glyph_name = "svaticana.epiphonus";
+		{
+		  prev_glyph_name = "svaticana.epiphonus";
+		  glyph_name = "svaticana.plica";
+		}
 	      else
-		prev_glyph_name = "svaticana.vepiphonus";
-	    glyph_name = "svaticana.plica";
+		{
+		  prev_glyph_name = "svaticana.vepiphonus";
+		  glyph_name = "svaticana.vplica";
+		}
 	  }
-	else // (prev_delta_pitch <= 0)
+	else if (prev_delta_pitch < 0)
 	  {
 	    // cephalicus
 	    if (! (prev_context_info & FLEXA_RIGHT))
@@ -461,7 +469,20 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 		prev_primitive->set_property ("add-cauda",
 					      ly_bool2scm (false));
 	      }
-	    glyph_name = "svaticana.reverse.plica";
+	      if (prev_delta_pitch < - 1)
+		{
+		  glyph_name = "svaticana.reverse.plica";
+		}
+	      else
+		{
+		  glyph_name = "svaticana.reverse.vplica";
+		}
+	  }
+	else // (prev_delta_pitch == 0)
+	  {
+	    primitive->programming_error ("Vaticana_ligature:"
+					  "deminutum head must have different "
+					  "pitch -> ignoring grob");
 	  }
       else if (prefix_set & (CAVUM | LINEA))
 	if ((prefix_set & CAVUM) && (prefix_set & LINEA))

@@ -1,3 +1,24 @@
+2005-04-28  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* lily/vaticana-ligature-engraver.cc (need_extra_space): renamed
+	to need_extra_horizontal_space; bugfix: use class scope to avoid
+	global namespace pollution
+
+	* Documentation/user/instrument-notation.itely (ligatures): added
+	comment on possible future syntax change and how to work around
+
+	* lily/vaticana-ligature-engraver.cc, mf/parmesan-heads.mf
+	(epiphonus, cephalicus): fine-tune shape of plica head for narrow
+	intervals (fixes agnus dei example)
+
+	* lily/include/mensural-ligature.hh: make comments clearer
+
+	* lily/mensural-ligature.cc: line thickness of flexa shape
+	(originally by Pal Benko; slightly modified)
+
+	* Documentation/user/instrument-notation.itely (white mensural
+	ligatures): selected a more illustrative example
+
 2005-04-28  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/index.html.in: specify utf-8 charset in meta content.
