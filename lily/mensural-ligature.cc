@@ -28,12 +28,9 @@ brew_flexa (Grob *me,
 	    Real interval,
 	    bool solid,
 	    Real width,
-	    Real thickness)
+	    Real vertical_line_thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real height = 0.6 * staff_space;
-  Stencil stencil;
-
   Real slope = (interval / 2.0 * staff_space) / width;
 
   // Compensate optical illusion regarding vertical position of left
@@ -42,31 +39,48 @@ brew_flexa (Grob *me,
   Real slope_correction = 0.2 * staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction / width;
 
-  if (solid) // this will come handy for colorated flexae
+  Stencil stencil;
+  if (solid) // colorated flexae
     {
       Stencil solid_head
-	= Lookup::beam (corrected_slope, width, height, 0.0);
+	= Lookup::beam (corrected_slope, width, staff_space, 0.0);
       stencil.add_stencil (solid_head);
     }
   else // outline
     {
+      /*
+	The thickness of the horizontal lines of the flexa shape
+	should be equal to that of the horizontal lines of the
+	neomensural brevis note head (see mf/parmesan-heads.mf).
+      */
+      Real const horizontal_line_thickness = staff_space * 0.35;
+
+      // URGH!  vertical_line_thickness is adjustable (via thickness
+      // property), while horizontal_line_thickness is constant.
+      // Maybe both should be adjustable independently?
+
+      Real height = staff_space - horizontal_line_thickness;
+
       Stencil left_edge
-	= Lookup::beam (corrected_slope, thickness, height, 0.0);
+	= Lookup::beam (corrected_slope, vertical_line_thickness, height, 0.0);
       stencil.add_stencil (left_edge);
 
       Stencil right_edge
-	= Lookup::beam (corrected_slope, thickness, height, 0.0);
-      right_edge.translate_axis (width - thickness, X_AXIS);
-      right_edge.translate_axis (corrected_slope * (width - thickness), Y_AXIS);
+	= Lookup::beam (corrected_slope, vertical_line_thickness, height, 0.0);
+      right_edge.translate_axis (width - vertical_line_thickness, X_AXIS);
+      right_edge.translate_axis ((width - vertical_line_thickness) *
+				 corrected_slope, Y_AXIS);
       stencil.add_stencil (right_edge);
 
       Stencil bottom_edge
-	= Lookup::beam (corrected_slope, width, thickness, 0.0);
+	= Lookup::beam (corrected_slope, width,
+			horizontal_line_thickness, 0.0);
       bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
       Stencil top_edge
-	= Lookup::beam (corrected_slope, width, thickness, 0.0);
+	= Lookup::beam (corrected_slope, width,
+			horizontal_line_thickness, 0.0);
       top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }

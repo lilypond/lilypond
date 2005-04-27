@@ -312,7 +312,8 @@ fet_endchar;
 % parameterized punctum
 def punctum_char (expr verbose_name, internal_name,
 		  left_stem, right_stem, linea, cavum,
-		  straight, auctum, direction_up, excentric, up_shift, down_shift, mag) =
+		  straight, auctum, rev_auctum, direction_up,
+		  excentric, up_shift, down_shift, mag) =
 
 	fet_beginchar(verbose_name, "s" & internal_name)
 		save b_h, a_w;
@@ -346,6 +347,9 @@ def punctum_char (expr verbose_name, internal_name,
 		elseif auctum:
 			u_convexity# = -0.03ht#;
 			u_excentricity# = +0.25ht#;
+		elseif rev_auctum:
+			u_convexity# = -0.10ht#;
+			u_excentricity# = -0.12ht#;
 		else:
 			u_convexity# = -0.05ht#;
 			u_excentricity# = 0.0ht#; % dummy
@@ -381,7 +385,7 @@ def punctum_char (expr verbose_name, internal_name,
 
 		save box_top, box_bt;
 
-		if auctum:
+		if auctum or rev_auctum:
 			z1a = (0.00wd + linethickness/2, yoffs_bt);
 			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
 			z3a = (0.42wd - linethickness/2,
@@ -511,22 +515,22 @@ enddef;
 % punctum
 punctum_char("Ed. Vat. punctum", "vaticana.punctum",
 	     false, false, false, false, false,
-	     false, false, false, false, false, 1.0);
+	     false, false, false, false, false, false, 1.0);
 
 % punctum cavum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
 	     false, false, false, true, false,
-	     false, false, false, false, false, 1.0);
+	     false, false, false, false, false, false, 1.0);
 
 % linea punctum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. linea punctum", "vaticana.linea.punctum",
 	     false, false, true, false, false,
-	     false, false, false, false, false, 1.0);
+	     false, false, false, false, false, false, 1.0);
 
 % linea punctum cavum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
 	     false, false, true, true, false,
-	     false, false, false, false, false, 1.0);
+	     false, false, false, false, false, false, 1.0);
 
 % punctum inclinatum
 inclinatum_char("Ed. Vat. inclinatum", "vaticana.inclinatum",
@@ -535,17 +539,17 @@ inclinatum_char("Ed. Vat. inclinatum", "vaticana.inclinatum",
 % pes lower punctum
 punctum_char("Ed. Vat. pes lower punctum", "vaticana.lpes",
 	     false, false, false, false, true,
-	     false, true, false, false, false, 1.0);
+	     false, false, true, false, false, false, 1.0);
 
 % pes lower punctum
 punctum_char("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
 	     false, false, false, false, true,
-	     false, true, false, false, true, 1.0);
+	     false, false, true, false, false, true, 1.0);
 
 % pes upper punctum
 punctum_char("Ed. Vat. pes upper punctum", "vaticana.upes", 
 	     false, false, false, false, true,
-	     false, false, false, false, false, 1.0);
+	     false, false, false, false, false, false, 1.0);
 
 % pes upper punctum (shifted variation)
 %
@@ -555,17 +559,22 @@ punctum_char("Ed. Vat. pes upper punctum", "vaticana.upes",
 %
 punctum_char("Ed. Vat. var pes upper punctum", "vaticana.vupes",
 	     false, false, false, false, true,
-	     false, false, false, true, false, 1.0);
+	     false, false, false, false, true, false, 1.0);
 
 % small punctum as used in epiphonus
 punctum_char("Ed. Vat. plica", "vaticana.plica", 
 	     false, false, false, false, false,
-	     false, false, false, false, false, 0.6);
+	     false, false, false, false, false, false, 0.6);
+
+% small punctum as used in epiphonus
+punctum_char("Ed. Vat. var plica", "vaticana.vplica", 
+	     false, false, false, false, false,
+	     false, true, false, false, false, true, 0.6);
 
 % excentric punctum as used in epiphonus
 punctum_char("Ed. Vat. epiphonus", "vaticana.epiphonus", 
 	     false, false, false, false, false,
-	     false, true, true, false, false, 1.0);
+	     false, false, true, true, false, false, 1.0);
 
 % excentric punctum as used in epiphonus (shifted variation)
 %
@@ -575,22 +584,27 @@ punctum_char("Ed. Vat. epiphonus", "vaticana.epiphonus",
 %
 punctum_char("Ed. Vat. var epiphonus", "vaticana.vepiphonus",
 	     false, false, false, false, false,
-	     false, true, true, false, true, 1.0);
+	     false, false, true, true, false, true, 1.0);
 
 % small punctum as used in cephalicus
 punctum_char("Ed. Vat. rev. plica", "vaticana.reverse.plica",
 	     false, false, false, false, false,
-	     false, true, false, false, false, 0.6);
+	     false, false, true, false, false, false, 0.6);
+
+% small punctum as used in cephalicus
+punctum_char("Ed. Vat. rev. var plica", "vaticana.reverse.vplica",
+	     false, false, false, false, false,
+	     false, true, true, false, false, true, 0.6);
 
 % excentric punctum as used in cephalicus; without left stem
 punctum_char("Ed. Vat. cephalicus", "vaticana.inner.cephalicus",
 	     false, false, false, false, false,
-	     false, false, true, false, false, 1.0);
+	     false, false, false, true, false, false, 1.0);
 
 % excentric punctum as used in cephalicus; with left stem
 punctum_char("Ed. Vat. cephalicus", "vaticana.cephalicus",
 	     true, false, false, false, false,
-	     false, false, true, false, false, 1.0);
+	     false, false, false, true, false, false, 1.0);
 
 % quilisma
 fet_beginchar("Ed. Vat. quilisma", "svaticana.quilisma")
@@ -626,12 +640,12 @@ inclinatum_char("Solesmes punctum inclinatum parvum", "solesmes.incl.parvum",
 % solesmes punctum auctum ascendens
 punctum_char("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
 	     false, false, false, false, false,
-	     true, true, false, false, false, 1.0);
+	     true, false, true, false, false, false, 1.0);
 
 % solesmes punctum auctum descendens
 punctum_char("Solesmes punctum auctum descendens", "solesmes.auct.desc",
 	     false, false, false, false, false,
-	     true, false, false, false, false, 1.0);
+	     true, false, false, false, false, false, 1.0);
 
 % solesmes punctum inclinatum auctum
 inclinatum_char("Solesmes punctum incl. auctum", "solesmes.incl.auctum",

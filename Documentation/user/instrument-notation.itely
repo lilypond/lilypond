@@ -2682,6 +2682,15 @@ be collected and printed in front of it.
 
 Augmentum dots within ligatures are not handled correctly.
 
+The syntax still uses the deprecated infix style @code{\[ music expr
+\]}.  For consistency reasons, it will eventually be changed to
+postfix style @code{note\[ ... note\]}.  Alternatively, the file
+@file{gregorian@/-init@/.ly} can be included; it provides a scheme
+function
+@example
+\ligature @var{music expr}
+@end example
+with the same effect and is believed to be stable.
 
 @menu
 * White mensural ligatures::    
@@ -2727,9 +2736,13 @@ For example,
 \override NoteHead #'style = #'neomensural
 \override Staff.TimeSignature #'style = #'neomensural
 \clef "petrucci-g"
-\[ g\longa c\breve a\breve f\breve d'\longa \]
+\[ c'\maxima g \]
 s4
-\[ e1 f1 a\breve g\longa \]
+\[ d\longa c\breve f e d \]
+s4
+\[ c'\maxima d'\longa \]
+s4
+\[ e'1 a g\breve \]
 @end example
 @lilypond[quote,raggedright]
 \score {
@@ -2739,9 +2752,13 @@ s4
     \override NoteHead #'style = #'neomensural
     \override Staff.TimeSignature #'style = #'neomensural
     \clef "petrucci-g"
-    \[ g\longa c\breve a\breve f\breve d'\longa \]
+    \[ c'\maxima g \]
     s4
-    \[ e1 f1 a\breve g\longa \]
+    \[ d\longa c\breve f e d \]
+    s4
+    \[ c'\maxima d'\longa \]
+    s4
+    \[ e'1 a g\breve \]
   }
   \layout {
     \context {
@@ -2764,16 +2781,20 @@ to the following
   \override NoteHead #'style = #'neomensural
   \override Staff.TimeSignature #'style = #'neomensural
   \clef "petrucci-g"
-  \[ g\longa c\breve a\breve f\breve d'\longa \]
+  \[ c'\maxima g \]
   s4
-  \[ e1 f1 a\breve g\longa \]
+  \[ d\longa c\breve f e d \]
+  s4
+  \[ c'\maxima d'\longa \]
+  s4
+  \[ e'1 a g\breve \]
 }
 @end lilypond
 
 @refbugs
 
-The implementation is experimental.  It may output strange warnings,
-incorrect results, and might even crash on more complex ligatures.
+The invisible rests (@code{s4}) in the example are used to compensate
+for the poor horizontal spacing.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
