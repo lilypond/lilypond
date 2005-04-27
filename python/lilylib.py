@@ -474,6 +474,9 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 
 	# png16m is because Lily produces color nowadays.
 	if not multi_page:
+
+		# GS can produce empty 2nd page if pngn is used.
+		output_file = png1
 		cmd = r'''gs\
 		-dEPSCrop\
 		-dGraphicsAlphaBits=4\
@@ -514,7 +517,7 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4",
 		error (_ ("%s exited with status: %d") % ('GS', status))
 		exit (1)
 
-	if rename_page1_p or not multi_page:
+	if rename_page1_p and multi_page:
 		os.rename (pngn % 1, png1)
- 	files = glob.glob (png1) + glob.glob (re.sub ('%d', '*', output_file))
+ 	files = glob.glob (png1) + glob.glob (re.sub ('%d', '*', pngn))
 	return files

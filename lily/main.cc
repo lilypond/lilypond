@@ -70,7 +70,8 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-String init_scheme_code_string = "(begin #t ";
+String init_scheme_code_string;
+String init_scheme_variables;
 
 /* Generate preview of first system.  */
 bool make_preview = false;
@@ -393,9 +394,29 @@ main_with_guile (void *, int, char **)
 
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
-  init_scheme_code_string += ")";
-  scm_c_eval_string ((char *) init_scheme_code_string.to_str0 ());
+  
+  if (!init_scheme_variables.is_empty ()
+      || !init_scheme_code_string.is_empty ())
+    {
+      init_scheme_variables = "(ly:set-option 'command-line-settings (list "
+	+ init_scheme_variables + "))";
+      
+      init_scheme_code_string
+	+= "(begin #t "
+	+ init_scheme_variables
+	+ init_scheme_code_string
+	+ ")";
 
+      char const *str0 = init_scheme_code_string.to_str0 ();
+      
+      if (be_verbose_global)
+	{
+	  progress_indication (_f("Evaluating %s", str0));
+	}
+      scm_c_eval_string ((char *) str0);
+    }
+
+  
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
      Starting the GUILE engine is very time consuming.  */
@@ -478,7 +499,22 @@ parse_argv (int argc, char **argv)
 	  break;
 
 	case 'd':
-	  
+	  {
+	    String arg (option_parser->optional_argument_str0_);
+	    int eq = arg.index ('=');
+
+	    String key = arg;
+	    String val = "#t";
+	    
+	    if (eq >= 0)
+	      {
+		key = arg.left_string (eq);
+		val = arg.right_string (arg.length () - eq - 1);
+	      }
+
+	    init_scheme_variables
+	      += "(cons \'" + key  + "  " + val + ")\n";
+	  }
 	  break;
 	  
 	case 'v':

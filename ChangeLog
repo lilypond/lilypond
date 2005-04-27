@@ -1,5 +1,10 @@
 2005-04-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py (make_ps_images): bugfixes; GS can produce
+	empty 2nd page for mono page.
+
+	* scm/lily.scm: remove p&c definitions.
+
 	* po/zh_TW.po (Module): new translation.
 
 	* lily/lily-guile.cc (ly_chain_assoc): remove.

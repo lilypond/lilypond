@@ -6,10 +6,10 @@
   (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "scm-option.hh"
-
 #include <cstdio>
 
+#include "scm-option.hh"
+#include "protected-scm.hh"
 #include "parse-scm.hh"
 #include "warn.hh"
 #include "main.hh"
@@ -29,8 +29,6 @@
 /* Write midi as formatted ascii stream? */
 bool midi_debug_global_b;
 
-int preview_resolution_global = 90;
-
 /* General purpose testing flag */
 int testing_level_global;
 
@@ -44,6 +42,8 @@ bool lily_1_8_compatibility_used = false;
   crash if internally the wrong type is used for a grob property.
 */
 bool do_internal_type_checking_global;
+
+Protected_scm command_line_settings = SCM_EOL;
 
 /*
   What is this function for ?
@@ -96,6 +96,8 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	   "Relative for simultaneous music functions similar to chord syntax\n"
 	   "@item new-relative\n"
 	   "Relative for simultaneous music functions similar to sequential music\n"
+	   "@item command-line-settings\n"
+	   "An alist of generic key/value pairs\n"
 	   "@end table\n"
 	   "\n"
 	   "This function is useful to call from the command line: @code{lilypond -e\n"
@@ -123,10 +125,14 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
       /*  Needs to be reset for each file that uses this option.  */
       lily_1_8_compatibility_used = false;
     }
-  else if (var == ly_symbol2scm ("resolution"))
-    preview_resolution_global = robust_scm2int (val, 90);
   else if (var == ly_symbol2scm ("new-relative"))
     lily_1_8_relative = false;
+  else if (var == ly_symbol2scm ("command-line-settings"))
+    {
+      SCM_ASSERT_TYPE(scm_list_p (val) == SCM_BOOL_T,
+		      val, SCM_ARG2, __FUNCTION__, "alist");
+      command_line_settings = scm_append (scm_list_2 (val, command_line_settings));
+    }
   else
     {
       if (scm_is_symbol (var))
@@ -148,8 +154,8 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Report whether old-relative compatibility mode is used\n"
 	   "@item verbose\n"
 	   "Report whether we are running in verbose mode\n"
-	   "@item resolution\n"
-	   "Resolution for the PNG output."
+	   "@item command-line-settings\n"
+	   
 	   "@end table\n"
 	   "\n")
 {
@@ -163,8 +169,10 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
     o = ly_bool2scm (lily_1_8_relative);
   else if (var == ly_symbol2scm ("verbose"))
     o = ly_bool2scm (be_verbose_global);
-  else if (var == ly_symbol2scm ("resolution"))
-    o = scm_from_int (preview_resolution_global);
+  else if (var == ly_symbol2scm ("command-line-settings"))
+    {
+      o = command_line_settings;
+    }
   else
     {
       if (scm_is_symbol (var))
