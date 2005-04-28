@@ -231,10 +231,17 @@ use the @code{linewidth} music fragment option.
 @cindex titling and lilypond-book
 @cindex @code{\header} in La@TeX{} documents
 
-Each snippet calls @code{\preLilyPondExample} before and
-@code{\postLilyPondExample} after the music if those macros have been
-defined by the user.
+Each snippet will call the following macros if they have been defined by
+the user:
 
+@code{\preLilyPondExample} called before the music
+
+@code{\postLilyPondExample} called after the music
+
+@code{\betweenLilyPondSystem[1]} is called between systems if
+@code{lilypond-book} has split the snippet into several postscript
+files.  It must be defined as taking one parameter and will be
+passed the number of files already included in this snippet. 
 @cindex Latex, feta symbols
 @cindex fetachar
 
