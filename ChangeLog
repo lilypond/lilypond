@@ -1,3 +1,8 @@
+2005-04-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): remove TeX outdated
+	remarks.
+
 2005-04-28  Pal Benko  <benkop@freestart.hu>
 
 	* lily/mensural-ligature.cc (brew_flexa): apply thickness property

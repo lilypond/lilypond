@@ -94,6 +94,21 @@ This mode is used by default by lilypond-book.
  
 @cindex output format, setting
 
+@item -d,--define-default=@var{var}=@var{val}
+This defines an internal variable @var{var} as the Scheme value
+@var{val}.
+
+Supported values include:
+@table @code
+@item resolution
+set PNG resolution
+@item preview-include-book-title
+include book-titles in preview
+@end table
+
+These settings are returned when calling
+@code{(ly:get-option 'command-line-settings)} from Scheme.
+
 @item -h,--help
 Show a summary of usage.
 
