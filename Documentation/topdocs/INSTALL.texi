@@ -125,15 +125,9 @@ software
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
 (version 1.6.5 or newer).
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
-@item @TeX{}.
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
 newer).
 @end itemize
-
-You have to help @TeX{} and MetaFont find LilyPond support files.
-After compiling, scripts to do this can be found in
-@file{buildscripts/out/lilypond-profile} and
-@file{buildscripts/out/lilypond-login}.
 
 @subsection Building documentation
 
