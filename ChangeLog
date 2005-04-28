@@ -1,3 +1,12 @@
+2005-04-28  Pal Benko  <benkop@freestart.hu>
+
+	* lily/mensural-ligature.cc (brew_flexa): apply thickness property
+	only on vertical lines of flexa shape, and use a constant
+	thickness value for horizontal lines (patch slightly modified by
+	Jürgen Reuter)
+
+	* lily/include/mensural-ligature.hh: make 2 comments clearer
+
 2005-04-28  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/vaticana-ligature-engraver.cc (need_extra_space): renamed
@@ -10,11 +19,6 @@
 	* lily/vaticana-ligature-engraver.cc, mf/parmesan-heads.mf
 	(epiphonus, cephalicus): fine-tune shape of plica head for narrow
 	intervals (fixes agnus dei example)
-
-	* lily/include/mensural-ligature.hh: make comments clearer
-
-	* lily/mensural-ligature.cc: line thickness of flexa shape
-	(originally by Pal Benko; slightly modified)
 
 	* Documentation/user/instrument-notation.itely (white mensural
 	ligatures): selected a more illustrative example
