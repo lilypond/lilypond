@@ -1,5 +1,7 @@
 2005-04-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): release 2.4.7
+
 	* Documentation/topdocs/INSTALL.texi (Top): bump mftrace version
 	number.
 
