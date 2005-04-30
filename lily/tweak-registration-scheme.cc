@@ -65,7 +65,7 @@ LY_DEFINE (ly_all_tweaks, "ly:all-tweaks",
 
 LY_DEFINE (ly_tweak_read_tweaks, "ly:tweak-define-tweaks",
 	   1, 0, 0, (SCM tweaks),
-	   "Read  tweaks")
+	   "Read tweaks")
 {
   for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
     global_registry_->insert_tweak_from_file (scm_car (s));

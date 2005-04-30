@@ -352,6 +352,7 @@
 	 )
 
     
+    
     ;; skip booktitles.
     (if (and
 	 (not
@@ -363,14 +364,13 @@
 	 (ly:paper-system-title? (list-ref systems 0))
 	 (ly:paper-system-title? (list-ref systems 1)))
 	(set! systems (cdr systems)))
-
     
     (for-each
      (lambda (sys)
        (if (or
 	    (ly:paper-system-title? sys)
-	    (and (pair? to-dump-systems)
-		 (ly:paper-system-title? (car to-dump-systems))))
+	    (not (pair? to-dump-systems))
+	    (ly:paper-system-title? (car to-dump-systems)))
 	   (set! to-dump-systems (cons sys to-dump-systems))))
      systems)
 
