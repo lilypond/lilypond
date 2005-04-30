@@ -29,11 +29,11 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
 
-  SCM form;
   SCM answer = SCM_UNSPECIFIED;
+  SCM form = scm_read (port);
 
   /* Read expression from port.  */
-  if (!SCM_EOF_OBJECT_P (form = scm_read (port)))
+  if (!SCM_EOF_OBJECT_P (form))
     {
       if (ps->safe_)
 	{

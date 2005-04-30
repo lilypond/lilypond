@@ -99,6 +99,6 @@ ADD_TRANSLATOR (Part_combine_engraver,
 		/* accepts */ "part-combine-event",
 		/* acks  */ "multi-measure-rest-interface "
 		"slur-interface stem-interface note-head-interface",
-		/* reads */ "printPartCombineTexts soloText soloIIText"
+		/* reads */ "printPartCombineTexts soloText soloIIText "
 		"aDueText",
 		/* write */ "");
