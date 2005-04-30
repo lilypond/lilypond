@@ -2573,7 +2573,7 @@ markup_braced_list:
 	;
 
 markup_braced_list_body:
-	/* empty */	{  $$ = scm_list (SCM_EOL); }
+	/* empty */	{  $$ = SCM_EOL; }
 	| markup_braced_list_body markup {
 		$$ = scm_cons ($2, $1);
 	}
@@ -2647,7 +2647,8 @@ simple_markup:
 	
 markup:
 	markup_head_1_list simple_markup	{
-		$$ = scm_car (scm_call_2 (ly_lily_module_constant ("map-markup-command-list"), $1, scm_list_1 ($2)));
+		SCM mapper = ly_lily_module_constant ("map-markup-command-list");
+		$$ = scm_car (scm_call_2 (mapper, $1, scm_list_1 ($2)));
 	}
 	| simple_markup	{
 		$$ = $1;

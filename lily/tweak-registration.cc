@@ -42,10 +42,13 @@ Tweak_registry::insert_tweak_from_file (SCM tweak)
 	  && scm_car (skey) == ly_symbol2scm ("key"));
 
   Object_key const *key = undumper_->get_key (scm_to_int (scm_cadr (skey)));
-  if (tweaks_.find (key) == tweaks_.end ())
-    tweaks_[key] = SCM_EOL;
 
-  tweaks_[key] = scm_cons (scm_cdr (tweak), tweaks_[key]);
+  SCM existing = SCM_EOL;
+  Tweak_map::const_iterator prev = tweaks_.find (key);
+  if (prev != tweaks_.end ())
+    existing = (*prev).second;
+
+  tweaks_[key] = scm_cons (scm_cdr (tweak), existing);
 }
 
 void
