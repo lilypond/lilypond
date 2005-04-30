@@ -9,7 +9,7 @@
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
-;;(set-debug-cell-accesses! 5000)
+;(set-debug-cell-accesses! 1000)
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
