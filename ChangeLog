@@ -1,3 +1,11 @@
+2005-04-30  Graham Percival  <gperlist@shaw.ca>
+
+	* scm/define-grobs.scm: changed RemoveEmptyVerticalGroup's
+	remove-first to false (matches docs)
+
+	* Documentation/user/advanced-notation.itely: corrected docs
+	concerning remove-first.
+
 2005-04-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/part-combine-engraver.cc: make sure that the relevant

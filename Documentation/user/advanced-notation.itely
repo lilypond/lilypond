@@ -930,7 +930,7 @@ in this example disappears in the second line
 @end lilypond
 
 The first system shows all staves in full.  If empty staves should be
-removed from the first system too, set @code{remove-first} to false in
+removed from the first system too, set @code{remove-first} to true in
 @internalsref{RemoveEmptyVerticalGroup}.
 
 To remove other types of contexts, use @code{\AncientRemoveEmptyStaffContext}
