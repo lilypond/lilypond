@@ -58,8 +58,8 @@ Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {
   Real height = slope * width;
-  Real min_y = (0 <? height) - thick / 2;
-  Real max_y = (0 >? height) + thick / 2;
+  Real min_y = min (0., height) - thick / 2;
+  Real max_y = max (0., height) + thick / 2;
 
   Box b (Interval (0, width),
 	 Interval (min_y, max_y));
@@ -681,7 +681,7 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
 {
   Box b;
   b[X_AXIS] = Interval (0, iv.length ());
-  b[Y_AXIS] = Interval (0 <? protude, 0 >? protude);
+  b[Y_AXIS] = Interval (min (0., protude), max (0.0, protude));
 
   Offset z1 (iv[LEFT], 0);
   Offset z2 (iv[RIGHT], 0);

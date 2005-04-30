@@ -31,8 +31,8 @@ protected:
   Simple_spacer_wrapper *generate_spacing_problem (Link_array<Grob> const &, Interval) const;
 
   virtual Array<Column_x_positions> do_solve () const = 0;
-
 public:
+  virtual ~Break_algorithm ();
   Simple_spacer *(*get_line_spacer) ();
   Break_algorithm ();
   void set_pscore (Paper_score *);

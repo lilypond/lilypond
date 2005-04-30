@@ -28,7 +28,7 @@ Grid_point_engraver::process_music ()
 
       if (!now.main_part_.mod_rat (mom->main_part_))
 	{
-	  Item * it = make_item ("GridPoint", SCM_EOL);
+	  make_item ("GridPoint", SCM_EOL);
 	}
     }
 }

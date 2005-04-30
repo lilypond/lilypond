@@ -100,7 +100,7 @@ Chord_tremolo_engraver::try_music (Music *m)
       Rational total_dur = l.main_part_;
       Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (repeat_));
 
-      total_duration_flags_ = 0 >? (intlog2 (total_dur.den ()) - 2);
+      total_duration_flags_ = max (0, (intlog2 (total_dur.den ()) - 2));
 
       flags_ = intlog2 (note_dur.den ()) -2;
 

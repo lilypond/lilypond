@@ -99,3 +99,7 @@ Break_algorithm::solve () const
   return h;
 }
 
+
+Break_algorithm::~Break_algorithm ()
+{
+}

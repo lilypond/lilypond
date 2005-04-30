@@ -50,7 +50,7 @@ Multi_measure_rest::percent (SCM smob)
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
   */
-  x_off += (sp_iv[LEFT] - rx) >? 0;
+  x_off += max (sp_iv[LEFT] - rx, 0.0);
 
   /*
     center between stuff.
@@ -92,7 +92,7 @@ Multi_measure_rest::print (SCM smob)
     we gotta stay clear of sp_iv, so move a bit to the right if
     needed.
   */
-  Real x_off = (sp_iv[LEFT] - rx) >? 0;
+  Real x_off = max (sp_iv[LEFT] - rx, 0.0);
 
   Stencil mol;
   mol.add_stencil (symbol_stencil (me, space));
@@ -180,9 +180,9 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real slt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real y = slt * thick_thick / 2 * ss;
   Real ythick = hair_thick * slt * ss;
-  Box b (Interval (0, 0 >? (width - 2 * ythick)), Interval (-y, y));
+  Box b (Interval (0.0, max (0.0, (width - 2 * ythick))), Interval (-y, y));
 
-  Real blot = width ? (.8 * (y <? ythick)) : 0.0;
+  Real blot = width ? (.8 * min (y, ythick)) : 0.0;
 
   Stencil m = Lookup::round_filled_box (b, blot);
   Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);

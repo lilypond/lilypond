@@ -20,7 +20,7 @@ Adobe_font_metric::Adobe_font_metric (AFM_Font_info *fi)
   font_info_ = fi;
   design_size_ = 1.0;
 
-  for (int i = 256 >? fi->numOfChars; i--;)
+  for (int i = max (256, fi->numOfChars); i--;)
     ascii_to_metric_idx_.push (-1);
 
   for (int i = 0; i < fi->numOfChars; i++)

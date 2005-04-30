@@ -34,7 +34,7 @@ Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 				  Real dash_period, Real dash_fraction)
 {
-  dash_fraction = (dash_fraction >? 0) <? 1.0;
+  dash_fraction = min (max (dash_fraction, 0.0), 1.0);
   Real on = dash_fraction * dash_period + thick;
   Real off = dash_period - on;
 
@@ -124,7 +124,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 	? 0.0
 	: robust_scm2double (dash_fraction, 0.4);
 
-      fraction = (fraction >? 0) <? 1.0;
+      fraction = min (max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
 	* robust_scm2double (me->get_property ("dash-period"), 1.0);
 

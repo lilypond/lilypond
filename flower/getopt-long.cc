@@ -312,7 +312,7 @@ Long_option_init::table_string (Long_option_init *l)
   int wid = 0;
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)
     {
-      wid = wid >? l[i].str_for_help ().length ();
+      wid = max (wid, l[i].str_for_help ().length ());
     }
 
   for (int i = 0; l[i].shortname_char_ || l[i].longname_str0_; i++)

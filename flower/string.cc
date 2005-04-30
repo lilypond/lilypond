@@ -168,7 +168,7 @@ String::compare (String const &s1, String const &s2)
   /*
     don't forget the terminating '\0'
   */
-  int f = (s1.length () <? s2.length ());
+  int f = min (s1.length (), s2.length ());
   int cmp_length = 1+ f;
   int i = memcmp (p1, p2, cmp_length);
   return i;

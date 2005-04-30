@@ -317,7 +317,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	      Real chord_start = hp[sd];
 	      Real stem_end = Stem::stem_end_position (stem);
 
-	      stem_posns[d] = Interval (chord_start <? stem_end, chord_start>? stem_end);
+	      stem_posns[d] = Interval (min (chord_start, stem_end), max (chord_start,  stem_end));
 	      head_posns[d].unite (hp);
 	    }
 	}
@@ -383,7 +383,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	      /*
 		Ugh. 7 is hardcoded.
 	      */
-	      correction = (correction / 7) <? 1.0;
+	      correction = min (correction / 7, 1.0);
 	      correction *= stem_dirs[LEFT];
 	      correction
 		*= robust_scm2double (me->get_property ("stem-spacing-correction"), 0);

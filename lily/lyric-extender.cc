@@ -57,17 +57,17 @@ Lyric_extender::print (SCM smob)
     = left_point + (robust_scm2double (minlen, 0));
 
   if (heads.size ())
-    right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
+    right_point = max (right_point, heads.top ()->extent (common, X_AXIS)[RIGHT]);
 
   Real h = sl * robust_scm2double (me->get_property ("thickness"), 0);
   Real pad = 2* h;
 
   if (right_text)
-    right_point = right_point <? (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad);
+    right_point = min (right_point, (robust_relative_extent (right_text, common, X_AXIS)[LEFT] - pad));
 
   /* run to end of line. */
   if (me->get_bound (RIGHT)->break_status_dir ())
-    right_point = right_point >? (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad);
+    right_point = max (right_point, (robust_relative_extent (me->get_bound (RIGHT), common, X_AXIS)[LEFT] - pad));
 
   left_point += pad;
   Real w = right_point - left_point;

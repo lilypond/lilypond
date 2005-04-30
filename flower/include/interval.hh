@@ -50,8 +50,8 @@ struct Interval_t : public Drul_array<T>
   void intersect (Interval_t<T> h);
   void add_point (T p)
   {
-    elem_ref (LEFT) = elem (LEFT) <? p;
-    elem_ref (RIGHT) = elem (RIGHT) >? p;
+    elem_ref (LEFT) = min (elem (LEFT), p);
+    elem_ref (RIGHT) = max (elem (RIGHT), p);
   }
   T length () const;
   T delta () const;

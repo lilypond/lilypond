@@ -7,11 +7,13 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "beam.hh"
+
+#include <algorithm>
 #include <math.h>
 
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
-#include "beam.hh"
 #include "stem.hh"
 #include "output-def.hh"
 #include "group-interface.hh"
@@ -333,7 +335,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      score[d] += limit_penalty * (0 >? (d * (info.shortest_y_ - current_y)));
+      score[d] += limit_penalty * max (0.0,  (d * (info.shortest_y_ - current_y)));
 
       Real ideal_diff = d * (current_y - info.ideal_y_);
       Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
@@ -352,7 +354,7 @@ Beam::score_stem_lengths (Link_array<Grob> const &stems,
   Direction d = DOWN;
   do
     {
-      score[d] /= (count[d] >? 1);
+      score[d] /= max (count[d], 1);
     }
   while (flip (&d) != DOWN);
 
@@ -381,7 +383,7 @@ Beam::score_slopes_dy (Real yl, Real yr,
       dem += DAMPING_DIRECTION_PENALTY;
     }
 
-  dem += MUSICAL_DIRECTION_FACTOR *(0 >? (fabs (dy) - fabs (dy_mus)));
+  dem += MUSICAL_DIRECTION_FACTOR * max (0.0, (fabs (dy) - fabs (dy_mus)));
 
   Real slope_penalty = IDEAL_SLOPE_FACTOR;
 
@@ -420,7 +422,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   Drul_array<Real> y (yl, yr);
   Drul_array<Direction> dirs (ldir, rdir);
 
-  Real extra_demerit = SECONDARY_BEAM_DEMERIT / (beam_counts[LEFT] >? beam_counts[RIGHT]);
+  Real extra_demerit = SECONDARY_BEAM_DEMERIT / (max (beam_counts[LEFT], beam_counts[RIGHT]));
 
   Direction d = LEFT;
   Real dem = 0.0;
@@ -448,7 +450,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	       k <= radius + BEAM_EPS; k += 1.0)
 	    if (gap.contains (k))
 	      {
-		Real dist = fabs (gap[UP] - k) <? fabs (gap[DOWN] - k);
+		Real dist = min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
 
 		/*
 		  this parameter is tuned to grace-stem-length.ly
@@ -463,7 +465,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
     }
   while ((flip (&d)) != LEFT);
 
-  if ((beam_counts[LEFT] >? beam_counts[RIGHT]) >= 2)
+  if (max (beam_counts[LEFT], beam_counts[RIGHT]) >= 2)
     {
       Real straddle = 0.0;
       Real sit = (thickness - slt) / 2;

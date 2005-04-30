@@ -9,12 +9,15 @@
 #ifndef STRINGDATA_INL
 #define STRINGDATA_INL
 
+#include "string-data.hh"
+
+#include <algorithm>
 #include <cassert>
 #include <cstring>
-
 #include <memory.h>
 
-#include "string-data.hh"
+using namespace std;
+
 const int INITIALMAX = 8;
 
 #include <sys/types.h>
@@ -90,7 +93,7 @@ String_data::remax (int j)
   if (j > maxlen)
     {
       Byte *p = new Byte[j + 1];
-      memcpy (p, data_byte_, (maxlen <? length_) + 1);
+      memcpy (p, data_byte_, min (maxlen, length_) + 1);
       maxlen = j;
       delete[] data_byte_;
       data_byte_ = p;

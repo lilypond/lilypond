@@ -246,7 +246,7 @@ Ledger_line_spanner::print (SCM smob)
 	  reqs[rank][vdir].ledger_extent_.unite (ledger_extent);
 	  reqs[rank][vdir].head_extent_.unite (head_extent);
 	  reqs[rank][vdir].position_
-	    = vdir * ((vdir * reqs[rank][vdir].position_) >? (vdir * pos));
+	    = vdir * max (vdir * reqs[rank][vdir].position_, vdir * pos);
 	}
     }
 
@@ -283,7 +283,7 @@ Ledger_line_spanner::print (SCM smob)
 
 		  Real limit = (center + (both ? which * gap / 2 : 0));
 		  lr.ledger_extent_.elem_ref (-which)
-		    = which * (which * lr.ledger_extent_[-which] >? which * limit);
+		    = which * max (which * lr.ledger_extent_[-which], which * limit);
 		}
 	      while (flip (&which) != LEFT);
 	    }
@@ -318,7 +318,7 @@ Ledger_line_spanner::print (SCM smob)
 							head_size[LEFT]),
 				      0.0);
 
-	      left_shorten = (-ledger_size[LEFT] + d) >? 0;
+	      left_shorten = max (-ledger_size[LEFT] + d, 0.0);
 
 	      /*
 		TODO: shorten 2 ledger lines for the case natural +

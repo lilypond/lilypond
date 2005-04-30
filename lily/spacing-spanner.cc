@@ -220,7 +220,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational
 
 		      space -= increment;
 
-		      dists[d] = dists[d] >? space;
+		      dists[d] = max (dists[d], space);
 		    }
 		  else
 		    {
@@ -228,7 +228,7 @@ Spacing_spanner::prune_loose_columns (Grob *me, Link_array<Grob> *cols, Rational
 		      Staff_spacing::get_spacing_params (sp,
 							 &space, &fixed_space);
 
-		      dists[d] = dists[d] >? fixed_space;
+		      dists[d] = max (dists[d], fixed_space);
 		    }
 		}
 	    }
@@ -430,7 +430,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  SCM st = cols[i]->get_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
 	  assert (this_shortest.to_bool ());
-	  shortest_in_measure = shortest_in_measure <? this_shortest.main_part_;
+	  shortest_in_measure = min (shortest_in_measure, this_shortest.main_part_);
 	}
       else if (!shortest_in_measure.is_infinity ()
 	       && Item::is_breakable (cols[i]))
@@ -480,7 +480,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
     d = m->main_part_;
 
   if (max_idx >= 0)
-    d = d <? durations[max_idx];
+    d = min (d, durations[max_idx]);
 
   return d;
 }
@@ -608,7 +608,7 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
     TODO: this criterion is discontinuous in the derivative.
     Maybe it should be continuous?
   */
-  compound_fixed_note_space = compound_fixed_note_space <? compound_note_space;
+  compound_fixed_note_space = min (compound_fixed_note_space, compound_note_space);
 
   bool packed = to_boolean (me->get_layout ()->c_variable ("packed"));
   Real strength, distance;
@@ -762,7 +762,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
     }
 
   assert (!isinf (compound_space));
-  compound_space = compound_space >? compound_fixed;
+  compound_space = max (compound_space, compound_fixed);
 
   /*
     Hmm.  we do 1/0 in the next thing. Perhaps we should check if this
@@ -859,13 +859,13 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
       Moment *dt = unsmob_moment (rc->get_property ("measure-length"));
       if (dt)
 	{
-	  delta_t = delta_t <? * dt;
+	  delta_t = min (delta_t, *dt);
 
 	  /*
 	    The following is an extra safety measure, such that
 	    the length of a mmrest event doesn't cause havoc.
 	  */
-	  shortest_playing_len = shortest_playing_len <? * dt;
+	  shortest_playing_len = min (shortest_playing_len, *dt);
 	}
     }
   Real dist = 0.0;
@@ -877,7 +877,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
     around to get chord tremolos to behave properly.
 
   */
-  shortest_playing_len = shortest_playing_len >? delta_t;
+  shortest_playing_len = max (shortest_playing_len, delta_t);
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
       dist = get_duration_space (me, shortest_playing_len, shortest.main_part_, expand_only);

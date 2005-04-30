@@ -343,5 +343,5 @@ String_convert::long_string (long l)
 String
 String_convert::pad_to (String s, int n)
 {
-  return s + to_string (' ' , (n - s.length ()) >? 0);
+  return s + to_string (' ' , max (n - s.length (), 0));
 }

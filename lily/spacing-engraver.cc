@@ -131,7 +131,7 @@ Spacing_engraver::stop_translation_timestep ()
       if (mus)
 	{
 	  Moment m = mus->get_length ();
-	  shortest_playing = shortest_playing <? m;
+	  shortest_playing = min (shortest_playing, m);
 	}
     }
   Moment starter;
@@ -142,13 +142,13 @@ Spacing_engraver::stop_translation_timestep ()
       Moment m = now_durations_[i].info_.music_cause ()->get_length ();
       if (m.to_bool ())
 	{
-	  starter = starter <? m;
+	  starter = min (starter, m);
 	  playing_durations_.insert (now_durations_[i]);
 	}
     }
   now_durations_.clear ();
 
-  shortest_playing = shortest_playing <? starter;
+  shortest_playing = min (shortest_playing, starter);
 
   Paper_column *sc
     = dynamic_cast<Paper_column *> (unsmob_grob (get_property ("currentMusicalColumn")));

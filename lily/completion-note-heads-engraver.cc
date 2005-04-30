@@ -89,7 +89,7 @@ Completion_heads_engraver::try_music (Music *m)
 	  musiclen.grace_part_ = musiclen.main_part_;
 	  musiclen.main_part_ = Rational (0, 1);
 	}
-      note_end_mom_ = note_end_mom_ >? (now + musiclen);
+      note_end_mom_ = max (note_end_mom_, (now + musiclen));
       do_nothing_until_ = Rational (0, 0);
 
       return true;
