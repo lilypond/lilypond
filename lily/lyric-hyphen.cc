@@ -65,7 +65,7 @@ Hyphen_spanner::print (SCM smob)
       && !bounds[RIGHT]->break_status_dir ())
     {
       Real minimum_length = robust_scm2double (me->get_property ("minimum-length"), .3);
-      dash_length = (l - 2 * padding) >? minimum_length;
+      dash_length = max ((l - 2 * padding), minimum_length);
     }
 
   Real space_left = l - dash_length - (n - 1) * dash_period;
@@ -78,7 +78,7 @@ Hyphen_spanner::print (SCM smob)
       && !bounds[RIGHT]->break_status_dir ())
     return SCM_EOL;
 
-  space_left = space_left >? 0.0;
+  space_left = max (space_left, 0.0);
 
   Box b (Interval (0, dash_length), Interval (h, h + th));
   Stencil dash_mol (Lookup::round_filled_box (b, 0.8 * lt));

@@ -104,7 +104,7 @@ Simultaneous_music_iterator::pending_moment () const
   for (SCM s = children_list_; scm_is_pair (s); s = scm_cdr (s))
     {
       Music_iterator *it = unsmob_iterator (scm_car (s));
-      next = next <? it->pending_moment ();
+      next = min (next, it->pending_moment ());
     }
 
   return next;

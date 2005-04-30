@@ -159,14 +159,14 @@ Quote_iterator::pending_moment () const
   Moment m (infty);
 
   if (Music_wrapper_iterator::ok ())
-    m = m <? Music_wrapper_iterator::pending_moment ();
+    m = min (m, Music_wrapper_iterator::pending_moment ());
 
   /*
     In case event_idx_ < 0, we're not initted yet, and the wrapped
     music expression determines the starting moment.
   */
   if (quote_ok ())
-    m = m <? vector_moment (event_idx_) - start_moment_;
+    m = min (m, vector_moment (event_idx_) - start_moment_);
 
   return m;
 }

@@ -56,7 +56,7 @@ Beaming_info_list::beam_extend_count (Direction d) const
   Beaming_info thisbeam = infos_.boundary (d, 0);
   Beaming_info next = infos_.boundary (d, 1);
 
-  return thisbeam.beams_i_drul_[-d] <? next.beams_i_drul_[d];
+  return min (thisbeam.beams_i_drul_[-d], next.beams_i_drul_[d]);
 }
 
 void
@@ -80,8 +80,8 @@ Beaming_info_list::beamify (Moment &beat_length, bool subdivide)
   while (flip (&d) != LEFT);
 
   int middle_beams = (split ? 1
-		      : splits[RIGHT].beam_extend_count (LEFT) <?
-		      splits[LEFT].beam_extend_count (RIGHT));
+		      : min (splits[RIGHT].beam_extend_count (LEFT),
+			     splits[LEFT].beam_extend_count (RIGHT)));
 
   do
     {

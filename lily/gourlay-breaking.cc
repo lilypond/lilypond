@@ -263,7 +263,7 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 
 	add 20000 to the demerits, so that a break penalty
 	of -10000 won't change the result */
-      demerit = (demerit + 20000) >? 2000;
+      demerit = max ((demerit + 20000), 2000.0);
 
       demerit *= 10;
     }

@@ -132,10 +132,10 @@ Part_combine_iterator::pending_moment () const
   Moment p;
   p.set_infinite (1);
   if (first_iter_->ok ())
-    p = p <? first_iter_->pending_moment ();
+    p = min (p, first_iter_->pending_moment ());
 
   if (second_iter_->ok ())
-    p = p <? second_iter_->pending_moment ();
+    p = min (p, second_iter_->pending_moment ());
   return p;
 }
 

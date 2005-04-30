@@ -225,7 +225,7 @@ Break_align_interface::do_alignment (Grob *grob)
 	      - extents[next_idx][LEFT];
 	  /* should probably junk minimum-space */
 	  else if (type == ly_symbol2scm ("minimum-space"))
-	    offsets[next_idx] = extents[idx][RIGHT] >? distance;
+	    offsets[next_idx] = max (extents[idx][RIGHT], distance);
 	}
       else
 	{

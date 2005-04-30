@@ -50,7 +50,7 @@ Music_sequence::maximum_length (SCM l)
     {
       Music *m = unsmob_music (scm_car (s));
       Moment l = m->get_length ();
-      dur = dur >? l;
+      dur = max (dur, l);
     }
 
   return dur;
@@ -122,7 +122,7 @@ Music_sequence::minimum_start (SCM l)
 
   for (SCM s = l; scm_is_pair (s); s = scm_cdr (s))
     {
-      m = m <? unsmob_music (scm_car (s))->start_mom ();
+      m = min (m, unsmob_music (scm_car (s))->start_mom ());
     }
   return m;
 }

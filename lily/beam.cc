@@ -91,7 +91,7 @@ Beam::get_beam_count (Grob *me)
   for (SCM s = me->get_property ("stems"); scm_is_pair (s); s = scm_cdr (s))
     {
       Grob *stem = unsmob_grob (scm_car (s));
-      m = m >? (Stem::beam_multiplicity (stem).length () + 1);
+      m = max (m, (Stem::beam_multiplicity (stem).length () + 1));
     }
   return m;
 }
@@ -451,7 +451,7 @@ Beam::print (SCM grob)
 	  Real lw = nw_f;
 	  Real rw = nw_f;
 	  if (i > 0)
-	    rw = nw_f <? ((xposn - last_xposn) / 2);
+	    rw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
 	    /*
 	      TODO: 0.5 is a guess.
@@ -460,7 +460,7 @@ Beam::print (SCM grob)
 	      - 0.5;
 
 	  if (st)
-	    lw = nw_f <? ((xposn - last_xposn) / 2);
+	    lw = min (nw_f, ((xposn - last_xposn) / 2));
 	  else
 	    lw = me->get_bound (RIGHT)->relative_coordinate (xcommon, X_AXIS)
 	      - last_xposn;
@@ -534,7 +534,7 @@ Beam::get_default_dir (Grob *me)
 	Grob *s = stems[i];
 	Direction sd = get_grob_direction (s);
 
-	int center_distance = int (- d * Stem::head_positions (s) [-d]) >? 0;
+	int center_distance = max (int (- d * Stem::head_positions (s) [-d]), 0);
 	int current = sd ? (1 + d * sd) / 2 : center_distance;
 
 	if (current)
@@ -783,9 +783,8 @@ set_minimum_dy (Grob *me, Real *dy)
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
 
-      *dy = sign (*dy) * (fabs (*dy)
-			  >?
-			  (sit <? inter <? hang));
+      *dy = sign (*dy) * max (fabs (*dy),
+			      min (min (sit, inter), hang));
     }
 }
 
@@ -1200,7 +1199,7 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	      if (i > 0
 		  && i < stems.size () -1
 		  && Stem::is_invisible (st))
-		b = b <? beaming->infos_.elem (i).beams_i_drul_[-d];
+		b = min (b, beaming->infos_.elem (i).beams_i_drul_[-d]);
 
 	      Stem::set_beaming (st, b, d);
 	    }
@@ -1342,7 +1341,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
     = + staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
 		       + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
 
-  Real shift = d * (((beam_y - d * minimum_distance) - rest_dim) * d <? 0.0);
+  Real shift = d * min (((beam_y - d * minimum_distance) - rest_dim) * d, 0.0);
 
   shift /= staff_space;
   Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
@@ -1398,7 +1397,7 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 	Should we take invisible stems into account?
       */
       if (Stem::get_direction (stems[i]) == d)
-	bc = bc >? (Stem::beam_multiplicity (stems[i]).length () + 1);
+	bc = max (bc, (Stem::beam_multiplicity (stems[i]).length () + 1));
     }
 
   return bc;

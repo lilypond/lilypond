@@ -89,32 +89,19 @@ template<class T>
 void
 Interval_t<T>::unite (Interval_t<T> h)
 {
-  elem_ref (LEFT) = h.elem (LEFT) <? elem (LEFT);
-  elem_ref (RIGHT) = h.elem (RIGHT) >? elem (RIGHT);
+  elem_ref (LEFT) = min (h.elem (LEFT), elem (LEFT));
+  elem_ref (RIGHT) = max (h.elem (RIGHT), elem (RIGHT));
 }
 
 template<class T>
 void
 Interval_t<T>::intersect (Interval_t<T> h)
 {
-#if defined (__GNUG__) && !defined (__STRICT_ANSI__)
-  elem_ref (LEFT) = h.elem (LEFT) >? elem (LEFT);
-  elem_ref (RIGHT) = h.elem (RIGHT) <? elem (RIGHT);
-#else
   elem_ref (LEFT) = max (h.elem (LEFT), elem (LEFT));
   elem_ref (RIGHT) = min (h.elem (RIGHT), elem (RIGHT));
-#endif
 }
 
-#if 0 //this is called intersection
-template<class T>
-Interval_t<T>
-intersect (Interval_t<T> x, Interval_t<T> const &y)
-{
-  x.intersect (y);
-  return x;
-}
-#endif
+
 
 template<class T>
 String

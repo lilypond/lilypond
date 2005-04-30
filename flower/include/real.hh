@@ -13,6 +13,7 @@
 
 typedef double Real;
 extern const Real infinity_f;
+using namespace std;
 
 template<class T> inline T abs (T x)
 {
@@ -26,20 +27,12 @@ template<class T> inline int sign (T x)
   return 0;
 }
 
-template<class T> inline T max (T x, T y)
-{
-  return x >? y;
-}
 
 template<class T> inline T sqr (T x)
 {
   return x * x;
 }
 
-template<class T> inline T min (T x, T y)
-{
-  return x <? y;
-}
 
 inline Real
 distance (Real x, Real y)

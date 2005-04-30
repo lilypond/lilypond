@@ -120,9 +120,10 @@ Ottava_bracket::print (SCM smob)
   Real text_size = text.extent (X_AXIS).is_empty ()
     ? 0.0 : text.extent (X_AXIS)[RIGHT] + 0.3;
 
-  span_points[LEFT] = span_points[LEFT]
-    <? (span_points[RIGHT] - text_size
-	- robust_scm2double (me->get_property ("minimum-length"), -1.0));
+  span_points[LEFT] =
+    min (span_points[LEFT],
+	 (span_points[RIGHT] - text_size
+	  - robust_scm2double (me->get_property ("minimum-length"), -1.0)));
 
   Interval bracket_span_points = span_points;
   bracket_span_points[LEFT] += text_size;
