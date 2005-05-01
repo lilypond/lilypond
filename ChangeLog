@@ -1,12 +1,17 @@
 2005-05-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (ly_options): set timing to #f for
+	notime option.
+
+	* scripts/convert-ly.py (conv): typo.
+
 	* flower/*.cc: remove <? and >?
 	
 	* lily/*.cc: remove <? and >?
 
-	* lily/tweak-registration.cc (insert_tweak_from_file): dubious
-	bugfix. Make sure that 0x0 isn't passed into scm_cons(). Fixes
-	crash with tweak editor.
+	* lily/tweak-registration.cc (insert_tweak_from_file): Make sure
+	that 0x0 isn't passed into scm_cons(). Fixes crash with tweak
+	editor.
 
 2005-04-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -67,7 +72,7 @@
 2005-04-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/lilylib.py (make_ps_images): bugfixes; GS can produce
-	empty 2nd page for mono page.
+	empty 2nd page for single page.
 
 	* scm/lily.scm: remove p&c definitions.
 

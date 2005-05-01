@@ -2254,7 +2254,7 @@ def conv (str):
 	str = re.sub (r'\\applymusic\s*#notes-to-clusters',
 		      '\\makeClusters', str)
 
-	str = re.sub (r'pagenumber\s*=', 'firstpagenumber', str)
+	str = re.sub (r'pagenumber\s*=', 'firstpagenumber = ', str)
 	return str
 
 conversions.append (((2, 3, 12), conv,
