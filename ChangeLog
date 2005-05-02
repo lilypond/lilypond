@@ -1,5 +1,11 @@
 2005-05-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/lilypond.map): remove rule.
+	($(outdir)/Fontmap.lily): idem.
+
+	* buildscripts/gen-emmentaler-scripts.py (i): load fetaXX encoding
+	for PFAEmmentaler-XXX.pfa. This fixes ghostscript ps2pdf problems.
+
 	* Documentation/user/music-glossary.tely (accidental): NL
 	translation of accidental.
 
