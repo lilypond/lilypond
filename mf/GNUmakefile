@@ -228,28 +228,6 @@ $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdi
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
 
-$(outdir)/lilypond.map: GNUmakefile
-	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
-	for i in $(STAFF_SIZES); do\
-		echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps";\
-		echo "$(PFA_PREFIX)Emmentaler-$$i $(PFA_PREFIX)Emmentaler-$$i <$(PFA_PREFIX)emmentaler-$$i.pfa";\
- 	done >> $@
-	echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $@
-	echo "$(PFA_PREFIX)Aybabtu-Regular $(PFA_PREFIX)Aybabtu-Regular <aybabtu.cff.ps" >> $@
-#
-# FIXME: needed for make web on Debian/unstable -- not in any other .map file	
-	echo "FreeSans FreeSans <FreeSans.ttf" >> $@
-	echo "Kochi-Gothic Kochi-Gothic <kochi-gothic.ttf" >> $@
-	
-$(outdir)/Fontmap.lily: GNUmakefile
-	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
-	for i in $(STAFF_SIZES); do \
-		echo "/Emmentaler-$$i (emmentaler-$$i.cff.ps);" ; \
-		echo "/$(PFA_PREFIX)Emmentaler-$$i ($(PFA_PREFIX)emmentaler-$$i.pfa);" \
-		done >> $@
-	echo "/Aybabtu (aybabtu.cff.ps);" >> $@
-	echo "/$(PFA_PREFIX)Aybabtu ($(PFA_PREFIX)aybabtu.pfa);" >> $@
-
 local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
