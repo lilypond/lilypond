@@ -2496,7 +2496,7 @@ conversions.append (((2, 5, 18),
 		     'ly:warn -> ly:warning'))
 def conv (str):
 	if re.search ("(override-|revert-)auto-beam-setting", str)\
-	   or re.search ("autoBeamSettings"):
+	   or re.search ("autoBeamSettings", str):
 		sys.stderr.write ('\n')
 		sys.stderr.write (NOT_SMART % "auto beam settings")
 		sys.stderr.write ('\n')
