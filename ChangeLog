@@ -1,3 +1,9 @@
+2005-05-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/changing-defaults.itely (Common tweaks):
+	Added example where the context has to be specified explicitly
+	(MetronomeMark). 
+
 2005-05-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (ly_options): set timing to #f for
