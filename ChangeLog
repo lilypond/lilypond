@@ -1,5 +1,7 @@
 2005-05-02  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scripts/convert-ly.py: Bug fix
+
 	* Documentation/user/changing-defaults.itely (Common tweaks):
 	Added example where the context has to be specified explicitly
 	(MetronomeMark). 
