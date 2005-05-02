@@ -193,14 +193,50 @@
   (regexp-substitute/global #f "([eE]mmentaler|[aA]ybabtu)"
 			    name 'pre "PFA" 1 'post))
 
+(define (cff-font? font)
+  (let*
+      ((cff-string  (ly:otf-font-table-data font "CFF ")))
+    (> (string-length cff-string) 0)))
+
+(define-public (ps-embed-cff body font-set-name version)
+  (let* ((binary-data
+	  (string-append
+	   (format "/~a ~s StartData " font-set-name (string-length body))
+	   body))
+
+	 (header
+	  (format
+	   "%%BeginResource: font ~a
+%!PS-Adobe-3.0 Resource-FontSet
+%%DocumentNeededResources: ProcSet (FontSetInit)
+%%Title: (FontSet/~a)
+%%Version: ~s
+%%EndComments
+%%IncludeResource: ProcSet (FontSetInit)
+%%BeginResource: FontSet (~a)
+/FontSetInit /ProcSet findresource begin
+%%BeginData: ~s Binary Bytes
+"
+	   font-set-name font-set-name version font-set-name
+	   (string-length binary-data)))
+	 (footer "\n%%EndData
+%%EndResource
+%%EOF
+%%EndResource\n"))
+
+    (string-append
+     header
+     binary-data
+     footer)))
+
+
 (define (write-preamble paper load-fonts? port)
-  (define (load-font font-pair)
-    (let* ((name (car font-pair))
-	   (file-name (cdr font-pair))
-		 
-	   (bare-file-name (ly:find-file file-name))
-	   (cffname (string-append file-name ".cff.ps"))
-	   (cff-file-name (ly:find-file cffname)))
+  
+  (define (load-font font-name-filename)
+    (let* ((font (car font-name-filename))
+	   (name (cadr font-name-filename))
+	   (file-name (caddr font-name-filename))
+	   (bare-file-name (ly:find-file file-name)))
 
       (cons 
        (munge-lily-font-name name)
@@ -213,20 +249,11 @@
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
-
-	((and bare-file-name
-	      (string-match "\\.(otf|cff)" bare-file-name))
-
-					; replace with the CFF.ps, which lives in a
-					; separate subdir.
-	 (for-each (lambda (tup)
-		     (set! bare-file-name
-			   (string-regexp-substitute
-			    (car tup) (cdr tup) bare-file-name)))
-		   '(("/fonts/otf/" . "/ps/")
-		     ("/fonts/cff/" . "/ps/")
-		     ("\\.(otf|cff)" . ".cff.ps")))
-
+	
+	((cff-font? font)
+	 (ps-embed-cff (ly:otf-font-table-data font "CFF ")
+		       name
+		       0))
 	 (cached-file-contents bare-file-name))
 	((and bare-file-name (string-match "\\.ttf" bare-file-name))
 	 (ly:ttf->pfa bare-file-name))
@@ -235,6 +262,7 @@
 	(else
 	 (ly:warning (_ "can't find CFF/PFA/PFB font ~S=~S" name file-name))
 	 (cons font-name ""))))))
+
   
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
@@ -244,10 +272,17 @@
 	     (lambda (font)
 	       (cond
 		((string? (ly:font-file-name font))
-		 (list (cons (ly:font-name font)
-			     (ly:font-file-name font))))
+		 (list (list
+			font
+			(ly:font-name font)
+			(ly:font-file-name font))))
 		((ly:pango-font? font)
-		 (ly:pango-font-physical-fonts font))
+		 (map
+		  (lambda (name-psname-pair)
+		    (list #f
+			  (car name-psname-pair)
+			  (cdr name-psname-pair)))
+		   (ly:pango-font-physical-fonts font)))
 		(else
 		 (ly:font-sub-fonts font))))
 		   
@@ -255,7 +290,7 @@
 	   (font-names
 	    (uniq-list
 	     (sort (apply append all-font-names)
-		   (lambda (x y) (string<? (car x) (car y))))))
+		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 	   
 	   (pfas (map load-font font-names)))
       pfas))
