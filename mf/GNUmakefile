@@ -29,8 +29,6 @@ OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
-CFF_FILES = $(OTF_FILES:%.otf=%.cff)
-CFF_PS_FILES = $(OTF_FILES:%.otf=%.cff.ps)
 
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
@@ -58,15 +56,14 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 # 2. are not included with teTeX
 #
 
-$(outdir)/%.cff.ps $(outdir)/$(PFA_PREFIX)%.pfa $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+$(outdir)/$(PFA_PREFIX)%.pfa $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
-	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps
 	-rm $(outdir)/*.scale.pfa
 
 # ugh, this does not work
 $(outdir)/%.pfa: $(outdir)/%.log
 $(outdir)/feta-alphabet%.pfa: $(outdir)/feta-alphabet%.log
-$(outdir)/emmentaler-%.otf $(outdir)/$(PFA_PREFIX)emmentaler-%.pfa $(outdir)/emmentaler%.cff $(outdir)/emmentaler%.svg: $(outdir)/feta%.pfa $(outdir)/feta-alphabet%.pfa $(outdir)/parmesan%.pfa
+$(outdir)/emmentaler-%.otf $(outdir)/$(PFA_PREFIX)emmentaler-%.pfa $(outdir)/emmentaler%.svg: $(outdir)/feta%.pfa $(outdir)/feta-alphabet%.pfa $(outdir)/parmesan%.pfa
 
 # AARGH?
 
@@ -114,7 +111,7 @@ $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst fet
 
 $(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 
-$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.cff $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
+$(outdir)/aybabtu.otf $(outdir)/$(PFA_PREFIX)aybabtu.pfa $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@ 
@@ -130,7 +127,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa) $(PFA_OTF_FILES)
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES) $(CFF_PS_FILES) $(CFF_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(PFA_FILES) $(outdir)/lilypond.map $(OTF_FILES) $(SVG_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source

@@ -1,7 +1,17 @@
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (write-preamble): extract CFF from OTF
+	fonts directly.
+
+	* buildscripts/gen-emmentaler-scripts.py (i): idem.
+
+	* mf/GNUmakefile: remove all CFF rules.
+
+	* scm/framework-ps.scm (ps-embed-cff): reinstate.
+
 	* lily/open-type-font-scheme.cc (LY_DEFINE):
 	new function ly:otf-font-table-data.
+	(LY_DEFINE): new function otf-font?
 
 2005-05-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 

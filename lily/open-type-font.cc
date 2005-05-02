@@ -18,6 +18,7 @@
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
+  *length = 0;
   FT_ULong tag = FT_MAKE_TAG (tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
 
   int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
@@ -33,7 +34,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 
       return buffer;
     }
-
+  else
+    {
+      programming_error ("Cannot find OpenType table.");
+    }
+  
   return 0;
 }
 
@@ -42,7 +47,7 @@ Open_type_font::get_otf_table (String tag) const
 {
   FT_ULong len;
   FT_Byte *tab = load_table (tag.to_str0 (), face_,  &len);
-  
+
   return String (tab, len);
 }
 
