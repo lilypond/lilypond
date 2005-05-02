@@ -10,8 +10,8 @@
 #define FONT_METRIC_HH
 
 #include "box.hh"
-#include "smobs.hh"
 #include "lily-proto.hh"
+#include "smobs.hh"
 
 class Font_metric
 {

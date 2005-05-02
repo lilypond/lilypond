@@ -348,7 +348,7 @@ String::to_lower ()
 void
 String::reverse ()
 {
-  strrev (get_bytes (), length ());
+  memrev (get_bytes (), length ());
 }
 
 int

@@ -107,8 +107,13 @@ extern "C" {
 } /* extern "C" */
 #endif
 
+#if ! HAVE_MEMRCHR
 unsigned char *memrchr (unsigned char const *p, int n, char c);
-unsigned char *strrev (unsigned char *byte, int length_i);
+#endif
+
+#if ! HAVE_MEMREV
+unsigned char *memrev (unsigned char *byte, int length_i);
+#endif
 
 double my_round (double);
 
