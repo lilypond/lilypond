@@ -13,13 +13,17 @@
 #include <cstring>
 #include <unistd.h>
 #include <errno.h>
-#include <pwd.h>
-#include <grp.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
 #include "config.hh"
 
+#if HAVE_GRP_H
+#include <grp.h>
+#endif 
+#if HAVE_PWD_H
+#include <pwd.h>
+#endif 
 #if HAVE_GETTEXT
 #include <libintl.h>
 #endif
@@ -152,7 +156,9 @@ static Long_option_init options_static[]
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
+#if HAVE_CHROOT
   {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n                                       and cd into DIR")},
+#endif 
   {0, "no-print", 0, _i ("do not generate printed output")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "safe-mode", 's',  _i ("run in safe mode")},
@@ -284,6 +290,7 @@ prepend_load_path (String dir)
 void init_global_tweak_registry ();
 void init_fontconfig ();
 
+#if HAVE_CHROOT
 static void
 do_chroot_jail ()
 {
@@ -366,6 +373,7 @@ do_chroot_jail ()
       exit (3);
     }
 }
+#endif
 
 void test_pango ();
 
@@ -440,8 +448,10 @@ main_with_guile (void *, int, char **)
       exit (2);
     }
 
+#if HAVE_CHROOT
   if (! jail_spec.is_empty ())
     do_chroot_jail ();
+#endif
 
   SCM result = scm_call_1 (ly_lily_module_constant ("lilypond-main"), files);
   (void) result;

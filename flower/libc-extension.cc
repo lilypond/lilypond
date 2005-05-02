@@ -121,7 +121,7 @@ my_swap (T &t1, T &t2, T &tmp)
 }
 
 unsigned char *
-strrev (unsigned char *byte, int length)
+memrev (unsigned char *byte, int length)
 {
   unsigned char tmp_byte;
   unsigned char *left = byte;

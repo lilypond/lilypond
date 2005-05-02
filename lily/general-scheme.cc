@@ -9,7 +9,6 @@
 
 #include "config.hh"
 
-#include <libintl.h>  /* gettext on MacOS X */
 #include <math.h>  /* isinf */
 #include <stdio.h>
 #include <string.h>  /* memset */
@@ -19,6 +18,7 @@
 #include <wchar.h> /* wcrtomb */
 #endif
 
+#include "international.hh"
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "string.hh"

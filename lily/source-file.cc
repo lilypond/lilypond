@@ -12,9 +12,9 @@
 #include "config.hh"
 
 #if HAVE_UTF8_WCHAR_H
-#include <utf8/wchar.h>  /* wcrtomb */
+#include <utf8/wchar.h>  /* mbrtowc */
 #else
-#include <wchar.h> /* wcrtomb */
+#include <wchar.h> /* mbrtowc */
 #endif
 
 #include <cstdio>

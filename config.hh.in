@@ -10,6 +10,9 @@
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"
 
+/* define if you have chroot */
+#define HAVE_CHROOT 0
+
 /* define if you have fopencookie */
 #define HAVE_FOPENCOOKIE 0
 
@@ -19,8 +22,17 @@
 /* define if you have gettext */
 #define HAVE_GETTEXT 0
 
+/* define if you have isinf */
+#define HAVE_ISINF 0
+
+/* define if you have lrint */
+#define HAVE_LRINT 0
+
 /* define if you have memmem */
 #define HAVE_MEMMEM 0
+
+/* define if you have mbrtowc */
+#define HAVE_MBRTOWC 0
 
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
@@ -28,17 +40,17 @@
 /* define if you have vsnprintf */
 #define HAVE_VSNPRINTF 0
 
+/* define if you have wcrtomb */
+#define HAVE_WCRTOMB 0
+
 /* define if you have yyFlexLexer.yy_current_buffer */
 #undef HAVE_FLEXLEXER_YY_CURRENT_BUFFER
 
-/* define if you have isinf */
-#define HAVE_ISINF 0
-
-/* define if you have lrint */
-#define HAVE_LRINT 0
-
 /* define if you want KPATHSEA */
 #define KPATHSEA @KPATHSEA@
+
+/* define if you have grp header */
+#define HAVE_GRP_H 0
 
 /* define if you have kpatsea header */
 #define HAVE_KPATHSEA_KPATHSEA_H 0
@@ -48,6 +60,9 @@
 
 /* define if you have kpse_find_tfm */
 #define HAVE_KPSE_FIND_TFM 0
+
+/* define if you have pwd header */
+#define HAVE_PWD_H 0
 
 /* define if you have Python.h header */
 #define HAVE_PYTHON_H 0

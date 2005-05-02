@@ -7,25 +7,27 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "lily-guile.hh"
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring> /* strdup, strchr */
 #include <cctype>
-#include <libintl.h> 		// gettext on macos x
 
 #include "config.hh"
-#include "version.hh"
-#include "lily-guile.hh"
+
+#include "dimensions.hh"
+#include "direction.hh"
+#include "file-path.hh"
+#include "international.hh"
 #include "libc-extension.hh"
 #include "main.hh"
-#include "file-path.hh"
-#include "warn.hh"
-#include "direction.hh"
+#include "misc.hh"
 #include "offset.hh"
 #include "pitch.hh"
-#include "dimensions.hh"
 #include "source-file.hh"
-#include "misc.hh"
+#include "version.hh"
+#include "warn.hh"
 
 // #define TEST_GC
 

@@ -9,10 +9,14 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
+#if __MINGW32__
+#include "mingw-compatibility.hh"
+#endif
+
 #include <libguile.h>
 
-#include "interval.hh"
 #include "guile-compatibility.hh"
+#include "interval.hh"
 #include "lily-guile-macros.hh"
 #include "ly-module.hh"
 

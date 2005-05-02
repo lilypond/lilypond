@@ -6,15 +6,14 @@
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include <map>
-#include <stdio.h>
+#include "open-type-font.hh"
 
 #include <freetype/tttables.h>
+#include <stdio.h>
 
-#include "warn.hh"
-#include "open-type-font.hh"
 #include "dimensions.hh"
 #include "modified-font-metric.hh"
+#include "warn.hh"
 
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)

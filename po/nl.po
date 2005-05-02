@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-19 22:41+0200\n"
-"PO-Revision-Date: 2005-04-19 23:28+0200\n"
+"PO-Revision-Date: 2005-04-25 21:59+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1242,7 +1242,7 @@ msgstr "schrijf uitvoer naar BESTAND (extensie wordt toegevoegd)"
 
 #: main.cc:150
 msgid "USER,GROUP,JAIL,DIR"
-msgstr "GEBRU,GROUP,GEVANG,DIR"
+msgstr "GEBR,GROEP,GEVANG,DIR"
 
 #: main.cc:150
 msgid ""
