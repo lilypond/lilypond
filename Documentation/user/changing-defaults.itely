@@ -915,8 +915,8 @@ voices:
 The @code{padding} property for objects with
 @cindex @code{padding}
 @code{side-position-interface} can be set to increase the distance between
-symbols that are printed above or below notes.  We only give an
-example; a more elaborate explanation is in @ref{Constructing a
+symbols that are printed above or below notes.  We provide two
+examples; a more elaborate explanation is in @ref{Constructing a
 tweak}:
 
 @lilypond[quote,fragment,relative=1,verbatim]
@@ -924,6 +924,22 @@ c2\fermata
 \override Script #'padding = #3
 b2\fermata
 @end lilypond
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below:
+\override MetronomeMark #'padding = #3
+\tempo 4=120
+c1
+% This works:
+\override Score.MetronomeMark #'padding = #3
+\tempo 4=80
+d1
+@end lilypond
+
+Note in the second example how important it is to figure out what
+context handles a certain object. Since the @code{MetronomeMark} object
+is handled in the Score context, property changes in the @code{Voice}
+context will not be noticed. 
 
 @end itemize
 
