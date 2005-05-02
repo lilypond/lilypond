@@ -32,6 +32,7 @@ public:
   SCM get_global_table () const;
   SCM get_char_table () const;
 
+  String get_otf_table (String tag) const;
   static SCM make_otf (String);
   virtual String font_name () const;
   virtual ~Open_type_font ();

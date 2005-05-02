@@ -37,6 +37,15 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   return 0;
 }
 
+String
+Open_type_font::get_otf_table (String tag) const
+{
+  FT_ULong len;
+  FT_Byte *tab = load_table (tag.to_str0 (), face_,  &len);
+  
+  return String (tab, len);
+}
+
 SCM
 load_scheme_table (char const *tag_str, FT_Face face)
 {
