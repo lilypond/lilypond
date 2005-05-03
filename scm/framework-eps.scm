@@ -30,6 +30,7 @@
     (if (pair? stencils)
 	(let* ((line (car stencils))
 	       (rest (cdr stencils)))
+
 	  (dump-stencil-as-EPS
 	   paper
 	   line (format "~a-~a" basename count)
@@ -68,6 +69,7 @@
 
 (define-public (output-classic-framework basename book scopes fields)
   (output-scopes scopes fields basename)
+  
   (dump-stencils-as-EPSes
    (map ly:paper-system-stencil (ly:paper-book-systems book))
    book

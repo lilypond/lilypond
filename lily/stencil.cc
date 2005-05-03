@@ -87,7 +87,11 @@ Stencil::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
-      if (isinf (o[a]) || isnan (o[a]))
+      if (isinf (o[a])
+	  || isnan (o[a])
+
+	  // ugh, hardcoded. 
+	  || fabs (o[a]) > 1e6)	
 	{
 	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
 			     + "\n"

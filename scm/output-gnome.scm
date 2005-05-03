@@ -79,8 +79,6 @@ lilypond -fgnome input/simple-song.ly
 ;;; point-and-click: (mouse-1) click on a graphical object;
 ;;; grob-property-list: (mouse-3) click on a graphical object.
 
-(debug-enable 'backtrace)
-
 (define-module (scm output-gnome))
 (define this-module (current-module))
 

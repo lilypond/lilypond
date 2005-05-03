@@ -26,6 +26,15 @@
 
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/beam-quanting.cc (quanting): robustness fix, don't produce
+	infinity for unfeasible beams.
+
+	* make/lilypond.fedora.spec.in (Group): idem.
+
+	* scripts/GNUmakefile (SEXECUTABLES): rename ps2png to lilypond-ps2png
+
+	* mf/GNUmakefile (ALL_GEN_FILES): remove .map
+
 	* scm/framework-ps.scm (write-preamble): extract CFF from OTF
 	fonts directly.
 

@@ -77,12 +77,6 @@ best_quant_score_idx (Array<Quant_score> const &qscores)
 	}
     }
 
-  if (best_idx < 0)
-    {
-      programming_error ("no best beam quant score");
-      best_idx = 0;
-    }
-
   return best_idx;
 }
 
@@ -265,10 +259,10 @@ Beam::quanting (SCM smob)
       }
 
   int best_idx = best_quant_score_idx (qscores);
-
+  
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
-  if (to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
+  if ( to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting")))
       && scm_is_pair (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -289,12 +283,18 @@ Beam::quanting (SCM smob)
 	programming_error ("can't find quant");
     }
 #endif
-
-  me->set_property ("positions",
-		    ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
-						       qscores[best_idx].yr)));
+  if (best_idx < 0)
+    {
+      warning (_ ("no feasible beam position"));
+      me->set_property ("positions", ly_interval2scm (Interval (0,0)));
+    }
+  else
+    me->set_property ("positions",
+		      ly_interval2scm (Drul_array<Real> (qscores[best_idx].yl,
+							 qscores[best_idx].yr)));
 #if DEBUG_QUANTING
-  if (to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
+  if (best_idx >= 0
+      && to_boolean (me->get_layout ()->lookup_variable (ly_symbol2scm ("debug-beam-quanting"))))
     {
       qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
 
