@@ -70,7 +70,7 @@ Generate("%(filename)s-%(design_size)d.svg");
 SetFontNames("PFA%(name)s-%(design_size)d", "PFA%(name)s", "PFA%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 # different name to prevent conflict with OTF
-LoadEncodingFile("feta%(design_size)d.enc");
+#LoadEncodingFile("feta%(design_size)d.enc");
 Generate("PFA%(filename)s-%(design_size)d.pfa");
 ''' % vars()
 
