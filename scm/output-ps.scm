@@ -245,11 +245,12 @@
   (string-append 
    (ly:number->string x) " " (ly:number->string y) " { " s " } place-box\n"))
 
-(define (polygon points blotdiameter)
+(define (polygon points blotdiameter filled?)
   (string-append
    (ly:numbers->string points) " "
    (ly:number->string (/ (length points) 2)) " "
    (ly:number->string blotdiameter)
+   (if filled? " true " " false ")
    " draw_polygon"))
 
 (define (repeat-slash wid slope thick)

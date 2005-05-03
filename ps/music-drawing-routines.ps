@@ -157,8 +157,9 @@ bind def
 	} ifelse
 } bind def
 
-/draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot
+/draw_polygon % x(n) y(n) x(n-1) y(n-1) ... x(1) y(1) n blot fill
 {
+	/fillp exch def
 	/blot exch def
 
 	0 setlinecap
@@ -168,12 +169,12 @@ bind def
 	/points exch def
 	2 copy
 	moveto
-	1 1 points {pop lineto} for
-	currentdict /testing known {
-		%% outline only, for testing:
-		stroke
+	1 1 points { pop lineto } for
+	closepath 
+	fillp {
+		gsave stroke grestore fill
 	}{
-		closepath gsave stroke grestore fill
+		stroke
 	} ifelse
 } bind def
 

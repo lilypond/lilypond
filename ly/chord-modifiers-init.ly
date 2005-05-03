@@ -4,8 +4,9 @@ chordmodifiers = #default-chord-modifier-list
 
 
 whiteTriangleMarkup = \markup {
+  \triangle ##f
   %%  394 capital delta
-  #(ly:export (ly:wide-char->utf-8 #x0394))
+  %#(ly:export (ly:wide-char->utf-8 #x0394))
 
   %% 2206 : delta from the symbol font.
   %   #(ly:export (ly:wide-char->utf-8 #x2206))
@@ -17,9 +18,10 @@ whiteTriangleMarkup = \markup {
 } 
 
 blackTriangleMarkup = \markup {
+  \triangle ##t
 
   %% black up pointing triangle
-  #(ly:export (ly:wide-char->utf-8 #x25B2))
+%  #(ly:export (ly:wide-char->utf-8 #x25B2))
 }
 
 ignatzekExceptionMusic = {
