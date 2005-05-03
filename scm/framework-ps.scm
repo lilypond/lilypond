@@ -261,7 +261,7 @@
 	(cff-file-name  (cached-file-contents cff-file-name))
 	(else
 	 (ly:warning (_ "can't find CFF/PFA/PFB font ~S=~S" name file-name))
-	 (cons font-name ""))))))
+	 (cons font-name "")))))
 
   
   (define (load-fonts paper)
