@@ -317,7 +317,9 @@ The syntax is the same as `define*-public'."
      files)
     
     (if (pair? failed)
-	(ly:error (_ "failed files: ~S") (string-join failed))
+	(begin
+	  (ly:error (_ "failed files: ~S") (string-join failed))
+	  (exit 1))
 	(begin
 	  ;; HACK: be sure to exit with single newline
 	  (ly:message "")

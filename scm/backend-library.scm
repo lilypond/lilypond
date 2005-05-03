@@ -45,10 +45,11 @@
 
 (define-public (postscript->png resolution papersizename name)
   (let* ((prefix (ly:effective-prefix))
-	 ;; FIXME: should scripts/ps2png.py be installed in PREFIX?
+
+	 ;; run the source, if  we are in the build-directory
 	 (ps2png-source (if prefix
-			   (format "~a/scripts/ps2png.py" prefix)
-			   "ps2png"))
+			   (format "~a/scripts/lilypond-ps2png.py" prefix)
+			   "lilypond-ps2png"))
 	 (cmd (format #f
 		      "~a --resolution=~S --papersize=~a~a '~a'"
 		      (if (file-exists? ps2png-source)

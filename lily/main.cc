@@ -607,6 +607,8 @@ main (int argc, char **argv)
 
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
-  /* Unreachable */
-  return 0;
+  /*
+    If we get here, GUILE exited. This is an error.
+   */
+  return 1;
 }
