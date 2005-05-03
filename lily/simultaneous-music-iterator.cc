@@ -67,7 +67,9 @@ Simultaneous_music_iterator::construct_children ()
 	  tail = SCM_CDRLOC (*tail);
 	}
       else
-	mi->set_context (0);
+	{
+	  mi->quit ();
+	}
     }
 }
 
