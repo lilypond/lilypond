@@ -25,6 +25,27 @@
 optionally filled."
   (make-circle-stencil radius thickness fill))
 
+(def-markup-command (triangle layout props filled) (boolean?)
+  "A triangle, filled or not"
+  (let*
+      ((th (chain-assoc-get 'thickness props  0.1))
+       (size (chain-assoc-get 'font-size props 0))
+       (ex (* (magstep size)
+	      0.8
+	      (chain-assoc-get 'baseline-skip props 2))))
+
+    (ly:make-stencil
+     `(polygon '(0.0 0.0
+		     ,ex 0.0
+		     ,(* 0.5 ex)
+		     ,(* 0.86 ex))
+	   ,th
+	   ,filled)
+
+     (cons 0 ex)
+     (cons 0 (* .86 ex))
+     )))
+
 (def-markup-command (circle layout props arg) (markup?)
   "Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line

@@ -402,7 +402,7 @@ AncientRemoveEmptyStaffContext = \context {
 
 \context {
   \type Score_engraver
-  \name Score
+  \name "Score"
 
   \description "This is the top level notation context.  No
     other context can contain a @code{Score} context.  This context
@@ -435,12 +435,12 @@ AncientRemoveEmptyStaffContext = \context {
 
   \defaultchild "Staff"
   \accepts "Staff"
-  \accepts "TabStaff"
+  \accepts "RhythmicStaff"
+%{  \accepts "TabStaff"
   \accepts "VaticanaStaff"
   \accepts "GregorianTranscriptionStaff"
   \accepts "MensuralStaff"
   \accepts "StaffGroup"
-  \accepts "RhythmicStaff"
   \accepts "DrumStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
@@ -450,7 +450,7 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-
+%}
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"

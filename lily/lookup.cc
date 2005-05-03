@@ -308,6 +308,7 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
   SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
 				ly_quote_scm (shrinked_points_scm),
 				scm_make_real (blotdiameter),
+				SCM_BOOL_T,
 				SCM_UNDEFINED);
 
   Stencil polygon = Stencil (box, polygon_scm);

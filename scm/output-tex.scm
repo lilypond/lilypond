@@ -183,8 +183,8 @@
 (define (resetcolor)
   (string-append "\\color[rgb]{0,0,0}\n"))
 
-(define (polygon points blotdiameter)
-  (embedded-ps (list 'polygon `(quote ,points) blotdiameter)))
+(define (polygon points blotdiameter fill)
+  (embedded-ps (list 'polygon `(quote ,points) blotdiameter fill)))
 
 (define (draw-line thick fx fy tx ty)
   (embedded-ps (list 'draw-line thick fx fy tx ty)))
