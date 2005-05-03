@@ -36,7 +36,6 @@ init_fontconfig ()
     {
       dirs.push (prefix_directory + "/fonts/otf/");
       dirs.push (prefix_directory + "/fonts/type1/");
-      dirs.push (prefix_directory + "/fonts/cff/");
       dirs.push (prefix_directory + "/fonts/svg/");
     }
   
