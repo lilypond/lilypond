@@ -748,8 +748,11 @@ Titles are created for each @code{\score} block, and over a
 The contents of the titles are taken from the @code{\header} blocks.
 The header block for a book supports the following
 @table @code
+@item dedication
+The dedicatee of the music, centered at the top of the first page.
+
 @item title
-The title of the music.  Centered on top of the first page.
+The title of the music, centered just below the dedication.
 
 @item subtitle
 Subtitle, centered below the title.
@@ -786,7 +789,8 @@ Name of the piece, flush-left below the instrument.
   This forces the title to start on a new page (set to ##t or ##f).
 @end table
 
-Here is a demonstration of the fields available, 
+Here is a demonstration of the fields available.  Note that you
+may use any @ref{Text markup} commands in the header.
 
 @lilypond[quote,verbatim,linewidth=11.0\cm]
 \paper {
@@ -796,15 +800,17 @@ Here is a demonstration of the fields available,
 
 \book {
   \header {
-    title = "Title,"
+    dedication = "dedicated to me"
+    title = \markup \center-align < "Title first line" "Title second line, longer" >
     subtitle = "the subtitle,"
-    subsubtitle = "and the sub sub title"
+    subsubtitle = #(string-append "subsubtitle LilyPond version " (lilypond-version))
     poet = "Poet"
-    composer = "Composer"
+    composer =  \markup \center-align < "composer" \small "(1847-1973)" >
     texttranslator = "Text Translator"
-    meter = "Meter"
+    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
     arranger = "Arranger"
-    instrument = "Instrument"
+    opus = \markup { \fontsize #8.5 "o" \fontsize #2.5 "p" \fontsize #-2.5 "u" \fontsize #-5.3 "s" \fontsize #7.5 "       " }
+    instrument = \markup \bold \italic "instrument"
     piece = "Piece"
   }
 
@@ -827,15 +833,6 @@ Here is a demonstration of the fields available,
   }
 }
 @end lilypond
-
-Different fonts may be selected for each element by using
-@code{\markup}, e.g.,
-
-@example
-\header @{
-  title = \markup @{ \italic @{ The italic title @} @}
-@}
-@end example
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
