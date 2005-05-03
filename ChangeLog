@@ -1,5 +1,7 @@
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile: remove cff/cff.ps/.map install rules.
+
 	* lily/grace-engraver.cc (consider_change_grace_settings): use
 	is_alias(). Fixes problem with CueVoice grace notes. 
 
