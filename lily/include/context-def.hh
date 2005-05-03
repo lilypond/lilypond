@@ -30,12 +30,13 @@ private:
   SCM context_name_;
   SCM context_aliases_;
   SCM translator_group_type_;
-
+  SCM default_child_;
+  
 public:
   void add_context_mod (SCM);
-  SCM default_child_context_name ();
+  SCM get_default_child (SCM user_mods) const;
   SCM get_context_name () const;
-  SCM get_accepted (SCM) const;
+  SCM get_accepted (SCM user_mods) const;
   SCM get_property_ops () const { return property_ops_; }
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);

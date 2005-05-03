@@ -1,3 +1,28 @@
+2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/basic-notation.itely (Explicitly
+	instantiating voices): idem.
+
+	* Documentation/user/advanced-notation.itely (Text spanners):
+	remove stray { } 
+
+	* lily/context.cc (default_child_context_name): the default child
+	is now first in accepts_list_.
+
+	* ly/engraver-init.ly (RemoveEmptyRhythmicStaffContext): add
+	\defaultchild to all relevant contexts.  This fixes default voices
+	for \drums { } . Most probably, this also fixes similar problems
+	with ancient transcriptions getting CueVoices instead of the
+	desired voices.
+ 
+	* lily/context-def.cc (get_default_child): new function.
+	(get_accepted): place default child in front of list.
+
+	* lily/parser.yy (FIXME): add DEFAULTCHILD token.
+
+	* lily/include/context-def.hh (struct Context_def): add
+	default_accept_
+
 2005-05-03  Graham Percival  <gperlist@shaw.ca>
 
 	* scm/define-grobs.scm: remove "remove-first" line, since

@@ -103,11 +103,11 @@ c2\startTextSpan b c\stopTextSpan a
 
 @refcommands
 
-@cindex{textSpannerUp}
+@cindex textSpannerUp
 @code{textSpannerUp},
-@cindex{textSpannerDown}
+@cindex textSpannerDown 
 @code{textSpannerDown},
-@cindex{textSpannerNeutral}
+@cindex textSpannerNeutral
 @code{textSpannerNeutral}.
 
 @seealso

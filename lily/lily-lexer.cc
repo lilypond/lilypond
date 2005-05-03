@@ -36,6 +36,7 @@ static Keyword_ent the_key_tab[]
   {"consists", CONSISTS},
   {"context", CONTEXT},
   {"default", DEFAULT},
+  {"defaultchild", DEFAULTCHILD},
   {"denies", DENIES},
   {"description", DESCRIPTION},
   {"drummode", DRUMMODE},

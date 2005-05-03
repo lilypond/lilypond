@@ -74,7 +74,10 @@ Note_heads_engraver::process_music ()
 	}
 
       Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
-
+      if (!pit)
+	{
+	  ev->origin ()->warning (_ ("NoteEvent without pitch"));
+	}
       int pos = pit ? pit->steps () : 0;
       SCM c0 = get_property ("middleCPosition");
       if (scm_is_number (c0))

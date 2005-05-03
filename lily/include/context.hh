@@ -35,6 +35,7 @@ protected:
   Object_key const *key_;
   Context *daddy_context_;
   SCM definition_;
+
   SCM properties_scm_;
   SCM context_list_;
   SCM accepts_list_;

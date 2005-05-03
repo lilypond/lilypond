@@ -2267,7 +2267,7 @@ voice in the first @code{<< \\ >>} construct is effective in the second
 @end lilypond
 
 Polyphony does not change the relationship of notes within a
-@code{\relative{ }} block.  Each note is calculated relative
+@code{\relative @{ @}} block.  Each note is calculated relative
 to the note immediately preceding it.
 
 @example

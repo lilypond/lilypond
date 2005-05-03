@@ -276,7 +276,7 @@ SCM
 Context::default_child_context_name () const
 {
   return scm_is_pair (accepts_list_)
-    ? scm_car (scm_last_pair (accepts_list_))
+    ? scm_car (accepts_list_) 
     : SCM_EOL;
 }
 
