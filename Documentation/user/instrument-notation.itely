@@ -1317,7 +1317,7 @@ There is no collision handling in the case of multiple per-voice
 ambitus.
 
 @node Other vocal issues
-@subsection Other vocal issue
+@subsection Other vocal issues
 
 @ignore
 yeah, I'm giving up somewhat by stuffing a bunch of things in
@@ -1837,6 +1837,11 @@ Details about the property interface to fret diagrams are found at
 
 Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
 
+
+@node Other guitar issues
+@subsection Other guitar issues
+
+FIXME: insert guitar fret number example here.
 
 
 @node Ancient notation
