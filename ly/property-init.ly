@@ -195,3 +195,8 @@ improvisationOff =  {
     \unset squashedPosition 
     \revert NoteHead #'style
 }
+
+textSpannerUp = \override TextSpanner #'direction = #1
+textSpannerDown = \override TextSpanner #'direction = #-1
+textSpannerNeutral = \revert TextSpanner #'direction
+
