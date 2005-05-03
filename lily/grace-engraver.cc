@@ -69,8 +69,7 @@ Grace_engraver::consider_change_grace_settings ()
 	  SCM val = scm_cadr (scm_cddr (entry));
 
 	  Context *c = context ();
-	  while (c
-		 && c->context_name_symbol () != context_name)
+	  while (c && !c->is_alias (context_name))
 	    {
 	      c = c->get_parent_context ();
 	    }
