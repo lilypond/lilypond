@@ -15,6 +15,15 @@
 
 	* Documentation/user/global.itely: better docs for \header.
 
+	* Documentation/user/putting.itely: new chapter; placeholder
+	for future expansion.
+
+	* Documentation/user/examples.itely: moved "suggestions for
+	writing LP files" section into putting.itely.
+
+	* Documentation/user/lilypond.itely: added new chapter,
+	fixed the short table of contents.
+
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (write-preamble): extract CFF from OTF

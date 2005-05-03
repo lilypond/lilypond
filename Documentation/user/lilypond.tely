@@ -253,6 +253,8 @@ of this and other documentation.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
 * Example templates::              Larger examples.
+* Putting it all together::        Demonstrates real-life LilyPond usage.
+* Running LilyPond::               Operation.
 * Basic notation::                 Standard musical notation.
 * Instrument-specific notation::   Notation that is only used for some
                                    instruments.
@@ -261,15 +263,14 @@ of this and other documentation.
 
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::
-* Running LilyPond::               Operation.
-* Converting from other formats::  Converting to lilypond source format.
 * LilyPond-book::                  Integrating text and music.
+* Converting from other formats::  Converting to lilypond source format.
 * Literature list::
 * Scheme tutorial::
 * Notation manual details::
 * Point and click::             
-* GNU Free Documentation License:: FDL.
 * Cheat sheet::     
+* GNU Free Documentation License:: FDL.
 * Unified index::
 @end menu
 @end ifnottex
@@ -282,6 +283,7 @@ of this and other documentation.
 @include introduction.itely 
 @include tutorial.itely
 @include examples.itely
+@include putting.itely
 @include invoking.itely
 @include basic-notation.itely
 @include instrument-notation.itely
