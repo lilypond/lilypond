@@ -28,8 +28,6 @@ This chapter explains how to use notation for specific instruments.
 Piano staves are two normal staves coupled with a brace.  The staves
 are largely independent, but sometimes voices can cross between the
 two staves.  The same notation is also used for harps and other key
-@c Is this `harp' or `harpsichord'?
-@c    both.  -gp
 instruments.  The @internalsref{PianoStaff} is especially built to
 handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.

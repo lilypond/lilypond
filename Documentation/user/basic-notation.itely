@@ -2266,6 +2266,18 @@ voice in the first @code{<< \\ >>} construct is effective in the second
 }
 @end lilypond
 
+Polyphony does not change the relationship of notes within a
+@code{\relative{ }} block.  Each note is calculated relative
+to the note immediately preceding it.
+
+@example
+\relative @{ noteA << noteB \\ noteC >> noteD @}
+@example
+
+@code{noteC} is relative to @code{noteB}, not @code{noteA};
+@code{noteD} is relative to @code{noteC}, not @code{noteB} or
+@code{noteA}.
+
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 

@@ -1,3 +1,12 @@
+2005-05-03  Graham Percival  <gperlist@shaw.ca>
+
+	* scm/define-grobs.scm: remove "remove-first" line, since
+	the absent property is set to #f anyway.
+
+	* Documentation/user/basic-notation.itely,
+	advanced-notation.itely, instrument-notation.itely: minor
+	fixes.
+
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-ps.scm (write-preamble): extract CFF from OTF
