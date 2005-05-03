@@ -250,12 +250,13 @@
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
 	
-	((cff-font? font)
+	((and bare-file-name (string-match "\\.ttf" bare-file-name))
+	 (ly:ttf->pfa bare-file-name))
+
+	((and font (cff-font? font))
 	 (ps-embed-cff (ly:otf-font-table-data font "CFF ")
 		       name
 		       0))
-	((and bare-file-name (string-match "\\.ttf" bare-file-name))
-	 (ly:ttf->pfa bare-file-name))
 	(bare-file-name (cached-file-contents bare-file-name))
 	(cff-file-name  (cached-file-contents cff-file-name))
 	(else
