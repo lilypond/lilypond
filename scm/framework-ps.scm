@@ -254,14 +254,14 @@
 	 (ps-embed-cff (ly:otf-font-table-data font "CFF ")
 		       name
 		       0))
-	 (cached-file-contents bare-file-name))
 	((and bare-file-name (string-match "\\.ttf" bare-file-name))
 	 (ly:ttf->pfa bare-file-name))
 	(bare-file-name (cached-file-contents bare-file-name))
 	(cff-file-name  (cached-file-contents cff-file-name))
 	(else
 	 (ly:warning (_ "can't find CFF/PFA/PFB font ~S=~S" name file-name))
-	 (cons font-name "")))))
+	 (cons font-name "")))
+       )))
 
   
   (define (load-fonts paper)
