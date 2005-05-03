@@ -436,7 +436,7 @@ AncientRemoveEmptyStaffContext = \context {
   \defaultchild "Staff"
   \accepts "Staff"
   \accepts "RhythmicStaff"
-%{  \accepts "TabStaff"
+  \accepts "TabStaff"
   \accepts "VaticanaStaff"
   \accepts "GregorianTranscriptionStaff"
   \accepts "MensuralStaff"
@@ -450,7 +450,7 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "Devnull"
   \accepts "NoteNames"
   \accepts "FiguredBass"
-%}
+
   soloText = #"Solo"
   soloIIText = #"Solo II"
   aDueText = #"a2"
