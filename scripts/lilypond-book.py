@@ -1355,7 +1355,7 @@ def write_if_updated (file_name, lines):
 		oldstr = f.read ()
 		new_str = string.join (lines, '')
 		if oldstr == new_str:
-			ly.progress (_ ("%s is up to date."))
+			ly.progress (_ ("%s is up to date.") % file_name)
 			ly.progress ('\n')
 			return
 	except:

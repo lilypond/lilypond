@@ -1,5 +1,10 @@
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/basic-notation.itely (Basic polyphony): fix
+	missing @end 
+
+	* scripts/lilypond-book.py (write_if_updated): print file name.
+
 	* Documentation/user/basic-notation.itely (Explicitly
 	instantiating voices): idem.
 
@@ -10,10 +15,11 @@
 	is now first in accepts_list_.
 
 	* ly/engraver-init.ly (RemoveEmptyRhythmicStaffContext): add
-	\defaultchild to all relevant contexts.  This fixes default voices
-	for \drums { } . Most probably, this also fixes similar problems
-	with ancient transcriptions getting CueVoices instead of the
-	desired voices.
+	\defaultchild to all relevant contexts.  This fixes:
+	drums-pitch.ly.
+
+	(Probably also fixes similar problems with ancient
+	transcriptions getting CueVoices instead of the desired voices.)
  
 	* lily/context-def.cc (get_default_child): new function.
 	(get_accepted): place default child in front of list.

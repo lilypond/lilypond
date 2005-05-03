@@ -2272,7 +2272,7 @@ to the note immediately preceding it.
 
 @example
 \relative @{ noteA << noteB \\ noteC >> noteD @}
-@example
+@end example
 
 @code{noteC} is relative to @code{noteB}, not @code{noteA};
 @code{noteD} is relative to @code{noteC}, not @code{noteB} or
