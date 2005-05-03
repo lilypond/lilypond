@@ -4,6 +4,7 @@
   \name Global
 
   \accepts Score
+  \defaultchild Score
   \description "Hard coded entry point for LilyPond. Cannot be tuned."
   \grobdescriptions #all-grob-descriptions    
 }
@@ -50,6 +51,7 @@
   instrument = #'()
   instr = #'()
   
+  \defaultchild "Voice"
   \accepts "Voice"
   \accepts "CueVoice"
   
@@ -63,7 +65,6 @@
   \type "Engraver_group_engraver"
   \name DrumStaff
   \alias Staff
-
   \remove "Accidental_engraver"
   \remove "Ottava_spanner_engraver"
   \remove "Key_engraver" 
@@ -74,6 +75,7 @@
 
   \denies Voice
   \accepts DrumVoice
+  \defaultchild DrumVoice
 
   clefGlyph = #"clefs.percussion"
   clefPosition = #0
@@ -94,12 +96,14 @@
   \accepts "PianoStaff"
   \accepts "Lyrics"
   \accepts "ChordNames"
+  \defaultchild "Staff"
 }
 
 \context {
   \InnerChoirStaff
   \name ChoirStaff
   
+  \defaultchild "InnerChoirStaff"
   \accepts "InnerChoirStaff"
   \accepts "InnerStaffGroup"
   \description "Identical to @code{StaffGroup} except that the
@@ -142,6 +146,7 @@ contained staves are not connected vertically."
   \consists "Axis_group_engraver"
   \accepts "Voice"
   \accepts "CueVoice"
+  \defaultchild "Voice"
   \description  "
     A context like @code{Staff} but for printing rhythms.  Pitches are
     ignored; the notes are printed on one line.  
@@ -428,6 +433,7 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Bar_number_engraver"
   \consists "Span_arpeggio_engraver"
 
+  \defaultchild "Staff"
   \accepts "Staff"
   \accepts "TabStaff"
   \accepts "VaticanaStaff"
@@ -579,12 +585,12 @@ EasyNotation = \context {	%% TODO: why \context override?
 \context {
   \type "Engraver_group_engraver"
   \name FiguredBass 
+
   \consists "Figured_bass_engraver"
   \consists "Rest_swallow_translator"
   \consists "Note_swallow_translator"
   \consists "Skip_event_swallow_translator"
   \consists "Separating_line_group_engraver"
-  
   \consists "Hara_kiri_engraver"
 }
 
@@ -639,6 +645,7 @@ EasyNotation = \context {	%% TODO: why \context override?
   \description "Context for generating tablature. [DOCME]"
 
   \accepts "TabVoice"
+  \defaultchild "TabVoice"
   
   %% 6 strings
   \override StaffSymbol #'staff-space = #1.5
@@ -713,6 +720,8 @@ EasyNotation = \context {	%% TODO: why \context override?
   \alias "Staff"
   \denies "Voice"
   \accepts "VaticanaVoice"
+  \defaultchild "VaticanaVoice"
+
   \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
 
   \remove "Time_signature_engraver"
@@ -787,6 +796,7 @@ EasyNotation = \context {	%% TODO: why \context override?
   \alias "Staff"
   \denies "Voice"
   \accepts "GregorianTranscriptionVoice"
+  \defaultchild "GregorianTranscriptionVoice"
 
   %% We can not remove Bar_engraver; otherwise clefs and custodes will
   %% not show up any more among other line breaking issues.
@@ -816,6 +826,7 @@ EasyNotation = \context {	%% TODO: why \context override?
   \name "MensuralStaff"
   \alias "Staff"
   \denies "Voice"
+  \defaultchild "MensuralVoice"
   \accepts "MensuralVoice"
   \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting a piece in mensural style."
 

@@ -26,6 +26,7 @@ Context_def::Context_def ()
   translator_mods_ = SCM_EOL;
   property_ops_ = SCM_EOL;
   context_name_ = SCM_EOL;
+  default_child_ = SCM_EOL;
   description_ = SCM_EOL;
 
   smobify_self ();
@@ -43,10 +44,12 @@ Context_def::Context_def (Context_def const &s)
   property_ops_ = SCM_EOL;
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
+  default_child_ = SCM_EOL;
 
   smobify_self ();
   description_ = s.description_;
 
+  default_child_ = s.default_child_;
   accept_mods_ = s.accept_mods_;
   property_ops_ = s.property_ops_;
   translator_mods_ = s.translator_mods_;
@@ -85,6 +88,7 @@ Context_def::mark_smob (SCM smob)
   scm_gc_mark (me->translator_mods_);
   scm_gc_mark (me->property_ops_);
   scm_gc_mark (me->translator_group_type_);
+  scm_gc_mark (me->default_child_);
 
   return me->context_name_;
 }
@@ -99,11 +103,18 @@ Context_def::add_context_mod (SCM mod)
       return;
     }
 
+  /*
+    other modifiers take symbols as argument. 
+  */
   SCM sym = scm_cadr (mod);
   if (scm_is_string (sym))
     sym = scm_string_to_symbol (sym);
 
-  if (ly_symbol2scm ("consists") == tag
+  if (ly_symbol2scm ("default-child") == tag)
+    {
+      default_child_ = scm_cadr (mod);
+    }
+  else if (ly_symbol2scm ("consists") == tag
       || ly_symbol2scm ("consists-end") == tag
       || ly_symbol2scm ("remove") == tag)
     {
@@ -152,7 +163,34 @@ Context_def::get_accepted (SCM user_mod) const
       else if (tag == ly_symbol2scm ("denies"))
 	acc = scm_delete_x (sym, acc);
     }
+
+  SCM def = get_default_child (user_mod);
+  if (scm_is_symbol (def))
+    {
+      if (scm_memq (def, acc))
+	acc = scm_delete_x (def, acc);
+      acc = scm_cons (def, acc);
+    }
+  
   return acc;
+}
+
+
+SCM
+Context_def::get_default_child (SCM user_mod) const
+{
+  SCM name = default_child_;
+  for (SCM s = user_mod; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM entry = scm_car (s);
+      if (scm_car (entry) == ly_symbol2scm ("default-child"))
+	{
+	  name = scm_cadr (entry);
+	  break;
+	}
+    }
+
+  return name;
 }
 
 Link_array<Context_def>
@@ -306,6 +344,12 @@ Context_def::instantiate (SCM ops, Object_key const *key)
 	}
     }
 
+
+  /*
+    Ugh,  todo: should just make a private
+    copy of Context_def with the user mods.
+  */
+
   g->simple_trans_list_ = trans_list;
 
   tg->implementation_ = g->self_scm ();
@@ -320,7 +364,7 @@ Context_def::instantiate (SCM ops, Object_key const *key)
   scm_gc_unprotect_object (g->self_scm ());
 
   tg->accepts_list_ = get_accepted (ops);
-
+    
   return tg;
 }
 

@@ -279,6 +279,7 @@ or
 %token CONSISTS "\\consists"
 %token CONTEXT "\\context"
 %token DEFAULT "\\default"
+%token DEFAULTCHILD "\\defaultchild"
 %token DENIES "\\denies"
 %token DESCRIPTION "\\description"
 %token DRUMMODE "\\drummode"
@@ -1423,6 +1424,7 @@ context_def_mod:
 	| REMOVE { $$ = ly_symbol2scm ("remove"); }
 
 	| ACCEPTS { $$ = ly_symbol2scm ("accepts"); }
+	| DEFAULTCHILD { $$ = ly_symbol2scm ("default-child"); }
 	| DENIES { $$ = ly_symbol2scm ("denies"); }
 
 	| ALIAS { $$ = ly_symbol2scm ("alias"); }
