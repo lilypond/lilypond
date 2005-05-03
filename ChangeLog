@@ -1,5 +1,7 @@
 2005-05-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/substitute-encoding.py: new file
+
 	* Documentation/user/basic-notation.itely (Basic polyphony): fix
 	missing @end 
 
