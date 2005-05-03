@@ -112,7 +112,7 @@ Context_def::add_context_mod (SCM mod)
 
   if (ly_symbol2scm ("default-child") == tag)
     {
-      default_child_ = scm_cadr (mod);
+      default_child_ = sym;
     }
   else if (ly_symbol2scm ("consists") == tag
       || ly_symbol2scm ("consists-end") == tag
