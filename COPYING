@@ -2,9 +2,28 @@
 
 *** NOTE
 
-	This license applies to all files that do not explicitly
-specify another license.  This license does not apply to the included
-example input files (which are in the subdirectory input/).
+1. This license applies to all files that do not explicitly specify
+another license.
+
+
+2. This license does not apply to the included example input files
+(which are in the subdirectory input/).
+
+3. The following addition applies to the fonts included in this
+package. 
+
+	As a special exception, if you create a document which uses
+	this font, and embed this font or unaltered portions of this
+	font into the document, this font does not by itself cause the
+	resulting document to be covered by the GNU General Public
+	License. This exception does not however invalidate any other
+	reasons why the document might be covered by the GNU General
+	Public License. If you modify this font, you may extend this
+	exception to your version of the font, but you are not
+	obligated to do so. If you do not wish to do so, delete this
+	exception statement from your version.
+
+Sources of the included fonts are in the subdirectory mf/
 
 *** END NOTE
 
@@ -12,7 +31,7 @@ example input files (which are in the subdirectory input/).
 		       Version 2, June 1991
 
  Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-     59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+     51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
 
@@ -315,7 +334,7 @@ the "copyright" line and a pointer to where the full notice is found.
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software Foundation,
-    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, USA.
 
 Also add information on how to contact you by electronic and paper mail.
 
