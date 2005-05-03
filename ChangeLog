@@ -85,7 +85,7 @@
 	($(outdir)/Fontmap.lily): idem.
 
 	* buildscripts/gen-emmentaler-scripts.py (i): load fetaXX encoding
-	for PFAEmmentaler-XXX.pfa. This fixes ghostscript ps2pdf problems.
+	for PFAEmmentaler-XXX.pfa. 
 
 	* Documentation/user/music-glossary.tely (accidental): NL
 	translation of accidental.

@@ -55,28 +55,14 @@ protected:
 
   DECLARE_SMOBS (Music_iterator, dummy);
   Music_iterator (Music_iterator const &);
-public:
 
+public:
   Moment music_get_length () const;
   Moment music_start_mom () const;
   Music_iterator ();
-
-  /**
-     Do the reporting.  Will try MUSIC_L_ in its own translator first,
-     then its children. Returns the iterator that succeeded
-  */
   Music_iterator *try_music (Music *) const;
-
-  /**
-     The translation unit that we this iterator is reporting  to now.
-  */
   Context *get_outlet () const;
-
   void set_context (Context *);
-
-  /** Get an iterator matching the type of MUS, and use TRANS to find
-      an accompanying translation unit
-  */
   static SCM get_static_get_iterator (Music *mus);
   void init_translator (Music *, Context *);
   void quit ();
@@ -84,22 +70,11 @@ public:
   virtual void derived_substitute (Context *, Context *);
   virtual Moment pending_moment () const;
   virtual bool ok () const;
-
   virtual bool run_always () const;
   virtual void process (Moment until);
   virtual void derived_mark () const;
   virtual void construct_children ();
-
-  /**
-     Construct sub-iterators, and set the translator to
-     report to.
-  */
-
   DECLARE_SCHEME_CALLBACK (constructor, ());
-
-  /**
-     Get an iterator for MUS, inheriting the translation unit from THIS.
-  */
   SCM get_iterator (Music *) const;
 
   virtual Music_iterator *try_music_in_children (Music *) const;
@@ -108,6 +83,7 @@ public:
 protected:
   virtual void do_quit ();
   void descend_to_child (Context *);
+
 private:
   Interpretation_context_handle handle_;
   Music *music_;

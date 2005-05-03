@@ -801,11 +801,11 @@ may use any @ref{Text markup} commands in the header.
 \book {
   \header {
     dedication = "dedicated to me"
-    title = \markup \center-align < "Title first line" "Title second line, longer" >
+    title = \markup \center-align { "Title first line" "Title second line, longer" }
     subtitle = "the subtitle,"
     subsubtitle = #(string-append "subsubtitle LilyPond version " (lilypond-version))
     poet = "Poet"
-    composer =  \markup \center-align < "composer" \small "(1847-1973)" >
+    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
     meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge "r" }
     arranger = "Arranger"
