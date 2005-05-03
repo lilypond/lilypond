@@ -920,7 +920,6 @@
      . (
 	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
 	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
-	(remove-first . #f)
 	(axes . (1))
 	(meta . ((interfaces . (axis-group-interface
 				vertically-spaceable-interface hara-kiri-group-interface
