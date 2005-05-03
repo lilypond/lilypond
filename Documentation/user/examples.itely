@@ -8,64 +8,16 @@ beautiful printed scores!
 
 @c bad node name for ancient notation to avoid confict
 @menu
-* Suggestions for writing LilyPond files::
-* Single staff::
-* Piano templates::
-* String quartet::
-* Vocal ensembles::
-* Ancient notation templates::
-* Jazz combo::
-* Other templates::
-* Lilypond-book templates::
+* Single staff::                
+* Piano templates::             
+* String quartet::              
+* Vocal ensembles::             
+* Ancient notation templates::  
+* Jazz combo::                  
+* Other templates::             
+* Lilypond-book templates::     
 @end menu
 
-@c TODO explain \score{} ?  Maybe add a note to the tutorial?
-
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
-
-Now you're ready to begin writing larger LilyPond files -- not just the
-little examples in the tutorial, but whole pieces.  But how should you
-go about doing it?
-
-The best answer is ``however you want to do it.''  As long as LilyPond
-can understand your files and produces the output that you want, it
-doesn't matter what your files look like.  That said, sometimes we
-make mistakes when writing files.  If LilyPond can't understand your
-files, or produces output that you don't like, how do you fix the
-problem?
-
-Here are a few suggestions that can help you to avoid or fix
-problems:
-
-@itemize @bullet
-@item Include @code{\version} numbers in every file.  Note that all
-templates contain a @code{\version "2.4.0"} string.  We
-highly recommend that you always include the @code{\version}, no matter
-how small your file is.  Speaking from personal experience, it's
-quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @code{convert-ly} requires you to declare
-which version of LilyPond you used.
-
-@item Include checks: See @ref{Bar check} and @ref{Octave check}.  If you
-include checks every so often, then if you make a mistake, you can pinpoint
-it quicker.  How often is ``every so often''?  It depends on the complexity
-of the music.  For very simple music, perhaps just once or twice.  For
-very complex music, every bar.
-
-@item One bar per line.  If there is anything complicated, either in the music
-itself or in the output you desire, it's often good to write only one bar
-per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to `debug' your files.
-
-@item Comment your files, with either bar numbers (every so often) or
-references to musical themes (``second theme in violins'', ``fourth
-variation'').  You may not need it when you're writing the piece for
-the first time, but if you want to go back and change something two
-or three years later, you won't know how your file is structured if you
-don't comment the file.
-
-@end itemize
 
 @node Single staff
 @section Single staff
