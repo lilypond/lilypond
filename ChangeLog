@@ -1,3 +1,8 @@
+2005-05-04  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/regression/GNUmakefile (local_delete): use `find` together 
+	with `xargs` to avoid too long argument-lists in cmd line.
+
 2005-05-04  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/introduction.itely: updates "About this manual".
