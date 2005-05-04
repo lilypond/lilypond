@@ -1900,52 +1900,6 @@ made invisible.
 @end ignore
 
 
-
-
-@ignore
-
-FIXME:  We don't need this section.  It will be moved into LSR as soon
-as the safe mode stuff is worked out.
-
-@n ode Controlling formatting of prefatory matter
-@s ubsection Controlling formatting of prefatory matter
-
-@c  This section will be moved to somewhere else soon. -gp
-This example demonstrates how to place prefatory matter
-(such as the clef and key signature) at the end of a line.
-
-@lilypond[quote,verbatim]
-\transpose c c' {
-  \override Staff.Clef
-    #'break-visibility = #end-of-line-visible
-  \override Staff.KeySignature
-    #'break-visibility = #end-of-line-visible
-  \set Staff.explicitClefVisibility = #end-of-line-visible
-  \set Staff.explicitKeySignatureVisibility = #end-of-line-visible
-
-  % We want the time sig to take space, otherwise there is not
-  % enough white at the start of the line.
-
-  \override Staff.TimeSignature #'transparent = ##t
-  \set Score.defaultBarType = #"empty"
-
-  c1 d e f g a b c
-  \key d \major
-  \break
-
-  % see above.
-  \time 4/4
-
-  d e fis g a b cis d
-  \key g \major
-  \break
-  \time 4/4
-}
-@end lilypond
-
-@end ignore
-
-
 @node Coloring objects
 @subsection Coloring objects
 
