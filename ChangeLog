@@ -2,7 +2,8 @@
 
 	* Documentation/user/introduction.itely: updates "About this manual".
 
-	* Documentation/user/advanced-notation.itely: minor fixes.
+	* Documentation/user/advanced-notation.itely,
+	invoking.itely: minor fixes.
 
 2005-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 

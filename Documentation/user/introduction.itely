@@ -649,13 +649,61 @@ provides templates of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 
 @item
+@emph{@ref{Putting it all together}}
+demonstrates practical uses of LilyPond.
+
+@item
+@ifhtml
+The chapter
+@end ifhtml
+@emph{@ref{Running LilyPond}} shows how to run LilyPond and its helper
+programs.  In addition, this section explains how to upgrade input
+files from previous versions of LilyPond.
+
+@item
 @ifhtml
 The
 @end ifhtml
-@c @emph{@ref{Notation manual}} @c FIXME
-@emph{Notation manual}
-discusses topics grouped by notation construct.  Once you master the
-basics, this is the place to look up details.
+@emph{@ref{Basic notation}}
+@ifteml
+chapter
+@end ifhtml
+discusses topics grouped by notation construct.  This section gives
+details about basic notation that will be useful in almost any
+notation project.
+
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{Instrument-specific notation}}
+@ifteml
+chapter
+@end ifhtml
+discusses topics grouped by notation construct.  This section gives
+details about special notation that will only be useful for particular
+instrument (or vocal) groups.
+
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{Advanced notation}}
+@ifteml
+chapter
+@end ifhtml
+discusses topics grouped by notation construct.  This section gives
+details about complicated or unusual notation.
+
+@item
+@ifhtml
+The
+@end ifhtml
+@emph{@ref{Global issues}}
+@ifhtml
+chapter
+@end ifhtml
+discusses issues which affect the whole lilypond file.
 
 @item
 @ifhtml
@@ -668,15 +716,8 @@ explains how to fine tune layout.
 @ifhtml
 The chapter
 @end ifhtml
-@emph{@ref{Running LilyPond}} shows how to run LilyPond and its helper
-programs.
-
-@item
-@ifhtml
-The chapter
-@end ifhtml
 @emph{@ref{LilyPond-book}} explains the details behind creating
-documents with in-line music examples (like this manual).
+documents with in-line music examples, like this manual.
 
 @item
 @ifhtml
@@ -685,8 +726,7 @@ The chapter
 @emph{@ref{Converting from other formats}}
 explains how to run the conversion programs.  These programs
 are supplied with the LilyPond package, and convert a variety of music
-formats to the @code{.ly} format.  In addition, this section explains
-how to upgrade input files from previous versions of LilyPond.
+formats to the @code{.ly} format.
 
 @item
 @ifhtml
