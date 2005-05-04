@@ -9,6 +9,7 @@
 #ifndef REAL_HH
 #define REAL_HH
 
+#include <algorithm>
 #include <climits>
 
 typedef double Real;
