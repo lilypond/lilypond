@@ -1,27 +1,27 @@
 /*
-  interpretation-context-handle.cc -- implement Interpretation_context_handle
+  context-handle.cc -- implement Context_handle
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "interpretation-context-handle.hh"
+#include "context-handle.hh"
 #include "context.hh"
 
-Interpretation_context_handle::Interpretation_context_handle ()
+Context_handle::Context_handle ()
 {
   outlet_ = 0;
 }
 
-Interpretation_context_handle::Interpretation_context_handle (Interpretation_context_handle const &s)
+Context_handle::Context_handle (Context_handle const &s)
 {
   outlet_ = 0;
   if (s.outlet_)
     up (s.outlet_);
 }
 
-Interpretation_context_handle::~Interpretation_context_handle ()
+Context_handle::~Context_handle ()
 {
   /*
     Don't do
@@ -34,33 +34,33 @@ Interpretation_context_handle::~Interpretation_context_handle ()
 }
 
 void
-Interpretation_context_handle::up (Context *t)
+Context_handle::up (Context *t)
 {
   outlet_ = t;
   t->iterator_count_++;
 }
 
 void
-Interpretation_context_handle::down ()
+Context_handle::down ()
 {
   outlet_->iterator_count_--;
   outlet_ = 0;
 }
 
 bool
-Interpretation_context_handle::try_music (Music *m)
+Context_handle::try_music (Music *m)
 {
   return outlet_->try_music (m);
 }
 
 void
-Interpretation_context_handle::operator = (Interpretation_context_handle const &s)
+Context_handle::operator = (Context_handle const &s)
 {
   set_context (s.outlet_);
 }
 
 void
-Interpretation_context_handle::set_context (Context *trans)
+Context_handle::set_context (Context *trans)
 {
   if (outlet_ == trans)
     return;
@@ -71,14 +71,14 @@ Interpretation_context_handle::set_context (Context *trans)
 }
 
 Context *
-Interpretation_context_handle::get_outlet () const
+Context_handle::get_outlet () const
 {
 
   return outlet_;
 }
 
 int
-Interpretation_context_handle::get_count () const
+Context_handle::get_count () const
 {
   return outlet_->iterator_count_;
 }

@@ -60,11 +60,11 @@ private:
   /*
     TODO: this is getting of hand...
   */
-  Interpretation_context_handle one_;
-  Interpretation_context_handle two_;
-  Interpretation_context_handle null_;
-  Interpretation_context_handle shared_;
-  Interpretation_context_handle solo_;
+  Context_handle one_;
+  Context_handle two_;
+  Context_handle null_;
+  Context_handle shared_;
+  Context_handle solo_;
 
   void substitute_both (Context *to1,
 			Context *to2);
@@ -204,7 +204,7 @@ Part_combine_iterator::substitute_both (Context *to1,
 {
   Context *tos[] = {to1, to2};
   Music_iterator *mis[] = {first_iter_, second_iter_};
-  Interpretation_context_handle *hs[]
+  Context_handle *hs[]
     = {
     &null_,
     &one_, &two_,

@@ -205,7 +205,6 @@ Interval_t<T>::center () const
   return (elem (LEFT) + elem (RIGHT)) / T (2);
 }
 
-// again? see flower-proto.hh
 typedef Interval_t<Real> Interval;
 typedef Interval_t<int> Slice;	// weird name
 

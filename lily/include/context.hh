@@ -24,7 +24,7 @@ class Context
   void terminate ();
 
 private:
-  friend class Interpretation_context_handle;
+  friend class Context_handle;
   int iterator_count_;
   bool init_;
 
