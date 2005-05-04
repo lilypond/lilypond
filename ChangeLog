@@ -1,3 +1,7 @@
+2005-05-04  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* po/fi.po: convert to utf-8, and update.
+
 2005-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond.suse.spec.in: update from suse 2.4 package.
