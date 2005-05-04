@@ -1,5 +1,7 @@
 2005-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/lilypond.suse.spec.in: update from suse 2.4 package.
+
 	* lily/*.cc: more <? >? to min/max changes
 
 	* lily/include/interpretation-context-handle.hh: rename

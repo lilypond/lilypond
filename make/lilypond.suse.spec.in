@@ -1,39 +1,40 @@
 #
-# spec file for package lilypond (Version 1.3.149)
-# based on 
-#    spec file for package lilypond (Version 1.2.17)
-#    Copyright  (c)  2000  SuSE GmbH  Nuernberg, Germany.
+# spec file for package lilypond (Version 2.4.4)
 #
-# Please send bug reports to schlemme@mathe.tu-freiberg.de
+# Copyright (c) 2005 SUSE LINUX Products GmbH, Nuernberg, Germany.
+# This file and all modifications and additions to the pristine
+# package are under the same license as the package itself.
+#
+# Please submit bugfixes or comments via http://www.suse.de/feedback/
+#
 
+# norootforbuild
+# neededforbuild  ImageMagick autotrace cups-libs ec-fonts-mftraced emacs emacs-nox flex fontforge freetype2 gettext ghostscript-fonts-std ghostscript-library ghostscript-serv glib2 gpp guile libexif libgimpprint libgpp libjpeg liblcms libnetpbm libpng-devel-packages libtiff mftrace netpbm potrace python python-devel scrollkeeper t1utils tcsh te_kpath te_latex te_mpost tetex x-devel-packages
+
+BuildRequires: aaa_base acl attr bash bind-utils bison bzip2 coreutils cpio cpp cracklib cvs cyrus-sasl db devs diffutils e2fsprogs file filesystem fillup findutils flex gawk gdbm-devel glibc glibc-devel glibc-locale gpm grep groff gzip info insserv klogd less libacl libattr libgcc libnscd libselinux libstdc++ libxcrypt libzio m4 make man mktemp module-init-tools ncurses ncurses-devel net-tools netcfg openldap2-client openssl pam pam-modules patch permissions popt procinfo procps psmisc pwdutils rcs readline sed strace syslogd sysvinit tar tcpd texinfo timezone unzip util-linux vim zlib zlib-devel ImageMagick autoconf automake autotrace binutils cups-libs ec-fonts-mftraced emacs emacs-nox expat fontconfig fontconfig-devel fontforge freetype2 gcc gcc-c++ gdbm gettext ghostscript-fonts-std ghostscript-library glib2 gnome-filesystem guile libexif libgimpprint libjpeg libjpeg-devel liblcms libnetpbm libpng libpng-devel libstdc++-devel libtiff libtiff-devel libtool mftrace netpbm perl potrace python python-devel rpm scrollkeeper t1utils tcsh te_ams te_kpath te_latex te_mpost tetex xorg-x11-devel xorg-x11-libs
+
+Name:         lilypond
 %define info yes
+License:      Other License(s), see package, GPL
+Group:        Productivity/Publishing/Other
+Requires:     tetex te_latex python tcsh mftrace
+Autoreqprov:  on
+Requires:     scrollkeeper t1utils autotrace mftrace ec-fonts-mftraced
+Summary:      Music Typesetter
+Version:      2.4.4
+Release:      7
+URL:          http://www.lilypond.org/
+Source:       lilypond-%{version}.tar.bz2
+Patch:        lilypond-%{version}.dif
+Patch1:       lilypond-profile.patch
+Patch2:       lilypond-gs.patch
+BuildRoot:    %{_tmppath}/%{name}-%{version}-build
+PreReq:       %install_info_prereq /usr/bin/touch /usr/bin/sed
 
-# neededforbuild  guile tcsh tetex te_latex te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb gs_serv gs_lib gs_fonts guile
-# usedforbuild    aaa_base aaa_dir autoconf automake base bash bindutil binutils bison bzip compress cpio cracklib devs diff ext2fs file fileutil find flex gawk gcc gdbm gettext gpm gpp gppshare groff gs_fonts gs_lib gs_serv guile gzip kbd less libc libgpp libnetpb libpng libtool libz lx_suse make mktemp modules ncurses net_tool netcfg netpbm nkita nkitb nssv1 pam patch perl pgp ps python rcs rpm sendmail sh_utils shadow shlibs strace syslogd sysvinit tcsh te_ams te_latex te_mpost tetex texinfo textutil timezone unzip util vim xdevel xf86 xshared guile
-
-
-Distribution: SuSE Linux 7.0 (i386)
-Name: lilypond
-Version: @TOPLEVEL_VERSION@
-Release: 2
-Copyright:    GPL
-Group: Applications/Publishing
-Source0: ftp.lilyond.org:/pub/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
-# music notation software for.. ?
-Summary: A program for printing sheet music.
-URL: http://www.lilypond.org/
-# rpm: 4.0: broken for -ta builds: rpm doesn't look in tarball for xpm
-# Icon: lilypond-icon.xpm
-BuildRoot: /tmp/lilypond-install
-# add lots of Buildreq: tetex-kpath, te_mpost, bison
-# better prereqs: tetex-latex, python, (mpost?) etc.
-Prereq: tetex python
-
-# use keywords: music notation software
 %description
-LilyPond is a music typesetter.  It produces beautiful
-sheet music using a high level description file as input.  LilyPond is
-part of the GNU Project.
+GNU LilyPond - The Music Typesetter.
+
+
 
 Authors:
 --------
@@ -46,228 +47,303 @@ Authors:
     Anthony Fok <foka@debian.org>
     Neil Jerram <nj104@cus.cam.ac.uk>
     Donald Ervin Knuth
-    Werner Lemberg <wl@gnu.org>
+    Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>
     David R. Linn <drl@vuse.vanderbilt.edu>
     François Pinard <pinard@iro.umontreal.ca>
     Jeffrey B. Reed <daboys@bga.com>
     Shay Rojanski
-    Tom Cato Amundsen <tca@gnu.org>
-    Laura Conrad <lconrad@world.std.com>
-    James Hammons <jlhamm@pacificnet.net>
-    Bjoern Jacke <bjoern.jacke@gmx.de>
-    Michael Krause <m.krause@tu-harburg.de>
+
+%package documentation
+Summary:      Music Typesetter
+Group:        Productivity/Publishing/Other
+
+%description documentation
+GNU LilyPond - The Music Typesetter.
+
+
+
+Authors:
+--------
+    Han-Wen Nienhuys <hanwen@cs.uu.nl>
+    Jan Nieuwenhuizen <janneke@gnu.org>
+    Alexandre Oliva <oliva@dcc.unicamp.br>
+    Mats Bengtsson <matsb@s3.kth.se>
+    Eric Bullinger <eric@aut.ee.ethz.ch>
+    Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>
+    Anthony Fok <foka@debian.org>
+    Neil Jerram <nj104@cus.cam.ac.uk>
+    Donald Ervin Knuth
+    Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>
     David R. Linn <drl@vuse.vanderbilt.edu>
-    Adrian Mariano
-    Stephen Peters <portnoy@ai.mit.edu>
-    Glen Prideaux <glenprideaux@iname.com>
-    Roy R. Rankin <Roy.Rankin@alcatel.com.au>
-    Juergen Reuter <reuter@ipd.uka.de>
-    August S.Sigov <august@infran.ru>
-    Rune Zedeler <rune@zedeler.dk>
+    François Pinard <pinard@iro.umontreal.ca>
+    Jeffrey B. Reed <daboys@bga.com>
+    Shay Rojanski
 
-SuSE series: ap
-
-%package doc
-Summary: Prebuilt website containing all LilyPond documentation.
-Group: Applications/Publishing
-# BuildArchitectures: noarch
-
-%description doc
-
-The documentation of LilyPond, both in HTML and PostScript.
-
-%define INSTALL install -m755 -s
-%define INSTALL_DIR install -d -m755
-%define INSTALL_DATA install -m644
+%debug_package
 %prep
-%setup
+%setup -q
+%patch
+%patch1
+%patch2
+# unpack examples
+mkdir -p out/examples/
+tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 %build
-
-#
-
-# DO NOT use % { configure } , it hardcodes all paths, runs libtool,
-# so we can't do make prefix=/tmp/ install.
-
-# In fact, do not take out the spaces between % and { , because RPM will gladly
-# do a substitution anyway.
-
-CFLAGS="$RPM_OPT_FLAGS" ./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --enable-optimising --enable-shared
-
-make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
-
-# urg
-# %build doc
-# line 42: second %build
-# ok, now make sure that lilypond package will succeed,
-# even if documentation fails to build
-
-make lilypond.words
-
-make web
+#autoreconf -f -i
+export CFLAGS="$RPM_OPT_FLAGS"
+export CXXFLAGS="$RPM_OPT_FLAGS"
+export PATH="$PATH:$PWD"
+echo "mf -ini $*" > inimf
+chmod a+x inimf
+# There is an ugly warning: "PACKAGE_NAME" redefined, which breaks the configure check.
+export ac_cv_header_Python_h=yes
+./autogen.sh --disable-checking \
+	--disable-debugging \
+	--enable-printing \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--disable-optimise \
+	--enable-shared \
+	--mandir=$RPM_BUILD_ROOT%{_mandir} \
+	--infodir=$RPM_BUILD_ROOT%{_infodir}
+make all
 
 %install
-
-
-
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
+make prefix="$RPM_BUILD_ROOT%{_prefix}" mandir="$RPM_BUILD_ROOT%{_mandir}" infodir="$RPM_BUILD_ROOT%{_infodir}" libdir="$RPM_BUILD_ROOT%{_libdir}" install
+#
+# do not install profiles - configure texmf.cnf in trigger instead
+#install -m 755 -d $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
+#install -m 644 buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
+#install -m 644 buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
+cd elisp
+emacs-nox -batch -f batch-byte-compile *.el
+cp *.elc $RPM_BUILD_ROOT/usr/share/emacs/site-lisp
+cd -
+cd Documentation
+make local-WWW
+cd -
+cd Documentation/bibliography
+make local-WWW
+cd -
+mkdir -p $RPM_BUILD_ROOT/usr/share/doc/packages/%{name}
+cp -a AUTHORS.txt COPYING ChangeLog DEDICATION NEWS.txt README.txt ROADMAP THANKS VERSION server.el.patch Documentation input $RPM_BUILD_ROOT/usr/share/doc/packages/%{name}
+( cd $RPM_BUILD_ROOT/usr/share/doc/packages/%{name}/Documentation ; find -type d -name out -exec sh -c "cd {} ; mv * .. ; cd .. ; rm -f dummy.dep GNUmakefile SConscript index.html.in ; rmdir out" \; )
+rm -f $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/server.el.patch
+mv $RPM_BUILD_ROOT/usr/share/info/lilypond/* $RPM_BUILD_ROOT/usr/share/info
+rmdir $RPM_BUILD_ROOT/usr/share/info/lilypond
+find $RPM_BUILD_ROOT/usr/share -type f -exec sh -c '
+sed s:$RPM_BUILD_ROOT::g <{} >{}~
+if ! cmp {} {}~ ; then cat {}~ >{} ; fi ; rm {}~
+' \;
+%find_lang %{name}
+# This is required by tetex-3.0.
+( cd $RPM_BUILD_ROOT/usr/share/lilypond/%{version}/scm ; ln -s ../tex/*.enc . )
+( cd $RPM_BUILD_ROOT/usr/share/lilypond/%{version}/dvips ; ln -s ../tex/*.ps . )
+texhash $RPM_BUILD_ROOT/usr/share/lilypond/%{version}
 
-## this is an ugly hack
-mkdir -p scripts/share/lilypond/tex
-cp tex/titledefs.tex scripts/share/lilypond/tex
-## end of hack
-
-
-strip lily/out/lilypond 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" install
-
-%{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/fonts/source/public/lilypond
-(cd $RPM_BUILD_ROOT/usr/share/lilypond \
-    && mv mf/* $RPM_BUILD_ROOT/usr/share/texmf/fonts/source/public/lilypond \
-    && rm -fr mf \
-    && ln -s ../texmf/fonts/source/public/lilypond mf)
-%{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/fonts/afm/lilypond
-(cd $RPM_BUILD_ROOT/usr/share/lilypond \
-    && mv afm/* $RPM_BUILD_ROOT/usr/share/texmf/fonts/afm/lilypond \
-    && rm -fr afm \
-    && ln -s ../texmf/fonts/afm/lilypond afm)
-%{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/tex/lilypond
-(cd $RPM_BUILD_ROOT/usr/share/lilypond \
-    && mv tex/* $RPM_BUILD_ROOT/usr/share/texmf/tex/lilypond \
-    && rm -fr tex \
-    && ln -s ../texmf/tex/lilypond tex)
-%{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/lilypond/ps
-(cd $RPM_BUILD_ROOT/usr/share/lilypond \
-    && mv ps/* $RPM_BUILD_ROOT/usr/share/texmf/lilypond/ps \
-    && rm -fr ps \
-    && ln -s ../texmf/lilypond/ps ps)
-
-
-%if info=="yes"
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
-%endif
-
-
-
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/* || true
-
-
-
-
-mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
-cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
-cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.csh
-
-# urg
-#%install doc
-#line 63: second %install
-# again, make sure that main package installs even if doco fails
-mkdir -p web/out
-tar -C web -xzf out/web.tar.gz || true
-
-%ifos cygwin
-# urg, this symlink doesn't come through on cygwin
-# this is the way symlinks work over there, let's fake one
-rm -f $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
-echo '!<symlink>c:\\texmf\\fonts\\tfm\\public\\cm' > $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
-%{fix_suffixes}
-%endif
-
-%{?suse_check}
-
-
-%pre
-if [ -d usr/share/lilypond/ps ]; then
-  mv usr/share/lilypond/ps usr/share/lilypond/ps.old
-  echo "please, remove /usr/share/lilypond/ps.old manually."
-fi
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
+%install_info --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
+%install_info --info-dir=%{_infodir} %{_infodir}/music-glossary.info.gz
+touch var/adm/SuSEconfig/run-scrollkeeper
 
-touch /tmp/.lilypond-install
-rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print'` /tmp/.lilypond-install
-%if info=="yes"
-/usr/bin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
-%endif
-mkdir -p var/adm/SuSEconfig
-touch var/adm/SuSEconfig/run-texhash
+%post documentation
+%install_info --info-dir=%{_infodir} %{_infodir}/lilypond-internals.info.gz
 
-
-%preun
-%if info=="yes"
-if [ $1 = 0 ]; then
-    /usr/bin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
-fi
-%endif
+%triggerin -- tetex
+sed -i '
+  s@^\(TEXMF[[:space:]]*=.*\)\(,!!/usr/share/lilypond/[^,}]*\)\(.*\)}@\1\3}@;
+  s@^\(TEXMFDBS[[:space:]]*=.*\)\(;/usr/share/lilypond/[^;]*\)\(.*\)@\1\3@;
+  s@^\(TEXMF[[:space:]]*=.*\)}@\1,!!/usr/share/lilypond/%{version}}@;
+  s@^\(TEXMFDBS[[:space:]]*=.*\)@\1;/usr/share/lilypond/%{version}@;
+  ' etc/texmf/web2c/texmf.cnf
+texhash usr/share/lilypond/%{version}
 
 %postun
-mkdir -p var/adm/SuSEconfig
-touch var/adm/SuSEconfig/run-texhash
+%install_info_delete --info-dir=%{_infodir} %{_infodir}/music-glossary.info.gz
+%install_info_delete --info-dir=%{_infodir} %{_infodir}/%{name}.info.gz
+touch var/adm/SuSEconfig/run-scrollkeeper
+if [ $1 = 0 ] ; then
+  sed -i '
+    s@^\(TEXMF[[:space:]]*=.*\)\(,!!/usr/share/lilypond/[^,}]*\)\(.*\)}@\1\3}@;
+    s@^\(TEXMFDBS[[:space:]]*=.*\)\(;/usr/share/lilypond/[^;]*\)\(.*\)@\1\3@;
+    ' etc/texmf/web2c/texmf.cnf
+fi
 
+%postun documentation
+%install_info_delete --info-dir=%{_infodir} %{_infodir}/lilypond-internals.info.gz
 
+%files -f %{name}.lang
+%defattr(-,root,root)
+%doc %dir /usr/share/doc/packages/%{name}
+%doc /usr/share/doc/packages/%{name}/AUTHORS.txt
+%doc /usr/share/doc/packages/%{name}/COPYING
+%doc /usr/share/doc/packages/%{name}/ChangeLog
+%doc /usr/share/doc/packages/%{name}/DEDICATION
+%doc /usr/share/doc/packages/%{name}/NEWS.txt
+%doc /usr/share/doc/packages/%{name}/README.txt
+%doc /usr/share/doc/packages/%{name}/ROADMAP
+%doc /usr/share/doc/packages/%{name}/THANKS
+%doc /usr/share/doc/packages/%{name}/VERSION
+%doc /usr/share/doc/packages/%{name}/server.el.patch
+%doc %{_infodir}/music-glossary.*
+%doc %{_infodir}/%{name}.*
+%doc %{_mandir}/man?/*.*
+#/etc/profile.d/lilypond.*
+%{_prefix}/bin/*
+%{_prefix}/%_lib/lilypond
+%dir %{_prefix}/share/lilypond
+%dir %{_prefix}/share/lilypond/%{version}
+%{_prefix}/share/lilypond/%{version}/[a-km-z]*
+%{_prefix}/share/lilypond/%{version}/ly
+%ghost %{_prefix}/share/lilypond/%{version}/ls-R
+%{_prefix}/share/omf/lilypond
+/usr/share/emacs/site-lisp/*.el
+/usr/share/emacs/site-lisp/*.elc
 
-%files
-%defattr(-, root, root)
-%doc CHANGES COPYING DEDICATION INSTALL.txt NEWS
-%doc README.txt FAQ.txt AUTHORS.txt VERSION ROADMAP
-%doc buildscripts/
-%doc scripts/
-# hairy to hook it in (possibly non-existing) emacs
-%doc lilypond-mode.el
-%doc lilypond-font-lock.el
-%doc lilypond-indent.el
-%doc lilypond-init.el
-%doc out/lilypond.words.el
-
-%config /etc/profile.d/*
-
-%ifnos cygwin
-%{_prefix}/bin/abc2ly
-%{_prefix}/bin/convert-ly
-%{_prefix}/bin/etf2ly
-%{_prefix}/bin/lilypond-latex
-%{_prefix}/bin/lilypond
-%{_prefix}/bin/midi2ly
-%{_prefix}/bin/lilypond-book
-%{_prefix}/bin/mup2ly
-%{_prefix}/bin/musedata2ly
-%else
-%{_prefix}/bin
-%endif
-
-%if info=="yes"
-%{_prefix}/info/lilypond.info.gz
-%{_prefix}/info/lilypond-internals.info.gz
-%endif
-
-%{_prefix}/man/man1/abc2ly.1.gz
-%{_prefix}/man/man1/convert-ly.1.gz
-%{_prefix}/man/man1/etf2ly.1.gz
-%{_prefix}/man/man1/lilypond-latex.1.gz
-%{_prefix}/man/man1/lilypond.1.gz
-%{_prefix}/man/man1/midi2ly.1.gz
-%{_prefix}/man/man1/lilypond-book.1.gz
-%{_prefix}/man/man1/musedata2ly.1.gz
-%{_prefix}/man/man1/mup2ly.1.gz
-
-%{_prefix}/share/lilypond/
-%{_prefix}/share/texmf/
-%{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
-# urg?
-#%{_prefix}/../etc/profile.d/lilypond.*
-
-%files doc
-%defattr(-, root, root)
-# this gets too messy...
-
-
-%doc web/
-# verbatim include of input: list the directory without issuing a %dir 
+%files documentation
+%defattr(-,root,root)
+%doc /usr/share/doc/packages/lilypond/Documentation
+%doc /usr/share/doc/packages/lilypond/input
+%doc %{_infodir}/lilypond-internals.*
 
 %changelog -n lilypond
-* Sun Apr 22 2001 - schlemme@mathe.tu-freiberg.de
-- update: 1.3.149
+* Tue Mar 15 2005 - sbrabec@suse.cz
+- Fixed building of documentation (#71717).
+* Tue Mar 01 2005 - sbrabec@suse.cz
+- Fixed creation of latin1.enc with latest gs.
+- Symlink files to proper texmf hierarchy.
+- Configure texmf.cnf instead of setting profile.
+- Include ls-R file.
+* Mon Feb 28 2005 - sbrabec@suse.cz
+- Fixed profile scripts (#66754).
+* Tue Feb 15 2005 - ro@suse.de
+- hack to build with tetex-3.0
+* Wed Jan 26 2005 - sbrabec@suse.cz
+- Updated to version 2.4.4.
+* Fri Jan 14 2005 - ro@suse.de
+- fix mftrace calling options
+* Wed Aug 25 2004 - sbrabec@suse.cz
+- Updated to version 2.2.6.
+* Tue Aug 24 2004 - sbrabec@suse.cz
+- Updated to version 2.2.5.
+* Thu Aug 19 2004 - ro@suse.de
+- updated neededforbuild
+* Thu Aug 19 2004 - ro@suse.de
+- PfaEdit has been renamed to fontforge
+* Wed Apr 28 2004 - ro@suse.de
+- change return type of initmidi to void
+* Tue Mar 23 2004 - sbrabec@suse.cz
+- Fixed autogen.sh (fixes LILYPONDPREFIX problems, bug #35351).
+- Added PfaEdit to neededforbuild to simplify and autohint fonts.
+* Mon Feb 09 2004 - ro@suse.de
+- expand neededforbuild
+* Fri Feb 06 2004 - sbrabec@suse.cz
+- Updated to version 2.0.3.
+* Sat Jan 10 2004 - adrian@suse.de
+- add %%defattr
+* Fri Aug 29 2003 - ro@suse.de
+- specify libdir for lib64
+* Thu Aug 28 2003 - ro@suse.de
+- fixed problem with lilypond-internal texinfo page
+* Tue Aug 26 2003 - sbrabec@suse.cz
+- Updated to version 1.8.1.
+- Fixed problems with new bison and head/tail usage.
+* Wed Jul 02 2003 - ro@suse.de
+- remove traces of buildroot from installed files
+* Fri Jun 27 2003 - ro@suse.de
+- fix head and tail calling syntax in even more places ....
+* Mon Jun 16 2003 - kukuk@suse.de
+- Add missing directories to filelist
+* Tue Jun 10 2003 - ro@suse.de
+- remove unpackaged files from buildroot
+* Thu Apr 24 2003 - ro@suse.de
+- fix install_info --delete call and move from preun to postun
+* Fri Apr 11 2003 - ro@suse.de
+- fix deprecated head/tail calling syntax (-1)
+* Thu Feb 20 2003 - ro@suse.de
+- try to solve the info mess with new approach
+  music-glossary get's it's own dir entry
+* Tue Feb 18 2003 - sbrabec@suse.cz
+- Added %%install_info macros (bug #23437). Workaround problems of multi
+  file info dir section.
+* Fri Feb 07 2003 - ro@suse.de
+- added x-devel-packages to neededforbuild (for metafont run)
+* Thu Feb 06 2003 - ro@suse.de
+- touch config.h again
+* Thu Jan 30 2003 - ro@suse.de
+- fixed configure.in
+  (and regenerated configure with archaic autoconf)
+- fixed countless multiline string issues
+* Wed Dec 04 2002 - sbrabec@suse.cz
+- Updated to version 1.6.6. Use mftrace.
+* Thu Nov 21 2002 - ro@suse.de
+- fix build with current bison (missing semicolons)
+* Tue Sep 17 2002 - ro@suse.de
+- removed bogus self-provides
+* Mon Apr 15 2002 - pmladek@suse.cz
+- fixed to compile with gcc-3.1
+- patch gcc3.1-bug contains temporary fixes for gcc-3.1 bugs
+* Fri Feb 01 2002 - ro@suse.de
+- changed neededforbuild <libpng> to <libpng-devel-packages>
+* Sun Jan 27 2002 - ro@suse.de
+- fixed to build with new bison
+* Thu Jan 17 2002 - pmladek@suse.cz
+- updated to version 1.4.10
+- fixed lilypond-book.py for python-2.2
+- errors when compiling Documentation are not ignored again
+* Wed Jan 16 2002 - ro@suse.de
+- ignore errors when compiling the Documentation
+  to make the package build
+  (broke with python2.2 in lilypond-book.py:
+  lilypond-block in texi target)
+* Tue Dec 11 2001 - pmladek@suse.cz
+- updated to version 1.4.9:
+  * many bug fixes
+- removed obsolete midi2ly patch
+- cleaned up specfile
+* Tue Dec 04 2001 - pmladek@suse.cz
+- fixed to compile with new bison (version 1.30)
+* Tue Sep 11 2001 - pmladek@suse.cz
+- fixed midi2ly - do not print bad char ;
+- fixed documentation
+* Fri Jul 20 2001 - pmladek@suse.cz
+- updated to vesion 1.4.5
+* Fri Jul 20 2001 - kukuk@suse.de
+- changed neededforbuild <gs_fonts> to <ghostscript-fonts-std>
+- changed neededforbuild <gs_lib> to <ghostscript-library>
+- changed neededforbuild <gs_serv> to <ghostscript-serv>
+* Tue Jul 10 2001 - pmladek@suse.cz
+- fixed profile scripts (bug #9324)
+* Fri May 11 2001 - nadvornik@suse.cz
+- update to stable release 1.4.0
+- fixed requires and documentation
+* Tue May 08 2001 - mfabian@suse.de
+- bzip2 sources
+* Tue Apr 24 2001 - nadvornik@suse.cz
+- update to 1.3.150, this fixes bug #6701
+* Wed Feb 28 2001 - nadvornik@suse.cz
+- update to 1.3.132, fixed bug #6536
+- spec file cleanup
+* Thu Nov 30 2000 - ro@suse.de
+- neededforbuild libnetpb -> libnetpbm
+* Fri Nov 24 2000 - lmarks@suse.com
+- Changed spec file so that package builds even if htmldoc fails.
+* Fri Nov 24 2000 - kukuk@suse.de
+- fix use of macros for mandir and infodir
+* Thu Nov 23 2000 - ro@suse.de
+- changelog dates fixed
+* Wed Nov 22 2000 - lmarks@suse.com
+- Added small patch from devolpers.
+* Tue Nov 21 2000 - lmarks@suse.com
+- Lilypond 1.2.17 will not compile with Guile 1.4
+- Updated Lilpond to 1.3.108
+- Used new spec file from make/out/lilpond.spec
+- moved man-pages and info-pages to /usr/share
 * Mon Apr 10 2000 - bk@suse.de
 - added suse update config macro
 * Thu Mar 16 2000 - kukuk@suse.de
@@ -294,7 +370,7 @@ touch var/adm/SuSEconfig/run-texhash
 - update: version 1.2.1.
 * Thu Nov 05 1998 - ke@suse.de
 - use the TDS and provide links from /usr/share/lilypond.
-- install examples via %doc.
+- install examples via %%doc.
 * Wed Oct 28 1998 - ke@suse.de
 - update: version 1.0.17.
 * Fri Aug 07 1998 - ke@suse.de

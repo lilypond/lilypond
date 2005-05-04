@@ -438,7 +438,7 @@ Slur_configuration ::score_slopes (Slur_score_state const &state)
 
   if (!state.is_broken_)
     demerit += state.parameters_.steeper_slope_factor_
-      * (max (fabs (slur_dy) -max_dy, >? 0.0));
+      * (max (fabs (slur_dy) -max_dy, 0.0));
 
   demerit += max ((fabs (slur_dy / slur_dz[X_AXIS])
 		   - state.parameters_.max_slope_), 0.0)
