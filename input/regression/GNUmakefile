@@ -8,9 +8,7 @@ TITLE=LilyPond Regression Tests
 
 local-clean: local-delete
 
-# have to do it in 2 steps to prevent
-# argument-list too long.
+# use `find` together with `xargs` to avoid too long argument-lists.
 local-delete:
-	rm -f $(outdir)/lily-1*
-	rm -f $(outdir)/*
+	$(FIND) $(outdir)/ -empty -name '*' | xargs rm -f
 
