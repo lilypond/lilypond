@@ -130,6 +130,7 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 {
   Grob *script = unsmob_grob (grob);
   Axis a = Axis (scm_to_int (axis));
+  (void) a; 
   assert (a == Y_AXIS);
 
   Grob *slur = unsmob_grob (script->get_property ("slur"));
@@ -187,8 +188,8 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
       Direction dir = get_grob_direction (script);
       for (int d = LEFT; d <= RIGHT; d++)
 	{
-	  offset = dir * (dir * offset >? dir
-			  * (ys[k] - yext[-dir] + dir * slur_padding));
+	  offset = dir * (max (dir * offset,
+			       dir * (ys[k] - yext[-dir] + dir * slur_padding)));
 	  k++;
 	}
     }

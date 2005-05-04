@@ -114,8 +114,9 @@ SCM
 Span_bar::width_callback (SCM element_smob, SCM scm_axis)
 {
   Grob *se = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (scm_axis);
-  assert (a == X_AXIS);
+  (void) scm_axis;
+
+  assert ( (Axis) scm_to_int (scm_axis) == X_AXIS);
   String gl = ly_scm2string (se->get_property ("glyph"));
 
   /*
@@ -146,8 +147,8 @@ SCM
 Span_bar::center_on_spanned_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-  assert (a == Y_AXIS);
+  (void) axis;
+  assert (scm_to_int (axis) == Y_AXIS);
   Interval i (get_spanned_interval (me));
 
   /* Bar_line::print delivers a barline of y-extent (-h/2, h/2), so

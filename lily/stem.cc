@@ -298,7 +298,7 @@ Stem::get_default_stem_end_position (Grob *me)
     {
       SCM sshorten = me->get_property ("stem-shorten");
       SCM scm_shorten = scm_is_pair (sshorten)
-	? robust_list_ref ((duration_log (me) - 2) >? 0, sshorten) : SCM_EOL;
+	? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
       Real shorten = 2* robust_scm2double (scm_shorten, 0);
 
       /* On boundary: shorten only half */
@@ -332,7 +332,7 @@ Stem::get_default_stem_end_position (Grob *me)
 	  if (dir == DOWN)
 	    minlen -= 1.0;
 	}
-      length = length >? (minlen + 1.0);
+      length = max (length, minlen + 1.0);
     }
 
   Real st = dir ? hp[dir] + dir * length : 0;
@@ -598,8 +598,8 @@ MAKE_SCHEME_CALLBACK (Stem, width_callback, 2);
 SCM
 Stem::width_callback (SCM e, SCM ax)
 {
-  Axis a = (Axis) scm_to_int (ax);
-  assert (a == X_AXIS);
+  (void) ax;
+  assert (scm_to_int (ax) == X_AXIS);
   Grob *me = unsmob_grob (e);
 
   Interval r;
@@ -671,11 +671,11 @@ Stem::print (SCM smob)
 
       y2 -= d
 	* (0.5 * beam_thickness
-	   + beam_translation * (0 >? (beam_count - 1))
+	   + beam_translation * max (0, (beam_count - 1))
 	   + stemlet_length) / half_space;
     }
 
-  Interval stem_y (y1 <? y2, y2 >? y1);
+  Interval stem_y (min (y1, y2), max (y2, y1));
 
   if (Grob *hed = support_head (me))
     {
@@ -828,7 +828,7 @@ Stem::calc_stem_info (Grob *me)
     /* stem only extends to center of beam */
     - 0.5 * beam_thickness;
 
-  ideal_length = ideal_length >? ideal_minimum_length;
+  ideal_length = max (ideal_length, ideal_minimum_length);
 
   /* Convert to Y position, calculate for dir == UP */
   Real note_start
@@ -858,10 +858,10 @@ Stem::calc_stem_info (Grob *me)
     {
       /* Highest beam of (UP) beam must never be lower than middle
 	 staffline */
-      ideal_y = ideal_y >? 0;
+      ideal_y = max (ideal_y, 0.0);
       /* Lowest beam of (UP) beam must never be lower than second staffline */
-      ideal_y = ideal_y >? (-staff_space
-			    - beam_thickness + height_of_my_beams);
+      ideal_y = max (ideal_y, (-staff_space
+			       - beam_thickness + height_of_my_beams));
     }
 
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
@@ -882,7 +882,7 @@ Stem::calc_stem_info (Grob *me)
     {
       Interval y_ext = tremolo->extent (tremolo, Y_AXIS);
       y_ext.widen (0.5);	// FIXME. Should be tunable? 
-      minimum_length = minimum_length >? y_ext.length ();
+      minimum_length = max (minimum_length, y_ext.length ());
     }
   
   ideal_y *= my_dir;

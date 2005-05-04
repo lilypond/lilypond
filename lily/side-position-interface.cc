@@ -9,6 +9,8 @@
 #include "side-position-interface.hh"
 
 #include <math.h>		// ceil.
+#include <algorithm>
+
 
 #include "note-head.hh"
 #include "warn.hh"
@@ -19,6 +21,8 @@
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "string-convert.hh"
+
+using namespace std;
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -226,7 +230,7 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
 
       Interval staff_size = st->extent (common, Y_AXIS);
       Real diff = d*staff_size[d] + padding - d * (o + iv[-d]);
-      o += (d * (diff >? 0));
+      o += d * max (diff, 0.0);
     }
 
   return scm_make_real (o);

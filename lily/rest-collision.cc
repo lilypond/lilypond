@@ -26,8 +26,8 @@ SCM
 Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *them = unsmob_grob (element_smob);
-  Axis a = (Axis) scm_to_int (axis);
-  assert (a == Y_AXIS);
+  (void) axis;
+  assert (scm_to_int (axis) == Y_AXIS);
 
   if (Note_column::has_rests (them))
     {
@@ -234,7 +234,7 @@ Rest_collision::do_shift (Grob *me)
 	}
 
       Real dist
-	= minimum_dist + dir * (notedim[dir] - restdim[-dir]) >? 0;
+	= minimum_dist + dir * max (notedim[dir] - restdim[-dir], 0.0);
 
       int stafflines = Staff_symbol_referencer::line_count (me);
       if (!stafflines)

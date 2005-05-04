@@ -32,7 +32,7 @@ Staff_spacing::next_note_correction (Grob *me,
     return 0.0;
 
   Item *col = dynamic_cast<Item *> (g)->get_column ();
-  Real max_corr = 0. >? (- g->extent (col, X_AXIS)[LEFT]);
+  Real max_corr = max (0., (- g->extent (col, X_AXIS)[LEFT]));
 
   /*
     Duh. If this gets out of hand, we should invent something more generic.
@@ -47,11 +47,11 @@ Staff_spacing::next_note_correction (Grob *me,
       else
 	v = a->extent (col, X_AXIS);
 
-      max_corr = max_corr >? (- v[LEFT]);
+      max_corr = max (max_corr, (- v[LEFT]));
     }
   if (Grob *a = unsmob_grob (g->get_property ("arpeggio")))
     {
-      max_corr = max_corr >? (- a->extent (col, X_AXIS)[LEFT]);
+      max_corr = max (max_corr, - a->extent (col, X_AXIS)[LEFT]);
     }
 
   /*
@@ -69,18 +69,18 @@ Staff_spacing::next_note_correction (Grob *me,
 	  {
 	    Real stem_start = Stem::head_positions (stem) [DOWN];
 	    Real stem_end = Stem::stem_end_position (stem);
-	    Interval stem_posns (stem_start <? stem_end,
-				 stem_end >? stem_start);
+	    Interval stem_posns (min (stem_start, stem_end),
+				 max (stem_end, stem_start));
 
 	    stem_posns.intersect (bar_size);
 
-	    Real corr = abs (stem_posns.length () / 7.) <? 1.0;
+	    Real corr = min (abs (stem_posns.length () / 7.0), 1.0);
 	    corr
 	      *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
 
 	    if (d != DOWN)
 	      corr = 0.0;
-	    max_corr = max_corr >? corr;
+	    max_corr = max (max_corr, corr);
 	  }
       }
   return max_corr;
@@ -128,10 +128,10 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
     {
       Grob *g = unsmob_grob (scm_car (s));
 
-      max_corr = max_corr >? next_note_correction (me, g, bar_size);
+      max_corr = max (max_corr, next_note_correction (me, g, bar_size));
       for (SCM t = g->get_property ("elements");
 	   scm_is_pair (t); t = scm_cdr (t))
-	max_corr = max_corr >? next_note_correction (me, unsmob_grob (scm_car (t)), bar_size);
+	max_corr = max (max_corr, next_note_correction (me, unsmob_grob (scm_car (t)), bar_size));
     }
 
   return max_corr;
@@ -223,11 +223,11 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
     }
   else if (type == ly_symbol2scm ("minimum-space"))
     {
-      *space = last_ext[LEFT] + (last_ext.length () >? distance);
+      *space = last_ext[LEFT] + max (last_ext.length (), distance);
     }
   else if (type == ly_symbol2scm ("minimum-fixed-space"))
     {
-      *space = last_ext[LEFT] + (last_ext.length () >? distance);
+      *space = last_ext[LEFT] + max (last_ext.length (), distance);
       *fixed = *space;
     }
 

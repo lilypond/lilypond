@@ -168,7 +168,7 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
   fm = select_font (me->get_layout (), scm_list_n (alist, SCM_UNDEFINED));
 
   int lo = 0;
-  int hi = (fm->count () - 1) >? 2;
+  int hi = max (fm->count () - 1,2);
   Box b;
 
   /* do a binary search for each Y, not very efficient, but passable?  */
