@@ -1,3 +1,8 @@
+2005-05-04  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/convert-ly.py: Attempt to do a smarter update of 
+	text markups from versions < 1.9.0 with arbitrary nesting.
+
 2005-05-04  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* po/fi.po: convert to utf-8, and update.

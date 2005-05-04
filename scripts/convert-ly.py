@@ -1437,16 +1437,45 @@ if 1:
 		str = re.sub (r'@ACCENT@', '>', str)
 		return str
 
+	markup_start = re.compile(r"([-^_]|\\mark)\s*(#\s*'\s*)\(")
+	musicglyph = re.compile(r"\(\s*music\b")
+	submarkup_start = re.compile(r"\(\s*([a-zA-Z]+)")
+	leftpar = re.compile(r"\(")
+	rightpar = re.compile(r"\)")
+
 	def text_markup (str):
-		str = re.sub (r"""([-_^]) *# *' *\( *music *(\"[^"]*\") *\)""",
-				r"\1\\markup { \\musicglyph #\2 }", str)
-		str = re.sub (r"""([-_^]) *# *' *\( *([a-z]+) *([^()]*)\)""",
-				r"\1\\markup { \\\2 \3 }", str)
-		str = re.sub (r"""\\mark *# *' *\( *music *(\"[^"]*\") *\)""",
-				r"\\mark \\markup { \\musicglyph #\1 }", str)
-		str = re.sub (r"""\\mark *# *' *\( *([a-z]+) *([^()]*)\)""",
-				r"\\mark \\markup { \\\1 \2 }", str)
-		return str
+		result = ''
+		# Find the beginning of each markup:
+		match = markup_start.search (str)
+		while match:
+			result = result + str[:match.end (1)] + " \markup"
+			str = str[match.end( 2):]
+			# Count matching parentheses to find the end of the 
+			# current markup:
+			nesting_level = 0
+			pars = re.finditer(r"[()]",str)
+			for par in pars:
+				if par.group () == '(':
+					nesting_level = nesting_level + 1
+				else:
+					nesting_level = nesting_level - 1
+				if nesting_level == 0:
+					markup_end = par.end ()
+					break
+			# The full markup in old syntax:
+			markup = str[:markup_end]
+			# Modify to new syntax:
+			markup = musicglyph.sub (r"{\\musicglyph", markup)
+			markup = submarkup_start.sub (r"{\\\1", markup)
+			markup = leftpar.sub ("{", markup)
+			markup = rightpar.sub ("}", markup)
+	
+			result = result + markup
+			# Find next markup
+			str = str[markup_end:]
+			match = markup_start.search(str)
+		result = result + str
+		return result
 
 	def articulation_substitute (str):
 		str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
