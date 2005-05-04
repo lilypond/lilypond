@@ -144,7 +144,7 @@ Stem_tremolo::print (SCM grob)
   Real end_y
     = Stem::stem_end_position (stem) * ss / 2
     - stemdir * (beam_count * beamthickness
-		 + ((beam_count -1) >? 0) * beam_translation);
+		 + (max (beam_count -1, 0) * beam_translation));
 
   /* FIXME: the 0.33 ss is to compensate for the size of the note head.  */
   Real chord_start_y = Stem::chord_start_y (stem) + 0.33 * ss * stemdir;

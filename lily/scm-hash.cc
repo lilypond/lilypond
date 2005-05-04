@@ -9,8 +9,11 @@
 #include "scm-hash.hh"
 
 #include <cstdio>
+#include <algorithm>
 
 #include "ly-smobs.icc"
+
+using namespace std; 
 
 /*
   Return: number of objects.
@@ -43,7 +46,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
   elt_count_ = 0;
   smobify_self ();
 
-  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_int2num (max ((int) src.elt_count_, 11)), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
@@ -53,7 +56,7 @@ Scheme_hash_table::operator = (Scheme_hash_table const &src)
   if (&src == this)
     return;
 
-  hash_tab_ = scm_make_vector (scm_int2num (src.elt_count_ >? 11), SCM_EOL);
+  hash_tab_ = scm_make_vector (scm_int2num (max ((int) src.elt_count_, 11)), SCM_EOL);
   elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 

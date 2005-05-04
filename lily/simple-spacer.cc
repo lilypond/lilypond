@@ -100,11 +100,10 @@ Simple_spacer::add_rod (int l, int r, Real dist)
   Real block_stretch = dist - d;
 
   Real block_force = c * block_stretch;
-  force_ = force_ >? block_force;
+  force_ = max (force_, block_force);
 
   for (int i = l; i < r; i++)
-    springs_[i].block_force_ = block_force >?
-      springs_[i].block_force_;
+    springs_[i].block_force_ = max (block_force, springs_[i].block_force_);
 }
 
 Real
@@ -136,7 +135,7 @@ Simple_spacer::active_blocking_force () const
   for (int i = 0; i < springs_.size (); i++)
     if (springs_[i].is_active_)
       {
-	bf = bf >? springs_[i].block_force_;
+	bf = max (bf, springs_[i].block_force_);
       }
   return bf;
 }
@@ -222,7 +221,7 @@ Simple_spacer::my_solve_natural_len ()
 
   while (is_active ())
     {
-      force_ = active_blocking_force () >? 0.0;
+      force_ = max (active_blocking_force (), 0.0);
       Real conf = configuration_length ();
 
       if (conf < line_len_)

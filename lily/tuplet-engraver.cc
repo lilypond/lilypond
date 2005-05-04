@@ -54,7 +54,7 @@ Tuplet_engraver::try_music (Music *music)
 
 	  SCM s = get_property ("tupletSpannerDuration");
 	  if (unsmob_moment (s))
-	    d.span_stop_ = d.span_stop_ <? (now_mom () + *unsmob_moment (s)).main_part_;
+	    d.span_stop_ = min (d.span_stop_, (now_mom () + *unsmob_moment (s)).main_part_);
 
 	  tuplets_.push (d);
 	}

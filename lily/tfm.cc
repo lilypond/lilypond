@@ -45,8 +45,8 @@ Tex_font_char_metric::dimensions () const
   Real point_constant = 1 PT;
 
   return Box (Interval (0, width_ * point_constant),
-	      Interval ((d <? height_) * point_constant,
-			(d >? height_) * point_constant));
+	      Interval (min (d, height_) * point_constant,
+			max (d, height_) * point_constant));
 }
 
 Tex_font_metric::Tex_font_metric ()
@@ -126,4 +126,5 @@ int
 Tex_font_metric::name_to_index (String) const
 {
   assert (false);
+  return 0;
 }

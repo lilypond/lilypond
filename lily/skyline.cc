@@ -155,7 +155,7 @@ skyline_meshing_distance (Array<Skyline_entry> const &buildings,
       w.intersect (clouds[j].width_);
 
       if (!w.is_empty ())
-	distance = distance >? (buildings[i].height_ - clouds[j].height_);
+	distance = max (distance, (buildings[i].height_ - clouds[j].height_));
 
       if (i > 0 && buildings[i].width_[LEFT] >= clouds[j].width_[LEFT])
 	{
