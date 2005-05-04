@@ -30,9 +30,9 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
     : PANGO_DIRECTION_RTL;
   context_
     = pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
+  //  context_ = pango_ft2_font_map_create_context (fontmap);
 
   pango_description_ = pango_font_description_copy (description);
-  //  context_ = pango_ft2_font_map_create_context (fontmap);
   attribute_list_ = pango_attr_list_new ();
 
   /*

@@ -1,3 +1,8 @@
+2005-05-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/include/interpretation-context-handle.hh: rename
+	Interpretation_context_handle to Context_handle.
+
 2005-05-04  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/GNUmakefile (local_delete): use `find` together 

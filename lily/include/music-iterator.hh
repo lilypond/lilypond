@@ -12,7 +12,7 @@
 #include "array.hh"
 #include "moment.hh"
 #include "virtual-methods.hh"
-#include "interpretation-context-handle.hh"
+#include "context-handle.hh"
 
 /**
    ---
@@ -85,7 +85,7 @@ protected:
   void descend_to_child (Context *);
 
 private:
-  Interpretation_context_handle handle_;
+  Context_handle handle_;
   Music *music_;
 };
 

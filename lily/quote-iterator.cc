@@ -18,7 +18,7 @@ class Quote_iterator : public Music_wrapper_iterator
 public:
   Quote_iterator ();
   Moment vector_moment (int idx) const;
-  Interpretation_context_handle quote_outlet_;
+  Context_handle quote_outlet_;
 
   Moment start_moment_;
   Moment stop_moment_;

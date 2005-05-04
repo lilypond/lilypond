@@ -29,8 +29,8 @@ private:
   void change_to (Music_iterator *, SCM, String);
   Moment start_moment_;
 
-  Interpretation_context_handle up_;
-  Interpretation_context_handle down_;
+  Context_handle up_;
+  Context_handle down_;
 };
 
 void

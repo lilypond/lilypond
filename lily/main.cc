@@ -375,7 +375,7 @@ do_chroot_jail ()
 }
 #endif
 
-void test_pango ();
+
 
 static void
 main_with_guile (void *, int, char **)
