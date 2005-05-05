@@ -17,6 +17,7 @@
 #include "all-font-metrics.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
+#include "item.hh"
 
 Stencil
 System_start_delimiter::staff_bracket (Grob *me, Real height)
@@ -71,11 +72,13 @@ MAKE_SCHEME_CALLBACK (System_start_delimiter, after_line_breaking, 1);
 SCM
 System_start_delimiter::after_line_breaking (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
+  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
+  
   SCM gl = me->get_property ("glyph");
   if (ly_c_equal_p (gl, scm_makfrom0str ("bar-line")))
     {
       int count = 0;
+      Paper_column *left_column = me->get_bound (LEFT)->get_column ();  
 
       /*
 	Get all coordinates, to trigger Hara kiri.
@@ -84,8 +87,13 @@ System_start_delimiter::after_line_breaking (SCM smob)
       Grob *common = common_refpoint_of_list (elts, me, Y_AXIS);
       for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  Interval v = unsmob_grob (scm_car (s))->extent (common, Y_AXIS);
-
+	  Spanner *staff = dynamic_cast<Spanner*> (unsmob_grob (scm_car (s)));
+	  if (!staff || 
+	      staff->get_bound (LEFT)->get_column () != left_column)
+	    continue;
+	  
+	  Interval v = staff->extent (common, Y_AXIS);
+	  
 	  if (!v.is_empty ())
 	    count++;
 	}

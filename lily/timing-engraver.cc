@@ -12,17 +12,15 @@
 #include "engraver.hh"
 #include "grob.hh"
 
-/**
-   Do time bookkeeping
-*/
+
+
 class Timing_engraver : public Timing_translator, public Engraver
 {
 protected:
-  /* Needed to know whether we're advancing in grace notes, or not. */
+  /* Need to know whether we're advancing in grace notes, or not. */
   Moment last_moment_;
 
   virtual void start_translation_timestep ();
-  virtual void initialize ();
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 
@@ -30,25 +28,23 @@ public:
   TRANSLATOR_DECLARATIONS (Timing_engraver);
 };
 
+ADD_TRANSLATOR (Timing_engraver,
+		/* descr */ " Responsible for synchronizing timing information from staves.  "
+		"Normally in @code{Score}.  In order to create polyrhythmic music, "
+		"this engraver should be removed from @code{Score} and placed in "
+		"@code{Staff}. "
+		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
+		/* creats*/ "",
+		/* accepts */ "",
+		/* acks  */ "",
+		/* reads */ "automaticBars whichBar barAlways defaultBarType "
+		"skipBars timing measureLength measurePosition currentBarNumber",
+		/* write */ "");
+
+
 Timing_engraver::Timing_engraver ()
 {
   last_moment_.main_part_ = Rational (-1);
-}
-
-void
-Timing_engraver::initialize ()
-{
-  Timing_translator::initialize ();
-
-  SCM which = get_property ("whichBar");
-  Moment now = now_mom ();
-
-  /* Set the first bar of the score? */
-  if (!scm_is_string (which))
-    which = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
-      ? SCM_EOL : scm_makfrom0str ("|");
-
-  context ()->set_property ("whichBar", which);
 }
 
 void
@@ -92,7 +88,8 @@ Timing_engraver::start_translation_timestep ()
     {
       SCM always = get_property ("barAlways");
 
-      if (start_of_measure || (to_boolean (always)))
+      if ((start_of_measure && last_moment_.main_part_ >= Moment (0))
+	  || to_boolean (always))
 	{
 	  /* should this work, or be junked?  See input/bugs/no-bars.ly */
 	  which = get_property ("defaultBarType");
@@ -109,15 +106,3 @@ Timing_engraver::stop_translation_timestep ()
   context ()->set_property ("whichBar", SCM_EOL);
   last_moment_ = now_mom ();
 }
-
-ADD_TRANSLATOR (Timing_engraver,
-		/* descr */ " Responsible for synchronizing timing information from staves.  "
-		"Normally in @code{Score}.  In order to create polyrhythmic music, "
-		"this engraver should be removed from @code{Score} and placed in "
-		"@code{Staff}. "
-		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
-		/* creats*/ "",
-		/* accepts */ "",
-		/* acks  */ "",
-		/* reads */ "automaticBars whichBar barAlways defaultBarType skipBars timing measureLength measurePosition currentBarNumber",
-		/* write */ "");

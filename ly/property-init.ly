@@ -10,18 +10,18 @@ slurUp = \override Slur  #'direction = #1
 slurDown = \override Slur  #'direction = #-1
 slurNeutral = \revert Slur #'direction 
 
-% There's also dash, but setting dash period/length should be fixed.
+%% There's also dash, but setting dash period/length should be fixed.
 slurDashed = {
-	\override Slur #'dash-period = #0.75
-	\override Slur #'dash-fraction = #0.4
+  \override Slur #'dash-period = #0.75
+  \override Slur #'dash-fraction = #0.4
 }
 slurDotted = {
-	\override Slur  #'dash-period = #0.75
-	\override Slur #'dash-fraction = #0.1
+  \override Slur  #'dash-period = #0.75
+  \override Slur #'dash-fraction = #0.1
 }
 slurSolid = {
-	\revert Slur #'dash-period
-	\revert Slur #'dash-fraction
+  \revert Slur #'dash-period
+  \revert Slur #'dash-fraction
 }
 
 
@@ -42,9 +42,9 @@ tieDotted = \override Tie  #'dashed = #1
 tieSolid = \revert Tie #'dashed
 
 setEasyHeads = \sequential {
-	\override NoteHead #'print-function = #Note_head::brew_ez_stencil
-	\override NoteHead #'Y-extent-callback = #'()
-	\override NoteHead #'X-extent-callback = #'()
+  \override NoteHead #'print-function = #Note_head::brew_ez_stencil
+  \override NoteHead #'Y-extent-callback = #'()
+  \override NoteHead #'X-extent-callback = #'()
 }
 
 aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
@@ -91,22 +91,22 @@ voiceFour = #(context-spec-music (make-voice-props-set 3) 'Voice)
 
 	
 tiny = 
-	\set fontSize = #-2
+\set fontSize = #-2
 
 small = 
-	\set fontSize = #-1
+\set fontSize = #-1
 
 normalsize = {
-	\set fontSize = #0
+  \set fontSize = #0
 }
 
 
-% End the incipit and print a ``normal line start''.
+%% End the incipit and print a ``normal line start''.
 endincipit =  \context Staff {
-    \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
-    \once \override Staff.Clef  #'full-size-change = ##t
-    \once \override Staff.Clef  #'non-default = ##t
-    \bar ""
+  \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
+  \once \override Staff.Clef  #'full-size-change = ##t
+  \once \override Staff.Clef  #'non-default = ##t
+  \bar ""
 }
 
 autoBeamOff = \set autoBeaming = ##f

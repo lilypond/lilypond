@@ -131,16 +131,18 @@ Clef_engraver::inspect_clef_properties ()
   SCM octavation = get_property ("clefOctavation");
   SCM force_clef = get_property ("forceClef");
 
-  if (clefpos == SCM_EOL
-      || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
-      || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
-      || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
-      || to_boolean (force_clef))
+  if (clefpos == SCM_EOL 
+       || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
+       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
+       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F
+       || to_boolean (force_clef))
     {
       set_glyph ();
-      create_clef ();
+      if (prev_cpos_ != SCM_BOOL_F || to_boolean (get_property ("firstClef")))
+	create_clef ();
 
-      clef_->set_property ("non-default", SCM_BOOL_T);
+      if (clef_)
+	clef_->set_property ("non-default", SCM_BOOL_T);
 
       prev_cpos_ = clefpos;
       prev_glyph_ = glyph;

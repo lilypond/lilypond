@@ -39,6 +39,8 @@ break = #(make-event-chord (list (make-penalty-music -10001 0)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001 0)))
 pageBreak = #(make-event-chord (list (make-penalty-music -10001 -10001)))
 noPageBreak = #(make-event-chord (list (make-penalty-music 0 10001)))
+stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
+startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
 
 
 %

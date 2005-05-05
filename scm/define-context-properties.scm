@@ -210,6 +210,8 @@ switches by a thin line")
 determines where fingerings are put relative to the chord being
 fingered.")
 
+     (firstClef ,boolean? "If true, create a new clef when starting a
+staff.")
      (forceClef ,boolean? "Show clef symbol, even if it has not
 changed. Only active for the first clef after the property is set, not
 for the full staff.")

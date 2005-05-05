@@ -766,6 +766,31 @@ with a set of horizontal lines, into a staff (plural `staves').  In our
 system, these lines are drawn using a separate layout object called
 staff symbol.
 
+The staff symbol may be tuned in the number, thickness and distannce
+of lines, using properties.  This is demonstrated in the example files
+@inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test,staff@/-size@/.ly}.
+
+In addition, staves may be started and stopped at will. This is done
+with @code{\startStaff} and @code{\stopStaff}.
+
+@lilypond[verbatim,relative=2,fragment]
+b4 b
+\override Staff.StaffSymbol #'line-count = 2
+\stopStaff  \startStaff
+b b
+\revert Staff.StaffSymbol #'line-count
+\stopStaff \startStaff
+b b  
+@end lilypond
+
+In combination with Frenched staves, this may be used to typeset ossia
+sections. An example is in @inputfileref{input/@/test@/,ossia.ly},
+shown here
+
+@cindex ossia
+
+@lilypondfile{ossia.ly}
 
 @cindex staff lines, setting number of
 @cindex staff lines, setting thickness of
@@ -774,15 +799,11 @@ staff symbol.
 
 @seealso
 
-Program reference: @internalsref{StaffSymbol}.
+Program reference: @internalsref{StaffSymbol}, @internalsref{StaffSpanEvent}.
 
 Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test@/,ossia.ly},
 @inputfileref{input/@/test,staff@/-size@/.ly}.
-
-@refbugs
-
-If a staff is ended halfway a piece, the staff symbol may not end
-exactly on the bar line.
 
 
 @node Key signature
