@@ -501,12 +501,8 @@ In a markup like
 function.  The markup expression is stored as
 
 @example
-(list raise-markup 0.5 (list simple-markup 'latin1 "foo"))
+(list raise-markup 0.5 (list simple-markup "foo"))
 @end example
-
-@noindent
-In this case, @code{latin1} is the input encoding, which is set with
-the @code{\encoding} command.
 
 When the markup is converted to printable objects (Stencils), the
 @code{raise-markup} function is called as
@@ -519,10 +515,10 @@ When the markup is converted to printable objects (Stencils), the
        @var{the "foo" markup})
 @end example
 
-The @code{raise-markup} first creates the stencil for the @code{foo}
-string, and then it raises that Stencil by 0.5 staff space.  This is a
-rather simple example; more complex examples are in the rest of this
-section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
+The @code{raise-markup} function first creates the stencil for the
+@code{foo} string, and then it raises that Stencil by 0.5 staff space.
+This is a rather simple example; more complex examples are in the rest
+of this section, and in @file{scm/@/define@/-markup@/-commands@/.scm}.
 
 @node Markup command definition
 @subsection Markup command definition
