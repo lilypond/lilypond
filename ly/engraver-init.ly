@@ -464,6 +464,7 @@ AncientRemoveEmptyStaffContext = \context {
   clefGlyph = #"clefs.G"
   clefPosition = #-2
   middleCPosition = #-6
+  firstClef = ##t
   
   defaultBarType = #"|"
   barNumberVisibility = #default-bar-number-visibility

@@ -6,29 +6,8 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "score.hh"
-#include "paper-column.hh"
-#include "output-def.hh"
-#include "side-position-interface.hh"
-#include "engraver.hh"
-#include "moment.hh"
-
-/**
-   Manage the staff symbol.
-*/
-class Staff_symbol_engraver : public Engraver
-{
-public:
-  TRANSLATOR_DECLARATIONS (Staff_symbol_engraver);
-
-protected:
-  Spanner *span_;
-
-  virtual ~Staff_symbol_engraver ();
-  virtual void acknowledge_grob (Grob_info);
-  virtual void finalize ();
-  virtual void process_music ();
-};
+#include "staff-symbol-engraver.hh"
+#include "spanner.hh"
 
 Staff_symbol_engraver::~Staff_symbol_engraver ()
 {
@@ -37,77 +16,105 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
 
 Staff_symbol_engraver::Staff_symbol_engraver ()
 {
+  first_start_ = true; 
   span_ = 0;
+  span_events_[LEFT] = 0;
+  span_events_[RIGHT] = 0;
+}
+
+bool
+Staff_symbol_engraver::try_music (Music *music)
+{
+  Direction d = to_dir (music->get_property ("span-direction"));
+  if (d)
+    {
+      span_events_[d] = music;
+      return true;
+    }
+  
+  return false;
 }
 
 void
 Staff_symbol_engraver::process_music ()
 {
+  if (span_events_[STOP])
+    {
+      finished_span_ = span_;
+      span_ = 0;
+    }
+
+  if (span_events_[START])
+    start_spanner ();
+}
+
+
+void
+Staff_symbol_engraver::initialize ()
+{
+  start_spanner ();
+}
+
+void
+Staff_symbol_engraver::start_spanner ()
+{
   if (!span_)
     {
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
-
-      span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
     }
+}
+
+void
+Staff_symbol_engraver::stop_spanner ()
+{
+  if (finished_span_ && !finished_span_->get_bound (RIGHT))
+    {
+      finished_span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+    }
+  finished_span_ = 0;
+}
+
+void
+Staff_symbol_engraver::stop_translation_timestep ()
+{
+  if ((span_events_[START] || first_start_)
+      && span_
+      && !span_->get_bound (LEFT))
+    {
+      span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+      first_start_ = false;
+    }
+
+  span_events_[START] = 0;
+  span_events_[STOP] = 0;
+  stop_spanner ();
 }
 
 void
 Staff_symbol_engraver::finalize ()
 {
-  if (span_)
-    {
-      span_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-    }
+  finished_span_ = span_;
   span_ = 0;
+  stop_spanner ();
 }
 
 void
 Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
-  s.grob_->set_property ("staff-symbol", span_->self_scm ());
+
+  /*
+    Perhaps should try to take SeparationItem as bound of the staff
+    symbol?
+   */
+  if (span_)
+    s.grob_->set_property ("staff-symbol", span_->self_scm ());
 }
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* descr */ "Create the constellation of five (default) "
 		"staff lines.",
 		/* creats*/ "StaffSymbol",
-		/* accepts */ "",
+		/* accepts */ "staff-span-event",
 		/* acks  */ "grob-interface",
 		/* reads */ "",
-		/* write */ "");
-
-/****************************************************************/
-
-class Tab_staff_symbol_engraver : public Staff_symbol_engraver
-{
-public:
-  TRANSLATOR_DECLARATIONS (Tab_staff_symbol_engraver);
-protected:
-  virtual void process_music ();
-};
-
-void
-Tab_staff_symbol_engraver::process_music ()
-{
-  bool init = !span_;
-  Staff_symbol_engraver::process_music ();
-  if (init)
-    {
-      int k = scm_ilength (get_property ("stringTunings"));
-      if (k >= 0)
-	span_->set_property ("line-count", scm_int2num (k));
-    }
-}
-
-Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
-{
-}
-
-ADD_TRANSLATOR (Tab_staff_symbol_engraver,
-		/* descr */ "Create a staff-symbol, but look at stringTunings for the number of lines."
-		"staff lines.",
-		/* creats*/ "StaffSymbol",
-		/* accepts */ "",
-		/* acks  */ "grob-interface",
-		/* reads */ "stringTunings",
 		/* write */ "");

@@ -1,13 +1,15 @@
+\header {
+  texidoc = "Staves can be started and stopped at command. "
+}
 
-\header { texidoc = " Staves starting and ending halfway include clefs
-    and bar lines.  " }
+\version "2.5.23"
 
-\version "2.4.0"
+\paper {
+  raggedright = ##t
+}
 
-\score {
-    \new StaffGroup  \relative c''  <<
-	\new Staff { c4  c c c \bar "||" c c c c }
-	{ \skip 4 \new Staff { c c c } }
-    >>
-	\layout {}	       
-	 }
+\relative c'' {
+  b b \stopStaff b b \startStaff
+  \clef bass
+  c,, c
+}

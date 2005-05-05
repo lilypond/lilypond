@@ -176,6 +176,18 @@ Syntax: @var{note}\\cr
 	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
 	))
+
+    
+    (EventChord
+     . (
+	(description .	"Internally used to group a set of events.")
+	(internal-class-name . "Music")
+	(iterator-ctor . ,Event_chord_iterator::constructor)
+	(length-callback . ,Music_sequence::maximum_length_callback)
+	(to-relative-callback . ,Music_sequence::event_chord_relative_callback)
+	(types . (general-music event-chord simultaneous-music))
+	))
+
     (FingerEvent
      . (
 	(description . "Specify what finger to use for this note.")
@@ -310,6 +322,19 @@ Syntax
 	(types . (general-music event rhythmic-event multi-measure-rest-event))
 	))
     
+    (MultiMeasureRestMusicGroup
+     . (
+	(description .	"Like sequential-music, but specifically intended
+to group start-mmrest, skip, stop-mmrest sequence. 
+
+Syntax @code{R2.*5} for 5 measures in 3/4 time.")
+	(internal-class-name . "Music")
+	(length-callback . ,Music_sequence::cumulative_length_callback)
+	(start-callback . ,Music_sequence::first_start_callback)
+	(iterator-ctor . ,Sequential_music_iterator::constructor)
+	(types . (general-music sequential-music))
+	))
+    
     (MultiMeasureTextEvent
      . (
 	(description . "Texts on mm rests. 
@@ -333,6 +358,19 @@ Syntax
 
 	(internal-class-name . "Event")
 	(types . (general-music event note-event rhythmic-event melodic-event))
+	))
+    
+    (OutputPropertySetMusic
+     . (
+	(description .	"Set grob properties in objects
+individually. 
+
+Syntax @code{\\outputproperty @var{predicate} @var{prop}
+= @var{val}}.")
+
+	(internal-class-name . "Music")
+	(iterator-ctor . ,Output_property_music_iterator::constructor)
+	(types . (general-music layout-instruction))
 	))
     
     (OverrideProperty
@@ -458,19 +496,6 @@ Syntax \\sequential @{..@} or simply @{..@} .")
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
 	(types . (general-music sequential-music))
 	))
-    
-    (MultiMeasureRestMusicGroup
-     . (
-	(description .	"Like sequential-music, but specifically intended
-to group start-mmrest, skip, stop-mmrest sequence. 
-
-Syntax @code{R2.*5} for 5 measures in 3/4 time.")
-	(internal-class-name . "Music")
-	(length-callback . ,Music_sequence::cumulative_length_callback)
-	(start-callback . ,Music_sequence::first_start_callback)
-	(iterator-ctor . ,Sequential_music_iterator::constructor)
-	(types . (general-music sequential-music))
-	))
 
     (SoloOneEvent
      . (
@@ -517,26 +542,19 @@ Syntax NOTE(	 and )NOTE")
 	(internal-class-name . "Event")
 	(types . (general-music span-event slur-event))
 	))
-
+    
+    (StaffSpanEvent
+     . ((description . "Start or  stop a staff symbol.")
+	(internal-class-name . "Event")
+	(types . (general-music event span-event staff-span-event))
+     ))
+    
     (StartPlayingEvent
      . (
 	(description .	"Used internally to signal beginning of notes.")
 
 	(internal-class-name . "Event")
 	(types . (general-music event start-playing-event))
-	))
-    
-    (OutputPropertySetMusic
-     . (
-	(description .	"Set grob properties in objects
-individually. 
-
-Syntax @code{\\outputproperty @var{predicate} @var{prop}
-= @var{val}}.")
-
-	(internal-class-name . "Music")
-	(iterator-ctor . ,Output_property_music_iterator::constructor)
-	(types . (general-music layout-instruction))
 	))
     
     (TextSpanEvent
@@ -598,17 +616,6 @@ For example, transposed music.")
 	(internal-class-name . "Music_wrapper")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
-    
-    (EventChord
-     . (
-	(description .	"Internally used to group a set of events.")
-	(internal-class-name . "Music")
-	(iterator-ctor . ,Event_chord_iterator::constructor)
-	(length-callback . ,Music_sequence::maximum_length_callback)
-	(to-relative-callback . ,Music_sequence::event_chord_relative_callback)
-	(types . (general-music event-chord simultaneous-music))
-	))
-    
     (ScriptEvent
      . (
 	(description .	"Add an articulation mark to a note. ")

@@ -34,6 +34,16 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Staves may be stopped and started halfway a line, e.g.
+
+@lilypond[relative=2,fragment,verbatim]
+b4 b \stopStaff b \startStaff b
+@end lilypond
+
+@noindent
+This feature has been sponsored by Hans Forbrich.
+
+@item
 Grid lines, vertical lines synchronized with notes, can be drawn across
 staves, by adding suitable engravers.
 An example is in @inputfileref{input/regression,grid-lines.ly},

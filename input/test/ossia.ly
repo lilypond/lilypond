@@ -1,48 +1,36 @@
-\header { texidoc = "A temporary ossia in an instrumental part may
-    be printed using a separate, short staff. A simpler solution is 
-    also given: instantiate a full staff, and let 
-    @code{RemoveEmptyStaffContext} take out the unused parts.
-" }
 
-\version "2.4.0"
+\header { texidoc = "Ossia fragments can be done with starting and
+stopping staves. " }
 
-\score {
-    \relative c''
-    \new StaffGroup \with {
-	\remove "System_start_delimiter_engraver"
-	\override SpanBar #'glyph = #":"
-    } <<
+\version "2.5.23"
+\paper { raggedright = ##t }
 
-	%% solution 1
-	{ c1 c1
-	<<
-	    { c1 c1 } 
-	    \new Staff \with {
-		\remove "Time_signature_engraver"
-		fontSize = #-2
-		\override StaffSymbol #'staff-space = #(magstep -2)  
-	    } {
-		c,4^"ossia" es f fis g1
-	    }
-	>>
-	  c1 \break c c }
+<<
+  \new Staff \with
+  {
+    \remove "Time_signature_engraver"
+    fontSize = #-2
+    \override StaffSymbol #'staff-space = #(magstep -2)
+    firstClef = ##f
+  }
+  \relative c'' {
+    \stopStaff
+    \skip 2
 
-	%% solution 2
-	\new Staff \with {
-	    fontSize = #-2
-	    \override StaffSymbol #'staff-space = #(magstep -2)  
-	  
-	} { R1*2 c,4^"ossia" es f fis g1 R1 * 3 }
-    >>
-    
+    \startStaff
+    \clef treble
+    bes8[^"ossia" g bes g]
+    \stopStaff
 
-    \layout {
-	raggedright= ##t
-	\context {\RemoveEmptyStaffContext}
-	\context {
-	    \Score
-	    \remove System_start_delimiter_engraver
-	    }
-    }
-}
+    s2
 
+    \startStaff
+    f8 d g4 
+  }
+  \new Staff  \relative
+  {
+    \time 2/4
+    c4 c g' g a a g2
+  }
+
+>>

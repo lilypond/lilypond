@@ -1,3 +1,25 @@
+2005-05-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/NEWS.tely (Top): document new feature.
+
+	* Documentation/user/basic-notation.itely (Staff symbol): document
+	start/stop staff. Reference to ossia.ly
+
+	* input/test/ossia.ly: new example using stop and startStaff.
+
+	* lily/timing-engraver.cc: remove Timing_engraver::initialize(),
+	in other words, don't create "|" barline at start of the score.
+	(start_translation_timestep): don't set whichBar for start of score.
+
+	* input/regression/staff-halfway.ly: use new functionality.
+
+	* lily/staff-symbol-engraver.cc (try_music): take StaffSpanEvents,
+	start and stop staff based on events.
+
+	* scm/define-music-types.scm (music-descriptions): add StaffSpanEvent
+
+	* ly/declarations-init.ly (startStaff, stopStaff): new identifiers.
+
 2005-05-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/programming-interface.itely (How markups work

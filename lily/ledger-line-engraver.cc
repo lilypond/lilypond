@@ -10,6 +10,9 @@
 #include "spanner.hh"
 #include "engraver.hh"
 
+/*
+  TODO: should sync with Staff_symbol_engraver.
+*/
 class Ledger_line_engraver : public Engraver
 {
   Spanner *span_;
