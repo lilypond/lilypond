@@ -665,7 +665,7 @@ files from previous versions of LilyPond.
 The
 @end ifhtml
 @emph{@ref{Basic notation}}
-@ifteml
+@ifhtml
 chapter
 @end ifhtml
 discusses topics grouped by notation construct.  This section gives
@@ -677,7 +677,7 @@ notation project.
 The
 @end ifhtml
 @emph{@ref{Instrument-specific notation}}
-@ifteml
+@ifhtml
 chapter
 @end ifhtml
 discusses topics grouped by notation construct.  This section gives
@@ -689,7 +689,7 @@ instrument (or vocal) groups.
 The
 @end ifhtml
 @emph{@ref{Advanced notation}}
-@ifteml
+@ifhtml
 chapter
 @end ifhtml
 discusses topics grouped by notation construct.  This section gives

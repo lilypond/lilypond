@@ -24,6 +24,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 			PangoFontDescription *description,
 			Real output_scale)
 {
+  (void) fontmap;
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = (dir == RIGHT)
     ? PANGO_DIRECTION_LTR
@@ -142,8 +143,8 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
       */
 
       String name = filename;
-      int idx = String (filename).index (".otf")
-	>? String (filename).index (".cff");
+      int idx = max (String (filename).index (".otf"),
+		     String (filename).index (".cff"));
 
       name = name.left_string (idx);
 
