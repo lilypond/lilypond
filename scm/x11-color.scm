@@ -673,11 +673,11 @@
 	    (if 
 	     (string? arg)
 	     (if 
-	      (string-index arg #\sp)
+	      (string-index arg #\ )
 	      (begin
 		(string-capitalize! arg)
 		(let
-		    ((arg-list (string-split arg #\sp)))
+		    ((arg-list (string-split arg #\ )))
 		  (string->symbol 
 		   (let append-all ((x arg-list))
 		     (if 
