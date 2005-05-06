@@ -58,7 +58,7 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 
 $(outdir)/$(PFA_PREFIX)%.pfa $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
-	$(PYTHON) $(buildscript-dir)/substitute-encoding.py $@
+	$(PYTHON) $(buildscript-dir)/substitute-encoding.py --outdir=$(outdir) $@
 	-rm $(outdir)/*.scale.pfa
 
 # ugh, this does not work

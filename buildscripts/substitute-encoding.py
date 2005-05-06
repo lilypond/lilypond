@@ -5,12 +5,21 @@
 #
 # http://bugs.ghostscript.com/show_bug.cgi?id=688017
 
+import getopt
+import os
+import re
 import string
 import sys
-import re
-import os
 
-filename = sys.argv[1]
+outdir = 'out'
+(options, files) = getopt.getopt (sys.argv[1:], 'o', ['outdir='])
+for opt in options:
+	o = opt[0]
+	a = opt[1]
+	if o == '--outdir' or o == '-o':
+		outdir = a
+
+filename = files[0]
 def get_glyph_names (enc_name):
 	enc_str = open (enc_name).read ()
 	glyphs = []
@@ -26,9 +35,9 @@ def get_glyph_names (enc_name):
 	return glyphs
 
 if re.search ('mmental', filename):
-	glyph_names = (get_glyph_names ('out/feta20.enc') +
-		       get_glyph_names ('out/feta-alphabet20.enc') +
-		       get_glyph_names ('out/parmesan20.enc'))
+	glyph_names = (get_glyph_names ('%(outdir)s/feta20.enc' % vars ())
+		       + get_glyph_names ('%(outdir)s/feta-alphabet20.enc' % vars ())
+		       + get_glyph_names ('%(outdir)s/parmesan20.enc' % vars ()))
 
 	str = open (filename).read ()
 	os.rename (filename, filename + "~")
@@ -46,6 +55,3 @@ if re.search ('mmental', filename):
 		      str)
 
 	open (filename, 'w').write (str)
-
-
-
