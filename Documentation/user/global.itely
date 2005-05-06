@@ -688,6 +688,8 @@ and texts are entered with a @code{\markup} block,
 @}
 @end example
 
+@cindex @code{\book}
+
 The movements and texts are combined together in a @code{\book} block,
 like
 

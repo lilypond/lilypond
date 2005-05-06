@@ -295,7 +295,6 @@ It is also possible to print dynamics in round parenthesis or square
 brackets.  These are often used for adding editorial dynamics.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.4.2"
 rndf = \markup{ \center-align {\line { \bold{\italic (}
   \dynamic f \bold{\italic )} }} }
 boxf = \markup{ \bracket { \dynamic f } }
