@@ -6,6 +6,9 @@
 
 2005-05-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/staff-symbol-engraver.cc (Staff_symbol_engraver): init
+	finished_span_
+
 	* THANKS: add Hans Forbrich.
 
 	* Documentation/topdocs/NEWS.tely (Top): document new feature.

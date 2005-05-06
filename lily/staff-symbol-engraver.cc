@@ -16,6 +16,7 @@ Staff_symbol_engraver::~Staff_symbol_engraver ()
 
 Staff_symbol_engraver::Staff_symbol_engraver ()
 {
+  finished_span_ = 0;
   first_start_ = true; 
   span_ = 0;
   span_events_[LEFT] = 0;
