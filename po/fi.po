@@ -157,7 +157,7 @@ msgid ""
 "version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 "Päivitä LilyPond syöte uudempaan versioon.  Oletuksena päivittää\n"
-"versiosta joka on annettu \\version komennalla nykyiseksi LilyPond versioksi."
+"versiosta joka on annettu \\version komennolla nykyiseksi LilyPond versioksi."
 
 #: convert-ly.py:59
 msgid ""
@@ -522,7 +522,7 @@ msgstr "komento lopetettiin tilassa %d"
 #: midi2ly.py:1000
 #, python-format
 msgid "%s output to `%s'..."
-msgstr "%s -tuloste paikkaan `%s'..."
+msgstr "%s tulostetaan paikkaan `%s'..."
 
 #: midi2ly.py:1031
 msgid "Example:"
@@ -746,7 +746,7 @@ msgstr "palkki löytyi jo"
 
 #: beam-engraver.cc:205
 msgid "unterminated beam"
-msgstr "päättymätön palkki"
+msgstr "päättämätön palkki"
 
 #: beam-engraver.cc:238 chord-tremolo-engraver.cc:165
 msgid "stem must have Rhythmic structure"
@@ -809,7 +809,7 @@ msgstr "odotettiin 2 elementti sointutremololle, löytyi %d"
 
 #: chord-tremolo-engraver.cc:131
 msgid "unterminated chord tremolo"
-msgstr "päättymätön sointutremolo"
+msgstr "päättämätön sointutremolo"
 
 #: chord-tremolo-iterator.cc:64
 msgid "no one to print a tremolos"
@@ -900,7 +900,7 @@ msgstr "cresc aloitettiin tästä"
 
 #: dynamic-engraver.cc:304
 msgid "unterminated (de)crescendo"
-msgstr "päätymätön (de)crescendo"
+msgstr "päättämätön (de)crescendo"
 
 #: event-chord-iterator.cc:55 output-property-music-iterator.cc:29
 #, c-format
@@ -909,7 +909,7 @@ msgstr "hylätään tapahtuma: `%s'"
 
 #: extender-engraver.cc:139 extender-engraver.cc:148
 msgid "unterminated extender"
-msgstr "päättymätön pidennys"
+msgstr "päättämätön pidennys"
 
 #: folded-repeat-iterator.cc:64
 msgid "no one to print a repeat brace"
@@ -943,7 +943,7 @@ msgstr "asetetaan nollaksi"
 
 #: glissando-engraver.cc:97
 msgid "unterminated glissando"
-msgstr "päättymätön glissando"
+msgstr "päättämätön glissando"
 
 #: global-context-scheme.cc:49 global-context-scheme.cc:76
 msgid "no music found in score"
@@ -1022,11 +1022,11 @@ msgstr "ristiriitainen nuottiryhmä -tapaus"
 
 #: hyphen-engraver.cc:89
 msgid "removing unterminated hyphen"
-msgstr "päättymätön tavuviiva"
+msgstr "päättämätön tavuviiva"
 
 #: hyphen-engraver.cc:102
 msgid "unterminated hyphen; removing"
-msgstr "päättymätön tavuviiva"
+msgstr "päättämätön tavuviiva"
 
 #: includable-lexer.cc:50
 msgid "include files are not allowed in safe mode"
@@ -1059,7 +1059,7 @@ msgstr "ei vasenta reunaa"
 
 #: ligature-engraver.cc:256
 msgid "unterminated ligature"
-msgstr "päättymätön ligature"
+msgstr "päättämätön ligature"
 
 #: ligature-engraver.cc:280
 msgid "ignoring rest: ligature may not contain rest"
@@ -1176,7 +1176,7 @@ msgid ""
 "set scheme option, for help use\n"
 "                                       -e '(ly:option-usage)'"
 msgstr ""
-"aseta scheme optio, opasktekäyttöön\n"
+"aseta scheme optio, opastekäyttöön\n"
 "                                       -e '(ly:option-usage)'"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
@@ -1191,7 +1191,7 @@ msgstr "hylkää FORMAT,...  Myös erillisinä optioina:"
 
 #: main.cc:140
 msgid "generate DVI (tex backend only)"
-msgstr "tuota DVI (vain tex päätä varten)"
+msgstr "tuota DVI (vain tex -tuotosta varten)"
 
 #: main.cc:141
 msgid "generate PDF (default)"
@@ -1207,7 +1207,7 @@ msgstr "tuota PostScript"
 
 #: main.cc:144
 msgid "generate TeX (tex backend only)"
-msgstr "tuota TeX (vain tex pää varten)"
+msgstr "tuota TeX (vain tex -tuotosta varten)"
 
 #: main.cc:146
 msgid "FIELD"
@@ -1227,7 +1227,7 @@ msgstr "käytetään TIEDOSTO alustustiedostona"
 
 #: main.cc:149
 msgid "write output to FILE (suffix will be added)"
-msgstr "tulosta tiedostoon TIEDOSTO (pääte tullaan lisäämään)"
+msgstr "tulosta tiedostoon TIEDOSTO (pääte lisäämään)"
 
 #: main.cc:150
 msgid "USER,GROUP,JAIL,DIR"
@@ -1238,7 +1238,7 @@ msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "                                       and cd into DIR"
 msgstr ""
-"chroot kohteeseen JAIL, ole USER:GROUP\n"
+"tee chroot kohteeseen JAIL, ole USER:GROUP\n"
 "                                       ja cd hakemistoon DIR"
 
 #: main.cc:151
@@ -1271,7 +1271,7 @@ msgstr "Käyttö: %s [OPTIO]... TIEDOSTO..."
 #: main.cc:205
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "Lado musiikki ja tai soita MIDI tiedostosta TIEDOSTO."
+msgstr "Lado musiikki ja/tai tuota MIDI tiedostosta TIEDOSTO."
 
 #: main.cc:207
 #, c-format
@@ -1281,7 +1281,7 @@ msgstr "LilyPond tuottaa kaunista notaatiota musiikille."
 #: main.cc:209
 #, c-format
 msgid "For more information, see %s"
-msgstr "Lisätietoja varten, katso %s"
+msgstr "Lisätietoja varten, katso %s."
 
 #: main.cc:299
 #, c-format
@@ -1523,7 +1523,7 @@ msgstr "ei tiedetä kuinka kohdella tämän mittaista prosenttitoistoa: %s"
 
 #: percent-repeat-engraver.cc:161
 msgid "unterminated percent repeat"
-msgstr "päättymätön prosenttitoisto"
+msgstr "päättämätön prosenttitoisto"
 
 #: percent-repeat-iterator.cc:51
 msgid "no one to print a percent"
@@ -1552,11 +1552,11 @@ msgstr "kohdassa "
 #: performance.cc:165
 #, c-format
 msgid "MIDI output to `%s'..."
-msgstr "MIDI-tuloste paikkaan `%s'..."
+msgstr "Tehdään MIDI-tuloste `%s'..."
 
 #: phrasing-slur-engraver.cc:115
 msgid "unterminated phrasing slur"
-msgstr "päättymätön fraasikaari"
+msgstr "päättämätön fraaseerauskaari"
 
 #: piano-pedal-engraver.cc:224
 #, c-format
@@ -1567,12 +1567,12 @@ msgstr "odotettiin 3 merkkijonoa pianopedaalille, löytyi: %d"
 #: piano-pedal-performer.cc:80
 #, c-format
 msgid "can't find start of piano pedal: `%s'"
-msgstr "ei voitu löytää alkua pianopedaalille: `%s'"
+msgstr "ei löydetty alkua pianopedaalille: `%s'"
 
 #: piano-pedal-engraver.cc:305
 #, c-format
 msgid "can't find start of piano pedal bracket: `%s'"
-msgstr "ei voitu löytää alkua pianopedaalille: `%s'"
+msgstr "ei löydetty alkua pianopedaalille: `%s'"
 
 #: property-iterator.cc:90
 #, c-format
@@ -1687,7 +1687,7 @@ msgstr "Ei jousta sarakkeen %d ja sitä seuraavan välillä"
 
 #: slur-engraver.cc:113
 msgid "unterminated slur"
-msgstr "päättymätön kaari"
+msgstr "päättämätön kaari"
 
 #: slur-engraver.cc:122
 msgid "can't end slur"
@@ -1706,7 +1706,7 @@ msgstr "odotettiin %d merkkiä, saatiin %d"
 #: spacing-spanner.cc:377
 #, c-format
 msgid "Global shortest duration is %s"
-msgstr "Globaali lyhin kesto on %s"
+msgstr "Yleinen lyhin kesto on %s"
 
 #: stem-engraver.cc:88
 msgid "tremolo duration is too long"
@@ -1752,15 +1752,15 @@ msgstr "Lasketaan rivinvaihtoja..."
 
 #: text-spanner-engraver.cc:61
 msgid "can't find start of text spanner"
-msgstr "ei löydetty alkua tekstiladokkeelle"
+msgstr "ei löydetty alkua tekstileikkeelle"
 
 #: text-spanner-engraver.cc:75
 msgid "already have a text spanner"
-msgstr "tekstiladoke löytyi jo"
+msgstr "tekstileike löytyi jo"
 
 #: text-spanner-engraver.cc:136
 msgid "unterminated text spanner"
-msgstr "päättymätön tekstiladoke"
+msgstr "päättämätön tekstileike"
 
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
@@ -1856,7 +1856,7 @@ msgstr "Vaticana_ligature: nollayhdiste (delta_pitch == 0)"
 #. fixme: be more verbose.
 #: volta-engraver.cc:127
 msgid "can't end volta spanner"
-msgstr "ei löydetty lopua volta ladokeelle"
+msgstr "ei löydetty loppua volta ladokkeelle"
 
 #: volta-engraver.cc:137
 msgid "already have a volta spanner, ending that one prematurely"
@@ -1864,7 +1864,7 @@ msgstr "löytyi ja volta-ladoke, lopetetaan se ennenaikaisesti"
 
 #: volta-engraver.cc:141
 msgid "also already have an ended spanner"
-msgstr "myös tekstiladoke päätettiin jo"
+msgstr "myös tekstileike päätettiin jo"
 
 #: parser.yy:90
 msgid "tag must be symbol or list of symbols"
@@ -2256,7 +2256,7 @@ msgstr "väärä tyyppi argumentille ~a.  Odotettiin ~a, löytyi ~s"
 #: lily.scm:319
 #, lisp-format
 msgid "failed files: ~S"
-msgstr "epäonniset tiedosto: ~S"
+msgstr "epäonniset tiedostot: ~S"
 
 #: markup.scm:88
 #, lisp-format
@@ -2296,7 +2296,7 @@ msgstr "tuntematon palkkityyli: `%s'"
 
 #: output-ps.scm:314
 msgid "utf8-string encountered in PS backend"
-msgstr "utf8-merkkijono havaittu PS päässä"
+msgstr "utf8-merkkijono havaittu PS tuotoksessa"
 
 #: output-svg.scm:41
 #, lisp-format
@@ -2502,7 +2502,7 @@ msgstr "ajaminen epäonnistui"
 #~ msgstr "KEY=VAL"
 
 #~ msgid "change global setting KEY to VAL"
-#~ msgstr "vaihda globaali asetus KEY arvoksi VAL"
+#~ msgstr "vaihda yleinen asetus KEY arvoksi VAL"
 
 #~ msgid "LilyPond crashed (signal %d)."
 #~ msgstr "LilyPond kaatui (signaali %d)."
@@ -2607,7 +2607,7 @@ msgstr "ajaminen epäonnistui"
 #~ msgstr "paperituloste paikkaan `%s'..."
 
 #~ msgid "can't find start of phrasing slur"
-#~ msgstr "ei voitu löytää alkua fraasikaarelle"
+#~ msgstr "ei löydetty alkua fraaseerauskaarelle"
 
 #~ msgid "Where SYMBOL VAL pair is any of:"
 #~ msgstr "Missä (SYMBOLI,ARVO)-pari on jokin näistä:"

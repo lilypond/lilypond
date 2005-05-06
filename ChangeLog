@@ -1,3 +1,7 @@
+2005-05-06  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* po/fi.po: apply second round of update.
+
 2005-05-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/x11-color.scm (make-x11-color-handler): don't use
