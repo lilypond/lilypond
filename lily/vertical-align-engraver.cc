@@ -5,6 +5,7 @@
 
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+
 #include "context.hh"
 #include "paper-column.hh"
 #include "align-interface.hh"
@@ -17,8 +18,10 @@ class Vertical_align_engraver : public Engraver
 {
   Spanner *valign_;
   bool qualifies (Grob_info) const;
+
 public:
   TRANSLATOR_DECLARATIONS (Vertical_align_engraver);
+
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
