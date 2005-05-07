@@ -54,7 +54,7 @@
 		      "~a --resolution=~S --papersize=~a~a '~a'"
 		      (if (file-exists? ps2png-source)
 			  (format "python ~a" ps2png-source)
-			  "ps2png")
+			  "lilypond-ps2png")
 		      resolution
 		      (sanitize-command-option papersizename)
 		      (if (ly:get-option 'verbose) " --verbose " "")
