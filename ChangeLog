@@ -2,6 +2,7 @@
 
 	* scm/framework-ps.scm (write-preamble): embed CFFs if file name
 	matches .otf
+	(write-preamble): warn about unknown fonts.
 
 	* lily/pfb.cc (Module): new function ly:otf->cff
 
