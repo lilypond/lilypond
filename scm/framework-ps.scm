@@ -265,7 +265,6 @@
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	  ""))
        )))
-
   
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
