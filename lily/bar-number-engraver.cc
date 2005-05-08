@@ -64,7 +64,7 @@ Bar_number_engraver::Bar_number_engraver ()
 void
 Bar_number_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob *s = inf.grob_;
+  Grob *s = inf.grob ();
   if (text_
       && dynamic_cast<Item *> (s)
       && s->get_property ("break-align-symbol") == ly_symbol2scm ("left-edge"))

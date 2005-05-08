@@ -269,13 +269,13 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 {
   if (ligature_)
     {
-      if (Note_head::has_interface (info.grob_))
+      if (Note_head::has_interface (info.grob ()))
 	{
 	  primitives_.push (info);
-	  info.grob_->set_property ("print-function",
+	  info.grob ()->set_property ("print-function",
 				    brew_ligature_primitive_proc);
 	}
-      if (Rest::has_interface (info.grob_))
+      if (Rest::has_interface (info.grob ()))
 	{
 	  info.music_cause ()->origin ()->warning (_ ("ignoring rest: ligature may not contain rest"));
 	  prev_start_req_->origin ()->warning (_ ("ligature was started here"));

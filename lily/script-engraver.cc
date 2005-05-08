@@ -170,21 +170,21 @@ void
 Script_engraver::acknowledge_grob (Grob_info info)
 {
   int script_count = scripts_.size ();
-  if (Stem::has_interface (info.grob_))
+  if (Stem::has_interface (info.grob ()))
     {
       for (int i = 0; i < script_count; i++)
 	{
 	  Grob *e = scripts_[i].script_;
 
 	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_property ("direction-source", info.grob_->self_scm ());
+	    e->set_property ("direction-source", info.grob ()->self_scm ());
 
 	  /* FIXME: add dependency */
-	  e->add_dependency (info.grob_);
-	  Side_position_interface::add_support (e, info.grob_);
+	  e->add_dependency (info.grob ());
+	  Side_position_interface::add_support (e, info.grob ());
 	}
     }
-  else if (Rhythmic_head::has_interface (info.grob_)
+  else if (Rhythmic_head::has_interface (info.grob ())
 	   && info.music_cause ())
     {
       for (int i = 0; i < script_count; i++)
@@ -194,13 +194,13 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->get_parent (Y_AXIS))
 	    {
-	      e->set_parent (info.grob_, Y_AXIS);
-	      e->add_dependency (info.grob_);
+	      e->set_parent (info.grob (), Y_AXIS);
+	      e->add_dependency (info.grob ());
 	    }
-	  Side_position_interface::add_support (e, info.grob_);
+	  Side_position_interface::add_support (e, info.grob ());
 	}
     }
-  else if (Note_column::has_interface (info.grob_))
+  else if (Note_column::has_interface (info.grob ()))
     {
       /* Make note column the parent of the script.  That is not
 	 correct, but due to seconds in a chord, noteheads may be
@@ -214,11 +214,11 @@ Script_engraver::acknowledge_grob (Grob_info info)
 
 	  if (!e->get_parent (X_AXIS)
 	      && Side_position_interface::get_axis (e) == Y_AXIS)
-	    e->set_parent (info.grob_, X_AXIS);
+	    e->set_parent (info.grob (), X_AXIS);
 	}
     }
-  else if (Slur::has_interface (info.grob_))
-    slur_ = dynamic_cast<Spanner *> (info.grob_);
+  else if (Slur::has_interface (info.grob ()))
+    slur_ = dynamic_cast<Spanner *> (info.grob ());
 }
 
 void

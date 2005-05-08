@@ -483,15 +483,15 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 
   if (note
       && note->is_mus_type ("note-event")
-      && Rhythmic_head::has_interface (info.grob_))
+      && Rhythmic_head::has_interface (info.grob ()))
     {
       if (to_boolean (get_property ("harmonicAccidentals"))
-	  || !ly_c_equal_p (info.grob_->get_property ("style"),
+	  || !ly_c_equal_p (info.grob ()->get_property ("style"),
 			    ly_symbol2scm ("harmonic")))
 	{
 
 	  Accidental_entry entry;
-	  entry.head_ = info.grob_;
+	  entry.head_ = info.grob ();
 	  entry.origin_trans_ = dynamic_cast<Engraver *> (info.origin_translator ());
 	  entry.origin_ = entry.origin_trans_->context ();
 	  entry.melodic_ = note;
@@ -499,13 +499,13 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  accidentals_.push (entry);
 	}
     }
-  else if (Tie::has_interface (info.grob_))
-    ties_.push (dynamic_cast<Spanner *> (info.grob_));
-  else if (Arpeggio::has_interface (info.grob_))
-    left_objects_.push (info.grob_);
-  else if (info.grob_
+  else if (Tie::has_interface (info.grob ()))
+    ties_.push (dynamic_cast<Spanner *> (info.grob ()));
+  else if (Arpeggio::has_interface (info.grob ()))
+    left_objects_.push (info.grob ());
+  else if (info.grob ()
 	   ->internal_has_interface (ly_symbol2scm ("finger-interface")))
-    left_objects_.push (info.grob_);
+    left_objects_.push (info.grob ());
 }
 
 void

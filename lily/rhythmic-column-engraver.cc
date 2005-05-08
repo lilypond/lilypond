@@ -113,7 +113,7 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
 void
 Rhythmic_column_engraver::acknowledge_grob (Grob_info i)
 {
-  Item *item = dynamic_cast<Item *> (i.grob_);
+  Item *item = dynamic_cast<Item *> (i.grob ());
   if (!item || item->get_parent (X_AXIS))
     return;
   if (Stem::has_interface (item))

@@ -33,7 +33,7 @@ Stanza_number_align_engraver::Stanza_number_align_engraver ()
 void
 Stanza_number_align_engraver::acknowledge_grob (Grob_info gi)
 {
-  Grob *h = gi.grob_;
+  Grob *h = gi.grob ();
 
   if (h->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     lyrics_.push (h);

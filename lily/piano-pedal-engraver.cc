@@ -131,17 +131,17 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 {
   for (Pedal_info *p = info_list_; p && p->name_; p++)
     {
-      if (Note_column::has_interface (info.grob_))
+      if (Note_column::has_interface (info.grob ()))
 	{
 	  if (p->line_spanner_)
 	    {
-	      Side_position_interface::add_support (p->line_spanner_, info.grob_);
-	      add_bound_item (p->line_spanner_, info.grob_);
+	      Side_position_interface::add_support (p->line_spanner_, info.grob ());
+	      add_bound_item (p->line_spanner_, info.grob ());
 	    }
 	  if (p->bracket_)
-	    add_bound_item (p->bracket_, info.grob_);
+	    add_bound_item (p->bracket_, info.grob ());
 	  if (p->finished_bracket_)
-	    add_bound_item (p->finished_bracket_, info.grob_);
+	    add_bound_item (p->finished_bracket_, info.grob ());
 	}
     }
 }

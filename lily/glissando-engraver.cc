@@ -61,9 +61,9 @@ Glissando_engraver::process_music ()
 void
 Glissando_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.grob_))
+  if (Rhythmic_head::has_interface (info.grob ()))
     {
-      Grob *g = info.grob_;
+      Grob *g = info.grob ();
       if (line_)
 	line_->set_bound (LEFT, g);
 

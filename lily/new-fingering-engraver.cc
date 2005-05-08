@@ -60,7 +60,7 @@ protected:
 void
 New_fingering_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.grob_))
+  if (Rhythmic_head::has_interface (inf.grob ()))
     {
       Music *note_ev = inf.music_cause ();
       if (!note_ev)
@@ -77,7 +77,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 
 	  if (m->is_mus_type ("fingering-event"))
 	    {
-	      add_fingering (inf.grob_, m, note_ev);
+	      add_fingering (inf.grob (), m, note_ev);
 	    }
 	  else if (m->is_mus_type ("text-script-event"))
 	    {
@@ -85,26 +85,26 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	    }
 	  else if (m->is_mus_type ("script-event"))
 	    {
-	      add_script (inf.grob_, m, note_ev);
+	      add_script (inf.grob (), m, note_ev);
 	    }
 	  else if (m->is_mus_type ("string-number-event"))
 	    {
-	      add_string (inf.grob_, m, note_ev);
+	      add_string (inf.grob (), m, note_ev);
 	    }
 	  else if (m->is_mus_type ("harmonic-event"))
 	    {
-	      inf.grob_->set_property ("style", ly_symbol2scm ("harmonic"));
-	      Grob *d = unsmob_grob (inf.grob_->get_property ("dot"));
+	      inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
+	      Grob *d = unsmob_grob (inf.grob ()->get_property ("dot"));
 	      if (d)
 		d->suicide ();
 	    }
 	}
 
-      heads_.push (inf.grob_);
+      heads_.push (inf.grob ());
     }
-  else if (Stem::has_interface (inf.grob_))
+  else if (Stem::has_interface (inf.grob ()))
     {
-      stem_ = inf.grob_;
+      stem_ = inf.grob ();
     }
 }
 

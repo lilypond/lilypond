@@ -67,7 +67,7 @@ Break_align_engraver::derived_mark () const
 void
 Break_align_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Item *item = dynamic_cast<Item *> (inf.grob_))
+  if (Item *item = dynamic_cast<Item *> (inf.grob ()))
     {
       /*
 	Removed check for item->empty (X_AXIS). --hwn 20/1/04

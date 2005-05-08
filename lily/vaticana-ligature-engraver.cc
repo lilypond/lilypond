@@ -154,7 +154,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
    * The paper column where we put the whole ligature into.
    */
   Paper_column *column
-    = dynamic_cast<Item *> (primitives[0].grob_)->get_column ();
+    = dynamic_cast<Item *> (primitives[0].grob ())->get_column ();
 
   Real join_thickness
     = thickness * column->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
@@ -176,7 +176,7 @@ Vaticana_ligature_engraver::align_heads (Array<Grob_info> primitives,
   int prev_prefix_set = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob_);
+      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int prefix_set
 	= scm_to_int (primitive->get_property ("prefix-set"));
       int context_info
@@ -362,7 +362,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   String prev_glyph_name = "";
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob_);
+      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
 
       int delta_pitch;
       SCM delta_pitch_scm = primitive->get_property ("delta-pitch");
@@ -584,7 +584,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 #if 0 // experimental code to collapse spacing after ligature
   /* TODO: set to max (old/new spacing-increment), since other
      voices/staves also may want to set this property. */
-  Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob_);
+  Item *first_primitive = dynamic_cast<Item *> (primitives[0].grob ());
   Paper_column *paper_column = first_primitive->get_column ();
   paper_column->warning (_f ("Vaticana_ligature_engraver: "
 			     "setting `spacing-increment = %f': ptr =%ul",

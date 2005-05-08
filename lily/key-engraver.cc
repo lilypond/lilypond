@@ -104,7 +104,7 @@ Key_engraver::try_music (Music *ev)
 void
 Key_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Clef::has_interface (info.grob_))
+  if (Clef::has_interface (info.grob ()))
     {
       SCM c = get_property ("createKeyOnClefChange");
       if (to_boolean (c))
@@ -112,7 +112,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 	  create_key (false);
 	}
     }
-  else if (Bar_line::has_interface (info.grob_)
+  else if (Bar_line::has_interface (info.grob ())
 	   && scm_is_pair (get_property ("keySignature")))
     {
       create_key (true);

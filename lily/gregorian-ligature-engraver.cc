@@ -87,7 +87,7 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
   /* Check for illegal head modifier combinations */
   for (int i = 0; i < primitives.size (); i++)
     {
-      Grob *primitive = primitives[i].grob_;
+      Grob *primitive = primitives[i].grob ();
 
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
@@ -201,7 +201,7 @@ provide_context_info (Array<Grob_info> primitives)
   int prev_pitch = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
-      Grob *primitive = primitives[i].grob_;
+      Grob *primitive = primitives[i].grob ();
       Music *music_cause = primitives[i].music_cause ();
       int context_info = 0;
       int pitch = unsmob_pitch (music_cause->get_property ("pitch"))->steps ();

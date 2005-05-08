@@ -40,9 +40,9 @@ void
 Span_bar_engraver::acknowledge_grob (Grob_info i)
 {
   int depth = i.origin_contexts (this).size ();
-  if (depth && Bar_line::has_interface (i.grob_))
+  if (depth && Bar_line::has_interface (i.grob ()))
     {
-      Item *it = dynamic_cast<Item *> (i.grob_);
+      Item *it = dynamic_cast<Item *> (i.grob ());
       bars_.push (it);
 
       if (bars_.size () >= 2 && !spanbar_)

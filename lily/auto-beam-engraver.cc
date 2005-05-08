@@ -287,23 +287,23 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 
   if (stems_)
     {
-      if (Beam::has_interface (info.grob_))
+      if (Beam::has_interface (info.grob ()))
 	{
 	  end_beam ();
 	}
-      else if (Bar_line::has_interface (info.grob_))
+      else if (Bar_line::has_interface (info.grob ()))
 	{
 	  end_beam ();
 	}
-      else if (Rest::has_interface (info.grob_))
+      else if (Rest::has_interface (info.grob ()))
 	{
 	  end_beam ();
 	}
     }
 
-  if (Stem::has_interface (info.grob_))
+  if (Stem::has_interface (info.grob ()))
     {
-      Item *stem = dynamic_cast<Item *> (info.grob_);
+      Item *stem = dynamic_cast<Item *> (info.grob ());
       Music *m = info.music_cause ();
       if (!m->is_mus_type ("rhythmic-event"))
 	{

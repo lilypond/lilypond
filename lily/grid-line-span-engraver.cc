@@ -32,9 +32,9 @@ void
 Grid_line_span_engraver::acknowledge_grob (Grob_info i)
 {
   int depth = i.origin_contexts (this).size ();
-  if (depth && i.grob_->internal_has_interface (ly_symbol2scm ("grid-point-interface")))
+  if (depth && i.grob ()->internal_has_interface (ly_symbol2scm ("grid-point-interface")))
     {
-      Item *it = dynamic_cast<Item *> (i.grob_);
+      Item *it = dynamic_cast<Item *> (i.grob ());
       lines_.push (it);
 
       if (lines_.size () >= 2 && !spanline_)

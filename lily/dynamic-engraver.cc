@@ -368,19 +368,19 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
   if (!line_spanner_)
     return;
 
-  if (Note_column::has_interface (info.grob_))
+  if (Note_column::has_interface (info.grob ()))
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
 	  && line_spanner_->is_live ())
 	{
-	  Side_position_interface::add_support (line_spanner_, info.grob_);
-	  add_bound_item (line_spanner_, dynamic_cast<Item *> (info.grob_));
+	  Side_position_interface::add_support (line_spanner_, info.grob ());
+	  add_bound_item (line_spanner_, dynamic_cast<Item *> (info.grob ()));
 	}
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  SCM head = scm_last_pair (info.grob_->get_property ("note-heads"));
+	  SCM head = scm_last_pair (info.grob ()->get_property ("note-heads"));
 	  if (scm_is_pair (head))
 	    script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
 	}
@@ -389,20 +389,20 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	{
 	  if (!cresc_->get_bound (LEFT))
 	    {
-	      cresc_->set_bound (LEFT, info.grob_);
+	      cresc_->set_bound (LEFT, info.grob ());
 	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	    }
 	}
 
       if (finished_cresc_ && !finished_cresc_->get_bound (RIGHT))
 	{
-	  finished_cresc_->set_bound (RIGHT, info.grob_);
+	  finished_cresc_->set_bound (RIGHT, info.grob ());
 	}
     }
   
-  else if (Script_interface::has_interface (info.grob_) && script_)
+  else if (Script_interface::has_interface (info.grob ()) && script_)
     {
-      SCM p = info.grob_->get_property ("script-priority");
+      SCM p = info.grob ()->get_property ("script-priority");
 
       /*
 	UGH.
@@ -412,7 +412,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
       if (scm_is_number (p)
 	  && scm_to_int (p)
 	  < scm_to_int (script_->get_property ("script-priority")))
-	Side_position_interface::add_support (line_spanner_, info.grob_);
+	Side_position_interface::add_support (line_spanner_, info.grob ());
     }
 }
 

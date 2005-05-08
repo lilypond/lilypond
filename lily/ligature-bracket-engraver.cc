@@ -41,10 +41,10 @@ Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
 {
   if (current_ligature ())
     {
-      if (Note_column::has_interface (info.grob_))
+      if (Note_column::has_interface (info.grob ()))
 	{
 	  Tuplet_bracket::add_column (current_ligature (),
-				      dynamic_cast<Item *> (info.grob_));
+				      dynamic_cast<Item *> (info.grob ()));
 	}
       else Ligature_engraver::acknowledge_grob (info);
     }

@@ -41,7 +41,7 @@ Measure_grouping_engraver::acknowledge_grob (Grob_info gi)
 {
   if (grouping_)
     {
-      Side_position_interface::add_support (grouping_, gi.grob_);
+      Side_position_interface::add_support (grouping_, gi.grob ());
     }
 }
 

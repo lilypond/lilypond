@@ -25,10 +25,10 @@ Staff_collecting_engraver::Staff_collecting_engraver ()
 void
 Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
 {
-  if (Staff_symbol::has_interface (gi.grob_))
+  if (Staff_symbol::has_interface (gi.grob ()))
     {
       SCM staffs = get_property ("stavesFound");
-      staffs = scm_cons (gi.grob_->self_scm (), staffs);
+      staffs = scm_cons (gi.grob ()->self_scm (), staffs);
 
       context ()->set_property ("stavesFound", staffs);
     }

@@ -177,7 +177,7 @@ compute_delta_pitches (Array<Grob_info> primitives)
   Item *prev_primitive = 0, *primitive = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
-      primitive = dynamic_cast<Item *> (primitives[i].grob_);
+      primitive = dynamic_cast<Item *> (primitives[i].grob ());
       Music *music_cause = primitives[i].music_cause ();
       int pitch
 	= unsmob_pitch (music_cause->get_property ("pitch"))->steps ();

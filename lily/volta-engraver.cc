@@ -161,7 +161,7 @@ Volta_engraver::process_music ()
 void
 Volta_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Item *item = dynamic_cast<Item *> (i.grob_))
+  if (Item *item = dynamic_cast<Item *> (i.grob ()))
     {
       if (Note_column::has_interface (item))
 	{
@@ -176,7 +176,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	    Volta_bracket_interface::add_bar (end_volta_span_, item);
 	}
     }
-  else if (Staff_symbol::has_interface (i.grob_))
+  else if (Staff_symbol::has_interface (i.grob ()))
     {
       /*
 	We only want to know about a single staff: then we add to the
@@ -185,7 +185,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	staff_ = SCM_UNDEFINED;
 
       if (staff_ != SCM_UNDEFINED)
-	staff_ = i.grob_->self_scm ();
+	staff_ = i.grob ()->self_scm ();
     }
 }
 

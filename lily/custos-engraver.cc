@@ -62,13 +62,13 @@ Custos_engraver::start_translation_timestep ()
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast<Item *> (info.grob_);
+  Item *item = dynamic_cast<Item *> (info.grob ());
   if (item)
     {
       Music *m = info.music_cause ();
-      if (Bar_line::has_interface (info.grob_))
+      if (Bar_line::has_interface (info.grob ()))
 	custos_permitted = true;
-      else if (Note_head::has_interface (info.grob_)
+      else if (Note_head::has_interface (info.grob ())
 	       && m
 	       && m->is_mus_type ("note-event"))
 	{

@@ -89,7 +89,7 @@ Axis_group_engraver::finalize ()
 void
 Axis_group_engraver::acknowledge_grob (Grob_info i)
 {
-  elts_.push (i.grob_);
+  elts_.push (i.grob ());
 }
 
 /*
@@ -191,8 +191,8 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
     {
       for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
 	{
-	  if (i.grob_->internal_has_interface (scm_car (s)))
-	    Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob_);
+	  if (i.grob ()->internal_has_interface (scm_car (s)))
+	    Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
 	}
     }
 }

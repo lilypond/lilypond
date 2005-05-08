@@ -142,9 +142,9 @@ Chord_tremolo_engraver::typeset_beam ()
 void
 Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
-  if (beam_ && Stem::has_interface (info.grob_))
+  if (beam_ && Stem::has_interface (info.grob ()))
     {
-      Grob *s = info.grob_;
+      Grob *s = info.grob ();
 
       if (start_mom_ == now_mom ())
 	Stem::set_beaming (s, flags_, RIGHT);
@@ -170,14 +170,14 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (repeat_
-	   && flags_ && !body_is_sequential_ && Stem::has_interface (info.grob_))
+	   && flags_ && !body_is_sequential_ && Stem::has_interface (info.grob ()))
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
 				   scm_int2num (flags_));
       stem_tremolo_->set_property ("stem",
-				   info.grob_->self_scm ());
-      stem_tremolo_->set_parent (info.grob_, X_AXIS);
+				   info.grob ()->self_scm ());
+      stem_tremolo_->set_parent (info.grob (), X_AXIS);
     }
 }
 

@@ -49,12 +49,12 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  /*
 	    should typecheck pred. 
 	  */
-	  SCM result = scm_call_1 (pred, inf.grob_->self_scm ());
+	  SCM result = scm_call_1 (pred, inf.grob ()->self_scm ());
 	  if (to_boolean (result))
 	    {
 	      SCM sym = o->get_property ("grob-property");
 	      SCM val = o->get_property ("grob-value");
-	      inf.grob_->internal_set_property (sym, val);
+	      inf.grob ()->internal_set_property (sym, val);
 	    }
 	}
       else
@@ -62,7 +62,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	  Context * d = inf.context ();
 	  SCM proc = o->get_property ("procedure");
 	  scm_call_3 (proc,
-		      inf.grob_->self_scm (),
+		      inf.grob ()->self_scm (),
 		      d->self_scm (), 
 		      context ()->self_scm ());
 	}

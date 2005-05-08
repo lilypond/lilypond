@@ -114,10 +114,10 @@ Ambitus_engraver::stop_translation_timestep ()
 void
 Ambitus_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast<Item *> (info.grob_);
+  Item *item = dynamic_cast<Item *> (info.grob ());
   if (item)
     {
-      if (Note_head::has_interface (info.grob_))
+      if (Note_head::has_interface (info.grob ()))
 	{
 	  Music *nr = info.music_cause ();
 	  if (nr && nr->is_mus_type ("note-event"))

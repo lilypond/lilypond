@@ -41,11 +41,11 @@ Script_column_engraver::stop_translation_timestep ()
 void
 Script_column_engraver::acknowledge_grob (Grob_info inf)
 {
-  Item *thing = dynamic_cast<Item *> (inf.grob_);
-  if (thing && Side_position_interface::has_interface (inf.grob_)) // ugh FIXME
+  Item *thing = dynamic_cast<Item *> (inf.grob ());
+  if (thing && Side_position_interface::has_interface (inf.grob ())) // ugh FIXME
     {
       if (!Item::is_breakable (thing)
-	  && Side_position_interface::get_axis (inf.grob_) == Y_AXIS)
+	  && Side_position_interface::get_axis (inf.grob ()) == Y_AXIS)
 	{
 	  scripts_.push (thing);
 	}
