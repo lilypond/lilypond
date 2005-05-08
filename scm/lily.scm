@@ -36,8 +36,6 @@
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-
-
 ;; initialize defaults. 
 (ly:set-option 'command-line-settings
 	       '((resolution . 90)

@@ -59,12 +59,7 @@ Output_property_engraver::acknowledge_grob (Grob_info inf)
 	}
       else
 	{
-	  Context * d =
-	    dynamic_cast<Context *> (inf.origin_trans_);
-
-	  if (!d)
-	    d = dynamic_cast<Context *> (inf.origin_trans_->context ());
-	  
+	  Context * d = inf.context ();
 	  SCM proc = o->get_property ("procedure");
 	  scm_call_3 (proc,
 		      inf.grob_->self_scm (),

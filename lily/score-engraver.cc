@@ -53,16 +53,10 @@ Score_engraver::make_columns ()
       Object_key const *key2 = context ()->get_grob_key ("PaperColumn");
       set_columns (new Paper_column (nmp, key1), new Paper_column (pc, key2));
 
-      Grob_info i1;
-      i1.grob_ = command_column_;
-      i1.origin_trans_ = this;
-
+      Grob_info i1 (this, command_column_);
       announce_grob (i1);
 
-      Grob_info i2;
-      i2.grob_ = musical_column_;
-      i2.origin_trans_ = this;
-
+      Grob_info i2 (this, musical_column_);
       announce_grob (i2);
     }
 }

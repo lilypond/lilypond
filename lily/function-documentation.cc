@@ -22,7 +22,7 @@ void ly_add_function_documentation (SCM func,
     return;
 
   if (!scm_is_vector (doc_hash_table))
-    doc_hash_table = scm_make_vector (scm_int2num (59), SCM_EOL);
+    doc_hash_table = scm_c_make_hash_table (59);
 
   String s = String (" - ") + "LilyPond procedure: " + fname + " " + varlist
     + "\n" + doc;

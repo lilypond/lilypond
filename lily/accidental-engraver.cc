@@ -492,8 +492,8 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 
 	  Accidental_entry entry;
 	  entry.head_ = info.grob_;
-	  entry.origin_trans_ = dynamic_cast<Engraver *> (info.origin_trans_);
-	  entry.origin_ = info.origin_trans_->context ();
+	  entry.origin_trans_ = dynamic_cast<Engraver *> (info.origin_translator ());
+	  entry.origin_ = entry.origin_trans_->context ();
 	  entry.melodic_ = note;
 
 	  accidentals_.push (entry);
