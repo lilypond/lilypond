@@ -8,7 +8,7 @@ FLEXLEXER=OK
 
 if [ -z "$FLEXLEXER" ]; then
 
-includes="$HOME/usr/include /usr/local/include /usr/include"
+includes="$HOME/usr/include $PREFIX/include /usr/local/include /usr/include" 
 
 for i in $includes; do
     file=$i/FlexLexer.h
@@ -43,9 +43,9 @@ if [ -z "$FLEXLEXER" ]; then
 echo -n "Copying and fixing $file... "
 mkdir -p lily/$outdir
 rm -f lily/$outdir/FlexLexer.h
-sed -e 's/iostream.h/iostream/' \
-    -e 's/\<istream\>/std::istream/' \
-    -e 's/\<ostream\>/std::ostream/' \
+perl -p -e 's/iostream.h/iostream/g;' \
+    -e 's/\bistream\b/std::istream/g;' \
+    -e 's/\bostream\b/std::ostream/' \
     $file > lily/$outdir/FlexLexer.h
 echo "done"
 
@@ -58,9 +58,9 @@ if [ -f GNUmakefile ]; then
     make conf=$CONF -C lily $outdir/lexer.cc > /dev/null 2>&1 || true
 
     mv $file $file.orig
-    sed -e 's/\<cin\>/std::cin/g' \
-	-e 's/\<cout\>/std::cout/g' \
-	-e 's/\<cerr\>/std::cerr/g' \
+    perl -p -e 's/\bcin\b/std::cin/g;' \
+	-e 's/\bcout\b/std::cout/g;' \
+	-e 's/\bcerr\b/std::cerr/g' \
 	$file.orig > $file
     echo "done"
 fi

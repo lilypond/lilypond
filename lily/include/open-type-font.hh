@@ -44,13 +44,10 @@ public:
   virtual unsigned index_to_charcode (int) const;
   virtual void derived_mark () const;
   virtual SCM sub_fonts () const;
-#if 0
-  virtual int count () const;
-  virtual int index_to_ascii (int) const;
-  virtual Box get_ascii_char (int) const;
-  virtual Offset get_indexed_wxwy (int) const;
-#endif
   virtual Real design_size () const;
 };
+
+String get_otf_table (FT_Face face, String tag);
+FT_Face open_ft_face (String str);
 
 #endif /* OPEN_TYPE_FONT_HH */

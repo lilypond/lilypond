@@ -13,6 +13,7 @@
 #include "source-file.hh"
 #include "memory-stream.hh"
 #include "ttftool.h"
+#include "open-type-font.hh"
 
 char *
 pfb2pfa (Byte const *pfb, int length)
@@ -104,3 +105,24 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 
   return asscm;
 }
+
+
+
+LY_DEFINE (ly_otf_to_pfa, "ly:otf->cff",
+	   1, 0, 0, (SCM otf_file_name),
+	   "Convert the contents of a OTF file to CFF file, returning it as "
+	   " a string.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (otf_file_name), otf_file_name,
+		   SCM_ARG1, __FUNCTION__, "string");
+
+  String file_name = ly_scm2string (otf_file_name);
+
+  FT_Face face = open_ft_face (file_name);
+  String table = get_otf_table (face, "CFF ");
+
+  SCM asscm = scm_from_locale_stringn (table.get_bytes (),
+				       table.length ());
+
+  return asscm;
+}	   

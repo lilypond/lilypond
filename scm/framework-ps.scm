@@ -231,7 +231,7 @@
 
 
 (define (write-preamble paper load-fonts? port)
-  
+ 
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -246,9 +246,13 @@
 	((and bare-file-name (string-match "\\.pfb" bare-file-name))
 	 (ly:pfb->pfa bare-file-name))
 	
+
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
+
+	((and bare-file-name (string-match "\\.otf" bare-file-name))
+	 (ps-embed-cff (ly:otf->cff bare-file-name) name 0))
 	
 	((and bare-file-name (string-match "\\.ttf" bare-file-name))
 	 (ly:ttf->pfa bare-file-name))
