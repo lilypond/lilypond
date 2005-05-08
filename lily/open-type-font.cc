@@ -42,13 +42,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
   return 0;
 }
 
+
 String
 Open_type_font::get_otf_table (String tag) const
 {
-  FT_ULong len;
-  FT_Byte *tab = load_table (tag.to_str0 (), face_,  &len);
-
-  return String (tab, len);
+  return ::get_otf_table (face_, tag);
 }
 
 SCM
@@ -87,8 +85,21 @@ Open_type_font::~Open_type_font ()
   FT_Done_Face (face_);
 }
 
-SCM
-Open_type_font::make_otf (String str)
+
+/*
+  UGH fix naming
+*/
+String
+get_otf_table (FT_Face face, String tag)
+{
+  FT_ULong len;
+  FT_Byte *tab = load_table (tag.to_str0 (), face,  &len);
+
+  return String (tab, len);
+}
+
+FT_Face
+open_ft_face (String str)
 {
   FT_Face face;
   int error_code = FT_New_Face (freetype2_library, str.to_str0 (), 0, &face);
@@ -98,7 +109,13 @@ Open_type_font::make_otf (String str)
   else if (error_code)
     error (_f ("unknown error: %d reading font file: %s", error_code,
 	       str.to_str0 ()));
+  return face;
+}
 
+SCM
+Open_type_font::make_otf (String str)
+{
+  FT_Face face = open_ft_face (str);
   Open_type_font *otf = new Open_type_font (face);
 
   return otf->self_scm ();
