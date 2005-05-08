@@ -221,14 +221,14 @@ Context::create_context (Context_def *cdef,
 {
   String type = ly_symbol2string (cdef->get_context_name ());
   Object_key const *key = get_context_key (type, id);
-  Context *new_group
+  Context *new_context
     = cdef->instantiate (ops, key);
 
-  new_group->id_string_ = id;
-  add_context (new_group);
-  apply_property_operations (new_group, ops);
+  new_context->id_string_ = id;
+  add_context (new_context);
+  apply_property_operations (new_context, ops);
 
-  return new_group;
+  return new_context;
 }
 
 Object_key const *

@@ -23,6 +23,8 @@
      (apply translator-property-description x))
    `(
      (aDueText ,string? "Text to print at a unisono passage.")
+     (alignBelowContext ,string? "Where to insert newly created context in vertiical alignment.")
+     (alignAboveContext ,string? "Where to insert newly created context in vertiical alignment.")
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 

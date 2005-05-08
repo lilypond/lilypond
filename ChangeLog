@@ -1,3 +1,10 @@
+2005-05-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/alignment-order.ly: new file. 
+
+	* lily/vertical-align-engraver.cc (acknowledge_grob): read
+	alignAboveContext and alignBelowContext
+
 2005-05-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/pfb.cc (LY_DEFINE): add cast.

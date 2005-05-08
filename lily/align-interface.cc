@@ -225,10 +225,10 @@ Align_interface::axis (Grob *me)
 }
 
 void
-Align_interface::add_element (Grob *me, Grob *s, SCM cb)
+Align_interface::add_element (Grob *me, Grob *element, SCM call_back)
 {
-  s->add_offset_callback (cb, Align_interface::axis (me));
-  Axis_group_interface::add_element (me, s);
+  element->add_offset_callback (call_back, Align_interface::axis (me));
+  Axis_group_interface::add_element (me, element);
 }
 
 void

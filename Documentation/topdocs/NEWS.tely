@@ -34,6 +34,15 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Newly created staves and lyric lines, can be put in any vertical order,
+by setting @code{alignBelowContext} or @code{alignAboveContext}
+properties in the newly created context. An example of the use of this
+is in @inputfileref{input/regression,alignment-order.ly}.
+
+This feature has been sponsored by Bertalan Fodor. 
+
+
+@item
 Staves may be stopped and started halfway a line, e.g.
 
 @lilypond[relative=2,fragment,verbatim]

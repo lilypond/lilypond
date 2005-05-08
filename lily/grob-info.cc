@@ -7,11 +7,17 @@
 */
 
 #include "grob-info.hh"
-
 #include "grob.hh"
 #include "music.hh"
 #include "translator-group.hh"
 #include "context.hh"
+
+
+Grob_info::Grob_info (Translator *t, Grob *g)
+{
+  origin_trans_ = t;
+  grob_ = g;
+}
 
 Grob_info::Grob_info ()
 {
@@ -39,5 +45,12 @@ Grob_info::origin_contexts (Translator *end) const
   while (t && t != end->context ());
 
   return r;
+}
+
+
+Context*
+Grob_info::context () const
+{
+  return origin_trans_->context ();
 }
 

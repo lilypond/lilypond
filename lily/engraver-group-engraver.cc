@@ -67,7 +67,7 @@ Engraver_group_engraver::acknowledge_grobs ()
 	{
 	  Translator *t = unsmob_translator (scm_car (p));
 	  Engraver *eng = dynamic_cast<Engraver *> (t);
-	  if (eng && eng != info.origin_trans_)
+	  if (eng && eng != info.origin_translator ())
 	    eng->acknowledge_grob (info);
 	}
     }
