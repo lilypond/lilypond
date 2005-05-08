@@ -108,7 +108,7 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 
 
 
-LY_DEFINE (ly_otf_to_pfa, "ly:otf->cff",
+LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
 	   1, 0, 0, (SCM otf_file_name),
 	   "Convert the contents of a OTF file to CFF file, returning it as "
 	   " a string.")
@@ -121,7 +121,7 @@ LY_DEFINE (ly_otf_to_pfa, "ly:otf->cff",
   FT_Face face = open_ft_face (file_name);
   String table = get_otf_table (face, "CFF ");
 
-  SCM asscm = scm_from_locale_stringn (table.get_bytes (),
+  SCM asscm = scm_from_locale_stringn ((char*) table.get_bytes (),
 				       table.length ());
 
   return asscm;
