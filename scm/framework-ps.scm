@@ -262,8 +262,8 @@
 		       name
 		       0))
 	(else
-	 (ly:warning (_ "Don't know how to embed ~S=~S" name file-name))
-	 (cons font-name "")))
+	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	  ""))
        )))
 
   
