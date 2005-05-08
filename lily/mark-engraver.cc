@@ -45,7 +45,7 @@ Mark_engraver::Mark_engraver ()
 void
 Mark_engraver::acknowledge_grob (Grob_info inf)
 {
-  Grob *s = inf.grob_;
+  Grob *s = inf.grob ();
   if (text_ && Bar_line::has_interface (s))
     {
       /*

@@ -86,8 +86,8 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 {
   int sz = i.origin_contexts ((Translator *)this).size ();
 
-  return sz > 0 && Axis_group_interface::has_interface (i.grob_)
-    && !i.grob_->get_parent (Y_AXIS) && Axis_group_interface::has_axis (i.grob_, Y_AXIS);
+  return sz > 0 && Axis_group_interface::has_interface (i.grob ())
+    && !i.grob ()->get_parent (Y_AXIS) && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
 
 void
@@ -98,7 +98,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
       String id = i.context ()->id_string ();
 
       scm_hash_set_x (id_to_group_hashtab_, scm_makfrom0str (id.to_str0 ()),
-		      i.grob_->self_scm ());
+		      i.grob ()->self_scm ());
 
 
       SCM before_id = i.context ()->get_property ("alignAboveContext");
@@ -108,7 +108,7 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
       SCM after = scm_hash_ref (id_to_group_hashtab_,  after_id, SCM_BOOL_F);
 
 
-      Align_interface::add_element (valign_, i.grob_,
+      Align_interface::add_element (valign_, i.grob (),
 				    get_property ("verticalAlignmentChildCallback"));
 
       if (unsmob_grob (before) || unsmob_grob (after))
@@ -121,12 +121,12 @@ Vertical_align_engraver::acknowledge_grob (Grob_info i)
 	    {
 	      if (scm_car (s) == after)
 		{
-		  *current = scm_cons (i.grob_->self_scm(), s);
+		  *current = scm_cons (i.grob ()->self_scm(), s);
 		  break;
 		}
 	      else if (scm_car (s) == before)
 		{
-		  scm_set_cdr_x (s, scm_cons (i.grob_->self_scm (),
+		  scm_set_cdr_x (s, scm_cons (i.grob ()->self_scm (),
 					      scm_cdr (s)));
 		  break;
 		}

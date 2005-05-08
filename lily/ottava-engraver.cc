@@ -68,8 +68,8 @@ Ottava_spanner_engraver::process_music ()
 void
 Ottava_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *it = dynamic_cast<Item *> (info.grob_);
-  if (span_ && it && Note_column::has_interface (info.grob_))
+  Item *it = dynamic_cast<Item *> (info.grob ());
+  if (span_ && it && Note_column::has_interface (info.grob ()))
     {
       Side_position_interface::add_support (span_, it);
 

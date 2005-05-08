@@ -108,7 +108,7 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     symbol?
    */
   if (span_)
-    s.grob_->set_property ("staff-symbol", span_->self_scm ());
+    s.grob ()->set_property ("staff-symbol", span_->self_scm ());
 }
 
 ADD_TRANSLATOR (Staff_symbol_engraver,

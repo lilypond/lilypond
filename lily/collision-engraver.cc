@@ -42,13 +42,13 @@ Collision_engraver::process_acknowledged_grobs ()
 void
 Collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob_))
+  if (Note_column::has_interface (i.grob ()))
     {
       /*should check Y axis? */
-      if (Note_column::has_rests (i.grob_) || i.grob_->get_parent (X_AXIS))
+      if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
 	return;
 
-      note_columns_.push (i.grob_);
+      note_columns_.push (i.grob ());
     }
 }
 

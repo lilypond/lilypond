@@ -70,8 +70,8 @@ Phrasing_slur_engraver::try_music (Music *m)
 void
 Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *e = info.grob_;
-  if (Note_column::has_interface (info.grob_))
+  Grob *e = info.grob ();
+  if (Note_column::has_interface (info.grob ()))
     {
       for (int i = slurs_.size (); i--;)
 	Slur::add_column (slurs_[i], e);

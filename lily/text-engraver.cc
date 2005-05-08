@@ -43,30 +43,30 @@ Text_engraver::try_music (Music *m)
 void
 Text_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Rhythmic_head::has_interface (inf.grob_))
+  if (Rhythmic_head::has_interface (inf.grob ()))
     {
       for (int i = 0; i < texts_.size (); i++)
 	{
 	  Grob *t = texts_[i];
-	  Side_position_interface::add_support (t, inf.grob_);
+	  Side_position_interface::add_support (t, inf.grob ());
 
 	  /*
 	    ugh.
 	  */
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (inf.grob_, Y_AXIS);
+	    t->set_parent (inf.grob (), Y_AXIS);
 	  else if (Side_position_interface::get_axis (t) == Y_AXIS
 		   && !t->get_parent (X_AXIS))
-	    t->set_parent (inf.grob_, X_AXIS);
+	    t->set_parent (inf.grob (), X_AXIS);
 	}
     }
 
-  if (Stem::has_interface (inf.grob_))
+  if (Stem::has_interface (inf.grob ()))
     {
       for (int i = 0; i < texts_.size (); i++)
 	{
-	  Side_position_interface::add_support (texts_[i], inf.grob_);
+	  Side_position_interface::add_support (texts_[i], inf.grob ());
 	}
     }
 }

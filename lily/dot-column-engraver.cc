@@ -50,7 +50,7 @@ Dot_column_engraver::stop_translation_timestep ()
 void
 Dot_column_engraver::acknowledge_grob (Grob_info info)
 {
-  Grob *d = unsmob_grob (info.grob_->get_property ("dot"));
+  Grob *d = unsmob_grob (info.grob ()->get_property ("dot"));
   if (d)
     {
       if (!dotcol_)
@@ -58,11 +58,11 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 	  dotcol_ = make_item ("DotColumn", SCM_EOL);
 	}
 
-      Dot_column::add_head (dotcol_, info.grob_);
+      Dot_column::add_head (dotcol_, info.grob ());
     }
-  else if (Stem::has_interface (info.grob_))
+  else if (Stem::has_interface (info.grob ()))
     {
-      stem_ = info.grob_;
+      stem_ = info.grob ();
     }
 }
 

@@ -52,9 +52,9 @@ Ledger_line_engraver::finalize ()
 void
 Ledger_line_engraver::acknowledge_grob (Grob_info s)
 {
-  if (!to_boolean (s.grob_->get_property ("no-ledgers")))
+  if (!to_boolean (s.grob ()->get_property ("no-ledgers")))
     Pointer_group_interface::add_grob (span_, ly_symbol2scm ("note-heads"),
-				       s.grob_);
+				       s.grob ());
 }
 ADD_TRANSLATOR (Ledger_line_engraver,
 		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",

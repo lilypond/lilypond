@@ -96,13 +96,13 @@ Spacing_engraver::finalize ()
 void
 Spacing_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_spacing::has_interface (i.grob_) || Staff_spacing::has_interface (i.grob_))
+  if (Note_spacing::has_interface (i.grob ()) || Staff_spacing::has_interface (i.grob ()))
     {
-      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob_);
+      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("wishes"), i.grob ());
     }
 
-  if (i.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
-      || i.grob_->internal_has_interface (ly_symbol2scm ("multi-measure-event")))
+  if (i.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
+      || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-event")))
     return;
 
   /*

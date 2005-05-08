@@ -55,9 +55,9 @@ void
 Stanza_number_engraver::acknowledge_grob (Grob_info inf)
 {
   if (text_
-      && inf.grob_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+      && inf.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
-      Side_position_interface::add_support (text_, inf.grob_);
+      Side_position_interface::add_support (text_, inf.grob ());
     }
 }
 

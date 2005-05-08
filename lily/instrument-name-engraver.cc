@@ -78,7 +78,7 @@ Instrument_name_engraver::create_text ()
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Bar_line::has_interface (i.grob_))
+  if (Bar_line::has_interface (i.grob ()))
     {
       create_text ();
     }
@@ -86,9 +86,9 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
   /*
     Ugh - typechecking for pedal and dynamic sucks.
   */
-  if (dynamic_cast<Spanner *> (i.grob_)
-      && (i.grob_->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
-	  || i.grob_->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))))
+  if (dynamic_cast<Spanner *> (i.grob ())
+      && (i.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || i.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))))
     return;
 
   /*
@@ -100,12 +100,12 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     We could also just use stavesFound, but lets keep this working
     without staffs as well.
   */
-  if (dynamic_cast<Spanner *> (i.grob_)
-      && ((Axis_group_interface::has_interface (i.grob_)
-	   && Axis_group_interface::has_axis (i.grob_, Y_AXIS)))
-      && !Align_interface::has_interface (i.grob_))
+  if (dynamic_cast<Spanner *> (i.grob ())
+      && ((Axis_group_interface::has_interface (i.grob ())
+	   && Axis_group_interface::has_axis (i.grob (), Y_AXIS)))
+      && !Align_interface::has_interface (i.grob ()))
     {
-      SCM nl = scm_cons (i.grob_->self_scm (),
+      SCM nl = scm_cons (i.grob ()->self_scm (),
 			 get_property ("instrumentSupport"));
 
       context ()->set_property ("instrumentSupport", nl);

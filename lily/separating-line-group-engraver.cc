@@ -105,7 +105,7 @@ Separating_line_group_engraver::finalize ()
 void
 Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 {
-  Item *it = dynamic_cast<Item *> (i.grob_);
+  Item *it = dynamic_cast<Item *> (i.grob ());
   if (!it)
     return;
   if (it->get_parent (X_AXIS)

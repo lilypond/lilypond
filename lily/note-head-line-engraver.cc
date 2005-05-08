@@ -50,9 +50,9 @@ Note_head_line_engraver::Note_head_line_engraver ()
 void
 Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.grob_))
+  if (Rhythmic_head::has_interface (info.grob ()))
     {
-      head_ = info.grob_;
+      head_ = info.grob ();
       if (to_boolean (get_property ("followVoice")))
 	{
 	  Context *tr = context ();

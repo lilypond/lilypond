@@ -101,9 +101,9 @@ Tie_engraver::process_music ()
 void
 Tie_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_head::has_interface (i.grob_))
+  if (Note_head::has_interface (i.grob ()))
     {
-      Grob *h = i.grob_;
+      Grob *h = i.grob ();
       now_heads_.push (h);
       for (int i = heads_to_tie_.size (); i--;)
 	{

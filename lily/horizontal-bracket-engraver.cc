@@ -71,15 +71,15 @@ Horizontal_bracket_engraver::try_music (Music *m)
 void
 Horizontal_bracket_engraver::acknowledge_grob (Grob_info gi)
 {
-  if (Note_column::has_interface (gi.grob_))
+  if (Note_column::has_interface (gi.grob ()))
     {
       for (int i = 0; i < bracket_stack_.size (); i++)
 	{
-	  Side_position_interface::add_support (bracket_stack_[i], gi.grob_);
+	  Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
 	  Pointer_group_interface::add_grob (bracket_stack_[i],
-					     ly_symbol2scm ("columns"), gi.grob_);
+					     ly_symbol2scm ("columns"), gi.grob ());
 	  add_bound_item (bracket_stack_[i],
-			  gi.grob_);
+			  gi.grob ());
 	}
     }
 }

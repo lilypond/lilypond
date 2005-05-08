@@ -87,7 +87,7 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
   for (int i = 0, s = primitives.size (); i < s; i++)
     {
       Grob_info info = primitives[i];
-      Item *primitive = dynamic_cast<Item *> (info.grob_);
+      Item *primitive = dynamic_cast<Item *> (info.grob ());
       int duration_log = Note_head::get_balltype (primitive);
 
       Music *nr = info.music_cause ();
@@ -315,7 +315,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *primitive = dynamic_cast<Item *> (primitives[i].grob_);
+      Item *primitive = dynamic_cast<Item *> (primitives[i].grob ());
       int output = scm_to_int (primitive->get_property ("primitive"));
       primitive->set_property ("thickness",
 			       scm_make_real (thickness));
@@ -355,7 +355,7 @@ Mensural_ligature_engraver::fold_up_primitives (Array<Grob_info> primitives)
   Real distance = 0;
   for (int i = 0; i < primitives.size (); i++)
     {
-      Item *current = dynamic_cast<Item *> (primitives[i].grob_);
+      Item *current = dynamic_cast<Item *> (primitives[i].grob ());
       if (i == 0)
 	{
 	  first = current;

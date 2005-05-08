@@ -97,10 +97,10 @@ Trill_spanner_engraver::acknowledge_grob (Grob_info info)
   Spanner *spans[2] ={span_, finished_};
   for (int i = 0; i < 2; i++)
     {
-      if (spans[i] && Note_column::has_interface (info.grob_))
+      if (spans[i] && Note_column::has_interface (info.grob ()))
 	{
-	  Side_position_interface::add_support (spans[i], info.grob_);
-	  add_bound_item (spans[i], dynamic_cast<Item *> (info.grob_));
+	  Side_position_interface::add_support (spans[i], info.grob ());
+	  add_bound_item (spans[i], dynamic_cast<Item *> (info.grob ()));
 	}
     }
 }

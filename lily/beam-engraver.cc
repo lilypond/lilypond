@@ -217,18 +217,18 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 {
   if (beam_)
     {
-      if (Rest::has_interface (info.grob_))
+      if (Rest::has_interface (info.grob ()))
 	{
-	  info.grob_->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+	  info.grob ()->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
 	}
-      else if (Stem::has_interface (info.grob_))
+      else if (Stem::has_interface (info.grob ()))
 	{
 	  Moment now = now_mom ();
 
 	  if (!valid_start_point ())
 	    return;
 
-	  Item *stem = dynamic_cast<Item *> (info.grob_);
+	  Item *stem = dynamic_cast<Item *> (info.grob ());
 	  if (Stem::get_beam (stem))
 	    return;
 

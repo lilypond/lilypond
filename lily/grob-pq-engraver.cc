@@ -49,7 +49,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
   Music *m = gi.music_cause ();
 
   if (m
-      && !gi.grob_->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
+      && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
       Moment n = now_mom ();
       Moment l = m->get_length ();
@@ -65,7 +65,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 
       Moment end = n + l;
       SCM lst = scm_acons (end.smobbed_copy (),
-			   gi.grob_->self_scm (),
+			   gi.grob ()->self_scm (),
 			   SCM_EOL);
 
       SCM busy = get_property ("busyGrobs");

@@ -49,10 +49,10 @@ Rest_collision_engraver::process_acknowledged_grobs ()
 void
 Rest_collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob_))
+  if (Note_column::has_interface (i.grob ()))
     {
-      note_columns_.push (i.grob_);
-      if (Note_column::has_rests (i.grob_))
+      note_columns_.push (i.grob ());
+      if (Note_column::has_rests (i.grob ()))
 	rest_count_++;
     }
 }

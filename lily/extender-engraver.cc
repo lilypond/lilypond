@@ -63,7 +63,7 @@ Extender_engraver::process_music ()
 void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
-  Item *item = dynamic_cast<Item *> (i.grob_);
+  Item *item = dynamic_cast<Item *> (i.grob ());
 
   if (item
       && item->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))

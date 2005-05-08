@@ -117,7 +117,7 @@ Cluster_spanner_engraver::stop_translation_timestep ()
 void
 Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
 {
-  if (!beacon_ && Note_column::has_interface (info.grob_))
+  if (!beacon_ && Note_column::has_interface (info.grob ()))
     {
       finished_spanner_ = spanner_;
       spanner_ = 0;

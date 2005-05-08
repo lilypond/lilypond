@@ -106,9 +106,9 @@ Stem_engraver::make_stem (Grob_info gi)
 void
 Stem_engraver::acknowledge_grob (Grob_info gi)
 {
-  if (Rhythmic_head::has_interface (gi.grob_))
+  if (Rhythmic_head::has_interface (gi.grob ()))
     {
-      if (Rhythmic_head::get_stem (gi.grob_))
+      if (Rhythmic_head::get_stem (gi.grob ()))
 	return;
 
       Music *cause = gi.music_cause ();
@@ -126,7 +126,7 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
 	  gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
 	}
 
-      Stem::add_head (stem_, gi.grob_);
+      Stem::add_head (stem_, gi.grob ());
     }
 }
 

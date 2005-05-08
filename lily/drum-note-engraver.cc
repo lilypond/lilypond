@@ -121,23 +121,23 @@ Drum_notes_engraver::process_music ()
 void
 Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 {
-  if (Stem::has_interface (inf.grob_))
+  if (Stem::has_interface (inf.grob ()))
     {
       for (int i = 0; i < scripts_.size (); i++)
 	{
 	  Grob *e = scripts_[i];
 
 	  if (to_dir (e->get_property ("side-relative-direction")))
-	    e->set_property ("direction-source", inf.grob_->self_scm ());
+	    e->set_property ("direction-source", inf.grob ()->self_scm ());
 
 	  /*
 	    add dep ?
 	  */
-	  e->add_dependency (inf.grob_);
-	  Side_position_interface::add_support (e, inf.grob_);
+	  e->add_dependency (inf.grob ());
+	  Side_position_interface::add_support (e, inf.grob ());
 	}
     }
-  else if (Note_column::has_interface (inf.grob_))
+  else if (Note_column::has_interface (inf.grob ()))
     {
       for (int i = 0; i < scripts_.size (); i++)
 	{
@@ -146,7 +146,7 @@ Drum_notes_engraver::acknowledge_grob (Grob_info inf)
 	  if (!e->get_parent (X_AXIS)
 	      && Side_position_interface::get_axis (e) == Y_AXIS)
 	    {
-	      e->set_parent (inf.grob_, X_AXIS);
+	      e->set_parent (inf.grob (), X_AXIS);
 	    }
 	}
     }

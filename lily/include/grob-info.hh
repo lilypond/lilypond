@@ -20,11 +20,13 @@ class Grob_info
 {
   Translator *origin_trans_;
   friend class Engraver;
+  Grob *grob_;
 
 public:
-  Grob *grob_;
-  Context *context () const; 
+  Grob *grob () const { return grob_; }
   Translator *origin_translator () const { return origin_trans_; } 
+
+  Context *context () const; 
   Music *music_cause ();
   Link_array<Context> origin_contexts (Translator *) const;
   Grob_info (Translator *, Grob *);

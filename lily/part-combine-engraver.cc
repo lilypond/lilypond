@@ -70,17 +70,17 @@ Part_combine_engraver::acknowledge_grob (Grob_info i)
 {
   if (text_)
     {
-      if (Note_head::has_interface (i.grob_))
+      if (Note_head::has_interface (i.grob ()))
 	{
 	  Grob *t = text_;
-	  Side_position_interface::add_support (t, i.grob_);
+	  Side_position_interface::add_support (t, i.grob ());
 	  if (Side_position_interface::get_axis (t) == X_AXIS
 	      && !t->get_parent (Y_AXIS))
-	    t->set_parent (i.grob_, Y_AXIS);
+	    t->set_parent (i.grob (), Y_AXIS);
 	}
-      if (Stem::has_interface (i.grob_))
+      if (Stem::has_interface (i.grob ()))
 	{
-	  Side_position_interface::add_support (text_, i.grob_);
+	  Side_position_interface::add_support (text_, i.grob ());
 	}
     }
 }

@@ -149,8 +149,8 @@ void
 Score_engraver::announce_grob (Grob_info info)
 {
   announce_infos_.push (info);
-  pscore_->root_system ()->typeset_grob (info.grob_);
-  elems_.push (info.grob_);
+  pscore_->root_system ()->typeset_grob (info.grob ());
+  elems_.push (info.grob ());
 }
 
 void
@@ -268,21 +268,21 @@ Score_engraver::forbid_breaks ()
 void
 Score_engraver::acknowledge_grob (Grob_info gi)
 {
-  if (Staff_spacing::has_interface (gi.grob_))
+  if (Staff_spacing::has_interface (gi.grob ()))
     {
       Pointer_group_interface::add_grob (command_column_,
 					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob_);
+					 gi.grob ());
     }
-  if (Note_spacing::has_interface (gi.grob_))
+  if (Note_spacing::has_interface (gi.grob ()))
     {
       Pointer_group_interface::add_grob (musical_column_,
 					 ly_symbol2scm ("spacing-wishes"),
-					 gi.grob_);
+					 gi.grob ());
     }
 
-  if (Axis_group_interface::has_interface (gi.grob_)
-      && gi.grob_->internal_has_interface (ly_symbol2scm ("vertically-spaceable-interface")))
+  if (Axis_group_interface::has_interface (gi.grob ())
+      && gi.grob ()->internal_has_interface (ly_symbol2scm ("vertically-spaceable-interface")))
     {
       SCM spaceable = get_property ("verticallySpacedContexts");
       Context *orig = gi.origin_contexts (this)[0];
@@ -292,7 +292,7 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 	{
 	  Pointer_group_interface::add_grob (system_,
 					     ly_symbol2scm ("spaceable-staves"),
-					     gi.grob_);
+					     gi.grob ());
 	}
     }
 }
