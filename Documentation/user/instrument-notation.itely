@@ -15,7 +15,7 @@ This chapter explains how to use notation for specific instruments.
 * Chord names::                 
 * Vocal music::                 
 * Rhythmic music::              
-* Guitar ::                     
+* Guitar::                      
 * Ancient notation::            
 * Other instrument specific notation::  
 @end menu
@@ -662,8 +662,8 @@ for complex vocal music.
 
 
 @menu
-* Setting simple songs::        
-* Entering lyrics::             
+* Setting simple songs with @code{\addlyrics}::  
+* Entering lyrics with @code{\lyricmode}::  
 * Hyphens and extenders::       
 * The Lyrics context::          
 * Flexibility in alignment::    
@@ -672,8 +672,8 @@ for complex vocal music.
 * Other vocal issues::          
 @end menu
 
-@node Setting simple songs
-@subsection Setting simple songs
+@node Setting simple songs with @code{\addlyrics}
+@subsection Setting simple songs with @code{\addlyrics}
 
 The easiest way to add lyrics to a melody is to append
 @cindex \addlyrics
@@ -729,8 +729,8 @@ is the same as
 @code{\addlyrics} cannot handle polyphony.
 
 
-@node Entering lyrics
-@subsection Entering lyrics
+@node Entering lyrics with @code{\lyricmode}
+@subsection Entering lyrics with @code{\lyricmode}
 
 
 @cindex lyrics
@@ -1661,7 +1661,7 @@ for this purpose instead.
 
 
 
-@node Guitar 
+@node Guitar
 @section Guitar
 
 @cindex tablature
