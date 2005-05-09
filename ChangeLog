@@ -2,6 +2,12 @@
 
 	* Documentation/user/lilypond-book.itely: document PSFONTS file.
 
+	* Documentation/user/lilypond.tely, lilypond-book.itely,
+	tutorial.itely: change references to 2.5.x to 2.6.x.
+
+	* Documentation/user/instrument-notation.itely: clarified lyric
+	section names.
+
 2005-05-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/include/grob-info.hh (class Grob_info): make data member

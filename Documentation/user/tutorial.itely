@@ -237,7 +237,7 @@ You will see something resembling
 
 @example
 lilypond test.ly
-GNU LilyPond 2.5.0
+GNU LilyPond 2.6.0
 Processing `test.ly'
 Parsing...
 Interpreting music... [1]
