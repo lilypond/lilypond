@@ -18,7 +18,7 @@
 
 Even numbered minor versions are `stable' (2.2, 2.4 etc), while odd
 version are development releases (2.3, 2.5, etc).  Building LilyPond
-is an involved process.  If possible, from
+is an involved process.  If possible
 @uref{http://lilypond.org/download,download a precompiled binary}
 for your platform.
 
@@ -147,6 +147,8 @@ Building the website requires some additional tools and packages
 @item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
 @item ImageMagick
+@item International fonts (see input/regression/utf-8.ly for hints
+about which font packages are necessary for your platform)
 @end itemize
 
 The HTML files can be installed into the standard documentation path
@@ -191,11 +193,12 @@ points into your home directory, e.g.
 @end example
 @end quotation
 
+@ignore
 In this case, you have to insert the contents of
 @code{buildscripts/out/lilypond-login} or
 @code{buildscripts/out/lilypond-profile} into your start up scripts by
 hand.
-
+@end ignore
 
 
 @subsection Configuring for multiple platforms
