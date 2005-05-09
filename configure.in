@@ -59,7 +59,7 @@ STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.14)
 STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.1.1)
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20041208)
 
-AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h])
+AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h])
 AC_LANG_PUSH(C++)
 AC_CHECK_HEADERS([sstream])
 AC_LANG_POP(C++)
@@ -67,6 +67,8 @@ AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chroot fopencookie funopen gettext isinf mbrtowc memmem snprintf vsnprintf wcrtomb])
+AC_CHECK_HEADERS([utf8/wchar.h], LIBS="$LIBS -lutf8")
+AC_SEARCH_LIBS(mbrtowc, [mingwex msvcp60])
 
 STEPMAKE_PROGS(PKG_CONFIG, pkg-config, REQUIRED, 0.9.0)
 if test "$gui_b" = "yes"; then
