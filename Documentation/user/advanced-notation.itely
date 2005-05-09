@@ -669,7 +669,8 @@ See @ref{Text markup} for more details.
 
 @seealso
 
-Program reference: @internalsref{MetronomeChangeEvent}.
+Program reference: @internalsref{MetronomeChangeEvent}
+@internalsref{MetronomeMark}.
 
 @refbugs
 

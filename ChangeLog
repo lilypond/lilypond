@@ -1,5 +1,8 @@
 2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/user/advanced-notation.itely (Metronome marks):
+	Add link to the program reference for MetronomeMark
+
 	* Documentation/user/lilypond-book.itely (An example of a
 	musicological document): Correct the example using psfonts 
 
