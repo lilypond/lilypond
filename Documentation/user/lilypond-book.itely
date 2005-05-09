@@ -94,7 +94,7 @@ Under Unix, you can view the results as follows
 cd input/tutorial
 mkdir -p out/
 lilypond-book --output=out lilybook.tex
-@emph{lilypond-book (GNU LilyPond) 2.5.0}
+@emph{lilypond-book (GNU LilyPond) 2.6.0}
 @emph{Reading lilybook.tex...}
 @emph{..lots of stuff deleted..}
 @emph{Compiling out/lilybook.tex...}
@@ -628,6 +628,10 @@ cd out
 Process LilyPond snippets using @var{command}.  The default command is
 @code{lilypond}.  @code{lilypond-book} will not --filter and --process
 at the same time.
+
+@itemx --psfonts=FILE
+extract all PostScript fonts into FILE for LaTeX.  This is necessary
+for @command{dvips -h FILE}.
 
 @item -V
 @itemx --verbose
