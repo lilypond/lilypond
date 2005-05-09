@@ -12,11 +12,6 @@
 #include <math.h>  /* isinf */
 #include <stdio.h>
 #include <string.h>  /* memset */
-#if HAVE_UTF8_WCHAR_H
-#include <utf8/wchar.h>  /* wcrtomb */
-#else
-#include <wchar.h> /* wcrtomb */
-#endif
 
 #include "international.hh"
 #include "libc-extension.hh"
@@ -249,17 +244,29 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
 	   1, 0, 0, (SCM wc),
 	   "Encode the Unicode codepoint @var{wc} as UTF-8")
 {
-  char buf[100];
+  char buf[5];
 
   SCM_ASSERT_TYPE (scm_is_integer (wc), wc, SCM_ARG1, __FUNCTION__, "integer");
-  wchar_t wide_char = (wchar_t) scm_to_int (wc);
+  unsigned wide_char = (unsigned) scm_to_int (wc);
+  char * p = buf;
 
-  mbstate_t state;
-  memset (&state, '\0', sizeof (state));
-  memset (buf, '\0', sizeof (buf));
+  if (wide_char < 0x0080) {
+    *p++ = (char)wide_char;
+  } else if (wide_char < 0x0800) {
+    *p++ = (char)(((wide_char >>  6)       ) | 0xC0);
+    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
+  } else if (wide_char < 0x10000) {
+    *p++ = (char)(((wide_char >> 12)       ) | 0xE0);
+    *p++ = (char)(((wide_char >>  6) & 0x3F) | 0x80);
+    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
+  } else {
+    *p++ = (char)(((wide_char >> 18)       ) | 0xF0);
+    *p++ = (char)(((wide_char >> 12) & 0x3F) | 0x80);
+    *p++ = (char)(((wide_char >>  6) & 0x3F) | 0x80);
+    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
+  }
+  *p = 0;
 
-  wcrtomb (buf, wide_char, &state);
-  
   return scm_makfrom0str (buf);
 }
 	  
