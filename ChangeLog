@@ -1,3 +1,8 @@
+2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/lilypond-book.itely (An example of a
+	musicological document): Correct the example using psfonts 
+
 2005-05-09  Heikki Junes  <hjunes@cc.hut.fi>
 
         * po/fi.po: update after a lesson how to update entries against source.
