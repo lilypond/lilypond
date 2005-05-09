@@ -549,11 +549,17 @@ extensions: @file{.tex}, @file{.texi}, or @file{.html}, depending on the
 output format.  Both @file{.tex} and @file{.texi} files need further
 processing.
 
-To produce PDF output from the @file{.tex} file, you should do
+@command{lilypond-book} can also create a PSFONTS file, which is required
+by @command{dvips} to produce pdfs.  You can call this file whatever you
+want as long as you refer to the same file when you call @command{dvips}.
+
+To produce PDF output from the lilypond-book file (here called
+@code{yourfile.lytex}), you should do
 
 @example
+lilypond-book --psfonts=tempfonts.ps yourfile.lytex
 latex yourfile.tex
-dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map yourfile.dvi
+dvips -h tempfonts.ps -Ppdf -u+ec-mftrace.map -u+lilypond.map yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
