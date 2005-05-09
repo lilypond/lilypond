@@ -1,5 +1,7 @@
 2005-05-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in (gui_b): remove wcrtomb checking.
+
 	* lily/general-scheme.cc (LY_DEFINE): hand-convert utf8 to 32
 	bits. Patch by Matthias Neeracher.
 
