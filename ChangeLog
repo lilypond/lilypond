@@ -5,8 +5,8 @@
 	* Documentation/user/lilypond.tely, lilypond-book.itely,
 	tutorial.itely: change references to 2.5.x to 2.6.x.
 
-	* Documentation/user/instrument-notation.itely: clarified lyric
-	section names.
+	* Documentation/user/instrument-notation.itely: clarified \addlyrics
+	vs \lyricmode.
 
 2005-05-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
