@@ -63,6 +63,11 @@
 
 2005-05-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/topdocs/AUTHORS.texi: Remove texinfo @accents,
+	convert to utf-8.
+
+	* THANKS: Add translators for this release, convert to utf-8.
+
 	* mf/GNUmakefile (MFTRACE_FLAGS):
 	* buildscripts/substitute-encoding.py (outdir): Build fix: pass
 	outdir as option (WAS: hardcoded).
