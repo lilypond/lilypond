@@ -1,5 +1,10 @@
 2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scripts/convert-ly.py: In the conversion to version 1.9.0, 
+	keep Scheme expressions and strings unmodified when doing the
+	conversion to postfix notation for slurs and beams. Should
+	hopefully solve most related conversion problems. 
+
 	* Documentation/user/lilypond-book.itely : Clarify and correct how
 	to call dvips with -h psfonts.
 
