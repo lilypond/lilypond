@@ -662,8 +662,8 @@ for complex vocal music.
 
 
 @menu
-* Setting simple songs with @code{\addlyrics}::  
-* Entering lyrics with @code{\lyricmode}::  
+* Setting simple songs::        
+* Entering lyrics::             
 * Hyphens and extenders::       
 * The Lyrics context::          
 * Flexibility in alignment::    
@@ -672,8 +672,8 @@ for complex vocal music.
 * Other vocal issues::          
 @end menu
 
-@node Setting simple songs with @code{\addlyrics}
-@subsection Setting simple songs with @code{\addlyrics}
+@node Setting simple songs
+@subsection Setting simple songs
 
 The easiest way to add lyrics to a melody is to append
 @cindex \addlyrics
@@ -729,17 +729,16 @@ is the same as
 @code{\addlyrics} cannot handle polyphony.
 
 
-@node Entering lyrics with @code{\lyricmode}
-@subsection Entering lyrics with @code{\lyricmode}
-
+@node Entering lyrics
+@subsection Entering lyrics
 
 @cindex lyrics
 @cindex @code{\lyricmode}
 @cindex punctuation
 
 Lyrics are entered in a special input mode.  This mode is introduced
-by the keyword @code{\lyricmode}, or by using @code{addlyrics} or
-@code{lyricsto}.  In this mode you can enter lyrics,
+by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
+@code{\lyricsto}.  In this mode you can enter lyrics,
 with punctuation and accents, and the input @code{d} is not parsed as
 a pitch, but rather as a one letter syllable.  Syllables are entered
 like notes, but with pitches replaced by text.  For example,
@@ -747,6 +746,10 @@ like notes, but with pitches replaced by text.  For example,
 \lyricmode @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
 
+There is a difference between @code{\addlyrics} and
+@code{\lyricmode}.  @code{\addlyrics} and @code {\lyricsto}
+ignore all durations and aligns syllables to notes; @code{\lyricmode}
+uses the durations specified.
 
 A word lyrics mode begins with an alphabetic character, and ends with
 any space or digit.  The following characters can be any character
