@@ -2,20 +2,25 @@ TODO
 
 FIX OR STANDARDISE TARGETS
 
-* at toplevel, do:
+* extract translatable strings from source code to `po/out/': at toplevel, do:
 
     make po
     make -C po po-update  (or do `make po-update' at toplevel)
 
-* if there are no errors (a list of changes may be displayed, that's ok), do
+* if there are no errors (a list of changes against `po/' directory may be 
+  displayed, that's ok), do
 
     cp po/out/*.po po
 
-* and edit your favorite po/LANG.po.  Especially, look for `,fuzzy' entries,
-  empty entries.  At the bottom of the file you may find a list of obsolete
+  copy the template file for translating to a new language LANG: do
+
+    cp po/out/lilypond.po LANG.po
+
+* and edit your favorite po/LANG.po.  Especially, look for `, fuzzy', and empty 
+  entries.  At the bottom of the file you may find a list of obsolete
   translations.
 
-* because i never install LilyPond, I (check-out buildscripts/set-lily.sh)
+* because I never install LilyPond, I (check-out buildscripts/set-lily.sh) 
   made these links:
 
     ln -s $LILYPOND_SOURCEDIR/po/out/nl.mo 
@@ -28,4 +33,8 @@ FIX OR STANDARDISE TARGETS
   then simply type, e.g.
 
       LANG=nl lilypond -h
+
+  note that your favorite language should also be listed in locales, check
+
+      locale -a
 
