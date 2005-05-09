@@ -93,7 +93,7 @@ Under Unix, you can view the results as follows
 @example
 cd input/tutorial
 mkdir -p out/
-lilypond-book --output=out lilybook.tex
+lilypond-book --output=out --psfonts=out/psfonts lilybook.tex
 @emph{lilypond-book (GNU LilyPond) 2.6.0}
 @emph{Reading lilybook.tex...}
 @emph{..lots of stuff deleted..}
@@ -107,7 +107,7 @@ xdvi lilybook
 To convert the file into a PDF document, run the following commands
 
 @example
-dvips -Ppdf -u+lilypond -u+ec-mftrace lilybook
+dvips -Ppdf -h psfonts lilybook
 ps2pdf lilybook.ps
 @end example
 
@@ -263,6 +263,11 @@ document, use @code{\input@{titledefs@}}
 The font symbol names are defined in the file feta20.tex; to find
 the location of this file, use the command
 
+@ignore
+** AARGH. the titledefs and feta20.tex files will not be found
+  now that the lilypond-profile isn't used anymore!!!  /Mats
+@end ignore
+  
 @example
 kpsewhich feta20.tex
 @end example
@@ -278,11 +283,13 @@ a PostScript file, add the following options to the @command{dvips}
 command line:
 
 @example
--Ppdf -u+lilypond.map -u+ec-mftrace.map
+-Ppdf -h psfonts
 @end example
 
 @noindent
-PDF can then be produced with a PostScript to PDF translator like
+where the @command{psfonts} file is obtained from
+@command{lilypond-book}, @xref{Invoking lilypond-book} for details. PDF
+can then be produced with a PostScript to PDF translator like 
 @code{ps2pdf} (which is part of GhostScript).
 
 @cindex international characters
@@ -550,8 +557,9 @@ output format.  Both @file{.tex} and @file{.texi} files need further
 processing.
 
 @command{lilypond-book} can also create a PSFONTS file, which is required
-by @command{dvips} to produce pdfs.  You can call this file whatever you
-want as long as you refer to the same file when you call @command{dvips}.
+by @command{dvips} to produce Postscript and PDF files.  You can call
+this file whatever you want as long as you refer to the same file when
+you call @command{dvips}.
 
 To produce PDF output from the lilypond-book file (here called
 @code{yourfile.lytex}), you should do
@@ -559,7 +567,7 @@ To produce PDF output from the lilypond-book file (here called
 @example
 lilypond-book --psfonts=tempfonts.ps yourfile.lytex
 latex yourfile.tex
-dvips -h tempfonts.ps -Ppdf -u+ec-mftrace.map -u+lilypond.map yourfile.dvi
+dvips -h tempfonts.ps -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
