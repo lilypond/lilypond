@@ -93,7 +93,7 @@ Under Unix, you can view the results as follows
 @example
 cd input/tutorial
 mkdir -p out/
-lilypond-book --output=out --psfonts=out/psfonts lilybook.tex
+lilypond-book --output=out --psfonts=psfonts lilybook.tex
 @emph{lilypond-book (GNU LilyPond) 2.6.0}
 @emph{Reading lilybook.tex...}
 @emph{..lots of stuff deleted..}
