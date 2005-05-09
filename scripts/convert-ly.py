@@ -1439,6 +1439,7 @@ if 1:
 
 	markup_start = re.compile(r"([-^_]|\\mark)\s*(#\s*'\s*)\(")
 	musicglyph = re.compile(r"\(\s*music\b")
+	columns = re.compile(r"\(\s*columns\b")
 	submarkup_start = re.compile(r"\(\s*([a-zA-Z]+)")
 	leftpar = re.compile(r"\(")
 	rightpar = re.compile(r"\)")
@@ -1466,6 +1467,7 @@ if 1:
 			markup = str[:markup_end]
 			# Modify to new syntax:
 			markup = musicglyph.sub (r"{\\musicglyph", markup)
+			markup = columns.sub (r"{", markup)
 			markup = submarkup_start.sub (r"{\\\1", markup)
 			markup = leftpar.sub ("{", markup)
 			markup = rightpar.sub ("}", markup)
@@ -1478,7 +1480,7 @@ if 1:
 		return result
 
 	def articulation_substitute (str):
-		str = re.sub (r"""([^-])\[ *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
+		str = re.sub (r"""([^-])\[ *(\\?\)?[a-z]+[,']*[!?]?[0-9:]*\.*)""",
 			      r"\1 \2[", str)
 		str = re.sub (r"""([^-])\\\) *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
 			      r"\1 \2\\)", str)
@@ -1487,6 +1489,44 @@ if 1:
 		str = re.sub (r"""([^-])\\! *([a-z]+[,']*[!?]?[0-9:]*\.*)""",
 			      r"\1 \2\\!", str)
 		return str
+
+	string_or_scheme = re.compile ('("(?:[^"\\\\]|\\\\.)*")|(#\\s*\'?\\s*\\()')
+
+	# Only apply articulation_substitute () outside strings and 
+	# Scheme expressions:
+	def smarter_articulation_subst (str):
+		result = ''
+		# Find the beginning of next string or Scheme expr.:
+		match = string_or_scheme.search (str)
+		while match:
+			# Convert the preceding LilyPond code:
+			previous_chunk = str[:match.start()]
+			result = result + articulation_substitute (previous_chunk)
+			if match.group (1): # Found a string
+				# Copy the string to output:
+				result = result + match.group (1)
+				str = str[match.end(1):]
+			else: # Found a Scheme expression. Count 
+				# matching parentheses to find its end
+				str = str[match.start ():]
+				nesting_level = 0
+				pars = re.finditer(r"[()]",str)
+				for par in pars:
+					if par.group () == '(':
+						nesting_level = nesting_level + 1
+					else:
+						nesting_level = nesting_level - 1
+					if nesting_level == 0:
+						scheme_end = par.end ()
+						break
+				# Copy the Scheme expression to output:
+				result = result + str[:scheme_end]
+				str = str[scheme_end:]
+			# Find next string or Scheme expression:
+			match = string_or_scheme.search (str)
+		# Convert the remainder of the file
+		result = result + articulation_substitute (str)
+		return result
 
 	def conv_relative(str):
 		if re.search (r"\\relative", str):
@@ -1500,7 +1540,7 @@ if 1:
 		str = sub_chords (str)
 
 		str = text_markup (str)
-		str = articulation_substitute (str)
+		str = smarter_articulation_subst (str)
 		str = re.sub ("@SCM_EOL@", "#'()", str)
 
 		return str
