@@ -747,7 +747,7 @@ like notes, but with pitches replaced by text.  For example,
 @end example
 
 There is a difference between @code{\addlyrics} and
-@code{\lyricmode}.  @code{\addlyrics} and @code {\lyricsto}
+@code{\lyricmode}.  @code{\addlyrics} and @code{\lyricsto}
 ignore all durations and aligns syllables to notes; @code{\lyricmode}
 uses the durations specified.
 
