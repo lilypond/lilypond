@@ -262,6 +262,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 @section Environment variables
 
+@ignore
 For processing both the @TeX{} and the PostScript output, the
 appropriate environment variables must be set.  The following scripts
 do this:
@@ -306,12 +307,17 @@ file tree.  A typical setting would be
 
 @end table
 
-
 @cindex PostScript
 @cindex TEXMF
 @cindex printing postscript
 
-The binary itself recognizes the following environment variables:
+@end ignore
+
+
+@cindex LANG
+@cindex LILYPONDPREFIX
+
+@code{Lilypond} recognizes the following environment variables:
 @table @code
 @item LILYPONDPREFIX
 This specifies a directory where locale messages and
@@ -322,8 +328,6 @@ subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.
 This selects the language for the warning messages.
 @end table
 
-@cindex LANG
-@cindex LILYPONDPREFIX
 
 @node Error messages
 @section Error messages
