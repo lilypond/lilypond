@@ -9,7 +9,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.2.0\n"
+"Project-Id-Version: lilypond 2.5.22\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-19 22:41+0200\n"
 "PO-Revision-Date: 2005-04-25 21:59+0200\n"
