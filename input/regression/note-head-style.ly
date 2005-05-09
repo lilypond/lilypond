@@ -11,20 +11,19 @@ dimensions.
 "
 }
 
-pattern =  <<
-      \new Voice {
-        \override Stem  #'direction = #UP
-        e'4
-         e'2. e'1 e'\breve*1/2 e'\longa*1/4
-      }
-      \new Voice {
-        \override Stem  #'direction = #DOWN
-         a4 a2. a1 a\breve*1/2 a\longa*1/4
-      }
-    >>
+pattern = <<
+  \new Voice {
+    \override Stem  #'direction = #UP
+    e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4
+  }
+  \new Voice {
+    \override Stem  #'direction = #DOWN
+    a4 a2. a1 a\breve*1/2 a\longa*1/4
+  }
+>>
 
 \score {
-   \transpose c c {
+  \transpose c c {
     \clef C
 
     \override Staff.NoteHead  #'style = #'default
@@ -34,7 +33,8 @@ pattern =  <<
     \override Staff.NoteHead  #'style = #'baroque
     s1*0^\markup { "baroque" }
     \pattern
-        \break
+
+    \break
 
     \override Staff.NoteHead  #'style = #'neomensural
     s1*0^\markup { "neomensural" }
@@ -43,37 +43,42 @@ pattern =  <<
     \override Staff.NoteHead  #'style = #'mensural
     s1*0^\markup { "mensural" }
     \pattern
-    
+
     \break
+
+    \override Staff.NoteHead  #'style = #'petrucci
+    s1*0^\markup { "petrucci" }
+    \pattern
 
     \override Staff.NoteHead  #'style = #'harmonic
     s1*0^\markup { "harmonic" }
     \pattern
 
+    \break
+
     \override Staff.NoteHead  #'style = #'diamond
     s1*0^\markup { "diamond" }
     \pattern
-    \break
 
     \override Staff.NoteHead  #'style = #'cross
     s1*0^\markup { "cross" }
     \pattern
 
+    \break
+
     \override Staff.NoteHead  #'style = #'xcircle
     s1*0^\markup { "xcircle" }
-\pattern
-    
-    \break
+    \pattern
 
     \override Staff.NoteHead  #'style = #'triangle
     s1*0^\markup { "triangle" }
     \pattern
-    
+
+    \break
 
     \override Staff.NoteHead  #'style = #'slash
     s1*0^\markup { "slash" }
     \pattern
-    \break
   }
 
   \layout {

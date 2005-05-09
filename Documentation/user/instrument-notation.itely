@@ -1954,15 +1954,17 @@ Here are all suptopics at a glance:
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
 property of the @internalsref{NoteHead} object to @code{baroque},
-@code{neomensural} or @code{mensural}.  The @code{baroque} style
-differs from the @code{default} style only in using a square shape
-for @code{\breve} note heads.  The @code{neomensural} style differs from
-the @code{baroque} style in that it uses rhomboidal heads for whole notes
-and all smaller durations.  Stems are centered on the note heads.
-This style is particularly useful when transcribing mensural music,
-e.g., for the incipit.  The @code{mensural} style finally produces note
-heads that mimic the look of note heads in historic printings of the
-16th century.
+@code{neomensural}, @code{mensural} or @code{petrucci}.  The
+@code{baroque} style differs from the @code{default} style only in
+using a square shape for @code{\breve} note heads.  The
+@code{neomensural} style differs from the @code{baroque} style in that
+it uses rhomboidal heads for whole notes and all smaller durations.
+Stems are centered on the note heads.  This style is particularly
+useful when transcribing mensural music, e.g., for the incipit.  The
+@code{mensural} style produces note heads that mimic the look of note
+heads in historic printings of the 16th century.  Finally, the
+@code{petrucci} style also mimicks historic printings, but uses bigger
+note heads.
 
 The following example demonstrates the @code{neomensural} style
 

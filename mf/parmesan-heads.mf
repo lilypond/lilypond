@@ -89,6 +89,7 @@ def draw_neomensural_brevis(expr brevwid) =
 enddef;
 
 
+%%% This head does not seem to be used anywhere.  Junk me?  -- jr
 def draw_neomensural_left_stemmed_head (expr wid) =
 	draw_neomensural_brevis(wid);
 
@@ -99,7 +100,8 @@ def draw_neomensural_left_stemmed_head (expr wid) =
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Left stemmed notehead", "lneomensural");
+%%% This head does not seem to be used anywhere.  Junk me?  -- jr
+fet_beginchar("Left stemmed notehead", "slneomensural");
 	draw_neomensural_left_stemmed_head (2 staff_space#);
 fet_endchar;
 
@@ -180,38 +182,34 @@ def draw_neomensural_open_head (expr wid, height)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
-fet_beginchar("Neo-mensural open head","s0neomensural")
-      draw_neomensural_open_head (staff_space#, noteheight#);
-fet_endchar;
-
 %
 % WL says the thin lines should be thinner.
 %
-
 fet_beginchar("Harmonic notehead (Neo-mensural open)",
-		"s0harmonic")
-
+	      "s0harmonic")
 	draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#);
 	charwx := head_width#;
 	charwy := 0;
 fet_endchar;
 
-
-fet_beginchar("Neo-mensural open head","s1neomensural")
+fet_beginchar("Neo-mensural semibrevis head","s0neomensural")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural black head","s2neomensural")
-      draw_neomensural_black_head (staff_space#, noteheight#);
+fet_beginchar("Neo-mensural minima head","s1neomensural")
+      draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-
+fet_beginchar("Neo-mensural semiminima head","s2neomensural")
+      draw_neomensural_black_head (staff_space#, noteheight#);
+fet_endchar;
 
 def draw_mensural_brevis (expr wid) =
 	% TODO.  For the moment, fall back to draw_neomensural_brevis.
 	draw_neomensural_brevis(wid);
 enddef;
 
+%%% This head does not seem to be used anywhere.  Junk me?  -- jr
 def draw_mensural_left_stemmed_head (expr wid) =
 	draw_mensural_brevis(wid);
 	x6 = x7 = stem_width/2;
@@ -230,6 +228,7 @@ def draw_mensural_longa (expr wid) =
 	draw z6 .. z7;
 enddef;
 
+%%% This head does not seem to be used anywhere.  Junk me?  -- jr
 fet_beginchar("Mensural left stemmed notehead", "slmensural");
 	draw_mensural_left_stemmed_head (staff_space#)
 fet_endchar;
@@ -287,16 +286,31 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 enddef;
 
 
-fet_beginchar("Mensural open head","s0mensural")
+fet_beginchar("Mensural semibrevis head","s0mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural open head","s1mensural")
+fet_beginchar("Mensural minima head","s1mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural black head","s2mensural")
+fet_beginchar("Mensural semiminima head","s2mensural")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
+fet_endchar;
+
+fet_beginchar("Petrucci semibrevis head","s0petrucci")
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
+	draw_neomensural_open_head (staff_space#, 1.8 staff_space#);
+fet_endchar;
+
+fet_beginchar("Petrucci minima head","s1petrucci")
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, true);
+	draw_neomensural_open_head (staff_space#, 1.8 staff_space#);
+fet_endchar;
+
+fet_beginchar("Petrucci semiminima head","s2petrucci")
+%	draw_diamond_head (1.8 staff_space#, 0.15, 0.40, 30, false);
+	draw_neomensural_black_head (staff_space#, 1.8 staff_space#);
 fet_endchar;
 
 

@@ -1,3 +1,24 @@
+2005-05-09  Jürgen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/instrument-notation.itely: petrucci note
+	heads: updated docu
+
+	* input/regression/note-head-style.ly: updated regression test;
+	indentation fixes
+
+	* ly/engraver-init.ly: MensuralVoiceContext: use petrucci note
+	heads as default
+
+	* mf/parmesan-heads.mf: minor editing; use musicological names
+	(rather than optical description) as note head names
+
+	* scm/output-lib.scm: complete petrucci heads
+
+2005-05-09  Pal Benko  <benkop@freestart.hu>
+
+	* mf/parmesan-heads.mf: add petrucci heads (like neo-mensural
+	heads, but bigger)
+
 2005-05-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* configure.in (gui_b): Add mbrtowc checking.

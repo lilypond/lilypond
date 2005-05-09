@@ -816,7 +816,7 @@ EasyNotation = \context {	%% TODO: why \context override?
   \consists "Mensural_ligature_engraver"
 
   %% Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'mensural
+  \override NoteHead #'style = #'petrucci
 
   %% There are no beams in mensural notation.
   autoBeaming = ##f
