@@ -75,7 +75,12 @@ if not match:
 
 (file, line, column) = tuple (match.groups())
 
-editor = os.environ['EDITOR']
+
+editor = ''
+try:
+	editor = os.environ['EDITOR']
+except KeyError:
+	pass
 ly_pc_editor = None
 try:
 	ly_pc_editor = os.environ['LYEDITOR']
@@ -90,6 +95,10 @@ if ly_pc_editor == None:
 		ly_pc_editor = 'gvim --remote +:%(line)s:norm%(column)s %(file)s'
 	elif re.search ('nedit', editor):
 		ly_pc_editor = 'nc -noask +%(line)s %(file)s'
+
+if not ly_pc_editor:
+	sys.stderr.write ("Need to set EDITOR or LYEDITOR")
+	sys.exit (1)
 
 command = ly_pc_editor % vars()
 

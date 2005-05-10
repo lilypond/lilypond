@@ -1,3 +1,7 @@
+2005-05-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-pdfpc-helper.py (ly_pc_editor): robustness.
+
 2005-05-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/backend-library.scm (postscript->pdf): Invoke gs instead of
