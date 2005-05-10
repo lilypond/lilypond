@@ -234,7 +234,7 @@
  
   (define (load-font-via-GS font-name-filename)
     (define (ps-load-file name)
-      (format "(~a) (r) file .loadfontfile " name))
+      (format "(~a) (r) file .loadfont " name))
     
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -245,7 +245,7 @@
        (munge-lily-font-name name)
        (cond
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
-	 (ps-load-file (munge-lily-font-name file-name)))
+	 (ps-load-file (ly:find-file (format "~a.pfa" (munge-lily-font-name file-name)))))
 	((string? bare-file-name)
 	 (ps-load-file (munge-lily-font-name file-name)))
 	(else
@@ -315,7 +315,7 @@
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 	   
-	   (pfas (map load-font-via-GS font-names)))
+	   (pfas (map load-font font-names)))
       pfas))
 
   (if load-fonts?
