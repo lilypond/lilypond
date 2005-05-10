@@ -277,8 +277,6 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
   return scm_makfrom0str (prefix_directory.to_str0 ());
 }
 
-
-
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 	   2, 1, 0, (SCM key, SCM achain, SCM dfault),
 	   "Return value for @var{key} from a list of alists @var{achain}. Return @var{dfault} "
@@ -294,4 +292,15 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
     }
   else
     return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
+}
+
+LY_DEFINE (ly_port_move, "ly:port-move",
+	   2, 0, 0, (SCM fd, SCM port),
+	   "Move file descriptor FD to PORT.")
+{
+  SCM_ASSERT_TYPE (scm_port_p (port), port, SCM_ARG1, __FUNCTION__, "port");
+  SCM_ASSERT_TYPE (scm_integer_p (fd), fd, SCM_ARG1, __FUNCTION__, "fd");
+  freopen (ly_scm2newstr (scm_port_filename (port), 0), "a",
+	   fdopen (scm_to_int (fd), "a"));
+  return SCM_UNSPECIFIED;
 }

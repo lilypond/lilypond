@@ -166,12 +166,6 @@
 	(add (scrolled go) (canvas go))
 	(show (canvas go)))))
 
-(define x-editor #f)
-(define (get-x-editor)
-  (if (not x-editor)
-      (set! x-editor (getenv "XEDITOR")))
-  x-editor)
-
 (define ifs #f)
 (define (get-ifs)
   (if (not ifs)
@@ -184,19 +178,7 @@
   (let* ((file-name (car location))
 	 (line (cadr location))
 	 (column (caddr location))
-	 (template (substring (get-x-editor) 0))
-	 
-	 ;; Adhere to %l %c %f?
-	 (command
-	  (regexp-substitute/global
-	   #f "%l" (regexp-substitute/global
-		    #f "%c"
-		    (regexp-substitute/global
-		     #f "%f" template 'pre file-name 'post)
-		    'pre (number->string column)
-		    'post)
-	   'pre (number->string line) 'post)))
-    
+	 (command (get-editor-command file line column)))
     (debugf "spawning: ~s\n" command)
     (if (= (primitive-fork) 0)
 	(let ((command-list (string-split command #\ )));; (get-ifs))))
