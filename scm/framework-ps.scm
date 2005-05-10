@@ -232,6 +232,27 @@
 
 (define (write-preamble paper load-fonts? port)
  
+  (define (load-font-via-GS font-name-filename)
+    (define (ps-load-file name)
+      (format "(~a) (r) file .loadfontfile " name))
+    
+    (let* ((font (car font-name-filename))
+	   (name (cadr font-name-filename))
+	   (file-name (caddr font-name-filename))
+	   (bare-file-name (ly:find-file file-name)))
+
+      (cons 
+       (munge-lily-font-name name)
+       (cond
+	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
+	 (ps-load-file (munge-lily-font-name file-name)))
+	((string? bare-file-name)
+	 (ps-load-file (munge-lily-font-name file-name)))
+	(else
+	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	  ""))
+       )))
+  
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -294,7 +315,7 @@
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 	   
-	   (pfas (map load-font font-names)))
+	   (pfas (map load-font-via-GS font-names)))
       pfas))
 
   (if load-fonts?

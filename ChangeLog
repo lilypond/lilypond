@@ -1,5 +1,7 @@
 2005-05-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (load-font-via-GS):  new function.
+
 	* lily/pango-font.cc (pango_item_string_stencil): add support for
 	CID keyed font.
 
@@ -65,9 +67,10 @@
 
 2005-05-09  Heikki Junes  <hjunes@cc.hut.fi>
 
-        * po/fi.po: update after a lesson how to update entries against source.
-
-        * po/TODO: document the lesson.
+	* po/fi.po: update after a lesson how to update entries against
+	source.
+	
+	* po/TODO: document the lesson.
 
 2005-05-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
