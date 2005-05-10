@@ -35,7 +35,7 @@
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf" ))
 	 (cmd (format #f
 		      "gs\
- -dCompatibilityLevel=1.2\
+ -dCompatibilityLevel=1.4 \
  -dSAFER\
  -sPAPERSIZE=~a\
  -q\
