@@ -142,6 +142,7 @@
    ly:translator?
    ly:transpose-key-alist
    ly:unit
+   ly:usage
    ly:version
    ly:warning
 
