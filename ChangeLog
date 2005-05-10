@@ -1,3 +1,10 @@
+2005-05-10  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/basic-notation.itely: add @ref.
+
+	* Documentation/user/advanced-notation.itely: add example
+	of 5/8 beaming.
+
 2005-05-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-pdfpc-helper.py (ly_pc_editor): robustness fixes.

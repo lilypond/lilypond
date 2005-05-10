@@ -2216,6 +2216,18 @@ shortest note they contain.  For a beam ending rule that only applies
 to beams with 32nd notes (and no shorter notes), use @code{(end 1 32 *
 *)}.
 
+For example,
+
+@lilypond[quote,raggedright,relative=2,fragment,verbatim]
+\time 5/8
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
 @cindex automatic beam generation
 @cindex autobeam
 @cindex @code{autoBeaming}
