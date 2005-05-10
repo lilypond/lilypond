@@ -1371,7 +1371,8 @@ LilyPond inserts beams automatically
 
 When these automatic decisions are not good enough, beaming can be
 entered explicitly.  It is also possible to define beaming patterns
-that differ from the defaults.
+that differ from the defaults.  See @ref{Setting automatic beam behavior}
+for details.
 
 Individual notes may be marked with @code{\noBeam}, to prevent them
 from being beamed
