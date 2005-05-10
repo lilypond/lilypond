@@ -298,8 +298,16 @@ The syntax is the same as `define*-public'."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (no-files-handler)
+  (ly:usage)
+  (exit 2))
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
+
+  (if (null? files)
+      (no-files-handler))
+
   (let* ((failed '())
 	 (handler (lambda (key failed-file)
 	     (set! failed (append (list failed-file) failed)))))

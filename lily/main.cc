@@ -207,8 +207,9 @@ notice ()
   copyright ();
 }
 
-static void
-usage ()
+LY_DEFINE (ly_usage, "ly:usage",
+	   0, 0, 0, (),
+	   "Print usage message.")
 {
   /* No version number or newline here.  It confuses help2man.  */
   printf (_f ("Usage: %s [OPTION]... FILE...", PROGRAM_NAME).to_str0 ());
@@ -226,6 +227,7 @@ usage ()
   printf (_f ("Report bugs to %s.", "bug-lilypond@gnu.org").to_str0 ());
   printf ("\n");
   printf ("\n");
+  return SCM_UNSPECIFIED;
 }
 
 static void
@@ -439,17 +441,8 @@ main_with_guile (void *, int, char **)
   delete option_parser;
   option_parser = 0;
 
-  if (files == SCM_EOL)
-    {
-      /* No FILE arguments is now a usage error to help newbies.  If you
-	 want a filter, you're not a newbie and should know to use file
-	 argument `-'.  */
-      usage ();
-      exit (2);
-    }
-
 #if HAVE_CHROOT
-  if (! jail_spec.is_empty ())
+  if (!jail_spec.is_empty ())
     do_chroot_jail ();
 #endif
 
@@ -590,7 +583,7 @@ parse_argv (int argc, char **argv)
   if (show_help)
     {
       identify (stdout);
-      usage ();
+      ly_usage ();
       if (be_verbose_global)
 	dir_info (stdout);
       exit (0);
