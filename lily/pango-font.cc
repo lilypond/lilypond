@@ -110,9 +110,21 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
       PangoGlyphGeometry ggeo = pgi->geometry;
 
       FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
+
+
+      SCM char_id; 
+      if (glyph_name[0] == '\0')
+	{
+	  /*
+	    CID entry
+	   */
+	  char_id = scm_from_int (pg);
+	}
+      else
+	char_id = scm_makfrom0str (glyph_name);
       *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_ + dx),
 				    scm_from_double (ggeo.y_offset * scale_),
-				    scm_makfrom0str (glyph_name)),
+				    char_id),
 			SCM_EOL);
       dx = 0.0;
       tail = SCM_CDRLOC (*tail);
