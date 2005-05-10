@@ -304,7 +304,6 @@ possibly turned off."
 	(cons x  (cons between y))))
   (fold-right conc #f lst))
 
-
 (define-public (string-regexp-substitute a b str)
   (regexp-substitute/global #f a str 'pre b 'post)) 
 

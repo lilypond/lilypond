@@ -15,8 +15,8 @@
 	     (ice-9 safe)
              (ice-9 optargs)
 	     (oop goops)
-	     (srfi srfi-1)  ; lists
-	     (srfi srfi-13)) ; strings
+	     (srfi srfi-1)  ;; lists
+	     (srfi srfi-13)) ;; strings
 
 
 ;; my display
@@ -295,33 +295,17 @@ The syntax is the same as `define*-public'."
 	   protects))
      outfile)))
 
+(define-public (tweak-grob-property grob sym val)
+  (set! (ly:grob-property grob sym) val))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define (no-files-handler)
-  (ly:usage)
-  (exit 2))
-
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
 
   (if (null? files)
       (no-files-handler))
 
-  (let* ((failed '())
-	 (handler (lambda (key failed-file)
-	     (set! failed (append (list failed-file) failed)))))
-	 ;;(handler (lambda (key . arg) (set! failed (append arg failed)))))
-    (for-each
-     (lambda (f)
-       (catch 'ly-file-failed
-	      (lambda () (ly:parse-file f))
-	      (lambda (x . args) (handler x f)))
-	      ;;(lambda (x) (handler x f)))
-       (if #f
-	   (dump-gc-protects)))
-     files)
-    
+  (let ((failed (lilypond-all files)))
     (if (pair? failed)
 	(begin
 	  (ly:error (_ "failed files: ~S") (string-join failed))
@@ -331,5 +315,51 @@ The syntax is the same as `define*-public'."
 	  (ly:message "")
 	  (exit 0)))))
 
-(define-public (tweak-grob-property grob sym val)
-  (set! (ly:grob-property grob sym) val))
+(define (no-files-handler)
+  (ly:usage)
+  (exit 2))
+
+(define-public (lilypond-all files)
+  (let* ((failed '())
+	 (handler (lambda (key failed-file)
+		    (set! failed (append (list failed-file) failed)))))
+    ;;(handler (lambda (key . arg) (set! failed (append arg failed)))))
+    (for-each (lambda (x) (lilypond-file handler x)) files)))
+
+(define (lilypond-file handler file-name)
+  (catch 'ly-file-failed
+	 (lambda () (ly:parse-file file-name))
+	 (lambda (x . args) (handler x file-name)))
+  ;;(lambda (x) (handler x f)))
+  (if #f
+      (dump-gc-protects)))
+
+(use-modules (scm editor))
+
+(define-public (gui-main files)
+  (if (null? files) (gui-no-files-handler))
+  (let* ((base (basename (car files) ".ly"))
+	 (log-name (string-append base ".log"))
+	 (log-file (open-file log-name "w")))
+    (display "# -*-compilation-*-" log-file)
+    (newline log-file)
+    (ly:message (_ "Redirecting output to ~a...") log-name)
+    (ly:port-move (fileno (current-error-port)) log-file)
+    (if (null? (lilypond-all files))
+	(exit 0)
+	(begin
+	  (system (get-editor-command log-name 0 0))
+	  (exit 1)))))
+
+(define (gui-no-files-handler)
+  (let* ((input (string-append
+		 (string-regexp-substitute
+		  "share/lilypond/" "share/doc/lilypond-"
+		  (getenv "LILYPONDPREFIX"))
+		 "-1/input"))
+	 (ly (string-append input "/" "Welcome to LilyPond.ly"))
+	 (cmd (get-editor-command ly 0 0)))
+    (system cmd)))
+
+;; FIXME
+;; (define lilypond-main gui-main)
