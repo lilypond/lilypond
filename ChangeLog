@@ -1,3 +1,8 @@
+2005-05-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/backend-library.scm (postscript->pdf): Invoke gs instead of
+	going through ps2pdf wrappers.
+
 2005-05-09  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/instrument-notation.itely: petrucci note

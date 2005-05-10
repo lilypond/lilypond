@@ -32,9 +32,23 @@
    "\""))
 
 (define-public (postscript->pdf papersizename name)
-  (let* ((cmd (format #f "ps2pdf -sPAPERSIZE=~a '~a'"
-		      (sanitize-command-option papersizename) name))
-	 (pdf-name (string-append (basename name ".ps") ".pdf" )))
+  (let* ((pdf-name (string-append (basename name ".ps") ".pdf" ))
+	 (cmd (format #f
+		      "gs\
+ -dCompatibilityLevel=1.2\
+ -dSAFER\
+ -sPAPERSIZE=~a\
+ -q\
+ -dNOPAUSE\
+ -dBATCH\
+ -sDEVICE=pdfwrite\
+ -sOutputFile='~a'\
+ -c .setpdfwrite\
+ -f'~a'\
+"
+		      (sanitize-command-option papersizename)
+		      pdf-name
+		      name)))
 
     (if (access? pdf-name W_OK)
 	(delete-file pdf-name))
