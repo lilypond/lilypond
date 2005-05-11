@@ -185,8 +185,9 @@ effect.
 
 @seealso
 
-Init files: @file{scm/@/new@/-markup@/.scm}.
+Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
 
+Init files: @file{scm/@/new@/-markup@/.scm}.
 
 @refbugs
 

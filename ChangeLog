@@ -1,3 +1,7 @@
+2005-05-10  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/advanced-notation.itely: minor fixes.
+
 2005-05-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/editor.scm: New module.
