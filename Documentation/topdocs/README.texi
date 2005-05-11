@@ -2,6 +2,9 @@
 @setfilename README.info
 @settitle Toplevel README
 
+@documentencoding utf-8
+@documentlanguage en
+
 @node Top
 @top
 
