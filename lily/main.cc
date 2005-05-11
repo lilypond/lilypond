@@ -152,7 +152,7 @@ static Long_option_init options_static[]
   {0, "ps", 0, _i ("generate PostScript")},
   {0, "tex", 0, _i ("generate TeX (tex backend only)")},
   {0, "help", 'h',  _i ("print this help")},
-  {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
+  {_i ("FIELD"), "header", 'H',  _i ("dump a header field to file BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},

@@ -1,3 +1,9 @@
+2005-05-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lily/main.cc: update help string for `lilypond -H'.
+
+	* po/fi.po: update.
+	
 2005-05-10  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/advanced-notation.itely: minor fixes.
