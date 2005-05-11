@@ -1,3 +1,8 @@
+2005-05-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+        * Documentation/topdocs/{AUTHORS.texi,INSTALL.texi,README.texi}:
+        Specify `@documentencoding utf-8' for html, ignore warnings.
+
 2005-05-11  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* THANKS: Added bughunters.
