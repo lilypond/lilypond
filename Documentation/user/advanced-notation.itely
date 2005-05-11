@@ -760,6 +760,18 @@ To print the mark at the end of the current line, use
   #'break-visibility = #begin-of-line-invisible
 @end example
 
+@code{\mark} is often useful for adding text to the end of bar.  In
+such cases, changing the @code{#'self-alignment} is very useful
+
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+c4 c c c
+\once \override Score.RehearsalMark #'self-alignment-X = #right
+\mark "D.S. al Fine "
+@end lilypond
+
+
 @cindex fermatas
 @cindex coda
 @cindex segno
