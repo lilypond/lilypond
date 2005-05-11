@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.5.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-09 13:00+0300\n"
+"POT-Creation-Date: 2005-05-11 14:04+0300\n"
 "PO-Revision-Date: 2003-07-23 13:37+0300\n"
 "Last-Translator: Heikki Junes <hjunes@cc.hut.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -73,13 +73,13 @@ msgstr "Lopetetaan (%d)..."
 msgid "Usage: %s [OPTIONS]... FILE"
 msgstr "Käyttö: %s [OPTIOT]... TIEDOSTO"
 
-#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:222
+#: lilylib.py:204 convert-ly.py:57 midi2ly.py:227 mup2ly.py:223 main.cc:223
 #, c-format
 msgid "Options:"
 msgstr "Optiot:"
 
 #: lilylib.py:208 convert-ly.py:74 lilypond-pdfpc-helper.py:28 midi2ly.py:231
-#: mup2ly.py:227 main.cc:226
+#: mup2ly.py:227 main.cc:227
 #, c-format, python-format
 msgid "Report bugs to %s."
 msgstr "Raportoi virheet osoitteeseen %s."
@@ -447,7 +447,7 @@ msgstr "DVIPS käyttö:"
 msgid "Not in FILE:LINE:COL format: "
 msgstr "Ei ollut FILE:LINE:COL formaatissa:"
 
-#: lilypond-pdfpc-helper.py:100
+#: lilypond-pdfpc-helper.py:109
 #, python-format
 msgid "Command failed: `%s' (status %d)"
 msgstr "Komento epäonnistui: `%s' (status %d)."
@@ -535,7 +535,7 @@ msgstr "tulosta versionumero"
 msgid "treat every text as a lyric"
 msgstr "käsittele kaikki tekstit lyriikkana"
 
-#: midi2ly.py:149 mup2ly.py:143 lily-library.scm:359 lily-library.scm:367
+#: midi2ly.py:149 mup2ly.py:143 lily-library.scm:358 lily-library.scm:366
 msgid "warning: "
 msgstr "varoitus: "
 
@@ -940,11 +940,11 @@ msgstr "alustetaan FontConfig"
 msgid "adding font directory: %s"
 msgstr "lisätään fonttihakemisto: %s"
 
-#: general-scheme.cc:172
+#: general-scheme.cc:167
 msgid "infinity or NaN encountered while converting Real number"
 msgstr "ääretön tai NaN kohdattiin kun tehtiin reaalilukumuunnosta"
 
-#: general-scheme.cc:173
+#: general-scheme.cc:168
 msgid "setting to zero"
 msgstr "asetetaan nollaksi"
 
@@ -1191,7 +1191,7 @@ msgid ""
 "set scheme option, for help use\n"
 "                                       -e '(ly:option-usage)'"
 msgstr ""
-"aseta scheme -optio, opasteen saat käyttämällä\n"
+"aseta scheme -optio, katso opaste\n"
 "                                       -e '(ly:option-usage)'"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
@@ -1229,8 +1229,8 @@ msgid "FIELD"
 msgstr "KENTTÄ"
 
 #: main.cc:155
-msgid "write header field to BASENAME.FIELD"
-msgstr "kirjoita otsakekenttä paikkaan PERUSNIMI.KENTTÄ"
+msgid "dump a header field to file BASENAME.FIELD"
+msgstr "kirjoita otsake tiedostoon PERUSNIMI.KENTTÄ"
 
 #: main.cc:156
 msgid "add DIR to search path"
@@ -1242,7 +1242,7 @@ msgstr "käytetään TIEDOSTO alustustiedostona"
 
 #: main.cc:158
 msgid "write output to FILE (suffix will be added)"
-msgstr "tulosta tiedostoon TIEDOSTO (pääte lisäämään)"
+msgstr "tulosta tiedostoon TIEDOSTO (pääte lisätään)"
 
 #: main.cc:160
 msgid "USER,GROUP,JAIL,DIR"
@@ -1278,72 +1278,72 @@ msgstr ""
 "%s  ja muut."
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:214
+#: main.cc:215
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "Käyttö: %s [OPTIO]... TIEDOSTO..."
 
-#: main.cc:216
+#: main.cc:217
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Lado musiikki ja/tai tuota MIDI tiedostosta TIEDOSTO."
 
-#: main.cc:218
+#: main.cc:219
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond tuottaa kaunista notaatiota musiikille."
 
-#: main.cc:220
+#: main.cc:221
 #, c-format
 msgid "For more information, see %s"
 msgstr "Lisätietoja varten, katso %s."
 
-#: main.cc:311
+#: main.cc:313
 #, c-format
 msgid "expected %d arguments with jail, found: %d"
 msgstr "odotettiin %d argumenttia jail:ille, löytyi: %d"
 
-#: main.cc:325
+#: main.cc:327
 #, c-format
 msgid "no such user: %s"
 msgstr "asetusta ei löydy: `%s'"
 
-#: main.cc:327
+#: main.cc:329
 #, c-format
 msgid "can't get user id from user name: %s: %s"
 msgstr "ei saatu käyttäjä-id:tä käyttäjän nimestä: %s: %s"
 
-#: main.cc:342
+#: main.cc:344
 #, c-format
 msgid "no such group: %s"
 msgstr "ryhmää ei ole: %s"
 
-#: main.cc:344
+#: main.cc:346
 #, c-format
 msgid "can't get group id from group name: %s: %s"
 msgstr "ei voitu saada ryhmä -id:tä ryhmänimestä: %s: %s"
 
-#: main.cc:352
+#: main.cc:354
 #, c-format
 msgid "can't chroot to: %s: %s"
 msgstr "chroot ei onnistunut: %s: %s"
 
-#: main.cc:359
+#: main.cc:361
 #, c-format
 msgid "can't change group id to: %d: %s"
 msgstr "ei voitu vaihtaa ryhmä-id:tä : %s: %s"
 
-#: main.cc:365
+#: main.cc:367
 #, c-format
 msgid "can't change user id to: %d: %s"
 msgstr "ei voitu vaihtaa käyttäjä-id:tä : %d: %s"
 
-#: main.cc:371
+#: main.cc:373
 #, c-format
 msgid "can't change working directory to: %s: %s"
 msgstr "työhakemiston vaihto ei onnistunut: %s: %s"
 
-#: main.cc:422
+#: main.cc:424
 #, c-format
 msgid "Evaluating %s"
 msgstr "Määritetään %s"
@@ -1513,12 +1513,12 @@ msgstr "tuntematon virhe: %d lukee fonttitiedostoa: %s"
 msgid "FT_Get_Glyph_Name() returned error: %d"
 msgstr "FT_Get_Glyph_Name() palautti virheen: %d"
 
-#: pango-font.cc:131
+#: pango-font.cc:143
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "ei PostScript fonttinimeä fontille `%s'"
 
-#: pango-font.cc:178
+#: pango-font.cc:190
 msgid "FreeType face has no PostScript font name"
 msgstr "FreeType muodolla ei ollut PostScript fonttinimeä"
 
@@ -2020,7 +2020,7 @@ msgstr "Kutsutaan `~a'..."
 msgid "`~a' failed (~a)"
 msgstr "`~a' epäonnistui (~a)"
 
-#: backend-library.scm:42 framework-tex.scm:340 framework-tex.scm:365
+#: backend-library.scm:56 framework-tex.scm:340 framework-tex.scm:365
 #, lisp-format
 msgid "Converting to `~a'..."
 msgstr "Muunnetaan kohteeksi `~a'..."
@@ -2029,12 +2029,12 @@ msgstr "Muunnetaan kohteeksi `~a'..."
 #. GS produces PNG files like BASE-page%d.png.
 #. (ly:message (_ "Converting to `~a'...")
 #. (string-append (basename name ".ps") "-page1.png" )))
-#: backend-library.scm:66
+#: backend-library.scm:80
 #, lisp-format
 msgid "Converting to ~a..."
 msgstr "Muunnetaan kohteeksi `~a'..."
 
-#: backend-library.scm:96
+#: backend-library.scm:110
 #, lisp-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr "Kirjoitetaan otsaketietue `~a' kohteeseen `~a'..."
@@ -2133,17 +2133,17 @@ msgstr "ei löytynyt kuvausta ominaisuudells ~S"
 msgid "Writing ~a..."
 msgstr "Kirjoitetaan ~a..."
 
-#: framework-ps.scm:265
+#: framework-ps.scm:252 framework-ps.scm:286
 #, lisp-format
 msgid "don't know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:457
+#: framework-ps.scm:478
 #, lisp-format
 msgid "can't convert <stdout> to ~S"
 msgstr "ei voida konvertoida <stdout> ~S:ksi"
 
-#: framework-ps.scm:477 framework-ps.scm:480
+#: framework-ps.scm:498 framework-ps.scm:501
 #, lisp-format
 msgid "can't generate ~S using the postscript back-end"
 msgstr "ei voida generoida ~S käyttäen postscript päänä"
@@ -2153,17 +2153,17 @@ msgstr "ei voida generoida ~S käyttäen postscript päänä"
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr "TeX -tiedostoniemessä ei saa olla välilyöntejä: `~a'"
 
-#: lily-library.scm:328
+#: lily-library.scm:327
 #, lisp-format
 msgid "unknown unit: ~S"
 msgstr "tuntematon yksikkö: ~S"
 
-#: lily-library.scm:361
+#: lily-library.scm:360
 #, lisp-format
 msgid "no \\version statement found,  add~afor future compatibility"
 msgstr "ei \\version määrittelyä löytynyt,  lisää~ayhteensopivuuden varalle"
 
-#: lily-library.scm:368
+#: lily-library.scm:367
 msgid "old relative compatibility not used"
 msgstr "vanhaa relative -yhteensopivuutta ei käytetty"
 
@@ -2172,10 +2172,15 @@ msgstr "vanhaa relative -yhteensopivuutta ei käytetty"
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "väärä tyyppi argumentille ~a.  Odotettiin ~a, löytyi ~s"
 
-#: lily.scm:319
+#: lily.scm:311
 #, lisp-format
 msgid "failed files: ~S"
 msgstr "epäonniset tiedostot: ~S"
+
+#: lily.scm:346
+#, lisp-format
+msgid "Redirecting output to ~a..."
+msgstr "Ohjataan tulosteet paikkaan ~a..."
 
 #: markup.scm:88
 #, lisp-format
@@ -2208,12 +2213,12 @@ msgstr "ei löytynyt lainusmerkittyä musiikkai `~S'"
 msgid "unknown accidental style: ~S"
 msgstr "tuntematan kortusmerkkityyli: ~S"
 
-#: output-lib.scm:246
+#: output-lib.scm:250
 #, lisp-format
 msgid "unknown bar glyph: `~S'"
 msgstr "tuntematon palkkityyli: `%s'"
 
-#: output-ps.scm:309
+#: output-ps.scm:311
 msgid "utf8-string encountered in PS backend"
 msgstr "utf8-merkkijono havaittu PS tuotoksessa"
 
@@ -2672,9 +2677,6 @@ msgstr "ajaminen epäonnistui"
 
 #~ msgid "invalid value: `%s'"
 #~ msgstr "epäkelpo arvo: `%s'"
-
-#~ msgid "dependencies output to `%s'..."
-#~ msgstr "riippuvuuksien tulosteet paikkaan `%s'"
 
 #~ msgid " 2001--2003"
 #~ msgstr " 2001--2003"
