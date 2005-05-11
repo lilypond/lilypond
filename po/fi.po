@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.5.24\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-11 14:04+0300\n"
+"POT-Creation-Date: 2005-05-12 00:24+0300\n"
 "PO-Revision-Date: 2003-07-23 13:37+0300\n"
 "Last-Translator: Heikki Junes <hjunes@cc.hut.fi>\n"
 "Language-Team: Finnish <fi@li.org>\n"
@@ -575,7 +575,7 @@ msgstr "testaa"
 
 #: mup2ly.py:74
 msgid "define macro NAME [optional expansion EXP]"
-msgstr "määrittele makro NAME [vaihtoehtoinen laajennus EXP]"
+msgstr "määritä makro NIMI [vaihtoehtoinen laajennus EXP]"
 
 #: mup2ly.py:77
 msgid "only pre-process"
@@ -1037,7 +1037,7 @@ msgstr "päättämätön tavuviiva"
 
 #: includable-lexer.cc:50
 msgid "include files are not allowed in safe mode"
-msgstr "sisällytettävät tiedostot eivät ole sallittuja turvamoodissa"
+msgstr "sisällytettävät tiedostot eivät ole sallittuja turvatilassa"
 
 #: includable-lexer.cc:57 lily-guile.cc:92 lily-parser-scheme.cc:77
 #, c-format
@@ -1164,14 +1164,14 @@ msgstr ""
 
 #: main.cc:140
 msgid "BACK"
-msgstr "BACK"
+msgstr "PÄÄ"
 
 #: main.cc:140
 msgid ""
 "use backend BACK (gnome, ps [default],\n"
 "                                       scm, svg, tex, texstr)"
 msgstr ""
-"käytä päänä BACK (gnome, ps [default],\n"
+"käytä päänä PÄÄ (gnome, ps [default],\n"
 "                                       scm, svg, tex, texstr)"
 
 #: main.cc:142
@@ -1180,11 +1180,11 @@ msgstr "SYM=VAL"
 
 #: main.cc:143
 msgid "define a default Scheme setting."
-msgstr "määrittele oletukseksi Scheme-asetus"
+msgstr "määritä scheme -oletusasetus"
 
 #: main.cc:145
 msgid "EXPR"
-msgstr "EXPR"
+msgstr "LAUSEKE"
 
 #: main.cc:145
 msgid ""
@@ -1198,15 +1198,15 @@ msgstr ""
 #. for --output-format.
 #: main.cc:148
 msgid "FORMATs"
-msgstr "FORMATs"
+msgstr "FORMAATIT"
 
 #: main.cc:148
 msgid "dump FORMAT,...  Also as separate options:"
-msgstr "vedosta FORMAT,...  Myös erillisinä optioina:"
+msgstr "vedosta FORMAATTI,...  Myös erilliset optiot:"
 
 #: main.cc:149
 msgid "generate DVI (tex backend only)"
-msgstr "tuota DVI (vain tex -tuotosta varten)"
+msgstr "tuota DVI (vain käytettäessä tex -päätä)"
 
 #: main.cc:150
 msgid "generate PDF (default)"
@@ -1222,7 +1222,7 @@ msgstr "tuota PostScript"
 
 #: main.cc:153
 msgid "generate TeX (tex backend only)"
-msgstr "tuota TeX (vain tex -tuotosta varten)"
+msgstr "tuota TeX (vain käytettäessä tex -päätä)"
 
 #: main.cc:155
 msgid "FIELD"
@@ -1238,7 +1238,7 @@ msgstr "lisää HAKEMISTO hakupolkuun"
 
 #: main.cc:157
 msgid "use FILE as init file"
-msgstr "käytetään TIEDOSTO alustustiedostona"
+msgstr "käytä TIEDOSTO alustustiedostona"
 
 #: main.cc:158
 msgid "write output to FILE (suffix will be added)"
@@ -1253,8 +1253,8 @@ msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "                                       and cd into DIR"
 msgstr ""
-"tee chroot kohteeseen JAIL, ole USER:GROUP\n"
-"                                       ja cd hakemistoon DIR"
+"käytä chroot-hakemistona JAIL, ole USER:GROUP\n"
+"                                       ja siirry hakemistoon DIR"
 
 #: main.cc:162
 msgid "do not generate printed output"
@@ -1291,7 +1291,7 @@ msgstr "Lado musiikki ja/tai tuota MIDI tiedostosta TIEDOSTO."
 #: main.cc:219
 #, c-format
 msgid "LilyPond produces beautiful music notation."
-msgstr "LilyPond tuottaa kaunista notaatiota musiikille."
+msgstr "LilyPond tuottaa kaunista musiikkinotaatiota."
 
 #: main.cc:221
 #, c-format
@@ -1628,13 +1628,13 @@ msgstr "taukoa `%s' ei löytynyt, "
 #: scm-option.cc:54
 #, c-format
 msgid "lilypond -e EXPR means:"
-msgstr "lilypond -e EXPR tarkoittaa:"
+msgstr "lilypond -e LAUSEKE tarkoittaa:"
 
 #: scm-option.cc:56
 #, c-format
 msgid "  Evalute the Scheme EXPR before parsing any .ly files."
 msgstr ""
-"  Evaluoidaan Scheme EXPR ennen kuin jäsennetään yhtäkään .ly -tiedostoista."
+"  Suoritetaan Scheme LAUSEKE ennen yhdenkään .ly -tiedoston jäsentämistä."
 
 #: scm-option.cc:58
 #, c-format
@@ -1657,7 +1657,7 @@ msgstr "Käyttö: lilypond -e \"(ly-set-option SYMBOLI ARVO)\""
 #: scm-option.cc:64
 #, c-format
 msgid "Use help as SYMBOL to get online help."
-msgstr "Käytä opastetta SYMBOL saadaksesi online opasteen."
+msgstr "Käytä opastetta SYMBOLI saadaksesi online opasteen."
 
 #: scm-option.cc:141 scm-option.cc:183
 #, c-format
@@ -2220,7 +2220,7 @@ msgstr "tuntematon palkkityyli: `%s'"
 
 #: output-ps.scm:311
 msgid "utf8-string encountered in PS backend"
-msgstr "utf8-merkkijono havaittu PS tuotoksessa"
+msgstr "utf8-merkkijono havaittu PS päässä"
 
 #: output-svg.scm:41
 #, lisp-format
