@@ -1,3 +1,7 @@
+2005-05-11  Erik Sandberg  <ersa9195@student.uu.se>
+
+	* THANKS: Added bughunters.
+
 2005-05-11  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lily/main.cc: update help string for `lilypond -H'.
