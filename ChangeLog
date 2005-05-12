@@ -1,3 +1,12 @@
+2005-05-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/slur-scoring.cc (move_away_from_staffline): robustness,
+	don't access StaffSymbol if not there.
+
+	* lily/instrument-name-engraver.cc (class
+	Instrument_name_engraver): data member first_. Create
+	InstrumentName on start. 
+
 2005-05-12  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/instrument-notation.itely: add guitar

@@ -17,7 +17,7 @@
 
 class Instrument_name_engraver : public Engraver
 {
-
+  bool first_; 
 public:
   TRANSLATOR_DECLARATIONS (Instrument_name_engraver);
 
@@ -29,11 +29,13 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void process_music ();
+  
 };
 
 Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_ = 0;
+  first_ = true;
 }
 
 void
@@ -51,6 +53,8 @@ Instrument_name_engraver::stop_translation_timestep ()
 			   get_property ("instrumentSupport"));
       text_ = 0;
     }
+  
+  first_ = false;
 }
 
 void
@@ -119,7 +123,8 @@ Instrument_name_engraver::process_music ()
     Also create text if barlines in other groups. This allows
     a name to be attached to lyrics or chords.
   */
-  if (scm_is_string (get_property ("whichBar")))
+  if (scm_is_string (get_property ("whichBar"))
+      || first_)
     create_text ();
 }
 
