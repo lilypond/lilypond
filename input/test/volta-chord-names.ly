@@ -1,7 +1,6 @@
 \header {
-    texidoc = "Volta brackets can be placed over chord names. This
-requires adding an engraver to @code{ChordNames}, and setting
-@code{voltaOnThisStaff} correctly."
+    texidoc = "Volta brackets can be placed over chord names. Just set
+the @code{voltaOnThisStaff} property to true for the @code{ChordNames} context and to false for the topmost ordinary @code{Staff} context."
 }
 
 \version "2.4.0"
