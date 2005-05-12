@@ -598,8 +598,12 @@ Real
 Slur_score_state::move_away_from_staffline (Real y,
 					    Grob *on_staff) const
 {
+  Grob * staff_symbol = Staff_symbol_referencer::get_staff_symbol (on_staff);
+  if (!staff_symbol)
+    return y;
+  
   Real pos
-    = (y - Staff_symbol_referencer::get_staff_symbol (on_staff)->relative_coordinate (common_[Y_AXIS],
+    = (y - staff_symbol->relative_coordinate (common_[Y_AXIS],
 										      Y_AXIS))
     * 2.0 / staff_space_;
 
