@@ -31,6 +31,7 @@ your scores.
 @menu
 * Text scripts::                
 * Text spanners::               
+* Text marks::                  
 * Text markup::                 
 * Text encoding::               
 * Nested scores::               
@@ -47,8 +48,8 @@ your scores.
 @cindex text items, non-empty
 @cindex non-empty texts
 
-It is possible to place arbitrary strings of text or markup text (see
-@ref{Text markup}) above or below notes by using a string
+It is possible to place arbitrary strings of text or
+@internalsref{Text markup} above or below notes by using a string
 @code{c^"text"}.  By default, these indications do not influence the
 note spacing, but by using the command @code{\fatText}, the widths
 will be taken into account
@@ -64,7 +65,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 The @code{\markup} is described in more detail in
-@ref{Text markup}.
+@internalsref{Text markup}.
 
 
 @refcommands
@@ -118,17 +119,71 @@ Internals @internalsref{TextSpanEvent},
 Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
 
+@node Text marks
+@subsection Text marks
+
+@cindex coda on bar line
+@cindex segno on bar line
+@cindex fermata on bar line
+@cindex bar lines, symbols on
+
+The @code{\mark} command is primarily used for
+@internalsref{Rehearsal marks},
+but it can also be used to put signs like coda,
+segno, and fermata on a bar line.  Use @code{\markup} to
+access the appropriate symbol
+
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+@code{\mark} is only typeset above the top stave of the score.  If
+you specify the @code{\mark} command at a bar line, the resulting
+mark is placed above the bar line.  If you specify it in the middle
+of a bar, the resulting mark is positioned between notes.  If it is
+specified before the beginning of a score line, it is placed
+before the first note of the line.  Finally, if the mark occurs at
+a line break, the mark will be printed at the
+beginning of the next line.
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+If there is no next line, then the mark will not be printed at all.
+To print the mark at the end of the current line, use
+
+@example
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+@end example
+
+@code{\mark} is often useful for adding text to the end of bar.  In
+such cases, changing the @code{#'self-alignment} is very useful
+
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+c1 c c c4 c c c
+\once \override Score.RehearsalMark #'self-alignment-X = #right
+\mark "D.S. al Fine "
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
+
+
 @node Text markup
 @subsection Text markup
+
+@cindex markup
 @cindex text markup
 @cindex markup text
-
 @cindex typeset text
 
-The internal mechanism to typeset texts is accessed with the keyword
-@code{\markup}.  Within markup mode, you can enter texts similar to
-lyrics.  They are simply entered, while commands use the backslash @code{\}.
-@cindex markup
+Use @code{\markup} to typeset text.  Commands are entered with the
+backslash @code{\}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { hello }
@@ -136,12 +191,36 @@ c1_\markup { hi there }
 c1^\markup { hi \bold there, is \italic anyone home? }
 @end lilypond
 
+@noindent
+@code{\markup} is primarily used for @internalsref{Text scripts},
+but it can also be used anywhere text is called in lilypond
+
+@lilypond[quote,verbatim]
+\header{ title = \markup{ \bold { foo \italic { bar! } } } }
+\score{
+  \relative c'' {
+    \override Score.RehearsalMark
+      #'break-visibility = #begin-of-line-invisible
+    \override Score.RehearsalMark #'self-alignment-X = #right
+
+    \set Staff.instrument = \markup{ \column{ Alto solo } }
+    c2^\markup{ don't be \flat }
+    b2
+    a2\mark \markup{ \large \bold Fine }
+    r2
+    \bar "||"
+  }
+  \addlyrics { bar, foo \markup{ \italic bar! } }
+}
+@end lilypond
+
 @cindex font switching
 
 The markup in the example demonstrates font switching commands.  The
 command @code{\bold} and @code{\italic} apply to the first following 
-word only; enclose a set of texts with braces to apply a command
-to more words:
+word only; to apply a command to more than one word, enclose the
+words with braces,
+
 @example
 \markup @{ \bold @{ hi there @} @}
 @end example
@@ -197,6 +276,14 @@ texts will be spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
+
+@menu
+* Text encoding::               
+* Nested scores::               
+* Overview of text markup commands::  
+* New dynamic marks::           
+* Other text markup issues::    
+@end menu
 
 @node Text encoding
 @subsection Text encoding
@@ -513,7 +600,7 @@ R1*2 | R1*5 | R1*9
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax (see @ref{Text markup}).
+@var{note}-@code{markup} syntax @internalsref{Text markup}.
 A variable (@code{\fermataMarkup}) is provided for
 adding fermatas
 
@@ -732,50 +819,6 @@ The file @file{scm/@/translation@/-functions@/.scm} contains the definitions
 of @code{format-mark-numbers} (the default format), @code{format-mark-box-numbers},
 @code{format-mark-letters} and @code{format-mark-box-letters}.
 These can be used as inspiration for other formatting functions.
-
-
-@cindex coda on bar line
-@cindex segno on bar line
-@cindex fermata on bar line
-@cindex bar lines, symbols on
-
-The @code{\mark} command can also be used to put signs like coda,
-segno, and fermata on a bar line.  Use @code{\markup} to
-access the appropriate symbol
-
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
-@end lilypond
-
-If the mark occurs at a line break, the mark will be printed at the
-beginning of the next line.
-@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
-@c  delete this sentence.   -gp
-If there is no next line, then the mark will not be printed at all.
-To print the mark at the end of the current line, use
-
-@example
-\override Score.RehearsalMark
-  #'break-visibility = #begin-of-line-invisible
-@end example
-
-@code{\mark} is often useful for adding text to the end of bar.  In
-such cases, changing the @code{#'self-alignment} is very useful
-
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
-\override Score.RehearsalMark
-  #'break-visibility = #begin-of-line-invisible
-c4 c c c
-\once \override Score.RehearsalMark #'self-alignment-X = #right
-\mark "D.S. al Fine "
-@end lilypond
-
-
-@cindex fermatas
-@cindex coda
-@cindex segno
-@cindex bar lines, putting symbols on
 
 @seealso
 
