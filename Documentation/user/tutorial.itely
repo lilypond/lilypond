@@ -6,6 +6,9 @@
 @c     compiling/viewing (emacs?)
 @c   * where to go from First steps+More basics?
 
+@c  wherever possible, do not include index entries here; the
+@c  index should point to stuff in the reference manual.  -gp
+
 @c Your first LilyPond score in 10 minutes?
 
 @node Tutorial
@@ -86,9 +89,7 @@ name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
 a1 a2 a4 a16 a32
 @end example
 
-@c FIXME: have NOTIME also remove Score.timing?
 @lilypond[fragment,quote,notime,relative=2]
-\set Score.timing = ##f
 \set Staff.autoBeaming = ##f
 { a1 a2 a4 a16 a32 s16_" " }
 @end lilypond
@@ -102,20 +103,17 @@ a a8 a a2 a
 @end example
 
 @lilypond[fragment,quote,notime,relative=2]
-\set Score.timing = ##f
 { a a8 a a2 a s16_" " }
 @end lilypond
 
 
 A @rglos{rest} is entered just like a note, but with the name @samp{r}
 
-@cindex rests
 @example
 r2 r4 r8 r16
 @end example
 
 @lilypond[fragment,quote,notime]
-\set Score.timing = ##f
 r2 r4 r8 r16 s16_" "
 @end lilypond
 
@@ -126,7 +124,6 @@ a2. a4 a8. a16
 @end example
 
 @lilypond[fragment,quote,notime,relative=1]
-\set Score.timing = ##f
 { a2. a4 a8. a16 s16_" " }
 @end lilypond
 
@@ -160,7 +157,6 @@ The @rglos{clef} can be set using the @code{\clef} command
 @end example
 
 @lilypond[fragment,quote,notime]
-\set Score.timing = ##f
 \clef treble
 s4_" "
 \clef bass

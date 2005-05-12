@@ -1845,7 +1845,18 @@ Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
 @node Other guitar issues
 @subsection Other guitar issues
 
-FIXME: insert guitar fret number example here.
+This example demonstrates how to include guitar position and
+barring indications.
+
+@lilypond[quote,raggedright,fragment,verbatim,relative=0]
+\clef "G_8"
+b16 d16 g16 b16 e16
+\textSpannerDown
+\override TextSpanner #'edge-text = #'("XII " . "")
+  g16\startTextSpan
+  b16 e16 g16 e16 b16 g16\stopTextSpan
+e16 b16 g16 d16
+@end lilypond
 
 
 @node Ancient notation
@@ -2061,7 +2072,7 @@ Examples: @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 @node Ancient rests
 @subsection Ancient rests
 
-@cindex rests
+@cindex rests, ancient
 
 
 Use the @code{style} property of grob @internalsref{Rest} to select

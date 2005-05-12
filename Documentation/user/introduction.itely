@@ -641,9 +641,6 @@ gives a gentle introduction to typesetting music.  First time
 users should start here.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Example templates}}
 provides templates of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
@@ -653,76 +650,41 @@ template into a file, add notes, and you're done!
 demonstrates practical uses of LilyPond.
 
 @item
-@ifhtml
-The chapter
-@end ifhtml
-@emph{@ref{Running LilyPond}} shows how to run LilyPond and its helper
+@emph{@ref{Running LilyPond}}
+shows how to run LilyPond and its helper
 programs.  In addition, this section explains how to upgrade input
 files from previous versions of LilyPond.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Basic notation}}
-@ifhtml
-chapter
-@end ifhtml
 discusses topics grouped by notation construct.  This section gives
 details about basic notation that will be useful in almost any
 notation project.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Instrument-specific notation}}
-@ifhtml
-chapter
-@end ifhtml
 discusses topics grouped by notation construct.  This section gives
 details about special notation that will only be useful for particular
 instrument (or vocal) groups.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Advanced notation}}
-@ifhtml
-chapter
-@end ifhtml
 discusses topics grouped by notation construct.  This section gives
 details about complicated or unusual notation.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Global issues}}
-@ifhtml
-chapter
-@end ifhtml
 discusses issues which affect the whole lilypond file.
 
 @item
-@ifhtml
-The
-@end ifhtml
 @emph{@ref{Changing defaults}}
 explains how to fine tune layout.
 
 @item
-@ifhtml
-The chapter
-@end ifhtml
 @emph{@ref{LilyPond-book}} explains the details behind creating
 documents with in-line music examples, like this manual.
 
 @item
-@ifhtml
-The chapter
-@end ifhtml
 @emph{@ref{Converting from other formats}}
 explains how to run the conversion programs.  These programs
 are supplied with the LilyPond package, and convert a variety of music
@@ -857,12 +819,9 @@ Initialization files, for example @file{scm/@/lily@/.scm}, or
 @cindex internal documentation
 @cindex Scheme
 @cindex extending lilypond
-@cindex bug report
 @cindex index
 
 Finally, this and all other manuals, are available online both as PDF
 files and HTML from the web site, which can be found at
 @uref{http://@/www@/.lilypond@/.org/}.
 
-@cindex website
-@cindex URL
