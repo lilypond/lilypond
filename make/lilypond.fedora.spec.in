@@ -157,6 +157,7 @@ scrollkeeper-update
 %{_bindir}/mup2ly
 %{_bindir}/lilypond-ps2png
 %{_bindir}/lilypond-pdfpc-helper
+%{_bindir}/lilypond-invoke-editor
 
 %doc THANKS
 %doc COPYING
@@ -179,6 +180,7 @@ scrollkeeper-update
 %{_mandir}/man1/mup2ly.1.gz
 %{_mandir}/man1/lilypond-ps2png.1.gz
 %{_mandir}/man1/lilypond-pdfpc-helper.1.gz
+%{_mandir}/man1/lilypond-invoke-editor.1.gz
 
 %{_datadir}/lilypond/@TOPLEVEL_VERSION@/
 %{_datadir}/locale/*/LC_MESSAGES/lilypond.mo
