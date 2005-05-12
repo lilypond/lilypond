@@ -26,3 +26,6 @@ $(outdir)/%.hh: %.yy
 
 $(outdir)/%.cc: %.ll
 	$(FLEX) -Cfe -p -p -o$@ $< 
+
+$(outdir)/%-rc.o: $(outdir)/%.rc
+	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<

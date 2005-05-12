@@ -383,8 +383,16 @@ String::print_on (ostream &os) const
 #endif
 
 void
-String::substitute_char (char chr, String sub)
+String::substitute (String find, String replace)
 {
-  for (int i = index (chr); i > -1; i = index (chr))
-    *this = left_string (i) + sub + right_string (length () - i - 1);
+  int n = replace.length ();
+  for (int i = index (find); i > - 1; i = index (find))
+    *this = left_string (i) + find + right_string (length () - i - n);
+}
+
+void
+String::substitute (char find, char replace)
+{
+  for (int i = index (find); i > - 1; i = index (find))
+    (*this)[i] = replace;
 }

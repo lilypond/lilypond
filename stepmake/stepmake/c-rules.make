@@ -26,3 +26,5 @@ $(outdir)/%.c: %.l
 # could be faster:
 #	$(FLEX) -8 -Cf -o$@ $< 
 
+$(outdir)/%.rc.o: $(outdir)/%.rc
+	$(WINDRES) $(WINDRES_FLAGS) -o$@ $<

@@ -25,8 +25,7 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ##
     ## -V: Workaround for python
 
-    changequote(<<, >>)dnl
-    ##set -x
+    changequote(<<, >>)#dnl
     ## Assume and hunt for dotted version multiplet.
     ## use eval trickery, because we cannot use multi-level $() instead of ``
     ## for compatibility reasons.
@@ -42,8 +41,7 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
 	    | sed -e 's/^[^.0-9]*//' -e 's/[^.0-9]*$//'\`\"
     fi
     echo "$_ver"
-    ##set +x
-    changequote([, ])dnl
+    changequote([, ])#dnl
 ])
 
 # Calculate simplistic numeric version from version string ($1)
@@ -519,11 +517,11 @@ AC_DEFUN(STEPMAKE_GUILE_DEVEL, [
     AC_SUBST(GUILE_CONFIG)
     
     guile_version="$ver"
-    changequote(<<, >>)dnl
+    changequote(<<, >>)#dnl
     GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
     GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
     GUILE_PATCH_LEVEL=`expr $guile_version : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
-    changequote([, ])dnl
+    changequote([, ])#dnl
     STEPMAKE_GUILE_FLAGS
     save_CPPFLAGS="$CPPFLAGS"
     save_LIBS="$LIBS"
@@ -570,10 +568,10 @@ AC_DEFUN(STEPMAKE_INIT, [
     fi
     export MAJOR_VERSION MINOR_VERSION PATCH_LEVEL
     # urg: don't "fix" this: irix doesn't know about [:lower:] and [:upper:]
-    changequote(<<, >>)dnl
+    changequote(<<, >>)#dnl
     PACKAGE=`echo $PACKAGE_NAME | tr '[a-z]' '[A-Z]'`
     package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
-    changequote([, ])dnl
+    changequote([, ])#dnl
 
     # No versioning on directory names of sub-packages 
     # urg, urg
@@ -708,26 +706,16 @@ AC_DEFUN(STEPMAKE_INIT, [
 	    # STEPMAKE_WARN($warn)
 	    STEPMAKE_ADD_ENTRY(REQUIRED, $warn)
         fi
-    fi 
-
-    if test "$OSTYPE" = "cygwin" -o "$OSTYPE" = "cygwin32" -o "$OSTYPE" = "Windows_NT"; then
-	LN=cp # hard link does not work under cygnus-nt
-	LN_S='cp -r' # symbolic link does not work for native nt
-	ZIP="zip -r -9" #
-	program_suffix=.exe
- 	ROOTSEP=':'
-        DIRSEP='/'
- 	PATHSEP=':'
-	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
-    else
-	ROOTSEP=':'
-	DIRSEP='/'
-	PATHSEP=':'
-	LN=ln
-	LN_S='ln -s'
-	ZIP="zip -r -9"
-        INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
     fi
+
+    ROOTSEP=':'
+    DIRSEP='/'
+    PATHSEP=':'
+    LN=ln
+    LN_S='ln -s'
+    ZIP="zip -r -9"
+    INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
+
     AC_SUBST(program_prefix)
     AC_SUBST(program_suffix)
     AC_SUBST(ZIP)
@@ -971,11 +959,11 @@ AC_DEFUN(STEPMAKE_PYTHON, [
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     unset PYTHON_HEADER PYTHON_INCLUDE
     if test -n "$PYTHON"; then
-	changequote(<<, >>)dnl
+	changequote(<<, >>)#dnl
 	# alternatively, for python >= 2.0
 	# 'import sys, distutils.sysconfig; sys.stdout.write (distutils.sysconfig.get_python_inc ())'
 	PYTHON_INCLUDE=`$PYTHON -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'`
-	changequote([, ])dnl
+	changequote([, ])#dnl
     fi
     
     ##AC_CHECK_HEADERS([Python.h],[PYTHON_HEADER=yes])
@@ -1177,4 +1165,32 @@ AC_DEFUN(STEPMAKE_FONTCONFIG, [
      	ver="$(pkg-config --modversion $1)"
      	STEPMAKE_ADD_ENTRY($2, ["$r >= $3 (installed: $ver)"])
     fi
+])
+
+AC_DEFUN(STEPMAKE_WINDOWS, [
+    AC_CYGWIN
+    AC_MINGW32
+
+    if test "$CYGWIN" == "yes"; then
+	LN_S='cp -r' # Cygwin symbolic links do not work for native apps.
+	program_suffix=.exe
+	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
+    elif test "$MINGW" == "yes"; then
+	LN='cp -r'
+	LN_S='cp -r'
+	program_suffix=.exe
+	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
+	PATHSEP=';'
+    fi
+    
+    AC_MSG_CHECKING([for some flavor of Windows])
+    if test "$CYGWIN$MINGW32" == "nono"; then
+        PLATFORM_WINDOWS=no
+    else
+        PLATFORM_WINDOWS=yes
+    fi
+    AC_MSG_RESULT([$PLATFORM_WINDOWS])
+    AC_SUBST(PLATFORM_WINDOWS)
+    STEPMAKE_PROGS(WINDRES, $target-windres windres, x)
+    AC_SUBST(WINDRES)
 ])

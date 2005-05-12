@@ -1,3 +1,24 @@
+2005-05-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/string.cc (substitute): Take two strings or two
+	characters.  Update callers.
+
+2005-05-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* flower/file-name.cc (File_name): Slashify.
+
+	* scm/lily.scm: Use gui-main iso lilypond-main on MINGW.
+
+	* scripts/GNUmakefile (SEXECUTABLES): Add lilypond-invoke-editor.
+
+	* stepmake/aclocal.m4 (STEPMAKE_WINDOWS): New function.
+
+	* configure.in (gui_b): Use it.
+
+	* lily/lilypond.rc.in: New file.
+
+	* lily/GNUmakefile[PLATFROM_WINDOWS]: Compile it into executable.
+
 2005-05-12  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/advanced-notation.itely: edit of Text
@@ -32,6 +53,7 @@
 	* input/test/volta-chord-names.ly: Bring the explanation up to
 	date.
 
+>>>>>>> 1.3600
 2005-05-11  Heikki Junes  <hjunes@cc.hut.fi>
 
         * Documentation/topdocs/{AUTHORS.texi,INSTALL.texi,README.texi}:

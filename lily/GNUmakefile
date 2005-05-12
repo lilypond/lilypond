@@ -9,7 +9,7 @@ MODULE_INCLUDES= $(depth)/flower/include $(depth)/ttftool/include
 MODULE_CXXFLAGS=
 
 HELP2MAN_EXECS = lilypond
-STEPMAKE_TEMPLATES= c++ executable po help2man
+STEPMAKE_TEMPLATES=c c++ executable po help2man
 
 OUT_DIST_FILES=$(addprefix $(outdir)/,parser.cc parser.hh)
 
@@ -24,6 +24,16 @@ endif
 #
 # USER_LDFLAGS += -static -lltdl -ldl
 #
+
+ifeq ($(PLATFORM_WINDOWS),yes)
+WINDRES_FLAGS += -DLilyPond=1
+O_FILES += $(outdir)/lilypond.rc.o
+$(outdir)/lilypond: $(outdir)/lilypond.rc.o
+
+$(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico
+$(outdir)/lilypond.ico: $(abs-srcdir)/Documentation/pictures/lelie-logo.xpm
+	convert $< $@ 
+endif
 
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
@@ -48,3 +58,4 @@ local-po: $(outdir)/parser.cc
 ifneq ($(srcdir), .)
 .PRECIOUS: $(outdir)/lexer.cc $(outdir)/parser.cc
 endif
+

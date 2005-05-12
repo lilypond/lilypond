@@ -6,10 +6,15 @@ include $(stepdir)/substitute-rules.make
 
 ATVARIABLES = \
   BASH\
+  BUILD_VERSION\
   DATE\
   FONTFORGE\
   GUILE\
+  MICRO_VERSION\
+  MAJOR_VERSION\
+  MINOR_VERSION\
   PACKAGE\
+  PATCH_LEVEL\
   PATHSEP\
   PERL\
   PYTHON\
@@ -23,9 +28,11 @@ ATVARIABLES = \
   local_lilypond_datadir\
   local_lilypond_libdir\
   localedir\
+  outdir\
   package\
   prefix\
   program_prefix\
   program_suffix\
   sharedstatedir\
+  srcdir\
   step-bindir\

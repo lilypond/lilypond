@@ -1,6 +1,6 @@
 depth = ..
 
-SEXECUTABLES=convert-ly lilypond-book abc2ly etf2ly mup2ly midi2ly lilypond-ps2png lilypond-pdfpc-helper
+SEXECUTABLES=convert-ly lilypond-book abc2ly etf2ly mup2ly midi2ly lilypond-ps2png lilypond-pdfpc-helper lilypond-invoke-editor
 
 STEPMAKE_TEMPLATES=script help2man po
 LOCALSTEPMAKE_TEMPLATES = lilypond
