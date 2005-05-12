@@ -72,10 +72,13 @@ File_name::to_str0 () const
 File_name::File_name (String file_name)
 {
 #ifdef __CYGWIN__
-  /* All system functions would work, even if we don't convert to
-     posix file_name, but we'd think that \foe\bar\baz.ly is in the cwd.
-     On by default.  */
+  /* All system functions would work, even if we do not convert to
+     posix file_name, but we would think that \foe\bar\baz.ly is in
+     the cwd.  */
   file_name = dos_to_posix (file_name);
+#endif
+#ifdef __MINGW32__
+  file_name.substitute ('\\', '/');
 #endif
 
   int i = file_name.index (ROOTSEP);

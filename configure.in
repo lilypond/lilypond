@@ -85,6 +85,8 @@ AC_C_BIGENDIAN(TTFTOOL_ENDIAN="-DBIGENDIAN",
                TTFTOOL_ENDIAN="-DSMALLENDIAN")
 AC_SUBST(TTFTOOL_ENDIAN)
 
+STEPMAKE_WINDOWS
+
 ## Optional tools for building documentation, website, extra fonts.
 
 # guile executable for some scripts

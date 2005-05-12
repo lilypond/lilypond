@@ -31,7 +31,7 @@ Font_metric::design_size () const
 Stencil
 Font_metric::find_by_name (String s) const
 {
-  s.substitute_char ('-', "M");
+  s.substitute ('-', 'M');
   int idx = name_to_index (s);
   Box b;
 

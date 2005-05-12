@@ -15,8 +15,9 @@
 	     (ice-9 safe)
              (ice-9 optargs)
 	     (oop goops)
-	     (srfi srfi-1)  ;; lists
-	     (srfi srfi-13)) ;; strings
+	     (srfi srfi-1)
+	     (srfi srfi-13)
+	     (srfi srfi-14))
 
 
 ;; my display
@@ -343,6 +344,7 @@ The syntax is the same as `define*-public'."
 	 (log-file (open-file log-name "w")))
     (display "# -*-compilation-*-" log-file)
     (newline log-file)
+    ;; Ugh, this opens a terminal
     (ly:message (_ "Redirecting output to ~a...") log-name)
     (ly:port-move (fileno (current-error-port)) log-file)
     (if (null? (lilypond-all files))
@@ -361,5 +363,22 @@ The syntax is the same as `define*-public'."
 	 (cmd (get-editor-command ly 0 0)))
     (system cmd)))
 
-;; FIXME
-;; (define lilypond-main gui-main)
+
+;; Mingw
+;; #(Windows XP HOSTNAME build 2600 5.01 Service Pack 1 i686)
+
+;; Cygwin
+;; #(CYGWIN_NT-5.1 Hostname 1.5.12(0.116/4/2) 2004-11-10 08:34 i686)
+
+;; Debian
+;; #(Linux hostname 2.4.27-1-686 #1 Fri Sep 3 06:28:00 UTC 2004 i686)
+
+(case (string->symbol
+       (string-downcase
+	(car (string-tokenize (vector-ref (uname) 0) char-set:letter))))
+  ((linux) #t)
+  ;; On mingw, use gui-main
+  ((windows) (define lilypond-main gui-main)))
+
+;;(if (ly:get-option 'quiet)
+;;    (define lilypond-main gui-main))

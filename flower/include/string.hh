@@ -144,7 +144,8 @@ public:
   /// convert to a double
   double to_double () const;
 
-  void substitute_char (char text, String sub);
+  void substitute (String find, String replace);
+  void substitute (char find, char replace);
 };
 
 /*
