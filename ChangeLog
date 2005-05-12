@@ -1,7 +1,12 @@
 2005-05-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/multi-measure-rest-engraver.cc
+	(Multi_measure_rest_engraver): init bar_seen_ to true. Notice
+	separation items on start. Fixes mm rests in start of score.
+
 	* lily/slur-scoring.cc (move_away_from_staffline): robustness,
 	don't access StaffSymbol if not there.
+	Fixes: crash-staff-symbol-engraver.ly.
 
 	* lily/instrument-name-engraver.cc (class
 	Instrument_name_engraver): data member first_. Create

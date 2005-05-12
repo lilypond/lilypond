@@ -46,7 +46,11 @@ private:
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
   last_command_item_ = 0;
-  bar_seen_ = false;
+
+  /*
+    For the start of a score.
+   */
+  bar_seen_ = true;
   start_measure_ = 0;
   mmrest_ = 0;
   last_rest_ = 0;
@@ -130,7 +134,7 @@ Multi_measure_rest_engraver::process_music ()
 	= scm_to_int (get_property ("currentBarNumber"));
     }
 
-  bar_seen_ = scm_is_string (get_property ("whichBar"));
+  bar_seen_ = bar_seen_ || scm_is_string (get_property ("whichBar"));
 }
 
 void
@@ -175,6 +179,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
     }
 
   text_events_.clear ();
+  bar_seen_ = false;
 }
 
 void
@@ -184,8 +189,6 @@ Multi_measure_rest_engraver::start_translation_timestep ()
     {
       rest_ev_ = 0;
     }
-
-  bar_seen_ = false;
 
   Moment mp (robust_scm2moment (get_property ("measurePosition"), Moment (0)));
 
