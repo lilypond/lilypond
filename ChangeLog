@@ -1,3 +1,8 @@
+2005-05-12  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/advanced-notation.itely: edit of Text
+	section; clarify text scripts vs. text markup.
+
 2005-05-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/multi-measure-rest-engraver.cc
