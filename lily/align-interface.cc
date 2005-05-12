@@ -8,9 +8,10 @@
 
 #include "align-interface.hh"
 
+#include "spanner.hh"
+#include "item.hh"
 #include "axis-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
-#include "output-def.hh"
 
 MAKE_SCHEME_CALLBACK (Align_interface, alignment_callback, 2);
 SCM
@@ -118,6 +119,14 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
 void
 Align_interface::align_elements_to_extents (Grob *me, Axis a)
 {
+  Spanner *me_spanner = dynamic_cast<Spanner *> (me);
+  if (a == Y_AXIS
+      && me_spanner
+      && me_spanner->get_bound (LEFT)->break_status_dir () == CENTER)
+    {
+      me_spanner->warning (_("vertical alignment called before line-breaking. Only do cross-staff spanners with PianoStaff."));
+    }
+  
   me->set_property ("positioning-done", SCM_BOOL_T);
 
   SCM d = me->get_property ("stacking-dir");
