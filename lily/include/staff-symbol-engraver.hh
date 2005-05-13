@@ -33,7 +33,6 @@ protected:
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual ~Staff_symbol_engraver ();
-  virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void finalize ();
   virtual void process_music ();

@@ -1,5 +1,9 @@
 2005-05-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/staff-symbol-engraver.cc (process_music): start initial
+	spanner in process_music(). This fixes overrides of StaffSymbol
+	properties.
+
 	* scm/framework-pdf.scm (Module): remove.
 
 	* Documentation/topdocs/AUTHORS.texi (AUTHORS): clean up, update.
@@ -178,7 +182,7 @@
 	* configure.in (gui_b): remove wcrtomb checking.
 
 	* lily/general-scheme.cc (LY_DEFINE): hand-convert utf8 to 32
-	bits. Patch by Matthias Neeracher.
+	bits. Patch by Matthias Neeracher. <neeracher@mac.com>
 
 2005-05-09  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
@@ -706,8 +710,9 @@
 
 	* lily/ledger-line-spanner.cc: some more words of explanation.
 
-	* scripts/lilypond-book.py: patches by John Williams:
-	htmlquote bugfix.
+2005-04-20  John Williams <williams@tni.com>  
+	
+	* scripts/lilypond-book.py: htmlquote bugfix.
 	Allow snippets to be given distinct filenames.
 	Allow the default alt text to be overridden.
 
@@ -861,11 +866,12 @@
 
 	* lily/paper-score.cc (process): run get_paper_systems() only once.
 
-	* lily/line-interface.cc (make_arrow): new function. Patch by
-	Jonatan Liljedahl <http://kymatica.com>
-	(arrows): idem.
-
 	* lily/line-spanner.cc (line_stencil): add arrows.
+
+2005-04-18  Jonatan Liljedahl  <lijon@kymatica.com>
+
+	* lily/line-interface.cc (make_arrow): new function. 
+	(arrows): idem.
 
 2005-04-18  Mathieu Giraud  <magiraud@free.fr>
 
@@ -1244,8 +1250,9 @@
 	* buildscripts/gen-emmentaler-scripts.py (i): generate
 	PFAEmmentaler.pfa aswell.
 
+2005-04-06  John Williams <williams@tni.com>  
+	
 	* scripts/lilypond-book.py: refactor the compose_ly procedure.
-	Patch by John Williams.
 	
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -1623,16 +1630,20 @@
 	* ly/titling-init.ly (oddHeaderMarkup): don't show page no. on 1st
 	page.
 
+	* scripts/abc2ly.py (dump_voices): use alphabet().
+
+2005-03-27  Jeff Smith <whydoubt@yahoo.com>
+	
+	* mf/GNUmakefile (depth): use $(FONTFORGE). 
+
+2005-03-27 Matthias Neeracher <neeracher@mac.com>
+	
+	* flower/include/virtual-methods.hh: simplify. Patch by
+
+2005-03-25  John Williams <williams@tni.com>  
+
 	* scripts/lilypond-book.py (main): add png for HTML too, guess
-	only if necessary. Thanks to John Williams.
-
-	* flower/include/virtual-methods.hh: simplify. Patch by Matthias
-	Neeracher.
-
-	* mf/GNUmakefile (depth): use $(FONTFORGE). Patch by Jeff Smith
-	<whydoubt@yahoo.com>
-
-	* scripts/abc2ly.py (dump_voices): use alphabet(). 
+	only if necessary. 
 
 2005-03-25  Graham Percival  <gperlist@shaw.ca>
 
@@ -2173,8 +2184,10 @@
 	* scm/define-markup-commands.scm (fontsize): new markup
 	command. Also set baseline-skip
 
+2005-03-06 Sebastiano Vigna <vigna@dsi.unimi.it>.
+	
 	* lily/main.cc (do_chroot_jail): paranoia security for webserver
-	use. Patch by Sebastiano Vigna <vigna@dsi.unimi.it>.
+	use.
 
 2005-03-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
@@ -2398,9 +2411,6 @@
 
 	* Documentation/user/scheme-tutorial.itely: small fix from Steve Doonan.
 
-	* Documentation/user/notation.itely: revamped Polyphony section
-	from Yuval Harel.  Thanks!
-
 	* THANKS: added Yuval Harel.
 
 	* Documentation/user/{various}: inserted two spaces after a period.
@@ -2411,6 +2421,10 @@
 	advanced-notation.itely, global.itely: new files, placeholder for
 	future reorg.
 
+2005-02-26 Yuval Harel  <yuvalh@hotpop.com>
+
+	* Documentation/user/notation.itely: revamped Polyphony section
+	
 2005-02-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/lilypond-book.itely (Music fragment options):
@@ -2585,8 +2599,8 @@
 
 	* THANKS: add Steve D
 
-	* ttftool/*.c: add TTF -> Type42 conversion library. Based on work
-	by Juliusz Chroboczek.
+	* ttftool/*.c: add TTF -> Type42 conversion library. Based on
+	Public Domain work by Juliusz Chroboczek <jch@pps.jussieu.fr>
 
 2005-02-20  Tatsuya Ono  <tats_ono@infoseek.jp>
 
