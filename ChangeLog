@@ -1,5 +1,9 @@
 2005-05-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/dynamic-engraver.cc (stop_translation_timestep): first set
+	finished_span_, then call typeset_all(). Fixes spurious "Hairpin
+	is not fully contained" warnings.
+
 	* lily/slur-scoring.cc (get_bound_info): remove warning.
 
 	* lily/staff-symbol-engraver.cc (process_music): start initial

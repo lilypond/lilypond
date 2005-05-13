@@ -264,13 +264,13 @@ Dynamic_engraver::process_music ()
 void
 Dynamic_engraver::stop_translation_timestep ()
 {
-  typeset_all ();
-  if (!current_cresc_ev_)
+  if (!current_cresc_ev_ && line_spanner_)
     {
+      assert (!finished_line_spanner_);
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
-      typeset_all ();
     }
+  typeset_all ();
 
   if (cresc_ && !cresc_->get_bound (LEFT))
     {
