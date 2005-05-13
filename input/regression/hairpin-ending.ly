@@ -1,17 +1,22 @@
 
-\version "2.4.0"
+\version "2.5.22"
 
 \header {
 
-texidoc = "Hairpin dynamics start under notes if there are
+  texidoc = "Hairpin dynamics start under notes if there are
 no text-dynamics. If there are text dynamics, the hairpin does not run
 into them."
 
 }
 
+\layout { raggedright = ##t } 
 
-\score {
- \relative c'' { c4 \> c4 c4\! c4_\ff \> c4 c4\!\p }
-\layout { raggedright = ##t} 
+\relative c'' {
+  c4 \> c4 c4\! c4_\ff \> c4 c4\!\p
+  
+  <<
+    { c\< c\! }
+    \lyrics { "a" loooong }
+  >>
 }
 

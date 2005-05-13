@@ -1,9 +1,9 @@
 \header {
-    title = "LilyPond demo"
-    enteredby="Han-Wen Nienhuys"
-    maintainer="hanwen@xs4all.nl"
+  title = "LilyPond demo"
+  enteredby="Han-Wen Nienhuys"
+  maintainer="hanwen@xs4all.nl"
 
-    texidoc = "
+  texidoc = "
 heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
@@ -16,7 +16,7 @@ ignoreMelismaOff = \unset ignoreMelismata
 #(set-global-staff-size 21)
 
 \paper  {
-%#(set-global-staff-size (* 5.8 mm))
+				%#(set-global-staff-size (* 5.8 mm))
   indent = #(* mm 4)
   linewidth = #(* mm 140)
   interscoreline = 2.\mm
@@ -32,18 +32,18 @@ modernAccidentals = {
 
 
 melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
-    \time 6/8
-    \autoBeamOff
-    s1*0^\markup {  \bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
+  \time 6/8
+  \autoBeamOff
+  s1*0^\markup {  \bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
- \acciaccatura { f16( }  e4) c8
-    <<
-	\new Voice { \stemUp f8. g16 }
-	{ \stemDown f8.[ g16] } >> \stemNeutral a8 |
+  \acciaccatura { f16( }  e4) c8
+  <<
+    \new Voice { \stemUp f8. g16 }
+    { \stemDown f8.[ g16] } >> \stemNeutral a8 |
   fis4  g8 c16[ b a g] f[ e] |
   d4 f8
-    \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
+  \transpose a' e' \relative c'' { a16[ g fis! g] f![ d]  } |
   g4. r8 gis gis |
   a4 a16.[ b32] c8[( a]) fis8 |
   g4.~ g8-\fermata
@@ -51,47 +51,51 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
 
 
 firstVerse = \lyricmode {
-    \set stanza = "1."
-    
-    Sü -- ßes Licht! Aus
-    \ignoreMelisma
-    gol --
-    \ignoreMelismaOff
+  \set stanza = "1."
+  
+  Sü -- ßes Licht! Aus
+  \ignoreMelisma
+  gol --
+  \ignoreMelismaOff
 
-    de -- nen  Pfor -- ten brichst du __ | 
-    sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ 
-    }
+  de -- nen  Pfor -- ten brichst du __ | 
+  sie -- gend durch __ die Nacht. Schö -- ner Tag, du __ bist er -- wacht. __ 
+}
 
 secondVerse = \lyricmode {
-    \set stanza = "2."
+  \set stanza = "2."
   いろはに כיף та та ほへど ちり  ぬるを
-    
+  
   Жъл  дю ля זה
-    
+  
   いろ はに כיף та та ほへ ちり ぬる
-    
+  
   Жъл дю ля __
-    }
+
+}
 
 pianoRH =  \relative c''' \repeat volta 2\new Voice {
-    #(set-accidental-style 'modern)
-    \voiceOne
-    g16( fis a g fis g f e d c b
-    \oneVoice
-    a ) | 
-    <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r | 
-    r8 c'( e,) f r a |
-    \once \override DynamicLineSpanner   #'padding =#3
-    r8
-	<< { fis( g) } \\
-	<< { a4 } { s8\> s8\! }    >> >> r8 <e c g>8[  <e c g>] |
-    <d c a>4. r8 \clef bass  <d b f> <d b f> |
-    \setTextCresc
-    e,16_" "\<
-    g c g e g d gis b gis d gis |
-    c, e a e c e a,-\f\! d fis d a d |
-    b d g  d b g e16. r32\fermata
-}
+  #(set-accidental-style 'modern)
+  \voiceOne
+  g16( fis a g fis g f e d c b
+  \oneVoice
+  a ) | 
+  <g e>8( <es fis a> <d e bes'> <c e c'>\arpeggio) r8 r | 
+  r8 c'( e,) f r a |
+  \once \override DynamicLineSpanner   #'padding =#3
+  r8
+  << { fis( g) } \\
+     << { a4 } { s8\> s8\! } >>
+   >>
+
+  r8 <e c g>8[  <e c g>] |
+  <d c a>4. r8 \clef bass  <d b f> <d b f> |
+		\setTextCresc
+		e,16_" "\<
+		g c g e g d gis b gis d gis |
+		c, e a e c e a,-\f\! d fis d a d |
+		b d g  d b g e16. r32\fermata
+	      }
 
 pianoLH =  \relative c'' \repeat volta 2\new Voice {
     #(set-accidental-style 'modern)
