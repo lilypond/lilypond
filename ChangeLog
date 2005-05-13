@@ -1,5 +1,8 @@
 2005-05-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/editor.scm (get-editor-command): Bugfix: allow full
+	LYEDITOR setting, partial XEDITOR setting.
+
 	* Documentation/pictures/lilypond-48.xpm: New file.
 
 	* flower/file-path.cc (to_string): Bugfix: use PATHSEP.

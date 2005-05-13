@@ -28,7 +28,9 @@
 (define-public (get-editor-command file-name line column)
   (define (get-command-template alist editor)
     (if (null? alist)
-	#f
+	(if (string-match "%\\(file\\)s" file-name)
+	    (file-name)
+	    (string-append file-name " %(file)s"))
 	(if (string-match (caar alist) editor)
 	    (cdar alist)
 	    (get-command-template (cdr alist) editor))))
