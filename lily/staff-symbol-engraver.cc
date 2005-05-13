@@ -45,15 +45,9 @@ Staff_symbol_engraver::process_music ()
       span_ = 0;
     }
 
-  if (span_events_[START])
+  if (span_events_[START]
+      || (first_start_ && !span_events_[STOP]))
     start_spanner ();
-}
-
-
-void
-Staff_symbol_engraver::initialize ()
-{
-  start_spanner ();
 }
 
 void

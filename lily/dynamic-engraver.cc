@@ -27,7 +27,7 @@
   line-spanner
 
   - TODO: this engraver is too complicated. We should split it into
-  the handling of the basic grobs and the  linespanner
+  the handling of the basic grobs and the linespanner
 
   - TODO: the line-spanner is not killed after the (de)crescs are
   finished.

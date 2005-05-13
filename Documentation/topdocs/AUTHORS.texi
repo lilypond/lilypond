@@ -7,16 +7,12 @@
 
 @node Top
 @top
-@menu
-* AUTHORS::                     
-@end menu
 
-@node AUTHORS
-@chapter AUTHORS
+@unnumbered AUTHORS
 
-This file lists authors of GNU LilyPond, and what they wrote.  This
-list is alphabetically ordered by surname. This file lists people that
-have contributed over 100 lines of code.
+This file lists authors of LilyPond, and what they wrote.  This list
+is alphabetically ordered by surname. This file lists people that have
+contributed over 100 lines of code.
 
 
 @c Authors are encouraged to maintain their own entry.
@@ -54,9 +50,8 @@ Core code:
 @item @email{rune@@zedeler.dk, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret,
-
-
  @code{subdivideBeams}.
+ 
 @end itemize
 
 Font
@@ -84,6 +79,15 @@ Font
 
 @end itemize
 
+TTF library
+
+@itemize
+@item Juliusz Chroboczek <jch@@pps.jussieu.fr>
+  Main author
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Integration
+@end itemize
 
 Documentation and examples
 
