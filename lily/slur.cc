@@ -60,10 +60,7 @@ Slur::print (SCM smob)
   Real staff_thick = Staff_symbol_referencer::line_thickness (me);
   Real base_thick = robust_scm2double (me->get_property ("thickness"), 1);
   Real thick = base_thick * staff_thick;
-
-  Real ss = Staff_symbol_referencer::staff_space (me);
   Bezier one = get_curve (me);
-
   Stencil a;
 
   /*

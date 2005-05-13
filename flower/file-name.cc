@@ -48,6 +48,21 @@ dos_to_posix (String file_name)
 }
 #endif /* __CYGWIN__ */
 
+#ifdef __MINGW32__
+/** Use slash as directory separator.  On Windows, they can pretty
+    much be exchanged.  */
+static String
+slashify (String file_name)
+{
+  if (file_name.index ('/'))
+    return file_name;
+  file_name.substitute ('\\', '/');
+  file_name.substitute ("\"", "\\\"");
+  file_name.substitute ("\'", "\\\'");
+  return file_name;
+}
+#endif /* __MINGW32__ */
+
 /* Join components to full file_name. */
 String
 File_name::to_string () const
@@ -78,7 +93,7 @@ File_name::File_name (String file_name)
   file_name = dos_to_posix (file_name);
 #endif
 #ifdef __MINGW32__
-  file_name.substitute ('\\', '/');
+  file_name = slashify (file_name);
 #endif
 
   int i = file_name.index (ROOTSEP);

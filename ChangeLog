@@ -1,3 +1,17 @@
+2005-05-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/pictures/lilypond-48.xpm: New file.
+
+	* flower/file-path.cc (to_string): Bugfix: use PATHSEP.
+
+	* ly/Welcome_to_LilyPond.ly: New file.
+
+	* lily/main.cc (main): Only identify if we have a terminal.
+
+	* scm/backend-library.scm (postscript->png)
+	(postscript->pdf): Fix file name quoting for GS/MINGW (ie,
+	non-/bin/sh).
+
 2005-05-13  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/AUTHORS.texi: polish, update.
@@ -35,6 +49,8 @@
 	* VERSION (PACKAGE_NAME): release 2.5.24
 
 2005-05-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: Typo.
 
 	* flower/string.cc (substitute): Take two strings or two
 	characters.  Update callers.

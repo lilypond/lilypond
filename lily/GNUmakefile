@@ -31,8 +31,10 @@ O_FILES += $(outdir)/lilypond.rc.o
 $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
 $(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico
-$(outdir)/lilypond.ico: $(abs-srcdir)/Documentation/pictures/lelie-logo.xpm
-	convert $< $@ 
+$(builddir)/Documentation/pictures/$(outbase)/lilypond.ico:
+	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
+$(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/lilypond.ico
+	cp $< $@ 
 endif
 
 ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
@@ -44,7 +46,6 @@ default:
 $(outdir)/lily-parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
-
 
 $(outdir)/general-scheme.o: $(outdir)/version.hh
 $(outdir)/kpath.o: $(outdir)/version.hh
