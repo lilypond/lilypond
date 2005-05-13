@@ -196,8 +196,7 @@ Individual objects may be assigned colors, for example,
 The PostScript backend is now used by default.  This backend requires
 less machinery to run, and gives more consistent results.
 
-
-GhostScript 8.x is required for PDF output.  Earlier versions may hang
+Ghostscript 8.x is required for PDF output.  Earlier versions may hang
 while converting PostScript to PDF. 
 
 @item

@@ -55,7 +55,8 @@ Ambitus_engraver::create_ambitus ()
       heads_[d] = make_item ("AmbitusNoteHead", SCM_EOL);
       accidentals_[d] = make_item ("AmbitusAccidental", SCM_EOL);
       accidentals_[d]->set_parent (heads_[d], Y_AXIS);
-      heads_[d]->set_property ("accidental-grob", accidentals_[d]->self_scm ());
+      heads_[d]->set_property ("accidental-grob",
+			       accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
       Side_position_interface::add_support (accidentals_[d], heads_[d]);
@@ -150,7 +151,9 @@ Ambitus_engraver::finalize ()
 	    handle = scm_assoc (scm_from_int (p.get_notename ()),
 				start_key_sig_);
 
-	  int sig_alter = (handle != SCM_BOOL_F) ? scm_to_int (scm_cdr (handle)) : 0;
+	  int sig_alter = (handle != SCM_BOOL_F)
+	    ? scm_to_int (scm_cdr (handle)) : 0;
+	  
 	  if (sig_alter == p.get_alteration ())
 	    {
 	      accidentals_[d]->suicide ();
@@ -158,8 +161,9 @@ Ambitus_engraver::finalize ()
 	    }
 	  else
 	    {
-	      accidentals_[d]->set_property ("accidentals",
-					     scm_list_1 (scm_from_int (p.get_alteration ())));
+	      SCM l = scm_list_1 (scm_from_int (p.get_alteration ()));
+	      accidentals_[d]->set_property ("accidentals", l);
+			
 	    }
 	}
       while (flip (&d) != DOWN);

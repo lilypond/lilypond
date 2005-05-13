@@ -15,69 +15,137 @@
 @chapter AUTHORS
 
 This file lists authors of GNU LilyPond, and what they wrote.  This
-list is alphabetically ordered by surname.  Authors are encouraged to
-maintain their own entry.
+list is alphabetically ordered by surname. This file lists people that
+have contributed over 100 lines of code.
+
+
+@c Authors are encouraged to maintain their own entry.
+
+Core code:
 
 @itemize @bullet
-@item @email{tca@@gnu.org, Tom Cato Amundsen},
-    Accordion symbols, some lilypond-book.py.
+@item Erlend Aasland  <erlenda@@gmail.com>
+@item Pal Benko  <benkop@@freestart.hu>
+    ancient  notation
+@item Bernard Hurley  <bernard@@fong-hurley.org.uk>
+    x11 color.
 @item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
     Tablature support.
-@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
-    @uref{http://www.s3.kth.se/~mabe/},
-    Lots of testing, fixes, general comments and contributions.
-@item @email{lconrad@@laymusic.org, Laura Conrad},
-    fixes to abc2ly.
-@item @email{foka@@debian.org, Anthony Fok}, 
-    Debian package: debian/*.
-@item @email{, David González},
-    Spanish glossary translations.
-@item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
-    German glossary stuff.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Piano pedals, Emacs mode indentation, directed arpeggios.
-@item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
-    Glossary translations.
-@item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Finnish translations, Emacs- and Vim-mode updates, docs.
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     Breathing signs.
-@item @email{dlatt@@datenrat.de, Dirk Lattermann},
-    Minor improvements on accidentals/ties/multi measure rests.
 @item @email{wl@@gnu.org, Werner Lemberg},
-    misc bugfixes, some Beam and Stem code. 
-@item @email{, Adrian Mariano},
-    Reference manual, tutorial fixes, glossary.
-@item @email{scancm@@biobase.dk, Christian Mondrup},
-    Glossary.
-@item @email{tdm@@dds.nl, Tineke de Munnik},
-    Dutch website translation.
-@item @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.cs.uu.nl/~hanwen/},
-    Main author (initials: HWN).
+    @TeX{} glue code.
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
-    Main author (initials: JCN).
-@item @email{pinard@@iro.umontreal.ca, François Pinard},
-    @uref{http://www.iro.umontreal.ca/~pinard/},
-    Parts of Documentation/user/glossary*, started internationalization stuff.
-@item @email{gperciva@@sfu.ca, Graham Percival},
-    @uref{http://www.sfu.ca/~gperciva/},
-    Documenation Editor.
-@item @email{portnoy@@ai.mit.edu, Stephen Peters},
-    pdf@TeX{} support.
-@item @email{glenprideaux@@iname.com, Glen Prideaux},
-    Minor bug fixes, lyric-phrasing.
-@item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
-    Major extension, fixes to abc2ly, lilypond bug fixes.
+    Main author
 @item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
+@item Nicolas Sceaux  <nicolas.sceaux@@free.fr>
+    Scheme macros, \markup syntax
+    
+@item  Carl Sorensen  <carldsorensen@@comcast.net>
+    Fret diagrams.    
+@item @email{rune@@zedeler.dk, Rune Zedeler},
+    Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
+    fret,
+
+
+ @code{subdivideBeams}.
+@end itemize
+
+Font
+
+@itemize @bullet
+
+@item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
+    Ancient notation font
+@item Werner Lemberg
+    Exact Type1 font outlines for feta, feta-alphabet.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Arpeggio arrow
+@item @email{rune@@zedeler.dk, Rune Zedeler},
+16th and shorter rests, 
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author
+@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
+    @uref{http://www.xs4all.nl/~jantien/},
+    Main author   
+@item @email{tca@@gnu.org, Tom Cato Amundsen},
+    Accordion symbols
+@item  Arno Waschk <arno@@arnowaschk.de>
+ "espressivo" mark
+
+@end itemize
+
+
+Documentation and examples
+
+@itemize
+@item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
+    @uref{http://www.s3.kth.se/~mabe/},
+    Example files, documentation
+    
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Cleanups in docs and example files
+      
+@item @email{scancm@@biobase.dk, Christian Mondrup},
+    Glossary.
+
+@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
+    @uref{http://www.xs4all.nl/~hanwen/},
+    Main author
+@item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
+    @uref{http://www.xs4all.nl/~jantien/},
+    Main author
+    
+@item @email{gperciva@@sfu.ca, Graham Percival},
+    @uref{http://www.sfu.ca/~gperciva/},
+    Documenation Editor.
+
+@item @email{pinard@@iro.umontreal.ca, François Pinard},
+    @uref{http://www.iro.umontreal.ca/~pinard/},
+    Parts of Documentation/user/glossary*, started
+    internationalization stuff.
+
+@item @email{rune@@zedeler.dk, Rune Zedeler},
+    Schumann example.
+@end itemize
+
+Support (distributions, editor support, lilypond-book)
+
+@itemize
+@item @email{foka@@debian.org, Anthony Fok}, 
+    Debian package: debian/*.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Emacs- and Vim-mode updates.
+@item  David Svoboda      <svoboda@@cmu.edu>
+   what-beat emacs module.
+
+@end itemize
+  
+
+Translations
+
+@itemize
+@item @email{bjoern.jacke@@gmx.de, Bjoern Jacke},
+    German glossary translations.
+@item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
+    Glossary translations.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Finnish translations
+@item @email{tdm@@dds.nl, Tineke de Munnik},
+    Dutch website translation.
 @item @email{august@@infran.ru, August S. Sigov},
     Russian translation.
-@item @email{rune@@zedeler.dk, Rune Zedeler},
-    Drum notation, beaming and auto-accidental code. Font
-    updates. Miscellaneous fixes.
+@item @email{, David González},
+    Spanish glossary translations.
 @end itemize
 
 @bye
