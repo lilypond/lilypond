@@ -169,7 +169,7 @@ File_path::to_string () const
     {
       s = s + elem (i);
       if (i < n - 1)
-	s += ":";
+	s += ::to_string (PATHSEP);
     }
   return s;
 }

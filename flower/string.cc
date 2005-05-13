@@ -382,17 +382,26 @@ String::print_on (ostream &os) const
 }
 #endif
 
-void
+String
 String::substitute (String find, String replace)
 {
-  int n = replace.length ();
-  for (int i = index (find); i > - 1; i = index (find))
-    *this = left_string (i) + find + right_string (length () - i - n);
+  int n = find.length ();
+  int m = replace.length ();
+  for (int i = index (find), j = 0; i > -1;
+       i = right_string (length () - j).index (find))
+    {
+      *this = left_string (i + j)
+	+ replace
+	+ right_string (length () - j - i - n);
+      j += i + m;
+    }
+  return *this;
 }
 
-void
+String
 String::substitute (char find, char replace)
 {
   for (int i = index (find); i > - 1; i = index (find))
     (*this)[i] = replace;
+  return *this;
 }

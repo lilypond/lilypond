@@ -42,9 +42,9 @@
  -dNOPAUSE\
  -dBATCH\
  -sDEVICE=pdfwrite\
- -sOutputFile='~a'\
+ -sOutputFile=~S\
  -c .setpdfwrite\
- -f'~a'\
+ -f ~S\
 "
 		      (sanitize-command-option papersizename)
 		      pdf-name
@@ -65,7 +65,7 @@
 			   (format "~a/scripts/lilypond-ps2png.py" prefix)
 			   "lilypond-ps2png"))
 	 (cmd (format #f
-		      "~a --resolution=~S --papersize=~a~a '~a'"
+		      "~a --resolution=~S --papersize=~a~a ~S"
 		      (if (file-exists? ps2png-source)
 			  (format "python ~a" ps2png-source)
 			  "lilypond-ps2png")

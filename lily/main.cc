@@ -596,9 +596,8 @@ main (int argc, char **argv)
   setup_localisation ();
   setup_paths ();
   parse_argv (argc, argv);
-  /* FIXME: this still needs a terminal even when using gui-main after
-     booting guile.  Maybe use a --quiet command line switch?  */
-  identify (stderr);
+  if (isatty (STDIN_FILENO))
+    identify (stderr);
 
   scm_boot_guile (argc, argv, main_with_guile, 0);
 
