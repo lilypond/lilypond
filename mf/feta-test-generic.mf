@@ -15,4 +15,3 @@ input feta-klef;
 %input feta-timesig;
 %input feta-pendaal;
 %input feta-accordion;
-%	input feta-solfa;
