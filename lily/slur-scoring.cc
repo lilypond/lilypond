@@ -245,15 +245,16 @@ Slur_score_state::get_bound_info () const
 	      Interval s = extremes[d].stem_->extent (common_[ax], ax);
 	      if (s.is_empty ())
 		{
-		  programming_error ("Stem has no extent in Slur_score_state");
+		  /*
+		    do not issue warning. This happens for rests and
+		    whole notes.
+		  */
 		  s = Interval (0,0)
 		    + extremes[d].stem_->relative_coordinate (common_[ax], ax);
 		}
 	      extremes[d].stem_extent_[ax] = s; 
 	    }
 	  
-	  extremes[d].stem_extent_[Y_AXIS]
-	    = extremes[d].stem_->extent (common_[Y_AXIS], Y_AXIS);
 	  extremes[d].slur_head_
 	    = Stem::extremal_heads (extremes[d].stem_)[dir];
 	  if (!extremes[d].slur_head_

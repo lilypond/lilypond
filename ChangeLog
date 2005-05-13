@@ -1,5 +1,7 @@
 2005-05-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/slur-scoring.cc (get_bound_info): remove warning.
+
 	* lily/staff-symbol-engraver.cc (process_music): start initial
 	spanner in process_music(). This fixes overrides of StaffSymbol
 	properties.
