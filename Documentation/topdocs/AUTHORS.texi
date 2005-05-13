@@ -20,37 +20,38 @@ contributed over 100 lines of code.
 Core code:
 
 @itemize @bullet
+
 @item Erlend Aasland  <erlenda@@gmail.com>
-@item Pal Benko  <benkop@@freestart.hu>
-    ancient  notation
-@item Bernard Hurley  <bernard@@fong-hurley.org.uk>
-    x11 color.
+@item Pal Benko  <benkop@@freestart.hu>,
+    Ancient notation.
+@item Bernard Hurley  <bernard@@fong-hurley.org.uk>,
+    X11 color.
 @item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
     Tablature support.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
-    Piano pedals, Emacs mode indentation, directed arpeggios.
+    Piano pedals, directed arpeggios.
+@item @email{heikki.junes@@hut.fi, Heikki Junes},
+    Fine tuning for quarter tones in midi output.
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     Breathing signs.
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
-    Main author
+    Main author.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
-    Main author
+    Main author.
 @item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
-@item Nicolas Sceaux  <nicolas.sceaux@@free.fr>
-    Scheme macros, \markup syntax
-    
-@item  Carl Sorensen  <carldsorensen@@comcast.net>
+@item Nicolas Sceaux  <nicolas.sceaux@@free.fr>,
+    Scheme macros, \markup syntax.
+@item  Carl Sorensen  <carldsorensen@@comcast.net>,
     Fret diagrams.    
 @item @email{rune@@zedeler.dk, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
-    fret,
- @code{subdivideBeams}.
+    fret, @code{subdivideBeams}.
  
 @end itemize
 
@@ -60,33 +61,32 @@ Font
 
 @item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
     Ancient notation font
-@item Werner Lemberg
+@item Werner Lemberg,
     Exact Type1 font outlines for feta, feta-alphabet.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Arpeggio arrow
 @item @email{rune@@zedeler.dk, Rune Zedeler},
-16th and shorter rests, 
+    16th and shorter rests, 
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
-    Main author
+    Main author.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
-    Main author   
+    Main author.
 @item @email{tca@@gnu.org, Tom Cato Amundsen},
-    Accordion symbols
-@item  Arno Waschk <arno@@arnowaschk.de>
- "espressivo" mark
-
+    Accordion symbols.
+@item  Arno Waschk <arno@@arnowaschk.de>,
+    "espressivo" mark.
 @end itemize
 
 TTF library
 
 @itemize
-@item Juliusz Chroboczek <jch@@pps.jussieu.fr>
-  Main author
+@item Juliusz Chroboczek <jch@@pps.jussieu.fr>,
+    Main author.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
-    Integration
+    Integration.
 @end itemize
 
 Documentation and examples
@@ -95,29 +95,23 @@ Documentation and examples
 @item @email{mats.bengtsson@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~mabe/},
     Example files, documentation
-    
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Cleanups in docs and example files
-      
+    Cleanups in docs and example files.
 @item @email{scancm@@biobase.dk, Christian Mondrup},
     Glossary.
-
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
-    Main author
+    Main author.
 @item @email{janneke@@gnu.org, Jan Nieuwenhuizen}, 
     @uref{http://www.xs4all.nl/~jantien/},
-    Main author
-    
+    Main author.
 @item @email{gperciva@@sfu.ca, Graham Percival},
     @uref{http://www.sfu.ca/~gperciva/},
     Documenation Editor.
-
 @item @email{pinard@@iro.umontreal.ca, François Pinard},
     @uref{http://www.iro.umontreal.ca/~pinard/},
     Parts of Documentation/user/glossary*, started
     internationalization stuff.
-
 @item @email{rune@@zedeler.dk, Rune Zedeler},
     Schumann example.
 @end itemize
@@ -127,11 +121,12 @@ Support (distributions, editor support, lilypond-book)
 @itemize
 @item @email{foka@@debian.org, Anthony Fok}, 
     Debian package: debian/*.
+@item @email{chris@@fluffhouse.org.uk, Chris Jackson},
+    Emacs mode indentation.
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Emacs- and Vim-mode updates.
-@item  David Svoboda      <svoboda@@cmu.edu>
-   what-beat emacs module.
-
+    Major Emacs- and Vim-mode updates.
+@item  David Svoboda      <svoboda@@cmu.edu>,
+    what-beat emacs module.
 @end itemize
   
 
@@ -143,7 +138,7 @@ Translations
 @item @email{nj104@@cus.cam.ac.uk, Neil Jerram}, 
     Glossary translations.
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
-    Finnish translations
+    Finnish translations.
 @item @email{tdm@@dds.nl, Tineke de Munnik},
     Dutch website translation.
 @item @email{august@@infran.ru, August S. Sigov},
