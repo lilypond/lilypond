@@ -1,7 +1,10 @@
 2005-05-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/preface.itely (Preface): Run
+	texinfo-all-menus-update.
+
 	* scm/editor.scm (get-editor-command): Bugfix: allow full
-	LYEDITOR setting, partial XEDITOR setting.
+	LYEDITOR setting, partial XEDITOR setting.  With typo fix.
 
 	* Documentation/pictures/lilypond-48.xpm: New file.
 
