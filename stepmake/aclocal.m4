@@ -410,6 +410,18 @@ class yy_flex_lexer: public yyFlexLexer
 ])
   
 
+
+AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
+	AC_MSG_CHECKING([FlexLexer.h path])
+
+	# ugh. 
+	FLEXLEXER_PATH=`echo '#include <FlexLexer.h>' | $CXX -E - | \
+	  sed 's!# 1 "\(.*\)FlexLexer.h"!@FLEXLEXER@\1@@!g' | grep '@@' | \
+	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` >& /dev/null
+	AC_SUBST(FLEXLEXER_PATH)
+        AC_MSG_RESULT($FLEXLEXER_PATH)
+])
+
 AC_DEFUN(STEPMAKE_GCC, [
     if test "$GCC" = "yes"; then
         STEPMAKE_CHECK_VERSION(CC, $1, $2)

@@ -82,13 +82,6 @@ work.
 (version 1.6.5 or newer).  If you are installing binary packages, you
 may need to install guile-devel or guile-dev or libguile-dev too.
 
-@item @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer).
-
-WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
-chokes on this.  If you wish to use GCC 3.x, make sure that your
-distribution supports g++ 3.x and flex.  For workarounds, see
-lexer-gcc-3.1.sh in the source directory.
-
 @item @TeX{}.
 
 @TeX{} is used as an optional output backend.

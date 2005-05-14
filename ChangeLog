@@ -1,3 +1,13 @@
+2005-05-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): remove Flex
+	requirement.
+
+	* stepmake/aclocal.m4: STEPMAKE_FLEXLEXER_LOCATION: new
+	function. Figure out where FlexLexer.h lives
+
+	* lily/GNUmakefile (OUT_DIST_FILES): dist lexer.cc and FlexLexer.h
+	
 2005-05-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-invoke-editor.scm (dissect-uri): Handle URIs
