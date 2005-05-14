@@ -6,17 +6,14 @@ OUTGIF_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.gif))
 OUTPNG_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.png))
 
 EXTRA_DIST_FILES= $(XPM_FILES)
-OUT_DIST_FILES = $(icon) #$(package-icon)
+
+ifeq ($(PLATFORM_WINDOWS),yes)
+OUT_DIST_FILES = $(icon) # $(package-icon)
 
 icon = $(outdir)/lilypond.ico
 ICON_SIZES=48 32 16
 
 #$(outdir)/lilypond.ico: platte-lucht-kikker-ly-48.xpm
-
-include $(depth)/make/stepmake.make
-
-default: $(icon)
-local-dist: $(icon) # $(package-icon)
 
 $(outdir)/%.ico: $(ICON_SIZES:%=$(outdir)/\%-%.png) $(ICON_SIZES:%=$(outdir)/\%-%-8.png)
 	#convert +adjoin $^ $@
@@ -36,9 +33,13 @@ $(outdir)/%-16.png: %-48.xpm
 
 $(outdir)/%-8.png: $(outdir)/%.png
 	convert -depth 8 $< $@
+endif # PLATFORM_WINDOWS
 
+include $(depth)/make/stepmake.make
+
+default: $(icon)
+local-dist: $(icon) # $(package-icon)
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)
-
 local-WWW: $(OUTPNG_FILES)
 

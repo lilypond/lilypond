@@ -54,7 +54,7 @@ dos_to_posix (String file_name)
 static String
 slashify (String file_name)
 {
-  if (file_name.index ('/'))
+  if (file_name.index ('/') >= 0)
     return file_name;
   file_name.substitute ('\\', '/');
   file_name.substitute ("\"", "\\\"");

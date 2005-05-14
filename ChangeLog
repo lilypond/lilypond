@@ -1,3 +1,33 @@
+2005-05-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-invoke-editor.scm (dissect-uri): Handle URIs
+	with Windows root in file name.
+
+	* scm/backend-library.scm (ly:system): Only redirect output (using
+	system and shell, ugh) if /dev/null is writable.
+
+	* Documentation/pictures/GNUmakefile [PLATFORM_WINDOWS]: Build
+	windows icon.
+
+	* scm/lily.scm (is-absolute?): New function.  Fixes absolute files
+	on Mingw.
+
+	* scm/output-ps.scm (grob-cause): Use it.  Fixes PDF point and
+	click.
+
+	* flower/file-path.cc (is_dir, is_file): New function.  Actually
+	use result of stat when available.
+
+	* flower/file-path.cc (find): Use it.  Refactor.  Fixes Mingw,
+	absolute file name and root.
+
+	* scm/lily.scm (PLATFORM): On mingw, slashify getcwd.
+
+	* scm/editor.scm (get-editor-command): Typo: do not apply editor.
+
+	* flower/file-name.cc (slashify): Bugfix, do substitute if no
+	slashes in file name.
+
 2005-05-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/preface.itely (Preface): Run

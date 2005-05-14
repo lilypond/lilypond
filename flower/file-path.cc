@@ -22,6 +22,7 @@
 #endif
 
 #include "file-name.hh"
+#include "warn.hh"
 
 #ifndef PATHSEP
 #define PATHSEP ':'
@@ -47,6 +48,54 @@ File_path::parse_path (String p)
     }
 }
 
+static bool
+is_file (String file_name)
+{
+#if 0 /* Check if directory. TODO: encapsulate for autoconf */
+  struct stat sbuf;
+  if (stat (file_name.to_str0 (), &sbuf) != 0)
+    return false;
+  
+  if (!(sbuf.st_mode & __S_IFREG))
+    return false;
+#endif
+#if !STAT_MACROS_BROKEN
+  struct stat sbuf;
+  if (stat (file_name.to_str0 (), &sbuf) != 0)
+    return false;
+  
+  return !S_ISDIR (sbuf.st_mode);
+#endif
+
+  if (FILE *f = fopen (file_name.to_str0 (), "r"))
+    {
+      fclose (f);
+      return true;
+    }
+
+  return false;
+}
+
+static bool
+is_dir (String file_name)
+{
+#if !STAT_MACROS_BROKEN
+  struct stat sbuf;
+  if (stat (file_name.to_str0 (), &sbuf) != 0)
+    return false;
+  
+  return S_ISDIR (sbuf.st_mode);
+#endif
+
+  if (FILE *f = fopen (file_name.to_str0 (), "r"))
+    {
+      fclose (f);
+      return true;
+    }
+  return false;
+}
+
+
 /** Find a file.
 
 Check absolute file name, search in the current dir (DUH! FIXME!),
@@ -62,51 +111,24 @@ File_path::find (String name) const
   if (!name.length () || (name == "-"))
     return name;
 
+#ifdef __MINGW32__
+  if (name[0] == '\\' || (name.length () > 2 && name[2] == '\\'))
+    programming_error ("file name not normalized: " + name);
+#endif /* __MINGW32__ */
+
   /* Handle absolute file name.  */
-  if (name[0] == DIRSEP)
+  File_name file_name (name);
+  if (file_name.dir_[0] == DIRSEP && is_file (file_name.to_string ()))
+    return file_name.to_string ();
+
+  for (int i = 0, n = size (); i < n; i++)
     {
-      if (FILE *f = fopen (name.to_str0 (), "r"))
-	{
-	  fclose (f);
-	  return name;
-	}
-    }
-
-  for (int i = 0; i < size (); i++)
-    {
-      String file_name = elem (i);
-      String sep = ::to_string (DIRSEP);
-      String right (file_name.right_string (1));
-      if (file_name.length () && right != sep)
-	file_name += ::to_string (DIRSEP);
-
-      file_name += name;
-
-#if 0 /* Check if directory. TODO: encapsulate for autoconf */
-      struct stat sbuf;
-      if (stat (file_name.to_str0 (), &sbuf) != 0)
-	continue;
-
-      if (! (sbuf.st_mode & __S_IFREG))
-	continue;
-#endif
-#if !STAT_MACROS_BROKEN
-
-      struct stat sbuf;
-      if (stat (file_name.to_str0 (), &sbuf) != 0)
-	continue;
-
-      if (S_ISDIR (sbuf.st_mode))
-	continue;
-#endif
-
-      /* ugh */
-      FILE *f = fopen (file_name.to_str0 (), "r");
-      if (f)
-	{
-	  fclose (f);
-	  return file_name;
-	}
+      File_name dir = elem (i);
+      file_name.root_ = dir.root_;
+      dir.root_ = "";
+      file_name.dir_ = dir.to_string ();
+      if (is_file (file_name.to_string ()))
+	return file_name.to_string ();
     }
   return "";
 }
@@ -151,9 +173,8 @@ File_path::try_append (String s)
 {
   if (s == "")
     s = ".";
-  if (FILE *f = fopen (s.to_str0 (), "r"))
+  if (is_dir (s))
     {
-      fclose (f);
       append (s);
       return true;
     }
@@ -164,8 +185,7 @@ String
 File_path::to_string () const
 {
   String s;
-  int n = size ();
-  for (int i = 0; i < n; i++)
+  for (int i = 0, n = size (); i < n; i++)
     {
       s = s + elem (i);
       if (i < n - 1)

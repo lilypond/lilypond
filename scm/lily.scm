@@ -77,6 +77,42 @@
 
 (define-public TEX_STRING_HASHLIMIT 10000000)
 
+;; Cygwin
+;; #(CYGWIN_NT-5.1 Hostname 1.5.12(0.116/4/2) 2004-11-10 08:34 i686)
+;;
+;; Debian
+;; #(Linux hostname 2.4.27-1-686 #1 Fri Sep 3 06:28:00 UTC 2004 i686)
+;;
+;; Mingw
+;; #(Windows XP HOSTNAME build 2600 5.01 Service Pack 1 i686)
+;;
+(define PLATFORM
+  (string->symbol
+   (string-downcase
+    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
+
+(case PLATFORM
+  ((windows)
+   (define native-getcwd getcwd)
+   (define (slashify x)
+     (if (string-index x #\/)
+	 x
+	 (string-regexp-substitute "\\" "/" x)))
+   ;; FIXME: this prints a warning.
+  (define-public (ly-getcwd)
+     (slashify (native-getcwd))))
+  (else (define-public ly-getcwd getcwd)))
+
+(define-public (is-absolute? file-name)
+  (let ((file-name-length (string-length file-name)))
+    (if (= file-name-length 0)
+	#f
+	(or (eq? (string-ref file-name 0) #\/)
+	    (and (eq? PLATFORM 'windows)
+		 (> file-name-length 2)
+		 (eq? (string-ref file-name 1) #\:)
+		 (eq? (string-ref file-name 2) #\/))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (type-check-list location signature arguments)
@@ -337,21 +373,30 @@ The syntax is the same as `define*-public'."
 
 (use-modules (scm editor))
 
+(define (running-from-gui?)
+  (let ((have-tty? (isatty? (current-input-port))))
+    ;; If no TTY and not using safe, assume running from GUI.
+    ;; For mingw, the test must be inverted.
+    (if (eq? PLATFORM 'windows)
+	have-tty? (not have-tty?))))
+
 (define-public (gui-main files)
   (if (null? files) (gui-no-files-handler))
   (let* ((base (basename (car files) ".ly"))
 	 (log-name (string-append base ".log"))
 	 (log-file (open-file log-name "w")))
-    ;; Ugh, his opens a terminal
-    ;; Do this when invoked using --quiet, --log or something?
-    ;; (ly:message (_ "Redirecting output to ~a...") log-name)
+    (if (not (running-from-gui?))
+	(ly:message (_ "Redirecting output to ~a...") log-name))
     (ly:port-move (fileno (current-error-port)) log-file)
     (ly:message "# -*-compilation-*-")
-    (if (null? (lilypond-all files))
-	(exit 0)
-	(begin
-	  (system (get-editor-command log-name 0 0))
-	  (exit 1)))))
+    (let ((failed (lilypond-all files)))
+      (if (pair? failed)
+	  (begin
+	    (system (get-editor-command log-name 0 0))
+	    (ly:error (_ "failed files: ~S") (string-join failed))
+	    ;; not reached?
+	    (exit 1))
+	  (exit 0)))))
 
 (define (gui-no-files-handler)
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
@@ -362,7 +407,6 @@ The syntax is the same as `define*-public'."
     (system cmd)
     (exit 1)))
 
-;; If no TTY and not using safe, assume running from GUI.
-(or (isatty? (current-input-port))
+(or (not (running-from-gui?))
     (ly:get-option 'safe)
     (define lilypond-main gui-main))

@@ -133,9 +133,7 @@ Includable_lexer::here_str0 () const
 Includable_lexer::~Includable_lexer ()
 {
   while (!include_stack_.is_empty ())
-    {
-      close_input ();
-    }
+    close_input ();
 }
 
 Source_file *
@@ -143,6 +141,5 @@ Includable_lexer::get_source_file () const
 {
   if (include_stack_.is_empty ())
     return 0;
-  else
-    return include_stack_.top ();
+  return include_stack_.top ();
 }
