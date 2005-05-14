@@ -29,7 +29,7 @@
   (define (get-command-template alist editor)
     (if (null? alist)
 	(if (string-match "%\\(file\\)s" editor)
-	    (editor)
+	    editor
 	    (string-append editor " %(file)s"))
 	(if (string-match (caar alist) editor)
 	    (cdar alist)

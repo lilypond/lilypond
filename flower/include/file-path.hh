@@ -1,5 +1,5 @@
 /*
-  file-path.hh -- declare File_name and File_path
+  file-path.hh -- declare File_path
 
   source file of the Flower Library
 

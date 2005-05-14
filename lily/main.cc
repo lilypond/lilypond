@@ -590,6 +590,12 @@ parse_argv (int argc, char **argv)
     }
 }
 
+#ifdef __MINGW32__
+/* If no TTY and not using safe, assume running from GUI.
+   For mingw, the test must be inverted.  */
+#  define isatty(x) (!isatty (x))
+#endif
+
 int
 main (int argc, char **argv)
 {

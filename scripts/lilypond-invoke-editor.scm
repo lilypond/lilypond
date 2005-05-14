@@ -9,7 +9,9 @@
 
 (use-modules
  (ice-9 getopt-long)
- (ice-9 regex))
+ (ice-9 regex)
+ (srfi srfi-13)
+ (srfi srfi-14))
 
 (define PROGRAM-NAME "lilypond-invoke-editor")
 (define TOPLEVEL-VERSION "@TOPLEVEL_VERSION@")
@@ -57,20 +59,42 @@ Options:
 (define (dissect-uri uri)
   (let* ((ri "textedit://")
 	 (file-name:line:column (re-sub ri "" uri))
-	 (match (string-match "([^:]+):([^:]+):(.*)" file-name:line:column)))
+	 (match (string-match "(.*):([^:]+):(.*)$" file-name:line:column)))
     (if match
 	(list (match:substring match 1)
 	      (match:substring match 2)
 	      (match:substring match 3))
 	(begin
+	  ;; FIXME: why be so strict wrt :LINE:COLUMN,
+	  ;; esp. considering omitting textedit:// is explicitly
+	  ;; allowed.
 	  (format (current-error-port) (_ "invalid URI: ~a") uri)
 	  (newline (current-error-port))
 	  (format (current-error-port) (_ "expect: ~aFILE:LINE:COLUMN") ri)
 	  (newline (current-error-port))
 	  (exit 1)))))
-	 
+
+(define PLATFORM
+  (string->symbol
+   (string-downcase
+    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
+
+(define (running-from-gui?)
+  (let ((have-tty? (isatty? (current-input-port))))
+    ;; If no TTY and not using safe, assume running from GUI.
+    ;; for mingw, the test must be inverted.
+    (if (eq? PLATFORM 'windows)
+	have-tty? (not have-tty?))))
+
 (define (main args)
   (let ((files (parse-options args)))
+    (if (running-from-gui?)
+	(redirect-port (current-error-port)
+		       (open-file (string-append
+				   (or (getenv "TMP")
+				       (getenv "TEMP")
+				       "/tmp")
+				   "/lilypond-invoke-editor.log") "a")))
     (if (not (= (length files) 1))
 	(begin
 	  (show-help (current-error-port))

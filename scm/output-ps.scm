@@ -106,18 +106,17 @@
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
+(define (char font i)
+  (string-append 
+   (ps-font-command font) " setfont " 
+   "(\\" (ly:inexact->string i 8) ") show"))
+
 (define (circle radius thick fill)
   (format
    "~a ~a ~a draw_circle" radius thick
    (if fill
        "true "
-       "false ")
-   ))
-
-(define (char font i)
-  (string-append 
-   (ps-font-command font) " setfont " 
-   "(\\" (ly:inexact->string i 8) ") show"))
+       "false ")))
 
 (define (dashed-line thick on off dx dy)
   (string-append 
@@ -204,10 +203,9 @@
 	""
 	(let* ((location (ly:input-file-line-column music-origin))
 	       (raw-file (car location))
-	       (file (if (and (> (string-length raw-file) 0)
-			      (eq? (string-ref raw-file 0) #\/))
+	       (file (if (is-absolute? raw-file)
 			 raw-file
-			 (string-append (getcwd) "/" raw-file)))
+			 (string-append (ly-getcwd) "/" raw-file)))
 	       (x-ext (ly:grob-extent grob grob X))
 	       (y-ext (ly:grob-extent grob grob Y)))
 

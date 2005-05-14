@@ -10,10 +10,11 @@
 
 (define-public (ly:system command)
   (let* ((status 0)
-	 (silenced
-	  (string-append command (if (ly:get-option 'verbose)
-				     ""
-				     " > /dev/null 2>&1 "))))
+	 (dev-null "/dev/null")
+	 (silenced (if (or (ly:get-option 'verbose)
+			   (not (access? dev-null W_OK)))
+		       command
+		       (format #f "~a > ~a 2>&1 " command dev-null))))
     (if (ly:get-option 'verbose)
 	(ly:message (_ "Invoking `~a'...") command))
     
