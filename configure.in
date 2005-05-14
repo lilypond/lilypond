@@ -44,6 +44,7 @@ STEPMAKE_DLOPEN
 STEPMAKE_BISON(OPTIONAL, 1.29)
 STEPMAKE_FLEX(REQUIRED)
 STEPMAKE_FLEXLEXER(REQUIRED)
+STEPMAKE_FLEXLEXER_LOCATION
 AC_LANG_C
 STEPMAKE_LOCALE
 STEPMAKE_GETTEXT
@@ -91,6 +92,7 @@ STEPMAKE_WINDOWS
 
 # guile executable for some scripts
 STEPMAKE_GUILE(OPTIONAL)
+
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
 
@@ -99,7 +101,6 @@ STEPMAKE_PERL(OPTIONAL)
 # without the docs, they can find this comment and use an older
 # makeinfo -- but hopefully won't report makeinfo problems.
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
-
 
 if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
@@ -110,7 +111,6 @@ AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 # Gather requirements and generate output.
 STEPMAKE_END
-
 
 test -n "$CONFIGURATION" && mc=" conf=$CONFIGURATION" || mc=""
 
