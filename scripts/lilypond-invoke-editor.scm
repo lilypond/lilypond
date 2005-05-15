@@ -1,4 +1,4 @@
--#!@GUILE@ \
+#!@GUILE@ \
 -e main -s
 !#
 ;;;; lilypond-invoke-editor.scm -- Invoke an editor in file:line:column mode
