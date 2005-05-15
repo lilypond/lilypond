@@ -1,5 +1,7 @@
 2005-05-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/GNUmakefile (default): Typo.
+
 	* scm/lily.scm (PLATFORM): Export.
 
 	* scm/framework-ps.scm (write-preamble)[MINGW]: Use
