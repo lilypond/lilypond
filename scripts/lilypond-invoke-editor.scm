@@ -1,4 +1,4 @@
-#!@GUILE@ \
+-#!@GUILE@ \
 -e main -s
 !#
 ;;;; lilypond-invoke-editor.scm -- Invoke an editor in file:line:column mode
@@ -7,6 +7,9 @@
 ;;;;
 ;;;; (c)  2005 Jan Nieuwenhuizen <janneke@gnu.org>
 
+;; gui debug helper
+;; (define (exit x) (system "sleep 10"))
+
 (use-modules
  (ice-9 getopt-long)
  (ice-9 regex)
@@ -14,7 +17,7 @@
  (srfi srfi-14))
 
 (define PROGRAM-NAME "lilypond-invoke-editor")
-(define TOPLEVEL-VERSION "@TOPLEVEL_VERSION@")
+(define TOPLEVEL-VERSION "2.5.25")
 (define DATADIR "@DATADIR@")
 (define COMPILE-TIME-PREFIX
   (format #f "~a/lilypond/~a" DATADIR TOPLEVEL-VERSION))
@@ -53,15 +56,26 @@ Options:
     (show-version (current-error-port))
     files))
 
+;;(define (re-sub re sub string)
+;;  (let ((sub-string (if (string? sub) sub (sub re))))
+;;    (regexp-substitute/global #f re string 'pre sub-string 'post)))
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
+;; FIXME: I'm going slowly but certainly mad, I really cannot find the
+;; scm library function for this.
+(define (unquote-uri uri)
+  (re-sub "%([A-Fa-f0-9]{2})"
+	  (lambda (m)
+	    (string (integer->char (string->number (match:substring m 1) 16))))
+	  uri))
+  
 (define (dissect-uri uri)
   (let* ((ri "textedit://")
 	 (file-name:line:column (re-sub ri "" uri))
 	 (match (string-match "(.*):([^:]+):(.*)$" file-name:line:column)))
     (if match
-	(list (match:substring match 1)
+	(list (unquote-uri (match:substring match 1))
 	      (match:substring match 2)
 	      (match:substring match 3))
 	(begin
