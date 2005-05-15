@@ -47,7 +47,7 @@ $(outdir)/lily-parser.o: $(outdir)/parser.hh
 $(outdir)/lily-lexer.o: $(outdir)/parser.hh $(outdir)/FlexLexer.h
 $(outdir)/lexer.o: $(outdir)/parser.hh $(outdir)/version.hh
 
-ifneq($(FLEXLEXER_PATH),)
+ifneq ($(FLEXLEXER_PATH),)
 $(outdir)/FlexLexer.h: $(FLEXLEXER_PATH)/FlexLexer.h
 	cp $<  $@
 endif
