@@ -26,10 +26,6 @@ For development versions 'y' is odd.
 The primary download site for sourcecode is
 @uref{http://lilypond.org/download/}.
 
-If you have a slow connection, then you are advised to use
-@uref{http://sourceforge.net/projects/xdelta/,xdelta} for patching
-source archives; Xdelta (@file{.xd}) files are supplied on the FTP site.
-
 @section Compilation
 
 For compiling and running LilyPond see the installation instructions.
@@ -37,10 +33,6 @@ These instructions can be found when you unpack lilypond, as
 @file{lilypond-x.y.z/INSTALL.txt}. They are also available on the web
 at
 @uref{http://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/INSTALL.html}.
-
-NOTE: If you downloaded a binary (@file{.rpm}) or use the Cygwin
-@file{setup.exe} program, then you don't have to compile LilyPond.
-
 
 @section Documentation
 
