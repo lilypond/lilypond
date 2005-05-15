@@ -7,13 +7,15 @@
 */
 
 #define PANGO_ENABLE_BACKEND // ugh, why necessary?
-
 #include <pango/pangoft2.h>
 
-#include "main.hh"
-#include "lookup.hh"
-#include "dimensions.hh"
+/* Ugh.  */
 #include "pango-font.hh"
+
+#include "dimensions.hh"
+#include "file-name.hh"
+#include "lookup.hh"
+#include "main.hh"
 #include "warn.hh"
 
 #if HAVE_PANGO_FT2
@@ -122,7 +124,8 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 	}
       else
 	char_id = scm_makfrom0str (glyph_name);
-      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_ + dx),
+      *tail = scm_cons (scm_list_3 (scm_from_double (ggeo.x_offset * scale_
+						     + dx),
 				    scm_from_double (ggeo.y_offset * scale_),
 				    char_id),
 			SCM_EOL);
@@ -135,32 +138,34 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
     / (Real (PANGO_SCALE));
 
   FcPattern *fcpat = fcfont->font_pattern;
-  char *filename = 0;
-  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & filename);
+  char *file_name = 0;
+  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name);
+#ifdef __MINGW32__  
+  /* Normalize file name.  */
+  // FIXME: memleak(s?)
+  file_name = File_name (file_name).to_string ().get_copy_str0 ();
+#endif
+
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
 
   if (!ps_name_str0)
-    warning (_f ("no PostScript font name for font `%s'", filename));
+    warning (_f ("no PostScript font name for font `%s'", file_name));
 
   String ps_name;
   if (!ps_name_str0
-      && filename
-      && (String (filename).index (".otf") >= 0
-	  || String (filename).index (".cff") >= 0))
+      && file_name
+      && (String (file_name).index (".otf") >= 0
+	  || String (file_name).index (".cff") >= 0))
     {
 
-      /*
-	UGH: kludge a PS name for OTF/CFF fonts.
-
-      */
-
-      String name = filename;
-      int idx = max (String (filename).index (".otf"),
-		     String (filename).index (".cff"));
+      /* UGH: kludge a PS name for OTF/CFF fonts.  */
+      String name = file_name;
+      int idx = max (String (file_name).index (".otf"),
+		     String (file_name).index (".cff"));
 
       name = name.left_string (idx);
 
-      int slash_idx = name.index_last ('/');	// UGh. What's happens on windows?
+      int slash_idx = name.index_last ('/');
       if (slash_idx >= 0)
 	name = name.right_string (name.length () - slash_idx - 1);
 
@@ -175,7 +180,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
   if (ps_name.length ())
     {
-      ((Pango_font *) this)->register_font_file (filename, ps_name);
+      ((Pango_font *) this)->register_font_file (file_name, ps_name);
       pango_fc_font_unlock_face (fcfont);
 	
       SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
@@ -185,11 +190,9 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
       return Stencil (b, expr);
     }
-  else
-    {
-      warning (_ ("FreeType face has no PostScript font name"));
-      return Stencil ();
-    }
+
+  warning (_ ("FreeType face has no PostScript font name"));
+  return Stencil ();
 }
 
 SCM
