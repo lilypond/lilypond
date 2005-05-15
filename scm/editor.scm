@@ -22,11 +22,8 @@
       (getenv "EDITOR")
       "emacs"))
 
-(define (re-sub re sub string)
-  (regexp-substitute/global #f re string 'pre sub 'post))
-
-(define-public (get-editor-command file-name line column)
-  (define (get-command-template alist editor)
+(define (get-command-template alist editor)
+  (define (get-command-template-helper)
     (if (null? alist)
 	(if (string-match "%\\(file\\)s" editor)
 	    editor
@@ -34,12 +31,24 @@
 	(if (string-match (caar alist) editor)
 	    (cdar alist)
 	    (get-command-template (cdr alist) editor))))
+  (if (string-match "%\\(file\\)s" editor)
+      editor
+      (get-command-template-helper)))
 
+(define (re-sub re sub string)
+  (regexp-substitute/global #f re string 'pre sub 'post))
+
+(define (slashify x)
+ (if (string-index x #\/)
+     x
+     (re-sub "\\\\" "/" x)))
+
+(define-public (get-editor-command file-name line column)
   (let* ((editor (get-editor))
 	 (template (get-command-template editor-command-template-alist editor))
 	 (command
 	  (re-sub "%\\(file\\)s" (format #f "~S" file-name)
 		  (re-sub "%\\(line\\)s" (format #f "~a" line)
 			  (re-sub "%\\(column\\)s" (format #f "~a" column)
-				  template)))))
+				  (slashify template))))))
     command))
