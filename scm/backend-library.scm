@@ -37,7 +37,7 @@
 	 (cmd (format #f
 		      "gs\
  -dCompatibilityLevel=1.4 \
- -dSAFER\
+ ~S\
  -sPAPERSIZE=~a\
  -q\
  -dNOPAUSE\
@@ -47,6 +47,9 @@
  -c .setpdfwrite\
  -f ~S\
 "
+		      ;; gs on windows with -dSAFER fails on opening a
+		      ;; file that has no group read permissions.
+		      (if (eq? PLATFORM 'windows) "" "-dSAFER")
 		      (sanitize-command-option papersizename)
 		      pdf-name
 		      name)))

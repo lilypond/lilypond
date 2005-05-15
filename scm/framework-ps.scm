@@ -24,7 +24,6 @@
 (define mm-to-bigpoint
   (/ 72 25.4))
 
-
 (define-public (ps-font-command font)
   (let* ((name (munge-lily-font-name (ly:font-file-name font)))
 	 (magnify (ly:font-magnification font)))
@@ -38,7 +37,6 @@
   (or
    (equal? (substring fontname 0 2) "cm")
    (equal? (substring fontname 0 2) "ec")))
-
 
 (define (define-fonts paper)
   (define font-list (ly:paper-fonts paper))
@@ -73,7 +71,6 @@
 	  (display (list font fontname)))
       (define-font plain fontname scaling)))
 
-
   (apply string-append
 	 (map (lambda (x) (font-load-command x))
 	      (filter (lambda (x) (not (ly:pango-font? x)))
@@ -83,7 +80,7 @@
 ;; FIXME: silly interface name
 (define (output-variables layout)
   ;; FIXME: duplicates output-layout's scope-entry->string, mostly
-  (define (value->string  val)
+  (define (value->string val)
     (cond
      ((string? val) (string-append "(" val ")"))
      ((symbol? val) (symbol->string val))
@@ -115,13 +112,13 @@
    (string-append
     "%%Page: "
     (number->string page-number) " " (number->string page-count) "\n"
-    
+
     "%%BeginPageSetup\n"
     (if landscape?
 	"page-width output-scale lily-output-units mul mul 0 translate 90 rotate\n"
 	"")
     "%%EndPageSetup\n"
-    
+
     "start-page { "
     "set-ps-scale-to-lily-scale "
     "\n"))
@@ -133,10 +130,10 @@
     (if (ly:pango-font? font)
 	(map car (ly:pango-font-physical-fonts font))
 	(list (munge-lily-font-name (ly:font-name font)))))
-  
+
   (let* ((fonts (ly:paper-fonts paper))
 	 (names (apply append (map extract-names fonts))))
-    
+
     (apply string-append
 	   (map (lambda (f)
 		  (format
@@ -195,7 +192,7 @@
 
 (define (cff-font? font)
   (let*
-      ((cff-string  (ly:otf-font-table-data font "CFF ")))
+      ((cff-string (ly:otf-font-table-data font "CFF ")))
     (> (string-length cff-string) 0)))
 
 (define-public (ps-embed-cff body font-set-name version)
@@ -231,17 +228,17 @@
 
 
 (define (write-preamble paper load-fonts? port)
- 
+
   (define (load-font-via-GS font-name-filename)
     (define (ps-load-file name)
       (format "(~a) (r) file .loadfont " name))
-    
+
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
 	   (file-name (caddr font-name-filename))
 	   (bare-file-name (ly:find-file file-name)))
 
-      (cons 
+      (cons
        (munge-lily-font-name name)
        (cond
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
@@ -252,14 +249,14 @@
 	(else
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	  "")))))
-  
+
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
 	   (file-name (caddr font-name-filename))
 	   (bare-file-name (ly:find-file file-name)))
 
-      (cons 
+      (cons
        (munge-lily-font-name name)
        (cond
 	((and bare-file-name (string-match "\\.pfa" bare-file-name))
@@ -275,7 +272,7 @@
 
 	((and bare-file-name (string-match "\\.otf" bare-file-name))
 	 (ps-embed-cff (ly:otf->cff bare-file-name) name 0))
-	
+
 	((and bare-file-name (string-match "\\.ttf" bare-file-name))
 	 (ly:ttf->pfa bare-file-name))
 
@@ -286,7 +283,7 @@
 	(else
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	  "")))))
-  
+
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
 	   (all-font-names
@@ -307,14 +304,16 @@
 		   (ly:pango-font-physical-fonts font)))
 		(else
 		 (ly:font-sub-fonts font))))
-		   
+
 	     fonts))
 	   (font-names
 	    (uniq-list
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
-	   
-	   (pfas (map load-font font-names)))
+	   ;; ttftool/fopencookie is broken on Windows,
+	   ;; possibly a stack corruption bug.
+	   (pfas (map (if (eq? PLATFORM 'windows) load-font-via-GS load-font)
+		      font-names)))
       pfas))
 
   (if load-fonts?
@@ -324,17 +323,17 @@
 	 (display (cdr f) port)
 	 (display "\n%%EndFont\n" port))
        (load-fonts paper)))
-      
+
   (display (setup paper) port)
 
-  ; adobe note 5002: should initialize variables before loading routines.
+  ;; adobe note 5002: should initialize variables before loading routines.
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
   (display "init-lilypond-parameters\n" port))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
-	 (outputter  (ly:make-paper-outputter filename "ps"))
+	 (outputter (ly:make-paper-outputter filename "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -344,7 +343,7 @@
 
     (output-scopes scopes fields basename)
     (display (page-header paper page-count #t) port)
-    (write-preamble paper #t  port)
+    (write-preamble paper #t port)
 
     (for-each
      (lambda (page)
@@ -365,8 +364,8 @@
 
 (define-public (dump-stencil-as-EPS paper dump-me filename load-fonts?)
   (define (mm-to-bp-box mmbox)
-    (let* ((scale  (ly:output-def-lookup paper 'outputscale))
-	   (box (map 
+    (let* ((scale (ly:output-def-lookup paper 'outputscale))
+	   (box (map
 		 (lambda (x)
 		   (inexact->exact
 		    (round (* x scale mm-to-bigpoint)))) mmbox)))
@@ -397,29 +396,23 @@
     (display "} stop-system\n%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)))
 
-
 (define-public (output-preview-framework basename book scopes fields)
-  
   (let* ((paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (scale (ly:output-def-lookup paper 'outputscale))
-	 (to-dump-systems '())
-	 )
+	 (to-dump-systems '()))
 
-    
-    
     ;; skip booktitles.
     (if (and
 	 (not
 	  (cdr (assoc
 	       'preview-include-book-title
-	       (ly:get-option 'command-line-settings)
-	       )))
+	       (ly:get-option 'command-line-settings))))
 	 (< 1 (length systems))
 	 (ly:paper-system-title? (list-ref systems 0))
 	 (ly:paper-system-title? (list-ref systems 1)))
 	(set! systems (cdr systems)))
-    
+
     (for-each
      (lambda (sys)
        (if (or
@@ -438,12 +431,10 @@
 
     (postprocess-output book framework-ps-module
 			(format "~a.preview.eps" basename)
-			(completize-formats (cons "png" (ly:output-formats))))
-    
-    ))
+			(completize-formats (cons "png" (ly:output-formats))))))
 (if #f
     (define-public (output-preview-framework basename book scopes fields)
-      
+
       (let* ((paper (ly:paper-book-paper book))
 	     (systems (ly:paper-book-systems book))
 	     (scale (ly:output-def-lookup paper 'outputscale))
@@ -461,10 +452,7 @@
 
 	(postprocess-output book framework-ps-module
 			    (format "~a.preview.eps" basename)
-			    (completize-formats (ly:output-formats)))
-	
-	))
-    )
+			    (completize-formats (ly:output-formats))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)
@@ -486,9 +474,7 @@
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
     (postscript->png resolution
-		     (if (string? papersizename)
-			 papersizename "a4")
-		     
+		     (if (string? papersizename) papersizename "a4")
 		     name)))
 
 (define-public (convert-to-dvi book name)

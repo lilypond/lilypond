@@ -134,11 +134,13 @@ memrev (unsigned char *byte, int length)
 
 #if ! HAVE_SNPRINTF
 int
-snprintf (char *str, size_t, char const *format, ...)
+snprintf (char *str, size_t n, char const *format, ...)
 {
   va_list ap;
   va_start (ap, format);
   int i = vsprintf (str, format, ap);
+  if (i > 0 && (unsigned) i > n)
+    assert (false);
   va_end (ap);
   return i;
 }
@@ -146,9 +148,11 @@ snprintf (char *str, size_t, char const *format, ...)
 
 #if ! HAVE_VSNPRINTF
 int
-vsnprintf (char *str, size_t, char const *format, va_list args)
+vsnprintf (char *str, size_t n, char const *format, va_list args)
 {
   int i = vsprintf (str, format, args);
+  if (i > 0 && (unsigned) i > n)
+    assert (false);
   return i;
 }
 #endif
@@ -172,7 +176,6 @@ extern "C" {
 		    (int (*) (void *, char const *, int)) fun.write,
 		    (fpos_t (*) (void *, fpos_t, int)) fun.seek,
 		    (int (*) (void *)) fun.close);
-
 #endif
   }
 
@@ -215,9 +218,9 @@ extern "C" {
     va_start (ap, format);
     if (is_memory_stream (file))
       {
-	static char buf[1024];
+	static char buf[65536];
 	int i = vsnprintf (buf, sizeof (buf), format, ap);
-	if (i == -1)
+	if (i == -1 || (unsigned) i > sizeof (buf))
 	  assert (false);
 	return Memory_out_stream::writer (file, buf, i);
       }
