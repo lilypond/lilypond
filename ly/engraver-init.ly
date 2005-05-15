@@ -4,9 +4,10 @@
   \name Global
 
   \accepts Score
+
   \defaultchild Score
   \description "Hard coded entry point for LilyPond. Cannot be tuned."
-  \grobdescriptions #all-grob-descriptions    
+  \grobdescriptions #all-grob-descriptions
 }
 
 \context {

@@ -266,7 +266,8 @@
 	 (cached-file-contents bare-file-name))
 	((and bare-file-name (string-match "\\.pfb" bare-file-name))
 	 (ly:pfb->pfa bare-file-name))
-	
+	((and bare-file-name (string-match "\\.ttf" bare-file-name))
+	 (ly:ttf->pfa bare-file-name))
 
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (cached-file-contents

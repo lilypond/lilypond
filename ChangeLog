@@ -11,6 +11,8 @@
 
 2005-05-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (write-preamble): add TTF rule.
+
 	* Documentation/topdocs/README.texi (Top): remove note about
 	xdelta.
 
