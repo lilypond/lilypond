@@ -245,13 +245,13 @@
        (munge-lily-font-name name)
        (cond
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
-	 (ps-load-file (ly:find-file (format "~a.pfa" (munge-lily-font-name file-name)))))
+	 (ps-load-file (ly:find-file
+			(format "~a.pfa" (munge-lily-font-name file-name)))))
 	((string? bare-file-name)
 	 (ps-load-file (munge-lily-font-name file-name)))
 	(else
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
-	  ""))
-       )))
+	  "")))))
   
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
@@ -285,12 +285,10 @@
 		       0))
 	(else
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
-	  ""))
-       )))
+	  "")))))
   
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
-
 	   (all-font-names
 	    (map
 	     (lambda (font)
@@ -332,9 +330,7 @@
   ; adobe note 5002: should initialize variables before loading routines.
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
-  (display "init-lilypond-parameters\n" port)
-
-  )
+  (display "init-lilypond-parameters\n" port))
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
