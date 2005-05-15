@@ -86,7 +86,7 @@
 ;; Mingw
 ;; #(Windows XP HOSTNAME build 2600 5.01 Service Pack 1 i686)
 ;;
-(define PLATFORM
+(define-public PLATFORM
   (string->symbol
    (string-downcase
     (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))

@@ -140,9 +140,9 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
   FcPattern *fcpat = fcfont->font_pattern;
   char *file_name = 0;
   FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & file_name);
-#ifdef __MINGW32__  
+#ifdef __MINGW32__
   /* Normalize file name.  */
-  // FIXME: memleak(s?)
+  // FIXME: memleak(s?), drop the #ifdef?
   file_name = File_name (file_name).to_string ().get_copy_str0 ();
 #endif
 

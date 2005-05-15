@@ -160,8 +160,7 @@ public:
 */
 
 /// for completeness (=handy)
-inline String to_string (String s) { return s; }
-/// "cccc"
+String to_string (String s);
 String to_string (char c, int n = 1);
 String to_string (int i, char const *format = 0);
 String to_string (double f, char const *format = 0);
@@ -188,22 +187,10 @@ INSTANTIATE_COMPARE (String const &, String::compare);
 #endif
 
 // because char const* also has an operator ==, this is for safety:
-inline bool operator == (String s1, char const *s2)
-{
-  return s1 == String (s2);
-}
-inline bool operator == (char const *s1, String s2)
-{
-  return String (s1) == s2;
-}
-inline bool operator != (String s1, char const *s2)
-{
-  return s1 != String (s2);
-}
-inline bool operator != (char const *s1, String s2)
-{
-  return String (s2) != s1;
-}
+bool operator == (String s1, char const *s2);
+bool operator == (char const *s1, String s2);
+bool operator != (String s1, char const *s2);
+bool operator != (char const *s1, String s2);
 
 IMPLEMENT_ARITHMETIC_OPERATOR (String, +);
 #ifdef STREAM_SUPPORT

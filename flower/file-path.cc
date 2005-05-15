@@ -112,7 +112,8 @@ File_path::find (String name) const
     return name;
 
 #ifdef __MINGW32__
-  if (name[0] == '\\' || (name.length () > 2 && name[2] == '\\'))
+  if (name[0] == '\\' || (name.length () > 2 && name[2] == '\\')
+      || name.index ('//'))
     programming_error ("file name not normalized: " + name);
 #endif /* __MINGW32__ */
 

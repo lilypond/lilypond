@@ -135,7 +135,7 @@ ly_scm2newstr (SCM str, size_t *lenp)
 {
   SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
 
-  size_t len = SCM_STRING_LENGTH (str);
+  size_t len = scm_i_string_length (str);
   if (char *new_str = (char *) malloc ((len + 1) * sizeof (char)))
     {
       memcpy (new_str, scm_i_string_chars (str), len);
