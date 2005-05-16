@@ -17,11 +17,21 @@
  (srfi srfi-14))
 
 (define PROGRAM-NAME "lilypond-invoke-editor")
-(define TOPLEVEL-VERSION "2.5.25")
-(define DATADIR "@DATADIR@")
+(define TOPLEVEL-VERSION "@TOPLEVEL_VERSION@")
+(define DATADIR "@datadir@")
 (define COMPILE-TIME-PREFIX
   (format #f "~a/lilypond/~a" DATADIR TOPLEVEL-VERSION))
-(define LILYPONDPREFIX (or (getenv "LILYPONDPREFIX") COMPILE-TIME-PREFIX))
+
+;; argv0 relocation -- do in wrapper?
+(define LILYPONDPREFIX
+  (or (getenv "LILYPONDPREFIX")
+      (let* ((bindir (dirname (car (command-line))))
+	     (prefix (dirname bindir))
+	     (lilypond-prefix
+	      (if (eq? prefix (dirname DATADIR)) COMPILE-TIME-PREFIX
+		  (format #f "~a/share/lilypond/~a"
+			  prefix TOPLEVEL-VERSION))))
+	lilypond-prefix)))
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)

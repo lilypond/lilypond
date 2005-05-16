@@ -36,8 +36,8 @@
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf" ))
 	 (cmd (format #f
 		      "gs\
+ -dSAFER\
  -dCompatibilityLevel=1.4 \
- ~S\
  -sPAPERSIZE=~a\
  -q\
  -dNOPAUSE\
@@ -47,12 +47,13 @@
  -c .setpdfwrite\
  -f ~S\
 "
-		      ;; gs on windows with -dSAFER fails on opening a
-		      ;; file that has no group read permissions.
-		      (if (eq? PLATFORM 'windows) "" "-dSAFER")
 		      (sanitize-command-option papersizename)
 		      pdf-name
 		      name)))
+    ;; The wrapper on windows cannot handle `=' signs,
+    ;; gs has a workaround with #.
+    (if (eq? PLATFORM 'windows)
+	(set! cmd (string-regex-substitute "=" "#" cmd)))
 
     (if (access? pdf-name W_OK)
 	(delete-file pdf-name))

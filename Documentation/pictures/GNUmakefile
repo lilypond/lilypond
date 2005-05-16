@@ -7,6 +7,8 @@ OUTPNG_FILES = $(addprefix $(outdir)/,$(XPM_FILES:.xpm=.png))
 
 EXTRA_DIST_FILES= $(XPM_FILES)
 
+include $(depth)/make/stepmake.make
+
 ifeq ($(PLATFORM_WINDOWS),yes)
 OUT_DIST_FILES = $(icon) # $(package-icon)
 
@@ -34,8 +36,6 @@ $(outdir)/%-16.png: %-48.xpm
 $(outdir)/%-8.png: $(outdir)/%.png
 	convert -depth 8 $< $@
 endif # PLATFORM_WINDOWS
-
-include $(depth)/make/stepmake.make
 
 default: $(icon)
 local-dist: $(icon) # $(package-icon)

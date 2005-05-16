@@ -171,15 +171,31 @@ static Long_option_init options_static[]
 #define LILYPOND_DATADIR PACKAGE_DATADIR "/" TOPLEVEL_VERSION
 
 static void
+env_var_info (FILE *out, char const* key)
+{
+  if (char const *value = getenv (key))
+    fprintf (out, "%s=\"%s\"\n", key, value);
+}
+
+static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
   fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  if (char const *env = getenv ("LILYPONDPREFIX"))
-    fprintf (out, "LILYPONDPREFIX=\"%s\"\n", env);
+  env_var_info (out, "LILYPONDPREFIX");
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
   fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0 ());
+
+#if ARGV0_RELOCATION
+  env_var_info (out, "FONTCONFIG_FILE");
+  env_var_info (out, "FONTCONFIG_PATH");
+  env_var_info (out, "GS_FONTPATH");
+  env_var_info (out, "GS_LIB");
+  env_var_info (out, "GUILE_LOAD_PATH");
+  env_var_info (out, "PANGO_RC_FILE");
+  env_var_info (out, "PATH");
+#endif  
 }
 
 static void
@@ -240,10 +256,71 @@ warranty ()
   printf (_ (WARRANTY).to_str0 ());
 }
 
+#if ARGV0_RELOCATION
+static int
+sane_putenv (char const* key, String value, bool overwrite = true)
+{
+  if (overwrite || !getenv (key))
+    {
+      String combine = String (key) + "=" + value;
+      char *s = strdup (combine.to_str0 ());
+      return putenv (s);
+    }
+  return -1;
+}
+
+static int
+prepend_env_path (char const *key, String value)
+{
+  if (char const* cur = getenv (key))
+    value += to_string (PATHSEP) + cur;
+  return sane_putenv (key, value.to_str0 ());
+}
+
+String
+dir_name (String const file_name)
+{
+  String s = file_name;
+  s.substitute ('\\', '/');
+  s = s.left_string (s.index_last ('/'));
+  return s;
+}
+#endif
+
 static void
-setup_paths ()
+setup_paths (char const* argv0)
 {
   prefix_directory = LILYPOND_DATADIR;
+
+#if ARGV0_RELOCATION
+  String bindir = dir_name (argv0);
+  String argv0_prefix = dir_name (bindir);
+  if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
+    {
+      warning (_f ("argv0 relocation: argv0=%s, prefix=%s", argv0,
+		   prefix_directory));
+      String datadir = argv0_prefix + "/share";
+      String libdir = argv0_prefix + "/lib";
+      String sysconfdir = argv0_prefix + "/etc";
+      prefix_directory = datadir + "/lilypond/" TOPLEVEL_VERSION;
+
+      sane_putenv ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", false);
+      prepend_env_path ("GUILE_LOAD_PATH", datadir
+			+ to_string ("/guile/%d.%d",
+				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
+#ifdef __MINGW32__
+      /* FIXME: this is broken and must go, but updating the environment
+	 takes a relogin/reboot.  Can gs be wrapped?  */
+      prepend_env_path ("GS_FONTPATH", "c:/windows/fonts");
+#endif
+      prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
+      prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
+      prepend_env_path ("GS_LIB", datadir + "/gs/lib");
+      sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pango.modules", false);
+      prepend_env_path ("PATH", bindir);
+    }
+#endif /* ARGV0_RELOCATION */
+    
   if (char const *env = getenv ("LILYPONDPREFIX"))
     prefix_directory = env;
 
@@ -420,9 +497,7 @@ main_with_guile (void *, int, char **)
       char const *str0 = init_scheme_code_string.to_str0 ();
       
       if (be_verbose_global)
-	{
-	  progress_indication (_f("Evaluating %s", str0));
-	}
+	progress_indication (_f("Evaluating %s", str0));
       scm_c_eval_string ((char *) str0);
     }
 
@@ -600,7 +675,7 @@ int
 main (int argc, char **argv)
 {
   setup_localisation ();
-  setup_paths ();
+  setup_paths (argv[0]);
   parse_argv (argc, argv);
   if (isatty (STDIN_FILENO))
     identify (stderr);
