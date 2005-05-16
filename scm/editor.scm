@@ -14,7 +14,8 @@
     ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
     ("nedit" . "nc -noask +%(line)s %(file)s")
     ("gedit" . "gedit +%(line)s %(file)s")
-    ("jedit" . "jedit %(file)s +line:%(line)s")))
+    ("jedit" . "jedit %(file)s +line:%(line)s")
+    ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
 
 (define (get-editor)
   (or (getenv "LYEDITOR")
