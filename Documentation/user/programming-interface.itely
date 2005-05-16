@@ -298,7 +298,8 @@ Other applications of @code{\applymusic} are writing out repeats
 automatically (@inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}),
 saving keystrokes (@inputfileref{input/@/test,music@/-box@/.ly}) and
 exporting LilyPond input to other formats
-(@inputfileref{input/@/no@/-notation,to@/-xml@/.ly}).
+@c no @inputfileref{} here 
+(eg. @file{input/@/no@/-notation/@/to@/-xml@/.ly}).
 
 @cindex internal storage
 @cindex @code{\displayMusic}
