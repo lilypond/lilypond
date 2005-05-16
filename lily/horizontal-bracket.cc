@@ -57,6 +57,10 @@ Horizontal_bracket::print (SCM smob)
   Drul_array<Real> shorten = robust_scm2interval (me->get_property ("shorten-pair"),
 						  Interval (0, 0));
 
+  // Make sure that it points in the correct direction:
+  Real dir = get_grob_direction (me);
+  scale_drul (&edge_height, -dir);
+
   Interval empty;
   Stencil b
     = Tuplet_bracket::make_bracket (me, Y_AXIS, Offset (ext.length (), 0),

@@ -537,6 +537,7 @@
 	(print-function . ,Horizontal_bracket::print)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.2)
+	(staff-padding . 0.2)
 	(direction . -1)
 	(bracket-flare . (0.5 . 0.5))
 	(meta . ((interfaces . (horizontal-bracket-interface

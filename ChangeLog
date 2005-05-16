@@ -1,3 +1,11 @@
+2005-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/horizontal-bracket.cc (print): Take care of the direction
+	property so brackets above the stave point downwards. 
+
+	* scm/define-grobs.scm (all-grob-descriptions): Set staff-padding
+	for HorizontalBracket so it doesn't end up within the stave.
+
 2005-05-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/GNUmakefile (default): Typo.
