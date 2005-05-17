@@ -26,6 +26,13 @@ init_fontconfig ()
     error (_ ("initializing FontConfig"));
 
   FcConfig *fcc = FcConfigGetCurrent ();
+
+  FcChar8 *cache = FcConfigGetCache (fcc);
+  if (!FcDirCacheValid (cache))
+    {
+      warning (_ ("FontConfig cache out of date. Rebuilding may take some time."));
+    }
+  
   Array<String> dirs;
   struct stat statbuf; 
   String builddir = prefix_directory + "/mf/out/";
