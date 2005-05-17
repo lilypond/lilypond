@@ -1,3 +1,9 @@
+2005-05-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/lily.scm (running-from-gui?): Darwin never runs from GUI.
+
+	* lily/font-config.cc (init_fontconfig): add warning about cache.
+
 2005-05-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_paths)[ARGV0_RELOCATION]: 

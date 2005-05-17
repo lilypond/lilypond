@@ -375,10 +375,15 @@ The syntax is the same as `define*-public'."
 
 (define (running-from-gui?)
   (let ((have-tty? (isatty? (current-input-port))))
+    
     ;; If no TTY and not using safe, assume running from GUI.
     ;; For mingw, the test must be inverted.
-    (if (eq? PLATFORM 'windows)
-	have-tty? (not have-tty?))))
+
+    (cond
+     ((eq? PLATFORM 'windows) have-tty?)
+     ((eq? PLATFORM 'Darwin) #f)
+     (else
+      (not have-tty?)))))
 
 (define-public (gui-main files)
   (if (null? files) (gui-no-files-handler))
