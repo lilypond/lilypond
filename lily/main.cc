@@ -190,8 +190,6 @@ dir_info (FILE *out)
 #if ARGV0_RELOCATION
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
-  env_var_info (out, "GS_FONTPATH");
-  env_var_info (out, "GS_LIB");
   env_var_info (out, "GUILE_LOAD_PATH");
   env_var_info (out, "PANGO_RC_FILE");
   env_var_info (out, "PATH");
@@ -297,8 +295,10 @@ setup_paths (char const* argv0)
   String argv0_prefix = dir_name (bindir);
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
     {
+#if 0
       warning (_f ("argv0 relocation: argv0=%s, prefix=%s", argv0,
 		   prefix_directory));
+#endif
       String datadir = argv0_prefix + "/share";
       String libdir = argv0_prefix + "/lib";
       String sysconfdir = argv0_prefix + "/etc";
@@ -308,14 +308,6 @@ setup_paths (char const* argv0)
       prepend_env_path ("GUILE_LOAD_PATH", datadir
 			+ to_string ("/guile/%d.%d",
 				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-#ifdef __MINGW32__
-      /* FIXME: this is broken and must go, but updating the environment
-	 takes a relogin/reboot.  Can gs be wrapped?  */
-      prepend_env_path ("GS_FONTPATH", "c:/windows/fonts");
-#endif
-      prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
-      prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
-      prepend_env_path ("GS_LIB", datadir + "/gs/lib");
       sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pango.modules", false);
       prepend_env_path ("PATH", bindir);
     }
