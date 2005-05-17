@@ -1,3 +1,9 @@
+2005-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/editor.scm (get-editor): Add platform defaults.
+
+	* scm/backend-library.scm (postscript->pdf): Typo.
+
 2005-05-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/lily.scm (running-from-gui?): Darwin never runs from GUI.
@@ -6,7 +12,7 @@
 
 2005-05-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* lily/main.cc (setup_paths)[ARGV0_RELOCATION]: 
+	* lily/main.cc (setup_paths)[ARGV0_RELOCATION]: Remove GS_*.
 
 2005-05-16  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 

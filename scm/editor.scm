@@ -21,7 +21,13 @@
   (or (getenv "LYEDITOR")
       (getenv "XEDITOR")
       (getenv "EDITOR")
-      "emacs"))
+
+      ;; FIXME: how are default/preferred editors specified on
+      ;; different platforms?
+      (case PLATFORM
+	((windows) "lilypad")
+	(else
+	 "emacs"))))
 
 (define (get-command-template alist editor)
   (define (get-command-template-helper)
