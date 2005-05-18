@@ -1,3 +1,13 @@
+2005-05-17  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/tutorial.itely, basic-notation.itely,
+	changing-defaults.itely: remove duplicate cindex entries
+	that appear on the same page.
+
+	* scm/define-grobs.scm: change default padding for TextSpanner.
+
+	* Documentation/topdocs/AUTHORS.texi: update email address.
+
 2005-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/editor.scm (get-editor): Add platform defaults.

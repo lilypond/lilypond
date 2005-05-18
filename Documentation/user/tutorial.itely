@@ -1144,7 +1144,6 @@ in section @ref{Polyphony}.
 
 @cindex staff switch, manual
 @cindex cross staff voice, manual
-@cindex @code{\context}
 Piano music is typeset in two staves connected by a brace.  Printing
 such a staff is similar to the polyphonic example in @ref{More staves},
 

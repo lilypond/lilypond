@@ -382,7 +382,6 @@ Program reference: @internalsref{Dots}, and @internalsref{DotColumn}.
 Tuplets are made out of a music expression by multiplying all durations
 with a fraction
 
-@cindex @code{\times}
 @example
 \times @var{fraction} @var{musicexpr}
 @end example
@@ -2191,7 +2190,6 @@ arpeggiate the chord
 
 @refcommands
 
-@cindex @code{\arpeggio}
 @code{\arpeggio},
 @cindex @code{\arpeggioUp}
 @code{\arpeggioUp},
@@ -2323,16 +2321,12 @@ is equivalent to
 >>
 @end example
 
-@cindex @code{\voiceOne}
-@cindex @code{\voiceFour}
-
 The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
 articulations, text annotations, augmentation dots of dotted
 notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
 these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
 make them point downwards.  
 The command @code{\oneVoice} will revert back to the normal setting.
-@cindex @code{\oneVoice}
 
 An expression that appears directly inside a @code{<< >>} belongs to 
 the main voice.  This is useful when extra voices appear while the main

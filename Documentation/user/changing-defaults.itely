@@ -176,7 +176,7 @@ This is useful if the context is referred to later on.  For example, when
 setting lyrics the melody is in a named context
 
 @example
-\CONtext Voice = "@b{tenor}" @var{music}
+\context Voice = "@b{tenor}" @var{music}
 @end example
 
 @noindent
@@ -217,7 +217,6 @@ With this mechanism, it is possible to define an Urtext (original
 edition), with the option to put several distinct articulations on the
 same notes.
 
-@cindex @code{\context}
 @cindex creating contexts
 
 The third command for creating contexts is
