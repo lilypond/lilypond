@@ -12,6 +12,8 @@
 
 	* Documentation/topdocs/AUTHORS.texi: update email address.
 
+	* Documentation/user/global.itely: add info about \include.
+
 2005-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/backend-library.scm (postscript->pdf): Remove (useless) .ps

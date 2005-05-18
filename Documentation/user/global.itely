@@ -12,7 +12,7 @@ This is a placeholder until I can write a nice intro for this chapter.
 
 @menu
 * Global layout::               
-* File structure::              
+* LilyPond files::              
 * Sound::                       
 @end menu
 
@@ -894,8 +894,17 @@ composer flush right on a single line.
 
 
 
+@node LilyPond files
+@section LilyPond files
+
+@menu
+* File structure::              
+* Including LilyPond files::    
+@end menu
+
+
 @node File structure
-@section File structure
+@subsection File structure
 
 The major part of this manual is concerned with entering various
 forms of music in LilyPond.  However, many music expressions are not
@@ -1009,6 +1018,24 @@ be entered:
 @item @code{\include}
 @item @code{\renameinput}
 @end itemize 
+
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+@cindex @code{\include}
+@cindex including files
+
+A large project may be split up into separate files.  To refer to another
+file, use
+
+@example
+\include "otherfile.ly"
+@end example
+
+For example, you may write separate files for each instrument part and
+create a ``full score'' file which brings together the individual
+instrument files.
 
 
 @node Sound
