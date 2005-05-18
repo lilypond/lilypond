@@ -5,6 +5,7 @@
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
 
+
 @node Basic notation
 @chapter Basic notation
 
@@ -19,7 +20,6 @@ This chapter explains how to use all basic notation features.
 * Polyphony::                   
 * Repeats::                     
 @end menu
-
 
 
 @node Note entry
@@ -47,6 +47,8 @@ related constructs, such as stems, tuplets and ties.
 @node Notes
 @subsection Notes
 
+@cindex Note specification
+@cindex entering notes
 
 A note is printed by specifying its pitch and then its duration,
 
@@ -54,14 +56,16 @@ A note is printed by specifying its pitch and then its duration,
 cis'4 d'8 e'16 c'16
 @end lilypond
 
+@seealso
+
+@ref{Pitches}, @ref{Durations}
+
 
 @node Pitches
 @subsection Pitches
 
 @cindex Pitch names
-@cindex Note specification
 @cindex pitches
-@cindex entering notes
 
 The most common syntax for pitch entry is used for standard notes and
 @code{\chordmode} modes.  In these modes, pitches may be designated by
@@ -70,7 +74,7 @@ names.  The notes are specified by the letters @code{a} through
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
 letters span the octave above that C
 
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,fragment,verbatim,raggedright]
 \clef bass
 a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
 @end lilypond
@@ -84,7 +88,7 @@ single quote (`@code{'}') characters or a series of comma
 octave; each @code{,} lowers the pitch by an octave
 
 @lilypond[quote,raggedright,fragment,verbatim]
-c' c'' es' g' as' gisis' ais'
+c' c'' e' g d'' d'
 @end lilypond
 
 @cindex note names, Dutch
@@ -102,17 +106,6 @@ ces
 c
 cis
 cisis
-@end lilypond
-
-In accordance with standard typsetting rules, a natural sign is printed
-before a sharp or flat if a previous accidental needs to be
-cancelled.  To change this behaviour, use
-@code{\set Staff.extraNatural = ##f}
-
-@lilypond[fragment,quote,raggedright,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
 @end lilypond
 
 There are predefined sets of note names for various other languages.
@@ -142,19 +135,33 @@ Program reference: @internalsref{NoteEvent},
 @internalsref{LedgerLineSpanner}, and @internalsref{NoteHead}.
 
 
+@commonprop
+
+In accordance with standard typsetting rules, a natural sign is printed
+before a sharp or flat if a previous accidental needs to be
+cancelled.  To change this behaviour, use
+@code{\set Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,raggedright,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
 
 @node Cautionary accidentals
 @subsection Cautionary accidentals 
 
-Normally accidentals are printed automatically, but you may also
-print them manually.  A reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
-can be forced by adding an exclamation mark @code{!}
-after the pitch.  A cautionary accidental
 @cindex cautionary accidental
 @cindex parenthesized accidental
 @cindex @code{!}
+
+Normally accidentals are printed automatically, but you may also
+print them manually.  A reminder accidental
+can be forced by adding an exclamation mark @code{!}
+after the pitch.  A cautionary accidental
 (i.e., an accidental within parentheses) can be obtained by adding the
 question mark `@code{?}' after the pitch.
 
@@ -173,17 +180,18 @@ ways.  For more information, refer to @ref{Automatic accidentals}.
 @node Micro tones
 @subsection Micro tones
 
-Half-flats and half-sharps are formed by adding @code{-eh} and
-@code{-ih}; the following is a series of Cs with increasing pitches
-
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
+Half-flats and half-sharps are formed by adding @code{-eh} and
+@code{-ih}; the following is a series of Cs with increasing pitches
+
 @lilypond[verbatim,raggedright,quote,relative=2,fragment]
-{ ceseh ceh cih cisih }
+\set Staff.extraNatural = ##f
+ceseh ceh cih cisih
 @end lilypond
 
-Micro tones are also exported to the MIDI file
+Micro tones are also exported to the MIDI file.
 
 
 @refbugs
@@ -191,8 +199,10 @@ Micro tones are also exported to the MIDI file
 There are no generally accepted standards for denoting three quarter
 flats, so LilyPond's symbol does not conform to any standard.
 
+
 @node Chords
 @subsection Chords
+
 @cindex Chords
 
 A chord is formed by a enclosing a set of pitches in @code{<} and
@@ -214,7 +224,7 @@ For more information about chords, see @ref{Chord names}.
 @cindex @code{\rest}
 @cindex @code{r}
 
-Rests are entered like notes, with the note name @code{r}
+Rests are entered like notes with the note name @code{r}
 
 @lilypond[fragment,quote,raggedright,verbatim]
 r1 r2 r4 r8
@@ -240,15 +250,15 @@ a'4\rest d'4\rest
 Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
 
 
-@c FIXME: naming.
 @node Skips
 @subsection Skips
+
 @cindex Skip
 @cindex Invisible rest
 @cindex Space note
-
 @cindex @code{\skip}
 @cindex @code{s}
+
 An invisible rest (also called a `skip') can be entered like a note
 with note name `@code{s}' or with @code{\skip @var{duration}}
 
@@ -262,8 +272,8 @@ the @code{\skip} command
 
 @lilypond[quote,raggedright,verbatim]
 <<
-  \relative { a'2 a1 }
-  \new Lyrics \lyricmode { \skip 2 bla1 }
+  \relative { a'2 a2 }
+  \new Lyrics \lyricmode { \skip 2 bla2 }
 >>
 @end lilypond
 
@@ -285,16 +295,13 @@ The fragment @code{@{ \skip 4 @} } would produce an empty page.
 Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 
 
-
 @node Durations
 @subsection Durations
-
 
 @cindex duration
 @cindex @code{\longa}
 @cindex @code{\breve}
 @cindex @code{\maxima}
-
 
 In Note, Chord, and Lyrics mode, durations are designated by numbers and
 dots: durations are entered as their reciprocal values.  For example, a
@@ -342,11 +349,11 @@ duration.  The default for the first note is a quarter note.
 @end lilypond
 
 
-
 @node Augmentation dots
 @subsection Augmentation dots
 
 @cindex @code{.}
+
 To obtain dotted note lenghts, simply add a dot (`@code{.}') to
 the number.  Double-dotted notes are produced in a similar way.
 
@@ -397,6 +404,33 @@ length
 g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @end lilypond
 
+@refcommands
+
+@cindex @code{\tupletUp}
+@code{\tupletUp},
+@cindex @code{\tupletDown}
+@code{\tupletDown},
+@cindex @code{\tupletNeutral}
+@code{\tupletNeutral}.
+
+
+@seealso
+
+Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
+
+@c FIXME: will be deleted or moved; not suitable for basic-notation.
+@ignore
+Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
+User manual: @ref{Changing context properties on the fly} for the
+@code{\set} command.
+@end ignore
+
+
+@commonprop
+
+@cindex @code{tupletNumberFormatFunction}
+@cindex tuplet formatting
+
 The property @code{tupletSpannerDuration} specifies how long each
 bracket should last.  With this, you can make lots of tuplets while
 typing @code{\times} only once, thus saving lots of typing.  In the next
@@ -414,27 +448,6 @@ denominator, but if it is set to the Scheme function
 @code{fraction-tuplet-formatter}, @var{num}:@var{den} will be printed
 instead.
 
-@cindex @code{tupletNumberFormatFunction}
-@cindex tuplet formatting
-
-@refcommands
-
-@cindex @code{\tupletUp}
-@code{\tupletUp},
-@cindex @code{\tupletDown}
-@code{\tupletDown},
-@cindex @code{\tupletNeutral}
-@code{\tupletNeutral}.
-
-@seealso
-
-User manual: @ref{Changing context properties on the fly} for the
-@code{\set} command.
-
-
-Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
-
-Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
 @refbugs
 

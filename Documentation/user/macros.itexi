@@ -187,3 +187,9 @@ user manual, @internalsref{\NAME\}
 @code{\WHAT\} 
 @end macro
 
+@macro commonprop
+@noindent
+@subsubheading Commonly tweaked properties
+
+@end macro
+
