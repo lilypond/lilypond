@@ -9,7 +9,7 @@ Now to take it for the first test run.
   1. Safe this LilyPond file on your desktop.
 
   2. Pick it up from the desktop with your mouse pointer, drag and drop
-     it onto the LilyPond LSD program.
+     it onto the LilyPond icon.
 
   3. LilyPond automatically produces a PDF file from the musical scale
      below.
