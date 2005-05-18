@@ -1258,7 +1258,7 @@
 	(print-function . ,Text_spanner::print)
 	(font-shape . italic)
 	(style . dashed-line)
-	(staff-padding . 0.1)
+	(staff-padding . 0.8)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(direction . 1)
