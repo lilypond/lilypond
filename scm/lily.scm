@@ -381,7 +381,7 @@ The syntax is the same as `define*-public'."
 
     (cond
      ((eq? PLATFORM 'windows) have-tty?)
-     ((eq? PLATFORM 'Darwin) #f)
+     ((eq? PLATFORM 'darwin) #f)
      (else
       (not have-tty?)))))
 
