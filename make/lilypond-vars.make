@@ -18,7 +18,7 @@ CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND = $(builddir)/lily/$(outconfbase)/lilypond
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(builddir)/mf/$(outconfbase)/  -I $(builddir)/mf/out/
-LILYPOND_BOOK_FLAGS = --process="lilypond --backend=eps --formats=ps,png --header=texidoc -I $(srcdir)/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"
+LILYPOND_BOOK_FLAGS = --process="$(LILYPOND) --backend=eps --formats=ps,png --header=texidoc -I $(srcdir)/input/test -e '(ly:set-option (quote internal-type-checking) \#t)'"
 
 
 #texi-html for www only:
