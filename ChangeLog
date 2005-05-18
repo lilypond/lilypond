@@ -1,5 +1,8 @@
 2005-05-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (invokes_lilypond): new function
+	(main): only run fontextract if invokes_lilypond() is true.
+
 	* lily/function-documentation.cc (ly_add_function_documentation):
 	duh, use !=
 

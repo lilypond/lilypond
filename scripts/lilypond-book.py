@@ -642,6 +642,9 @@ def split_options (option_string):
 					 option_string)
 	return []
 
+def invokes_lilypond ():
+	return re.search ('^[\'\"0-9A-Za-z/]*lilypond', process_cmd)
+
 class Chunk:
 	def replacement_text (self):
 		return ''
@@ -1221,8 +1224,7 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# UGH
 	# the --process=CMD switch is a bad idea
 	# it is too generic for lilypond-book.
-	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
-
+	if texstr_names and invokes_lilypond:
 		my_system (string.join ([cmd, '--backend texstr',
 					 'snippet-map.ly'] + texstr_names))
 		for l in texstr_names:
@@ -1559,7 +1561,7 @@ def main ():
 
 	try:
 		chunks = do_file (file)
-		if psfonts_file:
+		if psfonts_file and invokes_lilypond ():
 			fontextract.verbose = verbose_p
 			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
 									      Lilypond_snippet),

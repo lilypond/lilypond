@@ -7,4 +7,8 @@ HTML_FILES=$(addprefix $(outdir)/, $(TEXI_FILES:.texi=.html) $(TELY_FILES:.tely=
 
 include $(depth)/make/stepmake.make 
 
+ifneq ($(out),www)
+LILYPOND='true'
+endif
+
 $(outdir)/NEWS.nexi: NEWS.tely
