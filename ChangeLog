@@ -1,3 +1,10 @@
+2005-05-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/lily.scm (running-from-gui?): lowercase Darwin.
+
+	* lily/function-documentation.cc (ly_add_function_documentation):
+	use scm_hash_table_p() for checking.
+
 2005-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_paths): Bugfix: pangorc is not pango.modules.
