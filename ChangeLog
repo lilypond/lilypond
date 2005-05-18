@@ -1,5 +1,7 @@
 2005-05-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/Welcome_to_LilyPond.ly: talk about icon, not program.
+
 	* scripts/lilypond-book.py (invokes_lilypond): new function
 	(main): only run fontextract if invokes_lilypond() is true.
 
