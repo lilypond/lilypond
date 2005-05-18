@@ -336,6 +336,16 @@ make conf=gcc-3.1
 @end example
 @end quotation
 
+@unnumberedsubsec MacOS X
+
+For Fink, use the following command to compile.
+
+@verbatim
+export GUILE=guile-1.6
+export GUILE_CONFIG=guile-1.6-config
+export PKG_CONFIG_PATH=/sw/lib/freetype219/lib/pkgconfig/:/sw/lib/fontconfig2/lib/pkgconfig/
+./configure --without-kpathsea
+@end verbatim
 
 @unnumberedsubsec OpenBSD
 
