@@ -308,7 +308,7 @@ setup_paths (char const* argv0)
       prepend_env_path ("GUILE_LOAD_PATH", datadir
 			+ to_string ("/guile/%d.%d",
 				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-      sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pango.modules", false);
+      sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc", false);
       prepend_env_path ("PATH", bindir);
     }
 #endif /* ARGV0_RELOCATION */

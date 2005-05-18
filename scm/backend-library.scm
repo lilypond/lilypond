@@ -60,7 +60,8 @@
 
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")
-    (ly:system cmd)))
+    (ly:system cmd)
+    (if (running-from-gui?) (delete-file name))))
 
 (define-public (postscript->png resolution papersizename name)
   (let* ((prefix (ly:effective-prefix))
