@@ -1,5 +1,7 @@
 2005-05-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/INSTALL.texi (Top): add MacOS command.
+
 	* stepmake/aclocal.m4: remove kpathsea warning, change to OPTIONAL.
 
 	* scm/lily.scm (running-from-gui?): lowercase Darwin.
