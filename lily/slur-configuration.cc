@@ -277,8 +277,8 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
 
 	  // ?
 	  demerit += -state.parameters_.closeness_factor_
-	    * (state.dir_
-	       * min (y - (ext[state.dir_] + state.dir_ * state.parameters_.free_head_distance_), 0.0))
+	    * min (state.dir_
+		   * (y - (ext[state.dir_] + state.dir_ * state.parameters_.free_head_distance_)), 0.0)
 	    / state.encompass_infos_.size ();
 	}
     }
