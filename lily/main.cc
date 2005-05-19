@@ -311,6 +311,8 @@ setup_paths (char const* argv0)
       sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc", false);
       prepend_env_path ("PATH", bindir);
     }
+#else
+  (void) argv0;
 #endif /* ARGV0_RELOCATION */
     
   if (char const *env = getenv ("LILYPONDPREFIX"))
