@@ -129,12 +129,6 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 @end example
 
 
-@seealso
-
-Program reference: @internalsref{NoteEvent},
-@internalsref{LedgerLineSpanner}, and @internalsref{NoteHead}.
-
-
 @commonprop
 
 In accordance with standard typsetting rules, a natural sign is printed
@@ -147,6 +141,12 @@ ceses4 ces cis c
 \set Staff.extraNatural = ##f
 ceses4 ces cis c
 @end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{NoteEvent},
+@internalsref{LedgerLineSpanner}, and @internalsref{NoteHead}.
 
 
 @node Cautionary accidentals
@@ -414,18 +414,6 @@ g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @code{\tupletNeutral}.
 
 
-@seealso
-
-Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
-
-@c FIXME: will be deleted or moved; not suitable for basic-notation.
-@ignore
-Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
-User manual: @ref{Changing context properties on the fly} for the
-@code{\set} command.
-@end ignore
-
-
 @commonprop
 
 @cindex @code{tupletNumberFormatFunction}
@@ -447,6 +435,18 @@ The format of the number is determined by the property
 denominator, but if it is set to the Scheme function
 @code{fraction-tuplet-formatter}, @var{num}:@var{den} will be printed
 instead.
+
+
+@seealso
+
+Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
+
+@c FIXME: will be deleted or moved; not suitable for basic-notation.
+@ignore
+Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
+User manual: @ref{Changing context properties on the fly} for the
+@code{\set} command.
+@end ignore
 
 
 @refbugs
@@ -478,6 +478,7 @@ b16*4 c4
 This manual: @ref{Tuplets}
 
 
+
 @node Easier music entry
 @section Easier music entry
 @cindex Music entry
@@ -491,7 +492,6 @@ It is also possible to enter and edit music using other programs, such as
 GUI interfaces or MIDI sequencers.  Refer to the LilyPond
 website for more information.
 
-
 @menu
 * Relative octaves::            
 * Octave check::                
@@ -501,12 +501,12 @@ website for more information.
 @end menu
 
 
-
-
 @node Relative octaves
 @subsection Relative octaves
+
 @cindex Relative
-@cindex relative octave specification
+@cindex Relative octave specification
+@cindex @code{\relative}
 
 Octaves are specified by adding @code{'} and @code{,} to pitch names.
 When you copy existing music, it is easy to accidentally put a pitch
@@ -514,7 +514,6 @@ in the wrong octave and hard to find such an error.  The relative
 octave mode prevents these errors by making the mistakes much
 larger: a single error puts the rest of the piece off by one octave
 
-@cindex @code{\relative}
 @example
 \relative @var{startpitch} @var{musicexpr}
 @end example
@@ -568,31 +567,31 @@ to determine the first note of the next chord
 
 The pitch after the @code{\relative} contains a note name.
 
-
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.  To use
 relative within transposed music, an additional @code{\relative} must
 be placed inside @code{\transpose}.
 
+
 @node Octave check
 @subsection Octave check
 
+@cindex Octave check
 
 Octave checks make octave errors easier to correct: a note may be
 followed by @code{=}@var{quotes} which indicates what its absolute
 octave should be.  In the following example,
+
 @example
 \relative c'' @{ c='' b=' d,='' @}
 @end example
 
-@noindent
 @c take care with @code, adds confusing quotes.
+@noindent
 the @code{d} will generate a warning, because a @code{d''} is expected
-(because @code{b'} to @code{d''} is only a third), but a @code{d}' is
+(because @code{b'} to @code{d''} is only a third), but a @code{d'} is
 found.  In the output, the octave is corrected to be a @code{d''} and
 the next note is calculated relative to @code{d''} instead of @code{d'}.
-
-
 
 There is also a syntax that is separate from the notes.  The syntax
 
@@ -622,7 +621,7 @@ once again.
 
 The octave of a note following an octave check is determined with
 respect to the note preceding it.  In the next fragment, the last note
-is a @code{a'}, above middle C.  That means that the @code{\octave}
+is an @code{a'}, above middle C.  That means that the @code{\octave}
 check passes successfully, so the check could be deleted without changing
 the output of the piece.
 
@@ -634,11 +633,11 @@ the output of the piece.
 }
 @end lilypond
 
+
 @node Bar check
 @subsection Bar check
-@cindex Bar check
 
-@cindex bar check
+@cindex Bar check
 @cindex @code{barCheckSynchronize}
 @cindex @code{|}
 
@@ -660,15 +659,10 @@ Bar checks can also be used in lyrics, for example
 @}
 @end example
 
-
-@cindex @code{skipTypesetting}
-
 Failed bar checks are caused by entering incorrect
 durations.  Incorrect durations often completely garble up the score,
 especially if the score is polyphonic, so a good place to start correcting
-input is by scanning for failed bar checks and incorrect durations.  To
-speed up this process, the @code{skipTypesetting} feature may be
-used.  It is described in the next section.
+input is by scanning for failed bar checks and incorrect durations.
 
 @cindex @code{|}
 @cindex @code{pipeSymbol}
@@ -679,12 +673,14 @@ by assigning a music expression to @code{pipeSymbol},
 @lilypond[quote,raggedright,verbatim]
 pipeSymbol = \bar "||"
 
-{ c'2 c' | c'2 c }
+{ c'2 c' | c'2 c' }
 @end lilypond
 
 
 @node Skipping corrected music
 @subsection Skipping corrected music
+
+@cindex @code{skipTypesetting}
 
 The property @code{Score.skipTypesetting} can be used to switch on and
 off typesetting completely during the interpretation phase.  When
@@ -704,6 +700,7 @@ have already been checked for errors
 In polyphonic music, @code{Score.skipTypesetting} will affect all
 voices and staves, saving even more time.
 
+
 @node Automatic note splitting
 @subsection Automatic note splitting
 
@@ -711,7 +708,6 @@ Long notes can be converted automatically to tied notes.  This is done
 by replacing the @internalsref{Note_heads_engraver} by the
 @internalsref{Completion_heads_engraver}.
 In the following examples, notes crossing the bar line are split and tied.
-
 
 @lilypond[quote,fragment,verbatim,relative=1,linewidth=12\cm]
 \new Voice \with {
@@ -726,6 +722,7 @@ This engraver splits all running notes at the bar line, and inserts
 ties.  One of its uses is to debug complex scores: if the measures are
 not entirely filled, then the ties exactly show how much each measure
 is off.
+
 
 @refbugs
 
@@ -746,192 +743,71 @@ Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 Program reference: @internalsref{Completion_heads_engraver}.
 
 
-
-
 @node Staff notation
 @section Staff notation
+
+@cindex Staff notation
 
 This section describes music notation that occurs on staff level,
 such as key signatures, clefs and time signatures.
 
-@cindex Staff notation
-
 @menu
-* Staff symbol::                
-* Key signature::               
 * Clef::                        
+* Key signature::               
 * Time signature::              
 * Partial measures::            
-* Unmetered music::             
 * Bar lines::                   
+* Unmetered music::             
 * System start delimiters::     
+* Staff symbol::                
 @end menu
-
-
-@node Staff symbol
-@subsection Staff symbol
-
-@cindex adjusting staff symbol
-
-Notes, dynamic signs, etc., are grouped
-with a set of horizontal lines, into a staff (plural `staves').  In our
-system, these lines are drawn using a separate layout object called
-staff symbol.
-
-The staff symbol may be tuned in the number, thickness and distannce
-of lines, using properties.  This is demonstrated in the example files
-@inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly}.
-
-In addition, staves may be started and stopped at will. This is done
-with @code{\startStaff} and @code{\stopStaff}.
-
-@lilypond[verbatim,relative=2,fragment]
-b4 b
-\override Staff.StaffSymbol #'line-count = 2
-\stopStaff  \startStaff
-b b
-\revert Staff.StaffSymbol #'line-count
-\stopStaff \startStaff
-b b  
-@end lilypond
-
-In combination with Frenched staves, this may be used to typeset ossia
-sections. An example is in @inputfileref{input/@/test@/,ossia.ly},
-shown here
-
-@cindex ossia
-
-@lilypondfile{ossia.ly}
-
-@cindex staff lines, setting number of
-@cindex staff lines, setting thickness of
-@cindex thickness of staff lines, setting
-@cindex number of staff lines, setting
-
-@seealso
-
-Program reference: @internalsref{StaffSymbol}, @internalsref{StaffSpanEvent}.
-
-Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly}.
-
-
-@node Key signature
-@subsection Key signature
-@cindex Key signature
-
-@cindex @code{\key}
-
-The key signature indicates the tonality in which a piece is played.  It
-is denoted by a set of alterations (flats or sharps) at the start of the
-staff.
-
-
-Setting or changing the key signature is done with the @code{\key}
-command
-@example
-@code{\key} @var{pitch} @var{type}
-@end example
-
-@cindex @code{\minor}
-@cindex @code{\major}
-@cindex @code{\minor}
-@cindex @code{\ionian}
-@cindex @code{\locrian}
-@cindex @code{\aeolian}
-@cindex @code{\mixolydian}
-@cindex @code{\lydian}
-@cindex @code{\phrygian}
-@cindex @code{\dorian}
-
-Here, @var{type} should be @code{\major} or @code{\minor} to get
-@var{pitch}-major or @var{pitch}-minor, respectively.
-The standard mode names @code{\ionian},
-@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
-@code{\phrygian}, and @code{\dorian} are also defined.
-
-This command sets the context property
-@internalsref{Staff}.@code{keySignature}.  Non-standard key signatures
-can be specified by setting this property directly.
-
-A natural sign is printed to cancel any previous accidentals.  This
-can be suppressed by setting the @code{Staff.printKeyCancellation}
-property.
-
-@lilypond[quote,raggedright,fragment,verbatim,relative=2]
-{
-  \key d \major
-  a b cis d
-  \key g \minor
-  a bes c d
-  \set Staff.printKeyCancellation = ##f
-  \key d \major
-  a b cis d
-  \key g \minor
-  a bes c d
-}
-@end lilypond
-
-Accidentals and key signatures often confuse new users, because
-unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{More about pitches}.
-
-@seealso
-
-Program reference: @internalsref{KeyChangeEvent},
-@internalsref{KeyCancellation} and @internalsref{KeySignature}.
-
-@cindex @code{keySignature}
 
 
 @node Clef
 @subsection Clef
+
 @cindex @code{\clef}
 
 The clef indicates which lines of the staff correspond to which
-pitches.
+pitches.  The clef is set with the @code{\clef} command
 
-
-The clef can be set with the @code{\clef} command
 @lilypond[quote,raggedright,fragment,verbatim]
 { c''2 \clef alto g'2 }
 @end lilypond
 
-Supported clef-names include
-@c Moved standard clefs to the top /MB
-@table @code
 @cindex treble clef
 @cindex violin clef
-@item treble, violin, G, G2
-G clef on 2nd line
-@item alto, C
 @cindex alto clef
+@cindex tenor clef
+@cindex bass clef
+@cindex french clef
+@cindex soprano clef
+@cindex mezzosoprano clef
+@cindex baritone clef
+@cindex varbaritone clef
+@cindex subbass clef
+
+Supported clefs finclude
+@table @code
+@item treble, violin, G, G2
+ G clef on 2nd line
+@item alto, C
  C clef on 3rd line
 @item tenor
-@cindex tenor clef
  C clef on 4th line.
 @item bass, F
-@cindex bass clef
  F clef on 4th line
 @item french
-@cindex french clef
  G clef on 1st line, so-called French violin clef
 @item soprano
-@cindex soprano clef
  C clef on 1st line
 @item mezzosoprano
-@cindex mezzosoprano clef
  C clef on 2nd line
 @item baritone
-@cindex baritone clef
  C clef on 5th line
 @item varbaritone
-@cindex varbaritone clef
  F clef on 3rd line
 @item subbass
-@cindex subbass clef
  F clef on 5th line
 @item percussion
  percussion clef
@@ -945,13 +821,15 @@ transposed one octave down or up, respectively, and @code{_15} and
 must be enclosed in quotes when it contains underscores or digits.  For
 example,
 
-
 @cindex choral tenor clef
 @lilypond[quote,raggedright,verbatim,fragment,relative=1]
 \clef "G_8" c4
 @end lilypond
 
-This command is equivalent to setting @code{clefGlyph},
+
+@commonprop
+
+The command @code{\clef "treble_8"} is equivalent to setting @code{clefGlyph},
 @code{clefPosition} (which controls the Y position of the clef),
 @code{middleCPosition} and @code{clefOctavation}.  A clef is printed
 when any of these properties are changed.  The following example shows
@@ -978,16 +856,84 @@ possibilities when setting properties manually.
 }
 @end lilypond
 
+
 @seealso
 
 Program reference: @internalsref{Clef}.
 
 
+@node Key signature
+@subsection Key signature
 
+@cindex Key signature
+@cindex @code{\key}
+
+The key signature indicates the tonality in which a piece is played.  It
+is denoted by a set of alterations (flats or sharps) at the start of the
+staff.
+
+Setting or changing the key signature is done with the @code{\key}
+command
+
+@example
+@code{\key} @var{pitch} @var{type}
+@end example
+
+@cindex @code{\minor}
+@cindex @code{\major}
+@cindex @code{\minor}
+@cindex @code{\ionian}
+@cindex @code{\locrian}
+@cindex @code{\aeolian}
+@cindex @code{\mixolydian}
+@cindex @code{\lydian}
+@cindex @code{\phrygian}
+@cindex @code{\dorian}
+@cindex church modes
+
+Here, @var{type} should be @code{\major} or @code{\minor} to get
+@var{pitch}-major or @var{pitch}-minor, respectively.  You may also
+use the standard mode names (also called ``church modes''): @code{\ionian},
+@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
+@code{\phrygian}, and @code{\dorian}.
+
+This command sets the context property
+@code{Staff.keySignature}.  Non-standard key signatures
+can be specified by setting this property directly.
+
+Accidentals and key signatures often confuse new users, because
+unaltered notes get natural signs depending on the key signature.  For
+more information, see @ref{More about pitches}.
+
+
+@commonprop
+
+A natural sign is printed to cancel any previous accidentals.  This
+can be suppressed by setting the @code{Staff.printKeyCancellation}
+property.
+
+@lilypond[quote,fragment,raggedright,fragment,verbatim,relative=2]
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+\set Staff.printKeyCancellation = ##f
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{KeyChangeEvent},
+@internalsref{KeyCancellation} and @internalsref{KeySignature}.
 
 
 @node Time signature
 @subsection Time signature
+
 @cindex Time signature
 @cindex meter
 @cindex @code{\time}
@@ -996,12 +942,13 @@ Time signature indicates the metrum of a piece: a regular pattern of
 strong and weak beats.  It is denoted by a fraction at the start of the
 staff.
 
+The time signature is set with the @code{\time} command
 
-The time signature is set or changed by the @code{\time}
-command
 @lilypond[quote,raggedright,fragment,verbatim]
 \time 2/4 c'2 \time 3/4 c'2.
 @end lilypond
+
+@commonprop
 
 The symbol that is printed can be customized with the @code{style}
 property.  Setting it to @code{#'()} uses fraction style for 4/4 and
@@ -1015,13 +962,10 @@ property.  Setting it to @code{#'()} uses fraction style for 4/4 and
 \time 2/2 c'1
 @end lilypond
 
-
-
 There are many more options for its layout.  See @ref{Ancient time
 signatures} for more examples.
 
-
-This command sets the property @code{timeSignatureFraction},
+@code{\time} sets the property @code{timeSignatureFraction},
 @code{beatLength} and @code{measureLength} in the @code{Timing}
 context, which is normally aliased to @internalsref{Score}.  The
 property @code{measureLength} determines where bar lines should be
@@ -1064,32 +1008,38 @@ Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_engrav
 Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
+
 @node Partial measures
 @subsection Partial measures
-@cindex Partial
+
 @cindex anacrusis
+@cindex upbeat
 @cindex partial measure
 @cindex measure, partial
 @cindex shorten measures
 @cindex @code{\partial}
 
-Partial measures, for example in upsteps, are entered using the
-@code{\partial} command
+Partial measures, such as an anacrusis or upbeat, are entered using the
+
 @lilypond[quote,raggedright,fragment,verbatim,relative=2]
 \partial 16*5 c16 cis d dis e | a2. c,4 | b2
 @end lilypond
 
 The syntax for this command is
+
 @example
 \partial @var{duration}
 @end example
+
 This is internally translated into
+
 @example
 \set Timing.measurePosition = -@var{length of duration}
 @end example
-@cindex @code{|}
+
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.
+
 
 @refbugs
 
@@ -1098,75 +1048,49 @@ the music.  When a piece starts with graces notes in the pickup, then
 the @code{\partial} should follow the grace notes
 
 @lilypond[verbatim,quote,raggedright,relative,fragment]
-{
-  \grace f16
-  \partial 4
-  g4
-  a2 g2
-}
+\grace f16
+\partial 4
+g4
+a2 g2
 @end lilypond
 
 
-@node Unmetered music
-@subsection Unmetered music
+@node Bar lines
+@subsection Bar lines
 
+@cindex Bar lines
 @cindex @code{\bar}
+@cindex measure lines
+@cindex repeat bars
 
-Bar lines and bar numbers are calculated automatically.  For unmetered
-music (cadenzas, for example), this is not desirable.  By setting
-@code{Score.timing} to false, this automatic timing can be switched
-off.  Empty bar lines,
+Bar lines delimit measures, but are also used to indicate
+repeats.  Normally they are inserted automatically.  Line
+breaks may only happen on bar lines.
+
+Special types of bar lines can be forced with the @code{\bar} command
+
+@lilypond[quote,raggedright,relative=2,fragment,verbatim]
+c4 \bar "|:" c4
+@end lilypond
+
+The following bar types are available
+
+@lilypondfile[raggedright,quote]{bar-lines.ly}
+
+To allow a line break where there is no visible bar line, use
 
 @example
 \bar ""
 @end example
 
 @noindent
-indicate where line breaks can occur.
-
-@refcommands
-
-@cindex @code{\cadenzaOn}
-@code{\cadenzaOn},
-@cindex @code{\cadenzaOff}
-@code{\cadenzaOff}.
-
-
-
-
-@node Bar lines
-@subsection Bar lines
-@cindex Bar lines
-
-@cindex @code{\bar}
-@cindex measure lines
-@cindex repeat bars
-
-
-Bar lines delimit measures, but are also used to indicate repeats.
-Normally, they are inserted automatically.  Line breaks may only
-happen on bar lines.
-
-Special types of bar lines can be forced with the @code{\bar} command
-@c
-@lilypond[quote,raggedright,relative=2,fragment,verbatim]
-c4 \bar "|:" c4
-@end lilypond
-
-The following bar types are available
-@lilypondfile[raggedright,quote]{bar-lines.ly}
-
-For allowing line breaks, there is a special command,
-@example
-\bar ""
-@end example
-This will insert an invisible bar line, and allow line breaks at this
+This will insert an invisible bar line and allow line breaks at this
 point.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
-connected between different staves of a @internalsref{StaffGroup}
-@c
+connected between different staves of a StaffGroup
+
 @lilypond[quote,raggedright,fragment,verbatim]
 <<
   \context StaffGroup <<
@@ -1181,6 +1105,9 @@ connected between different staves of a @internalsref{StaffGroup}
 >>
 @end lilypond
 
+@cindex @code{whichBar}
+@cindex @code{repeatCommands}
+@cindex @code{defaultBarType}
 
 The command @code{\bar }@var{bartype} is a short cut for doing
 @code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
@@ -1191,37 +1118,69 @@ At the start of a measure it is set to the contents of
 @code{Timing.defaultBarType}.  The contents of @code{repeatCommands} are used
 to override default measure bars.
 
-@cindex @code{whichBar}
-@cindex @code{repeatCommands}
-@cindex @code{defaultBarType}
-
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
-
 
 
 @seealso
 
 In this manual: @ref{Repeats}, @ref{System start delimiters}.
 
-
 Program reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across staves).
 
-@cindex bar lines at start of system
-@cindex start of system
-
-
-
 Examples: @inputfileref{input/@/test,bar@/-lines@/.ly},
 
+
+@node Unmetered music
+@subsection Unmetered music
+
+@cindex cadenza
+@cindex @code{\cadenzaOn}
+@cindex @code{\cadenzaOff}
+
+Bar lines and bar numbers are calculated automatically.  For unmetered
+music (cadenzas, for example), this is not desirable.  To turn off
+automatic bar lines and bar numbers, use the commands @code{\cadenzaOn}
+and @code{\cadenzaOff}.
+
+@lilypond[verbatim,quote,raggedright,relative=2,fragment]
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
+
+
+@refbugs
+
+LilyPond will only insert page breaks at a barline.  Unless the unmetered
+music ends before the end of the staff line, you will need to insert
+invisible bar lines
+
+@example
+\bar ""
+@end example
+
+@noindent
+to indicate where line breaks can occur.
 
 
 @node System start delimiters
 @subsection System start delimiters
 
+@cindex start of system
+@cindex Staff, multiple
+@cindex bracket, vertical
+@cindex brace, vertical
+@cindex grand staff
+@cindex staff group
+
 Many scores consist of more than one staff.  These staves can be
 joined in three different ways
+
 @itemize @bullet
 @item The group is started with a brace at the left, and bar lines are
 connected.  This is done with the @internalsref{GrandStaff} context.
@@ -1233,7 +1192,6 @@ connected.  This is done with the @internalsref{GrandStaff} context.
   \new Staff { c c }
 >>
 @end lilypond
-
 
 @item The group is started with a bracket, and bar lines are connected.
 This is done with the
@@ -1247,7 +1205,6 @@ This is done with the
 >>
 @end lilypond
 
-
 @item The group is started with a vertical line.  Bar lines are not
 connected.  This is the default for the score.
 
@@ -1257,14 +1214,7 @@ connected.  This is the default for the score.
   \new Staff { c c }
 >>
 @end lilypond
-
 @end itemize
-
-@cindex Staff, multiple
-@cindex bracket, vertical
-@cindex brace, vertical
-@cindex grand staff
-@cindex staff group
 
 
 @seealso
@@ -1274,6 +1224,56 @@ The bar lines at the start of each system are
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
 @code{systemStartDelimiter}.
+
+
+@node Staff symbol
+@subsection Staff symbol
+
+@cindex adjusting staff symbol
+
+Notes, dynamic signs, etc., are grouped
+with a set of horizontal lines, called a staff (plural `staves').  In
+LilyPond, these lines are drawn using a separate layout object called
+staff symbol.
+
+The staff symbol may be tuned in the number, thickness and distance
+of lines, using properties.  This is demonstrated in the example files
+@inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test,staff@/-size@/.ly}.
+
+In addition, staves may be started and stopped at will. This is done
+with @code{\startStaff} and @code{\stopStaff}.
+
+@lilypond[verbatim,relative=2,fragment]
+b4 b
+\override Staff.StaffSymbol #'line-count = 2
+\stopStaff \startStaff
+b b
+\revert Staff.StaffSymbol #'line-count
+\stopStaff \startStaff
+b b  
+@end lilypond
+
+In combination with Frenched staves, this may be used to typeset ossia
+sections. An example is in @inputfileref{input/@/test@/,ossia.ly},
+shown here
+
+@cindex ossia
+
+@lilypondfile{ossia.ly}
+
+@cindex staff lines, setting number of
+@cindex staff lines, setting thickness of
+@cindex thickness of staff lines, setting
+@cindex number of staff lines, setting
+
+@seealso
+
+Program reference: @internalsref{StaffSymbol}, @internalsref{StaffSpanEvent}.
+
+Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test@/,ossia.ly},
+@inputfileref{input/@/test,staff@/-size@/.ly}.
 
 
 @node More than notes
