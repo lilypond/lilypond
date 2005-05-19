@@ -23,7 +23,6 @@ public:
   File_name (String);
 
   String to_string () const;
-  char const *to_str0 () const;
 };
 
 #endif /* FILE_NAME */
