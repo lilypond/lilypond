@@ -6,31 +6,14 @@
   (c) 1999--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "axis-group-engraver.hh"
+
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "axis-group-interface.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "context.hh"
-
-/**
-   Put stuff in a Spanner with an Axis_group_interface.
-   Use as last element of a context.
-*/
-class Axis_group_engraver : public Engraver
-{
-protected:
-  Spanner *staffline_;
-  Link_array<Grob> elts_;
-  virtual void process_music ();
-  virtual void finalize ();
-  virtual void acknowledge_grob (Grob_info);
-  virtual void process_acknowledged_grobs ();
-  virtual Spanner *get_spanner ();
-  virtual void add_element (Grob *);
-public:
-  TRANSLATOR_DECLARATIONS (Axis_group_engraver);
-};
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -137,79 +120,6 @@ Axis_group_engraver::add_element (Grob *e)
 {
   Axis_group_interface::add_element (staffline_, e);
 }
-
-/****************************************************************/
-
-/*
-  maybenot such a good idea after all., to put class declarations in
-  .cc
-*/
-
-#include "hara-kiri-group-spanner.hh"
-#include "rhythmic-head.hh"
-
-class Hara_kiri_engraver : public Axis_group_engraver
-{
-protected:
-  virtual Spanner *get_spanner ();
-  virtual void acknowledge_grob (Grob_info);
-  virtual void add_element (Grob *e);
-  virtual void start_translation_timestep ();
-
-  SCM interesting_;
-public:
-  TRANSLATOR_DECLARATIONS (Hara_kiri_engraver);
-};
-
-void
-Hara_kiri_engraver::start_translation_timestep ()
-{
-  Axis_group_engraver::start_translation_timestep ();
-  interesting_ = get_property ("keepAliveInterfaces");
-}
-
-
-void
-Hara_kiri_engraver::add_element (Grob *e)
-{
-  Hara_kiri_group_spanner::add_element (staffline_, e);
-}
-
-Spanner *
-Hara_kiri_engraver::get_spanner ()
-{
-  Spanner *sp = make_spanner ("RemoveEmptyVerticalGroup", SCM_EOL);
-
-  return sp;
-}
-
-void
-Hara_kiri_engraver::acknowledge_grob (Grob_info i)
-{
-  Axis_group_engraver::acknowledge_grob (i);
-  if (staffline_)
-    {
-      for (SCM s = interesting_; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  if (i.grob ()->internal_has_interface (scm_car (s)))
-	    Hara_kiri_group_spanner::add_interesting_item (staffline_, i.grob ());
-	}
-    }
-}
-
-Hara_kiri_engraver::Hara_kiri_engraver ()
-{
-  interesting_ = SCM_EOL;
-}
-
-ADD_TRANSLATOR (Hara_kiri_engraver,
-		/* descr */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
-		"interesting items (ie. note heads, lyric syllables and normal rests) ",
-		/* creats*/ "RemoveEmptyVerticalGroup",
-		/* accepts */ "",
-		/* acks  */ "grob-interface",
-		/* reads */ "keepAliveInterfaces",
-		/* write */ "");
 
 ADD_TRANSLATOR (Axis_group_engraver,
 		/* descr */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
