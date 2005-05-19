@@ -1,5 +1,13 @@
 2005-05-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* flower/file-path.cc (find): don't throw away file_name.dir, but
+	append to it. Fixes \include with directories.
+
+	* flower/include/file-path.hh (class File_path): don't derive from
+	Array<String>.
+
+	* flower/include/file-name.hh (class File_name): remove to_str0()
+
 	* lily/hara-kiri-engraver.cc (acknowledge_grob): split
 	Hara_kiri_engraver in separate file.
 

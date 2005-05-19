@@ -75,11 +75,6 @@ File_name::to_string () const
   return s;
 }
 
-char const *
-File_name::to_str0 () const
-{
-  return to_string ().to_str0 ();
-}
 
 File_name::File_name (String file_name)
 {

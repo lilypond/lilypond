@@ -10,6 +10,7 @@
 #include "axis-group-engraver.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "rhythmic-head.hh"
+#include "spanner.hh"
 
 class Hara_kiri_engraver : public Axis_group_engraver
 {

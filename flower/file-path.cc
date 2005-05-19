@@ -31,7 +31,7 @@
 Array<String>
 File_path::directories () const
 {
-  return *this;
+  return dirs_;
 }
 
 void
@@ -41,7 +41,7 @@ File_path::parse_path (String p)
   while ((len = p.length ()) )
     {
       int i = p.index (PATHSEP);
-      if (i <0) 
+      if (i < 0) 
 	i = len;
       append (p.left_string (i));
       p = p.right_string (len - i - 1);
@@ -59,6 +59,7 @@ is_file (String file_name)
   if (!(sbuf.st_mode & __S_IFREG))
     return false;
 #endif
+
 #if !STAT_MACROS_BROKEN
   struct stat sbuf;
   if (stat (file_name.to_str0 (), &sbuf) != 0)
@@ -67,12 +68,14 @@ is_file (String file_name)
   return !S_ISDIR (sbuf.st_mode);
 #endif
 
+
   if (FILE *f = fopen (file_name.to_str0 (), "r"))
     {
       fclose (f);
       return true;
     }
 
+  
   return false;
 }
 
@@ -120,29 +123,31 @@ File_path::find (String name) const
   File_name file_name (name);
   if (file_name.dir_[0] == DIRSEP && is_file (file_name.to_string ()))
     return file_name.to_string ();
-
-  for (int i = 0, n = size (); i < n; i++)
+  
+  for (int i = 0; i < dirs_.size (); i++)
     {
-      File_name dir = elem (i);
+      File_name file_name (name);
+      File_name dir = dirs_[i];
       file_name.root_ = dir.root_;
       dir.root_ = "";
-      file_name.dir_ = dir.to_string ();
+      if (file_name.dir_.is_empty ())
+	file_name.dir_ = dir.to_string ();
+      else if (!dir.to_string ().is_empty())
+	file_name.dir_ += ::to_string (DIRSEP) + dir.to_string ();
+	
       if (is_file (file_name.to_string ()))
 	return file_name.to_string ();
     }
   return "";
 }
 
-/** Find a file.
+/*
+  Try to find
 
-Seach in the current dir (DUH! FIXME?), in the construction-arg
-(what's that?, and in any other appended directory, in this order.
+    file.EXT,
 
-Search for NAME, or name without extension, or name with any of
-EXTENSIONS, in that order.
-
-@return
-The file name if found, or empty string if not found. */
+  where EXT is from EXTENSIONS.
+*/
 String
 File_path::find (String name, char const *extensions[])
 {
@@ -161,6 +166,7 @@ File_path::find (String name, char const *extensions[])
 	  if (!find (file_name.to_string ()).is_empty ())
 	    break;
 	}
+      
       /* Reshuffle extension */
       file_name = File_name (file_name.to_string ());
     }
@@ -185,11 +191,23 @@ String
 File_path::to_string () const
 {
   String s;
-  for (int i = 0, n = size (); i < n; i++)
+  for (int i = 0; i < dirs_.size (); i++)
     {
-      s = s + elem (i);
-      if (i < n - 1)
+      s = s + dirs_[i];
+      if (i < dirs_.size() - 1)
 	s += ::to_string (PATHSEP);
     }
   return s;
+}
+
+void
+File_path::append (String str)
+{
+  dirs_.push (str);
+}
+
+void
+File_path::prepend (String str)
+{
+  dirs_.insert (str, 0);
 }

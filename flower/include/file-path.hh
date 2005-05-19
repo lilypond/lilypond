@@ -21,17 +21,18 @@
    TODO: add a unix style PATH interface
 */
 
-class File_path : private Array<String>
+class File_path
 {
+  Array<String> dirs_; 
 public:
   Array<String> directories () const;
   String find (String name) const;
   String find (String name, char const *extensions[]);
   String to_string () const;
   bool try_append (String str);
-  void append (String str) { Array<String>::push (str); }
+  void append (String str);
   void parse_path (String);
-  void prepend (String str) { Array<String>::insert (str, 0); }
+  void prepend (String str);
 };
 
 #endif /* FILE_PATH */
