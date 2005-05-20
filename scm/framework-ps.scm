@@ -254,7 +254,8 @@
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
 	   (file-name (caddr font-name-filename))
-	   (bare-file-name (ly:find-file file-name)))
+	   (bare-file-name (ly:find-file file-name))
+	   )
 
       (cons
        (munge-lily-font-name name)
@@ -301,7 +302,8 @@
 		    (list #f
 			  (car name-psname-pair)
 			  (cdr name-psname-pair)))
-		   (ly:pango-font-physical-fonts font)))
+		  (ly:pango-font-physical-fonts font)))
+
 		(else
 		 (ly:font-sub-fonts font))))
 
