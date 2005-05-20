@@ -18,7 +18,7 @@
 * Internal music representation::  
 * Extending music syntax::      
 * Manipulating music expressions::  
-* Internal representation of music expressions::  
+* Displaying music expressions::  
 * Using LilyPond syntax inside Scheme::  
 @end menu
 
@@ -310,8 +310,8 @@ exporting LilyPond input to other formats
 @inputfileref{input/@/test,music@/-box@/.ly}.
 
 
-@node Internal representation of music expressions
-@subsection Internal representation of music expressions
+@node Displaying music expressions
+@subsection Displaying music expressions
 
 @cindex internal storage
 @cindex @code{\displayMusic}
