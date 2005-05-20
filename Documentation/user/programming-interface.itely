@@ -322,7 +322,7 @@ music function @code{\displayMusic}.
 
 @example
 @{
-\displayMusic { c'4\f }
+\displayMusic @{ c'4\f @}
 @}
 @end example
 
