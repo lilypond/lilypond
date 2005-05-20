@@ -15,11 +15,12 @@ This chapter explains how to use all basic notation features.
 * Note entry::                  
 * Easier music entry::          
 * Staff notation::              
-* More than notes::             
+* Connecting notes::            
 * Expressive marks::            
 * Polyphony::                   
 * Repeats::                     
 @end menu
+
 
 
 @node Note entry
@@ -145,8 +146,7 @@ ceses4 ces cis c
 
 @seealso
 
-Program reference: @internalsref{NoteEvent},
-@internalsref{LedgerLineSpanner}, and @internalsref{NoteHead}.
+Program reference: @internalsref{LedgerLineSpanner}, @internalsref{NoteHead}.
 
 
 @node Cautionary accidentals
@@ -247,7 +247,7 @@ a'4\rest d'4\rest
 
 @seealso
 
-Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
+Program reference: @internalsref{Rest}.
 
 
 @node Skips
@@ -292,7 +292,7 @@ The fragment @code{@{ \skip 4 @} } would produce an empty page.
 
 @seealso
 
-Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
+Program reference: @internalsref{SkipMusic}.
 
 
 @node Durations
@@ -441,13 +441,6 @@ instead.
 
 Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
-@c FIXME: will be deleted or moved; not suitable for basic-notation.
-@ignore
-Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
-User manual: @ref{Changing context properties on the fly} for the
-@code{\set} command.
-@end ignore
-
 
 @refbugs
 
@@ -586,7 +579,6 @@ octave should be.  In the following example,
 \relative c'' @{ c='' b=' d,='' @}
 @end example
 
-@c take care with @code, adds confusing quotes.
 @noindent
 the @code{d} will generate a warning, because a @code{d''} is expected
 (because @code{b'} to @code{d''} is only a third), but a @code{d'} is
@@ -741,6 +733,7 @@ Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 @noindent
 
 Program reference: @internalsref{Completion_heads_engraver}.
+
 
 
 @node Staff notation
@@ -927,8 +920,7 @@ a bes c d
 
 @seealso
 
-Program reference: @internalsref{KeyChangeEvent},
-@internalsref{KeyCancellation} and @internalsref{KeySignature}.
+Program reference: @internalsref{KeyCancellation}, @internalsref{KeySignature}.
 
 
 @node Time signature
@@ -1269,32 +1261,33 @@ shown here
 
 @seealso
 
-Program reference: @internalsref{StaffSymbol}, @internalsref{StaffSpanEvent}.
+Program reference: @internalsref{StaffSymbol}.
 
 Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
 @inputfileref{input/@/test@/,ossia.ly},
 @inputfileref{input/@/test,staff@/-size@/.ly}.
 
 
-@node More than notes
-@section More than notes
-@c silly title; should change.
 
-This section deals with notation that affects more than one note.
+@node Connecting notes
+@section Connecting notes
+
+This section deals with notation that affects groups of notes.
 
 @menu
 * Ties::                        
+* Slurs::                       
+* Phrasing slurs::              
 * Automatic beams::             
 * Manual beams::                
 * Grace notes::                 
-* Fingering instructions::      
 @end menu
+
 
 @node Ties
 @subsection Ties
 
-@cindex Tie
-@cindex ties
+@cindex tie
 @cindex @code{~}
 
 A tie connects two adjacent note heads of the same pitch.  The tie in
@@ -1312,7 +1305,7 @@ are connected.  When no note heads match, no ties will be created.
 A tie is just a way of extending a note duration, similar to the
 augmentation dot.  The following example shows two ways of notating
 exactly the same concept
-@c
+
 @lilypond[quote,fragment,raggedright]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
@@ -1332,6 +1325,9 @@ If you need to tie a lot of notes over bars, it may be easier to use
 automatic note splitting (see @ref{Automatic note splitting}).  This
 mechanism automatically splits long notes, and ties them across bar
 lines.
+
+
+@commonprop
 
 Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the
@@ -1357,19 +1353,119 @@ notes need not be consecutive.  This can be achieved by setting the
 @cindex @code{\tieSolid}
 @code{\tieSolid}.
 
+
 @seealso
 
 In this manual: @ref{Automatic note splitting}.
 
-Program reference: @internalsref{TieEvent}, @internalsref{Tie}.
+Program reference: @internalsref{Tie}.
+
 
 @refbugs
-
 
 Switching staves when a tie is active will not produce a slanted tie.
 
 Formatting of ties is a difficult subject.  The results are often not
 optimal.
+
+
+@node Slurs
+@subsection Slurs
+
+@cindex Slurs
+
+A slur indicates that notes are to be played bound or
+@emph{legato}.  They are entered using parentheses
+
+@lilypond[quote,raggedright,relative=2,fragment,verbatim]
+f( g a) a8 b( a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+The direction of a slur can be specified with
+@code{\slur@emph{DIR}}, where @code{@emph{DIR}} is
+either @code{Up}, @code{Down}, or @code{Neutral} (automatically
+selected).
+
+However, there is a convenient shorthand for forcing slur
+directions.  By adding @code{_} or @code{^} before the opening
+parentheses, the direction is also set.  For example,
+
+@lilypond[relative=2,raggedright,quote,verbatim,fragment]
+c4_( c) c^( c)
+@end lilypond
+
+Only one slur can be printed at once.  If you need to print a long
+slur over a few small slurs, please see @ref{Phrasing slurs}.
+
+
+@commonprop
+
+Some composers write two slurs when they want legato chords.  This can
+be achieved in LilyPond by setting @code{doubleSlurs},
+
+@lilypond[verbatim,raggedright,relative,fragment,quote]
+\set doubleSlurs = ##t
+<c e>4 ( <d f> <c e> <d f> )
+@end lilypond
+
+
+@refcommands
+
+@cindex @code{\slurUp}
+@code{\slurUp},
+@cindex @code{\slurDown}
+@code{\slurDown},
+@cindex @code{\slurNeutral}
+@code{\slurNeutral},
+@cindex @code{\slurDashed}
+@code{\slurDashed},
+@cindex @code{\slurDotted}
+@code{\slurDotted},
+@cindex @code{\slurSolid}
+@code{\slurSolid}.
+
+@seealso
+
+Program reference: @seeinternals{Slur}.
+
+
+@node Phrasing slurs
+@subsection Phrasing slurs
+
+@cindex phrasing slurs
+@cindex phrasing marks
+
+A phrasing slur (or phrasing mark) connects notes and is used to
+indicate a musical sentence.  It is written using @code{\(} and @code{\)}
+respectively
+
+@lilypond[quote,raggedright,fragment,verbatim,relative=1]
+\time 6/4 c'\( d( e) f( e) d\)
+@end lilypond
+
+Typographically, the phrasing slur behaves almost exactly like a
+normal slur.  However, they are treated as different objects.  A
+@code{\slurUp} will have no effect on a phrasing slur; instead, use
+@code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
+@code{\phrasingSlurNeutral}.
+
+You cannot have simultaneous phrasing slurs.
+
+
+@refcommands
+
+@cindex @code{\phrasingSlurUp}
+@code{\phrasingSlurUp},
+@cindex @code{\phrasingSlurDown}
+@code{\phrasingSlurDown},
+@cindex @code{\phrasingSlurNeutral}
+@code{\phrasingSlurNeutral}.
+
+
+@seealso
+
+Program reference: @internalsref{PhrasingSlur}.
 
 
 @node Automatic beams
@@ -1386,7 +1482,7 @@ entered explicitly.  It is also possible to define beaming patterns
 that differ from the defaults.  See @ref{Setting automatic beam behavior}
 for details.
 
-Individual notes may be marked with @code{\noBeam}, to prevent them
+Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed
 
 @lilypond[quote,raggedright,fragment,verbatim,relative=2]
@@ -1401,6 +1497,7 @@ Program reference: @internalsref{Beam}.
 
 @node Manual beams
 @subsection Manual beams
+
 @cindex beams, manual
 @cindex @code{]}
 @cindex @code{[}
@@ -1416,7 +1513,11 @@ and end point with @code{[} and @code{]}
 }
 @end lilypond
 
+
+@commonprop
+
 @cindex @code{stemLeftBeamCount}
+@cindex @code{stemRightBeamCount}
 
 Normally, beaming patterns within a beam are determined automatically.
 If necessary, the properties @code{stemLeftBeamCount} and
@@ -1433,13 +1534,10 @@ is erased
       f g a]
 }
 @end lilypond
-@cindex @code{stemRightBeamCount}
-
 
 The property @code{subdivideBeams} can be set in order to subdivide
 all 16th or shorter beams at beat positions, as defined by the
 @code{beatLength} property.
-
 
 @lilypond[fragment,quote,relative=2,verbatim]
 c16[ c c c c c c c]
@@ -1450,37 +1548,26 @@ c16[ c c c c c c c]
 @end lilypond
 @cindex @code{subdivideBeams}
 
-Normally, line breaks are forbidden when beams cross bar lines.  This
+Line breaks are normally forbidden when beams cross bar lines.  This
 behavior can be changed by setting @code{allowBeamBreak}.
 
 @cindex @code{allowBeamBreak}
 @cindex beams and line breaks
-
 @cindex beams, kneed
 @cindex kneed beams
 @cindex auto-knee-gap
 
 
-@seealso
-
-User manual: @ref{Changing context properties on the fly} for the
-@code{\set} command
-
-
 @refbugs
 
-@cindex Frenched staves
-Kneed beams are inserted automatically, when a large gap is detected
+Kneed beams are inserted automatically when a large gap is detected
 between the note heads.  This behavior can be tuned through the object.
-
 
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
 
 Beams do not avoid collisions with symbols around the notes, such as
 texts and accidentals.
-
-@c FIXME.
 
 
 @node Grace notes
@@ -1489,6 +1576,8 @@ texts and accidentals.
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
+@cindex appoggiatura
+@cindex acciaccatura
 
 Grace notes are ornaments that are written out.  The most common ones
 are acciaccatura, which should be played as very short.  It is denoted
@@ -1497,10 +1586,6 @@ grace note that takes a fixed fraction of the main note, and is
 denoted as a slurred note in small print without a slash.  They
 are entered with the commands @code{\acciaccatura} and
 @code{\appoggiatura}, as demonstrated in the following example
-
-
-@cindex appoggiatura
-@cindex acciaccatura
 
 @lilypond[quote,raggedright,relative=2,verbatim,fragment]
 b4 \acciaccatura d8 c4 \appoggiatura e8 d4
@@ -1547,7 +1632,6 @@ example is shown here with timing tuples
 >>
 @end lilypond
 
-
 The placement of grace notes is synchronized between different staves.
 In the following example, there are two sixteenth grace notes for
 every eighth grace note
@@ -1556,8 +1640,6 @@ every eighth grace note
 << \new Staff { e4 \grace { c16[ d e f] } e4 }
    \new Staff { c4 \grace { g8[ b] } c4 } >>
 @end lilypond
-
-
 
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace notes
@@ -1578,9 +1660,7 @@ afterGraceFraction = #(cons 7 8)
 @noindent
 will put the grace note at 7/8 of the main note. 
 
-
 The same effect can be achieved manually by doing
-
 
 @lilypond[quote,raggedright,fragment,verbatim,relative=2]
 \context Voice {
@@ -1593,9 +1673,6 @@ The same effect can be achieved manually by doing
 @noindent
 By adjusting the duration of the skip note (here it is a half-note),
 the space between the main-note and the grace is adjusted.
-
-
-
 
 A @code{\grace} section will introduce special typesetting settings,
 for example, to produce smaller type, and set directions.  Hence, when
@@ -1639,6 +1716,7 @@ Another option is to change the variables @code{startGraceMusic},
 
 Program reference: @internalsref{GraceMusic}.
 
+
 @refbugs
 
 A score that starts with a @code{\grace} section needs an explicit
@@ -1666,67 +1744,6 @@ expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
 
 
-@node Fingering instructions
-@subsection Fingering instructions
-
-@cindex fingering
-
-Fingering instructions can be entered using
-@example
-@var{note}-@var{digit}
-@end example
-For finger changes, use markup texts
-
-@lilypond[quote,verbatim,raggedright,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2-3" }
-@end lilypond
-
-@cindex finger change
-@cindex scripts
-@cindex superscript
-@cindex subscript
-
-You can use the thumb-script to indicate that a note should be
-played with the thumb (e.g., in cello music)
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
-@end lilypond
-
-Fingerings for chords can also be added to individual notes
-of the chord by adding them after the pitches
-@lilypond[quote,verbatim,raggedright,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
-@end lilypond
-
-@noindent
-In this case, setting @code{fingeringOrientations} will put fingerings next
-to note heads
-
-@lilypond[quote,verbatim,raggedright,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-Using this feature, it is also possible to put fingering instructions
-very close to note heads in monophonic music,
-
-@lilypond[verbatim,raggedright,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
-
-
-@seealso
-
-Program reference: @internalsref{FingerEvent}, and @internalsref{Fingering}.
-
-Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
-
-
-
 
 @node Expressive marks
 @section Expressive marks
@@ -1735,9 +1752,8 @@ Expressive marks help musicians to bring more to the music than simple
 notes and rhythms.
 
 @menu
-* Slurs::                       
-* Phrasing slurs::              
 * Articulations::               
+* Fingering instructions::      
 * Dynamics::                    
 * Breath marks::                
 * Running trills::              
@@ -1746,117 +1762,10 @@ notes and rhythms.
 @end menu
 
 
-@node Slurs
-@subsection Slurs
-@cindex Slurs
-
-A slur indicates that notes are to be played bound or @emph{legato}.
-
-They are entered using parentheses
-@lilypond[quote,raggedright,relative=2,fragment,verbatim]
-f( g a) a8 b( a4 g2 f4)
-<c e>2( <b d>2)
-@end lilypond
-
-The direction of a slur can be set with the
-generic commands
-
-@example
-\override Slur #'direction = #UP
-\slurUp            % shortcut for the previous line
-@end example
-
-@noindent
-However, there is a convenient shorthand for forcing slur
-directions.  By adding @code{_} or @code{^} before the opening
-parentheses, the direction is also set.  For example,
-
-@lilypond[relative=2,raggedright,quote,verbatim,fragment]
-c4_( c) c^( c)
-@end lilypond
-
-Some composers write two slurs when they want legato chords.  This can
-be achieved in LilyPond by setting @code{doubleSlurs},
-
-@lilypond[verbatim,raggedright,relative,fragment,quote]
-\set doubleSlurs = ##t
-<c e>4 ( <d f> <c e> <d f> )
-@end lilypond
-
-Only one slur can be printed at once.  If you need to print a long
-slur over a few small slurs, please see @ref{Phrasing slurs}.
-
-
-@refcommands
-
-
-@cindex @code{\slurUp}
-@code{\slurUp},
-@cindex @code{\slurDown}
-@code{\slurDown},
-@cindex @code{\slurNeutral}
-@code{\slurNeutral},
-@cindex @code{\slurDashed}
-@code{\slurDashed},
-@cindex @code{\slurDotted}
-@code{\slurDotted},
-@cindex @code{\slurSolid}
-@code{\slurSolid}.
-
-@seealso
-
-Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
-
-
-@node Phrasing slurs
-@subsection Phrasing slurs
-
-@cindex phrasing slurs
-@cindex phrasing marks
-
-A phrasing slur (or phrasing mark) connects chords and is used to
-indicate a musical sentence.  It is written using @code{\(} and @code{\)}
-respectively
-
-@lilypond[quote,raggedright,fragment,verbatim,relative=1]
-\time 6/4 c'\( d( e) f( e) d\)
-@end lilypond
-
-Typographically, the phrasing slur behaves almost exactly like a
-normal slur.  However, they are treated as different objects.  A
-@code{\slurUp} will have no effect on a phrasing slur; instead, use
-@code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
-@code{\phrasingSlurNeutral}.
-
-The commands @code{\slurUp}, @code{\slurDown}, and @code{\slurNeutral}
-will only affect normal slurs and not phrasing slurs.
-
-You cannot have simultaneous phrasing slurs.
-
-@refcommands
-
-@cindex @code{\phrasingSlurUp}
-@code{\phrasingSlurUp},
-@cindex @code{\phrasingSlurDown}
-@code{\phrasingSlurDown},
-@cindex @code{\phrasingSlurNeutral}
-@code{\phrasingSlurNeutral}.
-
-@seealso
-
-Program reference: see also @internalsref{PhrasingSlur}, and
-@internalsref{PhrasingSlurEvent}.
-
-@refbugs
-
-Putting phrasing slurs over rests leads to spurious warnings.
-
-
 @node Articulations
 @subsection Articulations
-@cindex Articulations
 
-@cindex articulations
+@cindex Articulations
 @cindex scripts
 @cindex ornaments
 
@@ -1870,11 +1779,9 @@ articulation.  They are demonstrated here
 The meanings of these shorthands can be changed.  See
 @file{ly/@/script@/-init@/.ly} for examples.
 
-
 The script is automatically placed, but the direction can be forced as
 well.  Like other pieces of LilyPond code, @code{_} will place them
 below the staff, and @code{^} will place them above.
-
 
 @lilypond[quote,raggedright,fragment,verbatim]
 c''4^^ c''4_^
@@ -1888,8 +1795,6 @@ e.g.,
 @lilypond[quote,raggedright,verbatim,fragment,relative=2]
 c\fermata c^\fermata c_\fermata
 @end lilypond
-
-
 
 @cindex accent
 @cindex marcato
@@ -1926,6 +1831,8 @@ Here is a chart showing all scripts available,
 @lilypondfile[raggedright,quote]{script-chart.ly}
 
 
+@commonprop
+
 The vertical ordering of scripts is controlled with the
 @code{script-priority} property.  The lower this number, the closer it
 will be put to the note.  In this example, the
@@ -1934,7 +1841,6 @@ priority, so it is put lowest in the first example.  In the second, the
 prall trill (the @internalsref{Script}) has the lowest, so it is on the
 inside.  When two objects have the same priority, the order in which
 they are entered decides which one comes first.
-
 
 @lilypond[verbatim,relative=3,raggedright,fragment,quote]
 \once \override TextScript #'script-priority = #-100
@@ -1945,11 +1851,10 @@ a4^\prall^\markup { \sharp }
 @end lilypond
 
 
-
-
 @seealso
 
-Program reference: @internalsref{ScriptEvent}, and @internalsref{Script}.
+Program reference: @internalsref{Script}.
+
 
 @refbugs
 
@@ -1957,12 +1862,68 @@ These signs appear in the printed output but have no effect on the
 MIDI rendering of the music.
 
 
+@node Fingering instructions
+@subsection Fingering instructions
+
+@cindex fingering
+@cindex finger change
+
+Fingering instructions can be entered using
+@example
+@var{note}-@var{digit}
+@end example
+For finger changes, use markup texts
+
+@lilypond[quote,verbatim,raggedright,fragment,relative=1]
+c4-1 c-2 c-3 c-4
+c^\markup { \finger "2 - 3" }
+@end lilypond
+
+You can use the thumb-script to indicate that a note should be
+played with the thumb (e.g., in cello music)
+@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+<a_\thumb a'-3>8 <b_\thumb b'-3>
+@end lilypond
+
+Fingerings for chords can also be added to individual notes
+of the chord by adding them after the pitches
+@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+< c-1 e-2 g-3 b-5 >4
+@end lilypond
+
+
+@commonprop
+
+You may exercise greater control over fingering chords by
+setting @code{fingeringOrientations}
+
+@lilypond[quote,verbatim,raggedright,fragment,relative=1]
+\set fingeringOrientations = #'(left down)
+<c-1 es-2 g-4 bes-5 > 4
+\set fingeringOrientations = #'(up right down)
+<c-1 es-2 g-4 bes-5 > 4
+@end lilypond
+
+Using this feature, it is also possible to put fingering instructions
+very close to note heads in monophonic music,
+
+@lilypond[verbatim,raggedright,quote,fragment]
+\set fingeringOrientations = #'(right)
+<es'-2>4
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{Fingering}.
+
+Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
+
+
 @node Dynamics
 @subsection Dynamics
+
 @cindex Dynamics
-
-
-
 @cindex @code{\ppp}
 @cindex @code{\pp}
 @cindex @code{\p}
@@ -1980,12 +1941,11 @@ MIDI rendering of the music.
 @cindex @code{\sfz}
 @cindex @code{\rfz}
 
-
 Absolute dynamic marks are specified using a command after a note
 @code{c4\ff}.  The available dynamic marks are @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}
+@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
 
 @lilypond[quote,verbatim,raggedright,fragment,relative=2]
 c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
@@ -1994,9 +1954,7 @@ c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 
 @cindex @code{\<}
 @cindex @code{\>}
-@cindex @code{\"!}
-
-
+@cindex @code{\!}
 
 A crescendo mark is started with @code{\<} and terminated with
 @code{\!} or an absolute dynamic.  A decrescendo is started with
@@ -2016,8 +1974,11 @@ example
 \override Staff.Hairpin #'minimum-length = #5
 @end example
 
-You can also use a text saying @emph{cresc.} instead of hairpins.  Here
-is an example how to do it
+@cindex crescendo
+@cindex decrescendo
+@cindex diminuendo
+
+You can also use a text saying @emph{cresc.} instead of hairpins
 
 @lilypond[quote,raggedright,fragment,relative=2,verbatim]
 \setTextCresc
@@ -2030,17 +1991,12 @@ c\> d e f\!
 e\> d c b\!
 @end lilypond
 
-@cindex crescendo
-@cindex decrescendo
-
 You can also supply your own texts
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
 \set crescendoSpanner = #'dashed-line
 a'2\< a a a\!\mf
 @end lilypond
-
-@cindex diminuendo
 
 To create new dynamic marks or text that should be aligned
 with dynamics, see @ref{New dynamic marks}.
@@ -2055,27 +2011,25 @@ with dynamics, see @ref{New dynamic marks}.
 @cindex @code{\dynamicNeutral}
 @code{\dynamicNeutral}.
 
-@cindex direction, of dynamics
 
 @seealso
 
-Program reference: @internalsref{CrescendoEvent},
-@internalsref{DecrescendoEvent}, and
-@internalsref{AbsoluteDynamicEvent}.
+Program reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Vertical positioning of these symbols is handled by
+@internalsref{DynamicLineSpanner}.
 
-Dynamics are @internalsref{DynamicText} and @internalsref{Hairpin}
-objects.  Vertical positioning of these symbols is handled by the
-@internalsref{DynamicLineSpanner} object.
 
 @node Breath marks
 @subsection Breath marks
 
 Breath marks are entered using @code{\breathe}
 
-
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
 c'4 \breathe d4
 @end lilypond
+
+
+@commonprop
 
 The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object with
@@ -2090,8 +2044,7 @@ d4
 
 @seealso
 
-Program reference: @internalsref{BreathingSign},
-@internalsref{BreathingSignEvent}.
+Program reference: @internalsref{BreathingSign}.
 
 Examples: @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
 
@@ -2102,13 +2055,13 @@ Examples: @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
 Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan},
 
-
 @lilypond[verbatim,raggedright,relative=2,quote,fragment]
 \new Voice {
   << { c1 \startTrillSpan }
      { s2. \grace { d16[\stopTrillSpan e] } } >>
   c4 }
 @end lilypond
+
 
 @refcommands
 
@@ -2117,18 +2070,16 @@ Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan}.
 @cindex @code{\stopTrillSpan}
 
+
 @seealso
 
-Program reference: @internalsref{TrillSpanner},
-@internalsref{TrillSpanEvent}.
-
-
+Program reference: @internalsref{TrillSpanner}.
 
 
 @node Glissando
 @subsection Glissando
-@cindex Glissando
 
+@cindex Glissando
 @cindex @code{\glissando}
 
 A glissando is a smooth change in pitch.  It is denoted by a line or a
@@ -2136,15 +2087,17 @@ wavy line between two notes.  It is requested by attaching
 @code{\glissando} to a note
 
 @lilypond[quote,raggedright,fragment,relative=2,verbatim]
-c\glissando c'
+c2\glissando c'
+\override Glissando #'style = #'zigzag
+c2\glissando c,
 @end lilypond
+
 
 @seealso
 
-Program reference: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
+Program reference: @internalsref{Glissando}.
 
 Example files: @file{input/@/regression/@/glissando@/.ly}.
-
 
 
 @refbugs
@@ -2154,29 +2107,24 @@ Printing text over the line (such as @emph{gliss.}) is not supported.
 
 @node Arpeggio
 @subsection Arpeggio
-@cindex Arpeggio
 
+@cindex Arpeggio
 @cindex broken chord
 @cindex @code{\arpeggio}
 
 You can specify an arpeggio sign (also known as broken chord) on a
 chord by attaching an @code{\arpeggio} to a chord
 
-
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
 <c e g c>\arpeggio
 @end lilypond
 
-When an arpeggio crosses staves, you attach an arpeggio to the chords
-in both staves, and set
-@internalsref{PianoStaff}.@code{connectArpeggios}
+A square bracket on the left indicates that the player should not
+arpeggiate the chord
 
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\context PianoStaff <<
-  \set PianoStaff.connectArpeggios = ##t
-  \new Staff { <c' e g c>\arpeggio }
-  \new Staff { \clef bass <c,, e g>\arpeggio }
->>
+\arpeggioBracket
+<c' e g c>\arpeggio
 @end lilypond
 
 The direction of the arpeggio is sometimes denoted by adding an
@@ -2191,15 +2139,21 @@ arrowhead to the wiggly line
 }
 @end lilypond
 
-A square bracket on the left indicates that the player should not
-arpeggiate the chord
 
-@c todo: ugh, lousy typography.  Look for real example. --hwn
+@commonprop
+
+When an arpeggio crosses staves, you may attach an arpeggio to the chords
+in both staves and set
+@internalsref{PianoStaff}.@code{connectArpeggios}
 
 @lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\arpeggioBracket
-<c' e g c>\arpeggio
+\context PianoStaff <<
+  \set PianoStaff.connectArpeggios = ##t
+  \new Staff { <c' e g c>\arpeggio }
+  \new Staff { \clef bass <c,, e g>\arpeggio }
+>>
 @end lilypond
+
 
 @refcommands
 
@@ -2213,13 +2167,12 @@ arpeggiate the chord
 @cindex @code{\arpeggioBracket}
 @code{\arpeggioBracket}.
 
+
 @seealso
 
 Notation manual: @ref{Ties}, for writing out arpeggios.
 
-Program reference: @internalsref{ArpeggioEvent},
-@internalsref{Arpeggio}.
-
+Program reference: @internalsref{Arpeggio}.
 
 
 @refbugs
@@ -2242,8 +2195,10 @@ one voice on the same staff.
 * Collision Resolution::        
 @end menu
 
+
 @node Basic polyphony
 @subsection Basic polyphony
+
 @cindex polyphony
 
 The easiest way to enter fragments with more than one voice on a staff
@@ -2254,11 +2209,12 @@ them simultaneously, separating the voices with @code{\\}
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
-	c16 d e f
-	<< { g4 f e | d2 e2 } \\
-	{ r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
-	{ s2. | s4 b4 c2 }
-	>>
+  c16 d e f
+  <<
+    { g4 f e | d2 e2 } \\
+    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+    { s2. | s4 b4 c2 }
+  >>
 }
 @end lilypond
 
@@ -2272,30 +2228,28 @@ appropriately.
 These voices are all seperate from the voice that contains the notes just 
 outside the @code{<< \\ >>} construct.  This should be noted when making 
 changes at the voice level.  This also means that slurs and ties cannot go 
-into or out of a @code{<< \\ >>} construct.  
-Conversely, parallel voices from separate @code{<< \\ >>} constructs on the 
-same staff are the the same voice.  
-Here is the same example, with different noteheads for each voice.  
-Note that the change to the note-head style in the main voice does not affect
+into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
+from separate @code{<< \\ >>} constructs on the same staff are the the
+same voice.  Here is the same example, with different noteheads for each
+voice.  Note that the change to the note-head style in the main voice does not affect
 the inside of the @code{<< \\ >>} constructs.  Also, the change to the second
 voice in the first @code{<< \\ >>} construct is effective in the second
 @code{<< \\ >>}, and the voice is tied accross the two constructs.
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
-	\override NoteHead #'style = #'cross
-	c16 d e f
-	<< 	
-		{ g4 f e } \\
-		{ \override NoteHead #'style = #'triangle
-			r8 e4 d c8 ~ 
-		}
-	>> |
-	<<
-		{ d2 e2 } \\ 
-		{ c8 b16 a b8 g ~ g2 } \\
-		{ \override NoteHead #'style = #'slash s4 b4 c2 }
-	>>
+  \override NoteHead #'style = #'cross
+  c16 d e f
+  << 	
+    { g4 f e } \\
+    { \override NoteHead #'style = #'triangle
+    r8 e4 d c8 ~ }
+  >> |
+  <<
+    { d2 e2 } \\ 
+    { c8 b16 a b8 g ~ g2 } \\
+    { \override NoteHead #'style = #'slash s4 b4 c2 }
+  >>
 }
 @end lilypond
 
@@ -2349,41 +2303,41 @@ melody is now in a single voice context.
 
 @lilypond[quote,raggedright,verbatim]
 \new Staff \relative c' {
-	\override NoteHead #'style = #'cross
-	c16 d e f 
-	\voiceOne
-	<< 	
-		{ g4 f e | d2 e2}
-		\context Voice="1" { \voiceTwo
-			r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
-			\oneVoice
-		}
-		\new Voice { \voiceThree 
-			s2. | s4 b4 c2 
-			\oneVoice
-		}
-	>>
-	\oneVoice
+  \override NoteHead #'style = #'cross
+  c16 d e f 
+  \voiceOne
+  << 	
+    { g4 f e | d2 e2 }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+      \oneVoice
+    }
+    \new Voice { \voiceThree 
+      s2. | s4 b4 c2 
+      \oneVoice
+    }
+  >>
+  \oneVoice
 }
 @end lilypond
 
 The correct definition of the voices allows the melody to be slurred.
 @lilypond[quote,raggedright,verbatim]
 \new Staff \relative c' {
-	c16^( d e f 
-	\voiceOne
-	<< 	
-		{ g4 f e | d2 e2) }  
-		\context Voice="1" { \voiceTwo
-			r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
-			\oneVoice
-		}
-		\new Voice { \voiceThree 
-			s2. s4 b4 c2 
-			\oneVoice
-		}
-	>>
-	\oneVoice
+  c16^( d e f 
+  \voiceOne
+  << 	
+    { g4 f e | d2 e2) }  
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 
+      \oneVoice
+    }
+    \new Voice { \voiceThree 
+      s2. s4 b4 c2 
+      \oneVoice
+    }
+  >>
+  \oneVoice
 }
 @end lilypond
 
@@ -2393,25 +2347,26 @@ the music.
 
 @lilypond[quote,raggedright,verbatim]
 \new Staff \relative c' {
-	c16^( d e f 
-	\voiceOne
-	<< 	
-		{ g4 f e | d2 e2) }  
-		\context Voice="1" { \voiceTwo
-			r8 e4 d c8 ~ | 
-			<<
-				{c8 b16 a b8 g ~ g2} 
-				\new Voice { \voiceThree 
-					s4 b4 c2 
-					\oneVoice
-				}
-			>>
-			\oneVoice
-		}
-	>>
-	\oneVoice
+  c16^( d e f 
+  \voiceOne
+  << 	
+    { g4 f e | d2 e2) }  
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | 
+      <<
+        {c8 b16 a b8 g ~ g2} 
+        \new Voice { \voiceThree 
+          s4 b4 c2 
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
 }
 @end lilypond
+
 
 @node Collision Resolution
 @subsection Collision Resolution
@@ -2448,8 +2403,6 @@ for example
 
 @refcommands
 
-
-
 @cindex @code{\oneVoice}
 @code{\oneVoice},
 @cindex @code{\voiceOne}
@@ -2460,8 +2413,6 @@ for example
 @code{\voiceThree},
 @cindex @code{\voiceFour}
 @code{\voiceFour}.
-
-
 
 @cindex @code{\shiftOn}
 @code{\shiftOn},
@@ -2475,7 +2426,6 @@ voice should be shifted.  The outer voices (normally: voice one and
 two) have @code{\shiftOff}, while the inner voices (three and four)
 have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
 further shift levels.
-
 
 When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
@@ -2494,7 +2444,6 @@ be used to override typesetting decisions.
 @end lilypond
 
 
-
 @seealso
 
 Program reference: the objects responsible for resolving collisions are
@@ -2509,7 +2458,6 @@ Examples:
 
 
 @refbugs
-
 
 When using @code{merge-differently-headed} with an upstem eighth or a
 shorter note, and a downstem half note, the eighth note gets the wrong
@@ -2538,6 +2486,7 @@ for repetitions.
 * Measure repeats::             
 @end menu
 
+
 @node Repeat types
 @subsection Repeat types
 
@@ -2564,7 +2513,6 @@ used to typeset two lines of lyrics in songs with repeats, see
 @inputfileref{input,star-spangled-banner@/.ly}.
 @end ignore
 
-@c tremolo, beamed
 @item tremolo
 Make tremolo beams.  These are not played in MIDI output by default.
 
@@ -2575,9 +2523,9 @@ declared within a Voice context.
 
 @end table
 
+
 @node Repeat syntax
 @subsection Repeat syntax
-
 
 LilyPond has one syntactic construct for specifying different types of
 repeats.  The syntax is
@@ -2589,10 +2537,15 @@ repeats.  The syntax is
 If you have alternative endings, you may add
 @cindex @code{\alternative}
 @example
-\alternative @{ @var{alternative1}
-               @var{alternative2}
-               @var{alternative3} @dots{} @}
+\alternative @{
+  @var{alternative1}
+  @var{alternative2}
+  @var{alternative3}
+  @dots{}
+@}
 @end example
+
+@noindent
 where each @var{alternative} is a music expression.  If you do not
 give enough alternatives for all of the repeats, the first alternative
 is assumed to be played more than once.
@@ -2611,7 +2564,6 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-
 @lilypond[quote,raggedright,fragment,verbatim,relative=2]
 \context Staff {
   \partial 4
@@ -2623,8 +2575,6 @@ c1
 It is possible to shorten volta brackets
 by setting @code{voltaSpannerDuration}.  In the next example, the
 bracket only lasts one measure, which is a duration of 3/4.
-
-
 
 @lilypond[verbatim,raggedright,quote]
 \relative c''{
@@ -2646,11 +2596,10 @@ Brackets for the repeat are normally only printed over the topmost
 staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
 property; see @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly}.
 
-@c not necessary
-@c @inputfileref{input/@/regression,volta@/-chord@/-names@/.ly}.
-
 
 @refbugs
+
+@cindex repeat, ambiguous
 
 A nested repeat like
 
@@ -2665,9 +2614,6 @@ is ambiguous, since it is is not clear to which @code{\repeat} the
 @code{\alternative} belongs.  This ambiguity is resolved by always
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
-@cindex ambiguity
-
-
 
 Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand, for
@@ -2675,12 +2621,11 @@ example by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
-
-
 @node Repeats and MIDI
 @subsection Repeats and MIDI
 
 @cindex expanding repeats
+@cindex @code{\unfoldrepeats}
 
 With a little bit of tweaking, all types of repeats can be present
 in the MIDI output.  This is achieved by applying the
@@ -2690,7 +2635,7 @@ repeats to unfold repeats.
 @lilypond[quote,verbatim,fragment,linewidth=8.0\cm]
 \unfoldrepeats {
   \repeat tremolo 8 {c'32 e' }
-  \repeat percent 2 { c''8 d'' }
+  \repeat percent 4 { c''8 d'' }
   \repeat volta 2 {c'4 d' e' f'}
   \alternative {
     { g' a' a' g' }
@@ -2715,6 +2660,7 @@ percent repeats).  For example,
   \midi @{ .. @}
 @}
 @end example
+
 
 @node Manual repeat commands
 @subsection Manual repeat commands
@@ -2750,7 +2696,6 @@ c4 c4
 @end lilypond
 
 
-
 @seealso
 
 Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
@@ -2758,8 +2703,10 @@ Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}, and
 @internalsref{FoldedRepeatedMusic}.
 
+
 @node Tremolo repeats
 @subsection Tremolo repeats
+
 @cindex tremolo beams
 
 To place tremolo marks between notes, use @code{\repeat} with tremolo
@@ -2781,19 +2728,20 @@ note should not be surrounded by braces.
 Similar output is obtained using the tremolo subdivision, described in
 @ref{Tremolo subdivisions}.
 
+
 @seealso
 
 In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Program reference: tremolo beams are @internalsref{Beam} objects.  Single stem
-tremolos are @internalsref{StemTremolo} objects.  The music expression is
-@internalsref{TremoloEvent}.
+Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 Example files: @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
 @inputfileref{input/@/regression,stem@/-tremolo@/.ly}.
 
+
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
+
 @cindex tremolo marks
 @cindex @code{tremoloFlags}
 
@@ -2808,19 +2756,18 @@ used
 c'2:8 c':32 | c': c': |
 @end lilypond
 
-@c [TODO: stok is te kort bij 32en]
-@c   somebody want to translate that into English?
-@c   `Stem is too short for 32nds' (wl)
 
 @refbugs
 
 Tremolos entered in this way do not carry over into the MIDI output.
 
+
 @seealso
 
 In this manual: @ref{Tremolo repeats}.
 
-Elsewhere: @internalsref{StemTremolo}, @internalsref{TremoloEvent}.
+Elsewhere: @internalsref{StemTremolo}.
+
 
 @node Measure repeats
 @subsection Measure repeats
@@ -2841,11 +2788,10 @@ Percent repeats must be declared within a @code{Voice} context.
 }
 @end lilypond
 
+
 @seealso
 
 Program reference: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 @internalsref{PercentRepeatedMusic}, and
 @internalsref{DoublePercentRepeat}.
-
-
 
