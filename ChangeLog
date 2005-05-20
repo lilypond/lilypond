@@ -1,3 +1,8 @@
+2005-05-20  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/programming-interface.itely: move
+	\displayMusic into its own section.
+
 2005-05-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* flower/file-path.cc (find): don't throw away file_name.dir, but

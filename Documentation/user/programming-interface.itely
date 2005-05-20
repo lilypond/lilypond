@@ -18,6 +18,7 @@
 * Internal music representation::  
 * Extending music syntax::      
 * Manipulating music expressions::  
+* Internal representation of music expressions::  
 * Using LilyPond syntax inside Scheme::  
 @end menu
 
@@ -301,18 +302,29 @@ exporting LilyPond input to other formats
 @c no @inputfileref{} here 
 (eg. @file{input/@/no@/-notation/@/to@/-xml@/.ly}).
 
-@cindex internal storage
-@cindex @code{\displayMusic}
-When writing a music function, it is often instructive to inspect how
-a music expression is stored internally.  This can be done with the
-music function @code{\displayMusic}.
-
 @seealso
 
 @file{scm/@/music@/-functions@/.scm}, @file{scm/@/music@/-types@/.scm},
 @inputfileref{input/@/test,add@/-staccato@/.ly},
 @inputfileref{input/@/test,unfold@/-all@/-repeats@/.ly}, and
 @inputfileref{input/@/test,music@/-box@/.ly}.
+
+
+@node Internal representation of music expressions
+@subsection Internal representation of music expressions
+
+@cindex internal storage
+@cindex @code{\displayMusic}
+
+When writing a music function, it is often instructive to inspect how
+a music expression is stored internally.  This can be done with the
+music function @code{\displayMusic}.
+
+@example
+@{
+\displayMusic { c'4\f }
+@}
+@end example
 
 
 @node Using LilyPond syntax inside Scheme
