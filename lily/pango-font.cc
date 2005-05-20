@@ -101,9 +101,11 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 		   PANGO_ASCENT (ink_rect)));
 
   b.scale (scale_);
-
+  
   SCM glyph_exprs = SCM_EOL;
   SCM *tail = &glyph_exprs;
+
+  bool cid_keyed = false;
   for (int i = 0; i < pgs->num_glyphs; i++)
     {
       PangoGlyphInfo *pgi = pgs->glyphs + i;
@@ -120,6 +122,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 	  /*
 	    CID entry
 	   */
+	  cid_keyed = true;
 	  char_id = scm_from_int (pg);
 	}
       else
@@ -183,9 +186,10 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
       ((Pango_font *) this)->register_font_file (file_name, ps_name);
       pango_fc_font_unlock_face (fcfont);
 	
-      SCM expr = scm_list_4 (ly_symbol2scm ("glyph-string"),
+      SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
 			     scm_makfrom0str (ps_name.to_str0 ()),
 			     scm_from_double (size),
+			     scm_from_bool (cid_keyed),
 			     ly_quote_scm (glyph_exprs));
 
       return Stencil (b, expr);

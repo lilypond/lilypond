@@ -6,6 +6,9 @@
 
 2005-05-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-ps.scm (glyph-string): take cid? argument. Use
+	findresource iso. findfont for CID CFF fonts.
+
 	* VERSION (PACKAGE_NAME): release 2.5.25
 
 	* ly/Welcome_to_LilyPond.ly: add  \version
