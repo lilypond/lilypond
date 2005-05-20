@@ -13,13 +13,14 @@ This chapter deals with rarely-used and advanced notation.
 
 @menu
 * Text::                        
-* Even more than notes::        
 * Preparing parts::             
 * Orchestral music::            
 * Contemporary notation::       
 * Educational use::             
 * Automatic notation::          
+* Other::                       
 @end menu
+
 
 
 @node Text
@@ -43,8 +44,8 @@ your scores.
 
 @node Text scripts
 @subsection Text scripts
-@cindex Text scripts
 
+@cindex Text scripts
 @cindex text items, non-empty
 @cindex non-empty texts
 
@@ -75,15 +76,17 @@ The @code{\markup} is described in more detail in
 @cindex @code{\emptyText}
 @code{\emptyText}.
 
+
 @seealso
 
 In this manual: @ref{Text markup}.
 
-Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
+Program reference: @internalsref{TextScript}.
 
 
 @node Text spanners
 @subsection Text spanners
+
 @cindex Text spanners
 
 Some performance indications, e.g., @i{rallentando} or @i{accelerando},
@@ -111,10 +114,10 @@ c2\startTextSpan b c\stopTextSpan a
 @cindex textSpannerNeutral
 @code{textSpannerNeutral}.
 
+
 @seealso
 
-Internals @internalsref{TextSpanEvent},
-@internalsref{TextSpanner}.
+Program reference: @internalsref{TextSpanner}.
 
 Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
@@ -126,6 +129,7 @@ Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 @cindex segno on bar line
 @cindex fermata on bar line
 @cindex bar lines, symbols on
+@cindex @code{\mark}
 
 The @code{\mark} command is primarily used for
 @internalsref{Rehearsal marks},
@@ -150,6 +154,10 @@ beginning of the next line.
 @c  IMO this is a bug; hopefully it'll be fixed soon, so I can
 @c  delete this sentence.   -gp
 If there is no next line, then the mark will not be printed at all.
+
+
+@commonprop
+
 To print the mark at the end of the current line, use
 
 @example
@@ -171,7 +179,7 @@ c1 c c c4 c c c
 
 @seealso
 
-Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
+Program reference: @internalsref{RehearsalMark}.
 
 
 @node Text markup
@@ -234,7 +242,6 @@ For clarity, you can also do this for single arguments, e.g.,
 
 @cindex font size, texts
 
-
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents, and music expressions.  You can stack
 expressions grouped vertically with the command @code{\column}.
@@ -246,14 +253,12 @@ c1^\markup { \center-align { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
-
 Markups can be stored in variables and these variables
 may be attached to notes, like
 @example
 allegro = \markup @{ \bold \large @{ Allegro @} @}
  @{ a^\allegro b c d @}
 @end example
-
 
 Some objects have alignment procedures of their own, which cancel out
 any effects of alignments applied to their markup arguments as a
@@ -264,9 +269,10 @@ effect.
 
 @seealso
 
-Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
+Program reference: @internalsref{TextScript}.
 
 Init files: @file{scm/@/new@/-markup@/.scm}.
+
 
 @refbugs
 
@@ -276,14 +282,6 @@ texts will be spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
-
-@menu
-* Text encoding::               
-* Nested scores::               
-* Overview of text markup commands::  
-* New dynamic marks::           
-* Other text markup issues::    
-@end menu
 
 @node Text encoding
 @subsection Text encoding
@@ -305,7 +303,6 @@ and Cyrillic lyrics,
 
 @lilypondfile[fontload]{utf-8.ly}
 
-
 The @TeX{} backend does not handle encoding specially at all.  Strings
 in the input are put in the output as-is.  Extents of text items in the
 @TeX{} backend, are determined by reading a file created via the
@@ -326,6 +323,7 @@ lilypond -b tex input/les-nereides.ly
 Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
 suitable LaTeX wrappers to load appropriate La@TeX{} packages for
 interpreting non-ASCII strings.
+
 
 @seealso
 
@@ -350,7 +348,6 @@ block.
   e f
 }
 @end lilypond
- 
 
 
 @node Overview of text markup commands
@@ -406,152 +403,30 @@ To use a normal font within a title, you must define it manually
 @end example
 
 
-@c  really bad section name.  :(
-@node Even more than notes
-@section Even more than notes
+@node Preparing parts
+@section Preparing parts
+
+This section describes various notation that are useful for preparing
+individual parts.
 
 @menu
-* Transpose::                   
-* Ottava brackets::             
 * Multi measure rests::         
-* Time administration::         
+* Metronome marks::             
+* Rehearsal marks::             
+* Bar numbers::                 
+* Instrument names::            
+* Instrument transpositions::   
+* Ottava brackets::             
+* Different editions from one source::  
 @end menu
-
-
-
-@node Transpose
-@subsection Transpose
-@cindex Transpose
-@cindex transposition of pitches
-@cindex @code{\transpose}
-
-A music expression can be transposed with @code{\transpose}.  The
-syntax is
-@example
-\transpose @var{from} @var{to} @var{musicexpr}
-@end example
-
-This means that @var{musicexpr} is transposed by the interval between
-the pitches @var{from} and @var{to}: any note with pitch @code{from}
-is changed to @code{to}.
-
-
-For example, consider a piece written in the key of D-major.  If
-this piece is a little too low for its performer, it can be
-transposed up to E-major with
-@example
-\transpose d e @dots{}
-@end example
-
-Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet, the following
-transposition will produce the appropriate part
-
-@example
-\transpose a c @dots{}
-@end example
-
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats
-
-@lilypond[quote,raggedright,verbatim]
-mus = { \key d \major cis d fis g }
-\context Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
-}
-@end lilypond
-
-@code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into LilyPond
-in C (or ``concert pitch''), but they may be entered in another
-key.  For example, when entering music for a B-flat trumpet which
-begins on concert D, one would write
-
-@example
-\transpose c bes @{ e4 @dots{} @}
-@end example
-
-To print this music in B-flat again (ie producing a trumpet part,
-instead of a concert pitch conductor's score) you would wrap the
-existing music with another @code{transpose}
-
-@example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
-@end example
-
-
-
-@seealso
-
-Program reference: @internalsref{TransposedMusic}, and
-@internalsref{UntransposableMusic}.
-
-@refbugs
-
-If you want to use both @code{\transpose} and @code{\relative},
-you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect music that appears inside a
-@code{\transpose}.
-
-
-@node Ottava brackets
-@subsection Ottava brackets
-
-`Ottava' brackets introduce an extra transposition of an octave for
-the staff.  They are created by invoking the function
-@code{set-octavation}
-
-@cindex ottava
-@cindex 15ma
-@cindex octavation
-
-@lilypond[quote,raggedright,verbatim,fragment]
-\relative c''' {
-  a2 b
-  #(set-octavation 1)
-  a b
-  #(set-octavation 0)
-  a b
-}
-@end lilypond
-
-The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
-(for 15ma) as arguments.  Internally the function sets the properties
-@code{ottavation} (e.g., to @code{"8va"}) and
-@code{centralCPosition}.  For overriding the text of the bracket, set
-@code{ottavation} after invoking @code{set-octavation}, i.e.,
-
-@lilypond[quote,raggedright,verbatim]
-{
-  #(set-octavation 1)
-  \set Staff.ottavation = #"8"
-  c'''
-}
-@end lilypond
-
-@seealso
-
-Program reference: @internalsref{OttavaBracket}.
-
-Examples: @inputfileref{input/@/regression,ottava@/.ly},
-@inputfileref{input/@/regression,ottava@/-broken@/.ly}.
-
-@refbugs
-
-@code{set-octavation} will get confused when clef changes happen
-during an octavation bracket.
 
 
 @node Multi measure rests
 @subsection Multi measure rests
+
 @cindex multi measure rests
 @cindex Rests, multi measure
-
+@cindex whole rests for a full measure
 @cindex @code{R}
 
 Multi-measure rests are entered using `@code{R}'.  It is specifically
@@ -594,7 +469,6 @@ R1*2 | R1*5 | R1*9
 R1*2 | R1*5 | R1*9
 @end lilypond
 
-
 @cindex text on multi-measure rest
 @cindex script on multi-measure rest
 @cindex fermata on multi-measure rest
@@ -620,18 +494,15 @@ R1*4
 @end example
 
 
-@cindex whole rests for a full measure
-
 @seealso
 
-Program reference: @internalsref{MultiMeasureRestEvent},
-@internalsref{MultiMeasureTextEvent},
-@internalsref{MultiMeasureRestMusicGroup}, and
+Program reference: @internalsref{MultiMeasureRestMusicGroup},
 @internalsref{MultiMeasureRest}.
 
 The layout object @internalsref{MultiMeasureRestNumber} is for the
 default number, and @internalsref{MultiMeasureRestText} for user
 specified texts.
+
 
 @refbugs
 
@@ -654,68 +525,6 @@ When @code{skipBars} is set, the result will look OK, but the bar
 numbering will be off.
 
 
-@node Time administration
-@subsection Time administration
-
-Time is administered by the @internalsref{Time_signature_engraver},
-which usually lives in the @internalsref{Score} context.
-The bookkeeping deals with the following variables
-
-@table @code
-@item currentBarNumber
-The measure number.
-
-@item measureLength
-The length of the measures in the current time signature.  For a 4/4
-time this is@tie{}1, and for 6/8 it is 3/4.
-
-@item measurePosition
-The point within the measure where we currently are.  This quantity
-is reset to@tie{}0 whenever it exceeds @code{measureLength}.  When that
-happens, @code{currentBarNumber} is incremented.
-
-@item timing
-If set to true, the above variables are updated for every time
-step.  When set to false, the engraver stays in the current measure
-indefinitely.
-@end table
-
-Timing can be changed by setting any of these variables explicitly.
-In the next example, the 4/4 time signature is printed, but
-@code{measureLength} is set to 5/4.  After a while, the measure is
-shortened by 1/8, by setting @code{measurePosition} to 7/8 at 2/4
-in the measure, so the next bar line will fall at 2/4 + 3/8.  The
-3/8 arises because 5/4 normally has 10/8, but we have manually
-set the measure position to be 7/8 and 10/8 - 7/8 = 3/8.
-
-@lilypond[quote,raggedright,verbatim,relative,fragment]
-\set Score.measureLength = #(ly:make-moment 5 4)
-c1 c4
-c1 c4
-c4 c4
-\set Score.measurePosition = #(ly:make-moment 7 8)
-b8 b b
-c4 c1
-@end lilypond
-
-
-
-@node Preparing parts
-@section Preparing parts
-
-This section describes various notation that are useful for preparing
-individual parts.
-
-@menu
-* Metronome marks::             
-* Rehearsal marks::             
-* Bar numbers::                 
-* Instrument names::            
-* Instrument transpositions::   
-* Different editions from one source::  
-@end menu
-
-
 @node Metronome marks
 @subsection Metronome marks
 
@@ -734,6 +543,9 @@ layout output, a metronome marking is printed
 @lilypond[quote,raggedright,verbatim,fragment]
 \tempo 8.=120 c''1
 @end lilypond
+
+
+@commonprop
 
 To change the tempo in the MIDI output without printing anything, make
 the metronome marking invisible
@@ -757,8 +569,8 @@ See @ref{Text markup} for more details.
 
 @seealso
 
-Program reference: @internalsref{MetronomeChangeEvent}
-@internalsref{MetronomeMark}.
+Program reference: @internalsref{MetronomeMark}.
+
 
 @refbugs
 
@@ -775,8 +587,8 @@ further away from the staff.
 
 @node Rehearsal marks
 @subsection Rehearsal marks
+
 @cindex Rehearsal marks
-@cindex mark
 @cindex @code{\mark}
 
 To print a rehearsal mark, use the @code{\mark} command
@@ -791,8 +603,6 @@ c1 \mark \default
 
 @noindent
 (The letter@tie{}`I' is skipped in accordance with engraving traditions.)
-@c umm, is the manual the right place for feature requests?  :)  -gp
-@c FIXME - should make that tunable.
 
 The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the mark
@@ -820,9 +630,10 @@ of @code{format-mark-numbers} (the default format), @code{format-mark-box-number
 @code{format-mark-letters} and @code{format-mark-box-letters}.
 These can be used as inspiration for other formatting functions.
 
+
 @seealso
 
-Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
+Program reference: @internalsref{RehearsalMark}.
 
 Init files: @file{scm/@/translation@/-functions@/.scm} contains the
 definition of @code{format-mark-numbers} and
@@ -836,7 +647,6 @@ Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
 
 @node Bar numbers
 @subsection Bar numbers
-
 
 @cindex Bar numbers
 @cindex measure numbers
@@ -880,6 +690,7 @@ Bar numbers can be manually changed by setting the
 }
 @end lilypond
 
+
 @seealso
 
 Program reference: @internalsref{BarNumber}.
@@ -887,6 +698,7 @@ Program reference: @internalsref{BarNumber}.
 Examples:
 @inputfileref{input/@/test,bar@/-number@/-every@/-five@/-reset@/.ly},
 and @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}.
+
 
 @refbugs
 
@@ -941,6 +753,7 @@ the name to avoid a collision.
 
 @node Instrument transpositions
 @subsection Instrument transpositions
+
 @cindex transposition, MIDI
 @cindex transposition, instrument
 
@@ -992,10 +805,62 @@ c'4^"in G"
 @end example
 
 
+@node Ottava brackets
+@subsection Ottava brackets
+
+`Ottava' brackets introduce an extra transposition of an octave for
+the staff.  They are created by invoking the function
+@code{set-octavation}
+
+@cindex ottava
+@cindex 15ma
+@cindex octavation
+
+@lilypond[quote,raggedright,verbatim,fragment]
+\relative c''' {
+  a2 b
+  #(set-octavation 1)
+  a b
+  #(set-octavation 0)
+  a b
+}
+@end lilypond
+
+The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
+(for 15ma) as arguments.  Internally the function sets the properties
+@code{ottavation} (e.g., to @code{"8va"}) and
+@code{centralCPosition}.  For overriding the text of the bracket, set
+@code{ottavation} after invoking @code{set-octavation}, i.e.,
+
+@lilypond[quote,raggedright,verbatim]
+{
+  #(set-octavation 1)
+  \set Staff.ottavation = #"8"
+  c'''
+}
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{OttavaBracket}.
+
+Examples: @inputfileref{input/@/regression,ottava@/.ly},
+@inputfileref{input/@/regression,ottava@/-broken@/.ly}.
+
+
+@refbugs
+
+@code{set-octavation} will get confused when clef changes happen
+during an octavation bracket.
+
+
 @node Different editions from one source
 @subsection Different editions from one source
 
+@cindex @code{\tag}
 @cindex tag
+
 The @code{\tag} command marks music expressions with a name.  These
 tagged expressions can be filtered out later.  With this mechanism it
 is possible to make different versions of the same music source.
@@ -1044,7 +909,6 @@ would yield
 
 @lilypondfile[raggedright,quote]{tag-filter.ly}
 
-
 The argument of the @code{\tag} command should be a symbol, or a list
 of symbols, for example,
 @example
@@ -1052,16 +916,17 @@ of symbols, for example,
 @end example
 
 
-
 @seealso
 
 Examples: @inputfileref{input/@/regression,tag@/-filter@/.ly}.
+
 
 @refbugs
 
 Multiple rests are not merged if you create the score with both tagged
 sections.
  
+
 
 @node Orchestral music
 @section Orchestral music
@@ -1158,10 +1023,7 @@ no effect on the pitches of @var{musicexpr1} and @var{musicexpr2}.
 
 @seealso
 
-Program reference: @internalsref{PartCombineMusic},
-@internalsref{SoloOneEvent}, and
-@internalsref{SoloTwoEvent}, and
-@internalsref{UnisonoEvent}.
+Program reference: @internalsref{PartCombineMusic}.
 
 @refbugs
 
@@ -1614,8 +1476,7 @@ automatically avoid collisions between ordinary notes and clusters.
 
 Program reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
-@internalsref{Cluster_spanner_engraver}, and
-@internalsref{ClusterNoteEvent}.
+@internalsref{Cluster_spanner_engraver}.
 
 Examples: @inputfileref{input/@/regression,cluster@/.ly}.
 
@@ -1926,8 +1787,7 @@ to @internalsref{Staff} context.  A bracket is started with
 
 @seealso
 
-Program reference: @internalsref{HorizontalBracket},
-@internalsref{NoteGroupingEvent}.
+Program reference: @internalsref{HorizontalBracket}.
 
 Examples: @inputfileref{input/@/regression,note@/-group@/-bracket@/.ly}.
 
@@ -2325,5 +2185,142 @@ down.  However, this behaviour can be altered with the
   b[ b]
 }
 @end lilypond
+
+
+@node Other
+@section Other
+
+FIXME:
+It's the dreaded ``what on earth should I do with this stuff'' section!  Yay!
+
+@menu
+* Time administration::         
+* Transpose::                   
+@end menu
+
+
+@node Time administration
+@subsection Time administration
+
+Time is administered by the @internalsref{Time_signature_engraver},
+which usually lives in the @internalsref{Score} context.
+The bookkeeping deals with the following variables
+
+@table @code
+@item currentBarNumber
+The measure number.
+
+@item measureLength
+The length of the measures in the current time signature.  For a 4/4
+time this is@tie{}1, and for 6/8 it is 3/4.
+
+@item measurePosition
+The point within the measure where we currently are.  This quantity
+is reset to@tie{}0 whenever it exceeds @code{measureLength}.  When that
+happens, @code{currentBarNumber} is incremented.
+
+@item timing
+If set to true, the above variables are updated for every time
+step.  When set to false, the engraver stays in the current measure
+indefinitely.
+@end table
+
+Timing can be changed by setting any of these variables explicitly.
+In the next example, the 4/4 time signature is printed, but
+@code{measureLength} is set to 5/4.  After a while, the measure is
+shortened by 1/8, by setting @code{measurePosition} to 7/8 at 2/4
+in the measure, so the next bar line will fall at 2/4 + 3/8.  The
+3/8 arises because 5/4 normally has 10/8, but we have manually
+set the measure position to be 7/8 and 10/8 - 7/8 = 3/8.
+
+@lilypond[quote,raggedright,verbatim,relative,fragment]
+\set Score.measureLength = #(ly:make-moment 5 4)
+c1 c4
+c1 c4
+c4 c4
+\set Score.measurePosition = #(ly:make-moment 7 8)
+b8 b b
+c4 c1
+@end lilypond
+
+
+@node Transpose
+@subsection Transpose
+@cindex Transpose
+@cindex transposition of pitches
+@cindex @code{\transpose}
+
+A music expression can be transposed with @code{\transpose}.  The
+syntax is
+@example
+\transpose @var{from} @var{to} @var{musicexpr}
+@end example
+
+This means that @var{musicexpr} is transposed by the interval between
+the pitches @var{from} and @var{to}: any note with pitch @code{from}
+is changed to @code{to}.
+
+
+For example, consider a piece written in the key of D-major.  If
+this piece is a little too low for its performer, it can be
+transposed up to E-major with
+@example
+\transpose d e @dots{}
+@end example
+
+Consider a part written for violin (a C instrument).  If
+this part is to be played on the A clarinet, the following
+transposition will produce the appropriate part
+
+@example
+\transpose a c @dots{}
+@end example
+
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose c cis} or @code{\transpose c des} will transpose up
+half a tone.  The first version will print sharps and the second
+version will print flats
+
+@lilypond[quote,raggedright,verbatim]
+mus = { \key d \major cis d fis g }
+\context Staff {
+  \clef "F" \mus
+  \clef "G"
+  \transpose c g' \mus
+  \transpose c f' \mus
+}
+@end lilypond
+
+@code{\transpose} may also be used to input written notes for a
+transposing instrument.  Pitches are normally entered into LilyPond
+in C (or ``concert pitch''), but they may be entered in another
+key.  For example, when entering music for a B-flat trumpet which
+begins on concert D, one would write
+
+@example
+\transpose c bes @{ e4 @dots{} @}
+@end example
+
+To print this music in B-flat again (ie producing a trumpet part,
+instead of a concert pitch conductor's score) you would wrap the
+existing music with another @code{transpose}
+
+@example
+\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+@end example
+
+
+
+@seealso
+
+Program reference: @internalsref{TransposedMusic}, and
+@internalsref{UntransposableMusic}.
+
+@refbugs
+
+If you want to use both @code{\transpose} and @code{\relative},
+you must put @code{\transpose} outside of @code{\relative}, since
+@code{\relative} will have no effect music that appears inside a
+@code{\transpose}.
 
 

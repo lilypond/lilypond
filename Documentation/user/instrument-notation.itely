@@ -32,7 +32,6 @@ instruments.  The @internalsref{PianoStaff} is especially built to
 handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.
 
-
 @menu
 * Automatic staff changes::     
 * Manual staff switches::       
@@ -41,7 +40,8 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Cross staff stems::           
 @end menu
 
-@refbugs
+@
+refbugs
 
 Dynamics are not centered, but workarounds do exist.  See the
 ``piano centered dynamics'' template in @ref{Piano templates}.
@@ -278,6 +278,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
   }
 >>
 @end lilypond
+
 
 
 @node Chord names
@@ -637,6 +638,7 @@ may result in strange chord names when chords are entered with the
 @code{< .. >} syntax.
 
 
+
 @node Vocal music
 @section Vocal music
 
@@ -805,8 +807,7 @@ combination of a backslash followed by one of @code{`}, @code{'},
 
 @seealso
 
-Program reference: events @internalsref{LyricEvent}, and
-@internalsref{LyricText}.
+Program reference: @internalsref{LyricText}.
 
 @refbugs
 
@@ -876,9 +877,7 @@ c16[ c c c]
 
 @seealso
 
-Program reference: @internalsref{HyphenEvent},
-@internalsref{ExtenderEvent}, @internalsref{LyricHyphen}, and
-@internalsref{LyricExtender}
+Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 
 
 
@@ -1221,9 +1220,7 @@ the line, just like instrument names.  They are created by setting
 
 @seealso
 
-Program reference: Layout objects @internalsref{LyricText} and
-@internalsref{VocalName}.  Music expressions
-@internalsref{LyricEvent}.
+Program reference: @internalsref{LyricText}, @internalsref{VocalName}.
 
 
 
@@ -1384,6 +1381,7 @@ e f
 \revert NoteHead #'style
 e d
 @end lilypond
+
 
 
 @node Rhythmic music
@@ -1663,7 +1661,6 @@ for this purpose instead.
 
 
 
-
 @node Guitar
 @section Guitar
 
@@ -1695,8 +1692,7 @@ See also @inputfileref{input/regression,string-number.ly}.
 
 @seealso
 
-Program reference: @internalsref{StringNumber},
-@internalsref{StringNumberEvent}
+Program reference: @internalsref{StringNumber}.
 
 
 @node Tablatures basic
@@ -1750,8 +1746,7 @@ frag = {
 
 @seealso
 
-Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}, and
-@internalsref{StringNumberEvent}.
+Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
 
 @refbugs
 
@@ -1857,6 +1852,7 @@ b16 d16 g16 b16 e16
   b16 e16 g16 e16 b16 g16\stopTextSpan
 e16 b16 g16 d16
 @end lilypond
+
 
 
 @node Ancient notation
@@ -2653,7 +2649,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 In this manual: @ref{Breath marks}.
 
-Program reference: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent}.
+Program reference: @internalsref{BreathingSign}.
 
 Examples: @inputfileref{input/@/test,divisiones@/.ly}.
 
@@ -3866,8 +3862,8 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @seealso
 
-Program reference: @internalsref{BassFigureEvent} music,
-@internalsref{BassFigure} object, and @internalsref{FiguredBass} context.
+Program reference: @internalsref{BassFigure} object,
+@internalsref{FiguredBass} context.
 
 @refbugs
 
