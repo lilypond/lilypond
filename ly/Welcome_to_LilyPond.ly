@@ -29,3 +29,6 @@ That's it.  For more information, visit http://lilypond.org .
 \relative{
   c d e f g a b c
 }
+
+
+\version "2.5.25"  % necessary for upgrading to future LilyPond versions.
