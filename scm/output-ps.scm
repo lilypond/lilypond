@@ -176,7 +176,7 @@
 	 postscript-font-name
 	 size cid?
 	 x-y-named-glyphs)
-  
+
   (format #f "gsave 1 output-scale div 1 output-scale div scale
   /~a ~a ~a scalefont setfont\n~a grestore"
 	  postscript-font-name
@@ -188,17 +188,18 @@
 	  (apply
 	   string-append
 	   (map (lambda  (item)
-		  (let
+		  (let*
 		      ((x (car item))
 		       (y (cadr item))
-		       (g (caddr item)))
+		       (g (caddr item))
+		       (prefix (if  (string? g) "/" "")))
 
 		    (if (and (= 0.0 x)
 			     (= 0.0 y))
-			(format #f " /~a glyphshow\n" g)
+			(format #f " ~a~a glyphshow\n" prefix g)
 			(format #f " ~a ~a rmoveto ~a~a glyphshow\n"
 				x y
-				(if  (string? g) "/" "")
+				prefix
 				g))))
 		x-y-named-glyphs))))
 

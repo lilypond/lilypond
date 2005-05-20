@@ -1,3 +1,7 @@
+2005-05-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-ps.scm (glyph-string): remove / before CIDs.
+
 2005-05-20  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/instrument-notation.itely: remove *Engraver.
