@@ -818,7 +818,7 @@ The definition of lyrics mode is too complex.
 
 @cindex hyphens
 
-Centered hyphens are entered as `@code{-}@code{-}' between syllables.
+Centered hyphens are entered as `@code{--}' between syllables.
 The hyphen will have variable length depending on the space between
 the syllables and it will be centered between the syllables.
 
@@ -828,7 +828,7 @@ the syllables and it will be centered between the syllables.
 When a lyric is sung over many notes (this is called a melisma), this is
 indicated with a horizontal line centered between a syllable and the
 next one.  Such a line is called an extender line, and it is entered as
-@code{__}.
+`@code{__}'.
 
 @ignore
 FIXME: check that this compiles and displays correctly.  I don't want
