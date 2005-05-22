@@ -1,5 +1,8 @@
 2005-05-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/lilypond-book.py (PREAMBLE_LY): add marker, where people
+	can start to cut & paste lilypond-book fragments.  
+
 	* scm/define-music-types.scm (music-descriptions): remove
 	UntransposableMusic
 
