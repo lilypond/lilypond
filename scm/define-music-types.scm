@@ -591,15 +591,6 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(types . (music-wrapper-music general-music transposed-music))
 	))
 
-    (UntransposableMusic
-     . (
-	(description .	"Music that can not be transposed.")
-	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
-	(untransposable . #t)
-	(internal-class-name . "Music_wrapper")
-	(types . (music-wrapper-music general-music untransposable-music)) 
-	))
-
     (UnrelativableMusic
      . (
 	(description .	"Music that can not be converted from relative to absolute notation.
