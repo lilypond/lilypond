@@ -1,3 +1,31 @@
+2005-05-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (setup_paths)[__MINGW32__]: Normalize LILYPONDPREFIX.
+
+2005-05-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/general-scheme.cc (ly:stderr-redirect): Rename from
+	ly:port-move.  Needs to be stderr-specific on mingw.
+	Run fixcc.
+
+2005-05-20  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/general-scheme.cc (ly:port-move): Remove.
+
+	* scm/backend-library.scm (postscript->pdf): Remove -dSAFER in
+	windows.
+
+	* lily/main.cc (setup_paths) [ARGV0_RELOCATION]: Reinstate GS_*
+	variables.  This eliminates the need for a gs.bat wrapper, which
+	opens a console.
+
+	* scripts/lilypond-invoke-editor.scm (running-from-gui?): 
+	* scm/lily.scm (running-from-gui?): 
+	* lily/main.cc[MINGW]: Remove isatty inversion, this is an
+	artifact of not compiling with -mwindows.
+
+	* scm/editor.scm: Define PLATFORM.
+
 2005-05-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (PREAMBLE_LY): add marker, where people
@@ -77,6 +105,11 @@
 	use scm_hash_table_p() for checking.
 
 2005-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/advanced-notation.itely (Text scripts):
+	Change nonexisting @internalsref{Text markup} to @ref{Text
+	markup}.  Change @internalsref{Text script} to
+	@internalsref{TextScript}.
 
 	* lily/main.cc (setup_paths): Bugfix: pangorc is not pango.modules.
 

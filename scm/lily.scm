@@ -375,12 +375,12 @@ The syntax is the same as `define*-public'."
 
 (define (running-from-gui?)
   (let ((have-tty? (isatty? (current-input-port))))
-    
     ;; If no TTY and not using safe, assume running from GUI.
-    ;; For mingw, the test must be inverted.
-
     (cond
-     ((eq? PLATFORM 'windows) have-tty?)
+     ((eq? PLATFORM 'windows)
+      ;; This only works for i586-mingw32msvc-gcc -mwindows
+      (not (string-match "standard input"
+			 (format #f "~S" (current-input-port)))))
      ((eq? PLATFORM 'darwin) #f)
      (else
       (not have-tty?)))))
@@ -388,11 +388,10 @@ The syntax is the same as `define*-public'."
 (define-public (gui-main files)
   (if (null? files) (gui-no-files-handler))
   (let* ((base (basename (car files) ".ly"))
-	 (log-name (string-append base ".log"))
-	 (log-file (open-file log-name "w")))
+	 (log-name (string-append base ".log")))
     (if (not (running-from-gui?))
 	(ly:message (_ "Redirecting output to ~a...") log-name))
-    (ly:port-move (fileno (current-error-port)) log-file)
+    (ly:stderr-redirect log-name "w")
     (ly:message "# -*-compilation-*-")
     (let ((failed (lilypond-all files)))
       (if (pair? failed)

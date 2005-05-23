@@ -190,6 +190,8 @@ dir_info (FILE *out)
 #if ARGV0_RELOCATION
   env_var_info (out, "FONTCONFIG_FILE");
   env_var_info (out, "FONTCONFIG_PATH");
+  env_var_info (out, "GS_FONTPATH");
+  env_var_info (out, "GS_LIB");
   env_var_info (out, "GUILE_LOAD_PATH");
   env_var_info (out, "PANGO_RC_FILE");
   env_var_info (out, "PATH");
@@ -285,6 +287,10 @@ dir_name (String const file_name)
 }
 #endif
 
+#ifdef __MINGW32__
+#  include <winbase.h>
+#endif
+
 static void
 setup_paths (char const* argv0)
 {
@@ -305,6 +311,14 @@ setup_paths (char const* argv0)
       prefix_directory = datadir + "/lilypond/" TOPLEVEL_VERSION;
 
       sane_putenv ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", false);
+#ifdef __MINGW32__
+      char font_dir[PATH_MAX];
+      ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
+      prepend_env_path ("GS_FONTPATH", font_dir);
+#endif
+      prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
+      prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
+      prepend_env_path ("GS_LIB", datadir + "/gs/lib");
       prepend_env_path ("GUILE_LOAD_PATH", datadir
 			+ to_string ("/guile/%d.%d",
 				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
@@ -316,7 +330,13 @@ setup_paths (char const* argv0)
 #endif /* ARGV0_RELOCATION */
     
   if (char const *env = getenv ("LILYPONDPREFIX"))
-    prefix_directory = env;
+    {
+#ifdef __MINGW32__
+      /* Normalize file name.  */
+      env = File_name (env).to_string ().get_copy_str0 ();
+#endif
+      prefix_directory = env;
+    }
 
   global_path.append ("");
 
@@ -658,12 +678,6 @@ parse_argv (int argc, char **argv)
       exit (0);
     }
 }
-
-#ifdef __MINGW32__
-/* If no TTY and not using safe, assume running from GUI.
-   For mingw, the test must be inverted.  */
-#  define isatty(x) (!isatty (x))
-#endif
 
 int
 main (int argc, char **argv)

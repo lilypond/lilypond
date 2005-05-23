@@ -6,16 +6,16 @@
 
 (define-module (scm editor))
 
+;; Also for standalone use, so cannot include any lily modules.
 (use-modules
- (ice-9 regex))
+ (ice-9 regex)
+  (srfi srfi-13)
+  (srfi srfi-14))
 
-(define editor-command-template-alist
-  '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s")
-    ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
-    ("nedit" . "nc -noask +%(line)s %(file)s")
-    ("gedit" . "gedit +%(line)s %(file)s")
-    ("jedit" . "jedit %(file)s +line:%(line)s")
-    ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
+(define PLATFORM
+  (string->symbol
+   (string-downcase
+    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
 
 (define (get-editor)
   (or (getenv "LYEDITOR")
@@ -28,6 +28,14 @@
 	((windows) "lilypad")
 	(else
 	 "emacs"))))
+
+(define editor-command-template-alist
+  '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s")
+    ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
+    ("nedit" . "nc -noask +%(line)s %(file)s")
+    ("gedit" . "gedit +%(line)s %(file)s")
+    ("jedit" . "jedit %(file)s +line:%(line)s")
+    ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
 
 (define (get-command-template alist editor)
   (define (get-command-template-helper)

@@ -106,9 +106,7 @@ Options:
 (define (running-from-gui?)
   (let ((have-tty? (isatty? (current-input-port))))
     ;; If no TTY and not using safe, assume running from GUI.
-    ;; for mingw, the test must be inverted.
-    (if (eq? PLATFORM 'windows)
-	have-tty? (not have-tty?))))
+    (not have-tty?)))
 
 (define (main args)
   (let ((files (parse-options args)))
