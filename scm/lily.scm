@@ -361,7 +361,8 @@ The syntax is the same as `define*-public'."
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
     ;;(handler (lambda (key . arg) (set! failed (append arg failed)))))
-    (for-each (lambda (x) (lilypond-file handler x)) files)))
+    (for-each (lambda (x) (lilypond-file handler x)) files)
+    failed))
 
 (define (lilypond-file handler file-name)
   (catch 'ly-file-failed
@@ -396,6 +397,8 @@ The syntax is the same as `define*-public'."
     (let ((failed (lilypond-all files)))
       (if (pair? failed)
 	  (begin
+	    ;; ugh
+	    (ly:stderr-redirect "foo" "r")
 	    (system (get-editor-command log-name 0 0))
 	    (ly:error (_ "failed files: ~S") (string-join failed))
 	    ;; not reached?
@@ -414,3 +417,4 @@ The syntax is the same as `define*-public'."
 (or (not (running-from-gui?))
     (ly:get-option 'safe)
     (define lilypond-main gui-main))
+    (define lilypond-main gui-main)

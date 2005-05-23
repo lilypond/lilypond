@@ -10,6 +10,8 @@
 
 2005-05-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/lily.scm (lilypond-all): Bugfix: return failed.
+
 	* lily/main.cc (setup_paths)[__MINGW32__]: Normalize LILYPONDPREFIX.
 
 2005-05-21  Jan Nieuwenhuizen  <janneke@gnu.org>
