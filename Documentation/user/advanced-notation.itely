@@ -1315,9 +1315,11 @@ LilyPond is limited.
 * Polymetric notation::         
 * Clusters::                    
 * Special fermatas::            
+* Special noteheads::           
 * Feathered beams::             
 * Improvisation::               
 @end menu
+
 
 @node Polymetric notation
 @subsection Polymetric notation
@@ -1527,6 +1529,34 @@ of differing lengths.  The following fermatas are supported
 See @ref{Articulations} for general instructions how to apply scripts
 such as fermatas to notes.
 
+
+@node Special noteheads
+@subsection Special noteheads
+
+Different noteheads are used by various instruments for various
+meanings -- crosses are used for ``parlato'' with vocalists, stopped
+notes on guitar; diamonds are used for harmonics on string instruments,
+etc.  There is a shorthand (@code{\harmonic}) for diamond shapes; the
+other notehead styles are produced by tweaking the property
+
+@lilypond[raggedright,relative=1,fragment,verbatim,quote]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d <c f\harmonic> <d a'\harmonic>
+@end lilypond
+
+@noindent
+To see all notehead styles, please see
+@inputfileref{input/@/regression,note@/-head@/-style@/.ly}.
+
+
+@seealso
+
+Program reference: @internalsref{NoteHead}.
+
+
 @node Feathered beams
 @subsection Feathered beams
 
@@ -1534,7 +1564,7 @@ Feathered beams are not supported natively, but they can be faked by
 forcing two beams to overlap.  Here is an example,
 
 @c don't change relative setting witout changing positions!
-@lilypond[raggedright,relative=1,fragment,verbatim]
+@lilypond[raggedright,relative=1,fragment,verbatim,quote]
 \new Staff <<
   \new Voice
   {

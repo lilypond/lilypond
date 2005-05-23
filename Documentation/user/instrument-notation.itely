@@ -1218,6 +1218,48 @@ the line, just like instrument names.  They are created by setting
 }
 @end lilypond
 
+You can display alternate (or divisi) lyrics by naming voice
+contexts and attaching lyrics to those specific contexts.
+
+@lilypond[verbatim,raggedright,quote]
+\score{ <<
+  \context Voice = "melody" {
+    \relative c' {
+      c4
+      <<
+        { \voiceOne c8 e }
+        \context Voice = splitpart { \voiceTwo c4 }
+      >>
+      \oneVoice c4 c | c
+    }
+  }
+  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
+  \new Lyrics \lyricsto "splitpart" { will }
+>> }
+@end lilypond
+
+
+You can use this trick to display different lyrics for a repeated
+section.
+
+@lilypond[verbatim,raggedright,quote]
+\score{ <<
+  \context Voice = melody \relative c' {
+    c2 e | g e | c1 |
+    \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
+    a2 b | c1}
+  \lyricsto melody  \context Lyrics = mainlyrics \lyricmode {
+    do mi sol mi do
+    la si do }
+  \lyricsto verse \context Lyrics = mainlyrics \lyricmode {
+   do re mi fa sol }
+  \lyricsto verse \context Lyrics = repeatlyrics \lyricmode {
+   dodo rere mimi fafa solsol }
+>>
+}
+@end lilypond
+
+
 @seealso
 
 Program reference: @internalsref{LyricText}, @internalsref{VocalName}.
@@ -1316,6 +1358,7 @@ Examples: @inputfileref{input/@/regression,ambitus@/.ly}.
 There is no collision handling in the case of multiple per-voice
 ambitus.
 
+
 @node Other vocal issues
 @subsection Other vocal issues
 
@@ -1329,59 +1372,9 @@ can ask them for specific instructions about where to move these
 examples, and that might get them more involved in the docs.  -gp
 @end ignore
 
-You can display alternate (or divisi) lyrics by naming voice
-contexts and attaching lyrics to those specific contexts.
-
-@lilypond[verbatim,raggedright,quote]
-\score{ <<
-  \context Voice = "melody" {
-    \relative c' {
-      c4
-      <<
-        { \voiceOne c8 e }
-        \context Voice = splitpart { \voiceTwo c4 }
-      >>
-      \oneVoice c4 c | c
-    }
-  }
-  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
-  \new Lyrics \lyricsto "splitpart" { shall }
->> }
-@end lilypond
-
-
-You can use this trick to display different lyrics for a repeated
-section.
-
-@lilypond[verbatim,raggedright,quote]
-\score{ <<
-  \context Voice = melody \relative c' {
-    c2 e | g e | c1 |
-    \context Voice = verse \repeat volta 2 {c4 d e f | g1 | }
-    a2 b | c1}
-  \lyricsto melody  \context Lyrics = mainlyrics \lyricmode {
-    do mi sol mi do
-    la si do }
-  \lyricsto verse \context Lyrics = mainlyrics \lyricmode {
-   do re mi fa sol }
-  \lyricsto verse \context Lyrics = repeatlyrics \lyricmode {
-   dodo rere mimi fafa solsol }
->>
-}
-@end lilypond
-
-
-To notate ``parlato'' (spoken without pitch but still with
-rhythm) sections, 
-
-@lilypond[raggedright,verbatim,quote,fragment,relative=2]
-c4 d
-\override NoteHead #'style = #'cross
-e f
-\revert NoteHead #'style
-e d
-@end lilypond
-
+``Parlato'' is spoken without pitch but still with rhythm; it is
+notated by cross noteheads.  This is demonstrated in
+@ref{Special noteheads}.
 
 
 @node Rhythmic music
@@ -1853,6 +1846,13 @@ b16 d16 g16 b16 e16
 e16 b16 g16 d16
 @end lilypond
 
+
+Stopped (X) note heads are used in guitar music to signal a place where the 
+guitarist must play a certain note or chord, with its fingers just 
+touching the strings instead of fully pressing them.  This gives the sound a 
+percussive noise-like sound that still maintains part of the original
+pitch.  It is notated with cross noteheads; this is
+demonstrated in @ref{Special noteheads}.
 
 
 @node Ancient notation
@@ -3896,26 +3896,5 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 
 @node Stopped notes (guitar)
 @subsection Stopped notes (guitar)
-
-Stopped (X) note heads are used in guitar music to signal a place where the 
-guitarist must play a certain note or chord, with its fingers just 
-touching the strings instead of fully pressing them.  This gives the sound a 
-percussive noise-like sound that still maintains part of the original pitch.
-
-Finger stopped technique is extremely important for rhythm and rock-heavy 
-metal guitarists; the former often uses barré based stopped chords to 
-intermix harmony with rythm, the latters use finger stopping to mute power 
-chords, or charge them with more expression in close-tied power chord stums.
-
-It is also used (even if rarely) in classic guitar music, generally in the 
-melodic line, to provide some rithmic pattern right in the melody.
-
-@lilypond[raggedright,verbatim,quote,fragment,relative=2]
-c4 d
-\override NoteHead #'style = #'cross
-e f
-\revert NoteHead #'style
-e d
-@end lilypond
 
 
