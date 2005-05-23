@@ -424,7 +424,6 @@ parser.yy:352.8-24: warning: symbol `"\\<"' used more than once as a literal str
 %type <book> book_block
 %type <book> book_body
 
-%type <i> bare_int
 %type <i> bare_unsigned
 %type <i> bass_mod
 %type <i> dots
@@ -1520,8 +1519,17 @@ scalar: string {
 	| LYRICS_STRING {
 		$$ = $1;
 	}
-        | bare_int {
-		$$ = scm_int2num ($1);
+	| bare_number {
+		$$ = $1;
+/*		if (scm_integer_p ($1) == SCM_BOOL_T)
+		{
+			int k = scm_to_int (scm_inexact_to_exact ($1));
+			$$ = k;
+		} else
+		{
+			THIS->parser_error (@1, _ ("need integer number arg"));
+			$$ = 0;
+		}*/
 	}
         | embedded_scm {
 		$$ = $1;
@@ -2482,23 +2490,6 @@ bare_unsigned:
 	}
 	| DIGIT {
 		$$ = $1;
-	}
-	;
-
-bare_int:
-	bare_number {
-		if (scm_integer_p ($1) == SCM_BOOL_T)
-		{
-			int k = scm_to_int ($1);
-			$$ = k;
-		} else
-		{
-			THIS->parser_error (@1, _ ("need integer number arg"));
-			$$ = 0;
-		}
-	}
-	| '-' bare_int {
-		$$ = -$2;
 	}
 	;
 

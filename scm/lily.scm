@@ -417,4 +417,4 @@ The syntax is the same as `define*-public'."
 (or (not (running-from-gui?))
     (ly:get-option 'safe)
     (define lilypond-main gui-main))
-    (define lilypond-main gui-main)
+; (define lilypond-main gui-main)
