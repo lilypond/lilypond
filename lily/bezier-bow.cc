@@ -24,11 +24,11 @@ slur_height (Real width, Real h_inf, Real r_0)
 }
 
 /*
-  ^              x                    x
+  ^                x                    x
   |
   height   <indent>
   |
-  v      x                                    x
+  v      x                                       x
 
 
 
