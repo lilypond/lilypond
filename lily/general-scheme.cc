@@ -143,8 +143,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 
   if (scm_is_pair (handle))
     return scm_cdr (handle);
-  else
-    return default_value;
+  return default_value;
 }
 
 LY_DEFINE (ly_number2string, "ly:number->string",
@@ -166,7 +165,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	  {
 	    programming_error (_ ("infinity or NaN encountered while converting Real number"));
 	    programming_error (_ ("setting to zero"));
-			       
+
 	    r = 0.0;
 	  }
 
@@ -248,28 +247,35 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
 
   SCM_ASSERT_TYPE (scm_is_integer (wc), wc, SCM_ARG1, __FUNCTION__, "integer");
   unsigned wide_char = (unsigned) scm_to_int (wc);
-  char * p = buf;
+  char *p = buf;
 
-  if (wide_char < 0x0080) {
-    *p++ = (char)wide_char;
-  } else if (wide_char < 0x0800) {
-    *p++ = (char)(((wide_char >>  6)       ) | 0xC0);
-    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
-  } else if (wide_char < 0x10000) {
-    *p++ = (char)(((wide_char >> 12)       ) | 0xE0);
-    *p++ = (char)(((wide_char >>  6) & 0x3F) | 0x80);
-    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
-  } else {
-    *p++ = (char)(((wide_char >> 18)       ) | 0xF0);
-    *p++ = (char)(((wide_char >> 12) & 0x3F) | 0x80);
-    *p++ = (char)(((wide_char >>  6) & 0x3F) | 0x80);
-    *p++ = (char)(((wide_char      ) & 0x3F) | 0x80);
-  }
+  if (wide_char < 0x0080)
+    {
+      *p++ = (char)wide_char;
+    }
+  else if (wide_char < 0x0800)
+    {
+      *p++ = (char) (((wide_char >> 6)) | 0xC0);
+      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+    }
+  else if (wide_char < 0x10000)
+    {
+      *p++ = (char) (((wide_char >> 12)) | 0xE0);
+      *p++ = (char) (((wide_char >> 6) & 0x3F) | 0x80);
+      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+    }
+  else
+    {
+      *p++ = (char) (((wide_char >> 18)) | 0xF0);
+      *p++ = (char) (((wide_char >> 12) & 0x3F) | 0x80);
+      *p++ = (char) (((wide_char >> 6) & 0x3F) | 0x80);
+      *p++ = (char) (((wide_char) & 0x3F) | 0x80);
+    }
   *p = 0;
 
   return scm_makfrom0str (buf);
 }
-	  
+
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
@@ -279,8 +285,9 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 	   2, 1, 0, (SCM key, SCM achain, SCM dfault),
-	   "Return value for @var{key} from a list of alists @var{achain}. Return @var{dfault} "
-	   "if no entry is found, or #f if not specified. ")
+	   "Return value for @var{key} from a list of alists @var{achain}.  "
+	   "If no if no entry is found, return DFAULT, "
+	   "or #f if no DFAULT not specified.")
 {
   if (scm_is_pair (achain))
     {
@@ -290,17 +297,20 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
       else
 	return ly_chain_assoc_get (key, scm_cdr (achain), dfault);
     }
-  else
-    return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
+  return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
 }
 
-LY_DEFINE (ly_port_move, "ly:port-move",
-	   2, 0, 0, (SCM fd, SCM port),
-	   "Move file descriptor FD to PORT.")
+LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
+	   1, 1, 0, (SCM file_name, SCM mode),
+	   "Redirect stderr to FILE-NAME, opened with MODE.")
 {
-  SCM_ASSERT_TYPE (scm_port_p (port), port, SCM_ARG1, __FUNCTION__, "port");
-  SCM_ASSERT_TYPE (scm_integer_p (fd), fd, SCM_ARG1, __FUNCTION__, "fd");
-  freopen (ly_scm2newstr (scm_port_filename (port), 0), "a",
-	   fdopen (scm_to_int (fd), "a"));
+  SCM_ASSERT_TYPE (scm_string_p (file_name), file_name, SCM_ARG1,
+		   __FUNCTION__, "file_name");
+  char const* m = "w";
+  if (mode != SCM_UNDEFINED && scm_string_p (mode))
+    m = ly_scm2newstr (mode, 0);
+  /* dup2 and (fileno (current-error-port)) do not work with mingw'c
+     gcc -mwindows.  */
+  freopen (ly_scm2newstr (file_name, 0), m, stderr);
   return SCM_UNSPECIFIED;
 }

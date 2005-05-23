@@ -49,11 +49,10 @@ your scores.
 @cindex text items, non-empty
 @cindex non-empty texts
 
-It is possible to place arbitrary strings of text or
-@internalsref{Text markup} above or below notes by using a string
-@code{c^"text"}.  By default, these indications do not influence the
-note spacing, but by using the command @code{\fatText}, the widths
-will be taken into account
+It is possible to place arbitrary strings of text or @ref{Text markup}
+above or below notes by using a string @code{c^"text"}.  By default,
+these indications do not influence the note spacing, but by using the
+command @code{\fatText}, the widths will be taken into account
 
 @lilypond[quote,fragment,raggedright,verbatim,relative=1]
 c4^"longtext" \fatText c4_"longlongtext" c4
@@ -66,7 +65,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 The @code{\markup} is described in more detail in
-@internalsref{Text markup}.
+@ref{Text markup}.
 
 
 @refcommands
@@ -200,7 +199,7 @@ c1^\markup { hi \bold there, is \italic anyone home? }
 @end lilypond
 
 @noindent
-@code{\markup} is primarily used for @internalsref{Text scripts},
+@code{\markup} is primarily used for @internalsref{TextScript}s,
 but it can also be used anywhere text is called in lilypond
 
 @lilypond[quote,verbatim]
@@ -474,7 +473,7 @@ R1*2 | R1*5 | R1*9
 @cindex fermata on multi-measure rest
 
 Texts can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax @internalsref{Text markup}.
+@var{note}-@code{markup} syntax @ref{Text markup}.
 A variable (@code{\fermataMarkup}) is provided for
 adding fermatas
 

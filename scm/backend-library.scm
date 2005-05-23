@@ -53,7 +53,9 @@
     ;; The wrapper on windows cannot handle `=' signs,
     ;; gs has a workaround with #.
     (if (eq? PLATFORM 'windows)
-	(set! cmd (string-regexp-substitute "=" "#" cmd)))
+	(begin
+	  (set! cmd (string-regexp-substitute "=" "#" cmd))
+	  (set! cmd (string-regexp-substitute "-dSAFER " "" cmd))))
 
     (if (access? pdf-name W_OK)
 	(delete-file pdf-name))
