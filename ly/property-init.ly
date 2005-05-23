@@ -38,8 +38,14 @@ tieUp = \override Tie  #'direction = #1
 tieDown = \override Tie  #'direction = #-1
 tieNeutral = \revert Tie #'direction 
 
-tieDotted = \override Tie  #'dashed = #1
-tieSolid = \revert Tie #'dashed
+tieDotted = {
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.1
+}
+tieSolid = {
+  \revert Tie #'dash-period
+  \revert Tie #'dash-fraction
+}
 
 setEasyHeads = \sequential {
   \override NoteHead #'print-function = #Note_head::brew_ez_stencil
