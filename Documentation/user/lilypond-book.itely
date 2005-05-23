@@ -263,11 +263,6 @@ document, use @code{\input@{titledefs@}}
 The font symbol names are defined in the file feta20.tex; to find
 the location of this file, use the command
 
-@ignore
-** AARGH. the titledefs and feta20.tex files will not be found
-  now that the lilypond-profile isn't used anymore!!!  /Mats
-@end ignore
-  
 @example
 kpsewhich feta20.tex
 @end example
