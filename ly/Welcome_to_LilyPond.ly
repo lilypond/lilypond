@@ -6,7 +6,7 @@ Congratulations, LilyPond has been installed successfully.
 
 Now to take it for the first test run.
 
-  1. Safe this LilyPond file on your desktop.
+  1. Save this LilyPond file on your desktop.
 
   2. Pick it up from the desktop with your mouse pointer, drag and drop
      it onto the LilyPond icon.

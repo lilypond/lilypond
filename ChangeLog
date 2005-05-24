@@ -1,3 +1,7 @@
+2005-05-24  Pedro Kroger  <kroeger@pedrokroeger.net>
+
+	* ly/Welcome_to_LilyPond.ly: typo.
+
 2005-05-24  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/lilypond.tely: move changing-defaults to be
