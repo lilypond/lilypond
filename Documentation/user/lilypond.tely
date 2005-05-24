@@ -272,7 +272,7 @@ of this and other documentation.
 * Point and click::             
 * Cheat sheet::     
 * GNU Free Documentation License:: FDL.
-* Unified index::
+* LilyPond index::
 @end menu
 @end ifnottex
 
@@ -307,8 +307,8 @@ of this and other documentation.
 @include cheatsheet.itely
 @include fdl.itexi
 
-@node Unified index
-@appendix Unified index
+@node LilyPond index
+@appendix LilyPond index
 
 @printindex cp
 
