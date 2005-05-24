@@ -37,6 +37,8 @@ your scores.
 * Text encoding::               
 * Nested scores::               
 * Overview of text markup commands::  
+* Selecting font sizes::        
+* Font selection::              
 * New dynamic marks::           
 * Other text markup issues::    
 @end menu
@@ -357,6 +359,133 @@ The following commands can all be used inside @code{\markup @{ @}}.
 @include markup-commands.tely
 
 
+@node Selecting font sizes
+@subsection Selecting font sizes
+
+The easiest method of setting the font size of any context, is by
+setting the @code{fontSize} property.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g
+@end lilypond
+
+@noindent
+It does not change the size of variable symbols, such as beams or
+slurs.
+
+Internally, the @code{fontSize} context property will cause the
+@code{font-size} property to be set in all layout objects.  The value
+of @code{font-size} is a number indicating the size relative to the
+standard size for the current staff height.  Each step up is an
+increase of approximately 12% of the font size.  Six steps is exactly a
+factor two.  The Scheme function @code{magstep} converts a
+@code{font-size} number to a scaling factor.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g
+@end lilypond
+
+LilyPond has fonts in different design sizes.  The music fonts for
+smaller sizes are chubbier, while the text fonts are relatively wider.
+Font size changes are achieved by scaling the design size that is
+closest to the desired size.  The standard font size (for
+@code{font-size} equals 0), depends on the standard staff height.  For
+a 20pt staff, a 10pt font is selected.
+
+The @code{font-size} property can only be set on layout objects that
+use fonts. These are the ones supporting the
+@internalsref{font-interface} layout interface.
+
+@refcommands
+
+The following commands set @code{fontSize} for the current voice:
+
+@cindex @code{\tiny}
+@code{\tiny}, 
+@cindex @code{\small}
+@code{\small}, 
+@cindex @code{\normalsize}
+@code{\normalsize}.
+
+
+@node Font selection
+@subsection Font selection
+
+@cindex font selection
+@cindex font magnification
+@cindex @code{font-interface}
+
+By setting the object properties described below, you can select a
+font from the preconfigured font families.  LilyPond has default
+support for the feta music fonts and @TeX{}'s Computer Modern text
+fonts.
+
+@itemize @bullet
+@item @code{font-encoding}
+is a symbol that sets layout of the glyphs.  This should only be set to
+select different types of non-text fonts, eg.
+
+@code{fetaBraces} for piano staff braces, @code{fetaMusic} the
+standard music font, including ancient glyphs, @code{fetaDynamic} for
+dynamic signs and @code{fetaNumber} for the number font.
+
+@item @code{font-family}
+is a symbol indicating the general class of the typeface.  Supported are
+@code{roman} (Computer Modern), @code{sans}, and @code{typewriter}.
+  
+@item @code{font-shape}
+is a symbol indicating the shape of the font.  There are typically
+several font shapes available for each font family.  Choices are
+@code{italic}, @code{caps}, and @code{upright}.
+
+@item @code{font-series}
+is a symbol indicating the series of the font.  There are typically
+several font series for each font family and shape.  Choices are
+@code{medium} and @code{bold}. 
+
+@end itemize
+
+Fonts selected in the way sketched above come from a predefined style
+sheet. If you want to use a font from outside the style sheet, 
+then set the 
+@code{font-name} property, 
+
+@lilypond[fragment,verbatim]
+{
+  \override Staff.TimeSignature #'font-name = #"Times"
+  \override Staff.TimeSignature #'font-size = #2
+  \time 3/4
+  c'1_\markup {
+    \override #'(font-name . "Vera Bold")
+      { This text is in Vera Bold }
+  }
+}
+@end lilypond
+
+@noindent
+Any font can be used, as long as it is available to Pango/FontConfig.
+
+The size of the font may be set with the @code{font-size}
+property. The resulting size is taken relative to the
+@code{text-font-size} as defined in the @code{\paper} block.
+
+@cindex font size
+@cindex font magnification
+
+@seealso
+
+Init files: @file{ly/@/declarations@/-init@/.ly} contains hints how new
+fonts may be added to LilyPond.
+
+
 @node New dynamic marks
 @subsection New dynamic marks
 
@@ -400,6 +529,7 @@ To use a normal font within a title, you must define it manually
   title = \markup@{ ABCD \normal-font ABCD @}
 @}
 @end example
+
 
 
 @node Preparing parts
@@ -1922,6 +2052,7 @@ named normal color.
 COLORLIST
 
 
+
 @node Automatic notation
 @section Automatic notation
 
@@ -1934,7 +2065,6 @@ opinions to lilypond-devel.  Thanks!  :)
 @menu
 * Automatic accidentals::       
 * Setting automatic beam behavior::  
-* Beam formatting::             
 @end menu
 
 @node Automatic accidentals
@@ -2198,22 +2328,6 @@ same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
 >>}.  If a polyphonic voice ends while an automatic beam is still
 accepting notes, it is not typeset.
 
-@node Beam formatting
-@subsection Beam formatting
-
-When a beam falls in the middle of the staff, the beams point normally
-down.  However, this behaviour can be altered with the
-@code{neutral-direction} property.
-
-@lilypond[quote,raggedright,relative=2,fragment,verbatim]
-{
-  b8[ b]
-  \override Beam #'neutral-direction = #-1
-  b[ b]
-  \override Beam #'neutral-direction = #1
-  b[ b]
-}
-@end lilypond
 
 
 @node Other
@@ -2224,7 +2338,6 @@ It's the dreaded ``what on earth should I do with this stuff'' section!  Yay!
 
 @menu
 * Time administration::         
-* Transpose::                   
 @end menu
 
 
@@ -2272,84 +2385,5 @@ b8 b b
 c4 c1
 @end lilypond
 
-
-@node Transpose
-@subsection Transpose
-@cindex Transpose
-@cindex transposition of pitches
-@cindex @code{\transpose}
-
-A music expression can be transposed with @code{\transpose}.  The
-syntax is
-@example
-\transpose @var{from} @var{to} @var{musicexpr}
-@end example
-
-This means that @var{musicexpr} is transposed by the interval between
-the pitches @var{from} and @var{to}: any note with pitch @code{from}
-is changed to @code{to}.
-
-
-For example, consider a piece written in the key of D-major.  If
-this piece is a little too low for its performer, it can be
-transposed up to E-major with
-@example
-\transpose d e @dots{}
-@end example
-
-Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet, the following
-transposition will produce the appropriate part
-
-@example
-\transpose a c @dots{}
-@end example
-
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats
-
-@lilypond[quote,raggedright,verbatim]
-mus = { \key d \major cis d fis g }
-\context Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
-}
-@end lilypond
-
-@code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into LilyPond
-in C (or ``concert pitch''), but they may be entered in another
-key.  For example, when entering music for a B-flat trumpet which
-begins on concert D, one would write
-
-@example
-\transpose c bes @{ e4 @dots{} @}
-@end example
-
-To print this music in B-flat again (ie producing a trumpet part,
-instead of a concert pitch conductor's score) you would wrap the
-existing music with another @code{transpose}
-
-@example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
-@end example
-
-
-
-@seealso
-
-Program reference: @internalsref{TransposedMusic}, and
-@internalsref{UntransposableMusic}.
-
-@refbugs
-
-If you want to use both @code{\transpose} and @code{\relative},
-you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect music that appears inside a
-@code{\transpose}.
 
 

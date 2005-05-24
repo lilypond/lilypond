@@ -260,9 +260,9 @@ of this and other documentation.
 * Instrument-specific notation::   Notation that is only used for some
                                    instruments.
 * Advanced notation::              Less frequently used notation.
+* Changing defaults::              Tuning output.
 * Global issues::                  Non-notation commands.
 
-* Changing defaults::              Tuning output.
 * Interfaces for programmers::
 * LilyPond-book::                  Integrating text and music.
 * Converting from other formats::  Converting to lilypond source format.
@@ -289,9 +289,9 @@ of this and other documentation.
 @include basic-notation.itely
 @include instrument-notation.itely
 @include advanced-notation.itely
+@include changing-defaults.itely
 @include global.itely
 
-@include changing-defaults.itely
 @include programming-interface.itely
 @include lilypond-book.itely
 @include converters.itely
