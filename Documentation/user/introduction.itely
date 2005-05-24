@@ -673,12 +673,13 @@ discusses topics grouped by notation construct.  This section gives
 details about complicated or unusual notation.
 
 @item
-@emph{@ref{Global issues}}
-discusses issues which affect the whole lilypond file.
-
-@item
 @emph{@ref{Changing defaults}}
 explains how to fine tune layout.
+
+@item
+@emph{@ref{Output formats}}
+discusses issues which affect the global output, such as selecting
+paper size or which MIDI instruments to use.
 
 @item
 @emph{@ref{LilyPond-book}} explains the details behind creating
