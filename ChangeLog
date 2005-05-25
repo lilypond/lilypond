@@ -1,3 +1,10 @@
+2005-05-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/music-functions-init.ly (oldaddlyrics): idem.
+
+	* lily/parser.yy: NewLyricCombineMusic ->
+	LyricCombineMusic. LyricCombineMusic -> OldLyricCombineMusic.
+
 2005-05-24  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* ly/Welcome_to_LilyPond.ly: typo.
