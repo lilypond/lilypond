@@ -58,7 +58,8 @@ e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in 
      (label ,markup? "label of a mark.")
      (last-pitch ,ly:pitch? "The last pitch after relativization.")
      (length ,ly:moment? "The duration of this music")
-     (length-callback ,procedure? "How to compute the duration of this music")
+     (length-callback ,procedure? "How to compute the duration of this music. This property
+can only be defined as initializer in @file{define-music-types.scm}.")
      (internal-class-name ,string? "C++ class to use for this Music object") 
      (name ,symbol? "Name of this music object")
      (numerator ,integer? "numerator of a time signature")
@@ -73,7 +74,8 @@ For chord inversions, this is negative.")
      (pitch-alist ,list? "list of pitches jointly forming the scale of a key signature")
      (pop-first ,boolean? "Do a revert before we try to do a override on some grob property.")
      (procedure ,procedure?
-		"The function to run with \\applycontext. It must take a single argument, being the context.")
+		"The function to run with \\applycontext.
+It must take a single argument, being the context.")
      (property-operations ,list?
 			  "Do these operations for instantiating the context.")
      (predicate ,procedure? "the predicate of a \\outputproperty.")
@@ -86,9 +88,10 @@ For chord inversions, this is negative.")
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (split-list ,list? "splitting moments for part combiner.")
-     (start-callback ,procedure? "Function to compute the negative length of
-starting grace notes.")
-     (string-number ,integer? "The number of the string in a String_number_req")
+     (start-callback ,procedure? "Function to compute the negative
+length of starting grace notes.  This property can only be defined as
+initializer in @file{define-music-types.scm}.")
+     (string-number ,integer? "The number of the string in a StringNumberEvent")
      (symbol ,symbol? "Grob name to perform an override/revert on.")
      (text ,markup? "markup expression to be printed")
      (tremolo-type ,integer? "")
@@ -106,7 +109,7 @@ solo1, solo2 and unisono")
 a string) for figured bass")
      (alteration ,number? "alteration for figured bass")
      (bracket-start ,boolean? "start a bracket
-here. TODO: use span requests?")
+here. TODO: use SpanEvents?")
      (bracket-stop ,boolean? "stop a bracket here.")
      (untransposable ,boolean? "If set, this music is not transposed.")
      )))

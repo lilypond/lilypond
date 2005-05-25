@@ -155,7 +155,8 @@ Global_context::run_iterator_on_me (Music_iterator *iter)
       if (!get_score_context ())
 	{
 	  SCM sym = ly_symbol2scm ("Score");
-	  Context_def *t = unsmob_context_def (find_context_def (get_output_def (), sym));
+	  Context_def *t = unsmob_context_def (find_context_def (get_output_def (),
+								 sym));
 	  if (!t)
 	    error (_f ("can't find `%s' context", "Score"));
 
@@ -177,6 +178,7 @@ Global_context::apply_finalizations ()
   SCM lst = get_property ("finalizations");
   set_property ("finalizations", SCM_EOL);
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
+    
     /* TODO: make safe.  */
     scm_primitive_eval (scm_car (s));
 }

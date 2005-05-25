@@ -1,5 +1,11 @@
 2005-05-25  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-music-properties.scm (all-music-properties): document
+	length-callback and start-callback as "read-only".
+
+	* scm/music-functions.scm (unfold-repeats): rewrite. Cannot set
+	length-callback after creation. 
+
 	* scripts/convert-ly.py (conv): unfoldrepeats -> unfoldRepeats,
 	compressmusic -> compressMusic.
 

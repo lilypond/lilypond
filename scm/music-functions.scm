@@ -213,14 +213,21 @@ Returns `obj'.
 (define-public (unfold-repeats music)
   "
 This function replaces all repeats  with unfold repeats. "
-  
+
   (let ((es (ly:music-property music 'elements))
 	(e  (ly:music-property music 'element))
 	)
     (if (memq 'repeated-music (ly:music-property music 'types))
-	(begin
-	  (if (equal? (ly:music-property music 'iterator-ctor)
-		      Chord_tremolo_iterator::constructor)
+	(let*
+	    ((props (ly:music-mutable-properties music))
+	     (old-name (ly:music-property music 'name))
+	     (flattened  (flatten-alist props)))
+
+	  (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
+					      flattened)))
+
+	  (display old-name)
+	  (if (equal? old-name 'TremoloRepeatedMusic)
 	      (let* ((seq-arg? (memq 'sequential-music
 				     (ly:music-property e 'types)))
 		     (count  (ly:music-property music 'repeat-count))
@@ -234,14 +241,9 @@ This function replaces all repeats  with unfold repeats. "
 					     (ly:intlog2 count)) dot-shift)
 		
 		(if seq-arg?
-		    (ly:music-compress e (ly:make-moment (length (ly:music-property e 'elements)) 1)))))
+		    (ly:music-compress e (ly:make-moment (length (ly:music-property
+								  e 'elements)) 1)))))))
 	  
-	  (set! (ly:music-property music 'length-callback)
-		Repeated_music::unfolded_music_length)
-	  (set! (ly:music-property music 'start-callback)
-		Repeated_music::first_start)
-	  (set! (ly:music-property music 'iterator-ctor)
-		Unfolded_repeat_iterator::constructor)))
     
     (if (pair? es)
 	(set! (ly:music-property music 'elements)

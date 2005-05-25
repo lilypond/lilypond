@@ -134,6 +134,13 @@ found."
       (let ((k (assoc (car keys) lst)))
 	(if k k (first-assoc (cdr keys) lst)))))
 
+(define-public (flatten-alist alist)
+  (if (null? alist)
+      '()
+      (cons (caar alist)
+	    (cons (cdar alist)
+		  (flatten-alist (cdr alist))))))
+
 ;;;;;;;;;;;;;;;;
 ;; vector
 (define-public (vector-for-each proc vec)
