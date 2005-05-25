@@ -2581,7 +2581,17 @@ explicitely; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.
 conversions.append (((2, 5, 21),
 		     conv,
 		     'warn about auto beam settings'))
-		    
+
+def conv (str):
+	str = re.sub (r"unfoldrepeats", 'unfoldRepeats', str)
+	str = re.sub (r"compressmusic", 'compressMusic', str)
+	return str
+
+conversions.append (((2, 5, 25), conv,
+
+		     'unfoldrepeats -> unfoldRepeats,'
+		     + 'compressmusic -> compressMusic'))
+
 ################################
 #	END OF CONVERSIONS
 ################################

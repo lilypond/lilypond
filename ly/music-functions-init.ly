@@ -40,10 +40,10 @@ breathe = #(def-music-function (parser location) ()
               'elements (list (make-music 'BreathingSignEvent))))
 
 
-unfoldrepeats = #(def-music-function (parser location music) (ly:music?)
+unfoldRepeats = #(def-music-function (parser location music) (ly:music?)
 		  (unfold-repeats music))
 
-compressmusic = #(def-music-function
+compressMusic = #(def-music-function
 		  (parser location fraction music) (number-pair? ly:music?)
 		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
 
