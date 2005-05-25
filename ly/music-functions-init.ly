@@ -6,7 +6,7 @@ applymusic = #(def-music-function (parser location func music) (procedure? ly:mu
 
 oldaddlyrics = #(def-music-function (parser location music lyrics) (ly:music? ly:music?)
 
-              (make-music 'LyricCombineMusic 
+              (make-music 'OldLyricCombineMusic 
                           'origin location
                           'elements (list music lyrics)))
 

@@ -255,7 +255,7 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
 	(types . (general-music span-event ligature-event event))
 	))
     
-    (LyricCombineMusic
+    (OldLyricCombineMusic
      . (
 	(description .	"Align lyrics to the start of notes.
 
@@ -268,7 +268,7 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
 	))
     
-    (NewLyricCombineMusic
+    (LyricCombineMusic
      . (
 	(description .	"Align lyrics to the start of notes.
 

@@ -512,7 +512,7 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_parent))
 	(layer . 0)
-	(meta . ((interfaces . (grid-line-interface)))
+	(meta . ((interfaces . (self-alignment-interface grid-line-interface)))
 	)))
 	
     (Hairpin

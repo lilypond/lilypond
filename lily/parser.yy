@@ -199,7 +199,7 @@ make_music_relative (Pitch start, Music *music)
 Music*
 make_lyric_combine_music (SCM name, Music *music)
 {
-	Music *combine = MY_MAKE_MUSIC ("NewLyricCombineMusic");
+	Music *combine = MY_MAKE_MUSIC ("LyricCombineMusic");
 	combine->set_property ("element", music->self_scm ());
  	combine->set_property ("associated-context", name);
 	return combine;
