@@ -162,7 +162,7 @@ export MFINPUTS:=.:$(MFINPUTS)
 # FIXME: temporary hack: must regenerate after building fonts
 tree-regen:
 	rm -rf $(builddir)/share
-	make -C $(builddir) link-tree
+	${MAKE} -C $(builddir) link-tree
 
 default: pfa_warning $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
 
