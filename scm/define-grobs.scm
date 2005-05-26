@@ -93,7 +93,6 @@
     (Arpeggio
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
-	(Y-extent-callback . #f)	
 	(print-function . ,Arpeggio::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))

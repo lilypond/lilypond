@@ -27,11 +27,17 @@ init_fontconfig ()
 
   FcConfig *fcc = FcConfigGetCurrent ();
 
+
+#if 0
+  /*
+    Hmm. the cache is always out of date??!
+   */
   FcChar8 *cache = FcConfigGetCache (fcc);
   if (!FcDirCacheValid (cache))
     {
       warning (_ ("FontConfig cache out of date. Rebuilding may take some time."));
     }
+#endif
   
   Array<String> dirs;
   struct stat statbuf; 

@@ -1,7 +1,7 @@
-\version "2.4.0"
+\version "2.5.25"
 
 \header { texidoc = "Volta repeats may be unfolded through the music
-    function @code{\unfoldrepeats}."
+    function @code{\unfoldRepeats}."
 
 }
 
@@ -13,6 +13,6 @@ nots = \relative c'   {
 \context Voice {
     \nots
     \bar "||"
-    \unfoldrepeats \nots
+    \unfoldRepeats \nots
 }
 

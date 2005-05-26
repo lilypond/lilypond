@@ -2706,15 +2706,15 @@ example by setting @code{Score.measurePosition} or entering
 @subsection Repeats and MIDI
 
 @cindex expanding repeats
-@cindex @code{\unfoldrepeats}
+@cindex @code{\unfoldRepeats}
 
 With a little bit of tweaking, all types of repeats can be present
 in the MIDI output.  This is achieved by applying the
-@code{\unfoldrepeats} music function.  This functions changes all
+@code{\unfoldRepeats} music function.  This functions changes all
 repeats to unfold repeats.
 
 @lilypond[quote,verbatim,fragment,linewidth=8.0\cm]
-\unfoldrepeats {
+\unfoldRepeats {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 4 { c''8 d'' }
   \repeat volta 2 {c'4 d' e' f'}
@@ -2726,7 +2726,7 @@ repeats to unfold repeats.
 \bar "|."
 @end lilypond
 
-When creating a score file using @code{\unfoldrepeats} for midi, then
+When creating a score file using @code{\unfoldRepeats} for midi, then
 it is necessary to make two @code{\score} blocks.  One for MIDI (with
 unfolded repeats) and one for notation (with volta, tremolo, and
 percent repeats).  For example,
@@ -2737,7 +2737,7 @@ percent repeats).  For example,
   \layout @{ .. @}
 @}
 \score @{
-  \unfoldrepeats @var{..music..}
+  \unfoldRepeats @var{..music..}
   \midi @{ .. @}
 @}
 @end example

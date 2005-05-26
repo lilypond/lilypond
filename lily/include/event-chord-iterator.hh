@@ -20,7 +20,7 @@ class Event_chord_iterator : public Simple_music_iterator
   /**
      Find a bottom notation context to deliver events to.
   */
-  virtual Context *get_req_translator ();
+  virtual Context *get_bottom_context ();
 
   /*
     Since Event_chord_iterator has no list-cursor internally, we
