@@ -259,9 +259,6 @@ appearance of objects.  In the following example, the rule which note
 head objects are used to produce their symbol is changed during the music
 fragment.
 
-@c FIXME: this example has errors:
-@c    programming error: Grob `NoteHead' has no interface for property `text'
-@c    Continuing; crossing fingers
 @lilypond[quote,raggedright]
 #(define (mc-squared grob orig current)
   (let ((interfaces (ly:grob-property grob 'interfaces))
