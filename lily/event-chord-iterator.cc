@@ -17,7 +17,7 @@ Event_chord_iterator::Event_chord_iterator ()
 }
 
 Context *
-Event_chord_iterator::get_req_translator ()
+Event_chord_iterator::get_bottom_context ()
 {
   assert (get_outlet ());
   if (get_outlet ()->is_bottom_context ())
@@ -31,7 +31,7 @@ void
 Event_chord_iterator::construct_children ()
 {
   Simple_music_iterator::construct_children ();
-  get_req_translator ();
+  get_bottom_context ();
 }
 
 Event_chord *

@@ -346,13 +346,28 @@ Tie::print (SCM smob)
       i++;
     }
 
-  Stencil a = Lookup::slur (b,
-			    get_grob_direction (me) * staff_thick,
-			    thick);
+  Stencil a;
 
+  SCM p = me->get_property ("dash-period");
+  SCM f = me->get_property ("dash-fraction");
+  if (scm_is_number (p) && scm_is_number (f))
+    a = Lookup::dashed_slur (b,
+			     thick,
+			     robust_scm2double (p, 1.0),
+			     robust_scm2double (f, 0));
+  else
+    a = Lookup::slur (b,
+		      get_grob_direction (me) * staff_thick,
+		      thick);
+
+  
   return a.smobbed_copy ();
 }
 
-ADD_INTERFACE (Tie, "tie-interface",
+ADD_INTERFACE (Tie,
+	       "tie-interface",
 	       "A tie connecting two noteheads.\n",
-	       "y-offset staffline-clearance control-points head-pair details thickness x-gap direction minimum-length");
+	       
+	       "y-offset dash-period dash-fraction "
+	       "staffline-clearance control-points head-pair "
+	       "details thickness x-gap direction minimum-length");
