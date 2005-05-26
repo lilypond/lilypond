@@ -48,7 +48,9 @@ page:last?, page:page-number-string and page:page-number
 			(else "")))
 		 (cons 'page:last? last?)
 		 (cons 'page:page-number-string
-		       (number->string page-number))
+           (if (ly:output-def-lookup layout 'printpagenumber)
+               (number->string page-number)
+               ""))
 		 (cons 'page:page-number page-number)))
 	       (props (append
 		       (list pgnum-alist)
