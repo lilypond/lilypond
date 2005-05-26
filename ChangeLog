@@ -5,6 +5,9 @@
 	introduction.itely, tutorial.itely: rearranging, editing,
 	clean-up.
 
+	* mf/GNUmakefile: change a "make -C" to "${MAKE} -C", required
+	for compiling on FreeBSD.
+
 2005-05-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/pfb.cc (LY_DEFINE): progress indication for opening ttf and
