@@ -97,12 +97,18 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
 		   SCM_ARG1, __FUNCTION__, "string");
 
   String file_name = ly_scm2string (ttf_file_name);
-
+  if (be_verbose_global)
+    progress_indication ("[" + file_name);
+  
+  
   Memory_out_stream stream;
   create_type42 (file_name.to_str0 (), stream.get_file ());
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
 				       stream.get_length ());
 
+  if (be_verbose_global)
+    progress_indication ("]");
+  
   return asscm;
 }
 
@@ -117,6 +123,8 @@ LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
 		   SCM_ARG1, __FUNCTION__, "string");
 
   String file_name = ly_scm2string (otf_file_name);
+  if (be_verbose_global)
+    progress_indication ("[" + file_name);
 
   FT_Face face = open_ft_face (file_name);
   String table = get_otf_table (face, "CFF ");
@@ -124,5 +132,8 @@ LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
   SCM asscm = scm_from_locale_stringn ((char*) table.get_bytes (),
 				       table.length ());
 
+  if (be_verbose_global)
+    progress_indication ("]");
+  
   return asscm;
 }	   
