@@ -9,8 +9,6 @@
 
 \version "2.5.13"
 
-\include "nederlands.ly"
-
 global =  {
   \key a \minor
   \time 2/4
@@ -125,16 +123,6 @@ lower = \context Staff  \relative c{
   <g g'> <f f'> | <c' c'> <bes bes'> | <f f'> r |
 
 }
-
-%% FIXME: this triggers:
-%%
-%%input/mutopia/E.Satie/petite-ouverture-a-danser.ly:148:9: fout: syntax error, unexpected PAPER:
-%%    \pape
-%%         r { }
-%%\new Score \with {
-%%    \override SpacingSpanner #'spacing-increment = #3
-%%} {
-
 
 \score {
     \context PianoStaff <<

@@ -1,5 +1,8 @@
 2005-05-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/mutopia/E.Satie/petite-ouverture-a-danser.ly (lower):
+	bugfixes.
+
 	* VERSION: 2.5.26 released.
 
 	* scm/titling.scm (marked-up-headfoot): revert Pedro's patch. 
