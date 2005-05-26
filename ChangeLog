@@ -1,3 +1,10 @@
+2005-05-26  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond.tely, advanced-notation.itely,
+	basic-notation.itely, instrument-notation.itely, global.itely,
+	introduction.itely, tutorial.itely: rearranging, editing,
+	clean-up.
+
 2005-05-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/pfb.cc (LY_DEFINE): progress indication for opening ttf and

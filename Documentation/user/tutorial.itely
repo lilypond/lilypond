@@ -213,7 +213,6 @@ example, you could open an xterm and execute
 @code{joe}.@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
 installed already, refer to
-@c FIXME lousy reference.
 the file @file{INSTALL.txt}.}  In your text editor, enter the following
 input and save the file as @file{test.ly}
 

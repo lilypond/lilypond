@@ -5,16 +5,21 @@
 @afourpaper
 @end iftex
 
+@dircategory GNU music project
+@direntry
+
 @ignore
+(I think)
+Current version of the manual: 2.5.18
+Please update this whenever you run convert-ly on the docs.
+
+%%%%%
+
 Distributions will want to install lilypond.info in postinstall, doing:
 
     install-info --info-dir=/usr/share/info out/lilypond.info
     
-@end ignore
-
-@dircategory GNU music project
-@direntry
-@ignore
+%%%%%
 
   * Prepend GNU for dir, must be unique.
   
