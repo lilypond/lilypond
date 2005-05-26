@@ -1,3 +1,7 @@
+2005-05-26  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/titling.scm (marked-up-headfoot): revert Pedro's patch. 
+
 2005-05-25  Pedro Kroger  <kroeger@pedrokroeger.net>
 
 	* scm/titling.scm (marked-up-headfoot): doesn't print pagenumbers
