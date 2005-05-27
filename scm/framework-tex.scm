@@ -162,7 +162,7 @@
 (define (header-end)
   (string-append
    "\\def\\scaletounit{ "
-   (number->string (lily-unit->bigpoint-factor))
+   (number->string lily-unit->bigpoint-factor)
    " mul }%\n"
    "\\ifx\\lilypondstart\\undefined\n"
    "  \\input lilyponddefs\n"
