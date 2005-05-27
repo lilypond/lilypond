@@ -1,5 +1,8 @@
 2005-05-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-svg.scm (circle): support circle.
+	(bracket): stub for bracket.
+
 	* scripts/lilypond-book.py (main): make sure --psfonts warning is correct.
 
 2005-05-26  Graham Percival  <gperlist@shaw.ca>

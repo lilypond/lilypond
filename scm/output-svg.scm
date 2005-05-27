@@ -270,11 +270,10 @@
 	    (stroke-linecap . "round")
 	    (stroke-width . ,thick)
 	    (stroke . "black")
-	    ;;'(fill . "black")
 	    (x1 . ,x1)
-	    (y1 . ,y1)
+	    (y1 . ,(- y1))
 	    (x2 . ,x2)
-	    (y2 . ,y2))
+	    (y2 . ,(- y2)))
 	  alist)))
 
 (define (dashed-line thick on off dx dy)
@@ -301,17 +300,17 @@
 	  `(transform . ,(format #f "translate (~f, ~f)"
 				 x (- y)))))
 
-
-(define (polygon coords blot-diameter)
-  (entity 'polygon ""
-	  '(stroke-linejoin . "round")
-	  '(stroke-linecap . "round")
-	  `(stroke-width . ,blot-diameter)
-	  '(stroke . "black")
-	  ;;'(fill . "black")
-	  `(points . ,(string-join
-		       (map offset->point (ly:list->offsets '() coords))))
-  ))
+(define (polygon coords blot-diameter is-filled)
+  (entity
+   'polygon ""
+   '(stroke-linejoin . "round")
+   '(stroke-linecap . "round")
+   `(stroke-width . ,blot-diameter)
+   `(fill . ,(if is-filled "black" "none"))
+   '(stroke . "black")
+   `(points . ,(string-join
+		(map offset->point (ly:list->offsets '() coords))))
+   ))
 
 (define (round-filled-box breapth width depth height blot-diameter)
   (entity 'rect ""
@@ -330,8 +329,23 @@
 	  `(ry . ,(/ blot-diameter 2))
 	  ))
 
+(define (circle radius thick is-filled)
+  (entity
+   'circle ""
+   '(stroke-linejoin . "round")
+   '(stroke-linecap . "round")
+   `(fill . ,(if is-filled "black" "none"))
+   `(stroke . "black")
+   `(stroke-width . ,thick)
+   `(r . ,radius)))
+
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
 
 (define (utf8-string pango-font-description string)
   (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
+
+(define (bracket arch_angle arch_width arch_height height arch_thick thick)
+  ;; FIXME.
+  ""
+  )
