@@ -231,7 +231,11 @@
 
   (define (load-font-via-GS font-name-filename)
     (define (ps-load-file name)
-      (format "(~a) (r) file .loadfont " name))
+      (format
+       (if (string? name)
+	   "(~a) (r) file .loadfont\n"
+	   "% fontfile ~a could not be found\n")
+       name))
 
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -314,7 +318,8 @@
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 	   ;; ttftool/fopencookie is broken on Windows,
 	   ;; possibly a stack corruption bug.
-	   (pfas (map (if (eq? PLATFORM 'windows) load-font-via-GS load-font)
+	   (pfas (map (if
+		       (eq? PLATFORM 'windows) load-font-via-GS load-font)
 		      font-names)))
       pfas))
 
