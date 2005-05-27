@@ -1583,14 +1583,16 @@ def main ():
 		ly.exit (1)
 
 	if format == TEXINFO or format == LATEX:
-		psfonts = os.path.join (output_name, psfonts_file)
+		psfonts = 'PSFONTS-FILE'
+		if not psfonts_file:
+			ly.warning (_ ("option --psfonts=FILE not used"))
+			ly.warning (_ ("processing with dvips will have no fonts"))
+		else:
+			psfonts = os.path.join (output_name, psfonts_file)
+			
 		output = os.path.join (output_name,
 				       os.path.splitext (os.path.basename
 							 (file))[0]) + '.dvi'
-		if not psfonts:
-			ly.warning (_ ("option --psfonts=FILE not used"))
-			ly.warning (_ ("processing with dvips will have no fonts"))
-			psfonts = 'PSFONTS-FILE'
 		ly.progress ('\n')
 		ly.progress (_ ("DVIPS usage:"))
 		ly.progress ('\n')

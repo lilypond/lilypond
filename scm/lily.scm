@@ -405,6 +405,7 @@ The syntax is the same as `define*-public'."
 	    (exit 1))
 	  (exit 0)))))
 
+
 (define (gui-no-files-handler)
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
 	 ;; FIXME: soft-code, localize
