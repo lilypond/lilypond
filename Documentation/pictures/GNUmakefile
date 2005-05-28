@@ -10,10 +10,12 @@ EXTRA_DIST_FILES= $(XPM_FILES)
 include $(depth)/make/stepmake.make
 
 ifeq ($(PLATFORM_WINDOWS),yes)
-OUT_DIST_FILES = $(icon) # $(package-icon)
+OUT_DIST_FILES = $(lilypond-icon) $(ly-icon) # $(package-icon)
 
-icon = $(outdir)/lilypond.ico
 ICON_SIZES=48 32 16
+
+lilypond-icon = $(outdir)/lilypond.ico
+ly-icon = $(outdir)/ly.ico
 
 #$(outdir)/lilypond.ico: platte-lucht-kikker-ly-48.xpm
 
@@ -24,13 +26,13 @@ $(outdir)/%.ico: $(ICON_SIZES:%=$(outdir)/\%-%.png) $(ICON_SIZES:%=$(outdir)/\%-
 # cancel default rule that breaks transparency
 $(outdir)/%.png: %.xpm
 
-$(outdir)/%-48.png: %-48.xpm
+$(outdir)/%-48.png: %.xpm
 	convert -sample 48 -depth 24 $< $@
 		   
-$(outdir)/%-32.png: %-48.xpm
+$(outdir)/%-32.png: %.xpm
 	convert -depth 24 -sample 32 $< $@
 
-$(outdir)/%-16.png: %-48.xpm
+$(outdir)/%-16.png: %.xpm
 	convert -depth 24 -sample 16 $< $@
 
 $(outdir)/%-8.png: $(outdir)/%.png

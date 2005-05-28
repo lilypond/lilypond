@@ -1,6 +1,7 @@
 #include <winver.h>
 
 LilyPond ICON   "@outdir@/lilypond.ico"
+LY ICON   "@outdir@/ly.ico"
 
 VS_VERSION_INFO VERSIONINFO
   FILEVERSION @MAJOR_VERSION@,@MINOR_VERSION@,@PATCH_LEVEL@,@BUILD_VERSION@
