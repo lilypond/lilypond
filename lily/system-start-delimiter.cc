@@ -69,18 +69,20 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 
   Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
 
+
+  Real overlap = 0.1 * thickness;
   
   Stencil bracket = Lookup::filled_box (Box (Interval (0, thickness),
-					     Interval (-height/2, height/2)));
+					     Interval (-1, 1)
+					     * (height/2 + overlap)));
 
   Direction d = DOWN;
   do
     {
-      bracket.add_at_edge (Y_AXIS, d, tips[d], 0.0, 0.0);
+      bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
     }
   while (flip (&d) != DOWN); 
 
-  bracket.translate_axis (-1.0, X_AXIS); // ugh.
   return bracket;
 }
 

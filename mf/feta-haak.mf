@@ -21,9 +21,11 @@ begingroup;
 	fi;
 
 	thin = 2 linethickness;
-	hair = linethickness;
+	hair = 1.25 linethickness;
 
 	pickup pencircle scaled thin;
+	z7 = z1 + (thick,0); 
+	z2 = z4r + (thin, 0);
 
 
 	penpos3(thin, 0);
@@ -37,33 +39,35 @@ begingroup;
 	y1 = -0.5 thick;
 
 
-	save tight;
-	tight := 1.3;
-	z5 = .5 [z1, z3] + (width - thin, flattening * width - .5 thin);
-	p := .5 [z1, z3]{right}
-		.. tension tight
-		.. z5;
+	z8 = .5  [z2, z7];
+	top y5 = h;
+	rt x5 = w;
+
+	save leave_angle;
+	leave_angle = 10;
+
+	p := z8{dir(leave_angle)}
+		.. z5{curl 0};
 	tipdir := (direction 1 of p);
 
-	penpos5 (hair, angle (tipdir));
-	penpos6 (hair, 90 + angle (tipdir));
+	save tip_angle;
+	tip_angle := 50;
+	penpos5 (hair, tip_angle);
+	penpos6 (hair, 90 + tip_angle);
 
 	z5 = z6;
 
-	z7 = z1 + (thick,0); 
-	z2 = z4r + (thin, 0);
-
 	pickup pencircle scaled 1;
 
-	% draw p;
-	fill (z1{up} .. z3l{up}
+	%draw p;
+	fill
+	%draw
+	(z1{up} .. z3l{up}
 		.. z4r{right}
 		.. z2{right}
-		.. tension tight
 		.. z6r{tipdir}
 		.. z5r .. z6l{-tipdir}
-		.. tension tight
-		.. z7{left} .. z1{left} & cycle)
+		.. z7{dir(180 + leave_angle)} & z7 .. z1{left} & cycle)
 		 yscaled updown;
 
 
