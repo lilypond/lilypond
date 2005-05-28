@@ -59,8 +59,9 @@ with magnification @varr{mag} of the string @var{text}."
         (interpret-markup layout my-props text)))
 
 (define (sans-serif-stencil-white layout props mag text)
-"create a stencil with white text in sans-serif font based on @var{layout} and @var{props}
-with magnification @varr{mag} of the string @var{text}."
+"create a stencil with white text in sans-serif font based on
+@var{layout} and @var{props} with magnification @varr{mag} of the
+string @var{text}."
   (let* ((text-stencil (sans-serif-stencil layout props mag text))
          (x-extent  (ly:stencil-extent text-stencil X))
          (y-extent  (ly:stencil-extent text-stencil Y))
@@ -69,8 +70,10 @@ with magnification @varr{mag} of the string @var{text}."
 
 
 (define (draw-strings string-count fret-range th size)
-"Draw the strings (vertical lines) for a fret diagram with @var{string-count} strings and frets as indicated
-   in @var{fret-range}.  Line thickness is given by @var{th}, fret & string spacing by @var{size}. "
+"Draw the strings (vertical lines) for a fret diagram with
+@var{string-count} strings and frets as indicated in @var{fret-range}.
+Line thickness is given by @var{th}, fret & string spacing by
+@var{size}. "
   (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (sl (* (+ fret-count 1) size))
          (sth (* size th))
@@ -87,8 +90,9 @@ with magnification @varr{mag} of the string @var{text}."
          gap 0))))
 
 (define (draw-fret-lines fret-count string-count th size)
- "Draw @var{fret-count} frets (horizontal lines) for a fret diagram with @var{string-count} strings.
-   Line thickness is given by @var{th}, fret & string spacing by @var{size}. "
+ "Draw @var{fret-count} frets (horizontal lines) for a fret diagram
+with @var{string-count} strings.  Line thickness is given by @var{th},
+fret & string spacing by @var{size}. "
    (let* ((fret-length (* (- string-count 1) size))
           (sth (* size th))
           (half-thickness (* sth 0.5))
@@ -120,8 +124,10 @@ with magnification @varr{mag} of the string @var{text}."
  
  
 (define (draw-frets layout props fret-range string-count th size)
- "Draw the frets (horizontal lines) for a fret diagram with @var{string-count} strings and frets as indicated
-   in @var{fret-range}.  Line thickness is given by @var{th}, fret & string spacing by @var{size}. "
+ "Draw the frets (horizontal lines) for a fret diagram with
+@var{string-count} strings and frets as indicated in @var{fret-range}.
+Line thickness is given by @var{th}, fret & string spacing by
+@var{size}. "
   (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (fret-length (* (- string-count 1) size))
          (half-thickness (* th 0.5))
@@ -219,8 +225,9 @@ with magnification @varr{mag} of the string @var{text}."
             glyph-stencil))))
 
 (define (make-bezier-sandwich-list left right bottom height thickness)
-" Make the argument list for a horizontal bezier sandwich from @var{left} to @var{right} with a bottom at @var{bottom}, 
-  a height of @var{height}, and a thickness of @var{thickness}."
+" Make the argument list for a horizontal bezier sandwich from
+@var{left} to @var{right} with a bottom at @var{bottom}, a height of
+@var{height}, and a thickness of @var{thickness}."
    (let* ((width (+ (- right left) 1))
           (x1 (+ (* width thickness) left))
           (x2 (- right (* width thickness)))
@@ -313,11 +320,16 @@ Place a small 'o' at the top of string @var{string-number}
 Place a barre indicator (much like a tie) from string @var{start-string}to string @var{end-string} at fret @var{fret-number}
 
 @item (place-fret string-number fret-number finger-value)
-Place a fret playing indication on string @var{string-number} at fret @var{fret-number} with an optional 
-fingering label @var{finger-value}.  By default, the fret playing indicator is a solid dot.  This can be
-changed by setting the value of the variable @var{dot-color}.  If the @var{finger} 
-part of the place-fret element is present, @var{finger-value} will be displayed according to the setting of the variable
-@var{finger-code}.  There is no limit to the number of fret indications per string.
+
+Place a fret playing indication on string @var{string-number} at fret
+@var{fret-number} with an optional fingering label @var{finger-value}.
+By default, the fret playing indicator is a solid dot.  This can be
+changed by setting the value of the variable @var{dot-color}.  If the
+@var{finger} part of the place-fret element is present,
+@var{finger-value} will be displayed according to the setting of the
+variable @var{finger-code}.  There is no limit to the number of fret
+indications per string.
+
 @end table
 "
    (make-fret-diagram layout props marking-list))
