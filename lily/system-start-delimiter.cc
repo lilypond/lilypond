@@ -68,6 +68,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 			    fm->find_by_name ("brackettips.up"));
 
   Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
+
   
   Stencil bracket = Lookup::filled_box (Box (Interval (0, thickness),
 					     Interval (-height/2, height/2)));
