@@ -39,7 +39,7 @@ $(outdir)/%-8.png: $(outdir)/%.png
 	convert -depth 8 $< $@
 endif # PLATFORM_WINDOWS
 
-default: $(icon)
+default: $(lilypond-icon) $(ly-icon)
 local-dist: $(icon) # $(package-icon)
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)

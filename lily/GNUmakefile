@@ -37,7 +37,7 @@ $(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/lilypond.i
 	cp $< $@ 
 $(builddir)/Documentation/pictures/$(outbase)/ly.ico:
 	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
-$(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/ly.ico
+$(outdir)/ly.ico: $(builddir)/Documentation/pictures/$(outbase)/ly.ico
 	cp $< $@ 
 endif
 
