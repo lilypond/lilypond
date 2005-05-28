@@ -79,6 +79,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
     }
   while (flip (&d) != DOWN); 
 
+  bracket.translate_axis (-1.0, X_AXIS); // ugh.
   return bracket;
 }
 
