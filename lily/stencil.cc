@@ -190,6 +190,20 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
 }
 
+
+
+Stencil
+Stencil::in_color (Real r, Real g, Real b) const
+{
+  Stencil new_stencil (extent_box (),
+		       scm_list_3 (ly_symbol2scm ("color"),
+				   scm_list_3 (scm_from_double (r),
+					       scm_from_double (g),
+					       scm_from_double (b)),
+				   expr ()));
+  return new_stencil;
+}
+
 /****************************************************************/
 
 void
@@ -289,4 +303,3 @@ find_expression_fonts (SCM expr)
 
   return fl.fonts_;
 }
-

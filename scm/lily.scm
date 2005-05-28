@@ -165,10 +165,8 @@ predicates. Print a message at LOCATION if any predicate failed."
     dashed-slur
     dot
     draw-line
-    ez-ball
     filledbox
     glyph-string
-    horizontal-line
     named-glyph
     polygon
     repeat-slash

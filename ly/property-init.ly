@@ -49,8 +49,8 @@ tieSolid = {
 
 setEasyHeads = \sequential {
   \override NoteHead #'print-function = #Note_head::brew_ez_stencil
-  \override NoteHead #'Y-extent-callback = #'()
-  \override NoteHead #'X-extent-callback = #'()
+  \override NoteHead #'font-size = #-7
+  \override NoteHead #'font-family = #'sans
 }
 
 aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)

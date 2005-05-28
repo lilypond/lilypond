@@ -86,43 +86,6 @@ Note_head::print (SCM smob)
   return internal_print (me, &idx).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Note_head, brew_ez_stencil, 1);
-SCM
-Note_head::brew_ez_stencil (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  int l = Note_head::get_balltype (me);
-
-  int b = (l >= 2);
-
-  SCM cause = me->get_property ("cause");
-  SCM spitch = unsmob_music (cause)->get_property ("pitch");
-  Pitch *pit = unsmob_pitch (spitch);
-
-  SCM idx = scm_int2num (pit->get_notename ());
-  SCM names = me->get_property ("note-names");
-  SCM charstr = SCM_EOL;
-  if (scm_is_vector (names))
-    charstr = scm_vector_ref (names, idx);
-  else
-    {
-      char s[2] = "a";
-      s[0] = (pit->get_notename () + 2)%7 + 'a';
-      s[0] = toupper (s[0]);
-      charstr = scm_makfrom0str (s);
-    }
-  
-  SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
-		       charstr,
-		       scm_int2num (b),
-		       scm_int2num (1 - b),
-		       SCM_UNDEFINED);
-  Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
-  Stencil m (bx, at);
-
-  return m.smobbed_copy ();
-}
-
 Real
 Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 {

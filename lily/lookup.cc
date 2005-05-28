@@ -100,10 +100,12 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
 Stencil
 Lookup::horizontal_line (Interval w, Real th)
 {
-  SCM at = scm_list_n (ly_symbol2scm ("horizontal-line"),
-		       scm_make_real (w[LEFT]),
-		       scm_make_real (w[RIGHT]),
+  SCM at = scm_list_n (ly_symbol2scm ("draw-line"),
 		       scm_make_real (th),
+		       scm_make_real (w[LEFT]),
+		       scm_make_real (0),
+		       scm_make_real (w[RIGHT]),
+		       scm_make_real (0),
 		       SCM_UNDEFINED);
 
   Box box;
@@ -644,6 +646,19 @@ Lookup::accordion (SCM s, Real staff_space, Font_metric *fm)
 Stencil
 Lookup::repeat_slash (Real w, Real s, Real t)
 {
+#if 0
+  // TODO
+  Array<Offset> points ;
+  Real blotdiameter = 0.0;
+
+  Offset p1(0, 0);
+  Offset p2(w, w*s);
+  
+  
+  
+  return Lookup::round_filled_polygon (points, blotdiameter);
+#endif
+  
   SCM wid = scm_make_real (w);
   SCM sl = scm_make_real (s);
   SCM thick = scm_make_real (t);

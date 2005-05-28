@@ -80,6 +80,7 @@ public:
   Interval extent (Axis) const;
   Box extent_box () const;
   bool is_empty () const;
+  Stencil in_color (Real r, Real g, Real b) const; 
 
   static SCM ly_get_stencil_extent (SCM mol, SCM axis);
   static SCM ly_set_stencil_extent_x (SCM, SCM, SCM);
@@ -96,5 +97,6 @@ void interpret_stencil_expression (SCM expr,
 
 Stencil create_stencil (SCM print);
 SCM find_expression_fonts (SCM expr);
+
 
 #endif /* STENCIL_HH */

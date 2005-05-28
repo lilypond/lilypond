@@ -26,17 +26,14 @@
 	    dot
 	    white-dot
 	    beam
-	    bracket
 	    dashed-slur
 	    named-glyph
 	    dashed-line
 	    zigzag-line
-	    ez-ball
 	    comment
 	    repeat-slash
 	    placebox
 	    bezier-sandwich
-	    horizontal-line
 	    filledbox
 	    round-filled-box
 	    text
@@ -91,9 +88,6 @@
 (define (beam width slope thick blot)
   (embedded-ps (list 'beam  width slope thick blot)))
 
-(define (bracket arch_angle arch_width arch_height height arch_thick thick)
-  (embedded-ps (list 'bracket  arch_angle arch_width arch_height height arch_thick thick)))
-
 (define (dashed-slur thick on off lst)
   (embedded-ps (list 'dashed-slur thick on off `(quote ,lst))))
 
@@ -120,9 +114,6 @@
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
 
-(define (ez-ball c lst b)
-  (embedded-ps (list 'ez-ball c lst b)))
-
 (define (embedded-ps expr)
   (let ((ps-string
 	 (with-output-to-string
@@ -143,10 +134,6 @@
 
 (define (bezier-sandwich lst thick)
   (embedded-ps (list 'bezier-sandwich `(quote ,lst) thick)))
-
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 th)
-  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
 
 (define (filledbox breapth width depth height)
   (if (and #f (defined? 'ps-testing))

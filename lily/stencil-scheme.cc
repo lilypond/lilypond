@@ -258,6 +258,20 @@ LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
   return find_expression_fonts (stil->expr ());
 }
 
+
+LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
+	   4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
+	   "Put @var{stc} in a different color.")
+{
+  Stencil *stil = unsmob_stencil (stc);
+  SCM_ASSERT_TYPE (stil, stc, SCM_ARG1, __FUNCTION__, "Stencil");
+  return Stencil (stil->extent_box (),
+		  scm_list_3 (ly_symbol2scm ("color"),
+			      scm_list_3 (r, g, b),
+			      stil->expr ())).smobbed_copy ();
+}
+
+
 struct Stencil_interpret_arguments
 {
   SCM func;

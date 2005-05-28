@@ -19,45 +19,6 @@
 #include "lookup.hh"
 #include "item.hh"
 
-Stencil
-System_start_delimiter::old_staff_bracket (Grob *me, Real height)
-{
-  Real arc_height = scm_to_double (me->get_property ("arch-height"));
-
-  SCM at = scm_list_n (ly_symbol2scm ("bracket"),
-		       me->get_property ("arch-angle"),
-		       me->get_property ("arch-width"),
-		       scm_make_real (arc_height),
-		       scm_make_real (height),
-		       me->get_property ("arch-thick"),
-		       me->get_property ("thickness"),
-		       SCM_UNDEFINED);
-
-  /*
-    TODO: sort this out.
-
-    Another thing:
-    In system-start-delimiter.cc I see the line
-
-    Real h = height + 2 * arc_height;
-
-    But I really think that you mean
-
-    Real h = height + 2 * arc_width;
-
-    (arc_height changes the x-axis-size of arc ; arc_width changes the
-    y-axis-size)
-    Will not fix it since I'm not sure.
-
-  */
-
-  Real h = height + 2 * arc_height;
-  Box b (Interval (0, 1.5), Interval (-h / 2, h / 2));
-  Stencil mol (b, at);
-  mol.align_to (X_AXIS, CENTER);
-  return mol;
-}
-
 
 
 Stencil
