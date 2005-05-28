@@ -26,14 +26,18 @@ endif
 #
 
 ifeq ($(PLATFORM_WINDOWS),yes)
-WINDRES_FLAGS += -DLilyPond=1
+WINDRES_FLAGS += -DLilyPond=0 -DLY=1
 O_FILES += $(outdir)/lilypond.rc.o
 $(outdir)/lilypond: $(outdir)/lilypond.rc.o
 
-$(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico
+$(outdir)/lilypond.rc.o: $(outdir)/lilypond.ico $(outdir)/ly.ico
 $(builddir)/Documentation/pictures/$(outbase)/lilypond.ico:
 	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
 $(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/lilypond.ico
+	cp $< $@ 
+$(builddir)/Documentation/pictures/$(outbase)/ly.ico:
+	$(MAKE) -C $(abs-srcdir)/Documentation/pictures
+$(outdir)/lilypond.ico: $(builddir)/Documentation/pictures/$(outbase)/ly.ico
 	cp $< $@ 
 endif
 
