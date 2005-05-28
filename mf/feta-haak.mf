@@ -1,74 +1,75 @@
-input feta-macros;
-input feta-params;
-input feta-autometric;
 
-save code;
-code :=0;
+fet_begingroup ("brackettips");
 
+def draw_bracket(expr thick_sharp, width_sharp, updown) =
+begingroup;
+	save p, thin, thick, flattening, width;
+ 	path p;
+	pair tipdir;
 
-def draw_bracket( expr height_sharp, width_sharp) = 
-	save alpha, height, p, width, thin, thick;
-	height# := height_sharp;
-	width#  := width_sharp;
+	flattening = 0.70;
+	thick# := thick_sharp;
+	width# := width_sharp;
 
-	beginchar(incr code, width#, height#/2, height#/2);
- 
-	define_pixels (height, width);
+	define_pixels (thick, width);
+	if updown = 1:
+	        set_char_box (0, width#,
+			      .5 thick# , flattening * width#);
+	else:
+	        set_char_box (0, width#,
+				flattening * width#, .5 thick#);
+	fi;
+
 	thin = 2 linethickness;
-	thick = .5 staff_space;
 	
 	pickup pencircle scaled thin;
-	lft x1 = 0;
-	top y1 = height/2 + thick + thin;
 
-	x2 = x1;
-	z2 = (x1, 0);
-	rt x3 = thick;
-	y3 = y2;
 
-	x4 = x3;
-	bot y4 = y1 - thick + thin/2;
+	penpos3(thin, 0);
+	penpos4(thin, 90);
 
-	alpha = 50;
-	z5 = z1 + (width, 3/4staff_space);
+	z3 = z4;
 
-	% need silly z6?
-	% strange turning path when invoked via MakeTeXTFM...?
-	% mf "\\mode:=ljfour; mag:=1; scrollmode; input feta-brackets16"
-	z6 = z5 - (0, thin/16);
+	top y3 = 0.5 thick;
+	lft x3 = 0.0;
+	x1 = x3l;
+	y1 = -0.5 thick;
+	
+	z5 = .5 [z1, z3] + (width - thin, flattening * width - .5 thin);
+	p := .5 [z1, z3]{right} .. z5;
+	tipdir := (direction 1 of p);
 
-	filldraw z5{dir(180+alpha)}..{left}z1--z2--z3..{up}z4{right}
-		..{dir(alpha)}z6..cycle;
+	penpos5 (thin, angle (tipdir));
+	penpos6 (thin, 90 + angle (tipdir));
 
-%	% try control points to do this in ps
-%	currentpicture:=currentpicture shifted (-x5/2,(x5-x4)/2);
-%
-%	s7 := 0.4*(x5-x1);
-%	x7 = x1 + s7 * cosd(0);
-%	y7 = y1 + s7 * sind(0);
-%
-%	s8 := -0.25*(x5-x1);
-%	x8 := x5 + s8 * cosd(alpha);
-%	y8 := y5 + s8 * sind(alpha);
-%
-%	s9 := 0.5*(x5-x4);
-%	x9 := x4 + s9 * cosd(0);
-%	y9 := y4 + s9 * sind(0);
-%
-%	s10 := -0.15*(x5-x4);
-%	x10 := x5 + s10 * cosd(alpha);
-%	y10 := y5 + s10 * sind(alpha);
-%
-%	draw z5..controls z8 and z7..z1--z2--z3..{up}z4
-%		..controls z9 and z10..z6..cycle;
-%
-%	labels(1,2,3,4,5,6,7,8,9,10);
-	addto currentpicture also currentpicture yscaled -1;
-endchar;
+	z5 = z6;
+
+	z7 = z1 + (thick,0); 
+
+
+	pickup pencircle scaled 1;
+
+	% draw p;
+	fill (z1{up} .. z3l{up}
+		.. z4r{right} .. z6r{tipdir}
+		.. z5r .. z6l{-tipdir}
+		.. z7{left} .. z1{left} & cycle)
+		 yscaled updown;
+
+
+	if updown = 1:
+		penlabels (1,2,3,4,5,6,7);
+	fi;
+
+endgroup;
 enddef;
 
-% for h :=  staffsize# step 1 pt# until (1.1 * staffsize#):
-for h :=  staffsize# step 1 pt# until (7 * staffsize#):
-	draw_bracket(h, 2staff_space# );
-endfor
+fet_beginchar ("bracket tip up", "up");
+   draw_bracket (0.45 staff_space#, 2.0 staff_space#, 1);
+fet_endchar;
 
+fet_beginchar ("bracket tip down", "down"); 
+   draw_bracket (0.45 staff_space#, 2.0 staff_space#, -1);
+fet_endchar;
+
+fet_endgroup ("brackettips");

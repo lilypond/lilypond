@@ -5,7 +5,10 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make 
 
-AF_FILES = $(wildcard *.af) 
+AF_FILES = $(wildcard *.af)
+
+# hangs on feta23
+MFTRACE_FLAGS=  # --simplify
 
 EXTRA_DIST_FILES += README feta.tex
 

@@ -24,6 +24,7 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static void try_collapse (Grob *);
   static Stencil staff_bracket (Grob *, Real);
+  static Stencil old_staff_bracket (Grob *, Real);
   static Stencil staff_brace (Grob *, Real);
   static Stencil simple_bar (Grob *, Real);
 };

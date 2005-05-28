@@ -36,6 +36,7 @@ if test = 0:
 	input feta-klef;
 	input feta-timesig;
 	input feta-pendaal;
+	input feta-haak;
 	input feta-accordion;
 else:
 	input feta-test-generic.mf;

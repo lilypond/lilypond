@@ -1207,7 +1207,7 @@
 	(arch-thick . 0.25)
 	(arch-width . 1.5)
 	(collapse-height . 1)
-	(thickness . 0.25)
+	(thickness . 0.45)
 	(meta . ((interfaces . (system-start-delimiter-interface spanner-interface))))
 	))
 
