@@ -1,5 +1,7 @@
 2005-05-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/feta-haak.mf: further tweaks.
+
 	* lily/system-start-delimiter.cc (staff_bracket): use glyphs.
 
 	* mf/feta-generic.mf: include feta-haak.
