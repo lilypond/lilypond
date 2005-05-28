@@ -1200,6 +1200,7 @@
     (SystemStartBracket
      . (
 	(Y-extent-callback . #f)
+	(X-offset-callbacks . (,(lambda (g a) -0.8)))
 	(print-function . ,System_start_delimiter::print)
 	(glyph . "bracket")
 	(arch-height . 1.5)
