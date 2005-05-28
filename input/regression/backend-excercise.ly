@@ -4,8 +4,10 @@
 
 \version "2.5.0"
 
+\paper { raggedright = ##t }
+
 \relative {
-  \new StaffGroup <<
+  \new StaffGroup \new PianoStaff <<
     \new Staff <<
       {
 	#(set-octavation 1)
@@ -16,6 +18,12 @@
       \skip 1 >>
     \new Staff \relative c'' {
       \makeClusters { <g a>8 <e a> }
+      \override Glissando #'style = #'zigzag
+      f2 \glissando f'
+      \override NoteHead #'print-function = #Note_head::brew_ez_stencil
+      \override NoteHead #'Y-extent-callback = #'()
+      \override NoteHead #'X-extent-callback = #'()
+      f e 
     }
   >>
 }

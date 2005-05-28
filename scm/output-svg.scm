@@ -279,10 +279,6 @@
 (define (dashed-line thick on off dx dy)
   (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
 
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 th)
-  (filledbox (- x1) (- x2 x1) (* .5 th) (* .5 th)))
-
 (define (filledbox breapth width depth height)
   (round-filled-box breapth width depth height 0))
 
@@ -345,7 +341,3 @@
 (define (utf8-string pango-font-description string)
   (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
 
-(define (bracket arch_angle arch_width arch_height height arch_thick thick)
-  ;; FIXME.
-  ""
-  )

@@ -23,7 +23,6 @@
 	    dot
 	    white-dot
 	    beam
-	    bracket
 	    dashed-slur
 	    char
 	    setcolor
@@ -31,12 +30,10 @@
 	    named-glyph
 	    dashed-line
 	    zigzag-line
-	    ez-ball
 	    comment
 	    repeat-slash
 	    placebox
 	    bezier-sandwich
-	    horizontal-line
 	    embedded-ps
 	    filledbox
 	    round-filled-box
@@ -100,12 +97,6 @@
    (ly:number->string thick)
    " draw_bezier_sandwich"))
 
-(define (bracket arch_angle arch_width arch_height height arch_thick thick)
-  (string-append
-   (ly:numbers->string
-    (list arch_angle arch_width arch_height height arch_thick thick))
-   " draw_bracket"))
-
 (define (char font i)
   (string-append 
    (ps-font-command font) " setfont " 
@@ -157,15 +148,6 @@
 
 (define (embedded-ps string)
   string)
-
-;; FIXME. 
-(define (ez-ball ch letter-col ball-col)
-  (string-append
-   " (" ch ") "
-   (ly:numbers->string (list letter-col ball-col))
-   ;; FIXME: barf
-   " /Helvetica-Bold "
-   " draw_ez_ball"))
 
 ;; FIXME: use draw_round_box
 (define (filledbox breapth width depth height)
@@ -228,10 +210,6 @@
 		      (cadr location)
 		      (caddr location))
 	      "")))))
-
-;; WTF is this in every backend?
-(define (horizontal-line x1 x2 th)
-  (draw-line th x1 0 x2 0))
 
 (define (lily-def key val)
   (let ((prefix "lilypondlayout"))
@@ -316,6 +294,9 @@
 (define (utf8-string pango-font-description string)
   (ly:warning (_ "utf8-string encountered in PS backend")))
 
+
+;; TODO: FIX THIS.
+;;
 (define (white-dot x y radius)
   (string-append
    " "

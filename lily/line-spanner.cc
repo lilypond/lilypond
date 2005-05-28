@@ -26,33 +26,46 @@ zigzag_stencil (Grob *me,
 		Offset to)
 {
   Offset dz = to -from;
-  Real dx = dz[X_AXIS];
-  Real dy = dz[Y_AXIS];
 
   Real thick = Staff_symbol_referencer::line_thickness (me);
   thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  double w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
-  double l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
-  double h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
+  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  int count = (int) ceil (dz.length() / w);
+  w = dz.length () / count;
 
-  SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
-			 ly_bool2scm (true),
-			 scm_make_real (w),
-			 scm_make_real (h),
-			 scm_make_real (thick),
-			 scm_make_real (dx),
-			 scm_make_real (dy),
-			 SCM_UNDEFINED);
+  Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
+  Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
+
+  Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
+
+  Offset points[3];
+  points[0] = Offset (0, -h/2);
+  points[1] = Offset (w/2, h/2);
+  points[2] = Offset (w, -h/2);
+  for (int i = 0; i < 3; i++)
+    points[i] = complex_multiply (points[i], rotation_factor);
+  
+  Stencil squiggle (Line_interface::make_line (thick,points[0], points[1]));
+  squiggle.add_stencil (Line_interface::make_line (thick,points[1], points[2]));
+
+  Stencil total;
+  for (int i = 0; i < count; i++)
+    {
+      Stencil moved_squiggle (squiggle);
+      moved_squiggle.translate (from + Offset (i * w, 0) * rotation_factor);
+      total.add_stencil (moved_squiggle);
+    }
+
   Box b;
   b.add_point (Offset (0, 0));
   b.add_point (dz);
   b[X_AXIS].widen (thick / 2);
   b[Y_AXIS].widen (thick / 2);
 
-  return Stencil (b, list);
+  return Stencil (b, total.expr ());
 }
 
 MAKE_SCHEME_CALLBACK (Line_spanner, after_line_breaking, 1);
