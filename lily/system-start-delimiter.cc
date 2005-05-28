@@ -20,7 +20,7 @@
 #include "item.hh"
 
 Stencil
-System_start_delimiter::staff_bracket (Grob *me, Real height)
+System_start_delimiter::old_staff_bracket (Grob *me, Real height)
 {
   Real arc_height = scm_to_double (me->get_property ("arch-height"));
 
@@ -57,6 +57,31 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
   mol.align_to (X_AXIS, CENTER);
   return mol;
 }
+
+
+
+Stencil
+System_start_delimiter::staff_bracket (Grob *me, Real height)
+{
+  Font_metric *fm = Font_interface::get_default_font (me);
+  Drul_array<Stencil> tips (fm->find_by_name ("brackettips.down"),
+			    fm->find_by_name ("brackettips.up"));
+
+  Real thickness = robust_scm2double (me->get_property ("thickness"), 0.25);
+  
+  Stencil bracket = Lookup::filled_box (Box (Interval (0, thickness),
+					     Interval (-height/2, height/2)));
+
+  Direction d = DOWN;
+  do
+    {
+      bracket.add_at_edge (Y_AXIS, d, tips[d], 0.0, 0.0);
+    }
+  while (flip (&d) != DOWN); 
+
+  return bracket;
+}
+
 
 Stencil
 System_start_delimiter::simple_bar (Grob *me, Real h)
