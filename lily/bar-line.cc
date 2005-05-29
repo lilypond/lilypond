@@ -34,7 +34,7 @@ Bar_line::print (SCM smob)
       if (sz <= 0)
 	return SCM_EOL;
 
-      return compound_barline (me, str, sz, true).smobbed_copy ();
+      return compound_barline (me, str, sz, false).smobbed_copy ();
     }
   return SCM_EOL;
 }
