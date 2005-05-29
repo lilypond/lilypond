@@ -6,12 +6,13 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "context.hh"
-#include "multi-measure-rest.hh"
 #include "timing-translator.hh"
 #include "engraver.hh"
-#include "grob.hh"
 
+#include "context.hh"
+#include "multi-measure-rest.hh"
+#include "grob.hh"
+#include "warn.hh"
 
 
 class Timing_engraver : public Timing_translator, public Engraver
@@ -62,8 +63,11 @@ Timing_engraver::process_music ()
   if (start_of_measure)
     {
       Moment mlen = Moment (measure_length ());
-      unsmob_grob (get_property ("currentCommandColumn"))
-	->set_property ("measure-length", mlen.smobbed_copy ());
+      Grob * column = unsmob_grob (get_property ("currentCommandColumn"));
+      if (column)
+	column->set_property ("measure-length", mlen.smobbed_copy ());
+      else
+	programming_error("No command column?");
     }
 }
 
