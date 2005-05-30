@@ -1,121 +1,35 @@
 # -*- shell-script -*-
-# cygwin/mknetrel - LilyPond mknetrel overrides
-
-# This script should be used to package LilyPond for Cygwin.
-# It can be used to build LilyPond on Cygwin, but also on GNU/Linux.
-#
-# See http://lilypond.org/web/devel/packaging.html for more information,
-# report bugs to bug-lilypond@gnu.org.
-#
-# To build the package, do:
-cat >/dev/null <<EOC
-
-   cd /
-   cvs -d:pserver:anoncvs@sources.redhat.com:/cvs/cygwin-apps co -d netrel mknetrel
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.9/lilypond-1.9.9.tar.gz
-   mkdir -p /netrel/src && cd /netrel/src
-   rm -rf /netrel/src/lilypond-*
-   tar xzf /var/tmp/lilypond-*
-   mv lilypond-1.9.9 lilypond-1.9.9-1
-   cp lilypond-1.9.9-1/cygwin/mknetrel /netrel/extra/lilypond
-   /netrel/bin/mknetrel -xX lilypond
-
-EOC
 
 sub_packages="doc"
-old_path=$PATH
 
-patch=$mknetrel_root/patch
+[ "$cygwin" == "mingw" ] && sub_packages="doc extra"
 
-# for cross-compiling LilyPond:
-if ! iscygwin; then
-    uploads=$here/uploads/$base && mkdir -p $uploads/
-    tarstem=$uploads/$package
-fi
+depends="libfontconfig1 libfreetype6 libguile16 libintl3 libpango1"
+build_depends="mingw-devel gettext-devel guile-devel pango-devel"
+
+v=$(expr "$ver" : "\(.*\)-[0-9]*")
+
+save_PATH="$PATH"
 
 # copy and include extra mknetrel stuff
-extras="doc patch auto cross split"
-for i in $extras; do
-    f=mknetrel.$i
-    [ -r $extra/$f ] && cp -pv $extra/$f $src/cygwin/$f
-    . $src/cygwin/$f
-done
+. $src/$cygwin/mknetrel.extras || . $mknetrel/extras
 
-
-needdevoflags () {
-    false
-}
-
-fix_libtool_script () {
-    cd $build || exit 1
-
-    # Fix libtool's -rpath detection
-    export CC="${build_cc}"
-    export CXX="${build_cxx}"
-    export DLLTOOL=${build_dlltool}
-    export OBJDUMP=${build_objdump}
-    export AS="${build_as}"
-    export HOST_CC=/usr/bin/gcc
-    export allow_undefined="yes"
-    export allow_undefined_flag=""
-    
-    # fix libtool's dlltool usage
-    mv libtool libtool.orig
-    sed -e 's/^DLLTOOL="dlltool"/DLLTOOL="i686-cygwin-dlltool"/' \
-        -e 's/^DLLTOOL=/HOST_CC=gcc\nDLLTOOL=/' \
-        -e 's/^HOST_CC=/SED=sed\nHOST_CC=/' < libtool.orig > libtool
-    chmod +x libtool
-}
-
-fix_libtool_la () {
-    # fix libtool's .la dependency_libs output for dlopen
-    for i in $inst/lib $inst/$prefix/lib ]; do
-	if [ -d $i ]; then
-	    cd $i || exit 1
-	    for j in $(ls -1 *la); do
-		mv $j .libtool-$j
-		sed -e 's/ *-L *[^ ][^ ]*//g' .libtool-$j > $j
-		chmod +x $j
-	    done
-	fi
-    done
+doc () {
+    # doc works, but take too long to build each time
+    [ "$cygwin" == "mingw" ] && return 1
+    return 0
 }
 
 preconfig () {
+    extras_preconfig
 
-    patchsrc 
-    rm -f config.cache
-
-    cd $src
-    if [ ! -x ./configure ]; then
-	./autogen.sh --noconfigure
+    [ "$cygwin" == "mingw" ] && if grep 'PYTHON_DEVEL(REQUIRED)' $src/configure.in; then
+	sed -i~ -e 's/PYTHON_DEVEL(REQUIRED)/PYTHON_DEVEL(OPTIONAL)/' \
+	    $src/configure.in
     fi
-
-    cd $build
-    # for cross-compiling LilyPond, fake a guile-config
-    if ! iscygwin; then
-	cd $build || exit 1
-	GUILE=1.6.5
-	cat > i686-cygwin-guile-config <<EOF
-[ "\$1" == "--version" ] && echo "i686-cygwin-guile-config - Guile version $GUILE"
-[ "\$1" == "compile" ] && echo "-I$cygwin_root/usr/include"
-[ "\$1" == "link" ] && echo "-L$cygwin_root/usr/lib -lguile"
-exit 0
-EOF
-	chmod 755 i686-cygwin-guile-config
-	PATH=$(pwd):$PATH
-	export PKG_CONFIG_PATH=$cygwin_prefix/lib/pkgconfig
-	export PKG_CONFIG="pkg-config \
---define-variable prefix=$cygwin_prefix \
---define-variable includedir=$cygwin_prefix/include \
---define-variable libdir=$cygwin_prefix/lib"
-    fi
-    export CFLAGS="-DKPSE_DLL"
-}
-
-postconfig () {
-    # fix_libtool_script
-
+    [ "$cygwin" == "mingw" ] && cd $src && ./autogen.sh --noconfigure
+    
+    cd $build || exit 1
     # cross-compiling: configure for build-host
     if ! iscygwin; then
 	rm -f config.cache
@@ -123,29 +37,72 @@ postconfig () {
 	export HOST_CXX=${HOST_CXX:-g++}
 	export HOST_PKG_CONFIG=${HOST_PKG_CONFIG:-pkg-config}
 	export HOST_PKG_CONFIG_PATH=${HOST_PKG_CONFIG_PATH:-}
-	(PATH="$old_path" \
-	    PATH="$HOME/usr/pkg/guile/bin:$PATH" \
+	export HOST_FREETYPE_CONFIG=${HOST_FREETYPE_CONFIG:-freetype-config}
+	(PATH="$build:$save_PATH" \
 	    CFLAGS="-O2 -g" \
+	    CPPFLAGS="" \
 	    CC=$HOST_CC \
 	    CXX=$HOST_CXX \
+	    LDFLAGS="" \
 	    PKG_CONFIG=$HOST_PKG_CONFIG \
 	    PKG_CONFIG_PATH=$HOST_PKG_CONFIG_PATH \
-	    $src/configure --prefix=/usr --enable-config=for-build)
+	    FREETYPE_CONFIG=$HOST_FREETYPE_CONFIG \
+	    $src/configure --prefix=$prefix --enable-config=for-build)
     fi
+
+    if [ "$cygwin" == "mingw" ]; then
+	cp /usr/include/FlexLexer.h .
+	mkdir python2.3
+	cp /usr/include/python2.3/Python.h python2.3
+    fi
+
+    GUILE=$($cygwin_prefix/bin/guile-config --version 2>&1 | awk '{print $NF}')
+    cat > $target-guile-config <<EOF
+[ "\$1" == "--version" ] && echo "$target-guile-config - Guile version $GUILE"
+[ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
+[ "\$1" == "link" ] && echo "-L$cygwin_prefix/lib -lguile -lgmp"
+exit 0
+EOF
+    chmod 755 $target-guile-config
+    export PATH=.:$PATH
+    build_cxx="$build_cxx -I$(pwd)"
+    if [ "$cygwin" == "mingw" ]; then
+	CONFIGOPTS="--without-kpathsea $CONFIGOPTS"
+	CPPFLAGS="-DARGV0_RELOCATION=1 $CPPFLAGS"
+	# There's a problem with inlining the string utils.
+	# The -O2 flag is still passed by default through opt.
+	CONFIGOPTS="--disable-optimising $CONFIGOPTS"
+        ## debugging
+	##opt='-g'
+    fi
+    :
 }
 
 prebuild () {
-    for i in $sub_packages; do
-	rm -rf $inst-$i
-	mkdir -p $inst-$i || exit 1
-    done
-    
+    extras_prebuild
+
+    # shortcircuit python for mingw
+    if [ "$cygwin" == "mingw" ]; then
+	mkdir -p python/out
+	touch python/out/midi.lo python/out/midi.so python/out/midi.dll
+    fi
+
     # cross-compiling: build for build-host, generate doc
     if ! iscygwin; then
 	cd $build || exit 1
 
-	PATH=/bin:/usr/bin:$PATH \
-	    make conf=for-build all doc web || exit 1
+	if doc; then
+	    args="all doc web"
+	else
+	    args="all"
+	fi
+	(PATH="$build:$save_PATH" \
+	    CFLAGS="-O2 -g" \
+	    CPPFLAGS="" \
+	    CC=$HOST_CC \
+	    CXX=$HOST_CXX \
+	    LDFLAGS="" \
+	    eval make conf=for-build $args) || exit 1
 	
 	mkdir -p mf/out
 	cp -pv mf/out-for-build/* mf/out
@@ -154,71 +111,80 @@ prebuild () {
 	cp -pv Documentation/user/out-for-build/*{tely,texi} Documentation/user/out
     fi
 
-    # set LDFLAGS to find the python library
-    # EXTRABUILDARGS="LDFLAGS=$cygwin_root/usr/bin/libpython2.3.dll"
+    addmakeflags "target=$target" ' '
+    if [ -f "$cygwin_prefix/bin/libpython2.4.dll" ]; then
+	addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.4.dll" ' '
+    fi
 
-    addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.4.dll" ' ' "target=i686-pc-cygwin" ' '
-
-    if iscygwin; then
-	# EXTRABUILDARGS="$EXTRABUILDARGS all doc web"
+    if iscygwin && doc; then
 	addmakeflags all ' ' doc ' ' web ' '
     fi
 }
 
 preinstall () {
-
-    # set LDFLAGS to find the python library
-    # addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin"
-#    if ! iscygwin; then
-#	EXTRAINSTALLARGS="target=i686-pc-cygwin"
-#    else
-    if iscygwin; then
-	#EXTRAINSTALLARGS="web-install target=i686-pc-cygwin"
+    extras_preinstall
+    if iscygwin && doc; then
 	addmakeflags webdir="$inst-doc/$packagedocdir" ' ' web-install
     fi
 }
 
 postinstall () {
-    fixdoc
-    fix_libtool_la
-    
-    mkdir -p $inst-doc/$docprefix
+    extras_postinstall
+
     cd $build || exit 1
-    
-    if ! iscygwin; then
+    if ! iscygwin && doc; then
 	make conf=for-build webdir=$inst-doc/$packagedocdir web-install
     fi
-
-    ## copy READMEs etc
-
-    cd $src || exit 1
-    install -d -m755 $inst/$packagedocdir
-
-    install -m644  COPYING ChangeLog DEDICATION THANKS VERSION $inst/$packagedocdir
 
     # txt files reside elsewhere
     cd $build/Documentation/topdocs/out
     install -m644 AUTHORS.txt INSTALL.txt NEWS.txt README.txt $inst/$packagedocdir
-
-    ## Cygwin readmes
-    cygwin=cygwin
-    cd $src || exit 1
-    install -d -m755 $inst/$cygdocdir
-    install -m644 $cygwin/changelog $inst/$packagedocdir/changelog.Cygwin
-
-    cd $build || exit 1
-    install -m644 $cygwin/out/README $inst/$packagedocdir/README.Cygwin
-    install -m644 $cygwin/out/README $inst/$cygdocdir/$package.README
-
     ## copy examples
     cd $src || exit 1
     cp -prv input $inst/$packagedocdir
-       cd $inst/$packagedocdir
-       rm -rf $(find -name 'CVS')
+    rm -rf $(find $inst/$packagedocdir -name 'CVS')
+    rm -f $(find $inst/$packagedocdir -name 'SCons*')
+    rm -f $(find $inst/$packagedocdir -name 'GNUmakefile*')
 
-    #cd $inst-doc/$packagedocdir &&
-    #ln -s $(find html/Documentation -name '*.ps.gz') .
+    rm -rf $(find $inst/usr/share/lilypond -name '*.pyc')
+    rm -f $inst/usr/share/lilypond/$v/tex/texinfo.tex
+
+    if [ "$cygwin" == "mingw" ]; then
+	find $inst -name '*ly' | xargs unix2dos
+    fi
 
     install -d -m755 $inst-doc/$infodir/lilypond
-    cd $inst-doc/$infodir/lilypond && ln -sf ../../doc/$base-$ver/Documentation/user/out-www/*png .
+    if doc; then
+	cd $inst-doc/$infodir/lilypond && ln -sf ../../doc/$base-$ver/Documentation/user/out-www/*png .
+    fi
+}
+
+doc_split () {
+    extras_doc_split
+    mkdir -p ./$packagedocdir/input
+    mv $inst/$packagedocdir/input/{no-notation,regression,test,tutorial} ./$packagedocdir/input
+    mkdir -p ./$prefix/share/lilypond/$v/fonts
+    mv $inst/$prefix/share/lilypond/$v/fonts/source ./$prefix/share/lilypond/$v/fonts
+}
+
+extra_name () {
+    echo lilypond-extra
+}
+
+extra_split () {
+    mkdir -p 
+    # should be in devel...
+    mkdir -p ./$prefix/share/lilypond/$v
+    for i in make python tex vim; do
+	mv $inst/$prefix/share/lilypond/$v/$i ./$prefix/share/lilypond/
+    done
+    mkdir -p ./$prefix/share/lilypond/$v/fonts
+    for i in source svg tfm; do
+	mv $inst/$prefix/share/lilypond/$v/fonts/$i ./$prefix/share/lilypond/fonts
+    done
+
+    mkdir -p ./$prefix/share
+    for i in locale omf; do
+	mv $inst/$prefix/share/$i ./$prefix/share
+    done
 }

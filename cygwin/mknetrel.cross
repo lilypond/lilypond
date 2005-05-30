@@ -4,6 +4,12 @@
 # mknetrel.cross -- set cross.cache for configure
 #
 
+# for cross-compiling
+if ! iscygwin; then
+    uploads=$here/uploads/$base && mkdir -p $uploads/
+    tarstem=$uploads/$package
+fi
+
 crosscache () {
 	cat <<EOF > config.cache
 ac_cv_c_bigendian=\${ac_cv_c_bigendian=no}
@@ -40,6 +46,8 @@ ac_cv_spinlocks=\${ac_cv_spinlocks=no}
 ac_cv_func_getpgrp_void=\${ac_cv_func_getpgrp_void=yes}
 ac_cv_func_setvbuf_reversed=\${ac_cv_func_setvbuf_reversed=no}
 ac_cv_func_mkfifo=yes
+# but in mingw only if winsock2.h
+ac_cv_func_select=\${ac_cv_func_select=yes}
 ac_cv_search_dlopen=\${ac_cv_search_dlopen="none required"}
 ac_exeext=\${ac_exeext=}
 ac_cv_exeext=\${ac_cv_exeext=}
@@ -52,13 +60,45 @@ ac_cv_exeext=\${ac_cv_exeext=}
 #    sys_lib_search_path_spec="/usr/lib /lib/w32api /lib /usr/local/lib"
 lt_cv_dlopen=\${lt_cv_dlopen="dlopen"}
 lt_cv_dlopen_libs=\${lt_cv_dlopen_libs="none required"}
-## -- will this work?
+## trying to get .la's in /usr/lib, will this work? -- jcn
 ##libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"/lib /usr/lib"'"}
+##libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"$cygwin_prefix/lib"'"}
 libltdl_cv_sys_search_path=\${libltdl_cv_sys_search_path="'"$cygwin_prefix/lib"'"}
-lt_cv_sys_max_cmd_len=${lt_cv_sys_max_cmd_len=8192}
-##ac_cv_header_strings_h=${ac_cv_header_strings_h=yes}
+lt_cv_sys_max_cmd_len=\${lt_cv_sys_max_cmd_len=8192}
+##ac_cv_header_strings_h=\${ac_cv_header_strings_h=yes}
 ac_cv_lib_dld_shl_load=\${ac_cv_lib_dld_shl_load=no}
 ac_cv_lib_dl_dlopen=\${ac_cv_lib_dl_dlopen=no}
+ac_cv_c_stack_direction=\${ac_cv_c_stack_direction=-1}
 EOF
 }
 
+needdevoflags () {
+    return 1
+}
+
+extras_preconfig () {
+    cd $src || exit 1
+    patchsrc
+    if [ ! -x ./configure ]; then
+	autoupdate
+    fi
+    for i in $(find $src -name configure | xargs grep -l PKG_CONFIG); do
+	sed -i~ -e 's/ x$PKG_CONFIG / "$x$PKG_CONFIG" /' $i
+    done
+    cd $build || exit 1
+    CONFIGOPTS="--config-cache --enable-shared --disable-static $CONFIGOPTS"
+    ##[ "$cygwin" == "mingw" ] && CONFIGOPTS="'LDFLAGS=-mwindows -mms-bitfields' $CONFIGOPTS"
+    iscygwin || crosscache
+}
+
+preconfig () {
+    extras_preconfig
+}
+
+extras_postconfig () {
+    fix_libtool_script
+}
+
+postconfig () {
+    extras_postconfig
+}

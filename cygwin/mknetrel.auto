@@ -5,17 +5,25 @@
 #
 
 autoupdate () {
-    for i in bootstrap autogen.sh; do
-	if [ -x ./$i ]; then
-	    ./$i || exit 1
-	    return 0
+    if [ "$base" != "libtool" ]; then
+	if [ -d libltdl ]; then
+	    rm -rf libltdl
+	    libtoolize --force --copy --automake --ltdl
+	else
+	    libtoolize --force --copy --automake
 	fi
-    done
-    
-    aclocal
-    rm -rf libltdl
-    libtoolize --force --copy --automake --ltdl
-    autoheader
-    autoconf
-    automake --add-missing
+    fi
+
+    chmod +x ./bootstrap ./autogen.sh || :
+    if [ -x ./bootstrap ]; then
+	./bootstrap --noconfigure
+    elif [ -x ./autogen.sh ]; then
+	./autogen.sh --noconfigure
+    else
+	aclocal
+	autoheader
+	autoconf
+	automake --add-missing
+    fi
+    sed -i~ -e 's/ x$PKG_CONFIG / "$x$PKG_CONFIG" /' $src/configure
 }
