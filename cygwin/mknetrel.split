@@ -1,69 +1,138 @@
 # -*- shell-script -*-
-
-#
 # mknetrel.split -- split subpackages
-#
 
-presplit () { true; }
+extras_preinstall () {
+    :;
+}
 
-lib_name () {
-    echo lib$base$sover
+extras_presplit () {
+    :;
+}
+
+presplit () {
+    :;
 }
 
 devel_name () {
-    echo $base-devel
+    if ! libdev 2> /dev/null ; then
+	echo $base-devel
+    else
+	if expr "$base" : "\(lib\)" > /dev/null 2>&1; then
+	    echo $base-dev
+	else
+	    echo lib$base-dev
+	fi
+    fi
 }
 
 doc_name () {
     echo $base-doc
 }
 
-lib_split () {
+lib_name () {
+    if expr "$base" : "\(lib\)" > /dev/null 2>&1; then
+	echo $base$sover
+    else
+	echo lib$base$sover
+    fi
+}
+
+extras_lib_split () {
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/bin/*.dll ./$prefix/bin
-    # dlopen-able .la files go in BIN dir, BIN OR LIB package
-    mkdir -p ./$prefix/bin || exit 1
-    mv $inst/$prefix/lib/lib*[0-9]*.la ./$prefix/bin
+    # better move dlls to bin, see gmp
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.dll ./$prefix/lib
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/lib*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/$base ./$prefix/share
-    rmdir $inst/prefix/bin || true
-    rmdir $inst/prefix/lib || true
-    rmdir $inst/prefix/share || true
+    rmdir $inst/$prefix/bin || true
+    rmdir $inst/$prefix/lib || true
+    rmdir $inst/$prefix/share || true
     true
 }
    
-devel_split () {
+extras_devel_split () {
     mkdir -p ./$prefix/bin || exit 1
+    mv $inst/bin/*-config ./$prefix/bin
     tar -C $inst -cf - ./$prefix/include | tar -xf -
     rm -rf $inst/$prefix/include
     # Only static .a libs in devel, load time .la files go in LIB or
     # BIN package.
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
+    mv $inst/$prefix/lib/pkgconfig ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     tar -C $inst -cf - ./$prefix/share/aclocal | tar -xf -
     rm -rf $inst/$prefix/share/aclocal
-    rmdir $inst/prefix/lib || true
-    rmdir $inst/prefix/share || true
+    tar -C $inst -cf - ./$prefix/share/libtool | tar -xf -
+    rm -rf $inst/$prefix/share/libtool
+    rmdir $inst/$prefix/lib || true
+    rmdir $inst/$prefix/share || true
     true
 }
 
-doc_split () {
+extras_doc_split () {
     mkdir -p ./$docprefix || exit 1
     mkdir -p ./$infodir || exit 1
     tar -C $inst -cf - ./$infodir | tar -xf -
     rm -rf $inst/$infodir
+    if [ "$cygwin" == "mingw" ]; then
+	mkdir -p ./$mandir || exit 1
+	tar -C $inst -cf - ./$mandir | tar -xf -
+	rm -rf $inst/$mandir
+    fi
     true
 }
 
-prebuild () {
+extras_prebuild () {
     for i in $sub_packages; do
 	rm -rf $inst-$i
 	mkdir -p $inst-$i || exit 1
     done
 }
+
+extras_postinstall () {
+    fixdoc
+    fix_libtool_la
     
-domkdist() {
+    mkdir -p $inst-doc/$docprefix
+    cd $build || exit 1
+
+    cd $src || exit 1
+    install -d -m755 $inst/$packagedocdir
+
+    readmes="$(find . -maxdepth 1 -type f -a -name '[A-Z]*' | egrep -v 'Makefile|GNUmakefile')"
+    install -m644 $readmes $inst/$packagedocdir
+
+    ## Cygwin readmes
+    cd $src || exit 1
+    install -d -m755 $inst/$cygdocdir
+    install -m644 $cygwin/changelog $inst/$cygdocdir/changelog.$Cygwin
+
+    cd $src || exit 1
+    install -m644 $cygwin/README $inst/$packagedocdir/README.$Cygwin
+    install -m644 $cygwin/README $inst/$cygdocdir/$package.README
+    cd $build || exit 1
+    install -m644 $cygwin/out/README $inst/$packagedocdir/README.$Cygwin
+    install -m644 $cygwin/out/README $inst/$cygdocdir/$package.README
+}
+
+hint () {
+    if [ -r $shint ]; then
+	cp $shint $hint
+    else
+	cat > $hint <<EOF
+sdesc: "$subname"
+ldesc: "$subname - no description (missing $package/$(dirname $shint) file)"
+EOF
+    fi
+    grep ^requires: $hint || echo "requires: $depends" >> $hint
+    grep ^build-requires: $hint || echo "build-requires: $build_depends" >> $hint
+}
+
+domkdist () {
     #
     # Fix up installation slightly
     #
@@ -105,29 +174,53 @@ domkdist() {
     echo creating $tarstem.tar.bz2
     cd $inst || exit 1
 
-    f=$src/cygwin/setup.hint && test -r $f && cp $f $uploads
-    f=$src/cygwin/$base.hint && test -r $f && cp $f $uploads/setup.hint
-    find * -print | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $tarstem.tar.bz2
+    shint=$src/$cygwin/setup.hint
+    hint=$uploads/setup.hint
+    hint
+    find * -print | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|\.rej$|~$|^.#|CVS|/tags$' | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $tarstem.tar.bz2
 
     # Any sub-packages
     for i in $sub_packages; do
 	subname=$(${i}_name)
 	subload=$uploads/$subname
 	subtarstem=$subload/$subname-$ver
+	shint=$src/$cygwin/$subname.hint
+	hint=$subload/setup.hint
+	depends=$(eval echo '$'${i}_depends)
 	mkdir -p $subload || exit 1
 	echo creating $subtarstem.tar.bz2
-	f=$src/cygwin/$subname.hint && test -r $f && cp $f $subload/setup.hint
+	hint
+	grep ^external-source: $hint || echo "external-source: $base" >> $hint
   	cd $inst-$i
 	hard2soft
-	find * -print | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $subtarstem.tar.bz2
+	find * -print | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|\.rej$|~$|^.#|CVS|/tags$' | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf $subtarstem.tar.bz2
     done
 
     # The source package
     cd $src/.. || exit 1
     echo creating "$tarstem"-src.tar.bz2
-    find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    ##find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    find $package_src/* -print | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|\.rej$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion --owner=0 --group=0 -cjf "$tarstem"-src.tar.bz2
+    ##cd $package_src && tar -cj --exclude='\.cvsignore' --exclude='\.bak$' --exclude='\.orig$' --exclude='\.o$' --exclude='~$' --exclude='^.#' --exclude='CVS' --exclude='%redact' --exclude='/tags$' --owner=0 --group=0 -f "$tarstem"-src.tar.bz2 .
     postpackage
 }
 
+devel_split () {
+    extras_devel_split
+}
 
+doc_split () {
+    extras_doc_split
+}
 
+lib_split () {
+    extras_lib_split
+}
+
+prebuild () {
+    extras_prebuild
+}
+
+postinstall () {
+    extras_postinstall
+}

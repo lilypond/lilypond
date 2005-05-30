@@ -7,7 +7,7 @@
 docprefix=$prefix/share
 docdir=$docprefix/doc
 
-cygdocdir=$docdir/Cygwin
+cygdocdir=$docdir/$Cygwin
 infodir=$docprefix/info
 mandir=$docprefix/man
 packagedocdir=$docdir/$base-$ver
@@ -24,7 +24,7 @@ fixdoc () {
 	    rm -rf $inst/$prefix/$i
 	fi
     done
-    if [-f $inst/$docprefix/$base ]; then
+    if [ -f $inst/$docprefix/$base ]; then
 	mkdir -p $packagedocdir
 	tar -C $inst/$docprefix/$base -cf - . | tar -C $inst/$packagedocdir -xf -
     fi
