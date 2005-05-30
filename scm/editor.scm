@@ -32,9 +32,10 @@
 (define editor-command-template-alist
   '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s")
     ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
+    ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(column)s")
     ("nedit" . "nc -noask +%(line)s %(file)s")
     ("gedit" . "gedit +%(line)s %(file)s")
-    ("jedit" . "jedit %(file)s +line:%(line)s")
+    ("jedit" . "jedit -reuseview %(file)s +line:%(line)s")
     ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
 
 (define (get-command-template alist editor)
