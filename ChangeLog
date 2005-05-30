@@ -1,3 +1,8 @@
+2005-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/pictures/ly.xpm: Bugfix: do not anti-alias against
+	white background.
+
 2005-05-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/framework-ps.scm (dump-stencil-as-EPS): Add silly fix for
