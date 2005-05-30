@@ -1,5 +1,10 @@
 2005-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/xiao-hai-zi-guai-guai.ly: Rename from
+	xiao-haizi-guai-guai.ly.
+
+	* input/*: Reindent, do not use TAB.
+
 	* Documentation/pictures/ly.xpm: Bugfix: do not anti-alias against
 	white background.
 
