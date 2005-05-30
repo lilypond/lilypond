@@ -286,11 +286,6 @@ def dump_score (outf):
 
 	outf.write ("\n    >>")
 	outf.write ("\n\t\\layout {\n")
-	if part_names:
-		outf.write ("\t    \\translator \n\t    {\n")
-		outf.write ("\t\t\\StaffContext\n")
-#		outf.write ("\t\t\\consists Staff_margin_engraver\n")
-		outf.write ("\t    }\n")
 	outf.write ("\t}\n\t\\midi {%s}\n}\n" % midi_specs)
 
 
