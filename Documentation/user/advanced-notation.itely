@@ -243,8 +243,6 @@ For clarity, you can also do this for single arguments, e.g.,
 \markup @{ is \italic @{ anyone @} home @}
 @end example
 
-@cindex font size, texts
-
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents, and music expressions.  You can stack
 expressions grouped vertically with the command @code{\column}.
@@ -254,6 +252,33 @@ Similarly, @code{\center-align} aligns texts by their center lines:
 c1^\markup { \column { a bbbb \line { c d } } }
 c1^\markup { \center-align { a bbbb c } }
 c1^\markup { \line { a b c } }
+@end lilypond
+
+Lists with no previous command are not kept distinct.  The expression
+
+@example
+\center-align @{ @{ a b @} @{ c d @} @} 
+@end example
+
+@noindent
+
+is equivalent to
+
+@example
+\center-align @{ a b c d @}
+@end example
+
+@noindent
+
+To keep lists of words distinct, please use quotes @code{"} or
+the @code{\line} command
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c4^\markup{ \center-align { on three lines } }
+c4^\markup{ \center-align { "all one line" } }
+c4^\markup{ \center-align { { on three lines } } }
+c4^\markup{ \center-align { \line { on one line } } }
 @end lilypond
 
 Markups can be stored in variables and these variables

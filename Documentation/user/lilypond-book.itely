@@ -660,11 +660,6 @@ are ignored.
 
 Only the first @code{\score} of a LilyPond block is processed.
 
-@c CHECKME--FIXME
-The size of a music block is limited to 1.5 KB, due to technical
-problems with the Python regular expression engine.  For longer files,
-use @code{\lilypondfile}.
-
 
 @node Filename extensions
 @section Filename extensions

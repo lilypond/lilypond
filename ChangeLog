@@ -1,3 +1,9 @@
+2005-05-30  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/advanced.itely, converters.itely,
+	instrument-notation.itely, lilypond-book.itely: misc small
+	changes.
+
 2005-05-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin: Update from mingw patches.
