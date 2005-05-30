@@ -221,12 +221,17 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 	   "They carry two pieces of information: \n\n"
 	   "1: a specification of how to print this object. "
 	   "This specification is processed by the output backends, "
-	   " for example @file{scm/output-tex.scm}.\n\n"
+	   " for example @file{scm/output-ps.scm}.\n\n"
 	   "2: the vertical and horizontal extents of the object.\n\n")
 {
+  SCM_ASSERT_TYPE (!scm_is_pair (expr)
+		   || is_stencil_head (scm_car (expr)),
+		   expr, SCM_ARG1, __FUNCTION__, "registered stencil expression");
+
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
-
+  
+  
   Box b (ly_scm2interval (xext), ly_scm2interval (yext));
   Stencil s (b, expr);
   return s.smobbed_copy ();
@@ -334,3 +339,23 @@ LY_DEFINE (ly_filled_box, "ly:round-filled-box",
 				   scm_to_double (blot)).smobbed_copy ();
 }
 
+
+
+LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",
+	   1, 0, 0,
+	   (SCM symbol),
+	   "Add @var{symbol} as head of a stencil expression")
+{
+  SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol,
+		   SCM_ARG1, __FUNCTION__, "Symbol");
+  register_stencil_head (symbol);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_all_stencil_expressions, "ly:all-stencil-expressions",
+	   0, 0, 0,
+	   (),
+	   "Return all symbols recognized as stencil expressions.")
+{
+  return all_stencil_heads ();
+}

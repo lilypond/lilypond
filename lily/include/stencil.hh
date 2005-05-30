@@ -88,15 +88,15 @@ public:
 };
 
 DECLARE_UNSMOB (Stencil, stencil);
-SCM fontify_atom (Font_metric const *, SCM atom);
 
 void interpret_stencil_expression (SCM expr,
 				   void (*func) (void *, SCM),
 				   void *func_arg,
 				   Offset o);
-
-Stencil create_stencil (SCM print);
 SCM find_expression_fonts (SCM expr);
 
+void register_stencil_head (SCM symbol);
+bool is_stencil_head (SCM symbol);
+SCM all_stencil_heads ();
 
 #endif /* STENCIL_HH */
