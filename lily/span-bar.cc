@@ -32,11 +32,6 @@ MAKE_SCHEME_CALLBACK (Span_bar, print, 1);
 ordered according to their y coordinates relative to their common
 axis group parent.  Otherwise, the computation goes mad.
 
-(TODO:
-apply a sort algorithm that ensures this precondition.)  However,
-until now, I have seen no case where lily has not fulfilled this
-precondition.
-
 (2) This method depends on bar_engraver not being removed from
 staff context.  If bar_engraver is removed, the size of the staff
 lines is evaluated as 0, which results in a solid span bar line
@@ -48,17 +43,9 @@ SCM
 Span_bar::print (SCM smobbed_me)
 {
   Grob *me = unsmob_grob (smobbed_me);
-  SCM first_elt = me->get_property ("elements");
+  SCM elements = me->get_property ("elements");
 
-  /* compute common refpoint of elements */
-  Grob *refp = me;
-  for (SCM elts = first_elt; scm_is_pair (elts); elts = scm_cdr (elts))
-    {
-      SCM smobbed_staff_bar = scm_car (elts);
-      Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
-      refp = staff_bar->common_refpoint (refp, Y_AXIS);
-    }
-
+  Grob *refp = common_refpoint_of_list (elements, me, Y_AXIS);
   Span_bar::evaluate_glyph (me);
   SCM glyph = me->get_property ("glyph");
 
@@ -70,17 +57,29 @@ Span_bar::print (SCM smobbed_me)
   String glyph_string = ly_scm2string (glyph);
 
   /* compose span_bar_mol */
-  Stencil span_bar_mol;
-
-  Interval prev_extent;
-  for (SCM elts = first_elt; scm_is_pair (elts); elts = scm_cdr (elts))
+  Array<Interval> extents;
+  Grob *model_bar = 0;
+  for (SCM elts = elements; scm_is_pair (elts); elts = scm_cdr (elts))
     {
-      SCM smobbed_staff_bar = scm_car (elts);
-      Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
-      Interval ext = staff_bar->extent (refp, Y_AXIS);
+      Grob *bar = unsmob_grob (scm_car (elts));
+      Interval ext = bar->extent (refp, Y_AXIS);
       if (ext.is_empty ())
 	continue;
 
+      extents.push (ext);
+      model_bar = bar;
+    }
+
+  if (!model_bar)
+    model_bar = me;
+  
+  extents.sort (&Interval::left_comparison);
+
+  Stencil span_bar;
+  for (int i = 1; i < extents.size (); i ++)
+    {
+      Interval prev_extent = extents[i-1];
+      Interval ext = extents[i]; 
       if (!prev_extent.is_empty ())
 	{
 	  Interval l (prev_extent [UP],
@@ -92,21 +91,21 @@ Span_bar::print (SCM smobbed_me)
 	    }
 	  else
 	    {
-	      Stencil interbar = Bar_line::compound_barline (staff_bar,
+	      Stencil interbar = Bar_line::compound_barline (model_bar,
 							     glyph_string,
 							     l.length (),
 							     false);
 	      interbar.translate_axis (l.center (), Y_AXIS);
-	      span_bar_mol.add_stencil (interbar);
+	      span_bar.add_stencil (interbar);
 	    }
 	}
       prev_extent = ext;
     }
 
-  span_bar_mol.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
+  span_bar.translate_axis (- me->relative_coordinate (refp, Y_AXIS),
 			       Y_AXIS);
 
-  return span_bar_mol.smobbed_copy ();
+  return span_bar.smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Span_bar, width_callback, 2);

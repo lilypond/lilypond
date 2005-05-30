@@ -51,14 +51,6 @@
 	     (scm framework-ps)
 	     (lily))
 
-
-;;(map export
-;;   (append (ly:all-stencil-expressions) (ly:all-output-backend-commands)))
-
-;; huh?
-;;(write (ly:all-output-backend-commands))
-;;(write (ly:all-stencil-expressions))
-
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
   (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
