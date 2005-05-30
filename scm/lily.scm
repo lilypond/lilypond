@@ -151,46 +151,6 @@ predicates. Print a message at LOCATION if any predicate failed."
 (define-public (ps-output-expression expr port)
   (display (eval expr output-ps-module) port))
 
-;; TODO: generate this list by registering the stencil expressions
-;;       stencil expressions should have docstrings.
-(define-public (ly:all-stencil-expressions)
-  "Return list of stencil expressions."
-  '(beam
-    bezier-sandwich
-    blank
-    bracket
-    char
-    circle
-    dashed-line
-    dashed-slur
-    dot
-    draw-line
-    filledbox
-    glyph-string
-    named-glyph
-    polygon
-    repeat-slash
-    round-filled-box
-    text
-    url-link
-    utf8-string
-    white-dot
-    white-text
-    embedded-ps
-    zigzag-line))
-
-;; TODO:
-;;  - generate this list by registering the output-backend-commands
-;;    output-backend-commands should have docstrings.
-;;  - remove hard copies in output-ps output-tex
-(define-public (ly:all-output-backend-commands)
-  "Return list of output backend commands."
-  '(
-    grob-cause
-    no-origin
-    placebox
-    unknown))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Safe definitions utility
 (define safe-objects (list))
@@ -250,6 +210,7 @@ The syntax is the same as `define*-public'."
 	    "define-grob-properties.scm"
 	    "define-grobs.scm"
 	    "define-grob-interfaces.scm"
+	    "define-stencil-commands.scm"
 	    "page-layout.scm"
 	    "titling.scm"
 	    

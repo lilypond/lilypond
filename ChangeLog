@@ -1,5 +1,17 @@
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-stencil-commands.scm (Module): new file. Register all
+	allowed stencil expression heads in a central place.
+
+	* lily/stencil-scheme.cc (LY_DEFINE): check is_stencil_head in
+	ly:make-stencil
+
+	* lily/stencil-expression.cc (all_stencil_heads): registering
+	stencil expressions.
+
+	* lily/stencil-interpret.cc: new file. Stencil expression
+	interpreting.
+
 	* input/xiao-haizi-guai-guai.ly: move file back.
 
 2005-05-30  Graham Percival  <gperlist@shaw.ca>
