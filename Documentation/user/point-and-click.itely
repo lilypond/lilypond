@@ -21,7 +21,7 @@ using Mozilla Firefox.
 
 For Xpdf on Unix, the following should be present in
 @file{xpdfrc}@footnote{On unix, this file is found either in
-@file{/etc} or your home directory.}
+@file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
 
 @example
 urlCommand     "firefox -remote 'OpenURL(%s)'"

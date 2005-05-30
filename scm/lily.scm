@@ -186,7 +186,6 @@ predicates. Print a message at LOCATION if any predicate failed."
 (define-public (ly:all-output-backend-commands)
   "Return list of output backend commands."
   '(
-    comment
     grob-cause
     no-origin
     placebox

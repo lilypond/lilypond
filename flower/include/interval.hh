@@ -119,6 +119,11 @@ struct Interval_t : public Drul_array<T>
     elem_ref (LEFT) = elem (RIGHT);
     elem_ref (RIGHT) = t;
   }
+
+  static int left_comparison (Interval_t<T> const &a, Interval_t<T> const &b)
+  {
+    return sign (a[LEFT] - b[RIGHT]);
+  }
 };
 
 /**

@@ -1,3 +1,11 @@
+2005-05-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/span-bar.cc (print): sort bar line extents. Fixes problem
+	with disappearing span bars when alignAboveContext is active
+
+	* lily/property-iterator.cc (check_grob): use is-grob?
+	object-property. Fixes crash-key-sig-font-size.ly. 
+
 2005-05-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/bar-line.cc (print): don't round barlines; this produces

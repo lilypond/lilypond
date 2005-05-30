@@ -71,26 +71,18 @@ Property_iterator::do_quit ()
     }
 }
 
-SCM list_p = 0;
-
-/*
-  This is a rather crude check: we merely check if the translator
-  property is a list.
-*/
 bool
 check_grob (Music *mus, SCM sym)
 {
-  if (!list_p)
-    list_p = scm_c_eval_string ("list?");
+  bool g = to_boolean (scm_object_property (sym, ly_symbol2scm ("is-grob?")));
 
-  SCM type = scm_object_property (sym, ly_symbol2scm ("translation-type?"));
-  bool ok = type == list_p;
-
-  if (!ok)
+  if (!g)
     mus->origin ()->warning (_f ("not a grob name, `%s'",
 				 ly_symbol2string (sym)));
-  return ok;
+
+  return g;
 }
+
 
 void
 Push_property_iterator::process (Moment m)
