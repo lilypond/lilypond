@@ -388,10 +388,12 @@
 	 (bbox
 	  (map
 	   (lambda (x)
-	     (if (or (nan? x) (inf? x))
+	     (if (or (nan? x) (inf? x)
+		     ;; FIXME: huh?
+		     (equal? (format #f "~S" x) "+#.#")
+		     (equal? (format #f "~S" x) "-#.#"))
 		 0.0 x))
-	   (list (car xext) (car yext)
-	       (cdr xext) (cdr yext))))
+	   (list (car xext) (car yext) (cdr xext) (cdr yext))))
 	 (rounded-bbox (mm-to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts?)))
