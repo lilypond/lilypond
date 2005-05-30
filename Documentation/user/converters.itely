@@ -16,7 +16,7 @@ sequencers and XML converters.  Refer to the
 * Invoking etf2ly::             Importing Finale.
 * Invoking abc2ly::             Importing ABC.          
 * Invoking mup2ly::             Importing MUP. 
-* Other formats::               
+* Generating LilyPond files::   
 @end menu
 
 
@@ -243,19 +243,25 @@ Only plain notes (pitches, durations), voices, and staves are
 converted.
 
 
-@node Other formats
-@section Other formats
+@node Generating LilyPond files
+@section Generating LilyPond files
 
-LilyPond itself does not come with support for other formats, but
+@cindex External programs, generating LilyPond files
+
+LilyPond itself does not come with support for any other formats, but
 there are some external tools that also generate LilyPond files.
 
 These tools include
 
 @itemize @bullet
 @item
-@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}.
+@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, a graphical score editor.
 @item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, that imports
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime monophonic MIDI to LilyPond converter.
+@item
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an Emacs major mode.
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, which imports
 @uref{http://@/www@/.musicxml@/.com/,MusicXML}
 @item
 @uref{http://@/rnvs@/.informatik@/.tu@/-chemnitz@/.de/@/~jan/@/noteedit/@/noteedit@/.html,NoteEdit}
@@ -264,3 +270,4 @@ which imports MusicXML
 @uref{http://@/www@/.all@/-day@/-breakfast@/.com/@/rosegarden/,Rosegarden},
 which imports MIDI
 @end itemize
+

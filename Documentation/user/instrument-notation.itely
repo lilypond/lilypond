@@ -1784,9 +1784,9 @@ following example
 
 @lilypond[verbatim, raggedright, quote]
 \context Voice {
-  d' ^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
   d' d' d'
-  fis' ^\markup \override #'(size . 0.75) {
+  fis'^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
                                (place-fret 5 4 3) (place-fret 4 4 4)
@@ -1795,7 +1795,7 @@ following example
     }
   }
   fis' fis' fis'
-  c' ^\markup \override #'(dot-radius . 0.35) {
+  c'^\markup \override #'(dot-radius . 0.35) {
     \override #'(finger-code . in-dot) {
       \override #'(dot-color . white) {
         \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
@@ -2395,35 +2395,25 @@ following table
 {
   \set Score.timing = ##f
   \set Score.barAlways = ##t
-  s_\markup { "\\time 4/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural44" }
+  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph #"timesig.neomensural44" }
   s
-  s_\markup { "\\time 2/2" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural22" }
+  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph #"timesig.neomensural22" }
   s
-  s_\markup { "\\time 6/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural64" }
+  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph #"timesig.neomensural64" }
   s
-  s_\markup { "\\time 6/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural68" }
+  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph #"timesig.neomensural68" }
   \break
-  s_\markup { "\\time 3/2" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural32" }
+  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph #"timesig.neomensural32" }
   s
-  s_\markup { "\\time 3/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural34" }
+  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph #"timesig.neomensural34" }
   s
-  s_\markup { "\\time 9/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural94" }
+  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph #"timesig.neomensural94" }
   s
-  s_\markup { "\\time 9/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural98" }
+  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph #"timesig.neomensural98" }
   \break
-  s_\markup { "\\time 4/8" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural48" }
+  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph #"timesig.neomensural48" }
   s
-  s_\markup { "\\time 2/4" }
-  ^\markup { "       " \musicglyph #"timesig.neomensural24" }
+  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph #"timesig.neomensural24" }
 }
 @end lilypond
 
