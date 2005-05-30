@@ -1,7 +1,11 @@
+;;
+;; define-stencil-commands.scm -- define valid stencil expression heads
+;;
+;; source file of the GNU LilyPond music typesetter
+;;
+;; (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;
 
-
-;; TODO: generate this list by registering the stencil expressions
-;;       stencil expressions should have docstrings.
 (map ly:register-stencil-expression
      '(beam
        bezier-sandwich
