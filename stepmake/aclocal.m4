@@ -580,6 +580,9 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_PREREQ(2.50)
     . $srcdir/VERSION
     FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+    MICRO_VERSION=$PATCH_LEVEL
+    VERSION=$FULL_VERSION
+    TOPLEVEL_VERSION=$FULL_VERSION
     if test x$MY_PATCH_LEVEL != x; then
 	FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
     fi
@@ -662,8 +665,14 @@ AC_DEFUN(STEPMAKE_INIT, [
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
+    AC_SUBST(VERSION)
     AC_SUBST(MAJOR_VERSION)
     AC_SUBST(MINOR_VERSION)
+    AC_SUBST(MICRO_VERSION)
+
+    # stepmake nonstandard names
+    AC_SUBST(PATCH_LEVEL)
+    AC_SUBST(TOPLEVEL_VERSION)
     
     # We don't need the upper case variant,
     # so stick to macros are uppercase convention.
