@@ -29,7 +29,15 @@
        white-dot
        white-text
        embedded-ps
-       zigzag-line))
+       zigzag-line
+       setcolor
+       resetcolor
+
+       grob-cause
+       no-origin
+       placebox
+       unknown
+       ))
 
 ;; TODO:
 ;;  - generate this list by registering the output-backend-commands
@@ -38,8 +46,8 @@
 
 (define-public (ly:all-output-backend-commands)
   "Return list of output backend commands."
-  '(
-    grob-cause
-    no-origin
-    placebox
-    unknown))
+  '(combine-stencil
+    color
+    translate-stencil))
+
+(map ly:register-stencil-expression (ly:all-output-backend-commands))
