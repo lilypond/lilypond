@@ -414,10 +414,15 @@ class yy_flex_lexer: public yyFlexLexer
 AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
 	AC_MSG_CHECKING([FlexLexer.h path])
 
-	# ugh. 
-	FLEXLEXER_PATH=`echo '#include <FlexLexer.h>' | $CXX -E - | \
+	# ugh.
+	cat <<EOF > conftest.cc
+using namespace std;
+#include <FlexLexer.h>
+EOF
+	FLEXLEXER_PATH=`$CXX -E conftest.cc | \
 	  sed 's!# 1 "\(.*\)FlexLexer.h"!@FLEXLEXER@\1@@!g' | grep '@@' | \
 	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` >& /dev/null
+	rm conftest.cc
 	AC_SUBST(FLEXLEXER_PATH)
         AC_MSG_RESULT($FLEXLEXER_PATH)
 ])
