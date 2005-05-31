@@ -1,3 +1,7 @@
+2005-05-31  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/index.html.in: add link to LSR.
+
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-stencil-commands.scm (Module): new file. Register all

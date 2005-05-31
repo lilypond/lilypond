@@ -72,7 +72,11 @@
 <li><a class="title"href="../../examples.html">Examples</a>
 
      <br>(see some examples)
-	   
+
+<li><a class="title" href="http://lsr.dsi.unimi.it/">LilyPond Snippet Repository</a>
+
+     <br>(database of small examples)
+
 <li><a class="title" href="../../input/test/out-www/collated-files.html">Tips and tricks</a>
 (in  <a class="title" href="../../input/test/out-www/collated-files.pdf">PDF</a>)
 
