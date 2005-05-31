@@ -146,7 +146,7 @@ arpeggioNeutral = \sequential {
   \revert Arpeggio  #'arpeggio-direction
 }
 arpeggioBracket = \sequential {
-  \override Arpeggio  #'print-function = #Arpeggio::brew_chord_bracket
+  \override Arpeggio #'print-function = #Arpeggio::brew_chord_bracket
 }
 
 glissando = #(make-music 'GlissandoEvent)
