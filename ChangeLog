@@ -1,5 +1,11 @@
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/lilypond.fedora.spec.in (Group): remove
+	lilypond-pdfpc-helper.
+
+	* scripts/GNUmakefile (SEXECUTABLES): remove
+	lilypond-pdfpc-helper. Use lilypond-invoke-editor instead.
+
 	* scm/font.scm (make-century-schoolbook-tree): add Mono as
 	'typewriter family.
 

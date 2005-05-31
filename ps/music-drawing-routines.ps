@@ -231,6 +231,33 @@ bind def
 } bind def
 
 
+%%%% JUNKME. use color & circle. 
+/draw_white_dot % x1 y2 R
+{
+%	0 360 arc fill stroke
+	0 360 arc closepath % fill stroke
+gsave
+ 1 setgray fill
+grestore
+%	0 360 arc closepath % fill stroke
+  0.05 setlinewidth 0 setgray stroke
+} bind def
+
+
+%% JUNKME: Use color.  
+/draw_white_text  % text scale font
+{
+  %font
+  findfont
+  %scale
+  exch scalefont setfont
+  1 setgray
+  0 0 moveto
+  %-0.05 -0.05 moveto
+  % text
+  show
+} bind def
+
 
 /draw_dashed_line % dash thickness dx dy
 {
