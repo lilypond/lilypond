@@ -261,7 +261,6 @@
 	   (bare-file-name (ly:find-file file-name))
 	   )
 
-      (display (list font name file-name bare-file-name "\n"))
       (cons
        (munge-lily-font-name name)
        (cond
