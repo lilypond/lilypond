@@ -6,6 +6,9 @@
 
 	* Documentation/index.html.in: remove link to LSR.
 
+	* Documentation/user/global.itely: remove duplicate
+	"dedication" \header{} section.
+
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.5.27.

@@ -779,9 +779,6 @@ Name of the arranger, flush-right below the opus.
 @item instrument
 Name of the instrument, centered below the arranger.
 
-@item dedication            
-To whom the piece is dedicated.
-
 @item piece
 Name of the piece, flush-left below the instrument.
 
