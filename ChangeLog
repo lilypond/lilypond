@@ -1,3 +1,7 @@
+2005-05-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: More autopackage friendliness.
+
 2005-05-31  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/index.html.in: remove link to LSR.
@@ -39,7 +43,7 @@
 
 2005-05-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* configure.in (reloc_b): Add --enable-argv0-relocation.
+	* configure.in (reloc_b): Add --enable-relocation.
 
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
