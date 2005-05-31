@@ -1,5 +1,18 @@
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/score.cc (Score): unprotect copy of Output_def. Plugs
+	memory leak.
+
+	* lily/parser.yy (score_body): don't clone Score, that's done in
+	Lily_lexer::try_special_identifiers(). This fixes a memory leak.
+
+	* lily/score-engraver.cc (derived_mark): new function.
+	(initialize): unprotect Paper_score. This fixes a memory leak.
+
+	* lily/score-performer.cc (derived_mark): new function.
+
+	* lily/score-translator.cc (get_output): use SCM for get_output() call.
+
 	* stepmake/aclocal.m4: put FlexLexer.h test in conftest.cc. Fixes
 	spurious warning.
 

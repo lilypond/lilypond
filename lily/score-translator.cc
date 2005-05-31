@@ -14,10 +14,10 @@ Score_translator::prepare (Moment)
 {
 }
 
-Music_output *
+SCM
 Score_translator::get_output ()
 {
-  return 0;
+  return SCM_EOL;
 }
 
 void

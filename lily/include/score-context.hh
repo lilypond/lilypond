@@ -15,7 +15,7 @@ class Score_context : public Context
 public:
   Score_context (Object_key const *);
 
-  virtual Music_output *get_output ();
+  virtual SCM get_output ();
   virtual void prepare (Moment);
   virtual void finish ();
   virtual void one_time_step ();

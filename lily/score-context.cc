@@ -36,7 +36,7 @@ Score_context::one_time_step ()
   s->one_time_step ();
 }
 
-Music_output *
+SCM
 Score_context::get_output ()
 {
   Translator *t = implementation ();

@@ -35,6 +35,15 @@ Score_engraver::Score_engraver ()
 }
 
 void
+Score_engraver::derived_mark () const
+{
+  if (pscore_)
+    scm_gc_mark (pscore_->self_scm ());
+  Score_translator::derived_mark ();
+  Engraver_group_engraver::derived_mark ();
+}
+
+void
 Score_engraver::make_columns ()
 {
   /*
@@ -106,6 +115,7 @@ Score_engraver::initialize ()
     }
 
   pscore_ = new Paper_score (dynamic_cast<Output_def *> (get_output_def ()));
+  scm_gc_unprotect_object (pscore_->self_scm ()); 
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
@@ -217,12 +227,11 @@ Score_engraver::set_columns (Paper_column *new_command,
   system_->add_column (musical_column_);
 }
 
-Music_output *
+SCM
 Score_engraver::get_output ()
 {
   Music_output *o = pscore_;
-  ///FIXME WTF ? pscore_ = 0;
-  return o;
+  return o->self_scm ();
 }
 
 bool

@@ -78,8 +78,11 @@ Score::Score (Score const &s)
   scm_gc_unprotect_object (music_);
 
   for (int i = 0, n = s.defs_.size (); i < n; i++)
-    defs_.push (s.defs_[i]->clone ());
-
+    {
+      Output_def * copy = s.defs_[i]->clone ();
+      defs_.push (copy);
+      scm_gc_unprotect_object (copy->self_scm ());
+    }
   header_ = ly_make_anonymous_module (false);
   if (ly_c_module_p (s.header_))
     ly_module_copy (header_, s.header_);

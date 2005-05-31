@@ -97,7 +97,7 @@ Global_context::get_score_context () const
     : 0;
 }
 
-Music_output *
+SCM
 Global_context::get_output ()
 {
   return get_score_context ()->get_output ();
