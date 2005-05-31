@@ -1,5 +1,8 @@
 2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/font.scm (make-century-schoolbook-tree): add Mono as
+	'typewriter family.
+
 	* lily/score.cc (Score): unprotect copy of Output_def. Plugs
 	memory leak.
 

@@ -4,24 +4,13 @@
 ;;;; 
 ;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
-;; As an excercise, do it with records.
-;; Should use GOOPS, really.
-
 ;; TODO:
 ;;
 ;; lookup-font should be written in  C.
 ;;
-;; should dump tree to .texi as internal documentation
-;; 
-;; * should extract design sizes from fonts: fonts should 
-;; be read off the disk, on demand, something like:
-;;  
-;; cmr -> ((font-load "cmr6") (font-load "cmr8")  .. )
-;;
 
 (define-class <Font-tree-element>
   ())
-
 
 (define-class <Font-tree-leaf> (<Font-tree-element>)
   (default-size #:init-keyword #:default-size)
@@ -133,10 +122,8 @@
 (define (lookup-font node alist-chain)
   (g-lookup-font node alist-chain))
 
-					;
-					; Each size family is a vector of fonts, loaded with a delay.
-					; The vector should be sorted according to ascending design size.
-					;
+;; Each size family is a vector of fonts, loaded with a delay.  The
+;; vector should be sorted according to ascending design size.
 (define feta-alphabet-size-vector
   (if (defined? 'ly:kpathsea-find-file)
       `#(,(delay  (ly:font-load "feta-alphabet11"))
@@ -334,8 +321,7 @@
   (add-node 'upright 'normal) 
   (add-node 'upright 'bold) 
   (add-node 'italic 'normal)
-  (add-node 'italic 'bold)
-  )
+  (add-node 'italic 'bold))
 
 (define-public (make-cmr-tree factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
@@ -354,6 +340,7 @@
     (add-music-fonts n factor)
     (add-pango-fonts n 'roman "Century Schoolbook L" factor)
     (add-pango-fonts n 'sans "Sans" factor)
+    (add-pango-fonts n 'typewriter "Mono" factor)
     n))
 
 (define-public (magstep x)
