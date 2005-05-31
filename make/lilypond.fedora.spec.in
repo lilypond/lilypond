@@ -8,9 +8,9 @@ Version: @TOPLEVEL_VERSION@
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.lilypond.org:/pub/LilyPond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Source0: http://lilypond.org/download/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: Create and print music notation 
-URL: http://www.lilypond.org/
+URL: http://lilypond.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 
@@ -30,7 +30,7 @@ Requires: guile >= 1.6.4-8 ghostscript >= 8.15
 
 %description
 LilyPond lets you create music notation.  It produces
-beautiful sheet music from  a high-level description file.
+beautiful sheet music from a high-level description file.
 
 %package documentation
 Summary:  All LilyPond documentation, in HTML
@@ -38,7 +38,7 @@ Group: Applications/Publishing
 # BuildArchitectures: noarch
 
 %description documentation
-Documentation and example files of LilyPond. An index is available at
+Documentation and example files of LilyPond.  An index is available at
 %{docdir}/web/Documentation/out-www/index.html
 
 %prep
@@ -194,5 +194,3 @@ scrollkeeper-update
 
 %{docdir}
 %{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@
-
-
