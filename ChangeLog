@@ -1,3 +1,7 @@
+2005-05-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* input/regression/alignment-order.ly: add Staff example.
+
 2005-05-31  John Mandereau   <john.mandereau@free.fr>
 
 	* po/fr.po: update.
