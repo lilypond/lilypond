@@ -24,10 +24,10 @@ LY_DEFINE (ly_format_output, "ly:format-output",
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
   SCM_ASSERT_TYPE (g, context, SCM_ARG1, __FUNCTION__, "Global context");
 
-  Music_output *output = g->get_output ();
+  SCM output = g->get_output ();
   progress_indication ("\n");
-  output->process ();
-  return output->self_scm ();
+  unsmob_music_output (output)->process ();
+  return output;
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",

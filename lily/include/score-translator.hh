@@ -15,7 +15,7 @@ class Score_translator : public virtual Translator_group
 {
   friend class Score_context;
 protected:
-  virtual Music_output *get_output ();
+  virtual SCM get_output ();
   virtual void prepare (Moment);
   virtual void finish ();
   virtual void one_time_step ();

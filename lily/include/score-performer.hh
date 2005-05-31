@@ -29,7 +29,8 @@ protected:
   virtual void announce_element (Audio_element_info);
   virtual int get_tempo () const;
   virtual void play_element (Audio_element *p);
-  virtual Music_output *get_output ();
+  virtual SCM get_output ();
+  virtual void derived_mark () const;
 private:
   void header (Midi_stream &);
 

@@ -274,7 +274,7 @@ The syntax is the same as `define*-public'."
 			 ".scm"))
 	 (outfile    (open-file  out-file-name  "w")))
 
-    (display "Dumping gc protected objs to ...\n")
+    (display (format "Dumping gc protected objs to ~a...\n" out-file-name))
     (display
      (filter
       (lambda (x) (not (symbol? x))) 
@@ -326,8 +326,8 @@ The syntax is the same as `define*-public'."
   (catch 'ly-file-failed
 	 (lambda () (ly:parse-file file-name))
 	 (lambda (x . args) (handler x file-name)))
-  ;;(lambda (x) (handler x f)))
-  (if #f
+
+  (if #t
       (dump-gc-protects)))
 
 (use-modules (scm editor))

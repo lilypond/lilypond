@@ -663,8 +663,8 @@ Grob::mark_smob (SCM ses)
   if (s->original_)
     scm_gc_mark (s->original_->self_scm ());
 
-  if (s->pscore_ && s->pscore_->layout ())
-    scm_gc_mark (s->pscore_->layout ()->self_scm ());
+  if (s->pscore_)
+    scm_gc_mark (s->pscore_->self_scm ());
 
   s->do_derived_mark ();
   return s->mutable_property_alist_;

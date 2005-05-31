@@ -792,7 +792,7 @@ score_body:
 		$$->set_spot (@$);
 	}
 	| SCORE_IDENTIFIER {
-		$$ = new Score ( *unsmob_score ($1));
+		$$ = unsmob_score ($1);
 		$$->set_spot (@$);
 	}
 	| score_body object_id_setting {

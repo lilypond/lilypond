@@ -39,6 +39,8 @@ Paper_score::Paper_score (Paper_score const &s)
 void
 Paper_score::derived_mark () const
 {
+  if (layout_)
+    scm_gc_mark (layout_->self_scm ());
   scm_gc_mark (systems_);
   scm_gc_mark (paper_systems_);
 }

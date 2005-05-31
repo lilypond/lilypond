@@ -32,6 +32,7 @@ protected:
   virtual void prepare (Moment);
   virtual void one_time_step ();
 
+  
   /* Engraver_group_engraver interface */
   virtual void acknowledge_grob (Grob_info);
   virtual bool try_music (Music *);
@@ -40,10 +41,14 @@ protected:
   virtual void announce_grob (Grob_info);
   virtual void stop_translation_timestep ();
 
+  /*
+    Translator interface
+   */
+  virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Score_engraver);
   void forbid_breaks ();
-  virtual Music_output *get_output ();
+  virtual SCM get_output ();
 };
 
 #endif /* SCORE_ENGRAVER_HH */

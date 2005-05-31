@@ -29,7 +29,7 @@ public:
   void apply_finalizations ();
   void add_finalization (SCM);
 
-  virtual Music_output *get_output ();
+  virtual SCM get_output ();
   virtual void prepare (Moment);
   virtual void one_time_step ();
   virtual void finish ();
