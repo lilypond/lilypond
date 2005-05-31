@@ -142,11 +142,22 @@ LYRICS		({AA}|{TEX})[^0-9 \t\n\r\f]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
 HYPHEN		--
+BOM_UTF8	\357\273\277
 %%
 
 
 <*>\r		{
 	// windows-suck-suck-suck
+}
+
+<INITIAL,chords,lyrics,figures,notes>{BOM_UTF8} {
+  if (this->lexloc->line_number () != 1 || this->lexloc->column_number () != 0)
+    {
+      LexerError (_ ("stray UTF-8 BOM encountered").to_str0 ());
+      exit (1);
+    }
+  if (be_verbose_global)
+     message (_ ("Skipping UTF-8 BOM"));
 }
 
 <INITIAL,chords,figures,incl,lyrics,markup,notes>{
@@ -188,7 +199,7 @@ HYPHEN		--
 	String s (YYText () + 1);
 	s = s.left_string (s.index_last ('\"'));
 
-	yy_pop_state();
+	yy_pop_state ();
 	this->here_input().source_file_->name_ = s;
 	message (_f ("Renaming input to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
