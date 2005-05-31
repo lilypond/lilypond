@@ -249,11 +249,11 @@ leftb =  \transpose c cis {
     #(set-accidental-style 'piano-cautionary)
     \override PianoStaff.NoteCollision   #'merge-differently-dotted = ##t
     \set PianoStaff.connectArpeggios = ##t
-    \arpeggioBracket
+    \override PianoStaff.Arpeggio #'print-function = #Arpeggio::brew_chord_bracket
 
-    \override PianoStaff.InstrumentName   #'font-size = #6
-    \override PianoStaff.InstrumentName   #'font-shape = #'italic
-    \override PianoStaff.InstrumentName   #'font-magnification = #3
+    \override PianoStaff.InstrumentName #'font-size = #6
+    \override PianoStaff.InstrumentName #'font-shape = #'italic
+    \override PianoStaff.InstrumentName #'font-magnification = #3
     
     \set PianoStaff.instrument = "  2."
     \context Staff = "up" {
