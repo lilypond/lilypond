@@ -1,10 +1,14 @@
-%% xiao-hai-zi-guai-guai.ly
+%% xiao-haizi-guai-guai.ly
+%%
+%% (xiao3: small,
+%%  hai2zi5: child,
+%%  guai1-guai1: well-behaved)
 
 \version "2.5.14"
 
 \header {
   title = "小孩子乖乖"
-  subtitle = "(Xiao3 hai2 zi5 guai1 guai1)"
+  subtitle = "(Xiao3 hai2zi5 guai1 guai1)"
 }
 
 <<
