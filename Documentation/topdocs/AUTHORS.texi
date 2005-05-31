@@ -146,6 +146,8 @@ Translations
     Russian translation.
 @item @email{, David González},
     Spanish glossary translations.
+@item @email{john.mandereau@@free.fr, John Mandereau},
+    French translation.
 @end itemize
 
 @bye
