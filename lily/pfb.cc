@@ -81,12 +81,19 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
 
   String file_name = ly_scm2string (pfb_file_name);
   int len;
+
+  if (be_verbose_global)
+    progress_indication ("[" + file_name);
+
   char *str = gulp_file (file_name, &len);
   char *pfa = pfb2pfa ((Byte *)str, len);
 
   SCM pfa_scm = scm_makfrom0str (pfa);
   free (pfa);
   delete str;
+  if (be_verbose_global)
+    progress_indication ("]");
+  
   return pfa_scm;
 }
 

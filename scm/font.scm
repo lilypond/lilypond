@@ -353,7 +353,7 @@
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n factor)
     (add-pango-fonts n 'roman "Century Schoolbook L" factor)
-    (add-pango-fonts n 'sans "Luxi Sans" factor)
+    (add-pango-fonts n 'sans "Sans" factor)
     n))
 
 (define-public (magstep x)
