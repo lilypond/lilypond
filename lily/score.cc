@@ -119,7 +119,9 @@ default_rendering (SCM music, SCM outdef,
     }
 
   SCM context = ly_run_translator (music, scaled_def, key);
-  Music_output *output = unsmob_music_output (ly_format_output (context));
+
+  SCM output_as_scm = ly_format_output (context);
+  Music_output *output = unsmob_music_output (output_as_scm);
       
   if (Paper_score *pscore = dynamic_cast<Paper_score*> (output))
     {
@@ -137,9 +139,9 @@ default_rendering (SCM music, SCM outdef,
       paper_book->classic_output (ly_scm2string (outname));
       scm_gc_unprotect_object (paper_book->self_scm ());
     }
-  scm_gc_unprotect_object (output->self_scm ());
 
   scm_remember_upto_here_1 (scaled_def);
+  scm_remember_upto_here_1 (output_as_scm);
   scm_remember_upto_here_1 (scaled_bookdef);
 }
 

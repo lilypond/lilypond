@@ -29,6 +29,7 @@ interpret_stencil_expression (SCM expr,
 	}
       else if (head == ly_symbol2scm ("combine-stencil"))
 	{
+
 	  for (SCM x = scm_cdr (expr); scm_is_pair (x); x = scm_cdr (x))
 	    interpret_stencil_expression (scm_car (x), func, func_arg, o);
 	  return;

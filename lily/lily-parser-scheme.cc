@@ -194,7 +194,8 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
-  SCM header = ly_c_module_p (score->header_) ? score->header_
+  SCM header = ly_c_module_p (score->header_)
+    ? score->header_
     : parser->lexer_->lookup_identifier ("$globalheader");
 
   File_name outname (parser->output_basename_);
@@ -212,12 +213,15 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   if (score->defs_.is_empty ())
     {
       Output_def *layout = get_layout (parser);
-      default_rendering (score->get_music (), layout->self_scm (),
-			 get_paper (parser)->self_scm (),
+      default_rendering (score->get_music (),
+			 layout->self_scm (),
+			 paper,
 			 header, os, key->self_scm ());
+      
       scm_gc_unprotect_object (layout->self_scm ());
     }
 
+  scm_gc_unprotect_object (paper);
   scm_gc_unprotect_object (key->self_scm ());
   return SCM_UNSPECIFIED;
 }
