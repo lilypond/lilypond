@@ -17,4 +17,4 @@ TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(ILY_FILES)
 
 
-DVIPS_FLAGS= -h $(subst pdf,fonts.ps,$(subst .ps,.fonts.ps, $(notdir $@ )))
+DVIPS_FLAGS= -h $(subst .pdf,.psfonts,$(subst .ps,.psfonts, $(notdir $@ )))

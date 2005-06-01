@@ -13,6 +13,9 @@ classic lilypond-book:
      lilypond-book --process="lilypond" BOOK.tely
 
 TODO:
+
+    *  this script is too complex. Modularize.
+    
     *  ly-options: intertext?
     *  --linewidth?
     *  eps in latex / eps by lilypond -b ps?
@@ -93,9 +96,9 @@ option_definitions = [
 	  _ ("write output to DIR")),
 	(_ ("COMMAND"), 'P', 'process',
 	  _ ("process ly_files using COMMAND FILE...")),
-	(_('FILE'), '', 'psfonts',
-	 _ ('''extract all PostScript fonts into FILE for LaTeX
-	 must use this with dvips -h FILE''')),
+	(_(''), '', 'psfonts',
+	 _ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
+	 must use this with dvips -h INPUT.psfonts''')),
 	('', 'V', 'verbose',
 	  _ ("be verbose")),
 	('', 'v', 'version',
@@ -111,7 +114,7 @@ lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
 	lilypond_binary = 'lilypond'
 
-psfonts_file = ''
+psfonts_p = 0
 use_hash_p = 1
 format = 0
 output_name = ''
@@ -649,6 +652,27 @@ def split_options (option_string):
 
 def invokes_lilypond ():
 	return re.search ('^[\'\"0-9A-Za-z/]*lilypond', process_cmd)
+
+def set_default_options (source):
+	global default_ly_options
+	if not default_ly_options.has_key (LINEWIDTH):
+		if format == LATEX:
+			textwidth = get_latex_textwidth (source)
+			default_ly_options[LINEWIDTH] = \
+			  '''%.0f\\pt''' % textwidth
+		elif format == TEXINFO:
+			for (k, v) in texinfo_linewidths.items ():
+				# FIXME: @layout is usually not in
+				# chunk #0:
+				#
+				#  \input texinfo @c -*-texinfo-*-
+				#
+				# Bluntly search first K items of
+				# source.
+				# s = chunks[0].replacement_text ()
+				if re.search (k, source[:1024]):
+					default_ly_options[LINEWIDTH] = v
+					break
 
 class Chunk:
 	def replacement_text (self):
@@ -1417,6 +1441,9 @@ def do_file (input_filename):
 		source = in_handle.read ()
 		ly.progress ('\n')
 
+		set_default_options (source)
+
+
 		# FIXME: Containing blocks must be first, see
 		#        find_toplevel_snippets.
 		snippet_types = (
@@ -1432,27 +1459,6 @@ def do_file (input_filename):
 		ly.progress (_ ("Dissecting..."))
 		chunks = find_toplevel_snippets (source, snippet_types)
 		ly.progress ('\n')
-
-		global default_ly_options
-		textwidth = 0
-		if not default_ly_options.has_key (LINEWIDTH):
-			if format == LATEX:
-				textwidth = get_latex_textwidth (source)
-				default_ly_options[LINEWIDTH] = \
-				  '''%.0f\\pt''' % textwidth
-			elif format == TEXINFO:
-				for (k, v) in texinfo_linewidths.items ():
-					# FIXME: @layout is usually not in
-					# chunk #0:
-					#
-					#  \input texinfo @c -*-texinfo-*-
-					#
-					# Bluntly search first K items of
-					# source.
-					# s = chunks[0].replacement_text ()
-					if re.search (k, source[:1024]):
-						default_ly_options[LINEWIDTH] = v
-						break
 
 		if filter_cmd:
 			write_if_updated (output_filename,
@@ -1487,7 +1493,7 @@ def do_file (input_filename):
 		raise Compile_error
 
 def do_options ():
-	global format, output_name, psfonts_file
+	global format, output_name, psfonts_p
 	global filter_cmd, process_cmd, verbose_p
 
 	(sh, long) = ly.getopt_args (option_definitions)
@@ -1532,7 +1538,7 @@ def do_options ():
 		elif o == '--verbose' or o == '-V':
 			verbose_p = 1
 		elif o == '--psfonts':
-			psfonts_file = a
+			psfonts_p = 1 
 		elif o == '--warranty' or o == '-w':
 			if 1 or status:
 				ly.warranty ()
@@ -1546,6 +1552,9 @@ def main ():
 		ly.exit (2)
 
 	file = files[0]
+
+	basename = os.path.splitext (file)[0]
+	
 	global process_cmd, format
 	if not format:
 		format = guess_format (files[0])
@@ -1566,11 +1575,13 @@ def main ():
 
 	try:
 		chunks = do_file (file)
-		if psfonts_file and invokes_lilypond ():
+		if psfonts_p and invokes_lilypond ():
 			fontextract.verbose = verbose_p
 			snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
 									      Lilypond_snippet),
 						 chunks)
+
+			psfonts_file = basename + '.psfonts' 
 			if not verbose_p:
 				ly.progress (_ ("Writing fonts to %s...") % psfonts_file)
 			fontextract.extract_fonts (psfonts_file,
@@ -1583,20 +1594,17 @@ def main ():
 		ly.exit (1)
 
 	if format == TEXINFO or format == LATEX:
-		psfonts = 'PSFONTS-FILE'
-		if not psfonts_file:
-			ly.warning (_ ("option --psfonts=FILE not used"))
+		if not psfonts_p:
+			ly.warning (_ ("option --psfonts not used"))
 			ly.warning (_ ("processing with dvips will have no fonts"))
-		else:
-			psfonts = os.path.join (output_name, psfonts_file)
-			
-		output = os.path.join (output_name,
-				       os.path.splitext (os.path.basename
-							 (file))[0]) + '.dvi'
+
+		psfonts_file = os.path.join (output_name, basename + '.psfonts')
+		output = os.path.join (output_name, basename +  '.dvi' )
+		
 		ly.progress ('\n')
 		ly.progress (_ ("DVIPS usage:"))
 		ly.progress ('\n')
-		ly.progress ("    dvips -h %(psfonts)s %(output)s" % vars ())
+		ly.progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
 		ly.progress ('\n')
 
 if __name__ == '__main__':
