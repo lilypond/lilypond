@@ -398,29 +398,37 @@ set_slur_control_points (Grob *me)
 Bezier
 Slur_score_state::get_best_curve ()
 {
-  for (int i = 0; i < configurations_.size (); i++)
-    {
-      configurations_[i]->score (*this);
-    }
-
-  Real opt = 1e6;
   int opt_idx = -1;
-  for (int i = 0; i < configurations_.size (); i++)
-    {
-      if (configurations_[i]->score_ < opt)
-	{
-	  opt = configurations_[i]->score_;
-	  opt_idx = i;
-	}
-    }
+  Real opt = 1e6;
 
 #if DEBUG_SLUR_SCORING
   SCM inspect_quants = slur_->get_property ("inspect-quants");
   if (to_boolean (slur_->get_layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_pair (inspect_quants))
-    opt_idx = get_closest_index (inspect_quants);
+    {
+      opt_idx = get_closest_index (inspect_quants);
+      configurations_[opt_idx]->score (*this);
+      opt = configurations_[opt_idx]->score_;
+    }
+  else
+#endif
+    {
+      for (int i = 0; i < configurations_.size (); i++)
+	{
+	  configurations_[i]->score (*this);
+	}
+      for (int i = 0; i < configurations_.size (); i++)
+	{
+	  if (configurations_[i]->score_ < opt)
+	    {
+	      opt = configurations_[i]->score_;
+	      opt_idx = i;
+	    }
+	}
+    }
 
+#if DEBUG_SLUR_SCORING
   configurations_[opt_idx]->score_card_ += to_string ("=%.2f", opt);
   configurations_[opt_idx]->score_card_ += to_string ("i%d", opt_idx);
 
@@ -616,13 +624,54 @@ Slur_score_state::move_away_from_staffline (Real y,
   return y;
 }
 
+
+
+Array<Offset>
+Slur_score_state::generate_avoid_offsets () const
+{
+  Array<Offset> avoid;
+  Link_array<Grob> encompasses = columns_;
+
+  for (int i = 0; i < encompasses.size (); i++)
+    {
+      if (extremes_[LEFT].note_column_ == encompasses[i]
+	  || extremes_[RIGHT].note_column_ == encompasses[i])
+	continue;
+
+      Encompass_info inf (get_encompass_info (encompasses[i]));
+      Real y = dir_ * (max (dir_ * inf.head_, dir_ * inf.stem_));
+
+      avoid.push (Offset (inf.x_, y + dir_ * parameters_.free_head_distance_));
+    }
+  
+  Link_array<Grob> extra_encompasses
+    = extract_grob_array (slur_, ly_symbol2scm ("encompass-objects"));
+  for (int i = 0; i < extra_encompasses.size (); i++)
+    if (Slur::has_interface (extra_encompasses[i]))
+      {
+	Grob *small_slur = extra_encompasses[i];
+	Bezier b = Slur::get_curve (small_slur);
+
+	Offset z = b.curve_point (0.5);
+	z += Offset (small_slur->relative_coordinate (common_[X_AXIS], X_AXIS),
+		     small_slur->relative_coordinate (common_[Y_AXIS], Y_AXIS));
+
+	z[Y_AXIS] += dir_ * parameters_.free_slur_distance_;
+	avoid.push (z);
+      }
+
+  return avoid;
+}
+
 void
 Slur_score_state::generate_curves () const
 {
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
   Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
+
+  Array<Offset> avoid = generate_avoid_offsets (); 
   for (int i = 0; i < configurations_.size (); i++)
-    configurations_[i]->generate_curve (*this, r_0, h_inf);
+    configurations_[i]->generate_curve (*this, r_0, h_inf, avoid);
 }
 
 Link_array<Slur_configuration>

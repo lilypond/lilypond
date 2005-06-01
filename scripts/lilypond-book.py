@@ -1554,6 +1554,7 @@ def main ():
 	file = files[0]
 
 	basename = os.path.splitext (file)[0]
+	basename = os.path.split (basename)[1]
 	
 	global process_cmd, format
 	if not format:

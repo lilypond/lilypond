@@ -119,6 +119,7 @@ void
 Slur::add_extra_encompass (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("encompass-objects"), n);
+  me->add_dependency (n);
 }
 
 MAKE_SCHEME_CALLBACK (Slur, outside_slur_callback, 2);

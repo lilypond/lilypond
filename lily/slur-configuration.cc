@@ -96,39 +96,10 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 
 void
 Slur_configuration::generate_curve (Slur_score_state const &state,
-				    Real r_0, Real h_inf)
+				    Real r_0, Real h_inf,
+				    Array<Offset> const &avoid
+				    )
 {
-  Link_array<Grob> encompasses = state.columns_;
-
-  Array<Offset> avoid;
-  for (int i = 0; i < encompasses.size (); i++)
-    {
-      if (state.extremes_[LEFT].note_column_ == encompasses[i]
-	  || state.extremes_[RIGHT].note_column_ == encompasses[i])
-	continue;
-
-      Encompass_info inf (state.get_encompass_info (encompasses[i]));
-      Real y = state.dir_ * (max (state.dir_ * inf.head_, state.dir_ * inf.stem_));
-
-      avoid.push (Offset (inf.x_, y + state.dir_ * state.parameters_.free_head_distance_));
-    }
-
-  Link_array<Grob> extra_encompasses
-    = extract_grob_array (state.slur_, ly_symbol2scm ("encompass-objects"));
-  for (int i = 0; i < extra_encompasses.size (); i++)
-    if (Slur::has_interface (extra_encompasses[i]))
-      {
-	Grob *small_slur = extra_encompasses[i];
-	Bezier b = Slur::get_curve (small_slur);
-
-	Offset z = b.curve_point (0.5);
-	z += Offset (small_slur->relative_coordinate (state.common_[X_AXIS], X_AXIS),
-		     small_slur->relative_coordinate (state.common_[Y_AXIS], Y_AXIS));
-
-	z[Y_AXIS] += state.dir_ * state.parameters_.free_slur_distance_;
-	avoid.push (z);
-      }
-
   Offset dz = attachment_[RIGHT]- attachment_[LEFT];;
   Offset dz_unit = dz;
   dz_unit *= 1 / dz.length ();
