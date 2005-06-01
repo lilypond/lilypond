@@ -1,3 +1,9 @@
+2005-06-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/beam.cc (before_line_breaking): remove warning about less
+	than 2 visible stems. We still get a warning when there is only
+	one stem..
+
 2005-06-01  Werner Lemberg  <wl@gnu.org>
 
 	* buildscripts/substitute-encoding.py: Handle PFAemmentaler-xx.pfa

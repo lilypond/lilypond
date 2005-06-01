@@ -139,8 +139,6 @@ Beam::before_line_breaking (SCM smob)
   int count = visible_stem_count (me);
   if (count < 2)
     {
-      me->warning (_ ("beam has less than two visible stems"));
-
       SCM stems = me->get_property ("stems");
       if (scm_ilength (stems) == 1)
 	{
