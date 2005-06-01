@@ -53,5 +53,8 @@ if re.search ('mmental', filename):
 	str = re.sub ('( 0 1 255 { 1 index exch /.notdef put} for)',
 		      '\\1 \n %s'  % put_glyphs,
 		      str)
+	str = re.sub ('StandardEncoding def',
+		      '256 array\n0 1 255 { 1 index exch /.notdef put} for\n%sreadonly def' % put_glyphs,
+		      str)
 
 	open (filename, 'w').write (str)
