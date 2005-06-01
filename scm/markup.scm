@@ -439,7 +439,7 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
       
       (if (and (pair? (cdr stencils))
 	       (ly:stencil? (cadr stencils)))
-          (let* ((tail (stack-stencil-line  space (cdr stencils)))
+          (let* ((tail (stack-stencil-line space (cdr stencils)))
                  (head (car stencils))
                  (xoff (+ space (cdr (ly:stencil-extent head X)))))
             (ly:stencil-add head
