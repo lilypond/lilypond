@@ -1,5 +1,11 @@
 2005-06-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/slur-scoring.cc (generate_avoid_offsets): new
+	function. Generate avoid offsets once per slur.
+
+	* lily/slur.cc (add_extra_encompass): add dependency to
+	extra-encompass object. This fixes bugs/c-phrasing-slur.ly
+
 	* lily/stencil.cc (is_empty): check dim_ field for is_empty()
 	too. Fixes inf error with added bass notes.
 
