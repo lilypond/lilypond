@@ -65,7 +65,7 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
   return s->expr ();
 }
 
-LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",
+LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
 	   2, 0, 0, (SCM stil, SCM axis),
 	   "Return a pair of numbers signifying the extent of @var{stil} in "
 	   "@var{axis} direction (0 or 1 for x and y axis respectively).")

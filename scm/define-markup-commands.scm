@@ -274,10 +274,13 @@ gsave /ecrm10 findfont
 (def-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
+  (let*
+      ((stencils (map (lambda (m) (interpret-markup layout props m)) args))
+       (space    (chain-assoc-get 'word-space props)))
+
   (stack-stencil-line
-   (chain-assoc-get 'word-space props)
-   (remove ly:stencil-empty?
-	   (map (lambda (m) (interpret-markup layout props m)) args))))
+   space
+   (remove ly:stencil-empty? stencils))))
 
 (def-markup-command (fromproperty layout props symbol) (symbol?)
   "Read the @var{symbol} from property settings, and produce a stencil

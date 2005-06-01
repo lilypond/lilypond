@@ -56,12 +56,12 @@ Stencil::extent (Axis a) const
   return dim_[a];
 }
 
-/* Hmm... maybe this is not such a good idea ; stuff can be empty,
-   while expr_ == '()  */
 bool
 Stencil::is_empty () const
 {
-  return expr_ == SCM_EOL;
+  return (expr_ == SCM_EOL
+	  || dim_[X_AXIS].is_empty ()
+	  || dim_[Y_AXIS].is_empty ());
 }
 
 SCM
