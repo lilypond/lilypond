@@ -1,18 +1,19 @@
 .SUFFIXES: .doc .dvi .tely .texi .ly
 
 
-$(outdir)/%.latex $(outdir)/%.fonts.ps:  %.doc
+$(outdir)/%.latex $(outdir)/%.psfonts:  %.doc
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --verbose $(LILYPOND_BOOK_FLAGS) $<
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
-	$(PYTHON) $(LILYPOND_BOOK) --psfonts=$(basename $<).fonts.ps $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) --psfonts $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
+
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
-	$(PYTHON) $(LILYPOND_BOOK) --psfonts=$(notdir $(basename $<)).fonts.ps $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) --psfonts $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<

@@ -93,7 +93,7 @@ Under Unix, you can view the results as follows
 @example
 cd input/tutorial
 mkdir -p out/
-lilypond-book --output=out --psfonts=psfonts lilybook.tex
+lilypond-book --output=out --psfonts lilybook.tex
 @emph{lilypond-book (GNU LilyPond) 2.6.0}
 @emph{Reading lilybook.tex...}
 @emph{..lots of stuff deleted..}
@@ -107,7 +107,7 @@ xdvi lilybook
 To convert the file into a PDF document, run the following commands
 
 @example
-dvips -Ppdf -h psfonts lilybook
+dvips -Ppdf -h lilybook.psfonts lilybook
 ps2pdf lilybook.ps
 @end example
 
@@ -285,13 +285,13 @@ a PostScript file, add the following options to the @command{dvips}
 command line:
 
 @example
--Ppdf -h psfonts
+-Ppdf -h @var{file}.psfonts
 @end example
 
 @noindent
-where the @command{psfonts} file is obtained from
+where the @var{file}@command{psfonts} file is obtained from
 @command{lilypond-book}, @xref{Invoking lilypond-book} for details. PDF
-can then be produced with a PostScript to PDF translator like 
+can then be produced with a PostScript to PDF translator like
 @code{ps2pdf} (which is part of GhostScript).
 
 @cindex international characters
@@ -567,7 +567,7 @@ To produce PDF output from the lilypond-book file (here called
 @code{yourfile.lytex}), you should do
 
 @example
-lilypond-book --psfonts=tempfonts.ps yourfile.lytex
+lilypond-book --psfonts yourfile.lytex
 latex yourfile.tex
 dvips -h tempfonts.ps -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
@@ -639,9 +639,9 @@ Process LilyPond snippets using @var{command}.  The default command is
 @code{lilypond}.  @code{lilypond-book} will not --filter and --process
 at the same time.
 
-@itemx --psfonts=FILE
-extract all PostScript fonts into FILE for LaTeX.  This is necessary
-for @command{dvips -h FILE}.
+@itemx --psfonts
+extract all PostScript fonts into @file{@var{file}.psfonts} for dvips.
+This is necessary for @command{dvips -h @var{file}.psfonts}.
 
 @item -V
 @itemx --verbose
