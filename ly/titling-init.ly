@@ -15,7 +15,9 @@ tagline = \markup {
   \line {
     "Music engraving by LilyPond"
     #(ly:export (lilypond-version))
-    "-"
+
+    %% 2014 = em dash.
+    #(ly:export (ly:wide-char->utf-8 #x2014))
     "www.lilypond.org"
   }
 }
