@@ -95,9 +95,11 @@
   ((windows)
    (define native-getcwd getcwd)
    (define (slashify x)
-     (if (string-index x #\/)
+     (if (string-index x #\\)
 	 x
-	 (string-regexp-substitute "\\\\" "/" x)))
+	 (string-regexp-substitute
+	  "//*" "/"
+	  (string-regexp-substitute "\\\\" "/" x))))
    ;; FIXME: this prints a warning.
   (define-public (ly-getcwd)
      (slashify (native-getcwd))))
