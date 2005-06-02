@@ -19,6 +19,7 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
+#include "self-alignment-interface.hh"
 
 /*
   TODO:
@@ -270,6 +271,7 @@ Dynamic_engraver::stop_translation_timestep ()
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
     }
+  
   typeset_all ();
 
   if (cresc_ && !cresc_->get_bound (LEFT))
@@ -382,7 +384,12 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	{
 	  SCM head = scm_last_pair (info.grob ()->get_property ("note-heads"));
 	  if (scm_is_pair (head))
-	    script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
+	    {
+	      script_->set_parent (unsmob_grob (scm_car (head)), X_AXIS);
+	      script_->add_offset_callback (Self_alignment_interface::centered_on_parent_proc,
+					    X_AXIS);
+
+	    }
 	}
 
       if (cresc_)

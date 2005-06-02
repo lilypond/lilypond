@@ -384,8 +384,7 @@
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(print-function . ,Text_interface::print)
-	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
-			       ,Self_alignment_interface::centered_on_parent))
+	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
 	(no-spacing-rods . #t)
 	(script-priority . 100)
