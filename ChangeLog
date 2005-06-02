@@ -1,5 +1,7 @@
 2005-06-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): add entry about font family.
+
 	* lily/dynamic-engraver.cc (acknowledge_grob): only center on
 	parent if we have a notehead. Fixes incorrect offsets when
 	Paper_column is very wide in the X direction.
@@ -1379,7 +1381,8 @@
 	* lily/stem.cc (width_callback): determine correct extent if flag
 	is not there. This fixes slur-no-flag.ly
 
-	* lily/grace-engraver.cc (consider_change_grace_settings): new function.
+	* lily/grace-engraver.cc (consider_change_grace_settings): new
+	function.
 	(initialize): also consider_change_grace_settings() on
 	initialization. Fixes large grace notes at start of score.
 

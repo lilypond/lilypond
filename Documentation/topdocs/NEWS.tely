@@ -34,6 +34,18 @@ See user manual, \NAME\
 @itemize @bullet
 
 @item
+Global font styles (roman, sans, typewriter) can be defined for each
+@code{\paper} block, with
+
+@verbatim
+#(define fonts
+  (make-pango-font-tree
+   "Times New Roman" "Helvetica" "Courier"
+   (/ myStaffSize 20)))
+@end verbatim
+
+
+@item
 Newly created staves and lyric lines, can be put in any vertical order,
 by setting @code{alignBelowContext} or @code{alignAboveContext}
 properties in the newly created context. An example of the use of this
@@ -205,6 +217,8 @@ example, see @inputfileref{input/regression,system-separator.ly}:
 
 @item
 Locations of errors in the input are now calculated more precisely.
+
+
 
 @item
 LilyPond now uses Pango and FontConfig for selecting and rendering
