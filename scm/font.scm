@@ -335,13 +335,22 @@
 	      (add-ec-fonts n factor))))
     n))
 
-(define-public (make-century-schoolbook-tree factor)
+
+
+
+(define-public (make-pango-font-tree roman-str sans-str typewrite-str factor)
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n factor)
-    (add-pango-fonts n 'roman "Century Schoolbook L" factor)
-    (add-pango-fonts n 'sans "Sans" factor)
-    (add-pango-fonts n 'typewriter "Mono" factor)
+    (add-pango-fonts n 'roman roman-str factor)
+    (add-pango-fonts n 'sans sans-str factor)
+    (add-pango-fonts n 'typewriter typewrite-str factor)
     n))
+
+
+(define-public (make-century-schoolbook-tree factor)
+  (make-pango-font-tree
+    "Century Schoolbook L" 
+    "Sans" "Mono" factor))
 
 (define-public (magstep x)
   (exp (* (/ x 6) (log 2))))
