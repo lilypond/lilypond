@@ -1,8 +1,10 @@
 2005-06-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/font.scm (make-pango-font-tree): new function.
+
 	* lily/beam.cc (before_line_breaking): remove warning about less
 	than 2 visible stems. We still get a warning when there is only
-	one stem..
+	one stem.
 
 2005-06-01  Werner Lemberg  <wl@gnu.org>
 
