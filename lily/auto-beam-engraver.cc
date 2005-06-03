@@ -49,7 +49,7 @@ private:
   Spanner *finished_beam_;
   Link_array<Item> *stems_;
 
-  int count_;
+  int process_acknowledged_count_;
   Moment last_add_mom_;
   /*
     Projected ending of the  beam we're working on.
@@ -87,7 +87,7 @@ Auto_beam_engraver::process_music ()
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   forbid_ = 0;
-  count_ = 0;
+process_acknowledged_count_ = 0;
   stems_ = 0;
   shortest_mom_ = Moment (Rational (1, 8));
   finished_beam_ = 0;
@@ -242,7 +242,7 @@ Auto_beam_engraver::typeset_beam ()
 void
 Auto_beam_engraver::start_translation_timestep ()
 {
-  count_ = 0;
+  process_acknowledged_count_ = 0;
   /*
     don't beam over skips
   */
@@ -278,8 +278,10 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
   /* Duplicated from process_music (), since
      Repeat_acknowledge_engraver::process_music () may also set whichBar.  */
+
+  Moment now = now_mom ();
   if (scm_is_string (get_property ("whichBar"))
-      && beam_start_moment_ < now_mom ())
+      && beam_start_moment_ < now)
     {
       consider_end (shortest_mom_);
       junk_beam ();
@@ -340,7 +342,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       /*
 	ignore grace notes.
       */
-      if (bool (beam_start_location_.grace_part_) != bool (now_mom ().grace_part_))
+      if (bool (beam_start_location_.grace_part_) != bool (now.grace_part_))
 	return;
 
       Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
@@ -373,8 +375,6 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       if (!stems_)
 	return;
 
-      Moment now = now_mom ();
-
       grouping_->add_stem (now - beam_start_moment_ + beam_start_location_,
 			   durlog - 2);
       stems_->push (stem);
@@ -386,12 +386,15 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 void
 Auto_beam_engraver::process_acknowledged_grobs ()
 {
-  if (!count_)
+  if (extend_mom_ > now_mom ())
+    return ; 
+
+  if (!process_acknowledged_count_)
     {
       consider_end (shortest_mom_);
       consider_begin (shortest_mom_);
     }
-  else if (count_ > 1)
+  else if (process_acknowledged_count_ > 1)
     {
       if (stems_)
 	{
@@ -408,7 +411,7 @@ Auto_beam_engraver::process_acknowledged_grobs ()
 	}
     }
 
-  count_++;
+  process_acknowledged_count_++;
 }
 
 ADD_TRANSLATOR (Auto_beam_engraver,
