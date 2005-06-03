@@ -346,31 +346,12 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	return;
 
       Moment dur = unsmob_duration (m->get_property ("duration"))->get_length ();
-      /* FIXME:
 
-      This comment has been here since long:
-
-      if shortest duration would change
-      consider ending and beginning beam first.
-
-      but the code didn't match: */
-#if 1
       consider_end (dur);
       consider_begin (dur);
 
       if (dur < shortest_mom_)
 	shortest_mom_ = dur;
-#else
-      /* I very much suspect that we wanted: */
-
-      consider_end (shortest_mom_);
-      if (dur < shortest_mom_)
-	{
-	  shortest_mom_ = dur;
-	  consider_end (shortest_mom_);
-	}
-      consider_begin (shortest_mom_);
-#endif
 
       if (!stems_)
 	return;
