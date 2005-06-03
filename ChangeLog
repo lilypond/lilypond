@@ -11,6 +11,9 @@
 
 2005-06-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/editor.scm (editor-command-template-alist): Start emacs if
+	emaclient fails.
+
 	* lily/main.cc (setup_localisation): Listen to LILYPOND_LOCALEDIR.
 
 	* flower/file-path.cc (is_file, is_dir): Export.

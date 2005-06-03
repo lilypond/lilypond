@@ -30,7 +30,7 @@
 	 "emacs"))))
 
 (define editor-command-template-alist
-  '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s")
+  '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
     ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
     ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(column)s")
     ("nedit" . "nc -noask +%(line)s %(file)s")
