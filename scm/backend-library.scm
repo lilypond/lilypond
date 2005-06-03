@@ -42,6 +42,7 @@
  -q\
  -dNOPAUSE\
  -dBATCH\
+ -r1200 \
  -sDEVICE=pdfwrite\
  -sOutputFile=~S\
  -c .setpdfwrite\

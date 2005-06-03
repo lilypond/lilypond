@@ -1,3 +1,12 @@
+2005-06-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/auto-beam.scm (default-auto-beam-check): only forbid beam
+	start on grace moment. Fixes autobeam-grace.ly.
+
+	* lily/auto-beam-engraver.cc (process_acknowledged_grobs): don't
+	process anything unless we're at the end of a pending beam. Fixes
+	syncopated 8ths beamed across a beat.
+
 2005-06-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc (setup_localisation): Listen to LILYPOND_LOCALEDIR.
@@ -12,6 +21,9 @@
 	compilation error.
 
 2005-06-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/backend-library.scm (postscript->pdf): set resolution to
+	1200, so bitmap fonts aren't that ugly. 
 
 	* Documentation/topdocs/NEWS.tely (Top): add entry about font family.
 

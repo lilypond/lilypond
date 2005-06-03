@@ -190,8 +190,9 @@ a fresh copy of the list-head is made."
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
 
-  (if (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
-      ;; No auto beaming for grace notes
+  ;; Don't start auto beams on grace notes
+  (if (and (!= (ly:moment-grace-numerator (ly:context-now context)) 0)
+	   (= dir START))
       #f
       (let* ((beat-length (get 'beatLength (ly:make-moment 1 1)))
 	     (measure-length (get 'measureLength (ly:make-moment 1 1)))
@@ -216,6 +217,7 @@ a fresh copy of the list-head is made."
 		   (append function '(* * * *))
 		   (append function type time)
 		   (append function '(* *) time))))
+
 	(if (or
 	     ;; always begin or end beams at beginning/ending of measure
 	     (= (ly:moment-main-numerator pos) 0)
