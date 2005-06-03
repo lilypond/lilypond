@@ -35,4 +35,7 @@ public:
   void prepend (String str);
 };
 
+bool is_file (String file_name);
+bool is_dir (String file_name);
+
 #endif /* FILE_PATH */
