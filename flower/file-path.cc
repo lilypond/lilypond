@@ -48,7 +48,7 @@ File_path::parse_path (String p)
     }
 }
 
-static bool
+bool
 is_file (String file_name)
 {
 #if 0 /* Check if directory. TODO: encapsulate for autoconf */
@@ -79,7 +79,7 @@ is_file (String file_name)
   return false;
 }
 
-static bool
+bool
 is_dir (String file_name)
 {
 #if !STAT_MACROS_BROKEN
@@ -97,7 +97,6 @@ is_dir (String file_name)
     }
   return false;
 }
-
 
 /** Find a file.
 

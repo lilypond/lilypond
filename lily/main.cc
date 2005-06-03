@@ -270,11 +270,25 @@ sane_putenv (char const* key, String value, bool overwrite = true)
 }
 
 static int
+set_env_file (char const* key, String value)
+{
+  if (is_file (value))
+    return sane_putenv (key, value, false);
+  else if (be_verbose_global)
+    warning (_f ("no such file: %s", value));
+  return -1;
+}
+
+static int
 prepend_env_path (char const *key, String value)
 {
   if (char const* cur = getenv (key))
     value += to_string (PATHSEP) + cur;
-  return sane_putenv (key, value.to_str0 ());
+  if (is_dir (value + "/"))
+    return sane_putenv (key, value.to_str0 ());
+  else if (be_verbose_global)
+    warning (_f ("no such directory: %s", value));
+  return -1;
 }
 
 String
@@ -297,38 +311,58 @@ setup_paths (char const* argv0)
   prefix_directory = LILYPOND_DATADIR;
 
 #if ARGV0_RELOCATION
+
+  if (getenv ("LILYPOND_VERBOSE"))
+    be_verbose_global = true;
+
   String bindir = dir_name (argv0);
   String argv0_prefix = dir_name (bindir);
   if (argv0_prefix != dir_name (dir_name (dir_name (prefix_directory))))
     {
-#if 0
-      warning (_f ("argv0 relocation: argv0=%s, prefix=%s", argv0,
-		   prefix_directory));
-#endif
+      if (be_verbose_global)
+	warning (_f ("argv0 relocation: argv0=%s, prefix=%s", argv0,
+		     prefix_directory));
       String datadir = argv0_prefix + "/share";
       String libdir = argv0_prefix + "/lib";
+      String localedir = argv0_prefix + "/locale";
       String sysconfdir = argv0_prefix + "/etc";
-      prefix_directory = datadir + "/lilypond/" TOPLEVEL_VERSION;
+      String argv0_lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
 
-      sane_putenv ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf", false);
+      if (is_dir (argv0_lilypond_datadir))
+	prefix_directory = argv0_lilypond_datadir;
+
+#if HAVE_GETTEXT
+      if (is_dir (localedir))
+	bindtextdomain ("lilypond", localedir.to_str0 ());
+#endif
+
+      set_env_file ("FONTCONFIG_FILE", sysconfdir + "/fonts/fonts.conf");
 #ifdef __MINGW32__
       char font_dir[PATH_MAX];
       ExpandEnvironmentStrings ("%windir%/fonts", font_dir, sizeof (font_dir));
       prepend_env_path ("GS_FONTPATH", font_dir);
 #endif
+
+      /* FIXME: *cough* 8.15 *cough* */
+      prepend_env_path ("GS_FONTPATH", datadir + "/ghostscript/8.15/fonts");
+      prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/Resource");
+      prepend_env_path ("GS_LIB", datadir + "/ghostscript/8.15/lib");
+
       prepend_env_path ("GS_FONTPATH", datadir + "/gs/fonts");
       prepend_env_path ("GS_LIB", datadir + "/gs/Resource");
       prepend_env_path ("GS_LIB", datadir + "/gs/lib");
+
       prepend_env_path ("GUILE_LOAD_PATH", datadir
 			+ to_string ("/guile/%d.%d",
 				     SCM_MAJOR_VERSION, SCM_MINOR_VERSION));
-      sane_putenv ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc", false);
+      set_env_file ("PANGO_RC_FILE", sysconfdir + "/pango/pangorc");
       prepend_env_path ("PATH", bindir);
     }
 #else
   (void) argv0;
 #endif /* ARGV0_RELOCATION */
-    
+
+  /* FIXME: use LILYPOND_DATADIR.  */
   if (char const *env = getenv ("LILYPONDPREFIX"))
     {
 #ifdef __MINGW32__
@@ -553,10 +587,12 @@ setup_localisation ()
      Disable localisation of float values.  This breaks TeX output.  */
   setlocale (LC_NUMERIC, "C");
 
-  String name (PACKAGE);
-  name.to_lower ();
-  bindtextdomain (name.to_str0 (), LOCALEDIR);
-  textdomain (name.to_str0 ());
+  String localedir = LOCALEDIR;
+  if (char const *env = getenv ("LILYPOND_LOCALEDIR"))
+    localedir = env;
+  
+  bindtextdomain ("lilypond", localedir.to_str0 ());
+  textdomain ("lilypond");
 #endif
 }
 
