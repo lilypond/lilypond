@@ -3860,7 +3860,6 @@ This section includes extra information for writing for instruments.
 
 @menu
 * Artificial harmonics (strings)::  
-* Stopped notes (guitar)::      
 @end menu
 
 @node Artificial harmonics (strings)
@@ -3874,9 +3873,4 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @lilypond[raggedright,verbatim,quote,fragment,relative=1]
 <c g'\harmonic>4
 @end lilypond
-
-
-@node Stopped notes (guitar)
-@subsection Stopped notes (guitar)
-
 
