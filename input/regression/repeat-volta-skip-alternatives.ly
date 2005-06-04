@@ -6,8 +6,11 @@ alternative is repeated, by printing a range for the 1st repeat."
 
 }
 
+\paper { raggedright = ##t } 
 
-\score {   \relative c'' \context Voice {
+
+\relative c'' \context Voice {
   \repeat volta 3 c1
-    \alternative { d f } e4 } } 
+    \alternative { d f } e4
+} 
 

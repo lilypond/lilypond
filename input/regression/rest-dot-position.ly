@@ -6,6 +6,8 @@
 
 \version "2.4.0"
 
+\paper { raggedright = ##t } 
+
 {
     \set Score.timing = ##f
     r\longa. r\breve.
