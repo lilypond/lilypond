@@ -12,7 +12,7 @@ Different text styles are used for various purposes.
 
 \relative c'' \context Staff {
     \emptyText
-    \repeat volta 2 { \time 4/4 c4^"cuivr\\'e"_\fermata }
+    \repeat volta 2 { \time 4/4 c4^"cuivre"_\fermata }
     \alternative {
 	{
 	    d-4_\markup { \italic "cantabile"  } }

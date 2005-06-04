@@ -5,8 +5,9 @@ ledger lines."
 }
 
 
-\score {
-  {
+\paper { raggedright = ##t } 
+
+{
    \override Rest  #'staff-position = #4
   r1 \override Rest  #'staff-position = #5
   r1 \override Rest  #'staff-position = #6
@@ -25,8 +26,5 @@ ledger lines."
   r2 \override Rest  #'staff-position = #-6
   r2
 
-  
-
-  
-}}
+}
 

@@ -1,12 +1,17 @@
 
 
-\header { texidoc= "Rehearsal marks in letter style: the I is skipped,
-and after Z, double letters are used.  The mark may be set
-with @code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
-      }
+\header {
+
+  texidoc= "Rehearsal marks in letter style: the I is skipped, and
+after Z, double letters are used.  The mark may be set with
+@code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
+
+}
 
 \version "2.4.0"
-\score {   \relative c'' {
+\paper { raggedright = ##t } 
+
+\relative c'' {
   c1  \mark \default
   c1  \mark #7
   c1  \mark \default
@@ -17,5 +22,4 @@ with @code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
   c1  \mark \default
   c1  \mark \default
   c1  \mark \default
-  }
 }

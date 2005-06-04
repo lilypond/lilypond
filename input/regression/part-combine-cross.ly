@@ -8,9 +8,7 @@
 
 vone =  \relative a' { g4 g f f e e d d }
 vtwo =  \relative a' { e4 e f f g g a a }
+\layout { raggedright = ##t } 
 
-\score {
-   \partcombine \vone \vtwo
-   \layout { raggedright = ##t } 
-}
+\partcombine \vone \vtwo
  

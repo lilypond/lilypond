@@ -19,10 +19,10 @@ vtwo =  \relative g' { g4.   g8 r2          g4 r4 r2  g4 }
 
 \version "2.4.0"
 
-\score {
+\paper { raggedright = ##t } 
+
     
-    << \set Score.skipBars = ##t
+<< \set Score.skipBars = ##t
    \partcombine \vone \vtwo
-       >>
-}
+>>
  

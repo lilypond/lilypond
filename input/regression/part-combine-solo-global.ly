@@ -6,9 +6,9 @@
 }
 
 \version "2.4.0"
+\paper { raggedright = ##t } 
 
-\score {
-    \new Staff
+\new Staff
     \partcombine  \relative c'' {
 	bes2(
 	 a4)
@@ -16,4 +16,3 @@
      \relative c' {
 	r2 cis4
     }
-}
