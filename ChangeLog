@@ -1,5 +1,11 @@
 2005-06-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): remove arch-*
+	properties. Add font-interface. 
+
+	* scm/define-grob-properties.scm (all-user-grob-properties):
+	remove old bracket properties.
+
 	* scm/x11-color.scm: reformat. 
 
 	* lily/ledger-line-engraver.cc (acknowledge_grob): create new

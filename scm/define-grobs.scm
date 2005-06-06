@@ -942,8 +942,7 @@
 			       ,Rest::polyphonic_offset_callback
 			       ))
 	(minimum-distance . 0.25)
-	(meta . (
-		 (interfaces . (font-interface
+	(meta . ((interfaces . (font-interface
 				rhythmic-head-interface
 				rhythmic-grob-interface
 				staff-symbol-referencer-interface
@@ -1202,13 +1201,10 @@
 	(X-offset-callbacks . (,(lambda (g a) -0.8)))
 	(print-function . ,System_start_delimiter::print)
 	(glyph . "bracket")
-	(arch-height . 1.5)
-	(arch-angle . 50.0)
-	(arch-thick . 0.25)
-	(arch-width . 1.5)
 	(collapse-height . 1)
 	(thickness . 0.45)
-	(meta . ((interfaces . (system-start-delimiter-interface spanner-interface))))
+	(meta . ((interfaces . (font-interface system-start-delimiter-interface
+					       spanner-interface))))
 	))
 
     (SystemStartBar
