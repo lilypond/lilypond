@@ -52,9 +52,6 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
 	       && scm_is_string (my_gl) && ly_c_equal_p (my_gl, scm_makfrom0str ("bracket")))
 	{
 	  inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
-	  inf.grob ()->set_property ("arch-height",
-				   scm_make_real (scm_to_double (inf.grob ()->get_property
-								 ("arch-height")) + 0.5));
 	}
     }
 }

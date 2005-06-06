@@ -1,5 +1,7 @@
 2005-06-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/engraver-init.ly: add \defaultchild to InnerStaffGroup. 
+
 	* scm/ps-to-png.scm (gulp-port): rename from read. Don't redefine
 	system primitives.
 	(gulp-port): using read-string!/partial. We don't want to read an
