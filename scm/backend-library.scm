@@ -33,7 +33,7 @@
    "\""))
 
 (define-public (postscript->pdf papersizename name)
-  (let* ((pdf-name (string-append (basename name ".ps") ".pdf" ))
+  (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
 	 (cmd (format #f
 		      "gs\
  -dSAFER\
@@ -66,28 +66,17 @@
     (ly:system cmd)
     (if (running-from-gui?) (delete-file name))))
 
-(define-public (postscript->png resolution papersizename name)
-  (let* ((prefix (ly:effective-prefix))
-
-	 ;; run the source, if  we are in the build-directory
-	 (ps2png-source (if prefix
-			   (format "~a/scripts/lilypond-ps2png.py" prefix)
-			   "lilypond-ps2png"))
-	 (cmd (format #f
-		      "~a --resolution=~S --papersize=~a~a ~S"
-		      (if (file-exists? ps2png-source)
-			  (format "python ~a" ps2png-source)
-			  "lilypond-ps2png")
-		      resolution
-		      (sanitize-command-option papersizename)
-		      (if (ly:get-option 'verbose) " --verbose " "")
-		      name)))
+(use-modules (scm ps-to-png))
+(define-public (postscript->png resolution paper-size-name name)
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
+  (let ((paper-size (sanitize-command-option paper-size-name))
+	(verbose? (ly:get-option 'verbose))
+	(rename-page-1? #f))
     (ly:message (_ "Converting to ~a...") "PNG")
-    (ly:system cmd)
+    (make-ps-images name resolution paper-size rename-page-1? verbose?)
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)

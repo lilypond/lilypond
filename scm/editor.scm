@@ -36,6 +36,7 @@
     ("nedit" . "nc -noask +%(line)s %(file)s")
     ("gedit" . "gedit +%(line)s %(file)s")
     ("jedit" . "jedit -reuseview %(file)s +line:%(line)s")
+    ("syn" . "syn -line %(line)s -col %(column)s %(file)s")
     ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
 
 (define (get-command-template alist editor)

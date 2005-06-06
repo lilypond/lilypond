@@ -44,11 +44,11 @@
 (define (show-help port)
   (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:COLUMN
 
-Visit a file and position the cursor
+Visit a file and position the cursor.
 
 Options:
-  -h,--help          show this help
-  -v,--version       show version
+  -h, --help          show this help
+  -v, --version       show version
 ")))
 
 (define (parse-options args)
@@ -66,9 +66,6 @@ Options:
     (show-version (current-error-port))
     files))
 
-;;(define (re-sub re sub string)
-;;  (let ((sub-string (if (string? sub) sub (sub re))))
-;;    (regexp-substitute/global #f re string 'pre sub-string 'post)))
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
@@ -120,7 +117,7 @@ Options:
     (if (not (= (length files) 1))
 	(begin
 	  (show-help (current-error-port))
-	  (exit 1)))
+	  (exit 2)))
     (set! %load-path (cons LILYPONDPREFIX %load-path))
     (primitive-eval '(use-modules (scm editor)))
     (let* ((uri (car files))
