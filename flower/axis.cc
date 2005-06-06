@@ -1,13 +1,10 @@
 /*
   axis.cc -- implement Axis
 
-
-
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "axes.hh"
-
 #include "string.hh"
 
 String
