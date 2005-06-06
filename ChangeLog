@@ -1,3 +1,19 @@
+2005-06-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/editor.scm (editor-command-template-alist): Add syn
+	editor (Jaap [de Vos]).
+
+2005-06-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-ps2png.scm:
+	* scm/ps-to-png.scm: New file.
+
+	* scm/backend-library.scm (postscript->png): Use it.
+
+	* scripts/lilypond-ps-to-png.py: Remove file.
+
+	* python/lilylib.py (get_bbox, make_ps_images): Remove.
+
 2005-06-03  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/auto-beam-engraver.cc (acknowledge_grob): remove dead code.
