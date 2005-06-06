@@ -12,8 +12,8 @@ extern "C" {
  
   typedef struct
   {
-    int (*read) (void *, char *, size_t);
-    int (*write) (void *, char const *, size_t);
+    ssize_t (*read) (void *, char *, size_t);
+    ssize_t (*write) (void *, char const *, size_t);
     int (*seek) (void *, off64_t *, int);
     int (*close) (void *);
   } lily_cookie_io_functions_t;
