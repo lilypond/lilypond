@@ -101,8 +101,11 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
     Perhaps should try to take SeparationItem as bound of the staff
     symbol?
    */
-  if (span_)
-    s.grob ()->set_property ("staff-symbol", span_->self_scm ());
+  if (span_  || finished_span_ )
+    {
+      Spanner *my = span_ ? span_ : finished_span_;
+      s.grob ()->set_property ("staff-symbol", my->self_scm ());
+    }
 }
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
