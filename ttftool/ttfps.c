@@ -8,16 +8,15 @@
 #include "types.h"
 #include "proto.h"
 
-#define ALIAS_FILE_TO_FILECOOKIE
-#include "libc-extension.hh"
-
+#include "file-cookie.hh"
+ 
 static void endianness_test (void);
 static void usage (char *);
 
 int verbosity = 0;
 
 void
-create_type42 (const char *infile, FILE * out)
+create_type42 (const char *infile, void *out)
 {
   int fd, i;
   struct OffsetTable ot;
@@ -118,7 +117,7 @@ create_type42 (const char *infile, FILE * out)
   if (verbosity >= 1)
     fprintf (stderr, "Generating PS file\n");
   printPSFont (out, ht, strings, nglyphs, postType, pt, gnt, fd);
-  fclose (out);
+  lily_cookie_fclose (out);
   if (verbosity >= 1)
     fprintf (stderr, "Done.\n");
   close (fd);

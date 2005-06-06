@@ -17,7 +17,7 @@
 */
 const int Memory_out_stream::block_size_ = 1024;
 
-cookie_io_functions_t
+lily_cookie_io_functions_t
 Memory_out_stream::functions_
 = {
   Memory_out_stream::reader,
@@ -40,7 +40,11 @@ Memory_out_stream::Memory_out_stream ()
   size_ = 0;
   buffer_ = 0;
   buffer_blocks_ = 0;
+  file_ = 0;
+
+#if 0
   file_ = fopencookie ((void *) this, "w", functions_);
+#endif
 }
 
 Memory_out_stream::~Memory_out_stream ()

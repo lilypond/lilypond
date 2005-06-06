@@ -111,7 +111,7 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
   
   
   Memory_out_stream stream;
-  create_type42 (file_name.to_str0 (), stream.get_file ());
+  create_type42 (file_name.to_str0 (), (void*) &stream);
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
 				       stream.get_length ());
 

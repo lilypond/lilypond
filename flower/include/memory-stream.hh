@@ -13,6 +13,7 @@
 #include <unistd.h>
 
 #include "libc-extension.hh"
+#include "file-cookie.hh"
 
 class Memory_out_stream
 {
@@ -21,7 +22,7 @@ class Memory_out_stream
   int buffer_blocks_;
   FILE *file_;
 
-  static cookie_io_functions_t functions_;
+  static lily_cookie_io_functions_t functions_;
   static const int block_size_;
 
 public:

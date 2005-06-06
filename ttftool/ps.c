@@ -24,7 +24,7 @@
 
 
 void
-printPSFont (FILE * out, struct HeadTable *ht,
+printPSFont (void *out, struct HeadTable *ht,
 	     char **strings, int nglyphs, int postType,
 	     struct PostTable *pt, struct GlyphName *gnt, int fd)
 {
@@ -34,55 +34,55 @@ printPSFont (FILE * out, struct HeadTable *ht,
 }
 
 void
-printPSHeader (FILE * out, struct HeadTable *ht,
+printPSHeader (void *out, struct HeadTable *ht,
 	       char **strings, struct PostTable *pt)
 {
-  fprintf (out, "%%!PS-TrueTypeFont\n");
+  lily_cookie_fprintf (out, "%%!PS-TrueTypeFont\n");
   if (pt->maxMemType42)
-    fprintf (out, "%%%%VMUsage: %ld %ld\n", pt->minMemType42,
+    lily_cookie_fprintf (out, "%%%%VMUsage: %ld %ld\n", pt->minMemType42,
 	     pt->maxMemType42);
-  fprintf (out, "%d dict begin\n", 11);
-  fprintf (out, "/FontName /%s def\n", strings[6] ? strings[6] : "Unknown");
-  fprintf (out, "/Encoding StandardEncoding def\n");
-  fprintf (out, "/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n");
-  fprintf (out, "/FontBBox [%ld %ld %ld %ld] def\n",
+  lily_cookie_fprintf (out, "%d dict begin\n", 11);
+  lily_cookie_fprintf (out, "/FontName /%s def\n", strings[6] ? strings[6] : "Unknown");
+  lily_cookie_fprintf (out, "/Encoding StandardEncoding def\n");
+  lily_cookie_fprintf (out, "/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n");
+  lily_cookie_fprintf (out, "/FontBBox [%ld %ld %ld %ld] def\n",
 	   ht->xMin * 1000L / ht->unitsPerEm,
 	   ht->yMin * 1000L / ht->unitsPerEm,
 	   ht->xMax * 1000L / ht->unitsPerEm,
 	   ht->yMax * 1000L / ht->unitsPerEm);
-  fprintf (out, "/FontType 42 def\n");
-  fprintf (out, "/FontInfo 8 dict dup begin\n");
-  fprintf (out, "/version (%d.%d) def\n",
+  lily_cookie_fprintf (out, "/FontType 42 def\n");
+  lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
+  lily_cookie_fprintf (out, "/version (%d.%d) def\n",
 	   ht->fontRevision.mantissa, ht->fontRevision.fraction);
   if (strings[0])
     {
-      fprintf (out, "/Notice (");
+      lily_cookie_fprintf (out, "/Notice (");
       fputpss (strings[0], out);
-      fprintf (out, ") def\n");
+      lily_cookie_fprintf (out, ") def\n");
     }
   if (strings[4])
     {
-      fprintf (out, "/FullName (");
+      lily_cookie_fprintf (out, "/FullName (");
       fputpss (strings[4], out);
-      fprintf (out, ") def\n");
+      lily_cookie_fprintf (out, ") def\n");
     }
   if (strings[1])
     {
-      fprintf (out, "/FamilyName (");
+      lily_cookie_fprintf (out, "/FamilyName (");
       fputpss (strings[1], out);
-      fprintf (out, ") def\n");
+      lily_cookie_fprintf (out, ") def\n");
     }
-  fprintf (out, "/isFixedPitch %s def\n",
+  lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
 	   pt->isFixedPitch ? "true" : "false");
-  fprintf (out, "/UnderlinePosition %ld def\n",
+  lily_cookie_fprintf (out, "/UnderlinePosition %ld def\n",
 	   pt->underlinePosition * 1000L / ht->unitsPerEm);
-  fprintf (out, "/UnderlineThickness %ld def\n",
+  lily_cookie_fprintf (out, "/UnderlineThickness %ld def\n",
 	   pt->underlineThickness * 1000L / ht->unitsPerEm);
-  fprintf (out, "end readonly def\n");
+  lily_cookie_fprintf (out, "end readonly def\n");
 }
 
 void
-printPSData (FILE * out, int fd)
+printPSData (void *out, int fd)
 {
   static char xdigits[] = "0123456789ABCDEF";
 
@@ -93,47 +93,47 @@ printPSData (FILE * out, int fd)
 
   buffer = mymalloc (CHUNKSIZE);
 
-  fprintf (out, "/sfnts [");
+  lily_cookie_fprintf (out, "/sfnts [");
   for (;;)
     {
       i = read (fd, buffer, CHUNKSIZE);
       if (i == 0)
 	break;
-      fprintf (out, "\n<");
+      lily_cookie_fprintf (out, "\n<");
       for (j = 0; j < i; j++)
 	{
 	  if (j != 0 && j % 36 == 0)
-	    putc ('\n', out);
-	  /* fprintf(out,"%02X",(int)buffer[j]) is too slow */
-	  putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
-	  putc (xdigits[buffer[j] & 0x0F], out);
+	    lily_cookie_putc ('\n', out);
+	  /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
+	  lily_cookie_putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
+	  lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
 	}
-      fprintf (out, "00>");	/* Adobe bug? */
+      lily_cookie_fprintf (out, "00>");	/* Adobe bug? */
       if (i < CHUNKSIZE)
 	break;
     }
-  fprintf (out, "\n] def\n");
+  lily_cookie_fprintf (out, "\n] def\n");
   free (buffer);
 }
 
 void
-printPSTrailer (FILE * out, int nglyphs, int postType, struct GlyphName *gnt)
+printPSTrailer (void *out, int nglyphs, int postType, struct GlyphName *gnt)
 {
   int i, n;
   char *name;
 
-  fprintf (out, "/CharStrings %d dict dup begin\n", nglyphs);
+  lily_cookie_fprintf (out, "/CharStrings %d dict dup begin\n", nglyphs);
   switch (postType)
     {
     case 2:
       for (n = i = 0; i < nglyphs; i++)
 	{
 	  if (n != 0 && n % 4 == 0)
-	    fprintf (out, "\n");
+	    lily_cookie_fprintf (out, "\n");
 	  name = NAMEOF (i);
 	  if (name)
 	    {
-	      fprintf (out, "/%s %d def ", name, i);
+	      lily_cookie_fprintf (out, "/%s %d def ", name, i);
 	      n++;
 	    }
 	}
@@ -147,12 +147,12 @@ printPSTrailer (FILE * out, int nglyphs, int postType, struct GlyphName *gnt)
 	}
       for (i = 0; i < 258 && i < nglyphs; i++)
 	{
-	  fprintf (out, "/%s %d def ", macGlyphEncoding[i], i);
+	  lily_cookie_fprintf (out, "/%s %d def ", macGlyphEncoding[i], i);
 	  if (i != 0 && i % 4 == 0)
-	    fprintf (out, "\n");
+	    lily_cookie_fprintf (out, "\n");
 	}
       break;
     }
-  fprintf (out, "end readonly def\n");
-  fprintf (out, "FontName currentdict end definefont pop\n");
+  lily_cookie_fprintf (out, "end readonly def\n");
+  lily_cookie_fprintf (out, "FontName currentdict end definefont pop\n");
 }
