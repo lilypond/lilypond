@@ -666,41 +666,36 @@
 	  (DarkCyan 0 0.54509803921568623 0.54509803921568623)
 	  (DarkMagenta 0.54509803921568623 0 0.54509803921568623)
 	  (DarkRed 0.54509803921568623 0 0)
-	  (LightGreen 0.56470588235294117 0.93333333333333335 0.56470588235294117))))
+	  (LightGreen 0.56470588235294117 0.93333333333333335 0.56470588235294117)
+
+	  )))
+
+    
     (lambda (arg)
       (let* 
-	  ((arg-sym 
-	    (if 
-	     (string? arg)
-	     (if 
-	      (string-index arg #\ )
-	      (begin
-		(string-capitalize! arg)
-		(let
-		    ((arg-list (string-split arg #\ )))
-		  (string->symbol 
-		   (let append-all ((x arg-list))
-		     (if 
-		      (null? x)
-		      ""
-		      (string-append (car x) (append-all (cdr x))))))))
-	      (string->symbol arg))
-	     arg))
+	  ((arg-sym (if (string? arg)
+			(if (string-index arg #\ )
+			    (let
+				((arg-list (string-split (string-capitalize arg) #\ )))
+
+			      (string->symbol 
+			       (let append-all ((x arg-list))
+				 (if (null? x)
+				     ""
+				     (string-append (car x) (append-all (cdr x)))))))
+			    
+			    (string->symbol arg))
+			arg))
+	   
 	   (temp (hashq-ref x11-color-table arg-sym)))
-	(if
-	 temp
-	 temp
-	 (let*
-	     ((temp-1	      
-	       (assq-ref
-		x11-color-list
-		arg-sym))
-	      (temp
-	       (if
-		temp-1
-		temp-1
-		'(0 0 0))))
-	   (hashq-create-handle! x11-color-table arg-sym temp)
-	   temp))))))
+	
+	(if temp
+	    temp
+	    (let*
+		((temp-1 (assq-ref x11-color-list arg-sym))
+		 (temp (if temp-1 temp-1 '(0 0 0))))
+	      
+	      (hashq-create-handle! x11-color-table arg-sym temp)
+	      temp))))))
 
 (define-public x11-color (make-x11-color-handler))
