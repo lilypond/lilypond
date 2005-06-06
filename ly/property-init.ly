@@ -51,6 +51,7 @@ setEasyHeads = \sequential {
   \override NoteHead #'print-function = #Note_head::brew_ez_stencil
   \override NoteHead #'font-size = #-7
   \override NoteHead #'font-family = #'sans
+  \override NoteHead #'font-series = #'bold
 }
 
 aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
