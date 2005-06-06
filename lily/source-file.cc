@@ -234,6 +234,10 @@ Source_file::get_column (char const *pos_str0) const
   while (left > 0)
     {
       wchar_t multibyte[2];
+
+      /*
+	FIXME, this is apparently locale dependent.
+      */
       size_t thislen = mbrtowc (multibyte, line_chars, left, &state);
       
       /* Stop converting at invalid character;
@@ -241,6 +245,7 @@ Source_file::get_column (char const *pos_str0) const
 	 of a valid character.  */
       if (thislen == (size_t) -1)
 	break;
+      
       /* We want to handle embedded NUL bytes
 	 but the return value is 0.  Correct this.  */
       if (thislen == 0)

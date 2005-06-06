@@ -297,6 +297,8 @@ contained staves are not connected vertically."
   systemStartDelimiter = #'SystemStartBracket
 
   \consists "System_start_delimiter_engraver"
+
+  \defaultchild "Staff"
   \accepts "Staff"
   \accepts "RhythmicStaff"
   \accepts "DrumStaff"
