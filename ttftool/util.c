@@ -84,14 +84,14 @@ unistrncpy (char *dst, char *str, size_t length)
 }
 
 void
-fputpss (char *s, FILE * stream)
+fputpss (char *s, void *stream)
 {
   while (*s)
     {
       if ((*s & 0200) == 0 && *s >= 040 && *s != '(' && *s != ')')
-	putc (*s, stream);
+ 	lily_cookie_putc (*s, stream);
       else
-	fprintf (stream, "\\%03o", (unsigned char) *s);
+	lily_cookie_fprintf (stream, "\\%03o", (unsigned char) *s);
       s++;
     }
 }

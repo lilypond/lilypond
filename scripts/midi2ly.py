@@ -11,7 +11,6 @@
 '''
 TODO:
    * test on weird and unquantised midi input (lily-devel)
-   * drop c++ midi2ly
    * update doc and manpage
 
    * simply insert clef changes whenever too many ledger lines

@@ -4,7 +4,7 @@ extern "C"
 #endif
 
 
-  void create_type42 (char const *, FILE *);
+  void create_type42 (char const *, void *);
 
 #ifdef __cplusplus
 }

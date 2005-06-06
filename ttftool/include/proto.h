@@ -14,15 +14,16 @@ longHorMetric *readHmtxTable (int fd, int nummetrics);
 struct HheaTable *readHheaTable (int fd);
 int readKernTable (int fd, int **nke, struct KernEntry0 ***ke);
 
-void printPSFont (FILE * out, struct HeadTable *ht,
+void printPSFont (void * out, struct HeadTable *ht,
 		  char **strings, int nglyphs, int postType,
 		  struct PostTable *pt, struct GlyphName *gnt, int fd);
 
-void printPSHeader (FILE * out, struct HeadTable *ht,
+void printPSHeader (void * out, struct HeadTable *ht,
 		    char **strings, struct PostTable *pt);
-void printPSData (FILE * out, int fd);
-void printPSTrailer (FILE * out, int nglyphs,
+void printPSData (void * out, int fd);
+void printPSTrailer (void * out, int nglyphs,
 		     int postType, struct GlyphName *gnt);
+
 void printAFM (FILE * afm, struct HeadTable *ht,
 	       char **strings, int nglyphs, int postType,
 	       struct PostTable *pt, struct GlyphName *gnt,
@@ -53,7 +54,7 @@ void error (char *string);
 void syserror (char *string);
 ssize_t surely_read (int fildes, void *buf, size_t nbyte);
 char *unistrncpy (char *dst, char *str, size_t length);
-void fputpss (char *s, FILE * stream);
+void fputpss (char *s, void * stream);
 off_t surely_lseek (int fildes, off_t offset, int whence);
 unsigned hash (char *string);
 struct hashtable *make_hashtable (int size);
