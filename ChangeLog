@@ -1,5 +1,10 @@
 2005-06-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/ps-to-png.scm (gulp-port): rename from read. Don't redefine
+	system primitives.
+	(gulp-port): using read-string!/partial. We don't want to read an
+	entire PS file  (GUILE 1.6 limits strings to 16M) 
+
 	* scm/define-grobs.scm (all-grob-descriptions): remove arch-*
 	properties. Add font-interface. 
 

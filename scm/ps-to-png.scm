@@ -9,7 +9,7 @@
 (use-modules
  (ice-9 optargs)
  (ice-9 regex)
- (ice-9 rdelim)
+ (ice-9 rw)
  (srfi srfi-1))
 
 ;; gettext wrapper for guile < 1.7.2
@@ -20,9 +20,12 @@
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
-(define (read port)
-  (let ((s (read-delimited "" port)))
-    (if (eof-object? s) "" s)))
+(define (gulp-port port how-much)
+  (let*
+      ((str (make-string how-much)))
+
+    (read-string!/partial str port)
+    str))
 
 (define (dir-listing dir-name)
   (define (dir-helper dir lst)
@@ -48,7 +51,7 @@
  -c quit 2>~S"
 			  file-name bbox))
 	 (status (system cmd))
-	 (s (read (open-file bbox "r")))
+	 (s (gulp-port (open-file bbox "r") 10240))
 	 (m (string-match BOUNDING_BOX_RE s)))
     (display m)
     (newline)
@@ -64,7 +67,7 @@
 	 (rename-page-1? #f)
 	 (verbose? #f))
    (let* ((base (basename (re-sub "\.e?ps" "" ps-name)))
-	  (header (read (open-file ps-name "r")))
+	  (header (gulp-port (open-file ps-name "r") 10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
 	  (pngn-re (re-sub "%d" "[0-9]*" pngn))
