@@ -24,7 +24,6 @@
 	    blank
 	    circle
 	    dot
-	    white-dot
 	    beam
 	    dashed-slur
 	    named-glyph
@@ -37,7 +36,6 @@
 	    filledbox
 	    round-filled-box
 	    text
-	    white-text
 	    setcolor
 	    resetcolor
 	    polygon
@@ -81,9 +79,6 @@
 
 (define (embedded-ps string)
   (embedded-ps (list 'embedded-ps string)))
-
-(define (white-dot x y radius)
-  (embedded-ps (list 'white-dot x y radius)))
 
 (define (beam width slope thick blot)
   (embedded-ps (list 'beam  width slope thick blot)))
@@ -153,9 +148,6 @@
   (format
    "\\hbox{\\~a{}~a}" (tex-font-command font)
    (sanitize-tex-string s)))
-
-(define (white-text scale s)
-  (embedded-ps (list 'white-text scale s)))
 
 (define (setcolor r g b)
   (string-append "\\color[rgb]{"
