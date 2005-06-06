@@ -58,16 +58,6 @@ with magnification @varr{mag} of the string @var{text}."
                    (prepend-alist-chain  'font-family 'sans props))))
         (interpret-markup layout my-props text)))
 
-(define (sans-serif-stencil-white layout props mag text)
-"create a stencil with white text in sans-serif font based on
-@var{layout} and @var{props} with magnification @varr{mag} of the
-string @var{text}."
-  (let* ((text-stencil (sans-serif-stencil layout props mag text))
-         (x-extent  (ly:stencil-extent text-stencil X))
-         (y-extent  (ly:stencil-extent text-stencil Y))
-         (c  `(white-text ,(* 2 mag) ,text))) ;urg -- workaround for using ps font
-    (ly:make-stencil c  x-extent y-extent)))  ;urg -- extent is not from ps font, but we hope it's close
-
 
 (define (draw-strings string-count fret-range th size)
 "Draw the strings (vertical lines) for a fret diagram with
@@ -140,18 +130,20 @@ Line thickness is given by @var{th}, fret & string spacing by
                  (- size th) 0))) 
                  
 
-(define (draw-dots layout props string-count fret-range size finger-code dot-position dot-radius dot-list)
+(define (draw-dots layout props string-count fret-range size finger-code 
+                    dot-position dot-radius dot-thickness dot-list)
   "Make dots for fret diagram."
   (let* ((scale-dot-radius (* size dot-radius))
+         (scale-dot-thick (* size dot-thickness))
          (dot-color (chain-assoc-get 'dot-color props 'black))
 ;         (finger-xoffset (chain-assoc-get 'finger-xoffset props -0.25))
 ;         (finger-yoffset (chain-assoc-get 'finger-yoffset props (- size)))
          (finger-xoffset -0.25)
-         (finger-yoffset (- size))
+         (finger-yoffset (- (* size 0.5)))
 ;         (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.0)))
          (dot-label-font-mag scale-dot-radius)
 ;         (string-label-font-mag (* size (chain-assoc-get 'label-font-mag props 0.7)))
-         (string-label-font-mag (* size 0.7))
+         (string-label-font-mag (* size 0.6))
          (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
          (mypair (car dot-list))
          (restlist (cdr dot-list))
@@ -163,46 +155,51 @@ Line thickness is given by @var{th}, fret & string spacing by
          (finger (caddr mypair))
          (finger (if (number? finger) (number->string finger) finger))
          (dotstencil  (if (eq? dot-color 'white)
-                          (begin
-                          (ly:make-stencil (list 'white-dot 0 0 scale-dot-radius) extent extent))
-                          (ly:make-stencil (list 'dot 0 0 scale-dot-radius ) extent extent)))
-         (positioned-dot (ly:stencil-translate-axis
-                           (ly:stencil-translate-axis dotstencil xpos X)
-                           ypos Y))
+                          (ly:stencil-add 
+                              (make-circle-stencil scale-dot-radius scale-dot-thick #t)
+                              (ly:stencil-in-color
+                                    (make-circle-stencil 
+                                        (- scale-dot-radius (* 0.5 scale-dot-thick)) 0  #t)
+                                    1 1 1))
+                          (make-circle-stencil scale-dot-radius scale-dot-thick #t))) 
+         (positioned-dot (begin
+                           ;(display dotstencil)
+                           (ly:stencil-translate-axis
+                             (ly:stencil-translate-axis dotstencil xpos X)
+                           ypos Y)))
+
          (labeled-dot-stencil 
                  (if (or (eq? finger '())(eq? finger-code 'none))
                      positioned-dot
-                 (if (eq? finger-code 'in-dot)
-                    (let*  ((dot-proc (if (eq? dot-color 'white) 'white-dot 'dot)))
-                     (ly:stencil-add 
-                        (ly:stencil-translate-axis 
-                          (ly:stencil-translate-axis 
-                              (if (eq? dot-color 'white)
-                              (centered-stencil (sans-serif-stencil layout props dot-label-font-mag finger))
-                              (centered-stencil (sans-serif-stencil-white layout props 
-                                                 dot-label-font-mag  finger)))
+                     (if (eq? finger-code 'in-dot)
+                         (let*  ((finger-label (centered-stencil 
+                                           (sans-serif-stencil layout props
+                                                  dot-label-font-mag finger))))
+                         (ly:stencil-translate-axis 
+                            (ly:stencil-translate-axis 
+			      (ly:stencil-add 
+                                dotstencil
+                                (if (eq? dot-color 'white)
+                                     finger-label
+                                     (ly:stencil-in-color finger-label 1 1 1))) 
                                xpos X)
-                              ypos Y)
-                        (ly:stencil-translate-axis
-                           (ly:stencil-translate-axis 
-                              (ly:make-stencil (list dot-proc 0 0 scale-dot-radius) extent extent)
-                               xpos X)
-                           ypos Y)))
+                              ypos Y))
                  (if (eq? finger-code 'below-string) 
                      (ly:stencil-add 
                          positioned-dot
                          (ly:stencil-translate-axis 
                              (ly:stencil-translate-axis 
                                  (centered-stencil (sans-serif-stencil layout props 
-                                                        string-label-font-mag finger)) xpos  X)
-                             (* size finger-yoffset) Y))
+                                                        string-label-font-mag finger))
+                              xpos  X)
+                          (* size finger-yoffset) Y))
                      ;unknown finger-code
                      positioned-dot)))))
     (if (null? restlist) 
         labeled-dot-stencil
         (ly:stencil-add 
             (draw-dots layout props string-count fret-range size finger-code 
-                          dot-position dot-radius restlist)
+                          dot-position dot-radius dot-thickness restlist)
             labeled-dot-stencil))))
 
 (define (draw-xo layout props string-count fret-range size xo-list) 
@@ -270,7 +267,6 @@ Line thickness is given by @var{th}, fret & string spacing by
                  (draw-barre layout props string-count fret-range size finger-code 
                       dot-position dot-radius (cdr barre-list)))
             barre-stencil ))))
-
   
 (define (stepmag mag)
 "Calculate the font step necessary to get a desired magnification"
@@ -280,7 +276,7 @@ Line thickness is given by @var{th}, fret & string spacing by
    "Label the base fret on a fret diagram"
    (let* ((base-fret (car fret-range))
 ;          (label-font-mag (chain-assoc-get 'label-font-mag props 0.7))
-          (label-font-mag 0.7)
+          (label-font-mag 0.5)
 ;          (label-vertical-offset (chain-assoc-get 'fret-label-vertical-offset props -0.2))
           (label-vertical-offset -0.2)
 	  (number-type (chain-assoc-get 'number-type props 'roman-lower))
@@ -356,8 +352,8 @@ indications per string.
                 
          (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here
 ;         (xo-padding (* th (chain-assoc-get 'padding props 2))) ; needed only here
-         (label-space 0.25)
-         (xo-padding (* th 2))
+         (label-space (* 0.25 size))
+         (xo-padding (* th size 5))
          (label-dir (chain-assoc-get 'label-dir props RIGHT))
          (parameters (fret-parse-marking-list marking-list fret-count))
          (dot-list (cdr (assoc 'dot-list parameters)))
@@ -374,9 +370,9 @@ indications per string.
                                     fret-diagram-stencil)))
          (if (not (null? dot-list))
              (set! fret-diagram-stencil (ly:stencil-add
+                                    fret-diagram-stencil
                                     (draw-dots layout props string-count fret-range size finger-code 
-                                          dot-position dot-radius dot-list)
-                                    fret-diagram-stencil)))
+                                          dot-position dot-radius th dot-list))))
          (if (not (null? xo-list))
              (set! fret-diagram-stencil (ly:stencil-combine-at-edge
                                     fret-diagram-stencil Y UP

@@ -21,7 +21,6 @@
 	    blank
 	    circle
 	    dot
-	    white-dot
 	    beam
 	    dashed-slur
 	    char
@@ -38,7 +37,6 @@
 	    filledbox
 	    round-filled-box
 	    text
-	    white-text
 	    polygon
 	    draw-line
 	    no-origin))
@@ -303,21 +301,6 @@
   (ly:warning (_ "utf8-string encountered in PS backend")))
 
 
-;; TODO: FIX THIS.
-;;
-(define (white-dot x y radius)
-  (string-append
-   " "
-   (ly:numbers->string
-    (list x y radius)) " draw_white_dot"))
-
-(define (white-text scale s)
-  (let ((mystring (string-append
-		   "(" s  ") " (number->string scale)
-		   " /Helvetica-Bold "
-		   " draw_white_text")))
-    mystring
-    ))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (string-append
