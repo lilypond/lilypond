@@ -144,6 +144,7 @@
 (define (fontify font expr)
   (entity 'text expr
 	  `(style . ,(svg-font font))
+	  '(fill . "currentColor")
 	  ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -212,8 +213,8 @@
 	    '(stroke-linejoin . "round")
 	    '(stroke-linecap . "round")
 	    `(stroke-width . ,blot-diameter)
-	    '(stroke . "black")
-	    '(fill . "black")
+	    '(stroke . "currentColor")
+	    '(fill . "currentColor")
 	    `(points . ,(string-join
 			 (map offset->point
 			      (list (cons (/ b 2) (/ t 2))
@@ -231,8 +232,8 @@
 	    '(stroke-linejoin . "round")
 	    '(stroke-linecap . "round")
 	    `(stroke-width . ,blot-diameter)
-	    '(stroke . "black")
-	    '(fill . "black")
+	    '(stroke . "currentColor")
+	    '(fill . "currentColor")
 	    `(d . ,(format #f "M ~S,~S l ~S,~S l ~S,~S l ~S,~S l ~S,~S"
 			   (/ b 2) (/ t 2)
 			   w (- h)
@@ -249,8 +250,8 @@
 	    '(stroke-linejoin . "round")
 	    '(stroke-linecap . "round")
 	    `(stroke-width . ,thick)
-	    '(stroke . "black")
-	    '(fill . "black")
+	    '(stroke . "currentColor")
+	    '(fill . "currentColor")
 	    `(d . ,(string-append (svg-bezier first #f)
 				  (svg-bezier second first-c0)))
 	    )))
@@ -269,7 +270,7 @@
 	  `((stroke-linejoin . "round")
 	    (stroke-linecap . "round")
 	    (stroke-width . ,thick)
-	    (stroke . "black")
+	    (stroke . "currentColor")
 	    (x1 . ,x1)
 	    (y1 . ,(- y1))
 	    (x2 . ,x2)
@@ -302,8 +303,8 @@
    '(stroke-linejoin . "round")
    '(stroke-linecap . "round")
    `(stroke-width . ,blot-diameter)
-   `(fill . ,(if is-filled "black" "none"))
-   '(stroke . "black")
+   `(fill . ,(if is-filled "currentColor" "none"))
+   '(stroke . "currentColor")
    `(points . ,(string-join
 		(map offset->point (ly:list->offsets '() coords))))
    ))
@@ -330,8 +331,8 @@
    'circle ""
    '(stroke-linejoin . "round")
    '(stroke-linecap . "round")
-   `(fill . ,(if is-filled "black" "none"))
-   `(stroke . "black")
+   `(fill . ,(if is-filled "currentColor" "none"))
+   `(stroke . "currentColor")
    `(stroke-width . ,thick)
    `(r . ,radius)))
 
@@ -341,3 +342,12 @@
 (define (utf8-string pango-font-description string)
   (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
 
+
+
+(define (setcolor r g b)
+  (format "<g color=\"rgb(~a%,~a%,~a%)\">"
+	  (* 100 r) (* 100 g) (* 100 b)
+	  ))
+
+(define (resetcolor)
+  "</g>")

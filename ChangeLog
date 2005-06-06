@@ -1,17 +1,21 @@
+2005-06-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-svg.scm (setcolor): implement (re)setcolor with <g>
+	change black to currentColor everywhere. This fixes color support
+	in SVG.
 
 2005-06-06  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* input/regression/fret-diagrams.ly: new file to test fret diagram
-	      capability
+	capability
 
 	* scm/output-tex.scm: remove white-dot and white-text
 
 	* scm/output-ps.scm: remove white-dot and white-text
 
 	* scm/fret-diagrams.scm (sans-serif-stencil-white): removed -- 
-	     using ly:stencil-in-color instead
-	                        (draw-dots) : remove call to white-dot
+	using ly:stencil-in-color instead
+	(draw-dots) : remove call to white-dot
 
 2005-06-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
