@@ -29,6 +29,10 @@ OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
+
+TEXINPUTS=$(topdir)/tex::
+export TEXINPUTS
+
 include $(depth)/make/stepmake.make 
 
 dvi: $(DVI_FILES)
