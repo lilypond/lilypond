@@ -1,3 +1,8 @@
+2005-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/ps-to-png.scm (make-ps-images): Bugfix: `Pages: 1\n' is not
+	multi-page.  Fix .eps regular expression.
+
 2005-06-07  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/putting.itely: add info on modifying templates.
@@ -10,6 +15,12 @@
 	* VERSION (PACKAGE_NAME): release 2.5.28
 
 2005-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/main.cc (prepend_env_path): Do not append /, that does not
+	work.  Localedir lives in datadir, not in prefix.
+
+	* scm/framework-ps.scm (write-preamble): Remove load-font-via-GS
+	hack for windows.
 
 	* flower/include/file-cookie.hh: Compile fix.
 

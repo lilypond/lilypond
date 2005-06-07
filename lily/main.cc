@@ -284,7 +284,7 @@ prepend_env_path (char const *key, String value)
 {
   if (char const* cur = getenv (key))
     value += to_string (PATHSEP) + cur;
-  if (is_dir (value + "/"))
+  if (is_dir (value))
     return sane_putenv (key, value.to_str0 ());
   else if (be_verbose_global)
     warning (_f ("no such directory: %s", value));
@@ -324,7 +324,7 @@ setup_paths (char const* argv0)
 		     prefix_directory));
       String datadir = argv0_prefix + "/share";
       String libdir = argv0_prefix + "/lib";
-      String localedir = argv0_prefix + "/locale";
+      String localedir = datadir + "/locale";
       String sysconfdir = argv0_prefix + "/etc";
       String argv0_lilypond_datadir = datadir + "/lilypond/" TOPLEVEL_VERSION;
 

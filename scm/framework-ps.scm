@@ -318,9 +318,7 @@
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 	   ;; ttftool/fopencookie is broken on Windows,
 	   ;; possibly a stack corruption bug.
-	   (pfas (map (if
-		       (eq? PLATFORM 'windows) load-font-via-GS load-font)
-		      font-names)))
+	   (pfas (map load-font font-names)))
       pfas))
 
   (if load-fonts?
