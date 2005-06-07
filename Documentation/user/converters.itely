@@ -262,10 +262,10 @@ These tools include
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an Emacs major mode.
 @item
 @uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, which imports
-@uref{http://@/www@/.musicxml@/.com/,MusicXML}
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/rnvs@/.informatik@/.tu@/-chemnitz@/.de/@/~jan/@/noteedit/@/noteedit@/.html,NoteEdit}
-which imports MusicXML
+which imports @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/www@/.all@/-day@/-breakfast@/.com/@/rosegarden/,Rosegarden},
 which imports MIDI

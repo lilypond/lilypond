@@ -427,6 +427,10 @@ convert-ly -e myfile.ly
 If there are no changes to myfile.ly and file called myfile.ly.NEW
 is created, then myfile.ly is already updated.
 
+@command{convert-ly} always converts up to the last syntax change handled by
+it.  This means that the @code{\version} number left in the file is
+usually lower than the version of @command{convert-ly} itself.
+
 To upgrade LilyPond fragments in texinfo files, use
 
 @example
@@ -476,9 +480,6 @@ available version.
 Print usage help.
 @end table
 
-@command{convert-ly} always converts up to the last syntax change handled by
-it.  This means that the @code{\version} number left in the file is
-usually lower than the version of @command{convert-ly} itself.
 
 @refbugs
 

@@ -1,3 +1,10 @@
+2005-06-07  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/putting.itely: add info on modifying templates.
+
+	* Documentation/user/lilypond.itely, converters.itely, invoking.itely:
+	misc small changes.
+
 2005-06-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.5.28
