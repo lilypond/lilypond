@@ -68,13 +68,11 @@ is_file (String file_name)
   return !S_ISDIR (sbuf.st_mode);
 #endif
 
-
   if (FILE *f = fopen (file_name.to_str0 (), "r"))
     {
       fclose (f);
       return true;
     }
-
   
   return false;
 }

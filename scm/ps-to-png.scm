@@ -20,10 +20,8 @@
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
-(define (gulp-port port how-much)
-  (let*
-      ((str (make-string how-much)))
-
+(define (gulp-port port max-length)
+  (let ((str (make-string max-length)))
     (read-string!/partial str port)
     str))
 
@@ -66,12 +64,13 @@
 	 (paper-size "a4")
 	 (rename-page-1? #f)
 	 (verbose? #f))
-   (let* ((base (basename (re-sub "\.e?ps" "" ps-name)))
+   (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
 	  (header (gulp-port (open-file ps-name "r") 10240))
 	  (png1 (string-append base ".png"))
 	  (pngn (string-append base "-page%d.png"))
 	  (pngn-re (re-sub "%d" "[0-9]*" pngn))
-	  (multi-page? (string-match "\n%%Pages: " header))
+	  (multi-page? (and (string-match "\n%%Pages: " header)
+			    (not (string-match "\n%%Pages: 1\n" header))))
 	  (output-file (if multi-page? pngn png1))
 	  ;;png16m is because Lily produces color nowadays.
 	  (cmd (format #f (if multi-page?
