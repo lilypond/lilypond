@@ -86,6 +86,8 @@
 ;; Mingw
 ;; #(Windows XP HOSTNAME build 2600 5.01 Service Pack 1 i686)
 ;;
+
+;; ugh, code dup.
 (define-public PLATFORM
   (string->symbol
    (string-downcase

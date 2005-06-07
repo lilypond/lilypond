@@ -1,5 +1,10 @@
 2005-06-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ttftool/parse.c (readNamingTable): handle Apple/8bit encoding too.
+
+	* scm/framework-ps.scm (font-file-as-ps-string): new function.
+	(handle-macfont): new function. Call fondu for Native mac fonts.
+
 	* scm/define-markup-commands.scm (fill-line): handle text-widths =
 	'() case.
 
