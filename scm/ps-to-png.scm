@@ -72,10 +72,10 @@
 	  (multi-page? (and (string-match "\n%%Pages: " header)
 			    (not (string-match "\n%%Pages: 1\n" header))))
 	  (output-file (if multi-page? pngn png1))
+
 	  ;;png16m is because Lily produces color nowadays.
-	  (cmd (format #f (if multi-page?
-			      "gs\
- -dEPSCrop\
+	  (cmd (if multi-page?
+		   (format #f "gs\
  -dGraphicsAlphaBits=4\
  -dNOPAUSE\
  -dTextAlphaBits=4\
@@ -86,20 +86,19 @@
  -r~S\
  '~a'\
  -c showpage\
- -c quit"
-			      "gs\
+ -c quit" output-file paper-size resolution ps-name)
+		   (format #f "gs\
  -s\
  -dGraphicsAlphaBits=4\
+ -dEPSCrop\
  -dNOPAUSE\
  -dTextAlphaBits=4\
  -sDEVICE=png16m\
  -sOutputFile='~a'\
- -sPAPERSIZE=~a\
  -q\
  -r~S\
  '~a'\
- -c quit")
-		       output-file paper-size resolution ps-name))
+ -c quit" output-file resolution ps-name)))
 	  (foo (for-each delete-file (append (dir-re "." png1)
 					     (dir-re "." pngn-re))))
 	  (bar (if verbose?
