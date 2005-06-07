@@ -13,6 +13,8 @@
 Current version of the manual: 2.5.18
 Please update this whenever you run convert-ly on the docs.
 
+convert-ly --from=... --to=... --no-version *.itely
+ 
 %%%%%
 
 Distributions will want to install lilypond.info in postinstall, doing:
@@ -78,6 +80,10 @@ HINTS FOR STYLE
     blabla blabla, i.e., blabla blabla
 
 * Avoid fluff (``Notice that,'' ``as you can see,'' ``Currently,'').
+
+* The above three suggestions refer to the formal Notation Manual
+  (chapters 5 and up).  In the Tutorial, Example templates, and
+  Putting it all together, you may write more colloquially
 
 * The use of the word `illegal' is inappropriate in most cases.  Say
   `invalid' instead.
