@@ -12,6 +12,10 @@
 
 2005-06-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/ps-to-png.scm (make-ps-images): no paper size for multi-page.
+
+	* scripts/lilypond-ps2png.scm
+
 	* VERSION (PACKAGE_NAME): release 2.5.28
 
 2005-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>

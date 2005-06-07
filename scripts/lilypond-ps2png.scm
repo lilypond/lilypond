@@ -98,7 +98,7 @@ Options:
      (lambda
       (x)
       (let ((png-files
-	     (make-ps-images x paper-size resolution rename-page-1 verbose?)))
+	     (make-ps-images x resolution paper-size rename-page-1 verbose?)))
 	(format (current-error-port) (_ "Wrote `~a'") (string-join png-files))
 	(newline (current-error-port))))
      files)))
