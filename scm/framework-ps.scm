@@ -254,6 +254,68 @@
 	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	  "")))))
 
+  ;; ugh.  posix /windows/mingw? 
+  (define (path-join a b)
+    (if (equal? a "")
+	b
+	(string-append a "/" b)))
+    
+  (define (dir-listing dir-name)
+    (define (dir-helper dir lst)
+      (let ((e (readdir dir)))
+	(if (eof-object? e) lst (dir-helper dir (cons e lst)))))
+    (reverse (dir-helper (opendir dir-name) '())))
+      
+  (define (handle-mac-font name filename)
+    (let*
+	((dir-name  (tmpnam))
+	 (files '())
+	 (status 0)
+	 (embed ""))
+
+
+      (display (list filename name))
+      (mkdir dir-name #o700)
+
+      (set! status (system
+		    (format "cd ~a && fondu -force ~a" dir-name filename)))
+
+      (if (!= status 0)
+	  (ly:error "Fondu failed."))
+      
+      (set! files (dir-listing dir-name))
+
+      (for-each
+       (lambda (f)
+	 (if (string-match (string-append name "\\.") f)
+	     (set! embed
+		   (font-file-as-ps-string name (path-join dir-name f))))
+	     
+	 (if (or (equal? "." f) 
+		 (equal? ".." f))
+	     #t
+	     (delete-file (path-join dir-name f))))
+       files)
+      (rmdir dir-name)
+      embed))
+
+    (define (font-file-as-ps-string name file-name)
+      (cond
+       ((and file-name (string-match "\\.pfa" file-name))
+	(cached-file-contents file-name))
+       ((and file-name (string-match "\\.pfb" file-name))
+	(ly:pfb->pfa file-name))
+       ((and file-name (string-match "\\.ttf" file-name))
+	(ly:ttf->pfa file-name))
+       ((and file-name (string-match "\\.otf" file-name))
+	(ps-embed-cff (ly:otf->cff file-name) name 0))
+       ((and file-name (string-match "\\.ttf" file-name))
+	(ly:ttf->pfa file-name))
+       (else
+	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	"")
+       ))
+      
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -264,30 +326,29 @@
       (cons
        (munge-lily-font-name name)
        (cond
-	((and bare-file-name (string-match "\\.pfa" bare-file-name))
-	 (cached-file-contents bare-file-name))
-	((and bare-file-name (string-match "\\.pfb" bare-file-name))
-	 (ly:pfb->pfa bare-file-name))
-	((and bare-file-name (string-match "\\.ttf" bare-file-name))
-	 (ly:ttf->pfa bare-file-name))
-
 	((string-match "([eE]mmentaler|[Aa]ybabtu)" file-name)
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
-
-	((and bare-file-name (string-match "\\.otf" bare-file-name))
-	 (ps-embed-cff (ly:otf->cff bare-file-name) name 0))
-
-	((and bare-file-name (string-match "\\.ttf" bare-file-name))
-	 (ly:ttf->pfa bare-file-name))
+	((and
+;	  (eq? PLATFORM 'darwin)
+	  bare-file-name (string-match "\\.dfont" bare-file-name))
+	 (handle-mac-font name bare-file-name))
+	
+	((and
+;	  (eq? PLATFORM 'darwin)
+	  bare-file-name (= (stat:size (stat bare-file-name)) 0))
+	 (handle-mac-font name bare-file-name))
 
 	((and font (cff-font? font))
 	 (ps-embed-cff (ly:otf-font-table-data font "CFF ")
 		       name
 		       0))
+
+	(bare-file-name (font-file-as-ps-string name bare-file-name))
 	(else
-	 (ly:warning (_ "don't know how to embed ~S=~S") name file-name)
-	  "")))))
+	 (ly:warning (_ "don't know how to embed font ~s ~s ~s")
+		     name file-name font))))))
+	
 
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))

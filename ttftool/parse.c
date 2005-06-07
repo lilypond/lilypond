@@ -67,10 +67,11 @@ readNamingTable (int fd)
 
   for (i = 0; i < nrecords; i++)
     {
-      if (records[i].platformID == 3 &&	/* Microsoft */
+      if
+	((records[i].platformID == 3 &&	/* Microsoft */
 	  records[i].encodingID == 1 &&	/* UGL */
 	  records[i].languageID == 0x0409 &&	/* US English */
-	  records[i].nameID <= 7)
+	  records[i].nameID <= 7))
 	{
 	  strings[records[i].nameID] = mymalloc (records[i].length / 2 + 1);
 	  unistrncpy (strings[records[i].nameID],
@@ -80,6 +81,27 @@ readNamingTable (int fd)
 		     strings[records[i].nameID]);
 	}
     }
+
+
+  for (i = 0; i < nrecords; i++)
+    {
+      int id = records[i].nameID;
+      if (records[i].platformID == 1 &&	/* Apple */
+	  records[i].encodingID == 0 &&	/* 8bit */
+	  id <= 7 &&
+	  !strings[id]
+	 )
+	{
+	  strings[id] = mymalloc (records[i].length + 1);
+	  strncpy (strings[id],
+		   data + records[i].offset, records[i].length);
+	  strings[id][records[i].length] = 0;
+	  if (verbosity >= 2)
+	    fprintf (stderr, "%d: %s\n", records[i].nameID,
+		     strings[records[i].nameID]);
+	}
+    }
+
   free (records);
   free (data);
   return strings;
