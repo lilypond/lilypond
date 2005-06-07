@@ -8,7 +8,7 @@
   Revised over good by Han-Wen.
 */
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "text-spanner.hh"
 #include "line-spanner.hh"
 #include "spanner.hh"

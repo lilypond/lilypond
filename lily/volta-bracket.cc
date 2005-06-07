@@ -13,7 +13,7 @@
 #include "line-interface.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "volta-bracket.hh"
 #include "group-interface.hh"
 #include "side-position-interface.hh"

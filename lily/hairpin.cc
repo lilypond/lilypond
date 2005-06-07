@@ -17,7 +17,7 @@
 #include "warn.hh"
 #include "paper-column.hh"
 #include "lookup.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 
 
 MAKE_SCHEME_CALLBACK(Hairpin,after_line_breaking,1);

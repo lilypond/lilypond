@@ -6,7 +6,7 @@
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "grob.hh"
 #include "line-interface.hh"
 #include "lookup.hh"

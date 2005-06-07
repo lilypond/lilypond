@@ -13,7 +13,7 @@
 #include "paper-column.hh"
 #include "system.hh"
 #include "staff-symbol-referencer.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 
 MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking, 1);
 SCM

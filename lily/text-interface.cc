@@ -1,5 +1,5 @@
 /*
-  text-item.cc -- implement Text_interface
+  text-interface.cc -- implement Text_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,7 +7,7 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "text-item.hh"
+#include "text-interface.hh"
 
 #include <math.h>
 

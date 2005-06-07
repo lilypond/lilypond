@@ -18,7 +18,7 @@
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "direction.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "font-interface.hh"
 
 /*

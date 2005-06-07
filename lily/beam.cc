@@ -42,7 +42,7 @@
 #include "warn.hh"
 
 #if DEBUG_QUANTING
-#include "text-item.hh" // debug output.
+#include "text-interface.hh" // debug output.
 #include "font-interface.hh" // debug output.
 #endif
 

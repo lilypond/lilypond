@@ -11,7 +11,7 @@
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 
 /**
    typeset directions that are  plain text.

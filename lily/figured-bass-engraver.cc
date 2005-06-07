@@ -7,7 +7,7 @@
 */
 
 #include "engraver.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "item.hh"
 #include "context.hh"
 

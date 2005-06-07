@@ -13,7 +13,7 @@
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 
 class Instrument_name_engraver : public Engraver
 {

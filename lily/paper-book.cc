@@ -12,7 +12,7 @@
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"

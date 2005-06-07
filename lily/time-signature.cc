@@ -8,7 +8,7 @@
 
 #include "time-signature.hh"
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
 #include "warn.hh"

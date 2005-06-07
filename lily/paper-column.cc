@@ -13,7 +13,7 @@
 #include "warn.hh"
 #include "axis-group-interface.hh"
 #include "spaceable-grob.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 #include "output-def.hh"

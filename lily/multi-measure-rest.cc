@@ -16,7 +16,7 @@
 #include "misc.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "percent-repeat-item.hh"
 #include "lookup.hh"
 #include "separation-item.hh"
