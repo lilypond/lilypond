@@ -330,12 +330,12 @@
 	 (cached-file-contents
 	  (format "~a.pfa" (munge-lily-font-name file-name))))
 	((and
-;	  (eq? PLATFORM 'darwin)
+	  (eq? PLATFORM 'darwin)
 	  bare-file-name (string-match "\\.dfont" bare-file-name))
 	 (handle-mac-font name bare-file-name))
 	
 	((and
-;	  (eq? PLATFORM 'darwin)
+	  (eq? PLATFORM 'darwin)
 	  bare-file-name (= (stat:size (stat bare-file-name)) 0))
 	 (handle-mac-font name bare-file-name))
 
