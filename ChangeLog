@@ -1,3 +1,8 @@
+2005-06-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (fill-line): handle text-widths =
+	'() case.
+
 2005-06-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/ps-to-png.scm (make-ps-images): Bugfix: `Pages: 1\n' is not
