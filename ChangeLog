@@ -1,5 +1,7 @@
 2005-06-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* VERSION (PATCH_LEVEL): release 2.5.29
+
 	* ttftool/parse.c (readNamingTable): handle Apple/8bit encoding too.
 
 	* scm/framework-ps.scm (font-file-as-ps-string): new function.
