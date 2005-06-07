@@ -9,7 +9,7 @@
 */
 
 #include "engraver.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "note-head.hh"
 #include "stem.hh"
 #include "side-position-interface.hh"

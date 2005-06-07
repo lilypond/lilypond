@@ -24,7 +24,7 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "stem.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 #include "slur-scoring.hh"
 

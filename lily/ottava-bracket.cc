@@ -6,7 +6,7 @@
   (c) 2004--2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "line-spanner.hh"
 #include "spanner.hh"
 #include "font-interface.hh"

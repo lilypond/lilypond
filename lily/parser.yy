@@ -43,7 +43,7 @@ FIXME:
 #include "scm-hash.hh"
 #include "scm-option.hh"
 #include "score.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))

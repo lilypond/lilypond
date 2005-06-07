@@ -37,7 +37,7 @@
 #include "warn.hh"
 #include "font-interface.hh"
 #include "output-def.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "group-interface.hh"

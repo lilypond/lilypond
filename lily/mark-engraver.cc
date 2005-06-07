@@ -13,7 +13,7 @@
 #include "engraver-group-engraver.hh"
 #include "item.hh"
 #include "warn.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 
 /**
    put stuff over or next to  bars.  Examples: bar numbers, marginal notes,

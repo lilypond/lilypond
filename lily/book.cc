@@ -20,7 +20,7 @@
 #include "paper-book.hh"
 #include "score.hh"
 #include "stencil.hh"
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "warn.hh"
 
 #include "performance.hh"

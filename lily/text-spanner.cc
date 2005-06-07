@@ -10,7 +10,7 @@
 
 #include "text-spanner.hh"
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "line-spanner.hh"
 #include "spanner.hh"
 #include "font-interface.hh"

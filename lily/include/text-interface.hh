@@ -1,5 +1,5 @@
 /*
-  text-item.hh -- declare markup functions
+  text-interface.hh -- declare markup functions
 
   source file of the GNU LilyPond music typesetter
 

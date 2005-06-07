@@ -9,7 +9,7 @@
 
 #include "note-head.hh"
 
-#include "text-item.hh"
+#include "text-interface.hh"
 #include "grob.hh"
 #include "output-def.hh"
 #include "music.hh"

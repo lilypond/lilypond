@@ -9,7 +9,7 @@
 #ifndef DIRECTION_HH
 #define DIRECTION_HH
 
-#include "axes.hh"
+#include "axis.hh"
 
 enum Direction
   {

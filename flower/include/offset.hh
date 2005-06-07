@@ -7,7 +7,7 @@
 #ifndef OFFSET_HH
 #define OFFSET_HH
 
-#include "axes.hh"
+#include "axis.hh"
 #include "string.hh"
 
 Offset complex_multiply (Offset, Offset);
