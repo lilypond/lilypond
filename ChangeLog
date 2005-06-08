@@ -1,5 +1,8 @@
 2005-06-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ttftool/parse.c (readNamingTable): verbosity for "bad TTF
+	file" massage.
+
 	* Documentation/user/GNUmakefile (TEXINPUTS): set TEXINPUTS so our
 	texinfo.tex is always used.
 	
