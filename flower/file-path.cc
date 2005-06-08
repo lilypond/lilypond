@@ -130,8 +130,8 @@ File_path::find (String name) const
       if (file_name.dir_.is_empty ())
 	file_name.dir_ = dir.to_string ();
       else if (!dir.to_string ().is_empty())
-	file_name.dir_ += ::to_string (DIRSEP) + dir.to_string ();
-	
+	file_name.dir_ = dir.to_string ()
+	  + ::to_string (DIRSEP) + file_name.dir_;
       if (is_file (file_name.to_string ()))
 	return file_name.to_string ();
     }
