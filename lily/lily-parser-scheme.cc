@@ -6,6 +6,8 @@
   (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include <unistd.h>
+
 #include "file-name.hh"
 #include "file-path.hh"
 #include "main.hh"
