@@ -1,5 +1,9 @@
 2005-06-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/editor.scm: add char argument.
+
+	* scripts/lilypond-invoke-editor.scm (dissect-uri): add char. 
+
 	* ttftool/util.c (syserror): use errno for better error reporting.
 
 	* lily/source-file.cc (get_counts): new function. Calc column,
