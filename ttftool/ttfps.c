@@ -88,7 +88,7 @@ create_type42 (const char *infile, void *out)
 	}
     }
   if (maxpOff == 0 || headOff == 0 || postOff == 0 || nameOff == 0)
-    error ("Incomplete TTF file\n");
+    ttf_error ("Incomplete TTF file\n");
 
   if (verbosity >= 1)
     fprintf (stderr, "Processing `maxp' table\n");

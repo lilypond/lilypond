@@ -20,7 +20,7 @@ public:
   Byte get_Byte () {return get_U8 (); }
   int get_int () { return get_U32 (); }
 
-  virtual String error_string (char const *pos_str0) const;
+  virtual String quote_input (char const *pos_str0) const;
   virtual int get_line (char const *pos_str0) const;
 };
 

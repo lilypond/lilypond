@@ -16,11 +16,16 @@
 */
 class Input
 {
-public:
   char const *start_;
   char const *end_;
   Source_file *source_file_;
 
+public:
+  Source_file *get_source_file () const;
+  char const *start () const;
+  char const *end () const;
+  
+  void set (Source_file *, char const *, char const *);
   void warning (String) const; // should use member func?
   void non_fatal_error (String) const;
   void error (String) const;
@@ -31,13 +36,15 @@ public:
   Input spot () const;
   String location_string () const;
   String line_number_string () const;
-
   String file_string ()const;
+  
   int line_number ()const;
   int column_number ()const;
   int end_line_number ()const;
   int end_column_number ()const;
 
+  void get_counts (int*line, int *char_count, int *col) const;
+  
   Input (Input const &i);
   Input ();
 };

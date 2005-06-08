@@ -268,9 +268,9 @@ Lily_lexer::prepare_for_next_token ()
 void
 Lily_lexer::add_lexed_char (int count)
 {
-  lexloc->source_file_ = get_source_file ();
-  lexloc->start_ = here_str0 ();
-  lexloc->end_ = lexloc->start_ + count;
+  char const * start = here_str0 ();
+  lexloc->set (get_source_file (),
+	       start, start + count);
   char_count_stack_.top () += count;
 }
 

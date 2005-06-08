@@ -43,7 +43,8 @@ readNamingTable (int fd)
   surely_read (fd, &format, sizeof (USHORT));
   FIX_UH (format);
   if (format != 0)
-    error ("Bad TTF file. Format should be 0\n");
+    ttf_error ("Format should be 0\n");
+
   surely_read (fd, &nrecords, sizeof (USHORT));
   FIX_UH (nrecords);
   surely_read (fd, &offset, sizeof (USHORT));
@@ -137,7 +138,7 @@ readHeadTable (int fd, struct HeadTable *ht)
 	       ht->fontRevision.mantissa, ht->fontRevision.fraction);
     }
   if (ht->magicNumber != 0x5F0F3CF5)
-    error ("Bad magic number in TTF file");
+    ttf_error ("Bad magic number");
   if (verbosity >= 2)
     fprintf (stderr, "  %d units per Em\n", ht->unitsPerEm);
 }
@@ -165,11 +166,11 @@ readPostTable (int fd, int nglyphs, struct PostTable *pt,
       return 1;			/* MacGlyphEncoding */
     case 2:
       if (pt->formatType.fraction != 0)
-	error ("Unsupported `post' table format");
+	ttf_error ("Unsupported `post' table format");
       surely_read (fd, &nglyphspost, sizeof (USHORT));
       FIX_UH (nglyphspost);
       if (nglyphspost != nglyphs)
-	error ("Inconsistency between `maxp' and `nglyphs' tables!");
+	ttf_error ("Inconsistency between `maxp' and `nglyphs' tables!");
       if (verbosity >= 2)
 	fprintf (stderr, "  %d glyphs\n", nglyphs);
       glyphNameIndex = mymalloc (sizeof (USHORT) * nglyphs);
@@ -244,7 +245,7 @@ readLocaTable (int fd, int nglyphs, int format)
 	return offsets;
       }
      /*NOTREACHED*/ default:
-      error ("Unknown `loca' table format");
+      ttf_error ("Unknown `loca' table format");
      /*NOTREACHED*/}
  /*NOTREACHED*/}
 
@@ -297,7 +298,7 @@ readHheaTable (int fd)
     fprintf (stderr, "  version %d.%u\n",
 	     hhea->version.mantissa, hhea->version.fraction);
   if (hhea->metricDataFormat != 0)
-    error ("Unknown metric data format");
+    ttf_error ("Unknown metric data format");
   return hhea;
 }
 

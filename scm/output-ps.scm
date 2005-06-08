@@ -197,7 +197,7 @@
 			   (ly:music-property cause 'origin))))
     (if (not (ly:input-location? music-origin))
 	""
-	(let* ((location (ly:input-file-line-column music-origin))
+	(let* ((location (ly:input-file-line-char-column music-origin))
 	       (raw-file (car location))
 	       (file (if (is-absolute? raw-file)
 			 raw-file
@@ -207,14 +207,15 @@
 
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
-	      (format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_URI\n"
+	      (format "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
 		      (+ (car offset) (car x-ext))
 		      (+ (cdr offset) (car y-ext))
 		      (+ (car offset) (cdr x-ext))
 		      (+ (cdr offset) (cdr y-ext))
 		      file
 		      (cadr location)
-		      (caddr location))
+		      (caddr location)
+		      (cadddr location))
 	      "")))))
 
 (define (lily-def key val)
