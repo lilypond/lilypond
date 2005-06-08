@@ -95,8 +95,14 @@ reducing the size of PDF and PS files, point and click may be switched
 off by issuing
 
 @example
-  #(ly:set-option 'point-and-click #f)
+#(ly:set-option 'point-and-click #f)
 @end example
 
 @noindent
-in a @file{.ly} file.
+in a @file{.ly} file.  Alternately, you may pass this as an command-line
+option
+
+@example
+lilypond -e "(ly:set-option 'point-and-click #f)" file.ly
+@end example
+
