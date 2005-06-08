@@ -282,10 +282,12 @@ set_env_file (char const* key, String value)
 static int
 prepend_env_path (char const *key, String value)
 {
-  if (char const* cur = getenv (key))
-    value += to_string (PATHSEP) + cur;
   if (is_dir (value))
-    return sane_putenv (key, value.to_str0 ());
+    {
+      if (char const* cur = getenv (key))
+	value += to_string (PATHSEP) + cur;
+      return sane_putenv (key, value.to_str0 ());
+    }
   else if (be_verbose_global)
     warning (_f ("no such directory: %s", value));
   return -1;
