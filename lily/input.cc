@@ -69,7 +69,7 @@ Input::message (String s) const
 {
   if (source_file_)
     s = location_string () + ": " + s + "\n"
-      + source_file_->error_string (start_);
+      + source_file_->quote_input (start_);
   ::message (s);
 }
 
@@ -128,9 +128,10 @@ Input::line_number () const
 int
 Input::column_number () const
 {
-  if (source_file_)
-    return source_file_->get_column (start_);
-  return 0;
+  int line, chr, col = 0;
+  source_file_->get_counts (start_, &line, &chr, &col);
+
+  return col;
 }
 
 int
@@ -144,7 +145,41 @@ Input::end_line_number () const
 int
 Input::end_column_number () const
 {
-  if (source_file_)
-    return source_file_->get_column (end_);
-  return 0;
+  int line, chr, col = 0;
+  source_file_->get_counts (end_, &line, &chr, &col);
+
+  return col;
+}
+
+void
+Input::get_counts (int *line, int *chr, int*col) const
+{
+  source_file_->get_counts (start_, line, chr, col);
+}
+
+void
+Input::set (Source_file *sf, char const *start, char const *end)
+{
+  source_file_ = sf;
+  start_ = start;
+  end_ = end;  
+}
+
+Source_file* 
+Input::get_source_file () const
+{
+  return source_file_;
+}
+
+
+char const * 
+Input::start () const
+{
+  return start_;
+}
+
+char const * 
+Input::end () const
+{
+  return end_;
 }

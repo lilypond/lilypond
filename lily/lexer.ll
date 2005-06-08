@@ -200,7 +200,7 @@ BOM_UTF8	\357\273\277
 	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state ();
-	this->here_input().source_file_->name_ = s;
+	this->here_input().get_source_file ()->name_ = s;
 	message (_f ("Renaming input to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
@@ -289,7 +289,7 @@ BOM_UTF8	\357\273\277
 	int n = 0;
 	Input hi = here_input();
 	hi.step_forward ();
-	SCM sval = ly_parse_scm (hi.start_, &n, hi,
+	SCM sval = ly_parse_scm (hi.start (), &n, hi,
 		be_safe_global && is_main_input_);
 
 	if (sval == SCM_UNDEFINED)

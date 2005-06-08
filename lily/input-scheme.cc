@@ -32,14 +32,18 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-column", 1, 0, 0, (SCM sip),
-	   "Return input location in @var{sip} as (file-name line column).")
+LY_DEFINE (ly_input_file_line_column, "ly:input-file-line-char-column", 1, 0, 0, (SCM sip),
+	   "Return input location in @var{sip} as (file-name line char column).")
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  return scm_list_3 (scm_makfrom0str (ip->file_string ().to_str0 ()),
-		     scm_int2num (ip->line_number ()),
-		     scm_int2num (ip->column_number ()));
+
+  int l, ch, col; 
+  ip->get_counts (&l, &ch, &col);
+  return scm_list_4 (scm_makfrom0str (ip->file_string ().to_str0 ()),
+		     scm_int2num (l),
+		     scm_int2num (ch),
+		     scm_int2num (col));
 }
 
 LY_DEFINE (ly_input_both_locations, "ly:input-both-locations", 1, 0, 0, (SCM sip),

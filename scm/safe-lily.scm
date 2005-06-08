@@ -60,7 +60,7 @@
    ly:grob-system
    ly:grob-translate-axis!
    ly:grob?
-   ly:input-file-line-column
+   ly:input-file-line-char-column
    ly:input-location?
    ly:input-message
    ly:intlog2

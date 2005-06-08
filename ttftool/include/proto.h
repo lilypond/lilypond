@@ -50,7 +50,7 @@ extern char *adobeStandardEncoding[];
 void *mymalloc (size_t size);
 void *mycalloc (size_t nelem, size_t elsize);
 void *myrealloc (void *ptr, size_t size);
-void error (char *string);
+void ttf_error (char *string);
 void syserror (char *string);
 ssize_t surely_read (int fildes, void *buf, size_t nbyte);
 char *unistrncpy (char *dst, char *str, size_t length);

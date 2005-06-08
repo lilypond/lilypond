@@ -143,8 +143,31 @@ Source_file::file_line_column_string (char const *context_str0) const
   if (!to_str0 ())
     return " (" + _ ("position unknown") + ")";
   else
-    return name_string () + ":" + to_string (get_line (context_str0))
-      + ":" + to_string (get_column (context_str0));
+    {
+      int l, ch, col;
+      get_counts (context_str0, &l, &ch, &col);
+      
+      return name_string () + ":" + to_string (l)
+	+ ":" + to_string (col);
+    }
+}
+
+
+
+String
+Source_file::quote_input (char const* pos_str0) const
+{
+  if (!contains (pos_str0))
+    return " (" + _ ("position unknown") + ")";
+
+  int l, ch, col;
+  get_counts (pos_str0, &l, &ch, &col);
+  String line = line_string (pos_str0);
+  String context = line.left_string (ch)
+    + to_string ('\n')
+    + to_string (' ', col)
+    + line.cut_string (ch, INT_MAX);
+  return context;
 }
 
 String
@@ -201,22 +224,18 @@ Source_file::line_string (char const* pos_str0) const
   return String ((Byte const *)data_str0 + line[LEFT], line.length ());
 }
 
-int
-Source_file::get_char_of_line (char const *pos_str0) const
+
+void
+Source_file::get_counts (char const *pos_str0,
+			 int *line_number,
+			 int *line_char,
+			 int *column) const
 {
   if (!contains (pos_str0))
-    return 0;
+    return;
 
-  char const *data_str0 = to_str0 ();
-  return pos_str0 - (line_slice (pos_str0)[SMALLER] + data_str0);
-}
-
-int
-Source_file::get_column (char const *pos_str0) const
-{
-  if (!contains (pos_str0))
-    return 0;
-
+  *line_number = get_line (pos_str0);
+  
   Slice line = line_slice (pos_str0);
   char const *data = to_str0 ();
   Byte const *line_start = (Byte const *)data + line[LEFT];
@@ -225,7 +244,9 @@ Source_file::get_column (char const *pos_str0) const
   String line_begin (line_start, left);
   char const *line_chars = line_begin.to_str0();
   
-  int column = 0;
+  *column = 0;
+  *line_char = 0;
+  
   mbstate_t state;
 
   /* Initialize the state.  */
@@ -252,34 +273,18 @@ Source_file::get_column (char const *pos_str0) const
 	thislen = 1;
 
       if (thislen == 1 && line_chars[0] == '\t')
-	column = (column / 8 + 1) * 8;  
+	(*column) = (*column / 8 + 1) * 8;  
       else
-	column ++;
-      
+	(*column) ++;
+
+      (*line_char) ++;
       /* Advance past this character. */
       line_chars += thislen;
       left -= thislen;
     }
 
-  return column;
+
 }
-
-String
-Source_file::error_string (char const* pos_str0) const
-{
-  if (!contains (pos_str0))
-    return " (" + _ ("position unknown") + ")";
-
-  int ch_i = get_char_of_line (pos_str0);
-  String line = line_string (pos_str0);
-  String context = line.left_string (ch_i)
-    + to_string ('\n')
-    + to_string (' ', get_column (pos_str0))
-    + line.cut_string (ch_i, INT_MAX);
-
-  return context;
-}
-
 bool
 Source_file::contains (char const* pos_str0) const
 {
@@ -332,7 +337,7 @@ Source_file::set_pos (char const * pos_str0)
   if (contains (pos_str0))
     pos_str0_ = pos_str0;
   else
-    error (error_string (pos_str0) + "invalid pos");
+    error (quote_input (pos_str0) + "invalid pos");
 }
 
 char const *
@@ -344,7 +349,7 @@ Source_file::seek_str0 (int n)
   if (contains (new_str0))
     pos_str0_ = new_str0;
   else
-    error (error_string (new_str0) + "seek past eof");
+    error (quote_input (new_str0) + "seek past eof");
 
   return pos_str0_;
 }
@@ -357,7 +362,7 @@ Source_file::forward_str0 (int n)
   if (contains (new_str0))
     pos_str0_ = new_str0;
   else
-    error (error_string (new_str0) + "forward past eof");
+    error (quote_input (new_str0) + "forward past eof");
 
   return old_pos;
 }

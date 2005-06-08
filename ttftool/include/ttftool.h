@@ -5,7 +5,6 @@ extern "C"
 
 
   void create_type42 (char const *, void *);
-
 #ifdef __cplusplus
 }
 #endif

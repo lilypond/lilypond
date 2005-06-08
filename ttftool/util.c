@@ -5,19 +5,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+
 #include "types.h"
 #include "proto.h"
 
-#define ALIAS_FILE_TO_FILECOOKIE
-
 #include "libc-extension.hh"
+
+
 
 void *
 mymalloc (size_t size)
 {
   void *p;
   if ((p = malloc (size)) == NULL)
-    error ("Unable to allocate memory\n");
+    ttf_error ("Unable to allocate memory\n");
   return p;
 }
 
@@ -26,8 +28,26 @@ mycalloc (size_t nelem, size_t elsize)
 {
   void *p;
   if ((p = calloc (nelem, elsize)) == NULL)
-    error ("Unable to allocate memory\n");
+    ttf_error ("Unable to allocate memory\n");
   return p;
+}
+
+void
+ttf_error (char *string)
+{
+  fprintf (stderr, "TTF tool: %s\n", string);
+  exit (3);
+ /*NOTREACHED*/
+}
+
+void
+syserror (char *string)
+{
+  char *sys_err = strerror (errno);
+  fprintf (stderr, "TTF tool: %s (%s)\n",
+	   string,
+	   sys_err);
+  exit (3);
 }
 
 void *
@@ -35,7 +55,7 @@ myrealloc (void *ptr, size_t size)
 {
   void *p;
   if ((p = realloc (ptr, size)) == NULL)
-    error ("Unable to allocate memory\n");
+    ttf_error ("Unable to allocate memory\n");
   return p;
 }
 
@@ -44,30 +64,18 @@ surely_lseek (int fildes, off_t offset, int whence)
 {
   off_t result;
   if ((result = lseek (fildes, offset, whence)) < 0)
-    error ("Bad TTF file. Cannot seek");
+    syserror ("Cannot seek");
   return result;
 }
-
-void
-error (char *string)
-{
-  fprintf (stderr, "%s\n", string);
-  exit (3);
- /*NOTREACHED*/}
-
-void
-syserror (char *string)
-{
-  perror (string);
-  exit (3);
- /*NOTREACHED*/}
 
 ssize_t
 surely_read (int fildes, void *buf, size_t nbyte)
 {
   ssize_t n;
   if ((n = read (fildes, buf, nbyte)) < nbyte)
-    error ("Bad TTF file. Read too little bytes in surely_read()");
+    {
+      syserror  ("read too little in surely_read()");
+    }
   return n;
 }
 

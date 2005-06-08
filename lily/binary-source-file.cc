@@ -21,7 +21,7 @@ Binary_source_file::~Binary_source_file ()
 }
 
 String
-Binary_source_file::error_string (char const *pos_str0) const
+Binary_source_file::quote_input (char const *pos_str0) const
 {
   assert (this);
   if (!contains (pos_str0))
