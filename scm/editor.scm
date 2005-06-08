@@ -60,7 +60,7 @@
      x
      (re-sub "\\\\" "/" x)))
 
-(define-public (get-editor-command file-name line column)
+(define-public (get-editor-command file-name line char column)
   (let* ((editor (get-editor))
 	 (template (get-command-template editor-command-template-alist editor))
 	 (command

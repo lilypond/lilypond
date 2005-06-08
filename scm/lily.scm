@@ -361,7 +361,7 @@ The syntax is the same as `define*-public'."
 	  (begin
 	    ;; ugh
 	    (ly:stderr-redirect "foo" "r")
-	    (system (get-editor-command log-name 0 0))
+	    (system (get-editor-command log-name 0 0 0))
 	    (ly:error (_ "failed files: ~S") (string-join failed))
 	    ;; not reached?
 	    (exit 1))
@@ -371,7 +371,7 @@ The syntax is the same as `define*-public'."
   (let* ((ly (string-append (ly:effective-prefix) "/ly/"))
 	 ;; FIXME: soft-code, localize
 	 (welcome-ly (string-append ly "Welcome_to_LilyPond.ly"))
-	 (cmd (get-editor-command welcome-ly 0 0)))
+	 (cmd (get-editor-command welcome-ly 0 0 0)))
     (ly:message (_ "Invoking `~a'...") cmd)
     (system cmd)
     (exit 1)))

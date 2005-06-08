@@ -42,7 +42,7 @@
   (format port "~a (GNU LilyPond) ~a \n" PROGRAM-NAME TOPLEVEL-VERSION))
 
 (define (show-help port)
-  (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:COLUMN
+  (format port (_ "Usage: lilypond-invoke-editor [textedit://]FILE:LINE:CHAR:COLUMN
 
 Visit a file and position the cursor.
 
@@ -79,19 +79,20 @@ Options:
   
 (define (dissect-uri uri)
   (let* ((ri "textedit://")
-	 (file-name:line:column (re-sub ri "" uri))
-	 (match (string-match "(.*):([^:]+):(.*)$" file-name:line:column)))
+	 (file-name:line:char:column (re-sub ri "" uri))
+	 (match (string-match "(.*):([^:]+):([^:]+):(.*)$" file-name:line:char:column)))
     (if match
 	(list (unquote-uri (match:substring match 1))
 	      (match:substring match 2)
-	      (match:substring match 3))
+	      (match:substring match 3)
+	      (match:substring match 4))
 	(begin
 	  ;; FIXME: why be so strict wrt :LINE:COLUMN,
 	  ;; esp. considering omitting textedit:// is explicitly
 	  ;; allowed.
 	  (format (current-error-port) (_ "invalid URI: ~a") uri)
 	  (newline (current-error-port))
-	  (format (current-error-port) (_ "expect: ~aFILE:LINE:COLUMN") ri)
+	  (format (current-error-port) (_ "expect: ~aFILE:LINE:CHAR:COLUMN") ri)
 	  (newline (current-error-port))
 	  (exit 1)))))
 
