@@ -44,7 +44,7 @@ surely_lseek (int fildes, off_t offset, int whence)
 {
   off_t result;
   if ((result = lseek (fildes, offset, whence)) < 0)
-    error ("Bad TTF file");
+    error ("Bad TTF file. Cannot seek");
   return result;
 }
 
@@ -67,7 +67,7 @@ surely_read (int fildes, void *buf, size_t nbyte)
 {
   ssize_t n;
   if ((n = read (fildes, buf, nbyte)) < nbyte)
-    error ("Bad TTF file");
+    error ("Bad TTF file. Read too little bytes in surely_read()");
   return n;
 }
 

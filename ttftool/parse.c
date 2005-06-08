@@ -43,7 +43,7 @@ readNamingTable (int fd)
   surely_read (fd, &format, sizeof (USHORT));
   FIX_UH (format);
   if (format != 0)
-    error ("Bad TTF file\n");
+    error ("Bad TTF file. Format should be 0\n");
   surely_read (fd, &nrecords, sizeof (USHORT));
   FIX_UH (nrecords);
   surely_read (fd, &offset, sizeof (USHORT));
