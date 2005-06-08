@@ -54,7 +54,25 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   out_file_name.dir_ = "";
 
   if (!output_name_global.is_empty ())
-    out_file_name = File_name (output_name_global);
+    {
+      if (is_dir (output_name_global))
+	{
+	  char cwd[PATH_MAX];
+	  getcwd (cwd, PATH_MAX);
+
+	  if (output_name_global != cwd)
+	    {
+	      global_path.prepend (cwd);
+	      message (_f ("Changing working directory to `%s'",
+			   output_name_global.to_str0 ()));
+	      chdir (output_name_global.to_str0 ());
+	      
+	    }
+	  output_name_global = "";
+	}
+      else      
+	out_file_name = File_name (output_name_global);
+    }
 
   String init;
   if (!init_name_global.is_empty ())
