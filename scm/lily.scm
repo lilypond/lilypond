@@ -268,6 +268,7 @@ The syntax is the same as `define*-public'."
 		    (lambda (a b)
 		      (< (object-address (car a))
 			 (object-address (car b))))))
+	 
 	 (out-file-name (string-append
 			 "gcstat-" (number->string gc-protect-stat-count)
 			 ".scm"))
