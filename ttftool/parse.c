@@ -17,13 +17,12 @@ readDirectory (int fd, struct OffsetTable *ot)
   int i;
 
   struct TableDirectoryEntry *td;
-  if (ttf_verbosity >= 3)
-    fprintf (stderr, "");
   
   surely_read (fd, ot, sizeof (struct OffsetTable));
   FIX_OffsetTable (*ot);
   if (ttf_verbosity >= 2)
     fprintf (stderr, "%d tables\n", ot->numTables);
+
   n = sizeof (struct TableDirectoryEntry) * ot->numTables;
   td = mymalloc (n);
   surely_read (fd, td, n);

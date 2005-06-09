@@ -67,7 +67,9 @@
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")
     (ly:system cmd)
-    (if (running-from-gui?) (delete-file name))))
+    
+    (if (ly:get-option 'delete-intermediate-files)
+	(delete-file name))))
 
 (use-modules (scm ps-to-png))
 (define-public (postscript->png resolution paper-size-name name)
