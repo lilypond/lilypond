@@ -68,7 +68,11 @@ File_name::to_string () const
   if (!root_.is_empty ())
     s = root_ + ::to_string (ROOTSEP);
   if (!dir_.is_empty ())
-    s += dir_ + ::to_string (DIRSEP);
+    {
+      s += dir_;
+      if (!base_.is_empty () || !ext_.is_empty ())
+	s += ::to_string (DIRSEP);
+    }
   s += base_;
   if (!ext_.is_empty ())
     s += ::to_string (EXTSEP) + ext_;

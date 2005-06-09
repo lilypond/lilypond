@@ -336,7 +336,7 @@ The syntax is the same as `define*-public'."
 
 (use-modules (scm editor))
 
-(define (running-from-gui?)
+(define-public (running-from-gui?)
   (let ((have-tty? (isatty? (current-input-port))))
     ;; If no TTY and not using safe, assume running from GUI.
     (cond
