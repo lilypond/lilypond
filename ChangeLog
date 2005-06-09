@@ -1,8 +1,19 @@
+2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (write-preamble): Support for -d
+	gs-font-load=1: read fonts via ghostscript. 
+	
+	* scm/backend-library.scm (postscript->pdf): Support for
+	-dgs-font-load=1
+
 2005-06-09  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/global.itely: added \layout docs.
 
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (write-preamble): make font loading
+	switchable to GS via --define-default gs-font-load=1
 
 	* lily/lily-parser-scheme.cc: add unistd.h
 
