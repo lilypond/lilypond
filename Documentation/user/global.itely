@@ -40,7 +40,8 @@ titles.
 @menu
 * Setting global staff size::   
 * Paper size::                  
-* Page layout::                 
+* Page formatting::             
+* Score layout::                
 * Vertical spacing::            
 * Vertical spacing of piano staves::  
 * Horizontal spacing::          
@@ -176,10 +177,10 @@ and wider line widths will be set correspondingly.
 @end example 
 
 
-@node Page layout
-@subsection Page layout
+@node Page formatting
+@subsection Page formatting
 
-@cindex page layout
+@cindex page formatting
 @cindex margins
 @cindex header, page
 @cindex footer, page
@@ -190,7 +191,7 @@ footers to each page.
 The default layout responds to the following settings in the
 @code{\paper} block.
 
-@cindex \paper
+@cindex @code{\paper}
 
 @quotation
 @table @code
@@ -334,6 +335,34 @@ values of the leftmargin and linewidth.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
+
+
+@node Score layout
+@subsection Score layout
+
+@cindex @code{\layout}
+
+While @code{\paper} contains settings that relate to the page formatting
+of the whole document, @code{\layout} contains settings for score-specific
+layout.
+
+@example
+\layout @{
+  indent = 2.0\cm
+  \context @{ \Staff
+    minimumVerticalExtent = #'(-6 . 6
+  @}
+  \context @{ \Voice
+    \override TextScript #'padding = #1.0
+    \override Glissando #'thickness = #3
+  @}
+@}
+@end example
+
+
+@seealso
+
+This manual: @ref{Changing context default settings}
 
 
 @node Vertical spacing
