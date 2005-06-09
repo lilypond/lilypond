@@ -7,8 +7,7 @@
 #include "types.h"
 #include "proto.h"
 
-#define ALIAS_FILE_TO_FILECOOKIE
-
+#include "ttftool.h"
 #include "libc-extension.hh"
 
 #define CHUNKSIZE 65534
@@ -141,7 +140,7 @@ printPSTrailer (void *out, int nglyphs, int postType, struct GlyphName *gnt)
     default:
       if (postType != 1)
 	{
-	  if (verbosity > -2)
+	  if (ttf_verbosity > -2)
 	    fprintf (stderr,
 		     "No glyph name table; assuming MacGlyphEncoding\n");
 	}
