@@ -17,7 +17,7 @@
 #include "open-type-font.hh"
 #include "main.hh"
 #include "warn.hh"
- 
+
 char *
 pfb2pfa (Byte const *pfb, int length)
 {

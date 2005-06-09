@@ -78,13 +78,19 @@ surely_read (int fildes, void *buf, size_t nbyte)
     fprintf (stderr, "Reading %d bytes\n", nbyte);
   
   ssize_t n;
-  if ((n = read (fildes, buf, nbyte)) < nbyte)
+  void *bufptr = buf;
+  while (nbyte > 0
+	 && (n = read (fildes, bufptr, nbyte)) > 0)
     {
-      char s[100];
-      sprintf (s, "read too little in surely_read(), expect %d got %d", nbyte, n);
-      sprintf (s, "trying again yields %d", read (fildes, buf, nbyte - n));
-      syserror (s);
+      bufptr += n;
+      nbyte -= n;
     }
+
+  if (n < 0 || nbyte > 0)
+    {
+      syserror ("error during read()");
+    }
+  
   return n;
 }
 

@@ -344,7 +344,8 @@ The syntax is the same as `define*-public'."
       (not have-tty?)))))
 
 (define-public (gui-main files)
-  (if (null? files) (gui-no-files-handler))
+  (if (null? files)
+      (gui-no-files-handler))
   (let* ((base (basename (car files) ".ly"))
 	 (log-name (string-append base ".log")))
     (if (not (running-from-gui?))

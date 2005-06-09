@@ -1,5 +1,11 @@
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/backend-library.scm (postscript->pdf): use
+	delete-intermediate-files iso. running-from-gui? 
+
+	* ttftool/util.c (surely_read): robustness. Allow read() to return
+	less bytes than requested, as per posix standards.
+
 	* lily/pfb.cc (LY_DEFINE): set ttf_verbosity from ttf-verbosity
 	program option.
 
