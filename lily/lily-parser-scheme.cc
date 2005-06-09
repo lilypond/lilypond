@@ -55,8 +55,19 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   out_file_name.root_ = "";
   out_file_name.dir_ = "";
 
+  /* When running from gui, generate output in .ly source directory.  */
+  if (output_name_global.is_empty ()
+      && scm_call_0 (ly_lily_module_constant ("running-from-gui?")) == SCM_BOOL_T)
+    {
+      File_name f (file);
+      f.base_ = "";
+      f.ext_ = "";
+      output_name_global = f.to_string ();
+    }
+
   if (!output_name_global.is_empty ())
     {
+      /* Interpret --output=DIR to mean --output=DIR/BASE.  */
       if (is_dir (output_name_global))
 	{
 	  char cwd[PATH_MAX];

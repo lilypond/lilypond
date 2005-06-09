@@ -9,8 +9,8 @@
 ;; Also for standalone use, so cannot include any lily modules.
 (use-modules
  (ice-9 regex)
-  (srfi srfi-13)
-  (srfi srfi-14))
+ (srfi srfi-13)
+ (srfi srfi-14))
 
 (define PLATFORM
   (string->symbol

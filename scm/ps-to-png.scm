@@ -10,12 +10,19 @@
  (ice-9 optargs)
  (ice-9 regex)
  (ice-9 rw)
- (srfi srfi-1))
+ (srfi srfi-1)
+ (srfi srfi-13)
+ (srfi srfi-14))
 
 ;; gettext wrapper for guile < 1.7.2
 (if (defined? 'gettext)
     (define-public _ gettext)
     (define-public (_ x) x))
+
+(define PLATFORM
+  (string->symbol
+   (string-downcase
+    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
 
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
@@ -105,6 +112,13 @@
 		   (begin
 		     (format (current-error-port) (_ "Invoking `~a'...") cmd)
 		     (newline (current-error-port)))))
+	  (baz 
+	   ;; The wrapper on windows cannot handle `=' signs,
+	   ;; gs has a workaround with #.
+	   (if (eq? PLATFORM 'windows)
+	       (begin
+		 (set! cmd (re-sub "=" "#" cmd))
+		 (set! cmd (re-sub "-dSAFER " "" cmd)))))
 	  (status (system cmd)))
      (if (not (= status 0))
 	 (begin
