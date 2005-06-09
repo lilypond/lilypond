@@ -57,6 +57,8 @@ static Lilypond_option_init options[] = {
    "delete unusable PostScript files"},   
   {"ttf-verbosity", "0",
    "how much verbosity for TTF font embedding?"},
+  {"debug-gc", "#f",
+   "dump GC protection info"}, 
   {0,0,0},
 };
 

@@ -1,5 +1,7 @@
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/program-option.cc: add debug-gc option.
+
 	* lily/include/lily-guile-macros.hh: don't protect exported module
 	objects.
 

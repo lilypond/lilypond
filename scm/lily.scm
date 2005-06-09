@@ -327,7 +327,7 @@ The syntax is the same as `define*-public'."
 	 (lambda () (ly:parse-file file-name))
 	 (lambda (x . args) (handler x file-name)))
 
-  (if #t
+  (if (ly:get-option 'debug-gc)
       (dump-gc-protects)))
 
 (use-modules (scm editor))
