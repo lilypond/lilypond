@@ -13,7 +13,7 @@
 static void endianness_test (void);
 static void usage (char *);
 
-int verbosity = 0;
+int ttf_verbosity = 0;
 
 void
 create_type42 (const char *infile, void *out)
@@ -47,13 +47,13 @@ create_type42 (const char *infile, void *out)
     }
 
   td = readDirectory (fd, &ot);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "True type version %d.%u\n",
 	     ot.version.mantissa, ot.version.fraction);
 
   for (i = 0; i < ot.numTables; i++)
     {
-      if (verbosity >= 2)
+      if (ttf_verbosity >= 2)
 	fprintf (stderr, "Found `%c%c%c%c' table\n",
 		 (char) (td[i].tag >> 24),
 		 (char) (td[i].tag >> 16) & 255,
@@ -92,35 +92,35 @@ create_type42 (const char *infile, void *out)
   if (maxpOff == 0 || headOff == 0 || postOff == 0 || nameOff == 0)
     ttf_error ("Incomplete TTF file\n");
 
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Processing `maxp' table\n");
   surely_lseek (fd, maxpOff, SEEK_SET);
   nglyphs = readMaxpTable (fd);
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "  %d glyphs\n", nglyphs);
 
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Processing `head' table\n");
   surely_lseek (fd, headOff, SEEK_SET);
   ht = mymalloc (sizeof (struct HeadTable));
   readHeadTable (fd, ht);
 
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Processing `post' table\n");
   surely_lseek (fd, postOff, SEEK_SET);
   pt = mymalloc (sizeof (struct PostTable));
   postType = readPostTable (fd, nglyphs, pt, &gnt);
 
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Processing `name' table\n");
   surely_lseek (fd, nameOff, SEEK_SET);
   strings = readNamingTable (fd);
 
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Generating PS file\n");
   printPSFont (out, ht, strings, nglyphs, postType, pt, gnt, fd);
   lily_cookie_fclose (out);
-  if (verbosity >= 1)
+  if (ttf_verbosity >= 1)
     fprintf (stderr, "Done.\n");
   close (fd);
 }

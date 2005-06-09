@@ -4,8 +4,11 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "types.h"
 #include "proto.h"
+#include "ttftool.h"
 
 struct TableDirectoryEntry *
 readDirectory (int fd, struct OffsetTable *ot)
@@ -14,9 +17,12 @@ readDirectory (int fd, struct OffsetTable *ot)
   int i;
 
   struct TableDirectoryEntry *td;
+  if (ttf_verbosity >= 3)
+    fprintf (stderr, "");
+  
   surely_read (fd, ot, sizeof (struct OffsetTable));
   FIX_OffsetTable (*ot);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "%d tables\n", ot->numTables);
   n = sizeof (struct TableDirectoryEntry) * ot->numTables;
   td = mymalloc (n);
@@ -77,7 +83,7 @@ readNamingTable (int fd)
 	  strings[records[i].nameID] = mymalloc (records[i].length / 2 + 1);
 	  unistrncpy (strings[records[i].nameID],
 		      data + records[i].offset, records[i].length);
-	  if (verbosity >= 2)
+	  if (ttf_verbosity >= 2)
 	    fprintf (stderr, "%d: %s\n", records[i].nameID,
 		     strings[records[i].nameID]);
 	}
@@ -97,7 +103,7 @@ readNamingTable (int fd)
 	  strncpy (strings[id],
 		   data + records[i].offset, records[i].length);
 	  strings[id][records[i].length] = 0;
-	  if (verbosity >= 2)
+	  if (ttf_verbosity >= 2)
 	    fprintf (stderr, "%d: %s\n", records[i].nameID,
 		     strings[records[i].nameID]);
 	}
@@ -119,7 +125,7 @@ readMaxpTable (int fd)
   surely_read (fd, &data, sizeof (data));
   FIX_Fixed (data.version);
   FIX_UH (data.nglyphs);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "  version %d.%u\n",
 	     data.version.mantissa, data.version.fraction);
   return data.nglyphs;
@@ -130,7 +136,7 @@ readHeadTable (int fd, struct HeadTable *ht)
 {
   surely_read (fd, ht, sizeof (struct HeadTable));
   FIX_HeadTable (*ht);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     {
       fprintf (stderr, "  version %d.%d\n",
 	       ht->version.mantissa, ht->version.fraction);
@@ -139,7 +145,7 @@ readHeadTable (int fd, struct HeadTable *ht)
     }
   if (ht->magicNumber != 0x5F0F3CF5)
     ttf_error ("Bad magic number");
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "  %d units per Em\n", ht->unitsPerEm);
 }
 
@@ -156,7 +162,7 @@ readPostTable (int fd, int nglyphs, struct PostTable *pt,
 
   surely_read (fd, pt, sizeof (struct PostTable));
   FIX_PostTable (*pt);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "  format type %d.%u\n",
 	     pt->formatType.mantissa, pt->formatType.fraction);
 
@@ -171,7 +177,7 @@ readPostTable (int fd, int nglyphs, struct PostTable *pt,
       FIX_UH (nglyphspost);
       if (nglyphspost != nglyphs)
 	ttf_error ("Inconsistency between `maxp' and `nglyphs' tables!");
-      if (verbosity >= 2)
+      if (ttf_verbosity >= 2)
 	fprintf (stderr, "  %d glyphs\n", nglyphs);
       glyphNameIndex = mymalloc (sizeof (USHORT) * nglyphs);
       surely_read (fd, glyphNameIndex, sizeof (USHORT) * nglyphs);
@@ -203,7 +209,7 @@ readPostTable (int fd, int nglyphs, struct PostTable *pt,
 	  glyphNamesTemp[i] = mymalloc (c + 1);
 	  surely_read (fd, glyphNamesTemp[i], c);
 	  glyphNamesTemp[i][c] = '\0';
-	  if (verbosity >= 3)
+	  if (ttf_verbosity >= 3)
 	    fprintf (stderr, "    %d: %s\n", i, glyphNamesTemp[i]);
 	  i++;
 	}
@@ -294,7 +300,7 @@ readHheaTable (int fd)
   hhea = mymalloc (sizeof (struct HheaTable));
   surely_read (fd, hhea, sizeof (struct HheaTable));
   FIX_HheaTable (*hhea);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     fprintf (stderr, "  version %d.%u\n",
 	     hhea->version.mantissa, hhea->version.fraction);
   if (hhea->metricDataFormat != 0)
@@ -314,7 +320,7 @@ readKernTable (int fd, int **nkep, struct KernEntry0 ***kep)
 
   surely_read (fd, &kt, sizeof (struct KernTable));
   FIX_KernTable (kt);
-  if (verbosity >= 2)
+  if (ttf_verbosity >= 2)
     {
       fprintf (stderr, "  version %d\n", kt.version);
       fprintf (stderr, "  %d subtables\n", kt.nTables);
@@ -326,7 +332,7 @@ readKernTable (int fd, int **nkep, struct KernEntry0 ***kep)
     {
       surely_read (fd, &ksth, sizeof (struct KernSubTableHeader));
       FIX_KernSubTableHeader (ksth);
-      if (verbosity >= 2)
+      if (ttf_verbosity >= 2)
 	fprintf (stderr, "  analyzing subtable %d, version %d... ",
 		 i, ksth.version);
       if ((ksth.coverage & kernHorizontal) &&
@@ -336,7 +342,7 @@ readKernTable (int fd, int **nkep, struct KernEntry0 ***kep)
 	{
 	  surely_read (fd, &kst, sizeof (struct KernSubTable0));
 	  FIX_KernSubTable0 (kst);
-	  if (verbosity >= 2)
+	  if (ttf_verbosity >= 2)
 	    fprintf (stderr, "reading %d entries.\n", kst.nPairs);
 	  nke[i] = kst.nPairs;
 	  ke[i] = mymalloc (kst.nPairs * sizeof (struct KernEntry0));
@@ -346,7 +352,7 @@ readKernTable (int fd, int **nkep, struct KernEntry0 ***kep)
 	}
       else
 	{
-	  if (verbosity >= 2)
+	  if (ttf_verbosity >= 2)
 	    fprintf (stderr, "skipping.\n");
 	  surely_lseek (fd, ksth.length - sizeof (struct KernSubTableHeader),
 			SEEK_CUR);

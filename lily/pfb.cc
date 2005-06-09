@@ -10,13 +10,14 @@
 #include <cstdio>
 #include <cstring>
 
+#include "program-option.hh"
 #include "source-file.hh"
 #include "memory-stream.hh"
 #include "ttftool.h"
 #include "open-type-font.hh"
 #include "main.hh"
 #include "warn.hh"
-
+ 
 char *
 pfb2pfa (Byte const *pfb, int length)
 {
@@ -111,6 +112,9 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
   
   
   Memory_out_stream stream;
+  ttf_verbosity =
+    robust_scm2int (ly_get_option (ly_symbol2scm ("ttf-verbosity")), 0);
+  
   create_type42 (file_name.to_str0 (), (void*) &stream);
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
 				       stream.get_length ());
@@ -146,3 +150,4 @@ LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
   
   return asscm;
 }	   
+ 

@@ -53,6 +53,8 @@ static Lilypond_option_init options[] = {
    "include book-titles in preview images."},
   {"gs-font-load", "#f",
    "load fonts via Ghostscript."},
+  {"ttf-verbosity", "0",
+   "how much verbosity for TTF font embedding?"},
   {0,0,0},
 };
 

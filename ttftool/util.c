@@ -9,9 +9,8 @@
 
 #include "types.h"
 #include "proto.h"
-
 #include "libc-extension.hh"
-
+#include "ttftool.h"
 
 
 void *
@@ -75,12 +74,16 @@ surely_lseek (int fildes, off_t offset, int whence)
 ssize_t
 surely_read (int fildes, void *buf, size_t nbyte)
 {
+  if (ttf_verbosity >= 3)
+    fprintf (stderr, "Reading %d bytes\n", nbyte);
+  
   ssize_t n;
   if ((n = read (fildes, buf, nbyte)) < nbyte)
     {
       char s[100];
       sprintf (s, "read too little in surely_read(), expect %d got %d", nbyte, n);
-      syserror  (s);
+      sprintf (s, "trying again yields %d", read (fildes, buf, nbyte - n));
+      syserror (s);
     }
   return n;
 }

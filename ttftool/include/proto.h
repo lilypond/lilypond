@@ -1,7 +1,5 @@
 /* Copyright (c) 1997-1998 by Juliusz Chroboczek */
 
-extern int verbosity;
-
 struct TableDirectoryEntry *readDirectory (int fd, struct OffsetTable *ot);
 char **readNamingTable (int fd);
 void readHeadTable (int fd, struct HeadTable *ht);

@@ -5,6 +5,8 @@ extern "C"
 
 
   void create_type42 (char const *, void *);
+  extern int ttf_verbosity;
+  
 #ifdef __cplusplus
 }
 #endif
