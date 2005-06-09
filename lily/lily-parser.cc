@@ -31,7 +31,6 @@ Lily_parser::Lily_parser (Sources *sources)
   sources_ = sources;
   default_duration_ = Duration (2, 0);
   error_level_ = 0;
-  last_beam_start_ = SCM_EOL;
 
   smobify_self ();
 }
@@ -44,7 +43,6 @@ Lily_parser::Lily_parser (Lily_parser const &src)
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;
   error_level_ = src.error_level_;
-  last_beam_start_ = src.last_beam_start_;
 
   smobify_self ();
   if (src.lexer_)

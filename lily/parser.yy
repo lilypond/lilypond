@@ -2097,14 +2097,10 @@ optional_notemode_duration:
 	{
 		Duration dd = THIS->default_duration_;
 		$$ = dd.smobbed_copy ();
-
-		THIS->beam_check ($$);
 	}
 	| multiplied_duration	{
 		$$ = $1;
 		THIS->default_duration_ = *unsmob_duration ($$);
-
-		THIS->beam_check ($$);
 	}
 	;
 
@@ -2664,28 +2660,6 @@ Lily_parser::do_yyparse ()
 	yyparse ((void*)this);
 }
 
-
-/* FIXME: Should make this optional?  It will also complain at
-
-	[s4]
-
-which is entirely legitimate.
-
-Or we can scrap it.  Barchecks should detect wrong durations, and
-skipTypesetting speeds it up a lot.  */
-
-void
-Lily_parser::beam_check (SCM dur)
-{
-  Duration *d = unsmob_duration (dur);
-  if (unsmob_music (last_beam_start_) && d->duration_log () <= 2)
-    {
-      Music *m = unsmob_music (last_beam_start_);
-      m->origin ()->warning (_f ("suspect duration in beam: %s",
-      d->to_string ()));
-    }
-  last_beam_start_ = SCM_EOL;
-}
 
 
 

@@ -55,7 +55,11 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
 
 /*
   TODO: rename me to ly_c_lily_module_eval
+
+  we don't have to protect the result; it's already part of the
+  exports list of the module.
 */
+
 #define ly_lily_module_constant(x)					\
   ({									\
     static SCM cached;							\
@@ -64,8 +68,8 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
     if (__builtin_constant_p ((x)))					\
       {									\
 	if (!cached)							\
-	  value = cached = scm_gc_protect_object (scm_eval (scm_str2symbol (x),	\
-							    global_lily_module)); \
+	  value = cached = scm_eval (scm_str2symbol (x),	\
+							    global_lily_module); \
       }									\
     else								\
       value = scm_eval (scm_str2symbol (x), global_lily_module);	\

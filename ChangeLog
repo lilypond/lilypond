@@ -1,5 +1,10 @@
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/lily-guile-macros.hh: don't protect exported module
+	objects.
+
+	* lily/include/lily-parser.hh (class Lily_parser): remove beam_check().
+
 	* scm/backend-library.scm (postscript->pdf): use
 	delete-intermediate-files iso. running-from-gui? 
 
