@@ -377,9 +377,14 @@
 	    (uniq-list
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
-	   ;; ttftool/fopencookie is broken on Windows,
-	   ;; possibly a stack corruption bug.
-	   (pfas (map load-font font-names)))
+
+
+	   (font-loader (if (assoc 'gs-font-load
+				   (ly:get-option 'command-line-settings))
+			    load-font-via-GS
+			    load-font))
+			 
+	   (pfas (map font-loader font-names)))
       pfas))
 
   (if load-fonts?

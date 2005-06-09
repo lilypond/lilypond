@@ -36,7 +36,7 @@
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
 	 (cmd (format #f
 		      "gs\
- -dSAFER\
+ ~a\
  -dCompatibilityLevel=1.4 \
  -sPAPERSIZE=~a\
  -q\
@@ -48,6 +48,10 @@
  -c .setpdfwrite\
  -f ~S\
 "
+		      (if (assoc 'gs-font-load
+				 (ly:get-option 'command-line-settings))
+			  " -dNOSAFER "
+			  " -dSAFER ")
 		      (sanitize-command-option papersizename)
 		      pdf-name
 		      name)))
