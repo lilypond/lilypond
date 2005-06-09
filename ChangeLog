@@ -1,3 +1,20 @@
+2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/program-option.cc: rename from scm-option.cc
+
+	* lily/scm-option.cc (LY_DEFINE): handle no-foobar option setting.
+	(get_help_string): Print pretty help string.
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): add no-point-and-click
+	to snippet preamble.
+
+	* lily/scm-option.cc: remove command-line-settings option. Fold
+	all command-line options plus default settings in a generic
+	interface. 
+
+	* flower/getopt-long.cc (table_string): indent 2nd lines of help
+	texts too.
+
 2005-06-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* flower/file-name.cc: Bugfix: only append DIRSEP if BASE_
@@ -19,20 +36,17 @@
 
 	* lily/parser.yy (Repeated_music): remove >? 
 
-	* scm/framework-ps.scm (write-preamble): Support for -d
-	gs-font-load=1: read fonts via ghostscript. 
-	
 	* scm/backend-library.scm (postscript->pdf): Support for
 	-dgs-font-load=1
+
+	* scm/framework-ps.scm (write-preamble): make font loading
+	switchable to GS via --define-default gs-font-load=1
 
 2005-06-09  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/global.itely: added \layout docs.
 
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
-
-	* scm/framework-ps.scm (write-preamble): make font loading
-	switchable to GS via --define-default gs-font-load=1
 
 	* lily/lily-parser-scheme.cc: add unistd.h
 

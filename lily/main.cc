@@ -137,12 +137,13 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],\n                                       scm, svg, tex, texstr)")},
+  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps [default],\nscm, svg, tex, texstr)")},
 
   {_i ("SYM=VAL"), "define-default", 'd',
-   _i ("define a default Scheme setting.")},
+   _i ("set a Scheme program option. Uses #t if VAL is not specified\n"
+       "Try -dhelp for help.")},
 
-  {_i ("EXPR"), "evaluate", 'e', _i ("set scheme option, for help use\n                                       -e '(ly:option-usage)'")},
+  {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
   /* Bug in option parser: --output =foe is taken as an abbreviation
      for --output-format.  */
   {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
@@ -157,7 +158,8 @@ static Long_option_init options_static[]
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
 #if HAVE_CHROOT
-  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n                                       and cd into DIR")},
+  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
+						"and cd into DIR")},
 #endif 
   {0, "no-print", 0, _i ("do not generate printed output")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
@@ -535,7 +537,7 @@ main_with_guile (void *, int, char **)
   if (!init_scheme_variables.is_empty ()
       || !init_scheme_code_string.is_empty ())
     {
-      init_scheme_variables = "(ly:set-option 'command-line-settings (list "
+      init_scheme_variables = "(map (lambda (x) (ly:set-option (car x) (cdr x))) (list "
 	+ init_scheme_variables + "))";
       
       init_scheme_code_string

@@ -1,5 +1,5 @@
 /*
-  scm-option.hh -- declare Scheme options
+  program-option.hh -- declare Scheme options
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,10 +8,24 @@
 #ifndef SCM_OPTION_HH
 #define SCM_OPTION_HH
 
+#include "lily-guile.hh"
+
 /* options */
-extern bool midi_debug_global_b;
+extern bool do_midi_debugging_global;
 extern int testing_level_global;
 extern bool lily_1_8_relative;
 extern bool lily_1_8_compatibility_used;
+
+
+SCM ly_get_option (SCM);
+SCM ly_set_option (SCM, SCM);
+
+struct Lilypond_option_init
+{
+  char const *name_;
+  char const *init_;
+  char const *descr_;
+};
+
 
 #endif /* SCM_OPTION_HH */

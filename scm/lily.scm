@@ -37,11 +37,6 @@
       (debug-enable 'backtrace)
       (read-enable 'positions)))
 
-;; initialize defaults. 
-(ly:set-option 'command-line-settings
-	       '((resolution . 90)
-		 (preview-include-book-title . #t)
-		 ))
 
 (define-public tex-backend?
   (member (ly:output-backend) '("texstr" "tex")))

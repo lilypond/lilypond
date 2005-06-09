@@ -17,7 +17,7 @@
 #include "misc.hh"
 #include "midi-item.hh"
 #include "warn.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 
 Midi_stream::Midi_stream (String file_name)
 {
@@ -52,7 +52,7 @@ Midi_stream::operator << (Midi_item const &midi_c_r)
   String str = midi_c_r.to_string ();
 
   // ugh, should have separate debugging output with Midi*::print routines
-  if (midi_debug_global_b)
+  if (do_midi_debugging_global)
     {
       str = String_convert::bin2hex (str) + "\n";
       for (int i = str.index ("0a"); i >= 0; i = str.index ("0a"))

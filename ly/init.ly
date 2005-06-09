@@ -12,7 +12,7 @@
 \include "declarations-init.ly"
 
 
-#(ly:set-option 'new-relative)
+#(ly:set-option 'old-relative #f)
 #(define toplevel-scores '())
 #(define $globalheader #f)
 #(define version-seen? #f)

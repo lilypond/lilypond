@@ -48,8 +48,7 @@
  -c .setpdfwrite\
  -f ~S\
 "
-		      (if (assoc 'gs-font-load
-				 (ly:get-option 'command-line-settings))
+		      (if (ly:get-option 'gs-font-load)
 			  " -dNOSAFER "
 			  " -dSAFER ")
 		      (sanitize-command-option papersizename)

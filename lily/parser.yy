@@ -41,7 +41,7 @@ FIXME:
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "scm-hash.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 #include "score.hh"
 #include "text-interface.hh"
 #include "warn.hh"

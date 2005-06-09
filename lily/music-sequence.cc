@@ -7,7 +7,7 @@
 */
 
 #include "warn.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 #include "pitch.hh"
 #include "input.hh"
 #include "music-sequence.hh"

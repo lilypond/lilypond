@@ -306,7 +306,6 @@ const int EXTRA_SPACES = 5;
 String
 Long_option_init::table_string (Long_option_init *l)
 {
-  String argstr = "ARG";
   String tabstr = "";
 
   int wid = 0;
@@ -320,7 +319,9 @@ Long_option_init::table_string (Long_option_init *l)
       String s = "  " + l[i].str_for_help ();
       s += String_convert::char_string (' ', wid - s.length () + EXTRA_SPACES);
 
-      tabstr += s + gettext (l[i].help_str0_) + "\n";
+      String help_text (gettext (l[i].help_str0_));
+      help_text.substitute ("\n", "\n" + String_convert::char_string (' ', wid + EXTRA_SPACES + 2));
+      tabstr += s + help_text + "\n";
     }
 
   return tabstr;

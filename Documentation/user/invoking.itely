@@ -53,9 +53,7 @@ The following options are supported:
 @item -e,--evaluate=@var{expr}
 Evaluate the Scheme @var{expr} before parsing any @file{.ly} files.
 Multiple @code{-e} options may be given, they will be evaluated
-sequentially.  The function @code{ly:set-option} allows access to
-some internal variables.  Use @code{-e '(ly:option-usage)'} for more
-information.
+sequentially.  
 
 @item -f,--format=@var{format}
 which formats should be written.  Choices are @code{svg}, @code{ps},
@@ -97,19 +95,23 @@ This mode is used by default by lilypond-book.
 @cindex output format, setting
 
 @item -d,--define-default=@var{var}=@var{val}
-This defines an internal variable @var{var} as the Scheme value
-@var{val}.
+This sets the internal program option @var{var} to the Scheme value
+@var{val}. If @var{val} is not supplied, then @var{#t} is used. To
+switch off an option, @code{no-} may be prefixed to @var{var}, eg.
+@example
+-dno-point-and-click
+@end example
 
-Supported values include:
-@table @code
-@item resolution
-set PNG resolution
-@item preview-include-book-title
-include book-titles in preview
-@end table
+@noindent
+is the same as
+@example
+-dpoint-and-click='#f'
+@end example
 
-These settings are returned when calling
-@code{(ly:get-option 'command-line-settings)} from Scheme.
+@cindex point and click
+
+Setting the @code{help} option will print a summary of the options
+available, and exit.
 
 @item -h,--help
 Show a summary of usage.
@@ -135,7 +137,11 @@ Generate DVI files.  In this case, the @TeX{} backend should be
 specified, i.e., @code{-f tex}.
 
 @item --png
-Generate pictures of each page, in PNG format.  This implies @code{--ps}.
+Generate pictures of each page, in PNG format.  This implies
+@code{--ps}.  The resolution in DPI of the image may be set with
+@example
+-dresolution=110 
+@end example
 
 @item --pdf
 Generate PDF.  This implies @code{--ps}.
@@ -191,7 +197,7 @@ being compiled.  For a softer but secure alternative you can use the
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
-Run LilyPond in a jail.
+Run LilyPond in a chroot jail.
 
 The @code{--jail} option provides a more flexible alternative to 
 @code{--safe} when LilyPond formatting is available through a web
