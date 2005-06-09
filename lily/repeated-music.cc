@@ -10,7 +10,7 @@
 #include "music-sequence.hh"
 #include "pitch.hh"
 #include "warn.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 
 Music *
 Repeated_music::body (Music *me)

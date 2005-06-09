@@ -9,7 +9,7 @@
 #include "music.hh"
 #include "pitch.hh"
 #include "warn.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 
 class Relative_octave_music
 {

@@ -300,9 +300,7 @@
     (postscript->png
      (if (number? resolution)
 	 resolution
-	 (assoc
-	  'resolution
-	  (ly:get-option 'command-line-settings)))
+	 (ly:get-option 'resolution))
 
      (if (string? papersizename)
 	 papersizename

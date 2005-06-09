@@ -14,7 +14,7 @@
 #include "string-convert.hh"
 #include "midi-stream.hh"
 #include "duration.hh"
-#include "scm-option.hh"
+#include "program-option.hh"
 #include "killing-cons.tcc"
 
 #define PITCH_WHEEL_TOP 0x3FFF
@@ -455,12 +455,12 @@ String
 Midi_track::data_string () const
 {
   String str = Midi_chunk::data_string ();
-  if (midi_debug_global_b)
+  if (do_midi_debugging_global)
     str += "\n";
   for (Cons<Midi_event> *i = event_p_list_.head_; i; i = i->next_)
     {
       str += i->car_->to_string ();
-      if (midi_debug_global_b)
+      if (do_midi_debugging_global)
 	str += "\n";
     }
   return str;

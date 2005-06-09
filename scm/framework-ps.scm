@@ -379,8 +379,7 @@
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 
 
-	   (font-loader (if (assoc 'gs-font-load
-				   (ly:get-option 'command-line-settings))
+	   (font-loader (if (ly:get-option 'gs-font-load)
 			    load-font-via-GS
 			    load-font))
 			 
@@ -478,9 +477,7 @@
     ;; skip booktitles.
     (if (and
 	 (not
-	  (cdr (assoc
-	       'preview-include-book-title
-	       (ly:get-option 'command-line-settings))))
+	  (ly:get-option 'preview-include-book-title))
 	 (< 1 (length systems))
 	 (ly:paper-system-title? (list-ref systems 0))
 	 (ly:paper-system-title? (list-ref systems 1)))
@@ -542,8 +539,7 @@
 	 (defs-resolution (ly:output-def-lookup defs 'pngresolution))
 	 (resolution (if (number? defs-resolution)
 			 defs-resolution
-			 (cdr (assoc 'resolution
-				(ly:get-option 'command-line-settings)))))
+			 (ly:get-option 'resolution)))
 	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
     (postscript->png resolution
