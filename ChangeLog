@@ -1,5 +1,10 @@
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/include/lily-proto.hh: add Context_def. This fixes FC4
+	compile.
+
+	* lily/parser.yy (Repeated_music): remove >? 
+
 	* scm/framework-ps.scm (write-preamble): Support for -d
 	gs-font-load=1: read fonts via ghostscript. 
 	
