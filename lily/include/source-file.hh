@@ -61,7 +61,7 @@ public:
   */
   char const *pos_str0_;
 
-  SCM get_port () const { return str_port_; }
+  SCM get_port () const;
   String name_;
 
 private:

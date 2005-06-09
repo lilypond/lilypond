@@ -282,9 +282,8 @@ Source_file::get_counts (char const *pos_str0,
       line_chars += thislen;
       left -= thislen;
     }
-
-
 }
+
 bool
 Source_file::contains (char const* pos_str0) const
 {
@@ -372,4 +371,10 @@ Source_file::get_string (int n)
 {
   String str = String ((Byte const *)forward_str0 (n), n);
   return str;
+}
+
+SCM
+Source_file::get_port () const
+{
+  return str_port_; 
 }
