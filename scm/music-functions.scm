@@ -226,7 +226,6 @@ This function replaces all repeats  with unfold repeats. "
 	  (set! music (apply make-music (cons 'UnfoldedRepeatedMusic
 					      flattened)))
 
-	  (display old-name)
 	  (if (equal? old-name 'TremoloRepeatedMusic)
 	      (let* ((seq-arg? (memq 'sequential-music
 				     (ly:music-property e 'types)))
