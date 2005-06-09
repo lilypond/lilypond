@@ -64,7 +64,11 @@ surely_lseek (int fildes, off_t offset, int whence)
 {
   off_t result;
   if ((result = lseek (fildes, offset, whence)) < 0)
-    syserror ("Cannot seek");
+    {
+      char s[100];
+      sprintf (s, "Cannot seek to %d %ld", whence, offset);
+      syserror (s);
+    }
   return result;
 }
 
@@ -74,7 +78,9 @@ surely_read (int fildes, void *buf, size_t nbyte)
   ssize_t n;
   if ((n = read (fildes, buf, nbyte)) < nbyte)
     {
-      syserror  ("read too little in surely_read()");
+      char s[100];
+      sprintf (s, "read too little in surely_read(), expect %d got %d", nbyte, n);
+      syserror  (s);
     }
   return n;
 }

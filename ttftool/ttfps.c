@@ -42,7 +42,9 @@ create_type42 (const char *infile, void *out)
   endianness_test ();
 
   if ((fd = open (infile, O_RDONLY)) < 0)
-    syserror ("Error opening input file");
+    {
+      syserror ("Error opening input file");
+    }
 
   td = readDirectory (fd, &ot);
   if (verbosity >= 2)

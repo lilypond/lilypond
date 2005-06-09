@@ -1,5 +1,7 @@
 2005-06-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ttftool/util.c (surely_lseek): more verbosity.
+
 	* lily/include/lily-proto.hh: add Context_def. This fixes FC4
 	compile.
 
