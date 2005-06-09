@@ -994,7 +994,7 @@ Repeated_music:
 			r-> set_property ("element", beg->self_scm ());
 			scm_gc_unprotect_object (beg->self_scm ());
 			}
-		r->set_property ("repeat-count", scm_int2num (times >? 1));
+		r->set_property ("repeat-count", scm_int2num (max (times, 1)));
 
 		r-> set_property ("elements",alts);
 		if (ly_c_equal_p ($2, scm_makfrom0str ("tremolo"))) {
