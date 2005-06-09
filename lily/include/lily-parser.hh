@@ -47,14 +47,12 @@ public:
   int fatal_error_;
   int error_level_;
   bool ignore_version_b_;
-  SCM last_beam_start_;
 
   Lily_parser (Sources *sources);
   Lily_parser (Lily_parser const &);
 
   DECLARE_SCHEME_CALLBACK (layout_description, ());
 
-  void beam_check (SCM);
   void do_init_file ();
   void do_yyparse ();
   void parse_file (String init, String name, String out_name);
