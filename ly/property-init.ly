@@ -38,6 +38,10 @@ tieUp = \override Tie  #'direction = #1
 tieDown = \override Tie  #'direction = #-1
 tieNeutral = \revert Tie #'direction 
 
+tieDashed = {
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.4
+}
 tieDotted = {
   \override Tie #'dash-period = #0.75
   \override Tie #'dash-fraction = #0.1
