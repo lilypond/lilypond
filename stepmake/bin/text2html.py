@@ -31,7 +31,13 @@ for a in sys.argv[1:]:
 	    pass
 
 	s = r"""
-<html><body><pre>
+
+<html>
+<head>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+</head>
+
+<body><pre>
 %s
 </pre></body></html>
 """ % txt2html (open (a).read ())
