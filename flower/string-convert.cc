@@ -285,7 +285,7 @@ String_convert::pointer_string (void const *l)
 String
 String_convert::precision_string (double x, int n)
 {
-  String format = "%." + to_string (0 >? n - 1) + "e";
+  String format = "%." + to_string (max (0, n - 1)) + "e";
   String str = double_string (abs (x), format.to_str0 ());
 
   int exp = str.right_string (3).to_int ();
