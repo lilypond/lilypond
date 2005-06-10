@@ -6,8 +6,8 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#ifndef MY_LILY_PARSER_HH
-#define MY_LILY_PARSER_HH
+#ifndef LILY_PARSER_HH
+#define LILY_PARSER_HH
 
 #include "duration.hh"
 #include "input.hh"
@@ -62,7 +62,7 @@ public:
   void set_yydebug (bool);
 };
 
-DECLARE_UNSMOB (Lily_parser, my_lily_parser);
+DECLARE_UNSMOB (Lily_parser, lily_parser);
 
 SCM ly_parse_file (SCM);
 SCM ly_parse_string (SCM);
@@ -76,4 +76,4 @@ Output_def *get_layout (Lily_parser *parser);
 Output_def *get_midi (Lily_parser *parser);
 Output_def *get_paper (Lily_parser *parser);
 
-#endif /* MY_LILY_PARSER_HH */
+#endif /* LILY_PARSER_HH */

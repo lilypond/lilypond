@@ -96,22 +96,13 @@ sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 % for regression testing purposes.
 assertBeamQuant =
 #(def-music-function (parser location l r) (pair? pair?)
-  (let* ((f (check-quant-callbacks l r)))
-   
-   #{
-   \once \override Beam #'position-callbacks = $f
-   #}
-   
-))
-
+  (make-grob-property-override 'Beam 'position-callbacks
+   (check-quant-callbacks l r)))
+    
 % for regression testing purposes.
 assertBeamSlope =
 #(def-music-function (parser location comp) (procedure?)
-  (let* ((f (check-slope-callbacks comp)))
-   
-   #{
-   \once \override Beam #'position-callbacks = $f
-   #}
-   
-))
+  (make-grob-property-override 'Beam 'position-callbacks
+   (check-slope-callbacks comp)))
+
 

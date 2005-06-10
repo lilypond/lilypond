@@ -16,18 +16,14 @@
                                                                                             (char->integer #\0)))))
                                                  (string->list (number->string var-idx)))))))))
 
-(define-public (ly:parse-string-result str parser module)
+(define-public (ly:parse-string-result str parser)
   "Parse `str', which is supposed to contain a music expression."
   (let ((music-sym (gen-lily-sym)))
     (ly:parser-parse-string
      parser
-     (format #f "
-~a = { ~a }
-#(ly:export '~a)
-#(module-define! (resolve-module '~a) '~a ~a)
-"
-             music-sym str music-sym (module-name module) music-sym music-sym))
-  (eval `,music-sym module)))
+     (format #f "parseStringResult = { ~a }" str))
+
+    (ly:parser-lookup parser 'parseStringResult)))
 
 (define-public (read-lily-expression chr port)
   "Read a #{ lily music expression #} from port and return
@@ -35,11 +31,14 @@ the scheme music expression. The $ character may be used to introduce
 scheme forms, typically symbols. $$ may be used to simply write a `$'
 character."
   (let ((bindings '()))
+
     (define (create-binding! val)
       "Create a new symbol, bind it to `val' and return it."
       (let ((tmp-symbol (gen-lily-sym)))
+
         (set! bindings (cons (cons tmp-symbol val) bindings))
         tmp-symbol))
+    
     (define (remove-dollars! form)
       "Generate a form where `$variable' and `$ value' mottos are replaced
       by new symbols, which are binded to the adequate values."
@@ -56,7 +55,8 @@ character."
              (cons (create-binding! (cadr form)) (remove-dollars! (cddr form))))
             (else ;; (something ...)
              (cons (remove-dollars! (car form)) (remove-dollars! (cdr form))))))
-    (let ((lily-string (call-with-output-string
+    (let*
+	((lily-string (call-with-output-string
                         (lambda (out)
                           (do ((c (read-char port) (read-char port)))
                              ((and (char=? c #\#)
@@ -78,11 +78,19 @@ character."
                                                      (remove-dollars! expr)))))
                             ;; other caracters
                             (else
-                             (display c out))))))))
-      `(let ((parser-clone (ly:clone-parser parser)))
-         ,@(map (lambda (binding)
-                  `(ly:parser-define parser-clone ',(car binding) ,(cdr binding)))
-                (reverse bindings))
-         (ly:parse-string-result ,lily-string parser-clone (current-module))))))
+                             (display c out)))))))
+
+	  (result
+	   `(let ((parser-clone (ly:clone-parser parser)))
+	      ,@(map (lambda (binding)
+		       `(ly:parser-define parser-clone ',(car binding) ,(cdr binding)))
+		     (reverse bindings))
+	      (ly:parse-string-result ,lily-string parser-clone))
+	  ))
+
+      
+	     
+      result
+      )))
 
 (read-hash-extend #\{ read-lily-expression)

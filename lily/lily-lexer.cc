@@ -143,12 +143,13 @@ Lily_lexer::add_scope (SCM module)
   if (!scm_is_pair (scopes_))
     start_module_ = scm_current_module ();
   
-  scm_set_current_module (module);
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
       ly_use_module (module, scm_car (s));
     }
   scopes_ = scm_cons (module, scopes_);
+
+  set_current_scope ();
 }
 
 
@@ -161,13 +162,17 @@ Lily_lexer::remove_scope ()
   return sc;
 }
 
-void
+SCM
 Lily_lexer::set_current_scope ()
 {
+  SCM old = scm_current_module ();
+  
   if (scm_is_pair (scopes_))
     scm_set_current_module (scm_car (scopes_));
   else
     scm_set_current_module (start_module_);
+
+  return old;
 }
 
 int
@@ -300,13 +305,17 @@ Lily_lexer::mark_smob (SCM s)
 
   scm_gc_mark (lexer->chordmodifier_tab_);
   scm_gc_mark (lexer->pitchname_tab_stack_);
+  scm_gc_mark (lexer->start_module_);
   return lexer->scopes_;
 }
 
 int
-Lily_lexer::print_smob (SCM, SCM port, scm_print_state*)
+Lily_lexer::print_smob (SCM s, SCM port, scm_print_state*)
 {
+  Lily_lexer *lexer = Lily_lexer::unsmob (s);
+
   scm_puts ("#<Lily_lexer ", port);
+  scm_display (lexer->scopes_, port);
   scm_puts (" >", port);
   return 1;
 }

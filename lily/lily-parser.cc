@@ -33,6 +33,9 @@ Lily_parser::Lily_parser (Sources *sources)
   error_level_ = 0;
 
   smobify_self ();
+
+  lexer_ = new Lily_lexer (sources_);
+  scm_gc_unprotect_object (lexer_->self_scm ());
 }
 
 Lily_parser::Lily_parser (Lily_parser const &src)
@@ -71,9 +74,9 @@ Lily_parser::mark_smob (SCM s)
 int
 Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
-  scm_puts ("#<my_lily_parser ", port);
+  scm_puts ("#<Lily_parser ", port);
   Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
-  (void) parser;
+  scm_display (parser->lexer_->self_scm (), port);
   scm_puts (" >", port);
   return 1;
 }
@@ -87,10 +90,6 @@ Lily_parser::parse_file (String init, String name, String out_name)
       try_load_text_metrics (out_name);
     }
 
-  SCM oldmod = scm_current_module ();
-
-  lexer_ = new Lily_lexer (sources_);
-  scm_gc_unprotect_object (lexer_->self_scm ());
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
@@ -112,8 +111,11 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
-  do_yyparse ();
 
+  SCM mod = lexer_->set_current_scope ();
+  do_yyparse ();
+  scm_set_current_module (mod);
+ 
   if (!define_spots_.is_empty ())
     {
       define_spots_.top ().warning (_ ("braces don't match"));
@@ -122,20 +124,12 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   error_level_ = error_level_ | lexer_->error_level_;
   lexer_ = 0;
-
-  scm_set_current_module (oldmod);
 }
 
 void
 Lily_parser::parse_string (String ly_code)
 {
-  Lily_lexer *parent = lexer_;
-  lexer_ = (parent == 0 ? new Lily_lexer (sources_)
-	    : new Lily_lexer (*parent));
-  scm_gc_unprotect_object (lexer_->self_scm ());
-
-  SCM oldmod = scm_current_module ();
-  // TODO: use $parser 
+   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
   
@@ -144,8 +138,11 @@ Lily_parser::parse_string (String ly_code)
 
   set_yydebug (0);
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
-  do_yyparse ();
 
+  SCM mod = lexer_->set_current_scope ();
+  do_yyparse ();
+  scm_set_current_module (mod);
+  
   if (!define_spots_.is_empty ())
     {
       if (define_spots_.is_empty ()
@@ -154,9 +151,6 @@ Lily_parser::parse_string (String ly_code)
     }
 
   error_level_ = error_level_ | lexer_->error_level_;
-
-  scm_set_current_module (oldmod);
-  lexer_ = 0;
 }
 
 char const *

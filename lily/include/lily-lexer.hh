@@ -60,7 +60,7 @@ public:
   Input here_input () const;
 
   void add_scope (SCM);
-  void set_current_scope ();
+  SCM set_current_scope ();
   SCM remove_scope ();
 
   void start_main_input ();
