@@ -1,3 +1,11 @@
+2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/index.texi (Top): remove ChangeLog link.
+
+2003-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* buildscripts/mutopia-index.py: backport fix.
+
 2003-08-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* VERSION (PATCH_LEVEL): release 1.6.12

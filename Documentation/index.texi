@@ -122,7 +122,6 @@ output shown.  Also available in
 @c Jan's site?
 
 @itemize @bullet
-@item The @uref{ChangeLog.html, ChangeLog} lists things recently done.
 @item The
 @uref{../../input/regression/out-www/regression.html,Regression Tests}
 are lot of snippets that test all basic features.  Also available in
