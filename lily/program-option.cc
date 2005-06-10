@@ -172,8 +172,8 @@ Protected_scm command_line_settings = SCM_EOL;
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print ly:set-option usage")
 {
-  SCM stdout = scm_current_output_port();
-  scm_display (ly_get_option (ly_symbol2scm ("help")), stdout);
+  SCM scm_stdout = scm_current_output_port();
+  scm_display (ly_get_option (ly_symbol2scm ("help")), scm_stdout);
   exit (0);
   return SCM_UNSPECIFIED;
 }
