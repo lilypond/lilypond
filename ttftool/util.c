@@ -88,10 +88,12 @@ surely_read (int fildes, void *buf, size_t nbyte)
 
   if (n < 0 || nbyte > 0)
     {
-      syserror ("error during read()");
+      char s[100];
+      sprintf (s, "error during read(), n = %d, nbyte = %d", n, nbyte);
+      syserror (s);
     }
   
-  return n;
+  return nbyte;
 }
 
 char *
