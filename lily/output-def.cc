@@ -19,6 +19,10 @@
 
 #include "ly-smobs.icc"
 
+#include "program-option.hh"
+
+#include "string-convert.hh"
+
 Output_def::Output_def ()
 {
   scope_ = SCM_EOL;

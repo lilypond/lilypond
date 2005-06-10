@@ -1,3 +1,9 @@
+2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/ly-module.cc (ly_make_anonymous_module): call make-module
+	directly. This fixes a massive memory leak, provided you use CVS
+	GUILE.
+
 2005-06-10  Erik Sandberg  <ersa9195@student.uu.se>
 
 	* ly/property-init.ly: Added tieDashed.

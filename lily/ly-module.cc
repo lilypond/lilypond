@@ -13,22 +13,17 @@
 
 #define FUNC_NAME __FUNCTION__
 
-static int module_count;
-
-void
-ly_init_anonymous_module (void *data)
-{
-  (void) data;
-}
-
 SCM
 ly_make_anonymous_module (bool safe)
 {
   SCM mod = SCM_EOL;
   if (!safe)
     {
-      String s = "*anonymous-ly-" + to_string (module_count++) + "*";
-      mod = scm_c_define_module (s.to_str0 (), ly_init_anonymous_module, 0);
+      SCM maker = ly_lily_module_constant ("make-module");
+      SCM scm_module = ly_lily_module_constant ("the-scm-module");
+      
+      mod = scm_call_0 (maker);
+      ly_use_module (mod, scm_module);
       ly_use_module (mod, global_lily_module);
     }
   else

@@ -87,6 +87,8 @@ Lily_parser::parse_file (String init, String name, String out_name)
       try_load_text_metrics (out_name);
     }
 
+  SCM oldmod = scm_current_module ();
+
   lexer_ = new Lily_lexer (sources_);
   scm_gc_unprotect_object (lexer_->self_scm ());
   // TODO: use $parser 
@@ -120,6 +122,8 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   error_level_ = error_level_ | lexer_->error_level_;
   lexer_ = 0;
+
+  scm_set_current_module (oldmod);
 }
 
 void
@@ -131,12 +135,10 @@ Lily_parser::parse_string (String ly_code)
   scm_gc_unprotect_object (lexer_->self_scm ());
 
   SCM oldmod = scm_current_module ();
-  scm_set_current_module (scm_car (lexer_->scopes_));
-
   // TODO: use $parser 
   lexer_->set_identifier (ly_symbol2scm ("parser"),
 			  self_scm ());
-
+  
   lexer_->main_input_name_ = "<string>";
   lexer_->is_main_input_ = true;
 
