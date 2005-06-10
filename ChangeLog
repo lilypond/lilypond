@@ -1,5 +1,7 @@
 2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/ps-to-png.scm (make-ps-images): search-gs for multipage too.
+	
 	* lily/default-actions.cc (Module): new file. default
 	{book,score}-print functions.
 
