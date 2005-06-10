@@ -93,7 +93,7 @@ Lily_lexer::Lily_lexer (Sources *sources)
   scopes_ = SCM_EOL;
   error_level_ = 0;
   is_main_input_ = false;
-
+  start_module_ = SCM_EOL;
   smobify_self ();
 
   add_scope (ly_make_anonymous_module (false));
@@ -108,7 +108,8 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
   sources_ = src.sources_;
-
+  start_module_ = SCM_EOL;
+  
   error_level_ = src.error_level_;
   is_main_input_ = src.is_main_input_;
 
@@ -139,6 +140,9 @@ void
 Lily_lexer::add_scope (SCM module)
 {
   ly_reexport_module (scm_current_module ());
+  if (!scm_is_pair (scopes_))
+    start_module_ = scm_current_module ();
+  
   scm_set_current_module (module);
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -147,14 +151,23 @@ Lily_lexer::add_scope (SCM module)
   scopes_ = scm_cons (module, scopes_);
 }
 
+
 SCM
 Lily_lexer::remove_scope ()
 {
   SCM sc = scm_car (scopes_);
   scopes_ = scm_cdr (scopes_);
-  scm_set_current_module (scm_car (scopes_));
-
+  set_current_scope ();
   return sc;
+}
+
+void
+Lily_lexer::set_current_scope ()
+{
+  if (scm_is_pair (scopes_))
+    scm_set_current_module (scm_car (scopes_));
+  else
+    scm_set_current_module (start_module_);
 }
 
 int

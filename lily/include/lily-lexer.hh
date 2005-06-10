@@ -22,8 +22,6 @@ void set_lexer ();
 class Lily_lexer : public Includable_lexer
 {
   DECLARE_SMOBS (Lily_lexer,);
-public:
-  SCM scopes_;
 
 private:
   int lookup_keyword (String);
@@ -34,7 +32,8 @@ private:
   char escaped_char (char) const;
 
   Keyword_table *keytable_;
-
+  SCM scopes_;
+  SCM start_module_;
 public:
   String main_input_name_;
   void *lexval;
@@ -61,6 +60,7 @@ public:
   Input here_input () const;
 
   void add_scope (SCM);
+  void set_current_scope ();
   SCM remove_scope ();
 
   void start_main_input ();

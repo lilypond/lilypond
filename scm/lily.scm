@@ -268,7 +268,7 @@ The syntax is the same as `define*-public'."
 		    (lambda (a b)
 		      (< (object-address (car a))
 			 (object-address (car b))))))
-	 
+
 	 (out-file-name (string-append
 			 "gcstat-" (number->string gc-protect-stat-count)
 			 ".scm"))
@@ -288,7 +288,24 @@ The syntax is the same as `define*-public'."
 		 " ")
 		"\n")))
 	   protects))
-     outfile)))
+     outfile)
+
+    (if (defined? 'gc-live-object-stats)
+	(let*
+	    ((dummy (gc))
+	     (dummy2 (gc))
+	     (stats (gc-live-object-stats))
+	     )
+
+	  (for-each
+	   (lambda (x)
+	     (format outfile "~a: ~a\n" (car x) (cdr x)))
+	   (sort (gc-live-object-stats)
+		 (lambda (x y)
+		   (string<? (car x) (car y)))))
+	   ))
+
+    ))
 
 (define-public (tweak-grob-property grob sym val)
   (set! (ly:grob-property grob sym) val))
