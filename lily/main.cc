@@ -40,6 +40,7 @@
 #include "string-convert.hh"
 #include "version.hh"
 #include "warn.hh"
+#include "program-option.hh"
 
 /*
  * Global options that can be overridden through command line.

@@ -20,12 +20,6 @@ extern bool lily_1_8_compatibility_used;
 SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
 
-struct Lilypond_option_init
-{
-  char const *name_;
-  char const *init_;
-  char const *descr_;
-};
 
 
 #endif /* SCM_OPTION_HH */
