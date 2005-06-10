@@ -33,6 +33,13 @@ bool lily_1_8_compatibility_used = false;
 bool do_internal_type_checking_global;
 
 
+struct Lilypond_option_init
+{
+  char const *name_;
+  char const *init_;
+  char const *descr_;
+};
+
 static Lilypond_option_init options[] = {
   {"point-and-click", "#t",
    "use point & click"},
