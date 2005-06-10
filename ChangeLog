@@ -1,5 +1,18 @@
 2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/default-actions.cc (Module): new file. default
+	{book,score}-print functions.
+
+	* scm/ly-from-scheme.scm (ly:parse-string-result): use new setup:
+	pass results via parseStringResult, lookup via ly:parser-lookup.  
+
+	* lily/lily-parser.cc (Lily_parser): only clone lexer in
+	constructors.
+	(parse_file): encapsulate do_yyparse() in scm_set_current_module()
+	(parse_string): idem.
+
+	* ly/spanners-init.ly (assertBeamQuant): don't use #{ #} in init.
+
 	* lily/main.cc (main_with_guile): copy be_verbose_global into
 	ly_set_option()
 

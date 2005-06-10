@@ -142,5 +142,5 @@ primeSixteenths = \relative {
     \filler
 }
 
-{ \primes \seconds \primeSixteenths }
+\new Voice { \primes \seconds \primeSixteenths }
 
