@@ -106,7 +106,10 @@
  -r~S\
  '~a'\
  -c showpage\
- -c quit" (search-gs) output-file paper-size resolution ps-name)
+ -c quit"
+			   (search-gs)
+			   (if verbose? "" "-q")
+			   output-file paper-size resolution ps-name)
 		   (format #f "~a\
  ~a\
  -s\
