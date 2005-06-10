@@ -1,5 +1,7 @@
 2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* stepmake/bin/text2html.py (txt2html): add utf-8 marker. 
+
 	* flower/string-convert.cc (precision_string): >? fix.
 
 	* scm/ps-to-png.scm (make-ps-images): search-gs for multipage too.
