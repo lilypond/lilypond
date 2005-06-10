@@ -27,6 +27,19 @@
 (define (re-sub re sub string)
   (regexp-substitute/global #f re string 'pre sub 'post))
 
+(define (search-executable names)
+  (define (helper path lst)
+    (if (null? (cdr lst))
+	(car lst)
+	(if (search-path path (car lst)) (car lst)
+	    (helper path (cdr lst)))))
+
+  (let ((path (parse-path (getenv "PATH"))))
+    (helper path names)))
+
+(define (search-gs)
+  (search-executable '("gs-nox" "gs-8.15" "gs")))
+
 (define (gulp-port port max-length)
   (let ((str (make-string max-length)))
     (read-string!/partial str port)
@@ -82,19 +95,20 @@
 
 	  ;;png16m is because Lily produces color nowadays.
 	  (cmd (if multi-page?
-		   (format #f "gs\
+		   (format #f "~a\
+ ~a\
  -dGraphicsAlphaBits=4\
  -dNOPAUSE\
  -dTextAlphaBits=4\
  -sDEVICE=png16m\
  -sOutputFile='~a'\
  -sPAPERSIZE=~a\
- -q\
  -r~S\
  '~a'\
  -c showpage\
  -c quit" output-file paper-size resolution ps-name)
-		   (format #f "gs\
+		   (format #f "~a\
+ ~a\
  -s\
  -dGraphicsAlphaBits=4\
  -dEPSCrop\
@@ -102,10 +116,12 @@
  -dTextAlphaBits=4\
  -sDEVICE=png16m\
  -sOutputFile='~a'\
- -q\
  -r~S\
  '~a'\
- -c quit" output-file resolution ps-name)))
+ -c quit"
+			   (search-gs)
+			   (if verbose? "" "-q")
+			   output-file resolution ps-name)))
 	  (foo (for-each delete-file (append (dir-re "." png1)
 					     (dir-re "." pngn-re))))
 	  (bar (if verbose?

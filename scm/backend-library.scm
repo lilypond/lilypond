@@ -32,14 +32,27 @@
    (regexp-substitute/global #f "[^- 0-9,.a-zA-Z'\"\\]" str 'pre 'post)
    "\""))
 
+(define-public (search-executable names)
+  (define (helper path lst)
+    (if (null? (cdr lst))
+	(car lst)
+	(if (search-path path (car lst)) (car lst)
+	    (helper path (cdr lst)))))
+
+  (let ((path (parse-path (getenv "PATH"))))
+    (helper path names)))
+
+(define-public (search-gs)
+  (search-executable '("gs-nox" "gs-8.15" "gs")))
+
 (define-public (postscript->pdf papersizename name)
   (let* ((pdf-name (string-append (basename name ".ps") ".pdf"))
 	 (cmd (format #f
-		      "gs\
+		      "~a\
+ ~a\
  ~a\
  -dCompatibilityLevel=1.4 \
  -sPAPERSIZE=~a\
- -q\
  -dNOPAUSE\
  -dBATCH\
  -r1200 \
@@ -48,6 +61,8 @@
  -c .setpdfwrite\
  -f ~S\
 "
+		      (search-gs)
+		      (if (ly:get-option 'verbose) "" "-q")
 		      (if (ly:get-option 'gs-font-load)
 			  " -dNOSAFER "
 			  " -dSAFER ")
