@@ -1,3 +1,8 @@
+2005-06-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* GNUmakefile.in: remove links for .map, .enc
+	don't fail if out/ doesn't exist yet.
+
 2005-06-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ttftool/util.c (surely_read): return nbytes
