@@ -1,5 +1,7 @@
 2005-06-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile ($(outdir)/$(redhat-package)): Fedora-4 url.
+
 	* GNUmakefile.in: remove links for .map, .enc
 	don't fail if out/ doesn't exist yet.
 
