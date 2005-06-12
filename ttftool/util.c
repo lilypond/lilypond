@@ -58,41 +58,39 @@ myrealloc (void *ptr, size_t size)
   return p;
 }
 
-off_t
-surely_lseek (int fildes, off_t offset, int whence)
+void
+show_fpos (int fd)
 {
+  off_t here = lseek (fd, 0, SEEK_CUR);
+  off_t end = lseek (fd, 0, SEEK_END);
+  fprintf (stderr, "here %d end %d", here, end);
+  lseek (fd, here, SEEK_SET);
+}
+
+void
+surely_lseek (FILE *fildes, off_t offset, int whence)
+{
+  if (ttf_verbosity >= 3)
+    fprintf (stderr, "Seeking to %d %d\n", whence, offset);
+  
   off_t result;
-  if ((result = lseek (fildes, offset, whence)) < 0)
+  if ((result = fseek (fildes, (long) offset, whence)) < 0)
     {
       char s[100];
-      sprintf (s, "Cannot seek to %d %ld", whence, offset);
+      sprintf (s, "Cannot seek");
       syserror (s);
     }
-  return result;
 }
 
 ssize_t
-surely_read (int fildes, void *buf, size_t nbyte)
+surely_read (FILE *fildes, void *buf, size_t nbyte)
 {
   if (ttf_verbosity >= 3)
     fprintf (stderr, "Reading %d bytes\n", nbyte);
+  if (nbyte == 0)
+    return 0;
   
-  ssize_t n;
-  void *bufptr = buf;
-  while (nbyte > 0
-	 && (n = read (fildes, bufptr, nbyte)) > 0)
-    {
-      bufptr += n;
-      nbyte -= n;
-    }
-
-  if (n < 0 || nbyte > 0)
-    {
-      char s[100];
-      sprintf (s, "error during read(), n = %d, nbyte = %d", n, nbyte);
-      syserror (s);
-    }
-  
+  int items = fread (buf, nbyte, 1,  fildes);
   return nbyte;
 }
 

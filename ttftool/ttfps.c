@@ -8,8 +8,7 @@
 #include "types.h"
 #include "proto.h"
 
-#include "file-cookie.hh"
- 
+
 static void endianness_test (void);
 static void usage (char *);
 
@@ -18,7 +17,8 @@ int ttf_verbosity = 0;
 void
 create_type42 (const char *infile, void *out)
 {
-  int fd, i;
+  FILE *fd = 0;
+  int  i;
   struct OffsetTable ot;
   struct HeadTable *ht;
   struct PostTable *pt;
@@ -41,7 +41,7 @@ create_type42 (const char *infile, void *out)
 
   endianness_test ();
 
-  if ((fd = open (infile, O_RDONLY)) < 0)
+  if ((fd = fopen (infile, "rb")) == NULL)
     {
       syserror ("Error opening input file");
     }
@@ -122,7 +122,7 @@ create_type42 (const char *infile, void *out)
   lily_cookie_fclose (out);
   if (ttf_verbosity >= 1)
     fprintf (stderr, "Done.\n");
-  close (fd);
+  fclose (fd);
 }
 
 
