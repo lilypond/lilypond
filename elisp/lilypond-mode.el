@@ -425,8 +425,7 @@ in LilyPond-include-path."
     ("LilyPond" . (,(concat LilyPond-lilypond-command " %s") "%s" "%l" "View"))
     ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "ViewDVI"))
     ("2Dvi" . (,(concat LilyPond-lilypond-command " -b tex %s") "%s" "%d" "LaTeX"))
-    ("2PS" . (,(concat LilyPond-lilypond-command "-b ps %s") "%s" "%p" "ViewPS"))
-    ("2Midi" . (,(concat LilyPond-lilypond-command " -m %s") "%s" "%m" "Midi"))
+    ("2PS" . (,(concat LilyPond-lilypond-command "-f ps %s") "%s" "%p" "ViewPS"))
     ("2Gnome" . (,(concat LilyPond-lilypond-command " -b gnome %s")))
 
     ("Book" . ("lilypond-book %x" "%x" "%l" "LaTeX"))

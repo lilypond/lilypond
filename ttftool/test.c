@@ -12,7 +12,7 @@ main (int argc, char **argv)
   FILE *in, *out;
   if (argc != 3)
     {
-      fprintf (stderr, "test foo.ttf bar.pfa");
+      fprintf (stderr, "%s input.ttf output.pfa", argv[0]);
       exit (2);
     }
 

@@ -9,7 +9,6 @@
 
 #include "types.h"
 #include "proto.h"
-#include "libc-extension.hh"
 #include "ttftool.h"
 
 

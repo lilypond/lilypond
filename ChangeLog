@@ -1,5 +1,15 @@
 2005-06-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* elisp/lilypond-mode.el (LilyPond-command-alist): remove 2midi
+	(LilyPond-command-alist): use -f ps (thanks to Pal Benko)
+
+	* input/sakura-sakura.ly: add \midi.
+
+	* buildscripts/mutopia-index.py (find): use /usr/bin/find
+	iso. python find. 
+
+	* ttftool/test.c (main): cosmetics.
+
 	* ttftool/util.c (surely_lseek): use stdio FILE's for I/O 
 
 	* ttftool/test.c: new file. If compiled with -DTEST_TTFTOOL,

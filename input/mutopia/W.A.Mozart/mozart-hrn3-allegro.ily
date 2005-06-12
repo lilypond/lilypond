@@ -127,7 +127,9 @@ allegro =
   \override Stem   #'stroke-style = #"grace"
    \longgrace d16( \endlonggrace 
   \revert Stem #'stroke-style }
- c8[) b16  c)]
+
+%% todo: should insert grace slur here.
+	 c8[ b16  c)]
 	\grace {
   \override Stem   #'stroke-style = #"grace"
    \longgrace c16 \endlonggrace 
