@@ -1,3 +1,8 @@
+2005-06-11  Graham Percival <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely: add warning about
+	the font warnings in dvips.
+
 2005-06-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/GNUmakefile ($(outdir)/$(redhat-package)): Fedora-4 url.
