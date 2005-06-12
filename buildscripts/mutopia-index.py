@@ -9,30 +9,15 @@ import re
 import stat
 import sys
 
-_debug = 0
-_prune = ['(*)']
+def find (pat, dir):
+	f = os.popen ('find %s -name "%s"'% (dir, pat))
+	lst = []
+	for a in f.readlines():
+		a = a[:-1]
+		lst.append (a)
+	return lst
 
-def find (pattern, dir = os.curdir):
-        lst = []
-        names = os.listdir (dir)
-        names.sort ()
-        for name in names:
-                if name in (os.curdir, os.pardir):
-                        continue
-                fullname = os.path.join (dir, name)
-                if fnmatch.fnmatch (name, pattern):
-                        lst.append (fullname)
-                if os.path.isdir (fullname) and not os.path.islink (fullname):
-                        for p in _prune:
-                                if fnmatch.fnmatch (name, p):
-                                        if _debug:
-						print "skip", `fullname`
-                                        break
-                        else:
-                                if _debug:
-					print "descend into", `fullname`
-                                lst = lst + find (pattern, fullname)
-        return lst
+
 
 headertext= r"""
 
@@ -124,6 +109,8 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 		list.write (headertext_nopics)
 
 	for ex in inputs:
+		print ex
+		
 		(base, ext) = os.path.splitext (ex)
 		(base, ext2) = os.path.splitext (base)		
 		ext = ext2 + ext
@@ -163,13 +150,25 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 						   % (type, size))
 				pictures = ['jpeg', 'png', 'xpm']
 				lst.write ('\n')
+			else:
+				print "can't find" , `file_name`
 
 		list_item (base + ext, 'The input', 'ASCII')
+
+		pages_found = 0
 		for page in range (1, 100):
+			pages_found += 1
 			f = base + '-page%d.png' % page
-			if not os.path.isfile (f):
+			
+ 			if not os.path.isfile (f):
 				break
 			list_item (f, 'See a picture of page %d' % page, 'png')
+
+		if pages_found == 0 and os.path.exists (base + '.png'):
+			list_item (base + ".png",
+				   'See a picture', 'png')
+
+			
 		list_item (base + '.pdf', 'Print', 'PDF')
 		list_item (base + '.midi', 'Listen', 'MIDI')
 		list.write ('</ul>\n');

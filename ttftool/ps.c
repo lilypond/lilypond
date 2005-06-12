@@ -8,7 +8,6 @@
 #include "proto.h"
 
 #include "ttftool.h"
-#include "libc-extension.hh"
 
 #define CHUNKSIZE 65534
 
