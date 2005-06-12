@@ -147,5 +147,5 @@
 		   (format #f (_ "~a exited with status: ~S") "GS" status))
 	   (exit 1)))
      (if (and rename-page-1? multi-page?)
-	 (rename (re-sub "%d" "1" pngn) png1))
+	 (rename-file (re-sub "%d" "1" pngn) png1))
      (append (dir-re "." png1) (dir-re "." pngn-re)))))

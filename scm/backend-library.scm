@@ -93,10 +93,10 @@
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
   (let ((paper-size (sanitize-command-option paper-size-name))
-	(verbose? (ly:get-option 'verbose))
-	(rename-page-1? #f))
+	(verbose (ly:get-option 'verbose))
+	(rename-page-1 #t))
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name resolution paper-size rename-page-1? verbose?)
+    (make-ps-images name resolution paper-size rename-page-1 verbose)
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)

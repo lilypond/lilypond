@@ -1,9 +1,18 @@
+2005-06-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/ps-to-png.scm (make-ps-images): fix rename-page-1 functionality.
+
+	* scm/backend-library.scm (postscript->png): set rename-page-1 to
+	true.
+
 2005-06-11  Graham Percival <gperlist@shaw.ca>
 
 	* Documentation/user/lilypond-book.itely: add warning about
 	the font warnings in dvips.
 
 2005-06-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* THANKS: typo
 
 	* mf/GNUmakefile ($(outdir)/$(redhat-package)): Fedora-4 url.
 
