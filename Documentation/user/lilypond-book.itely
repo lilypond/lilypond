@@ -116,6 +116,9 @@ temporary files, which would clutter up the working directory.  To
 remedy this, use the @code{--output=@var{dir}} option.  It will create
 the files in a separate subdirectory @file{dir}.
 
+Running dvips will produce many warnings about fonts.  They are not
+harmful; please ignore them.
+
 Finally the result of the La@TeX{} example shown above.@footnote{This
 tutorial is processed with Texinfo, so the example gives slightly
 different results in layout.}  This finishes the tutorial section.
@@ -292,7 +295,9 @@ command line:
 where the @var{file}@command{psfonts} file is obtained from
 @command{lilypond-book}, @xref{Invoking lilypond-book} for details. PDF
 can then be produced with a PostScript to PDF translator like
-@code{ps2pdf} (which is part of GhostScript).
+@code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
+will produce some warnings about fonts; these are harmless and may
+be ignored.
 
 @cindex international characters
 @cindex latin1
