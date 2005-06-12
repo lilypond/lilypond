@@ -25,7 +25,7 @@
 void
 printPSFont (void *out, struct HeadTable *ht,
 	     char **strings, int nglyphs, int postType,
-	     struct PostTable *pt, struct GlyphName *gnt, int fd)
+	     struct PostTable *pt, struct GlyphName *gnt, FILE *fd)
 {
   printPSHeader (out, ht, strings, pt);
   printPSData (out, fd);
@@ -81,7 +81,7 @@ printPSHeader (void *out, struct HeadTable *ht,
 }
 
 void
-printPSData (void *out, int fd)
+printPSData (void *out, FILE *fd)
 {
   static char xdigits[] = "0123456789ABCDEF";
 
@@ -95,7 +95,7 @@ printPSData (void *out, int fd)
   lily_cookie_fprintf (out, "/sfnts [");
   for (;;)
     {
-      i = read (fd, buffer, CHUNKSIZE);
+      i = fread (buffer, 1, CHUNKSIZE, fd);
       if (i == 0)
 	break;
       lily_cookie_fprintf (out, "\n<");

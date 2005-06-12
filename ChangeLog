@@ -1,5 +1,10 @@
 2005-06-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ttftool/util.c (surely_lseek): use stdio FILE's for I/O 
+
+	* ttftool/test.c: new file. If compiled with -DTEST_TTFTOOL,
+	create a ttf2ps binary.
+
 	* scm/ps-to-png.scm (make-ps-images): fix rename-page-1 functionality.
 
 	* scm/backend-library.scm (postscript->png): set rename-page-1 to

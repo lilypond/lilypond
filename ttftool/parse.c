@@ -11,7 +11,7 @@
 #include "ttftool.h"
 
 struct TableDirectoryEntry *
-readDirectory (int fd, struct OffsetTable *ot)
+readDirectory (FILE *fd, struct OffsetTable *ot)
 {
   unsigned n;
   int i;
@@ -32,7 +32,7 @@ readDirectory (int fd, struct OffsetTable *ot)
 }
 
 char **
-readNamingTable (int fd)
+readNamingTable (FILE *fd)
 {
   USHORT format;
   USHORT nrecords;
@@ -43,7 +43,7 @@ readNamingTable (int fd)
   char *data;
   char **strings;
 
-  position = surely_lseek (fd, 0, SEEK_CUR);
+  position = ftell (fd);
 
   surely_read (fd, &format, sizeof (USHORT));
   FIX_UH (format);
@@ -114,7 +114,7 @@ readNamingTable (int fd)
 }
 
 int
-readMaxpTable (int fd)
+readMaxpTable (FILE *fd)
 {
   struct
   {
@@ -131,7 +131,7 @@ readMaxpTable (int fd)
 }
 
 void
-readHeadTable (int fd, struct HeadTable *ht)
+readHeadTable (FILE *fd, struct HeadTable *ht)
 {
   surely_read (fd, ht, sizeof (struct HeadTable));
   FIX_HeadTable (*ht);
@@ -149,7 +149,7 @@ readHeadTable (int fd, struct HeadTable *ht)
 }
 
 int
-readPostTable (int fd, int nglyphs, struct PostTable *pt,
+readPostTable (FILE *fd, int nglyphs, struct PostTable *pt,
 	       struct GlyphName **gt)
 {
   USHORT nglyphspost;
@@ -226,7 +226,7 @@ readPostTable (int fd, int nglyphs, struct PostTable *pt,
  /*NOTREACHED*/}
 
 void *
-readLocaTable (int fd, int nglyphs, int format)
+readLocaTable (FILE *fd, int nglyphs, int format)
 {
   int i;
   switch (format)
@@ -255,13 +255,13 @@ readLocaTable (int fd, int nglyphs, int format)
  /*NOTREACHED*/}
 
 struct Box *
-readGlyfTable (int fd, int nglyphs, int format, void *loca)
+readGlyfTable (FILE *fd, int nglyphs, int format, void *loca)
 {
   int i;
   struct Box *bbox;
   off_t base, offset;
 
-  base = surely_lseek (fd, 0, SEEK_CUR);
+  base = ftell (fd);
 
   bbox = mymalloc (nglyphs * sizeof (struct Box));
   for (i = 0; i < nglyphs; i++)
@@ -278,7 +278,7 @@ readGlyfTable (int fd, int nglyphs, int format, void *loca)
 }
 
 longHorMetric *
-readHmtxTable (int fd, int nummetrics)
+readHmtxTable (FILE *fd, int nummetrics)
 {
   longHorMetric *metrics;
   int i;
@@ -293,7 +293,7 @@ readHmtxTable (int fd, int nummetrics)
 }
 
 struct HheaTable *
-readHheaTable (int fd)
+readHheaTable (FILE *fd)
 {
   struct HheaTable *hhea;
   hhea = mymalloc (sizeof (struct HheaTable));
@@ -308,7 +308,7 @@ readHheaTable (int fd)
 }
 
 int
-readKernTable (int fd, int **nkep, struct KernEntry0 ***kep)
+readKernTable (FILE *fd, int **nkep, struct KernEntry0 ***kep)
 {
   struct KernTable kt;
   struct KernSubTableHeader ksth;
