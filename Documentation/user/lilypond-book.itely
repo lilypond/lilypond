@@ -574,7 +574,7 @@ To produce PDF output from the lilypond-book file (here called
 @example
 lilypond-book --psfonts yourfile.lytex
 latex yourfile.tex
-dvips -h tempfonts.ps -Ppdf yourfile.dvi
+dvips -h yourfile.psfonts -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 

@@ -286,7 +286,7 @@ Bugs that are not fault of LilyPond are documented here.
 @subsection Bison 1.875
 
 There is a bug in bison-1.875: compilation fails with "parse error
-before `goto'" in line 4922 due to a bug in bison. To fix, either
+before `goto'" in line 4922 due to a bug in bison. To fix, please
 recompile bison 1.875 with the following fix
 
 @quotation
