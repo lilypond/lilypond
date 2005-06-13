@@ -157,11 +157,11 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
 
 		pages_found = 0
 		for page in range (1, 100):
-			pages_found += 1
 			f = base + '-page%d.png' % page
 			
  			if not os.path.isfile (f):
 				break
+			pages_found += 1
 			list_item (f, 'See a picture of page %d' % page, 'png')
 
 		if pages_found == 0 and os.path.exists (base + '.png'):
