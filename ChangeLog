@@ -1,3 +1,8 @@
+2005-06-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* buildscripts/mutopia-index.py (list_item): thinko. Fixes png
+	links on website. 
+
 2005-06-13  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/topdocs/INSTALL.texi,
