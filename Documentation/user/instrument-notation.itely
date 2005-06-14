@@ -1254,7 +1254,7 @@ section.
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{VocalName}.
+Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber}, @internalsref{VocalName}.
 
 
 

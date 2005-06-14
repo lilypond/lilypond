@@ -1,3 +1,8 @@
+2005-06-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/instrument-notation.itely (More stanzas): Add
+	reference to StanzaNumber.
+
 2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* THANKS: separate section website translators.
