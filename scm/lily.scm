@@ -6,6 +6,31 @@
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
+(for-each (lambda (x)
+	    (ly:add-option (car x) (cadr x) (caddr x)))
+	  
+	  '((point-and-click #t "use point & click")
+	    (midi-debug #f "generate human readable MIDI")
+	    (internal-type-checking #f "check every property assignment for types")
+	    (parse-protect #t    "continue when finding errors in inline
+scheme are caught in the parser. If off, halt 
+on errors, and print a stack trace.")
+	    (old-relative #f
+			  "relative for simultaneous music works
+similar to chord syntax")
+	    (resolution 90 "resolution for generating bitmaps")
+	    (preview-include-book-title #t "include book-titles in preview images.")
+	    (gs-font-load #f
+			  "load fonts via Ghostscript.")
+	    (delete-intermediate-files #f
+				       "delete unusable PostScript files")
+	    (verbose #f "value for the --verbose flag")
+	    (ttf-verbosity 0
+			   "how much verbosity for TTF font embedding?")
+	    (debug-gc #f
+		      "dump GC protection info")))
+
+
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
