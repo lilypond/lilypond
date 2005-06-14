@@ -114,8 +114,6 @@
     (if (ly:get-option 'delete-intermediate-files)
 	(for-each
 	 (lambda (f)
-	   (display  (string-append base "." f))
-	   (display  "del\n")
 	   (delete-file (string-append base "." f)))
 	 intermediate))
     ))
