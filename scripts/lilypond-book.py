@@ -37,9 +37,7 @@ import string
 # and customize variables below.
 
 # We'll suffer this path initialization stuff as long as we don't install
-# our python packages in <prefix>/lib/pythonX.Y (and don't kludge around
-# it as we do with teTeX on Red Hat Linux: set some environment variables
-# (PYTHONPATH) in `etc/profile').
+# our python packages in <prefix>/lib/pythonX.Y
 
 # If set, LILYPONDPREFIX must take prevalence.
 # if datadir is not set, we're doing a build and LILYPONDPREFIX.
