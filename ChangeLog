@@ -1,3 +1,7 @@
+2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/backend-library.scm (postprocess-output): remove debugging gobs.
+
 2005-06-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/topdocs/NEWS.tely (Top): Corrected name of
@@ -8,7 +12,7 @@
 
 2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* THANKS: separate section website translators.
+	* THANKS: separate section for website translators.
 
 2005-06-14  Graham Percival  <gperlist@shaw.ca>
 
