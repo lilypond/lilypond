@@ -82,9 +82,7 @@
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")
     (ly:system cmd)
-    
-    (if (ly:get-option 'delete-intermediate-files)
-	(delete-file name))))
+    ))
 
 (use-modules (scm ps-to-png))
 (define-public (postscript->png resolution paper-size-name name)
@@ -100,11 +98,27 @@
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)
-  (for-each
-   (lambda (f)
-     ((eval (string->symbol (string-append "convert-to-" f)) module)
-      paper-book filename))
-   formats))
+  (let*
+      ((completed (completize-formats formats))
+       (base (string-regexp-substitute "\\.[a-z]+$" "" filename))
+       (intermediate (remove
+		      (lambda (x)
+			(member x formats)) 
+		      completed)))
+    (for-each
+     (lambda (f)
+       ((eval (string->symbol (string-append "convert-to-" f)) module)
+	paper-book filename))
+     completed)
+
+    (if (ly:get-option 'delete-intermediate-files)
+	(for-each
+	 (lambda (f)
+	   (display  (string-append base "." f))
+	   (display  "del\n")
+	   (delete-file (string-append base "." f)))
+	 intermediate))
+    ))
 
 (define-public (completize-formats formats)
   (define new-fmts '())

@@ -56,7 +56,7 @@ String init_name_global;
    One of (gnome, ps [default], scm, svg, tex, texstr)") */
 String output_backend_global = "ps";
 /* Output formats to generate.  */
-String output_format_global = "pdf";
+String output_format_global = "";
 
 bool is_pango_format_global;
 bool is_TeX_format_global;
@@ -713,6 +713,9 @@ parse_argv (int argc, char **argv)
 	}
     }
 
+  if (output_format_global == "")
+    output_format_global = "pdf";
+      
   if (show_help)
     {
       identify (stdout);
