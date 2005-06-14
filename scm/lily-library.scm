@@ -324,6 +324,16 @@ possibly turned off."
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))
 
+;;
+;; don't confuse users with #<procedure .. > syntax. 
+;; 
+(define-public (scm->string val)
+  (if (and (procedure? val) (symbol? (procedure-name val)))
+      (symbol->string (procedure-name val))
+      (string-append
+       (if (self-evaluating? val) "" "'")
+       (call-with-output-string (lambda (port) (display val port))))))
+
 (define-public (!= lst r)
   (not (= lst r)))
 

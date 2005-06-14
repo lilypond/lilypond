@@ -32,44 +32,6 @@ bool lily_1_8_compatibility_used = false;
 */
 bool do_internal_type_checking_global;
 
-
-struct Lilypond_option_init
-{
-  char const *name_;
-  char const *init_;
-  char const *descr_;
-};
-
-static Lilypond_option_init options[] = {
-  {"point-and-click", "#t",
-   "use point & click"},
-  {"midi-debug", "#f",
-   "generate human readable MIDI",},
-  {"internal-type-checking", "#f",
-   "check every property assignment for types"},
-  {"parse-protect", "#t",
-   "continue when finding errors in inline\n" 
-   "scheme are caught in the parser. If off, halt \n"
-   "on errors, and print a stack trace."},
-  {"old-relative", "#f",
-   "relative for simultaneous music works\n"
-   "similar to chord syntax"},
-  {"resolution", "90",
-   "resolution for generating bitmaps"},
-  {"preview-include-book-title", "#t",
-   "include book-titles in preview images."},
-  {"gs-font-load", "#f",
-   "load fonts via Ghostscript."},
-  {"delete-intermediate-files", "#f",
-   "delete unusable PostScript files"},
-  {"verbose", "#f", "value for the --verbose flag"},
-  {"ttf-verbosity", "0",
-   "how much verbosity for TTF font embedding?"},
-  {"debug-gc", "#f",
-   "dump GC protection info"}, 
-  {0,0,0},
-};
-
 Protected_scm option_hash_;
 
 void internal_set_option (SCM var, SCM val)
@@ -112,16 +74,21 @@ const int SEPARATION = 5;
 static String
 get_help_string ()
 {
+  SCM alist = ly_hash2alist (option_hash_);
+  SCM convertor = ly_lily_module_constant ("scm->string");
+  
+  
   String help ("Options supported by ly:set-option\n\n");
-  for (Lilypond_option_init *p = options; p->name_; p ++)
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
+      SCM sym = scm_caar (s);
+      SCM val = scm_cdar (s);
       String opt_spec =
 	String_convert::char_string (' ', INDENT)
-	+ String (p->name_)
+	+ ly_symbol2string (sym)
 	+ " ("
-	+ String (p->init_)
+	+ ly_scm2string (scm_call_1 (convertor, val))
 	+ ")";
-	
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
 	{
@@ -130,8 +97,10 @@ get_help_string ()
 	}
       else
 	opt_spec += String_convert::char_string (' ', HELP_INDENT - opt_spec.length ());
-      
-      String opt_help = p->descr_;
+
+      SCM opt_help_scm
+	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation")); 
+      String opt_help = ly_scm2string (opt_help_scm);
       opt_help.substitute (String ("\n"),
 			   String ("\n")
 			   + String_convert::char_string (' ', HELP_INDENT));
@@ -143,46 +112,32 @@ get_help_string ()
   return help;
 }
 
-static void
-init_program_options ()
-{
-  option_hash_ = scm_c_make_hash_table (11);
-
-  for (Lilypond_option_init *p = options; p->name_; p ++)
-    {
-      SCM sym = ly_symbol2scm (p->name_);
-      SCM val = scm_c_eval_string (p->init_);
-
-      internal_set_option (sym, val);
-    }
-
-  String help = get_help_string ();
-
-
-
-  internal_set_option (ly_symbol2scm ("help"),
-		       scm_makfrom0str (help.to_str0 ()));
-}
-
-ADD_SCM_INIT_FUNC(scm_option, init_program_options);
-
-
-/*
-  This interface to option setting is meant for setting options are
-  useful to a limited audience. The reason for this interface is that
-  making command line options clutters up the command-line option name
-  space.
-
-*/
-
-Protected_scm command_line_settings = SCM_EOL;
-
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
 	   "Print ly:set-option usage")
 {
-  SCM scm_stdout = scm_current_output_port();
-  scm_display (ly_get_option (ly_symbol2scm ("help")), scm_stdout);
+  String help = get_help_string ();
+  fputs (help.to_str0 (), stdout); 
+
   exit (0);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
+	   (SCM sym, SCM val,  SCM description),
+	   "Add a program option @var{sym} with default @var{val}.")
+{
+  if (scm_hash_table_p (option_hash_) == SCM_BOOL_F)
+    option_hash_ = scm_c_make_hash_table (11);
+
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG1, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_string (description), description,
+		   SCM_ARG3, __FUNCTION__, "string");
+		  
+  internal_set_option (sym, val);
+
+  scm_set_object_property_x (sym, ly_symbol2scm ("program-option-documentation"),
+			     description);
+
   return SCM_UNSPECIFIED;
 }
 
