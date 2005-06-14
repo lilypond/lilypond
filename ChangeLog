@@ -1,5 +1,8 @@
 2005-06-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* Documentation/topdocs/NEWS.tely (Top): Corrected name of
+	\musicDisplay 
+
 	* Documentation/user/instrument-notation.itely (More stanzas): Add
 	reference to StanzaNumber.
 

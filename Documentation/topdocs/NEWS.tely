@@ -92,7 +92,7 @@ The command @code{\epsfile} allows inclusion of EPS graphics into
 markup texts.
 
 @item
-There is a music function @code{\musicDisplay}, which will display a
+There is a music function @code{\displayMusic}, which will display a
 music expression as indented Scheme code.
 
 @item
