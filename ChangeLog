@@ -6,6 +6,10 @@
 	* Documentation/user/advanced-notation.itely: included
 	color names.
 
+	* Documentation/user/advanced-notation.itely,
+	Documentation/usr/notation-appendices.itely: moved
+	color names into an appendix.
+
 2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/program-option.cc (LY_DEFINE): new function ly_add_option.

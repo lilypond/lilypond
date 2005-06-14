@@ -7,6 +7,7 @@
 @menu
 * Chord name chart::            
 * MIDI instruments::            
+* List of colors::              
 * The Feta font::               
 @end menu
 
@@ -71,6 +72,103 @@ violin                    lead 4 (chiff)       applause
 viola                     lead 5 (charang)     gunshot
 cello                     lead 6 (voice) 
 @end example 
+
+
+@node List of colors
+@appendixsec List of colors
+
+@subsubheading Normal colors
+
+@verbatim
+black       white          red         green
+blue        cyan           magenta     yellow
+grey        darkred        darkgreen   darkblue
+darkcyan    darkmagenta    darkyellow
+@end verbatim
+
+
+@subsubheading X color names
+
+X color names come several variants:
+
+Any name that is spelled as a single word with capitalisation
+(e.g. ``LightSlateBlue'') can also be spelled as space separated
+words without capitalisation (e.g. ``light slate blue'').
+
+The word ``grey'' can always be spelled ``gray'' (e.g. ``DarkSlateGray''). 
+
+Some names can take a numerical suffix (e.g. ``LightSalmon4'').
+
+
+@subsubheading Color Names without a numerical suffix:
+
+@verbatim
+snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
+OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
+bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
+ivory		LemonChiffon	seashell	honeydew	MintCream
+azure		AliceBlue	lavender	LavenderBlush	MistyRose
+white		black		DarkSlateGrey	DimGrey		SlateGrey
+LightSlateGrey	grey		LightGrey	MidnightBlue	navy
+NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
+LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
+DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
+LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
+turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
+aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
+MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
+green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
+YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
+PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
+LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
+SaddleBrown	sienna		peru		burlywood	beige
+wheat		SandyBrown	tan		chocolate	firebrick
+brown		DarkSalmon	salmon		LightSalmon	orange
+DarkOrange	coral		LightCoral	tomato		OrangeRed
+red		HotPink		DeepPink	pink		LightPink
+PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
+violet		plum		orchid		MediumOrchid	DarkOrchid
+DarkViolet	BlueViolet	purple		MediumPurple	thistle
+DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
+LightGreen
+@end verbatim
+
+
+@subsubheading Color names with a numerical suffix
+
+In the following names the suffix N can be a number in the range 1-4:
+
+@verbatim
+snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
+NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
+LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
+blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
+LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
+CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
+SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
+OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
+yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
+IndianRedN	siennaN		burlywoodN	wheatN		tanN
+chocolateN	firebrickN	brownN		salmonN		LightSalmonN
+orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
+redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
+PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
+plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
+thistleN
+@end verbatim
+
+
+@subsubheading Grey Scale
+
+A grey scale can be obtained using:
+
+@example
+greyN
+@end example
+
+@noindent
+Where N is in the range 0-100.
+
 
 @node The Feta font
 @appendixsec The Feta font
