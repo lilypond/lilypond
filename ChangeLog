@@ -1,3 +1,12 @@
+2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/main.cc (parse_argv): only set output format to pdf if no
+	other format specified.
+
+	* scm/backend-library.scm (postprocess-output): process
+	'delete-intermediate-files after running convert-to-*. This fixes
+	PNG generation when 'delete-intermediate-files is set.
+	
 2005-06-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/mutopia-index.py (list_item): thinko. Fixes png

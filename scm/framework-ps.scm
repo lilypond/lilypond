@@ -424,7 +424,7 @@
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)
     (postprocess-output book framework-ps-module filename
-			 (completize-formats (ly:output-formats)))))
+			 (ly:output-formats))))
 
 (if (not (defined? 'nan?))
     (define (nan? x) #f))
@@ -501,7 +501,7 @@
 
     (postprocess-output book framework-ps-module
 			(format "~a.preview.eps" basename)
-			(completize-formats (cons "png" (ly:output-formats))))))
+			(cons "png" (ly:output-formats)))))
 (if #f
     (define-public (output-preview-framework basename book scopes fields)
 
@@ -522,7 +522,7 @@
 
 	(postprocess-output book framework-ps-module
 			    (format "~a.preview.eps" basename)
-			    (completize-formats (ly:output-formats))))))
+			     (ly:output-formats)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (convert-to-pdf book name)
