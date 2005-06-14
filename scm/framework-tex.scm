@@ -1,8 +1,9 @@
-;;;; framework-tex.scm --
-;;;;
-;;;;  source file of the GNU LilyPond music typesetter
-;;;;
-;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;
+;; framework-tex.scm -- structure for TeX output
+;;
+;; source file of the GNU LilyPond music typesetter
+;;
+;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-tex)
   #:export (output-framework-tex	
