@@ -1,8 +1,9 @@
-;;;; framework-ps.scm --
-;;;;
-;;;;  source file of the GNU LilyPond music typesetter
-;;;;
-;;;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;
+;; framework-ps.scm -- structure for PostScript output
+;;
+;;  source file of the GNU LilyPond music typesetter
+;;
+;; (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 (define-module (scm framework-ps))
 

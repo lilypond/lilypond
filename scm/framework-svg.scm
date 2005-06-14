@@ -1,4 +1,5 @@
-;;;; framework-svg.scm --
+;;
+;; framework-svg.scm -- structure for SVG output
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
