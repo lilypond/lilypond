@@ -1,3 +1,10 @@
+2005-06-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/convert-ly.py: cleanup. Use lilylib. Use convertrules.
+
+	* python/convertrules.py: new file. Store conversion rules
+	separately.
+
 2005-06-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/backend-library.scm (postprocess-output): remove debugging gobs.
