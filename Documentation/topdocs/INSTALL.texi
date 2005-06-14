@@ -247,13 +247,9 @@ your @var{load-path} by appending the following line (as modified) to your
 @section Vim mode
 
 A Vim mode for entering music and running LilyPond is contained in the
-source archive in @code{$VIM} directory.  For version 6.2 and newer,
-Vim-mode works directly after installing LilyPond.  Otherwise,
-complete the following two steps.
+source archive in @code{$VIM} directory.
 
-For earlier versions (and if @code{$VIM} environment variable does not
-fall-back to @file{/usr/local/share/vim}, see @code{:version} in vim),
-the LilyPond file type is detected if your file @file{~/.vim/filetype.vim} @c
+The LilyPond file type is detected if the file @file{~/.vim/filetype.vim} @c
 has the following content
 @quotation
 @example
@@ -265,16 +261,20 @@ augroup filetypedetect
 augroup END
 @end example
 @end quotation
-If Vim has been (pre-)installed to @file{/usr/...} (or any other place)
-instead of @file{/usr/local/...}, then @file{/usr/local/share/vim} may not
-be specified in your @code{$VIMRUNTIME} environment variable and you have to
-include this path explicitly by appending the following line to your
+
+Please include this path by appending the following line to your
 @file{~/.vimrc}
+
 @quotation
 @example
-set runtimepath+=/usr/local/share/vim/
+set runtimepath+=/usr/local/share/lilypond/${LILYPOND_VERSION}/vim/
 @end example
 @end quotation
+
+@noindent
+where ${LILYPOND_VERISON} is your lilypond version.  If Lilypond was not
+installed in @file{/usr/local/}, then change this path accordingly.
+
 
 @section Problems
 
