@@ -1431,6 +1431,8 @@ notes need not be consecutive.  This can be achieved by setting the
 @code{\tieNeutral},
 @cindex @code{\tieDotted}
 @code{\tieDotted},
+@cindex @code{\tieDashed}
+@code{\tieDashed},
 @cindex @code{\tieSolid}
 @code{\tieSolid}.
 
