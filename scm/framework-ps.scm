@@ -288,7 +288,8 @@
 
       (for-each
        (lambda (f)
-	 (if (string-match (string-append name "\\.") f)
+	 (if (and (not embed)
+		  (string-match (string-append name "\\.") f))
 	     (set! embed
 		   (font-file-as-ps-string name (path-join dir-name f))))
 	     
