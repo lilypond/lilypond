@@ -468,9 +468,6 @@ Do an inline edit of the input file.  Overrides @code{--output}.
 Set the version to convert from.  If this is not set, @command{convert-ly}
 will guess this, on the basis of @code{\version} strings in the file.
 
-@item -o,--output=@var{file}
-Set the output file to write.  
-
 @item -n,--no-version
 Normally, @command{convert-ly} adds a @code{\version} indicator 
 to the output.  Specifying this option suppresses this.  
