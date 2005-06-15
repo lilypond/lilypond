@@ -1,5 +1,7 @@
 2005-06-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-ps.scm (write-preamble): remove status check.
+
 	* Documentation/user/invoking.itely (Updating files with
 	convert-ly): remove -o option.
 
