@@ -280,9 +280,6 @@
 
       (set! status (ly:system
 		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
-
-      (if (!= status 0)
-	  (ly:error "Fondu failed."))
       
       (set! files (dir-listing dir-name))
 
