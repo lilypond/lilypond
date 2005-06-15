@@ -162,7 +162,7 @@ def do_options ():
 			ly.help ()
 			sys.exit (0)
 		elif o == '--version' or o == '-v':
-			print_version ()
+			ly.identify (sys.stdout)
 			sys.exit (0)
 		elif o== '--from' or o=='-f':
 			from_version = str_to_tuple (a)

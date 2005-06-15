@@ -272,14 +272,14 @@
 	((dir-name  (tmpnam))
 	 (files '())
 	 (status 0)
-	 (embed ""))
+	 (embed #f))
 
 
       (display (list filename name))
       (mkdir dir-name #o700)
 
-      (set! status (system
-		    (format "cd ~a && fondu -force ~a" dir-name filename)))
+      (set! status (ly:system
+		    (format "cd ~a && fondu -force '~a'" dir-name filename)))
 
       (if (!= status 0)
 	  (ly:error "Fondu failed."))
@@ -298,6 +298,11 @@
 	     (delete-file (path-join dir-name f))))
        files)
       (rmdir dir-name)
+
+      (if (not embed)
+	  (begin
+	    (set! embed "% failed \n")
+	    (ly:warn (_ "Couldn't extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)
