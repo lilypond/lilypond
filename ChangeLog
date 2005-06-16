@@ -1,3 +1,11 @@
+2005-06-16  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/basic-notation.itely: include ChoirStaff
+	in System start delimiters.
+
+	* Documentation/user/putting.itely: new doc section on
+	fixing overlapping notation.
+
 2005-06-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/global.itely (Paper size): \paper is in

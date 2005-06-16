@@ -1250,9 +1250,10 @@ to indicate where line breaks can occur.
 @cindex brace, vertical
 @cindex grand staff
 @cindex staff group
+@cindex staff, choir
 
 Many scores consist of more than one staff.  These staves can be
-joined in three different ways
+joined in four different ways
 
 @itemize @bullet
 @item The group is started with a brace at the left, and bar lines are
@@ -1272,6 +1273,17 @@ This is done with the
 
 @lilypond[verbatim,raggedright,quote]
 \new StaffGroup
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item The group is started with a bracket, but bar lines are not
+connected.  This is done with the @internalsref{ChoirStaff} context.
+
+@lilypond[verbatim,raggedright,quote]
+\new ChoirStaff
 \relative <<
   \new Staff { c1 c }
   \new Staff { c c }
