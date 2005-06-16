@@ -1,3 +1,9 @@
+2005-06-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* make/mutopia-rules.make ($(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps): 
+
+	* ly/engraver-init.ly: make Staff default child of ChoirStaff.
+
 2005-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ChangeLog: Recode utf-8.
@@ -11,6 +17,8 @@
 
 2005-06-15  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* make/mutopia-rules.make: switch off ps, p&c for lilypond runs.
+	
 	* scm/framework-ps.scm (write-preamble): remove status check.
 
 	* Documentation/user/invoking.itely (Updating files with

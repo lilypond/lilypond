@@ -71,6 +71,9 @@ const int HELP_INDENT = 30;
 const int INDENT = 2; 
 const int SEPARATION = 5; 
 
+/*
+  Hmmm. should do in SCM / C++  ?
+ */
 static String
 get_help_string ()
 {
@@ -78,7 +81,8 @@ get_help_string ()
   SCM convertor = ly_lily_module_constant ("scm->string");
   
   
-  String help ("Options supported by ly:set-option\n\n");
+  Array<String> opts;
+  
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sym = scm_caar (s);
@@ -105,9 +109,14 @@ get_help_string ()
 			   String ("\n")
 			   + String_convert::char_string (' ', HELP_INDENT));
       
-      help += opt_spec + opt_help + "\n";
+      opts.push (opt_spec + opt_help + "\n");
     }
-  
+
+  String help ("Options supported by ly:set-option\n\n");
+  opts.sort (String::compare);
+  for (int  i = 0; i < opts.size (); i++)
+    help += opts[i];
+    
   help += String ("\n");
   return help;
 }

@@ -15,7 +15,7 @@ $(outdir)/%.ly: %.abc
 
 # hmm. notdir builds srcdir builds? 
 $(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps: $(outdir)/%.ly
-	cd $(outdir); $(LILYPOND) --pdf --ps --png -I $(shell pwd)/ $(notdir $<)
+	cd $(outdir); $(LILYPOND) --pdf --png -ddelete-intermediate-files -dno-point-and-click -I $(shell pwd)/ $(notdir $<)
 	touch $(outdir)/$(basename $(notdir $<)).png
 
 $(outdir)/%.ly: %.ly
