@@ -101,10 +101,10 @@
  -dNOPAUSE\
  -dTextAlphaBits=4\
  -sDEVICE=png16m\
- -sOutputFile='~a'\
+ -sOutputFile=~S\
  -sPAPERSIZE=~a\
  -r~S\
- '~a'\
+ ~S\
  -c showpage\
  -c quit"
 			   (search-gs)
@@ -118,9 +118,9 @@
  -dNOPAUSE\
  -dTextAlphaBits=4\
  -sDEVICE=png16m\
- -sOutputFile='~a'\
+ -sOutputFile=~S\
  -r~S\
- '~a'\
+ ~S\
  -c quit"
 			   (search-gs)
 			   (if verbose? "" "-q")
