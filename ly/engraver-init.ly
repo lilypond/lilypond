@@ -104,7 +104,7 @@
   \InnerChoirStaff
   \name ChoirStaff
   
-  \defaultchild "InnerChoirStaff"
+  \defaultchild "Staff"
   \accepts "InnerChoirStaff"
   \accepts "InnerStaffGroup"
   \description "Identical to @code{StaffGroup} except that the
