@@ -11363,3 +11363,8 @@
 2004-04-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* VERSION (PACKAGE_NAME): release 2.2.0
+
+#Local variables:
+#coding: utf-8
+#End:
+
