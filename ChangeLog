@@ -1,6 +1,6 @@
 2005-06-16  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* make/mutopia-rules.make ($(outdir)/%.png $(outdir)/%.pdf $(outdir)/%.ly $(outdir)/%.ps): 
+	* make/mutopia-rules.make: -ddelete-intermediate-files
 
 	* ly/engraver-init.ly: make Staff default child of ChoirStaff.
 
@@ -618,7 +618,6 @@
 	* Documentation/pictures/GNUmakefile (OUT_DIST_FILES): Add ly-icon
 	rules.
 
->>>>>>> 1.3718
 2005-05-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/stencil-scheme.cc (LY_DEFINE): ly:stencil-in-color
