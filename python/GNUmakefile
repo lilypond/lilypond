@@ -1,4 +1,4 @@
-2depth = ..
+depth = ..
 
 STEPMAKE_TEMPLATES=c python-module install-out po
 
