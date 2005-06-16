@@ -1,3 +1,9 @@
+2005-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/ps-to-png.scm (make-ps-images): Use ~S instead of single
+	quoted ~s.  This should fix PNG output on Windows; single quotes
+	are regular characters on Windows.
+
 2005-06-16  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/basic-notation.itely: include ChoirStaff
