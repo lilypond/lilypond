@@ -159,8 +159,8 @@ To change the paper size, there are two commands,
 The first command sets the size of all pages.  The second command sets the size
 of the pages that the @code{\paper} block applies to -- if the @code{\paper}
 block is at the top of the file, then it will apply to all pages.  If the
-@code{\paper} block is inside a @code{\score}, then the paper size will only
-apply to that score.
+@code{\paper} block is inside a @code{\book}, then the paper size will only
+apply to that book.
 
 The following paper sizes are supported: @code{a6}, @code{a5}, @code{a4},
 @code{a3}, @code{legal}, @code{letter}, @code{tabloid}.
