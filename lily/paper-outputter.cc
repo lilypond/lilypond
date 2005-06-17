@@ -68,8 +68,12 @@ Paper_outputter::file ()
     if (file_name_ == "-")
       file_ = scm_current_output_port ();
     else
+      /*
+	Opening binary sucks a little for DOS, since PS doesn't look like
+	ASCII anymore, but binary CFFs will get embedded correctly.
+       */
       file_ = scm_open_file (scm_makfrom0str (file_name_.to_str0 ()),
-			     scm_makfrom0str ("w"));
+			     scm_makfrom0str ("wb"));
   return file_;
 }
 
