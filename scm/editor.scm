@@ -31,13 +31,13 @@
 
 (define editor-command-template-alist
   '(("emacs" .  "emacsclient --no-wait +%(line)s:%(column)s %(file)s || (emacs +%(line)s:%(column)s %(file)s&)")
-    ("gvim" . "gvim --remote +:%(line)s:norm%(column)s %(file)s")
-    ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(column)s")
+    ("gvim" . "gvim --remote +:%(line)s:norm%(char)s %(file)s")
+    ("uedit32" . "uedit32 %(file)s -l%(line)s -c%(char)s")
     ("nedit" . "nc -noask +%(line)s %(file)s")
     ("gedit" . "gedit +%(line)s %(file)s")
     ("jedit" . "jedit -reuseview %(file)s +line:%(line)s")
-    ("syn" . "syn -line %(line)s -col %(column)s %(file)s")
-    ("lilypad" . "lilypad +%(line)s:%(column)s %(file)s")))
+    ("syn" . "syn -line %(line)s -col %(char)s %(file)s")
+    ("lilypad" . "lilypad +%(line)s:%(char)s %(file)s")))
 
 (define (get-command-template alist editor)
   (define (get-command-template-helper)
@@ -66,6 +66,8 @@
 	 (command
 	  (re-sub "%\\(file\\)s" (format #f "~S" file-name)
 		  (re-sub "%\\(line\\)s" (format #f "~a" line)
-			  (re-sub "%\\(column\\)s" (format #f "~a" column)
-				  (slashify template))))))
+			  (re-sub "%\\(char\\)s" (format #f "~a" char)
+				  (re-sub
+				   "%\\(column\\)s" (format #f "~a" column)
+				   (slashify template)))))))
     command))
