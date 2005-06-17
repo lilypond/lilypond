@@ -275,7 +275,6 @@
 	 (embed #f))
 
 
-      (display (list filename name))
       (mkdir dir-name #o700)
 
       (set! status (ly:system
