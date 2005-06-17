@@ -83,7 +83,6 @@ LoadTableFromFile("LILY", "aybabtu.otf-gtable")
 MergeFonts ("feta-alphabet20.pfa");
 
 Generate("aybabtu.otf");
-Generate("aybabtu.cff");
 Generate("aybabtu.svg");
 SetFontNames("PFAAybabtu-Regular", "PFAAybabtu", "PFAAybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 Generate("PFAaybabtu.pfa");
