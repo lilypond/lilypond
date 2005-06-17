@@ -1,5 +1,7 @@
 2005-06-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* mf/aybabtu.pe.in (i): don't generate aybabtu.cff
+
 	* mf/GNUmakefile ($(outdir)/fonts.cache-1): create font cache for
 	outdir.
 	(install-fc-cache): insatll font cache in installation directories.
