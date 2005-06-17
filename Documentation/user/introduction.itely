@@ -58,23 +58,23 @@ computer edition.
 @item @tab
 @ifnotinfo
 @iftex
-@image{henle-flat-bw,4cm}
+@image{henle-flat-gray,,8cm}
 @end iftex
 @ifnottex
-@image{henle-flat-bw,,,png}
+@image{henle-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{baer-flat-bw,4cm}
+@image{baer-flat-gray,,8.4cm}
 @end iftex
 @ifnottex
-@image{baer-flat-bw,,,png}
+@image{baer-flat-gray,,,png}
 @end ifnottex
 
 @tab
 @iftex
-@image{lily-flat-bw,4cm}
+@image{lily-flat-bw,,8cm}
 @end iftex
 @ifnottex
 @image{lily-flat-bw,,,png}

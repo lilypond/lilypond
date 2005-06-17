@@ -16,6 +16,8 @@
 #include "main.hh"
 #include "warn.hh"
 
+FcConfig *font_config_global = 0;
+
 void
 init_fontconfig ()
 {
@@ -23,22 +25,11 @@ init_fontconfig ()
     message (_ ("Initializing FontConfig..."));
   
   if (!FcInit ())
-    error (_ ("initializing FontConfig"));
-
-  FcConfig *fcc = FcConfigGetCurrent ();
+    error (_ ("initializing FontConfig failed"));
 
 
-#if 0
-  /*
-    Hmm. the cache is always out of date??!
-   */
-  FcChar8 *cache = FcConfigGetCache (fcc);
-  if (!FcDirCacheValid (cache))
-    {
-      warning (_ ("FontConfig cache out of date. Rebuilding may take some time."));
-    }
-#endif
   
+  font_config_global = FcConfigGetCurrent ();
   Array<String> dirs;
   struct stat statbuf; 
   String builddir = prefix_directory + "/mf/out/";
@@ -55,7 +46,7 @@ init_fontconfig ()
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
-      if (!FcConfigAppFontAddDir (fcc, (FcChar8 *)dir.to_str0 ()))
+      if (!FcConfigAppFontAddDir (font_config_global, (FcChar8 *)dir.to_str0 ()))
 	error (_f ("adding font directory: %s", dir.to_str0 ()));
       else if (be_verbose_global)
 	message (_f ("adding font directory: %s", dir.to_str0 ()));
