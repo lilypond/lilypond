@@ -1,3 +1,11 @@
+2005-06-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/tutorial.itely (Running LilyPond for the
+	first time): separate subsections for windows, macos and unix.  
+
+	* Documentation/user/invoking.itely (Updating files with
+	convert-ly): add MacOS X note.
+
 2005-06-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/paper-outputter.cc (file): open file in binary mode. This
@@ -1195,7 +1203,7 @@
 	* scm/backend-library.scm (postscript->pdf): Invoke gs instead of
 	going through ps2pdf wrappers.
 
-2005-05-09  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-05-09  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/instrument-notation.itely: petrucci note
 	heads: updated docu
@@ -1590,11 +1598,11 @@
 	* lily/mensural-ligature.cc (brew_flexa): apply thickness property
 	only on vertical lines of flexa shape, and use a constant
 	thickness value for horizontal lines (patch slightly modified by
-	Jürgen Reuter)
+	JÃ¼rgen Reuter)
 
 	* lily/include/mensural-ligature.hh: make 2 comments clearer
 
-2005-04-28  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-04-28  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/vaticana-ligature-engraver.cc (need_extra_space): renamed
 	to need_extra_horizontal_space; bugfix: use class scope to avoid
@@ -2859,7 +2867,7 @@
 	* Documentation/user/global.itely (Page layout): remove
 	printpagenumber.
 
-2005-03-13  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-03-13  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* input/regression/mensural-ligatures.ly: new file (with examples
 	compiled by Pal Benko).
@@ -3595,7 +3603,7 @@
 
 	* Documentation/user/notation.itely: small but urgent fix.
 
-2005-02-21  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-02-21  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* lily/duration-scheme.cc: bugfix: correct parameters to
 	SCM_ASSERT_TYPE.
@@ -3685,7 +3693,7 @@
 
 	* configure.in: add endian test.
 
-2005-02-19  Jürgen Reuter  <reuter@ipd.uka.de>
+2005-02-19  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/examples.itely: small
 	simplification/beautification
@@ -6838,7 +6846,7 @@
 	* tex/lily-pdf-defs.tex, tex/lily-ps-defs.tex
 	(\lilypondexperimentalfeatures): Removed.
 
-2004-10-20  Jürgen Reuter  <reuter@ipd.uka.de>
+2004-10-20  JÃ¼rgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/notation.itely: fixed 2 typos
 
