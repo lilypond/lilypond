@@ -422,9 +422,10 @@ often is no longer compatible with older input files.  To remedy this,
 the program @command{convert-ly} can be used to deal with most of the
 syntax changes between LilyPond versions.
 
-It uses @code{\version} statements in the input files to detect the old
-version number.  In most cases, to upgrade your input file it is sufficient
-to run
+It uses @code{\version} statements in the input files to detect the
+old version number.  In most cases, to upgrade your input file it is
+sufficient to run@footnote{MacOS X users may execute this command
+under the menu entry @samp{Compile > Update syntax}.}
 
 @example
 convert-ly -e myfile.ly

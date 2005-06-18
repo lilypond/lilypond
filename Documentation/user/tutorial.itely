@@ -200,21 +200,47 @@ see @ref{Time signature}.
 
 @c cheesy title to avoid clash with chapter name.
 
-In the last section we explained what kind of things you can enter
-in a LilyPond file.  In this section we will explain what commands to
-run and how to view or print the output.  If you have not used
-LilyPond before, want to test your setup, or want to run an example
-file yourself, read this section.  The instructions that follow are
-for Unix-like systems.  Some additional instructions for Microsoft
-Windows are given at the end of this section.
+In the last section we explained what kind of things you can enter in
+a LilyPond file.  In this section we will explain what commands to run
+and how to view or print the output.  If you have not used LilyPond
+before, want to test your setup, or want to run an example file
+yourself, read this section.
+
+@unnumberedsubsec MacOS X
+
+If you double click LilyPond.app, it will open with an example
+file. Save it, for example, to @file{test.ly} on your Desktop, and
+then process it with the menu command @samp{Compile > Typeset File}.
+The resulting PDF file will be displayed on your screen.
+
+Be warned that first-ever run will take a minute or two, because all
+of the system fonts have to be analyzed first.
+
+@unnumberedsubsec Windows
+
+On Windows, start up a text-editor@footnote{Any simple or
+programmer-oriented editor will do, for example Notepad.  Do not use a
+word processor, since these insert formatting codes that will confuse
+LilyPond.} and enter
+
+@example
+@{ c'4 e' g' @}
+@end example
+
+Save it on the desktop as @file{test.ly} and make sure that it is not
+called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
+the file and show the resulting PDF file.
+
+
+@unnumberedsubsec Unix
 
 Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}.@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
-installed already, refer to
-the file @file{INSTALL.txt}.}  In your text editor, enter the following
-input and save the file as @file{test.ly}
+installed already, refer to the file @file{INSTALL.txt}.}  In your
+text editor, enter the following input and save the file as
+@file{test.ly}
 
 @example
 @{ c'4 e' g' @}
@@ -262,20 +288,6 @@ operating system.@footnote{If your system does not have any tools
 installed, you can try
 @uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
 available package for viewing and printing PDF and PostScript files.}
-
-On Windows, start up a text-editor@footnote{Any simple or
-programmer-oriented editor will do, for example Notepad.  Do not use a
-word processor, since these insert formatting codes that will confuse
-LilyPond.} and enter
-
-@example
-@{ c'4 e' g' @}
-@end example
-
-Save it on the desktop as @file{test.ly} and make sure that it is not
-called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
-the file and show the resulting PDF file.
-
 
 @node More about pitches
 @section More about pitches 
