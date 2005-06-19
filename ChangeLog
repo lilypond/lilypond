@@ -1,5 +1,8 @@
 2005-06-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (lambda): default resolution 101.178 (7 pixels per
+	space).
+
 	* Documentation/user/tutorial.itely (Running LilyPond for the
 	first time): separate subsections for windows, macos and unix.  
 
@@ -7,6 +10,9 @@
 	convert-ly): add MacOS X note.
 
 2005-06-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/user/introduction.itely (Engraving): don't include
+	file, add file directly. 
 
 	* lily/paper-outputter.cc (file): open file in binary mode. This
 	fixes OTF embedding on windows.
