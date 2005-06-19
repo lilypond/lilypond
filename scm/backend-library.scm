@@ -85,6 +85,7 @@
     ))
 
 (use-modules (scm ps-to-png))
+
 (define-public (postscript->png resolution paper-size-name name)
     ;; Do not try to guess the name of the png file,
     ;; GS produces PNG files like BASE-page%d.png.
@@ -94,7 +95,8 @@
 	(verbose (ly:get-option 'verbose))
 	(rename-page-1 #f))
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name resolution paper-size rename-page-1 verbose)
+    (make-ps-images name resolution paper-size rename-page-1 verbose
+		    (ly:get-option 'anti-alias-factor))
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)

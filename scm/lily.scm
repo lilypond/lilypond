@@ -22,7 +22,8 @@ similar to chord syntax")
 	    ;; at 101.178, a staff space is exactly 7 pixels.
 	    ;; 115.63 = 8 pixels
 	    ;; 86  = 6 pixels
-	    (resolution 116 "resolution for generating bitmaps")
+	    (resolution 90 "resolution for generating bitmaps")
+	    (anti-alias-factor 1 "blow up resolution and scale to prevent jaggies in PNG")
 	    (preview-include-book-title #t "include book-titles in preview images.")
 	    (gs-font-load #f
 			  "load fonts via Ghostscript.")
