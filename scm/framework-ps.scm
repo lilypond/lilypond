@@ -303,21 +303,22 @@
       embed))
 
     (define (font-file-as-ps-string name file-name)
+      (let*
+	  ((downcase-file-name (string-downcase file-name)))
+	
       (cond
-       ((and file-name (string-match "\\.pfa" file-name))
+       ((and file-name (string-match "\\.pfa" downcase-file-name))
 	(cached-file-contents file-name))
-       ((and file-name (string-match "\\.pfb" file-name))
+       ((and file-name (string-match "\\.pfb" downcase-file-name))
 	(ly:pfb->pfa file-name))
-       ((and file-name (string-match "\\.ttf" file-name))
+       ((and file-name (string-match "\\.ttf" downcase-file-name))
 	(ly:ttf->pfa file-name))
-       ((and file-name (string-match "\\.otf" file-name))
+       ((and file-name (string-match "\\.otf" downcase-file-name))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
-       ((and file-name (string-match "\\.ttf" file-name))
-	(ly:ttf->pfa file-name))
        (else
 	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
 	"")
-       ))
+       )))
       
   (define (load-font font-name-filename)
     (let* ((font (car font-name-filename))
