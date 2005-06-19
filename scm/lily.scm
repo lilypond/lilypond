@@ -19,8 +19,10 @@ on errors, and print a stack trace.")
 			  "relative for simultaneous music works
 similar to chord syntax")
 
-	    ;; at 101.178, a staff space is exactly 7 pixels. 
-	    (resolution 101.178 "resolution for generating bitmaps")
+	    ;; at 101.178, a staff space is exactly 7 pixels.
+	    ;; 115.63 = 8 pixels
+	    ;; 86  = 6 pixels
+	    (resolution 116 "resolution for generating bitmaps")
 	    (preview-include-book-title #t "include book-titles in preview images.")
 	    (gs-font-load #f
 			  "load fonts via Ghostscript.")

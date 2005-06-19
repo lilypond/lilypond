@@ -1,6 +1,6 @@
 2005-06-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* scm/lily.scm (lambda): default resolution 101.178 (7 pixels per
+	* scm/lily.scm (lambda): default resolution 116 (8 pixels per
 	space).
 
 	* Documentation/user/tutorial.itely (Running LilyPond for the
