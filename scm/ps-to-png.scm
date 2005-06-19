@@ -78,12 +78,48 @@
 	 (map (lambda (x) (string->number (car x))) (vector->list m)))
 	#f)))
 
+
+;; copy of ly:system. ly:* not available via lilypond-ps2png.scm
+(define (my-system be-verbose exit-on-error cmd)
+  (define status 0)
+  (if be-verbose
+      (begin
+	(format (current-error-port) (_ "Invoking `~a'...") cmd)
+	(newline (current-error-port))))
+
+  
+  (set! status (system cmd))
+  
+  (if (not (= status 0))
+      (begin
+	(format (current-error-port)
+		(format #f (_ "~a exited with status: ~S") "GS" status))
+	(if exit-on-error
+	    (exit 1))))
+
+  status)
+
+(define (scale-down-image be-verbose factor file)
+  (let* ((status 0)
+	 (percentage (* 100 (/ 1.0 factor)))
+	 (old (string-append file ".old")))
+  
+  (rename-file file old)
+  (my-system be-verbose
+	     #t
+	     (format #f "convert -scale '~a%' ~a ~a" percentage old file))
+  (delete-file old)
+  ))
+
 (define-public (make-ps-images ps-name . rest)
   (let-optional
    rest ((resolution 90)
 	 (paper-size "a4")
 	 (rename-page-1? #f)
-	 (verbose? #f))
+	 (verbose? #f)
+	 (aa-factor 1) 
+	 )
+   
    (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
 	  (header (gulp-port (open-file ps-name "r") 10240))
 	  (png1 (string-append base ".png"))
@@ -94,29 +130,16 @@
 	  (output-file (if multi-page? pngn png1))
 
 	  ;;png16m is because Lily produces color nowadays.
-	  (cmd (if multi-page?
-		   (format #f "~a\
+	  (gs-variable-options
+	    (if multi-page?
+		(format #f "-sPAPERSIZE=~a" paper-size)
+		"-dEPSCrop"))
+	  (cmd (format #f "~a\
+ ~a\
  ~a\
  -dGraphicsAlphaBits=4\
- -dNOPAUSE\
  -dTextAlphaBits=4\
- -sDEVICE=png16m\
- -sOutputFile=~S\
- -sPAPERSIZE=~a\
- -r~S\
- ~S\
- -c showpage\
- -c quit"
-			   (search-gs)
-			   (if verbose? "" "-q")
-			   output-file paper-size resolution ps-name)
-		   (format #f "~a\
- ~a\
- -s\
- -dGraphicsAlphaBits=4\
- -dEPSCrop\
  -dNOPAUSE\
- -dTextAlphaBits=4\
  -sDEVICE=png16m\
  -sOutputFile=~S\
  -r~S\
@@ -124,28 +147,41 @@
  -c quit"
 			   (search-gs)
 			   (if verbose? "" "-q")
-			   output-file resolution ps-name)))
-	  (foo (for-each delete-file (append (dir-re "." png1)
-					     (dir-re "." pngn-re))))
-	  (bar (if verbose?
-		   (begin
-		     (format (current-error-port) (_ "Invoking `~a'...") cmd)
-		     (newline (current-error-port)))))
-	  (baz 
-	   ;; The wrapper on windows cannot handle `=' signs,
-	   ;; gs has a workaround with #.
-	   (if (eq? PLATFORM 'windows)
-	       (begin
-		 (set! cmd (re-sub "=" "#" cmd))
-		 (set! cmd (re-sub "-dSAFER " "" cmd)))))
-	  (status (system cmd)))
-     (if (not (= status 0))
+			   gs-variable-options
+			   output-file 
+			   (* aa-factor resolution) ps-name))
+	  (status 0)
+	  (files '()))
+     
+     (for-each delete-file (append (dir-re "." png1)
+				   (dir-re "." pngn-re)))
+     
+     ;; The wrapper on windows cannot handle `=' signs,
+     ;; gs has a workaround with #.
+     (if (eq? PLATFORM 'windows)
 	 (begin
-	   (map delete-file
-		(append (dir-re "." png1) (dir-re "." pngn-re)))
-	   (format (current-error-port)
-		   (format #f (_ "~a exited with status: ~S") "GS" status))
+	   (set! cmd (re-sub "=" "#" cmd))
+	   (set! cmd (re-sub "-dSAFER " "" cmd))))
+
+     (set! status (my-system verbose? #f cmd))
+
+     (set! files
+	   (append (dir-re "." png1) (dir-re "." pngn-re)))
+
+     (if (not (= 0 status))
+	 (begin
+	   (map delete-file files)
 	   (exit 1)))
+     
      (if (and rename-page-1? multi-page?)
 	 (rename-file (re-sub "%d" "1" pngn) png1))
-     (append (dir-re "." png1) (dir-re "." pngn-re)))))
+     
+     (set! files
+	   (append (dir-re "." png1) (dir-re "." pngn-re)))
+
+     
+     (if (not (= 1 aa-factor))
+	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))
+		    files))
+			    
+     files)))
