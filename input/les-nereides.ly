@@ -139,11 +139,10 @@ bass = \new Voice \relative c{
     r8. cis,,16(\sustainUp <fis fis,>8 <gis gis,>
     
     | %3
-    \override Stem  #'length = #5 %tweak
+%    \once \override Stem  #'length = #6 %tweak
     <a a,>4\sustainDown
     \change Staff=treble
 			    
-    \revert Stem #'length %tweak
     \revert Stem #'direction
     \override Stem  #'direction = #-1
     <a' fis cis>)\arpeggio
