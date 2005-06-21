@@ -28,7 +28,7 @@ def get_glyph_names (enc_name):
 		glyphs.append (nm)
 
 
-	m = re.sub ("(/[a-z-.A-Z0-9]+) %", note_glyph, enc_str )
+	m = re.sub ("(/[a-z.A-Z0-9_]+) %", note_glyph, enc_str )
 
 	glyphs = filter (lambda x: None == re.match (r'/\.notdef', x),
 			 glyphs)

@@ -1298,7 +1298,7 @@
 	(font-series . bold)
 	(meta . ((interfaces
 		  . (rhythmic-head-interface
-		     font-interface
+		     font-interface 
 		     note-head-interface staff-symbol-referencer-interface
 		     text-interface item-interface ))))
 	))

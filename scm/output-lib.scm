@@ -15,11 +15,13 @@
 ;; The TabNoteHead tablatureFormat callback.
 ;; Compute the text grob-property
 (define-public (fret-number-tablature-format string tuning pitch)
-  (number->string
-   (- (ly:pitch-semitones pitch)
-      (list-ref tuning
-		;; remove 1 because list index starts at 0 and guitar string at 1. 
-                (- string 1)))))
+  (make-whiteout-markup
+   (make-vcenter-markup  
+    (number->string
+     (- (ly:pitch-semitones pitch)
+	(list-ref tuning
+		  ;; remove 1 because list index starts at 0 and guitar string at 1. 
+		  (- string 1)))))))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), wich
 ;; starts at the fifth fret on the neck. Frets on the fifth string
@@ -28,11 +30,13 @@
 ;;   on the banjo neck.
 ;; We solve this by defining a new fret-number-tablature function:
 (define-public (fret-number-tablature-format-banjo string tuning pitch)
+  (make-whiteout-markup
+   (make-vcenter-markup  
     (let ((fret (- (ly:pitch-semitones pitch) (list-ref tuning (- string 1)))))
-        (number->string (cond
-            ((and (> fret 0) (= string 5))
-                (+ fret 5))
-            (else fret)))))
+      (number->string (cond
+		       ((and (> fret 0) (= string 5))
+			(+ fret 5))
+		       (else fret)))))))
 
 (define-public (hammer-print-function grob)
   (let* ((note-collums (ly:grob-property grob 'note-columns))
