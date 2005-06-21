@@ -3,8 +3,9 @@
 struct TableDirectoryEntry *readDirectory (FILE *fd, struct OffsetTable *ot);
 char **readNamingTable (FILE *fd);
 void readHeadTable (FILE *fd, struct HeadTable *ht);
-int readPostTable (FILE *fd, int nglyphs,
-		   struct PostTable *pt, struct GlyphName **gnt);
+int readPostTable (FILE *fd, int root_nglyphs,
+		   struct PostTable *pt, USHORT *nglyphs,
+		   struct GlyphName **gnt);
 int readMaxpTable (FILE *fd);
 void *readLocaTable (FILE *fd, int nglyphs, int format);
 struct Box *readGlyfTable (FILE *fd, int nglyphs, int format, void *loca);
@@ -14,13 +15,15 @@ int readKernTable (FILE *fd, int **nke, struct KernEntry0 ***ke);
 
 void printPSFont (void * out, struct HeadTable *ht,
 		  char **strings, int nglyphs, int postType,
-		  struct PostTable *pt, struct GlyphName *gnt, FILE *fd);
+		  struct PostTable *pt,
+		  USHORT png,
+		  struct GlyphName *gnt, FILE *fd);
 
 void printPSHeader (void * out, struct HeadTable *ht,
 		    char **strings, struct PostTable *pt);
 void printPSData (void * out, FILE *fd);
 void printPSTrailer (void * out, int nglyphs,
-		     int postType, struct GlyphName *gnt);
+		     int postType, USHORT pnt, struct GlyphName *gnt);
 
 void printAFM (FILE * afm, struct HeadTable *ht,
 	       char **strings, int nglyphs, int postType,

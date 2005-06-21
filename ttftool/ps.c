@@ -24,11 +24,13 @@
 void
 printPSFont (void *out, struct HeadTable *ht,
 	     char **strings, int nglyphs, int postType,
-	     struct PostTable *pt, struct GlyphName *gnt, FILE *fd)
+	     struct PostTable *pt,
+	     USHORT post_nglyphs,
+	     struct GlyphName *gnt, FILE *fd)
 {
   printPSHeader (out, ht, strings, pt);
   printPSData (out, fd);
-  printPSTrailer (out, nglyphs, postType, gnt);
+  printPSTrailer (out, nglyphs, post_nglyphs, postType, gnt);
 }
 
 void
@@ -115,7 +117,8 @@ printPSData (void *out, FILE *fd)
 }
 
 void
-printPSTrailer (void *out, int nglyphs, int postType, struct GlyphName *gnt)
+printPSTrailer (void *out, int nglyphs, int postType,
+		USHORT postNGlyphs, struct GlyphName *gnt)
 {
   int i, n;
   char *name;

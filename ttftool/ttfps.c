@@ -30,6 +30,7 @@ create_type42 (const char *infile, void *out)
   char **strings = NULL;
   struct GlyphName *gnt = NULL;
   struct KernEntry0 **ke;
+  USHORT post_nglyphs = 0;
   int *nke;
   int nglyphs, postType, nkern;
   off_t headOff = 0, maxpOff = 0, postOff = 0, nameOff = 0,
@@ -109,7 +110,8 @@ create_type42 (const char *infile, void *out)
     fprintf (stderr, "Processing `post' table\n");
   surely_lseek (fd, postOff, SEEK_SET);
   pt = mymalloc (sizeof (struct PostTable));
-  postType = readPostTable (fd, nglyphs, pt, &gnt);
+  
+  postType = readPostTable (fd, nglyphs, pt, &post_nglyphs, &gnt);
 
   if (ttf_verbosity >= 1)
     fprintf (stderr, "Processing `name' table\n");
@@ -118,7 +120,7 @@ create_type42 (const char *infile, void *out)
 
   if (ttf_verbosity >= 1)
     fprintf (stderr, "Generating PS file\n");
-  printPSFont (out, ht, strings, nglyphs, postType, pt, gnt, fd);
+  printPSFont (out, ht, strings, nglyphs, postType, pt, post_nglyphs, gnt, fd);
   lily_cookie_fclose (out);
   if (ttf_verbosity >= 1)
     fprintf (stderr, "Done.\n");
