@@ -9,7 +9,6 @@
 
 #include "freetype.hh"
 
-
 #include <freetype/tttables.h>
 
 #include "lily-proto.hh"
@@ -18,7 +17,7 @@
 #include "lily-guile.hh"
 #include "main.hh"
 
-void
+static void
 print_header (void *out, FT_Face face)
 {
   lily_cookie_fprintf (out, "%%!PS-TrueTypeFont\n");
@@ -86,7 +85,7 @@ print_header (void *out, FT_Face face)
 
 #define CHUNKSIZE 65534
 
-void
+static void
 print_body (void *out, String name)
 {
   FILE *fd = fopen (name.to_str0 (), "rb");
@@ -121,7 +120,7 @@ print_body (void *out, String name)
   fclose (fd);
 }
 
-void
+static void
 print_trailer (void *out,
 	       FT_Face face)
 {
@@ -148,7 +147,8 @@ print_trailer (void *out,
   lily_cookie_fprintf (out, "FontName currentdict end definefont pop\n");
 }
 
-void print_ps_font (void *out, String name)
+static void
+create_type42_font (void *out, String name)
 {
   FT_Face face = open_ft_face (name);
   
@@ -172,7 +172,7 @@ LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
   
   Memory_out_stream stream;
 
-  print_ps_font (&stream, file_name);
+  create_type42_font (&stream, file_name);
   SCM asscm = scm_from_locale_stringn (stream.get_string (),
 				       stream.get_length ());
 
