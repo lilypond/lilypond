@@ -1,5 +1,9 @@
 /* Copyright (c) 1997-1998 by Juliusz Chroboczek */
 
+/*
+  TODO: junk this  in favor of Freetype.
+ */
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -150,15 +154,15 @@ readHeadTable (FILE *fd, struct HeadTable *ht)
 
 int
 readPostTable (FILE *fd, int root_nglyphs, struct PostTable *pt,
-	       struct GlyphName **gt)
+	       USHORT *nglyphs, struct GlyphName **gt)
 {
-  USHORT nglyphs;
   USHORT *glyphNameIndex;
   struct GlyphName *glyphNames;
   char **glyphNamesTemp;
   int i, maxIndex;
   CHAR c;
 
+  *nglyphs = 0; 
   surely_read (fd, pt, sizeof (struct PostTable));
   FIX_PostTable (*pt);
   if (ttf_verbosity >= 2)
@@ -172,7 +176,7 @@ readPostTable (FILE *fd, int root_nglyphs, struct PostTable *pt,
     case 2:
       if (pt->formatType.fraction != 0)
 	ttf_error ("Unsupported `post' table format");
-      surely_read (fd, &nglyphs, sizeof (USHORT));
+      surely_read (fd, nglyphs, sizeof (USHORT));
 
       /*from freetype2:
        */
@@ -180,18 +184,18 @@ readPostTable (FILE *fd, int root_nglyphs, struct PostTable *pt,
 	UNDOCUMENTED!  The number of glyphs in this table can be smaller
 	than the value in the maxp table (cf. cyberbit.ttf).             
        */
-      FIX_UH (nglyphs);
-      if (nglyphs > root_nglyphs)
+      FIX_UH (*nglyphs);
+      if (*nglyphs > root_nglyphs)
 	{
 	  fprintf (stderr, "More glyphs in 'post' table than in 'maxp' table");
 	}
       
       if (ttf_verbosity >= 2)
-	fprintf (stderr, "  %d glyphs\n", nglyphs);
-      glyphNameIndex = mymalloc (sizeof (USHORT) * nglyphs);
-      surely_read (fd, glyphNameIndex, sizeof (USHORT) * nglyphs);
-      glyphNames = mymalloc (sizeof (struct GlyphName) * nglyphs);
-      for (i = 0, maxIndex = -1; i < nglyphs; i++)
+	fprintf (stderr, "  %d glyphs\n", *nglyphs);
+      glyphNameIndex = mymalloc (sizeof (USHORT) * *nglyphs);
+      surely_read (fd, glyphNameIndex, sizeof (USHORT) * *nglyphs);
+      glyphNames = mymalloc (sizeof (struct GlyphName) * *nglyphs);
+      for (i = 0, maxIndex = -1; i < *nglyphs; i++)
 	{
 	  FIX_UH (glyphNameIndex[i]);
 	  if (glyphNameIndex[i] < 258)
@@ -222,7 +226,7 @@ readPostTable (FILE *fd, int root_nglyphs, struct PostTable *pt,
 	    fprintf (stderr, "    %d: %s\n", i, glyphNamesTemp[i]);
 	  i++;
 	}
-      for (i = 0; i < nglyphs; i++)
+      for (i = 0; i < *nglyphs; i++)
 	if (glyphNames[i].type == 1)
 	  glyphNames[i].name.name = glyphNamesTemp[glyphNames[i].name.index];
       free (glyphNamesTemp);

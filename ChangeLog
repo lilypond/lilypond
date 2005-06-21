@@ -1,3 +1,8 @@
+2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ttftool/parse.c (readPostTable): ugh. Kludge: nglyphs in maxp
+	and post table may differ. Pass around post_nglyphs as well.
+
 2005-06-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* ly/music-functions-init.ly (musicMap): new music function
