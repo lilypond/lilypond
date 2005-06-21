@@ -10,7 +10,7 @@ depth = .
 # 
 SUBDIRS = buildscripts python scripts \
 	elisp \
-	flower kpath-guile ttftool lily \
+	flower kpath-guile lily \
 	mf ly tex ps scm \
 	po make \
 	cygwin debian stepmake \
