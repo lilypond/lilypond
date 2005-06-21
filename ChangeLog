@@ -1,5 +1,7 @@
 2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* GNUmakefile.in (SUBDIRS): remove ttftool subdirectory.
+
 	* lily/ttf.cc (print_header): new file. Convert to type42, using
 	FreeType to parse the TTF. 
 
