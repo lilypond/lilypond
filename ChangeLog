@@ -1,4 +1,11 @@
+2005-06-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ly/music-functions-init.ly (musicMap): new music function
+	musicMap. 
+	
 2005-06-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* make/mutopia-rules.make: anti-alias-factor = 2
 
 	* scm/ps-to-png.scm (make-ps-images): cleanup multipage vs. single
 	page switch.
@@ -10,14 +17,12 @@
 	(my-system): new function.
 	(make-ps-images): blow up GS resolution by anti-alias-factor,
 	scale down image by anti-alias-factor.  This improves appearance
-	of
-	(make-ps-images): remove showpage. Fixes spurious empty png at end.
+	of bitmaps
+	(make-ps-images): remove showpage. Fixes spurious empty png at
+	end.
 
 	* scm/framework-ps.scm (write-preamble): downcase filename before
 	string-matching. Should fix .TTF files (as opposed to ttf files)  
-
-	* scm/lily.scm (lambda): default resolution 116 (8 pixels per
-	space).
 
 	* Documentation/user/tutorial.itely (Running LilyPond for the
 	first time): separate subsections for windows, macos and unix.  
@@ -28,7 +33,7 @@
 2005-06-18  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/introduction.itely (Engraving): don't include
-	file, add file directly. 
+	file optical-spacing, add directly.
 
 	* lily/paper-outputter.cc (file): open file in binary mode. This
 	fixes OTF embedding on windows.
@@ -41,7 +46,7 @@
 
 	* mf/GNUmakefile ($(outdir)/fonts.cache-1): create font cache for
 	outdir.
-	(install-fc-cache): insatll font cache in installation directories.
+	(install-fc-cache): install font cache in installation directories.
 
 2005-06-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 

@@ -149,10 +149,10 @@ readHeadTable (FILE *fd, struct HeadTable *ht)
 }
 
 int
-readPostTable (FILE *fd, int nglyphs, struct PostTable *pt,
+readPostTable (FILE *fd, int root_nglyphs, struct PostTable *pt,
 	       struct GlyphName **gt)
 {
-  USHORT nglyphspost;
+  USHORT nglyphs;
   USHORT *glyphNameIndex;
   struct GlyphName *glyphNames;
   char **glyphNamesTemp;
@@ -172,10 +172,20 @@ readPostTable (FILE *fd, int nglyphs, struct PostTable *pt,
     case 2:
       if (pt->formatType.fraction != 0)
 	ttf_error ("Unsupported `post' table format");
-      surely_read (fd, &nglyphspost, sizeof (USHORT));
-      FIX_UH (nglyphspost);
-      if (nglyphspost != nglyphs)
-	ttf_error ("Inconsistency between `maxp' and `nglyphs' tables!");
+      surely_read (fd, &nglyphs, sizeof (USHORT));
+
+      /*from freetype2:
+       */
+      /*
+	UNDOCUMENTED!  The number of glyphs in this table can be smaller
+	than the value in the maxp table (cf. cyberbit.ttf).             
+       */
+      FIX_UH (nglyphs);
+      if (nglyphs > root_nglyphs)
+	{
+	  fprintf (stderr, "More glyphs in 'post' table than in 'maxp' table");
+	}
+      
       if (ttf_verbosity >= 2)
 	fprintf (stderr, "  %d glyphs\n", nglyphs);
       glyphNameIndex = mymalloc (sizeof (USHORT) * nglyphs);
