@@ -26,6 +26,9 @@ applycontext = #(def-music-function (parser location proc) (procedure?)
                    'origin location
                    'procedure proc))
 
+musicMap = #(def-music-function (parser location proc mus) (procedure? ly:music?)
+	     (music-map proc mus))
+
 displayMusic = #(def-music-function (parser location music) (ly:music?)
 		 (display-scheme-music music)
 		 music)
