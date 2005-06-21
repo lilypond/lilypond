@@ -13,7 +13,6 @@
 #include "program-option.hh"
 #include "source-file.hh"
 #include "memory-stream.hh"
-#include "ttftool.h"
 #include "open-type-font.hh"
 #include "main.hh"
 #include "warn.hh"
@@ -96,33 +95,6 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
     progress_indication ("]");
   
   return pfa_scm;
-}
-
-LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
-	   1, 0, 0, (SCM ttf_file_name),
-	   "Convert the contents of a TTF file to Type42 PFA, returning it as "
-	   " a string.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
-		   SCM_ARG1, __FUNCTION__, "string");
-
-  String file_name = ly_scm2string (ttf_file_name);
-  if (be_verbose_global)
-    progress_indication ("[" + file_name);
-  
-  
-  Memory_out_stream stream;
-  ttf_verbosity =
-    robust_scm2int (ly_get_option (ly_symbol2scm ("ttf-verbosity")), 0);
-  
-  create_type42 (file_name.to_str0 (), (void*) &stream);
-  SCM asscm = scm_from_locale_stringn (stream.get_string (),
-				       stream.get_length ());
-
-  if (be_verbose_global)
-    progress_indication ("]");
-  
-  return asscm;
 }
 
 
