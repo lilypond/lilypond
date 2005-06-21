@@ -1,5 +1,9 @@
 2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* configure.in (reloc_b): remove TTFTOOL_ENDIAN
+
+	* config.make.in (WINDRES): remove TTFTOOL_ENDIAN.
+
 	* lily/GNUmakefile (MODULE_INCLUDES): remove ttftool
 
 	* ttftool/*: remove ttftool subdirectory.
