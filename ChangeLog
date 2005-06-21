@@ -1,5 +1,13 @@
 2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-lib.scm (fret-number-tablature-format): vcenter and
+	whiteout for markups.
+
+	* buildscripts/substitute-encoding.py (note_glyph): include _ in
+	regex too. This fixes change clef appearance in PDF. 
+
+	* ttftool/include/*: remove.
+
 	* configure.in (reloc_b): remove TTFTOOL_ENDIAN
 
 	* config.make.in (WINDRES): remove TTFTOOL_ENDIAN.
@@ -70,7 +78,7 @@
 
 	* scm/editor.scm (editor-command-template-alist): Use char iso
 	column, except for Emacs.
-	(get-editor-command): Substitute char too (Bert).
+	(get-editor-command): Substitute char too (Bertalan Fodor).
 
 2005-06-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
