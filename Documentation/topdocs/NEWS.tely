@@ -247,12 +247,12 @@ using the @code{-f texstr} output backend. This provides exact metrics
 for texts, including kerning and accents.
 
 @item
-LilyPond now uses FreeType read the Feta font as an OpenType font. This
-is a cleaner design and more robust.  Recent versions of FontForge (2004
-1211 or newer) and Freetype are required.  As a result,
+LilyPond now uses FreeType to read the Feta font as an OpenType
+font. This is a cleaner design and more robust.  Recent versions of
+FontForge (2004 1211 or newer) and Freetype are required.  
 
 @item
-the SVG backend is now a fully functional backend.
+The SVG backend is now a fully functional backend.
 
 @item
 A new script, @code{\espressivo} has been added, for a combination of
