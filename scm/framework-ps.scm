@@ -17,6 +17,7 @@
 	     (srfi srfi-13)
 	     (lily))
 
+
 (define framework-ps-module (current-module))
 
 ;;(define pdebug stderr)
@@ -558,3 +559,13 @@
 
 (define-public (convert-to-ps book name)
   #t)
+
+(define-public (output-classic-framework basename book scopes fields)
+
+  (ly:error (_ "\nThe PostScript backend does not support the 'classic'
+framework. Use the EPS backend instead,
+
+  lilypond -b eps <file>
+
+or remove the lilypond-book specific settings from the input.
+")))

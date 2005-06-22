@@ -138,8 +138,6 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   Sources sources;
   sources.set_path (&global_path);
   Lily_parser *parser = new Lily_parser (&sources);
-  scm_module_define (global_lily_module, ly_symbol2scm ("parser"),
-		     parser->self_scm ());
   parser->parse_string (ly_scm2string (ly_code));
   scm_gc_unprotect_object (parser->self_scm ());
   parser = 0;
