@@ -1,5 +1,9 @@
 2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/henle-flat-gray.png (Module): new file.
+
+	* Documentation/user/baer-flat-gray.png (Module): new file.
+
 	* scm/output-lib.scm (fret-number-tablature-format): vcenter and
 	whiteout for markups.
 
