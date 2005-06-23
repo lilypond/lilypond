@@ -1,3 +1,8 @@
+2005-06-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/global.itely (Creating titles): Correct
+	misprint in example. Thanks to Rob Vlasaty.
+
 2005-06-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* VERSION (PATCH_LEVEL): release 2.5.32
