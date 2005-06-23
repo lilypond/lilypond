@@ -1,5 +1,11 @@
 2005-06-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
+	* scripts/lilypond-book.py (LATEX_DOCUMENT): More or less ugly
+	workaround since /dev/stdin doesn't work on Cygwin. Using a
+	temporary file in the current directory since latex doesn't
+	understand the path name to the default TMP in Cygwin (at least on
+	win XP).
+	
 	* Documentation/user/global.itely (Creating titles): Correct
 	misprint in example. Thanks to Rob Vlasaty.
 

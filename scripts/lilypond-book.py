@@ -116,7 +116,7 @@ psfonts_p = 0
 use_hash_p = 1
 format = 0
 output_name = ''
-latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
+latex_filter_cmd = 'cat > %(tmpfile)s && latex "\\nonstopmode \input %(tmpfile)s" && rm %(tmpfile)s'
 filter_cmd = 0
 process_cmd = ''
 default_ly_options = { 'alt': "[image of music]" }
@@ -1276,7 +1276,11 @@ def get_latex_textwidth (source):
 	m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
 	preamble = source[:m.start (0)]
 	latex_document = LATEX_DOCUMENT % vars ()
-	parameter_string = filter_pipe (latex_document, latex_filter_cmd)
+	# Workaround problems with unusable $TMP on Cygwin:
+	tempfile.tempdir = ''
+	tmpfile = tempfile.mktemp('.tex')
+	cmd = latex_filter_cmd % vars ()
+	parameter_string = filter_pipe (latex_document, cmd)
 
 	columns = 0
 	m = re.search ('columns=([0-9.]*)', parameter_string)
