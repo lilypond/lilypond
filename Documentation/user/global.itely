@@ -909,10 +909,10 @@ composer flush right on a single line.
 @verbatim
 \paper {
   bookTitleMarkup = \markup {
-   \fill-line @{
+   \fill-line {
      \fromproperty #'header:title
      \fromproperty #'header:composer
-   @}
+   }
   }
 }
 @end verbatim
