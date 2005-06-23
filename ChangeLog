@@ -1,3 +1,8 @@
+2005-06-23  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/lilypond-book.itely,
+	Documentation/user/examples.itely: add \RequirePackage{graphics}.
+
 2005-06-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/gen-emmentaler-scripts.py (notice): add GPL notice
