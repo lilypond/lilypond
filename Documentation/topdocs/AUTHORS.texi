@@ -20,7 +20,6 @@ contributed over 100 lines of code.
 Core code:
 
 @itemize @bullet
-
 @item @email{erlenda@@gmail.com,Erlend Aasland}
    Color support, tablature improvements, trivial \mark stuff
 @item @email{benkop@@freestart.hu,Pal Benko},
@@ -46,14 +45,15 @@ Core code:
 @item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
-@item @email{nicolas.sceaux@@free.fr,Nicolas Sceaux  },
+@item @email{nicolas.sceaux@@free.fr,Nicolas Sceaux},
     Scheme macros, \markup syntax.
-@item @email{carldsorensen@@comcast.net, Carl Sorensen  },
+@item @email{carldsorensen@@comcast.net, Carl Sorensen},
     Fret diagrams.    
 @item @email{rune@@zedeler.dk, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret, @code{subdivideBeams}.
- 
+@item @email{jch@@pps.jussieu.fr,Juliusz Chroboczek},
+    Type42 code.
 @end itemize
 
 Font
@@ -80,15 +80,6 @@ Font
     "espressivo" mark.
 @end itemize
 
-TTF library
-
-@itemize
-@item @email{jch@@pps.jussieu.fr,Juliusz Chroboczek },
-    Main author.
-@item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
-    @uref{http://www.xs4all.nl/~hanwen/},
-    Integration.
-@end itemize
 
 Documentation and examples
 

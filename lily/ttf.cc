@@ -17,6 +17,10 @@
 #include "lily-guile.hh"
 #include "main.hh"
 
+
+/*
+  Based on ttfps by Juliusz Chroboczek
+ */
 static void
 print_header (void *out, FT_Face face)
 {

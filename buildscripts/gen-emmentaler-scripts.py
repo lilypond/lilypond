@@ -31,7 +31,15 @@ New();
 
 # Separate Feta versioning?
 #         *  using 20 as Weight works for gnome-font-select widget: gfs
-SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
+
+notice = "";
+notice += "This font is distributed under the GNU General Public License. ";
+notice += "As a special exception, if you create a document which uses ";
+notice += "this font, and embed this font or unaltered portions of this ";
+notice += "font into the document, this font does not by itself cause the ";
+notice += "resulting document to be covered by the GNU General Public License.";;
+
+SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", notice, "@TOPLEVEL_VERSION@");
 
 MergeFonts("feta%(design_size)d.pfa");
 MergeFonts("parmesan%(design_size)d.pfa");
@@ -61,13 +69,13 @@ endloop
 MergeFonts("feta-alphabet%(design_size)d.pfa");
 MergeKern("feta-alphabet%(design_size)d.tfm");
 
-LoadTableFromFile("LILF", "%(filename)s-%(design_size)d.subfonts")
-LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
-LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
+LoadTableFromFile("LILF", "%(filename)s-%(design_size)d.subfonts");
+LoadTableFromFile("LILC", "feta%(design_size)d.otf-table");
+LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable");
 
 Generate("%(filename)s-%(design_size)d.otf");
 Generate("%(filename)s-%(design_size)d.svg");
-SetFontNames("PFA%(name)s-%(design_size)d", "PFA%(name)s", "PFA%(name)s %(design_size)d", "%(design_size)d", "GNU GPL", "@TOPLEVEL_VERSION@");
+SetFontNames("PFA%(name)s-%(design_size)d", "PFA%(name)s", "PFA%(name)s %(design_size)d", "%(design_size)d", notice, "@TOPLEVEL_VERSION@");
 
 # different name to prevent conflict with OTF
 #LoadEncodingFile("feta%(design_size)d.enc");
