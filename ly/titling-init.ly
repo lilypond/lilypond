@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.31"
 
 slashSeparator = \markup {
   \hcenter
@@ -26,27 +26,28 @@ bookTitleMarkup = \markup {
   \override #'(baseline-skip . 3)
   \column {
     \fill-line { \fromproperty #'header:dedication }
+    \override #'(baseline-skip . 3.5)
     \column {
-      \override #'(baseline-skip . 3.5)
       \huge \bigger \bold
       \fill-line {
-	\bigger \fromproperty #'header:title
+        \bigger \fromproperty #'header:title
       }
       \fill-line {
-	\large \smaller \bold
-	\bigger  \fromproperty #'header:subtitle
+        \large \smaller \bold
+        \bigger \fromproperty #'header:subtitle
       }
       \fill-line {
-	\smaller \bold
-	\fromproperty #'header:subsubtitle
+        \smaller \bold
+        \fromproperty #'header:subsubtitle
       }
       \fill-line {
-	\fromproperty #'header:poet
-	{ \large \bold \fromproperty #'header:instrument }
-	\column {
-	  \fromproperty #'header:composer
-	  \fromproperty #'header:arranger
-	}
+        \fromproperty #'header:poet
+        { \large \bold \fromproperty #'header:instrument }
+        \fromproperty #'header:composer
+      }
+      \fill-line {
+          \fromproperty #'header:meter
+          \fromproperty #'header:arranger
       }
     }
   }
@@ -80,6 +81,11 @@ scoreTitleMarkup = \markup {
    (interpret-markup layout props arg)
    empty-stencil))
 
+#(define (check-print-first-page-number layout props arg)
+  (if (eq? (ly:output-def-lookup layout 'printfirstpagenumber) #t)
+   (interpret-markup layout props arg)
+   (not-first-page layout props arg)))
+
 oddHeaderMarkup = \markup
  % \on-the-fly #not-single-page
 \fill-line {
@@ -87,7 +93,7 @@ oddHeaderMarkup = \markup
   %% page layout becomes a complete mess. 
   " "
   \on-the-fly #not-first-page \fromproperty #'header:instrument
-  \on-the-fly #not-first-page \fromproperty #'page:page-number-string
+  \on-the-fly #check-print-first-page-number \fromproperty #'page:page-number-string
 }
 
 evenHeaderMarkup = \markup
