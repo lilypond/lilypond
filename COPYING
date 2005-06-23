@@ -2,14 +2,11 @@
 
 *** NOTE
 
-1. This license applies to all files that do not explicitly specify
-another license.
 
-
-2. This license does not apply to the included example input files
+1. This license does not apply to the included example input files
 (which are in the subdirectory input/).
 
-3. The following addition applies to the fonts included in this
+2. The following addition applies to the fonts included in this
 package. 
 
 	As a special exception, if you create a document which uses
@@ -24,6 +21,10 @@ package.
 	exception statement from your version.
 
 Sources of the included fonts are in the subdirectory mf/
+
+3. This license applies to all other files that do not explicitly
+specify another license.
+
 
 *** END NOTE
 
