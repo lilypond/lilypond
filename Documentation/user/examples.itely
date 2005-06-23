@@ -1402,6 +1402,7 @@ You can include LilyPond fragments in a LaTeX document.
 
 @example
 \documentclass[]@{article@}
+\RequirePackage@{graphics@}
 \begin@{document@}
 
 Normal LaTeX text.

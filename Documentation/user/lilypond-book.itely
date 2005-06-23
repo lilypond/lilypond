@@ -190,7 +190,16 @@ or
 @end example
 
 Running @command{lilypond-book} yields a file that can be further
-processed with La@TeX{}.
+processed with La@TeX{}.  Since @command{lilypond-book} produces
+lilypond snippets as @code{\includegraphics@{NAME.eps@}}, you must
+add
+
+@example
+\RequirePackage@{graphics@}
+@end example
+
+@noindent
+to the preamble of the LaTeX document.
 
 We show some examples here.  The lilypond environment
 
