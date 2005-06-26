@@ -6,7 +6,7 @@ are collected here.
 "
 }
 
-\version "2.4.0"
+\version "2.6.0"
 
 \relative c'' {
       \time 5/4

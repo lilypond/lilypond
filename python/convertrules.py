@@ -2554,8 +2554,7 @@ string."""
 			last_conversion = x[0]
 
 	except FatalConversionError:
-		error_file.write (_ ("%s: error while converting") \
-				  % program_name)
+		error_file.write (_ ("error while converting")) 
 		error_file.write ('\n')
 		error_file.write (_ ("Aborting"))
 		error_file.write ('\n')

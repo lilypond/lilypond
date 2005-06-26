@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,

@@ -40,7 +40,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.5.13"
+\version "2.5.18"
 
 dynamicUp = \override DynamicLineSpanner  #'direction = #1
 dynamicRevert = \revert DynamicLineSpanner #'direction
@@ -402,13 +402,17 @@ vocals = \context Voice = "leise"  {
 trebleStaff = \context Staff = "treble"<< 
         \set Staff.midiInstrument = "acoustic grand"
 	\global
-	{\clef treble
-	\override autoBeamSettings  #'(begin * * * *) = #(ly:make-moment 0 1)
-	\trebleIntro 
-	\trebleVerseOne 
-	\trebleEentje
-	\trebleVerseOne 
-	\trebleThrough }
+	{
+	  \clef treble
+	  #(override-auto-beam-setting
+	    '(begin * * * *) @var{a} @var{b}
+	    (ly:make-moment 0 1))
+	  \trebleIntro 
+	  \trebleVerseOne 
+	  \trebleEentje
+	  \trebleVerseOne 
+	  \trebleThrough
+	}
 >>
 
 bassStaff = \context Staff = "bass"<<

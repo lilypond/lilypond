@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -11,7 +11,7 @@ using Scheme functions to avoid typing work. " }
   (let* ((es (ly:music-property music 'elements))
          (n  (ly:music-property music 'name)))
    (if (not (equal? n 'SequentialMusic))
-     (ly:warn "transform needs SequentialMusic, got ~a" n)
+     (ly:warning "transform needs SequentialMusic, got ~a" n)
      (begin
       (let recurse ((elts es))
        (if (not (equal? elts '()))
@@ -53,7 +53,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "2.4.0"
+\version "2.6.0"
 
 pat =  \transpose c c' \repeat unfold 2 {
   << { \context Staff = "up" {r8 e16 f g e f g } }
