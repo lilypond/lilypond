@@ -13,5 +13,5 @@
 >>
 
 %% Optional helper for automatic updating by convert-ly.  May be omitted.
-\version "2.5.13"
+\version "2.6.0"
     

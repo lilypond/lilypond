@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.4.0"
+\version "2.6.0"
 \header {
 texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after

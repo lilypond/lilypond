@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 
 % definitely wil be renamed to something.
 %{

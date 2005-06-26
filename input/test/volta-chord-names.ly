@@ -3,7 +3,7 @@
 the @code{voltaOnThisStaff} property to true for the @code{ChordNames} context and to false for the topmost ordinary @code{Staff} context."
 }
 
-\version "2.4.0"
+\version "2.6.0"
 \score { <<
   \new ChordNames \with {
     voltaOnThisStaff = ##t

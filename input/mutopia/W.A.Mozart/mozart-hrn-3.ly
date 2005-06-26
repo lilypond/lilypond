@@ -41,7 +41,7 @@ virtuoso that taught in Geneva.
 
 %}
 
-\version "2.5.13"
+\version "2.6.0"
 
 \include "mozart-hrn3-defs.ily"
 \include "mozart-hrn3-allegro.ily"

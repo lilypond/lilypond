@@ -1,5 +1,5 @@
 
-\version "2.5.17"
+\version "2.6.0"
 
 
 \header {
