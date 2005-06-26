@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \header{
 texidoc="
 Breathing signs are available in different tastes: commas (default),
@@ -24,7 +24,7 @@ ticks, vees and `railroad tracks' (caesura)."
 
 	% by default, \breathe uses the rcomma, just as if saying:
 	% \override BreathingSign  #'text =
-	%	#(make-musicglyph-markup "scripts-rcomma")
+	%	#(make-musicglyph-markup "scripts.rcomma")
 	<<
 	  { g4 as g } \\
 	  { es4 \breathe bes es }
@@ -35,7 +35,7 @@ ticks, vees and `railroad tracks' (caesura)."
 
     	% N.B.: must use Staff context here, since we start a Voice below
 	\override Staff.BreathingSign  #'text =
-		#(make-musicglyph-markup "scripts-rvarcomma")
+		#(make-musicglyph-markup "scripts.rvarcomma")
 	<<
 	  { g4 as g } \\
 	  { es4 \breathe bes es }
@@ -43,12 +43,12 @@ ticks, vees and `railroad tracks' (caesura)."
 
 	% wedge
 	\override BreathingSign  #'text =
-		 #(make-musicglyph-markup "scripts-upbow")
+		 #(make-musicglyph-markup "scripts.upbow")
 	es8 d es f g8 \breathe f |
 
 	% caesura
 	\override BreathingSign  #'text =
-		 #(make-musicglyph-markup "scripts-caesura")
+		 #(make-musicglyph-markup "scripts.caesura")
 	es8[ d] \breathe  es[ f g f] |
 	es2 r4 \bar "||" \break
       }

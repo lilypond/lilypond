@@ -8,7 +8,7 @@
   
 }
 
-\version "2.5.12"
+\version "2.6.0"
 
 \paper { raggedright =  ##t }
 \relative {

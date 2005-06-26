@@ -1,6 +1,6 @@
 %% sakura-sakura.ly
 
-\version "2.5.15"
+\version "2.6.0"
 
 \header {
   title = "さくら さくら"

@@ -5,7 +5,7 @@
 
 }
 
-\version "2.4.0"
+\version "2.6.0"
 
 \layout {
    indent = 0.0\mm

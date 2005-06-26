@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 #(set-default-paper-size "a6" 'landscape)
 
 pattern = \relative { a b c d \break }

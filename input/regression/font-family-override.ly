@@ -5,7 +5,7 @@
 
 }
 
-\version "2.5.27"
+\version "2.6.0"
 
 \paper  {
   % change for other default global staff size. 

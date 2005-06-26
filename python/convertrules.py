@@ -2496,6 +2496,13 @@ conversions.append (((2, 5, 25), conv,
 		     'unfoldrepeats -> unfoldRepeats,'
 		     + 'compressmusic -> compressMusic'))
 
+def conv (str):
+	return str
+
+conversions.append (((2, 6, 0), conv,
+
+		     'dummy rule for 2.6')) 
+
 ################################################################
 
 def str_to_tuple (s):

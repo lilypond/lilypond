@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header {
     texidoc = "Graces notes may have the same duration as the main note."
     }

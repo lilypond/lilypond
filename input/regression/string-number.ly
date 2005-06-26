@@ -4,7 +4,7 @@ positioning mechanism as finger instructions."
 
 }
 
-\version "2.5.17"
+\version "2.6.0"
 \paper {
   raggedright = ##t
 }

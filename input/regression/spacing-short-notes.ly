@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header {
     
 texidoc = "Notes that are shorter than the common shortest note get a

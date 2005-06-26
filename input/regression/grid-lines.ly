@@ -5,7 +5,7 @@
 staves synchronized with the notes."
 
 }
-\version "2.5.21"
+\version "2.6.0"
 
 skips =
 {

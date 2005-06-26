@@ -7,7 +7,7 @@ even if there is no opposite note or rest. The amount is two
     }
 
 
-\version "2.4.0"
+\version "2.6.0"
 
 \score {
   \new Staff  \relative c' {

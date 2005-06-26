@@ -2,7 +2,7 @@
 independent on prefatory matter in other staves."
 
 	  }
-\version "2.4.0"
+\version "2.6.0"
 
 \score {
     << \new Staff  { R1 } 

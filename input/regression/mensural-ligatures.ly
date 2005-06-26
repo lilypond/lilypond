@@ -1,4 +1,4 @@
-\version "2.4.15"
+\version "2.6.0"
 
 \header {
   texidoc = "Mensural ligatures show different shapes, depending on the

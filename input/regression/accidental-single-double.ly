@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header{
 texidoc="
 A sharp sign after a double sharp sign, as well as a flat sign

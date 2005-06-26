@@ -14,7 +14,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 %}
 
-\version "2.5.2"
+\version "2.6.0"
 \score {
      {
         \fatText
