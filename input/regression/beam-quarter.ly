@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header
 {
   texidoc= "Quarter notes may be beamed: the beam is halted momentarily."

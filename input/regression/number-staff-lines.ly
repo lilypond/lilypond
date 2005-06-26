@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 
 \header{
 texidoc=" The number of stafflines of a staff can be set.  Ledger

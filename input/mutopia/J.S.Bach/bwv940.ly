@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.5.13"
+\version "2.6.0"
 
 %{
  Header for Petites Preludes.

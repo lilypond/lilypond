@@ -3,7 +3,7 @@
 anywhere in the vertical alignment. "
 }
 
-\version "2.5.23"
+\version "2.6.0"
 
 \paper {
   raggedright = ##t

@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header {
 
 texidoc=" Funky kneed beams with beamlets also work. The beamlets

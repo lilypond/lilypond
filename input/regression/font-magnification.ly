@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header { texidoc = "The magnification can be set for any font. Note
 that this does not change variable symbols such as beams or slurs. 
 " }

@@ -1,5 +1,5 @@
 % regression test for fret diagram markups
-\version "2.5.27"
+\version "2.6.0"
 \score {
     <<
        \chords {s2 c c c d}

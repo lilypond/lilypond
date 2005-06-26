@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \header {
     texidoc = "
 Figured bass is created by the FiguredBass context which responds to

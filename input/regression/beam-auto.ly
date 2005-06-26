@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header{
   texidoc = "@cindex Beaming Presets
 There are presets for the @code{auto-beam} engraver in the case of common

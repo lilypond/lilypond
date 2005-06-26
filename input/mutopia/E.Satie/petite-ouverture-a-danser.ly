@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.5.13"
+\version "2.6.0"
 
 global =  {
   \key a \minor

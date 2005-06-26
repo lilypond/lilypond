@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \header {
 
     texidoc = "With the @code{\\lyricsto} mechanism, individual lyric

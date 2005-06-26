@@ -5,7 +5,7 @@ length can be set with @code{stemlet-length}."
 
 }
 
-\version "2.5.0"
+\version "2.6.0"
 \layout { raggedright = ##t }
 
 \relative {

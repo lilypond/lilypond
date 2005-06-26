@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \header {
 texidoc = "Also in the nested syntax here, grace notes appear rightly."
 }

@@ -2,7 +2,7 @@
     texidoc = "Rests under beams are only moved if necessary."
 }
 
-\version "2.4.0"
+\version "2.6.0"
 
 fig =   \relative c' {
     <a c e>8[ r <c e a> r <e a c> r <a c e>]  r |

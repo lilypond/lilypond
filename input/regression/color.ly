@@ -1,4 +1,4 @@
-\version "2.5.12"
+\version "2.6.0"
 
 \header{
   texidoc = "Each grob can have a color assigned to it.

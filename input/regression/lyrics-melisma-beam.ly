@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.6.0"
 \header
 {
     texidoc = "Melismata are triggered by manual beams." 

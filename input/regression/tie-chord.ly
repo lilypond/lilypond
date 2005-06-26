@@ -1,5 +1,5 @@
 
-\version "2.4.0"
+\version "2.6.0"
 \header{
 texidoc="
 When tying chords, the outer ties point outwards, the inner ties

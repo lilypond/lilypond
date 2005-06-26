@@ -8,7 +8,7 @@
     passed to LaTeX and dvips to help it find the uncb font."
 
 }
-\version "2.4.0"
+\version "2.6.0"
 
 \paper
 {

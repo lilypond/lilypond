@@ -3,7 +3,7 @@
     texidoc = "Quarter tone notation is supported, including
     threequarters flat."
     }
-\version "2.4.0"
+\version "2.6.0"
 
 \score {
      \relative c'' {
