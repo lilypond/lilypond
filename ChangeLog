@@ -1,5 +1,8 @@
 2005-06-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/pictures/lilypond.xpm (Module): edited photo as
+	logo.
+
 	* Documentation/user/examples.itely (Module): 2.4.0 -> 2.6.0
 
 	* input/*.ly (Module): 2.4 -> 2.6 grand convert-ly s/r. 
