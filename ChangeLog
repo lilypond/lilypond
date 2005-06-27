@@ -5,6 +5,8 @@
 
 2005-06-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* python/lilylib.py (datadir): py2exe comments.
+
 	* Documentation/topdocs/INSTALL.texi (Top): remove EC fonts requirement.
 
 	* configure.in (reloc_b): make fontconfig REQUIRED.
