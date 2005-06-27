@@ -260,6 +260,9 @@ The value of the page number of the first page.  Default is@tie{}1.
 If set to true, will print the page number in the first page.  Default is
 false.
 
+@item printpagenumber
+If set to false, page numbers will not be printed.
+
 @item hsize
 The width of the page.
 
