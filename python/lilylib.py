@@ -46,6 +46,8 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 
 
 # Customize these
+
+# UGH. - why?  Py2exe barfs 
 if __name__ == '__main__':
 	import lilylib as ly
 	global _;_=ly._
@@ -73,6 +75,8 @@ if __name__ == '__main__':
 # there are recursion limits for some patterns in Python 1.6 til 2.1. 
 # fix this by importing pre instead. Fix by Mats.
 
+
+# Ugh. py2exe barfs on  conditional imports
 if float (sys.version[0:3]) <= 2.1:
 	try:
 		import pre
@@ -86,6 +90,9 @@ else:
 # Attempt to fix problems with limited stack size set by Python!
 # Sets unlimited stack size. Note that the resource module only
 # is available on UNIX.
+
+
+# Ugh. py2exe barfs on  conditional imports
 try:
        import resource
        resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
