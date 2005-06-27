@@ -1,4 +1,4 @@
-\version "2.5.31"
+\version "2.6.0"
 
 slashSeparator = \markup {
   \hcenter
@@ -23,7 +23,7 @@ tagline = \markup {
 }
 
 bookTitleMarkup = \markup {
-  \override #'(baseline-skip . 3)
+  \override #'(baseline-skip . 3.5)
   \column {
     \fill-line { \fromproperty #'header:dedication }
     \override #'(baseline-skip . 3.5)
@@ -46,8 +46,8 @@ bookTitleMarkup = \markup {
         \fromproperty #'header:composer
       }
       \fill-line {
-          \fromproperty #'header:meter
-          \fromproperty #'header:arranger
+        \fromproperty #'header:meter
+        \fromproperty #'header:arranger
       }
     }
   }
@@ -61,8 +61,8 @@ scoreTitleMarkup = \markup {
 }
 
 #(define (first-page layout props arg)
-  (if (= (chain-assoc-get 'page:page-number props -1) 1)
-   (interpret-markup layout props arg)
+  (if (= (chain-assoc-get 'page:page-number props -1) 
+         (ly:output-def-lookup layout 'firstpagenumber))   (interpret-markup layout props arg)
    empty-stencil))
 
 #(define (last-page layout props arg)
@@ -71,42 +71,50 @@ scoreTitleMarkup = \markup {
    empty-stencil))
 
 #(define (not-first-page layout props arg)
-  (if (not (= (chain-assoc-get 'page:page-number props -1) 1))
+  (if (not (= (chain-assoc-get 'page:page-number props -1)
+              (ly:output-def-lookup layout 'firstpagenumber)))
    (interpret-markup layout props arg)
    empty-stencil))
 
+%% unused
 #(define (not-single-page layout props arg)
-  (if (not (and (= (chain-assoc-get 'page:page-number props -1) 1)
-	    (chain-assoc-get 'page:last? props -1)))
+  (if (not (and (= (chain-assoc-get 'page:page-number props -1) 
+                   (ly:output-def-lookup layout 'firstpagenumber))
+               (chain-assoc-get 'page:last? props -1)))
    (interpret-markup layout props arg)
    empty-stencil))
 
-#(define (check-print-first-page-number layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'printfirstpagenumber) #t)
+#(define (print-page-number layout props arg)
+  (if (eq? (ly:output-def-lookup layout 'printpagenumber) #t)
    (interpret-markup layout props arg)
-   (not-first-page layout props arg)))
+   empty-stencil))
+
+#(define (print-page-number-check-first layout props arg)
+  (if (or (not (= (chain-assoc-get 'page:page-number props -1) 
+                  (ly:output-def-lookup layout 'firstpagenumber)))
+          (eq? (ly:output-def-lookup layout 'printfirstpagenumber) #t))
+   (print-page-number layout props arg)
+   empty-stencil))
 
 oddHeaderMarkup = \markup
- % \on-the-fly #not-single-page
 \fill-line {
   %% force the header to take some space, otherwise the
-  %% page layout becomes a complete mess. 
+  %% page layout becomes a complete mess.
   " "
   \on-the-fly #not-first-page \fromproperty #'header:instrument
-  \on-the-fly #check-print-first-page-number \fromproperty #'page:page-number-string
+  \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
 }
 
 evenHeaderMarkup = \markup
 \fill-line {
-  \fromproperty #'page:page-number-string
-  \fromproperty #'header:instrument
+  \on-the-fly #print-page-number-check-first \fromproperty #'page:page-number-string
+  \on-the-fly #not-first-page \fromproperty #'header:instrument
   ""
 }
 
 oddFooterMarkup = \markup {
   \column {
     \fill-line {
-
       %% Copyright header field only on first page.
       \on-the-fly #first-page \fromproperty #'header:copyright
     }
@@ -116,5 +124,4 @@ oddFooterMarkup = \markup {
     }
   }
 }
-
 

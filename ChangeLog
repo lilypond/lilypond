@@ -1,3 +1,13 @@
+2005-06-27  Graham Percival  <gperlist@shaw.ca>
+
+	* ly/titling-init.ly: implements printpagenumber, increases
+	space between dedication and title (to avoid collisions with
+	"g" and "q" in dedication), and nicer logic about copyright
+	and instrument fields being printed on the first page.
+	Thanks Vincent!
+
+	* Documentation/user/global.itely: document printpagenumber.
+
 2005-06-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/NEWS.tely: Update to 2.6.
