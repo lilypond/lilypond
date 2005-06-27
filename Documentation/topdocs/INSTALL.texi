@@ -54,8 +54,8 @@ For information on packaging, see @uref{http://lilypond.org/devel}.
 
 @subsection Precompiled binary packages
 
-Check out @uref{http://lilypond.org/download} for up to date information on
-binary packages for your platform.
+Check out @uref{http://lilypond.org/web/install/} for up to date
+information on binary packages for your platform.
 
 
 @section Requirements
@@ -70,9 +70,9 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @itemize
 
-@item @uref{http://fontforge.sf.net/,FontForge} 20041211 or newer.
+@item @uref{http://fontforge.sf.net/,FontForge} 20050530 or newer.
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.0 or
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.9 or
 newer),
 
 You will need to install some additional packages to get mftrace to
@@ -82,20 +82,10 @@ work.
 (version 1.6.5 or newer).  If you are installing binary packages, you
 may need to install guile-devel or guile-dev or libguile-dev too.
 
-@item @TeX{}.
-
-@TeX{} is used as an optional output backend.
-
-Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
-@file{.afm}, @file{.tfm}).  Make sure you have tetex 1.0 or newer
-(1.0.6 is known to work).  If you are installing binary packages, you
-may need to install tetex-devel, tetex-dev or libkpathsea-dev too.
-
-
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
 
 @item
- @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.1 or
+ @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.3 or
 newer).  EGCS and 2.x are known to cause crashes.
 
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
@@ -117,6 +107,7 @@ software
 @itemize @bullet
 
 @item @uref{http://www.freetype.org/,Freetype} (version 2).
+@item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
 @item @uref{http://www.pango.org/,Pango} (version 1.6 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
 (version 1.6.5 or newer).
@@ -140,7 +131,6 @@ make web
 Building the website requires some additional tools and packages
 
 @itemize @bullet
-@item @uref{http://lilypond.org/download/fonts,ec-fonts-mftraced}
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
 @item ImageMagick
 @item International fonts (see input/regression/utf-8.ly for hints
@@ -188,13 +178,6 @@ points into your home directory, e.g.
 ./configure --prefix=$HOME/usr
 @end example
 @end quotation
-
-@ignore
-In this case, you have to insert the contents of
-@code{buildscripts/out/lilypond-login} or
-@code{buildscripts/out/lilypond-profile} into your start up scripts by
-hand.
-@end ignore
 
 
 @subsection Configuring for multiple platforms
