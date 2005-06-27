@@ -1,3 +1,8 @@
+2005-06-27  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/GNUmakefile (OUT_POSTREMOVES): Reinclude install script
+	rule, errorneously removed probably because of misleading comment.
+
 2005-06-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/topdocs/INSTALL.texi (Top): remove EC fonts requirement.
