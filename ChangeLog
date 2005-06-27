@@ -1,8 +1,16 @@
+2005-06-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): remove EC fonts requirement.
+
+	* configure.in (reloc_b): make fontconfig REQUIRED.
+
 2005-06-27  Heikki Junes <hjunes@cc.hut.fi>
 
 	* po/fi.po: add latest translations.
 
 2005-06-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ChangeLog: recode utf-8
 
 	* Documentation/pictures/lilypond.xpm (Module): edited photo as
 	logo.
