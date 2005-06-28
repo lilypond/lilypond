@@ -31,21 +31,23 @@ urlCommand     "firefox -remote 'OpenURL(%s)'"
 protocol,
 
 For Mozilla and Mozilla Firefox, this is done by adding following
-lines to the @file{prefs.js}@footnote{On a typical unix system, this
-file is found in your home-directory under
-@file{.mozilla/firefox/default.trn/prefs.js}.}  
+lines to the @file{user.js}@footnote{On a typical unix system, this
+file exists or must be created in your home-directory as
+@file{.mozilla/firefox/default.trn/user.js} or
+@file{.firefox/default/xxxxxxxx.xxx/user.js},
+see @uref{http://@/www@/.mozilla@/.org@/support@/firefox@/edit#user,location}
+and
+@uref{http://@/www@/.mozilla@/.org@/support@/firefox@/edit#profile,profile}.}
 
 @ignore
 mozilla wants us do store this in user.js:
-http://www.mozilla.org/support/firefox/edit#user
 
 location on different systems:
-http://www.mozilla.org/support/firefox/edit#profile
 
 @end ignore
 
 @example
-user_pref("network.protocol-handler.app.textedit", "lilypond-pdfpc-helper");
+user_pref("network.protocol-handler.app.textedit", "lilypond-invoke-editor");
 user_pref("network.protocol-handler.warn-external.textedit", false);
 @end example
 
@@ -64,7 +66,7 @@ emacsclient --no-wait +@var{line}:@var{column} @var{file}
 @item vim
   this will invoke
 @example
-gvim --remote +:@var{line}:norm@var{column} @var{file}
+gvim --remote +:@var{line}:norm@var{char} @var{file}
 @end example
 
 @item nedit

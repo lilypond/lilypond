@@ -21,7 +21,7 @@ Erlend Aasland
 Heikki Junes
 John Williams
 Jonatan Liljedahl
-Juergen Reuter
+Jürgen Reuter
 Mats Bengtsson
 Matthias Neeracher
 Mathieu Giraud
@@ -196,7 +196,7 @@ Ferenc Wagner
 Hans Forbrich
 John Williams
 José Luis Cruz
-Juergen Reuter
+Jürgen Reuter
 Kieren Richard MacMillan
 Laurent Martelli
 Mats Bengtsson
@@ -232,7 +232,7 @@ CONTRIBUTORS
 
 Mats Bengtsson
 Heikki Junes
-Juergen Reuter
+Jürgen Reuter
 
 BUG HUNTERS/SUGGESTIONS
 
@@ -273,7 +273,7 @@ CONTRIBUTORS
 
 Graham Percival
 Heikki Junes
-Juergen Reuter
+Jügen Reuter
 Kim Shrier
 Rune Zedeler
 Werner Lemberg
@@ -309,3 +309,9 @@ Stanislav Brabec
 Thomas Rijniers
 Werner Lemberg
 Yotam Medini
+
+
+#Local variables:
+#coding: utf-8
+#End:
+
