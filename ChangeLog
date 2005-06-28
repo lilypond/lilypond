@@ -1,3 +1,14 @@
+
+2005-06-25  Stephen Charles McCarthy  <stecmccarthy@hotpop.com>
+
+	* scm/midi.scm: changed midi volumes in absolute-volume-alist from
+	0.05 - 1.00 to 0.25 - 1.00
+
+	* scm/midi.scm: moved the default-instrument-equalizer procedure
+	to just under the insturment-equalizer-alist it takes as an
+	argument.
+
+
 2005-06-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* Documentation/user/advanced-notation.itely (Font selection):
