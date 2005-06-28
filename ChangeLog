@@ -1,3 +1,7 @@
+2005-06-28  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py : Fix embarrassing bug in my previous
+	patch. Now, the tempfile module is loaded too, not only used.
 
 2005-06-25  Stephen Charles McCarthy  <stecmccarthy@hotpop.com>
 
