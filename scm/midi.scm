@@ -18,17 +18,17 @@
       '(
 	("sf" . 1.00)
 	("fffff" . 0.95)
-	("ffff" . 0.91)
-	("fff" . 0.81)
-	("ff" . 0.71)
-	("f" . 0.61)
-	("mf" . 0.50)
-	("mp" . 0.40)
-	("p" . 0.30)
-	("pp" . 0.20)
-	("ppp" . 0.10)
-	("pppp" . 0.08)
-	("ppppp" . 0.05)
+	("ffff" . 0.92)
+	("fff" . 0.85)
+	("ff" . 0.80)
+	("f" . 0.75)
+	("mf" . 0.68)
+	("mp" . 0.61)
+	("p" . 0.55)
+	("pp" . 0.49)
+	("ppp" . 0.42)
+	("pppp" . 0.34)
+	("ppppp" . 0.25)	)
 	)
       absolute-volume-alist))
 
@@ -55,6 +55,11 @@
 	 ("contrabass" . (0.2 . 0.8))
 	 )
        instrument-equalizer-alist))
+
+(define-public (default-instrument-equalizer s)
+  (let ((entry (assoc s instrument-equalizer-alist)))
+    (if entry
+	(cdr entry))))
 
 ;; (name . program+32768*(channel10 ? 1 : 0))
 (define instrument-names-alist '())
@@ -248,11 +253,6 @@
 	  ("cm-64 drums" .      ,(+ 32768 127))
 	  )
        instrument-names-alist))
-
-(define-public (default-instrument-equalizer s)
-  (let ((entry (assoc s instrument-equalizer-alist)))
-    (if entry
-	(cdr entry))))
 
 (define-public (percussion? instrument)
   "
