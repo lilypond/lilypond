@@ -28,7 +28,7 @@
 	("pp" . 0.49)
 	("ppp" . 0.42)
 	("pppp" . 0.34)
-	("ppppp" . 0.25)	)
+	("ppppp" . 0.25)
 	)
       absolute-volume-alist))
 
