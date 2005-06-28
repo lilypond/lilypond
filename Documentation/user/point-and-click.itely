@@ -53,7 +53,7 @@ user_pref("network.protocol-handler.warn-external.textedit", false);
 
 @end itemize
 
-The program @file{lilypond-pdfpc-helper} is a small helper program.
+The program @file{lilypond-invoke-editor} is a small helper program.
 It tests the environment variable @code{EDITOR} for the following
 patterns,
 

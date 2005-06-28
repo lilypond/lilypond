@@ -300,7 +300,7 @@
       (if (not embed)
 	  (begin
 	    (set! embed "% failed \n")
-	    (ly:warn (_ "Couldn't extract file matching ~a from ~a") name filename)))
+	    (ly:warning (_ "Couldn't extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)

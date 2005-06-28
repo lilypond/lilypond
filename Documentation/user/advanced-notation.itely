@@ -396,8 +396,11 @@ The following commands can all be used inside @code{\markup @{ @}}.
 
 By setting the object properties described below, you can select a
 font from the preconfigured font families.  LilyPond has default
-support for the feta music fonts and @TeX{}'s Computer Modern text
-fonts.
+support for the feta music fonts. Text fonts are selected through
+Pango/FontConfig. The serif font defaults to New Century Schoolbook,
+the sans and typewriter to whatever the Pango installation defaults
+to.
+
 
 @itemize @bullet
 @item @code{font-encoding}
@@ -453,6 +456,7 @@ property. The resulting size is taken relative to the
 
 @seealso
 
+@c FIXME.
 Init files: @file{ly/@/declarations@/-init@/.ly} contains hints how new
 fonts may be added to LilyPond.
 
