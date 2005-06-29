@@ -463,7 +463,7 @@ determines the space between each markup in @var{args}."
 
   (wordwrap-markups layout props args #f))
 
-(define (wordwrap-string  layout props justify arg) 
+(define (wordwrap-string layout props justify arg) 
   (let*
       ((baseline-skip (chain-assoc-get 'baseline-skip props))
        (line-width (chain-assoc-get 'linewidth props))

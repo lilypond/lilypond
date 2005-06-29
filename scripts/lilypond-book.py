@@ -1409,7 +1409,7 @@ def do_file (input_filename):
 	else:
 		if os.path.exists (input_filename):
 			input_fullname = input_filename
-		elif format == LATEX:
+		elif format == LATEX and ly.search_exe_path ('kpsewhich'): 
 			# urg python interface to libkpathsea?
 			input_fullname = ly.read_pipe ('kpsewhich '
 						       + input_filename)[:-1]
@@ -1577,7 +1577,6 @@ def main ():
 					     for p in include_path])
 
 	ly.identify (sys.stderr)
-	ly.setup_environment ()
 
 	try:
 		chunks = do_file (file)

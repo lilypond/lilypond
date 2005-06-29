@@ -400,54 +400,20 @@ else:
 		system ('mkdir -p %s' % dir)
 
 
+
+def search_exe_path (name):
+	p = os.environ['PATH']
+	exe_paths = string.split (p, ':')
+	for e in exe_paths:
+		full = os.path.join (e, name)
+		if os.path.exists (full):
+			return full
+	return None
+
+
 def mkdir_p (dir, mode=0777):
 	if not os.path.isdir (dir):
 		makedirs (dir, mode)
-
-
-environment = {}
-
-# tex needs lots of memory, more than it gets by default on Debian
-non_path_environment = {
-	'extra_mem_top' : '1000000',
-	'extra_mem_bottom' : '1000000',
-	'pool_size' : '250000',
-}
-
-def setup_environment ():
-	global environment
-
-	kpse = read_pipe ('kpsexpand \$TEXMF')
-	texmf = re.sub ('[ \t\n]+$','', kpse)
-	type1_paths = read_pipe ('kpsewhich -expand-path=\$T1FONTS')
-	
-	environment = {
-		# TODO: * prevent multiple addition.
-		#       * clean TEXINPUTS, MFINPUTS, TFMFONTS,
-		#         as these take prevalence over $TEXMF
-		#         and thus may break tex run?
-		
-		'TEXMF' : "{%s,%s}" % (datadir, texmf) ,
-		
-		# 'GS_FONTPATH' : type1_paths,
-		# 'GS_LIB' : datadir + '/ps',
-		'GS_FONTPATH' : "",
-		'GS_LIB' : "",
-		}
-	
-	# $TEXMF is special, previous value is already taken care of
-	if os.environ.has_key ('TEXMF'):
-		del os.environ['TEXMF']
- 
-	for key in environment.keys ():
-		val = environment[key]
-		if os.environ.has_key (key):
-			val = os.environ[key] + os.pathsep + val 
-		os.environ[key] = val
-
-	for key in non_path_environment.keys ():
-		val = non_path_environment[key]
-		os.environ[key] = val
 
 def print_environment ():
 	for (k,v) in os.environ.items ():
