@@ -12,12 +12,13 @@
 
 (use-modules (ice-9 regex))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; utility functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
-(def-markup-command (stencil layout props stil) (ly:stencil?)
-  "Stencil as markup"
-  stil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
@@ -155,6 +156,10 @@ normally inserted before elements on a line.
 ;; importing graphics.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(def-markup-command (stencil layout props stil) (ly:stencil?)
+  "Stencil as markup"
+  stil)
+
 
 (define bbox-regexp
   (make-regexp "%%BoundingBox: ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)"))
@@ -272,17 +277,9 @@ gsave /ecrm10 findfont
 (define-public empty-markup
   (make-simple-markup ""))
 
-
-(def-markup-command (fill-line layout props markups)
-  (markup-list?)
-  "Put @var{markups} in a horizontal line of width @var{line-width}.
-   The markups are spaced/flushed to fill the entire line.
-   If there are no arguments, return an empty stencil.
-"
-
-
-  (define (get-fill-space word-count line-width text-widths)
-    "Calculate the necessary paddings between each two adjacent texts.
+;; helper for justifying lines.
+(define (get-fill-space word-count line-width text-widths)
+  "Calculate the necessary paddings between each two adjacent texts.
 	The lengths of all texts are stored in @var{text-widths}.
 	The normal formula for the padding between texts a and b is:
 	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
@@ -290,26 +287,31 @@ gsave /ecrm10 findfont
 	whole length of the first or last text.
 	Return a list of paddings.
 "
-    (cond
-     ((null? text-widths) '())
-    
-     ;; special case first padding
-     ((= (length text-widths) word-count)
-      (cons 
-       (- (- (/ line-width (1- word-count)) (car text-widths))
-	  (/ (car (cdr text-widths)) 2))
-       (get-fill-space word-count line-width (cdr text-widths))))
-     ;; special case last padding
-     ((= (length text-widths) 2)
-      (list (- (/ line-width (1- word-count))
-	       (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
-     (else
-      (cons 
-       (- (/ line-width (1- word-count))
-	  (/ (+ (car text-widths) (car (cdr text-widths))) 2))
-       (get-fill-space word-count line-width (cdr text-widths))))))
+  (cond
+   ((null? text-widths) '())
+   
+   ;; special case first padding
+   ((= (length text-widths) word-count)
+    (cons 
+     (- (- (/ line-width (1- word-count)) (car text-widths))
+	(/ (car (cdr text-widths)) 2))
+     (get-fill-space word-count line-width (cdr text-widths))))
+   ;; special case last padding
+   ((= (length text-widths) 2)
+    (list (- (/ line-width (1- word-count))
+	     (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
+   (else
+    (cons 
+     (- (/ line-width (1- word-count))
+	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
+     (get-fill-space word-count line-width (cdr text-widths))))))
 
-
+(def-markup-command (fill-line layout props markups)
+  (markup-list?)
+  "Put @var{markups} in a horizontal line of width @var{line-width}.
+   The markups are spaced/flushed to fill the entire line.
+   If there are no arguments, return an empty stencil."
+ 
   (let* ((orig-stencils
 	  (map (lambda (x) (interpret-markup layout props x))
 	       markups))
@@ -318,13 +320,13 @@ gsave /ecrm10 findfont
 		 (if (ly:stencil-empty? stc)
 		     point-stencil
 		     stc)) orig-stencils))
-     (text-widths
-     	(map (lambda (stc)
-     		(if (ly:stencil-empty? stc)
-     			0.0
-				(interval-length (ly:stencil-extent stc X))))
-			stencils))
-     (text-width (apply + text-widths))
+	 (text-widths
+	  (map (lambda (stc)
+		 (if (ly:stencil-empty? stc)
+		     0.0
+		     (interval-length (ly:stencil-extent stc X))))
+	       stencils))
+	 (text-width (apply + text-widths))
 	 (word-count (length stencils))
 	 (word-space (chain-assoc-get 'word-space props))
 	 (line-width (chain-assoc-get 'linewidth props))
@@ -369,6 +371,89 @@ determines the space between each markup in @var{args}."
    (remove ly:stencil-empty? stencils))))
 
 
+(def-markup-command (wordwrap layout props args) (markup-list?)
+  "Perform simple wordwrap on @var{args}"
+
+  (define (take-list width space stencils
+		     accumulator accumulated-width)
+    "Return (head-list . tail) pair, with head-list fitting into width"
+    (if (null? stencils)
+	(cons accumulator stencils)
+	(let*
+	    ((first (car stencils))
+	     (first-wid (cdr (ly:stencil-extent (car stencils) X)))
+	     (newwid (+ space first-wid accumulated-width))
+	     (word-space (chain-assoc-get 'word-space props))
+	     )
+
+	  (if
+	   (or (null? accumulator)
+	       (< newwid width))
+
+	   (take-list width space
+		      (cdr stencils)
+		      (cons first accumulator)
+		      newwid)
+	     (cons accumulator stencils))
+	   )))
+  
+  (let*
+      ((line-width (chain-assoc-get 'linewidth props))
+       (justify (chain-assoc-get 'word-wrap-justify props #f))
+       (base-space (chain-assoc-get 'word-space props))
+       (space (if justify
+		  
+		  ;; justify only stretches lines.
+		  (* 0.7 base-space)
+		  base-space))
+       
+       (baseline-skip (chain-assoc-get 'baseline-skip props)))
+
+    (let loop
+	((lines '())
+	 (todo
+	  (remove ly:stencil-empty?
+		  (map (lambda (m) (interpret-markup layout props m)) args))))
+
+      (let*
+	  ((line-break (take-list line-width space todo
+				 '() 0.0))
+	   (line-stencils (car line-break))
+	   (space-left (- line-width (apply + (map (lambda (x) (cdr (ly:stencil-extent x X)))
+					      line-stencils))))
+
+	   (line-word-space (cond
+			     ((not justify) space)
+
+			     ;; don't stretch last line of paragraph.
+			     ((null? (cdr line-break))
+			      base-space)
+			     ((null? line-stencils) 0.0)
+			     ((null? (cdr line-stencils)) 0.0)
+			     (else (/ space-left (1- (length line-stencils))))))
+
+	   (line (stack-stencil-line
+		  line-word-space
+		  (reverse line-stencils))))
+
+	(if (pair? (cdr line-break))
+	    (loop (cons line lines)
+		  (cdr line-break))
+
+	    (stack-lines DOWN 0.0 baseline-skip (reverse (cons line lines)))
+	    ))
+
+      )))
+    
+
+
+(def-markup-command (justify layout props args) (markup-list?)
+  "Like wordwrap, but with lines stretched to justify the margins."
+  
+  (interpret-markup layout
+		    (prepend-alist-chain 'word-wrap-justify #t props)
+		    (list wordwrap-markup args)
+  ))
 
 (def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
@@ -941,7 +1026,8 @@ the elements marked in @var{indices}, which is a list of numbers."
      (apply min (map (lambda (x) (car (ly:stencil-extent x axis))) ss))
      (apply max (map (lambda (x) (cdr (ly:stencil-extent x axis))) ss))))
   
-  (define (stack-stencils stencils bskip last-stencil)
+
+  (define (stack-stencils-vertically stencils bskip last-stencil)
     (cond
      ((null? stencils) '())
      ((not (ly:stencil? last-stencil))
@@ -954,7 +1040,7 @@ the elements marked in @var{indices}, which is a list of numbers."
 					    orig
 					    0.1 bskip)))
 
-	(cons new (stack-stencils (cdr stencils) bskip new))))))
+	(cons new (stack-stencils-vertically (cdr stencils) bskip new))))))
 
   (define (make-brackets stencils indices acc)
     (if (and stencils
@@ -989,7 +1075,7 @@ the elements marked in @var{indices}, which is a list of numbers."
 		  x)) args))
 	 (leading
 	  (chain-assoc-get 'baseline-skip props))
-	 (stacked (stack-stencils
+	 (stacked (stack-stencils-vertically
 		   (remove ly:stencil-empty? stencils) 1.25 #f))
 	 (brackets (make-brackets stacked indices '())))
 

@@ -3,6 +3,7 @@
 	* scm/define-markup-commands.scm: remove encoded-simple. 
 	remove font-markup.
 	(fontsize): remove old version  of fontsize.
+	(wordwrap): new markup function. Wrap into paragraphs.
 
 	* VERSION: Branch lilypond_2_6
 	(MINOR_VERSION): go to 2.7.0
