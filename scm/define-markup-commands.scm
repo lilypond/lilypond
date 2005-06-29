@@ -1076,7 +1076,7 @@ the elements marked in @var{indices}, which is a list of numbers."
      ((null? stencils) '())
      ((not (ly:stencil? last-stencil))
       (cons (car stencils)
-	    (stack-stencils (cdr stencils) bskip (car stencils))))
+	    (stack-stencils-vertically (cdr stencils) bskip (car stencils))))
      (else
       (let* ((orig (car stencils))
 	     (dir (chain-assoc-get 'direction  props DOWN))
