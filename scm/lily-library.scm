@@ -314,6 +314,26 @@ possibly turned off."
 (define-public (string-regexp-substitute a b str)
   (regexp-substitute/global #f a str 'pre b 'post)) 
 
+
+(define (regexp-split str regex)
+  (define matches '())
+  (define end-of-prev-match 0)
+  (define (notice match)
+    (set! matches (cons (substring (match:string match)
+				   end-of-prev-match
+				   (match:start match))
+			matches))
+    (set! end-of-prev-match (match:end match)))
+
+  (regexp-substitute/global #f regex str notice 'post)
+
+  (if (< end-of-prev-match (string-length str))
+      (set!
+       matches
+       (cons (substring str end-of-prev-match (string-length str)) matches)))
+
+   (reverse matches))
+
 ;;;;;;;;;;;;;;;;
 ; other
 (define (sign x)

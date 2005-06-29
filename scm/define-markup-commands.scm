@@ -371,9 +371,17 @@ determines the space between each markup in @var{args}."
    (remove ly:stencil-empty? stencils))))
 
 
-(def-markup-command (wordwrap layout props args) (markup-list?)
-  "Perform simple wordwrap on @var{args}"
-
+(define (wordwrap-stencils stencils
+			   justify base-space line-width 
+			   )
+  
+  "Perform simple wordwrap, return stencil of each line."
+  (define space (if justify
+		    
+		    ;; justify only stretches lines.
+		    (* 0.7 base-space)
+		    base-space))
+       
   (define (take-list width space stencils
 		     accumulator accumulated-width)
     "Return (head-list . tail) pair, with head-list fitting into width"
@@ -383,7 +391,6 @@ determines the space between each markup in @var{args}."
 	    ((first (car stencils))
 	     (first-wid (cdr (ly:stencil-extent (car stencils) X)))
 	     (newwid (+ space first-wid accumulated-width))
-	     (word-space (chain-assoc-get 'word-space props))
 	     )
 
 	  (if
@@ -396,24 +403,10 @@ determines the space between each markup in @var{args}."
 		      newwid)
 	     (cons accumulator stencils))
 	   )))
-  
-  (let*
-      ((line-width (chain-assoc-get 'linewidth props))
-       (justify (chain-assoc-get 'word-wrap-justify props #f))
-       (base-space (chain-assoc-get 'word-space props))
-       (space (if justify
-		  
-		  ;; justify only stretches lines.
-		  (* 0.7 base-space)
-		  base-space))
-       
-       (baseline-skip (chain-assoc-get 'baseline-skip props)))
 
     (let loop
 	((lines '())
-	 (todo
-	  (remove ly:stencil-empty?
-		  (map (lambda (m) (interpret-markup layout props m)) args))))
+	 (todo stencils))
 
       (let*
 	  ((line-break (take-list line-width space todo
@@ -426,6 +419,7 @@ determines the space between each markup in @var{args}."
 			     ((not justify) space)
 
 			     ;; don't stretch last line of paragraph.
+			     ;; hmmm . bug - will overstretch the last line in some case. 
 			     ((null? (cdr line-break))
 			      base-space)
 			     ((null? line-stencils) 0.0)
@@ -440,21 +434,71 @@ determines the space between each markup in @var{args}."
 	    (loop (cons line lines)
 		  (cdr line-break))
 
-	    (stack-lines DOWN 0.0 baseline-skip (reverse (cons line lines)))
+	    (reverse (cons line lines))
 	    ))
 
-      )))
-    
+      ))
 
+
+(define (wordwrap-markups layout props args justify)
+  (let*
+      ((baseline-skip (chain-assoc-get 'baseline-skip props))
+       (line-width (chain-assoc-get 'linewidth props))
+       (word-space (chain-assoc-get 'word-space props))
+       (lines (wordwrap-stencils
+	       (remove ly:stencil-empty?
+		       (map (lambda (m) (interpret-markup layout props m)) args))
+	       justify word-space  line-width)
+	       ))
+
+    (stack-lines DOWN 0.0 baseline-skip lines)))
 
 (def-markup-command (justify layout props args) (markup-list?)
-  "Like wordwrap, but with lines stretched to justify the margins."
-  
-  (interpret-markup layout
-		    (prepend-alist-chain 'word-wrap-justify #t props)
-		    (list wordwrap-markup args)
-  ))
+  "Simple wordwrap"
 
+  (wordwrap-markups layout props args #t))
+
+(def-markup-command (wordwrap layout props args) (markup-list?)
+  "Like wordwrap, but with lines stretched to justify the margins."
+
+  (wordwrap-markups layout props args #f))
+
+(define (wordwrap-string  layout props justify arg) 
+  (let*
+      ((baseline-skip (chain-assoc-get 'baseline-skip props))
+       (line-width (chain-assoc-get 'linewidth props))
+       (word-space (chain-assoc-get 'word-space props))
+       (para-strings (regexp-split arg "\n[ \t\n]*\n[ \t\n]*"))
+       
+       (list-para-words (map (lambda (str)
+			       (regexp-split str "[ \t\n]+"))
+			     para-strings))
+       (para-lines (map (lambda (words)
+			  (let*
+			      ((stencils
+				(remove
+				 ly:stencil-empty? (map 
+				      (lambda (x)
+					(interpret-markup layout props x))
+				      words)))
+			       (lines (wordwrap-stencils stencils
+							 justify word-space line-width)))
+
+			    lines))
+			
+			list-para-words)))
+
+    (stack-lines DOWN 0.0 baseline-skip (apply append para-lines))))
+
+
+(def-markup-command (wordwrap-string layout props arg) (string?)
+  "Wordwrap a string. Paragraphs may be separated with double newlines"
+  (wordwrap-string layout props  #f arg))
+  
+(def-markup-command (justify-string layout props arg) (string?)
+  "Justify a string. Paragraphs may be separated with double newlines"
+  (wordwrap-string layout props #t arg))
+  
 (def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (let* ((s1 (interpret-markup layout props m1))

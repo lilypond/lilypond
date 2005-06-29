@@ -1,5 +1,18 @@
 2005-06-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/topdocs/NEWS.tely (Top): refresh.
+
+	* scm/define-markup-commands.scm (wordwrap-string): new function:
+	split string in paras and words.
+	(wordwrap-markups): new function.
+	(wordwrap-stencils): new function. 
+	(justify): use it.
+	(wordwrap): use it.
+	(wordwrap-string): use it
+	(justify-string): use it.
+
+	* scm/lily-library.scm (regexp-split): new function.
+
 	* scm/define-markup-commands.scm: remove encoded-simple. 
 	remove font-markup.
 	(fontsize): remove old version  of fontsize.
