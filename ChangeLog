@@ -1,5 +1,7 @@
 2005-06-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/mutopia-index.py (headertext): trim text.
+
 	* Documentation/topdocs/NEWS.tely (Top): refresh.
 
 	* scm/define-markup-commands.scm (wordwrap-string): new function:
