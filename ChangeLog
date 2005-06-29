@@ -1,4 +1,14 @@
+2005-06-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (do_file): search for kpsewhich before
+	invoking.
+
+	* python/lilylib.py (search_exe_path): new function.
+
 2005-06-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py (mkdir_p): remove setup_environment()
+	(backportme)
 
 	* buildscripts/mutopia-index.py (headertext): trim text.
 
