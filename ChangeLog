@@ -1,3 +1,7 @@
+2005-06-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/zh_TW.po: update from translation project.
+
 2005-06-28  Graham Percival  <gperlist@shaw.ca>
 
 	* scm/midi.scm: compile fix.
