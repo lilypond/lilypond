@@ -1,3 +1,8 @@
+2005-06-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: Branch lilypond_2_6
+	(MINOR_VERSION): go to 2.7.0
+
 2005-06-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* po/zh_TW.po: update from translation project.
