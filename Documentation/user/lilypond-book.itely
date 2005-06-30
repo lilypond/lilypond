@@ -195,7 +195,14 @@ lilypond snippets as @code{\includegraphics@{NAME.eps@}}, you must
 add
 
 @example
-\RequirePackage@{graphics@}
+\usepackage@{graphics@}
+@end example
+
+@noindent
+or
+
+@example
+\usepackage@{graphicx@}
 @end example
 
 @noindent
