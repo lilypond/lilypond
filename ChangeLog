@@ -1,5 +1,7 @@
 2005-06-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-svg.scm: remove old definitions (backportme).
+
 	* scripts/lilypond-book.py (do_file): search for kpsewhich before
 	invoking.
 

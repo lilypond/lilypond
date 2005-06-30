@@ -60,10 +60,6 @@
   (format #f "</~S>\n" entity))
 
 
-(define-public (setcolor r g b))
-
-(define-public (resetcolor))
-
 
 (define-public (entity entity string . attributes-alist)
   (if (equal? string "")
