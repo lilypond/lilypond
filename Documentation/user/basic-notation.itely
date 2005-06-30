@@ -695,8 +695,7 @@ existing music with another @code{transpose}
 
 @seealso
 
-Program reference: @internalsref{TransposedMusic}, and
-@internalsref{UntransposableMusic}.
+Program reference: @internalsref{TransposedMusic}.
 
 
 @refbugs
