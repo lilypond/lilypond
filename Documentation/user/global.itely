@@ -867,14 +867,23 @@ Name of the opus, flush-right below the composer.
 Name of the arranger, flush-right below the opus.
 
 @item instrument
-Name of the instrument, centered below the arranger.
+Name of the instrument, centered below the arranger.  Also
+centered at the top of pages (other than the first page).
 
 @item piece
 Name of the piece, flush-left below the instrument.
 
 @cindex page breaks, forcing
 @item breakbefore
-  This forces the title to start on a new page (set to ##t or ##f).
+This forces the title to start on a new page (set to ##t or ##f).
+
+@item copyright
+Copyright notice, centered at the bottom of the first page.  To
+insert the copyright symbol, see @ref{Text encoding}.
+
+@item tagline
+Centered at the bottom of the last page.
+
 @end table
 
 Here is a demonstration of the fields available.  Note that you
