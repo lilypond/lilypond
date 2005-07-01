@@ -26,10 +26,6 @@ possibly more impressive to render without tweaks?
 
 %}
 
-#(define (make-text-checker text)
-  (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
-
-
 treble = \new Voice \relative c''{
     \key a \major
     r2

@@ -20,9 +20,13 @@ ly_make_anonymous_module (bool safe)
   if (!safe)
     {
       SCM maker = ly_lily_module_constant ("make-module");
+
       SCM scm_module = ly_lily_module_constant ("the-scm-module");
       
       mod = scm_call_0 (maker);
+      scm_module_define (mod, ly_symbol2scm ("%module-public-interface"),
+			 mod);
+      
       ly_use_module (mod, scm_module);
       ly_use_module (mod, global_lily_module);
     }
