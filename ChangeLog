@@ -7,8 +7,10 @@
 
 	* Documentation/topdocs/AUTHORS.texi: update personal web address.
 
-	* documentation/user/examples.itely, lilypond-book.itely:
+	* Documentation/user/examples.itely, lilypond-book.itely:
 	change \RequirePackage to \usepackage.
+
+	* Documentation/user/global.itely: document copyright and tagline.
 
 2005-06-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
