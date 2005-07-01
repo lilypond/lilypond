@@ -2254,7 +2254,7 @@ The value of @code{autoBeamSettings} is changed with three functions,
 #(score-override-auto-beam-setting
    '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b})
 #(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m})
-   [@var{context}])
+   @var{a} @var{b} [@var{context}])
 @end example
 Here, @var{be} is the symbol @code{begin} or @code{end}, and
 @var{context} is an optional context (default: @code{'Voice}).  It
