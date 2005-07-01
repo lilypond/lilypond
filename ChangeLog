@@ -1,3 +1,20 @@
+2005-07-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* python/lilylib.py: remove set_environment()
+
+	* lily/ly-module.cc (ly_make_anonymous_module): define
+	%module-public-interface of module. (backportme)
+
+	* cygwin/GNUmakefile ($(outdir)/%.sh): Bugfix: use TAB (Bertalan
+	Fodor).  (backportme).
+	
+	* scm/output-svg.scm: remove old definitions.
+
+	* scripts/lilypond-book.py (do_file): search for kpsewhich before
+	invoking.
+
+	* python/lilylib.py (search_exe_path): new function.
+
 2005-06-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* po/zh_TW.po: update from translation project.
