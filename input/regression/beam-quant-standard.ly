@@ -10,9 +10,8 @@
 
 \layout  {
     raggedright = ##t
-    #(define debug-beam-quanting #t)
-
-      }
+%    #(define debug-beam-quanting #t)
+}
 
 filler = \new Voice \relative  {
     \hideNotes
