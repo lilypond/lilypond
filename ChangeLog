@@ -1,3 +1,11 @@
+2005-07-06  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/changing-defaults.itely: add link
+	to grob-iterface.
+
+	* Documentation/user/advanced-notation.itely: add material
+	to Setting automatic beam behaviour.  Thanks, Joe!
+
 2005-07-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Setting automatic
