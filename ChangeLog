@@ -6,6 +6,8 @@
 	* Documentation/user/advanced-notation.itely: add material
 	to Setting automatic beam behaviour.  Thanks, Joe!
 
+	* Documentation/user/lilypond.itely: change encoding to utf-8.
+
 2005-07-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* Documentation/user/advanced-notation.itely (Setting automatic
