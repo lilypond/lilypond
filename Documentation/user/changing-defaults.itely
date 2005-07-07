@@ -1070,7 +1070,8 @@ The HTML page that we found in the previous section, describes the
 layout object called @internalsref{Fingering}.  Such an object is a
 symbol within the score.  It has properties that store numbers (like
 thicknesses and directions), but also pointers to related objects.  A
-layout object is also called @emph{grob},
+layout object is also called
+@internalsref{grob-interface},
 @cindex grob
 which is short for Graphical Object.
 
