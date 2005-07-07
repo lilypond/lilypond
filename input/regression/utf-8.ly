@@ -23,7 +23,7 @@ Debian GNU/Linux
   texidoc = "Various scripts may be used for texts (like titles and
 lyrics) introduced by entering them in UTF-8 encoding, and using a
 Pango based backend. Depending on the fonts installed, this fragment
-will render Japanese, Hebrew and Cyrillic.
+will render Japanese, Hebrew, Cyrillic and Portuguese.
 
 "
   
