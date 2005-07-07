@@ -464,7 +464,7 @@ considered to have systems, so setting @code{betweensystemspace}
 will be much more useful than changing @code{minimumVerticalExtent}.
 
 @example
-\layout @{
+\paper @{
   betweensystemspace = 10\mm
 @}
 @end example
