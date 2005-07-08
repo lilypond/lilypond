@@ -401,6 +401,7 @@
 				break-aligned-interface
 				percent-repeat-interface item-interface ))))
 	))
+    
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))

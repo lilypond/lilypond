@@ -721,6 +721,15 @@ recommend font for this is bold and italic"
   (interpret-markup
    layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
+(def-markup-command (text layout props arg) (markup?)
+  "Use a text font instead of music symbol or music alphabet "  
+  "font."
+
+  ;; ugh - latin1
+  (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
+		    arg))
+
+
 (def-markup-command (italic layout props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}. "
   (interpret-markup layout (prepend-alist-chain 'font-shape 'italic props) arg))
