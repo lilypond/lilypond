@@ -1332,7 +1332,7 @@
 	(direction . ,LEFT)
 	(font-size . -4)
 	(print-function . ,Accidental_interface::print)
-	(meta . ((interfaces . (item-interface  font-interface))))
+	(meta . ((interfaces . (item-interface side-position-interface font-interface))))
 	))
 
     (TrillPitchGroup
@@ -1342,7 +1342,9 @@
 	(print-function . ,parenthesize-elements)
 	(direction . ,RIGHT)
 	(padding . 0.3)
-	(meta . ((interfaces . (font-interface item-interface axis-group-interface))))
+	(meta . ((interfaces . (side-position-interface
+				font-interface accidental-interface
+				item-interface axis-group-interface))))
 	))
 
     (TrillPitchHead
@@ -1350,7 +1352,9 @@
 	(duration-log . 2)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(font-size . -4)
-	(meta . ((interfaces . (item-interface font-interface ledgered-interface staff-symbol-referencer-interface))))
+	(meta . ((interfaces . (item-interface
+				font-interface pitched-trill-interface
+				ledgered-interface staff-symbol-referencer-interface))))
 	))
     
 

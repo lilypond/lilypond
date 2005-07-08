@@ -32,6 +32,14 @@ See user manual, \NAME\
 
 
 @itemize @bullet
+@item
+Explicit pitches may be added to trills,
+
+@lilypond[relative,verbatim,fragment]
+  \pitchedTrill c4\startTrillSpan fis f\stopTrillSpan
+@end lilypond 
+
+This feature was sponsored by D. Josiah Boothby and Jamie Bullock
 
 @item
 Markup now supports formatting of text paragraphs, using

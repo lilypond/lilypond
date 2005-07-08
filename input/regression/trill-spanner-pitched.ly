@@ -13,5 +13,5 @@
 }
 
 \relative {
-  \pitchedTrill c4\startTrillSpan fis f\stopTrillSpan
+  \pitchedTrill c4.\startTrillSpan fis f\stopTrillSpan
 }

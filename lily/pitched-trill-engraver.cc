@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 
+#include "dots.hh"
 #include "group-interface.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
@@ -52,7 +53,8 @@ Pitched_trill_engraver::acknowledge_grob (Grob_info info)
 {
   Music *mus = info.music_cause ();
 
-  if (Note_head::has_interface (info.grob ()))
+  if (Note_head::has_interface (info.grob ())
+      || Dots::has_interface (info.grob ()))
     {
       heads_.push (info.grob ());
     }
@@ -144,6 +146,6 @@ ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* descr */ "Print the bracketed notehead after a notehead with trill.",
 		/* creats*/ "TrillPitchHead TrillPitchAccidental TrillPitchGroup",
 		/* accepts */ "",
-		/* acks  */ "script-interface text-spanner-interface note-head-interface",
+		/* acks  */ "script-interface text-spanner-interface dots-interface note-head-interface",
 		/* reads */ "",
 		/* write */ "");

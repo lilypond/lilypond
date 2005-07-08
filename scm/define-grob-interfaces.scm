@@ -11,6 +11,12 @@
 
 
 (ly:add-interface
+ 'pitched-trill-interface
+   "A note head to indicate trill pitches"
+   '(accidental-grob)
+    )
+
+(ly:add-interface
  'dynamic-interface
    "Any kind of loudness sign"
    '()
