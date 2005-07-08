@@ -53,11 +53,13 @@ Stem_engraver::make_stem (Grob_info gi)
   stem_ = make_item ("Stem", gi.music_cause ()->self_scm ());
 
   /*
-    docme: why do we take duration-log from request, not from note
-    head?
+    we take the duration log from the Event, since the duration-log
+    for a note head is always <= 2.
   */
-  int duration_log = gi.music_cause ()->duration_log ();
-  stem_->set_property ("duration-log", scm_int2num (duration_log));
+  Music *music = gi.music_cause ();
+  Duration *dur = unsmob_duration (music->get_property ("duration"));
+  
+  stem_->set_property ("duration-log", dur ? scm_int2num (dur->duration_log ()) : 0);
 
   if (tremolo_ev_)
     {
@@ -82,7 +84,7 @@ Stem_engraver::make_stem (Grob_info gi)
 	context ()->set_property ("tremoloFlags", scm_int2num (requested_type));
 
       int tremolo_flags = intlog2 (requested_type) - 2
-	- (duration_log > 2 ? duration_log - 2 : 0);
+	- (dur->duration_log () > 2 ? dur->duration_log () - 2 : 0);
       if (tremolo_flags <= 0)
 	{
 	  tremolo_ev_->origin ()->warning (_ ("tremolo duration is too long"));
@@ -114,15 +116,18 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
       Music *cause = gi.music_cause ();
       if (!cause)
 	return;
-
+      Duration *d = unsmob_duration (cause->get_property ("duration"));
+      if (!d)
+	return ;
+      
       if (!stem_)
 	make_stem (gi);
-
-      int duration_log = cause->duration_log ();
-      if (Stem::duration_log (stem_) != duration_log)
+      
+      if (Stem::duration_log (stem_) != d->duration_log ())
 	{
 	  // FIXME: 
-	  gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)", 1 << Stem::duration_log (stem_)));
+	  gi.music_cause ()->origin ()->warning (_f ("adding note head to incompatible stem (type = %d)",
+						     1 << Stem::duration_log (stem_)));
 	  gi.music_cause ()->origin ()->warning (_f ("maybe input should specify polyphonic voices"));
 	}
 

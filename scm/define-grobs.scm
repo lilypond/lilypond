@@ -1299,7 +1299,6 @@
     (TimeSignature
      . (
 	(print-function . ,Time_signature::print)
-;	(print-function . ,Text_interface::print)	
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1309,7 +1308,6 @@
 			))
 	(breakable . #t)
 	(style . C)
-;	(text . (,time-signature-glue-markup))
 	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface item-interface ))))
 	))
 
@@ -1333,7 +1331,9 @@
 	(direction . ,LEFT)
 	(font-size . -4)
 	(print-function . ,Accidental_interface::print)
-	(meta . ((interfaces . (item-interface side-position-interface font-interface))))
+	(meta . ((interfaces . (item-interface
+				accidental-interface
+				side-position-interface font-interface))))
 	))
 
     (TrillPitchGroup
@@ -1344,6 +1344,7 @@
 	(direction . ,RIGHT)
 	(padding . 0.3)
 	(meta . ((interfaces . (side-position-interface
+				note-head-interface rhythmic-head-interface
 				font-interface accidental-interface
 				item-interface axis-group-interface))))
 	))
@@ -1354,11 +1355,11 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(font-size . -4)
 	(meta . ((interfaces . (item-interface
+				rhythmic-head-interface
 				font-interface pitched-trill-interface
 				ledgered-interface staff-symbol-referencer-interface))))
 	))
     
-
     (TupletBracket
      . (
 	(padding . 1.1)
@@ -1369,7 +1370,6 @@
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
 	(font-shape . italic)
-;	(font-series . bold)
 
 	(font-size . -2)
 	(meta . ((interfaces . (text-interface line-interface
