@@ -31,18 +31,18 @@ protected:
 private:
   Spanner *span_;
   Spanner *finished_;
-  Music *current_req_;
-  Drul_array<Music *> req_drul_;
+  Music *current_event_;
+  Drul_array<Music *> event_drul_;
   void typeset_all ();
 };
 
 Trill_spanner_engraver::Trill_spanner_engraver ()
 {
   finished_ = 0;
-  current_req_ = 0;
+  current_event_ = 0;
   span_ = 0;
-  req_drul_[START] = 0;
-  req_drul_[STOP] = 0;
+  event_drul_[START] = 0;
+  event_drul_[STOP] = 0;
 }
 
 bool
@@ -51,7 +51,7 @@ Trill_spanner_engraver::try_music (Music *m)
   if (m->is_mus_type ("trill-span-event"))
     {
       Direction d = to_dir (m->get_property ("span-direction"));
-      req_drul_[d] = m;
+      event_drul_[d] = m;
       return true;
     }
 
@@ -61,32 +61,32 @@ Trill_spanner_engraver::try_music (Music *m)
 void
 Trill_spanner_engraver::process_music ()
 {
-  if (req_drul_[STOP])
+  if (event_drul_[STOP])
     {
       if (!span_)
 	{
-	  req_drul_[STOP]->origin ()->warning (_ ("can't find start of trill spanner"));
+	  event_drul_[STOP]->origin ()->warning (_ ("can't find start of trill spanner"));
 	}
       else
 	{
 	  finished_ = span_;
 	  span_ = 0;
-	  current_req_ = 0;
+	  current_event_ = 0;
 	}
     }
 
-  if (req_drul_[START])
+  if (event_drul_[START])
     {
-      if (current_req_)
+      if (current_event_)
 	{
-	  req_drul_[START]->origin ()->warning (_ ("already have a trill spanner"));
+	  event_drul_[START]->origin ()->warning (_ ("already have a trill spanner"));
 	}
       else
 	{
-	  current_req_ = req_drul_[START];
-	  span_ = make_spanner ("TrillSpanner", req_drul_[START]->self_scm ());
+	  current_event_ = event_drul_[START];
+	  span_ = make_spanner ("TrillSpanner", event_drul_[START]->self_scm ());
 	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  req_drul_[START] = 0;
+	  event_drul_[START] = 0;
 	}
     }
 }
@@ -129,8 +129,8 @@ Trill_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
-  req_drul_[START] = 0;
-  req_drul_[STOP] = 0;
+  event_drul_[START] = 0;
+  event_drul_[STOP] = 0;
 }
 
 void
@@ -139,7 +139,7 @@ Trill_spanner_engraver::finalize ()
   typeset_all ();
   if (span_)
     {
-      current_req_->origin ()->warning (_ ("unterminated trill spanner"));
+      current_event_->origin ()->warning (_ ("unterminated trill spanner"));
       span_->suicide ();
       span_ = 0;
     }

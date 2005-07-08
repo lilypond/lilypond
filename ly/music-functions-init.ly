@@ -1,4 +1,6 @@
-\version "2.4.0"
+% -*-Scheme-*-
+
+\version "2.6.0"
 
 
 applymusic = #(def-music-function (parser location func music) (procedure? ly:music?)
@@ -106,6 +108,30 @@ quoteDuring = #
 
 
 
+pitchedTrill =
+#(def-music-function
+   (parser location main-note secondary-note)
+   (ly:music? ly:music?)
+   (let*
+       ((get-notes (lambda (ev-chord)
+		     (filter
+		      (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
+		      (ly:music-property ev-chord 'elements))))
+	(sec-note-events (get-notes secondary-note))
+	(trill-events (filter (lambda (m) (memq 'trill-span-event (ly:music-property m 'types)))
+			      (ly:music-property main-note 'elements)))
+
+	(trill-pitch
+	 (if (pair? sec-note-events)
+	     (ly:music-property (car sec-note-events) 'pitch)
+	     )))
+     
+     (if (ly:pitch? trill-pitch)
+	 (for-each (lambda (m) (ly:music-set-property! m 'trill-pitch trill-pitch))
+		   trill-events)
+	 (ly:warning (_ "Second argument of \\pitchedTrill should be single note.")))
+
+     main-note))
 
 killCues =
 #(def-music-function

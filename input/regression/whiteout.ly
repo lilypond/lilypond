@@ -14,5 +14,5 @@ since staff lines are in a different layer.  "
 
 {
   \override TextScript #'extra-offset = #'(2 . 4)
-  c'4-\markup  { \whiteout foo } c
+  c'4-\markup  { \whiteout \pad-markup #0.5 foo } c
 } 

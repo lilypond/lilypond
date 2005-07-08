@@ -29,16 +29,6 @@ Font_interface::get_default_font (Grob *me)
   return fm;
 }
 
-LY_DEFINE (ly_font_interface_get_default_font, "ly:get-default-font",
-	   1, 0, 0, (SCM grob),
-	   "Return the default font for grob @var{gr}.")
-{
-  Grob *gr = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
-
-  return Font_interface::get_default_font (gr)->self_scm ();
-}
-
 SCM
 Font_interface::music_font_alist_chain (Grob *g)
 {

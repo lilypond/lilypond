@@ -90,7 +90,6 @@ the PDF backend."
      (cons (+ (- half) (car yext))
 	   (+ half (cdr yext))))))
 
-
 (def-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
@@ -101,8 +100,6 @@ thickness and padding around the markup."
 		 (chain-assoc-get 'box-padding props 0.2)))
 	 (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
-
-
 
 (def-markup-command (filled-box layout props xext yext blot)
   (number-pair? number-pair? number?)
@@ -124,6 +121,19 @@ thickness and padding around the markup."
 			      0.0)))))
 
     (ly:stencil-add white stil)))
+
+(def-markup-command (pad-markup layout props padding arg) (number? markup?)
+  "Add space around a markup object."
+
+  (let*
+      ((stil (interpret-markup layout props arg))
+       (xext (ly:stencil-extent stil X))
+       (yext (ly:stencil-extent stil Y)))
+
+    (ly:make-stencil
+     (ly:stencil-expr stil)
+     (interval-widen xext padding)
+     (interval-widen yext padding))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; space
@@ -159,7 +169,6 @@ normally inserted before elements on a line.
 (def-markup-command (stencil layout props stil) (ly:stencil?)
   "Stencil as markup"
   stil)
-
 
 (define bbox-regexp
   (make-regexp "%%BoundingBox: ([0-9-]+) ([0-9-]+) ([0-9-]+) ([0-9-]+)"))

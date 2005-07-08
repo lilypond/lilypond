@@ -52,3 +52,22 @@
 (define-public (format-mark-box-barnumbers mark context)
   (make-bold-markup (make-box-markup
     (number->string (ly:context-property context 'currentBarNumber)))))
+
+(define-public (format-pitched-trill-head pitch do-print-accidental context)
+  (make-override-markup
+   '(word-space . 0.0)
+   (make-line-markup
+    (append
+     (list
+      (make-musicglyph-markup "accidentals.leftparen"))
+     (if do-print-accidental
+	 (list (make-musicglyph-markup
+		(string-append "accidentals."
+			       (number->string (ly:pitch-alteration pitch))))
+	       (make-hspace-markup 0.2))
+	 '())
+     
+     (list
+      (make-musicglyph-markup "noteheads.s2")
+      (make-musicglyph-markup "accidentals.rightparen"))
+     ))))
