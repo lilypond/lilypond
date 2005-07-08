@@ -16,7 +16,7 @@ class Dots
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  bool has_interface (Grob *);
+  static bool has_interface (Grob *);
 };
 
 #endif // DOTS_HH

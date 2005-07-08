@@ -1422,6 +1422,7 @@ LilyPond is limited.
 * Clusters::                    
 * Special fermatas::            
 * Special noteheads::           
+* Pitched trills::              
 * Feathered beams::             
 * Improvisation::               
 @end menu

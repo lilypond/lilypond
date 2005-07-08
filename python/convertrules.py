@@ -2503,6 +2503,14 @@ conversions.append (((2, 6, 0), conv,
 
 		     'dummy rule for 2.6')) 
 
+
+def conv (str):
+	return re.sub('ly:get-default-font', 'ly:grob-default-font', str) 
+
+conversions.append (((2, 7, 0), conv,
+		     
+		     'ly:get-default-font -> ly:grob-default-font')) 
+
 ################################################################
 
 def str_to_tuple (s):
