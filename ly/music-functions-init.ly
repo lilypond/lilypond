@@ -6,56 +6,71 @@
 
 #(use-modules (srfi srfi-1))  
 
-applymusic = #(def-music-function (parser location func music) (procedure? ly:music?)
+applymusic =
+#(def-music-function (parser location func music) (procedure? ly:music?)
                (func music))
 
-oldaddlyrics = #(def-music-function (parser location music lyrics) (ly:music? ly:music?)
+oldaddlyrics =
+#(def-music-function (parser location music lyrics) (ly:music? ly:music?)
 
               (make-music 'OldLyricCombineMusic 
                           'origin location
                           'elements (list music lyrics)))
 
-grace = #(def-grace-function startGraceMusic stopGraceMusic)
+grace =
+#(def-grace-function startGraceMusic stopGraceMusic)
 
-acciaccatura = #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
-appoggiatura = #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
+acciaccatura =
+#(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
+appoggiatura =
+#(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
 
-partcombine = #(def-music-function (parser location part1 part2) (ly:music? ly:music?)
+partcombine =
+#(def-music-function (parser location part1 part2) (ly:music? ly:music?)
                 (make-part-combine-music (list part1 part2)))
 
-autochange = #(def-music-function (parser location music) (ly:music?)
+autochange =
+#(def-music-function (parser location music) (ly:music?)
                (make-autochange-music music))
 
-applycontext = #(def-music-function (parser location proc) (procedure?)
+applycontext =
+#(def-music-function (parser location proc) (procedure?)
                  (make-music 'ApplyContext 
                    'origin location
                    'procedure proc))
 
-musicMap = #(def-music-function (parser location proc mus) (procedure? ly:music?)
+musicMap =
+#(def-music-function (parser location proc mus) (procedure? ly:music?)
 	     (music-map proc mus))
 
-displayMusic = #(def-music-function (parser location music) (ly:music?)
+displayMusic =
+#(def-music-function (parser location music) (ly:music?)
 		 (display-scheme-music music)
 		 music)
-applyoutput = #(def-music-function (parser location proc) (procedure?)
+applyoutput =
+#(def-music-function (parser location proc) (procedure?)
                 (make-music 'ApplyOutputEvent 
                   'origin location
                   'procedure proc))
 
-breathe = #(def-music-function (parser location) ()
+breathe =
+#(def-music-function (parser location) ()
             (make-music 'EventChord 
               'origin location
               'elements (list (make-music 'BreathingSignEvent))))
 
 
-unfoldRepeats = #(def-music-function (parser location music) (ly:music?)
+unfoldRepeats =
+#(def-music-function (parser location music) (ly:music?)
 		  (unfold-repeats music))
 
-compressMusic = #(def-music-function
+compressMusic =
+#(def-music-function
 		  (parser location fraction music) (number-pair? ly:music?)
 		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
 
-makeClusters = #(def-music-function
+makeClusters =
+#(def-music-function
 		(parser location arg) (ly:music?)
 		(music-map note-to-cluster arg))
 
@@ -147,7 +162,8 @@ killCues =
 	  mus)) music))
    
 
-afterGraceFraction = #(cons 6 8)
+afterGraceFraction =
+#(cons 6 8)
 
 afterGrace =
 #(def-music-function
