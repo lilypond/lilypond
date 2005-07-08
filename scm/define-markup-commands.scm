@@ -709,10 +709,6 @@ some punctuation. It doesn't have any letters.  "
   "Set @code{font-shape} to @code{caps}."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
-;(def-markup-command (latin-i layout props arg) (markup?)
-;  "TEST latin1 encoding."
-;  (interpret-markup layout (prepend-alist-chain 'font-shape 'latin1 props) arg))
-
 (def-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
 @b{z}, @b{p}, and @b{r}.  When producing phrases, like ``pi@`{u} @b{f}'', the
@@ -722,8 +718,7 @@ recommend font for this is bold and italic"
    layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
 (def-markup-command (text layout props arg) (markup?)
-  "Use a text font instead of music symbol or music alphabet "  
-  "font."
+  "Use a text font instead of music symbol or music alphabet font."  
 
   ;; ugh - latin1
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
