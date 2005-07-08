@@ -76,7 +76,10 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 {
   scm_puts ("#<Lily_parser ", port);
   Lily_parser *parser = (Lily_parser *) SCM_CELL_WORD_1 (s);
-  scm_display (parser->lexer_->self_scm (), port);
+  if (parser->lexer_)
+    scm_display (parser->lexer_->self_scm (), port);
+  else
+    scm_puts ("(no lexer yet)", port);
   scm_puts (" >", port);
   return 1;
 }

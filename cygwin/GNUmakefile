@@ -22,8 +22,8 @@ POSTREMOVES=$(wildcard postremove*.sh)
 OUT_POSTREMOVES=$(POSTREMOVES:%=$(outdir)/%)
 
 $(outdir)/%.sh: %.sh $(config_make)
-        cat $< | sed $(sed-atvariables) > $@
-        chmod 755 $@
+	cat $< | sed $(sed-atvariables) > $@
+	chmod 755 $@
 
 default: $(OUT_POSTINSTALLS) $(OUT_POSTREMOVES) $(OUTIN_FILES) 
 
