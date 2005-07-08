@@ -29,7 +29,6 @@ public:
   void internal_set_property (SCM, SCM val);
   SCM get_property_alist (bool mutble) const;
   bool internal_is_music_type (SCM) const;
-  int duration_log () const;
 
   DECLARE_SCHEME_CALLBACK (relative_callback, (SCM, SCM));
   Pitch to_relative_octave (Pitch);

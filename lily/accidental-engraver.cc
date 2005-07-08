@@ -489,7 +489,6 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  || !ly_c_equal_p (info.grob ()->get_property ("style"),
 			    ly_symbol2scm ("harmonic")))
 	{
-
 	  Accidental_entry entry;
 	  entry.head_ = info.grob ();
 	  entry.origin_trans_ = dynamic_cast<Engraver *> (info.origin_translator ());

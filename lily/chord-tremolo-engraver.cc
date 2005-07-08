@@ -13,7 +13,6 @@
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "misc.hh"
-#include "note-head.hh"
 #include "spanner.hh"
 #include "item.hh"
 #include "chord-tremolo-iterator.hh"
@@ -170,7 +169,9 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	}
     }
   else if (repeat_
-	   && flags_ && !body_is_sequential_ && Stem::has_interface (info.grob ()))
+	   && flags_
+	   && !body_is_sequential_
+	   && Stem::has_interface (info.grob ()))
     {
       stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
@@ -210,6 +211,6 @@ ADD_TRANSLATOR (Chord_tremolo_engraver,
 		/* descr */ "Generates beams for  tremolo repeats.",
 		/* creats*/ "Beam",
 		/* accepts */ "repeated-music",
-		/* acks  */ "stem-interface note-head-interface",
+		/* acks  */ "stem-interface",
 		/* reads */ "",
 		/* write */ "");

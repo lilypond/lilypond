@@ -1716,7 +1716,7 @@ Program reference: @internalsref{NoteHead}.
 Trills that should be executed on an explicitly specified pitch can be
 typeset with the command @code{pitchedTrill}, 
 
-@lilypond[raggedright,verbatim]
+@lilypond[raggedright,verbatim,fragment]
   \pitchedTrill c'4\startTrillSpan fis
   f'\stopTrillSpan
 @end lilypond
