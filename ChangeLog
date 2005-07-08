@@ -1,3 +1,9 @@
+2005-07-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/fr.po: update
+
+	* po/de.po: update.
+
 2005-07-06  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/changing-defaults.itely: add link
@@ -45,7 +51,7 @@
 	* Documentation/user/basic-notation.itely (Transpose): remove link
 	to nonexistent UntransposableMusic.
 
-	* scm/output-svg.scm: remove old definitions (backportme).
+	* scm/output-svg.scm: remove old definitions.
 
 	* scripts/lilypond-book.py (do_file): search for kpsewhich before
 	invoking.

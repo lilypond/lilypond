@@ -319,10 +319,14 @@ The syntax is the same as `define*-public'."
 
     (if (defined? 'gc-live-object-stats)
 	(let*
-	    ((dummy (gc))
-	     (dummy2 (gc))
-	     (stats (gc-live-object-stats))
-	     )
+	    ((stats #f))
+
+	  (display "Live object statistics: GC'ing\n")
+	  (gc)
+	  (gc)
+
+	  (set! stats (gc-live-object-stats))
+	  (display "Dumping live object statistics.\n")
 
 	  (for-each
 	   (lambda (x)

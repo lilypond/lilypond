@@ -117,7 +117,16 @@ Lily_parser::parse_file (String init, String name, String out_name)
 
   SCM mod = lexer_->set_current_scope ();
   do_yyparse ();
-  scm_set_current_module (mod);
+
+  /*
+    Don't mix cyclic pointers with weak tables.
+   */
+  lexer_->set_identifier (ly_symbol2scm ("parser"),
+			  SCM_EOL);
+  ly_reexport_module (scm_current_module ());
+  
+
+    scm_set_current_module (mod);
  
   if (!define_spots_.is_empty ())
     {
