@@ -1,3 +1,7 @@
+2005-07-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/{de,fr}.po: update.
+
 2005-07-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* python/lilylib.py: remove set_environment()
