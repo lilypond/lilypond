@@ -7,12 +7,18 @@
 */
 
 #include "axis-group-interface.hh"
+
 #include "hara-kiri-group-spanner.hh"
+#include "warn.hh"
 
 void
 Axis_group_interface::add_element (Grob *me, Grob *e)
 {
-  for (SCM ax = me->get_property ("axes"); ax != SCM_EOL; ax = scm_cdr (ax))
+  SCM axes = me->get_property ("axes");
+  if (!scm_is_pair (axes))
+    programming_error ("axes should be nonempty");
+  
+  for (SCM ax = axes; ax != SCM_EOL; ax = scm_cdr (ax))
     {
       Axis a = (Axis) scm_to_int (scm_car (ax));
 
@@ -40,7 +46,7 @@ Axis_group_interface::has_axis (Grob *me, Axis a)
 }
 
 Interval
-Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
+Axis_group_interface::relative_group_extent (SCM elts, Grob *common, Axis a)
 {
   Interval r;
   for (SCM s = elts; scm_is_pair (s); s = scm_cdr (s))
@@ -53,6 +59,8 @@ Axis_group_interface::relative_group_extent (Axis a, Grob *common, SCM elts)
   return r;
 }
 
+
+
 MAKE_SCHEME_CALLBACK (Axis_group_interface, group_extent_callback, 2);
 SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
@@ -64,7 +72,7 @@ Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
   Grob *common = common_refpoint_of_list (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
-  Interval r (relative_group_extent (a, common, elts));
+  Interval r (relative_group_extent (elts, common, a));
 
   return ly_interval2scm (r - my_coord);
 }

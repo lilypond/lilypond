@@ -1,4 +1,4 @@
-\version "2.4.0"
+\version "2.5.18"
 
 \context {
   \name Global
@@ -169,7 +169,8 @@ contained staves are not connected vertically."
 
   localKeySignature = #'()
   \consists "Font_size_engraver"
-  
+
+  \consists "Pitched_trill_engraver"
   \consists "Output_property_engraver"	
   \consists "Arpeggio_engraver"
   \consists "Multi_measure_rest_engraver"

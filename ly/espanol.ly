@@ -8,7 +8,7 @@
 
 %}
 
-% contributed by Carlos GarcÌa Su·rez <<cgscqmp@terra.es>>
+% contributed by Carlos Garc√≠a Su√°rez <<cgscqmp@terra.es>>
 
 
 % For using "sostingut" notation, which is also correct
@@ -58,6 +58,6 @@ pitchnamesEspanol = #`(
 
 pitchnames = \pitchnamesEspanol
 
-\version "2.4.0"
+\version "2.6.0"
 
 #(ly:parser-set-note-names parser pitchnames)

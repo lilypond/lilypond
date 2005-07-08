@@ -43,11 +43,6 @@ descend in the context tree.")
      (digit ,integer? "digit for fingering")
      (direction ,ly:dir? "Print this up or down?")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
-     (tags ,list? "List of symbols that for denoting extra details,
-e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
-     (text-type ,symbol? "Particular type of text script (e.g. finger, dynamic).")
-     (tempo-unit ,ly:duration? "The unit for the metronome count.")
-     (tonic ,ly:pitch? "Base of the scale")
      (error-found ,boolean? "If true, a parsing error was found in this expression")
      (element ,ly:music? "The single child of a Music_wrapper music object, or the body of a repeat.")
      (elements ,ly:music-list? "A list of elements for sequential of simultaneous music, or the alternatives of repeated music. ")
@@ -65,7 +60,7 @@ can only be defined as initializer in @file{define-music-types.scm}.")
      (numerator ,integer? "numerator of a time signature")
      (once ,boolean? "Apply this operation only during one time step?")
      (octavation ,integer?
-		  "This pitch was octavated by how many octaves?
+		 "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")
      (page-penalty ,number? "Penalty for page break hint.")
@@ -93,8 +88,15 @@ length of starting grace notes.  This property can only be defined as
 initializer in @file{define-music-types.scm}.")
      (string-number ,integer? "The number of the string in a StringNumberEvent")
      (symbol ,symbol? "Grob name to perform an override/revert on.")
+     (tags ,list? "List of symbols that for denoting extra details,
+e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
+     (text-type ,symbol? "Particular type of text script (e.g. finger, dynamic).")
+     
      (text ,markup? "markup expression to be printed")
+     (tempo-unit ,ly:duration? "The unit for the metronome count.")
+     (tonic ,ly:pitch? "Base of the scale")
      (tremolo-type ,integer? "")
+     (trill-pitch ,ly:pitch? "Pitch of other note of the trill.")
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music object; determines by what
 engraver this music expression is processed.")

@@ -74,6 +74,6 @@ pitchnamesCatalan = #`(
 
 pitchnames = \pitchnamesCatalan
 
-\version "2.4.0"
+\version "2.6.0"
 
 #(ly:parser-set-note-names parser pitchnames)

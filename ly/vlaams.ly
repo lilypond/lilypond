@@ -1,4 +1,4 @@
-\version "2.4.0" %hier stond 2.1.36, mocht ik dat wel veranderen?
+\version "2.6.0" %hier stond 2.1.36, mocht ik dat wel veranderen?
 
 %{
 

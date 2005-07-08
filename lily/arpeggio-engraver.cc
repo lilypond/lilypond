@@ -26,21 +26,21 @@ protected:
   virtual bool try_music (Music *);
 private:
   Item *arpeggio_;
-  Music *arpeggio_req_;
+  Music *arpeggio_event_;
 };
 
 Arpeggio_engraver::Arpeggio_engraver ()
 {
   arpeggio_ = 0;
-  arpeggio_req_ = 0;
+  arpeggio_event_ = 0;
 }
 
 bool
 Arpeggio_engraver::try_music (Music *m)
 {
-  if (!arpeggio_req_)
+  if (!arpeggio_event_)
     {
-      arpeggio_req_ = m;
+      arpeggio_event_ = m;
     }
   return true;
 }
@@ -78,9 +78,9 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
 void
 Arpeggio_engraver::process_music ()
 {
-  if (arpeggio_req_)
+  if (arpeggio_event_)
     {
-      arpeggio_ = make_item ("Arpeggio", arpeggio_req_->self_scm ());
+      arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
     }
 }
 
@@ -88,11 +88,11 @@ void
 Arpeggio_engraver::stop_translation_timestep ()
 {
   arpeggio_ = 0;
-  arpeggio_req_ = 0;
+  arpeggio_event_ = 0;
 }
 
 ADD_TRANSLATOR (Arpeggio_engraver,
-		/* descr */ "Generate an Arpeggio from a Arpeggio_req",
+		/* descr */ "Generate an Arpeggio symbol",
 		/* creats*/ "Arpeggio",
 		/* accepts */ "arpeggio-event",
 		/* acks  */ "stem-interface rhythmic-head-interface note-column-interface",

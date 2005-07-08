@@ -35,13 +35,16 @@ internal_print (Grob *me, String *font_char)
   SCM style = me->get_property ("style");
   if (!scm_is_symbol (style))
     {
-      return Stencil ();
+      style = ly_symbol2scm ("default");
     }
 
   SCM log = scm_int2num (Note_head::get_balltype (me));
   SCM proc = me->get_property ("glyph-name-procedure");
-  SCM scm_font_char = scm_call_2 (proc, log, style);
 
+  String suffix =  to_string (robust_scm2int (me->get_property ("duration-log"), 2));
+  if (scm_procedure_p (proc) == SCM_BOOL_T)
+    suffix = ly_scm2string (scm_call_2 (proc, log, style));
+  
   Font_metric *fm = Font_interface::get_default_font (me);
 
   Direction stem_dir = CENTER;
@@ -56,11 +59,11 @@ internal_print (Grob *me, String *font_char)
 
   String prefix = "noteheads.";
   String idx
-    = prefix + ((stem_dir == UP) ? "u" : "d") + ly_scm2string (scm_font_char);
+    = prefix + ((stem_dir == UP) ? "u" : "d") + suffix;
   out = fm->find_by_name (idx);
   if (out.is_empty ())
     {
-      idx = prefix + "s" + ly_scm2string (scm_font_char);
+      idx = prefix + "s" + suffix;
       out = fm->find_by_name (idx);
     }
 

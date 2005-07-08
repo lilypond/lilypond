@@ -43,10 +43,10 @@
    ly:format-output
    ly:get-all-function-documentation
    ly:get-all-translators
-   ly:get-default-font
    ly:get-glyph
    ly:get-option
    ly:grob-alist-chain
+   ly:grob-default-font
    ly:grob-extent
    ly:grob-original
    ly:grob-layout

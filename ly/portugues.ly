@@ -8,7 +8,7 @@
 
 %}
 
-% contributed by Pedro Kröger <<kroeger@pedrokroeger.net>>
+% contributed by Pedro KrÃ¶ger <<kroeger@pedrokroeger.net>>
 
 
 pitchnamesPortuguese = #`(
@@ -86,6 +86,6 @@ pitchnamesPortuguese = #`(
 
 pitchnames = \pitchnamesPortuguese
 
-\version "2.4.0"
+\version "2.6.0"
 
 #(ly:parser-set-note-names parser pitchnames)

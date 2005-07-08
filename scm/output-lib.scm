@@ -282,3 +282,20 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public darkcyan    '(0.5 0.5 0.0))
 (define-public darkmagenta '(0.5 0.0 0.5))
 (define-public darkyellow  '(0.0 0.5 0.5))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Pitch Trill Heads
+
+(define (parenthesize-elements grob)
+  (let*
+      ((elts (ly:grob-property grob 'elements))
+       (x-ext (ly:relative-group-extent elts grob X))
+       (font (ly:grob-default-font grob))
+       (lp (ly:font-get-glyph font "accidentals.leftparen"))
+       (rp (ly:font-get-glyph font "accidentals.rightparen"))
+       (padding 0.1))
+
+    (ly:stencil-add
+     (ly:stencil-translate-axis lp (- (car x-ext) padding) X)
+     (ly:stencil-translate-axis rp (+ (cdr x-ext) padding) X))
+  ))
