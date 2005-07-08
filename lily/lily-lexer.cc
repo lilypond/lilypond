@@ -232,10 +232,6 @@ Lily_lexer::set_identifier (SCM name, SCM s)
       SCM mod = scm_car (scopes_);
 
       scm_module_define (mod, sym, s);
-#if 0
-      SCM setter = ly_lily_module_constant ("module-define!");
-      scm_call_3 (setter, mod,  sym, s);
-#endif
     }
   else
     programming_error ("identifier is not a symbol");
