@@ -1,5 +1,8 @@
 2005-07-08  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* Documentation/user/tutorial.itely (Running LilyPond for the
+	first time): remove reference to DVI/TeX
+
 	* scm/define-markup-commands.scm (text): add \text markup command.
 
 	* configure.in (reloc_b): bump requirement to Python 2.2.

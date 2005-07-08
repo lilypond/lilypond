@@ -264,9 +264,7 @@ Parsing...
 Interpreting music... [1]
 Preprocessing graphical objects... 
 Calculating line breaks... [2]
-Layout output to `test.tex'...
-Converting to `test.dvi'...
-Converting to `test.ps'...
+Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
 
@@ -274,18 +272,9 @@ Converting to `test.pdf'...
 @cindex Viewing music
 @cindex xdvi
 @noindent
-The result is the file @file{test.pdf}@footnote{For @TeX{}
-aficionados: there is also a @file{test.dvi} file.  It can be viewed
-with @code{xdvi}.  The DVI uses a lot of PostScript specials, which do
-not show up in the magnifying glass.  The specials also mean that the
-DVI file cannot be processed with @code{dvilj}.  Use @code{dvips} for
-printing.
-@cindex dvips
-@cindex dvilj
-@cindex DVI driver
-} which you can print or view with the standard facilities of your
-operating system.@footnote{If your system does not have any tools
-installed, you can try
+The result is the file @file{test.pdf} which you can print or view
+with the standard facilities of your operating system.@footnote{If
+your system does not have any tools installed, you can try
 @uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
 available package for viewing and printing PDF and PostScript files.}
 
