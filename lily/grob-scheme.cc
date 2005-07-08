@@ -7,10 +7,14 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "grob.hh"
+
 #include "warn.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "system.hh"
+#include "font-interface.hh"
+
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 	   3, 0, 0, (SCM grob, SCM sym, SCM val),
@@ -227,4 +231,16 @@ LY_DEFINE (ly_grob_key, "ly:grob-key",
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
   return me->get_key ()->self_scm ();
+}
+
+
+
+LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
+	   1, 0, 0, (SCM grob),
+	   "Return the default font for grob @var{gr}.")
+{
+  Grob *gr = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  return Font_interface::get_default_font (gr)->self_scm ();
 }

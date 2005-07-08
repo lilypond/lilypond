@@ -1,5 +1,5 @@
 /*
-  axis-group-interface-scheme.cc -- implement Axis_group_interface
+  axis-group-interface-scheme.cc -- implement Axis_group_interface bindings
 
   source file of the GNU LilyPond music typesetter
 
