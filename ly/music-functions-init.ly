@@ -2,6 +2,9 @@
 
 \version "2.6.0"
 
+%% need SRFI-1 filter 
+
+#(use-modules (srfi srfi-1))  
 
 applymusic = #(def-music-function (parser location func music) (procedure? ly:music?)
                (func music))
