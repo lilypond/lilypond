@@ -1,5 +1,5 @@
 
-\version "2.6.0"
+\version "2.7.0"
 
 \header { texidoc=" You can write stencil callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -28,7 +28,7 @@ Example usage:
 GROB.  The dimensions of the stencil is not affected.
 "
      
-     (let* ((fn (ly:get-default-font grob))
+     (let* ((fn (ly:grob-default-font grob))
 	    (pclose (ly:font-get-glyph fn "accidentals.rightparen"))
 	    (popen (ly:font-get-glyph fn "accidentals.leftparen"))
 	    (subject (callback grob))

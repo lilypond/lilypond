@@ -5,6 +5,8 @@
 
 }
 
+\version "2.7.0"
+
 \markup {
   this is normal  text
   \override #'(linewidth . 60)
