@@ -16,7 +16,7 @@
 struct Spring_description
 {
   Real ideal_;
-  Real hooke_;
+  Real inverse_hooke_;
   bool is_active_;
   Real block_force_;
 

@@ -94,10 +94,10 @@ if (incr_scm != SCM_EOL) /* (Paper_column::is_musical (l)) */
 	distance = 0.1;
       }
     me->warning (_f ("distance=%f", distance));//debug
-    Real strength = 1.0;
-    Spaceable_grob::add_spring (lc, rc, distance, strength);
+    Real inverse_strength = 1.0;
+    Spaceable_grob::add_spring (lc, rc, distance, inverse_strength);
     if (Item *rb = r->find_prebroken_piece (LEFT))
-      Spaceable_grob::add_spring (lc, rb, distance, strength);
+      Spaceable_grob::add_spring (lc, rb, distance, inverse_strength);
 
     continue;
   }

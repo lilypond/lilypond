@@ -41,7 +41,7 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
       Real ideal = scm_to_double (scm_caar (s));
       Real hooke = scm_to_double (scm_cadar (s));
 
-      spacer.add_spring (ideal, hooke);
+      spacer.add_spring (ideal, 1 / hooke);
     }
 
   for (SCM s = rods; scm_is_pair (s); s = scm_cdr (s))

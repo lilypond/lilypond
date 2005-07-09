@@ -51,23 +51,22 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real strength)
+Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real inverse_strength)
 {
-  //  printf ("dist %lf, str %lf\n", d, strength); 
-  if (d <= 0.0 || strength <= 0.0)
+  if (d <= 0.0 || inverse_strength < 0.0)
     {
       programming_error ("adding reverse spring, setting to unit");
       d = 1.0;
-      strength = 1.0;
+      inverse_strength = 1.0;
     }
 
   if (isinf (d) || isnan (d)
-      || isnan (strength))
+      || isnan (inverse_strength))
     {
       /* strength == INF is possible. It means fixed distance.  */
       programming_error ("insane distance found");
       d = 1.0;
-      strength = 1.0;
+      inverse_strength = 1.0;
     }
 
 #ifndef NDEBUG
@@ -84,7 +83,7 @@ Spaceable_grob::add_spring (Grob *me, Grob *p, Real d, Real strength)
 #endif
 
   Spring_smob spring;
-  spring.strength_ = strength;
+  spring.inverse_strength_ = inverse_strength;
   spring.distance_ = d;
   spring.other_ = p;
 
