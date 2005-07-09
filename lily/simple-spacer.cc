@@ -122,7 +122,7 @@ Simple_spacer::range_stiffness (int l, int r) const
   for (int i = l; i < r; i++)
     {
       if (springs_[i].is_active_)
-	den += 1 / springs_[i].hooke_;
+	den += 1 * springs_[i].inverse_hooke_;
     }
 
   return 1 / den;
@@ -162,7 +162,7 @@ Simple_spacer::active_springs_stiffness () const
 	    }
 	}
 
-      stiff = springs_[max_i].hooke_;
+      stiff = 1/springs_[max_i].inverse_hooke_;
     }
   return stiff;
 }
@@ -245,7 +245,7 @@ Simple_spacer::my_solve_natural_len ()
 Spring_description::Spring_description ()
 {
   ideal_ = 0.0;
-  hooke_ = 0.0;
+  inverse_hooke_ = 0.0;
   is_active_ = true;
   block_force_ = 0.0;
 }
@@ -253,7 +253,7 @@ Spring_description::Spring_description ()
 bool
 Spring_description::is_sane () const
 {
-  return (hooke_ > 0)
+  return (inverse_hooke_ >= 0)
     && ideal_ > 0
     && !isinf (ideal_) && !isnan (ideal_);
 }
@@ -263,7 +263,7 @@ Spring_description::length (Real f) const
 {
   if (!is_active_)
     f = block_force_;
-  return ideal_ + f / hooke_;
+  return ideal_ + f * inverse_hooke_;
 }
 /****************************************************************/
 
@@ -341,21 +341,21 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
 }
 
 void
-Simple_spacer::add_spring (Real ideal, Real hooke)
+Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
 {
   Spring_description desc;
 
   desc.ideal_ = ideal;
-  desc.hooke_ = hooke;
+  desc.inverse_hooke_ = inverse_hooke;
   if (!desc.is_sane ())
     {
       programming_error ("insane spring found, setting to unit");
 
-      desc.hooke_ = 1.0;
+      desc.inverse_hooke_ = 1.0;
       desc.ideal_ = 1.0;
     }
 
-  if (isinf (hooke))
+  if (!inverse_hooke)
     {
       desc.is_active_ = false;
     }
@@ -364,7 +364,8 @@ Simple_spacer::add_spring (Real ideal, Real hooke)
       /*
 	desc.is_active_ ?
       */
-      desc.block_force_ = -desc.hooke_ * desc.ideal_; // block at distance 0
+      desc.block_force_ = - desc.ideal_ / desc.inverse_hooke_;
+      // block at distance 0
 
       active_count_++;
     }
@@ -410,9 +411,9 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 			       Paper_column::get_rank (cols[i])));
 
       Real ideal = (spring) ? spring->distance_ : spacer_->default_space_;
-      Real hooke = (spring) ? spring->strength_ : 1.0;
+      Real inverse_hooke = (spring) ? spring->inverse_strength_ : 1.0;
 
-      spacer_->add_spring (ideal, hooke);
+      spacer_->add_spring (ideal, inverse_hooke);
     }
 
   for (int i = 0; i < cols.size () - 1; i++)

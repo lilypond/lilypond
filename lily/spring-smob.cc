@@ -13,7 +13,7 @@
 Spring_smob::Spring_smob ()
 {
   distance_ = 0.;
-  strength_ = 1.0;
+  inverse_strength_ = 1.0;
   expand_only_b_ = false;
   other_ = 0;
 }
@@ -21,7 +21,12 @@ Spring_smob::Spring_smob ()
 IMPLEMENT_SIMPLE_SMOBS (Spring_smob);
 
 SCM
-Spring_smob::mark_smob (SCM) { return SCM_UNSPECIFIED; }
+Spring_smob::mark_smob (SCM x)
+{
+  (void)x;
+  
+  return SCM_UNSPECIFIED;
+}
 
 int
 Spring_smob::print_smob (SCM, SCM p, scm_print_state *)

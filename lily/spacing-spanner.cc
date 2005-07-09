@@ -611,7 +611,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
   compound_fixed_note_space = min (compound_fixed_note_space, compound_note_space);
 
   bool packed = to_boolean (me->get_layout ()->c_variable ("packed"));
-  Real strength, distance;
+  Real inverse_strength = 1.0;
+  Real distance = 1.0;
 
   /*
     TODO: make sure that the space doesn't exceed the right margin.
@@ -627,16 +628,16 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item *lc, Item *rc, Real incr
 	pack as much bars of music as possible into a line, but the
 	line will then be stretched to fill the whole linewidth.
       */
-      strength = 1.0;
+      inverse_strength = 1.0;
       distance = compound_fixed_note_space;
     }
   else
     {
-      strength = 1 / (compound_note_space - compound_fixed_note_space);
+      inverse_strength = (compound_note_space - compound_fixed_note_space);
       distance = compound_note_space;
     }
 
-  Spaceable_grob::add_spring (lc, rc, distance, strength);
+  Spaceable_grob::add_spring (lc, rc, distance, inverse_strength);
 }
 
 /*
@@ -776,9 +777,9 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r, Moment sh
     Do it more cleanly, or rename the property.
 
   */
-  Real strength = 1 / (compound_space - compound_fixed);
+  Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
-  Spaceable_grob::add_spring (l, r, distance, strength);
+  Spaceable_grob::add_spring (l, r, distance, inverse_strength);
 }
 
 /**
