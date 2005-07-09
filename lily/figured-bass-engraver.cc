@@ -16,7 +16,7 @@ class Figured_bass_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
 protected:
   Link_array<Music> figures_;
-  Music *rest_req_;
+  Music *rest_event_;
 
   Grob *figure_;
 
@@ -28,7 +28,7 @@ protected:
 Figured_bass_engraver::Figured_bass_engraver ()
 {
   figure_ = 0;
-  rest_req_ = 0;
+  rest_event_ = 0;
 }
 
 void
@@ -37,7 +37,7 @@ Figured_bass_engraver::stop_translation_timestep ()
   figure_ = 0;
 
   figures_.clear ();
-  rest_req_ = 0;
+  rest_event_ = 0;
 }
 
 bool
@@ -50,7 +50,7 @@ Figured_bass_engraver::try_music (Music *m)
     }
   else if (m->is_mus_type ("rest-event"))
     {
-      rest_req_ = m;
+      rest_event_ = m;
       return true;
     }
   return false;
@@ -59,9 +59,9 @@ Figured_bass_engraver::try_music (Music *m)
 void
 Figured_bass_engraver::process_music ()
 {
-  if (rest_req_)
+  if (rest_event_)
     {
-      figure_ = make_item ("BassFigure", rest_req_->self_scm ());
+      figure_ = make_item ("BassFigure", rest_event_->self_scm ());
       figure_->set_property ("text", scm_makfrom0str ("-"));
     }
   else if (figures_.size ())
