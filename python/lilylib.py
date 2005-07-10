@@ -12,11 +12,14 @@
 ### subst: \(help_summary\|keep_temp_dir_p\|option_definitions\|original_dir\|program_name\|pseudo_filter_p\|temp_dir\|verbose_p\)
 
 import __main__
+import getopt
+import glob
+import os
+import re
 import shutil
 import string
 import sys
 import tempfile
-import glob
 
 ################################################################
 # Users of python modules should include this snippet
@@ -30,9 +33,6 @@ import glob
 # If set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX
 
-import getopt
-import os
-import sys
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
@@ -45,59 +45,6 @@ sys.path.insert (0, os.path.join (datadir, 'python'))
 
 
 
-# Customize these
-
-# UGH. - why?  Py2exe barfs 
-if __name__ == '__main__':
-	import lilylib as ly
-	global _;_=ly._
-	global re;re = ly.re
-
-	# lilylib globals
-	program_name = 'unset'
-	pseudo_filter_p = 0
-	original_dir = os.getcwd ()
-	temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-	keep_temp_dir_p = 0
-	verbose_p = 0
-
-	help_summary = _ ("lilylib module")
-
-	option_definitions = [
-		('', 'h', 'help', _ ("print this help")),
-		]
-
-	from lilylib import *
-################################################################
-
-# Handle bug in Python 1.6-2.1
-#
-# there are recursion limits for some patterns in Python 1.6 til 2.1. 
-# fix this by importing pre instead. Fix by Mats.
-
-
-# Ugh. py2exe barfs on  conditional imports
-if float (sys.version[0:3]) <= 2.1:
-	try:
-		import pre
-		re = pre
-		del pre
-	except ImportError:
-		import re
-else:
-	import re
-	
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-
-
-# Ugh. py2exe barfs on  conditional imports
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
 
 localedir = '@localedir@'
 try:
@@ -157,7 +104,7 @@ def getopt_args (opts):
 	return (short, long)
 
 def option_help_str (o):
-	'''Transform one option description (4-tuple ) into neatly formatted string'''
+	'''Transform one option description (4-tuple) into neatly formatted string'''
 	sh = '  '	
 	if o[1]:
 		sh = '-%s' % o[1]
@@ -382,25 +329,6 @@ def cp_to_dir (pattern, dir):
 	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
 
 
-# Python < 1.5.2 compatibility
-#
-# On most platforms, this is equivalent to
-#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
-
-if os.path.__dict__.has_key ('abspath'):
-	abspath = os.path.abspath
-else:
-	def abspath (path):
-		return os.path.normpath (os.path.join (os.getcwd (), path))
-
-if os.__dict__.has_key ('makedirs'):
-	makedirs = os.makedirs
-else:
-	def makedirs (dir, mode=0777):
-		system ('mkdir -p %s' % dir)
-
-
-
 def search_exe_path (name):
 	p = os.environ['PATH']
 	exe_paths = string.split (p, ':')
@@ -418,21 +346,6 @@ def mkdir_p (dir, mode=0777):
 def print_environment ():
 	for (k,v) in os.environ.items ():
 		sys.stderr.write ("%s=\"%s\"\n" % (k, v)) 
-
-BOUNDING_BOX_RE = '^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)'
-def get_bbox (filename):
-	bbox = filename + '.bbox'
-	## -sOutputFile does not work with bbox?
-	cmd = 'gs -sDEVICE=bbox -q -dNOPAUSE %s -c showpage -c quit 2>%s' % \
-	      (filename, bbox)
-	system (cmd, progress_p = 1)
-	box = open (bbox).read ()
-	m = re.match (BOUNDING_BOX_RE, box)
-	gr = []
-	if m:
-		gr = map (string.atoi, m.groups ())
-	
-	return gr
 
 
 def make_ps_images (ps_name, resolution = 90, papersize = "a4",

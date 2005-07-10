@@ -37,8 +37,9 @@ Music_wrapper_iterator::derived_substitute (Context *f, Context *t)
 void
 Music_wrapper_iterator::construct_children ()
 {
-  Music *m = dynamic_cast<Music_wrapper const *> (get_music ())->element ();
-  child_iter_ = unsmob_iterator (get_iterator (m));
+  Music *my_music = get_music ();
+  Music *child = unsmob_music (my_music->get_property ("element"));
+  child_iter_ = unsmob_iterator (get_iterator (child));
 }
 
 bool

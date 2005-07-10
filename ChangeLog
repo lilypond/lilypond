@@ -1,3 +1,26 @@
+2005-07-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-music-types.scm (music-descriptions): don't use
+	Music_wrapper type.
+
+	* lily/paper-column.cc (print): print moment too.
+
+	* scripts/mup2ly.py (cp_to_dir): remove 1.5.2 compat glue.  
+	remove compatibility cruft.
+
+	* lily/parser.yy (score_body): \score can only begin with Music. 
+
+	* lily/score-scheme.cc (LY_DEFINE): rename scorify to
+	make-score. Take music argument only. Move parser interaction to
+	Scheme.
+
+	* scm/lily-library.scm (scorify-music): new function.
+
+	* python/lilylib.py (datadir): remove 2.1 compat kludge.
+	(datadir): remove resource import.
+	(print_environment): remove get_bbox()
+	(cp_to_dir): remove pre 1.5.2 compat glue.
+
 2005-07-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/include/simple-spacer.hh (Module): idem.
