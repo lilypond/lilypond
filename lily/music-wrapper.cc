@@ -14,7 +14,7 @@ Music_wrapper::Music_wrapper (SCM x)
   if (!ly_c_procedure_p (length_callback_))
     length_callback_ = length_callback_proc;
   if (!ly_c_procedure_p (start_callback_))
-    start_callback_ = length_callback_proc;
+    start_callback_ = start_callback_proc;
 }
 
 MAKE_SCHEME_CALLBACK (Music_wrapper, start_callback, 1);
