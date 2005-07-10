@@ -12,6 +12,8 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 
+Real binomial_coefficient_3[] = {1,3 ,3, 1};
+
 Real
 binomial_coefficient (Real over, int under)
 {
@@ -90,7 +92,7 @@ Bezier::curve_point (Real t) const
   Offset o;
   for (int j = 0; j < 4; j++)
     {
-      o += control_[j] * binomial_coefficient (3, j)
+      o += control_[j] * binomial_coefficient_3[j]
 	* pow (t, j) * pow (1 - t, 3 - j);
 
       tj *= t;
@@ -113,7 +115,7 @@ Bezier::polynomial (Axis a) const
   for (int j = 0; j <= 3; j++)
     {
       p
-	+= (control_[j][a] * binomial_coefficient (3, j))
+	+= (control_[j][a] * binomial_coefficient_3[j])
 	* Polynomial::power (j, Polynomial (0, 1))
 	* Polynomial::power (3 - j, Polynomial (1, -1));
     }
