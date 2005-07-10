@@ -64,9 +64,20 @@
   (ly:parser-define
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
-    
+
+
+(define-public (scorify-music music parser)
+  
+  (for-each (lambda (func)
+	      (set! music (func music parser)))
+	    toplevel-music-functions)
+
+;  (display-scheme-music  music)
+  (ly:make-score music))
+
+
 (define-public (collect-music-for-book parser music)
-  (collect-scores-for-book parser (ly:music-scorify music parser)))
+  (collect-scores-for-book parser (scorify-music music parser)))
 
   
 ;;;;;;;;;;;;;;;;

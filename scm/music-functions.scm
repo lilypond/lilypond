@@ -744,7 +744,7 @@ Syntax:
    
    ;; switch-on-debugging
    (lambda (x parser) (music-map cue-substitute x))
-;   (lambda (x parser) (music-map display-scheme-music x))
+ 
 
    ))
 

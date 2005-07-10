@@ -112,7 +112,7 @@ Music::get_length () const
 Moment
 Music::start_mom () const
 {
-  SCM lst = get_property ("start-callback");
+  SCM lst = start_callback_;
   if (ly_c_procedure_p (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());

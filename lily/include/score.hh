@@ -34,14 +34,13 @@ public:
   Score (Score const &);
 
   SCM get_music () const;
-  void set_music (SCM music, SCM parser);
+  void set_music (SCM music);
   SCM book_rendering (Output_def *, Output_def *, Object_key *);
 };
 
 DECLARE_UNSMOB (Score, score);
 
 void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM);
-SCM ly_music_scorify (SCM, SCM);
 SCM ly_render_output (SCM, SCM);
 SCM ly_run_translator (SCM, SCM, SCM);
 

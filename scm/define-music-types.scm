@@ -70,9 +70,10 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
     (AutoChangeMusic
      . (
 	(description .	"Used for making voices that switch between piano staves automatically.")
-
-	(internal-class-name . "Music_wrapper")
+	(internal-class-name . "Music")
 	(iterator-ctor . ,Auto_change_iterator::constructor)
+	(start-callback . ,Music_wrapper::start_callback)
+	(length-callback . ,Music_wrapper::length_callback)
 	(types . (general-music music-wrapper-music auto-change-instruction))
 	))
     (BarCheck
@@ -146,7 +147,9 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
      . (
 	(description .	"Interpret the argument music within a specific context.")
 	(iterator-ctor . ,Context_specced_music_iterator::constructor)
-	(internal-class-name . "Music_wrapper")
+	(length-callback . ,Music_wrapper::length_callback)
+	(start-callback . ,Music_wrapper::start_callback)
+	(internal-class-name . "Music")
 	(types . (context-specification general-music music-wrapper-music))
 	))
     
@@ -210,7 +213,7 @@ Syntax: @var{note}\\cr
     (GraceMusic
      . (
 	(description .	"Interpret the argument as grace notes. ")
-	(internal-class-name . "Music_wrapper")
+	(internal-class-name . "Music")
 	(start-callback . ,Grace_music::start_callback)
 	(length . ,(ly:make-moment 0 1))
 	(iterator-ctor . ,Grace_iterator::constructor)
@@ -437,7 +440,7 @@ goes down).")
     (QuoteMusic
      . (
 	(description . "Quote preprocessed snippets of music. ")
-	(internal-class-name . "Music_wrapper")
+	(internal-class-name . "Music")
 	(iterator-ctor . ,Quote_iterator::constructor)
 	(types . (general-music))
 	))
@@ -578,7 +581,9 @@ Syntax NOTE(	 and )NOTE")
 Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
-	(internal-class-name . "Music_wrapper")
+	(internal-class-name . "Music")
+	(length-callback . ,Music_wrapper::length_callback)
+	(start-callback . ,Music_wrapper::start_callback)
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
 	(types . (time-scaled-music music-wrapper-music general-music))
 	))
@@ -586,7 +591,10 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
     (TransposedMusic
      . (
 	(description .	"Music that has been transposed.")
-	(internal-class-name . "Music_wrapper")
+	(internal-class-name . "Music")
+	(iterator-ctor . ,Music_wrapper_iterator::constructor)
+	(start-callback . ,Music_wrapper::start_callback)
+	(length-callback . ,Music_wrapper::length_callback)
 	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(types . (music-wrapper-music general-music transposed-music))
 	))
@@ -596,7 +604,9 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 	(description .	"Music that can not be converted from relative to absolute notation.
 For example, transposed music.")
 	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
-	(internal-class-name . "Music_wrapper")
+	(iterator-ctor . ,Music_wrapper_iterator::constructor)
+	(length-callback . ,Music_wrapper::length_callback)
+	(internal-class-name . "Music")
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
 
@@ -604,7 +614,10 @@ For example, transposed music.")
      . (
 	(description .	"Music that was entered in relative octave notation.")
 	(to-relative-callback . ,Relative_octave_music::relative_callback)
-	(internal-class-name . "Music_wrapper")
+	(iterator-ctor . ,Music_wrapper_iterator::constructor)
+	(length-callback . ,Music_wrapper::length_callback)
+	(start-callback . ,Music_wrapper::start_callback)
+	(internal-class-name . "Music")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
     (ScriptEvent

@@ -86,28 +86,6 @@ option_definitions = [
 # 
 # source file of the GNU LilyPond music typesetter
 
-# Handle bug in Python 1.6-2.1
-#
-# there are recursion limits for some patterns in Python 1.6 til 2.1. 
-# fix this by importing pre instead. Fix by Mats.
-
-# todo: should check Python version first.
-try:
-	import pre
-	re = pre
-	del pre
-except ImportError:
-	import re
-
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
-
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', localedir)
@@ -287,23 +265,6 @@ def cp_to_dir (pattern, dir):
 	# system ('cp *.%s %s' % (ext, outdir), 1)
 	files = filter (lambda x, p=pattern: re.match (p, x), os.listdir ('.'))
 	map (lambda x, d=dir: shutil.copy2 (x, os.path.join (d, x)), files)
-
-
-# Python < 1.5.2 compatibility
-#
-# On most platforms, this is equivalent to
-#`normpath(join(os.getcwd()), PATH)'.  *Added in Python version 1.5.2*
-if os.path.__dict__.has_key ('abspath'):
-	abspath = os.path.abspath
-else:
-	def abspath (path):
-		return os.path.normpath (os.path.join (os.getcwd (), path))
-
-if os.__dict__.has_key ('makedirs'):
-	makedirs = os.makedirs
-else:
-	def makedirs (dir, mode=0777):
-		system ('mkdir -p %s' % dir)
 
 
 def mkdir_p (dir, mode=0777):

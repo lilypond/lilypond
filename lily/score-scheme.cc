@@ -11,16 +11,16 @@
 #include "output-def.hh"
 #include "global-context.hh"
 
-LY_DEFINE (ly_music_scorify, "ly:music-scorify",
-	   2, 0, 0,
-	   (SCM music, SCM parser),
-	   "Return @var{music} with @var{texts} encapsulated in @var{score}.")
+LY_DEFINE (ly_make_score, "ly:make-score",
+	   1, 0, 0,
+	   (SCM music),
+	   "Return score with @var{music} encapsulated in @var{score}.")
 {
   Music *mus = unsmob_music (music);
   SCM_ASSERT_TYPE (mus, music, SCM_ARG1, __FUNCTION__, "music");
   
   Score *score = new Score;
-  score->set_music (music, parser);
+  score->set_music (music);
 
   SCM self = score->self_scm ();
   scm_gc_unprotect_object (self);

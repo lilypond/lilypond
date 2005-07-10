@@ -85,7 +85,7 @@
    ly:music-mutable-properties
    ly:music-name
    ly:music-property
-   ly:music-scorify
+   ly:make-score
    ly:music-set-property!
    ly:music-transpose
    ly:music?

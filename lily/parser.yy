@@ -787,8 +787,15 @@ score_block:
 	;
 
 score_body:
-	/**/	{
-		$$ = new Score;
+	Music {
+		SCM m = $1->self_scm ();
+		scm_gc_unprotect_object (m);
+		SCM scorify = ly_lily_module_constant ("scorify-music");
+		SCM score = scm_call_2 (scorify, m, THIS->self_scm ());
+
+		// pass ownernship to C++ again. 
+		scm_gc_protect_object (score);
+		$$ = unsmob_score (score);
 		$$->set_spot (@$);
 	}
 	| SCORE_IDENTIFIER {
@@ -797,11 +804,6 @@ score_body:
 	}
 	| score_body object_id_setting {
 		$$->user_key_ = ly_scm2string ($2);
-	}
-	| score_body Music {
-		SCM m = $2->self_scm ();
-		scm_gc_unprotect_object (m);
-		$$->set_music (m, THIS->self_scm ());
 	}
 	| score_body lilypond_header 	{
 		$$->header_ = $2;

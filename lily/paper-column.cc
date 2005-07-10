@@ -118,12 +118,20 @@ Paper_column::print (SCM p)
   Grob *me = unsmob_grob (p);
 
   String r = to_string (Paper_column::get_rank (me));
+
+  Moment *mom = unsmob_moment (me->get_property ("when"));
+  String when = mom ? mom->to_string () : "?/?";
+    
   SCM properties = Font_interface::text_font_alist_chain (me);
 
   SCM scm_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
 						  properties,
 						  scm_makfrom0str (r.to_str0 ()));
+  SCM when_mol = Text_interface::interpret_markup (me->get_layout ()->self_scm (),
+						   properties,
+						   scm_makfrom0str (when.to_str0 ()));
   Stencil t = *unsmob_stencil (scm_mol);
+  t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1, 0.1);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);
 
