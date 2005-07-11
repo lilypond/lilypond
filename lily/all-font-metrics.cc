@@ -106,7 +106,7 @@ kpathsea_find_file (String name, String ext)
     return path;
 
   SCM kpath = ly_lily_module_constant ("ly:kpathsea-find-file");
-  if (ly_c_procedure_p (kpath))
+  if (ly_is_procedure (kpath))
     {
       SCM kp_result = scm_call_1 (kpath, scm_makfrom0str (name.to_str0 ()));
       if (scm_is_string (kp_result))

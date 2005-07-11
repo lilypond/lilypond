@@ -453,7 +453,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   SCM type = scm_object_property (sym, type_symbol);
 
-  if (type != SCM_EOL && !ly_c_procedure_p (type))
+  if (type != SCM_EOL && !ly_is_procedure (type))
     {
       warning (_f ("can't find property type-check for `%s' (%s).",
 		   ly_symbol2string (sym).to_str0 (),
@@ -469,7 +469,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
   else
     {
       if (val != SCM_EOL
-	  && ly_c_procedure_p (type)
+	  && ly_is_procedure (type)
 	  && scm_call_1 (type, val) == SCM_BOOL_F)
 	{
 	  ok = false;
@@ -499,7 +499,7 @@ ly_unique (SCM list)
   for (SCM i = list; scm_is_pair (i); i = scm_cdr (i))
     {
       if (!scm_is_pair (scm_cdr (i))
-	  || !ly_c_equal_p (scm_car (i), scm_cadr (i)))
+	  || !ly_is_equal (scm_car (i), scm_cadr (i)))
 	unique = scm_cons (scm_car (i), unique);
     }
   return scm_reverse_x (unique, SCM_EOL);
@@ -560,7 +560,7 @@ ly_split_list (SCM s, SCM list)
     {
       SCM i = scm_car (after);
       after = scm_cdr (after);
-      if (ly_c_equal_p (i, s))
+      if (ly_is_equal (i, s))
 	break;
       before = scm_cons (i, before);
     }
@@ -686,7 +686,7 @@ alist_equal_p (SCM a, SCM b)
       SCM l = scm_assoc (key, b);
 
       if (l == SCM_BOOL_F
-	  || !ly_c_equal_p (scm_cdr (l), val))
+	  || !ly_is_equal (scm_cdr (l), val))
 
 	return false;
     }

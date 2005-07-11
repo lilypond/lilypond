@@ -60,7 +60,7 @@ Script_engraver::try_music (Music *m)
       /* Discard double articulations for part-combining.  */
       int script_count = scripts_.size ();
       for (int i = 0; i < script_count; i++)
-	if (ly_c_equal_p (scripts_[i].event_
+	if (ly_is_equal (scripts_[i].event_
 			  ->get_property ("articulation-type"),
 			  m->get_property ("articulation-type")))
 	  return true;
@@ -116,7 +116,7 @@ void make_script_from_event (Grob *p, bool *follow, Context *tg,
     {
       SCM sym = scm_caar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
-      if (!ly_c_procedure_p (type))
+      if (!ly_is_procedure (type))
 	continue;
 
       SCM val = scm_cdar (s);

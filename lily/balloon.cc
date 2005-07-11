@@ -31,7 +31,7 @@ Balloon_interface::print (SCM smob)
   SCM cb = me->get_property ("balloon-original-callback");
   SCM stil = SCM_EOL;
 
-  if (ly_c_procedure_p (cb))
+  if (ly_is_procedure (cb))
     stil = scm_call_1 (cb, smob);
 
   if (!unsmob_stencil (stil))

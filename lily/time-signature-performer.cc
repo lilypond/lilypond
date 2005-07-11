@@ -47,7 +47,7 @@ void
 Time_signature_performer::create_audio_elements ()
 {
   SCM fr = get_property ("timeSignatureFraction");
-  if (scm_is_pair (fr) && !ly_c_equal_p (fr, prev_fraction_))
+  if (scm_is_pair (fr) && !ly_is_equal (fr, prev_fraction_))
     {
       prev_fraction_ = fr;
       int b = scm_to_int (scm_car (fr));

@@ -160,7 +160,7 @@ Paper_book::book_title ()
     scopes = scm_cons (header_, scopes);
 
   SCM tit = SCM_EOL;
-  if (ly_c_procedure_p (title_func))
+  if (ly_is_procedure (title_func))
     tit = scm_call_2 (title_func,
 		      paper_->self_scm (),
 		      scopes);
@@ -189,7 +189,7 @@ Paper_book::score_title (SCM header)
     scopes = scm_cons (header, scopes);
 
   SCM tit = SCM_EOL;
-  if (ly_c_procedure_p (title_func))
+  if (ly_is_procedure (title_func))
     tit = scm_call_2 (title_func,
 		      paper_->self_scm (),
 		      scopes);

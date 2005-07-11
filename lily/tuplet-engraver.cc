@@ -76,7 +76,7 @@ Tuplet_engraver::process_music ()
       tuplets_[i].spanner_ = spanner;
 
       SCM proc = get_property ("tupletNumberFormatFunction");
-      if (ly_c_procedure_p (proc))
+      if (ly_is_procedure (proc))
 	{
 	  SCM t = scm_apply_0 (proc, scm_list_1 (tuplets_[i].music_->self_scm ()));
 	  spanner->set_property ("text", t);

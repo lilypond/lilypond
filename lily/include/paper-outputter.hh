@@ -29,10 +29,10 @@ public:
   DECLARE_SMOBS (Paper_outputter,);
 
 public:
-  SCM file ();
+  SCM file () const;
   SCM dump_string (SCM);
   void output_scheme (SCM scm);
-  Paper_outputter (String nm, String format);
+  Paper_outputter (SCM port, String format);
   SCM scheme_to_string (SCM);
   void output_stencil (Stencil);
   void close ();

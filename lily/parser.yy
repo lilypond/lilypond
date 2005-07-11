@@ -84,7 +84,7 @@ tag_music (Music *m, SCM tag, Input ip)
 	SCM tags = m->get_property ("tags");
 	if (scm_is_symbol (tag))
 		tags = scm_cons (tag, tags);
-	else if (ly_c_list_p (tag))
+	else if (ly_is_list (tag))
 		tags = ly_append2 (tag, tags);
 	else
 		ip.warning (_ ("tag must be symbol or list of symbols"));
@@ -171,8 +171,8 @@ make_chord (SCM pitch, SCM dur, SCM modification_list)
 bool
 ly_input_procedure_p (SCM x)
 {
-	return ly_c_procedure_p (x)
-		|| (scm_is_pair (x) && ly_c_procedure_p (scm_car (x)));
+	return ly_is_procedure (x)
+		|| (scm_is_pair (x) && ly_is_procedure (scm_car (x)));
 }
 
 Music*
@@ -999,7 +999,7 @@ Repeated_music:
 		r->set_property ("repeat-count", scm_int2num (max (times, 1)));
 
 		r-> set_property ("elements",alts);
-		if (ly_c_equal_p ($2, scm_makfrom0str ("tremolo"))) {
+		if (ly_is_equal ($2, scm_makfrom0str ("tremolo"))) {
 			/*
 			TODO: move this code to Scheme.
 			*/
@@ -2756,7 +2756,7 @@ property_op_to_music (SCM op)
 		bool itc = do_internal_type_checking_global;
 		/* UGH.
 		*/
-		bool autobeam = ly_c_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
+		bool autobeam = ly_is_equal (symbol, ly_symbol2scm ("autoBeamSettings"));
 		if (autobeam)
 			do_internal_type_checking_global = false;
 		m->set_property ("grob-property", grob_sym);

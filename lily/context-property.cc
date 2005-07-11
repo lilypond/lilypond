@@ -86,7 +86,7 @@ execute_pushpop_property (Context *trg,
 
 	  while (prev_alist != daddy)
 	    {
-	      if (ly_c_equal_p (scm_caar (prev_alist), eltprop))
+	      if (ly_is_equal (scm_caar (prev_alist), eltprop))
 		{
 		  prev_alist = scm_cdr (prev_alist);
 		  break;

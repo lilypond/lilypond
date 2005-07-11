@@ -42,7 +42,7 @@ internal_print (Grob *me, String *font_char)
   SCM proc = me->get_property ("glyph-name-procedure");
 
   String suffix =  to_string (robust_scm2int (me->get_property ("duration-log"), 2));
-  if (scm_procedure_p (proc) == SCM_BOOL_T)
+  if (ly_is_procedure (proc))
     suffix = ly_scm2string (scm_call_2 (proc, log, style));
   
   Font_metric *fm = Font_interface::get_default_font (me);
@@ -115,7 +115,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     Fallback
   */
   SCM v = me->get_property ("stem-attachment-function");
-  if (!ly_c_procedure_p (v))
+  if (!ly_is_procedure (v))
     return 0.0;
 
   SCM result = scm_call_2 (v, me->self_scm (), scm_int2num (a));

@@ -824,7 +824,7 @@ Slur_score_state::get_extra_encompass_infos () const
 	      if (to_boolean (g->get_property ("cautionary")))
 		{
 		  SCM cstyle = g->get_property ("cautionary-style");
-		  parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+		  parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
 		}
 
 	      SCM accs = g->get_property ("accidentals");

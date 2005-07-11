@@ -27,13 +27,12 @@
 
 #include "ly-smobs.icc"
 
-Paper_outputter::Paper_outputter (String file_name, String format)
+Paper_outputter::Paper_outputter (SCM port, String format)
 {
-  file_ = SCM_EOL;
+  file_ = port;
   output_module_ = SCM_EOL;
   smobify_self ();
 
-  file_name_ = file_name;
   String module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.to_str0 ());
 }
@@ -62,18 +61,8 @@ Paper_outputter::print_smob (SCM x, SCM p, scm_print_state*)
 }
 
 SCM
-Paper_outputter::file ()
+Paper_outputter::file () const
 {
-  if (file_ == SCM_EOL)
-    if (file_name_ == "-")
-      file_ = scm_current_output_port ();
-    else
-      /*
-	Opening binary sucks a little for DOS, since PS doesn't look like
-	ASCII anymore, but binary CFFs will get embedded correctly.
-       */
-      file_ = scm_open_file (scm_makfrom0str (file_name_.to_str0 ()),
-			     scm_makfrom0str ("wb"));
   return file_;
 }
 

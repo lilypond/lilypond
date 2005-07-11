@@ -71,7 +71,7 @@ check_meshing_chords (Grob *me,
   bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
 
   /* Do not merge notes typeset in different style. */
-  if (!ly_c_equal_p (nu->get_property ("style"),
+  if (!ly_is_equal (nu->get_property ("style"),
 		     nd->get_property ("style")))
     merge_possible = false;
 
