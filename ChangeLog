@@ -1,3 +1,7 @@
+2005-07-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PACKAGE_NAME): release 2.6.1
+
 2005-07-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/music-wrapper.cc (Music_wrapper): use start_callback_proc
@@ -13,10 +17,10 @@
 	* python/lilylib.py: remove set_environment()
 
 	* lily/ly-module.cc (ly_make_anonymous_module): define
-	%module-public-interface of module. (backportme)
+	%module-public-interface of module. 
 
 	* cygwin/GNUmakefile ($(outdir)/%.sh): Bugfix: use TAB (Bertalan
-	Fodor).  (backportme).
+	Fodor).  
 	
 	* scm/output-svg.scm: remove old definitions.
 
