@@ -89,11 +89,10 @@
 	(set! count 0))
 
     (if (> count 0)
-	(set! (base (format #f "~a-~a" count))))
+	(set! base (format #f "~a-~a" base count)))
 
     (ly:parser-define! parser 'output-count (1+ count))
     
-
     (ly:book-process book paper layout base)
     ))
 

@@ -39,8 +39,11 @@ LY_DEFINE (ly_parser_print_book, "ly:book-process",
 	   4, 0, 0, (SCM book_smob,
 		     SCM default_paper,
 		     SCM default_layout,
-		     SCM basename),
-	   "Print book.")
+		     SCM output),
+	   "Print book. @var{output} is passed to the backend unchanged. "
+	   "Eg. it may be "
+	   "a string (for file based outputs) or a socket (for network based "
+	   "output).")
 {
   Book *book = unsmob_book (book_smob);
 
@@ -49,16 +52,12 @@ LY_DEFINE (ly_parser_print_book, "ly:book-process",
 		   default_layout, SCM_ARG2, __FUNCTION__, "\\paper block");
   SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
 		   default_layout, SCM_ARG3, __FUNCTION__, "\\layout block");
-  SCM_ASSERT_TYPE (scm_is_string (basename), basename, SCM_ARG4, __FUNCTION__, "string");
 
-  String base = ly_scm2string (basename);
-  Paper_book *pb = book->process (base,
-				  unsmob_output_def (default_paper),
-				  unsmob_output_def (default_layout)
-				  );
+  Paper_book *pb = book->process (unsmob_output_def (default_paper),
+				  unsmob_output_def (default_layout));
   if (pb)
     {
-      pb->output (base);
+      pb->output (output);
       scm_gc_unprotect_object (pb->self_scm ());
     }
 

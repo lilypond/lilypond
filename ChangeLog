@@ -1,5 +1,11 @@
 2005-07-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/midi.scm (paper-book-write-midis): new function. Write all
+	performances in numbered MIDI files.
+
+	* lily/performance-scheme.cc (LY_DEFINE): new file.
+	(LY_DEFINE): new function ly:performance-write.
+
 	* lily/lily-parser-scheme.cc (LY_DEFINE): ly:parser-output-name:
 	new function.
 	(LY_DEFINE): change name ly:parser-define -> ly:parser-define!

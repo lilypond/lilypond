@@ -91,8 +91,6 @@ LY_DEFINE (ly_score_process, "ly:score-process",
 		   default_header, SCM_ARG3, __FUNCTION__, "\\paper block");
   SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
 		   default_header, SCM_ARG4, __FUNCTION__, "\\layout block");
-  SCM_ASSERT_TYPE (scm_is_string (basename),
-		   default_header, SCM_ARG5, __FUNCTION__, "basename");
   
   Object_key *key = new Lilypond_general_key (0, score->user_key_, 0);
 

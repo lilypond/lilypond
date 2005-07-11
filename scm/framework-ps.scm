@@ -418,6 +418,8 @@
 	 (page-count (length pages))
 	 (port (ly:outputter-port outputter)))
 
+    (paper-book-write-midis book basename)
+    
     (output-scopes scopes fields basename)
     (display (page-header paper page-count #t) port)
     (write-preamble paper #t port)

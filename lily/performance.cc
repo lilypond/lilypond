@@ -167,3 +167,4 @@ Performance::write_output (String out)
   output (midi_stream);
   progress_indication ("\n");
 }
+

@@ -277,3 +277,23 @@ returns the program of the instrument
 (define-public (alterations-in-key pitch-list)
   "Count number of sharps minus number of flats"
   (/ (apply + (map cdr pitch-list)) 2))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+
+(define-public (paper-book-write-midis paper-book basename)
+  (let
+      loop
+      ((perfs (ly:paper-book-performances paper-book))
+       (count 0))
+      
+    (if (pair?  perfs)
+	(begin
+	  (ly:performance-write
+	   (car perfs)
+	   (if (> count 0)
+	       (format #f "~a-~a.midi" basename count)
+	       (format #f "~a.midi" basename)))
+	  (loop (cdr perfs) (1+ count))))))
