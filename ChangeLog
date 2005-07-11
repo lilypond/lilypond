@@ -1,5 +1,9 @@
 2005-07-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/lily-parser-scheme.cc (LY_DEFINE): ly:parser-output-name:
+	new function.
+	(LY_DEFINE): change name ly:parser-define -> ly:parser-define!
+
 	* scm/framework-*.scm: use port arguments throughout.
 
 	* lily/include/lily-guile.hh: rename ly_c_X_p -> ly_is_X

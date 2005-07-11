@@ -72,16 +72,53 @@
 	      (set! music (func music parser)))
 	    toplevel-music-functions)
 
-;  (display-scheme-music  music)
   (ly:make-score music))
-
 
 (define-public (collect-music-for-book parser music)
   (collect-scores-for-book parser (scorify-music music parser)))
 
-  
+
+(define-public (print-book-with-defaults parser book)
+  (let*
+      ((paper (ly:parser-lookup parser '$defaultpaper))
+       (layout (ly:parser-lookup parser '$defaultlayout))
+       (count (ly:parser-lookup parser 'book-count))
+       (base (ly:parser-output-name parser)))
+
+    (if (not (integer? count))
+	(set! count 0))
+
+    (if (> count 0)
+	(set! (base (format #f "~a-~a" count))))
+
+    (ly:parser-define! book-count (1+ count))
+    
+
+    (ly:book-process book paper layout base)
+    ))
+
+(define-public (print-score-with-defaults parser score)
+  (let*
+      ((paper (ly:parser-lookup parser '$defaultpaper))
+       (layout (ly:parser-lookup parser '$defaultlayout))
+       (layout (ly:parser-lookup parser '$globalheader))
+       (count (ly:parser-lookup parser 'book-count))i
+       (base (ly:parser-output-name parser)))
+
+    (if (not (integer? count))
+	(set! count 0))
+
+    (if (> count 0)
+	(set! (base (format #f "~a-~a" count))))
+
+    (ly:parser-define! book-count (1+ count))
+    
+
+    (ly:score-process score header paper layout base)
+    ))
+
 ;;;;;;;;;;;;;;;;
-; alist
+;; alist
 (define-public assoc-get ly:assoc-get)
 
 (define-public (uniqued-alist alist acc)

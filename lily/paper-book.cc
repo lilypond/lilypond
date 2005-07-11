@@ -89,7 +89,7 @@ Paper_book::output (String outname)
   pages ();
 
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
+  if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
   String mod_nm = "scm framework-" + output_backend_global;
@@ -126,10 +126,10 @@ Paper_book::classic_output (String outname)
   systems ();
 
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
+  if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (header_0_))
+  if (ly_is_module (header_0_))
     scopes = scm_cons (header_0_, scopes);
 
   String format = output_backend_global;
@@ -156,7 +156,7 @@ Paper_book::book_title ()
   Stencil title;
 
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
+  if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
   SCM tit = SCM_EOL;
@@ -182,10 +182,10 @@ Paper_book::score_title (SCM header)
   Stencil title;
 
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (header_))
+  if (ly_is_module (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (header))
+  if (ly_is_module (header))
     scopes = scm_cons (header, scopes);
 
   SCM tit = SCM_EOL;
@@ -206,7 +206,7 @@ Paper_book::score_title (SCM header)
 void
 set_system_penalty (Paper_system *ps, SCM header)
 {
-  if (ly_c_module_p (header))
+  if (ly_is_module (header))
     {
       SCM force = ly_module_lookup (header, ly_symbol2scm ("breakbefore"));
       if (SCM_VARIABLEP (force)
@@ -259,7 +259,7 @@ Paper_book::systems ()
   SCM header = SCM_EOL;
   for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
-      if (ly_c_module_p (scm_car (s)))
+      if (ly_is_module (scm_car (s)))
 	{
 	  header = scm_car (s);
 	  if (header_0_ == SCM_EOL)

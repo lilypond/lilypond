@@ -155,7 +155,7 @@ LY_DEFINE (ly_clone_parser, "ly:clone-parser",
   return scm_gc_unprotect_object (clone->self_scm ());
 }
 
-LY_DEFINE (ly_parser_define, "ly:parser-define",
+LY_DEFINE (ly_parser_define, "ly:parser-define!",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
 	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
 {
@@ -216,3 +216,15 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 
   return SCM_UNSPECIFIED;
 }
+
+
+LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
+	   1, 0, 0, (SCM parser),
+	   "Return the base name of the output file.")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  return scm_from_locale_string (p->output_basename_.to_str0 ());
+}
+
