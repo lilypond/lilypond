@@ -68,7 +68,7 @@ Recording_group_engraver::finalize ()
   Engraver_group_engraver::finalize ();
   SCM proc = get_property ("recordEventSequence");
 
-  if (ly_c_procedure_p (proc))
+  if (ly_is_procedure (proc))
     scm_call_2 (proc, context ()->self_scm (), scm_cdr (accumulator_));
 }
 

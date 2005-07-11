@@ -44,7 +44,7 @@ Dynamic_performer::create_audio_elements ()
       SCM proc = get_property ("dynamicAbsoluteVolumeFunction");
 
       SCM svolume = SCM_EOL;
-      if (ly_c_procedure_p (proc))
+      if (ly_is_procedure (proc))
 	{
 	  // urg
 	  svolume = scm_call_1 (proc, script_req_->get_property ("text"));
@@ -80,7 +80,7 @@ Dynamic_performer::create_audio_elements ()
 	    s = scm_makfrom0str ("piano");
 
 	  SCM eq = get_property ("instrumentEqualizer");
-	  if (ly_c_procedure_p (eq))
+	  if (ly_is_procedure (eq))
 	    {
 	      s = scm_call_1 (eq, s);
 	    }

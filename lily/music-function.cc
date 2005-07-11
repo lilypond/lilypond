@@ -43,7 +43,7 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	str += "music";
       else if (scm_car (s) == ly_lily_module_constant ("markup?"))
 	str += "markup";
-      else if (ly_c_procedure_p (scm_car (s)))
+      else if (ly_is_procedure (scm_car (s)))
 	str += "scm";
     }
   if (str == "") str = "noarg";

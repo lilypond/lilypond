@@ -27,7 +27,7 @@ Event::length_callback (SCM m)
 Event::Event (SCM i)
   : Music (i)
 {
-  if (!ly_c_procedure_p (length_callback_))
+  if (!ly_is_procedure (length_callback_))
     {
       length_callback_ = length_callback_proc;
     }

@@ -128,7 +128,7 @@ Piano_pedal_performer::try_music (Music *r)
       for (Pedal_info *p = info_alist_; p->name_; p++)
 	{
 	  String nm = p->name_ + String ("Event");
-	  if (ly_c_equal_p (r->get_property ("name"),
+	  if (ly_is_equal (r->get_property ("name"),
 			    scm_str2symbol (nm.to_str0 ())))
 	    {
 	      Direction d = to_dir (r->get_property ("span-direction"));

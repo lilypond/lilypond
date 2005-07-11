@@ -408,7 +408,9 @@
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.ps" basename))
-	 (outputter (ly:make-paper-outputter filename "ps"))
+	 (outputter (ly:make-paper-outputter
+		     (open-file filename "wb")
+		     "ps"))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book))
 	 (landscape? (eq? (ly:output-def-lookup paper 'landscape) #t))
@@ -449,7 +451,11 @@
 	  (max (1+ (car box)) (caddr box))
 	  (max (1+ (cadr box)) (cadddr box)))))
 
-  (let* ((outputter (ly:make-paper-outputter (format "~a.eps" filename) "ps"))
+  (let* ((outputter (ly:make-paper-outputter
+
+		     ;; need to have binary for embedding CFFs
+		     (open-file (format "~a.eps" filename) "wb")
+		     "ps"))
 	 (port (ly:outputter-port outputter))
 	 (xext (ly:stencil-extent dump-me X))
 	 (yext (ly:stencil-extent dump-me Y))

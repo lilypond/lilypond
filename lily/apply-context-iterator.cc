@@ -27,7 +27,7 @@ Apply_context_iterator::process (Moment m)
 {
   SCM proc = get_music ()->get_property ("procedure");
 
-  if (ly_c_procedure_p (proc))
+  if (ly_is_procedure (proc))
     scm_call_1 (proc, get_outlet ()->self_scm ());
   else
     get_music ()->origin ()->warning (_ ("\\applycontext argument is not a procedure"));

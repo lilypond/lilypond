@@ -72,7 +72,7 @@ Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_property ("space-function");
 
-  if (ly_c_procedure_p (func))
+  if (ly_is_procedure (func))
     {
       SCM s = scm_call_2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
       return scm_to_double (s);

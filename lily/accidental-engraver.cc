@@ -486,7 +486,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
       && Rhythmic_head::has_interface (info.grob ()))
     {
       if (to_boolean (get_property ("harmonicAccidentals"))
-	  || !ly_c_equal_p (info.grob ()->get_property ("style"),
+	  || !ly_is_equal (info.grob ()->get_property ("style"),
 			    ly_symbol2scm ("harmonic")))
 	{
 	  Accidental_entry entry;

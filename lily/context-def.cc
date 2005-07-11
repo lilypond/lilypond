@@ -211,7 +211,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
     {
       /* do not check aliases, because \context Staff should not
 	 create RhythmicStaff. */
-      if (ly_c_equal_p (accepteds[i]->get_context_name (), type_sym))
+      if (ly_is_equal (accepteds[i]->get_context_name (), type_sym))
 	{
 	  best_result.push (accepteds[i]);
 	  return best_result;

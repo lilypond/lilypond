@@ -110,12 +110,12 @@ Grob::Grob (SCM basicprops,
 	{
 	  dim_cache_[a].dimension_ = xt;
 	}
-      else if (ly_c_procedure_p (cb))
+      else if (ly_is_procedure (cb))
 	{
 	  dim_cache_[a].dimension_callback_ = cb;
 	}
       else if (cb == SCM_EOL
-	       && ly_c_procedure_p (get_property ("print-function")))
+	       && ly_is_procedure (get_property ("print-function")))
 	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
     }
 }
@@ -199,7 +199,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
     unsmob_grob (scm_car (d))->calculate_dependencies (final, busy, funcname);
 
   SCM proc = internal_get_property (funcname);
-  if (ly_c_procedure_p (proc))
+  if (ly_is_procedure (proc))
     scm_call_1 (proc, this->self_scm ());
 
   status_ = final;
@@ -231,7 +231,7 @@ Grob::get_uncached_stencil () const
   SCM proc = get_property ("print-function");
 
   SCM stil = SCM_EOL;
-  if (ly_c_procedure_p (proc))
+  if (ly_is_procedure (proc))
     stil = scm_apply_0 (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
 
   if (Stencil *m = unsmob_stencil (stil))
@@ -419,14 +419,14 @@ bool
 Grob::is_empty (Axis a) const
 {
   return !(scm_is_pair (dim_cache_[a].dimension_)
-	   || ly_c_procedure_p (dim_cache_[a].dimension_callback_));
+	   || ly_is_procedure (dim_cache_[a].dimension_callback_));
 }
 
 void
 Grob::flush_extent_cache (Axis axis)
 {
   Dimension_cache *d = &dim_cache_[axis];
-  if (ly_c_procedure_p (d->dimension_callback_)
+  if (ly_is_procedure (d->dimension_callback_)
       && scm_is_pair (d->dimension_))
     {
       d->dimension_ = SCM_EOL;
@@ -447,7 +447,7 @@ Grob::extent (Grob *refp, Axis a) const
   SCM dimpair = d->dimension_;
   if (scm_is_pair (dimpair))
     ;
-  else if (ly_c_procedure_p (d->dimension_callback_)
+  else if (ly_is_procedure (d->dimension_callback_)
 	   && d->dimension_ == SCM_EOL)
     d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_int2num (a));
   else

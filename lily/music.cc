@@ -100,7 +100,7 @@ Music::get_length () const
   if (unsmob_moment (lst))
     return *unsmob_moment (lst);
 
-  if (ly_c_procedure_p (length_callback_))
+  if (ly_is_procedure (length_callback_))
     {
       SCM res = scm_call_1 (length_callback_, self_scm ());
       return *unsmob_moment (res);
@@ -113,7 +113,7 @@ Moment
 Music::start_mom () const
 {
   SCM lst = start_callback_;
-  if (ly_c_procedure_p (lst))
+  if (ly_is_procedure (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);
@@ -195,7 +195,7 @@ Pitch
 Music::to_relative_octave (Pitch last)
 {
   SCM callback = get_property ("to-relative-callback");
-  if (ly_c_procedure_p (callback))
+  if (ly_is_procedure (callback))
     {
       Pitch *p = unsmob_pitch (scm_call_2 (callback, self_scm (), last.smobbed_copy ()));
       return *p;

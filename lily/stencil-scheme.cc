@@ -293,7 +293,7 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
 	   4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
 	   "Parse EXPR, feed bits to FUNC with first arg ARG1")
 {
-  SCM_ASSERT_TYPE (ly_c_procedure_p (func), func, SCM_ARG1, __FUNCTION__,
+  SCM_ASSERT_TYPE (ly_is_procedure (func), func, SCM_ARG1, __FUNCTION__,
 		   "procedure");
 
   Stencil_interpret_arguments a;

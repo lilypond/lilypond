@@ -45,11 +45,11 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
       /*
 	UGH UGH
       */
-      if (scm_is_string (gl) && ly_c_equal_p (gl, scm_makfrom0str ("brace"))
-	  && scm_is_string (my_gl) && ly_c_equal_p (my_gl, scm_makfrom0str ("bracket")))
+      if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("brace"))
+	  && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
 	inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
-      else if (scm_is_string (gl) && ly_c_equal_p (gl, scm_makfrom0str ("bracket"))
-	       && scm_is_string (my_gl) && ly_c_equal_p (my_gl, scm_makfrom0str ("bracket")))
+      else if (scm_is_string (gl) && ly_is_equal (gl, scm_makfrom0str ("bracket"))
+	       && scm_is_string (my_gl) && ly_is_equal (my_gl, scm_makfrom0str ("bracket")))
 	{
 	  inf.grob ()->translate_axis (-0.8, X_AXIS); // ugh
 	}

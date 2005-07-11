@@ -17,7 +17,7 @@ LY_DEFINE (ly_add_interface, "ly:add-interface", 3, 0, 0, (SCM a, SCM b, SCM c),
 {
   SCM_ASSERT_TYPE (scm_is_symbol (a), a, SCM_ARG1, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (scm_is_string (b), b, SCM_ARG2, __FUNCTION__, "string");
-  SCM_ASSERT_TYPE (ly_c_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");
+  SCM_ASSERT_TYPE (ly_is_list (c), c, SCM_ARG3, __FUNCTION__, "list of syms");
   if (!scm_is_vector (all_ifaces))
     all_ifaces = scm_make_vector (scm_int2num (40), SCM_EOL);
 

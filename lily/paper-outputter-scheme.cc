@@ -10,25 +10,25 @@
 #include "warn.hh"
 #include "stencil.hh"
 
+
+
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
-	   2, 0, 0, (SCM outname, SCM format),
+	   2, 0, 0, (SCM port, SCM format),
 	   "Create an outputter that evaluates within "
-	   "@code{output-}@var{format}, writing to file @var{outname}.")
+	   "@code{output-}@var{format}, writing to  @var{port}.")
 {
-  SCM_ASSERT_TYPE (scm_is_string (outname), outname, SCM_ARG1, __FUNCTION__,
-		   "String");
+  SCM_ASSERT_TYPE (ly_is_port (port), port, SCM_ARG1, __FUNCTION__,
+		   "port");
   SCM_ASSERT_TYPE (scm_is_string (format), format, SCM_ARG2, __FUNCTION__,
 		   "String");
 
-  String outname_str = ly_scm2string (outname);
   String f = ly_scm2string (format);
 
   message (_f ("Layout output to `%s'...",
-			   outname_str == "-"
-			   ? String ("<stdout>")
-			   : outname_str));
+	       ly_scm2string (scm_port_filename (port)).to_str0 ()));
+
   progress_indication ("\n");
-  Paper_outputter *po = new Paper_outputter (outname_str, f);
+  Paper_outputter *po = new Paper_outputter (port, f);
 
   scm_gc_unprotect_object (po->self_scm ());
   return po->self_scm ();

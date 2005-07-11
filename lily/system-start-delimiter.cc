@@ -65,7 +65,7 @@ System_start_delimiter::after_line_breaking (SCM smob)
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
   
   SCM gl = me->get_property ("glyph");
-  if (ly_c_equal_p (gl, scm_makfrom0str ("bar-line")))
+  if (ly_is_equal (gl, scm_makfrom0str ("bar-line")))
     {
       int count = 0;
       Paper_column *left_column = me->get_bound (LEFT)->get_column ();  

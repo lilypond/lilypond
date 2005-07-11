@@ -26,7 +26,7 @@ LY_DEFINE (ly_grob_insert_tweak, "ly:grob-insert-tweak",
   Grob *gr = unsmob_grob (grob);
   SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "Grob");
   SCM_ASSERT_TYPE (scm_list_p (tweak) == SCM_BOOL_T
-		   && ly_c_procedure_p (scm_car (tweak)),
+		   && ly_is_procedure (scm_car (tweak)),
 		   tweak, SCM_ARG2, __FUNCTION__, "Tweak");
 
   global_registry_->insert_grob_tweak (gr, tweak);
@@ -41,7 +41,7 @@ LY_DEFINE (ly_grob_replace_tweak, "ly:grob-replace-tweak",
   Grob *gr = unsmob_grob (grob);
   SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "Grob");
   SCM_ASSERT_TYPE (scm_list_p (tweak) == SCM_BOOL_T
-		   && ly_c_procedure_p (scm_car (tweak)),
+		   && ly_is_procedure (scm_car (tweak)),
 		   tweak, SCM_ARG2, __FUNCTION__, "Tweak");
 
   global_registry_->replace_grob_tweak (gr, tweak);

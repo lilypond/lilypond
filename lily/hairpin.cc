@@ -37,7 +37,7 @@ Hairpin::after_line_breaking (SCM smob)
   while (flip (&d) != LEFT);
 
   if (broken[LEFT]
-      && ly_c_equal_p (bounds[RIGHT]->get_column ()->get_property ("when"),
+      && ly_is_equal (bounds[RIGHT]->get_column ()->get_property ("when"),
 		       bounds[LEFT]->get_property ("when")))
     {
       me->suicide ();
