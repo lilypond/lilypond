@@ -10,7 +10,7 @@
 
 ;; The TabNoteHead stem attachment function.
 (define (tablature-stem-attachment-function style duration)
-  (cons 0.0 0.5))
+  (cons 0.0 1.35))
 
 ;; The TabNoteHead tablatureFormat callback.
 ;; Compute the text grob-property
