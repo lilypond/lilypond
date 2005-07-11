@@ -1,5 +1,7 @@
 2005-07-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* input/regression/repeat-fold.ly (texidoc): remove TeX strings.
+
 	* scm/output-lib.scm (tablature-stem-attachment-function):
 	tablature stem attachment fix. 
 
@@ -110,7 +112,7 @@
 2005-07-01  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* lily/ly-module.cc (ly_make_anonymous_module): define
-	%module-public-interface of module. (backportme)
+	%module-public-interface of module. 
 
 	* lily/lily-parser.cc (print_smob): allow printing of parser smob
 	without lexer.
@@ -122,7 +124,7 @@
 2005-06-30  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/GNUmakefile ($(outdir)/%.sh): Bugfix: use TAB (Bertalan
-	Fodor).  (backportme).
+	Fodor).
 
 2005-06-30  Graham Percival  <gperlist@shaw.ca>
 

@@ -10,11 +10,11 @@ should not be more alternatives than repeats.
 \paper { raggedright = ##t } 
 
 \context Staff  \relative c'' {
-    \repeat fold 3 { c^"3$\\times$ 0alt" d }
+    \repeat fold 3 { c^"3x 0alt" d }
     % less alts than body
-    \repeat fold 4 { c^"4$\\times$ 2alt" d } \alternative { e f }
+    \repeat fold 4 { c^"4x 2alt" d } \alternative { e f }
     % more alts than body
-    \repeat fold 2 { c^"2$\\times$ 3alt" d } \alternative { e f g }
+    \repeat fold 2 { c^"2x 3alt" d } \alternative { e f g }
   }
 
 
