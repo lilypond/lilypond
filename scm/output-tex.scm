@@ -33,7 +33,6 @@
 	    repeat-slash
 	    placebox
 	    bezier-sandwich
-	    filledbox
 	    round-filled-box
 	    text
 	    setcolor
@@ -130,16 +129,6 @@
 (define (bezier-sandwich lst thick)
   (embedded-ps (list 'bezier-sandwich `(quote ,lst) thick)))
 
-(define (filledbox breapth width depth height)
-  (if (and #f (defined? 'ps-testing))
-      (embedded-ps
-       (string-append (ly:numbers->string (list breapth width depth height))
-		      " draw_box" ))
-      (string-append "\\lyvrule{"
-		     (ly:number->string (- breapth)) "}{"
-		     (ly:number->string (+ breapth width)) "}{"
-		     (ly:number->string depth) "}{"
-		     (ly:number->string height) "}")))
 
 (define (round-filled-box x y width height blotdiam)
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))

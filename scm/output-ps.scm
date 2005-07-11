@@ -34,7 +34,6 @@
 	    placebox
 	    bezier-sandwich
 	    embedded-ps
-	    filledbox
 	    round-filled-box
 	    text
 	    polygon
@@ -139,10 +138,6 @@
 (define (embedded-ps string)
   string)
 
-;; FIXME: use draw_round_box
-(define (filledbox breapth width depth height)
-  (string-append (ly:numbers->string (list breapth width depth height))
-		 " draw_box"))
 
 (define (glyph-string
 	 postscript-font-name

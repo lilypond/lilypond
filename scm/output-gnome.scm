@@ -292,13 +292,6 @@ lilypond -fgnome input/simple-song.ly
     (set-path-def props def)
     props))
 
-;; FIXME: naming
-(define (filledbox breapth width depth height)
-  (make <gnome-canvas-rect>
-    #:parent (canvas-root)
-    #:x1 (- breapth) #:y1 depth #:x2 width #:y2 (- height)
-    #:fill-color "black"
-    #:join-style 'miter))
 
 ;; FIXME: the framework-gnome backend needs to see every item that
 ;; gets created.  All items created here must should be put in a group
