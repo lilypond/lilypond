@@ -23,6 +23,7 @@ Paper_book::Paper_book ()
   header_0_ = SCM_EOL;
   pages_ = SCM_BOOL_F;
   scores_ = SCM_EOL;
+  performances_ = SCM_EOL;
   systems_ = SCM_BOOL_F;
 
   paper_ = 0;
@@ -34,10 +35,10 @@ Paper_book::~Paper_book ()
 }
 
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
-IMPLEMENT_SMOBS (Paper_book)
-  IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?")
+IMPLEMENT_SMOBS (Paper_book);
+IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?");
 
-  SCM
+SCM
 Paper_book::mark_smob (SCM smob)
 {
   Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
@@ -46,6 +47,7 @@ Paper_book::mark_smob (SCM smob)
   scm_gc_mark (b->header_);
   scm_gc_mark (b->header_0_);
   scm_gc_mark (b->pages_);
+  scm_gc_mark (b->performances_);
   scm_gc_mark (b->scores_);
   return b->systems_;
 }
@@ -79,8 +81,16 @@ Paper_book::add_score (SCM s)
   scores_ = scm_cons (s, scores_);
 }
 
+
 void
-Paper_book::output (String outname)
+Paper_book::add_performance (SCM s)
+{
+  performances_ = scm_cons (s, performances_);
+}
+
+
+void
+Paper_book::output (SCM output_channel)
 {
   if (scores_ == SCM_EOL)
     return;
@@ -100,7 +110,7 @@ Paper_book::output (String outname)
       SCM func = scm_c_module_lookup (mod, "output-framework");
 
       func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_n (scm_makfrom0str (outname.to_str0 ()),
+      scm_apply_0 (func, scm_list_n (output_channel,
 				     self_scm (),
 				     scopes,
 				     dump_fields (),
@@ -111,7 +121,7 @@ Paper_book::output (String outname)
     {
       SCM func = scm_c_module_lookup (mod, "output-preview-framework");
       func = scm_variable_ref (func);
-      scm_apply_0 (func, scm_list_n (scm_makfrom0str (outname.to_str0 ()),
+      scm_apply_0 (func, scm_list_n (output_channel,
 				     self_scm (),
 				     scopes,
 				     dump_fields (),
@@ -120,7 +130,7 @@ Paper_book::output (String outname)
 }
 
 void
-Paper_book::classic_output (String outname)
+Paper_book::classic_output (SCM output)
 {
   /* Generate all stencils to trigger font loads.  */
   systems ();
@@ -139,7 +149,7 @@ Paper_book::classic_output (String outname)
   SCM func = scm_c_module_lookup (mod, "output-classic-framework");
 
   func = scm_variable_ref (func);
-  scm_apply_0 (func, scm_list_n (scm_makfrom0str (outname.to_str0 ()),
+  scm_apply_0 (func, scm_list_n (output,
 				 self_scm (),
 				 scopes,
 				 dump_fields (),
@@ -342,4 +352,10 @@ Paper_book::pages ()
   SCM proc = paper_->c_variable ("page-breaking");
   pages_ = scm_apply_0 (proc, scm_list_2 (systems (), self_scm ()));
   return pages_;
+}
+
+SCM
+Paper_book::performances () const
+{
+  return scm_reverse (performances_);
 }

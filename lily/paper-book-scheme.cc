@@ -31,6 +31,13 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
   return scopes;
 }
 
+LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
+	   1, 0, 0, (SCM paper_book),
+	   "Return performances in book @var{paper-book}.")
+{
+  return unsmob_paper_book (paper_book)->performances ();
+}
+
 LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 	   1, 0, 0, (SCM pb),
 	   "Return systems in book PB.")

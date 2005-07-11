@@ -25,6 +25,7 @@ class Paper_book
 
   SCM systems_;
   SCM pages_;
+  SCM performances_;
 
   void add_score_title (SCM);
 public:
@@ -34,15 +35,19 @@ public:
   Output_def *paper_;
 
   Paper_book ();
-
+  
   void add_score (SCM);
+  void add_performance (SCM);
+
+  SCM performances () const;
   SCM systems ();
   SCM pages ();
   Stencil book_title ();
   Stencil score_title (SCM);
-  void classic_output (String);
-  void output (String);
+  void classic_output (SCM output_channel);
+  void output (SCM output_channel);
   void post_processing (SCM, SCM);
+  
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)

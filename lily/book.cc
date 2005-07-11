@@ -74,11 +74,11 @@ Book::add_score (SCM s)
   scores_ = scm_cons (s, scores_);
 }
 
-/* This function does not dump the output; outname is required eg. for
-   dumping header fields.  */
+/* Concatenate all score outputs into a Paper_book
+   
+ */
 Paper_book *
-Book::process (String outname,
-	       Output_def *default_paper,
+Book::process (Output_def *default_paper,
 	       Output_def *default_layout)
 {
   for (SCM s = scores_; s != SCM_EOL; s = scm_cdr (s))
@@ -102,7 +102,6 @@ Book::process (String outname,
   paper_book->header_ = header_;
 
   /* Render in order of parsing.  */
-  int midi_count = 0;
   for (SCM s = scm_reverse (scores_); s != SCM_EOL; s = scm_cdr (s))
     {
       if (Score *score = unsmob_score (scm_car (s)))
@@ -116,12 +115,7 @@ Book::process (String outname,
 
 	      if (Performance *perf = dynamic_cast<Performance *> (output))
 		{
-		  String fn = outname;
-		  if (midi_count)
-		    fn += "-" + to_string (midi_count);
-
-		  midi_count ++;
-		  perf->write_output (fn);
+		  paper_book->add_performance (perf->self_scm ());
 		}
 	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output)) 
 		{
