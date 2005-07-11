@@ -36,7 +36,7 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 }
 
 LY_DEFINE (ly_parser_print_book, "ly:book-process",
-	   3, 0, 0, (SCM book_smob,
+	   4, 0, 0, (SCM book_smob,
 		     SCM default_paper,
 		     SCM default_layout,
 		     SCM basename),

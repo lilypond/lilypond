@@ -74,20 +74,19 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 }
 
 LY_DEFINE (ly_score_process, "ly:score-process",
-	   2, 0, 0,
+	   5, 0, 0,
 	   (SCM score_smob,
 	    SCM default_header,
 	    SCM default_paper,
 	    SCM default_layout,
 	    SCM basename),
-	   "Print score, i.e., the classic way.")
+	   "Print score without page-layout: just print the systems.")
 {
   Score *score = unsmob_score (score_smob);
 
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG1, __FUNCTION__, "score");
 
-  SCM_ASSERT_TYPE (ly_is_module (default_header),
-		   default_header, SCM_ARG2, __FUNCTION__, "module");
+  // allow header to be undefined.
   SCM_ASSERT_TYPE (unsmob_output_def (default_paper),
 		   default_header, SCM_ARG3, __FUNCTION__, "\\paper block");
   SCM_ASSERT_TYPE (unsmob_output_def (default_layout),

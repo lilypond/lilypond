@@ -14,6 +14,7 @@
 
 #(ly:set-option 'old-relative #f)
 #(define toplevel-scores '())
+#(define output-count 0) 
 #(define $globalheader #f)
 #(define version-seen? #f)
 

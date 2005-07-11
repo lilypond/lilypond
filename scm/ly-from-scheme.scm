@@ -83,7 +83,7 @@ character."
 	  (result
 	   `(let ((parser-clone (ly:clone-parser parser)))
 	      ,@(map (lambda (binding)
-		       `(ly:parser-define parser-clone ',(car binding) ,(cdr binding)))
+		       `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
 		     (reverse bindings))
 	      (ly:parse-string-result ,lily-string parser-clone))
 	  ))
