@@ -25,8 +25,6 @@
 
 Lily_parser::Lily_parser (Sources *sources)
 {
-  book_count_ = 0;
-  score_count_ = 0;
   lexer_ = 0;
   sources_ = sources;
   default_duration_ = Duration (2, 0);
@@ -40,8 +38,6 @@ Lily_parser::Lily_parser (Sources *sources)
 
 Lily_parser::Lily_parser (Lily_parser const &src)
 {
-  book_count_ = src.book_count_;
-  score_count_ = src.score_count_;
   lexer_ = 0;
   sources_ = src.sources_;
   default_duration_ = src.default_duration_;

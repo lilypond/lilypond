@@ -61,7 +61,7 @@
     (ly:parser-print-score parser book)))
 		
 (define-public (collect-scores-for-book parser score)
-  (ly:parser-define
+  (ly:parser-define!
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
@@ -82,7 +82,7 @@
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
-       (count (ly:parser-lookup parser 'book-count))
+       (count (ly:parser-lookup parser 'output-count))
        (base (ly:parser-output-name parser)))
 
     (if (not (integer? count))
@@ -91,7 +91,7 @@
     (if (> count 0)
 	(set! (base (format #f "~a-~a" count))))
 
-    (ly:parser-define! book-count (1+ count))
+    (ly:parser-define! parser 'output-count (1+ count))
     
 
     (ly:book-process book paper layout base)
@@ -101,8 +101,8 @@
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
-       (layout (ly:parser-lookup parser '$globalheader))
-       (count (ly:parser-lookup parser 'book-count))i
+       (header (ly:parser-lookup parser '$globalheader))
+       (count (ly:parser-lookup parser 'output-count))
        (base (ly:parser-output-name parser)))
 
     (if (not (integer? count))
@@ -111,7 +111,7 @@
     (if (> count 0)
 	(set! (base (format #f "~a-~a" count))))
 
-    (ly:parser-define! book-count (1+ count))
+    (ly:parser-define! parser 'output-count (1+ count))
     
 
     (ly:score-process score header paper layout base)
