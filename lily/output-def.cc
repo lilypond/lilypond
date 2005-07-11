@@ -40,7 +40,7 @@ Output_def::Output_def (Output_def const &s)
 
   input_origin_ = s.input_origin_;
   scope_ = ly_make_anonymous_module (false);
-  if (ly_c_module_p (s.scope_))
+  if (ly_is_module (s.scope_))
     ly_module_copy (scope_, s.scope_);
 }
 

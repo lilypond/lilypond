@@ -77,16 +77,20 @@ Book::add_score (SCM s)
 /* This function does not dump the output; outname is required eg. for
    dumping header fields.  */
 Paper_book *
-Book::process (String outname, Output_def *default_def)
+Book::process (String outname,
+	       Output_def *default_paper,
+	       Output_def *default_layout)
 {
   for (SCM s = scores_; s != SCM_EOL; s = scm_cdr (s))
     if (Score *score = unsmob_score (scm_car (s)))
       if (score->error_found_)
 	return 0;
 
+  Output_def *paper = paper_ ? default_paper : paper_;
+  
   Paper_book *paper_book = new Paper_book ();
-  Real scale = scm_to_double (paper_->c_variable ("outputscale"));
-  Output_def *scaled_bookdef = scale_output_def (paper_, scale);
+  Real scale = scm_to_double (paper->c_variable ("outputscale"));
+  Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
   Object_key *key = new Lilypond_general_key (0, user_key_, 0);
   SCM scm_key = key->self_scm ();
@@ -104,7 +108,7 @@ Book::process (String outname, Output_def *default_def)
       if (Score *score = unsmob_score (scm_car (s)))
 	{
 	  SCM outputs = score
-	    ->book_rendering (paper_book->paper_, default_def, key);
+	    ->book_rendering (paper_book->paper_, default_layout, key);
 
 	  while (scm_is_pair (outputs))
 	    {
@@ -122,7 +126,7 @@ Book::process (String outname, Output_def *default_def)
 	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output)) 
 		{
 		  SCM systems = pscore->get_paper_systems ();
-		  if (ly_c_module_p (score->header_))
+		  if (ly_is_module (score->header_))
 		    paper_book->add_score (score->header_);
 		  paper_book->add_score (systems);
 		}

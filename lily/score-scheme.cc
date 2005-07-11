@@ -7,9 +7,12 @@
 */
 
 #include "score.hh"
+
 #include "music.hh"
 #include "output-def.hh"
 #include "global-context.hh"
+#include "lilypond-key.hh"
+
 
 LY_DEFINE (ly_make_score, "ly:make-score",
 	   1, 0, 0,
@@ -69,3 +72,52 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
   scm_remember_upto_here_1 (prot);
   return output;
 }
+
+LY_DEFINE (ly_score_process, "ly:score-process",
+	   2, 0, 0,
+	   (SCM score_smob,
+	    SCM default_header,
+	    SCM default_paper,
+	    SCM default_layout,
+	    SCM basename),
+	   "Print score, i.e., the classic way.")
+{
+  Score *score = unsmob_score (score_smob);
+
+  SCM_ASSERT_TYPE (score, score_smob, SCM_ARG1, __FUNCTION__, "score");
+
+  SCM_ASSERT_TYPE (ly_is_module (default_header),
+		   default_header, SCM_ARG2, __FUNCTION__, "module");
+  SCM_ASSERT_TYPE (unsmob_output_def (default_paper),
+		   default_header, SCM_ARG3, __FUNCTION__, "\\paper block");
+  SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
+		   default_header, SCM_ARG4, __FUNCTION__, "\\layout block");
+  SCM_ASSERT_TYPE (scm_is_string (basename),
+		   default_header, SCM_ARG5, __FUNCTION__, "basename");
+  
+  Object_key *key = new Lilypond_general_key (0, score->user_key_, 0);
+
+  if (score->error_found_)
+    return SCM_UNSPECIFIED;
+
+  SCM header = ly_is_module (score->header_)
+    ? score->header_
+    : default_header;
+  
+  for (int i = 0; i < score->defs_.size (); i++)
+    default_rendering (score->get_music (), score->defs_[i]->self_scm (),
+		       default_paper, header, basename, key->self_scm ());
+
+  if (score->defs_.is_empty ())
+    {
+      default_rendering (score->get_music (),
+			 default_layout,
+			 default_paper,
+			 header, basename, key->self_scm ());
+    }
+
+  scm_gc_unprotect_object (key->self_scm ());
+  return SCM_UNSPECIFIED;
+}
+
+

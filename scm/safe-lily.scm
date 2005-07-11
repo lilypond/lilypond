@@ -108,8 +108,6 @@
    ly:output-def-lookup
    ly:parse-string
    ly:parser-parse-string
-   ly:parser-print-book
-   ly:parser-print-score
    ly:pitch-alteration
    ly:pitch-diff
    ly:pitch-notename

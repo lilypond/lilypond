@@ -15,16 +15,16 @@
 #include "global-context.hh"
 #include "lily-parser.hh"
 #include "lilypond-key.hh"
-#include "ly-smobs.icc"
 #include "main.hh"
-#include "music-iterator.hh"
 #include "music.hh"
-#include "output-def.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
-#include "scm-hash.hh"
 #include "warn.hh"
+
+
+#include "music.hh"
+#include "ly-smobs.icc"
 
 Score::Score ()
   : Input ()
@@ -84,7 +84,7 @@ Score::Score (Score const &s)
       scm_gc_unprotect_object (copy->self_scm ());
     }
   header_ = ly_make_anonymous_module (false);
-  if (ly_c_module_p (s.header_))
+  if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
 
   texts_ = s.texts_;
@@ -130,7 +130,7 @@ default_rendering (SCM music, SCM outdef,
       paper_book->header_ = header;
       paper_book->paper_ = unsmob_output_def (scaled_bookdef);
 
-      if (ly_c_module_p (header))
+      if (ly_is_module (header))
 	paper_book->add_score (header);
 
       SCM systems = pscore->get_paper_systems ();

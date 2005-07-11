@@ -116,7 +116,7 @@ setDefaultDurationToQuarter = { c4 }
 %% MAKE-HASH-TABLE in GUILE 1.6 takes mandatory size parameter.
 #(define musicQuotes (make-hash-table 29))
 
-#(define toplevel-book-handler ly:parser-print-book)
+#(define toplevel-book-handler print-book-with-defaults)
 #(define toplevel-music-handler collect-music-for-book)
 #(define toplevel-score-handler collect-scores-for-book)
 #(define toplevel-text-handler collect-scores-for-book)

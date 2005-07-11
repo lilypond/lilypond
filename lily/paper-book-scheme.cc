@@ -25,7 +25,7 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
   SCM_ASSERT_TYPE (pb, book, SCM_ARG1, __FUNCTION__, "Paper_book");
 
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (pb->header_))
+  if (ly_is_module (pb->header_))
     scopes = scm_cons (pb->header_, scopes);
 
   return scopes;

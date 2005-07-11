@@ -60,7 +60,7 @@
 		(display (format "@image{~a-~a}\n"
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
-    (display "@c eof - 'eof' is a Makefile marker; don not remove. " texi-system-port)
+    (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     
     (dump-infinite-stack-EPS stencils))
