@@ -17,7 +17,6 @@
        dashed-slur
        dot
        draw-line
-       filledbox
        glyph-string
        named-glyph
        polygon

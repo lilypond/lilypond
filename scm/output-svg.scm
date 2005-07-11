@@ -282,9 +282,6 @@
 (define (dashed-line thick on off dx dy)
   (draw-line thick 0 0 dx dy `(style . ,(format "stroke-dasharray:~a,~a;" on off))))
 
-(define (filledbox breapth width depth height)
-  (round-filled-box breapth width depth height 0))
-
 (define (named-glyph font name)
   (dispatch
    `(fontify ,font ,(entity 'tspan

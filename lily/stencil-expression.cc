@@ -12,7 +12,7 @@
 
 #include "protected-scm.hh"
 
-static Protected_scm heads;
+static Protected_scm heads = SCM_EOL;
 
 void register_stencil_head (SCM symbol)
 {

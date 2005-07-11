@@ -53,8 +53,8 @@
   "Make a filled box."
   
   (ly:make-stencil
-      (list 'filledbox (- (car xext)) (cdr xext)
-                       (- (car yext)) (cdr yext))
+      (list 'round-filled-box (- (car xext)) (cdr xext)
+                       (- (car yext)) (cdr yext) 0.0)
       xext yext))
 
 (define-public (make-circle-stencil radius thickness fill)

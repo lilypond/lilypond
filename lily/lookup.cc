@@ -124,14 +124,7 @@ Lookup::blank (Box b)
 Stencil
 Lookup::filled_box (Box b)
 {
-  SCM at = (scm_list_n (ly_symbol2scm ("filledbox"),
-			scm_make_real (-b[X_AXIS][LEFT]),
-			scm_make_real (b[X_AXIS][RIGHT]),
-			scm_make_real (-b[Y_AXIS][DOWN]),
-			scm_make_real (b[Y_AXIS][UP]),
-			SCM_UNDEFINED));
-
-  return Stencil (b, at);
+  return round_filled_box (b, 0.0);
 }
 
 /*
