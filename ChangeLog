@@ -39,6 +39,8 @@
 	* lily/include/spring.hh (struct Spring): store inverse
 	strength. This prevents division by zero.
 
+	* VERSION: release 2.7.0
+	
 	* lily/include/music.hh (class Music): remove Music::duration_log()
 
 	* lily/stem-engraver.cc (make_stem): take duration log from event.
