@@ -507,7 +507,24 @@ determines the space between each markup in @var{args}."
 (def-markup-command (justify-string layout props arg) (string?)
   "Justify a string. Paragraphs may be separated with double newlines"
   (wordwrap-string layout props #t arg))
-  
+
+
+(def-markup-command (wordwrap-field layout props symbol) (symbol?)
+   (let* ((m (chain-assoc-get symbol props)))
+     (if (string? m)
+      (interpret-markup layout props
+       (list wordwrap-string-markup m))
+      (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
+
+(def-markup-command (justify-field layout props symbol) (symbol?)
+   (let* ((m (chain-assoc-get symbol props)))
+     (if (string? m)
+      (interpret-markup layout props
+       (list justify-string-markup m))
+      (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
+
+
+
 (def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
   (let* ((s1 (interpret-markup layout props m1))

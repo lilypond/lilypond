@@ -13,19 +13,18 @@
 
 (define-public (output-framework channel book scopes fields )
   (let*
-      (
-       (ctor-arg (if (string? channel)
+      ((ctor-arg (if (string? channel)
 		     (open-output-file (format "~a.socket" channel))
 		     channel))
        (outputter (ly:make-paper-outputter
 		   ctor-arg
-		   "socket")))
+		   "socket"))
+       (systems (ly:paper-book-systems book)))
 
-    (for-each
-     (lambda (page)
-       (ly:outputter-dump-stencil outputter page))
-     (ly:paper-book-pages book))))
-
+    (if (pair? systems)
+	(ly:outputter-dump-stencil outputter
+				   (ly:paper-system-stencil (car systems))))
+    ))
 
 (define-public output-classic-framework output-framework)
 

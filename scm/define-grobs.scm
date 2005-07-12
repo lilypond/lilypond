@@ -1236,6 +1236,7 @@
      . (
 	(print-function . ,Text_interface::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(font-size . -2)
 	(stem-attachment-function . ,tablature-stem-attachment-function)
 	(font-series . bold)
 	(meta . ((interfaces
