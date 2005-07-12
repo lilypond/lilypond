@@ -25,6 +25,8 @@
      (pretty-print (ly:stencil-expr page) file))
    (ly:paper-book-pages book))))
 
+(define-public output-classic-framework output-framework)
+
 
 (define-public (convert-to-ps . args) #t)
 (define-public (convert-to-pdf . args) #t)
