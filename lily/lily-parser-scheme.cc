@@ -225,6 +225,6 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   Lily_parser *p = unsmob_lily_parser (parser);
   SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
-  return scm_from_locale_string (p->output_basename_.to_str0 ());
+  return scm_makfrom0str (p->output_basename_.to_str0 ());
 }
 
