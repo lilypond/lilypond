@@ -108,7 +108,7 @@
 	(set! count 0))
 
     (if (> count 0)
-	(set! base (format #f "~a-~a" count)))
+	(set! base (format #f "~a-~a" base count)))
 
     (ly:parser-define! parser 'output-count (1+ count))
     
@@ -322,6 +322,10 @@ found."
 (define-public (interval-widen iv amount)
    (cons (- (car iv) amount)
          (+ (cdr iv) amount)))
+
+
+(define-public (interval-empty? iv)
+   (> (car iv) (cdr iv)))
 
 (define-public (interval-union i1 i2)
    (cons (min (car i1) (car i2))

@@ -63,17 +63,19 @@
       ((x-ext (ly:grob-extent grob grob X))
        (y-ext (ly:grob-extent grob grob Y))
        (x (car offset))
-       (y (cdr offset))
-       )
+       (y (cdr offset)))
 
-    (map (lambda (x)
-	   (if (inf? x) 0.0 x))
-	 
-	 (list (+ x (car x-ext))
-	       (+ y (car y-ext))
-	       (+ x (cdr x-ext))
-	       (+ y (cdr y-ext)))
-    )))
+    (if (interval-empty? x-ext)
+	(set! x-ext '(0 . 0)))
+
+    (if (interval-empty? y-ext)
+	(set! y-ext '(0 . 0)))
+    
+    (list (+ x (car x-ext))
+	  (+ y (car y-ext))
+	  (+ x (cdr x-ext))
+	  (+ y (cdr y-ext))
+	  )))
 
 (define-public (no-origin)
   "nocause\n")
