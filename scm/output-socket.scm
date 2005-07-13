@@ -102,5 +102,7 @@
   (format "utf-8 \"~a\" \"~a\"" descr
 
 	  ;; don't want unescaped spaces.
-	  (string-regexp-substitute " " "\\040" string)))
+	  (string-regexp-substitute " " "\\040" 
+				    (string-regexp-substitute "\"" "\\\"" string))
+	  ))
 
