@@ -5,6 +5,8 @@
 	mf/feta-timesig.mf, mf/parmesan-heads.mf, scm/define-grob-properties.scm:
 	Change "excentricity" to "eccentricity".
 
+	* Documentation/user/converters.itely: fix URL for Noteedit and Rosegarden.
+
 2005-07-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (justify-field): add. 
