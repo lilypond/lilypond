@@ -1,5 +1,9 @@
 2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-socket.scm (grob-bbox): don't use inf? 
+
+	* flower/include/rational.hh: add operator bool() 
+
 	* scm/define-music-types.scm (music-descriptions): remove
 	internal-class-name properties.
 
