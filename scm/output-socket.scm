@@ -94,11 +94,13 @@
 		   (grob-bbox grob offset))
 	  )))
 
-(define-public (glyph-string
-	 postscript-font-name
-	 size cid?
-	 x-y-named-glyphs)
+
+(define-public (utf-8-string
+		descr
+		string)
   
-  (format "text \"~a\" ~a ~a " postscript-font-name size
-	  (string-join (map (lambda (xyn) (caddr xyn))
-			    x-y-named-glyphs))))
+  (format "utf-8 \"~a\" \"~a\"" descr
+
+	  ;; don't want unescaped spaces.
+	  (string-regexp-substitute " " "\\040" string)))
+

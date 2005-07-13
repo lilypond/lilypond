@@ -24,7 +24,7 @@
        round-filled-box
        text
        url-link
-       utf8-string
+       utf-8-string
        white-dot
        white-text
        embedded-ps

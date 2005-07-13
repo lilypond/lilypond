@@ -287,8 +287,8 @@
 	  (cdr y)
 	  url))
 
-(define (utf8-string pango-font-description string)
-  (ly:warning (_ "utf8-string encountered in PS backend")))
+(define (utf-8-string pango-font-description string)
+  (ly:warning (_ "utf-8-string encountered in PS backend")))
 
 
 
