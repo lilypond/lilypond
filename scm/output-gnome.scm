@@ -100,7 +100,7 @@ lilypond -fgnome input/simple-song.ly
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helper functions
 
-(define (utf8 i)
+(define (utf-8 i)
   (cond
    ((< i #x80) (list (integer->char i)))
    ((< i #x800) (map integer->char
@@ -113,19 +113,19 @@ lilypond -fgnome input/simple-song.ly
 	   (list (+ #xe0 x)
 		 (+ #x80 (quotient y #x40))
 		 (+ #x80 (modulo y #x40))))))
-   (else (begin (stderr "programming-error: utf8 too big:~x\n" i)
+   (else (begin (stderr "programming-error: utf-8 too big:~x\n" i)
 		(list (integer->char 32))))))
 
-(define (integer->utf8-string integer)
-  (list->string (utf8 integer)))
+(define (integer->utf-8-string integer)
+  (list->string (utf-8 integer)))
 
-(define (char->utf8-string char)
-  (list->string (utf8 (char->integer char))))
+(define (char->utf-8-string char)
+  (list->string (utf-8 (char->integer char))))
 
-(define (string->utf8-string string)
+(define (string->utf-8-string string)
   (apply
    string-append
-   (map (lambda (x) (char->utf8-string x)) (string->list string))))
+   (map (lambda (x) (char->utf-8-string x)) (string->list string))))
 
 (define (music-font? font)
   (let ((family (car (font-name-style font))))
@@ -265,7 +265,7 @@ lilypond -fgnome input/simple-song.ly
 		 #:size-points (canvas-font-size font)
 		 #:size-set #t
 		 #:text
-		 (integer->utf8-string
+		 (integer->utf-8-string
 		  (ly:font-glyph-name-to-charcode font (caddr x))))))
    x-y-named-glyphs))
 
@@ -325,10 +325,10 @@ lilypond -fgnome input/simple-song.ly
     #:size-points (canvas-font-size font)
     #:size-set #t
     #:text (if (integer? s)
-	       (integer->utf8-string s)
-	       (string->utf8-string s))))
+	       (integer->utf-8-string s)
+	       (string->utf-8-string s))))
 
-(define (utf8-string pango-font-description string)
+(define (utf-8-string pango-font-description string)
   (make <gnome-canvas-text>
     #:parent (canvas-root)
     #:x 0.0 #:y 0.0

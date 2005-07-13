@@ -281,7 +281,7 @@
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
 
-(define (utf8-string pango-font-description string)
+(define (utf-8-string pango-font-description string)
   (dispatch `(fontify ,pango-font-description ,(entity 'tspan string))))
 
 

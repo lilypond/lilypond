@@ -241,7 +241,7 @@ Pango_font::text_stencil (String str) const
       */
       char *descr_string = pango_font_description_to_string (pango_description_);
       SCM exp
-	= scm_list_3 (ly_symbol2scm ("utf8-string"),
+	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
 		      scm_makfrom0str (descr_string),
 		      scm_makfrom0str (str.to_str0 ()));
 

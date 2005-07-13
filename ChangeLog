@@ -1,5 +1,7 @@
 2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/output-svg.scm (utf-8-string): rename  from utf8-string.
+
 	* scm/output-gnome.scm: remove beam routine.
 
 	* scm/output-ps.scm (scm): idem.
