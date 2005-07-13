@@ -24,12 +24,20 @@
   (format "drawline ~a ~a ~a ~a ~a"
 	  thick x1 y2 x2 y2))
 
+(define-public (polygon xy-coords blot do-fill)
+  (format "polygon ~a ~a ~a"
+	  blot
+	  (if do-fill "True" "False")
+	  (string-join
+	   (map number->string xy-coords))
+  ))
 
 (define-public (named-glyph font glyph)
-  (format "glyphshow ~a \"~a\" ~a"
+  (format "glyphshow ~a \"~a\" ~a \"~a\""
 	  (ly:font-glyph-name-to-charcode font glyph)
 	  (ly:font-name font)
 	  (modified-font-metric-font-scaling font)
+	  glyph
 	  ))
 
 (define-public (placebox x y s) 
@@ -58,25 +66,33 @@
        (y (cdr offset))
        )
 
-    (list (+ x (car x-ext))
-	  (+ y (car y-ext))
-	  (+ x (cdr x-ext))
-	  (+ y (cdr y-ext)))
-    ))
+    (map (lambda (x)
+	   (if (inf? x) 0.0 x))
+	 
+	 (list (+ x (car x-ext))
+	       (+ y (car y-ext))
+	       (+ x (cdr x-ext))
+	       (+ y (cdr y-ext)))
+    )))
 
 (define-public (no-origin)
   "nocause\n")
 
 (define-public (grob-cause offset grob)
   (let*
-      ((cause (music-cause grob)))
-  (if (and cause (integer? (ly:music-property cause 'input-tag)))
-      (apply format
-	     (append
-	      (list "cause ~a ~a ~a ~a ~a\n" (ly:music-property cause 'input-tag))
-	      (grob-bbox grob offset)
-	     ))
-      "")))
+      ((cause (music-cause grob))
+       (tag (if (and cause (integer? (ly:music-property cause 'input-tag)))
+		(ly:music-property cause 'input-tag)
+		-1))
+       (name (cdr (assoc 'name (ly:grob-property grob 'meta))))
+       )
+    
+    (apply format
+	   (append (list "cause ~a \"~a\" ~a ~a ~a ~a\n"
+			 tag name)
+	   
+		   (grob-bbox grob offset))
+	  )))
 
 (define-public (glyph-string
 	 postscript-font-name

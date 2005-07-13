@@ -1,3 +1,18 @@
+2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/output-gnome.scm: remove beam routine.
+
+	* scm/output-ps.scm (scm): idem.
+
+	* scm/output-svg.scm: remove beam.
+
+	* ps/music-drawing-routines.ps: remove draw_beam.
+
+	* lily/lookup.cc (beam): use round_filled_polygon() for beam.
+
+	* flower/include/guile-compatibility.hh (scm_from_locale_string):
+	add scm_from_locale_string compatibility glue. 
+
 2005-07-13  Yoshinobu Isizaki  <isizaki@mte.biglobe.ne.jp>
 
 	* scripts/lilypond-book.py: Prevent occuring error when

@@ -24,7 +24,6 @@
 	    blank
 	    circle
 	    dot
-	    beam
 	    dashed-slur
 	    named-glyph
 	    dashed-line
@@ -78,9 +77,6 @@
 
 (define (embedded-ps string)
   (embedded-ps (list 'embedded-ps string)))
-
-(define (beam width slope thick blot)
-  (embedded-ps (list 'beam  width slope thick blot)))
 
 (define (dashed-slur thick on off lst)
   (embedded-ps (list 'dashed-slur thick on off `(quote ,lst))))

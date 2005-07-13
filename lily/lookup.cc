@@ -37,40 +37,57 @@ Lookup::dot (Offset p, Real radius)
   return Stencil (box, at);
 }
 
-/*
- * Horizontal Slope:
- *
- *            /|   ^
- *           / |   |
- *          /  |   | height
- *         /   |   |
- *        /    |   v
- *       |    /
- *       |   /
- * (0, 0)x  /slope = dy/dx
- *       | /
- *       |/
- *
- *       <----->
- *        width
- */
 Stencil
 Lookup::beam (Real slope, Real width, Real thick, Real blot)
 {
-  Real height = slope * width;
-  Real min_y = min (0., height) - thick / 2;
-  Real max_y = max (0., height) + thick / 2;
+  Box b;
 
-  Box b (Interval (0, width),
-	 Interval (min_y, max_y));
+  Offset p;
 
-  SCM at = scm_list_n (ly_symbol2scm ("beam"),
-		       scm_make_real (width),
-		       scm_make_real (slope),
-		       scm_make_real (thick),
-		       scm_make_real (blot),
-		       SCM_UNDEFINED);
-  return Stencil (b, at);
+  p = Offset (0, thick/2);
+  b.add_point (p);
+  p += Offset (1,-1) * (blot/2);
+
+  SCM points = SCM_EOL;
+  
+  points = scm_cons (scm_from_double (p[X_AXIS]),
+		     scm_cons (scm_from_double (p[Y_AXIS]),
+			       points));
+  
+  
+  p = Offset (0, -thick/2);
+  b.add_point (p);
+  p += Offset (1,1) * (blot/2);
+
+  points = scm_cons (scm_from_double (p[X_AXIS]),
+		     scm_cons (scm_from_double (p[Y_AXIS]),
+			       points));
+  
+  
+  p = Offset (width, width * slope - thick/2);
+  b.add_point (p);
+  p += Offset (-1, 1) * (blot/2);
+
+  points = scm_cons (scm_from_double (p[X_AXIS]),
+		     scm_cons (scm_from_double (p[Y_AXIS]),
+			       points));
+  
+  
+  p = Offset (width, width * slope + thick/2);
+  b.add_point (p);
+  p += Offset (-1, -1) * (blot/2);
+
+  points = scm_cons (scm_from_double (p[X_AXIS]),
+		     scm_cons (scm_from_double (p[Y_AXIS]),
+			       points));
+  
+  SCM expr = scm_list_n (ly_symbol2scm ("polygon"),
+			 ly_quote_scm (points),
+			 scm_make_real (blot),
+			 SCM_BOOL_T,
+			 SCM_UNDEFINED);
+  
+  return Stencil (b, expr);
 }
 
 Stencil
@@ -218,24 +235,26 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
  * shrinked polygon). --jr
  */
 Stencil
-Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
+Lookup::round_filled_polygon (Array<Offset> const &points,
+			      Real blotdiameter)
 {
   /* TODO: Maybe print a warning if one of the above limitations
      applies to the given polygon.  However, this is quite complicated
      to check. */
 
-  /* remove consecutive duplicate points */
   const Real epsilon = 0.01;
-  for (int i = 0; i < points.size ();)
+
+#ifndef NDEBUG
+  /* remove consecutive duplicate points */
+  for (int i = 0; i < points.size (); i++)
     {
       int next_i = (i + 1) % points.size ();
       Real d = (points[i] - points[next_i]).length ();
       if (d < epsilon)
-	points.del (next_i);
-      else
-	i++;
+	programming_error ("Polygon should not have duplicate points");
     }
-
+#endif
+  
   /* special cases: degenerated polygons */
   if (points.size () == 0)
     return Stencil ();
@@ -245,8 +264,8 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
     return Line_interface::make_line (blotdiameter, points[0], points[1]);
 
   /* shrink polygon in size by 0.5 * blotdiameter */
-  Array<Offset> shrinked_points;
-  shrinked_points.set_size (points.size ());
+  Array<Offset> shrunk_points;
+  shrunk_points.set_size (points.size ());
   bool ccw = 1; // true, if three adjacent points are counterclockwise ordered
   for (int i = 0; i < points.size (); i++)
     {
@@ -287,27 +306,27 @@ Lookup::round_filled_polygon (Array<Offset> points, Real blotdiameter)
 	}
       else
 	p13 = (0.5 * blotdiameter / d) * p13n;
-      shrinked_points[i1] = p1 + ((ccw) ? p13 : -p13);
+      shrunk_points[i1] = p1 + ((ccw) ? p13 : -p13);
     }
 
   /* build scm expression and bounding box */
-  SCM shrinked_points_scm = SCM_EOL;
+  SCM shrunk_points_scm = SCM_EOL;
   Box box;
-  for (int i = 0; i < shrinked_points.size (); i++)
+  for (int i = 0; i < shrunk_points.size (); i++)
     {
-      SCM x = scm_make_real (shrinked_points[i][X_AXIS]);
-      SCM y = scm_make_real (shrinked_points[i][Y_AXIS]);
-      shrinked_points_scm = scm_cons (x, scm_cons (y, shrinked_points_scm));
+      SCM x = scm_make_real (shrunk_points[i][X_AXIS]);
+      SCM y = scm_make_real (shrunk_points[i][Y_AXIS]);
+      shrunk_points_scm = scm_cons (x, scm_cons (y, shrunk_points_scm));
       box.add_point (points[i]);
     }
   SCM polygon_scm = scm_list_n (ly_symbol2scm ("polygon"),
-				ly_quote_scm (shrinked_points_scm),
+				ly_quote_scm (shrunk_points_scm),
 				scm_make_real (blotdiameter),
 				SCM_BOOL_T,
 				SCM_UNDEFINED);
 
   Stencil polygon = Stencil (box, polygon_scm);
-  shrinked_points.clear ();
+  shrunk_points.clear ();
   return polygon;
 }
 

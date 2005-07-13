@@ -194,54 +194,6 @@ lilypond -fgnome input/simple-song.ly
       (ly:all-stencil-expressions)
       (ly:all-output-backend-commands)))
 
-(define (beam width slope thick blot)
-  (define cursor '(0 . 0))
-  (define (rmoveto def x y)
-    (set! cursor (cons (+ x (car cursor)) (+ y (cdr cursor))))
-    (moveto def (car cursor) (cdr cursor)))
-  (define (rlineto def x y)
-    (set! cursor (cons (+ x (car cursor)) (+ y (cdr cursor))))
-    (lineto def (car cursor) (cdr cursor)))
-  (let* ((def (make <gnome-canvas-path-def>))
-	 (bezier (make <gnome-canvas-bpath>
-		   #:parent (canvas-root)
-		   #:fill-color "black"
-		   #:outline-color "black"
-		   #:width-units blot
-		   #:join-style 'round))
-	 (t (- thick blot))
-	 (w (- width blot))
-	 (h (* w slope)))
-    
-    (reset def)
-    (rmoveto def (/ blot 2) (/ t 2))
-    (rlineto def w (- h))
-    (rlineto def 0 (- t))
-    (rlineto def (- w) h)
-    (rlineto def 0 t)
-    (closepath def)
-    (set-path-def bezier def)
-    bezier))
-
-(define (square-beam width slope thick blot)
-  (let* ((def (make <gnome-canvas-path-def>))
-	 (y (* (- width) slope))
-	 (props (make <gnome-canvas-bpath>
-		  #:parent (canvas-root)
-		  #:fill-color "black"
-		  #:outline-color "black"
-		  #:width-units 0.0)))
-    
-    (reset def)
-    (moveto def 0 0)
-    (lineto def width y)
-    (lineto def width (- y thick))
-    (lineto def 0 (- thick))
-    (lineto def 0 0)
-    (closepath def)
-    (set-path-def props def)
-    props))
-
 ;; two beziers
 (define (bezier-sandwich lst thick)
   (let* ((def (make <gnome-canvas-path-def>))
