@@ -726,9 +726,25 @@ parse_argv (int argc, char **argv)
     }
 }
 
+#ifdef __MINGW32__
+#  include "windows.h"
+#  ifndef INVALID_HANDLE
+#    define INVALID_HANDLE ((void*) -1)
+#  endif
+#endif
+
 int
 main (int argc, char **argv)
 {
+#ifdef __MINGW32__
+  /* Possible gs.exe fix for DOS-based Windowses.  */
+  if (GetStdHandle (STD_OUTPUT_HANDLE) == INVALID_HANDLE)
+    {
+      freopen ("nul$", "w", stdout);
+      freopen ("nul$", "w", stderr);
+    }
+#endif
+
   setup_localisation ();
   setup_paths (argv[0]);
   parse_argv (argc, argv);

@@ -1,3 +1,7 @@
+2005-07-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/lily-parser-scheme.cc (LY_DEFINE): Guile 1.6 fix.
+
 2005-07-13  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/output-socket.scm (grob-bbox): don't use inf? 
@@ -51,12 +55,14 @@
 
 2005-07-13  Graham Percival  <gperlist@shaw.ca>
 
-	* input/regression/slur-extreme.ly, input/regression/slur-scoring.ly,
-	lily/slur-configuration.cc, lily/slur.cc, mf/feta-din-code.mf,
-	mf/feta-timesig.mf, mf/parmesan-heads.mf, scm/define-grob-properties.scm:
-	Change "excentricity" to "eccentricity".
+	* input/regression/slur-extreme.ly,
+	input/regression/slur-scoring.ly, lily/slur-configuration.cc,
+	lily/slur.cc, mf/feta-din-code.mf, mf/feta-timesig.mf,
+	mf/parmesan-heads.mf, scm/define-grob-properties.scm: Change
+	"excentricity" to "eccentricity".
 
-	* Documentation/user/converters.itely: fix URL for Noteedit and Rosegarden.
+	* Documentation/user/converters.itely: fix URL for Noteedit and
+	Rosegarden.
 
 	* THANKS: added Yoshinobu Isizaki.
 
