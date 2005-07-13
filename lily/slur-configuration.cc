@@ -138,10 +138,10 @@ Slur_configuration::generate_curve (Slur_score_state const &state,
       max_h = sqrt (max_h);
     }
 
-  Real excentricity = robust_scm2double (state.slur_->get_property ("excentricity"), 0);
+  Real eccentricity = robust_scm2double (state.slur_->get_property ("eccentricity"), 0);
 
-  Real x1 = (excentricity + indent);
-  Real x2 = (excentricity - indent);
+  Real x1 = (eccentricity + indent);
+  Real x2 = (eccentricity - indent);
 
   Bezier curve;
   curve.control_[0] = attachment_[LEFT];

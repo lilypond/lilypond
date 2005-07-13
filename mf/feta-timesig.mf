@@ -89,11 +89,11 @@ fet_endchar;
 
 
 fet_beginchar ("2/2 meter", "C22");
-	save excentricity, top_stemlen, bottom_stemlen, thick, left_pos;
+	save eccentricity, top_stemlen, bottom_stemlen, thick, left_pos;
 
 	draw_C;
 
-	excentricity = -1.75 stafflinethickness - 0.025 staff_space;
+	eccentricity = -1.75 stafflinethickness - 0.025 staff_space;
 	top_stemlen# = bottom_stemlen# = 1.4 staff_space#;
 	thick# = stafflinethickness# + 0.05 staff_space#;
 	define_whole_pixels (top_stemlen, bottom_stemlen);
@@ -101,8 +101,8 @@ fet_beginchar ("2/2 meter", "C22");
 
 	bottom_stemlen := bottom_stemlen - feta_shift;
 
-	draw_block ((x2 + excentricity, -bottom_stemlen),
-		    (x2 + excentricity + thick, top_stemlen));
+	draw_block ((x2 + eccentricity, -bottom_stemlen),
+		    (x2 + eccentricity + thick, top_stemlen));
 fet_endchar;
 
 fet_endgroup ("timesig");

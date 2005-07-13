@@ -353,24 +353,24 @@ def punctum_char (expr verbose_name, internal_name,
 			direction_sign# = -1;
 		fi;
 
-		% convexity and excentricity
-		save u_convexity, u_excentricity;
+		% convexity and eccentricity
+		save u_convexity, u_eccentricity;
 		if straight:
 			u_convexity# = -0.01ht#;
-			u_excentricity# = 0.0ht#; % dummy
+			u_eccentricity# = 0.0ht#; % dummy
 		elseif auctum:
 			u_convexity# = -0.03ht#;
-			u_excentricity# = +0.25ht#;
+			u_eccentricity# = +0.25ht#;
 		elseif rev_auctum:
 			u_convexity# = -0.10ht#;
-			u_excentricity# = -0.12ht#;
+			u_eccentricity# = -0.12ht#;
 		else:
 			u_convexity# = -0.05ht#;
-			u_excentricity# = 0.0ht#; % dummy
+			u_eccentricity# = 0.0ht#; % dummy
 		fi;
-		save convexity, excentricity;
+		save convexity, eccentricity;
 		convexity# = direction_sign# * u_convexity#;
-		excentricity# = direction_sign# * u_excentricity#;
+		eccentricity# = direction_sign# * u_eccentricity#;
 
 		% y shift offset
 		save yoffs;
@@ -382,7 +382,7 @@ def punctum_char (expr verbose_name, internal_name,
 			yoffs# = 0.00ht#;
 		fi
 
-		define_pixels(convexity, excentricity, yoffs, ht, wd);
+		define_pixels(convexity, eccentricity, yoffs, ht, wd);
 		pickup pencircle scaled linethickness;
 
 		path p;
@@ -403,11 +403,11 @@ def punctum_char (expr verbose_name, internal_name,
 			z1a = (0.00wd + linethickness/2, yoffs_bt);
 			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
 			z3a = (0.42wd - linethickness/2,
-			       yoffs_bt + 1.0*excentricity);
+			       yoffs_bt + 1.0*eccentricity);
 			box_top# = height# + yoffs_bt# +
-				max(0, 1.0*convexity#, 1.0*excentricity#);
+				max(0, 1.0*convexity#, 1.0*eccentricity#);
 			box_bt# = yoffs_bt# +
-				min(0, 1.0*convexity#, 1.0*excentricity#);
+				min(0, 1.0*convexity#, 1.0*eccentricity#);
 			p = z1a .. {right}z2a .. {direction}z3a --
 			    z3b{-direction} .. z2b{left} .. z1b -- cycle;
 		elseif excentric:

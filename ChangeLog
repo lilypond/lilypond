@@ -1,3 +1,10 @@
+2005-07-13  Graham Percival  <gperlist@shaw.ca>
+
+	* input/regression/slur-extreme.ly, input/regression/slur-scoring.ly,
+	lily/slur-configuration.cc, lily/slur.cc, mf/feta-din-code.mf,
+	mf/feta-timesig.mf, mf/parmesan-heads.mf, scm/define-grob-properties.scm:
+	Change "excentricity" to "eccentricity".
+
 2005-07-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/define-markup-commands.scm (justify-field): add. 
