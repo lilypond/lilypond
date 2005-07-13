@@ -1428,18 +1428,19 @@ def do_file (input_filename):
 		output_filename = '-'
 		output_file = sys.stdout
 	else:
+		# don't complain when output_name is existing
+		output_filename = input_base + format2ext[format]
 		if output_name:
 			if not os.path.isdir (output_name):
 				os.mkdir (output_name, 0777)
 			os.chdir (output_name)
-
-		output_filename = input_base + format2ext[format]
-		if os.path.exists (input_filename) \
-		   and os.path.exists (output_filename) \
-		   and os.path.samefile (output_filename, input_fullname):
-			ly.error (
-			  _ ("Output would overwrite input file; use --output."))
-			ly.exit (2)
+		else: 
+			if os.path.exists (input_filename) \
+			   and os.path.exists (output_filename) \
+			   and os.path.samefile (output_filename, input_fullname):
+			   ly.error (
+			   _ ("Output would overwrite input file; use --output."))
+			   ly.exit (2)
 
 	try:
 		ly.progress (_ ("Reading %s...") % input_fullname)
