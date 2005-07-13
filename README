@@ -1,10 +1,13 @@
 
-This is Ikebana, a simple GUI for entering LilyPond music.
+This is Ikebana, a simple GUI for entering LilyPond music.  It uses
+LilyPond 2.7.1.
 
 USAGE:
 
+	ln emmentaler-20.otf ~/.fonts/
  	lilypond -b socket server.ly &
 	python ikebana.py
+
 
 KEYS
 
