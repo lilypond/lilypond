@@ -95,14 +95,19 @@
 	  )))
 
 
+(define (escape-string str)
+  (string-regexp-substitute
+   " " "\\040" 
+   (string-regexp-substitute "\"" "\\\"" str)))
+  
 (define-public (utf-8-string
 		descr
 		string)
   
-  (format "utf-8 \"~a\" \"~a\"" descr
+  (format "utf-8 \"~a\" \"~a\""
+	  (escape-string descr)
 
 	  ;; don't want unescaped spaces.
-	  (string-regexp-substitute " " "\\040" 
-				    (string-regexp-substitute "\"" "\\\"" string))
+	  (escape-string string)
 	  ))
 

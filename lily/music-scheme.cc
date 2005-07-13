@@ -61,17 +61,17 @@ LY_DEFINE (ly_music_name, "ly:music-name",
 }
 
 /* todo:  property args */
-LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
-	   2, 0, 0, (SCM type, SCM props),
-	   "Make a C++ music object of type @var{type}, initialize with\n"
+LY_DEFINE (ly_make_music, "ly:make-music",
+	   1, 0, 0, (SCM props),
+	   "Make a C++ Music object, initialize with\n"
 	   "@var{props}. \n\n"
 	   ""
 	   "This function is for internal use, and is only called by "
 	   "@code{make-music}, which is the preferred interface "
 	   "for creating music objects. ")
 {
-  SCM_ASSERT_TYPE (scm_is_string (type), type, SCM_ARG1, __FUNCTION__, "string");
-  SCM s = make_music (ly_scm2string (type), props)->self_scm ();
+  Music *ms = new Music (props);
+  SCM s = ms->self_scm ();
   scm_gc_unprotect_object (s);
   return s;
 }

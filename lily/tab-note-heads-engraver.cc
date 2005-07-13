@@ -11,13 +11,15 @@
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"
-#include "event.hh"
+#include "music.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
+#include "duration.hh"
+
 
 /**
    make (guitar-like) tablature note

@@ -7,11 +7,12 @@
 */
 
 #include "context.hh"
-#include "event.hh"
+#include "music.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
 #include "music-wrapper-iterator.hh"
 #include "warn.hh"
+#include "input.hh"
 
 class Quote_iterator : public Music_wrapper_iterator
 {

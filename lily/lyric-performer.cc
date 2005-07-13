@@ -8,6 +8,7 @@
 
 #include "audio-item.hh"
 #include "performer.hh"
+#include "music.hh"
 
 class Lyric_performer : public Performer
 {

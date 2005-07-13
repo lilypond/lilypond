@@ -9,7 +9,7 @@
 
 #include "coherent-ligature-engraver.hh"
 #include "mensural-ligature.hh"
-#include "event.hh"
+#include "music.hh"
 #include "warn.hh"
 #include "spanner.hh"
 #include "paper-column.hh"

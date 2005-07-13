@@ -16,7 +16,6 @@
 */
 class Event_chord_iterator : public Simple_music_iterator
 {
-  Event_chord *get_elt () const;
   /**
      Find a bottom notation context to deliver events to.
   */

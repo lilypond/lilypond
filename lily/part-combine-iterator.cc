@@ -7,7 +7,7 @@
 */
 
 #include "context.hh"
-#include "event.hh"
+#include "music.hh"
 #include "music-sequence.hh"
 #include "lily-guile.hh"
 #include "warn.hh"

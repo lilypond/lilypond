@@ -16,6 +16,7 @@
 #include "protected-scm.hh"
 #include "context.hh"
 #include "warn.hh"
+#include "pitch.hh"
 
 class Chord_name_engraver : public Engraver
 {

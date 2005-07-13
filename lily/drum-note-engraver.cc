@@ -13,6 +13,7 @@
 #include "script-interface.hh"
 #include "stem.hh"
 #include "note-column.hh"
+#include "duration.hh"
 
 class Drum_notes_engraver : public Engraver
 {

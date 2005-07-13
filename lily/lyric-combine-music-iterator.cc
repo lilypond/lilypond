@@ -7,7 +7,7 @@
 */
 
 #include "context.hh"
-#include "event.hh"
+#include "music.hh"
 #include "note-head.hh"
 #include "grob.hh"
 #include "music-iterator.hh"

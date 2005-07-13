@@ -4,6 +4,8 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "engraver.hh"
+
 #include <cctype>
 
 #include "rhythmic-head.hh"
@@ -12,8 +14,8 @@
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
-#include "engraver.hh"
 #include "warn.hh"
+#include "duration.hh"
 
 class Note_heads_engraver : public Engraver
 {

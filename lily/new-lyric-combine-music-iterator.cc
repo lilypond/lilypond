@@ -7,9 +7,10 @@
 */
 
 #include "context.hh"
-#include "event.hh"
+#include "music.hh"
 #include "grob.hh"
 #include "music-iterator.hh"
+#include "input.hh"
 
 class New_lyric_combine_music_iterator : public Music_iterator
 {

@@ -18,7 +18,8 @@ on errors, and print a stack trace.")
 	    (old-relative #f
 			  "relative for simultaneous music works
 similar to chord syntax")
-
+	    (object-keys #f
+			 "experimental mechanism for remembering tweaks") 
 	    (resolution 101 "resolution for generating bitmaps")
 	    (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
 	    (preview-include-book-title #t "include book-titles in preview images.")

@@ -11,6 +11,8 @@
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"
+#include "pitch.hh"
+
 
 class Fingering_engraver : public Engraver
 {

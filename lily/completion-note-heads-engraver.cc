@@ -8,7 +8,7 @@
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"
-#include "event.hh"
+#include "music.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
@@ -18,6 +18,10 @@
 #include "spanner.hh"
 #include "tie.hh"
 #include "global-context.hh"
+#include "duration.hh"
+#include "pitch.hh"
+
+
 
 /*
   TODO: make matching rest engraver.

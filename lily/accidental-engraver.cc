@@ -16,6 +16,8 @@
 #include "side-position-interface.hh"
 #include "tie.hh"
 #include "warn.hh"
+#include "music.hh"
+#include "pitch.hh"
 
 class Accidental_entry
 {

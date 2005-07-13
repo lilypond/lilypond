@@ -56,7 +56,6 @@ descend in the context tree.")
      (length ,ly:moment? "The duration of this music")
      (length-callback ,procedure? "How to compute the duration of this music. This property
 can only be defined as initializer in @file{define-music-types.scm}.")
-     (internal-class-name ,string? "C++ class to use for this Music object") 
      (name ,symbol? "Name of this music object")
      (numerator ,integer? "numerator of a time signature")
      (once ,boolean? "Apply this operation only during one time step?")

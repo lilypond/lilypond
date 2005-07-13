@@ -20,7 +20,7 @@ using namespace std;
 #include "dots.hh"
 #include "warn.hh"
 #include "font-interface.hh"
-#include "event.hh"
+#include "music.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"

@@ -10,8 +10,9 @@
 #define MUSIC_HH
 
 #include "virtual-methods.hh"
-#include "minterval.hh"
-#include "music-constructor.hh"
+#include "smobs.hh"
+#include "moment.hh"
+#include "pitch.hh"
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))
 
@@ -44,8 +45,10 @@ public:
   /// Scale the music in time by #factor#.
   void compress (Moment factor);
 
+  DECLARE_SCHEME_CALLBACK (duration_length_callback, (SCM));
 protected:
   DECLARE_SMOBS (Music,);
+
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
 protected:

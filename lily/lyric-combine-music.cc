@@ -8,6 +8,7 @@
 
 #include "music.hh"
 #include "pitch.hh"
+#include "moment.hh"
 
 struct Lyric_combine_music
 {

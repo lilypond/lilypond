@@ -23,7 +23,7 @@ protected:
   virtual void stop_translation_timestep ();
 
 private:
-  Event *key_ev_;
+  Music *key_ev_;
   Audio_key *audio_;
 };
 
@@ -88,17 +88,12 @@ Key_performer::stop_translation_timestep ()
 bool
 Key_performer::try_music (Music *ev)
 {
-  if (Event *kc = dynamic_cast<Event *> (ev))
+  if (!key_ev_)
     {
-      if (!key_ev_)
-	{
-	  key_ev_ = kc;
-	}
-      
-      return true;
+      key_ev_ = ev;
     }
-
-  return false;
+      
+  return true;
 }
 
 ADD_TRANSLATOR (Key_performer,

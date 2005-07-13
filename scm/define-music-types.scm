@@ -814,7 +814,7 @@ and values. E.g:
   (let ((props (hashq-ref music-name-to-property-table name '())))
     (if (not (pair? props))
 	(ly:error (_ "can't find music object: ~S") name))
-    (let ((m (ly:make-bare-music (cdr (assoc 'internal-class-name props)) props)))
+    (let ((m (ly:make-music props)))
       (define (set-props mus-props)
 	(if (and (not (null? mus-props))
 		 (not (null? (cdr mus-props))))

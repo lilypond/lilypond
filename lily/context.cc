@@ -8,6 +8,7 @@
 
 #include "context.hh"
 
+#include "program-option.hh"
 #include "context-def.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -97,7 +98,9 @@ Context::Context (Object_key const *key)
   smobify_self ();
   properties_scm_ = (new Scheme_hash_table)->self_scm ();
   scm_gc_unprotect_object (properties_scm_);
-  scm_gc_unprotect_object (key_->self_scm ());
+
+  if (key_)
+    scm_gc_unprotect_object (key_->self_scm ());
 }
 
 /* TODO:  this shares code with find_create_context ().  */
@@ -234,6 +237,9 @@ Context::create_context (Context_def *cdef,
 Object_key const *
 Context::get_context_key (String type, String id)
 {
+  if (!use_object_keys)
+    return 0;
+      
   String now_key = type + "@" + id;
 
   int disambiguation_count = 0;
@@ -253,6 +259,9 @@ Context::get_context_key (String type, String id)
 Object_key const *
 Context::get_grob_key (String name)
 {
+  if (!use_object_keys)
+    return 0;
+  
   int disambiguation_count = 0;
   if (grob_counts_.find (name) != grob_counts_.end ())
     {
@@ -494,7 +503,9 @@ SCM
 Context::mark_smob (SCM sm)
 {
   Context *me = (Context *) SCM_CELL_WORD_1 (sm);
-  scm_gc_mark (me->key_->self_scm ());
+  if (me->key_)
+    scm_gc_mark (me->key_->self_scm ());
+  
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
   scm_gc_mark (me->definition_);

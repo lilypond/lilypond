@@ -11,6 +11,7 @@
 #include "note-head.hh"
 #include "note-column.hh"
 #include "group-interface.hh"
+#include "pitch.hh"
 
 class Cluster_spanner_engraver : public Engraver
 {

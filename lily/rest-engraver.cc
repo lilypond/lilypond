@@ -6,11 +6,15 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "engraver.hh"
+
+#include "duration.hh"
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 #include "dots.hh"
 #include "rhythmic-head.hh"
-#include "engraver.hh"
+#include "music.hh"
+
 
 class Rest_engraver : public Engraver
 {

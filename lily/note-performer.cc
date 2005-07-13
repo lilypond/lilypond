@@ -11,6 +11,7 @@
 #include "audio-column.hh"
 #include "global-context.hh"
 #include "warn.hh"
+#include "music.hh"
 
 /**
    Convert evs to audio notes.

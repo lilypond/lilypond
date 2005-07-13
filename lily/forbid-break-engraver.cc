@@ -8,6 +8,10 @@
 #include "rhythmic-head.hh"
 #include "grob.hh"
 #include "score-engraver.hh"
+#include "input.hh"
+#include "pitch.hh"
+#include "duration.hh"
+#include "moment.hh"
 
 class Forbid_line_break_engraver : public Engraver
 {
