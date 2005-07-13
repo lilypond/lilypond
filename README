@@ -1,0 +1,25 @@
+
+This is Ikebana, a simple GUI for entering LilyPond music.
+
+USAGE:
+
+ 	lilypond -b socket server.ly &
+	python ikebana.py
+
+KEYS
+
+a..g	 	pitch
+, '		octave
+r	      	rest
+space		enter note
+left,right	move
+.		dot
+* /		duration longer/shorter
++ -		alteration up/down
+backspace	delete note
+
+
+
+CAVEAT
+
+This is a proof-of-concept demo. Don't expect features, support, maintenance.
