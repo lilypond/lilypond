@@ -15,13 +15,11 @@
 
 Syntax: @var{note}@code{\\x},
 where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
-	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
     (ApplyContext
      . (
 	(description . "Call the argument with the current context during interpreting phase")
-	(internal-class-name . "Music")
 	(types . (general-music apply-context))
 	(iterator-ctor . ,Apply_context_iterator::constructor)
 	))
@@ -38,7 +36,6 @@ arguments to func are 1. the grob, 2. the originating context,
 3. context where FUNC is called.
 
 ")
-	(internal-class-name . "Event")
 	(iterator-ctor . ,Output_property_music_iterator::constructor)
 	(types . (general-music layout-instruction))
 	))
@@ -48,7 +45,6 @@ arguments to func are 1. the grob, 2. the originating context,
 
 Syntax:
 @var{note}-@code{\\arpeggio}")
-	(internal-class-name .	"Event")
 	(types . (general-music arpeggio-event event))
 	))
 
@@ -64,13 +60,11 @@ Syntax:
 is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 @code{\\downbow}).  See the user manual for details.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event articulation-event script-event))
 	)) 
     (AutoChangeMusic
      . (
 	(description .	"Used for making voices that switch between piano staves automatically.")
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Auto_change_iterator::constructor)
 	(start-callback . ,Music_wrapper::start_callback)
 	(length-callback . ,Music_wrapper::length_callback)
@@ -80,7 +74,6 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
      . (
 	(description .
 		     "Check whether this music coincides with the start of the measure.")
-	(internal-class-name . "Music")
 	(types . (general-music bar-check))
 	(iterator-ctor . ,Bar_check_iterator::constructor)
 	))
@@ -88,7 +81,6 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
      . (
 	(description .	"Print a bass-figure text")
 
-	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event bass-figure-event))
 	))
     (BeamEvent
@@ -97,14 +89,12 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 
 Syntax for manual control:
 c8-[ c c-] c8")
-	(internal-class-name . "Event")
 	(types . (general-music event beam-event span-event))
 	))
     (BreakEvent
      . (
 	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
 
-	(internal-class-name . "Event")
 	(types . (general-music break-event event))
 	))
     (BreathingSignEvent
@@ -114,14 +104,12 @@ c8-[ c c-] c8")
 Syntax:
 @var{note}\\breathe.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event breathing-event))
 	)) 
     (BusyPlayingEvent
      . (
 	(description .	"Used internally to signal beginning and ending of notes.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event busy-playing-event))
 	))
     (ContextChange
@@ -129,7 +117,6 @@ Syntax:
 	(description .	"Change staffs in Piano staff. 
 
 Syntax @code{\\translator Staff = @var{new-id}}.")
-	(internal-class-name . "Music")
 	(iterator-ctor . , Change_iterator::constructor)
 	(types . (general-music translator-change-instruction))
 	))
@@ -137,7 +124,6 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
     (ClusterNoteEvent
      . (
 	(description .	"A note that is part of a cluster.")
-	(internal-class-name . "Event")
 
 					; not a note-event, to ensure that Note_engraver doesn't eat it. 
 	(types . (general-music cluster-note-event melodic-event rhythmic-event event))
@@ -149,7 +135,6 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
 	(iterator-ctor . ,Context_specced_music_iterator::constructor)
 	(length-callback . ,Music_wrapper::length_callback)
 	(start-callback . ,Music_wrapper::start_callback)
-	(internal-class-name . "Music")
 	(types . (context-specification general-music music-wrapper-music))
 	))
     
@@ -161,14 +146,12 @@ Syntax: @var{note}\\cr
 ... @var{note}\\rc (you can also use \\<, \\!, \\cresc, and
 \\endcresc.  See the user manual for details.).")
 
-	(internal-class-name . "Event")
 	(types . (general-music dynamic-event crescendo-event event))
 	)) 
     (DecrescendoEvent
      . (
 	(description .	"See @ref{CrescendoEvent}.")
 
-	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
 	))
     
@@ -176,7 +159,6 @@ Syntax: @var{note}\\cr
      . (
 	(description .	"Extend lyrics.")
 
-	(internal-class-name . "Event")
 	(types . (general-music extender-event event))
 	))
 
@@ -184,7 +166,6 @@ Syntax: @var{note}\\cr
     (EventChord
      . (
 	(description .	"Internally used to group a set of events.")
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Event_chord_iterator::constructor)
 	(length-callback . ,Music_sequence::maximum_length_callback)
 	(to-relative-callback . ,Music_sequence::event_chord_relative_callback)
@@ -194,26 +175,22 @@ Syntax: @var{note}\\cr
     (FingerEvent
      . (
 	(description . "Specify what finger to use for this note.")
-	(internal-class-name . "Event")
 	(types . (general-music fingering-event event))
 	))
     (BeamForbidEvent
      . (
 	(description . "Specify that a note may not auto-beamed ")
-	(internal-class-name . "Event")
 	(types . (general-music event beam-forbid-event))
 	))
     (GlissandoEvent
      . (
 	(description .	"Start	a glissando on this note.")
-	(internal-class-name . "Event")
 	(types . (general-music glissando-event event))
 	))
     
     (GraceMusic
      . (
 	(description .	"Interpret the argument as grace notes. ")
-	(internal-class-name . "Music")
 	(start-callback . ,Grace_music::start_callback)
 	(length . ,(ly:make-moment 0 1))
 	(iterator-ctor . ,Grace_iterator::constructor)
@@ -222,20 +199,17 @@ Syntax: @var{note}\\cr
     (NoteGroupingEvent
      . (
 	(description . "Start or stop grouping brackets.")
-	(internal-class-name . "Event")
 	(types . (general-music event note-grouping-event))
 	))
     (HarmonicEvent
      . (
 	(description . "Mark a note as harmonic")
-	(internal-class-name . "Event")
 	(types . (general-music event harmonic-event))
 	))
     (HyphenEvent
      . (
 	(description .	"A hyphen between lyric syllables.")
 
-	(internal-class-name . "Event")
 	(types . (general-music hyphen-event event))
 	))
     
@@ -245,7 +219,6 @@ Syntax: @var{note}\\cr
 
 Syntax: @code{\\key } @var{name} @var{scale}.")
 
-	(internal-class-name . "Event")
 	(types . (general-music key-change-event event))
 	))
     
@@ -253,7 +226,6 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
      . (
 	(description .	"(docme).")
 
-	(internal-class-name . "Event")
 	(span-type . ligature)
 	(types . (general-music span-event ligature-event event))
 	))
@@ -264,7 +236,6 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
 
 Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 
-	(internal-class-name . "Music")
 	(types . (general-music lyric-combine-music))
 	(length-callback . ,Lyric_combine_music::length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
@@ -276,7 +247,6 @@ Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 	(description .	"Align lyrics to the start of notes.
 
 Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
-	(internal-class-name . "Music")
 	(length . ,(ly:make-moment 0 1))
 	(types . (general-music lyric-combine-music))
 	(iterator-ctor . ,New_lyric_combine_music_iterator::constructor)
@@ -287,7 +257,6 @@ Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
 	(description .	"A lyric syllable. Must be entered in lyrics mode, i.e.
 @code{\\lyrics @{ twinkle4 twinkle4 @} } .")
 
-	(internal-class-name . "Event")
 	(types . (general-music rhythmic-event lyric-event event))
 	))
     (MarkEvent
@@ -297,13 +266,11 @@ Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
 Syntax: @code{\\mark} @var{marker},
 e.g. @code{\\mark \"A\"}.")
 
-	(internal-class-name . "Event")
 	(types . (general-music mark-event event))
 	))
     (MelismaPlayingEvent
      . (
 	(description .	"Used internally to signal melismas.")
-	(internal-class-name . "Event")
 	(types . (general-music melisma-playing-event event))
 	))
     (ManualMelismaEvent
@@ -311,7 +278,6 @@ e.g. @code{\\mark \"A\"}.")
 	(description .	"Start or stop a melisma.
 
 Syntax: @code{c4\\melisma d\\melismaEnd}.")
-	(internal-class-name . "Event")
 	(types . (general-music melisma-span-event event))
 	))
     
@@ -321,7 +287,6 @@ Syntax: @code{c4\\melisma d\\melismaEnd}.")
 
 Syntax
 @code{R2.*4} for 4 measures in 3/4 time. Note the capital R.")
-	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event multi-measure-rest-event))
 	))
     
@@ -331,7 +296,6 @@ Syntax
 to group start-mmrest, skip, stop-mmrest sequence. 
 
 Syntax @code{R2.*5} for 5 measures in 3/4 time.")
-	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -344,7 +308,6 @@ Syntax @code{R2.*5} for 5 measures in 3/4 time.")
 
 Syntax
 @code{R-\\markup @{ \\roman \"bla\" @}}. Note the explicit font switch.")
-	(internal-class-name . "Event")
 	(types . (general-music event multi-measure-text-event))
 	))
 
@@ -352,14 +315,12 @@ Syntax
      . (
 	(description .	"Generic type for music expressions.")
 
-	(internal-class-name . "Music")
 	(types . (general-music)) 
 	))
     (NoteEvent
      . (
 	(description .	"A note.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event note-event rhythmic-event melodic-event))
 	))
     
@@ -371,7 +332,6 @@ individually.
 Syntax @code{\\outputproperty @var{predicate} @var{prop}
 = @var{val}}.")
 
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Output_property_music_iterator::constructor)
 	(types . (general-music layout-instruction))
 	))
@@ -385,7 +345,6 @@ SYNTAX
 @code{\\propery Foo.Bar \\override} @var{SYMBOL} = @var{VALUE}
 
 ")
-	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	Push_property_iterator::constructor)
 	))
@@ -393,7 +352,6 @@ SYNTAX
      . (
 	(description .	"Combine two parts on a staff, either merged or
 as separate voices.")
-	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::maximum_length_callback)
 	(start-callback . ,Music_sequence::minimum_start_callback)
 	(types . (general-music part-combine-music))
@@ -404,7 +362,6 @@ as separate voices.")
 	(description . "Start or end phrasing slur. 
 
 Syntax NOTE \\(  and \\) NOTE")
-	(internal-class-name . "Event")
 	(types . (general-music span-event phrasing-slur-event))
 	))
     
@@ -413,7 +370,6 @@ Syntax NOTE \\(  and \\) NOTE")
 	(description .	"Set a context property.
 
 Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
-	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_iterator::constructor)
 	))
@@ -422,7 +378,6 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
      . (
 	(description .	"Remove the definition of a context @code{\\property}.")
 
-	(internal-class-name . "Music")
 	(types . (layout-instruction general-music))
 	(iterator-ctor . ,Property_unset_iterator::constructor)
 	))
@@ -433,21 +388,18 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
 following note to form a pes (if melody goes up) or a flexa (if melody
 goes down).")
 
-	(internal-class-name . "Event")
 	(types . (general-music pes-or-flexa-event event))
 	))
 
     (QuoteMusic
      . (
 	(description . "Quote preprocessed snippets of music. ")
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Quote_iterator::constructor)
 	(types . (general-music))
 	))
     
     (RelativeOctaveCheck
      . ((description . "Check if a pitch is in the correct octave.")
-	(internal-class-name . "Music")
 	(to-relative-callback . ,Relative_octave_check::relative_callback)
 	(types . (general-music relative-octave-check))
 	))
@@ -463,7 +415,6 @@ goes down).")
      . (
 	(description .	"Atomic music event.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event))
 	))
     
@@ -473,7 +424,6 @@ goes down).")
 
 Syntax @code{r4} for a quarter rest. ")
 
-	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event rest-event))
 	)) 
     (RevertProperty
@@ -482,7 +432,6 @@ Syntax @code{r4} for a quarter rest. ")
 previously added property from a graphical object definition
  ")
 
-	(internal-class-name . "Music")
 	(types . (general-music layout-instruction))
 	(iterator-ctor . ,	Pop_property_iterator::constructor)
 	))
@@ -493,7 +442,6 @@ previously added property from a graphical object definition
 
 Syntax \\sequential @{..@} or simply @{..@} .")
 
-	(internal-class-name . "Music")
 	(length-callback . ,Music_sequence::cumulative_length_callback)
 	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Sequential_music_iterator::constructor)
@@ -503,20 +451,17 @@ Syntax \\sequential @{..@} or simply @{..@} .")
     (SoloOneEvent
      . (
 	(description . "Print Solo.1")
-	(internal-class-name . "Event")
 	(part-combine-status . solo1)
 	(types . (general-music event part-combine-event))
 	))
     (SoloTwoEvent
      . (
 	(description . "Print Solo.2")
-	(internal-class-name . "Event")
 	(part-combine-status . solo2)
 	(types . (general-music event part-combine-event))
 	))
     (UnisonoEvent
      . ((description . "Print a2")
-	(internal-class-name .	"Event")
 	(part-combine-status . unisono)
 	(types . (general-music event part-combine-event))))
     
@@ -528,7 +473,6 @@ SYNTAX
 
 @code{ \\simultaneous @{ .. @}} or < .. >.")
 
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Simultaneous_music_iterator::constructor)
 	(start-callback . ,Music_sequence::minimum_start_callback)
 	(length-callback . ,Music_sequence::maximum_length_callback)
@@ -542,13 +486,11 @@ SYNTAX
 	(description . "Start or end slur. 
 
 Syntax NOTE(	 and )NOTE")
-	(internal-class-name . "Event")
 	(types . (general-music span-event slur-event))
 	))
     
     (StaffSpanEvent
      . ((description . "Start or  stop a staff symbol.")
-	(internal-class-name . "Event")
 	(types . (general-music event span-event staff-span-event))
      ))
     
@@ -556,21 +498,18 @@ Syntax NOTE(	 and )NOTE")
      . (
 	(description .	"Used internally to signal beginning of notes.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event start-playing-event))
 	))
     
     (TextSpanEvent
      . (
 	(description . "Start a text spanner like 8va.....|")
-	(internal-class-name . "Event")
 	(types . (general-music span-event text-span-event))
 	))
     
     (TrillSpanEvent
      . (
 	(description . "Start a trill spanner tr~~~")
-	(internal-class-name . "Event")
 	(types . (general-music span-event trill-span-event))
 	))
     
@@ -581,7 +520,6 @@ Syntax NOTE(	 and )NOTE")
 Syntax @code{\\times @var{fraction} @var{music}}, e.g.
 @code{\\times 2/3 @{ ... @}} for triplets.
  ")
-	(internal-class-name . "Music")
 	(length-callback . ,Music_wrapper::length_callback)
 	(start-callback . ,Music_wrapper::start_callback)
 	(iterator-ctor . ,Time_scaled_music_iterator::constructor)
@@ -591,7 +529,6 @@ Syntax @code{\\times @var{fraction} @var{music}}, e.g.
     (TransposedMusic
      . (
 	(description .	"Music that has been transposed.")
-	(internal-class-name . "Music")
 	(iterator-ctor . ,Music_wrapper_iterator::constructor)
 	(start-callback . ,Music_wrapper::start_callback)
 	(length-callback . ,Music_wrapper::length_callback)
@@ -606,7 +543,6 @@ For example, transposed music.")
 	(to-relative-callback . ,Relative_octave_music::no_relative_callback)
 	(iterator-ctor . ,Music_wrapper_iterator::constructor)
 	(length-callback . ,Music_wrapper::length_callback)
-	(internal-class-name . "Music")
 	(types . (music-wrapper-music general-music unrelativable-music))
 	))
 
@@ -617,14 +553,12 @@ For example, transposed music.")
 	(iterator-ctor . ,Music_wrapper_iterator::constructor)
 	(length-callback . ,Music_wrapper::length_callback)
 	(start-callback . ,Music_wrapper::start_callback)
-	(internal-class-name . "Music")
 	(types . (music-wrapper-music general-music relative-octave-music))
 	))
     (ScriptEvent
      . (
 	(description .	"Add an articulation mark to a note. ")
 
-	(internal-class-name . "Event")
 	(types . (general-music event))
 	))
 
@@ -636,7 +570,6 @@ does not create staffs or voices implicitly.
 
 
 Syntax: @code{\\skip }@var{duration}.")
-	(internal-class-name . "Music")
 	(length-callback . ,ly:music-duration-length)
 	(iterator-ctor . ,Simple_music_iterator::constructor)
 	(types . (general-music event rhythmic-event skip-event))
@@ -650,35 +583,30 @@ Syntax: @code{\\skip }@var{duration}.")
 
 Syntax: @code{s}@var{duration}")
 
-	(internal-class-name . "Event")
 	(types . (general-music event rhythmic-event skip-event))
 	))
     (SpanEvent
      . (
 	(description .	"Event for anything that is started at a different time than stopped.")
 
-	(internal-class-name . "Event")
 	(types . (general-music event))
 	))
     
     (SustainEvent
      . (
 	(description . "Depress or release sustain pedal. ")
-	(internal-class-name . "Event")
 	(types . (general-music pedal-event sustain-pedal-event))
 	))
     
     (SostenutoEvent
      . (
 	(description . "Depress or release sostenuto pedal. ")
-	(internal-class-name . "Event")
 	(types . (general-music pedal-event sostenuto-pedal-event))
 	))
     
     (UnaCordaEvent
      . (
 	(description . "Depress or release una-corda pedal.")
-	(internal-class-name . "Event")
 	(types . (general-music pedal-event una-corda-pedal-event))
 	))
     
@@ -688,33 +616,28 @@ Syntax: @code{s}@var{duration}")
 
 Syntax: @code{\\@var{number}}.")
 
-	(internal-class-name . "Event")
 	(types . (general-music string-number-event event))
 	)) 
 
     (MetronomeChangeEvent
      . (
 	(description .	"Change tempo setting (in beats per minute).")
-	(internal-class-name . "Event")
 	(types . (general-music metronome-change-event tempo-event event))
 	))
     
     (TextScriptEvent
      . (
 	(description .	"")
-	(internal-class-name . "Event")
 	(types . (general-music script-event text-script-event event))
 	)) 
     (TieEvent
      . (
 	(description .	"A tie.	 Entered as @var{note}-~.")
-	(internal-class-name . "Event")
 	(types . (general-music tie-event event))
 	))
     (TremoloEvent
      . (
 	(description . "Un measured tremolo.")
-	(internal-class-name . "Event")
 	(types . (general-music event tremolo-event))
 	))
     
@@ -724,14 +647,12 @@ Syntax: @code{\\@var{number}}.")
 
 Syntax: @code{\\\\}")
 
-	(internal-class-name . "Music")
 	(types . (separator general-music))
 	))
 
     (VoltaRepeatedMusic
      . (
 	(iterator-ctor . ,Volta_repeat_iterator::constructor)
-	(internal-class-name . "Music")
 	(description . "")
 	(start-callback .  ,Repeated_music::first_start)
 	(length-callback . ,Repeated_music::volta_music_length)
@@ -743,13 +664,11 @@ Syntax: @code{\\\\}")
 	(iterator-ctor . ,Unfolded_repeat_iterator::constructor)
 	(description .	"")
 	(start-callback .  ,Repeated_music::first_start)
-	(internal-class-name . "Music")
 	(types . (general-music repeated-music unfolded-repeated-music))
 	(length-callback . ,Repeated_music::unfolded_music_length)
 	))
     (PercentRepeatedMusic
      . (
-	(internal-class-name . "Music")
 	(description .	"Repeats encoded by percents.")
 	(iterator-ctor . ,Percent_repeat_iterator::constructor)
 	(start-callback .  ,Repeated_music::first_start)
@@ -761,7 +680,6 @@ Syntax: @code{\\\\}")
      . (
 	(iterator-ctor . ,Chord_tremolo_iterator::constructor)
 	(description .	"Repeated notes denoted by tremolo beams.")
-	(internal-class-name . "Music")
 	(start-callback .  ,Repeated_music::first_start)
 
 	;; the length of the repeat is handled by shifting the note logs
@@ -772,7 +690,6 @@ Syntax: @code{\\\\}")
     
     (FoldedRepeatedMusic
      . (
-	(internal-class-name . "Music")
 	(description .	"Repeats with alternatives placed in parallel. ")
 	(iterator-ctor	. ,Folded_repeat_iterator::constructor)
 	(start-callback .  ,Repeated_music::minimum_start)

@@ -16,8 +16,14 @@
 
 Rational::operator double () const
 {
-  return (double)sign_ * num_ / den_;
+  return ((double)sign_) * num_ / den_;
 }
+
+Rational::operator bool () const
+{
+  return sign_ && num_;
+}
+
 
 #ifdef STREAM_SUPPORT
 ostream &

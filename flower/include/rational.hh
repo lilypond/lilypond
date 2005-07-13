@@ -42,9 +42,10 @@ public:
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;
   void negate ();
-  //   operator bool () const;
   int to_int () const;
+  operator bool () const;
   operator double () const;
+
   Rational operator - () const;
   /**
      Initialize to 0.
