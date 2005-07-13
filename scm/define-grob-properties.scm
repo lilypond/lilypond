@@ -171,7 +171,7 @@ mean center distance weighted per note
 the vertical edges '(@var{left-height} . @var{right-height}).")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges '(@var{left-text} . @var{right-text}).")
-     (excentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
+     (eccentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
      
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
 

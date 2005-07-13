@@ -72,7 +72,7 @@
 	f=''2( d4 f | g c a f | d c f2 | f1) |
     }
 
-%    \override Slur #'excentricity = #-2
+%    \override Slur #'eccentricity = #-2
     c=''8 ( d[ b f d] a'[ c])
 }
 

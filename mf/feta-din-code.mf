@@ -135,7 +135,7 @@ code := 101;
 
 fet_beginchar ("dynamic f", "f");
 	save left_angle, right_angle;
-	save serif_length, serif_excentricity;
+	save serif_length, serif_eccentricity;
 	save f_thick;
 	save bulb_thick, bulb_diam, fill_up;
 	save slant;
@@ -151,7 +151,7 @@ fet_beginchar ("dynamic f", "f");
 	right_angle = slant_angle - 3;
 	f_thick = 7/16 ex;
 	serif_length = 0.96 ex;
-	serif_excentricity = 0.01 ex;
+	serif_eccentricity = 0.01 ex;
 
 	% z1 is the `base point'
 	z1 = (0.2 ex, -serif_thick);
@@ -216,7 +216,7 @@ fet_beginchar ("dynamic f", "f");
 	x13 - x14 = serif_length;
 	y13 = y14;
 	y14 = y2;
-	0.5 [x13, x14] = x2 + serif_excentricity;
+	0.5 [x13, x14] = x2 + serif_eccentricity;
 
 	draw_rounded_block (z14 - (0, 0.7 serif_thick),
 			    z13 + (0, 0.7 serif_thick),
