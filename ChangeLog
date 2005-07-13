@@ -1,3 +1,10 @@
+2005-07-13  Yoshinobu Isizaki  <isizaki@mte.biglobe.ne.jp>
+
+	* scripts/lilypond-book.py: Prevent occuring error when
+	'lilypond-book --output=foo/ somefile.ly' is executed multiple
+	times and target file shoud be overwritten.  (Error message said
+	'input file and output file is same'.)
+
 2005-07-13  Graham Percival  <gperlist@shaw.ca>
 
 	* input/regression/slur-extreme.ly, input/regression/slur-scoring.ly,
@@ -6,6 +13,8 @@
 	Change "excentricity" to "eccentricity".
 
 	* Documentation/user/converters.itely: fix URL for Noteedit and Rosegarden.
+
+	* THANKS: added Yoshinobu Isizaki.
 
 2005-07-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
